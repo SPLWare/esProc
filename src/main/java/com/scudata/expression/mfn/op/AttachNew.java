@@ -19,8 +19,8 @@ import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼Ó´´½¨ĞÂĞò±íÔËËã;¶ÔĞé±í.new()´¦Àí
- * op.new(xi:Fi,¡­) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ åˆ›å»ºæ–°åºè¡¨è¿ç®—;å¯¹è™šè¡¨.new()å¤„ç†
+ * op.new(xi:Fi,â€¦) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */
@@ -149,7 +149,7 @@ public class AttachNew extends OperableFunction {
 	public static boolean isPseudoOper(Object srcObj, IParam param, Context ctx) {
 		if (srcObj == null || param == null) return false;
 		if (srcObj instanceof PseudoTable) {
-			//Èç¹ûsrcObjÊÇÔ­Ê¼Ğé±íÇÒ²ÎÊıÊÇĞé±í
+			//å¦‚æœsrcObjæ˜¯åŸå§‹è™šè¡¨ä¸”å‚æ•°æ˜¯è™šè¡¨
 			try {
 				if (param.getType() == IParam.Normal) {
 					Object obj = param.getLeafExpression().calculate(ctx);
@@ -165,17 +165,17 @@ public class AttachNew extends OperableFunction {
 					}
 				}
 			} catch (RQException e) {
-				//obj²»ÊÇĞé±í¶ÔÏóÔòºöÂÔ
+				//objä¸æ˜¯è™šè¡¨å¯¹è±¡åˆ™å¿½ç•¥
 			}
 		}
 		return false;
 	}
 	
 	/**
-	 * ÌáÈ¡new¡¢newsµÄµÚÒ»¸ö²ÎÊı (A/cs:K)
+	 * æå–newã€newsçš„ç¬¬ä¸€ä¸ªå‚æ•° (A/cs:K)
 	 * @param param
 	 * @param ctx
-	 * @return Object[] {A/cs¶ÔÏó, KÊı×é}
+	 * @return Object[] {A/cså¯¹è±¡, Kæ•°ç»„}
 	 */
 	public static Object[] parse1stParam(IParam param, Context ctx) {
 		Object[] objs = new Object[3];

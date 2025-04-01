@@ -7,14 +7,14 @@ import com.scudata.dm.ListBase1;
 import com.scudata.dm.Sequence;
 
 /**
- * ÎªÖ¸¶¨¹şÏ£±íÈİÁ¿Ëã³öÒ»¸ö¹şÏ£Öµ
+ * ä¸ºæŒ‡å®šå“ˆå¸Œè¡¨å®¹é‡ç®—å‡ºä¸€ä¸ªå“ˆå¸Œå€¼
  * @author WangXiaoJun
  *
  */
 public final class HashUtil {
-	private final int capacity; // ¹şÏ£±íÈİÁ¿
+	private final int capacity; // å“ˆå¸Œè¡¨å®¹é‡
 
-	// ¿ÉÒÔÉèÎª¹şÏ£±íÈİÁ¿µÄÒ»Ğ©Öµ£¬¹şÏ£±íÈİÁ¿ÎªËØÊıÊ±¹şÏ£ÖµÖØ¸´ÂÊ½ÏµÍ
+	// å¯ä»¥è®¾ä¸ºå“ˆå¸Œè¡¨å®¹é‡çš„ä¸€äº›å€¼ï¼Œå“ˆå¸Œè¡¨å®¹é‡ä¸ºç´ æ•°æ—¶å“ˆå¸Œå€¼é‡å¤ç‡è¾ƒä½
 	private static final int []PRIMES = new int []{
 		13, 19, 29, 41, 59, 79, 107, 149, 197, 263, 347, 457, 599, 787, 1031,
 		1361, 1777, 2333, 3037, 3967, 5167, 6719, 8737, 11369, 14783,
@@ -46,25 +46,25 @@ public final class HashUtil {
 	}
 	
 	/**
-	 * ¹¹½¨¹şÏ£ÖµÉú³É¹¤¾ß£¬¹şÏ£±íÈİÁ¿²ÉÓÃEnv.getDefaultHashCapacity()Àï¶¨ÒåµÄ
+	 * æ„å»ºå“ˆå¸Œå€¼ç”Ÿæˆå·¥å…·ï¼Œå“ˆå¸Œè¡¨å®¹é‡é‡‡ç”¨Env.getDefaultHashCapacity()é‡Œå®šä¹‰çš„
 	 */
 	public HashUtil() {
 		this.capacity = Env.getDefaultHashCapacity();
 	}
 
 	/**
-	 * ¹¹½¨¹şÏ£ÖµÉú³É¹¤¾ß
-	 * @param capacity ¹şÏ£±íÈİÁ¿£¬´ËÈİÁ¿ÄÚ²¿»áµ÷ÕûÎªÒ»¸öÊ¹¹şÏ£Öµ¸üÖØ¸´¶ÈµÍµÄÈİÁ¿£¬
-	 * µ÷ÓÃgetCapacity»ñÈ¡µ÷ÕûºóµÄÈİÁ¿
+	 * æ„å»ºå“ˆå¸Œå€¼ç”Ÿæˆå·¥å…·
+	 * @param capacity å“ˆå¸Œè¡¨å®¹é‡ï¼Œæ­¤å®¹é‡å†…éƒ¨ä¼šè°ƒæ•´ä¸ºä¸€ä¸ªä½¿å“ˆå¸Œå€¼æ›´é‡å¤åº¦ä½çš„å®¹é‡ï¼Œ
+	 * è°ƒç”¨getCapacityè·å–è°ƒæ•´åçš„å®¹é‡
 	 */
 	public HashUtil(int capacity) {
 		this.capacity = getNearCapacity(capacity);
 	}
 
 	/**
-	 * ¹¹½¨¹şÏ£ÖµÉú³É¹¤¾ß
-	 * @param capacity ¹şÏ£±íÈİÁ¿
-	 * @param doAdjust ÊÇ·ñ¶ÔÈİÁ¿×öµ÷Õû£¬true£ºµ÷Õû£¬false£º²»µ÷Õû
+	 * æ„å»ºå“ˆå¸Œå€¼ç”Ÿæˆå·¥å…·
+	 * @param capacity å“ˆå¸Œè¡¨å®¹é‡
+	 * @param doAdjust æ˜¯å¦å¯¹å®¹é‡åšè°ƒæ•´ï¼Œtrueï¼šè°ƒæ•´ï¼Œfalseï¼šä¸è°ƒæ•´
 	 */
 	public HashUtil(int capacity, boolean doAdjust) {
 		if (doAdjust) {
@@ -75,7 +75,7 @@ public final class HashUtil {
 	}
 	
 	/**
-	 * È¡¹şÏ£±íÈİÁ¿
+	 * å–å“ˆå¸Œè¡¨å®¹é‡
 	 * @return int
 	 */
 	public int getCapacity() {
@@ -83,19 +83,19 @@ public final class HashUtil {
 	}
 
 	/**
-	 * ¼ÆËã¶ÔÏóÊı×éµÄ¹şÏ£Öµ
-	 * @param vals ¶ÔÏóÊı×é
-	 * @return ¹şÏ£Öµ
+	 * è®¡ç®—å¯¹è±¡æ•°ç»„çš„å“ˆå¸Œå€¼
+	 * @param vals å¯¹è±¡æ•°ç»„
+	 * @return å“ˆå¸Œå€¼
 	 */
 	public int hashCode(Object []vals) {
 		return hashCode(vals, vals.length);
 	}
 
 	/**
-	 * ¼ÆËã¶ÔÏóÊı×éµÄ¹şÏ£Öµ
-	 * @param vals ¶ÔÏóÊı×é
-	 * @param count ÊıÁ¿
-	 * @return ¹şÏ£Öµ
+	 * è®¡ç®—å¯¹è±¡æ•°ç»„çš„å“ˆå¸Œå€¼
+	 * @param vals å¯¹è±¡æ•°ç»„
+	 * @param count æ•°é‡
+	 * @return å“ˆå¸Œå€¼
 	 */
 	public int hashCode(Object []vals, int count) {
 		int hash = vals[0] != null ? vals[0].hashCode() : 0;
@@ -111,9 +111,9 @@ public final class HashUtil {
 	}
 
 	/**
-	 * ¼ÆËã¶ÔÏóµÄ¹şÏ£Öµ
-	 * @param val ¶ÔÏó
-	 * @return ¹şÏ£Öµ
+	 * è®¡ç®—å¯¹è±¡çš„å“ˆå¸Œå€¼
+	 * @param val å¯¹è±¡
+	 * @return å“ˆå¸Œå€¼
 	 */
 	public int hashCode(Object val) {
 		if (val != null) {
@@ -124,10 +124,10 @@ public final class HashUtil {
 	}
 	
 	/**
-	 * ¼ÆËã¶ÔÏóÔÚÖ¸¶¨¹şÏ£±íÈİÁ¿ÏÂµÄ¹şÏ£Öµ
-	 * @param val ¶ÔÏó
-	 * @param capacity ¹şÏ£±íÈİÁ¿
-	 * @return ¹şÏ£Öµ
+	 * è®¡ç®—å¯¹è±¡åœ¨æŒ‡å®šå“ˆå¸Œè¡¨å®¹é‡ä¸‹çš„å“ˆå¸Œå€¼
+	 * @param val å¯¹è±¡
+	 * @param capacity å“ˆå¸Œè¡¨å®¹é‡
+	 * @return å“ˆå¸Œå€¼
 	 */
 	public static int hashCode(Object val, int capacity) {
 		if (val != null) {
@@ -144,7 +144,7 @@ public final class HashUtil {
 	}
 
 	/**
-	 * ¼ÆËãlongµÄ¹şÏ£Öµ
+	 * è®¡ç®—longçš„å“ˆå¸Œå€¼
 	 * @param value
 	 * @return
 	 */
@@ -176,10 +176,10 @@ public final class HashUtil {
 	}
 
 	/**
-	 * È¡IArrayÊı×éÖ¸¶¨³ÉÔ±µÄ¹şÏ£Öµ
-	 * @param keys IArrayÊı×é
-	 * @param pos Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param count key¸öÊı
+	 * å–IArrayæ•°ç»„æŒ‡å®šæˆå‘˜çš„å“ˆå¸Œå€¼
+	 * @param keys IArrayæ•°ç»„
+	 * @param pos ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param count keyä¸ªæ•°
 	 * @return
 	 */
 	public int hashCode(IArray key, int pos) {
@@ -193,10 +193,10 @@ public final class HashUtil {
 	}
 	
 	/**
-	 * È¡IArrayÊı×éÖ¸¶¨³ÉÔ±µÄ¹şÏ£Öµ
-	 * @param keys IArrayÊı×é
-	 * @param pos Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param count key¸öÊı
+	 * å–IArrayæ•°ç»„æŒ‡å®šæˆå‘˜çš„å“ˆå¸Œå€¼
+	 * @param keys IArrayæ•°ç»„
+	 * @param pos ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param count keyä¸ªæ•°
 	 * @return
 	 */
 	public int hashCode(IArray[] keys, int pos, int count) {
@@ -214,10 +214,10 @@ public final class HashUtil {
 	}
 	
 	/**
-	 * °´¶à×Ö¶ÎÖ÷¼üÖµ²éÕÒ¼ÇÂ¼
-	 * @param table ³ÉÔ±Îª¼ÇÂ¼
-	 * @param keys Ö÷¼üÖµÊı×é
-	 * @return Î»ÖÃ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
+	 * æŒ‰å¤šå­—æ®µä¸»é”®å€¼æŸ¥æ‰¾è®°å½•
+	 * @param table æˆå‘˜ä¸ºè®°å½•
+	 * @param keys ä¸»é”®å€¼æ•°ç»„
+	 * @return ä½ç½®ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›è´Ÿæ’å…¥ä½ç½®
 	 */
 	public static int bsearch_r(ListBase1 table, Object []keys) {
 		int colCount = keys.length;
@@ -245,10 +245,10 @@ public final class HashUtil {
 	}
 	
 	/**
-	 * °´Ö÷¼üÖµ²éÕÒ¼ÇÂ¼
-	 * @param table ³ÉÔ±Îª¼ÇÂ¼
-	 * @param key Ö÷¼üÖµ
-	 * @return Î»ÖÃ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
+	 * æŒ‰ä¸»é”®å€¼æŸ¥æ‰¾è®°å½•
+	 * @param table æˆå‘˜ä¸ºè®°å½•
+	 * @param key ä¸»é”®å€¼
+	 * @return ä½ç½®ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›è´Ÿæ’å…¥ä½ç½®
 	 */
 	public static int bsearch_r(ListBase1 table, Object key) {
 		int low = 1, high = table.size();
@@ -271,10 +271,10 @@ public final class HashUtil {
 	}
 
 	/**
-	 * °´Ö÷¼üÖµ²éÕÒÊı×é
-	 * @param table ³ÉÔ±ÎªÊı×é
-	 * @param key Ö÷¼üÖµ
-	 * @return Î»ÖÃ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
+	 * æŒ‰ä¸»é”®å€¼æŸ¥æ‰¾æ•°ç»„
+	 * @param table æˆå‘˜ä¸ºæ•°ç»„
+	 * @param key ä¸»é”®å€¼
+	 * @return ä½ç½®ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›è´Ÿæ’å…¥ä½ç½®
 	 */
 	public static int bsearch_a(ListBase1 table, Object key) {
 		int low = 1, high = table.size();
@@ -297,10 +297,10 @@ public final class HashUtil {
 	}
 
 	/**
-	 * °´¶à×Ö¶ÎÖ÷¼üÖµ²éÕÒÊı×é
-	 * @param table ³ÉÔ±ÎªÊı×é
-	 * @param keys Ö÷¼üÖµÊı×é
-	 * @return Î»ÖÃ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
+	 * æŒ‰å¤šå­—æ®µä¸»é”®å€¼æŸ¥æ‰¾æ•°ç»„
+	 * @param table æˆå‘˜ä¸ºæ•°ç»„
+	 * @param keys ä¸»é”®å€¼æ•°ç»„
+	 * @return ä½ç½®ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›è´Ÿæ’å…¥ä½ç½®
 	 */
 	public static int bsearch_a(ListBase1 table, Object []keys, int count) {
 		int low = 1, high = table.size();
@@ -327,10 +327,10 @@ public final class HashUtil {
 	}
 
 	/**
-	 * °´Öµ²éÕÒ×éĞòÁĞ
-	 * @param table ³ÉÔ±ÎªĞòÁĞ£¬ÕÒµÚÒ»¸ö³ÉÔ±µÈÓÚÖ¸¶¨ÖµµÄĞòÁĞ
-	 * @param key Öµ
-	 * @return Î»ÖÃ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
+	 * æŒ‰å€¼æŸ¥æ‰¾ç»„åºåˆ—
+	 * @param table æˆå‘˜ä¸ºåºåˆ—ï¼Œæ‰¾ç¬¬ä¸€ä¸ªæˆå‘˜ç­‰äºæŒ‡å®šå€¼çš„åºåˆ—
+	 * @param key å€¼
+	 * @return ä½ç½®ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›è´Ÿæ’å…¥ä½ç½®
 	 */
 	public static int bsearch_g(ListBase1 table, Object key) {
 		int low = 1, high = table.size();
@@ -353,8 +353,8 @@ public final class HashUtil {
 	}
 	
 	/**
-	 * È¡±Èµ±Ç°ÈİÁ¿Ğ¡Ò»¸öµÄÈİÁ¿£¬ÓÃÓÚÍâ´æ¹şÏ£·Ö×éµÄ¶ş´Î»ã×Ü
-	 * @return ÈİÁ¿
+	 * å–æ¯”å½“å‰å®¹é‡å°ä¸€ä¸ªçš„å®¹é‡ï¼Œç”¨äºå¤–å­˜å“ˆå¸Œåˆ†ç»„çš„äºŒæ¬¡æ±‡æ€»
+	 * @return å®¹é‡
 	 */
 	public int getPrevCapacity() {
 		int capacity = this.capacity;

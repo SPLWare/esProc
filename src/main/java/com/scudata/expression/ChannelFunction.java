@@ -3,7 +3,7 @@ package com.scudata.expression;
 import com.scudata.dm.op.Channel;
 
 /**
- * 管道成员函数基类
+ * 绠￠亾鎴愬憳鍑芥暟鍩虹被
  * ch.f()
  * @author RunQian
  *
@@ -20,7 +20,7 @@ public abstract class ChannelFunction extends MemberFunction {
 	}
 	
 	/**
-	 * 释放节点引用的点操作符左侧的对象
+	 * 閲婃斁鑺傜偣寮曠敤鐨勭偣鎿嶄綔绗﹀乏渚х殑瀵硅薄
 	 */
 	public void releaseDotLeftObject() {
 		channel = null;

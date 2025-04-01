@@ -17,58 +17,58 @@ import com.scudata.util.CursorUtil;
 import com.scudata.util.Variant;
 
 /**
- * ÓÎ±êjoinxÀà£¬£¨²»ÊÇ¹é²¢£©
- * ÓÎ±êÓëÒ»¸ö¿É·Ö¶Î¼¯ÎÄ¼şf»òÊµ±íT×öjoinÔËËã£¬f/T¿ÉÒÔÓĞ¶à×é
- * °ÑÓÎ±ê°´ÕÕf/TµÄ·Ö¶ÎĞÅÏ¢Ğ´³öµ½Èô¸ÉÁÙÊ±ÎÄ¼ş
+ * æ¸¸æ ‡joinxç±»ï¼Œï¼ˆä¸æ˜¯å½’å¹¶ï¼‰
+ * æ¸¸æ ‡ä¸ä¸€ä¸ªå¯åˆ†æ®µé›†æ–‡ä»¶fæˆ–å®è¡¨Tåšjoinè¿ç®—ï¼Œf/Tå¯ä»¥æœ‰å¤šç»„
+ * æŠŠæ¸¸æ ‡æŒ‰ç…§f/Tçš„åˆ†æ®µä¿¡æ¯å†™å‡ºåˆ°è‹¥å¹²ä¸´æ—¶æ–‡ä»¶
  * @author 
  *
  */
 public class CSJoinxCursor extends ICursor {
 	public static final String SEQ_FIELDNAME = "rq_csjoinx_seq_";
-	private boolean hasU;//true:²»±£³ÖÔ­Ğò
-	private boolean hasO;//true:²»±£³ÖÔ­Ğò
+	private boolean hasU;//true:ä¸ä¿æŒåŸåº
+	private boolean hasO;//true:ä¸ä¿æŒåŸåº
 	private boolean isEnd;
-	private boolean hasSeq = false;//ÊÇ·ñ×·¼Ó¹ıĞòºÅ×Ö¶Î
-	private boolean needOrgName = false;//ÊÇ·ñÓÃfnameÃüÃû
-	private int orgFieldsCount;//fnameÔ­¼ÇÂ¼µÄ×Ö¶ÎÊı
-	private int seqIndex;//ĞòºÅÎ»ÖÃ
-	private ICursor srcCursor;//Ô´ÓÎ±ê
-	private SyncReader []fileOrTable;//Î¬±í
-	private Expression [][]fields;//ÊÂÊµ±í×Ö¶Î
-	private Expression [][]keys;//Î¬±í×Ö¶Î
-	private Expression [][]newExps;//ĞÂµÄ±í´ïÊ½
-	private String [][]newNames;//ĞÂµÄ±í´ïÊ½Ãû×Ö
+	private boolean hasSeq = false;//æ˜¯å¦è¿½åŠ è¿‡åºå·å­—æ®µ
+	private boolean needOrgName = false;//æ˜¯å¦ç”¨fnameå‘½å
+	private int orgFieldsCount;//fnameåŸè®°å½•çš„å­—æ®µæ•°
+	private int seqIndex;//åºå·ä½ç½®
+	private ICursor srcCursor;//æºæ¸¸æ ‡
+	private SyncReader []fileOrTable;//ç»´è¡¨
+	private Expression [][]fields;//äº‹å®è¡¨å­—æ®µ
+	private Expression [][]keys;//ç»´è¡¨å­—æ®µ
+	private Expression [][]newExps;//æ–°çš„è¡¨è¾¾å¼
+	private String [][]newNames;//æ–°çš„è¡¨è¾¾å¼åå­—
 	private String option;
 	private String fname;
-	private int n;//»º³åÇøÌõÊı
+	private int n;//ç¼“å†²åŒºæ¡æ•°
 	
-	//ÓÃÓÚ¼ÆËã
-	private transient ICursor cursor;//Î¬±íÓÎ±ê
+	//ç”¨äºè®¡ç®—
+	private transient ICursor cursor;//ç»´è¡¨æ¸¸æ ‡
 	private transient int fileIndex = 0;
 	private transient int fileSize;
-	private transient ICursor fileCursor;//ÁÙÊ±ÎÄ¼şÓÎ±ê
-	private transient ICursor []fileCursors;//ÁÙÊ±ÎÄ¼şÓÎ±êÊı×é
-	private transient Sequence []table;//µ±Ç°Êı¾İ
+	private transient ICursor fileCursor;//ä¸´æ—¶æ–‡ä»¶æ¸¸æ ‡
+	private transient ICursor []fileCursors;//ä¸´æ—¶æ–‡ä»¶æ¸¸æ ‡æ•°ç»„
+	private transient Sequence []table;//å½“å‰æ•°æ®
 	private transient ICursor sortCursor;
 	
-	//ÓÃÓÚ×îºóÒ»´Î¼ÆËã
+	//ç”¨äºæœ€åä¸€æ¬¡è®¡ç®—
 	private SyncReader lastReader;
-	private transient Expression [][]lastFields;//ÊÂÊµ±í×Ö¶Î
-	private transient Expression [][]lastKeys;//Î¬±í×Ö¶Î
-	private transient Expression [][]lastNewExps;//ĞÂµÄ±í´ïÊ½
-	private transient String [][]lastNewNames;//ĞÂµÄ±í´ïÊ½Ãû×Ö
+	private transient Expression [][]lastFields;//äº‹å®è¡¨å­—æ®µ
+	private transient Expression [][]lastKeys;//ç»´è¡¨å­—æ®µ
+	private transient Expression [][]lastNewExps;//æ–°çš„è¡¨è¾¾å¼
+	private transient String [][]lastNewNames;//æ–°çš„è¡¨è¾¾å¼åå­—
 
 	/**
 	 * 
-	 * @param cursor 		ÊÂÊµ±íÔ´ÓÎ±ê
-	 * @param fileOrTable	Î¬±í
-	 * @param fields		ÊÂÊµ±í×Ö¶Î
-	 * @param keys			Î¬±í×Ö¶Î
-	 * @param exps			ĞÂµÄ±í´ïÊ½
-	 * @param names			ĞÂµÄ±í´ïÊ½µÄ×Ö¶ÎÃû
+	 * @param cursor 		äº‹å®è¡¨æºæ¸¸æ ‡
+	 * @param fileOrTable	ç»´è¡¨
+	 * @param fields		äº‹å®è¡¨å­—æ®µ
+	 * @param keys			ç»´è¡¨å­—æ®µ
+	 * @param exps			æ–°çš„è¡¨è¾¾å¼
+	 * @param names			æ–°çš„è¡¨è¾¾å¼çš„å­—æ®µå
 	 * @param ctx
 	 * @param option
-	 * @param n				Î¬±íÃ¿¶ÎµÄ»º³åÇø´óĞ¡
+	 * @param n				ç»´è¡¨æ¯æ®µçš„ç¼“å†²åŒºå¤§å°
 	 */
 	public CSJoinxCursor(ICursor cursor, SyncReader []fileOrTable, Expression [][]fields, Expression [][]keys, 
 			Expression [][]exps, String [][]names, String fname, Context ctx, String option, int n) {
@@ -83,7 +83,7 @@ public class CSJoinxCursor extends ICursor {
 		this.n = n;
 		this.fname = fname;
 		
-		//Èç¹ûnewNamesÀïÓĞnull£¬ÔòÓÃnewExpsÌæ´ú
+		//å¦‚æœnewNamesé‡Œæœ‰nullï¼Œåˆ™ç”¨newExpsæ›¿ä»£
 		for (int i = 0, len = newExps.length; i < len; i++) {
 			String[] arr = newNames[i];
 			for (int j = 0, len2 = arr.length; j < len2; j++) {
@@ -102,8 +102,8 @@ public class CSJoinxCursor extends ICursor {
 	}
 
 	/**
-	 * ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	 * ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	 * å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	 * ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	 */
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
@@ -118,7 +118,7 @@ public class CSJoinxCursor extends ICursor {
 		
 		if (hasO) {
 			if (fcount > 1 || !hasU) {
-				//Èç¹û¶àÂÖ»òÕßÃ»ÓĞ@u
+				//å¦‚æœå¤šè½®æˆ–è€…æ²¡æœ‰@u
 				option = option.replace("o", "");
 				needOrgName = true;
 			}
@@ -129,7 +129,7 @@ public class CSJoinxCursor extends ICursor {
 		opList = null;
 		
 		for (int i = 0; i < fcount; i++) {
-			Sequence values = fileOrTable[i].getValues();//Ã¿¶ÎµÄÊ×ÌõÖµ
+			Sequence values = fileOrTable[i].getValues();//æ¯æ®µçš„é¦–æ¡å€¼
 
 			boolean needSeq = hasU ? false : i == 0;
 			if (needSeq && (!hasSeq)) {
@@ -141,11 +141,11 @@ public class CSJoinxCursor extends ICursor {
 					isEnd = true;
 					return;
 				}
-				seqIndex = seq.dataStruct().getFieldCount() - 1;//±£´æĞòºÅµÄÎ»ÖÃ
+				seqIndex = seq.dataStruct().getFieldCount() - 1;//ä¿å­˜åºå·çš„ä½ç½®
 			}
 			
 			if (needOrgName && i == 0) {
-				//Èç¹ûĞèÒª¸Äfname
+				//å¦‚æœéœ€è¦æ”¹fname
 				if (hasSeq) {
 					orgFieldsCount = seqIndex;
 				} else {
@@ -164,7 +164,7 @@ public class CSJoinxCursor extends ICursor {
 				return;
 			}
 			
-			//½øĞĞjoin
+			//è¿›è¡Œjoin
 			FileObject tempFile = null;
 			BFileCursor fCursor = null;
 			try {
@@ -192,7 +192,7 @@ public class CSJoinxCursor extends ICursor {
 						}
 					}
 					opList = opListBk;
-					return;//×îºóÒ»¸ö²»ÔÚÕâÀï×öjoin£¬ÕâÑù¿ÉÒÔÉÙĞ´Ò»´Î
+					return;//æœ€åä¸€ä¸ªä¸åœ¨è¿™é‡Œåšjoinï¼Œè¿™æ ·å¯ä»¥å°‘å†™ä¸€æ¬¡
 				}
 				
 				tempFile = FileObject.createTempFileObject();
@@ -265,7 +265,7 @@ public class CSJoinxCursor extends ICursor {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»¶ÎÁÙÊ±ÎÄ¼şµÄÊı¾İ³öÀ´£¨´øjoin²Ù×÷£©
+	 * è¯»å–ä¸€æ®µä¸´æ—¶æ–‡ä»¶çš„æ•°æ®å‡ºæ¥ï¼ˆå¸¦joinæ“ä½œï¼‰
 	 * @return
 	 */
 	private boolean loadFile() {
@@ -452,8 +452,8 @@ public class CSJoinxCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		super.close();
@@ -477,11 +477,11 @@ public class CSJoinxCursor extends ICursor {
 	}
 	
 	/**
-	 * °ÑÓÎ±êµÄÊı¾İĞ´³öµ½ÁÙÊ±ÎÄ¼ş
-	 * @param cursor ÓÎ±ê
-	 * @param fields Ğ´³ö×Ö¶Î
-	 * @param values ·Ö¶ÎĞÅÏ¢
-	 * @param needSeq ÊÇ·ñ±£³ÖĞòºÅĞÅÏ¢£¨ÎªÁËÊµÏÖÔ­Ğò£©
+	 * æŠŠæ¸¸æ ‡çš„æ•°æ®å†™å‡ºåˆ°ä¸´æ—¶æ–‡ä»¶
+	 * @param cursor æ¸¸æ ‡
+	 * @param fields å†™å‡ºå­—æ®µ
+	 * @param values åˆ†æ®µä¿¡æ¯
+	 * @param needSeq æ˜¯å¦ä¿æŒåºå·ä¿¡æ¯ï¼ˆä¸ºäº†å®ç°åŸåºï¼‰
 	 * @return
 	 */
 	private boolean cursorToFiles(ICursor cursor, Expression []fields, Sequence values, boolean needSeq) {
@@ -494,7 +494,7 @@ public class CSJoinxCursor extends ICursor {
 		setDataStruct(ds);
 		int seqIndex = this.seqIndex;
 
-		//»ñÈ¡×Ö¶Îindex
+		//è·å–å­—æ®µindex
 		int fcount = fields.length;
 		int []findex = new int[fcount];
 		for (int f = 0; f < fcount; ++f) {
@@ -520,7 +520,7 @@ public class CSJoinxCursor extends ICursor {
 		long seq = 0;
 		try {
 			while (table != null && table.length() > 0) {
-				//±éÀúÈ¡³öÀ´µÄ¼ÇÂ¼£¬ËÍµ½Ã¿¸öÁÙÊ±outSeqÀï
+				//éå†å–å‡ºæ¥çš„è®°å½•ï¼Œé€åˆ°æ¯ä¸ªä¸´æ—¶outSeqé‡Œ
 				int len = table.length();
 				for (int i = 1; i <= len; ++i) {
 					BaseRecord record = (BaseRecord) table.getMem(i);
@@ -557,7 +557,7 @@ public class CSJoinxCursor extends ICursor {
 					
 				}
 				
-				//°ÑoutSeqsÀïµÄ¼ÇÂ¼Ğ´µ½ÎÄ¼ş
+				//æŠŠoutSeqsé‡Œçš„è®°å½•å†™åˆ°æ–‡ä»¶
 				for (int i = 0; i <= segCount; i++) {
 					files[i].exportSeries(outSeqs[i], "ab", null);
 					outSeqs[i].clear();
@@ -612,7 +612,7 @@ public class CSJoinxCursor extends ICursor {
 		String []oldNames = dataStruct.getFieldNames();
 		int oldColCount = oldNames.length;
 		
-		// ºÏ²¢ĞÂ×Ö¶Î
+		// åˆå¹¶æ–°å­—æ®µ
 		int newColCount = oldColCount + newNames.length;
 		String []totalNames = new String[newColCount];
 		System.arraycopy(oldNames, 0, totalNames, 0, oldColCount);
@@ -625,11 +625,11 @@ public class CSJoinxCursor extends ICursor {
 		int seqIndex = this.seqIndex;
 		DataStruct ds = getDataStruct();
 		
-		//×öÅÅĞò
+		//åšæ’åº
 		Expression []exps = new Expression[]{new Expression(CSJoinxCursor.SEQ_FIELDNAME)};
 		ICursor cs = CursorUtil.sortx(this, exps, ctx, this.n, null);
 		
-		//È¥µôĞòºÅ
+		//å»æ‰åºå·
 		String []oldFields = ds.getFieldNames();
 		int oldLen = oldFields.length;
 		int newLen = oldLen - 1;

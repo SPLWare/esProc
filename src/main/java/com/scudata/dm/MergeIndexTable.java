@@ -6,14 +6,14 @@ import com.scudata.expression.Expression;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃÓÚÓĞĞò¹é²¢µÄË÷Òı£¬Òª²éÕÒµÄÖµÊÇÓĞĞòµİÔöµÄ
+ * ç”¨äºæœ‰åºå½’å¹¶çš„ç´¢å¼•ï¼Œè¦æŸ¥æ‰¾çš„å€¼æ˜¯æœ‰åºé€’å¢çš„
  * @author RunQian
  *
  */
 public class MergeIndexTable extends IndexTable {
-	private Sequence code; // Î¬±í£¬°´¹ØÁª×Ö¶ÎÓĞĞò
-	private Sequence values; // Î¬±íµÄ¹ØÁª×Ö¶ÎÖµ
-	private int currentSeq = 1; // µ±Ç°±éÀúµ½µÄĞòºÅ£¬findÊ±»á´Óµ±Ç°ĞòºÅ¿ªÊ¼ÍùºóÕÒ
+	private Sequence code; // ç»´è¡¨ï¼ŒæŒ‰å…³è”å­—æ®µæœ‰åº
+	private Sequence values; // ç»´è¡¨çš„å…³è”å­—æ®µå€¼
+	private int currentSeq = 1; // å½“å‰éå†åˆ°çš„åºå·ï¼Œfindæ—¶ä¼šä»å½“å‰åºå·å¼€å§‹å¾€åæ‰¾
 	
 	public MergeIndexTable(Sequence code, Expression []exps, Context ctx) {
 		this.code = code;
@@ -53,11 +53,11 @@ public class MergeIndexTable extends IndexTable {
 		for (int i = currentSeq; i <= len; ++i) {
 			int cmp = Variant.compare(values.getMem(i), key);
 			if (cmp == 0) {
-				// ÕÒµ½ÏàµÈµÄ£¬ÉèÖÃcurrentSeqÎªµ±Ç°ĞòºÅ£¬ÏÂ´Î²éÕÒ´ÓÕâ¿ªÊ¼Íùºó²éÕÒ
+				// æ‰¾åˆ°ç›¸ç­‰çš„ï¼Œè®¾ç½®currentSeqä¸ºå½“å‰åºå·ï¼Œä¸‹æ¬¡æŸ¥æ‰¾ä»è¿™å¼€å§‹å¾€åæŸ¥æ‰¾
 				currentSeq = i;
 				return code.getMem(i);
 			} else if (cmp > 0) {
-				// Ã»ÓĞÕÒµ½ÏàµÈµÄ£¬ÉèÖÃcurrentSeqÎªµ±Ç°ĞòºÅ£¬ÏÂ´Î²éÕÒ´ÓÕâ¿ªÊ¼Íùºó²éÕÒ
+				// æ²¡æœ‰æ‰¾åˆ°ç›¸ç­‰çš„ï¼Œè®¾ç½®currentSeqä¸ºå½“å‰åºå·ï¼Œä¸‹æ¬¡æŸ¥æ‰¾ä»è¿™å¼€å§‹å¾€åæŸ¥æ‰¾
 				currentSeq = i;
 				return null;
 			}
@@ -77,11 +77,11 @@ public class MergeIndexTable extends IndexTable {
 		for (int i = currentSeq; i <= len; ++i) {
 			int cmp = Variant.compareArrays((Object [])values.getMem(i), keys);
 			if (cmp == 0) {
-				// ÕÒµ½ÏàµÈµÄ£¬ÉèÖÃcurrentSeqÎªµ±Ç°ĞòºÅ£¬ÏÂ´Î²éÕÒ´ÓÕâ¿ªÊ¼Íùºó²éÕÒ
+				// æ‰¾åˆ°ç›¸ç­‰çš„ï¼Œè®¾ç½®currentSeqä¸ºå½“å‰åºå·ï¼Œä¸‹æ¬¡æŸ¥æ‰¾ä»è¿™å¼€å§‹å¾€åæŸ¥æ‰¾
 				currentSeq = i;
 				return code.getMem(i);
 			} else if (cmp > 0) {
-				// Ã»ÓĞÕÒµ½ÏàµÈµÄ£¬ÉèÖÃcurrentSeqÎªµ±Ç°ĞòºÅ£¬ÏÂ´Î²éÕÒ´ÓÕâ¿ªÊ¼Íùºó²éÕÒ
+				// æ²¡æœ‰æ‰¾åˆ°ç›¸ç­‰çš„ï¼Œè®¾ç½®currentSeqä¸ºå½“å‰åºå·ï¼Œä¸‹æ¬¡æŸ¥æ‰¾ä»è¿™å¼€å§‹å¾€åæŸ¥æ‰¾
 				currentSeq = i;
 				return null;
 			}
@@ -97,11 +97,11 @@ public class MergeIndexTable extends IndexTable {
 		for (int i = currentSeq; i <= len; ++i) {
 			int cmp = Variant.compare(values.getMem(i), key);
 			if (cmp == 0) {
-				// ÕÒµ½ÏàµÈµÄ£¬ÉèÖÃcurrentSeqÎªµ±Ç°ĞòºÅ£¬ÏÂ´Î²éÕÒ´ÓÕâ¿ªÊ¼Íùºó²éÕÒ
+				// æ‰¾åˆ°ç›¸ç­‰çš„ï¼Œè®¾ç½®currentSeqä¸ºå½“å‰åºå·ï¼Œä¸‹æ¬¡æŸ¥æ‰¾ä»è¿™å¼€å§‹å¾€åæŸ¥æ‰¾
 				currentSeq = i;
 				return i;
 			} else if (cmp > 0) {
-				// Ã»ÓĞÕÒµ½ÏàµÈµÄ£¬ÉèÖÃcurrentSeqÎªµ±Ç°ĞòºÅ£¬ÏÂ´Î²éÕÒ´ÓÕâ¿ªÊ¼Íùºó²éÕÒ
+				// æ²¡æœ‰æ‰¾åˆ°ç›¸ç­‰çš„ï¼Œè®¾ç½®currentSeqä¸ºå½“å‰åºå·ï¼Œä¸‹æ¬¡æŸ¥æ‰¾ä»è¿™å¼€å§‹å¾€åæŸ¥æ‰¾
 				currentSeq = i;
 				return 0;
 			}
@@ -121,11 +121,11 @@ public class MergeIndexTable extends IndexTable {
 		for (int i = currentSeq; i <= len; ++i) {
 			int cmp = Variant.compareArrays((Object [])values.getMem(i), keys);
 			if (cmp == 0) {
-				// ÕÒµ½ÏàµÈµÄ£¬ÉèÖÃcurrentSeqÎªµ±Ç°ĞòºÅ£¬ÏÂ´Î²éÕÒ´ÓÕâ¿ªÊ¼Íùºó²éÕÒ
+				// æ‰¾åˆ°ç›¸ç­‰çš„ï¼Œè®¾ç½®currentSeqä¸ºå½“å‰åºå·ï¼Œä¸‹æ¬¡æŸ¥æ‰¾ä»è¿™å¼€å§‹å¾€åæŸ¥æ‰¾
 				currentSeq = i;
 				return i;
 			} else if (cmp > 0) {
-				// Ã»ÓĞÕÒµ½ÏàµÈµÄ£¬ÉèÖÃcurrentSeqÎªµ±Ç°ĞòºÅ£¬ÏÂ´Î²éÕÒ´ÓÕâ¿ªÊ¼Íùºó²éÕÒ
+				// æ²¡æœ‰æ‰¾åˆ°ç›¸ç­‰çš„ï¼Œè®¾ç½®currentSeqä¸ºå½“å‰åºå·ï¼Œä¸‹æ¬¡æŸ¥æ‰¾ä»è¿™å¼€å§‹å¾€åæŸ¥æ‰¾
 				currentSeq = i;
 				return 0;
 			}

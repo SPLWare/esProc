@@ -17,8 +17,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ½«ÅÅÁĞ¸ñÊ½»¯³É×Ö·û´®
- * A.export(x:F,¡­;s)
+ * å°†æ’åˆ—æ ¼å¼åŒ–æˆå­—ç¬¦ä¸²
+ * A.export(x:F,â€¦;s)
  * @author RunQian
  *
  */
@@ -61,12 +61,12 @@ public class Export extends SequenceFunction {
 	}
 
 	/**
-	 * ½«ÅÅÁĞ±ä³É×Ö·û´®
-	 * @param sequence ÅÅÁĞ
-	 * @param exps ×Ö¶Î±í´ïÊ½£¬¿É¿Õ
-	 * @param names µ¼³ö×Ö¶ÎÃû£¬¿É¿Õ
-	 * @param s ÁĞ·Ö¸ô·û
-	 * @param option Ñ¡Ïî
+	 * å°†æ’åˆ—å˜æˆå­—ç¬¦ä¸²
+	 * @param sequence æ’åˆ—
+	 * @param exps å­—æ®µè¡¨è¾¾å¼ï¼Œå¯ç©º
+	 * @param names å¯¼å‡ºå­—æ®µåï¼Œå¯ç©º
+	 * @param s åˆ—åˆ†éš”ç¬¦
+	 * @param option é€‰é¡¹
 	 * @param ctx
 	 * @return
 	 */
@@ -130,7 +130,7 @@ public class Export extends SequenceFunction {
 						}
 					}
 				} else {
-					// AÊÇĞòÁĞµÄĞòÁĞÊ±£¬Éú³ÉÎŞ±êÌâµÄ¶àÁĞÎÄ±¾
+					// Aæ˜¯åºåˆ—çš„åºåˆ—æ—¶ï¼Œç”Ÿæˆæ— æ ‡é¢˜çš„å¤šåˆ—æ–‡æœ¬
 					Object []lineObjs = new Object[fcount];
 					for (int i = 1, len = sequence.length(); i <= len; ++i) {
 						Sequence seq = (Sequence)sequence.getMem(i);

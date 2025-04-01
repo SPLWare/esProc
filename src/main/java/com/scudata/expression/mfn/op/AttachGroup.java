@@ -16,8 +16,8 @@ import com.scudata.expression.fn.algebra.Var;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼ÓÓĞĞò·Ö×éÔËËã
- * op.group(x,¡­) op.group(x:F,¡­;y:G,¡­) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+ * op.group(x,â€¦) op.group(x:F,â€¦;y:G,â€¦) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */
@@ -129,13 +129,13 @@ public class AttachGroup extends OperableFunction {
 			}
 
 			if (option != null && option.indexOf('s') != -1) {
-				// ·Ö×é±í´ïÊ½³¤¶ÈºÍ¾ÛºÏ±í´ïÊ½³¤¶È
+				// åˆ†ç»„è¡¨è¾¾å¼é•¿åº¦å’Œèšåˆè¡¨è¾¾å¼é•¿åº¦
 				int elen = exps == null ? 0 : exps.length;
 				int clen = newExps == null ? 0 : newExps.length;
-				ArrayList<Object> gathers = new ArrayList<Object>(); // Í³¼Æ¾ÛºÏº¯Êı
-				ArrayList<Integer> poss = new ArrayList<Integer>(); // ·Ö×é±í´ïÊ½£¬¶ÔÓ¦¾ÛºÏº¯ÊıÁĞ±íµÄµÚ¼¸¸ö¾ÛºÏº¯Êı
+				ArrayList<Object> gathers = new ArrayList<Object>(); // ç»Ÿè®¡èšåˆå‡½æ•°
+				ArrayList<Integer> poss = new ArrayList<Integer>(); // åˆ†ç»„è¡¨è¾¾å¼ï¼Œå¯¹åº”èšåˆå‡½æ•°åˆ—è¡¨çš„ç¬¬å‡ ä¸ªèšåˆå‡½æ•°
 				
-				// ½âÎö±í´ïÊ½ÖĞµÄ¾ÛºÏº¯Êı
+				// è§£æè¡¨è¾¾å¼ä¸­çš„èšåˆå‡½æ•°
 				for (int i = 0; i < clen; i++) {
 					int size = gathers.size();
 					gathers.addAll(Expression.getSpecFunc(newExps[i], Gather.class));
@@ -179,7 +179,7 @@ public class AttachGroup extends OperableFunction {
 					poss.add(gathers.size());
 				}
 				
-				// Éú³ÉÖĞ¼ä¾ÛºÏ±í´ïÊ½
+				// ç”Ÿæˆä¸­é—´èšåˆè¡¨è¾¾å¼
 				Expression[] tempExps = new Expression[gathers.size()];
 				for (int i = 0; i < tempExps.length; i++) {
 					Object obj = gathers.get(i);
@@ -191,13 +191,13 @@ public class AttachGroup extends OperableFunction {
 					}
 				}
 				
-				// new ÓÎ±êµÄ±í´ïÊ½
+				// new æ¸¸æ ‡çš„è¡¨è¾¾å¼
 				Expression[] senExps = new Expression[elen+clen];
-				String strExp = null;	// ÀÏ±í´ïÊ½×Ö·û´®¡£
-				int index = 0;	// ÀÏ±í´ïÊ½µÄË÷Òı
+				String strExp = null;	// è€è¡¨è¾¾å¼å­—ç¬¦ä¸²ã€‚
+				int index = 0;	// è€è¡¨è¾¾å¼çš„ç´¢å¼•
 				
-				// ¸ù¾İÀÏ±í´ïÊ½£¬×ª»»ÎªĞÂµÄnewµÄÍ³¼ÆÁĞ±í´ïÊ½
-				boolean exCal	= false;	// ÅĞ¶ÏÊÇ·ñ²ğ·Ö¾ÛºÏ±í´ïÊ½
+				// æ ¹æ®è€è¡¨è¾¾å¼ï¼Œè½¬æ¢ä¸ºæ–°çš„newçš„ç»Ÿè®¡åˆ—è¡¨è¾¾å¼
+				boolean exCal	= false;	// åˆ¤æ–­æ˜¯å¦æ‹†åˆ†èšåˆè¡¨è¾¾å¼
 				if (newExps != null) {
 					strExp = newExps[index].toString();
 				}
@@ -216,21 +216,21 @@ public class AttachGroup extends OperableFunction {
 					}
 				}
 				
-				String[] senNames	= null;	// Í³Ò»µÄÁĞÃû
-				String[] tempNames	= newNames;	// ÁÙÊ±±íÁĞÃû
+				String[] senNames	= null;	// ç»Ÿä¸€çš„åˆ—å
+				String[] tempNames	= newNames;	// ä¸´æ—¶è¡¨åˆ—å
 				if (exCal) {
-					tempNames = null;	// ÈôĞèÒªÓÃnew¶ş´ÎÕûÀí£¬ÁÙÊ±±íÁĞÃûÎª¿Õ
-					// ÌîĞ´·Ö×é±í´ïÊ½
+					tempNames = null;	// è‹¥éœ€è¦ç”¨newäºŒæ¬¡æ•´ç†ï¼Œä¸´æ—¶è¡¨åˆ—åä¸ºç©º
+					// å¡«å†™åˆ†ç»„è¡¨è¾¾å¼
 					for (int i = 1; i <= elen; i++) {
 						String funStr = "#" + i;
 						senExps[i-1] = new Expression(cs, ctx, funStr);
 					}
 					
-					if (senExps.length > 0)	{// ×îºóÒ»¸ö±í´ïÊ½µÄÉú³É
+					if (senExps.length > 0)	{// æœ€åä¸€ä¸ªè¡¨è¾¾å¼çš„ç”Ÿæˆ
 						senExps[index+elen] = new Expression(cs, ctx, strExp);
 					}
 					
-					// Éú³ÉÍ³Ò»µÄÁĞÃû
+					// ç”Ÿæˆç»Ÿä¸€çš„åˆ—å
 					senNames = new String[elen + newNames.length];
 					for (int i = 0; i < elen; i++) {
 						senNames[i] = names[i];

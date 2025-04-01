@@ -26,16 +26,16 @@ import com.scudata.dm.ParamList;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Íø¸ñ»ùÀà£¬ÊµÏÖÁËÔöÉ¾ĞĞµÈÍø¸ñ±à¼­¹¦ÄÜ
+ * ç½‘æ ¼åŸºç±»ï¼Œå®ç°äº†å¢åˆ è¡Œç­‰ç½‘æ ¼ç¼–è¾‘åŠŸèƒ½
  * @author WangXiaoJun
  *
  */
 abstract public class CellSet implements ICellSet {
 	private static final long serialVersionUID = 0x02010010;
 
-	// É¾³ıĞĞµÄ·µ»Ø½á¹û
+	// åˆ é™¤è¡Œçš„è¿”å›ç»“æœ
 	private static class RemoveResult {
-		// ÓÃÓÚ»Ö¸´É¾³ıµÄĞĞ
+		// ç”¨äºæ¢å¤åˆ é™¤çš„è¡Œ
 		private Object [][]deleteRows;
 		private int []deleteSeqs;
 		private List<NormalCell> errorRefCells;
@@ -48,7 +48,7 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	protected Matrix cellMatrix;
-	protected ParamList paramList; // ±í¸ñ²ÎÊı
+	protected ParamList paramList; // è¡¨æ ¼å‚æ•°
 
 	//transient private byte[] cipherHash = new byte[16];
 	transient private boolean autoAdjustExp = true;
@@ -59,9 +59,9 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ¹¹ÔìÒ»¸öÖ¸¶¨ĞĞÊıºÍÁĞÊıµÄ±í¸ñ
-	 * @param row int ĞĞÊı
-	 * @param col int ÁĞÊı
+	 * æ„é€ ä¸€ä¸ªæŒ‡å®šè¡Œæ•°å’Œåˆ—æ•°çš„è¡¨æ ¼
+	 * @param row int è¡Œæ•°
+	 * @param col int åˆ—æ•°
 	 */
 	public CellSet(int row, int col) {
 		if (row < 1) row = 1;
@@ -75,7 +75,7 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ²úÉúÆÕÍ¨µ¥Ôª¸ñ
+	 * äº§ç”Ÿæ™®é€šå•å…ƒæ ¼
 	 * @param r int
 	 * @param c int
 	 * @return NormalCell
@@ -83,23 +83,23 @@ abstract public class CellSet implements ICellSet {
 	abstract public NormalCell newCell(int r, int c);
 
 	/**
-	 * ²úÉúĞĞÊ×¸ñ
+	 * äº§ç”Ÿè¡Œé¦–æ ¼
 	 * @param r int
 	 * @return RowCell
 	 */
 	abstract public RowCell newRowCell(int r);
 
 	/**
-	 * ²úÉúÁĞÊ×¸ñ
+	 * äº§ç”Ÿåˆ—é¦–æ ¼
 	 * @param c int
 	 * @return ColCell
 	 */
 	abstract public ColCell newColCell(int c);
 
 	/**
-	 * È¡ÆÕÍ¨µ¥Ôª¸ñ
-	 * @param row ĞĞºÅ(´Ó1¿ªÊ¼)
-	 * @param col ÁĞºÅ(´Ó1¿ªÊ¼)
+	 * å–æ™®é€šå•å…ƒæ ¼
+	 * @param row è¡Œå·(ä»1å¼€å§‹)
+	 * @param col åˆ—å·(ä»1å¼€å§‹)
 	 * @return INormalCell
 	 */
 	public INormalCell getCell(int row, int col) {
@@ -111,8 +111,8 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * È¡ÆÕÍ¨µ¥Ôª¸ñ
-	 * @param id String µ¥Ôª¸ñ×Ö·û´®±êÊ¶: B2
+	 * å–æ™®é€šå•å…ƒæ ¼
+	 * @param id String å•å…ƒæ ¼å­—ç¬¦ä¸²æ ‡è¯†: B2
 	 * @return INormalCell
 	 */
 	public INormalCell getCell(String id) {
@@ -128,10 +128,10 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ÉèÆÕÍ¨µ¥Ôª¸ñ
-	 * @param r int ĞĞºÅ(´Ó1¿ªÊ¼)
-	 * @param c int ÁĞºÅ(´Ó1¿ªÊ¼)
-	 * @param cell INormalCell ÆÕÍ¨µ¥Ôª¸ñ
+	 * è®¾æ™®é€šå•å…ƒæ ¼
+	 * @param r int è¡Œå·(ä»1å¼€å§‹)
+	 * @param c int åˆ—å·(ä»1å¼€å§‹)
+	 * @param cell INormalCell æ™®é€šå•å…ƒæ ¼
 	 */
 	public void setCell(int r, int c, INormalCell cell) {
 		cell.setRow(r);
@@ -140,8 +140,8 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * È¡ĞĞÊ×µ¥Ôª¸ñ
-	 * @param r int ĞĞºÅ(´Ó1¿ªÊ¼)
+	 * å–è¡Œé¦–å•å…ƒæ ¼
+	 * @param r int è¡Œå·(ä»1å¼€å§‹)
 	 * @return IRowCell
 	 */
 	public IRowCell getRowCell(int r) {
@@ -149,9 +149,9 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ÉèĞĞÊ×µ¥Ôª¸ñ
-	 * @param r int ĞĞºÅ(´Ó1¿ªÊ¼)
-	 * @param rc IRowCell ĞĞÊ×µ¥Ôª¸ñ
+	 * è®¾è¡Œé¦–å•å…ƒæ ¼
+	 * @param r int è¡Œå·(ä»1å¼€å§‹)
+	 * @param rc IRowCell è¡Œé¦–å•å…ƒæ ¼
 	 */
 	public void setRowCell(int r, IRowCell rc){
 		rc.setRow(r);
@@ -159,8 +159,8 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * È¡ÁĞÊ×µ¥Ôª¸ñ
-	 * @param c int ÁĞºÅ(´Ó1¿ªÊ¼)
+	 * å–åˆ—é¦–å•å…ƒæ ¼
+	 * @param c int åˆ—å·(ä»1å¼€å§‹)
 	 * @return IColCell
 	 */
 	public IColCell getColCell(int c){
@@ -168,9 +168,9 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ÉèÁĞÊ×µ¥Ôª¸ñ
-	 * @param c int ÁĞºÅ(´Ó1¿ªÊ¼)
-	 * @param cc IColCell ÁĞÊ×µ¥Ôª¸ñ
+	 * è®¾åˆ—é¦–å•å…ƒæ ¼
+	 * @param c int åˆ—å·(ä»1å¼€å§‹)
+	 * @param cc IColCell åˆ—é¦–å•å…ƒæ ¼
 	 */
 	public void setColCell(int c, IColCell cc){
 		cc.setCol(c);
@@ -178,33 +178,33 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * @return int ·µ»Ø±¨±íĞĞÊı
+	 * @return int è¿”å›æŠ¥è¡¨è¡Œæ•°
 	 */
 	public int getRowCount(){
 		return cellMatrix.getRowSize() - 1;
 	}
 
 	/**
-	 * @return int ·µ»Ø±¨±íÁĞÊı
+	 * @return int è¿”å›æŠ¥è¡¨åˆ—æ•°
 	 */
 	public int getColCount(){
 		return cellMatrix.getColSize() - 1;
 	}
 
 	/**
-	 * ²åÈëÒ»ĞĞ
-	 * @param r ĞĞºÅ(´Ó1¿ªÊ¼)
-	 * @return List<NormalCell> ´íÎóµÄµ¥Ôª¸ñÒıÓÃ¹¹³ÉµÄÊı×é[NormalCell]
+	 * æ’å…¥ä¸€è¡Œ
+	 * @param r è¡Œå·(ä»1å¼€å§‹)
+	 * @return List<NormalCell> é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ„æˆçš„æ•°ç»„[NormalCell]
 	 */
 	public List<NormalCell> insertRow(int r) {
 		return insertRow(r, 1);
 	}
 
 	/**
-	 * ²åÈë¶àĞĞ
-	 * @param r ĞĞºÅ(´Ó1¿ªÊ¼)
-	 * @param count ²åÈëĞĞÊı
-	 * @return List<NormalCell> ´íÎóµÄµ¥Ôª¸ñÒıÓÃ¹¹³ÉµÄÊı×é[NormalCell]
+	 * æ’å…¥å¤šè¡Œ
+	 * @param r è¡Œå·(ä»1å¼€å§‹)
+	 * @param count æ’å…¥è¡Œæ•°
+	 * @return List<NormalCell> é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ„æˆçš„æ•°ç»„[NormalCell]
 	 */
 	public List<NormalCell> insertRow(int r, int count) {
 		List<NormalCell> errorCells = new ArrayList<NormalCell>();
@@ -222,40 +222,40 @@ abstract public class CellSet implements ICellSet {
 			return errorCells;
 		}
 
-		// µ÷Õû±í´ïÊ½
+		// è°ƒæ•´è¡¨è¾¾å¼
 		int colCount = getColCount();
 		if (autoAdjustExp) {
 			relativeRegulate(r, count, -1, 0, oldCount, colCount, errorCells);
 		}
 
-		//²åÈëĞĞ
+		//æ’å…¥è¡Œ
 		cellMatrix.insertRows(r, count);
 
-		//Ìí¼ÓĞĞÊ×¸ñ
+		//æ·»åŠ è¡Œé¦–æ ¼
 		insertRowCell(r, count);
 
-		//Ìí¼Óµ¥Ôª¸ñ
+		//æ·»åŠ å•å…ƒæ ¼
 		insertCell(r, count, 1, colCount);
 
-		// µ÷ÕûºóÃæµ¥Ôª¸ñµÄĞĞºÅ
+		// è°ƒæ•´åé¢å•å…ƒæ ¼çš„è¡Œå·
 		adjustRow(r + count);
 		return errorCells;
 	}
 
 	/**
-	 * ²åÈëÒ»ÁĞ
-	 * @param c ÁĞºÅ(´Ó1¿ªÊ¼)
-	 * @return List<NormalCell> ´íÎóµÄµ¥Ôª¸ñÒıÓÃ¹¹³ÉµÄÊı×é[NormalCell]
+	 * æ’å…¥ä¸€åˆ—
+	 * @param c åˆ—å·(ä»1å¼€å§‹)
+	 * @return List<NormalCell> é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ„æˆçš„æ•°ç»„[NormalCell]
 	 */
 	public List<NormalCell> insertCol(int c) {
 		return insertCol(c, 1);
 	}
 
 	/**
-	 * ²åÈë¶àÁĞ
-	 * @param c ÁĞºÅ(´Ó1¿ªÊ¼)
-	 * @param count ²åÈëÁĞÊı
-	 * @return List<NormalCell> ´íÎóµÄµ¥Ôª¸ñÒıÓÃ¹¹³ÉµÄÊı×é[NormalCell]
+	 * æ’å…¥å¤šåˆ—
+	 * @param c åˆ—å·(ä»1å¼€å§‹)
+	 * @param count æ’å…¥åˆ—æ•°
+	 * @return List<NormalCell> é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ„æˆçš„æ•°ç»„[NormalCell]
 	 */
 	public List<NormalCell> insertCol(int c, int count) {
 		List<NormalCell> errorCells = new ArrayList<NormalCell>();
@@ -273,36 +273,36 @@ abstract public class CellSet implements ICellSet {
 			return errorCells;
 		}
 
-		// µ÷Õû±í´ïÊ½
+		// è°ƒæ•´è¡¨è¾¾å¼
 		int rowCount = getRowCount();
 		if (autoAdjustExp) {
 			relativeRegulate( -1, 0, c, count, rowCount, oldCount, errorCells);
 		}
 
-		//²åÈëÁĞ
+		//æ’å…¥åˆ—
 		cellMatrix.insertCols(c, count);
 
-		//Ìí¼ÓÁĞÊ×¸ñ
+		//æ·»åŠ åˆ—é¦–æ ¼
 		insertColCell(c, count);
 
-		//Ìí¼Óµ¥Ôª¸ñ
+		//æ·»åŠ å•å…ƒæ ¼
 		insertCell(1, rowCount, c, count);
 
-		// µ÷ÕûºóÃæµ¥Ôª¸ñµÄÁĞºÅ
+		// è°ƒæ•´åé¢å•å…ƒæ ¼çš„åˆ—å·
 		adjustCol(c + count);
 		return errorCells;
 	}
 
 	/**
-	 * Ôö¼ÓÒ»ĞĞ
+	 * å¢åŠ ä¸€è¡Œ
 	 */
 	public void addRow() {
 		addRow(1);
 	}
 
 	/**
-	 * Ôö¼Ó¶àĞĞ
-	 * @param count int ĞĞÊı
+	 * å¢åŠ å¤šè¡Œ
+	 * @param count int è¡Œæ•°
 	 */
 	public void addRow(int count) {
 		if (count < 1) {
@@ -314,23 +314,23 @@ abstract public class CellSet implements ICellSet {
 
 		cellMatrix.addRows(count);
 
-		//Ìí¼ÓĞĞÊ×¸ñ
+		//æ·»åŠ è¡Œé¦–æ ¼
 		insertRowCell(rowIndex, count);
 
-		//Ìí¼Óµ¥Ôª¸ñ
+		//æ·»åŠ å•å…ƒæ ¼
 		insertCell(rowIndex, count, 1, colCount);
 	}
 
 	/**
-	 * Ôö¼ÓÒ»ÁĞ
+	 * å¢åŠ ä¸€åˆ—
 	 */
 	public void addCol() {
 		addCol(1);
 	}
 
 	/**
-	 * Ôö¼Ó¶àÁĞ
-	 * @param count int ÁĞÊı
+	 * å¢åŠ å¤šåˆ—
+	 * @param count int åˆ—æ•°
 	 */
 	public void addCol(int count) {
 		if (count < 1) {
@@ -342,27 +342,27 @@ abstract public class CellSet implements ICellSet {
 
 		cellMatrix.addCols(count);
 
-		//Ìí¼ÓÁĞÊ×¸ñ
+		//æ·»åŠ åˆ—é¦–æ ¼
 		insertColCell(colIndex, count);
 
-		//Ìí¼Óµ¥Ôª¸ñ
+		//æ·»åŠ å•å…ƒæ ¼
 		insertCell(1, rowCount, colIndex, count);
 	}
 
 	/**
-	 * É¾³ıÒ»ĞĞ
-	 * @param r ĞĞºÅ(´Ó1¿ªÊ¼)
-	 * @return List<NormalCell> ´íÎóµÄµ¥Ôª¸ñÒıÓÃ¹¹³ÉµÄÊı×é[NormalCell]
+	 * åˆ é™¤ä¸€è¡Œ
+	 * @param r è¡Œå·(ä»1å¼€å§‹)
+	 * @return List<NormalCell> é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ„æˆçš„æ•°ç»„[NormalCell]
 	 */
 	public List<NormalCell> removeRow(int r) {
 		return removeRow(r, 1);
 	}
 
 	/**
-	 * É¾³ı¶àĞĞ
-	 * @param r ĞĞºÅ(´Ó1¿ªÊ¼)
-	 * @param count É¾³ıĞĞÊı
-	 * @return List<NormalCell> ´íÎóµÄµ¥Ôª¸ñÒıÓÃ¹¹³ÉµÄÊı×é[NormalCell]
+	 * åˆ é™¤å¤šè¡Œ
+	 * @param r è¡Œå·(ä»1å¼€å§‹)
+	 * @param count åˆ é™¤è¡Œæ•°
+	 * @return List<NormalCell> é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ„æˆçš„æ•°ç»„[NormalCell]
 	 */
 	public List<NormalCell> removeRow(int r, int count) {
 		List<NormalCell> errorCells = new ArrayList<NormalCell>();
@@ -373,33 +373,33 @@ abstract public class CellSet implements ICellSet {
 		int oldRowCount = getRowCount();
 		int oldColCount = getColCount();
 
-		// É¾³ıĞĞ
+		// åˆ é™¤è¡Œ
 		cellMatrix.deleteRows(r, count);
 
-		// µ÷Õû±í´ïÊ½
+		// è°ƒæ•´è¡¨è¾¾å¼
 		if (autoAdjustExp) {
 			relativeRegulate(r, -count, -1, 0, oldRowCount, oldColCount, errorCells);
 		}
 
-		// µ÷ÕûºóÃæµ¥Ôª¸ñµÄĞĞºÅ
+		// è°ƒæ•´åé¢å•å…ƒæ ¼çš„è¡Œå·
 		adjustRow(r);
 		return errorCells;
 	}
 
 	/**
-	 * É¾³ıÒ»ÁĞ
-	 * @param c ÁĞºÅ(´Ó1¿ªÊ¼)
-	 * @return List<NormalCell> ´íÎóµÄµ¥Ôª¸ñÒıÓÃ¹¹³ÉµÄÊı×é[NormalCell]
+	 * åˆ é™¤ä¸€åˆ—
+	 * @param c åˆ—å·(ä»1å¼€å§‹)
+	 * @return List<NormalCell> é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ„æˆçš„æ•°ç»„[NormalCell]
 	 */
 	public List<NormalCell> removeCol(int c) {
 		return removeCol(c, 1);
 	}
 
 	/**
-	 * É¾³ı¶àÁĞ
-	 * @param c ÁĞºÅ(´Ó1¿ªÊ¼)
-	 * @param count É¾³ıÁĞÊı
-	 * @return List<NormalCell> ´íÎóµÄµ¥Ôª¸ñÒıÓÃ¹¹³ÉµÄÊı×é[NormalCell]
+	 * åˆ é™¤å¤šåˆ—
+	 * @param c åˆ—å·(ä»1å¼€å§‹)
+	 * @param count åˆ é™¤åˆ—æ•°
+	 * @return List<NormalCell> é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ„æˆçš„æ•°ç»„[NormalCell]
 	 */
 	public List<NormalCell> removeCol(int c, int count) {
 		List<NormalCell> errorCells = new ArrayList<NormalCell>();
@@ -410,23 +410,23 @@ abstract public class CellSet implements ICellSet {
 		int oldRowCount = getRowCount();
 		int oldColCount = getColCount();
 
-		//É¾³ıÁĞ
+		//åˆ é™¤åˆ—
 		cellMatrix.deleteCols(c, count);
 
-		// µ÷Õû±í´ïÊ½
+		// è°ƒæ•´è¡¨è¾¾å¼
 		if (autoAdjustExp) {
 			relativeRegulate(-1, 0, c, -count, oldRowCount, oldColCount, errorCells);
 		}
 
-		// µ÷ÕûºóÃæµ¥Ôª¸ñµÄÁĞºÅ
+		// è°ƒæ•´åé¢å•å…ƒæ ¼çš„åˆ—å·
 		adjustCol(c);
 		return errorCells;
 	}
 
 	/**
-	 * É¾³ıÖ¸¶¨ĞĞ£¬ĞĞºÅ´ÓĞ¡µ½´óÅÅĞò
+	 * åˆ é™¤æŒ‡å®šè¡Œï¼Œè¡Œå·ä»å°åˆ°å¤§æ’åº
 	 * @param rows int[]
-	 * @return Object ÓÃÓÚundoRemoves
+	 * @return Object ç”¨äºundoRemoves
 	 */
 	public Object removeRows(int []rows) {
 		if (rows == null || rows.length == 0) return null;
@@ -434,7 +434,7 @@ abstract public class CellSet implements ICellSet {
 
 		List<NormalCell> errorCells = new ArrayList<NormalCell>();
 
-		// ±£Áô±»É¾³ıµÄĞĞ
+		// ä¿ç•™è¢«åˆ é™¤çš„è¡Œ
 		int colCount = getColCount();
 		Object [][]deleteRows = new Object[count][];
 		for (int i = 0; i < count; ++i) {
@@ -449,13 +449,13 @@ abstract public class CellSet implements ICellSet {
 
 		int oldRowCount = getRowCount();
 
-		// É¾³ıĞĞ
+		// åˆ é™¤è¡Œ
 		cellMatrix.deleteRows(rows);
 
-		// µ÷ÕûºóÃæµ¥Ôª¸ñµÄĞĞºÅ
+		// è°ƒæ•´åé¢å•å…ƒæ ¼çš„è¡Œå·
 		adjustRow(rows[0]);
 
-		// µ÷Õû±í´ïÊ½
+		// è°ƒæ•´è¡¨è¾¾å¼
 		adjustRowReference(rows, false, oldRowCount, errorCells);
 
 		RemoveResult removeResult = new RemoveResult(deleteRows, rows, errorCells);
@@ -463,7 +463,7 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ³·ÏúÉ¾³ıĞĞ²Ù×÷
+	 * æ’¤é”€åˆ é™¤è¡Œæ“ä½œ
 	 * @param removeRetVal Object
 	 */
 	public void undoRemoveRows(Object removeRetVal) {
@@ -498,7 +498,7 @@ abstract public class CellSet implements ICellSet {
 		}
 	}
 
-	// ¸ø¾ØĞÎÇøÓòÌí¼ÓÆÕÍ¨µ¥Ôª¸ñ
+	// ç»™çŸ©å½¢åŒºåŸŸæ·»åŠ æ™®é€šå•å…ƒæ ¼
 	private void insertCell(int startRow, int rowCount, int startCol, int colCount) {
 		int endRow = startRow + rowCount;
 		int endCol = startCol + colCount;
@@ -510,7 +510,7 @@ abstract public class CellSet implements ICellSet {
 		}
 	}
 
-	// Ìí¼ÓĞĞÊ×¸ñ
+	// æ·»åŠ è¡Œé¦–æ ¼
 	private void insertRowCell(int startRow, int rowCount) {
 		int endRow = startRow + rowCount;
 		for (int r = startRow; r < endRow; ++r) {
@@ -518,7 +518,7 @@ abstract public class CellSet implements ICellSet {
 		}
 	}
 
-	// Ìí¼ÓÁĞÊ×¸ñ
+	// æ·»åŠ åˆ—é¦–æ ¼
 	private void insertColCell(int startCol, int colCount) {
 		int endCol = startCol + colCount;
 		for (int c = startCol; c < endCol; ++c) {
@@ -526,7 +526,7 @@ abstract public class CellSet implements ICellSet {
 		}
 	}
 
-	// µ÷ÕûstartRowºÍËüÖ®ºóĞĞµÄµ¥Ôª¸ñµÄĞĞºÅ
+	// è°ƒæ•´startRowå’Œå®ƒä¹‹åè¡Œçš„å•å…ƒæ ¼çš„è¡Œå·
 	protected void adjustRow(int startRow) {
 		int rowCount = getRowCount();
 		int colCount = getColCount();
@@ -542,7 +542,7 @@ abstract public class CellSet implements ICellSet {
 		}
 	}
 
-	// µ÷ÕûstartColºÍËüÖ®ºóÁĞµÄµ¥Ôª¸ñµÄÁĞºÅ
+	// è°ƒæ•´startColå’Œå®ƒä¹‹ååˆ—çš„å•å…ƒæ ¼çš„åˆ—å·
 	protected void adjustCol(int startCol) {
 		int rowCount = getRowCount();
 		int colCount = getColCount();
@@ -559,7 +559,7 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * È¡²ÎÊıÔªÊı¾İ
+	 * å–å‚æ•°å…ƒæ•°æ®
 	 * @return ParamList
 	 */
 	public ParamList getParamList(){
@@ -567,15 +567,15 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * Éè²ÎÊıÔªÊı¾İ
-	 * @param paramList ²ÎÊıÔªÊı¾İ
+	 * è®¾å‚æ•°å…ƒæ•°æ®
+	 * @param paramList å‚æ•°å…ƒæ•°æ®
 	 */
 	public void setParamList(ParamList paramList){
 		this.paramList = paramList;
 	}
 
 	/**
-	 * ·µ»ØÍø¸ñ¼ÆËãÉÏÏÂÎÄ
+	 * è¿”å›ç½‘æ ¼è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Context
 	 */
 	public Context getContext() {
@@ -584,7 +584,7 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñ¼ÆËãÉÏÏÂÎÄ
+	 * è®¾ç½®ç½‘æ ¼è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @param ctx Context
 	 */
 	public void setContext(Context ctx) {
@@ -592,8 +592,8 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ÖØÖÃµ¥Ôª¸ñÖµÎª³õÊ¼×´Ì¬£¬ÊÍ·Å×ÊÔ´¡£É¾³ıÉÏÏÂÎÄÖĞ²úÉúµÄÁÙÊ±±äÁ¿£¬
-	 * ²¢°ÑÍø¸ñÖĞ¶¨ÒåµÄ²ÎÊı¼ÓÈëµ½ÉÏÏÂÎÄÖĞ£¬Èç¹ûÉÏÏÂÎÄÖĞÒÑ´æÔÚ²ÎÊıÔò²»±ä¡£
+	 * é‡ç½®å•å…ƒæ ¼å€¼ä¸ºåˆå§‹çŠ¶æ€ï¼Œé‡Šæ”¾èµ„æºã€‚åˆ é™¤ä¸Šä¸‹æ–‡ä¸­äº§ç”Ÿçš„ä¸´æ—¶å˜é‡ï¼Œ
+	 * å¹¶æŠŠç½‘æ ¼ä¸­å®šä¹‰çš„å‚æ•°åŠ å…¥åˆ°ä¸Šä¸‹æ–‡ä¸­ï¼Œå¦‚æœä¸Šä¸‹æ–‡ä¸­å·²å­˜åœ¨å‚æ•°åˆ™ä¸å˜ã€‚
 	 */
 	public void reset() {
 		int rowCount = getRowCount();
@@ -610,10 +610,10 @@ abstract public class CellSet implements ICellSet {
 		Context ctx = getContext();
 		
 		if (ctx != null) {
-			// Ã¿¸öÍøÓÃµ¥¶ÀµÄctx£¬¼ÆËãÏß³Ì±»ÖĞ¶ÏÓĞ¿ÉÄÜ´òÂÒ¼ÆËã¶ÑÕ»
+			// æ¯ä¸ªç½‘ç”¨å•ç‹¬çš„ctxï¼Œè®¡ç®—çº¿ç¨‹è¢«ä¸­æ–­æœ‰å¯èƒ½æ‰“ä¹±è®¡ç®—å †æ ˆ
 			ctx.getComputeStack().reset();
 
-			// É¾³ı±äÁ¿±í
+			// åˆ é™¤å˜é‡è¡¨
 			ParamList list = ctx.getParamList();
 			if (list != null) {
 				list.clear();
@@ -624,25 +624,25 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ÔËËãÍø¸ñ
+	 * è¿ç®—ç½‘æ ¼
 	 */
 	abstract public void run();
 
 	/**
-	 * Ö´ĞĞÄ³¸öµ¥Ôª¸ñ
-	 * @param row int µ¥Ôª¸ñĞĞºÅ
-	 * @param col int µ¥Ôª¸ñÁĞºÅ
+	 * æ‰§è¡ŒæŸä¸ªå•å…ƒæ ¼
+	 * @param row int å•å…ƒæ ¼è¡Œå·
+	 * @param col int å•å…ƒæ ¼åˆ—å·
 	 */
 	abstract public void runCell(int row, int col);
 
 	/**
-	 * ½áÊøÔËĞĞ£¬ÊÍ·Å×ÊÔ´£¬¸ñÖµÈÔ±£Áô
+	 * ç»“æŸè¿è¡Œï¼Œé‡Šæ”¾èµ„æºï¼Œæ ¼å€¼ä»ä¿ç•™
 	 */
 	public void runFinished() {
 	}
 
 	/**
-	 * °ÑÍø¸ñÖĞ¶¨ÒåµÄ²ÎÊı¼Óµ½ÉÏÏÂÎÄÖĞ£¬Èç¹ûÉÏÏÂÎÄÖĞÒÑ´æÔÚ²ÎÊıÔò²»±ä
+	 * æŠŠç½‘æ ¼ä¸­å®šä¹‰çš„å‚æ•°åŠ åˆ°ä¸Šä¸‹æ–‡ä¸­ï¼Œå¦‚æœä¸Šä¸‹æ–‡ä¸­å·²å­˜åœ¨å‚æ•°åˆ™ä¸å˜
 	 */
 	public void setParamToContext() {
 		Context ctx = getContext();
@@ -651,7 +651,7 @@ abstract public class CellSet implements ICellSet {
 			for (int i = 0, count = paramList.count(); i < count; ++i) {
 				Param param = paramList.get(i);
 				if (ctx.getParam(param.getName()) == null) {
-					// ±äÁ¿Àï´æµÄ¶¼ÊÇ´®
+					// å˜é‡é‡Œå­˜çš„éƒ½æ˜¯ä¸²
 					Object value = param.getValue();
 					ctx.setParamValue(param.getName(), value, param.getKind());
 				}
@@ -668,10 +668,10 @@ abstract public class CellSet implements ICellSet {
 			for (int i = 0, count = paramList.count(); i < count; ++i) {
 				Param param = paramList.get(i);
 
-				// ±äÁ¿Àï´æµÄ¶¼ÊÇ´®
+				// å˜é‡é‡Œå­˜çš„éƒ½æ˜¯ä¸²
 				Object value = param.getValue();
 				
-				// valueĞŞ¸Ä³É´æÕæÊµÖµÁË
+				// valueä¿®æ”¹æˆå­˜çœŸå®å€¼äº†
 				//if (value instanceof String) {
 				//	value = Variant.parse((String)value);
 				//}
@@ -682,8 +682,8 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
-	 * @param out ObjectOutput Êä³öÁ÷
+	 * å†™å†…å®¹åˆ°æµ
+	 * @param out ObjectOutput è¾“å‡ºæµ
 	 * @throws IOException
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
@@ -693,8 +693,8 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-	 * @param in ObjectInput ÊäÈëÁ÷
+	 * ä»æµä¸­è¯»å†…å®¹
+	 * @param in ObjectInput è¾“å…¥æµ
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
@@ -705,14 +705,14 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
+	 * å†™å†…å®¹åˆ°æµ
 	 * @throws IOException
-	 * @return Êä³öÁ÷
+	 * @return è¾“å‡ºæµ
 	 */
 	public byte[] serialize() throws IOException{
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
 
-		// ĞòÁĞ»¯µ¥Ôª¸ñ¾ØÕó
+		// åºåˆ—åŒ–å•å…ƒæ ¼çŸ©é˜µ
 		int rowCount = getRowCount();
 		int colCount = getColCount();
 		out.writeInt(rowCount);
@@ -737,7 +737,7 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
+	 * ä»æµä¸­è¯»å†…å®¹
 	 * @param buf byte[]
 	 * @throws IOException
 	 * @throws ClassNotFoundException
@@ -745,7 +745,7 @@ abstract public class CellSet implements ICellSet {
 	public void fillRecord(byte[] buf) throws IOException, ClassNotFoundException {
 		ByteArrayInputRecord in = new ByteArrayInputRecord(buf);
 
-		// Éú³Éµ¥Ôª¸ñ¾ØÕó
+		// ç”Ÿæˆå•å…ƒæ ¼çŸ©é˜µ
 		int rowCount = in.readInt();
 		int colCount = in.readInt();
 		cellMatrix = new Matrix(rowCount + 1, colCount + 1);
@@ -768,12 +768,12 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ¸Ä±äµ¥Ôª¸ñ±í´ïÊ½×Ö·û´®ÖĞµÄĞĞºÅºÍÁĞºÅ£¨$ĞŞÊÎµÄ²»½øĞĞĞŞ¸Ä£¬Èç$A$3£©
-	 * @param srcCs ICellSet ¸´ÖÆµ¥Ôª¸ñµÄÔ´Íø
-	 * @param cell NormalCell º¬ÓĞµ¥Ôª¸ñµÄ×Ö·û´®±í´ïÊ½
-	 * @param rowOff int ĞĞºÅµÄÔö¼ÓÊıÖµ
-	 * @param colOff int ÁĞºÅµÄÔö¼ÓÊıÖµ
-	 * @return List<NormalCell> ´íÎóµÄµ¥Ôª¸ñÒıÓÃ¹¹³ÉµÄÊı×é[NormalCell]
+	 * æ”¹å˜å•å…ƒæ ¼è¡¨è¾¾å¼å­—ç¬¦ä¸²ä¸­çš„è¡Œå·å’Œåˆ—å·ï¼ˆ$ä¿®é¥°çš„ä¸è¿›è¡Œä¿®æ”¹ï¼Œå¦‚$A$3ï¼‰
+	 * @param srcCs ICellSet å¤åˆ¶å•å…ƒæ ¼çš„æºç½‘
+	 * @param cell NormalCell å«æœ‰å•å…ƒæ ¼çš„å­—ç¬¦ä¸²è¡¨è¾¾å¼
+	 * @param rowOff int è¡Œå·çš„å¢åŠ æ•°å€¼
+	 * @param colOff int åˆ—å·çš„å¢åŠ æ•°å€¼
+	 * @return List<NormalCell> é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ„æˆçš„æ•°ç»„[NormalCell]
 	 */
 	public List<NormalCell> adjustCell(ICellSet srcCs, NormalCell cell, int rowOff, int colOff) {
 		NormalCell cellClone = (NormalCell)cell.deepClone();
@@ -805,10 +805,10 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * °ÑÒıÓÃµ¥Ôª¸ñsrcLctµÄ±í´ïÊ½¸ÄÎªÒıÓÃµ¥Ôª¸ñtgtLct
-	 * @param srcLct CellLocation Ô´Î»ÖÃ
-	 * @param tgtLct CellLocation Ä¿±êÎ»ÖÃ
-	 * @return List<NormalCell>´íÎóµÄµ¥Ôª¸ñÒıÓÃ
+	 * æŠŠå¼•ç”¨å•å…ƒæ ¼srcLctçš„è¡¨è¾¾å¼æ”¹ä¸ºå¼•ç”¨å•å…ƒæ ¼tgtLct
+	 * @param srcLct CellLocation æºä½ç½®
+	 * @param tgtLct CellLocation ç›®æ ‡ä½ç½®
+	 * @return List<NormalCell>é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨
 	 */
 	public List<NormalCell> adjustReference(CellLocation srcLct, CellLocation tgtLct) {
 		List<NormalCell> errorCells = new ArrayList<NormalCell>();
@@ -860,9 +860,9 @@ abstract public class CellSet implements ICellSet {
 	}
 	
 	/**
-	 * °Ñ±í´ïÊ½ÖĞ¶Ôlct1µÄÒıÓÃ¸ÄÎªlct2£¬ÓÃÓÚ°ÑÒ»¸ö¸ñ¼ôÇĞµ½ÁíÒ»¸ö¸ñ£¬¸Ä±ä¶ÔÔ´¸ñµÄÒıÓÃµ½Ä¿±ê¸ñ
-	 * @param lct1 Ô­À´ÒıÓÃµÄµ¥Ôª¸ñ
-	 * @param lct2 Ä¿±êµ¥Ôª¸ñ
+	 * æŠŠè¡¨è¾¾å¼ä¸­å¯¹lct1çš„å¼•ç”¨æ”¹ä¸ºlct2ï¼Œç”¨äºæŠŠä¸€ä¸ªæ ¼å‰ªåˆ‡åˆ°å¦ä¸€ä¸ªæ ¼ï¼Œæ”¹å˜å¯¹æºæ ¼çš„å¼•ç”¨åˆ°ç›®æ ‡æ ¼
+	 * @param lct1 åŸæ¥å¼•ç”¨çš„å•å…ƒæ ¼
+	 * @param lct2 ç›®æ ‡å•å…ƒæ ¼
 	 */
 	public void exchangeReference(CellLocation lct1, CellLocation lct2) {
 		if (!autoAdjustExp) return;
@@ -891,9 +891,9 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * °ÑÒıÓÃĞĞsrµÄ±í´ïÊ½¸ÄÎªÒıÓÃĞĞtr
-	 * @param sr int Ô´ĞĞ
-	 * @param tr int Ä¿±êĞĞ
+	 * æŠŠå¼•ç”¨è¡Œsrçš„è¡¨è¾¾å¼æ”¹ä¸ºå¼•ç”¨è¡Œtr
+	 * @param sr int æºè¡Œ
+	 * @param tr int ç›®æ ‡è¡Œ
 	 */
 	public void adjustRowReference(int sr, int tr) {
 		if (!autoAdjustExp) return;
@@ -921,7 +921,7 @@ abstract public class CellSet implements ICellSet {
 		}
 	}
 
-	// Êı×éÖµÎª´ËÎ»ÖÃµÄĞĞĞèÒª±ä³ÉµÄĞÂĞĞ,0±íÊ¾²»±ä
+	// æ•°ç»„å€¼ä¸ºæ­¤ä½ç½®çš„è¡Œéœ€è¦å˜æˆçš„æ–°è¡Œ,0è¡¨ç¤ºä¸å˜
 	protected void adjustRowReference(int []newSeqs) {
 		if (!autoAdjustExp) return;
 
@@ -948,12 +948,12 @@ abstract public class CellSet implements ICellSet {
 		}
 	}
 
-	// ¸Ä±ä×Ö·û´®ÖĞµ¥Ôª¸ñµÄĞĞºÅºÍÁĞºÅ£¨$ĞŞÊÎµÄ²»½øĞĞĞŞ¸Ä£¬Èç$A$3£©
-	// ·µ»Ø¸Ä±äºóµÄ×Ö·û´®£¬Èç("B3", 1, -1)·µ»ØA4
+	// æ”¹å˜å­—ç¬¦ä¸²ä¸­å•å…ƒæ ¼çš„è¡Œå·å’Œåˆ—å·ï¼ˆ$ä¿®é¥°çš„ä¸è¿›è¡Œä¿®æ”¹ï¼Œå¦‚$A$3ï¼‰
+	// è¿”å›æ”¹å˜åçš„å­—ç¬¦ä¸²ï¼Œå¦‚("B3", 1, -1)è¿”å›A4
 	private String relativeRegulateString(ICellSet srcCs, String str, int rowIncrement,
 										  int colIncrement, boolean []error) {
 		error[0] = false;
-		//¶³½á»ò´íÎóµÄµ¥Ôª¸ñ²»´¦Àí
+		//å†»ç»“æˆ–é”™è¯¯çš„å•å…ƒæ ¼ä¸å¤„ç†
 		if (str == null || str.length() == 0 || str.startsWith(CellRefUtil.ERRORREF)) {
 			return str;
 		}
@@ -963,7 +963,7 @@ abstract public class CellSet implements ICellSet {
 
 		for (int idx = 0; idx < len; ) {
 			char ch = str.charAt(idx);
-			if (ch == '\'' || ch == '\"') { // Ìø¹ı×Ö·û´®
+			if (ch == '\'' || ch == '\"') { // è·³è¿‡å­—ç¬¦ä¸²
 				int tmp = Sentence.scanQuotation(str, idx);
 				if (tmp < 0) {
 					if (strNew != null) strNew.append(str.substring(idx));
@@ -985,8 +985,8 @@ abstract public class CellSet implements ICellSet {
 					continue;
 				}
 
-				int macroIndex = -1; // A$23ÖĞ$µÄË÷Òı
-				int numIndex = -1; // Êı×ÖµÄË÷Òı
+				int macroIndex = -1; // A$23ä¸­$çš„ç´¢å¼•
+				int numIndex = -1; // æ•°å­—çš„ç´¢å¼•
 
 				for (int i = idx + 1; i < last; ++i) {
 					char tmp = str.charAt(i);
@@ -1094,11 +1094,11 @@ abstract public class CellSet implements ICellSet {
 		return strNew == null ? str : strNew.toString();
 	}
 
-	// ´¦Àí²åÈë¡¢É¾³ıĞĞÁĞÊ±Êı¾İ¼¯±í´ïÊ½ÖĞµÄµ¥Ôª¸ñÒıÓÃ
-	// rowBase ¡¡¡¡¡¡¡¡¡¡ĞĞ»ùºÅ
-	// colBase ¡¡¡¡¡¡ ÁĞ»ùºÅ
-	// rowIncrement¡¡¡¡¡¡ÔöÉ¾ĞĞÊı£¬´óÓÚ0Îª²åÈë£¬Ğ¡ÓÚ0ÎªÉ¾³ı
-	// colIncrement¡¡ ÔöÉ¾ÁĞÊı£¬´óÓÚ0Îª²åÈë£¬Ğ¡ÓÚ0ÎªÉ¾³ı
+	// å¤„ç†æ’å…¥ã€åˆ é™¤è¡Œåˆ—æ—¶æ•°æ®é›†è¡¨è¾¾å¼ä¸­çš„å•å…ƒæ ¼å¼•ç”¨
+	// rowBase ã€€ã€€ã€€ã€€ã€€è¡ŒåŸºå·
+	// colBase ã€€ã€€ã€€ åˆ—åŸºå·
+	// rowIncrementã€€ã€€ã€€å¢åˆ è¡Œæ•°ï¼Œå¤§äº0ä¸ºæ’å…¥ï¼Œå°äº0ä¸ºåˆ é™¤
+	// colIncrementã€€ å¢åˆ åˆ—æ•°ï¼Œå¤§äº0ä¸ºæ’å…¥ï¼Œå°äº0ä¸ºåˆ é™¤
 	private void relativeRegulate(int rowBase, int rowIncrement, int colBase, int colIncrement, 
 			int oldRowCount, int oldColCount, List<NormalCell> errorCells) {
 		int rowCount = getRowCount();
@@ -1145,18 +1145,18 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * °Ñ±í´ïÊ½ÖĞ¶Ôlct1µÄÒıÓÃ¸ÄÎªlct2£¬ÓÃÓÚ°ÑÒ»¸ö¸ñ¼ôÇĞµ½ÁíÒ»¸ö¸ñ£¬¸Ä±ä¶ÔÔ´¸ñµÄÒıÓÃµ½Ä¿±ê¸ñ
-	 * @param str ±í´ïÊ½
-	 * @param lct1 Ô­À´ÒıÓÃµÄµ¥Ôª¸ñ
-	 * @param lct2 Ä¿±êµ¥Ôª¸ñ
-	 * @return ±ä»»ºóµÄ±í´ïÊ½
+	 * æŠŠè¡¨è¾¾å¼ä¸­å¯¹lct1çš„å¼•ç”¨æ”¹ä¸ºlct2ï¼Œç”¨äºæŠŠä¸€ä¸ªæ ¼å‰ªåˆ‡åˆ°å¦ä¸€ä¸ªæ ¼ï¼Œæ”¹å˜å¯¹æºæ ¼çš„å¼•ç”¨åˆ°ç›®æ ‡æ ¼
+	 * @param str è¡¨è¾¾å¼
+	 * @param lct1 åŸæ¥å¼•ç”¨çš„å•å…ƒæ ¼
+	 * @param lct2 ç›®æ ‡å•å…ƒæ ¼
+	 * @return å˜æ¢åçš„è¡¨è¾¾å¼
 	 */
 	private static String relativeRegulateString(String str, int rowBase, int rowIncrement,
 										  int colBase, int colIncrement,
 										  int oldRowCount, int oldColCount, boolean []error) {
 		error[0] = false;
 
-		//¶³½á»ò´íÎóµÄµ¥Ôª¸ñ²»´¦Àí
+		//å†»ç»“æˆ–é”™è¯¯çš„å•å…ƒæ ¼ä¸å¤„ç†
 		if (str == null || str.length() == 0 || str.startsWith(CellRefUtil.ERRORREF)) {
 			return str;
 		}
@@ -1166,7 +1166,7 @@ abstract public class CellSet implements ICellSet {
 
 		for (int idx = 0; idx < len; ) {
 			char ch = str.charAt(idx);
-			if (ch == '\'' || ch == '\"') { // Ìø¹ı×Ö·û´®
+			if (ch == '\'' || ch == '\"') { // è·³è¿‡å­—ç¬¦ä¸²
 				int tmp = Sentence.scanQuotation(str, idx);
 				if (tmp < 0) {
 					if (strNew != null) strNew.append(str.substring(idx));
@@ -1188,8 +1188,8 @@ abstract public class CellSet implements ICellSet {
 					continue;
 				}
 
-				int macroIndex = -1; // A$23ÖĞ$µÄË÷Òı
-				int numIndex = -1; // Êı×ÖµÄË÷Òı
+				int macroIndex = -1; // A$23ä¸­$çš„ç´¢å¼•
+				int numIndex = -1; // æ•°å­—çš„ç´¢å¼•
 
 				for (int i = idx + 1; i < last; ++i) {
 					char tmp = str.charAt(i);
@@ -1337,7 +1337,7 @@ abstract public class CellSet implements ICellSet {
 	private static String relativeRegulateString(String str, CellLocation srcLct, CellLocation tgtLct, boolean[] error) {
 		error[0] = false;
 		
-		//¶³½á»ò´íÎóµÄµ¥Ôª¸ñ²»´¦Àí
+		//å†»ç»“æˆ–é”™è¯¯çš„å•å…ƒæ ¼ä¸å¤„ç†
 		if (str == null || str.length() == 0 || str.startsWith(CellRefUtil.ERRORREF)) {
 			return str;
 		}
@@ -1347,7 +1347,7 @@ abstract public class CellSet implements ICellSet {
 
 		for (int idx = 0; idx < len; ) {
 			char ch = str.charAt(idx);
-			if (ch == '\'' || ch == '\"') { // Ìø¹ı×Ö·û´®
+			if (ch == '\'' || ch == '\"') { // è·³è¿‡å­—ç¬¦ä¸²
 				int tmp = Sentence.scanQuotation(str, idx);
 				if (tmp < 0) {
 					if (strNew != null) strNew.append(str.substring(idx));
@@ -1369,8 +1369,8 @@ abstract public class CellSet implements ICellSet {
 					continue;
 				}
 
-				int macroIndex = -1; // A$23ÖĞ$µÄË÷Òı
-				int numIndex = -1; // Êı×ÖµÄË÷Òı
+				int macroIndex = -1; // A$23ä¸­$çš„ç´¢å¼•
+				int numIndex = -1; // æ•°å­—çš„ç´¢å¼•
 
 				for (int i = idx + 1; i < last; ++i) {
 					char tmp = str.charAt(i);
@@ -1475,7 +1475,7 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	private String relativeRegulateRowString(String str, int sr, int tr) {
-		//¶³½á»ò´íÎóµÄµ¥Ôª¸ñ²»´¦Àí
+		//å†»ç»“æˆ–é”™è¯¯çš„å•å…ƒæ ¼ä¸å¤„ç†
 		if (str == null || str.length() == 0 || str.startsWith(CellRefUtil.ERRORREF)) {
 			return str;
 		}
@@ -1486,7 +1486,7 @@ abstract public class CellSet implements ICellSet {
 
 		for (int idx = 0; idx < len; ) {
 			char ch = str.charAt(idx);
-			if (ch == '\'' || ch == '\"') { // Ìø¹ı×Ö·û´®
+			if (ch == '\'' || ch == '\"') { // è·³è¿‡å­—ç¬¦ä¸²
 				int tmp = Sentence.scanQuotation(str, idx);
 				if (tmp < 0) {
 					if (strNew != null) strNew.append(str.substring(idx));
@@ -1508,8 +1508,8 @@ abstract public class CellSet implements ICellSet {
 					continue;
 				}
 
-				int macroIndex = -1; // A$23ÖĞ$µÄË÷Òı
-				int numIndex = -1; // Êı×ÖµÄË÷Òı
+				int macroIndex = -1; // A$23ä¸­$çš„ç´¢å¼•
+				int numIndex = -1; // æ•°å­—çš„ç´¢å¼•
 
 				for (int i = idx + 1; i < last; ++i) {
 					char tmp = str.charAt(i);
@@ -1600,7 +1600,7 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	private String relativeRegulateRowString(String str, int []newSeqs) {
-		//¶³½á»ò´íÎóµÄµ¥Ôª¸ñ²»´¦Àí
+		//å†»ç»“æˆ–é”™è¯¯çš„å•å…ƒæ ¼ä¸å¤„ç†
 		if (str == null || str.length() == 0 || str.startsWith(CellRefUtil.ERRORREF)) {
 			return str;
 		}
@@ -1613,7 +1613,7 @@ abstract public class CellSet implements ICellSet {
 
 		for (int idx = 0; idx < len; ) {
 			char ch = str.charAt(idx);
-			if (ch == '\'' || ch == '\"') { // Ìø¹ı×Ö·û´®
+			if (ch == '\'' || ch == '\"') { // è·³è¿‡å­—ç¬¦ä¸²
 				int tmp = Sentence.scanQuotation(str, idx);
 				if (tmp < 0) {
 					if (strNew != null) strNew.append(str.substring(idx));
@@ -1635,8 +1635,8 @@ abstract public class CellSet implements ICellSet {
 					continue;
 				}
 
-				int macroIndex = -1; // A$23ÖĞ$µÄË÷Òı
-				int numIndex = -1; // Êı×ÖµÄË÷Òı
+				int macroIndex = -1; // A$23ä¸­$çš„ç´¢å¼•
+				int numIndex = -1; // æ•°å­—çš„ç´¢å¼•
 
 				for (int i = idx + 1; i < last; ++i) {
 					char tmp = str.charAt(i);
@@ -1729,16 +1729,16 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ÉèÖÃÌíÉ¾ĞĞÁĞÊ±ÊÇ·ñ×Ô¶¯µ÷Õû±í´ïÊ½
-	 * @param isAuto boolean true£º×Ô¶¯µ÷Õû
+	 * è®¾ç½®æ·»åˆ è¡Œåˆ—æ—¶æ˜¯å¦è‡ªåŠ¨è°ƒæ•´è¡¨è¾¾å¼
+	 * @param isAuto boolean trueï¼šè‡ªåŠ¨è°ƒæ•´
 	 */
 	public void setAdjustExpMode(boolean isAuto) {
 		autoAdjustExp = isAuto;
 	}
 
 	/**
-	 * ·µ»ØÌíÉ¾ĞĞÁĞÊ±ÊÇ·ñ×Ô¶¯µ÷Õû±í´ïÊ½
-	 * @return boolean true£º×Ô¶¯µ÷Õû
+	 * è¿”å›æ·»åˆ è¡Œåˆ—æ—¶æ˜¯å¦è‡ªåŠ¨è°ƒæ•´è¡¨è¾¾å¼
+	 * @return boolean trueï¼šè‡ªåŠ¨è°ƒæ•´
 	 */
 	public boolean getAdjustExpMode() {
 		return autoAdjustExp;
@@ -1751,8 +1751,8 @@ abstract public class CellSet implements ICellSet {
 	abstract public String getMacroReplaceString(String strCell);
 
 	/**
-	 * ·µ»ØĞĞµÄ²ã
-	 * @param r int ĞĞºÅ
+	 * è¿”å›è¡Œçš„å±‚
+	 * @param r int è¡Œå·
 	 * @return int
 	 */
 	public int getRowLevel(int r) {
@@ -1760,17 +1760,17 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ÉèÖÃĞĞµÄ²ã
-	 * @param r int ĞĞºÅ
-	 * @param level int ²ãºÅ
+	 * è®¾ç½®è¡Œçš„å±‚
+	 * @param r int è¡Œå·
+	 * @param level int å±‚å·
 	 */
 	public void setRowLevel(int r, int level) {
 		((RowCell)getRowCell(r)).setLevel(level);
 	}
 
 	/**
-	 * ·µ»ØÁĞµÄ²ã
-	 * @param c int ÁĞºÅ
+	 * è¿”å›åˆ—çš„å±‚
+	 * @param c int åˆ—å·
 	 * @return int
 	 */
 	public int getColLevel(int c) {
@@ -1778,17 +1778,17 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	/**
-	 * ÉèÖÃÁĞµÄ²ã
-	 * @param c int ÁĞºÅ
-	 * @param level int ²ãºÅ
+	 * è®¾ç½®åˆ—çš„å±‚
+	 * @param c int åˆ—å·
+	 * @param level int å±‚å·
 	 */
 	public void setColLevel(int c, int level) {
 		((ColCell)getColCell(c)).setLevel(level);
 	}
 
 	/**
-	 * ½«Íø¸ñ×ªÖÃ
-	 * @return List<NormalCell> ´íÎóµÄµ¥Ôª¸ñÒıÓÃ¹¹³ÉµÄÊı×é[NormalCell]
+	 * å°†ç½‘æ ¼è½¬ç½®
+	 * @return List<NormalCell> é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ„æˆçš„æ•°ç»„[NormalCell]
 	 */
 	public List<NormalCell> transpose() {
 		Matrix cellMatrix = this.cellMatrix;
@@ -1797,32 +1797,32 @@ abstract public class CellSet implements ICellSet {
 		int oldRowCount = rowSize - 1;
 		int oldColCount = colSize - 1;
 
-		Matrix newMatrix = new Matrix(colSize, rowSize); // ×ªÖÃ
+		Matrix newMatrix = new Matrix(colSize, rowSize); // è½¬ç½®
 		this.cellMatrix = newMatrix;
 
-		// ²úÉúĞĞÊ×¸ñ
+		// äº§ç”Ÿè¡Œé¦–æ ¼
 		for (int r = 1; r < colSize; ++r) {
 			ColCell cc = (ColCell)cellMatrix.get(0, r);
 			RowCell rc = newRowCell(r);
 
-			// °ÑÔ­À´ÁĞµÄÊôĞÔÉèµ½×ªÖÃºóµÄĞĞÊôĞÔÀï
-			//rc.setHeight(cc.getWidth()); // Ê¹ÓÃÈ±Ê¡Öµ
+			// æŠŠåŸæ¥åˆ—çš„å±æ€§è®¾åˆ°è½¬ç½®åçš„è¡Œå±æ€§é‡Œ
+			//rc.setHeight(cc.getWidth()); // ä½¿ç”¨ç¼ºçœå€¼
 			rc.setLevel(cc.getLevel());
 			newMatrix.set(r, 0, rc);
 		}
 
-		// ²úÉúÁĞÊ×¸ñ
+		// äº§ç”Ÿåˆ—é¦–æ ¼
 		for (int c = 1; c < rowSize; ++c) {
 			RowCell rc = (RowCell)cellMatrix.get(c, 0);
 			ColCell cc = newColCell(c);
 
-			// °ÑÔ­À´ĞĞµÄÊôĞÔÉèµ½×ªÖÃºóµÄÁĞÊôĞÔÀï
-			//cc.setWidth(rc.getHeight()); // Ê¹ÓÃÈ±Ê¡Öµ
+			// æŠŠåŸæ¥è¡Œçš„å±æ€§è®¾åˆ°è½¬ç½®åçš„åˆ—å±æ€§é‡Œ
+			//cc.setWidth(rc.getHeight()); // ä½¿ç”¨ç¼ºçœå€¼
 			cc.setLevel(rc.getLevel());
 			newMatrix.set(0, c, cc);
 		}
 
-		// ĞŞ¸ÄÆÕÍ¨µ¥Ôª¸ñĞĞÁĞºÅ
+		// ä¿®æ”¹æ™®é€šå•å…ƒæ ¼è¡Œåˆ—å·
 		for (int r = 1; r < colSize; ++r) {
 			for (int c = 1; c < rowSize; ++c) {
 				NormalCell cell = (NormalCell)cellMatrix.get(c, r);
@@ -1834,7 +1834,7 @@ abstract public class CellSet implements ICellSet {
 			}
 		}
 
-		// ĞŞ¸Ä±í´ïÊ½ÒıÓÃ
+		// ä¿®æ”¹è¡¨è¾¾å¼å¼•ç”¨
 		List<NormalCell> errorCells = new ArrayList<NormalCell>();
 		if (getAdjustExpMode()) {
 			transposeCellString(errorCells, oldRowCount, oldColCount);
@@ -1889,7 +1889,7 @@ abstract public class CellSet implements ICellSet {
 
 	private String transposeCellString(String str, boolean[] error, int oldRowCount, int oldColCount) {
 		error[0] = false;
-		//¶³½á»ò´íÎóµÄµ¥Ôª¸ñ²»´¦Àí
+		//å†»ç»“æˆ–é”™è¯¯çš„å•å…ƒæ ¼ä¸å¤„ç†
 		if (str == null || str.length() == 0 || str.startsWith(CellRefUtil.ERRORREF)) {
 			return str;
 		}
@@ -1899,7 +1899,7 @@ abstract public class CellSet implements ICellSet {
 
 		for (int idx = 0; idx < len; ) {
 			char ch = str.charAt(idx);
-			if (ch == '\'' || ch == '\"') { // Ìø¹ı×Ö·û´®
+			if (ch == '\'' || ch == '\"') { // è·³è¿‡å­—ç¬¦ä¸²
 				int tmp = Sentence.scanQuotation(str, idx);
 				if (tmp < 0) {
 					if (strNew != null) strNew.append(str.substring(idx));
@@ -1921,8 +1921,8 @@ abstract public class CellSet implements ICellSet {
 					continue;
 				}
 
-				int macroIndex = -1; // A$23ÖĞ$µÄË÷Òı
-				int numIndex = -1; // Êı×ÖµÄË÷Òı
+				int macroIndex = -1; // A$23ä¸­$çš„ç´¢å¼•
+				int numIndex = -1; // æ•°å­—çš„ç´¢å¼•
 
 				for (int i = idx + 1; i < last; ++i) {
 					char tmp = str.charAt(i);
@@ -2016,7 +2016,7 @@ abstract public class CellSet implements ICellSet {
 		return strNew == null ? str : strNew.toString();
 	}
 
-	// rows ²åÈëĞĞµÄË÷Òı£¬ĞòºÅ´ÓĞ¡µ½´óÓĞĞò
+	// rows æ’å…¥è¡Œçš„ç´¢å¼•ï¼Œåºå·ä»å°åˆ°å¤§æœ‰åº
 	protected void insertRows(int []rows, int level) {
 		int count = rows.length;
 		if (count == 0) return;
@@ -2025,27 +2025,27 @@ abstract public class CellSet implements ICellSet {
 		List<NormalCell> errorCells = new ArrayList<NormalCell>();
 		adjustRowReference(rows, true, oldRowCount, errorCells);
 
-		//²åÈëĞĞ
+		//æ’å…¥è¡Œ
 		cellMatrix.insertRows(rows);
 
 		int colCount = getColCount();
 		for (int i = 0; i < count; ++i) {
 			int r = rows[i] + i;
 
-			//Ìí¼ÓĞĞÊ×¸ñ
+			//æ·»åŠ è¡Œé¦–æ ¼
 			insertRowCell(r, 1);
 
-			//Ìí¼Óµ¥Ôª¸ñ
+			//æ·»åŠ å•å…ƒæ ¼
 			insertCell(r, 1, 1, colCount);
 
 			setRowLevel(r, level);
 		}
 
-		// µ÷ÕûºóÃæµ¥Ôª¸ñµÄĞĞºÅ
+		// è°ƒæ•´åé¢å•å…ƒæ ¼çš„è¡Œå·
 		adjustRow(rows[0]);
 	}
 
-	// rows ²åÈë»òÉ¾³ıĞĞµÄË÷Òı£¬ĞòºÅ´ÓĞ¡µ½´óÓĞĞò
+	// rows æ’å…¥æˆ–åˆ é™¤è¡Œçš„ç´¢å¼•ï¼Œåºå·ä»å°åˆ°å¤§æœ‰åº
 	private void adjustRowReference(int[] rows, boolean isInsert, int oldRowCount, List<NormalCell> errorCells) {
 		int rowCount = getRowCount();
 		int colCount = getColCount();
@@ -2086,10 +2086,10 @@ abstract public class CellSet implements ICellSet {
 		}
 	}
 
-	// ÔöÉ¾ĞĞÊ±ĞŞ¸Äµ¥Ôª¸ñÒıÓÃ
+	// å¢åˆ è¡Œæ—¶ä¿®æ”¹å•å…ƒæ ¼å¼•ç”¨
 	private String relativeRegulateRowString(String str, int[] rows,  boolean isInsert, int oldRowCount, boolean[] error) {
 		error[0] = false;
-		//¶³½á»ò´íÎóµÄµ¥Ôª¸ñ²»´¦Àí
+		//å†»ç»“æˆ–é”™è¯¯çš„å•å…ƒæ ¼ä¸å¤„ç†
 		if (str == null || str.length() == 0 || str.startsWith(CellRefUtil.ERRORREF)) {
 			return str;
 		}
@@ -2100,7 +2100,7 @@ abstract public class CellSet implements ICellSet {
 
 		for (int idx = 0; idx < len; ) {
 			char ch = str.charAt(idx);
-			if (ch == '\'' || ch == '\"') { // Ìø¹ı×Ö·û´®
+			if (ch == '\'' || ch == '\"') { // è·³è¿‡å­—ç¬¦ä¸²
 				int tmp = Sentence.scanQuotation(str, idx);
 				if (tmp < 0) {
 					if (strNew != null) strNew.append(str.substring(idx));
@@ -2122,8 +2122,8 @@ abstract public class CellSet implements ICellSet {
 					continue;
 				}
 
-				int macroIndex = -1; // A$23ÖĞ$µÄË÷Òı
-				int numIndex = -1; // Êı×ÖµÄË÷Òı
+				int macroIndex = -1; // A$23ä¸­$çš„ç´¢å¼•
+				int numIndex = -1; // æ•°å­—çš„ç´¢å¼•
 
 				for (int i = idx + 1; i < last; ++i) {
 					char tmp = str.charAt(i);
@@ -2253,8 +2253,8 @@ abstract public class CellSet implements ICellSet {
 		if ((c >= 0x0001) && (c <= 0x007F)) {
 			start++;
 		} else {
-			// Èç¹ûÊÇºº×ÖÔò²ğ³öÒ»¸ö¸öºº×Ö£¬ÕâÑù¾Í¿ÉÒÔ±äÇ¨×¢ÊÍÀï´øºº×ÖµÄµ¥Ôª¸ñ
-			// ²»ĞèÒªÇø·Öºº×ÖÊÇÓÉÒ»¸öchar±íÊ¾»¹ÊÇÓÉÁ½¸öchar±íÊ¾
+			// å¦‚æœæ˜¯æ±‰å­—åˆ™æ‹†å‡ºä¸€ä¸ªä¸ªæ±‰å­—ï¼Œè¿™æ ·å°±å¯ä»¥å˜è¿æ³¨é‡Šé‡Œå¸¦æ±‰å­—çš„å•å…ƒæ ¼
+			// ä¸éœ€è¦åŒºåˆ†æ±‰å­—æ˜¯ç”±ä¸€ä¸ªcharè¡¨ç¤ºè¿˜æ˜¯ç”±ä¸¤ä¸ªcharè¡¨ç¤º
 			return start + 1;
 		}
 		

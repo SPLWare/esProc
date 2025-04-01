@@ -13,8 +13,8 @@ public class PrereadCursor extends ICursor {
 		setDataStruct(cursor.getDataStruct());
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			cursor.resetContext(ctx);

@@ -20,12 +20,12 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.util.Variant;
 
 /**
- * ÊıÖµÄ¿±ê±äÁ¿µÄ¾ÀÆ«´¦Àí
+ * æ•°å€¼ç›®æ ‡å˜é‡çš„çº åå¤„ç†
  * @author bd
- * A.dateinterval(T)/P.dateinterval(cns, T); @bnie Ñ¡ÏîÖ¸Ã÷Ä¿±êÀàĞÍ£¬¸÷Ñ¡ÏîÏà³â£¬ÓÅÏÈ¼¶°´ÕÕ¶şÖµ/ÊıÖµ/ÕûÊı/Ã¶¾Ù£¬ÎŞÑ¡Ïî×Ô¶¯´¦Àí
+ * A.dateinterval(T)/P.dateinterval(cns, T); @bnie é€‰é¡¹æŒ‡æ˜ç›®æ ‡ç±»å‹ï¼Œå„é€‰é¡¹ç›¸æ–¥ï¼Œä¼˜å…ˆçº§æŒ‰ç…§äºŒå€¼/æ•°å€¼/æ•´æ•°/æšä¸¾ï¼Œæ— é€‰é¡¹è‡ªåŠ¨å¤„ç†
  * A.dateinterval@r(rec),A.dateinterval@r(cns, rec)
  * 
- * ÇåÀíÊı¾İ¼¯DµÄÀëÉ¢±äÁ¿V
+ * æ¸…ç†æ•°æ®é›†Dçš„ç¦»æ•£å˜é‡V
  */
 public class DateInterval extends SequenceFunction {
 
@@ -86,7 +86,7 @@ public class DateInterval extends SequenceFunction {
 					seqs = Prep.getFields(srcSequence, cols);
 				}
 				else {
-					// ÔÊĞí²»¶¨ÒåÑ¡ÔñÁĞÃû£¬´ËÊ±Ê¹ÓÃÈ«²¿×Ö¶Î
+					// å…è®¸ä¸å®šä¹‰é€‰æ‹©åˆ—åï¼Œæ­¤æ—¶ä½¿ç”¨å…¨éƒ¨å­—æ®µ
 					seqs = Prep.pseqToSeqs(srcSequence);
 					cns = r1.getFieldNames();
 				}
@@ -144,7 +144,7 @@ public class DateInterval extends SequenceFunction {
 				}
 			}
 			if (srcSequence instanceof Table || srcSequence.isPmt()) {
-				// srcSequence ÒªÇóÊÇÅÅÁĞ»òĞò±í
+				// srcSequence è¦æ±‚æ˜¯æ’åˆ—æˆ–åºè¡¨
 				if (param == null || param.isLeaf()) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("dateinterval" + mm.getMessage("function.invalidParam"));
@@ -189,7 +189,7 @@ public class DateInterval extends SequenceFunction {
 					seqs = Prep.getFields(srcSequence, cols);
 				}
 				else {
-					// ÔÊĞí²»¶¨ÒåÑ¡ÔñÁĞÃû£¬´ËÊ±Ê¹ÓÃÈ«²¿×Ö¶Î
+					// å…è®¸ä¸å®šä¹‰é€‰æ‹©åˆ—åï¼Œæ­¤æ—¶ä½¿ç”¨å…¨éƒ¨å­—æ®µ
 					seqs = Prep.pseqToSeqs(srcSequence);
 					cns = r1.getFieldNames();
 				}
@@ -215,7 +215,7 @@ public class DateInterval extends SequenceFunction {
 					seqs = Prep.seqToSeqs(srcSequence);
 				}
 				else {
-					// Ö»ÓĞÒ»ÁĞ
+					// åªæœ‰ä¸€åˆ—
 					seqs = new ArrayList<Sequence>();
 					seqs.add(srcSequence);
 				}
@@ -238,18 +238,18 @@ public class DateInterval extends SequenceFunction {
 	private static double P_maxMI = 0.95;
 
 	/**
-	 * ¶ÔÊıÖµÄ¿±ê±äÁ¿×ö¾ÀÆ«´¦Àí
-	 * @param tvs	ÊıÖµÄ¿±ê±äÁ¿ÕûÁĞÖµ
-	 * @param cn	±äÁ¿Ãû
+	 * å¯¹æ•°å€¼ç›®æ ‡å˜é‡åšçº åå¤„ç†
+	 * @param tvs	æ•°å€¼ç›®æ ‡å˜é‡æ•´åˆ—å€¼
+	 * @param cn	å˜é‡å
 	 * @return
 	 */
 	protected static DiMvpRec dateInterval(ArrayList<Sequence> dvs, String[] dns, Sequence tvs, byte tType,
 			ArrayList<Sequence> ncv, ArrayList<String> ncn) {
 		DiMvpRec dmr = new DiMvpRec(null);
-		//Á÷³Ì£º
-		//	(d) ¶ÔÓÚËùÓĞµÄdate£¬¼ÆËãÈÎÒâÁ½¸ödateµÄ²îÖµÌìÊı£¬ÃüÃûÎª
-		//		¡°distance_×Ö¶ÎÃû1_×Ö¶ÎÃû2¡±£¬Ö»±£Áô²îÖµÈ«²¿ÎªÕı»òÈ«²¿Îª¸ºµÄÑÜÉú×Ö¶Î£¬	
-		//		È«²¿Îª¸ºµÄÑÜÉú×Ö¶ÎÈ¡¾ø¶ÔÖµ.
+		//æµç¨‹ï¼š
+		//	(d) å¯¹äºæ‰€æœ‰çš„dateï¼Œè®¡ç®—ä»»æ„ä¸¤ä¸ªdateçš„å·®å€¼å¤©æ•°ï¼Œå‘½åä¸º
+		//		â€œdistance_å­—æ®µå1_å­—æ®µå2â€ï¼Œåªä¿ç•™å·®å€¼å…¨éƒ¨ä¸ºæ­£æˆ–å…¨éƒ¨ä¸ºè´Ÿçš„è¡ç”Ÿå­—æ®µï¼Œ	
+		//		å…¨éƒ¨ä¸ºè´Ÿçš„è¡ç”Ÿå­—æ®µå–ç»å¯¹å€¼.
 		int dcsize = dvs.size();
 		Sequence dv1 = dvs.get(1);
 		int length = dv1.length();
@@ -283,7 +283,7 @@ public class DateInterval extends SequenceFunction {
 						int relday = (int) Variant.interval((java.util.Date) o1,
 								(java.util.Date) o2, null);
 						if (relday < 0) {
-							//·Å¿íÒ»Ğ©ÒªÇó£¬±£ÁôÈÕÆÚ²îÖµÈ«²¿Îª·Ç¸ºµÄÁĞ
+							//æ”¾å®½ä¸€äº›è¦æ±‚ï¼Œä¿ç•™æ—¥æœŸå·®å€¼å…¨éƒ¨ä¸ºéè´Ÿçš„åˆ—
 							normal = false;
 							dv1 = null;
 							dv2 = null;
@@ -305,14 +305,14 @@ public class DateInterval extends SequenceFunction {
 				}
 				if (normal) {
 					//String[] cns = {dns[i], dns[j]};
-					// cnsÊÇ´¦ÀíÖØÒª¶ÈÊ¹ÓÃµÄ£¬º¯Êı¼ÆËãÖĞÈ±·¦ÕûÌåµÄ´¦Àí¼ÇÂ¼£¬²»ÓÃÁË
+					// cnsæ˜¯å¤„ç†é‡è¦åº¦ä½¿ç”¨çš„ï¼Œå‡½æ•°è®¡ç®—ä¸­ç¼ºä¹æ•´ä½“çš„å¤„ç†è®°å½•ï¼Œä¸ç”¨äº†
 					String newCn = "distance_" + dns[i] + "_" + dns[j];
 					VarDateInterval vdi = new VarDateInterval(newCn, Consts.F_NUMBER);
 					vdi.init(rel);
 					double freq = vdi.getMissingRate();
-					// ²»²ÎÓë½¨Ä£µÄÅĞ¶¨ÓĞ¿ÉÄÜ±ä»¯
+					// ä¸å‚ä¸å»ºæ¨¡çš„åˆ¤å®šæœ‰å¯èƒ½å˜åŒ–
 					if (freq > P_maxMI) {
-						//È±Ê§ÂÊ´óÓÚ95%£¬¸Ã×Ö¶Î²»²ÎÓë½¨Ä£
+						//ç¼ºå¤±ç‡å¤§äº95%ï¼Œè¯¥å­—æ®µä¸å‚ä¸å»ºæ¨¡
 						dv1 = null;
 						dv2 = null;
 						rel = null;
@@ -320,7 +320,7 @@ public class DateInterval extends SequenceFunction {
 					}
 					vdi.setDateVar(dns[i], dns[j]);
 					/*
-					/* º¯ÊıÖĞ²»Ö±½Ó¸ù¾İÁĞÃû»ñÈ¡Êı¾İ
+					/* å‡½æ•°ä¸­ä¸ç›´æ¥æ ¹æ®åˆ—åè·å–æ•°æ®
 					VarSrcInfo vsi = pr.getVarSrcInfo(vns[i], false);
 					vsi.addDateInterval(vdi);
 					vsi = pr.getVarSrcInfo(vns[j], false);
@@ -328,36 +328,36 @@ public class DateInterval extends SequenceFunction {
 					*/
 					VarRec vr = new VarRec(false, false, vdi);
 
-					// ÏÈ´¦ÀíÕû×Ö¶ÎµÄMissingIndicator
-					// ÕâÀïÔ¤Áô£¬ÓÉÓÚÇ°ÃæÉú³ÉÈÕÆÚ²îÖµÁĞÊ±µÄÒªÇóÊÇÈ«Õı»òÈ«¸º£¬Òò´ËÊÇ²»»á³öÏÖÈ±Ê§µÄ
-					//£¨Êµ¼ÊÉÏ¿¼ÂÇµ½¼ÆËã²îÖµÊ±½ö±£ÁôÕûÊı£¬ËùÒÔÄ¿Ç°Ö´ĞĞµÄÊÇÈ«·Ç¸º£¬È«¸ºµÄ»áÔÚ×Ö¶Îµ÷×ªÊ±¼ÇÂ¼£©
+					// å…ˆå¤„ç†æ•´å­—æ®µçš„MissingIndicator
+					// è¿™é‡Œé¢„ç•™ï¼Œç”±äºå‰é¢ç”Ÿæˆæ—¥æœŸå·®å€¼åˆ—æ—¶çš„è¦æ±‚æ˜¯å…¨æ­£æˆ–å…¨è´Ÿï¼Œå› æ­¤æ˜¯ä¸ä¼šå‡ºç°ç¼ºå¤±çš„
+					//ï¼ˆå®é™…ä¸Šè€ƒè™‘åˆ°è®¡ç®—å·®å€¼æ—¶ä»…ä¿ç•™æ•´æ•°ï¼Œæ‰€ä»¥ç›®å‰æ‰§è¡Œçš„æ˜¯å…¨éè´Ÿï¼Œå…¨è´Ÿçš„ä¼šåœ¨å­—æ®µè°ƒè½¬æ—¶è®°å½•ï¼‰
 					//recMI(rel, newCn, pr, freq, vr);
 
 					byte type = Prep.getType(rel);
 					vr.setType(type);
 					vdi.setType(type);
 					if (type == Consts.F_SINGLE_VALUE) {
-						// ÑÜÉúµÄÈÕÆÚ²î×Ö¶ÎÎªµ¥Öµ£¬²»Ìí¼ÓÁË
+						// è¡ç”Ÿçš„æ—¥æœŸå·®å­—æ®µä¸ºå•å€¼ï¼Œä¸æ·»åŠ äº†
 						vdi.setStatus(VarInfo.VAR_DEL_SINGLE);
 						dv1 = null;
 						dv2 = null;
 						rel = null;
 					} else if (type == Consts.F_TWO_VALUE) {
-						// ÑÜÉúµÄÈÕÆÚ²î×Ö¶ÎÎª¶şÖµ
+						// è¡ç”Ÿçš„æ—¥æœŸå·®å­—æ®µä¸ºäºŒå€¼
 						//dmr.addIntervalRec(vr, dns[i], dns[j]);
 						dmr.addIntervalRec(vr, String.valueOf(i), String.valueOf(j));
 						//dealEnum(rel, newCn, pr, freq, vr, Consts.F_TWO_VALUE,
 						//		ResultCol.CL_OTHERS, (byte) 0, cns, vdi);
 						Prep.dealEnum(rel, newCn, freq, vr, Consts.F_TWO_VALUE, tvs, tType, null, ncv, ncn);
 					} else if (type == Consts.F_ENUM) {
-						// ÑÜÉúµÄÈÕÆÚ²î×Ö¶ÎÎªÃ¶¾ÙĞÍ
+						// è¡ç”Ÿçš„æ—¥æœŸå·®å­—æ®µä¸ºæšä¸¾å‹
 						dmr.addIntervalRec(vr, String.valueOf(i), String.valueOf(j));
 						//dmr.addIntervalRec(vr, dns[i], dns[j]);
 						//dealEnum(rel, newCn, pr, freq, vr, Consts.F_ENUM,
 						//		ResultCol.CL_OTHERS, (byte) 0, cns, vdi);
 						Prep.dealEnum(rel, newCn, freq, vr, Consts.F_ENUM, tvs, tType, null, ncv, ncn);
 					} else if (type == Consts.F_COUNT || type == Consts.F_NUMBER) {
-						// Ê£ÏÂµÄ¿ÉÄÜ¾ÍÊÇÎª¼ÆÊıĞÍÁË
+						// å‰©ä¸‹çš„å¯èƒ½å°±æ˜¯ä¸ºè®¡æ•°å‹äº†
 						dmr.addIntervalRec(vr, String.valueOf(i), String.valueOf(j));
 						//dmr.addIntervalRec(vr, dns[i], dns[j]);
 						//vr = dealNumerical(rel, newCn, pr, freq, vr, Consts.F_NUMBER,
@@ -376,19 +376,19 @@ public class DateInterval extends SequenceFunction {
 	
 	protected static void dateInterval(DiMvpRec dmr, ArrayList<Sequence> dvs, String[] dns,
 			ArrayList<Sequence> ncv, ArrayList<String> ncn) {
-		//Á÷³Ì£º
-		//	(d) ¶ÔÓÚËùÓĞµÄdate£¬¼ÆËãÈÎÒâÁ½¸ödateµÄ²îÖµÌìÊı£¬ÃüÃûÎª
-		//		¡°distance_×Ö¶ÎÃû1_×Ö¶ÎÃû2¡±£¬Ö»±£Áô²îÖµÈ«²¿ÎªÕı»òÈ«²¿Îª¸ºµÄÑÜÉú×Ö¶Î£¬	
-		//		È«²¿Îª¸ºµÄÑÜÉú×Ö¶ÎÈ¡¾ø¶ÔÖµ.
+		//æµç¨‹ï¼š
+		//	(d) å¯¹äºæ‰€æœ‰çš„dateï¼Œè®¡ç®—ä»»æ„ä¸¤ä¸ªdateçš„å·®å€¼å¤©æ•°ï¼Œå‘½åä¸º
+		//		â€œdistance_å­—æ®µå1_å­—æ®µå2â€ï¼Œåªä¿ç•™å·®å€¼å…¨éƒ¨ä¸ºæ­£æˆ–å…¨éƒ¨ä¸ºè´Ÿçš„è¡ç”Ÿå­—æ®µï¼Œ	
+		//		å…¨éƒ¨ä¸ºè´Ÿçš„è¡ç”Ÿå­—æ®µå–ç»å¯¹å€¼.
 		ArrayList<VarRec> vrs = dmr.getIntervalRecs();
 		Sequence dv1 = dvs.get(1);
 		int length = dv1.length();
-		// Ìí¼Ó´óÊı¾İÔ¤²â¼æÈİ´¦Àí
+		// æ·»åŠ å¤§æ•°æ®é¢„æµ‹å…¼å®¹å¤„ç†
 		int cols = vrs == null ? 0 : vrs.size();
 		if (cols > 0) {
 			ArrayList<String> interval1 = dmr.getInterval1();
 			ArrayList<String> interval2 = dmr.getInterval2();
-			// edited by bd, 2022.5.3, º¯ÊıÖĞ¼ÇÂ¼µÄinterval1ºÍinterva2¶¼ÊÇ×Ö¶ÎĞòºÅ£¨1¿ªÊ¼£©
+			// edited by bd, 2022.5.3, å‡½æ•°ä¸­è®°å½•çš„interval1å’Œinterva2éƒ½æ˜¯å­—æ®µåºå·ï¼ˆ1å¼€å§‹ï¼‰
 			for (int c = 0; c < cols; c++) {
 				String cn1 = interval1.get(c);
 				String cn2 = interval2.get(c);

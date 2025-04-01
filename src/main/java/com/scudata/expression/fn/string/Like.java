@@ -16,8 +16,8 @@ import com.scudata.resources.EngineMessage;
 
 /**
  * like( stringExp, formatExp )
- * ÅĞ¶Ï×Ö·û´®ÊÇ·ñÆ¥Åä¸ñÊ½´®¡£¸ñÊ½´®ÖĞµÄ*Æ¥Åä0¸ö»ò¶à¸ö×Ö·û£¬?Æ¥Åäµ¥¸ö×Ö·û£¬
- * ¿ÉÒÔÍ¨¹ı×ªÒå·ûÆ¥Åä"*",ÀıÈç£º\*×ªÒåÎª*£¬\\×ªÒåÎª\
+ * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦åŒ¹é…æ ¼å¼ä¸²ã€‚æ ¼å¼ä¸²ä¸­çš„*åŒ¹é…0ä¸ªæˆ–å¤šä¸ªå­—ç¬¦ï¼Œ?åŒ¹é…å•ä¸ªå­—ç¬¦ï¼Œ
+ * å¯ä»¥é€šè¿‡è½¬ä¹‰ç¬¦åŒ¹é…"*",ä¾‹å¦‚ï¼š\*è½¬ä¹‰ä¸º*ï¼Œ\\è½¬ä¹‰ä¸º\
  * @author runqian
  *
  */
@@ -26,7 +26,7 @@ public class Like extends Function {
 	private Expression exp2;
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -80,8 +80,8 @@ public class Like extends Function {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -150,7 +150,7 @@ public class Like extends Function {
 				byte[] len = stringArray.getLen();
 				boolean[] resultArray = result.getDatas();
 				
-				//µ±Ã»ÓĞ£¿ÇÒÃ»ÓĞ×ªÒå·û\Ê±£¬Ê¹ÓÃ¿ìËÙÄ£Ê½
+				//å½“æ²¡æœ‰ï¼Ÿä¸”æ²¡æœ‰è½¬ä¹‰ç¬¦\æ—¶ï¼Œä½¿ç”¨å¿«é€Ÿæ¨¡å¼
 				boolean fast = (str2.indexOf('?') == -1) && (str2.indexOf('\\') == -1);
 				if (fast) {
 					for (int i = 1; i <= size; ++i) {
@@ -225,10 +225,10 @@ public class Like extends Function {
 	}
 
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -309,7 +309,7 @@ public class Like extends Function {
 				byte[] len = stringArray.getLen();
 				boolean[] resultArray = result.getDatas();
 				
-				//µ±Ã»ÓĞ£¿ÇÒÃ»ÓĞ×ªÒå·û\Ê±£¬Ê¹ÓÃ¿ìËÙÄ£Ê½
+				//å½“æ²¡æœ‰ï¼Ÿä¸”æ²¡æœ‰è½¬ä¹‰ç¬¦\æ—¶ï¼Œä½¿ç”¨å¿«é€Ÿæ¨¡å¼
 				boolean fast = (str2.indexOf('?') == -1) && (str2.indexOf('\\') == -1);
 				if (fast) {
 					for (int i = 1; i <= size; ++i) {
@@ -405,9 +405,9 @@ public class Like extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -492,7 +492,7 @@ public class Like extends Function {
 				int[] posArr = stringArray.getPos();
 				byte[] len = stringArray.getLen();
 				
-				//µ±Ã»ÓĞ£¿ÇÒÃ»ÓĞ×ªÒå·û\Ê±£¬Ê¹ÓÃ¿ìËÙÄ£Ê½
+				//å½“æ²¡æœ‰ï¼Ÿä¸”æ²¡æœ‰è½¬ä¹‰ç¬¦\æ—¶ï¼Œä½¿ç”¨å¿«é€Ÿæ¨¡å¼
 				boolean fast = (str2.indexOf('?') == -1) && (str2.indexOf('\\') == -1);
 				if (fast) {
 					for (int i = 1; i <= size; ++i) {

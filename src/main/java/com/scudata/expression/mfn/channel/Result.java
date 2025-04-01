@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.ChannelFunction;
 
 /**
- * 取管道的计算结果
+ * 鍙栫閬撶殑璁＄畻缁撴灉
  * ch.result()
  * @author RunQian
  *

@@ -15,7 +15,7 @@ import com.scudata.ide.spl.resources.*;
 import java.util.*;
 
 /**
- * Í¼ĞÎ²ÎÊı±à¼­¶Ô»°¿ò
+ * å›¾å½¢å‚æ•°ç¼–è¾‘å¯¹è¯æ¡†
  * 
  * @author Joancy
  *
@@ -37,10 +37,10 @@ public class DialogPlotEdit extends JDialog implements ActionListener {
 	MessageManager mm = ChartMessage.get();
 	
 	/**
-	 * ´´½¨Ò»¸ö»æÍ¼±à¼­¶Ô»°¿ò
-	 * @param owner ¸¸´°¿Ú
-	 * @param plotFunc plotº¯ÊıÌå
-	 * @param graphics splÎÄ¼şÖĞ¶¨ÒåºÃµÄËùÓĞ»­²¼Ãû³Æ
+	 * åˆ›å»ºä¸€ä¸ªç»˜å›¾ç¼–è¾‘å¯¹è¯æ¡†
+	 * @param owner çˆ¶çª—å£
+	 * @param plotFunc plotå‡½æ•°ä½“
+	 * @param graphics splæ–‡ä»¶ä¸­å®šä¹‰å¥½çš„æ‰€æœ‰ç”»å¸ƒåç§°
 	 */
 	public DialogPlotEdit(Frame owner, String plotFunc, java.util.List<String> graphics) {
 		super(owner);
@@ -107,7 +107,7 @@ public class DialogPlotEdit extends JDialog implements ActionListener {
 		glist.setEditable(true);
 		cmdPanel.add(glist, GM.getGBC(1, 2, true));
 		cmdPanel.add(new JLabel(mm.getMessage("label.selTy")),
-				GM.getGBC(1, 3)); // "ÇëÑ¡ÔñÍ¼Ôª"
+				GM.getGBC(1, 3)); // "è¯·é€‰æ‹©å›¾å…ƒ"
 		elmList = new JComboBoxEx();
 		Vector<String> names = new Vector<String>();
 		Vector<String> titles = new Vector<String>();
@@ -119,7 +119,7 @@ public class DialogPlotEdit extends JDialog implements ActionListener {
 			ArrayList<ElementInfo> list1 = (ArrayList<ElementInfo>) list.get(k);
 			for (int i = 0; i < list1.size(); i++) {
 				ElementInfo ei = (ElementInfo) list1.get(i);
-				//				¼æÈİÓ³ÉäÖá£¬µ«²»ÔÙÖ§³Ö±à¼­
+				//				å…¼å®¹æ˜ å°„è½´ï¼Œä½†ä¸å†æ”¯æŒç¼–è¾‘
 				if(ei.getName().equals("MapAxis")) continue;
 				
 				names.add(ei.getName());
@@ -166,15 +166,15 @@ public class DialogPlotEdit extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * »ñÈ¡´°¿Ú·µ»ØµÄÑ¡Ïî
-	 * @return Ñ¡Ïî
+	 * è·å–çª—å£è¿”å›çš„é€‰é¡¹
+	 * @return é€‰é¡¹
 	 */
 	public int getOption() {
 		return m_option;
 	}
 
 	/**
-	 * ÏÔÊ¾²ÎÊıÏêÏ¸ĞÅÏ¢
+	 * æ˜¾ç¤ºå‚æ•°è¯¦ç»†ä¿¡æ¯
 	 */
 	public void dispDetail() {
 		propPanel.setElementInfo(elmInfo);
@@ -207,9 +207,9 @@ public class DialogPlotEdit extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ´°¿Ú¼àÌıÊÂ¼ş
+	 * çª—å£ç›‘å¬äº‹ä»¶
 	 * 
-	 * @param e ÊÂ¼ş
+	 * @param e äº‹ä»¶
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();

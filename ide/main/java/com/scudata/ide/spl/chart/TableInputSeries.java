@@ -17,21 +17,21 @@ import com.scudata.ide.spl.resources.*;
 import com.scudata.util.*;
 
 /**
- * ĞòÁĞÖµ±à¼­±í
+ * åºåˆ—å€¼ç¼–è¾‘è¡¨
  * 
  * @author Joancy
  *
  */
 public class TableInputSeries extends JTableEx {
 	private static final long serialVersionUID = 1L;
-	private int currCols;  //µ±Ç°ÕıÔÚ±à¼­µÄÊôĞÔÊı
+	private int currCols;  //å½“å‰æ­£åœ¨ç¼–è¾‘çš„å±æ€§æ•°
 	private TableParamEdit paramTable;
-	private String expColName = ChartMessage.get().getMessage( "label.exp" );  //"±í´ïÊ½";
-	private String nameColName = ChartMessage.get().getMessage( "label.paramname" ); //"²ÎÊıÃû";
+	private String expColName = ChartMessage.get().getMessage( "label.exp" );  //"è¡¨è¾¾å¼";
+	private String nameColName = ChartMessage.get().getMessage( "label.paramname" ); //"å‚æ•°å";
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param table ¶ÔÓ¦²ÎÊı±à¼­±í
+	 * æ„é€ å‡½æ•°
+	 * @param table å¯¹åº”å‚æ•°ç¼–è¾‘è¡¨
 	 */
 	public TableInputSeries( TableParamEdit table ) {
 		this.paramTable = table;
@@ -43,7 +43,7 @@ public class TableInputSeries extends JTableEx {
 		this.setRowHeight( 25 );
 		for( int i = 0; i < 10; i++ ) {
 			TableColumn tc = getColumn( i );
-			//±ØĞëÃ¿ÁĞnewÒ»¸öĞÂµÄrenderer£¬·ñÔò²éÕÒ²»µ½ÊÇ·ñµã»÷ÁË±¾ÁĞÍ·µÄ°´Å¥
+			//å¿…é¡»æ¯åˆ—newä¸€ä¸ªæ–°çš„rendererï¼Œå¦åˆ™æŸ¥æ‰¾ä¸åˆ°æ˜¯å¦ç‚¹å‡»äº†æœ¬åˆ—å¤´çš„æŒ‰é’®
 			tc.setHeaderRenderer( new HeaderRenderer() );
 			if( i % 2 == 0 ) tc.setPreferredWidth( 120 );
 			else {
@@ -57,12 +57,12 @@ public class TableInputSeries extends JTableEx {
 	}
 
 	/**
-	 * ´Ó²ÎÊı±íÌí¼ÓÒ»¸ö²ÎÊıÀ´±à¼­
-	 * @param row ²ÎÊıÔÚ²ÎÊı±íÖĞµÄĞĞºÅ
+	 * ä»å‚æ•°è¡¨æ·»åŠ ä¸€ä¸ªå‚æ•°æ¥ç¼–è¾‘
+	 * @param row å‚æ•°åœ¨å‚æ•°è¡¨ä¸­çš„è¡Œå·
 	 */
 	public void addParam2Edit( int row, Dialog owner ) {
 		if( currCols == 5 ) {
-			JOptionPane.showMessageDialog( this, ChartMessage.get().getMessage( "info.maxparams" ) );  //"ÔÊĞí×î¶àÍ¬Ê±±à¼­5¸ö²ÎÊı£¡" );
+			JOptionPane.showMessageDialog( this, ChartMessage.get().getMessage( "info.maxparams" ) );  //"å…è®¸æœ€å¤šåŒæ—¶ç¼–è¾‘5ä¸ªå‚æ•°ï¼" );
 			return;
 		}
 		for( int i = 1; i <= currCols; i++ ) {
@@ -94,7 +94,7 @@ public class TableInputSeries extends JTableEx {
 		nameTc.setPreferredWidth( w );
 		currCols++;
 
-		//ÉèÖÃĞÂ¼ÓÁĞÃ¿ĞĞµÄÖµ
+		//è®¾ç½®æ–°åŠ åˆ—æ¯è¡Œçš„å€¼
 		EachRowEditor ere = (EachRowEditor)paramTable.getCellEditor( row, TableParamEdit.iVALUECOL );
 		TableCellEditor tce = ere.selectEditor( paramTable, row, TableParamEdit.iEDITSTYLECOL );
 		nameTc.setCellEditor( tce );
@@ -109,7 +109,7 @@ public class TableInputSeries extends JTableEx {
 		}
 		boolean isCC = isChartColor( o );
 		ParamInfo info = (ParamInfo) paramTable.getModel().getValueAt( row,  TableParamEdit.iOBJCOL );
-		if( o == null || o.toString().trim().length() == 0 || isCC ) {  //Ã»ÓĞ±í´ïÊ½
+		if( o == null || o.toString().trim().length() == 0 || isCC ) {  //æ²¡æœ‰è¡¨è¾¾å¼
 			o = paramTable.getModel().getValueAt( row, 2 );
 			for( int i = 0; i < this.getRowCount(); i++ ) {
 				if( i == 0 ) data.setValueAt( o, i, nameIndex );
@@ -117,11 +117,11 @@ public class TableInputSeries extends JTableEx {
 				data.setValueAt( "", i, expIndex );
 			}
 		}
-		else {   //ÊÇ±í´ïÊ½
+		else {   //æ˜¯è¡¨è¾¾å¼
 			String exp = ((String)paramTable.getModel().getValueAt( row, 3 )).trim();
 			if( exp.startsWith( "[" ) && !isCC ) {
 				if( !exp.endsWith( "]" ) ) {
-					JOptionPane.showMessageDialog( this, exp + ChartMessage.get().getMessage( "info.nozkh" ) );  //"È±ÉÙ]" );
+					JOptionPane.showMessageDialog( this, exp + ChartMessage.get().getMessage( "info.nozkh" ) );  //"ç¼ºå°‘]" );
 					return;
 				}
 				exp = exp.substring( 1, exp.length() - 1 ).trim();
@@ -134,7 +134,7 @@ public class TableInputSeries extends JTableEx {
 					if( at.hasMoreTokens() ) {
 						String tmp = at.nextToken().trim();
 						Object val = PgmNormalCell.parseConstValue( tmp );
-						if ( Variant.isEquals( tmp, val ) || isChartColor( val ) ) { //ËµÃ÷ÊÇ±í´ïÊ½
+						if ( Variant.isEquals( tmp, val ) || isChartColor( val ) ) { //è¯´æ˜æ˜¯è¡¨è¾¾å¼
 							data.setValueAt( tmp, r, expIndex );
 							data.setValueAt( TableParamEdit.toValueObject( info, tmp ), r, nameIndex );
 						}
@@ -148,7 +148,7 @@ public class TableInputSeries extends JTableEx {
 					}
 				}
 			}
-			else {   //ÆÕÍ¨±í´ïÊ½»òChartColor
+			else {   //æ™®é€šè¡¨è¾¾å¼æˆ–ChartColor
 				for( int i = 0; i < this.getRowCount(); i++ ) {
 					if( i == 0 ) {
 						if( isCC ) {
@@ -172,9 +172,9 @@ public class TableInputSeries extends JTableEx {
 	}
 
 	/**
-	 * ÊÇ·ñÊÇChartColor
-	 * @param o ²ÎÊıÖµ
-	 * @return Èç¹ûÊÇChartColorÀàµÄ²ÎÊıÖµ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦æ˜¯ChartColor
+	 * @param o å‚æ•°å€¼
+	 * @return å¦‚æœæ˜¯ChartColorç±»çš„å‚æ•°å€¼è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isChartColor( Object o ) {
 		if( !( o instanceof Sequence ) ) return false;
@@ -195,8 +195,8 @@ public class TableInputSeries extends JTableEx {
 	}
 
 	/**
-	 * É¾³ıÖ¸¶¨Î»ÖÃµÄ²ÎÊıÖµ
-	 * @param colIndex ĞòºÅ
+	 * åˆ é™¤æŒ‡å®šä½ç½®çš„å‚æ•°å€¼
+	 * @param colIndex åºå·
 	 */
 	public void deleteParam( int colIndex ) {
 		if( currCols == 0 ) return;
@@ -229,7 +229,7 @@ public class TableInputSeries extends JTableEx {
 	}
 
 	/**
-	 * ×·¼ÓÒ»ĞĞ
+	 * è¿½åŠ ä¸€è¡Œ
 	 */
 	public void myAddRow() {
 		int row = this.addRow();
@@ -242,7 +242,7 @@ public class TableInputSeries extends JTableEx {
 	}
 
 	/**
-	 * ÔÚµ±Ç°ĞĞÇ°²åÈëÒ»ĞĞ
+	 * åœ¨å½“å‰è¡Œå‰æ’å…¥ä¸€è¡Œ
 	 */
 	public void myInsertRow() {
 		int row = this.insertRow( this.getSelectedRow(), null );
@@ -255,7 +255,7 @@ public class TableInputSeries extends JTableEx {
 	}
 
 	/**
-	 * É¾³ıµ±Ç°ĞĞ
+	 * åˆ é™¤å½“å‰è¡Œ
 	 */
 	public void myDelRow() {
 		if( this.deleteSelectedRows() ) updateParams();
@@ -280,12 +280,12 @@ public class TableInputSeries extends JTableEx {
 	}
 
 	/**
-	 * Ä³¸öµ¥Ôª¸ñ±»ĞŞ¸Äºó´¥·¢
+	 * æŸä¸ªå•å…ƒæ ¼è¢«ä¿®æ”¹åè§¦å‘
 	 */
 	public void setValueAt( Object aValue, int row, int column ) {
 		Object oldValue = getValueAt( row, column );
 		int nameIndex, expIndex;
-		if( column % 2 == 1 ) {  //±í´ïÊ½ÁĞ
+		if( column % 2 == 1 ) {  //è¡¨è¾¾å¼åˆ—
 			aValue = aValue.toString().trim();
 			if( oldValue == null ) oldValue = "";
 			expIndex = column;
@@ -303,10 +303,10 @@ public class TableInputSeries extends JTableEx {
 
 		ParamInfo info = getParamInfo( column );
 		if( info == null ) return;
-		if ( column % 2 == 0 ) { //ÊäÈëÖµ£¬ÒªÔÚ±í´ïÊ½ÁĞÏÔÊ¾ÏÂÀ­µÈÊäÈë·½Ê½Ñ¡ÔñµÄÖµ
+		if ( column % 2 == 0 ) { //è¾“å…¥å€¼ï¼Œè¦åœ¨è¡¨è¾¾å¼åˆ—æ˜¾ç¤ºä¸‹æ‹‰ç­‰è¾“å…¥æ–¹å¼é€‰æ‹©çš„å€¼
 			super.setValueAt( TableParamEdit.toExpString( info, aValue ), row, expIndex );
 		}
-		else { //ÊäÈë±í´ïÊ½£¬Òª½«ÄÜ½âÎöµÄÖµÏÔÊ¾³ÉÖµÁĞ¶ÔÓ¦µÄÏÔÊ¾Öµ
+		else { //è¾“å…¥è¡¨è¾¾å¼ï¼Œè¦å°†èƒ½è§£æçš„å€¼æ˜¾ç¤ºæˆå€¼åˆ—å¯¹åº”çš„æ˜¾ç¤ºå€¼
 			super.setValueAt( TableParamEdit.toValueObject( info, aValue.toString() ), row, nameIndex );
 		}
 		updateParams();
@@ -326,7 +326,7 @@ public class TableInputSeries extends JTableEx {
 			}
 			String exps = "";
 			if( expo != null ) exps = expo.toString().trim();
-			if( exps.length() == 0 ) {   //Ã»ÓĞ±í´ïÊ½
+			if( exps.length() == 0 ) {   //æ²¡æœ‰è¡¨è¾¾å¼
 				if( o == null ) o = "";
 				
 				Object obj = Variant.parse(o.toString(), false);
@@ -367,7 +367,7 @@ public class TableInputSeries extends JTableEx {
 	}
 
 	/**
-	 * ½«µ±Ç°±à¼­±íµÄĞòÁĞÖµ¸üĞÂµ½²ÎÊı±à¼­±í
+	 * å°†å½“å‰ç¼–è¾‘è¡¨çš„åºåˆ—å€¼æ›´æ–°åˆ°å‚æ•°ç¼–è¾‘è¡¨
 	 */
 	public void updateParams() {
 		acceptText();
@@ -377,7 +377,7 @@ public class TableInputSeries extends JTableEx {
 	}
 
 	/**
-	 * ½ÓÊÜµ±Ç°µÄ±à¼­Öµ
+	 * æ¥å—å½“å‰çš„ç¼–è¾‘å€¼
 	 */
 	public void acceptText() {
 		if ( this.isEditing() ) {

@@ -10,7 +10,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ·ÇÔËËã·û£º!
+ * éè¿ç®—ç¬¦ï¼š!
  * @author RunQian
  *
  */
@@ -20,7 +20,7 @@ public class Not extends Operator {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (right == null) {
@@ -36,7 +36,7 @@ public class Not extends Operator {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+	 * åˆ¤æ–­æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 	 * @return
 	 */
 	public boolean canCalculateAll() {
@@ -44,8 +44,8 @@ public class Not extends Operator {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -54,10 +54,10 @@ public class Not extends Operator {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -66,9 +66,9 @@ public class Not extends Operator {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {

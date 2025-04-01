@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import com.scudata.dm.Env;
 
 /**
- * Ïß³Ì³Ø¶ÔÏó£¬ÓÃÓÚ¶àÏß³Ì´¦ÀíÈÎÎñ
- * Ïß³ÌÊıÁ¿²ÉÓÃEnv.getParallelNum()
+ * çº¿ç¨‹æ± å¯¹è±¡ï¼Œç”¨äºå¤šçº¿ç¨‹å¤„ç†ä»»åŠ¡
+ * çº¿ç¨‹æ•°é‡é‡‡ç”¨Env.getParallelNum()
  * @author WangXiaoJun
  *
  */
@@ -15,9 +15,9 @@ public class ThreadPool{
 
 	private WorkThread[] threads;
 	private LinkedList<Job> jobList = new LinkedList<Job>();
-	private boolean shutdown; // ÊÇ·ñ¹Ø±ÕÏß³Ì
+	private boolean shutdown; // æ˜¯å¦å…³é—­çº¿ç¨‹
 
-	// Ïß³Ì³ØÆô¶¯µÄ¹¤×÷Ïß³Ì
+	// çº¿ç¨‹æ± å¯åŠ¨çš„å·¥ä½œçº¿ç¨‹
 	private class WorkThread extends Thread {
 		private WorkThread(ThreadGroup group, String name) {
 			super(group, name);
@@ -25,14 +25,14 @@ public class ThreadPool{
 
 		public void run() {
 			while (true) {
-				// ¶ÔÈÎÎñÁĞ±í×öÍ¬²½
+				// å¯¹ä»»åŠ¡åˆ—è¡¨åšåŒæ­¥
 				synchronized(jobList) {
 					if (shutdown) {
-						// Ïß³Ì³Øµ÷ÓÃÁË¹Ø±Õ£¬½áÊøÏß³Ì
+						// çº¿ç¨‹æ± è°ƒç”¨äº†å…³é—­ï¼Œç»“æŸçº¿ç¨‹
 						return;
 					}
 
-					// Èç¹ûÃ»ÓĞÈÎÎñÔòµÈ´ı
+					// å¦‚æœæ²¡æœ‰ä»»åŠ¡åˆ™ç­‰å¾…
 					if (jobList.size() == 0) {
 						try {
 							jobList.wait();
@@ -44,7 +44,7 @@ public class ThreadPool{
 					}
 				}
 
-				// °ÑµÚÒ»¸öÈÎÎñÈ¡³ö²¢Ö´ĞĞ
+				// æŠŠç¬¬ä¸€ä¸ªä»»åŠ¡å–å‡ºå¹¶æ‰§è¡Œ
 				Job job = null;
 				synchronized(jobList) {
 					if (jobList.size() > 0) {
@@ -67,7 +67,7 @@ public class ThreadPool{
 
 	private ThreadPool(int threadCount) {
 		ThreadGroup group = Thread.currentThread().getThreadGroup();
-		// ¸ù×é²»ÊÇide²úÉúµÄ£¬ide»áµ÷ÓÃide²úÉúµÄÏß³Ì×éµÄ½áÊøÏß³Ì·½·¨£¬´Ë·½·¨»áµİ¹é½áÊøÏÂÃæËùÓĞÏß³Ì×éµÄÏß³Ì
+		// æ ¹ç»„ä¸æ˜¯ideäº§ç”Ÿçš„ï¼Œideä¼šè°ƒç”¨ideäº§ç”Ÿçš„çº¿ç¨‹ç»„çš„ç»“æŸçº¿ç¨‹æ–¹æ³•ï¼Œæ­¤æ–¹æ³•ä¼šé€’å½’ç»“æŸä¸‹é¢æ‰€æœ‰çº¿ç¨‹ç»„çš„çº¿ç¨‹
 		/*while (true) {
 			ThreadGroup g = group.getParent();
 			if (g == null) {
@@ -86,7 +86,7 @@ public class ThreadPool{
 	}
 
 	/**
-	 * È¡µÃÏß³Ì³Ø£¬Ïß³ÌÊıÎªEnv.getCallxParallelNum()ºÍMAX_THREAD_COUNTÖĞµÄĞ¡Õß£¬²¢ÇÒ²»Ğ¡ÓÚ2
+	 * å–å¾—çº¿ç¨‹æ± ï¼Œçº¿ç¨‹æ•°ä¸ºEnv.getCallxParallelNum()å’ŒMAX_THREAD_COUNTä¸­çš„å°è€…ï¼Œå¹¶ä¸”ä¸å°äº2
 	 * @return ThreadPool
 	 */
 	public static synchronized ThreadPool instance() {
@@ -98,7 +98,7 @@ public class ThreadPool{
 
 			instance = new ThreadPool(n);
 		} else {
-			// ¼ì²éÊÇ·ñÓĞÏß³ÌËÀµô
+			// æ£€æŸ¥æ˜¯å¦æœ‰çº¿ç¨‹æ­»æ‰
 			WorkThread[] threads = instance.threads;
 			for (int i = 0, len = threads.length; i < len; ++i) {
 				if (!threads[i].isAlive()) {
@@ -113,8 +113,8 @@ public class ThreadPool{
 	}
 	
 	/**
-	 * ĞÂ²úÉúÒ»¸öÏß³Ì³Ø
-	 * @param threadCount Ïß³ÌÊı£¬Èç¹û³¬¹ıÁËÅäÖÃµÄ×î´ó²¢ĞĞÊıÔò²ÉÓÃ×î´ó²¢ĞĞÊı
+	 * æ–°äº§ç”Ÿä¸€ä¸ªçº¿ç¨‹æ± 
+	 * @param threadCount çº¿ç¨‹æ•°ï¼Œå¦‚æœè¶…è¿‡äº†é…ç½®çš„æœ€å¤§å¹¶è¡Œæ•°åˆ™é‡‡ç”¨æœ€å¤§å¹¶è¡Œæ•°
 	 * @return ThreadPool
 	 */
 	public static synchronized ThreadPool newInstance(int threadCount) {
@@ -131,8 +131,8 @@ public class ThreadPool{
 	}
 
 	/**
-	 * ½Úµã»úĞèÒªÑÏ¸ñ´®ĞĞÖ´ĞĞ£¬ĞèÒªÖ§³Ö1¸ö¶ÓÁĞ
-	 * @param size Ïß³ÌÊı
+	 * èŠ‚ç‚¹æœºéœ€è¦ä¸¥æ ¼ä¸²è¡Œæ‰§è¡Œï¼Œéœ€è¦æ”¯æŒ1ä¸ªé˜Ÿåˆ—
+	 * @param size çº¿ç¨‹æ•°
 	 * @return
 	 */
 	public static synchronized ThreadPool newSpecifiedInstance(int size) {
@@ -145,7 +145,7 @@ public class ThreadPool{
 	}
 
 	/**
-	 * ¹Ø±ÕÒÑ¾­²úÉúÏß³Ì³ØÊµÀı£¬¸ÃÏß³Ì³ØÊµÀı²»ÄÜ¼ÌĞøÊ¹ÓÃ
+	 * å…³é—­å·²ç»äº§ç”Ÿçº¿ç¨‹æ± å®ä¾‹ï¼Œè¯¥çº¿ç¨‹æ± å®ä¾‹ä¸èƒ½ç»§ç»­ä½¿ç”¨
 	 */
 	public synchronized void shutdown() {
 		shutdown = true;
@@ -156,7 +156,7 @@ public class ThreadPool{
 	}
 
 	/**
-	 * Ìá½»Ò»¸öÈÎÎñ£¬Á¢¼´·µ»Ø£¬job.joinµÈ´ıÈÎÎñ½áÊø
+	 * æäº¤ä¸€ä¸ªä»»åŠ¡ï¼Œç«‹å³è¿”å›ï¼Œjob.joinç­‰å¾…ä»»åŠ¡ç»“æŸ
 	 * @param job Job
 	 */
 	public void submit(Job job) {
@@ -178,7 +178,7 @@ public class ThreadPool{
 	}
 
 	/**
-	 * ·µ»ØÏß³Ì³ØÀïµÄÏß³ÌÊıÁ¿
+	 * è¿”å›çº¿ç¨‹æ± é‡Œçš„çº¿ç¨‹æ•°é‡
 	 * @return
 	 */
 	public int getThreadCount() {

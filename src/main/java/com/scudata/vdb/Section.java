@@ -15,19 +15,19 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Êı¾İ¿âÀïµÄ½Ú
+ * æ•°æ®åº“é‡Œçš„èŠ‚
  * @author WangXiaoJun
  *
  */
 class Section extends ISection {
-	private int header; // Ê×¿éºÅ
-	private volatile HeaderBlock headerBlock; // Ê×¿éÄÚÈİ£¬Êµ¼ÊÓÃµÄÊ±ºòÔÙÉú³É
+	private int header; // é¦–å—å·
+	private volatile HeaderBlock headerBlock; // é¦–å—å†…å®¹ï¼Œå®é™…ç”¨çš„æ—¶å€™å†ç”Ÿæˆ
 	
-	private Dir dir; // ½Ú¶ÔÓ¦µÄÄ¿Â¼ĞÅÏ¢
-	private volatile VDB lockVDB; // Ëø¶¨µ±Ç°½ÚµÄÂß¼­¿â
-	private boolean isModified; // ÊÇ·ñ±»ĞŞ¸ÄÁË
+	private Dir dir; // èŠ‚å¯¹åº”çš„ç›®å½•ä¿¡æ¯
+	private volatile VDB lockVDB; // é”å®šå½“å‰èŠ‚çš„é€»è¾‘åº“
+	private boolean isModified; // æ˜¯å¦è¢«ä¿®æ”¹äº†
 	
-	// ´´½¨ĞÂ½Ú
+	// åˆ›å»ºæ–°èŠ‚
 	public Section(Dir dir) {
 		headerBlock = new HeaderBlock();
 		this.dir = dir;
@@ -40,14 +40,14 @@ class Section extends ISection {
 		headerBlock.read(bytes, this);
 	}
 
-	// ´ÓÊı¾İ¿â¶ÁÈ¡½Ú
+	// ä»æ•°æ®åº“è¯»å–èŠ‚
 	/*public Section(Library library, int header, Dir dir) {
 		this.header = header;
 		this.dir = dir;
 		headerBlock = readHeaderBlock(library, header);
 	}
 
-	// ¶ÁÊ×¿é
+	// è¯»é¦–å—
 	private HeaderBlock readHeaderBlock(Library library, int block) {
 		try {
 			HeaderBlock headerBlock = new HeaderBlock();
@@ -64,7 +64,7 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * È¡½Ú¶ÔÓ¦µÄÂ·¾¶¶ÔÏó
+	 * å–èŠ‚å¯¹åº”çš„è·¯å¾„å¯¹è±¡
 	 * @return
 	 */
 	public IDir getDir() {
@@ -72,7 +72,7 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ·µ»Ø´Ë½ÚÊÇ·ñÓĞ±íµ¥
+	 * è¿”å›æ­¤èŠ‚æ˜¯å¦æœ‰è¡¨å•
 	 * @return
 	 */
 	public boolean isFile() {
@@ -80,7 +80,7 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ·µ»Ø´Ë½ÚÊÇ·ñÊÇÂ·¾¶£¬¼´ÊÇ·ñÓĞ×Ó
+	 * è¿”å›æ­¤èŠ‚æ˜¯å¦æ˜¯è·¯å¾„ï¼Œå³æ˜¯å¦æœ‰å­
 	 * @return
 	 */
 	public boolean isDir() {
@@ -96,7 +96,7 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * È¡½ÚµÄ¸¸½Ú
+	 * å–èŠ‚çš„çˆ¶èŠ‚
 	 * @return Section
 	 */
 	public Section getParentSection() {
@@ -108,10 +108,10 @@ class Section extends ISection {
 	}
 
 	/**
-	 * È¡×Ó½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param path ×ÓÂ·¾¶Öµ
-	 * @return ×Ó½Ú
+	 * å–å­èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param path å­è·¯å¾„å€¼
+	 * @return å­èŠ‚
 	 */
 	public ISection getSub(VDB vdb, Object path) {
 		if (headerBlock.isKeySection()) {
@@ -133,12 +133,12 @@ class Section extends ISection {
 		return zone.getSection(vdb.getLibrary(), subDir);
 	}
 	
-	// Ëø¶¨×îºóÒ»¸öSection
+	// é”å®šæœ€åä¸€ä¸ªSection
 	private Section getSubForWrite(VDB vdb, Sequence paths, Sequence names) {
 		int pcount = paths.length();
 		int diff = pcount;
 		
-		// namesµÄ³¤¶È¿ÉÒÔ±Èpaths¶Î£¬´ÓºóÏòÇ°¶ÔÓ¦
+		// namesçš„é•¿åº¦å¯ä»¥æ¯”pathsæ®µï¼Œä»åå‘å‰å¯¹åº”
 		if (names != null) {
 			diff -= names.length();
 		}
@@ -157,9 +157,9 @@ class Section extends ISection {
 		return sub;
 	}
 		
-	// Ğ´µÄÊ±ºòÕÒÇøÎ»×ÜÊÇÕÒ×îĞÂµÄ£¬¸úÊÂÎñºÅÃ»¹ØÏµ
-	// ±ğµÄÊÂÎñÈç¹ûÔÚĞŞ¸ÄÂ·¾¶¾ÍµÈ´ı
-	// Èç¹ûÂ·¾¶²»´æÔÚÔò´´½¨²¢Ëø×¡£¬Èç¹ûÃ»ÓĞĞŞ¸ÄÂ·¾¶isLockÖ¸Ê¾ÊÇ·ñ¼ÓËø
+	// å†™çš„æ—¶å€™æ‰¾åŒºä½æ€»æ˜¯æ‰¾æœ€æ–°çš„ï¼Œè·Ÿäº‹åŠ¡å·æ²¡å…³ç³»
+	// åˆ«çš„äº‹åŠ¡å¦‚æœåœ¨ä¿®æ”¹è·¯å¾„å°±ç­‰å¾…
+	// å¦‚æœè·¯å¾„ä¸å­˜åœ¨åˆ™åˆ›å»ºå¹¶é”ä½ï¼Œå¦‚æœæ²¡æœ‰ä¿®æ”¹è·¯å¾„isLockæŒ‡ç¤ºæ˜¯å¦åŠ é”
 	private Section getSubForWrite(VDB vdb, Object path, String name) {
 		if (headerBlock.isKeySection()) {
 			Dir dir = headerBlock.getSubKeyDir(path);
@@ -209,10 +209,10 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * È¡×Ó½ÚÓÃÀ´×öÒÆ¶¯²Ù×÷
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param path ×ÓÂ·¾¶Öµ
-	 * @return ×Ó½Ú
+	 * å–å­èŠ‚ç”¨æ¥åšç§»åŠ¨æ“ä½œ
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param path å­è·¯å¾„å€¼
+	 * @return å­èŠ‚
 	 */
 	public Section getSubForMove(VDB vdb, Object path) {
 		if (headerBlock.isKeySection()) {
@@ -236,10 +236,10 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * È¡×Ó½ÚÓÃÀ´×öÒÆ¶¯²Ù×÷
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param paths ×ÓÂ·¾¶ÖµĞòÁĞ
-	 * @return ×Ó½Ú
+	 * å–å­èŠ‚ç”¨æ¥åšç§»åŠ¨æ“ä½œ
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param paths å­è·¯å¾„å€¼åºåˆ—
+	 * @return å­èŠ‚
 	 */
 	public Section getSubForMove(VDB vdb, Sequence paths) {
 		Section sub = this;
@@ -254,7 +254,7 @@ class Section extends ISection {
 	}
 		
 	/**
-	 * Ëø×¡µ«¿ÉÄÜ²»ĞŞ¸ÄÈ»ºó½âËø
+	 * é”ä½ä½†å¯èƒ½ä¸ä¿®æ”¹ç„¶åè§£é”
 	 * @param vdb
 	 * @return
 	 */
@@ -265,7 +265,7 @@ class Section extends ISection {
 		} else if (lockVDB != vdb) {
 			try {
 				wait(Library.MAXWAITTIME);
-				if (lockVDB != null) { // ³¬Ê±
+				if (lockVDB != null) { // è¶…æ—¶
 					vdb.setError(VDB.S_LOCKTIMEOUT);
 					return VDB.S_LOCKTIMEOUT;
 				} else {
@@ -282,7 +282,7 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * Ëø×¡²¢ĞŞ¸Ä
+	 * é”ä½å¹¶ä¿®æ”¹
 	 */
 	public synchronized int lockForWrite(VDB vdb) {
 		if (lockVDB == null) {
@@ -292,7 +292,7 @@ class Section extends ISection {
 		} else if (lockVDB != vdb) {
 			try {
 				wait(Library.MAXWAITTIME);
-				if (lockVDB != null) { // ³¬Ê±
+				if (lockVDB != null) { // è¶…æ—¶
 					vdb.setError(VDB.S_LOCKTIMEOUT);
 					return VDB.S_LOCKTIMEOUT;
 				} else {
@@ -310,7 +310,7 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ½âËøµ±Ç°½Ú
+	 * è§£é”å½“å‰èŠ‚
 	 */
 	public synchronized void unlock() {
 		isModified = false;
@@ -319,8 +319,8 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ½âËøµ±Ç°½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
+	 * è§£é”å½“å‰èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
 	 */
 	public synchronized void unlock(VDB vdb) {
 		if (lockVDB == vdb) {
@@ -335,8 +335,8 @@ class Section extends ISection {
 	}
 
 	/**
-	 * »Ø¹öµ±Ç°ÊÂÎñËù×öµÄĞŞ¸Ä
-	 * @param library Êı¾İ¿â¶ÔÏó
+	 * å›æ»šå½“å‰äº‹åŠ¡æ‰€åšçš„ä¿®æ”¹
+	 * @param library æ•°æ®åº“å¯¹è±¡
 	 */
 	public void rollBack(Library library) {
 		if (isModified) {
@@ -347,10 +347,10 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ÁĞ³öµ±Ç°½ÚÏÂËùÓĞµÄ×ÓÎÄ¼ş½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param opt d£ºÁĞ³ö×ÓÄ¿Â¼½Ú£¬w£º²»Çø·ÖÎÄ¼şºÍÄ¿Â¼È«²¿ÁĞ³ö£¬l£ºËø¶¨µ±Ç°½Ú
-	 * @return ×Ó½ÚĞòÁĞ
+	 * åˆ—å‡ºå½“å‰èŠ‚ä¸‹æ‰€æœ‰çš„å­æ–‡ä»¶èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param opt dï¼šåˆ—å‡ºå­ç›®å½•èŠ‚ï¼Œwï¼šä¸åŒºåˆ†æ–‡ä»¶å’Œç›®å½•å…¨éƒ¨åˆ—å‡ºï¼Œlï¼šé”å®šå½“å‰èŠ‚
+	 * @return å­èŠ‚åºåˆ—
 	 */
 	public Sequence list(VDB vdb, String opt) {
 		Dir []dirs = headerBlock.getSubDirs();
@@ -397,10 +397,10 @@ class Section extends ISection {
 	}
 
 	/**
-	 * ¶ÁÈ¡µ±Ç°½ÚµÄ±íµ¥
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param opt l£ºËø¶¨µ±Ç°½Ú
-	 * @return ±íµ¥Êı¾İ
+	 * è¯»å–å½“å‰èŠ‚çš„è¡¨å•
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param opt lï¼šé”å®šå½“å‰èŠ‚
+	 * @return è¡¨å•æ•°æ®
 	 * @throws IOException
 	 */
 	public Object load(VDB vdb, String opt) throws IOException {
@@ -420,9 +420,9 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ±£´æÖµµ½µ±Ç°±íµ¥ÖĞ
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param value Öµ£¬Í¨³£ÊÇÅÅÁĞ
+	 * ä¿å­˜å€¼åˆ°å½“å‰è¡¨å•ä¸­
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param value å€¼ï¼Œé€šå¸¸æ˜¯æ’åˆ—
 	 * @return
 	 */
 	public int save(VDB vdb, Object value) {
@@ -439,12 +439,12 @@ class Section extends ISection {
 	}
 
 	/**
-	 * ±£´æÖµµ½×Ó±íµ¥ÖĞ
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param value Öµ£¬Í¨³£ÊÇÅÅÁĞ
-	 * @param path ×Ó½ÚÖµ»ò×Ó½ÚÖµĞòÁĞ
-	 * @param name ×Ó½ÚÃû»ò×Ó½ÚÃûĞòÁĞ
-	 * @return 0£º³É¹¦
+	 * ä¿å­˜å€¼åˆ°å­è¡¨å•ä¸­
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param value å€¼ï¼Œé€šå¸¸æ˜¯æ’åˆ—
+	 * @param path å­èŠ‚å€¼æˆ–å­èŠ‚å€¼åºåˆ—
+	 * @param name å­èŠ‚åæˆ–å­èŠ‚ååºåˆ—
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	public int save(VDB vdb, Object value, Object path, Object name) {
 		Section sub;
@@ -486,11 +486,11 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ´´½¨×ÓÂ·¾¶
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param path ×Ó½ÚÖµ»ò×Ó½ÚÖµĞòÁĞ
-	 * @param name ×Ó½ÚÃû»ò×Ó½ÚÃûĞòÁĞ
-	 * @return 0£º³É¹¦
+	 * åˆ›å»ºå­è·¯å¾„
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param path å­èŠ‚å€¼æˆ–å­èŠ‚å€¼åºåˆ—
+	 * @param name å­èŠ‚åæˆ–å­èŠ‚ååºåˆ—
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	public int makeDir(VDB vdb, Object path, Object name) {
 		Section sub;
@@ -532,14 +532,14 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ´´½¨¼ü¿â½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param key ¼ü¿âÃû³Æ
-	 * @param len ¹şÏ£³¤¶È
-	 * @return 0£º³É¹¦
+	 * åˆ›å»ºé”®åº“èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param key é”®åº“åç§°
+	 * @param len å“ˆå¸Œé•¿åº¦
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	public int createSubKeyDir(VDB vdb, Object key, int len) {
-		// Ëø×¡²¢Ìá½»ĞŞ¸Ä
+		// é”ä½å¹¶æäº¤ä¿®æ”¹
 		int result = lockForWrite(vdb);
 		if (result == VDB.S_LOCKTIMEOUT) {
 			return result;
@@ -556,12 +556,12 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ±£´æ¸½¼ş£¬Í¨³£ÊÇÍ¼Æ¬
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param oldValues ÉÏÒ»´Îµ÷ÓÃ´Îº¯ÊıµÄ·µ»ØÖµ
-	 * @param newValues ĞŞ¸ÄºóµÄÖµ
-	 * @param name ½ÚÃû
-	 * @return ÖµĞòÁĞ£¬ÓÃÓÚÏÂÒ»´Îµ÷ÓÃ´Ëº¯Êı
+	 * ä¿å­˜é™„ä»¶ï¼Œé€šå¸¸æ˜¯å›¾ç‰‡
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param oldValues ä¸Šä¸€æ¬¡è°ƒç”¨æ¬¡å‡½æ•°çš„è¿”å›å€¼
+	 * @param newValues ä¿®æ”¹åçš„å€¼
+	 * @param name èŠ‚å
+	 * @return å€¼åºåˆ—ï¼Œç”¨äºä¸‹ä¸€æ¬¡è°ƒç”¨æ­¤å‡½æ•°
 	 */
 	public Sequence saveBlob(VDB vdb, Sequence oldValues, Sequence newValues, String name) {
 		ArrayList<Object> deleteList = new ArrayList<Object>();
@@ -692,7 +692,7 @@ class Section extends ISection {
 		if (zone != null) {
 			Object data = zone.getData(library);
 			addDataToTable(table, values, signs, data, filter, ctx);
-			// Èç¹ûÓĞµ¥¾İÂú×ãÁËÑ¡³ö×Ö¶ÎÔò²»ÔÙ±éÀú×Ó
+			// å¦‚æœæœ‰å•æ®æ»¡è¶³äº†é€‰å‡ºå­—æ®µåˆ™ä¸å†éå†å­
 			//if (isAdded) {
 			//	return;
 			//}
@@ -752,7 +752,7 @@ class Section extends ISection {
 		if (zone != null) {
 			Object data = zone.getData(library);
 			addDataToTable(table, values, signs, data);
-			// Èç¹ûÓĞµ¥¾İÂú×ãÁËÑ¡³ö×Ö¶ÎÔò²»ÔÙ±éÀú×Ó
+			// å¦‚æœæœ‰å•æ®æ»¡è¶³äº†é€‰å‡ºå­—æ®µåˆ™ä¸å†éå†å­
 			//if (isAdded) {
 			//	return;
 			//}
@@ -795,10 +795,10 @@ class Section extends ISection {
 					out.addAll(seq);
 				}
 
-				// Èç¹ûÓĞµ¥¾İÂú×ãÁËÑ¡³ö×Ö¶ÎÔò²»ÔÙ±éÀú×Ó£¿
+				// å¦‚æœæœ‰å•æ®æ»¡è¶³äº†é€‰å‡ºå­—æ®µåˆ™ä¸å†éå†å­ï¼Ÿ
 			}
 			
-			// ²»µİ¹é±éÀúËùÓĞ×Ó½Úµã
+			// ä¸é€’å½’éå†æ‰€æœ‰å­èŠ‚ç‚¹
 			if (!isRecursion) {
 				return;
 			}
@@ -823,17 +823,17 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ¸üĞÂÖ¸¶¨±íµ¥ÀïµÄ×Ö¶ÎÖµ
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param dirNames Â·¾¶ÃûÊı×é
-	 * @param dirValues Â·¾¶ÖµÊı×é
-	 * @param valueSigns true£º¶ÔÄ¿Â¼ÌáÌõ¼ş£¬´ËÊ±Èç¹û´«ÈëµÄÄ¿Â¼ÖµÊÇnull£¬Ôò»áÑ¡ÖµÊÇnullµÄÄ¿Â¼£¬false£ºÊ¡ÂÔÄ¿Â¼Öµ£¬¼´²»¶Ô´ËÄ¿Â¼ÌáÌõ¼ş
-	 * @param fvals ±íµ¥ÀïÒªĞŞ¸ÄµÄ×Ö¶ÎÖµÊı×é
-	 * @param fields ±íµ¥ÀïÒªĞŞ¸ÄµÄ×Ö¶ÎÃûÊı×é
-	 * @param exp Ìõ¼ş±í´ïÊ½
-	 * @param isRecursion true£º¹éÈ¥ÕÒ×ÓÂ·¾¶£¬È±Ê¡½«¶Áµ½²ÎÊıËùÉæ¼°²ã¼´Í£Ö¹
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return 0£º³É¹¦
+	 * æ›´æ–°æŒ‡å®šè¡¨å•é‡Œçš„å­—æ®µå€¼
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param dirNames è·¯å¾„åæ•°ç»„
+	 * @param dirValues è·¯å¾„å€¼æ•°ç»„
+	 * @param valueSigns trueï¼šå¯¹ç›®å½•ææ¡ä»¶ï¼Œæ­¤æ—¶å¦‚æœä¼ å…¥çš„ç›®å½•å€¼æ˜¯nullï¼Œåˆ™ä¼šé€‰å€¼æ˜¯nullçš„ç›®å½•ï¼Œfalseï¼šçœç•¥ç›®å½•å€¼ï¼Œå³ä¸å¯¹æ­¤ç›®å½•ææ¡ä»¶
+	 * @param fvals è¡¨å•é‡Œè¦ä¿®æ”¹çš„å­—æ®µå€¼æ•°ç»„
+	 * @param fields è¡¨å•é‡Œè¦ä¿®æ”¹çš„å­—æ®µåæ•°ç»„
+	 * @param exp æ¡ä»¶è¡¨è¾¾å¼
+	 * @param isRecursion trueï¼šå½’å»æ‰¾å­è·¯å¾„ï¼Œç¼ºçœå°†è¯»åˆ°å‚æ•°æ‰€æ¶‰åŠå±‚å³åœæ­¢
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	public int update(VDB vdb, String []dirNames, Object []dirValues, boolean []valueSigns, 
 			Object []fvals, String []fields, Expression exp, boolean isRecursion, Context ctx) {
@@ -895,9 +895,9 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * É¾³ıµ±Ç°½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @return 0£º³É¹¦
+	 * åˆ é™¤å½“å‰èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	public int delete(VDB vdb) {
 		Section parent = getParentSection();
@@ -923,15 +923,15 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ÓÃÓÚÊı¾İ¿âµÄÎ¬»¤£¬Ö´ĞĞ´Ë²Ù×÷Ê±Ó¦¸ÃÍ£Ö¹·şÎñ
-	 * Èç¹û´Ë½ÚµãÎª¿ÕÔòÉ¾³ı£¬·ñÔòÉ¾³ı´Ë½ÚµãÏÂµÄ¿Õ×Ó½Úµã
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @return true£ºÓĞ¿ÕÄ¿Â¼±»É¾³ı£¬false£ºÃ»ÓĞ
+	 * ç”¨äºæ•°æ®åº“çš„ç»´æŠ¤ï¼Œæ‰§è¡Œæ­¤æ“ä½œæ—¶åº”è¯¥åœæ­¢æœåŠ¡
+	 * å¦‚æœæ­¤èŠ‚ç‚¹ä¸ºç©ºåˆ™åˆ é™¤ï¼Œå¦åˆ™åˆ é™¤æ­¤èŠ‚ç‚¹ä¸‹çš„ç©ºå­èŠ‚ç‚¹
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @return trueï¼šæœ‰ç©ºç›®å½•è¢«åˆ é™¤ï¼Œfalseï¼šæ²¡æœ‰
 	 */
 	public boolean deleteNullSection(VDB vdb) {
 		int result = lockForWrite(vdb);
 		if (result == VDB.S_LOCKTIMEOUT) {
-			// ½ÚµãÔÚ±»±ğÈËĞŞ¸Ä
+			// èŠ‚ç‚¹åœ¨è¢«åˆ«äººä¿®æ”¹
 			return false;
 		}
 		
@@ -972,13 +972,13 @@ class Section extends ISection {
 		}
 	}
 	
-	// ĞèÒªËø¶¨Ô´Ä¿Â¼£¿ĞèÒªÅĞ¶ÏÔ´ÓĞÃ»ÓĞÌá½»
+	// éœ€è¦é”å®šæºç›®å½•ï¼Ÿéœ€è¦åˆ¤æ–­æºæœ‰æ²¡æœ‰æäº¤
 	/**
-	 * ÒÆ¶¯µ±Ç°½Úµ½Ö¸¶¨Ä¿Â¼ÏÂ
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param dest Ä¿±êÂ·¾¶
-	 * @param value ĞÂ½ÚÖµ£¬Ê¡ÂÔÓÃÔ­À´µÄ½ÚÖµ
-	 * @return 0£º³É¹¦
+	 * ç§»åŠ¨å½“å‰èŠ‚åˆ°æŒ‡å®šç›®å½•ä¸‹
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param dest ç›®æ ‡è·¯å¾„
+	 * @param value æ–°èŠ‚å€¼ï¼Œçœç•¥ç”¨åŸæ¥çš„èŠ‚å€¼
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	public int move(VDB vdb, Section dest, Object value) {
 		Section parent = (Section)getParent();
@@ -1011,7 +1011,7 @@ class Section extends ISection {
 		Dir subDir = dest.createSubDir(vdb, value, dir.getName());
 		
 		if (header <= 0) {
-			// »¹Ã»ÓĞÌá½»£¬´ËÊ±ĞÂ¸¸Â·¾¶¿ÉÄÜÔÚĞŞ¸Ä¶ÓÁĞµÄºóÃæ£¬ĞèÒªÏÈÉêÇëÊ×¿é
+			// è¿˜æ²¡æœ‰æäº¤ï¼Œæ­¤æ—¶æ–°çˆ¶è·¯å¾„å¯èƒ½åœ¨ä¿®æ”¹é˜Ÿåˆ—çš„åé¢ï¼Œéœ€è¦å…ˆç”³è¯·é¦–å—
 			header = vdb.getLibrary().applyHeaderBlock();
 		}
 		
@@ -1043,24 +1043,24 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * É¾³ı³¬Ê±µÄ²»»áÔÙ±»ÒıÓÃµ½µÄÇøÎ»
-	 * @param library Êı¾İ¿â¶ÔÏó
-	 * @param outerSeq Íâ´æºÅ
-	 * @param txSeq ÄÚ´æºÅ
+	 * åˆ é™¤è¶…æ—¶çš„ä¸ä¼šå†è¢«å¼•ç”¨åˆ°çš„åŒºä½
+	 * @param library æ•°æ®åº“å¯¹è±¡
+	 * @param outerSeq å¤–å­˜å·
+	 * @param txSeq å†…å­˜å·
 	 */
 	public void deleteOutdatedZone(Library library, int outerSeq, long txSeq) {
 		headerBlock.deleteOutdatedZone(library, outerSeq, txSeq);
 	}
 	
 	/**
-	 * Ìá½»ÊÂÎñ
-	 * @param library Êı¾İ¿â¶ÔÏó
-	 * @param outerSeq Íâ´æºÅ
-	 * @param innerSeq ÄÚ´æºÅ
+	 * æäº¤äº‹åŠ¡
+	 * @param library æ•°æ®åº“å¯¹è±¡
+	 * @param outerSeq å¤–å­˜å·
+	 * @param innerSeq å†…å­˜å·
 	 * @throws IOException
 	 */
 	public void commit(Library library, int outerSeq, long innerSeq) throws IOException {
-		// ½Ú¿ÉÄÜÊÇÔÚÊÂÎñÄÚÖØ½¨£¬Ã»Ìá½»ÓÖÉ¾³ıÁË£¬ÕâÊ±²»Ìá½»ÁË
+		// èŠ‚å¯èƒ½æ˜¯åœ¨äº‹åŠ¡å†…é‡å»ºï¼Œæ²¡æäº¤åˆåˆ é™¤äº†ï¼Œè¿™æ—¶ä¸æäº¤äº†
 		if (isModified && header > 0) {
 			headerBlock.commit(library, header, outerSeq, innerSeq);
 		}
@@ -1069,9 +1069,9 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * É¨ÃèÒÑ¾­µÄÎïÀí¿é£¬ÓÃÓÚ´æ´¢·ÖÅä
-	 * @param library Êı¾İ¿â¶ÔÏó
-	 * @param manager ¿é¹ÜÀíÆ÷
+	 * æ‰«æå·²ç»çš„ç‰©ç†å—ï¼Œç”¨äºå­˜å‚¨åˆ†é…
+	 * @param library æ•°æ®åº“å¯¹è±¡
+	 * @param manager å—ç®¡ç†å™¨
 	 * @throws IOException
 	 */
 	public void scanUsedBlocks(Library library, BlockManager manager) throws IOException {
@@ -1080,19 +1080,19 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * È¡µ±Ç°½ÚµÄÌá½»Ê±¼ä
-	 * @return Ê±¼äÖµ
+	 * å–å½“å‰èŠ‚çš„æäº¤æ—¶é—´
+	 * @return æ—¶é—´å€¼
 	 */
 	public long getCommitTime() {
 		return headerBlock.getCommitTime();
 	}
 	
 	/**
-	 * ÖØÃüÃû½ÚÃû
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param path ×Ó½ÚÖµ»ò×Ó½ÚÖµĞòÁĞ
-	 * @param name ×Ó½ÚÃû»ò×Ó½ÚÃûĞòÁĞ
-	 * @return 0£º³É¹¦
+	 * é‡å‘½åèŠ‚å
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param path å­èŠ‚å€¼æˆ–å­èŠ‚å€¼åºåˆ—
+	 * @param name å­èŠ‚åæˆ–å­èŠ‚ååºåˆ—
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	public int rename(VDB vdb, Object path, String name) {
 		Section section;
@@ -1135,7 +1135,7 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ÊÇ·ñÊÇ¼ü¿â½Ú
+	 * æ˜¯å¦æ˜¯é”®åº“èŠ‚
 	 * @return
 	 */
 	public boolean isKeySection() {
@@ -1147,9 +1147,9 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * °ÉÖ¸¶¨½Ú¹éµµ
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param path Â·¾¶
+	 * å§æŒ‡å®šèŠ‚å½’æ¡£
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param path è·¯å¾„
 	 * @return
 	 */
 	public int archive(VDB vdb, Object path) {
@@ -1201,17 +1201,17 @@ class Section extends ISection {
 	}
 	
 	/**
-	 * ÊÍ·Å»º´æµÄ½Ú¶ÔÏó£¬ÓÃÓÚÊÍ·ÅÄÚ´æ
+	 * é‡Šæ”¾ç¼“å­˜çš„èŠ‚å¯¹è±¡ï¼Œç”¨äºé‡Šæ”¾å†…å­˜
 	 */
 	public void releaseSubSection() {
 		headerBlock.releaseSubSection();
 	}
 	
 	/**
-	 * ÕûÀíÊı¾İ¿âÊı¾İµ½ĞÂ¿â
-	 * @param srcLib Ô´¿â
-	 * @param destLib Ä¿±ê¿â
-	 * @param destHeader Ä¿±ê¿âÊ×¿é
+	 * æ•´ç†æ•°æ®åº“æ•°æ®åˆ°æ–°åº“
+	 * @param srcLib æºåº“
+	 * @param destLib ç›®æ ‡åº“
+	 * @param destHeader ç›®æ ‡åº“é¦–å—
 	 * @throws IOException
 	 */
 	public void reset(Library srcLib, Library destLib, int destHeader) throws IOException {

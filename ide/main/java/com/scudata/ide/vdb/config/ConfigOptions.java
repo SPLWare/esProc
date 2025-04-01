@@ -8,35 +8,35 @@ import com.scudata.common.StringUtils;
 import com.scudata.ide.vdb.commonvdb.*;
 
 /**
- * Ñ¡ÏîÅäÖÃ
+ * é€‰é¡¹é…ç½®
  * 
  * @author wunan
  *
  */
 public class ConfigOptions {
-	// ×Ô¶¯´ò¿ªÎÄ¼ş
+	// è‡ªåŠ¨æ‰“å¼€æ–‡ä»¶
 	public static Boolean bAutoOpen = Boolean.TRUE;
-	// ½çÃæÑùÊ½
+	// ç•Œé¢æ ·å¼
 	public static Byte iLookAndFeel = new Byte(LNFManager.LNF_NIMBUS);
-	// Êä³öÒì³£µ½ÈÕÖ¾
+	// è¾“å‡ºå¼‚å¸¸åˆ°æ—¥å¿—
 	public static Boolean bLogException = Boolean.TRUE;
-	// ¼ÇÒä´°¿ÚÎ»ÖÃ´óĞ¡
+	// è®°å¿†çª—å£ä½ç½®å¤§å°
 	public static Boolean bWindowSize = Boolean.TRUE;
-	// ½Ó¹Ü¿ØÖÆÌ¨
+	// æ¥ç®¡æ§åˆ¶å°
 	public static Boolean bHoldConsole = Boolean.FALSE;
-	// ÈÕÖ¾ÎÄ¼ş
+	// æ—¥å¿—æ–‡ä»¶
 	public static String sLogFileName = "/log/vdb.log";
-	// ×î½ü´ò¿ªÄ¿Â¼
+	// æœ€è¿‘æ‰“å¼€ç›®å½•
 	public static String sLastDirectory = System.getProperty("user.home");
-	// ¼¯ËãÆ÷ÊÚÈ¨
-	public static String sEsprocLic = GC.PATH_CONFIG + "/¼¯ËãÆ÷ÄÚ²¿²âÊÔ°æ.lic";
+	// é›†ç®—å™¨æˆæƒ
+	public static String sEsprocLic = GC.PATH_CONFIG + "/é›†ç®—å™¨å†…éƒ¨æµ‹è¯•ç‰ˆ.lic";
 
-	// Ñ¡Ïî
+	// é€‰é¡¹
 	public static Map<String, Object> options = new HashMap<String, Object>();
-	// ÓÃÀ´´æ´¢´°¿ÚÎ»ÖÃ´óĞ¡µÄ×Ö·û´®
+	// ç”¨æ¥å­˜å‚¨çª—å£ä½ç½®å¤§å°çš„å­—ç¬¦ä¸²
 	public static Map<String, String> dimensions = new HashMap<String, String>();
 
-	// Á¬½ÓĞÅÏ¢
+	// è¿æ¥ä¿¡æ¯
 	public static Map<String, String> connections = new HashMap<String, String>();
 
 	static {

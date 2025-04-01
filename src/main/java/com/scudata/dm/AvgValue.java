@@ -5,13 +5,13 @@ import java.io.IOException;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃÓÚ¼ÇÂ¼·Ö×éÔËËãÇóÆ½¾ùÖµµÄÁÙÊ±Öµ
+ * ç”¨äºè®°å½•åˆ†ç»„è¿ç®—æ±‚å¹³å‡å€¼çš„ä¸´æ—¶å€¼
  * @author WangXiaoJun
  *
  */
 public class AvgValue {
-	private Object sumVal; // ÔªËØ»ã×ÜÖµ
-	private int count; // ÔªËØÊı£¬ºöÂÔnull
+	private Object sumVal; // å…ƒç´ æ±‡æ€»å€¼
+	private int count; // å…ƒç´ æ•°ï¼Œå¿½ç•¥null
 	
 	public AvgValue() {
 	}
@@ -24,7 +24,7 @@ public class AvgValue {
 	}
 
 	/**
-	 * Ìí¼ÓÔªËØ
+	 * æ·»åŠ å…ƒç´ 
 	 * @param val
 	 */
 	public void add(Object val) {
@@ -39,7 +39,7 @@ public class AvgValue {
 	}
 	
 	/**
-	 * È¡Æ½¾ùÖµ
+	 * å–å¹³å‡å€¼
 	 * @return
 	 */
 	public Object getAvgValue() {

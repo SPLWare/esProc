@@ -13,20 +13,20 @@ import com.scudata.parallel.UnitClient;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÈÎÎñ¿Õ¼ä
+ * ä»»åŠ¡ç©ºé—´
  * @author RunQian
  *
  */
 public class JobSpace {
 	private String id;
-	private ParamList paramList = new ParamList(); // ´æ·ÅÈ«³Ì±äÁ¿
-	private long lastAccess = System.currentTimeMillis(); // ×îºó·ÃÎÊÊ±¼ä
+	private ParamList paramList = new ParamList(); // å­˜æ”¾å…¨ç¨‹å˜é‡
+	private long lastAccess = System.currentTimeMillis(); // æœ€åè®¿é—®æ—¶é—´
 	private File appHome = null;
 
 	private ArrayList<UnitClient> unitClients = new ArrayList<UnitClient>();
 	private ResourceManager rm = new ResourceManager();
 
-	// ³ÌĞòÍø¸ñº¯ÊıÓ³Éä±í£¬[º¯ÊıÃû,³ÌĞòÍøÂ·¾¶Ãû]
+	// ç¨‹åºç½‘æ ¼å‡½æ•°æ˜ å°„è¡¨ï¼Œ[å‡½æ•°å,ç¨‹åºç½‘è·¯å¾„å]
 	private HashMap<String, DfxFunction> dfxFnMap = new HashMap<String, DfxFunction>(256);
 	
 	 public JobSpace(String ID) {
@@ -77,7 +77,7 @@ public class JobSpace {
 	}
 
 	/**
-	 * È¡ËùÓĞ±äÁ¿
+	 * å–æ‰€æœ‰å˜é‡
 	 * 
 	 * @return Param[]
 	 */
@@ -96,9 +96,9 @@ public class JobSpace {
 	}
 
 	/**
-	 * °´Ãû³ÆÈ¡±äÁ¿
+	 * æŒ‰åç§°å–å˜é‡
 	 * 
-	 * @param name ±äÁ¿Ãû
+	 * @param name å˜é‡å
 	 * @return DataStruct
 	 */
 	public Param getParam(String name) {
@@ -109,9 +109,9 @@ public class JobSpace {
 	}
 
 	/**
-	 * Ìí¼Ó±äÁ¿
+	 * æ·»åŠ å˜é‡
 	 * 
-	 * @param param ±äÁ¿
+	 * @param param å˜é‡
 	 */
 	public void addParam(Param param) {
 		synchronized (paramList) {
@@ -121,7 +121,7 @@ public class JobSpace {
 	}
 
 	/**
-	 * °´Ãû³ÆÉ¾³ı±äÁ¿
+	 * æŒ‰åç§°åˆ é™¤å˜é‡
 	 * 
 	 * @param name String
 	 * @return Param
@@ -134,7 +134,7 @@ public class JobSpace {
 	}
 
 	/**
-	 * É¾³ıËùÓĞ±äÁ¿
+	 * åˆ é™¤æ‰€æœ‰å˜é‡
 	 */
 	public void clearParam() {
 		synchronized (paramList) {
@@ -144,10 +144,10 @@ public class JobSpace {
 	}
 
 	/**
-	 * ÉèÖÃ±äÁ¿µÄÖµ£¬Èç¹û±äÁ¿²»´æÔÚÔò²úÉúÒ»¸ö
+	 * è®¾ç½®å˜é‡çš„å€¼ï¼Œå¦‚æœå˜é‡ä¸å­˜åœ¨åˆ™äº§ç”Ÿä¸€ä¸ª
 	 * 
-	 * @param name String ±äÁ¿Ãû
-	 * @param value Object ±äÁ¿Öµ
+	 * @param name String å˜é‡å
+	 * @param value Object å˜é‡å€¼
 	 */
 	public void setParamValue(String name, Object value) {
 		synchronized (paramList) {
@@ -162,7 +162,7 @@ public class JobSpace {
 		}
 	}
 	
-	// ÏÈËø×¡±äÁ¿ÔÙ¼ÆËãx£¬ÎªÁËÖ§³ÖÍ¬²½×öenv(v,v+n)
+	// å…ˆé”ä½å˜é‡å†è®¡ç®—xï¼Œä¸ºäº†æ”¯æŒåŒæ­¥åšenv(v,v+n)
 	public Object setParamValue(String name, Expression x, Context ctx) {
 		Param p;
 		synchronized (paramList) {
@@ -182,7 +182,7 @@ public class JobSpace {
 	}
 
 	/**
-	 * ·µ»Ø×îºó·ÃÎÊÊ±¼ä
+	 * è¿”å›æœ€åè®¿é—®æ—¶é—´
 	 * 
 	 * @return long
 	 */
@@ -190,7 +190,7 @@ public class JobSpace {
 		return lastAccess;
 	}
 
-	public void addHosts(String host, int port) { // callx·ÖÅäÈÎÎñµ½Ö¸¶¨hostºó£¬½«hostÔö¼Óhosts£¬²¢¸üĞÂ·ÃÎÊÊ±¼ä
+	public void addHosts(String host, int port) { // callxåˆ†é…ä»»åŠ¡åˆ°æŒ‡å®šhoståï¼Œå°†hostå¢åŠ hostsï¼Œå¹¶æ›´æ–°è®¿é—®æ—¶é—´
 		UnitClient uc = new UnitClient(host, port);
 		synchronized (unitClients) {
 			if (!unitClients.contains(uc)) {
@@ -208,8 +208,8 @@ public class JobSpace {
 	}
 	
 	private void close(boolean paramCleared){
-		//Ö÷³ÌĞòÈç¹ûµ÷ÓÃÁËcallx(h)£¬ĞèÒª½«·ÖÅä¹ıµÄh¼ÇÔÚspace£¬ÓÃÓÚ´Ë´¦Í¨Öª·Ö»ú¹Ø±Õ¿Õ¼ä
-		//·Ö»úÖ÷½ø³Ìµ÷ÓÃ·Ö½ø³Ì²úÉúµÄ¿Õ¼ä²»¼ÇÔØ·Ö»úUnitsĞÅÏ¢£¬ÓÉÖ÷½ø³ÌÔÚ¹Ø±Õ¿Õ¼äÊ±£¬´ÓHostManagerÕÒ³ö×Ô¼ºµÄunitsÔÙ¹Ø±Õ		
+		//ä¸»ç¨‹åºå¦‚æœè°ƒç”¨äº†callx(h)ï¼Œéœ€è¦å°†åˆ†é…è¿‡çš„hè®°åœ¨spaceï¼Œç”¨äºæ­¤å¤„é€šçŸ¥åˆ†æœºå…³é—­ç©ºé—´
+		//åˆ†æœºä¸»è¿›ç¨‹è°ƒç”¨åˆ†è¿›ç¨‹äº§ç”Ÿçš„ç©ºé—´ä¸è®°è½½åˆ†æœºUnitsä¿¡æ¯ï¼Œç”±ä¸»è¿›ç¨‹åœ¨å…³é—­ç©ºé—´æ—¶ï¼Œä»HostManageræ‰¾å‡ºè‡ªå·±çš„unitså†å…³é—­		
 		for (int i = 0; i < unitClients.size(); i++) {
 			UnitClient uc = unitClients.get(i);
 			uc.closeSpace(id);
@@ -221,7 +221,7 @@ public class JobSpace {
 	}
 
 	public boolean checkTimeOut(int timeOut) {
-		// »»Ëã³ÉÃë£¬timeOutµ¥Î»ÎªÃë
+		// æ¢ç®—æˆç§’ï¼ŒtimeOutå•ä½ä¸ºç§’
 		long unvisit = (System.currentTimeMillis() - lastAccess) / 1000;
 		if (unvisit > timeOut) {
 			// destroy();
@@ -231,53 +231,53 @@ public class JobSpace {
 	}
 
 	/**
-	 * È¡×ÊÔ´¹ÜÀíÆ÷
+	 * å–èµ„æºç®¡ç†å™¨
 	 * @return
 	 */
 	public ResourceManager getResourceManager() {
 		return rm;
 	}
 	
-	/** ÉèÓ¦ÓÃÖ÷Ä¿Â¼ */
+	/** è®¾åº”ç”¨ä¸»ç›®å½• */
 	public void setAppHome(File f){
 		this.appHome = f;
 	}
-	/** È¡Ó¦ÓÃÖ÷Ä¿Â¼ */
+	/** å–åº”ç”¨ä¸»ç›®å½• */
 	public File getAppHome() {
 		return this.appHome;
 	}
-	/** È¡Ó¦ÓÃ³ÌĞòÄ¿Â¼ */
+	/** å–åº”ç”¨ç¨‹åºç›®å½• */
 	public File getAppProgPath() {
 		return new File(this.appHome, "prog");
 	}
 	
 	/**
-	 * Ìí¼Ó³ÌĞòÍøº¯Êı
-	 * @param fnName º¯ÊıÃû
-	 * @param dfxPathName ³ÌĞòÍøÂ·¾¶Ãû
+	 * æ·»åŠ ç¨‹åºç½‘å‡½æ•°
+	 * @param fnName å‡½æ•°å
+	 * @param dfxPathName ç¨‹åºç½‘è·¯å¾„å
 	 */
 	public void addDFXFunction(String fnName, String dfxPathName, String opt) {
-		// ²»ÄÜÓëÈ«¾Öº¯ÊıÖØÃû
+		// ä¸èƒ½ä¸å…¨å±€å‡½æ•°é‡å
 		if (FunctionLib.isFnName(fnName)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RuntimeException(mm.getMessage("FunctionLib.repeatedFunction") + fnName);
 		}
 
-		// ÓÃĞÂº¯ÊıÌæ»»¾ÉµÄ
+		// ç”¨æ–°å‡½æ•°æ›¿æ¢æ—§çš„
 		DfxFunction old = dfxFnMap.put(fnName, new DfxFunction(dfxPathName, opt));
 		if (old != null) {
-			// Çå³ı»º´æ
+			// æ¸…é™¤ç¼“å­˜
 			DfxManager.getInstance().clearDfx(dfxPathName);
 		}
 	}
 
 	/**
-	 * Ìí¼Ó³ÌĞòÍøº¯Êı
-	 * @param fnName º¯ÊıÃû
-	 * @param funcInfo º¯ÊıÌåĞÅÏ¢
+	 * æ·»åŠ ç¨‹åºç½‘å‡½æ•°
+	 * @param fnName å‡½æ•°å
+	 * @param funcInfo å‡½æ•°ä½“ä¿¡æ¯
 	 */
 	public void addDFXFunction(String fnName, PgmCellSet.FuncInfo funcInfo) {
-		// ²»ÄÜÓëÈ«¾Öº¯ÊıÖØÃû
+		// ä¸èƒ½ä¸å…¨å±€å‡½æ•°é‡å
 		if (FunctionLib.isFnName(fnName)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RuntimeException(mm.getMessage("FunctionLib.repeatedFunction") + fnName);
@@ -287,17 +287,17 @@ public class JobSpace {
 	}
 	
 	/**
-	 * É¾³ı³ÌĞòÍøº¯Êı
-	 * @param fnName º¯ÊıÃû
+	 * åˆ é™¤ç¨‹åºç½‘å‡½æ•°
+	 * @param fnName å‡½æ•°å
 	 */
 	public void removeDFXFunction(String fnName) {
 		dfxFnMap.remove(fnName);
 	}
 
 	/**
-	 * ¸ù¾İº¯ÊıÃûÈ¡³ÌĞòÍø
-	 * @param fnName º¯ÊıÃû
-	 * @return ³ÌĞòÍøº¯Êı
+	 * æ ¹æ®å‡½æ•°åå–ç¨‹åºç½‘
+	 * @param fnName å‡½æ•°å
+	 * @return ç¨‹åºç½‘å‡½æ•°
 	 */
 	public DfxFunction getDFXFunction(String fnName) {
 		return dfxFnMap.get(fnName);

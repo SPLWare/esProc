@@ -8,7 +8,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 
 /**
- * ¸½¼ÓÔÚÓÎ±ê»ò¹ÜµÀÉÏµÄĞòÁĞºÍÁĞÔËËã
+ * é™„åŠ åœ¨æ¸¸æ ‡æˆ–ç®¡é“ä¸Šçš„åºåˆ—å’Œåˆ—è¿ç®—
  * @author WangXiaoJun
  *
  */
@@ -16,17 +16,17 @@ public class Conj extends Operation {
 	private Expression newExp;
 
 	/**
-	 * ¹¹ÔìÈ¡³ÉÔ±ºÍÁĞÀà
-	 * @param newExp ¼ÆËã±í´ïÊ½
+	 * æ„é€ å–æˆå‘˜å’Œåˆ—ç±»
+	 * @param newExp è®¡ç®—è¡¨è¾¾å¼
 	 */
 	public Conj(Expression newExp) {
 		this(null, newExp);
 	}
 	
 	/**
-	 * ¹¹ÔìÈ¡³ÉÔ±ºÍÁĞÀà
-	 * @param function µ±Ç°²Ù×÷¶ÔÓ¦µÄ±í´ïÊ½ÀïµÄº¯Êı
-	 * @param newExp ¼ÆËã±í´ïÊ½
+	 * æ„é€ å–æˆå‘˜å’Œåˆ—ç±»
+	 * @param function å½“å‰æ“ä½œå¯¹åº”çš„è¡¨è¾¾å¼é‡Œçš„å‡½æ•°
+	 * @param newExp è®¡ç®—è¡¨è¾¾å¼
 	 */
 	public Conj(Function function, Expression newExp) {
 		super(function);
@@ -34,8 +34,8 @@ public class Conj extends Operation {
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -44,9 +44,9 @@ public class Conj extends Operation {
 	}
 
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

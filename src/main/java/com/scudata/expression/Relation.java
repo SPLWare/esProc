@@ -6,29 +6,29 @@ import com.scudata.array.IArray;
 import com.scudata.dm.Context;
 
 /**
- * ¹ØÏµÔËËã»ùÀà£¬ÓÃÓÚ¶¨Òå¹ØÏµ³£Á¿
+ * å…³ç³»è¿ç®—åŸºç±»ï¼Œç”¨äºå®šä¹‰å…³ç³»å¸¸é‡
  * @author WangXiaoJun
  *
  */
 public abstract class Relation extends Operator {
-	public static final int EQUAL = 1; // µÈÓÚ
-	public static final int GREATER = 2; // ´óÓÚ
-	public static final int GREATER_EQUAL = 3; // ´óÓÚµÈÓÚ
-	public static final int LESS  = 4; // Ğ¡ÓÚ
-	public static final int LESS_EQUAL = 5; // Ğ¡ÓÚµÈÓÚ
-	public static final int NOT_EQUAL = 6; // ²»µÈÓÚ
-	public static final int AND = 7; // Âß¼­Óë
-	public static final int OR = 8; // Âß¼­»ò
+	public static final int EQUAL = 1; // ç­‰äº
+	public static final int GREATER = 2; // å¤§äº
+	public static final int GREATER_EQUAL = 3; // å¤§äºç­‰äº
+	public static final int LESS  = 4; // å°äº
+	public static final int LESS_EQUAL = 5; // å°äºç­‰äº
+	public static final int NOT_EQUAL = 6; // ä¸ç­‰äº
+	public static final int AND = 7; // é€»è¾‘ä¸
+	public static final int OR = 8; // é€»è¾‘æˆ–
 
-	// Æ¥Åä½á¹û£¬ÊıÖµĞèÒªµİÔö
-	public static final int UNMATCH = -1; // È«²»Æ¥Åä
-	public static final int PARTICALMATCH = 0; // ²¿·ÖÆ¥Åä
-	public static final int ALLMATCH = 1; // È«Æ¥Åä
+	// åŒ¹é…ç»“æœï¼Œæ•°å€¼éœ€è¦é€’å¢
+	public static final int UNMATCH = -1; // å…¨ä¸åŒ¹é…
+	public static final int PARTICALMATCH = 0; // éƒ¨åˆ†åŒ¹é…
+	public static final int ALLMATCH = 1; // å…¨åŒ¹é…
 	
 	/**
-	 * »¥»»×óÓÒÖµµÄÎ»ÖÃ£¬È¡ÓÒÖµºÍ×óÖµµÄ±È½Ï¹ØÏµ
-	 * @param ralation ²ÎÕÕRelationÖĞ¶¨ÒåµÄ³£Á¿
-	 * @return ¶¨ÒåÔÚRelationÖĞµÄ³£Á¿
+	 * äº’æ¢å·¦å³å€¼çš„ä½ç½®ï¼Œå–å³å€¼å’Œå·¦å€¼çš„æ¯”è¾ƒå…³ç³»
+	 * @param ralation å‚ç…§Relationä¸­å®šä¹‰çš„å¸¸é‡
+	 * @return å®šä¹‰åœ¨Relationä¸­çš„å¸¸é‡
 	 */
 	public static int getInverseRelation(int ralation) {
 		switch(ralation) {
@@ -46,20 +46,20 @@ public abstract class Relation extends Operator {
 	}
 	
 	/**
-	 * È¡×óÖµºÍÓÒÖµµÄ±È½Ï¹ØÏµ
-	 * @return ¶¨ÒåÔÚRelationÖĞµÄ³£Á¿
+	 * å–å·¦å€¼å’Œå³å€¼çš„æ¯”è¾ƒå…³ç³»
+	 * @return å®šä¹‰åœ¨Relationä¸­çš„å¸¸é‡
 	 */
 	public abstract int getRelation();
 	
 	/**
-	 * »¥»»×óÓÒÖµµÄÎ»ÖÃ£¬È¡ÓÒÖµºÍ×óÖµµÄ±È½Ï¹ØÏµ
-	 * @return ¶¨ÒåÔÚRelationÖĞµÄ³£Á¿
+	 * äº’æ¢å·¦å³å€¼çš„ä½ç½®ï¼Œå–å³å€¼å’Œå·¦å€¼çš„æ¯”è¾ƒå…³ç³»
+	 * @return å®šä¹‰åœ¨Relationä¸­çš„å¸¸é‡
 	 */
 	public abstract int getInverseRelation();
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -69,10 +69,10 @@ public abstract class Relation extends Operator {
 	}
 
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -84,9 +84,9 @@ public abstract class Relation extends Operator {
 	}
 
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -98,9 +98,9 @@ public abstract class Relation extends Operator {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­»òÔËËã·û||µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult ||×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘æˆ–è¿ç®—ç¬¦||çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult ||å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateOr(Context ctx, IArray leftResult) {

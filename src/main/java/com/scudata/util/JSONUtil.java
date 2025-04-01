@@ -64,12 +64,12 @@ public final class JSONUtil {
 	/**
 	 * v1,v2...
 	 * @param chars
-	 * @param start ÖµµÄÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param end ÖµµÄ½áÊøÎ»ÖÃ£¬°üº¬
+	 * @param start å€¼çš„èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param end å€¼çš„ç»“æŸä½ç½®ï¼ŒåŒ…å«
 	 * @return Sequence
 	 */
 	private static Sequence parseSequence(char []chars, int start, int end, String opt) {
-		// Ìø¹ıÇ°ÃæµÄ¿Õ°×
+		// è·³è¿‡å‰é¢çš„ç©ºç™½
 		for (; start <= end && Character.isWhitespace(chars[start]); ++start) {
 		}
 		
@@ -84,7 +84,7 @@ public final class JSONUtil {
 				Object value = parseJSON(chars, start, index - 1, opt);
 				sequence.add(value);
 				
-				// Ìø¹ı¶ººÅºóµÄ¿Õ°×
+				// è·³è¿‡é€—å·åçš„ç©ºç™½
 				for (start = index + 1; start <= end && Character.isWhitespace(chars[start]); ++start) {
 				}
 
@@ -101,7 +101,7 @@ public final class JSONUtil {
 		
 		DataStruct ds = sequence.dataStruct();
 		if (ds != null) {
-			// Èç¹ûÊÇ´¿ÅÅÁĞÔò×ªÎªĞò±í
+			// å¦‚æœæ˜¯çº¯æ’åˆ—åˆ™è½¬ä¸ºåºè¡¨
 			int len = sequence.length();
 			Table table = new Table(ds, len);
 			IArray memes = table.getMems();
@@ -113,7 +113,7 @@ public final class JSONUtil {
 			
 			return table;
 		} else if (opt != null && opt.indexOf('t') != -1) {
-			// ²»´¿µÄ½á¹¹½øĞĞ¶ÔÆë
+			// ä¸çº¯çš„ç»“æ„è¿›è¡Œå¯¹é½
 			ArrayList<String> nameList = new ArrayList<String>();
 			int len = sequence.length();
 			for (int i = 1; i <= len; ++i) {
@@ -155,8 +155,8 @@ public final class JSONUtil {
 	/**
 	 * n1:v1,n2:v2...
 	 * @param chars
-	 * @param start ÖµµÄÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param end ÖµµÄ½áÊøÎ»ÖÃ£¬°üº¬
+	 * @param start å€¼çš„èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param end å€¼çš„ç»“æŸä½ç½®ï¼ŒåŒ…å«
 	 * @return BaseRecord
 	 */
 	private static BaseRecord parseRecord(char []chars, int start, int end, String opt) {
@@ -215,11 +215,11 @@ public final class JSONUtil {
 	}
 	
 	/**
-	 * ½âÎöjson¸ñÊ½×Ö·û´®£¬Èç¹ûÖĞÀ¨ºÅ»ò»¨À¨ºÅ²»Æ¥ÅäÔò·µ»Ønull
-	 * @param chars [{F:v,¡­},¡­]
+	 * è§£æjsonæ ¼å¼å­—ç¬¦ä¸²ï¼Œå¦‚æœä¸­æ‹¬å·æˆ–èŠ±æ‹¬å·ä¸åŒ¹é…åˆ™è¿”å›null
+	 * @param chars [{F:v,â€¦},â€¦]
 	 * @param start
 	 * @param end
-	 * @param opt t£ºÅÅÁĞ½á¹¹²»´¿Ê±½«¶ÔÆë³ÉĞò±í
+	 * @param opt tï¼šæ’åˆ—ç»“æ„ä¸çº¯æ—¶å°†å¯¹é½æˆåºè¡¨
 	 * @return
 	 */
 	public static Object parseJSON(char []chars, int start, int end, String opt) {
@@ -257,8 +257,8 @@ public final class JSONUtil {
 	}
 	
 	/**
-	 * ½âÎöjson¸ñÊ½×Ö·û´®£¬Èç¹ûÖĞÀ¨ºÅ»ò»¨À¨ºÅ²»Æ¥ÅäÔò·µ»Ønull
-	 * @param chars [{F:v,¡­},¡­]
+	 * è§£æjsonæ ¼å¼å­—ç¬¦ä¸²ï¼Œå¦‚æœä¸­æ‹¬å·æˆ–èŠ±æ‹¬å·ä¸åŒ¹é…åˆ™è¿”å›null
+	 * @param chars [{F:v,â€¦},â€¦]
 	 * @param start
 	 * @param end
 	 * @return
@@ -278,7 +278,7 @@ public final class JSONUtil {
 			for (int f = 0, fcount = vals.length; f < fcount; ++f) {
 				if (f > 0) sb.append(',');
 				
-				// ÖĞÎÄÃû²»¼ÓÒıºÅµÄ»°ÍøÒ³±¨´í
+				// ä¸­æ–‡åä¸åŠ å¼•å·çš„è¯ç½‘é¡µæŠ¥é”™
 				sb.append(Escape.addEscAndQuote(names[f]));
 				sb.append(':');
 				toJSON(vals[f], sb);
@@ -327,7 +327,7 @@ public final class JSONUtil {
 		for (int f = 0, fcount = vals.length; f < fcount; ++f) {
 			if (f > 0) sb.append(',');
 			
-			// ÖĞÎÄÃû²»¼ÓÒıºÅµÄ»°ÍøÒ³±¨´í
+			// ä¸­æ–‡åä¸åŠ å¼•å·çš„è¯ç½‘é¡µæŠ¥é”™
 			sb.append(Escape.addEscAndQuote(names[f]));
 			sb.append(':');
 			toJSON(vals[f], sb);

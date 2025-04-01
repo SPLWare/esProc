@@ -13,23 +13,23 @@ import com.scudata.util.Variant;
 
 
 /**
- * �����м�֤ȯ��Ӧ����Ϣ��
+ * 返回有价证券的应计利息。
  * @author yanjing
- * Faccrintm(settlement,issue;rate,par)  ����һ���Ը�Ϣ֤ȯ
+ * Faccrintm(settlement,issue;rate,par)  到期一次性付息证券
  * 
- * @param issue �м�֤ȯ�ķ�����
- * @param settlement Ϊ�м�֤ȯ�ĵ�����/֤ȯ�Ľ�����
- * @param rate  �м�֤ȯ����ϢƱ����
- * @param par Ϊ�м�֤ȯ��Ʊ���ֵ�����ʡ�� par���� par Ϊ ��1,000��
+ * @param issue 有价证券的发行日
+ * @param settlement 为有价证券的到期日/证券的结算日
+ * @param rate  有价证券的年息票利率
+ * @param par 为有价证券的票面价值，如果省略 par，视 par 为 ￥1,000。
  *   
  * 	 @e 30/360, 
- * 	 @1 ʵ������/��ʵ��������
- * 	 @0 ʵ������/360�� 
- * 	 @5 ʵ������/365��
- * 	 ȱʡΪ30/360
- * @param calc_method �߼�ֵ��ָ�����������������״μ�Ϣ����ʱ���ڼ�����Ӧ����Ϣ�ķ�����
- *                    ���ֵΪ TRUE (1)���򷵻شӷ����յ������յ���Ӧ����Ϣ��
- *                    ���ֵΪ FALSE (0)���򷵻ش��״μ�Ϣ�յ������յ�Ӧ����Ϣ��ȱʡΪ TRUE��
+ * 	 @1 实际天数/年实际天数，
+ * 	 @0 实际天数/360， 
+ * 	 @5 实际天数/365，
+ * 	 缺省为30/360
+ * @param calc_method 逻辑值，指定当结算日期晚于首次计息日期时用于计算总应计利息的方法。
+ *                    如果值为 TRUE (1)，则返回从发行日到结算日的总应计利息。
+ *                    如果值为 FALSE (0)，则返回从首次计息日到结算日的应计利息。缺省为 TRUE。
  * @return
  * 
  * 

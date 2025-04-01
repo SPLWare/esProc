@@ -16,8 +16,8 @@ import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 
 /**
- * ±éÀúKVË÷ÒıµÄÓÎ±ê
- * ÓÃÓÚÈ¡È«²¿Êı¾İµÄÇé¿ö
+ * éå†KVç´¢å¼•çš„æ¸¸æ ‡
+ * ç”¨äºå–å…¨éƒ¨æ•°æ®çš„æƒ…å†µ
  * @author runqian
  *
  */
@@ -93,7 +93,7 @@ public class IndexFCursor extends ICursor {
 				}
 			}
 			
-			//µ½ÁËvalue¿éÁË,Èç¹ûÓĞÃüÖĞµÄ,È¡valueÖµ
+			//åˆ°äº†valueå—äº†,å¦‚æœæœ‰å‘½ä¸­çš„,å–valueå€¼
 			reader.readInt();
 			
 			int c = 0;
@@ -107,7 +107,7 @@ public class IndexFCursor extends ICursor {
 					for (int j = 0; j < vcount; ++j) {
 						r.setNormalFieldValue(icount + j, reader.readObject());//values
 					}
-					reader.skipObject();//Î±ºÅ
+					reader.skipObject();//ä¼ªå·
 					mems.add(r);
 				}
 				Table tmp = new Table(ds, ICursor.FETCHCOUNT);
@@ -121,7 +121,7 @@ public class IndexFCursor extends ICursor {
 					for (int j = 0; j < vcount; ++j) {
 						r.setNormalFieldValue(icount + j, reader.readObject());//values
 					}
-					reader.skipObject();//Î±ºÅ
+					reader.skipObject();//ä¼ªå·
 					mems.add(r);
 				}
 			} else {
@@ -133,7 +133,7 @@ public class IndexFCursor extends ICursor {
 					for (int j = 0; j < vcount; ++j) {
 						r.setNormalFieldValue(icount + j, reader.readObject());//values
 					}
-					reader.skipObject();//Î±ºÅ
+					reader.skipObject();//ä¼ªå·
 					mems.add(r);
 				}
 			}
@@ -241,7 +241,7 @@ public class IndexFCursor extends ICursor {
 	}
 	
 	/**
-	 * ¸ù¾İË÷Òı×Ö¶ÎºÍÈ¡³ö×Ö¶Î£¬·µ»ØÓĞĞò×Ö¶Î
+	 * æ ¹æ®ç´¢å¼•å­—æ®µå’Œå–å‡ºå­—æ®µï¼Œè¿”å›æœ‰åºå­—æ®µ
 	 * @return
 	 */
 	public int[] getSortFieldsIndex() {

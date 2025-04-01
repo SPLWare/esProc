@@ -19,26 +19,26 @@ import com.scudata.util.CursorUtil;
 import com.scudata.util.Variant;
 
 /**
- * ¶àÏß³Ì¼ÆËã¹¤¾ßÀà
+ * å¤šçº¿ç¨‹è®¡ç®—å·¥å…·ç±»
  * @author WangXiaoJun
  *
  */
 public final class MultithreadUtil {
-	public static int SINGLE_PROSS_COUNT = 20480; // ÔªËØÊıÉÙÓÚ´ËÖµÊ±½«²ÉÓÃµ¥Ïß³Ì´¦Àí
-	private static final int INSERTIONSORT_THRESHOLD = 9; // ¿ìËÙÅÅĞòÔªËØÊıãĞÖµ
+	public static int SINGLE_PROSS_COUNT = 20480; // å…ƒç´ æ•°å°‘äºæ­¤å€¼æ—¶å°†é‡‡ç”¨å•çº¿ç¨‹å¤„ç†
+	private static final int INSERTIONSORT_THRESHOLD = 9; // å¿«é€Ÿæ’åºå…ƒç´ æ•°é˜ˆå€¼
 	
 
 	/**
-	 * È¡µ¥Ïß³Ì´¦ÀíµÄÔªËØÊıÁ¿£¬³¬¹ı´ËÊıÁ¿½«²ÉÓÃ¶àÏß³Ì´¦Àí
-	 * @return int ÊıÁ¿
+	 * å–å•çº¿ç¨‹å¤„ç†çš„å…ƒç´ æ•°é‡ï¼Œè¶…è¿‡æ­¤æ•°é‡å°†é‡‡ç”¨å¤šçº¿ç¨‹å¤„ç†
+	 * @return int æ•°é‡
 	 */
 	public static int getSingleThreadProssCount() {
 		return SINGLE_PROSS_COUNT;
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ïß³Ì´¦ÀíµÄÔªËØÊıÁ¿£¬³¬¹ı´ËÊıÁ¿½«²ÉÓÃ¶àÏß³Ì´¦Àí
-	 * @param count int ÊıÁ¿
+	 * è®¾ç½®å•çº¿ç¨‹å¤„ç†çš„å…ƒç´ æ•°é‡ï¼Œè¶…è¿‡æ­¤æ•°é‡å°†é‡‡ç”¨å¤šçº¿ç¨‹å¤„ç†
+	 * @param count int æ•°é‡
 	 */
 	public static void setSingleThreadProssCount(int count) {
 		SINGLE_PROSS_COUNT = count;
@@ -49,18 +49,18 @@ public final class MultithreadUtil {
 	}
 
 	/**
-	 * ¶ÔÊı×é½øĞĞ¶àÏß³ÌÅÅĞò
-	 * @param vals ¶ÔÏóÊı×é
+	 * å¯¹æ•°ç»„è¿›è¡Œå¤šçº¿ç¨‹æ’åº
+	 * @param vals å¯¹è±¡æ•°ç»„
 	 */
 	public static void sort(Object []vals) {
 		sort(vals, 0, vals.length);
 	}
 
 	/**
-	 * ¶ÔÊı×é½øĞĞ¶àÏß³ÌÅÅĞò
-	 * @param vals ¶ÔÏóÊı×é
-	 * @param fromIndex ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param toIndex ½áÊøÎ»ÖÃ£¬²»°üº¬
+	 * å¯¹æ•°ç»„è¿›è¡Œå¤šçº¿ç¨‹æ’åº
+	 * @param vals å¯¹è±¡æ•°ç»„
+	 * @param fromIndex èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param toIndex ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
 	 */
 	public static void sort(Object []vals, int fromIndex, int toIndex) {
 		rangeCheck(vals.length, fromIndex, toIndex);
@@ -69,20 +69,20 @@ public final class MultithreadUtil {
 	}
 
 	/**
-	 * ¶ÔÊı×é½øĞĞ¶àÏß³ÌÅÅĞò
-	 * @param vals ¶ÔÏóÊı×é
-	 * @param c ±È½ÏÆ÷
+	 * å¯¹æ•°ç»„è¿›è¡Œå¤šçº¿ç¨‹æ’åº
+	 * @param vals å¯¹è±¡æ•°ç»„
+	 * @param c æ¯”è¾ƒå™¨
 	 */
 	public static void sort(Object []vals, Comparator<Object> c) {
 		sort(vals, 0, vals.length, c);
 	}
 
 	/**
-	 * ¶ÔÊı×é½øĞĞ¶àÏß³ÌÅÅĞò
-	 * @param vals ¶ÔÏóÊı×é
-	 * @param fromIndex ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param toIndex ½áÊøÎ»ÖÃ£¬²»°üº¬
-	 * @param c ±È½ÏÆ÷
+	 * å¯¹æ•°ç»„è¿›è¡Œå¤šçº¿ç¨‹æ’åº
+	 * @param vals å¯¹è±¡æ•°ç»„
+	 * @param fromIndex èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param toIndex ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
+	 * @param c æ¯”è¾ƒå™¨
 	 */
 	public static void sort(Object []vals, int fromIndex, int toIndex, Comparator<Object> c) {
 		rangeCheck(vals.length, fromIndex, toIndex);
@@ -91,15 +91,15 @@ public final class MultithreadUtil {
 	}
 
 	static void mergeSort(Object []src, Object[] dest, int low, int high, int off, Comparator<Object> c, int threadCount) {
-		// Èç¹ûÔªËØÊıĞ¡ÓÚÉè¶¨Öµ»òÕßÏß³ÌÊıĞ¡ÓÚ2Ôòµ¥Ïß³ÌÅÅĞò
+		// å¦‚æœå…ƒç´ æ•°å°äºè®¾å®šå€¼æˆ–è€…çº¿ç¨‹æ•°å°äº2åˆ™å•çº¿ç¨‹æ’åº
 		int length = high - low;
 		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
 			mergeSort(src, dest, low, high, off, c);
 			return;
 		}
 		
-		// Êı¾İ·Ö³ÉÁ½²¿·Ö£¬µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·ÖÅÅĞò£¬È»ºóÆô¶¯Ò»¸öÏß³Ì¶Ôºó°ë²¿·ÖÅÅĞò
-		// Ã¿Ò»²¿·Ö¿ÉÄÜ»¹»á¼ÌĞø¶àÏß³ÌÅÅĞò
+		// æ•°æ®åˆ†æˆä¸¤éƒ¨åˆ†ï¼Œå½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†æ’åºï¼Œç„¶åå¯åŠ¨ä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†æ’åº
+		// æ¯ä¸€éƒ¨åˆ†å¯èƒ½è¿˜ä¼šç»§ç»­å¤šçº¿ç¨‹æ’åº
 		int destLow  = low;
 		int destHigh = high;
 		low  += off;
@@ -109,13 +109,13 @@ public final class MultithreadUtil {
 		SortJob job1 = new SortJob(dest, src, low, mid, -off, c, threadCount / 2);
 		SortJob job2 = new SortJob(dest, src, mid, high, -off, c, threadCount / 2);
 		
-		// ²úÉúÒ»¸öÏß³Ì¶Ôºó°ë²¿·Ö½øĞĞÅÅĞò
+		// äº§ç”Ÿä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		new JobThread(job2).start();
 		
-		// µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·Ö½øĞĞÅÅĞò
+		// å½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		job1.run();
 		
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 		job2.join();
 		
 		if (c.compare(src[mid - 1], src[mid]) <= 0) {
@@ -133,7 +133,7 @@ public final class MultithreadUtil {
 		}
 	}
 
-	// µ¥Ïß³Ì¹é²¢ÅÅĞò
+	// å•çº¿ç¨‹å½’å¹¶æ’åº
 	private static void mergeSort(Object []src, Object []dest, int low, int high, int off, Comparator<Object> c) {
 		int length = high - low;
 		if (length < INSERTIONSORT_THRESHOLD) {
@@ -178,15 +178,15 @@ public final class MultithreadUtil {
 		}
 	}
 	static void mergeSort(Object []src, Object[] dest, int low, int high, int off, int threadCount) {
-		// Èç¹ûÔªËØÊıĞ¡ÓÚÉè¶¨Öµ»òÕßÏß³ÌÊıĞ¡ÓÚ2Ôòµ¥Ïß³ÌÅÅĞò
+		// å¦‚æœå…ƒç´ æ•°å°äºè®¾å®šå€¼æˆ–è€…çº¿ç¨‹æ•°å°äº2åˆ™å•çº¿ç¨‹æ’åº
 		int length = high - low;
 		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
 			mergeSort(src, dest, low, high, off);
 			return;
 		}
 		
-		// Êı¾İ·Ö³ÉÁ½²¿·Ö£¬µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·ÖÅÅĞò£¬È»ºóÆô¶¯Ò»¸öÏß³Ì¶Ôºó°ë²¿·ÖÅÅĞò
-		// Ã¿Ò»²¿·Ö¿ÉÄÜ»¹»á¼ÌĞø¶àÏß³ÌÅÅĞò
+		// æ•°æ®åˆ†æˆä¸¤éƒ¨åˆ†ï¼Œå½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†æ’åºï¼Œç„¶åå¯åŠ¨ä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†æ’åº
+		// æ¯ä¸€éƒ¨åˆ†å¯èƒ½è¿˜ä¼šç»§ç»­å¤šçº¿ç¨‹æ’åº
 		int destLow  = low;
 		int destHigh = high;
 		low  += off;
@@ -196,13 +196,13 @@ public final class MultithreadUtil {
 		SortJob job1 = new SortJob(dest, src, low, mid, -off, threadCount / 2);
 		SortJob job2 = new SortJob(dest, src, mid, high, -off, threadCount / 2);
 		
-		// ²úÉúÒ»¸öÏß³Ì¶Ôºó°ë²¿·Ö½øĞĞÅÅĞò
+		// äº§ç”Ÿä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		new JobThread(job2).start();
 		
-		// µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·Ö½øĞĞÅÅĞò
+		// å½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		job1.run();
 		
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 		job2.join();
 		
 		if (Variant.compare(src[mid - 1], src[mid], true) <= 0) {
@@ -220,7 +220,7 @@ public final class MultithreadUtil {
 		}
 	}
 
-	// µ¥Ïß³Ì¹é²¢ÅÅĞò
+	// å•çº¿ç¨‹å½’å¹¶æ’åº
 	private static void mergeSort(Object []src, Object []dest, int low, int high, int off) {
 		int length = high - low;
 		if (length < INSERTIONSORT_THRESHOLD) {
@@ -282,11 +282,11 @@ public final class MultithreadUtil {
 	}
 	
 	/**
-	 * ¶àÏß³Ì¶ÔĞòÁĞÖ´ĞĞcalcÔËËã
-	 * @param src Ô´ĞòÁĞ
-	 * @param exp ÔËËã±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ½á¹û¼¯ĞòÁĞ
+	 * å¤šçº¿ç¨‹å¯¹åºåˆ—æ‰§è¡Œcalcè¿ç®—
+	 * @param src æºåºåˆ—
+	 * @param exp è¿ç®—è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return ç»“æœé›†åºåˆ—
 	 */
 	public static Sequence calc(Sequence src, Expression exp, Context ctx) {
 		if (exp == null) {
@@ -308,10 +308,10 @@ public final class MultithreadUtil {
 		int singleCount = len / parallelNum;
 		CalcJob []jobs = new CalcJob[parallelNum];
 
-		// Ç°ÃæµÄ¿éÃ¿¶Î¶àÒ»
+		// å‰é¢çš„å—æ¯æ®µå¤šä¸€
 		int mod = len % parallelNum;
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		Sequence result = new Sequence(new Object[len]);
 		
 		for (int i = 0; i < parallelNum; ++i) {
@@ -326,11 +326,11 @@ public final class MultithreadUtil {
 			Context tmpCtx = ctx.newComputeContext();
 			Expression tmpExp = exp.newExpression(tmpCtx);
 			jobs[i] = new CalcJob(src, start, end, tmpExp, tmpCtx, result);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 			start = end;
 		}
 
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 		for (int i = 0; i < parallelNum; ++i) {
 			jobs[i].join();
 		}
@@ -339,10 +339,10 @@ public final class MultithreadUtil {
 	}
 	
 	/**
-	 * ¶àÏß³Ì¶ÔĞòÁĞÖ´ĞĞrunÔËËã
-	 * @param src Ô´ĞòÁĞ
-	 * @param exp ÔËËã±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤šçº¿ç¨‹å¯¹åºåˆ—æ‰§è¡Œrunè¿ç®—
+	 * @param src æºåºåˆ—
+	 * @param exp è¿ç®—è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public static void run(Sequence src, Expression exp, Context ctx) {
 		if (exp == null) {
@@ -365,10 +365,10 @@ public final class MultithreadUtil {
 		int singleCount = len / parallelNum;
 		RunJob []jobs = new RunJob[parallelNum];
 
-		// Ç°ÃæµÄ¿éÃ¿¶Î¶àÒ»
+		// å‰é¢çš„å—æ¯æ®µå¤šä¸€
 		int mod = len % parallelNum;
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		
 		for (int i = 0; i < parallelNum; ++i) {
 			if (i + 1 == parallelNum) {
@@ -383,21 +383,21 @@ public final class MultithreadUtil {
 			Expression tmpExp = exp.newExpression(tmpCtx);
 
 			jobs[i] = new RunJob(src, start, end, tmpExp, tmpCtx);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 			start = end;
 		}
 		
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 		for (int i = 0; i < parallelNum; ++i) {
 			jobs[i].join();
 		}
 	}
 	
 	/**
-	 * ¶àÏß³Ì¶ÔĞòÁĞÖ´ĞĞrunÔËËã
-	 * @param src Ô´ĞòÁĞ
-	 * @param assignExps Expression[] ¸³Öµ±í´ïÊ½
-	 * @param exps Expression[] Öµ±í´ïÊ½
+	 * å¤šçº¿ç¨‹å¯¹åºåˆ—æ‰§è¡Œrunè¿ç®—
+	 * @param src æºåºåˆ—
+	 * @param assignExps Expression[] èµ‹å€¼è¡¨è¾¾å¼
+	 * @param exps Expression[] å€¼è¡¨è¾¾å¼
 	 * @param ctx Context
 	 */
 	public static void run(Sequence src, Expression[] assignExps, Expression[] exps, Context ctx) {
@@ -431,7 +431,7 @@ public final class MultithreadUtil {
 		RunJob []jobs = new RunJob[threadCount];
 
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		for (int i = 0; i < threadCount; ++i) {
 			if (i + 1 == threadCount) {
 				end = len + 1;
@@ -450,21 +450,21 @@ public final class MultithreadUtil {
 			}
 			
 			jobs[i] = new RunJob(src, start, end, tempAssignExps, tmpExps, tmpCtx);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 			start = end;
 		}
 		
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 		for (int i = 0; i < threadCount; ++i) {
 			jobs[i].join();
 		}
 	}
 	
 	/**
-	 * ¶àÏß³Ì¶ÔĞòÁĞÖ´ĞĞ¹ıÂËÔËËã
-	 * @param src Ô´ĞòÁĞ
-	 * @param exp ¹ıÂË±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤šçº¿ç¨‹å¯¹åºåˆ—æ‰§è¡Œè¿‡æ»¤è¿ç®—
+	 * @param src æºåºåˆ—
+	 * @param exp è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Object
 	 */
 	public static Object select(Sequence src, Expression exp, Context ctx) {
@@ -480,13 +480,13 @@ public final class MultithreadUtil {
 			threadCount = parallelNum;
 		}
 		
-		// Éú³ÉnewÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆnewä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		ThreadPool pool = ThreadPool.instance();
 		int singleCount = len / threadCount;
 		SelectJob []jobs = new SelectJob[threadCount];
 
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		for (int i = 0; i < threadCount; ++i) {
 			if (i + 1 == threadCount) {
 				end = len + 1;
@@ -498,11 +498,11 @@ public final class MultithreadUtil {
 			Expression tmpExp = exp.newExpression(tmpCtx);
 
 			jobs[i] = new SelectJob(src, start, end, tmpExp, tmpCtx);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 			start = end;
 		}
 
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï²¢È¡³ö½á¹û
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•å¹¶å–å‡ºç»“æœ
 		Sequence result = new Sequence();
 		for (int i = 0; i < threadCount; ++i) {
 			jobs[i].join();
@@ -513,12 +513,12 @@ public final class MultithreadUtil {
 	}
 	
 	/**
-	 * ¶àÏß³Ì¶ÔĞòÁĞÖ´ĞĞ¹ıÂËÔËËã£¬¼ÆËã±í´ïÊ½µÄ¼ÆËã½á¹ûºÍ¸ø¶¨Öµ×öÏàµÈÔËËã
-	 * @param src Ô´ĞòÁĞ
-	 * @param fltExps ¼ÆËã±í´ïÊ½Êı×é
-	 * @param vals ÖµÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤šçº¿ç¨‹å¯¹åºåˆ—æ‰§è¡Œè¿‡æ»¤è¿ç®—ï¼Œè®¡ç®—è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœå’Œç»™å®šå€¼åšç›¸ç­‰è¿ç®—
+	 * @param src æºåºåˆ—
+	 * @param fltExps è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param vals å€¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Object
 	 */
 	public static Object select(Sequence src, Expression[] fltExps, Object[] vals, 
@@ -535,14 +535,14 @@ public final class MultithreadUtil {
 			threadCount = parallelNum;
 		}
 		
-		// Éú³ÉnewÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆnewä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		ThreadPool pool = ThreadPool.instance();
 		int singleCount = len / threadCount;
 		SelectJob []jobs = new SelectJob[threadCount];
 
 		int expCount = fltExps.length;
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		for (int i = 0; i < threadCount; ++i) {
 			if (i + 1 == threadCount) {
 				end = len + 1;
@@ -557,11 +557,11 @@ public final class MultithreadUtil {
 			}
 			
 			jobs[i] = new SelectJob(src, start, end, tmpExps, vals, tmpCtx);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 			start = end;
 		}
 
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï²¢È¡³ö½á¹û
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•å¹¶å–å‡ºç»“æœ
 		Sequence result = new Sequence();
 		for (int i = 0; i < threadCount; ++i) {
 			jobs[i].join();
@@ -572,13 +572,13 @@ public final class MultithreadUtil {
 	}
 
 	/**
-	 * ¶àÏß³Ì¶ÔĞòÁĞÖ´ĞĞnew¼ÆËã
-	 * @param src Ô´ĞòÁĞ
-	 * @param ds ½á¹û¼¯Êı¾İ½á¹¹
-	 * @param exps ¼ÆËã±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ½á¹û¼¯Ğò±í
+	 * å¤šçº¿ç¨‹å¯¹åºåˆ—æ‰§è¡Œnewè®¡ç®—
+	 * @param src æºåºåˆ—
+	 * @param ds ç»“æœé›†æ•°æ®ç»“æ„
+	 * @param exps è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return ç»“æœé›†åºè¡¨
 	 */
 	public static Table newTable(Sequence src, DataStruct ds, Expression[] exps, String opt, Context ctx) {
 		int len = src.length();
@@ -593,14 +593,14 @@ public final class MultithreadUtil {
 			threadCount = parallelNum;
 		}
 		
-		// Éú³ÉnewÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆnewä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		ThreadPool pool = ThreadPool.instance();
 		int singleCount = len / threadCount;
 		NewJob []jobs = new NewJob[threadCount];
 		int expCount = exps.length;
 		
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		for (int i = 0; i < threadCount; ++i) {
 			if (i + 1 == threadCount) {
 				end = len + 1;
@@ -615,11 +615,11 @@ public final class MultithreadUtil {
 			}
 
 			jobs[i] = new NewJob(src, start, end, ds, tmpExps, opt, tmpCtx);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 			start = end;
 		}
 
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï²¢È¡³ö½á¹û
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•å¹¶å–å‡ºç»“æœ
 		Table result = new Table(ds, len);
 		for (int i = 0; i < threadCount; ++i) {
 			jobs[i].join();
@@ -630,14 +630,14 @@ public final class MultithreadUtil {
 	}
 	
 	/**
-	 * ¼ÆËãÅÅÁĞµÄ×Ö¶ÎÖµºÏ²¢Éú³ÉĞÂĞò±í
-	 * @param src Ô´ÅÅÁĞ
-	 * @param gexp ·µ»ØÖµÎªĞòÁĞµÄ±í´ïÊ½
-	 * @param exps ½á¹û¼¯±í´ïÊ½Êı×é
-	 * @param ds ½á¹û¼¯Êı¾İ½á¹¹
-	 * @param opt 1£ºgexpÎª¿ÕÊ±Éú³ÉÒ»Ìõ¼ÇÂ¼£¬Ä¬ÈÏ²»Éú³É
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Ğò±í
+	 * è®¡ç®—æ’åˆ—çš„å­—æ®µå€¼åˆå¹¶ç”Ÿæˆæ–°åºè¡¨
+	 * @param src æºæ’åˆ—
+	 * @param gexp è¿”å›å€¼ä¸ºåºåˆ—çš„è¡¨è¾¾å¼
+	 * @param exps ç»“æœé›†è¡¨è¾¾å¼æ•°ç»„
+	 * @param ds ç»“æœé›†æ•°æ®ç»“æ„
+	 * @param opt 1ï¼šgexpä¸ºç©ºæ—¶ç”Ÿæˆä¸€æ¡è®°å½•ï¼Œé»˜è®¤ä¸ç”Ÿæˆ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åºè¡¨
 	 */
 	public static Table newTables(Sequence src, Expression gexp, Expression[] exps, DataStruct ds, String opt, Context ctx) {
 		int len = src.length();
@@ -652,14 +652,14 @@ public final class MultithreadUtil {
 			threadCount = parallelNum;
 		}
 		
-		// Éú³ÉnewÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆnewä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		ThreadPool pool = ThreadPool.instance();
 		int singleCount = len / threadCount;
 		NewsJob []jobs = new NewsJob[threadCount];
 		int expCount = exps.length;
 		
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		for (int i = 0; i < threadCount; ++i) {
 			if (i + 1 == threadCount) {
 				end = len + 1;
@@ -675,11 +675,11 @@ public final class MultithreadUtil {
 			}
 
 			jobs[i] = new NewsJob(src, start, end, tmpGExp, tmpExps, ds, opt, tmpCtx);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 			start = end;
 		}
 
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï²¢È¡³ö½á¹û
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•å¹¶å–å‡ºç»“æœ
 		int totalLen = 0;
 		for (int i = 0; i < threadCount; ++i) {
 			jobs[i].join();
@@ -697,13 +697,13 @@ public final class MultithreadUtil {
 	}
 	
 	/**
-	 * ¶àÏß³Ì¶ÔĞòÁĞÖ´ĞĞderive¼ÆËã
-	 * @param src Ô´ĞòÁĞ
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param exps ¼ÆËã±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ½á¹û¼¯Ğò±í
+	 * å¤šçº¿ç¨‹å¯¹åºåˆ—æ‰§è¡Œderiveè®¡ç®—
+	 * @param src æºåºåˆ—
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param exps è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return ç»“æœé›†åºè¡¨
 	 */
 	public static Table derive(Sequence src, String []names, Expression []exps, String opt, Context ctx) {
 		int len = src.length();
@@ -739,12 +739,12 @@ public final class MultithreadUtil {
 		String []srcNames = srcDs.getFieldNames();
 		int srcColCount = srcNames.length;
 
-		// ºÏ²¢×Ö¶Î
+		// åˆå¹¶å­—æ®µ
 		String []totalNames = new String[srcColCount + colCount];
 		System.arraycopy(srcNames, 0, totalNames, 0, srcColCount);
 		System.arraycopy(names, 0, totalNames, srcColCount, colCount);
 
-		// ¸øËùÓĞ¼ÇÂ¼Ôö¼Ó×Ö¶Î£¬ÒÔ±ãºó¼ÆËãµÄ¼ÇÂ¼¿ÉÒÔÒıÓÃÇ°Ãæ¼ÇÂ¼µÄ×Ö¶Î
+		// ç»™æ‰€æœ‰è®°å½•å¢åŠ å­—æ®µï¼Œä»¥ä¾¿åè®¡ç®—çš„è®°å½•å¯ä»¥å¼•ç”¨å‰é¢è®°å½•çš„å­—æ®µ
 		DataStruct newDs = srcDs.create(totalNames);
 
 		int threadCount = (len - 1) / SINGLE_PROSS_COUNT + 1;
@@ -758,7 +758,7 @@ public final class MultithreadUtil {
 		int expCount = exps.length;
 		
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		for (int i = 0; i < threadCount; ++i) {
 			if (i + 1 == threadCount) {
 				end = len + 1;
@@ -773,11 +773,11 @@ public final class MultithreadUtil {
 			}
 
 			jobs[i] = new DeriveJob(src, start, end, newDs, tmpExps, opt, tmpCtx);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 			start = end;
 		}
 
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï²¢È¡³ö½á¹û
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•å¹¶å–å‡ºç»“æœ
 		Table result = new Table(newDs, len);
 		for (int i = 0; i < threadCount; ++i) {
 			jobs[i].join();
@@ -788,10 +788,10 @@ public final class MultithreadUtil {
 	}
 
 	/**
-	 * ¶ÔÕûÊıÊı×é½øĞĞ¶àÏß³ÌÅÅĞò
-	 * @param vals ÕûÊıÊı×é
-	 * @param fromIndex ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param toIndex ½áÊøÎ»ÖÃ£¬²»°üº¬
+	 * å¯¹æ•´æ•°æ•°ç»„è¿›è¡Œå¤šçº¿ç¨‹æ’åº
+	 * @param vals æ•´æ•°æ•°ç»„
+	 * @param fromIndex èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param toIndex ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
 	 */
 	public static void sort(int []vals, int fromIndex, int toIndex) {
 		rangeCheck(vals.length, fromIndex, toIndex);
@@ -802,15 +802,15 @@ public final class MultithreadUtil {
 	}
 
 	static void mergeSort(int []src, int[] dest, int low, int high, int off, int threadCount) {
-		// Èç¹ûÔªËØÊıĞ¡ÓÚÉè¶¨Öµ»òÕßÏß³ÌÊıĞ¡ÓÚ2Ôòµ¥Ïß³ÌÅÅĞò
+		// å¦‚æœå…ƒç´ æ•°å°äºè®¾å®šå€¼æˆ–è€…çº¿ç¨‹æ•°å°äº2åˆ™å•çº¿ç¨‹æ’åº
 		int length = high - low;
 		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
 			mergeSort(src, dest, low, high, off);
 			return;
 		}
 		
-		// Êı¾İ·Ö³ÉÁ½²¿·Ö£¬µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·ÖÅÅĞò£¬È»ºóÆô¶¯Ò»¸öÏß³Ì¶Ôºó°ë²¿·ÖÅÅĞò
-		// Ã¿Ò»²¿·Ö¿ÉÄÜ»¹»á¼ÌĞø¶àÏß³ÌÅÅĞò
+		// æ•°æ®åˆ†æˆä¸¤éƒ¨åˆ†ï¼Œå½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†æ’åºï¼Œç„¶åå¯åŠ¨ä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†æ’åº
+		// æ¯ä¸€éƒ¨åˆ†å¯èƒ½è¿˜ä¼šç»§ç»­å¤šçº¿ç¨‹æ’åº
 		int destLow  = low;
 		int destHigh = high;
 		low  += off;
@@ -820,13 +820,13 @@ public final class MultithreadUtil {
 		IntSortJob job1 = new IntSortJob(dest, src, low, mid, -off, threadCount / 2);
 		IntSortJob job2 = new IntSortJob(dest, src, mid, high, -off, threadCount / 2);
 		
-		// ²úÉúÒ»¸öÏß³Ì¶Ôºó°ë²¿·Ö½øĞĞÅÅĞò
+		// äº§ç”Ÿä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		new JobThread(job2).start();
 		
-		// µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·Ö½øĞĞÅÅĞò
+		// å½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		job1.run();
 		
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 		job2.join();
 		
 		if (src[mid - 1] <= src[mid]) {
@@ -844,7 +844,7 @@ public final class MultithreadUtil {
 		}
 	}
 
-	// µ¥Ïß³Ì¹é²¢ÅÅĞò
+	// å•çº¿ç¨‹å½’å¹¶æ’åº
 	private static void mergeSort(int []src, int []dest, int low, int high, int off) {
 		int length = high - low;
 		if (length < INSERTIONSORT_THRESHOLD) {
@@ -890,10 +890,10 @@ public final class MultithreadUtil {
 	}
 
 	/**
-	 * ¶Ô³¤ÕûÊıÊı×é½øĞĞ¶àÏß³ÌÅÅĞò
-	 * @param vals ³¤ÕûÊıÊı×é
-	 * @param fromIndex ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param toIndex ½áÊøÎ»ÖÃ£¬²»°üº¬
+	 * å¯¹é•¿æ•´æ•°æ•°ç»„è¿›è¡Œå¤šçº¿ç¨‹æ’åº
+	 * @param vals é•¿æ•´æ•°æ•°ç»„
+	 * @param fromIndex èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param toIndex ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
 	 */
 	public static void sort(long []vals, int fromIndex, int toIndex) {
 		rangeCheck(vals.length, fromIndex, toIndex);
@@ -904,15 +904,15 @@ public final class MultithreadUtil {
 	}
 
 	static void mergeSort(long []src, long[] dest, int low, int high, int off, int threadCount) {
-		// Èç¹ûÔªËØÊıĞ¡ÓÚÉè¶¨Öµ»òÕßÏß³ÌÊıĞ¡ÓÚ2Ôòµ¥Ïß³ÌÅÅĞò
+		// å¦‚æœå…ƒç´ æ•°å°äºè®¾å®šå€¼æˆ–è€…çº¿ç¨‹æ•°å°äº2åˆ™å•çº¿ç¨‹æ’åº
 		int length = high - low;
 		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
 			mergeSort(src, dest, low, high, off);
 			return;
 		}
 		
-		// Êı¾İ·Ö³ÉÁ½²¿·Ö£¬µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·ÖÅÅĞò£¬È»ºóÆô¶¯Ò»¸öÏß³Ì¶Ôºó°ë²¿·ÖÅÅĞò
-		// Ã¿Ò»²¿·Ö¿ÉÄÜ»¹»á¼ÌĞø¶àÏß³ÌÅÅĞò
+		// æ•°æ®åˆ†æˆä¸¤éƒ¨åˆ†ï¼Œå½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†æ’åºï¼Œç„¶åå¯åŠ¨ä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†æ’åº
+		// æ¯ä¸€éƒ¨åˆ†å¯èƒ½è¿˜ä¼šç»§ç»­å¤šçº¿ç¨‹æ’åº
 		int destLow  = low;
 		int destHigh = high;
 		low  += off;
@@ -922,13 +922,13 @@ public final class MultithreadUtil {
 		LongSortJob job1 = new LongSortJob(dest, src, low, mid, -off, threadCount / 2);
 		LongSortJob job2 = new LongSortJob(dest, src, mid, high, -off, threadCount / 2);
 		
-		// ²úÉúÒ»¸öÏß³Ì¶Ôºó°ë²¿·Ö½øĞĞÅÅĞò
+		// äº§ç”Ÿä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		new JobThread(job2).start();
 		
-		// µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·Ö½øĞĞÅÅĞò
+		// å½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		job1.run();
 		
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 		job2.join();
 		
 		if (src[mid - 1] <= src[mid]) {
@@ -946,7 +946,7 @@ public final class MultithreadUtil {
 		}
 	}
 
-	// µ¥Ïß³Ì¹é²¢ÅÅĞò
+	// å•çº¿ç¨‹å½’å¹¶æ’åº
 	private static void mergeSort(long []src, long []dest, int low, int high, int off) {
 		int length = high - low;
 		if (length < INSERTIONSORT_THRESHOLD) {
@@ -992,10 +992,10 @@ public final class MultithreadUtil {
 	}
 
 	/**
-	 * ¶ÔË«¾«¶È¸¡µãÊıÊı×é½øĞĞ¶àÏß³ÌÅÅĞò
-	 * @param vals Ë«¾«¶È¸¡µãÊıÊı×é
-	 * @param fromIndex ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param toIndex ½áÊøÎ»ÖÃ£¬²»°üº¬
+	 * å¯¹åŒç²¾åº¦æµ®ç‚¹æ•°æ•°ç»„è¿›è¡Œå¤šçº¿ç¨‹æ’åº
+	 * @param vals åŒç²¾åº¦æµ®ç‚¹æ•°æ•°ç»„
+	 * @param fromIndex èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param toIndex ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
 	 */
 	public static void sort(double []vals, int fromIndex, int toIndex) {
 		rangeCheck(vals.length, fromIndex, toIndex);
@@ -1006,15 +1006,15 @@ public final class MultithreadUtil {
 	}
 
 	static void mergeSort(double []src, double[] dest, int low, int high, int off, int threadCount) {
-		// Èç¹ûÔªËØÊıĞ¡ÓÚÉè¶¨Öµ»òÕßÏß³ÌÊıĞ¡ÓÚ2Ôòµ¥Ïß³ÌÅÅĞò
+		// å¦‚æœå…ƒç´ æ•°å°äºè®¾å®šå€¼æˆ–è€…çº¿ç¨‹æ•°å°äº2åˆ™å•çº¿ç¨‹æ’åº
 		int length = high - low;
 		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
 			mergeSort(src, dest, low, high, off);
 			return;
 		}
 		
-		// Êı¾İ·Ö³ÉÁ½²¿·Ö£¬µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·ÖÅÅĞò£¬È»ºóÆô¶¯Ò»¸öÏß³Ì¶Ôºó°ë²¿·ÖÅÅĞò
-		// Ã¿Ò»²¿·Ö¿ÉÄÜ»¹»á¼ÌĞø¶àÏß³ÌÅÅĞò
+		// æ•°æ®åˆ†æˆä¸¤éƒ¨åˆ†ï¼Œå½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†æ’åºï¼Œç„¶åå¯åŠ¨ä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†æ’åº
+		// æ¯ä¸€éƒ¨åˆ†å¯èƒ½è¿˜ä¼šç»§ç»­å¤šçº¿ç¨‹æ’åº
 		int destLow  = low;
 		int destHigh = high;
 		low  += off;
@@ -1024,13 +1024,13 @@ public final class MultithreadUtil {
 		DoubleSortJob job1 = new DoubleSortJob(dest, src, low, mid, -off, threadCount / 2);
 		DoubleSortJob job2 = new DoubleSortJob(dest, src, mid, high, -off, threadCount / 2);
 		
-		// ²úÉúÒ»¸öÏß³Ì¶Ôºó°ë²¿·Ö½øĞĞÅÅĞò
+		// äº§ç”Ÿä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		new JobThread(job2).start();
 		
-		// µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·Ö½øĞĞÅÅĞò
+		// å½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		job1.run();
 		
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 		job2.join();
 		
 		if (Double.compare(src[mid - 1], src[mid]) <= 0) {
@@ -1048,7 +1048,7 @@ public final class MultithreadUtil {
 		}
 	}
 
-	// µ¥Ïß³Ì¹é²¢ÅÅĞò
+	// å•çº¿ç¨‹å½’å¹¶æ’åº
 	private static void mergeSort(double []src, double []dest, int low, int high, int off) {
 		int length = high - low;
 		if (length < INSERTIONSORT_THRESHOLD) {
@@ -1094,10 +1094,10 @@ public final class MultithreadUtil {
 	}
 
 	/**
-	 * ¶Ô×Ö·û´®Êı×é½øĞĞ¶àÏß³ÌÅÅĞò
-	 * @param vals ×Ö·û´®Êı×é
-	 * @param fromIndex ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param toIndex ½áÊøÎ»ÖÃ£¬²»°üº¬
+	 * å¯¹å­—ç¬¦ä¸²æ•°ç»„è¿›è¡Œå¤šçº¿ç¨‹æ’åº
+	 * @param vals å­—ç¬¦ä¸²æ•°ç»„
+	 * @param fromIndex èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param toIndex ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
 	 */
 	public static void sort(String []vals, int fromIndex, int toIndex) {
 		rangeCheck(vals.length, fromIndex, toIndex);
@@ -1108,15 +1108,15 @@ public final class MultithreadUtil {
 	}
 
 	static void mergeSort(String []src, String[] dest, int low, int high, int off, int threadCount) {
-		// Èç¹ûÔªËØÊıĞ¡ÓÚÉè¶¨Öµ»òÕßÏß³ÌÊıĞ¡ÓÚ2Ôòµ¥Ïß³ÌÅÅĞò
+		// å¦‚æœå…ƒç´ æ•°å°äºè®¾å®šå€¼æˆ–è€…çº¿ç¨‹æ•°å°äº2åˆ™å•çº¿ç¨‹æ’åº
 		int length = high - low;
 		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
 			mergeSort(src, dest, low, high, off);
 			return;
 		}
 		
-		// Êı¾İ·Ö³ÉÁ½²¿·Ö£¬µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·ÖÅÅĞò£¬È»ºóÆô¶¯Ò»¸öÏß³Ì¶Ôºó°ë²¿·ÖÅÅĞò
-		// Ã¿Ò»²¿·Ö¿ÉÄÜ»¹»á¼ÌĞø¶àÏß³ÌÅÅĞò
+		// æ•°æ®åˆ†æˆä¸¤éƒ¨åˆ†ï¼Œå½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†æ’åºï¼Œç„¶åå¯åŠ¨ä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†æ’åº
+		// æ¯ä¸€éƒ¨åˆ†å¯èƒ½è¿˜ä¼šç»§ç»­å¤šçº¿ç¨‹æ’åº
 		int destLow  = low;
 		int destHigh = high;
 		low  += off;
@@ -1126,13 +1126,13 @@ public final class MultithreadUtil {
 		StringSortJob job1 = new StringSortJob(dest, src, low, mid, -off, threadCount / 2);
 		StringSortJob job2 = new StringSortJob(dest, src, mid, high, -off, threadCount / 2);
 		
-		// ²úÉúÒ»¸öÏß³Ì¶Ôºó°ë²¿·Ö½øĞĞÅÅĞò
+		// äº§ç”Ÿä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		new JobThread(job2).start();
 		
-		// µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·Ö½øĞĞÅÅĞò
+		// å½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		job1.run();
 		
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 		job2.join();
 		
 		if (StringArray.compare(src[mid - 1], src[mid]) <= 0) {
@@ -1150,7 +1150,7 @@ public final class MultithreadUtil {
 		}
 	}
 
-	// µ¥Ïß³Ì¹é²¢ÅÅĞò
+	// å•çº¿ç¨‹å½’å¹¶æ’åº
 	private static void mergeSort(String []src, String []dest, int low, int high, int off) {
 		int length = high - low;
 		if (length < INSERTIONSORT_THRESHOLD) {
@@ -1196,10 +1196,10 @@ public final class MultithreadUtil {
 	}
 
 	/**
-	 * ¶ÔÈÕÆÚÊı×é½øĞĞ¶àÏß³ÌÅÅĞò
-	 * @param vals ÈÕÆÚÊı×é
-	 * @param fromIndex ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param toIndex ½áÊøÎ»ÖÃ£¬²»°üº¬
+	 * å¯¹æ—¥æœŸæ•°ç»„è¿›è¡Œå¤šçº¿ç¨‹æ’åº
+	 * @param vals æ—¥æœŸæ•°ç»„
+	 * @param fromIndex èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param toIndex ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
 	 */
 	public static void sort(Date []vals, int fromIndex, int toIndex) {
 		rangeCheck(vals.length, fromIndex, toIndex);
@@ -1210,15 +1210,15 @@ public final class MultithreadUtil {
 	}
 
 	static void mergeSort(Date []src, Date[] dest, int low, int high, int off, int threadCount) {
-		// Èç¹ûÔªËØÊıĞ¡ÓÚÉè¶¨Öµ»òÕßÏß³ÌÊıĞ¡ÓÚ2Ôòµ¥Ïß³ÌÅÅĞò
+		// å¦‚æœå…ƒç´ æ•°å°äºè®¾å®šå€¼æˆ–è€…çº¿ç¨‹æ•°å°äº2åˆ™å•çº¿ç¨‹æ’åº
 		int length = high - low;
 		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
 			mergeSort(src, dest, low, high, off);
 			return;
 		}
 		
-		// Êı¾İ·Ö³ÉÁ½²¿·Ö£¬µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·ÖÅÅĞò£¬È»ºóÆô¶¯Ò»¸öÏß³Ì¶Ôºó°ë²¿·ÖÅÅĞò
-		// Ã¿Ò»²¿·Ö¿ÉÄÜ»¹»á¼ÌĞø¶àÏß³ÌÅÅĞò
+		// æ•°æ®åˆ†æˆä¸¤éƒ¨åˆ†ï¼Œå½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†æ’åºï¼Œç„¶åå¯åŠ¨ä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†æ’åº
+		// æ¯ä¸€éƒ¨åˆ†å¯èƒ½è¿˜ä¼šç»§ç»­å¤šçº¿ç¨‹æ’åº
 		int destLow  = low;
 		int destHigh = high;
 		low  += off;
@@ -1228,13 +1228,13 @@ public final class MultithreadUtil {
 		DateSortJob job1 = new DateSortJob(dest, src, low, mid, -off, threadCount / 2);
 		DateSortJob job2 = new DateSortJob(dest, src, mid, high, -off, threadCount / 2);
 		
-		// ²úÉúÒ»¸öÏß³Ì¶Ôºó°ë²¿·Ö½øĞĞÅÅĞò
+		// äº§ç”Ÿä¸€ä¸ªçº¿ç¨‹å¯¹ååŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		new JobThread(job2).start();
 		
-		// µ±Ç°Ïß³Ì¶ÔÇ°°ë²¿·Ö½øĞĞÅÅĞò
+		// å½“å‰çº¿ç¨‹å¯¹å‰åŠéƒ¨åˆ†è¿›è¡Œæ’åº
 		job1.run();
 		
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 		job2.join();
 		
 		if (DateArray.compare(src[mid - 1], src[mid]) <= 0) {
@@ -1252,7 +1252,7 @@ public final class MultithreadUtil {
 		}
 	}
 
-	// µ¥Ïß³Ì¹é²¢ÅÅĞò
+	// å•çº¿ç¨‹å½’å¹¶æ’åº
 	private static void mergeSort(Date []src, Date []dest, int low, int high, int off) {
 		int length = high - low;
 		if (length < INSERTIONSORT_THRESHOLD) {
@@ -1298,10 +1298,10 @@ public final class MultithreadUtil {
 	}
 	
 	/**
-	 * ¶àÏß³Ì¶ÔĞòÁĞ½øĞĞHASHÈ¥ÖØ
-	 * @param src Ô´ĞòÁĞ
-	 * @param opt Ñ¡Ïî
-	 * @return ½á¹û¼¯Ğò±í
+	 * å¤šçº¿ç¨‹å¯¹åºåˆ—è¿›è¡ŒHASHå»é‡
+	 * @param src æºåºåˆ—
+	 * @param opt é€‰é¡¹
+	 * @return ç»“æœé›†åºè¡¨
 	 */
 	public static Sequence hashId(Sequence src, String opt) {
 		int len = src.length();
@@ -1322,7 +1322,7 @@ public final class MultithreadUtil {
 		HashIdJob []jobs = new HashIdJob[threadCount];
 		
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		for (int i = 0; i < threadCount; ++i) {
 			if (i + 1 == threadCount) {
 				end = len + 1;
@@ -1331,11 +1331,11 @@ public final class MultithreadUtil {
 			}
 
 			jobs[i] = new HashIdJob(src, start, end, opt);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 			start = end;
 		}
 
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï²¢È¡³ö½á¹û
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•å¹¶å–å‡ºç»“æœ
 		Sequence result = new Sequence(len);
 		for (int i = 0; i < threadCount; ++i) {
 			jobs[i].join();
@@ -1347,9 +1347,9 @@ public final class MultithreadUtil {
 	}
 
 	/**
-	 * ¶àÏß³Ì¼ÆËãĞòÁĞbitsº¯Êı
-	 * @param src Ô´ĞòÁĞ
-	 * @param opt n£º³ÉÔ±È¡ÖµÎªÕæ¼Ù
+	 * å¤šçº¿ç¨‹è®¡ç®—åºåˆ—bitså‡½æ•°
+	 * @param src æºåºåˆ—
+	 * @param opt nï¼šæˆå‘˜å–å€¼ä¸ºçœŸå‡
 	 * @return Sequence
 	 */
 	public static Sequence bits(Sequence src, String opt) {
@@ -1366,14 +1366,14 @@ public final class MultithreadUtil {
 			threadCount = parallelNum;
 		}
 		
-		// Éú³ÉnewÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆnewä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		ThreadPool pool = ThreadPool.instance();
 		int singleCount = len / threadCount;
 		singleCount -= singleCount % 64;
 		BitsJob []jobs = new BitsJob[threadCount];
 
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		for (int i = 0; i < threadCount; ++i) {
 			if (i + 1 == threadCount) {
 				end = len + 1;
@@ -1382,11 +1382,11 @@ public final class MultithreadUtil {
 			}
 
 			jobs[i] = new BitsJob(src, start, end, opt);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 			start = end;
 		}
 
-		// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï²¢È¡³ö½á¹û
+		// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•å¹¶å–å‡ºç»“æœ
 		jobs[0].join();
 		Sequence result = jobs[0].getResult();
 		for (int i = 1; i < threadCount; ++i) {

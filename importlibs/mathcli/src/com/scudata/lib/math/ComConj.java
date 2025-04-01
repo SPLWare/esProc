@@ -8,8 +8,8 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸´¹²éî
- * Êµ²¿ÏàµÈ£¬Ğé²¿»¥ÎªÏà·´Êı
+ * å¤å…±è½­
+ * å®éƒ¨ç›¸ç­‰ï¼Œè™šéƒ¨äº’ä¸ºç›¸åæ•°
  */
 public class ComConj extends SequenceFunction {
     public Object calculate(Context ctx) {

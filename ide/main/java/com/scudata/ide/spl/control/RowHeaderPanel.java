@@ -15,40 +15,40 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.spl.GCSpl;
 
 /**
- * ĞĞÊ×¸ñÃæ°å
+ * è¡Œé¦–æ ¼é¢æ¿
  *
  */
 public class RowHeaderPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	/** Íø¸ñ±à¼­¿Ø¼ş */
+	/** ç½‘æ ¼ç¼–è¾‘æ§ä»¶ */
 	protected SplControl control;
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ±à¼­
+	 * æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	protected boolean editable = true;
 	/**
-	 * Íø¸ñ½âÎöÆ÷
+	 * ç½‘æ ¼è§£æå™¨
 	 */
 	protected CellSetParser parser;
 	/**
-	 * Í¼±êµÄ³ß´ç
+	 * å›¾æ ‡çš„å°ºå¯¸
 	 */
 	protected final int ICON_SIZE = 12;
 
 	/**
-	 * ĞĞÊ×¸ñÃæ°å¹¹Ôìº¯Êı
+	 * è¡Œé¦–æ ¼é¢æ¿æ„é€ å‡½æ•°
 	 * 
-	 * @param control Íø¸ñ±à¼­¿Ø¼ş
+	 * @param control ç½‘æ ¼ç¼–è¾‘æ§ä»¶
 	 */
 	public RowHeaderPanel(SplControl control) {
 		this(control, true);
 	}
 
 	/**
-	 * ĞĞÊ×¸ñÃæ°å¹¹Ôìº¯Êı
+	 * è¡Œé¦–æ ¼é¢æ¿æ„é€ å‡½æ•°
 	 * 
-	 * @param control  Íø¸ñ±à¼­¿Ø¼ş
-	 * @param editable ÊÇ·ñ¿ÉÒÔ±à¼­
+	 * @param control  ç½‘æ ¼ç¼–è¾‘æ§ä»¶
+	 * @param editable æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public RowHeaderPanel(SplControl control, boolean editable) {
 		this.control = control;
@@ -61,7 +61,7 @@ public class RowHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯ĞĞ×ø±ê
+	 * åˆå§‹åŒ–è¡Œåæ ‡
 	 */
 	public void initRowLocations() {
 		int rows = control.cellSet.getRowCount() + 1;
@@ -69,9 +69,9 @@ public class RowHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯ĞĞ×ø±ê
+	 * åˆå§‹åŒ–è¡Œåæ ‡
 	 * 
-	 * @param rows ĞĞÊı
+	 * @param rows è¡Œæ•°
 	 */
 	public void initRowLocations(int rows) {
 		control.cellY = new int[rows];
@@ -79,7 +79,7 @@ public class RowHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯×ø±ê
+	 * åˆå§‹åŒ–åæ ‡
 	 */
 	protected void initCoords() {
 		int rows = control.cellSet.getRowCount() + 1;
@@ -102,9 +102,9 @@ public class RowHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * »æÖÆÃæ°å
+	 * ç»˜åˆ¶é¢æ¿
 	 * 
-	 * @param g »­²¼
+	 * @param g ç”»å¸ƒ
 	 */
 	public void paintComponent(Graphics g) {
 		ControlUtils.setGraphicsRenderingHints(g);
@@ -184,20 +184,20 @@ public class RowHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * »º´æÍ¼Æ¬
+	 * ç¼“å­˜å›¾ç‰‡
 	 */
 	final static BufferedImage BI = new BufferedImage(5, 5,
 			BufferedImage.TYPE_INT_RGB);
 
 	/**
-	 * Ã¿Ò»²ãµÄ¿í¶È
+	 * æ¯ä¸€å±‚çš„å®½åº¦
 	 */
 	private static final int LEVEL_WIDTH = 14;
 
 	/**
-	 * È¡ĞĞÊ×¸ñÃæ°åµÄ¿í¶È
+	 * å–è¡Œé¦–æ ¼é¢æ¿çš„å®½åº¦
 	 * 
-	 * @param control Íø¸ñ¿Ø¼ş
+	 * @param control ç½‘æ ¼æ§ä»¶
 	 * @return
 	 */
 	public static int getW(SplControl control) {
@@ -205,9 +205,9 @@ public class RowHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * È¡ĞĞÊ×¸ñÃæ°åµÄ¿í¶È
+	 * å–è¡Œé¦–æ ¼é¢æ¿çš„å®½åº¦
 	 * 
-	 * @param control Íø¸ñ¿Ø¼ş
+	 * @param control ç½‘æ ¼æ§ä»¶
 	 * @return
 	 */
 	public static int getHeaderW(SplControl control) {
@@ -220,9 +220,9 @@ public class RowHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * È¡²ãµÄ¿í¶È
+	 * å–å±‚çš„å®½åº¦
 	 * 
-	 * @param control Íø¸ñ¿Ø¼ş
+	 * @param control ç½‘æ ¼æ§ä»¶
 	 * @return
 	 */
 	private static int getLevelWidth(SplControl control) {
@@ -230,7 +230,7 @@ public class RowHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * È¡Ãæ°å³ß´ç´óĞ¡
+	 * å–é¢æ¿å°ºå¯¸å¤§å°
 	 */
 	public Dimension getPreferredSize() {
 		int height = 0;

@@ -14,10 +14,10 @@ import com.scudata.expression.IParam;
 import com.scudata.expression.SequenceFunction;
 
 /**
- * ÊýÖµÄ¿±ê±äÁ¿µÄ¾ÀÆ«´¦Àí
+ * æ•°å€¼ç›®æ ‡å˜é‡çš„çº åå¤„ç†
  * @author bd
  * A.tskew()/P.tskew(tn), A.tskew@r(rec)/P.tskew@r(tn, rec)
- * ÇåÀíÊý¾Ý¼¯DµÄÀëÉ¢±äÁ¿V
+ * æ¸…ç†æ•°æ®é›†Dçš„ç¦»æ•£å˜é‡V
  */
 public class TSkew extends SequenceFunction {
 
@@ -82,7 +82,7 @@ public class TSkew extends SequenceFunction {
 			SCRec scRec = new SCRec();
 			scRec.init((Sequence) o1); 
 			if (scRec.getMode() == SCRec.MODE_ORI) {
-				//Èç¹ûÔ¤´¦ÀíÊ±Ä¿±êÎ´¾­¹ý¾ÀÆ«´¦Àí
+				//å¦‚æžœé¢„å¤„ç†æ—¶ç›®æ ‡æœªç»è¿‡çº åå¤„ç†
 				return seq;
 			}
 			
@@ -153,7 +153,7 @@ public class TSkew extends SequenceFunction {
 		}
 	}
 	
-	// Ä¿±êÖµ¾ÀÆ«
+	// ç›®æ ‡å€¼çº å
 	protected final static double SCT_MAX = 0.2;
 	protected final static double SCT_MIN = -0.2;
 	protected final static double SCT_MAX0 = 0.00001;
@@ -161,10 +161,10 @@ public class TSkew extends SequenceFunction {
 	protected final static int SCT_MAXTRY = 10000;
 
 	/**
-	 * ¶ÔÊýÖµÄ¿±ê±äÁ¿×ö¾ÀÆ«´¦Àí
-	 * @param tvs	ÊýÖµÄ¿±ê±äÁ¿ÕûÁÐÖµ
-	 * @param cn	±äÁ¿Ãû
-	 * @param filePath	Èç¹û³öÏÖÐèÒªÅÅÐòµÄÇé¿ö£¬ÔÚÊý¾Ý½Ï¶àÊ±»º´æÎÄ¼þµÄÂ·¾¶
+	 * å¯¹æ•°å€¼ç›®æ ‡å˜é‡åšçº åå¤„ç†
+	 * @param tvs	æ•°å€¼ç›®æ ‡å˜é‡æ•´åˆ—å€¼
+	 * @param cn	å˜é‡å
+	 * @param filePath	å¦‚æžœå‡ºçŽ°éœ€è¦æŽ’åºçš„æƒ…å†µï¼Œåœ¨æ•°æ®è¾ƒå¤šæ—¶ç¼“å­˜æ–‡ä»¶çš„è·¯å¾„
 	 * @return
 	 */
 	public static SCRec tskew(Sequence tvs, String cn) {
@@ -172,7 +172,7 @@ public class TSkew extends SequenceFunction {
 		double skew = Skew.skew(tvs);
 
 		if (skew >= SCT_MIN && skew <= SCT_MAX) {
-			// 2.4(b) ²»Ðè¾ÀÆ«£¬·µ»Ø
+			// 2.4(b) ä¸éœ€çº åï¼Œè¿”å›ž
 			scRec.setMode(SCRec.MODE_ORI);
 			return scRec;
 		}
@@ -181,16 +181,16 @@ public class TSkew extends SequenceFunction {
 		scRec.setNumStatis(ns);
 		Sequence pts1 = Pts.pts(tvs, ns.getMin(), 1);
 		if (skew > SCT_MAX) {
-			// ¼ÆËãlog(transbase(x)).skew¼ÌÐøÅÐ¶Ï
+			// è®¡ç®—log(transbase(x)).skewç»§ç»­åˆ¤æ–­
 			Sequence power = Pts.power(pts1, 0d);
 			double skew0 = recSCSkew(power, ns);
 			if (skew0 >= SCT_MIN && skew0 <= SCT_MAX) { // step2
-				// 2.4(c) log±ä»»
+				// 2.4(c) logå˜æ¢
 				scRec.setMode(SCRec.MODE_LOG);
-				// Õâ¸öÎ»ÖÃ¾ÀÆ«ºóµÄÖµºÍÅÐ¶ÏÖµ²»Í¬ÁË£¬²»ÓÃtranspose£¬Ö±½ÓÓÃlnÐÂËã·¨
+				// è¿™ä¸ªä½ç½®çº ååŽçš„å€¼å’Œåˆ¤æ–­å€¼ä¸åŒäº†ï¼Œä¸ç”¨transposeï¼Œç›´æŽ¥ç”¨lnæ–°ç®—æ³•
 				Pts.ptsSeq(tvs, 0d, 0d, true);
 			} else if (skew0 < SCT_MIN) { // step 6
-				// 2.4(d) ÔÚ(0,1)Ö®¼äÑ°ÕÒp£¬Ê¹µÃVs.pts(p).skewÎª0
+				// 2.4(d) åœ¨(0,1)ä¹‹é—´å¯»æ‰¾pï¼Œä½¿å¾—Vs.pts(p).skewä¸º0
 				scRec.setMode(SCRec.MODE_POWER);
 				power = Pts.power(pts1, 1d);
 				double top = recSCSkew(power, ns);
@@ -236,7 +236,7 @@ public class TSkew extends SequenceFunction {
 					} else { // step 8, condition A1
 						MessageManager mm = EngineMessage.get();
 						System.out.println(mm.getMessage("prep.targetNmnvSolution8", cn));
-						// Ã»ÕÒµ½p£¬Êä³ö¾¯¸æÐÅÏ¢£¬Ä¿±ê±äÁ¿²»¼ÆËãrank£¬Ö±½Ó²»´¦Àí
+						// æ²¡æ‰¾åˆ°pï¼Œè¾“å‡ºè­¦å‘Šä¿¡æ¯ï¼Œç›®æ ‡å˜é‡ä¸è®¡ç®—rankï¼Œç›´æŽ¥ä¸å¤„ç†
 						scRec.setMode(SCRec.MODE_ORI);
 						return scRec;
 					}
@@ -245,31 +245,31 @@ public class TSkew extends SequenceFunction {
 					System.out.println(mm.getMessage("prep.targetNmnvReverse", cn, 0,
 							skew0, 1, top));
 					System.out.println(mm.getMessage("prep.targetNmnvSolution8", cn));
-					// Ã»ÕÒµ½p£¬Êä³ö¾¯¸æÐÅÏ¢£¬Ä¿±ê±äÁ¿²»¼ÆËãrank£¬Ö±½Ó²»´¦Àí
+					// æ²¡æ‰¾åˆ°pï¼Œè¾“å‡ºè­¦å‘Šä¿¡æ¯ï¼Œç›®æ ‡å˜é‡ä¸è®¡ç®—rankï¼Œç›´æŽ¥ä¸å¤„ç†
 					scRec.setMode(SCRec.MODE_ORI);
 					return scRec;
 				}
 			} else { // step 3
-						// Ä¿±ê±äÁ¿²»¼ÆËãrank£¬Ö±½Ó²»´¦Àí
+						// ç›®æ ‡å˜é‡ä¸è®¡ç®—rankï¼Œç›´æŽ¥ä¸å¤„ç†
 				scRec.setMode(SCRec.MODE_ORI);
 				return scRec;
 			}
 		} else { // skew < Min
-					// ¼ÆËãtransbase(x)^2.skew¼ÌÐøÅÐ¶Ï
+					// è®¡ç®—transbase(x)^2.skewç»§ç»­åˆ¤æ–­
 			Sequence power = Pts.power(pts1, 2d);
 			double skew2 = recSCSkew(power, ns);
 			if (skew2 >= SCT_MIN && skew2 <= SCT_MAX) { // step4
-				// 2.13(e) Æ½·½±ä»»
+				// 2.13(e) å¹³æ–¹å˜æ¢
 				scRec.setP(2d);
 				tvs.setMems(power.getMems());
 				scRec.setMode(SCRec.MODE_SQUARE);
 			} else if (skew2 < SCT_MIN) { // step 5
-				// ÏÈÓÃsertÇåÀí£¬È»ºóÔÙÅÐ¶Ï
-				// step12(g)£¬Ä¿±ê±äÁ¿²»¼ÆËãrank£¬Ö±½Ó²»´¦Àí
+				// å…ˆç”¨sertæ¸…ç†ï¼Œç„¶åŽå†åˆ¤æ–­
+				// step12(g)ï¼Œç›®æ ‡å˜é‡ä¸è®¡ç®—rankï¼Œç›´æŽ¥ä¸å¤„ç†
 				scRec.setMode(SCRec.MODE_ORI);
 				return scRec;
 			} else { // step 7
-						// step12(f) ÔÚ(0,1)Ö®¼äÑ°ÕÒp£¬Ê¹µÃVs.pts(p).skewÎª0
+						// step12(f) åœ¨(0,1)ä¹‹é—´å¯»æ‰¾pï¼Œä½¿å¾—Vs.pts(p).skewä¸º0
 				scRec.setMode(SCRec.MODE_POWER);
 				power = Pts.power(pts1, 1d);
 				double bottom = recSCSkew(power, ns);
@@ -315,7 +315,7 @@ public class TSkew extends SequenceFunction {
 					} else { // step 8, condition B1
 						MessageManager mm = EngineMessage.get();
 						System.out.println(mm.getMessage("prep.targetNmnvSolution8", cn));
-						// Ã»ÕÒµ½p£¬Êä³ö¾¯¸æÐÅÏ¢£¬Ä¿±ê±äÁ¿²»¼ÆËãrank£¬Ö±½Ó²»´¦Àí
+						// æ²¡æ‰¾åˆ°pï¼Œè¾“å‡ºè­¦å‘Šä¿¡æ¯ï¼Œç›®æ ‡å˜é‡ä¸è®¡ç®—rankï¼Œç›´æŽ¥ä¸å¤„ç†
 						scRec.setMode(SCRec.MODE_ORI);
 						return scRec;
 					}
@@ -324,7 +324,7 @@ public class TSkew extends SequenceFunction {
 					System.out.println(mm.getMessage("prep.targetNmnvReverse", cn, 2,
 							skew2, 1, bottom));
 					System.out.println(mm.getMessage("prep.targetNmnvSolution8", cn));
-					// Ã»ÕÒµ½p£¬Êä³ö¾¯¸æÐÅÏ¢£¬Ä¿±ê±äÁ¿²»¼ÆËãrank£¬Ö±½Ó²»´¦Àí
+					// æ²¡æ‰¾åˆ°pï¼Œè¾“å‡ºè­¦å‘Šä¿¡æ¯ï¼Œç›®æ ‡å˜é‡ä¸è®¡ç®—rankï¼Œç›´æŽ¥ä¸å¤„ç†
 					scRec.setMode(SCRec.MODE_ORI);
 					return scRec;
 				}

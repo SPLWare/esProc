@@ -26,21 +26,21 @@ import com.scudata.util.EnvUtil;
 import com.scudata.util.Variant;
 
 /**
- * ²úÉú±í´ïÊ½µÄÊ±ºòÃ»·¢·ÖÎö³ö±êÊ¶·ûÊÇÊ²Ã´£¬¿ÉÄÜÊÇ±äÁ¿Ò²¿ÉÄÜÊÇ×Ö¶Î¡£
- * ÔËĞĞ¹ı³ÌÖĞÔÙ¸ù¾İ¼ÆËãÉÏÏÂÎÄÀ´È·¶¨ÊÇ×Ö¶Î»¹ÊÇ±äÁ¿
+ * äº§ç”Ÿè¡¨è¾¾å¼çš„æ—¶å€™æ²¡å‘åˆ†æå‡ºæ ‡è¯†ç¬¦æ˜¯ä»€ä¹ˆï¼Œå¯èƒ½æ˜¯å˜é‡ä¹Ÿå¯èƒ½æ˜¯å­—æ®µã€‚
+ * è¿è¡Œè¿‡ç¨‹ä¸­å†æ ¹æ®è®¡ç®—ä¸Šä¸‹æ–‡æ¥ç¡®å®šæ˜¯å­—æ®µè¿˜æ˜¯å˜é‡
  * @author WangXiaoJun
  *
  */
 public class UnknownSymbol extends Node {
 	private String name;
 	
-	private IComputeItem computeItem; // ÉÏ´Î¼ÆËãÊ±¶ÔÓ¦µÄ¼ÆËã¶ÔÏó
-	private int col = -1; // ÉÏ´Î¼ÆËã¶ÔÓ¦µÄ×Ö¶ÎË÷Òı£¬ÓÃÓÚĞÔÄÜÓÅ»¯
-	private DataStruct prevDs; // ÉÏ´Î¼ÆËã¶ÔÓ¦µÄÊı¾İ½á¹¹£¬ÓÃÓÚĞÔÄÜÓÅ»¯
+	private IComputeItem computeItem; // ä¸Šæ¬¡è®¡ç®—æ—¶å¯¹åº”çš„è®¡ç®—å¯¹è±¡
+	private int col = -1; // ä¸Šæ¬¡è®¡ç®—å¯¹åº”çš„å­—æ®µç´¢å¼•ï¼Œç”¨äºæ€§èƒ½ä¼˜åŒ–
+	private DataStruct prevDs; // ä¸Šæ¬¡è®¡ç®—å¯¹åº”çš„æ•°æ®ç»“æ„ï¼Œç”¨äºæ€§èƒ½ä¼˜åŒ–
 	
-	private Param param; // ÉÏ´Î¼ÆËã¶ÔÓ¦µÄ±äÁ¿
-	private DBObject db;  // ÉÏ´Î¼ÆËã¶ÔÓ¦µÄÊı¾İ¿âÁ¬½Ó
-	private boolean isField = false; // ÊÇ·ñ¶ÔÓ¦µÄÊÇ×Ö¶Î
+	private Param param; // ä¸Šæ¬¡è®¡ç®—å¯¹åº”çš„å˜é‡
+	private DBObject db;  // ä¸Šæ¬¡è®¡ç®—å¯¹åº”çš„æ•°æ®åº“è¿æ¥
+	private boolean isField = false; // æ˜¯å¦å¯¹åº”çš„æ˜¯å­—æ®µ
 	
 	public UnknownSymbol(String name) {
 		this.name = name;
@@ -68,7 +68,7 @@ public class UnknownSymbol extends Node {
 	}
 	
 	/**
-	 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+	 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 	 */
 	public void reset() {
 		computeItem = null;
@@ -84,7 +84,7 @@ public class UnknownSymbol extends Node {
 	}
 
 	public Object calculate(Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄ¼ÍÂ¼»òĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„çºªå½•æˆ–åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
@@ -101,7 +101,7 @@ public class UnknownSymbol extends Node {
 
 				return cur.getNormalFieldValue(col);
 			} else if (obj instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (((Sequence)obj).length() == 0) {
 					return null;
 				}
@@ -132,7 +132,7 @@ public class UnknownSymbol extends Node {
 				throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
 			}
 		} else {
-			// Èç¹ûÔø¾­±»µ±×ö×Ö¶ÎÔò²»ÔÙÕÒ±äÁ¿
+			// å¦‚æœæ›¾ç»è¢«å½“åšå­—æ®µåˆ™ä¸å†æ‰¾å˜é‡
 			if (!isField) {
 				if (param != null) {
 					return param.getValue();
@@ -141,11 +141,11 @@ public class UnknownSymbol extends Node {
 				}
 				
 				param = EnvUtil.getParam(name, ctx);
-				if (param != null) { // ±äÁ¿
+				if (param != null) { // å˜é‡
 					return param.getValue();
 				}
 				
-				// Êı¾İ¿âÁ¬½Ó
+				// æ•°æ®åº“è¿æ¥
 				DBSession dbs = ctx.getDBSession(name);
 				if (dbs != null) {
 					db = new DBObject(dbs);
@@ -155,9 +155,9 @@ public class UnknownSymbol extends Node {
 				isField = true;
 			}
 
-			// ×Ö¶Î
-			// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
-			boolean hasNull = false; // ÊÇ·ñÓĞĞòÁĞµÚÒ»¸ö³ÉÔ±Îª¿Õ
+			// å­—æ®µ
+			// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
+			boolean hasNull = false; // æ˜¯å¦æœ‰åºåˆ—ç¬¬ä¸€ä¸ªæˆå‘˜ä¸ºç©º
 			for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 				IComputeItem item = entry.getElement();
 				Object cur = item.getCurrent();
@@ -171,7 +171,7 @@ public class UnknownSymbol extends Node {
 						return r.getNormalFieldValue(col);
 					}
 				} else if (cur instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					if (((Sequence)cur).length() == 0) {
 						computeItem = item;
 						return null;
@@ -204,9 +204,9 @@ public class UnknownSymbol extends Node {
 		}
 	}
 
-	// '=' ¸³ÖµÔËËã
+	// '=' èµ‹å€¼è¿ç®—
 	public Object assign(Object value, Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄ¼ÍÂ¼»òĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„çºªå½•æˆ–åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
@@ -223,7 +223,7 @@ public class UnknownSymbol extends Node {
 
 				cur.setNormalFieldValue(col, value);
 			} else if (obj instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (((Sequence)obj).length() == 0) {
 					return value;
 				}
@@ -256,19 +256,19 @@ public class UnknownSymbol extends Node {
 			return value;
 		} else {
 			if (computeItem == null) {
-				param = EnvUtil.getParam(name, ctx); // ±äÁ¿
+				param = EnvUtil.getParam(name, ctx); // å˜é‡
 				if (param != null) {
 					param.setValue(value);
 					return value;
 				}
 			}
 
-			// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+			// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 			for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 				IComputeItem item = entry.getElement();
 				Object cur = item.getCurrent();
 				
-				// ¸³ÖµµÄÇé¿ö²»ÔÊĞíĞòÁĞÊ×ÔªËØÎªnull£¿
+				// èµ‹å€¼çš„æƒ…å†µä¸å…è®¸åºåˆ—é¦–å…ƒç´ ä¸ºnullï¼Ÿ
 				if (cur instanceof BaseRecord) {
 					BaseRecord r = (BaseRecord) cur;
 					col = r.getFieldIndex(name);
@@ -294,7 +294,7 @@ public class UnknownSymbol extends Node {
 						return value;
 					}
 				} else if (cur instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					if (((Sequence)cur).length() == 0) {
 						computeItem = item;
 						return value;
@@ -315,16 +315,16 @@ public class UnknownSymbol extends Node {
 				}
 			}
 
-			// Ã»ÓĞÕÒµ½×Ö¶ÎÔò²úÉú±äÁ¿·ÅÈëÉÏÏÂÎÄÖĞ
+			// æ²¡æœ‰æ‰¾åˆ°å­—æ®µåˆ™äº§ç”Ÿå˜é‡æ”¾å…¥ä¸Šä¸‹æ–‡ä¸­
 			param = new Param(name, Param.VAR, value);
 			ctx.addParam(param);
 			return value;
 		}
 	}
 
-	// '+=' ¸³ÖµÔËËã
+	// '+=' èµ‹å€¼è¿ç®—
 	public Object addAssign(Object value, Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄ¼ÍÂ¼»òĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„çºªå½•æˆ–åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
@@ -343,7 +343,7 @@ public class UnknownSymbol extends Node {
 				cur.setNormalFieldValue(col, result);
 				return result;
 			} else if (obj instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (((Sequence)obj).length() == 0) {
 					return value;
 				}
@@ -379,7 +379,7 @@ public class UnknownSymbol extends Node {
 			return result;
 		} else {
 			if (computeItem == null) {
-				param = EnvUtil.getParam(name, ctx); // ±äÁ¿
+				param = EnvUtil.getParam(name, ctx); // å˜é‡
 				if (param != null) {
 					Object result = Variant.add(param.getValue(), value);
 					param.setValue(result);
@@ -387,12 +387,12 @@ public class UnknownSymbol extends Node {
 				}
 			}
 
-			// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+			// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 			for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 				IComputeItem item = entry.getElement();
 				Object cur = item.getCurrent();
 				
-				// ¸³ÖµµÄÇé¿ö²»ÔÊĞíĞòÁĞÊ×ÔªËØÎªnull£¿
+				// èµ‹å€¼çš„æƒ…å†µä¸å…è®¸åºåˆ—é¦–å…ƒç´ ä¸ºnullï¼Ÿ
 				if (cur instanceof BaseRecord) {
 					BaseRecord r = (BaseRecord) cur;
 					col = r.getFieldIndex(name);
@@ -406,7 +406,7 @@ public class UnknownSymbol extends Node {
 						return result;
 					}
 				} else if (cur instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					if (((Sequence)cur).length() == 0) {
 						computeItem = item;
 						return value;
@@ -435,7 +435,7 @@ public class UnknownSymbol extends Node {
 	}
 
 	public Object move(Move node, Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Current current = (Current)computeItem;
@@ -444,7 +444,7 @@ public class UnknownSymbol extends Node {
 				return null;
 			}
 
-			// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+			// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 			Object obj = current.get(pos);
 			if (obj instanceof Sequence) {
 				if (((Sequence)obj).length() == 0) {
@@ -491,15 +491,15 @@ public class UnknownSymbol extends Node {
 			return pos > 0 ? current.get(pos) : null;
 		}
 
-		// ×Ö¶Î
-		// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+		// å­—æ®µ
+		// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 		for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
 			if (item instanceof Current) { // series.(...)
 				Current current = (Current) item;
 				Object curObj = current.getCurrent();
 
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (curObj instanceof Sequence) {
 					if (((Sequence)curObj).length() > 0) {
 						curObj = ((Sequence)curObj).get(1);
@@ -576,14 +576,14 @@ public class UnknownSymbol extends Node {
 	}
 
 	public Object moveAssign(Move node, Object value, Context ctx) {
-		 // Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		 // å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Current current = (Current)computeItem;
 			int pos = node.calculateIndex(current, ctx);
 			if (pos < 1) return value;
 
-			 // Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+			 // å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 			Object obj = current.get(pos);
 			if (obj instanceof Sequence) {
 				if (((Sequence)obj).length() == 0) {
@@ -632,15 +632,15 @@ public class UnknownSymbol extends Node {
 			 return value;
 		 }
 
-		 // ×Ö¶Î
-		 // µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+		 // å­—æ®µ
+		 // ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 		for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
 			if (item instanceof Current) { // series.(...)
 				Current current = (Current) item;
 				Object curObj = current.getCurrent();
 
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (curObj instanceof Sequence) {
 					if (((Sequence)curObj).length() > 0) {
 						curObj = ((Sequence)curObj).get(1);
@@ -719,7 +719,7 @@ public class UnknownSymbol extends Node {
 	}
 	
 	public Object moves(Move node, Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Current current = (Current)computeItem;
@@ -754,8 +754,8 @@ public class UnknownSymbol extends Node {
 			return result;
 		}
 
-		// ×Ö¶Î
-		// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+		// å­—æ®µ
+		// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 		for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
 			if (item instanceof Current) { // series.(...)
@@ -800,10 +800,10 @@ public class UnknownSymbol extends Node {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -811,9 +811,9 @@ public class UnknownSymbol extends Node {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -830,27 +830,27 @@ public class UnknownSymbol extends Node {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
 		if (!isField) {
-			if (param != null) { // ±äÁ¿
+			if (param != null) { // å˜é‡
 				Sequence sequence = ctx.getComputeStack().getTopSequence();
 				return new ConstArray(param.getValue(), sequence.length());
-			} else if (db != null) { // Êı¾İ¿âÁ¬½Ó
+			} else if (db != null) { // æ•°æ®åº“è¿æ¥
 				Sequence sequence = ctx.getComputeStack().getTopSequence();
 				return new ConstArray(db, sequence.length());
 			}
 			
 			param = EnvUtil.getParam(name, ctx);
-			if (param != null) { // ±äÁ¿
+			if (param != null) { // å˜é‡
 				Sequence sequence = ctx.getComputeStack().getTopSequence();
 				return new ConstArray(param.getValue(), sequence.length());
 			}
 			
-			// Êı¾İ¿âÁ¬½Ó
+			// æ•°æ®åº“è¿æ¥
 			DBSession dbs = ctx.getDBSession(name);
 			if (dbs != null) {
 				Sequence sequence = ctx.getComputeStack().getTopSequence();
@@ -861,7 +861,7 @@ public class UnknownSymbol extends Node {
 			isField = true;
 		}
 		
-		// µ÷ÓÃcalculateAllÊ±Õ»¶¥¶ÔÏó¿Ï¶¨ÊÇĞòÁĞ
+		// è°ƒç”¨calculateAllæ—¶æ ˆé¡¶å¯¹è±¡è‚¯å®šæ˜¯åºåˆ—
 		ComputeStack stack = ctx.getComputeStack();
 		Sequence sequence = stack.getTopSequence();
 		
@@ -881,12 +881,12 @@ public class UnknownSymbol extends Node {
 		DataStruct ds = null;
 		int col = -1;
 		
-		// ÕÒ³öµÚÒ»¸ö·Ç¿ÕµÄ³ÉÔ±£¬ÅĞ¶ÏÊÇ·ñº¬ÓĞµ±Ç°×Ö¶Î
-		// ³ÉÔ±¿ÉÄÜÊÇ¼ÇÂ¼»òÅÅÁĞ
+		// æ‰¾å‡ºç¬¬ä¸€ä¸ªéç©ºçš„æˆå‘˜ï¼Œåˆ¤æ–­æ˜¯å¦å«æœ‰å½“å‰å­—æ®µ
+		// æˆå‘˜å¯èƒ½æ˜¯è®°å½•æˆ–æ’åˆ—
 		for (; i <= len; ++i) {
 			Object mem = sequence.getMem(i);
 			if (mem instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				Sequence tmp = (Sequence)mem;
 				if (tmp.length() > 0) {
 					mem = tmp.getMem(1);
@@ -913,17 +913,17 @@ public class UnknownSymbol extends Node {
 				
 				break;
 			} else if (mem != null) {
-				// A.(B.(...))ÒıÓÃÉÏ²ãÅÅÁĞµÄ×Ö¶Î
+				// A.(B.(...))å¼•ç”¨ä¸Šå±‚æ’åˆ—çš„å­—æ®µ
 				break;
 			}
 		}
 		
 		if (result != null) {
-			// µÚÒ»¸ö·Ç¿ÕµÄ³ÉÔ±º¬ÓĞµ±Ç°×Ö¶Î
+			// ç¬¬ä¸€ä¸ªéç©ºçš„æˆå‘˜å«æœ‰å½“å‰å­—æ®µ
 			for (++i; i <= len; ++i) {
 				Object mem = sequence.getMem(i);
 				if (mem instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					Sequence tmp = (Sequence)mem;
 					if (tmp.length() > 0) {
 						mem = tmp.getMem(1);
@@ -954,7 +954,7 @@ public class UnknownSymbol extends Node {
 			
 			return result;
 		} else {
-			// A.(B.(...))ÒıÓÃÉÏ²ãÅÅÁĞµÄ×Ö¶Î
+			// A.(B.(...))å¼•ç”¨ä¸Šå±‚æ’åˆ—çš„å­—æ®µ
 			Object value = getOuterFieldValue(ctx);
 			result = new ConstArray(value, len);
 			result.setTemporary(true);
@@ -962,9 +962,9 @@ public class UnknownSymbol extends Node {
 		}
 	}
 	
-	// È¡Íâ²ãÅÅÁĞµÄ×Ö¶ÎÖµ
+	// å–å¤–å±‚æ’åˆ—çš„å­—æ®µå€¼
 	private Object getOuterFieldValue(Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄ¼ÍÂ¼»òĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„çºªå½•æˆ–åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
@@ -981,7 +981,7 @@ public class UnknownSymbol extends Node {
 
 				return cur.getNormalFieldValue(col);
 			} else if (obj instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (((Sequence)obj).length() == 0) {
 					return null;
 				}
@@ -1012,9 +1012,9 @@ public class UnknownSymbol extends Node {
 				throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
 			}
 		} else {
-			// ×Ö¶Î
-			// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
-			boolean hasNull = false; // ÊÇ·ñÓĞĞòÁĞµÚÒ»¸ö³ÉÔ±Îª¿Õ
+			// å­—æ®µ
+			// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
+			boolean hasNull = false; // æ˜¯å¦æœ‰åºåˆ—ç¬¬ä¸€ä¸ªæˆå‘˜ä¸ºç©º
 			LinkEntry<IComputeItem> entry = stack.getStackHeadEntry();
 			for (entry = entry.getNext(); entry != null; entry = entry.getNext()) {
 				IComputeItem item = entry.getElement();
@@ -1029,7 +1029,7 @@ public class UnknownSymbol extends Node {
 						return r.getNormalFieldValue(col);
 					}
 				} else if (cur instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					if (((Sequence)cur).length() == 0) {
 						computeItem = item;
 						return null;
@@ -1063,8 +1063,8 @@ public class UnknownSymbol extends Node {
 	}
 
 	/**
-	 * ·µ»Ø½ÚµãÊÇ·ñµ¥µ÷µİÔöµÄ
-	 * @return true£ºÊÇµ¥µ÷µİÔöµÄ£¬false£º²»ÊÇ
+	 * è¿”å›èŠ‚ç‚¹æ˜¯å¦å•è°ƒé€’å¢çš„
+	 * @return trueï¼šæ˜¯å•è°ƒé€’å¢çš„ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isMonotone() {
 		return true;

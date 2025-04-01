@@ -171,7 +171,7 @@ public class Http4SPL {
 
     
     public static void ignore() throws NoSuchAlgorithmException, KeyManagementException {
-        // ×Ô¶¨ÒåÖ¤ÊéĞ£ÑéÆ÷
+        // è‡ªå®šä¹‰è¯ä¹¦æ ¡éªŒå™¨
         TrustManager[] trustAllCerts = new TrustManager[] {
           new X509TrustManager() {
             @Override
@@ -190,7 +190,7 @@ public class Http4SPL {
         sc.init(null, trustAllCerts, new java.security.SecureRandom());
         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
-        // ×Ô¶¨ÒåhostnameĞ£ÑéÆ÷
+        // è‡ªå®šä¹‰hostnameæ ¡éªŒå™¨
         HostnameVerifier allHostsValid = new HostnameVerifier() {
             @Override
             public boolean verify(String hostname, SSLSession session) {

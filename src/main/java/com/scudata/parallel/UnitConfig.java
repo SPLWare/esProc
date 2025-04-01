@@ -26,20 +26,20 @@ import com.scudata.parallel.XmlUtil;
 import com.scudata.resources.ParallelMessage;
 
 /**
- * ·Ö»úÅäÖÃÀà
+ * åˆ†æœºé…ç½®ç±»
  * @author Joancy
  *
  */
 public class UnitConfig extends ConfigWriter {
 	// version 3
-	private int tempTimeOut = 12; // ÁÙÊ±ÎÄ¼ş´æ»îÊ±¼ä£¬ÃëÎªµ¥Î»£¬0ÎªÓÀÉú£¬µ¥Î»¶¼ÊÇĞ¡Ê±¡£
-	private int proxyTimeOut = 12; // ÎÄ¼şÒÔ¼°ÓÎ±ê´úÀíµÄ¹ıÆÚÊ±¼ä£¬ÃëÎªµ¥Î»£¬0ÎªÓÀÉú£¬µ¥Î»¶¼ÊÇĞ¡Ê±¡£
-	private int interval = 30 * 60; // ¼ì²é´úÀí»òÕßÁÙÊ±ÎÄ¼ş¹ıÆÚµÄÊ±¼ä¼ä¸ô£¬0Îª²»¼ì²é¹ıÆÚ¡£µ¥Î»Ãë
-	private int backlog = 10; // ·şÎñÆ÷×î´ó²¢·¢Á¬½Ó£¬²Ù×÷ÏµÍ³È±Ê¡×î´óÎª50£¬ÏŞ¶¨·¶Î§1µ½50
+	private int tempTimeOut = 12; // ä¸´æ—¶æ–‡ä»¶å­˜æ´»æ—¶é—´ï¼Œç§’ä¸ºå•ä½ï¼Œ0ä¸ºæ°¸ç”Ÿï¼Œå•ä½éƒ½æ˜¯å°æ—¶ã€‚
+	private int proxyTimeOut = 12; // æ–‡ä»¶ä»¥åŠæ¸¸æ ‡ä»£ç†çš„è¿‡æœŸæ—¶é—´ï¼Œç§’ä¸ºå•ä½ï¼Œ0ä¸ºæ°¸ç”Ÿï¼Œå•ä½éƒ½æ˜¯å°æ—¶ã€‚
+	private int interval = 30 * 60; // æ£€æŸ¥ä»£ç†æˆ–è€…ä¸´æ—¶æ–‡ä»¶è¿‡æœŸçš„æ—¶é—´é—´éš”ï¼Œ0ä¸ºä¸æ£€æŸ¥è¿‡æœŸã€‚å•ä½ç§’
+	private int backlog = 10; // æœåŠ¡å™¨æœ€å¤§å¹¶å‘è¿æ¥ï¼Œæ“ä½œç³»ç»Ÿç¼ºçœæœ€å¤§ä¸º50ï¼Œé™å®šèŒƒå›´1åˆ°50
 	boolean autoStart=false;
 	private List<Host> hosts = null;
 	
-//	¿Í»§¶Ë°×Ãûµ¥
+//	å®¢æˆ·ç«¯ç™½åå•
 	private boolean checkClient = false;
 	private List<String> enabledClientsStart = null;
 	private List<String> enabledClientsEnd = null;
@@ -47,18 +47,18 @@ public class UnitConfig extends ConfigWriter {
 	MessageManager mm = ParallelMessage.get();
 	
 	/**
-	 * ´ÓÅäÖÃÎÄ¼şÁ÷¼ÓÔØÅäÖÃĞÅÏ¢
-	 * @param is ÅäÖÃÎÄ¼şÁ÷
-	 * @throws Exception ¼ÓÔØ³ö´íÊ±Å×³öÒì³£
+	 * ä»é…ç½®æ–‡ä»¶æµåŠ è½½é…ç½®ä¿¡æ¯
+	 * @param is é…ç½®æ–‡ä»¶æµ
+	 * @throws Exception åŠ è½½å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void load(InputStream is) throws Exception {
 		load(is, true);
 	}
 	
 	/**
-	 * ´ÓÅäÖÃÎÄ¼şµÄ×Ö½ÚÊı¾İ¼ÓÔØÅäÖÃĞÅÏ¢
-	 * @param buf ÅäÖÃÎÄ¼ş×Ö½ÚÊı¾İ
-	 * @throws Exception ¼ÓÔØ³ö´íÅ×³öÒì³£
+	 * ä»é…ç½®æ–‡ä»¶çš„å­—èŠ‚æ•°æ®åŠ è½½é…ç½®ä¿¡æ¯
+	 * @param buf é…ç½®æ–‡ä»¶å­—èŠ‚æ•°æ®
+	 * @throws Exception åŠ è½½å‡ºé”™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void load(byte[] buf) throws Exception {
 		ByteArrayInputStream bais = new ByteArrayInputStream(buf);
@@ -67,11 +67,11 @@ public class UnitConfig extends ConfigWriter {
 	}
 	
 	/**
-	 * ¸ù¾İipºÍport²úÉúHost¶ÔÏó£¬²¢½«Host¶ÔÏóÎ¬»¤µ½hosts¶ÓÁĞ
-	 * @param hosts hosts¶ÓÁĞ
-	 * @param ip IPµØÖ·
-	 * @param port ¶Ë¿ÚºÅ
-	 * @return ÓÉip¸úport²úÉúHost¶ÔÏó
+	 * æ ¹æ®ipå’Œportäº§ç”ŸHostå¯¹è±¡ï¼Œå¹¶å°†Hostå¯¹è±¡ç»´æŠ¤åˆ°hostsé˜Ÿåˆ—
+	 * @param hosts hostsé˜Ÿåˆ—
+	 * @param ip IPåœ°å€
+	 * @param port ç«¯å£å·
+	 * @return ç”±ipè·Ÿportäº§ç”ŸHostå¯¹è±¡
 	 */
 	public static Host getHost(List<Host> hosts, String ip, int port) {
 		Host h = null;
@@ -87,10 +87,10 @@ public class UnitConfig extends ConfigWriter {
 	}
 
 	/**
-	 * ¼ÓÔØÅäÖÃÎÄ¼şÊäÈëÁ÷
-	 * @param is ÅäÖÃÎÄ¼şÁ÷
-	 * @param showDebug ÊÇ·ñ´ò³ö¼ÓÔØÅäÖÃµÄµ÷ÊÔĞÅÏ¢
-	 * @throws Exception ÎÄ¼ş¸ñÊ½´íÎóÊÇÅ×³öÒì³£
+	 * åŠ è½½é…ç½®æ–‡ä»¶è¾“å…¥æµ
+	 * @param is é…ç½®æ–‡ä»¶æµ
+	 * @param showDebug æ˜¯å¦æ‰“å‡ºåŠ è½½é…ç½®çš„è°ƒè¯•ä¿¡æ¯
+	 * @throws Exception æ–‡ä»¶æ ¼å¼é”™è¯¯æ˜¯æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void load(InputStream is, boolean showDebug) throws Exception {
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
@@ -114,7 +114,7 @@ public class UnitConfig extends ConfigWriter {
 		}
 
 		// version 3
-		// Server ÅäÖÃ
+		// Server é…ç½®
 		Node subNode = XmlUtil.findSonNode(root, "tempTimeout");
 		String buf = XmlUtil.getNodeValue(subNode);
 		if (StringUtils.isValidString(buf)) {
@@ -131,7 +131,7 @@ public class UnitConfig extends ConfigWriter {
 		if (StringUtils.isValidString(buf)) {
 			int t = Integer.parseInt(buf);
 			if (t > 0)
-				interval = t;// ÉèÖÃ²»ÕıÈ·Ê±£¬Ê¹ÓÃÈ±Ê¡¼ì²é¼ä¸ô
+				interval = t;// è®¾ç½®ä¸æ­£ç¡®æ—¶ï¼Œä½¿ç”¨ç¼ºçœæ£€æŸ¥é—´éš”
 		}
 
 		subNode = XmlUtil.findSonNode(root, "backlog");
@@ -209,9 +209,9 @@ public class UnitConfig extends ConfigWriter {
 	}
 
 	/**
-	 * ½«ÅäÖÃÎÄ¼ş×ª»»Îª×Ö½ÚÊı¾İ
-	 * @return ×Ö½ÚÊı¾İ
-	 * @throws Exception ×ª»»³ö´íÊ±Å×³öÒì³£
+	 * å°†é…ç½®æ–‡ä»¶è½¬æ¢ä¸ºå­—èŠ‚æ•°æ®
+	 * @return å­—èŠ‚æ•°æ®
+	 * @throws Exception è½¬æ¢å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public byte[] toFileBytes() throws Exception{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -220,16 +220,16 @@ public class UnitConfig extends ConfigWriter {
 	}
 	
 	/**
-	 * ½«ÅäÖÃÎÄ¼şĞÅÏ¢±£´æµ½Êä³öÁ÷out
-	 * @param out Êä³öÁ÷
-	 * @throws SAXException Ğ´³ö´íÊ±Å×³öÒì³£
+	 * å°†é…ç½®æ–‡ä»¶ä¿¡æ¯ä¿å­˜åˆ°è¾“å‡ºæµout
+	 * @param out è¾“å‡ºæµ
+	 * @throws SAXException å†™å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void save(OutputStream out) throws SAXException {
 		Result resultxml = new StreamResult(out);
 		handler.setResult(resultxml);
 		level = 0;
 		handler.startDocument();
-		// ÉèÖÃ¸ù½ÚµãºÍ°æ±¾
+		// è®¾ç½®æ ¹èŠ‚ç‚¹å’Œç‰ˆæœ¬
 		handler.startElement("", "", "SERVER", getAttributesImpl(new String[] {
 				ConfigConsts.VERSION, "3" }));
 		level = 1;
@@ -274,39 +274,39 @@ public class UnitConfig extends ConfigWriter {
 		}
 		
 		handler.endElement("", "", "SERVER");
-		// ÎÄµµ½áÊø,Í¬²½µ½´ÅÅÌ
+		// æ–‡æ¡£ç»“æŸ,åŒæ­¥åˆ°ç£ç›˜
 		handler.endDocument();
 	}
 
 	/**
-	 * »ñÈ¡ÁÙÊ±ÎÄ¼ş³¬Ê±Ê±¼ä£¬µ¥Î»Í³Ò»ÎªĞ¡Ê±
-	 * ·½·¨Í¬getTempTimeOutHour£¬±£ÁôÓÃÓÚ¼æÈİ
-	 * @return ³¬Ê±Ê±¼ä
+	 * è·å–ä¸´æ—¶æ–‡ä»¶è¶…æ—¶æ—¶é—´ï¼Œå•ä½ç»Ÿä¸€ä¸ºå°æ—¶
+	 * æ–¹æ³•åŒgetTempTimeOutHourï¼Œä¿ç•™ç”¨äºå…¼å®¹
+	 * @return è¶…æ—¶æ—¶é—´
 	 */
 	public int getTempTimeOut() {
 		return tempTimeOut;
 	}
 
 	/**
-	 * »ñÈ¡ÁÙÊ±ÎÄ¼ş³¬Ê±Ê±¼ä£¬µ¥Î»Ğ¡Ê±
-	 * @return ³¬Ê±Ê±¼ä
+	 * è·å–ä¸´æ—¶æ–‡ä»¶è¶…æ—¶æ—¶é—´ï¼Œå•ä½å°æ—¶
+	 * @return è¶…æ—¶æ—¶é—´
 	 */
 	public int getTempTimeOutHour() {
 		return tempTimeOut;
 	}
 
 	/**
-	 * ÉèÖÃÁÙÊ±ÎÄ¼ş³¬Ê±Ê±¼ä
-	 * @param tempTimeOut Ê±¼ä
+	 * è®¾ç½®ä¸´æ—¶æ–‡ä»¶è¶…æ—¶æ—¶é—´
+	 * @param tempTimeOut æ—¶é—´
 	 */
 	public void setTempTimeOut(int tempTimeOut) {
 		this.tempTimeOut = tempTimeOut;
 	}
 
 	/**
-	 * °´Ğ¡Ê±ÉèÖÃ³¬Ê±Ê±¼ä£¬·½·¨Í¬setTempTimeOut
-	 * ±£ÁôÓÃÓÚ´úÂë¼æÈİ
-	 * @param tempTimeOutHour Ê±¼ä
+	 * æŒ‰å°æ—¶è®¾ç½®è¶…æ—¶æ—¶é—´ï¼Œæ–¹æ³•åŒsetTempTimeOut
+	 * ä¿ç•™ç”¨äºä»£ç å…¼å®¹
+	 * @param tempTimeOutHour æ—¶é—´
 	 */
 	public void setTempTimeOutHour(int tempTimeOutHour) {
 		this.tempTimeOut = tempTimeOutHour;
@@ -324,23 +324,23 @@ public class UnitConfig extends ConfigWriter {
 	}
 
 	/**
-	 * È¡´úÀí¶ÔÏóÉú´æÊ±¼ä£¨µ¥Î»ÎªĞ¡Ê±£©
-	 * @return ´úÀí³¬Ê±Ê±¼ä
+	 * å–ä»£ç†å¯¹è±¡ç”Ÿå­˜æ—¶é—´ï¼ˆå•ä½ä¸ºå°æ—¶ï¼‰
+	 * @return ä»£ç†è¶…æ—¶æ—¶é—´
 	 */
 	public int getProxyTimeOutHour() {
 		return proxyTimeOut;
 	}
 
 	/**
-	 * ÉèÖÃ´úÀí³¬Ê±Ê±¼ä
-	 * @param proxyTimeOut ³¬Ê±Ê±¼ä
+	 * è®¾ç½®ä»£ç†è¶…æ—¶æ—¶é—´
+	 * @param proxyTimeOut è¶…æ—¶æ—¶é—´
 	 */
 	public void setProxyTimeOut(int proxyTimeOut) {
 		this.proxyTimeOut = proxyTimeOut;
 	}
 
 	/**
- * ·½·¨Í¬setProxyTimeOut
+ * æ–¹æ³•åŒsetProxyTimeOut
  * @param proxyTimeOutHour
  */
 	public void setProxyTimeOutHour(int proxyTimeOutHour) {
@@ -348,55 +348,55 @@ public class UnitConfig extends ConfigWriter {
 	}
 
 	/**
-	 * ¼ì²éÊÇ·ñ³¬Ê±µÄÊ±¼ä¼ä¸ô(µ¥Î»ÎªÃë)
-	 * @return Ê±¼ä¼ä¸ô
+	 * æ£€æŸ¥æ˜¯å¦è¶…æ—¶çš„æ—¶é—´é—´éš”(å•ä½ä¸ºç§’)
+	 * @return æ—¶é—´é—´éš”
 	 */
 	public int getInterval() {
 		return interval;
 	}
 
 	/**
-	 * ÉèÖÃ¼ì²é³¬Ê±µÄÊ±¼ä¼ä¸ô
-	 * @param interval Ê±¼ä¼ä¸ô
+	 * è®¾ç½®æ£€æŸ¥è¶…æ—¶çš„æ—¶é—´é—´éš”
+	 * @param interval æ—¶é—´é—´éš”
 	 */
 	public void setInterval(int interval) {
 		this.interval = interval;
 	}
 
 	/**
-	 * »ñÈ¡·şÎñ¶ËµÄ²¢·¢Á¬½ÓÊı
-	 * @return ²¢·¢Êı
+	 * è·å–æœåŠ¡ç«¯çš„å¹¶å‘è¿æ¥æ•°
+	 * @return å¹¶å‘æ•°
 	 */
 	public int getBacklog() {
 		return backlog;
 	}
 	
 	/**
-	 * ÉèÖÃ·şÎñÆ÷²¢·¢Á¬½ÓÊı
-	 * @param backlog ²¢·¢Á¬½ÓÊı
+	 * è®¾ç½®æœåŠ¡å™¨å¹¶å‘è¿æ¥æ•°
+	 * @param backlog å¹¶å‘è¿æ¥æ•°
 	 */
 	public void setBacklog(int backlog) {
 		this.backlog = backlog;
 	}
 
 	/**
-	 * ÁĞ³öµ±Ç°·Ö»úÏÂµÄËùÓĞ½ø³ÌµØÖ·
-	 * @return ½ø³ÌÖ÷»úÁĞ±í
+	 * åˆ—å‡ºå½“å‰åˆ†æœºä¸‹çš„æ‰€æœ‰è¿›ç¨‹åœ°å€
+	 * @return è¿›ç¨‹ä¸»æœºåˆ—è¡¨
 	 */
 	public List<Host> getHosts() {
 		return hosts;
 	}
 
 	/**
-	 * ÉèÖÃ½ø³ÌÖ÷»úÁĞ±í
-	 * @param hosts ½ø³ÌÖ÷»úÁĞ±í
+	 * è®¾ç½®è¿›ç¨‹ä¸»æœºåˆ—è¡¨
+	 * @param hosts è¿›ç¨‹ä¸»æœºåˆ—è¡¨
 	 */
 	public void setHosts(List<Host> hosts) {
 		this.hosts = hosts;
 	}
 
 	/**
-	 * ÊÇ·ñĞ£Ñé¿Í»§¶Ë
+	 * æ˜¯å¦æ ¡éªŒå®¢æˆ·ç«¯
 	 * @return
 	 */
 	public boolean isCheckClients() {
@@ -425,7 +425,7 @@ public class UnitConfig extends ConfigWriter {
 
 
 	public static class Host {
-//		ÊÊºÏ×÷ÒµÊıÈ±Ê¡ÎªCPU¸öÊı,¿ÉÄÜ±»·ÏÆú
+//		é€‚åˆä½œä¸šæ•°ç¼ºçœä¸ºCPUä¸ªæ•°,å¯èƒ½è¢«åºŸå¼ƒ
 		int preferredTaskNum = Runtime.getRuntime().availableProcessors();
 		
 		int maxTaskNum = preferredTaskNum*2;

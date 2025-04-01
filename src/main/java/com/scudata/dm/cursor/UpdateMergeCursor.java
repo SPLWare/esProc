@@ -6,32 +6,32 @@ import com.scudata.dm.Sequence;
 import com.scudata.dw.IDWCursor;
 
 /**
- * ÓÃÓÚ×é±í¼°Æä¸üĞÂ·Ö±í×öÓĞĞòºÏ²¢
+ * ç”¨äºç»„è¡¨åŠå…¶æ›´æ–°åˆ†è¡¨åšæœ‰åºåˆå¹¶
  * T.cursor@w(...)
  * @author RunQian
  *
  */
 public class UpdateMergeCursor extends ICursor {
-	private ICursor []cursors; // ÓÎ±êÄÚÊı¾İÒÑ¾­°´¹é²¢×Ö¶ÎÉıĞòÅÅĞò
-	private int []fields; // ¹é²¢×Ö¶Î
-	private int deleteField; // É¾³ı±êÊ¶×Ö¶Î£¬Èç¹ûÃ»ÓĞÉ¾³ı±êÊ¶×Ö¶ÎÔòÎª-1
+	private ICursor []cursors; // æ¸¸æ ‡å†…æ•°æ®å·²ç»æŒ‰å½’å¹¶å­—æ®µå‡åºæ’åº
+	private int []fields; // å½’å¹¶å­—æ®µ
+	private int deleteField; // åˆ é™¤æ ‡è¯†å­—æ®µï¼Œå¦‚æœæ²¡æœ‰åˆ é™¤æ ‡è¯†å­—æ®µåˆ™ä¸º-1
 	
-	private int field = -1; // µ¥×Ö¶Î¹é²¢Ê±Ê¹ÓÃ
+	private int field = -1; // å•å­—æ®µå½’å¹¶æ—¶ä½¿ç”¨
 	private ICursor cs1;
-	private ICursor cs2; // ºóÃæµÄÓÎ±êÏÈ¹é²¢³ÉÒ»¸öÓÎ±ê
-	private Sequence data1; // ÓÎ±ê1»º´æµÄÊı¾İ
-	private Sequence data2; // ÓÎ±ê2»º´æµÄÊı¾İ
-	private int cur1; // ÓÎ±ê1µ±Ç°¼ÇÂ¼ÔÚ»º´æÊı¾İÖĞµÄË÷Òı
-	private int cur2; // ÓÎ±ê2µ±Ç°¼ÇÂ¼ÔÚ»º´æÊı¾İÖĞµÄË÷Òı
+	private ICursor cs2; // åé¢çš„æ¸¸æ ‡å…ˆå½’å¹¶æˆä¸€ä¸ªæ¸¸æ ‡
+	private Sequence data1; // æ¸¸æ ‡1ç¼“å­˜çš„æ•°æ®
+	private Sequence data2; // æ¸¸æ ‡2ç¼“å­˜çš„æ•°æ®
+	private int cur1; // æ¸¸æ ‡1å½“å‰è®°å½•åœ¨ç¼“å­˜æ•°æ®ä¸­çš„ç´¢å¼•
+	private int cur2; // æ¸¸æ ‡2å½“å‰è®°å½•åœ¨ç¼“å­˜æ•°æ®ä¸­çš„ç´¢å¼•
 	
-	//private boolean isSubCursor = false; // ÊÇ·ñÊÇ×ÓÓÎ±ê£¬×ÓÓÎ±êĞèÒª±£ÁôÉ¾³ıµÄ¼ÇÂ¼
+	//private boolean isSubCursor = false; // æ˜¯å¦æ˜¯å­æ¸¸æ ‡ï¼Œå­æ¸¸æ ‡éœ€è¦ä¿ç•™åˆ é™¤çš„è®°å½•
 	
 	/**
-	 * ¹¹½¨×é±í¼°Æä¸üĞÂ·Ö±í×é³ÉµÄÓÎ±ê
-	 * @param cursors ÓÎ±êÊı×é
-	 * @param fields ¹ØÁª×Ö¶ÎË÷Òı
-	 * @param deleteField É¾³ı±êÊ¶×Ö¶ÎË÷Òı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºç»„è¡¨åŠå…¶æ›´æ–°åˆ†è¡¨ç»„æˆçš„æ¸¸æ ‡
+	 * @param cursors æ¸¸æ ‡æ•°ç»„
+	 * @param fields å…³è”å­—æ®µç´¢å¼•
+	 * @param deleteField åˆ é™¤æ ‡è¯†å­—æ®µç´¢å¼•
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public UpdateMergeCursor(ICursor []cursors, int []fields, int deleteField, Context ctx) {
 		this.cursors = cursors;
@@ -47,8 +47,8 @@ public class UpdateMergeCursor extends ICursor {
 		init();
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			for (ICursor cursor : cursors) {
@@ -60,7 +60,7 @@ public class UpdateMergeCursor extends ICursor {
 	}
 	
 	/**
-	 * ×ö³õÊ¼»¯¶¯×÷
+	 * åšåˆå§‹åŒ–åŠ¨ä½œ
 	 */
 	private void init() {
 		int count = cursors.length;
@@ -69,7 +69,7 @@ public class UpdateMergeCursor extends ICursor {
 		if (count == 2) {
 			cs2 = cursors[1];
 		} else {
-			// Èç¹ûÓÎ±êÊı¶àÓÚÁ½¸ö£¬ÔòºóÃæµÄÓÎ±êÏÈ¹é²¢³ÉÒ»¸öÓÎ±ê
+			// å¦‚æœæ¸¸æ ‡æ•°å¤šäºä¸¤ä¸ªï¼Œåˆ™åé¢çš„æ¸¸æ ‡å…ˆå½’å¹¶æˆä¸€ä¸ªæ¸¸æ ‡
 			ICursor []subs = new ICursor[count - 1];
 			System.arraycopy(cursors, 1, subs, 0, count - 1);
 			UpdateMergeCursor subCursor = new UpdateMergeCursor(subs, fields, deleteField, ctx);
@@ -92,8 +92,8 @@ public class UpdateMergeCursor extends ICursor {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -125,7 +125,7 @@ public class UpdateMergeCursor extends ICursor {
 		}
 	}
 	
-	// µ¥×Ö¶ÎÖ÷¼üÃ»ÓĞÉ¾³ı±êÊ¶×Ö¶ÎÊ±µÄºÏ²¢
+	// å•å­—æ®µä¸»é”®æ²¡æœ‰åˆ é™¤æ ‡è¯†å­—æ®µæ—¶çš„åˆå¹¶
 	private Sequence merge(int n, int field, Sequence table) {
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
@@ -269,7 +269,7 @@ public class UpdateMergeCursor extends ICursor {
 		}
 	}
 	
-	// ¶à×Ö¶ÎÖ÷¼üÃ»ÓĞÉ¾³ı±êÊ¶×Ö¶ÎÊ±µÄºÏ²¢
+	// å¤šå­—æ®µä¸»é”®æ²¡æœ‰åˆ é™¤æ ‡è¯†å­—æ®µæ—¶çš„åˆå¹¶
 	private Sequence merge(int n, int []fields, Sequence table) {
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
@@ -413,40 +413,40 @@ public class UpdateMergeCursor extends ICursor {
 		}
 	}
 
-	// ·µ»Øfalse±íÊ¾É¾³ı¼ÇÂ¼£¬true±íÊ¾±£Áô¼ÇÂ¼
+	// è¿”å›falseè¡¨ç¤ºåˆ é™¤è®°å½•ï¼Œtrueè¡¨ç¤ºä¿ç•™è®°å½•
 	public static boolean merge(BaseRecord r1, BaseRecord r2, int deleteField) {
 		Boolean b1 = (Boolean)r1.getNormalFieldValue(deleteField);
 		Boolean b2 = (Boolean)r2.getNormalFieldValue(deleteField);
 		
-		if (b1 == null) { // Ôö¼Ó
+		if (b1 == null) { // å¢åŠ 
 			if (b2 == null) {
-				return true; // ¼Ó+¼Ó-->¼Ó
-			} else if (b2.booleanValue()) { // É¾³ı
-				return false; // ¼Ó+É¾-->Çå
+				return true; // åŠ +åŠ -->åŠ 
+			} else if (b2.booleanValue()) { // åˆ é™¤
+				return false; // åŠ +åˆ -->æ¸…
 			} else {
-				r2.setNormalFieldValue(deleteField, null); // ¼Ó+¸Ä-->¼Ó
+				r2.setNormalFieldValue(deleteField, null); // åŠ +æ”¹-->åŠ 
 				return true;
 			}
-		} else if (b1.booleanValue()) { // É¾³ı
+		} else if (b1.booleanValue()) { // åˆ é™¤
 			if (b2 == null) {
-				r2.setNormalFieldValue(deleteField, Boolean.FALSE); // É¾+¼Ó-->¸Ä
+				r2.setNormalFieldValue(deleteField, Boolean.FALSE); // åˆ +åŠ -->æ”¹
 			}
 			
-			// É¾+É¾-->É¾
-			// É¾+¸Ä-->¸Ä
+			// åˆ +åˆ -->åˆ 
+			// åˆ +æ”¹-->æ”¹
 			return true;
-		} else { // ĞŞ¸Ä
+		} else { // ä¿®æ”¹
 			if (b2 == null) {
-				r2.setNormalFieldValue(deleteField, b1); // ¸Ä+¼Ó-->¸Ä
+				r2.setNormalFieldValue(deleteField, b1); // æ”¹+åŠ -->æ”¹
 			}
 			
-			// ¸Ä+É¾-->É¾
-			// ¸Ä+¸Ä-->¸Ä
+			// æ”¹+åˆ -->åˆ 
+			// æ”¹+æ”¹-->æ”¹
 			return true;
 		}
 	}
 	
-	// µ¥×Ö¶ÎÖ÷¼üÇÒÓĞÉ¾³ı±êÊ¶×Ö¶ÎÊ±µÄºÏ²¢
+	// å•å­—æ®µä¸»é”®ä¸”æœ‰åˆ é™¤æ ‡è¯†å­—æ®µæ—¶çš„åˆå¹¶
 	private Sequence merge(int n, int field, int deleteField, Sequence table) {
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
@@ -596,7 +596,7 @@ public class UpdateMergeCursor extends ICursor {
 		}
 	}
 
-	// ¶à×Ö¶ÎÖ÷¼üÇÒÓĞÉ¾³ı±êÊ¶×Ö¶ÎÊ±µÄºÏ²¢
+	// å¤šå­—æ®µä¸»é”®ä¸”æœ‰åˆ é™¤æ ‡è¯†å­—æ®µæ—¶çš„åˆå¹¶
 	private Sequence merge(int n, int []fields, int deleteField, Sequence table) {
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
@@ -747,9 +747,9 @@ public class UpdateMergeCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		int []fields = this.fields;
@@ -890,7 +890,7 @@ public class UpdateMergeCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -907,8 +907,8 @@ public class UpdateMergeCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();
@@ -926,15 +926,15 @@ public class UpdateMergeCursor extends ICursor {
 	}
 	
 	/**
-	 * È¡ÅÅĞò×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * å–æ’åºå­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getSortFields() {
 		return cursors[0].getSortFields();
 	}
 	
 	/**
-	 * ÉèÖÃÊôĞÔ £¨Ä¿Ç°ÓÃÓÚ@x£©
+	 * è®¾ç½®å±æ€§ ï¼ˆç›®å‰ç”¨äº@xï¼‰
 	 * @param opt
 	 */
 	public void setOption(String opt) {

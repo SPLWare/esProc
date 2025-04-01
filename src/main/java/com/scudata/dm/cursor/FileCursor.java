@@ -18,47 +18,47 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÎÄ¼şÓÎ±ê£¬ÓÃÓÚ¶ÁÈ¡ÎÄ±¾ÎÄ¼ş
+ * æ–‡ä»¶æ¸¸æ ‡ï¼Œç”¨äºè¯»å–æ–‡æœ¬æ–‡ä»¶
  * @author WangXiaoJun
  *
  */
 public class FileCursor extends ICursor {
-	private FileObject fileObject; // ÎÄ¼ş¶ÔÏó
-	private LineImporter importer; // ÎÄ±¾·ÖÎöÀà£¬ÓÃÓÚ°ÑÎÄ±¾°´ĞĞ¶Á³É×Ö¶ÎÊı×é
-	private DataStruct ds; // ÎÄ¼ş¶ÔÓ¦µÄÊı¾İ½á¹¹
+	private FileObject fileObject; // æ–‡ä»¶å¯¹è±¡
+	private LineImporter importer; // æ–‡æœ¬åˆ†æç±»ï¼Œç”¨äºæŠŠæ–‡æœ¬æŒ‰è¡Œè¯»æˆå­—æ®µæ•°ç»„
+	private DataStruct ds; // æ–‡ä»¶å¯¹åº”çš„æ•°æ®ç»“æ„
 	
-	private long start; // ¶ÁÈ¡µÄÆğÊ¼Î»ÖÃ£¬Òª×öÆşÍ·È¥Î²´¦Àí£¬ÓÃÓÚ²¢ĞĞ¶ÁÎÄ¼ş
-	private long end = -1; // ¶ÁÈ¡µÄ½áÊøÎ»ÖÃ£¬Òª×öÆşÍ·È¥Î²´¦Àí£¬ÓÃÓÚ²¢ĞĞ¶ÁÎÄ¼ş
+	private long start; // è¯»å–çš„èµ·å§‹ä½ç½®ï¼Œè¦åšæå¤´å»å°¾å¤„ç†ï¼Œç”¨äºå¹¶è¡Œè¯»æ–‡ä»¶
+	private long end = -1; // è¯»å–çš„ç»“æŸä½ç½®ï¼Œè¦åšæå¤´å»å°¾å¤„ç†ï¼Œç”¨äºå¹¶è¡Œè¯»æ–‡ä»¶
 
-	private String []selFields; // Ñ¡³ö×Ö¶ÎÃûÊı×é
-	private byte []types; // ×Ö¶ÎÀàĞÍ
-	private String []fmts; // ×Ö¶ÎÖµ¸ñÊ½£¬ÓÃÓÚÈÕÆÚÊ±¼ä
-	private int []fieldLens; // ×Ö¶ÎµÄ´óĞ¡£¬ÓÃÓÚ¹Ì¶¨³¤¶ÈµÄÎÄ¼ş£¬ÁĞ¼äÃ»ÓĞ·Ö¸ô·û
-	private int []selIndex; // Ñ¡³ö×Ö¶ÎÔÚÔ´½á¹¹ÖĞµÄĞòºÅ
-	private DataStruct selDs; // ½á¹û¼¯Êı¾İ½á¹¹
-	private String opt; // Ñ¡Ïî
+	private String []selFields; // é€‰å‡ºå­—æ®µåæ•°ç»„
+	private byte []types; // å­—æ®µç±»å‹
+	private String []fmts; // å­—æ®µå€¼æ ¼å¼ï¼Œç”¨äºæ—¥æœŸæ—¶é—´
+	private int []fieldLens; // å­—æ®µçš„å¤§å°ï¼Œç”¨äºå›ºå®šé•¿åº¦çš„æ–‡ä»¶ï¼Œåˆ—é—´æ²¡æœ‰åˆ†éš”ç¬¦
+	private int []selIndex; // é€‰å‡ºå­—æ®µåœ¨æºç»“æ„ä¸­çš„åºå·
+	private DataStruct selDs; // ç»“æœé›†æ•°æ®ç»“æ„
+	private String opt; // é€‰é¡¹
 	
-	private byte [] colSeparator; // ÁĞ·Ö¸î·û
-	private boolean isTitle; // ÎÄ¼şÊÇ·ñÓĞ±êÌâ£¬Èç¹ûÓĞ½«×÷Îª½á¹¹Ãû
-	private boolean isDeleteFile; // ¶ÁÍêºóÊÇ·ñÉ¾³ıÎÄ¼ş
-	private boolean isSingleField; // ÊÇ·ñ·µ»Øµ¥ÁĞ×é³ÉµÄĞòÁĞ
-	private boolean isSequenceMember; // ÊÇ·ñ·µ»ØĞòÁĞ×é³ÉµÄĞòÁĞ
-	private int sigleFieldIndex; // µ¥ÁĞÊ±µÄ×Ö¶ÎË÷Òı
-	private boolean isExist = true; // ×Ö¶ÎÊÇ·ñ¶¼ÔÚÎÄ¼şÖĞ
+	private byte [] colSeparator; // åˆ—åˆ†å‰²ç¬¦
+	private boolean isTitle; // æ–‡ä»¶æ˜¯å¦æœ‰æ ‡é¢˜ï¼Œå¦‚æœæœ‰å°†ä½œä¸ºç»“æ„å
+	private boolean isDeleteFile; // è¯»å®Œåæ˜¯å¦åˆ é™¤æ–‡ä»¶
+	private boolean isSingleField; // æ˜¯å¦è¿”å›å•åˆ—ç»„æˆçš„åºåˆ—
+	private boolean isSequenceMember; // æ˜¯å¦è¿”å›åºåˆ—ç»„æˆçš„åºåˆ—
+	private int sigleFieldIndex; // å•åˆ—æ—¶çš„å­—æ®µç´¢å¼•
+	private boolean isExist = true; // å­—æ®µæ˜¯å¦éƒ½åœ¨æ–‡ä»¶ä¸­
 	private boolean isEnd = false;
 	
-	private boolean optimize = true; // ideĞèÒªÓÃ£¬parseÊ±ÊÇ·ñÏÈÅĞ¶ÏÄÜ²»ÄÜ×ª³ÉÉÏÒ»Ìõ¼ÇÂ¼µÄÀàĞÍ
+	private boolean optimize = true; // ideéœ€è¦ç”¨ï¼Œparseæ—¶æ˜¯å¦å…ˆåˆ¤æ–­èƒ½ä¸èƒ½è½¬æˆä¸Šä¸€æ¡è®°å½•çš„ç±»å‹
 	
 	/**
-	 * ²úÉúÒ»¸öÎÄ±¾ÎÄ¼şµÄÓÎ±ê
-	 * @param fileObject ÎÄ±¾ÎÄ¼ş
-	 * @param segSeq ¶ÎºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param segCount ·Ö¶ÎÊı
-	 * @param s ÁĞ·Ö¸ô·û
-	 * @param opt Ñ¡Ïî  t£ºµÚÒ»ĞĞÎª±êÌâ£¬b£º¶ş½øÖÆÎÄ¼ş£¬c£ºĞ´³É¶ººÅ·Ö¸ôµÄcsvÎÄ¼ş
-	 * 	s£º²»²ğ·Ö×Ö¶Î£¬¶Á³Éµ¥×Ö¶Î´®¹¹³ÉµÄĞò±í£¬i£º½á¹û¼¯Ö»ÓĞ1ÁĞÊ±·µ»Ø³ÉĞòÁĞ
-	 * 	q£ºÈç¹û×Ö¶Î´®ÍâÓĞÒıºÅÔòÏÈ°şÀë£¬°üÀ¨±êÌâ²¿·Ö£¬k£º±£ÁôÊı¾İÏîÁ½¶ËµÄ¿Õ°×·û£¬È±Ê¡½«×Ô¶¯×ötrim
-	 * 	e£ºFiÔÚÎÄ¼şÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
+	 * äº§ç”Ÿä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶çš„æ¸¸æ ‡
+	 * @param fileObject æ–‡æœ¬æ–‡ä»¶
+	 * @param segSeq æ®µå·ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param segCount åˆ†æ®µæ•°
+	 * @param s åˆ—åˆ†éš”ç¬¦
+	 * @param opt é€‰é¡¹  tï¼šç¬¬ä¸€è¡Œä¸ºæ ‡é¢˜ï¼Œbï¼šäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œcï¼šå†™æˆé€—å·åˆ†éš”çš„csvæ–‡ä»¶
+	 * 	sï¼šä¸æ‹†åˆ†å­—æ®µï¼Œè¯»æˆå•å­—æ®µä¸²æ„æˆçš„åºè¡¨ï¼Œiï¼šç»“æœé›†åªæœ‰1åˆ—æ—¶è¿”å›æˆåºåˆ—
+	 * 	qï¼šå¦‚æœå­—æ®µä¸²å¤–æœ‰å¼•å·åˆ™å…ˆå‰¥ç¦»ï¼ŒåŒ…æ‹¬æ ‡é¢˜éƒ¨åˆ†ï¼Œkï¼šä¿ç•™æ•°æ®é¡¹ä¸¤ç«¯çš„ç©ºç™½ç¬¦ï¼Œç¼ºçœå°†è‡ªåŠ¨åštrim
+	 * 	eï¼šFiåœ¨æ–‡ä»¶ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
 	 * @param ctx
 	 */
 	public FileCursor(FileObject fileObject, int segSeq, int segCount, 
@@ -67,17 +67,17 @@ public class FileCursor extends ICursor {
 	}
 
 	/**
-	 * ²úÉúÒ»¸öÎÄ±¾ÎÄ¼şµÄÓÎ±ê
-	 * @param fileObject ÎÄ±¾ÎÄ¼ş
-	 * @param segSeq ¶ÎºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param segCount ·Ö¶ÎÊı
-	 * @param fields Ñ¡³ö×Ö¶ÎÃûÊı×é
-	 * @param types Ñ¡³ö×Ö¶ÎÀàĞÍÊı×é£¨¿É¿Õ£©£¬²ÎÕÕcom.scudata.common.Types
-	 * @param s ÁĞ·Ö¸ô·û
-	 * @param opt Ñ¡Ïî  t£ºµÚÒ»ĞĞÎª±êÌâ£¬b£º¶ş½øÖÆÎÄ¼ş£¬c£ºĞ´³É¶ººÅ·Ö¸ôµÄcsvÎÄ¼ş
-	 * 	s£º²»²ğ·Ö×Ö¶Î£¬¶Á³Éµ¥×Ö¶Î´®¹¹³ÉµÄĞò±í£¬i£º½á¹û¼¯Ö»ÓĞ1ÁĞÊ±·µ»Ø³ÉĞòÁĞ
-	 * 	q£ºÈç¹û×Ö¶Î´®ÍâÓĞÒıºÅÔòÏÈ°şÀë£¬°üÀ¨±êÌâ²¿·Ö£¬k£º±£ÁôÊı¾İÏîÁ½¶ËµÄ¿Õ°×·û£¬È±Ê¡½«×Ô¶¯×ötrim
-	 * 	e£ºFiÔÚÎÄ¼şÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
+	 * äº§ç”Ÿä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶çš„æ¸¸æ ‡
+	 * @param fileObject æ–‡æœ¬æ–‡ä»¶
+	 * @param segSeq æ®µå·ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param segCount åˆ†æ®µæ•°
+	 * @param fields é€‰å‡ºå­—æ®µåæ•°ç»„
+	 * @param types é€‰å‡ºå­—æ®µç±»å‹æ•°ç»„ï¼ˆå¯ç©ºï¼‰ï¼Œå‚ç…§com.scudata.common.Types
+	 * @param s åˆ—åˆ†éš”ç¬¦
+	 * @param opt é€‰é¡¹  tï¼šç¬¬ä¸€è¡Œä¸ºæ ‡é¢˜ï¼Œbï¼šäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œcï¼šå†™æˆé€—å·åˆ†éš”çš„csvæ–‡ä»¶
+	 * 	sï¼šä¸æ‹†åˆ†å­—æ®µï¼Œè¯»æˆå•å­—æ®µä¸²æ„æˆçš„åºè¡¨ï¼Œiï¼šç»“æœé›†åªæœ‰1åˆ—æ—¶è¿”å›æˆåºåˆ—
+	 * 	qï¼šå¦‚æœå­—æ®µä¸²å¤–æœ‰å¼•å·åˆ™å…ˆå‰¥ç¦»ï¼ŒåŒ…æ‹¬æ ‡é¢˜éƒ¨åˆ†ï¼Œkï¼šä¿ç•™æ•°æ®é¡¹ä¸¤ç«¯çš„ç©ºç™½ç¬¦ï¼Œç¼ºçœå°†è‡ªåŠ¨åštrim
+	 * 	eï¼šFiåœ¨æ–‡ä»¶ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
 	 * @param ctx
 	 */
 	public FileCursor(FileObject fileObject, int segSeq, int segCount, 
@@ -139,24 +139,24 @@ public class FileCursor extends ICursor {
 	}
 
 	/**
-	 * ÉèÖÃ¶ÁÎÄ¼şµÄÆğÊ¼Î»ÖÃ
-	 * @param startPos ÆğÊ¼Î»ÖÃ£¬»á×öÆşÍ·È¥Î²´¦Àí
+	 * è®¾ç½®è¯»æ–‡ä»¶çš„èµ·å§‹ä½ç½®
+	 * @param startPos èµ·å§‹ä½ç½®ï¼Œä¼šåšæå¤´å»å°¾å¤„ç†
 	 */
 	public void setStart(long start) {
 		this.start = start;
 	}
 	
 	/**
-	 * ÉèÖÃ¶ÁÎÄ¼şµÄ½áÊøÎ»ÖÃ
-	 * @param endPos ½áÊøÎ»ÖÃ£¬»á×öÆşÍ·È¥Î²´¦Àí
+	 * è®¾ç½®è¯»æ–‡ä»¶çš„ç»“æŸä½ç½®
+	 * @param endPos ç»“æŸä½ç½®ï¼Œä¼šåšæå¤´å»å°¾å¤„ç†
 	 */
 	public void setEnd(long end) {
 		this.end = end;
 	}
 	
 	/**
-	 * ÉèÖÃÈÕÆÚÊ±¼ä×Ö¶ÎµÄ¸ñÊ½
-	 * @param fmts ÈÕÆÚÊ±¼ä¸ñÊ½Êı×é
+	 * è®¾ç½®æ—¥æœŸæ—¶é—´å­—æ®µçš„æ ¼å¼
+	 * @param fmts æ—¥æœŸæ—¶é—´æ ¼å¼æ•°ç»„
 	 */
 	public void setFormats(String []fmts) {
 		this.fmts = fmts;
@@ -167,7 +167,7 @@ public class FileCursor extends ICursor {
 	}
 
 	/**
-	 * ÉèÖÃ×Ö¶ÎµÄ´óĞ¡£¬ÓÃÓÚ¹Ì¶¨³¤¶ÈµÄÎÄ¼ş£¬ÁĞ¼äÃ»ÓĞ·Ö¸ô·û
+	 * è®¾ç½®å­—æ®µçš„å¤§å°ï¼Œç”¨äºå›ºå®šé•¿åº¦çš„æ–‡ä»¶ï¼Œåˆ—é—´æ²¡æœ‰åˆ†éš”ç¬¦
 	 * @param fieldLens
 	 */
 	public void setFieldLens(int[] fieldLens) {
@@ -175,7 +175,7 @@ public class FileCursor extends ICursor {
 	}
 
 	/**
-	 * È¡ÎÄ¼şÓÎ±ê¶ÔÓ¦µÄÎÄ¼ş¶ÔÏó
+	 * å–æ–‡ä»¶æ¸¸æ ‡å¯¹åº”çš„æ–‡ä»¶å¯¹è±¡
 	 * @return FileObject
 	 */
 	public FileObject getFileObject() {
@@ -183,7 +183,7 @@ public class FileCursor extends ICursor {
 	}
 
 	/**
-	 * È¡ÓÎ±êµÄÑ¡Ïî
+	 * å–æ¸¸æ ‡çš„é€‰é¡¹
 	 * @return String
 	 */
 	public String getOption() {
@@ -204,7 +204,7 @@ public class FileCursor extends ICursor {
 		InputStream in = null;
 		String []selFields = null;
 		if (this.selFields != null) {
-			// ¸´ÖÆ×Ö¶ÎÃû£¬·ÀÖ¹Ã»ÓĞ×Ö¶ÎÃûÊ±ÓÃ#1È¡Êı£¬µ÷ÓÃresetºóÔÙÈ¡Êıµ¼ÖÂÕÒ²»µ½×Ö¶Î
+			// å¤åˆ¶å­—æ®µåï¼Œé˜²æ­¢æ²¡æœ‰å­—æ®µåæ—¶ç”¨#1å–æ•°ï¼Œè°ƒç”¨resetåå†å–æ•°å¯¼è‡´æ‰¾ä¸åˆ°å­—æ®µ
 			selFields = new String[this.selFields.length];
 			System.arraycopy(this.selFields, 0, selFields, 0, selFields.length);
 		}
@@ -302,7 +302,7 @@ public class FileCursor extends ICursor {
 					importer.setColSelectIndex(selIndex);
 				}
 			} else if (isTitle) {
-				// µÚÒ»ĞĞÊÇ±êÌâ
+				// ç¬¬ä¸€è¡Œæ˜¯æ ‡é¢˜
 				Object []line = importer.readFirstLine();
 				if (line == null) {
 					return null;
@@ -465,7 +465,7 @@ public class FileCursor extends ICursor {
 
 			return importer;
 		} catch (Exception e) {
-			// importer²úÉú¹ı³ÌÖĞ¿ÉÄÜ³öÒì³£
+			// importeräº§ç”Ÿè¿‡ç¨‹ä¸­å¯èƒ½å‡ºå¼‚å¸¸
 			if (in != null && importer == null) {
 				try {
 					in.close();
@@ -483,7 +483,7 @@ public class FileCursor extends ICursor {
 		}
 	}
 
-	// È¡ËùÓĞ×Ö¶Î
+	// å–æ‰€æœ‰å­—æ®µ
 	private Sequence fetchAll(LineImporter importer, int n) throws IOException {
 		Object []line;
 		long end = this.end;
@@ -516,7 +516,7 @@ public class FileCursor extends ICursor {
 		
 		int fcount;
 		if (ds == null) {
-			// Ê×´Î¶ÁÇÒÃ»ÓĞ±êÌâ
+			// é¦–æ¬¡è¯»ä¸”æ²¡æœ‰æ ‡é¢˜
 			line = importer.readFirstLine();
 			if (line == null) {
 				return null;
@@ -595,7 +595,7 @@ public class FileCursor extends ICursor {
 		}
 	}
 
-	// ÓĞÑ¡³ö×Ö¶ÎÊ±µÄÈ¡Êı
+	// æœ‰é€‰å‡ºå­—æ®µæ—¶çš„å–æ•°
 	private Sequence fetchFields(LineImporter importer, int n) throws IOException {
 		Object []line;
 		long end = this.end;
@@ -658,8 +658,8 @@ public class FileCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -680,9 +680,9 @@ public class FileCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (n < 1) return 0;
@@ -710,7 +710,7 @@ public class FileCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -740,8 +740,8 @@ public class FileCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();
@@ -755,8 +755,8 @@ public class FileCursor extends ICursor {
 	}
 	
 	/**
-	 * ÊÇ·ñ¶Ô×Ö¶Îparse×öÓÅ»¯£¬ÓÅ»¯Ê±»áÏÈ°´ÉÏÒ»Ìõ¼ÇÂ¼µÄ×Ö¶ÎÀàĞÍ×ª
-	 * @param optimize true£ºÓÅ»¯£¬false£º²»ÓÅ»¯
+	 * æ˜¯å¦å¯¹å­—æ®µparseåšä¼˜åŒ–ï¼Œä¼˜åŒ–æ—¶ä¼šå…ˆæŒ‰ä¸Šä¸€æ¡è®°å½•çš„å­—æ®µç±»å‹è½¬
+	 * @param optimize trueï¼šä¼˜åŒ–ï¼Œfalseï¼šä¸ä¼˜åŒ–
 	 */
 	public void setOptimize(boolean optimize) {
 		this.optimize = optimize;

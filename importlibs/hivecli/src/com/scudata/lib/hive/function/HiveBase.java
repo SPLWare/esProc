@@ -147,7 +147,7 @@ public class HiveBase {
 		return table;
 	}
 
-	// 获取表的列名
+	// 鑾峰彇琛ㄧ殑鍒楀悕
 	private String[] getColNames(Schema schema) {
 		List<FieldSchema> fieldSchema = schema.getFieldSchemas();
 		String cols[] = new String[fieldSchema.size()];

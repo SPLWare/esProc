@@ -13,13 +13,13 @@ import com.scudata.dm.*;
 import com.scudata.util.Variant;
 
 /**
- * ĞèÒª¶¨Òå¶à¸öÊı¾İµÄË³ĞòÊôĞÔ£¬ÇÒÊôĞÔ¿ÉÒÔÑ­»·¶ÔÓ¦Ê±£¬Ê¹ÓÃ¸ÃÀà
+ * éœ€è¦å®šä¹‰å¤šä¸ªæ•°æ®çš„é¡ºåºå±æ€§ï¼Œä¸”å±æ€§å¯ä»¥å¾ªç¯å¯¹åº”æ—¶ï¼Œä½¿ç”¨è¯¥ç±»
  *
  */
 public class Para {
-//	Ãû×ÖºÍlegendPropertyÃ»±ØÒªĞòÁĞ»¯£¬¶¼ÔÚ±äÁ¿³õÊ¼ÖµÀïÃæ
+//	åå­—å’ŒlegendPropertyæ²¡å¿…è¦åºåˆ—åŒ–ï¼Œéƒ½åœ¨å˜é‡åˆå§‹å€¼é‡Œé¢
 	private transient String name;
-	private transient byte legendProperty=0;//µ±Ç°ÊôĞÔ¶ÔÓ¦µ½Í¼ÀıÀïÃæµÄÄÄ¸öÊôĞÔ£¬»æÖÆÍ¼ÀıÊµÏÖÁË3ÖÖÊôĞÔ
+	private transient byte legendProperty=0;//å½“å‰å±æ€§å¯¹åº”åˆ°å›¾ä¾‹é‡Œé¢çš„å“ªä¸ªå±æ€§ï¼Œç»˜åˆ¶å›¾ä¾‹å®ç°äº†3ç§å±æ€§
 	
 	private Object value = null;
 	private String axis = null;
@@ -28,13 +28,13 @@ public class Para {
 	private transient static ArrayList<Color> defPalette = null;
 
 	/**
-	 * È±Ê¡¹¹Ôìº¯Êı
+	 * ç¼ºçœæ„é€ å‡½æ•°
 	 */
 	public Para() {
 	}
 
 	/**
-	 * Ê¹ÓÃ³õÊ¼Öµ¹¹Ôì²ÎÊı
+	 * ä½¿ç”¨åˆå§‹å€¼æ„é€ å‚æ•°
 	 * @param value
 	 */
 	public Para(Object value) {
@@ -42,17 +42,17 @@ public class Para {
 	}
 	
 	/**
-	 * Ê¹ÓÃ¶ÔÓ¦Í¼ÀıÊôĞÔÀàĞÍ¹¹Ôì²ÎÊı
-	 * @param legendProperty ¶ÔÓ¦Í¼ÀıÊôĞÔÖµ
+	 * ä½¿ç”¨å¯¹åº”å›¾ä¾‹å±æ€§ç±»å‹æ„é€ å‚æ•°
+	 * @param legendProperty å¯¹åº”å›¾ä¾‹å±æ€§å€¼
 	 */
 	public Para(byte legendProperty) {
 		this.legendProperty = legendProperty;
 	}
 
 	/**
-	 * Ê¹ÓÃ³õÊ¼ÖµÒÔ¼°¶ÔÓ¦Í¼ÀıÊôĞÔÀàĞÍ¹¹Ôì²ÎÊı
-	 * @param value ³õÊ¼ÊôĞÔÖµ
-	 * @param legendProperty ¶ÔÓ¦Í¼ÀıÊôĞÔ
+	 * ä½¿ç”¨åˆå§‹å€¼ä»¥åŠå¯¹åº”å›¾ä¾‹å±æ€§ç±»å‹æ„é€ å‚æ•°
+	 * @param value åˆå§‹å±æ€§å€¼
+	 * @param legendProperty å¯¹åº”å›¾ä¾‹å±æ€§
 	 */
 	public Para(Object value,byte legendProperty) {
 		this.value = value;
@@ -65,7 +65,7 @@ public class Para {
 		if (tmp instanceof Sequence) {
 			Sequence seq = (Sequence) tmp;
 			tmp = Utils.sequenceToChartColor(seq);
-			if (tmp == null) { // Èç¹û²»ÊÇChartColor,ÈÔÈ»¸³ÖµÎª¸ÃĞòÁĞ
+			if (tmp == null) { // å¦‚æœä¸æ˜¯ChartColor,ä»ç„¶èµ‹å€¼ä¸ºè¯¥åºåˆ—
 				tmp = value;
 			}
 		}
@@ -75,57 +75,57 @@ public class Para {
 	}
 
 	/**
-	 * ÉèÖÃ¶ÔÓ¦µ½Í¼ÀıµÄÊôĞÔÖµ
-	 * @param p Í¼ÀıÊôĞÔÖµ
+	 * è®¾ç½®å¯¹åº”åˆ°å›¾ä¾‹çš„å±æ€§å€¼
+	 * @param p å›¾ä¾‹å±æ€§å€¼
 	 */
 	public void setLegendProperty(byte p){
 		this.legendProperty = p;
 	}
 	
 	/**
-	 * »ñÈ¡Í¼ÀıÊôĞÔÖµ
-	 * @return ÊôĞÔÖµ
+	 * è·å–å›¾ä¾‹å±æ€§å€¼
+	 * @return å±æ€§å€¼
 	 */
 	public byte getLegendProperty(){
 		return legendProperty;
 	}
 	
 	/**
-	 * »ñÈ¡ÊôĞÔÖµ
-	 * @return ÊôĞÔÖµ
+	 * è·å–å±æ€§å€¼
+	 * @return å±æ€§å€¼
 	 */
 	public Object getValue() {
 		return value;
 	}
 
 	/**
-	 * ÉèÖÃÊôĞÔÖµ
-	 * @param value ÊôĞÔÖµ
+	 * è®¾ç½®å±æ€§å€¼
+	 * @param value å±æ€§å€¼
 	 */
 	public void setValue(Object value) {
 		this.value = value;
 	}
 
 	/**
-	 * ÉèÖÃ»·¾³ÒıÇæ
-	 * @param e ÒıÇæ¶ÔÏó
+	 * è®¾ç½®ç¯å¢ƒå¼•æ“
+	 * @param e å¼•æ“å¯¹è±¡
 	 */
 	public void setEngine(Engine e) {
 		this.e = e;
 	}
 
 	/**
-	 * Èç¹ûÖµÎªĞòÁĞ£¬»ñÈ¡ĞòÁĞµÄÖµ¸öÊı
-	 * @return ²ÎÊıÖµ¸öÊı
+	 * å¦‚æœå€¼ä¸ºåºåˆ—ï¼Œè·å–åºåˆ—çš„å€¼ä¸ªæ•°
+	 * @return å‚æ•°å€¼ä¸ªæ•°
 	 */
 	public int getLength(){
 		return sequenceValue().length();
 	}
 	
 	/**
-	 * Èç¹ûÊôĞÔÖµÎªÌî³äÑÕÉ«ÀàChartColor£¬»òÕßĞòÁĞÊôĞÔÖµÖĞ°üº¬ÓĞChartColor
-	 * »ñÈ¡Ìî³äÑÕÉ«ÀàÊÇ·ñ¶¨ÒåÁË½¥±äÑÕÉ«
-	 * @return Èç¹ûÓĞ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å¦‚æœå±æ€§å€¼ä¸ºå¡«å……é¢œè‰²ç±»ChartColorï¼Œæˆ–è€…åºåˆ—å±æ€§å€¼ä¸­åŒ…å«æœ‰ChartColor
+	 * è·å–å¡«å……é¢œè‰²ç±»æ˜¯å¦å®šä¹‰äº†æ¸å˜é¢œè‰²
+	 * @return å¦‚æœæœ‰è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean hasGradientColor() {
 		if (value == null || !(value instanceof Sequence))
@@ -141,10 +141,10 @@ public class Para {
 	}
 
 	/**
-	 * Èç¹ûÂß¼­Êı¾İÖµÎªĞòÁĞÊ±£¬¶ÔÓ¦Âß¼­ÖµÑ­»·»ñÈ¡¸ÃÊôĞÔÖµ
-	 * ±ÈÈç¶¨ÒåÁË ºìÂÌÀ¶ 3ÖÖÑÕÉ«£¬ ¶øÂß¼­Êı¾İÓĞ ÕÅÍõÀîÕÔ 4¸öÂß¼­ÖµÊ±£¬Ôò ÕÔ »áÑ­»·¶ÔÓ¦ÎªµÚ1¸öºìÉ«
-	 * @param pos Âß¼­Êı¾İµÄÎ»ÖÃĞòºÅ
-	 * @return ¸ù¾İĞòºÅÑ­»·¶ÔÓ¦ÏàÓ¦²ÎÊıÖµ
+	 * å¦‚æœé€»è¾‘æ•°æ®å€¼ä¸ºåºåˆ—æ—¶ï¼Œå¯¹åº”é€»è¾‘å€¼å¾ªç¯è·å–è¯¥å±æ€§å€¼
+	 * æ¯”å¦‚å®šä¹‰äº† çº¢ç»¿è“ 3ç§é¢œè‰²ï¼Œ è€Œé€»è¾‘æ•°æ®æœ‰ å¼ ç‹æèµµ 4ä¸ªé€»è¾‘å€¼æ—¶ï¼Œåˆ™ èµµ ä¼šå¾ªç¯å¯¹åº”ä¸ºç¬¬1ä¸ªçº¢è‰²
+	 * @param pos é€»è¾‘æ•°æ®çš„ä½ç½®åºå·
+	 * @return æ ¹æ®åºå·å¾ªç¯å¯¹åº”ç›¸åº”å‚æ•°å€¼
 	 */
 	public Object objectValue(int pos) {
 		Object val;
@@ -155,13 +155,13 @@ public class Para {
 				pos = seq.length();
 			}
 			val = seq.get(pos);
-		} else if (value instanceof Color) { // ÎªÁË²»±ØÒªµÄ×ª»»£¬³ÌĞòÖĞ¸³ÖµÖ±½ÓÓÃColor¶ÔÏó£¬µ«´Ó±à¼­´°¿Ú»ñÈ¡µÄ¶¼ÊÇÕûÊı
+		} else if (value instanceof Color) { // ä¸ºäº†ä¸å¿…è¦çš„è½¬æ¢ï¼Œç¨‹åºä¸­èµ‹å€¼ç›´æ¥ç”¨Colorå¯¹è±¡ï¼Œä½†ä»ç¼–è¾‘çª—å£è·å–çš„éƒ½æ˜¯æ•´æ•°
 			val = new Integer(((Color) value).getRGB());
 		} else {
 			val = value;
 		}
-		// ÖáÎªnullÊ±£¬¼´Ö±½ÓÈ¡ÉèÖÃ²ÎÊıµÄÖµ£¬ÓÖÓÉÓÚÔÚÉèÖÃÃ»ÓĞAxisµÄ²ÎÊıÊ±£¬¸úengineÎŞ¹Ø
-		// ËùÒÔÍ¨³£ÏÂÊöÁ½¸öÌõ¼şÊÇÍ¬Ê±Âú×ãµÄ£¬Ò²¼´È¡Ã»ÓĞÖáµÄ²ÎÊıÖµÊ±£¬eÒ²¿Ï¶¨ÊÇnull
+		// è½´ä¸ºnullæ—¶ï¼Œå³ç›´æ¥å–è®¾ç½®å‚æ•°çš„å€¼ï¼Œåˆç”±äºåœ¨è®¾ç½®æ²¡æœ‰Axisçš„å‚æ•°æ—¶ï¼Œè·Ÿengineæ— å…³
+		// æ‰€ä»¥é€šå¸¸ä¸‹è¿°ä¸¤ä¸ªæ¡ä»¶æ˜¯åŒæ—¶æ»¡è¶³çš„ï¼Œä¹Ÿå³å–æ²¡æœ‰è½´çš„å‚æ•°å€¼æ—¶ï¼Œeä¹Ÿè‚¯å®šæ˜¯null
 		if (axis == null || e == null) {
 			return val;
 		}
@@ -176,17 +176,17 @@ public class Para {
 	}
 
 	/**
-	 * ÓÉÉÏ²ã´úÂëÊÂÏÈÖªµÀ¶ÔÓ¦µÄÊı¾İÀàĞÍ£¬Èç¹ûÎªÕûĞÎ£¬È¡µÚÒ»¸öÕûÊı
-	 * @return µÚÒ»¸öÕûÊıÖµ
+	 * ç”±ä¸Šå±‚ä»£ç äº‹å…ˆçŸ¥é“å¯¹åº”çš„æ•°æ®ç±»å‹ï¼Œå¦‚æœä¸ºæ•´å½¢ï¼Œå–ç¬¬ä¸€ä¸ªæ•´æ•°
+	 * @return ç¬¬ä¸€ä¸ªæ•´æ•°å€¼
 	 */
 	public int intValue() {
 		return intValue(0);
 	}
 
 	/**
-	 * °´ÕÕÎ»ÖÃ»ñÈ¡¶ÔÓ¦²ÎÊıµÄÕûÊıÖµ£¬Î»ÖÃ±È²ÎÊı³¤¶ÈÒª´óÊ±£¬½«Ñ­»·È¡Öµ
-	 * @param pos ²ÎÊı¶ÔÓ¦Î»ÖÃ
-	 * @return ²ÎÊıÏàÓ¦ÕûÊıÖµ
+	 * æŒ‰ç…§ä½ç½®è·å–å¯¹åº”å‚æ•°çš„æ•´æ•°å€¼ï¼Œä½ç½®æ¯”å‚æ•°é•¿åº¦è¦å¤§æ—¶ï¼Œå°†å¾ªç¯å–å€¼
+	 * @param pos å‚æ•°å¯¹åº”ä½ç½®
+	 * @return å‚æ•°ç›¸åº”æ•´æ•°å€¼
 	 */
 	public int intValue(int pos) {
 		Object val = objectValue(pos);
@@ -200,15 +200,15 @@ public class Para {
 	}
 
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @return ¸¡µãÊıÖµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @return æµ®ç‚¹æ•°å€¼
 	 */
 	public float floatValue() {
 		return floatValue(0);
 	}
 
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
 	 * @param pos 
 	 * @return
 	 */
@@ -225,17 +225,17 @@ public class Para {
 
 	
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @return ÊµÊıÖµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @return å®æ•°å€¼
 	 */
 	public double doubleValue() {
 		return doubleValue(0);
 	}
 
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @param pos ²ÎÊıÎ»ÖÃ
-	 * @return ÊµÊıÖµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @param pos å‚æ•°ä½ç½®
+	 * @return å®æ•°å€¼
 	 */
 	public double doubleValue(int pos) {
 		Object val = objectValue(pos);
@@ -249,17 +249,17 @@ public class Para {
 	}
 
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @return ÈÕÆÚÖµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @return æ—¥æœŸå€¼
 	 */
 	public Date dateValue() {
 		return dateValue(0);
 	}
 
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @param pos  ²ÎÊıÎ»ÖÃ
-	 * @return ÈÕÆÚÖµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @param pos  å‚æ•°ä½ç½®
+	 * @return æ—¥æœŸå€¼
 	 */
 	public Date dateValue(int pos) {
 		Object val = objectValue(pos);
@@ -277,17 +277,17 @@ public class Para {
 	}
 
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @return ²¼¶ûÖµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @return å¸ƒå°”å€¼
 	 */
 	public boolean booleanValue() {
 		return booleanValue(0);
 	}
 
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @param pos  ²ÎÊıÎ»ÖÃ
-	 * @return ²¼¶ûÖµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @param pos  å‚æ•°ä½ç½®
+	 * @return å¸ƒå°”å€¼
 	 */
 	public boolean booleanValue(int pos) {
 		Object val = objectValue(pos);
@@ -301,17 +301,17 @@ public class Para {
 	}
 
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @return Ìî³äÑÕÉ«Öµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @return å¡«å……é¢œè‰²å€¼
 	 */
 	public ChartColor chartColorValue() {
 		return chartColorValue(1);
 	}
 
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @param pos  ²ÎÊıÎ»ÖÃ
-	 * @return Ìî³äÑÕÉ«Öµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @param pos  å‚æ•°ä½ç½®
+	 * @return å¡«å……é¢œè‰²å€¼
 	 */
 	public ChartColor chartColorValue(int pos) {
 		Object val = objectValue(pos);
@@ -335,17 +335,17 @@ public class Para {
 
 	
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @return ×Ö·û´®Öµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @return å­—ç¬¦ä¸²å€¼
 	 */
 	public String stringValue() {
 		return stringValue(0);
 	}
 
 	/**
-	 * ÓÃ·¨Í¬intValueº¯Êı£¬ÏàÓ¦²ÎÊı²Î¿¼Ëü
-	 * @param pos  ²ÎÊıÎ»ÖÃ
-	 * @return ×Ö·û´®Öµ
+	 * ç”¨æ³•åŒintValueå‡½æ•°ï¼Œç›¸åº”å‚æ•°å‚è€ƒå®ƒ
+	 * @param pos  å‚æ•°ä½ç½®
+	 * @return å­—ç¬¦ä¸²å€¼
 	 */
 	public String stringValue(int pos) {
 		Object val = objectValue(pos);
@@ -356,9 +356,9 @@ public class Para {
 	}
 
 	/**
-	 * Ê¹ÓÃÈ±Ê¡µÄÑÕÉ«µ÷É«°å»ñÈ¡ÑÕÉ«Ñ­»·Öµ
-	 * @param pos Âß¼­Êı¾İ¶ÔÓ¦×ø±ê
-	 * @return ÑÕÉ«Öµ
+	 * ä½¿ç”¨ç¼ºçœçš„é¢œè‰²è°ƒè‰²æ¿è·å–é¢œè‰²å¾ªç¯å€¼
+	 * @param pos é€»è¾‘æ•°æ®å¯¹åº”åæ ‡
+	 * @return é¢œè‰²å€¼
 	 */
 	public static Color defColorValue(int pos) {
 		pos--; 
@@ -374,9 +374,9 @@ public class Para {
 	}
 
 	/**
-	 * ·½·¨ÓÃÔÚÑÕÉ«²»ÉèÖÃÊ±£¬·µ»Øµ÷É«°åÖĞÑÕÉ«
-	 * @param pos Î»ÖÃ
-	 * @return ÑÕÉ«
+	 * æ–¹æ³•ç”¨åœ¨é¢œè‰²ä¸è®¾ç½®æ—¶ï¼Œè¿”å›è°ƒè‰²æ¿ä¸­é¢œè‰²
+	 * @param pos ä½ç½®
+	 * @return é¢œè‰²
 	 */
 	public Color colorValueNullAsDef(int pos) {
 		Color c = colorValue(pos);
@@ -385,12 +385,12 @@ public class Para {
 	}
 	
 	/**
-	 * ÓĞ²¿·Ö²ÎÊıĞèÒª½âÊÍÎªÃ»ÓĞ¶¨ÒåÑÕÉ«Ê±£¬¼´·µ»ØnullÊ±£¬ÓÃÆäËûÊôĞÔµÄÑÕÉ« ËùÒÔ£¬
-	 * ²¢²»ÊÇËùÓĞÃ»¶¨ÒåµÄÑÕÉ«¶¼Ê¹ÓÃÏµÍ³µ÷É«°å£¬¹ÊÊÇ·ñÊ¹ÓÃµ÷É«°åµÄÑÕÉ«
-	 * ÓÉÉÏ²ã³ÌĞò¾ö¶¨£¬Òò´Ë¸Ãº¯ÊıÈÔÈ»»á·µ»ØnullÖµ
-	 * ²»ÄÜ·µ»ØnullµÄÑÕÉ«Ê¹ÓÃcolorValueNullAsDef·½·¨¡£
-	 * @param pos int Î»ÖÃ
-	 * @return Color ÑÕÉ«
+	 * æœ‰éƒ¨åˆ†å‚æ•°éœ€è¦è§£é‡Šä¸ºæ²¡æœ‰å®šä¹‰é¢œè‰²æ—¶ï¼Œå³è¿”å›nullæ—¶ï¼Œç”¨å…¶ä»–å±æ€§çš„é¢œè‰² æ‰€ä»¥ï¼Œ
+	 * å¹¶ä¸æ˜¯æ‰€æœ‰æ²¡å®šä¹‰çš„é¢œè‰²éƒ½ä½¿ç”¨ç³»ç»Ÿè°ƒè‰²æ¿ï¼Œæ•…æ˜¯å¦ä½¿ç”¨è°ƒè‰²æ¿çš„é¢œè‰²
+	 * ç”±ä¸Šå±‚ç¨‹åºå†³å®šï¼Œå› æ­¤è¯¥å‡½æ•°ä»ç„¶ä¼šè¿”å›nullå€¼
+	 * ä¸èƒ½è¿”å›nullçš„é¢œè‰²ä½¿ç”¨colorValueNullAsDefæ–¹æ³•ã€‚
+	 * @param pos int ä½ç½®
+	 * @return Color é¢œè‰²
 	 */
 	public Color colorValue(int pos) {
 		Object val = objectValue(pos);
@@ -407,7 +407,7 @@ public class Para {
 			return cc.getColor1();
 		}
 		int ci = Integer.parseInt(val.toString());
-		if( ci ==16777215) return null;//Í¸Ã÷É«Ê±£¬·µ»Ønull¶ÔÏó£»
+		if( ci ==16777215) return null;//é€æ˜è‰²æ—¶ï¼Œè¿”å›nullå¯¹è±¡ï¼›
 		return new Color(ci);
 	}
 
@@ -487,7 +487,7 @@ public class Para {
 			Properties config = new Properties();
 			InputStream is = null;
 			String name = "/chartcolor.properties";
-//			¼¯ËãÆ÷Í¼Ôª»áÓÃµ½±¨±íÍ³¼ÆÍ¼£¬¶øÍ³¼ÆÍ¼µÄÅäÖÃÎÄ¼şÎªcolor.properties,ÇÒÓë¼¯ËãÆ÷¸ñÊ½²»Í¬
+//			é›†ç®—å™¨å›¾å…ƒä¼šç”¨åˆ°æŠ¥è¡¨ç»Ÿè®¡å›¾ï¼Œè€Œç»Ÿè®¡å›¾çš„é…ç½®æ–‡ä»¶ä¸ºcolor.properties,ä¸”ä¸é›†ç®—å™¨æ ¼å¼ä¸åŒ
 			String relativePath = com.scudata.common.GCBase.PATH_CONFIG
 					+ name;
 			File f = new File(
@@ -503,7 +503,7 @@ public class Para {
 						.getResourceAsStream("/config"+name);
 			}
 			if (is == null)
-				return null;// Ã»ÓĞÅäÉ«ÎÄ¼ş
+				return null;// æ²¡æœ‰é…è‰²æ–‡ä»¶
 			config.load(is);
 			String obj = (String)config.getProperty("default");
 			if(obj==null){

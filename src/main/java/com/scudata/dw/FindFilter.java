@@ -17,7 +17,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * switch¹ıÂËÆ÷
+ * switchè¿‡æ»¤å™¨
  * @author runqian
  *
  */
@@ -119,7 +119,7 @@ public class FindFilter extends IFilter {
 	}
 	
 	public IArray calculateAnd(Context ctx, IArray leftResult) {
-		// isTrue·µ»ØµÄÊÇÁÙÊ±µÄBollArray£¬¿ÉÒÔÖ±½ÓĞŞ¸Ä
+		// isTrueè¿”å›çš„æ˜¯ä¸´æ—¶çš„BollArrayï¼Œå¯ä»¥ç›´æ¥ä¿®æ”¹
 		BoolArray resultArray = leftResult.isTrue();
 		IArray key = right.calculateAll(ctx);
 		int[] pos = it.findAllPos(key, resultArray);

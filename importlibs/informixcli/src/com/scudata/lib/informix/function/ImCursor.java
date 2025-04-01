@@ -55,14 +55,14 @@ public class ImCursor extends ICursor {
 			return m_frag.getFieldName();
 		}
 	}
-	public Object getMinValue(){			//·ÖÆ¬×Ö¶Î×îÐ¡Öµ(°üº¬)
+	public Object getMinValue(){			//åˆ†ç‰‡å­—æ®µæœ€å°å€¼(åŒ…å«)
 		if (m_frag==null){
 			return null;
 		}else{
 			return m_frag.getMinValue();
 		}
 	}
-	public Object getMaxValue(){			//·Ö¶Î×Ö¶Î×î´óÖµ(²»°üº¬)
+	public Object getMaxValue(){			//åˆ†æ®µå­—æ®µæœ€å¤§å€¼(ä¸åŒ…å«)
 		if (m_frag==null){
 			return null;
 		}else{
@@ -139,7 +139,7 @@ public class ImCursor extends ICursor {
 	}
 
 	public void threadRead(Context ctx) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");// ÉèÖÃÈÕÆÚ¸ñÊ½
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");// è®¾ç½®æ—¥æœŸæ ¼å¼
 		String sDate = df.format(new Date());
 		
 		m_tblInfo = new ImTableInfo();
@@ -147,10 +147,10 @@ public class ImCursor extends ICursor {
 		m_sPipeName = m_tblInfo.m_tableName + "_" + sDate + "_" + m_nShellSerial++;
 		String sPipeName="";
 		boolean bLocal = false;
-		// 1. Æô¶¯½Å±¾³ÌÐò
+		// 1. å¯åŠ¨è„šæœ¬ç¨‹åº
 		if (!bLocal) {
 			int nPdqNum = 0;
-			/* split.sh ´¦Àí¶à¹ÜµÀÊý¾ÝÊä³ö½Å±¾
+			/* split.sh å¤„ç†å¤šç®¡é“æ•°æ®è¾“å‡ºè„šæœ¬
 			 * split.sh dbName pipeName sql pipeNum pdq
 			 * echo "set pdqpriority ${pdq};insert into ext_${pipe_name} $sql " |dbaccess $dbname  >/dev/null 2>&1 
 			*/
@@ -171,7 +171,7 @@ public class ImCursor extends ICursor {
 			
 			// m_oldThreadNum = Env.getCallxParallelNum();
 			// Env.setCallxParallelNum(nThreadNum);
-		} else { //ÎÄ¼þ
+		} else { //æ–‡ä»¶
 			if(m_nShellSerial==200){
 				sPipeName = "d:/tmp/ifx/orders2.txt";
 				sPipeName = "d:/tmp/ifx/mycol.txt";

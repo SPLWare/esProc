@@ -4,21 +4,21 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 
 /**
- * ÓÃÓÚ°Ñ¶àÂ·ÓÎ±ê±ä³Éµ¥Â·ÓÎ±ê
- * ·â×°ºócs.groupsÕâÀàÔËËã²»»áÔÙ²ÉÓÃ¶àÏß³ÌÔËËã
+ * ç”¨äºæŠŠå¤šè·¯æ¸¸æ ‡å˜æˆå•è·¯æ¸¸æ ‡
+ * å°è£…åcs.groupsè¿™ç±»è¿ç®—ä¸ä¼šå†é‡‡ç”¨å¤šçº¿ç¨‹è¿ç®—
  * @author RunQian
  *
  */
 public class SinglepathCursor extends ICursor {
-	private ICursor cursor; // ¶àÂ·ÓÎ±ê
+	private ICursor cursor; // å¤šè·¯æ¸¸æ ‡
 
 	public SinglepathCursor(ICursor cursor) {
 		this.cursor = cursor;
 		setDataStruct(cursor.getDataStruct());
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			cursor.resetContext(ctx);
@@ -27,8 +27,8 @@ public class SinglepathCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -36,16 +36,16 @@ public class SinglepathCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		return cursor.skip();
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -53,8 +53,8 @@ public class SinglepathCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

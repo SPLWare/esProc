@@ -30,9 +30,9 @@ public class ClusterPseudo extends IPseudo implements IClusterObject {
 	public static final int TYPE_NEWS = 2;
 	public static final int TYPE_DERIVE = 3;
 	
-	private ClusterFile clusterFile; // ½Úµã»úĞÅÏ¢
-	private int []pseudoProxyIds; // ¶ÔÓ¦µÄ½Úµã»úĞé±í´úÀí±êÊ¶
-	private Sequence cache;//¶ÔimportµÄ½á¹ûµÄcache
+	private ClusterFile clusterFile; // èŠ‚ç‚¹æœºä¿¡æ¯
+	private int []pseudoProxyIds; // å¯¹åº”çš„èŠ‚ç‚¹æœºè™šè¡¨ä»£ç†æ ‡è¯†
+	private Sequence cache;//å¯¹importçš„ç»“æœçš„cache
 	private boolean hasZone;
 	private ClusterPhyTable table;
 	private Context ctx;
@@ -211,7 +211,7 @@ public class ClusterPseudo extends IPseudo implements IClusterObject {
 			}
 		}
 		
-		//Ã»ÓĞzoneÊ±£¬ÈÏÎªÊÇ¸´Ğ´ÄÚ±í£¬´ËÊ±ÓÃÄÚ±í·µ»ØÓÎ±ê
+		//æ²¡æœ‰zoneæ—¶ï¼Œè®¤ä¸ºæ˜¯å¤å†™å†…è¡¨ï¼Œæ­¤æ—¶ç”¨å†…è¡¨è¿”å›æ¸¸æ ‡
 		if (!hasZone) {
 			ClusterMemoryTable table = (ClusterMemoryTable) memory(null, null);
 			return table.cursor(exps, names, null, 0, null, getContext());
@@ -421,19 +421,19 @@ public class ClusterPseudo extends IPseudo implements IClusterObject {
 	}
 	
 	/**
-	 * ·µ»ØËùÓĞµÄÎ¬×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * è¿”å›æ‰€æœ‰çš„ç»´å­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getAllSortedColNames() {
 		return table.getAllSortedColNames();
 	}
 	
 	/**
-	 * ¶Á³ö×é±í×Ö¶Î³É¼¯ÈºÄÚ±í
-	 * @param fields Òª¶Á³öµÄ×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂËÌõ¼ş
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¼¯ÈºÄÚ±í
+	 * è¯»å‡ºç»„è¡¨å­—æ®µæˆé›†ç¾¤å†…è¡¨
+	 * @param fields è¦è¯»å‡ºçš„å­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤æ¡ä»¶
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return é›†ç¾¤å†…è¡¨
 	 */
 	public Object memory(String option, Context ctx) {
 		Cluster cluster = getCluster();
@@ -454,7 +454,7 @@ public class ClusterPseudo extends IPseudo implements IClusterObject {
 		}
 
 		for (int i = 0; i < count; ++i) {
-			// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+			// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 			jobs[i].join();
 		}
 		
@@ -477,9 +477,9 @@ public class ClusterPseudo extends IPseudo implements IClusterObject {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ¶ÁÈ¡Êı¾İ³ÉÄÚ±í
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œè¯»å–æ•°æ®æˆå†…è¡¨
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeMemory(HashMap<String, Object> attributes) {
 		throw new RuntimeException();

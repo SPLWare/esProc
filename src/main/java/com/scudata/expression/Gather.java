@@ -6,15 +6,15 @@ import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
 
 /**
- * ·Ö×éÔËËãµÄ»ã×Üº¯Êı¼Ì³Ğ´ËÀà
+ * åˆ†ç»„è¿ç®—çš„æ±‡æ€»å‡½æ•°ç»§æ‰¿æ­¤ç±»
  * @author RunQian
  *
  */
 abstract public class Gather extends Function {
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯£¬³£Êı±í´ïÊ½ÏÈËã³É³£Êı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–ï¼Œå¸¸æ•°è¡¨è¾¾å¼å…ˆç®—æˆå¸¸æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
@@ -25,73 +25,73 @@ abstract public class Gather extends Function {
 	}
 
 	/**
-	 * ×ö·Ö×éÔËËãÇ°×¼±¸¹¤×÷
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åšåˆ†ç»„è¿ç®—å‰å‡†å¤‡å·¥ä½œ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	abstract public void prepare(Context ctx);
 
 	/**
-	 * ¼ÆËãĞÂ×éÊ×Ìõ¼ÇÂ¼µÄ»ã×ÜÖµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return »ã×ÜÖµ
+	 * è®¡ç®—æ–°ç»„é¦–æ¡è®°å½•çš„æ±‡æ€»å€¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æ±‡æ€»å€¼
 	 */
 	abstract public Object gather(Context ctx);
 
 	/**
-	 * ¼ÆËãµ±Ç°¼ÇÂ¼µÄÖµ£¬»ã×Üµ½Ö®Ç°µÄ»ã×Ü½á¹ûoldValueÉÏ
-	 * @param oldValue Ö®Ç°µÄ»ã×Ü½á¹û
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return »ã×ÜÖµ
+	 * è®¡ç®—å½“å‰è®°å½•çš„å€¼ï¼Œæ±‡æ€»åˆ°ä¹‹å‰çš„æ±‡æ€»ç»“æœoldValueä¸Š
+	 * @param oldValue ä¹‹å‰çš„æ±‡æ€»ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æ±‡æ€»å€¼
 	 */
 	abstract public Object gather(Object oldValue, Context ctx);
 	
 	/**
-	 * È¡¶ş´Î»ã×Ü¶ÔÓ¦µÄ±í´ïÊ½
-	 * ¶àÏß³Ì·Ö×éÊ±£¬Ã¿¸öÏß³ÌËã³öÒ»¸ö·Ö×é½á¹û£¬×îºóĞèÒªÔÚµÚÒ»´Î·Ö×é½á¹ûÉÏÔÙ×ö¶ş´Î·Ö×é
-	 * @param q »ã×Ü×Ö¶ÎĞòºÅ
+	 * å–äºŒæ¬¡æ±‡æ€»å¯¹åº”çš„è¡¨è¾¾å¼
+	 * å¤šçº¿ç¨‹åˆ†ç»„æ—¶ï¼Œæ¯ä¸ªçº¿ç¨‹ç®—å‡ºä¸€ä¸ªåˆ†ç»„ç»“æœï¼Œæœ€åéœ€è¦åœ¨ç¬¬ä¸€æ¬¡åˆ†ç»„ç»“æœä¸Šå†åšäºŒæ¬¡åˆ†ç»„
+	 * @param q æ±‡æ€»å­—æ®µåºå·
 	 * @return Expression
 	 */
 	abstract public Expression getRegatherExpression(int q);
 	
 	/**
-	 * µÚÒ»²½·Ö×é½áÊøÊ±ÊÇ·ñĞèÒªµ÷ÓÃfinish1¶Ô»ã×ÜÖµ½øĞĞÊ×´Î´¦Àí£¬topĞèÒªµ÷ÓÃ
-	 * @return true£ºĞèÒª£¬false£º²»ĞèÒª
+	 * ç¬¬ä¸€æ­¥åˆ†ç»„ç»“æŸæ—¶æ˜¯å¦éœ€è¦è°ƒç”¨finish1å¯¹æ±‡æ€»å€¼è¿›è¡Œé¦–æ¬¡å¤„ç†ï¼Œtopéœ€è¦è°ƒç”¨
+	 * @return trueï¼šéœ€è¦ï¼Œfalseï¼šä¸éœ€è¦
 	 */
 	//public boolean needFinish1() {
 	//	return false;
 	//}
 	
 	/**
-	 * ¶ÔµÚÒ»´Î·Ö×éµÃµ½µÄ»ã×ÜÖµ½øĞĞÊ×´Î´¦Àí£¬´¦ÀíºóµÄÖµ»¹Òª²Î¼Ó¶ş´Î·Ö×éÔËËã
-	 * @param val »ã×ÜÖµ
-	 * @return ´¦ÀíºóµÄ»ã×ÜÖµ
+	 * å¯¹ç¬¬ä¸€æ¬¡åˆ†ç»„å¾—åˆ°çš„æ±‡æ€»å€¼è¿›è¡Œé¦–æ¬¡å¤„ç†ï¼Œå¤„ç†åçš„å€¼è¿˜è¦å‚åŠ äºŒæ¬¡åˆ†ç»„è¿ç®—
+	 * @param val æ±‡æ€»å€¼
+	 * @return å¤„ç†åçš„æ±‡æ€»å€¼
 	 */
 	//public Object finish1(Object val) {
 	//	return val;
 	//}
 	
 	/**
-	 * ÊÇ·ñĞèÒª¶Ô×îÖÕ»ã×ÜÖµ½øĞĞ´¦Àí
-	 * @return true£ºĞèÒª£¬false£º²»ĞèÒª
+	 * æ˜¯å¦éœ€è¦å¯¹æœ€ç»ˆæ±‡æ€»å€¼è¿›è¡Œå¤„ç†
+	 * @return trueï¼šéœ€è¦ï¼Œfalseï¼šä¸éœ€è¦
 	 */
 	//public boolean needFinish() {
 	//	return false;
 	//}
 	
 	/**
-	 * ¶Ô·Ö×é½áÊøµÃµ½µÄ»ã×ÜÖµ½øĞĞ×îÖÕ´¦Àí£¬ÏñÆ½¾ùÖµĞèÒª×ösum/count´¦Àí
-	 * @param val »ã×ÜÖµ
-	 * @return ´¦ÀíºóµÄ»ã×ÜÖµ
+	 * å¯¹åˆ†ç»„ç»“æŸå¾—åˆ°çš„æ±‡æ€»å€¼è¿›è¡Œæœ€ç»ˆå¤„ç†ï¼Œåƒå¹³å‡å€¼éœ€è¦åšsum/countå¤„ç†
+	 * @param val æ±‡æ€»å€¼
+	 * @return å¤„ç†åçš„æ±‡æ€»å€¼
 	 */
 	//public Object finish(Object val) {
 	//	return val;
 	//}
 	
 	/**
-	 * Õë¶Ô¸ø¶¨ĞòÁĞËã³ö»ã×ÜÖµ
-	 * @param seq ĞòÁĞ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return »ã×ÜÖµ
+	 * é’ˆå¯¹ç»™å®šåºåˆ—ç®—å‡ºæ±‡æ€»å€¼
+	 * @param seq åºåˆ—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æ±‡æ€»å€¼
 	 */
 	public Object gather(Sequence seq, Context ctx) {
 		if (seq == null || seq.length() == 0) {

@@ -3,16 +3,16 @@ package com.scudata.dm;
 import com.scudata.cellset.ICellSet;
 
 /**
- * ¿ÉÖ´ĞĞqueryº¯ÊıµÄ¶ÔÏó
+ * å¯æ‰§è¡Œqueryå‡½æ•°çš„å¯¹è±¡
  * @author WangXiaoJun
  *
  */
 public interface IQueryable {
 	/**
-	 * Ö´ĞĞ²éÑ¯Óï¾ä
-	 * @param sql String ²éÑ¯Óï¾ä
-	 * @param params Object[] ²ÎÊıÖµ
-	 * @param cs ICellSet Íø¸ñ¶ÔÏó
+	 * æ‰§è¡ŒæŸ¥è¯¢è¯­å¥
+	 * @param sql String æŸ¥è¯¢è¯­å¥
+	 * @param params Object[] å‚æ•°å€¼
+	 * @param cs ICellSet ç½‘æ ¼å¯¹è±¡
 	 * @param ctx Context
 	 * @return Object
 	 */

@@ -13,37 +13,37 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ³ÉÔ±º¯Êı»ùÀà£¬³ÉÔ±º¯ÊıµÄÊµÏÖÀàĞèÒª¼Ì³Ğ×Ô´ËÀà
+ * æˆå‘˜å‡½æ•°åŸºç±»ï¼Œæˆå‘˜å‡½æ•°çš„å®ç°ç±»éœ€è¦ç»§æ‰¿è‡ªæ­¤ç±»
  * @author WangXiaoJun
  *
  */
 public abstract class MemberFunction extends Function {
-	protected MemberFunction next; // ÏÂÒ»¸öÍ¬ÃûµÄ³ÉÔ±º¯ÊıÀà
-	protected Node left; // µã²Ù×÷·ûµÄ×ó²à½Úµã
+	protected MemberFunction next; // ä¸‹ä¸€ä¸ªåŒåçš„æˆå‘˜å‡½æ•°ç±»
+	protected Node left; // ç‚¹æ“ä½œç¬¦çš„å·¦ä¾§èŠ‚ç‚¹
 	
 	/**
-	 * ÓÃÓÚÅĞ¶Ïµã²Ù×÷·ûÓÒÃæµÄº¯ÊıÊÇ·ñºÍ×óÃæ¶ÔÏóµÄÀàĞÍÆ¥Åä
-	 * @param obj ×óÃæ¶ÔÏó
-	 * @return true£ºÓÒÃæµÄ½Úµã¸ú×óÃæ¶ÔÏóµÄÀàĞÍÆ¥Åä£¬ÊÇÆä³ÉÔ±»ò³ÉÔ±º¯Êı£¬false£º²»ÊÇ
+	 * ç”¨äºåˆ¤æ–­ç‚¹æ“ä½œç¬¦å³é¢çš„å‡½æ•°æ˜¯å¦å’Œå·¦é¢å¯¹è±¡çš„ç±»å‹åŒ¹é…
+	 * @param obj å·¦é¢å¯¹è±¡
+	 * @return trueï¼šå³é¢çš„èŠ‚ç‚¹è·Ÿå·¦é¢å¯¹è±¡çš„ç±»å‹åŒ¹é…ï¼Œæ˜¯å…¶æˆå‘˜æˆ–æˆå‘˜å‡½æ•°ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	abstract public boolean isLeftTypeMatch(Object obj);
 	
 	/**
-	 * ÉèÖÃµã²Ù×÷·ûµÄ×ó²à¶ÔÏóµ½µ±Ç°º¯Êı
-	 * @param obj ×óÃæ¶ÔÏó
+	 * è®¾ç½®ç‚¹æ“ä½œç¬¦çš„å·¦ä¾§å¯¹è±¡åˆ°å½“å‰å‡½æ•°
+	 * @param obj å·¦é¢å¯¹è±¡
 	 */
 	abstract public void setDotLeftObject(Object obj);
 	
 	/**
-	 * ÉèÖÃ½ÚµãµÄ×ó²à½Úµã
-	 * @param node ½Úµã
+	 * è®¾ç½®èŠ‚ç‚¹çš„å·¦ä¾§èŠ‚ç‚¹
+	 * @param node èŠ‚ç‚¹
 	 */
 	public void setLeft(Node node) {
 		left = node;
 	}
 
 	/**
-	 * È¡½ÚµãµÄ×ó²à½Úµã£¬Ã»ÓĞ·µ»Ø¿Õ
+	 * å–èŠ‚ç‚¹çš„å·¦ä¾§èŠ‚ç‚¹ï¼Œæ²¡æœ‰è¿”å›ç©º
 	 * @return Node
 	 */
 	public Node getLeft() {
@@ -51,10 +51,10 @@ public abstract class MemberFunction extends Function {
 	}
 
 	/**
-	 * ÉèÖÃº¯Êı²ÎÊı£¬ÅÉÉúÀàÈç¹û¼Ì³ĞÁË´Ë·½·¨ĞèÒªµ÷ÓÃ»ùÀàµÄ´Ë·½·¨»òÕßµ÷ÓÃnextµÄ´Ë·½·¨
-	 * @param cs Íø¸ñ¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param param º¯Êı²ÎÊı×Ö·û´®
+	 * è®¾ç½®å‡½æ•°å‚æ•°ï¼Œæ´¾ç”Ÿç±»å¦‚æœç»§æ‰¿äº†æ­¤æ–¹æ³•éœ€è¦è°ƒç”¨åŸºç±»çš„æ­¤æ–¹æ³•æˆ–è€…è°ƒç”¨nextçš„æ­¤æ–¹æ³•
+	 * @param cs ç½‘æ ¼å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param param å‡½æ•°å‚æ•°å­—ç¬¦ä¸²
 	 */
 	public void setParameter(ICellSet cs, Context ctx, String param) {
 		super.setParameter(cs, ctx, param);
@@ -71,7 +71,7 @@ public abstract class MemberFunction extends Function {
 	}
 
 	/**
-	 * È¡ÏÂÒ»¸öÍ¬ÃûµÄ³ÉÔ±º¯Êı£¬Ã»ÓĞÔò·µ»Ø¿Õ
+	 * å–ä¸‹ä¸€ä¸ªåŒåçš„æˆå‘˜å‡½æ•°ï¼Œæ²¡æœ‰åˆ™è¿”å›ç©º
 	 * @return MemberFunction
 	 */
 	public MemberFunction getNextFunction() {
@@ -79,41 +79,41 @@ public abstract class MemberFunction extends Function {
 	}
 	
 	/**
-	 * ÉèÖÃÏÂÒ»¸öÍ¬ÃûµÄ³ÉÔ±º¯Êı
-	 * @param fn ³ÉÔ±º¯Êı
+	 * è®¾ç½®ä¸‹ä¸€ä¸ªåŒåçš„æˆå‘˜å‡½æ•°
+	 * @param fn æˆå‘˜å‡½æ•°
 	 */
 	public void setNextFunction(MemberFunction fn) {
 		next = fn;
 	}
 	
 	/**
-	 * ÅĞ¶Ïµ±Ç°½ÚµãÊÇ·ñÊÇĞòÁĞº¯Êı
-	 * Èç¹ûµã²Ù×÷·ûµÄÓÒ²à½ÚµãÊÇĞòÁĞº¯Êı£¬×ó²à½Úµã¼ÆËã³öÊı£¬ÔòĞèÒª°ÑÊı×ª³ÉÊıÁĞ
+	 * åˆ¤æ–­å½“å‰èŠ‚ç‚¹æ˜¯å¦æ˜¯åºåˆ—å‡½æ•°
+	 * å¦‚æœç‚¹æ“ä½œç¬¦çš„å³ä¾§èŠ‚ç‚¹æ˜¯åºåˆ—å‡½æ•°ï¼Œå·¦ä¾§èŠ‚ç‚¹è®¡ç®—å‡ºæ•°ï¼Œåˆ™éœ€è¦æŠŠæ•°è½¬æˆæ•°åˆ—
 	 * @return
 	 */
 	public boolean isSequenceFunction() {
-		// Èç¹ûÍ¬Ãûº¯ÊıÓĞÖØÔØÁË´Ë·½·¨µÄÔòµ÷ÓÃ£¬·ñÔò¾Í·µ»ØÄ¬ÈÏÖµ
+		// å¦‚æœåŒåå‡½æ•°æœ‰é‡è½½äº†æ­¤æ–¹æ³•çš„åˆ™è°ƒç”¨ï¼Œå¦åˆ™å°±è¿”å›é»˜è®¤å€¼
 		return next == null ? false : next.isSequenceFunction();
 	}
 
 	/**
-	 * ÅĞ¶Ï½ÚµãÊÇ·ñ»áĞŞ¸ÄĞòÁĞµÄ³ÉÔ±Öµ£¬´Ë·½·¨ÎªÁËÓÅ»¯[1,2,3].contain(...)ÕâÖÖ±í´ïÊ½£¬
-	 * Èç¹ûĞòÁĞ²»»á±»¸ü¸ÄÔò[1,2,3]¿ÉÒÔ±»²úÉú³É³£ÊıĞòÁĞ£¬¶ø²»ÊÇÃ¿´Î¼ÆËã¶¼²úÉúÒ»¸öĞòÁĞ
-	 * @return true£º»áĞŞ¸Ä£¬false£º²»»áĞŞ¸Ä
+	 * åˆ¤æ–­èŠ‚ç‚¹æ˜¯å¦ä¼šä¿®æ”¹åºåˆ—çš„æˆå‘˜å€¼ï¼Œæ­¤æ–¹æ³•ä¸ºäº†ä¼˜åŒ–[1,2,3].contain(...)è¿™ç§è¡¨è¾¾å¼ï¼Œ
+	 * å¦‚æœåºåˆ—ä¸ä¼šè¢«æ›´æ”¹åˆ™[1,2,3]å¯ä»¥è¢«äº§ç”Ÿæˆå¸¸æ•°åºåˆ—ï¼Œè€Œä¸æ˜¯æ¯æ¬¡è®¡ç®—éƒ½äº§ç”Ÿä¸€ä¸ªåºåˆ—
+	 * @return trueï¼šä¼šä¿®æ”¹ï¼Œfalseï¼šä¸ä¼šä¿®æ”¹
 	 */
 	public boolean ifModifySequence() {
-		// Èç¹ûÍ¬Ãûº¯ÊıÓĞÖØÔØÁË´Ë·½·¨µÄÔòµ÷ÓÃ£¬·ñÔò¾Í·µ»ØÄ¬ÈÏÖµ
+		// å¦‚æœåŒåå‡½æ•°æœ‰é‡è½½äº†æ­¤æ–¹æ³•çš„åˆ™è°ƒç”¨ï¼Œå¦åˆ™å°±è¿”å›é»˜è®¤å€¼
 		return next == null ? true : next.isSequenceFunction();
 	}
 	
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 			if (next != null) {
 				next.optimize(ctx);
@@ -123,7 +123,7 @@ public abstract class MemberFunction extends Function {
 		return this;
 	}
 	
-	// x:¡­,A:y:¡­,z:F,¡­
+	// x:â€¦,A:y:â€¦,z:F,â€¦
 	protected static void parseJoinParam(IParam param, int index, Expression[][] exps,
 								   Object[] codes, Expression[][] dataExps,
 								   Expression[][] newExps, String[][] newNames, Context ctx) {
@@ -220,7 +220,7 @@ public abstract class MemberFunction extends Function {
 		}
 	}
 
-	// x:¡­,A:y:¡­,z:F,¡­
+	// x:â€¦,A:y:â€¦,z:F,â€¦
 	protected static void parseJoinxParam(IParam param, int index, Expression[][] exps,  Object[] codes, 
 			Expression[][] dataExps, Expression[][] newExps, String[][] newNames, Context ctx) {
 		int size = param.getSubSize();
@@ -586,9 +586,9 @@ public abstract class MemberFunction extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param left µãÔËËã·ûµÄ×ó²à½Úµã
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param left ç‚¹è¿ç®—ç¬¦çš„å·¦ä¾§èŠ‚ç‚¹
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -596,10 +596,10 @@ public abstract class MemberFunction extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -652,9 +652,9 @@ public abstract class MemberFunction extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -707,9 +707,9 @@ public abstract class MemberFunction extends Function {
 	}
 		
 	/**
-	 * ÅĞ¶Ï¸ø¶¨µÄÖµÓò·¶Î§ÊÇ·ñÂú×ãµ±Ç°Ìõ¼ş±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @return È¡Öµ²ÎÕÕRelation. -1£ºÖµÓò·¶Î§ÄÚÃ»ÓĞÂú×ãÌõ¼şµÄÖµ£¬0£ºÖµÓò·¶Î§ÄÚÓĞÂú×ãÌõ¼şµÄÖµ£¬1£ºÖµÓò·¶Î§µÄÖµ¶¼Âú×ãÌõ¼ş
+	 * åˆ¤æ–­ç»™å®šçš„å€¼åŸŸèŒƒå›´æ˜¯å¦æ»¡è¶³å½“å‰æ¡ä»¶è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @return å–å€¼å‚ç…§Relation. -1ï¼šå€¼åŸŸèŒƒå›´å†…æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ0ï¼šå€¼åŸŸèŒƒå›´å†…æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ1ï¼šå€¼åŸŸèŒƒå›´çš„å€¼éƒ½æ»¡è¶³æ¡ä»¶
 	 */
 	/*public int isValueRangeMatch(Context ctx) {
 		IArray array = left.calculateRange(ctx);

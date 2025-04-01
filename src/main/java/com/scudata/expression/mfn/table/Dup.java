@@ -10,7 +10,7 @@ import com.scudata.parallel.ClusterMemoryTable;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 把本地内表复制成集群复写内表
+ * 鎶婃湰鍦板唴琛ㄥ鍒舵垚闆嗙兢澶嶅啓鍐呰〃
  * T.dup(h)
  * @author RunQian
  *

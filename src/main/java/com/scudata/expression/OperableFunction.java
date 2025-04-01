@@ -3,8 +3,8 @@ package com.scudata.expression;
 import com.scudata.dm.op.Operable;
 
 /**
- * ¿É¸½¼Ó²Ù×÷¶ÔÏó³ÉÔ±º¯Êı»ùÀà
- * cs.f()£¬ch.f()
+ * å¯é™„åŠ æ“ä½œå¯¹è±¡æˆå‘˜å‡½æ•°åŸºç±»
+ * cs.f()ï¼Œch.f()
  * @author RunQian
  *
  */
@@ -20,7 +20,7 @@ public abstract class OperableFunction extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		operable = null;

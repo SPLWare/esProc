@@ -24,15 +24,15 @@ import com.scudata.ide.vdb.resources.IdeMessage;
 public class DialogOptions extends RQDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
-	private JCheckBox jCBAutoOpen = new JCheckBox("×Ô¶¯´ò¿ª(×î½üÎÄ¼ş)");
-	private JCheckBox jCBLogException = new JCheckBox("½«Òì³£Ğ´ÈëÈÕÖ¾ÎÄ¼ş");
-	private JCheckBox jCBWindowSize = new JCheckBox("¼ÇÒä´°¿ÚÎ»ÖÃ´óĞ¡");
+	private JCheckBox jCBAutoOpen = new JCheckBox("è‡ªåŠ¨æ‰“å¼€(æœ€è¿‘æ–‡ä»¶)");
+	private JCheckBox jCBLogException = new JCheckBox("å°†å¼‚å¸¸å†™å…¥æ—¥å¿—æ–‡ä»¶");
+	private JCheckBox jCBWindowSize = new JCheckBox("è®°å¿†çª—å£ä½ç½®å¤§å°");
 	private JComboBoxEx jCBLNF = new JComboBoxEx();
-	private JTextField textLogFileName = new JTextField();// ÈÕÖ¾ÎÄ¼ş
+	private JTextField textLogFileName = new JTextField();// æ—¥å¿—æ–‡ä»¶
 	private JButton buttonLogFileName = new JButton();
 
 	public DialogOptions() {
-		super("Ñ¡Ïî",450, 300);
+		super("é€‰é¡¹",450, 300);
 		init();
 		load();
 	}
@@ -108,7 +108,7 @@ public class DialogOptions extends RQDialog implements ActionListener {
 
 		panelFile.add(new JLabel(), GM.getGBC(0, 0));
 
-		panelFile.add(new JLabel("ÈÕÖ¾ÎÄ¼ş"), GM.getGBC(3, 0));
+		panelFile.add(new JLabel("æ—¥å¿—æ–‡ä»¶"), GM.getGBC(3, 0));
 		panelFile.add(textLogFileName, GM.getGBC(3, 1, true));
 		panelFile.add(buttonLogFileName, GM.getGBC(3, 2));
 

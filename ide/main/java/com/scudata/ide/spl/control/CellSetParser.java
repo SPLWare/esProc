@@ -15,25 +15,25 @@ import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 
 /**
- * Íø¸ñ·ÖÎöÆ÷
+ * ç½‘æ ¼åˆ†æå™¨
  *
  */
 public class CellSetParser {
 	/**
-	 * ¿Õ¸ñ×Ó
+	 * ç©ºæ ¼å­
 	 */
 	private static NormalCell blankCell;
 
 	/**
-	 * Íø¸ñ¶ÔÏó
+	 * ç½‘æ ¼å¯¹è±¡
 	 */
 	private CellSet cellSet;
 
 	/**
-	 * ·ÖÎöÆ÷¹¹ÔìÆ÷
+	 * åˆ†æå™¨æ„é€ å™¨
 	 * 
 	 * @param cellSet
-	 *            Íø¸ñ¶ÔÏó
+	 *            ç½‘æ ¼å¯¹è±¡
 	 */
 	public CellSetParser(CellSet cellSet) {
 		this.cellSet = cellSet;
@@ -41,7 +41,7 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡Íø¸ñ¶ÔÏó
+	 * å–ç½‘æ ¼å¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -50,12 +50,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñ¶ÔÏó
+	 * å–å•å…ƒæ ¼å¯¹è±¡
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public NormalCell getCell(int row, int col) {
@@ -63,14 +63,14 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñ¶ÔÏó
+	 * å–å•å…ƒæ ¼å¯¹è±¡
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param create
-	 *            Ö¸¶¨µ¥Ôª¸ñÎªnullÊ±ÊÇ·ñ´´½¨¸ñ×Ó
+	 *            æŒ‡å®šå•å…ƒæ ¼ä¸ºnullæ—¶æ˜¯å¦åˆ›å»ºæ ¼å­
 	 * @return
 	 */
 	public NormalCell getCell(int row, int col, boolean create) {
@@ -86,38 +86,38 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñµÄ¼ä¸ô
+	 * å–å•å…ƒæ ¼çš„é—´éš”
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public int getCellIndent(int row, int col) {
 		return ConfigOptions.iIndent.intValue();
 	}
 
-	/** ×¢ÊÍ¸ñ»òÕß¿é */
+	/** æ³¨é‡Šæ ¼æˆ–è€…å— */
 	public static final byte TYPE_NOTE = 1;
-	/** ¼ÆËãºÍÖ´ĞĞ¸ñ»òÕß¿é */
+	/** è®¡ç®—å’Œæ‰§è¡Œæ ¼æˆ–è€…å— */
 	public static final byte TYPE_CALC = 2;
-	/** ³£Êı¸ñ */
+	/** å¸¸æ•°æ ¼ */
 	public static final byte TYPE_CONST = 3;
-	/** ÎŞÖµ³£Êı¸ñ */
+	/** æ— å€¼å¸¸æ•°æ ¼ */
 	public static final byte TYPE_CONST_NULL = 4;
-	/** ±í´ïÊ½ */
+	/** è¡¨è¾¾å¼ */
 	public static final byte TYPE_EXP = 5;
-	/** ÎŞÖµ±í´ïÊ½ */
+	/** æ— å€¼è¡¨è¾¾å¼ */
 	public static final byte TYPE_EXP_NULL = 6;
 
 	/**
-	 * È¡µ¥Ôª¸ñÀàĞÍ
+	 * å–å•å…ƒæ ¼ç±»å‹
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public byte getCellDispType(int row, int col) {
@@ -135,7 +135,7 @@ public class CellSetParser {
 			dispType = TYPE_CALC;
 			break;
 		}
-		// ´ÓµÚÒ»ÁĞ¿ªÊ¼ÏòÉÏ²éÕÒ£¬ÕÒ²»µ½ÏòÓÒ²éÕÒÒ»Ö±µ½col-1ÁĞ
+		// ä»ç¬¬ä¸€åˆ—å¼€å§‹å‘ä¸ŠæŸ¥æ‰¾ï¼Œæ‰¾ä¸åˆ°å‘å³æŸ¥æ‰¾ä¸€ç›´åˆ°col-1åˆ—
 		int topRow = 1;
 		NormalCell temp;
 		for (int c = 1; c < col; c++) {
@@ -157,23 +157,23 @@ public class CellSetParser {
 				}
 			}
 		}
-		if (cell.getType() == NormalCell.TYPE_CONST_CELL) { // ³£Á¿¸ñ
+		if (cell.getType() == NormalCell.TYPE_CONST_CELL) { // å¸¸é‡æ ¼
 			if (isSubCell(row, col)) {
 				return TYPE_CONST_NULL;
 			}
-			if (dispType != TYPE_CALC) { // ¼ÆËã¸ñÖ´ĞĞ¸ñ¡¢ÔÚ¼ÆËã¿éÖ´ĞĞ¿éÖĞ,°´±í´ïÊ½¸ñÏÔÊ¾ ²¢ÇÒ²»ÊÇĞø¸ñ
+			if (dispType != TYPE_CALC) { // è®¡ç®—æ ¼æ‰§è¡Œæ ¼ã€åœ¨è®¡ç®—å—æ‰§è¡Œå—ä¸­,æŒ‰è¡¨è¾¾å¼æ ¼æ˜¾ç¤º å¹¶ä¸”ä¸æ˜¯ç»­æ ¼
 				return TYPE_CONST;
 			}
 		}
-		if (cell.getValue() != null) { // ÓĞÖµ±í´ïÊ½
+		if (cell.getValue() != null) { // æœ‰å€¼è¡¨è¾¾å¼
 			return TYPE_EXP;
-		} else { // ÎŞÖµ±í´ïÊ½
+		} else { // æ— å€¼è¡¨è¾¾å¼
 			return TYPE_EXP_NULL;
 		}
 	}
 
 	/**
-	 * È¡Íø¸ñËùÓĞµ¥Ôª¸ñµÄÏÔÊ¾ÀàĞÍ
+	 * å–ç½‘æ ¼æ‰€æœ‰å•å…ƒæ ¼çš„æ˜¾ç¤ºç±»å‹
 	 * @param cellSet
 	 * @return
 	 */
@@ -192,12 +192,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * ÊÇ·ñ×Ó¸ñ
+	 * æ˜¯å¦å­æ ¼
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	private boolean isSubCell(int row, int col) {
@@ -235,7 +235,7 @@ public class CellSetParser {
 	}
 
 	/**
-	 * ±í´ïÊ½ÊÇ·ñ×Ó¸ñ´®
+	 * è¡¨è¾¾å¼æ˜¯å¦å­æ ¼ä¸²
 	 * 
 	 * @param expStr
 	 * @return
@@ -249,12 +249,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñ±³¾°É«
+	 * å–å•å…ƒæ ¼èƒŒæ™¯è‰²
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public Color getBackColor(int row, int col) {
@@ -262,12 +262,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñÇ°¾°É«
+	 * å–å•å…ƒæ ¼å‰æ™¯è‰²
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public Color getForeColor(int row, int col) {
@@ -275,19 +275,19 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñÀàĞÍ¶ÔÓ¦µÄÑÕÉ«
+	 * å–å•å…ƒæ ¼ç±»å‹å¯¹åº”çš„é¢œè‰²
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param isGetForeground
-	 *            ÊÇ·ñÈ¡Ç°¾°É«¡£trueÇ°¾°É«£¬false±³¾°É«
+	 *            æ˜¯å¦å–å‰æ™¯è‰²ã€‚trueå‰æ™¯è‰²ï¼ŒfalseèƒŒæ™¯è‰²
 	 * @return
 	 */
 	protected Color getCellTypeColor(int row, int col, boolean isGetForeground) {
 		byte type = getCellDispType(row, col);
-		if (type == TYPE_NOTE) { // ×¢ÊÍ¸ñ»òÕßÔÚ×¢ÊÍ¿éÖĞ
+		if (type == TYPE_NOTE) { // æ³¨é‡Šæ ¼æˆ–è€…åœ¨æ³¨é‡Šå—ä¸­
 			return isGetForeground ? ConfigOptions.iNoteFColor
 					: ConfigOptions.iNoteBColor;
 		}
@@ -295,26 +295,26 @@ public class CellSetParser {
 			return isGetForeground ? ConfigOptions.iNValueFColor
 					: ConfigOptions.iNValueBColor;
 		}
-		if (type == TYPE_CONST) { // ¼ÆËã¸ñÖ´ĞĞ¸ñ¡¢ÔÚ¼ÆËã¿éÖ´ĞĞ¿éÖĞ,°´±í´ïÊ½¸ñÏÔÊ¾ ²¢ÇÒ²»ÊÇĞø¸ñ
+		if (type == TYPE_CONST) { // è®¡ç®—æ ¼æ‰§è¡Œæ ¼ã€åœ¨è®¡ç®—å—æ‰§è¡Œå—ä¸­,æŒ‰è¡¨è¾¾å¼æ ¼æ˜¾ç¤º å¹¶ä¸”ä¸æ˜¯ç»­æ ¼
 			return isGetForeground ? ConfigOptions.iConstFColor
 					: ConfigOptions.iConstBColor;
 		}
-		if (type == TYPE_EXP) { // ÓĞÖµ±í´ïÊ½
+		if (type == TYPE_EXP) { // æœ‰å€¼è¡¨è¾¾å¼
 			return isGetForeground ? ConfigOptions.iValueFColor
 					: ConfigOptions.iValueBColor;
-		} else { // ÎŞÖµ±í´ïÊ½
+		} else { // æ— å€¼è¡¨è¾¾å¼
 			return isGetForeground ? ConfigOptions.iNValueFColor
 					: ConfigOptions.iNValueBColor;
 		}
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñÏÔÊ¾ÎÄ±¾
+	 * å–å•å…ƒæ ¼æ˜¾ç¤ºæ–‡æœ¬
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public String getDispText(int row, int col) {
@@ -325,12 +325,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñ×ÖÌå
+	 * å–å•å…ƒæ ¼å­—ä½“
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public Font getFont(int row, int col, float scale) {
@@ -338,12 +338,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñ×ÖÌåÃû³Æ
+	 * å–å•å…ƒæ ¼å­—ä½“åç§°
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public String getFontName(int row, int col) {
@@ -351,12 +351,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñ×ÖÌå´óĞ¡
+	 * å–å•å…ƒæ ¼å­—ä½“å¤§å°
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public int getFontSize(int row, int col) {
@@ -364,12 +364,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñÏÔÊ¾¸ñÊ½
+	 * å–å•å…ƒæ ¼æ˜¾ç¤ºæ ¼å¼
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public String getFormat(int row, int col) {
@@ -377,12 +377,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñË®Æ½¶ÔÆë
+	 * å–å•å…ƒæ ¼æ°´å¹³å¯¹é½
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public byte getHAlign(int row, int col) {
@@ -390,12 +390,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡´¹Ö±¶ÔÆë
+	 * å–å‚ç›´å¯¹é½
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public byte getVAlign(int row, int col) {
@@ -403,12 +403,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * µ¥Ôª¸ñÊÇ·ñ¼Ó´Ö
+	 * å•å…ƒæ ¼æ˜¯å¦åŠ ç²—
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public boolean isBold(int row, int col) {
@@ -416,12 +416,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * µ¥Ôª¸ñÊÇ·ñĞ±Ìå
+	 * å•å…ƒæ ¼æ˜¯å¦æ–œä½“
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public boolean isItalic(int row, int col) {
@@ -429,12 +429,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * µ¥Ôª¸ñÊÇ·ñÏÂ»®Ïß
+	 * å•å…ƒæ ¼æ˜¯å¦ä¸‹åˆ’çº¿
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public boolean isUnderline(int row, int col) {
@@ -442,7 +442,7 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡ĞĞÊı
+	 * å–è¡Œæ•°
 	 * 
 	 * @return
 	 */
@@ -451,7 +451,7 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡ĞĞ¸ß£¬²»¿ÉÊÓĞĞ·µ»Ø0
+	 * å–è¡Œé«˜ï¼Œä¸å¯è§†è¡Œè¿”å›0
 	 * 
 	 * @param row
 	 * @return
@@ -467,21 +467,21 @@ public class CellSetParser {
 	}
 
 	/**
-	 * »ñµÃ×ÜÁĞÊı
+	 * è·å¾—æ€»åˆ—æ•°
 	 * 
-	 * @return ×ÜÁĞÊı
+	 * @return æ€»åˆ—æ•°
 	 */
 	public int getColCount() {
 		return cellSet.getColCount();
 	}
 
 	/**
-	 * È¡ÁĞ¿í
+	 * å–åˆ—å®½
 	 * 
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param scale
-	 *            ÏÔÊ¾±ÈÀı
+	 *            æ˜¾ç¤ºæ¯”ä¾‹
 	 * @return
 	 */
 	public int getColWidth(int col, float scale) {
@@ -495,10 +495,10 @@ public class CellSetParser {
 	}
 
 	/**
-	 * ĞĞÊÇ·ñ¿ÉÊÓ
+	 * è¡Œæ˜¯å¦å¯è§†
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @return
 	 */
 	public boolean isRowVisible(int row) {
@@ -507,10 +507,10 @@ public class CellSetParser {
 	}
 
 	/**
-	 * ÁĞÊÇ·ñ¿ÉÊÓ
+	 * åˆ—æ˜¯å¦å¯è§†
 	 * 
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public boolean isColVisible(int col) {
@@ -519,14 +519,14 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡¶àÁĞ¿í¶È
+	 * å–å¤šåˆ—å®½åº¦
 	 * 
 	 * @param control
-	 *            Íø¸ñ¿Ø¼ş
+	 *            ç½‘æ ¼æ§ä»¶
 	 * @param startCol
-	 *            ¿ªÊ¼ÁĞ
+	 *            å¼€å§‹åˆ—
 	 * @param count
-	 *            ÁĞÊı
+	 *            åˆ—æ•°
 	 * @return
 	 */
 	public int getColsWidth(SplControl control, int startCol, int count,
@@ -542,14 +542,14 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡¶àĞĞ¸ß¶È
+	 * å–å¤šè¡Œé«˜åº¦
 	 * 
 	 * @param control
-	 *            Íø¸ñ¿Ø¼ş
+	 *            ç½‘æ ¼æ§ä»¶
 	 * @param startRow
-	 *            ¿ªÊ¼ĞĞ
+	 *            å¼€å§‹è¡Œ
 	 * @param count
-	 *            ĞĞÊı
+	 *            è¡Œæ•°
 	 * @return
 	 */
 	public int getRowsHeight(SplControl control, int startRow, int count,
@@ -565,7 +565,7 @@ public class CellSetParser {
 	}
 
 	/**
-	 * È¡×ÓĞĞµÄ½áÊøĞĞ
+	 * å–å­è¡Œçš„ç»“æŸè¡Œ
 	 * 
 	 * @param row
 	 * @return
@@ -591,12 +591,12 @@ public class CellSetParser {
 	}
 
 	/**
-	 * ×ÓĞĞÊÇ·ñ¿ÉÊÓ
+	 * å­è¡Œæ˜¯å¦å¯è§†
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param subEnd
-	 *            ×ÓĞĞÄ©ĞĞ
+	 *            å­è¡Œæœ«è¡Œ
 	 * @return
 	 */
 	public boolean isSubExpand(int row, int subEnd) {

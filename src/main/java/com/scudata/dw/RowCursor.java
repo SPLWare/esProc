@@ -40,48 +40,48 @@ import com.scudata.expression.operator.Smaller;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ĞĞ´æ»ù±íµÄÓÎ±êÀà
+ * è¡Œå­˜åŸºè¡¨çš„æ¸¸æ ‡ç±»
  * @author runqian
  *
  */
 public class RowCursor extends IDWCursor {
-	private RowPhyTable table;//Ô­±í
-	private String []fields;//È¡³ö×Ö¶Î
-	private DataStruct ds;//Êı¾İ½á¹¹
-	private String []sortedFields;//ÓĞĞò×Ö¶Î
-	private Expression filter;//¹ıÂË±í´ïÊ½
+	private RowPhyTable table;//åŸè¡¨
+	private String []fields;//å–å‡ºå­—æ®µ
+	private DataStruct ds;//æ•°æ®ç»“æ„
+	private String []sortedFields;//æœ‰åºå­—æ®µ
+	private Expression filter;//è¿‡æ»¤è¡¨è¾¾å¼
 	
 	private BlockLinkReader rowReader;
 	private ObjectReader segmentReader;
 	
-	private int startBlock; // °üº¬
-	private int endBlock; // ²»°üº¬
-	private int curBlock = 0;//µ±Ç°¿éºÅ
-	private Sequence cache;//»º´æÇø
+	private int startBlock; // åŒ…å«
+	private int endBlock; // ä¸åŒ…å«
+	private int curBlock = 0;//å½“å‰å—å·
+	private Sequence cache;//ç¼“å­˜åŒº
 	
-	private long prevRecordSeq = 0; // Ç°Ò»Ìõ¼ÇÂ¼µÄĞòºÅ
-	private int []findex; // Ñ¡³ö×Ö¶Î¶ÔÓ¦µÄ×Ö¶ÎºÅ
-	boolean needRead[];//ĞèÒª¶Á³öÀ´µÄÁĞ
-	private boolean []isMyCol;//ÊÇ·ñÊÇ¼Ì³Ğ×Ö¶Î
-	ArrayList<ModifyRecord> modifyRecords;//²¹Çø¼ÇÂ¼
+	private long prevRecordSeq = 0; // å‰ä¸€æ¡è®°å½•çš„åºå·
+	private int []findex; // é€‰å‡ºå­—æ®µå¯¹åº”çš„å­—æ®µå·
+	boolean needRead[];//éœ€è¦è¯»å‡ºæ¥çš„åˆ—
+	private boolean []isMyCol;//æ˜¯å¦æ˜¯ç»§æ‰¿å­—æ®µ
+	ArrayList<ModifyRecord> modifyRecords;//è¡¥åŒºè®°å½•
 	private int mindex = 0;
 	
 	private boolean isClosed = false;
 	private boolean isFirstSkip = true;
 	private boolean isSegment = false;
-	private Expression []exps;//±í´ïÊ½×Ö¶Î
-	private TableGather []gathers;//´ÓÆäËü¸½±íÈ¡f()
-	private String []names;//È¡³öÃû
+	private Expression []exps;//è¡¨è¾¾å¼å­—æ®µ
+	private TableGather []gathers;//ä»å…¶å®ƒé™„è¡¨å–f()
+	private String []names;//å–å‡ºå
 	private boolean isField[];
 	private DataStruct tempDs;
 	
-	//¸½±íÊ¹ÓÃ
+	//é™„è¡¨ä½¿ç”¨
 	private RowPhyTable baseTable;
 	private BlockLinkReader baseRowReader;
 	private ObjectReader baseSegmentReader;
 	private ArrayList<ModifyRecord> baseModifyRecords;
-	private boolean isPrimaryTable; // ÊÇ·ñÖ÷±í
-	private boolean fetchByBlock = false;//°´¿é¶ÁÈ¡
+	private boolean isPrimaryTable; // æ˜¯å¦ä¸»è¡¨
+	private boolean fetchByBlock = false;//æŒ‰å—è¯»å–
 	
 	private IFilter []filters;
 	
@@ -114,7 +114,7 @@ public class RowCursor extends IDWCursor {
 		this.filter = filter;
 		
 		if (fields == null && exps != null) {
-			//Èç¹ûfields²»´æÔÚ£¬ÇÒ±í´ïÊ½exps´æÔÚ£¬ÔòÈÏÎªexpsÊÇÈ¡³ö
+			//å¦‚æœfieldsä¸å­˜åœ¨ï¼Œä¸”è¡¨è¾¾å¼expså­˜åœ¨ï¼Œåˆ™è®¤ä¸ºexpsæ˜¯å–å‡º
 			int colCount = exps.length;
 			fields = new String[colCount];
 			int cnt = 0;
@@ -163,7 +163,7 @@ public class RowCursor extends IDWCursor {
 	}
 	
 	/**
-	 * ÉèÖÃ·Ö¶ÎstartBlock°üº¬£¬endBlock²»°üº¬
+	 * è®¾ç½®åˆ†æ®µstartBlockåŒ…å«ï¼ŒendBlockä¸åŒ…å«
 	 */
 	public void setSegment(int startBlock, int endBlock) {
 		isSegment = true;
@@ -243,7 +243,7 @@ public class RowCursor extends IDWCursor {
 	}
 
 	/**
-	 * ¸ù¾İ¼ÆËã½ÚµãµÃµ½Ïà¹ØÁĞ
+	 * æ ¹æ®è®¡ç®—èŠ‚ç‚¹å¾—åˆ°ç›¸å…³åˆ—
 	 * @param table
 	 * @param node
 	 * @return
@@ -284,7 +284,7 @@ public class RowCursor extends IDWCursor {
 	}
 
 	/**
-	 * °ÑÁ½¸ö¼ÆËãºÏ²¢ÎªÒ»¸ö Óë ÔËËã
+	 * æŠŠä¸¤ä¸ªè®¡ç®—åˆå¹¶ä¸ºä¸€ä¸ª ä¸ è¿ç®—
 	 * @param node
 	 * @param left
 	 * @param right
@@ -398,7 +398,7 @@ public class RowCursor extends IDWCursor {
 	}
 	
 	/**
-	 * °ÑÁ½¸ö¼ÆËãºÏ²¢ÎªÒ»¸ö »ò ÔËËã
+	 * æŠŠä¸¤ä¸ªè®¡ç®—åˆå¹¶ä¸ºä¸€ä¸ª æˆ– è¿ç®—
 	 * @param node
 	 * @param left
 	 * @param right
@@ -449,7 +449,7 @@ public class RowCursor extends IDWCursor {
 	}
 
 	/**
-	 * ½âÎö¹ıÂË±í´ïÊ½£¬ÌáÈ¡¿ÉÄÜµÄÁĞ¹ıÂËÆ÷
+	 * è§£æè¿‡æ»¤è¡¨è¾¾å¼ï¼Œæå–å¯èƒ½çš„åˆ—è¿‡æ»¤å™¨
 	 * @param table
 	 * @param exp
 	 * @param ctx
@@ -490,14 +490,14 @@ public class RowCursor extends IDWCursor {
 			ArrayList<ModifyRecord> modifyRecords = table.getModifyRecords();
 			if (modifyRecords != null || exps != null) {
 			} else {
-				//Ä¿Ç°Ö»ÓÅ»¯Ã»ÓĞ²¹ÇøºÍÃ»ÓĞ±í´ïÊ½µÄÇé¿ö
+				//ç›®å‰åªä¼˜åŒ–æ²¡æœ‰è¡¥åŒºå’Œæ²¡æœ‰è¡¨è¾¾å¼çš„æƒ…å†µ
 				filters = ((ColumnsOr)obj).toArray();
 			}
 		}
 	}
 	
 	/**
-	 * ÌáÈ¡containºÍ Not contain±í´ïÊ½µÄÁĞ¹ıÂËÆ÷
+	 * æå–containå’Œ Not containè¡¨è¾¾å¼çš„åˆ—è¿‡æ»¤å™¨
 	 * @param table
 	 * @param node
 	 * @param ctx
@@ -607,7 +607,7 @@ public class RowCursor extends IDWCursor {
 	}
 	
 	/**
-	 * ÌáÈ¡ÁĞ¹ıÂËÆ÷
+	 * æå–åˆ—è¿‡æ»¤å™¨
 	 * @param table
 	 * @param node
 	 * @param ctx
@@ -679,7 +679,7 @@ public class RowCursor extends IDWCursor {
 	}
 	
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		try {
@@ -688,7 +688,7 @@ public class RowCursor extends IDWCursor {
 			throw new RQException(e);
 		}
 		
-		// ¼ì²é²»¿ÉÊ¶±ğµÄ±í´ïÊ½ÀïÊÇ·ñÒıÓÃÁËÃ»ÓĞÑ¡³öµÄ×Ö¶Î£¬Èç¹ûÒıÓÃÁËÔò¼ÓÈëµ½Ñ¡³ö×Ö¶ÎÀï
+		// æ£€æŸ¥ä¸å¯è¯†åˆ«çš„è¡¨è¾¾å¼é‡Œæ˜¯å¦å¼•ç”¨äº†æ²¡æœ‰é€‰å‡ºçš„å­—æ®µï¼Œå¦‚æœå¼•ç”¨äº†åˆ™åŠ å…¥åˆ°é€‰å‡ºå­—æ®µé‡Œ
 		Expression filter = this.filter;
 		if (filter != null) {
 			ArrayList<String> colList = new ArrayList<String>();
@@ -769,7 +769,7 @@ public class RowCursor extends IDWCursor {
 		modifyRecords = table.getModifyRecords();
 		DataStruct srcDs = table.getDataStruct();
 		int allCount = table.getAllColNames().length;
-		needRead = new boolean[allCount];//ĞèÒª¶ÁµÄÁĞ
+		needRead = new boolean[allCount];//éœ€è¦è¯»çš„åˆ—
 		findex = new int[colCount];
 		for (int i = 0; i < colCount; ++i) {
 			 int id = srcDs.getFieldIndex(fields[i]);
@@ -787,7 +787,7 @@ public class RowCursor extends IDWCursor {
 			baseSegmentReader = baseTable.getSegmentObjectReader();
 			baseModifyRecords = baseTable.getModifyRecords();
 			
-			//»ñµÃÔÚÖ÷±íÀïµÄindex
+			//è·å¾—åœ¨ä¸»è¡¨é‡Œçš„index
 			srcDs = baseTable.getDataStruct();
 			for (int i = 0; i < colCount; ++i) {
 				 int id = srcDs.getFieldIndex(fields[i]);
@@ -864,7 +864,7 @@ public class RowCursor extends IDWCursor {
 		}
 		
 		if (table.hasPrimaryKey()) {
-			// Èç¹û¸½±íÓĞÖ÷¼ü²¢ÇÒÖ÷¼ü±»Ñ¡³öÔò¸øÊı¾İ½á¹¹ÉèÉÏÖ÷¼ü
+			// å¦‚æœé™„è¡¨æœ‰ä¸»é”®å¹¶ä¸”ä¸»é”®è¢«é€‰å‡ºåˆ™ç»™æ•°æ®ç»“æ„è®¾ä¸Šä¸»é”®
 			String []keys = table.getAllSortedColNames();
 			ArrayList<String> pkeyList = new ArrayList<String>();
 			ArrayList<String> sortedFieldList = new ArrayList<String>();
@@ -887,7 +887,7 @@ public class RowCursor extends IDWCursor {
 			}
 			
 			if (sign) {
-				//ÓĞÖ÷¼ü
+				//æœ‰ä¸»é”®
 				int size = pkeyList.size();
 				String[] pkeys = new String[size];
 				pkeyList.toArray(pkeys);
@@ -895,12 +895,12 @@ public class RowCursor extends IDWCursor {
 			}
 			int size = sortedFieldList.size();
 			if (size > 0) {
-				//ÓĞĞò×Ö¶Î
+				//æœ‰åºå­—æ®µ
 				sortedFields = new String[size];
 				sortedFieldList.toArray(sortedFields);
 			}
 		} else if (table.isSorted) {
-			// Èç¹û¸½±íÓĞĞòÔò×éÖ¯ÓĞĞò×Ö¶Î
+			// å¦‚æœé™„è¡¨æœ‰åºåˆ™ç»„ç»‡æœ‰åºå­—æ®µ
 			String []keys = table.getAllSortedColNames();
 			ArrayList<String> sortedFieldList = new ArrayList<String>();
 			DataStruct temp;
@@ -919,7 +919,7 @@ public class RowCursor extends IDWCursor {
 			}
 			int size = sortedFieldList.size();
 			if (size > 0) {
-				//ÓĞĞò×Ö¶Î
+				//æœ‰åºå­—æ®µ
 				sortedFields = new String[size];
 				sortedFieldList.toArray(sortedFields);
 			}
@@ -1056,10 +1056,10 @@ public class RowCursor extends IDWCursor {
 				if (recordCount > diff) {
 					int i = 0;
 					for (; i < diff; ++i) {
-						//¶Á³öÀ´Ò»ÕûĞĞ
-						long recNum = (Long) bufReader.readObject();//Ìø¹ıÎ±ºÅ
+						//è¯»å‡ºæ¥ä¸€æ•´è¡Œ
+						long recNum = (Long) bufReader.readObject();//è·³è¿‡ä¼ªå·
 						if (!isPrimaryTable) {
-							seq = (Long) bufReader.readObject();//µ¼ÁĞÎ±ºÅ
+							seq = (Long) bufReader.readObject();//å¯¼åˆ—ä¼ªå·
 						}
 						for (int f = 0; f < allCount; ++f) {
 							if (f >= baseKeyCount) {
@@ -1072,10 +1072,10 @@ public class RowCursor extends IDWCursor {
 						}
 
 						if (!isPrimaryTable) {
-							//Ö÷±íÀïÕÒ¶ÔÓ¦µÄ
+							//ä¸»è¡¨é‡Œæ‰¾å¯¹åº”çš„
 							while (seq != baseSeq) {
 								baseSeq = (Long) baseBufReader.readObject();
-								//ÕÒµ½ÁË¶Á³öÀ´
+								//æ‰¾åˆ°äº†è¯»å‡ºæ¥
 								for (int k = 0; k < baseAllCount; ++k) {
 									baseValues[k] = baseBufReader.readObject();
 								}
@@ -1083,7 +1083,7 @@ public class RowCursor extends IDWCursor {
 							}
 						}
 						
-						//ÓÃÈ¡³ö×Ö¶Î×é³É¼ÇÂ¼
+						//ç”¨å–å‡ºå­—æ®µç»„æˆè®°å½•
 						ComTableRecord r = new ComTableRecord(ds);
 						if (exps != null) {
 							temp.setStart(0, values);
@@ -1136,10 +1136,10 @@ public class RowCursor extends IDWCursor {
 					mems = tmp.getMems();
 					
 					for (; i < recordCount; ++i) {
-						//¶Á³öÀ´Ò»ÕûĞĞ
-						long recNum = (Long) bufReader.readObject();//Ìø¹ıÎ±ºÅ
+						//è¯»å‡ºæ¥ä¸€æ•´è¡Œ
+						long recNum = (Long) bufReader.readObject();//è·³è¿‡ä¼ªå·
 						if (!isPrimaryTable) {
-							seq = (Long) bufReader.readObject();//µ¼ÁĞÎ±ºÅ
+							seq = (Long) bufReader.readObject();//å¯¼åˆ—ä¼ªå·
 						}
 						for (int f = 0; f < allCount; ++f) {
 							if (f >= baseKeyCount) {
@@ -1152,10 +1152,10 @@ public class RowCursor extends IDWCursor {
 						}
 
 						if (!isPrimaryTable) {
-							//Ö÷±íÀïÕÒ¶ÔÓ¦µÄ
+							//ä¸»è¡¨é‡Œæ‰¾å¯¹åº”çš„
 							while (seq != baseSeq) {
 								baseSeq = (Long) baseBufReader.readObject();
-								//ÕÒµ½ÁË¶Á³öÀ´
+								//æ‰¾åˆ°äº†è¯»å‡ºæ¥
 								for (int k = 0; k < baseAllCount; ++k) {
 									baseValues[k] = baseBufReader.readObject();
 								}
@@ -1163,7 +1163,7 @@ public class RowCursor extends IDWCursor {
 							}
 						}
 						
-						//ÓÃÈ¡³ö×Ö¶Î×é³É¼ÇÂ¼
+						//ç”¨å–å‡ºå­—æ®µç»„æˆè®°å½•
 						ComTableRecord r = new ComTableRecord(ds);
 						if (exps != null) {
 							temp.setStart(0, values);
@@ -1214,10 +1214,10 @@ public class RowCursor extends IDWCursor {
 					break;
 				} else {
 					for (int i = 0; i < recordCount; ++i) {
-						//¶Á³öÀ´Ò»ÕûĞĞ
-						long recNum = (Long) bufReader.readObject();//Ìø¹ıÎ±ºÅ
+						//è¯»å‡ºæ¥ä¸€æ•´è¡Œ
+						long recNum = (Long) bufReader.readObject();//è·³è¿‡ä¼ªå·
 						if (!isPrimaryTable) {
-							seq = (Long) bufReader.readObject();//µ¼ÁĞÎ±ºÅ
+							seq = (Long) bufReader.readObject();//å¯¼åˆ—ä¼ªå·
 						}
 						for (int f = 0; f < allCount; ++f) {
 								if (f >= baseKeyCount) {
@@ -1230,10 +1230,10 @@ public class RowCursor extends IDWCursor {
 						}
 
 						if (!isPrimaryTable) {
-							//Ö÷±íÀïÕÒ¶ÔÓ¦µÄ
+							//ä¸»è¡¨é‡Œæ‰¾å¯¹åº”çš„
 							while (seq != baseSeq) {
 								baseSeq = (Long) baseBufReader.readObject();
-								//ÕÒµ½ÁË¶Á³öÀ´
+								//æ‰¾åˆ°äº†è¯»å‡ºæ¥
 								for (int k = 0; k < baseAllCount; ++k) {
 									baseValues[k] = baseBufReader.readObject();
 								}
@@ -1241,7 +1241,7 @@ public class RowCursor extends IDWCursor {
 							}
 						}
 						
-						//ÓÃÈ¡³ö×Ö¶Î×é³É¼ÇÂ¼
+						//ç”¨å–å‡ºå­—æ®µç»„æˆè®°å½•
 						ComTableRecord r = new ComTableRecord(ds);
 						if (exps != null) {
 							temp.setStart(0, values);
@@ -1308,7 +1308,7 @@ public class RowCursor extends IDWCursor {
 	}
 	
 	/**
-	 * ÓĞ²¹ÇøÊ±µÄÈ¡Êı
+	 * æœ‰è¡¥åŒºæ—¶çš„å–æ•°
 	 * @param n
 	 * @return
 	 */
@@ -1398,10 +1398,10 @@ public class RowCursor extends IDWCursor {
 				for (int i = 0; i < recordCount; ++i) {
 					prevRecordSeq++;
 					if (prevRecordSeq != mseq) {
-						//¶Á³öÀ´Ò»ÕûĞĞ
-						bufReader.skipObject();//Ìø¹ıÎ±ºÅ
+						//è¯»å‡ºæ¥ä¸€æ•´è¡Œ
+						bufReader.skipObject();//è·³è¿‡ä¼ªå·
 						if (!isPrimaryTable) {
-							guideSeq = (Long) bufReader.readObject();//µ¼ÁĞÎ±ºÅ
+							guideSeq = (Long) bufReader.readObject();//å¯¼åˆ—ä¼ªå·
 						}
 						for (int f = 0; f < allCount; ++f) {
 							if (f >= baseKeyCount) {
@@ -1410,10 +1410,10 @@ public class RowCursor extends IDWCursor {
 						}
 						
 						if (!isPrimaryTable) {
-							//Ö÷±íÀïÕÒ¶ÔÓ¦µÄ
+							//ä¸»è¡¨é‡Œæ‰¾å¯¹åº”çš„
 							while (guideSeq != baseSeq) {
 								baseSeq = (Long) baseBufReader.readObject();
-								//ÕÒµ½ÁË¶Á³öÀ´
+								//æ‰¾åˆ°äº†è¯»å‡ºæ¥
 								for (int k = 0; k < baseAllCount; ++k) {
 									baseValues[k] = baseBufReader.readObject();
 								}
@@ -1421,7 +1421,7 @@ public class RowCursor extends IDWCursor {
 							}
 						}
 						
-						//ÓÃÈ¡³ö×Ö¶Î×é³É¼ÇÂ¼
+						//ç”¨å–å‡ºå­—æ®µç»„æˆè®°å½•
 						ComTableRecord r = new ComTableRecord(ds);
 						if (!isPrimaryTable) {
 							for (int f = 0; f < colCount; ++f) {
@@ -1444,12 +1444,12 @@ public class RowCursor extends IDWCursor {
 						}
 						mems.add(r);
 					} else {
-						bufReader.skipObject();//Ìø¹ıÎ±ºÅ
+						bufReader.skipObject();//è·³è¿‡ä¼ªå·
 						if (!isPrimaryTable) {
-							guideSeq = (Long) bufReader.readObject();//µ¼ÁĞÎ±ºÅ
+							guideSeq = (Long) bufReader.readObject();//å¯¼åˆ—ä¼ªå·
 						}
 						
-						// ¿ÉÄÜ²åÈë¶àÌõ
+						// å¯èƒ½æ’å…¥å¤šæ¡
 						boolean isInsert = true;
 						while (true) {
 							if (mr.isDelete()) {
@@ -1473,10 +1473,10 @@ public class RowCursor extends IDWCursor {
 										seq = guideSeq;
 									}
 									if (seq > 0) {
-										//Ö÷±íÀïÕÒ¶ÔÓ¦µÄ
+										//ä¸»è¡¨é‡Œæ‰¾å¯¹åº”çš„
 										while (seq != baseSeq) {
 											baseSeq = (Long) baseBufReader.readObject();
-											//ÕÒµ½ÁË¶Á³öÀ´
+											//æ‰¾åˆ°äº†è¯»å‡ºæ¥
 											for (int k = 0; k < baseAllCount; ++k) {
 												baseValues[k] = baseBufReader.readObject();
 											}
@@ -1492,7 +1492,7 @@ public class RowCursor extends IDWCursor {
 										}
 										
 									} else {
-										//Ö÷±í²¹ÇøÀïÕÒ¶ÔÓ¦µÄ
+										//ä¸»è¡¨è¡¥åŒºé‡Œæ‰¾å¯¹åº”çš„
 										seq = -seq - 1;
 										Object []vals = baseModifyRecords.get((int) seq).getRecord().getFieldValues();
 										for (int f = 0; f < colCount; ++f) {
@@ -1507,10 +1507,10 @@ public class RowCursor extends IDWCursor {
 
 								if (isInsert) {
 									if (isPrimaryTable) {
-										r.setRecordSeq(-mindex);//Ö÷±í¾ÍÊÇ·µ»Ø²¹ÇøµÄĞòºÅ
+										r.setRecordSeq(-mindex);//ä¸»è¡¨å°±æ˜¯è¿”å›è¡¥åŒºçš„åºå·
 									} else {
-										//¸ù¾İkeyÖµÕÒ
-										r.setRecordSeq(mr.getParentRecordSeq());//ÕâÀïÒ²¿ÉÄÜÊÇ¸ö¸ºÖµ£¬±íÊ¾ÔÚÖ÷±íµÄ²¹Çø
+										//æ ¹æ®keyå€¼æ‰¾
+										r.setRecordSeq(mr.getParentRecordSeq());//è¿™é‡Œä¹Ÿå¯èƒ½æ˜¯ä¸ªè´Ÿå€¼ï¼Œè¡¨ç¤ºåœ¨ä¸»è¡¨çš„è¡¥åŒº
 									}
 								} else {
 									if (isPrimaryTable) {
@@ -1536,7 +1536,7 @@ public class RowCursor extends IDWCursor {
 						}
 						
 						if (isInsert) {
-							//¶Á³öÀ´Ò»ÕûĞĞ
+							//è¯»å‡ºæ¥ä¸€æ•´è¡Œ
 							for (int f = 0; f < allCount; ++f) {
 								if (f >= baseKeyCount) {
 									values[f] = bufReader.readObject();
@@ -1544,17 +1544,17 @@ public class RowCursor extends IDWCursor {
 							}
 							
 							if (!isPrimaryTable) {
-								//Ö÷±íÀïÕÒ¶ÔÓ¦µÄ
+								//ä¸»è¡¨é‡Œæ‰¾å¯¹åº”çš„
 								while (guideSeq != baseSeq) {
 									baseSeq = (Long) baseBufReader.readObject();
-									//ÕÒµ½ÁË¶Á³öÀ´
+									//æ‰¾åˆ°äº†è¯»å‡ºæ¥
 									for (int k = 0; k < baseAllCount; ++k) {
 										baseValues[k] = baseBufReader.readObject();
 									}
 								}
 							}
 							
-							//ÓÃÈ¡³ö×Ö¶Î×é³É¼ÇÂ¼
+							//ç”¨å–å‡ºå­—æ®µç»„æˆè®°å½•
 							ComTableRecord r = new ComTableRecord(ds);
 							if (!isPrimaryTable) {
 								for (int f = 0; f < colCount; ++f) {
@@ -1613,7 +1613,7 @@ public class RowCursor extends IDWCursor {
 	}
 
 	/**
-	 * ÓĞ×Ö¶Î±í´ïÊ½Ê±ÇÒÓĞ²¹ÇøÊ±µÄÈ¡Êı
+	 * æœ‰å­—æ®µè¡¨è¾¾å¼æ—¶ä¸”æœ‰è¡¥åŒºæ—¶çš„å–æ•°
 	 * @param n
 	 * @return
 	 */
@@ -1714,10 +1714,10 @@ public class RowCursor extends IDWCursor {
 				for (int i = 0; i < recordCount; ++i) {
 					prevRecordSeq++;
 					if (prevRecordSeq != mseq) {
-						//¶Á³öÀ´Ò»ÕûĞĞ
-						bufReader.skipObject();//Ìø¹ıÎ±ºÅ
+						//è¯»å‡ºæ¥ä¸€æ•´è¡Œ
+						bufReader.skipObject();//è·³è¿‡ä¼ªå·
 						if (!isPrimaryTable) {
-							guideSeq = (Long) bufReader.readObject();//µ¼ÁĞÎ±ºÅ
+							guideSeq = (Long) bufReader.readObject();//å¯¼åˆ—ä¼ªå·
 						}
 						for (int f = 0; f < allCount; ++f) {
 							if (f >= baseKeyCount) {
@@ -1726,10 +1726,10 @@ public class RowCursor extends IDWCursor {
 						}
 						
 						if (!isPrimaryTable) {
-							//Ö÷±íÀïÕÒ¶ÔÓ¦µÄ
+							//ä¸»è¡¨é‡Œæ‰¾å¯¹åº”çš„
 							while (guideSeq != baseSeq) {
 								baseSeq = (Long) baseBufReader.readObject();
-								//ÕÒµ½ÁË¶Á³öÀ´
+								//æ‰¾åˆ°äº†è¯»å‡ºæ¥
 								for (int k = 0; k < baseAllCount; ++k) {
 									baseValues[k] = baseBufReader.readObject();
 								}
@@ -1737,7 +1737,7 @@ public class RowCursor extends IDWCursor {
 							}
 						}
 						
-						//ÓÃÈ¡³ö×Ö¶Î×é³É¼ÇÂ¼
+						//ç”¨å–å‡ºå­—æ®µç»„æˆè®°å½•
 						ComTableRecord r = new ComTableRecord(ds);
 						temp.setStart(0, values);
 						if (!isPrimaryTable) {
@@ -1769,7 +1769,7 @@ public class RowCursor extends IDWCursor {
 						}
 						mems.add(r);
 					} else {
-						// ¿ÉÄÜ²åÈë¶àÌõ
+						// å¯èƒ½æ’å…¥å¤šæ¡
 						boolean isInsert = true;
 						while (true) {
 							if (mr.isDelete()) {
@@ -1798,10 +1798,10 @@ public class RowCursor extends IDWCursor {
 								} else {
 									long seq = mr.getParentRecordSeq();
 									if (seq > 0) {
-										//Ö÷±íÀïÕÒ¶ÔÓ¦µÄ
+										//ä¸»è¡¨é‡Œæ‰¾å¯¹åº”çš„
 										while (seq != baseSeq) {
 											baseSeq = (Long) baseBufReader.readObject();
-											//ÕÒµ½ÁË¶Á³öÀ´
+											//æ‰¾åˆ°äº†è¯»å‡ºæ¥
 											for (int k = 0; k < baseAllCount; ++k) {
 												baseValues[k] = baseBufReader.readObject();
 											}
@@ -1819,7 +1819,7 @@ public class RowCursor extends IDWCursor {
 										}
 										
 									} else {
-										//Ö÷±í²¹ÇøÀïÕÒ¶ÔÓ¦µÄ
+										//ä¸»è¡¨è¡¥åŒºé‡Œæ‰¾å¯¹åº”çš„
 										seq = -seq - 1;
 										Object []vals = baseModifyRecords.get((int) seq).getRecord().getFieldValues();
 										for (int f = 0; f < colCount; ++f) {
@@ -1836,10 +1836,10 @@ public class RowCursor extends IDWCursor {
 
 								if (isInsert) {
 									if (isPrimaryTable) {
-										r.setRecordSeq(-mindex);//Ö÷±í¾ÍÊÇ·µ»Ø²¹ÇøµÄĞòºÅ
+										r.setRecordSeq(-mindex);//ä¸»è¡¨å°±æ˜¯è¿”å›è¡¥åŒºçš„åºå·
 									} else {
-										//¸ù¾İkeyÖµÕÒ
-										r.setRecordSeq(mr.getParentRecordSeq());//ÕâÀïÒ²¿ÉÄÜÊÇ¸ö¸ºÖµ£¬±íÊ¾ÔÚÖ÷±íµÄ²¹Çø
+										//æ ¹æ®keyå€¼æ‰¾
+										r.setRecordSeq(mr.getParentRecordSeq());//è¿™é‡Œä¹Ÿå¯èƒ½æ˜¯ä¸ªè´Ÿå€¼ï¼Œè¡¨ç¤ºåœ¨ä¸»è¡¨çš„è¡¥åŒº
 									}
 								} else {
 									if (isPrimaryTable) {
@@ -1865,10 +1865,10 @@ public class RowCursor extends IDWCursor {
 						}
 						
 						if (isInsert) {
-							//¶Á³öÀ´Ò»ÕûĞĞ
-							long recNum = bufReader.readLong();//Ìø¹ıÎ±ºÅ
+							//è¯»å‡ºæ¥ä¸€æ•´è¡Œ
+							long recNum = bufReader.readLong();//è·³è¿‡ä¼ªå·
 							if (!isPrimaryTable) {
-								guideSeq = (Long) bufReader.readObject();//µ¼ÁĞÎ±ºÅ
+								guideSeq = (Long) bufReader.readObject();//å¯¼åˆ—ä¼ªå·
 							}
 							for (int f = 0; f < allCount; ++f) {
 								if (f >= baseKeyCount) {
@@ -1877,17 +1877,17 @@ public class RowCursor extends IDWCursor {
 							}
 							
 							if (!isPrimaryTable) {
-								//Ö÷±íÀïÕÒ¶ÔÓ¦µÄ
+								//ä¸»è¡¨é‡Œæ‰¾å¯¹åº”çš„
 								while (guideSeq != baseSeq) {
 									baseSeq = (Long) baseBufReader.readObject();
-									//ÕÒµ½ÁË¶Á³öÀ´
+									//æ‰¾åˆ°äº†è¯»å‡ºæ¥
 									for (int k = 0; k < baseAllCount; ++k) {
 										baseValues[k] = baseBufReader.readObject();
 									}
 								}
 							}
 							
-							//ÓÃÈ¡³ö×Ö¶Î×é³É¼ÇÂ¼
+							//ç”¨å–å‡ºå­—æ®µç»„æˆè®°å½•
 							ComTableRecord r = new ComTableRecord(ds);
 							temp.setStart(0, values);
 							if (!isPrimaryTable) {
@@ -1919,9 +1919,9 @@ public class RowCursor extends IDWCursor {
 							}
 							mems.add(r);
 						} else {
-							bufReader.skipObject();//Ìø¹ıÎ±ºÅ
+							bufReader.skipObject();//è·³è¿‡ä¼ªå·
 							if (!isPrimaryTable) {
-								bufReader.skipObject();//Ìø¹ıµ¼ÁĞÎ±ºÅ
+								bufReader.skipObject();//è·³è¿‡å¯¼åˆ—ä¼ªå·
 							}
 							for (int f = 0; f < allCount; ++f) {
 								if (f >= baseKeyCount) {
@@ -1969,7 +1969,7 @@ public class RowCursor extends IDWCursor {
 		this.isFirstSkip = false;
 		long count = 0;
 		
-		//¶ÔÃ»ÓĞ¹ıÂËµÄÇé¿öÓÅ»¯
+		//å¯¹æ²¡æœ‰è¿‡æ»¤çš„æƒ…å†µä¼˜åŒ–
 		if (filters == null 
 				&& !hasModify() 
 				&& isFirstSkip  
@@ -1978,7 +1978,7 @@ public class RowCursor extends IDWCursor {
 				&& exps == null
 				&& isPrimaryTable) {
 			
-			//´¦Àícache
+			//å¤„ç†cache
 			Sequence cache = this.cache;
 			if (cache != null) {
 				int len = cache.length();
@@ -1991,7 +1991,7 @@ public class RowCursor extends IDWCursor {
 				}
 			}
 			
-			//Ìø¶Î
+			//è·³æ®µ
 			int curBlock = this.curBlock;
 			int endBlock = this.endBlock;
 			BlockLinkReader rowReader = this.rowReader;
@@ -2015,7 +2015,7 @@ public class RowCursor extends IDWCursor {
 					
 					if (count + recordCount == n) {
 						rowReader.seek(pos);
-						rowReader.readBlockBuffer();//ÕâÀïÒª¶ÁÈ¡Ò»ÏÂ²ÅÄÜÈ·±£ÏÂ´Î¶ÁÈ¡Ê±µÄÎ»ÖÃ
+						rowReader.readBlockBuffer();//è¿™é‡Œè¦è¯»å–ä¸€ä¸‹æ‰èƒ½ç¡®ä¿ä¸‹æ¬¡è¯»å–æ—¶çš„ä½ç½®
 						this.curBlock = curBlock;
 						return n;
 					} else if (count + recordCount > n) {
@@ -2025,7 +2025,7 @@ public class RowCursor extends IDWCursor {
 						long diff = n - count;
 						int i = 0;
 						for (; i < diff; ++i) {
-							bufReader.skipObject();//Ìø¹ıÎ±ºÅ
+							bufReader.skipObject();//è·³è¿‡ä¼ªå·
 							for (int f = 0; f < allCount; ++f) {
 								bufReader.skipObject();
 							}
@@ -2037,7 +2037,7 @@ public class RowCursor extends IDWCursor {
 						
 						for (; i < recordCount; ++i) {
 							ComTableRecord r = new ComTableRecord(ds);
-							bufReader.readObject();//Ìø¹ıÎ±ºÅ
+							bufReader.readObject();//è·³è¿‡ä¼ªå·
 							for (int f = 0; f < allCount; ++f) {
 								if (needRead[f]) {
 									values[f] = bufReader.readObject();
@@ -2122,7 +2122,7 @@ public class RowCursor extends IDWCursor {
 	}
 	
 	/**
-	 * ¶Ô²¹ÇøµÄ¼ÇÂ¼¹ıÂË
+	 * å¯¹è¡¥åŒºçš„è®°å½•è¿‡æ»¤
 	 * @param seq
 	 * @param modifyRecords
 	 * @param vals
@@ -2151,7 +2151,7 @@ public class RowCursor extends IDWCursor {
 	}
 	
 	/**
-	 * ÉèÖÃÎª°´¿éÈ¡³ö£¨Ò»´Î±Ø¶¨È¡ÍêÒ»¿éÀïµÄËùÓĞ¼ÇÂ¼£©
+	 * è®¾ç½®ä¸ºæŒ‰å—å–å‡ºï¼ˆä¸€æ¬¡å¿…å®šå–å®Œä¸€å—é‡Œçš„æ‰€æœ‰è®°å½•ï¼‰
 	 * @param fetchByBlock
 	 */
 	public void setFetchByBlock(boolean fetchByBlock) {
@@ -2172,7 +2172,7 @@ public class RowCursor extends IDWCursor {
 	}
 	
 	protected Sequence getStartBlockData(int n) {
-		// Ö»È¡µÚÒ»¿éµÄ¼ÇÂ¼£¬Èç¹ûµÚÒ»¿éÃ»ÓĞÂú×ãÌõ¼şµÄ¾Í·µ»Ø
+		// åªå–ç¬¬ä¸€å—çš„è®°å½•ï¼Œå¦‚æœç¬¬ä¸€å—æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å°±è¿”å›
 		int startBlock = this.startBlock;
 		int endBlock = this.endBlock;
 		try {

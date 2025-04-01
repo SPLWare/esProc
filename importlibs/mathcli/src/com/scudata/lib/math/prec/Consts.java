@@ -5,39 +5,39 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Table;
 
 /**
- * ³£Êı
+ * å¸¸æ•°
  *
  */
 public class Consts {
 	/**
-	 * ±äÁ¿ÀàĞÍ
+	 * å˜é‡ç±»å‹
 	 */
 
-	/** È±Ê¡£¬×Ô¶¯¼ì²â **/
+	/** ç¼ºçœï¼Œè‡ªåŠ¨æ£€æµ‹ **/
 	public static final byte F_DEFAULT = 0;
-	/** ¶şÖµ±äÁ¿£º±äÁ¿È¡ÖµÔÚ{0,1}ÄÚ£¬¼´Ö»ÓĞÁ½ÖÖ¿ÉÄÜĞÔ **/
+	/** äºŒå€¼å˜é‡ï¼šå˜é‡å–å€¼åœ¨{0,1}å†…ï¼Œå³åªæœ‰ä¸¤ç§å¯èƒ½æ€§ **/
 	public static final byte F_TWO_VALUE = 1;
-	/** µ¥Öµ±äÁ¿ **/
+	/** å•å€¼å˜é‡ **/
 	public static final byte F_SINGLE_VALUE = 2;
-	/** Ã¶¾Ù±äÁ¿£º²»ÊÇ¶şÖµºÍĞòÊıµÄÆäËûÀëÉ¢±äÁ¿ **/
+	/** æšä¸¾å˜é‡ï¼šä¸æ˜¯äºŒå€¼å’Œåºæ•°çš„å…¶ä»–ç¦»æ•£å˜é‡ **/
 	public static final byte F_ENUM = 3;
 
-	/** ÊıÖµ±äÁ¿£º±äÁ¿È¡ÖµÎªÊµÊı **/
+	/** æ•°å€¼å˜é‡ï¼šå˜é‡å–å€¼ä¸ºå®æ•° **/
 	public static final byte F_NUMBER = 11;
-	/** ¼ÆÊı±äÁ¿£º±äÁ¿È¡ÖµÎªÕûÊı£¬Ò²ÊôÓÚÊıÖµ±äÁ¿ **/
+	/** è®¡æ•°å˜é‡ï¼šå˜é‡å–å€¼ä¸ºæ•´æ•°ï¼Œä¹Ÿå±äºæ•°å€¼å˜é‡ **/
 	public static final byte F_COUNT = 12;
-	/** ÈÕÆÚ **/
+	/** æ—¥æœŸ **/
 	public static final byte F_DATE = 13;
-	/** ²»×÷ÎªÊıÖµ»ò¼ÆÊı´¦ÀíµÄÁ¬Ğø±äÁ¿ **/
+	/** ä¸ä½œä¸ºæ•°å€¼æˆ–è®¡æ•°å¤„ç†çš„è¿ç»­å˜é‡ **/
 	public static final byte F_CONTINUITY = 20;
-	/** ³¤ÎÄ±¾ÀàĞÍ£¬²»²ÎÓë½¨Ä£ **/
+	/** é•¿æ–‡æœ¬ç±»å‹ï¼Œä¸å‚ä¸å»ºæ¨¡ **/
 	public static final byte F_LONG_TEXT = 21;
 
-	/** ¸Ã±äÁ¿ÔÚÔ¤´¦ÀíÖĞÓÉÓÚ¿ÕÖµ¹ı¶à»òÕßÃ¶¾ÙÖµ¹ı¶à±»É¾³ı£¬²¢²»»áÉú³ÉBI,MIµÈ **/
+	/** è¯¥å˜é‡åœ¨é¢„å¤„ç†ä¸­ç”±äºç©ºå€¼è¿‡å¤šæˆ–è€…æšä¸¾å€¼è¿‡å¤šè¢«åˆ é™¤ï¼Œå¹¶ä¸ä¼šç”ŸæˆBI,MIç­‰ **/
 	public static final byte F_DEL_I = 31;
-	/** ¸Ã±äÁ¿ÔÚ¶şÖµ±äÁ¿Ñ¡ÔñÖĞ±»É¾³ı£¬ÓëMVPÎŞ¹Ø **/
+	/** è¯¥å˜é‡åœ¨äºŒå€¼å˜é‡é€‰æ‹©ä¸­è¢«åˆ é™¤ï¼Œä¸MVPæ— å…³ **/
 	public static final byte F_DEL_B = 32;
-	/** ¸Ã±äÁ¿ÔÚÀëÉ¢±äÁ¿Ñ¡ÔñÖĞ±»É¾³ı£¬¿ÉÒÔ²»ÔÙÖ´ĞĞNormalizeÒÔ¼°Standardize **/
+	/** è¯¥å˜é‡åœ¨ç¦»æ•£å˜é‡é€‰æ‹©ä¸­è¢«åˆ é™¤ï¼Œå¯ä»¥ä¸å†æ‰§è¡ŒNormalizeä»¥åŠStandardize **/
 	public static final byte F_DEL_N = 33;
 
 	/** t_type: target type. 0 binary, 1 categorical 2 numerical **/
@@ -52,13 +52,13 @@ public class Consts {
 	public static final byte DCT_TIME = 3;
 	public static final byte DCT_UDATE = 4;
 	
-	/** Êı¾İÍÚ¾òÖĞ±ä»»¼ÇÂ¼±íPµÄÊı¾İ½á¹¹ **/
+	/** æ•°æ®æŒ–æ˜ä¸­å˜æ¢è®°å½•è¡¨Pçš„æ•°æ®ç»“æ„ **/
 	public final static DataStruct DSP = new DataStruct(new String[] { "TYPE",
 			"MERGE", "ITEM", "FREQ", "AVG", "SE", "MEDIAN", "UP", "LOW", "MIN",
 			"PT", "VALUE", "OP", "MIMA", "IST", "NEWNAME", "MIINDEX", "BI",
 			"MVP", "DTYPE" });
 
-	/** ±ä»¯±íPÖĞ±äÁ¿ÊôĞÔ×Ö¶ÎºÅ **/
+	/** å˜åŒ–è¡¨Pä¸­å˜é‡å±æ€§å­—æ®µå· **/
 	public static final int P_TYPE = 0;
 	public static final int P_MERGE = 1;
 	public static final int P_ITEM = 2;
@@ -79,7 +79,7 @@ public class Consts {
 	public static final int P_BI = 17;
 	public static final int P_MVP = 18;
 	public static final int P_DATETYPE = 19;
-	// ¶ÔÓÚÈÕÆÚĞÍ×Ö¶Î£¬´¦ÀíÄ£Ê½ºÍÆäËüÀàĞÍ×Ö¶Î¹ı³Ì²»Ò»ÖÂ£¬ËüÃÇ¸´ÓÃÇ°ÃæµÄ¼ÇÂ¼Î»ÖÃ£¬Ê¹ÓÃÊ±ÏÈÅĞ¶ÏÓĞÎŞDTYPE¼´¿É
+	// å¯¹äºæ—¥æœŸå‹å­—æ®µï¼Œå¤„ç†æ¨¡å¼å’Œå…¶å®ƒç±»å‹å­—æ®µè¿‡ç¨‹ä¸ä¸€è‡´ï¼Œå®ƒä»¬å¤ç”¨å‰é¢çš„è®°å½•ä½ç½®ï¼Œä½¿ç”¨æ—¶å…ˆåˆ¤æ–­æœ‰æ— DTYPEå³å¯
 	public static final int P_DATE_HOUR = 1;
 	public static final int P_DATE_AM = 2;
 	public static final int P_DATE_NIGHT = 3;

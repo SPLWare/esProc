@@ -39,7 +39,7 @@ import com.scudata.ide.vdb.resources.IdeMessage;
 
 public class GM {
 	/**
-	 * È¡Í¼±ê
+	 * å–å›¾æ ‡
 	 * 
 	 * @param filePath
 	 * @return
@@ -57,7 +57,7 @@ public class GM {
 				filePath = "/" + filePath;
 			}
 			is = GM.class.getResourceAsStream(filePath);
-			// ÏÈÓÃÎÄ¼şÃûÕÒ£¬ÕÒ²»µ½ÔÙÓÃĞ¡Ğ´µÄÕÒ
+			// å…ˆç”¨æ–‡ä»¶åæ‰¾ï¼Œæ‰¾ä¸åˆ°å†ç”¨å°å†™çš„æ‰¾
 			if (is == null) {
 				is = GM.class.getResourceAsStream(filePath.toLowerCase());
 			}
@@ -84,7 +84,7 @@ public class GM {
 	}
 
 	/**
-	 * È¡²Ëµ¥Í¼±ê
+	 * å–èœå•å›¾æ ‡
 	 * 
 	 * @param menuText
 	 * @return
@@ -102,13 +102,13 @@ public class GM {
 	}
 
 	/**
-	 * »ñµÃÊäÈëÁ÷ÖĞµÄ×Ö½ÚÊı×é
+	 * è·å¾—è¾“å…¥æµä¸­çš„å­—èŠ‚æ•°ç»„
 	 * 
 	 * @param is
-	 *            ÊäÈëÁ÷¶ÔÏó
+	 *            è¾“å…¥æµå¯¹è±¡
 	 * @throws Exception
-	 *             ÊäÈëÊä³ö´íÎó
-	 * @return ×Ö½ÚÊı×é
+	 *             è¾“å…¥è¾“å‡ºé”™è¯¯
+	 * @return å­—èŠ‚æ•°ç»„
 	 */
 	public static byte[] inputStream2Bytes(InputStream is) throws Exception {
 		if (is == null) {
@@ -124,7 +124,7 @@ public class GM {
 	}
 
 	/**
-	 * Òì³£´¦Àí
+	 * å¼‚å¸¸å¤„ç†
 	 * 
 	 * @param oMsg
 	 */
@@ -133,7 +133,7 @@ public class GM {
 	}
 
 	/**
-	 * Òì³£´¦Àí
+	 * å¼‚å¸¸å¤„ç†
 	 * 
 	 * @param e
 	 *            Throwable
@@ -152,7 +152,7 @@ public class GM {
 			msg = oMsg.toString();
 		}
 		if (canCopyMsg) {
-			// ´íÎóĞÅÏ¢
+			// é”™è¯¯ä¿¡æ¯
 			DialogInputText dit = new DialogInputText(false);
 			dit.setTitle(IdeMessage.get().getMessage("gm.exinfo"));
 			dit.setText(msg);
@@ -169,7 +169,7 @@ public class GM {
 	}
 
 	/**
-	 * Ğ´Òì³£µ½ÈÕÖ¾ÎÄ¼ş
+	 * å†™å¼‚å¸¸åˆ°æ—¥å¿—æ–‡ä»¶
 	 * 
 	 * @param e
 	 */
@@ -197,7 +197,7 @@ public class GM {
 	}
 
 	/**
-	 * »ñÈ¡Ïà¶ÔÓÚstart.homeµ½¾ø¶ÔÂ·¾¶
+	 * è·å–ç›¸å¯¹äºstart.homeåˆ°ç»å¯¹è·¯å¾„
 	 * 
 	 * @param path
 	 * @return
@@ -208,7 +208,7 @@ public class GM {
 	}
 
 	/**
-	 * »ñÈ¡Ïà¶ÔÓÚhomeµÄ¾ø¶ÔÂ·¾¶
+	 * è·å–ç›¸å¯¹äºhomeçš„ç»å¯¹è·¯å¾„
 	 * 
 	 * @param path
 	 * @param home
@@ -229,14 +229,14 @@ public class GM {
 	}
 
 	/**
-	 * ÉèÖÃ¶Ô»°¿òµÄÄ¬ÈÏÈ·¶¨ºÍÈ¡Ïû°´Å¥
+	 * è®¾ç½®å¯¹è¯æ¡†çš„é»˜è®¤ç¡®å®šå’Œå–æ¶ˆæŒ‰é’®
 	 * 
 	 * @param dlg
-	 *            JDialog£¬ÒªÉèÖÃµÄ¶Ô»°¿ò
+	 *            JDialogï¼Œè¦è®¾ç½®çš„å¯¹è¯æ¡†
 	 * @param okButton
-	 *            JButton£¬»Ø³µÊ±Ö´ĞĞµÄ°´Å¥
+	 *            JButtonï¼Œå›è½¦æ—¶æ‰§è¡Œçš„æŒ‰é’®
 	 * @param cancelButton
-	 *            JButton£¬EscapeÊ±Ö´ĞĞµÄ°´Å¥
+	 *            JButtonï¼ŒEscapeæ—¶æ‰§è¡Œçš„æŒ‰é’®
 	 */
 	public static void setDialogDefaultButton(Window dlg, final JButton okButton, final JButton cancelButton) {
 		JRootPane pane = null;
@@ -265,10 +265,10 @@ public class GM {
 	}
 
 	/**
-	 * ½«´°¿Ú¾ÓÖĞ
+	 * å°†çª—å£å±…ä¸­
 	 * 
 	 * @param w
-	 *            Window Òª¾ÓÖĞµÄ´°¿Ú
+	 *            Window è¦å±…ä¸­çš„çª—å£
 	 */
 	public static void centerWindow(Component w) {
 		if (!loadWindowDimension(w)) {
@@ -335,7 +335,7 @@ public class GM {
 							return true;
 						}
 					}
-				} catch (Throwable ex) { // ¶Á²»µ½ÎŞËùÎ½ÁË
+				} catch (Throwable ex) { // è¯»ä¸åˆ°æ— æ‰€è°“äº†
 				}
 				return false;
 			}};
@@ -347,7 +347,7 @@ public class GM {
 	}
 
 	/**
-	 * ±£´æ´°¿ÚµÄÎ»ÖÃºÍ´óĞ¡ĞÅÏ¢
+	 * ä¿å­˜çª—å£çš„ä½ç½®å’Œå¤§å°ä¿¡æ¯
 	 * 
 	 * @param dlg
 	 *            JDialog
@@ -357,14 +357,14 @@ public class GM {
 	}
 
 	/**
-	 * »ñÈ¡GridBag²¼¾Ö¶ÔÏó
+	 * è·å–GridBagå¸ƒå±€å¯¹è±¡
 	 * 
 	 * @param row
-	 *            int, ¶ÔÏóËù´¦ĞĞºÅ
+	 *            int, å¯¹è±¡æ‰€å¤„è¡Œå·
 	 * @param col
-	 *            int, ¶ÔÏóËù´¦ÁĞºÅ
+	 *            int, å¯¹è±¡æ‰€å¤„åˆ—å·
 	 * @param hFill
-	 *            boolean,¸Ã¶ÔÏóÊÇ·ñĞĞÌî³ä
+	 *            boolean,è¯¥å¯¹è±¡æ˜¯å¦è¡Œå¡«å……
 	 * @return GridBagConstraints
 	 */
 	public static GridBagConstraints getGBC(int row, int col, boolean hFill, boolean vFill, int hGap) {
@@ -405,7 +405,7 @@ public class GM {
 	}
 
 	/**
-	 * »ñÈ¡¿Ø¼şÔÚ´°¿ÚÖĞµÄ¾ø¶Ô×ø±ê
+	 * è·å–æ§ä»¶åœ¨çª—å£ä¸­çš„ç»å¯¹åæ ‡
 	 * 
 	 * @param c
 	 *            Component
@@ -422,12 +422,12 @@ public class GM {
 	}
 
 	/**
-	 * ´ò¿ªÎÄ¼şÑ¡Ôñ¶Ô»°¿ò£¬»ñÈ¡Ö¸¶¨À©Õ¹ÃûÀàĞÍµÄÎÄ¼ş
+	 * æ‰“å¼€æ–‡ä»¶é€‰æ‹©å¯¹è¯æ¡†ï¼Œè·å–æŒ‡å®šæ‰©å±•åç±»å‹çš„æ–‡ä»¶
 	 * 
 	 * @param fileExts
-	 *            String£¬³õÊ¼µÄÀ©Õ¹ÃûÀàĞÍ£¬ÓÃ¶ººÅ·Ö¿ª¶àÖÖÀàĞÍ
+	 *            Stringï¼Œåˆå§‹çš„æ‰©å±•åç±»å‹ï¼Œç”¨é€—å·åˆ†å¼€å¤šç§ç±»å‹
 	 * @param currentDirectory
-	 *            String£¬³õÊ¼µÄÎÄ¼şÂ·¾¶
+	 *            Stringï¼Œåˆå§‹çš„æ–‡ä»¶è·¯å¾„
 	 * @return File
 	 */
 	public static File dialogSelectFile(String fileExts) {
@@ -535,11 +535,11 @@ public class GM {
 	}
 
 	/**
-	 * µ¯³ö¶Ô»°¿ò£¬Ñ¡ÔñÒ»¸öÎÄ¼şÂ·¾¶
+	 * å¼¹å‡ºå¯¹è¯æ¡†ï¼Œé€‰æ‹©ä¸€ä¸ªæ–‡ä»¶è·¯å¾„
 	 * 
 	 * @param currentDirectory
-	 *            String£¬¶Ô»°¿ò³õÊ¼µÄÂ·¾¶
-	 * @return String,ÓÃ»§Ñ¡ÔñµÄÂ·¾¶£¬È¡Ïû·µ»Ønull
+	 *            Stringï¼Œå¯¹è¯æ¡†åˆå§‹çš„è·¯å¾„
+	 * @return String,ç”¨æˆ·é€‰æ‹©çš„è·¯å¾„ï¼Œå–æ¶ˆè¿”å›null
 	 */
 	public static String dialogSelectDirectory(String currentDirectory) {
 		JFileChooser chooser = new JFileChooser(currentDirectory);

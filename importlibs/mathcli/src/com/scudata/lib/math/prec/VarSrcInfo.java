@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 import java.util.ArrayList;
 
 /**
- * µ¥¸ö±äÁ¿µÄËùÓĞÔ¤´¦ÀíĞÅÏ¢£¬»ù´¡±äÁ¿°üÀ¨³õÊ¼±äÁ¿ÒÔ¼°ÑÜÉú³öÇÒĞèÒª¼ÌĞøÔ¤´¦ÀíµÄ±äÁ¿
+ * å•ä¸ªå˜é‡çš„æ‰€æœ‰é¢„å¤„ç†ä¿¡æ¯ï¼ŒåŸºç¡€å˜é‡åŒ…æ‹¬åˆå§‹å˜é‡ä»¥åŠè¡ç”Ÿå‡ºä¸”éœ€è¦ç»§ç»­é¢„å¤„ç†çš„å˜é‡
  * @author bd
  *
  */
@@ -22,23 +22,23 @@ public class VarSrcInfo extends VarInfo {
 		super(srcName, type);
 	}
 	
-	// ÊÇ·ñÉú³ÉMI±äÁ¿£¬MI±äÁ¿µÄÍ³¼ÆÊı¾İÖ»ºÍÈ±Ê§ÂÊÓĞ¹Ø£¬²»±Ø¼ÇÂ¼VarInfo
+	// æ˜¯å¦ç”ŸæˆMIå˜é‡ï¼ŒMIå˜é‡çš„ç»Ÿè®¡æ•°æ®åªå’Œç¼ºå¤±ç‡æœ‰å…³ï¼Œä¸å¿…è®°å½•VarInfo
 	private boolean hasMI = false;
-	// ²ÎÓëÉú³ÉµÄMVP±äÁ¿ĞÅÏ¢£¬Î´Éú³ÉÔòÎªnull
+	// å‚ä¸ç”Ÿæˆçš„MVPå˜é‡ä¿¡æ¯ï¼Œæœªç”Ÿæˆåˆ™ä¸ºnull
 	private VarInfo mvpDerived;
-	// MVP±äÁ¿µÄ²ÎÓë±äÁ¿Ãû³Æ£¬×îÖÕ±äÁ¿Ãû
+	// MVPå˜é‡çš„å‚ä¸å˜é‡åç§°ï¼Œæœ€ç»ˆå˜é‡å
 	private ArrayList<String> mvpCns;
-	// BI±äÁ¿ĞÅÏ¢£¬×éÖĞ°üÀ¨×ÔÉí
+	// BIå˜é‡ä¿¡æ¯ï¼Œç»„ä¸­åŒ…æ‹¬è‡ªèº«
 	private ArrayList<VarInfo> biCols;
-	// Æ½»¬»¯ÑÜÉú±äÁ¿ĞÅÏ¢£¬×éÖĞ°üÀ¨×ÔÉí
+	// å¹³æ»‘åŒ–è¡ç”Ÿå˜é‡ä¿¡æ¯ï¼Œç»„ä¸­åŒ…æ‹¬è‡ªèº«
 	private ArrayList<VarInfo> smCols;
-	// ÈÕÆÚÊ±¼äÀàµÄ»ù±¾ÑÜÉú±äÁ¿
+	// æ—¥æœŸæ—¶é—´ç±»çš„åŸºæœ¬è¡ç”Ÿå˜é‡
 	private ArrayList<VarSrcInfo> dateCols;
-	// ÈÕÆÚ²îÖµÀàµÄÑÜÉú±äÁ¿
+	// æ—¥æœŸå·®å€¼ç±»çš„è¡ç”Ÿå˜é‡
 	private ArrayList<VarDateInterval> dateIntervals;
 	
 	/**
-	 * »ñÈ¡Éú³ÉµÄMIÁĞĞÅÏ¢
+	 * è·å–ç”Ÿæˆçš„MIåˆ—ä¿¡æ¯
 	 * @return the miDerived
 	 */
 	public boolean hasMI() {
@@ -46,7 +46,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 	
 	/**
-	 * ÉèÖÃÉú³ÉµÄMIÁĞĞÅÏ¢
+	 * è®¾ç½®ç”Ÿæˆçš„MIåˆ—ä¿¡æ¯
 	 * @param miDerived the miDerived to set
 	 */
 	public void setMI(boolean b) {
@@ -54,7 +54,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 	
 	/**
-	 * »ñÈ¡Éú³ÉµÄMVPÁĞĞÅÏ¢
+	 * è·å–ç”Ÿæˆçš„MVPåˆ—ä¿¡æ¯
 	 * @return the mvpDerived
 	 */
 	public VarInfo getMvpDerived() {
@@ -62,7 +62,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 	
 	/**
-	 * ÉèÖÃÉú³ÉµÄMVPÁĞĞÅÏ¢
+	 * è®¾ç½®ç”Ÿæˆçš„MVPåˆ—ä¿¡æ¯
 	 * @param mvpDerived the mvpDerived to set
 	 */
 	public void setMvpDerived(VarInfo mvpDerived) {
@@ -70,23 +70,23 @@ public class VarSrcInfo extends VarInfo {
 	}
 	
 	/**
-	 * »ñÈ¡Éú³ÉµÄMVPÊ¹ÓÃ×îÖÕ±äÁ¿ÃûÁĞ±í
-	 * @return	×îÖÕ±äÁ¿ÃûÁĞ±í
+	 * è·å–ç”Ÿæˆçš„MVPä½¿ç”¨æœ€ç»ˆå˜é‡ååˆ—è¡¨
+	 * @return	æœ€ç»ˆå˜é‡ååˆ—è¡¨
 	 */
 	public ArrayList<String> getMvpVarNames() {
 		return this.mvpCns;
 	}
 	
 	/**
-	 * ÉèÖÃÉú³ÉµÄMVPÊ¹ÓÃ×îÖÕ±äÁ¿ÃûÁĞ±í
-	 * @param ×îÖÕ±äÁ¿ÃûÁĞ±í
+	 * è®¾ç½®ç”Ÿæˆçš„MVPä½¿ç”¨æœ€ç»ˆå˜é‡ååˆ—è¡¨
+	 * @param æœ€ç»ˆå˜é‡ååˆ—è¡¨
 	 */
 	public void setMvpVarNames(ArrayList<String> vns) {
 		this.mvpCns = vns;
 	}
 	
 	/**
-	 * »ñÈ¡²ğ·Ö³ÉµÄBI¸÷ÁĞĞÅÏ¢£¬°üÀ¨×ÔÉí
+	 * è·å–æ‹†åˆ†æˆçš„BIå„åˆ—ä¿¡æ¯ï¼ŒåŒ…æ‹¬è‡ªèº«
 	 * @return the biCols
 	 */
 	public ArrayList<VarInfo> getBiCols() {
@@ -94,7 +94,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 	
 	/**
-	 * ÉèÖÃ²ğ·Ö³ÉµÄBI¸÷ÁĞĞÅÏ¢£¬°üÀ¨×ÔÉí
+	 * è®¾ç½®æ‹†åˆ†æˆçš„BIå„åˆ—ä¿¡æ¯ï¼ŒåŒ…æ‹¬è‡ªèº«
 	 * @param biCols the biCols to set
 	 */
 	public void setBiCols(ArrayList<VarInfo> biCols) {
@@ -102,7 +102,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 	
 	/**
-	 * »ñÈ¡²ğ·Ö³ÉµÄÆ½»¬»¯ÑÜÉúÁĞÁĞ±í£¬²»°üÀ¨×ÔÉí
+	 * è·å–æ‹†åˆ†æˆçš„å¹³æ»‘åŒ–è¡ç”Ÿåˆ—åˆ—è¡¨ï¼Œä¸åŒ…æ‹¬è‡ªèº«
 	 * @return the smCols
 	 */
 	public ArrayList<VarInfo> getSmCols() {
@@ -110,7 +110,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 	
 	/**
-	 * ÉèÖÃ²ğ·Ö³ÉµÄÆ½»¬»¯ÑÜÉúÁĞÁĞ±í£¬²»°üÀ¨×ÔÉí
+	 * è®¾ç½®æ‹†åˆ†æˆçš„å¹³æ»‘åŒ–è¡ç”Ÿåˆ—åˆ—è¡¨ï¼Œä¸åŒ…æ‹¬è‡ªèº«
 	 * @param smCols the smCols to set
 	 */
 	public void setSmCols(ArrayList<VarInfo> smCols) {
@@ -118,7 +118,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 	
 	/**
-	 * »ñÈ¡ÈÕÆÚ»ù±¾ÑÜÉúÁĞĞÅÏ¢
+	 * è·å–æ—¥æœŸåŸºæœ¬è¡ç”Ÿåˆ—ä¿¡æ¯
 	 * @return the derivedCols
 	 */
 	public ArrayList<VarSrcInfo> getDateCols() {
@@ -126,7 +126,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 	
 	/**
-	 * ÉèÖÃÈÕÆÚ»ù±¾ÑÜÉúÁĞĞÅÏ¢
+	 * è®¾ç½®æ—¥æœŸåŸºæœ¬è¡ç”Ÿåˆ—ä¿¡æ¯
 	 * @param derivedCols the derivedCols to set
 	 */
 	public void setDateCols(ArrayList<VarSrcInfo> derivedCols) {
@@ -134,7 +134,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 
 	/**
-	 * Ìí¼ÓÒ»¸öÈÕÆÚ»ù±¾ÑÜÉúÁĞµÄÍ³¼ÆĞÅÏ¢
+	 * æ·»åŠ ä¸€ä¸ªæ—¥æœŸåŸºæœ¬è¡ç”Ÿåˆ—çš„ç»Ÿè®¡ä¿¡æ¯
 	 * @param vi
 	 */
 	public void addDateCol(VarSrcInfo vi) {
@@ -145,7 +145,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 
 	/**
-	 * »ñÈ¡ÈÕÆÚ²îÖµÁĞĞÅÏ¢
+	 * è·å–æ—¥æœŸå·®å€¼åˆ—ä¿¡æ¯
 	 * @return the derivedCols
 	 */
 	public ArrayList<VarDateInterval> getDateIntervals() {
@@ -153,7 +153,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 	
 	/**
-	 * ÉèÖÃÈÕÆÚ²îÖµÁĞĞÅÏ¢
+	 * è®¾ç½®æ—¥æœŸå·®å€¼åˆ—ä¿¡æ¯
 	 * @param derivedCols the derivedCols to set
 	 */
 	public void setDateIntervals(ArrayList<VarDateInterval> derivedCols) {
@@ -161,7 +161,7 @@ public class VarSrcInfo extends VarInfo {
 	}
 
 	/**
-	 * Ìí¼ÓÒ»¸öÈÕÆÚ²îÖµÁĞµÄÍ³¼ÆĞÅÏ¢
+	 * æ·»åŠ ä¸€ä¸ªæ—¥æœŸå·®å€¼åˆ—çš„ç»Ÿè®¡ä¿¡æ¯
 	 * @param vi
 	 */
 	public void addDateInterval(VarDateInterval vi) {
@@ -170,7 +170,7 @@ public class VarSrcInfo extends VarInfo {
 		}
 		this.dateIntervals.add(vi);
 	}
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 5;
 	public void writeExternal(ObjectOutput out) throws IOException {
 		super.writeExternal(out);

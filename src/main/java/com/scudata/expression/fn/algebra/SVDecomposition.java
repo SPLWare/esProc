@@ -1,21 +1,21 @@
 package com.scudata.expression.fn.algebra;
 
 /**
- * ¾ØÕóµÄÆæÒìÖµ·Ö½â´¦Àí
+ * çŸ©é˜µçš„å¥‡å¼‚å€¼åˆ†è§£å¤„ç†
  * @author bd
  */
 public class SVDecomposition {
-	//¶ÔÓÚm*n¾ØÕó£¬A=U¦²V*£¬UÎªm*mÓÏ¾ØÕó£¬V*ÎªVµÄ¹²éî×ªÖÃ£¬n*nÓÏ¾ØÕó
+	//å¯¹äºm*nçŸ©é˜µï¼ŒA=UÎ£V*ï¼ŒUä¸ºm*mé…‰çŸ©é˜µï¼ŒV*ä¸ºVçš„å…±è½­è½¬ç½®ï¼Œn*né…‰çŸ©é˜µ
 	private double[][] U, V;
-	//°ëÕı¶¨m*n¾ØÕó¦²ÖĞµÄÆæÒìÖµ
+	//åŠæ­£å®šm*nçŸ©é˜µÎ£ä¸­çš„å¥‡å¼‚å€¼
 	private double[] s;
 
-	// ¾ØÕóµÄĞĞÁĞÊı
+	// çŸ©é˜µçš„è¡Œåˆ—æ•°
 	private int rows, cols;
 
 	/**
-	 * ³õÊ¼»¯
-	 * @param A		¾ØÕó
+	 * åˆå§‹åŒ–
+	 * @param A		çŸ©é˜µ
 	 */
 	public SVDecomposition(Matrix matrix) {
 		// Initialize.
@@ -384,7 +384,7 @@ public class SVDecomposition {
 	}
 
 	/**
-	 * ·µ»ØÆæÒìÖµ¶Ô½Ç¾ØÕó
+	 * è¿”å›å¥‡å¼‚å€¼å¯¹è§’çŸ©é˜µ
 	 * @return S
 	 */
 	public Matrix getS() {

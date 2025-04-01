@@ -18,13 +18,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * hour(datetimeExp) »ñÈ¡Ö¸¶¨Ê±¼ädatetimeExpÎ»ÓÚÒ»ÌìÖĞµÄÄÄ¸öÊ±³½
+ * hour(datetimeExp) è·å–æŒ‡å®šæ—¶é—´datetimeExpä½äºä¸€å¤©ä¸­çš„å“ªä¸ªæ—¶è¾°
  * @author runqian
  *
  */
 public class Hour extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -53,8 +53,8 @@ public class Hour extends Function {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -114,10 +114,10 @@ public class Hour extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

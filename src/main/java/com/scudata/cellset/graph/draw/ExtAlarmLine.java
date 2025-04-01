@@ -5,110 +5,110 @@ import java.awt.Color;
 import com.scudata.cellset.graph.*;
 
 /**
- * Í³¼ÆÍ¼ÖĞµÄ¾¯½äÏßÊôĞÔÀà
+ * ç»Ÿè®¡å›¾ä¸­çš„è­¦æˆ’çº¿å±æ€§ç±»
  */
 public class ExtAlarmLine {
-	/**¡¡¾¯½äÏßÃû³Æ¡¡*/
+	/**ã€€è­¦æˆ’çº¿åç§°ã€€*/
 	private String name = null;
-	/**¡¡¾¯½äÖµ¡¡*/
+	/**ã€€è­¦æˆ’å€¼ã€€*/
 	private double value = 0;
-	/**¡¡¾¯½äÏßÀàĞÍ¡¡*/
+	/**ã€€è­¦æˆ’çº¿ç±»å‹ã€€*/
 	private byte lineType = GraphProperty.LINE_SOLID;
-	/**  ¾¯½äÏßÑÕÉ« */
+	/**  è­¦æˆ’çº¿é¢œè‰² */
 	private int color = Color.red.getRGB();
-	/* Ö±ÏßµÄ´Ö¶È */
+	/* ç›´çº¿çš„ç²—åº¦ */
 	private float lineThick;
 	private boolean isDrawAlarmValue = true;
 
 	/**
-	 * È¡Ãû³Æ
-	 * @return String¡¡Ãû³Æ
+	 * å–åç§°
+	 * @return Stringã€€åç§°
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * È¡¾¯½äÖµ
-	 * @return String¡¡¾¯½äÖµ
+	 * å–è­¦æˆ’å€¼
+	 * @return Stringã€€è­¦æˆ’å€¼
 	 */
 	public double getAlarmValue() {
 		return value;
 	}
 
 	/**
-	 * È¡¾¯½äÏßÀàĞÍ
-	 * @return byte¡¡¾¯½äÏßÀàĞÍ£¬ÖµÎªGraphProperty.LINE_NONE, LINE_SOLID, LINE_LONG_DASH, LINE_SHORT_DASH, LINE_DOT_DASH, LINE_2DOT_DASH
+	 * å–è­¦æˆ’çº¿ç±»å‹
+	 * @return byteã€€è­¦æˆ’çº¿ç±»å‹ï¼Œå€¼ä¸ºGraphProperty.LINE_NONE, LINE_SOLID, LINE_LONG_DASH, LINE_SHORT_DASH, LINE_DOT_DASH, LINE_2DOT_DASH
 	 */
 	public byte getLineType() {
 		return lineType;
 	}
 
 	/**
-	 * È¡ÑÕÉ«
-	 * @return int¡¡ÑÕÉ«
+	 * å–é¢œè‰²
+	 * @return intã€€é¢œè‰²
 	 */
 	public int getColor() {
 		return color;
 	}
 
 	/**
-	 * ÉèÖÃÃû³Æ
-	 * @param name¡¡Ãû³Æ
+	 * è®¾ç½®åç§°
+	 * @param nameã€€åç§°
 	 */
 	public void setName(String name) {
 		this.name= name;
 	}
 
 	/**
-	 * ÉèÖÃ¾¯½äÖµ
-	 * @param value¡¡¾¯½äÖµ
+	 * è®¾ç½®è­¦æˆ’å€¼
+	 * @param valueã€€è­¦æˆ’å€¼
 	 */
 	public void setAlarmValue(double value) {
 		this.value= value;
 	}
 
 	/**
-	 * ÉèÖÃ¾¯½äÏßÀàĞÍ
-	 * @param type¡¡¾¯½äÏßÀàĞÍ£¬ÖµÎªGraphProperty.LINE_NONE, LINE_SOLID, LINE_LONG_DASH, LINE_SHORT_DASH, LINE_DOT_DASH, LINE_2DOT_DASH
+	 * è®¾ç½®è­¦æˆ’çº¿ç±»å‹
+	 * @param typeã€€è­¦æˆ’çº¿ç±»å‹ï¼Œå€¼ä¸ºGraphProperty.LINE_NONE, LINE_SOLID, LINE_LONG_DASH, LINE_SHORT_DASH, LINE_DOT_DASH, LINE_2DOT_DASH
 	 */
 	public void setLineType(byte type) {
 		lineType=type;
 	}
 
 	/**
-	 * ÉèÖÃÑÕÉ«
-	 * @param color¡¡ÑÕÉ«
+	 * è®¾ç½®é¢œè‰²
+	 * @param colorã€€é¢œè‰²
 	 */
 	public void setColor(int color) {
 		this.color= color;
 	}
 
 	/**
-	 * ÉèÖÃ´Ö¶È
-	 * @param thick ´Ö¶È
+	 * è®¾ç½®ç²—åº¦
+	 * @param thick ç²—åº¦
 	 */
 	public void setLineThick( float thick ){
 	  this.lineThick = thick;
 	}
 	/**
-	 * È¡Ïß´Ö¶È
-	 * @return ´Ö¶È
+	 * å–çº¿ç²—åº¦
+	 * @return ç²—åº¦
 	 */
 	public float getLineThick(){
 	  return lineThick;
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ»æÖÆ¾¯½äÖµ
-	 * @param isDrawAlarmValue ÊÇ·ñ»æÖÆ¾¯½äÖµ
+	 * è®¾ç½®æ˜¯å¦ç»˜åˆ¶è­¦æˆ’å€¼
+	 * @param isDrawAlarmValue æ˜¯å¦ç»˜åˆ¶è­¦æˆ’å€¼
 	 */
 	public void setDrawAlarmValue( boolean isDrawAlarmValue ){
 		  this.isDrawAlarmValue = isDrawAlarmValue;
 	}
 	/**
-	 * È¡ÊÇ·ñ»æÖÆ¾¯½äÖµ
-	 * @return »æÖÆ·µ»Øtrue£¬·ñÔòfalse
+	 * å–æ˜¯å¦ç»˜åˆ¶è­¦æˆ’å€¼
+	 * @return ç»˜åˆ¶è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isDrawAlarmValue(){
 	  return isDrawAlarmValue;

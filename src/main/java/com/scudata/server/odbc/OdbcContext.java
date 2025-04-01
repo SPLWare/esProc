@@ -30,24 +30,24 @@ import com.scudata.server.ConnectionProxyManager;
 import com.scudata.server.unit.UnitServer;
 
 /**
- * ODBC·şÎñÆ÷ÉÏÏÂÎÄ
+ * ODBCæœåŠ¡å™¨ä¸Šä¸‹æ–‡
  */
 public class OdbcContext extends ConfigWriter {
 	public static final String ODBC_CONFIG_FILE = "OdbcServer.xml";
 
 	private String host = UnitContext.getDefaultHost();//"127.0.0.1";
-	private int port = 8501, timeOut = 2; // ÁÙÊ±ÎÄ¼ş´æ»îÊ±¼ä£¬Ğ¡Ê±Îªµ¥Î»£¬0Îª²»¼ì²é³¬Ê±
+	private int port = 8501, timeOut = 2; // ä¸´æ—¶æ–‡ä»¶å­˜æ´»æ—¶é—´ï¼Œå°æ—¶ä¸ºå•ä½ï¼Œ0ä¸ºä¸æ£€æŸ¥è¶…æ—¶
 
 	// Connection
 	private int conMax = 10;
-	private int conTimeOut = 2;// Á¬½Ó´æ»îÊ±¼ä£¬Ğ¡Ê±Îªµ¥Î»£¬0Îª²»¼ì²é³¬Ê±
-	private int conPeriod = 5; // ¼ì²é´úÀí»òÕßÁÙÊ±ÎÄ¼ş¹ıÆÚµÄÊ±¼ä¼ä¸ô£¬0Îª²»¼ì²é¹ıÆÚ¡£ÎÄ¼şÒÔ¼°ÓÎ±ê´úÀíµÄ¹ıÆÚÊ±¼ä,µ¥Î»Ãë
+	private int conTimeOut = 2;// è¿æ¥å­˜æ´»æ—¶é—´ï¼Œå°æ—¶ä¸ºå•ä½ï¼Œ0ä¸ºä¸æ£€æŸ¥è¶…æ—¶
+	private int conPeriod = 5; // æ£€æŸ¥ä»£ç†æˆ–è€…ä¸´æ—¶æ–‡ä»¶è¿‡æœŸçš„æ—¶é—´é—´éš”ï¼Œ0ä¸ºä¸æ£€æŸ¥è¿‡æœŸã€‚æ–‡ä»¶ä»¥åŠæ¸¸æ ‡ä»£ç†çš„è¿‡æœŸæ—¶é—´,å•ä½ç§’
 	private boolean autoStart=false;
 	
 	private List<User> users = null;
 
 	/**
-	 * ´´½¨odbc·şÎñÆ÷ÉÏÏÂÎÄ
+	 * åˆ›å»ºodbcæœåŠ¡å™¨ä¸Šä¸‹æ–‡
 	 */
 	public OdbcContext(){
 		try {
@@ -61,8 +61,8 @@ public class OdbcContext extends ConfigWriter {
 	}
 
 	/**
-	 * ¼ÓÔØÅäÖÃ
-	 * @param is ÅäÖÃÎÄ¼şÊäÈëÁ÷
+	 * åŠ è½½é…ç½®
+	 * @param is é…ç½®æ–‡ä»¶è¾“å…¥æµ
 	 * @throws Exception
 	 */
 	public void load(InputStream is) throws Exception {
@@ -82,7 +82,7 @@ public class OdbcContext extends ConfigWriter {
 			throw new Exception(ParallelMessage.get().getMessage("UnitConfig.errorxml"));
 		}
 
-		// Server ÅäÖÃ
+		// Server é…ç½®
 		String buf = XmlUtil.getAttribute(root, "host");
 		if (StringUtils.isValidString(buf)) {
 			host = buf;
@@ -98,7 +98,7 @@ public class OdbcContext extends ConfigWriter {
 			autoStart = Boolean.parseBoolean(buf);
 		}
 
-		// ¹Ì¶¨Êä³öÈÕÖ¾µ½¿ØÖÆÌ¨£¬ ºÍ start.home/nodes/[ip_port]/log Ä¿Â¼ÏÂ
+		// å›ºå®šè¾“å‡ºæ—¥å¿—åˆ°æ§åˆ¶å°ï¼Œ å’Œ start.home/nodes/[ip_port]/log ç›®å½•ä¸‹
 		String home = UnitServer.getHome();
 		String file = "odbc/" + UnitClient.getHostPath(host) + "_" + port + "/log/log.txt";
 		File f = new File(home, file);
@@ -166,8 +166,8 @@ public class OdbcContext extends ConfigWriter {
 	}
 
 	/**
-	 * ±£´æÅäÖÃµ½Êä³öÁ÷
-	 * @param out Êä³öÁ÷
+	 * ä¿å­˜é…ç½®åˆ°è¾“å‡ºæµ
+	 * @param out è¾“å‡ºæµ
 	 * @throws SAXException
 	 */
 	public void save(OutputStream out) throws SAXException {
@@ -175,7 +175,7 @@ public class OdbcContext extends ConfigWriter {
 		handler.setResult(resultxml);
 		level = 0;
 		handler.startDocument();
-		// ÉèÖÃ¸ù½ÚµãºÍ°æ±¾
+		// è®¾ç½®æ ¹èŠ‚ç‚¹å’Œç‰ˆæœ¬
 		handler.startElement("", "", "Server", getAttributesImpl(new String[] {
 				ConfigConsts.VERSION, "1", "host", host, "port", port + "","autostart", autoStart + "",
 				"timeout", timeOut + ""})); 
@@ -207,21 +207,21 @@ public class OdbcContext extends ConfigWriter {
 		}
 
 		handler.endElement("", "", "Server");
-		// ÎÄµµ½áÊø,Í¬²½µ½´ÅÅÌ
+		// æ–‡æ¡£ç»“æŸ,åŒæ­¥åˆ°ç£ç›˜
 		handler.endDocument();
 	}
 
 	/**
-	 * »ñÈ¡·şÎñÆ÷IP
-	 * @return IPµØÖ·
+	 * è·å–æœåŠ¡å™¨IP
+	 * @return IPåœ°å€
 	 */
 	public String getHost() {
 		return host;
 	}
 
 	/**
-	 * »ñÈ¡¶Ë¿ÚºÅ
-	 * @return ¶Ë¿ÚºÅ
+	 * è·å–ç«¯å£å·
+	 * @return ç«¯å£å·
 	 */
 	public int getPort() {
 		return port;
@@ -232,119 +232,119 @@ public class OdbcContext extends ConfigWriter {
 	}
 
 	/**
-	 * ÉèÖÃ¶Ë¿ÚºÅ
-	 * @param port ¶Ë¿Ú
+	 * è®¾ç½®ç«¯å£å·
+	 * @param port ç«¯å£
 	 */
 	public void setPort(int port) {
 		this.port = port;
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ×Ô¶¯Æô¶¯
-	 * @param as ÊÇ·ñ×Ô¶¯Æô¶¯
+	 * è®¾ç½®æ˜¯å¦è‡ªåŠ¨å¯åŠ¨
+	 * @param as æ˜¯å¦è‡ªåŠ¨å¯åŠ¨
 	 */
 	public void setAutoStart(boolean as) {
 		this.autoStart = as;
 	}
 
 	/**
-	 * »ñÈ¡·şÎñÆ÷ÊÇ·ñ×Ô¶¯Æô¶¯µÄ
-	 * @return ÊÇ·ñ×ÔÆô¶¯
+	 * è·å–æœåŠ¡å™¨æ˜¯å¦è‡ªåŠ¨å¯åŠ¨çš„
+	 * @return æ˜¯å¦è‡ªå¯åŠ¨
 	 */
 	public boolean isAutoStart() {
 		return autoStart;
 	}
 	
 	/**
-	 * »ñÈ¡Á¬½Ó³¬Ê±µÄÊ±¼ä
-	 * @return ³¬Ê±Ê±¼ä
+	 * è·å–è¿æ¥è¶…æ—¶çš„æ—¶é—´
+	 * @return è¶…æ—¶æ—¶é—´
 	 */
 	public int getTimeOut() {
 		return timeOut;
 	}
 
 	/**
-	 * ÉèÖÃÁÙÊ±ÎÄ¼ş´æ»îÊ±¼ä£¬Ğ¡Ê±Îªµ¥Î»£¬0Îª²»¼ì²é³¬Ê±
-	 * @param timeout ³¬Ê±Ê±¼ä
+	 * è®¾ç½®ä¸´æ—¶æ–‡ä»¶å­˜æ´»æ—¶é—´ï¼Œå°æ—¶ä¸ºå•ä½ï¼Œ0ä¸ºä¸æ£€æŸ¥è¶…æ—¶
+	 * @param timeout è¶…æ—¶æ—¶é—´
 	 */
 	public void setTimeOut(int timeout) {
 		this.timeOut = timeout;
 	}
 
 	/**
-	 * »ñÈ¡×î´óÁ¬½ÓÊıÄ¿
-	 * @return ×î´óÁ¬½ÓÊı
+	 * è·å–æœ€å¤§è¿æ¥æ•°ç›®
+	 * @return æœ€å¤§è¿æ¥æ•°
 	 */
 	public int getConMax() {
 		return conMax;
 	}
 
 	/**
-	 * ÉèÖÃ×î´óÁ¬½ÓÊı
-	 * @param max ×î´óÁ¬½ÓÊı
+	 * è®¾ç½®æœ€å¤§è¿æ¥æ•°
+	 * @param max æœ€å¤§è¿æ¥æ•°
 	 */
 	public void setConMax(int max) {
 		this.conMax = max;
 	}
 
 	/**
-	 * »ñÈ¡Á¬½Ó³¬Ê±µÄÊ±¼ä
-	 * @return Á¬½Ó³¬Ê±µÄÊ±¼ä
+	 * è·å–è¿æ¥è¶…æ—¶çš„æ—¶é—´
+	 * @return è¿æ¥è¶…æ—¶çš„æ—¶é—´
 	 */
 	public int getConTimeOut() {
 		return conTimeOut;
 	}
 	/**
-	 * ÉèÖÃÁ¬½Ó´æ»îÊ±¼ä£¬Ğ¡Ê±Îªµ¥Î»£¬0Îª²»¼ì²é³¬Ê±
-	 * @param cto Ê±¼ä
+	 * è®¾ç½®è¿æ¥å­˜æ´»æ—¶é—´ï¼Œå°æ—¶ä¸ºå•ä½ï¼Œ0ä¸ºä¸æ£€æŸ¥è¶…æ—¶
+	 * @param cto æ—¶é—´
 	 */
 	public void setConTimeOut(int cto) {
 		this.conTimeOut = cto;
 	}
 
 	/**
-	 * »ñÈ¡¼ì²é³¬Ê±¼ä¸ô
-	 * @return ³¬Ê±¼ì²é¼ä¸ô 
+	 * è·å–æ£€æŸ¥è¶…æ—¶é—´éš”
+	 * @return è¶…æ—¶æ£€æŸ¥é—´éš” 
 	 */
 	public int getConPeriod() {
 		return this.conPeriod;
 	}
 
 	/**
-	 * ÉèÖÃ¼ì²é´úÀí»òÕßÁÙÊ±ÎÄ¼ş¹ıÆÚµÄÊ±¼ä¼ä¸ô£¬0Îª²»¼ì²é¹ıÆÚ¡£
-	 * ÎÄ¼şÒÔ¼°ÓÎ±ê´úÀíµÄ¹ıÆÚÊ±¼ä,µ¥Î»Ãë
+	 * è®¾ç½®æ£€æŸ¥ä»£ç†æˆ–è€…ä¸´æ—¶æ–‡ä»¶è¿‡æœŸçš„æ—¶é—´é—´éš”ï¼Œ0ä¸ºä¸æ£€æŸ¥è¿‡æœŸã€‚
+	 * æ–‡ä»¶ä»¥åŠæ¸¸æ ‡ä»£ç†çš„è¿‡æœŸæ—¶é—´,å•ä½ç§’
 	 */
 	public void setConPeriod(int period) {
 		this.conPeriod = period;
 	}
 
 	/**
-	 * »ñÈ¡ÓÃ»§ÁĞ±í
-	 * @return ÓÃ»§ÁĞ±í
+	 * è·å–ç”¨æˆ·åˆ—è¡¨
+	 * @return ç”¨æˆ·åˆ—è¡¨
 	 */
 	public List<User> getUserList() {
 		return users;
 	}
 
 	/**
-	 * ÉèÖÃÓÃ»§ÁĞ±í
-	 * @param users ÓÃ»§ÁĞ±í
+	 * è®¾ç½®ç”¨æˆ·åˆ—è¡¨
+	 * @param users ç”¨æˆ·åˆ—è¡¨
 	 */
 	public void setUserList(List<User> users) {
 		this.users = users;
 	}
 
 	/**
-	 * ÊµÏÖtoString½Ó¿Ú
+	 * å®ç°toStringæ¥å£
 	 */
 	public String toString() {
 		return host + ":" + port;
 	}
 
 	/**
-	 * ¼ì²éÓÃ»§ÊÇ·ñ´æÔÚ
-	 * @param user ÓÃ»§Ãû
-	 * @return  ´æÔÚÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ£€æŸ¥ç”¨æˆ·æ˜¯å¦å­˜åœ¨
+	 * @param user ç”¨æˆ·å
+	 * @return  å­˜åœ¨æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isUserExist(String user) {
 		if (users == null) {
@@ -358,10 +358,10 @@ public class OdbcContext extends ConfigWriter {
 	}
 
 	/**
-	 * Ğ£ÑéÓÃ»§ºÏ·¨ĞÔ
-	 * @param user ÓÃ»§Ãû
-	 * @param password ÃÜÂë
-	 * @return Ğ£ÑéÍ¨¹ı·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ ¡éªŒç”¨æˆ·åˆæ³•æ€§
+	 * @param user ç”¨æˆ·å
+	 * @param password å¯†ç 
+	 * @return æ ¡éªŒé€šè¿‡è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 * @throws Exception
 	 */
 	public boolean checkUser(String user, String password) throws Exception{
@@ -383,7 +383,7 @@ public class OdbcContext extends ConfigWriter {
 		throw new Exception("Invalid user name.");
 	}
 
-	// ·µ»Ø1±íÊ¾ÕıÈ·£¬ÆäËü´íÎó
+	// è¿”å›1è¡¨ç¤ºæ­£ç¡®ï¼Œå…¶å®ƒé”™è¯¯
 	public static class User {
 		private String name = null;
 		private String password = null;

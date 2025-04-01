@@ -16,8 +16,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
- * °ÑÓÎ±ê×ª³ÉÄÚ±í
- * cs.memory(K,¡­)
+ * æŠŠæ¸¸æ ‡è½¬æˆå†…è¡¨
+ * cs.memory(K,â€¦)
  * @author RunQian
  *
  */

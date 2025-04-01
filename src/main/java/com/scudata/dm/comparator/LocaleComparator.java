@@ -7,9 +7,9 @@ import com.scudata.common.ICloneable;
 import com.scudata.common.RQException;
 import com.scudata.util.Variant;
 
-// Env.Locale¶ÔÓ¦µÄ±È½ÏÆ÷£¬È±Ê¡±È½Ï×Ö·û´®µÄunicodeÖµ
+// Env.Localeå¯¹åº”çš„æ¯”è¾ƒå™¨ï¼Œç¼ºçœæ¯”è¾ƒå­—ç¬¦ä¸²çš„unicodeå€¼
 public class LocaleComparator implements Comparator<Object>, ICloneable {
-	private final Collator collator; // ÓïÑÔ±È½ÏÆ÷£¬ÓÃÓÚ×Ö·û´®±È½Ï
+	private final Collator collator; // è¯­è¨€æ¯”è¾ƒå™¨ï¼Œç”¨äºå­—ç¬¦ä¸²æ¯”è¾ƒ
 	private boolean throwExcept = true;
 
 	public LocaleComparator(Collator collator) {

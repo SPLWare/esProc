@@ -26,49 +26,49 @@ import com.scudata.ide.common.swing.VFlowLayout;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ÉÏ´«µ½FTPµÄ½á¹û¶Ô»°¿ò
+ * ä¸Šä¼ åˆ°FTPçš„ç»“æœå¯¹è¯æ¡†
  *
  */
 public class DialogUploadResult extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹Ø±Õ°´Å¥
+	 * å…³é—­æŒ‰é’®
 	 */
 	private JButton jBClose = new JButton();
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeSplMessage.get();
 
-	/** ĞòºÅÁĞ */
+	/** åºå·åˆ— */
 	private final int COL_INDEX = 0;
-	/** Ö÷»úÃûÁĞ */
+	/** ä¸»æœºååˆ— */
 	private final int COL_HOST = 1;
-	/** ÓÃ»§ÁĞ */
+	/** ç”¨æˆ·åˆ— */
 	private final int COL_USER = 2;
-	/** ½á¹ûÁĞ */
+	/** ç»“æœåˆ— */
 	private final int COL_RESULT = 3;
-	/** Òì³£ĞÅÏ¢ÁĞ */
+	/** å¼‚å¸¸ä¿¡æ¯åˆ— */
 	private final int COL_EXCEPTION = 4;
 
-	/** ĞòºÅ */
+	/** åºå· */
 	private final String TITLE_INDEX = mm
 			.getMessage("dialoguploadresult.index");
-	/** Ö÷»úÃû */
+	/** ä¸»æœºå */
 	private final String TITLE_HOST = mm
 			.getMessage("dialoguploadresult.hostname");
-	/** ÓÃ»§ */
+	/** ç”¨æˆ· */
 	private final String TITLE_USER = mm.getMessage("dialoguploadresult.user");
-	/** ½á¹û */
+	/** ç»“æœ */
 	private final String TITLE_RESULT = mm
 			.getMessage("dialoguploadresult.result");
-	/** Òì³£ĞÅÏ¢ */
+	/** å¼‚å¸¸ä¿¡æ¯ */
 	private final String TITLE_EXCEPTION = mm
 			.getMessage("dialoguploadresult.exception");
 
 	/**
-	 * ½á¹û±í¿Ø¼ş
+	 * ç»“æœè¡¨æ§ä»¶
 	 */
 	private JTableEx tableResult = new JTableEx(TITLE_INDEX + "," + TITLE_HOST
 			+ "," + TITLE_USER + "," + TITLE_RESULT + "," + TITLE_EXCEPTION) {
@@ -93,20 +93,20 @@ public class DialogUploadResult extends JDialog implements ActionListener {
 	};
 
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CLOSED_OPTION;
-	/** ³É¹¦ */
+	/** æˆåŠŸ */
 	private final String S_SUCCESS = mm
 			.getMessage("dialoguploadresult.success");
-	/** Ê§°Ü */
+	/** å¤±è´¥ */
 	private final String S_FAILD = mm.getMessage("dialoguploadresult.faild");
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogUploadResult(JDialog parent) {
-		super(parent, "±£´æµ½FTP½á¹û", true);
+		super(parent, "ä¿å­˜åˆ°FTPç»“æœ", true);
 		try {
 			init();
 			setSize(600, 300);
@@ -118,14 +118,14 @@ public class DialogUploadResult extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÉèÖÃ½á¹û
+	 * è®¾ç½®ç»“æœ
 	 * 
 	 * @param ftpInfos
-	 *            FTP·şÎñĞÅÏ¢
+	 *            FTPæœåŠ¡ä¿¡æ¯
 	 * @param successed
-	 *            ÊÇ·ñÉÏ´«³É¹¦
+	 *            æ˜¯å¦ä¸Šä¼ æˆåŠŸ
 	 * @param exceptions
-	 *            Òì³£ĞÅÏ¢
+	 *            å¼‚å¸¸ä¿¡æ¯
 	 */
 	public void setResult(FTPInfo[] ftpInfos, boolean[] successed,
 			String[] exceptions) {
@@ -140,15 +140,15 @@ public class DialogUploadResult extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetText() {
 		jBClose.setText(mm.getMessage("button.close"));
-		setTitle(mm.getMessage("dialoguploadresult.title"));// ±£´æµ½FTP½á¹û
+		setTitle(mm.getMessage("dialoguploadresult.title"));// ä¿å­˜åˆ°FTPç»“æœ
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -157,14 +157,14 @@ public class DialogUploadResult extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 * 
 	 * @throws Exception
 	 */
 	private void init() throws Exception {
 		JPanel panelEast = new JPanel(new VFlowLayout());
 		jBClose.setMnemonic('C');
-		jBClose.setText("¹Ø±Õ(C)");
+		jBClose.setText("å…³é—­(C)");
 		jBClose.addActionListener(this);
 		this.getContentPane().add(panelEast, BorderLayout.EAST);
 		panelEast.add(jBClose, null);
@@ -200,7 +200,7 @@ public class DialogUploadResult extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -210,7 +210,7 @@ public class DialogUploadResult extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ¿Ø¼şÊÂ¼ş
+	 * æ§ä»¶äº‹ä»¶
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();

@@ -89,7 +89,7 @@ public class ConfigUtil {
 	 *            Whether to load the configuration. Load when true, not load
 	 *            when false.
 	 * @param loadFromJDBC
-	 *            ÊÇ·ñ´ÓJDBC¼ÓÔØµÄ¡£trueÊ±¸ù¾İJDBCLoadÅäÖÃ¼ÓÔØ»·¾³
+	 *            æ˜¯å¦ä»JDBCåŠ è½½çš„ã€‚trueæ—¶æ ¹æ®JDBCLoadé…ç½®åŠ è½½ç¯å¢ƒ
 	 * @return
 	 * @throws Exception
 	 */
@@ -103,14 +103,14 @@ public class ConfigUtil {
 	 * Read the configuration file from the input stream
 	 * 
 	 * @param home
-	 *            ÓÃÓÚ¼ÓÔØÏà¶ÔÂ·¾¶µÄÄ¿Â¼
+	 *            ç”¨äºåŠ è½½ç›¸å¯¹è·¯å¾„çš„ç›®å½•
 	 * @param in
 	 *            The input stream
 	 * @param setConfig
 	 *            Whether to load the configuration. Load when true, not load
 	 *            when false.
 	 * @param loadFromJDBC
-	 *            ÊÇ·ñ´ÓJDBC¼ÓÔØµÄ¡£trueÊ±¸ù¾İJDBCLoadÅäÖÃ¼ÓÔØ»·¾³
+	 *            æ˜¯å¦ä»JDBCåŠ è½½çš„ã€‚trueæ—¶æ ¹æ®JDBCLoadé…ç½®åŠ è½½ç¯å¢ƒ
 	 * @return
 	 * @throws Exception
 	 */
@@ -170,7 +170,7 @@ public class ConfigUtil {
 	 * @param filePath
 	 *            The file path
 	 * @param loadFrom
-	 *            ÊÇ·ñ´ÓJDBC¼ÓÔØµÄ¡£trueÊ±¸ù¾İJDBCLoadÅäÖÃ¼ÓÔØ»·¾³
+	 *            æ˜¯å¦ä»JDBCåŠ è½½çš„ã€‚trueæ—¶æ ¹æ®JDBCLoadé…ç½®åŠ è½½ç¯å¢ƒ
 	 * @return
 	 * @throws Exception
 	 */
@@ -185,9 +185,9 @@ public class ConfigUtil {
 	 * @param filePath
 	 *            The file path
 	 * @param loadFromJDBC
-	 *            ÊÇ·ñ´ÓJDBC¼ÓÔØµÄ¡£trueÊ±¸ù¾İJDBCLoadÅäÖÃ¼ÓÔØ»·¾³
+	 *            æ˜¯å¦ä»JDBCåŠ è½½çš„ã€‚trueæ—¶æ ¹æ®JDBCLoadé…ç½®åŠ è½½ç¯å¢ƒ
 	 * @param setConfig
-	 *            ÊÇ·ñÉèÖÃÅäÖÃ
+	 *            æ˜¯å¦è®¾ç½®é…ç½®
 	 * @return
 	 * @throws Exception
 	 */
@@ -201,13 +201,13 @@ public class ConfigUtil {
 	 * Read configuration file and set
 	 * 
 	 * @param home
-	 *            ÓÃÓÚ¼ÓÔØÏà¶ÔÂ·¾¶µÄÄ¿Â¼
+	 *            ç”¨äºåŠ è½½ç›¸å¯¹è·¯å¾„çš„ç›®å½•
 	 * @param filePath
 	 *            The file path
 	 * @param loadFromJDBC
-	 *            ÊÇ·ñ´ÓJDBC¼ÓÔØµÄ¡£trueÊ±¸ù¾İJDBCLoadÅäÖÃ¼ÓÔØ»·¾³
+	 *            æ˜¯å¦ä»JDBCåŠ è½½çš„ã€‚trueæ—¶æ ¹æ®JDBCLoadé…ç½®åŠ è½½ç¯å¢ƒ
 	 * @param setConfig
-	 *            ÊÇ·ñÉèÖÃÅäÖÃ
+	 *            æ˜¯å¦è®¾ç½®é…ç½®
 	 * @return
 	 * @throws Exception
 	 */
@@ -270,7 +270,7 @@ public class ConfigUtil {
 	 * @param loadExt
 	 *            Whether to load the ext-libs
 	 * @param loadFromJDBC
-	 *            ÊÇ·ñ´ÓJDBC¼ÓÔØµÄ¡£trueÊ±¸ù¾İJDBCLoadÅäÖÃ¼ÓÔØ»·¾³
+	 *            æ˜¯å¦ä»JDBCåŠ è½½çš„ã€‚trueæ—¶æ ¹æ®JDBCLoadé…ç½®åŠ è½½ç¯å¢ƒ
 	 * @throws Exception
 	 */
 	public static void setConfig(ServletContext appCtx, String home,
@@ -294,9 +294,9 @@ public class ConfigUtil {
 	 * @param loadExt
 	 *            Whether to load the ext-libs
 	 * @param loadFromJDBC
-	 *            ÊÇ·ñ´ÓJDBC¼ÓÔØµÄ¡£trueÊ±¸ù¾İJDBCLoadÅäÖÃ¼ÓÔØ»·¾³
+	 *            æ˜¯å¦ä»JDBCåŠ è½½çš„ã€‚trueæ—¶æ ¹æ®JDBCLoadé…ç½®åŠ è½½ç¯å¢ƒ
 	 * @param calcInit
-	 *            ÊÇ·ñ¼ÆËã³õÊ¼»¯³ÌĞò
+	 *            æ˜¯å¦è®¡ç®—åˆå§‹åŒ–ç¨‹åº
 	 * @throws Exception
 	 */
 	public static Context setConfig(ServletContext appCtx, String home,
@@ -471,7 +471,7 @@ public class ConfigUtil {
 
 			String customFunctionFile = config.getCustomFunctionFile();
 			if (StringUtils.isValidString(customFunctionFile)) {
-				// ¼ÓÔØ×Ô¶¨Òåº¯ÊıÎÄ¼ş
+				// åŠ è½½è‡ªå®šä¹‰å‡½æ•°æ–‡ä»¶
 				InputStream is = null;
 				try {
 					is = ConfigUtil.getInputStream(home, customFunctionFile,
@@ -664,7 +664,7 @@ public class ConfigUtil {
 	 * @param ctx
 	 *            Context
 	 * @param closeSpace
-	 *            ÊÇ·ñ¹Ø±Õspace
+	 *            æ˜¯å¦å…³é—­space
 	 * @return spaceId
 	 * @throws Exception
 	 */
@@ -713,13 +713,13 @@ public class ConfigUtil {
 					"configutil.pathnull"));
 		}
 		InputStream in = null;
-		try { // ¾ø¶ÔÂ·¾¶
+		try { // ç»å¯¹è·¯å¾„
 			if (IOUtils.isAbsolutePath(path))
 				in = new FileInputStream(path);
 		} catch (Throwable e) {
 		}
 
-		if (in == null) {// Ïà¶ÔÂ·¾¶
+		if (in == null) {// ç›¸å¯¹è·¯å¾„
 			String realPath = IOUtils.getPath(home, path);
 			try {
 				if (StringUtils.isValidString(realPath)) {
@@ -731,7 +731,7 @@ public class ConfigUtil {
 			}
 		}
 
-		if (in == null) { // µ±Ç°Ïß³ÌÀà×°ÔØÆ÷
+		if (in == null) { // å½“å‰çº¿ç¨‹ç±»è£…è½½å™¨
 			ClassLoader cl = Thread.currentThread().getContextClassLoader();
 			if (cl != null) {
 				try {
@@ -740,13 +740,13 @@ public class ConfigUtil {
 				}
 			}
 		}
-		if (in == null) {// µ±Ç°Àà×°ÔØÆ÷
+		if (in == null) {// å½“å‰ç±»è£…è½½å™¨
 			try {
 				in = ConfigUtil.class.getResourceAsStream(path);
 			} catch (Throwable t) {
 			}
 		}
-		if (in == null) {// App²éÕÒ
+		if (in == null) {// AppæŸ¥æ‰¾
 			try {
 				if (app != null)
 					in = app.getResourceAsStream(path);

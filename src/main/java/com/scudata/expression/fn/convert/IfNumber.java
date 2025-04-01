@@ -7,13 +7,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ifnumber(Exp) ÅĞ¶¨²ÎÊıExpÊÇ·ñÎªÊıÖµÀàĞÍ
+ * ifnumber(Exp) åˆ¤å®šå‚æ•°Expæ˜¯å¦ä¸ºæ•°å€¼ç±»å‹
  * @author runqian
  *
  */
 public class IfNumber extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

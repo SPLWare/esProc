@@ -133,7 +133,7 @@ public class FileInfo implements Externalizable {
 	}
 
 	/**
-	 * 获取用户的目录权限，只对目录有效，位0-可读，位1-可写，位2-可删
+	 * 鑾峰彇鐢ㄦ埛鐨勭洰褰曟潈闄愶紝鍙鐩綍鏈夋晥锛屼綅0-鍙锛屼綅1-鍙啓锛屼綅2-鍙垹
 	 * 
 	 * @return
 	 */

@@ -202,7 +202,7 @@ abstract class XmlaOlap4jCellSetProxy extends FactoryJdbc4Plus.AbstractCellSet {
     public static void setClassPrivateValue(Object clsObj, Class<?> cls, String privateVal, Object newValue) {
 		try {
 			Field listField = cls.getDeclaredField(privateVal);
-			listField.setAccessible(true); // ÈÆ¹ıÈ¨ÏŞ¼ì²â£¡
+			listField.setAccessible(true); // ç»•è¿‡æƒé™æ£€æµ‹ï¼
 			listField.set(clsObj, newValue);
 		} catch (Exception e) {
 			Logger.error(e.getMessage());
@@ -225,7 +225,7 @@ abstract class XmlaOlap4jCellSetProxy extends FactoryJdbc4Plus.AbstractCellSet {
 			}else if(clazz.length==4){
 				method = cls.getDeclaredMethod(methodName, clazz[0], clazz[1], clazz[2], clazz[3]);
 			}
-			// ¿ªÆôË½ÓĞ·ÃÎÊÈ¨ÏŞ
+			// å¼€å¯ç§æœ‰è®¿é—®æƒé™
 			method.setAccessible(true);
 			ret = method.invoke(objCls, arg);
 		} catch (Exception e) {

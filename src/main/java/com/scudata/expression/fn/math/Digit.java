@@ -11,9 +11,9 @@ import com.scudata.util.Variant;
 
 
 /**
- * digit(xi,¡­)	sum(2i-1*xi)£¬xiÊÇ×Ö·û´®Ê±ÏÈ×ª³ÉÕûÊı
-	@h	sum(16i-1*xi)£¬xiÊÇ×Ö·û´®Ê±ÏÈ°´Ê®Áù½øÖÆÊıÎ»¹æÔò×ª³ÉÊı
-	@d	sum(10i-1*xi)£¬xiÊÇ×Ö·û´®Ê±ÏÈ×ª³ÉÕûÊı
+ * digit(xi,â€¦)	sum(2i-1*xi)ï¼Œxiæ˜¯å­—ç¬¦ä¸²æ—¶å…ˆè½¬æˆæ•´æ•°
+	@h	sum(16i-1*xi)ï¼Œxiæ˜¯å­—ç¬¦ä¸²æ—¶å…ˆæŒ‰åå…­è¿›åˆ¶æ•°ä½è§„åˆ™è½¬æˆæ•°
+	@d	sum(10i-1*xi)ï¼Œxiæ˜¯å­—ç¬¦ä¸²æ—¶å…ˆè½¬æˆæ•´æ•°
 	@n	sum(2i-1*if(xi,1,0))
 
  * @author yanjing
@@ -21,7 +21,7 @@ import com.scudata.util.Variant;
  */
 public class Digit extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -45,7 +45,7 @@ public class Digit extends Function {
 	
 		long result=0;
 		int l=0;
-		if(option!=null && option.indexOf("h")>=0){//Ê®Áù½øÖÆ
+		if(option!=null && option.indexOf("h")>=0){//åå…­è¿›åˆ¶
 			for(int j=0;j<size;j++){
 				if(result1[j]!=null && result1[j] instanceof String){
 					result+=Math.pow(16, j+l)*Long.valueOf((String)result1[j],16).longValue();
@@ -64,7 +64,7 @@ public class Digit extends Function {
 					l+=n-1;
 				}
 			}
-		}else if(option!=null && option.indexOf("d")>=0){//10½øÖÆ
+		}else if(option!=null && option.indexOf("d")>=0){//10è¿›åˆ¶
 			for(int j=0;j<size;j++){
 				if(result1[j]!=null && result1[j] instanceof String){
 					result+=Math.pow(10, j+l)*Variant.parseNumber((String)result1[j]).longValue();
@@ -83,7 +83,7 @@ public class Digit extends Function {
 					l+=n-1;
 				}
 			}	
-		}else if(option!=null && option.indexOf("n")>=0){//¿Õ1·Ç¿Õ0
+		}else if(option!=null && option.indexOf("n")>=0){//ç©º1éç©º0
 			for(int j=0;j<size;j++){
 				if(result1[j] != null && result1[j] instanceof Sequence){
 					int n=((Sequence)result1[j]).length();
@@ -98,7 +98,7 @@ public class Digit extends Function {
 					result+=Math.pow(2, j+l);
 				}
 			}
-		}else{//¶ş½øÖÆ
+		}else{//äºŒè¿›åˆ¶
 			for(int j=0;j<size;j++){
 				if(result1[j]!=null && result1[j] instanceof String){
 					result+=Math.pow(2, j+l)*Variant.parseNumber((String)result1[j]).longValue();

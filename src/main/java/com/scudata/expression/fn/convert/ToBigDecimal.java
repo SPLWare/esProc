@@ -14,15 +14,15 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ½«×Ö·û´®»òÊıÖµĞÍµÄÊıÖµ×ª»»³É´ó¸¡µãÊı
- * decimal(stringExp) ²ÎÊıstringExp±ØĞëÊÇÓÉÊı×ÖºÍĞ¡Êıµã×é³ÉµÄ×Ö·û´®¡£
- * decimal(numberExp) ²ÎÊınumberExpÖ»ÄÜÉÙÓÚµÈÓÚ64Î»£¬³¬¹ı64Î»¾ÍÒªÓÃ×Ö·û´®stringExp ´úÌænumberExp¡£
+ * å°†å­—ç¬¦ä¸²æˆ–æ•°å€¼å‹çš„æ•°å€¼è½¬æ¢æˆå¤§æµ®ç‚¹æ•°
+ * decimal(stringExp) å‚æ•°stringExpå¿…é¡»æ˜¯ç”±æ•°å­—å’Œå°æ•°ç‚¹ç»„æˆçš„å­—ç¬¦ä¸²ã€‚
+ * decimal(numberExp) å‚æ•°numberExpåªèƒ½å°‘äºç­‰äº64ä½ï¼Œè¶…è¿‡64ä½å°±è¦ç”¨å­—ç¬¦ä¸²stringExp ä»£æ›¿numberExpã€‚
  * @author runqian
  *
  */
 public class ToBigDecimal extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -50,8 +50,8 @@ public class ToBigDecimal extends Function {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {

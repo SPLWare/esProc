@@ -8,12 +8,12 @@ import com.scudata.expression.XOFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * º¯Êıxo.xlsclose()¡£ ÒÔ@r@w·½Ê½´ò¿ªµÄExcel¶ÔÏóĞèÒª¹Ø±Õ
+ * å‡½æ•°xo.xlsclose()ã€‚ ä»¥@r@wæ–¹å¼æ‰“å¼€çš„Excelå¯¹è±¡éœ€è¦å…³é—­
  *
  */
 public class XlsClose extends XOFunction {
 	/**
-	 * ¼ÆËã
+	 * è®¡ç®—
 	 */
 	public Object calculate(Context ctx) {
 		if (param != null) {
@@ -32,13 +32,13 @@ public class XlsClose extends XOFunction {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 

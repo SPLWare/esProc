@@ -31,44 +31,44 @@ import com.scudata.ide.spl.control.SplControl;
 import com.scudata.ide.spl.control.SplEditor;
 
 /**
- * Íø¸ñÔ­×Ó²Ù×÷
+ * ç½‘æ ¼åŸå­æ“ä½œ
  *
  */
 public class AtomicSpl implements IAtomicCmd {
 
-	/** ²åÈëĞĞ */
+	/** æ’å…¥è¡Œ */
 	public static final byte INSERT_ROW = 1;
-	/** ²åÈëÁĞ */
+	/** æ’å…¥åˆ— */
 	public static final byte INSERT_COL = 2;
-	/** É¾³ıĞĞ */
+	/** åˆ é™¤è¡Œ */
 	public static final byte REMOVE_ROW = 3;
-	/** É¾³ıÁĞ */
+	/** åˆ é™¤åˆ— */
 	public static final byte REMOVE_COL = 4;
-	/** Ôö¼ÓĞĞ */
+	/** å¢åŠ è¡Œ */
 	public static final byte ADD_ROW = 5;
-	/** Ôö¼ÓÁĞ */
+	/** å¢åŠ åˆ— */
 	public static final byte ADD_COL = 6;
-	/** ÉèÖÃ²ÎÊı */
+	/** è®¾ç½®å‚æ•° */
 	public static final byte SET_PARAM = 7;
-	/** ÉèÖÃÃÜÂë */
+	/** è®¾ç½®å¯†ç  */
 	public static final byte SET_PASSWORD = 8;
-	/** ÉèÖÃ³£Á¿ */
+	/** è®¾ç½®å¸¸é‡ */
 	public static final byte SET_CONST = 9;
-	/** ÒÆ¶¯ÇøÓò */
+	/** ç§»åŠ¨åŒºåŸŸ */
 	public static final byte MOVE_RECT = 10;
-	/** UNDOÒÆ¶¯ÇøÓò */
+	/** UNDOç§»åŠ¨åŒºåŸŸ */
 	public static final byte UNDO_MOVE_RECT = 11;
-	/** ÉèÖÃÇøÓò¸ñ×Ó */
+	/** è®¾ç½®åŒºåŸŸæ ¼å­ */
 	public static final byte SET_RECTCELLS = 12;
-	/** Õ³Ìù */
+	/** ç²˜è´´ */
 	public static final byte PASTE_SELECTION = 13;
-	/** Õ³Ìù´® */
+	/** ç²˜è´´ä¸² */
 	public static final byte PASTE_STRINGSELECTION = 14;
-	/** ÒÆ¶¯¸´ÖÆ */
+	/** ç§»åŠ¨å¤åˆ¶ */
 	public static final byte MOVE_COPY = 15;
 
 	/**
-	 * ²ÎÊıµÄ¼ü
+	 * å‚æ•°çš„é”®
 	 */
 	public static final String COLS = "COLS";
 	public static final String ISDESC = "ISDESC";
@@ -84,30 +84,30 @@ public class AtomicSpl implements IAtomicCmd {
 	public static final String MOVE_TYPE = "MOVE_TYPE";
 
 	/**
-	 * Íø¸ñ¿Ø¼ş
+	 * ç½‘æ ¼æ§ä»¶
 	 */
 	private SplControl control;
 	/**
-	 * ÀàĞÍ
+	 * ç±»å‹
 	 */
 	private byte type;
 	/**
-	 * ¸ñ×ÓÇøÓò
+	 * æ ¼å­åŒºåŸŸ
 	 */
 	public CellRect rect;
 	/**
-	 * Öµ
+	 * å€¼
 	 */
 	private Object value;
 	/**
-	 * Ñ¡ÔñÇøÓò
+	 * é€‰æ‹©åŒºåŸŸ
 	 */
 	private Vector<Object> selectedAreas;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
-	 * @param control Íø¸ñ¿Ø¼ş
+	 * @param control ç½‘æ ¼æ§ä»¶
 	 */
 	public AtomicSpl(SplControl control) {
 		this.control = control;
@@ -119,7 +119,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * ÉèÖÃÀàĞÍ
+	 * è®¾ç½®ç±»å‹
 	 * 
 	 * @param type
 	 */
@@ -128,7 +128,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡ÀàĞÍ
+	 * å–ç±»å‹
 	 * 
 	 * @return
 	 */
@@ -137,7 +137,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * ÉèÖÃÇøÓò
+	 * è®¾ç½®åŒºåŸŸ
 	 * 
 	 * @param cr
 	 */
@@ -146,7 +146,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * ÉèÖÃÖµ
+	 * è®¾ç½®å€¼
 	 * 
 	 * @param value
 	 */
@@ -155,7 +155,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡Öµ
+	 * å–å€¼
 	 * 
 	 * @return
 	 */
@@ -164,7 +164,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * ÉèÖÃÑ¡ÔñÇøÓò
+	 * è®¾ç½®é€‰æ‹©åŒºåŸŸ
 	 * 
 	 * @param areas
 	 */
@@ -173,7 +173,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * ¿ËÂ¡
+	 * å…‹éš†
 	 */
 	public Object clone() {
 		AtomicSpl cmd = new AtomicSpl(control);
@@ -184,7 +184,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * Ö´ĞĞ
+	 * æ‰§è¡Œ
 	 */
 	public IAtomicCmd execute() {
 		AtomicSpl reverseCmd = (AtomicSpl) this.clone();
@@ -198,10 +198,10 @@ public class AtomicSpl implements IAtomicCmd {
 			case INSERT_ROW:
 				reverseCmd.setType(REMOVE_ROW);
 				oldValue = null;
-				// Òş²ØĞĞ²»²åÈë
+				// éšè—è¡Œä¸æ’å…¥
 				int rCount = 0;
 				if (value != null && value instanceof Vector) {
-					// Èç¹ûÊÇundo£¬ÒªÕÒÒ»ÏÂÔ­Ê¼µÄĞĞ¸ñÊÇ·ñ¿ÉÊÓ
+					// å¦‚æœæ˜¯undoï¼Œè¦æ‰¾ä¸€ä¸‹åŸå§‹çš„è¡Œæ ¼æ˜¯å¦å¯è§†
 					Vector headCells = (Vector) ((Vector) value).get(0);
 					for (int i = 0; i < headCells.size(); i++) {
 						RowCell rc = (RowCell) headCells.get(i);
@@ -227,11 +227,11 @@ public class AtomicSpl implements IAtomicCmd {
 				}
 
 				if (value != null) {
-					// ÓÃ»§²åÈëµÄvalueÎªArrayListÀàĞÍ
+					// ç”¨æˆ·æ’å…¥çš„valueä¸ºArrayListç±»å‹
 					if (value instanceof ArrayList) {
 						setRowCells(rect, (ArrayList) value);
 					} else {
-						// undoÉú³ÉµÄ²åÈëvalueÎªVector¸ñ×Ó¼¯ºÏ
+						// undoç”Ÿæˆçš„æ’å…¥valueä¸ºVectoræ ¼å­é›†åˆ
 						setHeaderRectCells(rect, (Vector) value, true);
 					}
 				}
@@ -246,11 +246,11 @@ public class AtomicSpl implements IAtomicCmd {
 
 				control.addRow(rect.getRowCount());
 				if (value != null) {
-					// ÓÃ»§²åÈëµÄvalueÎªArrayList ÀàĞÍ£¬
+					// ç”¨æˆ·æ’å…¥çš„valueä¸ºArrayList ç±»å‹ï¼Œ
 					if (value instanceof ArrayList) {
 						setRowCells(rect, (ArrayList) value);
 					} else {
-						// undoÉú³ÉµÄ²åÈëvalueÎªVector¸ñ×Ó¼¯ºÏ
+						// undoç”Ÿæˆçš„æ’å…¥valueä¸ºVectoræ ¼å­é›†åˆ
 						setHeaderRectCells(rect, (Vector) value, true);
 					}
 				}
@@ -258,10 +258,10 @@ public class AtomicSpl implements IAtomicCmd {
 			case INSERT_COL:
 				reverseCmd.setType(REMOVE_COL);
 				oldValue = null;
-				// Òş²ØÁĞ²»²åÈë
+				// éšè—åˆ—ä¸æ’å…¥
 				int cCols = 0;
 				if (value != null && value instanceof Vector) {
-					// Èç¹ûÊÇundo£¬ÒªÕÒÒ»ÏÂÔ­Ê¼µÄĞĞ¸ñÊÇ·ñ¿ÉÊÓ
+					// å¦‚æœæ˜¯undoï¼Œè¦æ‰¾ä¸€ä¸‹åŸå§‹çš„è¡Œæ ¼æ˜¯å¦å¯è§†
 					Vector headCells = (Vector) ((Vector) value).get(0);
 					for (int i = 0; i < headCells.size(); i++) {
 						ColCell cc = (ColCell) headCells.get(i);
@@ -286,11 +286,11 @@ public class AtomicSpl implements IAtomicCmd {
 				}
 
 				if (value != null) {
-					// ÓÃ»§²åÈëµÄvalueÎªArrayList ÀàĞÍ£¬
+					// ç”¨æˆ·æ’å…¥çš„valueä¸ºArrayList ç±»å‹ï¼Œ
 					if (value instanceof ArrayList) {
 						setColCells(rect, (ArrayList) value);
 					} else {
-						// undoÉú³ÉµÄ²åÈëvalueÎªVector¸ñ×Ó¼¯ºÏ
+						// undoç”Ÿæˆçš„æ’å…¥valueä¸ºVectoræ ¼å­é›†åˆ
 						setHeaderRectCells(rect, (Vector) value, false);
 					}
 				}
@@ -304,11 +304,11 @@ public class AtomicSpl implements IAtomicCmd {
 				reverseCmd.setRect(rect);
 				control.addColumn(rect.getColCount());
 				if (value != null) {
-					// ÓÃ»§²åÈëµÄvalueÎªArrayList ÀàĞÍ£¬
+					// ç”¨æˆ·æ’å…¥çš„valueä¸ºArrayList ç±»å‹ï¼Œ
 					if (value instanceof ArrayList) {
 						setColCells(rect, (ArrayList) value);
 					} else {
-						// undoÉú³ÉµÄ²åÈëvalueÎªVector¸ñ×Ó¼¯ºÏ
+						// undoç”Ÿæˆçš„æ’å…¥valueä¸ºVectoræ ¼å­é›†åˆ
 						setHeaderRectCells(rect, (Vector) value, false);
 					}
 				}
@@ -320,7 +320,7 @@ public class AtomicSpl implements IAtomicCmd {
 
 				ArrayList<NormalCell> adjustCells = new ArrayList<NormalCell>();
 
-				// Òş²ØĞĞ²»É¾³ı
+				// éšè—è¡Œä¸åˆ é™¤
 				int rows = 0;
 				for (int r = rect.getEndRow(); r >= rect.getBeginRow(); r--) {
 					if (!csp.isRowVisible(r)) {
@@ -352,7 +352,7 @@ public class AtomicSpl implements IAtomicCmd {
 				reverseCmd.setType(INSERT_COL);
 				adjustCells = new ArrayList<NormalCell>();
 
-				// Òş²ØÁĞ²»É¾³ı
+				// éšè—åˆ—ä¸åˆ é™¤
 				int cCount = 0;
 				for (int c = rect.getEndCol(); c >= rect.getBeginCol(); c--) {
 					if (!csp.isColVisible(c)) {
@@ -399,7 +399,7 @@ public class AtomicSpl implements IAtomicCmd {
 					}
 					break;
 				}
-				// ÓĞÊ×¸ñµÄÊÇCellSelectionÀàĞÍ
+				// æœ‰é¦–æ ¼çš„æ˜¯CellSelectionç±»å‹
 				CellSelection cs = (CellSelection) value;
 				Matrix oldMatrix = getMatrixCells(control.cellSet, cs.rect);
 				int rowOff = cs.rect.getBeginRow() - rect.getBeginRow();
@@ -466,7 +466,7 @@ public class AtomicSpl implements IAtomicCmd {
 				break;
 			case PASTE_SELECTION: {
 				/*
-				 * Õ³ÌùÊ±Ëã·¨£¬´¿¸´ÖÆ£¬²»µ÷Õû ¼ôÇĞÊ±µÄÕ³Ìù£¬µ÷Õû±ğÈËÒıÓÃµÄ±í´ïÊ½
+				 * ç²˜è´´æ—¶ç®—æ³•ï¼Œçº¯å¤åˆ¶ï¼Œä¸è°ƒæ•´ å‰ªåˆ‡æ—¶çš„ç²˜è´´ï¼Œè°ƒæ•´åˆ«äººå¼•ç”¨çš„è¡¨è¾¾å¼
 				 */
 				Area area = control.getSelectedArea(0);
 				if (area == null) {
@@ -476,12 +476,12 @@ public class AtomicSpl implements IAtomicCmd {
 				CellSelection cs = (CellSelection) value;
 				if (area.getEndRow() == area.getBeginRow()
 						&& area.getBeginCol() == area.getEndCol()) {
-					// Ö»Ñ¡ÔñÒ»¸ö¸ñ×ÓµÄÇé¿ö£¬Õ³ÌùÈ«²¿
+					// åªé€‰æ‹©ä¸€ä¸ªæ ¼å­çš„æƒ…å†µï¼Œç²˜è´´å…¨éƒ¨
 					area = new Area(rect.getBeginRow(), rect.getBeginCol(),
 							rect.getBeginRow() + rect.getRowCount() - 1,
 							(int) (rect.getBeginCol() + rect.getColCount() - 1));
 				} else if (GVSpl.splEditor.selectState == cs.selectState) {
-					// Ñ¡ÔñÒ»ĞĞ»òÕßÒ»ÁĞ£¬¶øÇÒÔ´ÇøÓòÒ²ÊÇ¶ÔÓ¦µÄÑ¡ÔñĞĞÁĞµÄÇé¿ö£¬Ò²Õ³ÌùÈ«²¿
+					// é€‰æ‹©ä¸€è¡Œæˆ–è€…ä¸€åˆ—ï¼Œè€Œä¸”æºåŒºåŸŸä¹Ÿæ˜¯å¯¹åº”çš„é€‰æ‹©è¡Œåˆ—çš„æƒ…å†µï¼Œä¹Ÿç²˜è´´å…¨éƒ¨
 					if ((GVSpl.splEditor.selectState == GCSpl.SELECT_STATE_ROW && GVSpl.splEditor.selectedRows
 							.size() == 1)
 							|| (GVSpl.splEditor.selectState == GCSpl.SELECT_STATE_COL && GVSpl.splEditor.selectedCols
@@ -497,7 +497,7 @@ public class AtomicSpl implements IAtomicCmd {
 
 				NormalCell nc;
 				CellSet cellSet = control.cellSet;
-				int rc = 0, cc = 0; // ÓĞÒş²ØĞĞĞèÒªÅÅ³ı
+				int rc = 0, cc = 0; // æœ‰éšè—è¡Œéœ€è¦æ’é™¤
 				for (int r = area.getBeginRow(); r <= area.getEndRow(); r++) {
 					if (csp.isRowVisible(r)) {
 						rc++;
@@ -536,13 +536,13 @@ public class AtomicSpl implements IAtomicCmd {
 							cellSet.setCell(row, col, null);
 							continue;
 						}
-						ncClone = (NormalCell) nc.deepClone(); // ±ØĞë¿ËÂ¡,·ñÔòĞÂ¸ñ×Ó¸ú±¾¸ñÊÇÒ»¸ö¶ÔÏó
+						ncClone = (NormalCell) nc.deepClone(); // å¿…é¡»å…‹éš†,å¦åˆ™æ–°æ ¼å­è·Ÿæœ¬æ ¼æ˜¯ä¸€ä¸ªå¯¹è±¡
 						NormalCell targetCell = (NormalCell) cellSet.getCell(
 								row, col);
 						if (cs.isAdjustSelf()) {
 							control.cellSet.adjustCell(cs.srcCellSet, ncClone,
 									row - nc.getRow(),
-									(int) (col - nc.getCol())); // ¸´ÖÆÊ±µ÷Õû×Ô¼º
+									(int) (col - nc.getCol())); // å¤åˆ¶æ—¶è°ƒæ•´è‡ªå·±
 						}
 						String exp;
 						if (cs.isCopyValue()) {
@@ -571,7 +571,7 @@ public class AtomicSpl implements IAtomicCmd {
 				// }
 				// }
 
-				// ¸´ÖÆÊ×¸ñ
+				// å¤åˆ¶é¦–æ ¼
 				CellSelection oldCs = new CellSelection(oldMatrix, realRect,
 						cs.srcCellSet, cs.isCopyValue());
 				ArrayList oldHeaders = new ArrayList();
@@ -622,8 +622,8 @@ public class AtomicSpl implements IAtomicCmd {
 				rect = realRect;
 				oldValue = oldCs;
 
-				if (cs.isCutStatus()) { // ¼ôÇĞÊ±µ÷Õû±ğÈË
-					// Ä¿±ê¸ñ×ÓÉèÖÃÍê±Ï£¬ÖØĞÂÕûÀíÒ»±éÏà¶Ô±í´ïÊ½
+				if (cs.isCutStatus()) { // å‰ªåˆ‡æ—¶è°ƒæ•´åˆ«äºº
+					// ç›®æ ‡æ ¼å­è®¾ç½®å®Œæ¯•ï¼Œé‡æ–°æ•´ç†ä¸€éç›¸å¯¹è¡¨è¾¾å¼
 					for (int r = 0; r < cs.rect.getRowCount(); r++) {
 						for (int c = 0; c < cs.rect.getColCount(); c++) {
 							CellLocation src = new CellLocation(
@@ -734,10 +734,10 @@ public class AtomicSpl implements IAtomicCmd {
 							control.cellSet,
 							new CellRect(tarRow, 1, 1, control.cellSet
 									.getColCount()));
-					// Ä¿±êĞĞ¸ß¶È
+					// ç›®æ ‡è¡Œé«˜åº¦
 					float tarHeight = control.cellSet.getRowCell(tarRow)
 							.getHeight();
-					// Ô´ÇøÓòĞĞ¸ß
+					// æºåŒºåŸŸè¡Œé«˜
 					float[] rowHeights = new float[srcData.getRowSize()];
 					int rowIndex = 0;
 					for (int r = rect.getBeginRow(); r <= rect.getEndRow(); r++) {
@@ -748,7 +748,7 @@ public class AtomicSpl implements IAtomicCmd {
 								.getHeight();
 						rowIndex++;
 					}
-					// Ñ¡ÖĞ¸ñ×ÓÉÏÒÆ
+					// é€‰ä¸­æ ¼å­ä¸Šç§»
 					rowIndex = 0;
 					for (int r = tarRow; r < rect.getEndRow(); r++) {
 						if (!parser.isRowVisible(r))
@@ -765,7 +765,7 @@ public class AtomicSpl implements IAtomicCmd {
 								rowHeights[rowIndex]);
 						rowIndex++;
 					}
-					// Ä¿±êÇøÓòÏÂÒÆ
+					// ç›®æ ‡åŒºåŸŸä¸‹ç§»
 					int colIndex = 0;
 					for (int c = 1; c <= control.cellSet.getColCount(); c++) {
 						if (!parser.isColVisible(c))
@@ -777,7 +777,7 @@ public class AtomicSpl implements IAtomicCmd {
 					control.cellSet.getRowCell(rect.getEndRow()).setHeight(
 							tarHeight);
 
-					// ¸ñ×ÓÉèÖÃÍê±Ï£¬ÖØĞÂÕûÀíÒ»±éÏà¶Ô±í´ïÊ½
+					// æ ¼å­è®¾ç½®å®Œæ¯•ï¼Œé‡æ–°æ•´ç†ä¸€éç›¸å¯¹è¡¨è¾¾å¼
 					for (int r = rect.getBeginRow(); r <= rect.getEndRow(); r++) {
 						if (!parser.isRowVisible(r))
 							continue;
@@ -811,10 +811,10 @@ public class AtomicSpl implements IAtomicCmd {
 							new CellRect(tarRow, 1, 1, this.control.cellSet
 									.getColCount()));
 
-					// Ä¿±êĞĞ¸ß¶È
+					// ç›®æ ‡è¡Œé«˜åº¦
 					float tarHeight = control.cellSet.getRowCell(tarRow)
 							.getHeight();
-					// Ô´ÇøÓòĞĞ¸ß
+					// æºåŒºåŸŸè¡Œé«˜
 					float[] rowHeights = new float[srcData.getRowSize()];
 					int rowIndex = 0;
 					for (int r = rect.getBeginRow(); r <= rect.getEndRow(); r++) {
@@ -1026,7 +1026,7 @@ public class AtomicSpl implements IAtomicCmd {
 				int dr = rect.getBeginRow() - cs.rect.getBeginRow();
 				int dc = (int) (rect.getBeginCol() - cs.rect.getBeginCol());
 
-				// ÏÈ»¹Ô­Ô´¸ñ×Ó£¬Á½ÇøÓòÖØµşÊ±£¬±ØĞèÏÈ»¹Ô­
+				// å…ˆè¿˜åŸæºæ ¼å­ï¼Œä¸¤åŒºåŸŸé‡å æ—¶ï¼Œå¿…éœ€å…ˆè¿˜åŸ
 				for (int r = 0; r < cs.rect.getRowCount(); r++) {
 					for (int c = 0; c < cs.rect.getColCount(); c++) {
 						if (cs.oldData != null) {
@@ -1039,7 +1039,7 @@ public class AtomicSpl implements IAtomicCmd {
 					}
 				}
 
-				// ÉèÖÃÄ¿±ê¸ñ×Ó
+				// è®¾ç½®ç›®æ ‡æ ¼å­
 				for (int r = 0; r < rect.getRowCount(); r++) {
 					for (int c = 0; c < rect.getColCount(); c++) {
 						nc = (NormalCell) fromData.get(r, c);
@@ -1054,7 +1054,7 @@ public class AtomicSpl implements IAtomicCmd {
 					}
 				}
 
-				// Ä¿±ê¸ñ×ÓÉèÖÃÍê±Ï£¬ÖØĞÂÕûÀíÒ»±éÏà¶Ô±í´ïÊ½
+				// ç›®æ ‡æ ¼å­è®¾ç½®å®Œæ¯•ï¼Œé‡æ–°æ•´ç†ä¸€éç›¸å¯¹è¡¨è¾¾å¼
 				if (dr >= 0) {
 					if (dc >= 0) {
 						for (int r = rect.getRowCount() - 1; r >= 0; r--) {
@@ -1148,7 +1148,7 @@ public class AtomicSpl implements IAtomicCmd {
 				NormalCell nc;
 				int dr = rect.getBeginRow() - cs.rect.getBeginRow();
 				int dc = (int) (rect.getBeginCol() - cs.rect.getBeginCol());
-				// Ä¿±ê¸ñ×ÓÉèÖÃÍê±Ï£¬ÖØĞÂÕûÀíÒ»±éÏà¶Ô±í´ïÊ½
+				// ç›®æ ‡æ ¼å­è®¾ç½®å®Œæ¯•ï¼Œé‡æ–°æ•´ç†ä¸€éç›¸å¯¹è¡¨è¾¾å¼
 				if (dr >= 0) {
 					if (dc >= 0) {
 						for (int r = rect.getRowCount() - 1; r >= 0; r--) {
@@ -1218,7 +1218,7 @@ public class AtomicSpl implements IAtomicCmd {
 						}
 					}
 				}
-				// ÏÈ»¹Ô­Ô´¸ñ×Ó£¬Á½ÇøÓòÖØµşÊ±£¬±ØĞèÏÈ»¹Ô­
+				// å…ˆè¿˜åŸæºæ ¼å­ï¼Œä¸¤åŒºåŸŸé‡å æ—¶ï¼Œå¿…éœ€å…ˆè¿˜åŸ
 				for (int r = 0; r < cs.rect.getRowCount(); r++) {
 					for (int c = 0; c < cs.rect.getColCount(); c++) {
 						if (cs.oldData != null) {
@@ -1231,7 +1231,7 @@ public class AtomicSpl implements IAtomicCmd {
 					}
 				}
 
-				// ÉèÖÃÄ¿±ê¸ñ×Ó
+				// è®¾ç½®ç›®æ ‡æ ¼å­
 				for (int r = 0; r < rect.getRowCount(); r++) {
 					for (int c = 0; c < rect.getColCount(); c++) {
 						nc = (NormalCell) cs.matrix.get(r, c);
@@ -1288,7 +1288,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡ÉÏÒ»¸ö¿ÉÊÓµÄĞĞ
+	 * å–ä¸Šä¸€ä¸ªå¯è§†çš„è¡Œ
 	 * 
 	 * @param parser
 	 * @param row
@@ -1303,7 +1303,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡ÏÂÒ»¸ö¿ÉÊÓµÄĞĞ
+	 * å–ä¸‹ä¸€ä¸ªå¯è§†çš„è¡Œ
 	 * 
 	 * @param parser
 	 * @param row
@@ -1318,7 +1318,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡Ç°Ò»¸ö¿ÉÊÓµÄÁĞ
+	 * å–å‰ä¸€ä¸ªå¯è§†çš„åˆ—
 	 * 
 	 * @param parser
 	 * @param col
@@ -1333,7 +1333,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡ÏÂÒ»¸ö¿ÉÊÓµÄÁĞ
+	 * å–ä¸‹ä¸€ä¸ªå¯è§†çš„åˆ—
 	 * 
 	 * @param parser
 	 * @param col
@@ -1348,7 +1348,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * CellRect²»°üº¬Òş²ØĞĞ
+	 * CellRectä¸åŒ…å«éšè—è¡Œ
 	 *
 	 * @param cellSet CellSet
 	 * @param rect    CellRect
@@ -1380,7 +1380,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡ÇøÓòµÄ¸ñ×Ó¾ØÕó
+	 * å–åŒºåŸŸçš„æ ¼å­çŸ©é˜µ
 	 * 
 	 * @param cellSet
 	 * @param rect
@@ -1401,13 +1401,13 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * µ÷Õû¸ñ×Ó
+	 * è°ƒæ•´æ ¼å­
 	 * 
-	 * @param fromRect  Ô´ÇøÓò
-	 * @param toRect Ä¿±êÇøÓò
-	 * @param r    ĞĞºÅ
-	 * @param c    ÁĞºÅ
-	 * @param cell µ¥Ôª¸ñ
+	 * @param fromRect  æºåŒºåŸŸ
+	 * @param toRect ç›®æ ‡åŒºåŸŸ
+	 * @param r    è¡Œå·
+	 * @param c    åˆ—å·
+	 * @param cell å•å…ƒæ ¼
 	 * @return
 	 */
 	public static List<NormalCell> exeAdjust(PgmCellSet cellSet,
@@ -1426,13 +1426,13 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * ÉèÖÃĞĞ¸ñ×Ó
+	 * è®¾ç½®è¡Œæ ¼å­
 	 * 
 	 * @param cr
 	 * @param aRowCells
 	 */
 	private void setRowCells(CellRect cr, ArrayList aRowCells) {
-		// aRowCells, 0:Ê×¸ñ,ºóÃæÒÀ´ÎÎªÏàÓ¦ÁĞµÄ¸ñ×Ó
+		// aRowCells, 0:é¦–æ ¼,åé¢ä¾æ¬¡ä¸ºç›¸åº”åˆ—çš„æ ¼å­
 		RowCell rc = (RowCell) aRowCells.get(0);
 		for (int r = cr.getBeginRow(); r <= cr.getEndRow(); r++) {
 			control.cellSet.setRowCell(r, (RowCell) rc.deepClone());
@@ -1461,13 +1461,13 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¸ñ×Ó
+	 * è®¾ç½®åˆ—æ ¼å­
 	 * 
 	 * @param cr
 	 * @param aColCells
 	 */
 	private void setColCells(CellRect cr, ArrayList aColCells) {
-		// aColCells, 0:Ê×¸ñ,ºóÃæÒÀ´ÎÎªÏàÓ¦ĞĞµÄ¸ñ×Ó
+		// aColCells, 0:é¦–æ ¼,åé¢ä¾æ¬¡ä¸ºç›¸åº”è¡Œçš„æ ¼å­
 		ColCell cc = (ColCell) aColCells.get(0);
 		for (int c = cr.getBeginCol(); c <= cr.getEndCol(); c++) {
 			control.cellSet.setColCell(c, (ColCell) cc.deepClone());
@@ -1496,7 +1496,7 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * ÉèÖÃ´øĞĞÁĞÊ×¸ñµÄ¾ØĞÎ
+	 * è®¾ç½®å¸¦è¡Œåˆ—é¦–æ ¼çš„çŸ©å½¢
 	 *
 	 * @param cr    CellRect
 	 * @param cells Vector
@@ -1546,10 +1546,10 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡ĞĞÁĞÍ·µÄ¸ñ×Ó
+	 * å–è¡Œåˆ—å¤´çš„æ ¼å­
 	 * 
-	 * @param cr    ÇøÓò
-	 * @param isRow trueÈ¡ĞĞ£¬falseÈ¡ÁĞ
+	 * @param cr    åŒºåŸŸ
+	 * @param isRow trueå–è¡Œï¼Œfalseå–åˆ—
 	 * @return
 	 */
 	private Vector<Object> getHeaderRectCells(CellRect cr, boolean isRow) {
@@ -1564,10 +1564,10 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡ĞĞ¸ñ×Ó
+	 * å–è¡Œæ ¼å­
 	 * 
-	 * @param beginRow ÆğÊ¼ĞĞ
-	 * @param rowCount ĞĞÊı
+	 * @param beginRow èµ·å§‹è¡Œ
+	 * @param rowCount è¡Œæ•°
 	 * @return
 	 */
 	private Vector<IRowCell> getRowCells(int beginRow, int rowCount) {
@@ -1579,10 +1579,10 @@ public class AtomicSpl implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡ÁĞ¸ñ×Ó
+	 * å–åˆ—æ ¼å­
 	 * 
-	 * @param beginCol ÆğÊ¼ÁĞ
-	 * @param colCount ÁĞÊı
+	 * @param beginCol èµ·å§‹åˆ—
+	 * @param colCount åˆ—æ•°
 	 * @return
 	 */
 	private Vector<IColCell> getColCells(int beginCol, int colCount) {

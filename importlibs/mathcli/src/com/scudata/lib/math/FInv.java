@@ -9,7 +9,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * F·Ö²¼ÄæÀÛ»ýº¯Êý
+ * Fåˆ†å¸ƒé€†ç´¯ç§¯å‡½æ•°
  * @author bd
  */
 public class FInv extends Function {

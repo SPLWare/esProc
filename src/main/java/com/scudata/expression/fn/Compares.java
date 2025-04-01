@@ -11,8 +11,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ¶Ô¶à×Ö¶ÎÖµ½øĞĞ±È½Ï£¬×óÖµ´ó·µ»Ø1£¬ÏàµÈ·µ»Ø0£¬×óÖµĞ¡·µ»Ø-1
- * cmps(xi,..;yi¡­) cmps(xi,..;yi¡­;zi,¡­)
+ * å¯¹å¤šå­—æ®µå€¼è¿›è¡Œæ¯”è¾ƒï¼Œå·¦å€¼å¤§è¿”å›1ï¼Œç›¸ç­‰è¿”å›0ï¼Œå·¦å€¼å°è¿”å›-1
+ * cmps(xi,..;yiâ€¦) cmps(xi,..;yiâ€¦;zi,â€¦)
  * @author RunQian
  *
  */
@@ -22,7 +22,7 @@ public class Compares extends Function {
 	private Expression []rightExps2;
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -99,7 +99,7 @@ public class Compares extends Function {
 				}
 			}
 			
-			// ¸úÇø¼ä×óÖµÏàµÈ
+			// è·ŸåŒºé—´å·¦å€¼ç›¸ç­‰
 			if (option == null || option.indexOf('l') == -1) {
 				return ObjectCache.getInteger(0);
 			} else {

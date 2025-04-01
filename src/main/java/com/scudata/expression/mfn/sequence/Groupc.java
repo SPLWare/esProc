@@ -11,14 +11,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔĞòÁĞµÄĞòÁĞ×öĞĞÁĞ×ª»»A.groupc(g;v) A.groupc@r(g;v;k)
- * ¶ÔÅÅÁĞ×öĞĞÁĞ×ª»»P.groupc(g:G,¡­;F,¡­;N,¡­) P.groupc@r(g:G,¡­;F,¡­;N,¡­)
+ * å¯¹åºåˆ—çš„åºåˆ—åšè¡Œåˆ—è½¬æ¢A.groupc(g;v) A.groupc@r(g;v;k)
+ * å¯¹æ’åˆ—åšè¡Œåˆ—è½¬æ¢P.groupc(g:G,â€¦;F,â€¦;N,â€¦) P.groupc@r(g:G,â€¦;F,â€¦;N,â€¦)
  * @author RunQian
  *
  */
 public class Groupc extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

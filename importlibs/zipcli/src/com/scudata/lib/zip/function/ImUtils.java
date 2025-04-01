@@ -18,7 +18,7 @@ import net.lingala.zip4j.model.FileHeader;
 
 public class ImUtils {
 	/**
-	 * ÊÇ·ñÓĞÌØ¶¨×Ö·û*»ò?
+	 * æ˜¯å¦æœ‰ç‰¹å®šå­—ç¬¦*æˆ–?
 	 * @param src
 	 *            String
 	 */
@@ -33,7 +33,7 @@ public class ImUtils {
 	}
 
 	/**
-	 * É¾³ıÄ³¸öÎÄ¼ş¼ĞÏÂµÄËùÓĞÎÄ¼ş¼ĞºÍÎÄ¼ş
+	 * åˆ é™¤æŸä¸ªæ–‡ä»¶å¤¹ä¸‹çš„æ‰€æœ‰æ–‡ä»¶å¤¹å’Œæ–‡ä»¶
 	 * 
 	 * @param delpath
 	 *            String
@@ -44,7 +44,7 @@ public class ImUtils {
 	public static boolean deleteFile(String delpath) throws Exception {
 		try {
 			File file = new File(delpath);
-			// µ±ÇÒ½öµ±´Ë³éÏóÂ·¾¶Ãû±íÊ¾µÄÎÄ¼ş´æÔÚÇÒ ÊÇÒ»¸öÄ¿Â¼Ê±£¬·µ»Ø true
+			// å½“ä¸”ä»…å½“æ­¤æŠ½è±¡è·¯å¾„åè¡¨ç¤ºçš„æ–‡ä»¶å­˜åœ¨ä¸” æ˜¯ä¸€ä¸ªç›®å½•æ—¶ï¼Œè¿”å› true
 			if (!file.isDirectory()) {
 				file.delete();
 			} else if (file.isDirectory()) {
@@ -67,11 +67,11 @@ public class ImUtils {
 	}
 
 	/**
-	 * ÔÚsËùÔÚµÄÎÄ¼ş¼ĞÏÂ²éÕÒ
+	 * åœ¨sæ‰€åœ¨çš„æ–‡ä»¶å¤¹ä¸‹æŸ¥æ‰¾
 	 * 
 	 * @param s
-	 *            String ÎÄ¼şÃû
-	 * @return File[] ÕÒµ½µÄÎÄ¼ş
+	 *            String æ–‡ä»¶å
+	 * @return File[] æ‰¾åˆ°çš„æ–‡ä»¶
 	 */
 	public static List<File> getFiles(String s, boolean bRecursive) {
 		File f = new File(s);
@@ -81,18 +81,18 @@ public class ImUtils {
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ¼ş ¿ÉÒÔ¸ù¾İÕıÔò±í´ïÊ½²éÕÒ
+	 * è·å–æ–‡ä»¶ å¯ä»¥æ ¹æ®æ­£åˆ™è¡¨è¾¾å¼æŸ¥æ‰¾
 	 * 
 	 * @param dir
-	 *            String ÎÄ¼ş¼ĞÃû³Æ
+	 *            String æ–‡ä»¶å¤¹åç§°
 	 * @param s
-	 *            String ²éÕÒÎÄ¼şÃû£¬¿É´ø*. ½øĞĞÄ£ºı²éÑ¯
-	 * @return File[] ÕÒµ½µÄÎÄ¼ş
+	 *            String æŸ¥æ‰¾æ–‡ä»¶åï¼Œå¯å¸¦*. è¿›è¡Œæ¨¡ç³ŠæŸ¥è¯¢
+	 * @return File[] æ‰¾åˆ°çš„æ–‡ä»¶
 	 */
 	public static List<File> getFiles(String dir, String pattern, boolean bRecursive) {
-		// ¿ªÊ¼µÄÎÄ¼ş¼Ğ
+		// å¼€å§‹çš„æ–‡ä»¶å¤¹
 		File file = new File(dir);
-		//Ö§³Öºº×Ö£¬¿Õ¸ñ£¬Ó¢ÎÄ×ÖÄ¸£¬Èç£ºteamview - ¸±±¾.java
+		//æ”¯æŒæ±‰å­—ï¼Œç©ºæ ¼ï¼Œè‹±æ–‡å­—æ¯ï¼Œå¦‚ï¼šteamview - å‰¯æœ¬.java
 		String s = replaceSpecialString(pattern);
 		//System.out.println(pat);
 		Pattern p = Pattern.compile(s);
@@ -103,10 +103,10 @@ public class ImUtils {
 
 	/**
 	 * @param file
-	 *            File ÆğÊ¼ÎÄ¼ş¼Ğ
+	 *            File èµ·å§‹æ–‡ä»¶å¤¹
 	 * @param p
-	 *            Pattern Æ¥ÅäÀàĞÍ
-	 * @return ArrayList ÆäÎÄ¼ş¼ĞÏÂµÄÎÄ¼ş¼Ğ
+	 *            Pattern åŒ¹é…ç±»å‹
+	 * @return ArrayList å…¶æ–‡ä»¶å¤¹ä¸‹çš„æ–‡ä»¶å¤¹
 	 */
 
 	private static ArrayList<File> filePattern(File file, Pattern p, boolean bRecursive ) {
@@ -143,17 +143,17 @@ public class ImUtils {
 		return null;
 	}
 	
-	//·µ»Ø´øÂ·¾¶µÄÎÄ¼şÃû
+	//è¿”å›å¸¦è·¯å¾„çš„æ–‡ä»¶å
 	private static String getFullPathFileName(String path, String src){
 		String sRet = new String(src);
 		if(m_os.toLowerCase().startsWith("win")){ 
-			if (sRet.length()>3 && sRet.indexOf(":"+File.separator)==1){ //ÓĞÄ¿Â¼Â·¾¶µÄfileName
+			if (sRet.length()>3 && sRet.indexOf(":"+File.separator)==1){ //æœ‰ç›®å½•è·¯å¾„çš„fileName
 				;//skip
 			}else{
 				sRet = path+File.separator+sRet;
 			}
 		}else{
-			if (sRet.startsWith(File.separator)){ //ÓĞ¸ùÄ¿Â¼Â·¾¶µÄfileName
+			if (sRet.startsWith(File.separator)){ //æœ‰æ ¹ç›®å½•è·¯å¾„çš„fileName
 				;//skip
 			}else{
 				sRet = path+File.separator+sRet;
@@ -162,7 +162,7 @@ public class ImUtils {
 		return sRet;
 	}
 	
-	//Â·¾¶·Ö¸ô·û×ª»»
+	//è·¯å¾„åˆ†éš”ç¬¦è½¬æ¢
 	public static String replaceAllPathSeparator(String src){
 		String sRet = new String(src);
 		if (sRet.indexOf("*")!=-1){
@@ -183,7 +183,7 @@ public class ImUtils {
 		return sRet;
 	}
 	
-	//»ñÈ¡²»´øÂ·¾¶µÄÎÄ¼şÁĞ±í£¬fObjs¿ÉÄÜÊÇĞòÁĞ¡¢ÎÄ¼ş¶ÔÏó¡¢×Ö·û´®
+	//è·å–ä¸å¸¦è·¯å¾„çš„æ–‡ä»¶åˆ—è¡¨ï¼ŒfObjså¯èƒ½æ˜¯åºåˆ—ã€æ–‡ä»¶å¯¹è±¡ã€å­—ç¬¦ä¸²
 	public static List<String> getFilter(Object fObjs)
 	{
 		String fname = "";
@@ -216,7 +216,7 @@ public class ImUtils {
 		return files;		
 	}
 	
-	//ÎÄ¼şÓëÂ·¾¶ºÏ²¢
+	//æ–‡ä»¶ä¸è·¯å¾„åˆå¹¶
 	public static List<String> getPathFilter(String path, Object fObjs)
 	{
 		if (path!=null && path.endsWith(File.separator)){
@@ -258,7 +258,7 @@ public class ImUtils {
 		return files;
 	}
 	
-	//Í¨¹ıÎÄ¼ş±í´ïÊ½É¸Ñ¡·ÖÁ÷³ÉÎÄ¼şÁĞ±í¡¢Ä¿Â¼ÁĞ±í
+	//é€šè¿‡æ–‡ä»¶è¡¨è¾¾å¼ç­›é€‰åˆ†æµæˆæ–‡ä»¶åˆ—è¡¨ã€ç›®å½•åˆ—è¡¨
 	public static void getFiles(List<String> filter,ArrayList<File> rFile,
 			ArrayList<File> rDir, boolean bRecursive){
 		File f = null;
@@ -266,7 +266,7 @@ public class ImUtils {
 		
 		for(int i=0; i<filter.size(); i++){
 			fname = filter.get(i);
-			if (ImUtils.isSpecialCharacters(fname)){ //´¦ÀíÌØÊâ×Ö·û*,?
+			if (ImUtils.isSpecialCharacters(fname)){ //å¤„ç†ç‰¹æ®Šå­—ç¬¦*,?
 				String val = fname.substring(fname.lastIndexOf(File.separator)+1);
 				if (val.equals("*")){
 					val = fname.substring(0, fname.length()-2);
@@ -280,7 +280,7 @@ public class ImUtils {
 			}else{
 				f = new File(fname);
 				if (f.isDirectory()){
-					if (bRecursive){ //µİ¹éÊ±¼ÓÈëÄ¿Â¼£¬·ñÔòÌø¹ı
+					if (bRecursive){ //é€’å½’æ—¶åŠ å…¥ç›®å½•ï¼Œå¦åˆ™è·³è¿‡
 						rDir.add(f);
 					}else{
 						File[] subFiles = f.listFiles();
@@ -304,7 +304,7 @@ public class ImUtils {
 	public static String replaceSpecialString(String val){
 		String pat = val.replace('.', '#');
 		pat = pat.replace("#", "\\.");
-		if(val.indexOf(".")==-1){ //²»´øºó×ºµÄ±í´ïÊ½.
+		if(val.indexOf(".")==-1){ //ä¸å¸¦åç¼€çš„è¡¨è¾¾å¼.
 			pat = pat.replace("*", "[\\u4e00-\\u9fa5- /\\w\\.]*");
 		}else{
 			pat = pat.replace("*", "[\\u4e00-\\u9fa5- /\\w]*");	
@@ -315,7 +315,7 @@ public class ImUtils {
 	}
 	
 	/*
-	 * »ñÈ¡Òª´¦ÀíµÄÑ¹ËõÎÄ¼ş»òÎÄ¼ş¼Ğ£¬ÎŞÖ¸¶¨Â·¾¶
+	 * è·å–è¦å¤„ç†çš„å‹ç¼©æ–‡ä»¶æˆ–æ–‡ä»¶å¤¹ï¼Œæ— æŒ‡å®šè·¯å¾„
 	 * 
 	 * *****/	
 	public static void getZipFilterList(ZipFile zipFile, String path, Object fobjs,ArrayList<String> rFile,
@@ -326,7 +326,7 @@ public class ImUtils {
 		for(int i=0; i<filter.size(); i++){
 			fname = filter.get(i);
 			//System.out.println("file = "+fname);
-			if (ImUtils.isSpecialCharacters(fname)){ //´¦ÀíÌØÊâ×Ö·û*,?
+			if (ImUtils.isSpecialCharacters(fname)){ //å¤„ç†ç‰¹æ®Šå­—ç¬¦*,?
 				String pat = replaceSpecialString(fname);
 				rPat.add(pat);
 			}else{
@@ -347,19 +347,19 @@ public class ImUtils {
 		}
 	}
 	
-	//ÊÇ·ñÎª¸ùÂ·¾¶
+	//æ˜¯å¦ä¸ºæ ¹è·¯å¾„
 	public static boolean isRootPathFile(String file){
 		boolean bRet = false;
 		String fname = file;
 		String os = System.getProperty("os.name");  
 		if(os.toLowerCase().startsWith("win")){  
 			fname = fname.replaceAll("/", File.separator);
-			if (fname.length()>3 && fname.indexOf(":"+File.separator)==1){ //ÓĞÄ¿Â¼Â·¾¶µÄfileName
+			if (fname.length()>3 && fname.indexOf(":"+File.separator)==1){ //æœ‰ç›®å½•è·¯å¾„çš„fileName
 				bRet = true;
 			}
 		}else{ //linux
 			fname = fname.replaceAll("\\\\", File.separator);
-			if (fname.startsWith(File.separator)){ //ÓĞÄ¿Â¼Â·¾¶µÄfileName
+			if (fname.startsWith(File.separator)){ //æœ‰ç›®å½•è·¯å¾„çš„fileName
 				bRet = true;
 			}
 		}
@@ -367,7 +367,7 @@ public class ImUtils {
 		return bRet;
 	}
 	
-	//»ñÈ¡ÎÄ¼şÂ·¾¶£¬windowsÏÂÈ¥µôÅÌ·û
+	//è·å–æ–‡ä»¶è·¯å¾„ï¼Œwindowsä¸‹å»æ‰ç›˜ç¬¦
 	public static String getPathOfFile(File file) throws IOException{
 		String parent = file.getParentFile().getCanonicalPath();
 		String os = System.getProperty("os.name");  

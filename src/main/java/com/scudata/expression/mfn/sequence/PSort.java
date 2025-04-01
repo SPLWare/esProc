@@ -9,7 +9,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡ĞòÁĞÅÅĞòºóµÄÔªËØÔÚÔ­ĞòÁĞµÄÖĞĞòºÅ
+ * å–åºåˆ—æ’åºåçš„å…ƒç´ åœ¨åŸåºåˆ—çš„ä¸­åºå·
  * A.psort() A.psort(x) A.psort(xi:di,..)
  * @author RunQian
  *

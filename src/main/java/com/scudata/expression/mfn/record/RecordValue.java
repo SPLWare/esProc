@@ -8,7 +8,7 @@ import com.scudata.expression.RecordFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ½«ĞòÁĞµÄÔªËØÒÀ´ÎÌîÈë¼ÇÂ¼µÄ×Ö¶Î
+ * å°†åºåˆ—çš„å…ƒç´ ä¾æ¬¡å¡«å…¥è®°å½•çš„å­—æ®µ
  * r.record(A)
  * @author RunQian
  *

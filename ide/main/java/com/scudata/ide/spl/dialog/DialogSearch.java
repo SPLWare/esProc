@@ -37,7 +37,7 @@ import com.scudata.ide.spl.control.SplEditor;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ËÑË÷¶Ô»°¿ò
+ * æœç´¢å¯¹è¯æ¡†
  *
  */
 public class DialogSearch extends JDialog {
@@ -50,69 +50,69 @@ public class DialogSearch extends JDialog {
 	private static SegmentSet status = new SegmentSet("");
 
 	/**
-	 * ²éÕÒÄÚÈİ±êÇ©
+	 * æŸ¥æ‰¾å†…å®¹æ ‡ç­¾
 	 */
 	private JLabel jLabel1 = new JLabel();
 	/**
-	 * Ìæ»»Îª±êÇ©
+	 * æ›¿æ¢ä¸ºæ ‡ç­¾
 	 */
 	private JLabel jLabel2 = new JLabel();
 	/**
-	 * ËÑË÷ÄÚÈİÏÂÀ­¿ò
+	 * æœç´¢å†…å®¹ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBox jCBSearch = new JComboBox();
 	/**
-	 * Ìæ»»ÎªÄÚÈİÏÂÀ­¿ò
+	 * æ›¿æ¢ä¸ºå†…å®¹ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBox jCBReplace = new JComboBox();
 	/**
-	 * ËÑË÷°´Å¥
+	 * æœç´¢æŒ‰é’®
 	 */
 	private JButton jBSearch = new JButton();
 	/**
-	 * Ìæ»»°´Å¥
+	 * æ›¿æ¢æŒ‰é’®
 	 */
 	private JButton jBReplace = new JButton();
 	/**
-	 * È«²¿Ìæ»»°´Å¥
+	 * å…¨éƒ¨æ›¿æ¢æŒ‰é’®
 	 */
 	private JButton jBReplaceAll = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * ´óĞ¡Ğ´Ãô¸Ğ¸´Ñ¡¿ò
+	 * å¤§å°å†™æ•æ„Ÿå¤é€‰æ¡†
 	 */
 	private JCheckBox jCBSensitive = new JCheckBox();
 	/**
-	 * ½öËÑË÷¶ÀÁ¢µ¥´Ê¸´Ñ¡¿ò
+	 * ä»…æœç´¢ç‹¬ç«‹å•è¯å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBWordOnly = new JCheckBox();
 	/**
-	 * ºöÂÔÒıºÅÖĞµ¥´Ê¸´Ñ¡¿ò
+	 * å¿½ç•¥å¼•å·ä¸­å•è¯å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBQuote = new JCheckBox();
 	/**
-	 * ºöÂÔÔ²À¨ºÅÖĞµ¥´Ê¸´Ñ¡¿ò
+	 * å¿½ç•¥åœ†æ‹¬å·ä¸­å•è¯å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBPars = new JCheckBox();
 	/**
-	 * ËÑË÷¸ñ×Ó·¶Î§
+	 * æœç´¢æ ¼å­èŒƒå›´
 	 */
 	private TitledBorder titledBorder1;
 
 	/**
-	 * ËÑË÷ÊôĞÔ·¶Î§
+	 * æœç´¢å±æ€§èŒƒå›´
 	 */
 	private TitledBorder titledBorder2;
 	/**
-	 * ¼¯ËãÆ÷ÓïÑÔ×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨è¯­è¨€èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager splMM = IdeSplMessage.get();
 
 	/**
-	 * ´æ´¢ËÑË÷Ñ¡ÏîµÄ¼ü
+	 * å­˜å‚¨æœç´¢é€‰é¡¹çš„é”®
 	 */
 	private static final String KEY_QUOTE = "quote";
 	private static final String KEY_RARS = "pars";
@@ -120,55 +120,55 @@ public class DialogSearch extends JDialog {
 	private static final String KEY_CASE = "case";
 
 	/**
-	 * ÊÇ·ñÌæ»»¡£trueÌæ»»£¬falseËÑË÷
+	 * æ˜¯å¦æ›¿æ¢ã€‚trueæ›¿æ¢ï¼Œfalseæœç´¢
 	 */
 	private boolean isReplace = false;
 	/**
-	 * µã»÷ËÑË÷°´Å¥
+	 * ç‚¹å‡»æœç´¢æŒ‰é’®
 	 */
 	private boolean isSearchClicked = false;
 	/**
-	 * ËÑË÷µÄ×Ö·û´®
+	 * æœç´¢çš„å­—ç¬¦ä¸²
 	 */
 	private String searchString = "";
 	/**
-	 * Ìæ»»µÄ×Ö·û´®
+	 * æ›¿æ¢çš„å­—ç¬¦ä¸²
 	 */
 	private String replaceString = "";
 	/**
-	 * ËÑË÷µÄÑ¡Ïî
+	 * æœç´¢çš„é€‰é¡¹
 	 */
 	private int searchFlag;
 	/**
-	 * ×Ö·û´®ÖĞµÄĞòºÅ
+	 * å­—ç¬¦ä¸²ä¸­çš„åºå·
 	 */
 	private int stringIndex = -1;
 	/**
-	 * ËÑË÷µÄĞĞ
+	 * æœç´¢çš„è¡Œ
 	 */
 	private int searchedRow = -1;
 	/**
-	 * ËÑË÷µÄÁĞ
+	 * æœç´¢çš„åˆ—
 	 */
 	private int searchedCol = -1;
 	/**
-	 * ½öÔÚÑ¡ÔñÇøÓòÄÚËÑË÷
+	 * ä»…åœ¨é€‰æ‹©åŒºåŸŸå†…æœç´¢
 	 */
 	private boolean searchSelectedCells = false;
 	/**
-	 * È«²¿Ìæ»»¿ªÊ¼ĞĞ
+	 * å…¨éƒ¨æ›¿æ¢å¼€å§‹è¡Œ
 	 */
 	private int replaceAllStartRow = 1;
 	/**
-	 * È«²¿Ìæ»»¿ªÊ¼ÁĞ
+	 * å…¨éƒ¨æ›¿æ¢å¼€å§‹åˆ—
 	 */
 	private int replaceAllStartCol = 1;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogSearch() {
-		super(GV.appFrame, "²éÕÒ", false);
+		super(GV.appFrame, "æŸ¥æ‰¾", false);
 		try {
 			initUI();
 			init();
@@ -183,26 +183,26 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
-		setTitle(splMM.getMessage("dialogsearch.title")); // ²éÕÒ
-		titledBorder1.setTitle(splMM.getMessage("dialogsearch.titleborder1")); // ËÑË÷¸ñ×Ó·¶Î§
-		titledBorder2.setTitle(splMM.getMessage("dialogsearch.titleborder2")); // ËÑË÷ÊôĞÔ·¶Î§
-		jLabel1.setText(splMM.getMessage("dialogsearch.searchcontent")); // ²éÕÒÄÚÈİ
-		jLabel2.setText(splMM.getMessage("dialogsearch.replaceas")); // Ìæ»»Îª
-		jBSearch.setText(splMM.getMessage("button.search")); // ²éÕÒ(F)
-		jBReplace.setText(splMM.getMessage("button.replace")); // Ìæ»»(R)
-		jBReplaceAll.setText(splMM.getMessage("button.replaceall")); // È«²¿Ìæ»»(A)
-		jBCancel.setText(splMM.getMessage("button.close")); // ¹Ø±Õ(C)
-		jCBSensitive.setText(splMM.getMessage("dialogsearch.casesensitive")); // Çø·Ö´óĞ¡Ğ´
-		jCBWordOnly.setText(splMM.getMessage("dialogsearch.wordonly")); // ½öËÑË÷¶ÀÁ¢µ¥´Ê
-		jCBQuote.setText(splMM.getMessage("dialogsearch.ignorequote")); // ºöÂÔÒıºÅÖĞµ¥´Ê
-		jCBPars.setText(splMM.getMessage("dialogsearch.ignorepars")); // ºöÂÔÔ²À¨ºÅÖĞµ¥´Ê
+		setTitle(splMM.getMessage("dialogsearch.title")); // æŸ¥æ‰¾
+		titledBorder1.setTitle(splMM.getMessage("dialogsearch.titleborder1")); // æœç´¢æ ¼å­èŒƒå›´
+		titledBorder2.setTitle(splMM.getMessage("dialogsearch.titleborder2")); // æœç´¢å±æ€§èŒƒå›´
+		jLabel1.setText(splMM.getMessage("dialogsearch.searchcontent")); // æŸ¥æ‰¾å†…å®¹
+		jLabel2.setText(splMM.getMessage("dialogsearch.replaceas")); // æ›¿æ¢ä¸º
+		jBSearch.setText(splMM.getMessage("button.search")); // æŸ¥æ‰¾(F)
+		jBReplace.setText(splMM.getMessage("button.replace")); // æ›¿æ¢(R)
+		jBReplaceAll.setText(splMM.getMessage("button.replaceall")); // å…¨éƒ¨æ›¿æ¢(A)
+		jBCancel.setText(splMM.getMessage("button.close")); // å…³é—­(C)
+		jCBSensitive.setText(splMM.getMessage("dialogsearch.casesensitive")); // åŒºåˆ†å¤§å°å†™
+		jCBWordOnly.setText(splMM.getMessage("dialogsearch.wordonly")); // ä»…æœç´¢ç‹¬ç«‹å•è¯
+		jCBQuote.setText(splMM.getMessage("dialogsearch.ignorequote")); // å¿½ç•¥å¼•å·ä¸­å•è¯
+		jCBPars.setText(splMM.getMessage("dialogsearch.ignorepars")); // å¿½ç•¥åœ†æ‹¬å·ä¸­å•è¯
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		String sTmp;
@@ -225,7 +225,7 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ±£´æËÑË÷Ñ¡Ïî
+	 * ä¿å­˜æœç´¢é€‰é¡¹
 	 */
 	private void rememberStatus() {
 		status.put(KEY_CASE, new Boolean(jCBSensitive.isSelected()).toString());
@@ -237,7 +237,7 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ÖØÖÃÏÂÀ­Ïî
+	 * é‡ç½®ä¸‹æ‹‰é¡¹
 	 */
 	private void resetDropItems() {
 		String sTmp;
@@ -259,22 +259,22 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñ¿Ø¼ş
+	 * è®¾ç½®ç½‘æ ¼æ§ä»¶
 	 * 
 	 * @param editor
-	 *            Íø¸ñ±à¼­Æ÷
+	 *            ç½‘æ ¼ç¼–è¾‘å™¨
 	 */
 	// public void setControl(SplEditor editor) {
 	// setControl(editor, isReplace);
 	// }
 
 	/**
-	 * ÉèÖÃÍø¸ñ¿Ø¼ş
+	 * è®¾ç½®ç½‘æ ¼æ§ä»¶
 	 * 
 	 * @param editor
-	 *            Íø¸ñ±à¼­Æ÷
+	 *            ç½‘æ ¼ç¼–è¾‘å™¨
 	 * @param replace
-	 *            ÊÇ·ñÌæ»»¡£trueÌæ»»£¬falseËÑË÷
+	 *            æ˜¯å¦æ›¿æ¢ã€‚trueæ›¿æ¢ï¼Œfalseæœç´¢
 	 */
 	public void setConfig(boolean replace) {
 		// this.splEditor = editor;
@@ -282,9 +282,9 @@ public class DialogSearch extends JDialog {
 		// this.splControl = (EditControl) editor.getComponent();
 		resetDropItems();
 		if (!replace) {
-			setTitle(splMM.getMessage("dialogsearch.title")); // ²éÕÒ
+			setTitle(splMM.getMessage("dialogsearch.title")); // æŸ¥æ‰¾
 		} else {
-			setTitle(splMM.getMessage("dialogsearch.replace")); // Ìæ»»
+			setTitle(splMM.getMessage("dialogsearch.replace")); // æ›¿æ¢
 		}
 		jCBReplace.setEnabled(replace);
 		jBReplace.setEnabled(replace);
@@ -292,41 +292,41 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
 	private void initUI() throws Exception {
 		titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(
-				Color.white, new Color(148, 145, 140)), "ËÑË÷¸ñ×Ó·¶Î§");
+				Color.white, new Color(148, 145, 140)), "æœç´¢æ ¼å­èŒƒå›´");
 		titledBorder2 = new TitledBorder(BorderFactory.createEtchedBorder(
-				Color.white, new Color(148, 145, 140)), "ËÑË÷ÊôĞÔ·¶Î§");
+				Color.white, new Color(148, 145, 140)), "æœç´¢å±æ€§èŒƒå›´");
 		JPanel panel1 = new JPanel();
 		BorderLayout borderLayout1 = new BorderLayout();
 		JPanel jPanel1 = new JPanel();
 		VFlowLayout vFlowLayout1 = new VFlowLayout();
 		GridBagLayout gridBagLayout1 = new GridBagLayout();
 		panel1.setLayout(gridBagLayout1);
-		jLabel1.setText("²éÕÒÄÚÈİ");
-		jLabel2.setText("Ìæ»»Îª");
-		jBSearch.setText("²éÕÒ(F)");
+		jLabel1.setText("æŸ¥æ‰¾å†…å®¹");
+		jLabel2.setText("æ›¿æ¢ä¸º");
+		jBSearch.setText("æŸ¥æ‰¾(F)");
 		jBSearch.setMnemonic('F');
 		jBSearch.addActionListener(new DialogSearch_jBSearch_actionAdapter(this));
-		jBReplace.setText("Ìæ»»(R)");
+		jBReplace.setText("æ›¿æ¢(R)");
 		jBReplace.setMnemonic('R');
 		jBReplace.addActionListener(new DialogSearch_jBReplace_actionAdapter(
 				this));
-		jBReplaceAll.setText("È«²¿Ìæ»»(A)");
+		jBReplaceAll.setText("å…¨éƒ¨æ›¿æ¢(A)");
 		jBReplaceAll.setMnemonic('A');
 		jBReplaceAll
 				.addActionListener(new DialogSearch_jBReplaceAll_actionAdapter(
 						this));
-		jBCancel.setText("¹Ø±Õ(C)");
+		jBCancel.setText("å…³é—­(C)");
 		jBCancel.setMnemonic('C');
 		jBCancel.addActionListener(new DialogSearch_jBCancel_actionAdapter(this));
 		jCBSensitive.setMaximumSize(new Dimension(95, 27));
-		jCBSensitive.setText("Çø·Ö´óĞ¡Ğ´");
-		jCBWordOnly.setText("½öËÑË÷¶ÀÁ¢µ¥´Ê");
+		jCBSensitive.setText("åŒºåˆ†å¤§å°å†™");
+		jCBWordOnly.setText("ä»…æœç´¢ç‹¬ç«‹å•è¯");
 		JPanel jPanel2 = new JPanel();
 		jPanel2.setBorder(titledBorder2);
 		jCBSearch.setEditable(true);
@@ -363,12 +363,12 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃËÑË÷Ñ¡Ïî
+	 * è®¾ç½®æœç´¢é€‰é¡¹
 	 * 
 	 * @param searchString
-	 *            ËÑË÷µÄ×Ö·û´®
+	 *            æœç´¢çš„å­—ç¬¦ä¸²
 	 * @param replaceString
-	 *            Ìæ»»µÄ×Ö·û´®
+	 *            æ›¿æ¢çš„å­—ç¬¦ä¸²
 	 */
 	private void setSearchConfig(String searchString, String replaceString) {
 		this.searchString = searchString;
@@ -392,7 +392,7 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ËÑË÷
+	 * æœç´¢
 	 * 
 	 * @return
 	 */
@@ -401,7 +401,7 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * Ìæ»»
+	 * æ›¿æ¢
 	 * 
 	 * @return
 	 */
@@ -419,7 +419,7 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * È«²¿Ìæ»»
+	 * å…¨éƒ¨æ›¿æ¢
 	 * 
 	 * @return
 	 */
@@ -440,12 +440,12 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * Ìæ»»
+	 * æ›¿æ¢
 	 * 
 	 * @param replaceAll
-	 *            ÊÇ·ñÈ«²¿Ìæ»»¡£trueÈ«²¿Ìæ»»£¬falseÌæ»»
+	 *            æ˜¯å¦å…¨éƒ¨æ›¿æ¢ã€‚trueå…¨éƒ¨æ›¿æ¢ï¼Œfalseæ›¿æ¢
 	 * @param cmds
-	 *            Ô­×ÓÃüÁî¼¯
+	 *            åŸå­å‘½ä»¤é›†
 	 * @return
 	 */
 	private boolean replace(boolean replaceAll, Vector<IAtomicCmd> cmds) {
@@ -478,10 +478,10 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ËÑË÷
+	 * æœç´¢
 	 * 
 	 * @param replaceAll
-	 *            ÊÇ·ñÈ«²¿Ìæ»»¡£trueÈ«²¿Ìæ»»£¬falseÌæ»»
+	 *            æ˜¯å¦å…¨éƒ¨æ›¿æ¢ã€‚trueå…¨éƒ¨æ›¿æ¢ï¼Œfalseæ›¿æ¢
 	 * @return
 	 */
 	private boolean search(boolean replaceAll) {
@@ -544,18 +544,18 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ËÑË÷
+	 * æœç´¢
 	 * 
 	 * @param startRow
-	 *            ¿ªÊ¼ĞĞ
+	 *            å¼€å§‹è¡Œ
 	 * @param startCol
-	 *            ¿ªÊ¼ÁĞ
+	 *            å¼€å§‹åˆ—
 	 * @param endRow
-	 *            ½áÊøĞĞ
+	 *            ç»“æŸè¡Œ
 	 * @param endCol
-	 *            ½áÊøÁĞ
+	 *            ç»“æŸåˆ—
 	 * @param replaceAll
-	 *            ÊÇ·ñÈ«²¿Ìæ»»¡£trueÈ«²¿Ìæ»»£¬falseÌæ»»
+	 *            æ˜¯å¦å…¨éƒ¨æ›¿æ¢ã€‚trueå…¨éƒ¨æ›¿æ¢ï¼Œfalseæ›¿æ¢
 	 * @return
 	 */
 	private boolean search(int startRow, int startCol, int endRow, int endCol,
@@ -595,7 +595,7 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ËÑË÷°´Å¥ÊÂ¼ş
+	 * æœç´¢æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -613,13 +613,13 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * Ìæ»»°´Å¥ÊÂ¼ş
+	 * æ›¿æ¢æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
 	void jBReplace_actionPerformed(ActionEvent e) {
 		if (isSearchClicked) {
-			// Èç¹ûËÑË÷µ½ÁË£¬ÔòÌæ»»´Óµ±Ç°Î»ÖÃ¿ªÊ¼Ìæ»»
+			// å¦‚æœæœç´¢åˆ°äº†ï¼Œåˆ™æ›¿æ¢ä»å½“å‰ä½ç½®å¼€å§‹æ›¿æ¢
 			stringIndex = -1;
 		}
 		isSearchClicked = false;
@@ -640,7 +640,7 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * È«²¿Ìæ»»°´Å¥ÊÂ¼ş
+	 * å…¨éƒ¨æ›¿æ¢æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -657,7 +657,7 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -668,7 +668,7 @@ public class DialogSearch extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */

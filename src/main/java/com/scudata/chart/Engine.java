@@ -17,14 +17,14 @@ import java.awt.image.*;
 import java.awt.geom.*;
 
 /**
- * »æÍ¼ÒıÇæ
+ * ç»˜å›¾å¼•æ“
  */
 public class Engine {
 	private ArrayList<IElement> elements;
-	private ArrayList<TickAxis> axisList = new ArrayList<TickAxis>(); // Öá
-	private ArrayList<ICoor> coorList = new ArrayList<ICoor>(); // ×ø±êÏµ
-	private ArrayList<DataElement> dataList = new ArrayList<DataElement>(); // Êı¾İÍ¼Ôª
-	private ArrayList<TimeAxis> timeList = new ArrayList<TimeAxis>(); // Ê±¼äÖá
+	private ArrayList<TickAxis> axisList = new ArrayList<TickAxis>(); // è½´
+	private ArrayList<ICoor> coorList = new ArrayList<ICoor>(); // åæ ‡ç³»
+	private ArrayList<DataElement> dataList = new ArrayList<DataElement>(); // æ•°æ®å›¾å…ƒ
+	private ArrayList<TimeAxis> timeList = new ArrayList<TimeAxis>(); // æ—¶é—´è½´
 
 	private transient ArrayList<Shape> allShapes = new ArrayList<Shape>();
 	private transient ArrayList<String> allLinks = new ArrayList<String>();
@@ -32,73 +32,73 @@ public class Engine {
 	private transient ArrayList<String> allTargets = new ArrayList<String>();
 	private transient int w, h;
 	private transient Graphics2D g;
-	private transient ArrayList textAreas = new ArrayList(); // ÎÄ±¾ÇøÓòÒÑ¾­Õ¼ÓÃµÄ¿Õ¼ä
+	private transient ArrayList textAreas = new ArrayList(); // æ–‡æœ¬åŒºåŸŸå·²ç»å ç”¨çš„ç©ºé—´
 	private transient StringBuffer html;
 
-	private transient double t_maxDate = 0, t_minDate = Long.MAX_VALUE;// ËùÓĞÊ±¼äÖáµÄ×î´ó×îĞ¡Ê±¼äµã
+	private transient double t_maxDate = 0, t_minDate = Long.MAX_VALUE;// æ‰€æœ‰æ—¶é—´è½´çš„æœ€å¤§æœ€å°æ—¶é—´ç‚¹
 
 	/**
-	 * ¹¹Ôì»æÍ¼ÒıÇæ
+	 * æ„é€ ç»˜å›¾å¼•æ“
 	 */
 	public Engine() {
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÔªËØÁĞ±í
+	 * è®¾ç½®å›¾å½¢å…ƒç´ åˆ—è¡¨
 	 * 
 	 * @param ies
-	 *            »æÍ¼ÔªËØ
+	 *            ç»˜å›¾å…ƒç´ 
 	 */
 	public void setElements(ArrayList<IElement> ies) {
 		elements = ies;
 	}
 
 	/**
-	 * ÉèÖÃ¿Ì¶ÈÖáÁĞ±í
+	 * è®¾ç½®åˆ»åº¦è½´åˆ—è¡¨
 	 * 
 	 * @param tas
-	 *            ¿Ì¶ÈÖáÁĞ±í
+	 *            åˆ»åº¦è½´åˆ—è¡¨
 	 */
 	public void setAxisList(ArrayList<TickAxis> tas) {
 		axisList = tas;
 	}
 
 	/**
-	 * ÉèÖÃ×ø±êÏµÁĞ±í
+	 * è®¾ç½®åæ ‡ç³»åˆ—è¡¨
 	 * 
 	 * @param ics
-	 *            ×ø±êÏµÁĞ±í
+	 *            åæ ‡ç³»åˆ—è¡¨
 	 */
 	public void setCoorList(ArrayList<ICoor> ics) {
 		coorList = ics;
 	}
 
 	/**
-	 * ÉèÖÃÊı¾İÍ¼ÔªÁĞ±í
+	 * è®¾ç½®æ•°æ®å›¾å…ƒåˆ—è¡¨
 	 * 
 	 * @param des
-	 *            Êı¾İÍ¼Ôª
+	 *            æ•°æ®å›¾å…ƒ
 	 */
 	public void setDataList(ArrayList<DataElement> des) {
 		dataList = des;
 	}
 
 	/**
-	 * ÉèÖÃÊ±¼äÖá
+	 * è®¾ç½®æ—¶é—´è½´
 	 * 
 	 * @param tas
-	 *            Ê±¼äÖáÁĞ±í
+	 *            æ—¶é—´è½´åˆ—è¡¨
 	 */
 	public void setTimeList(ArrayList<TimeAxis> tas) {
 		timeList = tas;
 	}
 
 	/**
-	 * »ñÈ¡Ê±¼äÖá
+	 * è·å–æ—¶é—´è½´
 	 * 
 	 * @param name
-	 *            ÖáÃû³Æ
-	 * @return Ê±¼äÖá¶ÔÏó
+	 *            è½´åç§°
+	 * @return æ—¶é—´è½´å¯¹è±¡
 	 */
 	public TimeAxis getTimeAxis(String name) {
 		for (int i = 0; i < timeList.size(); i++) {
@@ -111,7 +111,7 @@ public class Engine {
 	}
 
 	/**
-	 * »ñÈ¡ËùÓĞÍ¼Ôª¶ÔÓ¦µÄĞÎ×´ÁĞ±í
+	 * è·å–æ‰€æœ‰å›¾å…ƒå¯¹åº”çš„å½¢çŠ¶åˆ—è¡¨
 	 * 
 	 * @return
 	 */
@@ -120,27 +120,27 @@ public class Engine {
 	}
 
 	/**
-	 * »ñÈ¡°´ÕÕ×ÜÖ¡ÊıframeCountµÄµÚframeIndexÖ¡Í¼ÏñµÄ¼ÆËãÒıÇæ
-	 * @param frameCount;×ÜÖ¡Êı
-	 * @param frameIndex;µÚ¼¸Ö¡£¬´Ó0¿ªÊ¼
+	 * è·å–æŒ‰ç…§æ€»å¸§æ•°frameCountçš„ç¬¬frameIndexå¸§å›¾åƒçš„è®¡ç®—å¼•æ“
+	 * @param frameCount;æ€»å¸§æ•°
+	 * @param frameIndex;ç¬¬å‡ å¸§ï¼Œä»0å¼€å§‹
 	 * @return
 	 */
 	public Engine getFrameEngine(int frameCount, int frameIndex){
 		Engine e = clone();
 
 		ArrayList<DataElement> des = new ArrayList<DataElement>();
-		double timeSlice = (t_maxDate-t_minDate)*1f/frameCount;//Ê±¼ä¿ç¶È°´ÕÕ×ÜÖ¡ÊıÇĞ·Ö
-		double frameTime = t_minDate+ timeSlice*frameIndex;//¼ÆËã³öµ±Ç°Ö¡Ëù´¦Ê±¼äµã
+		double timeSlice = (t_maxDate-t_minDate)*1f/frameCount;//æ—¶é—´è·¨åº¦æŒ‰ç…§æ€»å¸§æ•°åˆ‡åˆ†
+		double frameTime = t_minDate+ timeSlice*frameIndex;//è®¡ç®—å‡ºå½“å‰å¸§æ‰€å¤„æ—¶é—´ç‚¹
 		
 		for(DataElement de:dataList){
 			String timeAxis = de.getAxisTimeName(); 
 			TimeAxis ta = e.getTimeAxis(timeAxis);
 			if(ta.displayMark){
-//				¼ÓÉÏÊ±¼ä´Á
+//				åŠ ä¸Šæ—¶é—´æˆ³
 				des.add( ta.getMarkElement(frameTime) );
 			}
 			if( StringUtils.isValidString(timeAxis) ){
-				e.elements.remove(de);//elementsÒÑ¾­°üº¬ËùÓĞÍ¼Ôª£¬´ËÊ±²úÉúĞÂµÄÊı¾İÍ¼Ôªºó£¬ĞèÒª½«ÀÏµÄÊı¾İÍ¼ÔªÌŞ³ı
+				e.elements.remove(de);//elementså·²ç»åŒ…å«æ‰€æœ‰å›¾å…ƒï¼Œæ­¤æ—¶äº§ç”Ÿæ–°çš„æ•°æ®å›¾å…ƒåï¼Œéœ€è¦å°†è€çš„æ•°æ®å›¾å…ƒå‰”é™¤
 				des.add(de.getFrame( frameTime ) );
 			}else{
 				des.add(de);
@@ -151,7 +151,7 @@ public class Engine {
 	}
 
 	/**
-	 * Í¼ÔªÓĞ³¬Á´½ÓµÄ»°£¬»ñÈ¡³¬Á´½ÓÁĞ±í
+	 * å›¾å…ƒæœ‰è¶…é“¾æ¥çš„è¯ï¼Œè·å–è¶…é“¾æ¥åˆ—è¡¨
 	 * 
 	 * @return
 	 */
@@ -160,7 +160,7 @@ public class Engine {
 	}
 
 	/**
-	 * ·µ»ØËùÓĞÍ¼ĞÎµÄHTML³¬Á´½Ó´úÂë
+	 * è¿”å›æ‰€æœ‰å›¾å½¢çš„HTMLè¶…é“¾æ¥ä»£ç 
 	 * 
 	 * @return
 	 */
@@ -169,13 +169,13 @@ public class Engine {
 	}
 
 	/**
-	 * »ñÈ¡ÈÎÒâĞÎ×´shapeµÄ±ß½ç¶à±ßĞÎ
+	 * è·å–ä»»æ„å½¢çŠ¶shapeçš„è¾¹ç•Œå¤šè¾¹å½¢
 	 * 
 	 * @param shape
-	 * @return ¶à±ßĞÎµÄ×ø±êµã
+	 * @return å¤šè¾¹å½¢çš„åæ ‡ç‚¹
 	 */
 	private ArrayList<Point> getShapeOutline(Shape shape) {
-		// »ñÈ¡ĞÎ×´shapeµÄÆ½»¬Â·¾¶
+		// è·å–å½¢çŠ¶shapeçš„å¹³æ»‘è·¯å¾„
 		PathIterator iter = new FlatteningPathIterator(
 				shape.getPathIterator(new AffineTransform()), 1);
 		ArrayList<Point> points = new ArrayList<Point>();
@@ -196,7 +196,7 @@ public class Engine {
 		y = rect.y;
 		w = rect.width;
 		h = rect.height;
-		// ³¬Á¬½Ó´¦Àí
+		// è¶…è¿æ¥å¤„ç†
 		int minimum = 10;
 		if (w < minimum) {
 			w = minimum;
@@ -222,7 +222,7 @@ public class Engine {
 	}
 
 	private String dealSpecialChar(String str) {
-		// ÌØÊâ·ûºÅ¸ÄÎªÉÏ²ã´¦Àí£¬´Ë´¦²»ÔÙ´¦Àí
+		// ç‰¹æ®Šç¬¦å·æ”¹ä¸ºä¸Šå±‚å¤„ç†ï¼Œæ­¤å¤„ä¸å†å¤„ç†
 		return str;
 	}
 
@@ -245,7 +245,7 @@ public class Engine {
 		return sb.toString();
 	}
 
-	// svgÃ»ÓĞÌáÊ¾ĞÅÏ¢£¬ËùÒÔÕâÀïµÄtitleÊôĞÔÎŞĞ§¡£
+	// svgæ²¡æœ‰æç¤ºä¿¡æ¯ï¼Œæ‰€ä»¥è¿™é‡Œçš„titleå±æ€§æ— æ•ˆã€‚
 	private String getLinkSvg(String link, String shape, String coords,
 			String title, Object target) {
 		StringBuffer sb = new StringBuffer(128);
@@ -267,10 +267,10 @@ public class Engine {
 	}
 
 	/**
-	 * ¸ù¾İisHtmlÉú³ÉHtmlµÄ»¹ÊÇsvgµÄ³¬Á´½Ó
+	 * æ ¹æ®isHtmlç”ŸæˆHtmlçš„è¿˜æ˜¯svgçš„è¶…é“¾æ¥
 	 * 
 	 * @param isHtml
-	 *            £¬Õæ·µ»ØhtmlµÄ³¬Á´½Ó´®£¬·ñÔòÎªsvgÍ¼ĞÎµÄÁ´½Ó´®
+	 *            ï¼ŒçœŸè¿”å›htmlçš„è¶…é“¾æ¥ä¸²ï¼Œå¦åˆ™ä¸ºsvgå›¾å½¢çš„é“¾æ¥ä¸²
 	 * @return
 	 */
 	private String generateHyperLinks(boolean isHtml) {
@@ -312,11 +312,11 @@ public class Engine {
 	}
 
 	/**
-	 * ÎªÁË·ÀÖ¹Í¼ÔªÖØµş£¬»æÖÆ¹ı³ÌÖĞÃ¿¸ö»­ÍêµÄÍ¼ÔªÎ»ÖÃ¶¼»á»º´æ ¸Ã·½·¨ÓÃÀ´ÅĞ¶ÏÖ¸¶¨µÄ¾ØĞÎÎ»ÖÃrectÊÇ·ñ¸úÒÑ¾­»­ÍêµÄÍ¼ĞÎÔªËØÓĞÏà½»
+	 * ä¸ºäº†é˜²æ­¢å›¾å…ƒé‡å ï¼Œç»˜åˆ¶è¿‡ç¨‹ä¸­æ¯ä¸ªç”»å®Œçš„å›¾å…ƒä½ç½®éƒ½ä¼šç¼“å­˜ è¯¥æ–¹æ³•ç”¨æ¥åˆ¤æ–­æŒ‡å®šçš„çŸ©å½¢ä½ç½®rectæ˜¯å¦è·Ÿå·²ç»ç”»å®Œçš„å›¾å½¢å…ƒç´ æœ‰ç›¸äº¤
 	 * 
 	 * @param rect
-	 *            Ö¸¶¨µÄ¾ØĞÎÎ»ÖÃ
-	 * @return Èç¹ûÓĞÏà½»Ê±·µ»Øtrue£¬·ñÔòfalse
+	 *            æŒ‡å®šçš„çŸ©å½¢ä½ç½®
+	 * @return å¦‚æœæœ‰ç›¸äº¤æ—¶è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean intersectTextArea(Rectangle rect) {
 		int size = textAreas.size();
@@ -330,10 +330,10 @@ public class Engine {
 	}
 
 	/**
-	 * Ã¿»­ÍêÒ»¸öÍ¼Ôªºó£¬ĞèÒª½«µ±Ç°Í¼ÔªËù´¦µÄÎ»ÖÃĞÅÏ¢Ìí¼Óµ½ÒıÇæ»º´æ
+	 * æ¯ç”»å®Œä¸€ä¸ªå›¾å…ƒåï¼Œéœ€è¦å°†å½“å‰å›¾å…ƒæ‰€å¤„çš„ä½ç½®ä¿¡æ¯æ·»åŠ åˆ°å¼•æ“ç¼“å­˜
 	 * 
 	 * @param rect
-	 *            Í¼Ôª¶ÔÓ¦µÄ¾ØĞÎÃèÊöÎ»ÖÃ
+	 *            å›¾å…ƒå¯¹åº”çš„çŸ©å½¢æè¿°ä½ç½®
 	 */
 	public void addTextArea(Rectangle rect) {
 		textAreas.add(rect);
@@ -351,10 +351,10 @@ public class Engine {
 	}
 
 	/**
-	 * ÓÃ¶¨ÒåºÃµÄÍ¼ÔªĞòÁĞ¹¹Ôì»æÍ¼ÒıÇæ
+	 * ç”¨å®šä¹‰å¥½çš„å›¾å…ƒåºåˆ—æ„é€ ç»˜å›¾å¼•æ“
 	 * 
 	 * @param chartElements
-	 *            Í¼ĞÎÔªËØĞòÁĞ
+	 *            å›¾å½¢å…ƒç´ åºåˆ—
 	 */
 	public Engine(Sequence chartElements) {
 		int size = chartElements.length();
@@ -368,38 +368,38 @@ public class Engine {
 	}
 
 	/**
-	 * »ñÈ¡¿Ì¶ÈÖáÁĞ±í
+	 * è·å–åˆ»åº¦è½´åˆ—è¡¨
 	 * 
-	 * @return ¿Ì¶ÈÖá
+	 * @return åˆ»åº¦è½´
 	 */
 	public ArrayList<TickAxis> getAxisList() {
 		return axisList;
 	}
 
 	/**
-	 * »ñÈ¡Êı¾İÍ¼ÔªÁĞ±í
+	 * è·å–æ•°æ®å›¾å…ƒåˆ—è¡¨
 	 * 
-	 * @return Êı¾İÍ¼Ôª
+	 * @return æ•°æ®å›¾å…ƒ
 	 */
 	public ArrayList<DataElement> getDataList() {
 		return dataList;
 	}
 
 	/**
-	 * »ñÈ¡×ø±êÏµÁĞ±í£¬Ò»¸ö»­²¼Àï¿ÉÒÔ²¼ÖÃ¶à¸ö×ø±êÏµ£¬ÒÔ±ã»æÖÆ×éºÏÍ¼ĞÎ
+	 * è·å–åæ ‡ç³»åˆ—è¡¨ï¼Œä¸€ä¸ªç”»å¸ƒé‡Œå¯ä»¥å¸ƒç½®å¤šä¸ªåæ ‡ç³»ï¼Œä»¥ä¾¿ç»˜åˆ¶ç»„åˆå›¾å½¢
 	 * 
-	 * @return ×ø±êÏµ
+	 * @return åæ ‡ç³»
 	 */
 	public ArrayList<ICoor> getCoorList() {
 		return coorList;
 	}
 
 	/**
-	 * ¸ù¾İ¿Ì¶ÈÖáµÄÃû³Æ»ñÈ¡ÏàÓ¦µÄ¿Ì¶ÈÖá¶ÔÏó
+	 * æ ¹æ®åˆ»åº¦è½´çš„åç§°è·å–ç›¸åº”çš„åˆ»åº¦è½´å¯¹è±¡
 	 * 
 	 * @param name
-	 *            ¿Ì¶ÈÖáÃû³Æ
-	 * @return ¿Ì¶ÈÖá¶ÔÏó
+	 *            åˆ»åº¦è½´åç§°
+	 * @return åˆ»åº¦è½´å¯¹è±¡
 	 */
 	public TickAxis getAxisByName(String name) {
 		for (int i = 0; i < axisList.size(); i++) {
@@ -455,9 +455,9 @@ public class Engine {
 	}
 
 	private void prepare() {
-		// Ö»¿¼ÂÇ·Ç×éºÏÍ¼Ê±£¬Ö»ÓĞÒ»¸öÍ¼Àı£¬ÔÊĞí²»ÉèÖÃÍ¼ÀıÖµ£¬¿ÉÒÔ×Ô¶¯´ÓÃ¶¾ÙÖá»ñÈ¡Í¼ÀıÖµ¡£
+		// åªè€ƒè™‘éç»„åˆå›¾æ—¶ï¼Œåªæœ‰ä¸€ä¸ªå›¾ä¾‹ï¼Œå…è®¸ä¸è®¾ç½®å›¾ä¾‹å€¼ï¼Œå¯ä»¥è‡ªåŠ¨ä»æšä¸¾è½´è·å–å›¾ä¾‹å€¼ã€‚
 		ArrayList<Legend> legends = new ArrayList<Legend>();
-		// Ìô³öÖáÍ¼Ôª
+		// æŒ‘å‡ºè½´å›¾å…ƒ
 		for (int i = 0; i < elements.size(); i++) {
 			IElement e = elements.get(i);
 			e.setEngine(this);
@@ -474,7 +474,7 @@ public class Engine {
 				timeList.add((TimeAxis) e);
 			}
 		}
-		// Ìô³öÊı¾İÍ¼Ôª£¬¹¹ÔìÓÃµ½µÄ×ø±êÏµ
+		// æŒ‘å‡ºæ•°æ®å›¾å…ƒï¼Œæ„é€ ç”¨åˆ°çš„åæ ‡ç³»
 		for (int i = 0; i < elements.size(); i++) {
 			Object e = elements.get(i);
 			if (!(e instanceof DataElement)) {
@@ -550,13 +550,13 @@ public class Engine {
 			}
 		}
 
-		// Êı¾İÍ¼Ôª»æÍ¼Ç°×¼±¸¹¤×÷,Êı¾İÍ¼Ôª»áµ÷ÕûÊı¾İ£¬ËùÒÔµÃÔÚÖáÍ¼ÔªÖ®Ç°×¼±¸
+		// æ•°æ®å›¾å…ƒç»˜å›¾å‰å‡†å¤‡å·¥ä½œ,æ•°æ®å›¾å…ƒä¼šè°ƒæ•´æ•°æ®ï¼Œæ‰€ä»¥å¾—åœ¨è½´å›¾å…ƒä¹‹å‰å‡†å¤‡
 		for (int i = 0; i < dataList.size(); i++) {
 			DataElement de = dataList.get(i);
 			de.prepare();
 		}
 
-		// Ã¶¾ÙÖáÍ¼ÔªÏÈ×¼±¸£¬ÒòÎªºóĞøµÄÊıÖµÖá×¼±¸¹ı³ÌÖĞÉæ¼°µ½ÀÛ»ıÊ±£¬»á°´ÕÕÃ¶¾ÙÖµÀ´ÀÛ»ı¼ÆËã×î´óÖµ
+		// æšä¸¾è½´å›¾å…ƒå…ˆå‡†å¤‡ï¼Œå› ä¸ºåç»­çš„æ•°å€¼è½´å‡†å¤‡è¿‡ç¨‹ä¸­æ¶‰åŠåˆ°ç´¯ç§¯æ—¶ï¼Œä¼šæŒ‰ç…§æšä¸¾å€¼æ¥ç´¯ç§¯è®¡ç®—æœ€å¤§å€¼
 		for (int i = 0; i < axisList.size(); i++) {
 			TickAxis axis = axisList.get(i);
 			if (axis instanceof EnumAxis) {
@@ -577,7 +577,7 @@ public class Engine {
 			}
 		}
 
-		// ÖáÍ¼Ôª»æÍ¼Ç°×¼±¸¹¤×÷
+		// è½´å›¾å…ƒç»˜å›¾å‰å‡†å¤‡å·¥ä½œ
 		for (int i = 0; i < axisList.size(); i++) {
 			TickAxis axis = axisList.get(i);
 			if (axis instanceof EnumAxis) {
@@ -587,7 +587,7 @@ public class Engine {
 			axis.prepare(al);
 		}
 
-		// Ê±¼äÖá×¼±¸¹¤×÷
+		// æ—¶é—´è½´å‡†å¤‡å·¥ä½œ
 		for (int i = 0; i < timeList.size(); i++) {
 			TimeAxis ta = timeList.get(i);
 			ArrayList<DataElement> al = getDataElementsOnTime(ta.getName());
@@ -598,18 +598,18 @@ public class Engine {
 	}
 
 	/**
-	 * »ñÈ¡ËùÓĞ»æÍ¼ÔªËØÁĞ±í
+	 * è·å–æ‰€æœ‰ç»˜å›¾å…ƒç´ åˆ—è¡¨
 	 * 
-	 * @return È«²¿»æÍ¼ÔªËØ
+	 * @return å…¨éƒ¨ç»˜å›¾å…ƒç´ 
 	 */
 	public ArrayList<IElement> getElements() {
 		return elements;
 	}
 
 	/**
-	 * ÊÇ·ñ¶¯»­
+	 * æ˜¯å¦åŠ¨ç”»
 	 * 
-	 * @return Èç¹ûÊÇ¶¯»­·µ»Øtrue
+	 * @return å¦‚æœæ˜¯åŠ¨ç”»è¿”å›true
 	 */
 	public boolean isAnimate() {
 		return !timeList.isEmpty();
@@ -642,7 +642,7 @@ public class Engine {
 		boolean useCSS = true; // we want to use CSS style attributes
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		Writer out = new OutputStreamWriter(baos, "UTF-8");
-		// StringWriter out = new StringWriter();//Ö±½ÓĞ´´®³öÈ¥£¬²»×ª»»×Ö·û¼¯
+		// StringWriter out = new StringWriter();//ç›´æ¥å†™ä¸²å‡ºå»ï¼Œä¸è½¬æ¢å­—ç¬¦é›†
 
 		AppUtil.invokeMethod(g2d, "stream", new Object[] { out,
 				new Boolean(useCSS) }, new Class[] { Writer.class,
@@ -657,11 +657,11 @@ public class Engine {
 
 		byte[] bs = baos.toByteArray();
 		
-		//³¢ÊÔ´úÂëÉèÖÃSVG¸ùÔªËØ¿í¸ß£¬²»ÉúĞ§
+		//å°è¯•ä»£ç è®¾ç½®SVGæ ¹å…ƒç´ å®½é«˜ï¼Œä¸ç”Ÿæ•ˆ
 //        Element svgRoot = document.getDocumentElement();
 //        svgRoot.setAttribute("width", w+"");
 //        svgRoot.setAttribute("height", h+"");
-//		Ê¹ÓÃ´®Ó²Æ´
+//		ä½¿ç”¨ä¸²ç¡¬æ‹¼
 		String buf = new String(bs, "UTF-8");
 		int n = buf.lastIndexOf("<svg");
 		StringBuffer sb = new StringBuffer();
@@ -672,7 +672,7 @@ public class Engine {
 		bs = sb.toString().getBytes("UTF-8");
 
         String links = generateHyperLinks(false);
-		if (links != null) {// Æ´½ÓÉÏ³¬Á´½Ó
+		if (links != null) {// æ‹¼æ¥ä¸Šè¶…é“¾æ¥
 			buf = new String(bs, "UTF-8");
 			n = buf.lastIndexOf("</svg");
 			sb = new StringBuffer();
@@ -686,13 +686,13 @@ public class Engine {
 	}
 
 	/**
-	 * ½«»­ÍêµÄ»º³åÍ¼Ïñ×ª»»ÎªÏàÓ¦¸ñÊ½µÄÍ¼ĞÎÊı¾İ
+	 * å°†ç”»å®Œçš„ç¼“å†²å›¾åƒè½¬æ¢ä¸ºç›¸åº”æ ¼å¼çš„å›¾å½¢æ•°æ®
 	 * 
 	 * @param bi
-	 *            ´ı×ª»»µÄ»º³åÍ¼Ïñ
+	 *            å¾…è½¬æ¢çš„ç¼“å†²å›¾åƒ
 	 * @param imageFmt
-	 *            Ä¿±êÍ¼Æ¬¸ñÊ½£¬Consts.IMAGE_XXX
-	 * @return ×ª»»ÎªÍ¼Æ¬¸ñÊ½ºóµÄ×Ö½ÚÊı×é
+	 *            ç›®æ ‡å›¾ç‰‡æ ¼å¼ï¼ŒConsts.IMAGE_XXX
+	 * @return è½¬æ¢ä¸ºå›¾ç‰‡æ ¼å¼åçš„å­—èŠ‚æ•°ç»„
 	 */
 	public static byte[] getImageBytes(BufferedImage bi, byte imageFmt)
 			throws Exception {
@@ -715,15 +715,15 @@ public class Engine {
 	}
 
 	/**
-	 * ¸ù¾İÖ¸¶¨¿í¸ßÒÔ¼°Êä³öÍ¼ĞÎ¸ñÊ½»æÖÆ»º³åÍ¼Ïñ
+	 * æ ¹æ®æŒ‡å®šå®½é«˜ä»¥åŠè¾“å‡ºå›¾å½¢æ ¼å¼ç»˜åˆ¶ç¼“å†²å›¾åƒ
 	 * 
 	 * @param w
-	 *            Í¼ĞÎ¿í¶È£¬ÏñËØ
+	 *            å›¾å½¢å®½åº¦ï¼Œåƒç´ 
 	 * @param h
-	 *            Í¼ĞÎ¸ß¶È£¬ÏñËØ
+	 *            å›¾å½¢é«˜åº¦ï¼Œåƒç´ 
 	 * @param imageFmt
-	 *            ´ı²úÉúµÄÍ¼Æ¬¸ñÊ½
-	 * @return »­ÍêºóµÄ»º³åÍ¼Ïñ
+	 *            å¾…äº§ç”Ÿçš„å›¾ç‰‡æ ¼å¼
+	 * @return ç”»å®Œåçš„ç¼“å†²å›¾åƒ
 	 */
 	public BufferedImage calcBufferedImage(int w, int h, byte imageFmt) {
 		BufferedImage bi = null;
@@ -741,7 +741,7 @@ public class Engine {
 		Utils.setIsGif( imageFmt == Consts.IMAGE_GIF );
 		if (imageFmt == Consts.IMAGE_PNG) {
 		} else if (imageFmt == Consts.IMAGE_JPG) {
-			// È±Ê¡Îª°×É«±³¾°£¬·ñÔòÈ±Ê¡ºÚÉ«ÄÑ¿´
+			// ç¼ºçœä¸ºç™½è‰²èƒŒæ™¯ï¼Œå¦åˆ™ç¼ºçœé»‘è‰²éš¾çœ‹
 			lg.setColor(Color.white);
 			lg.fillRect(0, 0, w, h);
 		} else { // Flash
@@ -752,12 +752,12 @@ public class Engine {
 	}
 
 	/**
-	 * ×÷ÓÃÍ¬calcBufferedImage£¬²ÎÊı²Î¿¼Ç°Êö·½·¨
+	 * ä½œç”¨åŒcalcBufferedImageï¼Œå‚æ•°å‚è€ƒå‰è¿°æ–¹æ³•
 	 * 
 	 * @param w
 	 * @param h
 	 * @param imageFmt
-	 * @return »æÖÆÍê³ÉºóµÄÍ¼Æ¬×Ö½ÚÊı×é
+	 * @return ç»˜åˆ¶å®Œæˆåçš„å›¾ç‰‡å­—èŠ‚æ•°ç»„
 	 */
 	public byte[] calcImageBytes(int w, int h, byte imageFmt) {
 		Graphics2D lg = null;
@@ -785,9 +785,9 @@ public class Engine {
 	}
 
 	/**
-	 * »ñÈ¡±³¾°Í¼µÄÔ­Ê¼¿í¸ß£¬±³¾°Í¼Ìî³ä·½Ê½ĞèÒª¸ù¾İ¸ÃĞÅÏ¢ÏàÓ¦Ìî³ä»òÕßÀ­Éì
+	 * è·å–èƒŒæ™¯å›¾çš„åŸå§‹å®½é«˜ï¼ŒèƒŒæ™¯å›¾å¡«å……æ–¹å¼éœ€è¦æ ¹æ®è¯¥ä¿¡æ¯ç›¸åº”å¡«å……æˆ–è€…æ‹‰ä¼¸
 	 * 
-	 * @return ¿íºÍ¸ß¹¹³ÉµÄÏñËØÊı×é
+	 * @return å®½å’Œé«˜æ„æˆçš„åƒç´ æ•°ç»„
 	 */
 	public int[] getBackOrginalWH() {
 		int size = elements.size();
@@ -802,20 +802,20 @@ public class Engine {
 	}
 
 	/**
-	 * Ö´ĞĞ»­Í¼¶¯×÷£¬²ÎÊıhtmlÎªnullÊ±²»Éú³É³¬Á´½Ó
+	 * æ‰§è¡Œç”»å›¾åŠ¨ä½œï¼Œå‚æ•°htmlä¸ºnullæ—¶ä¸ç”Ÿæˆè¶…é“¾æ¥
 	 * 
 	 * @param g
-	 *            Í¼ĞÎÉè±¸
+	 *            å›¾å½¢è®¾å¤‡
 	 * @param x
-	 *            x×ø±ê
+	 *            xåæ ‡
 	 * @param y
-	 *            y×ø±ê
+	 *            yåæ ‡
 	 * @param w
-	 *            Í¼ĞÎ¿í¶È
+	 *            å›¾å½¢å®½åº¦
 	 * @param h
-	 *            Í¼ĞÎ¸ß¶È
+	 *            å›¾å½¢é«˜åº¦
 	 * @param html
-	 *            ÓÃÓÚ»º´æÍ¼ĞÎÖĞ²úÉúµÄ³¬Á´½ÓĞÅÏ¢
+	 *            ç”¨äºç¼“å­˜å›¾å½¢ä¸­äº§ç”Ÿçš„è¶…é“¾æ¥ä¿¡æ¯
 	 */
 	public void draw(Graphics2D g, int x, int y, int w, int h, StringBuffer html) {
 		long b = System.currentTimeMillis();
@@ -824,13 +824,13 @@ public class Engine {
 		this.w = w;
 		this.h = h;
 		this.html = html;
-		// Ö»¿¼ÂÇx£¬yÎªÕıÊıµÄÇéĞÎ
+		// åªè€ƒè™‘xï¼Œyä¸ºæ­£æ•°çš„æƒ…å½¢
 		if (x + y != 0) {
 			g.translate(x, y);
 		}
 		Utils.setGraphAntiAliasingOn(g);
 		textAreas.clear();
-		ArrayList<IElement> bufElements = new ArrayList<IElement>();// »º³åÍ¼Ôª£¬Í¼Ôª·ÖÅú»æÖÆ£¬ÏÈ»æÖÆ¹ıµÄ£¬¾Í´Ó»º³åÒÆ³ı
+		ArrayList<IElement> bufElements = new ArrayList<IElement>();// ç¼“å†²å›¾å…ƒï¼Œå›¾å…ƒåˆ†æ‰¹ç»˜åˆ¶ï¼Œå…ˆç»˜åˆ¶è¿‡çš„ï¼Œå°±ä»ç¼“å†²ç§»é™¤
 		bufElements.addAll(elements);
 
 		int size = bufElements.size();
@@ -839,20 +839,20 @@ public class Engine {
 			e.beforeDraw();
 		}
 
-		// µÚÒ»²½£¬ÏÈ»­±³¾°Í¼£¬±³¾°Ò»°ãÖ»ÄÜÓĞÒ»¸ö£¬´Ë´¦²»ÅĞ¶Ï
+		// ç¬¬ä¸€æ­¥ï¼Œå…ˆç”»èƒŒæ™¯å›¾ï¼ŒèƒŒæ™¯ä¸€èˆ¬åªèƒ½æœ‰ä¸€ä¸ªï¼Œæ­¤å¤„ä¸åˆ¤æ–­
 		for (int i = 0; i < size; i++) {
 			IElement e = elements.get(i);
 			if (e instanceof com.scudata.chart.element.BackGround) {
 				e.drawBack();
-				bufElements.remove(e);// ÒÑ¾­»æÖÆ¹ıµÄÍ¼Ôª´Ó»º³åÈ¥µô
+				bufElements.remove(e);// å·²ç»ç»˜åˆ¶è¿‡çš„å›¾å…ƒä»ç¼“å†²å»æ‰
 			}
 		}
 
-		// µÚ¶ş²½£¬»æÖÆÖáÍ¼Ôª
+		// ç¬¬äºŒæ­¥ï¼Œç»˜åˆ¶è½´å›¾å…ƒ
 		drawElements(getAxisList());
 		bufElements.removeAll(getAxisList());
 
-		// µÚÈı²½£¬»æÖÆÊı¾İÍ¼Ôª
+		// ç¬¬ä¸‰æ­¥ï¼Œç»˜åˆ¶æ•°æ®å›¾å…ƒ
 		drawElements(getDataList());
 		ArrayList<DataElement> des = getDataList();
 		for (int i = 0; i < des.size(); i++) {
@@ -865,13 +865,13 @@ public class Engine {
 			allLinks.addAll(links);
 			allTitles.addAll(de.getTitles());
 			// for (int n = 0; n < links.size(); n++) {
-			// allTargets.add(de.getTarget());// target¸úlink¶ÔÆë
+			// allTargets.add(de.getTarget());// targetè·Ÿlinkå¯¹é½
 			// }
 			allTargets.addAll(de.getTargets());
 		}
 		bufElements.removeAll(getDataList());
 
-		// µÚËÄ²½£¬»æÖÆÊ£ÓàµÄÍ¼Ôª
+		// ç¬¬å››æ­¥ï¼Œç»˜åˆ¶å‰©ä½™çš„å›¾å…ƒ
 		drawElements(bufElements);
 
 		if (x + y != 0) {
@@ -899,7 +899,7 @@ public class Engine {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°»æÍ¼Éè±¸
+	 * è·å–å½“å‰ç»˜å›¾è®¾å¤‡
 	 * 
 	 * @return
 	 */
@@ -908,53 +908,53 @@ public class Engine {
 	}
 
 	/**
-	 * »ñÈ¡´ı»æÖÆµÄÍ¼ĞÎ¿í¶È£¬µ¥Î»ÏñËØ
+	 * è·å–å¾…ç»˜åˆ¶çš„å›¾å½¢å®½åº¦ï¼Œå•ä½åƒç´ 
 	 * 
-	 * @return Í¼ĞÎ¿í¶È
+	 * @return å›¾å½¢å®½åº¦
 	 */
 	public int getW() {
 		return w;
 	}
 
 	/**
-	 * »ñÈ¡´ı»æÖÆµÄÍ¼ĞÎ¸ß¶È£¬µ¥Î»ÏñËØ
+	 * è·å–å¾…ç»˜åˆ¶çš„å›¾å½¢é«˜åº¦ï¼Œå•ä½åƒç´ 
 	 * 
-	 * @return Í¼ĞÎ¸ß¶È
+	 * @return å›¾å½¢é«˜åº¦
 	 */
 	public int getH() {
 		return h;
 	}
 
 	/**
-	 * ¼ÆËãvalÖµÎ»ÓÚÍ¼ĞÎÖĞµÄÏñËØÎ»ÖÃ£¬val´óÓÚ1Ê±£¬Ö±½Ó±íÊ¾ÏñËØÎ»ÖÃ£» 0<val<=1Ê±£¬±íÊ¾Ïà¶ÔÓÚµ±Ç°Í¼ĞÎ¿í¶ÈµÄ±ÈÀıÎ»ÖÃ£»
-	 * val<1Ê±£¬±íÊ¾Ïà¶ÔÓÚÓÒÏÂ½ÇÊ±µÄ·´ÏòÎ»ÖÃ
+	 * è®¡ç®—valå€¼ä½äºå›¾å½¢ä¸­çš„åƒç´ ä½ç½®ï¼Œvalå¤§äº1æ—¶ï¼Œç›´æ¥è¡¨ç¤ºåƒç´ ä½ç½®ï¼› 0<val<=1æ—¶ï¼Œè¡¨ç¤ºç›¸å¯¹äºå½“å‰å›¾å½¢å®½åº¦çš„æ¯”ä¾‹ä½ç½®ï¼›
+	 * val<1æ—¶ï¼Œè¡¨ç¤ºç›¸å¯¹äºå³ä¸‹è§’æ—¶çš„åå‘ä½ç½®
 	 * 
 	 * @param val
-	 *            ´ı×ª»»µÄÊıÖµ
-	 * @return ×ª»»ºóµÄºáÏòÍ¼ĞÎ¾ø¶ÔÎ»ÖÃÏñËØÖµ£¬²ÉÓÃÊµÊı¾«¶È£¬±ÜÃâÀÛ»ıÎó²î
+	 *            å¾…è½¬æ¢çš„æ•°å€¼
+	 * @return è½¬æ¢åçš„æ¨ªå‘å›¾å½¢ç»å¯¹ä½ç½®åƒç´ å€¼ï¼Œé‡‡ç”¨å®æ•°ç²¾åº¦ï¼Œé¿å…ç´¯ç§¯è¯¯å·®
 	 */
 	public double getXPixel(double val) {
 		return getPixel(val, getW());
 	}
 
 	/**
-	 * º¬ÒåÍ¬getXPixel£¬²Î¿¼ÏàÓ¦ÄÚÈİ
+	 * å«ä¹‰åŒgetXPixelï¼Œå‚è€ƒç›¸åº”å†…å®¹
 	 * 
 	 * @param val
-	 *            ´ø×ª»»µÄÊıÖµ
-	 * @return ×İÏòÏñËØ×ø±ê
+	 *            å¸¦è½¬æ¢çš„æ•°å€¼
+	 * @return çºµå‘åƒç´ åæ ‡
 	 */
 	public double getYPixel(double val) {
 		return getPixel(val, getH());
 	}
 
 	private double getPixel(double val, double length) {
-		if (val > 1) { // val´óÓÚ1Ê±±íÊ¾¾ø¶ÔÏñËØ×ø±ê
+		if (val > 1) { // valå¤§äº1æ—¶è¡¨ç¤ºç»å¯¹åƒç´ åæ ‡
 			return val;
 		} else if (val >= 0) {
-			// ·ñÔò±íÊ¾Ïà¶ÔÍ¼ĞÎlengthµÄ±ÈÀı×ø±ê
+			// å¦åˆ™è¡¨ç¤ºç›¸å¯¹å›¾å½¢lengthçš„æ¯”ä¾‹åæ ‡
 			return length * val;
-		} else {// ¸ºÊıÊ±Ïà¶ÔÓÒ»òÕßÏÂµÄÏñËØÊı
+		} else {// è´Ÿæ•°æ—¶ç›¸å¯¹å³æˆ–è€…ä¸‹çš„åƒç´ æ•°
 			if (val > -1) {
 				val = length * val;
 			}
@@ -967,7 +967,7 @@ public class Engine {
 	}
 
 	/**
-	 * ¿ËÂ¡µ±Ç°»æÍ¼ÒıÇæ
+	 * å…‹éš†å½“å‰ç»˜å›¾å¼•æ“
 	 */
 	public Engine clone() {
 		Engine e = new Engine();

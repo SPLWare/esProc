@@ -7,7 +7,7 @@ import com.scudata.expression.FileFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 将对象写出到文本文件
+ * 灏嗗璞″啓鍑哄埌鏂囨湰鏂囦欢
  * f.write(s)
  * @author RunQian
  *

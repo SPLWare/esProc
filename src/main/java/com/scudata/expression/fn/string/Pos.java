@@ -15,16 +15,16 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * pos(s1, s2{, begin}) ²éÕÒÄ¸´®s1ÖĞÆğÊ¼Î»ÖÃÎªbeginµÄ×Ó´®s2µÄÎ»ÖÃ£¬ÕÒ²»µ½·µ»Ønull¡£
- * @c	´óĞ¡Ğ´²»Ãô¸Ğ
- * @h	Ö»±ÈÍ·²¿
- * @z	ÏòÇ°ÕÒ£¬ÓĞ@hÊ±Ö»±ÈÎ²²¿
+ * pos(s1, s2{, begin}) æŸ¥æ‰¾æ¯ä¸²s1ä¸­èµ·å§‹ä½ç½®ä¸ºbeginçš„å­ä¸²s2çš„ä½ç½®ï¼Œæ‰¾ä¸åˆ°è¿”å›nullã€‚
+ * @c	å¤§å°å†™ä¸æ•æ„Ÿ
+ * @h	åªæ¯”å¤´éƒ¨
+ * @z	å‘å‰æ‰¾ï¼Œæœ‰@hæ—¶åªæ¯”å°¾éƒ¨
  * @author runqian
  *
  */
 public class Pos extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -107,8 +107,8 @@ public class Pos extends Function {
 	}
 			
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -322,10 +322,10 @@ public class Pos extends Function {
 	}
 
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -566,9 +566,9 @@ public class Pos extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {

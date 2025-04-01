@@ -18,28 +18,28 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.resources.ParallelMessage;
 
 /**
- * ¼¯ÈºÎÄ¼ş
+ * é›†ç¾¤æ–‡ä»¶
  * @author RunQian
  *
  */
 public class ClusterFile implements IClusterObject {
-	private Cluster cluster; // ½Úµã»úĞÅÏ¢
-	private String fileName; // ÎÄ¼şÃû£¨×Ö·û´®£©»òÕßÎÄ¼şÃûÊı×é£¨×Ö·û´®Êı×é£©
-	private String opt; // Ñ¡Ïî
+	private Cluster cluster; // èŠ‚ç‚¹æœºä¿¡æ¯
+	private String fileName; // æ–‡ä»¶åï¼ˆå­—ç¬¦ä¸²ï¼‰æˆ–è€…æ–‡ä»¶åæ•°ç»„ï¼ˆå­—ç¬¦ä¸²æ•°ç»„ï¼‰
+	private String opt; // é€‰é¡¹
 	
-	private PartitionFile []pfs; // Ã¿¸ö·ÖÇø¶ÔÓ¦µÄ½Úµã»ú
-	private boolean isDistributedFile = true; // true£º·Ö²¼ÎÄ¼ş£¬false£º¸´Ğ´ÎÄ¼ş
+	private PartitionFile []pfs; // æ¯ä¸ªåˆ†åŒºå¯¹åº”çš„èŠ‚ç‚¹æœº
+	private boolean isDistributedFile = true; // trueï¼šåˆ†å¸ƒæ–‡ä»¶ï¼Œfalseï¼šå¤å†™æ–‡ä»¶
 	
 	private ClusterFile() {
 	}
 		
 	/**
-	 * ÓÃÓÚÔ¶³ÌÎÄ¼ş²úÉú×é±í
-	 * @param host ½Úµã»úIPµØÖ·
-	 * @param port ½Úµã»ú¶Ë¿Ú
-	 * @param fileName ÎÄ¼şÃû
-	 * @param part ·ÖÇø
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ç”¨äºè¿œç¨‹æ–‡ä»¶äº§ç”Ÿç»„è¡¨
+	 * @param host èŠ‚ç‚¹æœºIPåœ°å€
+	 * @param port èŠ‚ç‚¹æœºç«¯å£
+	 * @param fileName æ–‡ä»¶å
+	 * @param part åˆ†åŒº
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public ClusterFile(String host, int port, String fileName, int part, Context ctx) {
 		cluster = new Cluster(new String[]{host}, new int[]{port}, ctx);
@@ -53,11 +53,11 @@ public class ClusterFile implements IClusterObject {
 	}
 
 	/**
-	 * ¹¹½¨ºÍÖ¸¶¨¼¯ÈºÎÄ¼şÍ¬·Ö²¼µÄ¼¯ÈºÎÄ¼ş
-	 * @param clusterFile ²ÎÕÕ¼¯ÈºÎÄ¼ş
-	 * @param fileName ÎÄ¼şÃû
-	 * @param parts ·ÖÇøÊı×é£¬Ê¡ÂÔÔòÓÃ²ÎÕÕµÄ¼¯ÈºÎÄ¼şµÄ·ÖÇø
-	 * @param opt Ñ¡Ïî
+	 * æ„å»ºå’ŒæŒ‡å®šé›†ç¾¤æ–‡ä»¶åŒåˆ†å¸ƒçš„é›†ç¾¤æ–‡ä»¶
+	 * @param clusterFile å‚ç…§é›†ç¾¤æ–‡ä»¶
+	 * @param fileName æ–‡ä»¶å
+	 * @param parts åˆ†åŒºæ•°ç»„ï¼Œçœç•¥åˆ™ç”¨å‚ç…§çš„é›†ç¾¤æ–‡ä»¶çš„åˆ†åŒº
+	 * @param opt é€‰é¡¹
 	 */
 	public ClusterFile(ClusterFile clusterFile, String fileName, int []parts, String opt) {
 		this.fileName = fileName;
@@ -100,11 +100,11 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * ´Ó¸ø³öµÄ½Úµã»úÁĞ±íÖĞÑ¡³öº¬ÓĞÖ¸¶¨·Ö±íÎÄ¼şµÄ½Úµã»ú£¬´´½¨¼¯ÈºÎÄ¼ş
-	 * @param cluster ½Úµã»úĞÅÏ¢
-	 * @param fileName ÎÄ¼şÃû
-	 * @param parts ·ÖÇøÊı×é
-	 * @param opt Ñ¡Ïî
+	 * ä»ç»™å‡ºçš„èŠ‚ç‚¹æœºåˆ—è¡¨ä¸­é€‰å‡ºå«æœ‰æŒ‡å®šåˆ†è¡¨æ–‡ä»¶çš„èŠ‚ç‚¹æœºï¼Œåˆ›å»ºé›†ç¾¤æ–‡ä»¶
+	 * @param cluster èŠ‚ç‚¹æœºä¿¡æ¯
+	 * @param fileName æ–‡ä»¶å
+	 * @param parts åˆ†åŒºæ•°ç»„
+	 * @param opt é€‰é¡¹
 	 */
 	public ClusterFile(Cluster cluster, String fileName, int []parts, String opt) {
 		this.fileName = fileName;
@@ -117,7 +117,7 @@ public class ClusterFile implements IClusterObject {
 		int pcount = parts.length;
 		pfs = new PartitionFile[pcount];
 
-		// ¼¯Èº¿ÉĞ´ÈëÎÄ¼ş£¬zºÍhsÒ»Ò»¶ÔÓ¦
+		// é›†ç¾¤å¯å†™å…¥æ–‡ä»¶ï¼Œzå’Œhsä¸€ä¸€å¯¹åº”
 		if (opt != null && opt.indexOf('w') != -1) {
 			if (hcount != pcount) {
 				MessageManager mm = EngineMessage.get();
@@ -132,7 +132,7 @@ public class ClusterFile implements IClusterObject {
 			return;
 		}
 		
-		// ÁĞ³öÃ¿¸ö·ÖÇø¶¼ÓĞÄÄĞ©½Úµã»úÓĞ
+		// åˆ—å‡ºæ¯ä¸ªåˆ†åŒºéƒ½æœ‰å“ªäº›èŠ‚ç‚¹æœºæœ‰
 		List<IntArrayList> hostList = new ArrayList<IntArrayList>();
 		for (int i = 0; i < hcount; ++i) {
 			try {
@@ -145,11 +145,11 @@ public class ClusterFile implements IClusterObject {
 					hostList.get(p).addInt(i);
 				}
 			} catch (Exception e) {
-				// ÓĞÒì³£·¢ÉúÊ±²»ÔÙÊ¹ÓÃ´Ë½Úµã»ú£¬¼ÌĞøÑ­»·
+				// æœ‰å¼‚å¸¸å‘ç”Ÿæ—¶ä¸å†ä½¿ç”¨æ­¤èŠ‚ç‚¹æœºï¼Œç»§ç»­å¾ªç¯
 			}
 		}
 		
-		// Ã¿¸ö·ÖÇøÑ¡ÔñÒ»¸ö½Úµã»ú£¬Æ½¾ù·ÖÅä
+		// æ¯ä¸ªåˆ†åŒºé€‰æ‹©ä¸€ä¸ªèŠ‚ç‚¹æœºï¼Œå¹³å‡åˆ†é…
 		int []weights = new int[hcount];
 		String []useHosts = new String[pcount];
 		int []usePorts = new int[pcount];
@@ -186,11 +186,11 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * ´Ó¸ø³öµÄ½Úµã»úÁĞ±íÖĞÑ¡³öº¬ÓĞÖ¸¶¨·Ö±íÎÄ¼şµÄ½Úµã»ú£¬´´½¨¼¯ÈºÎÄ¼ş
-	 * @param cluster ½Úµã»úĞÅÏ¢
-	 * @param fileName ÎÄ¼şÃû
-	 * @param parts ·ÖÇøÊıÁĞ»ò¶ş²ãÊıÁĞ
-	 * @param opt Ñ¡Ïî
+	 * ä»ç»™å‡ºçš„èŠ‚ç‚¹æœºåˆ—è¡¨ä¸­é€‰å‡ºå«æœ‰æŒ‡å®šåˆ†è¡¨æ–‡ä»¶çš„èŠ‚ç‚¹æœºï¼Œåˆ›å»ºé›†ç¾¤æ–‡ä»¶
+	 * @param cluster èŠ‚ç‚¹æœºä¿¡æ¯
+	 * @param fileName æ–‡ä»¶å
+	 * @param parts åˆ†åŒºæ•°åˆ—æˆ–äºŒå±‚æ•°åˆ—
+	 * @param opt é€‰é¡¹
 	 */
 	public ClusterFile(Cluster cluster, String fileName, Sequence partSeq, String opt) {
 		this.fileName = fileName;
@@ -198,9 +198,9 @@ public class ClusterFile implements IClusterObject {
 		isDistributedFile = true;
 		int pcount = partSeq.length();
 		
-		// ·Ö±í¿ÉÒÔÊÇ¶ş²ãÊıÁĞ£¬´ËÊ±Ã¿¸ö½Úµã»ú½«»á²úÉúÒ»¸ö¸´×é±í£¬Ã¿¸ö³ÉÔ±µÄ³ÉÔ±±ØĞëÔÚ·Ö²¼ÔÚÍ¬Ò»¸ö·Ö»úÉÏ
+		// åˆ†è¡¨å¯ä»¥æ˜¯äºŒå±‚æ•°åˆ—ï¼Œæ­¤æ—¶æ¯ä¸ªèŠ‚ç‚¹æœºå°†ä¼šäº§ç”Ÿä¸€ä¸ªå¤ç»„è¡¨ï¼Œæ¯ä¸ªæˆå‘˜çš„æˆå‘˜å¿…é¡»åœ¨åˆ†å¸ƒåœ¨åŒä¸€ä¸ªåˆ†æœºä¸Š
 		int [][]partArrays = new int[pcount][];
-		int []firstParts = new int[pcount]; // È¡¶ş²ãÊıÁĞµÄÊ×·Ö±íºÅ×é³ÉÊı×é£¬
+		int []firstParts = new int[pcount]; // å–äºŒå±‚æ•°åˆ—çš„é¦–åˆ†è¡¨å·ç»„æˆæ•°ç»„ï¼Œ
 		
 		for (int i = 1; i <= pcount; ++i) {
 			Object obj = partSeq.getMem(i);
@@ -228,7 +228,7 @@ public class ClusterFile implements IClusterObject {
 		int hcount = hosts.length;
 		pfs = new PartitionFile[pcount];
 
-		// ¼¯Èº¿ÉĞ´ÈëÎÄ¼ş£¬zºÍhsÒ»Ò»¶ÔÓ¦
+		// é›†ç¾¤å¯å†™å…¥æ–‡ä»¶ï¼Œzå’Œhsä¸€ä¸€å¯¹åº”
 		if (opt != null && opt.indexOf('w') != -1) {
 			if (hcount != pcount) {
 				MessageManager mm = EngineMessage.get();
@@ -248,7 +248,7 @@ public class ClusterFile implements IClusterObject {
 			return;
 		}
 		
-		// ÁĞ³öÃ¿¸ö·ÖÇø¶¼ÓĞÄÄĞ©½Úµã»úÓĞ
+		// åˆ—å‡ºæ¯ä¸ªåˆ†åŒºéƒ½æœ‰å“ªäº›èŠ‚ç‚¹æœºæœ‰
 		List<IntArrayList> hostList = new ArrayList<IntArrayList>();
 		for (int i = 0; i < hcount; ++i) {
 			try {
@@ -261,11 +261,11 @@ public class ClusterFile implements IClusterObject {
 					hostList.get(p).addInt(i);
 				}
 			} catch (Exception e) {
-				// ÓĞÒì³£·¢ÉúÊ±²»ÔÙÊ¹ÓÃ´Ë½Úµã»ú£¬¼ÌĞøÑ­»·
+				// æœ‰å¼‚å¸¸å‘ç”Ÿæ—¶ä¸å†ä½¿ç”¨æ­¤èŠ‚ç‚¹æœºï¼Œç»§ç»­å¾ªç¯
 			}
 		}
 		
-		// Ã¿¸ö·ÖÇøÑ¡ÔñÒ»¸ö½Úµã»ú£¬Æ½¾ù·ÖÅä
+		// æ¯ä¸ªåˆ†åŒºé€‰æ‹©ä¸€ä¸ªèŠ‚ç‚¹æœºï¼Œå¹³å‡åˆ†é…
 		int []weights = new int[hcount];
 		String []useHosts = new String[pcount];
 		int []usePorts = new int[pcount];
@@ -302,10 +302,10 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * ¹¹½¨¼¯Èº·Ö²¼Ğ´ÎÄ¼ş
-	 * @param cluster ½Úµã»úĞÅÏ¢
-	 * @param fileName ÎÄ¼şÃû
-	 * @param opt Ñ¡Ïî£¬w£º´´½¨·Ö²¼Ğ´ÎÄ¼ş
+	 * æ„å»ºé›†ç¾¤åˆ†å¸ƒå†™æ–‡ä»¶
+	 * @param cluster èŠ‚ç‚¹æœºä¿¡æ¯
+	 * @param fileName æ–‡ä»¶å
+	 * @param opt é€‰é¡¹ï¼Œwï¼šåˆ›å»ºåˆ†å¸ƒå†™æ–‡ä»¶
 	 */
 	public ClusterFile(Cluster cluster, String fileName, String opt) {
 		this.cluster = cluster;
@@ -324,9 +324,9 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * ÓÉÖ¸¶¨ÎÄ¼şÃû´´½¨Óëµ±Ç°¼¯ÈºÎÄ¼şÍ¬·Ö²¼µÄ¼¯ÈºÎÄ¼ş
-	 * @param pathName ÎÄ¼şÃû
-	 * @return ¼¯ÈºÎÄ¼ş
+	 * ç”±æŒ‡å®šæ–‡ä»¶ååˆ›å»ºä¸å½“å‰é›†ç¾¤æ–‡ä»¶åŒåˆ†å¸ƒçš„é›†ç¾¤æ–‡ä»¶
+	 * @param pathName æ–‡ä»¶å
+	 * @return é›†ç¾¤æ–‡ä»¶
 	 */
 	public ClusterFile newFile(String pathName) {
 		ClusterFile clusterFile = new ClusterFile();
@@ -346,15 +346,15 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * ·µ»ØÊÇ·ñÊÇ·Ö²¼ÎÄ¼ş
-	 * @return true£º·Ö²¼ÎÄ¼ş£¬false£º¸´Ğ´ÎÄ¼ş
+	 * è¿”å›æ˜¯å¦æ˜¯åˆ†å¸ƒæ–‡ä»¶
+	 * @return trueï¼šåˆ†å¸ƒæ–‡ä»¶ï¼Œfalseï¼šå¤å†™æ–‡ä»¶
 	 */
 	public boolean isDistributedFile() {
 		return isDistributedFile;
 	}
 	
 	/**
-	 * È¡½Úµã»úÊı
+	 * å–èŠ‚ç‚¹æœºæ•°
 	 * @return
 	 */
 	public int getUnitCount() {
@@ -362,20 +362,20 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * È¡¼¯ÈºÎÄ¼ş¶ÔÓ¦µÄÃ¿¸ö½Úµã»úµÄ·Ö±íÎÄ¼ş
+	 * å–é›†ç¾¤æ–‡ä»¶å¯¹åº”çš„æ¯ä¸ªèŠ‚ç‚¹æœºçš„åˆ†è¡¨æ–‡ä»¶
 	 * @return
 	 */
 	public PartitionFile[] getPartitionFiles() {
 		return pfs;
 	}
 	
-	//¸ù¾İĞòºÅÈ¡·Ö»ú
+	//æ ¹æ®åºå·å–åˆ†æœº
 	public String getHost(int unit) {
 		return cluster.getHost(unit);
 	}
 	
 	/**
-	 * È¡Ö¸¶¨½Úµã»úµÄ¶Ë¿Ú
+	 * å–æŒ‡å®šèŠ‚ç‚¹æœºçš„ç«¯å£
 	 * @param unit
 	 * @return
 	 */
@@ -383,13 +383,13 @@ public class ClusterFile implements IClusterObject {
 		return cluster.getPort(unit);
 	}
 	
-	// ÎÄ¼şÃû£¨×Ö·û´®£©»òÕßÎÄ¼şÃûÊı×é£¨×Ö·û´®Êı×é£©
+	// æ–‡ä»¶åï¼ˆå­—ç¬¦ä¸²ï¼‰æˆ–è€…æ–‡ä»¶åæ•°ç»„ï¼ˆå­—ç¬¦ä¸²æ•°ç»„ï¼‰
 	public String getFileName() {
 		return fileName;
 	}
 	
 	/**
-	 * È¡Ñ¡Ïî
+	 * å–é€‰é¡¹
 	 * @return
 	 */
 	public String getOption() {
@@ -397,7 +397,7 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * È¡¼ÆËãÉÏÏÂÎÄ
+	 * å–è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Context getContext() {
@@ -405,7 +405,7 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * È¡ÈÎÎñ¿Õ¼ä±êÊ¶
+	 * å–ä»»åŠ¡ç©ºé—´æ ‡è¯†
 	 * @return
 	 */
 	public String getJobSpaceId() {
@@ -413,15 +413,15 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * È¡¼¯Èº½Úµã»ú
+	 * å–é›†ç¾¤èŠ‚ç‚¹æœº
 	 */
 	public Cluster getCluster() {
 		return cluster;
 	}
 	
 	/**
-	 * ²úÉú»ùÓÚ¼¯ÎÄ¼şµÄ¼¯ÈºÓÎ±ê
-	 * @param fields Òª¶ÁÈ¡µÄ×Ö¶Î
+	 * äº§ç”ŸåŸºäºé›†æ–‡ä»¶çš„é›†ç¾¤æ¸¸æ ‡
+	 * @param fields è¦è¯»å–çš„å­—æ®µ
 	 * @param opt
 	 * @return
 	 */
@@ -444,17 +444,17 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * ´´½¨¼¯Èº×é±í
-	 * @param colNames ×Ö¶ÎÃûÊı×é
-	 * @param serialBytesLen ÅÅºÅ¼ü×Ö¶Î³¤¶ÈÊı×é
-	 * @param segmentCol ·Ö¶Î×Ö¶Î
-	 * @param serialLen Èç¹û·Ö¶Î×Ö¶ÎÊÇÅÅºÅ£¬ÔòÖ¸¶¨²ÉÓÃµÄÅÅºÅ³¤¶È
-	 * @param writePsw Ğ´ÃÜÂë
-	 * @param readPsw ¶ÁÃÜÂë
-	 * @param distribute ·ÖÇø±í´ïÊ½
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¼¯Èº×é±í
+	 * åˆ›å»ºé›†ç¾¤ç»„è¡¨
+	 * @param colNames å­—æ®µåæ•°ç»„
+	 * @param serialBytesLen æ’å·é”®å­—æ®µé•¿åº¦æ•°ç»„
+	 * @param segmentCol åˆ†æ®µå­—æ®µ
+	 * @param serialLen å¦‚æœåˆ†æ®µå­—æ®µæ˜¯æ’å·ï¼Œåˆ™æŒ‡å®šé‡‡ç”¨çš„æ’å·é•¿åº¦
+	 * @param writePsw å†™å¯†ç 
+	 * @param readPsw è¯»å¯†ç 
+	 * @param distribute åˆ†åŒºè¡¨è¾¾å¼
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return é›†ç¾¤ç»„è¡¨
 	 */
 	public ClusterPhyTable createGroupTable(String []colNames, Expression distribute, String opt, Context ctx) {
 		int count = pfs.length;
@@ -471,9 +471,9 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * ´ò¿ª×é±í
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¼¯Èº×é±í
+	 * æ‰“å¼€ç»„è¡¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return é›†ç¾¤ç»„è¡¨
 	 */
 	public ClusterPhyTable openGroupTable(Context ctx) {
 		int count = pfs.length;
@@ -505,7 +505,7 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * ÔÚ½Úµã»úÉÏÖ´ĞĞÈ¡·Ö²¼±í´ïÊ½
+	 * åœ¨èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œå–åˆ†å¸ƒè¡¨è¾¾å¼
 	 * @param attributes
 	 * @return
 	 */
@@ -528,12 +528,12 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
-	 * ÕûÀí×é±í
-	 * @param file ĞÂ×é±í¶ÔÓ¦µÄÎÄ¼ş£¬Ê¡ÂÔÔò¸²¸ÇÔ´ÎÄ¼ş
-	 * @param option Ñ¡Ïî
-	 * @param distribute ĞÂ·Ö²¼±í´ïÊ½
-	 * @param blockSize Çø¿é´óĞ¡
-	 * @return ½á¹ûĞòÁĞ
+	 * æ•´ç†ç»„è¡¨
+	 * @param file æ–°ç»„è¡¨å¯¹åº”çš„æ–‡ä»¶ï¼Œçœç•¥åˆ™è¦†ç›–æºæ–‡ä»¶
+	 * @param option é€‰é¡¹
+	 * @param distribute æ–°åˆ†å¸ƒè¡¨è¾¾å¼
+	 * @param blockSize åŒºå—å¤§å°
+	 * @return ç»“æœåºåˆ—
 	 */
 	public Sequence resetGroupTable(String file, String option, String distribute, Integer blockSize) {
 		if (!isDistributedFile()) {

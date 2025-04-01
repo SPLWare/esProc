@@ -3,20 +3,20 @@ package com.scudata.dm;
 import java.io.IOException;
 
 /**
- * °´ĞĞÊä³ö½Ó¿Ú
+ * æŒ‰è¡Œè¾“å‡ºæ¥å£
  * @author WangXiaoJun
  *
  */
 public interface ILineOutput {
 	/**
-	 * Ğ´³öÒ»ĞĞÊı¾İ
-	 * @param items ÁĞÖµ×é³ÉµÄÊı×é
+	 * å†™å‡ºä¸€è¡Œæ•°æ®
+	 * @param items åˆ—å€¼ç»„æˆçš„æ•°ç»„
 	 * @throws IOException
 	 */
 	void writeLine(Object []items) throws IOException;
 	
 	/**
-	 * ¹Ø±ÕÊä³ö
+	 * å…³é—­è¾“å‡º
 	 * @throws IOException
 	 */
 	void close() throws IOException;

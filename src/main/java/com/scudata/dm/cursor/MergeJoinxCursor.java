@@ -16,32 +16,32 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶àÓÎ±ê×öÓĞĞò¹é²¢Á¬½Ó£¬ÓÎ±ê°´¹ØÁª×Ö¶ÎÓĞĞò
- * cs.joinx(C:¡­,f:K:¡­,x:F,¡­;¡­)
+ * å¤šæ¸¸æ ‡åšæœ‰åºå½’å¹¶è¿æ¥ï¼Œæ¸¸æ ‡æŒ‰å…³è”å­—æ®µæœ‰åº
+ * cs.joinx(C:â€¦,f:K:â€¦,x:F,â€¦;â€¦)
  * @author RunQian
  *
  */
 public class MergeJoinxCursor extends ICursor {
 	private ICursor srcCursor;
-	private Expression [][]exps; // ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	private ICursor []cursors; // ´úÂë±íÓÎ±êÊı×é
-	private Expression [][]codeExps; // ´úÂë±íÖ÷¼ü±í´ïÊ½Êı×é
-	private Expression [][]newExps; // È¡³öµÄ´úÂë±íµÄ×Ö¶Î±í´ïÊ½Êı×é
-	private String [][]newNames; // È¡³öµÄ´úÂë±íµÄ×Ö¶ÎÃûÊı×é
+	private Expression [][]exps; // å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private ICursor []cursors; // ä»£ç è¡¨æ¸¸æ ‡æ•°ç»„
+	private Expression [][]codeExps; // ä»£ç è¡¨ä¸»é”®è¡¨è¾¾å¼æ•°ç»„
+	private Expression [][]newExps; // å–å‡ºçš„ä»£ç è¡¨çš„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String [][]newNames; // å–å‡ºçš„ä»£ç è¡¨çš„å­—æ®µåæ•°ç»„
 	
-	//private String opt; // Ñ¡Ïî
-	private boolean isIsect; // ½»Á¬½Ó£¬Ä¬ÈÏÎª×óÁ¬½Ó
-	private boolean isDiff; // ²îÁ¬½Ó£¬Ä¬ÈÏÎª×óÁ¬½Ó
+	//private String opt; // é€‰é¡¹
+	private boolean isIsect; // äº¤è¿æ¥ï¼Œé»˜è®¤ä¸ºå·¦è¿æ¥
+	private boolean isDiff; // å·®è¿æ¥ï¼Œé»˜è®¤ä¸ºå·¦è¿æ¥
 	
-	private DataStruct oldDs; // Ô´±íÊı¾İ½á¹¹
-	private DataStruct newDs; // ½á¹û¼¯Êı¾İ½á¹¹
-	private Expression [][]codeAllExps; // ´úÂë±íÖ÷¼üºÍÑ¡³ö×Ö¶Î±í´ïÊ½Êı×é
-	private ObjectArray[][] codeArrays;//´úÂë±íµÄ¹ØÁª×Ö¶ÎºÍÈ¡³ö×Ö¶Î×é³ÉµÄÊı×é
-	private int []seqs; // ´úÂë±íµÄµ±Ç°ĞòºÅ
-	private boolean containNull = false; // ÊÇ·ñÓĞµÄ´úÂë±íÎª¿Õ
+	private DataStruct oldDs; // æºè¡¨æ•°æ®ç»“æ„
+	private DataStruct newDs; // ç»“æœé›†æ•°æ®ç»“æ„
+	private Expression [][]codeAllExps; // ä»£ç è¡¨ä¸»é”®å’Œé€‰å‡ºå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private ObjectArray[][] codeArrays;//ä»£ç è¡¨çš„å…³è”å­—æ®µå’Œå–å‡ºå­—æ®µç»„æˆçš„æ•°ç»„
+	private int []seqs; // ä»£ç è¡¨çš„å½“å‰åºå·
+	private boolean containNull = false; // æ˜¯å¦æœ‰çš„ä»£ç è¡¨ä¸ºç©º
 		
-	protected Sequence cache; // »º´æµÄÊı¾İ
-	private boolean isEnd = false; // ÊÇ·ñÈ¡Êı½áÊø
+	protected Sequence cache; // ç¼“å­˜çš„æ•°æ®
+	private boolean isEnd = false; // æ˜¯å¦å–æ•°ç»“æŸ
 
 	public MergeJoinxCursor(ICursor srcCursor, Expression[][] exps, ICursor []cursors, Expression[][] codeExps, 
 			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
@@ -65,8 +65,8 @@ public class MergeJoinxCursor extends ICursor {
 		}
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			srcCursor.resetContext(ctx);
@@ -317,13 +317,13 @@ public class MergeJoinxCursor extends ICursor {
 					}
 				}
 				
-				// ¶ÁÈ¡Î¬±íµÄÏÂÒ»¶Î
+				// è¯»å–ç»´è¡¨çš„ä¸‹ä¸€æ®µ
 				fetchDimTableData(t);
 				curCodeArrays = codeArrays[t];
 				curSeq = 1;
 				
 				if (curCodeArrays == null) {
-					// Î¬±íÒÑ¾­±éÀúµ½½áÎ²
+					// ç»´è¡¨å·²ç»éå†åˆ°ç»“å°¾
 					break;
 				} else {
 					codeLen = curCodeArrays[0].size();
@@ -368,13 +368,13 @@ public class MergeJoinxCursor extends ICursor {
 					}
 				}
 				
-				// ¶ÁÈ¡Î¬±íµÄÏÂÒ»¶Î
+				// è¯»å–ç»´è¡¨çš„ä¸‹ä¸€æ®µ
 				fetchDimTableData(t);
 				curCodeArrays = codeArrays[t];
 				curSeq = 1;
 				
 				if (curCodeArrays == null) {
-					// Î¬±íÒÑ¾­±éÀúµ½½áÎ²
+					// ç»´è¡¨å·²ç»éå†åˆ°ç»“å°¾
 					break;
 				} else {
 					codeKeyArray = curCodeArrays[0];
@@ -408,7 +408,7 @@ public class MergeJoinxCursor extends ICursor {
 		
 		try {
 			for (int t = 0, tcount = exps.length; t < tcount; ++t) {
-				// µ±Ç°Î¬±íÃ»ÓĞÑ¡³ö×Ö¶ÎÔòÌø¹ı
+				// å½“å‰ç»´è¡¨æ²¡æœ‰é€‰å‡ºå­—æ®µåˆ™è·³è¿‡
 				if (newExps[t] == null) {
 					continue;
 				}
@@ -417,7 +417,7 @@ public class MergeJoinxCursor extends ICursor {
 				int joinFieldCount = curExps.length;
 				
 				if (codeArrays[t] != null) {
-					// µ±Ç°Î¬±íÓÎ±ê»¹Ã»ÓĞ±éÀúÍê
+					// å½“å‰ç»´è¡¨æ¸¸æ ‡è¿˜æ²¡æœ‰éå†å®Œ
 					ObjectArray []fkArrays = new ObjectArray[joinFieldCount];
 					for (int f = 0; f < joinFieldCount; ++f) {
 						fkArrays[f] = new ObjectArray(len);
@@ -477,13 +477,13 @@ public class MergeJoinxCursor extends ICursor {
 					}
 				}
 				
-				// ¶ÁÈ¡Î¬±íµÄÏÂÒ»¶Î
+				// è¯»å–ç»´è¡¨çš„ä¸‹ä¸€æ®µ
 				fetchDimTableData(t);
 				curCodeArrays = codeArrays[t];
 				curSeq = 1;
 				
 				if (curCodeArrays == null) {
-					// Î¬±íÒÑ¾­±éÀúµ½½áÎ²
+					// ç»´è¡¨å·²ç»éå†åˆ°ç»“å°¾
 					break;
 				} else {
 					codeKeyArray = curCodeArrays[0];
@@ -551,13 +551,13 @@ public class MergeJoinxCursor extends ICursor {
 					}
 				}
 				
-				// ¶ÁÈ¡Î¬±íµÄÏÂÒ»¶Î
+				// è¯»å–ç»´è¡¨çš„ä¸‹ä¸€æ®µ
 				fetchDimTableData(t);
 				curCodeArrays = codeArrays[t];
 				curSeq = 1;
 				
 				if (curCodeArrays == null) {
-					// Î¬±íÒÑ¾­±éÀúµ½½áÎ²
+					// ç»´è¡¨å·²ç»éå†åˆ°ç»“å°¾
 					break;
 				} else {
 					codeLen = curCodeArrays[0].size();
@@ -651,13 +651,13 @@ public class MergeJoinxCursor extends ICursor {
 					}
 				}
 				
-				// ¶ÁÈ¡Î¬±íµÄÏÂÒ»¶Î
+				// è¯»å–ç»´è¡¨çš„ä¸‹ä¸€æ®µ
 				fetchDimTableData(t);
 				curCodeArrays = codeArrays[t];
 				curSeq = 1;
 				
 				if (curCodeArrays == null) {
-					// Î¬±íÒÑ¾­±éÀúµ½½áÎ²
+					// ç»´è¡¨å·²ç»éå†åˆ°ç»“å°¾
 					for (; i <= len; ++i) {
 						Object r = result.getMem(i);
 						resultArray.push(r);
@@ -726,13 +726,13 @@ public class MergeJoinxCursor extends ICursor {
 					}
 				}
 				
-				// ¶ÁÈ¡Î¬±íµÄÏÂÒ»¶Î
+				// è¯»å–ç»´è¡¨çš„ä¸‹ä¸€æ®µ
 				fetchDimTableData(t);
 				curCodeArrays = codeArrays[t];
 				curSeq = 1;
 				
 				if (curCodeArrays == null) {
-					// Î¬±íÒÑ¾­±éÀúµ½½áÎ²
+					// ç»´è¡¨å·²ç»éå†åˆ°ç»“å°¾
 					for (; i <= len; ++i) {
 						Object r = result.getMem(i);
 						resultArray.push(r);
@@ -800,8 +800,8 @@ public class MergeJoinxCursor extends ICursor {
 	}
 	
 	/**
-	 * Ä£ºıÈ¡¼ÇÂ¼£¬·µ»ØµÄ¼ÇÂ¼Êı¿ÉÒÔ²»Óë¸ø¶¨µÄÊıÁ¿ÏàÍ¬
-	 * @param n ÒªÈ¡µÄ¼ÇÂ¼Êı
+	 * æ¨¡ç³Šå–è®°å½•ï¼Œè¿”å›çš„è®°å½•æ•°å¯ä»¥ä¸ä¸ç»™å®šçš„æ•°é‡ç›¸åŒ
+	 * @param n è¦å–çš„è®°å½•æ•°
 	 * @return Sequence
 	 */
 	protected Sequence fuzzyGet(int n) {
@@ -832,8 +832,8 @@ public class MergeJoinxCursor extends ICursor {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -847,9 +847,9 @@ public class MergeJoinxCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		Sequence data;
@@ -876,7 +876,7 @@ public class MergeJoinxCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -894,8 +894,8 @@ public class MergeJoinxCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

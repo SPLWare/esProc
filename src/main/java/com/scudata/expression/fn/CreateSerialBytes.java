@@ -9,14 +9,14 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Éú³ÉÖ¸¶¨×Ö½Ú³¤¶ÈµÄÅÅºÅ¡£
- * k(n:l) k(ni,¡­)
+ * ç”ŸæˆæŒ‡å®šå­—èŠ‚é•¿åº¦çš„æ’å·ã€‚
+ * k(n:l) k(ni,â€¦)
  * @author runqian
  *
  */
 public class CreateSerialBytes extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

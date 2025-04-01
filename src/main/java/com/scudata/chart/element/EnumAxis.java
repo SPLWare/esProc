@@ -9,29 +9,29 @@ import com.scudata.dm.*;
 
 import java.awt.Shape;
 /**
- * Ã¶¾ÙÖá
- * Ã¶¾ÙÖáµÄÊıÖµÍ¨³£Îª×Ö·û´®£¬ÇÒÒª±íÊö·ÖÀà¸úÏµÁĞÊ±£¬²ÉÓÃÓ¢ÎÄ¶ººÅ·Ö¸ôµÄ´®±íÊ¾
+ * æšä¸¾è½´
+ * æšä¸¾è½´çš„æ•°å€¼é€šå¸¸ä¸ºå­—ç¬¦ä¸²ï¼Œä¸”è¦è¡¨è¿°åˆ†ç±»è·Ÿç³»åˆ—æ—¶ï¼Œé‡‡ç”¨è‹±æ–‡é€—å·åˆ†éš”çš„ä¸²è¡¨ç¤º
  * @author Joancy
  *
  */
 public class EnumAxis extends TickAxis {
 
-	// Ã¶¾ÙÖáÊôĞÔ£ºÃ¶¾ÙÖµ,·ÖÀàºÍÏµÁĞµÄÖµ¶¼Ö»ÄÜÊÇ´®£¬ÒòÎªÊı¾İÖµµÄÂ¼Èë¸ñÊ½Îª "·ÖÀàÖµ,ÏµÁĞÖµ"£¬´ÓÖĞÌáÈ¡µÄ·ÖÀàÖµÖ±½Ó
-	// µ±´®Ê¹ÓÃ£¬²»ÔÙparseValue.
+	// æšä¸¾è½´å±æ€§ï¼šæšä¸¾å€¼,åˆ†ç±»å’Œç³»åˆ—çš„å€¼éƒ½åªèƒ½æ˜¯ä¸²ï¼Œå› ä¸ºæ•°æ®å€¼çš„å½•å…¥æ ¼å¼ä¸º "åˆ†ç±»å€¼,ç³»åˆ—å€¼"ï¼Œä»ä¸­æå–çš„åˆ†ç±»å€¼ç›´æ¥
+	// å½“ä¸²ä½¿ç”¨ï¼Œä¸å†parseValue.
 	public Sequence categories;
 	public Sequence series;
 
-	// Ã¶¾ÙÖá¼äÏ¶ÓëÏµÁĞ¿í¶ÈÕ¼±È
+	// æšä¸¾è½´é—´éš™ä¸ç³»åˆ—å®½åº¦å æ¯”
 	public double gapRatio = 1.50;
 
 	/**
-	 * È±Ê¡²ÎÊı¹¹ÔìµÄÃ¶¾ÙÖá
+	 * ç¼ºçœå‚æ•°æ„é€ çš„æšä¸¾è½´
 	 */
 	public EnumAxis() {
 	}
 
 	/*
-	 * getPhyValue Êı¾İµÄ¸ñÊ½Îª ·ÖÀà,ÏµÁĞ ½ÇÖáµÄÏµÁĞÎ»ÖÃ×Ü±»ºöÂÔ£¬½ÇÖá×ÜÊÇ¶ÑµÄÇéĞÎ£»
+	 * getPhyValue æ•°æ®çš„æ ¼å¼ä¸º åˆ†ç±»,ç³»åˆ— è§’è½´çš„ç³»åˆ—ä½ç½®æ€»è¢«å¿½ç•¥ï¼Œè§’è½´æ€»æ˜¯å †çš„æƒ…å½¢ï¼›
 	 */
 	double getValueLength(Object val, boolean isAbsolute) {
 		double len = 0;
@@ -46,32 +46,32 @@ public class EnumAxis extends TickAxis {
 				throw new RuntimeException(Dot.NOT_IN_DEFINE + ":" + cat);
 			double j = 0;
 			double serCount = t_serNum;
-			if (ser == null) { // ´ËÊ±¼ÆËãµÄÊÇ·ÖÀà±êÇ©µÄÎ»ÖÃ
-				j = serCount / 2f; // ±êÇ©Î»ÖÃÏà¶ÔÓÚÏµÁĞ¿í¶È£¬¾ÓÖĞ
+			if (ser == null) { // æ­¤æ—¶è®¡ç®—çš„æ˜¯åˆ†ç±»æ ‡ç­¾çš„ä½ç½®
+				j = serCount / 2f; // æ ‡ç­¾ä½ç½®ç›¸å¯¹äºç³»åˆ—å®½åº¦ï¼Œå±…ä¸­
 			} else {
 				int serIndex = series.firstIndexOf(ser);
 				if (serIndex == 0)
 					throw new RuntimeException(Dot.NOT_IN_DEFINE + ":" + ser);
-				j = (serIndex - 1) + 0.5; // Î»ÖÃÎªÖù×Ó¶¥²¿ÖĞ¼ä£¬ËùÒÔÔÙ¼Ó
-											// 0.5¸öÏµÁĞ¿í¶È
-											// ,¸úÖ»ÓĞ·ÖÀàÊ±Í³Ò»£¬µã×ø±êÎªÖù×ÓµÄ¶¥²¿ÖĞ¼äµã
+				j = (serIndex - 1) + 0.5; // ä½ç½®ä¸ºæŸ±å­é¡¶éƒ¨ä¸­é—´ï¼Œæ‰€ä»¥å†åŠ 
+											// 0.5ä¸ªç³»åˆ—å®½åº¦
+											// ,è·Ÿåªæœ‰åˆ†ç±»æ—¶ç»Ÿä¸€ï¼Œç‚¹åæ ‡ä¸ºæŸ±å­çš„é¡¶éƒ¨ä¸­é—´ç‚¹
 			}
 
 			switch (location) {
 			case Consts.AXIS_LOC_H:
 			case Consts.AXIS_LOC_V:
 			case Consts.AXIS_LOC_POLAR:
-				// ¶ÔÓÚÖ±½Ç×ø±êÏµ£¬ÀÛ»ıÊÇÏàÍ¬·ÖÀàµÄ¸÷ÏµÁĞÀÛ¼Ó£¬ËùÒÔ¼ÆËãÃ¶¾Ù×ø±êÊ±¶¼°´·ÖÀàÀ´¼ÆËã
+				// å¯¹äºç›´è§’åæ ‡ç³»ï¼Œç´¯ç§¯æ˜¯ç›¸åŒåˆ†ç±»çš„å„ç³»åˆ—ç´¯åŠ ï¼Œæ‰€ä»¥è®¡ç®—æšä¸¾åæ ‡æ—¶éƒ½æŒ‰åˆ†ç±»æ¥è®¡ç®—
 				len = catIndex * t_categorySpan
 						+ ((catIndex - 1) * serCount + j) * t_seriesWidth;// getLeftX()
 																			// +
 				break;
 			case Consts.AXIS_LOC_ANGLE:
-				// ¶ÔÓÚÖ±½Ç×ø±êÏµ£¬ÀÛ»ıÊÇÏàÍ¬·ÖÀàµÄ¸÷ÏµÁĞÀÛ¼Ó£¬ËùÒÔ¼ÆËãÃ¶¾Ù×ø±êÊ±¶¼°´·ÖÀàÀ´¼ÆËã
+				// å¯¹äºç›´è§’åæ ‡ç³»ï¼Œç´¯ç§¯æ˜¯ç›¸åŒåˆ†ç±»çš„å„ç³»åˆ—ç´¯åŠ ï¼Œæ‰€ä»¥è®¡ç®—æšä¸¾åæ ‡æ—¶éƒ½æŒ‰åˆ†ç±»æ¥è®¡ç®—
 				len = catIndex * t_categorySpan
 						+ ((catIndex - 1) * serCount + j) * t_seriesWidth;// getLeftX()
 				if(isCircleAngle()){
-//					½ÇÖá·¶Î§ÊÇÕûÔ²Ê±£¬¼õµôµÚÒ»¸ö·ÖÀàµÄ¿í¶È£¬ÈÃµÚÒ»¸ö·ÖÀàÂäÔÚ¼«ÖáÎ»ÖÃ
+//					è§’è½´èŒƒå›´æ˜¯æ•´åœ†æ—¶ï¼Œå‡æ‰ç¬¬ä¸€ä¸ªåˆ†ç±»çš„å®½åº¦ï¼Œè®©ç¬¬ä¸€ä¸ªåˆ†ç±»è½åœ¨æè½´ä½ç½®
 					double tmp = t_categorySpan+ (serCount / 2f) * t_seriesWidth;
 					len -= tmp;
 				}
@@ -101,11 +101,11 @@ public class EnumAxis extends TickAxis {
 	}
 
 	/**
-	 * »æÍ¼Ç°×¼±¸¹¤×÷
+	 * ç»˜å›¾å‰å‡†å¤‡å·¥ä½œ
 	 */
 	public void beforeDraw() {
 		double length = getAxisLength();
-		// ½ÇÖáµÄ½ÇÓòÊÇÔ²Ê±£¬Ê×¸úÎ²ÊÇÍ¬Ò»¸ö·ÖÀà£¬ÒªÉÙÒ»¸ö·ÖÀàGap
+		// è§’è½´çš„è§’åŸŸæ˜¯åœ†æ—¶ï¼Œé¦–è·Ÿå°¾æ˜¯åŒä¸€ä¸ªåˆ†ç±»ï¼Œè¦å°‘ä¸€ä¸ªåˆ†ç±»Gap
 		if (location == Consts.AXIS_LOC_ANGLE && isCircleAngle()) {
 			t_seriesWidth = length
 					/ ((t_catNum * gapRatio) + t_catNum * t_serNum);
@@ -118,9 +118,9 @@ public class EnumAxis extends TickAxis {
 	}
 
 	/**
-	 * ´ÓÊı¾İĞòÁĞdataÖĞ³éÈ¡ËùÓĞ·ÖÀàµÄÃû³Æ
-	 * @param data ·ûºÏ·ÖÀàÃèÊöµÄÊı¾İ´®ĞòÁĞ
-	 * @return ·ÖÀàÃû¹¹³ÉµÄĞòÁĞ
+	 * ä»æ•°æ®åºåˆ—dataä¸­æŠ½å–æ‰€æœ‰åˆ†ç±»çš„åç§°
+	 * @param data ç¬¦åˆåˆ†ç±»æè¿°çš„æ•°æ®ä¸²åºåˆ—
+	 * @return åˆ†ç±»åæ„æˆçš„åºåˆ—
 	 */
 	public static Sequence extractCatNames(Sequence data){
 		int dSize = data.length();
@@ -133,9 +133,9 @@ public class EnumAxis extends TickAxis {
 	}
 	
 	/**
-	 * ´ÓÊı¾İĞòÁĞdataÖĞ³éÈ¡ËùÓĞÏµÁĞµÄÃû³Æ
-	 * @param data ·ûºÏ·ÖÀàÏµÁĞÃèÊöµÄÊı¾İ´®ĞòÁĞ
-	 * @return ÏµÁĞÃû¹¹³ÉµÄĞòÁĞ
+	 * ä»æ•°æ®åºåˆ—dataä¸­æŠ½å–æ‰€æœ‰ç³»åˆ—çš„åç§°
+	 * @param data ç¬¦åˆåˆ†ç±»ç³»åˆ—æè¿°çš„æ•°æ®ä¸²åºåˆ—
+	 * @return ç³»åˆ—åæ„æˆçš„åºåˆ—
 	 */
 	public static Sequence extractSerNames(Sequence data){
 		int dSize = data.length();
@@ -148,9 +148,9 @@ public class EnumAxis extends TickAxis {
 	}
 	
 	/**
-	 * »æÍ¼Ç°×¼±¸¹¤×÷£¬Êı¾İĞ£Ñé
-	 * Ã¶¾ÙÖá¶ÔÓ¦µÄÍ¼ÔªÊı¾İ¸ñÊ½ÎªÁ½ÖÖ£º 1£¬ ·ÖÀàÖµ£» 2, ·ÖÀàÖµ,ÏµÁĞÖµ
-	 * @param dataElements Êı¾İÍ¼ÔªÁĞ±í
+	 * ç»˜å›¾å‰å‡†å¤‡å·¥ä½œï¼Œæ•°æ®æ ¡éªŒ
+	 * æšä¸¾è½´å¯¹åº”çš„å›¾å…ƒæ•°æ®æ ¼å¼ä¸ºä¸¤ç§ï¼š 1ï¼Œ åˆ†ç±»å€¼ï¼› 2, åˆ†ç±»å€¼,ç³»åˆ—å€¼
+	 * @param dataElements æ•°æ®å›¾å…ƒåˆ—è¡¨
 	 */
 	public void prepare(ArrayList<DataElement> dataElements) {
 		super.prepare(dataElements);
@@ -205,7 +205,7 @@ public class EnumAxis extends TickAxis {
 					"Category value must be 'String' type,current value is: "+catVal+",  and it's type is: "
 							+ catVal.getClass().getName());
 		}
-		t_serNum = series.length() == 0 ? 1 : series.length();// Ã»ÓĞÏµÁĞÊ±£¬ÏµÁĞÊıÄ¿Îª1¼ÆËã
+		t_serNum = series.length() == 0 ? 1 : series.length();// æ²¡æœ‰ç³»åˆ—æ—¶ï¼Œç³»åˆ—æ•°ç›®ä¸º1è®¡ç®—
 		if (series.length() > 0) {
 			Object serVal = series.get(1);
 			if (!(serVal instanceof String)) {
@@ -219,34 +219,34 @@ public class EnumAxis extends TickAxis {
 	}
 
 	/**
-	 * »ñÈ¡Í¼Ôª»æÖÆºó¶ÔÓ¦³¬Á´½ÓµÄ¿Õ¼äĞÎ×´
+	 * è·å–å›¾å…ƒç»˜åˆ¶åå¯¹åº”è¶…é“¾æ¥çš„ç©ºé—´å½¢çŠ¶
 	 * 
-	 * @return Shape ÎŞÒâÒå£¬·µ»Ønull
+	 * @return Shape æ— æ„ä¹‰ï¼Œè¿”å›null
 	 */
 	public Shape getShape() {
 		return null;
 	}
 
 	/**
-	 * »ñÈ¡ÏµÁĞµÄ¿í¶È£¬µ¥Î»ÏñËØ£¬ÎªÁË·ÀÖ¹Îó²î£¬Í¼Ôª¼ÆËãÊ±
-	 * ¼´Ê¹ÊÇÏñËØÖµ£¬Ò²¶¼²ÉÓÃdoubleÊµÊı
-	 * @return ÏµÁĞ¿í¶È
+	 * è·å–ç³»åˆ—çš„å®½åº¦ï¼Œå•ä½åƒç´ ï¼Œä¸ºäº†é˜²æ­¢è¯¯å·®ï¼Œå›¾å…ƒè®¡ç®—æ—¶
+	 * å³ä½¿æ˜¯åƒç´ å€¼ï¼Œä¹Ÿéƒ½é‡‡ç”¨doubleå®æ•°
+	 * @return ç³»åˆ—å®½åº¦
 	 */
 	public double getSeriesWidth() {
 		return t_seriesWidth;
 	}
 
-	// Ã¶¾ÙÖáµÄÃ¶¾Ù¸öÊı
+	// æšä¸¾è½´çš„æšä¸¾ä¸ªæ•°
 	private transient int t_catNum = 0;
 
-	// ÖáÉÏÏµÁĞÊı
+	// è½´ä¸Šç³»åˆ—æ•°
 	private transient int t_serNum = 1;
 
 	private transient double t_categorySpan = 190, t_seriesWidth = 0;
 
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -266,7 +266,7 @@ public class EnumAxis extends TickAxis {
 
 	
 	/**
-	 * ÊÇ·ñÃ¶¾ÙÖá
+	 * æ˜¯å¦æšä¸¾è½´
 	 * @return true
 	 */
 	public boolean isEnumAxis() {
@@ -274,7 +274,7 @@ public class EnumAxis extends TickAxis {
 	}
 
 	/**
-	 * ÊÇ·ñÈÕÆÚÖá
+	 * æ˜¯å¦æ—¥æœŸè½´
 	 * @return false
 	 */
 	public boolean isDateAxis() {
@@ -282,7 +282,7 @@ public class EnumAxis extends TickAxis {
 	}
 
 	/**
-	 * ÊÇ·ñÊıÖµÖá
+	 * æ˜¯å¦æ•°å€¼è½´
 	 * @return false
 	 */
 	public boolean isNumericAxis() {

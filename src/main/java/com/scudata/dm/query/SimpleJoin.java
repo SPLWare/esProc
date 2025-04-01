@@ -357,7 +357,7 @@ public class SimpleJoin
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, EXISTS¹Ø¼ü×ÖºóÃæ±ØĞë½Ó×Ó²éÑ¯");
+						throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, EXISTSå…³é”®å­—åé¢å¿…é¡»æ¥å­æŸ¥è¯¢");
 					}
 				}
 				else if(tokens[i].isKeyWord("EXISTS") && i + 2 < len && tokens[i + 1].getType() == Tokenizer.LPAREN)
@@ -470,7 +470,7 @@ public class SimpleJoin
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, EXISTS¹Ø¼ü×ÖºóÃæ±ØĞë½Ó×Ó²éÑ¯");
+						throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, EXISTSå…³é”®å­—åé¢å¿…é¡»æ¥å­æŸ¥è¯¢");
 					}
 				}
 				
@@ -486,7 +486,7 @@ public class SimpleJoin
 						}
 						else
 						{
-							//Í³Ò»ÆğĞÂµÄ±ğÃûÎª£º±íÃû.ÁĞÃû£¬ÒÔÇø·Ö²»Í¬±íµÄÍ¬Ãû×Ö¶Î
+							//ç»Ÿä¸€èµ·æ–°çš„åˆ«åä¸ºï¼šè¡¨å.åˆ—åï¼Œä»¥åŒºåˆ†ä¸åŒè¡¨çš„åŒåå­—æ®µ
 							newName = "\"" + tokens[i].getString()+ "." + "1" + "\"";
 							i += 2;
 						}
@@ -500,7 +500,7 @@ public class SimpleJoin
 						}
 						else
 						{
-							//Í³Ò»ÆğĞÂµÄ±ğÃûÎª£º±íÃû.ÁĞÃû£¬ÒÔÇø·Ö²»Í¬±íµÄÍ¬Ãû×Ö¶Î
+							//ç»Ÿä¸€èµ·æ–°çš„åˆ«åä¸ºï¼šè¡¨å.åˆ—åï¼Œä»¥åŒºåˆ†ä¸åŒè¡¨çš„åŒåå­—æ®µ
 							newName = "\"" + tokens[i].getString() + "." + tokens[i+2].getString() + "\"";
 							i += 2;
 						}
@@ -514,10 +514,10 @@ public class SimpleJoin
 						}
 						else
 						{
-							//Ë³±ã¼ÇÂ¼WHEREºÍON×Ó¾äÖĞµÄÔ­Ê¼×Ö¶ÎÃû³Æµ½SELECT×Ö¶Î¼ÇÂ¼ÁĞ±íÒÔ±¸Ê¹ÓÃ
+							//é¡ºä¾¿è®°å½•WHEREå’ŒONå­å¥ä¸­çš„åŸå§‹å­—æ®µåç§°åˆ°SELECTå­—æ®µè®°å½•åˆ—è¡¨ä»¥å¤‡ä½¿ç”¨
 							String oldName = tokens[i].getString() + tokens[i+1].getString() + tokens[i+2].getString();
 							selectList.add(oldName);
-							//Í³Ò»ÆğĞÂµÄ±ğÃûÎª£º±íÃû.ÁĞÃû£¬ÒÔÇø·Ö²»Í¬±íµÄÍ¬Ãû×Ö¶Î
+							//ç»Ÿä¸€èµ·æ–°çš„åˆ«åä¸ºï¼šè¡¨å.åˆ—åï¼Œä»¥åŒºåˆ†ä¸åŒè¡¨çš„åŒåå­—æ®µ
 							newName = "\"" + tokens[i].getString()+"."+tokens[i+2].getString() + "\"";
 							i += 2;
 						}
@@ -528,7 +528,7 @@ public class SimpleJoin
 					if(this instanceof JoinTable)
 					{
 						tableName = getTableNames().iterator().next();
-						//Í³Ò»ÆğĞÂµÄ±ğÃûÎª£º±íÃû.ÁĞÃû£¬ÒÔÇø·Ö²»Í¬±íµÄÍ¬Ãû×Ö¶Î
+						//ç»Ÿä¸€èµ·æ–°çš„åˆ«åä¸ºï¼šè¡¨å.åˆ—åï¼Œä»¥åŒºåˆ†ä¸åŒè¡¨çš„åŒåå­—æ®µ
 						newName = "\"" + tableName + "." + "1" + "\"";
 					}
 				}
@@ -537,7 +537,7 @@ public class SimpleJoin
 					if(this instanceof JoinTable)
 					{
 						tableName = getTableNames().iterator().next();
-						//Í³Ò»ÆğĞÂµÄ±ğÃûÎª£º±íÃû.ÁĞÃû£¬ÒÔÇø·Ö²»Í¬±íµÄÍ¬Ãû×Ö¶Î
+						//ç»Ÿä¸€èµ·æ–°çš„åˆ«åä¸ºï¼šè¡¨å.åˆ—åï¼Œä»¥åŒºåˆ†ä¸åŒè¡¨çš„åŒåå­—æ®µ
 						newName = "\"" + tableName + "." + tokens[i].getString() + "\"";
 					}
 				}
@@ -571,7 +571,7 @@ public class SimpleJoin
 					}
 					
 					ICursor icur = null;
-					if(isSubQuery) //×Ó²éÑ¯
+					if(isSubQuery) //å­æŸ¥è¯¢
 					{
 						Set<String> tableNames = rootNode.getTableNames();
 						Set<String> containsList = new HashSet<String>();
@@ -666,7 +666,7 @@ public class SimpleJoin
 									if(!(seq.get(1) instanceof BaseRecord) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, INÖĞ×Ó²éÑ¯½á¹ûÒì³£");
+										throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, INä¸­å­æŸ¥è¯¢ç»“æœå¼‚å¸¸");
 									}
 									
 									newName = "(";
@@ -730,7 +730,7 @@ public class SimpleJoin
 									if(seq == null || seq.length() != 1 || !(seq.get(1) instanceof BaseRecord) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, WHEREÖĞ×Ó²éÑ¯½á¹ûÒì³£");
+										throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, WHEREä¸­å­æŸ¥è¯¢ç»“æœå¼‚å¸¸");
 									}
 								}
 								newName = getSQLValue(((BaseRecord)seq.get(1)).getFieldValue(0));
@@ -824,8 +824,8 @@ public class SimpleJoin
 					}
 					if(selectField.startsWith(prefix))
 					{
-						String fieldName = selectField.substring(prefix.length(), selectField.length() - 1); //×¢ÒâÒªÍÑÈ¥""
-						sb.append(fieldName);//Ô­×Ö¶ÎÃû
+						String fieldName = selectField.substring(prefix.length(), selectField.length() - 1); //æ³¨æ„è¦è„±å»""
+						sb.append(fieldName);//åŸå­—æ®µå
 						sb.append(" ");
 						if(fieldName.equals("1"))
 						{
@@ -833,11 +833,11 @@ public class SimpleJoin
 						}
 						else if(fieldName.equals("*"))
 						{
-							needRename = true;//¹ıºó²¹ÉÏĞÂ×Ö¶ÎÃû
+							needRename = true;//è¿‡åè¡¥ä¸Šæ–°å­—æ®µå
 						}
 						else
 						{
-							sb.append(selectField);//ĞÂ×Ö¶ÎÃû×÷ÁĞ±ğÃû
+							sb.append(selectField);//æ–°å­—æ®µåä½œåˆ—åˆ«å
 						}
 					}
 					index++;
@@ -848,7 +848,7 @@ public class SimpleJoin
 					if(this.tableFile == null || this.tableFile.isEmpty())
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, ÎŞĞ§µÄÁ¬½Ó×Ó±í½Úµã");
+						throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, æ— æ•ˆçš„è¿æ¥å­è¡¨èŠ‚ç‚¹");
 					}
 					
 					SimpleSelect ss = new SimpleSelect(ics, ctx);
@@ -1079,7 +1079,7 @@ public class SimpleJoin
 					}
 				}
 				
-				if(needRename)//select * from T, ²éÑ¯Ê±Ã»ÆğĞÂ×Ö¶ÎÃû´ËÊ±²¹ÉÏ
+				if(needRename)//select * from T, æŸ¥è¯¢æ—¶æ²¡èµ·æ–°å­—æ®µåæ­¤æ—¶è¡¥ä¸Š
 				{
 					String[] fieldNames = this.nodeStruct.getFieldNames();
 					Expression[] fieldExps = new Expression[fieldNames.length];
@@ -1275,7 +1275,7 @@ public class SimpleJoin
 				if(left == null || right == null)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, Ä³´¦´æÔÚÒì³£µÄJOIN ON×Ó¾ä");
+					throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, æŸå¤„å­˜åœ¨å¼‚å¸¸çš„JOIN ONå­å¥");
 				}
 				
 				left.executeJoin();
@@ -1399,7 +1399,7 @@ public class SimpleJoin
 					catch(RQException ex)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, FULL JOIN½öÖ§³ÖANDÁ¬½Ó", ex);
+						throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, FULL JOINä»…æ”¯æŒANDè¿æ¥", ex);
 					}
 					
 					List<Expression> leftExpList = new ArrayList<Expression>();
@@ -1421,14 +1421,14 @@ public class SimpleJoin
 							else
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, FULL JOIN½öÖ§³ÖµÈÖµÁ¬½Ó", ex);
+								throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, FULL JOINä»…æ”¯æŒç­‰å€¼è¿æ¥", ex);
 							}
 						}
 						
 						if(subFilterItems.length != 2)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, FULL JOIN½öÖ§³ÖµÈÖµÁ¬½Ó");
+							throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, FULL JOINä»…æ”¯æŒç­‰å€¼è¿æ¥");
 						}
 						
 						if(subFilterItems[0].indexOf("~.") != -1 && subFilterItems[0].indexOf("L.") == -1)
@@ -1446,7 +1446,7 @@ public class SimpleJoin
 						else
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, FULL JOIN²»Ö§³ÖÁ½±í×Ö¶ÎÔÚÍ¬Ò»²àµÄµÈÖµÁ¬½Ó");
+							throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, FULL JOINä¸æ”¯æŒä¸¤è¡¨å­—æ®µåœ¨åŒä¸€ä¾§çš„ç­‰å€¼è¿æ¥");
 						}
 						
 						if(subFilterItems[1].indexOf("~.") != -1 && subFilterItems[1].indexOf("L.") == -1)
@@ -1485,7 +1485,7 @@ public class SimpleJoin
 						else
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, FULL JOIN²»Ö§³ÖÁ½±í×Ö¶ÎÔÚÍ¬Ò»²àµÄµÈÖµÁ¬½Ó");
+							throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, FULL JOINä¸æ”¯æŒä¸¤è¡¨å­—æ®µåœ¨åŒä¸€ä¾§çš„ç­‰å€¼è¿æ¥");
 						}
 					}
 					
@@ -1518,7 +1518,7 @@ public class SimpleJoin
 						if(curs[1] instanceof IMultipath)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, xjoinx¹¦ÄÜ¶ÔÓÚ¹ØÁªÎ¬±í²»Ö§³Ö¶àÂ·ÓÎ±ê");
+							throw new RQException(mm.getMessage("syntax.error")+"JoinNode.executeJoin, xjoinxåŠŸèƒ½å¯¹äºå…³è”ç»´è¡¨ä¸æ”¯æŒå¤šè·¯æ¸¸æ ‡");
 						}
 						this.nodeCursor = new SimpleXJoinxCursor(curs, exps, names, fps, option, ctx, dss);
 						this.nodeStruct = ((SimpleXJoinxCursor)this.nodeCursor).getTableDataStruct();
@@ -1690,13 +1690,13 @@ public class SimpleJoin
 		public int getStamp()
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":JoinTable.getStamp, ±í½ÚµãÃ»ÓĞÁ¬½Ó±êÇ©");
+			throw new RQException(mm.getMessage("syntax.error") + ":JoinTable.getStamp, è¡¨èŠ‚ç‚¹æ²¡æœ‰è¿æ¥æ ‡ç­¾");
 		}
 		
 		public void setStamp(int stamp)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":JoinTable.getStamp, ±í½Úµã²»ÄÜÉèÖÃÁ¬½Ó±êÇ©");
+			throw new RQException(mm.getMessage("syntax.error") + ":JoinTable.getStamp, è¡¨èŠ‚ç‚¹ä¸èƒ½è®¾ç½®è¿æ¥æ ‡ç­¾");
 		}
 		
 		public boolean isMemoryNode()
@@ -1798,7 +1798,7 @@ public class SimpleJoin
 			if(this.tabDs == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, ±ØĞëÔ¤ÏÈÉèÖÃÊı¾İ½á¹¹");
+				throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, å¿…é¡»é¢„å…ˆè®¾ç½®æ•°æ®ç»“æ„");
 			}
 			
 			Sequence tab = super.get(n);
@@ -1839,14 +1839,14 @@ public class SimpleJoin
 							else
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, ±íÖĞ´æÔÚÎ´ÖªµÄÊı¾İÀàĞÍII");
+								throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, è¡¨ä¸­å­˜åœ¨æœªçŸ¥çš„æ•°æ®ç±»å‹II");
 							}
 						}
 					}
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, ±íÖĞ´æÔÚÎ´ÖªµÄÊı¾İÀàĞÍI");
+						throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, è¡¨ä¸­å­˜åœ¨æœªçŸ¥çš„æ•°æ®ç±»å‹I");
 					}
 					
 					for(int m=0, len=valueList.size(); m<len; m++)
@@ -1866,7 +1866,7 @@ public class SimpleJoin
 		}
 		
 		/**
-		 * ·µ»ØÊ£ÓàµÄ¼ÇÂ¼²¢¹Ø±ÕÓÎ±ê
+		 * è¿”å›å‰©ä½™çš„è®°å½•å¹¶å…³é—­æ¸¸æ ‡
 		 * @return Sequence
 		 */
 		public Sequence fetch() {
@@ -1932,7 +1932,7 @@ public class SimpleJoin
 			if(this.tabDs == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinCursor.get, ±ØĞëÔ¤ÏÈÉèÖÃÊı¾İ½á¹¹");
+				throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinCursor.get, å¿…é¡»é¢„å…ˆè®¾ç½®æ•°æ®ç»“æ„");
 			}
 			
 			Sequence tab = super.get(n);
@@ -1973,14 +1973,14 @@ public class SimpleJoin
 							else
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinCursor.get, ±íÖĞ´æÔÚÎ´ÖªµÄÊı¾İÀàĞÍII");
+								throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinCursor.get, è¡¨ä¸­å­˜åœ¨æœªçŸ¥çš„æ•°æ®ç±»å‹II");
 							}
 						}
 					}
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinCursor.get, ±íÖĞ´æÔÚÎ´ÖªµÄÊı¾İÀàĞÍI");
+						throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinCursor.get, è¡¨ä¸­å­˜åœ¨æœªçŸ¥çš„æ•°æ®ç±»å‹I");
 					}
 					
 					for(int m=0, len=valueList.size(); m<len; m++)
@@ -2000,7 +2000,7 @@ public class SimpleJoin
 		}
 
 		/**
-		 * ·µ»ØÊ£ÓàµÄ¼ÇÂ¼²¢¹Ø±ÕÓÎ±ê
+		 * è¿”å›å‰©ä½™çš„è®°å½•å¹¶å…³é—­æ¸¸æ ‡
 		 * @return Sequence
 		 */
 		public Sequence fetch() {
@@ -2066,7 +2066,7 @@ public class SimpleJoin
 			if(this.tabDs == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, ±ØĞëÔ¤ÏÈÉèÖÃÊı¾İ½á¹¹");
+				throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, å¿…é¡»é¢„å…ˆè®¾ç½®æ•°æ®ç»“æ„");
 			}
 			
 			Sequence tab = super.get(n);
@@ -2107,14 +2107,14 @@ public class SimpleJoin
 							else
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, ±íÖĞ´æÔÚÎ´ÖªµÄÊı¾İÀàĞÍII");
+								throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, è¡¨ä¸­å­˜åœ¨æœªçŸ¥çš„æ•°æ®ç±»å‹II");
 							}
 						}
 					}
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, ±íÖĞ´æÔÚÎ´ÖªµÄÊı¾İÀàĞÍI");
+						throw new RQException(mm.getMessage("syntax.error") + ":SimpleXJoinxCursor.get, è¡¨ä¸­å­˜åœ¨æœªçŸ¥çš„æ•°æ®ç±»å‹I");
 					}
 					
 					for(int m=0, len=valueList.size(); m<len; m++)
@@ -2133,7 +2133,7 @@ public class SimpleJoin
 			return tab;
 		}
 		/**
-		 * ·µ»ØÊ£ÓàµÄ¼ÇÂ¼²¢¹Ø±ÕÓÎ±ê
+		 * è¿”å›å‰©ä½™çš„è®°å½•å¹¶å…³é—­æ¸¸æ ‡
 		 * @return Sequence
 		 */
 		public Sequence fetch() {
@@ -2199,7 +2199,7 @@ public class SimpleJoin
 			if(this.tabDs == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":SimpleJoinCursor.get, ±ØĞëÔ¤ÏÈÉèÖÃÊı¾İ½á¹¹");
+				throw new RQException(mm.getMessage("syntax.error") + ":SimpleJoinCursor.get, å¿…é¡»é¢„å…ˆè®¾ç½®æ•°æ®ç»“æ„");
 			}
 			
 			Sequence tab = super.get(n);
@@ -2240,14 +2240,14 @@ public class SimpleJoin
 							else
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":SimpleJoinCursor.get, ±íÖĞ´æÔÚÎ´ÖªµÄÊı¾İÀàĞÍII");
+								throw new RQException(mm.getMessage("syntax.error") + ":SimpleJoinCursor.get, è¡¨ä¸­å­˜åœ¨æœªçŸ¥çš„æ•°æ®ç±»å‹II");
 							}
 						}
 					}
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":SimpleJoinCursor.get, ±íÖĞ´æÔÚÎ´ÖªµÄÊı¾İÀàĞÍI");
+						throw new RQException(mm.getMessage("syntax.error") + ":SimpleJoinCursor.get, è¡¨ä¸­å­˜åœ¨æœªçŸ¥çš„æ•°æ®ç±»å‹I");
 					}
 					
 					for(int m=0, len=valueList.size(); m<len; m++)
@@ -2266,7 +2266,7 @@ public class SimpleJoin
 			return tab;
 		}
 		/**
-		 * ·µ»ØÊ£ÓàµÄ¼ÇÂ¼²¢¹Ø±ÕÓÎ±ê
+		 * è¿”å›å‰©ä½™çš„è®°å½•å¹¶å…³é—­æ¸¸æ ‡
 		 * @return Sequence
 		 */
 		public Sequence fetch() {
@@ -2295,10 +2295,10 @@ public class SimpleJoin
 
 	class SubQueryCursor extends SyncCursor
 	{
-		public static final int Exist_Type = 0; //²»ĞèÒªÇó³öÖµÖ¤Ã÷´æÔÚ¼´¿É£¬exists
-		public static final int Select_Type = 1; //ĞèÒªÇó³öÈ·ÇĞÖµÇÒÖµ±ØĞëÎ¨Ò»£¬select
-		public static final int In_Type = 2; //ĞèÒªÇó³öÈ·ÇĞÖµÇÒÖµ¿É²»Î¨Ò», in
-		public static final int Where_Type = 3; //ĞèÒªÇó³öÈ·ÇĞÖµÇÒÖµ±ØĞëÎ¨Ò», where
+		public static final int Exist_Type = 0; //ä¸éœ€è¦æ±‚å‡ºå€¼è¯æ˜å­˜åœ¨å³å¯ï¼Œexists
+		public static final int Select_Type = 1; //éœ€è¦æ±‚å‡ºç¡®åˆ‡å€¼ä¸”å€¼å¿…é¡»å”¯ä¸€ï¼Œselect
+		public static final int In_Type = 2; //éœ€è¦æ±‚å‡ºç¡®åˆ‡å€¼ä¸”å€¼å¯ä¸å”¯ä¸€, in
+		public static final int Where_Type = 3; //éœ€è¦æ±‚å‡ºç¡®åˆ‡å€¼ä¸”å€¼å¿…é¡»å”¯ä¸€, where
 		
 		private int type = -1;
 		private ICellSet ics = null;
@@ -2316,7 +2316,7 @@ public class SimpleJoin
 			if(this.type != Exist_Type && this.type != Select_Type && this.type != In_Type && this.type != Where_Type)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, ×Ó²éÑ¯ÓÎ±ê³õÊ¼»¯²ÎÊı´íÎó");
+				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, å­æŸ¥è¯¢æ¸¸æ ‡åˆå§‹åŒ–å‚æ•°é”™è¯¯");
 			}
 			this.ics = ics;
 			this.paramList = paramList;
@@ -2324,19 +2324,19 @@ public class SimpleJoin
 			if(this.subQueryListListList == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, ×Ó²éÑ¯ÓÎ±ê³õÊ¼»¯²ÎÊı´íÎó");
+				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, å­æŸ¥è¯¢æ¸¸æ ‡åˆå§‹åŒ–å‚æ•°é”™è¯¯");
 			}
 			this.fieldNameListList = fieldNameListList;
 			if(this.fieldNameListList == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, ×Ó²éÑ¯ÓÎ±ê³õÊ¼»¯²ÎÊı´íÎó");
+				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, å­æŸ¥è¯¢æ¸¸æ ‡åˆå§‹åŒ–å‚æ•°é”™è¯¯");
 			}
 			this.colNameList = colNameList;
 			if(this.colNameList == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, ×Ó²éÑ¯ÓÎ±ê³õÊ¼»¯²ÎÊı´íÎó");
+				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, å­æŸ¥è¯¢æ¸¸æ ‡åˆå§‹åŒ–å‚æ•°é”™è¯¯");
 			}
 			this.ctx = ctx;
 			
@@ -2370,7 +2370,7 @@ public class SimpleJoin
 						if(!(obj instanceof BaseRecord))
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, ²éÑ¯½á¹ûĞòÁĞ±ØĞëÓÉ¼ÇÂ¼×é³É");
+							throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, æŸ¥è¯¢ç»“æœåºåˆ—å¿…é¡»ç”±è®°å½•ç»„æˆ");
 						}
 						BaseRecord rec = (BaseRecord) obj;
 						
@@ -2407,7 +2407,7 @@ public class SimpleJoin
 								if(sq.length() != 1 || !(sq.get(1) instanceof BaseRecord) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, SELECT/WHERE×Ó¾äÖĞ×Ó²éÑ¯½á¹ûÒì³£");
+									throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, SELECT/WHEREå­å¥ä¸­å­æŸ¥è¯¢ç»“æœå¼‚å¸¸");
 								}
 								val = ((BaseRecord)sq.get(1)).getFieldValue(0);
 							}
@@ -2419,7 +2419,7 @@ public class SimpleJoin
 									if(!(sq.get(1) instanceof BaseRecord) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, IN×Ó¾äÖĞ×Ó²éÑ¯½á¹ûÒì³£");
+										throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, INå­å¥ä¸­å­æŸ¥è¯¢ç»“æœå¼‚å¸¸");
 									}
 									v.add(((BaseRecord)sq.get(p)).getFieldValue(0));
 								}
@@ -2440,7 +2440,7 @@ public class SimpleJoin
 			return tab;
 		}
 		/**
-		 * ·µ»ØÊ£ÓàµÄ¼ÇÂ¼²¢¹Ø±ÕÓÎ±ê
+		 * è¿”å›å‰©ä½™çš„è®°å½•å¹¶å…³é—­æ¸¸æ ‡
 		 * @return Sequence
 		 */
 		public Sequence fetch() {
@@ -2561,7 +2561,7 @@ public class SimpleJoin
 			if(tokens[start].getType() == Tokenizer.KEYWORD)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanTable, ±íÃûÈ±Ê§»òÀàĞÍÓĞÎó");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanTable, è¡¨åç¼ºå¤±æˆ–ç±»å‹æœ‰è¯¯");
 			}
 			else if(tokens[start].getType() == Tokenizer.LPAREN)
 			{
@@ -2654,13 +2654,13 @@ public class SimpleJoin
 			else
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanTable, Ã¿¸öÆ´½Ó±í¶¼±ØĞëÓĞÒ»¸ö±ê×¼µÄ±íÃû»ò±ğÃû");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanTable, æ¯ä¸ªæ‹¼æ¥è¡¨éƒ½å¿…é¡»æœ‰ä¸€ä¸ªæ ‡å‡†çš„è¡¨åæˆ–åˆ«å");
 			}
 		}
 		if(!tableName.isEmpty())
 		{
 			FileObject fileObject = new FileObject(tableName, null, "s", ctx);
-			if(!fileObject.isExists()) //¿ÉÄÜÓĞÃÜÂë£¬³¢ÊÔÈ¥³ı
+			if(!fileObject.isExists()) //å¯èƒ½æœ‰å¯†ç ï¼Œå°è¯•å»é™¤
 			{
 				int index = tableName.lastIndexOf(":");
 				if(index != -1)
@@ -2681,7 +2681,7 @@ public class SimpleJoin
 					catch(Exception ex)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanTable, Òì³£µÄ±íÃû:"+tableName);
+						throw new RQException(mm.getMessage("syntax.error") + ":scanTable, å¼‚å¸¸çš„è¡¨å:"+tableName);
 					}
 					if(obj instanceof ICursor)
 					{
@@ -2711,7 +2711,7 @@ public class SimpleJoin
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanTable, ²»Ö§³ÖµÄÁÙÊ±±íÊı¾İÀàĞÍ");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanTable, ä¸æ”¯æŒçš„ä¸´æ—¶è¡¨æ•°æ®ç±»å‹");
 					}
 				}
 			}
@@ -2736,7 +2736,7 @@ public class SimpleJoin
 			if (start == next) 
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanNode, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanNode, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 			}
 			
 			int end = Tokenizer.scanComma(tokens, start, next);
@@ -2754,7 +2754,7 @@ public class SimpleJoin
 				if(check)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanJoin, FROM»òJOIN¹Ø¼ü×ÖºóµÄ±íµÄÊıÁ¿²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanJoin, FROMæˆ–JOINå…³é”®å­—åçš„è¡¨çš„æ•°é‡ä¸æ­£ç¡®");
 				}
 				
 				JoinNode node = new InnerJoin();
@@ -2822,7 +2822,7 @@ public class SimpleJoin
 					catch(Exception ex)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, Òì³£µÄ±íÃû:"+expStr);
+						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, å¼‚å¸¸çš„è¡¨å:"+expStr);
 					}
 					if(obj instanceof ICursor)
 					{
@@ -2852,7 +2852,7 @@ public class SimpleJoin
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ²»Ö§³ÖµÄÁÙÊ±±íÊı¾İÀàĞÍ");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ä¸æ”¯æŒçš„ä¸´æ—¶è¡¨æ•°æ®ç±»å‹");
 					}
 					if(end + 1 != next)
 					{
@@ -2932,7 +2932,7 @@ public class SimpleJoin
 				{
 					if(tokens[index + 3].isKeyWord("EXTERNAL")) // && Sequence.getFunctionPoint(15)
 					{
-						stamp = External_Join; //¼òµ¥SQLµÄ/*+EXTERNAL*/±êÇ©½ö¹©ÄÚ²¿²âÊÔ
+						stamp = External_Join; //ç®€å•SQLçš„/*+EXTERNAL*/æ ‡ç­¾ä»…ä¾›å†…éƒ¨æµ‹è¯•
 					}
 					else
 					{
@@ -3332,7 +3332,7 @@ public class SimpleJoin
 		}
 	}
 	
-	private int checkAllParallel(JoinNode node) //ÊÇ·ñ¶àÏß³ÌÈ¡ÊıÓÉ±¾³ÌĞò¾ö¶¨
+	private int checkAllParallel(JoinNode node) //æ˜¯å¦å¤šçº¿ç¨‹å–æ•°ç”±æœ¬ç¨‹åºå†³å®š
 	{
 		if(node instanceof JoinTable)
 		{
@@ -3369,14 +3369,14 @@ public class SimpleJoin
 		if(fromPos < 0 || fromPos == start)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, FROM¹Ø¼ü×ÖÈ±Ê§»òÎ»ÖÃ²»ÕıÈ·");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, FROMå…³é”®å­—ç¼ºå¤±æˆ–ä½ç½®ä¸æ­£ç¡®");
 		}
 
 		int intoPos = Tokenizer.scanKeyWord("INTO", tokens, start, next);
 		if(intoPos >= fromPos)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, INTO¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, INTOå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 		}
 		else if(intoPos >= 0)
 		{
@@ -3407,7 +3407,7 @@ public class SimpleJoin
 		if(wherePos >= 0 && wherePos < minPos)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, WHERE¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, WHEREå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 		}
 		
 		minPos = pos(wherePos, minPos);
@@ -3416,7 +3416,7 @@ public class SimpleJoin
 		if(groupPos >= 0 && groupPos < minPos)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, GROUP¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, GROUPå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 		}
 		
 		minPos = pos(groupPos , minPos);
@@ -3425,7 +3425,7 @@ public class SimpleJoin
 		if(havingPos >= 0 && havingPos < minPos)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, HAVING¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, HAVINGå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 		}
 		
 		minPos = pos(havingPos , minPos);
@@ -3434,7 +3434,7 @@ public class SimpleJoin
 		if(orderPos >= 0 && orderPos < minPos)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ORDER¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ORDERå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 		}
 		
 		minPos = pos(orderPos , minPos);
@@ -3443,7 +3443,7 @@ public class SimpleJoin
 		if(limitPos >= 0 && limitPos < minPos)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, LIMIT¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, LIMITå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 		}
 		
 		minPos = pos(limitPos , minPos);
@@ -3452,7 +3452,7 @@ public class SimpleJoin
 		if(offsetPos >= 0 && offsetPos < minPos)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, OFFSET¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, OFFSETå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 		}
 		
 		int byStart = pos(groupPos, wherePos, fromPos);
@@ -3462,20 +3462,20 @@ public class SimpleJoin
 		if(byPos < 0 && groupPos > 0)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ¹Ø¼ü×ÖGROUPºóÃæÈ±ÉÙ¹Ø¼ü×ÖBY");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, å…³é”®å­—GROUPåé¢ç¼ºå°‘å…³é”®å­—BY");
 		}
 		else if(havingPos > 0 && byPos > havingPos)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ·Ö×é¹Ø¼ü×ÖBYÎ»ÖÃÓ¦¸ÃÔÚHAVINGÖ®Ç°");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, åˆ†ç»„å…³é”®å­—BYä½ç½®åº”è¯¥åœ¨HAVINGä¹‹å‰");
 		}
 		
 		int fromEnd = pos(wherePos, groupPos, byPos, havingPos, orderPos, limitPos, offsetPos, next);
 		
-		if(!hasJoin) //²»´æÔÚJOIN£¬¼ì²éÊÇ·ñÊÇÒşÊ½ÄÚÁ¬½Ó
+		if(!hasJoin) //ä¸å­˜åœ¨JOINï¼Œæ£€æŸ¥æ˜¯å¦æ˜¯éšå¼å†…è¿æ¥
 		{
 			int commaPos = Tokenizer.scanComma(tokens, fromPos, fromEnd);
-			if(commaPos == -1) //µ¥±í
+			if(commaPos == -1) //å•è¡¨
 			{
 				List<Token[]> resultList = new ArrayList<Token[]>();
 				resultList.add(tokens);
@@ -3546,14 +3546,14 @@ public class SimpleJoin
 				}
 			}
 			
-			//where×Ó¾äÊÇ´¿andÁ¬½Ó£¬¿ÉÒÔÌáÇ°´¦Àí
+			//whereå­å¥æ˜¯çº¯andè¿æ¥ï¼Œå¯ä»¥æå‰å¤„ç†
 			if(this.whereList.size() != 0)
 			{
 				fromEnd = whereEnd;
 			}
 		}
 		
-		//È¥³ıÒÑ·ÖÎöÍê±ÏµÄinto\from\join\on\where(È«andÁ¬½ÓÊ±)µÄ×Ó¾ä
+		//å»é™¤å·²åˆ†æå®Œæ¯•çš„into\from\join\on\where(å…¨andè¿æ¥æ—¶)çš„å­å¥
 		List<Token[]> tokensList = new ArrayList<Token[]>();
 		List<Token> tokenList = new ArrayList<Token>();
 		for(int i=0, len=tokens.length; i<len; i++)
@@ -3601,7 +3601,7 @@ public class SimpleJoin
 		return tokensList;
 	}
 	
-	private int scanQuantifies(Token []tokens, int start, int next) //Ö»Ìø¹ı²»Ö´ĞĞ¹¦ÄÜ
+	private int scanQuantifies(Token []tokens, int start, int next) //åªè·³è¿‡ä¸æ‰§è¡ŒåŠŸèƒ½
 	{
 		Token t = tokens[start];
 		if(t.isKeyWord()) 
@@ -3613,7 +3613,7 @@ public class SimpleJoin
 				if (c >= next) 
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanQuantifies, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanQuantifies, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 				}
 				t = tokens[c];
 			}
@@ -3624,7 +3624,7 @@ public class SimpleJoin
 				if (c >= next) 
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanQuantifies, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanQuantifies, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 				}
 			}
 			
@@ -3710,7 +3710,7 @@ public class SimpleJoin
 											if(!tokens[i].getString().equalsIgnoreCase(tokens[i + 4].getString()))
 											{
 												MessageManager mm = ParseMessage.get();
-												throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, ¾ÛºÏº¯ÊıËùÊô±í±ØĞëÓë¾ÛºÏ×Ö¶ÎËùÊô±íÒ»ÖÂ");
+												throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, èšåˆå‡½æ•°æ‰€å±è¡¨å¿…é¡»ä¸èšåˆå­—æ®µæ‰€å±è¡¨ä¸€è‡´");
 											}
 											else
 											{
@@ -3736,7 +3736,7 @@ public class SimpleJoin
 								if(!this.rootNode.hasTableName(tableName))
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, SQLÓï¾äÖĞ´æÔÚÎ´ÖªµÄ±í");
+									throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, SQLè¯­å¥ä¸­å­˜åœ¨æœªçŸ¥çš„è¡¨");
 								}
 								else
 								{
@@ -3764,7 +3764,7 @@ public class SimpleJoin
 								if(!this.rootNode.hasTableName(tableName))
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, SQLÓï¾äÖĞ´æÔÚÎ´ÖªµÄ±í");
+									throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, SQLè¯­å¥ä¸­å­˜åœ¨æœªçŸ¥çš„è¡¨");
 								}
 								else
 								{
@@ -3780,7 +3780,7 @@ public class SimpleJoin
 									}
 									if(!selectTableAll)
 									{
-										//¼ÇÂ¼Ô­Ê¼×Ö¶ÎÃû³Æµ½SELECT×Ö¶Î¼ÇÂ¼ÁĞ±íÒÔ±¸Ê¹ÓÃ
+										//è®°å½•åŸå§‹å­—æ®µåç§°åˆ°SELECTå­—æ®µè®°å½•åˆ—è¡¨ä»¥å¤‡ä½¿ç”¨
 										String oldName = tokens[i].getString() + tokens[i+1].getString() + tokens[i+2].getString();
 										selectList.add(oldName);
 									}
@@ -3860,7 +3860,7 @@ public class SimpleJoin
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, EXISTS×Ó¾äºóÃæ±ØĞë½Ó×Ó²éÑ¯Óï¾ä");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, EXISTSå­å¥åé¢å¿…é¡»æ¥å­æŸ¥è¯¢è¯­å¥");
 					}
 				}
 				else if(i + 1 < len && tokens[i].isKeyWord("IN") && tokens[i + 1].getType() == Tokenizer.LPAREN || i + 2 < len
@@ -3933,7 +3933,7 @@ public class SimpleJoin
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, EXISTS×Ó¾äºóÃæ±ØĞë½Ó×Ó²éÑ¯Óï¾ä");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, EXISTSå­å¥åé¢å¿…é¡»æ¥å­æŸ¥è¯¢è¯­å¥");
 					}		
 				}
 				else if(tokens[i].getType() == Tokenizer.LPAREN && i + 1 < len) //SELECT/WHERE
@@ -4041,7 +4041,7 @@ public class SimpleJoin
 			if(couple > 1 || couple < -1)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":checkJoinOn, ¹Ø¼ü×ÖJOINÓëON²»Æ¥Åä");
+				throw new RQException(mm.getMessage("syntax.error") + ":checkJoinOn, å…³é”®å­—JOINä¸ONä¸åŒ¹é…");
 			}
 		}
 		
@@ -4061,7 +4061,7 @@ public class SimpleJoin
 			if(!node.analyzeBuffer(filter))
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":filterBrowse, ON×Ó¾äÖĞ´æÔÚÎ´ÖªµÄ±í");
+				throw new RQException(mm.getMessage("syntax.error") + ":filterBrowse, ONå­å¥ä¸­å­˜åœ¨æœªçŸ¥çš„è¡¨");
 			}
 			node.moveBuffer(0);
 			
@@ -4070,7 +4070,7 @@ public class SimpleJoin
 			if(left == null || right == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":filterCheck, Ä³´¦´æÔÚÒì³£µÄJOIN ON×Ó¾ä");
+				throw new RQException(mm.getMessage("syntax.error") + ":filterCheck, æŸå¤„å­˜åœ¨å¼‚å¸¸çš„JOIN ONå­å¥");
 			}
 			
 			filterCheck(left);
@@ -4086,18 +4086,18 @@ public class SimpleJoin
 			if(!node.analyzeBuffer(filter))
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":filterBrowse, WHERE×Ó¾äÖĞ´æÔÚÎ´ÖªµÄ±í");
+				throw new RQException(mm.getMessage("syntax.error") + ":filterBrowse, WHEREå­å¥ä¸­å­˜åœ¨æœªçŸ¥çš„è¡¨");
 			}
 		}
 		
-		if(node instanceof InnerJoin)//whereÔÚInnerJoinÊ±ÄÜÏò×óÓÒ½ÚµãÊÔ×ÅÏòÏÂ´«µİ
+		if(node instanceof InnerJoin)//whereåœ¨InnerJoinæ—¶èƒ½å‘å·¦å³èŠ‚ç‚¹è¯•ç€å‘ä¸‹ä¼ é€’
 		{
 			JoinNode left = node.getLeft();
 			if(left != null)
 			{
-				if(left.analyzeBuffer(filter))//ÈôwhereÖĞµÄ±íÈ«²¿ÔÚ×ó½ÚµãÖĞ
+				if(left.analyzeBuffer(filter))//è‹¥whereä¸­çš„è¡¨å…¨éƒ¨åœ¨å·¦èŠ‚ç‚¹ä¸­
 				{
-					filterBrowse(left, filter, recycle);//ÊÔ×ÅÓÉ×ó½Úµã¼ÌĞøÏòÏÂ´«µİ
+					filterBrowse(left, filter, recycle);//è¯•ç€ç”±å·¦èŠ‚ç‚¹ç»§ç»­å‘ä¸‹ä¼ é€’
 					return;
 				}
 			}
@@ -4106,9 +4106,9 @@ public class SimpleJoin
 				JoinNode right = node.getRight();
 				if(right != null)
 				{
-					if(right.analyzeBuffer(filter))//ÈôwhereÖĞµÄ±íÈ«²¿ÔÚÓÒ½ÚµãÖĞ
+					if(right.analyzeBuffer(filter))//è‹¥whereä¸­çš„è¡¨å…¨éƒ¨åœ¨å³èŠ‚ç‚¹ä¸­
 					{
-						filterBrowse(right, filter, recycle);//ÊÔ×ÅÓÉÓÒ½Úµã¼ÌĞøÏòÏÂ´«µİ
+						filterBrowse(right, filter, recycle);//è¯•ç€ç”±å³èŠ‚ç‚¹ç»§ç»­å‘ä¸‹ä¼ é€’
 						return;
 					}
 				}
@@ -4150,33 +4150,33 @@ public class SimpleJoin
 			}
 			if(contains)
 			{
-				node.moveBuffer(1); //º¬Ö÷²éÑ¯×Ö¶ÎµÄ¹é²¢ÓÚµ±Ç°½ÚµãµÄwhereÖĞ
+				node.moveBuffer(1); //å«ä¸»æŸ¥è¯¢å­—æ®µçš„å½’å¹¶äºå½“å‰èŠ‚ç‚¹çš„whereä¸­
 			}
 			else
 			{
-				node.moveBuffer(0); //·ñÔò¿ÉÒÔ¹é²¢ÓÚonÖĞ
+				node.moveBuffer(0); //å¦åˆ™å¯ä»¥å½’å¹¶äºonä¸­
 			}
 		}
-		else if(node instanceof LeftJoin)//whereÔÚLeftJoinÊ±Ö»ÄÜÏò×ó½ÚµãÊÔ×ÅÏòÏÂ´«µİ²»ÄÜ¹é²¢ÓÚµ±Ç°½ÚµãµÄonÖĞ
+		else if(node instanceof LeftJoin)//whereåœ¨LeftJoinæ—¶åªèƒ½å‘å·¦èŠ‚ç‚¹è¯•ç€å‘ä¸‹ä¼ é€’ä¸èƒ½å½’å¹¶äºå½“å‰èŠ‚ç‚¹çš„onä¸­
 		{
 			JoinNode left = node.getLeft();
 			if(left != null)
 			{
-				if(left.analyzeBuffer(filter))//ÈôwhereÖĞµÄ±íÈ«²¿ÔÚ×ó½ÚµãÖĞ
+				if(left.analyzeBuffer(filter))//è‹¥whereä¸­çš„è¡¨å…¨éƒ¨åœ¨å·¦èŠ‚ç‚¹ä¸­
 				{
-					filterBrowse(left, filter, recycle);//ÊÔ×ÅÓÉ×ó½Úµã¼ÌĞøÏòÏÂ´«µİ
+					filterBrowse(left, filter, recycle);//è¯•ç€ç”±å·¦èŠ‚ç‚¹ç»§ç»­å‘ä¸‹ä¼ é€’
 					return;
 				}
 			}
-			node.moveBuffer(1); //·ñÔò¹é²¢ÓÚµ±Ç°½ÚµãµÄwhereÖĞ
+			node.moveBuffer(1); //å¦åˆ™å½’å¹¶äºå½“å‰èŠ‚ç‚¹çš„whereä¸­
 		}
-		else if(node instanceof JoinTable)//whereËùÔÚÎ»ÖÃÊÇ±í½Úµã²»ÄÜ¹é²¢µ½onµ«¿ÉÒÔÌáÇ°¹ıÂË
+		else if(node instanceof JoinTable)//whereæ‰€åœ¨ä½ç½®æ˜¯è¡¨èŠ‚ç‚¹ä¸èƒ½å½’å¹¶åˆ°onä½†å¯ä»¥æå‰è¿‡æ»¤
 		{
 			PerfectWhere pw = new PerfectWhere(Tokenizer.parse(filter), this.parameterList);
 			String topFilter = pw.getTopFromTokens(null, null, ((JoinTable)node).getTableFile(), ((JoinTable)node).getTableNames().iterator().next());
 			if(topFilter == null)
 			{
-				node.moveBuffer(1);//¹é²¢ÓÚµ±Ç°½ÚµãµÄwhereÖĞ
+				node.moveBuffer(1);//å½’å¹¶äºå½“å‰èŠ‚ç‚¹çš„whereä¸­
 			}
 			else
 			{
@@ -4189,14 +4189,14 @@ public class SimpleJoin
 					filter += filterToken.getSpaces();
 				}
 				node.setBuffer(filter);
-				node.moveBuffer(1);//¹é²¢ÓÚµ±Ç°½ÚµãµÄwhereÖĞ
+				node.moveBuffer(1);//å½’å¹¶äºå½“å‰èŠ‚ç‚¹çš„whereä¸­
 			}
 		}
 		
 		String where = node.getBuffer();
 		if(where != null && !where.isEmpty())
 		{
-			recycle.add(where); //ÎŞ·¨ÌáÇ°Ê¹ÓÃµÄwhere»ØÊÕÁôµ½È«²¿±íÆ´ÍêºóÓÃ
+			recycle.add(where); //æ— æ³•æå‰ä½¿ç”¨çš„whereå›æ”¶ç•™åˆ°å…¨éƒ¨è¡¨æ‹¼å®Œåç”¨
 			node.setBuffer(null);
 		}
 	}
@@ -4209,7 +4209,7 @@ public class SimpleJoin
 			if(!node.analyzeBuffer(field))
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":selectBrowse, SELECT×Ó¾äÖĞ´æÔÚÎ´ÖªµÄ±í");
+				throw new RQException(mm.getMessage("syntax.error") + ":selectBrowse, SELECTå­å¥ä¸­å­˜åœ¨æœªçŸ¥çš„è¡¨");
 			}
 		}
 		
@@ -4224,7 +4224,7 @@ public class SimpleJoin
 			if(left == null || right == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":selectBrowse, Ä³´¦´æÔÚÒì³£µÄJOIN ON×Ó¾ä");
+				throw new RQException(mm.getMessage("syntax.error") + ":selectBrowse, æŸå¤„å­˜åœ¨å¼‚å¸¸çš„JOIN ONå­å¥");
 			}
 			
 			if(left.analyzeBuffer(field))
@@ -4364,7 +4364,7 @@ public class SimpleJoin
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, exists¹Ø¼ü×ÖºóÃæ±ØĞë½Ó×Ó²éÑ¯");
+						throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, existså…³é”®å­—åé¢å¿…é¡»æ¥å­æŸ¥è¯¢");
 					}
 				}
 				else if(tokens[i].isKeyWord("EXISTS") && i + 2 < len && tokens[i + 1].getType() == Tokenizer.LPAREN)
@@ -4486,7 +4486,7 @@ public class SimpleJoin
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, exists¹Ø¼ü×ÖºóÃæ±ØĞë½Ó×Ó²éÑ¯");
+						throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, existså…³é”®å­—åé¢å¿…é¡»æ¥å­æŸ¥è¯¢");
 					}
 				}
 				else if(tokens[i].isKeyWord("NOT") && i + 3 < len && tokens[i + 1].isKeyWord("IN") && tokens[i + 2].getType() == Tokenizer.LPAREN)
@@ -4583,7 +4583,7 @@ public class SimpleJoin
 								if(!(seq.get(1) instanceof BaseRecord) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, INÖĞ×Ó²éÑ¯½á¹ûÒì³£");
+									throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, INä¸­å­æŸ¥è¯¢ç»“æœå¼‚å¸¸");
 								}
 								
 								Token tk = new Token(Tokenizer.KEYWORD, "NOT", index++, "NOT");
@@ -4709,7 +4709,7 @@ public class SimpleJoin
 								if(!(seq.get(1) instanceof BaseRecord) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, INÖĞ×Ó²éÑ¯½á¹ûÒì³£");
+									throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, INä¸­å­æŸ¥è¯¢ç»“æœå¼‚å¸¸");
 								}
 								
 								Token tk = new Token(Tokenizer.KEYWORD, "IN", index++, "IN");
@@ -4838,7 +4838,7 @@ public class SimpleJoin
 							if(seq == null || seq.length() != 1 || !(seq.get(1) instanceof BaseRecord) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, ÔÚSELECT/WHERE×Ó¾äÖĞ×Ó²éÑ¯½á¹ûÒì³£");
+								throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, åœ¨SELECT/WHEREå­å¥ä¸­å­æŸ¥è¯¢ç»“æœå¼‚å¸¸");
 							}
 							
 							Object val = ((BaseRecord)seq.get(1)).getFieldValue(0);
@@ -4927,7 +4927,7 @@ public class SimpleJoin
 											if(!tokens[i].getString().equalsIgnoreCase(tokens[i+4].getString()))
 											{
 												MessageManager mm = ParseMessage.get();
-												throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, ¾ÛºÏº¯ÊıËùÊô±í±ØĞëÓë¾ÛºÏ×Ö¶ÎËùÊô±íÒ»ÖÂ");
+												throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, èšåˆå‡½æ•°æ‰€å±è¡¨å¿…é¡»ä¸èšåˆå­—æ®µæ‰€å±è¡¨ä¸€è‡´");
 											}
 											else
 											{
@@ -5096,7 +5096,7 @@ public class SimpleJoin
 			hasJoin = false;
 		}
 		
-		List<Token[]> tokensList = scanFrom(tokens, start, next, hasJoin); //ÅĞ¶ÏÊÇ·ñÊÇ¶à±í²éÑ¯£¬Èç¹ûÊÇÔò´¦Àí¶à±í
+		List<Token[]> tokensList = scanFrom(tokens, start, next, hasJoin); //åˆ¤æ–­æ˜¯å¦æ˜¯å¤šè¡¨æŸ¥è¯¢ï¼Œå¦‚æœæ˜¯åˆ™å¤„ç†å¤šè¡¨
 		
 		if(this.singleTable)
 		{
@@ -5162,7 +5162,7 @@ public class SimpleJoin
 								else
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":query, ±í±ğÃûÒıÓÃ¸ñÊ½´íÎó");
+									throw new RQException(mm.getMessage("syntax.error") + ":query, è¡¨åˆ«åå¼•ç”¨æ ¼å¼é”™è¯¯");
 								}
 							}
 							else
@@ -5178,7 +5178,7 @@ public class SimpleJoin
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":query, ÎŞĞ§µÄ±í½Úµã");
+						throw new RQException(mm.getMessage("syntax.error") + ":query, æ— æ•ˆçš„è¡¨èŠ‚ç‚¹");
 					}
 				}
 			}
@@ -5221,32 +5221,32 @@ public class SimpleJoin
 		}
 		else
 		{
-			filterCheck(null); //´¦Àíon×Ó¾ä
+			filterCheck(null); //å¤„ç†onå­å¥
 			if(this.whereList != null)
 			{
-				for(String where : this.whereList) //´¦Àíwhere×Ó¾ä
+				for(String where : this.whereList) //å¤„ç†whereå­å¥
 				{
 					filterBrowse(null, where, this.recycleList);
 				}
 			}
 			
-			scanSelect(tokensList); //´¦ÀíÆäËû×Ó¾ä
+			scanSelect(tokensList); //å¤„ç†å…¶ä»–å­å¥
 			if(this.selectList != null)
 			{
-				for(String select:this.selectList) //È·¶¨select×Ó¾äÉæ¼°µ½µÄ×Ö¶Î
+				for(String select:this.selectList) //ç¡®å®šselectå­å¥æ¶‰åŠåˆ°çš„å­—æ®µ
 				{
 					selectBrowse(null, select);
 				}
 			}
 			if(this.rootNode != null)
 			{
-				//Ö´ĞĞËùÓĞ·Ö±íµÄÆ´½Ó
+				//æ‰§è¡Œæ‰€æœ‰åˆ†è¡¨çš„æ‹¼æ¥
 				this.rootNode.executeJoin();
 				
-				//Éú³ÉĞÂµÄtokenÊı×é,×¢ÒâÒªÔÚÆ´½ÓÖ®ºó£¬ÒÔ´¦ÀíÏñT.*ÕâÖÖÌØÊâĞÎÊ½
+				//ç”Ÿæˆæ–°çš„tokenæ•°ç»„,æ³¨æ„è¦åœ¨æ‹¼æ¥ä¹‹åï¼Œä»¥å¤„ç†åƒT.*è¿™ç§ç‰¹æ®Šå½¢å¼
 				Token[] newTokens = getNewTokens(tokensList);
 				
-				//È¡Ô­Ê¼ÓÎ±êºÍÊı¾İ½á¹¹
+				//å–åŸå§‹æ¸¸æ ‡å’Œæ•°æ®ç»“æ„
 				ICursor icursor = this.rootNode.getCursor();
 				DataStruct struct = this.rootNode.getStruct();
 				icursor.setDataStruct(struct);
@@ -5367,7 +5367,7 @@ public class SimpleJoin
 					icursor = icur;
 				}
 				
-				//²éÑ¯×îÖÕÑ¡³öÁĞ
+				//æŸ¥è¯¢æœ€ç»ˆé€‰å‡ºåˆ—
 				SimpleSelect sdql = new SimpleSelect(this.ics, this.ctx);
 				sdql.setMemory(this.isMemory);
 				if(this.parallelNumber > 1)
@@ -5390,7 +5390,7 @@ public class SimpleJoin
 				int lastdot = intoFileName.lastIndexOf(".");
 				if (lastdot == -1) {
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":query, ²»ÈÏÊ¶intoÎÄ¼şÀàĞÍ");
+					throw new RQException(mm.getMessage("syntax.error") + ":query, ä¸è®¤è¯†intoæ–‡ä»¶ç±»å‹");
 				}
 				String ext = intoFileName.substring(lastdot);
 				intoFileName = Expression.replaceMacros(intoFileName.substring(0,lastdot), null, ctx);
@@ -5441,7 +5441,7 @@ public class SimpleJoin
 					if(!create)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":query, Ö´ĞĞintoÖ¸ÁîÖĞ´´½¨ÎÄ¼şÂ·¾¶Ê§°Ü");
+						throw new RQException(mm.getMessage("syntax.error") + ":query, æ‰§è¡ŒintoæŒ‡ä»¤ä¸­åˆ›å»ºæ–‡ä»¶è·¯å¾„å¤±è´¥");
 					}
 				}
 				catch(Exception ex)
@@ -5451,7 +5451,7 @@ public class SimpleJoin
 			}
 			
 			String password = null;
-			if(Pattern.compile("[^\\'\\\"\\f\\n\\r\\t\\v]+\\.[cC][tT][xX] *\\: *\\'[^\\'\\\"\\f\\n\\r\\t\\v]*\\'").matcher(this.intoFileName).matches()) //×é±íÎÄ¼ş¿ÉÒÔÉèÖÃÃÜÂë
+			if(Pattern.compile("[^\\'\\\"\\f\\n\\r\\t\\v]+\\.[cC][tT][xX] *\\: *\\'[^\\'\\\"\\f\\n\\r\\t\\v]*\\'").matcher(this.intoFileName).matches()) //ç»„è¡¨æ–‡ä»¶å¯ä»¥è®¾ç½®å¯†ç 
 			{
 				Matcher matcher = Pattern.compile("[^\\'\\\"\\f\\n\\r\\t\\v]+\\.[cC][tT][xX](?= *\\: *\\'[^\\'\\\"\\f\\n\\r\\t\\v]*\\')").matcher(this.intoFileName);
 				if(matcher.find())
@@ -5461,13 +5461,13 @@ public class SimpleJoin
 					if(!password.startsWith(":"))
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":query, intoÓï¾äÃÜÂë¸ñÊ½²»¶Ô");
+						throw new RQException(mm.getMessage("syntax.error") + ":query, intoè¯­å¥å¯†ç æ ¼å¼ä¸å¯¹");
 					}
 					password = password.substring(1).trim();
 					if(!password.startsWith("'") || !password.endsWith("'"))
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":query, intoÓï¾äÃÜÂë¸ñÊ½²»¶Ô");
+						throw new RQException(mm.getMessage("syntax.error") + ":query, intoè¯­å¥å¯†ç æ ¼å¼ä¸å¯¹");
 					}
 					password = password.substring(1, password.length() - 1);
 					this.intoFileName = realName;
@@ -5497,7 +5497,7 @@ public class SimpleJoin
 						if (efo.getFirstRecordDataStruct().isCompatible(ds)) aopt+="a";
 						else {
 							MessageManager mm = ParseMessage.get();
-							throw  new RQException(mm.getMessage("syntax.error") + ":query, SELECT INTO file has existed£¬ not compatible£¡");
+							throw  new RQException(mm.getMessage("syntax.error") + ":query, SELECT INTO file has existedï¼Œ not compatibleï¼");
 						}
 					} else if(this.intoFileName.toLowerCase().endsWith(".xls")	|| this.intoFileName.toLowerCase().endsWith(".xlsx")) {
 						ExcelTool et = new ExcelTool(fo, true, this.intoFileName.toLowerCase().endsWith(".xlsx"), false, null);
@@ -5505,12 +5505,12 @@ public class SimpleJoin
 						if (t.dataStruct().isCompatible(this.icur.getDataStruct())) aopt+="a";
 						else {
 							MessageManager mm = ParseMessage.get();
-							throw  new RQException(mm.getMessage("syntax.error") + ":query, SELECT INTO file has existed£¬ not compatible£¡");
+							throw  new RQException(mm.getMessage("syntax.error") + ":query, SELECT INTO file has existedï¼Œ not compatibleï¼");
 						}
 					}
 				} catch (IOException e) {
 					MessageManager mm = ParseMessage.get();
-					throw  new RQException(mm.getMessage("syntax.error") + ":query, SELECT INTO file has existed£¬ not compatible£¡");
+					throw  new RQException(mm.getMessage("syntax.error") + ":query, SELECT INTO file has existedï¼Œ not compatibleï¼");
 				}
 			}
 			
@@ -5527,7 +5527,7 @@ public class SimpleJoin
 						fo.delete();
 					}
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":query, ½«Êı¾İµ¼ÈëBTXÎÄ¼şÊ§°Ü", e);
+					throw new RQException(mm.getMessage("syntax.error") + ":query, å°†æ•°æ®å¯¼å…¥BTXæ–‡ä»¶å¤±è´¥", e);
 				}
 			}
 			else if(this.intoFileName.toLowerCase().endsWith(".txt"))
@@ -5543,7 +5543,7 @@ public class SimpleJoin
 						fo.delete();
 					}
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":query, ½«Êı¾İµ¼ÈëTXTÎÄ¼şÊ§°Ü", e);
+					throw new RQException(mm.getMessage("syntax.error") + ":query, å°†æ•°æ®å¯¼å…¥TXTæ–‡ä»¶å¤±è´¥", e);
 				}
 			}
 			else if(this.intoFileName.toLowerCase().endsWith(".csv"))
@@ -5559,7 +5559,7 @@ public class SimpleJoin
 						fo.delete();
 					}
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":query, ½«Êı¾İµ¼ÈëCSVÎÄ¼şÊ§°Ü", e);
+					throw new RQException(mm.getMessage("syntax.error") + ":query, å°†æ•°æ®å¯¼å…¥CSVæ–‡ä»¶å¤±è´¥", e);
 				}
 			}
 			else if(this.intoFileName.toLowerCase().endsWith(".xls"))
@@ -5578,7 +5578,7 @@ public class SimpleJoin
 						fo.delete();
 					}
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":query, ÓÎ±êµ¼ÈëxlsÎÄ¼şÊ§°Ü", e);
+					throw new RQException(mm.getMessage("syntax.error") + ":query, æ¸¸æ ‡å¯¼å…¥xlsæ–‡ä»¶å¤±è´¥", e);
 				}
 				finally
 				{
@@ -5612,7 +5612,7 @@ public class SimpleJoin
 						fo.delete();
 					}
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":query, ÓÎ±êµ¼ÈëxlsÎÄ¼şÊ§°Ü", e);
+					throw new RQException(mm.getMessage("syntax.error") + ":query, æ¸¸æ ‡å¯¼å…¥xlsæ–‡ä»¶å¤±è´¥", e);
 				}
 				finally
 				{
@@ -5633,7 +5633,7 @@ public class SimpleJoin
 			else
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":query, Î´ÖªµÄÎÄ¼şÀàĞÍ");
+				throw new RQException(mm.getMessage("syntax.error") + ":query, æœªçŸ¥çš„æ–‡ä»¶ç±»å‹");
 			}
 			
 			for (int i=1; i<intoFiles.size(); i++) {
@@ -5692,10 +5692,10 @@ public class SimpleJoin
 			String tableName = entry.getKey();
 			Object tableObject = entry.getValue();
 			JoinTable tableNode = null;
-			if(tableObject instanceof String) //²»ÔÙÖ§³Ö±íÎÄ¼şÂ·¾¶
+			if(tableObject instanceof String) //ä¸å†æ”¯æŒè¡¨æ–‡ä»¶è·¯å¾„
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":setWithTableMap, WITH×Ó¾äÖĞÖ»ÄÜÊ¹ÓÃ¼¯ËãÆ÷½Å±¾»ò×Ó²éÑ¯Óï¾ä");
+				throw new RQException(mm.getMessage("syntax.error") + ":setWithTableMap, WITHå­å¥ä¸­åªèƒ½ä½¿ç”¨é›†ç®—å™¨è„šæœ¬æˆ–å­æŸ¥è¯¢è¯­å¥");
 			}
 			else if(tableObject instanceof Expression)
 			{
@@ -5728,7 +5728,7 @@ public class SimpleJoin
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":setWithTableMap, ²»Ö§³ÖµÄÁÙÊ±±íÊı¾İÀàĞÍ");
+					throw new RQException(mm.getMessage("syntax.error") + ":setWithTableMap, ä¸æ”¯æŒçš„ä¸´æ—¶è¡¨æ•°æ®ç±»å‹");
 				}
 			}
 			else if(tableObject instanceof SimpleSQL)
@@ -5786,7 +5786,7 @@ public class SimpleJoin
 		else
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("function.paramError") + ":getSQLValue, ²»Ö§³ÖµÄÊı¾İÀàĞÍ");
+			throw new RQException(mm.getMessage("function.paramError") + ":getSQLValue, ä¸æ”¯æŒçš„æ•°æ®ç±»å‹");
 		}
 	}
 	
@@ -5800,7 +5800,7 @@ public class SimpleJoin
 		if(ds == null)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ²éÑ¯½á¹ûĞòÁĞÈ±ÉÙÊı¾İ½á¹¹");
+			throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, æŸ¥è¯¢ç»“æœåºåˆ—ç¼ºå°‘æ•°æ®ç»“æ„");
 		}
 		
 		if(subQueryEntryList.isEmpty())
@@ -5823,13 +5823,13 @@ public class SimpleJoin
 				if(fromPos <= 0)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, FROM¹Ø¼ü×ÖÈ±Ê§");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, FROMå…³é”®å­—ç¼ºå¤±");
 				}
 				int wherePos = Tokenizer.scanKeyWord("WHERE", subQueryTokens, 0, subQueryTokens.length);
 				if(wherePos >= 0 && wherePos < fromPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, WHERE¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, WHEREå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				if(wherePos < 0)
 				{
@@ -5840,35 +5840,35 @@ public class SimpleJoin
 				if(groupPos >= 0 && groupPos < wherePos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, GROUP¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, GROUPå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				minPos = pos(groupPos, minPos);
 				int havingPos = Tokenizer.scanKeyWord("HAVING", subQueryTokens, 0, subQueryTokens.length);
 				if(havingPos >= 0 && havingPos < groupPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, HAVING¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, HAVINGå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				minPos = pos(havingPos, minPos);
 				int orderPos = Tokenizer.scanKeyWord("ORDER", subQueryTokens, 0, subQueryTokens.length);
 				if(orderPos >= 0 && orderPos < minPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ORDER¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ORDERå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				minPos = pos(orderPos , minPos);
 				int limitPos = Tokenizer.scanKeyWord("LIMIT", subQueryTokens, 0, subQueryTokens.length);
 				if(limitPos >= 0 && limitPos < minPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, LIMIT¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, LIMITå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				minPos = pos(limitPos , minPos);
 				int offsetPos = Tokenizer.scanKeyWord("OFFSET", subQueryTokens, 0, subQueryTokens.length);
 				if(offsetPos >= 0 && offsetPos < minPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, OFFSET¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, OFFSETå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				int byStart = pos(groupPos, wherePos, fromPos);
 				int byEnd = pos(havingPos, orderPos, limitPos, offsetPos, subQueryTokens.length);
@@ -5876,12 +5876,12 @@ public class SimpleJoin
 				if(byPos < 0 && groupPos > 0)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ¹Ø¼ü×ÖGROUPºóÃæÈ±ÉÙ¹Ø¼ü×ÖBY");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, å…³é”®å­—GROUPåé¢ç¼ºå°‘å…³é”®å­—BY");
 				}
 				else if(havingPos > 0 && byPos > havingPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ·Ö×é¹Ø¼ü×ÖBYÎ»ÖÃÓ¦¸ÃÔÚHAVINGÖ®Ç°");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, åˆ†ç»„å…³é”®å­—BYä½ç½®åº”è¯¥åœ¨HAVINGä¹‹å‰");
 				}
 				
 				int whereEnd = pos(groupPos, byPos, havingPos, orderPos, limitPos, offsetPos, subQueryTokens.length);
@@ -5889,28 +5889,28 @@ public class SimpleJoin
 				if(intoPos >= fromPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, INTO¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, INTOå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				int columnEnd = pos(intoPos, fromPos);
 				int selectPos = Tokenizer.scanKeyWord("SELECT", subQueryTokens, 0, subQueryTokens.length);
 				if(selectPos < 0)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, SELECT¹Ø¼ü×ÖÈ±Ê§");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, SELECTå…³é”®å­—ç¼ºå¤±");
 				}
 				int columnStart = selectPos;
 				int distinctPos = Tokenizer.scanKeyWord("DISTINCT", subQueryTokens, 0, subQueryTokens.length);
 				if(distinctPos >= 0 && distinctPos < selectPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, DISTINCT¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, DISTINCTå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				columnStart = pos(distinctPos, columnStart);
 				int topPos = Tokenizer.scanKeyWord("TOP", subQueryTokens, 0, subQueryTokens.length);
 				if(topPos >= 0 && topPos < columnStart)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, TOP¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, TOPå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				columnStart = pos(topPos, columnStart);
 				if(columnStart == topPos)
@@ -5943,7 +5943,7 @@ public class SimpleJoin
 						if(Tokenizer.scanComma(columnTokens, 0, columnTokens.length) != -1)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ×Ó²éÑ¯ÖĞSELECT×Ö¶Î±ØĞëµ¥ÁĞ");
+							throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, å­æŸ¥è¯¢ä¸­SELECTå­—æ®µå¿…é¡»å•åˆ—");
 						}
 						if(columnTokens[columnTokens.length - 1].getSpaces().isEmpty())
 						{
@@ -6041,15 +6041,15 @@ public class SimpleJoin
 						if(fltExps.length != 2)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, µÈÖµ²¼¶û±í´ïÊ½Óï·¨´íÎó");
+							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, ç­‰å€¼å¸ƒå°”è¡¨è¾¾å¼è¯­æ³•é”™è¯¯");
 						}
 						
-						if(outerFieldSet.contains(fltExps[0].trim().toLowerCase())) //Íâ²¿×Ö¶Î
+						if(outerFieldSet.contains(fltExps[0].trim().toLowerCase())) //å¤–éƒ¨å­—æ®µ
 						{
 							String numberCode = ExpressionTranslator.translateExp(fltExps[0].toLowerCase(), fn2cnMap);
 							outerExpsList.add(new Expression(numberCode));
 						}
-						else if(innerFieldSet.contains(fltExps[0].trim().toLowerCase())) //ÄÚ²¿×Ö¶Î
+						else if(innerFieldSet.contains(fltExps[0].trim().toLowerCase())) //å†…éƒ¨å­—æ®µ
 						{
 							String numberCode = ExpressionTranslator.translateExp(fltExps[0].toLowerCase(), fn2cnMap);
 							innerExpsList.add(new Expression(numberCode));
@@ -6057,15 +6057,15 @@ public class SimpleJoin
 						else
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, Î´ÖªµÄ×Ö¶Î");
+							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, æœªçŸ¥çš„å­—æ®µ");
 						}
 						
-						if(outerFieldSet.contains(fltExps[1].trim().toLowerCase())) //Íâ²¿×Ö¶Î
+						if(outerFieldSet.contains(fltExps[1].trim().toLowerCase())) //å¤–éƒ¨å­—æ®µ
 						{
 							String numberCode = ExpressionTranslator.translateExp(fltExps[1].toLowerCase(), fn2cnMap);
 							outerExpsList.add(new Expression(numberCode));
 						}
-						else if(innerFieldSet.contains(fltExps[1].trim().toLowerCase())) //ÄÚ²¿×Ö¶Î
+						else if(innerFieldSet.contains(fltExps[1].trim().toLowerCase())) //å†…éƒ¨å­—æ®µ
 						{
 							String numberCode = ExpressionTranslator.translateExp(fltExps[1].toLowerCase(), fn2cnMap);
 							innerExpsList.add(new Expression(numberCode));
@@ -6073,7 +6073,7 @@ public class SimpleJoin
 						else
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, Î´ÖªµÄ×Ö¶Î");
+							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, æœªçŸ¥çš„å­—æ®µ");
 						}
 					}
 					
@@ -6130,7 +6130,7 @@ public class SimpleJoin
 								if(fieldName.substring(1, fieldName.length() - 1).indexOf("\"") != -1)
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, Òì³£µÄ×Ö¶ÎÃû");
+									throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, å¼‚å¸¸çš„å­—æ®µå");
 								}
 								genericFieldName = "\"" + genericFieldName + "\"";
 							}
@@ -6176,13 +6176,13 @@ public class SimpleJoin
 		return icur;
 	}
 	
-	private Token[] scanParallel(Token[] tokens) // ´¦Àí/*+parallel*/
+	private Token[] scanParallel(Token[] tokens) // å¤„ç†/*+parallel*/
 	{
 		int select = Tokenizer.scanKeyWord("SELECT", tokens, 0, tokens.length);
 		if(select == -1)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanOlap, Óï¾äÈ±ÉÙselect¹Ø¼ü×Ö");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanOlap, è¯­å¥ç¼ºå°‘selectå…³é”®å­—");
 		}
 		int start = select + 1;
 		
@@ -6220,12 +6220,12 @@ public class SimpleJoin
 					this.parallelNumber = Integer.parseInt(tokens[i + 5].getString());
 					if(this.parallelNumber <= 0)
 					{
-						throw new RQException("²¢ĞĞÊı±ØĞë´óÓÚ0");
+						throw new RQException("å¹¶è¡Œæ•°å¿…é¡»å¤§äº0");
 					}
 				}
 				catch(Exception ex)
 				{
-					throw new RQException("²¢ĞĞÊıÉèÖÃ´íÎó", ex);
+					throw new RQException("å¹¶è¡Œæ•°è®¾ç½®é”™è¯¯", ex);
 				}
 				i = i + 8;
 				start = start + 9;
@@ -6265,7 +6265,7 @@ public class SimpleJoin
 				if(leftList.isEmpty())
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error")+"splitEqual, È±ÉÙÆ¥ÅäµÄ×óÀ¨ºÅ");
+					throw new RQException(mm.getMessage("syntax.error")+"splitEqual, ç¼ºå°‘åŒ¹é…çš„å·¦æ‹¬å·");
 				}
 				leftList.remove(leftList.size() - 1);
 			}
@@ -6276,27 +6276,27 @@ public class SimpleJoin
 			else if(leftList.isEmpty() && c == '=' && a == '!')
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error")+"splitEqual, µÈÖµÁ¬½Ó²»Ó¦³öÏÖ²»µÈÖµÔËËã");
+				throw new RQException(mm.getMessage("syntax.error")+"splitEqual, ç­‰å€¼è¿æ¥ä¸åº”å‡ºç°ä¸ç­‰å€¼è¿ç®—");
 			}
 			else if(leftList.isEmpty() && c == '=' && a == '>')
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error")+"splitEqual, µÈÖµÁ¬½Ó²»Ó¦³öÏÖ²»µÈÖµÔËËã");
+				throw new RQException(mm.getMessage("syntax.error")+"splitEqual, ç­‰å€¼è¿æ¥ä¸åº”å‡ºç°ä¸ç­‰å€¼è¿ç®—");
 			}
 			else if(leftList.isEmpty() && c == '=' && a == '<')
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error")+"splitEqual, µÈÖµÁ¬½Ó²»Ó¦³öÏÖ²»µÈÖµÔËËã");
+				throw new RQException(mm.getMessage("syntax.error")+"splitEqual, ç­‰å€¼è¿æ¥ä¸åº”å‡ºç°ä¸ç­‰å€¼è¿ç®—");
 			}
 			else if(leftList.isEmpty() && c == '>')
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error")+"splitEqual, µÈÖµÁ¬½Ó²»Ó¦³öÏÖ²»µÈÖµÔËËã");
+				throw new RQException(mm.getMessage("syntax.error")+"splitEqual, ç­‰å€¼è¿æ¥ä¸åº”å‡ºç°ä¸ç­‰å€¼è¿ç®—");
 			}
 			else if(leftList.isEmpty() && c == '<')
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error")+"splitEqual, µÈÖµÁ¬½Ó²»Ó¦³öÏÖ²»µÈÖµÔËËã");
+				throw new RQException(mm.getMessage("syntax.error")+"splitEqual, ç­‰å€¼è¿æ¥ä¸åº”å‡ºç°ä¸ç­‰å€¼è¿ç®—");
 			}
 			a = c;
 		}
@@ -6328,7 +6328,7 @@ public class SimpleJoin
 				if(leftList.isEmpty())
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error")+"splitAnd, È±ÉÙÆ¥ÅäµÄ×óÀ¨ºÅ");
+					throw new RQException(mm.getMessage("syntax.error")+"splitAnd, ç¼ºå°‘åŒ¹é…çš„å·¦æ‹¬å·");
 				}
 				leftList.remove(leftList.size() - 1);
 			}
@@ -6339,7 +6339,7 @@ public class SimpleJoin
 			else if(leftList.isEmpty() && c == '|' && a == '|')
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error")+"splitAnd, ANDÁ¬½Ó²»Ó¦³öÏÖORÔËËã");
+				throw new RQException(mm.getMessage("syntax.error")+"splitAnd, ANDè¿æ¥ä¸åº”å‡ºç°ORè¿ç®—");
 			}
 			a = c;
 		}

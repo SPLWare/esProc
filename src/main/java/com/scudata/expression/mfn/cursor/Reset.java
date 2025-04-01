@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.CursorFunction;
 
 /**
- * ÖØÖÃÓÎ±êµ½Êı¾İÍ·²¿
+ * é‡ç½®æ¸¸æ ‡åˆ°æ•°æ®å¤´éƒ¨
  * cs.reset()
  * @author RunQian
  *

@@ -7,14 +7,14 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * isupper(string) ÅĞ¶¨×Ö·û´®stringÊÇ·ñÈ«ÓÉ´óĞ´×ÖÄ¸¹¹³É¡£
- * Èç¹ûstringÎªÕûÊı£¬Ôò×÷ÎªasciiÂë£¬ÅĞ¶ÏÆä¶ÔÓ¦µÄ×Ö·ûÊÇ·ñÎª´óĞ´×ÖÄ¸¡£
+ * isupper(string) åˆ¤å®šå­—ç¬¦ä¸²stringæ˜¯å¦å…¨ç”±å¤§å†™å­—æ¯æ„æˆã€‚
+ * å¦‚æœstringä¸ºæ•´æ•°ï¼Œåˆ™ä½œä¸ºasciiç ï¼Œåˆ¤æ–­å…¶å¯¹åº”çš„å­—ç¬¦æ˜¯å¦ä¸ºå¤§å†™å­—æ¯ã€‚
  * @author runqian
  *
  */
 public class IsUpper extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

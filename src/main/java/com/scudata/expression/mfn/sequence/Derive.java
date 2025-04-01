@@ -10,8 +10,8 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÎªÅÅÁĞÌí¼Ó×Ö¶ÎÉú³ÉĞÂĞò±í
- * A.derive(xi:Fi,¡­) A.derive@x(xi:Fi,¡­;n)
+ * ä¸ºæ’åˆ—æ·»åŠ å­—æ®µç”Ÿæˆæ–°åºè¡¨
+ * A.derive(xi:Fi,â€¦) A.derive@x(xi:Fi,â€¦;n)
  * @author RunQian
  *
  */

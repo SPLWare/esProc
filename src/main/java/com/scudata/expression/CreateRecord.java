@@ -5,8 +5,8 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.Record;
 
 /**
- * ´´½¨¼ÇÂ¼
- * {f1:v1,...} ×Ö¶ÎÃûÊÇ³£´®£¬ÖµÊÇ±í´ïÊ½
+ * åˆ›å»ºè®°å½•
+ * {f1:v1,...} å­—æ®µåæ˜¯å¸¸ä¸²ï¼Œå€¼æ˜¯è¡¨è¾¾å¼
  * @author RunQian
  *
  */

@@ -6,22 +6,22 @@ import java.util.ArrayList;
 import com.scudata.dm.*;
 
 /**
- * Öù×ÓÅäÉ«·½°¸£¬ÎªÄ³Ò»ÖÖÑÕÉ«ÅäÖÃÇ°Ãæfront£¬¶¥Ãætop£¬ÓÒÃæright ¹²6É«£¬
- * ÆäÖĞÑÕÉ«1ÎªÇ³É«£¬2ÎªÉîÉ«
- * CubeColorµÄÁÁ¶ÈÅÅĞò£¬´ÓÁÁµ½°µ£ºT1,F1,T2,F2,R1,R2
+ * æŸ±å­é…è‰²æ–¹æ¡ˆï¼Œä¸ºæŸä¸€ç§é¢œè‰²é…ç½®å‰é¢frontï¼Œé¡¶é¢topï¼Œå³é¢right å…±6è‰²ï¼Œ
+ * å…¶ä¸­é¢œè‰²1ä¸ºæµ…è‰²ï¼Œ2ä¸ºæ·±è‰²
+ * CubeColorçš„äº®åº¦æ’åºï¼Œä»äº®åˆ°æš—ï¼šT1,F1,T2,F2,R1,R2
  * @author Joancy
  * 
  */
 public class CubeColor {
-	// 1ÎªÇ³É«£¬2ÎªÉîÉ«;È±Ê¡µÄÅäÉ«Îª»ÒÉ«
-	Color f1 = new Color(204, 213, 194);// ÕıÃæÑÕÉ«
+	// 1ä¸ºæµ…è‰²ï¼Œ2ä¸ºæ·±è‰²;ç¼ºçœçš„é…è‰²ä¸ºç°è‰²
+	Color f1 = new Color(204, 213, 194);// æ­£é¢é¢œè‰²
 	Color f2 = new Color(116, 126, 104);
-	Color t1 = new Color(225, 230, 218);// ¶¥ÃæÑÕÉ«
+	Color t1 = new Color(225, 230, 218);// é¡¶é¢é¢œè‰²
 	Color t2 = new Color(146, 158, 130);
-	Color r1 = new Color(106, 115, 93);// ÓÒ²àÃæÑÕÉ«
+	Color r1 = new Color(106, 115, 93);// å³ä¾§é¢é¢œè‰²
 	Color r2 = new Color(83, 90, 73);
 	
-//	ÓÉÔ­Ê¼ÑÕÉ«²úÉúÉÏÊö6¸ö±¥ºÍ¶È²»Í¬µÄÑÕÉ«
+//	ç”±åŸå§‹é¢œè‰²äº§ç”Ÿä¸Šè¿°6ä¸ªé¥±å’Œåº¦ä¸åŒçš„é¢œè‰²
 	private Color origin=null;
 	float f1s = 0.55f;
 	float f2s = 0.65f;
@@ -30,14 +30,14 @@ public class CubeColor {
 	float r1s = 0.75f;
 	float r2s = 0.35f;
 	/**
-	 * ¹¹ÔìÒ»¸öÈ±Ê¡µÄÁ¢·½ÌåÌî³äÑÕÉ«Àà
+	 * æ„é€ ä¸€ä¸ªç¼ºçœçš„ç«‹æ–¹ä½“å¡«å……é¢œè‰²ç±»
 	 */
 	public CubeColor() {
 	}
 
 	/**
-	 * Ê¹ÓÃÖ¸¶¨µÄÑÕÉ«c1Éú³ÉÀà·ÀÌßÌî³äÑÕÉ«Àà
-	 * @param c1 Öù×ÓÔ­Ê¼ÑÕÉ«
+	 * ä½¿ç”¨æŒ‡å®šçš„é¢œè‰²c1ç”Ÿæˆç±»é˜²è¸¢å¡«å……é¢œè‰²ç±»
+	 * @param c1 æŸ±å­åŸå§‹é¢œè‰²
 	 */
 	public CubeColor(Color c1) {
 		origin = c1;
@@ -59,26 +59,26 @@ public class CubeColor {
 	}
 
 	/**
-	 * »ñÈ¡Ô­Ê¼ÑÕÉ«
-	 * @return ÑÕÉ«Öµ
+	 * è·å–åŸå§‹é¢œè‰²
+	 * @return é¢œè‰²å€¼
 	 */
 	public Color getOrigin(){
 		return origin;
 	}
 	
 	/**
-	 * »ñÈ¡Ç°ÃæÇ³É«
-	 * @return ÑÕÉ«Öµ
+	 * è·å–å‰é¢æµ…è‰²
+	 * @return é¢œè‰²å€¼
 	 */
 	public Color getF1() {
 		return f1;
 	}
 	
 	/**
-	 * »ñÈ¡Ïà¶ÔÓÚ¶¨ÒåºÃµÄÑÕÉ«£¬È¡¸üÁÁ¼¸¼¶µÄÑÕÉ«£¬ÒÔºó¶¼Í¬
-	 * @param relative Ïà¶ÔÑÕÉ«µÄÃû³Æ£¬(F1,F2, T1,T2, R1,R2)
-	 * @param degree£¬±ÈF1ÑÕÉ«ÁÁµÄ¼¶Êı
-	 * @return ÑÕÉ«Öµ
+	 * è·å–ç›¸å¯¹äºå®šä¹‰å¥½çš„é¢œè‰²ï¼Œå–æ›´äº®å‡ çº§çš„é¢œè‰²ï¼Œä»¥åéƒ½åŒ
+	 * @param relative ç›¸å¯¹é¢œè‰²çš„åç§°ï¼Œ(F1,F2, T1,T2, R1,R2)
+	 * @param degreeï¼Œæ¯”F1é¢œè‰²äº®çš„çº§æ•°
+	 * @return é¢œè‰²å€¼
 	 */
 	public Color getRelativeBrighter(String relative,int degree) {
 		float deltaFactor = degree*0.05f;
@@ -102,7 +102,7 @@ public class CubeColor {
 	}
 
 	/**
-	 * ²Î¿¼getRelativeBrighterÓÃ·¨£¬»ñÈ¡Éî¼¶±ğµÄÑÕÉ«
+	 * å‚è€ƒgetRelativeBrighterç”¨æ³•ï¼Œè·å–æ·±çº§åˆ«çš„é¢œè‰²
 	 * @param relative
 	 * @param degree
 	 * @return
@@ -129,56 +129,56 @@ public class CubeColor {
 	}
 
 	/**
-	 * »ñÈ¡Ç°ÃæÉîÉ«
-	 * @return ÑÕÉ«Öµ
+	 * è·å–å‰é¢æ·±è‰²
+	 * @return é¢œè‰²å€¼
 	 */
 	public Color getF2() {
 		return f2;
 	}
 
 	/**
-	 * »ñÈ¡¶¥ÃæÇ³É«
-	 * @return ÑÕÉ«Öµ
+	 * è·å–é¡¶é¢æµ…è‰²
+	 * @return é¢œè‰²å€¼
 	 */
 	public Color getT1() {
 		return t1;
 	}
 
 	/**
-	 * »ñÈ¡¶¥ÃæÉîÉ«
-	 * @return ÑÕÉ«Öµ
+	 * è·å–é¡¶é¢æ·±è‰²
+	 * @return é¢œè‰²å€¼
 	 */
 	public Color getT2() {
 		return t2;
 	}
 
 	/**
-	 * »ñÈ¡ÓÒÃæÇ³É«
-	 * @return ÑÕÉ«Öµ
+	 * è·å–å³é¢æµ…è‰²
+	 * @return é¢œè‰²å€¼
 	 */
 	public Color getR1() {
 		return r1;
 	}
 
 	/**
-	 * »ñÈ¡ÓÒÃæÉîÉ«
-	 * @return ÑÕÉ«Öµ
+	 * è·å–å³é¢æ·±è‰²
+	 * @return é¢œè‰²å€¼
 	 */
 	public Color getR2() {
 		return r2;
 	}
 	
-	//ÏµÊıÔ½Ğ¡£¬ÑÕÉ«Ô½dark
+	//ç³»æ•°è¶Šå°ï¼Œé¢œè‰²è¶Šdark
 	public Color getDark(float intensity) {
 		return getDarkColor(origin,intensity);
 	}
 
 	/**
-	 * »ñÈ¡Ô­Ê¼ÑÕÉ«µÄìÅÉ«²Ê£¬ÒòÎªìÅÉ«ÒªÓÃµ½ºÜ¶à¹ı¶ÉÉ«£¬
-	 * ±ÈÈç°×É«ºÚÉ«µÈ¼«¶ËÑÕÉ«²»Ê¹ÓÃìÅÉ«£¬ìÅµÄĞ§¹ûÌåÏÖ²»³öÀ´
-	 * ÓÃ¸Ã·½·¨»ñÈ¡Ïà½üµÄÄÜÊ¹ÓÃìÅÑÕÉ«µÄÑÕÉ«Öµ
-	 * @param origin Ô­Ê¼ÑÕÉ«
-	 * @return ×îÏà½üµÄÄÜÊ¹ÓÃìÅÑÕÉ«µÄÑÕÉ«Öµ
+	 * è·å–åŸå§‹é¢œè‰²çš„ç‚«è‰²å½©ï¼Œå› ä¸ºç‚«è‰²è¦ç”¨åˆ°å¾ˆå¤šè¿‡æ¸¡è‰²ï¼Œ
+	 * æ¯”å¦‚ç™½è‰²é»‘è‰²ç­‰æç«¯é¢œè‰²ä¸ä½¿ç”¨ç‚«è‰²ï¼Œç‚«çš„æ•ˆæœä½“ç°ä¸å‡ºæ¥
+	 * ç”¨è¯¥æ–¹æ³•è·å–ç›¸è¿‘çš„èƒ½ä½¿ç”¨ç‚«é¢œè‰²çš„é¢œè‰²å€¼
+	 * @param origin åŸå§‹é¢œè‰²
+	 * @return æœ€ç›¸è¿‘çš„èƒ½ä½¿ç”¨ç‚«é¢œè‰²çš„é¢œè‰²å€¼
 	 */
 	public static Color getDazzelColor(Color origin){
 		CubeColor cc = new CubeColor(origin);
@@ -205,7 +205,7 @@ public class CubeColor {
 		int tmp = 0x00FFFFFF;
 		return tmp & rgba;
 	}
-	//ÏµÊıÔ½Ğ¡£¬ÑÕÉ«Ô½light
+	//ç³»æ•°è¶Šå°ï¼Œé¢œè‰²è¶Šlight
 	public Color getLight(float intensity) {
 		return getLightColor(origin,intensity);
 	}

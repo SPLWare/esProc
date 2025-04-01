@@ -18,7 +18,7 @@ public class SheetXlsR extends SheetObject {
 	private XSSFReader xssfReader;
 
 	/**
-	 * Á÷Ê½½âÎöSheet
+	 * æµå¼è§£æSheet
 	 */
 	private XlsxSSheetParser sheetParser;
 

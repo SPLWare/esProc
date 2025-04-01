@@ -3,35 +3,35 @@ package com.scudata.ide.common.swing;
 import java.io.Serializable;
 
 /**
- * ×ÔÓÉ(×ø±ê)²¼¾ÖÉèÖÃ
+ * è‡ªç”±(åæ ‡)å¸ƒå±€è®¾ç½®
  *
  */
 public class FreeConstraints implements Cloneable, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * X×ø±ê£¬Y×ø±ê£¬¿í£¬¸ß
+	 * Xåæ ‡ï¼ŒYåæ ‡ï¼Œå®½ï¼Œé«˜
 	 */
 	int x, y, w, h;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public FreeConstraints() {
 		this(0, 0, 0, 0);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param x
-	 *            X×ø±ê
+	 *            Xåæ ‡
 	 * @param y
-	 *            Y×ø±ê
+	 *            Yåæ ‡
 	 * @param w
-	 *            ¿í
+	 *            å®½
 	 * @param h
-	 *            ¸ß
+	 *            é«˜
 	 */
 	public FreeConstraints(int x, int y, int w, int h) {
 		this.x = x;
@@ -41,7 +41,7 @@ public class FreeConstraints implements Cloneable, Serializable {
 	}
 
 	/**
-	 * È¡X×ø±ê
+	 * å–Xåæ ‡
 	 * 
 	 * @return
 	 */
@@ -50,7 +50,7 @@ public class FreeConstraints implements Cloneable, Serializable {
 	}
 
 	/**
-	 * Éè X×ø±ê
+	 * è®¾ Xåæ ‡
 	 * 
 	 * @param x
 	 */
@@ -59,7 +59,7 @@ public class FreeConstraints implements Cloneable, Serializable {
 	}
 
 	/**
-	 * È¡Y×ø±ê
+	 * å–Yåæ ‡
 	 * 
 	 * @return
 	 */
@@ -68,7 +68,7 @@ public class FreeConstraints implements Cloneable, Serializable {
 	}
 
 	/**
-	 * ÉèÖÃY×ø±ê
+	 * è®¾ç½®Yåæ ‡
 	 * 
 	 * @param y
 	 */
@@ -77,7 +77,7 @@ public class FreeConstraints implements Cloneable, Serializable {
 	}
 
 	/**
-	 * È¡¿í¶È
+	 * å–å®½åº¦
 	 * 
 	 * @return
 	 */
@@ -86,7 +86,7 @@ public class FreeConstraints implements Cloneable, Serializable {
 	}
 
 	/**
-	 * ÉèÖÃ¿í¶È
+	 * è®¾ç½®å®½åº¦
 	 * 
 	 * @param w
 	 */
@@ -95,7 +95,7 @@ public class FreeConstraints implements Cloneable, Serializable {
 	}
 
 	/**
-	 * È¡¸ß¶È
+	 * å–é«˜åº¦
 	 * 
 	 * @return
 	 */
@@ -104,7 +104,7 @@ public class FreeConstraints implements Cloneable, Serializable {
 	}
 
 	/**
-	 * ÉèÖÃ¸ß¶È
+	 * è®¾ç½®é«˜åº¦
 	 * 
 	 * @param h
 	 */
@@ -113,14 +113,14 @@ public class FreeConstraints implements Cloneable, Serializable {
 	}
 
 	/**
-	 * ¹şÏ£Öµ
+	 * å“ˆå¸Œå€¼
 	 */
 	public int hashCode() {
 		return Integer.parseInt("" + x + y + w + h);
 	}
 
 	/**
-	 * ±È½Ï
+	 * æ¯”è¾ƒ
 	 */
 	public boolean equals(Object o) {
 		if (o instanceof FreeConstraints) {
@@ -132,14 +132,14 @@ public class FreeConstraints implements Cloneable, Serializable {
 	}
 
 	/**
-	 * ¿ËÂ¡
+	 * å…‹éš†
 	 */
 	public Object clone() {
 		return new FreeConstraints(x, y, w, h);
 	}
 
 	/**
-	 * ×ªÎª×Ö·û´®
+	 * è½¬ä¸ºå­—ç¬¦ä¸²
 	 */
 	public String toString() {
 		return "[" + x + "," + "y" + "," + w + "," + h + "]";

@@ -3,16 +3,16 @@ package com.scudata.dw;
 import java.io.IOException;
 
 /**
- * ´æ´¢¿éÁ´Àà
+ * å­˜å‚¨å—é“¾ç±»
  * @author runqian
  *
  */
 public class BlockLink {	
 	private static final long EMPTY = 1;
 	private transient IBlockStorage storage;
-	long firstBlockPos = EMPTY; // Çø¿éÁ´Ê×¿é¿éÔÚÎÄ¼şÖĞµÄÎ»ÖÃ
-	long lastBlockPos; // Çø¿éÁ´Î²¿éÔÚÎÄ¼şÖĞµÄÎ»ÖÃ£¬ÓÃ²»µ½µÄ¿ÉÄÜ²»Éè
-	int freeIndex = 0; // ¿ÕÏĞÇøÓòÔÚÄ©¿éÖĞµÄË÷Òı£¬ÓÃ²»µ½µÄ¿ÉÄÜ²»Éè
+	long firstBlockPos = EMPTY; // åŒºå—é“¾é¦–å—å—åœ¨æ–‡ä»¶ä¸­çš„ä½ç½®
+	long lastBlockPos; // åŒºå—é“¾å°¾å—åœ¨æ–‡ä»¶ä¸­çš„ä½ç½®ï¼Œç”¨ä¸åˆ°çš„å¯èƒ½ä¸è®¾
+	int freeIndex = 0; // ç©ºé—²åŒºåŸŸåœ¨æœ«å—ä¸­çš„ç´¢å¼•ï¼Œç”¨ä¸åˆ°çš„å¯èƒ½ä¸è®¾
 	int blockCount;
 	
 	/**

@@ -270,7 +270,7 @@ public class XlsxSSheetParser implements ILineInput {
 	}
 
 	/**
-	 * f.xlsopen@r().xlsimport()Ê±µ÷ÓÃ
+	 * f.xlsopen@r().xlsimport()æ—¶è°ƒç”¨
 	 * 
 	 * @param isCursor
 	 * @return
@@ -292,7 +292,7 @@ public class XlsxSSheetParser implements ILineInput {
 				return null;
 			}
 
-			// @bÊ±É¾³ıÇ°ÃæµÄ¿ÕĞĞ
+			// @bæ—¶åˆ é™¤å‰é¢çš„ç©ºè¡Œ
 			if (removeBlank) {
 				while (ExcelUtils.isBlankRow(line)) {
 					startRow++;
@@ -405,7 +405,7 @@ public class XlsxSSheetParser implements ILineInput {
 			}
 			table.trimToSize();
 
-			if (removeBlank) // @bÊ±É¾³ıĞò±íºóÃæµÄ¿ÕĞĞ
+			if (removeBlank) // @bæ—¶åˆ é™¤åºè¡¨åé¢çš„ç©ºè¡Œ
 				ExcelTool.removeTableTailBlank(table);
 
 			return table;

@@ -10,8 +10,8 @@ import com.scudata.dm.ParamList;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡³ö¸½±í¼ÇÂ¼·µ»ØĞò±í
- * T{x:C,¡­¡­} 
+ * å–å‡ºé™„è¡¨è®°å½•è¿”å›åºè¡¨
+ * T{x:C,â€¦â€¦} 
  * @author RunQian
  *
  */
@@ -51,7 +51,7 @@ public class Moves extends Function {
 	}
 	
 	/**
-	 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+	 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 	 */
 	public void reset() {
 		getLeft().reset();
@@ -71,7 +71,7 @@ public class Moves extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -88,7 +88,7 @@ public class Moves extends Function {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+	 * åˆ¤æ–­æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 	 * @return
 	 */
 	public boolean canCalculateAll() {

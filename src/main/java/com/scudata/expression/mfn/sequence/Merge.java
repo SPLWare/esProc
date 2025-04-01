@@ -16,8 +16,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
- * ĞòÁĞµÄ³ÉÔ±ÊÇĞòÁĞ£¬²¢ÇÒ°´Ö¸¶¨±í´ïÊ½ÓĞĞò£¬¶ÔĞòÁĞ³ÉÔ±×ö¹é²¢ºÏ²¢³ÉÒ»¸öĞÂĞòÁĞ
- * A.merge(xi,¡­)
+ * åºåˆ—çš„æˆå‘˜æ˜¯åºåˆ—ï¼Œå¹¶ä¸”æŒ‰æŒ‡å®šè¡¨è¾¾å¼æœ‰åºï¼Œå¯¹åºåˆ—æˆå‘˜åšå½’å¹¶åˆå¹¶æˆä¸€ä¸ªæ–°åºåˆ—
+ * A.merge(xi,â€¦)
  * @author RunQian
  *
  */
@@ -100,7 +100,7 @@ public class Merge extends SequenceFunction {
 
 		Expression []exps = null;
 		if (param == null) {
-		} else if (param.isLeaf()) { // Ö»ÓĞÒ»¸ö²ÎÊı
+		} else if (param.isLeaf()) { // åªæœ‰ä¸€ä¸ªå‚æ•°
 			exps = new Expression[]{ param.getLeafExpression() };
 		} else if (param.getType() == IParam.Comma) { // ,
 			int size = param.getSubSize();

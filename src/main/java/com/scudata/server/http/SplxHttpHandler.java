@@ -45,20 +45,20 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 /**
- * Http·şÎñ´¦ÀíÆ÷
+ * HttpæœåŠ¡å¤„ç†å™¨
  * 
- * Ö§³ÖµÄurlĞ´·¨:
+ * æ”¯æŒçš„urlå†™æ³•:
  * 1  http://..../splx()
  * 2  http://..../splx(arg1,arg2,...)
  * 3  http://localhost:.../splx1(...)splx2.splx
- * 4  http://localhost:.../.../splx?arg1=v1&arg2=v2  ²»ÄÜ´øÀ©Õ¹Ãû£¬·ñÔò¶Á²»µ½ÎÊºÅºóµÄ²ÎÊı
- * 5  http://localhost:.../.../splx/arg1/arg2/...    restful·ç¸ñ£¬arg1¿ªÊ¼¶¼ÊÇ²ÎÊıÖµ£¬°´Ë³ĞòÓësplxÖĞµÄ²ÎÊı¶ÔÓ¦
- * HTTP·şÎñµÄurl´®¸ñÊ½£¬·ÖÁ½ÖÖÇé¿ö£º
- * 1¡¢Ö»ÓĞÒ»¸ösplxÎÄ¼ş¡£Èç¹ûsplxÓĞ²ÎÊı£¬ÔòÔÚÀ¨ºÅÀïÒÀ´ÎĞ´²ÎÊıÖµ£¬Öµ¼äÓÃ¶ººÅ·Ö¸ô£»
- * Èç¹ûÃ»ÓĞ²ÎÊı£¬ÔòĞ´¸ö¿ÕÀ¨ºÅ¡£ ¼ÆËã½á¹û°´ÏµÍ³Ä¬ÈÏ¸ñÊ½×ª»¯³É×Ö·û´®·µ»Ø
- * 2¡¢ÓĞÁ½¸ösplx£¬ÕâÖÖÇé¿öÓÃÓÚÓÃ»§ÏëÒªµÄ·µ»Ø´®¸ñÊ½ÓëÏµÍ³Ä¬ÈÏµÄ²»Í¬¡£
- * 		 µÚ1¸ösplxµÄĞ´·¨ÓëµÚ1ÖÖÇé¿öÏàÍ¬¡£splx2ÊÇµ¥²ÎÊıµÄ³ÌĞò£¬²ÎÊıÖµÎªsplx1µÄ·µ»ØÖµ¡£
- * ÓÃ»§ÔÚsplx2ÖĞ½«splx1µÄ·µ»ØÖµ×ª»»³É×Ô¼ºĞèÒª¸ñÊ½µÄ×Ö·û´®£¬È»ºó×÷Îªsplx2µÄ·µ»ØÖµ
+ * 4  http://localhost:.../.../splx?arg1=v1&arg2=v2  ä¸èƒ½å¸¦æ‰©å±•åï¼Œå¦åˆ™è¯»ä¸åˆ°é—®å·åçš„å‚æ•°
+ * 5  http://localhost:.../.../splx/arg1/arg2/...    restfulé£æ ¼ï¼Œarg1å¼€å§‹éƒ½æ˜¯å‚æ•°å€¼ï¼ŒæŒ‰é¡ºåºä¸splxä¸­çš„å‚æ•°å¯¹åº”
+ * HTTPæœåŠ¡çš„urlä¸²æ ¼å¼ï¼Œåˆ†ä¸¤ç§æƒ…å†µï¼š
+ * 1ã€åªæœ‰ä¸€ä¸ªsplxæ–‡ä»¶ã€‚å¦‚æœsplxæœ‰å‚æ•°ï¼Œåˆ™åœ¨æ‹¬å·é‡Œä¾æ¬¡å†™å‚æ•°å€¼ï¼Œå€¼é—´ç”¨é€—å·åˆ†éš”ï¼›
+ * å¦‚æœæ²¡æœ‰å‚æ•°ï¼Œåˆ™å†™ä¸ªç©ºæ‹¬å·ã€‚ è®¡ç®—ç»“æœæŒ‰ç³»ç»Ÿé»˜è®¤æ ¼å¼è½¬åŒ–æˆå­—ç¬¦ä¸²è¿”å›
+ * 2ã€æœ‰ä¸¤ä¸ªsplxï¼Œè¿™ç§æƒ…å†µç”¨äºç”¨æˆ·æƒ³è¦çš„è¿”å›ä¸²æ ¼å¼ä¸ç³»ç»Ÿé»˜è®¤çš„ä¸åŒã€‚
+ * 		 ç¬¬1ä¸ªsplxçš„å†™æ³•ä¸ç¬¬1ç§æƒ…å†µç›¸åŒã€‚splx2æ˜¯å•å‚æ•°çš„ç¨‹åºï¼Œå‚æ•°å€¼ä¸ºsplx1çš„è¿”å›å€¼ã€‚
+ * ç”¨æˆ·åœ¨splx2ä¸­å°†splx1çš„è¿”å›å€¼è½¬æ¢æˆè‡ªå·±éœ€è¦æ ¼å¼çš„å­—ç¬¦ä¸²ï¼Œç„¶åä½œä¸ºsplx2çš„è¿”å›å€¼
  *  
  * @author Joancy
  *
@@ -68,15 +68,15 @@ public class SplxHttpHandler implements HttpHandler {
 	static MessageManager mm = ParallelMessage.get();
 
 	/**
-	 * ÉèÖÃ·şÎñÆ÷
-	 * @param is ·şÎñÆ÷
+	 * è®¾ç½®æœåŠ¡å™¨
+	 * @param is æœåŠ¡å™¨
 	 */
 	public void setIServer(IServer is) {
 		server = is;
 	}
 
 	/**
-	 * ´¦ÀíHttpÇëÇó
+	 * å¤„ç†Httpè¯·æ±‚
 	 */
 	public void handle(HttpExchange httpExchange) throws IOException {
 		try {
@@ -95,7 +95,7 @@ public class SplxHttpHandler implements HttpHandler {
 				server.shutDown();
 				return;
 			}
-			// ä¯ÀÀÆ÷Í·Ò»´Î·ÃÎÊÊ±£¬»á·¢ËÍÕâÃ´Ò»¸öÇëÇó£¬ºöÂÔËü
+			// æµè§ˆå™¨å¤´ä¸€æ¬¡è®¿é—®æ—¶ï¼Œä¼šå‘é€è¿™ä¹ˆä¸€ä¸ªè¯·æ±‚ï¼Œå¿½ç•¥å®ƒ
 			if (path.equals("/favicon.ico")) {
 				return;
 			}
@@ -104,7 +104,7 @@ public class SplxHttpHandler implements HttpHandler {
 				LinksPool.addLink();
 			}
 			else {
-				throw new Exception( "ÔÚÏßÁ¬½ÓÊı³¬¹ıÁË×î´óÖµ" + LinksPool.getMaxLinks() + "£¬ÇëÉÔºòÔÙ·ÃÎÊ" );
+				throw new Exception( "åœ¨çº¿è¿æ¥æ•°è¶…è¿‡äº†æœ€å¤§å€¼" + LinksPool.getMaxLinks() + "ï¼Œè¯·ç¨å€™å†è®¿é—®" );
 			}
 		} catch (Throwable t) {
 			try {
@@ -135,7 +135,7 @@ public class SplxHttpHandler implements HttpHandler {
 				catch( Throwable th){}
 			}
 			//SplxServerInIDE dsi = (SplxServerInIDE)server;
-			//dsi.shutDown();     //ÎªÊ²Ã´ÒªshutdownÄØ
+			//dsi.shutDown();     //ä¸ºä»€ä¹ˆè¦shutdownå‘¢
 		}
 		
 	}
@@ -149,9 +149,9 @@ public class SplxHttpHandler implements HttpHandler {
 		if (obj instanceof Table) { // Table
 			Table t = (Table) obj;
 			result = Export.export(t, null, null, null, "t", new Context());
-		} else if (obj instanceof Sequence) {// ÅÅÁĞ£¬ĞòÁĞ
+		} else if (obj instanceof Sequence) {// æ’åˆ—ï¼Œåºåˆ—
 			result = ((Sequence) obj).toExportString();
-		} else if (obj instanceof BaseRecord) {// ¼ÇÂ¼
+		} else if (obj instanceof BaseRecord) {// è®°å½•
 			result = ((BaseRecord) obj).toString("tq");
 		} else {
 			result = obj.toString();
@@ -170,7 +170,7 @@ public class SplxHttpHandler implements HttpHandler {
 			Object result = "";
 			String contentType = "text/html;charset=UTF-8";
 			String headers = null;
-			int status = 200;     //ÇëÇóÏìÓ¦Âë
+			int status = 200;     //è¯·æ±‚å“åº”ç 
 			Context ctx1 = null;
 			Headers reqHeaders = null;
 			try {
@@ -196,7 +196,7 @@ public class SplxHttpHandler implements HttpHandler {
 							ext = null;
 						}
 					}
-					if( ext != null ) {   //·ÃÎÊÍ¼Æ¬ÎÄ¼ş
+					if( ext != null ) {   //è®¿é—®å›¾ç‰‡æ–‡ä»¶
 						String fileName = path.substring( 1 );
 						FileObject fo = new FileObject(fileName, "sp");
 						InputStream is = null;
@@ -211,13 +211,13 @@ public class SplxHttpHandler implements HttpHandler {
 							try{ is.close(); }catch( Throwable t ){}
 						}
 					}
-					else {    //Ã»ÓĞÀ©Õ¹ÃûµÄ£¬¶¼µ±³Ésplx
-						if( path.endsWith( ".splx" ) || path.endsWith( ".spl" ) || path.endsWith( ".dfx" ) ) {  //ÒÔÕâĞ©½áÎ²Ê±£¬×Ô¶¯¸øÌí¼ÓÉÏ()
+					else {    //æ²¡æœ‰æ‰©å±•åçš„ï¼Œéƒ½å½“æˆsplx
+						if( path.endsWith( ".splx" ) || path.endsWith( ".spl" ) || path.endsWith( ".dfx" ) ) {  //ä»¥è¿™äº›ç»“å°¾æ—¶ï¼Œè‡ªåŠ¨ç»™æ·»åŠ ä¸Š()
 							path += "()";
 						}
 						String fileName = "";
 						String splx2 = "";
-						String params = "";   //½öÓĞ²ÎÊıÖµ£¬ÓÃÓÚ¼ÇÂ¼spl¸ñÊ½µÄ()ÖĞĞ´µÄ²ÎÊıÖµ
+						String params = "";   //ä»…æœ‰å‚æ•°å€¼ï¼Œç”¨äºè®°å½•splæ ¼å¼çš„()ä¸­å†™çš„å‚æ•°å€¼
 						HashMap<String,String> paramsMap = new HashMap<String,String>();
 						int pos = path.indexOf( "(" );
 						if( pos > 0 ) { 
@@ -237,10 +237,10 @@ public class SplxHttpHandler implements HttpHandler {
 							fileName = path1.substring(1, start).trim();
 						}
 						else {
-							//pathÖĞÃ»ÓĞ()£¬ËµÃ÷ÊÇrestful¸ñÊ½µÄurl: http://..../sapPath/splx/argvalue1/argvalue2/...
-							//ÆäÖĞargvalueÊÇ²ÎÊıÖµ£¬°´ÕÕË³ĞòÓësplxÖĞµÄ²ÎÊı¶ÔÓ¦
-							//»òÕßÊÇ³£¹æurl¸ñÊ½ http://localhost:.../.../splx?arg1=v1&arg2=v2
-							//Ã»ÓĞsplx2
+							//pathä¸­æ²¡æœ‰()ï¼Œè¯´æ˜æ˜¯restfulæ ¼å¼çš„url: http://..../sapPath/splx/argvalue1/argvalue2/...
+							//å…¶ä¸­argvalueæ˜¯å‚æ•°å€¼ï¼ŒæŒ‰ç…§é¡ºåºä¸splxä¸­çš„å‚æ•°å¯¹åº”
+							//æˆ–è€…æ˜¯å¸¸è§„urlæ ¼å¼ http://localhost:.../.../splx?arg1=v1&arg2=v2
+							//æ²¡æœ‰splx2
 							path = path.trim();
 							String queryParams = uri.getQuery();
 							if( queryParams == null || queryParams.trim().length() == 0 ) {   //restful
@@ -255,7 +255,7 @@ public class SplxHttpHandler implements HttpHandler {
 								}
 								path = path.substring( prefix.length() );
 								pos = path.indexOf( "/", 1 );
-								String path1 = path;   //path1´ú±ísplxÎÄ¼şÂ·¾¶
+								String path1 = path;   //path1ä»£è¡¨splxæ–‡ä»¶è·¯å¾„
 								String args = "";
 								if( pos > 0 ) {
 									path1 = path.substring( 0, pos );
@@ -274,7 +274,7 @@ public class SplxHttpHandler implements HttpHandler {
 									}
 								}
 							}
-							else {   //³£¹æurl¸ñÊ½
+							else {   //å¸¸è§„urlæ ¼å¼
 								fileName = path.substring( 1 );
 								String args = queryParams.trim();
 								if( args.length() > 0 ) {
@@ -342,7 +342,7 @@ public class SplxHttpHandler implements HttpHandler {
 									ctx1.setParamValue( paramName, Variant.parse( paramValue ) );
 								}
 							}
-							//¶ÁÈ¡postÄÚÈİ
+							//è¯»å–postå†…å®¹
 							if( hasPost ) {
 								InputStream reqis = null;
 								try {
@@ -354,7 +354,7 @@ public class SplxHttpHandler implements HttpHandler {
 										sb.append( line ).append( "\n" );
 									}
 									ctx1.setParamValue( "argpost", sb.toString() );
-									//Logger.info( "ÉèÖÃargpost²ÎÊıÎª£º" + sb.toString() );
+									//Logger.info( "è®¾ç½®argpostå‚æ•°ä¸ºï¼š" + sb.toString() );
 								}
 								finally {
 									try{ if( reqis != null ) reqis.close(); }catch(Throwable t){}
@@ -379,7 +379,7 @@ public class SplxHttpHandler implements HttpHandler {
 								JobSpaceManager.closeSpace( ctx1.getJobSpace().getID() );
 							}
 							Object obj1 = pcs1.nextResult();
-							if (splx2.length() == 0) { // ËµÃ÷Ö»ÓĞÒ»¸ösplx
+							if (splx2.length() == 0) { // è¯´æ˜åªæœ‰ä¸€ä¸ªsplx
 								result = obj2String(obj1);
 							} else {
 								if (!splx2.startsWith("/"))
@@ -399,7 +399,7 @@ public class SplxHttpHandler implements HttpHandler {
 							if( hs != null ) {
 								String shs = (String)obj2String( hs );
 								if( shs.toLowerCase().indexOf( "content-type" ) >= 0 ) {
-									//µ±splx·µ»ØÒ»ÕÅÍ¼Æ¬Ê±£¬ÓÃµÚ2¸ö·µ»ØÖµÖ¸¶¨{content-type:image/xxx}
+									//å½“splxè¿”å›ä¸€å¼ å›¾ç‰‡æ—¶ï¼Œç”¨ç¬¬2ä¸ªè¿”å›å€¼æŒ‡å®š{content-type:image/xxx}
 									headers = shs;
 								}
 							}
@@ -476,7 +476,7 @@ public class SplxHttpHandler implements HttpHandler {
 					hs.add( "Content-Type", contentType );
 				}
 				
-				// Ö§³Ö¿çÓò
+				// æ”¯æŒè·¨åŸŸ
 				hs.add("Access-Control-Allow-Origin", "*");
 				hs.add("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
 				hs.add("Access-Control-Allow-Headers", "*");
@@ -490,7 +490,7 @@ public class SplxHttpHandler implements HttpHandler {
 					}
 					catch( Throwable th ) {
 						String msg = th.getMessage();
-						if( msg == null || msg.indexOf( "not sent" ) < 0 ) {  //response headers not sent yetÀà´íÎó²»Ó°ÏìÊ¹ÓÃ£¬²»ÓÃ±¨´í
+						if( msg == null || msg.indexOf( "not sent" ) < 0 ) {  //response headers not sent yetç±»é”™è¯¯ä¸å½±å“ä½¿ç”¨ï¼Œä¸ç”¨æŠ¥é”™
 							throw th;
 						}
 					}

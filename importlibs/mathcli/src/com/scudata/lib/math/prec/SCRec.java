@@ -9,7 +9,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 
 /**
- * ¾ÀÆ«²ÎÊı¼ÇÂ¼ Skewness Correction Record
+ * çº åå‚æ•°è®°å½• Skewness Correction Record
  * @author bd
  *
  */
@@ -50,7 +50,7 @@ public class SCRec implements Externalizable{
 	}
 	
 	public void setPrefix(Sequence cvs) {
-		//¶ÔÓÚ¾ÀÆ«Ê¹ÓÃÔ­ÖµºÍÅÅĞòµÄÇé¿ö£¬Æ«¶ÈÉè¶¨Ê±µÃµ½µÄavgºÍsdÊÇÎŞĞ§µÄ£¬ĞèÒªÖØËã
+		//å¯¹äºçº åä½¿ç”¨åŸå€¼å’Œæ’åºçš„æƒ…å†µï¼Œååº¦è®¾å®šæ—¶å¾—åˆ°çš„avgå’Œsdæ˜¯æ— æ•ˆçš„ï¼Œéœ€è¦é‡ç®—
 		if (mode == MODE_ORI) {
 			this.prefix = "";
 			this.ns.calcSd(cvs);
@@ -79,7 +79,7 @@ public class SCRec implements Externalizable{
 	}
 	
 	/**
-	 * »ñÈ¡¾ÀÆ«Ä£Ê½
+	 * è·å–çº åæ¨¡å¼
 	 * @return
 	 */
 	public byte getMode() {
@@ -87,7 +87,7 @@ public class SCRec implements Externalizable{
 	}
 
 	/**
-	 * ÉèÖÃ¾ÀÆ«Ä£Ê½
+	 * è®¾ç½®çº åæ¨¡å¼
 	 * @param mode
 	 */
 	public void setMode(byte mode) {
@@ -136,7 +136,7 @@ public class SCRec implements Externalizable{
 	
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉĞòÁĞ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -159,7 +159,7 @@ public class SCRec implements Externalizable{
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾İSequence³õÊ¼»¯²ÎÊı
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public void init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -181,7 +181,7 @@ public class SCRec implements Externalizable{
 		}
 	}
 
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 1;
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte ver = in.readByte();

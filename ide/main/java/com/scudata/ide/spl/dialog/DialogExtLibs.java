@@ -41,64 +41,64 @@ import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.resources.AppMessage;
 
 /**
- * Íâ²¿¿âÉèÖÃ¶Ô»°¿ò
+ * å¤–éƒ¨åº“è®¾ç½®å¯¹è¯æ¡†
  *
  */
 public class DialogExtLibs extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeSplMessage.get();
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * Íâ²¿¿âÂ·¾¶±à¼­¿ò
+	 * å¤–éƒ¨åº“è·¯å¾„ç¼–è¾‘æ¡†
 	 */
 	private JTextField jTFExtLibsPath = new JTextField();
 	/**
-	 * Íâ²¿¿âÂ·¾¶Ñ¡Ôñ°´Å¥
+	 * å¤–éƒ¨åº“è·¯å¾„é€‰æ‹©æŒ‰é’®
 	 */
 	private JButton jBExtLibsPath = new JButton();
 	/**
-	 * Íâ²¿¿â±í¹ö¶¯Ãæ°å¿Ø¼ş
+	 * å¤–éƒ¨åº“è¡¨æ»šåŠ¨é¢æ¿æ§ä»¶
 	 */
 	private TableExtLibs tableNames;
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 	/**
-	 * ÒÑ¾­´æÔÚµÄÍâ²¿¿âÃû³ÆÁĞ±í
+	 * å·²ç»å­˜åœ¨çš„å¤–éƒ¨åº“åç§°åˆ—è¡¨
 	 */
 	private Vector<String> existNames = new Vector<String>();
 	/**
-	 * Íâ²¿¿âÄ¿Â¼Ãû³ÆÁĞ±í
+	 * å¤–éƒ¨åº“ç›®å½•åç§°åˆ—è¡¨
 	 */
 	private Vector<String> dirNames = new Vector<String>();
 
 	/**
-	 * ¸¸×é¼ş
+	 * çˆ¶ç»„ä»¶
 	 */
 	private Frame parent;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param config
-	 *            ¼¯ËãÆ÷ÅäÖÃ
+	 *            é›†ç®—å™¨é…ç½®
 	 * @param frame
-	 *            ¸¸´°¿Ú
+	 *            çˆ¶çª—å£
 	 * @param extLibsPath
-	 *            Íâ²¿¿â¸ùÂ·¾¶
+	 *            å¤–éƒ¨åº“æ ¹è·¯å¾„
 	 * @param extLibs
-	 *            ÅäÖÃµÄÍâ²¿¿âÁĞ±í
+	 *            é…ç½®çš„å¤–éƒ¨åº“åˆ—è¡¨
 	 */
 	public DialogExtLibs(RaqsoftConfig config, Frame frame, String extLibsPath,
 			List<String> extLibs) {
@@ -109,16 +109,16 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param config
-	 *            ¼¯ËãÆ÷ÅäÖÃ
+	 *            é›†ç®—å™¨é…ç½®
 	 * @param jdialog
-	 *            ¸¸´°¿Ú
+	 *            çˆ¶çª—å£
 	 * @param extLibsPath
-	 *            Íâ²¿¿â¸ùÂ·¾¶
+	 *            å¤–éƒ¨åº“æ ¹è·¯å¾„
 	 * @param extLibs
-	 *            ÅäÖÃµÄÍâ²¿¿âÁĞ±í
+	 *            é…ç½®çš„å¤–éƒ¨åº“åˆ—è¡¨
 	 */
 	public DialogExtLibs(RaqsoftConfig config, JDialog jdialog,
 			String extLibsPath, List<String> extLibs) {
@@ -128,7 +128,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ³õÊ¼»¯¶Ô»°¿ò
+	 * åˆå§‹åŒ–å¯¹è¯æ¡†
 	 * 
 	 * @param config
 	 * @param extLibsPath
@@ -150,7 +150,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -159,7 +159,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * È¡Íâ²¿¿âµÄ¸ùÄ¿Â¼
+	 * å–å¤–éƒ¨åº“çš„æ ¹ç›®å½•
 	 * 
 	 * @return
 	 */
@@ -168,7 +168,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * Íâ²¿¿âÁĞ±í
+	 * å¤–éƒ¨åº“åˆ—è¡¨
 	 * 
 	 * @return
 	 */
@@ -184,7 +184,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÉÏ´«Ä£Ê½
+	 * ä¸Šä¼ æ¨¡å¼
 	 */
 	private boolean isUploadMode = false;
 
@@ -193,14 +193,14 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÉèÖÃÍâ²¿¿âÅäÖÃ
+	 * è®¾ç½®å¤–éƒ¨åº“é…ç½®
 	 * 
 	 * @param config
-	 *            ¼¯ËãÆ÷ÅäÖÃ
+	 *            é›†ç®—å™¨é…ç½®
 	 * @param extLibsPath
-	 *            Íâ²¿¿â¸ùÄ¿Â¼
+	 *            å¤–éƒ¨åº“æ ¹ç›®å½•
 	 * @param extLibs
-	 *            Íâ²¿¿âÁĞ±í
+	 *            å¤–éƒ¨åº“åˆ—è¡¨
 	 */
 	private void setConfig(RaqsoftConfig config, String extLibsPath,
 			List<String> extLibs) {
@@ -212,7 +212,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÉèÖÃÍâ²¿¿â¸ùÄ¿Â¼
+	 * è®¾ç½®å¤–éƒ¨åº“æ ¹ç›®å½•
 	 * 
 	 * @param showException
 	 */
@@ -242,7 +242,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 						dirNames.add(sd.getName());
 					}
 				}
-				// ¸ùÄ¿Â¼ÏÂµÄjarÒÑ¾­ÔÚ¸ùÄ¿Â¼¼ÓÔØ¹ı£¬ÕâÀï²»´¦ÀíÁË
+				// æ ¹ç›®å½•ä¸‹çš„jarå·²ç»åœ¨æ ¹ç›®å½•åŠ è½½è¿‡ï¼Œè¿™é‡Œä¸å¤„ç†äº†
 			}
 		}
 		int existSize = existNames.size();
@@ -258,7 +258,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÊÇ·ñÍâ²¿¿â
+	 * æ˜¯å¦å¤–éƒ¨åº“
 	 * 
 	 * @param dir
 	 * @return
@@ -299,17 +299,17 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÖØÖÃÓïÑÔ×ÊÔ´
+	 * é‡ç½®è¯­è¨€èµ„æº
 	 */
 	private void resetText() {
-		jBOK.setText(mm.getMessage("button.ok")); // È·¶¨(O)
-		jBCancel.setText(mm.getMessage("button.cancel")); // È¡Ïû(C)
+		jBOK.setText(mm.getMessage("button.ok")); // ç¡®å®š(O)
+		jBCancel.setText(mm.getMessage("button.cancel")); // å–æ¶ˆ(C)
 		jBExtLibsPath.setText(IdeCommonMessage.get().getMessage(
-				"dialogoptions.select")); // Ñ¡Ôñ
+				"dialogoptions.select")); // é€‰æ‹©
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 */
 	private void init() {
 		this.getContentPane().setLayout(new BorderLayout());
@@ -322,9 +322,9 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 		panelEast.add(jBCancel);
 		jBOK.addActionListener(this);
 		jBCancel.addActionListener(this);
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.setMnemonic('O');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.setMnemonic('C');
 		this.getContentPane().add(panelEast, BorderLayout.EAST);
 		JPanel panelNorth = new JPanel(new GridBagLayout());
@@ -378,7 +378,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ¹Ø±Õ´°¿Ú
+	 * å…³é—­çª—å£
 	 */
 	private void close() {
 		GM.setWindowDimension(this);
@@ -386,7 +386,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * °´Å¥ÊÂ¼ş
+	 * æŒ‰é’®äº‹ä»¶
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object c = e.getSource();
@@ -398,13 +398,13 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 				String path = getExtLibsPath();
 				if (!StringUtils.isValidString(path)) {
 					GM.messageDialog(parent,
-							mm.getMessage("dialogextlibs.emptypath")); // ÇëÑ¡ÔñÍâ²¿¿âÄ¿Â¼¡£
+							mm.getMessage("dialogextlibs.emptypath")); // è¯·é€‰æ‹©å¤–éƒ¨åº“ç›®å½•ã€‚
 					return;
 				}
 				List<String> libs = getExtLibs();
 				if (libs == null || libs.isEmpty()) {
 					GM.messageDialog(parent,
-							mm.getMessage("dialogextlibs.emptylib")); // ÇëÑ¡ÔñÍâ²¿¿â¡£
+							mm.getMessage("dialogextlibs.emptylib")); // è¯·é€‰æ‹©å¤–éƒ¨åº“ã€‚
 					return;
 				}
 			}

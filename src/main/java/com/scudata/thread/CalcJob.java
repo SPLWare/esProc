@@ -8,18 +8,18 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 
 /**
- * ÓÃÓÚÖ´ĞĞA.()µÄÈÎÎñ
+ * ç”¨äºæ‰§è¡ŒA.()çš„ä»»åŠ¡
  * @author RunQian
  *
  */
 class CalcJob extends Job {
-	private Sequence src; // Ô´ĞòÁĞ
-	private int start; // ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	private int end; // ½áÊøÎ»ÖÃ£¬²»°üÀ¨
+	private Sequence src; // æºåºåˆ—
+	private int start; // èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	private int end; // ç»“æŸä½ç½®ï¼Œä¸åŒ…æ‹¬
 	
-	private Expression exp; // ¼ÆËã±í´ïÊ½
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
-	private Sequence result; // ÓÃÓÚ´æ·Å½á¹û¼¯
+	private Expression exp; // è®¡ç®—è¡¨è¾¾å¼
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
+	private Sequence result; // ç”¨äºå­˜æ”¾ç»“æœé›†
 	
 	public CalcJob(Sequence src, int start, int end, Expression exp, Context ctx, Sequence result) {
 		this.src = src;

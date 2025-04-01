@@ -11,8 +11,8 @@ import com.scudata.expression.TableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸ü¸ÄĞò±íµÄÊı¾İ½á¹¹
- * T.alter(Fi,¡­;F¡¯i,¡­)
+ * æ›´æ”¹åºè¡¨çš„æ•°æ®ç»“æ„
+ * T.alter(Fi,â€¦;Fâ€™i,â€¦)
  * @author RunQian
  *
  */
@@ -26,7 +26,7 @@ public class Alter extends TableFunction {
 		DataStruct ds = srcTable.dataStruct();
 		String []oldFields = ds.getFieldNames();
 		int oldCount = oldFields.length;
-		int []state = new int[oldCount]; // -1±íÊ¾É¾³ı¡¢1±íÊ¾Ñ¡³ö
+		int []state = new int[oldCount]; // -1è¡¨ç¤ºåˆ é™¤ã€1è¡¨ç¤ºé€‰å‡º
 		ArrayList<String> newFieldList = new ArrayList<String>(oldCount);
 		
 		IParam oldParam;

@@ -4,8 +4,8 @@ import com.scudata.dm.*;
 import com.scudata.server.unit.UnitServer;
 
 /**
- * ´úÀí¼àÊÓÆ÷
- * ³¬Ê±(System.currentTimeMillis()-proxy.lastAccessTime()>service.getTimeout)µÄ¶ÔÏó¹Ø±Õ²¢É¾³ı
+ * ä»£ç†ç›‘è§†å™¨
+ * è¶…æ—¶(System.currentTimeMillis()-proxy.lastAccessTime()>service.getTimeout)çš„å¯¹è±¡å…³é—­å¹¶åˆ é™¤
  * @author Joancy
  *
  */
@@ -14,31 +14,31 @@ public class ProxyMonitor extends Thread {
 	volatile boolean stop = false;
 
 	/**
-	 * ´´½¨´úÀí¼àÊÓÆ÷
+	 * åˆ›å»ºä»£ç†ç›‘è§†å™¨
 	 */
 	public ProxyMonitor(){
 		this.setName(toString());
 	}
 	
 	/**
-	 * ÊµÏÖtoStringÃèÊö
+	 * å®ç°toStringæè¿°
 	 */
 	public String toString(){
 		return "ProxyMonitor";
 	}
 
 	/**
-	 * Í£Ö¹Ïß³Ì
+	 * åœæ­¢çº¿ç¨‹
 	 */
 	public void stopThread() {
 		stop = true;
 	}
 
 	/**
-	 * ÔËĞĞÏß³Ì
+	 * è¿è¡Œçº¿ç¨‹
 	 */
 	public void run() {
-		// timeOutÎª0Ê±£¬²»¼ì²é³¬Ê±
+		// timeOutä¸º0æ—¶ï¼Œä¸æ£€æŸ¥è¶…æ—¶
 		UnitContext uc = UnitServer.instance.getUnitContext();
 		int interval = uc.getInterval();
 		int proxyTimeOut = uc.getProxyTimeOut();
@@ -46,13 +46,13 @@ public class ProxyMonitor extends Thread {
 			return;
 		}
 		
-		//³¬Ê±µÄµ¥Î»¸ÄÎªĞ¡Ê±£¬ÏÈ»¯³ÉÃëÎªµ¥Î» xq 2016Äê12ÔÂ22ÈÕ
+		//è¶…æ—¶çš„å•ä½æ”¹ä¸ºå°æ—¶ï¼Œå…ˆåŒ–æˆç§’ä¸ºå•ä½ xq 2016å¹´12æœˆ22æ—¥
 		proxyTimeOut = proxyTimeOut*3600;
 		
 		while (!stop) {
 			try {
 				sleep(interval * 1000);
-				TaskManager.checkTimeOut(proxyTimeOut);//ÈÎÎñ¼ÇÔØµÄÓÎ±ê¶ÔÏó
+				TaskManager.checkTimeOut(proxyTimeOut);//ä»»åŠ¡è®°è½½çš„æ¸¸æ ‡å¯¹è±¡
 				RemoteFileProxyManager.checkTimeOut(proxyTimeOut);
 				RemoteCursorProxyManager.checkTimeOut(proxyTimeOut);
 				JobSpaceManager.checkTimeOut(proxyTimeOut);

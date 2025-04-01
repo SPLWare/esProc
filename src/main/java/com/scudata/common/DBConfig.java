@@ -15,8 +15,8 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * ¹¹ÔìÊı¾İÔ´µÄÅäÖÃ
-   *@param dbType Êı¾İ¿âÀàĞÍ£¬²Î¼ûDBTypes
+   * æ„é€ æ•°æ®æºçš„é…ç½®
+   *@param dbType æ•°æ®åº“ç±»å‹ï¼Œå‚è§DBTypes
    */
   public DBConfig(int dbType) {
     super(dbType);
@@ -38,37 +38,37 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * Éè¶¨Êı¾İÁ¬½ÓÇı¶¯Àà
-   * @param driver String Êı¾İÁ¬½ÓÇı¶¯ÀàÂ·¾¶
+   * è®¾å®šæ•°æ®è¿æ¥é©±åŠ¨ç±»
+   * @param driver String æ•°æ®è¿æ¥é©±åŠ¨ç±»è·¯å¾„
    */
   public void setDriver(String driver) {
     this.driver = driver;
   }
 
   /**
-   * »ñÈ¡Êı¾İÁ¬½ÓÇı¶¯Àà
+   * è·å–æ•°æ®è¿æ¥é©±åŠ¨ç±»
    */
   public String getDriver() {
     return driver;
   }
 
   /**
-   * Éè¶¨Êı¾İÁ¬½ÓÂ·¾¶
-   * @param url String Á¬½ÓÂ·¾¶
+   * è®¾å®šæ•°æ®è¿æ¥è·¯å¾„
+   * @param url String è¿æ¥è·¯å¾„
    */
   public void setUrl(String url) {
     this.url = url;
   }
 
   /**
-   * »ñÈ¡Êı¾İÁ¬½ÓÂ·¾¶
+   * è·å–æ•°æ®è¿æ¥è·¯å¾„
    */
   public String getUrl() {
     return url;
   }
 
   /**
-   * Éè¶¨ÓÃ»§Ãû
+   * è®¾å®šç”¨æˆ·å
    * @param user String
    */
   public void setUser(String user) {
@@ -76,7 +76,7 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * »ñÈ¡ÓÃ»§Ãû
+   * è·å–ç”¨æˆ·å
    * @return String
    */
   public String getUser() {
@@ -84,7 +84,7 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * Éè¶¨ÃÜÂë
+   * è®¾å®šå¯†ç 
    * @param password String
    */
   public void setPassword(String password) {
@@ -92,7 +92,7 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * »ñÈ¡ÃÜÂë
+   * è·å–å¯†ç 
    * @return String
    */
   public String getPassword() {
@@ -100,7 +100,7 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * Éè¶¨ÊÇ·ñÊ¹ÓÃ´øÄ£Ê½µÄ±í
+   * è®¾å®šæ˜¯å¦ä½¿ç”¨å¸¦æ¨¡å¼çš„è¡¨
    * @param useSchema boolean
    */
   public void setUseSchema(boolean useSchema) {
@@ -108,7 +108,7 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * »ñÈ¡ÊÇ·ñÊ¹ÓÃ´øÄ£Ê½µÄ±í
+   * è·å–æ˜¯å¦ä½¿ç”¨å¸¦æ¨¡å¼çš„è¡¨
    * @param info Properties
    */
   public void setInfo(Properties info) {
@@ -116,14 +116,14 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * »ñÈ¡ÊôĞÔ
+   * è·å–å±æ€§
    */
   public Properties getInfo() {
     return this.info;
   }
 
   /**
-   * Éè¶¨sqlÊÇ·ñ´óĞ¡Ğ´Ãô¸Ğ
+   * è®¾å®šsqlæ˜¯å¦å¤§å°å†™æ•æ„Ÿ
    * @param bcase boolean
    */
   public void setCaseSentence(boolean bcase) {
@@ -131,21 +131,21 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * »ñÈ¡sqlÊÇ·ñ´óĞ¡Ğ´Ãô¸Ğ
+   * è·å–sqlæ˜¯å¦å¤§å°å†™æ•æ„Ÿ
    */
   public boolean isCaseSentence() {
     return caseSentence;
   }
 
   /**
-   * »ñÈ¡sqlÊÇ·ñ´óĞ¡Ğ´Ãô¸Ğ
+   * è·å–sqlæ˜¯å¦å¤§å°å†™æ•æ„Ÿ
    */
   public boolean isUseSchema() {
     return useSchema;
   }
 
   /**
-   * Éè¶¨ÊÇ·ñÊ¹ÓÃ´ú×ÖºÅ
+   * è®¾å®šæ˜¯å¦ä½¿ç”¨ä»£å­—å·
    * @return boolean
    */
   public boolean isAddTilde() {
@@ -153,14 +153,14 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * »ñÈ¡ÊÇ·ñÊ¹ÓÃ´ú×ÖºÅ
+   * è·å–æ˜¯å¦ä½¿ç”¨ä»£å­—å·
    */
   public void setAddTilde(boolean b) {
     isAddTilde = b;
   }
 
   /**
-   * Éè¶¨Á¬½ÓÀ©Õ¹ÊôĞÔ
+   * è®¾å®šè¿æ¥æ‰©å±•å±æ€§
    * @param extend String
    */
   public void setExtend(String extend) {
@@ -168,7 +168,7 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * »ñÈ¡Á¬½ÓÀ©Õ¹ÊôĞÔ
+   * è·å–è¿æ¥æ‰©å±•å±æ€§
    * @return String
    */
   public String getExtend() {
@@ -179,10 +179,10 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
     return new DBSessionFactory(this);
   }
 
-  /*************************ÒÔÏÂ¼Ì³Ğ×ÔExternalizable************************/
+  /*************************ä»¥ä¸‹ç»§æ‰¿è‡ªExternalizable************************/
   /**
-   * Ğ´ÄÚÈİµ½Á÷
-   *@param out Êä³öÁ÷
+   * å†™å†…å®¹åˆ°æµ
+   *@param out è¾“å‡ºæµ
    */
   public void writeExternal(ObjectOutput out) throws IOException {
     super.writeExternal(out);
@@ -199,8 +199,8 @@ public class DBConfig extends DBInfo implements Cloneable, Externalizable
   }
 
   /**
-   * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-   *@param in ÊäÈëÁ÷
+   * ä»æµä¸­è¯»å†…å®¹
+   *@param in è¾“å…¥æµ
    */
   public void readExternal(ObjectInput in) throws IOException,
       ClassNotFoundException {

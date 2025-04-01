@@ -14,15 +14,15 @@ import com.scudata.util.HashUtil;
 import com.scudata.util.Variant;
 
 /**
- * µ¥×Ö¶ÎÖ÷¼üË÷Òı
+ * å•å­—æ®µä¸»é”®ç´¢å¼•
  * @author WangXiaoJun
  *
  */
 public class HashIndexTable extends IndexTable {
-	// ÓÃÓÚ´æ·Å¹şÏ£±íÀïµÄÔªËØ£¬¹şÏ£ÖµÏàÍ¬µÄÔªËØÓÃÁ´±í´æ´¢
+	// ç”¨äºå­˜æ”¾å“ˆå¸Œè¡¨é‡Œçš„å…ƒç´ ï¼Œå“ˆå¸Œå€¼ç›¸åŒçš„å…ƒç´ ç”¨é“¾è¡¨å­˜å‚¨
 	private static class Entry {
 		Object key;
-		int seq; // ¶ÔÓ¦µÄ¼ÇÂ¼ÔÚÂë±íÖĞµÄĞòºÅ
+		int seq; // å¯¹åº”çš„è®°å½•åœ¨ç è¡¨ä¸­çš„åºå·
 		Entry next;
 		
 		public Entry(Object key, int seq) {
@@ -37,16 +37,16 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 
-	// ÓÃÓÚ¶àÏß³Ì´´½¨¹şÏ£±í
+	// ç”¨äºå¤šçº¿ç¨‹åˆ›å»ºå“ˆå¸Œè¡¨
 	private static class CreateJob extends Job {
 		private HashUtil hashUtil;
 		private Sequence code;
 		private int field;
-		private int start; // ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-		private int end; // ½áÊøÎ»ÖÃ£¬²»°üÀ¨
-		private boolean checkDupKey; // ¼ì²éÖØÖµ
+		private int start; // èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+		private int end; // ç»“æŸä½ç½®ï¼Œä¸åŒ…æ‹¬
+		private boolean checkDupKey; // æ£€æŸ¥é‡å€¼
 		
-		Entry []entries; // °´hashÖµ·Ö×é
+		Entry []entries; // æŒ‰hashå€¼åˆ†ç»„
 		
 		public CreateJob(HashUtil hashUtil, Sequence code, int field, int start, int end, boolean checkDupKey) {
 			this.hashUtil = hashUtil;
@@ -83,15 +83,15 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 	
-	// ÓÃÓÚ¶àÏß³Ì´´½¨¹şÏ£±í(ÓÃÓÚifind)
+	// ç”¨äºå¤šçº¿ç¨‹åˆ›å»ºå“ˆå¸Œè¡¨(ç”¨äºifind)
 	private static class CreateJob2 extends Job {
 		private HashUtil hashUtil;
 		private Sequence code;
 		private int field;
-		private int start; // ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-		private int end; // ½áÊøÎ»ÖÃ£¬²»°üÀ¨
+		private int start; // èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+		private int end; // ç»“æŸä½ç½®ï¼Œä¸åŒ…æ‹¬
 		
-		Entry []entries; // °´hashÖµ·Ö×é
+		Entry []entries; // æŒ‰hashå€¼åˆ†ç»„
 		
 		public CreateJob2(HashUtil hashUtil, Sequence code, int field, int start, int end) {
 			this.hashUtil = hashUtil;
@@ -132,19 +132,19 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 	
-	private Sequence code; // Ô´±í£¬¹şÏ£±í´æ·ÅµÄÊÇÔªËØµÄÎ»ÖÃ£¬ĞèÒª¸ù¾İÎ»ÖÃµ½Ô´±íÈ¡ÔªËØ
-	protected HashUtil hashUtil; // ÓÃÓÚ¼ÆËã¹şÏ£Öµ
-	protected Entry []entries; // °´hashÖµ·Ö×é
-	private boolean useMultithread; // Ê¹ÓÃ¶àÏß³Ì´´½¨Ë÷Òı
+	private Sequence code; // æºè¡¨ï¼Œå“ˆå¸Œè¡¨å­˜æ”¾çš„æ˜¯å…ƒç´ çš„ä½ç½®ï¼Œéœ€è¦æ ¹æ®ä½ç½®åˆ°æºè¡¨å–å…ƒç´ 
+	protected HashUtil hashUtil; // ç”¨äºè®¡ç®—å“ˆå¸Œå€¼
+	protected Entry []entries; // æŒ‰hashå€¼åˆ†ç»„
+	private boolean useMultithread; // ä½¿ç”¨å¤šçº¿ç¨‹åˆ›å»ºç´¢å¼•
 	
 	public HashIndexTable(int capacity) {
 		hashUtil = new HashUtil(capacity);
 	}
 	
 	/**
-	 * ¹¹½¨¹şÏ£±í
-	 * @param capacity ¹şÏ£±íÈİÁ¿
-	 * @param opt Ñ¡Ïî£¬m£ºÓÃ¶àÏß³Ì´´½¨¹şÏ£±í
+	 * æ„å»ºå“ˆå¸Œè¡¨
+	 * @param capacity å“ˆå¸Œè¡¨å®¹é‡
+	 * @param opt é€‰é¡¹ï¼Œmï¼šç”¨å¤šçº¿ç¨‹åˆ›å»ºå“ˆå¸Œè¡¨
 	 */
 	public HashIndexTable(int capacity, String opt) {
 		hashUtil = new HashUtil(capacity);
@@ -158,7 +158,7 @@ public class HashIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * È¡¹şÏ£±íÈİÁ¿
+	 * å–å“ˆå¸Œè¡¨å®¹é‡
 	 * @return
 	 */
 	public int getCapacity() {
@@ -166,8 +166,8 @@ public class HashIndexTable extends IndexTable {
 	}
 
 	/**
-	 * ´´½¨¹şÏ£±í
-	 * @param code Ô´Êı¾İ
+	 * åˆ›å»ºå“ˆå¸Œè¡¨
+	 * @param code æºæ•°æ®
 	 */
 	public void create(Sequence code) {
 		this.code = code;
@@ -198,9 +198,9 @@ public class HashIndexTable extends IndexTable {
 	}
 
 	/**
-	 * ÓÃ±í´ïÊ½µÄ¼ÆËãÖµµ±¼ü´´½¨¹şÏ£±í
-	 * @param code Ô´Êı¾İ
-	 * @param exp ±í´ïÊ½
+	 * ç”¨è¡¨è¾¾å¼çš„è®¡ç®—å€¼å½“é”®åˆ›å»ºå“ˆå¸Œè¡¨
+	 * @param code æºæ•°æ®
+	 * @param exp è¡¨è¾¾å¼
 	 * @param ctx
 	 */
 	public void create(Sequence code, Expression exp, Context ctx) {
@@ -248,7 +248,7 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 	
-	// ºÏ²¢¹şÏ£±í
+	// åˆå¹¶å“ˆå¸Œè¡¨
 	private static void combineHashGroups(Entry []result, Entry []entries, boolean checkDupKey) {
 		int len = result.length;
 		for (int i = 0; i < len; ++i) {
@@ -257,7 +257,7 @@ public class HashIndexTable extends IndexTable {
 			} else if (entries[i] != null) {
 				Entry entry = entries[i];
 				while (true) {
-					// ±È½Ï¹şÏ£ÖµÏàÍ¬µÄÔªËØÊÇ·ñÖµÒ²ÏàÍ¬
+					// æ¯”è¾ƒå“ˆå¸Œå€¼ç›¸åŒçš„å…ƒç´ æ˜¯å¦å€¼ä¹Ÿç›¸åŒ
 					for (Entry resultEntry = result[i]; resultEntry != null; resultEntry = resultEntry.next) {
 						if (checkDupKey && Variant.isEquals(entry.key, resultEntry.key)) {
 							MessageManager mm = EngineMessage.get();
@@ -277,7 +277,7 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 
-	// ºÏ²¢¹şÏ£±í(ifind)
+	// åˆå¹¶å“ˆå¸Œè¡¨(ifind)
 	private static void combineHashGroups_i(Entry []result, Entry []entries) {
 		int len = result.length;
 		for (int i = 0; i < len; ++i) {
@@ -299,19 +299,19 @@ public class HashIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * ÓÉÅÅÁĞµÄÖ¸¶¨×Ö¶ÎÎª¼ü´´½¨¹şÏ£±í
-	 * @param code Ô´ÅÅÁĞ
-	 * @param field ×Ö¶ÎË÷Òı
+	 * ç”±æ’åˆ—çš„æŒ‡å®šå­—æ®µä¸ºé”®åˆ›å»ºå“ˆå¸Œè¡¨
+	 * @param code æºæ’åˆ—
+	 * @param field å­—æ®µç´¢å¼•
 	 */
 	public void create(Sequence code, int field) {
 		create(code, field, true);
 	}
 	
 	/**
-	 * ÓÉÅÅÁĞµÄÖ¸¶¨×Ö¶ÎÎª¼ü´´½¨¹şÏ£±í
-	 * @param code Ô´ÅÅÁĞ
-	 * @param field ×Ö¶ÎË÷Òı
-	 * @param checkDupKey ¼ì²é³åÖØÖµ
+	 * ç”±æ’åˆ—çš„æŒ‡å®šå­—æ®µä¸ºé”®åˆ›å»ºå“ˆå¸Œè¡¨
+	 * @param code æºæ’åˆ—
+	 * @param field å­—æ®µç´¢å¼•
+	 * @param checkDupKey æ£€æŸ¥å†²é‡å€¼
 	 */
 	public void create(Sequence code, int field, boolean checkDupKey) {
 		this.code = code;
@@ -354,9 +354,9 @@ public class HashIndexTable extends IndexTable {
 	}
 
 	/**
-	 * ÓÉÅÅÁĞµÄÖ¸¶¨×Ö¶ÎÎª¼ü´´½¨¹şÏ£±í (ÓÃÓÚifind)
-	 * @param code Ô´ÅÅÁĞ
-	 * @param field ×Ö¶ÎË÷Òı
+	 * ç”±æ’åˆ—çš„æŒ‡å®šå­—æ®µä¸ºé”®åˆ›å»ºå“ˆå¸Œè¡¨ (ç”¨äºifind)
+	 * @param code æºæ’åˆ—
+	 * @param field å­—æ®µç´¢å¼•
 	 */
 	public void create_i(Sequence code, int field) {
 		this.code = code;
@@ -399,8 +399,8 @@ public class HashIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * ÓÉ¼ü²éÕÒÔªËØ£¬ÕÒ²»µ½·µ»Ø¿Õ
-	 * @param key ¼üÖµ
+	 * ç”±é”®æŸ¥æ‰¾å…ƒç´ ï¼Œæ‰¾ä¸åˆ°è¿”å›ç©º
+	 * @param key é”®å€¼
 	 */
 	public Object find(Object key) {
 		int hash = hashUtil.hashCode(key);
@@ -414,8 +414,8 @@ public class HashIndexTable extends IndexTable {
 	}
 
 	/**
-	 * ÓÉ¼ü²éÕÒÔªËØ£¬ÕÒ²»µ½·µ»Ø¿Õ
-	 * @param keys ³¤¶ÈÎª1µÄ¼üÖµÊı×é
+	 * ç”±é”®æŸ¥æ‰¾å…ƒç´ ï¼Œæ‰¾ä¸åˆ°è¿”å›ç©º
+	 * @param keys é•¿åº¦ä¸º1çš„é”®å€¼æ•°ç»„
 	 */
 	public Object find(Object []keys) {
 		int hash = hashUtil.hashCode(keys[0]);
@@ -429,8 +429,8 @@ public class HashIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * ÓÉ¼ü²éÕÒÔªËØĞòºÅ£¬ÕÒ²»µ½·µ»Ø0
-	 * @param key ¼üÖµ
+	 * ç”±é”®æŸ¥æ‰¾å…ƒç´ åºå·ï¼Œæ‰¾ä¸åˆ°è¿”å›0
+	 * @param key é”®å€¼
 	 */
 	public int findPos(Object key) {
 		int hash = hashUtil.hashCode(key);
@@ -444,8 +444,8 @@ public class HashIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * ÓÉ¼ü²éÕÒÔªËØĞòºÅ£¬ÕÒ²»µ½·µ»Ø0
-	 * @param key ¼üÖµ
+	 * ç”±é”®æŸ¥æ‰¾å…ƒç´ åºå·ï¼Œæ‰¾ä¸åˆ°è¿”å›0
+	 * @param key é”®å€¼
 	 */
 	public int findPos(Object[] keys) {
 		int hash = hashUtil.hashCode(keys[0]);
@@ -459,10 +459,10 @@ public class HashIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * ÓÉË÷Òı½øĞĞ¹ıÂËÉú³ÉĞò±í²¢´´½¨ĞÂË÷Òı
-	 * @param exp ¹ıÂË±í´ïÊ½
+	 * ç”±ç´¢å¼•è¿›è¡Œè¿‡æ»¤ç”Ÿæˆåºè¡¨å¹¶åˆ›å»ºæ–°ç´¢å¼•
+	 * @param exp è¿‡æ»¤è¡¨è¾¾å¼
 	 * @param ctx
-	 * @return Table Âú×ãÌõ¼şµÄ¼ÇÂ¼¹¹³ÉµÄĞÂĞò±í
+	 * @return Table æ»¡è¶³æ¡ä»¶çš„è®°å½•æ„æˆçš„æ–°åºè¡¨
 	 */
 	public Table select(Expression exp, Context ctx) {
 		Sequence code = this.code;
@@ -568,8 +568,8 @@ public class HashIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµµÄÎ»ÖÃ,°üÀ¨ÖØ¸´µÄÖµ
-	 * @param key ¼ü
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼çš„ä½ç½®,åŒ…æ‹¬é‡å¤çš„å€¼
+	 * @param key é”®
 	 * @param out
 	 */
 	public void findPos(Object key, IntArray out) {
@@ -582,8 +582,8 @@ public class HashIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµµÄÎ»ÖÃ,°üÀ¨ÖØ¸´µÄÖµ
-	 * @param key ¼ü
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼çš„ä½ç½®,åŒ…æ‹¬é‡å¤çš„å€¼
+	 * @param key é”®
 	 * @param out
 	 */
 	public void findPos(Object[] keys, IntArray out) {
@@ -595,7 +595,7 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 	
-	//Ö»ÕÒÔ­ĞòÀï³öÏÖµÄµÚÒ»¸öµÄÎ»ÖÃ
+	//åªæ‰¾åŸåºé‡Œå‡ºç°çš„ç¬¬ä¸€ä¸ªçš„ä½ç½®
 	public int[] findAllFirstPos(IArray keys) {
 		Entry []entries = this.entries;
 		HashUtil hashUtil = this.hashUtil;

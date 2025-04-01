@@ -6,14 +6,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Ïß³Ì°²È«Àà£¬µ«Ã¿´Î¸ñÊ½»¯ºÍ·ÖÎöÇ°ĞèÉèÖÃµ±Ç°µÄ¸ñÊ½´®£¬·ñÔòÉÏ´ÎµÄÉèÖÃ»áÓ°ÏìÏÂ´ÎµÄ¸ñÊ½»¯ºÍ·ÖÎö
+ * çº¿ç¨‹å®‰å…¨ç±»ï¼Œä½†æ¯æ¬¡æ ¼å¼åŒ–å’Œåˆ†æå‰éœ€è®¾ç½®å½“å‰çš„æ ¼å¼ä¸²ï¼Œå¦åˆ™ä¸Šæ¬¡çš„è®¾ç½®ä¼šå½±å“ä¸‹æ¬¡çš„æ ¼å¼åŒ–å’Œåˆ†æ
  */
 public class DateFactory {
-	// Ã¿ÔÂµÄÌìÊı
+	// æ¯æœˆçš„å¤©æ•°
 	public static final int []DAYS 			= new int[] {31,28,31,30,31,30,31,31,30,31,30,31};
 	public static final int []LEEPYEARDAYS 	= new int[] {31,29,31,30,31,30,31,31,30,31,30,31};
 	
-	// 1900Äêµ½2100ÄêÃ¿Äê1ÔÂ1ºÅµÄĞÇÆÚÊı£¬ĞÇÆÚÈÕµÄÖµÊÇ1
+	// 1900å¹´åˆ°2100å¹´æ¯å¹´1æœˆ1å·çš„æ˜ŸæœŸæ•°ï¼Œæ˜ŸæœŸæ—¥çš„å€¼æ˜¯1
 	private static final int WEEK_START_YEAR = 1900;
 	private static final int WEEK_END_YEAR = 2100;
 	private static final int []WEEKS = new int[] {2,3,4,5,6,1,2,3,4,6,7,1,2,4,5,6,7,2,3,4,5,7,1,2,3,5,6,7
@@ -59,7 +59,7 @@ public class DateFactory {
 	public Date toDate(long date) {
 		Calendar gc = getCalendar();
 		if (date <= 99991231 && date >= 101) {
-			// ÈÕÆÚ¿ÉÒÔĞ´³ÉYYYYMMdd»òyyMMddĞÎÊ½µÄÊı£¬Èç¹ûÊÇyyĞÎÊ½µÄÔòÒÔ2000ÄêÎª»ù×¼
+			// æ—¥æœŸå¯ä»¥å†™æˆYYYYMMddæˆ–yyMMddå½¢å¼çš„æ•°ï¼Œå¦‚æœæ˜¯yyå½¢å¼çš„åˆ™ä»¥2000å¹´ä¸ºåŸºå‡†
 			int n = (int)date;
 			int d = n % 100;
 			int m = n / 100  % 100;
@@ -94,7 +94,7 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡¸ø¶¨ÈÕÆÚËùÔÚÖÜµÄµÚÒ»Ìì£¬ĞÇÆÚÈÕÎªµÚÒ»Ìì
+	 * å–ç»™å®šæ—¥æœŸæ‰€åœ¨å‘¨çš„ç¬¬ä¸€å¤©ï¼Œæ˜ŸæœŸæ—¥ä¸ºç¬¬ä¸€å¤©
 	 * @param date
 	 * @return Date
 	 */
@@ -111,7 +111,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * È¡¸ø¶¨ÈÕÆÚËùÔÚÖÜµÄµÚÒ»Ìì£¬ĞÇÆÚÒ»ÎªµÚÒ»Ìì
+	 * å–ç»™å®šæ—¥æœŸæ‰€åœ¨å‘¨çš„ç¬¬ä¸€å¤©ï¼Œæ˜ŸæœŸä¸€ä¸ºç¬¬ä¸€å¤©
 	 * @param date
 	 * @return Date
 	 */
@@ -140,7 +140,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * ÒÔÖÜÒ»ÎªµÚÒ»Ìì
+	 * ä»¥å‘¨ä¸€ä¸ºç¬¬ä¸€å¤©
 	 * @param date
 	 * @return
 	 */
@@ -157,9 +157,9 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚµÄÔÂÊ×ÈÕÆÚ
-	 * @param date Ö¸¶¨µÄÈÕÆÚ
-	 * @return ÔÂÊ×ÈÕÆÚ
+	 * å–æŒ‡å®šæ—¥æœŸçš„æœˆé¦–æ—¥æœŸ
+	 * @param date æŒ‡å®šçš„æ—¥æœŸ
+	 * @return æœˆé¦–æ—¥æœŸ
 	 */
 	public Date monthBegin(Date date) {
 		Calendar gc = getCalendar();
@@ -173,9 +173,9 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚµÄÔÂÄ©ÈÕÆÚ
-	 * @param date Ö¸¶¨µÄÈÕÆÚ
-	 * @return ÔÂÄ©ÈÕÆÚ
+	 * å–æŒ‡å®šæ—¥æœŸçš„æœˆæœ«æ—¥æœŸ
+	 * @param date æŒ‡å®šçš„æ—¥æœŸ
+	 * @return æœˆæœ«æ—¥æœŸ
 	 */
 	public Date monthEnd(Date date) {
 		Calendar gc = getCalendar();
@@ -190,9 +190,9 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚµÄ¼¾¶ÈÊ×ÈÕ
-	 * @param date Ö¸¶¨µÄÈÕÆÚ
-	 * @return ¼¾¶ÈÊ×ÈÕ
+	 * å–æŒ‡å®šæ—¥æœŸçš„å­£åº¦é¦–æ—¥
+	 * @param date æŒ‡å®šçš„æ—¥æœŸ
+	 * @return å­£åº¦é¦–æ—¥
 	 */
 	public Date quaterBegin(Date date) {
 		Calendar gc = getCalendar();
@@ -208,9 +208,9 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚµÄ¼¾¶ÈÄ©ÈÕÆÚ
-	 * @param date Ö¸¶¨µÄÈÕÆÚ
-	 * @return ¼¾¶ÈÄ©ÈÕÆÚ
+	 * å–æŒ‡å®šæ—¥æœŸçš„å­£åº¦æœ«æ—¥æœŸ
+	 * @param date æŒ‡å®šçš„æ—¥æœŸ
+	 * @return å­£åº¦æœ«æ—¥æœŸ
 	 */
 	public Date quaterEnd(Date date) {
 		Calendar gc = getCalendar();
@@ -226,7 +226,7 @@ public class DateFactory {
 		return new java.sql.Date(gc.getTimeInMillis());
 	}
 	
-	// È¡Ö¸¶¨ÈÕÆÚËùÔÚÄêµÄµÚÒ»Ìì
+	// å–æŒ‡å®šæ—¥æœŸæ‰€åœ¨å¹´çš„ç¬¬ä¸€å¤©
 	public Date yearBegin(Date date) {
 		Calendar gc = getCalendar();
 		gc.setTime(date);
@@ -239,7 +239,7 @@ public class DateFactory {
 		return new java.sql.Date(gc.getTimeInMillis());
 	}
 	
-	// È¡Ö¸¶¨ÈÕÆÚËùÔÚÄêµÄ×îºóÒ»Ìì
+	// å–æŒ‡å®šæ—¥æœŸæ‰€åœ¨å¹´çš„æœ€åä¸€å¤©
 	public Date yearEnd(Date date) {
 		Calendar gc = getCalendar();
 		gc.setTime(date);
@@ -253,9 +253,9 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚµÄÉÏÔÂÍ¬Ò»ÈÕ£¬ÈôÎŞÍ¬Ò»ÈÕ£¬Ôò·µ»ØÉÏÔÂ×îºóÒ»Ìì
-	 * @param date Ö¸¶¨µÄÈÕÆÚ
-	 * @return ÉÏÔÂÍ¬Ò»ÈÕ
+	 * å–æŒ‡å®šæ—¥æœŸçš„ä¸ŠæœˆåŒä¸€æ—¥ï¼Œè‹¥æ— åŒä¸€æ—¥ï¼Œåˆ™è¿”å›ä¸Šæœˆæœ€åä¸€å¤©
+	 * @param date æŒ‡å®šçš„æ—¥æœŸ
+	 * @return ä¸ŠæœˆåŒä¸€æ—¥
 	 */
 	public Date lastMonth(Date date) {
 		Calendar gc = getCalendar();
@@ -269,9 +269,9 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚµÄÉÏÒ»ÄêÍ¬Ò»ÈÕÆÚ
-	 * @param date Ö¸¶¨µÄÈÕÆÚ
-	 * @return ÉÏÒ»ÄêÍ¬Ò»ÈÕÆÚ
+	 * å–æŒ‡å®šæ—¥æœŸçš„ä¸Šä¸€å¹´åŒä¸€æ—¥æœŸ
+	 * @param date æŒ‡å®šçš„æ—¥æœŸ
+	 * @return ä¸Šä¸€å¹´åŒä¸€æ—¥æœŸ
 	 */
 	public Date lastYear(Date date) {
 		Calendar gc = getCalendar();
@@ -285,9 +285,9 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚµÄ×òÌì
-	 * @param date Ö¸¶¨µÄÈÕÆÚ
-	 * @return ×òÌì
+	 * å–æŒ‡å®šæ—¥æœŸçš„æ˜¨å¤©
+	 * @param date æŒ‡å®šçš„æ—¥æœŸ
+	 * @return æ˜¨å¤©
 	 */
 	public Date lastDay(Date date) {
 		Calendar gc = getCalendar();
@@ -340,7 +340,7 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚ¶ÔÓ¦µÄĞÇÆÚÖµ
+	 * å–æŒ‡å®šæ—¥æœŸå¯¹åº”çš„æ˜ŸæœŸå€¼
 	 * @param date
 	 * @return
 	 */
@@ -367,10 +367,10 @@ public class DateFactory {
 	}
 
 	/**
-	 * ½âÎöÈÕÆÚ(10Î»)
-	 * @param data ĞèÒª½âÎöµÄ×Ö½Ú·û
-	 * @param beginIndex ¿ªÊ¼½âÎöµÄÎ»ÖÃ
-	 * @return ÈÕÆÚÓĞĞ§µÄDate¶ÔÏó
+	 * è§£ææ—¥æœŸ(10ä½)
+	 * @param data éœ€è¦è§£æçš„å­—èŠ‚ç¬¦
+	 * @param beginIndex å¼€å§‹è§£æçš„ä½ç½®
+	 * @return æ—¥æœŸæœ‰æ•ˆçš„Dateå¯¹è±¡
 	 */
 	public static Date parseDate(String data, int beginIndex) throws ParseException {
 		if (data == null) {
@@ -380,9 +380,9 @@ public class DateFactory {
 	}
 
 	/**
-	 * ½âÎöÈÕÆÚ(10Î»)
-	 * @param data ĞèÒª½âÎöµÄ×Ö½Ú·û
-	 * @return ÈÕÆÚÓĞĞ§µÄDate¶ÔÏó
+	 * è§£ææ—¥æœŸ(10ä½)
+	 * @param data éœ€è¦è§£æçš„å­—èŠ‚ç¬¦
+	 * @return æ—¥æœŸæœ‰æ•ˆçš„Dateå¯¹è±¡
 	 */
 	public static Date parseDate(String data) throws ParseException {
 		if (data == null) {
@@ -392,10 +392,10 @@ public class DateFactory {
 	}
 
 	/**
-	 * ½âÎöÊ±¼ä(8Î»)
-	 * @param data ĞèÒª½âÎöµÄ×Ö½ÚÊı×é
-	 * @param beginIndex ¿ªÊ¼½âÎöµÄÎ»ÖÃ
-	 * @return Ê±¼äÓĞĞ§µÄTime¶ÔÏó
+	 * è§£ææ—¶é—´(8ä½)
+	 * @param data éœ€è¦è§£æçš„å­—èŠ‚æ•°ç»„
+	 * @param beginIndex å¼€å§‹è§£æçš„ä½ç½®
+	 * @return æ—¶é—´æœ‰æ•ˆçš„Timeå¯¹è±¡
 	 */
 	public static Date parseTime(String data, int beginIndex) throws ParseException {
 		if (data == null) {
@@ -405,9 +405,9 @@ public class DateFactory {
 	}
 
 	/**
-	 * ½âÎöÊ±¼ä(8Î»)
-	 * @param data ĞèÒª½âÎöµÄ×Ö½ÚÊı×é
-	 * @return Ê±¼äÓĞĞ§µÄTime¶ÔÏó
+	 * è§£ææ—¶é—´(8ä½)
+	 * @param data éœ€è¦è§£æçš„å­—èŠ‚æ•°ç»„
+	 * @return æ—¶é—´æœ‰æ•ˆçš„Timeå¯¹è±¡
 	 */
 	public static Date parseTime(String data) throws ParseException {
 		if (data == null) {
@@ -417,10 +417,10 @@ public class DateFactory {
 	}
 
 	/**
-	 * ½âÎöÈÕÆÚÊ±¼ä(19Î»)
-	 * @param data ĞèÒª½âÎöµÄ×Ö½ÚÊı×é
-	 * @param beginIndex ¿ªÊ¼½âÎöµÄÎ»ÖÃ
-	 * @return ÈÕÆÚÓëÊ±¼ä¾ùÓĞĞ§µÄDate¶ÔÏó
+	 * è§£ææ—¥æœŸæ—¶é—´(19ä½)
+	 * @param data éœ€è¦è§£æçš„å­—èŠ‚æ•°ç»„
+	 * @param beginIndex å¼€å§‹è§£æçš„ä½ç½®
+	 * @return æ—¥æœŸä¸æ—¶é—´å‡æœ‰æ•ˆçš„Dateå¯¹è±¡
 	 */
 	public static Date parseDateTime(String data, int beginIndex) throws ParseException {
 		if (data == null) {
@@ -430,9 +430,9 @@ public class DateFactory {
 	}
 
 	/**
-	 * ½âÎöÈÕÆÚÊ±¼ä(19Î»)
-	 * @param data ĞèÒª½âÎöµÄ×Ö½ÚÊı×é
-	 * @return ÈÕÆÚÓëÊ±¼ä¾ùÓĞĞ§µÄDate¶ÔÏó
+	 * è§£ææ—¥æœŸæ—¶é—´(19ä½)
+	 * @param data éœ€è¦è§£æçš„å­—èŠ‚æ•°ç»„
+	 * @return æ—¥æœŸä¸æ—¶é—´å‡æœ‰æ•ˆçš„Dateå¯¹è±¡
 	 */
 	public static Date parseDateTime(String data) throws ParseException {
 		if (data == null) {
@@ -442,7 +442,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * °ÑÈÕÆÚ±ä³É»ùÓÚ1970ÄêµÄÌìÊı
+	 * æŠŠæ—¥æœŸå˜æˆåŸºäº1970å¹´çš„å¤©æ•°
 	 * days@o(date) date(1970+d\384,d\32%12+1,d%32)
 	 * @param date
 	 * @return int
@@ -456,10 +456,10 @@ public class DateFactory {
 	}
 	
 	/**
-	 * °ÑÈÕÆÚ±ä³É»ùÓÚ1970ÄêµÄÌìÊı
-	 * @param y ´Ó1¿ªÊ¼¼ÆÊı
-	 * @param m ´Ó0¿ªÊ¼¼ÆÊı
-	 * @param d ´Ó1¿ªÊ¼¼ÆÊı
+	 * æŠŠæ—¥æœŸå˜æˆåŸºäº1970å¹´çš„å¤©æ•°
+	 * @param y ä»1å¼€å§‹è®¡æ•°
+	 * @param m ä»0å¼€å§‹è®¡æ•°
+	 * @param d ä»1å¼€å§‹è®¡æ•°
 	 * @return int
 	 */
 	public static int toDays(int y, int m, int d) {
@@ -467,7 +467,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * °Ñ»ùÓÚ1970ÄêµÄÌìÊı±ä³ÉÈÕÆÚ
+	 * æŠŠåŸºäº1970å¹´çš„å¤©æ•°å˜æˆæ—¥æœŸ
 	 * @param days
 	 * @return Date
 	 */
@@ -494,7 +494,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * °Ñ»ùÓÚ1970ÄêµÄÌìÊı±ä³ÉÄê
+	 * æŠŠåŸºäº1970å¹´çš„å¤©æ•°å˜æˆå¹´
 	 * @param days
 	 * @return int
 	 */
@@ -507,7 +507,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * °Ñ»ùÓÚ1970ÄêµÄÌìÊı±ä³ÉÔÂ
+	 * æŠŠåŸºäº1970å¹´çš„å¤©æ•°å˜æˆæœˆ
 	 * @param days
 	 * @return int
 	 */
@@ -520,7 +520,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * °Ñ»ùÓÚ1970ÄêµÄÌìÊı±ä³ÉÄêÔÂ
+	 * æŠŠåŸºäº1970å¹´çš„å¤©æ•°å˜æˆå¹´æœˆ
 	 * @param days
 	 * @return int
 	 */
@@ -537,7 +537,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * °Ñ»ùÓÚ1970ÄêµÄÌìÊı±ä³ÉÈÕ
+	 * æŠŠåŸºäº1970å¹´çš„å¤©æ•°å˜æˆæ—¥
 	 * @param days
 	 * @return int
 	 */
@@ -550,7 +550,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚ¶ÔÓ¦µÄĞÇÆÚÖµ
+	 * å–æŒ‡å®šæ—¥æœŸå¯¹åº”çš„æ˜ŸæœŸå€¼
 	 * @param days
 	 * @return
 	 */
@@ -577,7 +577,7 @@ public class DateFactory {
 				return w;
 			}
 		} else if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
-			// ÈòÄê
+			// é—°å¹´
 			int w = WEEKS[y - WEEK_START_YEAR];
 			days = 31;
 			for (int i = 1; i < m; ++i) {
@@ -612,14 +612,14 @@ public class DateFactory {
 			gc.setFirstDayOfWeek(Calendar.SUNDAY);
 			gc.set(y, m, d, 0, 0, 0);
 			gc.set(Calendar.MILLISECOND, 0);
-			gc.getTimeInMillis(); // ¸üĞÂÈÕÆÚºóÔÙĞŞ¸ÄĞÇÆÚ
+			gc.getTimeInMillis(); // æ›´æ–°æ—¥æœŸåå†ä¿®æ”¹æ˜ŸæœŸ
 			
 			gc.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 			y = calendar.get(Calendar.YEAR);
 			m = calendar.get(Calendar.MONTH);
 			d = calendar.get(Calendar.DAY_OF_MONTH);
 		} else if (m == 0) {
-			// ¼ÆËãÖ¸¶¨ÈÕÆÚÊÇĞÇÆÚ¼¸
+			// è®¡ç®—æŒ‡å®šæ—¥æœŸæ˜¯æ˜ŸæœŸå‡ 
 			int w = WEEKS[y - WEEK_START_YEAR] + (d - 1) % 7;
 			if (w > 7) {
 				d -= (w - 8);
@@ -633,7 +633,7 @@ public class DateFactory {
 				d = 31 + d;
 			}
 		} else if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
-			// ÈòÄê
+			// é—°å¹´
 			int w = WEEKS[y - WEEK_START_YEAR];
 			int days = 31;
 			for (int i = 1; i < m; ++i) {
@@ -680,14 +680,14 @@ public class DateFactory {
 			gc.setFirstDayOfWeek(Calendar.SUNDAY);
 			gc.set(y, m, d, 0, 0, 0);
 			gc.set(Calendar.MILLISECOND, 0);
-			gc.getTimeInMillis(); // ¸üĞÂÈÕÆÚºóÔÙĞŞ¸ÄĞÇÆÚ
+			gc.getTimeInMillis(); // æ›´æ–°æ—¥æœŸåå†ä¿®æ”¹æ˜ŸæœŸ
 			
 			gc.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
 			y = calendar.get(Calendar.YEAR);
 			m = calendar.get(Calendar.MONTH);
 			d = calendar.get(Calendar.DAY_OF_MONTH);
 		} else if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
-			// ÈòÄê
+			// é—°å¹´
 			int w = WEEKS[y - WEEK_START_YEAR];
 			int days = 0;
 			for (int i = 0; i < m; ++i) {
@@ -734,14 +734,14 @@ public class DateFactory {
 			gc.setFirstDayOfWeek(Calendar.MONDAY);
 			gc.set(y, m, d, 0, 0, 0);
 			gc.set(Calendar.MILLISECOND, 0);
-			gc.getTimeInMillis(); // ¸üĞÂÈÕÆÚºóÔÙĞŞ¸ÄĞÇÆÚ
+			gc.getTimeInMillis(); // æ›´æ–°æ—¥æœŸåå†ä¿®æ”¹æ˜ŸæœŸ
 			
 			gc.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 			y = calendar.get(Calendar.YEAR);
 			m = calendar.get(Calendar.MONTH);
 			d = calendar.get(Calendar.DAY_OF_MONTH);
 		} else if (m == 0) {
-			// ¼ÆËãÖ¸¶¨ÈÕÆÚÊÇĞÇÆÚ¼¸
+			// è®¡ç®—æŒ‡å®šæ—¥æœŸæ˜¯æ˜ŸæœŸå‡ 
 			int w = WEEKS[y - WEEK_START_YEAR] - 1;
 			if (w == 0) {
 				w = 7;
@@ -760,7 +760,7 @@ public class DateFactory {
 				d = 31 + d;
 			}
 		} else if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
-			// ÈòÄê
+			// é—°å¹´
 			int w = WEEKS[y - WEEK_START_YEAR] - 1;
 			if (w == 0) {
 				w = 7;
@@ -815,14 +815,14 @@ public class DateFactory {
 			gc.setFirstDayOfWeek(Calendar.MONDAY);
 			gc.set(y, m, d, 0, 0, 0);
 			gc.set(Calendar.MILLISECOND, 0);
-			gc.getTimeInMillis(); // ¸üĞÂÈÕÆÚºóÔÙĞŞ¸ÄĞÇÆÚ
+			gc.getTimeInMillis(); // æ›´æ–°æ—¥æœŸåå†ä¿®æ”¹æ˜ŸæœŸ
 			
 			gc.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 			y = calendar.get(Calendar.YEAR);
 			m = calendar.get(Calendar.MONTH);
 			d = calendar.get(Calendar.DAY_OF_MONTH);
 		} else if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
-			// ÈòÄê
+			// é—°å¹´
 			int w = WEEKS[y - WEEK_START_YEAR] - 1;
 			if (w == 0) {
 				w = 7;
@@ -872,7 +872,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * È¡¸ø¶¨ÈÕÆÚËùÔÚÖÜµÄµÚÒ»Ìì£¬ĞÇÆÚÈÕÎªµÚÒ»Ìì
+	 * å–ç»™å®šæ—¥æœŸæ‰€åœ¨å‘¨çš„ç¬¬ä¸€å¤©ï¼Œæ˜ŸæœŸæ—¥ä¸ºç¬¬ä¸€å¤©
 	 * @param days
 	 * @return int
 	 */
@@ -885,7 +885,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * È¡¸ø¶¨ÈÕÆÚËùÔÚÖÜµÄµÚÒ»Ìì£¬ĞÇÆÚÒ»ÎªµÚÒ»Ìì
+	 * å–ç»™å®šæ—¥æœŸæ‰€åœ¨å‘¨çš„ç¬¬ä¸€å¤©ï¼Œæ˜ŸæœŸä¸€ä¸ºç¬¬ä¸€å¤©
 	 * @param days
 	 * @return int
 	 */
@@ -898,7 +898,7 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡¸ø¶¨ÈÕÆÚËùÔÚÖÜµÄ×îºóÒ»Ìì£¬ĞÇÆÚÈÕÎªµÚÒ»Ìì
+	 * å–ç»™å®šæ—¥æœŸæ‰€åœ¨å‘¨çš„æœ€åä¸€å¤©ï¼Œæ˜ŸæœŸæ—¥ä¸ºç¬¬ä¸€å¤©
 	 * @param days
 	 * @return int
 	 */
@@ -911,7 +911,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * È¡¸ø¶¨ÈÕÆÚËùÔÚÖÜµÄ×îºóÒ»Ìì£¬ĞÇÆÚÒ»ÎªµÚÒ»Ìì
+	 * å–ç»™å®šæ—¥æœŸæ‰€åœ¨å‘¨çš„æœ€åä¸€å¤©ï¼Œæ˜ŸæœŸä¸€ä¸ºç¬¬ä¸€å¤©
 	 * @param days
 	 * @return int
 	 */
@@ -924,9 +924,9 @@ public class DateFactory {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚµÄÔÂÊ×ÈÕÆÚ
-	 * @param days Ö¸¶¨µÄÈÕÆÚ
-	 * @return ÔÂÊ×ÈÕÆÚ
+	 * å–æŒ‡å®šæ—¥æœŸçš„æœˆé¦–æ—¥æœŸ
+	 * @param days æŒ‡å®šçš„æ—¥æœŸ
+	 * @return æœˆé¦–æ—¥æœŸ
 	 */
 	public int monthBegin(int days) {
 		if (days < 0) {
@@ -937,9 +937,9 @@ public class DateFactory {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚµÄÔÂÄ©ÈÕÆÚ
-	 * @param days Ö¸¶¨µÄÈÕÆÚ
-	 * @return ÔÂÄ©ÈÕÆÚ
+	 * å–æŒ‡å®šæ—¥æœŸçš„æœˆæœ«æ—¥æœŸ
+	 * @param days æŒ‡å®šçš„æ—¥æœŸ
+	 * @return æœˆæœ«æ—¥æœŸ
 	 */
 	public int monthEnd(int days) {
 		if (days < 0) {
@@ -962,7 +962,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚËùÔÚ¼¾¶ÈµÄµÚÒ»Ìì
+	 * å–æŒ‡å®šæ—¥æœŸæ‰€åœ¨å­£åº¦çš„ç¬¬ä¸€å¤©
 	 * @param days
 	 * @return int
 	 */
@@ -977,7 +977,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚËùÔÚ¼¾¶ÈµÄ×îºóÒ»Ìì
+	 * å–æŒ‡å®šæ—¥æœŸæ‰€åœ¨å­£åº¦çš„æœ€åä¸€å¤©
 	 * @param days
 	 * @return int
 	 */
@@ -1004,7 +1004,7 @@ public class DateFactory {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚËùÔÚÄêµÄµÚÒ»Ìì
+	 * å–æŒ‡å®šæ—¥æœŸæ‰€åœ¨å¹´çš„ç¬¬ä¸€å¤©
 	 * @param days
 	 * @return int
 	 */
@@ -1017,7 +1017,7 @@ public class DateFactory {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨ÈÕÆÚËùÔÚÄêµÄ×îºóÒ»Ìì
+	 * å–æŒ‡å®šæ—¥æœŸæ‰€åœ¨å¹´çš„æœ€åä¸€å¤©
 	 * @param days
 	 * @return int
 	 */

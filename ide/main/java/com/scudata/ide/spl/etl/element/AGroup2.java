@@ -6,8 +6,8 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ A.group(x:F,...;y:G,¡­)
- * º¯ÊıÃûÇ°×ºA±íÊ¾Ğò±í
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ A.group(x:F,...;y:G,â€¦)
+ * å‡½æ•°åå‰ç¼€Aè¡¨ç¤ºåºè¡¨
  * 
  * @author Joancy
  *
@@ -16,7 +16,7 @@ import com.scudata.ide.spl.etl.ParamInfoList;
 public class AGroup2 extends AGroups {
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -36,7 +36,7 @@ public class AGroup2 extends AGroups {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÃû
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°å
 	 */
 	public String getFuncName(){
 		return "group";

@@ -8,7 +8,7 @@ import com.scudata.resources.EngineMessage;
 import net.lingala.zip4j.model.enums.CompressionLevel;
 import net.lingala.zip4j.model.enums.CompressionMethod;
 
-//ÉèÖÃÑ¹Ëõ²ÎÊý£ºÑ¹Ëõ·½Ê½ ÓëÑ¹Ëõ¼¶±ð 
+//è®¾ç½®åŽ‹ç¼©å‚æ•°ï¼šåŽ‹ç¼©æ–¹å¼ ä¸ŽåŽ‹ç¼©çº§åˆ« 
 public class ImZipCompress extends ImFunction {	
 	public Object doQuery(Object[] objs){
 		boolean bRet = false;
@@ -20,7 +20,7 @@ public class ImZipCompress extends ImFunction {
 			
 			if (objs.length>=1 && objs[0] instanceof Integer ){				
 				int nMode = Integer.parseInt(objs[0].toString());
-				// Ñ¹Ëõ·½Ê½  
+				// åŽ‹ç¼©æ–¹å¼  
 				if (nMode==0){
 					m_parameters.setCompressionMethod(CompressionMethod.STORE); 
 				}else if(nMode==1){
@@ -34,7 +34,7 @@ public class ImZipCompress extends ImFunction {
 			
 			if (objs.length>=2 && objs[1] instanceof Integer ){	
 				int nLevel = Integer.parseInt(objs[1].toString());
-				// Ñ¹Ëõ¼¶±ð  
+				// åŽ‹ç¼©çº§åˆ«  
 				if (nLevel==1){
 					m_parameters.setCompressionLevel(CompressionLevel.FASTER);
 				}else if(nLevel==2){

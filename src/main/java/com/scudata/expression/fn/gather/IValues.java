@@ -41,8 +41,8 @@ class Values implements IValues {
 class FileValues implements IValues {
 	private FileObject fo;
 	private ObjectReader reader;
-	private int count; // Ê£ÓàÖµÊıÁ¿
-	private Object value; // µ±Ç°¶Áµ½µÄÖµ
+	private int count; // å‰©ä½™å€¼æ•°é‡
+	private Object value; // å½“å‰è¯»åˆ°çš„å€¼
 	
 	public FileValues(FileObject fo) {
 		try {

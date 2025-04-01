@@ -8,7 +8,7 @@ import com.scudata.server.unit.UnitServer;
 import com.scudata.thread.ThreadPool;
 
 /**
- * ×÷Òµ¹ÜÀíÆ÷(°üº¬ËùÓĞÍê³É¡¢Î´Íê³É¡¢È¡ÏûµÄ×÷Òµ)£¬Ö÷ÒªÓÃÓÚ¼à¿Ø
+ * ä½œä¸šç®¡ç†å™¨(åŒ…å«æ‰€æœ‰å®Œæˆã€æœªå®Œæˆã€å–æ¶ˆçš„ä½œä¸š)ï¼Œä¸»è¦ç”¨äºç›‘æ§
  * 
  * @author Joancy
  *
@@ -16,7 +16,7 @@ import com.scudata.thread.ThreadPool;
 public class TaskManager {
 	static ArrayList<ITask> tasks = new ArrayList<ITask>();
 
-//	·Ö»ú×î¶àÄÜÅÜ×î´óÈÎÎñÊı
+//	åˆ†æœºæœ€å¤šèƒ½è·‘æœ€å¤§ä»»åŠ¡æ•°
 	static ThreadPool pool=null;
 	public static ThreadPool getPool(){
 		if(pool==null){
@@ -28,9 +28,9 @@ public class TaskManager {
 	}
 	
 	/**
-	 * Ö´ĞĞ¼ÆËãÇëÇó
-	 * @param req ÇëÇó
-	 * @return ÏìÓ¦
+	 * æ‰§è¡Œè®¡ç®—è¯·æ±‚
+	 * @param req è¯·æ±‚
+	 * @return å“åº”
 	 */
 	public static Response execute(Request req) {
 		int cmd = req.getAction();
@@ -90,16 +90,16 @@ public class TaskManager {
 	}
 
 	/**
-	 * Ôö¼ÓÈÎÎñ
-	 * @param t ÈÎÎñ
+	 * å¢åŠ ä»»åŠ¡
+	 * @param t ä»»åŠ¡
 	 */
 	public synchronized static void addTask(ITask t) {
 		tasks.add(t);
 	}
 
 	/**
-	 * É¾³ıÈÎÎñ
-	 * @param taskId ÈÎÎñºÅ
+	 * åˆ é™¤ä»»åŠ¡
+	 * @param taskId ä»»åŠ¡å·
 	 */
 	public synchronized static void delTask(int taskId) {
 		for (int i = 0; i < tasks.size(); i++) {
@@ -112,10 +112,10 @@ public class TaskManager {
 	}
 
 	/**
-	 * ¸ù¾İÈÎÎñºÅÈ¡³öÈÎÎñ¶ÔÏó
-	 * @param taskId ÈÎÎñºÅ 
-	 * @return ¶÷Îï¶ÔÏó
-	 * @throws Exception ³ö´íÊ±Å×³öÒì³£
+	 * æ ¹æ®ä»»åŠ¡å·å–å‡ºä»»åŠ¡å¯¹è±¡
+	 * @param taskId ä»»åŠ¡å· 
+	 * @return æ©ç‰©å¯¹è±¡
+	 * @throws Exception å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public synchronized static ITask getTask(int taskId) throws Exception {
 		for (int i = 0; i < tasks.size(); i++) {
@@ -128,8 +128,8 @@ public class TaskManager {
 	}
 
 	/**
-	 * È¡ÈÎÎñÁĞ±íµÄ¸´ÖÆ
-	 * @return ÈÎÎñÁĞ±í
+	 * å–ä»»åŠ¡åˆ—è¡¨çš„å¤åˆ¶
+	 * @return ä»»åŠ¡åˆ—è¡¨
 	 */
 	public synchronized static List<ITask> getTaskList() {
 		ArrayList<ITask> al = new ArrayList<ITask>();
@@ -138,7 +138,7 @@ public class TaskManager {
 	}
 
 	/**
-	 * ¼ì²é´úÀí³¬Ê±
+	 * æ£€æŸ¥ä»£ç†è¶…æ—¶
 	 */
 	public synchronized static void checkTimeOut(int proxyTimeOut) {
 		for (int i = tasks.size() - 1; i >= 0; i--) {

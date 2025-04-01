@@ -8,7 +8,7 @@ import com.scudata.expression.RecordFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ·µ»Ø¼ÇÂ¼Ö¸¶¨×Ö¶Î»òËùÓĞ×Ö¶ÎµÄ×Ö¶ÎÃû
+ * è¿”å›è®°å½•æŒ‡å®šå­—æ®µæˆ–æ‰€æœ‰å­—æ®µçš„å­—æ®µå
  * r.fname(i) r.fname()
  * @author RunQian
  *
@@ -25,7 +25,7 @@ public class FieldName extends RecordFunction {
 				throw new RQException("fname" + mm.getMessage("function.paramTypeError"));
 			}
 
-			// ×Ö¶Î´Ó0¿ªÊ¼¼ÆÊı
+			// å­—æ®µä»0å¼€å§‹è®¡æ•°
 			int findex = ((Number)indexObj).intValue() - 1;
 			if (findex < 0) {
 				MessageManager mm = EngineMessage.get();

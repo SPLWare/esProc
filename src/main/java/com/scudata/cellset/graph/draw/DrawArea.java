@@ -10,25 +10,25 @@ import com.scudata.cellset.graph.*;
 import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 /**
- * Ãæ»ıÍ¼µÄÊµÏÖ
+ * é¢ç§¯å›¾çš„å®ç°
  * @author Joancy
  *
  */
 public class DrawArea extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
-		//ÉÙ¸Ä¶¯´úÂë£¬Í¬ÃûÒı³öÒªÓÃµ½µÄÊµÀı
+		//å°‘æ”¹åŠ¨ä»£ç ï¼ŒåŒåå¼•å‡ºè¦ç”¨åˆ°çš„å®ä¾‹
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
@@ -91,10 +91,10 @@ public class DrawArea extends DrawBase {
 		gp.gRect2.width -= coorWidth;
 		gp.gRect2.height -= coorWidth;
 
-		/* »­×ø±êÖá */
+		/* ç”»åæ ‡è½´ */
 		db.drawGraphRect();
 
-		/* »­YÖá */
+		/* ç”»Yè½´ */
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLine(dely, i);
 			Number coory = (Number) gp.coorValue.get(i);
@@ -102,21 +102,21 @@ public class DrawArea extends DrawBase {
 			x = gp.gRect1.x - gp.tickLen; // - TR.width
 			y = gp.gRect1.y + gp.gRect1.height - i * dely; 
 			gp.GFV_YLABEL.outText(x, y, scoory);
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine = gp.gRect1.y + gp.gRect1.height - i
 						* dely;
 
 			}
 		}
-		// »­¾¯½äÏß
+		// ç”»è­¦æˆ’çº¿
 		db.drawWarnLine();
 		if (gp.graphTransparent) {
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
 					0.60F));
 		}
 
-		/* »­XÖá */
+		/* ç”»Xè½´ */
 		headPoint = new Point2D.Double[gp.serNum];
 		ArrayList cats = egp.getCategories();
 		int cc = cats.size();
@@ -125,7 +125,7 @@ public class DrawArea extends DrawBase {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 			double posx = DrawLine.getPosX(gp,i,cc,categorySpan,seriesWidth);
 			
-			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//Öù¶¥ÊÇ·ñÏÔÊ¾Öµ¸ú»­Table·Ö¿ª
+			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//æŸ±é¡¶æ˜¯å¦æ˜¾ç¤ºå€¼è·Ÿç”»Tableåˆ†å¼€
 			boolean vis = valvis && !gp.isDrawTable;
 			if (vis) {
 				c = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
@@ -133,7 +133,7 @@ public class DrawArea extends DrawBase {
 				db.drawLine(posx, gp.gRect1.y + gp.gRect1.height,
 						    posx, gp.gRect1.y + gp.gRect1.height
 								+ gp.tickLen,c);
-				// »­±³¾°ĞéÏß
+				// ç”»èƒŒæ™¯è™šçº¿
 				db.drawGridLineCategoryV(posx);
 			}
 
@@ -162,7 +162,7 @@ public class DrawArea extends DrawBase {
 					endPoint = new Point2D.Double(posx, gp.valueBaseLine - len);
 				}
 
-				// »­´ø×Ó
+				// ç”»å¸¦å­
 				if (headPoint[j] != null && endPoint != null) {
 					double ptx1[] = { headPoint[j].x, headPoint[j].x, endPoint.x,
 							endPoint.x };
@@ -172,7 +172,7 @@ public class DrawArea extends DrawBase {
 					fillPolygon(db,ptx1, pty1, 4);
 					db.drawPolygon(ptx1, pty1, 4,
 							egp.getAxisColor(GraphProperty.AXIS_COLBORDER));
-					// »­ÇøÓò
+					// ç”»åŒºåŸŸ
 					double ptx2[] = { headPoint[j].x, headPoint[j].x, endPoint.x,
 							endPoint.x };
 					double pty2[] = { headPoint[j].y, gp.valueBaseLine,
@@ -187,7 +187,7 @@ public class DrawArea extends DrawBase {
 					}
 				}
 
-				// Êä³öÎÄ×Ö
+				// è¾“å‡ºæ–‡å­—
 				if (gp.dispValueOntop && !egs.isNull() && valvis) {
 					String sval = db.getDispValue(egc,egs,gp.serNum); // getFormattedValue(val);
 					x = endPoint.x;
@@ -218,16 +218,16 @@ public class DrawArea extends DrawBase {
 					db.drawRect(xx, yy, ww, hh,
 							egp.getAxisColor(GraphProperty.AXIS_COLBORDER));
 					db.htmlLink(xx, yy, ww, hh, htmlLink, egc.getNameString(), egs);
-				} // ÏßÌõÉÏµÄĞ¡·½¿é
+				} // çº¿æ¡ä¸Šçš„å°æ–¹å—
 
 				headPoint[j] = endPoint;
 			}
 		}
 
-		// ×îºóÊä³öÖµ±êÇ©£¬ÎÄ×ÖÖÃ¶¥
+		// æœ€åè¾“å‡ºå€¼æ ‡ç­¾ï¼Œæ–‡å­—ç½®é¡¶
 		db.outLabels();
 
-		/* ÖØ»­Ò»ÏÂ»ùÏß */
+		/* é‡ç”»ä¸€ä¸‹åŸºçº¿ */
 		db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x + gp.gRect1.width,
 				gp.valueBaseLine, egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 		db.drawLine(gp.gRect1.x + gp.gRect1.width, gp.valueBaseLine,
@@ -237,7 +237,7 @@ public class DrawArea extends DrawBase {
 	}
 
 	private static void fillPolygon(DrawBase db,double[] x, double[] y, int n) {
-		//ÉÙ¸Ä¶¯´úÂë£¬Í¬ÃûÒı³öÒªÓÃµ½µÄÊµÀı
+		//å°‘æ”¹åŠ¨ä»£ç ï¼ŒåŒåå¼•å‡ºè¦ç”¨åˆ°çš„å®ä¾‹
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
 

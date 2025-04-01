@@ -9,7 +9,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.vdb.IVS;
 
 /**
- * 复制路径到另一个路径下
+ * 澶嶅埗璺緞鍒板彟涓�涓矾寰勪笅
  * h.copy(ps,pd:F,h')
  * @author RunQian
  *

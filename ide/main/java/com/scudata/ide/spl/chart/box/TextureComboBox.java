@@ -8,7 +8,7 @@ import com.scudata.chart.*;
 import com.scudata.ide.common.swing.*;
 
 /**
- * 填充纹理下拉列表
+ * 濉厖绾圭悊涓嬫媺鍒楄〃
  * 
  * @author Joancy
  *
@@ -45,8 +45,8 @@ public class TextureComboBox extends JComboBox {
 	}
 
 	/**
-	 * 获取纹理类型
-	 * @return 类型
+	 * 鑾峰彇绾圭悊绫诲瀷
+	 * @return 绫诲瀷
 	 */
 	public int getValue() {
 		return ( ( Integer ) getEditor().getItem() ).intValue();

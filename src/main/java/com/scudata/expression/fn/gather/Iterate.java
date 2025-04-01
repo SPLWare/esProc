@@ -16,8 +16,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * µü´úÔËËãº¯Êı
- * iterate(x,a) iterate(x,a;Gi,¡­)
+ * è¿­ä»£è¿ç®—å‡½æ•°
+ * iterate(x,a) iterate(x,a;Gi,â€¦)
  * @author WangXiaoJun
  *
  */
@@ -160,7 +160,7 @@ public class Iterate extends Gather {
 	public Object calculate(Context ctx) {
 		Current current = ctx.getComputeStack().getTopCurrent();
 		if (valParam == null) {
-			// ³õ´ÎÖ´ĞĞ
+			// åˆæ¬¡æ‰§è¡Œ
 			prepare(param, ctx);
 			Object oldVal = valParam.getValue();
 			
@@ -183,7 +183,7 @@ public class Iterate extends Gather {
 		} else {
 			Object oldVal = valParam.getValue();
 
-			// ÅĞ¶ÏÕ»¶¥µÄĞòÁĞµÄµ±Ç°ĞòºÅÊÇ·ñÊÇ1£¬Èç¹ûÊÇÔòÉèÖÃ³õÊ¼Öµ
+			// åˆ¤æ–­æ ˆé¡¶çš„åºåˆ—çš„å½“å‰åºå·æ˜¯å¦æ˜¯1ï¼Œå¦‚æœæ˜¯åˆ™è®¾ç½®åˆå§‹å€¼
 			if (current != null && current != prevCurrent) {
 				if (initExp == null) {
 					valParam.setValue(null);
@@ -236,11 +236,11 @@ public class Iterate extends Gather {
 	}
 	
 	/**
-	 * ¼ÆËãËùÓĞ¼ÇÂ¼µÄÖµ£¬»ã×Üµ½½á¹ûÊı×éÉÏ
-	 * @param result ½á¹ûÊı×é
-	 * @param resultSeqs Ã¿Ìõ¼ÇÂ¼¶ÔÓ¦µÄ½á¹ûÊı×éµÄĞòºÅ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return IArray ½á¹ûÊı×é
+	 * è®¡ç®—æ‰€æœ‰è®°å½•çš„å€¼ï¼Œæ±‡æ€»åˆ°ç»“æœæ•°ç»„ä¸Š
+	 * @param result ç»“æœæ•°ç»„
+	 * @param resultSeqs æ¯æ¡è®°å½•å¯¹åº”çš„ç»“æœæ•°ç»„çš„åºå·
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return IArray ç»“æœæ•°ç»„
 	 */
 	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
 		if (result == null) {

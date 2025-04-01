@@ -39,42 +39,42 @@ public abstract class ToolBarWindow extends JPanel {
 	private SheetButton[] buttons = null;
 
 	/**
-	 * °´Å¥µÄ¿í¶È
+	 * æŒ‰é’®çš„å®½åº¦
 	 */
 	private final int BUTTON_WIDTH = 180;
 	/**
-	 * ÏÔÊ¾¸ü¶à´°¿ÚµÄ°´Å¥
+	 * æ˜¾ç¤ºæ›´å¤šçª—å£çš„æŒ‰é’®
 	 */
 	private JLabel bMore = new JLabel();
 
 	/**
-	 * ÏÔÊ¾¸ü¶à´°¿ÚµÄÁĞ±í¿Ø¼ş
+	 * æ˜¾ç¤ºæ›´å¤šçª—å£çš„åˆ—è¡¨æ§ä»¶
 	 */
 	private JWindowList winList;
 
 	/**
-	 * ×èÖ¹ÊÂ¼şÖ´ĞĞ
+	 * é˜»æ­¢äº‹ä»¶æ‰§è¡Œ
 	 */
 	private boolean preventChange = false;
 	/**
-	 * ×îĞ¡»¯°´Å¥
+	 * æœ€å°åŒ–æŒ‰é’®
 	 */
 	private JButton bMin = new JButton();
 	/**
-	 * »¹Ô­°´Å¥
+	 * è¿˜åŸæŒ‰é’®
 	 */
 	private JButton bResume = new JButton();
 	/**
-	 * ¹Ø±Õ°´Å¥
+	 * å…³é—­æŒ‰é’®
 	 */
 	private JButton bClose = new JButton();
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ToolBarWindow() {
 		super();
@@ -82,9 +82,9 @@ public abstract class ToolBarWindow extends JPanel {
 		this.setMinimumSize(new Dimension(0, 30));
 		this.setPreferredSize(new Dimension(1, 30));
 		this.setVisible(false);
-		bMin.setToolTipText(mm.getMessage("toolbarwindow.min")); // ×îĞ¡»¯
-		bResume.setToolTipText(mm.getMessage("toolbarwindow.resume")); // ÏòÏÂ»¹Ô­
-		bClose.setToolTipText(mm.getMessage("toolbarwindow.close")); // ¹Ø±Õ
+		bMin.setToolTipText(mm.getMessage("toolbarwindow.min")); // æœ€å°åŒ–
+		bResume.setToolTipText(mm.getMessage("toolbarwindow.resume")); // å‘ä¸‹è¿˜åŸ
+		bClose.setToolTipText(mm.getMessage("toolbarwindow.close")); // å…³é—­
 		bMin.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "b_min1.gif"));
 		bResume.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "b_resume1.gif"));
 		bClose.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "b_close1.gif"));
@@ -215,21 +215,21 @@ public abstract class ToolBarWindow extends JPanel {
 	}
 
 	/**
-	 * È¡Ò³ÃæµÄÍ¼±êÃû³Æ
+	 * å–é¡µé¢çš„å›¾æ ‡åç§°
 	 * 
 	 * @return
 	 */
 	public abstract String getSheetIconName();
 
 	/**
-	 * ¹Ø±ÕÒ³Ãæ
+	 * å…³é—­é¡µé¢
 	 * 
 	 * @param sheet
 	 */
 	public abstract void closeSheet(IPrjxSheet sheet);
 
 	/**
-	 * ÏÔÊ¾Ò³Ãæ
+	 * æ˜¾ç¤ºé¡µé¢
 	 * 
 	 * @param sheet
 	 * @throws Exception
@@ -237,14 +237,14 @@ public abstract class ToolBarWindow extends JPanel {
 	public abstract void dispSheet(IPrjxSheet sheet) throws Exception;
 
 	/**
-	 * È¡°´Å¥ÉÏµÄÍ¼±ê¶ÔÏó
+	 * å–æŒ‰é’®ä¸Šçš„å›¾æ ‡å¯¹è±¡
 	 * 
 	 * @return
 	 */
 	public abstract ImageIcon getLogoImage();
 
 	/**
-	 * ÊÇ·ñÕıÔÚµã»÷ÏÔÊ¾¸ü¶à´°¿Ú°´Å¥
+	 * æ˜¯å¦æ­£åœ¨ç‚¹å‡»æ˜¾ç¤ºæ›´å¤šçª—å£æŒ‰é’®
 	 * 
 	 * @return
 	 */
@@ -253,7 +253,7 @@ public abstract class ToolBarWindow extends JPanel {
 	}
 
 	/**
-	 * Ë¢ĞÂ
+	 * åˆ·æ–°
 	 */
 	public void refresh() {
 		JInternalFrame[] sheets = GV.appFrame.getAllSheets();
@@ -264,7 +264,7 @@ public abstract class ToolBarWindow extends JPanel {
 		}
 		int width = GV.appFrame.getWidth();
 		int size;
-		if (width - 85 > BUTTON_WIDTH * sheets.length) { // È«²¿ÄÜ°ÚÏÂ
+		if (width - 85 > BUTTON_WIDTH * sheets.length) { // å…¨éƒ¨èƒ½æ‘†ä¸‹
 			size = sheets.length;
 		} else {
 			size = (width - 210) / BUTTON_WIDTH;
@@ -321,7 +321,7 @@ public abstract class ToolBarWindow extends JPanel {
 	}
 
 	/**
-	 * Ë¢ĞÂ±êÌâÀ¸µÄ°´Å¥(×îĞ¡»¯,»¹Ô­,¹Ø±Õ)
+	 * åˆ·æ–°æ ‡é¢˜æ çš„æŒ‰é’®(æœ€å°åŒ–,è¿˜åŸ,å…³é—­)
 	 */
 	private void refreshTitleButton() {
 		boolean vis = false;
@@ -334,7 +334,7 @@ public abstract class ToolBarWindow extends JPanel {
 	}
 
 	/**
-	 * Ë¢ĞÂÒ³Ãæ
+	 * åˆ·æ–°é¡µé¢
 	 * 
 	 * @param sheet
 	 */
@@ -354,7 +354,7 @@ public abstract class ToolBarWindow extends JPanel {
 	}
 
 	/**
-	 * ÖØÃüÃûÎÄ¼ş
+	 * é‡å‘½åæ–‡ä»¶
 	 * 
 	 * @param sheet
 	 * @param newFile
@@ -371,43 +371,43 @@ public abstract class ToolBarWindow extends JPanel {
 	}
 
 	/**
-	 * Ñ¡ÖĞ×´Ì¬µÄ±³¾°É«
+	 * é€‰ä¸­çŠ¶æ€çš„èƒŒæ™¯è‰²
 	 */
 	private static Color SELECTED_BACK_COLOR = Color.WHITE;
 	/**
-	 * È±Ê¡µÄ±³¾°É«
+	 * ç¼ºçœçš„èƒŒæ™¯è‰²
 	 */
 	private static Color DEFAULT_BACK_COLOR = new JPanel().getBackground()
 			.darker();
 
 	/**
-	 * Ò³Ãæ°´Å¥Àà
+	 * é¡µé¢æŒ‰é’®ç±»
 	 */
 	class SheetButton extends JPanel {
 		private static final long serialVersionUID = 1L;
 		/**
-		 * Ò³Ãæ¶ÔÏó
+		 * é¡µé¢å¯¹è±¡
 		 */
 		private JInternalFrame sheet;
 		/**
-		 * Ò³ÃæÃû³Æ
+		 * é¡µé¢åç§°
 		 */
 		private JLabel labelText = new JLabel();
 		/**
-		 * Ò³ÃæÍ¼±ê
+		 * é¡µé¢å›¾æ ‡
 		 */
 		private JLabel labelIcon = new JLabel();
 		/**
-		 * ¹Ø±ÕÍ¼±ê
+		 * å…³é—­å›¾æ ‡
 		 */
 		private JLabel labelClose = new JLabel();
 		/**
-		 * Í¼±êÃæ°å
+		 * å›¾æ ‡é¢æ¿
 		 */
 		private JPanel panelIcon;
 
 		/**
-		 * ¹¹Ôìº¯Êı
+		 * æ„é€ å‡½æ•°
 		 * 
 		 * @param sheet
 		 */
@@ -506,7 +506,7 @@ public abstract class ToolBarWindow extends JPanel {
 		}
 
 		/**
-		 * ÉèÖÃÑ¡ÖĞ×´Ì¬
+		 * è®¾ç½®é€‰ä¸­çŠ¶æ€
 		 * 
 		 * @param isSelected
 		 */
@@ -525,7 +525,7 @@ public abstract class ToolBarWindow extends JPanel {
 		}
 
 		/**
-		 * ·µ»ØÒ³Ãæ¶ÔÏó
+		 * è¿”å›é¡µé¢å¯¹è±¡
 		 * 
 		 * @return
 		 */
@@ -534,7 +534,7 @@ public abstract class ToolBarWindow extends JPanel {
 		}
 
 		/**
-		 * ÖØÃüÃû
+		 * é‡å‘½å
 		 * 
 		 * @param newName
 		 */
@@ -551,7 +551,7 @@ public abstract class ToolBarWindow extends JPanel {
 		}
 
 		/**
-		 * ÉèÖÃÌáÊ¾
+		 * è®¾ç½®æç¤º
 		 * 
 		 * @param filePath
 		 */

@@ -33,7 +33,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃÓÚT.new T.derive T.newsµÄ½á¹ûµÄÓÎ±ê (TÊÇĞĞ´æ¡¢ÓĞ²¹Çø¡¢¸½±íÊ±)
+ * ç”¨äºT.new T.derive T.newsçš„ç»“æœçš„æ¸¸æ ‡ (Tæ˜¯è¡Œå­˜ã€æœ‰è¡¥åŒºã€é™„è¡¨æ—¶)
  * @author runqian
  *
  */
@@ -43,21 +43,21 @@ public class JoinCursor2 extends ICursor {
 	private boolean isNews;
 	private DataStruct ds;
 	
-	private ICursor cursor1;//TµÄÓÎ±ê
+	private ICursor cursor1;//Tçš„æ¸¸æ ‡
 	private Sequence cache1;
 	private ICursor cursor2;//A/cs
-	//private String[] csNames;//A/cs:KµÄK£¬ÓÃÓÚÖ¸¶¨A/cs²ÎÓëÁ¬½ÓµÄ×Ö¶Î
+	//private String[] csNames;//A/cs:Kçš„Kï¼Œç”¨äºæŒ‡å®šA/cså‚ä¸è¿æ¥çš„å­—æ®µ
 	private Sequence cache2;
 
 	private int cur1 = -1;
 	private int cur2 = -1;
 	
 	private int keyCount;
-	private int csFieldsCount;//A/csµÄ×Ö¶Î¸öÊı
-	private int []keyIndex2;//A/csµÄÖ÷¼üÏÂ±ê
-	private int []fieldIndex2;//A/csÈ¡³ö×Ö¶ÎµÄÏÂ±ê
+	private int csFieldsCount;//A/csçš„å­—æ®µä¸ªæ•°
+	private int []keyIndex2;//A/csçš„ä¸»é”®ä¸‹æ ‡
+	private int []fieldIndex2;//A/cså–å‡ºå­—æ®µçš„ä¸‹æ ‡
 	
-	private int []fieldIndex1;//TÈ¡³ö×Ö¶ÎµÄÏÂ±ê
+	private int []fieldIndex1;//Tå–å‡ºå­—æ®µçš„ä¸‹æ ‡
 	
 	private boolean hasExps;//
 	private Node nodes[];
@@ -101,9 +101,9 @@ public class JoinCursor2 extends ICursor {
 		}
 		DataStruct ds2 = ((Record) seq.get(1)).dataStruct();
 		
-		String []joinNames = keyNames;//join×Ö¶Î£¬Ä¬ÈÏÈ¡TµÄÖ÷¼ü
+		String []joinNames = keyNames;//joinå­—æ®µï¼Œé»˜è®¤å–Tçš„ä¸»é”®
 		if (isNew) {
-			//newÊ±¾ÍÊÇTµÄÖ÷¼ü
+			//newæ—¶å°±æ˜¯Tçš„ä¸»é”®
 			if (joinNames == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("ds.lessKey"));
@@ -124,9 +124,9 @@ public class JoinCursor2 extends ICursor {
 				}
 			}
 		} else {
-			//newsÊ±È¡csµÄÖ÷¼ü
+			//newsæ—¶å–csçš„ä¸»é”®
 			
-			//1.µÃµ½csÖ÷¼üµÄÏÂ±ê
+			//1.å¾—åˆ°csä¸»é”®çš„ä¸‹æ ‡
 			if (csNames == null) {
 				keyIndex2 = ds2.getPKIndex();
 			} else {
@@ -142,8 +142,8 @@ public class JoinCursor2 extends ICursor {
 			}
 			keyCount = keyIndex2.length;
 			
-			//2.È¡TÇ°ÃæµÄ×Ö¶Î
-			joinNames = new String[keyCount];//´ËÊ±²»ÊÇTµÄÖ÷¼ü
+			//2.å–Tå‰é¢çš„å­—æ®µ
+			joinNames = new String[keyCount];//æ­¤æ—¶ä¸æ˜¯Tçš„ä¸»é”®
 			String[] allNames;
 			if (table instanceof IPhyTable) {
 				allNames = ((IPhyTable) table).getAllColNames();
@@ -155,12 +155,12 @@ public class JoinCursor2 extends ICursor {
 			}
 		}
 		
-		ArrayList<String> keyList = new ArrayList<String>();//ÁÙÊ±Ê¹ÓÃ
+		ArrayList<String> keyList = new ArrayList<String>();//ä¸´æ—¶ä½¿ç”¨
 		for (int i = 0; i < keyCount; i++) {
 			keyList.add(keyNames[i]);
 		}
 		
-		//´¦Àí±í´ïÊ½£¬expsÀï¿ÉÄÜÓĞ{¡­¡­}
+		//å¤„ç†è¡¨è¾¾å¼ï¼Œexpsé‡Œå¯èƒ½æœ‰{â€¦â€¦}
 		ArrayList<Expression> fetchExps = new ArrayList<Expression>();
 		for (int i = 0, len = exps.length; i < len; i++) {
 			Expression exp = exps[i];
@@ -302,9 +302,9 @@ public class JoinCursor2 extends ICursor {
 		DataStruct ds2 = (cursor2.getCursors()[0]).getDataStruct();
 		int []keyIndex2;
 		int keyCount;
-		String []joinNames = keyNames;//join×Ö¶Î£¬Ä¬ÈÏÈ¡TµÄÖ÷¼ü
+		String []joinNames = keyNames;//joinå­—æ®µï¼Œé»˜è®¤å–Tçš„ä¸»é”®
 		if (isNew) {
-			//newÊ±¾ÍÊÇTµÄÖ÷¼ü
+			//newæ—¶å°±æ˜¯Tçš„ä¸»é”®
 			if (joinNames == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("ds.lessKey"));
@@ -325,9 +325,9 @@ public class JoinCursor2 extends ICursor {
 				}
 			}
 		} else {
-			//newsÊ±È¡csµÄÖ÷¼ü
+			//newsæ—¶å–csçš„ä¸»é”®
 			
-			//1.µÃµ½csÖ÷¼üµÄÏÂ±ê
+			//1.å¾—åˆ°csä¸»é”®çš„ä¸‹æ ‡
 			if (csNames == null) {
 				keyIndex2 = ds2.getPKIndex();
 			} else {
@@ -343,8 +343,8 @@ public class JoinCursor2 extends ICursor {
 			}
 			keyCount = keyIndex2.length;
 			
-			//2.È¡TÇ°ÃæµÄ×Ö¶Î
-			joinNames = new String[keyCount];//´ËÊ±²»ÊÇTµÄÖ÷¼ü
+			//2.å–Tå‰é¢çš„å­—æ®µ
+			joinNames = new String[keyCount];//æ­¤æ—¶ä¸æ˜¯Tçš„ä¸»é”®
 			String[] allNames;
 			if (table instanceof IPhyTable) {
 				allNames = ((IPhyTable) table).getAllColNames();
@@ -356,12 +356,12 @@ public class JoinCursor2 extends ICursor {
 			}
 		}
 		
-		ArrayList<String> keyList = new ArrayList<String>();//ÁÙÊ±Ê¹ÓÃ
+		ArrayList<String> keyList = new ArrayList<String>();//ä¸´æ—¶ä½¿ç”¨
 		for (int i = 0; i < keyCount; i++) {
 			keyList.add(keyNames[i]);
 		}
 		
-		//´¦Àí±í´ïÊ½£¬expsÀï¿ÉÄÜÓĞ{¡­¡­}
+		//å¤„ç†è¡¨è¾¾å¼ï¼Œexpsé‡Œå¯èƒ½æœ‰{â€¦â€¦}
 		ArrayList<Expression> fetchExps = new ArrayList<Expression>();
 		for (int i = 0, len = exps.length; i < len; i++) {
 			Expression exp = exps[i];
@@ -380,7 +380,7 @@ public class JoinCursor2 extends ICursor {
 						fetchExps.add(exp);
 			} else {
 				hasExps = true;
-				isNews = false;//ÓĞ±í´ïÊ½Ê±²»ÄÜÓÃnews
+				isNews = false;//æœ‰è¡¨è¾¾å¼æ—¶ä¸èƒ½ç”¨news
 				if (home instanceof Moves) {
 					IParam fieldParam = ((Moves) exp.getHome()).getParam();
 					ParamInfo2 pi = ParamInfo2.parse(fieldParam, "cursor", false, false);
@@ -435,7 +435,7 @@ public class JoinCursor2 extends ICursor {
 		if (table instanceof IPhyTable) {
 			Expression w = null;
 			if (filter != null) {
-				w = filter.newExpression(ctx); // ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+				w = filter.newExpression(ctx); // åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 			}
 			cursor1 = ((IPhyTable) table).cursor(null, allExpNames, w, null, null, null, cursor2, null, ctx);
 		}
@@ -668,7 +668,7 @@ public class JoinCursor2 extends ICursor {
 	}
 	
 	/**
-	 * ÓĞ±í´ïÊ½Ê±È¡Êı¾İ
+	 * æœ‰è¡¨è¾¾å¼æ—¶å–æ•°æ®
 	 * @param n
 	 * @return
 	 */
@@ -774,7 +774,7 @@ public class JoinCursor2 extends ICursor {
 		}
 	}
 	
-	//ÓĞ±í´ïÊ½
+	//æœ‰è¡¨è¾¾å¼
 	private Sequence getDataForNew(int n) {
 		if (isClosed || n < 1) {
 			return null;
@@ -785,7 +785,7 @@ public class JoinCursor2 extends ICursor {
 		
 		Object []keys2 = new Object[keyCount];
 		
-		//È¡³öÀ´Ò»¶ÎcsµÄÊı¾İ
+		//å–å‡ºæ¥ä¸€æ®µcsçš„æ•°æ®
 		if (cache2 == null || cache2.length() == 0) {
 			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 			cur2 = 1;
@@ -814,7 +814,7 @@ public class JoinCursor2 extends ICursor {
 			newTable = new Table(ds, n);
 		}
 
-		Table tempTable = new Table(cache2.dataStruct());//ÓÃÓÚ»ã×Ü
+		Table tempTable = new Table(cache2.dataStruct());//ç”¨äºæ±‡æ€»
 		
 		while (true) {
 			BaseRecord record1 = (BaseRecord) mems1.get(cur1);
@@ -826,7 +826,7 @@ public class JoinCursor2 extends ICursor {
 			
 			int cmp = Variant.compareArrays(keys2, keys1);
 			if (cmp == 0) {
-				//°ÑÕâÒ»Ìõ¼ÓÈëÁÙÊ±»ã×Ütable
+				//æŠŠè¿™ä¸€æ¡åŠ å…¥ä¸´æ—¶æ±‡æ€»table
 				tempTable.add(record2);
 				
 				cur2++;
@@ -846,11 +846,11 @@ public class JoinCursor2 extends ICursor {
 				}
 				
 				if (0 != Variant.compareArrays(keys2, keys1)) {
-					//Èç¹û²»ÏàµÈ£¬±íÊ¾ÕâÒ»×éÈ¡ÍêÁË£¬¼ÆËãÁÙÊ±»ã×ÜÊı¾İ
+					//å¦‚æœä¸ç›¸ç­‰ï¼Œè¡¨ç¤ºè¿™ä¸€ç»„å–å®Œäº†ï¼Œè®¡ç®—ä¸´æ—¶æ±‡æ€»æ•°æ®
 					BaseRecord record = newTable.newLast();
 					calcExpsForNew(record, tempTable, record1, len);
 					
-					//È¡³öÏÂÒ»Ìõ·ûºÏÌõ¼şµÄ
+					//å–å‡ºä¸‹ä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 					cur1++;
 					if (cur1 > len1) {
 						cur1 = 1;
@@ -864,7 +864,7 @@ public class JoinCursor2 extends ICursor {
 					}
 				}
 			} else if (cmp > 0) {
-				//È¡³öÏÂÒ»Ìõ·ûºÏÌõ¼şµÄ
+				//å–å‡ºä¸‹ä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 				cur1++;
 				if (cur1 > len1) {
 					cur1 = 1;
@@ -901,7 +901,7 @@ public class JoinCursor2 extends ICursor {
 		
 		BaseRecord record1 = (BaseRecord) mems1.get(cur1);
 		if (isClosed && tempTable != null && tempTable.length() != 0) {
-			//Èç¹û²»ÏàµÈ£¬±íÊ¾ÕâÒ»×éÈ¡ÍêÁË£¬¼ÆËãÁÙÊ±»ã×ÜÊı¾İ
+			//å¦‚æœä¸ç›¸ç­‰ï¼Œè¡¨ç¤ºè¿™ä¸€ç»„å–å®Œäº†ï¼Œè®¡ç®—ä¸´æ—¶æ±‡æ€»æ•°æ®
 			BaseRecord record = newTable.newLast();
 			calcExpsForNew(record, tempTable, record1, len);
 		}
@@ -919,7 +919,7 @@ public class JoinCursor2 extends ICursor {
 	}
 
 	/**
-	 * T.newsµÄÈ¡Êı
+	 * T.newsçš„å–æ•°
 	 * @param n
 	 * @return
 	 */
@@ -966,7 +966,7 @@ public class JoinCursor2 extends ICursor {
 		} else {
 			newTable = new Table(ds, n);
 		}
-		Table tempTable = new Table(cache1.dataStruct());//ÓÃÓÚ»ã×Ü
+		Table tempTable = new Table(cache1.dataStruct());//ç”¨äºæ±‡æ€»
 		BaseRecord record1 = (BaseRecord) mems1.get(cur1);
 		BaseRecord record2 = (BaseRecord) mems2.get(cur2);
 		for (int i = 0; i < keyCount; i++) {
@@ -979,7 +979,7 @@ public class JoinCursor2 extends ICursor {
 			if (cmp == 0) {
 				BaseRecord record = newTable.newLast();
 				if (hasExps) {
-					tempTable.newLast(keys1);//Ìí¼Óµ½ÁÙÊ±»ã×Ü
+					tempTable.newLast(keys1);//æ·»åŠ åˆ°ä¸´æ—¶æ±‡æ€»
 				} else {
 					for (int i = 0; i < len; i++) {
 						int idx = fieldIndex1[i];
@@ -1006,11 +1006,11 @@ public class JoinCursor2 extends ICursor {
 				
 				if (hasR) {
 					if (hasExps) {
-						//°ÑÕâÒ»×éÈ¡Íê
+						//æŠŠè¿™ä¸€ç»„å–å®Œ
 						while(Variant.compareArrays(keys2, keys1) == 0) {
 							record1 = (BaseRecord) mems1.get(cur1);
 							keys1 = record1.getFieldValues();
-							tempTable.newLast(keys1);//Ìí¼Óµ½ÁÙÊ±»ã×Ü
+							tempTable.newLast(keys1);//æ·»åŠ åˆ°ä¸´æ—¶æ±‡æ€»
 							cur1++;
 							if (cur1 > len1) {
 								cur1 = 1;
@@ -1029,7 +1029,7 @@ public class JoinCursor2 extends ICursor {
 						calcExpsForNews(record, tempTable, record2, len);
 					}
 					
-					//°´ÕÕcs¶ÔÆë
+					//æŒ‰ç…§cså¯¹é½
 					cur2++;
 					if (cur2 > len2) {
 						cur2 = 1;
@@ -1096,9 +1096,9 @@ public class JoinCursor2 extends ICursor {
 	}
 	
 	/**
-	 * »ùÓÚÁ½¸ö¼ÇÂ¼£¨ÒÔ¼°Í¬×éÊı¾İ£©¼ÆËã±í´ïÊ½
+	 * åŸºäºä¸¤ä¸ªè®°å½•ï¼ˆä»¥åŠåŒç»„æ•°æ®ï¼‰è®¡ç®—è¡¨è¾¾å¼
 	 * @param record
-	 * @param tempTable Ö÷¼üÏàÍ¬µÄÒ»×éÊı¾İ
+	 * @param tempTable ä¸»é”®ç›¸åŒçš„ä¸€ç»„æ•°æ®
 	 * @param r
 	 * @param len
 	 */

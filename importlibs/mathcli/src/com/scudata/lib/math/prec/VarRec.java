@@ -11,33 +11,33 @@ import com.scudata.dm.Sequence;
 public class VarRec implements Externalizable {
 
 	private static final long serialVersionUID = 1319081098314395632L;
-	//ÊÇ·ñÐè²úÉúMissingIndex
+	//æ˜¯å¦éœ€äº§ç”ŸMissingIndex
 	private boolean hasMI = false;
-	//³ýÈ¥MIÖ®Íâ£¬ÊÇ·ñÊý¾Ý²»ÔÙÓÐÒâÒå£¬×Ö¶ÎÀàËÆÓÚÉ¾³ýÁË
+	//é™¤åŽ»MIä¹‹å¤–ï¼Œæ˜¯å¦æ•°æ®ä¸å†æœ‰æ„ä¹‰ï¼Œå­—æ®µç±»ä¼¼äºŽåˆ é™¤äº†
 	private boolean onlyMI = true;
 
-	//ÊÇ·ñÄ¿±ê±äÁ¿£¬Ä¿±ê±äÁ¿Ö»Ðè¾ÀÆ«£¨ÊýÖµÀàÐÍ£©
+	//æ˜¯å¦ç›®æ ‡å˜é‡ï¼Œç›®æ ‡å˜é‡åªéœ€çº åï¼ˆæ•°å€¼ç±»åž‹ï¼‰
 	private boolean ift = false;
-	//SCRec ¾ÀÆ«¼ÇÂ¼
+	//SCRec çº åè®°å½•
 	private SCRec scRec = null;
-	//SertRec ÇåÀíÒì³£Öµ¼ÇÂ¼
+	//SertRec æ¸…ç†å¼‚å¸¸å€¼è®°å½•
 	private SertRec sertRec = null;
 	
-	//×Ö¶ÎÀàÐÍ£¬¶ÔÓÚÔ¤´¦ÀíÖ»Éú³ÉÁËMI£¬ÉõÖÁMI¶¼Î´Éú³ÉµÄ×Ö¶Î£¬ÀàÐÍÊÇÃ»Ê²Ã´ÒâÒåµÄ
+	//å­—æ®µç±»åž‹ï¼Œå¯¹äºŽé¢„å¤„ç†åªç”Ÿæˆäº†MIï¼Œç”šè‡³MIéƒ½æœªç”Ÿæˆçš„å­—æ®µï¼Œç±»åž‹æ˜¯æ²¡ä»€ä¹ˆæ„ä¹‰çš„
 	private byte type = Consts.F_TWO_VALUE;
-	//2.8 È±Ê§ÖµÌî²¹¼ÇÂ¼£¬°üÀ¨2.10ºÏ²¢µÍÆµ·ÖÀà£¬¶¼ÊÇ³õÊ¼ÖµµÄÇåÀí¹¤×÷
+	//2.8 ç¼ºå¤±å€¼å¡«è¡¥è®°å½•ï¼ŒåŒ…æ‹¬2.10åˆå¹¶ä½Žé¢‘åˆ†ç±»ï¼Œéƒ½æ˜¯åˆå§‹å€¼çš„æ¸…ç†å·¥ä½œ
 	private FNARec fnaRec = null;
-	//2.11µÍ»ùÊý·ÖÀàÉú³ÉBI¼ÇÂ¼
+	//2.11ä½ŽåŸºæ•°åˆ†ç±»ç”ŸæˆBIè®°å½•
 	private BIRec biRec = null;
-	//2.12¸ß»ùÊý·ÖÀàÆ½»¬»¯
+	//2.12é«˜åŸºæ•°åˆ†ç±»å¹³æ»‘åŒ–
 	private SmRec smRec = null;
-	//2.13,2.14¾ÀÆ«ºÍÇåÀíÒì³£Öµ£¬Í¬Ä¿±êÊýÖµ±äÁ¿µÄ¼ÇÂ¼
-	//2.15¹éÒ»»¯
+	//2.13,2.14çº åå’Œæ¸…ç†å¼‚å¸¸å€¼ï¼ŒåŒç›®æ ‡æ•°å€¼å˜é‡çš„è®°å½•
+	//2.15å½’ä¸€åŒ–
 	private NorRec norRec = null;
-	// ¼ÇÂ¼ÁÐÍ³¼ÆÐÅÏ¢
+	// è®°å½•åˆ—ç»Ÿè®¡ä¿¡æ¯
 	private VarInfo vi = null;
 	
-	//ÊÇ·ñÊ¹ÓÃÖÇÄÜÌî²¹
+	//æ˜¯å¦ä½¿ç”¨æ™ºèƒ½å¡«è¡¥
 	private boolean impute = false;
 
 	public VarRec() {
@@ -50,7 +50,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÊÇ·ñÓÐMissing IndexÁÐ
+	 * æ˜¯å¦æœ‰Missing Indexåˆ—
 	 * @return
 	 */
 	public boolean hasMI() {
@@ -58,7 +58,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÓÐMissing IndexÁÐ
+	 * è®¾ç½®æ˜¯å¦æœ‰Missing Indexåˆ—
 	 * @param b
 	 */
 	public void setMI(boolean b) {
@@ -66,7 +66,7 @@ public class VarRec implements Externalizable {
 	}
 	
 	/**
-	 * ³ýÈ¥Missing IndexÁÐ£¬ÆäËüÊý¾ÝÊÇ·ñÒÑÎÞÒâÒå
+	 * é™¤åŽ»Missing Indexåˆ—ï¼Œå…¶å®ƒæ•°æ®æ˜¯å¦å·²æ— æ„ä¹‰
 	 * @return
 	 */
 	public boolean onlyHasMI() {
@@ -74,7 +74,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÆäËüÊý¾ÝÊÇ·ñÒÑÎÞÒâÒå
+	 * è®¾ç½®å…¶å®ƒæ•°æ®æ˜¯å¦å·²æ— æ„ä¹‰
 	 * @param onlyMI
 	 */
 	public void setOnlyMI(boolean onlyMI) {
@@ -82,7 +82,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÊÇ·ñÄ¿±ê±äÁ¿
+	 * æ˜¯å¦ç›®æ ‡å˜é‡
 	 * @return the ift
 	 */
 	public boolean ift() {
@@ -90,7 +90,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÄ¿±ê±äÁ¿
+	 * è®¾ç½®æ˜¯å¦ç›®æ ‡å˜é‡
 	 * @param ift the ift to set
 	 */
 	public void setIft(boolean ift) {
@@ -98,7 +98,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÊÇ·ñÊ¹ÓÃÁËÖÇÄÜÌî²¹
+	 * æ˜¯å¦ä½¿ç”¨äº†æ™ºèƒ½å¡«è¡¥
 	 * @return 
 	 */
 	public boolean ifImpute() {
@@ -106,7 +106,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÄ¿±ê±äÁ¿
+	 * è®¾ç½®æ˜¯å¦ç›®æ ‡å˜é‡
 	 * @param 
 	 */
 	public void setImpute(boolean impute) {
@@ -114,7 +114,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡¾ÀÆ«¼ÇÂ¼
+	 * èŽ·å–çº åè®°å½•
 	 * @return the scRec
 	 */
 	public SCRec getSCRec() {
@@ -122,7 +122,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ¾ÀÆ«¼ÇÂ¼
+	 * è®¾ç½®çº åè®°å½•
 	 * @param scRec the scRec to set
 	 */
 	public void setSCRec(SCRec scRec) {
@@ -130,7 +130,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡ÇåÀíÒì³£Öµ¼ÇÂ¼
+	 * èŽ·å–æ¸…ç†å¼‚å¸¸å€¼è®°å½•
 	 * @return the sertRec
 	 */
 	public SertRec getSertRec() {
@@ -138,7 +138,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÇåÀíÒì³£Öµ¼ÇÂ¼
+	 * è®¾ç½®æ¸…ç†å¼‚å¸¸å€¼è®°å½•
 	 * @param sertRec the sertRec to set
 	 */
 	public void setSertRec(SertRec sertRec) {
@@ -146,7 +146,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡×Ö¶ÎÀàÐÍ£¬¶ÔÓÚÔ¤´¦ÀíÖ»Éú³ÉÁËMI£¬ÉõÖÁMI¶¼Î´Éú³ÉµÄ×Ö¶Î£¬ÀàÐÍÊÇÃ»Ê²Ã´ÒâÒåµÄ
+	 * èŽ·å–å­—æ®µç±»åž‹ï¼Œå¯¹äºŽé¢„å¤„ç†åªç”Ÿæˆäº†MIï¼Œç”šè‡³MIéƒ½æœªç”Ÿæˆçš„å­—æ®µï¼Œç±»åž‹æ˜¯æ²¡ä»€ä¹ˆæ„ä¹‰çš„
 	 * @return the type
 	 */
 	public byte getType() {
@@ -154,7 +154,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ×Ö¶ÎÀàÐÍ
+	 * è®¾ç½®å­—æ®µç±»åž‹
 	 * @param type the type to set
 	 */
 	public void setType(byte type) {
@@ -162,7 +162,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡È±Ê§ÖµÌî²¹¼ÇÂ¼
+	 * èŽ·å–ç¼ºå¤±å€¼å¡«è¡¥è®°å½•
 	 * @return the fnaRec
 	 */
 	public FNARec getFNARec() {
@@ -170,7 +170,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÈ±Ê§ÖµÌî²¹¼ÇÂ¼
+	 * è®¾ç½®ç¼ºå¤±å€¼å¡«è¡¥è®°å½•
 	 * @param fnaRec the fnaRec to set
 	 */
 	public void setFNARec(FNARec fnaRec) {
@@ -178,7 +178,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡µÍ»ùÊý·ÖÀàÉú³ÉBI¼ÇÂ¼
+	 * èŽ·å–ä½ŽåŸºæ•°åˆ†ç±»ç”ŸæˆBIè®°å½•
 	 * @return the biRec
 	 */
 	public BIRec getBIRec() {
@@ -186,7 +186,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃµÍ»ùÊý·ÖÀàÉú³ÉBI¼ÇÂ¼
+	 * è®¾ç½®ä½ŽåŸºæ•°åˆ†ç±»ç”ŸæˆBIè®°å½•
 	 * @param biRec the biRec to set
 	 */
 	public void setBIRec(BIRec biRec) {
@@ -194,7 +194,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡¸ß»ùÊý·ÖÀàÆ½»¬»¯¼ÇÂ¼
+	 * èŽ·å–é«˜åŸºæ•°åˆ†ç±»å¹³æ»‘åŒ–è®°å½•
 	 * @return the smRec
 	 */
 	public SmRec getSmRec() {
@@ -202,7 +202,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ¸ß»ùÊý·ÖÀàÆ½»¬»¯¼ÇÂ¼
+	 * è®¾ç½®é«˜åŸºæ•°åˆ†ç±»å¹³æ»‘åŒ–è®°å½•
 	 * @param smRec the smRec to set
 	 */
 	public void setSmRec(SmRec smRec) {
@@ -210,7 +210,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡¹éÒ»»¯¼ÇÂ¼
+	 * èŽ·å–å½’ä¸€åŒ–è®°å½•
 	 * @return the norRec
 	 */
 	public NorRec getNorRec() {
@@ -218,7 +218,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ¹éÒ»»¯¼ÇÂ¼
+	 * è®¾ç½®å½’ä¸€åŒ–è®°å½•
 	 * @param norRec the norRec to set
 	 */
 	public void setNorRec(NorRec norRec) {
@@ -227,7 +227,7 @@ public class VarRec implements Externalizable {
 	
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉÐòÁÐ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -242,43 +242,43 @@ public class VarRec implements Externalizable {
 		seq.add(i);
 		seq.add(type);
 
-		//2.8 È±Ê§ÖµÌî²¹¼ÇÂ¼£¬°üÀ¨2.10ºÏ²¢µÍÆµ·ÖÀà£¬¶¼ÊÇ³õÊ¼ÖµµÄÇåÀí¹¤×÷
+		//2.8 ç¼ºå¤±å€¼å¡«è¡¥è®°å½•ï¼ŒåŒ…æ‹¬2.10åˆå¹¶ä½Žé¢‘åˆ†ç±»ï¼Œéƒ½æ˜¯åˆå§‹å€¼çš„æ¸…ç†å·¥ä½œ
 		if (this.fnaRec == null) {
 			seq.add(null);
 		}
 		else {
 			seq.add(this.fnaRec.toSeq());
 		}
-		//2.11µÍ»ùÊý·ÖÀàÉú³ÉBI¼ÇÂ¼
+		//2.11ä½ŽåŸºæ•°åˆ†ç±»ç”ŸæˆBIè®°å½•
 		if (this.biRec == null) {
 			seq.add(null);
 		}
 		else {
 			seq.add(this.biRec.toSeq());
 		}
-		//2.12¸ß»ùÊý·ÖÀàÆ½»¬»¯
+		//2.12é«˜åŸºæ•°åˆ†ç±»å¹³æ»‘åŒ–
 		if (this.smRec == null) {
 			seq.add(null);
 		}
 		else {
 			seq.add(this.smRec.toSeq());
 		}
-		//2.13,2.14¾ÀÆ«ºÍÇåÀíÒì³£Öµ£¬Í¬Ä¿±êÊýÖµ±äÁ¿µÄ¼ÇÂ¼
-		//SCRec ¾ÀÆ«¼ÇÂ¼
+		//2.13,2.14çº åå’Œæ¸…ç†å¼‚å¸¸å€¼ï¼ŒåŒç›®æ ‡æ•°å€¼å˜é‡çš„è®°å½•
+		//SCRec çº åè®°å½•
 		if (this.scRec == null) {
 			seq.add(null);
 		}
 		else {
 			seq.add(this.scRec.toSeq());
 		}
-		//SertRec ÇåÀíÒì³£Öµ¼ÇÂ¼
+		//SertRec æ¸…ç†å¼‚å¸¸å€¼è®°å½•
 		if (this.sertRec == null) {
 			seq.add(null);
 		}
 		else {
 			seq.add(this.sertRec.toSeq());
 		}
-		//2.15¹éÒ»»¯
+		//2.15å½’ä¸€åŒ–
 		if (this.norRec == null) {
 			seq.add(null);
 		}
@@ -290,7 +290,7 @@ public class VarRec implements Externalizable {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾ÝSequence³õÊ¼»¯²ÎÊý
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public void init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -304,37 +304,37 @@ public class VarRec implements Externalizable {
 		this.type = ((Number) seq.get(5)).byteValue();
 		
 		Sequence rec = (Sequence) seq.get(6);
-		//2.8 È±Ê§ÖµÌî²¹¼ÇÂ¼£¬°üÀ¨2.10ºÏ²¢µÍÆµ·ÖÀà£¬¶¼ÊÇ³õÊ¼ÖµµÄÇåÀí¹¤×÷
+		//2.8 ç¼ºå¤±å€¼å¡«è¡¥è®°å½•ï¼ŒåŒ…æ‹¬2.10åˆå¹¶ä½Žé¢‘åˆ†ç±»ï¼Œéƒ½æ˜¯åˆå§‹å€¼çš„æ¸…ç†å·¥ä½œ
 		if (rec != null) {
 			this.fnaRec = new FNARec();
 			this.fnaRec.init(rec);
 		}
-		//2.11µÍ»ùÊý·ÖÀàÉú³ÉBI¼ÇÂ¼
+		//2.11ä½ŽåŸºæ•°åˆ†ç±»ç”ŸæˆBIè®°å½•
 		rec = (Sequence) seq.get(7);
 		if (rec != null) {
 			this.biRec = new BIRec(null);
 			this.biRec.init(rec);
 		}
-		//2.12¸ß»ùÊý·ÖÀàÆ½»¬»¯
+		//2.12é«˜åŸºæ•°åˆ†ç±»å¹³æ»‘åŒ–
 		rec = (Sequence) seq.get(8);
 		if (rec != null) {
 			this.smRec = new SmRec();
 			this.smRec.init(rec);
 		}
-		//2.13,2.14¾ÀÆ«ºÍÇåÀíÒì³£Öµ£¬Í¬Ä¿±êÊýÖµ±äÁ¿µÄ¼ÇÂ¼
-		//SCRec ¾ÀÆ«¼ÇÂ¼
+		//2.13,2.14çº åå’Œæ¸…ç†å¼‚å¸¸å€¼ï¼ŒåŒç›®æ ‡æ•°å€¼å˜é‡çš„è®°å½•
+		//SCRec çº åè®°å½•
 		rec = (Sequence) seq.get(9);
 		if (rec != null) {
 			this.scRec = new SCRec();
 			this.scRec.init(rec);
 		}
-		//SertRec ÇåÀíÒì³£Öµ¼ÇÂ¼
+		//SertRec æ¸…ç†å¼‚å¸¸å€¼è®°å½•
 		rec = (Sequence) seq.get(10);
 		if (rec != null) {
 			this.sertRec = new SertRec(0, 0);
 			this.sertRec.init(rec);
 		}
-		//2.15¹éÒ»»¯
+		//2.15å½’ä¸€åŒ–
 		rec = (Sequence) seq.get(11);
 		if (rec != null) {
 			this.norRec = new NorRec();
@@ -343,7 +343,7 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡ÁÐÍ³¼ÆÐÅÏ¢
+	 * èŽ·å–åˆ—ç»Ÿè®¡ä¿¡æ¯
 	 * @return
 	 */
 	public VarInfo getVi() {
@@ -351,14 +351,14 @@ public class VarRec implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÁÐÍ³¼ÆÐÅÏ¢
+	 * è®¾ç½®åˆ—ç»Ÿè®¡ä¿¡æ¯
 	 * @param vi
 	 */
 	public void setVi(VarInfo vi) {
 		this.vi = vi;
 	}
 
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®žçŽ°Externalizable ************************/
 	private byte version = (byte) 2;
 	public void writeExternal(ObjectOutput out) throws IOException {
 		out.writeByte(this.version);
@@ -369,20 +369,20 @@ public class VarRec implements Externalizable {
 		out.writeBoolean(this.impute);
 		out.writeByte(this.type);
 
-		//2.8 È±Ê§ÖµÌî²¹¼ÇÂ¼£¬°üÀ¨2.10ºÏ²¢µÍÆµ·ÖÀà£¬¶¼ÊÇ³õÊ¼ÖµµÄÇåÀí¹¤×÷
+		//2.8 ç¼ºå¤±å€¼å¡«è¡¥è®°å½•ï¼ŒåŒ…æ‹¬2.10åˆå¹¶ä½Žé¢‘åˆ†ç±»ï¼Œéƒ½æ˜¯åˆå§‹å€¼çš„æ¸…ç†å·¥ä½œ
 		out.writeObject(this.fnaRec);
-		//2.11µÍ»ùÊý·ÖÀàÉú³ÉBI¼ÇÂ¼
+		//2.11ä½ŽåŸºæ•°åˆ†ç±»ç”ŸæˆBIè®°å½•
 		out.writeObject(this.biRec);
-		//2.12¸ß»ùÊý·ÖÀàÆ½»¬»¯
+		//2.12é«˜åŸºæ•°åˆ†ç±»å¹³æ»‘åŒ–
 		out.writeObject(this.smRec);
-		//2.13,2.14¾ÀÆ«ºÍÇåÀíÒì³£Öµ£¬Í¬Ä¿±êÊýÖµ±äÁ¿µÄ¼ÇÂ¼
-		//SCRec ¾ÀÆ«¼ÇÂ¼
+		//2.13,2.14çº åå’Œæ¸…ç†å¼‚å¸¸å€¼ï¼ŒåŒç›®æ ‡æ•°å€¼å˜é‡çš„è®°å½•
+		//SCRec çº åè®°å½•
 		out.writeObject(this.scRec);
-		//SertRec ÇåÀíÒì³£Öµ¼ÇÂ¼
+		//SertRec æ¸…ç†å¼‚å¸¸å€¼è®°å½•
 		out.writeObject(this.sertRec);
-		//2.15¹éÒ»»¯
+		//2.15å½’ä¸€åŒ–
 		out.writeObject(this.norRec);
-		//Í³¼ÆÊý¾Ý
+		//ç»Ÿè®¡æ•°æ®
 		out.writeObject(this.vi);
 	}
 	
@@ -395,18 +395,18 @@ public class VarRec implements Externalizable {
 		this.impute = in.readBoolean();
 		this.type = in.readByte();
 		
-		//2.8 È±Ê§ÖµÌî²¹¼ÇÂ¼£¬°üÀ¨2.10ºÏ²¢µÍÆµ·ÖÀà£¬¶¼ÊÇ³õÊ¼ÖµµÄÇåÀí¹¤×÷
+		//2.8 ç¼ºå¤±å€¼å¡«è¡¥è®°å½•ï¼ŒåŒ…æ‹¬2.10åˆå¹¶ä½Žé¢‘åˆ†ç±»ï¼Œéƒ½æ˜¯åˆå§‹å€¼çš„æ¸…ç†å·¥ä½œ
 		this.fnaRec = (FNARec) in.readObject();
-		//2.11µÍ»ùÊý·ÖÀàÉú³ÉBI¼ÇÂ¼
+		//2.11ä½ŽåŸºæ•°åˆ†ç±»ç”ŸæˆBIè®°å½•
 		this.biRec = (BIRec) in.readObject();
-		//2.12¸ß»ùÊý·ÖÀàÆ½»¬»¯
+		//2.12é«˜åŸºæ•°åˆ†ç±»å¹³æ»‘åŒ–
 		this.smRec = (SmRec) in.readObject();
-		//2.13,2.14¾ÀÆ«ºÍÇåÀíÒì³£Öµ£¬Í¬Ä¿±êÊýÖµ±äÁ¿µÄ¼ÇÂ¼
-		//SCRec ¾ÀÆ«¼ÇÂ¼
+		//2.13,2.14çº åå’Œæ¸…ç†å¼‚å¸¸å€¼ï¼ŒåŒç›®æ ‡æ•°å€¼å˜é‡çš„è®°å½•
+		//SCRec çº åè®°å½•
 		this.scRec = (SCRec) in.readObject();
-		//SertRec ÇåÀíÒì³£Öµ¼ÇÂ¼
+		//SertRec æ¸…ç†å¼‚å¸¸å€¼è®°å½•
 		this.sertRec = (SertRec) in.readObject();
-		//2.15¹éÒ»»¯
+		//2.15å½’ä¸€åŒ–
 		this.norRec = (NorRec) in.readObject();
 		if (ver > 1) {
 			this.vi = (VarInfo) in.readObject();

@@ -18,7 +18,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.resources.EngineMessage;
 /**
- * ×é±íµÄË÷ÒıÓÎ±êÀà
+ * ç»„è¡¨çš„ç´¢å¼•æ¸¸æ ‡ç±»
  * @author runqian
  *
  */
@@ -26,8 +26,8 @@ public class IndexCursor extends ICursor {
 	private int BUFFER_SIZE = 1024 * 1024;
 	
 	private PhyTable table;
-	private String []fields;//È¡³ö×Ö¶Î
-	private String []ifields;//Ë÷Òı×Ö¶Î
+	private String []fields;//å–å‡ºå­—æ®µ
+	private String []ifields;//ç´¢å¼•å­—æ®µ
 	private String opt;
 	
 	private DataStruct ds;
@@ -46,47 +46,47 @@ public class IndexCursor extends ICursor {
 	private int curBlock = 0;
 	
 	private int index = 0;
-	private boolean isSorted = false; // Î±ºÅÊı×éÊÇ·ñÒÑÅÅĞò
-	private long []pos;// ÁĞ´æÎ±ºÅÊı×é
-	private long [][]posArr;// ĞĞ´æÎ±ºÅ¡¢µØÖ·Êı×é
+	private boolean isSorted = false; // ä¼ªå·æ•°ç»„æ˜¯å¦å·²æ’åº
+	private long []pos;// åˆ—å­˜ä¼ªå·æ•°ç»„
+	private long [][]posArr;// è¡Œå­˜ä¼ªå·ã€åœ°å€æ•°ç»„
 	private int posCount;
-	private long curNum = 0;//µ±Ç°Î±ºÅ
-	private int rest = 0;//µ±Ç°ÁĞ¿éµÄÊ£ÓàÌõÊı
-	private BufferReader []bufReaders;//µ±Ç°ÁĞ¿éµÄreader
+	private long curNum = 0;//å½“å‰ä¼ªå·
+	private int rest = 0;//å½“å‰åˆ—å—çš„å‰©ä½™æ¡æ•°
+	private BufferReader []bufReaders;//å½“å‰åˆ—å—çš„reader
 	
 	private int mindex = 0;
-	ArrayList<ModifyRecord> modifyRecordList;//²¹Çø¼ÇÂ¼
-	private int []findex; //²¹ÇøÑ¡³ö×Ö¶Î¶ÔÓ¦µÄ×Ö¶ÎºÅ
+	ArrayList<ModifyRecord> modifyRecordList;//è¡¥åŒºè®°å½•
+	private int []findex; //è¡¥åŒºé€‰å‡ºå­—æ®µå¯¹åº”çš„å­—æ®µå·
 	
-	private boolean isRow;//ÊÇ·ñĞĞ´æ
+	private boolean isRow;//æ˜¯å¦è¡Œå­˜
 	private int blockSize;
 	
-	private boolean isPrimaryTable;//ÊÇ·ñ»ù±í
+	private boolean isPrimaryTable;//æ˜¯å¦åŸºè¡¨
 	private PhyTable baseTable;
-	private boolean []isBaseIndex; //È¡³ö×Ö¶ÎÔÚÖ÷±í»¹ÊÇ×Ó±í
+	private boolean []isBaseIndex; //å–å‡ºå­—æ®µåœ¨ä¸»è¡¨è¿˜æ˜¯å­è¡¨
 	
-	//ÒÔÏÂÊÇ¸½±íÊ±Ê¹ÓÃ
-	private ColumnMetaData guideColumn;//µ¼ÁĞ
+	//ä»¥ä¸‹æ˜¯é™„è¡¨æ—¶ä½¿ç”¨
+	private ColumnMetaData guideColumn;//å¯¼åˆ—
 	private BlockLinkReader guideColReader;
 	private ObjectReader guideSegmentReader;
 	private BufferReader guideColBufReader;
 	private BlockLinkReader baseRowCountReader;
-	private Object []baseCurValues;//»ù±íµÄµ±Ç°¼ÇÂ¼Öµ
+	private Object []baseCurValues;//åŸºè¡¨çš„å½“å‰è®°å½•å€¼
 	private int baseRest;
 	private long baseCurIndex;
-	private boolean needBaseTable;//È¡³öÊı¾İÀïÓĞ»ù±íµÄ×Ö¶Î
+	private boolean needBaseTable;//å–å‡ºæ•°æ®é‡Œæœ‰åŸºè¡¨çš„å­—æ®µ
 	
-	private boolean isRealValue;//ËÍ½øÀ´µÄÊÇÖ±½ÓÖµ£¬»¹ÊÇµØÖ·¡££¨key-value-index£©
+	private boolean isRealValue;//é€è¿›æ¥çš„æ˜¯ç›´æ¥å€¼ï¼Œè¿˜æ˜¯åœ°å€ã€‚ï¼ˆkey-value-indexï¼‰
 	private Object [] values;
 	private transient int fcount;
 
 	/**
-	 * ÁĞ´æË÷ÒıÓÎ±ê
-	 * ¸ù¾İrecNum¼ÇÂ¼ºÅÈ¡Êı
-	 * @param table Ô­±í
-	 * @param fields È¡³ö×Ö¶Î
-	 * @param ifields Ë÷Òı×Ö¶Î
-	 * @param recNum ½á¹ûµÄ¼ÇÂ¼ºÅ
+	 * åˆ—å­˜ç´¢å¼•æ¸¸æ ‡
+	 * æ ¹æ®recNumè®°å½•å·å–æ•°
+	 * @param table åŸè¡¨
+	 * @param fields å–å‡ºå­—æ®µ
+	 * @param ifields ç´¢å¼•å­—æ®µ
+	 * @param recNum ç»“æœçš„è®°å½•å·
 	 * @param opt
 	 */
 	public IndexCursor(PhyTable table, String []fields, String []ifields, long []recNum, String opt) {
@@ -94,12 +94,12 @@ public class IndexCursor extends ICursor {
 	}
 	
 	/**
-	 * ĞĞ´æË÷ÒıÓÎ±ê
-	 * ¸ù¾İposÀïµÄµØÖ·È¡Êı
-	 * @param table Ô­±í
-	 * @param fields È¡³ö×Ö¶Î
-	 * @param ifields Ë÷Òı×Ö¶Î
-	 * @param pos ½á¹ûµÄµØÖ·
+	 * è¡Œå­˜ç´¢å¼•æ¸¸æ ‡
+	 * æ ¹æ®posé‡Œçš„åœ°å€å–æ•°
+	 * @param table åŸè¡¨
+	 * @param fields å–å‡ºå­—æ®µ
+	 * @param ifields ç´¢å¼•å­—æ®µ
+	 * @param pos ç»“æœçš„åœ°å€
 	 * @param opt
 	 * @param ctx
 	 */
@@ -122,12 +122,12 @@ public class IndexCursor extends ICursor {
 	}
 	
 	/**
-	 * KVË÷ÒıÓÎ±ê
-	 * valuesÀï¾ÍÊÇÒª·µ»ØµÄÊı¾İ£¬²»ÓÃÔÙÈ¥Ô­±íÈ¡Êı
-	 * @param table Ô­±í
-	 * @param fields È¡³ö×Ö¶Î
-	 * @param ifields Ë÷Òı×Ö¶Î
-	 * @param values ½á¹ûµÄÖµ
+	 * KVç´¢å¼•æ¸¸æ ‡
+	 * valuesé‡Œå°±æ˜¯è¦è¿”å›çš„æ•°æ®ï¼Œä¸ç”¨å†å»åŸè¡¨å–æ•°
+	 * @param table åŸè¡¨
+	 * @param fields å–å‡ºå­—æ®µ
+	 * @param ifields ç´¢å¼•å­—æ®µ
+	 * @param values ç»“æœçš„å€¼
 	 */
 	public IndexCursor(PhyTable table, String []fields, String []ifields, Object []values) {
 		this.table = table;
@@ -218,7 +218,7 @@ public class IndexCursor extends ICursor {
 		}
 		
 		if (flag && isPrimaryTable && modifyRecordList == null) {
-			//²»ĞèÒªfindex
+			//ä¸éœ€è¦findex
 			findex = null;
 		}
 		
@@ -340,7 +340,7 @@ public class IndexCursor extends ICursor {
 		
 		if (!isRow) {
 			long pos = this.pos[index];
-			return pos;//ÁĞ´æÊ±¾ÍÊÇÎ±ºÅ
+			return pos;//åˆ—å­˜æ—¶å°±æ˜¯ä¼ªå·
 		}
 		
 		return this.posArr[index][0];
@@ -387,7 +387,7 @@ public class IndexCursor extends ICursor {
 				readBytes(pos, bytes);
 				BufferReader rowDataReader = new BufferReader(table.getStructManager(), bytes);
 				serialBytesLen = baseTable.getSerialBytesLen();
-				rowDataReader.skipObject();//Î±ºÅ
+				rowDataReader.skipObject();//ä¼ªå·
 				for (int f = 0; f < baseCount; ++f) {
 					baseValues[f] = rowDataReader.readObject();
 				}
@@ -401,8 +401,8 @@ public class IndexCursor extends ICursor {
 			pos = posArr[index][2];
 			readBytes(pos, bytes);
 			BufferReader rowDataReader = new BufferReader(table.getStructManager(), bytes);
-			rowDataReader.skipObject();//Î±ºÅ
-			rowDataReader.skipObject();//µ¼ÁĞ
+			rowDataReader.skipObject();//ä¼ªå·
+			rowDataReader.skipObject();//å¯¼åˆ—
 			
 			allCount = table.getColNames().length;
 			values = new Object[allCount + baseKeyCount];
@@ -426,7 +426,7 @@ public class IndexCursor extends ICursor {
 			readBytes(pos, bytes);
 			BufferReader rowDataReader = this.rowDataReader;
 			rowDataReader.reset();
-			rowDataReader.skipObject();//Î±ºÅ
+			rowDataReader.skipObject();//ä¼ªå·
 			
 			values = new Object[allCount];
 			if (serialBytesLen != null) {
@@ -978,7 +978,7 @@ public class IndexCursor extends ICursor {
 	}
 
 	/**
-	 * ¸ù¾İË÷Òı×Ö¶ÎºÍÈ¡³ö×Ö¶Î£¬·µ»ØÓĞĞò×Ö¶Î
+	 * æ ¹æ®ç´¢å¼•å­—æ®µå’Œå–å‡ºå­—æ®µï¼Œè¿”å›æœ‰åºå­—æ®µ
 	 * @return
 	 */
 	public int[] getSortFieldsIndex() {
@@ -1009,7 +1009,7 @@ public class IndexCursor extends ICursor {
 		if (count == 0) {
 			return null;
 		} else if (count > 0 && count < len) {
-			//²¿·ÖÕÒµ½
+			//éƒ¨åˆ†æ‰¾åˆ°
 			int indexs2[] = new int[count];
 			for (int i = 0; i < count; i++) {
 				indexs2[i] = indexs[i];
@@ -1020,14 +1020,14 @@ public class IndexCursor extends ICursor {
 	}
 	
 	/**
-	 * ×ª³É¶àÂ·ÓÎ±ê
+	 * è½¬æˆå¤šè·¯æ¸¸æ ‡
 	 * @param segCount
 	 * @return
 	 */
 	public ICursor toMultiCursor(int segCount) {
 		ICursor curArr[] = new ICursor[segCount];
 		if (isRealValue) {
-			int size = posCount;//×ÜÌõÊı
+			int size = posCount;//æ€»æ¡æ•°
 			int minSize = fcount + 1;
 			int temp = size / segCount;
 			if (temp == 0) {
@@ -1035,7 +1035,7 @@ public class IndexCursor extends ICursor {
 			}
 			int offset = 0;
 			for(int i = 0; i < segCount; i++) {
-				int num;//±¾¶ÎÌõÊı
+				int num;//æœ¬æ®µæ¡æ•°
 				if (temp <= size) {
 					num = temp;
 				} else {
@@ -1053,7 +1053,7 @@ public class IndexCursor extends ICursor {
 				}
 			}
 		} else if (isRow) {
-			int size = posCount;//×ÜÌõÊı
+			int size = posCount;//æ€»æ¡æ•°
 			int temp = size / segCount;
 			if (temp == 0) {
 				temp = 1;
@@ -1074,7 +1074,7 @@ public class IndexCursor extends ICursor {
 				}
 			}
 		} else {
-			int size = posCount;//×ÜÌõÊı
+			int size = posCount;//æ€»æ¡æ•°
 			int temp = size / segCount;
 			if (temp == 0) {
 				temp = 1;
@@ -1098,8 +1098,8 @@ public class IndexCursor extends ICursor {
 	}
 	
 	/**
-	 * µØÖ·±È½ÏÆ÷
-	 * ·µ»ØµÄ½á¹ûÒª°´ÕÕµØÖ·ÅÅĞò
+	 * åœ°å€æ¯”è¾ƒå™¨
+	 * è¿”å›çš„ç»“æœè¦æŒ‰ç…§åœ°å€æ’åº
 	 * @author runqian
 	 *
 	 */

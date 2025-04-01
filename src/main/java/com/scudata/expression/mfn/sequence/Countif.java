@@ -4,8 +4,8 @@ import com.scudata.dm.Context;
 import com.scudata.expression.SequenceFunction;
 
 /**
- * ¼ÆËãÂú×ã¸ø¶¨Ìõ¼şµÄÔªËØÈ¡ÖµÎªÕæ£¨·Ç¿Õ²¢ÇÒ²»ÊÇfalse£©µÄ¸öÊı
- * A.countif(Ai:xi,¡­)
+ * è®¡ç®—æ»¡è¶³ç»™å®šæ¡ä»¶çš„å…ƒç´ å–å€¼ä¸ºçœŸï¼ˆéç©ºå¹¶ä¸”ä¸æ˜¯falseï¼‰çš„ä¸ªæ•°
+ * A.countif(Ai:xi,â€¦)
  * @author RunQian
  *
  */

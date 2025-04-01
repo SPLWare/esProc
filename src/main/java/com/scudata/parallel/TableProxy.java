@@ -5,7 +5,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Table;
 
 /**
- * ½Úµã»úĞò±í´úÀí
+ * èŠ‚ç‚¹æœºåºè¡¨ä»£ç†
  * @author WangXiaoJun
  *
  */

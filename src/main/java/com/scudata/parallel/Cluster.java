@@ -10,26 +10,26 @@ import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
 
 /**
- * ½Úµã»ú¼¯Èº
+ * èŠ‚ç‚¹æœºé›†ç¾¤
  * @author RunQian
  *
  */
 public class Cluster implements Externalizable {
 	private static final long serialVersionUID = 1L;
 	
-	private String []hosts; // ipÊı×é
-	private int []ports; // ¶Ë¿ÚÊı×é
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
+	private String []hosts; // ipæ•°ç»„
+	private int []ports; // ç«¯å£æ•°ç»„
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
 	
-	// ĞòÁĞ»¯ÊÇÊ¹ÓÃ
+	// åºåˆ—åŒ–æ˜¯ä½¿ç”¨
 	public Cluster() {
 	}
 	
 	/**
-	 * ¹¹½¨½Úµã»ú¼¯Èº
-	 * @param hosts ipÊı×é
-	 * @param ports ¶Ë¿ÚÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºèŠ‚ç‚¹æœºé›†ç¾¤
+	 * @param hosts ipæ•°ç»„
+	 * @param ports ç«¯å£æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public Cluster(String[] hosts, int[] ports, Context ctx) {
 		this.hosts = hosts;
@@ -60,7 +60,7 @@ public class Cluster implements Externalizable {
 	}
 	
 	/**
-	 * È¡½Úµã»úÊıÁ¿
+	 * å–èŠ‚ç‚¹æœºæ•°é‡
 	 * @return int
 	 */
 	public int getUnitCount() {
@@ -76,7 +76,7 @@ public class Cluster implements Externalizable {
 		return hosts;
 	}
 	
-	//¸ù¾İĞòºÅÈ¡·Ö»ú
+	//æ ¹æ®åºå·å–åˆ†æœº
 	public String getHost(int unit) {
 		return hosts[unit];
 	}
@@ -97,7 +97,7 @@ public class Cluster implements Externalizable {
 		return ctx.getJobSpace().getID();
 	}
 	
-	// È¡±¾»ú½ø³Ì¹¹³ÉµÄ¼¯Èº£¬Èç¹ûÃ»ÓĞÅäÖÃ·Ö½ø³ÌÔò·µ»Ønull
+	// å–æœ¬æœºè¿›ç¨‹æ„æˆçš„é›†ç¾¤ï¼Œå¦‚æœæ²¡æœ‰é…ç½®åˆ†è¿›ç¨‹åˆ™è¿”å›null
 	public static Cluster getHostCluster() {
 		return null;
 	}

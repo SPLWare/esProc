@@ -8,8 +8,8 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Îª¹ÜµÀ¶¨Òå»ã×Ü½á¹û¼¯ÔËËã
- * ch.total(y,¡­)
+ * ä¸ºç®¡é“å®šä¹‰æ±‡æ€»ç»“æœé›†è¿ç®—
+ * ch.total(y,â€¦)
  * @author RunQian
  *
  */

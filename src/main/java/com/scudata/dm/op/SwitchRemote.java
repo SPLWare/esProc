@@ -17,27 +17,27 @@ import com.scudata.parallel.ClusterMemoryTable;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓëÔ¶³ÌÎ¬±í×öÁ¬½Ó²Ù×÷£¬ÓÃÓÚÅÅÁĞ¡¢ÓÎ±ê¡¢¹ÜµÀµÄÁ¬½Ó²Ù×÷
+ * ä¸è¿œç¨‹ç»´è¡¨åšè¿æ¥æ“ä½œï¼Œç”¨äºæ’åˆ—ã€æ¸¸æ ‡ã€ç®¡é“çš„è¿æ¥æ“ä½œ
  * @author WangXiaoJun
  *
  */
 public class SwitchRemote extends Operation {
-	private String []fkNames; // Íâ¼ü×Ö¶ÎÃûÊı×é
-	private Object[] datas; // ±¾µØÎ¬±í»òÕß¼¯ÈºÎ¬±íÊı×é
-	private Expression []exps; // Î¬±íµÄÖ÷¼ü±í´ïÊ½Êı×é
-	private String opt; // Ñ¡Ïî
+	private String []fkNames; // å¤–é”®å­—æ®µåæ•°ç»„
+	private Object[] datas; // æœ¬åœ°ç»´è¡¨æˆ–è€…é›†ç¾¤ç»´è¡¨æ•°ç»„
+	private Expression []exps; // ç»´è¡¨çš„ä¸»é”®è¡¨è¾¾å¼æ•°ç»„
+	private String opt; // é€‰é¡¹
 	
-	private int []fkIndex; // Íâ¼ü×Ö¶ÎË÷ÒıÊı×é
+	private int []fkIndex; // å¤–é”®å­—æ®µç´¢å¼•æ•°ç»„
 	private Sequence []codes;
-	private IndexTable []indexTables; // Î¬±í¶ÔÓ¦µÄË÷Òı±íÊı×é
-	private ClusterMemoryTable []cts; // ¼¯ÈºÎ¬±íÊı×é
+	private IndexTable []indexTables; // ç»´è¡¨å¯¹åº”çš„ç´¢å¼•è¡¨æ•°ç»„
+	private ClusterMemoryTable []cts; // é›†ç¾¤ç»´è¡¨æ•°ç»„
 
-	private boolean isIsect; // ×ö½»Á¬½Ó
-	private boolean isDiff; // ×ö²îÁ¬½Ó
+	private boolean isIsect; // åšäº¤è¿æ¥
+	private boolean isDiff; // åšå·®è¿æ¥
 	
-	private boolean isLeft; // ×óÁ´½Ó£¬ÕÒ²»µ½F¶ÔÓ¦ÖµÊ±£¬°´²ÎÊıÊı¾İ½á¹¹Éú³É¿ÕÖµ£¨³ıÖ÷¼üÍâ£©¼ÇÂ¼¶ÔÓ¦
-	private DataStruct []dataStructs; // isLeftÎªtrueÊ±Ê¹ÓÃ£¬¶ÔÓ¦Î¬±íµÄÊı¾İ½á¹¹
-	private int []keySeqs; // Î¬±íÖ÷¼ü×Ö¶ÎµÄĞòºÅ
+	private boolean isLeft; // å·¦é“¾æ¥ï¼Œæ‰¾ä¸åˆ°Få¯¹åº”å€¼æ—¶ï¼ŒæŒ‰å‚æ•°æ•°æ®ç»“æ„ç”Ÿæˆç©ºå€¼ï¼ˆé™¤ä¸»é”®å¤–ï¼‰è®°å½•å¯¹åº”
+	private DataStruct []dataStructs; // isLeftä¸ºtrueæ—¶ä½¿ç”¨ï¼Œå¯¹åº”ç»´è¡¨çš„æ•°æ®ç»“æ„
+	private int []keySeqs; // ç»´è¡¨ä¸»é”®å­—æ®µçš„åºå·
 	
 	public SwitchRemote(String[] fkNames, Object[] datas, Expression[] exps, String opt) {
 		this(null, fkNames, datas, exps, opt);
@@ -62,17 +62,17 @@ public class SwitchRemote extends Operation {
 	}
 	
 	/**
-	 * ·µ»Ø´Ë²Ù×÷ÊÇ·ñ»áÊ¹¼ÇÂ¼Êı±äÉÙ
-	 * @return true£º·ñ»áÊ¹¼ÇÂ¼Êı±äÉÙ£¬false£º²»»á±äÉÙ
+	 * è¿”å›æ­¤æ“ä½œæ˜¯å¦ä¼šä½¿è®°å½•æ•°å˜å°‘
+	 * @return trueï¼šå¦ä¼šä½¿è®°å½•æ•°å˜å°‘ï¼Œfalseï¼šä¸ä¼šå˜å°‘
 	 */
 	public boolean isDecrease() {
 		return isIsect || isDiff;
 	}
 	
 	/**
-	 * ¸´ÖÆ´Ë²Ù×÷
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¸´ÖÆµÄSwitch²Ù×÷
+	 * å¤åˆ¶æ­¤æ“ä½œ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å¤åˆ¶çš„Switchæ“ä½œ
 	 */
 	public Operation duplicate(Context ctx) {
 		Expression []newExps = dupExpressions(exps, ctx);				
@@ -142,10 +142,10 @@ public class SwitchRemote extends Operation {
 	}
 
 	/**
-	 * ¶Ô´«ÈëµÄÊı¾İ×öÁ¬½Ó£¬·µ»ØÁ¬½Ó½á¹û
-	 * @param seq Òª´¦ÀíµÄÊı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Á¬½Ó½á¹û
+	 * å¯¹ä¼ å…¥çš„æ•°æ®åšè¿æ¥ï¼Œè¿”å›è¿æ¥ç»“æœ
+	 * @param seq è¦å¤„ç†çš„æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return è¿æ¥ç»“æœ
 	 */
 	public Sequence process(Sequence data, Context ctx) {
 		init(ctx);
@@ -184,7 +184,7 @@ public class SwitchRemote extends Operation {
 			} else if (codes[fk] != null) {
 				newSeq = fetch(result, f, codes[fk], ctx);
 			} else {
-				// Ö¸Òı×Ö¶Î±ä³ÉÖµ
+				// æŒ‡å¼•å­—æ®µå˜æˆå€¼
 				for (int i = 1; i <= len; ++i) {
 					Record r = (Record)result.getMem(i);
 					Object val = r.getNormalFieldValue(fk);
@@ -214,7 +214,7 @@ public class SwitchRemote extends Operation {
 					Record r = (Record)result.getMem(i);
 					Object val = newSeq.getMem(i);
 					
-					// ÕÒ²»µ½Ê±±£ÁôÔ´Öµ
+					// æ‰¾ä¸åˆ°æ—¶ä¿ç•™æºå€¼
 					if (val == null) {
 						resultMems.add(r);
 					}
@@ -241,7 +241,7 @@ public class SwitchRemote extends Operation {
 		}
 	}
 	
-	// °´Ë÷ÒıÈ¡ÔªËØ
+	// æŒ‰ç´¢å¼•å–å…ƒç´ 
 	private Sequence fetch(Sequence src, int f, IndexTable it, Context ctx) {
 		int len = src.length();
 		Sequence result = new Sequence(len);
@@ -273,7 +273,7 @@ public class SwitchRemote extends Operation {
 		return result;
 	}
 	
-	// °´ĞòºÅÈ¡ÔªËØ
+	// æŒ‰åºå·å–å…ƒç´ 
 	private Sequence fetch(Sequence src, int f, Sequence code, Context ctx) {
 		int len = src.length();
 		Sequence result = new Sequence(len);

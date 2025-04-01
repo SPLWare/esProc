@@ -8,23 +8,23 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 
 /**
- * ÓÎ±êºÍ¹ÜµÀÑÓ³Ù¼ÆËãº¯Êı»ùÀà
+ * æ¸¸æ ‡å’Œç®¡é“å»¶è¿Ÿè®¡ç®—å‡½æ•°åŸºç±»
  * @author RunQian
  *
  */
 public abstract class Operation {
-	protected Function function; // µ±Ç°²Ù×÷¶ÔÓ¦µÄ±í´ïÊ½ÀïµÄº¯Êı
-	protected INormalCell currentCell; // ÔËËãËùÔÚµÄµ¥Ôª¸ñ
+	protected Function function; // å½“å‰æ“ä½œå¯¹åº”çš„è¡¨è¾¾å¼é‡Œçš„å‡½æ•°
+	protected INormalCell currentCell; // è¿ç®—æ‰€åœ¨çš„å•å…ƒæ ¼
 	
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public Operation() {
 	}
 	
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param function µ±Ç°²Ù×÷¶ÔÓ¦µÄ±í´ïÊ½ÀïµÄº¯Êı
+	 * æ„é€ å‡½æ•°
+	 * @param function å½“å‰æ“ä½œå¯¹åº”çš„è¡¨è¾¾å¼é‡Œçš„å‡½æ•°
 	 */
 	public Operation(Function function) {
 		this.function = function;
@@ -35,7 +35,7 @@ public abstract class Operation {
 	}
 	
 	/**
-	 * È¡µ±Ç°²Ù×÷¶ÔÓ¦µÄ±í´ïÊ½ÀïµÄº¯Êı
+	 * å–å½“å‰æ“ä½œå¯¹åº”çš„è¡¨è¾¾å¼é‡Œçš„å‡½æ•°
 	 * @return Function
 	 */
 	public Function getFunction() {
@@ -43,7 +43,7 @@ public abstract class Operation {
 	}
 	
 	/**
-	 * ÉèÖÃµ±Ç°²Ù×÷¶ÔÓ¦µÄ±í´ïÊ½ÀïµÄº¯Êı
+	 * è®¾ç½®å½“å‰æ“ä½œå¯¹åº”çš„è¡¨è¾¾å¼é‡Œçš„å‡½æ•°
 	 * @param function
 	 */
 	public void setFunction(Function function) {
@@ -51,43 +51,43 @@ public abstract class Operation {
 	}
 	
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public abstract Sequence process(Sequence seq, Context ctx);
 	
 	/**
-	 * È¡²Ù×÷ÊÇ·ñ»á¼õÉÙÔªËØÊı£¬±ÈÈç¹ıÂËº¯Êı»á¼õÉÙ¼ÇÂ¼
-	 * ´Ëº¯ÊıÓÃÓÚÓÎ±êµÄ¾«È·È¡Êı£¬Èç¹û¸½¼ÓµÄ²Ù×÷²»»áÊ¹¼ÇÂ¼Êı¼õÉÙÔòÖ»Ğè°´´«ÈëµÄÊıÁ¿È¡Êı¼´¿É
-	 * @return true£º»á£¬false£º²»»á
+	 * å–æ“ä½œæ˜¯å¦ä¼šå‡å°‘å…ƒç´ æ•°ï¼Œæ¯”å¦‚è¿‡æ»¤å‡½æ•°ä¼šå‡å°‘è®°å½•
+	 * æ­¤å‡½æ•°ç”¨äºæ¸¸æ ‡çš„ç²¾ç¡®å–æ•°ï¼Œå¦‚æœé™„åŠ çš„æ“ä½œä¸ä¼šä½¿è®°å½•æ•°å‡å°‘åˆ™åªéœ€æŒ‰ä¼ å…¥çš„æ•°é‡å–æ•°å³å¯
+	 * @return trueï¼šä¼šï¼Œfalseï¼šä¸ä¼š
 	 */
 	public boolean isDecrease() {
 		return false;
 	}
 	
 	/**
-	 * Êı¾İÈ«²¿ÍÆËÍÍê³ÉÊ±µ÷ÓÃ£¬groupÔËËãĞèÒªÖªµÀÊı¾İ½áÊøÀ´È·ÈÏ×îºóÒ»×éµÄÊı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¸½¼ÓµÄ²Ù×÷»º´æµÄÊı¾İ
+	 * æ•°æ®å…¨éƒ¨æ¨é€å®Œæˆæ—¶è°ƒç”¨ï¼Œgroupè¿ç®—éœ€è¦çŸ¥é“æ•°æ®ç»“æŸæ¥ç¡®è®¤æœ€åä¸€ç»„çš„æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return é™„åŠ çš„æ“ä½œç¼“å­˜çš„æ•°æ®
 	 */
 	public Sequence finish(Context ctx) {
 		return null;
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public abstract Operation duplicate(Context ctx);
 	
 	/**
-	 * ¸´ÖÆ±í´ïÊ½
-	 * @param exp ±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¸´ÖÆºóµÄ±í´ïÊ½
+	 * å¤åˆ¶è¡¨è¾¾å¼
+	 * @param exp è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å¤åˆ¶åçš„è¡¨è¾¾å¼
 	 */
 	public static Expression dupExpression(Expression exp, Context ctx) {
 		if (exp != null) {
@@ -98,10 +98,10 @@ public abstract class Operation {
 	}
 	
 	/**
-	 * ¸´ÖÆ±í´ïÊ½Êı×é
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¸´ÖÆºóµÄ±í´ïÊ½Êı×é
+	 * å¤åˆ¶è¡¨è¾¾å¼æ•°ç»„
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å¤åˆ¶åçš„è¡¨è¾¾å¼æ•°ç»„
 	 */
 	public static Expression[] dupExpressions(Expression []exps, Context ctx) {
 		if (exps == null) {
@@ -118,10 +118,10 @@ public abstract class Operation {
 	}
 	
 	/**
-	 * ¸´ÖÆ±í´ïÊ½Êı×éµÄÊı×é
-	 * @param exps ±í´ïÊ½Êı×éµÄÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¸´ÖÆºóµÄ±í´ïÊ½Êı×éµÄÊı×é
+	 * å¤åˆ¶è¡¨è¾¾å¼æ•°ç»„çš„æ•°ç»„
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„çš„æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å¤åˆ¶åçš„è¡¨è¾¾å¼æ•°ç»„çš„æ•°ç»„
 	 */
 	public static Expression[][] dupExpressions(Expression [][]exps, Context ctx) {
 		if (exps == null) {

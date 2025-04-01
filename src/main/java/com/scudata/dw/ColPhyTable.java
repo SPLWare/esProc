@@ -42,25 +42,25 @@ import com.scudata.thread.ThreadPool;
 import com.scudata.util.Variant;
 
 /**
- * ÁĞ´æ»ù±íÀà
+ * åˆ—å­˜åŸºè¡¨ç±»
  * @author runqian
  *
  */
 public class ColPhyTable extends PhyTable {
 	private transient ColumnMetaData []columns;
-	private transient ColumnMetaData []allColumns; //º¬Ö÷±í
-	private transient ColumnMetaData []sortedColumns; // ÅÅĞò×Ö¶Î
-	private transient ColumnMetaData []allSortedColumns; // ÅÅĞò×Ö¶Îº¬Ö÷±í
+	private transient ColumnMetaData []allColumns; //å«ä¸»è¡¨
+	private transient ColumnMetaData []sortedColumns; // æ’åºå­—æ®µ
+	private transient ColumnMetaData []allSortedColumns; // æ’åºå­—æ®µå«ä¸»è¡¨
 	
-	private transient String []allKeyColNames; // Ö÷¼ü×Ö¶ÎÃûÊı×é£¨º¬Ö÷±í£©
+	private transient String []allKeyColNames; // ä¸»é”®å­—æ®µåæ•°ç»„ï¼ˆå«ä¸»è¡¨ï¼‰
 	
-	private transient ColumnMetaData guideColumn;//µ¼ÁĞ
-	protected int sortedColStartIndex;//Ö÷±íµÄÅÅĞò×Ö¶Î¸öÊı
+	private transient ColumnMetaData guideColumn;//å¯¼åˆ—
+	protected int sortedColStartIndex;//ä¸»è¡¨çš„æ’åºå­—æ®µä¸ªæ•°
 	
 	private static final String GUIDE_COLNAME = "_guidecol";
 
 	/**
-	 * ÓÃÓÚĞòÁĞ»¯
+	 * ç”¨äºåºåˆ—åŒ–
 	 * @param groupTable
 	 */
 	public ColPhyTable(ComTable groupTable) {
@@ -71,7 +71,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ÓÃÓÚĞòÁĞ»¯
+	 * ç”¨äºåºåˆ—åŒ–
 	 * @param groupTable
 	 * @param parent
 	 */
@@ -84,7 +84,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ÓÃÓÚĞÂ´´½¨Ò»¸ö»ù±í
+	 * ç”¨äºæ–°åˆ›å»ºä¸€ä¸ªåŸºè¡¨
 	 * @param groupTable
 	 * @param colNames
 	 * @param serialBytesLen
@@ -99,9 +99,9 @@ public class ColPhyTable extends PhyTable {
 		
 		int count = colNames.length;
 		columns = new ColumnMetaData[count];
-		int keyStart = -1; // Ö÷¼üµÄÆğÊ¼×Ö¶Î
+		int keyStart = -1; // ä¸»é”®çš„èµ·å§‹å­—æ®µ
 		
-		// Ö÷¼üÆğÊ¼×Ö¶ÎÇ°ÃæµÄ×Ö¶ÎÈÏÎªÊÇÅÅĞò×Ö¶Î
+		// ä¸»é”®èµ·å§‹å­—æ®µå‰é¢çš„å­—æ®µè®¤ä¸ºæ˜¯æ’åºå­—æ®µ
 		for (int i = 0; i < count; ++i) {
 			if (colNames[i].startsWith(KEY_PREFIX)) {
 				keyStart = i;
@@ -132,7 +132,7 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ÓÃÓÚĞÂ´´½¨Ò»¸ö»ù±í
+	 * ç”¨äºæ–°åˆ›å»ºä¸€ä¸ªåŸºè¡¨
 	 * @param groupTable
 	 * @param colNames
 	 * @param serialBytesLen
@@ -162,12 +162,12 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ¸½±íµÄ´´½¨
-	 * @param groupTable Òª´´½¨¸½±íµÄ×é±í
-	 * @param colNames ÁĞÃû³Æ
-	 * @param serialBytesLen ÅÅºÅ³¤¶È
-	 * @param tableName ¸½±íÃû
-	 * @param parent Ö÷±í¶ÔÏó
+	 * é™„è¡¨çš„åˆ›å»º
+	 * @param groupTable è¦åˆ›å»ºé™„è¡¨çš„ç»„è¡¨
+	 * @param colNames åˆ—åç§°
+	 * @param serialBytesLen æ’å·é•¿åº¦
+	 * @param tableName é™„è¡¨å
+	 * @param parent ä¸»è¡¨å¯¹è±¡
 	 * @throws IOException
 	 */
 	public ColPhyTable(ComTable groupTable, String []colNames, int []serialBytesLen,
@@ -199,7 +199,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (parent != null) {
-			//Ä¿Ç°ÏŞÖÆÖ»ÒÀ¸½Ò»²ã
+			//ç›®å‰é™åˆ¶åªä¾é™„ä¸€å±‚
 			if (parent.parent != null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("ds.dsNotMatch"));
@@ -213,7 +213,7 @@ public class ColPhyTable extends PhyTable {
 				collist.add(name);
 			}
 			
-			//×Ö¶Î²»ÄÜÓëÖ÷±í×Ö¶ÎÖØ¸´
+			//å­—æ®µä¸èƒ½ä¸ä¸»è¡¨å­—æ®µé‡å¤
 			for (int i = 0, len = colNames.length; i < len; i++) {
 				if (collist.contains(colNames[i])) {
 					MessageManager mm = EngineMessage.get();
@@ -233,10 +233,10 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ¸ù¾İsrc´´½¨Ò»¸öÍ¬¹¹µÄ»ù±í
-	 * @param groupTable Òª´´½¨»ù±íµÄ×é±í
-	 * @param parent Ö÷±í¶ÔÏó
-	 * @param src Ìá¹©½á¹¹µÄÔ´»ù±í
+	 * æ ¹æ®srcåˆ›å»ºä¸€ä¸ªåŒæ„çš„åŸºè¡¨
+	 * @param groupTable è¦åˆ›å»ºåŸºè¡¨çš„ç»„è¡¨
+	 * @param parent ä¸»è¡¨å¯¹è±¡
+	 * @param src æä¾›ç»“æ„çš„æºåŸºè¡¨
 	 * @throws IOException
 	 */
 	public ColPhyTable(ComTable groupTable, ColPhyTable parent, ColPhyTable src) throws IOException {
@@ -279,7 +279,7 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ³õÊ¼»¯£¬¶ÁÈ¡Î¬¡¢ÁĞÃûµÈ»ù±¾ĞÅÏ¢
+	 * åˆå§‹åŒ–ï¼Œè¯»å–ç»´ã€åˆ—åç­‰åŸºæœ¬ä¿¡æ¯
 	 */
 	protected void init() {
 		ColumnMetaData []columns = this.columns;
@@ -287,7 +287,7 @@ public class ColPhyTable extends PhyTable {
 		int keyCount = 0;
 		int j = 0;
 		
-		// ´´½¨ĞÂÊı×é£¬·ñÔòÎÄ¼ş×éÊ±¿ÉÄÜÓ°Ïìµ½ÆäËü·ÖÇø×é±íµÄ´´½¨
+		// åˆ›å»ºæ–°æ•°ç»„ï¼Œå¦åˆ™æ–‡ä»¶ç»„æ—¶å¯èƒ½å½±å“åˆ°å…¶å®ƒåˆ†åŒºç»„è¡¨çš„åˆ›å»º
 		colNames = new String[columns.length];
 		for (ColumnMetaData col : columns) {
 			if (col.isDim()) {
@@ -318,7 +318,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (parent != null) {
-			// ºÏ²¢¸¸±íµÄÖ÷¼ü
+			// åˆå¹¶çˆ¶è¡¨çš„ä¸»é”®
 			String []parentKeys = parent.getAllKeyColNames();
 			if (keyCount > 0) {
 				int parentKeyCount = parentKeys.length;
@@ -369,7 +369,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ·µ»ØËùÓĞÁĞ¡££¨º¬Ö÷±íkeyÁĞ£©
+	 * è¿”å›æ‰€æœ‰åˆ—ã€‚ï¼ˆå«ä¸»è¡¨keyåˆ—ï¼‰
 	 * @return
 	 */
 	public ColumnMetaData[] getAllColumns() {
@@ -378,7 +378,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ·µ»ØËùÓĞÁĞ¡££¨º¬Ö÷±íËùÓĞ×Ö¶Î)
+	 * è¿”å›æ‰€æœ‰åˆ—ã€‚ï¼ˆå«ä¸»è¡¨æ‰€æœ‰å­—æ®µ)
 	 * @return
 	 */
 	ColumnMetaData[] getTotalColumns() {
@@ -392,7 +392,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ·µ»ØËùÓĞÁĞÃû³Æ¡££¨º¬Ö÷±íËùÓĞ×Ö¶Î)
+	 * è¿”å›æ‰€æœ‰åˆ—åç§°ã€‚ï¼ˆå«ä¸»è¡¨æ‰€æœ‰å­—æ®µ)
 	 * @return
 	 */
 	public String[] getTotalColNames() {
@@ -406,7 +406,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ·µ»ØÓĞĞòÁĞ
+	 * è¿”å›æœ‰åºåˆ—
 	 * @return
 	 */
 	public ColumnMetaData[] getSortedColumns() {
@@ -414,7 +414,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ·µ»ØÓĞĞòÁĞ£¨º¬Ö÷±í)
+	 * è¿”å›æœ‰åºåˆ—ï¼ˆå«ä¸»è¡¨)
 	 * @return
 	 */
 	public ColumnMetaData[] getAllSortedColumns() {
@@ -423,7 +423,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ·µ»ØÓĞĞòÁĞÃû
+	 * è¿”å›æœ‰åºåˆ—å
 	 * @return
 	 */
 	public String[] getSortedColNames() {
@@ -437,7 +437,7 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ·µ»ØÓĞĞòÁĞÃû£¨º¬Ö÷±í)
+	 * è¿”å›æœ‰åºåˆ—åï¼ˆå«ä¸»è¡¨)
 	 * @return
 	 */
 	public String[] getAllSortedColNames() {
@@ -452,16 +452,16 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * È¡Ö÷¼ü×Ö¶ÎÃû£¨º¬Ö÷±í£©
-	 * @return Ö÷¼ü×Ö¶ÎÃûÊı×é
+	 * å–ä¸»é”®å­—æ®µåï¼ˆå«ä¸»è¡¨ï¼‰
+	 * @return ä¸»é”®å­—æ®µåæ•°ç»„
 	 */
 	public String[] getAllKeyColNames() {
 		return allKeyColNames;
 	}
 	
 	/**
-	 * ¸ù¾İ×Ö¶ÎÃû·µ»ØÖ¸¶¨ÁĞ
-	 * @param fields ×Ö¶ÎÃû
+	 * æ ¹æ®å­—æ®µåè¿”å›æŒ‡å®šåˆ—
+	 * @param fields å­—æ®µå
 	 * @return
 	 */
 	public ColumnMetaData[] getColumns(String []fields) {
@@ -492,7 +492,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ·µ»ØÃ¿ÁĞÅÅºÅµÄ³¤¶È£¨Èç¹ûÊÇÅÅºÅÁĞµÄ»°£©
+	 * è¿”å›æ¯åˆ—æ’å·çš„é•¿åº¦ï¼ˆå¦‚æœæ˜¯æ’å·åˆ—çš„è¯ï¼‰
 	 */
 	public int[] getSerialBytesLen() {
 		int len = columns.length;
@@ -504,7 +504,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ÌáÈ¡expÀïÉæ¼°µÄÁĞ
+	 * æå–expé‡Œæ¶‰åŠçš„åˆ—
 	 * @param exps
 	 * @return
 	 */
@@ -537,7 +537,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ÌáÈ¡expÀïĞèÒª¼ÆËãµÄÁĞ(k.sbs() k1+k2)
+	 * æå–expé‡Œéœ€è¦è®¡ç®—çš„åˆ—(k.sbs() k1+k2)
 	 * @param exps
 	 * @return
 	 */
@@ -610,7 +610,7 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ¸ù¾İ×Ö¶ÎÃû»ñµÃÁĞ
+	 * æ ¹æ®å­—æ®µåè·å¾—åˆ—
 	 * @param field
 	 * @return
 	 */
@@ -626,7 +626,7 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ·µ»Ø¸½±íµÄµ¼ÁĞ
+	 * è¿”å›é™„è¡¨çš„å¯¼åˆ—
 	 * @return
 	 */
 	public ColumnMetaData getGuideColumn() {
@@ -634,7 +634,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ÉêÇëµÚÒ»¿é¿Õ¼ä
+	 * ç”³è¯·ç¬¬ä¸€å—ç©ºé—´
 	 */
 	protected void applyFirstBlock() throws IOException {
 		if (segmentBlockLink.isEmpty()) {
@@ -656,8 +656,8 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ×¼±¸Ğ´¡£ÔÚ×·¼Ó¡¢É¾³ı¡¢ĞŞ¸ÄÊı¾İÇ°µ÷ÓÃ¡£
-	 * µ÷ÓÃºó»á¶Ô¹Ø¼üĞÅÏ¢½øĞĞ±¸·İ£¬·ÀÖ¹Ğ´Ò»°ã³öÒâÍâÊ±±íÊı¾İËğ»µ
+	 * å‡†å¤‡å†™ã€‚åœ¨è¿½åŠ ã€åˆ é™¤ã€ä¿®æ”¹æ•°æ®å‰è°ƒç”¨ã€‚
+	 * è°ƒç”¨åä¼šå¯¹å…³é”®ä¿¡æ¯è¿›è¡Œå¤‡ä»½ï¼Œé˜²æ­¢å†™ä¸€èˆ¬å‡ºæ„å¤–æ—¶è¡¨æ•°æ®æŸå
 	 */
 	protected void prepareAppend() throws IOException {
 		applyFirstBlock();
@@ -672,7 +672,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ½áÊøĞ´
+	 * ç»“æŸå†™
 	 */
 	protected void finishAppend() throws IOException {
 		segmentWriter.finishWrite();
@@ -690,7 +690,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ¶ÁÈ¡±íÍ·Êı¾İ
+	 * è¯»å–è¡¨å¤´æ•°æ®
 	 */
 	public void readExternal(BufferReader reader) throws IOException {
 		reader.read(reserve);
@@ -743,7 +743,7 @@ public class ColPhyTable extends PhyTable {
 		}
 
 		if (groupTable.reserve[0] > 2) {
-			cuboids = reader.readStrings();//°æ±¾3Ôö¼Ó
+			cuboids = reader.readStrings();//ç‰ˆæœ¬3å¢åŠ 
 		}
 		segmentCol = (String)reader.readObject();
 		segmentSerialLen = reader.readInt();
@@ -759,7 +759,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * Ğ´³ö±íÍ·Êı¾İ
+	 * å†™å‡ºè¡¨å¤´æ•°æ®
 	 */
 	public void writeExternal(BufferWriter writer) throws IOException {
 		reserve[0] = 5;
@@ -808,7 +808,7 @@ public class ColPhyTable extends PhyTable {
 			}
 		}
 
-		writer.writeStrings(cuboids);//°æ±¾3Ôö¼Ó
+		writer.writeStrings(cuboids);//ç‰ˆæœ¬3å¢åŠ 
 		
 		writer.writeObject(segmentCol);
 		writer.flush();
@@ -823,18 +823,18 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ×·¼Ó¸½±íµÄÒ»¿éÊı¾İ
+	 * è¿½åŠ é™„è¡¨çš„ä¸€å—æ•°æ®
 	 * @param data
-	 * @param start ¿ªÊ¼µÄÁĞ
-	 * @param recList µ¼ÁĞÊı¾İ
+	 * @param start å¼€å§‹çš„åˆ—
+	 * @param recList å¯¼åˆ—æ•°æ®
 	 * @throws IOException
 	 */
 	private void appendAttachedDataBlock(Sequence data, boolean []isMyCol, LongArray recList) throws IOException {
 		ColumnMetaData []columns = this.allColumns;
 		int count = columns.length;
 
-		Object []minValues = new Object[count];;//Ò»¿éµÄ×îĞ¡Î¬Öµ
-		Object []maxValues = new Object[count];;//Ò»¿éµÄ×î´óÎ¬Öµ
+		Object []minValues = new Object[count];;//ä¸€å—çš„æœ€å°ç»´å€¼
+		Object []maxValues = new Object[count];;//ä¸€å—çš„æœ€å¤§ç»´å€¼
 		Object []startValues = new Object[count];
 		int[] dataTypeInfo = new int[count];
 				
@@ -846,14 +846,14 @@ public class ColPhyTable extends PhyTable {
 		
 		int end = data.length();
 		try {
-			//Ğ´µ¼ÁĞ
+			//å†™å¯¼åˆ—
 			bufferWriter.write(DataBlockType.LONG);
 			for (int i = 1; i <= end; ++i) {
 				bufferWriter.writeLong(recList.getLong(i));
 			}
 			bufferWriter.writeBoolean(false);
 			
-			//Ğ´Êı¾İÁĞÈÎÎñ
+			//å†™æ•°æ®åˆ—ä»»åŠ¡
 			for (int i = 0; i < count; i++) {
 				if (!isMyCol[i])
 					continue;
@@ -872,7 +872,7 @@ public class ColPhyTable extends PhyTable {
 			pool.shutdown();
 		}
 		
-		//Í³¼ÆÁĞÊı¾İÀàĞÍ
+		//ç»Ÿè®¡åˆ—æ•°æ®ç±»å‹
 		boolean doCheck = groupTable.isCheckDataPure();
 		for (int j = 0; j < count; j++) {
 			if (!isMyCol[j]) continue;
@@ -881,7 +881,7 @@ public class ColPhyTable extends PhyTable {
 		}
 
 		if (recList.size() == 0) {
-			//Èç¹ûÊÇ¿Õ¿é£¬Ôò¸÷ÁĞĞ´Ò»¸önull
+			//å¦‚æœæ˜¯ç©ºå—ï¼Œåˆ™å„åˆ—å†™ä¸€ä¸ªnull
 			bufferWriter.writeObject(null);
 			for (int j = 0; j < count; j++) {
 				if (!isMyCol[j]) continue;
@@ -891,21 +891,21 @@ public class ColPhyTable extends PhyTable {
 		
 		guideColumn.appendColBlock(bufferWriter.finish());
 
-		//Ìá½»Ã¿¸öÁĞ¿ébuffer
+		//æäº¤æ¯ä¸ªåˆ—å—buffer
 		for (int j = 0; j < count; j++) {
 			if (!isMyCol[j]) continue;
 			columns[j].appendColBlock(bufferWriters[j].finish(), minValues[j], maxValues[j], startValues[j]);
 		}
 		
-		//¸üĞÂ·Ö¶ÎĞÅÏ¢buffer
+		//æ›´æ–°åˆ†æ®µä¿¡æ¯buffer
 		appendSegmentBlock(end);
 	}
 	
 	/**
-	 * ×·¼Ó¸½±íµÄÒ»¿éÊı¾İ(¾É¸ñÊ½)
+	 * è¿½åŠ é™„è¡¨çš„ä¸€å—æ•°æ®(æ—§æ ¼å¼)
 	 * @param data
-	 * @param start ¿ªÊ¼µÄÁĞ
-	 * @param recList µ¼ÁĞÊı¾İ
+	 * @param start å¼€å§‹çš„åˆ—
+	 * @param recList å¯¼åˆ—æ•°æ®
 	 * @throws IOException
 	 */
 	public void appendAttachedDataBlockV3(Sequence data, boolean []isMyCol, LongArray recList) throws IOException {
@@ -913,8 +913,8 @@ public class ColPhyTable extends PhyTable {
 		ColumnMetaData []columns = this.allColumns;
 		int count = columns.length;
 		int []serialBytesLen = new int[count];
-		Object []minValues = null;//Ò»¿éµÄ×îĞ¡Î¬Öµ
-		Object []maxValues = null;//Ò»¿éµÄ×î´óÎ¬Öµ
+		Object []minValues = null;//ä¸€å—çš„æœ€å°ç»´å€¼
+		Object []maxValues = null;//ä¸€å—çš„æœ€å¤§ç»´å€¼
 		Object []startValues = null;
 		
 		if (sortedColumns != null) {
@@ -933,12 +933,12 @@ public class ColPhyTable extends PhyTable {
 		
 		int end = data.length();
 		for (int i = 1; i <= end; ++i) {
-			//Ğ´µ¼ÁĞ
+			//å†™å¯¼åˆ—
 			bufferWriter.writeObject(recList.get(i - 1));
 			
 			r = (BaseRecord) data.get(i);
 			Object[] vals = r.getFieldValues();
-			//°ÑÒ»ÌõĞ´µ½¸÷ÁĞµÄbuffer
+			//æŠŠä¸€æ¡å†™åˆ°å„åˆ—çš„buffer
 			for (int j = 0; j < count; j++) {
 				if (!isMyCol[j]) continue;
 				Object obj = vals[j];
@@ -966,7 +966,7 @@ public class ColPhyTable extends PhyTable {
 						maxValues[j] = obj;
 					if (i == 1)
 					{
-						minValues[j] = obj;//µÚÒ»¸öÒª¸³Öµ£¬ÒòÎªnull±íÊ¾×îĞ¡
+						minValues[j] = obj;//ç¬¬ä¸€ä¸ªè¦èµ‹å€¼ï¼Œå› ä¸ºnullè¡¨ç¤ºæœ€å°
 						startValues[j] = obj;
 					}
 					if (Variant.compare(obj, minValues[j], true) < 0)
@@ -976,7 +976,7 @@ public class ColPhyTable extends PhyTable {
 		}
 
 		if (recList.size() == 0) {
-			//Èç¹ûÊÇ¿Õ¿é£¬Ôò¸÷ÁĞĞ´Ò»¸önull
+			//å¦‚æœæ˜¯ç©ºå—ï¼Œåˆ™å„åˆ—å†™ä¸€ä¸ªnull
 			bufferWriter.writeObject(null);
 			for (int j = 0; j < count; j++) {
 				if (!isMyCol[j]) continue;
@@ -987,44 +987,44 @@ public class ColPhyTable extends PhyTable {
 		guideColumn.appendColBlock(bufferWriter.finish());
 		
 		if (sortedColumns == null) {
-			//Ìá½»Ã¿¸öÁĞ¿ébuffer
+			//æäº¤æ¯ä¸ªåˆ—å—buffer
 			for (int j = 0; j < count; j++) {
 				if (!isMyCol[j]) continue;
 				columns[j].appendColBlock(bufferWriters[j].finish());
 			}
-			//¸üĞÂ·Ö¶ÎĞÅÏ¢buffer
+			//æ›´æ–°åˆ†æ®µä¿¡æ¯buffer
 			appendSegmentBlock(end);
 			return;
 		}
 
-		//Ìá½»Ã¿¸öÁĞ¿ébuffer
+		//æäº¤æ¯ä¸ªåˆ—å—buffer
 		for (int j = 0; j < count; j++) {
 			if (!isMyCol[j]) continue;
 			if (!columns[j].isDim()) {
-				//×·¼ÓÁĞ¿é
+				//è¿½åŠ åˆ—å—
 				columns[j].appendColBlock(bufferWriters[j].finish());
 			} else {
-				//×·¼ÓÎ¬¿é
+				//è¿½åŠ ç»´å—
 				columns[j].appendColBlock(bufferWriters[j].finish(), minValues[j], maxValues[j], startValues[j]);
 			}
 		}
 		
-		//¸üĞÂ·Ö¶ÎĞÅÏ¢buffer
+		//æ›´æ–°åˆ†æ®µä¿¡æ¯buffer
 		appendSegmentBlock(end);
 	}
 	
 	/**
-	 * °ÑdataĞòÁĞµÄÖ¸¶¨·¶Î§µÄÊı¾İĞ´³ö(ĞÂ¸ñÊ½)
-	 * @param data Êı¾İĞòÁĞ
-	 * @param start ¿ªÊ¼Î»ÖÃ
-	 * @param end ½áÊøÎ»ÖÃ
+	 * æŠŠdataåºåˆ—çš„æŒ‡å®šèŒƒå›´çš„æ•°æ®å†™å‡º(æ–°æ ¼å¼)
+	 * @param data æ•°æ®åºåˆ—
+	 * @param start å¼€å§‹ä½ç½®
+	 * @param end ç»“æŸä½ç½®
 	 * @throws IOException
 	 */
 	private void appendDataBlock(Sequence data, int start, int end) throws IOException {
 		ColumnMetaData []columns = this.columns;
 		int count = columns.length;
-		Object []minValues = new Object[count];//Ò»¿éµÄ×îĞ¡Î¬Öµ
-		Object []maxValues = new Object[count];//Ò»¿éµÄ×î´óÎ¬Öµ
+		Object []minValues = new Object[count];//ä¸€å—çš„æœ€å°ç»´å€¼
+		Object []maxValues = new Object[count];//ä¸€å—çš„æœ€å¤§ç»´å€¼
 		Object []startValues = new Object[count];
 		int[] dataTypeInfo = new int[count];
 
@@ -1048,27 +1048,27 @@ public class ColPhyTable extends PhyTable {
 			pool.shutdown();
 		}
 		
-		//Í³¼ÆÁĞÊı¾İÀàĞÍ
+		//ç»Ÿè®¡åˆ—æ•°æ®ç±»å‹
 		boolean doCheck = groupTable.isCheckDataPure();
 		for (int j = 0; j < count; j++) {
 			columns[j].adjustDataType(dataTypeInfo[j], doCheck);
 			columns[j].initDictArray();
 		}
 		
-		//Ìá½»Ã¿¸öÁĞ¿ébuffer
+		//æäº¤æ¯ä¸ªåˆ—å—buffer
 		for (int j = 0; j < count; j++) {
 			columns[j].appendColBlock(bufferWriters[j].finish(), minValues[j], maxValues[j], startValues[j]);
 		}
 		
-		//¸üĞÂ·Ö¶ÎĞÅÏ¢buffer
+		//æ›´æ–°åˆ†æ®µä¿¡æ¯buffer
 		appendSegmentBlock(end - start + 1);
 	}
 	
 	/**
-	 * °ÑdataĞòÁĞµÄÖ¸¶¨·¶Î§µÄÊı¾İĞ´³ö(¾É¸ñÊ½)
-	 * @param data Êı¾İĞòÁĞ
-	 * @param start ¿ªÊ¼Î»ÖÃ
-	 * @param end ½áÊøÎ»ÖÃ
+	 * æŠŠdataåºåˆ—çš„æŒ‡å®šèŒƒå›´çš„æ•°æ®å†™å‡º(æ—§æ ¼å¼)
+	 * @param data æ•°æ®åºåˆ—
+	 * @param start å¼€å§‹ä½ç½®
+	 * @param end ç»“æŸä½ç½®
 	 * @throws IOException
 	 */
 	public void appendDataBlockV3(Sequence data, int start, int end) throws IOException {
@@ -1076,8 +1076,8 @@ public class ColPhyTable extends PhyTable {
 		ColumnMetaData []columns = this.columns;
 		int count = columns.length;
 		int []serialBytesLen = new int[count];
-		Object []minValues = null;//Ò»¿éµÄ×îĞ¡Î¬Öµ
-		Object []maxValues = null;//Ò»¿éµÄ×î´óÎ¬Öµ
+		Object []minValues = null;//ä¸€å—çš„æœ€å°ç»´å€¼
+		Object []maxValues = null;//ä¸€å—çš„æœ€å¤§ç»´å€¼
 		Object []startValues = null;
 		
 		if (sortedColumns != null) {
@@ -1098,7 +1098,7 @@ public class ColPhyTable extends PhyTable {
 			mems.set(i, null);
 			
 			Object[] vals = r.getFieldValues();
-			//°ÑÒ»ÌõĞ´µ½¸÷ÁĞµÄbuffer
+			//æŠŠä¸€æ¡å†™åˆ°å„åˆ—çš„buffer
 			for (int j = 0; j < count; j++) {
 				Object obj = vals[j];
 				if (serialBytesLen[j] > 0) {
@@ -1119,7 +1119,7 @@ public class ColPhyTable extends PhyTable {
 					if (Variant.compare(obj, maxValues[j], true) > 0)
 						maxValues[j] = obj;
 					if (i == start) {
-						minValues[j] = obj;//µÚÒ»¸öÒª¸³Öµ£¬ÒòÎªnull±íÊ¾×îĞ¡
+						minValues[j] = obj;//ç¬¬ä¸€ä¸ªè¦èµ‹å€¼ï¼Œå› ä¸ºnullè¡¨ç¤ºæœ€å°
 						startValues[j] = obj;
 					}
 					if (Variant.compare(obj, minValues[j], true) < 0)
@@ -1129,32 +1129,32 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (sortedColumns == null) {
-			//Ìá½»Ã¿¸öÁĞ¿ébuffer
+			//æäº¤æ¯ä¸ªåˆ—å—buffer
 			for (int j = 0; j < count; j++) {
 				columns[j].appendColBlock(bufferWriters[j].finish());
 			}
-			//¸üĞÂ·Ö¶ÎĞÅÏ¢buffer
+			//æ›´æ–°åˆ†æ®µä¿¡æ¯buffer
 			appendSegmentBlock(end - start + 1);
 			return;
 		}
 
-		//Ìá½»Ã¿¸öÁĞ¿ébuffer
+		//æäº¤æ¯ä¸ªåˆ—å—buffer
 		for (int j = 0; j < count; j++) {
 			if (!columns[j].isDim()) {
-				//×·¼ÓÁĞ¿é
+				//è¿½åŠ åˆ—å—
 				columns[j].appendColBlock(bufferWriters[j].finish());
 			} else {
-				//×·¼ÓÎ¬¿é
+				//è¿½åŠ ç»´å—
 				columns[j].appendColBlock(bufferWriters[j].finish(), minValues[j], maxValues[j], startValues[j]);
 			}
 		}
 		
-		//¸üĞÂ·Ö¶ÎĞÅÏ¢buffer
+		//æ›´æ–°åˆ†æ®µä¿¡æ¯buffer
 		appendSegmentBlock(end - start + 1);
 	}
 	
 	/**
-	 * °ÑÓÎ±êµÄÊı¾İĞ´³ö
+	 * æŠŠæ¸¸æ ‡çš„æ•°æ®å†™å‡º
 	 * @param cursor
 	 * @throws IOException
 	 */
@@ -1167,14 +1167,14 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * °ÑÓÎ±êµÄÊı¾İĞ´³ö £¨¸½±í£©
+	 * æŠŠæ¸¸æ ‡çš„æ•°æ®å†™å‡º ï¼ˆé™„è¡¨ï¼‰
 	 * @param cursor
 	 * @throws IOException
 	 */
 	private void appendAttached(ICursor cursor) throws IOException {
 		PhyTable primaryTable = parent;
-		int pBlockCount = primaryTable.getDataBlockCount();//Ö÷±íµÄÒÑÓĞ×Ü¿éÊı
-		int curBlockCount = dataBlockCount;//Òª×·¼ÓµÄ¿ªÊ¼¿éºÅ
+		int pBlockCount = primaryTable.getDataBlockCount();//ä¸»è¡¨çš„å·²æœ‰æ€»å—æ•°
+		int curBlockCount = dataBlockCount;//è¦è¿½åŠ çš„å¼€å§‹å—å·
 		int pkeyEndIndex = sortedColStartIndex;
 		
 		String []primaryTableKeys = primaryTable.getSortedColNames();
@@ -1208,7 +1208,7 @@ public class ColPhyTable extends PhyTable {
 		
 		int sortedColCount = allSortedColumns.length;
 		Object []tableMaxValues = this.maxValues;
-		Object []lastValues = new Object[sortedColCount];//ÉÏÒ»ÌõÎ¬µÄÖµ
+		Object []lastValues = new Object[sortedColCount];//ä¸Šä¸€æ¡ç»´çš„å€¼
 		
 		LongArray guideCol = new LongArray(MIN_BLOCK_RECORD_COUNT);
 		Sequence seq = new Sequence(MIN_BLOCK_RECORD_COUNT);
@@ -1225,7 +1225,7 @@ public class ColPhyTable extends PhyTable {
 					vals[f] = r.getNormalFieldValue(findex[f]);
 				}
 				
-				//ÕÒ±¾ÌõºÍÖ÷¼ü¶ÔÓ¦µÄ¼ÇÂ¼
+				//æ‰¾æœ¬æ¡å’Œä¸»é”®å¯¹åº”çš„è®°å½•
 				while (true) {
 					int cmp = Variant.compareArrays(curPkeyVals, vals, pkeyEndIndex);
 					if (cmp == 0) {
@@ -1233,16 +1233,16 @@ public class ColPhyTable extends PhyTable {
 					} else if (cmp < 0) {
 						pkeyIndex++;
 						if (pkeyIndex > pkeyDataLen) {
-							//×¢Òâ£ºÕâÊ±ÓĞ¿ÉÄÜseqÀïÃ»ÓĞ¼ÇÂ¼£¬Õâ¾ÍÒª×·¼ÓÒ»¸ö¿Õ¿é
-							//´¦ÀíÍêÒ»¶ÎÁË¾ÍÌá½»Ò»¿é
+							//æ³¨æ„ï¼šè¿™æ—¶æœ‰å¯èƒ½seqé‡Œæ²¡æœ‰è®°å½•ï¼Œè¿™å°±è¦è¿½åŠ ä¸€ä¸ªç©ºå—
+							//å¤„ç†å®Œä¸€æ®µäº†å°±æäº¤ä¸€å—
 							appendAttachedDataBlock(seq, isMyCol, guideCol);
 							seq.clear();
 							guideCol = new LongArray(MIN_BLOCK_RECORD_COUNT);
 							
-							//È¡ÏÂÒ»¶ÎÖ÷¼üÊı¾İ
+							//å–ä¸‹ä¸€æ®µä¸»é”®æ•°æ®
 							curBlockCount++;
 							if (curBlockCount >= pBlockCount) {
-								//Ö÷±íÈ¡µ½×îºóÁË£¬¸½±íÀï²»Ó¦¸Ã»¹ÓĞÊı¾İ£¬Å×Òì³£
+								//ä¸»è¡¨å–åˆ°æœ€åäº†ï¼Œé™„è¡¨é‡Œä¸åº”è¯¥è¿˜æœ‰æ•°æ®ï¼ŒæŠ›å¼‚å¸¸
 								MessageManager mm = EngineMessage.get();
 								throw new RQException(mm.getMessage("dw.appendNotMatch") + r.toString(null));
 							}
@@ -1255,21 +1255,21 @@ public class ColPhyTable extends PhyTable {
 						curPkey = (ComTableRecord) pkeyData.get(pkeyIndex);
 						curPkeyVals = curPkey.getFieldValues();
 					} else if (cmp > 0) {
-						//Ã»ÕÒµ½¶ÔÓ¦µÄÖ÷±í¼ÇÂ¼£¬Å×Òì³£
+						//æ²¡æ‰¾åˆ°å¯¹åº”çš„ä¸»è¡¨è®°å½•ï¼ŒæŠ›å¼‚å¸¸
 						MessageManager mm = EngineMessage.get();
 						throw new RQException(mm.getMessage("dw.appendNotMatch") + r.toString(null));
 					}
 				}
 				
-				//µ½ÁËÕâÀï¾ÍÈ·¶¨Òª×·¼ÓÒ»ÌõÁË
-				guideCol.add(curPkey.getRecordSeq());//Ìí¼Óµ¼ÁĞ
+				//åˆ°äº†è¿™é‡Œå°±ç¡®å®šè¦è¿½åŠ ä¸€æ¡äº†
+				guideCol.add(curPkey.getRecordSeq());//æ·»åŠ å¯¼åˆ—
 				
-				//´¦ÀíÖ÷¼üºÍÅÅĞò
+				//å¤„ç†ä¸»é”®å’Œæ’åº
 				if (isSorted) {
 					if (tableMaxValues != null) {
 						int cmp = Variant.compareArrays(vals, tableMaxValues, sortedColCount);
 						if (cmp < 0) {
-							//¸½±í×·¼ÓµÄÊı¾İ±ØĞëÓĞĞò
+							//é™„è¡¨è¿½åŠ çš„æ•°æ®å¿…é¡»æœ‰åº
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(mm.getMessage("dw.appendAttachedTable"));
 						} else if (cmp == 0){
@@ -1283,13 +1283,13 @@ public class ColPhyTable extends PhyTable {
 					}
 				}
 				
-				seq.add(r);//°ÑÕâÌõÔİ´æ				
-				System.arraycopy(vals, 0, lastValues, 0, sortedColCount);//´æÉÏÒ»ÌõÎ¬Öµ				
+				seq.add(r);//æŠŠè¿™æ¡æš‚å­˜				
+				System.arraycopy(vals, 0, lastValues, 0, sortedColCount);//å­˜ä¸Šä¸€æ¡ç»´å€¼				
 			}
 			data = cursor.fetch(ICursor.FETCHCOUNT);
 		}
 		
-		//´¦Àí×îºóÒ»¸öÁĞ¿é (¼´¸½±íÈ¡µ½×îºóÁË£¬Ö÷±íÀï»¹ÓĞµÄ»°£¬¾Í²»¹ÜÁË)
+		//å¤„ç†æœ€åä¸€ä¸ªåˆ—å— (å³é™„è¡¨å–åˆ°æœ€åäº†ï¼Œä¸»è¡¨é‡Œè¿˜æœ‰çš„è¯ï¼Œå°±ä¸ç®¡äº†)
 		if (seq.length() > 0) {
 			appendAttachedDataBlock(seq, isMyCol, guideCol);
 		}
@@ -1297,7 +1297,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * °ÑÓÎ±êµÄÊı¾İĞ´³ö¡£Ğ´³öÊ±ĞèÒª½øĞĞ·Ö¶Î¡£
+	 * æŠŠæ¸¸æ ‡çš„æ•°æ®å†™å‡ºã€‚å†™å‡ºæ—¶éœ€è¦è¿›è¡Œåˆ†æ®µã€‚
 	 * @param cursor
 	 * @throws IOException
 	 */
@@ -1321,8 +1321,8 @@ public class ColPhyTable extends PhyTable {
 		if (segmentSerialLen == 0 || segmentSerialLen > serialBytesLen) {
 			segmentSerialLen = serialBytesLen;
 		}
-		Object []lastValues = new Object[cmpLen];//ÉÏÒ»ÌõÎ¬µÄÖµ
-		Object []curValues = new Object[cmpLen];//µ±Ç°ÌõÎ¬µÄÖµ
+		Object []lastValues = new Object[cmpLen];//ä¸Šä¸€æ¡ç»´çš„å€¼
+		Object []curValues = new Object[cmpLen];//å½“å‰æ¡ç»´çš„å€¼
 		
 		Sequence seq = new Sequence(MIN_BLOCK_RECORD_COUNT);
 		Sequence data = cursor.fetch(ICursor.FETCHCOUNT);
@@ -1338,7 +1338,7 @@ public class ColPhyTable extends PhyTable {
 					vals[f] = r.getNormalFieldValue(findex[f]);
 				}
 
-				//ÕâÀïÅĞ¶ÏÊÇ·ñ¹»Ò»¸öÁĞ¿éÁË
+				//è¿™é‡Œåˆ¤æ–­æ˜¯å¦å¤Ÿä¸€ä¸ªåˆ—å—äº†
 				if (recCount >= MIN_BLOCK_RECORD_COUNT){
 					System.arraycopy(vals, 0, curValues, 0, cmpLen);
 					if (0 != Variant.compareArrays(lastValues, curValues, cmpLen)) {
@@ -1348,16 +1348,16 @@ public class ColPhyTable extends PhyTable {
 					}
 				}
 				
-				//´¦ÀíÖ÷¼üºÍÅÅĞò
+				//å¤„ç†ä¸»é”®å’Œæ’åº
 				if (isSorted) {
 					if (tableMaxValues != null) {
 						int cmp = Variant.compareArrays(vals, tableMaxValues, sortedColCount);
 						if (cmp < 0) {
-							//hasPrimaryKey = false;//²»ÔÙ´¦ÀíÖ÷¼ü
+							//hasPrimaryKey = false;//ä¸å†å¤„ç†ä¸»é”®
 							isSorted = false;
 							maxValues = null;
 						} else if (cmp == 0){
-							//if (hasPrimaryKey) hasPrimaryKey = false;//²»ÔÙ´¦ÀíÖ÷¼ü
+							//if (hasPrimaryKey) hasPrimaryKey = false;//ä¸å†å¤„ç†ä¸»é”®
 						} else {
 							System.arraycopy(vals, 0, tableMaxValues, 0, sortedColCount);
 						}
@@ -1366,20 +1366,20 @@ public class ColPhyTable extends PhyTable {
 						System.arraycopy(vals, 0, tableMaxValues, 0, sortedColCount);
 					}
 					if (tableList.size() > 0 && !hasPrimaryKey) {
-						//´æÔÚ¸½±íÊ±£¬Ö÷±í×·¼ÓµÄÊı¾İ±ØĞëÓĞĞòÎ¨Ò»
+						//å­˜åœ¨é™„è¡¨æ—¶ï¼Œä¸»è¡¨è¿½åŠ çš„æ•°æ®å¿…é¡»æœ‰åºå”¯ä¸€
 						MessageManager mm = EngineMessage.get();
 						throw new RQException(mm.getMessage("dw.appendPrimaryTable"));
 					}
 				}
 				
-				seq.add(r);//°ÑÕâÌõÔİ´æ
+				seq.add(r);//æŠŠè¿™æ¡æš‚å­˜
 				System.arraycopy(vals, 0, lastValues, 0, cmpLen);
 				recCount++;
 			}
 			data = cursor.fetch(ICursor.FETCHCOUNT);
 		}
 		
-		//´¦Àí×îºóÒ»¸öÁĞ¿é
+		//å¤„ç†æœ€åä¸€ä¸ªåˆ—å—
 		if (seq.length() > 0) {
 			appendDataBlock(seq, 1, seq.length());
 		}
@@ -1387,7 +1387,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * °ÑÓÎ±êµÄÊı¾İĞ´³ö¡£Ğ´³öÊ±ĞèÒªÅĞ¶ÏÊı¾İÊÇ·ñ¶ÔÎ¬ÓĞĞò¡£
+	 * æŠŠæ¸¸æ ‡çš„æ•°æ®å†™å‡ºã€‚å†™å‡ºæ—¶éœ€è¦åˆ¤æ–­æ•°æ®æ˜¯å¦å¯¹ç»´æœ‰åºã€‚
 	 * @param cursor
 	 * @throws IOException
 	 */
@@ -1395,7 +1395,7 @@ public class ColPhyTable extends PhyTable {
 		int recCount = 0;
 		int sortedColCount = sortedColumns.length;
 		Object []tableMaxValues = this.maxValues;
-		Object []lastValues = new Object[sortedColCount];//ÉÏÒ»ÌõÎ¬µÄÖµ
+		Object []lastValues = new Object[sortedColCount];//ä¸Šä¸€æ¡ç»´çš„å€¼
 		
 		Sequence seq = new Sequence(MIN_BLOCK_RECORD_COUNT);
 		Sequence data = cursor.fetch(ICursor.FETCHCOUNT);
@@ -1411,9 +1411,9 @@ public class ColPhyTable extends PhyTable {
 					vals[f] = r.getNormalFieldValue(findex[f]);
 				}
 
-				//ÕâÀïÅĞ¶ÏÊÇ·ñ¹»Ò»¸öÁĞ¿éÁË
+				//è¿™é‡Œåˆ¤æ–­æ˜¯å¦å¤Ÿä¸€ä¸ªåˆ—å—äº†
 				if (recCount >= MAX_BLOCK_RECORD_COUNT) {
-					//ÕâÊ±Ìá½»Ò»°ë
+					//è¿™æ—¶æäº¤ä¸€åŠ
 					appendDataBlock(seq, 1, MAX_BLOCK_RECORD_COUNT/2);
 					seq = (Sequence) seq.get(MAX_BLOCK_RECORD_COUNT/2 + 1, seq.length() + 1);
 					recCount = seq.length(); 
@@ -1429,7 +1429,7 @@ public class ColPhyTable extends PhyTable {
 					}
 				}
 				
-				//´¦ÀíÖ÷¼üºÍÅÅĞò
+				//å¤„ç†ä¸»é”®å’Œæ’åº
 				if (isSorted) {
 					if (tableMaxValues != null) {
 						int cmp = Variant.compareArrays(vals, tableMaxValues, sortedColCount);
@@ -1445,7 +1445,7 @@ public class ColPhyTable extends PhyTable {
 							System.arraycopy(vals, 0, tableMaxValues, 0, sortedColCount);
 						}
 						if (tableList.size() > 0 && !hasPrimaryKey) {
-							//´æÔÚ¸½±íÊ±£¬Ö÷±í×·¼ÓµÄÊı¾İ±ØĞëÓĞĞòÎ¨Ò»
+							//å­˜åœ¨é™„è¡¨æ—¶ï¼Œä¸»è¡¨è¿½åŠ çš„æ•°æ®å¿…é¡»æœ‰åºå”¯ä¸€
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(mm.getMessage("dw.appendPrimaryTable"));
 						}
@@ -1455,14 +1455,14 @@ public class ColPhyTable extends PhyTable {
 					}
 				}
 				
-				seq.add(r);//°ÑÕâÌõÔİ´æ				
-				System.arraycopy(vals, 0, lastValues, 0, sortedColCount);//´æÉÏÒ»ÌõÎ¬Öµ				
+				seq.add(r);//æŠŠè¿™æ¡æš‚å­˜				
+				System.arraycopy(vals, 0, lastValues, 0, sortedColCount);//å­˜ä¸Šä¸€æ¡ç»´å€¼				
 				recCount++;
 			}
 			data = cursor.fetch(ICursor.FETCHCOUNT);
 		}
 		
-		//´¦Àí×îºóÒ»¸öÁĞ¿é
+		//å¤„ç†æœ€åä¸€ä¸ªåˆ—å—
 		if (seq.length() > 0) {
 			appendDataBlock(seq, 1, seq.length());
 		}
@@ -1470,18 +1470,18 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	private void mergeAppend(ICursor cursor, String opt) throws IOException {
-		// ²»Ö§³Ö´ø¸½±íµÄ×é±í¹é²¢×·¼Ó
+		// ä¸æ”¯æŒå¸¦é™„è¡¨çš„ç»„è¡¨å½’å¹¶è¿½åŠ 
 		if (!isSingleTable()) {
 			throw new RQException("'append@m' is unimplemented in annex table!");
 		}
 		
-		// ¼ì²éÊı¾İ½á¹¹ÊÇ·ñ¼æÈİ
+		// æ£€æŸ¥æ•°æ®ç»“æ„æ˜¯å¦å…¼å®¹
 		Sequence data = cursor.peek(ICursor.FETCHCOUNT);		
 		if (data == null || data.length() <= 0) {
 			return;
 		}
 		
-		//ÅĞ¶Ï½á¹¹Æ¥Åä
+		//åˆ¤æ–­ç»“æ„åŒ¹é…
 		DataStruct ds = data.dataStruct();
 		if (ds == null) {
 			MessageManager mm = EngineMessage.get();
@@ -1502,7 +1502,7 @@ public class ColPhyTable extends PhyTable {
 			}
 		}
 		
-		// ¹é²¢¶ÁµÄÊı¾İÏÈ±£´æµ½ÁÙÊ±ÎÄ¼ş
+		// å½’å¹¶è¯»çš„æ•°æ®å…ˆä¿å­˜åˆ°ä¸´æ—¶æ–‡ä»¶
 		ColComTable groupTable = (ColComTable)getGroupTable();
 		File srcFile = groupTable.getFile();
 		File tmpFile = File.createTempFile("tmpdata", "", srcFile.getParentFile());
@@ -1520,13 +1520,13 @@ public class ColPhyTable extends PhyTable {
 				mergeExps[i] = new Expression(sortedColumns[i].getColName());
 			}
 			
-			// ×ö¹é²¢
+			// åšå½’å¹¶
 			Cursor srcCursor = new Cursor(this);
 			ICursor []cursors = new ICursor[]{srcCursor, cursor};
 			MergesCursor mergeCursor = new MergesCursor(cursors, mergeExps, ctx);
 			String[] indexNames = baseTable.indexNames;
 			String[] cuboids = baseTable.cuboids;
-			baseTable.deleteIndex(null);//ÁÙÊ±ÎÄ¼ş²»ĞèÒªÔÚappendÊ±´¦ÀíindexºÍcuboid
+			baseTable.deleteIndex(null);//ä¸´æ—¶æ–‡ä»¶ä¸éœ€è¦åœ¨appendæ—¶å¤„ç†indexå’Œcuboid
 			baseTable.deleteCuboid(null);
 			baseTable.append(mergeCursor);
 			baseTable.appendCache();
@@ -1535,7 +1535,7 @@ public class ColPhyTable extends PhyTable {
 			tmpGroupTable.save();
 			baseTable.close();
 			
-			// ¹Ø±Õ²¢É¾³ı×é±íÎÄ¼ş£¬°ÑÁÙÊ±ÎÄ¼şÖØÃüÃûÎª×é±íÎÄ¼şÃû
+			// å…³é—­å¹¶åˆ é™¤ç»„è¡¨æ–‡ä»¶ï¼ŒæŠŠä¸´æ—¶æ–‡ä»¶é‡å‘½åä¸ºç»„è¡¨æ–‡ä»¶å
 			groupTable.raf.close();
 			if (groupTable.file.delete()) {
 				tmpFile.renameTo(groupTable.file);
@@ -1545,7 +1545,7 @@ public class ColPhyTable extends PhyTable {
 				throw new RQException(mm.getMessage("dw.needCloseTable"));
 			}
 			
-			// ÖØĞÂ´ò¿ª×é±í
+			// é‡æ–°æ‰“å¼€ç»„è¡¨
 			groupTable.reopen();
 			groupTable.baseTable.resetIndex(ctx);
 			groupTable.baseTable.resetCuboid(ctx);
@@ -1557,7 +1557,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ÒÔ¹é²¢·½Ê½×·¼Ó(Ôİ²»Ö§³ÖÓĞ¸½±íµÄÇé¿ö)
+	 * ä»¥å½’å¹¶æ–¹å¼è¿½åŠ (æš‚ä¸æ”¯æŒæœ‰é™„è¡¨çš„æƒ…å†µ)
 	 */
 	public void append(ICursor cursor, String opt) throws IOException {
 		if (opt != null && opt.indexOf('w') != -1) {
@@ -1602,18 +1602,18 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ×·¼ÓÓÎ±êµÄÊı¾İµ½×é±í
+	 * è¿½åŠ æ¸¸æ ‡çš„æ•°æ®åˆ°ç»„è¡¨
 	 * @param cursor
 	 */
 	public void append(ICursor cursor) throws IOException {
 		getGroupTable().checkWritable();
 		
-		// Èç¹ûÃ»ÓĞÎ¬×Ö¶ÎÔòÈ¡GroupTable.MIN_BLOCK_RECORD_COUNTÌõ¼ÇÂ¼
-		// ·ñÔò¼ÙÉèÓĞ3¸öÎ¬×Ö¶Îd1¡¢d2¡¢d3£¬¸ù¾İÎ¬×Ö¶ÎµÄÖµÈ¡³öÖÁÉÙMIN_BLOCK_RECORD_COUNTÌõ¼ÇÂ¼
-		// Èç¹û[d1,d2,d3]ÊÇÖ÷¼üÔò²»Òª°Ñ[d1,d2]ÖµÏàÍ¬µÄ¸ø²ğµ½Á½¸ö¿éÀï£¬·´Ö®²»Òª°Ñ[d1,d2,d3]ÖµÏàÍ¬µÄ²ğµ½Á½¸ö¿éÀï
-		// Èç¹ûÏàÍ¬µÄ³¬¹ıÁËMAX_BLOCK_RECORD_COUNT£¬ÔòÒÔMAX_BLOCK_RECORD_COUNT / 2ÌõÎªÒ»¿é
-		// °ÑÃ¿Ò»ÁĞµÄÊı¾İĞ´µ½BufferWriterÈ»ºóµ÷ÓÃfinishµÃµ½×Ö½ÚÊı×é£¬ÔÙµ÷ÓÃcompressÑ¹ËõÊı¾İ£¬×îºóĞ´½øColumnMetaData
-		// ÓĞÎ¬×Ö¶ÎÊ±Òª¸üĞÂmaxValues¡¢hasPrimaryKeyÁ½¸ö³ÉÔ±£¬Èç¹ûhasPrimaryKeyÎªfalseÔò²»ÔÙ¸üĞÂ
+		// å¦‚æœæ²¡æœ‰ç»´å­—æ®µåˆ™å–GroupTable.MIN_BLOCK_RECORD_COUNTæ¡è®°å½•
+		// å¦åˆ™å‡è®¾æœ‰3ä¸ªç»´å­—æ®µd1ã€d2ã€d3ï¼Œæ ¹æ®ç»´å­—æ®µçš„å€¼å–å‡ºè‡³å°‘MIN_BLOCK_RECORD_COUNTæ¡è®°å½•
+		// å¦‚æœ[d1,d2,d3]æ˜¯ä¸»é”®åˆ™ä¸è¦æŠŠ[d1,d2]å€¼ç›¸åŒçš„ç»™æ‹†åˆ°ä¸¤ä¸ªå—é‡Œï¼Œåä¹‹ä¸è¦æŠŠ[d1,d2,d3]å€¼ç›¸åŒçš„æ‹†åˆ°ä¸¤ä¸ªå—é‡Œ
+		// å¦‚æœç›¸åŒçš„è¶…è¿‡äº†MAX_BLOCK_RECORD_COUNTï¼Œåˆ™ä»¥MAX_BLOCK_RECORD_COUNT / 2æ¡ä¸ºä¸€å—
+		// æŠŠæ¯ä¸€åˆ—çš„æ•°æ®å†™åˆ°BufferWriterç„¶åè°ƒç”¨finishå¾—åˆ°å­—èŠ‚æ•°ç»„ï¼Œå†è°ƒç”¨compresså‹ç¼©æ•°æ®ï¼Œæœ€åå†™è¿›ColumnMetaData
+		// æœ‰ç»´å­—æ®µæ—¶è¦æ›´æ–°maxValuesã€hasPrimaryKeyä¸¤ä¸ªæˆå‘˜ï¼Œå¦‚æœhasPrimaryKeyä¸ºfalseåˆ™ä¸å†æ›´æ–°
 		if (cursor == null) {
 			return;
 		}
@@ -1623,7 +1623,7 @@ public class ColPhyTable extends PhyTable {
 			return;
 		}
 		
-		//ÅĞ¶Ï½á¹¹Æ¥Åä
+		//åˆ¤æ–­ç»“æ„åŒ¹é…
 		DataStruct ds = data.dataStruct();
 		if (ds == null) {
 			MessageManager mm = EngineMessage.get();
@@ -1644,7 +1644,7 @@ public class ColPhyTable extends PhyTable {
 			}
 		}
 		
-		//Èç¹ûÓÎ±êÊı¾İ²»×ã1¿é
+		//å¦‚æœæ¸¸æ ‡æ•°æ®ä¸è¶³1å—
 		if (data.length() < MIN_BLOCK_RECORD_COUNT) {
 			if (appendCache == null) {
 				appendCache = data;
@@ -1659,7 +1659,7 @@ public class ColPhyTable extends PhyTable {
 			return;
 		}
 		
-		//Èç¹ûÓĞ»º´æÊı¾İ
+		//å¦‚æœæœ‰ç¼“å­˜æ•°æ®
 		if (appendCache != null) {
 			ICursor []cursorArray = new ICursor[2];
 			cursorArray[0] = new MemoryCursor(appendCache);
@@ -1668,7 +1668,7 @@ public class ColPhyTable extends PhyTable {
 			appendCache = null;
 		}
 		
-		// ×¼±¸Ğ´Êı¾İ
+		// å‡†å¤‡å†™æ•°æ®
 		prepareAppend();
 		
 		if (parent != null) {
@@ -1682,18 +1682,18 @@ public class ColPhyTable extends PhyTable {
 			appendSegment(cursor);
 		}
 		
-		// ½áÊøĞ´Êı¾İ£¬±£´æµ½ÎÄ¼ş
+		// ç»“æŸå†™æ•°æ®ï¼Œä¿å­˜åˆ°æ–‡ä»¶
 		finishAppend();
 	}
 	
 	protected void appendSegmentBlock(int recordCount) throws IOException {
-		dataBlockCount++;//Êı¾İ¿é
-		totalRecordCount += recordCount;//×Ü¼ÇÂ¼Êı
+		dataBlockCount++;//æ•°æ®å—
+		totalRecordCount += recordCount;//æ€»è®°å½•æ•°
 		segmentWriter.writeInt32(recordCount);//
 	}
 	
 	/**
-	 * È¡×Ö¶Î¹ıÂËÓÅÏÈ¼¶
+	 * å–å­—æ®µè¿‡æ»¤ä¼˜å…ˆçº§
 	 * @param col
 	 * @return
 	 */
@@ -1713,7 +1713,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ·µ»ØÕâ¸ö»ù±íµÄÓÎ±ê
+	 * è¿”å›è¿™ä¸ªåŸºè¡¨çš„æ¸¸æ ‡
 	 */
 	public ICursor cursor() {
 		ComTable groupTable = getGroupTable();
@@ -1736,15 +1736,15 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ·µ»ØÕâ¸ö»ù±íµÄÓÎ±ê
-	 * @param exps È¡³ö×Ö¶Î±í´ïÊ½£¨µ±expsÎªnullÊ±°´ÕÕfieldsÈ¡³ö£©
-	 * @param fields È¡³ö×Ö¶ÎµÄĞÂÃû³Æ
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param opts ¹ØÁª×Ö¶Î½øĞĞ¹ØÁªµÄÑ¡Ïî
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ÉÏÏÂÎÄ
+	 * è¿”å›è¿™ä¸ªåŸºè¡¨çš„æ¸¸æ ‡
+	 * @param exps å–å‡ºå­—æ®µè¡¨è¾¾å¼ï¼ˆå½“expsä¸ºnullæ—¶æŒ‰ç…§fieldså–å‡ºï¼‰
+	 * @param fields å–å‡ºå­—æ®µçš„æ–°åç§°
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param opts å…³è”å­—æ®µè¿›è¡Œå…³è”çš„é€‰é¡¹
+	 * @param opt é€‰é¡¹
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
 			String []fkNames, Sequence []codes, String []opts, String opt, Context ctx) {
@@ -1793,9 +1793,9 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * °Ñ±í´ïÊ½°´ÁĞ½øĞĞ²ğ·Ö
-	 * @param exp ±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æŠŠè¡¨è¾¾å¼æŒ‰åˆ—è¿›è¡Œæ‹†åˆ†
+	 * @param exp è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public IFilter[] getSortedFieldFilters(Expression exp, Context ctx) {
@@ -1842,15 +1842,15 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ·µ»ØÕâ¸ö»ù±íµÄ¶àÂ·ÓÎ±ê
-	 * @param exps È¡³ö×Ö¶Î±í´ïÊ½£¬£¨µ±expsÎªnullÊ±°´ÕÕfieldsÈ¡³ö£©
-	 * @param fields È¡³ö×Ö¶ÎµÄĞÂÃû³Æ
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param pathCount Â·Êı
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ÉÏÏÂÎÄ
+	 * è¿”å›è¿™ä¸ªåŸºè¡¨çš„å¤šè·¯æ¸¸æ ‡
+	 * @param exps å–å‡ºå­—æ®µè¡¨è¾¾å¼ï¼Œï¼ˆå½“expsä¸ºnullæ—¶æŒ‰ç…§fieldså–å‡ºï¼‰
+	 * @param fields å–å‡ºå­—æ®µçš„æ–°åç§°
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param pathCount è·¯æ•°
+	 * @param opt é€‰é¡¹
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, String []fkNames, 
 			Sequence []codes, String []opts, int pathCount, String opt, Context ctx) {
@@ -1868,14 +1868,14 @@ public class ColPhyTable extends PhyTable {
 			}
 		}
 		
-		// Èç¹ûÊÇÖ÷±í²¢ÇÒÓĞÎ¬×Ö¶Î£¬ÔòÕÒ³ö¹ıÂË±í´ïÊ½ÖĞ¹ØÓÚµÚÒ»¸öÎ¬µÄÌõ¼ş
-		// ÓÃµÚÒ»¸öÎ¬µÄÌõ¼ş¹ıÂË³öÂú×ãÌõ¼şµÄ¿éÔÙ²ğ·Ö³É¶àÂ·ÓÎ±ê
+		// å¦‚æœæ˜¯ä¸»è¡¨å¹¶ä¸”æœ‰ç»´å­—æ®µï¼Œåˆ™æ‰¾å‡ºè¿‡æ»¤è¡¨è¾¾å¼ä¸­å…³äºç¬¬ä¸€ä¸ªç»´çš„æ¡ä»¶
+		// ç”¨ç¬¬ä¸€ä¸ªç»´çš„æ¡ä»¶è¿‡æ»¤å‡ºæ»¡è¶³æ¡ä»¶çš„å—å†æ‹†åˆ†æˆå¤šè·¯æ¸¸æ ‡
 		//IFilter dimFilter = null;
 		//if (filter != null && parent == null && getSortedColumns() != null) {
 		//	dimFilter = getFirstDimFilter(filter, ctx);
 		//}
 		
-		// ÏÈ°´¹ıÂË×Ö¶ÎÕÒ³öÂú×ãÌõ¼şµÄÊı¾İ¿é£¬ÔÙ½øĞĞ·Ö¶Î
+		// å…ˆæŒ‰è¿‡æ»¤å­—æ®µæ‰¾å‡ºæ»¡è¶³æ¡ä»¶çš„æ•°æ®å—ï¼Œå†è¿›è¡Œåˆ†æ®µ
 		IFilter []filters = null;
 		if (filter != null && parent == null && (opt == null || opt.indexOf('w') == -1)) {
 			filters = getSortedFieldFilters(filter, ctx);
@@ -1889,7 +1889,7 @@ public class ColPhyTable extends PhyTable {
 				pathCount = blockCount;
 			}
 			
-			// Ç°ÃæµÄ¿éÃ¿¶Î¶àÒ»¿é
+			// å‰é¢çš„å—æ¯æ®µå¤šä¸€å—
 			int mod = blockCount % pathCount;
 			cursors = new ICursor[pathCount];
 			int start = 0;
@@ -1900,7 +1900,7 @@ public class ColPhyTable extends PhyTable {
 				}
 				
 				if (filter != null) {
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 				}
 				
@@ -1957,10 +1957,10 @@ public class ColPhyTable extends PhyTable {
 			
 			int avg = blockCount / pathCount;
 			if (avg < 1) {
-				// Ã¿¶Î²»×ãÒ»¿é
+				// æ¯æ®µä¸è¶³ä¸€å—
 				cursors = new ICursor[blockCount];
 				for (int i = 0; i < blockCount; ++i) {
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 					Cursor cursor = new Cursor(this, exps, fields, filter, fkNames, codes, opts, ctx);
 					int b = list.getInt(i);
@@ -1968,7 +1968,7 @@ public class ColPhyTable extends PhyTable {
 					cursors[i] = cursor;
 				}
 			} else {
-				// Ç°ÃæµÄ¿éÃ¿¶Î¶àÒ»¿é
+				// å‰é¢çš„å—æ¯æ®µå¤šä¸€å—
 				int mod = blockCount % pathCount;
 				cursors = new ICursor[pathCount];
 				int start = 0;
@@ -1978,7 +1978,7 @@ public class ColPhyTable extends PhyTable {
 						end++;
 					}
 					
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 					Cursor cursor = new Cursor(this, exps, fields, filter, fkNames, codes, opts, ctx);
 					cursor.setSegment(list.getInt(start), list.getInt(end - 1) + 1);
@@ -2004,23 +2004,23 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ·µ»Ø·Ö¶ÎÓÎ±ê£¬°Ñ»ù±í·ÖÎªsegCount¶Î£¬·µ»ØµÚsegSeq¶ÎµÄÊı¾İ
-	 * @param exps È¡³ö×Ö¶Î±í´ïÊ½£¬£¨µ±expsÎªnullÊ±°´ÕÕfieldsÈ¡³ö£©
-	 * @param fields È¡³ö×Ö¶ÎµÄĞÂÃû³Æ
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param segSeq µÚ¼¸¶Î
-	 * @param segCount  ·Ö¶ÎÊı
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ÉÏÏÂÎÄ
+	 * è¿”å›åˆ†æ®µæ¸¸æ ‡ï¼ŒæŠŠåŸºè¡¨åˆ†ä¸ºsegCountæ®µï¼Œè¿”å›ç¬¬segSeqæ®µçš„æ•°æ®
+	 * @param exps å–å‡ºå­—æ®µè¡¨è¾¾å¼ï¼Œï¼ˆå½“expsä¸ºnullæ—¶æŒ‰ç…§fieldså–å‡ºï¼‰
+	 * @param fields å–å‡ºå­—æ®µçš„æ–°åç§°
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param segSeq ç¬¬å‡ æ®µ
+	 * @param segCount  åˆ†æ®µæ•°
+	 * @param opt é€‰é¡¹
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, String []fkNames, 
 			Sequence []codes, String []opts, int segSeq, int segCount, String opt, Context ctx) {
 		getGroupTable().checkReadable();
 		
 		if (filter != null) {
-			// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+			// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 			filter = filter.newExpression(ctx);
 		}
 		
@@ -2038,7 +2038,7 @@ public class ColPhyTable extends PhyTable {
 		int avg = dataBlockCount / segCount;
 		
 		if (avg < 1) {
-			// Ã¿¶Î²»×ãÒ»¿é
+			// æ¯æ®µä¸è¶³ä¸€å—
 			if (segSeq <= dataBlockCount) {
 				startBlock = segSeq - 1;
 				endBlock = segSeq;
@@ -2048,7 +2048,7 @@ public class ColPhyTable extends PhyTable {
 				endBlock = segSeq * avg;
 				startBlock = endBlock - avg;
 				
-				// Ê£ÓàµÄ¿éºóÃæµÄÃ¿¶Î¶àÒ»¿é
+				// å‰©ä½™çš„å—åé¢çš„æ¯æ®µå¤šä¸€å—
 				int mod = dataBlockCount % segCount;
 				int n = mod - (segCount - segSeq);
 				if (n > 0) {
@@ -2065,7 +2065,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	public static Sequence fetchToValue(IDWCursor cursor, String []names, Object []vals) {
-		// Ö»È¡µÚÒ»¿éµÄ¼ÇÂ¼£¬Èç¹ûµÚÒ»¿éÃ»ÓĞÂú×ãÌõ¼şµÄ¾Í·µ»Ø
+		// åªå–ç¬¬ä¸€å—çš„è®°å½•ï¼Œå¦‚æœç¬¬ä¸€å—æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å°±è¿”å›
 		Sequence seq = cursor.getStartBlockData(ICursor.FETCHCOUNT);
 		if (seq == null || seq.length() == 0) {
 			return null;
@@ -2122,15 +2122,15 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ¸ù¾İ¶àÂ·ÓÎ±êmcs£¬·µ»ØÒ»¸öÍ¬²½·Ö¶ÎµÄ¶àÂ·ÓÎ±ê
-	 * @param exps È¡³ö×Ö¶Î±í´ïÊ½£¬£¨µ±expsÎªnullÊ±°´ÕÕfieldsÈ¡³ö£©
-	 * @param fields È¡³ö×Ö¶ÎµÄĞÂÃû³Æ
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param mcs ¶àÂ·ÓÎ±ê
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ÉÏÏÂÎÄ
+	 * æ ¹æ®å¤šè·¯æ¸¸æ ‡mcsï¼Œè¿”å›ä¸€ä¸ªåŒæ­¥åˆ†æ®µçš„å¤šè·¯æ¸¸æ ‡
+	 * @param exps å–å‡ºå­—æ®µè¡¨è¾¾å¼ï¼Œï¼ˆå½“expsä¸ºnullæ—¶æŒ‰ç…§fieldså–å‡ºï¼‰
+	 * @param fields å–å‡ºå­—æ®µçš„æ–°åç§°
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param mcs å¤šè·¯æ¸¸æ ‡
+	 * @param opt é€‰é¡¹
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, String []fkNames, 
 			Sequence []codes,  String []opts, MultipathCursors mcs, String opt, Context ctx) {
@@ -2167,7 +2167,7 @@ public class ColPhyTable extends PhyTable {
 		String []dimFields;
 		ColumnMetaData[] sortedCols;
 		if (opt != null && opt.indexOf('k') != -1) {
-			// ÓĞkÑ¡ÏîÊ±ÒÔÊ×¼ü×öÎªÍ¬²½·Ö¶Î×Ö¶Î
+			// æœ‰ké€‰é¡¹æ—¶ä»¥é¦–é”®åšä¸ºåŒæ­¥åˆ†æ®µå­—æ®µ
 			String []keys = getAllKeyColNames();
 			if (keys == null) {
 				MessageManager mm = EngineMessage.get();
@@ -2193,9 +2193,9 @@ public class ColPhyTable extends PhyTable {
 		int blockCount = getDataBlockCount();
 		ICursor []cursors = new ICursor[segCount];
 		int startBlock = 0;
-		int currentBlock = 0; // µ±Ç°¶ÁµÄ×îĞ¡ÖµµÄ¿é
+		int currentBlock = 0; // å½“å‰è¯»çš„æœ€å°å€¼çš„å—
 		
-		// ĞèÒªÆşÍ·µÄÓÎ±êµÄ¶ÔÓ¦µÄÇ°ÃæµÄÓÎ±êµÄĞòºÅ
+		// éœ€è¦æå¤´çš„æ¸¸æ ‡çš„å¯¹åº”çš„å‰é¢çš„æ¸¸æ ‡çš„åºå·
 		int []appendSegs = new int[segCount];
 		for (int s = 0; s < segCount; ++s) {
 			appendSegs[s] = -1;
@@ -2210,15 +2210,15 @@ public class ColPhyTable extends PhyTable {
 			for (int f = 0; f < fcount; ++f) {
 				readers[f] = sortedCols[f].getSegmentReader();
 				readers[f].readLong40();
-				readers[f].skipObject(); // ×îĞ¡Öµ
-				blockMaxVals[f] = readers[f].readObject(); // ×î´óÖµ
-				blockMinVals[f] = readers[f].readObject(); // µÚÒ»Ìõ¼ÇÂ¼µÄÖµ
+				readers[f].skipObject(); // æœ€å°å€¼
+				blockMaxVals[f] = readers[f].readObject(); // æœ€å¤§å€¼
+				blockMinVals[f] = readers[f].readObject(); // ç¬¬ä¸€æ¡è®°å½•çš„å€¼
 			}
 			
 			Next:
 			for (int s = 0; s < segCount; ++s) {
 				if (filter != null) {
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 				}
 				
@@ -2257,7 +2257,7 @@ public class ColPhyTable extends PhyTable {
 					} else if (cmp == 0) {
 						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 						
-						// Ç°Ò»¿éÖĞ¿ÉÄÜÓĞÓëÏÂÒ»Â·ÓÎ±êÆğÊ¼ÖµÏàµÈµÄ
+						// å‰ä¸€å—ä¸­å¯èƒ½æœ‰ä¸ä¸‹ä¸€è·¯æ¸¸æ ‡èµ·å§‹å€¼ç›¸ç­‰çš„
 						if (currentBlock > 0 && Variant.compareArrays(prevMaxVals, nextMinValue) >= 0) {
 							((IDWCursor)cursors[s]).setSegment(startBlock, currentBlock - 1);
 							startBlock = currentBlock - 1;
@@ -2277,9 +2277,9 @@ public class ColPhyTable extends PhyTable {
 							
 							for (int f = 0; f < fcount; ++f) {
 								readers[f].readLong40();
-								readers[f].skipObject(); // ×îĞ¡Öµ
-								blockMaxVals[f] = readers[f].readObject(); // ×î´óÖµ
-								blockMinVals[f] = readers[f].readObject(); // µÚÒ»Ìõ¼ÇÂ¼µÄÖµ
+								readers[f].skipObject(); // æœ€å°å€¼
+								blockMaxVals[f] = readers[f].readObject(); // æœ€å¤§å€¼
+								blockMinVals[f] = readers[f].readObject(); // ç¬¬ä¸€æ¡è®°å½•çš„å€¼
 							}
 						}
 					}
@@ -2290,7 +2290,7 @@ public class ColPhyTable extends PhyTable {
 					((IDWCursor)cursors[s]).setSegment(startBlock, blockCount);
 					startBlock = blockCount;
 				} else {
-					// µ±Ç°±íÒÑµ½×îºóÒ»¶Î£¬¶ÔÕÕ±íµÄ¶àÂ·ÓÎ±ê»¹Ã»µ½×îºóÒ»Â·
+					// å½“å‰è¡¨å·²åˆ°æœ€åä¸€æ®µï¼Œå¯¹ç…§è¡¨çš„å¤šè·¯æ¸¸æ ‡è¿˜æ²¡åˆ°æœ€åä¸€è·¯
 					((IDWCursor)cursors[s]).setSegment(startBlock, blockCount - 1);
 					startBlock = blockCount - 1;
 					appendSegs[nextSeg] = s;
@@ -2323,7 +2323,7 @@ public class ColPhyTable extends PhyTable {
 		}
 	}
 
-	// ÓĞ²¹ÎÄ¼şÊ±µÄÊı¾İ¸üĞÂ
+	// æœ‰è¡¥æ–‡ä»¶æ—¶çš„æ•°æ®æ›´æ–°
 	private Sequence update(PhyTable stmd, Sequence data, String opt) throws IOException {
 		boolean isUpdate = true, isInsert = true, isSave = true;
 		Sequence result = null;
@@ -2353,7 +2353,7 @@ public class ColPhyTable extends PhyTable {
 			throw new RQException(mm.getMessage("engine.dsNotMatch"));
 		}
 		
-		// ¶Ô¸üĞÂÊı¾İ½øĞĞÅÅĞò
+		// å¯¹æ›´æ–°æ•°æ®è¿›è¡Œæ’åº
 		data.sortFields(getAllSortedColNames());
 		appendCache();
 		
@@ -2371,7 +2371,7 @@ public class ColPhyTable extends PhyTable {
 		boolean isPrimaryTable = parent == null;
 		int len = data.length();
 		long []seqs = new long[len + 1];
-		int []block = new int[len + 1];//ÊÇ·ñÔÚÒ»¸ö¶ÎµÄµ×²¿insert(×Ó±í)
+		int []block = new int[len + 1];//æ˜¯å¦åœ¨ä¸€ä¸ªæ®µçš„åº•éƒ¨insert(å­è¡¨)
 		long []recNum = null;
 		int []temp = new int[1];
 		
@@ -2395,7 +2395,7 @@ public class ColPhyTable extends PhyTable {
 				}
 			}
 		} else {
-			recNum  = new long[len + 1];//×Ó±í¶ÔÓ¦µ½Ö÷±íµÄÎ±ºÅ£¬0±íÊ¾ÔÚÖ÷±í²¹Çø
+			recNum  = new long[len + 1];//å­è¡¨å¯¹åº”åˆ°ä¸»è¡¨çš„ä¼ªå·ï¼Œ0è¡¨ç¤ºåœ¨ä¸»è¡¨è¡¥åŒº
 			ColPhyTable baseTable = (ColPhyTable) this.groupTable.baseTable;
 			RecordSeqSearcher baseSearcher = new RecordSeqSearcher(baseTable);
 			RecordSeqSearcher2 searcher = new RecordSeqSearcher2(this);
@@ -2406,17 +2406,17 @@ public class ColPhyTable extends PhyTable {
 					seqs[i] = searcher.findNext(r.getFieldValue(k), temp);
 					block[i] = temp[0];
 					if (seqs[i] < 0) {
-						//Èç¹ûÊÇ²åÈë£¬ÒªÅĞ¶ÏÒ»ÏÂÊÇ·ñÔÚÖ÷±íµÄÁĞÇø
+						//å¦‚æœæ˜¯æ’å…¥ï¼Œè¦åˆ¤æ–­ä¸€ä¸‹æ˜¯å¦åœ¨ä¸»è¡¨çš„åˆ—åŒº
 						long seq = baseSearcher.findNext(r.getFieldValue(k));
 						if (seq > 0) {
 							recNum[i] = seq;
 						} else {
 							if (baseSearcher.isEnd()) {
-								//×Ó±í²åÈëµÄÊı¾İ±ØĞëÔÚÖ÷±í
+								//å­è¡¨æ’å…¥çš„æ•°æ®å¿…é¡»åœ¨ä¸»è¡¨
 								MessageManager mm = EngineMessage.get();
 								throw new RQException(r.toString(null) + mm.getMessage("grouptable.invalidData"));	
 							}
-							recNum[i] = 0;//Èç¹ûÔÚÖ÷±í²¹Çø£¬ÏÂÃæ»á´¦Àí
+							recNum[i] = 0;//å¦‚æœåœ¨ä¸»è¡¨è¡¥åŒºï¼Œä¸‹é¢ä¼šå¤„ç†
 						}
 					} else {
 						recNum[i] = searcher.getRecNum();
@@ -2439,17 +2439,17 @@ public class ColPhyTable extends PhyTable {
 					seqs[i] = searcher.findNext(keyValues, temp);
 					block[i] = temp[0];
 					if (seqs[i] < 0 || block[i] > 0) {
-						//Èç¹ûÊÇ²åÈë£¬ÒªÅĞ¶ÏÒ»ÏÂÊÇ·ñÔÚÖ÷±íµÄÁĞÇø
+						//å¦‚æœæ˜¯æ’å…¥ï¼Œè¦åˆ¤æ–­ä¸€ä¸‹æ˜¯å¦åœ¨ä¸»è¡¨çš„åˆ—åŒº
 						long seq = baseSearcher.findNext(baseKeyValues);
 						if (seq > 0) {
 							recNum[i] = seq;
 						} else {
 							if (baseSearcher.isEnd()) {
-								//×Ó±í²åÈëµÄÊı¾İ±ØĞëÔÚÖ÷±í
+								//å­è¡¨æ’å…¥çš„æ•°æ®å¿…é¡»åœ¨ä¸»è¡¨
 								MessageManager mm = EngineMessage.get();
 								throw new RQException(r.toString(null) + mm.getMessage("grouptable.invalidData"));	
 							}
-							recNum[i] = 0;//Èç¹ûÔÚÖ÷±í²¹Çø£¬ÏÂÃæ»á´¦Àí
+							recNum[i] = 0;//å¦‚æœåœ¨ä¸»è¡¨è¡¥åŒºï¼Œä¸‹é¢ä¼šå¤„ç†
 						}
 					} else {
 						recNum[i] = searcher.getRecNum();
@@ -2458,7 +2458,7 @@ public class ColPhyTable extends PhyTable {
 			}
 		}
 		
-		// ĞèÒªÔÚ×îºó²åÈëµÄµ÷ÓÃappend×·¼Ó
+		// éœ€è¦åœ¨æœ€åæ’å…¥çš„è°ƒç”¨appendè¿½åŠ 
 		Sequence append = new Sequence();
 		ArrayList<ModifyRecord> modifyRecords = getModifyRecords();
 		boolean needUpdateSubTable = false;
@@ -2501,7 +2501,7 @@ public class ColPhyTable extends PhyTable {
 						} else {
 							if ((mr.getState() == ModifyRecord.STATE_UPDATE && isUpdate) || 
 									(mr.getState() == ModifyRecord.STATE_DELETE && isInsert)) {
-								// ×´Ì¬¶¼ÓÃupdate
+								// çŠ¶æ€éƒ½ç”¨update
 								BaseRecord sr = (BaseRecord)data.getMem(t);
 								mr.setRecord(sr.toRecord(), ModifyRecord.STATE_UPDATE);
 								if (result != null) {
@@ -2590,7 +2590,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (!isPrimaryTable) {
-			//×Ó±í²¹Çø×îºóÒª¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+			//å­è¡¨è¡¥åŒºæœ€åè¦æ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 			update(parent.getModifyRecords());
 			
 			for (ModifyRecord r : modifyRecords) {
@@ -2598,7 +2598,7 @@ public class ColPhyTable extends PhyTable {
 					if (r.getParentRecordSeq() == 0) {
 						this.modifyRecords = null;
 						this.modifyRecords = getModifyRecords();
-						//×Ó±í²åÈëµÄÊı¾İ±ØĞëÔÚÖ÷±í
+						//å­è¡¨æ’å…¥çš„æ•°æ®å¿…é¡»åœ¨ä¸»è¡¨
 						MessageManager mm = EngineMessage.get();
 						throw new RQException(r.getRecord().toString(null) + mm.getMessage("grouptable.invalidData"));
 					}
@@ -2612,7 +2612,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (isPrimaryTable && needUpdateSubTable) {
-			//Ö÷±íÓĞinsert£¬¾Í±ØĞë¸üĞÂËùÓĞ×Ó±í²¹Çø
+			//ä¸»è¡¨æœ‰insertï¼Œå°±å¿…é¡»æ›´æ–°æ‰€æœ‰å­è¡¨è¡¥åŒº
 			ArrayList<PhyTable> tableList = getTableList();
 			for (int i = 0, size = tableList.size(); i < size; ++i) {
 				ColPhyTable t = ((ColPhyTable)tableList.get(i));
@@ -2638,7 +2638,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ¸üĞÂ»ù±í
+	 * æ›´æ–°åŸºè¡¨
 	 */
 	public Sequence update(Sequence data, String opt) throws IOException {
 		if (data != null) {
@@ -2646,7 +2646,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (!hasPrimaryKey) {
-			//Ã»ÓĞÎ¬Ê±½øĞĞappend
+			//æ²¡æœ‰ç»´æ—¶è¿›è¡Œappend
 			boolean hasY = opt != null && opt.indexOf('y') != -1;
 			if (hasY) {
 				append_y(data);
@@ -2708,7 +2708,7 @@ public class ColPhyTable extends PhyTable {
 			throw new RQException(mm.getMessage("engine.dsNotMatch"));
 		}
 		
-		// ¶Ô¸üĞÂÊı¾İ½øĞĞÅÅĞò
+		// å¯¹æ›´æ–°æ•°æ®è¿›è¡Œæ’åº
 		data.sortFields(getAllSortedColNames());
 		appendCache();
 		
@@ -2726,7 +2726,7 @@ public class ColPhyTable extends PhyTable {
 		boolean isPrimaryTable = parent == null;
 		int len = data.length();
 		long []seqs = new long[len + 1];
-		int []block = new int[len + 1];//ÊÇ·ñÔÚÒ»¸ö¶ÎµÄµ×²¿insert(×Ó±í)
+		int []block = new int[len + 1];//æ˜¯å¦åœ¨ä¸€ä¸ªæ®µçš„åº•éƒ¨insert(å­è¡¨)
 		long []recNum = null;
 		int []temp = new int[1];
 		
@@ -2751,7 +2751,7 @@ public class ColPhyTable extends PhyTable {
 				}
 			}
 		} else {
-			recNum  = new long[len + 1];//×Ó±í¶ÔÓ¦µ½Ö÷±íµÄÎ±ºÅ£¬0±íÊ¾ÔÚÖ÷±í²¹Çø
+			recNum  = new long[len + 1];//å­è¡¨å¯¹åº”åˆ°ä¸»è¡¨çš„ä¼ªå·ï¼Œ0è¡¨ç¤ºåœ¨ä¸»è¡¨è¡¥åŒº
 			ColPhyTable baseTable = (ColPhyTable) this.groupTable.baseTable;
 			RecordSeqSearcher baseSearcher = new RecordSeqSearcher(baseTable);
 			RecordSeqSearcher2 searcher = new RecordSeqSearcher2(this);
@@ -2762,17 +2762,17 @@ public class ColPhyTable extends PhyTable {
 					seqs[i] = searcher.findNext(r.getFieldValue(k), temp);
 					block[i] = temp[0];
 					if (seqs[i] < 0) {
-						//Èç¹ûÊÇ²åÈë£¬ÒªÅĞ¶ÏÒ»ÏÂÊÇ·ñÔÚÖ÷±íµÄÁĞÇø
+						//å¦‚æœæ˜¯æ’å…¥ï¼Œè¦åˆ¤æ–­ä¸€ä¸‹æ˜¯å¦åœ¨ä¸»è¡¨çš„åˆ—åŒº
 						long seq = baseSearcher.findNext(r.getFieldValue(k));
 						if (seq > 0) {
 							recNum[i] = seq;
 						} else {
 							if (baseSearcher.isEnd()) {
-								//×Ó±í²åÈëµÄÊı¾İ±ØĞëÔÚÖ÷±í
+								//å­è¡¨æ’å…¥çš„æ•°æ®å¿…é¡»åœ¨ä¸»è¡¨
 								MessageManager mm = EngineMessage.get();
 								throw new RQException(r.toString(null) + mm.getMessage("grouptable.invalidData"));	
 							}
-							recNum[i] = 0;//Èç¹ûÔÚÖ÷±í²¹Çø£¬ÏÂÃæ»á´¦Àí
+							recNum[i] = 0;//å¦‚æœåœ¨ä¸»è¡¨è¡¥åŒºï¼Œä¸‹é¢ä¼šå¤„ç†
 						}
 					} else {
 						recNum[i] = searcher.getRecNum();
@@ -2795,17 +2795,17 @@ public class ColPhyTable extends PhyTable {
 					seqs[i] = searcher.findNext(keyValues, temp);
 					block[i] = temp[0];
 					if (seqs[i] < 0 || block[i] > 0) {
-						//Èç¹ûÊÇ²åÈë£¬ÒªÅĞ¶ÏÒ»ÏÂÊÇ·ñÔÚÖ÷±íµÄÁĞÇø
+						//å¦‚æœæ˜¯æ’å…¥ï¼Œè¦åˆ¤æ–­ä¸€ä¸‹æ˜¯å¦åœ¨ä¸»è¡¨çš„åˆ—åŒº
 						long seq = baseSearcher.findNext(baseKeyValues);
 						if (seq > 0) {
 							recNum[i] = seq;
 						} else {
 							if (baseSearcher.isEnd()) {
-								//×Ó±í²åÈëµÄÊı¾İ±ØĞëÔÚÖ÷±í
+								//å­è¡¨æ’å…¥çš„æ•°æ®å¿…é¡»åœ¨ä¸»è¡¨
 								MessageManager mm = EngineMessage.get();
 								throw new RQException(r.toString(null) + mm.getMessage("grouptable.invalidData"));	
 							}
-							recNum[i] = 0;//Èç¹ûÔÚÖ÷±í²¹Çø£¬ÏÂÃæ»á´¦Àí
+							recNum[i] = 0;//å¦‚æœåœ¨ä¸»è¡¨è¡¥åŒºï¼Œä¸‹é¢ä¼šå¤„ç†
 						}
 					} else {
 						recNum[i] = searcher.getRecNum();
@@ -2814,7 +2814,7 @@ public class ColPhyTable extends PhyTable {
 			}
 		}
 		
-		// ĞèÒªÔÚ×îºó²åÈëµÄµ÷ÓÃappend×·¼Ó
+		// éœ€è¦åœ¨æœ€åæ’å…¥çš„è°ƒç”¨appendè¿½åŠ 
 		Sequence append = new Sequence();
 		ArrayList<ModifyRecord> modifyRecords = getModifyRecords();
 		boolean needUpdateSubTable = false;
@@ -2837,8 +2837,8 @@ public class ColPhyTable extends PhyTable {
 					if (seq <= totalRecordCount || block[i] > 0) {
 						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[i]);
-						//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-						//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+						//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+						//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 						if (!isPrimaryTable) {
 							r.setParentRecordSeq(recNum[i]);
 						}
@@ -2873,7 +2873,7 @@ public class ColPhyTable extends PhyTable {
 						} else {
 							if ((mr.getState() == ModifyRecord.STATE_UPDATE && isUpdate) || 
 									(mr.getState() == ModifyRecord.STATE_DELETE && isInsert)) {
-								// ×´Ì¬¶¼ÓÃupdate
+								// çŠ¶æ€éƒ½ç”¨update
 								BaseRecord sr = (BaseRecord)data.getMem(t);
 								mr.setRecord(sr.toRecord(), ModifyRecord.STATE_UPDATE);
 								if (result != null) {
@@ -2926,8 +2926,8 @@ public class ColPhyTable extends PhyTable {
 									BaseRecord sr = (BaseRecord)data.getMem(t);
 									mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 									mr.setBlock(block[t]);
-									//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-									//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+									//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+									//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 									if (!isPrimaryTable) {
 										mr.setParentRecordSeq(recNum[t]);
 									}
@@ -2945,8 +2945,8 @@ public class ColPhyTable extends PhyTable {
 								BaseRecord sr = (BaseRecord)data.getMem(t);
 								mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 								mr.setBlock(block[t]);
-								//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-								//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+								//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+								//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 								if (!isPrimaryTable) {
 									mr.setParentRecordSeq(recNum[t]);
 								}
@@ -2964,8 +2964,8 @@ public class ColPhyTable extends PhyTable {
 							BaseRecord sr = (BaseRecord)data.getMem(t);
 							mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 							mr.setBlock(block[t]);
-							//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-							//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+							//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+							//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 							if (!isPrimaryTable) {
 								mr.setParentRecordSeq(recNum[t]);
 							}
@@ -3000,8 +3000,8 @@ public class ColPhyTable extends PhyTable {
 					if (seq <= totalRecordCount) {
 						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[t]);
-						//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-						//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+						//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+						//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 						if (!isPrimaryTable) {
 							r.setParentRecordSeq(recNum[t]);
 						}
@@ -3024,7 +3024,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (!isPrimaryTable) {
-			//×Ó±í²¹Çø×îºóÒª¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+			//å­è¡¨è¡¥åŒºæœ€åè¦æ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 			update(parent.getModifyRecords());
 			
 			for (ModifyRecord r : modifyRecords) {
@@ -3032,7 +3032,7 @@ public class ColPhyTable extends PhyTable {
 					if (r.getParentRecordSeq() == 0) {
 						this.modifyRecords = null;
 						this.modifyRecords = getModifyRecords();
-						//×Ó±í²åÈëµÄÊı¾İ±ØĞëÔÚÖ÷±í
+						//å­è¡¨æ’å…¥çš„æ•°æ®å¿…é¡»åœ¨ä¸»è¡¨
 						MessageManager mm = EngineMessage.get();
 						throw new RQException(r.getRecord().toString(null) + mm.getMessage("grouptable.invalidData"));
 					}
@@ -3044,7 +3044,7 @@ public class ColPhyTable extends PhyTable {
 		saveModifyRecords();
 		
 		if (isPrimaryTable && needUpdateSubTable) {
-			//Ö÷±íÓĞinsert£¬¾Í±ØĞë¸üĞÂËùÓĞ×Ó±í²¹Çø
+			//ä¸»è¡¨æœ‰insertï¼Œå°±å¿…é¡»æ›´æ–°æ‰€æœ‰å­è¡¨è¡¥åŒº
 			ArrayList<PhyTable> tableList = getTableList();
 			for (int i = 0, size = tableList.size(); i < size; ++i) {
 				ColPhyTable t = ((ColPhyTable)tableList.get(i));
@@ -3066,7 +3066,7 @@ public class ColPhyTable extends PhyTable {
 		return result;
 	}
 	
-	// ÈÚºÏµ½ÄÚ´æÖĞµÄ²¹Çø£¬²»Ğ´ÈëÍâ´æ
+	// èåˆåˆ°å†…å­˜ä¸­çš„è¡¥åŒºï¼Œä¸å†™å…¥å¤–å­˜
 	private void append_y(Sequence data) throws IOException {
 		if (data == null || data.length() == 0) {
 			return;
@@ -3099,7 +3099,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (keyCount > 0 && maxValues != null && r1.compare(keyIndex, maxValues) < 0) {
-			// ĞèÒª¹é²¢
+			// éœ€è¦å½’å¹¶
 			long []seqs = new long[len + 1];
 			RecordSeqSearcher searcher = new RecordSeqSearcher(this);
 			
@@ -3141,7 +3141,7 @@ public class ColPhyTable extends PhyTable {
 		}
 	}
 
-	// ÈÚºÏµ½ÄÚ´æÖĞµÄ²¹Çø£¬²»Ğ´ÈëÍâ´æ
+	// èåˆåˆ°å†…å­˜ä¸­çš„è¡¥åŒºï¼Œä¸å†™å…¥å¤–å­˜
 	private Sequence update_y(Sequence data, String opt) throws IOException {
 		boolean isInsert = true,isUpdate = true;
 		Sequence result = null;
@@ -3171,7 +3171,7 @@ public class ColPhyTable extends PhyTable {
 			throw new RQException(mm.getMessage("engine.dsNotMatch"));
 		}
 		
-		// ¶Ô¸üĞÂÊı¾İ½øĞĞÅÅĞò
+		// å¯¹æ›´æ–°æ•°æ®è¿›è¡Œæ’åº
 		data.sortFields(getAllSortedColNames());
 		appendCache();
 		
@@ -3189,7 +3189,7 @@ public class ColPhyTable extends PhyTable {
 		boolean isPrimaryTable = parent == null;
 		int len = data.length();
 		long []seqs = new long[len + 1];
-		int []block = new int[len + 1];//ÊÇ·ñÔÚÒ»¸ö¶ÎµÄµ×²¿insert(×Ó±í)
+		int []block = new int[len + 1];//æ˜¯å¦åœ¨ä¸€ä¸ªæ®µçš„åº•éƒ¨insert(å­è¡¨)
 		long []recNum = null;
 		int []temp = new int[1];
 		
@@ -3214,7 +3214,7 @@ public class ColPhyTable extends PhyTable {
 				}
 			}
 		} else {
-			recNum  = new long[len + 1];//×Ó±í¶ÔÓ¦µ½Ö÷±íµÄÎ±ºÅ£¬0±íÊ¾ÔÚÖ÷±í²¹Çø
+			recNum  = new long[len + 1];//å­è¡¨å¯¹åº”åˆ°ä¸»è¡¨çš„ä¼ªå·ï¼Œ0è¡¨ç¤ºåœ¨ä¸»è¡¨è¡¥åŒº
 			ColPhyTable baseTable = (ColPhyTable) this.groupTable.baseTable;
 			RecordSeqSearcher baseSearcher = new RecordSeqSearcher(baseTable);
 			RecordSeqSearcher2 searcher = new RecordSeqSearcher2(this);
@@ -3225,17 +3225,17 @@ public class ColPhyTable extends PhyTable {
 					seqs[i] = searcher.findNext(r.getFieldValue(k), temp);
 					block[i] = temp[0];
 					if (seqs[i] < 0) {
-						//Èç¹ûÊÇ²åÈë£¬ÒªÅĞ¶ÏÒ»ÏÂÊÇ·ñÔÚÖ÷±íµÄÁĞÇø
+						//å¦‚æœæ˜¯æ’å…¥ï¼Œè¦åˆ¤æ–­ä¸€ä¸‹æ˜¯å¦åœ¨ä¸»è¡¨çš„åˆ—åŒº
 						long seq = baseSearcher.findNext(r.getFieldValue(k));
 						if (seq > 0) {
 							recNum[i] = seq;
 						} else {
 							if (baseSearcher.isEnd()) {
-								//×Ó±í²åÈëµÄÊı¾İ±ØĞëÔÚÖ÷±í
+								//å­è¡¨æ’å…¥çš„æ•°æ®å¿…é¡»åœ¨ä¸»è¡¨
 								MessageManager mm = EngineMessage.get();
 								throw new RQException(r.toString(null) + mm.getMessage("grouptable.invalidData"));	
 							}
-							recNum[i] = 0;//Èç¹ûÔÚÖ÷±í²¹Çø£¬ÏÂÃæ»á´¦Àí
+							recNum[i] = 0;//å¦‚æœåœ¨ä¸»è¡¨è¡¥åŒºï¼Œä¸‹é¢ä¼šå¤„ç†
 						}
 					} else {
 						recNum[i] = searcher.getRecNum();
@@ -3258,17 +3258,17 @@ public class ColPhyTable extends PhyTable {
 					seqs[i] = searcher.findNext(keyValues, temp);
 					block[i] = temp[0];
 					if (seqs[i] < 0 || block[i] > 0) {
-						//Èç¹ûÊÇ²åÈë£¬ÒªÅĞ¶ÏÒ»ÏÂÊÇ·ñÔÚÖ÷±íµÄÁĞÇø
+						//å¦‚æœæ˜¯æ’å…¥ï¼Œè¦åˆ¤æ–­ä¸€ä¸‹æ˜¯å¦åœ¨ä¸»è¡¨çš„åˆ—åŒº
 						long seq = baseSearcher.findNext(baseKeyValues);
 						if (seq > 0) {
 							recNum[i] = seq;
 						} else {
 							if (baseSearcher.isEnd()) {
-								//×Ó±í²åÈëµÄÊı¾İ±ØĞëÔÚÖ÷±í
+								//å­è¡¨æ’å…¥çš„æ•°æ®å¿…é¡»åœ¨ä¸»è¡¨
 								MessageManager mm = EngineMessage.get();
 								throw new RQException(r.toString(null) + mm.getMessage("grouptable.invalidData"));	
 							}
-							recNum[i] = 0;//Èç¹ûÔÚÖ÷±í²¹Çø£¬ÏÂÃæ»á´¦Àí
+							recNum[i] = 0;//å¦‚æœåœ¨ä¸»è¡¨è¡¥åŒºï¼Œä¸‹é¢ä¼šå¤„ç†
 						}
 					} else {
 						recNum[i] = searcher.getRecNum();
@@ -3298,8 +3298,8 @@ public class ColPhyTable extends PhyTable {
 					if (seq <= totalRecordCount || block[i] > 0) {
 						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[i]);
-						//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-						//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+						//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+						//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 						if (!isPrimaryTable) {
 							r.setParentRecordSeq(recNum[i]);
 						}
@@ -3307,8 +3307,8 @@ public class ColPhyTable extends PhyTable {
 					} else {
 						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[i]);
-						//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-						//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+						//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+						//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 						if (!isPrimaryTable) {
 							r.setParentRecordSeq(recNum[i]);
 						}
@@ -3342,7 +3342,7 @@ public class ColPhyTable extends PhyTable {
 						} else {
 							if ((mr.getState() == ModifyRecord.STATE_UPDATE && isUpdate) || 
 									(mr.getState() == ModifyRecord.STATE_DELETE && isInsert)) {
-								// ×´Ì¬¶¼ÓÃupdate
+								// çŠ¶æ€éƒ½ç”¨update
 								BaseRecord sr = (BaseRecord)data.getMem(t);
 								mr.setRecord(sr.toRecord(), ModifyRecord.STATE_UPDATE);
 								if (result != null) {
@@ -3395,8 +3395,8 @@ public class ColPhyTable extends PhyTable {
 									BaseRecord sr = (BaseRecord)data.getMem(t);
 									mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 									mr.setBlock(block[t]);
-									//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-									//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+									//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+									//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 									if (!isPrimaryTable) {
 										mr.setParentRecordSeq(recNum[t]);
 									}
@@ -3414,8 +3414,8 @@ public class ColPhyTable extends PhyTable {
 								BaseRecord sr = (BaseRecord)data.getMem(t);
 								mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 								mr.setBlock(block[t]);
-								//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-								//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+								//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+								//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 								if (!isPrimaryTable) {
 									mr.setParentRecordSeq(recNum[t]);
 								}
@@ -3433,8 +3433,8 @@ public class ColPhyTable extends PhyTable {
 							BaseRecord sr = (BaseRecord)data.getMem(t);
 							mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 							mr.setBlock(block[t]);
-							//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-							//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+							//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+							//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 							if (!isPrimaryTable) {
 								mr.setParentRecordSeq(recNum[t]);
 							}
@@ -3469,8 +3469,8 @@ public class ColPhyTable extends PhyTable {
 					if (seq <= totalRecordCount) {
 						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[t]);
-						//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-						//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+						//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+						//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 						if (!isPrimaryTable) {
 							r.setParentRecordSeq(recNum[t]);
 						}
@@ -3479,8 +3479,8 @@ public class ColPhyTable extends PhyTable {
 					} else {
 						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[t]);
-						//Èç¹ûÊÇ×Ó±íinsert Òª´¦ÀíparentRecordSeq£¬ÒòÎª×Ó±íinsertµÄ¿ÉÄÜÖ¸ÏòÖ÷±íÁĞÇø
-						//ÕâÀïÏÈÉèÖÃÎªÖ¸ÏòÁĞÇøÎ±ºÅ£¬×îºó»á¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+						//å¦‚æœæ˜¯å­è¡¨insert è¦å¤„ç†parentRecordSeqï¼Œå› ä¸ºå­è¡¨insertçš„å¯èƒ½æŒ‡å‘ä¸»è¡¨åˆ—åŒº
+						//è¿™é‡Œå…ˆè®¾ç½®ä¸ºæŒ‡å‘åˆ—åŒºä¼ªå·ï¼Œæœ€åä¼šæ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 						if (!isPrimaryTable) {
 							r.setParentRecordSeq(recNum[t]);
 						}
@@ -3502,7 +3502,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (!isPrimaryTable) {
-			//×Ó±í²¹Çø×îºóÒª¸ù¾İÖ÷±í²¹ÇøĞŞ¸Ä
+			//å­è¡¨è¡¥åŒºæœ€åè¦æ ¹æ®ä¸»è¡¨è¡¥åŒºä¿®æ”¹
 			update(parent.getModifyRecords());
 			
 			for (ModifyRecord r : modifyRecords) {
@@ -3510,7 +3510,7 @@ public class ColPhyTable extends PhyTable {
 					if (r.getParentRecordSeq() == 0) {
 						this.modifyRecords = null;
 						this.modifyRecords = getModifyRecords();
-						//×Ó±í²åÈëµÄÊı¾İ±ØĞëÔÚÖ÷±í
+						//å­è¡¨æ’å…¥çš„æ•°æ®å¿…é¡»åœ¨ä¸»è¡¨
 						MessageManager mm = EngineMessage.get();
 						throw new RQException(r.getRecord().toString(null) + mm.getMessage("grouptable.invalidData"));
 					}
@@ -3522,7 +3522,7 @@ public class ColPhyTable extends PhyTable {
 		//saveModifyRecords();
 		
 		if (isPrimaryTable && needUpdateSubTable) {
-			//Ö÷±íÓĞinsert£¬¾Í±ØĞë¸üĞÂËùÓĞ×Ó±í²¹Çø
+			//ä¸»è¡¨æœ‰insertï¼Œå°±å¿…é¡»æ›´æ–°æ‰€æœ‰å­è¡¨è¡¥åŒº
 			ArrayList<PhyTable> tableList = getTableList();
 			for (int i = 0, size = tableList.size(); i < size; ++i) {
 				ColPhyTable t = ((ColPhyTable)tableList.get(i));
@@ -3544,22 +3544,22 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ÖØĞ´Ò»Ğ©ÁĞµÄÊı¾İ
-	 * ×¢Òâ£ºÊäÈëµÄÊı¾İÒª±£Ö¤Ô­Ğò¡£ÕâÀï²»´¦Àí·Ö¶Î£¬ËùÓĞµÄ·Ö¶Î¶¼°´ÕÕÔ­À´µÄ¡£
-	 * @param cursor ÒªĞ´ÈëµÄÊı¾İ
-	 * @param opt	Ñ¡Ïî
+	 * é‡å†™ä¸€äº›åˆ—çš„æ•°æ®
+	 * æ³¨æ„ï¼šè¾“å…¥çš„æ•°æ®è¦ä¿è¯åŸåºã€‚è¿™é‡Œä¸å¤„ç†åˆ†æ®µï¼Œæ‰€æœ‰çš„åˆ†æ®µéƒ½æŒ‰ç…§åŸæ¥çš„ã€‚
+	 * @param cursor è¦å†™å…¥çš„æ•°æ®
+	 * @param opt	é€‰é¡¹
 	 * @throws IOException
 	 */
 	public void update(ICursor cursor, String opt) throws IOException {
 		/**
-		 * ¸ù¾İcursorÊı¾İµÄ½á¹¹£¬»ñµÃÒª¸üĞÂµÄÁĞ
+		 * æ ¹æ®cursoræ•°æ®çš„ç»“æ„ï¼Œè·å¾—è¦æ›´æ–°çš„åˆ—
 		 */
 		Sequence temp = cursor.peek(1);
 		String[] fields = ((BaseRecord)temp.getMem(1)).getFieldNames();
 		ColumnMetaData[] columns = getColumns(fields);
 		
 		/**
-		 * »ñµÃÄ¿Ç°Ã¿¸ö·Ö¶ÎµÄ¼ÇÂ¼ÌõÊı
+		 * è·å¾—ç›®å‰æ¯ä¸ªåˆ†æ®µçš„è®°å½•æ¡æ•°
 		 */
 		BlockLinkReader rowCountReader = getSegmentReader();
 		int blockCount = getDataBlockCount();
@@ -3577,14 +3577,14 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		/**
-		 * °ÑÒª¸üĞÂµÄÁĞÇå¿Õ
+		 * æŠŠè¦æ›´æ–°çš„åˆ—æ¸…ç©º
 		 */
 		for (ColumnMetaData col : columns) {
-			BlockLink blockLink = col.getSegmentBlockLink();//·Ö¶ÎĞÅÏ¢¿é
+			BlockLink blockLink = col.getSegmentBlockLink();//åˆ†æ®µä¿¡æ¯å—
 			blockLink.setFirstBlockPos(blockLink.firstBlockPos);
 			blockLink.freeIndex = 0;
 			
-			blockLink = col.getDataBlockLink();//Êı¾İ¿é
+			blockLink = col.getDataBlockLink();//æ•°æ®å—
 			blockLink.setFirstBlockPos(blockLink.firstBlockPos);
 			blockLink.freeIndex = 0;
 			
@@ -3593,7 +3593,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		/**
-		 * Ğ´Ç°±äÁ¿µÄ³õÊ¼»¯
+		 * å†™å‰å˜é‡çš„åˆå§‹åŒ–
 		 */
 		for (ColumnMetaData col : columns) {
 			col.prepareWrite();
@@ -3606,31 +3606,31 @@ public class ColPhyTable extends PhyTable {
 		int[] dataTypeInfo = new int[columnCount];
 		
 		/**
-		 * Ñ­»·Ğ´ÈëĞÂÊı¾İ
+		 * å¾ªç¯å†™å…¥æ–°æ•°æ®
 		 */
 		for (long count : recordCountArray) {
 			Sequence data = cursor.fetch((int) count);
 			int end = data.length();
 			for (int i = 0; i < columnCount; i++) {
-				//Ğ´ĞÂÊı¾İµ½Ã¿¸öÁĞ¿é
+				//å†™æ–°æ•°æ®åˆ°æ¯ä¸ªåˆ—å—
 				bufferWriters[i] = columns[i].getColDataBufferWriter();
 				Sequence dict = columns[i].getDict();
 				DataBlockWriterJob.writeDataBlock(bufferWriters[i], data, dict, i, 1, end, 
 						maxValues, minValues, startValues, dataTypeInfo);
 				
-				//Í³¼ÆÁĞÊı¾İÀàĞÍ
+				//ç»Ÿè®¡åˆ—æ•°æ®ç±»å‹
 				boolean doCheck = groupTable.isCheckDataPure();
 				columns[i].adjustDataType(dataTypeInfo[i], doCheck);
 				columns[i].initDictArray();
 				
-				//Ìá½»Ã¿¸öÁĞ¿ébuffer
+				//æäº¤æ¯ä¸ªåˆ—å—buffer
 				columns[i].appendColBlock(bufferWriters[i].finish(), minValues[i], maxValues[i], startValues[i]);
 			}
 			
 		}
 		
 		/**
-		 * Ìá½»ÁĞĞÅÏ¢
+		 * æäº¤åˆ—ä¿¡æ¯
 		 */
 		for (ColumnMetaData col : columns) {
 			col.finishWrite();
@@ -3639,18 +3639,18 @@ public class ColPhyTable extends PhyTable {
 		updateIndex();
 	}
 	
-	/** °´ÕÕdataÀïÊı¾İµÄÎ¬Öµ£¬É¾³ıÖ¸¶¨µÄ¼ÇÂ¼
+	/** æŒ‰ç…§dataé‡Œæ•°æ®çš„ç»´å€¼ï¼Œåˆ é™¤æŒ‡å®šçš„è®°å½•
 	 * @param data 
 	 * @param opt
 	 */
 	public Sequence delete(Sequence data, String opt) throws IOException {
-		boolean deleteByBaseKey = false;//Ö»ÓÃÓÚÄÚ²¿É¾³ı×Ó±íµÄÁĞÇø£¬´ËÊ±²»»áÓĞ@n
+		boolean deleteByBaseKey = false;//åªç”¨äºå†…éƒ¨åˆ é™¤å­è¡¨çš„åˆ—åŒºï¼Œæ­¤æ—¶ä¸ä¼šæœ‰@n
 		if (opt != null && opt.indexOf('s') != -1) {
 			deleteByBaseKey = true;
 		}
 		
 		if (!hasPrimaryKey && !deleteByBaseKey) {
-			//Ã»ÓĞÎ¬Ê±²»´¦Àí
+			//æ²¡æœ‰ç»´æ—¶ä¸å¤„ç†
 			return null;
 		}
 		
@@ -3664,7 +3664,7 @@ public class ColPhyTable extends PhyTable {
 		Sequence result1 = null;
 		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
-			// ÓĞ²¹ÎÄ¼şÊ±ÏÈÉ¾³ı²¹ÎÄ¼şÖĞµÄÊı¾İ£¬²¹ÎÄ¼şÖĞ²»´æÔÚµÄÔÙÔÚÔ´ÎÄ¼şÖĞÉ¾³ı
+			// æœ‰è¡¥æ–‡ä»¶æ—¶å…ˆåˆ é™¤è¡¥æ–‡ä»¶ä¸­çš„æ•°æ®ï¼Œè¡¥æ–‡ä»¶ä¸­ä¸å­˜åœ¨çš„å†åœ¨æºæ–‡ä»¶ä¸­åˆ é™¤
 			result1 = tmd.delete(data, "n");
 			data = (Sequence) data.diff(result1, false);
 		}
@@ -3767,7 +3767,7 @@ public class ColPhyTable extends PhyTable {
 				if (deleteByBaseKey) {
 					long s = searcher.findNext(keyValues, keyCount);
 					if (s <= 0) {
-						i++;//µ±ÕÒ²»µ½Ê±²Å++
+						i++;//å½“æ‰¾ä¸åˆ°æ—¶æ‰++
 					} else {
 						seqList.add(s);
 						seqListData.add(r);
@@ -3917,16 +3917,16 @@ public class ColPhyTable extends PhyTable {
 		
 		if (modified) {
 			if (isPrimaryTable) {
-				//Ö÷±íÓĞdelete£¬¾Í±ØĞëÍ¬²½delete×Ó±í
+				//ä¸»è¡¨æœ‰deleteï¼Œå°±å¿…é¡»åŒæ­¥deleteå­è¡¨
 				ArrayList<PhyTable> tableList = getTableList();
 				int size = tableList.size();
 				for (int i = 0; i < size; ++i) {
 					ColPhyTable t = ((ColPhyTable)tableList.get(i));
-					t.delete(data, "s");//É¾³ı×Ó±íÁĞÇø
-					t.delete(data);//É¾³ı×Ó±í²¹Çø
+					t.delete(data, "s");//åˆ é™¤å­è¡¨åˆ—åŒº
+					t.delete(data);//åˆ é™¤å­è¡¨è¡¥åŒº
 				}
 				
-				//Ö÷±íÓĞÉ¾³ı£¬²¹ÇøµÄÎ»ÖÃ»á±ä»¯£¬»¹ÒªÍ¬²½×Ó±í²¹Çø
+				//ä¸»è¡¨æœ‰åˆ é™¤ï¼Œè¡¥åŒºçš„ä½ç½®ä¼šå˜åŒ–ï¼Œè¿˜è¦åŒæ­¥å­è¡¨è¡¥åŒº
 				for (int i = 0; i < size; ++i) {
 					ColPhyTable t = ((ColPhyTable)tableList.get(i));
 					t.update(this.modifyRecords);
@@ -3950,7 +3950,7 @@ public class ColPhyTable extends PhyTable {
 		return result;
 	}
 	
-	//¸ù¾İÖ÷±íµÄ²¹Çø£¬Í¬²½¸üĞÂ×Ô¼ºµÄ²¹Çø
+	//æ ¹æ®ä¸»è¡¨çš„è¡¥åŒºï¼ŒåŒæ­¥æ›´æ–°è‡ªå·±çš„è¡¥åŒº
 	private boolean update(ArrayList<ModifyRecord> baseModifyRecords) throws IOException {
 		getGroupTable().checkWritable();
 		
@@ -3995,7 +3995,7 @@ public class ColPhyTable extends PhyTable {
 		return find;
 	}
 	
-	//¸ù¾İdataÉ¾³ı×Ó±íµÄ²¹Çø
+	//æ ¹æ®dataåˆ é™¤å­è¡¨çš„è¡¥åŒº
 	private boolean delete(Sequence data) throws IOException {
 		ArrayList<ModifyRecord> tmp = new ArrayList<ModifyRecord>();
 		ArrayList<ModifyRecord> srcModifyRecords = new ArrayList<ModifyRecord>();
@@ -4109,7 +4109,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ¼ì²éÊÇ·ñÊÇÊ±¼ä¼üfind
+	 * æ£€æŸ¥æ˜¯å¦æ˜¯æ—¶é—´é”®find
 	 * @param values
 	 * @return
 	 */
@@ -4144,7 +4144,7 @@ public class ColPhyTable extends PhyTable {
 		return table;
 	}
 	/**
-	 * ¸ù¾İÖ÷¼ü²éÕÒ¼ÇÂ¼
+	 * æ ¹æ®ä¸»é”®æŸ¥æ‰¾è®°å½•
 	 * @param values
 	 */
 	public Table finds(Sequence values) throws IOException {
@@ -4152,7 +4152,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ¸ù¾İÖ÷¼ü²éÕÒ¼ÇÂ¼£¬selFieldsÎªÑ¡³öÁĞ
+	 * æ ¹æ®ä¸»é”®æŸ¥æ‰¾è®°å½•ï¼ŒselFieldsä¸ºé€‰å‡ºåˆ—
 	 * @param values
 	 * @param selFields
 	 */
@@ -4228,7 +4228,7 @@ public class ColPhyTable extends PhyTable {
 		int valueLen = dimValues.length;
 		int dimCount = dimValues[0].length;
 		
-		// °ÑÎ¬×Ö¶ÎºÍÑ¡³öÁĞºÏ²¢
+		// æŠŠç»´å­—æ®µå’Œé€‰å‡ºåˆ—åˆå¹¶
 		ColumnMetaData[] cols = getSortedColumns();
 		ArrayList<ColumnMetaData> list = new ArrayList<ColumnMetaData>();
 		for (int i = 0; i < dimCount; ++i) {
@@ -4248,12 +4248,12 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		int colCount = list.size();
-		int []findex = new int [colCount]; // Ã¿¸ö×Ö¶ÎÔÚ½á¹û¼¯Êı¾İ½á¹¹ÖĞµÄ×Ö¶ÎºÅ
+		int []findex = new int [colCount]; // æ¯ä¸ªå­—æ®µåœ¨ç»“æœé›†æ•°æ®ç»“æ„ä¸­çš„å­—æ®µå·
 		ColumnMetaData []columns = new ColumnMetaData[colCount];
 		list.toArray(columns);
 		DataStruct ds = new DataStruct(selFields);
 		
-		//ÅĞ¶ÏÊÇ·ñÖ÷¼ü±»Ñ¡³ö
+		//åˆ¤æ–­æ˜¯å¦ä¸»é”®è¢«é€‰å‡º
 		boolean hasKey = true;
 		for (int i = 0; i < dimCount; ++i) {
 			if (ds.getFieldIndex(cols[i].getColName()) == -1) {
@@ -4493,11 +4493,11 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ¸ù¾İn·µ»Ø·Ö¶ÎµãÖµºÍÃ¿¶ÎÌõÊı
-	 * @param keys ·Ö¶Î×Ö¶Î
-	 * @param list ·µ»ØµÄÃ¿¶ÎÌõÊı
-	 * @param values ·µ»Ø·Ö¶ÎµãÖµ
-	 * @param n ÆÚÍûµÄÃ¿¶ÎÌõÊı
+	 * æ ¹æ®nè¿”å›åˆ†æ®µç‚¹å€¼å’Œæ¯æ®µæ¡æ•°
+	 * @param keys åˆ†æ®µå­—æ®µ
+	 * @param list è¿”å›çš„æ¯æ®µæ¡æ•°
+	 * @param values è¿”å›åˆ†æ®µç‚¹å€¼
+	 * @param n æœŸæœ›çš„æ¯æ®µæ¡æ•°
 	 * @throws IOException 
 	 */
 	public void getSegmentInfo(String []keys, ArrayList<Integer> list, Sequence values, int n) throws IOException {
@@ -4542,15 +4542,15 @@ public class ColPhyTable extends PhyTable {
 				}
 			}
 		}
-		list.add(sum);//×îºóÒ»¸ö·Ö¶ÎÌõÊı£¬ÓĞ¿ÉÄÜÖ»ÓĞÕâÒ»¸ö
+		list.add(sum);//æœ€åä¸€ä¸ªåˆ†æ®µæ¡æ•°ï¼Œæœ‰å¯èƒ½åªæœ‰è¿™ä¸€ä¸ª
 	}
 	
 	/**
-	 * ¸ù¾İn·µ»Ø·Ö¶ÎµãºÍ¶ÎÊı
-	 * @param keys ·Ö¶Î×Ö¶Î
-	 * @param list ·µ»ØµÄÃ¿¶ÎÌõÊı
-	 * @param values ·µ»Ø·Ö¶ÎµãÖµ
-	 * @param n ÆÚÍûµÄÃ¿¶ÎÌõÊı
+	 * æ ¹æ®nè¿”å›åˆ†æ®µç‚¹å’Œæ®µæ•°
+	 * @param keys åˆ†æ®µå­—æ®µ
+	 * @param list è¿”å›çš„æ¯æ®µæ¡æ•°
+	 * @param values è¿”å›åˆ†æ®µç‚¹å€¼
+	 * @param n æœŸæœ›çš„æ¯æ®µæ¡æ•°
 	 * @throws IOException 
 	 */
 	public void getSegmentInfo2(String []keys, ArrayList<Integer> list, Sequence values, int n) throws IOException {
@@ -4601,11 +4601,11 @@ public class ColPhyTable extends PhyTable {
 				}
 			}
 		}
-		list.add(blockCount);//×îºó¶ÎÊı
+		list.add(blockCount);//æœ€åæ®µæ•°
 	}
 	
 	/**
-	 * ·µ»ØÁĞµÄ×î´ó×îĞ¡Öµ
+	 * è¿”å›åˆ—çš„æœ€å¤§æœ€å°å€¼
 	 * @param key
 	 * @return
 	 * @throws IOException
@@ -4651,7 +4651,7 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ·µ»ØÃ¿¸ö·Ö¶ÎµÄ¼ÇÂ¼Êı
+	 * è¿”å›æ¯ä¸ªåˆ†æ®µçš„è®°å½•æ•°
 	 */
 	public long[] getSegmentInfo() {
 		BlockLinkReader rowCountReader = getSegmentReader();
@@ -4674,8 +4674,8 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ºÏ²¢Á½¸ö×é±íÎÄ¼ş
-	 * @param table ÁíÒ»¸ö×é±í
+	 * åˆå¹¶ä¸¤ä¸ªç»„è¡¨æ–‡ä»¶
+	 * @param table å¦ä¸€ä¸ªç»„è¡¨
 	 * @throws IOException
 	 */
 	public void append(PhyTable other) throws IOException {
@@ -4698,7 +4698,7 @@ public class ColPhyTable extends PhyTable {
 			throw new RQException(mm.getMessage("grouptable.invalidData"));
 		}
 		
-		// È¡³ö×·¼ÓµÄ±íµÄÊ×Ìõ¼ÇÂ¼µÄÎ¬×Ö¶ÎÖµÓÃÀ´ÅĞ¶ÏºÏ²¢ºóµÄ±íÊÇ·ñÓĞĞòºÍÓĞÖ÷¼ü
+		// å–å‡ºè¿½åŠ çš„è¡¨çš„é¦–æ¡è®°å½•çš„ç»´å­—æ®µå€¼ç”¨æ¥åˆ¤æ–­åˆå¹¶åçš„è¡¨æ˜¯å¦æœ‰åºå’Œæœ‰ä¸»é”®
 		Object []startValues = null;
 		if (isSorted) {
 			ColumnMetaData []columns = table.getSortedColumns();
@@ -4725,7 +4725,7 @@ public class ColPhyTable extends PhyTable {
 			}
 		}
 		
-		// ×¼±¸Ğ´Êı¾İ
+		// å‡†å¤‡å†™æ•°æ®
 		prepareAppend();
 		
 		ColumnMetaData []columns = this.columns;
@@ -4742,7 +4742,7 @@ public class ColPhyTable extends PhyTable {
 			colReaders2[i] = columns2[i].getColReader(true);
 			segmentReaders2[i] = columns2[i].getSegmentReader();
 			
-			//Èç¹ûÄ³ÁĞÓĞÈ«¾Ö×Öµä£¬ÔòÕûÀí³öÀ´
+			//å¦‚æœæŸåˆ—æœ‰å…¨å±€å­—å…¸ï¼Œåˆ™æ•´ç†å‡ºæ¥
 			Sequence dict = columns2[i].getDict();
 			if (dict != null && dict.length() == 0) {
 				dictBuffer[i] = null;
@@ -4766,11 +4766,11 @@ public class ColPhyTable extends PhyTable {
 				}
 			}
 			
-			//¸üĞÂ·Ö¶ÎĞÅÏ¢buffer
+			//æ›´æ–°åˆ†æ®µä¿¡æ¯buffer
 			appendSegmentBlock(rowCountReader.readInt32());
 		}
 		
-		// ½áÊøĞ´Êı¾İ£¬±£´æµ½ÎÄ¼ş
+		// ç»“æŸå†™æ•°æ®ï¼Œä¿å­˜åˆ°æ–‡ä»¶
 		finishAppend();
 		
 		rowCountReader.close();
@@ -4781,8 +4781,8 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * »ñµÃ²¹Çø×î¿ªÊ¼µÄ¼ÇÂ¼ËùÔÚµÄ¿éºÅ
-	 * @return ¿éºÅ
+	 * è·å¾—è¡¥åŒºæœ€å¼€å§‹çš„è®°å½•æ‰€åœ¨çš„å—å·
+	 * @return å—å·
 	 */
 	public int getFirstBlockFromModifyRecord() {
 		long minSeq = Long.MAX_VALUE;
@@ -4809,35 +4809,35 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ÖØÖÃ¸÷¸öÇø¿éÁ´
-	 * @param block ½ØÖ¹¿éºÅ
-	 * @return ×î¿¿½üÎÄ¼şÄ©Î²µÄ½Ø¶ÏÎ»ÖÃ
+	 * é‡ç½®å„ä¸ªåŒºå—é“¾
+	 * @param block æˆªæ­¢å—å·
+	 * @return æœ€é è¿‘æ–‡ä»¶æœ«å°¾çš„æˆªæ–­ä½ç½®
 	 */
 	public long resetByBlock(int block) {
 		BlockLinkReader rowCountReader = getSegmentReader();
 		long sum = 0;
 		int blockSize = getGroupTable().blockSize;
 		try {
-			//°Ñ·Ö¶ÎĞÅÏ¢¶Á³öÀ´
+			//æŠŠåˆ†æ®µä¿¡æ¯è¯»å‡ºæ¥
 			for (int i = 0; i < block; ++i) {
 				int cnt = rowCountReader.readInt32();
 				sum += cnt;
 			}
 
-			//ĞŞ¸Ä·Ö¶ÎĞÅÏ¢
+			//ä¿®æ”¹åˆ†æ®µä¿¡æ¯
 			segmentBlockLink.lastBlockPos = rowCountReader.position();
 			segmentBlockLink.freeIndex = rowCountReader.getCaret();
 			
-			//ÖØÖÃÊôĞÔ
+			//é‡ç½®å±æ€§
 			totalRecordCount = sum;
 			dataBlockCount = block;
-			//Çå¿Õ²¹Çø
+			//æ¸…ç©ºè¡¥åŒº
 			modifyRecords.clear();
 			saveModifyRecords();
 			
 			maxValues = null;
-			//ÖØÖÃÃ¿¸öÁĞ¿é
-			long resetPos = 0;//±£´æ×î¿¿½üÎÄ¼şÄ©Î²µÄ½Ø¶ÏÎ»ÖÃ
+			//é‡ç½®æ¯ä¸ªåˆ—å—
+			long resetPos = 0;//ä¿å­˜æœ€é è¿‘æ–‡ä»¶æœ«å°¾çš„æˆªæ–­ä½ç½®
 			for (ColumnMetaData col : columns) {
 				ObjectReader reader;
 				BlockLinkReader segmentReader = new BlockLinkReader(col.getSegmentBlockLink());
@@ -4849,7 +4849,7 @@ public class ColPhyTable extends PhyTable {
 					throw new RQException(e.getMessage(), e);
 				}
 				
-				//¶ÁÈ¡ÁĞ¿éµÄ·Ö¶ÎĞÅÏ¢
+				//è¯»å–åˆ—å—çš„åˆ†æ®µä¿¡æ¯
 				for (int i = 0; i < block; ++i) {
 					reader.readLong40();
 					if (col.hasMaxMinValues()) {
@@ -4859,12 +4859,12 @@ public class ColPhyTable extends PhyTable {
 					}
 				}
 				
-				//ÖØĞ´ÁĞ¿éµÄ·Ö¶ÎĞÅÏ¢
+				//é‡å†™åˆ—å—çš„åˆ†æ®µä¿¡æ¯
 				BlockLink blockLink = col.getSegmentBlockLink();
 				blockLink.freeIndex = (int) (reader.position() % blockSize);
 				blockLink.lastBlockPos = segmentReader.position();
 				
-				long tempPos = reader.readLong40();//±£´æ½ØÖ¹ºó¿ªÊ¼µÄµØÖ·
+				long tempPos = reader.readLong40();//ä¿å­˜æˆªæ­¢åå¼€å§‹çš„åœ°å€
 				if (resetPos < tempPos) {
 					resetPos = tempPos;
 				}
@@ -4886,16 +4886,16 @@ public class ColPhyTable extends PhyTable {
 					segmentReader.close();
 					throw new RQException(e.getMessage(), e);
 				}
-				//¶ÁÈ¡µ¼ÁĞ·Ö¶ÎĞÅÏ¢
+				//è¯»å–å¯¼åˆ—åˆ†æ®µä¿¡æ¯
 				for (int i = 0; i < block; ++i) {
 					reader.readLong40();
 				}
-				//ÖØĞ´ÁĞ¿éµÄ·Ö¶ÎĞÅÏ¢
+				//é‡å†™åˆ—å—çš„åˆ†æ®µä¿¡æ¯
 				BlockLink blockLink = guideColumn.getSegmentBlockLink();
 				blockLink.freeIndex = (int) (reader.position() % blockSize);
 				blockLink.lastBlockPos = segmentReader.position();
 				
-				long tempPos = reader.readLong40();//±£´æ½ØÖ¹ºó¿ªÊ¼µÄµØÖ·
+				long tempPos = reader.readLong40();//ä¿å­˜æˆªæ­¢åå¼€å§‹çš„åœ°å€
 				if (resetPos < tempPos) {
 					resetPos = tempPos;
 				}
@@ -4918,11 +4918,11 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * ¼ì²éfieldÊÇ·ñÊÇÎ¬×Ö¶Î
-	 * Èç¹ûÊÇ£¬Ôò¸ù¾İ±í´ïÊ½¼ÆËã·¶Î§
-	 * ·ñÔò·µ»ØNULL
+	 * æ£€æŸ¥fieldæ˜¯å¦æ˜¯ç»´å­—æ®µ
+	 * å¦‚æœæ˜¯ï¼Œåˆ™æ ¹æ®è¡¨è¾¾å¼è®¡ç®—èŒƒå›´
+	 * å¦åˆ™è¿”å›NULL
 	 * @param field
-	 * @param node ±í´ïÊ½µÄhome½Úµã
+	 * @param node è¡¨è¾¾å¼çš„homeèŠ‚ç‚¹
 	 * @param ctx
 	 */
 	long[] checkDim(String field, Node node, Context ctx) {
@@ -4985,13 +4985,13 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * Ğ´Èë»º´æµÄÊı¾İ
+	 * å†™å…¥ç¼“å­˜çš„æ•°æ®
 	 */
 	public void appendCache() throws IOException {
 		if (appendCache == null) return;
 		
 		ICursor cursor = new MemoryCursor(appendCache);
-		// ×¼±¸Ğ´Êı¾İ
+		// å‡†å¤‡å†™æ•°æ®
 		prepareAppend();
 		
 		if (parent != null) {
@@ -5006,34 +5006,34 @@ public class ColPhyTable extends PhyTable {
 		}
 
 		appendCache = null;
-		// ½áÊøĞ´Êı¾İ£¬±£´æµ½ÎÄ¼ş
+		// ç»“æŸå†™æ•°æ®ï¼Œä¿å­˜åˆ°æ–‡ä»¶
 		finishAppend();
 	}
 	
 	/**
-	 * ·µ»ØÕâ¸ö»ù±íµÄ¶àÂ·ÓÎ±ê (ÓÃÓÚ¼¯ÈºµÄ½Úµã»ú)
-	 * @param exps È¡³ö×Ö¶Î±í´ïÊ½£¨µ±expsÎªnullÊ±°´ÕÕfieldsÈ¡³ö£©
-	 * @param fields È¡³ö×Ö¶ÎµÄĞÂÃû³Æ
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param pathSeq µÚ¼¸¶Î
-	 * @param pathCount ½Úµã»úÊı
-	 * @param pathCount2 ½Úµã»úÉÏÖ¸¶¨µÄ¿éÊı
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ÉÏÏÂÎÄ
+	 * è¿”å›è¿™ä¸ªåŸºè¡¨çš„å¤šè·¯æ¸¸æ ‡ (ç”¨äºé›†ç¾¤çš„èŠ‚ç‚¹æœº)
+	 * @param exps å–å‡ºå­—æ®µè¡¨è¾¾å¼ï¼ˆå½“expsä¸ºnullæ—¶æŒ‰ç…§fieldså–å‡ºï¼‰
+	 * @param fields å–å‡ºå­—æ®µçš„æ–°åç§°
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param pathSeq ç¬¬å‡ æ®µ
+	 * @param pathCount èŠ‚ç‚¹æœºæ•°
+	 * @param pathCount2 èŠ‚ç‚¹æœºä¸ŠæŒ‡å®šçš„å—æ•°
+	 * @param opt é€‰é¡¹
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public ICursor cursor(Expression []exps, String[] fields, Expression filter, String[] fkNames, 
 			Sequence[] codes, String[] opts, int pathSeq, int pathCount, int pathCount2, String opt, Context ctx) {
 		if (dataBlockCount < pathCount || pathCount2 < 2) {
-			//Èç¹û¿éÊıÉÙÓÚ½Úµã»úÊı»òÕß½Úµã»úÉÏÖ¸¶¨µÄ¿éÊıÉÙÓÚ2
+			//å¦‚æœå—æ•°å°‘äºèŠ‚ç‚¹æœºæ•°æˆ–è€…èŠ‚ç‚¹æœºä¸ŠæŒ‡å®šçš„å—æ•°å°‘äº2
 			return cursor(exps, fields, filter, fkNames, codes, opts, pathSeq, pathCount, opt, ctx);
 		}
 				
 		ICursor []cursors = new ICursor[pathCount2];
 		
-		//µÃµ½»®·Ö¸øµ±Ç°½Úµã»úµÄ¿éÊı
+		//å¾—åˆ°åˆ’åˆ†ç»™å½“å‰èŠ‚ç‚¹æœºçš„å—æ•°
 		int avg = dataBlockCount / pathCount;
 		int count = avg;
 		if (pathSeq == pathCount) {
@@ -5042,11 +5042,11 @@ public class ColPhyTable extends PhyTable {
 		
 		int offset = (pathSeq - 1) * avg;
 		if (count < pathCount2) {
-			//Èç¹ûÒª´¦ÀíµÄ¿éÊıĞ¡ÓÚ²¢ĞĞÊı
+			//å¦‚æœè¦å¤„ç†çš„å—æ•°å°äºå¹¶è¡Œæ•°
 			int i = 0;
 			for (; i < count; i++) {
 				if (filter != null) {
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 				}
 
@@ -5056,7 +5056,7 @@ public class ColPhyTable extends PhyTable {
 			
 			for (; i < pathCount2; i++) {
 				if (filter != null) {
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 				}
 
@@ -5064,11 +5064,11 @@ public class ColPhyTable extends PhyTable {
 				((IDWCursor) cursors[i]).setSegment(0, -1);
 			}
 		} else {
-			//µÃµ½»®·Ö¸øµ±Ç°½Úµã»úµÄÃ¿Ò»Â·µÄ¿éÊı
+			//å¾—åˆ°åˆ’åˆ†ç»™å½“å‰èŠ‚ç‚¹æœºçš„æ¯ä¸€è·¯çš„å—æ•°
 			int avg2 = count / pathCount2;
 			for (int i = 0; i < pathCount2; i++) {
 				if (filter != null) {
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 				}
 				
@@ -5085,17 +5085,17 @@ public class ColPhyTable extends PhyTable {
 	}
 
 	/**
-	 * ¸ù¾İ¸ø¶¨µÄÓÎ±ê£¬·µ»ØÍ¬²½·Ö¶ÎµÄ¶àÂ·ÓÎ±ê
-	 * @param exps È¡³ö×Ö¶Î±í´ïÊ½£¨µ±expsÎªnullÊ±°´ÕÕfieldsÈ¡³ö£©
-	 * @param fields È¡³ö×Ö¶ÎµÄĞÂÃû³Æ
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param opts ¹ØÁª×Ö¶Î½øĞĞ¹ØÁªµÄÑ¡Ïî
-	 * @param cursor ²Î¿¼ÓÎ±ê
-	 * @param seg ½Úµã»úºÅ
-	 * @param endValues Î²²¿Òª×·¼ÓµÄ¼ÇÂ¼
-	 * @param opt Ñ¡Ïî
+	 * æ ¹æ®ç»™å®šçš„æ¸¸æ ‡ï¼Œè¿”å›åŒæ­¥åˆ†æ®µçš„å¤šè·¯æ¸¸æ ‡
+	 * @param exps å–å‡ºå­—æ®µè¡¨è¾¾å¼ï¼ˆå½“expsä¸ºnullæ—¶æŒ‰ç…§fieldså–å‡ºï¼‰
+	 * @param fields å–å‡ºå­—æ®µçš„æ–°åç§°
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param opts å…³è”å­—æ®µè¿›è¡Œå…³è”çš„é€‰é¡¹
+	 * @param cursor å‚è€ƒæ¸¸æ ‡
+	 * @param seg èŠ‚ç‚¹æœºå·
+	 * @param endValues å°¾éƒ¨è¦è¿½åŠ çš„è®°å½•
+	 * @param opt é€‰é¡¹
 	 * @param ctx
 	 * @return
 	 */
@@ -5138,7 +5138,7 @@ public class ColPhyTable extends PhyTable {
 		
 		int fcount = names.length;
 		if (seg != 0) {
-			//Èç¹û²»ÊÇµÚÒ»¸ö½Úµã»ú
+			//å¦‚æœä¸æ˜¯ç¬¬ä¸€ä¸ªèŠ‚ç‚¹æœº
 			BaseRecord rec = new Record(cursor.getDataStruct());
 			Sequence tempSeq = new Sequence();
 			tempSeq.add(rec);
@@ -5154,7 +5154,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (seg + 1 <= endValues.length) {
-			//Èç¹û²»ÊÇ×îºóÒ»¸ö½Úµã»ú
+			//å¦‚æœä¸æ˜¯æœ€åä¸€ä¸ªèŠ‚ç‚¹æœº
 			Object []objs = endValues[seg];
 			BaseRecord rec = new Record(cursor.getDataStruct());
 			for (int f = 0; f < fcount; f++) {
@@ -5186,7 +5186,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		Object [][]minValues = new Object [segCount][];
-		int dataSegCount = segCount; // ÓĞÊı¾İµÄ¶àÂ·ÓÎ±êÂ·Êı
+		int dataSegCount = segCount; // æœ‰æ•°æ®çš„å¤šè·¯æ¸¸æ ‡è·¯æ•°
 		
 		for (int i = 0; i < segCount; ++i) {
 			Sequence seq = srcs[i].peek(1);
@@ -5221,14 +5221,14 @@ public class ColPhyTable extends PhyTable {
 		ICursor []cursors = new ICursor[segCount];
 		boolean []isEquals = new boolean[segCount];
 		
-		//ÓÃ¿ÕÓÎ±ê²¹È«
+		//ç”¨ç©ºæ¸¸æ ‡è¡¥å…¨
 		for (int i = dataSegCount; i < segCount; ++i) {
 			Cursor cs = new Cursor(this, fields, filter, fkNames, codes, opts, ctx);
 			cs.setSegment(0, -1);
 			cursors[i] = cs;
 		}
 		try {
-			// ²»ÊÇÍ¬²½·Ö¶ÎµÄ£¬ĞèÒªÆşÍ·È¥Î²
+			// ä¸æ˜¯åŒæ­¥åˆ†æ®µçš„ï¼Œéœ€è¦æå¤´å»å°¾
 			int startBlock = 0;
 			for (int b = 0; b < blockCount && s < dataSegCount; ++b) {
 				for (int f = 0; f < fcount; ++f) {
@@ -5239,7 +5239,7 @@ public class ColPhyTable extends PhyTable {
 				}
 				
 				if (filter != null) {
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 				}
 				
@@ -5270,7 +5270,7 @@ public class ColPhyTable extends PhyTable {
 			
 			if (s == dataSegCount) {
 				if (filter != null) {
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 				}
 				
@@ -5285,9 +5285,9 @@ public class ColPhyTable extends PhyTable {
 					}
 				}
 			} else {
-				// ×îºóÒ»¶ÎµÄÆğÊ¼ÖµĞ¡ÓÚµÈÓÚ²ÎÕÕµÄ¶àÂ·ÓÎ±êµÄÖĞ¼ä¶ÎµÄÆğÊ¼Öµ
+				// æœ€åä¸€æ®µçš„èµ·å§‹å€¼å°äºç­‰äºå‚ç…§çš„å¤šè·¯æ¸¸æ ‡çš„ä¸­é—´æ®µçš„èµ·å§‹å€¼
 				if (filter != null) {
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 				}
 				
@@ -5302,9 +5302,9 @@ public class ColPhyTable extends PhyTable {
 					}
 				}
 				
-				// ¶¨Òå×îºóÒ»¶ÎÓÎ±ê£¬ÆäËü¿Õ¶Î´Ó×îºóÒ»¶ÎÈ¡³öÏàÓ¦µÄÖµ
+				// å®šä¹‰æœ€åä¸€æ®µæ¸¸æ ‡ï¼Œå…¶å®ƒç©ºæ®µä»æœ€åä¸€æ®µå–å‡ºç›¸åº”çš„å€¼
 				if (filter != null) {
-					// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					filter = filter.newExpression(ctx);
 				}
 				
@@ -5316,7 +5316,7 @@ public class ColPhyTable extends PhyTable {
 				
 				for (; s < dataSegCount - 1; ++s) {
 					if (filter != null) {
-						// ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+						// åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 						filter = filter.newExpression(ctx);
 					}
 					
@@ -5353,18 +5353,18 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
-	 * Ìí¼ÓÒ»ÁĞ
-	 * @param colName ÁĞÃû
-	 * @param exp ÁĞÖµ±í´ïÊ½
+	 * æ·»åŠ ä¸€åˆ—
+	 * @param colName åˆ—å
+	 * @param exp åˆ—å€¼è¡¨è¾¾å¼
 	 * @param ctx 
 	 */
 	public void addColumn(String colName, Expression exp, Context ctx) {
-		//Èç¹ûÓĞ²¹Çø£¬ÔòÏÈreset
+		//å¦‚æœæœ‰è¡¥åŒºï¼Œåˆ™å…ˆreset
 		if (getModifyRecords() != null) {
 			groupTable.reset(null, null, ctx, null);
 		}
 		
-		//¼ì²éÁĞÊÇ·ñÒÑ¾­´æÔÚ
+		//æ£€æŸ¥åˆ—æ˜¯å¦å·²ç»å­˜åœ¨
 		ColumnMetaData existCol = getColumn(colName);
 		if (null != existCol) {
 			if (existCol.isDim() || existCol.isKey() || this.getModifyRecords() != null) {
@@ -5375,34 +5375,34 @@ public class ColPhyTable extends PhyTable {
 		
 		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
-			// ÓĞ²¹ÎÄ¼şÊ±ÏÈ´¦Àí²¹ÎÄ¼ş
+			// æœ‰è¡¥æ–‡ä»¶æ—¶å…ˆå¤„ç†è¡¥æ–‡ä»¶
 			tmd.addColumn(colName, exp, ctx);
 		}
 		
-		//ĞÂ½¨Á¢Ò»¸öÁĞ
+		//æ–°å»ºç«‹ä¸€ä¸ªåˆ—
 		ColumnMetaData col = new ColumnMetaData(this, colName, false, false);
 		ICursor cursor = cursor();
 		BlockLinkReader rowCountReader = getSegmentReader();
 		
 		try {
-			//³õÊ¼»¯ÁĞ¿é
+			//åˆå§‹åŒ–åˆ—å—
 			col.applySegmentFirstBlock();
 			col.applyDataFirstBlock();
 			col.prepareWrite();
 			int curBlock = 0, endBlock = getDataBlockCount();
 			
-			//°´ÕÕÃ¿¶ÎµÄ¼ÇÂ¼Êı°ÑÆäËüÁĞÈ¡³öÀ´£¬²¢°´ÕÕexp¼ÆËã
+			//æŒ‰ç…§æ¯æ®µçš„è®°å½•æ•°æŠŠå…¶å®ƒåˆ—å–å‡ºæ¥ï¼Œå¹¶æŒ‰ç…§expè®¡ç®—
 			while (curBlock < endBlock) {
 				curBlock++;
 				
-				//È¡Êı£¬¼ÆËã
+				//å–æ•°ï¼Œè®¡ç®—
 				int recordCount = rowCountReader.readInt32();
 				Sequence data = (Sequence) cursor.fetch(recordCount);
 				data = data.newTable(new String[] {""}, new Expression[]{exp}, ctx);
 				
-				//°Ñ¼ÆËãµÃµ½Êı¾İ£¬Ğ´ÈëĞÂÁĞ
-				Object []minValues = new Object[1];//Ò»¿éµÄ×îĞ¡Î¬Öµ
-				Object []maxValues = new Object[1];//Ò»¿éµÄ×î´óÎ¬Öµ
+				//æŠŠè®¡ç®—å¾—åˆ°æ•°æ®ï¼Œå†™å…¥æ–°åˆ—
+				Object []minValues = new Object[1];//ä¸€å—çš„æœ€å°ç»´å€¼
+				Object []maxValues = new Object[1];//ä¸€å—çš„æœ€å¤§ç»´å€¼
 				Object []startValues = new Object[1];
 				int[] dataTypeInfo = new int[1];
 				
@@ -5411,11 +5411,11 @@ public class ColPhyTable extends PhyTable {
 				int len = data.length();
 				DataBlockWriterJob.writeDataBlock(bufferWriter, data, dict, 0, 1, len, maxValues, minValues, startValues, dataTypeInfo);
 				
-				//Í³¼ÆÁĞÊı¾İÀàĞÍ
+				//ç»Ÿè®¡åˆ—æ•°æ®ç±»å‹
 				boolean doCheck = groupTable.isCheckDataPure();
 				col.adjustDataType(dataTypeInfo[0], doCheck);
 				
-				//Ìá½»ÁĞ¿ébuffer
+				//æäº¤åˆ—å—buffer
 				col.appendColBlock(bufferWriter.finish(), minValues[0], maxValues[0], startValues[0]);
 			}
 			
@@ -5423,7 +5423,7 @@ public class ColPhyTable extends PhyTable {
 			cursor.close();
 			
 			if (existCol != null) {
-				//Ìæ»»
+				//æ›¿æ¢
 				int len = columns.length;
 				for (int i = 0; i < len; i++) {
 					ColumnMetaData column = columns[i];
@@ -5434,7 +5434,7 @@ public class ColPhyTable extends PhyTable {
 				}
 				groupTable.save();
 			} else {
-				//×·¼Ó
+				//è¿½åŠ 
 				ColumnMetaData []newColumns = java.util.Arrays.copyOf(columns, columns.length + 1);
 				String []newColNames = java.util.Arrays.copyOf(colNames, colNames.length + 1);
 				newColumns[columns.length] = col;
@@ -5449,26 +5449,26 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	public void deleteColumn(String colName) {
-		//Èç¹ûÓĞ²¹Çø£¬ÔòÏÈreset
+		//å¦‚æœæœ‰è¡¥åŒºï¼Œåˆ™å…ˆreset
 		if (getModifyRecords() != null) {
 			groupTable.reset(null, null, new Context(), null);
 		}
 				
 		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
-			// ÓĞ²¹ÎÄ¼şÊ±ÏÈÉ¾³ı²¹ÎÄ¼şÖĞµÄ
+			// æœ‰è¡¥æ–‡ä»¶æ—¶å…ˆåˆ é™¤è¡¥æ–‡ä»¶ä¸­çš„
 			tmd.deleteColumn(colName);
 		}
 		
 		ColumnMetaData col = getColumn(colName);
 		
-		//¼ì²éÁĞÊÇ·ñ´æÔÚ
+		//æ£€æŸ¥åˆ—æ˜¯å¦å­˜åœ¨
 		if (col == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("alter" + mm.getMessage("dw.columnNotExist"));
 		}
 		
-		//¼ì²éÊÇ·ñÔÚÉ¾³ıÎ¬ÁĞ»òÅÅĞòÁĞ
+		//æ£€æŸ¥æ˜¯å¦åœ¨åˆ é™¤ç»´åˆ—æˆ–æ’åºåˆ—
 		if (col.isDim() || col.isKey()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("alter" + mm.getMessage("dw.columnNotEditable"));
@@ -5478,7 +5478,7 @@ public class ColPhyTable extends PhyTable {
 		String []newColNames = new String[colNames.length - 1];
 		int i = 0;
 		for (ColumnMetaData cmd : columns) {
-			if (cmd != col) {//ÕâÀïÓÃµÄÊÇÒıÓÃ¶Ô±È
+			if (cmd != col) {//è¿™é‡Œç”¨çš„æ˜¯å¼•ç”¨å¯¹æ¯”
 				newColumns[i] = cmd;
 				newColNames[i++] = cmd.getColName();
 			}

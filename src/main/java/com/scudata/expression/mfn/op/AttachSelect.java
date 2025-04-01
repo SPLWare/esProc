@@ -13,8 +13,8 @@ import com.scudata.expression.OperableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼Ó¹ıÂËÔËËã
- * op.select(x) op.select(x;f) op.select(x;ch) opÊÇÓÎ±ê»ò¹ÜµÀ£¬fÊÇÎÄ¼ş£¬chÊÇ¹ÜµÀ£¬²»Âú×ãÌõ¼şµÄĞ´µ½ÎÄ¼ş»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ è¿‡æ»¤è¿ç®—
+ * op.select(x) op.select(x;f) op.select(x;ch) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“ï¼Œfæ˜¯æ–‡ä»¶ï¼Œchæ˜¯ç®¡é“ï¼Œä¸æ»¡è¶³æ¡ä»¶çš„å†™åˆ°æ–‡ä»¶æˆ–ç®¡é“
  * @author RunQian
  *
  */

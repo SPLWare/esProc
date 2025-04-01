@@ -14,12 +14,12 @@ public class HashLinkSet {
 	private static final int DEFAULT_CAPACITY = 0xFF;
 	private static final int MAX_CAPACITY = 0x3fffffff;
 	
-	private IArray elementArray; // ¹şÏ£±í´æ·ÅµÄÊÇÔªËØµÄÎ»ÖÃ£¬ĞèÒª¸ù¾İÎ»ÖÃµ½Ô´±íÈ¡ÔªËØ
-	private int []entries; // ¹şÏ£±í£¬´æ·Å×Å¹şÏ£Öµ¶ÔÓ¦µÄ×îºóÒ»Ìõ¼ÇÂ¼µÄÎ»ÖÃ
-	private int []linkArray; // ¹şÏ£ÖµÏàÍ¬µÄ¼ÇÂ¼Á´±í
+	private IArray elementArray; // å“ˆå¸Œè¡¨å­˜æ”¾çš„æ˜¯å…ƒç´ çš„ä½ç½®ï¼Œéœ€è¦æ ¹æ®ä½ç½®åˆ°æºè¡¨å–å…ƒç´ 
+	private int []entries; // å“ˆå¸Œè¡¨ï¼Œå­˜æ”¾ç€å“ˆå¸Œå€¼å¯¹åº”çš„æœ€åä¸€æ¡è®°å½•çš„ä½ç½®
+	private int []linkArray; // å“ˆå¸Œå€¼ç›¸åŒçš„è®°å½•é“¾è¡¨
 	private int capacity;
 	
-	private ArrayList<HashLinkSet> setList; // ÓÃÓÚ¶àÏß³Ì·Ö×éÊ±Ã¿×é½á¹ûµÄºÏ²¢
+	private ArrayList<HashLinkSet> setList; // ç”¨äºå¤šçº¿ç¨‹åˆ†ç»„æ—¶æ¯ç»„ç»“æœçš„åˆå¹¶
 	
 	public HashLinkSet() {
 		capacity = DEFAULT_CAPACITY;
@@ -92,7 +92,7 @@ public class HashLinkSet {
 		}
 	}
 	
-	// Èç¹ûÒªºÏ²¢µÄsetµÄÈİÁ¿²»Í¬ÔòÏÈ±ä³ÉÏàÍ¬ÈİÁ¿µÄ
+	// å¦‚æœè¦åˆå¹¶çš„setçš„å®¹é‡ä¸åŒåˆ™å…ˆå˜æˆç›¸åŒå®¹é‡çš„
 	private static class ResizeJob extends Job {
 		private HashLinkSet set;
 		public ResizeJob(HashLinkSet set) {
@@ -105,15 +105,15 @@ public class HashLinkSet {
 	}
 	
 	/**
-	 * ´ËÀàÓÃÓÚ¶àÏß³ÌÍ³¼ÆÏàÍ¬ÈİÁ¿µÄ¶à¸ö¹şÏ£±íµÄÔªËØÊı£¬°Ñ¹şÏ£µãÆ½¾ù·ÖÅä¸ø¸÷Ïß³Ì
+	 * æ­¤ç±»ç”¨äºå¤šçº¿ç¨‹ç»Ÿè®¡ç›¸åŒå®¹é‡çš„å¤šä¸ªå“ˆå¸Œè¡¨çš„å…ƒç´ æ•°ï¼ŒæŠŠå“ˆå¸Œç‚¹å¹³å‡åˆ†é…ç»™å„çº¿ç¨‹
 	 * @author WangXiaoJun
 	 *
 	 */
 	private static class SizeJob extends Job {
 		private HashLinkSet []setArray;
-		private int seq; // Ïß³ÌĞòºÅ£¬´Ó0¿ªÊ¼¼ÆËã
-		private int threadCount; // Ïß³ÌÊı
-		private int result; // ½á¹û¼¯ÊıÁ¿
+		private int seq; // çº¿ç¨‹åºå·ï¼Œä»0å¼€å§‹è®¡ç®—
+		private int threadCount; // çº¿ç¨‹æ•°
+		private int result; // ç»“æœé›†æ•°é‡
 		
 		public SizeJob(HashLinkSet []setArray, int seq, int threadCount) {
 			this.setArray = setArray;
@@ -138,7 +138,7 @@ public class HashLinkSet {
 		
 		private void sizeOfNumber() {
 			HashLinkSet []setArray = this.setArray;
-			int threadCount = this.threadCount; // Ïß³ÌÊı
+			int threadCount = this.threadCount; // çº¿ç¨‹æ•°
 			int capacity = setArray[0].capacity;
 			int setCount = setArray.length;
 			
@@ -146,12 +146,12 @@ public class HashLinkSet {
 			IArray values = setArray[0].elementArray.newInstance(valueCapacity);
 			int result = 0;
 			
-			// Ñ­»·¹şÏ£µã
+			// å¾ªç¯å“ˆå¸Œç‚¹
 			for (int h = seq; h <= capacity; h += threadCount) {
-				// µ±Ç°¹şÏ£ÖµÉÏ²»ÖØ¸´ÔªËØÊı
+				// å½“å‰å“ˆå¸Œå€¼ä¸Šä¸é‡å¤å…ƒç´ æ•°
 				int valueCount = 0;
 				
-				// Ñ­»·Ã¿¸ö¹şÏ£±íµ±Ç°¹şÏ£µãÉÏµÄÖµ
+				// å¾ªç¯æ¯ä¸ªå“ˆå¸Œè¡¨å½“å‰å“ˆå¸Œç‚¹ä¸Šçš„å€¼
 				for (int s = 0; s < setCount; ++s) {
 					HashLinkSet set = setArray[s];
 					IArray elementArray = set.elementArray;
@@ -184,7 +184,7 @@ public class HashLinkSet {
 		
 		private void sizeOfString() {
 			HashLinkSet []setArray = this.setArray;
-			int threadCount = this.threadCount; // Ïß³ÌÊı
+			int threadCount = this.threadCount; // çº¿ç¨‹æ•°
 			int capacity = setArray[0].capacity;
 			int setCount = setArray.length;
 			
@@ -192,12 +192,12 @@ public class HashLinkSet {
 			String []values = new String[valueCapacity];
 			int result = 0;
 			
-			// Ñ­»·¹şÏ£µã
+			// å¾ªç¯å“ˆå¸Œç‚¹
 			for (int h = seq; h <= capacity; h += threadCount) {
-				// µ±Ç°¹şÏ£ÖµÉÏ²»ÖØ¸´ÔªËØÊı
+				// å½“å‰å“ˆå¸Œå€¼ä¸Šä¸é‡å¤å…ƒç´ æ•°
 				int valueCount = 0;
 				
-				// Ñ­»·Ã¿¸ö¹şÏ£±íµ±Ç°¹şÏ£µãÉÏµÄÖµ
+				// å¾ªç¯æ¯ä¸ªå“ˆå¸Œè¡¨å½“å‰å“ˆå¸Œç‚¹ä¸Šçš„å€¼
 				for (int s = 0; s < setCount; ++s) {
 					HashLinkSet set = setArray[s];
 					int prevValueCount = valueCount;
@@ -230,7 +230,7 @@ public class HashLinkSet {
 		
 		private void sizeOfObject() {
 			HashLinkSet []setArray = this.setArray;
-			int threadCount = this.threadCount; // Ïß³ÌÊı
+			int threadCount = this.threadCount; // çº¿ç¨‹æ•°
 			int capacity = setArray[0].capacity;
 			int setCount = setArray.length;
 			
@@ -238,12 +238,12 @@ public class HashLinkSet {
 			Object []values = new Object[valueCapacity];
 			int result = 0;
 			
-			// Ñ­»·¹şÏ£µã
+			// å¾ªç¯å“ˆå¸Œç‚¹
 			for (int h = seq; h <= capacity; h += threadCount) {
-				// µ±Ç°¹şÏ£ÖµÉÏ²»ÖØ¸´ÔªËØÊı
+				// å½“å‰å“ˆå¸Œå€¼ä¸Šä¸é‡å¤å…ƒç´ æ•°
 				int valueCount = 0;
 				
-				// Ñ­»·Ã¿¸ö¹şÏ£±íµ±Ç°¹şÏ£µãÉÏµÄÖµ
+				// å¾ªç¯æ¯ä¸ªå“ˆå¸Œè¡¨å½“å‰å“ˆå¸Œç‚¹ä¸Šçš„å€¼
 				for (int s = 0; s < setCount; ++s) {
 					HashLinkSet set = setArray[s];
 					int prevValueCount = valueCount;
@@ -276,7 +276,7 @@ public class HashLinkSet {
 	}
 	
 	/**
-	 * Í³¼Æ¶à¸ösetÈç¹ûºÏ²¢Ê£ÓàµÄ³ÉÔ±Êı
+	 * ç»Ÿè®¡å¤šä¸ªsetå¦‚æœåˆå¹¶å‰©ä½™çš„æˆå‘˜æ•°
 	 * @param setArray
 	 * @return
 	 */
@@ -297,7 +297,7 @@ public class HashLinkSet {
 		}
 		
 		if (!isSameCapacity) {
-			// Èç¹ûÒªºÏ²¢µÄsetµÄÈİÁ¿²»Í¬ÔòÏÈ±ä³ÉÏàÍ¬ÈİÁ¿µÄ
+			// å¦‚æœè¦åˆå¹¶çš„setçš„å®¹é‡ä¸åŒåˆ™å…ˆå˜æˆç›¸åŒå®¹é‡çš„
 			ArrayList<ResizeJob> jobList = new ArrayList<ResizeJob>();
 			for (HashLinkSet set : setArray) {
 				if (set.capacity != maxCapacity) {
@@ -306,7 +306,7 @@ public class HashLinkSet {
 					set.linkArray = new int[maxCapacity + 1];
 
 					ResizeJob job = new ResizeJob(set);
-					pool.submit(job); // Ìá½»ÈÎÎñ
+					pool.submit(job); // æäº¤ä»»åŠ¡
 					jobList.add(job);
 				}
 			}
@@ -321,7 +321,7 @@ public class HashLinkSet {
 		
 		for (int i = 0; i < threadCount; ++i) {
 			jobs[i] = new SizeJob(setArray, i, threadCount);
-			pool.submit(jobs[i]); // Ìá½»ÈÎÎñ
+			pool.submit(jobs[i]); // æäº¤ä»»åŠ¡
 		}
 		
 		int totalSize = 0;
@@ -364,14 +364,14 @@ public class HashLinkSet {
 			}
 		}
 		
-		// ÔÚsetÖĞÃ»ÓĞÕÒµ½µ±Ç°Öµ
+		// åœ¨setä¸­æ²¡æœ‰æ‰¾åˆ°å½“å‰å€¼
 		int count = elementArray.size() + 1;
 		if (count <= capacity) {
 			elementArray.push(array, index);
 			linkArray[count] = entries[hash];
 			entries[hash] = count;
 		} else if (count < MAX_CAPACITY) {
-			// ÔªËØÊı³¬¹ıÈİÁ¿£¬À©´ó¹şÏ£±í
+			// å…ƒç´ æ•°è¶…è¿‡å®¹é‡ï¼Œæ‰©å¤§å“ˆå¸Œè¡¨
 			capacity = (capacity << 1) + 1;
 			entries = new int[capacity + 1];
 			linkArray = new int[capacity + 1];
@@ -394,14 +394,14 @@ public class HashLinkSet {
 			}
 		}
 		
-		// ÔÚsetÖĞÃ»ÓĞÕÒµ½µ±Ç°Öµ
+		// åœ¨setä¸­æ²¡æœ‰æ‰¾åˆ°å½“å‰å€¼
 		int count = elementArray.size() + 1;
 		if (count <= capacity) {
 			elementArray.push(value);
 			linkArray[count] = entries[hash];
 			entries[hash] = count;
 		} else if (count < MAX_CAPACITY) {
-			// ÔªËØÊı³¬¹ıÈİÁ¿£¬À©´ó¹şÏ£±í
+			// å…ƒç´ æ•°è¶…è¿‡å®¹é‡ï¼Œæ‰©å¤§å“ˆå¸Œè¡¨
 			capacity = (capacity << 1) + 1;
 			entries = new int[capacity + 1];
 			linkArray = new int[capacity + 1];

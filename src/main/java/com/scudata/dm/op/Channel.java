@@ -11,31 +11,31 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.Expression;
 
 /**
- * ¹ÜµÀ¶ÔÏó£¬¹ÜµÀ¿ÉÒÔ¸½¼Ó¶àÖÖÔËËã£¬µ«Ö»ÄÜ¶¨ÒåÒ»ÖÖ½á¹û¼¯ÔËËã
+ * ç®¡é“å¯¹è±¡ï¼Œç®¡é“å¯ä»¥é™„åŠ å¤šç§è¿ç®—ï¼Œä½†åªèƒ½å®šä¹‰ä¸€ç§ç»“æœé›†è¿ç®—
  * @author WangXiaoJun
  *
  */
 public class Channel extends Operable implements IPipe {
-	protected Context ctx; // ÓÃ¶àÏß³ÌÓÎ±êÈ¡ÊıÊ±ĞèÒª¸ü¸ÄÉÏÏÂÎÄ²¢ÖØĞÂ½âÎö±í´ïÊ½
-	private ArrayList<Operation> opList; // ¸½¼Ó²Ù×÷ÁĞ±í
-	protected IResult result; // ¹ÜµÀ×îÖÕµÄ½á¹û¼¯º¯Êı
+	protected Context ctx; // ç”¨å¤šçº¿ç¨‹æ¸¸æ ‡å–æ•°æ—¶éœ€è¦æ›´æ”¹ä¸Šä¸‹æ–‡å¹¶é‡æ–°è§£æè¡¨è¾¾å¼
+	private ArrayList<Operation> opList; // é™„åŠ æ“ä½œåˆ—è¡¨
+	protected IResult result; // ç®¡é“æœ€ç»ˆçš„ç»“æœé›†å‡½æ•°
 	
-	// ·Ö×é±í´ïÊ½ÀïÈç¹ûÓĞsum(...)+sum(...)ÕâÑùµÄ»ã×ÜÏî»á±ä³Égroups(...).new(...)£¬ÓÃÓÚ´æ·ÅºóÃæµÄnew
+	// åˆ†ç»„è¡¨è¾¾å¼é‡Œå¦‚æœæœ‰sum(...)+sum(...)è¿™æ ·çš„æ±‡æ€»é¡¹ä¼šå˜æˆgroups(...).new(...)ï¼Œç”¨äºå­˜æ”¾åé¢çš„new
 	protected New resultNew;
-	protected int pkCount; // Ö÷¼ü×Ö¶ÎÊı
+	protected int pkCount; // ä¸»é”®å­—æ®µæ•°
 	
 	/**
-	 * ¹¹½¨¹ÜµÀ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºç®¡é“
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public Channel(Context ctx) {
 		this.ctx = ctx;
 	}
 	
 	/**
-	 * ÓÃÓÎ±ê¹¹½¨¹ÜµÀ£¬ÓÎ±êµÄÊı¾İ½«»áÍÆ¸ø´Ë¹ÜµÀ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param cs ÓÎ±ê
+	 * ç”¨æ¸¸æ ‡æ„å»ºç®¡é“ï¼Œæ¸¸æ ‡çš„æ•°æ®å°†ä¼šæ¨ç»™æ­¤ç®¡é“
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param cs æ¸¸æ ‡
 	 */
 	public Channel(Context ctx, ICursor cs) {
 		this.ctx = ctx;
@@ -44,7 +44,7 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ¸øÓÎ±êÌí¼ÓpushÊı¾İµ½¹ÜµÀµÄ²Ù×÷
+	 * ç»™æ¸¸æ ‡æ·»åŠ pushæ•°æ®åˆ°ç®¡é“çš„æ“ä½œ
 	 * @param cs
 	 */
 	public void addPushToCursor(ICursor cs) {
@@ -53,9 +53,9 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * Îª¹ÜµÀ¸½¼ÓÔËËã
-	 * @param op ÔËËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ä¸ºç®¡é“é™„åŠ è¿ç®—
+	 * @param op è¿ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable addOperation(Operation op, Context ctx) {
@@ -71,18 +71,18 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ¼ì²éÊÇ·ñÒÑ¾­ÓĞ½á¹û¼¯º¯ÊıÁË
+	 * æ£€æŸ¥æ˜¯å¦å·²ç»æœ‰ç»“æœé›†å‡½æ•°äº†
 	 */
 	protected void checkResultChannel() {
 		if (result != null) {
-			throw new RQException("¸½¼Ó½á¹û¼¯Ö®ºó²»ÄÜÔÙ¼ÌĞø¸½¼ÓÆäËüÔËËã");
+			throw new RQException("é™„åŠ ç»“æœé›†ä¹‹åä¸èƒ½å†ç»§ç»­é™„åŠ å…¶å®ƒè¿ç®—");
 		}
 	}
 	
 	/**
-	 * Íù¹ÜµÀÍÆËÍÊı¾İ£¬¿ÉÄÜ»áÓĞ¶à¸öÔ´Í¬Ê±Íù¹ÜµÀÍÆËÍÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¾€ç®¡é“æ¨é€æ•°æ®ï¼Œå¯èƒ½ä¼šæœ‰å¤šä¸ªæºåŒæ—¶å¾€ç®¡é“æ¨é€æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public synchronized void push(Sequence seq, Context ctx) {
 		if (opList != null) {
@@ -101,8 +101,8 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊøÊ±µ÷ÓÃ£¬ÓĞĞ©¸½¼ÓµÄ²Ù×÷»á»º´æÊı¾İ£¬ĞèÒªµ÷ÓÃfinish½øĞĞ×îºóµÄ´¦Àí
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®æ¨é€ç»“æŸæ—¶è°ƒç”¨ï¼Œæœ‰äº›é™„åŠ çš„æ“ä½œä¼šç¼“å­˜æ•°æ®ï¼Œéœ€è¦è°ƒç”¨finishè¿›è¡Œæœ€åçš„å¤„ç†
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void finish(Context ctx) {
 		if (opList == null) {
@@ -138,7 +138,7 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ·µ»Ø¹ÜµÀµÄ¼ÆËã½á¹û
+	 * è¿”å›ç®¡é“çš„è®¡ç®—ç»“æœ
 	 * @return
 	 */
 	public Object result() {
@@ -172,7 +172,7 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ±£Áô¹ÜµÀµ±Ç°Êı¾İ×öÎª½á¹û¼¯
+	 * ä¿ç•™ç®¡é“å½“å‰æ•°æ®åšä¸ºç»“æœé›†
 	 * @return this
 	 */
 	public Channel fetch() {
@@ -182,8 +182,8 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ±£Áô¹ÜµÀµ±Ç°Êı¾İµ½¼¯ÎÄ¼ş
-	 * @param file ¼¯ÎÄ¼ş
+	 * ä¿ç•™ç®¡é“å½“å‰æ•°æ®åˆ°é›†æ–‡ä»¶
+	 * @param file é›†æ–‡ä»¶
 	 * @return this
 	 */
 	public Channel fetch(FileObject file) {
@@ -193,12 +193,12 @@ public class Channel extends Operable implements IPipe {
 	}
 
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞ·Ö×éÔËËã²¢×öÎª½á¹û¼¯
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃû
-	 * @param opt Ñ¡Ïî
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œåˆ†ç»„è¿ç®—å¹¶åšä¸ºç»“æœé›†
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µå
+	 * @param opt é€‰é¡¹
 	 * @return
 	 */
 	public Channel groups(Expression[] exps, String[] names,
@@ -209,8 +209,8 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞ»ã×ÜÔËËã²¢×öÎª½á¹û¼¯
-	 * @param calcExps »ã×Ü±í´ïÊ½
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œæ±‡æ€»è¿ç®—å¹¶åšä¸ºç»“æœé›†
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼
 	 * @return
 	 */
 	public Channel total(Expression[] calcExps) {
@@ -220,13 +220,13 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞÍâ´æ·Ö×éÔËËã²¢×öÎª½á¹û¼¯
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃû
-	 * @param opt Ñ¡Ïî
-	 * @param capacity ÄÚ´æ¿ÉÒÔ´æ·ÅµÄ·Ö×é½á¹ûÊıÁ¿
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œå¤–å­˜åˆ†ç»„è¿ç®—å¹¶åšä¸ºç»“æœé›†
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µå
+	 * @param opt é€‰é¡¹
+	 * @param capacity å†…å­˜å¯ä»¥å­˜æ”¾çš„åˆ†ç»„ç»“æœæ•°é‡
 	 * @return
 	 */
 	public Channel groupx(Expression[] exps, String[] names,
@@ -237,10 +237,10 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞÍâ´æÅÅĞòÔËËã²¢×öÎª½á¹û¼¯
-	 * @param exps ÅÅĞò±í´ïÊ½Êı×é
-	 * @param capacity ÄÚ´æ¿ÉÒÔ´æ·ÅµÄ¼ÇÂ¼ÊıÁ¿
-	 * @param opt Ñ¡Ïî
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œå¤–å­˜æ’åºè¿ç®—å¹¶åšä¸ºç»“æœé›†
+	 * @param exps æ’åºè¡¨è¾¾å¼æ•°ç»„
+	 * @param capacity å†…å­˜å¯ä»¥å­˜æ”¾çš„è®°å½•æ•°é‡
+	 * @param opt é€‰é¡¹
 	 * @return
 	 */
 	public Channel sortx(Expression[] exps, int capacity, String opt) {
@@ -250,7 +250,7 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞÁ¬½ÓÔËËã²¢×öÎª½á¹û¼¯
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œè¿æ¥è¿ç®—å¹¶åšä¸ºç»“æœé›†
 	 * @param fields
 	 * @param fileTable
 	 * @param keys
@@ -270,11 +270,11 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞµü´úÔËËã²¢×÷Îª½á¹û¼¯
-	 * @param exp µü´ú±í´ïÊ½
-	 * @param initVal ³õÊ¼Öµ
-	 * @param c Ìõ¼ş±í´ïÊ½£¬µü´ú¹ı³ÌÖĞcÎªÕæÔòÌáÇ°½áÊø
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œè¿­ä»£è¿ç®—å¹¶ä½œä¸ºç»“æœé›†
+	 * @param exp è¿­ä»£è¡¨è¾¾å¼
+	 * @param initVal åˆå§‹å€¼
+	 * @param c æ¡ä»¶è¡¨è¾¾å¼ï¼Œè¿­ä»£è¿‡ç¨‹ä¸­cä¸ºçœŸåˆ™æå‰ç»“æŸ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Channel iterate(Expression exp, Object initVal, Expression c, Context ctx) {
@@ -284,10 +284,10 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞÈ¥ÖØÔËËã²¢×÷Îª½á¹û¼¯
-	 * @param exps È¥ÖØ±í´ïÊ½
-	 * @param count ±£ÁôµÄ½á¹ûÊı
-	 * @param opt Ñ¡Ïî
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œå»é‡è¿ç®—å¹¶ä½œä¸ºç»“æœé›†
+	 * @param exps å»é‡è¡¨è¾¾å¼
+	 * @param count ä¿ç•™çš„ç»“æœæ•°
+	 * @param opt é€‰é¡¹
 	 * @return
 	 */
 	public Channel id(Expression []exps, int count, String opt) {
@@ -297,7 +297,7 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * È¡¹ÜµÀµÄ½á¹û¶ÔÏó
+	 * å–ç®¡é“çš„ç»“æœå¯¹è±¡
 	 * @return IResult
 	 */
 	public IResult getResult() {
@@ -305,8 +305,8 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * groupsÔËËãÈç¹û»ã×Ü×Ö¶Î²»ÊÇµ¥´¿µÄ¾ÛºÏ±í´ï£¬×îºóĞèÒªÔÙnewÒ»ÏÂ
-	 * @param op new²Ù×÷
+	 * groupsè¿ç®—å¦‚æœæ±‡æ€»å­—æ®µä¸æ˜¯å•çº¯çš„èšåˆè¡¨è¾¾ï¼Œæœ€åéœ€è¦å†newä¸€ä¸‹
+	 * @param op newæ“ä½œ
 	 * @param pkCount
 	 */
 	public void setResultNew(New op, int pkCount) {
@@ -315,7 +315,7 @@ public class Channel extends Operable implements IPipe {
 	}
 	
 	/**
-	 * È¡¼ÆËãÉÏÏÂÎÄ
+	 * å–è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Context
 	 */
 	public Context getContext() {

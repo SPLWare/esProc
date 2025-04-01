@@ -12,7 +12,7 @@ import com.scudata.util.Variant;
 /**
  * @author yanjing
  * 
- * db(cost,salvage,life,period,month)   Ê¹ÓÃ¹Ì¶¨Óà¶îµİ¼õ·¨£¬¼ÆËãÒ»±Ê×Ê²úÔÚ¸ø¶¨ÄêÄÚµÄÕÛ¾ÉÖµ
+ * db(cost,salvage,life,period,month)   ä½¿ç”¨å›ºå®šä½™é¢é€’å‡æ³•ï¼Œè®¡ç®—ä¸€ç¬”èµ„äº§åœ¨ç»™å®šå¹´å†…çš„æŠ˜æ—§å€¼
  * 
  * @return
  * 
@@ -40,12 +40,12 @@ public class Db extends Function {
 	}
 	
 	/** 
-	 * db(cost,salvage,life,period,month)   Ê¹ÓÃ¹Ì¶¨Óà¶îµİ¼õ·¨£¬¼ÆËãÒ»±Ê×Ê²úÔÚ¸ø¶¨ÄêÄÚµÄÕÛ¾ÉÖµ
-	 * @param Cost Îª×Ê²úÔ­Öµ
-	 * @param Salvage Îª×Ê²úÔÚÕÛ¾ÉÆÚÄ©µÄ¼ÛÖµ£¨ÓĞÊ±Ò²³ÆÎª×Ê²ú²ĞÖµ£©
-	 * @param Life ÎªÕÛ¾ÉÄêÏŞ£¨ÓĞÊ±Ò²³Æ×÷×Ê²úµÄÊ¹ÓÃÊÙÃü£©
-	 * @param Period ÎªĞèÒª¼ÆËãÕÛ¾ÉÖµµÄÄê·İ¡£Period ±ØĞëÊ¹ÓÃÓë life ÏàÍ¬µÄµ¥Î»
-	 * @param Month ÎªµÚÒ»ÄêµÄÔÂ·İÊı£¬ÈçÊ¡ÂÔ£¬Ôò¼ÙÉèÎª 12
+	 * db(cost,salvage,life,period,month)   ä½¿ç”¨å›ºå®šä½™é¢é€’å‡æ³•ï¼Œè®¡ç®—ä¸€ç¬”èµ„äº§åœ¨ç»™å®šå¹´å†…çš„æŠ˜æ—§å€¼
+	 * @param Cost ä¸ºèµ„äº§åŸå€¼
+	 * @param Salvage ä¸ºèµ„äº§åœ¨æŠ˜æ—§æœŸæœ«çš„ä»·å€¼ï¼ˆæœ‰æ—¶ä¹Ÿç§°ä¸ºèµ„äº§æ®‹å€¼ï¼‰
+	 * @param Life ä¸ºæŠ˜æ—§å¹´é™ï¼ˆæœ‰æ—¶ä¹Ÿç§°ä½œèµ„äº§çš„ä½¿ç”¨å¯¿å‘½ï¼‰
+	 * @param Period ä¸ºéœ€è¦è®¡ç®—æŠ˜æ—§å€¼çš„å¹´ä»½ã€‚Period å¿…é¡»ä½¿ç”¨ä¸ life ç›¸åŒçš„å•ä½
+	 * @param Month ä¸ºç¬¬ä¸€å¹´çš„æœˆä»½æ•°ï¼Œå¦‚çœç•¥ï¼Œåˆ™å‡è®¾ä¸º 12
 	 * @return
 	 */
 	private Object db(Object[] result){

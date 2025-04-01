@@ -12,11 +12,11 @@ import com.scudata.dm.Context;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 /*** @author Administrator
- * hdfs_dir(hd, path)	列出path下的所有不包含路径的文件名
-	@d 只列目录
-	@p 列完整路径名
-	@m 创建目录
-	@r 删除目录
+ * hdfs_dir(hd, path)	鍒楀嚭path涓嬬殑鎵�鏈変笉鍖呭惈璺緞鐨勬枃浠跺悕
+	@d 鍙垪鐩綍
+	@p 鍒楀畬鏁磋矾寰勫悕
+	@m 鍒涘缓鐩綍
+	@r 鍒犻櫎鐩綍
  *
  */
 public class HdfsDir extends HdfsFunction {
@@ -132,7 +132,7 @@ public class HdfsDir extends HdfsFunction {
     	Path path = new Path(dir);
     	if (m_hdfs.exists(path)){
     		bRet =m_hdfs.delete(path,false);
-    	    //递归删除
+    	    //閫掑綊鍒犻櫎
 	        //boolean isDeleted=hdfs.delete(delef,true);
 	        System.out.println("Delete : "+ bRet);    	        
     	}else{ 

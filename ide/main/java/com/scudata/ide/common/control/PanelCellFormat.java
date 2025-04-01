@@ -21,60 +21,60 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JListEx;
 
 /**
- * ¸ñÊ½±à¼­Ãæ°å
+ * æ ¼å¼ç¼–è¾‘é¢æ¿
  */
 abstract public class PanelCellFormat extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 	/**
-	 * ¸ñÊ½ÎÄ±¾¿ò¿Ø¼ş
+	 * æ ¼å¼æ–‡æœ¬æ¡†æ§ä»¶
 	 */
 	private JTextField jTFFormat = new JTextField();
 	/**
-	 * ¸ñÊ½ÀàĞÍÁĞ±í¿Ø¼ş¡£ÊıÖµ,»õ±Ò,ÈÕÆÚ,Ê±¼ä,ÈÕÆÚÊ±¼ä,·ÖÊı,¿ÆÑ§¼ÆÊı¡£
+	 * æ ¼å¼ç±»å‹åˆ—è¡¨æ§ä»¶ã€‚æ•°å€¼,è´§å¸,æ—¥æœŸ,æ—¶é—´,æ—¥æœŸæ—¶é—´,åˆ†æ•°,ç§‘å­¦è®¡æ•°ã€‚
 	 */
 	private JListEx jListType = new JListEx(
 			mm.getMessage("dialogcellformat.colnames"));
 	/**
-	 * ÑùÀıÁĞ±í¿Ø¼ş
+	 * æ ·ä¾‹åˆ—è¡¨æ§ä»¶
 	 */
 	private JList<String> jListSample = new JList<String>();
 
 	/**
-	 * ÊıÖµ
+	 * æ•°å€¼
 	 */
 	private static final int TYPE_NUMBER = 0;
 	/**
-	 * »õ±Ò
+	 * è´§å¸
 	 */
 	private static final int TYPE_CURRENCY = 1;
 	/**
-	 * ÈÕÆÚ
+	 * æ—¥æœŸ
 	 */
 	private static final int TYPE_DATE = 2;
 	/**
-	 * Ê±¼ä
+	 * æ—¶é—´
 	 */
 	private static final int TYPE_TIME = 3;
 	/**
-	 * ÈÕÆÚÊ±¼ä
+	 * æ—¥æœŸæ—¶é—´
 	 */
 	private static final int TYPE_DATE_TIME = 4;
 	/**
-	 * °Ù·ÖÊı
+	 * ç™¾åˆ†æ•°
 	 */
 	private static final int TYPE_PERCENT = 5;
 	/**
-	 * ¿ÆÑ§¼ÆÊı
+	 * ç§‘å­¦è®¡æ•°
 	 */
 	private static final int TYPE_SCIENTIFIC_COUNTING = 6;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public PanelCellFormat(JDialog parent) {
 		try {
@@ -85,26 +85,26 @@ abstract public class PanelCellFormat extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃ¸ñÊ½
+	 * è®¾ç½®æ ¼å¼
 	 * 
 	 * @param format
-	 *            ¸ñÊ½´®
+	 *            æ ¼å¼ä¸²
 	 */
 	public void setFormat(String format) {
 		jTFFormat.setText(format);
 	}
 
 	/**
-	 * È¡¸ñÊ½
+	 * å–æ ¼å¼
 	 * 
-	 * @return ¸ñÊ½´®
+	 * @return æ ¼å¼ä¸²
 	 */
 	public String getFormat() {
 		return jTFFormat.getText();
 	}
 
 	/**
-	 * È¡¸ñÊ½ÀàĞÍ
+	 * å–æ ¼å¼ç±»å‹
 	 * 
 	 * @return
 	 */
@@ -127,7 +127,7 @@ abstract public class PanelCellFormat extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -135,8 +135,8 @@ abstract public class PanelCellFormat extends JPanel {
 		setLayout(new GridBagLayout());
 		JLabel jLabel1 = new JLabel();
 		JLabel jLabel2 = new JLabel();
-		jLabel1.setText(mm.getMessage("dialogcellformat.format")); // ¸ñÊ½
-		jLabel2.setText(mm.getMessage("dialogcellformat.type")); // ·ÖÀà
+		jLabel1.setText(mm.getMessage("dialogcellformat.format")); // æ ¼å¼
+		jLabel2.setText(mm.getMessage("dialogcellformat.type")); // åˆ†ç±»
 		jListType
 				.addListSelectionListener(new PanelCellFormat_jListType_listSelectionAdapter(
 						this));
@@ -165,7 +165,7 @@ abstract public class PanelCellFormat extends JPanel {
 	}
 
 	/**
-	 * µ±¸ñÊ½ÀàĞÍ±ä»¯Ê±£¬ÏÔÊ¾ÏàÓ¦µÄÑùÀı
+	 * å½“æ ¼å¼ç±»å‹å˜åŒ–æ—¶ï¼Œæ˜¾ç¤ºç›¸åº”çš„æ ·ä¾‹
 	 * 
 	 * @param e
 	 */
@@ -177,9 +177,9 @@ abstract public class PanelCellFormat extends JPanel {
 					"#,##0.000", "#,###.000" });
 			break;
 		case TYPE_CURRENCY:
-			jListSample.setListData(new String[] { "£¤#0.00", "£¤#.00", "£¤#.#",
-					"£¤#0.000", "£¤#.000", "£¤#,##0.00", "£¤#,###.00", "£¤#,###.#",
-					"£¤#,##0.000", "£¤#,###.000", "$#0.00", "$#.00", "$#.#",
+			jListSample.setListData(new String[] { "ï¿¥#0.00", "ï¿¥#.00", "ï¿¥#.#",
+					"ï¿¥#0.000", "ï¿¥#.000", "ï¿¥#,##0.00", "ï¿¥#,###.00", "ï¿¥#,###.#",
+					"ï¿¥#,##0.000", "ï¿¥#,###.000", "$#0.00", "$#.00", "$#.#",
 					"$#0.000", "$#.000", "$#,##0.00", "$#,###.00", "$#,###.#",
 					"$#,##0.000", "$#,###.000" });
 			break;
@@ -207,12 +207,12 @@ abstract public class PanelCellFormat extends JPanel {
 	}
 
 	/**
-	 * µ±¸ñÊ½Ñ¡ÖĞºó
+	 * å½“æ ¼å¼é€‰ä¸­å
 	 */
 	public abstract void formatSelected();
 
 	/**
-	 * Ñ¡ÔñÁËÑùÀıºó
+	 * é€‰æ‹©äº†æ ·ä¾‹å
 	 * 
 	 * @param e
 	 */
@@ -222,7 +222,7 @@ abstract public class PanelCellFormat extends JPanel {
 	}
 
 	/**
-	 * Êó±êË«»÷ÑùÀı¡£´¥·¢formatSelected()·½·¨
+	 * é¼ æ ‡åŒå‡»æ ·ä¾‹ã€‚è§¦å‘formatSelected()æ–¹æ³•
 	 * 
 	 * @param e
 	 */

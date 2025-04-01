@@ -53,10 +53,10 @@ public class TcpServer extends Thread {
 	}
 
 	/**
-	 * ¼ì²éÒ»ÏÂ¸ù¾İÅäÖÃµÄ¶Ë¿Úport£¬ÓĞÃ»ÓĞÒÑ¾­Æô¶¯µÄÊµÀı
+	 * æ£€æŸ¥ä¸€ä¸‹æ ¹æ®é…ç½®çš„ç«¯å£portï¼Œæœ‰æ²¡æœ‰å·²ç»å¯åŠ¨çš„å®ä¾‹
 	 * 
 	 * @param port
-	 * @return ÓĞÁËÔò·µ»Øtrue
+	 * @return æœ‰äº†åˆ™è¿”å›true
 	 */
 	public static boolean checkExistInstance(int port) {
 		return ask(LOCALHOST, GETWINDOWTITLE, port);

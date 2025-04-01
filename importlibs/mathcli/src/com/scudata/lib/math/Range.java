@@ -9,7 +9,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
 /**
- * ±ß½çÏŞ¶¨£ºA.range(l,u)¡£A.(max(min(~,u),l)) /
+ * è¾¹ç•Œé™å®šï¼šA.range(l,u)ã€‚A.(max(min(~,u),l)) /
  * @author bd
  */
 public class Range extends SequenceFunction {

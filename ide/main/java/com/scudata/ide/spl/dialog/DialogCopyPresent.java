@@ -31,7 +31,7 @@ import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ¸´ÖÆ¿É³ÊÏÖ´úÂë¶Ô»°¿ò
+ * å¤åˆ¶å¯å‘ˆç°ä»£ç å¯¹è¯æ¡†
  *
  */
 public class DialogCopyPresent extends RQDialog {
@@ -39,7 +39,7 @@ public class DialogCopyPresent extends RQDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogCopyPresent() {
 		super("Copy code for presentation", 600, 500);
@@ -52,10 +52,10 @@ public class DialogCopyPresent extends RQDialog {
 	}
 
 	/**
-	 * ±£´æÑ¡Ïî
+	 * ä¿å­˜é€‰é¡¹
 	 * 
 	 * @param showException
-	 *            ÊÇ·ñÅ×Òì³£
+	 *            æ˜¯å¦æŠ›å¼‚å¸¸
 	 * @return
 	 */
 	private boolean saveOption(boolean showException) {
@@ -64,7 +64,7 @@ public class DialogCopyPresent extends RQDialog {
 			String sep = getSep();
 			if (sep == null || "".equals(sep)) {
 				if (showException)
-					// Çë¶¨ÒåÁĞ·Ö¸ô·û¡£
+					// è¯·å®šä¹‰åˆ—åˆ†éš”ç¬¦ã€‚
 					GM.messageDialog(this,
 							mm.getMessage("dialogcopypresent.emptycolsep"));
 				return false;
@@ -77,7 +77,7 @@ public class DialogCopyPresent extends RQDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 */
 	protected boolean okAction(ActionEvent e) {
 		if (!saveOption(true)) {
@@ -88,7 +88,7 @@ public class DialogCopyPresent extends RQDialog {
 	}
 
 	/**
-	 * ¹Ø±Õ¶Ô»°¿ò
+	 * å…³é—­å¯¹è¯æ¡†
 	 */
 	protected void closeDialog(int option) {
 		super.closeDialog(option);
@@ -97,7 +97,7 @@ public class DialogCopyPresent extends RQDialog {
 	}
 
 	/**
-	 * È¡·Ö¸ô·û
+	 * å–åˆ†éš”ç¬¦
 	 * 
 	 * @return
 	 */
@@ -115,7 +115,7 @@ public class DialogCopyPresent extends RQDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		panelCenter.setLayout(new GridBagLayout());
@@ -158,7 +158,7 @@ public class DialogCopyPresent extends RQDialog {
 		jTAPreview.setEditable(false);
 		jTAPreview.setCodeFoldingEnabled(true);
 		jTAPreview.setFont(GC.font);
-		// µ¥Ôª¸ñ±í´ïÊ½
+		// å•å…ƒæ ¼è¡¨è¾¾å¼
 		jTAPreview.setToolTipText(mm.getMessage("toolbarproperty.cellexp"));
 		jTAPreview.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_SQL);
 		jCBLineWrap.setSelected(ConfigOptions.bTextEditorLineWrap
@@ -168,7 +168,7 @@ public class DialogCopyPresent extends RQDialog {
 		jCBType.x_setSelectedCodeItem(ConfigOptions.iCopyPresentType);
 		jCBHeader.setSelected(ConfigOptions.bCopyPresentHeader);
 		jCBSep.setSelectedItem(ConfigOptions.sCopyPresentSep);
-		// ¸´ÖÆ¿É³ÊÏÖ´úÂë
+		// å¤åˆ¶å¯å‘ˆç°ä»£ç 
 		setTitle(mm.getMessage("dialogcopypresent.title"));
 		this.setResizable(true);
 		jCBType.addActionListener(new ActionListener() {
@@ -238,7 +238,7 @@ public class DialogCopyPresent extends RQDialog {
 	}
 
 	/**
-	 * ÏÔÊ¾
+	 * æ˜¾ç¤º
 	 */
 	private void preview() {
 		if (!saveOption(false)) {
@@ -249,7 +249,7 @@ public class DialogCopyPresent extends RQDialog {
 	}
 
 	/**
-	 * ÀàĞÍ·¢Éú±ä»¯
+	 * ç±»å‹å‘ç”Ÿå˜åŒ–
 	 */
 	private void typeChanged() {
 		boolean sepEnabled = ((Number) jCBType.x_getSelectedItem()).byteValue() == ConfigOptions.COPY_TEXT;
@@ -257,49 +257,49 @@ public class DialogCopyPresent extends RQDialog {
 		jCBSep.setEnabled(sepEnabled);
 	}
 
-	/** ´úÂëÖµ */
+	/** ä»£ç å€¼ */
 	private Vector<Object> codes = new Vector<Object>();
-	/** ÏÔÊ¾Öµ */
+	/** æ˜¾ç¤ºå€¼ */
 	private Vector<String> disps = new Vector<String>();
-	/** ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷ */
+	/** é›†ç®—å™¨èµ„æºç®¡ç†å™¨ */
 	private MessageManager mm = IdeSplMessage.get();
 	/**
-	 * ¸´ÖÆÀàĞÍ
+	 * å¤åˆ¶ç±»å‹
 	 */
 	private JLabel jLType = new JLabel(mm.getMessage("dialogcopypresent.type"));
 	/** HTML */
 	private final String LABEL_HTML = "HTML";
-	/** ÎÄ±¾ */
+	/** æ–‡æœ¬ */
 	private final String LABEL_TEXT = mm.getMessage("dialogcopypresent.text");
-	/** ÀàĞÍ¿Ø¼ş */
+	/** ç±»å‹æ§ä»¶ */
 	private JComboBoxEx jCBType = new JComboBoxEx();
-	/** ÊÇ·ñ¸´ÖÆĞĞÁĞºÅ¿Ø¼ş */
+	/** æ˜¯å¦å¤åˆ¶è¡Œåˆ—å·æ§ä»¶ */
 	private JCheckBox jCBHeader = new JCheckBox(
 			mm.getMessage("dialogcopypresent.copyheader"));
-	/** ÁĞ·Ö¸ô·û */
+	/** åˆ—åˆ†éš”ç¬¦ */
 	private JLabel jLSep = new JLabel(mm.getMessage("dialogcopypresent.colsep"));
 
-	/** ´úÂëÖµ */
+	/** ä»£ç å€¼ */
 	private final String TAB = "\t";
 	private final String SPACE = "    ";
 	private final String CSV = ",";
-	/** ÏÔÊ¾Öµ */
+	/** æ˜¾ç¤ºå€¼ */
 	private final String LABEL_TAB = "TAB";
 	private final String LABEL_SPACE = mm.getMessage("dialogcopypresent.space");
 	private final String LABEL_CSV = ",";
 
 	/**
-	 * ·Ö¸ô·û¿Ø¼ş
+	 * åˆ†éš”ç¬¦æ§ä»¶
 	 */
 	private JComboBoxEx jCBSep = new JComboBoxEx();
 
 	/**
-	 * Ô¤ÀÀ
+	 * é¢„è§ˆ
 	 */
 	private JLabel jLPreview = new JLabel(
 			mm.getMessage("dialogcopypresent.preview"));
 	/**
-	 * Ô¤ÀÀµÄÎÄ±¾¿Ø¼ş
+	 * é¢„è§ˆçš„æ–‡æœ¬æ§ä»¶
 	 */
 	protected RSyntaxTextArea jTAPreview = new RSyntaxTextArea() {
 		private static final long serialVersionUID = 1L;
@@ -313,11 +313,11 @@ public class DialogCopyPresent extends RQDialog {
 		}
 	};
 	/**
-	 * Ô¤ÀÀ¹ö¶¯Ãæ°å
+	 * é¢„è§ˆæ»šåŠ¨é¢æ¿
 	 */
 	protected RTextScrollPane jSPPreview = new RTextScrollPane(jTAPreview);
 	/**
-	 * ÊÇ·ñ×Ô¶¯»»ĞĞ
+	 * æ˜¯å¦è‡ªåŠ¨æ¢è¡Œ
 	 */
 	private JCheckBox jCBLineWrap = new JCheckBox(
 			mm.getMessage("dialogtexteditor.linewrap"));

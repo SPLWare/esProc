@@ -45,25 +45,25 @@ import com.scudata.expression.operator.NotEquals;
 import com.scudata.expression.operator.Or;
 
 public class PseudoTable extends Pseudo {
-	//´´½¨ÓÎ±êĞèÒªµÄ²ÎÊı
+	//åˆ›å»ºæ¸¸æ ‡éœ€è¦çš„å‚æ•°
 	protected String []fkNames;
 	protected Sequence []codes;
 	protected int pathCount;
 	
-	protected ArrayList<Operation> extraOpList = new ArrayList<Operation>();//ÆäËüÇé¿ö²úÉúµÄÑÓ³Ù¼ÆËã£¨²»ÊÇÖ÷¶¯µ÷ÓÃselectÌí¼Ó£©
-	protected ArrayList<PseudoColumn> joinColumnList = new ArrayList<PseudoColumn>();//Íâ¼ü¼ÆËãÁĞ
+	protected ArrayList<Operation> extraOpList = new ArrayList<Operation>();//å…¶å®ƒæƒ…å†µäº§ç”Ÿçš„å»¶è¿Ÿè®¡ç®—ï¼ˆä¸æ˜¯ä¸»åŠ¨è°ƒç”¨selectæ·»åŠ ï¼‰
+	protected ArrayList<PseudoColumn> joinColumnList = new ArrayList<PseudoColumn>();//å¤–é”®è®¡ç®—åˆ—
 	protected PseudoTable mcsTable;
 	
-	protected boolean hasPseudoColumns = false;//ÊÇ·ñĞèÒª¸ù¾İÎ±×Ö¶Î×ª»»£¨Ã¶¾Ù¡¢¶şÖµ£©±í´ïÊ½
+	protected boolean hasPseudoColumns = false;//æ˜¯å¦éœ€è¦æ ¹æ®ä¼ªå­—æ®µè½¬æ¢ï¼ˆæšä¸¾ã€äºŒå€¼ï¼‰è¡¨è¾¾å¼
 	
 	public PseudoTable() {
 	}
 	
 	/**
-	 * ²úÉúĞé±í¶ÔÏó
-	 * @param rec ¶¨Òå¼ÇÂ¼
-	 * @param hs ·Ö»úĞòÁĞ
-	 * @param n ²¢ĞĞÊı
+	 * äº§ç”Ÿè™šè¡¨å¯¹è±¡
+	 * @param rec å®šä¹‰è®°å½•
+	 * @param hs åˆ†æœºåºåˆ—
+	 * @param n å¹¶è¡Œæ•°
 	 * @param ctx
 	 */
 	public PseudoTable(BaseRecord rec, int n, Context ctx) {
@@ -107,7 +107,7 @@ public class PseudoTable extends Pseudo {
 			if (getPd().getColumns() != null) {
 				List<PseudoColumn> columns = getPd().getColumns();
 				for (PseudoColumn column : columns) {
-					//Èç¹û´æÔÚÃ¶¾ÙÎ±×Ö¶ÎºÍ¶şÖµÎ±×Ö¶Î£¬Òª¼ÇÂ¼ÏÂÀ´£¬ÔÚ½ÓÏÂÀ´µÄ´¦ÀíÖĞ»áÓÃµ½
+					//å¦‚æœå­˜åœ¨æšä¸¾ä¼ªå­—æ®µå’ŒäºŒå€¼ä¼ªå­—æ®µï¼Œè¦è®°å½•ä¸‹æ¥ï¼Œåœ¨æ¥ä¸‹æ¥çš„å¤„ç†ä¸­ä¼šç”¨åˆ°
 					if (column.getPseudo() != null) {
 						hasPseudoColumns = true;
 					}
@@ -152,9 +152,9 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * ÉèÖÃÈ¡³ö×Ö¶Î
-	 * @param exps È¡³ö±í´ïÊ½
-	 * @param fields È¡³ö±ğÃû
+	 * è®¾ç½®å–å‡ºå­—æ®µ
+	 * @param exps å–å‡ºè¡¨è¾¾å¼
+	 * @param fields å–å‡ºåˆ«å
 	 */
 	protected void setFetchInfo(Expression []exps, String []fields) {
 		this.exps = null;
@@ -187,11 +187,11 @@ public class PseudoTable extends Pseudo {
 			}
 		}
 		
-		newExps = exps.clone();//±¸·İÒ»ÏÂ
+		newExps = exps.clone();//å¤‡ä»½ä¸€ä¸‹
 		
 		/**
-		 * ÓĞÈ¡³ö±í´ïÊ½Ò²ÓĞÈ¡³ö×Ö¶Î,Ôò¼ì²éextraNameListÀïÊÇ·ñ°üº¬expsÀïµÄ×Ö¶Î
-		 * Èç¹û°üº¬¾ÍÈ¥µô
+		 * æœ‰å–å‡ºè¡¨è¾¾å¼ä¹Ÿæœ‰å–å‡ºå­—æ®µ,åˆ™æ£€æŸ¥extraNameListé‡Œæ˜¯å¦åŒ…å«expsé‡Œçš„å­—æ®µ
+		 * å¦‚æœåŒ…å«å°±å»æ‰
 		 */
 		ArrayList<String> tempList = new ArrayList<String>();
 		for (String name : extraNameList) {
@@ -218,7 +218,7 @@ public class PseudoTable extends Pseudo {
 				String expName = exp.getIdentifierName();
 				if (!allNameList.contains(expName)) {
 					/**
-					 * Èç¹ûÊÇÎ±×Ö¶ÎÔò×ö×ª»»
+					 * å¦‚æœæ˜¯ä¼ªå­—æ®µåˆ™åšè½¬æ¢
 					 */
 					PseudoColumn col = pd.findColumnByPseudoName(expName);
 					if (col != null) {
@@ -239,7 +239,7 @@ public class PseudoTable extends Pseudo {
 							}
 							joinColumnList.add(col);
 						} else if (col.getExp() != null) {
-							//ÓĞ±í´ïÊ½µÄÎ±ÁĞ
+							//æœ‰è¡¨è¾¾å¼çš„ä¼ªåˆ—
 							newExps[i] = new Expression(col.getExp());
 							needNew = true;
 							
@@ -254,7 +254,7 @@ public class PseudoTable extends Pseudo {
 							
 						} else if (col.get_enum() != null) {
 							/**
-							 * Ã¶¾Ù×Ö¶Î×ö×ª»»
+							 * æšä¸¾å­—æ®µåšè½¬æ¢
 							 */
 							String var = "pseudo_enum_value_" + i;
 							ctx.setParamValue(var, col.get_enum());
@@ -268,7 +268,7 @@ public class PseudoTable extends Pseudo {
 							}
 						} else if (col.getBits() != null) {
 							/**
-							 * ¶şÖµ×Ö¶Î×ö×ª»»
+							 * äºŒå€¼å­—æ®µåšè½¬æ¢
 							 */
 							name = col.getName();
 							String pname = ((UnknownSymbol) node).getName();
@@ -276,7 +276,7 @@ public class PseudoTable extends Pseudo {
 							seq = col.getBits();
 							int idx = seq.firstIndexOf(pname) - 1;
 							int bit = 1 << idx;
-							String str = "and(" + col.getName() + "," + bit + ")!=0";//¸ÄÎªÕæ×Ö¶ÎµÄÎ»ÔËËã
+							String str = "and(" + col.getName() + "," + bit + ")!=0";//æ”¹ä¸ºçœŸå­—æ®µçš„ä½è¿ç®—
 							newExps[i] = new Expression(str);
 							exp = new Expression(name);
 							needNew = true;
@@ -303,7 +303,7 @@ public class PseudoTable extends Pseudo {
 			}
 		}
 
-		//Èç¹û´æÔÚdateÔò±ØĞëÈ¡³öÊ××Ö¶Îugrp
+		//å¦‚æœå­˜åœ¨dateåˆ™å¿…é¡»å–å‡ºé¦–å­—æ®µugrp
 		String date = pd.getDate();
 		String ugrp = pd.getUgrp();
 		if (date != null && !tempNameList.contains(ugrp)) {
@@ -353,7 +353,7 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * µÃµ½Ğé±íµÄÃ¿¸öÊµÌå±íµÄÓÎ±ê¹¹³ÉµÄÊı×é
+	 * å¾—åˆ°è™šè¡¨çš„æ¯ä¸ªå®ä½“è¡¨çš„æ¸¸æ ‡æ„æˆçš„æ•°ç»„
 	 * @return
 	 */
 	public ICursor[] getCursors(boolean isColumn) {
@@ -368,7 +368,7 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * Ìí¼Ó¿ÉÄÜÓÃµ½µÄÍâ¼üÁ¬½Ó
+	 * æ·»åŠ å¯èƒ½ç”¨åˆ°çš„å¤–é”®è¿æ¥
 	 */
 	protected void addJoin(ICursor cursor) {
 		List<PseudoColumn> list = getFieldSwitchColumns(this.names);
@@ -381,7 +381,7 @@ public class PseudoTable extends Pseudo {
 		}
 		if (getPd() != null && list != null) {
 			for (PseudoColumn column : list) {
-				if (column.getDim() != null) {//Èç¹û´æÔÚÍâ¼ü£¬ÔòÌí¼ÓÒ»¸öswitchµÄÑÓ³Ù¼ÆËã
+				if (column.getDim() != null) {//å¦‚æœå­˜åœ¨å¤–é”®ï¼Œåˆ™æ·»åŠ ä¸€ä¸ªswitchçš„å»¶è¿Ÿè®¡ç®—
 					Sequence dim;
 					if (column.getDim() instanceof Sequence) {
 						dim = (Sequence) column.getDim();
@@ -393,7 +393,7 @@ public class PseudoTable extends Pseudo {
 					String fkey[] = column.getFkey();
 					if (fkey == null) {
 						/**
-						 * ´ËÊ±name¾ÍÊÇÍâ¼ü×Ö¶Î
+						 * æ­¤æ—¶nameå°±æ˜¯å¤–é”®å­—æ®µ
 						 */
 						String[] fkNames = new String[] {column.getName()};
 						String[] timeFkNames =hasTimeKey ? new String[] {column.getTkey()} : null;
@@ -411,7 +411,7 @@ public class PseudoTable extends Pseudo {
 						int size = fkey.length;
 						
 						/**
-						 * Èç¹û¶¨ÒåÁËÊ±¼ä×Ö¶Î,¾Í°ÑÊ±¼ä×Ö¶ÎÆ´½Óµ½fkeyÄ©Î²
+						 * å¦‚æœå®šä¹‰äº†æ—¶é—´å­—æ®µ,å°±æŠŠæ—¶é—´å­—æ®µæ‹¼æ¥åˆ°fkeyæœ«å°¾
 						 */
 						if (hasTimeKey) {
 							size++;
@@ -456,11 +456,11 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * µÃµ½tableµÄÓÎ±ê
+	 * å¾—åˆ°tableçš„æ¸¸æ ‡
 	 * @param table
 	 * @param mcs
-	 * @param addOpt ÊÇ·ñ°Ñ¸½¼Ó¼ÆËãÌí¼Ó
-	 * @param isColumn ÊÇ·ñ·µ»ØÁĞÊ½ÓÎ±ê
+	 * @param addOpt æ˜¯å¦æŠŠé™„åŠ è®¡ç®—æ·»åŠ 
+	 * @param isColumn æ˜¯å¦è¿”å›åˆ—å¼æ¸¸æ ‡
 	 * @return
 	 */
 	private ICursor getCursor(IPhyTable table, ICursor mcs, boolean addOpt, boolean isColumn) {
@@ -537,7 +537,7 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * °´userÅÅĞò £¨·µ»Øµ¥¸öÓÎ±êÊ±Ê¹ÓÃ£©
+	 * æŒ‰useræ’åº ï¼ˆè¿”å›å•ä¸ªæ¸¸æ ‡æ—¶ä½¿ç”¨ï¼‰
 	 * @param cursors
 	 * @param pd
 	 * @param ctx
@@ -559,7 +559,7 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * ¹é²¢»òÕßÁ¬½ÓÓÎ±ê
+	 * å½’å¹¶æˆ–è€…è¿æ¥æ¸¸æ ‡
 	 * @param cursors
 	 * @return
 	 */
@@ -577,13 +577,13 @@ public class PseudoTable extends Pseudo {
 		
 		ICursor cs = new MergeCursor(cursors, new int[] {index}, null, ctx);
 		
-		//Èç¹ûuser²»´æÔÚ»òµÈÓÚugrp
+		//å¦‚æœuserä¸å­˜åœ¨æˆ–ç­‰äºugrp
 		String user = pd.getUser();
 		if (user == null || user.equals(ugrp) || ds.getFieldIndex(user) == -1) {
 			return cs;
 		}
 		
-		//user²»ÊÇÊ××Ö¶Î£¬ÔÚ¹é²¢ºóÍ¬ÖµÊ××Ö¶ÎÄÚµÄÊı¾İ°´userÅÅĞò
+		//userä¸æ˜¯é¦–å­—æ®µï¼Œåœ¨å½’å¹¶ååŒå€¼é¦–å­—æ®µå†…çš„æ•°æ®æŒ‰useræ’åº
 		return new GroupSortCursor(cs, ugrp, user, ctx);
 	}
 	
@@ -592,8 +592,8 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * Èç¹û´æÔÚuser£¨ÕË»§ÊôĞÔ£©Ôògroup(Ê××Ö¶Î).conj(~.group(user)),
-	 * Èç¹û²»´æÔÚuser£¬ÔòÊ¹ÓÃÊ××Ö¶Î¹é²¢¡£
+	 * å¦‚æœå­˜åœ¨userï¼ˆè´¦æˆ·å±æ€§ï¼‰åˆ™group(é¦–å­—æ®µ).conj(~.group(user)),
+	 * å¦‚æœä¸å­˜åœ¨userï¼Œåˆ™ä½¿ç”¨é¦–å­—æ®µå½’å¹¶ã€‚
 	 */
 	static void groupByUser(ICursor cursor, String user, String ugrp, Context ctx) {
 		if (user != null && ugrp != null && user.equals(ugrp)) {
@@ -627,7 +627,7 @@ public class PseudoTable extends Pseudo {
 			}
 			IPhyTable table = tables.get(0);
 			
-			//ÅĞ¶ÏÊÇ·ñÓĞ¹ØÓÚdateµÄ¹ıÂË
+			//åˆ¤æ–­æ˜¯å¦æœ‰å…³äºdateçš„è¿‡æ»¤
 			Object obj;
 			if (table instanceof ColPhyTable)
 				obj = Cursor.parseFilter((ColPhyTable) table, filter, ctx);
@@ -686,22 +686,22 @@ public class PseudoTable extends Pseudo {
 		return cursor(exps, names, false);
 	}
 	
-	//·µ»ØĞé±íµÄÓÎ±ê
+	//è¿”å›è™šè¡¨çš„æ¸¸æ ‡
 	public ICursor cursor(Expression []exps, String []names, boolean isColumn) {
-		setFetchInfo(exps, names);//°ÑÈ¡³ö×Ö¶ÎÌí¼Ó½øÈ¥£¬ÀïÃæ¿ÉÄÜ»á¶ÔextraOpList¸³Öµ
+		setFetchInfo(exps, names);//æŠŠå–å‡ºå­—æ®µæ·»åŠ è¿›å»ï¼Œé‡Œé¢å¯èƒ½ä¼šå¯¹extraOpListèµ‹å€¼
 		
-		//Ã¿¸öÊµÌåÎÄ¼şÉú³ÉÒ»¸öÓÎ±ê
+		//æ¯ä¸ªå®ä½“æ–‡ä»¶ç”Ÿæˆä¸€ä¸ªæ¸¸æ ‡
 		List<IPhyTable> tables = getPd().getTables();
 		int size = tables.size();
 		ICursor cursors[] = new ICursor[size];
 		
 		/**
-		 * ¶ÔµÃµ½ÓÎ±ê½øĞĞ¹é²¢£¬·ÖÎªÇé¿ö
-		 * 1 Ö»ÓĞÒ»¸öÓÎ±êÔò·µ»Ø£»
-		 * 2 ÓĞ¶à¸öÓÎ±êÇÒ²»²¢ĞĞÊ±£¬½øĞĞ¹é²¢
-		 * 3 ÓĞ¶à¸öÓÎ±êÇÒ²¢ĞĞÊ±£¬ÏÈ¶ÔµÚÒ»¸öÓÎ±ê·Ö¶Î£¬È»ºóÆäËüÓÎ±ê°´µÚÒ»¸öÍ¬²½·Ö¶Î£¬×îºó°ÑÃ¿¸öÓÎ±êµÄÃ¿¸ö¶Î½øĞĞ¹é²¢
+		 * å¯¹å¾—åˆ°æ¸¸æ ‡è¿›è¡Œå½’å¹¶ï¼Œåˆ†ä¸ºæƒ…å†µ
+		 * 1 åªæœ‰ä¸€ä¸ªæ¸¸æ ‡åˆ™è¿”å›ï¼›
+		 * 2 æœ‰å¤šä¸ªæ¸¸æ ‡ä¸”ä¸å¹¶è¡Œæ—¶ï¼Œè¿›è¡Œå½’å¹¶
+		 * 3 æœ‰å¤šä¸ªæ¸¸æ ‡ä¸”å¹¶è¡Œæ—¶ï¼Œå…ˆå¯¹ç¬¬ä¸€ä¸ªæ¸¸æ ‡åˆ†æ®µï¼Œç„¶åå…¶å®ƒæ¸¸æ ‡æŒ‰ç¬¬ä¸€ä¸ªåŒæ­¥åˆ†æ®µï¼Œæœ€åæŠŠæ¯ä¸ªæ¸¸æ ‡çš„æ¯ä¸ªæ®µè¿›è¡Œå½’å¹¶
 		 */
-		if (pathCount == 1 && size == 1) {//Ö»ÓĞÒ»¸öÓÎ±êÖ±½Ó·µ»Ø
+		if (pathCount == 1 && size == 1) {//åªæœ‰ä¸€ä¸ªæ¸¸æ ‡ç›´æ¥è¿”å›
 			ICursor cs = getCursor(tables.get(0), null, false, isColumn);
 			cs = sortCursor(cs, pd, ctx);
 			return addOptionToCursor(cs);
@@ -712,18 +712,18 @@ public class PseudoTable extends Pseudo {
 				return new MemoryCursor(null);
 			}
 			
-			if (pathCount > 1) {//Ö¸¶¨ÁË²¢ĞĞÊı£¬´ËÊ±ºöÂÔmcsTable
+			if (pathCount > 1) {//æŒ‡å®šäº†å¹¶è¡Œæ•°ï¼Œæ­¤æ—¶å¿½ç•¥mcsTable
 				cursors[0] = getCursor(tables.get(0), null, false, isColumn);
 				for (int i = 1; i < size; i++) {
 					cursors[i] = getCursor(tables.get(i), cursors[0], false, isColumn);
 				}
-			} else {//Ã»ÓĞÖ¸¶¨²¢ĞĞÊı
-				if (mcsTable == null) {//Ã»ÓĞÖ¸¶¨·Ö¶Î²Î¿¼Ğé±ímcsTable
+			} else {//æ²¡æœ‰æŒ‡å®šå¹¶è¡Œæ•°
+				if (mcsTable == null) {//æ²¡æœ‰æŒ‡å®šåˆ†æ®µå‚è€ƒè™šè¡¨mcsTable
 					for (int i = 0; i < size; i++) {
 						cursors[i] = getCursor(tables.get(i), null, false, isColumn);
 					}
 					return addOptionToCursor(mergeCursor(cursors, pd, ctx));
-				} else {//Ö¸¶¨ÁË·Ö¶Î²Î¿¼Ğé±ímcsTable
+				} else {//æŒ‡å®šäº†åˆ†æ®µå‚è€ƒè™šè¡¨mcsTable
 					ICursor mcs = mcsTable.cursor();
 					for (int i = 0; i < size; i++) {
 						cursors[i] = getCursor(tables.get(i), mcs, false, isColumn);
@@ -732,9 +732,9 @@ public class PseudoTable extends Pseudo {
 				}
 			}
 			
-			//¶Ôcursors°´¶Î¹é²¢»òÁ¬½Ó:°ÑËùÓĞÓÎ±êµÄµÚNÂ·¹é²¢,µÃµ½N¸öÓÎ±ê,ÔÙ°ÑÕâN¸öÓÎ±ê×ö³É¶àÂ·ÓÎ±ê·µ»Ø
-			int mcount = ((MultipathCursors)cursors[0]).getPathCount();//·Ö¶ÎÊı
-			ICursor mcursors[] = new ICursor[mcount];//½á¹ûÓÎ±ê
+			//å¯¹cursorsæŒ‰æ®µå½’å¹¶æˆ–è¿æ¥:æŠŠæ‰€æœ‰æ¸¸æ ‡çš„ç¬¬Nè·¯å½’å¹¶,å¾—åˆ°Nä¸ªæ¸¸æ ‡,å†æŠŠè¿™Nä¸ªæ¸¸æ ‡åšæˆå¤šè·¯æ¸¸æ ‡è¿”å›
+			int mcount = ((MultipathCursors)cursors[0]).getPathCount();//åˆ†æ®µæ•°
+			ICursor mcursors[] = new ICursor[mcount];//ç»“æœæ¸¸æ ‡
 			for (int m = 0; m < mcount; m++) {
 				if (size == 1) {
 					mcursors[m] = sortCursor(((MultipathCursors)cursors[0]).getCursors()[m], pd, ctx);
@@ -750,7 +750,7 @@ public class PseudoTable extends Pseudo {
 		}
 	}
 	
-	//ÓÃÓÚ»ñÈ¡¶àÂ·ÓÎ±ê
+	//ç”¨äºè·å–å¤šè·¯æ¸¸æ ‡
 	private ICursor cursor() {
 		List<IPhyTable> tables = getPd().getTables();
 		return tables.get(0).cursor(null, null, null, null, null, null, pathCount, null, ctx);
@@ -791,8 +791,8 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * ×ª»»¶şÖµÎ±×Ö¶Î½ÚµãÎªÕæ×Ö¶Î
-	 * ×ª»»ÆÕÍ¨Î±×Ö¶Î½ÚµãÎªÕæ×Ö¶Î
+	 * è½¬æ¢äºŒå€¼ä¼ªå­—æ®µèŠ‚ç‚¹ä¸ºçœŸå­—æ®µ
+	 * è½¬æ¢æ™®é€šä¼ªå­—æ®µèŠ‚ç‚¹ä¸ºçœŸå­—æ®µ
 	 * @param node
 	 * @return
 	 */
@@ -806,27 +806,27 @@ public class PseudoTable extends Pseudo {
 		
 		if (col.getBits() != null) {
 			/**
-			 * °ÑÒ»¸öUnknownSymbolµÄ¶şÖµ½Úµã×ª»»ÎªÒ»¸öBoolean½Úµã
+			 * æŠŠä¸€ä¸ªUnknownSymbolçš„äºŒå€¼èŠ‚ç‚¹è½¬æ¢ä¸ºä¸€ä¸ªBooleanèŠ‚ç‚¹
 			 */
 			Sequence seq;
 			seq = col.getBits();
 			int idx = seq.firstIndexOf(pname) - 1;
 			int bit = 1 << idx;
-			String str = "and(" + col.getName() + "," + bit + ")!=0";//¸ÄÎªÕæ×Ö¶ÎµÄÎ»ÔËËã
+			String str = "and(" + col.getName() + "," + bit + ")!=0";//æ”¹ä¸ºçœŸå­—æ®µçš„ä½è¿ç®—
 			return new Expression(str).getHome();
 		} else if (col.get_enum() != null) {
-			return null;//Ã¶¾ÙµÄ²»ÔÚÕâÀï´¦Àí
+			return null;//æšä¸¾çš„ä¸åœ¨è¿™é‡Œå¤„ç†
 		} else if (col.getExp() != null) {
 			return new Expression(col.getExp()).getHome();
 		} else if (col.getFkey() != null) {
-			return null;//new UnknownSymbol(col.getFkey()[0]);//ÓĞFkeyÊ± Fkey[0]ÊÇÕæ×Ö¶Î
+			return null;//new UnknownSymbol(col.getFkey()[0]);//æœ‰Fkeyæ—¶ Fkey[0]æ˜¯çœŸå­—æ®µ
 		} else {
-			return new UnknownSymbol(col.getName());//´¦ÀíÆÕÍ¨Î±×Ö¶Î
+			return new UnknownSymbol(col.getName());//å¤„ç†æ™®é€šä¼ªå­—æ®µ
 		}
 	}
 	
 	/**
-	 * ´¦Àí¶şÖµÎ±×Ö¶Î
+	 * å¤„ç†äºŒå€¼ä¼ªå­—æ®µ
 	 */
 	private void replaceFilter(Node node) {
 		if (node == null) {
@@ -853,43 +853,43 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * °Ñ±í´ïÊ½ÀïÉæ¼°Î±×Ö¶ÎµÄÃ¶¾ÙÔËËã½øĞĞ×ª»»
+	 * æŠŠè¡¨è¾¾å¼é‡Œæ¶‰åŠä¼ªå­—æ®µçš„æšä¸¾è¿ç®—è¿›è¡Œè½¬æ¢
 	 * @param node
 	 */
 	private void parseFilter(Node node) {
 		if (node instanceof And || node instanceof Or) {
 			/**
-			 * Âß¼­Óë¡¢»òÊ±£¬µİ¹é´¦Àí
+			 * é€»è¾‘ä¸ã€æˆ–æ—¶ï¼Œé€’å½’å¤„ç†
 			 */
 			parseFilter(node.getLeft());
 			parseFilter(node.getRight());
 		} else if (node instanceof Equals || node instanceof NotEquals) {
 			/**
-			 * ¶ÔÎ±×Ö¶ÎµÄ==¡¢!=½øĞĞ´¦Àí
+			 * å¯¹ä¼ªå­—æ®µçš„==ã€!=è¿›è¡Œå¤„ç†
 			 */
 			if (node.getLeft() instanceof UnknownSymbol) {
-				//ÅĞ¶ÏÊÇ·ñÊÇÎ±×Ö¶Î
+				//åˆ¤æ–­æ˜¯å¦æ˜¯ä¼ªå­—æ®µ
 				String pname = ((UnknownSymbol) node.getLeft()).getName();
 				PseudoColumn col = getPd().findColumnByPseudoName(pname);
 				if (col != null) {
 					Sequence seq;
-					//ÅĞ¶ÏÊÇ·ñÊÇ¶ÔÃ¶¾ÙÎ±×Ö¶Î½øĞĞÔËËã
+					//åˆ¤æ–­æ˜¯å¦æ˜¯å¯¹æšä¸¾ä¼ªå­—æ®µè¿›è¡Œè¿ç®—
 					if (col.get_enum() != null) {
 						seq = col.get_enum();
-						node.setLeft(new UnknownSymbol(col.getName()));//¸ÄÎªÕæ×Ö¶Î
+						node.setLeft(new UnknownSymbol(col.getName()));//æ”¹ä¸ºçœŸå­—æ®µ
 						Integer obj = seq.firstIndexOf(node.getRight().calculate(ctx));
-						node.setRight(new Constant(obj));//°ÑÃ¶¾ÙÖµ¸ÄÎª¶ÔÓ¦µÄÕæµÄÖµ
+						node.setRight(new Constant(obj));//æŠŠæšä¸¾å€¼æ”¹ä¸ºå¯¹åº”çš„çœŸçš„å€¼
 					}
 				}
 			} else if (node.getRight() instanceof UnknownSymbol) {
-				//´¦Àí×Ö¶ÎÃûÔÚÓÒ±ßµÄÇé¿ö£¬×óÓÒ½»»»Ò»ÏÂÔÙ´¦Àí£¬Âß¼­¸úÉÏÃæÒ»Ñù
+				//å¤„ç†å­—æ®µååœ¨å³è¾¹çš„æƒ…å†µï¼Œå·¦å³äº¤æ¢ä¸€ä¸‹å†å¤„ç†ï¼Œé€»è¾‘è·Ÿä¸Šé¢ä¸€æ ·
 				Node right = node.getRight();
 				node.setRight(node.getLeft());
 				node.setLeft(right);
 				parseFilter(node);
 			}
 		} else if (node instanceof DotOperator) {
-			//¶ÔÓĞÃ¶¾ÙÁĞ±íµÄÎ±×Ö¶ÎµÄcontain½øĞĞ´¦Àí
+			//å¯¹æœ‰æšä¸¾åˆ—è¡¨çš„ä¼ªå­—æ®µçš„containè¿›è¡Œå¤„ç†
 			if (node.getRight() instanceof Contain) {
 				Contain contain = (Contain)node.getRight();
 				IParam param = contain.getParam();
@@ -897,7 +897,7 @@ public class PseudoTable extends Pseudo {
 					return;
 				}
 				
-				//ÅĞ¶ÏÊÇ·ñÊÇ¶ÔÎ±×Ö¶Î½øĞĞcontainÔËËã
+				//åˆ¤æ–­æ˜¯å¦æ˜¯å¯¹ä¼ªå­—æ®µè¿›è¡Œcontainè¿ç®—
 				PseudoColumn col = null;
 				Node containNode = param.getLeafExpression().getHome();
 				if (containNode instanceof UnknownSymbol) {
@@ -907,11 +907,11 @@ public class PseudoTable extends Pseudo {
 				if (col != null && col.get_enum() != null) {
 					Object val = node.getLeft().calculate(ctx);
 					if (val instanceof Sequence) {
-						//°ÑcontainÓÒ±ßµÄ×Ö¶ÎÃû¸ÄÎªÕæ×Ö¶Î
+						//æŠŠcontainå³è¾¹çš„å­—æ®µåæ”¹ä¸ºçœŸå­—æ®µ
 						IParam newParam = ParamParser.parse(col.getName(), null, ctx);
 						contain.setParam(newParam);
 						
-						//°Ñcontain×ó±ßµÄÃ¶¾ÙÖµĞòÁĞ¸ÄÎª¶ÔÓ¦µÄÕæµÄÖµµÄĞòÁĞ
+						//æŠŠcontainå·¦è¾¹çš„æšä¸¾å€¼åºåˆ—æ”¹ä¸ºå¯¹åº”çš„çœŸçš„å€¼çš„åºåˆ—
 						Sequence value = (Sequence) val;
 						Sequence newValue = new Sequence();
 						int size = value.length();
@@ -933,7 +933,7 @@ public class PseudoTable extends Pseudo {
 		
 		if (hasPseudoColumns) {
 			/**
-			 * ´¦ÀíÎ±×Ö¶Î£¬¶şÖµ×Ö¶Î£¬Ã¶¾Ù×Ö¶Î
+			 * å¤„ç†ä¼ªå­—æ®µï¼ŒäºŒå€¼å­—æ®µï¼Œæšä¸¾å­—æ®µ
 			 */
 			Expression exp;
 			if (op instanceof Select) {
@@ -946,7 +946,7 @@ public class PseudoTable extends Pseudo {
 			Node node = exp.getHome();
 			if (node instanceof UnknownSymbol) {
 				/**
-				 * nodeÊÇÎ±×Ö¶Î
+				 * nodeæ˜¯ä¼ªå­—æ®µ
 				 */
 				Node n = bitsToBoolean(node);
 				if (n != null) {
@@ -960,7 +960,7 @@ public class PseudoTable extends Pseudo {
 				}
 			} else {
 				/**
-				 * nodeÊÇÆÕÍ¨×Ö¶Î
+				 * nodeæ˜¯æ™®é€šå­—æ®µ
 				 */
 				replaceFilter(node);
 				parseFilter(node);
@@ -971,13 +971,13 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * °ÑÓÎ±êµÄÎ±ÁĞ×ª»»ÎªÕæ×Ö¶Î£¬ÓÃÓÚupdateºÍappend
+	 * æŠŠæ¸¸æ ‡çš„ä¼ªåˆ—è½¬æ¢ä¸ºçœŸå­—æ®µï¼Œç”¨äºupdateå’Œappend
 	 * @param cursor
 	 * @param columns
 	 * @param fields
 	 */
 	private void convertPseudoColumn(ICursor cursor, List<PseudoColumn> columns, String fields[]) {
-		//ÏÈ°Ñ²»ÊÇÎ±×Ö¶ÎµÄ¸³Öµ¹ıÀ´
+		//å…ˆæŠŠä¸æ˜¯ä¼ªå­—æ®µçš„èµ‹å€¼è¿‡æ¥
 		DataStruct ds = new DataStruct(fields);
 		int size = ds.getFieldCount();
 		Expression []exps = new Expression[size];
@@ -987,7 +987,7 @@ public class PseudoTable extends Pseudo {
 			names[c] = fields[c];
 		}
 		
-		//×ª»»ÓÎ±êÀïµÄÎ±×Ö¶Î
+		//è½¬æ¢æ¸¸æ ‡é‡Œçš„ä¼ªå­—æ®µ
 		size = columns.size();
 		for (int c = 0; c < size; c++) {
 			PseudoColumn column = columns.get(c);
@@ -996,11 +996,11 @@ public class PseudoTable extends Pseudo {
 			int idx = ds.getFieldIndex(column.getName());
 			
 			if (column.getExp() != null) {
-				//ÓĞ±í´ïÊ½µÄÎ±ÁĞ
+				//æœ‰è¡¨è¾¾å¼çš„ä¼ªåˆ—
 				exps[idx] = new Expression(column.getExp());
 				names[idx] = column.getName();
 			} else if (pseudoName != null && column.get_enum() != null) {
-				//Ã¶¾ÙÎ±ÁĞ
+				//æšä¸¾ä¼ªåˆ—
 				String var = "pseudo_enum_value_" + c;
 				Context context = cursor.getContext();
 				if (context == null) {
@@ -1013,12 +1013,12 @@ public class PseudoTable extends Pseudo {
 				exps[idx] = new Expression(var + ".pos(" + pseudoName + ")");
 				names[idx] = column.getName();
 			} else if (bitNames != null) {
-				//´¦Àí¶şÖµÎ±×Ö¶Î(¶à¸öÎ±×Ö¶Î°´Î»×ª»»ÎªÒ»¸öÕæ×Ö¶Î)
+				//å¤„ç†äºŒå€¼ä¼ªå­—æ®µ(å¤šä¸ªä¼ªå­—æ®µæŒ‰ä½è½¬æ¢ä¸ºä¸€ä¸ªçœŸå­—æ®µ)
 				String exp = "0";
 				int len = bitNames.length();
 				for (int i = 1; i <= len; i++) {
 					String field = (String) bitNames.get(i);
-					//×ª»»ÎªbitÖµ,²¢ÀÛ¼Ó
+					//è½¬æ¢ä¸ºbitå€¼,å¹¶ç´¯åŠ 
 					int bit = 1 << (i - 1);
 					exp += "+ if(" + field + "," + bit + ",0)";
 				}
@@ -1032,21 +1032,21 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	public void append(ICursor cursor, String option) {
-		//°ÑÊı¾İ×·¼Óµ½file
+		//æŠŠæ•°æ®è¿½åŠ åˆ°file
 		List<IPhyTable> tables = getPd().getTables();
 		IPhyTable table = null;
-		boolean flag = true;//Á¢¼´Ğ´Èë±êÖ¾
+		boolean flag = true;//ç«‹å³å†™å…¥æ ‡å¿—
 		int size = tables.size();
 		if (size == 0) {
 			return;
 		} else if (option != null && option.indexOf("y") != -1) {
-			table = tables.get(0);//ÓĞ@yÊ±¸üĞÂµ½µÚÒ»¸ö±í
+			table = tables.get(0);//æœ‰@yæ—¶æ›´æ–°åˆ°ç¬¬ä¸€ä¸ªè¡¨
 			flag = false;
 		} else if (size == 1) {
 			table = tables.get(0);
 		} else {
 			/**
-			 * ÎÄ¼ş×é×·¼ÓÊ±Òª´¦Àí·Ö²¼£ºµ¥Â·ÓÎ±ê×Ô¶¯¼Ó@x£¬¶àÂ·²»ÓÃ´¦Àí
+			 * æ–‡ä»¶ç»„è¿½åŠ æ—¶è¦å¤„ç†åˆ†å¸ƒï¼šå•è·¯æ¸¸æ ‡è‡ªåŠ¨åŠ @xï¼Œå¤šè·¯ä¸ç”¨å¤„ç†
 			 */
 			if (!(cursor instanceof MultipathCursors)) {
 				option = (option == null) ? "x" : option + "x";
@@ -1071,7 +1071,7 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	public Sequence update(Sequence data, String opt) {
-		//¸üĞÂµ½×îºóÒ»¸öfile
+		//æ›´æ–°åˆ°æœ€åä¸€ä¸ªfile
 		List<IPhyTable> tables = getPd().getTables();
 		int size = tables.size();
 		if (size == 0) {
@@ -1121,10 +1121,10 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * Ìí¼ÓÍâ¼ü
-	 * @param fkName	Íâ¼üÃû
-	 * @param fieldNames Íâ¼ü×Ö¶Î
-	 * @param code	Íâ±í
+	 * æ·»åŠ å¤–é”®
+	 * @param fkName	å¤–é”®å
+	 * @param fieldNames å¤–é”®å­—æ®µ
+	 * @param code	å¤–è¡¨
 	 * @return
 	 */
 	public Pseudo addForeignKeys(String fkName, String []fieldNames, Object code, String[] codeKeys, boolean clone) {
@@ -1145,7 +1145,7 @@ public class PseudoTable extends Pseudo {
 		return table;
 	}
 	
-	// Ö÷×Ó±í°´Ö÷±íÖ÷¼ü×öÓĞĞòÁ¬½Ó
+	// ä¸»å­è¡¨æŒ‰ä¸»è¡¨ä¸»é”®åšæœ‰åºè¿æ¥
 //	public static ICursor join(PseudoTable masterTable, PseudoTable subTable) {
 //		String[] keys = masterTable.getPrimaryKey();
 //		if (keys != null) {
@@ -1154,7 +1154,7 @@ public class PseudoTable extends Pseudo {
 //			for (int i = 0; i < size; i++) {
 //				exps[i] = new Expression(keys[i]);
 //			}
-//			Expression [][]joinExps = new Expression [][] {exps, exps};//Ê¹ÓÃÖ÷±íµÄÖ÷¼ü×öjoin
+//			Expression [][]joinExps = new Expression [][] {exps, exps};//ä½¿ç”¨ä¸»è¡¨çš„ä¸»é”®åšjoin
 //			
 //			ICursor cursors[] = new ICursor[]{masterTable.cursor(null, null), subTable.cursor(null, null)};
 //			ICursor cursor = CursorUtil.joinx(cursors, null, joinExps, null, masterTable.getContext());
@@ -1164,7 +1164,7 @@ public class PseudoTable extends Pseudo {
 //	}
 	
 	/**
-	 * »ñµÃĞé±í¶ÔÓ¦µÄ×é±íµÄ×Ö¶Î
+	 * è·å¾—è™šè¡¨å¯¹åº”çš„ç»„è¡¨çš„å­—æ®µ
 	 * @return
 	 */
 	public String[] getFieldNames() {
@@ -1209,8 +1209,8 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * »ñµÃĞé±í¶ÔÓ¦µÄ×é±íµÄÃ¿ÁĞµÄÊı¾İÀàĞÍ
-	 * ×¢Òâ£º·µ»ØµÄÀàĞÍÊÇÒÔµÚÒ»Ìõ¼ÇÂ¼Îª×¼
+	 * è·å¾—è™šè¡¨å¯¹åº”çš„ç»„è¡¨çš„æ¯åˆ—çš„æ•°æ®ç±»å‹
+	 * æ³¨æ„ï¼šè¿”å›çš„ç±»å‹æ˜¯ä»¥ç¬¬ä¸€æ¡è®°å½•ä¸ºå‡†
 	 * @return
 	 */
 	public byte[] getFieldTypes() {
@@ -1235,8 +1235,8 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * ·µ»ØĞé±íµÄËùÓĞÍâ¼üÁĞµÄ¶¨Òå
-	 * Ã»ÓĞÍâ¼üÊ±·µ»ØNULL
+	 * è¿”å›è™šè¡¨çš„æ‰€æœ‰å¤–é”®åˆ—çš„å®šä¹‰
+	 * æ²¡æœ‰å¤–é”®æ—¶è¿”å›NULL
 	 * @return
 	 */
 	public List<PseudoColumn> getDimColumns() {

@@ -6,8 +6,8 @@ import com.scudata.expression.fn.CharFunction;
 
 /*********************************** 
  * charencode(str, charset) 
- * parament str£ºÆäÊı¾İÀàĞÍÊÇbyte[]Ê±½âÂë£¬ÊÇStringÊ±±àÂë
- * parament charset, ±àÂë(utf8, gb2312, gbk...)
+ * parament strï¼šå…¶æ•°æ®ç±»å‹æ˜¯byte[]æ—¶è§£ç ï¼Œæ˜¯Stringæ—¶ç¼–ç 
+ * parament charset, ç¼–ç (utf8, gb2312, gbk...)
  *****************/
 public class CharEncode extends CharFunction {
 	

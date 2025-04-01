@@ -3,7 +3,7 @@ package com.scudata.expression;
 import com.scudata.dw.IPhyTable;
 
 /**
- * 组表成员函数基类
+ * 缁勮〃鎴愬憳鍑芥暟鍩虹被
  * @author RunQian
  *
  */
@@ -19,7 +19,7 @@ public abstract class PhyTableFunction extends MemberFunction {
 	}
 	
 	/**
-	 * 释放节点引用的点操作符左侧的对象
+	 * 閲婃斁鑺傜偣寮曠敤鐨勭偣鎿嶄綔绗﹀乏渚х殑瀵硅薄
 	 */
 	public void releaseDotLeftObject() {
 		table = null;

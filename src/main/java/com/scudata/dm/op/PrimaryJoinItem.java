@@ -11,24 +11,24 @@ import com.scudata.expression.Node;
 import com.scudata.util.Variant;
 
 class PrimaryJoinItem {
-	private Context ctx; // µ±Ç°±í¼ÆËãÓÃµÄÉÏÏÂÎÄ
+	private Context ctx; // å½“å‰è¡¨è®¡ç®—ç”¨çš„ä¸Šä¸‹æ–‡
 	private ICursor cursor;
 	private Expression []keyExps;
 	private Expression []newExps;
-	private Node []gathers = null; // Í³¼Æ±í´ïÊ½ÖĞµÄÍ³¼Æº¯Êı
-	private int joinType; // ¹ØÁªÀàĞÍ£¬0:ÄÚÁ¬½Ó, 1:×óÁ¬½Ó, 2£º²îÔËËã£¬±£ÁôÆ¥Åä²»ÉÏµÄ
+	private Node []gathers = null; // ç»Ÿè®¡è¡¨è¾¾å¼ä¸­çš„ç»Ÿè®¡å‡½æ•°
+	private int joinType; // å…³è”ç±»å‹ï¼Œ0:å†…è¿æ¥, 1:å·¦è¿æ¥, 2ï¼šå·®è¿ç®—ï¼Œä¿ç•™åŒ¹é…ä¸ä¸Šçš„
 	
-	private Current current; // µ±Ç°¼ÆËã¶ÔÏó£¬ÓÃÓÚÑ¹Õ»
-	private Sequence data; // ÓÎ±êÈ¡³öµÄÊı¾İ
+	private Current current; // å½“å‰è®¡ç®—å¯¹è±¡ï¼Œç”¨äºå‹æ ˆ
+	private Sequence data; // æ¸¸æ ‡å–å‡ºçš„æ•°æ®
 	private Object []keyValues;
-	private Object []cacheKeyValues; // ÉÏÒ»Ìõ¼ÇÂ¼µÄ¼üÖµ£¬ÓÃÓÚ´øÊ±¼ä¼ü»ò»ã×ÜµÄ¹ØÁª
+	private Object []cacheKeyValues; // ä¸Šä¸€æ¡è®°å½•çš„é”®å€¼ï¼Œç”¨äºå¸¦æ—¶é—´é”®æˆ–æ±‡æ€»çš„å…³è”
 	
 	private int keyCount = 0;
-	private int newCount = 0; // new×Ö¶ÎÊı
-	private int seq;	// µ±Ç°¼ÇÂ¼ÔÚdataÖĞµÄĞòºÅ
+	private int newCount = 0; // newå­—æ®µæ•°
+	private int seq;	// å½“å‰è®°å½•åœ¨dataä¸­çš„åºå·
 
-	private boolean isGather = false; // ¹ØÁªµÄ±íµÄ¼ÆËã±í´ïÊ½ÊÇ·ñÊÇ»ã×Ü±í´ïÊ½
-	private boolean isPrevMatch = false; // µ±Ç°¼ÇÂ¼ÊÇ¼üÖµÊÇ·ñ¸úÉÏÒ»Ìõ×ó²à¼ÇÂ¼µÄ¼üÖµÆ¥Åä
+	private boolean isGather = false; // å…³è”çš„è¡¨çš„è®¡ç®—è¡¨è¾¾å¼æ˜¯å¦æ˜¯æ±‡æ€»è¡¨è¾¾å¼
+	private boolean isPrevMatch = false; // å½“å‰è®°å½•æ˜¯é”®å€¼æ˜¯å¦è·Ÿä¸Šä¸€æ¡å·¦ä¾§è®°å½•çš„é”®å€¼åŒ¹é…
 	
 	public PrimaryJoinItem(ICursor cursor, Expression []keyExps, Expression []newExps, int joinType, Context ctx) {
 		this.ctx = new Context(ctx);
@@ -272,14 +272,14 @@ class PrimaryJoinItem {
 		Object []keyValues = this.keyValues;
 		
 		while (true) {
-			// ÏÈ±È½Ï³ıÈ¥Ê±¼ä¼üÖ®ÍâÆäËü×Ö¶ÎµÄ´óĞ¡
+			// å…ˆæ¯”è¾ƒé™¤å»æ—¶é—´é”®ä¹‹å¤–å…¶å®ƒå­—æ®µçš„å¤§å°
 			int cmp = Variant.compareArrays(srcKeyValues, keyValues, timeIndex);
 			if (cmp < 0) {
-				// Ã»ÓĞÄÜ¹ØÁ¬ÉÏµÄ
+				// æ²¡æœ‰èƒ½å…³è¿ä¸Šçš„
 				resetNewValues(resultValues, fieldIndex);
 				return joinType != 0;
 			} else if (cmp > 0) {
-				// Î¬±íÖµĞ¡£¬Ìøµ½ÏÂÒ»Ìõ¼ÇÂ¼
+				// ç»´è¡¨å€¼å°ï¼Œè·³åˆ°ä¸‹ä¸€æ¡è®°å½•
 				seq++;
 				if (seq > data.length()) {
 					cacheData();
@@ -297,10 +297,10 @@ class PrimaryJoinItem {
 				continue;
 			}
 			
-			// ÄÜÆ¥ÅäÉÏ£¬±È½ÏÊ±¼ä¼üµÄ´óĞ¡
+			// èƒ½åŒ¹é…ä¸Šï¼Œæ¯”è¾ƒæ—¶é—´é”®çš„å¤§å°
 			cmp = Variant.compare(srcKeyValues[timeIndex], keyValues[timeIndex], true);
 			if (cmp < 0) {
-				// Ê±¼ä¼üÃ»ÓĞÄÜÆ¥ÅäµÄ
+				// æ—¶é—´é”®æ²¡æœ‰èƒ½åŒ¹é…çš„
 				resetNewValues(resultValues, fieldIndex);
 				return joinType != 0;
 			} else if (cmp == 0) {
@@ -313,7 +313,7 @@ class PrimaryJoinItem {
 				}
 			}
 			
-			// ÕÒµ½Ê±¼ä×î½üµÄ
+			// æ‰¾åˆ°æ—¶é—´æœ€è¿‘çš„
 			Next:
 			while (true) {
 				int len = data.length();

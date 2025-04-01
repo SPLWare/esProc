@@ -8,7 +8,7 @@ import com.scudata.expression.VSFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÖØĞÂÃüÃûÂ·¾¶Ãû
+ * é‡æ–°å‘½åè·¯å¾„å
  * h.rename(p,F)
  * @author RunQian
  *

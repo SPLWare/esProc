@@ -3,18 +3,18 @@ package com.scudata.chart;
 import java.awt.geom.Point2D;
 import java.util.*;
 /**
- * ×ø±êÖá½Ó¿Ú
+ * åæ ‡è½´æ¥å£
  * @author Administrator
  *
  */
 public interface IAxis{
-  public Point2D getBasePoint(ICoor coor);//ÖùÍ¼Ê±µÄÆğÊ¼µã
+  public Point2D getBasePoint(ICoor coor);//æŸ±å›¾æ—¶çš„èµ·å§‹ç‚¹
   
   public String getName();
 
   public int getLocation();
 
   
-  //»æÍ¼Ç°×¼±¸¹¤×÷£¬²ÎÊı»·¾³µÄ³õÊ¼»¯£¬ÔÚÖØ¸´repaintÊ±£¬²»ÔÙµ÷ÓÃ¸Ã·½·¨
+  //ç»˜å›¾å‰å‡†å¤‡å·¥ä½œï¼Œå‚æ•°ç¯å¢ƒçš„åˆå§‹åŒ–ï¼Œåœ¨é‡å¤repaintæ—¶ï¼Œä¸å†è°ƒç”¨è¯¥æ–¹æ³•
   public void prepare(ArrayList<DataElement> dataElements);
 }

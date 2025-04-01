@@ -4,8 +4,8 @@ import com.scudata.dm.Context;
 import com.scudata.expression.SequenceFunction;
 
 /**
- * ¼ÆËãÂú×ã¸ø¶¨Ìõ¼şµÄÔªËØµÄÆ½¾ùÖµ
- * A.avgif(Ai:xi,¡­)
+ * è®¡ç®—æ»¡è¶³ç»™å®šæ¡ä»¶çš„å…ƒç´ çš„å¹³å‡å€¼
+ * A.avgif(Ai:xi,â€¦)
  * @author RunQian
  *
  */

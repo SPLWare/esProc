@@ -15,8 +15,8 @@ import com.scudata.expression.fn.Between;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÀûÓÃ×é±íµÄË÷Òı¶Ô×é±í½øĞĞ¹ıÂË
- * T.icursor(C,¡­;w,I)
+ * åˆ©ç”¨ç»„è¡¨çš„ç´¢å¼•å¯¹ç»„è¡¨è¿›è¡Œè¿‡æ»¤
+ * T.icursor(C,â€¦;w,I)
  * @author RunQian
  *
  */
@@ -67,7 +67,7 @@ public class Icursor extends PhyTableFunction {
 			
 			if (param.getSubSize() == 3) {
 				sub = param.getSub(2);
-				//ÕâÀïÊÇ¶Ô¶àÂ·µÄ´¦Àí£¬ÈÔ±£Áô×¢ÊÍ
+				//è¿™é‡Œæ˜¯å¯¹å¤šè·¯çš„å¤„ç†ï¼Œä»ä¿ç•™æ³¨é‡Š
 //				if (sub != null) {
 //					Object obj = sub.getLeafExpression().calculate(ctx);
 //					if (!(obj instanceof Number)) {
@@ -92,7 +92,7 @@ public class Icursor extends PhyTableFunction {
 			
 			param = param.getSub(1);
 			if (param == null) {
-				return table.cursor(fields);//Ã»ÓĞ¹ıÂËÊ±
+				return table.cursor(fields);//æ²¡æœ‰è¿‡æ»¤æ—¶
 			}
 
 		}
@@ -113,7 +113,7 @@ public class Icursor extends PhyTableFunction {
 			w = new Expression("true");
 		}
 		
-		//´¦Àíbetween±í´ïÊ½
+		//å¤„ç†betweenè¡¨è¾¾å¼
 		Node home = w.getHome();
 		if (home instanceof Between) {
 			Between bt = (Between) home;

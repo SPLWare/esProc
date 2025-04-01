@@ -5,7 +5,7 @@ import com.scudata.server.ConnectionProxyManager;
 import com.scudata.server.IProxy;
 
 /**
- * Á¬½Ó´úÀíÆ÷
+ * è¿æ¥ä»£ç†å™¨
  * 
  * @author Joancy
  *
@@ -17,10 +17,10 @@ public class ConnectionProxy extends IProxy
 	boolean closed = false;
 
 	/**
-	 * ´´½¨Ò»¸öÁ¬½Ó´úÀí¶ÔÏó
-	 * @param cpm Á¬½Ó´úÀí¹ÜÀíÆ÷
-	 * @param id ´úÀíÎ¨Ò»ºÅ
-	 * @param user µÇÂ¼ÓÃ»§Ãû
+	 * åˆ›å»ºä¸€ä¸ªè¿æ¥ä»£ç†å¯¹è±¡
+	 * @param cpm è¿æ¥ä»£ç†ç®¡ç†å™¨
+	 * @param id ä»£ç†å”¯ä¸€å·
+	 * @param user ç™»å½•ç”¨æˆ·å
 	 */
 	public ConnectionProxy(ConnectionProxyManager cpm, int id, String user){
 		super(cpm, id);
@@ -31,9 +31,9 @@ public class ConnectionProxy extends IProxy
 	}
 	
 	/**
-	 * »ñÈ¡Statement´úÀí
-	 * @param id ´úÀí±àºÅ
-	 * @return Statement´úÀí
+	 * è·å–Statementä»£ç†
+	 * @param id ä»£ç†ç¼–å·
+	 * @return Statementä»£ç†
 	 * @throws Exception
 	 */
 	public StatementProxy getStatementProxy(int id) throws Exception{
@@ -45,31 +45,31 @@ public class ConnectionProxy extends IProxy
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃ»§Ãû
-	 * @return ÓÃ»§Ãû
+	 * è·å–ç”¨æˆ·å
+	 * @return ç”¨æˆ·å
 	 */
 	public String getUserName(){
 		return userName;
 	}
 	
 	/**
-	 * »ñÈ¡µÇÂ¼Ê±¼ä
-	 * @return ÕûÊı±íÊ¾·¨µÄÊ±¼ä
+	 * è·å–ç™»å½•æ—¶é—´
+	 * @return æ•´æ•°è¡¨ç¤ºæ³•çš„æ—¶é—´
 	 */
 	public long getLoginTime(){
 		return loginTime;
 	}
 	
 	/**
-	 * ÊÇ·ñÒÑ¹Ø±Õ
-	 * @return ÒÑ¹Ø±Õ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦å·²å…³é—­
+	 * @return å·²å…³é—­è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isClosed(){
 		return closed;
 	}
 	
 	/**
-	 * ¹Ø±Õµ±Ç°´úÀí¶ÔÏó
+	 * å…³é—­å½“å‰ä»£ç†å¯¹è±¡
 	 */
 	public void close() {
 		closed = true;
@@ -77,7 +77,7 @@ public class ConnectionProxy extends IProxy
 	}
 
 	/**
-	 * ÊµÏÖtoString½Ó¿Ú
+	 * å®ç°toStringæ¥å£
 	 */
 	public String toString() {
 		return "Connection "+getId();

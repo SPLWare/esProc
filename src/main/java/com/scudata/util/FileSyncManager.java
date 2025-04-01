@@ -7,19 +7,19 @@ import com.scudata.dm.FileObject;
 
 
 /**
- * ÓÃÓÚÈ¡ÎÄ¼şµÄÍ¬²½¶ÔÏó
- * ¶àÏß³ÌĞŞ¸ÄÎÄ¼şÊ±£¬Èç¹ûÏë×öÍ¬²½£¬ÔòÓÃÎÄ¼şÈ¡³öÍ¬²½¶ÔÏóÀ´×öÍ¬²½
+ * ç”¨äºå–æ–‡ä»¶çš„åŒæ­¥å¯¹è±¡
+ * å¤šçº¿ç¨‹ä¿®æ”¹æ–‡ä»¶æ—¶ï¼Œå¦‚æœæƒ³åšåŒæ­¥ï¼Œåˆ™ç”¨æ–‡ä»¶å–å‡ºåŒæ­¥å¯¹è±¡æ¥åšåŒæ­¥
  * @author RunQian
  *
  */
 public final class FileSyncManager {
-	// ÎÄ¼şºÍÍ¬²½¶ÔÏóÓ³Éä
+	// æ–‡ä»¶å’ŒåŒæ­¥å¯¹è±¡æ˜ å°„
 	private static HashMap<File, File> fileMap = new HashMap<File, File>();
 	
 	/**
-	 * È¡µÃÎÄ¼şµÄÍ¬²½¶ÔÏó£¬·ÃÎÊÎÄ¼şÊ±ÔÚ´Ë¶ÔÏóÉÏ¼ÓËø
-	 * @param fo ÎÄ¼ş¶ÔÏó
-	 * @return Object ÓÃÓÚÍ¬²½¶ÔÏó
+	 * å–å¾—æ–‡ä»¶çš„åŒæ­¥å¯¹è±¡ï¼Œè®¿é—®æ–‡ä»¶æ—¶åœ¨æ­¤å¯¹è±¡ä¸ŠåŠ é”
+	 * @param fo æ–‡ä»¶å¯¹è±¡
+	 * @return Object ç”¨äºåŒæ­¥å¯¹è±¡
 	 */
 	public static Object getSyncObject(FileObject fo) {
 		//LocalFile lf = fo.getLocalFile();
@@ -29,9 +29,9 @@ public final class FileSyncManager {
 	}
 	
 	/**
-	 * È¡µÃÎÄ¼şµÄÍ¬²½¶ÔÏó£¬·ÃÎÊÎÄ¼şÊ±ÔÚ´Ë¶ÔÏóÉÏ¼ÓËø
-	 * @param file ÎÄ¼ş
-	 * @return Object ÓÃÓÚÍ¬²½¶ÔÏó
+	 * å–å¾—æ–‡ä»¶çš„åŒæ­¥å¯¹è±¡ï¼Œè®¿é—®æ–‡ä»¶æ—¶åœ¨æ­¤å¯¹è±¡ä¸ŠåŠ é”
+	 * @param file æ–‡ä»¶
+	 * @return Object ç”¨äºåŒæ­¥å¯¹è±¡
 	 */
 	public static Object getSyncObject(File file) {
 		synchronized(fileMap) {

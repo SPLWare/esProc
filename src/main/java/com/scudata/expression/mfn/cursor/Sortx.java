@@ -9,8 +9,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê½øĞĞÍâ´æÅÅĞò
- * cs.sortx(x¡­;n)
+ * å¯¹æ¸¸æ ‡è¿›è¡Œå¤–å­˜æ’åº
+ * cs.sortx(xâ€¦;n)
  * @author RunQian
  *
  */
@@ -63,7 +63,7 @@ public class Sortx extends CursorFunction {
 		}
 
 		Expression []exps;
-		if (sortParam.isLeaf()) { // Ö»ÓĞÒ»¸ö²ÎÊı
+		if (sortParam.isLeaf()) { // åªæœ‰ä¸€ä¸ªå‚æ•°
 			exps = new Expression[]{ sortParam.getLeafExpression() };
 		} else if (sortParam.getType() == IParam.Comma) { // ,
 			int size = sortParam.getSubSize();

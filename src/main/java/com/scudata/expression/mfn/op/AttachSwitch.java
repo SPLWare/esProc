@@ -13,8 +13,8 @@ import com.scudata.parallel.ClusterMemoryTable;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼ÓÍâ¼üÇĞ»»ÔËËã
- * op.switch(Fi,Ai:x;¡­) op.switch(Fi;...) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ å¤–é”®åˆ‡æ¢è¿ç®—
+ * op.switch(Fi,Ai:x;â€¦) op.switch(Fi;...) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */

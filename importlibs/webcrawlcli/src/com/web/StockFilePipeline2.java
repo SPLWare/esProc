@@ -79,7 +79,7 @@ public class StockFilePipeline2 implements StandPipeline {
 		return bret;
 	}
 	
-	//加md5Hex为防止重名
+	//鍔爉d5Hex涓洪槻姝㈤噸鍚�
 	public void process(ResultItems resultItems, Task task) {
 		String saveFile = null;
 		Object o = null;
@@ -95,12 +95,12 @@ public class StockFilePipeline2 implements StandPipeline {
 			}
 			Object[] ret = new Object[1];
 			mMatch = hasMatch(url, "=((sz|sh|)\\d{6}$)", ret, 1);
-			//1. 有股票代码的优先
+			//1. 鏈夎偂绁ㄤ唬鐮佺殑浼樺厛
 			if (mMatch){
 				saveFile = spath + ret[0].toString()+ "_"+DigestUtils.md5Hex(resultItems.getRequest().getUrl())+".txt"; 
 				break;
 			}
-			//2. 网页名
+			//2. 缃戦〉鍚�
 			int start = url.lastIndexOf("/");
     		int end = url.lastIndexOf("html");
     		if (end>0) {
@@ -112,7 +112,7 @@ public class StockFilePipeline2 implements StandPipeline {
     			}
     		}
     		String link = url.substring(start+1, end);
-    		//2. 带后缀名的文件的.
+    		//2. 甯﹀悗缂�鍚嶇殑鏂囦欢鐨�.
     		mMatch = hasMatch(link, "\\.(xml|json|txt|html|htm|csv|dat|xls|xlsx|zip|rar|tar|tgz|tar\\.gz)");
     		if (mMatch){
     			saveFile = spath + link;

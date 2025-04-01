@@ -10,7 +10,7 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.spl.resources.*;
 
 /**
- * ²ÎÊıÊäÈëÃæ°å
+ * å‚æ•°è¾“å…¥é¢æ¿
  * 
  * @author Joancy
  *
@@ -24,11 +24,11 @@ public class ParamInputPanel extends JSplitPane implements ActionListener {
 	private Dialog owner;
 
 	/**
-	 * ÉèÖÃÍ¼ÔªĞÅÏ¢
-	 * @param info Í¼ÔªĞÅÏ¢¶ÔÏó
+	 * è®¾ç½®å›¾å…ƒä¿¡æ¯
+	 * @param info å›¾å…ƒä¿¡æ¯å¯¹è±¡
 	 */
 	public void setElementInfo( ElementInfo info ) {
-		String label = ChartMessage.get().getMessage( "label.propedit", info.getTitle() );  //"ÊôĞÔ±à¼­";
+		String label = ChartMessage.get().getMessage( "label.propedit", info.getTitle() );  //"å±æ€§ç¼–è¾‘";
 		init( owner, label, info.getParamInfoList() );
 		boolean hasLegendCol = info.getName().equals("Dot") ||
 				info.getName().equals("Line") ||
@@ -38,31 +38,31 @@ public class ParamInputPanel extends JSplitPane implements ActionListener {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @param owner ¸¸´°¿Ú
-	 * @param list ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è®¾ç½®å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @param owner çˆ¶çª—å£
+	 * @param list å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public void setParamInfoList( Dialog owner, ParamInfoList list ) {
-		String label = ChartMessage.get().getMessage( "label.paramedit" );  //"»æÍ¼²ÎÊı±à¼­";
+		String label = ChartMessage.get().getMessage( "label.paramedit" );  //"ç»˜å›¾å‚æ•°ç¼–è¾‘";
 		init( owner, label, list );
 	}
 
 	/**
-	 * Ê¹ÓÃ¸¸´°¿Ú¶ÔÏóµÄ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
+	 * ä½¿ç”¨çˆ¶çª—å£å¯¹è±¡çš„æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
 	 */
 	public ParamInputPanel( Dialog owner ) {
 		this.owner = owner;
 	}
 	/**
-	 * Õ¹¿ªÈ«²¿²ÎÊı
+	 * å±•å¼€å…¨éƒ¨å‚æ•°
 	 */
 	public void expandAll(){
 		table.expandAll();
 	}
 	
 	/**
-	 * ÊÕÆğÈ«²¿²ÎÊı
+	 * æ”¶èµ·å…¨éƒ¨å‚æ•°
 	 */
 	public void collapseAll(){
 		table.collapseAll();
@@ -80,17 +80,17 @@ public class ParamInputPanel extends JSplitPane implements ActionListener {
 		JPanel top = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = GM.getGBC(1, 1,true);
 		gbc.gridwidth = 4;
-		top.add( new JLabel( ChartMessage.get().getMessage( "label.seriesinput" ) ), gbc );  //"²ÎÊıĞòÁĞÖµÂ¼Èë"
+		top.add( new JLabel( ChartMessage.get().getMessage( "label.seriesinput" ) ), gbc );  //"å‚æ•°åºåˆ—å€¼å½•å…¥"
 		
 		seriesTable = new TableInputSeries( table );
 		seriesTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
-		insertBtn = new JButton( ChartMessage.get().getMessage( "button.insertrow" ) );  //"²åÈëĞĞ(I)" );
+		insertBtn = new JButton( ChartMessage.get().getMessage( "button.insertrow" ) );  //"æ’å…¥è¡Œ(I)" );
 		insertBtn.addActionListener( this );
 		insertBtn.setMnemonic( 'I' );
-		addRowBtn = new JButton( ChartMessage.get().getMessage( "button.addrow" ) );  //"Ìí¼ÓĞĞ(A)" );
+		addRowBtn = new JButton( ChartMessage.get().getMessage( "button.addrow" ) );  //"æ·»åŠ è¡Œ(A)" );
 		addRowBtn.addActionListener( this );
 		addRowBtn.setMnemonic( 'A' );
-		delRowBtn = new JButton( ChartMessage.get().getMessage( "button.delrow" ) );  //"É¾³ıĞĞ(D)" );
+		delRowBtn = new JButton( ChartMessage.get().getMessage( "button.delrow" ) );  //"åˆ é™¤è¡Œ(D)" );
 		delRowBtn.addActionListener( this );
 		delRowBtn.setMnemonic( 'D' );
 		
@@ -110,7 +110,7 @@ public class ParamInputPanel extends JSplitPane implements ActionListener {
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊı±í±à¼­Æ÷
+	 * è·å–å‚æ•°è¡¨ç¼–è¾‘å™¨
 	 * @return
 	 */
 	public TableParamEdit getParamTable() {
@@ -118,7 +118,7 @@ public class ParamInputPanel extends JSplitPane implements ActionListener {
 	}
 
 	/**
-	 * »ñÈ¡ĞòÁĞ±à¼­±í
+	 * è·å–åºåˆ—ç¼–è¾‘è¡¨
 	 * @return
 	 */
 	public TableInputSeries getSeriesTable() {
@@ -126,9 +126,9 @@ public class ParamInputPanel extends JSplitPane implements ActionListener {
 	}
 
 	/**
-	 * ÊÂ¼ş¼àÌıÆ÷
+	 * äº‹ä»¶ç›‘å¬å™¨
 	 * 
-	 * @param e ActionEvent ÊÂ¼ş¶ÔÏó
+	 * @param e ActionEvent äº‹ä»¶å¯¹è±¡
 	 */
 	public void actionPerformed( ActionEvent e ) {
 		Object o = e.getSource();
@@ -144,8 +144,8 @@ public class ParamInputPanel extends JSplitPane implements ActionListener {
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		table.acceptText();

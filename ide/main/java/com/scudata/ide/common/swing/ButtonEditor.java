@@ -10,36 +10,36 @@ import javax.swing.JCheckBox;
 import javax.swing.JTable;
 
 /**
- * JTableµ¥Ôª¸ñ°´Å¥±à¼­Æ÷
+ * JTableå•å…ƒæ ¼æŒ‰é’®ç¼–è¾‘å™¨
  *
  */
 public class ButtonEditor extends DefaultCellEditor {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ±í¸ñ¿Ø¼ş
+	 * è¡¨æ ¼æ§ä»¶
 	 */
 	protected JTable table;
 	/**
-	 * ÕıÔÚ±à¼­µÄĞĞ
+	 * æ­£åœ¨ç¼–è¾‘çš„è¡Œ
 	 */
 	protected int editingRow = -1;
 	/**
-	 * ÕıÔÚ±à¼­µÄÁĞ
+	 * æ­£åœ¨ç¼–è¾‘çš„åˆ—
 	 */
 	protected int editingCol = -1;
 	/**
-	 * ÕıÔÚ±à¼­µÄÖµ
+	 * æ­£åœ¨ç¼–è¾‘çš„å€¼
 	 */
 	protected Object editingVal = null;
 
 	/**
-	 * °´¼ü¿Ø¼ş
+	 * æŒ‰é”®æ§ä»¶
 	 */
 	private JButton button = new JButton();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ButtonEditor() {
 		super(new JCheckBox());
@@ -53,13 +53,13 @@ public class ButtonEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * Êó±êµã»÷
+	 * é¼ æ ‡ç‚¹å‡»
 	 */
 	protected void clicked() {
 	}
 
 	/**
-	 * ·µ»Ø±à¼­¿Ø¼ş
+	 * è¿”å›ç¼–è¾‘æ§ä»¶
 	 */
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int column) {
@@ -69,21 +69,21 @@ public class ButtonEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñ±à¼­Öµ
+	 * å–å•å…ƒæ ¼ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
 		return editingVal;
 	}
 
 	/**
-	 * Í£Ö¹µ¥Ôª¸ñ±à¼­
+	 * åœæ­¢å•å…ƒæ ¼ç¼–è¾‘
 	 */
 	public boolean stopCellEditing() {
 		return super.stopCellEditing();
 	}
 
 	/**
-	 * ±à¼­Í£Ö¹
+	 * ç¼–è¾‘åœæ­¢
 	 */
 	protected void fireEditingStopped() {
 		super.fireEditingStopped();

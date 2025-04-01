@@ -17,7 +17,7 @@ import com.scudata.dm.Sequence;
  * ImPoll@e(fd, timeout, [p1,p2,...])
  */
 public class ImPoll extends ImFunction {
-	private Set<TopicPartition> m_topicPartition;		// Ö¸¶¨Î»ÖÃ½øĞĞÏû·Ñ
+	private Set<TopicPartition> m_topicPartition;		// æŒ‡å®šä½ç½®è¿›è¡Œæ¶ˆè´¹
 	
 	@SuppressWarnings("unchecked")
 	public Object doQuery(Object[] objs) {
@@ -47,7 +47,7 @@ public class ImPoll extends ImFunction {
 				}
 			}
 	        
-			//ÔÙ´Îµ÷ÓÃpollÊ±²»ÔÙ³õÊ¼»¯.
+			//å†æ¬¡è°ƒç”¨pollæ—¶ä¸å†åˆå§‹åŒ–.
 			Param param = null;
 			boolean bPollRun = false;
 			param = m_ctx.getParam("poll_run");
@@ -58,9 +58,9 @@ public class ImPoll extends ImFunction {
 			int nPartSize = partitions.size();
 			
 			/********************************
-			 * ÓÉÓÚseek([p1,p2...], off)ºó£¬¶ÔÓÚÖ÷Ìâpoll()Ö»ÄÜµÃµ½¶¨Î»µÄ·ÖÇøÊı¾İ£¬Òò´Ë²ÉÓÃÏÂÃæ·½Ê½:
-			 * ¶ÔÓÚÓĞoffset²ÎÊıÇÒpollÎŞparti²ÎÊıÊ±,ÔòÈ¡ËùÓĞµÄ·ÖÇø
-			 * Ò²¾ÍÊÇÓĞoffset²ÎÊıÊ±£¬°´´øpoll´ø²ÎÊı·ÖÇø´¦Àí.
+			 * ç”±äºseek([p1,p2...], off)åï¼Œå¯¹äºä¸»é¢˜poll()åªèƒ½å¾—åˆ°å®šä½çš„åˆ†åŒºæ•°æ®ï¼Œå› æ­¤é‡‡ç”¨ä¸‹é¢æ–¹å¼:
+			 * å¯¹äºæœ‰offsetå‚æ•°ä¸”pollæ— partiå‚æ•°æ—¶,åˆ™å–æ‰€æœ‰çš„åˆ†åŒº
+			 * ä¹Ÿå°±æ˜¯æœ‰offsetå‚æ•°æ—¶ï¼ŒæŒ‰å¸¦pollå¸¦å‚æ•°åˆ†åŒºå¤„ç†.
 			 * 
 			 **********************************/
 			param = m_ctx.getParam("offset_val");
@@ -70,7 +70,7 @@ public class ImPoll extends ImFunction {
 			}
 
 			if (nPartSize>0){
-				//·ÖÇøĞŞ¸Äºó£¬ÔòÖØĞÂ³õÊ¼»¯£¬²»¹ÜÇ°Ãæ·ÖÇøÊÇ·ñÏû·Ñ¹ı¡£
+				//åˆ†åŒºä¿®æ”¹åï¼Œåˆ™é‡æ–°åˆå§‹åŒ–ï¼Œä¸ç®¡å‰é¢åˆ†åŒºæ˜¯å¦æ¶ˆè´¹è¿‡ã€‚
 				param = m_ctx.getParam("partition");
 				if (param!=null){
 					List<Integer> oldPorts = (List<Integer>)param.getValue(); 
@@ -120,11 +120,11 @@ public class ImPoll extends ImFunction {
 		KafkaConsumer<Object, Object> consumer = 
 				new KafkaConsumer<Object, Object>(m_conn.getProperties());
 		consumer.subscribe(Arrays.asList(m_conn.getTopic()));
-		// Ö¸¶¨Î»ÖÃ½øĞĞÏû·Ñ
+		// æŒ‡å®šä½ç½®è¿›è¡Œæ¶ˆè´¹
 		m_topicPartition = consumer.assignment();
 
-        // ±£Ö¤·ÖÇø·ÖÅä·½°¸ÒÑ¾­ÖÆ¶¨Íê±Ï
-		// ÍøÂçÖĞ¶Ï¿ÉÄÜÊÇ¸öËÀÑ­»·£¬Ñ­»·¹ı¶àÔòÍË³ö¡£
+        // ä¿è¯åˆ†åŒºåˆ†é…æ–¹æ¡ˆå·²ç»åˆ¶å®šå®Œæ¯•
+		// ç½‘ç»œä¸­æ–­å¯èƒ½æ˜¯ä¸ªæ­»å¾ªç¯ï¼Œå¾ªç¯è¿‡å¤šåˆ™é€€å‡ºã€‚
 		int nCount = 0;
         while (m_topicPartition.size() == 0){
         	consumer.poll(Duration.ofSeconds(1));
@@ -144,7 +144,7 @@ public class ImPoll extends ImFunction {
 		return partitions;
 	}
 	
-	// ¶Ô²»´ø·ÖÇøµÄÏû·ÑÕßµÄoffset½øĞĞÉèÖÃ
+	// å¯¹ä¸å¸¦åˆ†åŒºçš„æ¶ˆè´¹è€…çš„offsetè¿›è¡Œè®¾ç½®
 	@SuppressWarnings("unchecked")
 	private void setComsumerOffset(List<Integer> partitions){	
 		Param param = m_ctx.getParam("offset_val");
@@ -153,7 +153,7 @@ public class ImPoll extends ImFunction {
 				Map<Integer, Integer> map = (Map<Integer, Integer>)param.getValue();
 				
 				for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
-					//ÕÒ³öÁ½¸ö·ÖÇøµÄ½»¼¯(kafka_offset, kafka_pollµÄ·ÖÇø²ÎÊı)
+					//æ‰¾å‡ºä¸¤ä¸ªåˆ†åŒºçš„äº¤é›†(kafka_offset, kafka_pollçš„åˆ†åŒºå‚æ•°)
 					if (partitions.contains(entry.getKey()) && entry.getValue()>-1){ 
 						TopicPartition topicPartition = new TopicPartition(m_conn.getTopic(), entry.getKey());
 	        			m_conn.m_consumer.seek(topicPartition, entry.getValue());

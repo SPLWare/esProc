@@ -9,7 +9,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 为管道定义迭代结果集运算
+ * 涓虹閬撳畾涔夎凯浠ｇ粨鏋滈泦杩愮畻
  * ch.iterate(x,a,c)
  * @author WangXiaoJun
  *

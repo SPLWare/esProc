@@ -4,7 +4,7 @@ import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 
 /**
- * 大结果集分组计算对象
+ * 澶х粨鏋滈泦鍒嗙粍璁＄畻瀵硅薄
  * @author WangXiaoJun
  *
  */

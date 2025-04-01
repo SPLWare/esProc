@@ -16,7 +16,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.EnvUtil;
 
 /**
- * ´´½¨Êı¾İÔ´Á¬½Ó
+ * åˆ›å»ºæ•°æ®æºè¿æ¥
  * @author runqian
  *
  */

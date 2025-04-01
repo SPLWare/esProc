@@ -26,8 +26,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÀûÓÃË÷Òı¶ÔÄÚ±í½øĞĞ¹ıÂË
- * T.ifind(k,¡­;I)
+ * åˆ©ç”¨ç´¢å¼•å¯¹å†…è¡¨è¿›è¡Œè¿‡æ»¤
+ * T.ifind(k,â€¦;I)
  * @author LW
  *
  */
@@ -88,7 +88,7 @@ public class Ifind extends TableFunction {
 		}
 	}
 	
-	//@1Ê±ÇÒÊÇhashË÷ÒıÊ±×öcalculateAll
+	//@1æ—¶ä¸”æ˜¯hashç´¢å¼•æ—¶åšcalculateAll
 	private boolean useCalculateAll(MemoryTable srcSequence) {
 		IParam param = this.param;
 		
@@ -118,8 +118,8 @@ public class Ifind extends TableFunction {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -175,10 +175,10 @@ public class Ifind extends TableFunction {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -238,9 +238,9 @@ public class Ifind extends TableFunction {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -283,9 +283,9 @@ public class Ifind extends TableFunction {
 	}
 	
 	/**
-	 * ÅĞ¶Ï¸ø¶¨µÄÖµÓò·¶Î§ÊÇ·ñÂú×ãµ±Ç°Ìõ¼ş±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @return È¡Öµ²ÎÕÕRelation. -1£ºÖµÓò·¶Î§ÄÚÃ»ÓĞÂú×ãÌõ¼şµÄÖµ£¬0£ºÖµÓò·¶Î§ÄÚÓĞÂú×ãÌõ¼şµÄÖµ£¬1£ºÖµÓò·¶Î§µÄÖµ¶¼Âú×ãÌõ¼ş
+	 * åˆ¤æ–­ç»™å®šçš„å€¼åŸŸèŒƒå›´æ˜¯å¦æ»¡è¶³å½“å‰æ¡ä»¶è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @return å–å€¼å‚ç…§Relation. -1ï¼šå€¼åŸŸèŒƒå›´å†…æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ0ï¼šå€¼åŸŸèŒƒå›´å†…æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ1ï¼šå€¼åŸŸèŒƒå›´çš„å€¼éƒ½æ»¡è¶³æ¡ä»¶
 	 */
 	public int isValueRangeMatch(Context ctx) {
 		IArray leftArray = left.calculateAll(ctx);

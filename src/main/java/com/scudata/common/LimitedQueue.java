@@ -4,35 +4,35 @@ import java.util.EmptyStackException;
 import java.util.Vector;
 
 /**
- * ÏŞÖÆ´óĞ¡µÄ¶ÓÁĞ
+ * é™åˆ¶å¤§å°çš„é˜Ÿåˆ—
  */
 public final class LimitedQueue {
 
 	/**
-	 * ÈİÆ÷µÄ³ÉÔ±ÉÏÏŞ
+	 * å®¹å™¨çš„æˆå‘˜ä¸Šé™
 	 */
 	private int maxSize = Integer.MAX_VALUE;
 	/**
-	 * ÈİÆ÷
+	 * å®¹å™¨
 	 */
 	private Vector<Object> stack = new Vector<Object>();
 
 	/**
-	 * ÊÇ·ñ·¢ÉúÁË±ä»¯
+	 * æ˜¯å¦å‘ç”Ÿäº†å˜åŒ–
 	 */
 	private boolean changed = false;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public LimitedQueue() {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param maxSize
-	 *            ×î´ó³¤¶È
+	 *            æœ€å¤§é•¿åº¦
 	 */
 	public LimitedQueue(int maxSize) {
 		if (maxSize <= 0) {
@@ -42,7 +42,7 @@ public final class LimitedQueue {
 	}
 
 	/**
-	 * È¡ÊÇ·ñ·¢ÉúÁË±ä»¯
+	 * å–æ˜¯å¦å‘ç”Ÿäº†å˜åŒ–
 	 * 
 	 * @return
 	 */
@@ -51,14 +51,14 @@ public final class LimitedQueue {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ·¢ÉúÁË±ä»¯
+	 * è®¾ç½®æ˜¯å¦å‘ç”Ÿäº†å˜åŒ–
 	 */
 	public void setUnChanged() {
 		changed = false;
 	}
 
 	/**
-	 * ÉèÖÃ×î´ó³¤¶È£¬²¢Çå³ı³¬³ö³¤¶ÈµÄÊı¾İ
+	 * è®¾ç½®æœ€å¤§é•¿åº¦ï¼Œå¹¶æ¸…é™¤è¶…å‡ºé•¿åº¦çš„æ•°æ®
 	 */
 	public void setMaxSize(int maxSize) {
 		if (maxSize <= 0) {
@@ -72,24 +72,24 @@ public final class LimitedQueue {
 	}
 
 	/**
-	 * È¡¶ÑÕ»×î´ó³¤¶È
+	 * å–å †æ ˆæœ€å¤§é•¿åº¦
 	 */
 	public int getMaxSize() {
 		return maxSize;
 	}
 
 	/**
-	 * È¡¶ÑÕ»ÖĞÔªËØ¸öÊı
+	 * å–å †æ ˆä¸­å…ƒç´ ä¸ªæ•°
 	 */
 	public int size() {
 		return stack.size();
 	}
 
 	/**
-	 * ÔªËØ½øÈëÕ»¶¥
+	 * å…ƒç´ è¿›å…¥æ ˆé¡¶
 	 * 
 	 * @param item
-	 *            ½øÕ»µÄÔªËØ
+	 *            è¿›æ ˆçš„å…ƒç´ 
 	 */
 
 	public Object add(Object item) {
@@ -102,10 +102,10 @@ public final class LimitedQueue {
 	}
 
 	/**
-	 * °´ĞòºÅÈ¡³ÉÔ±
+	 * æŒ‰åºå·å–æˆå‘˜
 	 * 
 	 * @param index
-	 *            ĞòºÅ
+	 *            åºå·
 	 * @return
 	 */
 	public Object get(int index) {
@@ -113,7 +113,7 @@ public final class LimitedQueue {
 	}
 
 	/**
-	 * ½«Ê×¸öÔªËØ´Ó¶ÓÁĞÖĞµ¯³ö£¬Èç¹û¶ÓÁĞÊÇ¿ÕµÄÅ×³öEmptyStackException
+	 * å°†é¦–ä¸ªå…ƒç´ ä»é˜Ÿåˆ—ä¸­å¼¹å‡ºï¼Œå¦‚æœé˜Ÿåˆ—æ˜¯ç©ºçš„æŠ›å‡ºEmptyStackException
 	 * 
 	 * @return
 	 */
@@ -125,7 +125,7 @@ public final class LimitedQueue {
 	}
 
 	/**
-	 * ²é¿´Ê×¸öÔªËØ£¬²»»áÒÆ³ıÊ×¸öÔªËØ£¬Èç¹û¶ÓÁĞÊÇ¿ÕµÄÅ×³öEmptyStackException
+	 * æŸ¥çœ‹é¦–ä¸ªå…ƒç´ ï¼Œä¸ä¼šç§»é™¤é¦–ä¸ªå…ƒç´ ï¼Œå¦‚æœé˜Ÿåˆ—æ˜¯ç©ºçš„æŠ›å‡ºEmptyStackException
 	 * 
 	 * @return
 	 */
@@ -138,7 +138,7 @@ public final class LimitedQueue {
 	}
 
 	/**
-	 * Çå¿ÕÕ»
+	 * æ¸…ç©ºæ ˆ
 	 */
 	public void clear() {
 		stack.clear();
@@ -146,21 +146,21 @@ public final class LimitedQueue {
 	}
 
 	/**
-	 * ¼ì²éÊÇ·ñ¿ÕÕ»
+	 * æ£€æŸ¥æ˜¯å¦ç©ºæ ˆ
 	 */
 	public boolean empty() {
 		return size() == 0;
 	}
 
 	/**
-	 * ¼ì²éÕ»ÊÇ·ñÂú
+	 * æ£€æŸ¥æ ˆæ˜¯å¦æ»¡
 	 */
 	public boolean isFull() {
 		return size() == maxSize;
 	}
 
 	/**
-	 * ×ª³É×Ö·û´®
+	 * è½¬æˆå­—ç¬¦ä¸²
 	 */
 	public String toString() {
 		int len = size();

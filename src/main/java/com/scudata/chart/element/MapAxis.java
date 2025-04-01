@@ -8,17 +8,17 @@ import com.scudata.dm.*;
 
 import java.awt.Shape;
 
-//Ó³ÉäÖá£¬Ö»×÷ÎªÂß¼­Öµµ½ÎïÀíÖµµÄÒ»¸öÓ³Éä£¬²»Êµ¼Ê»æÍ¼
+//æ˜ å°„è½´ï¼Œåªä½œä¸ºé€»è¾‘å€¼åˆ°ç‰©ç†å€¼çš„ä¸€ä¸ªæ˜ å°„ï¼Œä¸å®é™…ç»˜å›¾
 public class MapAxis extends ObjectElement implements IMapAxis{
-	// ÖáÃû³Æ
+	// è½´åç§°
 	public String name;
-	// Âß¼­ÖµĞòÁĞ
+	// é€»è¾‘å€¼åºåˆ—
 	public Sequence logicalData;
 
-	// ÎïÀíÖµ£¬Í¼ÀıÖáÄ¿Ç°¿ÉÖ§³ÖÑÕÉ«¡¢µãĞÍ¡¢ÏßĞÍ
+	// ç‰©ç†å€¼ï¼Œå›¾ä¾‹è½´ç›®å‰å¯æ”¯æŒé¢œè‰²ã€ç‚¹å‹ã€çº¿å‹
 	public Sequence physicalData;
 
-//	Ó³ÉäÖá·ÏÆú£¬¼æÈİ±£Áô£¬²»¹ØĞÄÓ³ÉäÊôĞÔ
+//	æ˜ å°„è½´åºŸå¼ƒï¼Œå…¼å®¹ä¿ç•™ï¼Œä¸å…³å¿ƒæ˜ å°„å±æ€§
 	public Object getMapValue(Object val,byte mapProperty){
 		return getPhyValue(val);
 	}

@@ -19,7 +19,7 @@ import com.scudata.parallel.UnitContext;
 import com.scudata.server.IProxy;
 
 /**
- * Statement ´úÀíÆ÷
+ * Statement ä»£ç†å™¨
  * 
  * @author Joancy
  *
@@ -34,12 +34,12 @@ public class StatementProxy extends IProxy implements ITask {
 	RemoteCursorProxyManager rcpm = null;
 
 	/**
-	 * ´´½¨Ò»¸öStatement´úÀíÆ÷
-	 * @param cp Á¬½Ó´úÀí
-	 * @param id ´úÀí±àºÅ
-	 * @param cmd Ö´ĞĞµÄÃüÁî
-	 * @param params ²ÎÊıÁĞ±í
-	 * @param envParams »·¾³²ÎÊı
+	 * åˆ›å»ºä¸€ä¸ªStatementä»£ç†å™¨
+	 * @param cp è¿æ¥ä»£ç†
+	 * @param id ä»£ç†ç¼–å·
+	 * @param cmd æ‰§è¡Œçš„å‘½ä»¤
+	 * @param params å‚æ•°åˆ—è¡¨
+	 * @param envParams ç¯å¢ƒå‚æ•°
 	 * @throws Exception
 	 */
 	public StatementProxy(ConnectionProxy cp, int id, String cmd,
@@ -59,31 +59,31 @@ public class StatementProxy extends IProxy implements ITask {
 	}
 
 	/**
-	 * »ñÈ¡Á¬½Ó´úÀíÆ÷
-	 * @return Á¬½Ó´úÀíÆ÷
+	 * è·å–è¿æ¥ä»£ç†å™¨
+	 * @return è¿æ¥ä»£ç†å™¨
 	 */
 	public ConnectionProxy getConnectionProxy() {
 		return (ConnectionProxy) getParent();
 	}
 
 	/**
-	 * »ñÈ¡ÒªÖ´ĞĞµÄÃüÁî
-	 * @return ÃüÁî
+	 * è·å–è¦æ‰§è¡Œçš„å‘½ä»¤
+	 * @return å‘½ä»¤
 	 */
 	public String getCmd() {
 		return cmd;
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıÖµ
-	 * @return ²ÎÊıÁĞ±í
+	 * è·å–å‚æ•°å€¼
+	 * @return å‚æ•°åˆ—è¡¨
 	 */
 	public List<String> getParams() {
 		return params;
 	}
 
 	/**
-	 * »ñÈ¡½á¹û¼¯µÄÓÎ±ê´úÀí¹ÜÀíÆ÷
+	 * è·å–ç»“æœé›†çš„æ¸¸æ ‡ä»£ç†ç®¡ç†å™¨
 	 */
 	public RemoteCursorProxyManager getCursorManager() {
 		if (rcpm == null) {
@@ -93,8 +93,8 @@ public class StatementProxy extends IProxy implements ITask {
 	}
 
 	/**
-	 * Ö´ĞĞµ±Ç°ÃüÁî
-	 * @return ½á¹ûĞò±í
+	 * æ‰§è¡Œå½“å‰å‘½ä»¤
+	 * @return ç»“æœåºè¡¨
 	 * @throws Exception
 	 */
 	public Sequence execute() throws Exception {
@@ -127,8 +127,8 @@ public class StatementProxy extends IProxy implements ITask {
 	}
 
 	/**
-	 * È¡Ïûµ±Ç°ÈÎÎñ
-	 * @return ³É¹¦È¡Ïû·µ»Øtrue
+	 * å–æ¶ˆå½“å‰ä»»åŠ¡
+	 * @return æˆåŠŸå–æ¶ˆè¿”å›true
 	 * @throws Exception
 	 */
 	public boolean cancel() throws Exception {
@@ -137,7 +137,7 @@ public class StatementProxy extends IProxy implements ITask {
 	}
 
 	/**
-	 * ¹Ø±Õµ±Ç°´úÀíÆ÷
+	 * å…³é—­å½“å‰ä»£ç†å™¨
 	 */
 	public void close() {
 		JobSpaceManager.getSpace(spaceId).closeResource();
@@ -146,14 +146,14 @@ public class StatementProxy extends IProxy implements ITask {
 	}
 
 	/**
-	 * ÊµÏÖtoString½Ó¿Ú
+	 * å®ç°toStringæ¥å£
 	 */
 	public String toString() {
 		return "Statement " + getId();
 	}
 
 	/**
-	 * »ñÈ¡ÈÎÎñID
+	 * è·å–ä»»åŠ¡ID
 	 */
 	public int getTaskID() {
 		return getId();

@@ -15,11 +15,11 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 import com.scudata.lib.redis.function.Utils.JEDIS_CONNECT_TYPE;
 
-//½âÎöxmlÎÄ¼ş
+//è§£æxmlæ–‡ä»¶
 public class JedisOpen extends Function {
 	
 	protected JEDIS_CONNECT_TYPE connectType = JEDIS_CONNECT_TYPE.CONNECT_POOL;
-	protected String []m_paramTypes; //³ıÈ¥redis¾ä±ú²ÎÊıÀàĞÍ
+	protected String []m_paramTypes; //é™¤å»rediså¥æŸ„å‚æ•°ç±»å‹
 	protected String []m_confParam = null;
 	public Node optimize(Context ctx) {
 		if (param != null) {
@@ -45,7 +45,7 @@ public class JedisOpen extends Function {
 	}
 	/***************
 	 *url = new URL("file:D:\\Program Files\\raqsoft\\esProc\\extlib\\rediscli\\raq-redis-cli-3.6.jar!/com/raqsoft/lib/redis/function/");
-	 *xmlÎÄ¼şÎ»ÖÃÔÚÍâ²¿¿âÏÂ¡£
+	 *xmlæ–‡ä»¶ä½ç½®åœ¨å¤–éƒ¨åº“ä¸‹ã€‚
 	 **/
 	protected Object doConnect(Context ctx, Object[] objs){	
 		if (objs.length<1){
@@ -65,7 +65,7 @@ public class JedisOpen extends Function {
 					appHome = path.substring(0, end);
 				}
 			}
-			// classLoader of currentThreaddÍË³öÊ±»¹Ô­
+			// classLoader of currentThreaddé€€å‡ºæ—¶è¿˜åŸ
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 			ClassLoader loader = JedisOpen.class.getClassLoader();
 			Thread.currentThread().setContextClassLoader(loader);
@@ -86,7 +86,7 @@ public class JedisOpen extends Function {
 			}
 			
 			appCtx = new ClassPathXmlApplicationContext(sfile);
-	        //´ÓÈİÆ÷ÖĞ»ñµÃJedisClient¶ÔÏó
+	        //ä»å®¹å™¨ä¸­è·å¾—JedisClientå¯¹è±¡
 			stringRedisTemplate =(StringRedisTemplate)appCtx.getBean("stringRedisTemplate");
 			
 			return new RedisTool(appCtx, stringRedisTemplate);

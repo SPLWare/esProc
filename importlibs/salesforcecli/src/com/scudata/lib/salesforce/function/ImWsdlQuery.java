@@ -80,10 +80,10 @@ public class ImWsdlQuery extends ImFunction {
 						}else {
 							md = m_map.get(col.toLowerCase());
 						}
-						//根据函数方法查询对应的value
+						//鏍规嵁鍑芥暟鏂规硶鏌ヨ瀵瑰簲鐨剉alue
 						if (md!=null) {
 							Object val = md.invoke(res);
-							if (val instanceof XMLizable) {	//嵌套字记�?
+							if (val instanceof XMLizable) {	//宓屽瀛楄褰?
 								line[n++]=ImWsdlCommon.getSubRecordOfClass(val);
 							}else {
 								line[n++]=val;

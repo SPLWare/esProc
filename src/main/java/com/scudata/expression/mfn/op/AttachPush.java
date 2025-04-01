@@ -10,8 +10,8 @@ import com.scudata.expression.OperableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼ÓÍÆËÍÊı¾İµ½¹ÜµÀµÄÔËËã
- * op.push(chi¡­) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ æ¨é€æ•°æ®åˆ°ç®¡é“çš„è¿ç®—
+ * op.push(chiâ€¦) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */

@@ -87,7 +87,7 @@ public class HdfsFileImpl implements IFile {
 	}
 	
 	/**
-	 * ·µ»ØÎÄ¼ş³¤¶È
+	 * è¿”å›æ–‡ä»¶é•¿åº¦
 	 * @return
 	 */
 	public long size() {
@@ -131,8 +131,8 @@ public class HdfsFileImpl implements IFile {
 	}
 	
 	/**
-	 * ´ò¿ªÎÄ¼şÊäÈëÁ÷
-	 * @return ·µ»Øorg.apache.hadoop.fs.FSDataInputStream,´ËÁ÷¶ÔÏóÓĞseek(long desired)·½·¨¶¨Î»Ö¸ÕëÎ»ÖÃ 
+	 * æ‰“å¼€æ–‡ä»¶è¾“å…¥æµ
+	 * @return è¿”å›org.apache.hadoop.fs.FSDataInputStream,æ­¤æµå¯¹è±¡æœ‰seek(long desired)æ–¹æ³•å®šä½æŒ‡é’ˆä½ç½® 
 	 */
 	public InputStream getInputStream() {
    		try {
@@ -149,8 +149,8 @@ public class HdfsFileImpl implements IFile {
 	}
 	
 	/**
-	 * ´ò¿ªÎÄ¼şÊä³öÁ÷£¬Èç¹ûÎÄ¼ş²»´æÔÚÔò´´½¨²¢´ò¿ª£¬´æÔÚÔò´ò¿ª
-	 * @param isAppend ÊÇ·ñÒÔ×·¼Ó·½Ê½´ò¿ª
+	 * æ‰“å¼€æ–‡ä»¶è¾“å‡ºæµï¼Œå¦‚æœæ–‡ä»¶ä¸å­˜åœ¨åˆ™åˆ›å»ºå¹¶æ‰“å¼€ï¼Œå­˜åœ¨åˆ™æ‰“å¼€
+	 * @param isAppend æ˜¯å¦ä»¥è¿½åŠ æ–¹å¼æ‰“å¼€
 	 * @return
 	 */
 	public OutputStream getOutputStream( boolean isAppend ) {
@@ -304,7 +304,7 @@ public class HdfsFileImpl implements IFile {
 	        	localDir = localDir.substring(0, localDir.length()-1);
 	        }
 	        
-	        // Ä¿Â¼ÁĞ±í
+	        // ç›®å½•åˆ—è¡¨
 	        File fp = null;
 	        String lDir = null;
 	        for(String dir: lsDir){
@@ -320,7 +320,7 @@ public class HdfsFileImpl implements IFile {
 	        	}
 	        }
 	        
-	        // ÎÄ¼şÁĞ±í
+	        // æ–‡ä»¶åˆ—è¡¨
 	        String lFile = null;
 	        String sTmp = null;
 	        for(String f: lsFile){
@@ -371,7 +371,7 @@ public class HdfsFileImpl implements IFile {
 		           	 long size = hdfs.getFileStatus(path).getLen();
 		           	 fsDataOutputStream = hdfs.append(path, (int)size);
 	            }else{
-		            //Êä³öÁ÷¶ÔÏó£¬½«Êı¾İÊä³öµ½HDFSÎÄ¼şÏµÍ³
+		            //è¾“å‡ºæµå¯¹è±¡ï¼Œå°†æ•°æ®è¾“å‡ºåˆ°HDFSæ–‡ä»¶ç³»ç»Ÿ
 		            fsDataOutputStream = hdfs.create(path);
 	            }
 			}catch(Exception e){
@@ -398,7 +398,7 @@ public class HdfsFileImpl implements IFile {
 
 		@Override
 		public void position(long l) throws IOException {
-			//ÓÉÓÚhdfs²»Ö§³ÖËæ»úĞ´£¬Òò´Ë²»ÄÜ¶¨Î»
+			//ç”±äºhdfsä¸æ”¯æŒéšæœºå†™ï¼Œå› æ­¤ä¸èƒ½å®šä½
 		}
 
 		@Override
@@ -482,7 +482,7 @@ public class HdfsFileImpl implements IFile {
 		return ret;
     }
     
-    //±éÀú±¾µØÄ¿Â¼
+    //éå†æœ¬åœ°ç›®å½•
     public void folderLocalTaversal(String path, List<String> lsDir, List<String> lsFile) {
         File file = new File(path);
         LinkedList<File> list = new LinkedList<>();
@@ -517,13 +517,13 @@ public class HdfsFileImpl implements IFile {
 	        } else {
 	            System.out.println("file not existed!");
 	        }
-	        //System.out.println("ÎÄ¼ş¼ĞÊıÁ¿:" + lsDir.size() + ",ÎÄ¼şÊıÁ¿:" + lsFile.size());
+	        //System.out.println("æ–‡ä»¶å¤¹æ•°é‡:" + lsDir.size() + ",æ–‡ä»¶æ•°é‡:" + lsFile.size());
         }catch(Exception e){
         	Logger.error(e.getMessage());
         }
     }
     
-    //±éÀúhdfsÄ¿Â¼
+    //éå†hdfsç›®å½•
     public void folderHdfsTaversal(String hdFile, List<String> lsDir, List<String> lsFile) {
         LinkedList<FileStatus> list = new LinkedList<>();
 
@@ -567,7 +567,7 @@ public class HdfsFileImpl implements IFile {
 	        } else {
 	        	System.out.println("file not existed!");
 	        }
-	       // System.out.println("ÎÄ¼ş¼ĞÊıÁ¿:" + lsDir.size() + ",ÎÄ¼şÊıÁ¿:" + lsFile.size());
+	       // System.out.println("æ–‡ä»¶å¤¹æ•°é‡:" + lsDir.size() + ",æ–‡ä»¶æ•°é‡:" + lsFile.size());
         }catch(Exception e){
         	Logger.error(e.getMessage());
         }

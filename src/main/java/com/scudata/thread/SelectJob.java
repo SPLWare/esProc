@@ -9,22 +9,22 @@ import com.scudata.expression.Expression;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃÓÚÖ´ĞĞA.selectµÄÈÎÎñ
+ * ç”¨äºæ‰§è¡ŒA.selectçš„ä»»åŠ¡
  * @author RunQian
  *
  */
 class SelectJob extends Job {
-	private Sequence src; // Ô´ĞòÁĞ
-	private int start; // ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	private int end; // ½áÊøÎ»ÖÃ£¬²»°üÀ¨
+	private Sequence src; // æºåºåˆ—
+	private int start; // èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	private int end; // ç»“æŸä½ç½®ï¼Œä¸åŒ…æ‹¬
 	
-	private Expression exp; // ¹ıÂË±í´ïÊ½
+	private Expression exp; // è¿‡æ»¤è¡¨è¾¾å¼
 	
-	private Expression[] fltExps; // ¼ÆËã±í´ïÊ½Êı×é
-	private Object[] vals; // ÖµÊı×é
+	private Expression[] fltExps; // è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	private Object[] vals; // å€¼æ•°ç»„
 	
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
-	private Sequence result; // ½á¹û¼¯
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
+	private Sequence result; // ç»“æœé›†
 	
 	public SelectJob(Sequence src, int start, int end, Expression exp, Context ctx) {
 		this.src = src;

@@ -21,8 +21,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * °ÑÓÎ±êÓëÅÅÁĞ»òÕßÍâ´æ±í×öÁ¬½Ó£¬¸´ÖÆÒ»Ğ©×Ö¶ÎÉú³ÉĞÂÓÎ±ê·µ»Ø
- * cs.joinx(C:¡­,f:K:¡­,x:F,¡­;¡­;¡­;n)
+ * æŠŠæ¸¸æ ‡ä¸æ’åˆ—æˆ–è€…å¤–å­˜è¡¨åšè¿æ¥ï¼Œå¤åˆ¶ä¸€äº›å­—æ®µç”Ÿæˆæ–°æ¸¸æ ‡è¿”å›
+ * cs.joinx(C:â€¦,f:K:â€¦,x:F,â€¦;â€¦;â€¦;n)
  * @author RunQian
  *
  */
@@ -153,7 +153,7 @@ public class Joinx extends CursorFunction {
 	}
 	
 	/**
-	 * °ÑÎ¬±í¶ÔÏó×ª»»³ÉÓÎ±ê
+	 * æŠŠç»´è¡¨å¯¹è±¡è½¬æ¢æˆæ¸¸æ ‡
 	 * @param obj
 	 * @return
 	 */
@@ -171,7 +171,7 @@ public class Joinx extends CursorFunction {
 	}
 
 	/**
-	 * ´Ójoin×Ö¶ÎºÍĞÂ±í´ïÊ½ÖĞÌáÈ¡ĞèÒªµÄ×Ö¶Î
+	 * ä»joinå­—æ®µå’Œæ–°è¡¨è¾¾å¼ä¸­æå–éœ€è¦çš„å­—æ®µ
 	 * @param dataExps
 	 * @param newExps
 	 * @param ctx
@@ -197,7 +197,7 @@ public class Joinx extends CursorFunction {
 		SyncReader[] readers = new SyncReader[count];
 		for (int i = 0; i < count; i++) {
 			if (codes[i] instanceof ColPhyTable) {
-				String[] fields = makeFields(dataExps[i], newExps[i], ctx);//µÃµ½Î¬±í×Ö¶Î
+				String[] fields = makeFields(dataExps[i], newExps[i], ctx);//å¾—åˆ°ç»´è¡¨å­—æ®µ
 				readers[i] = new SyncReader((ColPhyTable)codes[i], fields, capacity);
 			} else if (codes[i] instanceof FileObject) {
 				readers[i] = new SyncReader((FileObject)codes[i], dataExps[i], capacity);

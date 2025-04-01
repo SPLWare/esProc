@@ -1,7 +1,7 @@
 package com.scudata.parallel;
 
 /**
- * ×÷Òµ¿ÉÖØÅÉÒì³£
+ * ä½œä¸šå¯é‡æ´¾å¼‚å¸¸
  * 
  * @author Joancy
  *
@@ -12,8 +12,8 @@ public class RedispatchableException extends Throwable{
   private Error e;
   
   /**
-   * ´´½¨¿ÉÖØÅÉÒì³£
-   * @param o Òì³£ÏûÏ¢
+   * åˆ›å»ºå¯é‡æ´¾å¼‚å¸¸
+   * @param o å¼‚å¸¸æ¶ˆæ¯
    */
   public RedispatchableException( Object o ){
     if( o instanceof Exception ){
@@ -32,28 +32,28 @@ public class RedispatchableException extends Throwable{
   }
 
   /**
-   * Òì³£µÄÔ­Òò
+   * å¼‚å¸¸çš„åŸå› 
    */
   public Throwable getCause(){
       return getThrowable().getCause();
   }
 
   /**
-   * »ñÈ¡±¾µØÃèÊöĞÅÏ¢
+   * è·å–æœ¬åœ°æè¿°ä¿¡æ¯
    */
   public String getLocalizedMessage(){
       return getThrowable().getLocalizedMessage();
   }
 
   /**
-   * »ñÈ¡Òì³£ĞÅÏ¢
+   * è·å–å¼‚å¸¸ä¿¡æ¯
    */
   public String getMessage(){
     return getThrowable().getMessage();
   }
 
   /**
-   * È¡Òì³£µÄ¶ÑÕ»
+   * å–å¼‚å¸¸çš„å †æ ˆ
    */
   public StackTraceElement[] getStackTrace(){
     return getThrowable().getStackTrace();

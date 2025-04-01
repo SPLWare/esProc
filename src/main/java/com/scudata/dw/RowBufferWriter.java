@@ -12,8 +12,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
 
 /**
- * ĞĞ´æÊ±Ğ´³öÀà
- * ²»Ñ¹ËõÍ¬Öµ
+ * è¡Œå­˜æ—¶å†™å‡ºç±»
+ * ä¸å‹ç¼©åŒå€¼
  * @author runqian
  *
  */
@@ -46,18 +46,18 @@ public class RowBufferWriter {
 	static final int RECORD = 0x25;
 
 	static final int MARK3 = 0x30;
-	static final int DATE16 = 0x30; // 2000ÄêÖ®ºóµÄÈÕÆÚ
-	static final int DATE32 = 0x31; // 2000ÄêÖ®Ç°µÄÈÕÆÚ
+	static final int DATE16 = 0x30; // 2000å¹´ä¹‹åçš„æ—¥æœŸ
+	static final int DATE32 = 0x31; // 2000å¹´ä¹‹å‰çš„æ—¥æœŸ
 	static final int TIME16 = 0x32;
 	static final int TIME17 = 0x33;
 	static final int DATETIME32 = 0x34;
 	static final int DATETIME33 = 0x35;
 	static final int DATETIME64 = 0x36;
 	static final int TIME32 = 0x37;
-	static final int DATE24 = 0x38; // 2000ÄêÖ®ºóµÄÈÕÆÚ
-	static final int DATE64 = 0x39; // ³¬½ç±íÊ¾²»ÁË¶¼µÃÈÕÆÚÓÃ64Î»±£´æ
+	static final int DATE24 = 0x38; // 2000å¹´ä¹‹åçš„æ—¥æœŸ
+	static final int DATE64 = 0x39; // è¶…ç•Œè¡¨ç¤ºä¸äº†éƒ½å¾—æ—¥æœŸç”¨64ä½ä¿å­˜
 
-	static final int SERIALBYTES = 0x40; // ÅÅºÅ
+	static final int SERIALBYTES = 0x40; // æ’å·
 
 	static final int INT4 = 0x80;
 	static final int INT12 = 0x90;
@@ -71,7 +71,7 @@ public class RowBufferWriter {
 	private static final double MINFLOAT = 0.000001;
 	private static final int MAX_DIGIT_LEN = 30;
 
-	static final long BASEDATE; // 1992ÄêÖ®Ç°ÓĞµÄÈÕÆÚ²»ÄÜ±»86400000Õû³ı
+	static final long BASEDATE; // 1992å¹´ä¹‹å‰æœ‰çš„æ—¥æœŸä¸èƒ½è¢«86400000æ•´é™¤
 	static final long BASETIME;
 	static {
 		java.util.Calendar calendar = java.util.Calendar.getInstance();
@@ -85,8 +85,8 @@ public class RowBufferWriter {
 
 	static final int INIT_BUFFER_SIZE = 1024 * 64;
 	
-	private byte []buf; // Ğ´»º³åÇø
-	private int count = 0;//Ğ´ÈëµÄ³¤¶È
+	private byte []buf; // å†™ç¼“å†²åŒº
+	private int count = 0;//å†™å…¥çš„é•¿åº¦
 	private StructManager structManager;
 
 	public RowBufferWriter(StructManager structManager) {
@@ -100,7 +100,7 @@ public class RowBufferWriter {
 	}
 
 	/**
-	 * ½áÊøĞ´£¬·µ»Ø½á¹û×Ö½ÚÊı×é
+	 * ç»“æŸå†™ï¼Œè¿”å›ç»“æœå­—èŠ‚æ•°ç»„
 	 * @return
 	 * @throws IOException
 	 */
@@ -115,21 +115,21 @@ public class RowBufferWriter {
 	}
 	
 	/**
-	 * ·ÅÆúĞ´ÈëµÄÄÚÈİ£¬»Øµ½¿ªÍ·Î»ÖÃ
+	 * æ”¾å¼ƒå†™å…¥çš„å†…å®¹ï¼Œå›åˆ°å¼€å¤´ä½ç½®
 	 */
 	public void reset() {
 		count = 0;
 	}
 	
 	/**
-	 * À©Èİ»º³åÇø
+	 * æ‰©å®¹ç¼“å†²åŒº
 	 */
 	private void enlargeBuffer() {
 		buf = Arrays.copyOf(buf, buf.length << 1);
 	}
 	
 	/**
-	 * °´Ö¸¶¨´óĞ¡À©Èİ»º³åÇø
+	 * æŒ‰æŒ‡å®šå¤§å°æ‰©å®¹ç¼“å†²åŒº
 	 * @param newLen
 	 */
 	private void enlargeBuffer(int newLen) {
@@ -137,7 +137,7 @@ public class RowBufferWriter {
 	}
 	
 	/**
-	 * Ğ´ÈëÒ»¸ö×Ö½Ú
+	 * å†™å…¥ä¸€ä¸ªå­—èŠ‚
 	 * @param b
 	 * @throws IOException
 	 */
@@ -150,7 +150,7 @@ public class RowBufferWriter {
 	}
 
 	/**
-	 * Ğ´ÈëÒ»¸ö×Ö½ÚÊı×é
+	 * å†™å…¥ä¸€ä¸ªå­—èŠ‚æ•°ç»„
 	 * @param b
 	 * @throws IOException
 	 */
@@ -159,10 +159,10 @@ public class RowBufferWriter {
 	}
 
 	/**
-	 * Ğ´ÈëÒ»¸ö×Ö½ÚÊı×é
-	 * @param b Êı×é
-	 * @param off Æ«ÒÆ
-	 * @param len ³¤¶È
+	 * å†™å…¥ä¸€ä¸ªå­—èŠ‚æ•°ç»„
+	 * @param b æ•°ç»„
+	 * @param off åç§»
+	 * @param len é•¿åº¦
 	 * @throws IOException
 	 */
 	public void write(byte b[], int off, int len) throws IOException {
@@ -175,7 +175,7 @@ public class RowBufferWriter {
 	}
 
 	/**
-	 * Ğ´ÈëÒ»¸ö×Ö½Ú
+	 * å†™å…¥ä¸€ä¸ªå­—èŠ‚
 	 * @param v
 	 * @throws IOException
 	 */
@@ -226,7 +226,7 @@ public class RowBufferWriter {
 	}
 
 	/**
-	 * Ğ´ÈëÒ»¸ö×Ö½ÚÊı×é £¨¿ÉÒÔÊÇNULL£©
+	 * å†™å…¥ä¸€ä¸ªå­—èŠ‚æ•°ç»„ ï¼ˆå¯ä»¥æ˜¯NULLï¼‰
 	 * @param v 
 	 * @throws IOException
 	 */
@@ -252,7 +252,7 @@ public class RowBufferWriter {
 	}
 
 	/**
-	 * ÊÇ·ñÊÇ³¤¶ÈĞ¡ÓÚµÈÓÚ32µÄÊı×Ö´®
+	 * æ˜¯å¦æ˜¯é•¿åº¦å°äºç­‰äº32çš„æ•°å­—ä¸²
 	 * @param charr
 	 * @param len
 	 * @return
@@ -268,7 +268,7 @@ public class RowBufferWriter {
 	}
 
 	/**
-	 * Ğ´Èë³¤¶ÈĞ¡ÓÚµÈÓÚ32µÄÊı×Ö´®
+	 * å†™å…¥é•¿åº¦å°äºç­‰äº32çš„æ•°å­—ä¸²
 	 * @param charr
 	 * @param len
 	 * @throws IOException
@@ -499,7 +499,7 @@ public class RowBufferWriter {
 		write(n & 0xFF);
 	}
 	
-	// 5×Ö½Ú±íÊ¾long£¬µ¥ÎÄ¼ş´óĞ¡ÒªÇó²»³¬1T
+	// 5å­—èŠ‚è¡¨ç¤ºlongï¼Œå•æ–‡ä»¶å¤§å°è¦æ±‚ä¸è¶…1T
 	public void writeLong40(long v) throws IOException {
 		if (buf.length - count < 5) {
 			enlargeBuffer();
@@ -515,7 +515,7 @@ public class RowBufferWriter {
 		count = seq;
 	}
 	
-	// 6×Ö½Ú±íÊ¾long£¬µ¥ÎÄ¼ş´óĞ¡ÒªÇó²»³¬256T£¬½ö¹²Êı¾İÍÚ¾ò±í£¬ÎÄ¼ş¶¨Î»Êı¾İµÄ±£´æ
+	// 6å­—èŠ‚è¡¨ç¤ºlongï¼Œå•æ–‡ä»¶å¤§å°è¦æ±‚ä¸è¶…256Tï¼Œä»…å…±æ•°æ®æŒ–æ˜è¡¨ï¼Œæ–‡ä»¶å®šä½æ•°æ®çš„ä¿å­˜
 	public void writeLong48(long v) throws IOException {
 		if (buf.length - count < 6) {
 			enlargeBuffer();
@@ -610,7 +610,7 @@ public class RowBufferWriter {
 	private void writeDate(java.sql.Date date) throws IOException {
 		long v = date.getTime();
 		if (v >= BASEDATE) {
-			// ¾«È·µ½Ìì
+			// ç²¾ç¡®åˆ°å¤©
 			int d = (int)((v - BASEDATE) / 86400000);
 			if (d > 0xFFFF) {
 				if (d > 0xFFFFFF) {
@@ -628,7 +628,7 @@ public class RowBufferWriter {
 				write(d & 0xFF);
 			}
 		} else {
-			// ¾«È·µ½Ãë
+			// ç²¾ç¡®åˆ°ç§’
 			long d = (BASEDATE - v) / 1000;
 			if (d > 0xFFFFFFFFL) {
 				write(DATE64);
@@ -755,7 +755,7 @@ public class RowBufferWriter {
 			writeBytes((byte[])obj);
 		} else if (obj instanceof SerialBytes) {
 			SerialBytes sb = (SerialBytes)obj;
-			// ³¤¶È¹Ì¶¨ÊÇ16
+			// é•¿åº¦å›ºå®šæ˜¯16
 			write(SERIALBYTES);
 			writeLong64(sb.getValue1());
 			writeLong64(sb.getValue2());
@@ -803,7 +803,7 @@ public class RowBufferWriter {
 			write(0);
 		} else if (obj instanceof SerialBytes) {
 			SerialBytes sb = (SerialBytes)obj;
-			// ³¤¶È¹Ì¶¨ÊÇ16
+			// é•¿åº¦å›ºå®šæ˜¯16
 			write(SERIALBYTES);
 			writeLong64(sb.getValue1());
 			writeLong64(sb.getValue2());

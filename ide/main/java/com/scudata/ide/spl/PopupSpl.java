@@ -7,23 +7,23 @@ import javax.swing.event.PopupMenuListener;
 import com.scudata.ide.common.GV;
 
 /**
- * ÓÒ¼üµ¯³ö²Ëµ¥
+ * å³é”®å¼¹å‡ºèœå•
  *
  */
 public class PopupSpl {
 	/**
-	 * µ¯³ö²Ëµ¥¼àÌıÆ÷
+	 * å¼¹å‡ºèœå•ç›‘å¬å™¨
 	 */
 	PopupMenuListener listener = null;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public PopupSpl() {
 	}
 
 	/**
-	 * Ôö¼Óµ¯³ö²Ëµ¥¼àÌıÆ÷
+	 * å¢åŠ å¼¹å‡ºèœå•ç›‘å¬å™¨
 	 * 
 	 * @param listener
 	 */
@@ -32,10 +32,10 @@ public class PopupSpl {
 	}
 
 	/**
-	 * È¡ÓÒ¼üµ¯³ö²Ëµ¥
+	 * å–å³é”®å¼¹å‡ºèœå•
 	 * 
 	 * @param selectStatus
-	 *            Íø¸ñÑ¡ÔñµÄ×´Ì¬£¬GCSplÖĞ¶¨ÒåµÄ³£Á¿
+	 *            ç½‘æ ¼é€‰æ‹©çš„çŠ¶æ€ï¼ŒGCSplä¸­å®šä¹‰çš„å¸¸é‡
 	 * @return
 	 */
 	public JPopupMenu getSplPop(byte selectStatus) {

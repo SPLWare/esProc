@@ -15,9 +15,9 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ´Ó×óµ½ÓÒ¼ÆËã±í´ïÊ½£¬Èç¹ûÓĞxiµÄ·µ»ØÖµºÍxµÄÏàµÈÔò¼ÆËãyi²¢·µ»Ø
- * Èç¹ûÃ»ÓĞ±í´ïÊ½Âú×ãÌõ¼ş£¬Ôò·µ»ØÈ±Ê¡Öµ£¬Ã»ÓĞÈ±Ê¡ÖµÔò·µ»Ø¿Õ
- * case(x,x1:y1,¡­,xk:yk;y)
+ * ä»å·¦åˆ°å³è®¡ç®—è¡¨è¾¾å¼ï¼Œå¦‚æœæœ‰xiçš„è¿”å›å€¼å’Œxçš„ç›¸ç­‰åˆ™è®¡ç®—yiå¹¶è¿”å›
+ * å¦‚æœæ²¡æœ‰è¡¨è¾¾å¼æ»¡è¶³æ¡ä»¶ï¼Œåˆ™è¿”å›ç¼ºçœå€¼ï¼Œæ²¡æœ‰ç¼ºçœå€¼åˆ™è¿”å›ç©º
+ * case(x,x1:y1,â€¦,xk:yk;y)
  * @author RunQian
  *
  */
@@ -33,7 +33,7 @@ public class Case extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -94,8 +94,8 @@ public class Case extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -172,10 +172,10 @@ public class Case extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -183,9 +183,9 @@ public class Case extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {

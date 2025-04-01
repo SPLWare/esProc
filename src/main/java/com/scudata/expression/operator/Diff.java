@@ -10,8 +10,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÔËËã·û£º\
- * ĞòÁĞÇó²î¡¢ÊıÕû³ı
+ * è¿ç®—ç¬¦ï¼š\
+ * åºåˆ—æ±‚å·®ã€æ•°æ•´é™¤
  * @author RunQian
  *
  */
@@ -21,7 +21,7 @@ public class Diff extends Operator {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (left == null) {
@@ -55,17 +55,17 @@ public class Diff extends Operator {
 				o2 = s2;
 			}
 
-			// ĞòÁĞÇó²î
+			// åºåˆ—æ±‚å·®
 			return ((Sequence)o1).diff((Sequence)o2, false);
 		} else {
-			// ÊıÕû³ı
+			// æ•°æ•´é™¤
 			return Variant.intDivide(o1, o2);
 		}
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -75,10 +75,10 @@ public class Diff extends Operator {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

@@ -14,9 +14,9 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.common.MessageManager;
 
 /**
- * ¹éÒ»»¯
+ * å½’ä¸€åŒ–
  * @author bd
- * Ô­ĞÍA.normal()	P.normal(cn), A.normal@r(rec), P.normal(cn, rec)
+ * åŸå‹A.normal()	P.normal(cn), A.normal@r(rec), P.normal(cn, rec)
  */
 public class Normal extends SequenceFunction{
 	public Object calculate(Context ctx) {
@@ -168,11 +168,11 @@ public class Normal extends SequenceFunction{
 	}
 	
 	/**
-	 * ÇåÀíÒì³£Öµ£¬½«½á¹û¸Ä±äµ½VsÖĞ
-	 * @param Vs	Ä³ÊıÖµÁĞµÄÊı¾İ
-	 * @param x	ÊıÖµÁĞ¾­¹ı¾ÀÆ«nmnv´¦ÀíµÄÊı¾İ
-	 * @param avg	Æ½¾ùÖµ
-	 * @param sd	·½²î
+	 * æ¸…ç†å¼‚å¸¸å€¼ï¼Œå°†ç»“æœæ”¹å˜åˆ°Vsä¸­
+	 * @param Vs	æŸæ•°å€¼åˆ—çš„æ•°æ®
+	 * @param x	æ•°å€¼åˆ—ç»è¿‡çº ånmnvå¤„ç†çš„æ•°æ®
+	 * @param avg	å¹³å‡å€¼
+	 * @param sd	æ–¹å·®
 	 * @return
 	 */
 	protected static NorRec normal(Sequence cvs) {

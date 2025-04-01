@@ -8,17 +8,17 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 
 /**
- * ÓÎ±ê»ò¹ÜµÀµÄ¸½¼ÓµÄºÏ²¢²úÉúµÄĞò±í´¦ÀíÀà
+ * æ¸¸æ ‡æˆ–ç®¡é“çš„é™„åŠ çš„åˆå¹¶äº§ç”Ÿçš„åºè¡¨å¤„ç†ç±»
  * cs.news(...)
  * @author RunQian
  *
  */
 public class News extends Operation  {
-	private Expression gexp; // ·µ»ØÖµÎªĞòÁĞµÄ±í´ïÊ½
-	private Expression[] newExps; // ×Ö¶Î±í´ïÊ½Êı×é
-	private String []names; // ×Ö¶ÎÃûÊı×é
-	private String opt; // Ñ¡Ïî
-	private DataStruct newDs; // ½á¹¹¼¯Êı¾İ½á¹¹
+	private Expression gexp; // è¿”å›å€¼ä¸ºåºåˆ—çš„è¡¨è¾¾å¼
+	private Expression[] newExps; // å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String []names; // å­—æ®µåæ•°ç»„
+	private String opt; // é€‰é¡¹
+	private DataStruct newDs; // ç»“æ„é›†æ•°æ®ç»“æ„
 	
 	public News(Expression gexp, Expression []newExps, String []names, String opt) {
 		this(null, gexp, newExps, names, opt);
@@ -34,8 +34,8 @@ public class News extends Operation  {
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -45,9 +45,9 @@ public class News extends Operation  {
 	}
 
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

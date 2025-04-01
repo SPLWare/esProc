@@ -14,16 +14,16 @@ public class PseudoColumn {
 	public static final String PD_FKEY = "fkey";
 	public static final String PD_TIME = "tkey";
 	
-	private String name;//Õæ×Ö¶ÎµÄÃû³Æ
-	private String exp;//Õæ×Ö¶ÎµÄ±í´ïÊ½
-	private String type;//Êı¾İÀàĞÍ
-	private String pseudo;//Î±×Ö¶Î
-	private Sequence _enum;//Î±×Ö¶Î¶ÔÓ¦µÄÃ¶¾ÙÁĞ±í
-	private Sequence bits;//¶şÖµÎ¬¶ÈÎ±×Ö¶ÎÃû
-	private Object dim;//Ö¸ÏòµÄÎ¬±í
-	private String fkey[];//Íâ¼ü×Ö¶Î
-	private String tkey;//Ê±¼ä×Ö¶Î
-	private String[] dimKey;//Î¬±íkey×Ö¶Î
+	private String name;//çœŸå­—æ®µçš„åç§°
+	private String exp;//çœŸå­—æ®µçš„è¡¨è¾¾å¼
+	private String type;//æ•°æ®ç±»å‹
+	private String pseudo;//ä¼ªå­—æ®µ
+	private Sequence _enum;//ä¼ªå­—æ®µå¯¹åº”çš„æšä¸¾åˆ—è¡¨
+	private Sequence bits;//äºŒå€¼ç»´åº¦ä¼ªå­—æ®µå
+	private Object dim;//æŒ‡å‘çš„ç»´è¡¨
+	private String fkey[];//å¤–é”®å­—æ®µ
+	private String tkey;//æ—¶é—´å­—æ®µ
+	private String[] dimKey;//ç»´è¡¨keyå­—æ®µ
 	
 	public PseudoColumn() {
 		
@@ -130,7 +130,7 @@ public class PseudoColumn {
 		}
 		
 		/**
-		 * Î¬µÄpseudoÊÇjoin¼ÆËãµÄ½á¹ûÃû³Æ
+		 * ç»´çš„pseudoæ˜¯joinè®¡ç®—çš„ç»“æœåç§°
 		 */
 		if (dim != null && pseudo == null) {
 			if (name != null) {

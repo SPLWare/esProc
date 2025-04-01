@@ -7,15 +7,15 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 
 /**
- * ÓÎ±ê»ò¹ÜµÀ¸½¼ÓµÄ¶Ô×Ö¶Î½øĞĞÖØÃüÃûÔËËã´¦ÀíÀà
- * op.rename(F:F',¡­) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ çš„å¯¹å­—æ®µè¿›è¡Œé‡å‘½åè¿ç®—å¤„ç†ç±»
+ * op.rename(F:F',â€¦) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */
 public class Rename extends Operation {
-	private String []srcFields; // Ô´×Ö¶ÎÃûÊı×é
-	private String []newFields; // ĞÂ×Ö¶ÎÃûÊı×é
-	private DataStruct prevDs; // ÉÏÒ»Ìõ´¦ÀíµÄ¼ÇÂ¼µÄÊı¾İ½á¹¹
+	private String []srcFields; // æºå­—æ®µåæ•°ç»„
+	private String []newFields; // æ–°å­—æ®µåæ•°ç»„
+	private DataStruct prevDs; // ä¸Šä¸€æ¡å¤„ç†çš„è®°å½•çš„æ•°æ®ç»“æ„
 
 	
 	public Rename(Function function, String []srcFields, String []newFields) {
@@ -29,8 +29,8 @@ public class Rename extends Operation {
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -38,9 +38,9 @@ public class Rename extends Operation {
 	}
 
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

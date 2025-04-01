@@ -21,22 +21,22 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Ñ­»·º¯ÊıÖĞµü´úÔËËã£¬¶ÔÓĞÏàÍ¬×Ö¶ÎÖµµÄ³ÉÔ±ÀÛ»ı
- * get(level,F;a:b) ÔÚ¶à²ãÑ­»·º¯ÊıÖĞÈ¡³öÉÏ²ãµÄ»ù³ÉÔ±ĞÅÏ¢¡£±ÈÈçA.fn(B.fn(get(1))£¬±íÊ¾È¡AµÄµ±Ç°Ñ­»·³ÉÔ±
- * 					levelÎªÏòÉÏÊıµÄ²ãÊı£¬±¾²ãÎª0£»
- * 					FÎª×Ö¶ÎÃû£¬#±íÊ¾ĞòºÅ£¬Ê¡ÂÔÈ¡³ÉÔ±£»
- * 					a:b½âÊÍÓë·ûºÅ[¡­]ÏàÍ¬£¬¿ÉÊ¡ÂÔ£»ÔÚÑ­»·º¯ÊıÍâÎŞ¶¨Òå
+ * å¾ªç¯å‡½æ•°ä¸­è¿­ä»£è¿ç®—ï¼Œå¯¹æœ‰ç›¸åŒå­—æ®µå€¼çš„æˆå‘˜ç´¯ç§¯
+ * get(level,F;a:b) åœ¨å¤šå±‚å¾ªç¯å‡½æ•°ä¸­å–å‡ºä¸Šå±‚çš„åŸºæˆå‘˜ä¿¡æ¯ã€‚æ¯”å¦‚A.fn(B.fn(get(1))ï¼Œè¡¨ç¤ºå–Açš„å½“å‰å¾ªç¯æˆå‘˜
+ * 					levelä¸ºå‘ä¸Šæ•°çš„å±‚æ•°ï¼Œæœ¬å±‚ä¸º0ï¼›
+ * 					Fä¸ºå­—æ®µåï¼Œ#è¡¨ç¤ºåºå·ï¼Œçœç•¥å–æˆå‘˜ï¼›
+ * 					a:bè§£é‡Šä¸ç¬¦å·[â€¦]ç›¸åŒï¼Œå¯çœç•¥ï¼›åœ¨å¾ªç¯å‡½æ•°å¤–æ— å®šä¹‰
  * @author runqian
  *
  */
 public class Get extends Function {
 	private int level = -1;
-	private String fieldName; // ËùÒªÈ¡µÄ×Ö¶Î£¬Èç¹ûÃ»ÓĞF²ÎÊıÔòÎª¿Õ
-	private boolean isSeq; // ÊÇ·ñÈ¡µ±Ç°Ñ­»·ĞòºÅ£¬Èç¹ûfieldNameÎª¿Õ²¢ÇÒisSeqÎªfalseÔòÈ¡µ±Ç°Ñ­»·³ÉÔ±
+	private String fieldName; // æ‰€è¦å–çš„å­—æ®µï¼Œå¦‚æœæ²¡æœ‰Få‚æ•°åˆ™ä¸ºç©º
+	private boolean isSeq; // æ˜¯å¦å–å½“å‰å¾ªç¯åºå·ï¼Œå¦‚æœfieldNameä¸ºç©ºå¹¶ä¸”isSeqä¸ºfalseåˆ™å–å½“å‰å¾ªç¯æˆå‘˜
 	private IParam moveParam;
 	
-	private DataStruct prevDs; // ÉÏ´Î¼ÆËã¶ÔÓ¦µÄÊı¾İ½á¹¹£¬ÓÃÓÚĞÔÄÜÓÅ»¯
-	private int col = -1; // ÉÏ´Î¼ÆËã¶ÔÓ¦µÄ×Ö¶ÎË÷Òı£¬ÓÃÓÚĞÔÄÜÓÅ»¯
+	private DataStruct prevDs; // ä¸Šæ¬¡è®¡ç®—å¯¹åº”çš„æ•°æ®ç»“æ„ï¼Œç”¨äºæ€§èƒ½ä¼˜åŒ–
+	private int col = -1; // ä¸Šæ¬¡è®¡ç®—å¯¹åº”çš„å­—æ®µç´¢å¼•ï¼Œç”¨äºæ€§èƒ½ä¼˜åŒ–
 	
 	public Node optimize(Context ctx) {
 		if (param != null) param.optimize(ctx);
@@ -107,7 +107,7 @@ public class Get extends Function {
 			throw new RQException(mm.getMessage("function.notInCyclicalFunction", "'get'"));
 		}
 		
-		// ¸ù¾İ²ãÈ¡³öÏàÓ¦µÄÑ­»·¶ÔÏó
+		// æ ¹æ®å±‚å–å‡ºç›¸åº”çš„å¾ªç¯å¯¹è±¡
 		int level = this.level;
 		while (level != 0) {
 			level--;
@@ -175,7 +175,7 @@ public class Get extends Function {
 		}
 	}
 	
-	// È¡objµÄfieldName×Ö¶ÎÖµ
+	// å–objçš„fieldNameå­—æ®µå€¼
 	private Object getFieldValue(Object obj) {
 		if (obj instanceof BaseRecord) {
 			BaseRecord cur = (BaseRecord)obj;
@@ -190,7 +190,7 @@ public class Get extends Function {
 
 			return cur.getNormalFieldValue(col);
 		} else if (obj instanceof Sequence) {
-			// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+			// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 			if (((Sequence)obj).length() == 0) {
 				return null;
 			}
@@ -223,8 +223,8 @@ public class Get extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -253,10 +253,10 @@ public class Get extends Function {
 	}
 
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

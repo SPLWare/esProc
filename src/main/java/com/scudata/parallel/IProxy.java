@@ -4,7 +4,7 @@ import com.scudata.dm.IResource;
 import com.scudata.server.unit.UnitServer;
 
 /**
- * ´úÀí½Ó¿Ú
+ * ä»£ç†æ¥å£
  * @author Joancy
  *
  */
@@ -12,15 +12,15 @@ public abstract class IProxy implements IResource {
 	private int proxyId = UnitServer.nextId();
 	
 	/**
-	 * È¡´úÀí±àºÅ
-	 * @return ´úÀíÎ¨Ò»ºÅ
+	 * å–ä»£ç†ç¼–å·
+	 * @return ä»£ç†å”¯ä¸€å·
 	 */
 	public int getProxyId() {
 		return proxyId;
 	}
 	
 	/**
-	 * ÉèÖÃ´úÀí±àºÅ
+	 * è®¾ç½®ä»£ç†ç¼–å·
 	 * @param proxyId
 	 */
 	public void setProxyId(int proxyId) {

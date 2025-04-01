@@ -10,7 +10,7 @@ import com.scudata.chart.*;
 import com.scudata.ide.common.swing.*;
 
 /**
- * µãµÄÀàĞÍÏÂÀ­ÁĞ±í
+ * ç‚¹çš„ç±»å‹ä¸‹æ‹‰åˆ—è¡¨
  * 
  * @author Joancy
  *
@@ -47,8 +47,8 @@ public class PointStyleComboBox extends JComboBox {
 	}
 
 	/**
-	 * »ñÈ¡µãÀàĞÍ
-	 * @return ÕûÊıÀàĞÍµÄµãÀàĞÍ
+	 * è·å–ç‚¹ç±»å‹
+	 * @return æ•´æ•°ç±»å‹çš„ç‚¹ç±»å‹
 	 */
 	public int getValue() {
 		return ( ( Integer ) getEditor().getItem() ).intValue();

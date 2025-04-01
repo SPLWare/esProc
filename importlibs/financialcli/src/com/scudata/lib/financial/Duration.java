@@ -14,21 +14,21 @@ import com.scudata.util.Variant;
 /**
  * @author yanjing
  * 
- * Fduration(settlement,maturity;coupon,yld) ·µ»Ø¶¨ÆÚ¸¶Ï¢ÓĞ¼ÛÖ¤È¯µÄÊÕÒæÂÊ
- *   ÎŞ£¬°´ÄêÖ§¸¶£¬frequency = 1£»
- *   @2 °´°ëÄêÆÚÖ§¸¶£¬frequency = 2£»
- *   @4 °´¼¾Ö§¸¶£¬frequency = 4
+ * Fduration(settlement,maturity;coupon,yld) è¿”å›å®šæœŸä»˜æ¯æœ‰ä»·è¯åˆ¸çš„æ”¶ç›Šç‡
+ *   æ— ï¼ŒæŒ‰å¹´æ”¯ä»˜ï¼Œfrequency = 1ï¼›
+ *   @2 æŒ‰åŠå¹´æœŸæ”¯ä»˜ï¼Œfrequency = 2ï¼›
+ *   @4 æŒ‰å­£æ”¯ä»˜ï¼Œfrequency = 4
  *   
  * 	 @e 30/360, 
- * 	 @1 Êµ¼ÊÌìÊı/ÄêÊµ¼ÊÌìÊı£¬
- * 	 @0 Êµ¼ÊÌìÊı/360£¬ 
- * 	 @5 Êµ¼ÊÌìÊı/365£¬
- * 	 È±Ê¡Îª30/360 
+ * 	 @1 å®é™…å¤©æ•°/å¹´å®é™…å¤©æ•°ï¼Œ
+ * 	 @0 å®é™…å¤©æ•°/360ï¼Œ 
+ * 	 @5 å®é™…å¤©æ•°/365ï¼Œ
+ * 	 ç¼ºçœä¸º30/360 
  * 
- * @param settlement Ö¤È¯µÄ½áËãÈÕ
- * @param maturity  Ö¤È¯µÄµ½ÆÚÈÕ
- * @param coupon ÄêÏ¢Æ±ÀûÂÊ
- * @param yld ÄêÊÕÒæÂÊ
+ * @param settlement è¯åˆ¸çš„ç»“ç®—æ—¥
+ * @param maturity  è¯åˆ¸çš„åˆ°æœŸæ—¥
+ * @param coupon å¹´æ¯ç¥¨åˆ©ç‡
+ * @param yld å¹´æ”¶ç›Šç‡
  */
 public class Duration extends Function {
                                                                                                                             
@@ -81,9 +81,9 @@ public class Duration extends Function {
 
 	private Object duration(Date maturity,Date settlement,double coupon,double yld,double frequency,int basis){
 		
-		double m=Price.interval(settlement, maturity,basis, 'm');//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄÔÂÊı
-		double z=12/frequency;//Ã¿¸ö¸¶Ï¢ÆÚµÄÔÂÊı
-		double T=Math.ceil(m/z);//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄ¸¶Ï¢´ÎÊı
+		double m=Price.interval(settlement, maturity,basis, 'm');//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„æœˆæ•°
+		double z=12/frequency;//æ¯ä¸ªä»˜æ¯æœŸçš„æœˆæ•°
+		double T=Math.ceil(m/z);//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„ä»˜æ¯æ¬¡æ•°
 		
 		double c=coupon/frequency;
 		double y=yld/frequency;

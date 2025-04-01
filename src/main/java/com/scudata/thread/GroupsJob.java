@@ -7,23 +7,23 @@ import com.scudata.dm.op.IGroupsResult;
 import com.scudata.expression.Expression;
 
 /**
- * ¶ÔÓÎ±ê»òÅÅÁĞÖ´ĞĞ·Ö×éÔËËãµÄÈÎÎñ
+ * å¯¹æ¸¸æ ‡æˆ–æ’åˆ—æ‰§è¡Œåˆ†ç»„è¿ç®—çš„ä»»åŠ¡
  * @author WangXiaoJun
  *
  */
 public class GroupsJob extends Job {
-	private ICursor cursor; // Êı¾İÓÎ±ê
-	private Sequence seq; // Êı¾İÅÅÁĞ
+	private ICursor cursor; // æ•°æ®æ¸¸æ ‡
+	private Sequence seq; // æ•°æ®æ’åˆ—
 	
-	private Expression[] exps; // ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	private String[] names; // ·Ö×é×Ö¶ÎÃûÊı×é
-	private Expression[] calcExps; // »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	private String[] calcNames; // »ã×Ü×Ö¶ÎÃûÊı×é
-	private String opt; // Ñ¡Ïî
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
+	private Expression[] exps; // åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String[] names; // åˆ†ç»„å­—æ®µåæ•°ç»„
+	private Expression[] calcExps; // æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String[] calcNames; // æ±‡æ€»å­—æ®µåæ•°ç»„
+	private String opt; // é€‰é¡¹
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
 	
-	private IGroupsResult groupsResult; // ·Ö×é¶ÔÏó
-	private int groupCount = -1; // @n·½Ê½·Ö×éÊ±ÓÃ»§ÉèÖÃµÄ½á¹û¼¯ÊıÁ¿
+	private IGroupsResult groupsResult; // åˆ†ç»„å¯¹è±¡
+	private int groupCount = -1; // @næ–¹å¼åˆ†ç»„æ—¶ç”¨æˆ·è®¾ç½®çš„ç»“æœé›†æ•°é‡
 	
 	public GroupsJob(ICursor cursor, Expression[] exps, String[] names,
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx) {
@@ -48,7 +48,7 @@ public class GroupsJob extends Job {
 	}
 	
 	/**
-	 * È¡·Ö×é¶ÔÏó
+	 * å–åˆ†ç»„å¯¹è±¡
 	 * @return IGroupsResult
 	 */
 	public IGroupsResult getGroupsResult() {
@@ -56,7 +56,7 @@ public class GroupsJob extends Job {
 	}
 	
 	/**
-	 * @nÑ¡ÏîÊ¹ÓÃ£¬ÉèÖÃµÄ½á¹û¼¯ÊıÁ¿
+	 * @né€‰é¡¹ä½¿ç”¨ï¼Œè®¾ç½®çš„ç»“æœé›†æ•°é‡
 	 * @param groupCount
 	 */
 	public void setGroupCount(int groupCount) {

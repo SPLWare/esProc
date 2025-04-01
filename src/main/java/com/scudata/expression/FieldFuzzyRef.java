@@ -21,15 +21,15 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * #F È¡×Ö¶ÎFµÄÖµ£¬ÕÒ²»µ½·µ»Ønull
+ * #F å–å­—æ®µFçš„å€¼ï¼Œæ‰¾ä¸åˆ°è¿”å›null
  * @author WangXiaoJun
  *
  */
 public class FieldFuzzyRef extends Node {
 	private String name;
-	private IComputeItem computeItem; // ÉÏ´Î¼ÆËãÊ±¶ÔÓ¦µÄ¼ÆËã¶ÔÏó
-	private int col = -1; // ÉÏ´Î¼ÆËã¶ÔÓ¦µÄ×Ö¶ÎË÷Òı£¬ÓÃÓÚĞÔÄÜÓÅ»¯
-	private DataStruct prevDs; // ÉÏ´Î¼ÆËã¶ÔÓ¦µÄÊı¾İ½á¹¹£¬ÓÃÓÚĞÔÄÜÓÅ»¯
+	private IComputeItem computeItem; // ä¸Šæ¬¡è®¡ç®—æ—¶å¯¹åº”çš„è®¡ç®—å¯¹è±¡
+	private int col = -1; // ä¸Šæ¬¡è®¡ç®—å¯¹åº”çš„å­—æ®µç´¢å¼•ï¼Œç”¨äºæ€§èƒ½ä¼˜åŒ–
+	private DataStruct prevDs; // ä¸Šæ¬¡è®¡ç®—å¯¹åº”çš„æ•°æ®ç»“æ„ï¼Œç”¨äºæ€§èƒ½ä¼˜åŒ–
 		
 	public FieldFuzzyRef(String name) {
 		this.name = name;
@@ -45,7 +45,7 @@ public class FieldFuzzyRef extends Node {
 	}
 	
 	/**
-	 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+	 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 	 */
 	public void reset() {
 		computeItem = null;
@@ -58,7 +58,7 @@ public class FieldFuzzyRef extends Node {
 	}
 
 	public Object calculate(Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄ¼ÍÂ¼»òĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„çºªå½•æˆ–åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
@@ -75,7 +75,7 @@ public class FieldFuzzyRef extends Node {
 					return null;
 				}
 			} else if (obj instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (((Sequence)obj).length() == 0) {
 					return null;
 				}
@@ -100,7 +100,7 @@ public class FieldFuzzyRef extends Node {
 				return null;
 			}
 		} else {
-			// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+			// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 			for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 				IComputeItem item = entry.getElement();
 				Object cur = item.getCurrent();
@@ -114,7 +114,7 @@ public class FieldFuzzyRef extends Node {
 						return r.getNormalFieldValue(col);
 					}
 				} else if (cur instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					if (((Sequence)cur).length() == 0) {
 						computeItem = item;
 						return null;
@@ -138,9 +138,9 @@ public class FieldFuzzyRef extends Node {
 		}
 	}
 
-	// '=' ¸³ÖµÔËËã
+	// '=' èµ‹å€¼è¿ç®—
 	public Object assign(Object value, Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄ¼ÍÂ¼»òĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„çºªå½•æˆ–åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
@@ -155,7 +155,7 @@ public class FieldFuzzyRef extends Node {
 					cur.setNormalFieldValue(col, value);
 				}
 			} else if (obj instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (((Sequence)obj).length() == 0) {
 					return value;
 				}
@@ -176,12 +176,12 @@ public class FieldFuzzyRef extends Node {
 			
 			return value;
 		} else {
-			// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+			// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 			for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 				IComputeItem item = entry.getElement();
 				Object cur = item.getCurrent();
 				
-				// ¸³ÖµµÄÇé¿ö²»ÔÊĞíĞòÁĞÊ×ÔªËØÎªnull£¿
+				// èµ‹å€¼çš„æƒ…å†µä¸å…è®¸åºåˆ—é¦–å…ƒç´ ä¸ºnullï¼Ÿ
 				if (cur instanceof BaseRecord) {
 					BaseRecord r = (BaseRecord) cur;
 					col = r.getFieldIndex(name);
@@ -207,7 +207,7 @@ public class FieldFuzzyRef extends Node {
 						return value;
 					}
 				} else if (cur instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					if (((Sequence)cur).length() == 0) {
 						computeItem = item;
 						return value;
@@ -232,9 +232,9 @@ public class FieldFuzzyRef extends Node {
 		}
 	}
 
-	// '+=' ¸³ÖµÔËËã
+	// '+=' èµ‹å€¼è¿ç®—
 	public Object addAssign(Object value, Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄ¼ÍÂ¼»òĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„çºªå½•æˆ–åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
@@ -251,7 +251,7 @@ public class FieldFuzzyRef extends Node {
 					return result;
 				}
 			} else if (obj instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (((Sequence)obj).length() == 0) {
 					return value;
 				}
@@ -274,12 +274,12 @@ public class FieldFuzzyRef extends Node {
 			
 			return value;
 		} else {
-			// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+			// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 			for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 				IComputeItem item = entry.getElement();
 				Object cur = item.getCurrent();
 				
-				// ¸³ÖµµÄÇé¿ö²»ÔÊĞíĞòÁĞÊ×ÔªËØÎªnull£¿
+				// èµ‹å€¼çš„æƒ…å†µä¸å…è®¸åºåˆ—é¦–å…ƒç´ ä¸ºnullï¼Ÿ
 				if (cur instanceof BaseRecord) {
 					BaseRecord r = (BaseRecord) cur;
 					col = r.getFieldIndex(name);
@@ -293,7 +293,7 @@ public class FieldFuzzyRef extends Node {
 						return result;
 					}
 				} else if (cur instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					if (((Sequence)cur).length() == 0) {
 						computeItem = item;
 						return value;
@@ -321,7 +321,7 @@ public class FieldFuzzyRef extends Node {
 	}
 
 	public Object move(Move node, Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Current current = (Current)computeItem;
@@ -330,7 +330,7 @@ public class FieldFuzzyRef extends Node {
 				return null;
 			}
 
-			// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+			// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 			Object obj = current.get(pos);
 			if (obj instanceof Sequence) {
 				if (((Sequence)obj).length() == 0) {
@@ -357,7 +357,7 @@ public class FieldFuzzyRef extends Node {
 			}
 		}
 
-		// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+		// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 		for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
 			if (item instanceof Current) { // series.(...)
@@ -400,7 +400,7 @@ public class FieldFuzzyRef extends Node {
 	}
 
 	public Object moveAssign(Move node, Object value, Context ctx) {
-		 // Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		 // å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Current current = (Current)computeItem;
@@ -409,7 +409,7 @@ public class FieldFuzzyRef extends Node {
 				return value;
 			}
 
-			 // Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+			 // å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 			Object obj = current.get(pos);
 			if (obj instanceof Sequence) {
 				if (((Sequence)obj).length() == 0) {
@@ -435,7 +435,7 @@ public class FieldFuzzyRef extends Node {
 			return value;
 		}
 
-		// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+		// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 		for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
 			if (item instanceof Current) { // series.(...)
@@ -476,7 +476,7 @@ public class FieldFuzzyRef extends Node {
 	}
 	
 	public Object moves(Move node, Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Current current = (Current)computeItem;
@@ -485,8 +485,8 @@ public class FieldFuzzyRef extends Node {
 			return Move.getFieldValues(current, name, range[0], range[1]);
 		}
 
-		// ×Ö¶Î
-		// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
+		// å­—æ®µ
+		// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
 		for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
 			if (item instanceof Current) { // series.(...)
@@ -531,10 +531,10 @@ public class FieldFuzzyRef extends Node {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -542,9 +542,9 @@ public class FieldFuzzyRef extends Node {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -561,12 +561,12 @@ public class FieldFuzzyRef extends Node {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
-		// µ÷ÓÃcalculateAllÊ±Õ»¶¥¶ÔÏó¿Ï¶¨ÊÇĞòÁĞ
+		// è°ƒç”¨calculateAllæ—¶æ ˆé¡¶å¯¹è±¡è‚¯å®šæ˜¯åºåˆ—
 		ComputeStack stack = ctx.getComputeStack();
 		Sequence sequence = stack.getTopSequence();
 		
@@ -586,12 +586,12 @@ public class FieldFuzzyRef extends Node {
 		DataStruct ds = null;
 		int col = -1;
 		
-		// ÕÒ³öµÚÒ»¸ö·Ç¿ÕµÄ³ÉÔ±£¬ÅĞ¶ÏÊÇ·ñº¬ÓĞµ±Ç°×Ö¶Î
-		// ³ÉÔ±¿ÉÄÜÊÇ¼ÇÂ¼»òÅÅÁĞ
+		// æ‰¾å‡ºç¬¬ä¸€ä¸ªéç©ºçš„æˆå‘˜ï¼Œåˆ¤æ–­æ˜¯å¦å«æœ‰å½“å‰å­—æ®µ
+		// æˆå‘˜å¯èƒ½æ˜¯è®°å½•æˆ–æ’åˆ—
 		for (; i <= len; ++i) {
 			Object mem = sequence.getMem(i);
 			if (mem instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				Sequence tmp = (Sequence)mem;
 				if (tmp.length() > 0) {
 					mem = tmp.getMem(1);
@@ -618,17 +618,17 @@ public class FieldFuzzyRef extends Node {
 				
 				break;
 			} else if (mem != null) {
-				// A.(B.(...))ÒıÓÃÉÏ²ãÅÅÁĞµÄ×Ö¶Î
+				// A.(B.(...))å¼•ç”¨ä¸Šå±‚æ’åˆ—çš„å­—æ®µ
 				break;
 			}
 		}
 		
 		if (result != null) {
-			// µÚÒ»¸ö·Ç¿ÕµÄ³ÉÔ±º¬ÓĞµ±Ç°×Ö¶Î
+			// ç¬¬ä¸€ä¸ªéç©ºçš„æˆå‘˜å«æœ‰å½“å‰å­—æ®µ
 			for (++i; i <= len; ++i) {
 				Object mem = sequence.getMem(i);
 				if (mem instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					Sequence tmp = (Sequence)mem;
 					if (tmp.length() > 0) {
 						mem = tmp.getMem(1);
@@ -659,7 +659,7 @@ public class FieldFuzzyRef extends Node {
 			
 			return result;
 		} else {
-			// A.(B.(...))ÒıÓÃÉÏ²ãÅÅÁĞµÄ×Ö¶Î
+			// A.(B.(...))å¼•ç”¨ä¸Šå±‚æ’åˆ—çš„å­—æ®µ
 			Object value = getOuterFieldValue(ctx);
 			result = new ConstArray(value, len);
 			result.setTemporary(true);
@@ -667,9 +667,9 @@ public class FieldFuzzyRef extends Node {
 		}
 	}
 	
-	// È¡Íâ²ãÅÅÁĞµÄ×Ö¶ÎÖµ
+	// å–å¤–å±‚æ’åˆ—çš„å­—æ®µå€¼
 	private Object getOuterFieldValue(Context ctx) {
-		// Èç¹ûÉÏ´Î¼ÆËã±í´ïÊ½Ê±¶ÔÓ¦µÄ¼ÍÂ¼»òĞòÁĞ»¹ÔÚ¶ÑÕ»ÖĞÔòÊ¹ÓÃÉÏ´ÎµÄ
+		// å¦‚æœä¸Šæ¬¡è®¡ç®—è¡¨è¾¾å¼æ—¶å¯¹åº”çš„çºªå½•æˆ–åºåˆ—è¿˜åœ¨å †æ ˆä¸­åˆ™ä½¿ç”¨ä¸Šæ¬¡çš„
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
@@ -686,7 +686,7 @@ public class FieldFuzzyRef extends Node {
 
 				return cur.getNormalFieldValue(col);
 			} else if (obj instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (((Sequence)obj).length() == 0) {
 					return null;
 				}
@@ -717,9 +717,9 @@ public class FieldFuzzyRef extends Node {
 				throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
 			}
 		} else {
-			// ×Ö¶Î
-			// µÚÒ»´ÎÔËËã»òÔËËã»·¾³ÒÑ¸Ä±ä
-			boolean hasNull = false; // ÊÇ·ñÓĞĞòÁĞµÚÒ»¸ö³ÉÔ±Îª¿Õ
+			// å­—æ®µ
+			// ç¬¬ä¸€æ¬¡è¿ç®—æˆ–è¿ç®—ç¯å¢ƒå·²æ”¹å˜
+			boolean hasNull = false; // æ˜¯å¦æœ‰åºåˆ—ç¬¬ä¸€ä¸ªæˆå‘˜ä¸ºç©º
 			LinkEntry<IComputeItem> entry = stack.getStackHeadEntry();
 			for (entry = entry.getNext(); entry != null; entry = entry.getNext()) {
 				IComputeItem item = entry.getElement();
@@ -734,7 +734,7 @@ public class FieldFuzzyRef extends Node {
 						return r.getNormalFieldValue(col);
 					}
 				} else if (cur instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					if (((Sequence)cur).length() == 0) {
 						computeItem = item;
 						return null;
@@ -768,8 +768,8 @@ public class FieldFuzzyRef extends Node {
 	}
 
 	/**
-	 * ·µ»Ø½ÚµãÊÇ·ñµ¥µ÷µİÔöµÄ
-	 * @return true£ºÊÇµ¥µ÷µİÔöµÄ£¬false£º²»ÊÇ
+	 * è¿”å›èŠ‚ç‚¹æ˜¯å¦å•è°ƒé€’å¢çš„
+	 * @return trueï¼šæ˜¯å•è°ƒé€’å¢çš„ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isMonotone() {
 		return true;

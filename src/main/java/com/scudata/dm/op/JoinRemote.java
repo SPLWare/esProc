@@ -23,29 +23,29 @@ import com.scudata.parallel.ClusterMemoryTable;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼ÓjoinÔËËã£¬Á¬½ÓµÄ±íÖĞ°üº¬Ô¶³Ì±í
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ joinè¿ç®—ï¼Œè¿æ¥çš„è¡¨ä¸­åŒ…å«è¿œç¨‹è¡¨
  * @author WangXiaoJun
  *
  */
 public class JoinRemote extends Operation {
-	private String fname; // @oÑ¡ÏîÊÇÊ¹ÓÃ£¬Ô­¼ÇÂ¼Õû¸ö×÷ÎªĞÂ¼ÇÂ¼µÄ×Ö¶Î
-	private Expression [][]exps; // ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	private Object[] datas; // ´úÂë±íÊı×é
-	private Expression [][]dataExps; // ´úÂë±íÖ÷¼ü±í´ïÊ½Êı×é
-	private Expression [][]newExps; // È¡³öµÄ´úÂë±íµÄ×Ö¶Î±í´ïÊ½Êı×é
-	private String [][]newExpStrs; // È¡³öµÄ´úÂë±íµÄ×Ö¶Î±í´ïÊ½×Ö·û´®
-	private String [][]newNames; // È¡³öµÄ´úÂë±íµÄ×Ö¶ÎÃûÊı×é
-	private String opt; // Ñ¡Ïî
+	private String fname; // @oé€‰é¡¹æ˜¯ä½¿ç”¨ï¼ŒåŸè®°å½•æ•´ä¸ªä½œä¸ºæ–°è®°å½•çš„å­—æ®µ
+	private Expression [][]exps; // å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private Object[] datas; // ä»£ç è¡¨æ•°ç»„
+	private Expression [][]dataExps; // ä»£ç è¡¨ä¸»é”®è¡¨è¾¾å¼æ•°ç»„
+	private Expression [][]newExps; // å–å‡ºçš„ä»£ç è¡¨çš„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String [][]newExpStrs; // å–å‡ºçš„ä»£ç è¡¨çš„å­—æ®µè¡¨è¾¾å¼å­—ç¬¦ä¸²
+	private String [][]newNames; // å–å‡ºçš„ä»£ç è¡¨çš„å­—æ®µåæ•°ç»„
+	private String opt; // é€‰é¡¹
 	
-	private DataStruct oldDs; // Ô´±íÊı¾İ½á¹¹
-	private DataStruct newDs; // ½á¹û¼¯Êı¾İ½á¹¹
-	private IndexTable []indexTables; // ´úÂë±í°´hashÖµ·Ö×é
-	private Sequence []codes; // ±¾µØ´úÂë±íÊı×é£¬Èç¹ûÄ³ÏîÊÇ¼¯Èº´úÂë±íÔòÏàÓ¦Î»ÖÃÎª¿Õ
-	private ClusterMemoryTable []cts; // ¼¯Èº´úÂë±íÊı×é£¬Èç¹ûÄ³ÏîÊÇ±¾µØ´úÂë±íÔòÏàÓ¦Î»ÖÃÎª¿Õ
+	private DataStruct oldDs; // æºè¡¨æ•°æ®ç»“æ„
+	private DataStruct newDs; // ç»“æœé›†æ•°æ®ç»“æ„
+	private IndexTable []indexTables; // ä»£ç è¡¨æŒ‰hashå€¼åˆ†ç»„
+	private Sequence []codes; // æœ¬åœ°ä»£ç è¡¨æ•°ç»„ï¼Œå¦‚æœæŸé¡¹æ˜¯é›†ç¾¤ä»£ç è¡¨åˆ™ç›¸åº”ä½ç½®ä¸ºç©º
+	private ClusterMemoryTable []cts; // é›†ç¾¤ä»£ç è¡¨æ•°ç»„ï¼Œå¦‚æœæŸé¡¹æ˜¯æœ¬åœ°ä»£ç è¡¨åˆ™ç›¸åº”ä½ç½®ä¸ºç©º
 	
-	private boolean isIsect; // ½»Á¬½Ó£¬Ä¬ÈÏÎª×óÁ¬½Ó
+	private boolean isIsect; // äº¤è¿æ¥ï¼Œé»˜è®¤ä¸ºå·¦è¿æ¥
 	private boolean isOrg;
-	private boolean containNull; // ÊÇ·ñÓĞµÄ´úÂë±íÎª¿Õ
+	private boolean containNull; // æ˜¯å¦æœ‰çš„ä»£ç è¡¨ä¸ºç©º
 	
 	public JoinRemote(String fname, Expression[][] exps, 
 			Object[] datas, Expression[][] dataExps, 
@@ -91,7 +91,7 @@ public class JoinRemote extends Operation {
 				}
 			}
 			
-			// xÊÇ~Ê±£¬ÔÚ½á¹ûĞò±íÖĞ¼ÇÂ¼FºÍC:¡­¶ÔÓ¦¹ØÏµÓÃÓÚÊ¶±ğÔ¤¹ØÁªÍâ¼ü
+			// xæ˜¯~æ—¶ï¼Œåœ¨ç»“æœåºè¡¨ä¸­è®°å½•Få’ŒC:â€¦å¯¹åº”å…³ç³»ç”¨äºè¯†åˆ«é¢„å…³è”å¤–é”®
 			if (curLen == 1 && curExps[0].getHome() instanceof CurrentElement) {
 				Expression []srcExps = exps[i];
 				int srcCount = srcExps.length;
@@ -109,17 +109,17 @@ public class JoinRemote extends Operation {
 	}
 	
 	/**
-	 * È¡²Ù×÷ÊÇ·ñ»á¼õÉÙÔªËØÊı£¬±ÈÈç¹ıÂËº¯Êı»á¼õÉÙ¼ÇÂ¼
-	 * ´Ëº¯ÊıÓÃÓÚÓÎ±êµÄ¾«È·È¡Êı£¬Èç¹û¸½¼ÓµÄ²Ù×÷²»»áÊ¹¼ÇÂ¼Êı¼õÉÙÔòÖ»Ğè°´´«ÈëµÄÊıÁ¿È¡Êı¼´¿É
-	 * @return true£º»á£¬false£º²»»á
+	 * å–æ“ä½œæ˜¯å¦ä¼šå‡å°‘å…ƒç´ æ•°ï¼Œæ¯”å¦‚è¿‡æ»¤å‡½æ•°ä¼šå‡å°‘è®°å½•
+	 * æ­¤å‡½æ•°ç”¨äºæ¸¸æ ‡çš„ç²¾ç¡®å–æ•°ï¼Œå¦‚æœé™„åŠ çš„æ“ä½œä¸ä¼šä½¿è®°å½•æ•°å‡å°‘åˆ™åªéœ€æŒ‰ä¼ å…¥çš„æ•°é‡å–æ•°å³å¯
+	 * @return trueï¼šä¼šï¼Œfalseï¼šä¸ä¼š
 	 */
 	public boolean isDecrease() {
 		return isIsect;
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -215,7 +215,7 @@ public class JoinRemote extends Operation {
 						throw new RQException("join" + mm.getMessage("function.invalidParam"));
 					}
 
-					// Èç¹û²»ÊÇÓÃ#¹ØÁªÔòÉú³ÉË÷Òı±í
+					// å¦‚æœä¸æ˜¯ç”¨#å…³è”åˆ™ç”Ÿæˆç´¢å¼•è¡¨
 					if (fcount != 1 || !(curExps[0].getHome() instanceof CurrentSeq)) {
 						indexTable = codes[i].getIndexTable(curExps, ctx);
 						if (indexTable == null) {
@@ -238,9 +238,9 @@ public class JoinRemote extends Operation {
 	}
 	
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

@@ -7,16 +7,16 @@ public class Vector {
 	private double[] vector;
 	
 	/**
-	 * ³õÊ¼»¯ÏòÁ¿
-	 * @param value	Êı×é±íÊ¾µÄÏòÁ¿Öµ
+	 * åˆå§‹åŒ–å‘é‡
+	 * @param value	æ•°ç»„è¡¨ç¤ºçš„å‘é‡å€¼
 	 */
 	public Vector(double[] value) {
 		this.vector = value;
 	}
 	
 	/**
-	 * ³õÊ¼»¯¾ØÕó
-	 * @param value	¶şÎ¬Êı×é±íÊ¾µÄ¾ØÕóÖµ
+	 * åˆå§‹åŒ–çŸ©é˜µ
+	 * @param value	äºŒç»´æ•°ç»„è¡¨ç¤ºçš„çŸ©é˜µå€¼
 	 */
 	public Vector(Sequence seq) {
 		if (seq.length() > 0){
@@ -25,7 +25,7 @@ public class Vector {
 	}
 	
 	/**
-	 * ÏòÁ¿³¤¶È
+	 * å‘é‡é•¿åº¦
 	 * @return
 	 */
 	public int len() {
@@ -34,8 +34,8 @@ public class Vector {
 	}
 	
 	/**
-	 * Ö¸¶¨ĞòºÅ£¬»ñÈ¡ÏòÁ¿³ÉÔ±Öµ£¬¿ÕÖµ·µ»Ø0
-	 * @param i	ĞòºÅ£¬´Ó0¿ªÊ¼
+	 * æŒ‡å®šåºå·ï¼Œè·å–å‘é‡æˆå‘˜å€¼ï¼Œç©ºå€¼è¿”å›0
+	 * @param i	åºå·ï¼Œä»0å¼€å§‹
 	 * @return
 	 */
 	public double get(int i) {
@@ -46,7 +46,7 @@ public class Vector {
 	}
 	
 	/**
-	 * »ñÈ¡Êı×é
+	 * è·å–æ•°ç»„
 	 * @return
 	 */
 	public double[] getValue() {
@@ -54,7 +54,7 @@ public class Vector {
 	}
     
     /**
-     * Éú³ÉĞòÁĞ·µ»Ø
+     * ç”Ÿæˆåºåˆ—è¿”å›
      * @return
      */
     public Sequence toSequence() {

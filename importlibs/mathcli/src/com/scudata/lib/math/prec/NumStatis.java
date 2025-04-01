@@ -11,7 +11,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
 /**
- * ÊıÖµµÄÒ»Ğ©Í³¼ÆĞÅÏ¢
+ * æ•°å€¼çš„ä¸€äº›ç»Ÿè®¡ä¿¡æ¯
  * @author bd
  *
  */
@@ -20,7 +20,7 @@ public class NumStatis implements Externalizable {
 
 	private double min = 0;
 	
-	//sdÊÇÔÚÇåÀíÒì³£ÖµÊ±²Å»áÓÃµ½µÄÁË£¬»áºÍavgÅä¶ÔÊ¹ÓÃ£¬µ«ÊÇÎ´±ØºÍminÊÇÍ¬Ò»ÅúÊı¾İÁË
+	//sdæ˜¯åœ¨æ¸…ç†å¼‚å¸¸å€¼æ—¶æ‰ä¼šç”¨åˆ°çš„äº†ï¼Œä¼šå’Œavgé…å¯¹ä½¿ç”¨ï¼Œä½†æ˜¯æœªå¿…å’Œminæ˜¯åŒä¸€æ‰¹æ•°æ®äº†
 	private boolean hasSd = false;
 	private double sd = 0;
 	private double avg = 0;
@@ -28,7 +28,7 @@ public class NumStatis implements Externalizable {
 	public NumStatis() {
 	}
 	
-	// Ìí¼ÓminValue²ÎÊı£¬Èç¹ûÇ°ÃæÓĞ¹ı¾ÀÆ«´¦Àí£¬ĞèÒªÉèÖÃ×îĞ¡Öµ£¬¶øÇåÀíÒì³£ÖµÊ±£¬×îĞ¡ÖµÊÇ²»Ó¦¸Ã¼ÇÂ¼µÄ
+	// æ·»åŠ minValueå‚æ•°ï¼Œå¦‚æœå‰é¢æœ‰è¿‡çº åå¤„ç†ï¼Œéœ€è¦è®¾ç½®æœ€å°å€¼ï¼Œè€Œæ¸…ç†å¼‚å¸¸å€¼æ—¶ï¼Œæœ€å°å€¼æ˜¯ä¸åº”è¯¥è®°å½•çš„
 	public NumStatis(Sequence cvs, double minValue) {
 		IArray mems = cvs.getMems();
 		int size = mems.size();
@@ -104,7 +104,7 @@ public class NumStatis implements Externalizable {
 	}
 	
 	/**
-	 * Èç¹ûÊıÖµÀà±äÁ¿×ö¹ıÆ«¶È¼ÆËã£¬ÄÇÃ´ÄÜÖ±½Ó»ñµÃ¾ùÖµºÍ±ê×¼²î
+	 * å¦‚æœæ•°å€¼ç±»å˜é‡åšè¿‡ååº¦è®¡ç®—ï¼Œé‚£ä¹ˆèƒ½ç›´æ¥è·å¾—å‡å€¼å’Œæ ‡å‡†å·®
 	 * @param avg
 	 * @param sd
 	 */
@@ -131,7 +131,7 @@ public class NumStatis implements Externalizable {
 	
 	protected void calcSd(Sequence cvs) {
 		if (this.hasSd) {
-			//×îÖÕ¼ÆËãÁËrankµÄÇé¿ö£¬ÖµÈ«±ä»¯ÁË£¬avgºÍsdÒªÖØĞÂËã
+			//æœ€ç»ˆè®¡ç®—äº†rankçš„æƒ…å†µï¼Œå€¼å…¨å˜åŒ–äº†ï¼Œavgå’Œsdè¦é‡æ–°ç®—
 			Object avg = cvs.average();
 			if (avg instanceof Number) {
 				double avgValue = ((Number) avg).doubleValue();
@@ -153,7 +153,7 @@ public class NumStatis implements Externalizable {
 			}
 		}
 		else {
-			//Ê¹ÓÃ³õÊ¼ÖµµÄÇé¿ö£¬avgÒÑ¾­ÓĞÁË£¬Ëã¸ösd¾ÍºÃ
+			//ä½¿ç”¨åˆå§‹å€¼çš„æƒ…å†µï¼Œavgå·²ç»æœ‰äº†ï¼Œç®—ä¸ªsdå°±å¥½
 			int n = cvs.length();
 			double result = 0;
 			for(int i = 1; i <= n; i++){
@@ -169,7 +169,7 @@ public class NumStatis implements Externalizable {
 	
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉĞòÁĞ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -184,7 +184,7 @@ public class NumStatis implements Externalizable {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾İSequence³õÊ¼»¯²ÎÊı
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public void init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -197,7 +197,7 @@ public class NumStatis implements Externalizable {
 		this.sd = ((Number) seq.get(4)).doubleValue();
 	}
 
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 1;
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte ver = in.readByte();

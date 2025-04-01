@@ -14,34 +14,34 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
- * ÓÎ±êjoinxÀà£¬¹é²¢joinx
- * ÓÎ±êÓëÒ»¸ö¿É·Ö¶Î¼¯ÎÄ¼ş»òÊµ±íT×ö¹é²¢joinÔËËã¡£
+ * æ¸¸æ ‡joinxç±»ï¼Œå½’å¹¶joinx
+ * æ¸¸æ ‡ä¸ä¸€ä¸ªå¯åˆ†æ®µé›†æ–‡ä»¶æˆ–å®è¡¨Tåšå½’å¹¶joinè¿ç®—ã€‚
  * @author LiWei
  * 
  */
 public class CSJoinxCursor3 extends ICursor {
-	private ICursor srcCursor;//Ô´ÓÎ±ê
-	private Expression []keys;//Î¬±í×Ö¶Î
-	private Expression []exps;//ĞÂµÄ±í´ïÊ½
+	private ICursor srcCursor;//æºæ¸¸æ ‡
+	private Expression []keys;//ç»´è¡¨å­—æ®µ
+	private Expression []exps;//æ–°çš„è¡¨è¾¾å¼
 	
-	private ICursor mergeCursor;//¹é²¢ÓÎ±ê
+	private ICursor mergeCursor;//å½’å¹¶æ¸¸æ ‡
 	private DataStruct ds = null;
-	private int len1;//Ô­¼ÇÂ¼×Ö¶ÎÊı
-	private int len2;//ĞÂ±í´ïÊ½×Ö¶ÎÊı
+	private int len1;//åŸè®°å½•å­—æ®µæ•°
+	private int len2;//æ–°è¡¨è¾¾å¼å­—æ®µæ•°
 	
 	private boolean isEnd;
-	private int n;//»º³åÇøÌõÊı
+	private int n;//ç¼“å†²åŒºæ¡æ•°
 	private String[] expNames;
 	private String option;
 	
 	/**
-	 * ¹¹ÔìÆ÷
-	 * @param cursor	Ô´ÓÎ±ê
-	 * @param fields	ÊÂÊµjoin±í×Ö¶Î
-	 * @param fileTable	Î¬±í¶ÔÏó
-	 * @param keys		Î¬±íjoin×Ö¶Î
-	 * @param exps		Î¬±íĞÂ±í´ïÊ½
-	 * @param expNames	Î¬±íĞÂ±í´ïÊ½Ãû³Æ
+	 * æ„é€ å™¨
+	 * @param cursor	æºæ¸¸æ ‡
+	 * @param fields	äº‹å®joinè¡¨å­—æ®µ
+	 * @param fileTable	ç»´è¡¨å¯¹è±¡
+	 * @param keys		ç»´è¡¨joinå­—æ®µ
+	 * @param exps		ç»´è¡¨æ–°è¡¨è¾¾å¼
+	 * @param expNames	ç»´è¡¨æ–°è¡¨è¾¾å¼åç§°
 	 * @param fname
 	 * @param ctx
 	 * @param n
@@ -60,7 +60,7 @@ public class CSJoinxCursor3 extends ICursor {
 			this.n = ICursor.FETCHCOUNT;
 		}
 		
-		//Èç¹ûnewNamesÀïÓĞnull£¬ÔòÓÃnewExpsÌæ´ú
+		//å¦‚æœnewNamesé‡Œæœ‰nullï¼Œåˆ™ç”¨newExpsæ›¿ä»£
 		if (exps != null && expNames != null) {
 			for (int i = 0, len = expNames.length; i < len; i++) {
 				if (expNames[i] == null && exps[i] != null) {
@@ -69,12 +69,12 @@ public class CSJoinxCursor3 extends ICursor {
 			}
 		}
 
-		//¹é²¢Á½¸öÓÎ±ê
+		//å½’å¹¶ä¸¤ä¸ªæ¸¸æ ‡
 		ICursor cursor2 = toCursor(fileTable);
 		ICursor cursors[] = {cursor, cursor2};
 		String names[] = {null, null};
 		if (keys == null) {
-			//Ã»ÓĞ¹ØÁª×Ö¶ÎÊ±È¡Ö÷¼ü
+			//æ²¡æœ‰å…³è”å­—æ®µæ—¶å–ä¸»é”®
 			String[] pkeys = cursor2.getDataStruct().getPrimary();
 			int size = fields.length;
 			if (pkeys == null || pkeys.length < size) {
@@ -91,13 +91,13 @@ public class CSJoinxCursor3 extends ICursor {
 	}
 
 	/**
-	 * ÓÎ±ê¶Ô¹ØÁª×Ö¶ÎÓĞĞò£¬×öÓĞĞò¹é²¢Á¬½Ó
-	 * @param cursors ÓÎ±êÊı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param exps ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
-	 * @return ICursor ½á¹û¼¯ÓÎ±ê
+	 * æ¸¸æ ‡å¯¹å…³è”å­—æ®µæœ‰åºï¼Œåšæœ‰åºå½’å¹¶è¿æ¥
+	 * @param cursors æ¸¸æ ‡æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param exps å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return ICursor ç»“æœé›†æ¸¸æ ‡
 	 */
 	private static ICursor joinx(ICursor []cursors, String []names, Expression [][]exps, String opt, Context ctx) {
 		boolean isPJoin = false, isIsect = false, isDiff = false;
@@ -112,8 +112,8 @@ public class CSJoinxCursor3 extends ICursor {
 		}
 		
 		int count = cursors.length;
-		boolean isCluster = true; // ÊÇ·ñÓĞ¼¯ÈºÓÎ±ê
-		boolean isMultipath = false; // ÊÇ·ñÊÇ¶àÂ·ÓÎ±êÁ¬½Ó
+		boolean isCluster = true; // æ˜¯å¦æœ‰é›†ç¾¤æ¸¸æ ‡
+		boolean isMultipath = false; // æ˜¯å¦æ˜¯å¤šè·¯æ¸¸æ ‡è¿æ¥
 		int pathCount = 1;
 		
 		for (int i = 0; i < count; ++i) {
@@ -138,7 +138,7 @@ public class CSJoinxCursor3 extends ICursor {
 			System.arraycopy(cursors, 0, tmp, 0, count);
 			return ClusterCursor.joinx(tmp, exps, names, opt, ctx);
 		} else if (isMultipath && pathCount > 1) {
-			// ¶àÂ·ÓÎ±ê»á×öÍ¬²½·Ö¶Î£¬Ö»ÒªÃ¿¸ö±íµÄÏàÓ¦Â·×öÁ¬½Ó¼´¿É
+			// å¤šè·¯æ¸¸æ ‡ä¼šåšåŒæ­¥åˆ†æ®µï¼Œåªè¦æ¯ä¸ªè¡¨çš„ç›¸åº”è·¯åšè¿æ¥å³å¯
 			ICursor []result = new ICursor[pathCount];
 			ICursor [][]multiCursors = new ICursor[count][];
 			for (int i = 0; i < count; ++i) {
@@ -182,7 +182,7 @@ public class CSJoinxCursor3 extends ICursor {
 				}
 			}
 			
-			// Ã¿Ò»Â·µÄ¹ØÁª½á¹ûÔÙ×é³É¶àÂ·ÓÎ±ê
+			// æ¯ä¸€è·¯çš„å…³è”ç»“æœå†ç»„æˆå¤šè·¯æ¸¸æ ‡
 			return new MultipathCursors(result, ctx);
 		} else if (isPJoin) {
 			return new PJoinCursor(cursors, names);
@@ -190,7 +190,7 @@ public class CSJoinxCursor3 extends ICursor {
 			return new MergeFilterCursor(cursors, exps, opt, ctx);
 		} else {
 			if (count == 2 && exps[0].length == 1) {
-				// ¶Ô¹ØÁª×Ö¶Î¸öÊıÎª1µÄÁ½±íÁ¬½Ó×öÓÅ»¯
+				// å¯¹å…³è”å­—æ®µä¸ªæ•°ä¸º1çš„ä¸¤è¡¨è¿æ¥åšä¼˜åŒ–
 				return new JoinxCursor2(cursors[0], exps[0][0], cursors[1], exps[1][0], names, opt, ctx);
 			} else {
 				return new JoinxCursor(cursors, exps, names, opt, ctx);
@@ -199,7 +199,7 @@ public class CSJoinxCursor3 extends ICursor {
 	}
 	
 	void init() {
-		//×éÖ¯Êı¾İ½á¹¹
+		//ç»„ç»‡æ•°æ®ç»“æ„
 		if (option !=null && (option.indexOf('i') != -1 || option.indexOf('d') != -1)) {
 			Sequence temp = mergeCursor.peek(1);
 			if (temp != null) {
@@ -223,7 +223,7 @@ public class CSJoinxCursor3 extends ICursor {
 	}
 	
 	/**
-	 * ´Ójoin×Ö¶ÎºÍĞÂ±í´ïÊ½ÖĞÌáÈ¡ĞèÒªµÄ×Ö¶Î
+	 * ä»joinå­—æ®µå’Œæ–°è¡¨è¾¾å¼ä¸­æå–éœ€è¦çš„å­—æ®µ
 	 * @param dataExps
 	 * @param newExps
 	 * @param ctx
@@ -244,7 +244,7 @@ public class CSJoinxCursor3 extends ICursor {
 	}
 	
 	/**
-	 * °ÑÎ¬±í¶ÔÏó×ª»»³ÉÓÎ±ê
+	 * æŠŠç»´è¡¨å¯¹è±¡è½¬æ¢æˆæ¸¸æ ‡
 	 * @param obj
 	 * @return
 	 */
@@ -261,8 +261,8 @@ public class CSJoinxCursor3 extends ICursor {
 		}
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			exps = Operation.dupExpressions(exps, ctx);
@@ -342,8 +342,8 @@ public class CSJoinxCursor3 extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		super.close();
@@ -353,13 +353,13 @@ public class CSJoinxCursor3 extends ICursor {
 	}
 	
 	/**
-	 * ¹é²¢join£¨¶àÌ×Êı¾İ£©
-	 * @param cursor	Ô´ÓÎ±ê
-	 * @param fields	ÊÂÊµjoin±í×Ö¶Î
-	 * @param fileTable	Î¬±í¶ÔÏó
-	 * @param keys		Î¬±íjoin×Ö¶Î
-	 * @param exps		Î¬±íĞÂ±í´ïÊ½
-	 * @param expNames	Î¬±íĞÂ±í´ïÊ½Ãû³Æ
+	 * å½’å¹¶joinï¼ˆå¤šå¥—æ•°æ®ï¼‰
+	 * @param cursor	æºæ¸¸æ ‡
+	 * @param fields	äº‹å®joinè¡¨å­—æ®µ
+	 * @param fileTable	ç»´è¡¨å¯¹è±¡
+	 * @param keys		ç»´è¡¨joinå­—æ®µ
+	 * @param exps		ç»´è¡¨æ–°è¡¨è¾¾å¼
+	 * @param expNames	ç»´è¡¨æ–°è¡¨è¾¾å¼åç§°
 	 * @param fname
 	 * @param ctx
 	 * @param n
@@ -388,7 +388,7 @@ public class CSJoinxCursor3 extends ICursor {
 		int fileCount =  fileTable.length;
 		try {
 			/**
-			 * ¶Ô¶àÌ×Êı¾İ½øĞĞjoin£¬Ã¿´ÎµÄ½á¹ûĞ´³öµ½ÎÄ¼ş£¬£¨²»´¦Àí×îºóÒ»Ì×join£©
+			 * å¯¹å¤šå¥—æ•°æ®è¿›è¡Œjoinï¼Œæ¯æ¬¡çš„ç»“æœå†™å‡ºåˆ°æ–‡ä»¶ï¼Œï¼ˆä¸å¤„ç†æœ€åä¸€å¥—joinï¼‰
 			 */
 			for (int i = 0; i < fileCount - 1; i++) {
 				temp = new CSJoinxCursor3(cursor, fields[i], fileTable[i], keys[i], exps[i], 
@@ -425,7 +425,7 @@ public class CSJoinxCursor3 extends ICursor {
 	}
 	
 	/**
-	 * °ÑÎ¬±í¶ÔÏó×ª»»³ÉÓÎ±ê
+	 * æŠŠç»´è¡¨å¯¹è±¡è½¬æ¢æˆæ¸¸æ ‡
 	 * @param obj
 	 * @return
 	 */

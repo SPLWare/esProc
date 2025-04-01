@@ -17,19 +17,19 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ¼¯ËãÆ÷¹¤¾ßÀ¸£¨Ò³Ãæ´ò¿ªºó£©
+ * é›†ç®—å™¨å·¥å…·æ ï¼ˆé¡µé¢æ‰“å¼€åï¼‰
  *
  */
 public class ToolBarSpl extends AppToolBar {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ÔİÍ£°´Å¥
+	 * æš‚åœæŒ‰é’®
 	 */
 	private JButton pauseButton;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ToolBarSpl() {
 		super();
@@ -68,7 +68,7 @@ public class ToolBarSpl extends AppToolBar {
 	}
 
 	/**
-	 * ÉèÖÃ¹¤¾ßÀ¸ÊÇ·ñ¿ÉÓÃ
+	 * è®¾ç½®å·¥å…·æ æ˜¯å¦å¯ç”¨
 	 */
 	public void setBarEnabled(boolean enabled) {
 		setButtonEnabled(GCSpl.iSAVE, enabled);
@@ -86,7 +86,7 @@ public class ToolBarSpl extends AppToolBar {
 	}
 
 	/**
-	 * °´Å¥ÃüÁî¼àÌıÆ÷
+	 * æŒ‰é’®å‘½ä»¤ç›‘å¬å™¨
 	 */
 	private ActionListener actionNormal = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -102,10 +102,10 @@ public class ToolBarSpl extends AppToolBar {
 	};
 
 	/**
-	 * ĞÂ½¨°´Å¥
+	 * æ–°å»ºæŒ‰é’®
 	 * 
-	 * @param cmdId  ÔÚGCSplÖĞ¶¨ÒåµÄÃüÁî
-	 * @param menuId ÔÚGCSplÖĞ¶¨ÒåµÄ²Ëµ¥Ãû
+	 * @param cmdId  åœ¨GCSplä¸­å®šä¹‰çš„å‘½ä»¤
+	 * @param menuId åœ¨GCSplä¸­å®šä¹‰çš„èœå•å
 	 * @return
 	 */
 	private JButton getSplButton(short cmdId, String menuId) {
@@ -117,11 +117,11 @@ public class ToolBarSpl extends AppToolBar {
 	}
 
 	/**
-	 * ĞÂ½¨ÈıÌ¬°´¼ü
+	 * æ–°å»ºä¸‰æ€æŒ‰é”®
 	 * 
-	 * @param cmdId   ÔÚGCSplÖĞ¶¨ÒåµÄÃüÁî
-	 * @param menuId  ÔÚGCSplÖĞ¶¨ÒåµÄ²Ëµ¥Ãû
-	 * @param toolTip ÌáÊ¾ĞÅÏ¢
+	 * @param cmdId   åœ¨GCSplä¸­å®šä¹‰çš„å‘½ä»¤
+	 * @param menuId  åœ¨GCSplä¸­å®šä¹‰çš„èœå•å
+	 * @param toolTip æç¤ºä¿¡æ¯
 	 * @return
 	 */
 	public JToggleButton getToggleButton(short cmdId, String menuId,
@@ -150,7 +150,7 @@ public class ToolBarSpl extends AppToolBar {
 	}
 
 	/**
-	 * Ö´ĞĞ°´¼üÃüÁî
+	 * æ‰§è¡ŒæŒ‰é”®å‘½ä»¤
 	 */
 	public void executeCmd(short cmdId) {
 		try {
@@ -160,19 +160,19 @@ public class ToolBarSpl extends AppToolBar {
 		}
 	}
 
-	/** ¼ÌĞøÖ´ĞĞ */
+	/** ç»§ç»­æ‰§è¡Œ */
 	private final String S_CONTINUE = IdeSplMessage.get().getMessage(
 			"menu.program.continue");
-	/** ÔİÍ£ */
+	/** æš‚åœ */
 	private final String S_PAUSE = IdeSplMessage.get().getMessage(
 			"menu.program.pause");
-	/** ¼ÌĞøÖ´ĞĞÍ¼±ê */
+	/** ç»§ç»­æ‰§è¡Œå›¾æ ‡ */
 	private final ImageIcon I_CONTINUE = GM.getMenuImageIcon(GCSpl.CONTINUE);
-	/** ÔİÍ£Í¼±ê */
+	/** æš‚åœå›¾æ ‡ */
 	private final ImageIcon I_PAUSE = GM.getMenuImageIcon(GCSpl.PAUSE);
 
 	/**
-	 * ÖØÖÃÔİÍ£°´¼üµÄÎÄ±¾ºÍÍ¼±ê
+	 * é‡ç½®æš‚åœæŒ‰é”®çš„æ–‡æœ¬å’Œå›¾æ ‡
 	 * 
 	 * @param isPause
 	 */

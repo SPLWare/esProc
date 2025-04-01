@@ -21,49 +21,49 @@ import com.scudata.util.HashUtil;
 import com.scudata.util.Variant;
 
 /**
- * ¶ÔÍÆËÍÀ´µÄÊı¾İÖ´ĞĞÓĞĞò·Ö×é»ã×Ü£¬ÓÃÓÚ¹ÜµÀºÍÓÎ±ê´ø»ã×Ü×Ö¶ÎµÄgroupÑÓ³Ù¼ÆËãº¯Êı
+ * å¯¹æ¨é€æ¥çš„æ•°æ®æ‰§è¡Œæœ‰åºåˆ†ç»„æ±‡æ€»ï¼Œç”¨äºç®¡é“å’Œæ¸¸æ ‡å¸¦æ±‡æ€»å­—æ®µçš„groupå»¶è¿Ÿè®¡ç®—å‡½æ•°
  * @author RunQian
  *
  */
 public class Groups extends Operation {
-	private Expression []exps; // ·Ö×é±í´ïÊ½Êı×é
-	private String []names; // ·Ö×é×Ö¶ÎÃûÊı×é
-	private Expression[] newExps; // »ã×Ü±í´ïÊ½Êı×é
-	private String []newNames; // »ã×Ü×Ö¶ÎÃûÊı×é
+	private Expression []exps; // åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	private String []names; // åˆ†ç»„å­—æ®µåæ•°ç»„
+	private Expression[] newExps; // æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	private String []newNames; // æ±‡æ€»å­—æ®µåæ•°ç»„
 	
-	private Node []gathers; // »ã×Ü±í´ïÊ½¶ÔÓ¦µÄ»ã×Üº¯Êı
-	private DataStruct newDs; // ½á¹û¼¯Êı¾İ½á¹¹
-	private String opt; // Ñ¡Ïî
-	private boolean iopt = false; // ÊÇ·ñÊÇ@iÑ¡Ïî
-	private boolean sopt = false; // ÊÇ·ñÊÇ@sÑ¡Ïî£¬ÓÃÀÛ»ı·½Ê½¼ÆËã
-	private boolean eopt = false; // ÊÇ·ñÊÇ@eÑ¡Ïî
+	private Node []gathers; // æ±‡æ€»è¡¨è¾¾å¼å¯¹åº”çš„æ±‡æ€»å‡½æ•°
+	private DataStruct newDs; // ç»“æœé›†æ•°æ®ç»“æ„
+	private String opt; // é€‰é¡¹
+	private boolean iopt = false; // æ˜¯å¦æ˜¯@ié€‰é¡¹
+	private boolean sopt = false; // æ˜¯å¦æ˜¯@sé€‰é¡¹ï¼Œç”¨ç´¯ç§¯æ–¹å¼è®¡ç®—
+	private boolean eopt = false; // æ˜¯å¦æ˜¯@eé€‰é¡¹
 	
-	// ÓĞĞòÊ±²ÉÓÃÀÛ»ı·¨·Ö×éÊ¹ÓÃ
-	private Record r; // µ±Ç°·Ö×é»ã×Üµ½µÄ¼ÇÂ¼
+	// æœ‰åºæ—¶é‡‡ç”¨ç´¯ç§¯æ³•åˆ†ç»„ä½¿ç”¨
+	private Record r; // å½“å‰åˆ†ç»„æ±‡æ€»åˆ°çš„è®°å½•
 	
-	// group@qÊı¾İÒÑ°´Ç°°ë²¿·Ö±í´ïÊ½ÓĞĞò
-	private Expression []sortExps; // ºó°ë²¿·ÖĞèÒªÅÅĞò±í´ïÊ½
-	private Expression []groupExps; // ¸´ÖÆµÄ×ÜµÄ·Ö×é±í´ïÊ½
+	// group@qæ•°æ®å·²æŒ‰å‰åŠéƒ¨åˆ†è¡¨è¾¾å¼æœ‰åº
+	private Expression []sortExps; // ååŠéƒ¨åˆ†éœ€è¦æ’åºè¡¨è¾¾å¼
+	private Expression []groupExps; // å¤åˆ¶çš„æ€»çš„åˆ†ç»„è¡¨è¾¾å¼
 	private String []sortNames;
 	private Sequence data;
 	private Object []values;
 	
-	// Ç°°ë²¿·ÖÓĞĞòÊ±²ÉÓÃÀÛ»ı·¨·Ö×éÊ¹ÓÃ
-	private HashUtil hashUtil; // Ìá¹©¹şÏ£ÔËËãµÄ¹şÏ£Àà
-	private ListBase1 []groups; // ¹şÏ£±í
-	private Table tempResult; // ·Ö×é»ã×Ü½á¹û
-	private int []sortFields; // ÓÃÀ´¶Ô·Ö×é½á¹û½øĞĞÅÅĞò
+	// å‰åŠéƒ¨åˆ†æœ‰åºæ—¶é‡‡ç”¨ç´¯ç§¯æ³•åˆ†ç»„ä½¿ç”¨
+	private HashUtil hashUtil; // æä¾›å“ˆå¸Œè¿ç®—çš„å“ˆå¸Œç±»
+	private ListBase1 []groups; // å“ˆå¸Œè¡¨
+	private Table tempResult; // åˆ†ç»„æ±‡æ€»ç»“æœ
+	private int []sortFields; // ç”¨æ¥å¯¹åˆ†ç»„ç»“æœè¿›è¡Œæ’åº
 	
-	private String []alterFields; // @bÑ¡ÏîÊ±½á¹û¼¯ĞèÒªÈ¥µô·Ö×é×Ö¶Î
+	private String []alterFields; // @bé€‰é¡¹æ—¶ç»“æœé›†éœ€è¦å»æ‰åˆ†ç»„å­—æ®µ
 	
 	/**
-	 * ¹¹Ôì·Ö×éÔËËã¶ÔÏó
-	 * @param exps Ç°°ë²¿·ÖÓĞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„é€ åˆ†ç»„è¿ç®—å¯¹è±¡
+	 * @param exps å‰åŠéƒ¨åˆ†æœ‰åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public Groups(Expression[] exps, String []names, 
 			Expression[] newExps, String []newNames, String opt, Context ctx) {
@@ -71,14 +71,14 @@ public class Groups extends Operation {
 	}
 	
 	/**
-	 * ¹¹Ôì·Ö×éÔËËã¶ÔÏó
+	 * æ„é€ åˆ†ç»„è¿ç®—å¯¹è±¡
 	 * @param function
-	 * @param exps Ç°°ë²¿·ÖÓĞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param exps å‰åŠéƒ¨åˆ†æœ‰åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public Groups(Function function, Expression[] exps, String []names, 
 			Expression[] newExps, String []newNames, String opt, Context ctx) {
@@ -123,7 +123,7 @@ public class Groups extends Operation {
 		this.opt = opt;
 		
 		if (sopt) {
-			// ²ÉÓÃÀÛ»ı·¨·Ö×é
+			// é‡‡ç”¨ç´¯ç§¯æ³•åˆ†ç»„
 			gathers = Sequence.prepareGatherMethods(newExps, ctx);
 		} else {
 			for (int i = 0; i < newCount; ++i) {
@@ -139,16 +139,16 @@ public class Groups extends Operation {
 	}
 	
 	/**
-	 * ¹¹Ôì·Ö×éÔËËã¶ÔÏó
+	 * æ„é€ åˆ†ç»„è¿ç®—å¯¹è±¡
 	 * @param function
-	 * @param exps Ç°°ë²¿·ÖÓĞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param sortExps ºó°ë²¿·ÖÎŞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param sortNames ×Ö¶ÎÃûÊı×é
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param exps å‰åŠéƒ¨åˆ†æœ‰åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param sortExps ååŠéƒ¨åˆ†æ— åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param sortNames å­—æ®µåæ•°ç»„
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public Groups(Function function, Expression[] exps, String []names, 
 			Expression[] sortExps, String []sortNames, 
@@ -211,7 +211,7 @@ public class Groups extends Operation {
 		this.opt = opt;
 		
 		if (sopt) {
-			// ²ÉÓÃÀÛ»ı·¨·Ö×é
+			// é‡‡ç”¨ç´¯ç§¯æ³•åˆ†ç»„
 			gathers = Sequence.prepareGatherMethods(newExps, ctx);
 			hashUtil = new HashUtil(1031);
 			groups = new ListBase1[hashUtil.getCapacity()];
@@ -236,17 +236,17 @@ public class Groups extends Operation {
 	}
 	
 	/**
-	 * È¡²Ù×÷ÊÇ·ñ»á¼õÉÙÔªËØÊı£¬±ÈÈç¹ıÂËº¯Êı»á¼õÉÙ¼ÇÂ¼
-	 * ´Ëº¯ÊıÓÃÓÚÓÎ±êµÄ¾«È·È¡Êı£¬Èç¹û¸½¼ÓµÄ²Ù×÷²»»áÊ¹¼ÇÂ¼Êı¼õÉÙÔòÖ»Ğè°´´«ÈëµÄÊıÁ¿È¡Êı¼´¿É
-	 * @return true£º»á£¬false£º²»»á
+	 * å–æ“ä½œæ˜¯å¦ä¼šå‡å°‘å…ƒç´ æ•°ï¼Œæ¯”å¦‚è¿‡æ»¤å‡½æ•°ä¼šå‡å°‘è®°å½•
+	 * æ­¤å‡½æ•°ç”¨äºæ¸¸æ ‡çš„ç²¾ç¡®å–æ•°ï¼Œå¦‚æœé™„åŠ çš„æ“ä½œä¸ä¼šä½¿è®°å½•æ•°å‡å°‘åˆ™åªéœ€æŒ‰ä¼ å…¥çš„æ•°é‡å–æ•°å³å¯
+	 * @return trueï¼šä¼šï¼Œfalseï¼šä¸ä¼š
 	 */
 	public boolean isDecrease() {
 		return true;
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -262,13 +262,13 @@ public class Groups extends Operation {
 	}
 	
 	/**
-	 * Êı¾İÈ«²¿ÍÆËÍÍê³ÉÊ±µ÷ÓÃ£¬·µ»Ø×îºóÒ»×éµÄÊı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®å…¨éƒ¨æ¨é€å®Œæˆæ—¶è°ƒç”¨ï¼Œè¿”å›æœ€åä¸€ç»„çš„æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public Sequence finish(Context ctx) {
 		if (r != null) {
-			// @i»ò@sÑ¡Ïî
+			// @iæˆ–@sé€‰é¡¹
 			Table result = new Table(r.dataStruct(), 1);
 			result.getMems().add(r);
 			r = null;
@@ -287,10 +287,10 @@ public class Groups extends Operation {
 				result.alter(alterFields, null);
 			}
 			
-			data = new Sequence(); //null; ÎªÁËÓÎ±êresetÖØ¸´Ê¹ÓÃĞèÒªÖØĞÂ´´½¨ĞòÁĞ
+			data = new Sequence(); //null; ä¸ºäº†æ¸¸æ ‡reseté‡å¤ä½¿ç”¨éœ€è¦é‡æ–°åˆ›å»ºåºåˆ—
 			return result;
 		} else if (tempResult != null) {
-			// @qsÑ¡Ïî
+			// @qsé€‰é¡¹
 			Table result = tempResult;
 			tempResult = null;
 			groups = null;
@@ -368,7 +368,7 @@ public class Groups extends Operation {
 		}
 	}
 	
-	// ¶ÔÒ»×éÊı¾İ¼ÆËã»ã×Ü
+	// å¯¹ä¸€ç»„æ•°æ®è®¡ç®—æ±‡æ€»
 	private static void group1(Sequence data, Object []groupValues, Expression []newExps, Context ctx, Table result) {
 		if (newExps == null) {
 			result.newLast(groupValues);
@@ -384,7 +384,7 @@ public class Groups extends Operation {
 		current.setCurrent(1);
 		stack.push(current);
 
-		// ¼ÆËã¾ÛºÏ×Ö¶ÎÖµ
+		// è®¡ç®—èšåˆå­—æ®µå€¼
 		try {
 			BaseRecord r = result.newLast(groupValues);
 			for (Expression newExp : newExps) {
@@ -412,7 +412,7 @@ public class Groups extends Operation {
 				current.setCurrent(i);
 				boolean isSame = true;
 				
-				// ¼ÆËãÇ°°ë¶Î±í´ïÊ½£¬¼ì²éÊÇ·ñÓëÇ°Ò»Ìõ¼ÇÂ¼ÏàÍ¬
+				// è®¡ç®—å‰åŠæ®µè¡¨è¾¾å¼ï¼Œæ£€æŸ¥æ˜¯å¦ä¸å‰ä¸€æ¡è®°å½•ç›¸åŒ
 				for (int v = 0; v < fcount1; ++v) {
 					if (isSame) {
 						Object value = exps[v].calculate(ctx);
@@ -430,7 +430,7 @@ public class Groups extends Operation {
 					data.add(current.getCurrent());
 				} else {
 					group1(data, prevValues, newExps, ctx, result);
-					data = new Sequence(); // newExps¿ÉÄÜÎª~£¬ĞèÒªÖØĞÂ´´½¨ĞòÁĞ
+					data = new Sequence(); // newExpså¯èƒ½ä¸º~ï¼Œéœ€è¦é‡æ–°åˆ›å»ºåºåˆ—
 					data.add(current.getCurrent());
 				}
 			}
@@ -452,7 +452,7 @@ public class Groups extends Operation {
 		}
 	}
 	
-	// ·Ö×é×Ö¶ÎÓĞĞòÊ±ÓÃÀÛ»ı·½Ê½¼ÆËã»ã×ÜÖµ
+	// åˆ†ç»„å­—æ®µæœ‰åºæ—¶ç”¨ç´¯ç§¯æ–¹å¼è®¡ç®—æ±‡æ€»å€¼
 	private Sequence groups_os(Sequence seq, Context ctx) {
 		DataStruct newDs = this.newDs;
 		Expression[] exps = this.exps;
@@ -507,7 +507,7 @@ public class Groups extends Operation {
 		}
 	}
 	
-	// ÏÈ·Ö×éÔÙ¶ÔÃ¿×éÊı¾İ¼ÆËã»ã×Ü
+	// å…ˆåˆ†ç»„å†å¯¹æ¯ç»„æ•°æ®è®¡ç®—æ±‡æ€»
 	private static void group(Sequence data, Expression []groupExps, Expression []newExps, Context ctx, Table result) {
 		Sequence groups = data.group(groupExps, null, ctx);
 		int len = groups.length();
@@ -523,7 +523,7 @@ public class Groups extends Operation {
 		Current current = new Current(keyGroups);
 		stack.push(current);
 
-		// ¼ÆËã·Ö×é×Ö¶ÎÖµ
+		// è®¡ç®—åˆ†ç»„å­—æ®µå€¼
 		try {
 			for (int i = 1; i <= len; ++i) {
 				BaseRecord r = result.newLast();
@@ -544,7 +544,7 @@ public class Groups extends Operation {
 		current = new Current(groups);
 		stack.push(current);
 
-		// ¼ÆËã¾ÛºÏ×Ö¶ÎÖµ
+		// è®¡ç®—èšåˆå­—æ®µå€¼
 		try {
 			for (int i = 1; i <= len; ++i) {
 				BaseRecord r = (BaseRecord)result.getMem(++oldCount);
@@ -558,7 +558,7 @@ public class Groups extends Operation {
 		}
 	}
 	
-	// Ç°°ëÓĞĞò·Ö×éÊ±²ÉÓÃÏÈËãºÃ·Ö×éÔÙËã»ã×ÜÖµ
+	// å‰åŠæœ‰åºåˆ†ç»„æ—¶é‡‡ç”¨å…ˆç®—å¥½åˆ†ç»„å†ç®—æ±‡æ€»å€¼
 	private Sequence groups_q(Sequence seq, Context ctx) {
 		Expression[] exps = this.exps;
 		int fcount1 = exps.length;
@@ -575,7 +575,7 @@ public class Groups extends Operation {
 				current.setCurrent(i);
 				boolean isSame = true;
 				
-				// ¼ÆËãÇ°°ë¶Î±í´ïÊ½£¬¼ì²éÊÇ·ñÓëÇ°Ò»Ìõ¼ÇÂ¼ÏàÍ¬
+				// è®¡ç®—å‰åŠæ®µè¡¨è¾¾å¼ï¼Œæ£€æŸ¥æ˜¯å¦ä¸å‰ä¸€æ¡è®°å½•ç›¸åŒ
 				for (int v = 0; v < fcount1; ++v) {
 					if (isSame) {
 						Object value = exps[v].calculate(ctx);
@@ -613,7 +613,7 @@ public class Groups extends Operation {
 		}
 	}
 	
-	// Ç°°ëÓĞĞò·Ö×éÊ±²ÉÓÃÀÛ»ı·¨¼ÆËã
+	// å‰åŠæœ‰åºåˆ†ç»„æ—¶é‡‡ç”¨ç´¯ç§¯æ³•è®¡ç®—
 	private Sequence groups_qs(Sequence seq, Context ctx) {
 		int fcount1 = exps.length;
 		Expression[] groupExps = this.groupExps;
@@ -626,7 +626,7 @@ public class Groups extends Operation {
 		Table tempResult = this.tempResult;
 		Table result = new Table(newDs);
 		
-		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize(); // ¹şÏ£±íµÄ´óĞ¡
+		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize(); // å“ˆå¸Œè¡¨çš„å¤§å°
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current(seq);
 		stack.push(current);
@@ -636,7 +636,7 @@ public class Groups extends Operation {
 				current.setCurrent(i);
 				boolean isSame = true;
 				
-				// ¼ÆËãÇ°°ë¶Î±í´ïÊ½£¬¼ì²éÊÇ·ñÓëÇ°Ò»Ìõ¼ÇÂ¼ÏàÍ¬
+				// è®¡ç®—å‰åŠæ®µè¡¨è¾¾å¼ï¼Œæ£€æŸ¥æ˜¯å¦ä¸å‰ä¸€æ¡è®°å½•ç›¸åŒ
 				for (int v = 0; v < fcount1; ++v) {
 					if (isSame) {
 						Object value = groupExps[v].calculate(ctx);
@@ -654,7 +654,7 @@ public class Groups extends Operation {
 				}
 				
 				if (!isSame) {
-					// µ±Ç°´ó·Ö×é½áÊø£¬°ÑÁÙÊ±·Ö×éÖµ±£´æµ½½á¹ûÖĞ
+					// å½“å‰å¤§åˆ†ç»„ç»“æŸï¼ŒæŠŠä¸´æ—¶åˆ†ç»„å€¼ä¿å­˜åˆ°ç»“æœä¸­
 					tempResult.sortFields(sortFields);
 					tempResult.finishGather(gathers);
 					result.addAll(tempResult);
@@ -665,7 +665,7 @@ public class Groups extends Operation {
 					}
 				}
 				
-				// °Ñµ±Ç°¼ÇÂ¼ÀÛ»ıµ½·Ö×é½á¹ûÉÏ
+				// æŠŠå½“å‰è®°å½•ç´¯ç§¯åˆ°åˆ†ç»„ç»“æœä¸Š
 				int hash = hashUtil.hashCode(values);
 				if (groups[hash] == null) {
 					groups[hash] = new ListBase1(INIT_GROUPSIZE);
@@ -712,9 +712,9 @@ public class Groups extends Operation {
 	}
 	
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

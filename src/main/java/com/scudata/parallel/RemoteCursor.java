@@ -7,7 +7,7 @@ import com.scudata.dm.*;
 import com.scudata.dm.cursor.ICursor;
 
 /**
- * Ô¶³ÌÓÎ±ê
+ * è¿œç¨‹æ¸¸æ ‡
  * 
  * @author Joancy
  *
@@ -21,11 +21,11 @@ public class RemoteCursor extends ICursor implements Serializable {
 	boolean isClosed = false;
 
 	/**
-	 * ´´½¨Ò»¸öÔ¶³ÌÓÎ±ê
-	 * @param host Ö÷»úIP
-	 * @param port ¶Ë¿ÚºÅ
-	 * @param taskId ÈÎÎñºÅ
-	 * @param proxyId ÓÎ±ê´úÀíºÅ
+	 * åˆ›å»ºä¸€ä¸ªè¿œç¨‹æ¸¸æ ‡
+	 * @param host ä¸»æœºIP
+	 * @param port ç«¯å£å·
+	 * @param taskId ä»»åŠ¡å·
+	 * @param proxyId æ¸¸æ ‡ä»£ç†å·
 	 */
 	public RemoteCursor(String host, int port, int taskId, int proxyId){
 		this.host = host;
@@ -35,10 +35,10 @@ public class RemoteCursor extends ICursor implements Serializable {
 	}
 	
 	/**
-	 * ´´½¨Ô¶³ÌÓÎ±ê
-	 * @param host Ö÷»úIP
-	 * @param port ¶Ë¿ÚºÅ
-	 * @param proxyId ÓÎ±ê´úÀíºÅ
+	 * åˆ›å»ºè¿œç¨‹æ¸¸æ ‡
+	 * @param host ä¸»æœºIP
+	 * @param port ç«¯å£å·
+	 * @param proxyId æ¸¸æ ‡ä»£ç†å·
 	 */
 	public RemoteCursor(String host, int port, int proxyId){
 		this(host,port,-1,proxyId);
@@ -113,8 +113,8 @@ public class RemoteCursor extends ICursor implements Serializable {
 	}
 	
 	/**
-	 * È¡ÓÎ±êµÄÊı¾İ½á¹¹ĞÅÏ¢
-	 * @return Êı¾İ½á¹¹
+	 * å–æ¸¸æ ‡çš„æ•°æ®ç»“æ„ä¿¡æ¯
+	 * @return æ•°æ®ç»“æ„
 	 */
 	public DataStruct getDataStruct() {
 		if(dataStruct!=null){
@@ -128,7 +128,7 @@ public class RemoteCursor extends ICursor implements Serializable {
 	
 
 	/**
-	 * ÊµÏÖtoStringµÄÎÄ±¾ÃèÊö
+	 * å®ç°toStringçš„æ–‡æœ¬æè¿°
 	 */
 	public String toString() {
 		return "RemoteCursor@" + host + ":" + port + " cursorId:" + proxyId;

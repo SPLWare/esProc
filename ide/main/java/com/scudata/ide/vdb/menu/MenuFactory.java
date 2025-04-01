@@ -18,9 +18,9 @@ import com.scudata.ide.vdb.resources.IdeMessage;
 public class MenuFactory extends JMenuBar implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	// Key: GCMenu÷–≥£¡ø
+	// Key: GCMenu‰∏≠Â∏∏Èáè
 	protected static Map<Short, JMenu> menus = new HashMap<Short, JMenu>();
-	// Key: GCMenu÷–≥£¡ø
+	// Key: GCMenu‰∏≠Â∏∏Èáè
 	protected static Map<Short, JMenuItem> menuItems = new HashMap<Short, JMenuItem>();
 
 	private static final int RECENT_FILE_COUNT = 5;

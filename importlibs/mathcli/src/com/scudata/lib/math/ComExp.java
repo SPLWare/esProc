@@ -8,9 +8,9 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 构造复指数
- * 因为没有虚数符号i；所以将实部与虚部作为两部分输出
- * matlab输出时提出了1.0e+03,这里没有提出
+ * 鏋勯�犲鎸囨暟
+ * 鍥犱负娌℃湁铏氭暟绗﹀彿i锛涙墍浠ュ皢瀹為儴涓庤櫄閮ㄤ綔涓轰袱閮ㄥ垎杈撳嚭
+ * matlab杈撳嚭鏃舵彁鍑轰簡1.0e+03,杩欓噷娌℃湁鎻愬嚭
  */
 public class ComExp extends SequenceFunction {
     public Object calculate(Context ctx){

@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.SequenceFunction;
 
 /**
- * ·µ»ØĞòÁĞµÄ³¤¶È
+ * è¿”å›åºåˆ—çš„é•¿åº¦
  * A.len()
  * @author RunQian
  *

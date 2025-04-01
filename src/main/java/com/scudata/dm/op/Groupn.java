@@ -13,10 +13,10 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 public class Groupn extends Operation {
-	private Expression exp; // ·Ö×é±í´ïÊ½
+	private Expression exp; // åˆ†ç»„è¡¨è¾¾å¼
 	
-	private IPipe []pipes; // ¹ÜµÀÊı×é£¬Êı¾İ°´·Ö×éÖµĞ´ÈëÏàÓ¦µÄ¹ÜµÀ
-	private Sequence []groups; // ÓÃÓÚ´æ·ÅÃ¿¸ö·Ö×éµÄÊı¾İ
+	private IPipe []pipes; // ç®¡é“æ•°ç»„ï¼Œæ•°æ®æŒ‰åˆ†ç»„å€¼å†™å…¥ç›¸åº”çš„ç®¡é“
+	private Sequence []groups; // ç”¨äºå­˜æ”¾æ¯ä¸ªåˆ†ç»„çš„æ•°æ®
 	
 	public Groupn(Expression exp, Sequence result) {
 		this(null, exp, result);
@@ -78,8 +78,8 @@ public class Groupn extends Operation {
 	}
 		
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -88,8 +88,8 @@ public class Groupn extends Operation {
 	}
 	
 	/**
-	 * Êı¾İÈ«²¿ÍÆËÍÍê³ÉÊ±µ÷ÓÃ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®å…¨éƒ¨æ¨é€å®Œæˆæ—¶è°ƒç”¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public Sequence finish(Context ctx) {
@@ -129,9 +129,9 @@ public class Groupn extends Operation {
 	}
 	
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

@@ -11,7 +11,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓÃÓÎ±êĞòÁĞÉú³É¶àÂ·ÓÎ±ê
+ * ç”¨æ¸¸æ ‡åºåˆ—ç”Ÿæˆå¤šè·¯æ¸¸æ ‡
  * CS.mcursor()
  * @author RunQian
  *

@@ -7,8 +7,8 @@ import com.scudata.expression.IParam;
 import com.scudata.expression.RecordFunction;
 
 /**
- * È¡³ö¼ÇÂ¼µÄ×Ö¶Î×é³ÉĞòÁĞ
- * r.array(Fi,¡­)
+ * å–å‡ºè®°å½•çš„å­—æ®µç»„æˆåºåˆ—
+ * r.array(Fi,â€¦)
  * @author RunQian
  *
  */

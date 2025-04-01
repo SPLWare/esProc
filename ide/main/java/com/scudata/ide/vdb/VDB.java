@@ -85,7 +85,7 @@ public class VDB extends AppFrame implements EditListener {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		// ¼¯ËãÆ÷ÊÚÈ¨£¬ÏÈ¼ÓÔØ×Ô¼ºÓÃ
+		// é›†ç®—å™¨æˆæƒï¼Œå…ˆåŠ è½½è‡ªå·±ç”¨
 		try {
 			// Sequence.readLicense(Sequence.P_PROGRAM,
 			// GM.getAbsolutePath(ConfigOptions.sEsprocLic));
@@ -142,10 +142,10 @@ public class VDB extends AppFrame implements EditListener {
 		menuVDB.disableConnectMenu();
 		menuVDB.disableNodeMenu();
 		menuVDB.disableDataMenu();
-		// Ñ¡ÖĞµÚÒ»¸öÁ¬½Ó
+		// é€‰ä¸­ç¬¬ä¸€ä¸ªè¿æ¥
 		loadConnections();
 
-		// Ìæ»»µô»ù´¡Ó¦ÓÃµÄ´°¿Ú³ß´ç¼ÓÔØÆ÷
+		// æ›¿æ¢æ‰åŸºç¡€åº”ç”¨çš„çª—å£å°ºå¯¸åŠ è½½å™¨
 		// com.scudata.ide.common.GM.setDialogDimensionListener(GM.getDDListener());
 	}
 
@@ -240,7 +240,7 @@ public class VDB extends AppFrame implements EditListener {
 	}
 
 	/**
-	 * ÍË³öIDE
+	 * é€€å‡ºIDE
 	 * 
 	 * @return
 	 */
@@ -299,7 +299,7 @@ public class VDB extends AppFrame implements EditListener {
 
 	public static void main(String[] args) {
 		System.out.println("VDB starting....");
-		System.out.println("Language£º" + Locale.getDefault());
+		System.out.println("Languageï¼š" + Locale.getDefault());
 
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {

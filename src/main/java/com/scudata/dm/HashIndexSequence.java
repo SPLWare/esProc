@@ -5,15 +5,15 @@ import com.scudata.array.IArray;
 import com.scudata.util.HashUtil;
 
 /**
- * ĞòÁĞ¹şÏ£Ë÷Òı£¬¿ÉÓÃÓÚcontains¡¢posº¯Êı
+ * åºåˆ—å“ˆå¸Œç´¢å¼•ï¼Œå¯ç”¨äºcontainsã€poså‡½æ•°
  * @author WangXiaoJun
  *
  */
 public class HashIndexSequence extends IndexTable {
-	private IArray valueArray; // ĞòÁĞÔªËØÖµÊı×é
-	protected HashUtil hashUtil; // ÓÃÓÚ¼ÆËã¹şÏ£Öµ
-	private int []entries; // ¹şÏ£±í£¬´æ·Å×Å¹şÏ£Öµ¶ÔÓ¦µÄ×îºóÒ»Ìõ¼ÇÂ¼µÄÎ»ÖÃ
-	private int []linkArray; // ¹şÏ£ÖµÏàÍ¬µÄ¼ÇÂ¼Á´±í
+	private IArray valueArray; // åºåˆ—å…ƒç´ å€¼æ•°ç»„
+	protected HashUtil hashUtil; // ç”¨äºè®¡ç®—å“ˆå¸Œå€¼
+	private int []entries; // å“ˆå¸Œè¡¨ï¼Œå­˜æ”¾ç€å“ˆå¸Œå€¼å¯¹åº”çš„æœ€åä¸€æ¡è®°å½•çš„ä½ç½®
+	private int []linkArray; // å“ˆå¸Œå€¼ç›¸åŒçš„è®°å½•é“¾è¡¨
 	
 	public HashIndexSequence(Sequence code) {
 		IArray valueArray = code.getMems();
@@ -35,7 +35,7 @@ public class HashIndexSequence extends IndexTable {
 	}
 	
 	/**
-	 * È¡¹şÏ£±íÈİÁ¿
+	 * å–å“ˆå¸Œè¡¨å®¹é‡
 	 * @return
 	 */
 	public int getCapacity() {
@@ -43,8 +43,8 @@ public class HashIndexSequence extends IndexTable {
 	}
 	
 	/**
-	 * ÓÉ¼ü²éÕÒÔªËØ£¬ÕÒ²»µ½·µ»Ø¿Õ
-	 * @param key ¼üÖµ
+	 * ç”±é”®æŸ¥æ‰¾å…ƒç´ ï¼Œæ‰¾ä¸åˆ°è¿”å›ç©º
+	 * @param key é”®å€¼
 	 */
 	public Object find(Object key) {
 		int seq = hashUtil.hashCode(key);
@@ -62,16 +62,16 @@ public class HashIndexSequence extends IndexTable {
 	}
 
 	/**
-	 * ÓÉ¼ü²éÕÒÔªËØ£¬ÕÒ²»µ½·µ»Ø¿Õ
-	 * @param keys ³¤¶ÈÎª1µÄ¼üÖµÊı×é
+	 * ç”±é”®æŸ¥æ‰¾å…ƒç´ ï¼Œæ‰¾ä¸åˆ°è¿”å›ç©º
+	 * @param keys é•¿åº¦ä¸º1çš„é”®å€¼æ•°ç»„
 	 */
 	public Object find(Object []keys) {
 		return find(keys[0]);
 	}
 	
 	/**
-	 * ÓÉ¼ü²éÕÒÔªËØĞòºÅ£¬ÕÒ²»µ½·µ»Ø0
-	 * @param key ¼üÖµ
+	 * ç”±é”®æŸ¥æ‰¾å…ƒç´ åºå·ï¼Œæ‰¾ä¸åˆ°è¿”å›0
+	 * @param key é”®å€¼
 	 */
 	public int findPos(Object key) {
 		int seq = hashUtil.hashCode(key);
@@ -89,8 +89,8 @@ public class HashIndexSequence extends IndexTable {
 	}
 	
 	/**
-	 * ÓÉ¼ü²éÕÒÔªËØĞòºÅ£¬ÕÒ²»µ½·µ»Ø01
-	 * @param key ¼üÖµ
+	 * ç”±é”®æŸ¥æ‰¾å…ƒç´ åºå·ï¼Œæ‰¾ä¸åˆ°è¿”å›01
+	 * @param key é”®å€¼
 	 */
 	public int findPos(Object[] keys) {
 		return findPos(keys[0]);

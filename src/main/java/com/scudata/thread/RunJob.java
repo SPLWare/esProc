@@ -7,20 +7,20 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 
 /**
- * ÓÃÓÚÖ´ĞĞA.run()µÄÈÎÎñ
+ * ç”¨äºæ‰§è¡ŒA.run()çš„ä»»åŠ¡
  * @author RunQian
  *
  */
 class RunJob extends Job {
-	private Sequence src; // Ô´ĞòÁĞ
-	private int start; // ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	private int end; // ½áÊøÎ»ÖÃ£¬²»°üÀ¨
+	private Sequence src; // æºåºåˆ—
+	private int start; // èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	private int end; // ç»“æŸä½ç½®ï¼Œä¸åŒ…æ‹¬
 	
-	private Expression exp; // ¼ÆËã±í´ïÊ½
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
+	private Expression exp; // è®¡ç®—è¡¨è¾¾å¼
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
 	
-	private Expression[] assignExps;//¸³Öµ±í´ïÊ½
-	private Expression[] exps;//Öµ±í´ïÊ½
+	private Expression[] assignExps;//èµ‹å€¼è¡¨è¾¾å¼
+	private Expression[] exps;//å€¼è¡¨è¾¾å¼
 	
 	public RunJob(Sequence src, int start, int end, Expression exp, Context ctx) {
 		this.src = src;

@@ -1,20 +1,20 @@
 package com.scudata.dm.cursor;
 
 /**
- * ¶àÂ·ÓÎ±ê½Ó¿Ú£¬¿ÉÒÔÊÇ±¾µØ¶àÂ·ÓÎ±ê»ò¼¯ÈºÓÎ±ê
+ * å¤šè·¯æ¸¸æ ‡æ¥å£ï¼Œå¯ä»¥æ˜¯æœ¬åœ°å¤šè·¯æ¸¸æ ‡æˆ–é›†ç¾¤æ¸¸æ ‡
  * @author RunQian
  *
  */
 public interface IMultipath {
 	/**
-	 * È¡ÓÎ±êÂ·Êı
-	 * @return Â·Êı
+	 * å–æ¸¸æ ‡è·¯æ•°
+	 * @return è·¯æ•°
 	 */
 	public int getPathCount();
 	
 	/**
-	 * È¡Ã¿Ò»Â·¶ÔÓ¦µÄÓÎ±ê
-	 * @return ÓÎ±êÊı×é
+	 * å–æ¯ä¸€è·¯å¯¹åº”çš„æ¸¸æ ‡
+	 * @return æ¸¸æ ‡æ•°ç»„
 	 */
 	public ICursor[] getParallelCursors();
 }

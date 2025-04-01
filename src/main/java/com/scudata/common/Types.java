@@ -33,21 +33,21 @@ public class Types {
 
 	public final static byte DT_CURSOR = (byte) 101;
 	public final static byte DT_AUTOINCREMENT = (byte) 102;
-	public final static byte DT_SERIALBYTES = (byte) 103; // ÅÅºÅ
+	public final static byte DT_SERIALBYTES = (byte) 103; // æ’å·
 
-//ÒÔÏÂº¯ÊıÔÚ¹ú¼Ê»¯Ê±²»ÕıÈ·
+//ä»¥ä¸‹å‡½æ•°åœ¨å›½é™…åŒ–æ—¶ä¸æ­£ç¡®
 	
-	//Óë¾É°ægetProperData¼æÈİ
+	//ä¸æ—§ç‰ˆgetProperDataå…¼å®¹
 	public static Object getProperData(byte type, String val) throws Exception {
 		return getProperData(type, val, false);
 	}
 	
 	/**
-	 * ½«×Ö·û´®°´ÕÕÀàĞÍ×ªÎªÏàÓ¦Object
-	 *@param type Êı¾İÀàĞÍ
-	 *@param val ×Ö·û´®ĞÍÊı¾İÖµ
-	 *@param ignoreString ÊÇ·ñ¶Ô×Ö·û´®²»×öÈÎºÎ´¦Àí¼´·µ»Ø
-	 *@return ·µ»ØÖ¸¶¨ÀàĞÍÊı¾İ
+	 * å°†å­—ç¬¦ä¸²æŒ‰ç…§ç±»å‹è½¬ä¸ºç›¸åº”Object
+	 *@param type æ•°æ®ç±»å‹
+	 *@param val å­—ç¬¦ä¸²å‹æ•°æ®å€¼
+	 *@param ignoreString æ˜¯å¦å¯¹å­—ç¬¦ä¸²ä¸åšä»»ä½•å¤„ç†å³è¿”å›
+	 *@return è¿”å›æŒ‡å®šç±»å‹æ•°æ®
 	 */
 	public static Object getProperData(byte type, String val, boolean ignoreString) throws Exception {
 		if (val == null) {

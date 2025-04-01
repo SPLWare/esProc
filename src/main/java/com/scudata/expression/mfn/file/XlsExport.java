@@ -23,19 +23,19 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * f.xlsexport(A,x:F,¡­;s;p) µ¼³öExcelÎÄ¼ş£¬sÎªÒ³Ãû£»sÊ¡ÂÔÊ±Ğ´ÈëµÚÒ»Ò³£¬A¿ÉÊÇÓÎ±ê¡£xlsxÎÄ¼şĞ´¹»100ÍòĞĞ×Ô¶¯Í£Ö¹
+ * f.xlsexport(A,x:F,â€¦;s;p) å¯¼å‡ºExcelæ–‡ä»¶ï¼Œsä¸ºé¡µåï¼›sçœç•¥æ—¶å†™å…¥ç¬¬ä¸€é¡µï¼ŒAå¯æ˜¯æ¸¸æ ‡ã€‚xlsxæ–‡ä»¶å†™å¤Ÿ100ä¸‡è¡Œè‡ªåŠ¨åœæ­¢
  * 
- * @a Ô­ÎÄ¼ş´æÔÚ½«ÑÓÓÃ×îºóÒ»ĞĞµÄ¸ñÊ½¼ÌĞøĞ´
- * @t µ¼³ö±êÌâ£¬Ô­ÎÄ¼ş´æÔÚÊ±ÈÏÎª×îºóÒ»¸öÓĞÄÚÈİµÄĞĞÊÇ±êÌâ
- * @c Ê¹ÓÃÁ÷Ê½Ğ´³ö´óÎÄ¼ş£¬Ô­ÎÄ¼şÒª±»È«¶ÁÈë£¬²»¿ÉÌ«´ó
- * @w AÊÇĞòÁĞµÄĞòÁĞ»ò»Ø³µ/Tab·Ö¸ôµÄ´®£¬Óë@t@c»¥³â£¬ÎŞx:F²ÎÊı
- * @p @w¼Ó×ªÖÃ£¬ĞòÁĞµÄĞòÁĞÊÇÏÈÁĞºóĞĞµÄ£¬ÊÇ´®Ê±ºöÂÔ
- * @m xlsx³¬¹ı100ÍòĞĞÊ±Ôö¼ÓĞÂµÄsheetĞ´Èë
+ * @a åŸæ–‡ä»¶å­˜åœ¨å°†å»¶ç”¨æœ€åä¸€è¡Œçš„æ ¼å¼ç»§ç»­å†™
+ * @t å¯¼å‡ºæ ‡é¢˜ï¼ŒåŸæ–‡ä»¶å­˜åœ¨æ—¶è®¤ä¸ºæœ€åä¸€ä¸ªæœ‰å†…å®¹çš„è¡Œæ˜¯æ ‡é¢˜
+ * @c ä½¿ç”¨æµå¼å†™å‡ºå¤§æ–‡ä»¶ï¼ŒåŸæ–‡ä»¶è¦è¢«å…¨è¯»å…¥ï¼Œä¸å¯å¤ªå¤§
+ * @w Aæ˜¯åºåˆ—çš„åºåˆ—æˆ–å›è½¦/Tabåˆ†éš”çš„ä¸²ï¼Œä¸@t@cäº’æ–¥ï¼Œæ— x:Få‚æ•°
+ * @p @wåŠ è½¬ç½®ï¼Œåºåˆ—çš„åºåˆ—æ˜¯å…ˆåˆ—åè¡Œçš„ï¼Œæ˜¯ä¸²æ—¶å¿½ç•¥
+ * @m xlsxè¶…è¿‡100ä¸‡è¡Œæ—¶å¢åŠ æ–°çš„sheetå†™å…¥
  */
 public class XlsExport extends FileFunction {
 
 	/**
-	 * ¼ÆËã
+	 * è®¡ç®—
 	 */
 	public Object calculate(Context ctx) {
 		if (param == null) {
@@ -158,16 +158,16 @@ public class XlsExport extends FileFunction {
 
 		if (!isW) {
 			if (isP) {
-				// Ñ¡Ïî@{0}Ö»ÄÜºÍÑ¡Ïî@wÍ¬Ê±Ê¹ÓÃ¡£
+				// é€‰é¡¹@{0}åªèƒ½å’Œé€‰é¡¹@wåŒæ—¶ä½¿ç”¨ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsimport.pnnotw", "p"));
 			}
 		}
 
-		if (file != null) // Ê¹ÓÃpoiµÄ·½·¨ÅĞ¶Ï°æ±¾
+		if (file != null) // ä½¿ç”¨poiçš„æ–¹æ³•åˆ¤æ–­ç‰ˆæœ¬
 			isXlsx = ExcelUtils.isXlsxFile(file);
 
-		// ¼ì²ésheetÃû³Æ
+		// æ£€æŸ¥sheetåç§°
 		ExcelUtils.checkSheetName(s);
 
 		ExcelTool et = new ExcelTool(file, isTitle, isXlsx, isSsxxf, isAppend,
@@ -181,7 +181,7 @@ public class XlsExport extends FileFunction {
 		ICursor cursor = null;
 		boolean isStr = false;
 		if (isW) {
-			if (src != null && src instanceof String) { // ÊÇÓÉ\n\tÆ´³ÉµÄ´®
+			if (src != null && src instanceof String) { // æ˜¯ç”±\n\tæ‹¼æˆçš„ä¸²
 				src = parseSequence((String) src);
 				isStr = true;
 			}
@@ -191,7 +191,7 @@ public class XlsExport extends FileFunction {
 		}
 		if (src instanceof Sequence) {
 			seq = (Sequence) src;
-			if (!isStr) {// ´®²»´¦Àí
+			if (!isStr) {// ä¸²ä¸å¤„ç†
 				if (isP) {
 					seq = ExcelUtils.transpose(seq);
 					src = seq;
@@ -247,16 +247,16 @@ public class XlsExport extends FileFunction {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
 	 * 
 	 * @param ctx
-	 *            ¼ÆËãÉÏÏÂÎÄ
+	 *            è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @param Node
-	 *            ÓÅ»¯ºóµÄ½Úµã
+	 *            ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 
@@ -307,10 +307,10 @@ public class XlsExport extends FileFunction {
 	}
 
 	/**
-	 * ½«×Ö·û´®½âÎöÎªĞòÁĞ
+	 * å°†å­—ç¬¦ä¸²è§£æä¸ºåºåˆ—
 	 * 
 	 * @param str
-	 *            Òª½âÎöµÄ×Ö·û´®
+	 *            è¦è§£æçš„å­—ç¬¦ä¸²
 	 * @return
 	 */
 	public static Sequence parseSequence(String str) {
@@ -332,7 +332,7 @@ public class XlsExport extends FileFunction {
 				Object val = item;
 				if (StringUtils.isValidString(item)) {
 					if (item.startsWith(KeyWord.CONSTSTRINGPREFIX)
-							&& !item.endsWith(KeyWord.CONSTSTRINGPREFIX)) { // ×Ö·û´®³£Êı'
+							&& !item.endsWith(KeyWord.CONSTSTRINGPREFIX)) { // å­—ç¬¦ä¸²å¸¸æ•°'
 						val = item.substring(1);
 					} else {
 						val = Variant.parseCellValue(item);

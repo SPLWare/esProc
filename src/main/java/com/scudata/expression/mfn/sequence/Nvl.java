@@ -8,7 +8,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 取序列中第一个非空并且不是空串的元素
+ * 鍙栧簭鍒椾腑绗竴涓潪绌哄苟涓斾笉鏄┖涓茬殑鍏冪礌
  * A.nvl()
  * @author RunQian
  *

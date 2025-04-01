@@ -31,47 +31,47 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.HashUtil;
 
 /**
- * ÓÃÓÚ¶ÔÍÆËÍÀ´µÄÊı¾İÖ´ĞĞ°´¶à×Ö¶Î½øĞĞÍâ´æ·Ö×é»ã×ÜÔËËã
+ * ç”¨äºå¯¹æ¨é€æ¥çš„æ•°æ®æ‰§è¡ŒæŒ‰å¤šå­—æ®µè¿›è¡Œå¤–å­˜åˆ†ç»„æ±‡æ€»è¿ç®—
  * @author RunQian
  *
  */
 public class GroupxResult implements IResult {
-	private Expression[] exps; // ·Ö×é±í´ïÊ½
-	private String []names; // ·Ö×é×Ö¶ÎÃû
-	private Expression[] calcExps; // »ã×Ü±í´ïÊ½
-	private String []calcNames; // »ã×Ü×Ö¶ÎÃû
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
-	private String opt; // Ñ¡Ïî
+	private Expression[] exps; // åˆ†ç»„è¡¨è¾¾å¼
+	private String []names; // åˆ†ç»„å­—æ®µå
+	private Expression[] calcExps; // æ±‡æ€»è¡¨è¾¾å¼
+	private String []calcNames; // æ±‡æ€»å­—æ®µå
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
+	private String opt; // é€‰é¡¹
 
-	private Node[] gathers = null; // ¾ÛºÏº¯ÊıÊı×é
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹
-	private HashUtil hashUtil; // ¹şÏ£±í¹¤¾ß£¬ÓÃÓÚ¼ÆËã¹şÏ£Öµ
+	private Node[] gathers = null; // èšåˆå‡½æ•°æ•°ç»„
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„
+	private HashUtil hashUtil; // å“ˆå¸Œè¡¨å·¥å…·ï¼Œç”¨äºè®¡ç®—å“ˆå¸Œå€¼
 	
-	// ÊÇ·ñ²ÉÓÃÅÅĞò¹é²¢·¨½øĞĞ¶ş´Î»ã×Ü
+	// æ˜¯å¦é‡‡ç”¨æ’åºå½’å¹¶æ³•è¿›è¡ŒäºŒæ¬¡æ±‡æ€»
 	private boolean isSort = true;
 
-	// ²ÉÓÃÅÅĞò¹é²¢·¨½øĞĞ¶ş´Î»ã×Ü
-	private ListBase1 []groups; // ·Ö×é¹şÏ£±í
-	private Table outTable; // ÁÙÊ±·Ö×é½á¹ûĞò±í
-	private int []sortFields; // ÅÅĞò×Ö¶Î£¨¼´·Ö×é×Ö¶Î£©ĞòºÅ
-	private ArrayList<ICursor> cursorList = new ArrayList<ICursor>(); // ·Ö×éÁÙÊ±ÎÄ¼ş¶ÔÓ¦µÄÓÎ±ê
+	// é‡‡ç”¨æ’åºå½’å¹¶æ³•è¿›è¡ŒäºŒæ¬¡æ±‡æ€»
+	private ListBase1 []groups; // åˆ†ç»„å“ˆå¸Œè¡¨
+	private Table outTable; // ä¸´æ—¶åˆ†ç»„ç»“æœåºè¡¨
+	private int []sortFields; // æ’åºå­—æ®µï¼ˆå³åˆ†ç»„å­—æ®µï¼‰åºå·
+	private ArrayList<ICursor> cursorList = new ArrayList<ICursor>(); // åˆ†ç»„ä¸´æ—¶æ–‡ä»¶å¯¹åº”çš„æ¸¸æ ‡
 	
-	// ÀûÓÃ¹şÏ£°Ñ×é²ğ·Öµ½¶à¸öÎÄ¼ş
-	private RecordTree []recordsArray; // ·Ö×é¹şÏ£±í
-	private int totalRecordCount; // ÄÚ´æÖĞµÄ·Ö×é½á¹û¼ÇÂ¼×ÜÊı
-	private final int fileCount = 29; // ÁÙÊ±ÎÄ¼şÊı
-	private FileObject []tmpFiles; // ÁÙÊ±ÎÄ¼ş¶ÔÏó
-	private BFileWriter []writers; // ÓÃÓÚĞ´¼¯ÎÄ¼şµÄ¶ÔÏó
+	// åˆ©ç”¨å“ˆå¸ŒæŠŠç»„æ‹†åˆ†åˆ°å¤šä¸ªæ–‡ä»¶
+	private RecordTree []recordsArray; // åˆ†ç»„å“ˆå¸Œè¡¨
+	private int totalRecordCount; // å†…å­˜ä¸­çš„åˆ†ç»„ç»“æœè®°å½•æ€»æ•°
+	private final int fileCount = 29; // ä¸´æ—¶æ–‡ä»¶æ•°
+	private FileObject []tmpFiles; // ä¸´æ—¶æ–‡ä»¶å¯¹è±¡
+	private BFileWriter []writers; // ç”¨äºå†™é›†æ–‡ä»¶çš„å¯¹è±¡
 	
 	/**
-	 * ¹¹½¨Íâ´æ·Ö×é½á¹û¶ÔÏó
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names	·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½	Êı×é
-	 * @param calcNames	»ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity	ÄÚ´æÖĞ±£´æµÄ×î´ó·Ö×é½á¹ûÊı
+	 * æ„å»ºå¤–å­˜åˆ†ç»„ç»“æœå¯¹è±¡
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names	åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼	æ•°ç»„
+	 * @param calcNames	æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity	å†…å­˜ä¸­ä¿å­˜çš„æœ€å¤§åˆ†ç»„ç»“æœæ•°
 	 */	
 	public GroupxResult(Expression[] exps, String[] names, Expression[] calcExps, 
 			String[] calcNames, String opt, Context ctx, int capacity) {
@@ -126,7 +126,7 @@ public class GroupxResult implements IResult {
 		}
 	}
 	
-	// ½á¹û¼¯ĞèÒªÓĞĞòÊ±µÄ·Ö×é·½·¨
+	// ç»“æœé›†éœ€è¦æœ‰åºæ—¶çš„åˆ†ç»„æ–¹æ³•
 	private void sortGroup(Sequence table, Context ctx) {
 		ListBase1 []groups = this.groups;
 		Node []gathers = this.gathers;
@@ -273,7 +273,7 @@ public class GroupxResult implements IResult {
 		}
 	}
 	
-	// ½á¹û¼¯²»ĞèÒªÅÅĞòÊ±µÄ·Ö×é·½·¨
+	// ç»“æœé›†ä¸éœ€è¦æ’åºæ—¶çš„åˆ†ç»„æ–¹æ³•
 	private void hashGroup(Sequence table, Context ctx) {
 		DataStruct ds = this.ds;
 		RecordTree []recordsArray = this.recordsArray;
@@ -320,7 +320,7 @@ public class GroupxResult implements IResult {
 					RecordTree.Node node = recordsArray[hash].get(keys);
 					r = node.r;
 					
-					// Êı¾İÃ»ÓĞÕÒµ½ÏàÓ¦·Ö×éÖµµÄ¼ÇÂ¼
+					// æ•°æ®æ²¡æœ‰æ‰¾åˆ°ç›¸åº”åˆ†ç»„å€¼çš„è®°å½•
 					if (r == null) {
 						r = new Record(ds, keys);
 						node.r = r;
@@ -358,9 +358,9 @@ public class GroupxResult implements IResult {
 	}
 	
 	/**
-	 * ¶Ô´«ÈëµÄÊı¾İ×ö·Ö×é£¬ÀÛ»ıµ½ÏÖÓĞ·Ö×é½á¹û
-	 * @param table Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¹ä¼ å…¥çš„æ•°æ®åšåˆ†ç»„ï¼Œç´¯ç§¯åˆ°ç°æœ‰åˆ†ç»„ç»“æœ
+	 * @param table æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void push(Sequence table, Context ctx) {
 		if (isSort) {
@@ -371,7 +371,7 @@ public class GroupxResult implements IResult {
 	}
 	
 	/**
-	 * É¾³ıÁÙÊ±ÎÄ¼ş£¬Çå¿ÕÄÚ´æÊı¾İ
+	 * åˆ é™¤ä¸´æ—¶æ–‡ä»¶ï¼Œæ¸…ç©ºå†…å­˜æ•°æ®
 	 */	
 	private void delete() {
 		this.hashUtil = null;
@@ -396,7 +396,7 @@ public class GroupxResult implements IResult {
 		}
 	}
 
-	// È¡½á¹û¼¯ĞèÒªÓĞĞòÊ±µÄ·Ö×é·½·¨Éú³ÉµÄ½á¹û¼¯
+	// å–ç»“æœé›†éœ€è¦æœ‰åºæ—¶çš„åˆ†ç»„æ–¹æ³•ç”Ÿæˆçš„ç»“æœé›†
 	private ICursor sortGroupResult() {
 		ListBase1 []groups = this.groups;
 		if (groups == null) return null;
@@ -451,12 +451,12 @@ public class GroupxResult implements IResult {
 		}
 	}
 	
-	// È¡½á¹û¼¯²»ĞèÒªÅÅĞòÊ±µÄ·Ö×é·½·¨Éú³ÉµÄ½á¹û¼¯
+	// å–ç»“æœé›†ä¸éœ€è¦æ’åºæ—¶çš„åˆ†ç»„æ–¹æ³•ç”Ÿæˆçš„ç»“æœé›†
 	private ICursor hashGroupResult() {
 		RecordTree []recordsArray = this.recordsArray;
 		if (recordsArray == null) return null;
 		
-		// ÅĞ¶ÏÊÇ·ñÓÃµ½ÁËÍâ´æ
+		// åˆ¤æ–­æ˜¯å¦ç”¨åˆ°äº†å¤–å­˜
 		FileObject []tmpFiles = this.tmpFiles;
 		if (tmpFiles == null) {
 			Sequence seq = new Sequence(totalRecordCount);
@@ -473,14 +473,14 @@ public class GroupxResult implements IResult {
 		}
 		
 		try {
-			// °ÑÄÚ´æÖĞµÄ¼ÇÂ¼Ğ´µ½ÏàÓ¦µÄÎÄ¼ş
+			// æŠŠå†…å­˜ä¸­çš„è®°å½•å†™åˆ°ç›¸åº”çš„æ–‡ä»¶
 			writeTempFile(recordsArray);
 		} catch(Exception e) {
 			delete();
 			throw new RQException(e.getMessage(), e);
 		}
 
-		// ¹Ø±ÕĞ´
+		// å…³é—­å†™
 		BFileWriter []writers = this.writers;
 		for (BFileWriter writer : writers) {
 			writer.close();
@@ -489,7 +489,7 @@ public class GroupxResult implements IResult {
 		int fileCount = this.fileCount;
 		ICursor []cursors = new ICursor[fileCount];
 		
-		// È¡¶ş´Î¾ÛºÏĞèÒªÓÃµÄ±í´ïÊ½
+		// å–äºŒæ¬¡èšåˆéœ€è¦ç”¨çš„è¡¨è¾¾å¼
 		int keyCount = exps.length;
 		Expression []keyExps = new Expression[keyCount];
 		for (int i = 0, q = 1; i < keyCount; ++i, ++q) {
@@ -516,7 +516,7 @@ public class GroupxResult implements IResult {
 	}
 	
 	/**
-	 * ·µ»Ø½á¹ûÓÎ±ê
+	 * è¿”å›ç»“æœæ¸¸æ ‡
 	 * @return ICursor
 	 */
 	public ICursor getResultCursor() {
@@ -528,14 +528,14 @@ public class GroupxResult implements IResult {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊøÊ±µ÷ÓÃ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®æ¨é€ç»“æŸæ—¶è°ƒç”¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void finish(Context ctx) {
 	}
 	
 	/**
-	 * ·µ»Ø¼ÆËã½á¹û
+	 * è¿”å›è®¡ç®—ç»“æœ
 	 * @return Object
 	 */
 	public Object result() {
@@ -543,7 +543,7 @@ public class GroupxResult implements IResult {
 	}
 	
 	/**
-	 * ²»Ö§³Ö´Ë·½·¨
+	 * ä¸æ”¯æŒæ­¤æ–¹æ³•
 	 */
 	public Object combineResult(Object []results) {
 		throw new RuntimeException();

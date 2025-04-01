@@ -8,17 +8,17 @@ import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
 /**
- * ¼ÇÂ¼¹¹³ÉµÄºìºÚÊ÷£¬°´Ö÷¼ü½øĞĞ±È½Ï
- * ÓÃÓÚ¹şÏ£·¨Íâ´æ·Ö×éÊ±¹ÜÀí·Ö×é×Ö¶Î¹şÏ£ÖµÏàÍ¬µÄ×é
+ * è®°å½•æ„æˆçš„çº¢é»‘æ ‘ï¼ŒæŒ‰ä¸»é”®è¿›è¡Œæ¯”è¾ƒ
+ * ç”¨äºå“ˆå¸Œæ³•å¤–å­˜åˆ†ç»„æ—¶ç®¡ç†åˆ†ç»„å­—æ®µå“ˆå¸Œå€¼ç›¸åŒçš„ç»„
  * @author RunQian
  *
  */
 public class RecordTree {
-	public static final boolean RED = true; // ºìÉ«
-	public static final boolean BLACK = false; // ºÚÉ«
+	public static final boolean RED = true; // çº¢è‰²
+	public static final boolean BLACK = false; // é»‘è‰²
 	
 	/**
-	 * ºìºÚÊ÷µÄ½Úµã
+	 * çº¢é»‘æ ‘çš„èŠ‚ç‚¹
 	 * @author RunQian
 	 *
 	 */
@@ -55,8 +55,8 @@ public class RecordTree {
 	}
 	
 	/**
-	 * ¸ù¾İÖ÷¼ü²éÕÒ¼ÇÂ¼½Úµã£¬ÕÒ²»µ½·µ»ØĞÂ½¨µÄ½Úµã£¬ÍâÃæ»á°Ñ¼ÇÂ¼¸³¸øĞÂ½Úµã
-	 * @param values Ö÷¼üÖµÊı×é
+	 * æ ¹æ®ä¸»é”®æŸ¥æ‰¾è®°å½•èŠ‚ç‚¹ï¼Œæ‰¾ä¸åˆ°è¿”å›æ–°å»ºçš„èŠ‚ç‚¹ï¼Œå¤–é¢ä¼šæŠŠè®°å½•èµ‹ç»™æ–°èŠ‚ç‚¹
+	 * @param values ä¸»é”®å€¼æ•°ç»„
 	 * @return
 	 */
 	public Node get(Object []values) {
@@ -100,7 +100,7 @@ public class RecordTree {
 		}
 	}
 	
-	// ²åÈë½Úµãºó¶ÔÊ÷×öÆ½ºâ
+	// æ’å…¥èŠ‚ç‚¹åå¯¹æ ‘åšå¹³è¡¡
 	private void balanceInsertion(Node node) {
 		Node parent;
 		Node gparent;
@@ -151,7 +151,7 @@ public class RecordTree {
 		root.color = BLACK;
 	}
 	
-	//¶ÔÄ³¸ö½Úµã½øĞĞ×óĞı
+	//å¯¹æŸä¸ªèŠ‚ç‚¹è¿›è¡Œå·¦æ—‹
 	private void leftRonate(Node x) {
 		Node y = x.right;
 		if (y.left != null) {
@@ -175,7 +175,7 @@ public class RecordTree {
 		x.parent = y;
 	}
 	
-	//¶ÔÄ³¸ö½Úµã½øĞĞÓÒĞı
+	//å¯¹æŸä¸ªèŠ‚ç‚¹è¿›è¡Œå³æ—‹
 	private void rightRonate(Node x) {
 		Node y = x.left;
 		if(y.right != null) {
@@ -199,7 +199,7 @@ public class RecordTree {
 		x.parent = y;
 	}
 	
-	// È¡×îĞ¡µÄ½Úµã
+	// å–æœ€å°çš„èŠ‚ç‚¹
 	private Node minimum(Node node) {
 		while (node.left != null) {
 			node = node.left;
@@ -208,7 +208,7 @@ public class RecordTree {
 		return node;
 	}
 	
-	// È¡ÏÂÒ»¸ö½Úµã
+	// å–ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
 	private Node successor(Node node) {
 		if (node.right != null) {
 			return minimum(node.right);
@@ -224,8 +224,8 @@ public class RecordTree {
 	}
 	
 	/**
-	 * Éî¶ÈÓÅÏÈ·¨È¡ËùÓĞ½ÚµãµÄ¼ÇÂ¼
-	 * @param out Êä³ö²ÎÊı£¬´æ·Å¼ÇÂ¼
+	 * æ·±åº¦ä¼˜å…ˆæ³•å–æ‰€æœ‰èŠ‚ç‚¹çš„è®°å½•
+	 * @param out è¾“å‡ºå‚æ•°ï¼Œå­˜æ”¾è®°å½•
 	 */
 	public void depthTraverse(Sequence out) {
 		Node node = root;
@@ -233,7 +233,7 @@ public class RecordTree {
 			return;
 		}
 		
-		// È¡Öµ×îĞ¡µÄ½Úµã£¬¼´×î×óµÄ½Úµã
+		// å–å€¼æœ€å°çš„èŠ‚ç‚¹ï¼Œå³æœ€å·¦çš„èŠ‚ç‚¹
 		node = minimum(node);
 		
 		do {
@@ -274,8 +274,8 @@ public class RecordTree {
 	}
 
 	/**
-	 * ÓÃµİ¹é·½·¨Éî¶ÈÈ¡ËùÓĞ½ÚµãµÄ¼ÇÂ¼
-	 * @param out Êä³ö²ÎÊı£¬´æ·Å¼ÇÂ¼
+	 * ç”¨é€’å½’æ–¹æ³•æ·±åº¦å–æ‰€æœ‰èŠ‚ç‚¹çš„è®°å½•
+	 * @param out è¾“å‡ºå‚æ•°ï¼Œå­˜æ”¾è®°å½•
 	 */
 	public void recursiveTraverse(Sequence out) {
 		if (root != null) {
@@ -284,8 +284,8 @@ public class RecordTree {
 	}
 	
 	/**
-	 * ¹ã¶ÈÓÅÏÈ·¨È¡ËùÓĞ½ÚµãµÄ¼ÇÂ¼
-	 * @param out Êä³ö²ÎÊı£¬´æ·Å¼ÇÂ¼
+	 * å¹¿åº¦ä¼˜å…ˆæ³•å–æ‰€æœ‰èŠ‚ç‚¹çš„è®°å½•
+	 * @param out è¾“å‡ºå‚æ•°ï¼Œå­˜æ”¾è®°å½•
 	 */
 	public void breadthTraverse(Sequence out) {
 		if (root != null) {

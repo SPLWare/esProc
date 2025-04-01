@@ -12,7 +12,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
  
 /**
- * create(Fi,...)产生以Fi,…为字段的空序表
+ * create(Fi,...)浜х敓浠i,鈥︿负瀛楁鐨勭┖搴忚〃
  * @author runqian
  *
  */

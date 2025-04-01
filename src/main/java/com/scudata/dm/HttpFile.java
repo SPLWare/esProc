@@ -36,8 +36,8 @@ public class HttpFile implements IFile {
 	private String requestContentType = null;
 	private HashMap headers;
 	private Map<String,List<String>> responseHeaders;
-	private int timeout = -1;   //¶ÁÈ¡³¬Ê±Ê±¼ä£¬ÒÔÃëÎªµ¥Î»
-	private String sendParamMethod = "POST";    //´«ËÍ²ÎÊıµÄ·½·¨ 
+	private int timeout = -1;   //è¯»å–è¶…æ—¶æ—¶é—´ï¼Œä»¥ç§’ä¸ºå•ä½
+	private String sendParamMethod = "POST";    //ä¼ é€å‚æ•°çš„æ–¹æ³• 
 	
 	static {
         HostnameVerifier ignoreHostnameVerifier = new HostnameVerifier() {
@@ -62,10 +62,10 @@ public class HttpFile implements IFile {
 	}
 	
 	/**
-	 * ÉèÖÃpost·½·¨´«ËÍµÄ²ÎÊı
-	 * @param params ²ÎÊı£¬¸ñÊ½Îª: key1=value1&key2=value2......
-	 * @param paramsEncoding  ²ÎÊı×Ö·û¼¯,ÈçGBK£¬UTF-8
-	 * @param method  ´«ËÍ²ÎÊıµÄ·½·¨£¬post»òget
+	 * è®¾ç½®postæ–¹æ³•ä¼ é€çš„å‚æ•°
+	 * @param params å‚æ•°ï¼Œæ ¼å¼ä¸º: key1=value1&key2=value2......
+	 * @param paramsEncoding  å‚æ•°å­—ç¬¦é›†,å¦‚GBKï¼ŒUTF-8
+	 * @param method  ä¼ é€å‚æ•°çš„æ–¹æ³•ï¼Œpostæˆ–get
 	 */
 	public void setPostParams( String params, String paramsEncoding, String method ) {
 		if( params != null && params.trim().length() > 0 ) {
@@ -104,7 +104,7 @@ public class HttpFile implements IFile {
 		            TrustManager[] tm = { new MyX509TrustManager() };
 		            SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
 		            sslContext.init(null, tm, new java.security.SecureRandom());
-		            // ´ÓÉÏÊöSSLContext¶ÔÏóÖĞµÃµ½SSLSocketFactory¶ÔÏóSSLSocketFactory
+		            // ä»ä¸Šè¿°SSLContextå¯¹è±¡ä¸­å¾—åˆ°SSLSocketFactoryå¯¹è±¡SSLSocketFactory
 		            SSLSocketFactory ssf = sslContext.getSocketFactory();
 		            ((HttpsURLConnection)conn).setSSLSocketFactory(ssf);
 				}
@@ -120,7 +120,7 @@ public class HttpFile implements IFile {
 		            TrustManager[] tm = { new MyX509TrustManager() };
 		            SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
 		            sslContext.init(null, tm, new java.security.SecureRandom());
-		            // ´ÓÉÏÊöSSLContext¶ÔÏóÖĞµÃµ½SSLSocketFactory¶ÔÏóSSLSocketFactory
+		            // ä»ä¸Šè¿°SSLContextå¯¹è±¡ä¸­å¾—åˆ°SSLSocketFactoryå¯¹è±¡SSLSocketFactory
 		            SSLSocketFactory ssf = sslContext.getSocketFactory();
 		            ((HttpsURLConnection)conn).setSSLSocketFactory(ssf);
 				}
@@ -146,13 +146,13 @@ public class HttpFile implements IFile {
 	            }
 	            if( params != null ) {
 		            OutputStream os = conn.getOutputStream();
-		            //jdkÖĞµ÷ÓÃconn.getOutputStream()·½·¨Ê±£¬»áÇ¿ĞĞ½«´«²Î·½·¨¸ÄÎªpost£¬ÒªÊ¹ÓÃget·½·¨´«²Î£¬ÔòÒªÊ¹ÓÃÏÂÃæÕâ¶Î·´Éä³ÌĞò½«connµÄ·½·¨ĞŞ¸ÄÎªget
+		            //jdkä¸­è°ƒç”¨conn.getOutputStream()æ–¹æ³•æ—¶ï¼Œä¼šå¼ºè¡Œå°†ä¼ å‚æ–¹æ³•æ”¹ä¸ºpostï¼Œè¦ä½¿ç”¨getæ–¹æ³•ä¼ å‚ï¼Œåˆ™è¦ä½¿ç”¨ä¸‹é¢è¿™æ®µåå°„ç¨‹åºå°†connçš„æ–¹æ³•ä¿®æ”¹ä¸ºget
 		            if( "GET".equalsIgnoreCase( sendParamMethod ) ) {
 		            	List<Field> fields = new ArrayList<Field>() ;
 		                Class tempClass = conn.getClass();
-		                while( tempClass != null ) {//µ±¸¸ÀàÎªnullµÄÊ±ºòËµÃ÷µ½´ïÁË×îÉÏ²ãµÄ¸¸Àà(ObjectÀà).
+		                while( tempClass != null ) {//å½“çˆ¶ç±»ä¸ºnullçš„æ—¶å€™è¯´æ˜åˆ°è¾¾äº†æœ€ä¸Šå±‚çš„çˆ¶ç±»(Objectç±»).
 		                    fields.addAll(Arrays.asList(tempClass.getDeclaredFields()));
-		                    tempClass = tempClass.getSuperclass(); //µÃµ½¸¸Àà,È»ºó¸³¸ø×Ô¼º
+		                    tempClass = tempClass.getSuperclass(); //å¾—åˆ°çˆ¶ç±»,ç„¶åèµ‹ç»™è‡ªå·±
 		                }
 		                for (Field field : fields) {
 		                    if("method".equals(field.getName())){
@@ -174,8 +174,8 @@ public class HttpFile implements IFile {
 	}
 	
 	/**
-	 * »ñµÃurlµÄÄÚÈİ×Ö·û´®
-	 * @param charset ÄÚÈİµÄ×Ö·û¼¯, ÈçGBK£¬UTF-8
+	 * è·å¾—urlçš„å†…å®¹å­—ç¬¦ä¸²
+	 * @param charset å†…å®¹çš„å­—ç¬¦é›†, å¦‚GBKï¼ŒUTF-8
 	 * @return
 	 */
 	public String getContentString( String charset ) {
@@ -263,20 +263,20 @@ public class HttpFile implements IFile {
 
 	public RandomOutputStream getRandomOutputStream(boolean isAppend) {
 		// TODO Auto-generated method stub
-		throw new RQException( "²»ÄÜĞ´httpÎÄ¼ş" );
+		throw new RQException( "ä¸èƒ½å†™httpæ–‡ä»¶" );
 		//return null;
 	}
 	
 	private class MyX509TrustManager implements X509TrustManager {
-	    // ¼ì²é¿Í»§¶ËÖ¤Êé
+	    // æ£€æŸ¥å®¢æˆ·ç«¯è¯ä¹¦
 	    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
 	    }
 
-	    // ¼ì²é·şÎñÆ÷¶ËÖ¤Êé
+	    // æ£€æŸ¥æœåŠ¡å™¨ç«¯è¯ä¹¦
 	    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
 	    }
 
-	    // ·µ»ØÊÜĞÅÈÎµÄX509Ö¤ÊéÊı×é
+	    // è¿”å›å—ä¿¡ä»»çš„X509è¯ä¹¦æ•°ç»„
 	    public X509Certificate[] getAcceptedIssuers() {
 	        return null;
 	    }
@@ -285,7 +285,7 @@ public class HttpFile implements IFile {
 	public static void main( String[] args ) {
 		try {
 			HttpFile hf = new HttpFile( "http://localhost:7080/raqsoftReport/reportJsp/showReport.jsp?rpx=2.rpx" );
-			//hf.setPostParams( "arg1=ÖĞ¹ú&arg2=ÕæĞĞ°¡£¡", "UTF-8" );
+			//hf.setPostParams( "arg1=ä¸­å›½&arg2=çœŸè¡Œå•Šï¼", "UTF-8" );
 			System.out.println( hf.getContentString( "UTF-8" ) );
 		}
 		catch( Throwable t ) {
@@ -298,7 +298,7 @@ public class HttpFile implements IFile {
 	}
 
 	/**
-	 * È¡Ëæ»ú·ÃÎÊÎÄ¼ş¶ÔÏó£¬Èç¹û²»Ö§³ÖÔò·µ»Ønull
+	 * å–éšæœºè®¿é—®æ–‡ä»¶å¯¹è±¡ï¼Œå¦‚æœä¸æ”¯æŒåˆ™è¿”å›null
 	 * @return RandomAccessFile
 	 */
 	public RandomAccessFile getRandomAccessFile() {
@@ -306,8 +306,8 @@ public class HttpFile implements IFile {
 	}
 
 	/**
-	 * ·µ»ØÊÇ·ñÊÇÔÆÎÄ¼ş
-	 * @return true£ºÊÇÔÆÎÄ¼ş£¬false£º²»ÊÇÔÆÎÄ¼ş
+	 * è¿”å›æ˜¯å¦æ˜¯äº‘æ–‡ä»¶
+	 * @return trueï¼šæ˜¯äº‘æ–‡ä»¶ï¼Œfalseï¼šä¸æ˜¯äº‘æ–‡ä»¶
 	 */
 	public boolean isCloudFile() {
 		return false;

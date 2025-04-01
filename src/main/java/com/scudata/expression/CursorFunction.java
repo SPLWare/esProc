@@ -3,7 +3,7 @@ package com.scudata.expression;
 import com.scudata.dm.cursor.ICursor;
 
 /**
- * 游标成员函数基类
+ * 娓告爣鎴愬憳鍑芥暟鍩虹被
  * cs.f()
  * @author RunQian
  *
@@ -20,7 +20,7 @@ public abstract class CursorFunction extends MemberFunction {
 	}
 	
 	/**
-	 * 释放节点引用的点操作符左侧的对象
+	 * 閲婃斁鑺傜偣寮曠敤鐨勭偣鎿嶄綔绗﹀乏渚х殑瀵硅薄
 	 */
 	public void releaseDotLeftObject() {
 		cursor = null;

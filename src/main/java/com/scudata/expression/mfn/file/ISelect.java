@@ -27,9 +27,9 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ´Ó¶Ô±í´ïÊ½ÓĞĞòµÄÎÄ¼ş£¨ÎÄ±¾ÎÄ¼ş»ò¼¯ÎÄ¼ş£©ÖĞ²éÕÒ¼ÇÂ¼
- * f.iselect(A,x;Fi,¡­;s) ¶Á³öxÔÚĞòÁĞAÖĞµÄ¼ÇÂ¼¹¹³ÉÓÎ±ê
- * f.iselect(a:b,x;Fi,¡­;s) ¶Á³öxÔÚ[a,b]Çø¼äµÄ¼ÇÂ¼¹¹³ÉÓÎ±ê
+ * ä»å¯¹è¡¨è¾¾å¼æœ‰åºçš„æ–‡ä»¶ï¼ˆæ–‡æœ¬æ–‡ä»¶æˆ–é›†æ–‡ä»¶ï¼‰ä¸­æŸ¥æ‰¾è®°å½•
+ * f.iselect(A,x;Fi,â€¦;s) è¯»å‡ºxåœ¨åºåˆ—Aä¸­çš„è®°å½•æ„æˆæ¸¸æ ‡
+ * f.iselect(a:b,x;Fi,â€¦;s) è¯»å‡ºxåœ¨[a,b]åŒºé—´çš„è®°å½•æ„æˆæ¸¸æ ‡
  * @author RunQian
  *
  */
@@ -236,25 +236,25 @@ public class ISelect extends FileFunction {
 	}
 
 	/**
-	 * ¸ù¾İ¶Ô±ÈÊı¾İºÍ¶Ô±È±í´ïÊ½´ÓÎÄ¼şÖĞ²éÕÒ½á¹û£¬²¢±ä³ÉcursorÊä³ö
+	 * æ ¹æ®å¯¹æ¯”æ•°æ®å’Œå¯¹æ¯”è¡¨è¾¾å¼ä»æ–‡ä»¶ä¸­æŸ¥æ‰¾ç»“æœï¼Œå¹¶å˜æˆcursorè¾“å‡º
 	 * 
-	 * @param fo			ÎÄ¼ş¶ÔÏó
-	 * @param fieldName		¶Ô±È±í´ïÊ½
-	 * @param startVal		ÆğÊ¼Öµ
-	 * @param endVal		½áÊøÖµ
-	 * @param selFields		×é³É½á¹ûµÄ×Ö¶Î
-	 * @param types			×Ö¶ÎÀàĞÍ
-	 * @param fmts			ÈÕÆÚ×Ö¶Î¸ñÊ½
+	 * @param fo			æ–‡ä»¶å¯¹è±¡
+	 * @param fieldName		å¯¹æ¯”è¡¨è¾¾å¼
+	 * @param startVal		èµ·å§‹å€¼
+	 * @param endVal		ç»“æŸå€¼
+	 * @param selFields		ç»„æˆç»“æœçš„å­—æ®µ
+	 * @param types			å­—æ®µç±»å‹
+	 * @param fmts			æ—¥æœŸå­—æ®µæ ¼å¼
 	 * @param s				
-	 * @param opt			¶ÁÈ¡ÎÄ¼ş²ÎÊı
-	 * @param ctx			ÉÏÏÂÎÄ±äÁ¿
-	 * @return				·µ»Ø½á¹ûcursor
+	 * @param opt			è¯»å–æ–‡ä»¶å‚æ•°
+	 * @param ctx			ä¸Šä¸‹æ–‡å˜é‡
+	 * @return				è¿”å›ç»“æœcursor
 	 */
 	private static ICursor search(FileObject fo, Expression exp, Object startVal,
 			 Object endVal, String []selFields, byte []types, String []fmts, String s, String opt, Context ctx) {
 		boolean isCsv = false;
 		if (opt != null) {
-			// Èç¹ûÊÇ¶ş½øÖÆÎÄ¼ş£¬Éú³É¶ş½øÖÆÎÄ¼şµÄcursor
+			// å¦‚æœæ˜¯äºŒè¿›åˆ¶æ–‡ä»¶ï¼Œç”ŸæˆäºŒè¿›åˆ¶æ–‡ä»¶çš„cursor
 			if (opt.indexOf('b') != -1) {
 				BFileReader reader = new BFileReader(fo);
 				return reader.iselect(exp, startVal, endVal, selFields, opt, ctx);
@@ -325,14 +325,14 @@ public class ISelect extends FileFunction {
 	}
 		
 	/**
-	 * ´ÓÊı¾İÎÄ¼şÖĞ£¬È¡µÃ¼ÇÂ¼±í´ïÊ½µÄÖµ£¬ÔÚvaluesÖĞµÄ¼ÇÂ¼¡£
-	 * @param fo			Êı¾İÎÄ¼ş¶ÔÏó
-	 * @param exp			±í´ïÊ½
-	 * @param values		²Î¿¼Öµ
-	 * @param separator		ÈôfoÎªÎÄ±¾ÎÄ¼ş£¬¸Ã±äÁ¿Îª·Ö¸ô·û.
-	 * @param opt			ÎÄ¼ş¶ÁĞ´²ÎÊı
-	 * @param isMultiId		ÊÇ·ñ¶àID
-	 * @return				ÓÃÈ¡µÃµÄ¼ÇÂ¼×é³ÉµÄtable
+	 * ä»æ•°æ®æ–‡ä»¶ä¸­ï¼Œå–å¾—è®°å½•è¡¨è¾¾å¼çš„å€¼ï¼Œåœ¨valuesä¸­çš„è®°å½•ã€‚
+	 * @param fo			æ•°æ®æ–‡ä»¶å¯¹è±¡
+	 * @param exp			è¡¨è¾¾å¼
+	 * @param values		å‚è€ƒå€¼
+	 * @param separator		è‹¥foä¸ºæ–‡æœ¬æ–‡ä»¶ï¼Œè¯¥å˜é‡ä¸ºåˆ†éš”ç¬¦.
+	 * @param opt			æ–‡ä»¶è¯»å†™å‚æ•°
+	 * @param isMultiId		æ˜¯å¦å¤šID
+	 * @return				ç”¨å–å¾—çš„è®°å½•ç»„æˆçš„table
 	 */
 	private static Table iselect_t(FileObject fo, Expression exp, Sequence values, 
 			String []selFields, byte []types, String []fmts, 
@@ -409,7 +409,7 @@ public class ISelect extends FileFunction {
 			ds = new DataStruct(items);
 		}
 		
-		// ÉèÖÃ×Ö¶ÎÀàĞÍ
+		// è®¾ç½®å­—æ®µç±»å‹
 		importer.setColTypes(colTypes, colFormats);
 		
 		rec = new Record(ds);
@@ -440,7 +440,7 @@ public class ISelect extends FileFunction {
 					
 					importer.seek(mid);
 					Object []objs = importer.readLine();
-					if (objs == null) { // µ½´ï½áÎ²
+					if (objs == null) { // åˆ°è¾¾ç»“å°¾
 						high = mid - 1;
 					} else {
 						rec.setStart(0, objs);
@@ -519,7 +519,7 @@ public class ISelect extends FileFunction {
 		while (true) {
 			long lastpos = importer.getCurrentPosition();
 			Object []objs = importer.readLine();
-			if (objs == null) { // µ½´ï½áÎ²
+			if (objs == null) { // åˆ°è¾¾ç»“å°¾
 				return importer.getCurrentPosition();
 			}
 
@@ -546,17 +546,17 @@ public class ISelect extends FileFunction {
 	}
 		
 	/**
-	 * ÔÚÒ»¸öÎÄ±¾ÎÄ¼şÖĞ£¬¶¨Î»±í´ïÊ½expµÄ½á¹û×î½Ó½üvalueµÄ¼ÇÂ¼µÄÎ»ÖÃ
+	 * åœ¨ä¸€ä¸ªæ–‡æœ¬æ–‡ä»¶ä¸­ï¼Œå®šä½è¡¨è¾¾å¼expçš„ç»“æœæœ€æ¥è¿‘valueçš„è®°å½•çš„ä½ç½®
 	 * 
-	 * @param fo		ÎÄ±¾ÎÄ¼şµÄÎÄ¼ş¶ÔÏó
-	 * @param exp		±í´ïÊ½
-	 * @param value		²Î¿¼Öµ
-	 * @param separator	ÎÄ±¾ÎÄ¼şµÄ·Ö¸ô·û
-	 * @param opt		ÎÄ¼ş¶ÁÈ¡²ÎÊı
-	 * @param isStart	true	Ğ¡ÓÚvalueµÄ¼ÇÂ¼
-	 * 					false	´óÓÚvalueµÄ¼ÇÂ¼
+	 * @param fo		æ–‡æœ¬æ–‡ä»¶çš„æ–‡ä»¶å¯¹è±¡
+	 * @param exp		è¡¨è¾¾å¼
+	 * @param value		å‚è€ƒå€¼
+	 * @param separator	æ–‡æœ¬æ–‡ä»¶çš„åˆ†éš”ç¬¦
+	 * @param opt		æ–‡ä»¶è¯»å–å‚æ•°
+	 * @param isStart	true	å°äºvalueçš„è®°å½•
+	 * 					false	å¤§äºvalueçš„è®°å½•
 	 * 
-	 * @return			·µ»Ø¶ÔÓ¦½á¹ûµÄÎ»ÖÃ
+	 * @return			è¿”å›å¯¹åº”ç»“æœçš„ä½ç½®
 	 * 
 	 */
 	private static long iselect_t(FileObject fo, Expression exp, Object value, 
@@ -588,7 +588,7 @@ public class ISelect extends FileFunction {
 				colFormats = new String[fcount];
 			}
 			
-			// ³õÊ¼»¯¼ÇÂ¼±äÁ¿
+			// åˆå§‹åŒ–è®°å½•å˜é‡
 			String[] fields = new String[line.length];
 			if (isTitle) {
 				low = importer.getCurrentPosition() - 2;
@@ -625,7 +625,7 @@ public class ISelect extends FileFunction {
 				
 				importer.seek(mid);
 				Object []objs = importer.readLine();
-				if (objs == null) { // µ½´ï½áÎ²
+				if (objs == null) { // åˆ°è¾¾ç»“å°¾
 					high = mid - 1;
 				} else {
 					rec.setStart(0, objs);
@@ -643,7 +643,7 @@ public class ISelect extends FileFunction {
 								return importer.getCurrentPosition() - 2;
 							}
 						} else if (isStart) {
-							// ÕÒµ½×îÇ°ÃæÏàµÈµÄ
+							// æ‰¾åˆ°æœ€å‰é¢ç›¸ç­‰çš„
 							high = mid;
 							while (low < high) {
 								mid = (low + high) >> 1;
@@ -669,7 +669,7 @@ public class ISelect extends FileFunction {
 							
 							return low;
 						} else {
-							// ÕÒµ½×îºóÒ»ÌõÏàµÈµÄ
+							// æ‰¾åˆ°æœ€åä¸€æ¡ç›¸ç­‰çš„
 							long result = importer.getCurrentPosition() - 2;
 							low = mid;
 							while (low < high) {

@@ -14,25 +14,25 @@ import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 
 /**
- * ÓÃÓÚ´ÓÊäÈëÁ÷¶ÁObject£¬¶ÔÓ¦µÄ¶ÁÎªObjectWriter
- * ObjectWriterºÍObjectReaderµÄ·½·¨ÊÇÒ»Ò»¶ÔÓ¦µÄ£¬±ÈÈçwriteIntºÍreadInt¶ÔÓ¦£¬writeInt32ºÍreadInt32¶ÔÓ¦¡£
- * ¶ÁµÄÊ±ºòÒ»¶¨Òªµ÷ÓÃºÍĞ´µÄ·½·¨Ïà¶ÔÓ¦µÄ·½·¨£¬²»ÄÜĞ´µÄÊ±ºòÓÃwriteInt32¶ø¶ÁµÄÊ±ºòÓÃreadInt¡£
- * ´ËÊäÈëÁ÷ÓĞ×Ô¼ºµÄ¶Á»º³åÇø
+ * ç”¨äºä»è¾“å…¥æµè¯»Objectï¼Œå¯¹åº”çš„è¯»ä¸ºObjectWriter
+ * ObjectWriterå’ŒObjectReaderçš„æ–¹æ³•æ˜¯ä¸€ä¸€å¯¹åº”çš„ï¼Œæ¯”å¦‚writeIntå’ŒreadIntå¯¹åº”ï¼ŒwriteInt32å’ŒreadInt32å¯¹åº”ã€‚
+ * è¯»çš„æ—¶å€™ä¸€å®šè¦è°ƒç”¨å’Œå†™çš„æ–¹æ³•ç›¸å¯¹åº”çš„æ–¹æ³•ï¼Œä¸èƒ½å†™çš„æ—¶å€™ç”¨writeInt32è€Œè¯»çš„æ—¶å€™ç”¨readIntã€‚
+ * æ­¤è¾“å…¥æµæœ‰è‡ªå·±çš„è¯»ç¼“å†²åŒº
  * @author WangXiaoJun
  *
  */
 public class ObjectReader extends InputStream implements ObjectInput {
-	private InputStream in; // ÊäÈëÁ÷
-	private byte[] buffer; // Ã¿´Î¶ÁÈëµÄ×Ö½Ú»º´æ
-	private int index; // ÏÂÒ»×Ö½ÚÔÚbufferÖĞµÄË÷Òı
-	private int count; // ¶ÁÈëbufferµÄÊµ¼Ê×Ö½ÚÊıÄ¿
-	private long position; // ¶ÁÈë¹â±êÔÚÁ÷ÖĞµÄÎ»ÖÃ
+	private InputStream in; // è¾“å…¥æµ
+	private byte[] buffer; // æ¯æ¬¡è¯»å…¥çš„å­—èŠ‚ç¼“å­˜
+	private int index; // ä¸‹ä¸€å­—èŠ‚åœ¨bufferä¸­çš„ç´¢å¼•
+	private int count; // è¯»å…¥bufferçš„å®é™…å­—èŠ‚æ•°ç›®
+	private long position; // è¯»å…¥å…‰æ ‡åœ¨æµä¸­çš„ä½ç½®
 
-	private byte[] readBuffer = new byte[32]; // ¶Á¶ÔÏóÊ±ÓÃµÄÁÙÊ±»º´æÇø
-	private char[] charBuffer = new char[128]; // ¶Á×Ö·û´®Ê±ÓÃµÄÁÙÊ±»º´æÇø
+	private byte[] readBuffer = new byte[32]; // è¯»å¯¹è±¡æ—¶ç”¨çš„ä¸´æ—¶ç¼“å­˜åŒº
+	private char[] charBuffer = new char[128]; // è¯»å­—ç¬¦ä¸²æ—¶ç”¨çš„ä¸´æ—¶ç¼“å­˜åŒº
 
 	
-	// ÒÔÏÂ³£Á¿ÎªÁË³£ÓÃµÄ¶ÔÏó¸´ÓÃ
+	// ä»¥ä¸‹å¸¸é‡ä¸ºäº†å¸¸ç”¨çš„å¯¹è±¡å¤ç”¨
 	private static final String []HEXSTRINGS = new String[] {"0", "1", "2", "3", "4", "5", "6",
 		"7", "8", "9", "A", "B", "C", "D", "E", "F"};
 	
@@ -44,17 +44,17 @@ public class ObjectReader extends InputStream implements ObjectInput {
 		new Integer(11), new Integer(12), new Integer(13), new Integer(14), new Integer(15)};
 
 	/**
-	 * ¹¹½¨¶Á¶ÔÏó
-	 * @param in ÊäÈëÁ÷
+	 * æ„å»ºè¯»å¯¹è±¡
+	 * @param in è¾“å…¥æµ
 	 */
 	public ObjectReader(InputStream in) {
 		this(in, Env.FILE_BUFSIZE);
 	}
 
 	/**
-	 * ¹¹½¨¶Á¶ÔÏó
-	 * @param in ÊäÈëÁ÷
-	 * @param bufSize »º³åÇø´óĞ¡
+	 * æ„å»ºè¯»å¯¹è±¡
+	 * @param in è¾“å…¥æµ
+	 * @param bufSize ç¼“å†²åŒºå¤§å°
 	 */
 	public ObjectReader(InputStream in, int bufSize) {
 		this.in = in;
@@ -83,7 +83,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°µÄ¶ÁÈ¡Î»ÖÃ
+	 * è¿”å›å½“å‰çš„è¯»å–ä½ç½®
 	 * @return long
 	 */
 	public long position() {
@@ -116,8 +116,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨µÄ×Ö½Ú
-	 * @param n ×Ö½ÚÊı
+	 * è·³è¿‡æŒ‡å®šçš„å­—èŠ‚
+	 * @param n å­—èŠ‚æ•°
 	 * @throws IOException
 	 */
 	public int skipBytes(int n) throws IOException {
@@ -143,8 +143,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * Ìøµ½Ö¸¶¨µÄÎ»ÖÃ£¬Ö»ÄÜÍùÇ°Ìø
-	 * @param pos Î»ÖÃ
+	 * è·³åˆ°æŒ‡å®šçš„ä½ç½®ï¼Œåªèƒ½å¾€å‰è·³
+	 * @param pos ä½ç½®
 	 * @throws IOException
 	 */
 	public void seek(long pos) throws IOException {
@@ -156,7 +156,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 			long dif = position - pos;
 			if (dif <= count) {
 				index = count - (int)dif;
-			} else { // Ö»ÄÜÍùÇ°seek
+			} else { // åªèƒ½å¾€å‰seek
 				throw new RuntimeException();
 			}
 		} else {
@@ -166,8 +166,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨µÄ×Ö½Ú
-	 * @param n ×Ö½ÚÊı
+	 * è·³è¿‡æŒ‡å®šçš„å­—èŠ‚
+	 * @param n å­—èŠ‚æ•°
 	 * @throws IOException
 	 */
 	public long skip(long n) throws IOException {
@@ -193,8 +193,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ÊÇ·ñ»¹ÓĞ×Ö½ÚÃ»ÓĞ¶ÁÍê
-	 * @return true£ºÊÇ£¬false£ºÒÑ¶ÁÍê
+	 * æ˜¯å¦è¿˜æœ‰å­—èŠ‚æ²¡æœ‰è¯»å®Œ
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šå·²è¯»å®Œ
 	 * @throws IOException
 	 */
 	public boolean hasNext() throws IOException {
@@ -207,22 +207,22 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * È¡¿ÉÓÃµÄ×Ö½ÚÊı£¬×¢Òâ´Ë·½·¨²»ÊÇ·µ»ØÈ«²¿¿ÉÓÃµÄ×Ö½ÚÊı£¬Ö»ÊÇ·µ»Ø»º³åÇøÖĞÊ£ÓàµÄ×Ö½ÚÊı£¬Èç¹ûÒÑµ½ÊäÈëÁ÷½áÎ²Ôò·µ»Ø0
-	 * @return int ×Ö½ÚÊı
+	 * å–å¯ç”¨çš„å­—èŠ‚æ•°ï¼Œæ³¨æ„æ­¤æ–¹æ³•ä¸æ˜¯è¿”å›å…¨éƒ¨å¯ç”¨çš„å­—èŠ‚æ•°ï¼Œåªæ˜¯è¿”å›ç¼“å†²åŒºä¸­å‰©ä½™çš„å­—èŠ‚æ•°ï¼Œå¦‚æœå·²åˆ°è¾“å…¥æµç»“å°¾åˆ™è¿”å›0
+	 * @return int å­—èŠ‚æ•°
 	 * @throws IOException
 	 */
 	public int available() throws IOException {
 		if (count > index) {
-			return count - index; // ²»ÄÜ¼Óis.available()£¬¿ÉÄÜ×èÈû
+			return count - index; // ä¸èƒ½åŠ is.available()ï¼Œå¯èƒ½é˜»å¡
 		} else {
-			//return in.available(); //ÓĞÊ±ºòÃ»½áÊø·µ»Ø0
+			//return in.available(); //æœ‰æ—¶å€™æ²¡ç»“æŸè¿”å›0
 			readBuffer();
 			return count > 0 ? count : 0;
 		}
 	}
 
 	/**
-	 * ¹Ø±ÕÊäÈëÁ÷
+	 * å…³é—­è¾“å…¥æµ
 	 * @throws IOException
 	 */
 	public void close() throws IOException {
@@ -231,8 +231,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸ö²¼¶ûÖµ
-	 * @return boolean ²¼¶ûÖµ
+	 * è¯»ä¸€ä¸ªå¸ƒå°”å€¼
+	 * @return boolean å¸ƒå°”å€¼
 	 * @throws IOException
 	 */
 	public boolean readBoolean() throws IOException {
@@ -244,8 +244,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸ö×Ö½Ú
-	 * @return int ×Ö½ÚÖµ
+	 * è¯»ä¸€ä¸ªå­—èŠ‚
+	 * @return int å­—èŠ‚å€¼
 	 * @throws IOException
 	 */
 	public int read() throws IOException {
@@ -256,7 +256,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 		return buffer[index++] & 0xff;
 	}
 
-	// ¶ÁÒ»¸ö×Ö½Ú£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	// è¯»ä¸€ä¸ªå­—èŠ‚ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	private int read2() throws IOException {
 		if (index >= count && readBuffer() < 0) {
 			throw new EOFException();
@@ -266,9 +266,9 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÖ¸¶¨ÊıÁ¿×Ö½Ú
-	 * @param b ×Ö½ÚÊı×é£¬ÓÃÓÚ´æ·Å¶ÁÈëµÄ×Ö½Ú
-	 * @return int Êµ¼Ê¶ÁÈë¶¼µÃ×Ö½ÚÊı
+	 * è¯»æŒ‡å®šæ•°é‡å­—èŠ‚
+	 * @param b å­—èŠ‚æ•°ç»„ï¼Œç”¨äºå­˜æ”¾è¯»å…¥çš„å­—èŠ‚
+	 * @return int å®é™…è¯»å…¥éƒ½å¾—å­—èŠ‚æ•°
 	 * @throws IOException
 	 */
 	public int read(byte []b) throws IOException {
@@ -276,11 +276,11 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÖ¸¶¨ÊıÁ¿×Ö½Ú
-	 * @param b ×Ö½ÚÊı×é£¬ÓÃÓÚ´æ·Å¶ÁÈëµÄ×Ö½Ú
-	 * @param off ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	 * @param len ³¤¶È
-	 * @return int Êµ¼Ê¶ÁÈë¶¼µÃ×Ö½ÚÊı
+	 * è¯»æŒ‡å®šæ•°é‡å­—èŠ‚
+	 * @param b å­—èŠ‚æ•°ç»„ï¼Œç”¨äºå­˜æ”¾è¯»å…¥çš„å­—èŠ‚
+	 * @param off èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	 * @param len é•¿åº¦
+	 * @return int å®é™…è¯»å…¥éƒ½å¾—å­—èŠ‚æ•°
 	 * @throws IOException
 	 */
 	public int read(byte []b, int off, int len) throws IOException {
@@ -311,8 +311,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÖ¸¶¨ÊıÁ¿×Ö½Ú£¬Èç¹ûÊ£Óà×Ö½Ú²»×ãÔòÅ×³öÒì³£
-	 * @param b ×Ö½ÚÊı×é£¬ÓÃÓÚ´æ·Å¶ÁÈëµÄ×Ö½Ú
+	 * è¯»æŒ‡å®šæ•°é‡å­—èŠ‚ï¼Œå¦‚æœå‰©ä½™å­—èŠ‚ä¸è¶³åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param b å­—èŠ‚æ•°ç»„ï¼Œç”¨äºå­˜æ”¾è¯»å…¥çš„å­—èŠ‚
 	 * @throws IOException
 	 */
 	public void readFully(byte []b) throws IOException {
@@ -322,10 +322,10 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÖ¸¶¨ÊıÁ¿×Ö½Ú£¬Èç¹ûÊ£Óà×Ö½Ú²»×ãÔòÅ×³öÒì³£
-	 * @param b ×Ö½ÚÊı×é£¬ÓÃÓÚ´æ·Å¶ÁÈëµÄ×Ö½Ú
-	 * @param off ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	 * @param len ³¤¶È
+	 * è¯»æŒ‡å®šæ•°é‡å­—èŠ‚ï¼Œå¦‚æœå‰©ä½™å­—èŠ‚ä¸è¶³åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param b å­—èŠ‚æ•°ç»„ï¼Œç”¨äºå­˜æ”¾è¯»å…¥çš„å­—èŠ‚
+	 * @param off èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	 * @param len é•¿åº¦
 	 * @throws IOException
 	 */
 	public void readFully(byte []b, int off, int len) throws IOException {
@@ -335,8 +335,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸ö×Ö½Ú£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
-	 * @return byte ×Ö½ÚÖµ
+	 * è¯»ä¸€ä¸ªå­—èŠ‚ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @return byte å­—èŠ‚å€¼
 	 * @throws IOException
 	 */
 	public byte readByte() throws IOException {
@@ -348,8 +348,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸öÎŞ·ûºÅ×Ö½Ú£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
-	 * @return int ×Ö½ÚÖµ
+	 * è¯»ä¸€ä¸ªæ— ç¬¦å·å­—èŠ‚ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @return int å­—èŠ‚å€¼
 	 * @throws IOException
 	 */
 	public int readUnsignedByte() throws IOException {
@@ -361,7 +361,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸ö¶ÌÕûÊı£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	 * è¯»ä¸€ä¸ªçŸ­æ•´æ•°ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return short
 	 * @throws IOException
 	 */
@@ -379,7 +379,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸öÎŞ·ûºÅ¶ÌÕûÊı£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	 * è¯»ä¸€ä¸ªæ— ç¬¦å·çŸ­æ•´æ•°ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return int
 	 * @throws IOException
 	 */
@@ -397,8 +397,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸öchar£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
-	 * @return char ×Ö½ÚÖµ
+	 * è¯»ä¸€ä¸ªcharï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @return char å­—èŠ‚å€¼
 	 * @throws IOException
 	 */
 	public char readChar() throws IOException {
@@ -415,7 +415,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸ö¸¡µãÊı£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	 * è¯»ä¸€ä¸ªæµ®ç‚¹æ•°ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return float
 	 * @throws IOException
 	 */
@@ -424,7 +424,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸öË«¾«¶È¸¡µãÊı£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	 * è¯»ä¸€ä¸ªåŒç²¾åº¦æµ®ç‚¹æ•°ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return double
 	 * @throws IOException
 	 */
@@ -432,7 +432,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 		int b = read2();
 		if (b == ObjectWriter.FLOAT16) {
 			int n = readUInt16();
-			int scale = n >>> 14; // ¸ßÁ½Î»´æĞ¡ÊıÎ»Êı
+			int scale = n >>> 14; // é«˜ä¸¤ä½å­˜å°æ•°ä½æ•°
 			n &= 0x3FFF;
 
 			if (scale == 0) {
@@ -446,7 +446,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 			}
 		} else if (b == ObjectWriter.FLOAT32) {
 			int n = readInt32();
-			int scale = n >>> 30; // ¸ßÁ½Î»´æĞ¡ÊıÎ»Êı
+			int scale = n >>> 30; // é«˜ä¸¤ä½å­˜å°æ•°ä½æ•°
 			n &= 0x3FFFFFFF;
 
 			if (scale == 0) {
@@ -464,14 +464,14 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ²»Ö§³Ö´Ë·½·¨
+	 * ä¸æ”¯æŒæ­¤æ–¹æ³•
 	 */
 	public String readLine() throws IOException {
 		throw new IOException("readLine not supported");
 	}
 
 	/**
-	 * ¶ÁÒ»¸öÓÃutf±àÂëĞ´³öµÄ×Ö·û´®£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	 * è¯»ä¸€ä¸ªç”¨utfç¼–ç å†™å‡ºçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return String
 	 * @throws IOException
 	 */
@@ -480,8 +480,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸ö×Ö½ÚÊı×é£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
-	 * @return ×Ö½ÚÊı×é
+	 * è¯»ä¸€ä¸ªå­—èŠ‚æ•°ç»„ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @return å­—èŠ‚æ•°ç»„
 	 * @throws IOException
 	 */
 	public byte[] readByteArray() throws IOException {
@@ -496,8 +496,8 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸ö×Ö·û´®Êı×é£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
-	 * @return ×Ö·û´®Êı×é
+	 * è¯»ä¸€ä¸ªå­—ç¬¦ä¸²æ•°ç»„ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @return å­—ç¬¦ä¸²æ•°ç»„
 	 * @throws IOException
 	 */
 	public String[] readStrings() throws IOException {
@@ -649,7 +649,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 	
 	/**
-	 * ¶ÁÒ»¸ö³¤ÕûÊı£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	 * è¯»ä¸€ä¸ªé•¿æ•´æ•°ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return long
 	 * @throws IOException
 	 */
@@ -667,7 +667,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸öÕûÊı£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	 * è¯»ä¸€ä¸ªæ•´æ•°ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return int
 	 * @throws IOException
 	 */
@@ -722,7 +722,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸ö4×Ö½ÚÕûÊı£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	 * è¯»ä¸€ä¸ª4å­—èŠ‚æ•´æ•°ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return int
 	 * @throws IOException
 	 */
@@ -757,7 +757,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸ö5×Ö½Ú³¤ÕûÊı£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	 * è¯»ä¸€ä¸ª5å­—èŠ‚é•¿æ•´æ•°ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return long
 	 * @throws IOException
 	 */
@@ -783,7 +783,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 	
 	/**
-	 * ¶ÁÒ»¸ö8×Ö½Ú³¤ÕûÊı£¬Èç¹ûÒÑ½áÊøÔòÅ×³öÒì³£
+	 * è¯»ä¸€ä¸ª8å­—èŠ‚é•¿æ•´æ•°ï¼Œå¦‚æœå·²ç»“æŸåˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return long
 	 * @throws IOException
 	 */
@@ -996,7 +996,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * ¶ÁÒ»¸ö¶ÔÏó
+	 * è¯»ä¸€ä¸ªå¯¹è±¡
 	 * @return Object
 	 * @throws IOException
 	 */
@@ -1041,7 +1041,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 
 	/**
-	 * Ìø¹ıÒ»¸ö¶ÔÏó
+	 * è·³è¿‡ä¸€ä¸ªå¯¹è±¡
 	 * @throws IOException
 	 */
 	public void skipObject() throws IOException {
@@ -1139,7 +1139,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	private void skipTable() throws IOException {
 		int fcount = readInt();
 		for (int i = 0; i < fcount; ++i) {
-			readString(); // Ìø¹ı×Ö¶ÎÃû
+			readString(); // è·³è¿‡å­—æ®µå
 		}
 
 		int len = readInt();
@@ -1160,14 +1160,14 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	
 	public ObjectReader(ObjectReader reader) {
 		in = reader.in; 
-		buffer = reader.buffer.clone(); // Ã¿´Î¶ÁÈëµÄ×Ö½Ú»º´æ
-		index = reader.index; // ÏÂÒ»×Ö½ÚÔÚbufferÖĞµÄË÷Òı
-		count = reader.count; // ¶ÁÈëbufferµÄÊµ¼Ê×Ö½ÚÊıÄ¿
+		buffer = reader.buffer.clone(); // æ¯æ¬¡è¯»å…¥çš„å­—èŠ‚ç¼“å­˜
+		index = reader.index; // ä¸‹ä¸€å­—èŠ‚åœ¨bufferä¸­çš„ç´¢å¼•
+		count = reader.count; // è¯»å…¥bufferçš„å®é™…å­—èŠ‚æ•°ç›®
 		position = reader.position;
 	}
 	
 	/**
-	 * °Ñ°´±àÂë¹æÔòĞ´³öµÄĞò±í¶ÔÏó×Ö½ÚÊı×é¶Á³ÉĞò±í
+	 * æŠŠæŒ‰ç¼–ç è§„åˆ™å†™å‡ºçš„åºè¡¨å¯¹è±¡å­—èŠ‚æ•°ç»„è¯»æˆåºè¡¨
 	 * @param buffer
 	 * @return
 	 */
@@ -1201,7 +1201,7 @@ public class ObjectReader extends InputStream implements ObjectInput {
 	}
 	
 	/**
-	 * °Ñ°´±àÂë¹æÔòĞ´³öµÄĞò±í¶ÔÏó×Ö½ÚÊı×é¶Á³ÉĞò±í
+	 * æŠŠæŒ‰ç¼–ç è§„åˆ™å†™å‡ºçš„åºè¡¨å¯¹è±¡å­—èŠ‚æ•°ç»„è¯»æˆåºè¡¨
 	 * @param buffers
 	 * @return
 	 */

@@ -8,9 +8,9 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼ÆËãÒ»ÁĞÖĞÄ³¸öÖµµÄÆµ¶È 
+ * è®¡ç®—ä¸€åˆ—ä¸­æŸä¸ªå€¼çš„é¢‘åº¦ 
  * @author bd
- * Ô­ĞÍÆµ¶Èº¯Êı£¬D.freq(V,v)¡£D.count(V==v)/D.len()
+ * åŸå‹é¢‘åº¦å‡½æ•°ï¼ŒD.freq(V,v)ã€‚D.count(V==v)/D.len()
  */
 public class Freq extends SequenceFunction {
 	public Object calculate(Context ctx) {
@@ -29,7 +29,7 @@ public class Freq extends SequenceFunction {
 		if (res instanceof Sequence) {
 			count = ((Sequence) res).length();
 			if (v == null) {
-				//µ±ÅĞ¶Ï¿ÕÖµµÄÆµ¶ÈÊ±£¬Í¬Ê±ĞèÒª¿¼ÂÇ¿Õ×Ö·û´®ºÍNAµÄ´æÔÚ£¬¶¼Ëã¿ÕÖµ
+				//å½“åˆ¤æ–­ç©ºå€¼çš„é¢‘åº¦æ—¶ï¼ŒåŒæ—¶éœ€è¦è€ƒè™‘ç©ºå­—ç¬¦ä¸²å’ŒNAçš„å­˜åœ¨ï¼Œéƒ½ç®—ç©ºå€¼
 				res = seq.pos("NA", "a");
 				if (res instanceof Sequence) {
 					count += ((Sequence) res).length();

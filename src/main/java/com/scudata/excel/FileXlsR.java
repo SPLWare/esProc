@@ -61,7 +61,7 @@ public class FileXlsR extends XlsFileObject {
 			if (fo.isRemoteFile()) {
 				is = fo.getInputStream();
 			} else {
-				// ±¾µØµÄÖ§³ÖÏà¶ÔÂ·¾¶
+				// æœ¬åœ°çš„æ”¯æŒç›¸å¯¹è·¯å¾„
 				filePath = ConfigUtil.getPath(Env.getMainPath(), filePath);
 				is = new FileInputStream(filePath);
 			}

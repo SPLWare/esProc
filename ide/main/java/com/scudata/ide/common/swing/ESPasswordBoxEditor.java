@@ -11,23 +11,23 @@ import javax.swing.table.TableCellEditor;
 import com.scudata.common.StringUtils;
 
 /**
- * JTableµ¥Ôª¸ñµÄÃÜÂë±à¼­¿Ø¼ş
+ * JTableå•å…ƒæ ¼çš„å¯†ç ç¼–è¾‘æ§ä»¶
  *
  */
 public class ESPasswordBoxEditor extends AbstractCellEditor implements
 		TableCellEditor, ICellComponent {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ÃÜÂë¿ò¿Ø¼ş
+	 * å¯†ç æ¡†æ§ä»¶
 	 */
 	private JPasswordField pw1;
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ±à¼­
+	 * æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	private boolean editable = true;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ESPasswordBoxEditor() {
 		pw1 = new JPasswordField();
@@ -35,7 +35,7 @@ public class ESPasswordBoxEditor extends AbstractCellEditor implements
 	}
 
 	/**
-	 * È¡±à¼­Öµ
+	 * å–ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
 		String text = pw1.getText();
@@ -43,7 +43,7 @@ public class ESPasswordBoxEditor extends AbstractCellEditor implements
 	}
 
 	/**
-	 * ·µ»Ø±à¼­µÄ¿Ø¼ş
+	 * è¿”å›ç¼–è¾‘çš„æ§ä»¶
 	 */
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int column) {
@@ -51,7 +51,7 @@ public class ESPasswordBoxEditor extends AbstractCellEditor implements
 	}
 
 	/**
-	 * ·µ»ØÃÜÂë¿ò¿Ø¼ş
+	 * è¿”å›å¯†ç æ¡†æ§ä»¶
 	 *
 	 * @param value
 	 *            Object
@@ -68,7 +68,7 @@ public class ESPasswordBoxEditor extends AbstractCellEditor implements
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ¿É±à¼­
+	 * è®¾ç½®æ˜¯å¦å¯ç¼–è¾‘
 	 *
 	 * @param editable
 	 *            boolean
@@ -78,7 +78,7 @@ public class ESPasswordBoxEditor extends AbstractCellEditor implements
 	}
 
 	/**
-	 * È¡±à¼­µÄ×Ö·û´®Öµ
+	 * å–ç¼–è¾‘çš„å­—ç¬¦ä¸²å€¼
 	 *
 	 * @return String
 	 */

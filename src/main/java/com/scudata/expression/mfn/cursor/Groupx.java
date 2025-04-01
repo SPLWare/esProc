@@ -17,8 +17,8 @@ import com.scudata.util.CursorUtil;
 import com.scudata.util.EnvUtil;
 
 /**
- * ²ÉÓÃÀÛ¼Æ·½Ê½¶ÔÓÎ±ê½øĞĞÍâ´æ·Ö×é»ã×Ü£¬·µ»Ø³ÉÓÎ±ê
- * cs.groupx(x:F,¡­;y:G¡­;n)
+ * é‡‡ç”¨ç´¯è®¡æ–¹å¼å¯¹æ¸¸æ ‡è¿›è¡Œå¤–å­˜åˆ†ç»„æ±‡æ€»ï¼Œè¿”å›æˆæ¸¸æ ‡
+ * cs.groupx(x:F,â€¦;y:Gâ€¦;n)
  * @author RunQian
  *
  */
@@ -29,8 +29,8 @@ public class Groupx extends CursorFunction {
 			throw new RQException("groupx" + mm.getMessage("function.missingParam"));
 		}
 		
-		ArrayList<Object> gathers = new ArrayList<Object>(); // Í³¼Æ¾ÛºÏº¯Êı
-		ArrayList<Integer> poss = new ArrayList<Integer>(); // ·Ö×é±í´ïÊ½£¬¶ÔÓ¦¾ÛºÏº¯ÊıÁĞ±íµÄµÚ¼¸¸ö¾ÛºÏº¯Êı
+		ArrayList<Object> gathers = new ArrayList<Object>(); // ç»Ÿè®¡èšåˆå‡½æ•°
+		ArrayList<Integer> poss = new ArrayList<Integer>(); // åˆ†ç»„è¡¨è¾¾å¼ï¼Œå¯¹åº”èšåˆå‡½æ•°åˆ—è¡¨çš„ç¬¬å‡ ä¸ªèšåˆå‡½æ•°
 
 		IParam sub0;
 		IParam sub1 = null;
@@ -93,10 +93,10 @@ public class Groupx extends CursorFunction {
 			throw new RQException("groupx" + mm.getMessage("function.invalidParam"));
 		}
 		
-		// ·Ö×é±í´ïÊ½ºÍ¾ÛºÏ±í´ïÊ½µÄ³¤¶È
+		// åˆ†ç»„è¡¨è¾¾å¼å’Œèšåˆè¡¨è¾¾å¼çš„é•¿åº¦
 		int	nlen = null == newExps ? 0 : newExps.length;
 		int elen = null == exps ? 0 : exps.length;
-		// ½âÎö±í´ïÊ½ÖĞµÄ¾ÛºÏº¯Êı
+		// è§£æè¡¨è¾¾å¼ä¸­çš„èšåˆå‡½æ•°
 		for (int i = 0; i < nlen; i++) {
 			int size = gathers.size();
 			gathers.addAll(Expression.getSpecFunc(newExps[i], Gather.class));
@@ -105,7 +105,7 @@ public class Groupx extends CursorFunction {
 			poss.add(gathers.size());
 		}
 		
-		// Éú³ÉÖĞ¼ä¾ÛºÏ±í´ïÊ½
+		// ç”Ÿæˆä¸­é—´èšåˆè¡¨è¾¾å¼
 		Expression[] tempExps = new Expression[gathers.size()];
 		String[] tempNames	= newNames;
 		for (int i = 0; i < tempExps.length; i++) {
@@ -118,14 +118,14 @@ public class Groupx extends CursorFunction {
 			}
 		}
 		
-		// new ÓÎ±êµÄ±í´ïÊ½
+		// new æ¸¸æ ‡çš„è¡¨è¾¾å¼
 		Expression[] senExps = new Expression[elen+nlen];
-		String strExp = null;	// ÀÏ±í´ïÊ½×Ö·û´®¡£
-		int index = 0;	// ÀÏ±í´ïÊ½µÄË÷Òı
-		New op = null;	// ¸½¼ÓµÄnew²Ù×÷·û
+		String strExp = null;	// è€è¡¨è¾¾å¼å­—ç¬¦ä¸²ã€‚
+		int index = 0;	// è€è¡¨è¾¾å¼çš„ç´¢å¼•
+		New op = null;	// é™„åŠ çš„newæ“ä½œç¬¦
 		
-		// ¸ù¾İÀÏ±í´ïÊ½£¬×ª»»ÎªĞÂµÄnewµÄÍ³¼ÆÁĞ±í´ïÊ½
-		boolean exCal	= false;	// ÅĞ¶ÏÊÇ·ñ²ğ·Ö¾ÛºÏ±í´ïÊ½
+		// æ ¹æ®è€è¡¨è¾¾å¼ï¼Œè½¬æ¢ä¸ºæ–°çš„newçš„ç»Ÿè®¡åˆ—è¡¨è¾¾å¼
+		boolean exCal	= false;	// åˆ¤æ–­æ˜¯å¦æ‹†åˆ†èšåˆè¡¨è¾¾å¼
 		if (null != newExps) {
 			strExp = newExps[index].toString();
 		}
@@ -143,21 +143,21 @@ public class Groupx extends CursorFunction {
 			}
 		}
 		
-		// @b£º½á¹û¼¯È¥µô·Ö×é×Ö¶Î
+		// @bï¼šç»“æœé›†å»æ‰åˆ†ç»„å­—æ®µ
 		boolean bopt = option != null && option.indexOf('b') != -1;
 		
 		if (exCal) {
 			tempNames = null;
-			// ÌîĞ´·Ö×é±í´ïÊ½
+			// å¡«å†™åˆ†ç»„è¡¨è¾¾å¼
 			for (int i = 1; i <= elen; i++) {
 				String funStr = "#" + i;
 				senExps[i-1] = new Expression(cs, ctx, funStr);
 			}
 			
-			if (senExps.length > 0)	// ×îºóÒ»¸ö±í´ïÊ½µÄÉú³É
+			if (senExps.length > 0)	// æœ€åä¸€ä¸ªè¡¨è¾¾å¼çš„ç”Ÿæˆ
 				senExps[index+elen] = new Expression(cs, ctx, strExp);
 			
-			// Éú³ÉÍ³Ò»µÄÁĞÃû
+			// ç”Ÿæˆç»Ÿä¸€çš„åˆ—å
 			String[] senNames	= new String[names.length + newNames.length];
 			for (int i = 0; i < names.length; i++) {
 				senNames[i] = names[i];
@@ -169,7 +169,7 @@ public class Groupx extends CursorFunction {
 					senNames[i+names.length] = newNames[i];
 			}
 			
-			// Éú³Énew²Ù×÷·û
+			// ç”Ÿæˆnewæ“ä½œç¬¦
 			if (bopt) {
 				Expression []alterExps = new Expression[nlen];
 				String []alterNames = new String[nlen];

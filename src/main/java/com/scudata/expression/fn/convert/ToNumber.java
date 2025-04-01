@@ -11,16 +11,16 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ½«×Ö·û´®×ª»»³ÉÏàÓ¦µÄÊµÊı
- * number( x )»ònumber( x, y )
- * number( x, "format" )Èç¹ûµÚ¶ş¸ö²ÎÊıÊÇ´®Ôòµ±×ö¸ñÊ½
- * Èç¹ûxÄÜ×ª³ÉÊı¾Í·µ»ØÊı£¬Èç¹û²»ÄÜ£¬Ã»y»òy²»ÊÇÊıµÄÊ±ºò·µ»Ønull£¬·ñÔò·µ»Øy
+ * å°†å­—ç¬¦ä¸²è½¬æ¢æˆç›¸åº”çš„å®æ•°
+ * number( x )æˆ–number( x, y )
+ * number( x, "format" )å¦‚æœç¬¬äºŒä¸ªå‚æ•°æ˜¯ä¸²åˆ™å½“åšæ ¼å¼
+ * å¦‚æœxèƒ½è½¬æˆæ•°å°±è¿”å›æ•°ï¼Œå¦‚æœä¸èƒ½ï¼Œæ²¡yæˆ–yä¸æ˜¯æ•°çš„æ—¶å€™è¿”å›nullï¼Œå¦åˆ™è¿”å›y
  * @author runqian
  *
  */
 public class ToNumber extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

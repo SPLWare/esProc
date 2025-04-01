@@ -9,8 +9,8 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 
 /**
- * Æ½»¬»¯²ÎÊı¼ÇÂ¼£¬¶àÑÜÉúÁĞÀàĞÍ
- * Õâ¸öÀàĞÍÆäÊµºÍSmRecÃ»Ê²Ã´¹ØÏµÁË£¬Ö»ÊÇÎªÁË´úÂëĞŞ¸ÄÉÙÒ»Ğ©²Å¼Ì³Ğ
+ * å¹³æ»‘åŒ–å‚æ•°è®°å½•ï¼Œå¤šè¡ç”Ÿåˆ—ç±»å‹
+ * è¿™ä¸ªç±»å‹å…¶å®å’ŒSmRecæ²¡ä»€ä¹ˆå…³ç³»äº†ï¼Œåªæ˜¯ä¸ºäº†ä»£ç ä¿®æ”¹å°‘ä¸€äº›æ‰ç»§æ‰¿
  * @author bd
  */
 public class SmMulRec extends SmRec {
@@ -31,9 +31,9 @@ public class SmMulRec extends SmRec {
 		return this.sds;
 	}
 	
-	// Æ½»¬»¯Éú³ÉµÄÑÜÉú±äÁ¿µÄÏà¹Ø¼ÇÂ¼
+	// å¹³æ»‘åŒ–ç”Ÿæˆçš„è¡ç”Ÿå˜é‡çš„ç›¸å…³è®°å½•
 	public class SmDerive {
-		// ¼ÇÂ¼Æ½»¬»¯ÑÜÉú±äÁ¿µÄÆ½»¬»¯¡¢¾ÀÆ«ÇåÀí¡¢±ê×¼ÕâĞ©Á÷³ÌµÄ´¦Àí¼ÇÂ¼¡£
+		// è®°å½•å¹³æ»‘åŒ–è¡ç”Ÿå˜é‡çš„å¹³æ»‘åŒ–ã€çº åæ¸…ç†ã€æ ‡å‡†è¿™äº›æµç¨‹çš„å¤„ç†è®°å½•ã€‚
 		private SmRec sr;
 		private SCRec scr;
 		private NorRec nr;
@@ -59,7 +59,7 @@ public class SmMulRec extends SmRec {
 	
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉĞòÁĞ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -98,7 +98,7 @@ public class SmMulRec extends SmRec {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾İSequence³õÊ¼»¯²ÎÊı
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public SmMulRec init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -146,7 +146,7 @@ public class SmMulRec extends SmRec {
 		return this;
 	}
 
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 1;
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte ver = in.readByte();

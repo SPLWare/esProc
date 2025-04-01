@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /***
- * ÈÕÆÚ±à¼­Æ÷
+ * æ—¥æœŸç¼–è¾‘å™¨
  * 
  * @author Joancy
  *
@@ -21,8 +21,8 @@ public class DateEditor extends DefaultCellEditor {
 	private JButton button = new JButton();
 
 	/**
-	 * ¹¹½¨Ò»¸öÈÕÆÚ±à¼­Æ÷
-	 * @param owner ¸¸´°¿Ú
+	 * æ„å»ºä¸€ä¸ªæ—¥æœŸç¼–è¾‘å™¨
+	 * @param owner çˆ¶çª—å£
 	 */
 	public DateEditor( Dialog owner ) {
 		super( new JCheckBox() );
@@ -61,7 +61,7 @@ public class DateEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸ÀàµÄ³éÏó·½·¨
+	 * å®ç°çˆ¶ç±»çš„æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellEditorComponent( JTable table, Object value,
 												  boolean isSelected, int row, int column ) {
@@ -78,14 +78,14 @@ public class DateEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­Öµ
+	 * è·å–ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
 		return editingVal;
 	}
 
 	/**
-	 * Í£Ö¹±à¼­
+	 * åœæ­¢ç¼–è¾‘
 	 */
 	public boolean stopCellEditing() {
 		return super.stopCellEditing();

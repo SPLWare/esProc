@@ -9,19 +9,19 @@ import com.scudata.expression.Function;
 import com.scudata.util.Variant;
 
 /**
- * ÓÎ±ê»ò¹ÜµÀ¸½¼ÓµÄ¹ıÂËÔËËã´¦ÀíÀà
- * op.select(x) op.select(x;f) op.select(x;ch) opÊÇÓÎ±ê»ò¹ÜµÀ£¬fÊÇÎÄ¼ş£¬chÊÇ¹ÜµÀ£¬²»Âú×ãÌõ¼şµÄĞ´µ½ÎÄ¼ş»ò¹ÜµÀ
+ * æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ çš„è¿‡æ»¤è¿ç®—å¤„ç†ç±»
+ * op.select(x) op.select(x;f) op.select(x;ch) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“ï¼Œfæ˜¯æ–‡ä»¶ï¼Œchæ˜¯ç®¡é“ï¼Œä¸æ»¡è¶³æ¡ä»¶çš„å†™åˆ°æ–‡ä»¶æˆ–ç®¡é“
  * @author RunQian
  *
  */
 public class Select extends Operation {
-	protected Expression fltExp; // ¹ıÂË±í´ïÊ½
-	protected String opt; // Ñ¡Ïî
-	protected IPipe pipe; // ¹ÜµÀ£¬Èç¹û²»Îª¿Õ£¬Ôò°Ñ²»Âú×ãÌõ¼şµÄÊı¾İÍÆËÍµ½¹ÜµÀÖĞ
+	protected Expression fltExp; // è¿‡æ»¤è¡¨è¾¾å¼
+	protected String opt; // é€‰é¡¹
+	protected IPipe pipe; // ç®¡é“ï¼Œå¦‚æœä¸ä¸ºç©ºï¼Œåˆ™æŠŠä¸æ»¡è¶³æ¡ä»¶çš„æ•°æ®æ¨é€åˆ°ç®¡é“ä¸­
 
-	protected boolean isContinuous; // Âú×ãÌõ¼şµÄ¼ÇÂ¼ÊÇ·ñÊÇÁ¬ĞøµÄÒ»¸öÇø¼ä
-	protected boolean isFound; // ÊÇ·ñÒÑ¾­ÕÒµ½£¬@cÊ±ÕÒµ½ºóÔÙÅöµ½²»Æ¥ÅäµÄ½áÊø²éÕÒ
-	protected boolean isOrg; // ÊÇ·ñ¸Ä±äÔ­ĞòÁĞ
+	protected boolean isContinuous; // æ»¡è¶³æ¡ä»¶çš„è®°å½•æ˜¯å¦æ˜¯è¿ç»­çš„ä¸€ä¸ªåŒºé—´
+	protected boolean isFound; // æ˜¯å¦å·²ç»æ‰¾åˆ°ï¼Œ@cæ—¶æ‰¾åˆ°åå†ç¢°åˆ°ä¸åŒ¹é…çš„ç»“æŸæŸ¥æ‰¾
+	protected boolean isOrg; // æ˜¯å¦æ”¹å˜åŸåºåˆ—
 	
 	public Select(Expression fltExp, String opt) {
 		this(null, fltExp, opt, null);
@@ -44,7 +44,7 @@ public class Select extends Operation {
 	}
 	
 	/**
-	 * ÓÃÓÚÅĞ¶Ïµ±Ç°¹ıÂËÊÇ·ñ¿ÉÒÔºÍºóÃæµÄÔËËãºÏ²¢¼ÆËã
+	 * ç”¨äºåˆ¤æ–­å½“å‰è¿‡æ»¤æ˜¯å¦å¯ä»¥å’Œåé¢çš„è¿ç®—åˆå¹¶è®¡ç®—
 	 * @return
 	 */
 	public boolean canCombineCalc() {
@@ -52,7 +52,7 @@ public class Select extends Operation {
 	}
 	
 	/**
-	 * È¡¹ıÂË±í´ïÊ½
+	 * å–è¿‡æ»¤è¡¨è¾¾å¼
 	 * @return
 	 */
 	public Expression getFilterExpression() {
@@ -60,7 +60,7 @@ public class Select extends Operation {
 	}
 
 	/**
-	 * ÉèÖÃ¹ıÂË±í´ïÊ½
+	 * è®¾ç½®è¿‡æ»¤è¡¨è¾¾å¼
 	 * @param fltExp
 	 */
 	public void setFltExp(Expression fltExp) {
@@ -68,17 +68,17 @@ public class Select extends Operation {
 	}
 	
 	/**
-	 * È¡²Ù×÷ÊÇ·ñ»á¼õÉÙÔªËØÊı£¬±ÈÈç¹ıÂËº¯Êı»á¼õÉÙ¼ÇÂ¼
-	 * ´Ëº¯ÊıÓÃÓÚÓÎ±êµÄ¾«È·È¡Êı£¬Èç¹û¸½¼ÓµÄ²Ù×÷²»»áÊ¹¼ÇÂ¼Êı¼õÉÙÔòÖ»Ğè°´´«ÈëµÄÊıÁ¿È¡Êı¼´¿É
-	 * @return true£º»á£¬false£º²»»á
+	 * å–æ“ä½œæ˜¯å¦ä¼šå‡å°‘å…ƒç´ æ•°ï¼Œæ¯”å¦‚è¿‡æ»¤å‡½æ•°ä¼šå‡å°‘è®°å½•
+	 * æ­¤å‡½æ•°ç”¨äºæ¸¸æ ‡çš„ç²¾ç¡®å–æ•°ï¼Œå¦‚æœé™„åŠ çš„æ“ä½œä¸ä¼šä½¿è®°å½•æ•°å‡å°‘åˆ™åªéœ€æŒ‰ä¼ å…¥çš„æ•°é‡å–æ•°å³å¯
+	 * @return trueï¼šä¼šï¼Œfalseï¼šä¸ä¼š
 	 */
 	public boolean isDecrease() {
 		return true;
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -87,9 +87,9 @@ public class Select extends Operation {
 	}
 
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

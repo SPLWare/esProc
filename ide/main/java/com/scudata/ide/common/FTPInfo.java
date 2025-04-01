@@ -1,37 +1,37 @@
 package com.scudata.ide.common;
 
 /**
- * FTPĞÅÏ¢
+ * FTPä¿¡æ¯
  *
  */
 public class FTPInfo {
 	/**
-	 * Ö÷»úÃû
+	 * ä¸»æœºå
 	 */
 	private String host;
 	/**
-	 * ¶Ë¿Ú
+	 * ç«¯å£
 	 */
 	private int port = 21;
 	/**
-	 * ÓÃ»§Ãû
+	 * ç”¨æˆ·å
 	 */
 	private String user;
 	/**
-	 * ÃÜÂë
+	 * å¯†ç 
 	 */
 	private String password;
 	/**
-	 * Ä¿Â¼
+	 * ç›®å½•
 	 */
 	private String directory;
 	/**
-	 * ÊÇ·ñÑ¡Ôñ
+	 * æ˜¯å¦é€‰æ‹©
 	 */
 	private boolean selected;
 
 	/**
-	 * È¡Ö÷»úÃû
+	 * å–ä¸»æœºå
 	 * 
 	 * @return
 	 */
@@ -40,7 +40,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * ÉèÖÃÖ÷»úÃû
+	 * è®¾ç½®ä¸»æœºå
 	 * 
 	 * @param host
 	 */
@@ -49,7 +49,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * È¡¶Ë¿Ú
+	 * å–ç«¯å£
 	 * 
 	 * @return
 	 */
@@ -58,7 +58,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * ÉèÖÃ¶Ë¿Ú
+	 * è®¾ç½®ç«¯å£
 	 * 
 	 * @param port
 	 */
@@ -67,7 +67,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * È¡ÓÃ»§Ãû
+	 * å–ç”¨æˆ·å
 	 * 
 	 * @return
 	 */
@@ -76,7 +76,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * ÉèÖÃÓÃ»§Ãû
+	 * è®¾ç½®ç”¨æˆ·å
 	 * 
 	 * @param user
 	 */
@@ -85,7 +85,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * È¡ÃÜÂë
+	 * å–å¯†ç 
 	 * 
 	 * @return
 	 */
@@ -94,7 +94,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * ÉèÖÃÃÜÂë
+	 * è®¾ç½®å¯†ç 
 	 * 
 	 * @param password
 	 */
@@ -103,7 +103,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * È¡Ä¿Â¼
+	 * å–ç›®å½•
 	 * 
 	 * @return
 	 */
@@ -112,7 +112,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * ÉèÖÃÄ¿Â¼
+	 * è®¾ç½®ç›®å½•
 	 * 
 	 * @param directory
 	 */
@@ -121,7 +121,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * ÊÇ·ñÑ¡³ö
+	 * æ˜¯å¦é€‰å‡º
 	 * 
 	 * @return
 	 */
@@ -130,7 +130,7 @@ public class FTPInfo {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÑ¡³ö
+	 * è®¾ç½®æ˜¯å¦é€‰å‡º
 	 * 
 	 * @param selected
 	 */

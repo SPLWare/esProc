@@ -30,18 +30,18 @@ import com.scudata.ide.spl.resources.ChartMessage;
 import com.scudata.util.Variant;
 
 /**
- * ²ÎÊı±à¼­´°¿Ú
+ * å‚æ•°ç¼–è¾‘çª—å£
  */
 public class TableParamEdit extends JTableEx {
 	private static final long serialVersionUID = 1L;
 
-	private String FOLDERCOL = " "; // "Í¼±êÁĞ";
-	public String NAMECOL = ChartMessage.get().getMessage("label.propname"); // "ÊôĞÔÃû³Æ";
-	public String VALUECOL = ChartMessage.get().getMessage("label.propvalue"); // "ÊôĞÔÖµ";
-	public String EXPCOL = ChartMessage.get().getMessage("label.propexp"); // "ÊôĞÔÖµ±í´ïÊ½";
-	public String AXISCOL = ChartMessage.get().getMessage("label.axis"); // "ÖáÃû³Æ";
+	private String FOLDERCOL = " "; // "å›¾æ ‡åˆ—";
+	public String NAMECOL = ChartMessage.get().getMessage("label.propname"); // "å±æ€§åç§°";
+	public String VALUECOL = ChartMessage.get().getMessage("label.propvalue"); // "å±æ€§å€¼";
+	public String EXPCOL = ChartMessage.get().getMessage("label.propexp"); // "å±æ€§å€¼è¡¨è¾¾å¼";
+	public String AXISCOL = ChartMessage.get().getMessage("label.axis"); // "è½´åç§°";
 	private String EDITSTYLECOL = "editstyle";
-	private String OBJCOL = "objcol"; // ParamInfo¶ÔÏó£¬Èç¹ûÊÇnullÔò´ú±í·Ö×éĞĞ
+	private String OBJCOL = "objcol"; // ParamInfoå¯¹è±¡ï¼Œå¦‚æœæ˜¯nullåˆ™ä»£è¡¨åˆ†ç»„è¡Œ
 	private String ARROWCOL = new String(new char[] { 0 });
 
 	public static int iFOLDERCOL = 0;
@@ -55,21 +55,21 @@ public class TableParamEdit extends JTableEx {
 
 	private int COLCOUNT = 8;
 
-	private HashMap<String, ArrayList<Object[]>> hiddenMap = new HashMap<String, ArrayList<Object[]>>(); // Òş²ØĞĞµÄÊı¾İ
-																											// ÀàĞÍArrayList
-																											// Ã¿¸ö¶ÔÏóObject[]
+	private HashMap<String, ArrayList<Object[]>> hiddenMap = new HashMap<String, ArrayList<Object[]>>(); // éšè—è¡Œçš„æ•°æ®
+																											// ç±»å‹ArrayList
+																											// æ¯ä¸ªå¯¹è±¡Object[]
 	public TableInputSeries seriesTable;
 
 	boolean isAutoHide = false;
 	private Dialog owner;
 
 	/**
-	 * ¹¹ÔìÒ»¸ö²ÎÊı±à¼­±í
+	 * æ„é€ ä¸€ä¸ªå‚æ•°ç¼–è¾‘è¡¨
 	 * 
 	 * @param owner
-	 *            ¸¸´°¿Ú
+	 *            çˆ¶çª—å£
 	 * @param list
-	 *            ²ÎÊıĞÅÏ¢ÁĞ±í
+	 *            å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public TableParamEdit(Dialog owner, ParamInfoList list) {
 		this.owner = owner;
@@ -77,7 +77,7 @@ public class TableParamEdit extends JTableEx {
 				EXPCOL, AXISCOL, EDITSTYLECOL, OBJCOL, ARROWCOL };
 		data.setColumnIdentifiers(colNames);
 
-		// Éú³ÉÊı¾İ
+		// ç”Ÿæˆæ•°æ®
 		ArrayList<ParamInfo> root = list.getRootParams();
 		for (int i = 0; i < root.size(); i++) {
 			ParamInfo pi = (ParamInfo) root.get(i);
@@ -185,8 +185,8 @@ public class TableParamEdit extends JTableEx {
 		setColumnVisible(OBJCOL, false);
 
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		setColumnSelectionAllowed(true); // ÁĞ¿ÉÑ¡
-		setRowSelectionAllowed(true); // ĞĞ¿ÉÑ¡
+		setColumnSelectionAllowed(true); // åˆ—å¯é€‰
+		setRowSelectionAllowed(true); // è¡Œå¯é€‰
 		this.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				if (seriesTable != null) {
@@ -200,7 +200,7 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ×Ô¶¯Éú³ÉÍ¼ĞÎÊ±£¬Òş²Ø¶àÓàÁĞ
+	 * è‡ªåŠ¨ç”Ÿæˆå›¾å½¢æ—¶ï¼Œéšè—å¤šä½™åˆ—
 	 */
 	public void autoHide() {
 		isAutoHide = true;
@@ -210,17 +210,17 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ÊµÏÖÊó±êµã»÷ÊÂ¼ş
+	 * å®ç°é¼ æ ‡ç‚¹å‡»äº‹ä»¶
 	 * 
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			int row = getSelectedRow();
 			int col = getSelectedColumn();
-			if (col != iFOLDERCOL) { // Êó±êµã»÷ĞĞÊ×ÁĞÊ±£¬ÊÕËõÓëÕ¹¿ªÊôĞÔ×é
+			if (col != iFOLDERCOL) { // é¼ æ ‡ç‚¹å‡»è¡Œé¦–åˆ—æ—¶ï¼Œæ”¶ç¼©ä¸å±•å¼€å±æ€§ç»„
 				return;
 			}
 			if (data.getValueAt(row, col) == null
@@ -239,7 +239,7 @@ public class TableParamEdit extends JTableEx {
 			case GC.TYPE_LASTMINUS:
 				newType = GC.TYPE_LASTPLUS;
 				while (row + 1 < data.getRowCount()
-						&& data.getValueAt(row + 1, iOBJCOL) != null) { // ÕÒµ½±íÎ²»òÏÂÒ»¸ö·Ö×éĞĞÎªÖ¹
+						&& data.getValueAt(row + 1, iOBJCOL) != null) { // æ‰¾åˆ°è¡¨å°¾æˆ–ä¸‹ä¸€ä¸ªåˆ†ç»„è¡Œä¸ºæ­¢
 					rowData = new Object[data.getColumnCount()];
 					for (int c = 0; c < data.getColumnCount(); c++) {
 						rowData[c] = data.getValueAt(row + 1, c);
@@ -262,7 +262,7 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * Õ¹¿ªËùÓĞ²ÎÊı
+	 * å±•å¼€æ‰€æœ‰å‚æ•°
 	 */
 	public void expandAll() {
 		int rowCount = data.getRowCount();
@@ -282,18 +282,18 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ÊÕÆğ²ÎÊı
+	 * æ”¶èµ·å‚æ•°
 	 * 
 	 * @param key
-	 *            ²ÎÊıµÄ·Ö×é¼üÖµ
+	 *            å‚æ•°çš„åˆ†ç»„é”®å€¼
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 */
 	private void collapse(String key, int row) {
 		ArrayList<Object[]> list = new ArrayList<Object[]>();
 		Object rowData[];
 		while (row + 1 < data.getRowCount()
-				&& data.getValueAt(row + 1, iOBJCOL) != null) { // ÕÒµ½±íÎ²»òÏÂÒ»¸ö·Ö×éĞĞÎªÖ¹
+				&& data.getValueAt(row + 1, iOBJCOL) != null) { // æ‰¾åˆ°è¡¨å°¾æˆ–ä¸‹ä¸€ä¸ªåˆ†ç»„è¡Œä¸ºæ­¢
 			rowData = new Object[data.getColumnCount()];
 			for (int c = 0; c < data.getColumnCount(); c++) {
 				rowData[c] = data.getValueAt(row + 1, c);
@@ -305,7 +305,7 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ÊÕÆğËùÓĞ²ÎÊı
+	 * æ”¶èµ·æ‰€æœ‰å‚æ•°
 	 */
 	public void collapseAll() {
 		int rowCount = data.getRowCount();
@@ -325,16 +325,16 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ·µ»Ø¸ñ×ÓÊÇ·ñÔÊĞí±à¼­
+	 * è¿”å›æ ¼å­æ˜¯å¦å…è®¸ç¼–è¾‘
 	 * 
 	 * @param row
-	 *            ĞĞ
+	 *            è¡Œ
 	 * @param column
-	 *            ÁĞ
+	 *            åˆ—
 	 */
 	public boolean isCellEditable(int row, int column) {
 		ParamInfo info = (ParamInfo) data.getValueAt(row, iOBJCOL);
-		if (info == null) { // ·Ö×éĞĞ²»ÄÜ±à¼­
+		if (info == null) { // åˆ†ç»„è¡Œä¸èƒ½ç¼–è¾‘
 			return false;
 		}
 
@@ -347,14 +347,14 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * Ä³¸öÊôĞÔÖµ±»ĞŞ¸Äºó´¥·¢
+	 * æŸä¸ªå±æ€§å€¼è¢«ä¿®æ”¹åè§¦å‘
 	 * 
 	 * @param aValue
-	 *            ÊôĞÔÖµ
+	 *            å±æ€§å€¼
 	 * @param row
-	 *            ĞĞ
+	 *            è¡Œ
 	 * @param column
-	 *            ÁĞ
+	 *            åˆ—
 	 * 
 	 */
 	public void setValueAt(Object aValue, int row, int column) {
@@ -375,7 +375,7 @@ public class TableParamEdit extends JTableEx {
 		super.setValueAt(aValue, row, column);
 		ParamInfo info = (ParamInfo) data.getValueAt(row, iOBJCOL);
 		if (info != null) {
-			if (isAutoHide) {// ×Ô¶¯Òş²ØÏà¹ØÁĞºó£¬Ö»ÓĞÖµÁĞ¿ÉÒÔ±à¼­
+			if (isAutoHide) {// è‡ªåŠ¨éšè—ç›¸å…³åˆ—åï¼Œåªæœ‰å€¼åˆ—å¯ä»¥ç¼–è¾‘
 				info.setValue(aValue);
 				return;
 			}
@@ -383,15 +383,15 @@ public class TableParamEdit extends JTableEx {
 				info.setAxis((String) aValue);
 				return;
 			}
-			if (column == iVALUECOL) { // ÊäÈëÖµ£¬ÒªÔÚ±í´ïÊ½ÁĞÏÔÊ¾ÏÂÀ­µÈÊäÈë·½Ê½Ñ¡ÔñµÄÖµ
+			if (column == iVALUECOL) { // è¾“å…¥å€¼ï¼Œè¦åœ¨è¡¨è¾¾å¼åˆ—æ˜¾ç¤ºä¸‹æ‹‰ç­‰è¾“å…¥æ–¹å¼é€‰æ‹©çš„å€¼
 				super.setValueAt(toExpString(info, aValue), row, iEXPCOL);
-				super.setValueAt("", row, iAXISCOL); // ½«ÖáÇå¿Õ
-			} else if (column == iEXPCOL) { // ÊäÈë±í´ïÊ½£¬Òª½«ÄÜ½âÎöµÄÖµÏÔÊ¾³ÉÖµÁĞ¶ÔÓ¦µÄÏÔÊ¾Öµ
+				super.setValueAt("", row, iAXISCOL); // å°†è½´æ¸…ç©º
+			} else if (column == iEXPCOL) { // è¾“å…¥è¡¨è¾¾å¼ï¼Œè¦å°†èƒ½è§£æçš„å€¼æ˜¾ç¤ºæˆå€¼åˆ—å¯¹åº”çš„æ˜¾ç¤ºå€¼
 				super.setValueAt(toValueObject(info, aValue.toString()), row,
 						iVALUECOL);
 				if (aValue.toString().trim().length() == iFOLDERCOL) {
 					aValue = info.getDefValue();
-					super.setValueAt("", row, iAXISCOL); // ½«ÖáÇå¿Õ
+					super.setValueAt("", row, iAXISCOL); // å°†è½´æ¸…ç©º
 				} else
 					aValue = "=" + aValue.toString();
 			} else
@@ -408,7 +408,7 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ½ÓÊÜµ±Ç°µÄ±à¼­Öµ
+	 * æ¥å—å½“å‰çš„ç¼–è¾‘å€¼
 	 */
 	public void acceptText() {
 		if (this.isEditing()) {
@@ -417,13 +417,13 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ½«²ÎÊıvalue¸ù¾İ²ÎÊıĞÅÏ¢µÄÀàĞÍ×ªÎª±í´ïÊ½´®
+	 * å°†å‚æ•°valueæ ¹æ®å‚æ•°ä¿¡æ¯çš„ç±»å‹è½¬ä¸ºè¡¨è¾¾å¼ä¸²
 	 * 
 	 * @param info
-	 *            ²ÎÊıĞÅÏ¢
+	 *            å‚æ•°ä¿¡æ¯
 	 * @param value
-	 *            ²ÎÊıÖµ
-	 * @return ±í´ïÊ½´®
+	 *            å‚æ•°å€¼
+	 * @return è¡¨è¾¾å¼ä¸²
 	 */
 	public static String toExpString(ParamInfo info, Object value) {
 		int inputType = info.getInputType();
@@ -454,13 +454,13 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ½«±í´ïÊ½exp°´ÕÕ²ÎÊıĞÅÏ¢infoµÄÀàĞÍ×ª»»Îª¶ÔÓ¦µÄ²ÎÊıÖµ
+	 * å°†è¡¨è¾¾å¼expæŒ‰ç…§å‚æ•°ä¿¡æ¯infoçš„ç±»å‹è½¬æ¢ä¸ºå¯¹åº”çš„å‚æ•°å€¼
 	 * 
 	 * @param info
-	 *            ²ÎÊıĞÅÏ¢
+	 *            å‚æ•°ä¿¡æ¯
 	 * @param exp
-	 *            ±í´ïÊ½
-	 * @return ²ÎÊıÖµ
+	 *            è¡¨è¾¾å¼
+	 * @return å‚æ•°å€¼
 	 */
 	public static Object toValueObject(ParamInfo info, String exp) {
 		int inputType = info.getInputType();
@@ -485,13 +485,13 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ·µ»Ø²ÎÊıÖµvalueÊÇ·ñ¸úÃèÊöµÄÀàĞÍtypeÒ»ÖÂ
+	 * è¿”å›å‚æ•°å€¼valueæ˜¯å¦è·Ÿæè¿°çš„ç±»å‹typeä¸€è‡´
 	 * 
 	 * @param type
-	 *            ÀàĞÍ¶¨Òå
+	 *            ç±»å‹å®šä¹‰
 	 * @param value
-	 *            ²ÎÊıÖµ
-	 * @return Ò»ÖÂµÄ»°·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 *            å‚æ•°å€¼
+	 * @return ä¸€è‡´çš„è¯è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isRightType(int type, Object value) {
 		switch (type) {
@@ -528,10 +528,10 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃĞòÁĞ±à¼­±í
+	 * è®¾ç½®åºåˆ—ç¼–è¾‘è¡¨
 	 * 
 	 * @param table
-	 *            ĞòÁĞ±à¼­±í
+	 *            åºåˆ—ç¼–è¾‘è¡¨
 	 */
 	public void setSeriesTable(TableInputSeries table) {
 		this.seriesTable = table;
@@ -550,7 +550,7 @@ public class TableParamEdit extends JTableEx {
 	}
 
 	/**
-	 * ÊµÏÖÊó±êË«»÷Ê±¼ä
+	 * å®ç°é¼ æ ‡åŒå‡»æ—¶é—´
 	 */
 	public void doubleClicked(int xpos, int ypos, int row, int col, MouseEvent e) {
 		if (!isCellEditable(row, col)) {

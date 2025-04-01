@@ -30,27 +30,27 @@ import com.scudata.thread.ThreadPool;
 import com.scudata.util.CursorUtil;
 
 /**
- * ¼¯ÈºÓÎ±ê
+ * é›†ç¾¤æ¸¸æ ‡
  * @author RunQian
  *
  */
 public class ClusterCursor extends ICursor implements IClusterObject, IMultipath {
-	// ÓÎ±êµÄÀ´Ô´£¬¼´ÓÉÊ²Ã´´´½¨£¬¿ÉÄÜÊÇClusterTableMetaData¡¢ClusterMemoryTable»òÆäËüÖĞ¼ä½á¹û
+	// æ¸¸æ ‡çš„æ¥æºï¼Œå³ç”±ä»€ä¹ˆåˆ›å»ºï¼Œå¯èƒ½æ˜¯ClusterTableMetaDataã€ClusterMemoryTableæˆ–å…¶å®ƒä¸­é—´ç»“æœ
 	private IClusterObject source; 
-	private Cluster cluster; // ½Úµã»úĞÅÏ¢
-	private int []cursorProxyIds; // ¶ÔÓ¦µÄ½Úµã»úÓÎ±ê´úÀí±êÊ¶
-	private boolean isDistributed; // ÊÇ·ñ·Ö²¼ÓÎ±ê£¬·Ö²¼ÎÄ¼ş»òÕß·Ö¶ÎÔòÎª·Ö²¼ÓÎ±ê
-	//private boolean isDistributedFile; // ´Ë¼¯ÈºÓÎ±êÊÇ·Ö²¼ÓÎ±ê»¹ÊÇ¸´Ğ´ÓÎ±ê
-	private int current = 0; // µ±Ç°ÕıÔÚÈ¡ÊıµÄÓÎ±ê
+	private Cluster cluster; // èŠ‚ç‚¹æœºä¿¡æ¯
+	private int []cursorProxyIds; // å¯¹åº”çš„èŠ‚ç‚¹æœºæ¸¸æ ‡ä»£ç†æ ‡è¯†
+	private boolean isDistributed; // æ˜¯å¦åˆ†å¸ƒæ¸¸æ ‡ï¼Œåˆ†å¸ƒæ–‡ä»¶æˆ–è€…åˆ†æ®µåˆ™ä¸ºåˆ†å¸ƒæ¸¸æ ‡
+	//private boolean isDistributedFile; // æ­¤é›†ç¾¤æ¸¸æ ‡æ˜¯åˆ†å¸ƒæ¸¸æ ‡è¿˜æ˜¯å¤å†™æ¸¸æ ‡
+	private int current = 0; // å½“å‰æ­£åœ¨å–æ•°çš„æ¸¸æ ‡
 
-	private Expression distribute; // ·Ö²¼±í´ïÊ½£¬¿ÉÒÔÎª¿Õ
-	private String []sortedColNames; // Ö÷¼ü»òÅÅĞò×Ö¶Î
+	private Expression distribute; // åˆ†å¸ƒè¡¨è¾¾å¼ï¼Œå¯ä»¥ä¸ºç©º
+	private String []sortedColNames; // ä¸»é”®æˆ–æ’åºå­—æ®µ
 	
 	/**
-	 * ´´½¨¼¯ÈºÓÎ±ê
-	 * @param source À´Ô´£¬¿ÉÄÜÊÇClusterTableMetaData¡¢ClusterMemoryTable»òÆäËüÖĞ¼ä½á¹û
-	 * @param cursorProxyIds ¶ÔÓ¦µÄ½Úµã»úÓÎ±êproxy id
-	 * @param isDistributed ÊÇ·ñ·Ö²¼ÓÎ±ê
+	 * åˆ›å»ºé›†ç¾¤æ¸¸æ ‡
+	 * @param source æ¥æºï¼Œå¯èƒ½æ˜¯ClusterTableMetaDataã€ClusterMemoryTableæˆ–å…¶å®ƒä¸­é—´ç»“æœ
+	 * @param cursorProxyIds å¯¹åº”çš„èŠ‚ç‚¹æœºæ¸¸æ ‡proxy id
+	 * @param isDistributed æ˜¯å¦åˆ†å¸ƒæ¸¸æ ‡
 	 */
 	public ClusterCursor(IClusterObject source, int []cursorProxyIds, boolean isDistributed) {
 		this.source = source;
@@ -61,10 +61,10 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ´´½¨¼¯ÈºÓÎ±ê
-	 * @param cluster ½Úµã»úĞÅÏ¢
-	 * @param cursorProxyIds ¶ÔÓ¦µÄ½Úµã»úÓÎ±êproxy id
-	 * @param isDistributed ÊÇ·ñ·Ö²¼ÓÎ±ê
+	 * åˆ›å»ºé›†ç¾¤æ¸¸æ ‡
+	 * @param cluster èŠ‚ç‚¹æœºä¿¡æ¯
+	 * @param cursorProxyIds å¯¹åº”çš„èŠ‚ç‚¹æœºæ¸¸æ ‡proxy id
+	 * @param isDistributed æ˜¯å¦åˆ†å¸ƒæ¸¸æ ‡
 	 */
 	public ClusterCursor(Cluster cluster, int []cursorProxyIds, boolean isDistributed) {
 		this.cluster = cluster;
@@ -73,8 +73,8 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ·µ»ØÊÇ·ñÊÇ·Ö²¼ÓÎ±ê
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * è¿”å›æ˜¯å¦æ˜¯åˆ†å¸ƒæ¸¸æ ‡
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isDistributed() {
 		return isDistributed;
@@ -96,7 +96,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		return cursorProxyIds[unit];
 	}
 		
-	// ÊÇ·ñÊÇ·Ö²¼ÓÎ±ê
+	// æ˜¯å¦æ˜¯åˆ†å¸ƒæ¸¸æ ‡
 	//public boolean isDistributedFile() {
 	//	return isDistributedFile;
 	//}
@@ -106,24 +106,24 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 
 	/**
-	 * ÉèÖÃ×é±í·Ö²¼±í´ïÊ½
-	 * @param distribute ·Ö²¼±í´ïÊ½
+	 * è®¾ç½®ç»„è¡¨åˆ†å¸ƒè¡¨è¾¾å¼
+	 * @param distribute åˆ†å¸ƒè¡¨è¾¾å¼
 	 */
 	public void setDistribute(Expression distribute) {
 		this.distribute = distribute;
 	}
 	
 	/**
-	 * È¡ÅÅĞò×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * å–æ’åºå­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getSortedColNames() {
 		return sortedColNames;
 	}
 
 	/**
-	 * ÉèÖÃ×é±íÅÅĞò×Ö¶ÎÃû
-	 * @param sortedColNames ×Ö¶ÎÃûÊı×é
+	 * è®¾ç½®ç»„è¡¨æ’åºå­—æ®µå
+	 * @param sortedColNames å­—æ®µåæ•°ç»„
 	 */
 	public void setSortedColNames(String[] sortedColNames) {
 		this.sortedColNames = sortedColNames;
@@ -147,9 +147,9 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÓÎ±êÈ¡Êı
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œæ¸¸æ ‡å–æ•°
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeFetch(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -190,9 +190,9 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÌø¹ıÓÎ±êÊı¾İ
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œè·³è¿‡æ¸¸æ ‡æ•°æ®
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeSkip(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -213,8 +213,8 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 
 	/**
-	 * È¡Êı
-	 * @param n ÊıÁ¿
+	 * å–æ•°
+	 * @param n æ•°é‡
 	 */
 	protected Sequence get(int n) {
 		if (current == -1) {
@@ -222,7 +222,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		}
 		
 		Sequence result = null;
-		if (n == MAXSIZE) { // È¡³öËùÓĞ
+		if (n == MAXSIZE) { // å–å‡ºæ‰€æœ‰
 			Cluster cluster = getCluster();
 			int count = cluster.getUnitCount();
 			int len = count - current;
@@ -273,8 +273,8 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * Ìø¹ıÖ¸¶¨ĞĞ
-	 * @param n ĞĞÊı
+	 * è·³è¿‡æŒ‡å®šè¡Œ
+	 * @param n è¡Œæ•°
 	 */
 	protected long skipOver(long n) {
 		if (current == -1) {
@@ -319,9 +319,9 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ¹Ø±ÕÓÎ±ê
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œå…³é—­æ¸¸æ ‡
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeClose(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -372,9 +372,9 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ¸øÓÎ±ê¸½¼ÓÔËËã
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œç»™æ¸¸æ ‡é™„åŠ è¿ç®—
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeAddOperation(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -400,27 +400,27 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ¶Ô¼¯ÈºÓÎ±ê×ö·Ö×éÔËËã
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param groupCount ½á¹û¼¯ÊıÁ¿
-	 * @param newNames ¶Ô·Ö×é½á¹û²úÉúĞÂĞò±íµÄ×Ö¶ÎÃûÊı×é
-	 * @param newExps ¶Ô·Ö×é½á¹û²úÉúĞÂĞò±íµÄ±í´ïÊ½Êı×é
-	 * @return ·Ö×é½á¹û
+	 * å¯¹é›†ç¾¤æ¸¸æ ‡åšåˆ†ç»„è¿ç®—
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param groupCount ç»“æœé›†æ•°é‡
+	 * @param newNames å¯¹åˆ†ç»„ç»“æœäº§ç”Ÿæ–°åºè¡¨çš„å­—æ®µåæ•°ç»„
+	 * @param newExps å¯¹åˆ†ç»„ç»“æœäº§ç”Ÿæ–°åºè¡¨çš„è¡¨è¾¾å¼æ•°ç»„
+	 * @return åˆ†ç»„ç»“æœ
 	 */
 	public Object groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx, int groupCount, String[] newNames, Expression[] newExps) {
-		// @c£º·Ö»ú¶ÀÁ¢Ö´ĞĞ£¬½á¹û¼¯Æ´³É¼¯ÈºÄÚ±í£¬±£³Öcs·Ö²¼£¬¿ÉÓÃ×÷¼¯ÈºÎ¬±í
+		// @cï¼šåˆ†æœºç‹¬ç«‹æ‰§è¡Œï¼Œç»“æœé›†æ‹¼æˆé›†ç¾¤å†…è¡¨ï¼Œä¿æŒcsåˆ†å¸ƒï¼Œå¯ç”¨ä½œé›†ç¾¤ç»´è¡¨
 		boolean copt = opt != null && opt.indexOf('c') != -1;
 		
 		int dcount = 0;
 		int mcount = 0;
 		if (exps != null) {
-			// Èç¹ûÊ¡ÂÔÁË·Ö×é×Ö¶ÎÃûÔò¸ù¾İ·Ö×é±í´ïÊ½×Ô¶¯Éú³É
+			// å¦‚æœçœç•¥äº†åˆ†ç»„å­—æ®µååˆ™æ ¹æ®åˆ†ç»„è¡¨è¾¾å¼è‡ªåŠ¨ç”Ÿæˆ
 			dcount = exps.length;
 			if (names == null) {
 				names = new String[dcount];
@@ -434,7 +434,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		}
 
 		if (calcExps != null) {			
-			// Èç¹ûÊ¡ÂÔÁË»ã×Ü×Ö¶ÎÃûÔò¸ù¾İ»ã×Ü±í´ïÊ½×Ô¶¯Éú³É
+			// å¦‚æœçœç•¥äº†æ±‡æ€»å­—æ®µååˆ™æ ¹æ®æ±‡æ€»è¡¨è¾¾å¼è‡ªåŠ¨ç”Ÿæˆ
 			mcount = calcExps.length;
 			if (calcNames == null) {
 				calcNames = new String[mcount];
@@ -467,7 +467,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			}
 		}
 		
-		// @cÑ¡ÏîÊ±ÔÚ½Úµã»úÉú²ú×îÖÕ½á¹û£¬·µ»Ø¼¯ÈºÄÚ±í
+		// @cé€‰é¡¹æ—¶åœ¨èŠ‚ç‚¹æœºç”Ÿäº§æœ€ç»ˆç»“æœï¼Œè¿”å›é›†ç¾¤å†…è¡¨
 		String []newExpStrs = null;
 		if (copt && newNames != null) {
 			int count = newExps.length;
@@ -506,11 +506,11 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			pool.submit(jobs[i]);
 		}
 		
-		// @c£º·Ö»ú¶ÀÁ¢Ö´ĞĞ£¬½á¹û¼¯Æ´³É¼¯ÈºÄÚ±í£¬±£³Öcs·Ö²¼£¬¿ÉÓÃ×÷¼¯ÈºÎ¬±í
+		// @cï¼šåˆ†æœºç‹¬ç«‹æ‰§è¡Œï¼Œç»“æœé›†æ‹¼æˆé›†ç¾¤å†…è¡¨ï¼Œä¿æŒcsåˆ†å¸ƒï¼Œå¯ç”¨ä½œé›†ç¾¤ç»´è¡¨
 		if (copt) {
 			RemoteMemoryTable []tables = new RemoteMemoryTable[count];
 			for (int i = 0; i < count; ++i) {
-				// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+				// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 				jobs[i].join();
 				tables[i] = (RemoteMemoryTable)jobs[i].getResult();
 			}
@@ -520,12 +520,12 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		
 		Sequence result = new Sequence();
 		for (int i = 0; i < count; ++i) {
-			// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+			// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 			jobs[i].join();
 			result.addAll((Sequence)jobs[i].getResult());
 		}
 		
-		// ¸÷Â·ÓÎ±ê°´·Ö×é×Ö¶Î²ğ·ÖµÄ
+		// å„è·¯æ¸¸æ ‡æŒ‰åˆ†ç»„å­—æ®µæ‹†åˆ†çš„
 		if (opt != null && opt.indexOf('o') != -1) {
 			if (newNames != null) {
 				int groupFieldCount = 0;
@@ -570,24 +570,24 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		if (opt == null || opt.indexOf('d') == -1) {
 			return table;
 		} else {
-			// @d ½á¹û¼¯¸´ÖÆµ½·Ö»úÉÏÆ´³É¼¯Èº¸´Ğ´ÄÚ±í
+			// @d ç»“æœé›†å¤åˆ¶åˆ°åˆ†æœºä¸Šæ‹¼æˆé›†ç¾¤å¤å†™å†…è¡¨
 			return ClusterMemoryTable.dupLocal(cluster, table);
 		}
 	}	
 
 	/**
-	 * µ±»ã×Ü×Ö¶Î²»ÊÇµ¥¸ö»ã×Üº¯ÊıÊ±£¬»ã×Ü×Ö¶Î»á±»²ğ³É¶à¸ö×Ö¶Î£¬×îºóĞèÒª¶Ô×Å·Ö×é½á¹ûÔÙnewÒ»ÏÂ
+	 * å½“æ±‡æ€»å­—æ®µä¸æ˜¯å•ä¸ªæ±‡æ€»å‡½æ•°æ—¶ï¼Œæ±‡æ€»å­—æ®µä¼šè¢«æ‹†æˆå¤šä¸ªå­—æ®µï¼Œæœ€åéœ€è¦å¯¹ç€åˆ†ç»„ç»“æœå†newä¸€ä¸‹
 	 * @param result
 	 * @param newNames
 	 * @param newExps
 	 * @param ctx
-	 * @param groupFieldCount ·Ö×é×Ö¶ÎÊı
+	 * @param groupFieldCount åˆ†ç»„å­—æ®µæ•°
 	 * @return
 	 */
 	private static Table newGroupsResult(Sequence result, String []newNames, Expression []newExps, Context ctx, int groupFieldCount) {
 		Table table = result.newTable(newNames, newExps, ctx);
 		
-		// Èç¹ûÓĞ·Ö×é×Ö¶ÎÔòÉèÖÃ·Ö×é×Ö¶ÎÎªÖ÷¼ü
+		// å¦‚æœæœ‰åˆ†ç»„å­—æ®µåˆ™è®¾ç½®åˆ†ç»„å­—æ®µä¸ºä¸»é”®
 		if (groupFieldCount > 0) {
 			String []pk = new String[groupFieldCount];
 			for (int i = 1; i <= groupFieldCount; ++i) {
@@ -601,9 +601,9 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÓÎ±ê·Ö×é»ã×ÜÔËËã
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œæ¸¸æ ‡åˆ†ç»„æ±‡æ€»è¿ç®—
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeGroups(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -618,7 +618,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 		Context ctx = ClusterUtil.createContext(js, attributes);
 		
-		// @c£º·Ö»ú¶ÀÁ¢Ö´ĞĞ£¬½á¹û¼¯Æ´³É¼¯ÈºÄÚ±í£¬±£³Öcs·Ö²¼£¬¿ÉÓÃ×÷¼¯ÈºÎ¬±í
+		// @cï¼šåˆ†æœºç‹¬ç«‹æ‰§è¡Œï¼Œç»“æœé›†æ‹¼æˆé›†ç¾¤å†…è¡¨ï¼Œä¿æŒcsåˆ†å¸ƒï¼Œå¯ç”¨ä½œé›†ç¾¤ç»´è¡¨
 		boolean copt = opt != null && opt.indexOf('c') != -1;
 		String []newNames = null;
 		String []newExpStrs = null;
@@ -664,7 +664,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			}
 			
 			if (copt) {
-				// @c£º·Ö»ú¶ÀÁ¢Ö´ĞĞ£¬½á¹û¼¯Æ´³É¼¯ÈºÄÚ±í£¬±£³Öcs·Ö²¼£¬¿ÉÓÃ×÷¼¯ÈºÎ¬±í
+				// @cï¼šåˆ†æœºç‹¬ç«‹æ‰§è¡Œï¼Œç»“æœé›†æ‹¼æˆé›†ç¾¤å†…è¡¨ï¼Œä¿æŒcsåˆ†å¸ƒï¼Œå¯ç”¨ä½œé›†ç¾¤ç»´è¡¨
 				if (newNames != null) {
 					int groupFieldCount = 0;
 					if ((opt == null || opt.indexOf('b') == -1) && exps != null) {
@@ -691,10 +691,10 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ¶ÔÓÎ±ê½øĞĞ»ã×Ü
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Èç¹ûÖ»ÓĞÒ»¸ö»ã×Ü±í´ïÊ½·µ»Ø»ã×Ü½á¹û£¬·ñÔò·µ»Ø»ã×Ü½á¹û¹¹³ÉµÄĞòÁĞ
+	 * å¯¹æ¸¸æ ‡è¿›è¡Œæ±‡æ€»
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å¦‚æœåªæœ‰ä¸€ä¸ªæ±‡æ€»è¡¨è¾¾å¼è¿”å›æ±‡æ€»ç»“æœï¼Œå¦åˆ™è¿”å›æ±‡æ€»ç»“æœæ„æˆçš„åºåˆ—
 	 */
 	/*public Object total(Expression[] calcExps, Context ctx) {
 		int valCount = calcExps.length;
@@ -726,7 +726,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			result = new Table(fnames, count);
 			
 			for (int i = 0; i < count; ++i) {
-				// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+				// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 				jobs[i].join();
 				BaseRecord r = result.newLast();
 				r.setNormalFieldValue(0, jobs[i].getResult());
@@ -739,14 +739,14 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			
 			result = new Table(fnames, count);
 			for (int i = 0; i < count; ++i) {
-				// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+				// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 				jobs[i].join();
 				Sequence seq = (Sequence)jobs[i].getResult();
 				result.newLast(seq.toArray());
 			}
 		}
 		
-		// Éú³É¶ş´Î»ã×Ü±í´ïÊ½
+		// ç”ŸæˆäºŒæ¬¡æ±‡æ€»è¡¨è¾¾å¼
 		Expression []valExps = new Expression[valCount];
 		for (int i = 0; i < valCount; ++i) {
 			Node gather = calcExps[i].getHome();
@@ -754,16 +754,16 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			valExps[i] = gather.getRegatherExpression(i + 1);
 		}
 		
-		// ½øĞĞ¶ş´Î»ã×Ü
+		// è¿›è¡ŒäºŒæ¬¡æ±‡æ€»
 		TotalResult total = new TotalResult(valExps, ctx);
 		total.push(result, ctx);
 		return total.result();
 	}*/
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÓÎ±ê»ã×ÜÔËËã
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œæ¸¸æ ‡æ±‡æ€»è¿ç®—
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeTotal(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -798,10 +798,10 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * °Ñ¼¯ÈºÓÎ±ê¶Á³É¼¯ÈºÄÚ±í
-	 * @param fields Òª¶ÁÈ¡µÄ×Ö¶Î
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¼¯ÈºÄÚ±í
+	 * æŠŠé›†ç¾¤æ¸¸æ ‡è¯»æˆé›†ç¾¤å†…è¡¨
+	 * @param fields è¦è¯»å–çš„å­—æ®µ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return é›†ç¾¤å†…è¡¨
 	 */
 	public ClusterMemoryTable memory(String []fields, Context ctx) {
 		Cluster cluster = getCluster();
@@ -822,7 +822,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		
 		RemoteMemoryTable[] tables = new RemoteMemoryTable[count];
 		for (int i = 0; i < count; ++i) {
-			// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+			// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 			jobs[i].join();
 			tables[i] = (RemoteMemoryTable)jobs[i].getResult();
 		}
@@ -834,9 +834,9 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ°ÑÓÎ±êÊı¾İ±ä³ÉÄÚ±í
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡ŒæŠŠæ¸¸æ ‡æ•°æ®å˜æˆå†…è¡¨
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeMemory(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -886,15 +886,15 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ¶Ô¼¯ÈºÓÎ±ê×öÍâ´æ·Ö×éÔËËã
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names	·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param calcNames	»ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity ÄÚ´æÄÜ¹»´æ·ÅµÄ·Ö×é½á¹ûµÄÊıÁ¿
-	 * @return ·Ö×é½á¹ûÓÎ±ê
+	 * å¯¹é›†ç¾¤æ¸¸æ ‡åšå¤–å­˜åˆ†ç»„è¿ç®—
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names	åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames	æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity å†…å­˜èƒ½å¤Ÿå­˜æ”¾çš„åˆ†ç»„ç»“æœçš„æ•°é‡
+	 * @return åˆ†ç»„ç»“æœæ¸¸æ ‡
 	 */
 	public ICursor groupx(Expression[] exps, String[] names,
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int capacity) {
@@ -902,7 +902,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		int mcount = 0;
 		
 		if (exps != null) {
-			// Èç¹ûÊ¡ÂÔÁË·Ö×é×Ö¶ÎÃûÔò¸ù¾İ·Ö×é±í´ïÊ½×Ô¶¯Éú³É
+			// å¦‚æœçœç•¥äº†åˆ†ç»„å­—æ®µååˆ™æ ¹æ®åˆ†ç»„è¡¨è¾¾å¼è‡ªåŠ¨ç”Ÿæˆ
 			dcount = exps.length;
 			if (names == null) {
 				names = new String[dcount];
@@ -916,7 +916,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		}
 
 		if (calcExps != null) {
-			// Èç¹ûÊ¡ÂÔÁË»ã×Ü×Ö¶ÎÃûÔò¸ù¾İ»ã×Ü±í´ïÊ½×Ô¶¯Éú³É
+			// å¦‚æœçœç•¥äº†æ±‡æ€»å­—æ®µååˆ™æ ¹æ®æ±‡æ€»è¡¨è¾¾å¼è‡ªåŠ¨ç”Ÿæˆ
 			mcount = calcExps.length;
 			if (calcNames == null) {
 				calcNames = new String[mcount];
@@ -972,11 +972,11 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			pool.submit(jobs[i]);
 		}
 		
-		// @c£º·Ö»ú¶ÀÁ¢Ö´ĞĞ£¬½á¹û¼¯Æ´³É¼¯ÈºÄÚ±í£¬±£³Öcs·Ö²¼£¬¿ÉÓÃ×÷¼¯ÈºÎ¬±í
+		// @cï¼šåˆ†æœºç‹¬ç«‹æ‰§è¡Œï¼Œç»“æœé›†æ‹¼æˆé›†ç¾¤å†…è¡¨ï¼Œä¿æŒcsåˆ†å¸ƒï¼Œå¯ç”¨ä½œé›†ç¾¤ç»´è¡¨
 		if (opt != null && opt.indexOf('c') != -1) {
 			int[] cursorProxyIds = new int[count];
 			for (int i = 0; i < count; ++i) {
-				// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+				// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 				jobs[i].join();
 				Integer id = (Integer)jobs[i].getResult();
 				cursorProxyIds[i] = id.intValue();
@@ -987,7 +987,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		
 		ICursor []cursors = new ICursor[count];
 		for (int i = 0; i < count; ++i) {
-			// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+			// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 			jobs[i].join();
 			Integer id = (Integer)jobs[i].getResult();
 			cursors[i] = new RemoteCursor(cluster.getHost(i), cluster.getPort(i), id.intValue());//, ctx);
@@ -1011,15 +1011,15 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			}
 		}
 
-		// ¶Ô½á¹û¼¯½øĞĞ¶ş´Î·Ö×é
+		// å¯¹ç»“æœé›†è¿›è¡ŒäºŒæ¬¡åˆ†ç»„
 		MergesCursor mc = new MergesCursor(cursors, exps2, ctx);
 		return new GroupmCursor(mc, exps2, names, calcExps2, calcNames, ctx);
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÓÎ±êÍâ´æ·Ö×éÔËËã
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œæ¸¸æ ‡å¤–å­˜åˆ†ç»„è¿ç®—
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeGroupx(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -1062,7 +1062,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 				RemoteCursorProxy rcp = new RemoteCursorProxy(result);
 				return new Response(new Integer(rcp.getProxyID()));
 			} else {
-				// @c£º·Ö»ú½á¹û¼ä²»ÔÙ¹é²¢£¬·µ»Ø³É¼¯ÈºÓÎ±ê£¬¼Ì³Ğ·Ö²¼·½Ê½
+				// @cï¼šåˆ†æœºç»“æœé—´ä¸å†å½’å¹¶ï¼Œè¿”å›æˆé›†ç¾¤æ¸¸æ ‡ï¼Œç»§æ‰¿åˆ†å¸ƒæ–¹å¼
 				IProxy proxy = new CursorProxy(result, cursor.getUnit());
 				rm.addProxy(proxy);
 				return new Response(new Integer(proxy.getProxyId()));
@@ -1075,12 +1075,12 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ¶Ô¼¯ÈºÓÎ±êÖ´ĞĞÍâ´æÅÅĞò
-	 * @param exps ÅÅĞò±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity ÄÚ´æÖĞÄÜ¹»±£´æµÄ¼ÇÂ¼Êı£¬Èç¹ûÃ»ÓĞÉèÖÃÔò×Ô¶¯¹ÀËãÒ»¸ö
-	 * @param opt Ñ¡Ïî
-	 * @return ÅÅºÃĞòµÄÓÎ±ê
+	 * å¯¹é›†ç¾¤æ¸¸æ ‡æ‰§è¡Œå¤–å­˜æ’åº
+	 * @param exps æ’åºè¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity å†…å­˜ä¸­èƒ½å¤Ÿä¿å­˜çš„è®°å½•æ•°ï¼Œå¦‚æœæ²¡æœ‰è®¾ç½®åˆ™è‡ªåŠ¨ä¼°ç®—ä¸€ä¸ª
+	 * @param opt é€‰é¡¹
+	 * @return æ’å¥½åºçš„æ¸¸æ ‡
 	 */
 	public ICursor sortx(Expression[] exps, Context ctx, int capacity, String opt) {
 		Cluster cluster = getCluster();
@@ -1110,7 +1110,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		
 		ICursor []cursors = new ICursor[count];
 		for (int i = 0; i < count; ++i) {
-			// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+			// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 			jobs[i].join();
 			Integer id = (Integer)jobs[i].getResult();
 			cursors[i] = new RemoteCursor(cluster.getHost(i), cluster.getPort(i), id.intValue());//, ctx);
@@ -1120,9 +1120,9 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÓÎ±êÍâ´æÅÅĞò
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œæ¸¸æ ‡å¤–å­˜æ’åº
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeSortx(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -1156,7 +1156,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		}
 	}
 	
-	// È¡¼¯ÈºÓÎ±êÃ¿¸ö½Úµã»úÏàÓ¦µÄÎ¬×Ö¶ÎµÄ×îĞ¡Öµ£¬¼´ÆğÊ¼Öµ£¬dimCountĞ¡ÓÚ1ÔòÈ¡ËùÓĞÎ¬×Ö¶ÎµÄ
+	// å–é›†ç¾¤æ¸¸æ ‡æ¯ä¸ªèŠ‚ç‚¹æœºç›¸åº”çš„ç»´å­—æ®µçš„æœ€å°å€¼ï¼Œå³èµ·å§‹å€¼ï¼ŒdimCountå°äº1åˆ™å–æ‰€æœ‰ç»´å­—æ®µçš„
 	Object[][] getMinValues(int dimCount) {
 		int count = cluster.getUnitCount();
 		Object [][]minValues = new Object[count][];
@@ -1180,9 +1180,9 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÈ¡ÓÎ±êÎ¬×Ö¶ÎµÄ×îĞ¡Öµ
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œå–æ¸¸æ ‡ç»´å­—æ®µçš„æœ€å°å€¼
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeGetMinValues(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -1241,13 +1241,13 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ¶Ô¼¯ÈºÓÎ±ê×öÁ¬½Ó£¬ÓÎ±êÔÚ¸÷½Úµã»úÉÏÍ¬²½·Ö²¼£¬Ö»Ğè½Úµã»ú¸÷×Ô×öÁ¬½Ó£¬È»ºóºÏ²¢¹ØÁª½á¹û¼´¿É
-	 * @param cursors ¼¯ÈºÓÎ±êÊı×é
-	 * @param exps ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¼¯ÈºÓÎ±ê
+	 * å¯¹é›†ç¾¤æ¸¸æ ‡åšè¿æ¥ï¼Œæ¸¸æ ‡åœ¨å„èŠ‚ç‚¹æœºä¸ŠåŒæ­¥åˆ†å¸ƒï¼Œåªéœ€èŠ‚ç‚¹æœºå„è‡ªåšè¿æ¥ï¼Œç„¶ååˆå¹¶å…³è”ç»“æœå³å¯
+	 * @param cursors é›†ç¾¤æ¸¸æ ‡æ•°ç»„
+	 * @param exps å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return é›†ç¾¤æ¸¸æ ‡
 	 */
 	public static ClusterCursor joinx(ClusterCursor []cursors, Expression[][] exps, String []names, String opt, Context ctx) {
 		int csCount = cursors.length;
@@ -1308,9 +1308,9 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ¶ÔÓÎ±ê×öÁ¬½Ó
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œå¯¹æ¸¸æ ‡åšè¿æ¥
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeJoinx(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -1329,7 +1329,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			
 			ICursor join;
 			if (expStrs == null) {
-				// @p°´Î»ÖÃ×öÁ¬½Ó
+				// @pæŒ‰ä½ç½®åšè¿æ¥
 				for (int i = 0; i < csCount; ++i) {
 					CursorProxy cursor = (CursorProxy)rm.getProxy(cursorProxyIds[i]);
 					cursors[i] = cursor.getCursor();
@@ -1363,16 +1363,16 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ¶àÂ·ÓÎ±ê½Ó¿Ú£¬È¡Â·Êı
-	 * @return int Â·Êı
+	 * å¤šè·¯æ¸¸æ ‡æ¥å£ï¼Œå–è·¯æ•°
+	 * @return int è·¯æ•°
 	 */
 	public int getPathCount() {
 		return cursorProxyIds.length;
 	}
 	
 	/**
-	 * ¼¯ÈºÓÎ±ê±ä³ÉÔ¶³ÌÓÎ±êÊı×é·µ»Ø
-	 * @return Ô¶³ÌÓÎ±êÊı×é
+	 * é›†ç¾¤æ¸¸æ ‡å˜æˆè¿œç¨‹æ¸¸æ ‡æ•°ç»„è¿”å›
+	 * @return è¿œç¨‹æ¸¸æ ‡æ•°ç»„
 	 */
 	public ICursor[] getParallelCursors() {
 		Cluster cluster = getCluster();
@@ -1399,9 +1399,9 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÈ¡Ô¶³ÌÓÎ±ê
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œå–è¿œç¨‹æ¸¸æ ‡
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeGetParallelCursors(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");

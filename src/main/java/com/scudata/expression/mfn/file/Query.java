@@ -12,8 +12,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * µ÷ÓÃ¼òµ¥SQL²éÑ¯
- * f.query(sql,param,¡­)
+ * è°ƒç”¨ç®€å•SQLæŸ¥è¯¢
+ * f.query(sql,param,â€¦)
  * @author RunQian
  *
  */
@@ -22,7 +22,7 @@ public class Query extends FileFunction {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("query" + mm.getMessage("function.missingParam"));
-		} else if (param.getType() == IParam.Normal) { // Ã»ÓĞ²ÎÊı
+		} else if (param.getType() == IParam.Normal) { // æ²¡æœ‰å‚æ•°
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (!(obj instanceof String)) {
 				MessageManager mm = EngineMessage.get();

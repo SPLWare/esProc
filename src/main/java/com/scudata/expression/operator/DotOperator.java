@@ -14,7 +14,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * µãÔËËã·û£º.
+ * ç‚¹è¿ç®—ç¬¦ï¼š.
  * A.f()
  * @author WangXiaoJun
  *
@@ -25,7 +25,7 @@ public class DotOperator extends Operator {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (left == null) {
@@ -41,8 +41,8 @@ public class DotOperator extends Operator {
 	}
 	
 	public Node optimize(Context ctx) {
-		// Èç¹ûÓÒ²àº¯Êı²»»áĞŞ¸Ä×ó²à¶ÔÏóµÄÖµ²¢ÇÒ×ó²à¶ÔÏóÊÇĞòÁĞ³£Á¿Ôò¿ÉÒÔÏÈ²úÉúĞòÁĞ
-		// ±ÈÈç[1,2,3].contain(n)
+		// å¦‚æœå³ä¾§å‡½æ•°ä¸ä¼šä¿®æ”¹å·¦ä¾§å¯¹è±¡çš„å€¼å¹¶ä¸”å·¦ä¾§å¯¹è±¡æ˜¯åºåˆ—å¸¸é‡åˆ™å¯ä»¥å…ˆäº§ç”Ÿåºåˆ—
+		// æ¯”å¦‚[1,2,3].contain(n)
 		if (!right.ifModifySequence()) {
 			left = left.optimize(ctx, true);
 			right = right.optimize(ctx);
@@ -53,14 +53,14 @@ public class DotOperator extends Operator {
 	}
 
 	/**
-	 * ¼ÆËã×ó²à¶ÔÏóµÄÖµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ×ó²à¶ÔÏó
+	 * è®¡ç®—å·¦ä¾§å¯¹è±¡çš„å€¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å·¦ä¾§å¯¹è±¡
 	 */
 	private Object getLeftObject(Context ctx) {
 		Object obj = left.calculate(ctx);
 		
-		// n.f()µ±fÊÇĞòÁĞº¯ÊıÊ±°Ñn½âÊÍ³Éto(n)
+		// n.f()å½“fæ˜¯åºåˆ—å‡½æ•°æ—¶æŠŠnè§£é‡Šæˆto(n)
 		if (obj instanceof Number && right.isSequenceFunction()) {
 			int n = ((Number)obj).intValue();
 			if (n > 0) {
@@ -187,8 +187,8 @@ public class DotOperator extends Operator {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -198,10 +198,10 @@ public class DotOperator extends Operator {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -210,9 +210,9 @@ public class DotOperator extends Operator {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -237,9 +237,9 @@ public class DotOperator extends Operator {
 	}
 	
 	/**
-	 * ÅĞ¶Ï¸ø¶¨µÄÖµÓò·¶Î§ÊÇ·ñÂú×ãµ±Ç°Ìõ¼ş±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @return È¡Öµ²ÎÕÕRelation. -1£ºÖµÓò·¶Î§ÄÚÃ»ÓĞÂú×ãÌõ¼şµÄÖµ£¬0£ºÖµÓò·¶Î§ÄÚÓĞÂú×ãÌõ¼şµÄÖµ£¬1£ºÖµÓò·¶Î§µÄÖµ¶¼Âú×ãÌõ¼ş
+	 * åˆ¤æ–­ç»™å®šçš„å€¼åŸŸèŒƒå›´æ˜¯å¦æ»¡è¶³å½“å‰æ¡ä»¶è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @return å–å€¼å‚ç…§Relation. -1ï¼šå€¼åŸŸèŒƒå›´å†…æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ0ï¼šå€¼åŸŸèŒƒå›´å†…æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ1ï¼šå€¼åŸŸèŒƒå›´çš„å€¼éƒ½æ»¡è¶³æ¡ä»¶
 	 */
 	public int isValueRangeMatch(Context ctx) {
 		right.setLeft(left);
@@ -258,8 +258,8 @@ public class DotOperator extends Operator {
 	}
 	
 	/**
-	 * ¼ÆËã±í´ïÊ½µÄÈ¡Öµ·¶Î§
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—è¡¨è¾¾å¼çš„å–å€¼èŒƒå›´
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return
 	 */
 	public IArray calculateRange(Context ctx) {
@@ -268,8 +268,8 @@ public class DotOperator extends Operator {
 	}
 	
 	/**
-	 * ·µ»Ø½ÚµãÊÇ·ñµ¥µ÷µİÔöµÄ
-	 * @return true£ºÊÇµ¥µ÷µİÔöµÄ£¬false£º²»ÊÇ
+	 * è¿”å›èŠ‚ç‚¹æ˜¯å¦å•è°ƒé€’å¢çš„
+	 * @return trueï¼šæ˜¯å•è°ƒé€’å¢çš„ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isMonotone() {
 		return left.isMonotone() && right.isMonotone();

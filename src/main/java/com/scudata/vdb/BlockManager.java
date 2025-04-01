@@ -3,19 +3,19 @@ package com.scudata.vdb;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-//¿Õ¿é¹ÜÀíÆ÷
+//ç©ºå—ç®¡ç†å™¨
 /**
- * Êı¾İ¿âÎÄ¼şÎïÀí¿é¹ÜÀíÆ÷£¬ÓÃÓÚÉêÇë¿Õ¿éºÍ»ØÊÕ×÷·ÏµÄ¿é
+ * æ•°æ®åº“æ–‡ä»¶ç‰©ç†å—ç®¡ç†å™¨ï¼Œç”¨äºç”³è¯·ç©ºå—å’Œå›æ”¶ä½œåºŸçš„å—
  * @author RunQian
  *
  */
 class BlockManager {
-	private static final int ALLUSED = 0xffffffff; // 32Î»È«±»Õ¼ÓÃ
+	private static final int ALLUSED = 0xffffffff; // 32ä½å…¨è¢«å ç”¨
 	
-	private Library library; // Êı¾İ¿â¶ÔÏó
-	private volatile int totalBlockCount; // ×Ü¿éÊı
-	private int []blockSigns; // ¿éÊÇ·ñ±»Õ¼ÓÃ±êÖ¾£¬±»Õ¼ÓÃÁËÔòÏàÓ¦µÄÎ»Îª1£¬·ñÔòÎª0
-	private int signIndex; // ÉÏÒ»´ÎÉ¨Ãèµ½¿Õ¿éµÄÎ»ÖÃ
+	private Library library; // æ•°æ®åº“å¯¹è±¡
+	private volatile int totalBlockCount; // æ€»å—æ•°
+	private int []blockSigns; // å—æ˜¯å¦è¢«å ç”¨æ ‡å¿—ï¼Œè¢«å ç”¨äº†åˆ™ç›¸åº”çš„ä½ä¸º1ï¼Œå¦åˆ™ä¸º0
+	private int signIndex; // ä¸Šä¸€æ¬¡æ‰«æåˆ°ç©ºå—çš„ä½ç½®
 	private boolean stopSign = false;
 	
 	
@@ -23,25 +23,25 @@ class BlockManager {
 		this.library = library;
 	}
 	
-	// ÉèÖÃ¿éÊıÁ¿
+	// è®¾ç½®å—æ•°é‡
 	private void setBlockCount(int n) {
-		int len = n / 32; // Ã¿¸öint¿ÉÒÔ±íÊ¾32¿é
+		int len = n / 32; // æ¯ä¸ªintå¯ä»¥è¡¨ç¤º32å—
 		if (n % 32 != 0) {
 			len++;
 		}
 		
 		if (blockSigns == null) {
-			// Æô¶¯Ê±³õÊ¼»¯
+			// å¯åŠ¨æ—¶åˆå§‹åŒ–
 			blockSigns = new int[len];
 		} else {
-			// Ôö´ó¿éÊı
+			// å¢å¤§å—æ•°
 			int []tmp = new int[len];
 			System.arraycopy(blockSigns, 0, tmp, 0, blockSigns.length);
 			blockSigns = tmp;
 		}
 	}
 	
-	// »ØÊÕÖ¸¶¨ÎïÀí¿é
+	// å›æ”¶æŒ‡å®šç‰©ç†å—
 	private void setBlockUnused(int block) {
 		int m = block / 32;
 		int n= block % 32;
@@ -53,8 +53,8 @@ class BlockManager {
 	}
 	
 	/**
-	 * Æô¶¯Ê±µ÷ÓÃ£¬²»×öÍ¬²½£¬ÉèÖÃ¿é±»Ê¹ÓÃ
-	 * @param block ÎïÀí¿éºÅ
+	 * å¯åŠ¨æ—¶è°ƒç”¨ï¼Œä¸åšåŒæ­¥ï¼Œè®¾ç½®å—è¢«ä½¿ç”¨
+	 * @param block ç‰©ç†å—å·
 	 */
 	public void setBlockUsed(int block) {
 		int m = block / 32;
@@ -63,8 +63,8 @@ class BlockManager {
 	}
 	
 	/**
-	 * Æô¶¯Ê±µ÷ÓÃ£¬²»×öÍ¬²½£¬ÉèÖÃ¿é±»Ê¹ÓÃ
-	 * @param blocks ÎïÀí¿éºÅÊı×é
+	 * å¯åŠ¨æ—¶è°ƒç”¨ï¼Œä¸åšåŒæ­¥ï¼Œè®¾ç½®å—è¢«ä½¿ç”¨
+	 * @param blocks ç‰©ç†å—å·æ•°ç»„
 	 */
 	public void setBlocksUsed(int []blocks) {
 		for (int block : blocks) {
@@ -75,8 +75,8 @@ class BlockManager {
 	}
 	
 	/**
-	 * Æô¶¯¿é¹ÜÀíÆ÷
-	 * @param file ÁÙÊ±ÎÄ¼ş£¬ÓÃÓÚ¼ÇÔØ¿éÊ¹ÓÃĞÅÏ¢£¬Èç¹ûÎª¿ÕÔòÉ¨ÃèÊı¾İ¿âÎÄ¼ş
+	 * å¯åŠ¨å—ç®¡ç†å™¨
+	 * @param file ä¸´æ—¶æ–‡ä»¶ï¼Œç”¨äºè®°è½½å—ä½¿ç”¨ä¿¡æ¯ï¼Œå¦‚æœä¸ºç©ºåˆ™æ‰«ææ•°æ®åº“æ–‡ä»¶
 	 * @throws IOException
 	 */
 	public void start(RandomAccessFile file) throws IOException {
@@ -98,7 +98,7 @@ class BlockManager {
 	}
 	
 	/**
-	 * Êı¾İ¿â¹Ø±Õ£¬¹Ø±Õ¿é¹ÜÀíÆ÷
+	 * æ•°æ®åº“å…³é—­ï¼Œå…³é—­å—ç®¡ç†å™¨
 	 */
 	public void stop() {
 		//thread.setStop();
@@ -106,7 +106,7 @@ class BlockManager {
 		stopSign = true;
 	}
 	
-	// É¨ÃèÎïÀíÎÄ¼ş×îĞÂÇøÎ»ÓÃµ½µÄ¿é£¬´ËÊ±Ã»ÓĞÁ¬½Ó£¬É¾³ı¶àÓàµÄÇøÎ»
+	// æ‰«æç‰©ç†æ–‡ä»¶æœ€æ–°åŒºä½ç”¨åˆ°çš„å—ï¼Œæ­¤æ—¶æ²¡æœ‰è¿æ¥ï¼Œåˆ é™¤å¤šä½™çš„åŒºä½
 	void doThreadScan() throws IOException {
 		int total = (int)(library.getFile().length() / Library.BLOCKSIZE);
 		totalBlockCount = total;
@@ -117,7 +117,7 @@ class BlockManager {
 		setBlockUsed(0);
 	}
 	
-	// É¨ÃèÎïÀíÎÄ¼ş×îĞÂÇøÎ»ÓÃµ½µÄ¿é£¬´ËÊ±Ã»ÓĞÁ¬½Ó£¬É¾³ı¶àÓàµÄÇøÎ»
+	// æ‰«æç‰©ç†æ–‡ä»¶æœ€æ–°åŒºä½ç”¨åˆ°çš„å—ï¼Œæ­¤æ—¶æ²¡æœ‰è¿æ¥ï¼Œåˆ é™¤å¤šä½™çš„åŒºä½
 	private void scanUsedBlocks() throws IOException {
 		int total = (int)(library.getFile().length() / Library.BLOCKSIZE);
 		totalBlockCount = total;
@@ -155,7 +155,7 @@ class BlockManager {
 		}*/
 	}
 	
-	// À©´óÎÄ¼ş
+	// æ‰©å¤§æ–‡ä»¶
 	private void enlargeFile() {
 		totalBlockCount += Library.ENLARGE_BLOCKCOUNT;
 		library.enlargeFile((long)totalBlockCount * Library.BLOCKSIZE);
@@ -163,10 +163,10 @@ class BlockManager {
 	}
 	
 	/**
-	 * ÉêÇëÊ×¿éËùĞèÒªµÄÎïÀí¿é£¬°üº¬block¿é
-	 * @param block Ô­Ê×¿éºÅ
-	 * @param blockCount ĞèÒªµÄ×Ü¿éÊı
-	 * @return ¿Õ¿éºÅ
+	 * ç”³è¯·é¦–å—æ‰€éœ€è¦çš„ç‰©ç†å—ï¼ŒåŒ…å«blockå—
+	 * @param block åŸé¦–å—å·
+	 * @param blockCount éœ€è¦çš„æ€»å—æ•°
+	 * @return ç©ºå—å·
 	 */
 	public synchronized int[] applyHeaderBlocks(int block, int blockCount) {
 		if (blockCount == 1) {
@@ -198,7 +198,7 @@ class BlockManager {
 			}
 			
 			blocks[i] = totalBlockCount;
-			enlargeFile(); // »á¸Ä±ätotalBlockCount´óĞ¡
+			enlargeFile(); // ä¼šæ”¹å˜totalBlockCountå¤§å°
 			setBlockUsed(blocks[i]);
 		}
 		
@@ -207,8 +207,8 @@ class BlockManager {
 	}
 	
 	/**
-	 * ÉêÇëÊı¾İ¿éËùĞèÒªµÄÎïÀí¿é£¬²»°üº¬block¿é
-	 * @param block Ê×¿éµÄÎ»ÖÃ£¬Êı¾İ¿é´æ·ÅµÄÎ»ÖÃ¾¡Á¿¿¿½üÊ×¿é
+	 * ç”³è¯·æ•°æ®å—æ‰€éœ€è¦çš„ç‰©ç†å—ï¼Œä¸åŒ…å«blockå—
+	 * @param block é¦–å—çš„ä½ç½®ï¼Œæ•°æ®å—å­˜æ”¾çš„ä½ç½®å°½é‡é è¿‘é¦–å—
 	 * @param blockCount
 	 * @return
 	 */
@@ -236,7 +236,7 @@ class BlockManager {
 			}
 			
 			blocks[i] = totalBlockCount;
-			enlargeFile(); // »á¸Ä±ätotalBlockCount´óĞ¡
+			enlargeFile(); // ä¼šæ”¹å˜totalBlockCountå¤§å°
 			setBlockUsed(blocks[i]);
 		}
 		
@@ -245,8 +245,8 @@ class BlockManager {
 	}
 
 	/**
-	 * ÉêÇëÒ»¸öÊ×¿é
-	 * @return Ê×¿éºÅ
+	 * ç”³è¯·ä¸€ä¸ªé¦–å—
+	 * @return é¦–å—å·
 	 */
 	public synchronized int applyHeaderBlock() {
 		int []blockSigns = this.blockSigns;
@@ -271,26 +271,26 @@ class BlockManager {
 		return result;
 	}
 	
-	// »ØÊÕÖ¸¶¨ÎïÀí¿é
+	// å›æ”¶æŒ‡å®šç‰©ç†å—
 	public synchronized void recycleBlock(int block) {
 		setBlockUnused(block);
 	}
 	
-	// »ØÊÕÖ¸¶¨ÎïÀí¿é
+	// å›æ”¶æŒ‡å®šç‰©ç†å—
 	public synchronized void recycleBlocks(int[] blocks) {
 		for (int block : blocks) {
 			setBlockUnused(block);
 		}
 	}
 	
-	// »ØÊÕÖ¸¶¨ÎïÀí¿é
+	// å›æ”¶æŒ‡å®šç‰©ç†å—
 	public synchronized void recycleBlocks(int[] blocks, int pos) {
 		for (int len = blocks.length; pos < len; ++pos) {
 			setBlockUnused(blocks[pos]);
 		}
 	}
 	
-	// °Ñ¿éĞÅÏ¢Ğ´µ½ÁÙÊ±ÎÄ¼ş£¬ÎªÏÂ´ÎÆô¶¯Êı¾İ¿âÌáËÙ
+	// æŠŠå—ä¿¡æ¯å†™åˆ°ä¸´æ—¶æ–‡ä»¶ï¼Œä¸ºä¸‹æ¬¡å¯åŠ¨æ•°æ®åº“æé€Ÿ
 	void writeTempFile(RandomAccessFile file) throws IOException {
 		int []blockSigns = this.blockSigns;
 		int len = blockSigns.length;

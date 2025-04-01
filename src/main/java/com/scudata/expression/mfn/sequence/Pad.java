@@ -8,14 +8,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓÃÖ¸¶¨Öµ²¹ÆëĞòÁĞµ½Ö¸¶¨³¤¶È
+ * ç”¨æŒ‡å®šå€¼è¡¥é½åºåˆ—åˆ°æŒ‡å®šé•¿åº¦
  * A.pad(x,n)
  * @author RunQian
  *
  */
 public class Pad extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

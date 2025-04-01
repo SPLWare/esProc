@@ -13,8 +13,8 @@ import java.net.SocketAddress;
 import com.scudata.dm.Env;
 
 /**
- * ·â×°ÁË²ÎÊıµ÷ÕûºóµÄÊı¾İÌ×½Ó×Ö
- * Ê¹ÓÃ¸Ã¶ÔÏóºó£¬¿Í»§¶ËºÍ·şÎñ¶Ë¿ÉÒÔÖ±½Ó½øĞĞ¸ßĞ§µÄÊı¾İ´«Êä
+ * å°è£…äº†å‚æ•°è°ƒæ•´åçš„æ•°æ®å¥—æ¥å­—
+ * ä½¿ç”¨è¯¥å¯¹è±¡åï¼Œå®¢æˆ·ç«¯å’ŒæœåŠ¡ç«¯å¯ä»¥ç›´æ¥è¿›è¡Œé«˜æ•ˆçš„æ•°æ®ä¼ è¾“
  * @author Joancy
  *
  */
@@ -26,9 +26,9 @@ public class SocketData{
 	private ObjectInputStream ois=null;
 	
 	/**
-	 * »ùÓÚsocket¹¹½¨Ò»¸öÊı¾İÌ×½Ó×Ö
-	 * @param socket Ì×½Ó×Ö¶ÔÏó
-	 * @throws Exception ¹¹Ôì³ö´íÊ±Å×³öÒì³£
+	 * åŸºäºsocketæ„å»ºä¸€ä¸ªæ•°æ®å¥—æ¥å­—
+	 * @param socket å¥—æ¥å­—å¯¹è±¡
+	 * @throws Exception æ„é€ å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public SocketData(Socket socket) throws Exception{
 		this.socket = socket;
@@ -41,17 +41,17 @@ public class SocketData{
 	}
 	
 	/**
-	 * ¿Í»§¶Ë´´½¨Ì×½Ó×ÖÊı¾İºó£¬ĞèÒª²úÉú¿Í»§¶ËÍ¨Ñ¶Á÷
-	 * @throws IOException ³ö´íÊ±Å×³öÒì³£
+	 * å®¢æˆ·ç«¯åˆ›å»ºå¥—æ¥å­—æ•°æ®åï¼Œéœ€è¦äº§ç”Ÿå®¢æˆ·ç«¯é€šè®¯æµ
+	 * @throws IOException å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void holdCommunicateStreamClient() throws IOException{
 		OutputStream os = socket.getOutputStream();
-		// ²âÊÔ½á¹û£¬socketµÄ½ÓÊÕ»º³åÔ½´ó£¬Ô­ÔòÉÏÔ½¿ì£»¶ÔÓÚÎÄ¼şÁ÷µÄ¶ÁĞ´£¬Ã»ÓĞ»º³åÁ÷Ê±£¬
-		//ËÙ¶ÈÒ²Ô½¿ì£¬¶øÇÒ¶à¸ö»º³åÁ÷ÇÒ»º³å¿éÉèÖÃºÜ´óÊ±£¬»áÄÚ´æÒç³ö£¬¹Ê×¢ÊÍ
-		// ´¿ÄÚ´æÊı¾İ·¢ËÍÊ±£¬ÓĞ»º³åÁ÷»á¿ì
-		BufferedOutputStream bos = new BufferedOutputStream(os);// ,socketBuf,ÓĞÁË»º³åºó£¬size±¾ÉíµÄ×÷ÓÃ²»ÊÇºÜ´ó
+		// æµ‹è¯•ç»“æœï¼Œsocketçš„æ¥æ”¶ç¼“å†²è¶Šå¤§ï¼ŒåŸåˆ™ä¸Šè¶Šå¿«ï¼›å¯¹äºæ–‡ä»¶æµçš„è¯»å†™ï¼Œæ²¡æœ‰ç¼“å†²æµæ—¶ï¼Œ
+		//é€Ÿåº¦ä¹Ÿè¶Šå¿«ï¼Œè€Œä¸”å¤šä¸ªç¼“å†²æµä¸”ç¼“å†²å—è®¾ç½®å¾ˆå¤§æ—¶ï¼Œä¼šå†…å­˜æº¢å‡ºï¼Œæ•…æ³¨é‡Š
+		// çº¯å†…å­˜æ•°æ®å‘é€æ—¶ï¼Œæœ‰ç¼“å†²æµä¼šå¿«
+		BufferedOutputStream bos = new BufferedOutputStream(os);// ,socketBuf,æœ‰äº†ç¼“å†²åï¼Œsizeæœ¬èº«çš„ä½œç”¨ä¸æ˜¯å¾ˆå¤§
 		oos = new ObjectOutputStream(bos);
-		oos.flush();//Á÷´´½¨ºóÁ¢¿Ìflush£¬±ÜÃâ¶à´ÎÁ¬ĞøĞ´Ê±ËÀËø£»
+		oos.flush();//æµåˆ›å»ºåç«‹åˆ»flushï¼Œé¿å…å¤šæ¬¡è¿ç»­å†™æ—¶æ­»é”ï¼›
 		
 		InputStream is = socket.getInputStream();
 		BufferedInputStream bis = new BufferedInputStream(is);
@@ -59,8 +59,8 @@ public class SocketData{
 	}
 
 	/**
-	 * ·şÎñ¶Ë´´½¨Ì×½Ó×ÖÊı¾İºó£¬ĞèÒª²úÉú·şÎñ¶ËÍ¨Ñ¶Á÷
-	 * @throws IOException ³ö´íÊ±Å×³öÒì³£
+	 * æœåŠ¡ç«¯åˆ›å»ºå¥—æ¥å­—æ•°æ®åï¼Œéœ€è¦äº§ç”ŸæœåŠ¡ç«¯é€šè®¯æµ
+	 * @throws IOException å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void holdCommunicateStreamServer() throws IOException{
 		InputStream is = socket.getInputStream();
@@ -68,19 +68,19 @@ public class SocketData{
 		ois = new ObjectInputStream(bis);
 
 		OutputStream os = socket.getOutputStream();
-		// ²âÊÔ½á¹û£¬socketµÄ½ÓÊÕ»º³åÔ½´ó£¬Ô­ÔòÉÏÔ½¿ì£»¶ÔÓÚÎÄ¼şÁ÷µÄ¶ÁĞ´£¬Ã»ÓĞ»º³åÁ÷Ê±£¬ËÙ¶ÈÒ²Ô½¿ì£¬¶øÇÒ¶à¸ö»º³åÁ÷ÇÒ»º³å¿éÉèÖÃºÜ´óÊ±£¬»áÄÚ´æÒç³ö£¬¹Ê×¢ÊÍ
-		// ´¿ÄÚ´æÊı¾İ·¢ËÍÊ±£¬ÓĞ»º³åÁ÷»á¿ì
-		BufferedOutputStream bos = new BufferedOutputStream(os);// ,socketBuf,ÓĞÁË»º³åºó£¬size±¾ÉíµÄ×÷ÓÃ²»ÊÇºÜ´ó
+		// æµ‹è¯•ç»“æœï¼Œsocketçš„æ¥æ”¶ç¼“å†²è¶Šå¤§ï¼ŒåŸåˆ™ä¸Šè¶Šå¿«ï¼›å¯¹äºæ–‡ä»¶æµçš„è¯»å†™ï¼Œæ²¡æœ‰ç¼“å†²æµæ—¶ï¼Œé€Ÿåº¦ä¹Ÿè¶Šå¿«ï¼Œè€Œä¸”å¤šä¸ªç¼“å†²æµä¸”ç¼“å†²å—è®¾ç½®å¾ˆå¤§æ—¶ï¼Œä¼šå†…å­˜æº¢å‡ºï¼Œæ•…æ³¨é‡Š
+		// çº¯å†…å­˜æ•°æ®å‘é€æ—¶ï¼Œæœ‰ç¼“å†²æµä¼šå¿«
+		BufferedOutputStream bos = new BufferedOutputStream(os);// ,socketBuf,æœ‰äº†ç¼“å†²åï¼Œsizeæœ¬èº«çš„ä½œç”¨ä¸æ˜¯å¾ˆå¤§
 		oos = new ObjectOutputStream(bos);
-		oos.flush();//Á÷´´½¨ºóÁ¢¿Ìflush£¬±ÜÃâ¶à´ÎÁ¬ĞøĞ´Ê±ËÀËø£»
+		oos.flush();//æµåˆ›å»ºåç«‹åˆ»flushï¼Œé¿å…å¤šæ¬¡è¿ç»­å†™æ—¶æ­»é”ï¼›
 		
 	}
 
 	/**
-	 * Á¬½Óµ½Ì×½Ó×ÖµØÖ·
-	 * @param endpoint Ì×½Ó×ÖµØÖ·
-	 * @param timeout Á¬½Ó³¬Ê±µÄÊ±¼ä£¬µ¥Î»ºÁÃë
-	 * @throws Exception Á¬½ÓÒì³£
+	 * è¿æ¥åˆ°å¥—æ¥å­—åœ°å€
+	 * @param endpoint å¥—æ¥å­—åœ°å€
+	 * @param timeout è¿æ¥è¶…æ—¶çš„æ—¶é—´ï¼Œå•ä½æ¯«ç§’
+	 * @throws Exception è¿æ¥å¼‚å¸¸
 	 */
 	public void connect(SocketAddress endpoint,
             int timeout) throws Exception{
@@ -93,30 +93,30 @@ public class SocketData{
 	}
 	
 	/**
-	 * »ñÈ¡Ô­Ê¼Ì×½Ó×Ö
-	 * @return Ì×½Ó×Ö¶ÔÏó
+	 * è·å–åŸå§‹å¥—æ¥å­—
+	 * @return å¥—æ¥å­—å¯¹è±¡
 	 */
 	public Socket getSocket(){
 		return socket;
 	}
 	
 	/**
-	 * Ğ´³öÒ»¸ö¶ÔÏó
-	 * @param obj Êı¾İ¶ÔÏó
-	 * @throws IOException Ğ´³ö´íÒì³£
+	 * å†™å‡ºä¸€ä¸ªå¯¹è±¡
+	 * @param obj æ•°æ®å¯¹è±¡
+	 * @throws IOException å†™å‡ºé”™å¼‚å¸¸
 	 */
 	public void write(Object obj)
 			throws IOException {
 		oos.writeUnshared(obj);
 		oos.flush();
-		oos.reset();//Ğ´ÍêºóÇå¿ÕÄÚ´æ£¬±ÜÃâÄÚ´æÒç³ö
+		oos.reset();//å†™å®Œåæ¸…ç©ºå†…å­˜ï¼Œé¿å…å†…å­˜æº¢å‡º
 	}
 
 	/**
-	 * ¶Á³ö¶ÔÏóÊı¾İ
-	 * @return Êı¾İ¶ÔÏó
-	 * @throws IOException IOÒì³£
-	 * @throws ClassNotFoundException ÀàÒì³£
+	 * è¯»å‡ºå¯¹è±¡æ•°æ®
+	 * @return æ•°æ®å¯¹è±¡
+	 * @throws IOException IOå¼‚å¸¸
+	 * @throws ClassNotFoundException ç±»å¼‚å¸¸
 	 */
 	public Object read()
 			throws IOException, ClassNotFoundException {
@@ -125,28 +125,28 @@ public class SocketData{
 	}
 
 	/**
-	 * ²é¿´Ì×½Ó×ÖÊÇ·ñ¹Ø±Õ
-	 * @return ¹Ø±ÕÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æŸ¥çœ‹å¥—æ¥å­—æ˜¯å¦å…³é—­
+	 * @return å…³é—­æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isClosed(){
 		return socket.isClosed();
 	}
 	
 	/**
-	 * ·şÎñÆ÷¶Ë¹Ø±ÕÊ±µ÷ÓÃ¸Ã·½·¨£¬ÊÍ·ÅÌ×½Ó×Ö
-	 * @throws Exception ¹Ø±ÕÒì³£
+	 * æœåŠ¡å™¨ç«¯å…³é—­æ—¶è°ƒç”¨è¯¥æ–¹æ³•ï¼Œé‡Šæ”¾å¥—æ¥å­—
+	 * @throws Exception å…³é—­å¼‚å¸¸
 	 */
 	public void serverClose() throws Exception{
 		socket.close();
 	}
 
 	/**
-	 * ¿Í»§¶Ë¹Ø±ÕÊ±µ÷ÓÃ¸Ã·½·¨£¬ÊÍ·ÅÌ×½Ó×Ö
-	 * ¿Í»§¶ËĞèÒªÏÈ·¢ËÍnullÃüÁîÍ¨Öª·şÎñ¶ËÍË³öÏß³Ì
-	 * @throws Exception ¹Ø±ÕÒì³£
+	 * å®¢æˆ·ç«¯å…³é—­æ—¶è°ƒç”¨è¯¥æ–¹æ³•ï¼Œé‡Šæ”¾å¥—æ¥å­—
+	 * å®¢æˆ·ç«¯éœ€è¦å…ˆå‘é€nullå‘½ä»¤é€šçŸ¥æœåŠ¡ç«¯é€€å‡ºçº¿ç¨‹
+	 * @throws Exception å…³é—­å¼‚å¸¸
 	 */
 	public void clientClose() throws Exception{
-		write(null);//¹Øµô·şÎñÏß³Ì¶ËµÄsocketºó£¬Í¨Ñ¶Á÷ÒÑ¾­ÖĞ¶ÏÁË
+		write(null);//å…³æ‰æœåŠ¡çº¿ç¨‹ç«¯çš„socketåï¼Œé€šè®¯æµå·²ç»ä¸­æ–­äº†
 		serverClose();
 	}
 }

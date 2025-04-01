@@ -5,7 +5,7 @@ import java.util.Locale;
 import com.scudata.common.*;
 
 /**
- * 辅助函数的资源编辑类
+ * 杈呭姪鍑芥暟鐨勮祫婧愮紪杈戠被
  * @author Joancy
  *
  */

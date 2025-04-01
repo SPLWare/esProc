@@ -108,20 +108,20 @@ public class ImExport  extends ImFunction {
 	            ;
 	        }
 	        
-	        // Éè¶¨¹ö¶¯Ê±¼ä¼ä¸ô
+	        // è®¾å®šæ»šåŠ¨æ—¶é—´é—´éš”
 	        Scroll scroll = new Scroll(TimeValue.timeValueMinutes(2L));
-	        // ²éÑ¯È«²¿
+	        // æŸ¥è¯¢å…¨éƒ¨
 	        SearchRequest searchRequest = new SearchRequest(indexName);
 	        searchRequest.scroll(scroll);
 	        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-	        // Ã¿´Î·µ»Ø10000ÌõÊı¾İ
+	        // æ¯æ¬¡è¿”å›10000æ¡æ•°æ®
 	        searchSourceBuilder.size(m_pageNum);
-	        // ±¸·İË÷ÒıÖĞ×Ö¶ÎĞÅÏ¢(Èç¹û²»Ğ´£¬Ä¬ÈÏ±¸·İÈ«²¿£¬ÕâÀïĞèÒª±¸·İÈ«²¿£¬Ğ´µÄ»°¾ÍÊÇ±¸·İÊı×éÖĞµÄ×Ö¶Î)
+	        // å¤‡ä»½ç´¢å¼•ä¸­å­—æ®µä¿¡æ¯(å¦‚æœä¸å†™ï¼Œé»˜è®¤å¤‡ä»½å…¨éƒ¨ï¼Œè¿™é‡Œéœ€è¦å¤‡ä»½å…¨éƒ¨ï¼Œå†™çš„è¯å°±æ˜¯å¤‡ä»½æ•°ç»„ä¸­çš„å­—æ®µ)
 	        if (cols!=null) {
 	        	searchSourceBuilder.fetchSource(cols, new  String[] {});
 	        }
 	
-	        // bool²éÑ¯
+	        // boolæŸ¥è¯¢
 	        BoolQueryBuilder boolBuilder = QueryBuilders.boolQuery();
 	        searchSourceBuilder.query(boolBuilder);
 	        searchRequest.source(searchSourceBuilder);
@@ -138,7 +138,7 @@ public class ImExport  extends ImFunction {
 	        	jsonWrite = new BufferedWriter(new OutputStreamWriter(
 	        			new FileOutputStream(new File(fileName)), m_charset));
 	        }
-	        // ¹ö¶¯id
+	        // æ»šåŠ¨id
 	        String scrollId = searchResponse.getScrollId();
 	        SearchHit[] hits = hits = searchResponse.getHits().getHits();	        
 	        do {
@@ -148,19 +148,19 @@ public class ImExport  extends ImFunction {
 	        		jsonWrite(jsonWrite, hits, linefeed);	
 	        	}
 	        	SearchScrollRequest scrollRequest = new SearchScrollRequest(scrollId);
-                // ÔÙ´ÎÉèÖÃ¹ö¶¯Ê±¼ä
+                // å†æ¬¡è®¾ç½®æ»šåŠ¨æ—¶é—´
                 scrollRequest.scroll(scroll);
-                // Ö´ĞĞ¹ö¶¯²éÑ¯
+                // æ‰§è¡Œæ»šåŠ¨æŸ¥è¯¢
                 searchResponse = m_client.scroll(scrollRequest, RequestOptions.DEFAULT);
-                // »ñÈ¡¹ö¶¯id
+                // è·å–æ»šåŠ¨id
                 scrollId = searchResponse.getScrollId();
-                // ¼ÓÈëÇå³ı
+                // åŠ å…¥æ¸…é™¤
                 clearScrollRequest.addScrollId(scrollId);
-                // ·µ»ØÃüÖĞ
+                // è¿”å›å‘½ä¸­
                 hits = searchResponse.getHits().getHits();		       
 		    }while (Objects.nonNull(hits) && hits.length > 0) ;
 
-            // ×îºóÖ´ĞĞÇå³ı£ºcrollIdÊ¹ÓÃÍêÖ®ºóÊÖ¶¯Çå³ı£¬¼õÉÙÄÚ´æÊ¹ÓÃÁ¿£¬µ±È»Ò²¿ÉÒÔ²»ÇåÀí£¬es»á×Ô¶¯ÇåÀíµÄ£¬µ«ÊÇÃ»ÓĞÊÖ¶¯ÇåÀíºÃ
+            // æœ€åæ‰§è¡Œæ¸…é™¤ï¼šcrollIdä½¿ç”¨å®Œä¹‹åæ‰‹åŠ¨æ¸…é™¤ï¼Œå‡å°‘å†…å­˜ä½¿ç”¨é‡ï¼Œå½“ç„¶ä¹Ÿå¯ä»¥ä¸æ¸…ç†ï¼Œesä¼šè‡ªåŠ¨æ¸…ç†çš„ï¼Œä½†æ˜¯æ²¡æœ‰æ‰‹åŠ¨æ¸…ç†å¥½
             ClearScrollResponse clearScrollResponse = m_client.clearScroll(clearScrollRequest, RequestOptions.DEFAULT);
             bRet = clearScrollResponse.isSucceeded();
             
@@ -180,11 +180,11 @@ public class ImExport  extends ImFunction {
 		return bRet;
     }
 	
-	// ½«json¸ñÊ½µÄÊı¾İµ¼³öµ½ÎÄ¼şÖĞ£»Òì³£Ò»ĞĞµÄĞ©
+	// å°†jsonæ ¼å¼çš„æ•°æ®å¯¼å‡ºåˆ°æ–‡ä»¶ä¸­ï¼›å¼‚å¸¸ä¸€è¡Œçš„äº›
 	private void jsonWrite(BufferedWriter out, SearchHit[] hits, String linefeed) {
 		try {
             for (SearchHit hit : hits) {
-                // ¶ÁÈ¡ÎªString
+                // è¯»å–ä¸ºString
                 String json = hit.getSourceAsString();
                 out.write(json);
                 out.write(linefeed);		                
@@ -200,9 +200,9 @@ public class ImExport  extends ImFunction {
 			List<String> lines = new ArrayList<String>();
 			boolean bTitle = true;
             for (SearchHit hit : hits) {
-                // ¶ÁÈ¡ÎªString
+                // è¯»å–ä¸ºString
                 String json = hit.getSourceAsString();
-                JSONObject jobs = JSONObject.fromString(json);  // ±éÀú jsonarray Êı×é£¬°ÑÃ¿Ò»¸ö¶ÔÏó×ª³É json ¶ÔÏó
+                JSONObject jobs = JSONObject.fromString(json);  // éå† jsonarray æ•°ç»„ï¼ŒæŠŠæ¯ä¸€ä¸ªå¯¹è±¡è½¬æˆ json å¯¹è±¡
                 doParseJoson(jobs, lines, bTitle);
                 if (bTitle) {
                 	bTitle = false;
@@ -219,7 +219,7 @@ public class ImExport  extends ImFunction {
 	protected void doParseJoson(JSONObject job, List<String> ls, boolean bTitle){
 		Iterator iterator = job.keys();
 
-		// Ã¿¸ö¶ÔÏóÖĞµÄÊôĞÔÖµ
+		// æ¯ä¸ªå¯¹è±¡ä¸­çš„å±æ€§å€¼
 		int n = 0;
 		if (bTitle) {
 			m_colMap.clear();

@@ -10,40 +10,40 @@ import com.scudata.server.unit.UnitServer;
 import com.scudata.thread.ThreadPool;
 
 /**
- * ÊµÏÖ²¢·¢µ÷ÓÃº¯Êıcallx(dfx,¡­;hs;rdfx)µÄ²¢·¢µ÷ÓÃÀà
- * Ïò·Ö»úĞòÁĞhs·ÖÅä×÷ÒµÖ´ĞĞ½Å±¾dfx£¬¼Ì³ĞÈÎÎñ¿Õ¼ä£»·µ»ØÃ¿¸ö×÷ÒµµÄ·µ»ØÖµ¹¹³ÉµÄĞòÁĞ¡£
- * ×÷Òµ·ÇÕı³£½áÊø(end msg)Ôò½«ÖØĞÂ·ÖÅä£¨±Ü¿ªÒÑ·ÖÅä¹ı·Ö»ú£©£¬Èç¹ûÕÒ²»µ½¿ÉÓÃ·Ö»úÔòÈÎÎñÊ§°Ü£¬×÷Òµ·ÖÅäµ½²»¿ÉÓÃ·Ö»úÊ±±»ÈÏÎª·ÇÕı³£½áÊø
- * È±Ê¡½«ÒÀ´Î·ÖÅä£¬¼´µÚi¸ö×÷Òµ·ÖÅäµ½hs.m@r(i)ÉÏ
- * rdfxÊÇÁ½¸ö²ÎÊıµÄ½Å±¾£¬ÓÃÓÚreduce¶¯×÷£¬¿ÉÊ¡ÂÔ¡£Æä²ÎÊı·Ö±ğÊÇµ±Ç°ÀÛ»ıÖµºÍµ±Ç°·µ»ØÖµ£¬rdfx·µ»ØÖµ½«×÷ÎªĞÂµÄÀÛ»ıÖµ£¬³õÊ¼ÀÛ»ıÖµÎªnull
- * ÓĞrdfxÊ±£¬·µ»ØÖµ½«ÊÇÃ¿¸ö·Ö»úµÄ·µ»ØÖµ¹¹³ÉµÄĞòÁĞ£¬°´hsµÄ´ÎĞò¡£
+ * å®ç°å¹¶å‘è°ƒç”¨å‡½æ•°callx(dfx,â€¦;hs;rdfx)çš„å¹¶å‘è°ƒç”¨ç±»
+ * å‘åˆ†æœºåºåˆ—hsåˆ†é…ä½œä¸šæ‰§è¡Œè„šæœ¬dfxï¼Œç»§æ‰¿ä»»åŠ¡ç©ºé—´ï¼›è¿”å›æ¯ä¸ªä½œä¸šçš„è¿”å›å€¼æ„æˆçš„åºåˆ—ã€‚
+ * ä½œä¸šéæ­£å¸¸ç»“æŸ(end msg)åˆ™å°†é‡æ–°åˆ†é…ï¼ˆé¿å¼€å·²åˆ†é…è¿‡åˆ†æœºï¼‰ï¼Œå¦‚æœæ‰¾ä¸åˆ°å¯ç”¨åˆ†æœºåˆ™ä»»åŠ¡å¤±è´¥ï¼Œä½œä¸šåˆ†é…åˆ°ä¸å¯ç”¨åˆ†æœºæ—¶è¢«è®¤ä¸ºéæ­£å¸¸ç»“æŸ
+ * ç¼ºçœå°†ä¾æ¬¡åˆ†é…ï¼Œå³ç¬¬iä¸ªä½œä¸šåˆ†é…åˆ°hs.m@r(i)ä¸Š
+ * rdfxæ˜¯ä¸¤ä¸ªå‚æ•°çš„è„šæœ¬ï¼Œç”¨äºreduceåŠ¨ä½œï¼Œå¯çœç•¥ã€‚å…¶å‚æ•°åˆ†åˆ«æ˜¯å½“å‰ç´¯ç§¯å€¼å’Œå½“å‰è¿”å›å€¼ï¼Œrdfxè¿”å›å€¼å°†ä½œä¸ºæ–°çš„ç´¯ç§¯å€¼ï¼Œåˆå§‹ç´¯ç§¯å€¼ä¸ºnull
+ * æœ‰rdfxæ—¶ï¼Œè¿”å›å€¼å°†æ˜¯æ¯ä¸ªåˆ†æœºçš„è¿”å›å€¼æ„æˆçš„åºåˆ—ï¼ŒæŒ‰hsçš„æ¬¡åºã€‚
  * @author Joancy
  *
  */
 public class ParallelCaller extends ParallelProcess {
-	// ¸ÄÎª³¤Á¬½Óºó£¬nodeÒ»µ©²úÉú¾Í»áÊ×ÏÈÕ¼ÓÃÁ¬½Ó£»µÈÁ¿Ëã·¨»áÖ±½ÓÓÃËü£»
-	// µ«ÉÙÁ¿Ëã·¨£¬²»Ö±½ÓÊ¹ÓÃnodes£¬»áÕùÓÃ ucListÖĞµÄ¶ÓÁĞ·Ö»ú£¬ÉÙÁ¿Ëã·¨µÄnodes»áÀË·Ñ³õÊ¼Á¬½Ó
+	// æ”¹ä¸ºé•¿è¿æ¥åï¼Œnodeä¸€æ—¦äº§ç”Ÿå°±ä¼šé¦–å…ˆå ç”¨è¿æ¥ï¼›ç­‰é‡ç®—æ³•ä¼šç›´æ¥ç”¨å®ƒï¼›
+	// ä½†å°‘é‡ç®—æ³•ï¼Œä¸ç›´æ¥ä½¿ç”¨nodesï¼Œä¼šäº‰ç”¨ ucListä¸­çš„é˜Ÿåˆ—åˆ†æœºï¼Œå°‘é‡ç®—æ³•çš„nodesä¼šæµªè´¹åˆå§‹è¿æ¥
 	private UnitClient[] nodes = null;
 
 	private Context ctx;
 	private int activeHostCount = 0;
 
-	private final byte TYPE_DEFAULT = 0;//È±Ê¡Ë³´Î·ÖÅä£¬¶àÓàµÄÂÖ»Ø
-	private final byte TYPE_ONE = 1;//Ò»¸ö×÷ÒµÈ«²¿·ÖÅä£¬×î¿ìµÄ·µ»Øºó£¬ÖĞ¶ÏÆäËû×÷Òµ
-	private final byte TYPE_RANDOM = 2;//Ëæ»ú·ÖÅä
-//	private final byte TYPE_MUCH = 3;//Ô¤·ÖÅäÈ»ºóÇÀ×÷Òµ
+	private final byte TYPE_DEFAULT = 0;//ç¼ºçœé¡ºæ¬¡åˆ†é…ï¼Œå¤šä½™çš„è½®å›
+	private final byte TYPE_ONE = 1;//ä¸€ä¸ªä½œä¸šå…¨éƒ¨åˆ†é…ï¼Œæœ€å¿«çš„è¿”å›åï¼Œä¸­æ–­å…¶ä»–ä½œä¸š
+	private final byte TYPE_RANDOM = 2;//éšæœºåˆ†é…
+//	private final byte TYPE_MUCH = 3;//é¢„åˆ†é…ç„¶åæŠ¢ä½œä¸š
 
 	private String opt = null;
 
 	/**
-	 * ¹¹ÔìÒ»¸ö²¢·¢µ÷ÓÃ¶ÔÏó
-	 * @param dfx ¼ÆËã¶ÔÏó
-	 * @param hosts ·Ö»ú
-	 * @param ports ¶Ë¿Ú
+	 * æ„é€ ä¸€ä¸ªå¹¶å‘è°ƒç”¨å¯¹è±¡
+	 * @param dfx è®¡ç®—å¯¹è±¡
+	 * @param hosts åˆ†æœº
+	 * @param ports ç«¯å£
 	 */
 	public ParallelCaller(Object dfx, String[] hosts, int[] ports) {
 		super(dfx);
 		if (hosts == null)
-			return;// ±¾µØÏß³ÌÖ´ĞĞÊ±
+			return;// æœ¬åœ°çº¿ç¨‹æ‰§è¡Œæ—¶
 
 		nodes = new UnitClient[hosts.length];
 		for (int i = 0; i < hosts.length; i++) {
@@ -58,46 +58,46 @@ public class ParallelCaller extends ParallelProcess {
 	}
 
 	/**
-	 * ÉèÖÃ¼ÆËãÑ¡Ïî
-	 * @param ops Ñ¡Ïî
+	 * è®¾ç½®è®¡ç®—é€‰é¡¹
+	 * @param ops é€‰é¡¹
 	 */
 	public void setOptions(String ops) {
 		this.opt = ops;
 	}
 
 	/**
-	 * Ëæ»ú·ÖÅäĞÍ
-	 * @return Ëæ»ú·ÖÅäÑ¡Ïî·µ»Øtrue
+	 * éšæœºåˆ†é…å‹
+	 * @return éšæœºåˆ†é…é€‰é¡¹è¿”å›true
 	 */
 	public boolean isAOption() {
 		return opt != null && opt.indexOf('a') != -1;
 	}
 
 	/**
-	 * Ö»ÓĞÒ»¸ö×÷ÒµÒ²·ÖÅä¸øËùÓĞ¿ÉÓÃ·Ö»ú£¬ÈÎºÎÒ»¸ö¾ÍËãÍê³É£¬ÖĞ¶ÏÆäËüÈÎÎñ
-	 * @return Ò»¸ö×÷ÒµÑ¡Ïî·µ»Øtrue
+	 * åªæœ‰ä¸€ä¸ªä½œä¸šä¹Ÿåˆ†é…ç»™æ‰€æœ‰å¯ç”¨åˆ†æœºï¼Œä»»ä½•ä¸€ä¸ªå°±ç®—å®Œæˆï¼Œä¸­æ–­å…¶å®ƒä»»åŠ¡
+	 * @return ä¸€ä¸ªä½œä¸šé€‰é¡¹è¿”å›true
 	 */
 	public boolean is1Option() {
 		return opt != null && opt.indexOf('1') != -1;
 	}
 
 	/**
-	 * È±Ê¡Ë³´Î·ÖÅä
-	 * @return È±Ê¡Ë³´Î·ÖÅä·µ»Øtrue
+	 * ç¼ºçœé¡ºæ¬¡åˆ†é…
+	 * @return ç¼ºçœé¡ºæ¬¡åˆ†é…è¿”å›true
 	 */
 	public boolean isDefaultOption() {
 		return opt == null;
 	}
 	/**
-	 * ÉèÖÃ¼ÆËã»·¾³µÄÉÏÏÂÎÄ¶ÔÏó
-	 * @param ctx ÉÏÏÂÎÄ
+	 * è®¾ç½®è®¡ç®—ç¯å¢ƒçš„ä¸Šä¸‹æ–‡å¯¹è±¡
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 */
 	public void setContext(Context ctx) {
 		this.ctx = ctx;
 		ctx.addResource(this);
 	}
 
-	// ¸Ã·½·¨Ëæ»ú´òÂÒ·Ö»ú¶ÓÁĞ
+	// è¯¥æ–¹æ³•éšæœºæ‰“ä¹±åˆ†æœºé˜Ÿåˆ—
 	private void randomUCList() {
 		Sequence sortSeq = new Sequence();
 		while(!ucList.isEmpty()){
@@ -121,12 +121,12 @@ public class ParallelCaller extends ParallelProcess {
 	}
 
 	/**
-	 * Ö´ĞĞ×÷Òµ£¬·µ»Ø¼ÆËã½á¹û
-	 * @return ¼ÆËã½á¹û
+	 * æ‰§è¡Œä½œä¸šï¼Œè¿”å›è®¡ç®—ç»“æœ
+	 * @return è®¡ç®—ç»“æœ
 	 */
 	public Object execute() {
 		if (nodes == null) {
-			//±¾»ú¶àÏß³ÌÖ´ĞĞ
+			//æœ¬æœºå¤šçº¿ç¨‹æ‰§è¡Œ
 			return super.execute();
 		}
 		try {
@@ -149,18 +149,18 @@ public class ParallelCaller extends ParallelProcess {
 	}
 	
 	/**
-	 * Ö»ÓĞÒ»¸ö×÷ÒµÊ±£¬Ê¹ÓÃ1Ñ¡Ïî£¬·ÖÅäµ½ËùÓĞ·Ö»ú£¬È¡×î¿ìµÄ½á¹ûºó·µ»Ø
-	 * @return ¼ÆËã½á¹û
+	 * åªæœ‰ä¸€ä¸ªä½œä¸šæ—¶ï¼Œä½¿ç”¨1é€‰é¡¹ï¼Œåˆ†é…åˆ°æ‰€æœ‰åˆ†æœºï¼Œå–æœ€å¿«çš„ç»“æœåè¿”å›
+	 * @return è®¡ç®—ç»“æœ
 	 */
 	public Object executeOne() {
-		Logger.debug("1¸ö×÷ÒµÊ±£¬·Ö¸øËùÓĞ·Ö»ú£¬È¡×î¿ìµÄ½á¹û");
+		Logger.debug("1ä¸ªä½œä¸šæ—¶ï¼Œåˆ†ç»™æ‰€æœ‰åˆ†æœºï¼Œå–æœ€å¿«çš„ç»“æœ");
 		ThreadPool pool = null;
 		try {
 			List<ProcessCaller> pCallers = new ArrayList<ProcessCaller>();
 			ucList = new LinkedList<UnitClient>();
 
 			int size = nodes.length;
-			// ĞèÒªÈİ´í£¬ÕÒ³ö»î¶¯µÄ·Ö»ú£¬Éú³ÉÈİ´í¶ÓÁĞ
+			// éœ€è¦å®¹é”™ï¼Œæ‰¾å‡ºæ´»åŠ¨çš„åˆ†æœºï¼Œç”Ÿæˆå®¹é”™é˜Ÿåˆ—
 			for (int i = 0; i < size; i++) {
 				UnitClient uc = nodes[i];
 				if (!uc.isConnected()) {
@@ -173,7 +173,7 @@ public class ParallelCaller extends ParallelProcess {
 			Sequence argPos = new Sequence();
 			argPos.add(1);
 			List<List> args = reserveResult(argPos);
-//			½«×÷Òµ·Ö¸øËùÓĞµÄ·Ö»ú
+//			å°†ä½œä¸šåˆ†ç»™æ‰€æœ‰çš„åˆ†æœº
 			for (int i = 1; i <= size; i++) {
 				ProcessCaller pcaller = new ProcessCaller(args);
 				pcaller.setPositions(argPos);
@@ -185,7 +185,7 @@ public class ParallelCaller extends ParallelProcess {
 			for (ProcessCaller pc : pCallers) {
 				callers.add(pc);
 			}
-			// Ö÷»úµÄ¹¤×÷³Ø£¬Ö±½ÓÊÇ·Ö»úµÄÊıÄ¿
+			// ä¸»æœºçš„å·¥ä½œæ± ï¼Œç›´æ¥æ˜¯åˆ†æœºçš„æ•°ç›®
 			int poolSize = ucList.size();
 			pool = ThreadPool.newSpecifiedInstance(poolSize);
 			for (int i = 0; i < size; i++) {
@@ -204,7 +204,7 @@ public class ParallelCaller extends ParallelProcess {
 			interruptAll(null, x);
 
 			if(x.getMessage().equals(ParallelProcess.ONE_OPTION)){
-//				1Ñ¡Ïî¼ÆËã½áÊøºó£¬Å×³öONE_OPTIONÒì³££¬´ò¶Ï±ğµÄ×÷Òµ£¬È»ºóÖ±½Ó·µ»Ø½á¹û¡£
+//				1é€‰é¡¹è®¡ç®—ç»“æŸåï¼ŒæŠ›å‡ºONE_OPTIONå¼‚å¸¸ï¼Œæ‰“æ–­åˆ«çš„ä½œä¸šï¼Œç„¶åç›´æ¥è¿”å›ç»“æœã€‚
 				return result;
 			}
 			throw new RuntimeException(x);
@@ -216,8 +216,8 @@ public class ParallelCaller extends ParallelProcess {
 	}
 
 	/**
-	 * È±Ê¡Ë³´Î·ÖÅä
-	 * @return ¼ÆËã½á¹û
+	 * ç¼ºçœé¡ºæ¬¡åˆ†é…
+	 * @return è®¡ç®—ç»“æœ
 	 */
 	public Object execute(byte calcType) {
 		String msg;
@@ -235,7 +235,7 @@ public class ParallelCaller extends ParallelProcess {
 			int size = nodes.length;
 			int maxTaskNum = 0;
 			HashMap<String, Integer> ucTaskMap = new HashMap<String, Integer>();
-			// ĞèÒªÈİ´í£¬ÕÒ³ö»î¶¯µÄ·Ö»ú£¬Éú³ÉÈİ´í¶ÓÁĞ
+			// éœ€è¦å®¹é”™ï¼Œæ‰¾å‡ºæ´»åŠ¨çš„åˆ†æœºï¼Œç”Ÿæˆå®¹é”™é˜Ÿåˆ—
 			for (int i = 0; i < size; i++) {
 				UnitClient uc = nodes[i];
 				if (!uc.isConnected()) {
@@ -250,20 +250,20 @@ public class ParallelCaller extends ParallelProcess {
 				activeHostCount++;
 			}
 
-			// ¸ù¾İ·Ö»úµÄ×î´ó×÷ÒµÊı£¬²¹Æë·Ö»úµÄ×÷Òµ¶ÓÁĞ
+			// æ ¹æ®åˆ†æœºçš„æœ€å¤§ä½œä¸šæ•°ï¼Œè¡¥é½åˆ†æœºçš„ä½œä¸šé˜Ÿåˆ—
 			size = callers.size();
 			for (int i = 1; i <= maxTaskNum; i++) {
 				for (int n = 0; n < activeHostCount; n++) {
 					UnitClient tmp = ucList.get(n);
 					Integer tmpMax = ucTaskMap.get(tmp.toString());
 					if (i < tmpMax) {
-						// ²¹ÆëµÄ·Ö»ú£¬È±Ê¡¿ËÂ¡
+						// è¡¥é½çš„åˆ†æœºï¼Œç¼ºçœå…‹éš†
 						appendClient(tmp);
 					}
 				}
 			}
 			
-			// ÎªÁË·ÀÖ¹ËùÓĞ×÷ÒµÈ«²¿¶ÑÔÚµÚÒ»Ì¨»úÆ÷Ê±£¬½á¹ûÁĞ±íÃ»·¨È«²¿¿Õ³ö£¬×ö´Ë¶¯×÷ÒÔ±£Ö¤½á¹ûµÄ¸öÊı¾ø¶ÔµÈÓÚ·Ö»ú¸öÊı
+			// ä¸ºäº†é˜²æ­¢æ‰€æœ‰ä½œä¸šå…¨éƒ¨å †åœ¨ç¬¬ä¸€å°æœºå™¨æ—¶ï¼Œç»“æœåˆ—è¡¨æ²¡æ³•å…¨éƒ¨ç©ºå‡ºï¼Œåšæ­¤åŠ¨ä½œä»¥ä¿è¯ç»“æœçš„ä¸ªæ•°ç»å¯¹ç­‰äºåˆ†æœºä¸ªæ•°
 			if (reduce != null) {
 				int maxIndex = nodes.length;
 				result.set(maxIndex, null);
@@ -274,10 +274,10 @@ public class ParallelCaller extends ParallelProcess {
 				argPos.add(i);
 				List<List> args;
 				if (reduce != null) {
-//					µ±Ç°»¹Ã»ÓĞ·ÖÅä·Ö»ú£¬ÏÈÓÃ1ºÅ·Ö»úÕ¼·µ»Ø·Ö»úÕ¼Î»¡£
+//					å½“å‰è¿˜æ²¡æœ‰åˆ†é…åˆ†æœºï¼Œå…ˆç”¨1å·åˆ†æœºå è¿”å›åˆ†æœºå ä½ã€‚
 					args = reserveResult(argPos,1);
 				} else {
-//					²»ĞèÒªreduceÊ±£¬·µ»Ø½á¹û¸ú²ÎÊıÏàµÈÕ¼Î»
+//					ä¸éœ€è¦reduceæ—¶ï¼Œè¿”å›ç»“æœè·Ÿå‚æ•°ç›¸ç­‰å ä½
 					args = reserveResult(argPos);
 				}
 				
@@ -285,7 +285,7 @@ public class ParallelCaller extends ParallelProcess {
 				if (reduce == null) {
 					pcaller.setPositions(argPos);
 				}
-				// ÔÊĞíÈİ´í
+				// å…è®¸å®¹é”™
 				pcaller.setDispatchable(true);
 				pCallers.add(pcaller);
 			}
@@ -299,7 +299,7 @@ public class ParallelCaller extends ParallelProcess {
 				randomUCList();
 			}
 			
-			// Ö÷»úµÄ¹¤×÷³Ø£¬µÃÊÇ×÷ÒµÊı¸ú·Ö»úµÄ×î´ó×÷Òµ×ÜÊı£¬È¡Ğ¡µÄ·ÖÅä
+			// ä¸»æœºçš„å·¥ä½œæ± ï¼Œå¾—æ˜¯ä½œä¸šæ•°è·Ÿåˆ†æœºçš„æœ€å¤§ä½œä¸šæ€»æ•°ï¼Œå–å°çš„åˆ†é…
 			int poolSize = Math.min(size, ucList.size());
 			pool = ThreadPool.newSpecifiedInstance(poolSize);
 			for (int i = 0; i < size; i++) {
@@ -314,7 +314,7 @@ public class ParallelCaller extends ParallelProcess {
 			joinCallers();
 
 			if (reduce != null) {
-//				ÓĞreduceÊ±£¬×îºó´Ó¸÷·Ö»ú½«reduceµÄ½á¹ûÈ¡»Ø
+//				æœ‰reduceæ—¶ï¼Œæœ€åä»å„åˆ†æœºå°†reduceçš„ç»“æœå–å›
 				for(int i=0;i<nodes.length;i++){
 					UnitClient uc = nodes[i];
 					if(!uc.isAlive()){
@@ -351,7 +351,7 @@ public class ParallelCaller extends ParallelProcess {
 
 
 	/*
-	 * ·µ»ØË³ĞòºÅ´Ó1¿ªÊ¼µÄ·Ö»úĞòºÅ
+	 * è¿”å›é¡ºåºå·ä»1å¼€å§‹çš„åˆ†æœºåºå·
 	 * */
 	private int indexOfUC(UnitClient uc) {
 		for (int i = 0; i < nodes.length; i++) {
@@ -422,7 +422,7 @@ public class ParallelCaller extends ParallelProcess {
 		return args;
 	}
 	
-//Íù·Ö»ú·ÖÅäµÄ×÷Òµ£¬Ò»´Î×÷Òµ¿ÉÒÔÓĞ¶à¸ö²ÎÊı£¬¿ÉÒÔreduce
+//å¾€åˆ†æœºåˆ†é…çš„ä½œä¸šï¼Œä¸€æ¬¡ä½œä¸šå¯ä»¥æœ‰å¤šä¸ªå‚æ•°ï¼Œå¯ä»¥reduce
 	class ProcessCaller extends Caller implements IResource {
 		private Object reduce = null;
 		private CellLocation accumulateLocation = null;
@@ -445,7 +445,7 @@ public class ParallelCaller extends ParallelProcess {
 		public void setUnitClient(UnitClient uc) throws Exception {
 			this.uc = uc;
 			if (canRunOnLocal()) {
-				// Èç¹û¿ÉÒÔ±¾µØÖ´ĞĞÊ±£¬²»ĞèÒª´Ó·Ö»ú»ñÈ¡ÈÎÎñºÅ£¬Ò²²»½¨Á¢¸ú·Ö»úµÄ³£Á¬½Ó
+				// å¦‚æœå¯ä»¥æœ¬åœ°æ‰§è¡Œæ—¶ï¼Œä¸éœ€è¦ä»åˆ†æœºè·å–ä»»åŠ¡å·ï¼Œä¹Ÿä¸å»ºç«‹è·Ÿåˆ†æœºçš„å¸¸è¿æ¥
 				taskId = UnitServer.nextId();
 				return;
 			}
@@ -491,9 +491,9 @@ public class ParallelCaller extends ParallelProcess {
 				if (rVal instanceof Sequence) {
 					val = (Sequence) rVal;
 				} else {
-					// µ±²ÎÊıĞ¡ÓÚhost.lengthÊ±£¬Ò²ÊÇ²ÉÓÃ¶à¸ö»úÆ÷ÀïÃæÕÒ×î´óËãÁ¦»úÆ÷£¬µ«ÓÉÓÚ´ËÊ±Ã¿Ì¨·Ö»ú×î¶àÒ»¸ö×÷Òµ£¬
-					// ËùÒÔ·µ»ØÖµ²»ÊÇSequence£¬´ËÊ±µÄargPositionsÖ»ÄÜÎªÒ»¸ö³ÉÔ±µÄĞòÁĞ£¬´Ë´¦½«resultÒ²×ª»»Îª
-					// Ö»ÓĞÒ»¸ö³ÉÔ±µÄĞòÁĞ¡£
+					// å½“å‚æ•°å°äºhost.lengthæ—¶ï¼Œä¹Ÿæ˜¯é‡‡ç”¨å¤šä¸ªæœºå™¨é‡Œé¢æ‰¾æœ€å¤§ç®—åŠ›æœºå™¨ï¼Œä½†ç”±äºæ­¤æ—¶æ¯å°åˆ†æœºæœ€å¤šä¸€ä¸ªä½œä¸šï¼Œ
+					// æ‰€ä»¥è¿”å›å€¼ä¸æ˜¯Sequenceï¼Œæ­¤æ—¶çš„argPositionsåªèƒ½ä¸ºä¸€ä¸ªæˆå‘˜çš„åºåˆ—ï¼Œæ­¤å¤„å°†resultä¹Ÿè½¬æ¢ä¸º
+					// åªæœ‰ä¸€ä¸ªæˆå‘˜çš„åºåˆ—ã€‚
 					val = new Sequence();
 					val.add(rVal);
 				}
@@ -504,7 +504,7 @@ public class ParallelCaller extends ParallelProcess {
 					if (i <= val.length()) {
 						tmp = val.get(i);
 					} else {
-						Logger.severe(mm.getMessage("ParallelCaller.emptysub"));//"×Ó³ÌĞò·µ»ØµÄÖµÎª¿Õ£¡");
+						Logger.severe(mm.getMessage("ParallelCaller.emptysub"));//"å­ç¨‹åºè¿”å›çš„å€¼ä¸ºç©ºï¼");
 					}
 					setResult(index, tmp);
 				}
@@ -519,7 +519,7 @@ public class ParallelCaller extends ParallelProcess {
 			ctx.removeResource(this);
 		}
 
-		// ³ö¹ı´íµÄ·Ö»ú£¬²»ÄÜÔÙÖØĞÂ·ÖÅä
+		// å‡ºè¿‡é”™çš„åˆ†æœºï¼Œä¸èƒ½å†é‡æ–°åˆ†é…
 		private transient HashSet<UnitClient> errorNodes = new HashSet<UnitClient>();
 
 		public void run() {
@@ -548,9 +548,9 @@ public class ParallelCaller extends ParallelProcess {
 						DecimalFormat df = new DecimalFormat("###,###");
 						long lastTime = l2 - l1;
 						Logger.debug(mm.getMessage("Task.taskEnd", this,
-								df.format(lastTime)));// this+" ¿ªÊ¼¼ÆËã¡£");
+								df.format(lastTime)));// this+" å¼€å§‹è®¡ç®—ã€‚");
 						break;
-					} catch (RetryException re) { // ĞèÒªÖØĞÂ·ÖÅä·Ö»úÒì³£Ê±
+					} catch (RetryException re) { // éœ€è¦é‡æ–°åˆ†é…åˆ†æœºå¼‚å¸¸æ—¶
 						releaseClient(uc);
 						if (!errorNodes.contains(uc)) {
 							errorNodes.add(uc.clone());
@@ -577,9 +577,9 @@ public class ParallelCaller extends ParallelProcess {
 	}
 
 	/**
-	 * »ñÈ¡Ò»¸ö¿ÉÒÔÖ´ĞĞµÄ·Ö»ú,ÓÃÓÚÈİ´íÄ³¸öÖ´ĞĞÖĞµÄÈÎÎñÒòÍøÂçÖĞ¶Ï»òÕß·Ö»úËÀ»úµÈ£¬ ÖØĞÂ·ÖÅä·Ö»ú
+	 * è·å–ä¸€ä¸ªå¯ä»¥æ‰§è¡Œçš„åˆ†æœº,ç”¨äºå®¹é”™æŸä¸ªæ‰§è¡Œä¸­çš„ä»»åŠ¡å› ç½‘ç»œä¸­æ–­æˆ–è€…åˆ†æœºæ­»æœºç­‰ï¼Œ é‡æ–°åˆ†é…åˆ†æœº
 	 * 
-	 * @return UnitClient ·Ö»ú¿Í»§¶Ë
+	 * @return UnitClient åˆ†æœºå®¢æˆ·ç«¯
 	 */
 	public UnitClient getDispatchNode(HashSet<UnitClient> errorNodes,
 			String argString, String cause) throws Exception {
@@ -595,8 +595,8 @@ public class ParallelCaller extends ParallelProcess {
 		return uc;
 	}
 
-	// ¸Ã·½·¨Ö»¸ù¾İÖ÷½ø³Ì¶Ë¿ÚºÅÀ´±È½Ï£¬ËùÒÔÍ¬Ò»¸ö·Ö»úµÄ×Ó½ø³Ì£¬ÊÇÏàÍ¬µÄ¡£
-	// errorNodes.contains»á±È½ÏhashKey£¬»á½«×Ó½ø³Ì¶Ë¿ÚÒ²Ëã½øÈ¥
+	// è¯¥æ–¹æ³•åªæ ¹æ®ä¸»è¿›ç¨‹ç«¯å£å·æ¥æ¯”è¾ƒï¼Œæ‰€ä»¥åŒä¸€ä¸ªåˆ†æœºçš„å­è¿›ç¨‹ï¼Œæ˜¯ç›¸åŒçš„ã€‚
+	// errorNodes.containsä¼šæ¯”è¾ƒhashKeyï¼Œä¼šå°†å­è¿›ç¨‹ç«¯å£ä¹Ÿç®—è¿›å»
 	private boolean contains(HashSet<UnitClient> errorNodes, UnitClient uc) {
 		Iterator<UnitClient> nodes = errorNodes.iterator();
 		while (nodes.hasNext()) {

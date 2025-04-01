@@ -5,7 +5,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.server.IProxy;
 
 /**
- * ½á¹û¼¯´úÀí
+ * ç»“æœé›†ä»£ç†
  * @author Joancy
  *
  */
@@ -15,10 +15,10 @@ public class ResultSetProxy extends IProxy {
 	Sequence row = null;
 	
 	/**
-	 * ´´½¨½á¹û¼¯´úÀí
-	 * @param sp Statement´úÀí
-	 * @param id ´úÀíºÅ
-	 * @param cs ÓÎ±ê
+	 * åˆ›å»ºç»“æœé›†ä»£ç†
+	 * @param sp Statementä»£ç†
+	 * @param id ä»£ç†å·
+	 * @param cs æ¸¸æ ‡
 	 */
 	public ResultSetProxy(StatementProxy sp, int id, ICursor cs) {
 		super(sp, id);
@@ -27,16 +27,16 @@ public class ResultSetProxy extends IProxy {
 	}
 
 	/**
-	 * »ñÈ¡ÓÎ±ê¶ÔÏó
-	 * @return ÓÎ±ê
+	 * è·å–æ¸¸æ ‡å¯¹è±¡
+	 * @return æ¸¸æ ‡
 	 */
 	public ICursor getCursor() {
 		return cs;
 	}
 
 	/**
-	 * »ñÈ¡×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * è·å–å­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getColumns(){
 		if(columns==null){
@@ -67,16 +67,16 @@ public class ResultSetProxy extends IProxy {
 	}
 
 	/**
-	 * È¡Êı
-	 * @param n È¡ÊıÌõÊı
-	 * @return Êı¾İĞò±í
+	 * å–æ•°
+	 * @param n å–æ•°æ¡æ•°
+	 * @return æ•°æ®åºè¡¨
 	 */
 	public Sequence fetch(int n) {
 		Sequence tmp;
 		if(row!=null){
 			Object val = row.get(1);
 			tmp = cs.fetch(n-1);
-			if(tmp==null){//Èç¹û½á¹û¼¯¸ÕºÃÖ»ÓĞÒ»ĞĞ¼ÇÂ¼Ê±
+			if(tmp==null){//å¦‚æœç»“æœé›†åˆšå¥½åªæœ‰ä¸€è¡Œè®°å½•æ—¶
 				tmp = row;
 			}else{
 				tmp.insert(1, val);
@@ -90,14 +90,14 @@ public class ResultSetProxy extends IProxy {
 	}
 
 	/**
-	 * ÊµÏÖtoString½Ó¿Ú
+	 * å®ç°toStringæ¥å£
 	 */
 	public String toString() {
 		return "ResultSet "+getId();
 	}
 	
 	/**
-	 * ¹Ø±Õµ±Ç°´úÀíÆ÷
+	 * å…³é—­å½“å‰ä»£ç†å™¨
 	 */
 	public void close(){
 		cs.close();

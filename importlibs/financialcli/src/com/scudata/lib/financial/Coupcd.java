@@ -14,16 +14,16 @@ import java.util.Calendar;
 
 
 /**
- * ·µ»ØÔÚ½áËãÈÕÖ®ºóÏÂÒ»¸ö¸¶Ï¢ÈÕµÄÈÕÆÚ
+ * è¿”å›åœ¨ç»“ç®—æ—¥ä¹‹åä¸‹ä¸€ä¸ªä»˜æ¯æ—¥çš„æ—¥æœŸ
  * @author yanjing
  * 
  * coupncd(settlement,maturity,frequency,basis) 
  * 
- * @param settlement Ö¤È¯µÄ½áËãÈÕ
- * @param maturity  Ö¤È¯µÄµ½ÆÚÈÕ
- * @param frequency ÎªÄê¸¶Ï¢´ÎÊı£¬Èç¹û°´ÄêÖ§¸¶£¬frequency = 1£»°´°ëÄêÆÚÖ§¸¶£¬frequency = 2£»
- *                               °´¼¾Ö§¸¶£¬frequency = 4
- * @param basis ÈÕ¼ÆÊı»ù×¼ÀàĞÍ,0/4 30/360, 1 Êµ¼ÊÌìÊı/ÄêÊµ¼ÊÌìÊı£¬2 Êµ¼ÊÌìÊı/360£¬ 3 Êµ¼ÊÌìÊı/365£¬È±Ê¡Îª0
+ * @param settlement è¯åˆ¸çš„ç»“ç®—æ—¥
+ * @param maturity  è¯åˆ¸çš„åˆ°æœŸæ—¥
+ * @param frequency ä¸ºå¹´ä»˜æ¯æ¬¡æ•°ï¼Œå¦‚æœæŒ‰å¹´æ”¯ä»˜ï¼Œfrequency = 1ï¼›æŒ‰åŠå¹´æœŸæ”¯ä»˜ï¼Œfrequency = 2ï¼›
+ *                               æŒ‰å­£æ”¯ä»˜ï¼Œfrequency = 4
+ * @param basis æ—¥è®¡æ•°åŸºå‡†ç±»å‹,0/4 30/360, 1 å®é™…å¤©æ•°/å¹´å®é™…å¤©æ•°ï¼Œ2 å®é™…å¤©æ•°/360ï¼Œ 3 å®é™…å¤©æ•°/365ï¼Œç¼ºçœä¸º0
  * @return
  * 
  * 

@@ -17,9 +17,9 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.common.MessageManager;
 
 /**
- * ¼ÆËãÆ«¶È
+ * è®¡ç®—ååº¦
  * @author bd
- * Ô­ĞÍA.corskew()£ºn=A.len()£¬a=A.avg()£¬s= A.sd()£¬A.sum((~-a)3)/s3/(n-1)
+ * åŸå‹A.corskew()ï¼šn=A.len()ï¼Œa=A.avg()ï¼Œs= A.sd()ï¼ŒA.sum((~-a)3)/s3/(n-1)
  * A.corcorskew(), P.corcorskew(cn), A.corcorskew@r(rec), P.corcorskew@r(cn, rec) 
  */
 public class CorSkew extends SequenceFunction {
@@ -157,16 +157,16 @@ public class CorSkew extends SequenceFunction {
 	protected final static int SC_MAXTRY = 10000;
 
 	/**
-	 * ¶ÔÊıÖµ±äÁ¿×ö¾ÀÆ«´¦Àí
-	 * @param cvs	ÊıÖµ±äÁ¿ÕûÁĞÖµ
-	 * @param cn	±äÁ¿Ãû
-	 * @param filePath	Èç¹û³öÏÖĞèÒªÅÅĞòµÄÇé¿ö£¬ÔÚÊı¾İ½Ï¶àÊ±»º´æÎÄ¼şµÄÂ·¾¶£¬ÔİÊ±²»Ö§³Ö
+	 * å¯¹æ•°å€¼å˜é‡åšçº åå¤„ç†
+	 * @param cvs	æ•°å€¼å˜é‡æ•´åˆ—å€¼
+	 * @param cn	å˜é‡å
+	 * @param filePath	å¦‚æœå‡ºç°éœ€è¦æ’åºçš„æƒ…å†µï¼Œåœ¨æ•°æ®è¾ƒå¤šæ—¶ç¼“å­˜æ–‡ä»¶çš„è·¯å¾„ï¼Œæš‚æ—¶ä¸æ”¯æŒ
 	 * @return
 	 */
 	protected static SCRec corSkew(Sequence cvs, String cn) {
 		SCRec scRec = new SCRec();
-		// ÊıÖµ¾ÀÆ«´¦ÀíµÄµÚÒ»²½£¬ÏÈ°ÑÊı¾İ×ª»»ÎªdoubleÀàĞÍ£¬
-		// ÒÔ·ÀÖ¹ÕûÊı»òÕß³¤ÕûÊıÖ®ÀàµÄÀàĞÍ»á´øÀ´µÄÀÛ¼Ó³¬ÏŞ
+		// æ•°å€¼çº åå¤„ç†çš„ç¬¬ä¸€æ­¥ï¼Œå…ˆæŠŠæ•°æ®è½¬æ¢ä¸ºdoubleç±»å‹ï¼Œ
+		// ä»¥é˜²æ­¢æ•´æ•°æˆ–è€…é•¿æ•´æ•°ä¹‹ç±»çš„ç±»å‹ä¼šå¸¦æ¥çš„ç´¯åŠ è¶…é™
 		int len = cvs == null ? 0 : cvs.length();
 		Double zero = Double.valueOf(0d);
 		if (len < 1) {
@@ -179,7 +179,7 @@ public class CorSkew extends SequenceFunction {
 					cvs.set(i, ((Number) o).doubleValue());
 				}
 				else {
-					//ÒÑ¾­¿ªÊ¼Ö´ĞĞ¾ÀÆ«ÁË£¬ÕâÀï¾Í²»Ó¦¸Ã´æÔÚ¿ÕÖµ»òÕß·ÇÊıÖµÁË£¬ÍòÒ»ÓĞ£¬¾ÍÉè³É0
+					//å·²ç»å¼€å§‹æ‰§è¡Œçº åäº†ï¼Œè¿™é‡Œå°±ä¸åº”è¯¥å­˜åœ¨ç©ºå€¼æˆ–è€…éæ•°å€¼äº†ï¼Œä¸‡ä¸€æœ‰ï¼Œå°±è®¾æˆ0
 					cvs.set(i, zero);
 				}
 			}
@@ -189,26 +189,26 @@ public class CorSkew extends SequenceFunction {
 		NumStatis ns = new NumStatis(cvs);
 		scRec.setNumStatis(ns);
 		if (skew >= SC_MIN && skew <= SC_MAX ) {
-			//2.13(b) ²»Ğè¾ÀÆ«£¬·µ»Ø
+			//2.13(b) ä¸éœ€çº åï¼Œè¿”å›
 			scRec.setMode(SCRec.MODE_ORI);
 			return scRec;
 		}
 		
 		Sequence pts1 = Pts.pts(cvs, ns.getMin(), 1);
 		if (skew > SC_MAX) {
-			//¼ÆËãlog(transbase(x)).corskew¼ÌĞøÅĞ¶Ï
+			//è®¡ç®—log(transbase(x)).corskewç»§ç»­åˆ¤æ–­
 			Sequence power = Pts.power(pts1, 0d);
 			double corskew0 = Skew.skew(power, ns);
 			if (corskew0 >= SC_MIN && corskew0 <= SC_MAX) { //step2
-				//2.13(c) log±ä»»
+				//2.13(c) logå˜æ¢
 				scRec.setMode(SCRec.MODE_LOG);
 				scRec.setP(0);
-				// Õâ¸öÎ»ÖÃ¾ÀÆ«ºóµÄÖµºÍÅĞ¶ÏÖµ²»Í¬ÁË£¬²»ÓÃtranspose£¬Ö±½ÓÓÃlnĞÂËã·¨
+				// è¿™ä¸ªä½ç½®çº ååçš„å€¼å’Œåˆ¤æ–­å€¼ä¸åŒäº†ï¼Œä¸ç”¨transposeï¼Œç›´æ¥ç”¨lnæ–°ç®—æ³•
 				Pts.ptsSeq(cvs, 0d, 0d, true);
 				//vi.setcorskewness1(corskew0);
 			}
 			else if (corskew0 < SC_MIN) { // step 6
-				//2.13(d) ÔÚ(0,1)Ö®¼äÑ°ÕÒp£¬Ê¹µÃVs.pts(p).corskewÎª0
+				//2.13(d) åœ¨(0,1)ä¹‹é—´å¯»æ‰¾pï¼Œä½¿å¾—Vs.pts(p).corskewä¸º0
 				scRec.setMode(SCRec.MODE_POWER);
 				power = Pts.power(pts1, 1d);
 				double top = Skew.skew(power, ns);
@@ -258,7 +258,7 @@ public class CorSkew extends SequenceFunction {
 					else { // step 8, condition A1
 						MessageManager mm = EngineMessage.get();
 						Logger.warn(mm.getMessage("prep.nmnvSolution8", cn));
-						//Ã»ÕÒµ½p£¬Êä³ö¾¯¸æĞÅÏ¢£¬ÓÃrank´¦Àí
+						//æ²¡æ‰¾åˆ°pï¼Œè¾“å‡ºè­¦å‘Šä¿¡æ¯ï¼Œç”¨rankå¤„ç†
 						recSCRank(cvs, cn, scRec);
 						//recSCRank(cvs, cn, scRec, filePath);
 					}
@@ -267,39 +267,39 @@ public class CorSkew extends SequenceFunction {
 					MessageManager mm = EngineMessage.get();
 					Logger.warn(mm.getMessage("prep.nmnvReverse", cn, 0, corskew0, 1, top));
 					Logger.warn(mm.getMessage("prep.nmnvSolution8", cn));
-					//Ã»ÕÒµ½p£¬Êä³ö¾¯¸æĞÅÏ¢£¬ÓÃrank´¦Àí
+					//æ²¡æ‰¾åˆ°pï¼Œè¾“å‡ºè­¦å‘Šä¿¡æ¯ï¼Œç”¨rankå¤„ç†
 					recSCRank(cvs, cn, scRec);
 					//recSCRank(cvs, cn, scRec, filePath);
 					//vi.setcorskewness1(0d);
 				}
 			}
 			else { // step 3
-				//2.13(g)£¬ÅÅĞò
+				//2.13(g)ï¼Œæ’åº
 				recSCRank(cvs, cn, scRec);
 				//recSCRank(cvs, cn, scRec, filePath);
 				//vi.setcorskewness1(0d);
 			}
 		}
 		else { //corskew < Min
-			//¼ÆËãtransbase(x)^2.corskew¼ÌĞøÅĞ¶Ï
+			//è®¡ç®—transbase(x)^2.corskewç»§ç»­åˆ¤æ–­
 			Sequence power = Pts.power(pts1, 2d);
 			double corskew2 = Skew.skew(power, ns);
 			if (corskew2 >= SC_MIN && corskew2 <= SC_MAX) { //step4
-				//2.13(e) Æ½·½±ä»»
+				//2.13(e) å¹³æ–¹å˜æ¢
 				cvs.setMems(power.getMems());
 				scRec.setMode(SCRec.MODE_SQUARE);
 				scRec.setP(2);
 				//vi.setcorskewness1(corskew2);
 			}
 			else if (corskew2 < SC_MIN) { // step 5
-				//ÏÈÓÃsertÇåÀí£¬È»ºóÔÙÅĞ¶Ï
-				//step12(g)£¬ÅÅĞò
+				//å…ˆç”¨sertæ¸…ç†ï¼Œç„¶åå†åˆ¤æ–­
+				//step12(g)ï¼Œæ’åº
 				recSCRank(cvs, cn, scRec);
 				//recSCRank(cvs, cn, scRec, filePath);
 				//vi.setcorskewness1(0d);
 			}
 			else { // step 7
-				//step12(f) ÔÚ(0,1)Ö®¼äÑ°ÕÒp£¬Ê¹µÃVs.pts(p).corskewÎª0
+				//step12(f) åœ¨(0,1)ä¹‹é—´å¯»æ‰¾pï¼Œä½¿å¾—Vs.pts(p).corskewä¸º0
 				scRec.setMode(SCRec.MODE_POWER);
 				power = Pts.power(pts1, 1d);
 				double bottom = Skew.skew(power, ns);
@@ -349,7 +349,7 @@ public class CorSkew extends SequenceFunction {
 					else { // step 8, condition B1
 						MessageManager mm = EngineMessage.get();
 						Logger.warn(mm.getMessage("prep.nmnvSolution8", cn));
-						//Ã»ÕÒµ½p£¬Êä³ö¾¯¸æĞÅÏ¢£¬ÓÃrank´¦Àí
+						//æ²¡æ‰¾åˆ°pï¼Œè¾“å‡ºè­¦å‘Šä¿¡æ¯ï¼Œç”¨rankå¤„ç†
 						recSCRank(cvs, cn, scRec);
 						//recSCRank(cvs, cn, scRec, filePath);
 						//vi.setcorskewness1(0d);
@@ -359,7 +359,7 @@ public class CorSkew extends SequenceFunction {
 					MessageManager mm = EngineMessage.get();
 					Logger.warn(mm.getMessage("prep.nmnvReverse", cn, 2, corskew2, 1, bottom));
 					Logger.warn(mm.getMessage("prep.nmnvSolution8", cn));
-					//Ã»ÕÒµ½p£¬Êä³ö¾¯¸æĞÅÏ¢£¬ÓÃrank´¦Àí
+					//æ²¡æ‰¾åˆ°pï¼Œè¾“å‡ºè­¦å‘Šä¿¡æ¯ï¼Œç”¨rankå¤„ç†
 					recSCRank(cvs, cn, scRec);
 					//recSCRank(cvs, cn, scRec, filePath);
 					//vi.setcorskewness1(0d);
@@ -379,7 +379,7 @@ public class CorSkew extends SequenceFunction {
 			//Rank
 			Sequence V11 = scRec.getRankV();
 			Sequence X11 = scRec.getRankX();
-			/* º¯Êı´¦ÀíÖĞ²»Ê¹ÓÃÍâ²¿ÎÄ¼ş
+			/* å‡½æ•°å¤„ç†ä¸­ä¸ä½¿ç”¨å¤–éƒ¨æ–‡ä»¶
 			String file = scRec.getRankFile();
 			if (file != null) {
 				FileObject fo = new FileObject(new File(pr.getPath(), file).getAbsolutePath());
@@ -406,7 +406,7 @@ public class CorSkew extends SequenceFunction {
 			}
 		}
 		else if (mode == SCRec.MODE_LOG || mode == SCRec.MODE_POWER || mode == SCRec.MODE_SQUARE) {
-			//2:Ln, 4:Square, 6/7:Pow, ¶¼ÊÇSert(Pts(p))
+			//2:Ln, 4:Square, 6/7:Pow, éƒ½æ˜¯Sert(Pts(p))
 			double m = ns.getMin();
 			double p = scRec.getP();
 			try {
@@ -430,7 +430,7 @@ public class CorSkew extends SequenceFunction {
 	private static void recSCRank(Sequence cvs, String cn, SCRec scRec) {
 		Sequence X1 = cvs.ranks("s");
 		int len0 = X1.length();
-		// v2.5°æĞÂÔö´¦Àí£¬ÅÅÃûÊ±Ö´ĞĞÄæÎó²î´¦Àí
+		// v2.5ç‰ˆæ–°å¢å¤„ç†ï¼Œæ’åæ—¶æ‰§è¡Œé€†è¯¯å·®å¤„ç†
 		for (int i = 1 ; i <= len0; i++) {
 			double r = ((Number) X1.get(i)).doubleValue();
 			double x = (r - 0.5)/len0;
@@ -440,8 +440,8 @@ public class CorSkew extends SequenceFunction {
 		Sequence X11 = X1.id(null);
 		int len = X11.length();
 		if (len >= NMNV_SIZE) {
-			// Éú³ÉÎÄ¼şÃûÊ±£¬È¥³ıÒì³£×Ö·û
-			// edited by bd, 2022.4.7, ÔÚº¯ÊıÖĞÔİÊ±²»Ö§³Ö´æ´¢Îª¼ÇÂ¼ÎÄ¼şµÄ²Ù×÷£¬¶øÊÇ½«ÅÅĞòÇé¿ö´æ´¢ÈëSCRec
+			// ç”Ÿæˆæ–‡ä»¶åæ—¶ï¼Œå»é™¤å¼‚å¸¸å­—ç¬¦
+			// edited by bd, 2022.4.7, åœ¨å‡½æ•°ä¸­æš‚æ—¶ä¸æ”¯æŒå­˜å‚¨ä¸ºè®°å½•æ–‡ä»¶çš„æ“ä½œï¼Œè€Œæ˜¯å°†æ’åºæƒ…å†µå­˜å‚¨å…¥SCRec
 			scRec.setRankRec(X11, V11, len);
 			/*
 			String V = String.valueOf(this.ci) + delString(cn) + "_nmnv.btx";

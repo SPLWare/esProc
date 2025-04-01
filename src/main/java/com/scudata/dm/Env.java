@@ -18,16 +18,16 @@ import com.scudata.common.Logger;
 import com.scudata.expression.Expression;
 
 /**
- * È«¾Ö»·¾³ÅäÖÃ
+ * å…¨å±€ç¯å¢ƒé…ç½®
  * @author WangXiaoJun
  *
  */
 public class Env {
-	private static ParamList paramList = new ParamList(); // ´æ·ÅÈ«³Ì±äÁ¿
+	private static ParamList paramList = new ParamList(); // å­˜æ”¾å…¨ç¨‹å˜é‡
 	private static Map<String, ISessionFactory> dbsfs;
-	private static String mainPath; // Ö÷Ä¿Â¼
-	private static String tempPath; // ÁÙÊ±Ä¿Â¼
-	private static String[] paths; // dfxËÑË÷Ä¿Â¼
+	private static String mainPath; // ä¸»ç›®å½•
+	private static String tempPath; // ä¸´æ—¶ç›®å½•
+	private static String[] paths; // dfxæœç´¢ç›®å½•
 	private static String defCharsetName = System.getProperty("file.encoding"); // "GBK"
 																				// UTF-8
 	//private static String localHost;
@@ -35,18 +35,18 @@ public class Env {
 	private static int parallel = (Runtime.getRuntime().availableProcessors()+1)/2;
 	private static int csParallel = (Runtime.getRuntime().availableProcessors()+1)/2;
 
-	public static int FILE_BUFSIZE = 1024 * 64; // ¶ÁÎÄ¼şÊ±µÄÄ¬ÈÏ»º³åÇø´óĞ¡
-	public static int DEFAULT_HASHCAPACITY = 204047; // ÓÎ±ê·Ö×éµÈÔËËãµÄÄ¬ÈÏ¹şÏ£±íÈİÁ¿£¬ÓÅÏÈÑ¡ÓÃÖÊÊı
-	public static int MAX_HASHCAPACITY = 22949669; // ÓÎ±ê·Ö×éµÈÔËËãµÄ×î´ó¹şÏ£±íÈİÁ¿
-	public static final int INITGROUPSIZE = 8191; // ·Ö×é½á¹ûµÄ³õÊ¼´óĞ¡
+	public static int FILE_BUFSIZE = 1024 * 64; // è¯»æ–‡ä»¶æ—¶çš„é»˜è®¤ç¼“å†²åŒºå¤§å°
+	public static int DEFAULT_HASHCAPACITY = 204047; // æ¸¸æ ‡åˆ†ç»„ç­‰è¿ç®—çš„é»˜è®¤å“ˆå¸Œè¡¨å®¹é‡ï¼Œä¼˜å…ˆé€‰ç”¨è´¨æ•°
+	public static int MAX_HASHCAPACITY = 22949669; // æ¸¸æ ‡åˆ†ç»„ç­‰è¿ç®—çš„æœ€å¤§å“ˆå¸Œè¡¨å®¹é‡
+	public static final int INITGROUPSIZE = 8191; // åˆ†ç»„ç»“æœçš„åˆå§‹å¤§å°
 
 
-	public static int BLOCK_SIZE = 1024 * 1024; // ÎÄ¼şÇø¿é´óĞ¡£¬×îĞ¡4096¡£2^n£¬n>=16
+	public static int BLOCK_SIZE = 1024 * 1024; // æ–‡ä»¶åŒºå—å¤§å°ï¼Œæœ€å°4096ã€‚2^nï¼Œn>=16
 
-	// È±Ê§Öµ¶¨Òå£¬²»Çø·Ö´óĞ¡Ğ´£¬·Ç´®ÀàĞÍÊ±±»½âÊÍ³Énull
+	// ç¼ºå¤±å€¼å®šä¹‰ï¼Œä¸åŒºåˆ†å¤§å°å†™ï¼Œéä¸²ç±»å‹æ—¶è¢«è§£é‡Šæˆnull
 	private static String[] nullStrings = new String[] { "nan", "null", "n/a" };
 	
-	// ÊÇ·ñ±äÇ¨×¢ÊÍ¸ñÖĞµÄµ¥Ôª¸ñ
+	// æ˜¯å¦å˜è¿æ³¨é‡Šæ ¼ä¸­çš„å•å…ƒæ ¼
 	private static boolean adjustNoteCell = true;
 
 	private static String DEFAULT_TASK = "_default_task_";
@@ -64,9 +64,9 @@ public class Env {
 	}
 
 	/**
-	 * »ñÈ¡ÈÎÎñjµÄµÄÄÚ´æÇøºÅ
-	 * @param j ÈÎÎñÃû³Æ
-	 * @return ÄÚ´æÇøºÅ,ÄÚ´æÇøºÅ²»´æÔÚÊ±£¬·µ»Ønull
+	 * è·å–ä»»åŠ¡jçš„çš„å†…å­˜åŒºå·
+	 * @param j ä»»åŠ¡åç§°
+	 * @return å†…å­˜åŒºå·,å†…å­˜åŒºå·ä¸å­˜åœ¨æ—¶ï¼Œè¿”å›null
 	 */
 	public static Integer getAreaNo(String j) {
 		if(j==null){
@@ -76,9 +76,9 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÖÃÈÎÎñjµÄÄÚ´æÇøºÅÎªi
-	 * @param j ÈÎÎñÃû³Æ
-	 * @param i ÄÚ´æÇøºÅ
+	 * è®¾ç½®ä»»åŠ¡jçš„å†…å­˜åŒºå·ä¸ºi
+	 * @param j ä»»åŠ¡åç§°
+	 * @param i å†…å­˜åŒºå·
 	 */
 	public static void setAreaNo(String j, int i) {
 		if(j==null){
@@ -92,14 +92,14 @@ public class Env {
 	}
 
 	/**
-	 * »ñÈ¡ÄÚ´æÇøºÅÓ³Éä±í
-	 * @return Ó³Éä±í
+	 * è·å–å†…å­˜åŒºå·æ˜ å°„è¡¨
+	 * @return æ˜ å°„è¡¨
 	 */
 	public static Map<String, Integer> getAreaNo(){
 		return areaNo;
 	}
 	/**
-	 * ·µ»Ø²ÎÊıÁĞ±í
+	 * è¿”å›å‚æ•°åˆ—è¡¨
 	 * 
 	 * @return ParamList
 	 */
@@ -108,9 +108,9 @@ public class Env {
 	}
 
 	/**
-	 * °´Ãû³ÆÈ¡±äÁ¿
+	 * æŒ‰åç§°å–å˜é‡
 	 * 
-	 * @param name ±äÁ¿Ãû
+	 * @param name å˜é‡å
 	 * @return DataStruct
 	 */
 	public static Param getParam(String name) {
@@ -120,9 +120,9 @@ public class Env {
 	}
 
 	/**
-	 * Ìí¼Ó±äÁ¿
+	 * æ·»åŠ å˜é‡
 	 * 
-	 * @param param ±äÁ¿
+	 * @param param å˜é‡
 	 */
 	public static void addParam(Param param) {
 		synchronized (paramList) {
@@ -131,7 +131,7 @@ public class Env {
 	}
 
 	/**
-	 * °´Ãû³ÆÉ¾³ı±äÁ¿
+	 * æŒ‰åç§°åˆ é™¤å˜é‡
 	 * 
 	 * @param name String
 	 * @return Param
@@ -143,7 +143,7 @@ public class Env {
 	}
 
 	/**
-	 * É¾³ıËùÓĞ±äÁ¿
+	 * åˆ é™¤æ‰€æœ‰å˜é‡
 	 */
 	public static void clearParam() {
 		areaNo.clear();
@@ -153,10 +153,10 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÖÃ±äÁ¿µÄÖµ£¬Èç¹û±äÁ¿²»´æÔÚÔò²úÉúÒ»¸ö
+	 * è®¾ç½®å˜é‡çš„å€¼ï¼Œå¦‚æœå˜é‡ä¸å­˜åœ¨åˆ™äº§ç”Ÿä¸€ä¸ª
 	 * 
-	 * @param name String ±äÁ¿Ãû
-	 * @param value Object ±äÁ¿Öµ
+	 * @param name String å˜é‡å
+	 * @param value Object å˜é‡å€¼
 	 */
 	public static void setParamValue(String name, Object value) {
 		synchronized (paramList) {
@@ -169,7 +169,7 @@ public class Env {
 		}
 	}
 	
-	// ÏÈËø×¡±äÁ¿ÔÙ¼ÆËãx£¬ÎªÁËÖ§³ÖÍ¬²½×öenv(v,v+n)
+	// å…ˆé”ä½å˜é‡å†è®¡ç®—xï¼Œä¸ºäº†æ”¯æŒåŒæ­¥åšenv(v,v+n)
 	public static Object setParamValue(String name, Expression x, Context ctx) {
 		Param p;
 		synchronized (paramList) {
@@ -188,7 +188,7 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÖÃÄ¬ÈÏ×Ö·û¼¯Ãû³Æ
+	 * è®¾ç½®é»˜è®¤å­—ç¬¦é›†åç§°
 	 * 
 	 * @param name String
 	 */
@@ -197,7 +197,7 @@ public class Env {
 	}
 
 	/**
-	 * ·µ»ØÄ¬ÈÏ×Ö·û¼¯Ãû³Æ
+	 * è¿”å›é»˜è®¤å­—ç¬¦é›†åç§°
 	 * 
 	 * @return String
 	 */
@@ -206,7 +206,7 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÖÃÖ÷Ä¿Â¼
+	 * è®¾ç½®ä¸»ç›®å½•
 	 * 
 	 * @param path String
 	 */
@@ -215,7 +215,7 @@ public class Env {
 	}
 
 	/**
-	 * ·µ»ØÖ÷Ä¿Â¼
+	 * è¿”å›ä¸»ç›®å½•
 	 * 
 	 * @return String
 	 */
@@ -224,7 +224,7 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÖÃÁÙÊ±Ä¿Â¼
+	 * è®¾ç½®ä¸´æ—¶ç›®å½•
 	 * 
 	 * @param path
 	 *            String
@@ -234,7 +234,7 @@ public class Env {
 	}
 
 	/**
-	 * ·µ»ØÁÙÊ±Ä¿Â¼
+	 * è¿”å›ä¸´æ—¶ç›®å½•
 	 * 
 	 * @return String
 	 */
@@ -243,10 +243,10 @@ public class Env {
 	}
 	
 	/**
-	 * È¡µÃÒ»¸öÁÙÊ±ÎÄ¼şÃû
-	 * 		ÁÙÊ±ÎÄ¼şµÃÎÄ¼şÃûÎªRQT+µ±Ç°ÈÕÆÚÊ±¼ä£¬À©Õ¹ÃûÎªÊäÈë²ÎÊı(Ä¿µÄÊÇ°Ñ²»Í¬ÀàĞÍµÃÎÄ¼ş·Ö¿ª£¬ÒÔ·½±ãµ÷ÊÔ)
-	 * @param exName	ÁÙÊ±ÎÄ¼şÀ©Õ¹Ãû(·½±ãµ÷ÊÔÓÃ)
-	 * @return	·µ»ØÒ»¸öÁÙÊ±ÎÄ¼şµÃÂ·¾¶Ãû
+	 * å–å¾—ä¸€ä¸ªä¸´æ—¶æ–‡ä»¶å
+	 * 		ä¸´æ—¶æ–‡ä»¶å¾—æ–‡ä»¶åä¸ºRQT+å½“å‰æ—¥æœŸæ—¶é—´ï¼Œæ‰©å±•åä¸ºè¾“å…¥å‚æ•°(ç›®çš„æ˜¯æŠŠä¸åŒç±»å‹å¾—æ–‡ä»¶åˆ†å¼€ï¼Œä»¥æ–¹ä¾¿è°ƒè¯•)
+	 * @param exName	ä¸´æ—¶æ–‡ä»¶æ‰©å±•å(æ–¹ä¾¿è°ƒè¯•ç”¨)
+	 * @return	è¿”å›ä¸€ä¸ªä¸´æ—¶æ–‡ä»¶å¾—è·¯å¾„å
 	 */
 	public static String getTempPathName(String exName) {
 		Date date = new Date();
@@ -269,10 +269,10 @@ public class Env {
 	}
 
 	/**
-	 * »ñÈ¡Êı¾İ¿âÁ¬½Ó¹¤³§
+	 * è·å–æ•°æ®åº“è¿æ¥å·¥å‚
 	 * 
-	 * @param name String Êı¾İ¿âÃû³Æ
-	 * @return ISessionFactory Êı¾İ¿âÁ¬½Ó¹¤³§
+	 * @param name String æ•°æ®åº“åç§°
+	 * @return ISessionFactory æ•°æ®åº“è¿æ¥å·¥å‚
 	 */
 	public static ISessionFactory getDBSessionFactory(String name) {
 		if (dbsfs == null)
@@ -281,10 +281,10 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÖÃÊı¾İ¿âÁ¬½Ó¹¤³§
+	 * è®¾ç½®æ•°æ®åº“è¿æ¥å·¥å‚
 	 * 
-	 * @param name String Êı¾İ¿âÃû³Æ
-	 * @param sf ISessionFactory Êı¾İ¿âÁ¬½Ó¹¤³§
+	 * @param name String æ•°æ®åº“åç§°
+	 * @param sf ISessionFactory æ•°æ®åº“è¿æ¥å·¥å‚
 	 */
 	public static void setDBSessionFactory(String name, ISessionFactory sf) {
 		if (dbsfs == null) {
@@ -295,7 +295,7 @@ public class Env {
 	}
 
 	/**
-	 * °´Ãû³ÆÉ¾³ıÊı¾İ¿âÁ¬½Ó¹¤³§
+	 * æŒ‰åç§°åˆ é™¤æ•°æ®åº“è¿æ¥å·¥å‚
 	 * 
 	 * @param name String
 	 */
@@ -306,7 +306,7 @@ public class Env {
 	}
 
 	/**
-	 * É¾³ıËùÓĞµÄÊı¾İ¿âÁ¬½Ó¹¤³§
+	 * åˆ é™¤æ‰€æœ‰çš„æ•°æ®åº“è¿æ¥å·¥å‚
 	 */
 	public static void clearDBSessionFactories() {
 		if (dbsfs != null) {
@@ -315,7 +315,7 @@ public class Env {
 	}
 
 	/**
-	 * È¡Êı¾İ¿âÁ¬½Ó¹¤³§Ó³Éä
+	 * å–æ•°æ®åº“è¿æ¥å·¥å‚æ˜ å°„
 	 * @return
 	 */
 	public static Map<String, ISessionFactory> getDBSessionFactories() {
@@ -323,62 +323,62 @@ public class Env {
 	}
 
 	/**
-	 * »ñÈ¡Ê±¼ä¸ñÊ½
+	 * è·å–æ—¶é—´æ ¼å¼
 	 * 
-	 * @return String Ê±¼ä¸ñÊ½Éè¶¨
+	 * @return String æ—¶é—´æ ¼å¼è®¾å®š
 	 */
 	public static String getTimeFormat() {
 		return DateFormatFactory.getDefaultTimeFormat();
 	}
 
 	/**
-	 * ÉèÖÃÊ±¼ä¸ñÊ½
+	 * è®¾ç½®æ—¶é—´æ ¼å¼
 	 * 
-	 * @param format String Ê±¼ä¸ñÊ½Éè¶¨
+	 * @param format String æ—¶é—´æ ¼å¼è®¾å®š
 	 */
 	public static void setTimeFormat(String format) {
 		DateFormatFactory.setDefaultTimeFormat(format);
 	}
 
 	/**
-	 * »ñÈ¡ÈÕÆÚ¸ñÊ½
+	 * è·å–æ—¥æœŸæ ¼å¼
 	 * 
-	 * @return String ÈÕÆÚ¸ñÊ½Éè¶¨
+	 * @return String æ—¥æœŸæ ¼å¼è®¾å®š
 	 */
 	public static String getDateFormat() {
 		return DateFormatFactory.getDefaultDateFormat();
 	}
 
 	/**
-	 * ÉèÖÃÈÕÆÚ¸ñÊ½
+	 * è®¾ç½®æ—¥æœŸæ ¼å¼
 	 * 
 	 * @param format
-	 *            String ÈÕÆÚ¸ñÊ½Éè¶¨
+	 *            String æ—¥æœŸæ ¼å¼è®¾å®š
 	 */
 	public static void setDateFormat(String format) {
 		DateFormatFactory.setDefaultDateFormat(format);
 	}
 
 	/**
-	 * »ñÈ¡ÈÕÆÚÊ±¼ä¸ñÊ½
+	 * è·å–æ—¥æœŸæ—¶é—´æ ¼å¼
 	 * 
-	 * @return String ÈÕÆÚÊ±¼ä¸ñÊ½Éè¶¨
+	 * @return String æ—¥æœŸæ—¶é—´æ ¼å¼è®¾å®š
 	 */
 	public static String getDateTimeFormat() {
 		return DateFormatFactory.getDefaultDateTimeFormat();
 	}
 
 	/**
-	 * ÉèÖÃÈÕÆÚÊ±¼ä¸ñÊ½
+	 * è®¾ç½®æ—¥æœŸæ—¶é—´æ ¼å¼
 	 * 
-	 * @param format String ÈÕÆÚÊ±¼ä¸ñÊ½Éè¶¨
+	 * @param format String æ—¥æœŸæ—¶é—´æ ¼å¼è®¾å®š
 	 */
 	public static void setDateTimeFormat(String format) {
 		DateFormatFactory.setDefaultDateTimeFormat(format);
 	}
 
 	/**
-	 * ·µ»ØÊı¾İ±È½ÏËùÊ¹ÓÃµÄ±È½ÏÆ÷
+	 * è¿”å›æ•°æ®æ¯”è¾ƒæ‰€ä½¿ç”¨çš„æ¯”è¾ƒå™¨
 	 * 
 	 * @return Comparator<String>
 	 */
@@ -387,7 +387,7 @@ public class Env {
 	}
 
 	/**
-	 * È¡¶ÁĞ´ÎÄ¼ş»º³åÇø´óĞ¡
+	 * å–è¯»å†™æ–‡ä»¶ç¼“å†²åŒºå¤§å°
 	 * 
 	 * @return int
 	 */
@@ -396,7 +396,7 @@ public class Env {
 	}
 
 	/**
-	 * È¡¶àÎÄ¼ş¹é²¢ÊÇÎÄ¼ş»º³åÇø´óĞ¡
+	 * å–å¤šæ–‡ä»¶å½’å¹¶æ˜¯æ–‡ä»¶ç¼“å†²åŒºå¤§å°
 	 * 
 	 * @param fcount int
 	 * @return int
@@ -417,7 +417,7 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÖÃ¶ÁĞ´ÎÄ¼ş»º³åÇø´óĞ¡
+	 * è®¾ç½®è¯»å†™æ–‡ä»¶ç¼“å†²åŒºå¤§å°
 	 * 
 	 * @param size
 	 *            int
@@ -431,7 +431,7 @@ public class Env {
 	}
 
 	/**
-	 * È¡ÎŞ·¨ÖªµÀÈİÁ¿Ê±µÄÄ¬ÈÏ¹şÏ£±íÈİÁ¿
+	 * å–æ— æ³•çŸ¥é“å®¹é‡æ—¶çš„é»˜è®¤å“ˆå¸Œè¡¨å®¹é‡
 	 * 
 	 * @return int
 	 */
@@ -440,7 +440,7 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÎŞ·¨ÖªµÀÈİÁ¿Ê±µÄÄ¬ÈÏ¹şÏ£±íÈİÁ¿
+	 * è®¾æ— æ³•çŸ¥é“å®¹é‡æ—¶çš„é»˜è®¤å“ˆå¸Œè¡¨å®¹é‡
 	 * 
 	 * @param n int
 	 */
@@ -457,7 +457,7 @@ public class Env {
 	}
 
 	/**
-	 * È¡ÊÊºÏ²¢ĞĞÊı£¬ÓÃÓÚÆÕÍ¨º¯Êı·ÖÅäÏß³ÌÊı
+	 * å–é€‚åˆå¹¶è¡Œæ•°ï¼Œç”¨äºæ™®é€šå‡½æ•°åˆ†é…çº¿ç¨‹æ•°
 	 * @return int
 	 */
 	public static int getParallelNum() {
@@ -465,7 +465,7 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÊÊºÏ²¢ĞĞÊı
+	 * è®¾é€‚åˆå¹¶è¡Œæ•°
 	 * @param num
 	 */
 	public static void setParallelNum(int num) {
@@ -473,7 +473,7 @@ public class Env {
 	}
 	
 	/**
-	 * È¡È±Ê¡µÄ¶àÂ·ÓÎ±êÂ·Êı£¬ÓÃÓÚ²úÉú¶àÂ·ÓÎ±ê
+	 * å–ç¼ºçœçš„å¤šè·¯æ¸¸æ ‡è·¯æ•°ï¼Œç”¨äºäº§ç”Ÿå¤šè·¯æ¸¸æ ‡
 	 * @return
 	 */
 	public static int getCursorParallelNum() {
@@ -481,7 +481,7 @@ public class Env {
 	}
 	
 	/**
-	 * ÉèÖÃÈ±Ê¡µÄ¶àÂ·ÓÎ±êÂ·Êı
+	 * è®¾ç½®ç¼ºçœçš„å¤šè·¯æ¸¸æ ‡è·¯æ•°
 	 * @param num
 	 */
 	public static void setCursorParallelNum(int num) {
@@ -489,21 +489,21 @@ public class Env {
 	}
 
 	/**
-	 * È¡webÓ¦ÓÃÉÏÏÂÎÄ
+	 * å–webåº”ç”¨ä¸Šä¸‹æ–‡
 	 */
 	public static ServletContext getApplication() {
 		return sc;
 	}
 
 	/**
-	 * ÉèÖÃwebÓ¦ÓÃÉÏÏÂÎÄ
+	 * è®¾ç½®webåº”ç”¨ä¸Šä¸‹æ–‡
 	 */
 	public static void setApplication(ServletContext app) {
 		sc = app;
 	}
 
 	/**
-	 * ÔÚwebÓ¦ÓÃÀï°´Ñ°Ö·Â·¾¶²éÕÒÖ¸¶¨×ÊÔ´µÄURL
+	 * åœ¨webåº”ç”¨é‡ŒæŒ‰å¯»å€è·¯å¾„æŸ¥æ‰¾æŒ‡å®šèµ„æºçš„URL
 	 */
 	public static URL getResourceFromApp(String fileName) {
 		if (sc == null)
@@ -532,7 +532,7 @@ public class Env {
 	}
 
 	/**
-	 * ÔÚwebÓ¦ÓÃ»ñÈ¡Ö¸¶¨×ÊÔ´µÄÊäÈëÁ÷
+	 * åœ¨webåº”ç”¨è·å–æŒ‡å®šèµ„æºçš„è¾“å…¥æµ
 	 */
 	public static InputStream getStreamFromApp(String fileName) {
 		URL u = getResourceFromApp(fileName);
@@ -548,7 +548,7 @@ public class Env {
 	}
 
 	/**
-	 * È¡ÎÄ¼şÇø¿é´óĞ¡
+	 * å–æ–‡ä»¶åŒºå—å¤§å°
 	 * 
 	 * @return
 	 */
@@ -557,16 +557,16 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÖÃÎÄ¼şÇø¿é´óĞ¡
+	 * è®¾ç½®æ–‡ä»¶åŒºå—å¤§å°
 	 * 
-	 * @param int size 2^n£¬n>=16
+	 * @param int size 2^nï¼Œn>=16
 	 */
 	public static void setBlockSize(int size) {
 		BLOCK_SIZE = size;
 	}
 
 	/**
-	 * È¡È±Ê§Öµ¶¨Òå£¬²»Çø·Ö´óĞ¡Ğ´£¬·Ç´®ÀàĞÍÊ±±»½âÊÍ³Énull
+	 * å–ç¼ºå¤±å€¼å®šä¹‰ï¼Œä¸åŒºåˆ†å¤§å°å†™ï¼Œéä¸²ç±»å‹æ—¶è¢«è§£é‡Šæˆnull
 	 * 
 	 * @return
 	 */
@@ -575,7 +575,7 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÖÃÈ±Ê§Öµ¶¨Òå£¬²»Çø·Ö´óĞ¡Ğ´£¬·Ç´®ÀàĞÍÊ±±»½âÊÍ³Énull
+	 * è®¾ç½®ç¼ºå¤±å€¼å®šä¹‰ï¼Œä¸åŒºåˆ†å¤§å°å†™ï¼Œéä¸²ç±»å‹æ—¶è¢«è§£é‡Šæˆnull
 	 * 
 	 * @param nss
 	 */
@@ -584,9 +584,9 @@ public class Env {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨·ÖÇøµÄÎÄ¼ş
-	 * @param partition ·ÖÇø
-	 * @param name ÎÄ¼şÃû
+	 * å–æŒ‡å®šåˆ†åŒºçš„æ–‡ä»¶
+	 * @param partition åˆ†åŒº
+	 * @param name æ–‡ä»¶å
 	 * @return
 	 */
 	public static File getPartitionFile(int partition, String name) {
@@ -598,7 +598,7 @@ public class Env {
 	}
 
 	/**
-	 * ÊÇ·ñ±äÇ¨×¢ÊÍ¸ñÖĞµÄ´®
+	 * æ˜¯å¦å˜è¿æ³¨é‡Šæ ¼ä¸­çš„ä¸²
 	 * @return
 	 */
 	public static boolean isAdjustNoteCell() {
@@ -606,7 +606,7 @@ public class Env {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ±äÇ¨×¢ÊÍ¸ñÖĞµÄ´®
+	 * è®¾ç½®æ˜¯å¦å˜è¿æ³¨é‡Šæ ¼ä¸­çš„ä¸²
 	 * @param adjustNoteCell
 	 */
 	public static void setAdjustNoteCell(boolean adjustNoteCell) {

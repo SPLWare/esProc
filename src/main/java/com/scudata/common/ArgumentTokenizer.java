@@ -3,48 +3,48 @@ package com.scudata.common;
 import java.util.Enumeration;
 
 /**
- * ±¾ÀàÓÃÓÚ²ğ·Ö×Ö·û´®£¬Ä¬ÈÏµÄ·Ö¸ô·ûÎª¶ººÅ
- * ·Ö¸îÊ±½«Ìø¹ıµ¥Ë«ÒıºÅÓëÖ¸¶¨ÖÖÀàÀ¨ºÅÄÚµÄ·Ö¸ô·û
- * ÌØ±ğ×¢Òâ£º¿Õ°×´®ÖĞÓĞÒ»¸ö±ê¼Ç£¬ÆäÖµÒ²Îª¿Õ°×´®
+ * æœ¬ç±»ç”¨äºæ‹†åˆ†å­—ç¬¦ä¸²ï¼Œé»˜è®¤çš„åˆ†éš”ç¬¦ä¸ºé€—å·
+ * åˆ†å‰²æ—¶å°†è·³è¿‡å•åŒå¼•å·ä¸æŒ‡å®šç§ç±»æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+ * ç‰¹åˆ«æ³¨æ„ï¼šç©ºç™½ä¸²ä¸­æœ‰ä¸€ä¸ªæ ‡è®°ï¼Œå…¶å€¼ä¹Ÿä¸ºç©ºç™½ä¸²
  * @author RunQian
  *
  */
 public final class ArgumentTokenizer implements Enumeration<String> {
-	private String str; // Ô´´®
-	private int len; // ³¤¶È
-	private int index; // µ±Ç°·Ö¸îµÄÎ»ÖÃ
-	private char delim = ','; // ·Ö¸ô·û£¬Ä¬ÈÏÎª¶ººÅ
+	private String str; // æºä¸²
+	private int len; // é•¿åº¦
+	private int index; // å½“å‰åˆ†å‰²çš„ä½ç½®
+	private char delim = ','; // åˆ†éš”ç¬¦ï¼Œé»˜è®¤ä¸ºé€—å·
 
-	private boolean parentheses = false; // ÊÇ·ñºöÂÔÔ²À¨ºÅÄÚµÄ·Ö¸ô·û
-	private boolean brackets = false; // ÊÇ·ñºöÂÔÖĞÀ¨ºÅÄÚµÄ·Ö¸ô·û
-	private boolean braces = false; // ÊÇ·ñºöÂÔ»¨À¨ºÅÄÚµÄ·Ö¸ô·û
-	private boolean singleQuotation = false; // ÊÇ·ñºöÂÔµ¥ÒıºÅÄÚµÄ·Ö¸ô·û
+	private boolean parentheses = false; // æ˜¯å¦å¿½ç•¥åœ†æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+	private boolean brackets = false; // æ˜¯å¦å¿½ç•¥ä¸­æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+	private boolean braces = false; // æ˜¯å¦å¿½ç•¥èŠ±æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+	private boolean singleQuotation = false; // æ˜¯å¦å¿½ç•¥å•å¼•å·å†…çš„åˆ†éš”ç¬¦
 	
-	private boolean count; // Ö»È¡ÊıÁ¿£¬²»È¡·Ö¸îºóµÄ×Ó´®
+	private boolean count; // åªå–æ•°é‡ï¼Œä¸å–åˆ†å‰²åçš„å­ä¸²
 
 	/**
-	 * ÎªÖ¸¶¨×Ö·û´®¹¹ÔìÒ»¸ö²ÎÊı·Ö¸îÆ÷¡£È±Ê¡·Ö¸ô·ûÎª','¡£
-	 * @param s Ö¸¶¨µÄ×Ö·û´®
+	 * ä¸ºæŒ‡å®šå­—ç¬¦ä¸²æ„é€ ä¸€ä¸ªå‚æ•°åˆ†å‰²å™¨ã€‚ç¼ºçœåˆ†éš”ç¬¦ä¸º','ã€‚
+	 * @param s æŒ‡å®šçš„å­—ç¬¦ä¸²
 	 */
 	public ArgumentTokenizer(String s) {
 		this(s, ',', false, false, false);
 	}
 
 	/**
-	 * ÎªÖ¸¶¨×Ö·û´®¹¹ÔìÒ»¸ö²ÎÊı·Ö¸îÆ÷
-	 * @param s Ö¸¶¨µÄ×Ö·û´®
-	 * @param delim Ö¸¶¨µÄ·Ö¸ô·û
+	 * ä¸ºæŒ‡å®šå­—ç¬¦ä¸²æ„é€ ä¸€ä¸ªå‚æ•°åˆ†å‰²å™¨
+	 * @param s æŒ‡å®šçš„å­—ç¬¦ä¸²
+	 * @param delim æŒ‡å®šçš„åˆ†éš”ç¬¦
 	 */
 	public ArgumentTokenizer(String s, char delim) {
 		this(s, delim, false, false, false);
 	}
 
 	/**
-	 * ÎªÖ¸¶¨×Ö·û´®¹¹ÔìÒ»¸ö²ÎÊı·Ö¸îÆ÷
-	 * @param s Ö¸¶¨µÄ×Ö·û´®
-	 * @param ignoreParentheses ºöÂÔÔ²À¨ºÅÄÚµÄ·Ö¸ô·û
-	 * @param ignoreBrackets ºöÂÔÖĞÀ¨ºÅÄÚµÄ·Ö¸ô·û
-	 * @param ignoreBraces ºöÂÔ»¨À¨ºÅÄÚµÄ·Ö¸ô·û
+	 * ä¸ºæŒ‡å®šå­—ç¬¦ä¸²æ„é€ ä¸€ä¸ªå‚æ•°åˆ†å‰²å™¨
+	 * @param s æŒ‡å®šçš„å­—ç¬¦ä¸²
+	 * @param ignoreParentheses å¿½ç•¥åœ†æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+	 * @param ignoreBrackets å¿½ç•¥ä¸­æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+	 * @param ignoreBraces å¿½ç•¥èŠ±æ‹¬å·å†…çš„åˆ†éš”ç¬¦
 	 */
 	public ArgumentTokenizer(String s, boolean ignoreParentheses,
 			boolean ignoreBrackets, boolean ignoreBraces) {
@@ -52,12 +52,12 @@ public final class ArgumentTokenizer implements Enumeration<String> {
 	}
 
 	/**
-	 * ÎªÖ¸¶¨×Ö·û´®¹¹ÔìÒ»¸ö²ÎÊı·Ö¸îÆ÷
-	 * @param s Ö¸¶¨µÄ×Ö·û´®
-	 * @param delim Ö¸¶¨µÄ·Ö¸ô·û
-	 * @param ignoreParentheses ºöÂÔÔ²À¨ºÅÄÚµÄ·Ö¸ô·û
-	 * @param ignoreBrackets ºöÂÔÖĞÀ¨ºÅÄÚµÄ·Ö¸ô·û
-	 * @param ignoreBraces ºöÂÔ»¨À¨ºÅÄÚµÄ·Ö¸ô·û
+	 * ä¸ºæŒ‡å®šå­—ç¬¦ä¸²æ„é€ ä¸€ä¸ªå‚æ•°åˆ†å‰²å™¨
+	 * @param s æŒ‡å®šçš„å­—ç¬¦ä¸²
+	 * @param delim æŒ‡å®šçš„åˆ†éš”ç¬¦
+	 * @param ignoreParentheses å¿½ç•¥åœ†æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+	 * @param ignoreBrackets å¿½ç•¥ä¸­æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+	 * @param ignoreBraces å¿½ç•¥èŠ±æ‹¬å·å†…çš„åˆ†éš”ç¬¦
 	 */
 	public ArgumentTokenizer(String s, char delim, boolean ignoreParentheses,
 			boolean ignoreBrackets, boolean ignoreBraces) {
@@ -65,13 +65,13 @@ public final class ArgumentTokenizer implements Enumeration<String> {
 	}
 
 	/**
-	 * ÎªÖ¸¶¨×Ö·û´®¹¹ÔìÒ»¸ö²ÎÊı·Ö¸îÆ÷
-	 * @param s Ö¸¶¨µÄ×Ö·û´®
-	 * @param delim Ö¸¶¨µÄ·Ö¸ô·û
-	 * @param ignoreParentheses ºöÂÔÔ²À¨ºÅÄÚµÄ·Ö¸ô·û
-	 * @param ignoreBrackets ºöÂÔÖĞÀ¨ºÅÄÚµÄ·Ö¸ô·û
-	 * @param ignoreBraces ºöÂÔ»¨À¨ºÅÄÚµÄ·Ö¸ô·û
-	 * @param ignoreSingleQuotation ºöÂÔµ¥ÒıºÅÄÚµÄ·Ö¸ô·û
+	 * ä¸ºæŒ‡å®šå­—ç¬¦ä¸²æ„é€ ä¸€ä¸ªå‚æ•°åˆ†å‰²å™¨
+	 * @param s æŒ‡å®šçš„å­—ç¬¦ä¸²
+	 * @param delim æŒ‡å®šçš„åˆ†éš”ç¬¦
+	 * @param ignoreParentheses å¿½ç•¥åœ†æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+	 * @param ignoreBrackets å¿½ç•¥ä¸­æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+	 * @param ignoreBraces å¿½ç•¥èŠ±æ‹¬å·å†…çš„åˆ†éš”ç¬¦
+	 * @param ignoreSingleQuotation å¿½ç•¥å•å¼•å·å†…çš„åˆ†éš”ç¬¦
 	 */
 	public ArgumentTokenizer(String s, char delim, boolean ignoreParentheses,
 			boolean ignoreBrackets, boolean ignoreBraces,
@@ -87,10 +87,10 @@ public final class ArgumentTokenizer implements Enumeration<String> {
 	}
 
 	/**
-	 * È¡ÏÂÒ»¸ö±ê¼Ç
-	 * @return Èô×Ö·û´®Îªnull£¬Ôò·µ»Ønull¡£ÈôhasNext()»òhasMoreTokens()ÎªÕæ£¬Ôò·µ»Ø
-	 *         ·Ö¸î·û·Ö¸îµÄ±ê¼Ç(·Ç¿Õ´®»ò¿Õ´®)£¬·ñÔò·µ»Ønull¡£ Èô²»Æ¥ÅäµÄÒıºÅ(µ¥/Ë«)Ôò·µ»ØÒıºÅºóµÄËùÓĞ×Ö·û
-	 *         ÈôÒıºÅÇ°×ªÒå·û\£¬Ôò´ËÒıºÅ²»ÆğÒıºÅ×÷ÓÃ
+	 * å–ä¸‹ä¸€ä¸ªæ ‡è®°
+	 * @return è‹¥å­—ç¬¦ä¸²ä¸ºnullï¼Œåˆ™è¿”å›nullã€‚è‹¥hasNext()æˆ–hasMoreTokens()ä¸ºçœŸï¼Œåˆ™è¿”å›
+	 *         åˆ†å‰²ç¬¦åˆ†å‰²çš„æ ‡è®°(éç©ºä¸²æˆ–ç©ºä¸²)ï¼Œå¦åˆ™è¿”å›nullã€‚ è‹¥ä¸åŒ¹é…çš„å¼•å·(å•/åŒ)åˆ™è¿”å›å¼•å·åçš„æ‰€æœ‰å­—ç¬¦
+	 *         è‹¥å¼•å·å‰è½¬ä¹‰ç¬¦\ï¼Œåˆ™æ­¤å¼•å·ä¸èµ·å¼•å·ä½œç”¨
 	 * 
 	 */
 	public String next() {
@@ -153,26 +153,26 @@ public final class ArgumentTokenizer implements Enumeration<String> {
 	}
 
 	/**
-	 * È¡ÏÂÒ»¸ö±ê¼Ç
-	 * @return Èô×Ö·û´®Îªnull£¬Ôò·µ»Ønull¡£ÈôhasMoreTokens()ÎªÕæ£¬Ôò·µ»Ø·Ö¸î·û·Ö¸î
-	 *         µÄ±ê¼Ç(·Ç¿Õ´®»ò¿Õ´®)£¬·ñÔò·µ»Ønull¡£
+	 * å–ä¸‹ä¸€ä¸ªæ ‡è®°
+	 * @return è‹¥å­—ç¬¦ä¸²ä¸ºnullï¼Œåˆ™è¿”å›nullã€‚è‹¥hasMoreTokens()ä¸ºçœŸï¼Œåˆ™è¿”å›åˆ†å‰²ç¬¦åˆ†å‰²
+	 *         çš„æ ‡è®°(éç©ºä¸²æˆ–ç©ºä¸²)ï¼Œå¦åˆ™è¿”å›nullã€‚
 	 */
 	public String nextToken() {
 		return next();
 	}
 
 	/**
-	 * È¡ÏÂÒ»¸ö±ê¼Ç
-	 * @return Èô×Ö·û´®Îªnull£¬Ôò·µ»Ønull¡£ÈôhasMoreTokens()ÎªÕæ£¬Ôò·µ»Ø·Ö¸î·û·Ö¸î
-	 *         µÄ±ê¼Ç(·Ç¿Õ´®»ò¿Õ´®)£¬·ñÔò·µ»Ønull¡£
+	 * å–ä¸‹ä¸€ä¸ªæ ‡è®°
+	 * @return è‹¥å­—ç¬¦ä¸²ä¸ºnullï¼Œåˆ™è¿”å›nullã€‚è‹¥hasMoreTokens()ä¸ºçœŸï¼Œåˆ™è¿”å›åˆ†å‰²ç¬¦åˆ†å‰²
+	 *         çš„æ ‡è®°(éç©ºä¸²æˆ–ç©ºä¸²)ï¼Œå¦åˆ™è¿”å›nullã€‚
 	 */
 	public String nextElement() {
 		return next();
 	}
 
 	/**
-	 * ¼ÆËãÖ¸¶¨×Ö·û´®ÖĞËùÓĞÎ´·ÃÎÊ±ê¼ÇµÄ¸öÊı¡£
-	 * @return ×Ö·û´®ÖĞ±ê¼ÇÊı
+	 * è®¡ç®—æŒ‡å®šå­—ç¬¦ä¸²ä¸­æ‰€æœ‰æœªè®¿é—®æ ‡è®°çš„ä¸ªæ•°ã€‚
+	 * @return å­—ç¬¦ä¸²ä¸­æ ‡è®°æ•°
 	 */
 	public int countTokens() {
 		int j = index;
@@ -187,24 +187,24 @@ public final class ArgumentTokenizer implements Enumeration<String> {
 	}
 
 	/**
-	 * ¼ì²éÊÇ·ñ»¹ÓĞ±ê¼Ç
-	 * @return »¹ÓĞ±ê¼Ç·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ£€æŸ¥æ˜¯å¦è¿˜æœ‰æ ‡è®°
+	 * @return è¿˜æœ‰æ ‡è®°è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean hasNext() {
 		return index <= len;
 	}
 
 	/**
-	 * ¼ì²éÊÇ·ñ»¹ÓĞ±ê¼Ç
-	 * @return »¹ÓĞ±ê¼Ç·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ£€æŸ¥æ˜¯å¦è¿˜æœ‰æ ‡è®°
+	 * @return è¿˜æœ‰æ ‡è®°è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean hasMoreTokens() {
 		return hasNext();
 	}
 
 	/**
-	 * ¼ì²éÊÇ·ñ»¹ÓĞ±ê¼Ç
-	 * @return »¹ÓĞ±ê¼Ç·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ£€æŸ¥æ˜¯å¦è¿˜æœ‰æ ‡è®°
+	 * @return è¿˜æœ‰æ ‡è®°è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean hasMoreElements() {
 		return hasNext();

@@ -9,13 +9,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.HashUtil;
 
 /**
- * ÇóĞòÁĞ³ÉÔ±µÄhashÖµ»ò¶à¸ö²ÎÊıµÄhashÖµ
+ * æ±‚åºåˆ—æˆå‘˜çš„hashå€¼æˆ–å¤šä¸ªå‚æ•°çš„hashå€¼
  * @author yanjing
- * hash(xi,¡­;n)
+ * hash(xi,â€¦;n)
  */
 public class Hash extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

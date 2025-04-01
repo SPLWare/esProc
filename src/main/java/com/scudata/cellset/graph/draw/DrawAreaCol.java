@@ -9,18 +9,18 @@ import com.scudata.cellset.graph.*;
 import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 /**
- * »­Çø¼äÖùÍ¼
+ * ç”»åŒºé—´æŸ±å›¾
  * @author Joancy
  *
  */
 public class DrawAreaCol extends DrawBase {
 	
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		DrawBase db = this;
-		//ÉÙ¸Ä¶¯´úÂë£¬Í¬ÃûÒı³öÒªÓÃµ½µÄÊµÀı
+		//å°‘æ”¹åŠ¨ä»£ç ï¼ŒåŒåå¼•å‡ºè¦ç”¨åˆ°çš„å®ä¾‹
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
@@ -75,38 +75,38 @@ public class DrawAreaCol extends DrawBase {
 		dely = (gp.graphRect.height - coorWidth) / gp.tickNum;
 		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
 		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
-		/* »­×ø±êÖá */
+		/* ç”»åæ ‡è½´ */
 		db.drawGraphRect();
-		/* »­YÖá */
+		/* ç”»Yè½´ */
 		for (int i = 0; i <= gp.tickNum; i++) {
-			// »­±³¾°ĞéÏß
+			// ç”»èƒŒæ™¯è™šçº¿
 			db.drawGridLine(dely, i);
-			// Ğ´yÖá±êÇ©
+			// å†™yè½´æ ‡ç­¾
 			Number coory = (Number) gp.coorValue.get(i);
 			String scoory = db.getFormattedValue(coory.doubleValue());
 			x = gp.gRect1.x - gp.tickLen;
 			y = gp.gRect1.y + gp.gRect1.height - i * dely;
 			gp.GFV_YLABEL.outText(x, y, scoory);
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine = gp.gRect1.y + gp.gRect1.height - i
 						* dely;
 			}
 		}
 
-		// »­¾¯½äÏß
+		// ç”»è­¦æˆ’çº¿
 		db.drawWarnLine();
 
-		/* »­XÖá */
+		/* ç”»Xè½´ */
 		ArrayList cats = egp.categories;
 		Color c;
-//		Çø¼ä¿í¶È
+//		åŒºé—´å®½åº¦
 		double areaWidth = gp.graphRect.width/(gp.catNum - 1);
 		seriesWidth = areaWidth;
 		for (int i = 0; i < gp.catNum; i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 			double delx = i*areaWidth;
-			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//Öù¶¥ÊÇ·ñÏÔÊ¾Öµ¸ú»­Table·Ö¿ª
+			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//æŸ±é¡¶æ˜¯å¦æ˜¾ç¤ºå€¼è·Ÿç”»Tableåˆ†å¼€
 			boolean vis = valvis && !gp.isDrawTable;
 
 			if (vis) {
@@ -115,7 +115,7 @@ public class DrawAreaCol extends DrawBase {
 				db.drawLine(gp.gRect1.x + delx, gp.gRect1.y + gp.gRect1.height,
 						gp.gRect1.x + delx, gp.gRect1.y + gp.gRect1.height
 								+ gp.tickLen,c);
-				// »­±³¾°ĞéÏß
+				// ç”»èƒŒæ™¯è™šçº¿
 				db.drawGridLineCategoryV(gp.gRect1.x + delx);
 			}
 
@@ -124,9 +124,9 @@ public class DrawAreaCol extends DrawBase {
 			y = gp.gRect1.y + gp.gRect1.height + gp.tickLen;
 			gp.GFV_XLABEL.outText(x, y, value, vis);
 			
-//Çø¼äÍ¼µÄµÚÒ»¸ö·ÖÀà£¬×ÜÖáÖµÃ»ÓĞÒâÒå			
+//åŒºé—´å›¾çš„ç¬¬ä¸€ä¸ªåˆ†ç±»ï¼Œæ€»è½´å€¼æ²¡æœ‰æ„ä¹‰			
 			if(i==0)continue;
-//Çø¼äÍ¼²»´æÔÚ¶àÏµÁĞ
+//åŒºé—´å›¾ä¸å­˜åœ¨å¤šç³»åˆ—
 			for (int j = 0; j < 1; j++) {
 				ExtGraphSery egs = egc.getExtGraphSery(gp.serNames.get(j));
 				if (egs.isNull()) {
@@ -136,7 +136,7 @@ public class DrawAreaCol extends DrawBase {
 				double tmp = val - gp.baseValue;
 				double len = dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale);
 				double lb = gp.gRect1.x+(i-1)*areaWidth;
-				// »­Öù×Ó
+				// ç”»æŸ±å­
 				if (len >= 0) {
 					Color tmpc;
 					if (!gp.isMultiSeries) {
@@ -171,7 +171,7 @@ public class DrawAreaCol extends DrawBase {
 							Math.abs(len), htmlLink, egc.getNameString(), egs);
 				}
 
-				// ÔÚÖù¶¥ÏÔÊ¾ÊıÖµ
+				// åœ¨æŸ±é¡¶æ˜¾ç¤ºæ•°å€¼
 				if (gp.dispValueOntop && !egs.isNull() && valvis) {
 					sval = db.getDispValue(egc,egs,gp.serNum);
 					x = lb + seriesWidth / 2;
@@ -196,7 +196,7 @@ public class DrawAreaCol extends DrawBase {
 		}
 		db.outLabels();
 
-		/* ÖØ»­Ò»ÏÂ»ùÏß */
+		/* é‡ç”»ä¸€ä¸‹åŸºçº¿ */
 		db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x + gp.gRect1.width,
 				gp.valueBaseLine, egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 		db.drawLine(gp.gRect1.x + gp.gRect1.width, gp.valueBaseLine,

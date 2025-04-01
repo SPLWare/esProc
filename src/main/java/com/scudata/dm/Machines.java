@@ -13,9 +13,9 @@ import com.scudata.parallel.UnitClient;
 import com.scudata.resources.EngineMessage;
 /**
  * "ip:port"
- * ":port"£¬¾ÍÊÇ127.0.0.1
- * ":"£¬¾ÍÊÇ×Ô¼º½ø³Ì
- * ""£¬ºöÂÔ
+ * ":port"ï¼Œå°±æ˜¯127.0.0.1
+ * ":"ï¼Œå°±æ˜¯è‡ªå·±è¿›ç¨‹
+ * ""ï¼Œå¿½ç•¥
  *
  */
 public class Machines implements Externalizable{
@@ -28,13 +28,13 @@ public class Machines implements Externalizable{
 	private String parseHost(String str) {
 		String host=null,defaultHost="127.0.0.1";
 		int index = str.lastIndexOf(':');
-		if (index == -1) {//Ã»ÓĞÃ°ºÅ
+		if (index == -1) {//æ²¡æœ‰å†’å·
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("HS" + mm.getMessage("function.invalidParam")+": "+str);
-		}else if( index==0 ) {//Ã°ºÅ¿ªÍ·Îª±¾µØ·Ö»ú
+		}else if( index==0 ) {//å†’å·å¼€å¤´ä¸ºæœ¬åœ°åˆ†æœº
 			if(str.length()>1) {
 				host = defaultHost;
-			}//·ñÔòÎª¹âÃ°ºÅ±íÊ¾±¾½ø³Ì£¬ÓÃnullµ±host
+			}//å¦åˆ™ä¸ºå…‰å†’å·è¡¨ç¤ºæœ¬è¿›ç¨‹ï¼Œç”¨nullå½“host
 		}else {
 			host = str.substring(0, index);
 		}
@@ -42,7 +42,7 @@ public class Machines implements Externalizable{
 	}
 	private int parsePort(String str) {
 		int index = str.lastIndexOf(':');
-		if(str.length()==1) {//¹âÃ°ºÅÊ±£¬·µ»Ø0¶Ë¿Ú
+		if(str.length()==1) {//å…‰å†’å·æ—¶ï¼Œè¿”å›0ç«¯å£
 			return 0;
 		}
 		int port = Integer.parseInt(str.substring(index + 1));
@@ -86,7 +86,7 @@ public class Machines implements Externalizable{
 					listH.add( uc.getHost() );
 					listP.add( uc.getPort() );
 				}else{
-					//²»ÈÏÊ¶µÄ¶ÔÏó
+					//ä¸è®¤è¯†çš„å¯¹è±¡
 					return false;
 				}
 			}

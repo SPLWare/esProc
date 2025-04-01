@@ -9,11 +9,11 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸´ÊıµÄ¾ø¶ÔÖµcomAbs()
+ * å¤æ•°çš„ç»å¯¹å€¼comAbs()
  *
- * Y = abs(X) ·µ»ØÊı×é X ÖĞÃ¿¸öÔªËØµÄ¾ø¶ÔÖµ
- * Èç¹û X ÊÇ¸´Êı£¬Ôò abs(X) ·µ»Ø¸´ÊıµÄÄ£
- * Èç¹û X ÊÇ¸´ÊıÊı×é£¬Ôò·µ»ØÄ£×é³ÉµÄÊı×é
+ * Y = abs(X) è¿”å›æ•°ç»„ X ä¸­æ¯ä¸ªå…ƒç´ çš„ç»å¯¹å€¼
+ * å¦‚æœ X æ˜¯å¤æ•°ï¼Œåˆ™ abs(X) è¿”å›å¤æ•°çš„æ¨¡
+ * å¦‚æœ X æ˜¯å¤æ•°æ•°ç»„ï¼Œåˆ™è¿”å›æ¨¡ç»„æˆçš„æ•°ç»„
  */
 public class ComAbs extends SequenceFunction {
     public Object calculate(Context ctx){

@@ -12,7 +12,7 @@ import com.scudata.ide.common.swing.*;
 import com.scudata.ide.spl.resources.*;
 
 /**
- * ±à¼­·ç¸ñµÄ¸÷ÖÖÏÂÀ­¶ÔÏó´´½¨¹¤¾ßÀà
+ * ç¼–è¾‘é£æ ¼çš„å„ç§ä¸‹æ‹‰å¯¹è±¡åˆ›å»ºå·¥å…·ç±»
  * 
  * @author Joancy
  *
@@ -20,8 +20,8 @@ import com.scudata.ide.spl.resources.*;
 public class EditStyles {
 	static MessageManager mm = ChartMessage.get();
 	/**
-	 * »ñµÃ×ÖÌåÏÂÀ­¿ò
-	 * @return JComboBoxEx ×ÖÌåÏÂÀ­ÁĞ±í
+	 * è·å¾—å­—ä½“ä¸‹æ‹‰æ¡†
+	 * @return JComboBoxEx å­—ä½“ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getFontBox() {
 		Vector<String> fontV = new Section( GM.getFontNames()).toVector();
@@ -31,8 +31,8 @@ public class EditStyles {
 	}
 
 	/**
-	 * »ñµÃ¿Ì¶ÈÏßÏÂÀ­¿ò
-	 * @return JComboBoxEx ¿Ì¶ÈÏßÏÂÀ­ÁĞ±í
+	 * è·å¾—åˆ»åº¦çº¿ä¸‹æ‹‰æ¡†
+	 * @return JComboBoxEx åˆ»åº¦çº¿ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getTicksBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -41,18 +41,18 @@ public class EditStyles {
 		code.add( new Integer( Consts.TICK_LEFTDOWN ) );
 		code.add( new Integer( Consts.TICK_CROSS ) );
 		code.add( new Integer( Consts.TICK_NONE ) );
-		disp.add( mm.getMessage( "options.ticks1" ) );  //"¿¿ÓÒ»òÉÏ" );
-		disp.add( mm.getMessage( "options.ticks2" ) );  //"¿¿×ó»òÏÂ" );
-		disp.add( mm.getMessage( "options.ticks3" ) );  //"Ñ¹Öá" );
-		disp.add( mm.getMessage( "options.ticks4" ) );  //"ÎŞ¿Ì¶ÈÏß" );
+		disp.add( mm.getMessage( "options.ticks1" ) );  //"é å³æˆ–ä¸Š" );
+		disp.add( mm.getMessage( "options.ticks2" ) );  //"é å·¦æˆ–ä¸‹" );
+		disp.add( mm.getMessage( "options.ticks3" ) );  //"å‹è½´" );
+		disp.add( mm.getMessage( "options.ticks4" ) );  //"æ— åˆ»åº¦çº¿" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñµÃ×ø±êµ¥Î»ÏÂÀ­ÁĞ±í
-	 * @return JComboBoxEx ×ø±êµ¥Î»ÏÂÀ­ÁĞ±í
+	 * è·å¾—åæ ‡å•ä½ä¸‹æ‹‰åˆ—è¡¨
+	 * @return JComboBoxEx åæ ‡å•ä½ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getUnitBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -67,24 +67,24 @@ public class EditStyles {
 		code.add( new Integer( Consts.NUNIT_HUNDRED_MILLIONS ) );
 		code.add( new Integer( Consts.NUNIT_THOUSAND_MILLIONS ) );
 		code.add( new Integer( Consts.NUNIT_BILLIONS ) );
-		disp.add( mm.getMessage( "options.unit1" ) );  //"ÎŞ" );
-		disp.add( mm.getMessage( "options.unit2" ) );  //"°Ù" );
-		disp.add( mm.getMessage( "options.unit3" ) );  //"Ç§" );
-		disp.add( mm.getMessage( "options.unit4" ) );  //"Íò" );
-		disp.add( mm.getMessage( "options.unit5" ) );  //"Ê®Íò" );
-		disp.add( mm.getMessage( "options.unit6" ) );  //"°ÙÍò" );
-		disp.add( mm.getMessage( "options.unit7" ) );  //"Ç§Íò" );
-		disp.add( mm.getMessage( "options.unit8" ) );  //"ÒÚ" );
-		disp.add( mm.getMessage( "options.unit9" ) );  //"Ê®ÒÚ" );
-		disp.add( mm.getMessage( "options.unit10" ) );  //"ÍòÒÚ" );
+		disp.add( mm.getMessage( "options.unit1" ) );  //"æ— " );
+		disp.add( mm.getMessage( "options.unit2" ) );  //"ç™¾" );
+		disp.add( mm.getMessage( "options.unit3" ) );  //"åƒ" );
+		disp.add( mm.getMessage( "options.unit4" ) );  //"ä¸‡" );
+		disp.add( mm.getMessage( "options.unit5" ) );  //"åä¸‡" );
+		disp.add( mm.getMessage( "options.unit6" ) );  //"ç™¾ä¸‡" );
+		disp.add( mm.getMessage( "options.unit7" ) );  //"åƒä¸‡" );
+		disp.add( mm.getMessage( "options.unit8" ) );  //"äº¿" );
+		disp.add( mm.getMessage( "options.unit9" ) );  //"åäº¿" );
+		disp.add( mm.getMessage( "options.unit10" ) );  //"ä¸‡äº¿" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñµÃ×ø±êÏµÏÂÀ­ÁĞ±í
-	 * @return JComboBoxEx ×ø±êÏµÏÂÀ­ÁĞ±í
+	 * è·å¾—åæ ‡ç³»ä¸‹æ‹‰åˆ—è¡¨
+	 * @return JComboBoxEx åæ ‡ç³»ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getCoordinateBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -97,22 +97,22 @@ public class EditStyles {
 		code.add( new Integer( Consts.COORDINATES_POLAR_VIRTUAL_3D ) );
 		code.add( new Integer( Consts.COORDINATES_LEGEND ) );
 		code.add( new Integer( Consts.COORDINATES_FREE ) );
-		disp.add( mm.getMessage( "options.coord1" ) );  //"Ö±½Ç×ø±êÏµ" );
-		disp.add( mm.getMessage( "options.coord2" ) );  //"¼«×ø±êÏµ" );
-		disp.add( mm.getMessage( "options.coord3" ) );  //"Á¢ÌåÕ¹ÏÖÖ±½Ç×ø±êÏµ" );
-		disp.add( mm.getMessage( "options.coord4" ) );  //"Á¢ÌåĞ§¹ûµÄÆ½ÃæÖ±½Ç×ø±êÏµ" );
-		disp.add( mm.getMessage( "options.coord5" ) );  //"Á¢ÌåÕ¹ÏÖ¼«×ø±êÏµ" );
-		disp.add( mm.getMessage( "options.coord6" ) );  //"Á¢ÌåĞ§¹ûµÄÆ½Ãæ¼«×ø±êÏµ" );
-		disp.add( mm.getMessage( "options.coord7" ) );  //"Í¼Àı×ø±êÏµ" );
-		disp.add( mm.getMessage( "options.coord8" ) );  //"×ÔÓÉ×ø±êÏµ" );
+		disp.add( mm.getMessage( "options.coord1" ) );  //"ç›´è§’åæ ‡ç³»" );
+		disp.add( mm.getMessage( "options.coord2" ) );  //"æåæ ‡ç³»" );
+		disp.add( mm.getMessage( "options.coord3" ) );  //"ç«‹ä½“å±•ç°ç›´è§’åæ ‡ç³»" );
+		disp.add( mm.getMessage( "options.coord4" ) );  //"ç«‹ä½“æ•ˆæœçš„å¹³é¢ç›´è§’åæ ‡ç³»" );
+		disp.add( mm.getMessage( "options.coord5" ) );  //"ç«‹ä½“å±•ç°æåæ ‡ç³»" );
+		disp.add( mm.getMessage( "options.coord6" ) );  //"ç«‹ä½“æ•ˆæœçš„å¹³é¢æåæ ‡ç³»" );
+		disp.add( mm.getMessage( "options.coord7" ) );  //"å›¾ä¾‹åæ ‡ç³»" );
+		disp.add( mm.getMessage( "options.coord8" ) );  //"è‡ªç”±åæ ‡ç³»" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñµÃ×ø±êÖáÎ»ÖÃÏÂÀ­ÁĞ±í
-	 * @return JComboBoxEx ×ø±êÖáÎ»ÖÃÏÂÀ­ÁĞ±í
+	 * è·å¾—åæ ‡è½´ä½ç½®ä¸‹æ‹‰åˆ—è¡¨
+	 * @return JComboBoxEx åæ ‡è½´ä½ç½®ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getAxisBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -121,18 +121,18 @@ public class EditStyles {
 		code.add( new Integer( Consts.AXIS_LOC_V ) );
 		code.add( new Integer( Consts.AXIS_LOC_POLAR ) );
 		code.add( new Integer( Consts.AXIS_LOC_ANGLE ) );
-		disp.add( mm.getMessage( "options.axis1" ) );  //"ºáÖá" );
-		disp.add( mm.getMessage( "options.axis2" ) );  //"×İÖá" );
-		disp.add( mm.getMessage( "options.axis3" ) );  //"¼«Öá" );
-		disp.add( mm.getMessage( "options.axis4" ) );  //"½ÇÖá" );
+		disp.add( mm.getMessage( "options.axis1" ) );  //"æ¨ªè½´" );
+		disp.add( mm.getMessage( "options.axis2" ) );  //"çºµè½´" );
+		disp.add( mm.getMessage( "options.axis3" ) );  //"æè½´" );
+		disp.add( mm.getMessage( "options.axis4" ) );  //"è§’è½´" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñµÃÖùĞÍÏÂÀ­ÁĞ±í
-	 * @return JComboBoxEx Öù×ÓÏÂÀ­ÁĞ±í
+	 * è·å¾—æŸ±å‹ä¸‹æ‹‰åˆ—è¡¨
+	 * @return JComboBoxEx æŸ±å­ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getColumnStyleBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -140,17 +140,17 @@ public class EditStyles {
 		code.add( new Integer( Consts.COL_COBOID ) );
 		code.add( new Integer( Consts.COL_CUBE ) );
 		code.add( new Integer( Consts.COL_CYLINDER ) );
-		disp.add( mm.getMessage( "options.bar1" ) );  //"·½Öù" );
-		disp.add( mm.getMessage( "options.bar2" ) );  //"Á¢Ìå·½Öù" );
-		disp.add( mm.getMessage( "options.bar3" ) );  //"Ô²Öù" );
+		disp.add( mm.getMessage( "options.bar1" ) );  //"æ–¹æŸ±" );
+		disp.add( mm.getMessage( "options.bar2" ) );  //"ç«‹ä½“æ–¹æŸ±" );
+		disp.add( mm.getMessage( "options.bar3" ) );  //"åœ†æŸ±" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñµÃË®Æ½¶ÔÆëÏÂÀ­ÁĞ±í
-	 * @return JComboBoxEx Ë®Æ½¶ÔÆëÏÂÀ­ÁĞ±í
+	 * è·å¾—æ°´å¹³å¯¹é½ä¸‹æ‹‰åˆ—è¡¨
+	 * @return JComboBoxEx æ°´å¹³å¯¹é½ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getHAlignBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -158,17 +158,17 @@ public class EditStyles {
 		code.add( new Integer( Consts.HALIGN_LEFT ) );
 		code.add( new Integer( Consts.HALIGN_CENTER ) );
 		code.add( new Integer( Consts.HALIGN_RIGHT ) );
-		disp.add( mm.getMessage( "options.align1" ) );  //"×ó¶ÔÆë" );
-		disp.add( mm.getMessage( "options.align2" ) );  //"ÖĞ¶ÔÆë" );
-		disp.add( mm.getMessage( "options.align3" ) );  //"ÓÒ¶ÔÆë" );
+		disp.add( mm.getMessage( "options.align1" ) );  //"å·¦å¯¹é½" );
+		disp.add( mm.getMessage( "options.align2" ) );  //"ä¸­å¯¹é½" );
+		disp.add( mm.getMessage( "options.align3" ) );  //"å³å¯¹é½" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñµÃ´¹Ö±¶ÔÆëÏÂÀ­ÁĞ±í
-	 * @return JComboBoxEx ´¹Ö±¶ÔÆëÏÂÀ­ÁĞ±í
+	 * è·å¾—å‚ç›´å¯¹é½ä¸‹æ‹‰åˆ—è¡¨
+	 * @return JComboBoxEx å‚ç›´å¯¹é½ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getVAlignBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -176,17 +176,17 @@ public class EditStyles {
 		code.add( new Integer( Consts.VALIGN_TOP ) );
 		code.add( new Integer( Consts.VALIGN_MIDDLE ) );
 		code.add( new Integer( Consts.VALIGN_BOTTOM ) );
-		disp.add( mm.getMessage( "options.valign1" ) );  //"¿¿ÉÏ" );
-		disp.add( mm.getMessage( "options.valign2" ) );  //"¾ÓÖĞ" );
-		disp.add( mm.getMessage( "options.valign3" ) );  //"¿¿ÏÂ" );
+		disp.add( mm.getMessage( "options.valign1" ) );  //"é ä¸Š" );
+		disp.add( mm.getMessage( "options.valign2" ) );  //"å±…ä¸­" );
+		disp.add( mm.getMessage( "options.valign3" ) );  //"é ä¸‹" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñÈ¡±³¾°Í¼Ìî³äÄ£Ê½ÏÂÀ­ÁĞ±í
-	 * @return ±³¾°Í¼Ìî³äÄ£Ê½ÏÂÀ­ÁĞ±í
+	 * è·å–èƒŒæ™¯å›¾å¡«å……æ¨¡å¼ä¸‹æ‹‰åˆ—è¡¨
+	 * @return èƒŒæ™¯å›¾å¡«å……æ¨¡å¼ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getImageMode() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -194,17 +194,17 @@ public class EditStyles {
 		code.add( new Integer( Consts.MODE_NONE ) );
 		code.add( new Integer( Consts.MODE_FILL ) );
 		code.add( new Integer( Consts.MODE_TILE ) );
-		disp.add( mm.getMessage( "options.modenone" ) );  //"×óÉÏ" );
-		disp.add( mm.getMessage( "options.modefill" ) );  //"Ìî³ä" );
-		disp.add( mm.getMessage( "options.modetile" ) );  //"Æ½ÆÌ" );
+		disp.add( mm.getMessage( "options.modenone" ) );  //"å·¦ä¸Š" );
+		disp.add( mm.getMessage( "options.modefill" ) );  //"å¡«å……" );
+		disp.add( mm.getMessage( "options.modetile" ) );  //"å¹³é“º" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 	
 	/**
-	 * »ñÈ¡Í¼ÀıµÄÍ¼±êĞÎ×´ÏÂÀ­ÁĞ±í
-	 * @return Í¼ÀıµÄÍ¼±êĞÎ×´ÏÂÀ­ÁĞ±í
+	 * è·å–å›¾ä¾‹çš„å›¾æ ‡å½¢çŠ¶ä¸‹æ‹‰åˆ—è¡¨
+	 * @return å›¾ä¾‹çš„å›¾æ ‡å½¢çŠ¶ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getLegendIconBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -214,19 +214,19 @@ public class EditStyles {
 		code.add( new Integer( Consts.LEGEND_LINE ) );
 		code.add( new Integer( Consts.LEGEND_LINEPOINT ) );
 		code.add( new Integer( Consts.LEGEND_NONE ) );
-		disp.add( mm.getMessage( "options.legendicon1" ) );  //"¾ØĞÎ" );
-		disp.add( mm.getMessage( "options.legendicon2" ) );  //"µãĞÎ" );
-		disp.add( mm.getMessage( "options.legendicon3" ) );  //"ÏßĞÎ" );
-		disp.add( mm.getMessage( "options.legendicon4" ) );  //"µãÏß" );
-		disp.add( mm.getMessage( "options.legendicon5" ) );  //"ÎŞ" );
+		disp.add( mm.getMessage( "options.legendicon1" ) );  //"çŸ©å½¢" );
+		disp.add( mm.getMessage( "options.legendicon2" ) );  //"ç‚¹å½¢" );
+		disp.add( mm.getMessage( "options.legendicon3" ) );  //"çº¿å½¢" );
+		disp.add( mm.getMessage( "options.legendicon4" ) );  //"ç‚¹çº¿" );
+		disp.add( mm.getMessage( "options.legendicon5" ) );  //"æ— " );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñÈ¡ÈÕÆÚµ¥Î»ÏÂÀ­ÁĞ±í
-	 * @return ÈÕÆÚµ¥Î»ÏÂÀ­ÁĞ±í
+	 * è·å–æ—¥æœŸå•ä½ä¸‹æ‹‰åˆ—è¡¨
+	 * @return æ—¥æœŸå•ä½ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getDateUnitBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -238,21 +238,21 @@ public class EditStyles {
 		code.add( new Integer( Consts.DATEUNIT_MINUTE ) );
 		code.add( new Integer( Consts.DATEUNIT_SECOND ) );
 		code.add( new Integer( Consts.DATEUNIT_MILLISECOND ) );
-		disp.add( mm.getMessage( "options.dateunit1" ) );  //"Äê" );
-		disp.add( mm.getMessage( "options.dateunit2" ) );  //"ÔÂ" );
-		disp.add( mm.getMessage( "options.dateunit3" ) );  //"ÈÕ" );
-		disp.add( mm.getMessage( "options.dateunit4" ) );  //"Ê±" );
-		disp.add( mm.getMessage( "options.dateunit5" ) );  //"·Ö" );
-		disp.add( mm.getMessage( "options.dateunit6" ) );  //"Ãë" );
-		disp.add( mm.getMessage( "options.dateunit7" ) );  //"ºÁÃë" );
+		disp.add( mm.getMessage( "options.dateunit1" ) );  //"å¹´" );
+		disp.add( mm.getMessage( "options.dateunit2" ) );  //"æœˆ" );
+		disp.add( mm.getMessage( "options.dateunit3" ) );  //"æ—¥" );
+		disp.add( mm.getMessage( "options.dateunit4" ) );  //"æ—¶" );
+		disp.add( mm.getMessage( "options.dateunit5" ) );  //"åˆ†" );
+		disp.add( mm.getMessage( "options.dateunit6" ) );  //"ç§’" );
+		disp.add( mm.getMessage( "options.dateunit7" ) );  //"æ¯«ç§’" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñÈ¡URLÄ¿±êÖµÏÂÀ­ÁĞ±í
-	 * @return URLÄ¿±êÖµÏÂÀ­ÁĞ±í
+	 * è·å–URLç›®æ ‡å€¼ä¸‹æ‹‰åˆ—è¡¨
+	 * @return URLç›®æ ‡å€¼ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getUrlTargetBox() {
 		Vector<String> code = new Vector<String>();
@@ -261,10 +261,10 @@ public class EditStyles {
 		code.add( "_blank" );
 		code.add( "_parent" );
 		code.add( "_top" );
-		disp.add( mm.getMessage( "options.urltarget1" ) );  //"±¾´°¿Ú" );
-		disp.add( mm.getMessage( "options.urltarget2" ) );  //"ĞÂ´°¿Ú" );
-		disp.add( mm.getMessage( "options.urltarget3" ) );  //"¸¸´°¿Ú" );
-		disp.add( mm.getMessage( "options.urltarget4" ) );  //"¶¥²ã´°¿Ú" );
+		disp.add( mm.getMessage( "options.urltarget1" ) );  //"æœ¬çª—å£" );
+		disp.add( mm.getMessage( "options.urltarget2" ) );  //"æ–°çª—å£" );
+		disp.add( mm.getMessage( "options.urltarget3" ) );  //"çˆ¶çª—å£" );
+		disp.add( mm.getMessage( "options.urltarget4" ) );  //"é¡¶å±‚çª—å£" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		box.setEditable( true );
@@ -272,8 +272,8 @@ public class EditStyles {
 	}
 
 	/**
-	 * »ñµÃÊıÖµ±ä»»ÀàĞÍÏÂÀ­ÁĞ±í
-	 * @return JComboBoxEx ÊıÖµ±ä»»ÀàĞÍÏÂÀ­ÁĞ±í
+	 * è·å¾—æ•°å€¼å˜æ¢ç±»å‹ä¸‹æ‹‰åˆ—è¡¨
+	 * @return JComboBoxEx æ•°å€¼å˜æ¢ç±»å‹ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getTransformBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -282,18 +282,18 @@ public class EditStyles {
 		code.add( new Integer( Consts.TRANSFORM_SCALE ) );
 		code.add( new Integer( Consts.TRANSFORM_LOG ) );
 		code.add( new Integer( Consts.TRANSFORM_EXP ) );
-		disp.add( mm.getMessage( "options.transform1" ) );  //"²»±ä»»" );
-		disp.add( mm.getMessage( "options.transform2" ) );  //"±ÈÀı" );
-		disp.add( mm.getMessage( "options.transform3" ) );  //"¶ÔÊı" );
-		disp.add( mm.getMessage( "options.transform4" ) );  //"Ö¸Êı" );
+		disp.add( mm.getMessage( "options.transform1" ) );  //"ä¸å˜æ¢" );
+		disp.add( mm.getMessage( "options.transform2" ) );  //"æ¯”ä¾‹" );
+		disp.add( mm.getMessage( "options.transform3" ) );  //"å¯¹æ•°" );
+		disp.add( mm.getMessage( "options.transform4" ) );  //"æŒ‡æ•°" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñÈ¡¶Ñ»ıÍ¼ÀàĞÍÏÂÀ­ÁĞ±í
-	 * @return ¶Ñ»ıÍ¼ÀàĞÍÏÂÀ­ÁĞ±í
+	 * è·å–å †ç§¯å›¾ç±»å‹ä¸‹æ‹‰åˆ—è¡¨
+	 * @return å †ç§¯å›¾ç±»å‹ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getStackTypeBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -301,17 +301,17 @@ public class EditStyles {
 		code.add( new Integer( Consts.STACK_NONE ) );
 		code.add( new Integer( Consts.STACK_PERCENT ) );
 		code.add( new Integer( Consts.STACK_VALUE ) );
-		disp.add( mm.getMessage( "options.stackNone" ) );  //"²»¶Ñ»ı" );
-		disp.add( mm.getMessage( "options.stackPercent" ) );  //"°Ù·Ö±È¶Ñ»ı" );
-		disp.add( mm.getMessage( "options.stackValue" ) );  //"Ô­Öµ¶Ñ»ı" );
+		disp.add( mm.getMessage( "options.stackNone" ) );  //"ä¸å †ç§¯" );
+		disp.add( mm.getMessage( "options.stackPercent" ) );  //"ç™¾åˆ†æ¯”å †ç§¯" );
+		disp.add( mm.getMessage( "options.stackValue" ) );  //"åŸå€¼å †ç§¯" );
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñÈ¡ÊıÖµÏÔÊ¾ÀàĞÍÏÂÀ­ÁĞ±í
-	 * @return ÊıÖµÏÔÊ¾ÀàĞÍÏÂÀ­ÁĞ±í
+	 * è·å–æ•°å€¼æ˜¾ç¤ºç±»å‹ä¸‹æ‹‰åˆ—è¡¨
+	 * @return æ•°å€¼æ˜¾ç¤ºç±»å‹ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getDisplayDataBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -321,19 +321,19 @@ public class EditStyles {
 		code.add( new Integer( IGraphProperty.DISPDATA_VALUE) );
 		code.add( new Integer( IGraphProperty.DISPDATA_NAME_PERCENTAGE) );
 		code.add( new Integer( IGraphProperty.DISPDATA_NAME_VALUE) );
-		disp.add( mm.getMessage( "options.dispDataNone" ) );  //"²»ÏÔÊ¾
-		disp.add( mm.getMessage( "options.dispDataPercent" ) );  //"°Ù·Ö±ÈÏÔÊ¾
-		disp.add( mm.getMessage( "options.dispDataValue" ) );  //"Ô­ÖµÏÔÊ¾
-		disp.add( mm.getMessage( "options.dispDataNamePercent" ) );  //Ãû³ÆºÍ°Ù·Ö±È
-		disp.add( mm.getMessage( "options.dispDataNameValue" ) );  //Ãû³ÆºÍÖµ
+		disp.add( mm.getMessage( "options.dispDataNone" ) );  //"ä¸æ˜¾ç¤º
+		disp.add( mm.getMessage( "options.dispDataPercent" ) );  //"ç™¾åˆ†æ¯”æ˜¾ç¤º
+		disp.add( mm.getMessage( "options.dispDataValue" ) );  //"åŸå€¼æ˜¾ç¤º
+		disp.add( mm.getMessage( "options.dispDataNamePercent" ) );  //åç§°å’Œç™¾åˆ†æ¯”
+		disp.add( mm.getMessage( "options.dispDataNameValue" ) );  //åç§°å’Œå€¼
 		JComboBoxEx box = new JComboBoxEx();
 		box.x_setData( code, disp );
 		return box;
 	}
 
 	/**
-	 * »ñÈ¡Í¼Àı·½Î»ÏÂÀ­ÁĞ±í
-	 * @return Í¼Àı·½Î»ÏÂÀ­ÁĞ±í
+	 * è·å–å›¾ä¾‹æ–¹ä½ä¸‹æ‹‰åˆ—è¡¨
+	 * @return å›¾ä¾‹æ–¹ä½ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getLegendLocationBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -343,7 +343,7 @@ public class EditStyles {
 		code.add( new Integer( IGraphProperty.LEGEND_BOTTOM) );
 		code.add( new Integer( IGraphProperty.LEGEND_LEFT) );
 		code.add( new Integer( IGraphProperty.LEGEND_RIGHT) );
-		disp.add( mm.getMessage( "options.dispDataNone" ) );  //"²»ÏÔÊ¾
+		disp.add( mm.getMessage( "options.dispDataNone" ) );  //"ä¸æ˜¾ç¤º
 		disp.add( mm.getMessage( "options.top" ) );
 		disp.add( mm.getMessage( "options.bottom" ) );
 		disp.add( mm.getMessage( "options.left" ) );
@@ -354,8 +354,8 @@ public class EditStyles {
 	}
 	
 	/**
-	 * »ñÈ¡ÌõĞÎÂëÀàĞÍÏÂÀ­ÁĞ±í
-	 * @return ÌõĞÎÂëÀàĞÍÏÂÀ­ÁĞ±í
+	 * è·å–æ¡å½¢ç ç±»å‹ä¸‹æ‹‰åˆ—è¡¨
+	 * @return æ¡å½¢ç ç±»å‹ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getBarcodeType() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -374,7 +374,7 @@ public class EditStyles {
 		code.add( new Integer( Consts.TYPE_UPCA) );
 		code.add( new Integer( Consts.TYPE_QRCODE) );
 		
-		disp.add( mm.getMessage( "options.dispDataNone" ) );  //"²»ÏÔÊ¾
+		disp.add( mm.getMessage( "options.dispDataNone" ) );  //"ä¸æ˜¾ç¤º
 		disp.add( "Codabar" );
 		disp.add( "Code128Auto" );
 		disp.add( "Code128A" );
@@ -394,8 +394,8 @@ public class EditStyles {
 	}
 	
 	/**
-	 * »ñÈ¡×Ö·û¼¯ÏÂÀ­ÁĞ±í
-	 * @return ×Ö·û¼¯ÏÂÀ­ÁĞ±í
+	 * è·å–å­—ç¬¦é›†ä¸‹æ‹‰åˆ—è¡¨
+	 * @return å­—ç¬¦é›†ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getCharSet() {
 		Vector<String> code = new Vector<String>();
@@ -409,11 +409,11 @@ public class EditStyles {
 	}
 
 	/**
-	 * »ñÈ¡¶şÎ¬ÂëÈİ´íÂÊÏÂÀ­ÁĞ±í
-	 * @return ¶şÎ¬ÂëÈİ´íÂÊÏÂÀ­ÁĞ±í
+	 * è·å–äºŒç»´ç å®¹é”™ç‡ä¸‹æ‹‰åˆ—è¡¨
+	 * @return äºŒç»´ç å®¹é”™ç‡ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getRecError() {
-		Vector<String> code = new Vector<String>();//L(7%)¡¢M(15%)¡¢Q(25%)¡¢H(30%)
+		Vector<String> code = new Vector<String>();//L(7%)ã€M(15%)ã€Q(25%)ã€H(30%)
 	    Vector<String> disp = new Vector<String>();
 	    code.add("L");
 	    code.add("M");
@@ -430,8 +430,8 @@ public class EditStyles {
 	}
 
 	/**
-	 * »ñÈ¡Öù×´Í¼ÏÂÀ­ÁĞ±í
-	 * @return Öù×´Í¼ÏÂÀ­ÁĞ±í
+	 * è·å–æŸ±çŠ¶å›¾ä¸‹æ‹‰åˆ—è¡¨
+	 * @return æŸ±çŠ¶å›¾ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getInputColumnTypeBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -460,8 +460,8 @@ public class EditStyles {
 	}
 
 	/**
-	 * »ñÈ¡ÏßĞÎÍ¼ÏÂÀ­ÁĞ±í
-	 * @return ÏßĞÎÍ¼ÏÂÀ­ÁĞ±í
+	 * è·å–çº¿å½¢å›¾ä¸‹æ‹‰åˆ—è¡¨
+	 * @return çº¿å½¢å›¾ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getInputLineTypeBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -480,8 +480,8 @@ public class EditStyles {
 	}
 
 	/**
-	 * »ñÈ¡±ı×´Í¼ÏÂÀ­ÁĞ±í
-	 * @return ±ı×´Í¼ÏÂÀ­ÁĞ±í
+	 * è·å–é¥¼çŠ¶å›¾ä¸‹æ‹‰åˆ—è¡¨
+	 * @return é¥¼çŠ¶å›¾ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getInputPieTypeBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -496,8 +496,8 @@ public class EditStyles {
 	}
 
 	/**
-	 * »ñÈ¡Ë«ÖáÍ¼ĞÎÏÂÀ­ÁĞ±í
-	 * @return Ë«ÖáÍ¼ĞÎÏÂÀ­ÁĞ±í
+	 * è·å–åŒè½´å›¾å½¢ä¸‹æ‹‰åˆ—è¡¨
+	 * @return åŒè½´å›¾å½¢ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getInput2AxisTypeBox() {
 		Vector<Integer> code = new Vector<Integer>();

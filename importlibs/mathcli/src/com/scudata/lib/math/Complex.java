@@ -9,7 +9,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 构建复数数组
+ * 鏋勫缓澶嶆暟鏁扮粍
  */
 public class Complex extends Function {
     public Object calculate (Context ctx) {

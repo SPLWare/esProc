@@ -56,10 +56,10 @@ import com.scudata.ide.spl.resources.IdeSplMessage;
 public class GMSpl extends GM {
 
 	/**
-	 * Ö´ĞĞ²Ëµ¥»òÕßSheetÃüÁî
+	 * æ‰§è¡Œèœå•æˆ–è€…Sheetå‘½ä»¤
 	 * 
 	 * @param cmd
-	 *            GCSpl¼°GCÖĞ¶¨ÒåµÄ²Ëµ¥³£Á¿
+	 *            GCSplåŠGCä¸­å®šä¹‰çš„èœå•å¸¸é‡
 	 * @throws Exception
 	 */
 	public static void executeCmd(short cmd) throws Exception {
@@ -128,7 +128,7 @@ public class GMSpl extends GM {
 					|| oldFont.getSize() != GC.font.getSize()
 					|| oldFont.getStyle() != GC.font.getStyle()
 					|| !oldFont.getFontName().equals(GC.font.getFontName())) {
-				// Ñ¡ÏîĞŞ¸ÄÁË×ÖÌå¡¢×ÖºÅ»òÕßĞĞ¸ß
+				// é€‰é¡¹ä¿®æ”¹äº†å­—ä½“ã€å­—å·æˆ–è€…è¡Œé«˜
 				GVSpl.panelValue.tableValue.refreshOptions();
 			}
 			return;
@@ -198,12 +198,12 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * ´ÓÍø¸ñµÄÖ¸¶¨ÇøÓòÈ¡µ¥Ôª¸ñ¾ØÕó
+	 * ä»ç½‘æ ¼çš„æŒ‡å®šåŒºåŸŸå–å•å…ƒæ ¼çŸ©é˜µ
 	 * 
 	 * @param cellSet
-	 *            Íø¸ñ
+	 *            ç½‘æ ¼
 	 * @param rect
-	 *            ÇøÓò
+	 *            åŒºåŸŸ
 	 * @return
 	 */
 	public static Matrix getMatrixCells(CellSet cellSet, CellRect rect) {
@@ -211,14 +211,14 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * ´ÓÍø¸ñµÄÖ¸¶¨ÇøÓòÈ¡µ¥Ôª¸ñ¾ØÕó
+	 * ä»ç½‘æ ¼çš„æŒ‡å®šåŒºåŸŸå–å•å…ƒæ ¼çŸ©é˜µ
 	 * 
 	 * @param cellSet
-	 *            Íø¸ñ
+	 *            ç½‘æ ¼
 	 * @param rect
-	 *            ÇøÓò
+	 *            åŒºåŸŸ
 	 * @param cloneCell
-	 *            µ¥Ôª¸ñÊÇ·ñ¿ËÂ¡
+	 *            å•å…ƒæ ¼æ˜¯å¦å…‹éš†
 	 * @return
 	 */
 	public static Matrix getMatrixCells(CellSet cellSet, CellRect rect,
@@ -272,14 +272,14 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * È¡ÒÆ¶¯ÇøÓò¸ñ×ÓµÄÔ­×ÓÃüÁî¼¯ºÏ
+	 * å–ç§»åŠ¨åŒºåŸŸæ ¼å­çš„åŸå­å‘½ä»¤é›†åˆ
 	 * 
 	 * @param editor
-	 *            Íø¸ñ±à¼­Æ÷
+	 *            ç½‘æ ¼ç¼–è¾‘å™¨
 	 * @param srcRect
-	 *            Ô´ÇøÓò
+	 *            æºåŒºåŸŸ
 	 * @param tarRect
-	 *            Ä¿±êÇøÓò
+	 *            ç›®æ ‡åŒºåŸŸ
 	 * @return
 	 */
 	public static Vector<IAtomicCmd> getMoveRectCmd(SplEditor editor,
@@ -325,12 +325,12 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * È¡×î´óµÄÁĞ¿í¶È
+	 * å–æœ€å¤§çš„åˆ—å®½åº¦
 	 * 
 	 * @param cs
-	 *            Íø¸ñ
+	 *            ç½‘æ ¼
 	 * @param col
-	 *            ÁĞ
+	 *            åˆ—
 	 * @return
 	 */
 	public static float getMaxColWidth(CellSet cs, int col, float scale) {
@@ -363,12 +363,12 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * È¡×î´óµÄĞĞ¸ß¶È
+	 * å–æœ€å¤§çš„è¡Œé«˜åº¦
 	 * 
 	 * @param cs
-	 *            Íø¸ñ
+	 *            ç½‘æ ¼
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @return
 	 */
 	public static float getMaxRowHeight(CellSet cs, int row, float scale) {
@@ -403,7 +403,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * ÑÓ³ÙÉèÖÃÍøÒ³±»ĞŞ¸Ä×´Ì¬
+	 * å»¶è¿Ÿè®¾ç½®ç½‘é¡µè¢«ä¿®æ”¹çŠ¶æ€
 	 */
 	public static void invokeSheetChanged() {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -414,7 +414,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * µ¼ÈëÎÄ±¾ÎÄ¼şµ½splÎÄ¼ş
+	 * å¯¼å…¥æ–‡æœ¬æ–‡ä»¶åˆ°splæ–‡ä»¶
 	 * 
 	 * @return
 	 */
@@ -437,10 +437,10 @@ public class GMSpl extends GM {
 	// }
 
 	/**
-	 * ¶ÁÈ¡SPLÎÄ¼şµ½³ÌĞòÍø¸ñ
+	 * è¯»å–SPLæ–‡ä»¶åˆ°ç¨‹åºç½‘æ ¼
 	 * 
 	 * @param filePath
-	 *            SPLÎÄ¼şÂ·¾¶
+	 *            SPLæ–‡ä»¶è·¯å¾„
 	 * @return
 	 * @throws Exception
 	 */
@@ -500,7 +500,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * È¡ĞÂÍø¸ñÃû³Æ
+	 * å–æ–°ç½‘æ ¼åç§°
 	 * 
 	 * @return
 	 */
@@ -510,7 +510,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * È¡²»ÖØ¸´µÄĞÂÍø¸ñÃû³Æ
+	 * å–ä¸é‡å¤çš„æ–°ç½‘æ ¼åç§°
 	 * 
 	 * @param pre
 	 * @return
@@ -533,7 +533,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * ¼¤»î±£´æ°´Å¥
+	 * æ¿€æ´»ä¿å­˜æŒ‰é’®
 	 */
 	public static void enableSave() {
 		if (GVSpl.splEditor != null)
@@ -542,10 +542,10 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * ĞŞ¸Ä±£´æ°´Å¥×´Ì¬
+	 * ä¿®æ”¹ä¿å­˜æŒ‰é’®çŠ¶æ€
 	 * 
 	 * @param isDataChanged
-	 *            ÊÇ·ñ¼¤»î±£´æ°´Å¥
+	 *            æ˜¯å¦æ¿€æ´»ä¿å­˜æŒ‰é’®
 	 */
 	public static void enableSave(boolean isDataChanged) {
 		if (GV.appMenu != null) {
@@ -557,7 +557,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * config.txtÎÄ¼şÖĞµÄ¼üÃû
+	 * config.txtæ–‡ä»¶ä¸­çš„é”®å
 	 */
 	private static final String KEY_JVM = "jvm_args";
 	public static final String KEY_XMX = "-Xmx";
@@ -569,7 +569,7 @@ public class GMSpl extends GM {
 	public static final String KEY_PRINT_GC_HEAP = "-XX:+PrintHeapAtGC";
 
 	private static String[] getJVMArgs() {
-		// config.txt¶¼²ÉÓÃÍ¬Ñù¸ñÊ½
+		// config.txtéƒ½é‡‡ç”¨åŒæ ·æ ¼å¼
 		String str;
 		// if (GM.isWindowsOS()) {
 		str = getConfigValue(KEY_JVM);
@@ -590,7 +590,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * È¡JVM²ÎÊı
+	 * å–JVMå‚æ•°
 	 * 
 	 * @param keys
 	 * @return
@@ -617,7 +617,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * ÉèÖÃJVM²ÎÊı
+	 * è®¾ç½®JVMå‚æ•°
 	 * 
 	 * @param map
 	 *            key:value
@@ -638,7 +638,7 @@ public class GMSpl extends GM {
 			boolean containsKey = false;
 			for (int i = 0; i < args.size(); i++) {
 				String arg = args.get(i);
-				// ÒÑÓĞ²ÎÊı
+				// å·²æœ‰å‚æ•°
 				if (arg.toLowerCase().startsWith(key.toLowerCase())) {
 					String value = map.get(key);
 					args.set(i, value);
@@ -646,7 +646,7 @@ public class GMSpl extends GM {
 					break;
 				}
 			}
-			// ĞÂÔö²ÎÊı
+			// æ–°å¢å‚æ•°
 			if (!containsKey) {
 				String value = map.get(key);
 				args.add(value);
@@ -655,14 +655,14 @@ public class GMSpl extends GM {
 
 		StringBuffer buf = new StringBuffer();
 		for (String arg : args) {
-			if (!StringUtils.isValidString(arg)) // ¿ÉÄÜÊÇÉ¾³ı
+			if (!StringUtils.isValidString(arg)) // å¯èƒ½æ˜¯åˆ é™¤
 				continue;
 			if (buf.length() > 0) {
 				buf.append(" ");
 			}
 			buf.append(arg);
 		}
-		// config.txt¶¼²ÉÓÃÍ¬Ñù¸ñÊ½
+		// config.txtéƒ½é‡‡ç”¨åŒæ ·æ ¼å¼
 		// if (GM.isWindowsOS()) {
 		setConfigValue(KEY_JVM, buf.toString());
 		// } else {
@@ -671,7 +671,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * È¡ÅäÖÃÎÄ¼şµÄÂ·¾¶
+	 * å–é…ç½®æ–‡ä»¶çš„è·¯å¾„
 	 * 
 	 * @return
 	 */
@@ -682,7 +682,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * ¶ÁÈ¡bin/config.txt
+	 * è¯»å–bin/config.txt
 	 * 
 	 * @return
 	 */
@@ -705,7 +705,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * Ğ´bin/config.txt
+	 * å†™bin/config.txt
 	 * 
 	 * @param contentStr
 	 */
@@ -720,7 +720,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * ´Óconfig.txtÎÄ¼şÖĞÈ¡Ö¸¶¨¼üµÄÖµ
+	 * ä»config.txtæ–‡ä»¶ä¸­å–æŒ‡å®šé”®çš„å€¼
 	 * 
 	 * @param key
 	 * @return
@@ -736,7 +736,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * ÉèÖÃconfig.txtÎÄ¼şÖĞµÄ¼üÖµ
+	 * è®¾ç½®config.txtæ–‡ä»¶ä¸­çš„é”®å€¼
 	 * 
 	 * @param key
 	 * @param value
@@ -755,7 +755,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * È¡Íø¸ñ±í´ïÊ½
+	 * å–ç½‘æ ¼è¡¨è¾¾å¼
 	 * 
 	 * @param cellSet
 	 * @return
@@ -776,9 +776,9 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * È¡±ä»¯µÄµ¥Ôª¸ñ±í´ïÊ½
+	 * å–å˜åŒ–çš„å•å…ƒæ ¼è¡¨è¾¾å¼
 	 * 
-	 * @return ·µ»Ønull±íÊ¾ÎŞ±ä»¯
+	 * @return è¿”å›nullè¡¨ç¤ºæ— å˜åŒ–
 	 */
 	public static Map<String, String> getExpChangedMap(PgmCellSet cellSet,
 			String[][] cellExps) {
@@ -844,7 +844,7 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * ÒÆ¶¯ÇøÓò£¬ÓÃÓÚÔÚÍø¸ñÄÚ¼ôÇĞÕ³Ìù
+	 * ç§»åŠ¨åŒºåŸŸï¼Œç”¨äºåœ¨ç½‘æ ¼å†…å‰ªåˆ‡ç²˜è´´
 	 * 
 	 * @param cellSet
 	 * @param fromRect
@@ -875,7 +875,7 @@ public class GMSpl extends GM {
 		int dr = toRect.getBeginRow() - fromRect.getBeginRow();
 		int dc = (int) (toRect.getBeginCol() - fromRect.getBeginCol());
 
-		// ÏÈ»¹Ô­Ô´¸ñ×Ó£¬Á½ÇøÓòÖØµşÊ±£¬±ØĞèÏÈ»¹Ô­
+		// å…ˆè¿˜åŸæºæ ¼å­ï¼Œä¸¤åŒºåŸŸé‡å æ—¶ï¼Œå¿…éœ€å…ˆè¿˜åŸ
 		for (int r = 0; r < fromRect.getRowCount(); r++) {
 			for (int c = 0; c < fromRect.getColCount(); c++) {
 				nc = cellSet.newCell(r + 1, c + 1);
@@ -884,7 +884,7 @@ public class GMSpl extends GM {
 			}
 		}
 
-		// ÉèÖÃÄ¿±ê¸ñ×Ó
+		// è®¾ç½®ç›®æ ‡æ ¼å­
 		for (int r = 0; r < toRect.getRowCount(); r++) {
 			for (int c = 0; c < toRect.getColCount(); c++) {
 				nc = (NormalCell) fromData.get(r, c);
@@ -899,7 +899,7 @@ public class GMSpl extends GM {
 			}
 		}
 
-		// Ä¿±ê¸ñ×ÓÉèÖÃÍê±Ï£¬ÖØĞÂÕûÀíÒ»±éÏà¶Ô±í´ïÊ½
+		// ç›®æ ‡æ ¼å­è®¾ç½®å®Œæ¯•ï¼Œé‡æ–°æ•´ç†ä¸€éç›¸å¯¹è¡¨è¾¾å¼
 		if (dr >= 0) {
 			if (dc >= 0) {
 				for (int r = toRect.getRowCount() - 1; r >= 0; r--) {

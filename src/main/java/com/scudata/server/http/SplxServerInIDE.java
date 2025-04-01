@@ -13,7 +13,7 @@ import com.scudata.server.StartUnitListener;
 import com.sun.net.httpserver.HttpServer;
 
 /**
- * dfx¼ÆËãµÄHttp·şÎñÆ÷ÊµÏÖ
+ * dfxè®¡ç®—çš„HttpæœåŠ¡å™¨å®ç°
  * 
  * @author Joancy
  *
@@ -28,32 +28,32 @@ public class SplxServerInIDE implements IServer {
 	StartUnitListener listener = null;
 
 	/**
-	 * ÉèÖÃÅäÖÃĞÅÏ¢
-	 * @param rc ÅäÖÃ
+	 * è®¾ç½®é…ç½®ä¿¡æ¯
+	 * @param rc é…ç½®
 	 */
 	public void setRaqsoftConfig(RaqsoftConfig rc){
 		this.rc = rc;
 	}
 	/**
-	 * »ñÈ¡ÅäÖÃĞÅÏ¢
-	 * @return ÅäÖÃ
+	 * è·å–é…ç½®ä¿¡æ¯
+	 * @return é…ç½®
 	 */
 	public RaqsoftConfig getRaqsoftConfig(){
 		return rc;
 	}
 	
 	/**
-	 * »ñÈ¡»·¾³ÉÏÏÂÎÄ¶ÔÏó
-	 * @return ÉÏÏÂÎÄ¶ÔÏó
+	 * è·å–ç¯å¢ƒä¸Šä¸‹æ–‡å¯¹è±¡
+	 * @return ä¸Šä¸‹æ–‡å¯¹è±¡
 	 */
 	public HttpContext getContext(){
 		return ctx;
 	}
 	
 	/**
-	 * »ñÈ¡·şÎñÆ÷Î¨Ò»ÊµÀı
-	 * @return ·şÎñÆ÷ÊµÀı
-	 * @throws Exception ²úÉúÊµÀı³ö´íÊ±Å×³öÒì³£
+	 * è·å–æœåŠ¡å™¨å”¯ä¸€å®ä¾‹
+	 * @return æœåŠ¡å™¨å®ä¾‹
+	 * @throws Exception äº§ç”Ÿå®ä¾‹å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public static SplxServerInIDE getInstance() throws Exception {
 		if (instance == null) {
@@ -63,14 +63,14 @@ public class SplxServerInIDE implements IServer {
 	}
 	
 	/**
-	 * Æô¶¯·şÎñÆ÷
-	 * @return Æô¶¯³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse
-	 * @throws Throwable Æô¶¯¹ı³ÌÖĞ³ö´íÅ×³öÒì³£
+	 * å¯åŠ¨æœåŠ¡å™¨
+	 * @return å¯åŠ¨æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›false
+	 * @throws Throwable å¯åŠ¨è¿‡ç¨‹ä¸­å‡ºé”™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public boolean start() throws Throwable {
 		if (httpServer != null)
 			return false;
-//			ÏÈ¼ì²éÏÂÅäÖÃÎÄ¼şÊÇ·ñ´æÔÚ
+//			å…ˆæ£€æŸ¥ä¸‹é…ç½®æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 		InputStream is = UnitContext.getUnitInputStream(HttpContext.HTTP_CONFIG_FILE);
 		is.close();
 		ctx = new HttpContext(true);
@@ -102,27 +102,27 @@ public class SplxServerInIDE implements IServer {
 	}
 
 	/**
-	 * ¹Ø±Õ·şÎñÆ÷
+	 * å…³é—­æœåŠ¡å™¨
 	 */
 	public void shutDown() {
 		stop();
 	}
 
 	/**
-	 * Ö´ĞĞÍ£Ö¹·şÎñÆ÷
-	 * @return ³É¹¦Í£µô·şÎñ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ‰§è¡Œåœæ­¢æœåŠ¡å™¨
+	 * @return æˆåŠŸåœæ‰æœåŠ¡è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean stop() {
 		if (httpServer == null)
 			return false;
-		httpServer.stop(2); // ×î¶àµÈ´ı2Ãë
+		httpServer.stop(2); // æœ€å¤šç­‰å¾…2ç§’
 		httpServer = null;
 		Logger.info(ParallelMessage.get().getMessage("SplxServerInIDE.stop"));
 		return true;
 	}
 
 	/**
-	 * ¿ªÊ¼ÔËĞĞ·şÎñ
+	 * å¼€å§‹è¿è¡ŒæœåŠ¡
 	 */
 	public void run() {
 		try {
@@ -136,31 +136,31 @@ public class SplxServerInIDE implements IServer {
 	}
 
 	/**
-	 * »ñÈ¡ÔËĞĞ×´Ì¬
-	 * @return ÕıÔÚÔËĞĞ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è·å–è¿è¡ŒçŠ¶æ€
+	 * @return æ­£åœ¨è¿è¡Œè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isRunning() {
 		return httpServer != null;
 	}
 	
 	/**
-	 * ÉèÖÃ·şÎñÆô¶¯ÕìÌıÀà
+	 * è®¾ç½®æœåŠ¡å¯åŠ¨ä¾¦å¬ç±»
 	 */
 	public void setStartUnitListener(StartUnitListener listen) {
 		listener = listen;
 	}
 
 	/**
-	 * »ñÈ¡·şÎñÆ÷µØÖ·
-	 * @return ·şÎñÆ÷µØÖ·
+	 * è·å–æœåŠ¡å™¨åœ°å€
+	 * @return æœåŠ¡å™¨åœ°å€
 	 */
 	public String getHost() {
 		return ctx.toString();
 	}
 
 	/**
-	 * ÊÇ·ñ×Ô¶¯Æô¶¯·şÎñ
-	 * @return ×Ô¶¯Æô¶¯·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦è‡ªåŠ¨å¯åŠ¨æœåŠ¡
+	 * @return è‡ªåŠ¨å¯åŠ¨è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isAutoStart() {
 		if(ctx==null){

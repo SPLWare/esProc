@@ -46,7 +46,7 @@ public class ImQuery extends ImFunction {
 		}		
 	}
 	
-	/* 功能：将sql改为rest api格式格式,字符串之间用"+"连接
+	/* 鍔熻兘锛氬皢sql鏀逛负rest api鏍煎紡鏍煎紡,瀛楃涓蹭箣闂寸敤"+"杩炴帴
 	 * 
 	 */
 	private String getSqlString(String val) {
@@ -107,7 +107,7 @@ public class ImQuery extends ImFunction {
 	    System.out.println("****************Case QUERY**************");
 	    Table tbl = null;
 	    try {
-	    	Map<String, List<String>> tblMap = null; 	//记录子表名及其字欿
+	    	Map<String, List<String>> tblMap = null; 	//璁板綍瀛愯〃鍚嶅強鍏跺瓧娆�
 	    	String finalURI = null;
 	    	if(sVal!=null) {
 		    	String val = sVal;
@@ -153,7 +153,7 @@ public class ImQuery extends ImFunction {
        	          	 }
                  }
               Object line = null;
-               //多条记录
+               //澶氭潯璁板綍
 	          if (jsonArray!=null && jsonArray.length()>0) {
 	        	  String[] cols=JSONObject.getNames(jsonArray.getJSONObject(0));
 	        	  cols = doFilterCols(cols, tblMap);
@@ -168,7 +168,7 @@ public class ImQuery extends ImFunction {
 		        		  line = item.get(cols[j]);
 		        		  if (line instanceof JSONObject) {
 		        			  JSONObject jLine = (JSONObject)line;
-		        			  if (tblMap!=null ){ //子表记录
+		        			  if (tblMap!=null ){ //瀛愯〃璁板綍
 		        				  //System.out.println("tblMap =" + cols[j]);
 		        				  if (tblMap.containsKey(cols[j])){
 				        			  String[] subCols = tblMap.get(cols[j]).toArray(new String[0]);
@@ -186,7 +186,7 @@ public class ImQuery extends ImFunction {
 	        	 
 		        	  tbl.newLast(os);
 		          }
-		      //单条记录
+		      //鍗曟潯璁板綍
 	          }else if(jsonObject.has("attributes")) {
 	        	  String[] cols=JSONObject.getNames(jsonObject);
 		          tbl = new Table(cols);
@@ -215,7 +215,7 @@ public class ImQuery extends ImFunction {
 	    return tbl;
 	  }
 		
-	// 过滤表字欿.
+	// 杩囨护琛ㄥ瓧娆�.
 	private String[] doFilterCols(String[] cols, Map<String, List<String>> tblMap) {
 		List<String> ls = new ArrayList<String>();
 		List<String> mls = tblMap.get("_MainTable_");
@@ -228,7 +228,7 @@ public class ImQuery extends ImFunction {
 		return ls.toArray(new String[0]);
 	}
 	
-	//获取子记录，返回
+	//鑾峰彇瀛愯褰曪紝杩斿洖
 	private Table getSubArray(JSONArray array) {
 		Table subT = null;
 		try {

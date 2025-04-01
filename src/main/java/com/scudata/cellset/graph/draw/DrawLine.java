@@ -9,23 +9,23 @@ import com.scudata.cellset.graph.*;
 import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 /**
- * ÕÛÏßÍ¼ÊµÏÖ
+ * æŠ˜çº¿å›¾å®ç°
  * @author Joancy
  *
  */
 
 public class DrawLine extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db, StringBuffer htmlLink) {
 		GraphParam gp = db.gp;
@@ -93,9 +93,9 @@ public class DrawLine extends DrawBase {
 		gp.gRect2.width -= coorWidth;
 		gp.gRect2.height -= coorWidth;
 
-		/* »­×ø±êÖá */
+		/* ç”»åæ ‡è½´ */
 		db.drawGraphRect();
-		/* »­YÖá */
+		/* ç”»Yè½´ */
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLine(dely, i);
 			Number coory = (Number) gp.coorValue.get(i);
@@ -104,16 +104,16 @@ public class DrawLine extends DrawBase {
 			x = gp.gRect1.x - gp.tickLen;
 			y =  (gp.gRect1.y + gp.gRect1.height - i * dely); 
 			gp.GFV_YLABEL.outText(x, y, scoory);
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine =  (gp.gRect1.y + gp.gRect1.height - i
 						* dely);
 			}
 		}
-		// »­¾¯½äÏß
+		// ç”»è­¦æˆ’çº¿
 		db.drawWarnLine();
 
-		/* »­XÖá */
+		/* ç”»Xè½´ */
 		beginPoint = new Point2D.Double[gp.serNum];
 		lastPoint = new Point2D.Double[gp.serNum];
 		beginVal = new double[gp.serNum];
@@ -124,7 +124,7 @@ public class DrawLine extends DrawBase {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 			double posx = getPosX(gp,i,cc,categorySpan,seriesWidth);
 			
-			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//Öù¶¥ÊÇ·ñÏÔÊ¾Öµ¸ú»­Table·Ö¿ª
+			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//æŸ±é¡¶æ˜¯å¦æ˜¾ç¤ºå€¼è·Ÿç”»Tableåˆ†å¼€
 			boolean vis = valvis && !gp.isDrawTable;
 			if (vis) {
 				c = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
@@ -132,7 +132,7 @@ public class DrawLine extends DrawBase {
 				db.drawLine(posx, gp.gRect1.y + gp.gRect1.height,
 						    posx, gp.gRect1.y + gp.gRect1.height
 								+ gp.tickLen, c);
-				// »­±³¾°ĞéÏß
+				// ç”»èƒŒæ™¯è™šçº¿
 				db.drawGridLineCategoryV(posx);
 			}
 
@@ -158,7 +158,7 @@ public class DrawLine extends DrawBase {
 					endPoint = new Point2D.Double(posx, gp.valueBaseLine - len);
 				}
 
-				// Êä³öÎÄ×Ö
+				// è¾“å‡ºæ–‡å­—
 				if (gp.dispValueOntop && !egs.isNull() && valvis) {
 					String sval = db.getDispValue(egc, egs, gp.serNum);
 					x = endPoint.x;
@@ -191,7 +191,7 @@ public class DrawLine extends DrawBase {
 					pointList.add(vp);
 					db.htmlLink(xx, yy, ww, hh, htmlLink, egc.getNameString(),
 							egs);
-				} // ÏßÌõÉÏµÄĞ¡·½¿é
+				} // çº¿æ¡ä¸Šçš„å°æ–¹å—
 
 				if (i > 0) {
 					g.setColor(db.getColor(j));
@@ -212,11 +212,11 @@ public class DrawLine extends DrawBase {
 			}
 		}
 
-		// ×îºóÊä³öÖµ±êÇ©£¬ÎÄ×ÖÖÃ¶¥
+		// æœ€åè¾“å‡ºå€¼æ ‡ç­¾ï¼Œæ–‡å­—ç½®é¡¶
 		db.outPoints();
 		db.outLabels();
 
-		/* ÖØ»­Ò»ÏÂ»ùÏß */
+		/* é‡ç”»ä¸€ä¸‹åŸºçº¿ */
 		db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x
 				+ gp.gRect1.width, gp.valueBaseLine,
 				egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
@@ -227,12 +227,12 @@ public class DrawLine extends DrawBase {
 	}
 	
 	/**
-	 * Ô­µãÖØºÏÊ±£¬²»ÓÃ°´ÕÕ·ÖÀàÀÛ¼Ó£¬Ö±½ÓÓÃÆ½¾ù¿Õ¼ä
-	 * @param gp »æÍ¼ÊôĞÔ
-	 * @param i ĞòºÅ
+	 * åŸç‚¹é‡åˆæ—¶ï¼Œä¸ç”¨æŒ‰ç…§åˆ†ç±»ç´¯åŠ ï¼Œç›´æ¥ç”¨å¹³å‡ç©ºé—´
+	 * @param gp ç»˜å›¾å±æ€§
+	 * @param i åºå·
 	 * @param cc 
-	 * @param categorySpan ·ÖÀà¼ä¾à
-	 * @param seriesWidth ÏµÁĞ¼ä¾à
+	 * @param categorySpan åˆ†ç±»é—´è·
+	 * @param seriesWidth ç³»åˆ—é—´è·
 	 * @return
 	 */
 	public static double getPosX(GraphParam gp,int i,int cc,double categorySpan,double seriesWidth){
@@ -249,9 +249,9 @@ public class DrawLine extends DrawBase {
 	}
 
 	/**
-	 * »­ºáÏòÇ÷ÊÆÏß
-	 * @param db »æÍ¼ÊµÀı
-	 * @param p ×ø±êµã
+	 * ç”»æ¨ªå‘è¶‹åŠ¿çº¿
+	 * @param db ç»˜å›¾å®ä¾‹
+	 * @param p åæ ‡ç‚¹
 	 */
 	public static void drawHTrendLine(DrawBase db, Point2D.Double p) {
 		if (p == null || !db.gp.drawLineTrend) {
@@ -265,11 +265,11 @@ public class DrawLine extends DrawBase {
 	}
 
 	/**
-	 * »­×İÏòÇ÷ÊÆÏß
-	 * @param db »æÍ¼ÊµÀı
-	 * @param begin Æğµã
-	 * @param end ÖÕµã
-	 * @param cha ²î
+	 * ç”»çºµå‘è¶‹åŠ¿çº¿
+	 * @param db ç»˜å›¾å®ä¾‹
+	 * @param begin èµ·ç‚¹
+	 * @param end ç»ˆç‚¹
+	 * @param cha å·®
 	 */
 	public static void drawVTrendLine(DrawBase db, Point2D.Double begin, Point2D.Double end,
 			double cha) {

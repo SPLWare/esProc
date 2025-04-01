@@ -1,7 +1,7 @@
 package com.scudata.common;
 
 /**
- * ¼ÓÃÜ½âÃÜ¹¤¾ßÀà
+ * åŠ å¯†è§£å¯†å·¥å…·ç±»
  *
  */
 public class PwdUtils {
@@ -20,11 +20,11 @@ public class PwdUtils {
 	}
 
 	/**
-	 * ¼ÓÃÜ
+	 * åŠ å¯†
 	 * 
 	 * @param pwd
-	 *            Ô´ÃÜÂë
-	 * @return ¼ÓÃÜºóµÄÃÜÂë
+	 *            æºå¯†ç 
+	 * @return åŠ å¯†åçš„å¯†ç 
 	 */
 	public static String encrypt(String pwd) {
 		return get().encrypt(pwd);
@@ -43,11 +43,11 @@ public class PwdUtils {
 	}
 
 	/**
-	 * ½âÃÜ
+	 * è§£å¯†
 	 * 
 	 * @param pwd
-	 *            ¼ÓÃÜºóµÄÃÜÂë
-	 * @return Ô´ÃÜÂë
+	 *            åŠ å¯†åçš„å¯†ç 
+	 * @return æºå¯†ç 
 	 */
 	public static String decrypt(String pwd) {
 		return get().decrypt(pwd);

@@ -136,12 +136,12 @@ public class MonthlyCalendar extends JComponent implements MouseListener,
 	}
 
 	/**
-	 * ¼ÓÔØÓïÑÔ×ÊÔ´
+	 * åŠ è½½è¯­è¨€èµ„æº
 	 */
 	private void loadLanguageString() {
 		DEFAULT_HEADER_SYMBOLS = new Section(IdeCommonMessage.get().getMessage(
-				"monthlycalendar.weekdays")).toStringArray(); // ÈÕ, Ò», ¶ş, Èı, ËÄ,
-		// Îå, Áù
+				"monthlycalendar.weekdays")).toStringArray(); // æ—¥, ä¸€, äºŒ, ä¸‰, å››,
+		// äº”, å…­
 		DEFAULT_FONT = new java.awt.Font("Dialog", 0, 12);
 	}
 

@@ -7,7 +7,7 @@ import com.scudata.expression.Function;
 import com.scudata.expression.Node;
 
 /**
- * »ñµÃÏµÍ³´Ë¿ÌµÄÈÕÆÚÊ±¼ä£¬¾«È·µ½ºÁÃë
+ * è·å¾—ç³»ç»Ÿæ­¤åˆ»çš„æ—¥æœŸæ—¶é—´ï¼Œç²¾ç¡®åˆ°æ¯«ç§’
  * @author runqian
  *
  */

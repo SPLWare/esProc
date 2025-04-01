@@ -11,10 +11,10 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓÃÖ¸¶¨ĞòÁĞÌî³äĞò±íµÄ×Ö¶Î£¬»ò°Ñ×Ö¶ÎÃûºÍ×Ö¶ÎÖµ×é³ÉĞòÁĞ×ª³ÉĞò±í
+ * ç”¨æŒ‡å®šåºåˆ—å¡«å……åºè¡¨çš„å­—æ®µï¼Œæˆ–æŠŠå­—æ®µåå’Œå­—æ®µå€¼ç»„æˆåºåˆ—è½¬æˆåºè¡¨
  * T.record(A,k)
- * A.record() AÊÇ×Ö¶ÎÖµĞòÁĞ×é³ÉµÄĞòÁĞ
- * A.record(n) AÊÇ×Ö¶ÎÃûºÍ×Ö¶ÎÖµ×é³ÉĞòÁĞ
+ * A.record() Aæ˜¯å­—æ®µå€¼åºåˆ—ç»„æˆçš„åºåˆ—
+ * A.record(n) Aæ˜¯å­—æ®µåå’Œå­—æ®µå€¼ç»„æˆåºåˆ—
  * @author RunQian
  *
  */

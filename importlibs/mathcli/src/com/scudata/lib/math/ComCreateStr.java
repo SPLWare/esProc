@@ -8,7 +8,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Êä³öÎª×Ö·û´®a+bi
+ * è¾“å‡ºä¸ºå­—ç¬¦ä¸²a+bi
  */
 public class ComCreateStr extends SequenceFunction {
     public Object calculate (Context ctx) {

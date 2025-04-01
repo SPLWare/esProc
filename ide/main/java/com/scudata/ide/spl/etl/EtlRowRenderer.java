@@ -9,7 +9,7 @@ import com.scudata.ide.common.swing.JComboBoxExRenderer;
 import com.scudata.ide.spl.chart.box.EachRowRenderer;
 
 /**
- * ÊôĞÔ¿òµ¥ÔªäÖÈ¾Æ÷
+ * å±æ€§æ¡†å•å…ƒæ¸²æŸ“å™¨
  */
 public class EtlRowRenderer extends EachRowRenderer {
 	private TableCellRenderer fieldDefineRender;
@@ -21,9 +21,9 @@ public class EtlRowRenderer extends EachRowRenderer {
 
 	Dialog owner;
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param editTypeCol ±à¼­ÀàĞÍÁĞ
-	 * @param owner ¸¸´°¿Ú
+	 * æ„é€ å‡½æ•°
+	 * @param editTypeCol ç¼–è¾‘ç±»å‹åˆ—
+	 * @param owner çˆ¶çª—å£
 	 */
 	public EtlRowRenderer(int editTypeCol,Dialog owner) {
 		super(editTypeCol);
@@ -31,8 +31,8 @@ public class EtlRowRenderer extends EachRowRenderer {
 	}
 
 	/**
-	 * ¸ù¾İ±à¼­ÀàĞÍeditTypeÑ¡Ôñ¶ÔÓ¦µÄäÖÈ¾Æ÷
-	 * @param editType ±à¼­ÀàĞÍ
+	 * æ ¹æ®ç¼–è¾‘ç±»å‹editTypeé€‰æ‹©å¯¹åº”çš„æ¸²æŸ“å™¨
+	 * @param editType ç¼–è¾‘ç±»å‹
 	 */
 	public TableCellRenderer selectRenderer(int editType) {
 		TableCellRenderer render1 = super.selectRenderer(editType);

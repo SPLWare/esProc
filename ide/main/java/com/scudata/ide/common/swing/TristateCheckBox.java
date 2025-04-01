@@ -38,56 +38,56 @@ public class TristateCheckBox extends JCheckBox {
 		}
 	}
 
-	/** Î´Ñ¡Ôñ×´Ì¬ */
+	/** æœªé€‰æ‹©çŠ¶æ€ */
 	public static final State NOT_SELECTED = new State();
-	/** Ñ¡Ôñ×´Ì¬ */
+	/** é€‰æ‹©çŠ¶æ€ */
 	public static final State SELECTED = new State();
-	/** µÚÈıÌ¬ */
+	/** ç¬¬ä¸‰æ€ */
 	public static final State DONT_CARE = new State();
 
 	/**
-	 * Ä£ĞÍ
+	 * æ¨¡å‹
 	 */
 	private final TristateDecorator model;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public TristateCheckBox() {
 		this(null);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param text
-	 *            ÏÔÊ¾ÎÄ±¾
+	 *            æ˜¾ç¤ºæ–‡æœ¬
 	 */
 	public TristateCheckBox(String text) {
 		this(text, DONT_CARE);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param text
-	 *            ÏÔÊ¾ÎÄ±¾
+	 *            æ˜¾ç¤ºæ–‡æœ¬
 	 * @param initial
-	 *            ³õÊ¼»¯×´Ì¬
+	 *            åˆå§‹åŒ–çŠ¶æ€
 	 */
 	public TristateCheckBox(String text, State initial) {
 		this(text, null, initial);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param text
-	 *            ÏÔÊ¾ÎÄ±¾
+	 *            æ˜¾ç¤ºæ–‡æœ¬
 	 * @param icon
-	 *            Í¼±ê
+	 *            å›¾æ ‡
 	 * @param initial
-	 *            ³õÊ¼»¯×´Ì¬
+	 *            åˆå§‹åŒ–çŠ¶æ€
 	 */
 	public TristateCheckBox(String text, Icon icon, State initial) {
 		super(text, icon);
@@ -137,7 +137,7 @@ public class TristateCheckBox extends JCheckBox {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÑ¡ÖĞ
+	 * è®¾ç½®æ˜¯å¦é€‰ä¸­
 	 */
 	public void setSelected(boolean b) {
 		if (b) {

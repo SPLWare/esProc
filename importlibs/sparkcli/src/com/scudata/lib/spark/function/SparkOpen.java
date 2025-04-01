@@ -5,7 +5,7 @@ import com.scudata.common.RQException;
 import com.scudata.resources.EngineMessage;
 
 /*******************************
- * Á¬½Ó·½Ê½£º
+ * è¿æ¥æ–¹å¼ï¼š
  * spark_open()								//local
  * spark_open(hdfsUrl)						//hdfs
  * spark_open(hdfs, thrift, instanceName)	//sql

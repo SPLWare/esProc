@@ -15,8 +15,8 @@ import com.scudata.expression.fn.Between;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÀûÓÃË÷Òı¶ÔÄÚ±í½øĞĞ¹ıÂË
- * T.icursor(C,¡­;w,I)
+ * åˆ©ç”¨ç´¢å¼•å¯¹å†…è¡¨è¿›è¡Œè¿‡æ»¤
+ * T.icursor(C,â€¦;w,I)
  * @author LW
  *
  */
@@ -67,7 +67,7 @@ public class Icursor extends TableFunction {
 			
 			if (param.getSubSize() == 3) {
 				sub = param.getSub(2);
-				//ÕâÀïÊÇ¶Ô¶àÂ·µÄ´¦Àí£¬ÈÔ±£Áô×¢ÊÍ
+				//è¿™é‡Œæ˜¯å¯¹å¤šè·¯çš„å¤„ç†ï¼Œä»ä¿ç•™æ³¨é‡Š
 //				if (sub != null) {
 //					Object obj = sub.getLeafExpression().calculate(ctx);
 //					if (!(obj instanceof Number)) {
@@ -87,7 +87,7 @@ public class Icursor extends TableFunction {
 			
 			param = param.getSub(1);
 			if (param == null) {
-				//Ã»ÓĞ¹ıÂËÊ±
+				//æ²¡æœ‰è¿‡æ»¤æ—¶
 				if (fields == null) {
 					return srcTable.cursor();
 				} else {
@@ -120,7 +120,7 @@ public class Icursor extends TableFunction {
 			w = new Expression("true");
 		}
 		
-		//´¦Àíbetween±í´ïÊ½
+		//å¤„ç†betweenè¡¨è¾¾å¼
 		Node home = w.getHome();
 		if (home instanceof Between) {
 			Between bt = (Between) home;

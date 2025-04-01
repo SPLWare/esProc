@@ -9,26 +9,26 @@ import com.scudata.cellset.graph.*;
 import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 /**
- * ÌõĞÎÍ¼µÄÊµÏÖ
+ * æ¡å½¢å›¾çš„å®ç°
  * @author Joancy
  *
  */
 
 public class DrawBar extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
-		//ÉÙ¸Ä¶¯´úÂë£¬Í¬ÃûÒı³öÒªÓÃµ½µÄÊµÀı
+		//å°‘æ”¹åŠ¨ä»£ç ï¼ŒåŒåå¼•å‡ºè¦ç”¨åˆ°çš„å®ä¾‹
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
@@ -83,14 +83,14 @@ public class DrawBar extends DrawBase {
 		delx = (gp.graphRect.width - coorWidth) / gp.tickNum;
 		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
 		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
-		/* »­×ø±êÖá */
+		/* ç”»åæ ‡è½´ */
 		db.drawGraphRect();
 
-		/* »­XÖá */
+		/* ç”»Xè½´ */
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLineV(delx, i);
 
-			// »­xÖá±êÇ©
+			// ç”»xè½´æ ‡ç­¾
 			Number coorx = (Number) gp.coorValue.get(i);
 			String scoorx = db.getFormattedValue(coorx.doubleValue());
 
@@ -98,16 +98,16 @@ public class DrawBar extends DrawBase {
 			y = gp.gRect1.y + gp.gRect1.height + gp.tickLen;
 			gp.GFV_XLABEL.outText(x, y, scoorx);
 
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coorx.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine = gp.gRect1.x + i * delx;
 			}
 		}
 
-		// »­¾¯½äÏß
+		// ç”»è­¦æˆ’çº¿
 		db.drawWarnLineH();
 
-		/* »­XÖá,Öù×Ó */
+		/* ç”»Xè½´,æŸ±å­ */
 		ArrayList cats = egp.categories;
 		int cc = cats.size();
 		Color c,tmpc;
@@ -171,13 +171,13 @@ public class DrawBar extends DrawBase {
 							egc.getNameString(), egs);
 				}
 
-				// ÔÚÖù¶¥ÏÔÊ¾ÊıÖµ
+				// åœ¨æŸ±é¡¶æ˜¾ç¤ºæ•°å€¼
 				if (gp.dispValueOntop && !egs.isNull() && vis) {
 					String sval = db.getDispValue(egc,egs,gp.serNum);
 					y = lb - (seriesWidth) / 2;
 
 					if (len < 0) {
-						len = len - 3; // Áô3¸öµã¿ÕÏ¶
+						len = len - 3; // ç•™3ä¸ªç‚¹ç©ºéš™
 					} else {
 						len = len + 3;
 					}

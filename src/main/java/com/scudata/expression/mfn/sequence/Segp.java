@@ -9,14 +9,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼ÆËãyÔÚĞòÁĞA.(x)ÖĞËùÊôµÄÇø¶ÎĞòºÅ£¬Í¨¹ıÇø¶ÎĞòºÅ»ñÈ¡ĞòÁĞÖĞµÄ¶ÔÓ¦³ÉÔ±
+ * è®¡ç®—yåœ¨åºåˆ—A.(x)ä¸­æ‰€å±çš„åŒºæ®µåºå·ï¼Œé€šè¿‡åŒºæ®µåºå·è·å–åºåˆ—ä¸­çš„å¯¹åº”æˆå‘˜
  * A.segp(x,y)
  * @author RunQian
  *
  */
 public class Segp extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

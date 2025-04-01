@@ -7,25 +7,25 @@ import com.scudata.dm.ObjectReader;
 import com.scudata.util.Variant;
 
 /**
- * ÐÐ´æ¼ÇÂ¼²éÕÒÆ÷
+ * è¡Œå­˜è®°å½•æŸ¥æ‰¾å™¨
  * @author runqian
  *
  */
 class RowRecordSeqSearcher {
 	private RowPhyTable table;
-	private long prevRecordCount = 0;//µ±Ç°ÒÑ¾­È¡³öµÄ¼ÇÂ¼Êý
-	private int curBlock = -1;//µ±Ç°¿éºÅ
-	private int totalBlockCount;//×Ü¿éÊý
+	private long prevRecordCount = 0;//å½“å‰å·²ç»å–å‡ºçš„è®°å½•æ•°
+	private int curBlock = -1;//å½“å‰å—å·
+	private int totalBlockCount;//æ€»å—æ•°
 	
 	private BlockLinkReader rowReader;
 	private ObjectReader segmentReader;
 	
-	private long position; // µ±Ç°¿éµÄÎ»ÖÃ
-	private Object []minValues; // µ±Ç°¿éµÄÃ¿¸ö¼üÁÐµÄ×îÐ¡Öµ
-	private Object []maxValues; // µ±Ç°¿éµÄÃ¿¸ö¼üÁÐµÄ×î´óÖµ
+	private long position; // å½“å‰å—çš„ä½ç½®
+	private Object []minValues; // å½“å‰å—çš„æ¯ä¸ªé”®åˆ—çš„æœ€å°å€¼
+	private Object []maxValues; // å½“å‰å—çš„æ¯ä¸ªé”®åˆ—çš„æœ€å¤§å€¼
 	
-	private int curRecordCount = 0; // µ±Ç°¿éµÄ¼ÇÂ¼Êý
-	private int curIndex = -1; // ¿éÄÚË÷Òý£¬µÈÓÚ-1Ôò¼ü¿é»¹Ã»¼ÓÔØ
+	private int curRecordCount = 0; // å½“å‰å—çš„è®°å½•æ•°
+	private int curIndex = -1; // å—å†…ç´¢å¼•ï¼Œç­‰äºŽ-1åˆ™é”®å—è¿˜æ²¡åŠ è½½
 	private Object [][]blockKeyValues;
 	private boolean isEnd = false;
 	
@@ -70,7 +70,7 @@ class RowRecordSeqSearcher {
 				maxValues[k] = segmentReader.readObject();
 			}
 			
-			//Èç¹ûÊÇ¶à×Ö¶ÎÎ¬£¬ÔòÈ¡×îºóÒ»ÌõÎ¬Öµ×÷Îªmax
+			//å¦‚æžœæ˜¯å¤šå­—æ®µç»´ï¼Œåˆ™å–æœ€åŽä¸€æ¡ç»´å€¼ä½œä¸ºmax
 			if (keyCount > 1) {
 				loadKeyValues();
 				int idx = blockKeyValues[0].length - 1;
@@ -97,7 +97,7 @@ class RowRecordSeqSearcher {
 			}
 			
 			for (int i = 1; i < count; ++i) {
-				reader.skipObject();//Ìø¹ýÎ±ºÅ
+				reader.skipObject();//è·³è¿‡ä¼ªå·
 				for (int k = 0; k < keyCount; ++k) {
 					vals[k][i] = reader.readObject();
 				}
@@ -111,8 +111,8 @@ class RowRecordSeqSearcher {
 	}
 	
 	/**
-	 * ²éÕÒ £¨µ¥×Ö¶ÎÖ÷¼üÊ±£©
-	 * Èç¹ûÄÜÕÒµ½Ôò·µ»Ø¼ÇÂ¼ÐòºÅ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
+	 * æŸ¥æ‰¾ ï¼ˆå•å­—æ®µä¸»é”®æ—¶ï¼‰
+	 * å¦‚æžœèƒ½æ‰¾åˆ°åˆ™è¿”å›žè®°å½•åºå·ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›žè´Ÿæ’å…¥ä½ç½®
 	 * @param keyValue
 	 * @return
 	 */
@@ -165,8 +165,8 @@ class RowRecordSeqSearcher {
 	}
 	
 	/**
-	 * ²éÕÒ £¨¶à×Ö¶ÎÖ÷¼üÊ±£©
-	 * Èç¹ûÄÜÕÒµ½Ôò·µ»Ø¼ÇÂ¼ÐòºÅ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
+	 * æŸ¥æ‰¾ ï¼ˆå¤šå­—æ®µä¸»é”®æ—¶ï¼‰
+	 * å¦‚æžœèƒ½æ‰¾åˆ°åˆ™è¿”å›žè®°å½•åºå·ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›žè´Ÿæ’å…¥ä½ç½®
 	 * @param keyValues
 	 * @return
 	 */
@@ -199,7 +199,7 @@ class RowRecordSeqSearcher {
 						}
 					}
 					
-					// ¶¼ÏàµÈ
+					// éƒ½ç›¸ç­‰
 					curIndex = i;
 					return prevRecordCount + i;
 				}

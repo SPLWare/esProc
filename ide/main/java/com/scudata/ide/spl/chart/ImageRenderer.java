@@ -8,7 +8,7 @@ import com.scudata.ide.common.*;
 import java.awt.*;
 
 /**
- * ¶ÔÓ¦ImageEditorµÄäÖÈ¾Àà
+ * å¯¹åº”ImageEditorçš„æ¸²æŸ“ç±»
  * 
  * @author Joancy
  *
@@ -21,14 +21,14 @@ public class ImageRenderer extends JLabel implements TableCellRenderer {
 	private static final long serialVersionUID = 7297185433633526409L;
 
 	/**
-	 * È±Ê¡¹¹Ôìº¯Êı
+	 * ç¼ºçœæ„é€ å‡½æ•°
 	 */
 	public ImageRenderer() {
 		setHorizontalAlignment( JLabel.CENTER );
 	}
 
 	/**
-	 * ÊµÏÖ¸¸Àà³éÏó·½·¨£¬¸ù¾İ×´Ì¬ºÍÀàĞÍÑ¡ÓÃ²»Í¬Í¼Æ¬±íÊ¾
+	 * å®ç°çˆ¶ç±»æŠ½è±¡æ–¹æ³•ï¼Œæ ¹æ®çŠ¶æ€å’Œç±»å‹é€‰ç”¨ä¸åŒå›¾ç‰‡è¡¨ç¤º
 	 */
 	public Component getTableCellRendererComponent( JTable table, Object value,
 		boolean isSelected,

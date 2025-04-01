@@ -9,10 +9,10 @@ import com.scudata.lib.informix.helper.IfxConn;
 import com.scudata.resources.EngineMessage;
 
 public class ImFunction extends Function {
-	protected int m_paramSize = 0;	//参数个数
+	protected int m_paramSize = 0;	//鍙傛暟涓暟
 	protected IfxConn m_ifxConn = null;
 	protected String m_colNames[];
-	protected String m_paramTypes[]; //除去句柄参数类型
+	protected String m_paramTypes[]; //闄ゅ幓鍙ユ焺鍙傛暟绫诲瀷
 	
 	protected Context m_ctx;	
 	

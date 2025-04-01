@@ -12,7 +12,7 @@ import com.scudata.resources.EngineMessage;
 
 public class ElasticNet extends Function {
 	/**
-	 * »Ø¹éº¯Êıelasticnet(A,F)ºÍelasticnet(A, Y, learning_rate, iterations, l1, l2)
+	 * å›å½’å‡½æ•°elasticnet(A,F)å’Œelasticnet(A, Y, learning_rate, iterations, l1, l2)
 	 * @param ctx
 	 * @return
 	 */
@@ -25,7 +25,7 @@ public class ElasticNet extends Function {
 			throw new RQException("elasticnet" + mm.getMessage("function.invalidParam"));
 		} else {
 			if (param.getSubSize() == 6) {
-				// ·µ»Øfit½á¹ûĞòÁĞ£¬²ÎÊıÓÉ4¸ö³ÉÔ±×é³É£¬µÚ1¸öÎª¶şÎ¬ĞòÁĞ£¬µÚ2¸öÎªb
+				// è¿”å›fitç»“æœåºåˆ—ï¼Œå‚æ•°ç”±4ä¸ªæˆå‘˜ç»„æˆï¼Œç¬¬1ä¸ªä¸ºäºŒç»´åºåˆ—ï¼Œç¬¬2ä¸ªä¸ºb
 				IParam sub1 = param.getSub(0);
 				IParam sub2 = param.getSub(1);
 				IParam sub3 = param.getSub(2);
@@ -70,7 +70,7 @@ public class ElasticNet extends Function {
 					Matrix A = new Matrix((Sequence)o1);
 					Matrix T = new Matrix((Sequence)o2);
 					Object v1 = ((Sequence)o2).get(1);
-					// edited by bd, 2021.2.25, Èç¹ûTÎªµ¥ĞĞÏòÁ¿Ê±£¬×Ô¶¯×ªÖÃ
+					// edited by bd, 2021.2.25, å¦‚æœTä¸ºå•è¡Œå‘é‡æ—¶ï¼Œè‡ªåŠ¨è½¬ç½®
 					boolean ifv = v1 instanceof Number;
 					if (T.getRows() == 1) {
 						T = T.transpose();
@@ -92,7 +92,7 @@ public class ElasticNet extends Function {
 				}
 			}
 			else if (param.getSubSize() == 2) {
-				// ·µ»ØÄâºÏ½á¹û£¬½á¹ûÎª¾ØÕó×ª»»ÎªµÄ¶şÎ¬ĞòÁĞ£¬²ÎÊıÓÉ2¸ö³ÉÔ±×é³É£¬µÚ1¸öÎª¶şÎ¬ĞòÁĞ£¬µÚ2¸öÎªfit»ñµÃcoefĞòÁĞ
+				// è¿”å›æ‹Ÿåˆç»“æœï¼Œç»“æœä¸ºçŸ©é˜µè½¬æ¢ä¸ºçš„äºŒç»´åºåˆ—ï¼Œå‚æ•°ç”±2ä¸ªæˆå‘˜ç»„æˆï¼Œç¬¬1ä¸ªä¸ºäºŒç»´åºåˆ—ï¼Œç¬¬2ä¸ªä¸ºfitè·å¾—coefåºåˆ—
 				IParam sub1 = param.getSub(0);
 				IParam sub2 = param.getSub(1);
 				if (sub1 == null || sub2 == null) {
@@ -109,13 +109,13 @@ public class ElasticNet extends Function {
 						//Object v1 = s1.get(1);
 						Matrix A = new Matrix(s1);
 						Object v2 = s2.get(1);
-						// edited by bd, 2021.3.5, Èç¹ûAÎªµ¥ÁĞÏòÁ¿Ê±£¬×Ô¶¯×ªÖÃ
+						// edited by bd, 2021.3.5, å¦‚æœAä¸ºå•åˆ—å‘é‡æ—¶ï¼Œè‡ªåŠ¨è½¬ç½®
 						if (A.getCols() == 1) {
 							A = A.transpose();
 						}
 						
 						if (v2 instanceof Sequence) {
-							// edited by bd, 2021.3.17, Ö§³Ö¶àÁĞ£¬Èç¹û½¨Ä£Ê±YÎª¶àÁĞ£¬·µ»Ø½á¹û¾ÍÊÇ¾ØÕó
+							// edited by bd, 2021.3.17, æ”¯æŒå¤šåˆ—ï¼Œå¦‚æœå»ºæ¨¡æ—¶Yä¸ºå¤šåˆ—ï¼Œè¿”å›ç»“æœå°±æ˜¯çŸ©é˜µ
 							Sequence coef = (Sequence) s2;
 							if (coef.length() != 2) {
 								MessageManager mm = EngineMessage.get();

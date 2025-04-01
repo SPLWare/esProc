@@ -13,8 +13,8 @@ import com.scudata.expression.OperableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 对游标或管道附加模式匹配运算
- * op.regex(rs,F) op是游标或管道
+ * 瀵规父鏍囨垨绠￠亾闄勫姞妯″紡鍖归厤杩愮畻
+ * op.regex(rs,F) op鏄父鏍囨垨绠￠亾
  * @author RunQian
  *
  */

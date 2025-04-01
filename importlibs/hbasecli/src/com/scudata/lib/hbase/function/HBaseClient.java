@@ -16,7 +16,7 @@ public class HBaseClient extends Function {
 		return this;
 	}
 
-	//获取hdfs url, zookeeper url
+	//鑾峰彇hdfs url, zookeeper url
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
@@ -37,7 +37,7 @@ public class HBaseClient extends Function {
 		}
 		
 		//String hdfs="hdfs://master/user/hbase";
-        //String url="192.168.0.76:2181";//集群内网IP
+        //String url="192.168.0.76:2181";//闆嗙兢鍐呯綉IP
 		return new HbaseDriverCli(ctx, (String)hdfs, (String)url);
 	}
 }

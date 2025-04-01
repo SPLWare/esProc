@@ -6,7 +6,7 @@ import javax.swing.JTextField;
 import com.scudata.common.StringUtils;
 
 /**
- * JTableµ¥Ôª¸ñÏÂÀ­¿ò±à¼­Æ÷
+ * JTableå•å…ƒæ ¼ä¸‹æ‹‰æ¡†ç¼–è¾‘å™¨
  *
  */
 public class JComboBoxExEditor extends DefaultCellEditor {
@@ -14,15 +14,15 @@ public class JComboBoxExEditor extends DefaultCellEditor {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ÏÂÀ­¿ò¿Ø¼ş
+	 * ä¸‹æ‹‰æ¡†æ§ä»¶
 	 */
 	JComboBoxEx combo;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param cbe
-	 *            ÏÂÀ­¿ò¿Ø¼ş
+	 *            ä¸‹æ‹‰æ¡†æ§ä»¶
 	 */
 	public JComboBoxExEditor(JComboBoxEx cbe) {
 		super(cbe);
@@ -30,7 +30,7 @@ public class JComboBoxExEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * È¡±à¼­Öµ
+	 * å–ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
 		if (combo.isEditable()) {
@@ -48,7 +48,7 @@ public class JComboBoxExEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * È¡¿Ø¼ş
+	 * å–æ§ä»¶
 	 * 
 	 * @return
 	 */

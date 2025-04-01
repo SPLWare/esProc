@@ -8,7 +8,7 @@ import com.scudata.ide.vdb.control.ConnectionConfig;
 import com.scudata.ide.vdb.control.VDBTreeNode;
 
 /**
- * 初始菜单
+ * 鍒濆鑿滃崟
  * 
  * @author wunan
  *
@@ -18,7 +18,7 @@ public class MenuVDB extends MenuFactory {
 
 	public MenuVDB() {
 		JMenu menu;
-		// 连接
+		// 杩炴帴
 		menu = newMenu(GCMenu.iCONNECTION, GCMenu.CONNECTION, 'C', true);
 		menu.add(newMenuItem(GCMenu.iCONN_NEW, GCMenu.CONN_NEW, 'N', Boolean.TRUE, true));
 		menu.add(newMenuItem(GCMenu.iCONN_OPEN, GCMenu.CONN_OPEN, 'O', Boolean.TRUE, true));
@@ -33,7 +33,7 @@ public class MenuVDB extends MenuFactory {
 		menu.add(newMenuItem(GCMenu.iCONN_EXIT, GCMenu.CONN_EXIT, 'X', Boolean.FALSE, true));
 		add(menu);
 		
-		// 节点
+		// 鑺傜偣
 		menu = newMenu(GCMenu.iNODE, GCMenu.NODE, 'N', true);
 		menu.add(newMenuItem(GCMenu.iNODE_COPY, GCMenu.NODE_COPY, 'C', Boolean.FALSE, true));
 		menu.add(newMenuItem(GCMenu.iNODE_PASTE, GCMenu.NODE_PASTE, 'P', Boolean.FALSE, true));
@@ -41,7 +41,7 @@ public class MenuVDB extends MenuFactory {
 		menu.add(newMenuItem(GCMenu.iNODE_CREATE, GCMenu.NODE_CREATE, 'T', Boolean.FALSE, true));
 		add(menu);
 
-		//数据
+		//鏁版嵁
 		menu = newMenu(GCMenu.iDATA, GCMenu.DATA, 'D', true);
 		menu.add(newMenuItem(GCMenu.iDATA_COPY, GCMenu.DATA_COPY, 'C', Boolean.FALSE, true));
 		menu.add(newMenuItem(GCMenu.iDATA_PASTE, GCMenu.DATA_PASTE, 'P', Boolean.FALSE, true));
@@ -49,13 +49,13 @@ public class MenuVDB extends MenuFactory {
 		menu.add(newMenuItem(GCMenu.iDATA_IMPORT, GCMenu.DATA_IMPORT, 'I', Boolean.FALSE, true));
 		add(menu);
 
-		// 工具菜单
+		// 宸ュ叿鑿滃崟
 		menu = newMenu(GCMenu.iTOOLS, GCMenu.TOOLS, 'T', true);
 //		menu.add(newMenuItem(GCMenu.iTOOLS_BINBROWSER, GCMenu.TOOLS_BINBROWSER, 'B', Boolean.FALSE, false));
 		menu.add(newMenuItem(GCMenu.iTOOLS_OPTION, GCMenu.TOOLS_OPTION, 'O', Boolean.FALSE, true));
 		add(menu);
 		
-		// 窗口菜单
+		// 绐楀彛鑿滃崟
 		menu = newMenu(GCMenu.iWINDOW, GCMenu.WINDOW, 'W', true);
 		menu.add(newMenuItem(GCMenu.iCASCADE, GCMenu.CASCADE, 'C', Boolean.FALSE, true));
 		menu.add(newMenuItem(GCMenu.iTILE_HORIZONTAL, GCMenu.TILE_HORIZONTAL, 'H', Boolean.FALSE, false));

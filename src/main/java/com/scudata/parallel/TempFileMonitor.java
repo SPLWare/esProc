@@ -6,8 +6,8 @@ import com.scudata.common.*;
 import com.scudata.dm.*;
 
 /**
- * ÁÙÊ±ÎÄ¼ş¼àÊÓÆ÷
- * ³¬Ê±(System.currentTimeMillis()-proxy.lastAccessTime()>service.getTimeout)µÄ¶ÔÏó¹Ø±Õ²¢É¾³ı
+ * ä¸´æ—¶æ–‡ä»¶ç›‘è§†å™¨
+ * è¶…æ—¶(System.currentTimeMillis()-proxy.lastAccessTime()>service.getTimeout)çš„å¯¹è±¡å…³é—­å¹¶åˆ é™¤
  * @author Joancy
  *
  */
@@ -17,9 +17,9 @@ public class TempFileMonitor extends Thread {
 	int interval = 5;
 
 	/**
-	 * ´´½¨ÁÙÊ±ÎÄ¼ş¹ÜÀíÆ÷
-	 * @param timeOut ³¬Ê±Ê±¼ä
-	 * @param interval ¼ì²é³¬Ê±¼ä¸ô
+	 * åˆ›å»ºä¸´æ—¶æ–‡ä»¶ç®¡ç†å™¨
+	 * @param timeOut è¶…æ—¶æ—¶é—´
+	 * @param interval æ£€æŸ¥è¶…æ—¶é—´éš”
 	 */
 	public TempFileMonitor(int timeOut, int interval){
 		this.setName(toString());
@@ -28,21 +28,21 @@ public class TempFileMonitor extends Thread {
 	}
 	
 	/**
-	 * Í£Ö¹¹¤×÷Ïß³Ì
+	 * åœæ­¢å·¥ä½œçº¿ç¨‹
 	 */
 	public void stopThread() {
 		stop = true;
 	}
 	
 	/**
-	 * ÊµÏÖtoStringÎÄ±¾ÃèÊö
+	 * å®ç°toStringæ–‡æœ¬æè¿°
 	 */
 	public String toString(){
 		return "TempFileMonitor";
 	}
 	
 	/**
-	 * ¼ì²é¶ÔÏó³¬Ê±
+	 * æ£€æŸ¥å¯¹è±¡è¶…æ—¶
 	 * @param tmpDirectory 
 	 * @param timeOut
 	 */
@@ -67,10 +67,10 @@ public class TempFileMonitor extends Thread {
 	}
 
 	/**
-	 * ÔËĞĞµ±Ç°Ïß³Ì
+	 * è¿è¡Œå½“å‰çº¿ç¨‹
 	 */
 	public void run() {
-		// timeOutÎª0Ê±£¬²»¼ì²é³¬Ê±
+		// timeOutä¸º0æ—¶ï¼Œä¸æ£€æŸ¥è¶…æ—¶
 		if (interval == 0 || timeOut == 0) {
 			return;
 		}

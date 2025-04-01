@@ -7,24 +7,24 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 
 /**
- * ¶ÔÃ¿¸öÎÄ¼ş½øĞĞµ¥¶ÀÅÅĞò£¬×İÏòÁ¬½Ó×öÎªÒ»¸öÓÎ±ê
- * ÓÃÓÚcs.sortx@n(...;n) °´×é½øĞĞÅÅĞò
+ * å¯¹æ¯ä¸ªæ–‡ä»¶è¿›è¡Œå•ç‹¬æ’åºï¼Œçºµå‘è¿æ¥åšä¸ºä¸€ä¸ªæ¸¸æ ‡
+ * ç”¨äºcs.sortx@n(...;n) æŒ‰ç»„è¿›è¡Œæ’åº
  * @author RunQian
  *
  */
 public class SortxCursor extends ICursor {
-	private FileObject []files; // ÁÙÊ±¼¯ÎÄ¼şÊı×é
-	private int fileIndex = -1; // µ±Ç°¶Áµ½µÄÎÄ¼şµÄĞòºÅ
-	private Expression[] sortExps; // ÅÅĞò±í´ïÊ½
+	private FileObject []files; // ä¸´æ—¶é›†æ–‡ä»¶æ•°ç»„
+	private int fileIndex = -1; // å½“å‰è¯»åˆ°çš„æ–‡ä»¶çš„åºå·
+	private Expression[] sortExps; // æ’åºè¡¨è¾¾å¼
 	
-	private MemoryCursor cursor; // µ±Ç°ÎÄ¼şÅÅĞòºó´´½¨µÄÄÚ´æÓÎ±ê
+	private MemoryCursor cursor; // å½“å‰æ–‡ä»¶æ’åºååˆ›å»ºçš„å†…å­˜æ¸¸æ ‡
 	
 	/**
-	 * ¶ÔÃ¿¸öÎÄ¼ş½øĞĞµ¥¶ÀÅÅĞò£¬×İÏòÁ¬½Ó×öÎªÒ»¸öÓÎ±ê
-	 * @param files ÁÙÊ±¼¯ÎÄ¼şÊı×é
-	 * @param sortExps ÅÅĞò±í´ïÊ½Êı×é
-	 * @param ds ½á¹û¼¯Êı¾İ½á¹¹
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¹æ¯ä¸ªæ–‡ä»¶è¿›è¡Œå•ç‹¬æ’åºï¼Œçºµå‘è¿æ¥åšä¸ºä¸€ä¸ªæ¸¸æ ‡
+	 * @param files ä¸´æ—¶é›†æ–‡ä»¶æ•°ç»„
+	 * @param sortExps æ’åºè¡¨è¾¾å¼æ•°ç»„
+	 * @param ds ç»“æœé›†æ•°æ®ç»“æ„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public SortxCursor(FileObject []files, Expression[] sortExps, DataStruct ds, Context ctx) {
 		this.files = files;
@@ -33,15 +33,15 @@ public class SortxCursor extends ICursor {
 		setDataStruct(ds);
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		this.ctx = ctx;
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -86,9 +86,9 @@ public class SortxCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (files == null || n < 1) return 0;
@@ -118,7 +118,7 @@ public class SortxCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -136,8 +136,8 @@ public class SortxCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		return false;

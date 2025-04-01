@@ -9,7 +9,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Çó×î´óÖµ
+ * æ±‚æœ€å¤§å€¼
  * A.max() A.max(x)
  * @author RunQian
  *

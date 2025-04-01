@@ -54,54 +54,54 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÁĞ´æ»ù±íµÄÓÎ±êÀà
+ * åˆ—å­˜åŸºè¡¨çš„æ¸¸æ ‡ç±»
  * @author runqian
  *
  */
 public class Cursor extends IDWCursor {
-	private ColPhyTable table;//Ô­±í
-	private String []fields;//È¡³ö×Ö¶Î
-	protected DataStruct ds;//Êı¾İ½á¹¹
-	private String []sortedFields;//ÓĞĞò×Ö¶Î
-	private Expression filter;//¹ıÂË±í´ïÊ½
+	private ColPhyTable table;//åŸè¡¨
+	private String []fields;//å–å‡ºå­—æ®µ
+	protected DataStruct ds;//æ•°æ®ç»“æ„
+	private String []sortedFields;//æœ‰åºå­—æ®µ
+	private Expression filter;//è¿‡æ»¤è¡¨è¾¾å¼
 	
-	// K:T	ÔÚK:TÌõ¼şÉÏ»ù´¡ÉÏÔÙÁîK=T.find(K)£¬K±ØĞëÊÇÑ¡³ö×Ö¶Î
+	// K:T	åœ¨K:Tæ¡ä»¶ä¸ŠåŸºç¡€ä¸Šå†ä»¤K=T.find(K)ï¼ŒKå¿…é¡»æ˜¯é€‰å‡ºå­—æ®µ
 	private String []fkNames;
 	private Sequence []codes;
 	private String []opts;
 	
-	private IFilter []filters;//¹ıÂËÆ÷
-	protected FindFilter []findFilters; // ÓÃÀ´×öswitchµÄ×Ö¶Î
-	private int []seqs; // colReaders¶ÔÓ¦µÄ×Ö¶ÎºÅ£¬¹ıÂË×Ö¶Î¿ÉÄÜ²»Ñ¡³ö
+	private IFilter []filters;//è¿‡æ»¤å™¨
+	protected FindFilter []findFilters; // ç”¨æ¥åšswitchçš„å­—æ®µ
+	private int []seqs; // colReaderså¯¹åº”çš„å­—æ®µå·ï¼Œè¿‡æ»¤å­—æ®µå¯èƒ½ä¸é€‰å‡º
 	
-	private ColumnMetaData []columns;//ÓÃµ½µÄÁĞ
+	private ColumnMetaData []columns;//ç”¨åˆ°çš„åˆ—
 	private BlockLinkReader rowCountReader;
 	private BlockLinkReader []colReaders;
 	private ObjectReader []segmentReaders;
 	
-	private int startBlock; // °üº¬
-	private int endBlock = -1; // ²»°üº¬
+	private int startBlock; // åŒ…å«
+	private int endBlock = -1; // ä¸åŒ…å«
 	private int curBlock = 0;
 	protected Sequence cache;
 	
-	private long prevRecordSeq = 0; // Ç°Ò»Ìõ¼ÇÂ¼µÄĞòºÅ
-	private int []findex; // Ñ¡³ö×Ö¶Î¶ÔÓ¦µÄ×Ö¶ÎºÅ
+	private long prevRecordSeq = 0; // å‰ä¸€æ¡è®°å½•çš„åºå·
+	private int []findex; // é€‰å‡ºå­—æ®µå¯¹åº”çš„å­—æ®µå·
 	private ArrayList<ModifyRecord> modifyRecords;
 	private int mindex = 0;
 	private int mcount = 0;
 	
-	// Í¬²½·Ö¶ÎÊ±ĞèÒª²¹ÉÏÏÂÒ»¶ÎµÚÒ»¿éÀïÊôÓÚ±¾¶ÎµÄ²¿·Ö
+	// åŒæ­¥åˆ†æ®µæ—¶éœ€è¦è¡¥ä¸Šä¸‹ä¸€æ®µç¬¬ä¸€å—é‡Œå±äºæœ¬æ®µçš„éƒ¨åˆ†
 	private Sequence appendData;
 	private int appendIndex = 0;
 	
 	private boolean isClosed = false;
 	private boolean isFirstSkip = true;
 	private boolean isSegment = false;
-	private Expression []exps;//±í´ïÊ½×Ö¶Î
+	private Expression []exps;//è¡¨è¾¾å¼å­—æ®µ
 	private Expression []expsBakup;
-	private String []names;//È¡³öÃû
-	private TableGather []gathers;//´ÓÆäËü¸½±íÈ¡
-	private boolean isField[];//true,ÊÇ×Ö¶Î£»false£¬ÊÇ±í´ïÊ½
+	private String []names;//å–å‡ºå
+	private TableGather []gathers;//ä»å…¶å®ƒé™„è¡¨å–
+	private boolean isField[];//true,æ˜¯å­—æ®µï¼›falseï¼Œæ˜¯è¡¨è¾¾å¼
 	private DataStruct tempDs;
 	
 	public Cursor() {
@@ -176,7 +176,7 @@ public class Cursor extends IDWCursor {
 	}
 
 	/**
-	 * ÉèÖÃ·Ö¶ÎstartBlock°üº¬£¬endBlock²»°üº¬
+	 * è®¾ç½®åˆ†æ®µstartBlockåŒ…å«ï¼ŒendBlockä¸åŒ…å«
 	 */
 	public void setSegment(int startBlock, int endBlock) {
 		isSegment = true;
@@ -242,7 +242,7 @@ public class Cursor extends IDWCursor {
 			
 			this.prevRecordSeq = prevRecordSeq;
 			if (prevRecordSeq > 0 && mcount > 0) {
-				// ²¹ÇøÒ²ÒªÏàÓ¦µØ×ö·Ö¶Î
+				// è¡¥åŒºä¹Ÿè¦ç›¸åº”åœ°åšåˆ†æ®µ
 				ArrayList<ModifyRecord> modifyRecords = this.modifyRecords;
 				int mindex = 0;
 				for (ModifyRecord r : modifyRecords) {
@@ -269,7 +269,7 @@ public class Cursor extends IDWCursor {
 	}
 	
 	/**
-	 *  Í¬²½·Ö¶ÎÊ±ĞèÒª²¹ÉÏÏÂÒ»¶ÎµÚÒ»¿éÀïÊôÓÚ±¾¶ÎµÄ²¿·Ö
+	 *  åŒæ­¥åˆ†æ®µæ—¶éœ€è¦è¡¥ä¸Šä¸‹ä¸€æ®µç¬¬ä¸€å—é‡Œå±äºæœ¬æ®µçš„éƒ¨åˆ†
 	 */
 	public void setAppendData(Sequence seq) {
 		this.appendData = (Sequence) seq;
@@ -283,7 +283,7 @@ public class Cursor extends IDWCursor {
 	}
 	
 	/**
-	 * ´Ó±í´ïÊ½ÀïÌáÈ¡Éæ¼°µ½µÄÁĞ
+	 * ä»è¡¨è¾¾å¼é‡Œæå–æ¶‰åŠåˆ°çš„åˆ—
 	 * @param table
 	 * @param node
 	 * @return
@@ -291,21 +291,21 @@ public class Cursor extends IDWCursor {
 	private static ColumnMetaData getColumn(ColPhyTable table, Node node) {
 		if (node instanceof UnknownSymbol) {
 			/**
-			 * Ö±½Ó¾ÍÊÇ×Ö¶Î
+			 * ç›´æ¥å°±æ˜¯å­—æ®µ
 			 */
 			String keyName = ((UnknownSymbol)node).getName();
 			return table.getColumn(keyName);
 		} else if (node instanceof DotOperator && node.getLeft() instanceof CurrentElement && 
 				node.getRight() instanceof FieldRef) {
 			/**
-			 *  ~.key¸ñÊ½µÄ
+			 *  ~.keyæ ¼å¼çš„
 			 */
 			FieldRef fieldNode = (FieldRef)node.getRight();
 			String keyName = fieldNode.getName();
 			return table.getColumn(keyName);
 		} else if (node instanceof DotOperator && node.getRight() instanceof Sbs) {
 			/**
-			 * ÅÅºÅk.sbs()
+			 * æ’å·k.sbs()
 			 */
 			Node left = node.getLeft();
 			return getColumn(table, left);
@@ -493,7 +493,7 @@ public class Cursor extends IDWCursor {
 				addOperation(op, ctx);
 			}
 			
-			// ¼ì²éfkNamesÀïÊÇ·ñÒıÓÃÁËÃ»ÓĞÑ¡³öµÄ×Ö¶Î£¬Èç¹ûÒıÓÃÁËÔò¼ÓÈëµ½Ñ¡³ö×Ö¶ÎÀï
+			// æ£€æŸ¥fkNamesé‡Œæ˜¯å¦å¼•ç”¨äº†æ²¡æœ‰é€‰å‡ºçš„å­—æ®µï¼Œå¦‚æœå¼•ç”¨äº†åˆ™åŠ å…¥åˆ°é€‰å‡ºå­—æ®µé‡Œ
 			if (fields != null) {
 				ArrayList<String> selectList = new ArrayList<String>();
 				for (String name : fields) {
@@ -588,7 +588,7 @@ public class Cursor extends IDWCursor {
 	}
 	
 	private void parseFilter() {
-		// ÓĞµÄ³ÌĞòÆ´½ÓµÄ¹ıÂËÌõ¼ş»áÓĞ1==1ÕâÖÖÇéĞÎ
+		// æœ‰çš„ç¨‹åºæ‹¼æ¥çš„è¿‡æ»¤æ¡ä»¶ä¼šæœ‰1==1è¿™ç§æƒ…å½¢
 		if (filter.getHome() instanceof Constant && Variant.isTrue(filter.calculate(ctx))) {
 			return;
 		}
@@ -645,7 +645,7 @@ public class Cursor extends IDWCursor {
 			if (modifyRecords != null || exps != null) {
 				unknownFilter = filter;
 			} else {
-				//Ä¿Ç°Ö»ÓÅ»¯Ã»ÓĞ²¹ÇøºÍÃ»ÓĞ±í´ïÊ½µÄÇé¿ö
+				//ç›®å‰åªä¼˜åŒ–æ²¡æœ‰è¡¥åŒºå’Œæ²¡æœ‰è¡¨è¾¾å¼çš„æƒ…å†µ
 				filters = ((ColumnsOr)obj).toArray();
 			}
 		} else if (obj instanceof Top) {
@@ -658,7 +658,7 @@ public class Cursor extends IDWCursor {
 			Select select = new Select(unknownFilter, "o");
 			addOperation(select, ctx);
 			
-			// ¼ì²é²»¿ÉÊ¶±ğµÄ±í´ïÊ½ÀïÊÇ·ñÒıÓÃÁËÃ»ÓĞÑ¡³öµÄ×Ö¶Î£¬Èç¹ûÒıÓÃÁËÔò¼ÓÈëµ½Ñ¡³ö×Ö¶ÎÀï
+			// æ£€æŸ¥ä¸å¯è¯†åˆ«çš„è¡¨è¾¾å¼é‡Œæ˜¯å¦å¼•ç”¨äº†æ²¡æœ‰é€‰å‡ºçš„å­—æ®µï¼Œå¦‚æœå¼•ç”¨äº†åˆ™åŠ å…¥åˆ°é€‰å‡ºå­—æ®µé‡Œ
 			ArrayList<String> nameList = new ArrayList<String>();
 			unknownFilter.getUsedFields(ctx, nameList);
 			if (nameList.size() > 0 && fields != null) {
@@ -872,7 +872,7 @@ public class Cursor extends IDWCursor {
 				return new FindFilter(column, pri, data, null);
 			}
 		} else {
-			// ÔªËØÊıÁ¿½ÏÉÙÊ±²ÉÓÃ±éÀú·¢²éÕÒ£¬ÒòÎª×Ö·û´®¹şÏ£½ÏÂı
+			// å…ƒç´ æ•°é‡è¾ƒå°‘æ—¶é‡‡ç”¨éå†å‘æŸ¥æ‰¾ï¼Œå› ä¸ºå­—ç¬¦ä¸²å“ˆå¸Œè¾ƒæ…¢
 			data = data.getPKeyValues();
 			if (isNot) {
 				return new NotContainFilter(column, pri, data, null, null);
@@ -986,7 +986,7 @@ public class Cursor extends IDWCursor {
 			if (obj != null) 
 				return obj;
 		} else if (node instanceof Comma) {
-			//(ki=wi,¡­¡­,w)
+			//(ki=wi,â€¦â€¦,w)
 			ArrayList<Object> list = new ArrayList<Object>();
 			try {
 				parseComma(table, node, ctx, list);
@@ -1000,7 +1000,7 @@ public class Cursor extends IDWCursor {
 	}
 	
 	
-	// Èç¹ûnodeÊÇµ¥×Ö¶Î±í´ïÊ½Ôò×ª³ÉNodeFilter
+	// å¦‚æœnodeæ˜¯å•å­—æ®µè¡¨è¾¾å¼åˆ™è½¬æˆNodeFilter
 	private static Object parseFieldExp(ColPhyTable table, Node node, Context ctx, Context filterCtx) {
 		ArrayList<String> fieldList = new ArrayList<String>();
 		node.getUsedFields(ctx, fieldList);
@@ -1023,12 +1023,12 @@ public class Cursor extends IDWCursor {
 	}
 	
 	public static Object parseFilter(ColPhyTable table, Expression filter, Context ctx) {
-		// ÎªIFilterĞÂ½¨ÉÏÏÂÎÄ£¬ÓĞµÄIFilterĞèÒªÎªÉÏÏÂÎÄÔö¼Ó±äÁ¿ÓÃÀ´ÒıÓÃ×Ö¶ÎÖµ
-		// ¶àÏß³ÌÊ±Ò²ĞèÒªÓÃ×Ô¼ºµÄÉÏÏÂÎÄ
+		// ä¸ºIFilteræ–°å»ºä¸Šä¸‹æ–‡ï¼Œæœ‰çš„IFilteréœ€è¦ä¸ºä¸Šä¸‹æ–‡å¢åŠ å˜é‡ç”¨æ¥å¼•ç”¨å­—æ®µå€¼
+		// å¤šçº¿ç¨‹æ—¶ä¹Ÿéœ€è¦ç”¨è‡ªå·±çš„ä¸Šä¸‹æ–‡
 		Context filterCtx = new Context(ctx);
 		
-		// ¸´ÖÆ±í´ïÊ½£¬ÓĞµÄIFilterĞèÒªÎªÉÏÏÂÎÄÔö¼Ó±äÁ¿ÓÃÀ´ÒıÓÃ×Ö¶ÎÖµ
-		// UnknownSymbol¼ÆËãÊ±»á»º´æ±äÁ¿£¬Èç¹ûÁ½¸öÓÎ±ê¹²ÓÃÒ»¸ö±í´ïÊ½Ôò»áÊÜÓ°Ïì
+		// å¤åˆ¶è¡¨è¾¾å¼ï¼Œæœ‰çš„IFilteréœ€è¦ä¸ºä¸Šä¸‹æ–‡å¢åŠ å˜é‡ç”¨æ¥å¼•ç”¨å­—æ®µå€¼
+		// UnknownSymbolè®¡ç®—æ—¶ä¼šç¼“å­˜å˜é‡ï¼Œå¦‚æœä¸¤ä¸ªæ¸¸æ ‡å…±ç”¨ä¸€ä¸ªè¡¨è¾¾å¼åˆ™ä¼šå—å½±å“
 		filter = filter.newExpression(ctx);
 		
 		Node node = filter.getHome();
@@ -1113,7 +1113,7 @@ public class Cursor extends IDWCursor {
 			throw new RQException(e);
 		}
 		
-		// ·ÖÎö¹ıÂË±í´ïÊ½
+		// åˆ†æè¿‡æ»¤è¡¨è¾¾å¼
 		if (filter != null) {
 			parseFilter();
 		}
@@ -1121,7 +1121,7 @@ public class Cursor extends IDWCursor {
 			parseSwitch(table, ctx);
 		}
 		
-		//°ÑfiltersÀïµÄki=wi·Åµ½FindFiltersÀï
+		//æŠŠfiltersé‡Œçš„ki=wiæ”¾åˆ°FindFiltersé‡Œ
 		if (filters != null) {
 			int len = filters.length;
 			for (int i = 0; i < len; i++) {
@@ -1138,7 +1138,7 @@ public class Cursor extends IDWCursor {
 		ColumnMetaData []columns;
 		ArrayList<ColumnMetaData> expColumns = null;
 		
-		//´¦Àí×Ó±í¶ÔÖ÷±íµÄ¹²Í¬ºÍ¼Ì³Ğ
+		//å¤„ç†å­è¡¨å¯¹ä¸»è¡¨çš„å…±åŒå’Œç»§æ‰¿
 		if (fields == null) {
 			columns = table.getColumns();
 			fields = table.getColNames();
@@ -1248,7 +1248,7 @@ public class Cursor extends IDWCursor {
 		}
 		
 		/**
-		 * °ÑexpsÀïµÄ¸½±í±í´ïÊ½³õÊ¼»¯
+		 * æŠŠexpsé‡Œçš„é™„è¡¨è¡¨è¾¾å¼åˆå§‹åŒ–
 		 * T.f(x),T{}
 		 */
 		if (exps != null) {
@@ -1316,7 +1316,7 @@ public class Cursor extends IDWCursor {
 		}
 		
 		if (table.hasPrimaryKey()) {
-			// Èç¹û¸½±íÓĞÖ÷¼ü²¢ÇÒÖ÷¼ü±»Ñ¡³öÔò¸øÊı¾İ½á¹¹ÉèÉÏÖ÷¼ü
+			// å¦‚æœé™„è¡¨æœ‰ä¸»é”®å¹¶ä¸”ä¸»é”®è¢«é€‰å‡ºåˆ™ç»™æ•°æ®ç»“æ„è®¾ä¸Šä¸»é”®
 			String []keys = table.getAllKeyColNames();
 			String []sortedCols = table.getAllSortedColNames();
 			ArrayList<String> pkeyList = new ArrayList<String>();
@@ -1348,7 +1348,7 @@ public class Cursor extends IDWCursor {
 			}
 			
 			if (signKey) {
-				//ÓĞÖ÷¼ü
+				//æœ‰ä¸»é”®
 				int size = pkeyList.size();
 				String[] pkeys = new String[size];
 				pkeyList.toArray(pkeys);
@@ -1360,12 +1360,12 @@ public class Cursor extends IDWCursor {
 
 			int size = sortedFieldList.size();
 			if (size > 0) {
-				//ÓĞĞò×Ö¶Î
+				//æœ‰åºå­—æ®µ
 				sortedFields = new String[size];
 				sortedFieldList.toArray(sortedFields);
 			}
 		} else if (table.isSorted) {
-			// Èç¹û¸½±íÓĞĞòÔò×éÖ¯ÓĞĞò×Ö¶Î
+			// å¦‚æœé™„è¡¨æœ‰åºåˆ™ç»„ç»‡æœ‰åºå­—æ®µ
 			String []keys = table.getAllSortedColNames();
 			ArrayList<String> sortedFieldList = new ArrayList<String>();
 			DataStruct temp;
@@ -1384,7 +1384,7 @@ public class Cursor extends IDWCursor {
 			}
 			int size = sortedFieldList.size();
 			if (size > 0) {
-				//ÓĞĞò×Ö¶Î
+				//æœ‰åºå­—æ®µ
 				sortedFields = new String[size];
 				sortedFieldList.toArray(sortedFields);
 			}
@@ -1414,7 +1414,7 @@ public class Cursor extends IDWCursor {
 	}
 	
 	protected Sequence get(int n) {
-		// ĞŞ¸ÄÁËÍ¬²½·Ö¶Î£¬Í¬²½·Ö¶ÎÊ±Èç¹û·Ö¶ÎµãÊÇÔÚ¿éÖĞÄ³Ìõ¼ÇÂ¼£¬ÔòÊ¹ÓÃappendData´æ·Å×îºóÒ»¿éĞèÒªÌí¼ÓµÄ¼ÇÂ¼
+		// ä¿®æ”¹äº†åŒæ­¥åˆ†æ®µï¼ŒåŒæ­¥åˆ†æ®µæ—¶å¦‚æœåˆ†æ®µç‚¹æ˜¯åœ¨å—ä¸­æŸæ¡è®°å½•ï¼Œåˆ™ä½¿ç”¨appendDataå­˜æ”¾æœ€åä¸€å—éœ€è¦æ·»åŠ çš„è®°å½•
 		isFirstSkip = false;
 		Sequence seq;
 		if (gathers == null) {
@@ -1616,14 +1616,14 @@ public class Cursor extends IDWCursor {
 						}
 					}
 					
-					int nextRow = 0; // ÆÕÍ¨ÁĞÏÂÒ»¸öÒª¶ÁµÄĞĞ£¬Èç¹û»¹Ã»µ½µ±Ç°Òª¶ÁµÄĞĞÔòÌøµ½
+					int nextRow = 0; // æ™®é€šåˆ—ä¸‹ä¸€ä¸ªè¦è¯»çš„è¡Œï¼Œå¦‚æœè¿˜æ²¡åˆ°å½“å‰è¦è¯»çš„è¡Œåˆ™è·³åˆ°
 					BufferReader filterReader = colReaders[0].readBlockData(positions[0], recordCount);
 					for (int f = 1; f < colCount; ++f) {
 						bufReaders[f] = null;
 					}
 					
 					for (int i = 0; i < recordCount; ++i) {
-						// °´¼ÇÂ¼ÊıÑ­»·£¬Èç¹ûÁĞµÄBufferReaderÃ»ÓĞ²úÉúÔò²úÉú²¢Ìøµ½µ±Ç°Òª¶ÁµÄĞĞ
+						// æŒ‰è®°å½•æ•°å¾ªç¯ï¼Œå¦‚æœåˆ—çš„BufferReaderæ²¡æœ‰äº§ç”Ÿåˆ™äº§ç”Ÿå¹¶è·³åˆ°å½“å‰è¦è¯»çš„è¡Œ
 						Object val = filterReader.readObject();
 						if (!filter.match(val)) {
 							continue;
@@ -1706,8 +1706,8 @@ public class Cursor extends IDWCursor {
 						continue;
 					}
 					
-					int []nextRows = new int[colCount]; // Ã¿¸öbufReadersÏÂÒ»ÌõÒª¶Áµ½µÄĞĞ£¬Èç¹û»¹Ã»µ½µ±Ç°Òª¶ÁµÄĞĞÔòÌøµ½
-					Object []fvalues = new Object[colCount]; // µ±Ç°ĞĞÌõ¼ş×Ö¶ÎµÄÖµ
+					int []nextRows = new int[colCount]; // æ¯ä¸ªbufReadersä¸‹ä¸€æ¡è¦è¯»åˆ°çš„è¡Œï¼Œå¦‚æœè¿˜æ²¡åˆ°å½“å‰è¦è¯»çš„è¡Œåˆ™è·³åˆ°
+					Object []fvalues = new Object[colCount]; // å½“å‰è¡Œæ¡ä»¶å­—æ®µçš„å€¼
 
 					for (f = 0; f < colCount; ++f) {
 						bufReaders[f] = null;
@@ -1715,7 +1715,7 @@ public class Cursor extends IDWCursor {
 					
 					Next:
 					for (int i = 0; i < recordCount; ++i) {
-						// °´¼ÇÂ¼ÊıÑ­»·£¬Èç¹ûÁĞµÄBufferReaderÃ»ÓĞ²úÉúÔò²úÉú²¢Ìøµ½µ±Ç°Òª¶ÁµÄĞĞ
+						// æŒ‰è®°å½•æ•°å¾ªç¯ï¼Œå¦‚æœåˆ—çš„BufferReaderæ²¡æœ‰äº§ç”Ÿåˆ™äº§ç”Ÿå¹¶è·³åˆ°å½“å‰è¦è¯»çš„è¡Œ
 						for (f = 0; f < filterCount; ++f) {
 							if (bufReaders[f] == null) 
 							
@@ -1786,7 +1786,7 @@ public class Cursor extends IDWCursor {
 		}
 	}
 	
-	//ÓĞ×Ö¶Î±í´ïÊ½Ê±ÓÃÕâ¸ö
+	//æœ‰å­—æ®µè¡¨è¾¾å¼æ—¶ç”¨è¿™ä¸ª
 	private Sequence getData2(int n) {
 		if (isClosed || n < 1) {
 			return null;
@@ -2176,7 +2176,7 @@ public class Cursor extends IDWCursor {
 							r.setRecordSeq(prevRecordSeq);
 							mems.add(r);
 						} else {
-							// ¿ÉÄÜ²åÈë¶àÌõ
+							// å¯èƒ½æ’å…¥å¤šæ¡
 							boolean isInsert = true;
 							while (true) {
 								if (mr.isDelete()) {
@@ -2227,7 +2227,7 @@ public class Cursor extends IDWCursor {
 					
 					if (curBlock == endBlock && endBlock == table.getDataBlockCount()) {
 						for (; mindex < mcount; ++mindex) {
-							// ¿ÉÄÜ´æÔÚÄÚ´æ×·¼ÓµÄ¼ÇÂ¼ÔÚ²¹Çø
+							// å¯èƒ½å­˜åœ¨å†…å­˜è¿½åŠ çš„è®°å½•åœ¨è¡¥åŒº
 							mr = modifyRecords.get(mindex);
 							mseq = mr.getRecordSeq();
 							Record sr = mr.getRecord();
@@ -2251,9 +2251,9 @@ public class Cursor extends IDWCursor {
 				}
 				
 				if (table.getDataBlockCount() == 0 && startBlock == 0 && endBlock == 0) {
-					// ±íÖĞ»¹Ã»ÓĞÌí¼ÓÊı¾İÊ±ÓĞ¿ÉÄÜÔÚ²¹ÇøÓĞÊı¾İ
+					// è¡¨ä¸­è¿˜æ²¡æœ‰æ·»åŠ æ•°æ®æ—¶æœ‰å¯èƒ½åœ¨è¡¥åŒºæœ‰æ•°æ®
 					for (; mindex < mcount; ++mindex) {
-						// ¿ÉÄÜ´æÔÚÄÚ´æ×·¼ÓµÄ¼ÇÂ¼ÔÚ²¹Çø
+						// å¯èƒ½å­˜åœ¨å†…å­˜è¿½åŠ çš„è®°å½•åœ¨è¡¥åŒº
 						mr = modifyRecords.get(mindex);
 						mseq = mr.getRecordSeq();
 						Record sr = mr.getRecord();
@@ -2430,7 +2430,7 @@ public class Cursor extends IDWCursor {
 					
 					if (curBlock == endBlock && endBlock == table.getDataBlockCount()) {
 						for (; mindex < mcount; ++mindex) {
-							// ¿ÉÄÜ´æÔÚÄÚ´æ×·¼ÓµÄ¼ÇÂ¼ÔÚ²¹Çø
+							// å¯èƒ½å­˜åœ¨å†…å­˜è¿½åŠ çš„è®°å½•åœ¨è¡¥åŒº
 							mr = modifyRecords.get(mindex);
 							Record sr = mr.getRecord();
 							if (Variant.isTrue(sr.calc(filter, ctx))) {
@@ -2454,9 +2454,9 @@ public class Cursor extends IDWCursor {
 				}
 				
 				if (table.getDataBlockCount() == 0 && startBlock == 0 && endBlock == 0) {
-					// ±íÖĞ»¹Ã»ÓĞÌí¼ÓÊı¾İÊ±ÓĞ¿ÉÄÜÔÚ²¹ÇøÓĞÊı¾İ
+					// è¡¨ä¸­è¿˜æ²¡æœ‰æ·»åŠ æ•°æ®æ—¶æœ‰å¯èƒ½åœ¨è¡¥åŒºæœ‰æ•°æ®
 					for (; mindex < mcount; ++mindex) {
-						// ¿ÉÄÜ´æÔÚÄÚ´æ×·¼ÓµÄ¼ÇÂ¼ÔÚ²¹Çø
+						// å¯èƒ½å­˜åœ¨å†…å­˜è¿½åŠ çš„è®°å½•åœ¨è¡¥åŒº
 						mr = modifyRecords.get(mindex);
 						Record sr = mr.getRecord();
 						if (Variant.isTrue(sr.calc(filter, ctx))) {
@@ -2572,7 +2572,7 @@ public class Cursor extends IDWCursor {
 							r.setRecordSeq(prevRecordSeq);
 							mems.add(r);
 						} else {
-							// ¿ÉÄÜ²åÈë¶àÌõ
+							// å¯èƒ½æ’å…¥å¤šæ¡
 							boolean isInsert = true;
 							while (true) {
 								if (mr.isDelete()) {
@@ -2648,7 +2648,7 @@ public class Cursor extends IDWCursor {
 					
 					if (curBlock == endBlock && endBlock == table.getDataBlockCount()) {
 						for (; mindex < mcount; ++mindex) {
-							// ¿ÉÄÜ´æÔÚÄÚ´æ×·¼ÓµÄ¼ÇÂ¼ÔÚ²¹Çø
+							// å¯èƒ½å­˜åœ¨å†…å­˜è¿½åŠ çš„è®°å½•åœ¨è¡¥åŒº
 							mr = modifyRecords.get(mindex);
 							Record sr = mr.getRecord();
 							ComTableRecord r = new ComTableRecord(ds);
@@ -2679,9 +2679,9 @@ public class Cursor extends IDWCursor {
 				}
 				
 				if (table.getDataBlockCount() == 0 && startBlock == 0 && endBlock == 0) {
-					// ±íÖĞ»¹Ã»ÓĞÌí¼ÓÊı¾İÊ±ÓĞ¿ÉÄÜÔÚ²¹ÇøÓĞÊı¾İ
+					// è¡¨ä¸­è¿˜æ²¡æœ‰æ·»åŠ æ•°æ®æ—¶æœ‰å¯èƒ½åœ¨è¡¥åŒºæœ‰æ•°æ®
 					for (; mindex < mcount; ++mindex) {
-						// ¿ÉÄÜ´æÔÚÄÚ´æ×·¼ÓµÄ¼ÇÂ¼ÔÚ²¹Çø
+						// å¯èƒ½å­˜åœ¨å†…å­˜è¿½åŠ çš„è®°å½•åœ¨è¡¥åŒº
 						mr = modifyRecords.get(mindex);
 						Record sr = mr.getRecord();
 						ComTableRecord r = new ComTableRecord(ds);
@@ -2905,7 +2905,7 @@ public class Cursor extends IDWCursor {
 					
 					if (curBlock == endBlock && endBlock == table.getDataBlockCount()) {
 						for (; mindex < mcount; ++mindex) {
-							// ¿ÉÄÜ´æÔÚÄÚ´æ×·¼ÓµÄ¼ÇÂ¼ÔÚ²¹Çø
+							// å¯èƒ½å­˜åœ¨å†…å­˜è¿½åŠ çš„è®°å½•åœ¨è¡¥åŒº
 							mr = modifyRecords.get(mindex);
 							Record sr = mr.getRecord();
 							if (Variant.isTrue(sr.calc(filter, ctx))) {
@@ -2937,9 +2937,9 @@ public class Cursor extends IDWCursor {
 				}
 				
 				if (table.getDataBlockCount() == 0 && startBlock == 0 && endBlock == 0) {
-					// ±íÖĞ»¹Ã»ÓĞÌí¼ÓÊı¾İÊ±ÓĞ¿ÉÄÜÔÚ²¹ÇøÓĞÊı¾İ
+					// è¡¨ä¸­è¿˜æ²¡æœ‰æ·»åŠ æ•°æ®æ—¶æœ‰å¯èƒ½åœ¨è¡¥åŒºæœ‰æ•°æ®
 					for (; mindex < mcount; ++mindex) {
-						// ¿ÉÄÜ´æÔÚÄÚ´æ×·¼ÓµÄ¼ÇÂ¼ÔÚ²¹Çø
+						// å¯èƒ½å­˜åœ¨å†…å­˜è¿½åŠ çš„è®°å½•åœ¨è¡¥åŒº
 						mr = modifyRecords.get(mindex);
 						Record sr = mr.getRecord();
 						if (Variant.isTrue(sr.calc(filter, ctx))) {
@@ -2987,7 +2987,7 @@ public class Cursor extends IDWCursor {
 		this.isFirstSkip = false;
 		long count = 0;
 		
-		// ¶Ôµ¥±íÌø¹ıËùÓĞ½øĞĞÓÅ»¯£¬²»Éú³É¼ÇÂ¼¶ÔÏó
+		// å¯¹å•è¡¨è·³è¿‡æ‰€æœ‰è¿›è¡Œä¼˜åŒ–ï¼Œä¸ç”Ÿæˆè®°å½•å¯¹è±¡
 		if (gathers == null && mcount < 1 && n == MAXSKIPSIZE) {
 			if (cache != null) {
 				count = cache.length();
@@ -3026,7 +3026,7 @@ public class Cursor extends IDWCursor {
 						
 						BufferReader filterReader = colReaders[0].readBlockData(position, recordCount);
 						for (int i = 0; i < recordCount; ++i) {
-							// °´¼ÇÂ¼ÊıÑ­»·£¬Èç¹ûÁĞµÄBufferReaderÃ»ÓĞ²úÉúÔò²úÉú²¢Ìøµ½µ±Ç°Òª¶ÁµÄĞĞ
+							// æŒ‰è®°å½•æ•°å¾ªç¯ï¼Œå¦‚æœåˆ—çš„BufferReaderæ²¡æœ‰äº§ç”Ÿåˆ™äº§ç”Ÿå¹¶è·³åˆ°å½“å‰è¦è¯»çš„è¡Œ
 							Object val = filterReader.readObject();
 							if (filter.match(val)) {
 								count++;
@@ -3073,14 +3073,14 @@ public class Cursor extends IDWCursor {
 							continue;
 						}
 						
-						int []nextRows = new int[filterCount]; // Ã¿¸öbufReadersÏÂÒ»ÌõÒª¶Áµ½µÄĞĞ£¬Èç¹û»¹Ã»µ½µ±Ç°Òª¶ÁµÄĞĞÔòÌøµ½
+						int []nextRows = new int[filterCount]; // æ¯ä¸ªbufReadersä¸‹ä¸€æ¡è¦è¯»åˆ°çš„è¡Œï¼Œå¦‚æœè¿˜æ²¡åˆ°å½“å‰è¦è¯»çš„è¡Œåˆ™è·³åˆ°
 						for (f = 0; f < filterCount; ++f) {
 							bufReaders[f] = null;
 						}
 						
 						Next:
 						for (int i = 0; i < recordCount; ++i) {
-							// °´¼ÇÂ¼ÊıÑ­»·£¬Èç¹ûÁĞµÄBufferReaderÃ»ÓĞ²úÉúÔò²úÉú²¢Ìøµ½µ±Ç°Òª¶ÁµÄĞĞ
+							// æŒ‰è®°å½•æ•°å¾ªç¯ï¼Œå¦‚æœåˆ—çš„BufferReaderæ²¡æœ‰äº§ç”Ÿåˆ™äº§ç”Ÿå¹¶è·³åˆ°å½“å‰è¦è¯»çš„è¡Œ
 							for (f = 0; f < filterCount; ++f) {
 								if (bufReaders[f] == null) {
 									bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
@@ -3111,9 +3111,9 @@ public class Cursor extends IDWCursor {
 			this.curBlock = curBlock;
 			return count;
 		} else if (filters == null && !hasModify() && isFirstSkip  && !isSegment && gathers == null && appendData == null) {
-			//¶ÔÃ»ÓĞ¹ıÂËµÄÇé¿öÓÅ»¯
+			//å¯¹æ²¡æœ‰è¿‡æ»¤çš„æƒ…å†µä¼˜åŒ–
 			
-			//´¦Àícache
+			//å¤„ç†cache
 			Sequence cache = this.cache;
 			if (cache != null) {
 				int len = cache.length();
@@ -3126,7 +3126,7 @@ public class Cursor extends IDWCursor {
 				}
 			}
 			
-			//Ìø¶Î
+			//è·³æ®µ
 			int curBlock = this.curBlock;
 			int endBlock = this.endBlock;
 			BlockLinkReader rowCountReader = this.rowCountReader;
@@ -3438,7 +3438,7 @@ public class Cursor extends IDWCursor {
 			maxArray.add(((BaseRecord)cacheData.get(len)).getNormalFieldValue(idx));
 		}
 		
-		//¿ËÂ¡·Ö¶Îreader
+		//å…‹éš†åˆ†æ®µreader
 		ObjectReader[] segmentReaders = new ObjectReader[colCount];
 		for (int i = 0; i < colCount; i++) {
 			ObjectReader segmentReader = new ObjectReader(this.segmentReaders[i]);
@@ -3492,7 +3492,7 @@ public class Cursor extends IDWCursor {
 				}
 				
 				if (sign) {
-					//Ã»Ìø¶Î
+					//æ²¡è·³æ®µ
 					minArray.add(keyMinValue);
 					maxArray.add(keyMaxValue);
 				} else {
@@ -3509,7 +3509,7 @@ public class Cursor extends IDWCursor {
 		}
 		
 		if (!hasSkip) {
-			//Èç¹ûÃ»ÓĞÌø¶Î£¬ÔòÃ»ÓĞÒâÒå
+			//å¦‚æœæ²¡æœ‰è·³æ®µï¼Œåˆ™æ²¡æœ‰æ„ä¹‰
 			return null;
 		}
 		
@@ -3523,7 +3523,7 @@ public class Cursor extends IDWCursor {
 		}
 		
 		if (minArray.size() == 0) {
-			//Èç¹ûÌø¹ıÁËËùÓĞ¶Î£¬ÔòÃ»ÓĞÒâÒå
+			//å¦‚æœè·³è¿‡äº†æ‰€æœ‰æ®µï¼Œåˆ™æ²¡æœ‰æ„ä¹‰
 			return null;
 		}
 		
@@ -3532,9 +3532,9 @@ public class Cursor extends IDWCursor {
 	}
 	
 	/**
-	 * ½«ÓÎ±êÉèÖÃÎª°´ÕÕkeyÌõ¿é £¨pjoinÊ±Ê¹ÓÃ£©
-	 * ÉèÖÃºó£¬ÓÎ±ê»á°´ÕÕvaluesÀïµÄÖµ½øĞĞÌø¿é¡£
-	 * @param key Î¬×Ö¶ÎÃû
+	 * å°†æ¸¸æ ‡è®¾ç½®ä¸ºæŒ‰ç…§keyæ¡å— ï¼ˆpjoinæ—¶ä½¿ç”¨ï¼‰
+	 * è®¾ç½®åï¼Œæ¸¸æ ‡ä¼šæŒ‰ç…§valuesé‡Œçš„å€¼è¿›è¡Œè·³å—ã€‚
+	 * @param key ç»´å­—æ®µå
 	 * @param values [minValue, maxValue] 
 	 */
 	public void setSkipBlockInfo(String key, IArray[] values) {
@@ -3553,7 +3553,7 @@ public class Cursor extends IDWCursor {
 		if (filters == null) {
 			filters = new IFilter[] { filter };
 			
-			//°ÑÎ¬ÁĞÌáµ½×îÇ°Ãæ
+			//æŠŠç»´åˆ—æåˆ°æœ€å‰é¢
 			ColumnMetaData []columns = this.columns;
 			ColumnMetaData tempCol = columns[0];
 			columns[0] = columns[idx];
@@ -3608,7 +3608,7 @@ public class Cursor extends IDWCursor {
 		} else {
 			int size = filters.length;
 			
-			//Èç¹û¿ÉÒÔºÏ²¢µ½ÒÑÓĞfilter
+			//å¦‚æœå¯ä»¥åˆå¹¶åˆ°å·²æœ‰filter
 			for (int i = 0; i < size; i++) {
 				IFilter f = filters[i];
 				if (f.isSameColumn(filter)) {
@@ -3617,7 +3617,7 @@ public class Cursor extends IDWCursor {
 				}
 			}
 			
-			//ÕÒµ½Ä¿Ç°µÄÎ»ÖÃ
+			//æ‰¾åˆ°ç›®å‰çš„ä½ç½®
 			ColumnMetaData []columns = this.columns;
 			BlockLinkReader []columnReaders = this.colReaders;
 			int len = columnReaders.length;
@@ -3629,7 +3629,7 @@ public class Cursor extends IDWCursor {
 				}
 			}
 			
-			//²åÈëµ½filtersÖĞ
+			//æ’å…¥åˆ°filtersä¸­
 			IFilter[] filters = this.filters;
 			FindFilter[] findFilters = this.findFilters;
 			IFilter[] newFilters = new IFilter[size + 1];
@@ -3649,7 +3649,7 @@ public class Cursor extends IDWCursor {
 			this.filters = newFilters;
 			this.findFilters = newFindFilters;
 			
-			//µ÷ÕûÁĞµÄÎ»ÖÃ
+			//è°ƒæ•´åˆ—çš„ä½ç½®
 			BlockLinkReader temp = columnReaders[idx];
 			System.arraycopy(columnReaders, 0, columnReaders, 1, idx);
 			columnReaders[0] = temp;
@@ -3674,7 +3674,7 @@ public class Cursor extends IDWCursor {
 	}
 	
 	protected Sequence getStartBlockData(int n) {
-		// Ö»È¡µÚÒ»¿éµÄ¼ÇÂ¼£¬Èç¹ûµÚÒ»¿éÃ»ÓĞÂú×ãÌõ¼şµÄ¾Í·µ»Ø
+		// åªå–ç¬¬ä¸€å—çš„è®°å½•ï¼Œå¦‚æœç¬¬ä¸€å—æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å°±è¿”å›
 		if (startBlock >= endBlock) {
 			Sequence result = appendData;
 			appendData = null;

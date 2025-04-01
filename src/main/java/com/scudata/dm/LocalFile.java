@@ -18,14 +18,14 @@ import com.scudata.dw.ComTable;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ±¾µØÎÄ¼ş
+ * æœ¬åœ°æ–‡ä»¶
  * @author WangXiaoJun
  *
  */
 public class LocalFile implements IFile {
 	private String fileName;
 	private String opt;
-	private String parent; // ¸¸Â·¾¶
+	private String parent; // çˆ¶è·¯å¾„
 	private Context ctx;
 	private Integer partition;
 	
@@ -35,10 +35,10 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * ´´½¨±¾µØÎÄ¼ş
-	 * @param fileName Ïà¶ÔÂ·¾¶»ò¾ø¶ÔÂ·¾¶
+	 * åˆ›å»ºæœ¬åœ°æ–‡ä»¶
+	 * @param fileName ç›¸å¯¹è·¯å¾„æˆ–ç»å¯¹è·¯å¾„
 	 * @param opt 
-	 * @param ctx ²»ĞèÒªÊ±´«null
+	 * @param ctx ä¸éœ€è¦æ—¶ä¼ null
 	 */
 	public LocalFile(String fileName, String opt, Context ctx) {
 		this.fileName = fileName;
@@ -47,7 +47,7 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * ¼¯Èºº¯ÊıÊ¹ÓÃ
+	 * é›†ç¾¤å‡½æ•°ä½¿ç”¨
 	 * @param fileName
 	 * @param opt
 	 * @param partition
@@ -60,7 +60,7 @@ public class LocalFile implements IFile {
 			this.partition = partition;
 			//parent = Env.getMappingPath(partition);
 			
-			// ÕÒ³öÎÄ¼şÃûµÄÆğÊ¼Î»ÖÃ
+			// æ‰¾å‡ºæ–‡ä»¶åçš„èµ·å§‹ä½ç½®
 			int index = fileName.lastIndexOf('\\');
 			if (index == -1) {
 				index = fileName.lastIndexOf('/');
@@ -76,7 +76,7 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * ÉèÖÃ¸¸ÎÄ¼ş¼Ğ
+	 * è®¾ç½®çˆ¶æ–‡ä»¶å¤¹
 	 * @param parent
 	 */
 	public void setParent(String parent) {
@@ -84,7 +84,7 @@ public class LocalFile implements IFile {
 	}
 		
 	/**
-	 * ÉèÖÃÎÄ¼şÃû
+	 * è®¾ç½®æ–‡ä»¶å
 	 * @param fileName
 	 */
 	public void setFileName(String fileName) {
@@ -105,7 +105,7 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * Éú³ÉÎÄ¼ş£¬²»ÕÒËÑË÷Â·¾¶
+	 * ç”Ÿæˆæ–‡ä»¶ï¼Œä¸æ‰¾æœç´¢è·¯å¾„
 	 * @return File
 	 */
 	public File file() {
@@ -113,7 +113,7 @@ public class LocalFile implements IFile {
 			return new File(parent, fileName);
 		}
 		
-		// Èç¹ûÉèÖÃÁËappHome£¬ÔòfileNameÖ»ÄÜÊÇÏà¶ÔÂ·¾¶
+		// å¦‚æœè®¾ç½®äº†appHomeï¼Œåˆ™fileNameåªèƒ½æ˜¯ç›¸å¯¹è·¯å¾„
 		File appHome = getAppHome();
 		if (appHome != null) {
 			String mainPath = Env.getMainPath();
@@ -138,7 +138,7 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * ²éÕÒÎÄ¼ş£¬Èç¹ûÎÄ¼ş²»´æÔÚ·µ»Ønull
+	 * æŸ¥æ‰¾æ–‡ä»¶ï¼Œå¦‚æœæ–‡ä»¶ä¸å­˜åœ¨è¿”å›null
 	 * @return
 	 */
 	public File getFile() {
@@ -149,10 +149,10 @@ public class LocalFile implements IFile {
 			}
 		}
 		
-		// Èç¹ûÉèÖÃÁËappHome£¬ÔòfileNameÖ»ÄÜÊÇÏà¶ÔÂ·¾¶
+		// å¦‚æœè®¾ç½®äº†appHomeï¼Œåˆ™fileNameåªèƒ½æ˜¯ç›¸å¯¹è·¯å¾„
 		File appHome = getAppHome();
 		if (appHome != null) {
-			// ´øÑ¡ÏîsÊ±ÏÈÕÒÀàÂ·¾¶£¬ÔÙÕÒÂ·¾¶ÁĞ±í£¬×îºóÕÒÖ÷Ä¿Â¼
+			// å¸¦é€‰é¡¹sæ—¶å…ˆæ‰¾ç±»è·¯å¾„ï¼Œå†æ‰¾è·¯å¾„åˆ—è¡¨ï¼Œæœ€åæ‰¾ä¸»ç›®å½•
 			if (isSearchPath() && Env.getPaths() != null) {
 				for (String path : Env.getPaths()) {
 					File tmpFile = new File(appHome, path);
@@ -183,7 +183,7 @@ public class LocalFile implements IFile {
 			}
 		}
 
-		// ´øÑ¡ÏîsÊ±ÏÈÕÒÀàÂ·¾¶£¬ÔÙÕÒÂ·¾¶ÁĞ±í£¬×îºóÕÒÖ÷Ä¿Â¼
+		// å¸¦é€‰é¡¹sæ—¶å…ˆæ‰¾ç±»è·¯å¾„ï¼Œå†æ‰¾è·¯å¾„åˆ—è¡¨ï¼Œæœ€åæ‰¾ä¸»ç›®å½•
 		if (isSearchPath()) {
 			String []paths = Env.getPaths();
 			if (paths != null) {
@@ -209,7 +209,7 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * È¡ÊäÈëÁ÷
+	 * å–è¾“å…¥æµ
 	 * @throws IOException
 	 * @return InputStream
 	 */
@@ -220,10 +220,10 @@ public class LocalFile implements IFile {
 				if (file.exists()) return new FileInputStream(file);
 			}
 
-			// Èç¹ûÉèÖÃÁËappHome£¬ÔòfileNameÖ»ÄÜÊÇÏà¶ÔÂ·¾¶
+			// å¦‚æœè®¾ç½®äº†appHomeï¼Œåˆ™fileNameåªèƒ½æ˜¯ç›¸å¯¹è·¯å¾„
 			File appHome = getAppHome();
 			if (appHome != null) {
-				// ´øÑ¡ÏîsÊ±ÏÈÕÒÀàÂ·¾¶£¬ÔÙÕÒÂ·¾¶ÁĞ±í£¬×îºóÕÒÖ÷Ä¿Â¼
+				// å¸¦é€‰é¡¹sæ—¶å…ˆæ‰¾ç±»è·¯å¾„ï¼Œå†æ‰¾è·¯å¾„åˆ—è¡¨ï¼Œæœ€åæ‰¾ä¸»ç›®å½•
 				if (isSearchPath()) {
 					InputStream in = IOUtils.findResource(fileName);
 					if (in != null) return in;
@@ -258,7 +258,7 @@ public class LocalFile implements IFile {
 				return new FileInputStream(fileName);
 			}
 
-			// ´øÑ¡ÏîsÊ±ÏÈÕÒÀàÂ·¾¶£¬ÔÙÕÒÂ·¾¶ÁĞ±í£¬×îºóÕÒÖ÷Ä¿Â¼
+			// å¸¦é€‰é¡¹sæ—¶å…ˆæ‰¾ç±»è·¯å¾„ï¼Œå†æ‰¾è·¯å¾„åˆ—è¡¨ï¼Œæœ€åæ‰¾ä¸»ç›®å½•
 			if (isSearchPath()) {
 				InputStream in = IOUtils.findResource(fileName);
 				if (in != null) return in;
@@ -288,8 +288,8 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * È¡Êä³öÁ÷£¬ÎÄ¼ş²»´æÔÚÔò´´½¨
-	 * @param isAppend boolean ÊÇ·ñ×·¼Ó
+	 * å–è¾“å‡ºæµï¼Œæ–‡ä»¶ä¸å­˜åœ¨åˆ™åˆ›å»º
+	 * @param isAppend boolean æ˜¯å¦è¿½åŠ 
 	 * @throws FileNotFoundException
 	 * @return OutputStream
 	 */
@@ -304,8 +304,8 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * È¡ÄÜ¹»Ëæ»úĞ´µÄÊä³öÁ÷£¬ÎÄ¼ş²»´æÔÚÔò´´½¨
-	 * @param isAppend boolean ÊÇ·ñ×·¼Ó
+	 * å–èƒ½å¤Ÿéšæœºå†™çš„è¾“å‡ºæµï¼Œæ–‡ä»¶ä¸å­˜åœ¨åˆ™åˆ›å»º
+	 * @param isAppend boolean æ˜¯å¦è¿½åŠ 
 	 * @return RandomOutputStream
 	 */
 	public RandomOutputStream getRandomOutputStream(boolean isAppend) {
@@ -332,7 +332,7 @@ public class LocalFile implements IFile {
 			return new File(parent, fileName);
 		}
 
-		// Èç¹ûÉèÖÃÁËappHome£¬ÔòfileNameÖ»ÄÜÊÇÏà¶ÔÂ·¾¶
+		// å¦‚æœè®¾ç½®äº†appHomeï¼Œåˆ™fileNameåªèƒ½æ˜¯ç›¸å¯¹è·¯å¾„
 		File appHome = getAppHome();
 		if (appHome != null) {
 			String mainPath = Env.getMainPath();
@@ -357,16 +357,16 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * ·µ»ØÎÄ¼şÊÇ·ñ´æÔÚ
+	 * è¿”å›æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 	 * @return boolean
 	 */
 	public boolean exists() {
-		// resourceÀïµÄÓÃFileÃ»·¨ÕÒµ½
+		// resourceé‡Œçš„ç”¨Fileæ²¡æ³•æ‰¾åˆ°
 		//return getFile() != null;
 		
 		InputStream is = null;
 		try {
-			// Èç¹ûÎÄ¼ş²»´æÔÚ»áÅ×Òì³£
+			// å¦‚æœæ–‡ä»¶ä¸å­˜åœ¨ä¼šæŠ›å¼‚å¸¸
 			is = getInputStream();
 			return true;
 		} catch (Exception e) {
@@ -382,7 +382,7 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * ·µ»ØÎÄ¼ş´óĞ¡
+	 * è¿”å›æ–‡ä»¶å¤§å°
 	 * @return long
 	 */
 	public long size() {
@@ -395,7 +395,7 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * ·µ»Ø×î½üĞŞ¸ÄÊ±¼ä
+	 * è¿”å›æœ€è¿‘ä¿®æ”¹æ—¶é—´
 	 * @return long
 	 */
 	public long lastModified() {
@@ -408,7 +408,7 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * É¾³ı×é±íÏà¹ØµÄÎÄ¼ş
+	 * åˆ é™¤ç»„è¡¨ç›¸å…³çš„æ–‡ä»¶
 	 * @param file
 	 * @return
 	 */
@@ -431,7 +431,7 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * É¾³ıÎÄ¼ş£¬·µ»ØÊÇ·ñ³É¹¦
+	 * åˆ é™¤æ–‡ä»¶ï¼Œè¿”å›æ˜¯å¦æˆåŠŸ
 	 * @return boolean
 	 */
 	public boolean delete() {
@@ -445,7 +445,7 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * É¾³ıÂ·¾¶¼°ÆäÏÂÃæµÄ×ÓÎÄ¼şºÍ×ÓÂ·¾¶
+	 * åˆ é™¤è·¯å¾„åŠå…¶ä¸‹é¢çš„å­æ–‡ä»¶å’Œå­è·¯å¾„
 	 * @return
 	 */
 	public boolean deleteDir() {
@@ -469,11 +469,11 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * ÒÆ¶¯×é±íÏà¹ØµÄËùÓĞÎÄ¼ş
+	 * ç§»åŠ¨ç»„è¡¨ç›¸å…³çš„æ‰€æœ‰æ–‡ä»¶
 	 * @param file
 	 * @param destFile
 	 * @param isCopy
-	 * @param auto ×Ô¶¯´¦ÀíË÷ÒıÎÄ¼ş
+	 * @param auto è‡ªåŠ¨å¤„ç†ç´¢å¼•æ–‡ä»¶
 	 */
 	private void moveCtxFiles(File file, File destFile, boolean isCopy, boolean auto) {
 		if (file.isDirectory()) {
@@ -512,11 +512,11 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * ÒÆ¶¯ÎÄ¼şµ½path£¬pathÖ»ÓĞÎÄ¼şÃûÔò¸ÄÃû
-	 * @param dest String Ä¿±êÎÄ¼şÃû»òÎÄ¼şÂ·¾¶Ãû
-	 * @param opt String y£ºÄ¿±êÎÄ¼şÒÑ´æÔÚÊ±Ç¿ĞĞ¸´ÖÆÈ±Ê¡½«Ê§°Ü£¬c£º¸´ÖÆ£¬
-	 * 					 p£ºÄ¿±êÎÄ¼şÊÇÏà¶ÔÄ¿Â¼ÊÇÏà¶ÔÓÚÖ÷Ä¿Â¼£¬Ä¬ÈÏÊÇÏà¶ÔÓÚÔ´ÎÄ¼şµÄ¸¸Ä¿Â¼
-	 * @return boolean true£º³É¹¦£¬false£ºÊ§°Ü
+	 * ç§»åŠ¨æ–‡ä»¶åˆ°pathï¼Œpathåªæœ‰æ–‡ä»¶ååˆ™æ”¹å
+	 * @param dest String ç›®æ ‡æ–‡ä»¶åæˆ–æ–‡ä»¶è·¯å¾„å
+	 * @param opt String yï¼šç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨æ—¶å¼ºè¡Œå¤åˆ¶ç¼ºçœå°†å¤±è´¥ï¼Œcï¼šå¤åˆ¶ï¼Œ
+	 * 					 pï¼šç›®æ ‡æ–‡ä»¶æ˜¯ç›¸å¯¹ç›®å½•æ˜¯ç›¸å¯¹äºä¸»ç›®å½•ï¼Œé»˜è®¤æ˜¯ç›¸å¯¹äºæºæ–‡ä»¶çš„çˆ¶ç›®å½•
+	 * @return boolean trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public boolean move(String dest, String opt) {
 		File file = getFile();
@@ -533,13 +533,13 @@ public class LocalFile implements IFile {
 		File destFile = new File(dest);
 		boolean isDir = destFile.isDirectory();
 		if (!isDir && !destFile.isFile() && dest.length() > 1) {
-			// ÎÄ¼ş²»´æÔÚÊ±ÎŞ·¨ÅĞ¶ÏÊÇÎÄ¼ş»¹ÊÇÎÄ¼ş¼Ğ£¬´ËÊ±ÓÃÂ·¾¶ºóÊÇ·ñÓĞ·Ö¸ô·ûÅĞ¶Ï
+			// æ–‡ä»¶ä¸å­˜åœ¨æ—¶æ— æ³•åˆ¤æ–­æ˜¯æ–‡ä»¶è¿˜æ˜¯æ–‡ä»¶å¤¹ï¼Œæ­¤æ—¶ç”¨è·¯å¾„åæ˜¯å¦æœ‰åˆ†éš”ç¬¦åˆ¤æ–­
 			char c = dest.charAt(dest.length() - 1);
 			isDir = c == '/' || c == '\\';
 		}
 		
 		if (!isDir && partition != null && partition.intValue() >= 0) {
-			// ÕÒ³öÎÄ¼şÃûµÄÆğÊ¼Î»ÖÃ
+			// æ‰¾å‡ºæ–‡ä»¶åçš„èµ·å§‹ä½ç½®
 			int index = dest.lastIndexOf('\\');
 			if (index == -1) {
 				index = dest.lastIndexOf('/');
@@ -577,7 +577,7 @@ public class LocalFile implements IFile {
 			throw new RQException(mm.getMessage("file.fileNotExist", dest));
 		}
 
-		// Èç¹û²»´øÎÄ¼şÃû£¬×Ô¶¯ÓÃÔ´ÎÄ¼şÃû
+		// å¦‚æœä¸å¸¦æ–‡ä»¶åï¼Œè‡ªåŠ¨ç”¨æºæ–‡ä»¶å
 		if (isDir && !file.isDirectory()) {
 			destFile = new File(destFile, file.getName());
 		}
@@ -604,9 +604,9 @@ public class LocalFile implements IFile {
 	}
 
 	/**
-	 * ´´½¨ÁÙÊ±ÎÄ¼ş
+	 * åˆ›å»ºä¸´æ—¶æ–‡ä»¶
 	 * @param prefix String
-	 * @return String ·µ»Ø¾ø¶ÔÂ·¾¶ÎÄ¼şÃû
+	 * @return String è¿”å›ç»å¯¹è·¯å¾„æ–‡ä»¶å
 	 */
 	public String createTempFile(String prefix) {
 		try {
@@ -635,10 +635,10 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * °Ñ¸ø¶¨µÄÂ·¾¶ÃûÉ¾³ıÇ°ÃæµÄÖ÷Ä¿Â¼£¬·µ»ØÏà¶ÔÓÚÖ÷Ä¿Â¼µÄÂ·¾¶
-	 * @param pathName ÎÄ¼şÂ·¾¶Ãû
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ½ØÈ¡ºóµÄÏà¶ÔÂ·¾¶Ãû
+	 * æŠŠç»™å®šçš„è·¯å¾„ååˆ é™¤å‰é¢çš„ä¸»ç›®å½•ï¼Œè¿”å›ç›¸å¯¹äºä¸»ç›®å½•çš„è·¯å¾„
+	 * @param pathName æ–‡ä»¶è·¯å¾„å
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æˆªå–åçš„ç›¸å¯¹è·¯å¾„å
 	 */
 	public static String removeMainPath(String pathName, Context ctx) {
 		File home = null;
@@ -662,7 +662,7 @@ public class LocalFile implements IFile {
 		String strHome = home.getAbsolutePath();
 		int len = strHome.length();
 		if (pathName.length() > len && pathName.substring(0, len).equalsIgnoreCase(strHome)) {
-			// È¥µôÇ°ÃæµÄĞ±¸Ü»ò·´Ğ±¸Ü
+			// å»æ‰å‰é¢çš„æ–œæ æˆ–åæ–œæ 
 			char c = pathName.charAt(len);
 			if (c == '\\' || c == '/') {
 				len++;
@@ -681,9 +681,9 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * ¸´ÖÆÎÄ¼şµ½Ö¸¶¨ÎÄ¼ş¼ĞÏÂ
-	 * @param s Ô´ÎÄ¼ş
-	 * @param t Ä¿±êÎÄ¼ş¼Ğ
+	 * å¤åˆ¶æ–‡ä»¶åˆ°æŒ‡å®šæ–‡ä»¶å¤¹ä¸‹
+	 * @param s æºæ–‡ä»¶
+	 * @param t ç›®æ ‡æ–‡ä»¶å¤¹
 	 * @return
 	 */
 	public static boolean copyDirectory(File s, File t) {
@@ -709,10 +709,10 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * ¸´ÖÆÎÄ¼şµÄÄÚÈİµ½Ö¸¶¨ÎÄ¼ş
-	 * @param s Ô´ÎÄ¼ş
-	 * @param t Ä¿±êÎÄ¼ş
-	 * @return true£º³É¹¦
+	 * å¤åˆ¶æ–‡ä»¶çš„å†…å®¹åˆ°æŒ‡å®šæ–‡ä»¶
+	 * @param s æºæ–‡ä»¶
+	 * @param t ç›®æ ‡æ–‡ä»¶
+	 * @return trueï¼šæˆåŠŸ
 	 */
 	public static boolean copyFile(File s, File t) {
 		FileInputStream fis = null;
@@ -723,7 +723,7 @@ public class LocalFile implements IFile {
 			fos = new FileOutputStream(t);
 			FileChannel in = fis.getChannel();
 			FileChannel out = fos.getChannel();
-			in.transferTo(0, in.size(), out); // Á¬½ÓÁ½¸öÍ¨µÀ£¬²¢ÇÒ´ÓinÍ¨µÀ¶ÁÈ¡£¬È»ºóĞ´ÈëoutÍ¨µÀ
+			in.transferTo(0, in.size(), out); // è¿æ¥ä¸¤ä¸ªé€šé“ï¼Œå¹¶ä¸”ä»iné€šé“è¯»å–ï¼Œç„¶åå†™å…¥outé€šé“
 		} catch (IOException e) {
 			throw new RQException(e);
 		} finally {
@@ -748,8 +748,8 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * ÉèÖÃÎÄ¼ş´óĞ¡
-	 * @param size ´óĞ¡
+	 * è®¾ç½®æ–‡ä»¶å¤§å°
+	 * @param size å¤§å°
 	 */
 	public void setFileSize(long size) {
 		File file = getFile();
@@ -765,15 +765,15 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * È¡·ÖÇø
-	 * @return Integer Èç¹ûÃ»ÓĞÉèÖÃ·ÖÇøÔò·µ»Ø¿Õ
+	 * å–åˆ†åŒº
+	 * @return Integer å¦‚æœæ²¡æœ‰è®¾ç½®åˆ†åŒºåˆ™è¿”å›ç©º
 	 */
 	public Integer getPartition() {
 		return partition;
 	}
 	
 	/**
-	 * È¡Ëæ»ú·ÃÎÊÎÄ¼ş¶ÔÏó£¬Èç¹û²»Ö§³ÖÔò·µ»Ønull
+	 * å–éšæœºè®¿é—®æ–‡ä»¶å¯¹è±¡ï¼Œå¦‚æœä¸æ”¯æŒåˆ™è¿”å›null
 	 * @return RandomAccessFile
 	 */
 	public RandomAccessFile getRandomAccessFile() {
@@ -790,8 +790,8 @@ public class LocalFile implements IFile {
 	}
 	
 	/**
-	 * ·µ»ØÊÇ·ñÊÇÔÆÎÄ¼ş
-	 * @return true£ºÊÇÔÆÎÄ¼ş£¬false£º²»ÊÇÔÆÎÄ¼ş
+	 * è¿”å›æ˜¯å¦æ˜¯äº‘æ–‡ä»¶
+	 * @return trueï¼šæ˜¯äº‘æ–‡ä»¶ï¼Œfalseï¼šä¸æ˜¯äº‘æ–‡ä»¶
 	 */
 	public boolean isCloudFile() {
 		return false;

@@ -11,7 +11,7 @@ import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.expression.Expression;
 
 /**
- * »ù±í½Ó¿ÚÀà
+ * åŸºè¡¨æ¥å£ç±»
  * @author runqian
  *
  */
@@ -20,87 +20,87 @@ public interface IPhyTable extends IResource {
 	void close();	
 	
 	/**
-	 * ĞÂ½¨Á¢Ò»¸ö¸½±í
-	 * @param colNames ÁĞÃû³Æ
-	 * @param serialBytesLen ÅÅºÅ³¤¶È£¨0±íÊ¾²»ÊÇÅÅºÅ£©
-	 * @param tableName ±íÃû³Æ
+	 * æ–°å»ºç«‹ä¸€ä¸ªé™„è¡¨
+	 * @param colNames åˆ—åç§°
+	 * @param serialBytesLen æ’å·é•¿åº¦ï¼ˆ0è¡¨ç¤ºä¸æ˜¯æ’å·ï¼‰
+	 * @param tableName è¡¨åç§°
 	 * @return
 	 * @throws IOException
 	 */
 	IPhyTable createAnnexTable(String []colNames, int []serialBytesLen, String tableName) throws IOException;
 	
 	/**
-	 * ´ò¿ª¸½±í
+	 * æ‰“å¼€é™„è¡¨
 	 * @param tableName
 	 * @return
 	 */
 	IPhyTable getAnnexTable(String tableName);
 
 	/**
-	 * ×·¼ÓÓÎ±êµÄÊı¾İ
+	 * è¿½åŠ æ¸¸æ ‡çš„æ•°æ®
 	 * @param cursor
 	 * @throws IOException
 	 */
 	void append(ICursor cursor) throws IOException;
 	
 	/**
-	 * ×·¼ÓÓÎ±êµÄÊı¾İ
+	 * è¿½åŠ æ¸¸æ ‡çš„æ•°æ®
 	 * @param cursor
-	 * @param opt 'a',×·¼Óµ½²¹ÎÄ¼ş£»'m',Óë²¹ÎÄ¼şºÏ²¢£»'i',Á¢¼´Ğ´ÈëÎÄ¼ş
+	 * @param opt 'a',è¿½åŠ åˆ°è¡¥æ–‡ä»¶ï¼›'m',ä¸è¡¥æ–‡ä»¶åˆå¹¶ï¼›'i',ç«‹å³å†™å…¥æ–‡ä»¶
 	 * @throws IOException
 	 */
 	void append(ICursor cursor, String opt) throws IOException;
 	
 	/**
-	 * ¸üĞÂ
-	 * @param data Òª¸üĞÂµÄÊı¾İ £¨±ØĞëÒªÖ÷¼ü£©
-	 * @param opt 'n',·µ»ØĞ´Èë³É¹¦µÄÊı¾İ
+	 * æ›´æ–°
+	 * @param data è¦æ›´æ–°çš„æ•°æ® ï¼ˆå¿…é¡»è¦ä¸»é”®ï¼‰
+	 * @param opt 'n',è¿”å›å†™å…¥æˆåŠŸçš„æ•°æ®
 	 * @return
 	 * @throws IOException
 	 */
 	Sequence update(Sequence data, String opt) throws IOException;
 	
 	/**
-	 * É¾³ı
-	 * @param data Òª¸üĞÂµÄÊı¾İ £¨±ØĞëÒªÖ÷¼ü£©
-	 * @param opt 'n',·µ»ØÉ¾³ı³É¹¦µÄÊı¾İ
+	 * åˆ é™¤
+	 * @param data è¦æ›´æ–°çš„æ•°æ® ï¼ˆå¿…é¡»è¦ä¸»é”®ï¼‰
+	 * @param opt 'n',è¿”å›åˆ é™¤æˆåŠŸçš„æ•°æ®
 	 * @return
 	 * @throws IOException
 	 */
 	Sequence delete(Sequence data, String opt) throws IOException;
 
 	/**
-	 * ·µ»ØÕâ¸ö»ù±íµÄÓÎ±ê
+	 * è¿”å›è¿™ä¸ªåŸºè¡¨çš„æ¸¸æ ‡
 	 * @return
 	 */
 	ICursor cursor();
 	
 	/**
-	 * ·µ»ØÕâ¸ö»ù±íµÄÓÎ±ê
-	 * @param fields È¡³ö×Ö¶Î
+	 * è¿”å›è¿™ä¸ªåŸºè¡¨çš„æ¸¸æ ‡
+	 * @param fields å–å‡ºå­—æ®µ
 	 * @return
 	 */
 	ICursor cursor(String []fields);
 	
 	/**
-	 * ·µ»ØÓÎ±ê
-	 * @param fields È¡³ö×Ö¶Î
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param ctx ÉÏÏÂÎÄ
+	 * è¿”å›æ¸¸æ ‡
+	 * @param fields å–å‡ºå­—æ®µ
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	ICursor cursor(String []fields, Expression filter, Context ctx);
 	
 	/**
-	 * ·µ»ØÓÎ±ê
-	 * Èç¹ûexpsÎªnullÔòÒÔfieldsÎªÑ¡³ö×Ö¶Î
-	 * @param exps ×Ö¶Î±í´ïÊ½
-	 * @param fields Ñ¡³ö×Ö¶Î±ğÃû
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param opts ¹ØÁª×Ö¶Î½øĞĞ¹ØÁªµÄÑ¡Ïî
-	 * @param opt Ñ¡Ïî
+	 * è¿”å›æ¸¸æ ‡
+	 * å¦‚æœexpsä¸ºnullåˆ™ä»¥fieldsä¸ºé€‰å‡ºå­—æ®µ
+	 * @param exps å­—æ®µè¡¨è¾¾å¼
+	 * @param fields é€‰å‡ºå­—æ®µåˆ«å
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param opts å…³è”å­—æ®µè¿›è¡Œå…³è”çš„é€‰é¡¹
+	 * @param opt é€‰é¡¹
 	 * @param ctx
 	 * @return
 	 */
@@ -108,15 +108,15 @@ public interface IPhyTable extends IResource {
 			String []fkNames, Sequence []codes, String []opts, String opt, Context ctx);
 	
 	/**
-	 * ·µ»Ø¶àÂ·ÓÎ±ê£¬pathCountÎª1Ê±·µ»ØÆÕÍ¨ÓÎ±ê
-	 * @param exps ×Ö¶Î±í´ïÊ½
-	 * @param fields Ñ¡³ö×Ö¶Î±ğÃû
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param opts ¹ØÁª×Ö¶Î½øĞĞ¹ØÁªµÄÑ¡Ïî
-	 * @param pathCount Â·Êı
-	 * @param opt Ñ¡Ïî
+	 * è¿”å›å¤šè·¯æ¸¸æ ‡ï¼ŒpathCountä¸º1æ—¶è¿”å›æ™®é€šæ¸¸æ ‡
+	 * @param exps å­—æ®µè¡¨è¾¾å¼
+	 * @param fields é€‰å‡ºå­—æ®µåˆ«å
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param opts å…³è”å­—æ®µè¿›è¡Œå…³è”çš„é€‰é¡¹
+	 * @param pathCount è·¯æ•°
+	 * @param opt é€‰é¡¹
 	 * @param ctx
 	 * @return
 	 */
@@ -125,17 +125,17 @@ public interface IPhyTable extends IResource {
 			int pathCount, String opt, Context ctx);
 	
 	/**
-	 * ·µ»Ø·Ö¶ÎÓÎ±ê
-	 * @param exps ×Ö¶Î±í´ïÊ½
-	 * @param fields Ñ¡³ö×Ö¶Î±ğÃû
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param opts ¹ØÁª×Ö¶Î½øĞĞ¹ØÁªµÄÑ¡Ïî
-	 * @param segSeq µÚ¼¸¶Î
-	 * @param segCount  ·Ö¶Î×ÜÊı
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ÉÏÏÂÎÄ
+	 * è¿”å›åˆ†æ®µæ¸¸æ ‡
+	 * @param exps å­—æ®µè¡¨è¾¾å¼
+	 * @param fields é€‰å‡ºå­—æ®µåˆ«å
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param opts å…³è”å­—æ®µè¿›è¡Œå…³è”çš„é€‰é¡¹
+	 * @param segSeq ç¬¬å‡ æ®µ
+	 * @param segCount  åˆ†æ®µæ€»æ•°
+	 * @param opt é€‰é¡¹
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	ICursor cursor(Expression []exps, String []fields, Expression filter, 
@@ -143,15 +143,15 @@ public interface IPhyTable extends IResource {
 			int pathSeq, int pathCount, String opt, Context ctx);
 	
 	/**
-	 * ·µ»ØÓëmcsÍ¬²½·Ö¶ÎµÄ¶àÂ·ÓÎ±ê
-	 * @param exps ×Ö¶Î±í´ïÊ½
-	 * @param fields Ñ¡³ö×Ö¶Î±ğÃû
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param opts ¹ØÁª×Ö¶Î½øĞĞ¹ØÁªµÄÑ¡Ïî
-	 * @param mcs ²Î¿¼·Ö¶ÎµÄ¶àÂ·ÓÎ±ê
-	 * @param opt Ñ¡Ïî
+	 * è¿”å›ä¸mcsåŒæ­¥åˆ†æ®µçš„å¤šè·¯æ¸¸æ ‡
+	 * @param exps å­—æ®µè¡¨è¾¾å¼
+	 * @param fields é€‰å‡ºå­—æ®µåˆ«å
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param opts å…³è”å­—æ®µè¿›è¡Œå…³è”çš„é€‰é¡¹
+	 * @param mcs å‚è€ƒåˆ†æ®µçš„å¤šè·¯æ¸¸æ ‡
+	 * @param opt é€‰é¡¹
 	 * @param ctx
 	 * @return
 	 */
@@ -160,19 +160,19 @@ public interface IPhyTable extends IResource {
 			MultipathCursors mcs, String opt, Context ctx);
 
 	/**
-	 * ¶ş´Î·Ö¶ÎµÄÓÎ±ê
-	 * ÓÃÓÚ¼¯ÈºµÄ½Úµã»ú
-	 * @param exps È¡³ö×Ö¶Î±í´ïÊ½£¨µ±expsÎªnullÊ±°´ÕÕfieldsÈ¡³ö£©
-	 * @param fields È¡³ö×Ö¶ÎµÄĞÂÃû³Æ
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param fkNames Ö¸¶¨FK¹ıÂËµÄ×Ö¶ÎÃû³Æ
-	 * @param codes Ö¸¶¨FK¹ıÂËµÄÊı¾İĞòÁĞ
-	 * @param opts ¹ØÁª×Ö¶Î½øĞĞ¹ØÁªµÄÑ¡Ïî
-	 * @param pathSeq µÚ¼¸¶Î
-	 * @param pathCount ½Úµã»úÊı
-	 * @param pathCount2 ½Úµã»úÉÏÖ¸¶¨µÄ¿éÊı
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ÉÏÏÂÎÄ
+	 * äºŒæ¬¡åˆ†æ®µçš„æ¸¸æ ‡
+	 * ç”¨äºé›†ç¾¤çš„èŠ‚ç‚¹æœº
+	 * @param exps å–å‡ºå­—æ®µè¡¨è¾¾å¼ï¼ˆå½“expsä¸ºnullæ—¶æŒ‰ç…§fieldså–å‡ºï¼‰
+	 * @param fields å–å‡ºå­—æ®µçš„æ–°åç§°
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames æŒ‡å®šFKè¿‡æ»¤çš„å­—æ®µåç§°
+	 * @param codes æŒ‡å®šFKè¿‡æ»¤çš„æ•°æ®åºåˆ—
+	 * @param opts å…³è”å­—æ®µè¿›è¡Œå…³è”çš„é€‰é¡¹
+	 * @param pathSeq ç¬¬å‡ æ®µ
+	 * @param pathCount èŠ‚ç‚¹æœºæ•°
+	 * @param pathCount2 èŠ‚ç‚¹æœºä¸ŠæŒ‡å®šçš„å—æ•°
+	 * @param opt é€‰é¡¹
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	ICursor cursor(Expression []exps, String []fields, Expression filter, 
@@ -180,62 +180,62 @@ public interface IPhyTable extends IResource {
 			int pathSeq, int pathCount, int pathCount2, String opt, Context ctx);
 	
 	/**
-	 * ¸ù¾İÖ÷¼ü²éÕÒ¼ÇÂ¼
-	 * @param values Ö÷¼üÊı¾İ
-	 * @return »ù±íÀïÓëvalues Ö÷¼üÏàÍ¬µÄ¼ÇÂ¼
+	 * æ ¹æ®ä¸»é”®æŸ¥æ‰¾è®°å½•
+	 * @param values ä¸»é”®æ•°æ®
+	 * @return åŸºè¡¨é‡Œä¸values ä¸»é”®ç›¸åŒçš„è®°å½•
 	 * @throws IOException
 	 */
 	Table finds(Sequence values) throws IOException;
 	
 	/**
-	 * ¸ù¾İÖ÷¼ü²éÕÒ¼ÇÂ¼
-	 * @param values Ö÷¼üÊı¾İ
-	 * @param selFields È¡³ö×Ö¶Î
-	 * @return »ù±íÀïÓëvalues Ö÷¼üÏàÍ¬µÄ¼ÇÂ¼
+	 * æ ¹æ®ä¸»é”®æŸ¥æ‰¾è®°å½•
+	 * @param values ä¸»é”®æ•°æ®
+	 * @param selFields å–å‡ºå­—æ®µ
+	 * @return åŸºè¡¨é‡Œä¸values ä¸»é”®ç›¸åŒçš„è®°å½•
 	 * @throws IOException
 	 */
 	Table finds(Sequence values, String []selFields) throws IOException;
 	
 	/**
-	 * Ê¹ÓÃË÷Òı²éÑ¯
-	 * @param fields È¡³ö×Ö¶Î
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param iname Ë÷Òı¶ÔÏó
-	 * @param opt °üº¬'u'Ê±,²»µ÷ÕûfilterÀï¸÷Ìõ¼şµÄ¹ıÂËÓÅÏÈ¼¶
-	 * @param ctx ÉÏÏÂÎÄ
-	 * @return Ë÷ÒıÓÎ±ê£¬Ò²¿ÉÄÜÊÇÆäËüÓÎ±ê
+	 * ä½¿ç”¨ç´¢å¼•æŸ¥è¯¢
+	 * @param fields å–å‡ºå­—æ®µ
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param iname ç´¢å¼•å¯¹è±¡
+	 * @param opt åŒ…å«'u'æ—¶,ä¸è°ƒæ•´filteré‡Œå„æ¡ä»¶çš„è¿‡æ»¤ä¼˜å…ˆçº§
+	 * @param ctx ä¸Šä¸‹æ–‡
+	 * @return ç´¢å¼•æ¸¸æ ‡ï¼Œä¹Ÿå¯èƒ½æ˜¯å…¶å®ƒæ¸¸æ ‡
 	 */
 	ICursor icursor(String []fields, Expression filter, Object iname, String opt, Context ctx);
 	
 	/**
-	 * ĞŞ¸Ä×Ö¶ÎÃû
-	 * @param srcFields ¾ÉÃû³Æ
-	 * @param newFields ĞÂÃû³Æ
+	 * ä¿®æ”¹å­—æ®µå
+	 * @param srcFields æ—§åç§°
+	 * @param newFields æ–°åç§°
 	 * @param ctx
 	 * @throws IOException
 	 */
 	void rename(String []srcFields, String []newFields, Context ctx) throws IOException;
 	
 	/**
-	 * ·µ»ØÅÅĞò×Ö¶ÎÃû£¨º¬Ö÷±í£©
-	 * @return ÅÅĞò×Ö¶ÎÃûÊı×é
+	 * è¿”å›æ’åºå­—æ®µåï¼ˆå«ä¸»è¡¨ï¼‰
+	 * @return æ’åºå­—æ®µåæ•°ç»„
 	 */
 	String[] getAllSortedColNames();
 	
 	/**
-	 * È¡Ö÷¼ü×Ö¶ÎÃû£¨º¬Ö÷±í£©
-	 * @return Ö÷¼ü×Ö¶ÎÃûÊı×é
+	 * å–ä¸»é”®å­—æ®µåï¼ˆå«ä¸»è¡¨ï¼‰
+	 * @return ä¸»é”®å­—æ®µåæ•°ç»„
 	 */
 	String[] getAllKeyColNames();
 	
 	/**
-	 * ·µ»ØËùÓĞÁĞÃû£¨º¬Ö÷±í)
+	 * è¿”å›æ‰€æœ‰åˆ—åï¼ˆå«ä¸»è¡¨)
 	 * @return
 	 */
 	String[] getAllColNames();
 	
 	/**
-	 * É¾³ıË÷Òı
+	 * åˆ é™¤ç´¢å¼•
 	 * @param indexName
 	 * @return
 	 * @throws IOException
@@ -243,47 +243,47 @@ public interface IPhyTable extends IResource {
 	boolean deleteIndex(String indexName) throws IOException;
 
 	/**
-	 * ĞÂ½¨Ë÷Òı
-	 * @param I Ë÷ÒıÃû³Æ
-	 * @param fields ×Ö¶ÎÃû³Æ
-	 * @param obj µ±KVË÷ÒıÊ±±íÊ¾Öµ×Ö¶ÎÃû³Æ£¬µ±hashË÷ÒıÊ±±íÊ¾hashÃÜ¶È
-	 * @param opt °üº¬'a'Ê±±íÊ¾×·¼Ó, °üº¬'r'Ê±±íÊ¾ÖØ½¨Ë÷Òı
-	 * @param w ½¨Á¢Ê±µÄ¹ıÂËÌõ¼ş
-	 * @param ctx ÉÏÏÂÎÄ
+	 * æ–°å»ºç´¢å¼•
+	 * @param I ç´¢å¼•åç§°
+	 * @param fields å­—æ®µåç§°
+	 * @param obj å½“KVç´¢å¼•æ—¶è¡¨ç¤ºå€¼å­—æ®µåç§°ï¼Œå½“hashç´¢å¼•æ—¶è¡¨ç¤ºhashå¯†åº¦
+	 * @param opt åŒ…å«'a'æ—¶è¡¨ç¤ºè¿½åŠ , åŒ…å«'r'æ—¶è¡¨ç¤ºé‡å»ºç´¢å¼•
+	 * @param w å»ºç«‹æ—¶çš„è¿‡æ»¤æ¡ä»¶
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 */
 	void createIndex(String I, String []fields, Object obj, String opt, Expression w, Context ctx);
 	
 	/**
-	 * È¡·Ö²¼±í´ïÊ½´®
+	 * å–åˆ†å¸ƒè¡¨è¾¾å¼ä¸²
 	 * @return
 	 */
 	String getDistribute();
 	
 	/**
-	 * Ìí¼ÓÒ»ÁĞ
-	 * @param colName ÁĞÃû
-	 * @param exp ÁĞÖµ±í´ïÊ½
+	 * æ·»åŠ ä¸€åˆ—
+	 * @param colName åˆ—å
+	 * @param exp åˆ—å€¼è¡¨è¾¾å¼
 	 * @param ctx 
 	 */
 	void addColumn(String colName, Expression exp, Context ctx);
 	
 	/**
-	 * É¾³ıÒ»ÁĞ
-	 * @param colName ÁĞÃû
+	 * åˆ é™¤ä¸€åˆ—
+	 * @param colName åˆ—å
 	 */
 	void deleteColumn(String colName);
 	
 	/**
-	 * È¡µÃÉ¾³ı×Ö¶ÎËùÔÚµÄÁĞºÅ
-	 * @param exps È¡³ö±í´ïÊ½
-	 * @param fields È¡³ö±ğÃû
+	 * å–å¾—åˆ é™¤å­—æ®µæ‰€åœ¨çš„åˆ—å·
+	 * @param exps å–å‡ºè¡¨è¾¾å¼
+	 * @param fields å–å‡ºåˆ«å
 	 * @return
 	 */
 	int getDeleteFieldIndex(Expression []exps, String []fields);
 	
 	/**
-	 * ºÏ²¢Á½¸ö×é±íÎÄ¼ş
-	 * @param table ÁíÒ»¸ö×é±í
+	 * åˆå¹¶ä¸¤ä¸ªç»„è¡¨æ–‡ä»¶
+	 * @param table å¦ä¸€ä¸ªç»„è¡¨
 	 * @throws IOException
 	 */
 	void append(PhyTable table) throws IOException;

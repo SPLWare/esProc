@@ -40,76 +40,76 @@ import com.scudata.ide.common.swing.VFlowLayout;
 import com.scudata.util.Variant;
 
 /**
- * ³£Á¿±à¼­
+ * å¸¸é‡ç¼–è¾‘
  *
  */
 public class DialogEditConst extends DialogMaxmizable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 
 	/**
-	 * ÈÕÆÚ¸ñÊ½
+	 * æ—¥æœŸæ ¼å¼
 	 */
 	private java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat(
 			Env.getDateFormat());
 
 	/**
-	 * ÊÂ¼ş¸ñÊ½
+	 * äº‹ä»¶æ ¼å¼
 	 */
 	private java.text.SimpleDateFormat timeFormatter = new java.text.SimpleDateFormat(
 			Env.getDateTimeFormat());
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
-	/** ×Ö·û´® */
+	/** å­—ç¬¦ä¸² */
 	private final String STR_STR = mm.getMessage("dialogeditconst.str");
-	/** ÕûÊı */
+	/** æ•´æ•° */
 	private final String STR_INT = mm.getMessage("dialogeditconst.int");
-	/** ¸¡µãÊı */
+	/** æµ®ç‚¹æ•° */
 	private final String STR_DOUBLE = mm.getMessage("dialogeditconst.double");
-	/** ÈÕÆÚ */
+	/** æ—¥æœŸ */
 	private final String STR_DATE = mm.getMessage("dialogeditconst.date");
-	/** ÈÕÆÚÊ±¼ä */
+	/** æ—¥æœŸæ—¶é—´ */
 	private final String STR_DATE_TIME = mm
 			.getMessage("dialogeditconst.datetime");
-	/** ĞòÁĞ */
+	/** åºåˆ— */
 	private final String STR_SERIES = mm.getMessage("dialogeditconst.series");
-	/** Ğò±í */
+	/** åºè¡¨ */
 	private final String STR_TABLE = mm.getMessage("dialogeditconst.table");
-	/** ±í´ïÊ½ */
+	/** è¡¨è¾¾å¼ */
 	private final String STR_EXP = mm.getMessage("dialogeditconst.exp");
 
-	/** ĞòºÅÁĞ */
+	/** åºå·åˆ— */
 	private final byte COL_INDEX = 0;
-	/** Ãû³ÆÁĞ */
+	/** åç§°åˆ— */
 	private final byte COL_NAME = 1;
-	/** ÀàĞÍÁĞ */
+	/** ç±»å‹åˆ— */
 	private final byte COL_KIND = 2;
-	/** ÖµÁĞ */
+	/** å€¼åˆ— */
 	private final byte COL_VALUE = 3;
-	/** ÅäÖÃ¶ÔÏóÁĞ */
+	/** é…ç½®å¯¹è±¡åˆ— */
 	private final byte COL_CONFIG = 4;
-	/** ÅäÖÃ¶ÔÏóÁĞÃû */
+	/** é…ç½®å¯¹è±¡åˆ—å */
 	private final String STR_PARAM = "COL_CONFIG";
 	/**
-	 * ³£Á¿±í¸ñ¿Ø¼ş¡£ĞòºÅ,Ãû³Æ,ÀàĞÍ,Öµ,COL_CONFIG
+	 * å¸¸é‡è¡¨æ ¼æ§ä»¶ã€‚åºå·,åç§°,ç±»å‹,å€¼,COL_CONFIG
 	 */
 	private JTableEx tableConst = new JTableEx(
 			mm.getMessage("dialogeditconst.tableconst") + STR_PARAM) {
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * ÉèÖÃÖµµÄÊÂ¼ş
+		 * è®¾ç½®å€¼çš„äº‹ä»¶
 		 */
 		public void setValueAt(Object aValue, int row, int column) {
 			if (!isItemDataChanged(row, column, aValue)) {
@@ -126,7 +126,7 @@ public class DialogEditConst extends DialogMaxmizable {
 		}
 
 		/**
-		 * Ë«»÷ÊÂ¼ş
+		 * åŒå‡»äº‹ä»¶
 		 */
 		public void doubleClicked(int xpos, int ypos, int row, int col,
 				MouseEvent e) {
@@ -291,43 +291,43 @@ public class DialogEditConst extends DialogMaxmizable {
 	};
 
 	/**
-	 * Ôö¼Ó°´Å¥
+	 * å¢åŠ æŒ‰é’®
 	 */
 	private JButton jBAdd = new JButton();
 
 	/**
-	 * É¾³ı°´Å¥
+	 * åˆ é™¤æŒ‰é’®
 	 */
 	private JButton jBDel = new JButton();
 
 	/**
-	 * ²ÎÊıÁĞ±í¶ÔÏó
+	 * å‚æ•°åˆ—è¡¨å¯¹è±¡
 	 */
 	private ParamList pl;
 
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 
 	/**
-	 * ÒÑ¾­´æÔÚµÄÃû³Æ
+	 * å·²ç»å­˜åœ¨çš„åç§°
 	 */
 	private Vector<String> usedNames = new Vector<String>();
 
 	/**
-	 * ÆäËû²ÎÊıÃû³Æ
+	 * å…¶ä»–å‚æ•°åç§°
 	 */
 	private Vector<String> otherNames;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param isGlobal
-	 *            ÊÇ·ñÈ«¾Ö±äÁ¿
+	 *            æ˜¯å¦å…¨å±€å˜é‡
 	 */
 	public DialogEditConst(boolean isGlobal) {
-		super(GV.appFrame, "³£Á¿±à¼­", true);
+		super(GV.appFrame, "å¸¸é‡ç¼–è¾‘", true);
 		try {
 			initUI();
 			init(isGlobal);
@@ -340,13 +340,13 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 * 
 	 * @param isGlobal
 	 */
 	private void resetText(boolean isGlobal) {
 		setTitle(isGlobal ? mm.getMessage("dialogeditconst.title") : mm
-				.getMessage("dialogeditconst.title1")); // ³£Á¿±à¼­
+				.getMessage("dialogeditconst.title1")); // å¸¸é‡ç¼–è¾‘
 		jBOK.setText(mm.getMessage("button.ok"));
 		jBCancel.setText(mm.getMessage("button.cancel"));
 		jBAdd.setText(mm.getMessage("button.add"));
@@ -354,7 +354,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -363,7 +363,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * ÉèÖÃÒÑ¾­´æÔÚµÄÃû³Æ
+	 * è®¾ç½®å·²ç»å­˜åœ¨çš„åç§°
 	 * 
 	 * @param usedNames
 	 */
@@ -372,7 +372,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıÁĞ±í¶ÔÏó
+	 * è®¾ç½®å‚æ•°åˆ—è¡¨å¯¹è±¡
 	 * 
 	 * @param pl
 	 */
@@ -382,7 +382,7 @@ public class DialogEditConst extends DialogMaxmizable {
 		}
 		this.pl = pl;
 		setParamList2Table(pl);
-		ParamList otherList = new ParamList(); // Param.ARG Êı¾İÍø
+		ParamList otherList = new ParamList(); // Param.ARG æ•°æ®ç½‘
 		if (pl != null) {
 			pl.getAllVarParams(otherList);
 			int count = otherList.count();
@@ -393,7 +393,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıÁĞ±íµ½±í¸ñ¿Ø¼ş
+	 * è®¾ç½®å‚æ•°åˆ—è¡¨åˆ°è¡¨æ ¼æ§ä»¶
 	 * 
 	 * @param pl
 	 */
@@ -427,7 +427,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * È¡²ÎÊıÁĞ±í
+	 * å–å‚æ•°åˆ—è¡¨
 	 * 
 	 * @return
 	 */
@@ -436,7 +436,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * È¡²ÎÊıÁĞ±í
+	 * å–å‚æ•°åˆ—è¡¨
 	 * 
 	 * @param containTsx
 	 * @return
@@ -499,7 +499,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * È¡²ÎÊıÀàĞÍ
+	 * å–å‚æ•°ç±»å‹
 	 * 
 	 * @param kind
 	 * @return
@@ -519,7 +519,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * È¡ÀàĞÍ
+	 * å–ç±»å‹
 	 * 
 	 * @param p
 	 * @return
@@ -549,10 +549,10 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 * 
 	 * @param isGlobal
-	 *            ÊÇ·ñÈ«¾Ö±äÁ¿
+	 *            æ˜¯å¦å…¨å±€å˜é‡
 	 */
 	private void init(boolean isGlobal) {
 		tableConst.setIndexCol(COL_INDEX);
@@ -589,7 +589,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -598,10 +598,10 @@ public class DialogEditConst extends DialogMaxmizable {
 		VFlowLayout vFlowLayout1 = new VFlowLayout();
 		jPanel2.setLayout(vFlowLayout1);
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogEditConst_jBOK_actionAdapter(this));
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogEditConst_jBCancel_actionAdapter(
 				this));
 		jBAdd.addActionListener(new DialogEditConst_jBAdd_actionAdapter(this));
@@ -617,9 +617,9 @@ public class DialogEditConst extends DialogMaxmizable {
 		jButton1.setBorder(null);
 		jPanel3.setLayout(borderLayout1);
 		jBAdd.setMnemonic('A');
-		jBAdd.setText("Ôö¼Ó(A)");
+		jBAdd.setText("å¢åŠ (A)");
 		jBDel.setMnemonic('D');
-		jBDel.setText("É¾³ı(D)");
+		jBDel.setText("åˆ é™¤(D)");
 		this.getContentPane().add(jPanel3, BorderLayout.CENTER);
 		this.getContentPane().add(jPanel2, BorderLayout.EAST);
 		jPanel2.add(jBOK, null);
@@ -635,7 +635,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -645,14 +645,14 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * ¼ì²éÊı¾İ
+	 * æ£€æŸ¥æ•°æ®
 	 * 
 	 * @return
 	 */
 	private boolean checkData() {
 		tableConst.acceptText();
 		if (!tableConst
-				.verifyColumnData(COL_NAME, mm.getMessage("public.name"), true, this)) { // Ãû³Æ
+				.verifyColumnData(COL_NAME, mm.getMessage("public.name"), true, this)) { // åç§°
 			return false;
 		}
 		int count = tableConst.getRowCount();
@@ -663,19 +663,19 @@ public class DialogEditConst extends DialogMaxmizable {
 			name = (String) tableConst.data.getValueAt(i, COL_NAME);
 			if (usedNames.contains(name)) {
 				GM.messageDialog(this, mm.getMessage(
-						"dialogeditconst.existname", i + 1 + "", name)); // µÚ{0}ĞĞ²ÎÊıÃû£º{1}ÒÑ¾­´æÔÚ¡£
+						"dialogeditconst.existname", i + 1 + "", name)); // ç¬¬{0}è¡Œå‚æ•°åï¼š{1}å·²ç»å­˜åœ¨ã€‚
 				return false;
 			}
 			kind = ((Byte) tableConst.data.getValueAt(i, COL_KIND)).byteValue();
 			val = tableConst.data.getValueAt(i, COL_VALUE);
 			if (val == null) {
 				GM.messageDialog(this,
-						mm.getMessage("dialogeditconst.emptyval", i + 1 + "")); // µÚ{0}ĞĞ²ÎÊıÖµÎª¿Õ¡£
+						mm.getMessage("dialogeditconst.emptyval", i + 1 + "")); // ç¬¬{0}è¡Œå‚æ•°å€¼ä¸ºç©ºã€‚
 				return false;
 			}
 			String strKind = "";
 			String message = mm.getMessage("dialogeditconst.notvalid", i + 1
-					+ ""); // µÚ{0}ĞĞ²ÎÊıÖµÀàĞÍÓ¦¸ÃÎª£º
+					+ ""); // ç¬¬{0}è¡Œå‚æ•°å€¼ç±»å‹åº”è¯¥ä¸ºï¼š
 			try {
 				switch (kind) {
 				case GC.KIND_INT:
@@ -696,13 +696,13 @@ public class DialogEditConst extends DialogMaxmizable {
 						val = PgmNormalCell.parseConstValue((String) val);
 					}
 					if (!(val instanceof Sequence)) {
-						GM.messageDialog(this, message + STR_SERIES); // µÚ{0}ĞĞ²ÎÊıÖµÀàĞÍÓ¦¸ÃÎª£ºĞòÁĞ
+						GM.messageDialog(this, message + STR_SERIES); // ç¬¬{0}è¡Œå‚æ•°å€¼ç±»å‹åº”è¯¥ä¸ºï¼šåºåˆ—
 						return false;
 					}
 					break;
 				case GC.KIND_TABLE:
 					if (!(val instanceof Table)) {
-						GM.messageDialog(this, message + STR_TABLE); // µÚ{0}ĞĞ²ÎÊıÖµÀàĞÍÓ¦¸ÃÎª£ºĞò±í
+						GM.messageDialog(this, message + STR_TABLE); // ç¬¬{0}è¡Œå‚æ•°å€¼ç±»å‹åº”è¯¥ä¸ºï¼šåºè¡¨
 						return false;
 					}
 					break;
@@ -716,7 +716,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param ae
 	 */
@@ -730,7 +730,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -740,7 +740,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * Ôö¼Ó°´Å¥ÊÂ¼ş
+	 * å¢åŠ æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -763,7 +763,7 @@ public class DialogEditConst extends DialogMaxmizable {
 	}
 
 	/**
-	 * É¾³ı°´Å¥ÊÂ¼ş
+	 * åˆ é™¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */

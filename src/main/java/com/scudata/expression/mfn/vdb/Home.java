@@ -7,7 +7,7 @@ import com.scudata.expression.VSFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 设置当前目录，后续读写操作将相对于此路径
+ * 璁剧疆褰撳墠鐩綍锛屽悗缁鍐欐搷浣滃皢鐩稿浜庢璺緞
  * h.home(p)
  * @author RunQian
  *

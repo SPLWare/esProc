@@ -10,48 +10,48 @@ import com.scudata.chart.resources.ChartMessage;
 import com.scudata.common.MessageManager;
 import com.scudata.dm.*;
 /**
- * ÏßÍ¼Ôª
- * ÏßÍ¼Ôª½ö¿É±íÏÖÕÛÏßÍ¼£¬Ò²¿ÉÅäºÏÊôĞÔcloseArea±íÏÖÎªÇøÓòÍ¼
+ * çº¿å›¾å…ƒ
+ * çº¿å›¾å…ƒä»…å¯è¡¨ç°æŠ˜çº¿å›¾ï¼Œä¹Ÿå¯é…åˆå±æ€§closeAreaè¡¨ç°ä¸ºåŒºåŸŸå›¾
  * @author Joancy
  *
  */
 public class Line extends Dot {
-	// **Ê×Î²ÏàÁ¬
+	// **é¦–å°¾ç›¸è¿
 	public boolean endToHead = false;
 
-	// Ìî³ä¸ú×ø±êÖá»òÕß»Ø×ªµÄ·â±ÕÇøÓò
+	// å¡«å……è·Ÿåæ ‡è½´æˆ–è€…å›è½¬çš„å°é—­åŒºåŸŸ
 	public boolean closedArea = false;
-	public Para areaColor = new Para(null); // ÇøÓòÌî³äÑÕÉ«
+	public Para areaColor = new Para(null); // åŒºåŸŸå¡«å……é¢œè‰²
 
-	// ¶Ñ»ıµÄÖ±Ïß»òÇøÓò
+	// å †ç§¯çš„ç›´çº¿æˆ–åŒºåŸŸ
 	public int stackType = Consts.STACK_NONE;
 
-	// ºóĞøµã¶¼´ÓµÚÒ»µã·ÅÉäÁ¬½Ó
+	// åç»­ç‚¹éƒ½ä»ç¬¬ä¸€ç‚¹æ”¾å°„è¿æ¥
 	public boolean radiateLine = false;
 
-	// ÏàÁÚµã¶¼Ê¹ÓÃ½×ÌİÏßÁ¬½Ó
+	// ç›¸é‚»ç‚¹éƒ½ä½¿ç”¨é˜¶æ¢¯çº¿è¿æ¥
 	public boolean stairLine = false;
 
-	// ¼ıÍ·£¬¹Ì¶¨³¤¶È
+	// ç®­å¤´ï¼Œå›ºå®šé•¿åº¦
 	public int arrow = Consts.LINE_ARROW_NONE;
 
 	/**
-	 * È±Ê¡²ÎÊıµÄ¹¹Ôìº¯Êı
+	 * ç¼ºçœå‚æ•°çš„æ„é€ å‡½æ•°
 	 */
 	public Line() {
 	}
 
 	/**
-	 * ÊÇ·ñ¶Ñ»ıÀàĞÍ
-	 * @return Èç¹ûÊÇ·µ»Øtrue£¬·ñÔòfalse
+	 * æ˜¯å¦å †ç§¯ç±»å‹
+	 * @return å¦‚æœæ˜¯è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isStacked() {
 		return stackType > Consts.STACK_NONE;
 	}
 
 	/**
-	 * »ñÈ¡±à¼­ÓÃµÄ²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘ç”¨çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -69,14 +69,14 @@ public class Line extends Dot {
 		ParamInfoList superPF = super.getParamInfoList();
 		MessageManager mm = ChartMessage.get();
 		String groupName = mm.getMessage("point");
-		superPF.getParams(groupName).add(2,arrowPI);//·Åµ½ÏßĞÎÒ»Æğ
+		superPF.getParams(groupName).add(2,arrowPI);//æ”¾åˆ°çº¿å½¢ä¸€èµ·
 		
 		paramInfos.addAll( superPF );
 		return paramInfos;
 	}
 
 	/**
-	 * »æÖÆ±³¾°²ã
+	 * ç»˜åˆ¶èƒŒæ™¯å±‚
 	 */
 	public void drawBack() {
 		if (!isVisible() || !shadow) {
@@ -86,7 +86,7 @@ public class Line extends Dot {
 	}
 
 	/**
-	 * »æÖÆÖĞ¼ä²ã
+	 * ç»˜åˆ¶ä¸­é—´å±‚
 	 */
 	public void draw() {
 		if (!isVisible()) {
@@ -110,7 +110,7 @@ public class Line extends Dot {
 		Graphics2D g = e.getGraphics();
 		ICoor coor = getCoor();
 		Shape shape;
-		if (stairLine) {// ½×ÌİÏßÊ±£¬Ôö¼ÓÁ½µãÖ®¼äµÄ½×Ìİµã
+		if (stairLine) {// é˜¶æ¢¯çº¿æ—¶ï¼Œå¢åŠ ä¸¤ç‚¹ä¹‹é—´çš„é˜¶æ¢¯ç‚¹
 			ArrayList<Point2D> stairPoints = new ArrayList<Point2D>();
 			Point2D last = linePoints.get(0);
 			for (int i = 1; i < linePoints.size(); i++) {
@@ -124,8 +124,8 @@ public class Line extends Dot {
 			linePoints = stairPoints;
 		}
 		if (closedArea) {
-			// || stairLine , ½×ÌİÏßµÄ·â±ÕÇøÓòÖ»ÄÜ¸ú×ø±ê·â±Õ£¬Ò²¼´ÒªÌí¼ÓÏÂÊöµã£»
-			if (!endToHead || stairLine) {// ²»»Ø×ªÊ±£¬ĞèÒªÌí¼Ó¸ú×ø±êÖáµÄÆğÊ¼ºÍ½áÊø»ùµã
+			// || stairLine , é˜¶æ¢¯çº¿çš„å°é—­åŒºåŸŸåªèƒ½è·Ÿåæ ‡å°é—­ï¼Œä¹Ÿå³è¦æ·»åŠ ä¸‹è¿°ç‚¹ï¼›
+			if (!endToHead || stairLine) {// ä¸å›è½¬æ—¶ï¼Œéœ€è¦æ·»åŠ è·Ÿåæ ‡è½´çš„èµ·å§‹å’Œç»“æŸåŸºç‚¹
 				if (isPhysicalCoor() || coor.isCartesianCoor()) {
 					Point2D p1 = linePoints.get(0);
 					Point2D pL = linePoints.get(linePoints.size() - 1);// Point
@@ -138,17 +138,17 @@ public class Line extends Dot {
 					else{
 						TickAxis ta1 = coor.getAxis1();
 						Point2D pb = ta1.getBasePoint(coor);
-						if (ta1.getLocation() == Consts.AXIS_LOC_H) {// ´¹ÏòºáÖáÊ±
+						if (ta1.getLocation() == Consts.AXIS_LOC_H) {// å‚å‘æ¨ªè½´æ—¶
 							p0 = new Point2D.Double(p1.getX(), pb.getY());
 							pe = new Point2D.Double(pL.getX(), pb.getY());
-						} else {// ´¹Ïò×İÖá
+						} else {// å‚å‘çºµè½´
 							p0 = new Point2D.Double(pb.getX(), p1.getY());
 							pe = new Point2D.Double(pb.getX(), pL.getY());
 						}
 					}
 					linePoints.add(0, p0);
 					linePoints.add(pe);
-				} else {// ¼«×ø±êÏµ×ÜÊÇÒÔ¼«ÖáÔ­µãÎª»ùµã
+				} else {// æåæ ‡ç³»æ€»æ˜¯ä»¥æè½´åŸç‚¹ä¸ºåŸºç‚¹
 					PolarCoor pc = (PolarCoor) coor;
 					TickAxis ta = pc.getPolarAxis();
 					linePoints.add(ta.getBasePoint(coor));
@@ -159,14 +159,14 @@ public class Line extends Dot {
 			if(Utils.setPaint(g, rect.x, rect.y, rect.width, rect.height, areaCcr)){
 				Utils.fillPaint(g, shape, transparent);
 			}
-//			°üº¬·â±ÕÇøÓòµÄshapeÈÔÈ»±£ÁôÖ±½Ó»­shape
+//			åŒ…å«å°é—­åŒºåŸŸçš„shapeä»ç„¶ä¿ç•™ç›´æ¥ç”»shape
 			if (Utils.setStroke(g, bc, style, weight)) {
 				g.draw(shape);
 			}
-		} else {// ²»Ìî³ä£¬»­ÕÛÏß
+		} else {// ä¸å¡«å……ï¼Œç”»æŠ˜çº¿
 //			shape = Utils.getPath2D(linePoints, false);
-//			Ö±ÏßÊ¹ÓÃPath2DÊ±£¬Ä³ÖÖ¼«ÏŞÇé¿öÏÂ£¬Ïß¶¼ÔÚÍ¬Ò»ÌõĞ±ÏßÉÏ£¬ÇÒÏßÌØ±ğ¶à£¬Ä¿Ç°²âÊÔ300¶ÎÒÔÉÏ£¬»á³öÏÖ»æÖÆµÄshapeÃ«´Ì£¬È»ºóÖĞ¼ä¶à³ö
-//			ÄªÃûÆäÃîµÄºáÏß£¬¸Ä»ØÕÛÏß´ÓÍ·¿ªÊ¼Ò»¶Î¶Î»­  2019Äê11ÔÂ29ÈÕ
+//			ç›´çº¿ä½¿ç”¨Path2Dæ—¶ï¼ŒæŸç§æé™æƒ…å†µä¸‹ï¼Œçº¿éƒ½åœ¨åŒä¸€æ¡æ–œçº¿ä¸Šï¼Œä¸”çº¿ç‰¹åˆ«å¤šï¼Œç›®å‰æµ‹è¯•300æ®µä»¥ä¸Šï¼Œä¼šå‡ºç°ç»˜åˆ¶çš„shapeæ¯›åˆºï¼Œç„¶åä¸­é—´å¤šå‡º
+//			è«åå…¶å¦™çš„æ¨ªçº¿ï¼Œæ”¹å›æŠ˜çº¿ä»å¤´å¼€å§‹ä¸€æ®µæ®µç”»  2019å¹´11æœˆ29æ—¥
 			if (Utils.setStroke(g, bc, style, weight)) {
 //				g.draw(shape);
 				Point2D last = linePoints.get(0);
@@ -217,8 +217,8 @@ public class Line extends Dot {
 		case 2:
 			if (stairLine) {
 				drawStep2(index, linePoints);
-			} else if (radiateLine) {// ´Ë´¦²»ÄÜµ÷ÕûÎªif(radiateLine)
-										// else½á¹¹£¬µÃstairLineÓÅÏÈ»­
+			} else if (radiateLine) {// æ­¤å¤„ä¸èƒ½è°ƒæ•´ä¸ºif(radiateLine)
+										// elseç»“æ„ï¼Œå¾—stairLineä¼˜å…ˆç”»
 				if (Utils.setStroke(g, bc, style, weight)) {
 					last = linePoints.get(0);
 					for (int i = 1; i < linePoints.size(); i++) {
@@ -235,20 +235,20 @@ public class Line extends Dot {
 		}
 	}
 
-	// Ö±½ÇÏµ´¹ÏòÖáÎªÃ¶¾ÙÖá»òÕß¼«×ø±êÏµµÄ½ÇÖáÎªÃ¶¾ÙÖáÊ±£¬¿ÉÒÔ¶Ñ»ı
+	// ç›´è§’ç³»å‚å‘è½´ä¸ºæšä¸¾è½´æˆ–è€…æåæ ‡ç³»çš„è§’è½´ä¸ºæšä¸¾è½´æ—¶ï¼Œå¯ä»¥å †ç§¯
 	private void drawEnumBasedLine(int step) {
 		ICoor coor = getCoor();
-		EnumAxis ea = (EnumAxis) coor.getAxis1();// Ö»ÓĞ1ÖáÎªÃ¶¾ÙÖá²ÅÊÇÃ¶¾Ù»ù´¡»æÖÆ
+		EnumAxis ea = (EnumAxis) coor.getAxis1();// åªæœ‰1è½´ä¸ºæšä¸¾è½´æ‰æ˜¯æšä¸¾åŸºç¡€ç»˜åˆ¶
 		Sequence enumData = getAxisData(ea.getName());
 
 		int catCount = categories.length();//ea.
 		int serCount = series.length();
 		if (serCount == 0) {
 			ArrayList<Point2D> linePoints = new ArrayList<Point2D>();
-			for (int c = 1; c <= catCount; c++) { // °¤¸ö·ÖÀà»­Öù×Ó
+			for (int c = 1; c <= catCount; c++) { // æŒ¨ä¸ªåˆ†ç±»ç”»æŸ±å­
 				String catName = (String) categories.get(c);
 				int index = Utils.indexOf(enumData, catName, null);
-				if (index == 0) { // Ä³¸ö·ÖÀàºÍÏµÁĞµÄÊıÖµÈ±ÉÙ
+				if (index == 0) { // æŸä¸ªåˆ†ç±»å’Œç³»åˆ—çš„æ•°å€¼ç¼ºå°‘
 					continue;
 				}
 				Object val1 = data1.get(index);
@@ -278,7 +278,7 @@ public class Line extends Dot {
 				for (int s = 1; s <= serCount; s++) {
 					String serName = (String) series.get(s);
 					index = Utils.indexOf(enumData, catName, serName);
-					if (index == 0) { // Ä³¸ö·ÖÀàºÍÏµÁĞµÄÊıÖµÈ±ÉÙ
+					if (index == 0) { // æŸä¸ªåˆ†ç±»å’Œç³»åˆ—çš„æ•°å€¼ç¼ºå°‘
 						continue;
 					}
 					Object val1 = Column.discardSeries(data1.get(index));
@@ -328,7 +328,7 @@ public class Line extends Dot {
 				for (int s = 1; s <= serCount; s++) {
 					String serName = (String) series.get(s);
 					index = Utils.indexOf(enumData, catName, serName);
-					if (index == 0) { // Ä³¸ö·ÖÀàºÍÏµÁĞµÄÊıÖµÈ±ÉÙ
+					if (index == 0) { // æŸä¸ªåˆ†ç±»å’Œç³»åˆ—çš„æ•°å€¼ç¼ºå°‘
 						continue;
 					}
 					Object val1 = Column.discardSeries(data1.get(index));
@@ -365,7 +365,7 @@ public class Line extends Dot {
 	}
 
 	private void drawDots(int step, boolean discardSeries) {
-		// Ã¶¾ÙÖáµÄÕÛÏß£¬¶¼Ö»°´·ÖÀà¼ÆËãÃ¶¾ÙÖáµÄ×ø±ê£¬µãºóÓÚÕÛÏß»æÖÆ£¬µãÒª¸Ç×¡Ïß
+		// æšä¸¾è½´çš„æŠ˜çº¿ï¼Œéƒ½åªæŒ‰åˆ†ç±»è®¡ç®—æšä¸¾è½´çš„åæ ‡ï¼Œç‚¹åäºæŠ˜çº¿ç»˜åˆ¶ï¼Œç‚¹è¦ç›–ä½çº¿
 		int size = pointSize();
 		
 		for (int i = 1; i <= size; i++) {
@@ -380,9 +380,9 @@ public class Line extends Dot {
 
 	private void drawStep(int step) {
 		ICoor coor = getCoor();
-		if (coor!=null && coor.isEnumBased()) {// Ã¶¾ÙÖá»ù´¡µÄÖ±Ïß£¬Òª¸ù¾İÏµÁĞ½«Êı¾İ²ğ·Ö³É¶à¸ùÏß
+		if (coor!=null && coor.isEnumBased()) {// æšä¸¾è½´åŸºç¡€çš„ç›´çº¿ï¼Œè¦æ ¹æ®ç³»åˆ—å°†æ•°æ®æ‹†åˆ†æˆå¤šæ ¹çº¿
 			drawEnumBasedLine(step);
-		} else {// ·ñÔò¾ÍÊÇÒ»¸ùÏß
+		} else {// å¦åˆ™å°±æ˜¯ä¸€æ ¹çº¿
 			ArrayList<Point2D> linePoints = new ArrayList<Point2D>();
 			int size = pointSize();
 			for (int i = 1; i <= size; i++) {
@@ -395,7 +395,7 @@ public class Line extends Dot {
 	}
 
 	/**
-	 * »æÖÆÇ°¾°²ã
+	 * ç»˜åˆ¶å‰æ™¯å±‚
 	 */
 	public void drawFore() {
 		if (!isVisible()) {
@@ -405,7 +405,7 @@ public class Line extends Dot {
 	}
 
 	/**
-	 * »æÍ¼Ç°µÄÊı¾İ×¼±¸
+	 * ç»˜å›¾å‰çš„æ•°æ®å‡†å¤‡
 	 */
 	public void prepare() {
 		super.prepare();
@@ -413,8 +413,8 @@ public class Line extends Dot {
 	}
 
 	/**
-	 * ¿ËÂ¡ÏßÍ¼ÔªµÄÊôĞÔµ½l
-	 * @param l ÏßÍ¼Ôª
+	 * å…‹éš†çº¿å›¾å…ƒçš„å±æ€§åˆ°l
+	 * @param l çº¿å›¾å…ƒ
 	 */
 	public void clone(Line l){
 		super.clone(l);
@@ -428,8 +428,8 @@ public class Line extends Dot {
 	}
 	
 	/**
-	 * Éî¶È¿ËÂ¡Ò»¸öÏßÍ¼Ôª
-	 * @return ¿ËÂ¡ºÃµÄÏßÍ¼Ôª¶ÔÏó
+	 * æ·±åº¦å…‹éš†ä¸€ä¸ªçº¿å›¾å…ƒ
+	 * @return å…‹éš†å¥½çš„çº¿å›¾å…ƒå¯¹è±¡
 	 */
 	public Object deepClone() {
 		Line l = new Line();

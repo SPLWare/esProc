@@ -11,37 +11,37 @@ import com.scudata.ide.spl.control.SplEditor;
 import com.scudata.ide.spl.dialog.DialogSearch;
 
 /**
- * ¼¯ËãÆ÷IDEÖĞµÄ³£Á¿
+ * é›†ç®—å™¨IDEä¸­çš„å¸¸é‡
  *
  */
 public class GVSpl extends GV {
 	/**
-	 * Íø¸ñ±à¼­Æ÷
+	 * ç½‘æ ¼ç¼–è¾‘å™¨
 	 */
 	public static SplEditor splEditor = null;
 
 	/**
-	 * IDEÓÒÏÂ½ÇµÄ¶à±êÇ©¿Ø¼ş,ÓĞÍø¸ñ±äÁ¿¡¢±í´ïÊ½µÈ±êÇ©Ò³
+	 * IDEå³ä¸‹è§’çš„å¤šæ ‡ç­¾æ§ä»¶,æœ‰ç½‘æ ¼å˜é‡ã€è¡¨è¾¾å¼ç­‰æ ‡ç­¾é¡µ
 	 */
 	public static JTabbedParam tabParam = null;
 
 	/**
-	 * µ¥Ôª¸ñÖµÃæ°å
+	 * å•å…ƒæ ¼å€¼é¢æ¿
 	 */
 	public static PanelValue panelValue = null;
 
 	/**
-	 * Íø¸ñ±í´ïÊ½¼ÆËãÃæ°å
+	 * ç½‘æ ¼è¡¨è¾¾å¼è®¡ç®—é¢æ¿
 	 */
 	public static PanelSplWatch panelSplWatch = null;
 
 	/**
-	 * ËÑË÷¶Ô»°¿ò
+	 * æœç´¢å¯¹è¯æ¡†
 	 */
 	public static DialogSearch searchDialog = null;
 
 	/**
-	 * È¡¼¯ËãÆ÷²Ëµ¥
+	 * å–é›†ç®—å™¨èœå•
 	 * 
 	 * @return
 	 */
@@ -51,7 +51,7 @@ public class GVSpl extends GV {
 	}
 
 	/**
-	 * È¡¼¯ËãÆ÷¹¤¾ßÀ¸
+	 * å–é›†ç®—å™¨å·¥å…·æ 
 	 * 
 	 * @return
 	 */
@@ -61,7 +61,7 @@ public class GVSpl extends GV {
 	}
 
 	/**
-	 * È¡ÊôĞÔ¹¤¾ßÀ¸
+	 * å–å±æ€§å·¥å…·æ 
 	 * 
 	 * @return
 	 */
@@ -71,7 +71,7 @@ public class GVSpl extends GV {
 	}
 
 	/**
-	 * È¡»ù´¡²Ëµ¥£¨ÎŞÎÄ¼ş´ò¿ªÊ±£©
+	 * å–åŸºç¡€èœå•ï¼ˆæ— æ–‡ä»¶æ‰“å¼€æ—¶ï¼‰
 	 * 
 	 * @return
 	 */
@@ -81,7 +81,7 @@ public class GVSpl extends GV {
 	}
 
 	/**
-	 * È¡»ù´¡¹¤¾ßÀ¸£¨ÎŞÎÄ¼ş´ò¿ªÊ±£©
+	 * å–åŸºç¡€å·¥å…·æ ï¼ˆæ— æ–‡ä»¶æ‰“å¼€æ—¶ï¼‰
 	 * 
 	 * @return
 	 */

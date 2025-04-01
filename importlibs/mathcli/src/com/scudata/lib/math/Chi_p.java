@@ -11,10 +11,10 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¿¨·½¼ìÑé¼ÆËãp
+ * å¡æ–¹æ£€éªŒè®¡ç®—p
  * chisp()
  * @author bd
- * Ô­º¯Êıchi_p
+ * åŸå‡½æ•°chi_p
  */
 public class Chi_p extends Function {
 	public Object calculate(Context ctx) {
@@ -54,7 +54,7 @@ public class Chi_p extends Function {
 	}
 	
 	/**
-	 * chi_p, ¿¨·½ÑéÖ¤ÇópÖµ£¬Ê¹ÓÃapacheµÄmath3°ü·½·¨Ö´ĞĞ¼ÆËã
+	 * chi_p, å¡æ–¹éªŒè¯æ±‚på€¼ï¼Œä½¿ç”¨apacheçš„math3åŒ…æ–¹æ³•æ‰§è¡Œè®¡ç®—
 	 * @param s
 	 * @param f
 	 * @return

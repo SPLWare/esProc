@@ -10,20 +10,20 @@ import com.scudata.dm.Table;
 import com.scudata.resources.EngineMessage;
 
 /**
- * °´Î»ÖÃ¶ÔÓÎ±ê½øĞĞ¹ØÁªµÄÓÎ±ê
+ * æŒ‰ä½ç½®å¯¹æ¸¸æ ‡è¿›è¡Œå…³è”çš„æ¸¸æ ‡
  * @author RunQian
  *
  */
 public class PJoinCursor extends ICursor {
-	private ICursor []cursors; // ÓÎ±êÊı×é
-	private String []names; // ×Ö¶ÎÃûÊı×é
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹
-	private boolean isEnd = false; // ÊÇ·ñÈ¡Êı½áÊø
+	private ICursor []cursors; // æ¸¸æ ‡æ•°ç»„
+	private String []names; // å­—æ®µåæ•°ç»„
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„
+	private boolean isEnd = false; // æ˜¯å¦å–æ•°ç»“æŸ
 
 	/**
-	 * ¹¹½¨°´Î»ÖÃ¹ØÁªÓÎ±ê
-	 * @param cursors ÓÎ±êÊı×é
-	 * @param names ×Ö¶ÎÃûÊı×é
+	 * æ„å»ºæŒ‰ä½ç½®å…³è”æ¸¸æ ‡
+	 * @param cursors æ¸¸æ ‡æ•°ç»„
+	 * @param names å­—æ®µåæ•°ç»„
 	 */
 	public PJoinCursor(ICursor []cursors, String []names) {
 		this.cursors = cursors;
@@ -36,15 +36,15 @@ public class PJoinCursor extends ICursor {
 	}
 	
 	/**
-	 * ¹¹½¨°´Î»ÖÃ¹ØÁªÓÎ±ê
-	 * @param cursors ÓÎ±êÊı×é
+	 * æ„å»ºæŒ‰ä½ç½®å…³è”æ¸¸æ ‡
+	 * @param cursors æ¸¸æ ‡æ•°ç»„
 	 */
 	public PJoinCursor(ICursor []cursors) {
 		this(cursors, null);
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			for (ICursor cursor : cursors) {
@@ -83,8 +83,8 @@ public class PJoinCursor extends ICursor {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -147,9 +147,9 @@ public class PJoinCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (isEnd || n < 1) return 0;
@@ -171,7 +171,7 @@ public class PJoinCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -185,8 +185,8 @@ public class PJoinCursor extends ICursor {
 	}
 
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

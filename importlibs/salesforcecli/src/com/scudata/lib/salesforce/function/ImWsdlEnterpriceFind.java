@@ -16,17 +16,17 @@ import com.sforce.ws.bind.XMLizable;
 
 public class ImWsdlEnterpriceFind {
 	private EnterpriseConnection m_conn = null;
-	private Map<String, List<String>> m_colMap = new HashMap<String, List<String>>(); //用于记录表及其字欿
-	private Map<String, Map<String, Method>> m_map; //记录表及其方汿
+	private Map<String, List<String>> m_colMap = new HashMap<String, List<String>>(); //鐢ㄤ簬璁板綍琛ㄥ強鍏跺瓧娆�
+	private Map<String, Map<String, Method>> m_map; //璁板綍琛ㄥ強鍏舵柟姹�
 	
 	public ImWsdlEnterpriceFind(EnterpriseConnection c) {
 		m_conn = c;
 		m_map = new HashMap<String, Map<String, Method>>();
 	}
 
-	/*****功能：执行查譿*****
-	 * 1、返回returning给定的字欿
-	 * 2、若Table无对应的字段则返回Id,但Id可能重复.
+	/*****鍔熻兘锛氭墽琛屾煡璀�*****
+	 * 1銆佽繑鍥瀝eturning缁欏畾鐨勫瓧娆�
+	 * 2銆佽嫢Table鏃犲搴旂殑瀛楁鍒欒繑鍥濱d,浣咺d鍙兘閲嶅.
 	 * 
 	 * */
 	public Object find(String soqlQuery)  {
@@ -41,7 +41,7 @@ public class ImWsdlEnterpriceFind {
 			ImWsdlCommon.doReturning(soqlQuery, m_colMap);
 			doMapMethod(rds);
 				
-			List<Table> ls = new ArrayList<Table>();		//记录要返回的多个Table	
+			List<Table> ls = new ArrayList<Table>();		//璁板綍瑕佽繑鍥炵殑澶氫釜Table	
 			String lastClsName = "";
 			Table subTable = null;
 			Map<String, Method> methods = null;
@@ -71,7 +71,7 @@ public class ImWsdlEnterpriceFind {
 					}else {
 						md = methods.get(col);
 					}
-					//根据函数方法查询对应的value
+					//鏍规嵁鍑芥暟鏂规硶鏌ヨ瀵瑰簲鐨剉alue
 					if (md!=null) {
 						Object val = md.invoke(res);
 						//System.out.println(col+": " + val+"; ");
@@ -106,19 +106,19 @@ public class ImWsdlEnterpriceFind {
 	    return tbl;
 	}
 	
-	//通过SearchRecord获取N个表对应的方汿
+	//閫氳繃SearchRecord鑾峰彇N涓〃瀵瑰簲鐨勬柟姹�
 	public void doMapMethod( SearchRecord[] rds) {
 		try {
 			m_map.clear();
 			Map<String, SObject> omap = new HashMap<String, SObject>(); 
 			SObject so = null;
-			//获取表与对应的SObject对象
+			//鑾峰彇琛ㄤ笌瀵瑰簲鐨凷Object瀵硅薄
 			for (SearchRecord s: rds){
 				so = s.getRecord();
 				String sName = ImWsdlCommon.getClassName(so);
 				if (!omap.containsKey(sName)){
 					omap.put(sName, so);
-					//无字段的表处玿
+					//鏃犲瓧娈电殑琛ㄥ鐜�
 					if (!m_colMap.containsKey(sName)){
 						List<String> vals = new ArrayList<String>(){{add("Id");}};
 						m_colMap.put(sName, vals);
@@ -134,7 +134,7 @@ public class ImWsdlEnterpriceFind {
 				Map<String, Method> map = new HashMap<>();
 				Class<?> catClass = Class.forName(mapValue.getClass().getName());
 		        Method[] methods = catClass.getMethods();
-		        // 循环查找想要的方汿
+		        // 寰幆鏌ユ壘鎯宠鐨勬柟姹�
 		        String key = null;
 		        for(Method method : methods) {
 		        	if (method.getName().startsWith("get")) {

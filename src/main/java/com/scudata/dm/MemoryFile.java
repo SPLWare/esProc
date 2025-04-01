@@ -9,23 +9,23 @@ import com.scudata.common.IOUtils;
 import com.scudata.common.RQException;
 
 /**
- * ÄÚ´æÎÄ¼ş
+ * å†…å­˜æ–‡ä»¶
  * @author WangXiaoJun
  *
  */
 public class MemoryFile implements IFile {
-	private final int blockSize = 1024 * 1024 * 64; // ¿é´óĞ¡
+	private final int blockSize = 1024 * 1024 * 64; // å—å¤§å°
 	
 	private IFile file;
-	private byte [][]blocks; // ¼ÇÂ¼×Ö½Ú¹¹³ÉµÄ¿éÊı×é
-	private int blockCount; // ¿éÊı
-	private long total; // ×Ü×Ö½ÚÊı
+	private byte [][]blocks; // è®°å½•å­—èŠ‚æ„æˆçš„å—æ•°ç»„
+	private int blockCount; // å—æ•°
+	private long total; // æ€»å­—èŠ‚æ•°
 	
-	// ÄÚ´æÎÄ¼şÊäÈëÁ÷
+	// å†…å­˜æ–‡ä»¶è¾“å…¥æµ
 	private class MemoryFileInputStream extends InputStream {
-		long pos; // µ±Ç°¹â±êÎ»ÖÃ
-		int curBlockSeq; // µ±Ç°¶ÁÈë¶ÔÓ¦µÄ¿éºÅ
-		int curBlockPos; // ÏÂÒ»×Ö½ÚÔÚbufferÖĞµÄË÷Òı
+		long pos; // å½“å‰å…‰æ ‡ä½ç½®
+		int curBlockSeq; // å½“å‰è¯»å…¥å¯¹åº”çš„å—å·
+		int curBlockPos; // ä¸‹ä¸€å­—èŠ‚åœ¨bufferä¸­çš„ç´¢å¼•
 		
 		private boolean nextBlock() {
 			curBlockSeq++;
@@ -121,7 +121,7 @@ public class MemoryFile implements IFile {
 	}
 	
 	/**
-	 * ÓÃÎÄ¼şÄÚÈİ¹¹½¨ÄÚ´æÎÄ¼ş
+	 * ç”¨æ–‡ä»¶å†…å®¹æ„å»ºå†…å­˜æ–‡ä»¶
 	 * @param blocks
 	 */
 	public MemoryFile(byte [][]blocks) {
@@ -133,16 +133,16 @@ public class MemoryFile implements IFile {
 	}
 	
 	/**
-	 * ÓÃÎÄ¼ş¶ÔÏó¹¹½¨ÄÚ´æÎÄ¼ş
-	 * @param fo ÎÄ¼ş¶ÔÏó
+	 * ç”¨æ–‡ä»¶å¯¹è±¡æ„å»ºå†…å­˜æ–‡ä»¶
+	 * @param fo æ–‡ä»¶å¯¹è±¡
 	 */
 	public MemoryFile(FileObject fo) {
 		this(fo.getFile());
 	}
 	
 	/**
-	 * ÓÃÎÄ¼ş¹¹½¨ÄÚ´æÎÄ¼ş
-	 * @param file ÎÄ¼ş
+	 * ç”¨æ–‡ä»¶æ„å»ºå†…å­˜æ–‡ä»¶
+	 * @param file æ–‡ä»¶
 	 */
 	public MemoryFile(IFile file) {
 		this.file = file;
@@ -189,7 +189,7 @@ public class MemoryFile implements IFile {
 	}
 	
 	/**
-	 * È¡ÊäÈëÁ÷
+	 * å–è¾“å…¥æµ
 	 * @return InputStream
 	 */
 	public InputStream getInputStream() {
@@ -237,7 +237,7 @@ public class MemoryFile implements IFile {
 	}
 	
 	/**
-	 * È¡Ëæ»ú·ÃÎÊÎÄ¼ş¶ÔÏó£¬Èç¹û²»Ö§³ÖÔò·µ»Ønull
+	 * å–éšæœºè®¿é—®æ–‡ä»¶å¯¹è±¡ï¼Œå¦‚æœä¸æ”¯æŒåˆ™è¿”å›null
 	 * @return RandomAccessFile
 	 */
 	public RandomAccessFile getRandomAccessFile() {
@@ -245,8 +245,8 @@ public class MemoryFile implements IFile {
 	}
 	
 	/**
-	 * ·µ»ØÊÇ·ñÊÇÔÆÎÄ¼ş
-	 * @return true£ºÊÇÔÆÎÄ¼ş£¬false£º²»ÊÇÔÆÎÄ¼ş
+	 * è¿”å›æ˜¯å¦æ˜¯äº‘æ–‡ä»¶
+	 * @return trueï¼šæ˜¯äº‘æ–‡ä»¶ï¼Œfalseï¼šä¸æ˜¯äº‘æ–‡ä»¶
 	 */
 	public boolean isCloudFile() {
 		return false;

@@ -19,58 +19,58 @@ import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.util.Variant;
 
 /**
- * JTableµÄµ¥Ôª¸ñäÖÈ¾Æ÷
+ * JTableçš„å•å…ƒæ ¼æ¸²æŸ“å™¨
  *
  */
 public class AllPurposeRenderer implements TableCellRenderer {
 	/**
-	 * Ö§³ÖÏÂ»®ÏßµÄÎÄ±¾¿Ø¼ş
+	 * æ”¯æŒä¸‹åˆ’çº¿çš„æ–‡æœ¬æ§ä»¶
 	 */
 	private JLabelUnderLine textField = new JLabelUnderLine();
 	/**
-	 * ÊÇ·ñÓĞĞòºÅÁĞ
+	 * æ˜¯å¦æœ‰åºå·åˆ—
 	 */
 	private boolean hasIndex = false;
 
 	/**
-	 * ÏÔÊ¾¸ñÊ½
+	 * æ˜¾ç¤ºæ ¼å¼
 	 */
 	private String format;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public AllPurposeRenderer() {
 		this(false);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param hasIndex
-	 *            ÊÇ·ñÓĞĞòºÅÁĞ
+	 *            æ˜¯å¦æœ‰åºå·åˆ—
 	 */
 	public AllPurposeRenderer(boolean hasIndex) {
 		this.hasIndex = hasIndex;
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param format
-	 *            ÏÔÊ¾¸ñÊ½
+	 *            æ˜¾ç¤ºæ ¼å¼
 	 */
 	public AllPurposeRenderer(String format) {
 		this(format, false);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param format
-	 *            ÏÔÊ¾¸ñÊ½
+	 *            æ˜¾ç¤ºæ ¼å¼
 	 * @param hasIndex
-	 *            ÊÇ·ñÓĞĞòºÅÁĞ
+	 *            æ˜¯å¦æœ‰åºå·åˆ—
 	 */
 	public AllPurposeRenderer(String format, boolean hasIndex) {
 		this.format = format;
@@ -79,16 +79,16 @@ public class AllPurposeRenderer implements TableCellRenderer {
 	}
 
 	/**
-	 * È¡ÏÔÊ¾¿Ø¼ş
+	 * å–æ˜¾ç¤ºæ§ä»¶
 	 */
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
 		if (isSelected) {
 			textField.setForeground(table.getSelectionForeground());
-			// ÉèÖÃÉè¼ÆÆ÷ÓÒÉÏ½ÇµÄ¸ñÖĞ±³¾°É«
+			// è®¾ç½®è®¾è®¡å™¨å³ä¸Šè§’çš„æ ¼ä¸­èƒŒæ™¯è‰²
 			if (ConfigOptions.getCellColor() != null) {
 				textField.setBackground(ConfigOptions.getCellColor());
-			} else { // Î´×Ô¶¨ÒåÅäÖÃÑÕÉ«£¬ÔòÓÃÏµÍ³Ä¬ÈÏÑÕÉ«
+			} else { // æœªè‡ªå®šä¹‰é…ç½®é¢œè‰²ï¼Œåˆ™ç”¨ç³»ç»Ÿé»˜è®¤é¢œè‰²
 				textField.setBackground(table.getSelectionBackground());
 			}
 		} else {
@@ -112,11 +112,11 @@ public class AllPurposeRenderer implements TableCellRenderer {
 
 		String strText = null;
 		try {
-			// Âú×ãÒÔÏÂÌõ¼şµÄ²Åformat
+			// æ»¡è¶³ä»¥ä¸‹æ¡ä»¶çš„æ‰format
 			Pattern p = Pattern.compile("[#\\.0]");
 			Matcher m = p.matcher(format);
 			boolean numFormat = m.find();
-			if ((numFormat && isNumber) || (isDate && !numFormat)) { // ÓĞºÏ·¨¸ñÊ½µÄÓÃ¸ñÊ½ÏÔÊ¾
+			if ((numFormat && isNumber) || (isDate && !numFormat)) { // æœ‰åˆæ³•æ ¼å¼çš„ç”¨æ ¼å¼æ˜¾ç¤º
 				strText = Variant.format(value, format);
 			} else {
 				strText = GM.renderValueText(value);

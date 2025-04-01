@@ -13,9 +13,9 @@ import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 
 /**
- * ÉèÖÃÏµÍ³¼ôÌù°åÄÚÈİ£¬sÊ¡ÂÔÔòÒÔ´®ĞÎÊ½·µ»Ø¼ôÌù°åÄÚÈİ
+ * è®¾ç½®ç³»ç»Ÿå‰ªè´´æ¿å†…å®¹ï¼Œsçœç•¥åˆ™ä»¥ä¸²å½¢å¼è¿”å›å‰ªè´´æ¿å†…å®¹
  * clipboard() clipboard(s)
- * Ñ¡Ïî@e Èç¹û·¢ÏÖµ±Ç°ÏµÍ³¼ôÌù°åÄÚÈİÀ´×ÔExcel£¬ÔòÈ¡¹ıÀ´ÓÃ²¢¼ÇÂ¼ÏÂÀ´
+ * é€‰é¡¹@e å¦‚æœå‘ç°å½“å‰ç³»ç»Ÿå‰ªè´´æ¿å†…å®¹æ¥è‡ªExcelï¼Œåˆ™å–è¿‡æ¥ç”¨å¹¶è®°å½•ä¸‹æ¥
  * @author RunQian
  *
  */
@@ -31,7 +31,7 @@ public class Clipboard extends Function {
 		IParam param = this.param;
 		String text = null;
 
-		//ÓÅÏÈÓÚ·ÇExcelÊı¾İÔ´
+		//ä¼˜å…ˆäºéExcelæ•°æ®æº
 		if (this.option!=null && this.option.contains("e")){
 			text = getClipboardExcelString();
 			if (text!=null && !text.isEmpty()){
@@ -56,7 +56,7 @@ public class Clipboard extends Function {
 	}
 
     /**
-     * °ÑÎÄ±¾ÉèÖÃµ½¼ôÌù°å£¨¸´ÖÆ£©
+     * æŠŠæ–‡æœ¬è®¾ç½®åˆ°å‰ªè´´æ¿ï¼ˆå¤åˆ¶ï¼‰
      */
     public void setClipboardString(String text) {
     	java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -65,7 +65,7 @@ public class Clipboard extends Function {
     }
     
     /**
-     * ´Ó¼ôÌù°åÖĞ»ñÈ¡ÎÄ±¾£¨Õ³Ìù£©
+     * ä»å‰ªè´´æ¿ä¸­è·å–æ–‡æœ¬ï¼ˆç²˜è´´ï¼‰
      */
     public String getClipboardString() {
     	java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -88,7 +88,7 @@ public class Clipboard extends Function {
     }
 
     /**
-     * ´ÓÏµÍ³¼ôÌù°åÖĞÅĞ¶ÏÊÇ·ñÀ´×ÔExcelµÄÊı¾İ£¨Õ³Ìù£©
+     * ä»ç³»ç»Ÿå‰ªè´´æ¿ä¸­åˆ¤æ–­æ˜¯å¦æ¥è‡ªExcelçš„æ•°æ®ï¼ˆç²˜è´´ï¼‰
      */
     
     private String getClipboardExcelString() {
@@ -122,7 +122,7 @@ public class Clipboard extends Function {
 						m_lastBufExcelString = new String(text);		
 						//System.out.println(txt);
 						break;
-					}else if(i>9){ //ÕÒ²»µ½ÓÃÉÏ´ÎµÄ.
+					}else if(i>9){ //æ‰¾ä¸åˆ°ç”¨ä¸Šæ¬¡çš„.
 						break;
 					}					
 				}

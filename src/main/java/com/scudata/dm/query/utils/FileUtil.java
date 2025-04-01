@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 
 public class FileUtil {
 	/**
-	    * ÔÚ±¾ÎÄ¼ş¼ĞÏÂ²éÕÒ
-	    * @param s String ÎÄ¼şÃû
-	    * @return File[] ÕÒµ½µÄÎÄ¼ş
+	    * åœ¨æœ¬æ–‡ä»¶å¤¹ä¸‹æŸ¥æ‰¾
+	    * @param s String æ–‡ä»¶å
+	    * @return File[] æ‰¾åˆ°çš„æ–‡ä»¶
 	    */
 	   public static File[] getCurrDirectoryFiles(String s)
 	   {
@@ -26,14 +26,14 @@ public class FileUtil {
 	   }
 
 	   /**
-	    * »ñÈ¡ÎÄ¼ş
-	    * ¿ÉÒÔ¸ù¾İÕıÔò±í´ïÊ½²éÕÒ
-	    * @param dir String ÎÄ¼ş¼ĞÃû³Æ
-	    * @param s String ²éÕÒÎÄ¼şÃû£¬¿É´ø*.?½øĞĞÄ£ºı²éÑ¯
-	    * @return File[] ÕÒµ½µÄÎÄ¼ş
+	    * è·å–æ–‡ä»¶
+	    * å¯ä»¥æ ¹æ®æ­£åˆ™è¡¨è¾¾å¼æŸ¥æ‰¾
+	    * @param dir String æ–‡ä»¶å¤¹åç§°
+	    * @param s String æŸ¥æ‰¾æ–‡ä»¶åï¼Œå¯å¸¦*.?è¿›è¡Œæ¨¡ç³ŠæŸ¥è¯¢
+	    * @return File[] æ‰¾åˆ°çš„æ–‡ä»¶
 	    */
 	   public static File[] getFiles(String dir,String s) {
-	     //¿ªÊ¼µÄÎÄ¼ş¼Ğ
+	     //å¼€å§‹çš„æ–‡ä»¶å¤¹
 	     File file = new File(dir);
 	     s = s.replace('.', '#');
 	     s = s.replaceAll("#", "\\\\.");
@@ -51,9 +51,9 @@ public class FileUtil {
 	     return rtn;
 	   }
 	   /**
-	    * @param file File ÆğÊ¼ÎÄ¼ş¼Ğ
-	    * @param p Pattern Æ¥ÅäÀàĞÍ
-	    * @return ArrayList ÆäÎÄ¼ş¼ĞÏÂµÄÎÄ¼ş¼Ğ
+	    * @param file File èµ·å§‹æ–‡ä»¶å¤¹
+	    * @param p Pattern åŒ¹é…ç±»å‹
+	    * @return ArrayList å…¶æ–‡ä»¶å¤¹ä¸‹çš„æ–‡ä»¶å¤¹
 	    */
 	   private static ArrayList filePattern(File file, Pattern p, boolean first) {
 	     if (file == null) {
@@ -84,7 +84,7 @@ public class FileUtil {
 	     return null;
 	   }
 	   /**
-	    * ²âÊÔ
+	    * æµ‹è¯•
 	    * @param args String[]
 	    */
 	   public static void main(String[] args) {

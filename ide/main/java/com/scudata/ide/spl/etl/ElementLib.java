@@ -11,9 +11,9 @@ import java.util.jar.JarFile;
 import com.scudata.common.MessageManager;
 
 /**
- * ÒÑ¾­ÊµÏÖÁË¸¨Öú±à¼­µÄº¯Êı
+ * å·²ç»å®ç°äº†è¾…åŠ©ç¼–è¾‘çš„å‡½æ•°
  * 
- * ¶¼ĞèÒª¶¯Ì¬µÇ¼Çµ½ÔªËØ¿â
+ * éƒ½éœ€è¦åŠ¨æ€ç™»è®°åˆ°å…ƒç´ åº“
  * 
  * @author Joancy
  *
@@ -38,11 +38,11 @@ public class ElementLib {
 	}
 
 	/**
-	 * ¸ù¾İÃû³ÆÕÒµ½¶ÔÓ¦µÄÔªËØĞÅÏ¢
+	 * æ ¹æ®åç§°æ‰¾åˆ°å¯¹åº”çš„å…ƒç´ ä¿¡æ¯
 	 * 
 	 * @param name
-	 *            º¯ÊıÃû
-	 * @return ÔªËØĞÅÏ¢
+	 *            å‡½æ•°å
+	 * @return å…ƒç´ ä¿¡æ¯
 	 */
 	public static ElementInfo getElementInfo(String name) {
 		int i = indexof(name);
@@ -52,10 +52,10 @@ public class ElementLib {
 	}
 
 	/**
-	 * ×·¼ÓÒ»¸öÔªËØ
+	 * è¿½åŠ ä¸€ä¸ªå…ƒç´ 
 	 * 
 	 * @param name
-	 *            ÔªËØÃû
+	 *            å…ƒç´ å
 	 */
 	public static void addElement(String name) {
 		try {
@@ -77,11 +77,11 @@ public class ElementLib {
 	}
 
 	/**
-	 * ¸ù¾İ¸¸ÀàĞÍÁĞ³öËùÓĞÏà¹Øº¯ÊıĞÅÏ¢µÄÁĞ±í
+	 * æ ¹æ®çˆ¶ç±»å‹åˆ—å‡ºæ‰€æœ‰ç›¸å…³å‡½æ•°ä¿¡æ¯çš„åˆ—è¡¨
 	 * 
 	 * @param parentType
-	 *            ¸¸ÀàĞÍ
-	 * @return ¶ÔÓ¦µÄÔªËØĞÅÏ¢ÁĞ±í
+	 *            çˆ¶ç±»å‹
+	 * @return å¯¹åº”çš„å…ƒç´ ä¿¡æ¯åˆ—è¡¨
 	 */
 	public static ArrayList<ElementInfo> getElementInfos(byte parentType) {
 		ArrayList<ElementInfo> eis = new ArrayList<ElementInfo>();
@@ -94,11 +94,11 @@ public class ElementLib {
 	}
 
 	/**
-	 * ¸ù¾İº¯ÊıÃû³ÆÁĞ³öÍ¬ÃûµÄÔªËØĞÅÏ¢£¬±ÈÈçgroup£¬ÓÎ±êÒÔ¼°Ğò±íÀàĞÍ¶¼ÓĞ¸Ãº¯Êı
+	 * æ ¹æ®å‡½æ•°åç§°åˆ—å‡ºåŒåçš„å…ƒç´ ä¿¡æ¯ï¼Œæ¯”å¦‚groupï¼Œæ¸¸æ ‡ä»¥åŠåºè¡¨ç±»å‹éƒ½æœ‰è¯¥å‡½æ•°
 	 * 
 	 * @param funcName
-	 *            º¯ÊıÃû
-	 * @return ÔªËØĞÅÏ¢
+	 *            å‡½æ•°å
+	 * @return å…ƒç´ ä¿¡æ¯
 	 */
 	public static ArrayList<ElementInfo> getElementInfos(String funcName) {
 		ArrayList<ElementInfo> eis = new ArrayList<ElementInfo>();
@@ -111,7 +111,7 @@ public class ElementLib {
 	}
 
 	/**
-	 * ×°ÔØÏµÍ³Ä¿Â¼ÏÂÈ«²¿ÊµÏÖ¸¨Öú±à¼­µÄº¯ÊıÔªËØ Â·¾¶£º/com/scudata/ide/spl/etl/element
+	 * è£…è½½ç³»ç»Ÿç›®å½•ä¸‹å…¨éƒ¨å®ç°è¾…åŠ©ç¼–è¾‘çš„å‡½æ•°å…ƒç´  è·¯å¾„ï¼š/com/scudata/ide/spl/etl/element
 	 */
 	public static void loadSystemElements() {
 		String names = "ACreate,ADelete,ADerive,AGroup,AGroup2,AGroups,AInsert,"

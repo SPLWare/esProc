@@ -42,8 +42,8 @@ public class HbaseGet extends HbaseQuery {
 		return null;
 	}
 	
-	/*hbase_or(¹ıÂËÆ÷1,....)
-	3¡¢hbase_get(client,±íÃû,ÁĞ1:ÀàĞÍ:±ğÃû,ÁĞ2:ÀàĞÍ:±ğÃû,...;
+	/*hbase_or(è¿‡æ»¤å™¨1,....)
+	3ã€hbase_get(client,è¡¨å,åˆ—1:ç±»å‹:åˆ«å,åˆ—2:ç±»å‹:åˆ«å,...;
 	filter:f,version:i,timeRange:[t1,t2],timeStamp:t)?
 	*/
 	public void hbaseGet(Connection hConn, String tableName, String family, String column, 
@@ -69,7 +69,7 @@ public class HbaseGet extends HbaseQuery {
 
     	 try {
     		 org.apache.hadoop.hbase.client.Table table = hConn.getTable(TableName.valueOf(tableName));
-             Result res=table.get(get);//·µ»Øµü´úÆ÷
+             Result res=table.get(get);//è¿”å›è¿­ä»£å™¨
             
              ImUtils.format(res);
              System.out.println();                         
@@ -123,7 +123,7 @@ public class HbaseGet extends HbaseQuery {
 		return tb;
 	}
 	
-	// Êä³öresult½á¹û
+	// è¾“å‡ºresultç»“æœ
 	public Table toTable(Result[] results) {		
 		if (results==null || results.length<1) return null;
 		
@@ -177,7 +177,7 @@ public class HbaseGet extends HbaseQuery {
 		return queryByRowkeys(obj);
 	}
 	
-	//get()²éÑ¯
+	//get()æŸ¥è¯¢
 	//@SuppressWarnings("deprecation")
 	public Object doHbaseQuery( TableInfo tb ) throws IOException
     {        
@@ -233,7 +233,7 @@ public class HbaseGet extends HbaseQuery {
     	try {
     		 HbaseDriverCli client = (HbaseDriverCli)tb.m_connect;
     		 org.apache.hadoop.hbase.client.Table table = client.m_conn.getTable(TableName.valueOf(tb.m_tableName));
-             Result res=table.get(get);//·µ»Øµü´úÆ÷
+             Result res=table.get(get);//è¿”å›è¿­ä»£å™¨
              
              tbl = toTable(res, tb);                     
          } catch (IOException e) {            
@@ -243,7 +243,7 @@ public class HbaseGet extends HbaseQuery {
     	 return tbl;
     }
 	
-	//²éÑ¯½á¹û×ª»»³ÉĞò±í
+	//æŸ¥è¯¢ç»“æœè½¬æ¢æˆåºè¡¨
 	static Table toTable(Result res, TableInfo tb) {
   		if ( res == null) {
   			throw new RQException("toTable param res is not null" );
@@ -292,7 +292,7 @@ public class HbaseGet extends HbaseQuery {
   		return table;
   	}
 	
-	//¸ù¾İtableInfo´´½¨Ğò±í
+	//æ ¹æ®tableInfoåˆ›å»ºåºè¡¨
 	private static Table createTable(TableInfo tb) {
 		if (tb == null){
 			throw new RQException("createTable tableInfo is null");

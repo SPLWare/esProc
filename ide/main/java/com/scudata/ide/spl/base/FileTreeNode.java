@@ -10,69 +10,69 @@ import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 
 /**
- * ×ÊÔ´Ê÷½áµã
+ * èµ„æºæ ‘ç»“ç‚¹
  *
  */
 public class FileTreeNode extends DefaultMutableTreeNode {
 	private static final long serialVersionUID = 1L;
 
-	/** ¸ù½ÚµãÀàĞÍ */
+	/** æ ¹èŠ‚ç‚¹ç±»å‹ */
 	public static final byte TYPE_ROOT = 0;
-	/** ±¾µØ×ÊÔ´ÀàĞÍ */
+	/** æœ¬åœ°èµ„æºç±»å‹ */
 	public static final byte TYPE_LOCAL = 1;
 
-	/** Î´Ñ¡Ôñ×´Ì¬ */
+	/** æœªé€‰æ‹©çŠ¶æ€ */
 	public static final byte NOT_SELECTED = 0;
-	/** Ñ¡Ôñ×´Ì¬ */
+	/** é€‰æ‹©çŠ¶æ€ */
 	public static final byte SELECTED = 1;
-	/** µÚÈıÌ¬ */
+	/** ç¬¬ä¸‰æ€ */
 	public static final byte DONT_CARE = 2;
 
 	/**
-	 * Ñ¡Ôñ×´Ì¬
+	 * é€‰æ‹©çŠ¶æ€
 	 */
 	private transient byte selectedState = SELECTED;
 
 	/**
-	 * ÊÇ·ñ¸´Ñ¡¿ò½áµã
+	 * æ˜¯å¦å¤é€‰æ¡†ç»“ç‚¹
 	 */
 	private boolean isCheckNode = false;
 	/**
-	 * ÊÇ·ñÒÑ¾­¼ÓÔØÁË×Ó½áµã
+	 * æ˜¯å¦å·²ç»åŠ è½½äº†å­ç»“ç‚¹
 	 */
 	private boolean isLoaded = false;
 
 	/**
-	 * ½áµãÀàĞÍ
+	 * ç»“ç‚¹ç±»å‹
 	 */
 	protected byte type = TYPE_LOCAL;
 	/**
-	 * ½áµã±êÌâ
+	 * ç»“ç‚¹æ ‡é¢˜
 	 */
 	private String title = null;
 	/**
-	 * ÊÇ·ñÄ¿Â¼¡£trueÊÇÄ¿Â¼£¬falseÊÇÎÄ¼ş¡£
+	 * æ˜¯å¦ç›®å½•ã€‚trueæ˜¯ç›®å½•ï¼Œfalseæ˜¯æ–‡ä»¶ã€‚
 	 */
 	protected boolean isDir = false;
 	/**
-	 * ¹ıÂËÌõ¼ş
+	 * è¿‡æ»¤æ¡ä»¶
 	 */
 	private String filter = null;
 	/**
-	 * ×Ó½áµãÁĞ±í
+	 * å­ç»“ç‚¹åˆ—è¡¨
 	 */
 	private ArrayList<FileTreeNode> childBuffer = null;
 	/**
-	 * ÊÇ·ñÆ¥ÅäÁË
+	 * æ˜¯å¦åŒ¹é…äº†
 	 */
 	private boolean isMatched = false;
 	/**
-	 * ÊÇ·ñÕ¹¿ªÁË
+	 * æ˜¯å¦å±•å¼€äº†
 	 */
 	private boolean isExpanded = false;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param data
 	 * @param type
@@ -83,7 +83,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃÄ¿Â¼
+	 * è®¾ç½®ç›®å½•
 	 * 
 	 * @param isDir
 	 */
@@ -92,7 +92,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡Ä¿Â¼
+	 * å–ç›®å½•
 	 * 
 	 * @return
 	 */
@@ -101,7 +101,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÆ¥Åä
+	 * è®¾ç½®æ˜¯å¦åŒ¹é…
 	 * 
 	 * @param isMatched
 	 */
@@ -110,7 +110,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡ÊÇ·ñÆ¥Åä
+	 * å–æ˜¯å¦åŒ¹é…
 	 * 
 	 * @return
 	 */
@@ -119,7 +119,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡ÏÔÊ¾µÄÍ¼±ê
+	 * å–æ˜¾ç¤ºçš„å›¾æ ‡
 	 * 
 	 * @return
 	 */
@@ -127,7 +127,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 		String imgPath = GC.IMAGES_PATH;
 		if (type == TYPE_ROOT) {
 			imgPath += "tree0.gif";
-		} else if (this.getLevel() == 1) { // ±¾µØ×ÊÔ´ºÍ·şÎñÆ÷×ÊÔ´¸ùÄ¿Â¼µÄÍ¼±ê
+		} else if (this.getLevel() == 1) { // æœ¬åœ°èµ„æºå’ŒæœåŠ¡å™¨èµ„æºæ ¹ç›®å½•çš„å›¾æ ‡
 			imgPath += "treelocal.gif";
 		} else {
 			if (isDir)
@@ -141,7 +141,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ¼ÓÔØÁË×Ó½áµã
+	 * è®¾ç½®æ˜¯å¦åŠ è½½äº†å­ç»“ç‚¹
 	 * 
 	 * @param isLoaded
 	 */
@@ -150,7 +150,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡ÊÇ·ñ¼ÓÔØÁË×Ó½áµã
+	 * å–æ˜¯å¦åŠ è½½äº†å­ç»“ç‚¹
 	 * 
 	 * @return
 	 */
@@ -159,7 +159,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡½áµãÀàĞÍ
+	 * å–ç»“ç‚¹ç±»å‹
 	 * 
 	 * @return
 	 */
@@ -168,7 +168,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃ½áµãÀàĞÍ
+	 * è®¾ç½®ç»“ç‚¹ç±»å‹
 	 * 
 	 * @param type
 	 */
@@ -177,7 +177,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡½áµãÃû×Ö
+	 * å–ç»“ç‚¹åå­—
 	 * 
 	 * @return
 	 */
@@ -186,7 +186,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡È«Â·¾¶
+	 * å–å…¨è·¯å¾„
 	 * 
 	 * @return
 	 */
@@ -203,7 +203,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡±êÌâ
+	 * å–æ ‡é¢˜
 	 * 
 	 * @return
 	 */
@@ -212,7 +212,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃ±êÌâ
+	 * è®¾ç½®æ ‡é¢˜
 	 * 
 	 * @param title
 	 */
@@ -221,7 +221,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * Ñ¡ÖĞ×´Ì¬
+	 * é€‰ä¸­çŠ¶æ€
 	 * 
 	 * @return NOT_SELECTED,SELECTED,DONT_CARE
 	 */
@@ -230,7 +230,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃÑ¡ÖĞ×´Ì¬
+	 * è®¾ç½®é€‰ä¸­çŠ¶æ€
 	 * 
 	 * @param selectedState
 	 *            NOT_SELECTED,SELECTED,DONT_CARE
@@ -240,10 +240,10 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃ¹ıÂËÌõ¼ş
+	 * è®¾ç½®è¿‡æ»¤æ¡ä»¶
 	 * 
 	 * @param filter
-	 *            ¹ıÂËÌõ¼ş
+	 *            è¿‡æ»¤æ¡ä»¶
 	 * 
 	 */
 	public void setFilter(String filter) {
@@ -252,7 +252,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ¹ıÂË
+	 * è¿‡æ»¤
 	 */
 	private void filter() {
 		if (childBuffer == null) {
@@ -272,16 +272,16 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡¹ıÂËÌõ¼ş
+	 * å–è¿‡æ»¤æ¡ä»¶
 	 * 
-	 * @return ¹ıÂËÌõ¼ş
+	 * @return è¿‡æ»¤æ¡ä»¶
 	 */
 	public String getFilter() {
 		return filter;
 	}
 
 	/**
-	 * ÊÇ·ñ¸´Ñ¡¿ò½áµã
+	 * æ˜¯å¦å¤é€‰æ¡†ç»“ç‚¹
 	 * 
 	 * @return
 	 */
@@ -290,7 +290,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃ¸´Ñ¡¿ò½áµã
+	 * è®¾ç½®å¤é€‰æ¡†ç»“ç‚¹
 	 * 
 	 * @param isCheckNode
 	 */
@@ -299,7 +299,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ½áµãÊÇ·ñÕ¹¿ª
+	 * ç»“ç‚¹æ˜¯å¦å±•å¼€
 	 * 
 	 * @return
 	 */
@@ -308,7 +308,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃ½áµãÊÇ·ñÕ¹¿ª
+	 * è®¾ç½®ç»“ç‚¹æ˜¯å¦å±•å¼€
 	 * 
 	 * @param isExpanded
 	 */
@@ -317,7 +317,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ¿ËÂ¡
+	 * å…‹éš†
 	 * 
 	 * @return
 	 */
@@ -331,7 +331,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ×ª»»Îª×Ö·û´®
+	 * è½¬æ¢ä¸ºå­—ç¬¦ä¸²
 	 */
 	public String toString() {
 		if (title != null)

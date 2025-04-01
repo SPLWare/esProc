@@ -8,14 +8,14 @@ import com.scudata.expression.Node;
 import com.scudata.util.Variant;
 
 /**
- * »ùÓÚÓëÔËËãµÄÁĞ¹ıÂËÆ÷
+ * åŸºäºä¸è¿ç®—çš„åˆ—è¿‡æ»¤å™¨
  * @author runqian
  *
  */
 public class AndFilter extends IFilter {
 	private Number andValue;
 	private Number rightValue;
-	private long longValue = 0; // Èç¹ûandValueµÈÓÚrightValue²¢ÇÒ²»ÊÇ´óÕûÊıÔòÓÃlongValueÓÅ»¯
+	private long longValue = 0; // å¦‚æœandValueç­‰äºrightValueå¹¶ä¸”ä¸æ˜¯å¤§æ•´æ•°åˆ™ç”¨longValueä¼˜åŒ–
 	private int operator;
 
 	/**
@@ -112,8 +112,8 @@ public class AndFilter extends IFilter {
 	}
 
 	/**
-	 * ¸ù¾İÒ»¿éÊı¾İµÄ×îĞ¡ÖµºÍ×î´óÖµÅĞ¶ÏÕâ¿éÊı¾İÀïÊÇ·ñ¿ÉÄÜÓĞ·ûºÏfilterµÄÊı¾İ
-	 * ×¢Òâ·µ»ØtrueÒ²Ö»ÊÇ±íÊ¾¿ÉÄÜÓĞ·ûºÏµÄÊı¾İ
+	 * æ ¹æ®ä¸€å—æ•°æ®çš„æœ€å°å€¼å’Œæœ€å¤§å€¼åˆ¤æ–­è¿™å—æ•°æ®é‡Œæ˜¯å¦å¯èƒ½æœ‰ç¬¦åˆfilterçš„æ•°æ®
+	 * æ³¨æ„è¿”å›trueä¹Ÿåªæ˜¯è¡¨ç¤ºå¯èƒ½æœ‰ç¬¦åˆçš„æ•°æ®
 	 */
 	public boolean match(Object minValue, Object maxValue) {
 		return true;

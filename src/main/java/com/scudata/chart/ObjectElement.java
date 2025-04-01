@@ -9,8 +9,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.ChartParam;
 
 /**
- * ³éÏóÍ¼Ôª£¬×ÓÍ¼Ôª£¬Í¼ĞÎ±ØĞëÊÇ¸ÃÀàµÄ×ÓÀà£¬×ÓÍ¼ÔªµÄÊôĞÔ±ØĞëÎªpublic£¬¸ÃÀà»á×Ô¶¯ĞòÁĞ»¯×ÓÍ¼ÔªÊôĞÔÖµ
- * ¸ÃÍ¼Ôª»á×Ô¶¯ÉèÖÃ¼Ì³ĞÁË¸ÃÀàµÄÊôĞÔÖµ£»
+ * æŠ½è±¡å›¾å…ƒï¼Œå­å›¾å…ƒï¼Œå›¾å½¢å¿…é¡»æ˜¯è¯¥ç±»çš„å­ç±»ï¼Œå­å›¾å…ƒçš„å±æ€§å¿…é¡»ä¸ºpublicï¼Œè¯¥ç±»ä¼šè‡ªåŠ¨åºåˆ—åŒ–å­å›¾å…ƒå±æ€§å€¼
+ * è¯¥å›¾å…ƒä¼šè‡ªåŠ¨è®¾ç½®ç»§æ‰¿äº†è¯¥ç±»çš„å±æ€§å€¼ï¼›
  */
 public abstract class ObjectElement implements IElement{
 	MessageManager mm = ChartMessage.get();
@@ -29,7 +29,7 @@ public abstract class ObjectElement implements IElement{
 			try {
 				f = elementClass.getField(cp.getName());
 				if (p.getValue() == null) {
-					// 2014.8.20 ²ÎÊıÖµÎªnullµÄÇé¿ö±¨´í£¬·ñÔòºóĞø²ÎÊıÒıÓÃÖĞ»áÓĞºÜ¶à²»¿ÉÔ¤ÁÏµÄnullÒì³£
+					// 2014.8.20 å‚æ•°å€¼ä¸ºnullçš„æƒ…å†µæŠ¥é”™ï¼Œå¦åˆ™åç»­å‚æ•°å¼•ç”¨ä¸­ä¼šæœ‰å¾ˆå¤šä¸å¯é¢„æ–™çš„nullå¼‚å¸¸
 					String cName = elementClass.getName();
 					int lastIndex = cName.lastIndexOf('.')+1;
 					cName = cName.substring(lastIndex);
@@ -51,7 +51,7 @@ public abstract class ObjectElement implements IElement{
 					f.set(elementObject, new Float(p.floatValue()));
 				} else if (className.endsWith("double")) {
 					f.set(elementObject, new java.lang.Double(p.doubleValue()));
-				} else if (className.endsWith(".color")) {// ¼ÓÉÏµã¾Í²»»á°Ñchartcolorµ±³ÉcolorÁË
+				} else if (className.endsWith(".color")) {// åŠ ä¸Šç‚¹å°±ä¸ä¼šæŠŠchartcolorå½“æˆcoloräº†
 					f.set(elementObject, p.colorValue(0));
 				} else if (className.endsWith("string")) {
 					f.set(elementObject, p.stringValue());
@@ -64,7 +64,7 @@ public abstract class ObjectElement implements IElement{
 				} else if (className.endsWith("object")) {
 					f.set(elementObject, cp.getValue());
 				} else {
-					Para defP = (Para)f.get(elementObject);//½«È±Ê¡ÊôĞÔµÄÍ¼ÀıÉèÖÃ£¬¸³Öµµ½ĞÂ±äÁ¿
+					Para defP = (Para)f.get(elementObject);//å°†ç¼ºçœå±æ€§çš„å›¾ä¾‹è®¾ç½®ï¼Œèµ‹å€¼åˆ°æ–°å˜é‡
 					if(defP!=null){
 						p.setLegendProperty(defP.getLegendProperty());
 					}

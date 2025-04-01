@@ -8,7 +8,7 @@ import com.scudata.chart.*;
 import com.scudata.ide.common.swing.*;
 
 /**
- * Ö±Ïß·ç¸ñÏÂÀ­ÁĞ±í
+ * ç›´çº¿é£æ ¼ä¸‹æ‹‰åˆ—è¡¨
  * 
  * @author Joancy
  *
@@ -21,7 +21,7 @@ public class LineStyleComboBox extends JComboBox{
 	private static final long serialVersionUID = 4233172328821173300L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public LineStyleComboBox() {
 		super( new Object[] {
@@ -38,8 +38,8 @@ public class LineStyleComboBox extends JComboBox{
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Öµ
-	 * @return ÏßµÄ·ç¸ñÖµ
+	 * è·å–å½“å‰å€¼
+	 * @return çº¿çš„é£æ ¼å€¼
 	 */
 	public int getValue() {
 		return ( ( Integer ) getEditor().getItem() ).intValue();
@@ -145,7 +145,7 @@ class LineStyleIcon implements Icon {
 
 	public void paintIcon( Component c, Graphics g, int x, int y ) {
 		//none/dotted/dashed/solid/double
-		//ÎŞ£¬µãÏß¡¢ĞéÏß¡¢ÊµÏß¡¢Ë«Ïß¡¢µã»®Ïß
+		//æ— ï¼Œç‚¹çº¿ã€è™šçº¿ã€å®çº¿ã€åŒçº¿ã€ç‚¹åˆ’çº¿
 		float lineWidth = 1.2f;
 		if ( type == Consts.LINE_NONE ) {
 			lineWidth = .0f;

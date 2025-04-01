@@ -8,27 +8,27 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.resources.EngineMessage;
 
-//´ÓzipÎÄ¼şÖĞÉ¾³ıÎÄ¼ş
+//ä»zipæ–‡ä»¶ä¸­åˆ é™¤æ–‡ä»¶
 public class ImZipDel extends ImFunction {	
 	public Object doQuery(Object[] objs){
 		try {
 			if (objs.length==1){
 				ArrayList<String> lfile = new ArrayList<String>();
 				ArrayList<String> ldir = new ArrayList<String>();
-				ArrayList<String> lpat = new ArrayList<String>(); //ÌØÊâ×Ö·û
+				ArrayList<String> lpat = new ArrayList<String>(); //ç‰¹æ®Šå­—ç¬¦
 				ImUtils.getZipFilterList(m_zipfile, null, objs[0], lfile, ldir, lpat);
 				int i = 0;
-				//2.1 É¾³ıÕı³£ÎÄ¼ş
+				//2.1 åˆ é™¤æ­£å¸¸æ–‡ä»¶
 				if (lfile.size()>0){
 					ImZipUtil.removeFilesFromZipArchive(m_zipfile, (List<String>)lfile);
 				}
-				//2.1 É¾³ıÄ¿Â¼
+				//2.1 åˆ é™¤ç›®å½•
 				if (ldir.size()>0){
 					for(String dir:ldir){
 						ImZipUtil.removeDirFromZipArchive(m_zipfile, dir);
 					}
 				}
-				//2.2 É¾³ıÌØÊâ×Ö·ûÎÄ¼ş¡£
+				//2.2 åˆ é™¤ç‰¹æ®Šå­—ç¬¦æ–‡ä»¶ã€‚
 				for(i = 0; i<lpat.size(); i++){
 					ImZipUtil.removePathFilePatternFromZip(m_zipfile, lpat.get(i));
 				}

@@ -6,7 +6,7 @@ import com.scudata.chart.*;
 import com.scudata.chart.edit.*;
 
 /**
- * ÕÛÏßÍ¼ĞÎ
+ * æŠ˜çº¿å›¾å½¢
  * 
  * @author Joancy
  *
@@ -16,13 +16,13 @@ public class GraphLine extends GraphElement {
 	public boolean drawLineTrend = false;
 	public boolean drawShade = false;
 	public boolean ignoreNull = true;
-	/** ÕÛÏßÍ¼Ö±Ïß´ÖÏ¸¶È */
+	/** æŠ˜çº¿å›¾ç›´çº¿ç²—ç»†åº¦ */
 	public int lineThick = 2;
 	public int lineStyle = Consts.LINE_SOLID;
 	public byte lineType = GraphTypes.GT_LINE; 
 
 	/**
-	 * È±Ê¡²ÎÊı¹¹Ôìº¯Êı
+	 * ç¼ºçœå‚æ•°æ„é€ å‡½æ•°
 	 */
 	public GraphLine() {
 	}
@@ -41,8 +41,8 @@ public class GraphLine extends GraphElement {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();

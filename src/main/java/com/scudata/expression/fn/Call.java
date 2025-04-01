@@ -26,14 +26,14 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.thread.CallJob;
 
 /**
- * µ÷ÓÃÖ¸¶¨Íø¸ñ£¬·µ»ØÍø¸ñµÄ·µ»ØÖµ£¬¶à·µ»ØÖµÆ´³ÉĞòÁĞ
- * call(dfx,arg1,¡­) ´«Èë²ÎÊıarg1,¡­µ÷ÓÃÍø¸ñÎÄ¼şdfx£¬·µ»ØÆäµÚÒ»¸öreturnÖµ²¢¹Ø±Õ¡£
+ * è°ƒç”¨æŒ‡å®šç½‘æ ¼ï¼Œè¿”å›ç½‘æ ¼çš„è¿”å›å€¼ï¼Œå¤šè¿”å›å€¼æ‹¼æˆåºåˆ—
+ * call(dfx,arg1,â€¦) ä¼ å…¥å‚æ•°arg1,â€¦è°ƒç”¨ç½‘æ ¼æ–‡ä»¶dfxï¼Œè¿”å›å…¶ç¬¬ä¸€ä¸ªreturnå€¼å¹¶å…³é—­ã€‚
  * @author RunQian
  *
  */
 public class Call extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -57,7 +57,7 @@ public class Call extends Function {
 		}
 
 		if (nopt) {
-			// ²úÉúĞÂÏß³ÌÖ´ĞĞ½Å±¾£¬Ö±½Ó·µ»Ø
+			// äº§ç”Ÿæ–°çº¿ç¨‹æ‰§è¡Œè„šæœ¬ï¼Œç›´æ¥è¿”å›
 			String uuid = UUID.randomUUID().toString();
 			JobSpace jobSpace = JobSpaceManager.getSpace(uuid);
 			pcs.getContext().setJobSpace(jobSpace);
@@ -89,7 +89,7 @@ public class Call extends Function {
 		return val;
 	}
 	
-	// ÔÚ±¾µØÕÒdfx£¬ÕÒ²»µ½·µ»Ønull
+	// åœ¨æœ¬åœ°æ‰¾dfxï¼Œæ‰¾ä¸åˆ°è¿”å›null
 	public String getDfxPathName(Context ctx) {
 		IParam param = this.param;
 		if (!param.isLeaf()) {
@@ -119,7 +119,7 @@ public class Call extends Function {
 		}
 	}
 	
-	// ideÓÃÀ´È¡±»µ÷ÓÃÍø¸ñ½øĞĞµ¥²½¸ú×Ù
+	// ideç”¨æ¥å–è¢«è°ƒç”¨ç½‘æ ¼è¿›è¡Œå•æ­¥è·Ÿè¸ª
 	public PgmCellSet getCallPgmCellSet(Context ctx) {
 		IParam param = this.param;
 		boolean useCache = option == null || option.indexOf('r') == -1;
@@ -175,7 +175,7 @@ public class Call extends Function {
 			if (list != null) {
 				Context curCtx = pcs.getContext();
 				if (pcs.isDynamicParam()) {
-					// Èç¹û×îºóÒ»¸ö²ÎÊıÊÇ¶¯Ì¬²ÎÊıÔòĞèÒªÆ´³ÉĞòÁĞ
+					// å¦‚æœæœ€åä¸€ä¸ªå‚æ•°æ˜¯åŠ¨æ€å‚æ•°åˆ™éœ€è¦æ‹¼æˆåºåˆ—
 					int paramCount = list.count();
 					int giveCount = param.getSubSize() - 1;
 					int last;
@@ -230,7 +230,7 @@ public class Call extends Function {
 		return pcs;
 	}
 	
-	// ide½áÊøµ÷ÓÃºóµ÷ÓÃ´Îº¯Êı
+	// ideç»“æŸè°ƒç”¨åè°ƒç”¨æ¬¡å‡½æ•°
 	public void finish(PgmCellSet pcs) {
 		if (option == null || option.indexOf('r') == -1) {
 			pcs.reset();

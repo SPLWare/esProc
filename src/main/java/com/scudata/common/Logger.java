@@ -10,19 +10,19 @@ import com.scudata.app.config.ConfigConsts;
 
 
 /**
- * Ê¹ÓÃSLF4J API-2.0.1ÊµÏÖÈÕÖ¾Êä³ö,Ò²Ö§³Ö²»ÖÃÈëslf4j,½«Ö±½ÓÊ¹ÓÃScudataLogger
+ * ä½¿ç”¨SLF4J API-2.0.1å®ç°æ—¥å¿—è¾“å‡º,ä¹Ÿæ”¯æŒä¸ç½®å…¥slf4j,å°†ç›´æ¥ä½¿ç”¨ScudataLogger
  * @author Joancy
  *
  */
 public class Logger {
-//	ÈÕÖ¾¼¶±ğµÄ´®Ğ´·¨£¬ÔÚÏàÓ¦µÄpropertiesÎÄ¼şÖĞ£¬¸ù¾İÏÂÃæ³£Á¿¼¶±ğĞ´·¨¶¨Òå
+//	æ—¥å¿—çº§åˆ«çš„ä¸²å†™æ³•ï¼Œåœ¨ç›¸åº”çš„propertiesæ–‡ä»¶ä¸­ï¼Œæ ¹æ®ä¸‹é¢å¸¸é‡çº§åˆ«å†™æ³•å®šä¹‰
 	public static String OFF = ScudataLogger.OFF;
 	public static String SEVERE = ScudataLogger.SEVERE;
 	public static String WARNING = ScudataLogger.WARNING;
 	public static String INFO = ScudataLogger.INFO;
 	public static String DEBUG = ScudataLogger.DEBUG;
 
-//	ÈÕÖ¾¼¶±ğÔÚ±¾ÀàÖĞ¶ÔÓ¦µÄ¼¶±ğºÅ	
+//	æ—¥å¿—çº§åˆ«åœ¨æœ¬ç±»ä¸­å¯¹åº”çš„çº§åˆ«å·	
 	public static int iDOLOG = ScudataLogger.iDOLOG;
 	public static int iOFF = ScudataLogger.iOFF;
 	public static int iSEVERE = ScudataLogger.iSEVERE;
@@ -67,26 +67,26 @@ public class Logger {
 	}
 	
 	/**
-	 * ÁĞ³öËùÓĞÖ§³ÖµÄÈÕÖ¾¼¶±ğµÄÎÄ±¾´®Ğ´·¨£¬¿ÉÓÃÓÚ½çÃæ±à¼­µÈ¡£
-	 * @return	°üº¬È«²¿ÈÕÖ¾¼¶±ğµÄ×Ö·û´®Êı×é
+	 * åˆ—å‡ºæ‰€æœ‰æ”¯æŒçš„æ—¥å¿—çº§åˆ«çš„æ–‡æœ¬ä¸²å†™æ³•ï¼Œå¯ç”¨äºç•Œé¢ç¼–è¾‘ç­‰ã€‚
+	 * @return	åŒ…å«å…¨éƒ¨æ—¥å¿—çº§åˆ«çš„å­—ç¬¦ä¸²æ•°ç»„
 	 */
 	public static String[] listLevelNames() {
 		return ScudataLogger.listLevelNames();
 	}
 
 	/**
-	 * »ñÈ¡ÈÕÖ¾ÎÄ±¾´®Ğ´·¨¶ÔÓ¦µÄÈÕÖ¾¼¶±ğºÅ
-	 * @param level	Òª¶ÔÓ¦µÄÈÕÖ¾¼¶±ğ
-	 * @return	ÏàÓ¦µÄÈÕÖ¾¼¶±ğºÅ
+	 * è·å–æ—¥å¿—æ–‡æœ¬ä¸²å†™æ³•å¯¹åº”çš„æ—¥å¿—çº§åˆ«å·
+	 * @param level	è¦å¯¹åº”çš„æ—¥å¿—çº§åˆ«
+	 * @return	ç›¸åº”çš„æ—¥å¿—çº§åˆ«å·
 	 */
 	public static int getLevel(String level) {
 		return ScudataLogger.getLevel(level);
 	}
 
 	/**
-	 * »ñÈ¡ÈÕÖ¾¼¶±ğºÅµÄÎÄ±¾´®Ğ´·¨
-	 * @param level Òª¶ÔÓ¦µÄÈÕÖ¾¼¶±ğºÅ
-	 * @return	ÏàÓ¦µÄÈÕÖ¾¼¶±ğ
+	 * è·å–æ—¥å¿—çº§åˆ«å·çš„æ–‡æœ¬ä¸²å†™æ³•
+	 * @param level è¦å¯¹åº”çš„æ—¥å¿—çº§åˆ«å·
+	 * @return	ç›¸åº”çš„æ—¥å¿—çº§åˆ«
 	 */
 	public static String getLevelName(int level) {
 		return ScudataLogger.getLevelName(level);
@@ -117,9 +117,9 @@ public class Logger {
 	}
 
 	/**
-	 * ÓÃÓÚ¼ÇÂ¼´úÂëÖĞµÄÑÏÖØ³ö´í£¬¸Ã¼¶±ğµÄÏûÏ¢Ê±ÓÃ»§±ØĞë²é¿´ÈÕÖ¾À´È·¶¨´íÎóÔ­Òò¡£
-	 * @param msg ´ı¼ÇÂ¼µÄÈÕÖ¾ÏûÏ¢£¬Í¨³£ÓÃÓÚ¼ÓÉî»òÕß²¹³äÒì³£µÄÏêÏ¸ÃèÊö
-	 * @param t	¶ÔÓ¦µÄÏêÏ¸Òì³£
+	 * ç”¨äºè®°å½•ä»£ç ä¸­çš„ä¸¥é‡å‡ºé”™ï¼Œè¯¥çº§åˆ«çš„æ¶ˆæ¯æ—¶ç”¨æˆ·å¿…é¡»æŸ¥çœ‹æ—¥å¿—æ¥ç¡®å®šé”™è¯¯åŸå› ã€‚
+	 * @param msg å¾…è®°å½•çš„æ—¥å¿—æ¶ˆæ¯ï¼Œé€šå¸¸ç”¨äºåŠ æ·±æˆ–è€…è¡¥å……å¼‚å¸¸çš„è¯¦ç»†æè¿°
+	 * @param t	å¯¹åº”çš„è¯¦ç»†å¼‚å¸¸
 	 */
 	public static void error(Object msg) {
 		severe(msg);
@@ -144,7 +144,7 @@ public class Logger {
 	}
 
 	/**
-	 * Í¬warning·½·¨£¬ÓÃÓÚÒÔÇ°°æ±¾µÄ¼æÈİ£¬²»Òªµ÷ÓÃ¸Ã·½·¨¡£
+	 * åŒwarningæ–¹æ³•ï¼Œç”¨äºä»¥å‰ç‰ˆæœ¬çš„å…¼å®¹ï¼Œä¸è¦è°ƒç”¨è¯¥æ–¹æ³•ã€‚
 	 * @param msg
 	 */
 	public static void warn(Object msg) {
@@ -160,16 +160,16 @@ public class Logger {
 	}
 
 	/**
-	 * ¼ÇÂ¼Ò»¸ö¾¯¸æÏûÏ¢
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
+	 * è®°å½•ä¸€ä¸ªè­¦å‘Šæ¶ˆæ¯
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
 	 */
 	public static void warning(Object msg) {
 		warning(msg,null);
 	}
 	/**
-	 * ÏêÏ¸¼ÇÂ¼Ò»¸ö¾¯¸æÏûÏ¢ÒÔ¼°ÏàÓ¦Òì³£
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
-	 * @param t	¶ÔÓ¦µÄÏêÏ¸Òì³£
+	 * è¯¦ç»†è®°å½•ä¸€ä¸ªè­¦å‘Šæ¶ˆæ¯ä»¥åŠç›¸åº”å¼‚å¸¸
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
+	 * @param t	å¯¹åº”çš„è¯¦ç»†å¼‚å¸¸
 	 */
 	public static void warning(Object msg, Throwable t) {
 		if(isUseSLF4J()) {
@@ -181,9 +181,9 @@ public class Logger {
 
 
 	/**
-	 * ÏêÏ¸¼ÇÂ¼Ò»¸öÆÕÍ¨ÏûÏ¢ÒÔ¼°ÏàÓ¦Òì³£
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
-	 * @param t	¶ÔÓ¦µÄÏêÏ¸Òì³£
+	 * è¯¦ç»†è®°å½•ä¸€ä¸ªæ™®é€šæ¶ˆæ¯ä»¥åŠç›¸åº”å¼‚å¸¸
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
+	 * @param t	å¯¹åº”çš„è¯¦ç»†å¼‚å¸¸
 	 */
 	public static void info(Object msg, Throwable t) {
 		if(isUseSLF4J()) {
@@ -194,8 +194,8 @@ public class Logger {
 	}
 
 	/**
-	 * ¼òµ¥¼ÇÂ¼Ò»¸öÆÕÍ¨ÏûÏ¢
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
+	 * ç®€å•è®°å½•ä¸€ä¸ªæ™®é€šæ¶ˆæ¯
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
 	 */
 	public static void info(Object msg) {
 		if(msg instanceof Throwable) {
@@ -206,9 +206,9 @@ public class Logger {
 	}
 
 	/**
-	 * ÏêÏ¸¼ÇÂ¼Ò»¸öµ÷ÊÔÏûÏ¢ÒÔ¼°ÏàÓ¦Òì³£
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
-	 * @param t	¶ÔÓ¦µÄÏêÏ¸Òì³£
+	 * è¯¦ç»†è®°å½•ä¸€ä¸ªè°ƒè¯•æ¶ˆæ¯ä»¥åŠç›¸åº”å¼‚å¸¸
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
+	 * @param t	å¯¹åº”çš„è¯¦ç»†å¼‚å¸¸
 	 */
 	public static void debug(Object msg, Throwable t) {
 		if(isUseSLF4J()) {
@@ -219,8 +219,8 @@ public class Logger {
 	}
 
 	/**
-	 * ¼òµ¥¼ÇÂ¼Ò»¸öµ÷ÊÔÏûÏ¢
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
+	 * ç®€å•è®°å½•ä¸€ä¸ªè°ƒè¯•æ¶ˆæ¯
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
 	 */
 	public static void debug(Object msg) {
 		if(msg instanceof Throwable) {
@@ -231,7 +231,7 @@ public class Logger {
 	}
 
 	/**
-	 * Ç¿ÖÆ¼ÇÂ¼ÈÕÖ¾£¬Õâ¸öslfÃ»Õâ¸ö¶«Î÷£¬Ö±½Óµ÷ÓÃScudataLoggerÊµÏÖ
+	 * å¼ºåˆ¶è®°å½•æ—¥å¿—ï¼Œè¿™ä¸ªslfæ²¡è¿™ä¸ªä¸œè¥¿ï¼Œç›´æ¥è°ƒç”¨ScudataLoggerå®ç°
 	 * @param msg
 	 */
 	public static void doLog(Object msg) {
@@ -242,31 +242,31 @@ public class Logger {
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°ÈÕÖ¾µÄ¿´ÃÅ¼¶±ğÊÇ·ñÎªµ÷ÊÔÄ£Ê½
-	 * @return ÊÇ·ñµ÷ÊÔÄ£Ê½
+	 * åˆ¤æ–­å½“å‰æ—¥å¿—çš„çœ‹é—¨çº§åˆ«æ˜¯å¦ä¸ºè°ƒè¯•æ¨¡å¼
+	 * @return æ˜¯å¦è°ƒè¯•æ¨¡å¼
 	 */
 	public static boolean isDebugLevel() {
 		return ScudataLogger.isDebugLevel();
 	}
 
 	/**
-	 * Í¨³£ÇéĞÎÏÂ£¬µ÷ÊÔÄ£Ê½»áÊä³öËùÓĞ¼¶±ğµÄÈÕÖ¾£¬¼æÈİÒÔÇ°°æ±¾µÄÊÇ·ñµ÷ÊÔ¼¶±ğĞ´·¨£¬²»Òªµ÷ÓÃ¸Ã·½·¨¡£
-	 * @return ÊÇ·ñµ÷ÊÔÄ£Ê½
+	 * é€šå¸¸æƒ…å½¢ä¸‹ï¼Œè°ƒè¯•æ¨¡å¼ä¼šè¾“å‡ºæ‰€æœ‰çº§åˆ«çš„æ—¥å¿—ï¼Œå…¼å®¹ä»¥å‰ç‰ˆæœ¬çš„æ˜¯å¦è°ƒè¯•çº§åˆ«å†™æ³•ï¼Œä¸è¦è°ƒç”¨è¯¥æ–¹æ³•ã€‚
+	 * @return æ˜¯å¦è°ƒè¯•æ¨¡å¼
 	 */
 	public static boolean isAllLevel() {
 		return isDebugLevel();
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°ÈÕÖ¾µÄ¼ÇÂ¼¼¶±ğ
-	 * @param level	¸ÃÎÄ¼ş¶¨ÒåµÄÈÕÖ¾¼¶±ğ³£Á¿´®
+	 * è®¾ç½®å½“å‰æ—¥å¿—çš„è®°å½•çº§åˆ«
+	 * @param level	è¯¥æ–‡ä»¶å®šä¹‰çš„æ—¥å¿—çº§åˆ«å¸¸é‡ä¸²
 	 */
 	public static void setLevel(String level) {
 		ScudataLogger.setLevel(level);
 	}
 	
 	/**
-	 * ÉèÖÃµ±Ç°ÈÕÖ¾µÄÀàĞÍ
+	 * è®¾ç½®å½“å‰æ—¥å¿—çš„ç±»å‹
 	 * @param logType ConfigConsts.LOG_DEFAULT,ConfigConsts.LOG_SLF
 	 */
 	public static void setLogType(String type){
@@ -274,8 +274,8 @@ public class Logger {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ÈÕÖ¾¼ÇÂ¼¼¶±ğ
-	 * @return	·µ»Ø¼ÇÂ¼¼¶±ğºÅ
+	 * è·å–å½“å‰æ—¥å¿—è®°å½•çº§åˆ«
+	 * @return	è¿”å›è®°å½•çº§åˆ«å·
 	 */
 	public static int getLevel() {
 		return ScudataLogger.getLevel();

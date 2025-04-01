@@ -10,7 +10,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓÃÓÚ´¦Àísql.sqlparse¡¢sql.sqltranslateº¯Êı
+ * ç”¨äºå¤„ç†sql.sqlparseã€sql.sqltranslateå‡½æ•°
  * @author RunQian
  *
  */
@@ -69,7 +69,7 @@ public final class SQLUtil {
 		return len;
 	}
 	
-	// ËÑË÷()£¬ÆğÊ¼Î»ÖÃÊÇ×óÀ¨ºÅ
+	// æœç´¢()ï¼Œèµ·å§‹ä½ç½®æ˜¯å·¦æ‹¬å·
 	public static int scanParen(Token []tokens, int start, final int next) {
 		int deep = 0;
 		for (int i = start + 1; i < next; ++i) {
@@ -96,7 +96,7 @@ public final class SQLUtil {
 	}
 	
 	/**
-	 * ²ğ·ÖSQLµÄ¸÷¸ö²¿·Ö·µ»Ø³ÉĞòÁĞ
+	 * æ‹†åˆ†SQLçš„å„ä¸ªéƒ¨åˆ†è¿”å›æˆåºåˆ—
 	 * @param sql
 	 * @return Sequence
 	 */
@@ -425,10 +425,10 @@ public final class SQLUtil {
 	}
 	
 	/**
-	 * Ìæ»»sqlµÄÖ¸¶¨²¿·Ö
-	 * @param sql SQLÓï¾ä
-	 * @param replacement ÒªÌæ»»³ÉµÄÄÚÈİ
-	 * @param option Ñ¡Ïî£¬Ö¸¶¨Ìæ»»ÄÄĞ©²¿·Ö
+	 * æ›¿æ¢sqlçš„æŒ‡å®šéƒ¨åˆ†
+	 * @param sql SQLè¯­å¥
+	 * @param replacement è¦æ›¿æ¢æˆçš„å†…å®¹
+	 * @param option é€‰é¡¹ï¼ŒæŒ‡å®šæ›¿æ¢å“ªäº›éƒ¨åˆ†
 	 * @return
 	 */
 	public static String replace(String sql, String replacement, String option) {
@@ -443,9 +443,9 @@ public final class SQLUtil {
 		
 		Token []tokens = Tokenizer.parse(sql);
 		int count = tokens.length;
-		String keyWord; // ¹Ø¼ü×Ö¶ÎÃû³Æ£¬Èç¹ûÔ´sqlÖĞÃ»ÓĞÕâ²¿·ÖÔòĞèÒªĞÂ¼Ó
-		int keyPos = -1; // ¹Ø¼ü×ÖµÄÎ»ÖÃ£¬Èç¹ûreplacementÎª¿ÕÔòÉ¾³ıÕâ²¿·Ö
-		int start = -1; // ¹Ø¼ü×ÖºóÄÚÈİµÄÎ»ÖÃ
+		String keyWord; // å…³é”®å­—æ®µåç§°ï¼Œå¦‚æœæºsqlä¸­æ²¡æœ‰è¿™éƒ¨åˆ†åˆ™éœ€è¦æ–°åŠ 
+		int keyPos = -1; // å…³é”®å­—çš„ä½ç½®ï¼Œå¦‚æœreplacementä¸ºç©ºåˆ™åˆ é™¤è¿™éƒ¨åˆ†
+		int start = -1; // å…³é”®å­—åå†…å®¹çš„ä½ç½®
 		int end = -1;
 		
 		if (option.indexOf('s') != -1) {
@@ -562,7 +562,7 @@ public final class SQLUtil {
 				return sql.substring(0, endPos) + keyWord + ' ' + replacement + sql.substring(endPos - 1);
 			}
 		} else if (start == count) {
-			// Ö»ÓĞ¹Ø¼ü×ÖºóÃæÃ»ÄÚÈİ
+			// åªæœ‰å…³é”®å­—åé¢æ²¡å†…å®¹
 			if (replacement.length() == 0) {
 				int startPos = tokens[keyPos].getPos();
 				return sql.substring(0, startPos);
@@ -584,8 +584,8 @@ public final class SQLUtil {
 		}
 	}
 	
-	// °ÑÂß¼­SQL·­Òë³ÉÎïÀíSQL£¬°üÀ¨topºÍº¯Êı
-	// DBTypesÀï¶¨ÒåÁËÊı¾İ¿âÀàĞÍ³£Á¿
+	// æŠŠé€»è¾‘SQLç¿»è¯‘æˆç‰©ç†SQLï¼ŒåŒ…æ‹¬topå’Œå‡½æ•°
+	// DBTypesé‡Œå®šä¹‰äº†æ•°æ®åº“ç±»å‹å¸¸é‡
 	public static String translate(String sql, String dbType) {
 		Token []tokens = Tokenizer.parse(sql);
 		int count = tokens.length;
@@ -608,7 +608,7 @@ public final class SQLUtil {
 					i++;
 				}
 			} else if (token.isKeyWord("TOP")) {
-				// ¸ù¾İÊı¾İ¿âÀàĞÍ×ª»»³ÉÏàÓ¦µÄÓï·¨
+				// æ ¹æ®æ•°æ®åº“ç±»å‹è½¬æ¢æˆç›¸åº”çš„è¯­æ³•
 				if (tokens[i + 1].getType() == Tokenizer.NUMBER) {
 					if ("ORACLE".endsWith(dbType) || "DB2".endsWith(dbType) || "MYSQL".endsWith(dbType)
 							 || "HSQL".endsWith(dbType) || "POSTGRES".endsWith(dbType) || "HIVE".endsWith(dbType)
@@ -657,7 +657,7 @@ public final class SQLUtil {
 		return sb.toString();
 	}
 	
-	// end²»°üÀ¨
+	// endä¸åŒ…æ‹¬
 	private static String translate(String sql, Token []tokens, int start, int end, String dbType) {
 		StringBuffer sb = new StringBuffer();
 		int prevPos = tokens[start].getPos();
@@ -687,7 +687,7 @@ public final class SQLUtil {
 		}
 	}
 	
-	// f(), f(p1,...) nextÊÇ')'µÄÎ»ÖÃ
+	// f(), f(p1,...) nextæ˜¯')'çš„ä½ç½®
 	private static String scanFunction(String sql, Token []tokens, int start, int next, String dbType) {
 		String name = tokens[start].getString();
 		start += 2;

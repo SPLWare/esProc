@@ -20,25 +20,25 @@ import com.scudata.ide.spl.SPL;
 import com.scudata.ide.spl.SheetSpl;
 
 /**
- * ±à¼­Ê±£¬ÔÚµ±Ç°µ¥Ôª¸ñ»ñµÃ½¹µãÊ±µÄ¼üÅÌ¼àÌıÆ÷Àà
+ * ç¼–è¾‘æ—¶ï¼Œåœ¨å½“å‰å•å…ƒæ ¼è·å¾—ç„¦ç‚¹æ—¶çš„é”®ç›˜ç›‘å¬å™¨ç±»
  */
 public class CellEditingListener implements KeyListener {
-	/** ±à¼­¿Ø¼ş */
+	/** ç¼–è¾‘æ§ä»¶ */
 	protected SplControl control;
 
-	/** ÄÚÈİÃæ°å */
+	/** å†…å®¹é¢æ¿ */
 	protected ContentPanel cp;
 
 	/**
-	 * ÊÇ·ñ°´ÏÂCTRL¼ü
+	 * æ˜¯å¦æŒ‰ä¸‹CTRLé”®
 	 */
 	protected boolean isCtrlDown = false;
 
 	/**
-	 * ¼àÌıÆ÷¹¹Ôìº¯Êı
+	 * ç›‘å¬å™¨æ„é€ å‡½æ•°
 	 * 
-	 * @param control ±à¼­¿Ø¼ş
-	 * @param panel   ÄÚÈİÃæ°å
+	 * @param control ç¼–è¾‘æ§ä»¶
+	 * @param panel   å†…å®¹é¢æ¿
 	 */
 	public CellEditingListener(SplControl control, ContentPanel panel) {
 		this.control = control;
@@ -46,9 +46,9 @@ public class CellEditingListener implements KeyListener {
 	}
 
 	/**
-	 * ¼ü±»ÊÍ·ÅÊ±£¬Ïò±à¼­Æ÷·¢ËÍĞÂÊäÈëµÄÎÄ±¾
+	 * é”®è¢«é‡Šæ”¾æ—¶ï¼Œå‘ç¼–è¾‘å™¨å‘é€æ–°è¾“å…¥çš„æ–‡æœ¬
 	 * 
-	 * @param e ¼üÅÌÊÂ¼ş
+	 * @param e é”®ç›˜äº‹ä»¶
 	 */
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
@@ -57,16 +57,16 @@ public class CellEditingListener implements KeyListener {
 	}
 
 	/**
-	 * ¼ü±»°´ÏÂÊ±µÄ´¦Àíº¯Êı£¬Èç¹û°´ÏÂµÄÊÇÉÏÏÂ¼ü¡¢»Ø³µ¼ü»òCtrl+×óÓÒ¼ü£¬ÏàÓ¦¸Ä±äµ±Ç°µ¥Ôª¸ñ
+	 * é”®è¢«æŒ‰ä¸‹æ—¶çš„å¤„ç†å‡½æ•°ï¼Œå¦‚æœæŒ‰ä¸‹çš„æ˜¯ä¸Šä¸‹é”®ã€å›è½¦é”®æˆ–Ctrl+å·¦å³é”®ï¼Œç›¸åº”æ”¹å˜å½“å‰å•å…ƒæ ¼
 	 * 
-	 * @param e ¼üÅÌÊÂ¼ş
+	 * @param e é”®ç›˜äº‹ä»¶
 	 */
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		boolean isMatching = isMatching();
 		switch (key) {
 		case KeyEvent.VK_ENTER:
-			if (!GV.isCellEditing) {// À´×Ô¹¤¾ßÀ¸ÃüÁî
+			if (!GV.isCellEditing) {// æ¥è‡ªå·¥å…·æ å‘½ä»¤
 				stopMatch();
 				return;
 			}
@@ -91,7 +91,7 @@ public class CellEditingListener implements KeyListener {
 				}
 			} else if (e.isShiftDown()) {
 				stopMatch();
-				// ½ÓÊÜÄÚÈİ¡¢Ö´ĞĞ£¨²»ÂÛÊÇ·ñÓĞÊµÖÊ¸Ä¶¯£©¡¢ÏÔÊ¾½á¹û²¢×Ô¶¯¶¤×¡¡¢²»ÒÆ¶¯¹â±ê
+				// æ¥å—å†…å®¹ã€æ‰§è¡Œï¼ˆä¸è®ºæ˜¯å¦æœ‰å®è´¨æ”¹åŠ¨ï¼‰ã€æ˜¾ç¤ºç»“æœå¹¶è‡ªåŠ¨é’‰ä½ã€ä¸ç§»åŠ¨å…‰æ ‡
 				if (GVSpl.appSheet != null
 						&& GVSpl.appSheet instanceof SheetSpl)
 					((SheetSpl) GVSpl.appSheet).calcActiveCell();
@@ -166,7 +166,7 @@ public class CellEditingListener implements KeyListener {
 				}
 				control.scrollToArea(control.toLeftCell());
 			} else if (e.isControlDown()) {
-				// CTRL-TAB½âÊÍ³ÉÇĞ»»µ±Ç°»î¶¯SHEET£¨²ÎÕÕEXCEL£©
+				// CTRL-TABè§£é‡Šæˆåˆ‡æ¢å½“å‰æ´»åŠ¨SHEETï¼ˆå‚ç…§EXCELï¼‰
 				if (isMatching) {
 					stopMatch();
 				}
@@ -211,7 +211,7 @@ public class CellEditingListener implements KeyListener {
 				break;
 			}
 			if (e.isAltDown()) {
-				if (e.getSource() == GV.toolBarProperty.getWindowEditor()) {// À´×Ô¹¤¾ßÀ¸ÃüÁî
+				if (e.getSource() == GV.toolBarProperty.getWindowEditor()) {// æ¥è‡ªå·¥å…·æ å‘½ä»¤
 					e.consume();
 				}
 				return;
@@ -229,7 +229,7 @@ public class CellEditingListener implements KeyListener {
 				break;
 			}
 			if (e.isAltDown()) {
-				if (e.getSource() == GV.toolBarProperty.getWindowEditor()) {// À´×Ô¹¤¾ßÀ¸ÃüÁî
+				if (e.getSource() == GV.toolBarProperty.getWindowEditor()) {// æ¥è‡ªå·¥å…·æ å‘½ä»¤
 					e.consume();
 				}
 				return;
@@ -294,13 +294,13 @@ public class CellEditingListener implements KeyListener {
 	}
 
 	/**
-	 * ¼üÅÌ°´ÏÂÊÂ¼ş
+	 * é”®ç›˜æŒ‰ä¸‹äº‹ä»¶
 	 */
 	public void keyTyped(KeyEvent e) {
 	}
 
 	/**
-	 * È¡Ô´×é¼ş
+	 * å–æºç»„ä»¶
 	 * 
 	 * @param e
 	 * @return

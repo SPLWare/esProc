@@ -14,14 +14,14 @@ import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸üĞÂ×é±íÊı¾İ£¬ĞÂ¼üÖµÔò²åÈë£¬±£³Ö¼üÓĞĞò£¬×é±íĞèÓĞÖ÷¼ü
+ * æ›´æ–°ç»„è¡¨æ•°æ®ï¼Œæ–°é”®å€¼åˆ™æ’å…¥ï¼Œä¿æŒé”®æœ‰åºï¼Œç»„è¡¨éœ€æœ‰ä¸»é”®
  * T.update(P:D)
  * @author RunQian
  *
  */
 public class Update extends PhyTableFunction {
 	public Object calculate(Context ctx) {
-		//¾É¸ñÊ½µÄ×é±í²»Ö§³Ö¸üĞÂ
+		//æ—§æ ¼å¼çš„ç»„è¡¨ä¸æ”¯æŒæ›´æ–°
 		if (table instanceof ColPhyTable) {
 			ColPhyTable colTable = (ColPhyTable) table;
 			if (!colTable.getGroupTable().isPureFormat()) {
@@ -51,7 +51,7 @@ public class Update extends PhyTableFunction {
 			obj = param.getLeafExpression().calculate(ctx);
 		}
 		
-		//´¦Àí¸üĞÂ
+		//å¤„ç†æ›´æ–°
 		if (obj == null) {
 			if (!hasN) {
 				result = table;
@@ -95,7 +95,7 @@ public class Update extends PhyTableFunction {
 			throw new RQException("update" + mm.getMessage("function.paramTypeError"));
 		}
 		
-		//´¦ÀíÉ¾³ı
+		//å¤„ç†åˆ é™¤
 		if (obj2 != null) {
 			try {
 				Sequence result2 = table.delete((Sequence)obj2, opt);
@@ -112,8 +112,8 @@ public class Update extends PhyTableFunction {
 	private void updateColumn(ICursor cs, String opt) {
 		try {
 			/**
-			 * ÓÃÓÎ±ê¸üĞÂÊ±²»ÄÜÔö¼Ó¼ÇÂ¼,
-			 * ËùÒÔ²»ÄÜ³öÏÖ@i
+			 * ç”¨æ¸¸æ ‡æ›´æ–°æ—¶ä¸èƒ½å¢åŠ è®°å½•,
+			 * æ‰€ä»¥ä¸èƒ½å‡ºç°@i
 			 */
 			if (opt != null && opt.indexOf('i') != -1) {
 				opt = opt.replace("i", "");

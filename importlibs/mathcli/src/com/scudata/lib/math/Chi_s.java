@@ -4,9 +4,9 @@ import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
 /**
- * ¿¨·½¼ìÑéÇós
+ * å¡æ–¹æ£€éªŒæ±‚s
  * @author bd
- * Ô­º¯Êıchi_s
+ * åŸå‡½æ•°chi_s
  */
 public class Chi_s {
 	private static double o(Sequence x, Sequence y, Object t, Object v) {
@@ -48,7 +48,7 @@ public class Chi_s {
 	}
 	
 	/**
-	 * Í¨³£Ê¹ÓÃµÄ¿¨·½ÑéÖ¤Çós£¬ÔÚX.card()Îª2Ê±Î´µ÷Õû£¬ºÍÏÂÃæµÄµ÷ÕûËã·¨ÓĞÒ»¶¨Çø±ğ
+	 * é€šå¸¸ä½¿ç”¨çš„å¡æ–¹éªŒè¯æ±‚sï¼Œåœ¨X.card()ä¸º2æ—¶æœªè°ƒæ•´ï¼Œå’Œä¸‹é¢çš„è°ƒæ•´ç®—æ³•æœ‰ä¸€å®šåŒºåˆ«
 	 * @param x
 	 * @param y
 	 * @return
@@ -72,7 +72,7 @@ public class Chi_s {
 	}
 	
 	/**
-	 * ÓĞµ÷ÕûµÄ¿¨·½ÑéÖ¤Çós£¬Õâ¸öÊÇºÍpythonµÄÄ¬ÈÏ¿¨·½¼ÆËãÏàºÏµÄ£¬±£Áô
+	 * æœ‰è°ƒæ•´çš„å¡æ–¹éªŒè¯æ±‚sï¼Œè¿™ä¸ªæ˜¯å’Œpythonçš„é»˜è®¤å¡æ–¹è®¡ç®—ç›¸åˆçš„ï¼Œä¿ç•™
 	 * @param x
 	 * @param y
 	 * @return

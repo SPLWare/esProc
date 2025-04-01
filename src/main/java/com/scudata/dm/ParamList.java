@@ -13,7 +13,7 @@ import com.scudata.common.ICloneable;
 import com.scudata.common.IRecord;
 
 /**
- * ²ÎÊıÁĞ±í£¬ÓÃÓÚ±£´æ±äÁ¿¡¢²ÎÊı¡¢³£Á¿
+ * å‚æ•°åˆ—è¡¨ï¼Œç”¨äºä¿å­˜å˜é‡ã€å‚æ•°ã€å¸¸é‡
  * @author WangXiaoJun
  *
  */
@@ -21,14 +21,14 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	private static final long serialVersionUID = 0x05000004;
 
 	private List<Param> vList;
-	private boolean isUserChangeable; //ÊÇ·ñÃ¿´ÎÖØĞÂÔËĞĞÊ±ÉèÖÃ²ÎÊı
+	private boolean isUserChangeable; //æ˜¯å¦æ¯æ¬¡é‡æ–°è¿è¡Œæ—¶è®¾ç½®å‚æ•°
 
 	public ParamList() {
 	}
 
 	/**
-	 * °ÑÁíÒ»¸ö²ÎÊıÁĞ±íÀïµÄ²ÎÊıÌí¼Óµ½µ±Ç°²ÎÊıÁĞ±íÖĞ
-	 * @param pl ²ÎÊıÁĞ±í
+	 * æŠŠå¦ä¸€ä¸ªå‚æ•°åˆ—è¡¨é‡Œçš„å‚æ•°æ·»åŠ åˆ°å½“å‰å‚æ•°åˆ—è¡¨ä¸­
+	 * @param pl å‚æ•°åˆ—è¡¨
 	 */
 	public void addAll(ParamList pl) {
 		if (pl.vList != null && pl.vList.size() > 0) {
@@ -41,8 +41,8 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * Ìí¼Ó²ÎÊı
-	 * @param v Param ²ÎÊı
+	 * æ·»åŠ å‚æ•°
+	 * @param v Param å‚æ•°
 	 */
 	public void add(Param v) {
 		if (vList == null) {
@@ -53,9 +53,9 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * Ìí¼Ó²ÎÊıµ½Ö¸¶¨Î»ÖÃ
-	 * @param index int Ö¸¶¨Î»ÖÃ
-	 * @param v Param ²ÎÊı
+	 * æ·»åŠ å‚æ•°åˆ°æŒ‡å®šä½ç½®
+	 * @param index int æŒ‡å®šä½ç½®
+	 * @param v Param å‚æ•°
 	 */
 	public void add(int index, Param v) {
 		if (isValid(v)) {
@@ -68,10 +68,10 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * °´¸ø¶¨Ãû³Æ¡¢²ÎÊıÀàĞÍ¡¢²ÎÊıÖµÀ´Ìí¼ÓÎŞ±êÌâ²ÎÊı
-	 * @param name String ²ÎÊıÃû³Æ
-	 * @param kind byte ²ÎÊıÀàĞÍ
-	 * @param value Object ²ÎÊıÖµ
+	 * æŒ‰ç»™å®šåç§°ã€å‚æ•°ç±»å‹ã€å‚æ•°å€¼æ¥æ·»åŠ æ— æ ‡é¢˜å‚æ•°
+	 * @param name String å‚æ•°åç§°
+	 * @param kind byte å‚æ•°ç±»å‹
+	 * @param value Object å‚æ•°å€¼
 	 */
 	public void add(String name, byte kind, Object value) {
 		Param v = new Param(name, kind, value);
@@ -85,36 +85,36 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * °´¸ø¶¨Ãû³Æ¡¢²ÎÊıÖµÀ´Ìí¼ÓÎŞ±êÌâ±äÁ¿
-	 * @param name String ±äÁ¿Ãû³Æ
-	 * @param value Object ±äÁ¿²ÎÊıÖµ
+	 * æŒ‰ç»™å®šåç§°ã€å‚æ•°å€¼æ¥æ·»åŠ æ— æ ‡é¢˜å˜é‡
+	 * @param name String å˜é‡åç§°
+	 * @param value Object å˜é‡å‚æ•°å€¼
 	 */
 	public void addVariable(String name, Object value) {
 		add(name, Param.VAR, value);
 	}
 
 	/**
-	 * °´¸ø¶¨Ãû³Æ¡¢±êÌâ¡¢²ÎÊıÖµÀ´Ìí¼Ó²ÎÊı
-	 * @param name String ²ÎÊıÃû³Æ
-	 * @param value Object ²ÎÊıÖµ
+	 * æŒ‰ç»™å®šåç§°ã€æ ‡é¢˜ã€å‚æ•°å€¼æ¥æ·»åŠ å‚æ•°
+	 * @param name String å‚æ•°åç§°
+	 * @param value Object å‚æ•°å€¼
 	 */
 	public void addArgument(String name, Object value) {
 		add(name, Param.ARG, value);
 	}
 
 	/**
-	 * °´¸ø¶¨Ãû³Æ¡¢±êÌâ¡¢²ÎÊıÖµÀ´Ìí¼Ó³£²ÎÊı
-	 * @param name String ³£²ÎÊıÃû³Æ
-	 * @param value Object ³£²ÎÊıÖµ
+	 * æŒ‰ç»™å®šåç§°ã€æ ‡é¢˜ã€å‚æ•°å€¼æ¥æ·»åŠ å¸¸å‚æ•°
+	 * @param name String å¸¸å‚æ•°åç§°
+	 * @param value Object å¸¸å‚æ•°å€¼
 	 */
 	public void addConstant( String name, Object value ) {
 		add(name, Param.CONST, value);
 	}
 
 	/**
-	 * ÒÆ³ıÖ¸¶¨Î»ÖÃ²ÎÊı
-	 * @param index int Ö¸¶¨Î»ÖÃ
-	 * @return Param ÒÆ³ı²ÎÊı
+	 * ç§»é™¤æŒ‡å®šä½ç½®å‚æ•°
+	 * @param index int æŒ‡å®šä½ç½®
+	 * @return Param ç§»é™¤å‚æ•°
 	 */
 	public Param remove(int index) {
 		if (vList == null || vList.size() <= index ) {
@@ -125,9 +125,9 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * ÒÆ³ıÖ¸¶¨Ãû³Æ²ÎÊı
-	 * @param name String Ö¸¶¨Ãû³Æ
-	 * @return Param ÒÆ³ı²ÎÊı
+	 * ç§»é™¤æŒ‡å®šåç§°å‚æ•°
+	 * @param name String æŒ‡å®šåç§°
+	 * @return Param ç§»é™¤å‚æ•°
 	 */
 	public Param remove(String name) {
 		if (vList == null) {
@@ -145,9 +145,9 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨Î»ÖÃ²ÎÊı
-	 * @param index int Ö¸¶¨Î»ÖÃ
-	 * @return Param ²ÎÊı
+	 * è·å–æŒ‡å®šä½ç½®å‚æ•°
+	 * @param index int æŒ‡å®šä½ç½®
+	 * @return Param å‚æ•°
 	 */
 	public Param get(int index) {
 		if (vList == null || vList.size() <= index) {
@@ -158,9 +158,9 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨Ãû³Æ²ÎÊı
-	 * @param name String Ö¸¶¨Ãû³Æ
-	 * @return Param ²ÎÊı
+	 * è·å–æŒ‡å®šåç§°å‚æ•°
+	 * @param name String æŒ‡å®šåç§°
+	 * @return Param å‚æ•°
 	 */
 	public Param get(String name) {
 		if (vList == null) {
@@ -178,8 +178,8 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * ²éÕÒÖµµÈÓÚvalueµÄ²ÎÊı
-	 * @param value Object ²ÎÊıÖµ
+	 * æŸ¥æ‰¾å€¼ç­‰äºvalueçš„å‚æ•°
+	 * @param value Object å‚æ•°å€¼
 	 * @return Param
 	 */
 	public Param getByValue(Object value) {
@@ -198,8 +198,8 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * »ñÈ¡ËùÓĞ±äÁ¿
-	 * @param varList ParamList ±äÁ¿²ÎÊıÁĞ±í
+	 * è·å–æ‰€æœ‰å˜é‡
+	 * @param varList ParamList å˜é‡å‚æ•°åˆ—è¡¨
 	 */
 	public void getAllVarParams(ParamList varList) {
 		if (vList == null) {
@@ -215,8 +215,8 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * »ñÈ¡ËùÓĞ²ÎÊı
-	 * @param expParamList ParamList ²ÎÊıÁĞ±í
+	 * è·å–æ‰€æœ‰å‚æ•°
+	 * @param expParamList ParamList å‚æ•°åˆ—è¡¨
 	 */
 	public void getAllArguments(ParamList expParamList) {
 		if (vList == null) {
@@ -232,8 +232,8 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 	
 	/**
-	 * »ñÈ¡ËùÓĞ³£²ÎÊı
-	 * @param varList ParamList ³£²ÎÊıÁĞ±í
+	 * è·å–æ‰€æœ‰å¸¸å‚æ•°
+	 * @param varList ParamList å¸¸å‚æ•°åˆ—è¡¨
 	 */
 	public void getAllConsts(ParamList varList) {
 		if (vList == null) {
@@ -249,17 +249,17 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * ÊÇ·ñ°üº¬Ö¸¶¨²ÎÊı
-	 * @param p Param Ö¸¶¨²ÎÊı
-	 * @return boolean ÊÇ·ñ°üº¬
+	 * æ˜¯å¦åŒ…å«æŒ‡å®šå‚æ•°
+	 * @param p Param æŒ‡å®šå‚æ•°
+	 * @return boolean æ˜¯å¦åŒ…å«
 	 */
 	public boolean contains(Param p) {
 		return (vList == null ? false : vList.contains(p));
 	}
 
 	/**
-	 * ²ÎÊı×ÜÊı
-	 * @return int ×ÜÊı
+	 * å‚æ•°æ€»æ•°
+	 * @return int æ€»æ•°
 	 */
 	public int count() {
 		if (vList == null) {
@@ -270,14 +270,14 @@ public class ParamList implements Cloneable, ICloneable, Externalizable, IRecord
 	}
 
 	/**
-	 * Çå¿Õ²ÎÊıÁĞ±í
+	 * æ¸…ç©ºå‚æ•°åˆ—è¡¨
 	 */
 	public void clear() {
 		vList = null;
 	}
 
 	/**
-	 * Éî¶È¸´ÖÆ
+	 * æ·±åº¦å¤åˆ¶
 	 * @return Object
 	 */
 	public Object deepClone() {

@@ -84,7 +84,7 @@ public class Utils {
 		return retObj;
 	}
 	
-	// ¼ì²âÊı¾İÀàĞÍÎŞÌáÊ¾
+	// æ£€æµ‹æ•°æ®ç±»å‹æ— æç¤º
 	public static Object checkValidDataTypeWithoutPrompt(IParam sub, Context ctx, String type){
 		Object retObj = null;
 		do{
@@ -131,7 +131,7 @@ public class Utils {
 		return retObj;
 	}
 	
-	// ÔÊĞíÎª¿Õ
+	// å…è®¸ä¸ºç©º
 	public static Boolean checkValidDataType(Object o, String type, Object ret){
 		Boolean bRet = false;
 		do{
@@ -176,7 +176,7 @@ public class Utils {
 	}
 	
 	// Object obj = param.getLeafExpression().calculate(ctx);
-	// ²»Ö§³Öfloat, Ö»Ö§³Ödouble;
+	// ä¸æ”¯æŒfloat, åªæ”¯æŒdouble;
 	public static long objectToLong(Object Obj)  
 	{  
 	    //return Long.valueOf(String.valueOf(Obj)); 
@@ -225,7 +225,7 @@ public class Utils {
 		return retMatch.find(); 
 	}
 	
-	public static TimeUnit intToEnum(int value) {    //½«ÊıÖµ×ª»»³ÉÃ¶¾ÙÖµ
+	public static TimeUnit intToEnum(int value) {    //å°†æ•°å€¼è½¬æ¢æˆæšä¸¾å€¼
         switch (value) {
         case 0:
             return TimeUnit.NANOSECONDS;

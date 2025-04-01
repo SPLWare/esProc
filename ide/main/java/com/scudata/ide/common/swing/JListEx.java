@@ -22,9 +22,9 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 
 /**
- * À©³äµÄJList
+ * æ‰©å……çš„JList
  * 
- * ½«Êı¾İ·â×°ÔÚ¸ÃÀà Êı¾İ¹æÔò£¬ÏÔÊ¾ÖµÒªÇó±ØĞëÎªStringÀàĞÍ£¬·½±ãÏÔÊ¾³ÌĞò Êı¾İÖµ¿ÉÒÔÊÇÈÎÒâÀàĞÍ£¬´ËÒªÇó¸úJComboBoxExÏàÍ¬
+ * å°†æ•°æ®å°è£…åœ¨è¯¥ç±» æ•°æ®è§„åˆ™ï¼Œæ˜¾ç¤ºå€¼è¦æ±‚å¿…é¡»ä¸ºStringç±»å‹ï¼Œæ–¹ä¾¿æ˜¾ç¤ºç¨‹åº æ•°æ®å€¼å¯ä»¥æ˜¯ä»»æ„ç±»å‹ï¼Œæ­¤è¦æ±‚è·ŸJComboBoxExç›¸åŒ
  * 
  */
 
@@ -32,17 +32,17 @@ public class JListEx extends JList {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ÁĞ±íÄ£ĞÍ
+	 * åˆ—è¡¨æ¨¡å‹
 	 */
 	public DefaultListModel data = new DefaultListModel();
 
 	/**
-	 * ´úÂëÖµ
+	 * ä»£ç å€¼
 	 */
 	private Vector<Object> codeData = new Vector<Object>();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public JListEx() {
 		super.setModel(data);
@@ -92,12 +92,12 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param items
-	 *            ÓÉdelim·Ö¸ôµÄÁĞ±íÖµ×Ö·û´®
+	 *            ç”±delimåˆ†éš”çš„åˆ—è¡¨å€¼å­—ç¬¦ä¸²
 	 * @param delim
-	 *            ·Ö¸ô·û
+	 *            åˆ†éš”ç¬¦
 	 */
 	public JListEx(String items, char delim) {
 		this();
@@ -105,20 +105,20 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param items
-	 *            ÓÉ¶ººÅ·Ö¸ôµÄÁĞ±íÖµ×Ö·û´®
+	 *            ç”±é€—å·åˆ†éš”çš„åˆ—è¡¨å€¼å­—ç¬¦ä¸²
 	 */
 	public JListEx(String items) {
 		this(items, ',');
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param items
-	 *            ÁĞ±íÖµÊı×é
+	 *            åˆ—è¡¨å€¼æ•°ç»„
 	 */
 	public JListEx(Object[] items) {
 		this();
@@ -126,10 +126,10 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param items
-	 *            ÁĞ±íÖµ¼¯ºÏ
+	 *            åˆ—è¡¨å€¼é›†åˆ
 	 */
 	public JListEx(Vector items) {
 		this();
@@ -137,10 +137,10 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param model
-	 *            ÁĞ±íÄ£ĞÍ
+	 *            åˆ—è¡¨æ¨¡å‹
 	 */
 	public JListEx(DefaultListModel model) {
 		this();
@@ -151,26 +151,26 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ÒÆ¶¯Êı¾İµÄ´¦Àí·½·¨£¬Ä¬ÈÏÇé¿öÓÃ»§²»ÓÃ¹Ü¸Ã·½·¨£¬³ÌĞò×Ô¶¯½«Êı¾İdropµ½ËùÔÚ¿Ø¼ş£¬
-	 * Èç¹ûÓÃ»§ÓĞ±ØÒª×Ô¼º´¦ÀíÊı¾İ£¬±ÈÈç»¹Òª×÷ÆäËû²Ù×÷£¬Ôğ¸²¸Ç¸Ã·½·¨£¬È»ºó·µ»Øtrue¾Í ¿ÉÒÔ
+	 * ç§»åŠ¨æ•°æ®çš„å¤„ç†æ–¹æ³•ï¼Œé»˜è®¤æƒ…å†µç”¨æˆ·ä¸ç”¨ç®¡è¯¥æ–¹æ³•ï¼Œç¨‹åºè‡ªåŠ¨å°†æ•°æ®dropåˆ°æ‰€åœ¨æ§ä»¶ï¼Œ
+	 * å¦‚æœç”¨æˆ·æœ‰å¿…è¦è‡ªå·±å¤„ç†æ•°æ®ï¼Œæ¯”å¦‚è¿˜è¦ä½œå…¶ä»–æ“ä½œï¼Œè´£è¦†ç›–è¯¥æ–¹æ³•ï¼Œç„¶åè¿”å›trueå°± å¯ä»¥
 	 * 
 	 * @param moveData
-	 *            String ¶ººÅ·Ö¸îµÄÑ¡ÖĞµÄJListµÄÑ¡Ïî
+	 *            String é€—å·åˆ†å‰²çš„é€‰ä¸­çš„JListçš„é€‰é¡¹
 	 * @param dropedControl
-	 *            JComponent Êó±êDropµÄ¿Ø¼ş
-	 * @return boolean ÓÃ»§ÊÇ·ñ×Ô¼º´¦ÀíÁË¸Ã·½·¨£¬ÊÇµÄ»°Ó¦¸Ã·µ»Øtrue£¬·ñÔòfalse¡£
+	 *            JComponent é¼ æ ‡Dropçš„æ§ä»¶
+	 * @return boolean ç”¨æˆ·æ˜¯å¦è‡ªå·±å¤„ç†äº†è¯¥æ–¹æ³•ï¼Œæ˜¯çš„è¯åº”è¯¥è¿”å›trueï¼Œå¦åˆ™falseã€‚
 	 */
 	public boolean moveDropTarget(String moveData, JComponent dropedControl) {
 		return false;
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÊı¾İÎªitems
+	 * è®¾ç½®å½“å‰çš„æ•°æ®ä¸ºitems
 	 * 
 	 * @param items
-	 *            Êı¾İÁĞ±í
+	 *            æ•°æ®åˆ—è¡¨
 	 * @param delim
-	 *            ÓÃÓÃÓÚ·Ö¿ªitemsÊı¾İµÄ·Ö¸î·ûºÅ
+	 *            ç”¨ç”¨äºåˆ†å¼€itemsæ•°æ®çš„åˆ†å‰²ç¬¦å·
 	 */
 	public void setListData(String items, char delim) {
 		if (items == null) {
@@ -184,20 +184,20 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÊı¾İÎªitems
+	 * è®¾ç½®å½“å‰çš„æ•°æ®ä¸ºitems
 	 * 
 	 * @param items
-	 *            ÓÃ¡®£¬¡¯·Ö¿ªµÄÊı¾İÁĞ±í
+	 *            ç”¨â€˜ï¼Œâ€™åˆ†å¼€çš„æ•°æ®åˆ—è¡¨
 	 */
 	public void setListData(String items) {
 		setListData(items, ',');
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÊı¾İÎªlistData
+	 * è®¾ç½®å½“å‰çš„æ•°æ®ä¸ºlistData
 	 * 
 	 * @param listData
-	 *            °üº¬Êı¾İµÄ¶ÔÏóÊı×é
+	 *            åŒ…å«æ•°æ®çš„å¯¹è±¡æ•°ç»„
 	 */
 	public void setListData(Object[] listData) {
 		if (listData == null) {
@@ -210,10 +210,10 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÊı¾İÎªlistData
+	 * è®¾ç½®å½“å‰çš„æ•°æ®ä¸ºlistData
 	 * 
 	 * @param listData
-	 *            °üº¬Êı¾İµÄVector¶ÔÏó
+	 *            åŒ…å«æ•°æ®çš„Vectorå¯¹è±¡
 	 */
 	public void setListData(List listData) {
 		if (listData == null) {
@@ -223,10 +223,10 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÊı¾İÎªmodel
+	 * è®¾ç½®å½“å‰çš„æ•°æ®ä¸ºmodel
 	 * 
 	 * @param model
-	 *            °üº¬Êı¾İµÄListModel¶ÔÏó
+	 *            åŒ…å«æ•°æ®çš„ListModelå¯¹è±¡
 	 */
 	public void setModel(DefaultListModel model) {
 		if (model == null) {
@@ -237,7 +237,7 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * É¾³ıµ±Ç°ÁĞ±í¿òÖĞµÄËùÓĞÑ¡ÖĞµÄÏîÄ¿
+	 * åˆ é™¤å½“å‰åˆ—è¡¨æ¡†ä¸­çš„æ‰€æœ‰é€‰ä¸­çš„é¡¹ç›®
 	 */
 	public void removeSelectedItems() {
 		if (this.data.size() == 0) {
@@ -250,9 +250,9 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * »ñµÃµ±Ç°ÁĞ±í¿òÖĞµÄËùÓĞÏîÄ¿Ãû
+	 * è·å¾—å½“å‰åˆ—è¡¨æ¡†ä¸­çš„æ‰€æœ‰é¡¹ç›®å
 	 * 
-	 * @return ×Ö·û´®ĞÎÊ½µÄÏîÄ¿ÁĞ±í£¬ÁĞ±íÖ®¼äÓÃ¡®£¬¡¯·Ö¿ª
+	 * @return å­—ç¬¦ä¸²å½¢å¼çš„é¡¹ç›®åˆ—è¡¨ï¼Œåˆ—è¡¨ä¹‹é—´ç”¨â€˜ï¼Œâ€™åˆ†å¼€
 	 */
 	public String totalItems() {
 		if (data.getSize() == 0) {
@@ -267,9 +267,9 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * »ñµÃµ±Ç°ÁĞ±í¿òÖĞµÄËùÓĞÑ¡ÖĞµÄÏîÄ¿Ãû
+	 * è·å¾—å½“å‰åˆ—è¡¨æ¡†ä¸­çš„æ‰€æœ‰é€‰ä¸­çš„é¡¹ç›®å
 	 * 
-	 * @return ×Ö·û´®ĞÎÊ½µÄÏîÄ¿ÁĞ±í£¬ÁĞ±íÖ®¼äÓÃ¡®£¬¡¯·Ö¿ª
+	 * @return å­—ç¬¦ä¸²å½¢å¼çš„é¡¹ç›®åˆ—è¡¨ï¼Œåˆ—è¡¨ä¹‹é—´ç”¨â€˜ï¼Œâ€™åˆ†å¼€
 	 */
 	public String selectedItems() {
 		StringBuffer sb = new StringBuffer();
@@ -285,7 +285,7 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * È¡¶ººÅ·Ö¸ôµÄÁĞ±íÖµ×Ö·û´®
+	 * å–é€—å·åˆ†éš”çš„åˆ—è¡¨å€¼å­—ç¬¦ä¸²
 	 * 
 	 * @return
 	 */
@@ -294,11 +294,11 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * Èç¹ûµ±Ç°Êı¾İÊµÏÖÁËComparable£¬Ôò¶ÔÊı¾İ°´ÕÕÖ¸¶¨µÄË³ĞòÅÅĞò
+	 * å¦‚æœå½“å‰æ•°æ®å®ç°äº†Comparableï¼Œåˆ™å¯¹æ•°æ®æŒ‰ç…§æŒ‡å®šçš„é¡ºåºæ’åº
 	 * 
 	 * @param asc
-	 *            ascend£¬ÊÇ·ñ°´ÕÕÉıĞòÅÅÁĞ
-	 * @return Èç¹û¿ÉÒÔÅÅĞò·µ»Øtrue,·ñÔòfalse
+	 *            ascendï¼Œæ˜¯å¦æŒ‰ç…§å‡åºæ’åˆ—
+	 * @return å¦‚æœå¯ä»¥æ’åºè¿”å›true,å¦åˆ™false
 	 */
 	public boolean sort(boolean ascend) {
 		Comparable ci, cj;
@@ -329,7 +329,7 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * x_ ÎªÇ°×ºµÄº¯ÊıÓÃÓÚÏÔÊ¾ÖµºÍÕæÊµÖµÏÔÊ¾£¬ËùÓĞµÄº¯Êı¶¼µÃÓÃÏàÓ¦µÄ x_...
+	 * x_ ä¸ºå‰ç¼€çš„å‡½æ•°ç”¨äºæ˜¾ç¤ºå€¼å’ŒçœŸå®å€¼æ˜¾ç¤ºï¼Œæ‰€æœ‰çš„å‡½æ•°éƒ½å¾—ç”¨ç›¸åº”çš„ x_...
 	 * 
 	 * @param codeData
 	 * @param dispData
@@ -342,12 +342,12 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ÅÅĞò
+	 * æ’åº
 	 * 
 	 * @param sortByDisp
-	 *            ÊÇ·ñÍ¨¹ıÏÔÊ¾ÖµÅÅĞò
+	 *            æ˜¯å¦é€šè¿‡æ˜¾ç¤ºå€¼æ’åº
 	 * @param ascend
-	 *            ÊÇ·ñÕıĞò
+	 *            æ˜¯å¦æ­£åº
 	 * @return
 	 */
 	public boolean x_sort(boolean sortByDisp, boolean ascend) {
@@ -400,10 +400,10 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ¸ù¾İÏÔÊ¾ÖµÈ¡´úÂëÖµ
+	 * æ ¹æ®æ˜¾ç¤ºå€¼å–ä»£ç å€¼
 	 * 
 	 * @param dispItem
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 * @return
 	 */
 	public Object x_getCodeItem(String dispItem) {
@@ -425,10 +425,10 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ¸ù¾İ´úÂëÖµÈ¡ÏÔÊ¾Öµ
+	 * æ ¹æ®ä»£ç å€¼å–æ˜¾ç¤ºå€¼
 	 * 
 	 * @param codeItem
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @return
 	 */
 	public String x_getDispItem(Object codeItem) {
@@ -450,7 +450,7 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * È¡Ñ¡ÔñµÄÁĞ±íÖµ
+	 * å–é€‰æ‹©çš„åˆ—è¡¨å€¼
 	 * 
 	 * @return
 	 */
@@ -468,7 +468,7 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ÉèÖÃÏÔÊ¾Ä£ĞÍºÍ´úÂëÖµ
+	 * è®¾ç½®æ˜¾ç¤ºæ¨¡å‹å’Œä»£ç å€¼
 	 * 
 	 * @param codeData
 	 * @param dispModel
@@ -480,7 +480,7 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * É¾³ıËùÓĞ³ÉÔ±
+	 * åˆ é™¤æ‰€æœ‰æˆå‘˜
 	 */
 	public void x_removeAllElements() {
 		data.removeAllElements();
@@ -488,10 +488,10 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * °´ĞòºÅÉ¾³ı³ÉÔ±
+	 * æŒ‰åºå·åˆ é™¤æˆå‘˜
 	 * 
 	 * @param i
-	 *            ĞòºÅ
+	 *            åºå·
 	 */
 	public void x_removeElement(int i) {
 		data.removeElementAt(i);
@@ -499,7 +499,7 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * É¾³ıÑ¡ÔñµÄ³ÉÔ±
+	 * åˆ é™¤é€‰æ‹©çš„æˆå‘˜
 	 */
 	public void x_removeSelectedItems() {
 		int[] ii = getSelectedIndices();
@@ -509,7 +509,7 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * È¡Ñ¡ÔñµÄÖµ
+	 * å–é€‰æ‹©çš„å€¼
 	 * 
 	 * @return
 	 */
@@ -523,12 +523,12 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * Ôö¼Ó³ÉÔ±
+	 * å¢åŠ æˆå‘˜
 	 * 
 	 * @param code
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @param disp
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 */
 	public void x_addElement(Object code, String disp) {
 		codeData.addElement(code);
@@ -536,14 +536,14 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ²åÈë³ÉÔ±
+	 * æ’å…¥æˆå‘˜
 	 * 
 	 * @param index
-	 *            ĞòºÅ
+	 *            åºå·
 	 * @param code
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @param disp
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 */
 	public void x_insertElement(int index, Object code, String disp) {
 		codeData.insertElementAt(code, index);
@@ -551,14 +551,14 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * °´ĞòºÅÉèÖÃ³ÉÔ±
+	 * æŒ‰åºå·è®¾ç½®æˆå‘˜
 	 * 
 	 * @param index
-	 *            ĞòºÅ
+	 *            åºå·
 	 * @param code
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @param disp
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 */
 	public void x_setElementAt(int index, Object code, String disp) {
 		codeData.setElementAt(code, index);
@@ -566,12 +566,12 @@ public class JListEx extends JList {
 	}
 
 	/**
-	 * ÒÆ¶¯³ÉÔ±
+	 * ç§»åŠ¨æˆå‘˜
 	 * 
 	 * @param index
-	 *            ĞòºÅ
+	 *            åºå·
 	 * @param shiftUp
-	 *            ÊÇ·ñÉÏÒÆ
+	 *            æ˜¯å¦ä¸Šç§»
 	 */
 	public void x_shiftElement(int index, boolean shiftUp) {
 		if (shiftUp && index <= 0) {
@@ -603,28 +603,28 @@ public class JListEx extends JList {
 }
 
 /**
- * ÁĞ±íµÄ¾ä±ú
+ * åˆ—è¡¨çš„å¥æŸ„
  *
  */
 class JListExHandler extends TransferHandler {
 
 	/**
-	 * ÁĞ±í¿Ø¼ş
+	 * åˆ—è¡¨æ§ä»¶
 	 */
 	JListEx home;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param home
-	 *            ÁĞ±í¿Ø¼ş
+	 *            åˆ—è¡¨æ§ä»¶
 	 */
 	public JListExHandler(JListEx home) {
 		this.home = home;
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔµ¼Èë
+	 * æ˜¯å¦å¯ä»¥å¯¼å…¥
 	 */
 	public boolean canImport(JComponent c, DataFlavor[] flavors) {
 		return (c instanceof JListEx || c instanceof JTextArea
@@ -632,7 +632,7 @@ class JListExHandler extends TransferHandler {
 	}
 
 	/**
-	 * ÔÚ½Ó¿ÚlistDataÖĞÕÒµ½¶ÔÏóitemµÄĞòºÅ
+	 * åœ¨æ¥å£listDataä¸­æ‰¾åˆ°å¯¹è±¡itemçš„åºå·
 	 * 
 	 * @param listData
 	 * @param item
@@ -649,7 +649,7 @@ class JListExHandler extends TransferHandler {
 	}
 
 	/**
-	 * µ¼ÈëÊı¾İ
+	 * å¯¼å…¥æ•°æ®
 	 */
 	public boolean importData(JComponent c, Transferable t) {
 		try {
@@ -694,14 +694,14 @@ class JListExHandler extends TransferHandler {
 	}
 
 	/**
-	 * È¡Ô´ÃüÁî
+	 * å–æºå‘½ä»¤
 	 */
 	public int getSourceActions(JComponent c) {
 		return COPY_OR_MOVE;
 	}
 
 	/**
-	 * ´´½¨ÒÆ¶¯µÄTransferable¶ÔÏó
+	 * åˆ›å»ºç§»åŠ¨çš„Transferableå¯¹è±¡
 	 */
 	protected Transferable createTransferable(JComponent c) {
 		JListEx list = (JListEx) c;

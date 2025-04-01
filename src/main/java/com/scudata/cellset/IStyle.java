@@ -1,84 +1,84 @@
 package com.scudata.cellset;
 
 public interface IStyle {
-	/** ÀàĞÍÈ¡Öµ£ºÎÄ±¾ */
+	/** ç±»å‹å–å€¼ï¼šæ–‡æœ¬ */
 	public final static byte TYPE_TEXT = (byte) 0;
-	/** ÀàĞÍÈ¡Öµ£ºÍ¼Æ¬ */
+	/** ç±»å‹å–å€¼ï¼šå›¾ç‰‡ */
 	public final static byte TYPE_PIC = (byte) 1;
-	/** ÀàĞÍÈ¡Öµ£ºÍ³¼ÆÍ¼ */
+	/** ç±»å‹å–å€¼ï¼šç»Ÿè®¡å›¾ */
 	public final static byte TYPE_CHART = (byte) 2;
-	/** Êı¾İÀàĞÍÈ¡Öµ£º×Ó±¨±í */
+	/** æ•°æ®ç±»å‹å–å€¼ï¼šå­æŠ¥è¡¨ */
 	public final static byte TYPE_SUBREPORT = (byte) 3;
-	/** Êı¾İÀàĞÍÈ¡Öµ£ºHTML */
+	/** æ•°æ®ç±»å‹å–å€¼ï¼šHTML */
 	public final static byte TYPE_HTML = (byte) 4;
-	/** Êı¾İÀàĞÍÈ¡Öµ£ºÌõĞÎÂë */
+	/** æ•°æ®ç±»å‹å–å€¼ï¼šæ¡å½¢ç  */
 	public final static byte TYPE_BARCODE = (byte) 5;
-	/** ¶à¹¦ÄÜÎÄ±¾ÀàĞÍÈ¡Öµ£º¶à¹¦ÄÜÎÄ±¾ */
+	/** å¤šåŠŸèƒ½æ–‡æœ¬ç±»å‹å–å€¼ï¼šå¤šåŠŸèƒ½æ–‡æœ¬ */
 	public final static byte TYPE_RICHTEXT = (byte) 6;
 	/** SVG */
 	public final static byte TYPE_SVG = (byte) 7;
-	/** ´ó¶ÔÏó */
+	/** å¤§å¯¹è±¡ */
 	public final static byte TYPE_BLOB = (byte) 8;
-	/** ÀàĞÍÈ¡Öµ£º×Ô¶¨Òå */
+	/** ç±»å‹å–å€¼ï¼šè‡ªå®šä¹‰ */
 	public final static byte TYPE_CUSTOM = (byte) 20;
 
 	/**
-	 * Ë®Æ½¶ÔÆëÈ¡Öµ£º×ó¶ÔÆë * / public final static byte HALIGN_LEFT = (byte) 0; /**
-	 * Ë®Æ½¶ÔÆëÈ¡Öµ£ºÖĞ¶ÔÆë * / public final static byte HALIGN_CENTER = (byte) 1; /**
-	 * Ë®Æ½¶ÔÆëÈ¡Öµ£ºÓÒ¶ÔÆë * / public final static byte HALIGN_RIGHT = (byte) 2;
+	 * æ°´å¹³å¯¹é½å–å€¼ï¼šå·¦å¯¹é½ * / public final static byte HALIGN_LEFT = (byte) 0; /**
+	 * æ°´å¹³å¯¹é½å–å€¼ï¼šä¸­å¯¹é½ * / public final static byte HALIGN_CENTER = (byte) 1; /**
+	 * æ°´å¹³å¯¹é½å–å€¼ï¼šå³å¯¹é½ * / public final static byte HALIGN_RIGHT = (byte) 2;
 	 * 
 	 * 
-	 * /** ´¹Ö±¶ÔÆëÈ¡Öµ£º¿¿ÉÏ * / public final static byte VALIGN_TOP = (byte) 0; /**
-	 * ´¹Ö±¶ÔÆëÈ¡Öµ£º¾ÓÖĞ * / public final static byte VALIGN_MIDDLE = (byte) 1; /**
-	 * ´¹Ö±¶ÔÆëÈ¡Öµ£º¿¿ÏÂ * / public final static byte VALIGN_BOTTOM = (byte) 2; /*
-	 * ¶ÔÆë¶¨Òå¸ÄÎªÈçÏÂ£¬ÊÇÎªÁË¸úÍ¼ĞÎµÄConstsÍ³Ò»ÇÒ¼æÈİ¹ıÈ¥µÄÍ¼ĞÎ xq 2014.9.23,×¢Òâ£º¶ÔÆëµÄÊıÖµÒªÔËËã£¬²»ÄÜËæÒâ¸Ä¶¯¡£
+	 * /** å‚ç›´å¯¹é½å–å€¼ï¼šé ä¸Š * / public final static byte VALIGN_TOP = (byte) 0; /**
+	 * å‚ç›´å¯¹é½å–å€¼ï¼šå±…ä¸­ * / public final static byte VALIGN_MIDDLE = (byte) 1; /**
+	 * å‚ç›´å¯¹é½å–å€¼ï¼šé ä¸‹ * / public final static byte VALIGN_BOTTOM = (byte) 2; /*
+	 * å¯¹é½å®šä¹‰æ”¹ä¸ºå¦‚ä¸‹ï¼Œæ˜¯ä¸ºäº†è·Ÿå›¾å½¢çš„Constsç»Ÿä¸€ä¸”å…¼å®¹è¿‡å»çš„å›¾å½¢ xq 2014.9.23,æ³¨æ„ï¼šå¯¹é½çš„æ•°å€¼è¦è¿ç®—ï¼Œä¸èƒ½éšæ„æ”¹åŠ¨ã€‚
 	 */
-	/** ----------------------Ë®Æ½¶ÔÆëÈ¡Öµ---------------------------- */
-	public final static byte HALIGN_LEFT = 0; // ×ó¶ÔÆë
-	public final static byte HALIGN_CENTER = 2; // ÖĞ¶ÔÆë
-	public final static byte HALIGN_RIGHT = 4; // ÓÒ¶ÔÆë
+	/** ----------------------æ°´å¹³å¯¹é½å–å€¼---------------------------- */
+	public final static byte HALIGN_LEFT = 0; // å·¦å¯¹é½
+	public final static byte HALIGN_CENTER = 2; // ä¸­å¯¹é½
+	public final static byte HALIGN_RIGHT = 4; // å³å¯¹é½
 
-	/** ----------------------´¹Ö±¶ÔÆëÈ¡Öµ---------------------------- */
-	public final static byte VALIGN_TOP = 8; // ¿¿ÉÏ
-	public final static byte VALIGN_MIDDLE = 16; // ¾ÓÖĞ
-	public final static byte VALIGN_BOTTOM = 32; // ¿¿ÏÂ
+	/** ----------------------å‚ç›´å¯¹é½å–å€¼---------------------------- */
+	public final static byte VALIGN_TOP = 8; // é ä¸Š
+	public final static byte VALIGN_MIDDLE = 16; // å±…ä¸­
+	public final static byte VALIGN_BOTTOM = 32; // é ä¸‹
 
-	/** µ¼³ö·½Ê½È¡Öµ£ºµ¼³öÕæÊµÖµ */
+	/** å¯¼å‡ºæ–¹å¼å–å€¼ï¼šå¯¼å‡ºçœŸå®å€¼ */
 	public final static byte EXPORT_REAL = (byte) 0;
-	/** µ¼³ö·½Ê½È¡Öµ£ºµ¼³öÏÔÊ¾Öµ */
+	/** å¯¼å‡ºæ–¹å¼å–å€¼ï¼šå¯¼å‡ºæ˜¾ç¤ºå€¼ */
 	public final static byte EXPORT_DISP = (byte) 1;
-	/** µ¼³öµ½ExcelµÄ·½Ê½È¡Öµ£ºµ¼³ö¹«Ê½ */
+	/** å¯¼å‡ºåˆ°Excelçš„æ–¹å¼å–å€¼ï¼šå¯¼å‡ºå…¬å¼ */
 	public final static byte EXPORT_FORMULA = (byte) 2;
 
-	/** ³ß´çµ÷ÕûÈ¡Öµ£º°´Éè¼Æ³ß´ç²»±ä */
+	/** å°ºå¯¸è°ƒæ•´å–å€¼ï¼šæŒ‰è®¾è®¡å°ºå¯¸ä¸å˜ */
 	public final static byte ADJUST_FIXED = (byte) 0;
-	/** ³ß´çµ÷ÕûÈ¡Öµ£º°´µ¥Ôª¸ñÄÚÈİÀ©´ó */
+	/** å°ºå¯¸è°ƒæ•´å–å€¼ï¼šæŒ‰å•å…ƒæ ¼å†…å®¹æ‰©å¤§ */
 	public final static byte ADJUST_EXTEND = (byte) 1;
-	/** ³ß´çµ÷ÕûÈ¡Öµ£ºÍ¼Æ¬ÌîÂúµ¥Ôª¸ñ */
+	/** å°ºå¯¸è°ƒæ•´å–å€¼ï¼šå›¾ç‰‡å¡«æ»¡å•å…ƒæ ¼ */
 	public final static byte ADJUST_FILL = (byte) 2;
-	/** ³ß´çµ÷ÕûÈ¡Öµ£ºËõĞ¡×ÖÌåÌî³ä */
+	/** å°ºå¯¸è°ƒæ•´å–å€¼ï¼šç¼©å°å­—ä½“å¡«å…… */
 	public final static byte ADJUST_SHRINK = (byte) 3;
 
 	/**
-	 * ±ß¿òÑùÊ½È¡Öµ£ºÎŞ±ß¿ò * / public final static byte LINE_NONE = (byte) 0; /**
-	 * ±ß¿òÑùÊ½È¡Öµ£ºµãÏß * / public final static byte LINE_DOT = (byte)1; /** ±ß¿òÑùÊ½È¡Öµ£ºĞéÏß
-	 * * / public final static byte LINE_DASHED = (byte) 2; /** ±ß¿òÑùÊ½È¡Öµ£ºÊµÏß * /
-	 * public final static byte LINE_SOLID = (byte) 3; /** ±ß¿òÑùÊ½È¡Öµ£ºË«Ïß * / public
-	 * final static byte LINE_DOUBLE = (byte) 4; /** ±ß¿òÑùÊ½È¡Öµ£ºµã»®Ïß * / public final
-	 * static byte LINE_DOTDASH = (byte) 5; /* Ïß¶¨Òå¸ÄÎªÈçÏÂ£¬ÊÇÎªÁË¸úÍ¼ĞÎµÄConstsÍ³Ò»ÇÒ¼æÈİ¹ıÈ¥µÄÍ¼ĞÎ
+	 * è¾¹æ¡†æ ·å¼å–å€¼ï¼šæ— è¾¹æ¡† * / public final static byte LINE_NONE = (byte) 0; /**
+	 * è¾¹æ¡†æ ·å¼å–å€¼ï¼šç‚¹çº¿ * / public final static byte LINE_DOT = (byte)1; /** è¾¹æ¡†æ ·å¼å–å€¼ï¼šè™šçº¿
+	 * * / public final static byte LINE_DASHED = (byte) 2; /** è¾¹æ¡†æ ·å¼å–å€¼ï¼šå®çº¿ * /
+	 * public final static byte LINE_SOLID = (byte) 3; /** è¾¹æ¡†æ ·å¼å–å€¼ï¼šåŒçº¿ * / public
+	 * final static byte LINE_DOUBLE = (byte) 4; /** è¾¹æ¡†æ ·å¼å–å€¼ï¼šç‚¹åˆ’çº¿ * / public final
+	 * static byte LINE_DOTDASH = (byte) 5; /* çº¿å®šä¹‰æ”¹ä¸ºå¦‚ä¸‹ï¼Œæ˜¯ä¸ºäº†è·Ÿå›¾å½¢çš„Constsç»Ÿä¸€ä¸”å…¼å®¹è¿‡å»çš„å›¾å½¢
 	 * xq 2014.9.23
 	 */
-	public final static byte LINE_NONE = 0x0; // ÎŞ
-	public final static byte LINE_SOLID = 0x1; // ÊµÏß
-	public final static byte LINE_DASHED = 0x2; // ĞéÏß
-	public final static byte LINE_DOT = 0x3; // µãÏß
-	public final static byte LINE_DOUBLE = 0x4; // Ë«ÊµÏß
-	public final static byte LINE_DOTDASH = 0x5; // µã»®Ïß
+	public final static byte LINE_NONE = 0x0; // æ— 
+	public final static byte LINE_SOLID = 0x1; // å®çº¿
+	public final static byte LINE_DASHED = 0x2; // è™šçº¿
+	public final static byte LINE_DOT = 0x3; // ç‚¹çº¿
+	public final static byte LINE_DOUBLE = 0x4; // åŒå®çº¿
+	public final static byte LINE_DOTDASH = 0x5; // ç‚¹åˆ’çº¿
 
-	/** ×´Ì¬×Ô¶¯ */
+	/** çŠ¶æ€è‡ªåŠ¨ */
 	public final static byte STATE_AUTO = -1;
-	/** ×´Ì¬½ûÖ¹ */
+	/** çŠ¶æ€ç¦æ­¢ */
 	public final static byte STATE_NO = 0;
-	/** ×´Ì¬ÔÊĞí */
+	/** çŠ¶æ€å…è®¸ */
 	public final static byte STATE_YES = 1;
 }

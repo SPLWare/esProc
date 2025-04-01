@@ -12,13 +12,13 @@ import org.jsoup.select.Elements;
 import com.scudata.dm.Sequence;
 
 /**
- * HTML¹¤¾ßÀà£¬ÓÃÓÚ¶ÁÈ¡HTMLÊı¾İ
+ * HTMLå·¥å…·ç±»ï¼Œç”¨äºè¯»å–HTMLæ•°æ®
  * @author RunQian
  *
  */
 public class HTMLUtil {
 	private static void getTable(Element element, boolean doParse, Sequence result) {
-		// ±í¸ñÉú³ÉĞòÁĞµÄĞòÁĞ
+		// è¡¨æ ¼ç”Ÿæˆåºåˆ—çš„åºåˆ—
 		Elements rows = element.select("tr");
 		int rowCount = rows == null ? 0 : rows.size();
 		Sequence rowValues = new Sequence(rowCount);
@@ -33,7 +33,7 @@ public class HTMLUtil {
 				colCount = cols == null ? 0 : cols.size();
 			}
 			
-			// Ã¿ĞĞ¶Á³ÉÒ»¸öĞòÁĞ
+			// æ¯è¡Œè¯»æˆä¸€ä¸ªåºåˆ—
 			Sequence colValues = new Sequence(colCount);
 			rowValues.add(colValues);
 			
@@ -59,13 +59,13 @@ public class HTMLUtil {
 	}
 	
 	/**
-	 * È¡³öHTML´®ÖĞÖ¸¶¨tagÏÂµÄÖ¸¶¨ĞòºÅµÄÎÄ±¾£¬·µ»Ø³ÉĞòÁĞ
-	 * @param html HTMLÄÚÈİ
-	 * @param tags ±êÇ©ÃûÊı×é
-	 * @param seqs ±êÇ©ÏÂµÄÎÄ±¾ĞòºÅ
-	 * @param subSeqs ×ÓĞòºÅ
-	 * @param opt 0£º±£ÁônullÖµ£¨È±Ê¡»áÈ¥µô£©£¬p£º½âÎöÎÄ±¾ÎªÏàÓ¦ÀàĞÍµÄÊıÖµ
-	 * @return ĞòÁĞ
+	 * å–å‡ºHTMLä¸²ä¸­æŒ‡å®štagä¸‹çš„æŒ‡å®šåºå·çš„æ–‡æœ¬ï¼Œè¿”å›æˆåºåˆ—
+	 * @param html HTMLå†…å®¹
+	 * @param tags æ ‡ç­¾åæ•°ç»„
+	 * @param seqs æ ‡ç­¾ä¸‹çš„æ–‡æœ¬åºå·
+	 * @param subSeqs å­åºå·
+	 * @param opt 0ï¼šä¿ç•™nullå€¼ï¼ˆç¼ºçœä¼šå»æ‰ï¼‰ï¼Œpï¼šè§£ææ–‡æœ¬ä¸ºç›¸åº”ç±»å‹çš„æ•°å€¼
+	 * @return åºåˆ—
 	 */
 	public static Sequence htmlparse(String html, String []tags, int []seqs, int []subSeqs, String opt) {
 		int len = tags.length;
@@ -78,7 +78,7 @@ public class HTMLUtil {
 		
 		Document doc = Jsoup.parse(html);
 		for (int i = 0; i < len; ++i) {
-			// ¸ù¾İtagÃû³ÆÈ¡³öÏàÓ¦µÄÏî
+			// æ ¹æ®tagåç§°å–å‡ºç›¸åº”çš„é¡¹
 			Elements elements = doc.getElementsByTag(tags[i]);
 			if (elements == null || elements.size() == 0) {
 				if (containNull) {
@@ -114,7 +114,7 @@ public class HTMLUtil {
 					}
 				}
 			} else if (elements.size() > seqs[i]) {
-				// ¸ù¾İĞòºÅÈ¡³öÎÄ±¾
+				// æ ¹æ®åºå·å–å‡ºæ–‡æœ¬
 				Element element = elements.get(seqs[i]);
 				if (tags[i].equals("table")) {
 					getTable(element, doParse, result);
@@ -152,9 +152,9 @@ public class HTMLUtil {
 	}
 
 	/**
-	 * È¡ËùÓĞtext½ÚµãµÄÊı¾İ
-	 * @param node ½Úµã
-	 * @param out Êä³öĞòÁĞ
+	 * å–æ‰€æœ‰textèŠ‚ç‚¹çš„æ•°æ®
+	 * @param node èŠ‚ç‚¹
+	 * @param out è¾“å‡ºåºåˆ—
 	 */
 	private static void getAllNodeText(Node node, Sequence out, boolean containNull, boolean doParse) {
 		if (node instanceof TextNode) {
@@ -175,7 +175,7 @@ public class HTMLUtil {
 				out.add(null);
 			}
 		} else {
-			// ¼ÌĞø±éÀú×Ó½Úµã
+			// ç»§ç»­éå†å­èŠ‚ç‚¹
 			List<Node> childs = node.childNodes();
 			if (childs != null && childs.size() > 0) {
 				for (Node child : childs) {
@@ -188,10 +188,10 @@ public class HTMLUtil {
 	}
 	
 	/**
-	 * È¡ËùÓĞtext½ÚµãµÄÊı¾İ£¬·µ»Ø³ÉĞòÁĞ
-	 * @param html HTMLÄÚÈİ
-	 * @param opt 0£º±£ÁônullÖµ£¨È±Ê¡»áÈ¥µô£©£¬p£º½âÎöÎÄ±¾ÎªÏàÓ¦ÀàĞÍµÄÊıÖµ
-	 * @return ĞòÁĞ
+	 * å–æ‰€æœ‰textèŠ‚ç‚¹çš„æ•°æ®ï¼Œè¿”å›æˆåºåˆ—
+	 * @param html HTMLå†…å®¹
+	 * @param opt 0ï¼šä¿ç•™nullå€¼ï¼ˆç¼ºçœä¼šå»æ‰ï¼‰ï¼Œpï¼šè§£ææ–‡æœ¬ä¸ºç›¸åº”ç±»å‹çš„æ•°å€¼
+	 * @return åºåˆ—
 	 */
 	public static Sequence htmlparse(String html, String opt) {
 		Sequence result = new Sequence();

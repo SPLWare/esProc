@@ -10,13 +10,13 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 组表代理
+ * 缁勮〃浠ｇ悊
  * @author RunQian
  *
  */
 public class PhyTableProxy extends IProxy {
 	private IPhyTable tableMetaData;
-	private FileObject tempFile;//append临时文件
+	private FileObject tempFile;//append涓存椂鏂囦欢
 	
 	public PhyTableProxy(IPhyTable tableMetaData) {
 		this.tableMetaData = tableMetaData;
@@ -36,12 +36,12 @@ public class PhyTableProxy extends IProxy {
 		return table;
 	}
 	
-	// 取append数据用的临时文件
+	// 鍙朼ppend鏁版嵁鐢ㄧ殑涓存椂鏂囦欢
 	public FileObject getTempFile() {
 		return tempFile;
 	}
 
-	// 创建临时文件，用于存放append数据
+	// 鍒涘缓涓存椂鏂囦欢锛岀敤浜庡瓨鏀綼ppend鏁版嵁
 	public void createTempFile() {
 		tempFile = FileObject.createTempFileObject();
 	}

@@ -71,7 +71,7 @@ public class ColumnFilter extends IFilter {
 	}
 	
 	/**
-	 * ËùÓĞµÄ¶ÔÏó¶¼Æ¥Åä
+	 * æ‰€æœ‰çš„å¯¹è±¡éƒ½åŒ¹é…
 	 */
 	public boolean matchAll(Object minValue, Object maxValue) {
 		switch (operator) {

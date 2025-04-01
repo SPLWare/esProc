@@ -18,11 +18,11 @@ import com.scudata.expression.IParam;
 import com.scudata.expression.SequenceFunction;
 
 /**
- * ½«Ã¶¾Ù±äÁ¿²ğ·ÖÎª¶à¸ö¶şÖµ±äÁ¿BinaryIndicator
+ * å°†æšä¸¾å˜é‡æ‹†åˆ†ä¸ºå¤šä¸ªäºŒå€¼å˜é‡BinaryIndicator
  * @author bd
- * Ô­ĞÍD.bi(V)
+ * åŸå‹D.bi(V)
  * A.bi()/P.bi(cn); A.bi@r(rec)/P.bi@r(cn, rec);
- * Éú³ÉBinary IndicatorÁĞ£¬ÓÉÁĞÊı¾İseq£¬ÊÓÆäÊÇ·ñºÍÉèÈëµÄvÏàµÈ£¬Éú³ÉÒ»¸ö¶şÖµÁĞ
+ * ç”ŸæˆBinary Indicatoråˆ—ï¼Œç”±åˆ—æ•°æ®seqï¼Œè§†å…¶æ˜¯å¦å’Œè®¾å…¥çš„vç›¸ç­‰ï¼Œç”Ÿæˆä¸€ä¸ªäºŒå€¼åˆ—
  */
 public class Bi extends SequenceFunction {
 	public Object calculate(Context ctx) {
@@ -161,9 +161,9 @@ public class Bi extends SequenceFunction {
 			return null;
 		}
 
-		//Éú³ÉBIÊ±ÉÙÉú³ÉÒ»ÁĞ£¬Ä¿Ç°²»Éú³ÉXÖĞµÄµÚ1ÁĞ
-		//¶şÖµÒ²Òª×ö£¬±£Ö¤¶şÖµ±äÁ¿Îª0ºÍ1
-		//Í¬Ê±ĞŞ¸ÄµÄÊÇÉú³ÉÂß¼­£¬È¥µôµÚÒ»¸ö·ÖÀàÖµ£¬¶ø·Ç×îºóÒ»¸ö
+		//ç”ŸæˆBIæ—¶å°‘ç”Ÿæˆä¸€åˆ—ï¼Œç›®å‰ä¸ç”ŸæˆXä¸­çš„ç¬¬1åˆ—
+		//äºŒå€¼ä¹Ÿè¦åšï¼Œä¿è¯äºŒå€¼å˜é‡ä¸º0å’Œ1
+		//åŒæ—¶ä¿®æ”¹çš„æ˜¯ç”Ÿæˆé€»è¾‘ï¼Œå»æ‰ç¬¬ä¸€ä¸ªåˆ†ç±»å€¼ï¼Œè€Œéæœ€åä¸€ä¸ª
 		ArrayList<String> biCns = new ArrayList<String>(size - 1);
 		ArrayList<VarInfo> bivis = new ArrayList<VarInfo>(size - 1);
 		for (int i = 2; i <= size; i++ ) {
@@ -186,10 +186,10 @@ public class Bi extends SequenceFunction {
 	protected static void bi(Sequence cvs, String cn, BIRec br, ArrayList<Sequence> seqs, ArrayList<String> cns) {
 		Sequence X = br.getX();
 		int size = X.length();
-		//(ÌØ±ğµÄ£¬¶şÖµ×Ö¶Î²»×öÕâ¸ö´¦Àí) ¶şÖµÒ²Òª×ö£¬±£Ö¤¶şÖµ±äÁ¿Îª0ºÍ1
-		//Í¬Ê±ĞŞ¸ÄµÄÊÇÉú³ÉÂß¼­£¬È¥µôµÚÒ»¸ö·ÖÀàÖµ£¬¶ø·Ç×îºóÒ»¸ö
+		//(ç‰¹åˆ«çš„ï¼ŒäºŒå€¼å­—æ®µä¸åšè¿™ä¸ªå¤„ç†) äºŒå€¼ä¹Ÿè¦åšï¼Œä¿è¯äºŒå€¼å˜é‡ä¸º0å’Œ1
+		//åŒæ—¶ä¿®æ”¹çš„æ˜¯ç”Ÿæˆé€»è¾‘ï¼Œå»æ‰ç¬¬ä¸€ä¸ªåˆ†ç±»å€¼ï¼Œè€Œéæœ€åä¸€ä¸ª
 		if (size >= 2) {
-			//Éú³ÉBI×Ö¶Î
+			//ç”ŸæˆBIå­—æ®µ
 			for (int i = 2; i <= size; i++ ) {
 				Object v = X.get(i);
 				String newcn = "BI_"+cn+"_"+v.toString();

@@ -25,16 +25,16 @@ import com.scudata.util.Properties;
 import com.scudata.util.Property;
 
 /**
- * º¯Êı¿â£¬ÓÃÓÚÏµÍ³º¯ÊıµÄ¼ÓÔØºÍ²éÕÒ
+ * å‡½æ•°åº“ï¼Œç”¨äºç³»ç»Ÿå‡½æ•°çš„åŠ è½½å’ŒæŸ¥æ‰¾
  * 
  * @author RunQian
  *
  */
 public final class FunctionLib {
-	// ÓÃÓÚÁ´½ÓÍ¬Ãû³ÉÔ±º¯ÊıµÄÀà¶ÔÏó
+	// ç”¨äºé“¾æ¥åŒåæˆå‘˜å‡½æ•°çš„ç±»å¯¹è±¡
 	private static class ClassLink {
-		Class<? extends MemberFunction> fnClass; // ³ÉÔ±º¯ÊıÀà¶ÔÏó
-		ClassLink next; // ÏÂÒ»¸öÍ¬ÃûµÄ³ÉÔ±º¯ÊıÀà¶ÔÏó
+		Class<? extends MemberFunction> fnClass; // æˆå‘˜å‡½æ•°ç±»å¯¹è±¡
+		ClassLink next; // ä¸‹ä¸€ä¸ªåŒåçš„æˆå‘˜å‡½æ•°ç±»å¯¹è±¡
 
 		ClassLink(Class<? extends MemberFunction> fnClass) {
 			this.fnClass = fnClass;
@@ -53,30 +53,30 @@ public final class FunctionLib {
 		}
 	}
 
-	// È«¾Öº¯ÊıÓ³Éä±í
+	// å…¨å±€å‡½æ•°æ˜ å°„è¡¨
 	private static HashMap<String, Class<? extends Function>> fnMap = new HashMap<String, Class<? extends Function>>(256);
 
-	// ³ÉÔ±º¯ÊıÓ³Éä±í
+	// æˆå‘˜å‡½æ•°æ˜ å°„è¡¨
 	private static HashMap<String, ClassLink> mfnMap = new HashMap<String, ClassLink>(256);
 
-	// ³ÌĞòÍø¸ñº¯ÊıÓ³Éä±í£¬[º¯ÊıÃû,³ÌĞòÍøÂ·¾¶Ãû]
+	// ç¨‹åºç½‘æ ¼å‡½æ•°æ˜ å°„è¡¨ï¼Œ[å‡½æ•°å,ç¨‹åºç½‘è·¯å¾„å]
 	private static HashMap<String, DfxFunction> dfxFnMap = new HashMap<String, DfxFunction>(256);
 
 	private FunctionLib() {
 	}
 
 	static {
-		// ×Ô¶¨Òåº¯Êı²»ÔÙ×Ô¶¯¼ÓÔØ£¬Ìá¹©º¯ÊıÈÃÉÏ²ãÉèÖÃ
+		// è‡ªå®šä¹‰å‡½æ•°ä¸å†è‡ªåŠ¨åŠ è½½ï¼Œæä¾›å‡½æ•°è®©ä¸Šå±‚è®¾ç½®
 		loadSystemFunctions();
 	}
 
 	/**
-	 * Ìí¼ÓÈ«¾Öº¯Êı
+	 * æ·»åŠ å…¨å±€å‡½æ•°
 	 * 
 	 * @param fnName
-	 *            º¯ÊıÃû
+	 *            å‡½æ•°å
 	 * @param className
-	 *            ÀàÃû£¨°üº¬°üÃû£©
+	 *            ç±»åï¼ˆåŒ…å«åŒ…åï¼‰
 	 */
 	public static void addFunction(String fnName, String className) {
 		try {
@@ -96,12 +96,12 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * Ìí¼ÓÈ«¾Öº¯Êı£¬ÖØÃûÅ×Òì³£
+	 * æ·»åŠ å…¨å±€å‡½æ•°ï¼Œé‡åæŠ›å¼‚å¸¸
 	 * 
 	 * @param fnName
-	 *            º¯ÊıÃû
+	 *            å‡½æ•°å
 	 * @param funClass
-	 *            Àà¶ÔÏó
+	 *            ç±»å¯¹è±¡
 	 */
 	public static void addFunction(String fnName,
 			Class<? extends Function> funClass) {
@@ -115,14 +115,14 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * Ìí¼ÓÈ«¾Öº¯Êı£¬ÖØÃûÌæ»»»ò²»×ö¸Ä¶¯
+	 * æ·»åŠ å…¨å±€å‡½æ•°ï¼Œé‡åæ›¿æ¢æˆ–ä¸åšæ”¹åŠ¨
 	 * 
 	 * @param fnName
-	 *            º¯ÊıÃû
+	 *            å‡½æ•°å
 	 * @param funClass
-	 *            Àà¶ÔÏó
+	 *            ç±»å¯¹è±¡
 	 * @param replace
-	 *            true£ºÖØÃûÌæ»»£¬false£ºÖØÃû²»×ö¸Ä¶¯
+	 *            trueï¼šé‡åæ›¿æ¢ï¼Œfalseï¼šé‡åä¸åšæ”¹åŠ¨
 	 */
 	public static void addFunction(String fnName, String className,
 			boolean replace) {
@@ -138,22 +138,22 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇÈ«¾Öº¯ÊıÃû
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯å…¨å±€å‡½æ•°å
 	 * 
 	 * @param id
-	 *            ±êÊ¶·û
-	 * @return true£ºÊÇÈ«¾Öº¯ÊıÃû£¬false£º²»ÊÇÈ«¾Öº¯ÊıÃû
+	 *            æ ‡è¯†ç¬¦
+	 * @return trueï¼šæ˜¯å…¨å±€å‡½æ•°åï¼Œfalseï¼šä¸æ˜¯å…¨å±€å‡½æ•°å
 	 */
 	public static boolean isFnName(String id) {
 		return fnMap.containsKey(id);
 	}
 
 	/**
-	 * ÓÉº¯ÊıÃû´´½¨È«¾Öº¯Êı
+	 * ç”±å‡½æ•°ååˆ›å»ºå…¨å±€å‡½æ•°
 	 * 
 	 * @param fnName
-	 *            º¯ÊıÃû
-	 * @return º¯ÊıÃû¶ÔÓ¦µÄÈ«¾Öº¯Êı
+	 *            å‡½æ•°å
+	 * @return å‡½æ•°åå¯¹åº”çš„å…¨å±€å‡½æ•°
 	 */
 	public static Function newFunction(String fnName) {
 		try {
@@ -169,12 +169,12 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * Ìí¼Ó³ÉÔ±º¯Êı
+	 * æ·»åŠ æˆå‘˜å‡½æ•°
 	 * 
 	 * @param fnName
-	 *            ³ÉÔ±º¯ÊıÃû
+	 *            æˆå‘˜å‡½æ•°å
 	 * @param className
-	 *            ÀàÃû£¨°üº¬°üÃû£©
+	 *            ç±»åï¼ˆåŒ…å«åŒ…åï¼‰
 	 */
 	public static void addMemberFunction(String fnName, String className) {
 		try {
@@ -187,12 +187,12 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * Ìí¼Ó³ÉÔ±º¯Êı
+	 * æ·»åŠ æˆå‘˜å‡½æ•°
 	 * 
 	 * @param fnName
-	 *            ³ÉÔ±º¯ÊıÃû
+	 *            æˆå‘˜å‡½æ•°å
 	 * @param fnClass
-	 *            Àà¶ÔÏó
+	 *            ç±»å¯¹è±¡
 	 */
 	public static void addMemberFunction(String fnName,
 			Class<? extends MemberFunction> fnClass) {
@@ -210,22 +210,22 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇ³ÉÔ±º¯ÊıÃû
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯æˆå‘˜å‡½æ•°å
 	 * 
 	 * @param id
-	 *            ±êÊ¶·û
-	 * @return true£ºÊÇ³ÉÔ±º¯ÊıÃû£¬false£º²»ÊÇ³ÉÔ±º¯ÊıÃû
+	 *            æ ‡è¯†ç¬¦
+	 * @return trueï¼šæ˜¯æˆå‘˜å‡½æ•°åï¼Œfalseï¼šä¸æ˜¯æˆå‘˜å‡½æ•°å
 	 */
 	public static boolean isMemberFnName(String id) {
 		return mfnMap.containsKey(id);
 	}
 
 	/**
-	 * ÓÉº¯ÊıÃû´´½¨³ÉÔ±º¯Êı
+	 * ç”±å‡½æ•°ååˆ›å»ºæˆå‘˜å‡½æ•°
 	 * 
 	 * @param fnName
-	 *            º¯ÊıÃû
-	 * @return º¯ÊıÃû¶ÔÓ¦µÄ³ÉÔ±º¯Êı
+	 *            å‡½æ•°å
+	 * @return å‡½æ•°åå¯¹åº”çš„æˆå‘˜å‡½æ•°
 	 */
 	public static MemberFunction newMemberFunction(String fnName) {
 		try {
@@ -238,9 +238,9 @@ public final class FunctionLib {
 		}
 	}
 
-	// ¼ÓÔØÏµÍ³º¯Êı
+	// åŠ è½½ç³»ç»Ÿå‡½æ•°
 	private static void loadSystemFunctions() {
-		// È«¾Öº¯Êı
+		// å…¨å±€å‡½æ•°
 		addFunction("between", "com.scudata.expression.fn.Between");
 		addFunction("case", "com.scudata.expression.fn.Case");
 		addFunction("cmp", "com.scudata.expression.fn.Compare");
@@ -293,14 +293,14 @@ public final class FunctionLib {
 		addFunction("blob", "com.scudata.expression.fn.Blob");
 		addFunction("jdbccall", "com.scudata.expression.fn.JDBCCall");
 
-		// ²¢ĞĞ
+		// å¹¶è¡Œ
 		//addFunction("splserver", "com.scudata.expression.fn.SplServer");
 		//addFunction("callx", "com.scudata.expression.fn.parallel.Callx");
 		//addFunction("hosts", "com.scudata.expression.fn.parallel.Hosts");
 		//addFunction("syncfile", "com.scudata.expression.fn.parallel.SyncFile");
 		// addFunction("zone", "com.scudata.expression.fn.parallel.Zone");
 
-		// ĞòÁĞº¯Êı
+		// åºåˆ—å‡½æ•°
 		addMemberFunction("step", "com.scudata.expression.mfn.sequence.Step");
 		addMemberFunction("inv", "com.scudata.expression.mfn.sequence.Inv");
 		addMemberFunction("p", "com.scudata.expression.mfn.sequence.PosConvert");
@@ -400,12 +400,12 @@ public final class FunctionLib {
 				"com.scudata.expression.mfn.sequence.Median");
 		addMemberFunction("bits", "com.scudata.expression.mfn.sequence.Bits");
 
-		// ÄÚ±íº¯Êı
+		// å†…è¡¨å‡½æ•°
 		addMemberFunction("icursor", "com.scudata.expression.mfn.table.Icursor");
 		addMemberFunction("ifind", "com.scudata.expression.mfn.table.Ifind");
 		addMemberFunction("memory", "com.scudata.expression.mfn.table.Memory");
 
-		// ĞŞ¸Ä
+		// ä¿®æ”¹
 		addMemberFunction("modify",
 				"com.scudata.expression.mfn.sequence.Modify");
 		addMemberFunction("modify", "com.scudata.expression.mfn.record.Modify");
@@ -427,7 +427,7 @@ public final class FunctionLib {
 		addMemberFunction("alter", "com.scudata.expression.mfn.table.Alter");
 		addMemberFunction("alter", "com.scudata.expression.mfn.record.Alter");
 
-		// ²úÉú
+		// äº§ç”Ÿ
 		addMemberFunction("create",
 				"com.scudata.expression.mfn.sequence.Create");
 		addMemberFunction("create", "com.scudata.expression.mfn.record.Create");
@@ -456,7 +456,7 @@ public final class FunctionLib {
 		addMemberFunction("find", "com.scudata.expression.mfn.sequence.Find");
 		addMemberFunction("v", "com.scudata.expression.mfn.Value");
 
-		// Ó³Éä
+		// æ˜ å°„
 		addMemberFunction("key", "com.scudata.expression.mfn.record.Key");
 		addMemberFunction("keys", "com.scudata.expression.mfn.table.Keys");
 		addMemberFunction("switch",
@@ -476,7 +476,7 @@ public final class FunctionLib {
 		addMemberFunction("concat",
 				"com.scudata.expression.mfn.sequence.Concat");
 
-		// ¼òµ¥´æ´¢
+		// ç®€å•å­˜å‚¨
 		addFunction("filename", "com.scudata.expression.fn.FileName");
 		addFunction("directory", "com.scudata.expression.fn.Directory");
 		addFunction("file", "com.scudata.expression.fn.CreateFile");
@@ -525,7 +525,7 @@ public final class FunctionLib {
 				"com.scudata.expression.mfn.string.HTMLParse");
 		addMemberFunction("close", "com.scudata.expression.mfn.Close");
 
-		// Êı¾İ¿â
+		// æ•°æ®åº“
 		addFunction("connect", "com.scudata.expression.fn.Connect");
 		addMemberFunction("commit", "com.scudata.expression.mfn.db.Commit");
 		addMemberFunction("rollback", "com.scudata.expression.mfn.db.Rollback");
@@ -543,7 +543,7 @@ public final class FunctionLib {
 		addMemberFunction("savepoint",
 				"com.scudata.expression.mfn.db.SavePoint");
 
-		// Êı¾İ²Ö¿â
+		// æ•°æ®ä»“åº“
 		addFunction("vdbase", "com.scudata.expression.fn.VDBase");
 		addMemberFunction("begin", "com.scudata.expression.mfn.vdb.Begin");
 		addMemberFunction("commit", "com.scudata.expression.mfn.vdb.Commit");
@@ -565,7 +565,7 @@ public final class FunctionLib {
 		addMemberFunction("purge", "com.scudata.expression.mfn.vdb.Purge");
 		addMemberFunction("copy", "com.scudata.expression.mfn.vdb.Copy");
 
-		// ÓÎ±ê
+		// æ¸¸æ ‡
 		addMemberFunction("cursor",
 				"com.scudata.expression.mfn.db.CreateCursor");
 		addMemberFunction("cursor",
@@ -611,7 +611,7 @@ public final class FunctionLib {
 		addMemberFunction("push", "com.scudata.expression.mfn.op.AttachPush");
 		addMemberFunction("result", "com.scudata.expression.mfn.channel.Result");
 
-		// ²Ö¿â
+		// ä»“åº“
 		//addFunction("memory", "com.scudata.expression.fn.parallel.Memory");
 		addMemberFunction("row", "com.scudata.expression.mfn.TableRow");
 		addMemberFunction("attach", "com.scudata.expression.mfn.dw.Attach");
@@ -652,13 +652,13 @@ public final class FunctionLib {
 		addMemberFunction("memory", "com.scudata.expression.mfn.cursor.Memory");
 		addMemberFunction("dup", "com.scudata.expression.mfn.table.Dup");
 
-		// Í³¼ÆÍ¼
+		// ç»Ÿè®¡å›¾
 		addFunction("canvas", "com.scudata.expression.fn.CreateCanvas");
 		addMemberFunction("plot", "com.scudata.expression.mfn.canvas.Plot");
 		addMemberFunction("draw", "com.scudata.expression.mfn.canvas.Draw");
 		addMemberFunction("hlink", "com.scudata.expression.mfn.canvas.HLink");
 
-		// Ê±¼äÈÕÆÚº¯Êı
+		// æ—¶é—´æ—¥æœŸå‡½æ•°
 		addFunction("age", "com.scudata.expression.fn.datetime.Age");
 		addFunction("datetime", "com.scudata.expression.fn.datetime.DateTime");
 		addFunction("day", "com.scudata.expression.fn.datetime.Day");
@@ -681,7 +681,7 @@ public final class FunctionLib {
 		addFunction("workday", "com.scudata.expression.fn.datetime.WorkDay");
 		addFunction("workdays", "com.scudata.expression.fn.datetime.WorkDays");
 
-		// ÊıÑ§º¯Êı
+		// æ•°å­¦å‡½æ•°
 		addFunction("abs", "com.scudata.expression.fn.math.Abs");
 		addFunction("and", "com.scudata.expression.fn.math.And");
 		addFunction("acos", "com.scudata.expression.fn.math.Arccos");
@@ -726,7 +726,7 @@ public final class FunctionLib {
 		addFunction("tanh", "com.scudata.expression.fn.math.Tanh");
 		addFunction("xor", "com.scudata.expression.fn.math.Xor");
 
-		// ×Ö·û´®º¯Êı
+		// å­—ç¬¦ä¸²å‡½æ•°
 		addFunction("fill", "com.scudata.expression.fn.string.Fill");
 		addFunction("left", "com.scudata.expression.fn.string.Left");
 		addFunction("len", "com.scudata.expression.fn.string.Len");
@@ -759,7 +759,7 @@ public final class FunctionLib {
 				"com.scudata.expression.mfn.string.SQLTranslate");
 		addMemberFunction("sbs", "com.scudata.expression.mfn.string.Sbs");
 
-		// ÀàĞÍ×ª»»º¯Êı
+		// ç±»å‹è½¬æ¢å‡½æ•°
 		addFunction("ifv", "com.scudata.expression.fn.convert.IfVariable");
 		addFunction("ifa", "com.scudata.expression.fn.convert.IfSequence");
 		addFunction("ifr", "com.scudata.expression.fn.convert.IfRecord");
@@ -834,7 +834,7 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * ¼ÓÔØ×Ô¶¨Òåº¯Êı
+	 * åŠ è½½è‡ªå®šä¹‰å‡½æ•°
 	 * 
 	 * @param fileName
 	 *            String
@@ -861,10 +861,10 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * ¼ÓÔØÓÃ»§¶¨Òåº¯Êı
+	 * åŠ è½½ç”¨æˆ·å®šä¹‰å‡½æ•°
 	 * 
 	 * @param is
-	 *            ÊäÈëÁ÷
+	 *            è¾“å…¥æµ
 	 */
 	public static void loadCustomFunctions(InputStream is) {
 		try {
@@ -905,7 +905,7 @@ public final class FunctionLib {
 			String clsName = value.substring(pos + 1, value.length()).trim();
 
 			if (type.equals("0")) {
-				// È«¾Öº¯Êı²»ÔÊĞíÖØÃû
+				// å…¨å±€å‡½æ•°ä¸å…è®¸é‡å
 				if (fnMap.containsKey(name)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RuntimeException(
@@ -917,7 +917,7 @@ public final class FunctionLib {
 						.loadClass(clsName);
 				m0.put(name, cls);
 			} else if (type.equals("1")) {
-				// ³ÉÔ±º¯Êı¿ÉÒÔÖØÃû
+				// æˆå‘˜å‡½æ•°å¯ä»¥é‡å
 				Class<? extends MemberFunction> cls = (Class<? extends MemberFunction>) loader
 						.loadClass(clsName);
 				mfnNames.add(name);
@@ -932,10 +932,10 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * ×°ÔØÍâ²¿¿â
+	 * è£…è½½å¤–éƒ¨åº“
 	 * 
 	 * @param path
-	 *            Íâ²¿¿âÅäÖÃÎÄ¼ş
+	 *            å¤–éƒ¨åº“é…ç½®æ–‡ä»¶
 	 */
 	public static void loadExtLibrary(File path) {
 		File[] fs = path.listFiles();
@@ -950,7 +950,7 @@ public final class FunctionLib {
 				}
 			}
 		}
-		// loaderÃ»Ö¸¶¨¸¸
+		// loaderæ²¡æŒ‡å®šçˆ¶
 		URLClassLoader loader = new URLClassLoader(list.toArray(new URL[] {}),
 				FunctionLib.class.getClassLoader());
 		Pattern p = Pattern
@@ -987,19 +987,19 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * ¼ÆËãÖ¸¶¨³ÉÔ±º¯Êı
+	 * è®¡ç®—æŒ‡å®šæˆå‘˜å‡½æ•°
 	 * 
 	 * @param leftValue
-	 *            ×ó²à¶ÔÏó
+	 *            å·¦ä¾§å¯¹è±¡
 	 * @param fnName
-	 *            º¯ÊıÃû
+	 *            å‡½æ•°å
 	 * @param param
-	 *            º¯Êı²ÎÊı
+	 *            å‡½æ•°å‚æ•°
 	 * @param option
-	 *            º¯ÊıÑ¡Ïî
+	 *            å‡½æ•°é€‰é¡¹
 	 * @param ctx
-	 *            ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¼ÆËã½á¹û
+	 *            è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return è®¡ç®—ç»“æœ
 	 */
 	public static Object executeMemberFunction(Object leftValue, String fnName,
 			String param, String option, Context ctx) {
@@ -1015,32 +1015,32 @@ public final class FunctionLib {
 	}
 
 	/**
-	 * Ìí¼Ó³ÌĞòÍøº¯Êı
-	 * @param fnName º¯ÊıÃû
-	 * @param dfxPathName ³ÌĞòÍøÂ·¾¶Ãû
+	 * æ·»åŠ ç¨‹åºç½‘å‡½æ•°
+	 * @param fnName å‡½æ•°å
+	 * @param dfxPathName ç¨‹åºç½‘è·¯å¾„å
 	 */
 	public static void addDFXFunction(String fnName, String dfxPathName, String opt) {
-		// ²»ÄÜÓëÈ«¾Öº¯ÊıÖØÃû
+		// ä¸èƒ½ä¸å…¨å±€å‡½æ•°é‡å
 		if (isFnName(fnName)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RuntimeException(mm.getMessage("FunctionLib.repeatedFunction") + fnName);
 		}
 
-		// ÓÃĞÂº¯ÊıÌæ»»¾ÉµÄ
+		// ç”¨æ–°å‡½æ•°æ›¿æ¢æ—§çš„
 		DfxFunction old = dfxFnMap.put(fnName, new DfxFunction(dfxPathName, opt));
 		if (old != null) {
-			// Çå³ı»º´æ
+			// æ¸…é™¤ç¼“å­˜
 			DfxManager.getInstance().clearDfx(dfxPathName);
 		}
 	}
 
 	/**
-	 * Ìí¼Ó³ÌĞòÍøº¯Êı
-	 * @param fnName º¯ÊıÃû
-	 * @param funcInfo º¯ÊıÌåĞÅÏ¢
+	 * æ·»åŠ ç¨‹åºç½‘å‡½æ•°
+	 * @param fnName å‡½æ•°å
+	 * @param funcInfo å‡½æ•°ä½“ä¿¡æ¯
 	 */
 	public static void addDFXFunction(String fnName, PgmCellSet.FuncInfo funcInfo) {
-		// ²»ÄÜÓëÈ«¾Öº¯ÊıÖØÃû
+		// ä¸èƒ½ä¸å…¨å±€å‡½æ•°é‡å
 		if (isFnName(fnName)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RuntimeException(mm.getMessage("FunctionLib.repeatedFunction") + fnName);
@@ -1050,17 +1050,17 @@ public final class FunctionLib {
 	}
 	
 	/**
-	 * É¾³ı³ÌĞòÍøº¯Êı
-	 * @param fnName º¯ÊıÃû
+	 * åˆ é™¤ç¨‹åºç½‘å‡½æ•°
+	 * @param fnName å‡½æ•°å
 	 */
 	public static void removeDFXFunction(String fnName) {
 		dfxFnMap.remove(fnName);
 	}
 
 	/**
-	 * ¸ù¾İº¯ÊıÃûÈ¡³ÌĞòÍø
-	 * @param fnName º¯ÊıÃû
-	 * @return ³ÌĞòÍøº¯Êı
+	 * æ ¹æ®å‡½æ•°åå–ç¨‹åºç½‘
+	 * @param fnName å‡½æ•°å
+	 * @return ç¨‹åºç½‘å‡½æ•°
 	 */
 	public static DfxFunction getDFXFunction(String fnName) {
 		return dfxFnMap.get(fnName);

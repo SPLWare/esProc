@@ -19,13 +19,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * month(dateExp) È¡µÃÈÕÆÚdateExpËùÔÚµÄÔÂ·İ
+ * month(dateExp) å–å¾—æ—¥æœŸdateExpæ‰€åœ¨çš„æœˆä»½
  * @author runqian
  *
  */
 public class Month extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -74,8 +74,8 @@ public class Month extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -155,10 +155,10 @@ public class Month extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -299,8 +299,8 @@ public class Month extends Function {
 	}
 	
 	/**
-	 * ·µ»Ø½ÚµãÊÇ·ñµ¥µ÷µİÔöµÄ
-	 * @return true£ºÊÇµ¥µ÷µİÔöµÄ£¬false£º²»ÊÇ
+	 * è¿”å›èŠ‚ç‚¹æ˜¯å¦å•è°ƒé€’å¢çš„
+	 * @return trueï¼šæ˜¯å•è°ƒé€’å¢çš„ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isMonotone() {
 		if (option == null || option.indexOf('y') == -1) {

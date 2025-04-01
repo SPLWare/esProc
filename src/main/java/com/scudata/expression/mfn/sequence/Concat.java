@@ -9,7 +9,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÒÔ·Ö¸ô·ûÁ¬½ÓĞòÁĞÖĞµÄ³ÉÔ±³ÉÎª×Ö·û´®£¬´¦Àí×ÓĞòÁĞ
+ * ä»¥åˆ†éš”ç¬¦è¿æ¥åºåˆ—ä¸­çš„æˆå‘˜æˆä¸ºå­—ç¬¦ä¸²ï¼Œå¤„ç†å­åºåˆ—
  * A.concat(d)
  * @author RunQian
  *

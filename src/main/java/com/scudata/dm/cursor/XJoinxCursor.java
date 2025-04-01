@@ -12,30 +12,30 @@ import com.scudata.dm.op.Select;
 import com.scudata.expression.Expression;
 
 /**
- * ÓÃÓÚ¶ÔÓÎ±ê×ö²æ³Ë
- * xjoinx(csi:Fi,xi;¡­)
+ * ç”¨äºå¯¹æ¸¸æ ‡åšå‰ä¹˜
+ * xjoinx(csi:Fi,xi;â€¦)
  * @author RunQian
  *
  */
 public class XJoinxCursor extends ICursor {
-	private ICursor []cursors; // ÓÎ±êÊı×é
-	private Expression []exps; // ¹ıÂË±í´ïÊ½
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹
-	private boolean isLeft = false; // ÊÇ·ñ×óÁ´½Ó
-	private boolean isEnd = false; // ÊÇ·ñÈ¡Êı½áÊø
+	private ICursor []cursors; // æ¸¸æ ‡æ•°ç»„
+	private Expression []exps; // è¿‡æ»¤è¡¨è¾¾å¼
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„
+	private boolean isLeft = false; // æ˜¯å¦å·¦é“¾æ¥
+	private boolean isEnd = false; // æ˜¯å¦å–æ•°ç»“æŸ
 
-	private Sequence []tables; // Ã¿¸öÓÎ±êÈ¡³öµÄÊı¾İ»º´æ
-	private int []currents; // Ã¿¸öÓÎ±êµ±Ç°»º´æ±éÀúµÄĞòºÅ
-	private Record record; // ÓÃÓÚ¼ÆËã
+	private Sequence []tables; // æ¯ä¸ªæ¸¸æ ‡å–å‡ºçš„æ•°æ®ç¼“å­˜
+	private int []currents; // æ¯ä¸ªæ¸¸æ ‡å½“å‰ç¼“å­˜éå†çš„åºå·
+	private Record record; // ç”¨äºè®¡ç®—
 
 	/**
-	 * ¹¹½¨²æ³ËÓÎ±ê
-	 * @param cursors ÓÎ±êÊı×é
-	 * @param exps ¹ıÂË±í´ïÊ½
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param fltOpts ¹ıÂËÑ¡Ïî
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºå‰ä¹˜æ¸¸æ ‡
+	 * @param cursors æ¸¸æ ‡æ•°ç»„
+	 * @param exps è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param fltOpts è¿‡æ»¤é€‰é¡¹
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public XJoinxCursor(ICursor []cursors, Expression []exps, String []names, String[] fltOpts, String opt, Context ctx) {
 		this.cursors = cursors;
@@ -58,8 +58,8 @@ public class XJoinxCursor extends ICursor {
 		}
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			for (ICursor cursor : cursors) {
@@ -214,8 +214,8 @@ public class XJoinxCursor extends ICursor {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -254,9 +254,9 @@ public class XJoinxCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (isEnd || n < 1) return 0;
@@ -280,7 +280,7 @@ public class XJoinxCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -296,8 +296,8 @@ public class XJoinxCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

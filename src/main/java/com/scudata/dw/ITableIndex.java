@@ -6,74 +6,74 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.Expression;
 
 /**
- * ×é±íË÷Òı½Ó¿ÚÀà
+ * ç»„è¡¨ç´¢å¼•æ¥å£ç±»
  * @author runqian
  *
  */
 public interface ITableIndex {
 	public static final String INDEX_FIELD_NAMES[] = { "name", "hash", "keys", "field", "where" };
 	public static final String INDEX_FIELD_NAMES2[] = { "hash", "keys", "field", "where" };
-	public static final int TEMP_FILE_SIZE = 50 * 1024 * 1024;//ÅÅĞòÊ±µÄ»º³åÎÄ¼ş´óĞ¡
-	public static int MIN_ICURSOR_REC_COUNT = 1000;//µ±Ğ¡ÓÚÕâ¸öÖµÊ±²»ÔÙ½øĞĞ½»¼¯£¬¶øÊÇ¿ªÊ¼±éÀú
-	public static int MIN_ICURSOR_BLOCK_COUNT = 10;//µ±Ğ¡ÓÚÕâ¸öÖµÊ±²»ÔÙ½øĞĞ½»¼¯£¬¶øÊÇ¿ªÊ¼±éÀú
+	public static final int TEMP_FILE_SIZE = 50 * 1024 * 1024;//æ’åºæ—¶çš„ç¼“å†²æ–‡ä»¶å¤§å°
+	public static int MIN_ICURSOR_REC_COUNT = 1000;//å½“å°äºè¿™ä¸ªå€¼æ—¶ä¸å†è¿›è¡Œäº¤é›†ï¼Œè€Œæ˜¯å¼€å§‹éå†
+	public static int MIN_ICURSOR_BLOCK_COUNT = 10;//å½“å°äºè¿™ä¸ªå€¼æ—¶ä¸å†è¿›è¡Œäº¤é›†ï¼Œè€Œæ˜¯å¼€å§‹éå†
 	public ICursor select(Expression exp, String []fields, String opt, Context ctx);
 	public LongArray select(Expression exp, String opt, Context ctx);
 	
 	/**
-	 * ¶ÁÈ¡ËùÓĞË÷Òı¿éĞÅÏ¢µ½ÄÚ´æ
+	 * è¯»å–æ‰€æœ‰ç´¢å¼•å—ä¿¡æ¯åˆ°å†…å­˜
 	 */
 	public void loadAllBlockInfo();
 	
 	/**
-	 * ¶ÁÈ¡ËùÓĞË÷Òı¿éĞÅÏ¢µ½ÄÚ´æ£¨º¬¶ş¼¶£©
+	 * è¯»å–æ‰€æœ‰ç´¢å¼•å—ä¿¡æ¯åˆ°å†…å­˜ï¼ˆå«äºŒçº§ï¼‰
 	 */
 	public void loadAllKeys();
 	
 	/**
-	 * ÊÍ·ÅÄÚ´æµÄË÷Òı¿éĞÅÏ¢
+	 * é‡Šæ”¾å†…å­˜çš„ç´¢å¼•å—ä¿¡æ¯
 	 */
 	public void unloadAllBlockInfo();
 	
 	/**
-	 * ÉèÖÃË÷ÒıµÄÃû³Æ
+	 * è®¾ç½®ç´¢å¼•çš„åç§°
 	 * @param name
 	 */
 	public void setName(String name);
 	
 	/**
-	 * ÉèÖÃÈ¡³ö×Ö¶ÎºÍË÷Òı×Ö¶Î
-	 * @param ifields Ë÷Òı×Ö¶Î
-	 * @param vfields È¡³ö×Ö¶Î
+	 * è®¾ç½®å–å‡ºå­—æ®µå’Œç´¢å¼•å­—æ®µ
+	 * @param ifields ç´¢å¼•å­—æ®µ
+	 * @param vfields å–å‡ºå­—æ®µ
 	 */
 	public void setFields(String[] ifields, String[] vfields);
 	
 	/**
-	 * ĞĞ´æÊ±·µ»ØÈ¡ÊıÊ±µÄ×î´ósize£¬ÁĞ´æÊ±ÎŞÒâÒå
+	 * è¡Œå­˜æ—¶è¿”å›å–æ•°æ—¶çš„æœ€å¤§sizeï¼Œåˆ—å­˜æ—¶æ— æ„ä¹‰
 	 * @return
 	 */
 	public int getMaxRecordLen();
 	
 	/**
-	 * ÊÇ·ñ´æÔÚµÚ¶ş¿éË÷ÒıÇø
+	 * æ˜¯å¦å­˜åœ¨ç¬¬äºŒå—ç´¢å¼•åŒº
 	 * @return
 	 */
 	public boolean hasSecIndex();
 	
 	/**
-	 * ·µ»ØÒ»Ìõ¼ÇÂ¼¶ÔÓ¦µÄµØÖ·¸öÊı
-	 * Ò»°ã¶¼ÊÇ1£¬Ö»ÔÚ¸½±íÊ±²Å¿ÉÄÜ¶à¸ö
+	 * è¿”å›ä¸€æ¡è®°å½•å¯¹åº”çš„åœ°å€ä¸ªæ•°
+	 * ä¸€èˆ¬éƒ½æ˜¯1ï¼Œåªåœ¨é™„è¡¨æ—¶æ‰å¯èƒ½å¤šä¸ª
 	 * @return
 	 */
 	public int getPositionCount();
 	
 	/**
-	 * °ÑË÷ÒıĞÅÏ¢Ğ´³öµ½Ò»¸öĞÂ±ítable
+	 * æŠŠç´¢å¼•ä¿¡æ¯å†™å‡ºåˆ°ä¸€ä¸ªæ–°è¡¨table
 	 * @param table
 	 */
 	public void dup(PhyTable table);
 	
 	/**
-	 * »ñµÃË÷ÒıµÄ½á¹¹ĞÅÏ¢
+	 * è·å¾—ç´¢å¼•çš„ç»“æ„ä¿¡æ¯
 	 * @return
 	 */
 	public Object getIndexStruct();

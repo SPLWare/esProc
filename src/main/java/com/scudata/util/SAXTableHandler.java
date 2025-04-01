@@ -11,15 +11,15 @@ import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 
 /**
- * ÓÃÓÚ½âÎöXMLÊı¾İ
+ * ç”¨äºè§£æXMLæ•°æ®
  * @author RunQian
  *
  */
 class SAXTableHandler extends DefaultHandler {
-	private XMLNode root; // ¸ù½Úµã
+	private XMLNode root; // æ ¹èŠ‚ç‚¹
 	private XMLNode node;
-	private boolean sopt; // ÊÇ·ñÓĞsÑ¡Ïî
-	private boolean bopt; // ÊÇ·ñÓĞbÑ¡Ïî
+	private boolean sopt; // æ˜¯å¦æœ‰sé€‰é¡¹
+	private boolean bopt; // æ˜¯å¦æœ‰bé€‰é¡¹
 	
 	public SAXTableHandler(String opt) {
 		if (opt != null) {
@@ -29,8 +29,8 @@ class SAXTableHandler extends DefaultHandler {
 	}
 
 	/**
-	 * È¡XMLµÄ½âÎö½á¹û
-	 * @param levels ½á¹û¼¯µÄÂ·¾¶£¬Ê¡ÂÔ´Ó¸ù¿ªÊ¼
+	 * å–XMLçš„è§£æç»“æœ
+	 * @param levels ç»“æœé›†çš„è·¯å¾„ï¼Œçœç•¥ä»æ ¹å¼€å§‹
 	 * @return Object
 	 */
 	public Object getResult(String []levels) {
@@ -71,8 +71,8 @@ class SAXTableHandler extends DefaultHandler {
 		int size = mems.size();
 		Sequence result = new Sequence(size);
 
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
-		Record prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
+		Record prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 		for (int i = 1; i <= size; ++i) {
 			Object obj = mems.get(i);

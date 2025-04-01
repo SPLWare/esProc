@@ -59,85 +59,85 @@ import com.scudata.ide.spl.etl.ObjectElement;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * Íø¸ñ±à¼­Æ÷
+ * ç½‘æ ¼ç¼–è¾‘å™¨
  *
  */
 public class SplEditor {
-	/** CTRL-ENTERÊÂ¼ş£¬²åÈëĞĞ */
+	/** CTRL-ENTERäº‹ä»¶ï¼Œæ’å…¥è¡Œ */
 	public static final byte HK_CTRL_ENTER = 0;
-	/** CTRL-INSERTÊÂ¼ş£¬ÓÒÒÆµ¥Ôª¸ñ */
+	/** CTRL-INSERTäº‹ä»¶ï¼Œå³ç§»å•å…ƒæ ¼ */
 	public static final byte HK_CTRL_INSERT = 2;
-	/** ALT-INSERTÊÂ¼ş£¬ÏÂÒÆµ¥Ôª¸ñ */
+	/** ALT-INSERTäº‹ä»¶ï¼Œä¸‹ç§»å•å…ƒæ ¼ */
 	public static final byte HK_ALT_INSERT = 3;
 
-	/** Õ³ÌùÑ¡Ïî£¬³£¹æ */
+	/** ç²˜è´´é€‰é¡¹ï¼Œå¸¸è§„ */
 	public static final byte PASTE_OPTION_NORMAL = 0;
-	/** Õ³ÌùÑ¡Ïî£¬²åÈë¿ÕĞĞ */
+	/** ç²˜è´´é€‰é¡¹ï¼Œæ’å…¥ç©ºè¡Œ */
 	public static final byte PASTE_OPTION_INSERT_ROW = 1;
-	/** Õ³ÌùÑ¡Ïî£¬²åÈë¿ÕÁĞ */
+	/** ç²˜è´´é€‰é¡¹ï¼Œæ’å…¥ç©ºåˆ— */
 	public static final byte PASTE_OPTION_INSERT_COL = 2;
-	/** Õ³ÌùÑ¡Ïî£¬Ä¿±êÇøÓò¸ñ×ÓÏÂÒÆ */
+	/** ç²˜è´´é€‰é¡¹ï¼Œç›®æ ‡åŒºåŸŸæ ¼å­ä¸‹ç§» */
 	public static final byte PASTE_OPTION_PUSH_BOTTOM = 3;
-	/** Õ³ÌùÑ¡Ïî£¬Ä¿±êÇøÓò¸ñ×ÓÓÒÒÆ */
+	/** ç²˜è´´é€‰é¡¹ï¼Œç›®æ ‡åŒºåŸŸæ ¼å­å³ç§» */
 	public static final byte PASTE_OPTION_PUSH_RIGHT = 4;
 
 	/**
-	 * Íø¸ñ¿Ø¼ş
+	 * ç½‘æ ¼æ§ä»¶
 	 */
 	protected EditControl control;
 
 	/**
-	 * ³·ÏúÖØ×ö¹ÜÀíÆ÷
+	 * æ’¤é”€é‡åšç®¡ç†å™¨
 	 */
 	public UndoManager undoManager;
 
 	/**
-	 * ±à¼­¼àÌıÆ÷
+	 * ç¼–è¾‘ç›‘å¬å™¨
 	 */
 	private IEditorListener listener;
 
 	/**
-	 * Ñ¡Ôñ×´Ì¬
+	 * é€‰æ‹©çŠ¶æ€
 	 */
 	public byte selectState = GCSpl.SELECT_STATE_CELL;
 
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeSplMessage.get();
 
 	/**
-	 * Êı¾İÊÇ·ñ±ä»¯ÁË
+	 * æ•°æ®æ˜¯å¦å˜åŒ–äº†
 	 */
 	private boolean isDataChanged = false;
 
 	/**
-	 * Ñ¡ÖĞµÄ¸ñ×Ó¾ØĞÎ
+	 * é€‰ä¸­çš„æ ¼å­çŸ©å½¢
 	 */
 	public Vector<CellRect> selectedRects = new Vector<CellRect>();
 
 	/**
-	 * Ñ¡ÖĞµÄÁĞºÅ
+	 * é€‰ä¸­çš„åˆ—å·
 	 */
 	public Vector<Integer> selectedCols = new Vector<Integer>();
 
 	/**
-	 * Ñ¡ÖĞµÄĞĞºÅ
+	 * é€‰ä¸­çš„è¡Œå·
 	 */
 	public Vector<Integer> selectedRows = new Vector<Integer>();
 
 	/**
-	 * Ò³Ãæ¶ÔÏó
+	 * é¡µé¢å¯¹è±¡
 	 */
 	protected SheetSpl sheet;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param sheet
-	 *            Ò³Ãæ¶ÔÏó
+	 *            é¡µé¢å¯¹è±¡
 	 * @param context
-	 *            ÉÏÏÂÎÄ
+	 *            ä¸Šä¸‹æ–‡
 	 */
 	public SplEditor(SheetSpl sheet) {
 		this.sheet = sheet;
@@ -186,12 +186,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * ¹¹Ôì±à¼­¿Ø¼ş
+	 * æ„é€ ç¼–è¾‘æ§ä»¶
 	 * 
 	 * @param rows
-	 *            ĞĞÊı
+	 *            è¡Œæ•°
 	 * @param cols
-	 *            ÁĞÊı
+	 *            åˆ—æ•°
 	 * @return EditControl
 	 */
 	protected EditControl newEditControl(int rows, int cols) {
@@ -201,7 +201,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñÊı¾İÊÇ·ñ±ä»¯ÁË
+	 * è®¾ç½®ç½‘æ ¼æ•°æ®æ˜¯å¦å˜åŒ–äº†
 	 * 
 	 * @param isDataChanged
 	 */
@@ -211,7 +211,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡Íø¸ñÊı¾İÊÇ·ñ±ä»¯ÁË
+	 * å–ç½‘æ ¼æ•°æ®æ˜¯å¦å˜åŒ–äº†
 	 * 
 	 * @return
 	 */
@@ -220,10 +220,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÉèÖÃ¼¯ËãÆ÷Íø¸ñ
+	 * è®¾ç½®é›†ç®—å™¨ç½‘æ ¼
 	 * 
 	 * @param cellSet
-	 *            ¼¯ËãÆ÷Íø¸ñ¶ÔÏó
+	 *            é›†ç®—å™¨ç½‘æ ¼å¯¹è±¡
 	 * @return
 	 * @throws Exception
 	 */
@@ -234,7 +234,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ñ¡ÔñµÚÒ»¸ö¸ñ×Ó
+	 * é€‰æ‹©ç¬¬ä¸€ä¸ªæ ¼å­
 	 */
 	public void selectFirstCell() {
 		if (control.cellSet.getRowCount() < 1
@@ -257,12 +257,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ñ¡Ôñ¸ñ×Ó
+	 * é€‰æ‹©æ ¼å­
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 */
 	public void selectCell(int row, int col) {
 		if (control.cellSet.getRowCount() < row
@@ -285,7 +285,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ôö¼ÓÍø¸ñ±à¼­¼àÌıÆ÷
+	 * å¢åŠ ç½‘æ ¼ç¼–è¾‘ç›‘å¬å™¨
 	 * 
 	 * @param listener
 	 */
@@ -294,7 +294,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡Íø¸ñ±à¼­¼àÌıÆ÷
+	 * å–ç½‘æ ¼ç¼–è¾‘ç›‘å¬å™¨
 	 * 
 	 * @return
 	 */
@@ -303,7 +303,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡Íø¸ñ¿Ø¼ş
+	 * å–ç½‘æ ¼æ§ä»¶
 	 * 
 	 * @return
 	 */
@@ -312,10 +312,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ö´ĞĞÔ­×ÓÃüÁî¼¯
+	 * æ‰§è¡ŒåŸå­å‘½ä»¤é›†
 	 * 
 	 * @param cmds
-	 *            Ô­×ÓÃüÁî¼¯
+	 *            åŸå­å‘½ä»¤é›†
 	 * @return
 	 */
 	public boolean executeCmd(Vector<IAtomicCmd> cmds) {
@@ -325,10 +325,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ö´ĞĞÔ­×ÓÃüÁî
+	 * æ‰§è¡ŒåŸå­å‘½ä»¤
 	 * 
 	 * @param aCell
-	 *            Ô­×ÓÃüÁî
+	 *            åŸå­å‘½ä»¤
 	 * @return
 	 */
 	public boolean executeCmd(IAtomicCmd aCell) {
@@ -338,7 +338,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ³·Ïú
+	 * æ’¤é”€
 	 * 
 	 * @return
 	 */
@@ -352,7 +352,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ³·Ïú
+	 * æ˜¯å¦å¯ä»¥æ’¤é”€
 	 * 
 	 * @return
 	 */
@@ -361,7 +361,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÖØ×ö
+	 * é‡åš
 	 * 
 	 * @return
 	 */
@@ -375,7 +375,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔÖØ×ö
+	 * æ˜¯å¦å¯ä»¥é‡åš
 	 * 
 	 * @return
 	 */
@@ -384,7 +384,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÉèÖÃ±à¼­¿Ø¼şµÄÎÄ±¾
+	 * è®¾ç½®ç¼–è¾‘æ§ä»¶çš„æ–‡æœ¬
 	 * 
 	 * @param text
 	 */
@@ -393,7 +393,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * »æÍ¼±à¼­
+	 * ç»˜å›¾ç¼–è¾‘
 	 */
 	public void dialogChartEditor() {
 		if (isNothingSelected()) {
@@ -440,7 +440,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡»­²¼µÄÃû³ÆÁĞ±í
+	 * å–ç”»å¸ƒçš„åç§°åˆ—è¡¨
 	 * 
 	 * @return
 	 */
@@ -500,14 +500,14 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡º¯Êı¶ÔÏó
+	 * å–å‡½æ•°å¯¹è±¡
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param oes
-	 *            º¯Êı¶ÔÏóÓ³Éä
+	 *            å‡½æ•°å¯¹è±¡æ˜ å°„
 	 * 
 	 * @return
 	 */
@@ -518,7 +518,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * º¯Êı¶ÔÏóÊÇ·ñÑ¡ÔñÁË
+	 * å‡½æ•°å¯¹è±¡æ˜¯å¦é€‰æ‹©äº†
 	 * 
 	 * @return
 	 */
@@ -534,7 +534,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * º¯Êı±à¼­¶Ô»°¿ò
+	 * å‡½æ•°ç¼–è¾‘å¯¹è¯æ¡†
 	 */
 	public void dialogFuncEditor() {
 		if (isNothingSelected()) {
@@ -568,7 +568,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ëõ·Å¶Ô»°¿ò
+	 * ç¼©æ”¾å¯¹è¯æ¡†
 	 */
 	public void dialogZoom() {
 		DialogZoom dz = new DialogZoom();
@@ -582,7 +582,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡º¯Êı¶ÔÏóÓ³Éä±í
+	 * å–å‡½æ•°å¯¹è±¡æ˜ å°„è¡¨
 	 * 
 	 * @return
 	 */
@@ -619,10 +619,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ²åÈë/×·¼ÓĞĞ
+	 * æ’å…¥/è¿½åŠ è¡Œ
 	 * 
 	 * @param insertBefore
-	 *            ÊÇ·ñ²åÈëĞĞ¡£trueĞĞÇ°²åÈë£¬false×·¼ÓĞĞ¡£
+	 *            æ˜¯å¦æ’å…¥è¡Œã€‚trueè¡Œå‰æ’å…¥ï¼Œfalseè¿½åŠ è¡Œã€‚
 	 * @return
 	 */
 	public boolean insertRow(boolean insertBefore) {
@@ -642,18 +642,18 @@ public class SplEditor {
 	}
 
 	/**
-	 * ²åÈë/×·¼ÓĞĞ
+	 * æ’å…¥/è¿½åŠ è¡Œ
 	 * 
 	 * @param rect
-	 *            Ñ¡ÔñÇøÓò
+	 *            é€‰æ‹©åŒºåŸŸ
 	 * @param insertBefore
-	 *            ÊÇ·ñ²åÈëĞĞ¡£trueĞĞÇ°²åÈë£¬false×·¼ÓĞĞ¡£
+	 *            æ˜¯å¦æ’å…¥è¡Œã€‚trueè¡Œå‰æ’å…¥ï¼Œfalseè¿½åŠ è¡Œã€‚
 	 * @return
 	 */
 	public boolean insertRow(CellRect rect, boolean insertBefore) {
 		executeCmd(getInsertRow(insertBefore, rect));
 		if (insertBefore) {
-			// µ÷Õû¶ÏµãÎ»ÖÃ
+			// è°ƒæ•´æ–­ç‚¹ä½ç½®
 			ArrayList<CellLocation> breaks = control.getBreakPoints();
 			for (int i = 0; i < breaks.size(); i++) {
 				CellLocation cp = (CellLocation) breaks.get(i);
@@ -666,7 +666,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÊÇ·ñÑ¡ÖĞÁË¶à¸ö¸ñ×Ó¾ØÕóÇøÓò
+	 * æ˜¯å¦é€‰ä¸­äº†å¤šä¸ªæ ¼å­çŸ©é˜µåŒºåŸŸ
 	 * 
 	 * @return
 	 */
@@ -675,7 +675,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * »ñÈ¡Ñ¡ÔñµÄ¸ñ×Ó¾ØÕó
+	 * è·å–é€‰æ‹©çš„æ ¼å­çŸ©é˜µ
 	 * 
 	 * @return
 	 */
@@ -687,7 +687,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * »ñÈ¡ËùÓĞÑ¡ÔñÇøÓòµÄVector£¬ÀïÃæµÄÃ¿¸öÔªËØ¶¼ÊÇÒ»¸öCellRect¶ÔÏó
+	 * è·å–æ‰€æœ‰é€‰æ‹©åŒºåŸŸçš„Vectorï¼Œé‡Œé¢çš„æ¯ä¸ªå…ƒç´ éƒ½æ˜¯ä¸€ä¸ªCellRectå¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -696,12 +696,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡²åÈë/×·¼ÓĞĞµÄÔ­×ÓÃüÁî
+	 * å–æ’å…¥/è¿½åŠ è¡Œçš„åŸå­å‘½ä»¤
 	 * 
 	 * @param insertBefore
-	 *            ÊÇ·ñ²åÈëĞĞ¡£trueĞĞÇ°²åÈë£¬false×·¼ÓĞĞ¡£
+	 *            æ˜¯å¦æ’å…¥è¡Œã€‚trueè¡Œå‰æ’å…¥ï¼Œfalseè¿½åŠ è¡Œã€‚
 	 * @param rect
-	 *            Ñ¡ÖĞµÄ¸ñ×Ó¾ØÕó
+	 *            é€‰ä¸­çš„æ ¼å­çŸ©é˜µ
 	 * @return
 	 */
 	public AtomicSpl getInsertRow(boolean insertBefore, CellRect rect) {
@@ -720,10 +720,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ¸´ÖÆÖ¸¶¨ĞĞÍâ¹ÛÊôĞÔµÄ¸ñ×Ó,°üº¬ĞĞÊ×¸ñ
+	 * å¤åˆ¶æŒ‡å®šè¡Œå¤–è§‚å±æ€§çš„æ ¼å­,åŒ…å«è¡Œé¦–æ ¼
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @return
 	 */
 	private ArrayList<RowCell> getApprCopiedRowCells(int row) {
@@ -734,7 +734,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÊÇ·ñÃ»ÓĞÑ¡ÔñÇøÓò
+	 * æ˜¯å¦æ²¡æœ‰é€‰æ‹©åŒºåŸŸ
 	 * 
 	 * @return
 	 */
@@ -743,14 +743,14 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÊôĞÔ
+	 * è®¾ç½®å•å…ƒæ ¼å±æ€§
 	 * 
 	 * @param type
-	 *            Ñ¡ÔñÀàĞÍ
+	 *            é€‰æ‹©ç±»å‹
 	 * @param property
-	 *            ¸ñ×ÓÊôĞÔÀàĞÍ
+	 *            æ ¼å­å±æ€§ç±»å‹
 	 * @param value
-	 *            Öµ
+	 *            å€¼
 	 * @return
 	 */
 	public boolean setProperty(byte type, byte property, Object value) {
@@ -819,7 +819,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡¸ñ×ÓÊôĞÔ
+	 * å–æ ¼å­å±æ€§
 	 * 
 	 * @return
 	 */
@@ -853,18 +853,18 @@ public class SplEditor {
 	}
 
 	/**
-	 * ²åÈë/×·¼ÓÁĞ
+	 * æ’å…¥/è¿½åŠ åˆ—
 	 * 
 	 * @param rect
-	 *            Ñ¡Ôñ¸ñ×ÓÇøÓò
+	 *            é€‰æ‹©æ ¼å­åŒºåŸŸ
 	 * @param insertBefore
-	 *            ÊÇ·ñ²åÈëÁĞ¡£trueÁĞÇ°²åÈë£¬false×·¼ÓÁĞ¡£
+	 *            æ˜¯å¦æ’å…¥åˆ—ã€‚trueåˆ—å‰æ’å…¥ï¼Œfalseè¿½åŠ åˆ—ã€‚
 	 * @return
 	 */
 	public boolean insertCol(CellRect rect, boolean insertBefore) {
 		executeCmd(getInsertCol(insertBefore, rect));
 		if (insertBefore) {
-			// µ÷Õû¶ÏµãÎ»ÖÃ
+			// è°ƒæ•´æ–­ç‚¹ä½ç½®
 			ArrayList<CellLocation> breaks = control.getBreakPoints();
 			for (int i = 0; i < breaks.size(); i++) {
 				CellLocation cp = (CellLocation) breaks.get(i);
@@ -880,10 +880,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ×·¼ÓÁĞ
+	 * è¿½åŠ åˆ—
 	 * 
 	 * @param cols
-	 *            ×·¼ÓµÄÁĞÊı
+	 *            è¿½åŠ çš„åˆ—æ•°
 	 */
 	public void appendCols(int cols) {
 		insertCol(new CellRect(1, (int) control.cellSet.getColCount(), 1,
@@ -891,10 +891,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡×·¼ÓÁĞµÄÔ­×ÓÃüÁî
+	 * å–è¿½åŠ åˆ—çš„åŸå­å‘½ä»¤
 	 * 
 	 * @param cols
-	 *            ×·¼ÓµÄÁĞÊı
+	 *            è¿½åŠ çš„åˆ—æ•°
 	 * @return
 	 */
 	public IAtomicCmd getAppendCols(int cols) {
@@ -904,20 +904,20 @@ public class SplEditor {
 	}
 
 	/**
-	 * ×·¼ÓÖ¸¶¨µÄĞĞÊıµ½Ä©Î²£¬ÓÃÓÚ¿é²Ù×÷Òç³öÊ±µÄÌí¼ÓĞĞ
+	 * è¿½åŠ æŒ‡å®šçš„è¡Œæ•°åˆ°æœ«å°¾ï¼Œç”¨äºå—æ“ä½œæº¢å‡ºæ—¶çš„æ·»åŠ è¡Œ
 	 * 
 	 * @param rows
-	 *            ×·¼ÓµÄĞĞÊı
+	 *            è¿½åŠ çš„è¡Œæ•°
 	 */
 	public void appendRows(int rows) {
 		executeCmd(getAppendRows(rows));
 	}
 
 	/**
-	 * È¡×·¼ÓĞĞµÄÔ­×ÓÃüÁî
+	 * å–è¿½åŠ è¡Œçš„åŸå­å‘½ä»¤
 	 * 
 	 * @param rows
-	 *            ×·¼ÓµÄĞĞÊı
+	 *            è¿½åŠ çš„è¡Œæ•°
 	 * @return
 	 */
 	public IAtomicCmd getAppendRows(int rows) {
@@ -926,10 +926,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * °Ñµ±Ç°Ñ¡ÖĞµÄÁĞÉèÎªÍ³Ò»µÄÁĞ¿í¶È
+	 * æŠŠå½“å‰é€‰ä¸­çš„åˆ—è®¾ä¸ºç»Ÿä¸€çš„åˆ—å®½åº¦
 	 * 
 	 * @param newWidth
-	 *            ĞÂµÄÁĞ¿í
+	 *            æ–°çš„åˆ—å®½
 	 */
 	public void setColumnWidth(float newWidth) {
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
@@ -954,10 +954,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°Ñ¡ÖĞÁĞµÄ¿ÉÊÓÊôĞÔ
+	 * è®¾ç½®å½“å‰é€‰ä¸­åˆ—çš„å¯è§†å±æ€§
 	 * 
 	 * @param visible
-	 *            ÊÇ·ñ¿ÉÊÓ
+	 *            æ˜¯å¦å¯è§†
 	 */
 	public void setColumnVisible(boolean visible) {
 		if (selectedCols == null || selectedCols.size() == 0) {
@@ -966,9 +966,9 @@ public class SplEditor {
 
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		if (visible && selectedCols.size() == 1) {
-			int col = ((Number) selectedCols.get(0)).intValue(); // Ñ¡ÖĞµÄµÚÒ»ÁĞ
-			if (col > 1) { // È¡ÏûÒş²ØÊ±£¬Èç¹ûµÚÒ»ÁĞÖ®Ç°¶¼ÊÇÒş²ØÁĞ£¬È¡ÏûÒş²Ø
-				// ÅĞ¶ÏµÚÒ»ĞĞÖ®Ç°ÊÇ·ñ¶¼ÊÇÒş²ØĞĞ
+			int col = ((Number) selectedCols.get(0)).intValue(); // é€‰ä¸­çš„ç¬¬ä¸€åˆ—
+			if (col > 1) { // å–æ¶ˆéšè—æ—¶ï¼Œå¦‚æœç¬¬ä¸€åˆ—ä¹‹å‰éƒ½æ˜¯éšè—åˆ—ï¼Œå–æ¶ˆéšè—
+				// åˆ¤æ–­ç¬¬ä¸€è¡Œä¹‹å‰æ˜¯å¦éƒ½æ˜¯éšè—è¡Œ
 				boolean allHideBefore = true;
 				for (int i = 1; i < col; i++) {
 					ColCell cc = (ColCell) control.cellSet.getColCell(i);
@@ -985,8 +985,8 @@ public class SplEditor {
 			}
 
 			int endCol = control.cellSet.getColCount();
-			if (col < endCol) { // È¡ÏûÒş²ØÊ±£¬Èç¹û×îºóÒ»ÁĞÖ®ºó¶¼ÊÇÒş²ØÁĞ£¬È¡ÏûÒş²Ø
-				// ÅĞ¶Ï×îºóÒ»ÁĞÖ®ºóÊÇ·ñ¶¼ÊÇÒş²ØĞĞ
+			if (col < endCol) { // å–æ¶ˆéšè—æ—¶ï¼Œå¦‚æœæœ€åä¸€åˆ—ä¹‹åéƒ½æ˜¯éšè—åˆ—ï¼Œå–æ¶ˆéšè—
+				// åˆ¤æ–­æœ€åä¸€åˆ—ä¹‹åæ˜¯å¦éƒ½æ˜¯éšè—è¡Œ
 				boolean allHideBehind = true;
 				for (int i = col + 1; i <= endCol; i++) {
 					ColCell cc = (ColCell) control.cellSet.getColCell(i);
@@ -1012,12 +1012,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°Ñ¡ÖĞÁĞµÄ¿ÉÊÓÊôĞÔ
+	 * è®¾ç½®å½“å‰é€‰ä¸­åˆ—çš„å¯è§†å±æ€§
 	 * 
 	 * @param columns
-	 *            Ö¸¶¨µÄÁĞ
+	 *            æŒ‡å®šçš„åˆ—
 	 * @param visible
-	 *            ÊÇ·ñ¿ÉÊÓ
+	 *            æ˜¯å¦å¯è§†
 	 */
 	public void setColumnsVisible(ArrayList<Integer> columns, boolean visible) {
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
@@ -1035,10 +1035,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * °Ñµ±Ç°Ñ¡ÖĞµÄĞĞÉèÎªÍ³Ò»µÄĞĞ¸ß¶È
+	 * æŠŠå½“å‰é€‰ä¸­çš„è¡Œè®¾ä¸ºç»Ÿä¸€çš„è¡Œé«˜åº¦
 	 * 
 	 * @param newHeight
-	 *            ĞÂĞĞ¸ß
+	 *            æ–°è¡Œé«˜
 	 */
 	public void setRowHeight(float newHeight) {
 		CellSetParser parser = new CellSetParser(control.getCellSet());
@@ -1064,7 +1064,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * µ÷ÕûÎªºÏÊÊĞĞ¸ß
+	 * è°ƒæ•´ä¸ºåˆé€‚è¡Œé«˜
 	 */
 	public void adjustRowHeight() {
 		if (selectedRows == null || selectedRows.size() == 0) {
@@ -1089,7 +1089,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * µ÷ÕûÎªºÏÊÊÁĞ¿í
+	 * è°ƒæ•´ä¸ºåˆé€‚åˆ—å®½
 	 */
 	public void adjustColWidth() {
 		if (selectedCols == null || selectedCols.size() == 0) {
@@ -1114,20 +1114,20 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°Ñ¡ÖĞĞĞµÄ¿ÉÊÓÊôĞÔ
+	 * è®¾ç½®å½“å‰é€‰ä¸­è¡Œçš„å¯è§†å±æ€§
 	 * 
 	 * @param visible
-	 *            ÊÇ·ñ¿ÉÊÓ
+	 *            æ˜¯å¦å¯è§†
 	 */
 	public void setRowVisible(boolean visible) {
 		if (selectedRows == null || selectedRows.size() == 0) {
 			return;
 		}
 		ArrayList<Integer> list = new ArrayList<Integer>();
-		if (visible && selectedRows.size() == 1) { // Ñ¡ÖĞÒ»ĞĞÏÔÊ¾
+		if (visible && selectedRows.size() == 1) { // é€‰ä¸­ä¸€è¡Œæ˜¾ç¤º
 			int row = ((Number) selectedRows.get(0)).intValue();
-			if (row > 1) { // È¡ÏûÒş²ØÊ±£¬Èç¹ûµÚÒ»ĞĞÖ®Ç°¶¼ÊÇÒş²ØĞĞ£¬È¡ÏûÒş²Ø
-				// ÅĞ¶ÏµÚÒ»ĞĞÖ®Ç°ÊÇ·ñ¶¼ÊÇÒş²ØĞĞ
+			if (row > 1) { // å–æ¶ˆéšè—æ—¶ï¼Œå¦‚æœç¬¬ä¸€è¡Œä¹‹å‰éƒ½æ˜¯éšè—è¡Œï¼Œå–æ¶ˆéšè—
+				// åˆ¤æ–­ç¬¬ä¸€è¡Œä¹‹å‰æ˜¯å¦éƒ½æ˜¯éšè—è¡Œ
 				boolean allHideBefore = true;
 				for (int i = 1; i < row; i++) {
 					RowCell rc = (RowCell) control.cellSet.getRowCell(i);
@@ -1143,8 +1143,8 @@ public class SplEditor {
 				}
 			}
 			int endRow = control.cellSet.getRowCount();
-			if (row < endRow) { // È¡ÏûÒş²ØÊ±£¬Èç¹û×îºóÒ»ĞĞÖ®ºó¶¼ÊÇÒş²ØĞĞ£¬È¡ÏûÒş²Ø
-				// ÅĞ¶Ï×îºóÒ»ĞĞÖ®ºóÊÇ·ñ¶¼ÊÇÒş²ØĞĞ
+			if (row < endRow) { // å–æ¶ˆéšè—æ—¶ï¼Œå¦‚æœæœ€åä¸€è¡Œä¹‹åéƒ½æ˜¯éšè—è¡Œï¼Œå–æ¶ˆéšè—
+				// åˆ¤æ–­æœ€åä¸€è¡Œä¹‹åæ˜¯å¦éƒ½æ˜¯éšè—è¡Œ
 				boolean allHideBehind = true;
 				for (int i = row + 1; i <= endRow; i++) {
 					RowCell rc = (RowCell) control.cellSet.getRowCell(i);
@@ -1169,12 +1169,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÉèÖÃÖ¸¶¨ĞĞµÄ¿ÉÊÓÊôĞÔ
+	 * è®¾ç½®æŒ‡å®šè¡Œçš„å¯è§†å±æ€§
 	 * 
 	 * @param rows
-	 *            Ö¸¶¨µÄĞĞºÅÁĞ±í
+	 *            æŒ‡å®šçš„è¡Œå·åˆ—è¡¨
 	 * @param visible
-	 *            ÊÇ·ñ¿ÉÊÓ
+	 *            æ˜¯å¦å¯è§†
 	 */
 	public void setRowsVisible(ArrayList<Integer> rows, boolean visible) {
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
@@ -1192,7 +1192,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * °´ÕÕÈÈ¼üÖ´ĞĞÏàÓ¦µÄ²åÈë²Ù×÷£¬ Ïà¶Ô±È½Ï¸´ÔÓ£¬ÓĞÊı¾İ¿éµÄÒÆ¶¯µÈ
+	 * æŒ‰ç…§çƒ­é”®æ‰§è¡Œç›¸åº”çš„æ’å…¥æ“ä½œï¼Œ ç›¸å¯¹æ¯”è¾ƒå¤æ‚ï¼Œæœ‰æ•°æ®å—çš„ç§»åŠ¨ç­‰
 	 * 
 	 * @param key
 	 *            byte
@@ -1211,12 +1211,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ö´ĞĞÈÈ¼ü
+	 * æ‰§è¡Œçƒ­é”®
 	 * 
 	 * @param key
-	 *            ¶¨ÒåµÄHK³£Á¿ÀàĞÍ
+	 *            å®šä¹‰çš„HKå¸¸é‡ç±»å‹
 	 * @param rect
-	 *            Ñ¡ÔñµÄ¸ñ×Ó¾ØÕó
+	 *            é€‰æ‹©çš„æ ¼å­çŸ©é˜µ
 	 */
 	private void hotKeyInsert(byte key, CellRect rect) {
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
@@ -1229,13 +1229,13 @@ public class SplEditor {
 		CellRect srcRect, tarRect;
 		switch (key) {
 		case HK_CTRL_ENTER:
-			/* Õâ¸ö¶¯×÷ÊÇ±¾¸ñÒÔ¼°ÓÒ±ßµÄ¸ñ×Óµ½ÏÂÒ»ĞĞ£¬×ó±ß¸ñ×Ó²»±ä¡£Ö®Ç°×öµÄÓĞÎÊÌâ£¬ÖØĞÂÕûÀíÁËÒ»ÏÂ */
+			/* è¿™ä¸ªåŠ¨ä½œæ˜¯æœ¬æ ¼ä»¥åŠå³è¾¹çš„æ ¼å­åˆ°ä¸‹ä¸€è¡Œï¼Œå·¦è¾¹æ ¼å­ä¸å˜ã€‚ä¹‹å‰åšçš„æœ‰é—®é¢˜ï¼Œé‡æ–°æ•´ç†äº†ä¸€ä¸‹ */
 			int newRow = -1;
-			if (curCol == 1) { // Èç¹ûµ±Ç°¸ñÊÇµÚÒ»ÁĞ£¬Ö±½Ó²åÈëĞĞ
+			if (curCol == 1) { // å¦‚æœå½“å‰æ ¼æ˜¯ç¬¬ä¸€åˆ—ï¼Œç›´æ¥æ’å…¥è¡Œ
 				newRow = curRow + rect.getRowCount();
 				cmds.add(getInsertRow(true,
 						new CellRect(curRow, curCol, rect.getRowCount(), 1)));
-			} else {// µÚÒ»²½ÏÈÔÚÏÂÃæ²åÈë»òÕß×·¼ÓÒ»ĞĞ£¬µÚ¶ş²½°Ñµ±Ç°¸ñÒÔ¼°ÓÒ±ß¸ñ×ÓÏÂÒÆ
+			} else {// ç¬¬ä¸€æ­¥å…ˆåœ¨ä¸‹é¢æ’å…¥æˆ–è€…è¿½åŠ ä¸€è¡Œï¼Œç¬¬äºŒæ­¥æŠŠå½“å‰æ ¼ä»¥åŠå³è¾¹æ ¼å­ä¸‹ç§»
 				if (curRow < ics.getRowCount()) {
 					cmds.add(getInsertRow(true, new CellRect(curRow + 1,
 							curCol, 1, 1)));
@@ -1254,7 +1254,7 @@ public class SplEditor {
 				if (tmp != null)
 					cmds.addAll(tmp);
 			}
-			// Õâ¸ö¹¹Ôìº¯ÊıÌØÊâ£¬ÏÖÔÚ»¹Ã»ÓĞ²åÈëĞĞ
+			// è¿™ä¸ªæ„é€ å‡½æ•°ç‰¹æ®Šï¼Œç°åœ¨è¿˜æ²¡æœ‰æ’å…¥è¡Œ
 			AtomicCell ac = new AtomicCell(control, curRow + 1);
 			ac.setProperty(AtomicCell.ROW_HEIGHT);
 			ac.setValue(new Float(control.cellSet.getRowCell(curRow)
@@ -1262,7 +1262,7 @@ public class SplEditor {
 			cmds.add(ac);
 			executeCmd(cmds);
 
-			// µ÷Õû¶ÏµãÎ»ÖÃ
+			// è°ƒæ•´æ–­ç‚¹ä½ç½®
 			ArrayList<CellLocation> breaks = control.getBreakPoints();
 
 			for (int i = breaks.size(); i < breaks.size(); i++) {
@@ -1319,10 +1319,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÒÆ¶¯¸´ÖÆ
+	 * ç§»åŠ¨å¤åˆ¶
 	 * 
 	 * @param key
-	 *            GCSplÖĞ¶¨ÒåµÄ³£Á¿
+	 *            GCSplä¸­å®šä¹‰çš„å¸¸é‡
 	 */
 	public void moveCopy(short key) {
 		if (this.isMultiRectSelected()) {
@@ -1333,7 +1333,7 @@ public class SplEditor {
 		if (activeCell == null) {
 			return;
 		}
-		// Ìá½»µ±Ç°±à¼­
+		// æäº¤å½“å‰ç¼–è¾‘
 		control.getContentPanel().submitEditor();
 		CellSet ics = control.getCellSet();
 		CellSetParser parser = new CellSetParser(ics);
@@ -1400,7 +1400,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñÑ¡Ôñ¼àÌıÆ÷
+	 * å–å•å…ƒæ ¼é€‰æ‹©ç›‘å¬å™¨
 	 * 
 	 * @return
 	 */
@@ -1410,10 +1410,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ²åÈë/×·¼ÓÁĞ
+	 * æ’å…¥/è¿½åŠ åˆ—
 	 * 
 	 * @param insertBefore
-	 *            ÊÇ·ñ²åÈëÁĞ¡£true²åÈëÁĞ£¬false×·¼ÓÁĞ
+	 *            æ˜¯å¦æ’å…¥åˆ—ã€‚trueæ’å…¥åˆ—ï¼Œfalseè¿½åŠ åˆ—
 	 * @return
 	 */
 	public boolean insertCol(boolean insertBefore) {
@@ -1433,10 +1433,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ¿ËÂ¡ĞĞ
+	 * å…‹éš†è¡Œ
 	 * 
 	 * @param isAdjust
-	 *            ¿ËÂ¡Ê±ÊÇ·ñµ÷Õû±í´ïÊ½
+	 *            å…‹éš†æ—¶æ˜¯å¦è°ƒæ•´è¡¨è¾¾å¼
 	 */
 	public void dupRow(boolean isAdjust) {
 		if (isMultiRectSelected()) {
@@ -1475,13 +1475,13 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÏÔÊ¾¸ñÖµ
+	 * æ˜¾ç¤ºæ ¼å€¼
 	 */
 	public void showCellValue() {
 		CellRect cr = getSelectedRect();
 		if (cr == null)
 			return;
-		// ÏÔÊ¾½á¹û²¢×Ô¶¯¶¤×¡¡¢²»ÒÆ¶¯¹â±ê
+		// æ˜¾ç¤ºç»“æœå¹¶è‡ªåŠ¨é’‰ä½ã€ä¸ç§»åŠ¨å…‰æ ‡
 		NormalCell nc = (NormalCell) control.cellSet.getCell(cr.getBeginRow(),
 				cr.getBeginCol());
 		if (nc != null) {
@@ -1492,12 +1492,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡²åÈë/×·¼ÓÁĞµÄÔ­×ÓÃüÁî
+	 * å–æ’å…¥/è¿½åŠ åˆ—çš„åŸå­å‘½ä»¤
 	 * 
 	 * @param insertBefore
-	 *            ÊÇ·ñ²åÈëÁĞ¡£true²åÈëÁĞ£¬false×·¼ÓÁĞ
+	 *            æ˜¯å¦æ’å…¥åˆ—ã€‚trueæ’å…¥åˆ—ï¼Œfalseè¿½åŠ åˆ—
 	 * @param rect
-	 *            Ñ¡ÔñµÄ¸ñ×Ó¾ØÕó
+	 *            é€‰æ‹©çš„æ ¼å­çŸ©é˜µ
 	 * @return
 	 */
 	public IAtomicCmd getInsertCol(boolean insertBefore, CellRect rect) {
@@ -1517,10 +1517,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ¸´ÖÆÖ¸¶¨ÁĞÍâ¹ÛÊôĞÔµÄ¸ñ×Ó,°üº¬ÁĞÊ×¸ñ
+	 * å¤åˆ¶æŒ‡å®šåˆ—å¤–è§‚å±æ€§çš„æ ¼å­,åŒ…å«åˆ—é¦–æ ¼
 	 * 
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	private ArrayList<ColCell> getApprCopiedColCells(int col) {
@@ -1532,7 +1532,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ¿ËÂ¡¸ñ×ÓÊôĞÔÓ³Éä±í
+	 * å…‹éš†æ ¼å­å±æ€§æ˜ å°„è¡¨
 	 * 
 	 * @param aMap
 	 * @return
@@ -1545,10 +1545,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡¸ñ×ÓÊôĞÔÓ³Éä±í
+	 * å–æ ¼å­å±æ€§æ˜ å°„è¡¨
 	 * 
 	 * @param type
-	 *            Ñ¡ÔñµÄ×´Ì¬£¬GCÖĞ¶¨ÒåµÄ³£Á¿
+	 *            é€‰æ‹©çš„çŠ¶æ€ï¼ŒGCä¸­å®šä¹‰çš„å¸¸é‡
 	 * @return
 	 */
 	private IByteMap getCellByteMap(byte type) {
@@ -1582,7 +1582,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡µ±Ç°ÏÔÊ¾µÄµ¥Ôª¸ñ
+	 * å–å½“å‰æ˜¾ç¤ºçš„å•å…ƒæ ¼
 	 * 
 	 * @return
 	 */
@@ -1608,10 +1608,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 * 
 	 * @param cmd
-	 *            GCSplÖĞ¶¨ÒåµÄ³£Á¿
+	 *            GCSplä¸­å®šä¹‰çš„å¸¸é‡
 	 * @return
 	 */
 	public boolean delete(short cmd) {
@@ -1640,7 +1640,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * µ¥Ôª¸ñÎÄ±¾±à¼­
+	 * å•å…ƒæ ¼æ–‡æœ¬ç¼–è¾‘
 	 */
 	public void textEditor() {
 		control.getContentPanel().submitEditor();
@@ -1662,13 +1662,13 @@ public class SplEditor {
 	}
 
 	/**
-	 * ×¢ÊÍ
+	 * æ³¨é‡Š
 	 * 
 	 * @return
 	 */
 	public boolean note() {
 		if (isMultiRectSelected()) {
-			// ²»ÄÜ×¢ÊÍ¶àÆ¬ÇøÓò¡£
+			// ä¸èƒ½æ³¨é‡Šå¤šç‰‡åŒºåŸŸã€‚
 			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.notemore"),
 					mm.getMessage("public.prompt"), JOptionPane.WARNING_MESSAGE);
 			return false;
@@ -1702,7 +1702,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÌáÊ¾
+	 * è®¾ç½®å•å…ƒæ ¼æç¤º
 	 */
 	public void setTips() {
 		Vector<CellRect> rects = getSelectedRects();
@@ -1737,13 +1737,13 @@ public class SplEditor {
 	}
 
 	/**
-	 * ¼ôÇĞ
+	 * å‰ªåˆ‡
 	 * 
 	 * @return
 	 */
 	public boolean cut() {
 		if (isMultiRectSelected()) {
-			// ²»ÄÜ¼ôÇĞ¶àÆ¬ÇøÓò¡£
+			// ä¸èƒ½å‰ªåˆ‡å¤šç‰‡åŒºåŸŸã€‚
 			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.cutmore"),
 					mm.getMessage("public.prompt"), JOptionPane.WARNING_MESSAGE);
 			return false;
@@ -1752,21 +1752,21 @@ public class SplEditor {
 	}
 
 	/**
-	 * ¸´ÖÆÑ¡ÖĞµÄ¸ñ×Ó
+	 * å¤åˆ¶é€‰ä¸­çš„æ ¼å­
 	 * 
-	 * @return boolean,Ã»ÓĞ¸ñ×ÓÊ±·µ»Øfalse
+	 * @return boolean,æ²¡æœ‰æ ¼å­æ—¶è¿”å›false
 	 */
 	public boolean copy() {
 		return copy(false, false);
 	}
 
 	/**
-	 * ¸´ÖÆ¸ñ×Ó£¬Í¬Ê±Éú²úÏµÍ³¼ôÌù°å´®
+	 * å¤åˆ¶æ ¼å­ï¼ŒåŒæ—¶ç”Ÿäº§ç³»ç»Ÿå‰ªè´´æ¿ä¸²
 	 * 
 	 * @param isCutStatus
-	 *            boolean,ÊÇ·ñ¼ôÇĞ×´Ì¬
+	 *            boolean,æ˜¯å¦å‰ªåˆ‡çŠ¶æ€
 	 * @param valueCopy
-	 *            boolean£¬ÊÇ·ñÉú³ÉÖµ´®»¯µÄÏµÍ³¼ôÌù°å
+	 *            booleanï¼Œæ˜¯å¦ç”Ÿæˆå€¼ä¸²åŒ–çš„ç³»ç»Ÿå‰ªè´´æ¿
 	 * @return boolean
 	 */
 	public boolean copy(boolean isCutStatus, boolean valueCopy) {
@@ -1824,7 +1824,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ¸´ÖÆ¿É³ÊÏÖ´úÂë
+	 * æ˜¯å¦å¯ä»¥å¤åˆ¶å¯å‘ˆç°ä»£ç 
 	 * 
 	 * @return
 	 */
@@ -1844,7 +1844,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ¸´ÖÆ¿É³ÊÏÖ´úÂë¶Ô»°¿ò
+	 * å¤åˆ¶å¯å‘ˆç°ä»£ç å¯¹è¯æ¡†
 	 * 
 	 * @return
 	 */
@@ -1859,7 +1859,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ¸´ÖÆ¿É³ÊÏÖ´úÂë
+	 * å¤åˆ¶å¯å‘ˆç°ä»£ç 
 	 * 
 	 * @return
 	 */
@@ -1872,7 +1872,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * »ñÈ¡¸´ÖÆ¿É³ÊÏÖ´úÂë×Ö·û´®
+	 * è·å–å¤åˆ¶å¯å‘ˆç°ä»£ç å­—ç¬¦ä¸²
 	 * 
 	 * @return
 	 */
@@ -1901,7 +1901,7 @@ public class SplEditor {
 				for (int col = cr.getBeginCol(); col <= cr.getEndCol(); col++) {
 					buf.append(LINE_SEP);
 					buf.append(COL_SEP + COL_SEP + "<td");
-					// ÉèÖÃÁĞ¿í
+					// è®¾ç½®åˆ—å®½
 					buf.append(" width="
 							+ parser.getColWidth(col, control.scale) + "px");
 					buf.append(" align=\"center\"");
@@ -1926,7 +1926,7 @@ public class SplEditor {
 				if (copyHeader) {
 					buf.append(LINE_SEP);
 					buf.append(COL_SEP + COL_SEP + "<td");
-					if (isFirstRow) { // ÉèÖÃ±íÍ·ÁĞ¿í
+					if (isFirstRow) { // è®¾ç½®è¡¨å¤´åˆ—å®½
 						buf.append(" width=" + headerWidth + "px");
 					}
 					buf.append(" align=\"center\"");
@@ -1944,7 +1944,7 @@ public class SplEditor {
 					}
 					buf.append(LINE_SEP);
 					buf.append(COL_SEP + COL_SEP + "<td");
-					if (isFirstRow) { // ÉèÖÃÁĞ¿í
+					if (isFirstRow) { // è®¾ç½®åˆ—å®½
 						buf.append(" width="
 								+ parser.getColWidth(col, control.scale) + "px");
 					}
@@ -2041,10 +2041,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ½«ÑÕÉ«×ªÎªhtml¸ñÊ½
+	 * å°†é¢œè‰²è½¬ä¸ºhtmlæ ¼å¼
 	 * 
 	 * @param color
-	 *            ÑÕÉ«
+	 *            é¢œè‰²
 	 * @return
 	 */
 	private String color2Html(Color color) {
@@ -2061,7 +2061,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ´úÂë¸´ÖÆ
+	 * ä»£ç å¤åˆ¶
 	 * 
 	 * @return
 	 */
@@ -2118,8 +2118,8 @@ public class SplEditor {
 		if (isMultiCells) {
 			expStr = "=" + expStr;
 		} else {
-			// Ã»ÓĞ=»òÕß>¿ªÍ·µÄ,²»ÊÇ¼òµ¥SQL£¬¼ÓµÈºÅ×÷Îª±í´ïÊ½
-			// ±ÈÈç³£Á¿²»¼ÓµÈºÅÔÚjdbcÖĞ²»ÄÜÖ´ĞĞ
+			// æ²¡æœ‰=æˆ–è€…>å¼€å¤´çš„,ä¸æ˜¯ç®€å•SQLï¼ŒåŠ ç­‰å·ä½œä¸ºè¡¨è¾¾å¼
+			// æ¯”å¦‚å¸¸é‡ä¸åŠ ç­‰å·åœ¨jdbcä¸­ä¸èƒ½æ‰§è¡Œ
 			if (!expStr.startsWith("=") && !expStr.startsWith(">")
 					&& !expStr.startsWith("$")) {
 				expStr = "=" + expStr;
@@ -2130,10 +2130,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡Ñ¡ÔñµÄ¸ñ×Ó¾ØÕó
+	 * å–é€‰æ‹©çš„æ ¼å­çŸ©é˜µ
 	 * 
 	 * @param rect
-	 *            Ñ¡ÔñµÄ¸ñ×Ó¾ØĞÎ
+	 *            é€‰æ‹©çš„æ ¼å­çŸ©å½¢
 	 * @return
 	 */
 	private Matrix getSelectedMatrix(CellRect rect) {
@@ -2141,10 +2141,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * Õ¹¿ªĞĞ
+	 * å±•å¼€è¡Œ
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @return
 	 */
 	public boolean expandRow(int row) {
@@ -2164,25 +2164,25 @@ public class SplEditor {
 	}
 
 	/**
-	 * ´Ó¼ôÌù°åÕ³Ìù¸ñ×Ó»òÕßÎÄ±¾Êı¾İ
+	 * ä»å‰ªè´´æ¿ç²˜è´´æ ¼å­æˆ–è€…æ–‡æœ¬æ•°æ®
 	 * 
-	 * @return boolean Õ³ÌùºóÊÇ·ñµ÷Õû×ÔÉí±í´ïÊ½
+	 * @return boolean ç²˜è´´åæ˜¯å¦è°ƒæ•´è‡ªèº«è¡¨è¾¾å¼
 	 */
 	public boolean paste(boolean isAdjustSelf) {
 		return paste(isAdjustSelf, PASTE_OPTION_NORMAL);
 	}
 
 	/**
-	 * ´Ó¼ôÌù°åÕ³Ìù¸ñ×Ó»òÕßÎÄ±¾Êı¾İ
+	 * ä»å‰ªè´´æ¿ç²˜è´´æ ¼å­æˆ–è€…æ–‡æœ¬æ•°æ®
 	 * 
 	 * @param isAdjustSelf
-	 *            Õ³ÌùºóÊÇ·ñµ÷Õû×ÔÉí±í´ïÊ½
+	 *            ç²˜è´´åæ˜¯å¦è°ƒæ•´è‡ªèº«è¡¨è¾¾å¼
 	 * @param pasteOption
-	 *            Õ³ÌùÊ±Ä¿±êÇøÓòÇå¿Õ·½Ê½£¬µ±ÓĞÇå¿Õ·½Ê½Ê±£¬°´Ñ¡ÔñÇøÓòÑ­»·Õ³Ìù¹¦ÄÜÎŞĞ§
+	 *            ç²˜è´´æ—¶ç›®æ ‡åŒºåŸŸæ¸…ç©ºæ–¹å¼ï¼Œå½“æœ‰æ¸…ç©ºæ–¹å¼æ—¶ï¼ŒæŒ‰é€‰æ‹©åŒºåŸŸå¾ªç¯ç²˜è´´åŠŸèƒ½æ— æ•ˆ
 	 * @return
 	 */
 	public boolean paste(boolean isAdjustSelf, byte pasteOption) {
-		// ÓĞÇå¿Õ·½Ê½Ê±£¬Ñ¡ÔñÇøÓòÎŞĞ§
+		// æœ‰æ¸…ç©ºæ–¹å¼æ—¶ï¼Œé€‰æ‹©åŒºåŸŸæ— æ•ˆ
 		int curRow = 1;
 		int curCol = 1;
 		if (pasteOption != PASTE_OPTION_NORMAL) {
@@ -2244,12 +2244,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ö´ĞĞÑ¡ÏîÕ³Ìù
+	 * æ‰§è¡Œé€‰é¡¹ç²˜è´´
 	 * 
 	 * @param rect
-	 *            Ñ¡ÔñµÄ¸ñ×Ó¾ØĞÎ
+	 *            é€‰æ‹©çš„æ ¼å­çŸ©å½¢
 	 * @param option
-	 *            Õ³ÌùÑ¡Ïî
+	 *            ç²˜è´´é€‰é¡¹
 	 * @return
 	 */
 	private Vector<IAtomicCmd> executePasteOption(CellRect rect, byte option)
@@ -2274,7 +2274,7 @@ public class SplEditor {
 			try {
 				hotKeyInsert(HK_CTRL_INSERT, rect);
 			} catch (Exception x) {
-				// µ±Ç°Î»ÖÃµÄĞĞÊı²»¹»£¡
+				// å½“å‰ä½ç½®çš„è¡Œæ•°ä¸å¤Ÿï¼
 				throw new RQException(mm.getMessage("dfxeditor.notenoughrows"));
 			}
 			break;
@@ -2282,7 +2282,7 @@ public class SplEditor {
 			try {
 				hotKeyInsert(HK_ALT_INSERT, rect);
 			} catch (Exception x) {
-				// µ±Ç°Î»ÖÃµÄÁĞÊı²»¹»£¡
+				// å½“å‰ä½ç½®çš„åˆ—æ•°ä¸å¤Ÿï¼
 				throw new RQException(mm.getMessage("dfxeditor.notenoughcols"));
 			}
 			break;
@@ -2292,12 +2292,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * Õ³Ìù¸ñ×Ó
+	 * ç²˜è´´æ ¼å­
 	 * 
 	 * @param isAdjustSelf
-	 *            Õ³ÌùºóÊÇ·ñµ÷Õû×ÔÉí±í´ïÊ½
+	 *            ç²˜è´´åæ˜¯å¦è°ƒæ•´è‡ªèº«è¡¨è¾¾å¼
 	 * @param cmds
-	 *            Õ³ÌùÊ±ĞèÒªÖ´ĞĞµÄÃüÁî£¬¿ÉÄÜÎªnull
+	 *            ç²˜è´´æ—¶éœ€è¦æ‰§è¡Œçš„å‘½ä»¤ï¼Œå¯èƒ½ä¸ºnull
 	 * @return
 	 */
 	private boolean pasteCell(boolean isAdjustSelf, Vector<IAtomicCmd> cmds) {
@@ -2330,7 +2330,7 @@ public class SplEditor {
 		boolean isCut = (cs.srcCellSet == control.getCellSet())
 				&& cs.isCutStatus();
 		if (isCut) {
-			// ¼ôÇĞÊ±ÓÃÒÆ¶¯¾ØĞÎ, ²»ÊÇÍ¬Ò»¸ösheet,²»Ö§³Ö¼ôÇĞ²Ù×÷
+			// å‰ªåˆ‡æ—¶ç”¨ç§»åŠ¨çŸ©å½¢, ä¸æ˜¯åŒä¸€ä¸ªsheet,ä¸æ”¯æŒå‰ªåˆ‡æ“ä½œ
 			cmds = GMSpl.getMoveRectCmd(this, cs.rect, targetRect);
 			GM.clipBoard(null);
 		} else {
@@ -2343,7 +2343,7 @@ public class SplEditor {
 			}
 			if (targetRect.getEndRow() + hideRowCount > control.cellSet
 					.getRowCount()) {
-				// ĞĞÊı²»¹»²¹³ä
+				// è¡Œæ•°ä¸å¤Ÿè¡¥å……
 				int addRowCount = targetRect.getEndRow() + hideRowCount
 						- control.cellSet.getRowCount();
 				cmds.add(getAppendRows(addRowCount));
@@ -2357,7 +2357,7 @@ public class SplEditor {
 			}
 			if (targetRect.getEndCol() + hideColCount > control.cellSet
 					.getColCount()) {
-				// ÁĞÊı²»¹»²¹³ä
+				// åˆ—æ•°ä¸å¤Ÿè¡¥å……
 				int addColCount = targetRect.getEndCol() + hideColCount
 						- control.cellSet.getColCount();
 				cmds.add(getAppendCols(addColCount));
@@ -2365,7 +2365,7 @@ public class SplEditor {
 			Area area = control.getSelectedArea(0);
 			if (area.getEndRow() == area.getBeginRow()
 					&& area.getBeginCol() == area.getEndCol()) {
-				// Ö»Ñ¡ÔñÒ»¸ö¸ñ×ÓµÄÇé¿ö£¬Õ³ÌùÈ«²¿
+				// åªé€‰æ‹©ä¸€ä¸ªæ ¼å­çš„æƒ…å†µï¼Œç²˜è´´å…¨éƒ¨
 				int endRow = targetRect.getEndRow();
 				int rc = 0;
 				for (int r = targetRect.getBeginRow(); r <= control.cellSet
@@ -2394,7 +2394,7 @@ public class SplEditor {
 						targetRect.getBeginCol(), endRow, endCol);
 				targetRect = new CellRect(area);
 			} else if (selectState == cs.selectState) {
-				// Ñ¡ÔñÒ»ĞĞ»òÕßÒ»ÁĞ£¬¶øÇÒÔ´ÇøÓòÒ²ÊÇ¶ÔÓ¦µÄÑ¡ÔñĞĞÁĞµÄÇé¿ö£¬Ò²Õ³ÌùÈ«²¿
+				// é€‰æ‹©ä¸€è¡Œæˆ–è€…ä¸€åˆ—ï¼Œè€Œä¸”æºåŒºåŸŸä¹Ÿæ˜¯å¯¹åº”çš„é€‰æ‹©è¡Œåˆ—çš„æƒ…å†µï¼Œä¹Ÿç²˜è´´å…¨éƒ¨
 				if ((selectState == GC.SELECT_STATE_ROW && selectedRows.size() == 1)
 						|| (selectState == GC.SELECT_STATE_COL && selectedCols
 								.size() == 1)) {
@@ -2405,7 +2405,7 @@ public class SplEditor {
 				}
 			}
 
-			// ¼ôÇĞÊ±²»Ó¦¸ÃÖ´ĞĞÏÂÃæ¶¯×÷
+			// å‰ªåˆ‡æ—¶ä¸åº”è¯¥æ‰§è¡Œä¸‹é¢åŠ¨ä½œ
 			AtomicSpl ar = new AtomicSpl(control);
 			ar.setType(AtomicSpl.PASTE_SELECTION);
 			ar.setRect(targetRect);
@@ -2416,7 +2416,7 @@ public class SplEditor {
 		}
 		executeCmd(cmds);
 
-		// Õ³ÌùÍêºó»¹ÄÜÕ³
+		// ç²˜è´´å®Œåè¿˜èƒ½ç²˜
 		if (!isCut) {
 			control.resetCellSelection(cs);
 		} else {
@@ -2426,13 +2426,13 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ö´ĞĞ¼ôÇĞ
+	 * æ‰§è¡Œå‰ªåˆ‡
 	 */
 	protected void moveRect() {
 	}
 
 	/**
-	 * µ¥Ôª¸ñÊÇ·ñ¿ÉÒÔºöÂÔ
+	 * å•å…ƒæ ¼æ˜¯å¦å¯ä»¥å¿½ç•¥
 	 * 
 	 * @param parser
 	 * @param cp
@@ -2452,10 +2452,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * ´ÓÏµÍ³¼ôÌù°åÕ³ÌùÎÄ±¾
+	 * ä»ç³»ç»Ÿå‰ªè´´æ¿ç²˜è´´æ–‡æœ¬
 	 * 
 	 * @param cmds
-	 *            Õ³ÌùÊ±ĞèÒªÍ¬Ê±Ö´ĞĞµÄÔ­×ÓÃüÁî¼¯
+	 *            ç²˜è´´æ—¶éœ€è¦åŒæ—¶æ‰§è¡Œçš„åŸå­å‘½ä»¤é›†
 	 * @return
 	 */
 	private boolean pasteValue(Vector<IAtomicCmd> cmds) {
@@ -2510,18 +2510,18 @@ public class SplEditor {
 		return true;
 	}
 
-	/** Çå³ı */
+	/** æ¸…é™¤ */
 	public static final byte CLEAR = 0;
-	/** Çå³ı±í´ïÊ½ */
+	/** æ¸…é™¤è¡¨è¾¾å¼ */
 	public static final byte CLEAR_EXP = 1;
-	/** Çå³ı¸ñÖµ */
+	/** æ¸…é™¤æ ¼å€¼ */
 	public static final byte CLEAR_VAL = 2;
 
 	/**
-	 * Çå³ı
+	 * æ¸…é™¤
 	 * 
 	 * @param clearType
-	 *            Çå³ı·½Ê½
+	 *            æ¸…é™¤æ–¹å¼
 	 * @return
 	 */
 	public boolean clear(byte clearType) {
@@ -2541,7 +2541,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡Çå³ıÇøÓòµÄÔ­×ÓÃüÁî¼¯
+	 * å–æ¸…é™¤åŒºåŸŸçš„åŸå­å‘½ä»¤é›†
 	 * 
 	 * @param rect
 	 * @param clearType
@@ -2566,12 +2566,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * È¡Çå³ıµÄÔ­×ÓÃüÁî¼¯
+	 * å–æ¸…é™¤çš„åŸå­å‘½ä»¤é›†
 	 * 
 	 * @param rect
-	 *            ÇåÀíµÄÇøÓò
+	 *            æ¸…ç†çš„åŒºåŸŸ
 	 * @param cmdType
-	 *            ÇåÀíµÄÃüÁî
+	 *            æ¸…ç†çš„å‘½ä»¤
 	 * @return
 	 */
 	private Vector<IAtomicCmd> getClearCmds(CellRect rect, byte cmdType) {
@@ -2592,10 +2592,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * É¾³ıĞĞÁĞ
+	 * åˆ é™¤è¡Œåˆ—
 	 * 
 	 * @param cmd
-	 *            É¾³ıµÄÃüÁî
+	 *            åˆ é™¤çš„å‘½ä»¤
 	 */
 	private void deleteRowOrCol(short cmd) {
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
@@ -2624,7 +2624,7 @@ public class SplEditor {
 		}
 		executeCmd(cmds);
 
-		// µ±Ñ¡ÖĞÇøÓòÎª×îºóĞĞÁĞÊ±£¬É¾³ıºóÇå³ıµ±Ç°Ñ¡ÖĞÇøÓò
+		// å½“é€‰ä¸­åŒºåŸŸä¸ºæœ€åè¡Œåˆ—æ—¶ï¼Œåˆ é™¤åæ¸…é™¤å½“å‰é€‰ä¸­åŒºåŸŸ
 		CellRect rect = getSelectedRect();
 		if (rect != null) {
 			CellSet cs = control.getCellSet();
@@ -2636,22 +2636,22 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ñ¡ÔñµÄÇøÓò
+	 * é€‰æ‹©çš„åŒºåŸŸ
 	 */
 	private Vector<Object> selectedAreas;
 
 	/**
-	 * ÉèÖÃÑ¡ÔñµÄÇøÓò
+	 * è®¾ç½®é€‰æ‹©çš„åŒºåŸŸ
 	 * 
 	 * @param selectedAreas
-	 *            Ñ¡ÔñµÄÇøÓò
+	 *            é€‰æ‹©çš„åŒºåŸŸ
 	 */
 	public void setSelectedAreas(Vector<Object> selectedAreas) {
 		this.selectedAreas = selectedAreas;
 	}
 
 	/**
-	 * ÖØÖÃÑ¡ÔñµÄÇøÓò
+	 * é‡ç½®é€‰æ‹©çš„åŒºåŸŸ
 	 */
 	public void resetSelectedAreas() {
 		control.setSelectedAreas(selectedAreas);
@@ -2730,7 +2730,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÖØÖÃ±à¼­Æ÷
+	 * é‡ç½®ç¼–è¾‘å™¨
 	 */
 	public void resetEditor() {
 		resetSelectedAreas();
@@ -2739,7 +2739,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÖØÖÃµ±Ç°¸ñ
+	 * é‡ç½®å½“å‰æ ¼
 	 */
 	public void resetActiveCell() {
 		NormalCell cell = getDisplayCell();
@@ -2767,18 +2767,18 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÖØ»­ĞĞ±íÍ·
+	 * é‡ç”»è¡Œè¡¨å¤´
 	 */
 	public void redrawRowHeader() {
-		// ÒıÆğĞĞ²ã´ÎÃæ°å¸Ä±äµÄ¶¯×÷£¬ÒªË¢ĞÂÒ»ÏÂ
+		// å¼•èµ·è¡Œå±‚æ¬¡é¢æ¿æ”¹å˜çš„åŠ¨ä½œï¼Œè¦åˆ·æ–°ä¸€ä¸‹
 		control.getRowHeader().updateUI();
 	}
 
 	/**
-	 * ÉèÖÃÑ¡ÔñµÄ×´Ì¬
+	 * è®¾ç½®é€‰æ‹©çš„çŠ¶æ€
 	 * 
 	 * @param state
-	 *            Ñ¡ÔñµÄ×´Ì¬¡£GCÖĞ³£Á¿
+	 *            é€‰æ‹©çš„çŠ¶æ€ã€‚GCä¸­å¸¸é‡
 	 */
 	private void setSelectState(byte state) {
 		selectState = state;
@@ -2786,10 +2786,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * Ñ¡ÔñÇøÓò
+	 * é€‰æ‹©åŒºåŸŸ
 	 * 
 	 * @param scrollActiveCellToVisible
-	 *            ÊÇ·ñ¹ö¶¯µ½Ñ¡ÔñÇøÓòÏÔÊ¾
+	 *            æ˜¯å¦æ»šåŠ¨åˆ°é€‰æ‹©åŒºåŸŸæ˜¾ç¤º
 	 */
 	public void selectAreas(boolean scrollActiveCellToVisible) {
 		if (selectedAreas != null && !selectedAreas.isEmpty()) {
@@ -2822,21 +2822,21 @@ public class SplEditor {
 	}
 
 	/**
-	 * ¼üÅÌALT-C
+	 * é”®ç›˜ALT-C
 	 */
 	protected void altC() {
 
 	}
 
 	/**
-	 * ¼üÅÌALT-V
+	 * é”®ç›˜ALT-V
 	 */
 	protected void altV() {
 
 	}
 
 	/**
-	 * É¾³ı×ó±ß¸ñ×Ó£¬µ±Ç°¸ñÔÚÊ×ÁĞÊ±ÒÆ¶¯µ½ÉÏÒ»ĞĞ×îºóÓĞÄÚÈİ¸ñ×ÓµÄ×îºó¡£CTRL-BACKSPACEÊÂ¼ş
+	 * åˆ é™¤å·¦è¾¹æ ¼å­ï¼Œå½“å‰æ ¼åœ¨é¦–åˆ—æ—¶ç§»åŠ¨åˆ°ä¸Šä¸€è¡Œæœ€åæœ‰å†…å®¹æ ¼å­çš„æœ€åã€‚CTRL-BACKSPACEäº‹ä»¶
 	 */
 	public void ctrlBackSpace() {
 		CellLocation activeCell = control.getActiveCell();
@@ -2862,7 +2862,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * É¾³ı±¾¸ñ¡£Ö»Ñ¡ÖĞÒ»¸ö¸ñ×Ó£¬¶øÇÒºóÃæÎª¿ÕÊ±¡²°üº¬±¾¸ñ¡³,½«ÏÂÒ»ĞĞ½ÓÉÏÀ´¡£CTRL-DELETEÊÂ¼ş
+	 * åˆ é™¤æœ¬æ ¼ã€‚åªé€‰ä¸­ä¸€ä¸ªæ ¼å­ï¼Œè€Œä¸”åé¢ä¸ºç©ºæ—¶ã€”åŒ…å«æœ¬æ ¼ã€•,å°†ä¸‹ä¸€è¡Œæ¥ä¸Šæ¥ã€‚CTRL-DELETEäº‹ä»¶
 	 */
 	public void ctrlDelete() {
 		Area a = null;
@@ -2898,12 +2898,12 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÒÆ¶¯ÇøÓò
+	 * ç§»åŠ¨åŒºåŸŸ
 	 * 
 	 * @param srcRect
-	 *            Ô´ÇøÓò
+	 *            æºåŒºåŸŸ
 	 * @param tarRect
-	 *            Ä¿±êÇøÓò
+	 *            ç›®æ ‡åŒºåŸŸ
 	 * @return
 	 */
 	private boolean moveRect(CellRect srcRect, CellRect tarRect) {
@@ -2911,14 +2911,14 @@ public class SplEditor {
 	}
 
 	/**
-	 * ÒÆ¶¯ÇøÓò
+	 * ç§»åŠ¨åŒºåŸŸ
 	 * 
 	 * @param srcRect
-	 *            Ô´ÇøÓò
+	 *            æºåŒºåŸŸ
 	 * @param tarRect
-	 *            Ä¿±êÇøÓò
+	 *            ç›®æ ‡åŒºåŸŸ
 	 * @param scrollToTarget
-	 *            Ä¿±êÇøÓòÎ´ÏÔÊ¾Ê±£¬ÊÇ·ñ¹ö¶¯µ½Ä¿±êÇøÓòÊ¹ÆäÏÔÊ¾
+	 *            ç›®æ ‡åŒºåŸŸæœªæ˜¾ç¤ºæ—¶ï¼Œæ˜¯å¦æ»šåŠ¨åˆ°ç›®æ ‡åŒºåŸŸä½¿å…¶æ˜¾ç¤º
 	 * @return
 	 */
 	private boolean moveRect(CellRect srcRect, CellRect tarRect,
@@ -2936,7 +2936,7 @@ public class SplEditor {
 	}
 
 	/**
-	 * ½«connnectRowÁ¬½Óµ½ÉÏÒ»ĞĞµÄupColÎ»ÖÃ
+	 * å°†connnectRowè¿æ¥åˆ°ä¸Šä¸€è¡Œçš„upColä½ç½®
 	 * 
 	 * @param connectRow
 	 *            int
@@ -2966,10 +2966,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨ĞĞÖĞÊ¹ÓÃµÄÁĞ£¨·Ç¿Õ£©
+	 * è·å–æŒ‡å®šè¡Œä¸­ä½¿ç”¨çš„åˆ—ï¼ˆéç©ºï¼‰
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @return
 	 */
 	private int getUsedCols(CellSet ics, int row) {
@@ -2978,10 +2978,10 @@ public class SplEditor {
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨ĞĞÖĞ¿ÕµÄÁĞ
+	 * è·å–æŒ‡å®šè¡Œä¸­ç©ºçš„åˆ—
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @return
 	 */
 	private int getEmptyColumns(CellSet ics, int row) {

@@ -12,24 +12,24 @@ import javax.swing.table.TableCellRenderer;
 import com.scudata.common.StringUtils;
 
 /**
- * JTableµ¥Ôª¸ñµÄÃÜÂëäÖÈ¾Æ÷
+ * JTableå•å…ƒæ ¼çš„å¯†ç æ¸²æŸ“å™¨
  *
  */
 public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent {
 
 	/**
-	 * ÃÜÂë±à¼­¿ò
+	 * å¯†ç ç¼–è¾‘æ¡†
 	 */
 	private JPasswordField pw1 = new JPasswordField();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ESPasswordBoxRenderer() {
 	}
 
 	/**
-	 * È¡ÏÔÊ¾µÄ¿Ø¼ş
+	 * å–æ˜¾ç¤ºçš„æ§ä»¶
 	 */
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
@@ -39,7 +39,7 @@ public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent 
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñ¿Ø¼ş
+	 * å–å•å…ƒæ ¼æ§ä»¶
 	 */
 	public Component getCellComponent(Object value) {
 		if (value != null) {
@@ -74,7 +74,7 @@ public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent 
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñÏÔÊ¾ÉèÖÃ
+	 * å–å•å…ƒæ ¼æ˜¾ç¤ºè®¾ç½®
 	 * 
 	 * @param table
 	 * @param isSelected
@@ -93,37 +93,37 @@ public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent 
 	}
 
 	/**
-	 * µ¥Ôª¸ñÏÔÊ¾ÉèÖÃ
+	 * å•å…ƒæ ¼æ˜¾ç¤ºè®¾ç½®
 	 *
 	 */
 	class CellAppr {
 		/**
-		 * Ç°¾°É«
+		 * å‰æ™¯è‰²
 		 */
 		private Color foreground = Color.black;
 		/**
-		 * ±³¾°É«
+		 * èƒŒæ™¯è‰²
 		 */
 		private Color background = Color.white;
 
 		/**
-		 * ×ÖÌå
+		 * å­—ä½“
 		 */
 		private Font font;
 
 		/**
-		 * ¹¹Ôìº¯Êı
+		 * æ„é€ å‡½æ•°
 		 */
 		public CellAppr() {
 		}
 
 		/**
-		 * ¹¹Ôìº¯Êı
+		 * æ„é€ å‡½æ•°
 		 * 
 		 * @param foreground
-		 *            Ç°¾°É«
+		 *            å‰æ™¯è‰²
 		 * @param background
-		 *            ±³¾°É«
+		 *            èƒŒæ™¯è‰²
 		 */
 		public CellAppr(Color foreground, Color background) {
 			this.foreground = foreground;
@@ -131,7 +131,7 @@ public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent 
 		}
 
 		/**
-		 * È¡Ç°¾°É«
+		 * å–å‰æ™¯è‰²
 		 * 
 		 * @return
 		 */
@@ -140,7 +140,7 @@ public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent 
 		}
 
 		/**
-		 * È¡±³¾°É«
+		 * å–èƒŒæ™¯è‰²
 		 * 
 		 * @return
 		 */
@@ -149,7 +149,7 @@ public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent 
 		}
 
 		/**
-		 * ÉèÖÃÇ°¾°É«
+		 * è®¾ç½®å‰æ™¯è‰²
 		 * 
 		 * @param c
 		 */
@@ -158,7 +158,7 @@ public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent 
 		}
 
 		/**
-		 * ÉèÖÃ±³¾°É«
+		 * è®¾ç½®èƒŒæ™¯è‰²
 		 * 
 		 * @param c
 		 */
@@ -167,7 +167,7 @@ public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent 
 		}
 
 		/**
-		 * ÉèÖÃ×ÖÌå
+		 * è®¾ç½®å­—ä½“
 		 * 
 		 * @param font
 		 */
@@ -176,7 +176,7 @@ public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent 
 		}
 
 		/**
-		 * È¡×ÖÌå
+		 * å–å­—ä½“
 		 * 
 		 * @return
 		 */
@@ -185,7 +185,7 @@ public class ESPasswordBoxRenderer implements TableCellRenderer, ICellComponent 
 		}
 
 		/**
-		 * ÅäÖÃÓ¦ÓÃµ½¿Ø¼ş
+		 * é…ç½®åº”ç”¨åˆ°æ§ä»¶
 		 * 
 		 * @param c
 		 * @return

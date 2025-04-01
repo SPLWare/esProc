@@ -36,75 +36,75 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃÓÚT.new T.derive T.newsµÄÓÎ±ê
+ * ç”¨äºT.new T.derive T.newsçš„æ¸¸æ ‡
  * @author runqian
  *
  */
 public class JoinCursor extends ICursor {
 	private IPhyTable table;
-	private Expression []exps;//È¡³ö±í´ïÊ½
-	private String []fields;//È¡³ö×Ö¶ÎÃû
+	private Expression []exps;//å–å‡ºè¡¨è¾¾å¼
+	private String []fields;//å–å‡ºå­—æ®µå
 	
-	//filtersÏà¹Ø
+	//filtersç›¸å…³
 	private String []fkNames;
 	private Sequence []codes;
 	private String []opts;
 	private IFilter []filters;
 	private FindFilter []findFilters;
 	private Expression unknownFilter;
-	private int keyColCount;//Ö÷¼ü×Ö¶ÎÊı (È¥ÖØÖ®ºóµÄ£¬Ö÷¼ü¿ÉÄÜÔÚÌõ¼şÁĞÀï)
-	private int keyColIndex[];//Ö÷¼üÔÚTµÄÈ¡³öÁĞµÄÏÂ±ê
-	private int keyOffset;//Ö÷¼ü£¨È¥ÖØºó£©ÔÚTµÄÈ¡³öÁĞµÄ¿ªÊ¼Î»ÖÃ
+	private int keyColCount;//ä¸»é”®å­—æ®µæ•° (å»é‡ä¹‹åçš„ï¼Œä¸»é”®å¯èƒ½åœ¨æ¡ä»¶åˆ—é‡Œ)
+	private int keyColIndex[];//ä¸»é”®åœ¨Tçš„å–å‡ºåˆ—çš„ä¸‹æ ‡
+	private int keyOffset;//ä¸»é”®ï¼ˆå»é‡åï¼‰åœ¨Tçš„å–å‡ºåˆ—çš„å¼€å§‹ä½ç½®
 	
 	private boolean isClosed;
-	private boolean isNew;//ÊÇnewº¯Êı
-	private boolean isNews;//ÊÇnewsº¯Êı
+	private boolean isNew;//æ˜¯newå‡½æ•°
+	private boolean isNews;//æ˜¯newså‡½æ•°
 	private DataStruct ds;
 
-	private int endBlock; // ²»°üº¬
+	private int endBlock; // ä¸åŒ…å«
 	private int curBlock = 0;
 	private ColumnMetaData []columns;
 	private BlockLinkReader rowCountReader;
 	private BlockLinkReader []colReaders;
 	private ObjectReader []segmentReaders;
 	private BufferReader []bufReaders;
-	private int len1;//µ±Ç°¿éµÄÌõÊı
-	private Object []keys1;//µ±Ç°keyÖµ
-	private BaseRecord r;//µ±Ç°¼ÇÂ¼
+	private int len1;//å½“å‰å—çš„æ¡æ•°
+	private Object []keys1;//å½“å‰keyå€¼
+	private BaseRecord r;//å½“å‰è®°å½•
 	
 	private ICursor cursor2;//A/cs
-	private String[] csNames;//A/cs:KµÄK£¬ÓÃÓÚÖ¸¶¨A/cs²ÎÓëÁ¬½ÓµÄ×Ö¶Î
+	private String[] csNames;//A/cs:Kçš„Kï¼Œç”¨äºæŒ‡å®šA/cså‚ä¸è¿æ¥çš„å­—æ®µ
 	private Sequence cache2;
 
 	private int cur1 = -1;
 	private int cur2 = -1;
 	
-	private int keyCount;//Ö÷¼ü×Ö¶ÎÊı
+	private int keyCount;//ä¸»é”®å­—æ®µæ•°
 	
-	private int csFieldsCount;//A/csµÄ×Ö¶Î¸öÊı
-	private int []keyIndex2;//A/csµÄÖ÷¼üÏÂ±ê
+	private int csFieldsCount;//A/csçš„å­—æ®µä¸ªæ•°
+	private int []keyIndex2;//A/csçš„ä¸»é”®ä¸‹æ ‡
 	
-	private int []fieldIndex1;//·µ»Ø×Ö¶ÎÔÚTÈ¡³ö×Ö¶ÎµÄÏÂ±ê
-	private int []fieldIndex2;//·µ»Ø×Ö¶ÎÔÚcsÈ¡³ö×Ö¶ÎµÄÏÂ±ê
+	private int []fieldIndex1;//è¿”å›å­—æ®µåœ¨Tå–å‡ºå­—æ®µçš„ä¸‹æ ‡
+	private int []fieldIndex2;//è¿”å›å­—æ®µåœ¨cså–å‡ºå­—æ®µçš„ä¸‹æ ‡
 	
-	private boolean hasExps;//ÓĞ±í´ïÊ½
-	private boolean hasR;//ÓĞÊôĞÔr
-	private DataStruct ds1;//´ÓTÖĞÈ¡³öÒ»×éÊı¾İ»ã×ÜÊ±ÓÃ
+	private boolean hasExps;//æœ‰è¡¨è¾¾å¼
+	private boolean hasR;//æœ‰å±æ€§r
+	private DataStruct ds1;//ä»Tä¸­å–å‡ºä¸€ç»„æ•°æ®æ±‡æ€»æ—¶ç”¨
 	
-	private boolean needSkipSeg;//È¡ÊıÇ°ĞèÒªÌø¶Î
-	private Node nodes[];//ÓĞ±í´ïÊ½Ê±£¬±í´ïÊ½µÄhome½Úµã´æÔÚÕâÀï
+	private boolean needSkipSeg;//å–æ•°å‰éœ€è¦è·³æ®µ
+	private Node nodes[];//æœ‰è¡¨è¾¾å¼æ—¶ï¼Œè¡¨è¾¾å¼çš„homeèŠ‚ç‚¹å­˜åœ¨è¿™é‡Œ
 
 	/**
 	 * 
-	 * @param table »ù±í
-	 * @param exps È¡³ö±í´ïÊ½
-	 * @param fields È¡³ö×Ö¶ÎÃû³Æ
-	 * @param cursor2 ²ÎÊıcs
-	 * @param csNames ²ÎÊıK£¬Ö¸¶¨A/cs²ÎÓëÁ¬½ÓµÄ×Ö¶Î
-	 * @param type	¼ÆËãÀàĞÍ£¬0:derive; 1:new; 2:news; 0x1X ±íÊ¾Ìø¶Î;
-	 * @param option Ñ¡Ïî	
-	 * @param filter ¶ÔtableµÄ¹ıÂËÌõ¼ş
-	 * @param fkNames ¶ÔtableµÄSwitch¹ıÂËÌõ¼ş
+	 * @param table åŸºè¡¨
+	 * @param exps å–å‡ºè¡¨è¾¾å¼
+	 * @param fields å–å‡ºå­—æ®µåç§°
+	 * @param cursor2 å‚æ•°cs
+	 * @param csNames å‚æ•°Kï¼ŒæŒ‡å®šA/cså‚ä¸è¿æ¥çš„å­—æ®µ
+	 * @param type	è®¡ç®—ç±»å‹ï¼Œ0:derive; 1:new; 2:news; 0x1X è¡¨ç¤ºè·³æ®µ;
+	 * @param option é€‰é¡¹	
+	 * @param filter å¯¹tableçš„è¿‡æ»¤æ¡ä»¶
+	 * @param fkNames å¯¹tableçš„Switchè¿‡æ»¤æ¡ä»¶
 	 * @param codes
 	 * @param ctx
 	 */
@@ -140,7 +140,7 @@ public class JoinCursor extends ICursor {
 			parseSwitch((ColPhyTable) table, ctx);
 		}
 		
-		//°ÑfiltersÀïµÄki=wi·Åµ½FindFiltersÀï
+		//æŠŠfiltersé‡Œçš„ki=wiæ”¾åˆ°FindFiltersé‡Œ
 		if (filters != null) {
 			int len = filters.length;
 			for (int i = 0; i < len; i++) {
@@ -252,7 +252,7 @@ public class JoinCursor extends ICursor {
 			if (modifyRecords != null || exps != null) {
 				unknownFilter = exp;
 			} else {
-				//Ä¿Ç°Ö»ÓÅ»¯Ã»ÓĞ²¹ÇøºÍÃ»ÓĞ±í´ïÊ½µÄÇé¿ö
+				//ç›®å‰åªä¼˜åŒ–æ²¡æœ‰è¡¥åŒºå’Œæ²¡æœ‰è¡¨è¾¾å¼çš„æƒ…å†µ
 				filters = ((ColumnsOr)obj).toArray();
 			}
 		} else {
@@ -261,17 +261,17 @@ public class JoinCursor extends ICursor {
 	}
 	
 	private void init() {
-		String []keyNames;//TµÄÖ÷¼ü
+		String []keyNames;//Tçš„ä¸»é”®
 		if (table instanceof IPhyTable) {
 			keyNames = ((IPhyTable) table).getAllSortedColNames();
 		} else {
 			keyNames = ((ClusterPhyTable) table).getAllSortedColNames();
 		}
 		
-		String []joinNames = keyNames;//join×Ö¶Î£¬Ä¬ÈÏÈ¡TµÄÖ÷¼ü
+		String []joinNames = keyNames;//joinå­—æ®µï¼Œé»˜è®¤å–Tçš„ä¸»é”®
 		
-		//µÃµ½csµÄds
-		DataStruct ds2;//csµÄ½á¹¹
+		//å¾—åˆ°csçš„ds
+		DataStruct ds2;//csçš„ç»“æ„
 		Sequence seq = cursor2.peek(1);
 		if (seq == null) {
 			isClosed = true;
@@ -280,7 +280,7 @@ public class JoinCursor extends ICursor {
 		ds2 = ((BaseRecord) seq.get(1)).dataStruct();
 		
 		if (isNew) {
-			//newÊ±¾ÍÊÇTµÄÖ÷¼ü
+			//newæ—¶å°±æ˜¯Tçš„ä¸»é”®
 			if (joinNames == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("ds.lessKey"));
@@ -301,9 +301,9 @@ public class JoinCursor extends ICursor {
 				}
 			}
 		} else {
-			//newsÊ±È¡csµÄÖ÷¼ü
+			//newsæ—¶å–csçš„ä¸»é”®
 			
-			//1.µÃµ½csÖ÷¼üµÄÏÂ±ê
+			//1.å¾—åˆ°csä¸»é”®çš„ä¸‹æ ‡
 			if (csNames == null) {
 				keyIndex2 = ds2.getPKIndex();
 			} else {
@@ -319,8 +319,8 @@ public class JoinCursor extends ICursor {
 			}
 			keyCount = keyIndex2.length;
 			
-			//2.È¡TÇ°ÃæµÄ×Ö¶Î
-			joinNames = new String[keyCount];//´ËÊ±²»ÊÇTµÄÖ÷¼ü
+			//2.å–Tå‰é¢çš„å­—æ®µ
+			joinNames = new String[keyCount];//æ­¤æ—¶ä¸æ˜¯Tçš„ä¸»é”®
 			String[] allNames;
 			if (table instanceof IPhyTable) {
 				allNames = ((IPhyTable) table).getAllColNames();
@@ -332,10 +332,10 @@ public class JoinCursor extends ICursor {
 			}
 		}
 		
-		//¿ªÊ¼×éÖ¯È¡³ö×Ö¶Î: [filtersÁĞ(¿ÉÄÜ°üº¬Ö÷¼ü)]+[Ìõ¼şwÀïÓÃµ½ÆäËü×Ö¶Î]+[Ö÷¼ü]+[TÑ¡³ö×Ö¶Î]+[cs×Ö¶Î]
+		//å¼€å§‹ç»„ç»‡å–å‡ºå­—æ®µ: [filtersåˆ—(å¯èƒ½åŒ…å«ä¸»é”®)]+[æ¡ä»¶wé‡Œç”¨åˆ°å…¶å®ƒå­—æ®µ]+[ä¸»é”®]+[Té€‰å‡ºå­—æ®µ]+[cså­—æ®µ]
 		ArrayList<String> allList = new ArrayList<String>();
 		
-		//1. filters×Ö¶Î£¬¿ÉÄÜ°üº¬Ö÷¼ü
+		//1. filterså­—æ®µï¼Œå¯èƒ½åŒ…å«ä¸»é”®
 		ArrayList<String> filtersList = new ArrayList<String>();
 		if (filters != null) {
 			for (IFilter filter : filters) {
@@ -344,10 +344,10 @@ public class JoinCursor extends ICursor {
 			}
 		}
 		
-		//2. Ìõ¼şwĞèÒªµÄÆäËüÈ¡³ö×Ö¶Î
+		//2. æ¡ä»¶wéœ€è¦çš„å…¶å®ƒå–å‡ºå­—æ®µ
 		ArrayList<String> tempList = new ArrayList<String>();
 		if (unknownFilter != null) {
-			// ¼ì²é²»¿ÉÊ¶±ğµÄ±í´ïÊ½ÀïÊÇ·ñÒıÓÃÁËÃ»ÓĞÑ¡³öµÄ×Ö¶Î£¬Èç¹ûÒıÓÃÁËÔò¼ÓÈëµ½Ñ¡³ö×Ö¶ÎÀï
+			// æ£€æŸ¥ä¸å¯è¯†åˆ«çš„è¡¨è¾¾å¼é‡Œæ˜¯å¦å¼•ç”¨äº†æ²¡æœ‰é€‰å‡ºçš„å­—æ®µï¼Œå¦‚æœå¼•ç”¨äº†åˆ™åŠ å…¥åˆ°é€‰å‡ºå­—æ®µé‡Œ
 			unknownFilter.getUsedFields(ctx, tempList);
 			if (tempList.size() > 0) {
 				for (String name : tempList) {
@@ -360,8 +360,8 @@ public class JoinCursor extends ICursor {
 		}
 		allList.addAll(filtersList);
 				
-		//3. Ö÷¼ü×Ö¶Î
-		ArrayList<String> keyList = new ArrayList<String>();//È¡TºÍcsµÄ×îĞ¡½»¼¯,ÓÃÓÚjoin
+		//3. ä¸»é”®å­—æ®µ
+		ArrayList<String> keyList = new ArrayList<String>();//å–Tå’Œcsçš„æœ€å°äº¤é›†,ç”¨äºjoin
 		for (int i = 0; i < keyCount; i++) {
 			String f = joinNames[i];
 			keyList.add(f);
@@ -369,16 +369,16 @@ public class JoinCursor extends ICursor {
 				allList.add(f);
 			}
 		}
-		ArrayList<String> allkeyList = new ArrayList<String>();//TÖ÷¼ü£¨ÓÃÓÚÅĞ¶ÏÈ¡³ö×Ö¶ÎÀïÊÇ·ñ°üº¬ÁËTÖ÷¼üËùÓĞ£©
+		ArrayList<String> allkeyList = new ArrayList<String>();//Tä¸»é”®ï¼ˆç”¨äºåˆ¤æ–­å–å‡ºå­—æ®µé‡Œæ˜¯å¦åŒ…å«äº†Tä¸»é”®æ‰€æœ‰ï¼‰
 		if (keyNames != null) {
 			for(String f : keyNames) {
 				allkeyList.add(f);
 			}
 		}
 		
-		//4. Ñ¡³ö×Ö¶Î£¬expsÀï¿ÉÄÜÓĞ{¡­¡­}£¬ÕâÊ±ÒªÕ¹¿ªµÃµ½È¡³ö×Ö¶Î
-		ArrayList<String> fetchKeyList = new ArrayList<String>();//±£´æÈ¡³ö×Ö¶ÎÀï¿ÉÄÜÊÇÖ÷¼üµÄ×Ö¶Î
-		int fetchKeyListFlag[] = new int[keyNames == null ? 0 : keyNames.length];//±êÖ¾£ºTµÄÖ÷¼ü×Ö¶ÎÊÇ·ñ¶¼³öÏÖÔÚÈ¡³ö×Ö¶Î
+		//4. é€‰å‡ºå­—æ®µï¼Œexpsé‡Œå¯èƒ½æœ‰{â€¦â€¦}ï¼Œè¿™æ—¶è¦å±•å¼€å¾—åˆ°å–å‡ºå­—æ®µ
+		ArrayList<String> fetchKeyList = new ArrayList<String>();//ä¿å­˜å–å‡ºå­—æ®µé‡Œå¯èƒ½æ˜¯ä¸»é”®çš„å­—æ®µ
+		int fetchKeyListFlag[] = new int[keyNames == null ? 0 : keyNames.length];//æ ‡å¿—ï¼šTçš„ä¸»é”®å­—æ®µæ˜¯å¦éƒ½å‡ºç°åœ¨å–å‡ºå­—æ®µ
 		for (int i = 0, len = exps.length; i < len; i++) {
 			Expression exp = exps[i];
 			if (exp == null) {
@@ -397,7 +397,7 @@ public class JoinCursor extends ICursor {
 					allList.add(f);
 				}
 				
-				//ÅĞ¶ÏfÊÇ·ñÔÚÖ÷¼üÀï
+				//åˆ¤æ–­fæ˜¯å¦åœ¨ä¸»é”®é‡Œ
 				int idx = allkeyList.indexOf(f);
 				if (idx >= 0) {
 					fetchKeyList.add(fields[i]);
@@ -434,11 +434,11 @@ public class JoinCursor extends ICursor {
 			}
 		}
 		
-		//ËùÓĞĞèÒª¶ÁÈ¡µÄÁĞ
+		//æ‰€æœ‰éœ€è¦è¯»å–çš„åˆ—
 		String[] allExpNames = new String[allList.size()];
 		allList.toArray(allExpNames);
 		
-		//ÓĞ±í´ïÊ½Ê±Òª±£´æ¼ÆËãnode
+		//æœ‰è¡¨è¾¾å¼æ—¶è¦ä¿å­˜è®¡ç®—node
 		if (hasExps) {
 			int len = exps.length;
 			nodes = new Node[len];
@@ -447,7 +447,7 @@ public class JoinCursor extends ICursor {
 			}
 		}
 		
-		//µÃµ½ËùÓĞµÄColumn
+		//å¾—åˆ°æ‰€æœ‰çš„Column
 		if (table instanceof ColPhyTable) {
 			columns = ((ColPhyTable) table).getColumns(allExpNames);
 			int colCount = columns.length;
@@ -466,11 +466,11 @@ public class JoinCursor extends ICursor {
 			endBlock = ((PhyTable) table).getDataBlockCount();
 		}
 		
-		//µÃµ½·µ»ØµÄds
+		//å¾—åˆ°è¿”å›çš„ds
 		if (isNew || isNews) {
 			ds = new DataStruct(fields);
 		} else {
-			//deriveÊ±Òª¼ÓÉÏcsµÄ×Ö¶Î
+			//deriveæ—¶è¦åŠ ä¸Šcsçš„å­—æ®µ
 			csFieldsCount = ds2.getFieldCount();
 			String[] fieldNames = new String[csFieldsCount + fields.length];
 			System.arraycopy(ds2.getFieldNames(), 0, fieldNames, 0, csFieldsCount);
@@ -478,7 +478,7 @@ public class JoinCursor extends ICursor {
 			ds = new DataStruct(fieldNames);
 		}
 		
-		//È¡³ö×Ö¶ÎÀïÊÇ·ñ°üº¬Ö÷¼ü
+		//å–å‡ºå­—æ®µé‡Œæ˜¯å¦åŒ…å«ä¸»é”®
 		boolean hasKey = true;
 		for (int i : fetchKeyListFlag) {
 			if (i != 1) {
@@ -492,7 +492,7 @@ public class JoinCursor extends ICursor {
 			ds.setPrimary(keys);
 		}
 		
-		//Ñ¡³ö×Ö¶Î¿ÉÄÜÔÚTÀï£¬Ò²¿ÉÄÜÔÚcsÀï£¬Ò²¿ÉÄÜÊÇTµÄ±í´ïÊ½
+		//é€‰å‡ºå­—æ®µå¯èƒ½åœ¨Té‡Œï¼Œä¹Ÿå¯èƒ½åœ¨csé‡Œï¼Œä¹Ÿå¯èƒ½æ˜¯Tçš„è¡¨è¾¾å¼
 		ds1 = new DataStruct(allExpNames);
 		if (!hasExps) {
 			int len = fields.length;
@@ -539,7 +539,7 @@ public class JoinCursor extends ICursor {
 	}
 
 	/**
-	 * ´ÓcsÀïÈ¡Ò»¶ÎÊı¾İ
+	 * ä»csé‡Œå–ä¸€æ®µæ•°æ®
 	 * @return
 	 */
 	private int loadBlock() {
@@ -610,8 +610,8 @@ public class JoinCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÊıÇ°ÏÈ¸ù¾İA/csµÄÊ×Öµ½øĞĞÌø¶Î
-	 * @param vals A/csµÄÊ×Ìõ
+	 * è¯»æ•°å‰å…ˆæ ¹æ®A/csçš„é¦–å€¼è¿›è¡Œè·³æ®µ
+	 * @param vals A/csçš„é¦–æ¡
 	 */
 	private void skipSegment(Object vals[]) {
 		int blockCount = endBlock;
@@ -692,7 +692,7 @@ public class JoinCursor extends ICursor {
 	}
 	
 	/**
-	 * T.newµÄÈ¡Êı
+	 * T.newçš„å–æ•°
 	 * @param n
 	 * @return
 	 */
@@ -802,7 +802,7 @@ public class JoinCursor extends ICursor {
 					
 
 					if (hasR) {
-						//°ÑÕâÒ»×éÈ¡Íê
+						//æŠŠè¿™ä¸€ç»„å–å®Œ
 						cur2++;
 						if (cur2 > len2) {
 							cur2 = 1;
@@ -920,7 +920,7 @@ public class JoinCursor extends ICursor {
 	}
 
 	/**
-	 * T.newÓĞfiltersÊ±µÄÈ¡¼ÇÂ¼(ÎŞ¾ÛºÏ)
+	 * T.newæœ‰filtersæ—¶çš„å–è®°å½•(æ— èšåˆ)
 	 * @param n
 	 * @return
 	 */
@@ -935,7 +935,7 @@ public class JoinCursor extends ICursor {
 		Object []keys2 = new Object[keyCount];
 		Object []keys1 = this.keys1;
 		
-		//È¡³öÀ´Ò»¶ÎcsµÄÊı¾İ
+		//å–å‡ºæ¥ä¸€æ®µcsçš„æ•°æ®
 		if (cache2 == null || cache2.length() == 0) {
 			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 			cur2 = 1;
@@ -1005,12 +1005,12 @@ public class JoinCursor extends ICursor {
 					stack.push(r);
 				}
 				
-				//¹ıÂË³öÒ»Ìõ·ûºÏÌõ¼şµÄ
+				//è¿‡æ»¤å‡ºä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 				while (true) {
-					//¼ì²éfilter
+					//æ£€æŸ¥filter
 					boolean flag = true;
 					int f = 0;
-					//ÏÈ¶ÁÈ¡filterÁĞ
+					//å…ˆè¯»å–filteråˆ—
 					for (; f < filterAllCount; f++) {
 						objs[f] = bufReaders[f].readObject();
 						flag = filters[f].match(objs[f]);
@@ -1023,14 +1023,14 @@ public class JoinCursor extends ICursor {
 						}
 					}
 					if (flag && unknownFilter != null) {
-						//¶¼Æ¥Åä,»¹Òª¼ì²éunknownFilter
+						//éƒ½åŒ¹é…,è¿˜è¦æ£€æŸ¥unknownFilter
 						for (; f < keyOffset; f++) {
 							objs[f] = bufReaders[f].readObject();
 						}
 						flag = Variant.isTrue(unknownFilter.calculate(ctx));
 					}
 					if (flag) {
-						//¶ÁÈ¡Ê£Óàkey×Ö¶Î,×éÖ¯keys1
+						//è¯»å–å‰©ä½™keyå­—æ®µ,ç»„ç»‡keys1
 						for (; f < valueOffset; f++) {
 							objs[f] = bufReaders[f].readObject();
 						}
@@ -1039,13 +1039,13 @@ public class JoinCursor extends ICursor {
 						}
 						break;
 					} else {
-						//Ìø¹ıÆäÓàµÄ
+						//è·³è¿‡å…¶ä½™çš„
 						for (; f < colCount; f++) {
 							 bufReaders[f].skipObject();
 						}
 					}
 					
-					//¶ÁÏÂÒ»Ìõ
+					//è¯»ä¸‹ä¸€æ¡
 					cur1++;
 					if (cur1 > len1) {
 						cur1 = 1;
@@ -1068,7 +1068,7 @@ public class JoinCursor extends ICursor {
 			while (true) {
 				int cmp = Variant.compareArrays(keys2, keys1);
 				if (cmp == 0) {
-					//¶ÁÈ¡Ê£Óà×Ö¶Î
+					//è¯»å–å‰©ä½™å­—æ®µ
 					for (int f = valueOffset; f < colCount; f++) {
 						objs[f] = bufReaders[f].readObject();
 					}
@@ -1082,7 +1082,7 @@ public class JoinCursor extends ICursor {
 					}
 
 					if (hasR) {
-						//°ÑÕâÒ»×éÈ¡Íê
+						//æŠŠè¿™ä¸€ç»„å–å®Œ
 						cur2++;
 						if (cur2 > len2) {
 							cur2 = 1;
@@ -1127,7 +1127,7 @@ public class JoinCursor extends ICursor {
 					}
 				
 					
-					//È¡³öÏÂÒ»Ìõ·ûºÏÌõ¼şµÄ
+					//å–å‡ºä¸‹ä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 					while (true) {
 						cur1++;
 						if (cur1 > len1) {
@@ -1139,10 +1139,10 @@ public class JoinCursor extends ICursor {
 								break EXIT;
 							}
 						}
-						//¼ì²éfilter
+						//æ£€æŸ¥filter
 						boolean flag = true;
 						int f = 0;
-						//ÏÈ¶ÁÈ¡filterÁĞ
+						//å…ˆè¯»å–filteråˆ—
 						for (; f < filterAllCount; f++) {
 							objs[f] = bufReaders[f].readObject();
 							flag = filters[f].match(objs[f]);
@@ -1155,14 +1155,14 @@ public class JoinCursor extends ICursor {
 							}
 						}
 						if (flag && unknownFilter != null) {
-							//¶¼Æ¥Åä,»¹Òª¼ì²éunknownFilter
+							//éƒ½åŒ¹é…,è¿˜è¦æ£€æŸ¥unknownFilter
 							for (; f < keyOffset; f++) {
 								objs[f] = bufReaders[f].readObject();
 							}
 							flag = Variant.isTrue(unknownFilter.calculate(ctx));
 						}
 						if (flag) {
-							//¶ÁÈ¡Ê£Óàkey×Ö¶Î,×éÖ¯keys1
+							//è¯»å–å‰©ä½™keyå­—æ®µ,ç»„ç»‡keys1
 							for (; f < valueOffset; f++) {
 								objs[f] = bufReaders[f].readObject();
 							}
@@ -1171,18 +1171,18 @@ public class JoinCursor extends ICursor {
 							}
 							break;
 						} else {
-							//Ìø¹ıÆäÓàµÄ
+							//è·³è¿‡å…¶ä½™çš„
 							for (; f < colCount; f++) {
 								 bufReaders[f].skipObject();
 							}
 						}
 					}
 				} else if (cmp > 0) {
-					//Ìø¹ıÆäËû
+					//è·³è¿‡å…¶ä»–
 					for (int f = valueOffset; f < colCount; f++) {
 						bufReaders[f].skipObject();
 					}
-					//È¡³öÏÂÒ»Ìõ·ûºÏÌõ¼şµÄ
+					//å–å‡ºä¸‹ä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 					while (true) {
 						cur1++;
 						if (cur1 > len1) {
@@ -1194,10 +1194,10 @@ public class JoinCursor extends ICursor {
 								break EXIT;
 							}
 						}
-						//¼ì²éfilter
+						//æ£€æŸ¥filter
 						boolean flag = true;
 						int f = 0;
-						//ÏÈ¶ÁÈ¡filterÁĞ
+						//å…ˆè¯»å–filteråˆ—
 						for (; f < filterAllCount; f++) {
 							objs[f] = bufReaders[f].readObject();
 							flag = filters[f].match(objs[f]);
@@ -1210,14 +1210,14 @@ public class JoinCursor extends ICursor {
 							}
 						}
 						if (flag && unknownFilter != null) {
-							//¶¼Æ¥Åä,»¹Òª¼ì²éunknownFilter
+							//éƒ½åŒ¹é…,è¿˜è¦æ£€æŸ¥unknownFilter
 							for (; f < keyOffset; f++) {
 								objs[f] = bufReaders[f].readObject();
 							}
 							flag = Variant.isTrue(unknownFilter.calculate(ctx));
 						}
 						if (flag) {
-							//¶ÁÈ¡Ê£Óàkey×Ö¶Î,×éÖ¯keys1
+							//è¯»å–å‰©ä½™keyå­—æ®µ,ç»„ç»‡keys1
 							for (; f < valueOffset; f++) {
 								objs[f] = bufReaders[f].readObject();
 							}
@@ -1226,7 +1226,7 @@ public class JoinCursor extends ICursor {
 							}
 							break;
 						} else {
-							//Ìø¹ıÆäÓàµÄ
+							//è·³è¿‡å…¶ä½™çš„
 							for (; f < colCount; f++) {
 								 bufReaders[f].skipObject();
 							}
@@ -1278,7 +1278,7 @@ public class JoinCursor extends ICursor {
 	}
 
 	/**
-	 * T.newÈ¡³ö×Ö¶ÎÊÇ±í´ïÊ½Ê±
+	 * T.newå–å‡ºå­—æ®µæ˜¯è¡¨è¾¾å¼æ—¶
 	 * @param n
 	 * @return
 	 */
@@ -1293,7 +1293,7 @@ public class JoinCursor extends ICursor {
 		Object []keys2 = new Object[keyCount];
 		Object []keys1 = this.keys1;
 		
-		//È¡³öÀ´Ò»¶ÎcsµÄÊı¾İ
+		//å–å‡ºæ¥ä¸€æ®µcsçš„æ•°æ®
 		if (cache2 == null || cache2.length() == 0) {
 			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 			cur2 = 1;
@@ -1348,7 +1348,7 @@ public class JoinCursor extends ICursor {
 			newTable = new Table(ds, n);
 		}
 
-		Table tempTable = new Table(cache2.dataStruct());//ÓÃÓÚ»ã×Ü
+		Table tempTable = new Table(cache2.dataStruct());//ç”¨äºæ±‡æ€»
 		
 		try {
 			if (keys1 == null) {
@@ -1360,12 +1360,12 @@ public class JoinCursor extends ICursor {
 					stack.push(r);
 				}
 				
-				//¹ıÂË³öÒ»Ìõ·ûºÏÌõ¼şµÄ
+				//è¿‡æ»¤å‡ºä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 				while (true) {
-					//¼ì²éfilter
+					//æ£€æŸ¥filter
 					boolean flag = true;
 					int f = 0;
-					//ÏÈ¶ÁÈ¡filterÁĞ
+					//å…ˆè¯»å–filteråˆ—
 					for (; f < filterAllCount; f++) {
 						objs[f] = bufReaders[f].readObject();
 						flag = filters[f].match(objs[f]);
@@ -1378,14 +1378,14 @@ public class JoinCursor extends ICursor {
 						}
 					}
 					if (flag && unknownFilter != null) {
-						//¶¼Æ¥Åä,»¹Òª¼ì²éunknownFilter
+						//éƒ½åŒ¹é…,è¿˜è¦æ£€æŸ¥unknownFilter
 						for (; f < keyOffset; f++) {
 							objs[f] = bufReaders[f].readObject();
 						}
 						flag = Variant.isTrue(unknownFilter.calculate(ctx));
 					}
 					if (flag) {
-						//¶ÁÈ¡Ê£Óàkey×Ö¶Î,×éÖ¯keys1
+						//è¯»å–å‰©ä½™keyå­—æ®µ,ç»„ç»‡keys1
 						for (; f < valueOffset; f++) {
 							objs[f] = bufReaders[f].readObject();
 						}
@@ -1394,13 +1394,13 @@ public class JoinCursor extends ICursor {
 						}
 						break;
 					} else {
-						//Ìø¹ıÆäÓàµÄ
+						//è·³è¿‡å…¶ä½™çš„
 						for (; f < colCount; f++) {
 							 bufReaders[f].skipObject();
 						}
 					}
 					
-					//¶ÁÏÂÒ»Ìõ
+					//è¯»ä¸‹ä¸€æ¡
 					cur1++;
 					if (cur1 > len1) {
 						cur1 = 1;
@@ -1422,7 +1422,7 @@ public class JoinCursor extends ICursor {
 			while (true) {
 				int cmp = Variant.compareArrays(keys2, keys1);
 				if (cmp == 0) {
-					//°ÑÕâÒ»Ìõ¼ÓÈëÁÙÊ±»ã×Ütable
+					//æŠŠè¿™ä¸€æ¡åŠ å…¥ä¸´æ—¶æ±‡æ€»table
 					tempTable.add(record2);
 					
 					cur2++;
@@ -1442,15 +1442,15 @@ public class JoinCursor extends ICursor {
 					}
 					
 					if (0 != Variant.compareArrays(keys2, keys1)) {
-						//¶ÁÈ¡Ê£Óà×Ö¶Î
+						//è¯»å–å‰©ä½™å­—æ®µ
 						for (int f = valueOffset; f < colCount; f++) {
 							objs[f] = bufReaders[f].readObject();
 						}
-						//Èç¹û²»ÏàµÈ£¬±íÊ¾ÕâÒ»×éÈ¡ÍêÁË£¬¼ÆËãÁÙÊ±»ã×ÜÊı¾İ
+						//å¦‚æœä¸ç›¸ç­‰ï¼Œè¡¨ç¤ºè¿™ä¸€ç»„å–å®Œäº†ï¼Œè®¡ç®—ä¸´æ—¶æ±‡æ€»æ•°æ®
 						BaseRecord record = newTable.newLast();
 						calcExpsForNew(record, tempTable, r, len);
 						
-						//È¡³öÏÂÒ»Ìõ·ûºÏÌõ¼şµÄ
+						//å–å‡ºä¸‹ä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 						while (true) {
 							cur1++;
 							if (cur1 > len1) {
@@ -1462,10 +1462,10 @@ public class JoinCursor extends ICursor {
 									break EXIT;
 								}
 							}
-							//¼ì²éfilter
+							//æ£€æŸ¥filter
 							boolean flag = true;
 							int f = 0;
-							//ÏÈ¶ÁÈ¡filterÁĞ
+							//å…ˆè¯»å–filteråˆ—
 							for (; f < filterAllCount; f++) {
 								objs[f] = bufReaders[f].readObject();
 								flag = filters[f].match(objs[f]);
@@ -1478,14 +1478,14 @@ public class JoinCursor extends ICursor {
 								}
 							}
 							if (flag && unknownFilter != null) {
-								//¶¼Æ¥Åä,»¹Òª¼ì²éunknownFilter
+								//éƒ½åŒ¹é…,è¿˜è¦æ£€æŸ¥unknownFilter
 								for (; f < keyOffset; f++) {
 									objs[f] = bufReaders[f].readObject();
 								}
 								flag = Variant.isTrue(unknownFilter.calculate(ctx));
 							}
 							if (flag) {
-								//¶ÁÈ¡Ê£Óàkey×Ö¶Î,×éÖ¯keys1
+								//è¯»å–å‰©ä½™keyå­—æ®µ,ç»„ç»‡keys1
 								for (; f < valueOffset; f++) {
 									objs[f] = bufReaders[f].readObject();
 								}
@@ -1494,7 +1494,7 @@ public class JoinCursor extends ICursor {
 								}
 								break;
 							} else {
-								//Ìø¹ıÆäÓàµÄ
+								//è·³è¿‡å…¶ä½™çš„
 								for (; f < colCount; f++) {
 									 bufReaders[f].skipObject();
 								}
@@ -1502,11 +1502,11 @@ public class JoinCursor extends ICursor {
 						}
 					}
 				} else if (cmp > 0) {
-					//Ìø¹ıÆäËû
+					//è·³è¿‡å…¶ä»–
 					for (int f = valueOffset; f < colCount; f++) {
 						bufReaders[f].skipObject();
 					}
-					//È¡³öÏÂÒ»Ìõ·ûºÏÌõ¼şµÄ
+					//å–å‡ºä¸‹ä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 					while (true) {
 						cur1++;
 						if (cur1 > len1) {
@@ -1518,10 +1518,10 @@ public class JoinCursor extends ICursor {
 								break EXIT;
 							}
 						}
-						//¼ì²éfilter
+						//æ£€æŸ¥filter
 						boolean flag = true;
 						int f = 0;
-						//ÏÈ¶ÁÈ¡filterÁĞ
+						//å…ˆè¯»å–filteråˆ—
 						for (; f < filterAllCount; f++) {
 							objs[f] = bufReaders[f].readObject();
 							flag = filters[f].match(objs[f]);
@@ -1534,14 +1534,14 @@ public class JoinCursor extends ICursor {
 							}
 						}
 						if (flag && unknownFilter != null) {
-							//¶¼Æ¥Åä,»¹Òª¼ì²éunknownFilter
+							//éƒ½åŒ¹é…,è¿˜è¦æ£€æŸ¥unknownFilter
 							for (; f < keyOffset; f++) {
 								objs[f] = bufReaders[f].readObject();
 							}
 							flag = Variant.isTrue(unknownFilter.calculate(ctx));
 						}
 						if (flag) {
-							//¶ÁÈ¡Ê£Óàkey×Ö¶Î,×éÖ¯keys1
+							//è¯»å–å‰©ä½™keyå­—æ®µ,ç»„ç»‡keys1
 							for (; f < valueOffset; f++) {
 								objs[f] = bufReaders[f].readObject();
 							}
@@ -1550,7 +1550,7 @@ public class JoinCursor extends ICursor {
 							}
 							break;
 						} else {
-							//Ìø¹ıÆäÓàµÄ
+							//è·³è¿‡å…¶ä½™çš„
 							for (; f < colCount; f++) {
 								 bufReaders[f].skipObject();
 							}
@@ -1580,11 +1580,11 @@ public class JoinCursor extends ICursor {
 			}
 			
 			if (isClosed && tempTable != null && tempTable.length() != 0) {
-				//¶ÁÈ¡Ê£Óà×Ö¶Î
+				//è¯»å–å‰©ä½™å­—æ®µ
 				for (int f = valueOffset; f < colCount; f++) {
 					objs[f] = bufReaders[f].readObject();
 				}
-				//Èç¹û²»ÏàµÈ£¬±íÊ¾ÕâÒ»×éÈ¡ÍêÁË£¬¼ÆËãÁÙÊ±»ã×ÜÊı¾İ
+				//å¦‚æœä¸ç›¸ç­‰ï¼Œè¡¨ç¤ºè¿™ä¸€ç»„å–å®Œäº†ï¼Œè®¡ç®—ä¸´æ—¶æ±‡æ€»æ•°æ®
 				BaseRecord record = newTable.newLast();
 				calcExpsForNew(record, tempTable, r, len);
 			}
@@ -1612,7 +1612,7 @@ public class JoinCursor extends ICursor {
 	}
 
 	/**
-	 * T.newsµÄÈ¡Êı
+	 * T.newsçš„å–æ•°
 	 * @param n
 	 * @return
 	 */
@@ -1673,7 +1673,7 @@ public class JoinCursor extends ICursor {
 		} else {
 			newTable = new Table(ds, n);
 		}
-		Table tempTable = new Table(ds1);//ÓÃÓÚ»ã×Ü
+		Table tempTable = new Table(ds1);//ç”¨äºæ±‡æ€»
 		
 		try {
 			if (keys1 == null) {
@@ -1696,7 +1696,7 @@ public class JoinCursor extends ICursor {
 					
 					BaseRecord record = newTable.newLast();
 					if (hasExps) {
-						tempTable.newLast(keys1);//Ìí¼Óµ½ÁÙÊ±»ã×Ü
+						tempTable.newLast(keys1);//æ·»åŠ åˆ°ä¸´æ—¶æ±‡æ€»
 					} else {
 						for (int i = 0; i < len; i++) {
 							int idx = fieldIndex1[i];
@@ -1723,12 +1723,12 @@ public class JoinCursor extends ICursor {
 				
 					if (hasR) {
 						if (hasExps) {
-							//°ÑÕâÒ»×éÈ¡Íê
+							//æŠŠè¿™ä¸€ç»„å–å®Œ
 							while(Variant.compareArrays(keys2, keys1) == 0) {
 								for (int f = keyCount; f < colCount; f++) {
 									keys1[f] = bufReaders[f].readObject();
 								}
-								tempTable.newLast(keys1);//Ìí¼Óµ½ÁÙÊ±»ã×Ü
+								tempTable.newLast(keys1);//æ·»åŠ åˆ°ä¸´æ—¶æ±‡æ€»
 								cur1++;
 								if (cur1 > len1) {
 									cur1 = 1;
@@ -1747,7 +1747,7 @@ public class JoinCursor extends ICursor {
 							calcExpsForNews(record, tempTable, record2, len);
 						}
 						
-						//°´ÕÕcs¶ÔÆë
+						//æŒ‰ç…§cså¯¹é½
 						cur2++;
 						if (cur2 > len2) {
 							cur2 = 1;
@@ -1824,7 +1824,7 @@ public class JoinCursor extends ICursor {
 	}
 	
 	/**
-	 * T.newsÓĞfiltersÊ±µÄÈ¡¼ÇÂ¼
+	 * T.newsæœ‰filtersæ—¶çš„å–è®°å½•
 	 * @param n
 	 * @return
 	 */
@@ -1839,7 +1839,7 @@ public class JoinCursor extends ICursor {
 		Object []keys2 = new Object[keyCount];
 		Object []keys1 = this.keys1;
 		
-		//È¡³öÀ´Ò»¶ÎcsµÄÊı¾İ
+		//å–å‡ºæ¥ä¸€æ®µcsçš„æ•°æ®
 		if (cache2 == null || cache2.length() == 0) {
 			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 			cur2 = 1;
@@ -1899,7 +1899,7 @@ public class JoinCursor extends ICursor {
 		} else {
 			newTable = new Table(ds, n);
 		}
-		Table tempTable = new Table(ds1);//ÓÃÓÚ»ã×Ü
+		Table tempTable = new Table(ds1);//ç”¨äºæ±‡æ€»
 
 		try {
 			if (keys1 == null) {
@@ -1911,12 +1911,12 @@ public class JoinCursor extends ICursor {
 					stack.push(r);
 				}
 				
-				//¹ıÂË³öÒ»Ìõ·ûºÏÌõ¼şµÄ
+				//è¿‡æ»¤å‡ºä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 				while (true) {
-					//¼ì²éfilter
+					//æ£€æŸ¥filter
 					boolean flag = true;
 					int f = 0;
-					//ÏÈ¶ÁÈ¡filterÁĞ
+					//å…ˆè¯»å–filteråˆ—
 					for (; f < filterAllCount; f++) {
 						objs[f] = bufReaders[f].readObject();
 						flag = filters[f].match(objs[f]);
@@ -1929,14 +1929,14 @@ public class JoinCursor extends ICursor {
 						}
 					}
 					if (flag && unknownFilter != null) {
-						//¶¼Æ¥Åä,»¹Òª¼ì²éunknownFilter
+						//éƒ½åŒ¹é…,è¿˜è¦æ£€æŸ¥unknownFilter
 						for (; f < keyOffset; f++) {
 							objs[f] = bufReaders[f].readObject();
 						}
 						flag = Variant.isTrue(unknownFilter.calculate(ctx));
 					}
 					if (flag) {
-						//¶ÁÈ¡Ê£Óàkey×Ö¶Î,×éÖ¯keys1
+						//è¯»å–å‰©ä½™keyå­—æ®µ,ç»„ç»‡keys1
 						for (; f < valueOffset; f++) {
 							objs[f] = bufReaders[f].readObject();
 						}
@@ -1945,13 +1945,13 @@ public class JoinCursor extends ICursor {
 						}
 						break;
 					} else {
-						//Ìø¹ıÆäÓàµÄ
+						//è·³è¿‡å…¶ä½™çš„
 						for (; f < colCount; f++) {
 							 bufReaders[f].skipObject();
 						}
 					}
 					
-					//¶ÁÏÂÒ»Ìõ
+					//è¯»ä¸‹ä¸€æ¡
 					cur1++;
 					if (cur1 > len1) {
 						cur1 = 1;
@@ -1974,13 +1974,13 @@ public class JoinCursor extends ICursor {
 			while (true) {
 				int cmp = Variant.compareArrays(keys2, keys1);
 				if (cmp == 0) {
-					//¶ÁÈ¡Ê£Óà×Ö¶Î
+					//è¯»å–å‰©ä½™å­—æ®µ
 					for (int f = valueOffset; f < colCount; f++) {
 						objs[f] = bufReaders[f].readObject();
 					}
 					BaseRecord record = newTable.newLast();
 					if (hasExps) {
-						tempTable.newLast(objs);//Ìí¼Óµ½ÁÙÊ±»ã×Ü
+						tempTable.newLast(objs);//æ·»åŠ åˆ°ä¸´æ—¶æ±‡æ€»
 					} else {
 						for (int i = 0; i < len; i++) {
 							int idx = fieldIndex1[i];
@@ -1991,7 +1991,7 @@ public class JoinCursor extends ICursor {
 						}
 					}
 					
-					//È¡³öÏÂÒ»Ìõ·ûºÏÌõ¼şµÄ
+					//å–å‡ºä¸‹ä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 					while (true) {
 						cur1++;
 						if (cur1 > len1) {
@@ -2003,10 +2003,10 @@ public class JoinCursor extends ICursor {
 								break EXIT;
 							}
 						}
-						//¼ì²éfilter
+						//æ£€æŸ¥filter
 						boolean flag = true;
 						int f = 0;
-						//ÏÈ¶ÁÈ¡filterÁĞ
+						//å…ˆè¯»å–filteråˆ—
 						for (; f < filterAllCount; f++) {
 							objs[f] = bufReaders[f].readObject();
 							flag = filters[f].match(objs[f]);
@@ -2019,14 +2019,14 @@ public class JoinCursor extends ICursor {
 							}
 						}
 						if (flag && unknownFilter != null) {
-							//¶¼Æ¥Åä,»¹Òª¼ì²éunknownFilter
+							//éƒ½åŒ¹é…,è¿˜è¦æ£€æŸ¥unknownFilter
 							for (; f < keyOffset; f++) {
 								objs[f] = bufReaders[f].readObject();
 							}
 							flag = Variant.isTrue(unknownFilter.calculate(ctx));
 						}
 						if (flag) {
-							//¶ÁÈ¡Ê£Óàkey×Ö¶Î,×éÖ¯keys1
+							//è¯»å–å‰©ä½™keyå­—æ®µ,ç»„ç»‡keys1
 							for (; f < valueOffset; f++) {
 								objs[f] = bufReaders[f].readObject();
 							}
@@ -2035,7 +2035,7 @@ public class JoinCursor extends ICursor {
 							}
 							break;
 						} else {
-							//Ìø¹ıÆäÓàµÄ
+							//è·³è¿‡å…¶ä½™çš„
 							for (; f < colCount; f++) {
 								 bufReaders[f].skipObject();
 							}
@@ -2044,14 +2044,14 @@ public class JoinCursor extends ICursor {
 					
 					if (hasR) {
 						if (hasExps) {
-							//°ÑÕâÒ»×éÈ¡Íê
+							//æŠŠè¿™ä¸€ç»„å–å®Œ
 							while(Variant.compareArrays(keys2, keys1) == 0) {
-								//¶ÁÈ¡Ê£Óà×Ö¶Î
+								//è¯»å–å‰©ä½™å­—æ®µ
 								for (int f = valueOffset; f < colCount; f++) {
 									objs[f] = bufReaders[f].readObject();
 								}
-								tempTable.newLast(objs);//Ìí¼Óµ½ÁÙÊ±»ã×Ü
-								//È¡³öÏÂÒ»Ìõ·ûºÏÌõ¼şµÄ
+								tempTable.newLast(objs);//æ·»åŠ åˆ°ä¸´æ—¶æ±‡æ€»
+								//å–å‡ºä¸‹ä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 								while (true) {
 									cur1++;
 									if (cur1 > len1) {
@@ -2063,10 +2063,10 @@ public class JoinCursor extends ICursor {
 											break EXIT;
 										}
 									}
-									//¼ì²éfilter
+									//æ£€æŸ¥filter
 									boolean flag = true;
 									int f = 0;
-									//ÏÈ¶ÁÈ¡filterÁĞ
+									//å…ˆè¯»å–filteråˆ—
 									for (; f < filterAllCount; f++) {
 										objs[f] = bufReaders[f].readObject();
 										flag = filters[f].match(objs[f]);
@@ -2079,14 +2079,14 @@ public class JoinCursor extends ICursor {
 										}
 									}
 									if (flag && unknownFilter != null) {
-										//¶¼Æ¥Åä,»¹Òª¼ì²éunknownFilter
+										//éƒ½åŒ¹é…,è¿˜è¦æ£€æŸ¥unknownFilter
 										for (; f < keyOffset; f++) {
 											objs[f] = bufReaders[f].readObject();
 										}
 										flag = Variant.isTrue(unknownFilter.calculate(ctx));
 									}
 									if (flag) {
-										//¶ÁÈ¡Ê£Óàkey×Ö¶Î,×éÖ¯keys1
+										//è¯»å–å‰©ä½™keyå­—æ®µ,ç»„ç»‡keys1
 										for (; f < valueOffset; f++) {
 											objs[f] = bufReaders[f].readObject();
 										}
@@ -2095,7 +2095,7 @@ public class JoinCursor extends ICursor {
 										}
 										break;
 									} else {
-										//Ìø¹ıÆäÓàµÄ
+										//è·³è¿‡å…¶ä½™çš„
 										for (; f < colCount; f++) {
 											 bufReaders[f].skipObject();
 										}
@@ -2105,7 +2105,7 @@ public class JoinCursor extends ICursor {
 							calcExpsForNews(record, tempTable, record2, len);
 						}
 						
-						//°´ÕÕcs¶ÔÆë
+						//æŒ‰ç…§cså¯¹é½
 						cur2++;
 						if (cur2 > len2) {
 							cur2 = 1;
@@ -2123,11 +2123,11 @@ public class JoinCursor extends ICursor {
 						}
 					}
 				} else if (cmp > 0) {
-					//Ìø¹ıÆäËû
+					//è·³è¿‡å…¶ä»–
 					for (int f = valueOffset; f < colCount; f++) {
 						bufReaders[f].skipObject();
 					}
-					//È¡³öÏÂÒ»Ìõ·ûºÏÌõ¼şµÄ
+					//å–å‡ºä¸‹ä¸€æ¡ç¬¦åˆæ¡ä»¶çš„
 					while (true) {
 						cur1++;
 						if (cur1 > len1) {
@@ -2139,10 +2139,10 @@ public class JoinCursor extends ICursor {
 								break EXIT;
 							}
 						}
-						//¼ì²éfilter
+						//æ£€æŸ¥filter
 						boolean flag = true;
 						int f = 0;
-						//ÏÈ¶ÁÈ¡filterÁĞ
+						//å…ˆè¯»å–filteråˆ—
 						for (; f < filterAllCount; f++) {
 							objs[f] = bufReaders[f].readObject();
 							flag = filters[f].match(objs[f]);
@@ -2155,14 +2155,14 @@ public class JoinCursor extends ICursor {
 							}
 						}
 						if (flag && unknownFilter != null) {
-							//¶¼Æ¥Åä,»¹Òª¼ì²éunknownFilter
+							//éƒ½åŒ¹é…,è¿˜è¦æ£€æŸ¥unknownFilter
 							for (; f < keyOffset; f++) {
 								objs[f] = bufReaders[f].readObject();
 							}
 							flag = Variant.isTrue(unknownFilter.calculate(ctx));
 						}
 						if (flag) {
-							//¶ÁÈ¡Ê£Óàkey×Ö¶Î,×éÖ¯keys1
+							//è¯»å–å‰©ä½™keyå­—æ®µ,ç»„ç»‡keys1
 							for (; f < valueOffset; f++) {
 								objs[f] = bufReaders[f].readObject();
 							}
@@ -2171,7 +2171,7 @@ public class JoinCursor extends ICursor {
 							}
 							break;
 						} else {
-							//Ìø¹ıÆäÓàµÄ
+							//è·³è¿‡å…¶ä½™çš„
 							for (; f < colCount; f++) {
 								 bufReaders[f].skipObject();
 							}
@@ -2223,9 +2223,9 @@ public class JoinCursor extends ICursor {
 	}
 	
 	/**
-	 * »ùÓÚÁ½¸ö¼ÇÂ¼£¨ÒÔ¼°Í¬×éÊı¾İ£©¼ÆËã±í´ïÊ½
+	 * åŸºäºä¸¤ä¸ªè®°å½•ï¼ˆä»¥åŠåŒç»„æ•°æ®ï¼‰è®¡ç®—è¡¨è¾¾å¼
 	 * @param record
-	 * @param tempTable Ö÷¼üÏàÍ¬µÄÒ»×éÊı¾İ
+	 * @param tempTable ä¸»é”®ç›¸åŒçš„ä¸€ç»„æ•°æ®
 	 * @param r
 	 * @param len
 	 */
@@ -2363,8 +2363,8 @@ public class JoinCursor extends ICursor {
 	}
 	
 	/**
-	 * ÅĞ¶Ï×é±íÀàĞÍ
-	 * @return true£¬Ã»ÓĞ²¹ÇøµÄÁĞ´æ×é±í£»false£¬ÆäËü
+	 * åˆ¤æ–­ç»„è¡¨ç±»å‹
+	 * @return trueï¼Œæ²¡æœ‰è¡¥åŒºçš„åˆ—å­˜ç»„è¡¨ï¼›falseï¼Œå…¶å®ƒ
 	 */
 	public static boolean isColTable(Object table) {
 		if (table == null) return false;

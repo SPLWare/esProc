@@ -11,10 +11,10 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 public class RedisBase extends Function {
-	protected int m_paramSize = 0;	//参数个数
+	protected int m_paramSize = 0;	//鍙傛暟涓暟
 	protected RedisTool m_jedisTool = null;
 	protected String m_colNames[];
-	protected String m_paramTypes[]; //除去redis句柄参数类型
+	protected String m_paramTypes[]; //闄ゅ幓redis鍙ユ焺鍙傛暟绫诲瀷
 	
 	public Node optimize(Context ctx) {
 		if (param != null) {

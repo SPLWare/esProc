@@ -10,18 +10,18 @@ public class BlockLinkReader extends InputStream {
 	private BlockLink blockLink;
 	private IBlockStorage storage;
 	
-	private final int blockSize; // ¿é´óĞ¡
-	private final int pointerPos; // ÏÂÒ»¿éÖ¸ÕëÔÚ¿éÖĞÎ»ÖÃ
+	private final int blockSize; // å—å¤§å°
+	private final int pointerPos; // ä¸‹ä¸€å—æŒ‡é’ˆåœ¨å—ä¸­ä½ç½®
 	
 	private long currentBlockPos = Long.MAX_VALUE;
-	private byte []block; // µ±Ç°»º´æµÄ¿é
-	private int caret; // ¹â±êÔÚblockÖĞµÄÎ»ÖÃ
+	private byte []block; // å½“å‰ç¼“å­˜çš„å—
+	private int caret; // å…‰æ ‡åœ¨blockä¸­çš„ä½ç½®
 	
 	private byte[] readBuffer = new byte[32];
 	private LZ4Util lz4 = LZ4Util.instance();
 	private byte []decompressBuffer;
 	
-	private boolean isPureStorage;//ÊÇĞÂ°æ±¾µÄ´¿ÁĞ´æ´¢¸ñÊ½
+	private boolean isPureStorage;//æ˜¯æ–°ç‰ˆæœ¬çš„çº¯åˆ—å­˜å‚¨æ ¼å¼
 	private Sequence dict;
 	
 	public BlockLinkReader(BlockLink blockLink) {
@@ -130,7 +130,7 @@ public class BlockLinkReader extends InputStream {
 		}
 	}
 	
-	// ¶ÁÏÂÒ»Êı¾İ¿é²¢½âÑ¹
+	// è¯»ä¸‹ä¸€æ•°æ®å—å¹¶è§£å‹
 	public byte[] readDataBlock() throws IOException {
 		int srcCount = readInt32();
 		if (storage.isCompress()) {
@@ -158,7 +158,7 @@ public class BlockLinkReader extends InputStream {
 		}
 	}
 	
-	// ¶ÁÏÂÒ»Êı¾İ¿é(²»½âÑ¹)
+	// è¯»ä¸‹ä¸€æ•°æ®å—(ä¸è§£å‹)
 	public byte[] readDataBlock0() throws IOException {
 		byte []readBuffer = this.readBuffer;
 		readFully(readBuffer, 0, 4);
@@ -202,13 +202,13 @@ public class BlockLinkReader extends InputStream {
 		caret = (int)(pos - blockPos);
 	}
 	
-	// ¶ÁÖ¸¶¨Î»ÖÃµÄÊı¾İ¿é²¢½âÑ¹
+	// è¯»æŒ‡å®šä½ç½®çš„æ•°æ®å—å¹¶è§£å‹
 	public byte[] readDataBlock(long pos) throws IOException {
 		seek(pos);
 		return readDataBlock();
 	}
 	
-	// ¶ÁÇø¿éÁ´µÄÏÂÒ»¿éµÄÎ»ÖÃ
+	// è¯»åŒºå—é“¾çš„ä¸‹ä¸€å—çš„ä½ç½®
 	private long readPosition(int i) {
 		byte []block = this.block;
 		return (((long)(block[i] & 0xff) << 32) +
@@ -218,7 +218,7 @@ public class BlockLinkReader extends InputStream {
 				(block[i + 4] & 0xff));
 	}
 	
-	// °ÑÕû¸öÇø¿éÁ´¶Á³É×Ö½ÚÊı×é·µ»Ø
+	// æŠŠæ•´ä¸ªåŒºå—é“¾è¯»æˆå­—èŠ‚æ•°ç»„è¿”å›
 	public byte[] readBlocks() throws IOException {
 		int blockCount = blockLink.blockCount;
 		if (blockCount > 1) {
@@ -237,28 +237,28 @@ public class BlockLinkReader extends InputStream {
 		}
 	}
 	
-	//¸øĞĞÊ½ÓÎ±êÓÃ
+	//ç»™è¡Œå¼æ¸¸æ ‡ç”¨
 	public BufferReader readBlockData(int recordCount) throws IOException {
 		return getBufferReader(readDataBlock(), recordCount);
 	}
 	
-	//¸øĞĞÊ½ÓÎ±êÓÃ
+	//ç»™è¡Œå¼æ¸¸æ ‡ç”¨
 	public BufferReader readBlockData(long pos, int recordCount) throws IOException {
 		byte[] buffer = readDataBlock(pos);
 		return getBufferReader(buffer, recordCount);
 	}
 	
-	//¸øÁĞÊ½ÓÎ±êÓÃ
+	//ç»™åˆ—å¼æ¸¸æ ‡ç”¨
 	public BufferReader readPureBlockData(int recordCount) throws IOException {
 		return new BufferReader(storage.getStructManager(), readDataBlock());
 	}
 	
-	//¸øÁĞÊ½ÓÎ±êÓÃ
+	//ç»™åˆ—å¼æ¸¸æ ‡ç”¨
 	public BufferReader readPureBlockData(long pos, int recordCount) throws IOException {
 		return new BufferReader(storage.getStructManager(), readDataBlock(pos));
 	}
 	
-	//¸øĞĞÊ½ÓÎ±êÓÃ
+	//ç»™è¡Œå¼æ¸¸æ ‡ç”¨
 	private BufferReader getBufferReader(byte[] buffer, int recordCount) {
 		if (isPureStorage) {
 			if (PureBufferReader.canUseBufferReader(buffer, 0)) {
@@ -273,7 +273,7 @@ public class BlockLinkReader extends InputStream {
 		}
 	}
 	
-	//²»Ñ¹Ëõ¶ÁÈ¡
+	//ä¸å‹ç¼©è¯»å–
 	public RowBufferReader readBlockBuffer() throws IOException {
 		int count = readInt32();
 		byte []buffer = new byte[count];

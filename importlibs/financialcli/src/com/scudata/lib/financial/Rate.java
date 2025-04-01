@@ -13,14 +13,14 @@ import com.scudata.util.Variant;
  * 
  * @author yanjing
  * 
- * rate(nper,pmt,pv,fv,guess)  �������ĸ�������
- *  @t �ڳ�����,ʡ��Ϊ��ĩ����
- * @param Nper Ϊ�ܸ���������
- * @param pmt  Ϊÿ�ڵ�Ͷ�ʶ�, ����ֵ����������ڼ䱣�ֲ��䡣���ʡ�� pmt���������� pv/fv ������
- * @param Pv Ϊ��ֵ,�൱�ڳ��ڵ�Ͷ�ʡ����ʡ�� PV���������ֵΪ�㣬���ұ������ pmt ������
- * @param Fv Ϊδ��ֵ�������һ��֧����ʣ���Ͷ�ʶ����Ϊ��ĩ����׷�ӵ�Ͷ�ʶ���ʡ�� fv���������ֵΪ���ұ������ pmt ���������磬�����Ҫ�� 18 ��Ͷ���ڽ���ʱͶ�ʣ�50,000���� ��50,000 ����δ��ֵ��
- * @param guess Ϊ��������,ȱʡΪ10%,����20�κ�������û�������򱨴�
- * @return ��@p����δ��ֵ��@p������ֵ
+ * rate(nper,pmt,pv,fv,guess)  返回年金的各期利率
+ *  @t 期初付款,省略为期末付款
+ * @param Nper 为总付款期数。
+ * @param pmt  为每期的投资额, 其数值在整个年金期间保持不变。如果省略 pmt，则必须包括 pv/fv 参数。
+ * @param Pv 为现值,相当于初期的投资。如果省略 PV，则假设其值为零，并且必须包括 pmt 参数。
+ * @param Fv 为未来值，即最后一期支付后剩余的投资额，可视为期末必须追加的投资额。如果省略 fv，则假设其值为零且必须包含 pmt 参数。例如，如果需要在 18 年投资期结束时投资￥50,000，则 ￥50,000 就是未来值。
+ * @param guess 为估算利率,缺省为10%,迭代20次后如果结果没有收敛则报错
+ * @return 无@p返回未来值，@p返回现值
  */
 public class Rate extends Function {
                                                                                                                             

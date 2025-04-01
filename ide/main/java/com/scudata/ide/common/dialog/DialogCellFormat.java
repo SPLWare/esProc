@@ -17,21 +17,21 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * ¸ñÊ½¶Ô»°¿ò
+ * æ ¼å¼å¯¹è¯æ¡†
  */
 public class DialogCellFormat extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * È·¶¨°´Å¥
+	 * ç¡®å®šæŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * ¸ñÊ½Ãæ°å
+	 * æ ¼å¼é¢æ¿
 	 */
 	private PanelCellFormat panelFormat = new PanelCellFormat(this) {
 		private static final long serialVersionUID = 1L;
@@ -42,19 +42,19 @@ public class DialogCellFormat extends JDialog {
 	};
 
 	/**
-	 * ´°¿Ú¹Ø±ÕµÄ¶¯×÷
+	 * çª—å£å…³é—­çš„åŠ¨ä½œ
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogCellFormat() {
-		super(GV.appFrame, "¸ñÊ½±à¼­", true);
+		super(GV.appFrame, "æ ¼å¼ç¼–è¾‘", true);
 		try {
 			initUI();
 			resetLangText();
@@ -67,7 +67,7 @@ public class DialogCellFormat extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃ¸ñÊ½
+	 * è®¾ç½®æ ¼å¼
 	 * 
 	 * @param format
 	 */
@@ -76,7 +76,7 @@ public class DialogCellFormat extends JDialog {
 	}
 
 	/**
-	 * È¡¸ñÊ½
+	 * å–æ ¼å¼
 	 * 
 	 * @return
 	 */
@@ -85,7 +85,7 @@ public class DialogCellFormat extends JDialog {
 	}
 
 	/**
-	 * È¡¸ñÊ½ÀàĞÍ
+	 * å–æ ¼å¼ç±»å‹
 	 * 
 	 * @return
 	 */
@@ -94,25 +94,25 @@ public class DialogCellFormat extends JDialog {
 	}
 
 	/**
-	 * ÖØĞÂÉèÖÃÓïÑÔ×ÊÔ´
+	 * é‡æ–°è®¾ç½®è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
-		this.setTitle(mm.getMessage("dialogcellformat.title")); // ¸ñÊ½±à¼­
-		jBOK.setText(mm.getMessage("button.ok")); // È·¶¨(O)
-		jBCancel.setText(mm.getMessage("button.cancel")); // È¡Ïû(C)
+		this.setTitle(mm.getMessage("dialogcellformat.title")); // æ ¼å¼ç¼–è¾‘
+		jBOK.setText(mm.getMessage("button.ok")); // ç¡®å®š(O)
+		jBCancel.setText(mm.getMessage("button.cancel")); // å–æ¶ˆ(C)
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
 	private void initUI() throws Exception {
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogCellFormat_jBOK_actionAdapter(this));
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogCellFormat_jBCancel_actionAdapter(
 				this));
 		JPanel jPanel2 = new JPanel();
@@ -126,7 +126,7 @@ public class DialogCellFormat extends JDialog {
 	}
 
 	/**
-	 * È¡´°¿Ú¹Ø±Õ¶¯×÷
+	 * å–çª—å£å…³é—­åŠ¨ä½œ
 	 * 
 	 * @return
 	 */
@@ -135,7 +135,7 @@ public class DialogCellFormat extends JDialog {
 	}
 
 	/**
-	 * È·¶¨°´Å¥ÃüÁî
+	 * ç¡®å®šæŒ‰é’®å‘½ä»¤
 	 * 
 	 * @param e
 	 */
@@ -146,7 +146,7 @@ public class DialogCellFormat extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÃüÁî
+	 * å–æ¶ˆæŒ‰é’®å‘½ä»¤
 	 * 
 	 * @param e
 	 */
@@ -157,7 +157,7 @@ public class DialogCellFormat extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÃüÁî
+	 * çª—å£å…³é—­å‘½ä»¤
 	 * 
 	 * @param e
 	 */

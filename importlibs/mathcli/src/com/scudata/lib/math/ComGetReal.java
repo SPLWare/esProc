@@ -8,7 +8,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * »ñÈ¡¸´ÊıµÄÊµ²¿
+ * è·å–å¤æ•°çš„å®éƒ¨
  */
 public class ComGetReal extends SequenceFunction {
     public Object calculate(Context ctx){

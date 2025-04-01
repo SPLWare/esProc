@@ -4,368 +4,368 @@ import com.scudata.ide.common.GC;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ¼¯ËãÆ÷³£Á¿
+ * é›†ç®—å™¨å¸¸é‡
  *
  */
 public class GCSpl extends GC {
 	/**
-	 * ¼¯ËãÍøĞÂ½¨Íø¸ñÃû³ÆÇ°×º
+	 * é›†ç®—ç½‘æ–°å»ºç½‘æ ¼åç§°å‰ç¼€
 	 */
 	public final static String PRE_NEWPGM = "p";
 	/**
-	 * ETLĞÂ½¨Íø¸ñÃû³ÆÇ°×º
+	 * ETLæ–°å»ºç½‘æ ¼åç§°å‰ç¼€
 	 */
 	public final static String PRE_NEWETL = "s";
 
 	/**
-	 * È±Ê¡µÄĞĞ¸ß
+	 * ç¼ºçœçš„è¡Œé«˜
 	 */
 	public final static int DEFAULT_ROW_HEIGHT = 20;
 
 	/**
-	 * ²Ëµ¥³£Á¿
+	 * èœå•å¸¸é‡
 	 */
 	/**
-	 * ÎÄ¼ş
+	 * æ–‡ä»¶
 	 */
-	/** ĞÂ½¨SPL(T) */
+	/** æ–°å»ºSPL(T) */
 	public static final String NEW_SPL = "file.newspl";
-	/** ±£´æµ½FTP(P) */
+	/** ä¿å­˜åˆ°FTP(P) */
 	public static final String SAVE_FTP = "file.saveftp";
-	/** µ¼ÈëSPLÎÄ¼ş(I) */
+	/** å¯¼å…¥SPLæ–‡ä»¶(I) */
 	// public static final String FILE_LOADTXT = "file.loadtxt";
-	/** µ¼³ö³ÉSPLÎÄ¼ş(E) */
+	/** å¯¼å‡ºæˆSPLæ–‡ä»¶(E) */
 	// public static final String FILE_EXPORTTXT = "file.exporttxt";
-	/** ÖØĞÂ´ò¿ªÎÄ¼ş(R) */
+	/** é‡æ–°æ‰“å¼€æ–‡ä»¶(R) */
 	public static final String FILE_REOPEN = "file.reopen";
 
-	/** ĞÂ½¨SPL(T) */
+	/** æ–°å»ºSPL(T) */
 	public static final short iNEW_SPL = MENU_SPL + 3;
-	/** ±£´æµ½FTP(P) */
+	/** ä¿å­˜åˆ°FTP(P) */
 	public static final short iSAVE_FTP = MENU_SPL + 5;
-	/** µ¼ÈëSPLÎÄ¼ş(I) */
+	/** å¯¼å…¥SPLæ–‡ä»¶(I) */
 	// public static final short iSPL_IMPORT_TXT = MENU_SPL + 11;
-	/** µ¼³ö³ÉSPLÎÄ¼ş(E) */
+	/** å¯¼å‡ºæˆSPLæ–‡ä»¶(E) */
 	// public static final short iFILE_EXPORTTXT = MENU_SPL + 21;
-	/** ÖØĞÂ´ò¿ªÎÄ¼ş(R) */
+	/** é‡æ–°æ‰“å¼€æ–‡ä»¶(R) */
 	public static final short iFILE_REOPEN = MENU_SPL + 31;
 
 	/**
-	 * ±à¼­(E)
+	 * ç¼–è¾‘(E)
 	 */
 	public static final String EDIT = "edit";
-	/** ³·Ïú(Z) */
+	/** æ’¤é”€(Z) */
 	public static final String UNDO = "edit.undo";
-	/** ÖØ×ö(Y) */
+	/** é‡åš(Y) */
 	public static final String REDO = "edit.redo";
-	/** ¸´ÖÆ²Ëµ¥ */
+	/** å¤åˆ¶èœå• */
 	public static final String COPY_MENU = "edit.copymenu";
-	/** ¸´ÖÆctrl-C */
+	/** å¤åˆ¶ctrl-C */
 	public static final String COPY = "edit.copy";
-	/** Öµ¸´ÖÆctrl-alt-C */
+	/** å€¼å¤åˆ¶ctrl-alt-C */
 	public static final String COPYVALUE = "edit.copyvalue";
-	/** ´úÂë¸´ÖÆctrl-shift-C */
+	/** ä»£ç å¤åˆ¶ctrl-shift-C */
 	public static final String CODE_COPY = "edit.codecopy";
-	/** ¸´ÖÆ¿É³ÊÏÖ´úÂë(C)ÎŞ´°¿Úhtml */
+	/** å¤åˆ¶å¯å‘ˆç°ä»£ç (C)æ— çª—å£html */
 	public static final String COPY_HTML = "edit.copyhtml";
-	/** ¸´ÖÆ¿É³ÊÏÖ´úÂë(P) */
+	/** å¤åˆ¶å¯å‘ˆç°ä»£ç (P) */
 	public static final String COPY_HTML_DIALOG = "edit.copyhtmldialog";
-	/** ¼ôÇĞctrl-X */
+	/** å‰ªåˆ‡ctrl-X */
 	public static final String CUT = "edit.cut";
-	/** Õ³Ìù²Ëµ¥ */
+	/** ç²˜è´´èœå• */
 	public static final String PASTE_MENU = "edit.pastemenu";
-	/** Õ³Ìùctrl-V */
+	/** ç²˜è´´ctrl-V */
 	public static final String PASTE = "edit.paste";
-	/** ±äÇ¨Õ³Ìùctrl-alt-V */
+	/** å˜è¿ç²˜è´´ctrl-alt-V */
 	public static final String PASTE_ADJUST = "edit.pasteadjust";
 	/** Ctrl-Shift-V */
 	public static final String PASTE_SPECIAL = "edit.pastespecial";
-	/** ²åÈëÕ³Ìùctrl-B */
+	/** æ’å…¥ç²˜è´´ctrl-B */
 	public static final String PASTE_INSERT = "edit.pasteinsert";
-	/** ²åÈë±äÇ¨Õ³Ìùctrl-alt-B */
+	/** æ’å…¥å˜è¿ç²˜è´´ctrl-alt-B */
 	public static final String PASTE_ADJUST_INSERT = "edit.pasteadjustinsert";
-	/** ²åÈë */
+	/** æ’å…¥ */
 	public static final String INSERT = "edit.insert";
-	/** ²åÈëĞĞ(R) */
+	/** æ’å…¥è¡Œ(R) */
 	public static final String INSERT_ROW = "edit.insertrow";
-	/** ×·¼ÓĞĞ(A) */
+	/** è¿½åŠ è¡Œ(A) */
 	public static final String ADD_ROW = "edit.addrow";
-	/** ¸´ÖÆĞĞ */
+	/** å¤åˆ¶è¡Œ */
 	public static final String DUP_ROW = "edit.duprow";
-	/** ¸´ÖÆĞĞ */
+	/** å¤åˆ¶è¡Œ */
 	public static final String DUP_ROW_ADJUST = "edit.duprowadjust";
-	/** ²åÈëÁĞ(C) */
+	/** æ’å…¥åˆ—(C) */
 	public static final String INSERT_COL = "edit.insertcol";
-	/** ×·¼ÓÁĞ(D) */
+	/** è¿½åŠ åˆ—(D) */
 	public static final String ADD_COL = "edit.addcol";
-	/** »Ø³µ»»ĞĞ(E)ctrl-enter */
+	/** å›è½¦æ¢è¡Œ(E)ctrl-enter */
 	public static final String CTRL_ENTER = "edit.ctrlenter";
-	/** ÓÒÒÆµ¥Ôª¸ñ(I)ctrl-insert */
+	/** å³ç§»å•å…ƒæ ¼(I)ctrl-insert */
 	public static final String CTRL_INSERT = "edit.ctrlinsert";
-	/** ÏÂÒÆµ¥Ôª¸ñ(S)alt-insert */
+	/** ä¸‹ç§»å•å…ƒæ ¼(S)alt-insert */
 	public static final String ALT_INSERT = "edit.altinsert";
-	/** É¾³ı(D) */
+	/** åˆ é™¤(D) */
 	public static final String DELETE = "edit.delete";
-	/** Çå³ı */
+	/** æ¸…é™¤ */
 	public static final String CLEAR = "edit.clear";
-	/** È«²¿Çå³ı */
+	/** å…¨éƒ¨æ¸…é™¤ */
 	public static final String FULL_CLEAR = "edit.fullclear";
-	/** É¾³ıĞĞ(R) */
+	/** åˆ é™¤è¡Œ(R) */
 	public static final String DELETE_ROW = "edit.deleterow";
-	/** É¾³ıÁĞ(C) */
+	/** åˆ é™¤åˆ—(C) */
 	public static final String DELETE_COL = "edit.deletecol";
-	/** ÍË¸ñ(B)ctrl-backspace */
+	/** é€€æ ¼(B)ctrl-backspace */
 	public static final String CTRL_BACK = "edit.ctrlback";
-	/** ±¾¸ñÉ¾³ı(D)ctrl-delete */
+	/** æœ¬æ ¼åˆ é™¤(D)ctrl-delete */
 	public static final String CTRL_DELETE = "edit.ctrldelete";
-	/** ÒÆ¶¯¸´ÖÆ(M) */
+	/** ç§»åŠ¨å¤åˆ¶(M) */
 	public static final String MOVE_COPY = "edit.movecopy";
-	/** ÏòÉÏÒÆ¶¯¸´ÖÆ */
+	/** å‘ä¸Šç§»åŠ¨å¤åˆ¶ */
 	public static final String MOVE_COPY_UP = "edit.movecopyup";
-	/** ÏòÏÂÒÆ¶¯¸´ÖÆ */
+	/** å‘ä¸‹ç§»åŠ¨å¤åˆ¶ */
 	public static final String MOVE_COPY_DOWN = "edit.movecopydown";
-	/** Ïò×óÒÆ¶¯¸´ÖÆ */
+	/** å‘å·¦ç§»åŠ¨å¤åˆ¶ */
 	public static final String MOVE_COPY_LEFT = "edit.movecopyleft";
-	/** ÏòÓÒÒÆ¶¯¸´ÖÆ */
+	/** å‘å³ç§»åŠ¨å¤åˆ¶ */
 	public static final String MOVE_COPY_RIGHT = "edit.movecopyright";
-	/** ÎÄ±¾±à¼­¿ò */
+	/** æ–‡æœ¬ç¼–è¾‘æ¡† */
 	public static final String TEXT_EDITOR = "edit.texteditor";
-	/** ×¢ÊÍ ctrl-/ */
+	/** æ³¨é‡Š ctrl-/ */
 	public static final String NOTE = "edit.note";
-	/** ¸ñÊ½(O) */
+	/** æ ¼å¼(O) */
 	public static final String FORMAT = "edit.format";
-	/** ĞĞ¸ß(H) */
+	/** è¡Œé«˜(H) */
 	public static final String ROW_HEIGHT = "edit.rowheight";
-	/** ºÏÊÊĞĞ¸ß(R) */
+	/** åˆé€‚è¡Œé«˜(R) */
 	public static final String ROW_ADJUST = "edit.rowadjust";
-	/** Òş²ØĞĞ(I) */
+	/** éšè—è¡Œ(I) */
 	public static final String ROW_HIDE = "edit.rowhide";
-	/** È¡ÏûÒş²ØĞĞ(V) */
+	/** å–æ¶ˆéšè—è¡Œ(V) */
 	public static final String ROW_VISIBLE = "edit.rowvisible";
-	/** ÁĞ¿í(W) */
+	/** åˆ—å®½(W) */
 	public static final String COL_WIDTH = "edit.colwidth";
-	/** ºÏÊÊÁĞ¿í(C) */
+	/** åˆé€‚åˆ—å®½(C) */
 	public static final String COL_ADJUST = "edit.coladjust";
-	/** Òş²ØÁĞ(D) */
+	/** éšè—åˆ—(D) */
 	public static final String COL_HIDE = "edit.colhide";
-	/** È¡ÏûÒş²ØÁĞ(S) */
+	/** å–æ¶ˆéšè—åˆ—(S) */
 	public static final String COL_VISIBLE = "edit.colvisible";
-	/** Í³¼ÆÍ¼(G) */
+	/** ç»Ÿè®¡å›¾(G) */
 	public static final String CHART = "edit.chart";
-	/** Íø¸ñ»­²¼(G) */
+	/** ç½‘æ ¼ç”»å¸ƒ(G) */
 	public static final String CANVAS = "edit.canvas";
-	/** Ëõ·Å(L) */
+	/** ç¼©æ”¾(L) */
 	public static final String ZOOM = "edit.zoom";
-	/** ²éÕÒ(F) */
+	/** æŸ¥æ‰¾(F) */
 	public static final String SEARCH = "edit.search";
-	/** Ìæ»»(R) */
+	/** æ›¿æ¢(R) */
 	public static final String REPLACE = "edit.replace";
 
-	/** ³·Ïú(Z) */
+	/** æ’¤é”€(Z) */
 	public static final short iUNDO = MENU_SPL + 101;
-	/** ÖØ×ö(Y) */
+	/** é‡åš(Y) */
 	public static final short iREDO = MENU_SPL + 103;
-	/** ¸´ÖÆctrl-C */
+	/** å¤åˆ¶ctrl-C */
 	public static final short iCOPY = MENU_SPL + 111;
-	/** Öµ¸´ÖÆctrl-alt-C */
+	/** å€¼å¤åˆ¶ctrl-alt-C */
 	public static final short iCOPYVALUE = MENU_SPL + 113;
-	/** ´úÂë¸´ÖÆctrl-shift-C */
+	/** ä»£ç å¤åˆ¶ctrl-shift-C */
 	public static final short iCODE_COPY = MENU_SPL + 115;
-	/** ¸´ÖÆ¿É³ÊÏÖ´úÂë(C)ÎŞ´°¿Úhtml */
+	/** å¤åˆ¶å¯å‘ˆç°ä»£ç (C)æ— çª—å£html */
 	public static final short iCOPY_HTML = MENU_SPL + 117;
-	/** ¸´ÖÆ¿É³ÊÏÖ´úÂë(P) */
+	/** å¤åˆ¶å¯å‘ˆç°ä»£ç (P) */
 	public static final short iCOPY_HTML_DIALOG = MENU_SPL + 119;
-	/** ¼ôÇĞctrl-X */
+	/** å‰ªåˆ‡ctrl-X */
 	public static final short iCUT = MENU_SPL + 121;
-	/** Õ³Ìùctrl-V */
+	/** ç²˜è´´ctrl-V */
 	public static final short iPASTE = MENU_SPL + 123;
-	/** ±äÇ¨Õ³Ìùctrl-alt-V */
+	/** å˜è¿ç²˜è´´ctrl-alt-V */
 	public static final short iPASTE_ADJUST = MENU_SPL + 125;
 	/** Ctrl-Shift-V */
 	public static final short iPASTE_SPECIAL = MENU_SPL + 127;
-	/** ²åÈëÁĞ(C) */
+	/** æ’å…¥åˆ—(C) */
 	public static final short iINSERT_COL = MENU_SPL + 131;
-	/** ×·¼ÓÁĞ(D) */
+	/** è¿½åŠ åˆ—(D) */
 	public static final short iADD_COL = MENU_SPL + 133;
-	/** ¸´ÖÆĞĞ */
+	/** å¤åˆ¶è¡Œ */
 	public static final short iDUP_ROW = MENU_SPL + 141;
-	/** ¸´ÖÆĞĞ */
+	/** å¤åˆ¶è¡Œ */
 	public static final short iDUP_ROW_ADJUST = MENU_SPL + 143;
-	/** »Ø³µ»»ĞĞ(E)ctrl-enter */
+	/** å›è½¦æ¢è¡Œ(E)ctrl-enter */
 	public static final short iCTRL_ENTER = MENU_SPL + 145;
-	/** ÓÒÒÆµ¥Ôª¸ñ(I)ctrl-insert */
+	/** å³ç§»å•å…ƒæ ¼(I)ctrl-insert */
 	public static final short iCTRL_INSERT = MENU_SPL + 151;
-	/** ÏÂÒÆµ¥Ôª¸ñ(S)alt-insert */
+	/** ä¸‹ç§»å•å…ƒæ ¼(S)alt-insert */
 	public static final short iALT_INSERT = MENU_SPL + 153;
-	/** Çå³ı */
+	/** æ¸…é™¤ */
 	public static final short iCLEAR = MENU_SPL + 160;
-	/** È«²¿Çå³ı */
+	/** å…¨éƒ¨æ¸…é™¤ */
 	public static final short iFULL_CLEAR = MENU_SPL + 162;
-	/** É¾³ıĞĞ(R) */
+	/** åˆ é™¤è¡Œ(R) */
 	public static final short iDELETE_ROW = MENU_SPL + 164;
-	/** É¾³ıÁĞ(C) */
+	/** åˆ é™¤åˆ—(C) */
 	public static final short iDELETE_COL = MENU_SPL + 165;
-	/** ÍË¸ñ(B)ctrl-backspace */
+	/** é€€æ ¼(B)ctrl-backspace */
 	public static final short iCTRL_BACK = MENU_SPL + 167;
-	/** ±¾¸ñÉ¾³ı(D)ctrl-delete */
+	/** æœ¬æ ¼åˆ é™¤(D)ctrl-delete */
 	public static final short iCTRL_DELETE = MENU_SPL + 169;
-	/** ÎÄ±¾±à¼­¿ò */
+	/** æ–‡æœ¬ç¼–è¾‘æ¡† */
 	public static final short iTEXT_EDITOR = MENU_SPL + 171;
-	/** ÏòÉÏÒÆ¶¯¸´ÖÆ */
+	/** å‘ä¸Šç§»åŠ¨å¤åˆ¶ */
 	public static final short iMOVE_COPY_UP = MENU_SPL + 175;
-	/** ÏòÏÂÒÆ¶¯¸´ÖÆ */
+	/** å‘ä¸‹ç§»åŠ¨å¤åˆ¶ */
 	public static final short iMOVE_COPY_DOWN = MENU_SPL + 176;
-	/** Ïò×óÒÆ¶¯¸´ÖÆ */
+	/** å‘å·¦ç§»åŠ¨å¤åˆ¶ */
 	public static final short iMOVE_COPY_LEFT = MENU_SPL + 177;
-	/** ÏòÓÒÒÆ¶¯¸´ÖÆ */
+	/** å‘å³ç§»åŠ¨å¤åˆ¶ */
 	public static final short iMOVE_COPY_RIGHT = MENU_SPL + 178;
-	/** ×¢ÊÍ ctrl-/ */
+	/** æ³¨é‡Š ctrl-/ */
 	public static final short iNOTE = MENU_SPL + 180;
-	/** ĞĞ¸ß(H) */
+	/** è¡Œé«˜(H) */
 	public static final short iROW_HEIGHT = MENU_SPL + 182;
-	/** ºÏÊÊĞĞ¸ß(R) */
+	/** åˆé€‚è¡Œé«˜(R) */
 	public static final short iROW_ADJUST = MENU_SPL + 183;
-	/** Òş²ØĞĞ(I) */
+	/** éšè—è¡Œ(I) */
 	public static final short iROW_HIDE = MENU_SPL + 184;
-	/** È¡ÏûÒş²ØĞĞ(V) */
+	/** å–æ¶ˆéšè—è¡Œ(V) */
 	public static final short iROW_VISIBLE = MENU_SPL + 185;
-	/** ÁĞ¿í(W) */
+	/** åˆ—å®½(W) */
 	public static final short iCOL_WIDTH = MENU_SPL + 186;
-	/** ºÏÊÊÁĞ¿í(C) */
+	/** åˆé€‚åˆ—å®½(C) */
 	public static final short iCOL_ADJUST = MENU_SPL + 187;
-	/** Òş²ØÁĞ(D) */
+	/** éšè—åˆ—(D) */
 	public static final short iCOL_HIDE = MENU_SPL + 188;
-	/** È¡ÏûÒş²ØÁĞ(S) */
+	/** å–æ¶ˆéšè—åˆ—(S) */
 	public static final short iCOL_VISIBLE = MENU_SPL + 189;
-	/** Í³¼ÆÍ¼(G) */
+	/** ç»Ÿè®¡å›¾(G) */
 	public static final short iEDIT_CHART = MENU_SPL + 191;
-	/** Ëõ·Å(L) */
+	/** ç¼©æ”¾(L) */
 	public static final short iZOOM = MENU_SPL + 194;
-	/** ²éÕÒ(F) */
+	/** æŸ¥æ‰¾(F) */
 	public static final short iSEARCH = MENU_SPL + 195;
-	/** Ìæ»»(R) */
+	/** æ›¿æ¢(R) */
 	public static final short iREPLACE = MENU_SPL + 197;
 
 	/**
-	 * ³ÌĞò(P)
+	 * ç¨‹åº(P)
 	 */
 	public static final String PROGRAM = "program";
-	/** Íø¸ñ²ÎÊı(P) */
+	/** ç½‘æ ¼å‚æ•°(P) */
 	public static final String PARAM = "program.param";
-	/** ÖØÖÃÍø¸ñ»·¾³ */
+	/** é‡ç½®ç½‘æ ¼ç¯å¢ƒ */
 	public static final String RESET_CELLSET = "program.resetcellset";
-	/** ÖØÖÃÈ«¾Ö»·¾³ */
+	/** é‡ç½®å…¨å±€ç¯å¢ƒ */
 	public static final String RESET_GLOBAL = "program.resetglobal";
-	/** Ö´ĞĞ */
+	/** æ‰§è¡Œ */
 	public static final String EXEC = "program.exec";
-	/** µ÷ÊÔÖ´ĞĞ */
+	/** è°ƒè¯•æ‰§è¡Œ */
 	public static final String EXE_DEBUG = "program.exe_debug";
-	/** Ö´ĞĞµ½¹â±ê */
+	/** æ‰§è¡Œåˆ°å…‰æ ‡ */
 	public static final String STEP_CURSOR = "program.stepcursor";
-	/** µ¥²½Ö´ĞĞ */
+	/** å•æ­¥æ‰§è¡Œ */
 	public static final String STEP_NEXT = "program.stepnext";
-	/** µ¥²½½øÈë */
+	/** å•æ­¥è¿›å…¥ */
 	public static final String STEP_INTO = "program.stepinto";
-	/** µ¥²½·µ»Ø */
+	/** å•æ­¥è¿”å› */
 	public static final String STEP_RETURN = "program.stepreturn";
-	/** ÖĞ¶Ïµ¥²½µ÷ÊÔ(T) */
+	/** ä¸­æ–­å•æ­¥è°ƒè¯•(T) */
 	public static final String STEP_STOP = "program.stepstop";
-	/** ÔİÍ£Ö´ĞĞ */
+	/** æš‚åœæ‰§è¡Œ */
 	public static final String PAUSE = "program.pause";
-	/** ¼ÌĞøÖ´ĞĞ */
+	/** ç»§ç»­æ‰§è¡Œ */
 	public static final String CONTINUE = "program.continue";
-	/** Í£Ö¹Ö´ĞĞ */
+	/** åœæ­¢æ‰§è¡Œ */
 	public static final String STOP = "program.stop";
-	/** ÉèÖÃ/È¡Ïû¶Ïµã */
+	/** è®¾ç½®/å–æ¶ˆæ–­ç‚¹ */
 	public static final String BREAKPOINTS = "program.breakpoints";
-	/** ¼ÆËãµ±Ç°¸ñ²¢Ëø¶¨ */
+	/** è®¡ç®—å½“å‰æ ¼å¹¶é”å®š */
 	public static final String CALC_LOCK = "program.execlock";
-	/** ¼ÆËã¸ñÖµ */
+	/** è®¡ç®—æ ¼å€¼ */
 	public static final String CALC_AREA = "program.execarea";
-	/** ÏÔÊ¾¸ñÖµ */
+	/** æ˜¾ç¤ºæ ¼å€¼ */
 	public static final String SHOW_VALUE = "programe.showcellvalue";
-	/** Çå³ı¸ñÖµ(C) */
+	/** æ¸…é™¤æ ¼å€¼(C) */
 	public static final String CLEAR_VALUE = "program.clearvalue";
-	/** Í¼ĞÎ»æÖÆ(A) */
+	/** å›¾å½¢ç»˜åˆ¶(A) */
 	public static final String DRAW_CHART = "program.drawchart";
 
-	/** Íø¸ñ²ÎÊı(P) */
+	/** ç½‘æ ¼å‚æ•°(P) */
 	public static final short iPARAM = MENU_SPL + 201;
-	/** ÖØÖÃÍø¸ñ»·¾³ */
+	/** é‡ç½®ç½‘æ ¼ç¯å¢ƒ */
 	public static final short iRESET_CELLSET = MENU_SPL + 210;
-	/** ÖØÖÃÈ«¾Ö»·¾³ */
+	/** é‡ç½®å…¨å±€ç¯å¢ƒ */
 	public static final short iRESET_GLOBAL = MENU_SPL + 213;
-	/** Ö´ĞĞ */
+	/** æ‰§è¡Œ */
 	public static final short iEXEC = MENU_SPL + 221;
-	/** µ÷ÊÔÖ´ĞĞ */
+	/** è°ƒè¯•æ‰§è¡Œ */
 	public static final short iEXE_DEBUG = MENU_SPL + 223;
-	/** Ö´ĞĞµ½¹â±ê */
+	/** æ‰§è¡Œåˆ°å…‰æ ‡ */
 	public static final short iSTEP_CURSOR = MENU_SPL + 225;
-	/** µ¥²½Ö´ĞĞ */
+	/** å•æ­¥æ‰§è¡Œ */
 	public static final short iSTEP_NEXT = MENU_SPL + 231;
-	/** µ¥²½½øÈë */
+	/** å•æ­¥è¿›å…¥ */
 	public static final short iSTEP_INTO = MENU_SPL + 233;
-	/** µ¥²½·µ»Ø */
+	/** å•æ­¥è¿”å› */
 	public static final short iSTEP_RETURN = MENU_SPL + 235;
-	/** ÖĞ¶Ïµ¥²½µ÷ÊÔ(T) */
+	/** ä¸­æ–­å•æ­¥è°ƒè¯•(T) */
 	public static final short iSTEP_STOP = MENU_SPL + 237;
-	/** ÔİÍ£ºÍ¼ÌĞøÖ´ĞĞ */
+	/** æš‚åœå’Œç»§ç»­æ‰§è¡Œ */
 	public static final short iPAUSE = MENU_SPL + 241;
-	/** Í£Ö¹Ö´ĞĞ */
+	/** åœæ­¢æ‰§è¡Œ */
 	public static final short iSTOP = MENU_SPL + 243;
-	/** ÉèÖÃ/È¡Ïû¶Ïµã */
+	/** è®¾ç½®/å–æ¶ˆæ–­ç‚¹ */
 	public static final short iBREAKPOINTS = MENU_SPL + 251;
-	/** ¼ÆËãµ±Ç°¸ñ²¢Ëø¶¨ */
+	/** è®¡ç®—å½“å‰æ ¼å¹¶é”å®š */
 	public static final short iCALC_LOCK = MENU_SPL + 261;
-	/** ¼ÆËã¸ñÖµ */
+	/** è®¡ç®—æ ¼å€¼ */
 	public static final short iCALC_AREA = MENU_SPL + 263;
-	/** ÏÔÊ¾¸ñÖµ */
+	/** æ˜¾ç¤ºæ ¼å€¼ */
 	public static final short iSHOW_VALUE = MENU_SPL + 265;
-	/** Çå³ı¸ñÖµ(C) */
+	/** æ¸…é™¤æ ¼å€¼(C) */
 	public static final short iCLEAR_VALUE = MENU_SPL + 267;
-	/** Í¼ĞÎ»æÖÆ(A) */
+	/** å›¾å½¢ç»˜åˆ¶(A) */
 	public static final short iDRAW_CHART = MENU_SPL + 271;
 
-	/** ¹¤¾ß(T) */
+	/** å·¥å…·(T) */
 	public static final String TOOL = "tool";
-	/** Íø¸ñ³£Á¿(N) */
+	/** ç½‘æ ¼å¸¸é‡(N) */
 	public static final String CONST = "program.const";
-	/** ÔÚÎÄ¼şÖĞ²éÕÒÌæ»» */
+	/** åœ¨æ–‡ä»¶ä¸­æŸ¥æ‰¾æ›¿æ¢ */
 	public static final String FILE_REPLACE = "tool.filereplace";
 
-	/** Íø¸ñ³£Á¿(N) */
+	/** ç½‘æ ¼å¸¸é‡(N) */
 	public static final short iCONST = MENU_SPL + 301;
-	/** ÔÚÎÄ¼şÖĞ²éÕÒÌæ»» */
+	/** åœ¨æ–‡ä»¶ä¸­æŸ¥æ‰¾æ›¿æ¢ */
 	public static final short iFILE_REPLACE = MENU_SPL + 341;
 
-	/** ÊôĞÔÃû */
+	/** å±æ€§å */
 	public static final String TITLE_NAME = IdeSplMessage.get().getMessage(
 			"jtablevalue.name");
-	/** ÊôĞÔÖµ */
+	/** å±æ€§å€¼ */
 	public static final String TITLE_PROP = IdeSplMessage.get().getMessage(
 			"jtablevalue.property");
-	/** Êı¾İÔ´Ãû³Æ */
+	/** æ•°æ®æºåç§° */
 	public static final String DB_NAME = IdeSplMessage.get().getMessage(
 			"jtablevalue.dbname");
-	/** ÓÃ»§Ãû */
+	/** ç”¨æˆ·å */
 	public static final String USER = IdeSplMessage.get().getMessage(
 			"jtablevalue.user");
-	/** ÃÜÂë */
+	/** å¯†ç  */
 	public static final String PASSWORD = IdeSplMessage.get().getMessage(
 			"jtablevalue.password");
-	/** Êı¾İ¿âÀàĞÍ */
+	/** æ•°æ®åº“ç±»å‹ */
 	public static final String DB_TYPE = IdeSplMessage.get().getMessage(
 			"jtablevalue.dbtype");
-	/** Çı¶¯³ÌĞò */
+	/** é©±åŠ¨ç¨‹åº */
 	public static final String DRIVER = IdeSplMessage.get().getMessage(
 			"jtablevalue.driver");
-	/** Êı¾İÔ´URL */
+	/** æ•°æ®æºURL */
 	public static final String URL = IdeSplMessage.get().getMessage(
 			"jtablevalue.url");
-	/** ¶ÔÏóÃû´øÄ£Ê½ */
+	/** å¯¹è±¡åå¸¦æ¨¡å¼ */
 	public static final String USE_SCHEMA = IdeSplMessage.get().getMessage(
 			"jtablevalue.useschema");
-	/** ¶ÔÏóÃû´øÏŞ¶¨·û */
+	/** å¯¹è±¡åå¸¦é™å®šç¬¦ */
 	public static final String ADD_TILDE = IdeSplMessage.get().getMessage(
 			"jtablevalue.addtilde");
 

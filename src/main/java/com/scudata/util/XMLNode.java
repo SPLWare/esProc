@@ -9,17 +9,17 @@ import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 
 /**
- * XML¸ñÊ½´®µÄ½Úµã
+ * XMLæ ¼å¼ä¸²çš„èŠ‚ç‚¹
  * @author RunQian
  *
  */
 class XMLNode {
-	private String name; // Ãû³Æ
-	private XMLNode parent; // ¸¸½Úµã
-	private boolean bopt; // ÊÇ·ñÓĞbÑ¡Ïî
+	private String name; // åç§°
+	private XMLNode parent; // çˆ¶èŠ‚ç‚¹
+	private boolean bopt; // æ˜¯å¦æœ‰bé€‰é¡¹
 	
-	private ArrayList<XMLNode> subList; // ×Ó½ÚµãÁĞ±í
-	private String characters; // ½ÚµãÖµ×Ö·û´®
+	private ArrayList<XMLNode> subList; // å­èŠ‚ç‚¹åˆ—è¡¨
+	private String characters; // èŠ‚ç‚¹å€¼å­—ç¬¦ä¸²
 	private String []attrNames;
 	private String []attrValues;
 	

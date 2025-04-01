@@ -7,7 +7,7 @@ import com.scudata.expression.FileFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ´ÓÊôĞÔÎÄ¼şÖĞÈ¡³öÖ¸¶¨ÊôĞÔ·µ»Ø£¬Ê¡ÂÔÔò·µ»ØËùÓĞÊôĞÔĞÎ³ÉĞò±í
+ * ä»å±æ€§æ–‡ä»¶ä¸­å–å‡ºæŒ‡å®šå±æ€§è¿”å›ï¼Œçœç•¥åˆ™è¿”å›æ‰€æœ‰å±æ€§å½¢æˆåºè¡¨
  * f.property(p)
  * @author RunQian
  *

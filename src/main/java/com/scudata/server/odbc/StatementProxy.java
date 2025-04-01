@@ -19,7 +19,7 @@ import com.scudata.server.IProxy;
 import com.scudata.util.DatabaseUtil;
 
 /**
- * Statement´úÀíÆ÷
+ * Statementä»£ç†å™¨
  * 
  * @author Joancy
  *
@@ -32,11 +32,11 @@ public class StatementProxy extends IProxy {
 	Task task = null;
 	transient Context context;
 	/**
-	 * ´´½¨Statement´úÀíÆ÷
-	 * @param cp Á¬½Ó´úÀí
-	 * @param id ´úÀí±àºÅ
-	 * @param cmd ²éÑ¯ÃüÁî
-	 * @param params ²ÎÊıÊı×é
+	 * åˆ›å»ºStatementä»£ç†å™¨
+	 * @param cp è¿æ¥ä»£ç†
+	 * @param id ä»£ç†ç¼–å·
+	 * @param cmd æŸ¥è¯¢å‘½ä»¤
+	 * @param params å‚æ•°æ•°ç»„
 	 * @throws Exception
 	 */
 	public StatementProxy(ConnectionProxy cp, int id, String cmd,
@@ -52,22 +52,22 @@ public class StatementProxy extends IProxy {
 			standardizeDfx();
 			String spaceId = UUID.randomUUID().toString();
 			task = new Task(dfx, args, id, spaceId);
-		} else {//·ñÔò±í´ïÊ½
+		} else {//å¦åˆ™è¡¨è¾¾å¼
 		}
 		access();
 	}
 
 	/**
-	 * »ñÈ¡Á¬½Ó´úÀíÆ÷
-	 * @return Á¬½Ó´úÀíÆ÷
+	 * è·å–è¿æ¥ä»£ç†å™¨
+	 * @return è¿æ¥ä»£ç†å™¨
 	 */
 	public ConnectionProxy getConnectionProxy() {
 		return (ConnectionProxy) getParent();
 	}
 
 	/**
-	 * »ñÈ¡ÃüÁî,¿ÉÄÜÊÇcall dfx: {call("a",2,?)}
-	 * @return ÒªÖ´ĞĞµÄ²éÑ¯ÃüÁî
+	 * è·å–å‘½ä»¤,å¯èƒ½æ˜¯call dfx: {call("a",2,?)}
+	 * @return è¦æ‰§è¡Œçš„æŸ¥è¯¢å‘½ä»¤
 	 */
 	public String getCmd() {
 		return cmd;
@@ -101,7 +101,7 @@ public class StatementProxy extends IProxy {
 	}
 
 	
-//¼æÈİµ¥£¬Ë«ÒıºÅ
+//å…¼å®¹å•ï¼ŒåŒå¼•å·
 	private static String adjustQuote(String args){
 		ArgumentTokenizer at1 = new ArgumentTokenizer( args );
 		StringBuffer buf = new StringBuffer();
@@ -140,17 +140,17 @@ public class StatementProxy extends IProxy {
 	}
 
 	/**
-	 * È¡²ÎÊıÖµ
-	 * @return ²ÎÊıÁĞ±í
+	 * å–å‚æ•°å€¼
+	 * @return å‚æ•°åˆ—è¡¨
 	 */
 	public List<String> getParams() {
 		return params;
 	}
 
 	/**
-	 * »ñÈ¡½á¹û¼¯´úÀí
-	 * @param id ´úÀí±àºÅ
-	 * @return ½á¹û¼¯´úÀíÆ÷
+	 * è·å–ç»“æœé›†ä»£ç†
+	 * @param id ä»£ç†ç¼–å·
+	 * @return ç»“æœé›†ä»£ç†å™¨
 	 * @throws Exception
 	 */
 	public ResultSetProxy getResultSetProxy(int id) throws Exception{
@@ -163,8 +163,8 @@ public class StatementProxy extends IProxy {
 	}
 
 	/**
-	 * Ö´ĞĞµ±Ç°ÃüÁî
-	 * @return ½á¹û¼¯µÄ´úÀíºÅÊı×é
+	 * æ‰§è¡Œå½“å‰å‘½ä»¤
+	 * @return ç»“æœé›†çš„ä»£ç†å·æ•°ç»„
 	 * @throws Exception
 	 */
 	public int[] execute() throws Exception {
@@ -207,7 +207,7 @@ public class StatementProxy extends IProxy {
 				resultIds[0] = resultId;
 				ResultSetProxy rsp = new ResultSetProxy(this, resultId, cursor);
 				addProxy(rsp);
-//				²»ÄÜÁ¢¿Ì¹Ø±ÕÁ¬½Ó£¬ÓÎ±ê»¹Ã»È¡Êı
+//				ä¸èƒ½ç«‹åˆ»å…³é—­è¿æ¥ï¼Œæ¸¸æ ‡è¿˜æ²¡å–æ•°
 //			}finally{
 //				DatabaseUtil.closeAutoDBs(context);
 //			}
@@ -216,9 +216,9 @@ public class StatementProxy extends IProxy {
 	}
 
 	/**
-	 * È¡Ïûµ±Ç°ÈÎÎñ
-	 * ÈôdfxÔËĞĞÖĞÔòdfx.interrupt()£¬·ñÔòÉ¶Ò²²»¸É
-	 * @return È¡Ïû³É¹¦£¬·µ»Øtrue
+	 * å–æ¶ˆå½“å‰ä»»åŠ¡
+	 * è‹¥dfxè¿è¡Œä¸­åˆ™dfx.interrupt()ï¼Œå¦åˆ™å•¥ä¹Ÿä¸å¹²
+	 * @return å–æ¶ˆæˆåŠŸï¼Œè¿”å›true
 	 * @throws Exception
 	 */
 	public boolean cancel() throws Exception {
@@ -230,32 +230,32 @@ public class StatementProxy extends IProxy {
 	}
 
 	/**
-	 * È¡¿ªÊ¼¼ÆËãÊ±¼ä£¬Î´¿ªÊ¼»òÓĞĞ§±»ÖĞ¶ÏÔò·µ»Ø-1
-	 * @return ¿ªÊ¼¼ÆËãµÄÊ±¼ä£¬ÕûÊı±íÊ¾
+	 * å–å¼€å§‹è®¡ç®—æ—¶é—´ï¼Œæœªå¼€å§‹æˆ–æœ‰æ•ˆè¢«ä¸­æ–­åˆ™è¿”å›-1
+	 * @return å¼€å§‹è®¡ç®—çš„æ—¶é—´ï¼Œæ•´æ•°è¡¨ç¤º
 	 */
 	public long getStartTime() {
 		return task.getCallTime();
 	}
 
 	/**
-	 * È¡¼ÆËã½áÊøÊ±¼ä£¬Î´Íê³É»òÓĞĞ§±»ÖĞ¶ÏÔò·µ»Ø-1
-	 * @return ½áÊøÊ±¼ä
+	 * å–è®¡ç®—ç»“æŸæ—¶é—´ï¼Œæœªå®Œæˆæˆ–æœ‰æ•ˆè¢«ä¸­æ–­åˆ™è¿”å›-1
+	 * @return ç»“æŸæ—¶é—´
 	 */
 	public long getEndTime() {
 		return task.getFinishTime();
 	}
 
-	// closeÊ±¹Ø±ÕËùÓĞResultSetProxy£¬²¢´ÓConnectionProxyÉ¾³ı×Ô¼º
+	// closeæ—¶å…³é—­æ‰€æœ‰ResultSetProxyï¼Œå¹¶ä»ConnectionProxyåˆ é™¤è‡ªå·±
 
 	/**
-	 * Éè½á¹û¼¯·µ»ØµÄ×î´óĞĞÊı
+	 * è®¾ç»“æœé›†è¿”å›çš„æœ€å¤§è¡Œæ•°
 	 * @param max
 	 */
 	public void setMaxRows(int max) {
 	}
 
 	/**
-	 * ÊÇ·ñÓĞÏÂÒ»¸ö½á¹û¼¯
+	 * æ˜¯å¦æœ‰ä¸‹ä¸€ä¸ªç»“æœé›†
 	 * @return false
 	 */
 	public boolean hasNextResultSet() {
@@ -263,10 +263,10 @@ public class StatementProxy extends IProxy {
 	}
 
 	/**
-	 * ÏÂÒ»½á¹û¼¯£¬dfx»òdql·µ»ØµÄ·ÇICursorĞèÒª·â×°³ÉICursor
-	 * µ¥¸öÆÕÍ¨¶ÔÏóÏÈ·â×°³ÉĞòÁĞ
-	 * µ¥¸öĞòÁĞ·â×°³ÉMemoryCursor
-	 * ÏòÇ°Ì¨·¢ËÍÊ±ÈôÊÇÆÕÍ¨ĞòÁĞ¹¹³ÉµÄÓÎ±êÔò·µ»ØÁĞÃûÎª_1µÄ½á¹û¼¯
+	 * ä¸‹ä¸€ç»“æœé›†ï¼Œdfxæˆ–dqlè¿”å›çš„éICursoréœ€è¦å°è£…æˆICursor
+	 * å•ä¸ªæ™®é€šå¯¹è±¡å…ˆå°è£…æˆåºåˆ—
+	 * å•ä¸ªåºåˆ—å°è£…æˆMemoryCursor
+	 * å‘å‰å°å‘é€æ—¶è‹¥æ˜¯æ™®é€šåºåˆ—æ„æˆçš„æ¸¸æ ‡åˆ™è¿”å›åˆ—åä¸º_1çš„ç»“æœé›†
 	 * @return null
 	 */
 	public ICursor nextResultSet() {
@@ -274,7 +274,7 @@ public class StatementProxy extends IProxy {
 	}
 
 	/**
-	 * ¹Ø±Õµ±Ç°´úÀí
+	 * å…³é—­å½“å‰ä»£ç†
 	 */
 	public void close() {
 		if(task!=null) {
@@ -286,7 +286,7 @@ public class StatementProxy extends IProxy {
 	}
 
 	/**
-	 * ÊµÏÖtoString·½·¨
+	 * å®ç°toStringæ–¹æ³•
 	 */
 	public String toString() {
 		return "Statement " + getId();

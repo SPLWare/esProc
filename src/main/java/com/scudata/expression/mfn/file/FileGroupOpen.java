@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.FileGroupFunction;
 
 /**
- * ´ò¿ª¸´×é±í
+ * æ‰“å¼€å¤ç»„è¡¨
  * fg.open()
  * @author RunQian
  *

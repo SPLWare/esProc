@@ -1,7 +1,7 @@
 package com.scudata.dm;
 
 /**
- * Á´±íÌõÄ¿
+ * é“¾è¡¨æ¡ç›®
  * @author WangXiaoJun
  *
  * @param <E>
@@ -11,17 +11,17 @@ public class LinkEntry<E> {
 	private LinkEntry<E> next;
 	
 	/**
-	 * ¹¹½¨Á´±íÌõÄ¿
-	 * @param element ÔªËØÖµ
+	 * æ„å»ºé“¾è¡¨æ¡ç›®
+	 * @param element å…ƒç´ å€¼
 	 */
 	public LinkEntry(E element) {
 		this.element = element;
 	}
 	
 	/**
-	 * ¹¹½¨Á´±íÌõÄ¿
-	 * @param element ÔªËØÖµ
-	 * @param next ÏÂÒ»¸öÁ´±íÌõÄ¿
+	 * æ„å»ºé“¾è¡¨æ¡ç›®
+	 * @param element å…ƒç´ å€¼
+	 * @param next ä¸‹ä¸€ä¸ªé“¾è¡¨æ¡ç›®
 	 */
 	public LinkEntry(E element, LinkEntry<E> next) {
 		this.element = element;
@@ -29,7 +29,7 @@ public class LinkEntry<E> {
 	}
 	
 	/**
-	 * È¡ÔªËØÖµ
+	 * å–å…ƒç´ å€¼
 	 * @return
 	 */
 	public E getElement() {
@@ -37,7 +37,7 @@ public class LinkEntry<E> {
 	}
 	
 	/**
-	 * È¡ÏÂÒ»¸öÌõÄ¿
+	 * å–ä¸‹ä¸€ä¸ªæ¡ç›®
 	 * @return
 	 */
 	public LinkEntry<E> getNext() {
@@ -45,7 +45,7 @@ public class LinkEntry<E> {
 	}
 	
 	/**
-	 * ÉèÖÃÏÂÒ»¸öÌõÄ¿
+	 * è®¾ç½®ä¸‹ä¸€ä¸ªæ¡ç›®
 	 * @param next
 	 */
 	public void setNext(LinkEntry<E> next) {

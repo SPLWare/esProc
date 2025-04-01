@@ -10,7 +10,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡ĞòÁĞ³ÉÔ±£¬Ô½½ç·µ»Ø¿Õ
+ * å–åºåˆ—æˆå‘˜ï¼Œè¶Šç•Œè¿”å›ç©º
  * A.m(i) A.m(p)
  * @author RunQian
  *
@@ -40,7 +40,7 @@ public class MGet extends SequenceFunction {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -121,7 +121,7 @@ public class MGet extends SequenceFunction {
 				pos0 = convert(srcLen, n, isRepeat);
 				if (pos0 == 0) {
 					if (n < 0) {
-						// ÆğÊ¼Î»ÖÃ×óÔ½½çÔò´Ó1¿ªÊ¼
+						// èµ·å§‹ä½ç½®å·¦è¶Šç•Œåˆ™ä»1å¼€å§‹
 						pos0 = 1;
 					} else {
 						return null;
@@ -144,7 +144,7 @@ public class MGet extends SequenceFunction {
 				pos1 = convert(srcLen, n, isRepeat);
 				if (pos1 == 0) {
 					if (n > srcLen) {
-						// ½áÊøÎ»ÖÃÓÒÔ½½çÔòÈ¡µ½½áÎ²
+						// ç»“æŸä½ç½®å³è¶Šç•Œåˆ™å–åˆ°ç»“å°¾
 						pos1 = srcLen;
 					} else {
 						return null;
@@ -238,7 +238,7 @@ public class MGet extends SequenceFunction {
 						pos0 = convert(srcLen, n, isRepeat);
 						if (pos0 == 0) {
 							if (n < 0) {
-								// ÆğÊ¼Î»ÖÃ×óÔ½½çÔò´Ó1¿ªÊ¼
+								// èµ·å§‹ä½ç½®å·¦è¶Šç•Œåˆ™ä»1å¼€å§‹
 								pos0 = 1;
 							} else {
 								continue;
@@ -262,7 +262,7 @@ public class MGet extends SequenceFunction {
 						pos1 = convert(srcLen, n, isRepeat);
 						if (pos1 == 0) {
 							if (n > srcLen) {
-								// ½áÊøÎ»ÖÃÓÒÔ½½çÔòÈ¡µ½½áÎ²
+								// ç»“æŸä½ç½®å³è¶Šç•Œåˆ™å–åˆ°ç»“å°¾
 								pos1 = srcLen;
 							} else {
 								continue;

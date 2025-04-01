@@ -10,7 +10,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 从游标中读取数据
+ * 浠庢父鏍囦腑璇诲彇鏁版嵁
  * cs.fetch(n) cs.fetch(;x)
  * @author RunQian
  *

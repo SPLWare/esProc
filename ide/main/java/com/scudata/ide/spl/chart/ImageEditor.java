@@ -10,20 +10,20 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * ²ÎÊıÃæ°å±à¼­Ê±£¬Ê¹ÓÃ¸ÃÍ¼Ïñ±à¼­Æ÷±íÊ¾²ÎÊıµÄÊÕ·Å×´Ì¬
+ * å‚æ•°é¢æ¿ç¼–è¾‘æ—¶ï¼Œä½¿ç”¨è¯¥å›¾åƒç¼–è¾‘å™¨è¡¨ç¤ºå‚æ•°çš„æ”¶æ”¾çŠ¶æ€
  * 
  * @author Joancy
  *
  */
 public class ImageEditor implements TableCellEditor {
 	/**
-	 * ¹¹½¨Ò»¸öÍ¼Ïñ±à¼­Æ÷
+	 * æ„å»ºä¸€ä¸ªå›¾åƒç¼–è¾‘å™¨
 	 */
 	public ImageEditor() {
 	}
 
 	/**
-	 * ÊµÏÖ±í¸ñ±à¼­µÄ³éÏó·½·¨
+	 * å®ç°è¡¨æ ¼ç¼–è¾‘çš„æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellEditorComponent( JTable table, Object value,
 												  boolean isSelected, int row,
@@ -69,13 +69,13 @@ public class ImageEditor implements TableCellEditor {
 	}
 
 	/**
-	 * È¡Ïû±à¼­£¬ÎŞÒâÒå
+	 * å–æ¶ˆç¼–è¾‘ï¼Œæ— æ„ä¹‰
 	 */
 	public void cancelCellEditing() {
 	}
 
 	/**
-	 * Í£Ö¹±à¼­
+	 * åœæ­¢ç¼–è¾‘
 	 * @return false
 	 */
 	public boolean stopCellEditing() {
@@ -83,14 +83,14 @@ public class ImageEditor implements TableCellEditor {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­Öµ£¬ÎŞÒâÒå
+	 * è·å–ç¼–è¾‘å€¼ï¼Œæ— æ„ä¹‰
 	 */
 	public Object getCellEditorValue() {
 		return "";
 	}
 
 	/**
-	 * ¸ñ×ÓÊÇ·ñ¿É±à¼­
+	 * æ ¼å­æ˜¯å¦å¯ç¼–è¾‘
 	 * @return false
 	 */
 	public boolean isCellEditable( EventObject anEvent ) {
@@ -98,7 +98,7 @@ public class ImageEditor implements TableCellEditor {
 	}
 
 	/**
-	 * Ñ¡ÖĞ¸ñ×Ó
+	 * é€‰ä¸­æ ¼å­
 	 * @return false
 	 */
 	public boolean shouldSelectCell( EventObject anEvent ) {
@@ -106,13 +106,13 @@ public class ImageEditor implements TableCellEditor {
 	}
 
 	/**
-	 * Ôö¼Ó±à¼­¼àÌıÆ÷
+	 * å¢åŠ ç¼–è¾‘ç›‘å¬å™¨
 	 */
 	public void addCellEditorListener( CellEditorListener l ) {
 	}
 
 	/**
-	 * É¾³ı±à¼­¼àÌıÆ÷
+	 * åˆ é™¤ç¼–è¾‘ç›‘å¬å™¨
 	 */
 	public void removeCellEditorListener( CellEditorListener l ) {
 	}

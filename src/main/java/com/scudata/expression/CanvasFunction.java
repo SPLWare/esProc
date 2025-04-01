@@ -3,12 +3,12 @@ package com.scudata.expression;
 import com.scudata.dm.Canvas;
 
 /**
- * Canvas.f() »­²¼³ÉÔ±º¯ÊıĞèÒª¼Ì³Ğ´ËÀà
+ * Canvas.f() ç”»å¸ƒæˆå‘˜å‡½æ•°éœ€è¦ç»§æ‰¿æ­¤ç±»
  * @author Joancy
  *
  */
 public abstract class CanvasFunction extends MemberFunction {
-	protected Canvas canvas; // »­²¼
+	protected Canvas canvas; // ç”»å¸ƒ
 	
 	public boolean isLeftTypeMatch(Object obj) {
 		return obj instanceof Canvas;
@@ -19,7 +19,7 @@ public abstract class CanvasFunction extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		canvas = null;

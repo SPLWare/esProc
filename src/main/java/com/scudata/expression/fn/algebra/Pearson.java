@@ -9,13 +9,13 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼ÆËãÆ¤¶ûÑ·ÏµÊıpearson(A,B)£¬BÊ¡ÂÔÊ±ÓÃto(A.len())£¬Ö§³Ö@rºÍ@aÑ¡Ïî
+ * è®¡ç®—çš®å°”é€Šç³»æ•°pearson(A,B)ï¼ŒBçœç•¥æ—¶ç”¨to(A.len())ï¼Œæ”¯æŒ@rå’Œ@aé€‰é¡¹
  * @author bd, 2021.1.19
  *
  */
 public class Pearson extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -25,7 +25,7 @@ public class Pearson extends Function {
 	}
 	
 	public Object calculate(Context ctx) {
-		//ÏÈÅĞ¶ÏÓĞÃ»ÓĞ·ÖºÅºóµÄ²ÎÊı
+		//å…ˆåˆ¤æ–­æœ‰æ²¡æœ‰åˆ†å·åçš„å‚æ•°
 		int setn = 0;
 		IParam param = this.param;
 		if (param.getType() == IParam.Semicolon) {
@@ -97,7 +97,7 @@ public class Pearson extends Function {
 				n = setn;
 			}
 			if (ifR2) {
-				//@rÑ¡Ïî
+				//@ré€‰é¡¹
 				v1 = Normalize.normalize(v1);
 				v2 = Normalize.normalize(v2);
 			}

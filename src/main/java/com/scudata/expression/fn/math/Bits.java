@@ -18,7 +18,7 @@ import com.scudata.util.Variant;
 
 
 /**
- * bits(xi,¡­) °Ñ¸ø¶¨µÄxi,...°´Êı×ÖÎ»Ë³Ğò×é³ÉÊı×Ö£¬Ä¬ÈÏ¸ßÎ»ÔÚÇ°
+ * bits(xi,â€¦) æŠŠç»™å®šçš„xi,...æŒ‰æ•°å­—ä½é¡ºåºç»„æˆæ•°å­—ï¼Œé»˜è®¤é«˜ä½åœ¨å‰
  * @author yanjing
  *
  */
@@ -26,7 +26,7 @@ public class Bits extends Function {
 	private final static char[] digits = { '0', '1', '2', '3', '4', 
 			'5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 	
-	// °Ñ´®×ª³ÉÊı×Ö£¬×Ö·û´®³¤¶ÈÎª1£¬ÇÒËù±íÊ¾µÄÊı²»ÄÜ³¬¹ı»ùÊı
+	// æŠŠä¸²è½¬æˆæ•°å­—ï¼Œå­—ç¬¦ä¸²é•¿åº¦ä¸º1ï¼Œä¸”æ‰€è¡¨ç¤ºçš„æ•°ä¸èƒ½è¶…è¿‡åŸºæ•°
 	private static int toNum(String s, int radix) {
 		if (s.length() != 1) {
 			MessageManager mm = EngineMessage.get();
@@ -51,7 +51,7 @@ public class Bits extends Function {
 		return n;
 	}
 	
-	// ·­×ª×Ö·û´®
+	// ç¿»è½¬å­—ç¬¦ä¸²
 	private static String reverse(String str) {
 		char []chars = str.toCharArray();
 		for (int i = 0, j = chars.length - 1; i < j; ++i, --j) {
@@ -63,7 +63,7 @@ public class Bits extends Function {
 		return new String(chars);
 	}
 	
-	// °ÑÊı×ª³É¸ø¶¨½øÖÆ¶ÔÓ¦µÄ´®£¬bigEnding±íÃû¸ßÎ»ÔÚºó
+	// æŠŠæ•°è½¬æˆç»™å®šè¿›åˆ¶å¯¹åº”çš„ä¸²ï¼ŒbigEndingè¡¨åé«˜ä½åœ¨å
 	private static String toString(Number num, int radix, boolean bigEnding) {
 		if (num instanceof BigDecimal) {
 			BigDecimal decimal = (BigDecimal)num;
@@ -370,7 +370,7 @@ public class Bits extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -380,7 +380,7 @@ public class Bits extends Function {
 	}
 	
 	public Object calculate(Context ctx) {
-		int radix = 2; // Ä¬ÈÏ2½øÖÆ
+		int radix = 2; // é»˜è®¤2è¿›åˆ¶
 		boolean isBool = false, returnString = false, returnDecimal = false, bigEnding = false;
 		if (option != null) {
 			if (option.indexOf('1') != -1) {
@@ -464,7 +464,7 @@ public class Bits extends Function {
 		}
 	}
 	
-	// È¡ÊıµÄ¶ş½øÖÆÎ»ÊÇ1µÄ¸öÊı
+	// å–æ•°çš„äºŒè¿›åˆ¶ä½æ˜¯1çš„ä¸ªæ•°
 	private static int bitCount(Object obj) {
 		if (obj instanceof Long) {
 			return Long.bitCount((Long)obj);
@@ -480,7 +480,7 @@ public class Bits extends Function {
 		}
 	}
 	
-	// È¡ÊıµÄ¶ş½øÖÆÎ»ÊÇ1µÄ¸öÊı
+	// å–æ•°çš„äºŒè¿›åˆ¶ä½æ˜¯1çš„ä¸ªæ•°
 	private static int bitCount(IParam param, Context ctx) {
 		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
@@ -505,8 +505,8 @@ public class Bits extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -546,10 +546,10 @@ public class Bits extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

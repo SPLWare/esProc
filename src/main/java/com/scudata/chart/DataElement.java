@@ -14,43 +14,43 @@ import com.scudata.common.RQException;
 import com.scudata.dm.*;
 
 /**
- * Êı¾İÍ¼Ôª³éÏóÀà
+ * æ•°æ®å›¾å…ƒæŠ½è±¡ç±»
  * @author Joancy
  *
  */
 public abstract class DataElement extends LinkElement {
-	// Ê¹ÓÃµÄ×ø±êÖá1
+	// ä½¿ç”¨çš„åæ ‡è½´1
 	public String axis1 = null;
 
-	// Ê¹ÓÃµÄ×ø±êÖá2
+	// ä½¿ç”¨çš„åæ ‡è½´2
 	public String axis2 = null;
 
-	// Ê¹ÓÃµÄÊ±¼äÖá
+	// ä½¿ç”¨çš„æ—¶é—´è½´
 	public String axisTime = null;
 
 	
-	// Öá1µÄÂß¼­×ø±ê£¬¸ñÊ½[v1,v2,...,vn]»òv, Ã»ÓĞÓ³ÉäÂß¼­ÖáÊ±£¬ data1ÎªÎïÀíµÄx×ø±ê
+	// è½´1çš„é€»è¾‘åæ ‡ï¼Œæ ¼å¼[v1,v2,...,vn]æˆ–v, æ²¡æœ‰æ˜ å°„é€»è¾‘è½´æ—¶ï¼Œ data1ä¸ºç‰©ç†çš„xåæ ‡
 	public Sequence data1 = null;
 
-	// Öá2µÄÂß¼­×ø±ê£¬¸ñÊ½[w1,w2,..,wn]»òw£¬ÎïÀíy×ø±ê
+	// è½´2çš„é€»è¾‘åæ ‡ï¼Œæ ¼å¼[w1,w2,..,wn]æˆ–wï¼Œç‰©ç†yåæ ‡
 	public Sequence data2 = null;
 
-	// Ê±¼äÖáµÄ×ø±ê£¬¸ñÊ½[t1,t2,..,tn],Èç¹ûÊ¹ÓÃÁËÊ±¼äÖá£¬ ÔòdataÖ»ÄÜÊÇĞòÁĞ
+	// æ—¶é—´è½´çš„åæ ‡ï¼Œæ ¼å¼[t1,t2,..,tn],å¦‚æœä½¿ç”¨äº†æ—¶é—´è½´ï¼Œ åˆ™dataåªèƒ½æ˜¯åºåˆ—
 	public Sequence dataTime = null;
 
 	public boolean visible = true;
 
 	/**
-	 * Í¼ÔªÊÇ·ñ¿É¼û
-	 * @return ¿É¼û·µ»Øtrue£¬·ñÔòfalse
+	 * å›¾å…ƒæ˜¯å¦å¯è§
+	 * @return å¯è§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isVisible() {
 		return visible;
 	}
 
-	//Í¼Ôª¿ÉÒÔÓÃÓÚ×éºÏ£¬×éºÏÖáÉÏµÄ·ÖÀàºÍÏµÁĞ£¬ÊÇËùÓĞÍ¼ÔªµÄºÏ²¢Öµ£»
-//	µ«ÊÇÍ¼Ôª×ÔÉíµÄ»æÖÆ²»ÄÜÊ¹ÓÃºÏ²¢Öµ£¬µÃÓÃ¸÷×Ô×Ô¼ºµÄ·ÖÀàºÍÏµÁĞÖµ
-	// µ±²»Í¬Í¼ÔªµÄ·ÖÀàºÍÏµÁĞ²»Ò»ÖÂÊ±£¬ÓÃºÏ²¢Öµµ¼ÖÂÈ±ÉÙÏµÁĞµÄÍ¼Ôª»­²»³ö
+	//å›¾å…ƒå¯ä»¥ç”¨äºç»„åˆï¼Œç»„åˆè½´ä¸Šçš„åˆ†ç±»å’Œç³»åˆ—ï¼Œæ˜¯æ‰€æœ‰å›¾å…ƒçš„åˆå¹¶å€¼ï¼›
+//	ä½†æ˜¯å›¾å…ƒè‡ªèº«çš„ç»˜åˆ¶ä¸èƒ½ä½¿ç”¨åˆå¹¶å€¼ï¼Œå¾—ç”¨å„è‡ªè‡ªå·±çš„åˆ†ç±»å’Œç³»åˆ—å€¼
+	// å½“ä¸åŒå›¾å…ƒçš„åˆ†ç±»å’Œç³»åˆ—ä¸ä¸€è‡´æ—¶ï¼Œç”¨åˆå¹¶å€¼å¯¼è‡´ç¼ºå°‘ç³»åˆ—çš„å›¾å…ƒç”»ä¸å‡º
 	public transient Sequence categories = null;
 	public transient Sequence series = null;
 
@@ -73,8 +73,8 @@ public abstract class DataElement extends LinkElement {
 	}
 
 	/**
-	 * »ñÈ¡Í¼ÔªËùÔÚµÄ×ø±êÏµ
-	 * @return ×ø±êÏµ½Ó¿Ú
+	 * è·å–å›¾å…ƒæ‰€åœ¨çš„åæ ‡ç³»
+	 * @return åæ ‡ç³»æ¥å£
 	 */
 	public ICoor getCoor() {
 		ArrayList<ICoor> coorList = e.getCoorList();
@@ -90,7 +90,7 @@ public abstract class DataElement extends LinkElement {
 	}
 
 	/**
-	 * ÓÃÓÚ¶¨ÒåÉú³É±à¼­Ãæ°åµÄ²ÎÊıÁĞ±í
+	 * ç”¨äºå®šä¹‰ç”Ÿæˆç¼–è¾‘é¢æ¿çš„å‚æ•°åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -110,24 +110,24 @@ public abstract class DataElement extends LinkElement {
 	}
 
 	/**
-	 * »ñÈ¡1ÖáµÄÃû³Æ
-	 * @return ÖáÃû×Ö
+	 * è·å–1è½´çš„åç§°
+	 * @return è½´åå­—
 	 */
 	public String getAxis1Name() {
 		return axis1;
 	}
 
 	/**
-	 * »ñÈ¡2ÖáµÄÃû³Æ
-	 * @return ÖáÃû×Ö
+	 * è·å–2è½´çš„åç§°
+	 * @return è½´åå­—
 	 */
 	public String getAxis2Name() {
 		return axis2;
 	}
 	
 	/**
-	 * »ñÈ¡Ê±¼äÖáÃû³Æ
-	 * @return Ê±¼äÖá
+	 * è·å–æ—¶é—´è½´åç§°
+	 * @return æ—¶é—´è½´
 	 */
 	public String getAxisTimeName() {
 		return axisTime;
@@ -155,9 +155,9 @@ public abstract class DataElement extends LinkElement {
 	}
 
 	/**
-	 * ×öÊı¾İ¼æÈİĞÔ£¬ÔÊĞíÓÃ´®À´±íÊ¾ÊıÖµ
+	 * åšæ•°æ®å…¼å®¹æ€§ï¼Œå…è®¸ç”¨ä¸²æ¥è¡¨ç¤ºæ•°å€¼
 	 * 
-	 * @param numericAxis ÊıÖµÖáÃû³Æ
+	 * @param numericAxis æ•°å€¼è½´åç§°
 	 */
 	public void parseNumericAxisData(String numericAxis) {
 		if (isPhysicalCoor()) {
@@ -175,9 +175,9 @@ public abstract class DataElement extends LinkElement {
 	}
 
 	/**
-	 *»ñÈ¡Êı¾İÖáÃû×Ö¶ÔÓ¦µÄÂß¼­Êı¾İĞòÁĞ 
-	 * @param axisName Êı¾İÖáÃû³Æ 
-	 * @return ¶ÔÓ¦µÄÂß¼­Êı¾İĞòÁĞ
+	 *è·å–æ•°æ®è½´åå­—å¯¹åº”çš„é€»è¾‘æ•°æ®åºåˆ— 
+	 * @param axisName æ•°æ®è½´åç§° 
+	 * @return å¯¹åº”çš„é€»è¾‘æ•°æ®åºåˆ—
 	 */
 	public Sequence getAxisData(String axisName) {
 		if (axisName.equals(axis1)) {
@@ -190,9 +190,9 @@ public abstract class DataElement extends LinkElement {
 	}
 
 	/**
-	 * ÉèÖÃÏàÓ¦ÖáµÄÂß¼­Êı¾İĞòÁĞ
-	 * @param axisName Êı¾İÖáÃû³Æ
-	 * @param data Âß¼­Êı¾İĞòÁĞ
+	 * è®¾ç½®ç›¸åº”è½´çš„é€»è¾‘æ•°æ®åºåˆ—
+	 * @param axisName æ•°æ®è½´åç§°
+	 * @param data é€»è¾‘æ•°æ®åºåˆ—
 	 */
 	public void setAxisData(String axisName, Sequence data) {
 		if (data == null)
@@ -207,9 +207,9 @@ public abstract class DataElement extends LinkElement {
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨ÖáµÄÁíÒ»ÖáµÄÂß¼­Êı¾İĞòÁĞ
-	 * @param axisName ÖáÃû³Æ
-	 * @return ×ø±êÏµÖĞÁíÒ»ÖáµÄÂß¼­Êı¾İĞòÁĞ
+	 * è·å–æŒ‡å®šè½´çš„å¦ä¸€è½´çš„é€»è¾‘æ•°æ®åºåˆ—
+	 * @param axisName è½´åç§°
+	 * @return åæ ‡ç³»ä¸­å¦ä¸€è½´çš„é€»è¾‘æ•°æ®åºåˆ—
 	 */
 	public Sequence getOppositeAxisData(String axisName) {
 		if (axisName.equals(axis1)) {
@@ -219,7 +219,7 @@ public abstract class DataElement extends LinkElement {
 	}
 
 	/**
-	 * ×¼±¸»æÍ¼Ç°µÄÊı¾İ¼ì²éµÈ×¼±¸¹¤×÷
+	 * å‡†å¤‡ç»˜å›¾å‰çš„æ•°æ®æ£€æŸ¥ç­‰å‡†å¤‡å·¥ä½œ
 	 */
 	public void beforeDraw() {
 		if (isPhysicalCoor()) {
@@ -238,7 +238,7 @@ public abstract class DataElement extends LinkElement {
 	}
 
 	/**
-	 * ·µ»ØÊı¾İÍ¼ÔªÊÇ·ñÓÃµ½ÁË½¥±äÉ«£¬Êı¾İÍ¼ÔªËùÔÚµÄÖá¸ù¾İÊÇ·ñÓĞ½¥±äÉ«£¬¶ÔÖáµÄ²¿·Ö×ÅÉ«×Ô¶¯½¥±äÅäÉ« Öá±¾Éí²»ÉèÖÃ½¥±äÑÕÉ«
+	 * è¿”å›æ•°æ®å›¾å…ƒæ˜¯å¦ç”¨åˆ°äº†æ¸å˜è‰²ï¼Œæ•°æ®å›¾å…ƒæ‰€åœ¨çš„è½´æ ¹æ®æ˜¯å¦æœ‰æ¸å˜è‰²ï¼Œå¯¹è½´çš„éƒ¨åˆ†ç€è‰²è‡ªåŠ¨æ¸å˜é…è‰² è½´æœ¬èº«ä¸è®¾ç½®æ¸å˜é¢œè‰²
 	 * @return
 	 */
 	public abstract boolean hasGradientColor();
@@ -246,34 +246,34 @@ public abstract class DataElement extends LinkElement {
 	protected transient Engine e;
 
 /**
- * ÉèÖÃ»æÍ¼ÒıÇæ
+ * è®¾ç½®ç»˜å›¾å¼•æ“
  */
 	public void setEngine(Engine e) {
 		this.e = e;
 	}
 
 	/**
-	 * »ñÈ¡»æÍ¼ÒıÇæ
-	 * @return »æÍ¼ÒıÇæ
+	 * è·å–ç»˜å›¾å¼•æ“
+	 * @return ç»˜å›¾å¼•æ“
 	 */
 	public Engine getEngine() {
 		return e;
 	}
 
 	/**
-	 * µ±Ç°Í¼ÔªÊÇ·ñÎªÎïÀí×ø±êÏµ
+	 * å½“å‰å›¾å…ƒæ˜¯å¦ä¸ºç‰©ç†åæ ‡ç³»
 	 * 
-	 * @return ÎïÀí×ø±êÏµÊ±·µ»Øtrue£¬Âß¼­×ø±êÏµÊ±·µ»Øfalse
+	 * @return ç‰©ç†åæ ‡ç³»æ—¶è¿”å›trueï¼Œé€»è¾‘åæ ‡ç³»æ—¶è¿”å›false
 	 */
 	public boolean isPhysicalCoor() {
 		return axis1 == null && axis2 == null;
 	}
 
 	/**
-	 * Êı¾İÍ¼ÔªµÄ×¼±¸¹¤×÷Ö÷ÒªÊÇ¼ì²éÊôĞÔµÄºÏ·¨ĞÔ£¬ Para²ÎÊıµÄÒıÇæ»·¾³ÉèÖÃ
+	 * æ•°æ®å›¾å…ƒçš„å‡†å¤‡å·¥ä½œä¸»è¦æ˜¯æ£€æŸ¥å±æ€§çš„åˆæ³•æ€§ï¼Œ Paraå‚æ•°çš„å¼•æ“ç¯å¢ƒè®¾ç½®
 	 */
 	public void prepare() {
-		// ÓÉÓÚÊı¾İÍ¼Ôª±¾ÉíÃ»ÓĞÖ§³ÖParaµÄ¶ÔÏó£¬¹ÊÖ»ĞèÏÂÊöµ÷ÓÃÒ»´Î£¬¼´¿ÉÍê³ÉËùÓĞ×ÓÀàµÄParaÀàĞÍÊôĞÔµÄÒıÇæÉèÖÃ
+		// ç”±äºæ•°æ®å›¾å…ƒæœ¬èº«æ²¡æœ‰æ”¯æŒParaçš„å¯¹è±¡ï¼Œæ•…åªéœ€ä¸‹è¿°è°ƒç”¨ä¸€æ¬¡ï¼Œå³å¯å®Œæˆæ‰€æœ‰å­ç±»çš„Paraç±»å‹å±æ€§çš„å¼•æ“è®¾ç½®
 		Utils.setParamsEngine(this);
 		String msg = null;
 
@@ -306,7 +306,7 @@ public abstract class DataElement extends LinkElement {
 		if (msg != null) {
 			throw new RuntimeException(msg);
 		}
-		// ÎïÀí×ø±êÏµÊ±£¬ºóĞø¼ì²éÃ»±ØÒª
+		// ç‰©ç†åæ ‡ç³»æ—¶ï¼Œåç»­æ£€æŸ¥æ²¡å¿…è¦
 		if (isPhysicalCoor()) {
 			return;
 		}
@@ -324,12 +324,12 @@ public abstract class DataElement extends LinkElement {
 		if (enumData != null) {
 			categories = EnumAxis.extractCatNames(enumData);
 			series = EnumAxis.extractSerNames(enumData);
-			// Èç¹ûÓĞÃ¶¾ÙÖá£¬Ôò×ÜÊÇ½«Ã¶¾ÙÖáÖÃÎªaxis1£¬
-			// ºóĞøµÄ»æÍ¼´úÂë¶¼»ùÓÚaxis1À´»æÖÆ£¬¸Ä¶¯Ì«Âé·³£¬ÔÚÕâÀï£¬½«axis1ºÍaxis2¶Ôµ÷¼´¿É
+			// å¦‚æœæœ‰æšä¸¾è½´ï¼Œåˆ™æ€»æ˜¯å°†æšä¸¾è½´ç½®ä¸ºaxis1ï¼Œ
+			// åç»­çš„ç»˜å›¾ä»£ç éƒ½åŸºäºaxis1æ¥ç»˜åˆ¶ï¼Œæ”¹åŠ¨å¤ªéº»çƒ¦ï¼Œåœ¨è¿™é‡Œï¼Œå°†axis1å’Œaxis2å¯¹è°ƒå³å¯
 			if (enumData == data2) {
 				ICoor ic = getCoor();
-				//Èç¹ûÓÃµ½ÏàÍ¬µÄ×ø±êÏµ£¬ÔòÇ°ÃæÍ¼Ôªµ÷ÕûÖáºó£¬»áµ¼ÖÂºóÃæµÄÍ¼Ôª£¬ÕÒ²»µ½×ø±êÏµ£¬
-//				´ËÊ±Ö»ĞèºöÂÔ×ø±êÏµµÄµ÷Õû£¬Ö±½Óµ÷Õûºó·½µÄdata¼´¿É
+				//å¦‚æœç”¨åˆ°ç›¸åŒçš„åæ ‡ç³»ï¼Œåˆ™å‰é¢å›¾å…ƒè°ƒæ•´è½´åï¼Œä¼šå¯¼è‡´åé¢çš„å›¾å…ƒï¼Œæ‰¾ä¸åˆ°åæ ‡ç³»ï¼Œ
+//				æ­¤æ—¶åªéœ€å¿½ç•¥åæ ‡ç³»çš„è°ƒæ•´ï¼Œç›´æ¥è°ƒæ•´åæ–¹çš„dataå³å¯
 				if(ic!=null) {
 					ta = ic.getAxis2();
 					ic.setAxis2(ic.getAxis1());
@@ -344,7 +344,7 @@ public abstract class DataElement extends LinkElement {
 				axis1 = tmp;
 			}
 		}
-		// ¼ì²éÖá¸ú¶ÔÓ¦Êı¾İÊÇ·ñÆ¥Åä
+		// æ£€æŸ¥è½´è·Ÿå¯¹åº”æ•°æ®æ˜¯å¦åŒ¹é…
 		ICoor ic = getCoor();
 		ic.getAxis1().checkDataMatch(data1);
 		ic.getAxis2().checkDataMatch(data2);
@@ -390,7 +390,7 @@ public abstract class DataElement extends LinkElement {
 		return p;
 	}
 	/**
-	 * ²ÉÓÃÏßĞÔ²åÖµËã·¨
+	 * é‡‡ç”¨çº¿æ€§æ’å€¼ç®—æ³•
 	 * @param frameTime
 	 * @return
 	 */
@@ -419,7 +419,7 @@ public abstract class DataElement extends LinkElement {
 		double x,y;
 		TickAxis ta1=null,ta2=null;
 		if( isPhysicalCoor() ){
-//			ÎïÀí×ø±êÏµÊ±£¬Ö±½ÓÊ¹ÓÃÂß¼­ÏñËØ×ø±ê
+//			ç‰©ç†åæ ‡ç³»æ—¶ï¼Œç›´æ¥ä½¿ç”¨é€»è¾‘åƒç´ åæ ‡
 			x = ((Number)data1.get(index1)).doubleValue();
 			y = ((Number)data2.get(index1)).doubleValue();
 			p1.setLocation(x, y);
@@ -427,7 +427,7 @@ public abstract class DataElement extends LinkElement {
 			y = ((Number)data2.get(index2)).doubleValue();
 			p2.setLocation(x, y);
 		}else{
-//			ÔİÊ±²»Ö§³Ö¼«×ø±êÏµ
+//			æš‚æ—¶ä¸æ”¯æŒæåæ ‡ç³»
 			ta1 = e.getAxisByName(axis1);
 			ta2 = e.getAxisByName(axis2);
 			Object val;
@@ -462,10 +462,10 @@ public abstract class DataElement extends LinkElement {
 		double time1 = ta.animateDoubleValue( dataTime.get(index1) );
 		double time2 = ta.animateDoubleValue( dataTime.get(index2) );
 		double timeLength = time2-time1;
-		double ratio = (frameTime-time1)/timeLength;//Ê±¼äµãÏà¶ÔÓÚµã1µÄÊ±¼ä³¤¶È±ÈÖµ
+		double ratio = (frameTime-time1)/timeLength;//æ—¶é—´ç‚¹ç›¸å¯¹äºç‚¹1çš„æ—¶é—´é•¿åº¦æ¯”å€¼
 		double xLength = p2.x - p1.x;
 
-		double cx,cy;//²åÖµÂß¼­×ø±ê
+		double cx,cy;//æ’å€¼é€»è¾‘åæ ‡
 		cx = p1.x+ ratio*xLength;
 		cy = Utils.calcLineY(p1, p2, cx);
 
@@ -476,7 +476,7 @@ public abstract class DataElement extends LinkElement {
 				d1.add(data1.get(i));
 				d2.add(data2.get(i));
 			}
-//			²¹ÉÏ²åÖµµã
+//			è¡¥ä¸Šæ’å€¼ç‚¹
 			if(ta1!=null && ta1.getLocation()==Consts.AXIS_LOC_V){
 				d1.add(cy);
 				d2.add(cx);
@@ -485,12 +485,12 @@ public abstract class DataElement extends LinkElement {
 				d2.add(cy);
 			}
 		} else {
-			// Èç¹ûÊÇÏß£¬Ôò±£³ÖÊ±¼äµãÁ½¶ËµÄÊı¾İµã
+			// å¦‚æœæ˜¯çº¿ï¼Œåˆ™ä¿æŒæ—¶é—´ç‚¹ä¸¤ç«¯çš„æ•°æ®ç‚¹
 			if (this instanceof Line) {
 				d1.add(data1.get(index1));
 				d2.add(data2.get(index1));
 			}
-//				²¹ÉÏ²åÖµµã
+//				è¡¥ä¸Šæ’å€¼ç‚¹
 			if(ta1!=null && ta1.getLocation()==Consts.AXIS_LOC_V){
 				d1.add(cy);
 				d2.add(cx);
@@ -506,7 +506,7 @@ public abstract class DataElement extends LinkElement {
 
 	
 	/**
-	 * ¿ËÂ¡Êı¾İÍ¼Ôª
+	 * å…‹éš†æ•°æ®å›¾å…ƒ
 	 * @param de
 	 */
 	public void clone(DataElement de) {

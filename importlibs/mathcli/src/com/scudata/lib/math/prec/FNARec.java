@@ -9,26 +9,26 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 
 /**
- * Ìî²¹È±Ê§Öµ²ÎÊı¼ÇÂ¼
+ * å¡«è¡¥ç¼ºå¤±å€¼å‚æ•°è®°å½•
  * @author bd
  *
  */
 public class FNARec implements Externalizable {
 	private static final long serialVersionUID = -8581578093941419454L;
-	//ÓÃÀ´Ìî²¹¿ÕÖµ
+	//ç”¨æ¥å¡«è¡¥ç©ºå€¼
 	Object missing = null;
-	//ÓÃÀ´Ìî²¹µÍÆµÖµ
+	//ç”¨æ¥å¡«è¡¥ä½é¢‘å€¼
 	Object setting = null;
-	//±»±£ÁôµÄ·ÖÀàÖµ
+	//è¢«ä¿ç•™çš„åˆ†ç±»å€¼
 	Sequence keepValues = new Sequence();
-	//±»ºÏ²¢ÏûÊ§µÄµÍÆµ·ÖÀàÖµ
+	//è¢«åˆå¹¶æ¶ˆå¤±çš„ä½é¢‘åˆ†ç±»å€¼
 	Sequence otherValues = new Sequence();
 	
 	public FNARec() {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÀ´Ìî²¹¿ÕÖµµÄÊı¾İ
+	 * è·å–ç”¨æ¥å¡«è¡¥ç©ºå€¼çš„æ•°æ®
 	 * @return the missing
 	 */
 	public Object getMissing() {
@@ -36,7 +36,7 @@ public class FNARec implements Externalizable {
 	}
 	
 	/**
-	 * ÉèÖÃÓÃÀ´Ìî²¹¿ÕÖµµÄÊı¾İ
+	 * è®¾ç½®ç”¨æ¥å¡«è¡¥ç©ºå€¼çš„æ•°æ®
 	 * @param missing the missing to set
 	 */
 	public void setMissing(Object missing) {
@@ -44,7 +44,7 @@ public class FNARec implements Externalizable {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÀ´Ìî²¹µÍÆµ·ÖÀàµÄÊı¾İ
+	 * è·å–ç”¨æ¥å¡«è¡¥ä½é¢‘åˆ†ç±»çš„æ•°æ®
 	 * @return the setting
 	 */
 	public Object getSetting() {
@@ -52,7 +52,7 @@ public class FNARec implements Externalizable {
 	}
 	
 	/**
-	 * ÉèÖÃÓÃÀ´Ìî²¹µÍÆµ·ÖÀàµÄÊı¾İ
+	 * è®¾ç½®ç”¨æ¥å¡«è¡¥ä½é¢‘åˆ†ç±»çš„æ•°æ®
 	 * @param setting the setting to set
 	 */
 	public void setSetting(Object setting) {
@@ -60,7 +60,7 @@ public class FNARec implements Externalizable {
 	}
 	
 	/**
-	 * »ñÈ¡±»±£ÁôµÄ¸ßÆµ·ÖÀàÖµ
+	 * è·å–è¢«ä¿ç•™çš„é«˜é¢‘åˆ†ç±»å€¼
 	 * @return the keepValues
 	 */
 	public Sequence getKeepValues() {
@@ -68,7 +68,7 @@ public class FNARec implements Externalizable {
 	}
 	
 	/**
-	 * ÉèÖÃ±»±£ÁôµÄ¸ßÆµ·ÖÀàÖµ
+	 * è®¾ç½®è¢«ä¿ç•™çš„é«˜é¢‘åˆ†ç±»å€¼
 	 * @param keepValues the keepValues to set
 	 */
 	public void setKeepValues(Sequence keepValues) {
@@ -76,7 +76,7 @@ public class FNARec implements Externalizable {
 	}
 	
 	/**
-	 * »ñÈ¡±»ºÏ²¢ÏûÊ§µÄµÍÆµ·ÖÀàÖµ
+	 * è·å–è¢«åˆå¹¶æ¶ˆå¤±çš„ä½é¢‘åˆ†ç±»å€¼
 	 * @return the otherValues
 	 */
 	public Sequence getOtherValues() {
@@ -84,7 +84,7 @@ public class FNARec implements Externalizable {
 	}
 	
 	/**
-	 * ÉèÖÃ±»ºÏ²¢ÏûÊ§µÄµÍÆµ·ÖÀàÖµ
+	 * è®¾ç½®è¢«åˆå¹¶æ¶ˆå¤±çš„ä½é¢‘åˆ†ç±»å€¼
 	 * @param otherValues the otherValues to set
 	 */
 	public void setOtherValues(Sequence otherValues) {
@@ -93,7 +93,7 @@ public class FNARec implements Externalizable {
 
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉĞòÁĞ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -116,7 +116,7 @@ public class FNARec implements Externalizable {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾İSequence³õÊ¼»¯²ÎÊı
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public void init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -135,7 +135,7 @@ public class FNARec implements Externalizable {
 		}
 	}
 
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 1;
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte ver = in.readByte();

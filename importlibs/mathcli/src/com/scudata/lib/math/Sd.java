@@ -3,9 +3,9 @@ package com.scudata.lib.math;
 import com.scudata.dm.Sequence;
 
 /**
- * ±ê×¼²î
+ * æ ‡å‡†å·®
  * @author bd
- * Ô­ÐÍsdº¯Êý
+ * åŽŸåž‹sdå‡½æ•°
  */
 public class Sd {
 	public static double sd(Sequence ser) {

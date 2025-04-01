@@ -15,16 +15,16 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÇóĞòÁĞ³ÉÔ±»ò¶à¸ö²ÎÊıµÄ°´Î»»ò,·ÇÊıÖµ³ÉÔ±±»ºöÂÔ
+ * æ±‚åºåˆ—æˆå‘˜æˆ–å¤šä¸ªå‚æ•°çš„æŒ‰ä½æˆ–,éæ•°å€¼æˆå‘˜è¢«å¿½ç•¥
  * @author yanjing
  *
  */
 public class Or extends Function {
 	public static Object or(Object v1, Object v2) {
 		long longValue = 0;
-		BigInteger bi = null; // Èç¹ûº¬ÓĞBigIntegerÔò·µ»ØBigInteger
+		BigInteger bi = null; // å¦‚æœå«æœ‰BigIntegeråˆ™è¿”å›BigInteger
 		
-		// Èç¹ûÓĞ³ÉÔ±ÀàĞÍÊÇBigDecimal»òBigIntegerÔòÊ¹ÓÃBigIntegerÔËËã
+		// å¦‚æœæœ‰æˆå‘˜ç±»å‹æ˜¯BigDecimalæˆ–BigIntegeråˆ™ä½¿ç”¨BigIntegerè¿ç®—
 		if (v1 instanceof BigDecimal) {
 			bi = ((BigDecimal)v1).toBigInteger();
 		} else if (v1 instanceof BigInteger) {
@@ -70,7 +70,7 @@ public class Or extends Function {
 		}
 	}
 	
-	// ¼ÆËãĞòÁĞ³ÉÔ±°´Î»»ò
+	// è®¡ç®—åºåˆ—æˆå‘˜æŒ‰ä½æˆ–
 	private static Object or(Sequence seq) {
 		int size = seq.length();
 		if (size == 0) {
@@ -80,11 +80,11 @@ public class Or extends Function {
 		}
 		
 		Object obj = seq.getMem(1);
-		boolean returnInt = true; // ÊÇ·ñÈ«²¿¶¼ÊÇInteger£¬Èç¹ûÊÇÔò·µ»ØInteger£¬·ñÔò·µ»ØLong
+		boolean returnInt = true; // æ˜¯å¦å…¨éƒ¨éƒ½æ˜¯Integerï¼Œå¦‚æœæ˜¯åˆ™è¿”å›Integerï¼Œå¦åˆ™è¿”å›Long
 		long longValue = 0;
-		BigInteger bi = null; // Èç¹ûº¬ÓĞBigIntegerÔò·µ»ØBigInteger
+		BigInteger bi = null; // å¦‚æœå«æœ‰BigIntegeråˆ™è¿”å›BigInteger
 		
-		// Èç¹ûÓĞ³ÉÔ±ÀàĞÍÊÇBigDecimal»òBigIntegerÔòÊ¹ÓÃBigIntegerÔËËã
+		// å¦‚æœæœ‰æˆå‘˜ç±»å‹æ˜¯BigDecimalæˆ–BigIntegeråˆ™ä½¿ç”¨BigIntegerè¿ç®—
 		if (obj instanceof BigDecimal) {
 			bi = ((BigDecimal)obj).toBigInteger();
 		} else if (obj instanceof BigInteger) {
@@ -146,7 +146,7 @@ public class Or extends Function {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -172,11 +172,11 @@ public class Or extends Function {
 			}
 			
 			Object obj = sub.getLeafExpression().calculate(ctx);
-			boolean returnInt = true; // ÊÇ·ñÈ«²¿¶¼ÊÇInteger£¬Èç¹ûÊÇÔò·µ»ØInteger£¬·ñÔò·µ»ØLong
+			boolean returnInt = true; // æ˜¯å¦å…¨éƒ¨éƒ½æ˜¯Integerï¼Œå¦‚æœæ˜¯åˆ™è¿”å›Integerï¼Œå¦åˆ™è¿”å›Long
 			long longValue = 0;
-			BigInteger bi = null; // Èç¹ûº¬ÓĞBigIntegerÔò·µ»ØBigInteger
+			BigInteger bi = null; // å¦‚æœå«æœ‰BigIntegeråˆ™è¿”å›BigInteger
 			
-			// Èç¹ûÓĞ³ÉÔ±ÀàĞÍÊÇBigDecimal»òBigIntegerÔòÊ¹ÓÃBigIntegerÔËËã
+			// å¦‚æœæœ‰æˆå‘˜ç±»å‹æ˜¯BigDecimalæˆ–BigIntegeråˆ™ä½¿ç”¨BigIntegerè¿ç®—
 			if (obj instanceof BigDecimal) {
 				bi = ((BigDecimal)obj).toBigInteger();
 			} else if (obj instanceof BigInteger) {
@@ -245,8 +245,8 @@ public class Or extends Function {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -290,10 +290,10 @@ public class Or extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

@@ -13,19 +13,19 @@ import com.scudata.util.Variant;
 
 
 /**
- * ·µ»ØÒ»´ÎĞÔ¸¶Ï¢Ö¤È¯µÄÀûÂÊ
+ * è¿”å›ä¸€æ¬¡æ€§ä»˜æ¯è¯åˆ¸çš„åˆ©ç‡
  * @author yanjing
  * 
  * Fintrate(settlement,maturity;investment,redemption) 
  *   @e 30/360, 
- * 	 @1 Êµ¼ÊÌìÊı/ÄêÊµ¼ÊÌìÊı£¬
- * 	 @0 Êµ¼ÊÌìÊı/360£¬ 
- * 	 @5 Êµ¼ÊÌìÊı/365£¬
- * 	 È±Ê¡Îª30/360
- * @param settlement Ö¤È¯µÄ½áËãÈÕ
- * @param maturity  Ö¤È¯µÄµ½ÆÚÈÕ
- * @param Investment ÎªÓĞ¼ÛÖ¤È¯µÄÍ¶×Ê¶î
- * @param redemption  ÓĞ¼ÛÖ¤È¯µ½ÆÚÊ±µÄÇå³¥¼ÛÖµ
+ * 	 @1 å®é™…å¤©æ•°/å¹´å®é™…å¤©æ•°ï¼Œ
+ * 	 @0 å®é™…å¤©æ•°/360ï¼Œ 
+ * 	 @5 å®é™…å¤©æ•°/365ï¼Œ
+ * 	 ç¼ºçœä¸º30/360
+ * @param settlement è¯åˆ¸çš„ç»“ç®—æ—¥
+ * @param maturity  è¯åˆ¸çš„åˆ°æœŸæ—¥
+ * @param Investment ä¸ºæœ‰ä»·è¯åˆ¸çš„æŠ•èµ„é¢
+ * @param redemption  æœ‰ä»·è¯åˆ¸åˆ°æœŸæ—¶çš„æ¸…å¿ä»·å€¼
  * @return
  * 
  * 

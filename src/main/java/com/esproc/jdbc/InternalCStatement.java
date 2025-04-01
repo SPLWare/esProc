@@ -39,7 +39,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * call splxµÄ²ÎÊıÃû³ÆÁĞ±í
+	 * call splxçš„å‚æ•°åç§°åˆ—è¡¨
 	 */
 	private List<String> paramNames = null;
 
@@ -58,7 +58,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	}
 
 	/**
-	 * ¸ù¾İ²ÎÊıÃûÈ¡²ÎÊıĞòºÅ
+	 * æ ¹æ®å‚æ•°åå–å‚æ•°åºå·
 	 * 
 	 * @param parameterName
 	 * @return
@@ -68,7 +68,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 			throws SQLException {
 		if (!StringUtils.isValidString(parameterName)) {
 			throw new SQLException(JDBCMessage.get().getMessage(
-					"error.emptyparamname")); // ²ÎÊıÃû³Æ²»ÄÜÎª¿Õ¡£
+					"error.emptyparamname")); // å‚æ•°åç§°ä¸èƒ½ä¸ºç©ºã€‚
 		}
 		if (paramNames == null) {
 			if (StringUtils.isValidString(sql)) {
@@ -97,13 +97,13 @@ public abstract class InternalCStatement extends InternalPStatement implements
 		}
 		if (paramIndex < 0) {
 			throw new SQLException(JDBCMessage.get().getMessage(
-					"error.paramnamenotfound", parameterName)); // ²ÎÊıÃû³Æ{0}²»´æÔÚ¡£
+					"error.paramnamenotfound", parameterName)); // å‚æ•°åç§°{0}ä¸å­˜åœ¨ã€‚
 		}
 		return paramIndex + 1;
 	}
 
 	/**
-	 * ¶àĞĞ¶àÁĞ½Å±¾£¬¿ÉÄÜÊÇspl¸ñÊ½£¬ÓĞ²ÎÊı¶¨Òå
+	 * å¤šè¡Œå¤šåˆ—è„šæœ¬ï¼Œå¯èƒ½æ˜¯splæ ¼å¼ï¼Œæœ‰å‚æ•°å®šä¹‰
 	 * 
 	 * @param spl
 	 * @return
@@ -122,7 +122,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	}
 
 	/**
-	 * call»òcalls£¬´ÓsplxÎÄ¼şÖĞ¶ÁÈ¡²ÎÊıÃû
+	 * callæˆ–callsï¼Œä»splxæ–‡ä»¶ä¸­è¯»å–å‚æ•°å
 	 * 
 	 * @return
 	 * @throws Exception
@@ -131,7 +131,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 			InternalConnection connt, int queryTimeout) throws Exception {
 		String splName = JDBCUtil.getSplName(spl);
 		if (!StringUtils.isValidString(splName)) {
-			// SPLXÎÄ¼şÃû²»ÄÜÎª¿Õ¡£
+			// SPLXæ–‡ä»¶åä¸èƒ½ä¸ºç©ºã€‚
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.emptysplname"));
 		}
@@ -139,13 +139,13 @@ public abstract class InternalCStatement extends InternalPStatement implements
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		Table t;
-		if (connt.isOnlyServer()) { // È¥·şÎñÆ÷ÕÒ
+		if (connt.isOnlyServer()) { // å»æœåŠ¡å™¨æ‰¾
 			UnitClient uc = connt.getUnitClient(queryTimeout * 1000);
 			int connId = connt.getUnitConnectionId();
 			t = uc.JDBCGetSplParams(connId, splName, false);
 		} else {
 			t = JDBCUtil.getSplParams(splName);
-			if (t == null || t.length() == 0) { // ±¾µØÃ»ÕÒµ½£¬È¥·şÎñÆ÷ÕÒ
+			if (t == null || t.length() == 0) { // æœ¬åœ°æ²¡æ‰¾åˆ°ï¼Œå»æœåŠ¡å™¨æ‰¾
 				List<String> hosts = connt.getHostNames();
 				if (hosts != null && !hosts.isEmpty()) {
 					UnitClient uc = null;
@@ -162,7 +162,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 			}
 		}
 		if (t == null || t.length() == 0) {
-			// Î´ÕÒµ½ÎÄ¼ş£º{0}¡£
+			// æœªæ‰¾åˆ°æ–‡ä»¶ï¼š{0}ã€‚
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.splnotfound", splName));
 		}

@@ -9,7 +9,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 取使表达式返回值最大的记录
+ * 鍙栦娇琛ㄨ揪寮忚繑鍥炲�兼渶澶х殑璁板綍
  * A.maxp(x)
  * @author RunQian
  *

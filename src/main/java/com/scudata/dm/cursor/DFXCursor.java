@@ -4,25 +4,25 @@ import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.dm.*;
 
 /**
- * ÓÃÓÚÖ´ĞĞÍø¸ñ£¬·µ»ØÍø¸ñ·µ»ØÖµµÄÓÎ±ê
+ * ç”¨äºæ‰§è¡Œç½‘æ ¼ï¼Œè¿”å›ç½‘æ ¼è¿”å›å€¼çš„æ¸¸æ ‡
  * @author RunQian
  *
  */
 public class DFXCursor extends ICursor {
-	private PgmCellSet pcs;	// Íø¸ñ¶ÔÏó
+	private PgmCellSet pcs;	// ç½‘æ ¼å¯¹è±¡
 	
-	// Íø¸ñµÄ·µ»ØÖµ¿ÉÄÜÊÇÓÎ±êÒ²¿ÉÄÜÊÇĞòÁĞ£¬Íø¸ñ¿ÉÄÜÓĞ¶à¸ö·µ»ØÖµ£¬ĞèÒªÒ»²½²½Ö´ĞĞ
+	// ç½‘æ ¼çš„è¿”å›å€¼å¯èƒ½æ˜¯æ¸¸æ ‡ä¹Ÿå¯èƒ½æ˜¯åºåˆ—ï¼Œç½‘æ ¼å¯èƒ½æœ‰å¤šä¸ªè¿”å›å€¼ï¼Œéœ€è¦ä¸€æ­¥æ­¥æ‰§è¡Œ
 	private ICursor cursor;
 	private Sequence data;
 	
-	// ÊÇ·ñ´ÓÍø¸ñ¹ÜÀíÆ÷ÖĞ¶ÁÈ¡µÄÍø¸ñ»º´æ£¬Èç¹ûÊÇÔòÓÃÍêÍø¸ñĞèÒª°ÑÍø¸ñ»¹¸øÍø¸ñ¹ÜÀíÆ÷
+	// æ˜¯å¦ä»ç½‘æ ¼ç®¡ç†å™¨ä¸­è¯»å–çš„ç½‘æ ¼ç¼“å­˜ï¼Œå¦‚æœæ˜¯åˆ™ç”¨å®Œç½‘æ ¼éœ€è¦æŠŠç½‘æ ¼è¿˜ç»™ç½‘æ ¼ç®¡ç†å™¨
 	private boolean useCache; 
-	private boolean isCalc; // Íø¸ñÊÇ·ñÒÑÖ´ĞĞ
+	private boolean isCalc; // ç½‘æ ¼æ˜¯å¦å·²æ‰§è¡Œ
 
 	/**
-	 * ´´½¨Íø¸ñÓÎ±ê
-	 * @param pcs Íø¸ñ¶ÔÏó
-	 * @param ctx  ¼ÆËãÉÏÏÂÎÄ
+	 * åˆ›å»ºç½‘æ ¼æ¸¸æ ‡
+	 * @param pcs ç½‘æ ¼å¯¹è±¡
+	 * @param ctx  è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @param useCache
 	 */
 	public DFXCursor(PgmCellSet pcs, Context ctx, boolean useCache) {
@@ -30,7 +30,7 @@ public class DFXCursor extends ICursor {
 		this.ctx = ctx;
 		this.useCache = useCache;
 		
-		// 2024/4/8 Ê¹ÓÃµ±Ç°ÈÎÎñµÄJobSpace£¿
+		// 2024/4/8 ä½¿ç”¨å½“å‰ä»»åŠ¡çš„JobSpaceï¼Ÿ
 		//JobSpace js = new JobSpace("tmp");
 		//pcs.getContext().setJobSpace(js);
 		//if (ctx != null) {
@@ -39,8 +39,8 @@ public class DFXCursor extends ICursor {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -134,9 +134,9 @@ public class DFXCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (pcs == null || n < 1) return 0;
@@ -204,12 +204,12 @@ public class DFXCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
 		if (pcs != null) {
-			// 2024/4/8 Ê¹ÓÃµ±Ç°ÈÎÎñµÄJobSpace£¿
+			// 2024/4/8 ä½¿ç”¨å½“å‰ä»»åŠ¡çš„JobSpaceï¼Ÿ
 			//if (ctx != null) ctx.removeResource(this);
 			//pcs.getContext().getResourceManager().closeResource();
 			

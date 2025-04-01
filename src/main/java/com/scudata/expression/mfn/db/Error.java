@@ -5,7 +5,7 @@ import com.scudata.expression.DBFunction;
 
 // 
 /**
- * 取上一条数据库语句执行的错误代码，0表示无错
+ * 鍙栦笂涓�鏉℃暟鎹簱璇彞鎵ц鐨勯敊璇唬鐮侊紝0琛ㄧず鏃犻敊
  * db.error()
  * @author RunQian
  *

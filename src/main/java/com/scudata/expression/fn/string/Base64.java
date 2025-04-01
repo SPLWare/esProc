@@ -12,13 +12,13 @@ import com.scudata.resources.EngineMessage;
 
 /**
  * base64(x:cs,cs')
- * ÓÃcs×Ö·û¼¯È¡³öxÖĞµÄBLOB×ª³Ébase64´®£¬»ò½«base64´®x×ª³Écs¡¯×Ö·û¼¯µÄ´®£¬×Ö·û¼¯Ê¡ÂÔÊ±È±Ê¡°´BLOB´¦Àí
+ * ç”¨cså­—ç¬¦é›†å–å‡ºxä¸­çš„BLOBè½¬æˆbase64ä¸²ï¼Œæˆ–å°†base64ä¸²xè½¬æˆcsâ€™å­—ç¬¦é›†çš„ä¸²ï¼Œå­—ç¬¦é›†çœç•¥æ—¶ç¼ºçœæŒ‰BLOBå¤„ç†
  * @author runqian
  *
  */
 public class Base64 extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

@@ -10,8 +10,8 @@ import com.scudata.server.StartUnitListener;
 import java.text.*;
 
 /**
- * ·ÇÍ¼ĞÎ·şÎñÆ÷³éÏóÀà
- * ²»ÄÜµ÷ÓÃGMµÈideµÄÀà£¬ ·Ö»ú
+ * éå›¾å½¢æœåŠ¡å™¨æŠ½è±¡ç±»
+ * ä¸èƒ½è°ƒç”¨GMç­‰ideçš„ç±»ï¼Œ åˆ†æœº
  * 
  * @author Joancy
  *
@@ -25,29 +25,29 @@ public abstract class UnitServer implements IServer {
 
 	
 	/**
-	 * ÉèÖÃ»·¾³ÅäÖÃ
+	 * è®¾ç½®ç¯å¢ƒé…ç½®
 	 */
 	public abstract void setRaqsoftConfig(RaqsoftConfig rc);
 	/**
-	 * »ñÈ¡»·¾³²ÎÊıÅäÖÃ¶ÔÏó
+	 * è·å–ç¯å¢ƒå‚æ•°é…ç½®å¯¹è±¡
 	 */
 	public abstract RaqsoftConfig getRaqsoftConfig();
 	
 	/**
-	 * ÉèÖÃ·şÎñÆ÷×´Ì¬ÕìÌıÀà
+	 * è®¾ç½®æœåŠ¡å™¨çŠ¶æ€ä¾¦å¬ç±»
 	 */
 	public abstract void setStartUnitListener(StartUnitListener listen);
 	
 	/**
-	 * »ñÈ¡¼ÆËã»·¾³ÉÏÏÂÎÄ
+	 * è·å–è®¡ç®—ç¯å¢ƒä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public abstract UnitContext getUnitContext();
 
 	/**
-	 * ·Ö»ú·şÎñÆ÷ÄÚ²¿²úÉúÎ¨Ò»±àºÅ
-	 * ÓÃÓÚ´úÀíºÅµÈ¸÷ÖÖ²»ÄÜÍ¬ºÅµÄµØ·½
-	 * @return ·şÎñÆ÷ÄÚÎ¨Ò»±àºÅ
+	 * åˆ†æœºæœåŠ¡å™¨å†…éƒ¨äº§ç”Ÿå”¯ä¸€ç¼–å·
+	 * ç”¨äºä»£ç†å·ç­‰å„ç§ä¸èƒ½åŒå·çš„åœ°æ–¹
+	 * @return æœåŠ¡å™¨å†…å”¯ä¸€ç¼–å·
 	 */
 	public static int nextId() {
 		synchronized (idLock) {
@@ -61,8 +61,8 @@ public abstract class UnitServer implements IServer {
 	}
 
 	/**
-	 * ´ò³öÄÚ´æÕ¼ÓÃÂÊ£¬ÓÃÓÚµ÷ÊÔ
-	 * @param msg ÏÔÊ¾µÄÏûÏ¢
+	 * æ‰“å‡ºå†…å­˜å ç”¨ç‡ï¼Œç”¨äºè°ƒè¯•
+	 * @param msg æ˜¾ç¤ºçš„æ¶ˆæ¯
 	 */
 	public static void debugMemory(String msg) {
 		DecimalFormat df = new DecimalFormat("###,###");
@@ -73,15 +73,15 @@ public abstract class UnitServer implements IServer {
 	}
 
 	/**
-	 * Ö´ĞĞ·Ö»úµÄÇëÇó
-	 * @param req ÇëÇó¶ÔÏó
-	 * @return ÏìÓ¦½á¹û
+	 * æ‰§è¡Œåˆ†æœºçš„è¯·æ±‚
+	 * @param req è¯·æ±‚å¯¹è±¡
+	 * @return å“åº”ç»“æœ
 	 */
 	public abstract Response execute(Request req);
 
 	/**
-	 * »ñÈ¡·Ö»úÎ¨Ò»ÊµÀı£¬´ÓÅäÖÃÎÄ¼şË³Ğò²úÉú
-	 * @return ·Ö»ú·şÎñÆ÷ÊµÀı
+	 * è·å–åˆ†æœºå”¯ä¸€å®ä¾‹ï¼Œä»é…ç½®æ–‡ä»¶é¡ºåºäº§ç”Ÿ
+	 * @return åˆ†æœºæœåŠ¡å™¨å®ä¾‹
 	 * @throws Exception
 	 */
 	public static UnitServer getInstance() throws Exception {
@@ -89,10 +89,10 @@ public abstract class UnitServer implements IServer {
 	};
 	
 	/**
-	 * Æô¶¯»òÕß»ñÈ¡Ö¸¶¨µØÖ·µÄ·Ö»ú
-	 * @param specifyHost IPµØÖ·
-	 * @param specifyPort ¶Ë¿ÚºÅ
-	 * @return ·Ö»úÊµÀı
+	 * å¯åŠ¨æˆ–è€…è·å–æŒ‡å®šåœ°å€çš„åˆ†æœº
+	 * @param specifyHost IPåœ°å€
+	 * @param specifyPort ç«¯å£å·
+	 * @return åˆ†æœºå®ä¾‹
 	 * @throws Exception
 	 */
 	public static UnitServer getInstance(String specifyHost, int specifyPort) throws Exception {
@@ -105,18 +105,18 @@ public abstract class UnitServer implements IServer {
 
 	
 	/**
-	 * ·şÎñÆ÷ÊÇ·ñÕıÔÚ³õÊ¼»¯»·¾³
-	 * @return ³õÊ¼»¯Ê±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æœåŠ¡å™¨æ˜¯å¦æ­£åœ¨åˆå§‹åŒ–ç¯å¢ƒ
+	 * @return åˆå§‹åŒ–æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isIniting(){
 		return isIniting;
 	}
 	
 	/**
-	 * Ê¹ÓÃ²ÎÊıµ÷ÓÃ·Ö»úµÄ³õÊ¼»¯ÎÄ¼şinit.splx
-	 * @param i£¬µÚi¸ö·Ö»ú£¬i=0±íÊ¾·Ö»úÆô¶¯Ê±¿ÌµÄµ÷ÓÃ
-	 * @param N£¬¹²N¸ö·Ö»ú
-	 * @param j£¬ÈÎÎñÃû³Æ
+	 * ä½¿ç”¨å‚æ•°è°ƒç”¨åˆ†æœºçš„åˆå§‹åŒ–æ–‡ä»¶init.splx
+	 * @param iï¼Œç¬¬iä¸ªåˆ†æœºï¼Œi=0è¡¨ç¤ºåˆ†æœºå¯åŠ¨æ—¶åˆ»çš„è°ƒç”¨
+	 * @param Nï¼Œå…±Nä¸ªåˆ†æœº
+	 * @param jï¼Œä»»åŠ¡åç§°
 	 * @return
 	 */
 	public static Response init(final int i, final int N, final String j){
@@ -124,11 +124,11 @@ public abstract class UnitServer implements IServer {
 	}
 	
 	/**
-	 * Ö´ĞĞ³õÊ¼»¯init.dfx½Å±¾
-	 * @param z ·Ö»úµÄĞòºÅ
-	 * @param N ×Ü¹²ÓĞ¼¸Ì¨·Ö»ú
-	 * @param waitResult ÊÇ·ñµÈ´ı³õÊ¼»¯½á¹û£¬½çÃæ¿ØÖÆÌ¨²»µÈ£¬·ÇÍ¼ĞÎ¿ØÖÆÌ¨µÈ´ı
-	 * ½çÃæ¿ØÖÆÌ¨Èç¹ûµÈ´ı·µ»Ø½á¹û£¬Ôò»áÔì³É½çÃæ±»ËøËÀ
+	 * æ‰§è¡Œåˆå§‹åŒ–init.dfxè„šæœ¬
+	 * @param z åˆ†æœºçš„åºå·
+	 * @param N æ€»å…±æœ‰å‡ å°åˆ†æœº
+	 * @param waitResult æ˜¯å¦ç­‰å¾…åˆå§‹åŒ–ç»“æœï¼Œç•Œé¢æ§åˆ¶å°ä¸ç­‰ï¼Œéå›¾å½¢æ§åˆ¶å°ç­‰å¾…
+	 * ç•Œé¢æ§åˆ¶å°å¦‚æœç­‰å¾…è¿”å›ç»“æœï¼Œåˆ™ä¼šé€ æˆç•Œé¢è¢«é”æ­»
 	 * @return
 	 */
 	public static Response init(final int i,final int N, final String j, final boolean waitResult){
@@ -136,30 +136,30 @@ public abstract class UnitServer implements IServer {
 	}
 	
 	/**
-	 * ÔËĞĞ·Ö»ú£¬Æô¶¯·şÎñ
+	 * è¿è¡Œåˆ†æœºï¼Œå¯åŠ¨æœåŠ¡
 	 */
-	public abstract void run(); // Æô¶¯·şÎñ
+	public abstract void run(); // å¯åŠ¨æœåŠ¡
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°·şÎñÆ÷ÊÇ·ñÕıÔÚÔËĞĞÖĞ
+	 * åˆ¤æ–­å½“å‰æœåŠ¡å™¨æ˜¯å¦æ­£åœ¨è¿è¡Œä¸­
 	 */
 	public synchronized boolean isRunning() {
 		throw new RQException("Method not implemented.");
 	}
 	
 	/**
-	 * ÍË³ö·şÎñÆ÷
+	 * é€€å‡ºæœåŠ¡å™¨
 	 */
 	public abstract void quit();
 	
 	/**
-	 * Í£Ö¹·şÎñÆ÷
+	 * åœæ­¢æœåŠ¡å™¨
 	 */
 	public abstract void shutDown();
 
 	/**
-	 * »ñÈ¡·şÎñÆ÷µÄhomeÂ·¾¶
-	 * @return homeÂ·¾¶
+	 * è·å–æœåŠ¡å™¨çš„homeè·¯å¾„
+	 * @return homeè·¯å¾„
 	 */
 	public static String getHome() {
 		String home = System.getProperty("start.home");
@@ -171,18 +171,18 @@ public abstract class UnitServer implements IServer {
 
 
 	/**
-	 * »ñÈ¡µ±Ç°·şÎñÆ÷µÄHost
+	 * è·å–å½“å‰æœåŠ¡å™¨çš„Host
 	 */
 	public abstract String getHost();
 
 	/**
-	 * »ñÈ¡·Ö»úIP
-	 * @return ipµØÖ·
+	 * è·å–åˆ†æœºIP
+	 * @return ipåœ°å€
 	 */
 	public abstract String getIP();
 	
 	/**
-	 * µ±Ç°·şÎñÆ÷ÊÇ·ñÊÇ×Ô¶¯Æô¶¯µÄ
+	 * å½“å‰æœåŠ¡å™¨æ˜¯å¦æ˜¯è‡ªåŠ¨å¯åŠ¨çš„
 	 */
 	public abstract boolean isAutoStart();
 

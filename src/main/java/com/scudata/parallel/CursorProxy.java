@@ -3,19 +3,19 @@ package com.scudata.parallel;
 import com.scudata.dm.cursor.ICursor;
 
 /**
- * ÓÎ±ê´úÀí
+ * æ¸¸æ ‡ä»£ç†
  * 
  * @author Joancy
  *
  */
 public class CursorProxy extends IProxy {
 	private ICursor cursor;
-	private int unit; // ½Úµã»úĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
+	private int unit; // èŠ‚ç‚¹æœºåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
 		
 	/**
-	 * ¹¹ÔìÓÎ±ê´úÀí
-	 * @param cursor ÓÎ±ê
-	 * @param unit ½Úµã»úĞòºÅ
+	 * æ„é€ æ¸¸æ ‡ä»£ç†
+	 * @param cursor æ¸¸æ ‡
+	 * @param unit èŠ‚ç‚¹æœºåºå·
 	 */
 	public CursorProxy(ICursor cursor, int unit) {
 		this.cursor = cursor;
@@ -23,7 +23,7 @@ public class CursorProxy extends IProxy {
 	}
 	
 	/**
-	 * ¹Ø±ÕÓÎ±ê´úÀí
+	 * å…³é—­æ¸¸æ ‡ä»£ç†
 	 */
 	public void close() {
 		if (cursor != null) {
@@ -32,32 +32,32 @@ public class CursorProxy extends IProxy {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÎ±ê¶ÔÏó
-	 * @return ÓÎ±ê
+	 * è·å–æ¸¸æ ‡å¯¹è±¡
+	 * @return æ¸¸æ ‡
 	 */
 	public ICursor getCursor() {
 		return cursor;
 	}
 	
 	/**
-	 * ÉèÖÃÓÎ±ê¶ÔÏó
-	 * @param cursor ÓÎ±ê
+	 * è®¾ç½®æ¸¸æ ‡å¯¹è±¡
+	 * @param cursor æ¸¸æ ‡
 	 */
 	void setCursor(ICursor cursor) {
 		this.cursor = cursor;
 	}
 	
 	/**
-	 * »ñÈ¡·Ö»úĞòºÅ
-	 * @return ĞòºÅ
+	 * è·å–åˆ†æœºåºå·
+	 * @return åºå·
 	 */
 	public int getUnit() {
 		return unit;
 	}
 	
 	/**
-	 * ÉèÖÃ·Ö»úĞòºÅ
-	 * @param unit ĞòºÅ
+	 * è®¾ç½®åˆ†æœºåºå·
+	 * @param unit åºå·
 	 */
 	void setUnit(int unit) {
 		this.unit = unit;

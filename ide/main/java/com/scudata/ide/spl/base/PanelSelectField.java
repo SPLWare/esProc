@@ -53,62 +53,62 @@ public class PanelSelectField extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ¸´ÖÆ°´Å¥
+	 * å¤åˆ¶æŒ‰é’®
 	 */
 	private JButton jBCopy = new JButton();
 
 	/**
-	 * Ôö¼Ó°´Å¥
+	 * å¢åŠ æŒ‰é’®
 	 */
 	private JButton jBAdd = new JButton();
 
 	/**
-	 * Îª×Ö¶ÎÃûÔö¼Ó±íÃûÇ°×º
+	 * ä¸ºå­—æ®µåå¢åŠ è¡¨åå‰ç¼€
 	 */
 	private JCheckBox jCBOpt = new JCheckBox(mm.getMessage("panelselectfield.tablepre"));
 
 	/**
-	 * ¸ù½Úµã
+	 * æ ¹èŠ‚ç‚¹
 	 */
 	private IconTreeNode root = new IconTreeNode(mm.getMessage("panelselectfield.dsname"));
 
 	/**
-	 * Ê÷Ä£ĞÍ
+	 * æ ‘æ¨¡å‹
 	 */
 	private DefaultTreeModel treeModel = new DefaultTreeModel(root);
 
 	/**
-	 * Ê÷¿Ø¼ş
+	 * æ ‘æ§ä»¶
 	 */
 	private JTree mTree = new JTree(treeModel);
 
 	/**
-	 * ×Ö¶Î½áµãµÄ¼¶±ğ
+	 * å­—æ®µç»“ç‚¹çš„çº§åˆ«
 	 */
 	private final byte LEVEL_FIELD = 3;
 
 	/**
-	 * ÏÔÊ¾ĞÅÏ¢µÄ±êÇ©¿Ø¼ş
+	 * æ˜¾ç¤ºä¿¡æ¯çš„æ ‡ç­¾æ§ä»¶
 	 */
 	private JLabel labelMsg = new JLabel();
 
 	/**
-	 * Êı¾İ¿âÈ¡½á¹¹µÄÏß³Ì
+	 * æ•°æ®åº“å–ç»“æ„çš„çº¿ç¨‹
 	 */
 	private Thread dbThread = null;
 
 	/**
-	 * Ïß³ÌÊÇ·ñÍ£Ö¹
+	 * çº¿ç¨‹æ˜¯å¦åœæ­¢
 	 */
 	private boolean stoped = false;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public PanelSelectField() {
 		init();
@@ -116,7 +116,7 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * ÖØÖÃ»·¾³¡£ Íâ²ã×öÁËÅĞ¶Ï£¬Ò»¶¨ÓĞ¿ÉÁ¬½ÓµÄÊı¾İÔ´¡£
+	 * é‡ç½®ç¯å¢ƒã€‚ å¤–å±‚åšäº†åˆ¤æ–­ï¼Œä¸€å®šæœ‰å¯è¿æ¥çš„æ•°æ®æºã€‚
 	 */
 	public void resetEnv() {
 		if (dbThread != null) {
@@ -125,7 +125,7 @@ public class PanelSelectField extends JPanel {
 		root.removeAllChildren();
 		treeModel.nodeStructureChanged(root);
 
-		if (!ConfigOptions.bShowDBStruct) // ²»¼ÓÔØÊı¾İ¿â½á¹¹
+		if (!ConfigOptions.bShowDBStruct) // ä¸åŠ è½½æ•°æ®åº“ç»“æ„
 			return;
 
 		dbThread = new Thread() {
@@ -183,7 +183,7 @@ public class PanelSelectField extends JPanel {
 											String splName = (String) splNames.get(d);
 											rs = null;
 											try {
-												// ÉĞÎ´ÊµÏÖ
+												// å°šæœªå®ç°
 												rs = dbmd.getProcedureColumns(null, null, splName, null);
 												TableConfig tc = new TableConfig();
 												tc.tableName = splName;
@@ -264,10 +264,10 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * ÖØĞÂ¹¹ÔìÊ÷¿Ø¼ş
+	 * é‡æ–°æ„é€ æ ‘æ§ä»¶
 	 * 
-	 * @param dsNames Êı¾İÔ´Ãû³Æ
-	 * @param dsList  ±íÅäÖÃÁĞ±í
+	 * @param dsNames æ•°æ®æºåç§°
+	 * @param dsList  è¡¨é…ç½®åˆ—è¡¨
 	 */
 	private synchronized void rebuildTree(List<String> dsNames, List<ArrayList<TableConfig>> dsList) {
 		root = new IconTreeNode(mm.getMessage("panelselectfield.dsname"));
@@ -316,19 +316,19 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * ±íÅäÖÃ
+	 * è¡¨é…ç½®
 	 */
 	class TableConfig {
 		/**
-		 * ±íÃû
+		 * è¡¨å
 		 */
 		String tableName;
 		/**
-		 * ×Ö¶ÎÁĞ±í
+		 * å­—æ®µåˆ—è¡¨
 		 */
 		Vector<String> fields;
 		/**
-		 * Íâ¼üÓ³Éä
+		 * å¤–é”®æ˜ å°„
 		 */
 		Map<String, String> fkMap;
 
@@ -337,7 +337,7 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * È¡±íµÄ×Ö¶ÎÃûÁĞ±í
+	 * å–è¡¨çš„å­—æ®µååˆ—è¡¨
 	 * 
 	 * @param con
 	 * @return
@@ -370,7 +370,7 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * È¡Ñ¡ÔñµÄÖµ
+	 * å–é€‰æ‹©çš„å€¼
 	 * 
 	 * @return
 	 */
@@ -396,9 +396,9 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * È¡½áµãµÄÖµ
+	 * å–ç»“ç‚¹çš„å€¼
 	 * 
-	 * @param node Ê÷½áµã
+	 * @param node æ ‘ç»“ç‚¹
 	 * @return
 	 */
 	private String getNodeValue(IconTreeNode node) {
@@ -418,7 +418,7 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		GridBagConstraints gbc;
@@ -472,7 +472,7 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯°´Å¥
+	 * åˆå§‹åŒ–æŒ‰é’®
 	 * 
 	 * @param b
 	 */
@@ -484,7 +484,7 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * Ôö¼ÓÖµ
+	 * å¢åŠ å€¼
 	 * 
 	 * @param vals
 	 */
@@ -503,12 +503,12 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * È¡±íµÄÍâ¼üÓ³Éä
+	 * å–è¡¨çš„å¤–é”®æ˜ å°„
 	 * 
-	 * @param ds     Êı¾İÔ´
-	 * @param schema Ä£Ê½Ãû
-	 * @param table  ±íÃû
-	 * @param con    Á¬½Ó
+	 * @param ds     æ•°æ®æº
+	 * @param schema æ¨¡å¼å
+	 * @param table  è¡¨å
+	 * @param con    è¿æ¥
 	 * @return
 	 * @throws Throwable
 	 */
@@ -539,7 +539,7 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * Ôö¼ÓÊÂ¼ş
+	 * å¢åŠ äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -548,7 +548,7 @@ public class PanelSelectField extends JPanel {
 	}
 
 	/**
-	 * ¸´ÖÆÊÂ¼ş
+	 * å¤åˆ¶äº‹ä»¶
 	 * 
 	 * @param e
 	 */

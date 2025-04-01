@@ -7,47 +7,47 @@ import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 
 /**
- * ÏÔÊ¾Í¼±êµÄÊ÷½áµãµÄ±à¼­Àà
+ * æ˜¾ç¤ºå›¾æ ‡çš„æ ‘ç»“ç‚¹çš„ç¼–è¾‘ç±»
  *
  */
 public class IconTreeNode extends DefaultMutableTreeNode {
 
 	private static final long serialVersionUID = 1L;
 
-	/** ÎÄ¼ş¼Ğ */
+	/** æ–‡ä»¶å¤¹ */
 	public static final byte TYPE_FOLDER = 0;
-	/** ±í */
+	/** è¡¨ */
 	public static final byte TYPE_TABLE = 1;
-	/** ×Ö¶Î */
+	/** å­—æ®µ */
 	public static final byte TYPE_COLUMN = 2;
 
 	/**
-	 * ½áµãÀàĞÍ¡£TYPE_FOLDER,TYPE_KEYVAL,TYPE_TABLE,TYPE_COLUMN
+	 * ç»“ç‚¹ç±»å‹ã€‚TYPE_FOLDER,TYPE_KEYVAL,TYPE_TABLE,TYPE_COLUMN
 	 */
 	private byte type = TYPE_FOLDER;
 
 	/**
-	 * ½áµãÃû³Æ
+	 * ç»“ç‚¹åç§°
 	 */
 	private String name;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param name
-	 *            ½áµãÃû³Æ
+	 *            ç»“ç‚¹åç§°
 	 */
 	public IconTreeNode(String name) {
 		this(name, TYPE_FOLDER);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param name
-	 *            ½áµãÃû³Æ
+	 *            ç»“ç‚¹åç§°
 	 * @param type
-	 *            ½áµãÀàĞÍ¡£TYPE_FOLDER,TYPE_KEYVAL,TYPE_TABLE,TYPE_COLUMN
+	 *            ç»“ç‚¹ç±»å‹ã€‚TYPE_FOLDER,TYPE_KEYVAL,TYPE_TABLE,TYPE_COLUMN
 	 */
 	public IconTreeNode(String name, byte type) {
 		this.type = type;
@@ -55,7 +55,7 @@ public class IconTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡½áµãÃû³Æ
+	 * å–ç»“ç‚¹åç§°
 	 * 
 	 * @return
 	 */
@@ -64,7 +64,7 @@ public class IconTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃ½áµãÃû³Æ
+	 * è®¾ç½®ç»“ç‚¹åç§°
 	 * 
 	 * @param name
 	 */
@@ -73,7 +73,7 @@ public class IconTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * È¡½áµãÀàĞÍ¡£TYPE_FOLDER,TYPE_KEYVAL,TYPE_TABLE,TYPE_COLUMN
+	 * å–ç»“ç‚¹ç±»å‹ã€‚TYPE_FOLDER,TYPE_KEYVAL,TYPE_TABLE,TYPE_COLUMN
 	 * 
 	 * @return
 	 */
@@ -82,7 +82,7 @@ public class IconTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ÉèÖÃ½áµãÀàĞÍ¡£TYPE_FOLDER,TYPE_KEYVAL,TYPE_TABLE,TYPE_COLUMN
+	 * è®¾ç½®ç»“ç‚¹ç±»å‹ã€‚TYPE_FOLDER,TYPE_KEYVAL,TYPE_TABLE,TYPE_COLUMN
 	 * 
 	 * @param type
 	 */
@@ -91,14 +91,14 @@ public class IconTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * ×ª»»Îª×Ö·û´®
+	 * è½¬æ¢ä¸ºå­—ç¬¦ä¸²
 	 */
 	public String toString() {
 		return name;
 	}
 
 	/**
-	 * ¿ËÂ¡
+	 * å…‹éš†
 	 * 
 	 * @return
 	 */
@@ -107,7 +107,7 @@ public class IconTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * »ñÈ¡ÏÔÊ¾µÄÍ¼±ê
+	 * è·å–æ˜¾ç¤ºçš„å›¾æ ‡
 	 * 
 	 * @return
 	 */

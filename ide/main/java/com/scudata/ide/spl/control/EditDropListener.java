@@ -16,23 +16,23 @@ import com.scudata.ide.spl.AtomicCell;
 import com.scudata.ide.spl.GMSpl;
 
 /**
- * Íø¸ñÊó±êÍÏ×§¼àÌıÆ÷
+ * ç½‘æ ¼é¼ æ ‡æ‹–æ‹½ç›‘å¬å™¨
  *
  */
 public class EditDropListener implements DropTargetListener {
 	/**
-	 * Ö®Ç°Ñ¡ÔñµÄ×ø±ê
+	 * ä¹‹å‰é€‰æ‹©çš„åæ ‡
 	 */
 	private CellLocation oldPos = new CellLocation(0, (int) 0);
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public EditDropListener() {
 	}
 
 	/**
-	 * ÍÏ×§½øÈëÁËÇøÓò
+	 * æ‹–æ‹½è¿›å…¥äº†åŒºåŸŸ
 	 */
 	public void dragEnter(DropTargetDragEvent dtde) {
 		ContentPanel cp = (ContentPanel) dtde.getDropTargetContext()
@@ -43,7 +43,7 @@ public class EditDropListener implements DropTargetListener {
 	}
 
 	/**
-	 * ÔÚÍÏ×§ÇøÓòÄÚ
+	 * åœ¨æ‹–æ‹½åŒºåŸŸå†…
 	 */
 	public void dragOver(DropTargetDragEvent dtde) {
 		Point p = dtde.getLocation();
@@ -77,7 +77,7 @@ public class EditDropListener implements DropTargetListener {
 	}
 
 	/**
-	 * Êó±êÊÍ·Å£¬Ö´ĞĞÍÏ×§ÊÂ¼ş
+	 * é¼ æ ‡é‡Šæ”¾ï¼Œæ‰§è¡Œæ‹–æ‹½äº‹ä»¶
 	 */
 	public void drop(DropTargetDropEvent dtde) {
 		Point p = dtde.getLocation();
@@ -125,7 +125,7 @@ public class EditDropListener implements DropTargetListener {
 		control.fireRegionSelect(true);
 		control.repaint();
 
-		// Drop¼¤»î±£´æ°´Å¥
+		// Dropæ¿€æ´»ä¿å­˜æŒ‰é’®
 		GMSpl.enableSave();
 	}
 }

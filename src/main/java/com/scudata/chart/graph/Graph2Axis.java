@@ -7,7 +7,7 @@ import com.scudata.chart.edit.*;
 import com.scudata.dm.Sequence;
 
 /**
- * Ë«ÖáÖùÏßÍ¼
+ * åŒè½´æŸ±çº¿å›¾
  * @author Joancy
  *
  */
@@ -23,7 +23,7 @@ public class Graph2Axis extends GraphLine {
 	public byte type = GraphTypes.GT_2YCOLLINE;
 
 	/**
-	 * È±Ê¡¹¹Ôìº¯Êı
+	 * ç¼ºçœæ„é€ å‡½æ•°
 	 */
 	public Graph2Axis() {
 	}
@@ -45,12 +45,12 @@ public class Graph2Axis extends GraphLine {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = super.getParamInfoList();//new ParamInfoList();
-		paramInfos.delete("lineType");//ÕÛÏßµÄÀàĞÍ£¬Ë«ÖáÀïÃæ²»Ö§³Ö
+		paramInfos.delete("lineType");//æŠ˜çº¿çš„ç±»å‹ï¼ŒåŒè½´é‡Œé¢ä¸æ”¯æŒ
 		paramInfos.delete("line","drawLineTrend");
 
 		ParamInfo.setCurrent(Graph2Axis.class, this);
@@ -66,7 +66,7 @@ public class Graph2Axis extends GraphLine {
 		return paramInfos;
 	}
 
-//	ÊÇ·ñÖ¸¶¨ÁËÏµÁĞËùÔÚÖá
+//	æ˜¯å¦æŒ‡å®šäº†ç³»åˆ—æ‰€åœ¨è½´
 	protected boolean isSplitByAxis(){
 		return leftSeries!=null || rightSeries!=null;
 	}
@@ -92,8 +92,8 @@ public class Graph2Axis extends GraphLine {
 	}
 	
 	
-//	×óÖáÎª1£¬ ÓÒÖáÎª2 Ë«ÖáÍ¼¸²¸Ç¸¸Àà¸Ã·½·¨£¬Ö¸¶¨ÏµÁĞµ½ÕıÈ·µÄÖá
-//	Í¨³£ÏµÁĞÖ»ĞèÖ¸¶¨Ò»¸öÖáµÄËùÊô£¬Ê£ÏÂµÄ¾ÍÈ«ÊÇÁíÒ»¸öÖá£¬Á½Õß¶¼Ö¸¶¨Ê±£¬Ïàµ±ÓÚÓÒÖáÃ»ÒâÒå£¬È«²¿°´ÕÕ×óÖáÅĞ¶Ï£¬Âú×ã×óÖáµÄÎª1£¬ÆäËûµÄ¶¼Îª2£¬¸ùÊÇ·ñÔÚÓÒÖáµÄ¶¨ÒåÎŞ¹Ø
+//	å·¦è½´ä¸º1ï¼Œ å³è½´ä¸º2 åŒè½´å›¾è¦†ç›–çˆ¶ç±»è¯¥æ–¹æ³•ï¼ŒæŒ‡å®šç³»åˆ—åˆ°æ­£ç¡®çš„è½´
+//	é€šå¸¸ç³»åˆ—åªéœ€æŒ‡å®šä¸€ä¸ªè½´çš„æ‰€å±ï¼Œå‰©ä¸‹çš„å°±å…¨æ˜¯å¦ä¸€ä¸ªè½´ï¼Œä¸¤è€…éƒ½æŒ‡å®šæ—¶ï¼Œç›¸å½“äºå³è½´æ²¡æ„ä¹‰ï¼Œå…¨éƒ¨æŒ‰ç…§å·¦è½´åˆ¤æ–­ï¼Œæ»¡è¶³å·¦è½´çš„ä¸º1ï¼Œå…¶ä»–çš„éƒ½ä¸º2ï¼Œæ ¹æ˜¯å¦åœ¨å³è½´çš„å®šä¹‰æ— å…³
 	protected byte getSeriesAxis(String serName){
 		if(leftSeries!=null){
 			if(containsName(leftSeries,serName)){
@@ -110,7 +110,7 @@ public class Graph2Axis extends GraphLine {
 				return Consts.AXIS_RIGHT;
 			}
 		}
-//		Ò»¸öÖá¶¼Ã»Ö¸¶¨Ê±£¬Ê¹ÓÃÈ±Ê¡µÄ×óÖáÖµ
+//		ä¸€ä¸ªè½´éƒ½æ²¡æŒ‡å®šæ—¶ï¼Œä½¿ç”¨ç¼ºçœçš„å·¦è½´å€¼
 		return Consts.AXIS_LEFT;
 	}
 

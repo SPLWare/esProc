@@ -77,7 +77,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	private int fetchSize = JDBCConsts.DEFAULT_FETCH_SIZE;
 
 	/**
-	 * ²éÑ¯Ê±µÄÁ¬½Ó³¬Ê±Ê±³¤£¬µ¥Î»Ãë
+	 * æŸ¥è¯¢æ—¶çš„è¿æ¥è¶…æ—¶æ—¶é•¿ï¼Œå•ä½ç§’
 	 */
 	protected int queryTimeout = JDBCConsts.DEFAULT_CONNECT_TIMEOUT;
 
@@ -87,7 +87,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	private Context ctx;
 
 	/**
-	 * ÊÇ·ñ¹Ø±Õ×´Ì¬
+	 * æ˜¯å¦å…³é—­çŠ¶æ€
 	 */
 	private boolean isClosed = false;
 
@@ -143,7 +143,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	public abstract InternalConnection getConnection();
 
 	/**
-	 * »ñÈ¡½Úµã»úÉÏµÄStatement ID
+	 * è·å–èŠ‚ç‚¹æœºä¸Šçš„Statement ID
 	 * 
 	 * @return
 	 */
@@ -166,10 +166,10 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Ö´ĞĞ¸üĞÂÓï¾ä£¬½öÖ§³ÖSQL
+	 * æ‰§è¡Œæ›´æ–°è¯­å¥ï¼Œä»…æ”¯æŒSQL
 	 * 
 	 * @param parameters
-	 *            ²ÎÊı
+	 *            å‚æ•°
 	 * @return int
 	 * @throws SQLException
 	 */
@@ -180,12 +180,12 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Ö´ĞĞÃüÁî
+	 * æ‰§è¡Œå‘½ä»¤
 	 * 
 	 * @param parameters
-	 *            ²ÎÊı
+	 *            å‚æ•°
 	 * @param isUpdate
-	 *            ÊÇ·ñ¸üĞÂÓï¾ä
+	 *            æ˜¯å¦æ›´æ–°è¯­å¥
 	 * @return Object
 	 * @throws SQLException
 	 */
@@ -239,7 +239,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * ´¦Àísql
+	 * å¤„ç†sql
 	 * 
 	 * @param sql
 	 * @return
@@ -258,7 +258,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * @param con
 	 *            The connection object
 	 * @param isUpdate
-	 *            ÊÇ·ñupdateÓï¾ä
+	 *            æ˜¯å¦updateè¯­å¥
 	 * @return The result of execution
 	 * @throws SQLException
 	 * @throws InterruptedException
@@ -281,7 +281,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 				gateway = config.getGateway();
 			}
 
-			// Ö´ĞĞgatewayÊ±£¬Óï¾ä¿ÉÄÜ²¢²»·ûºÏ¹æÔò
+			// æ‰§è¡Œgatewayæ—¶ï¼Œè¯­å¥å¯èƒ½å¹¶ä¸ç¬¦åˆè§„åˆ™
 			if (!StringUtils.isValidString(gateway)) {
 				if (sqlType == JDBCConsts.TYPE_NONE) {
 					throw new SQLException(JDBCMessage.get().getMessage(
@@ -290,7 +290,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 				// if (isUpdate
 				// && (sqlType != JDBCConsts.TYPE_SQL && sqlType !=
 				// JDBCConsts.TYPE_SIMPLE_SQL)) {
-				// // ½ö¼òµ¥SQLºÍSQLÖ§³ÖupdateÓï¾ä
+				// // ä»…ç®€å•SQLå’ŒSQLæ”¯æŒupdateè¯­å¥
 				// throw new SQLException(JDBCMessage.get().getMessage(
 				// "statement.updatesqlonly"));
 				// }
@@ -359,7 +359,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 				Sequence seq = uc.JDBCExecute(connId, unitStateId);
 				result = new MultiResult(seq);
 			} else {
-				// ±¾µØÈç¹ûÊÇÍø¸ñ¼ÆËã£¬¸´ÖÆµ±Ç°ÉÏÏÂÎÄÉú³ÉĞÂµÄÉÏÏÂÎÄÀ´¼ÆËã
+				// æœ¬åœ°å¦‚æœæ˜¯ç½‘æ ¼è®¡ç®—ï¼Œå¤åˆ¶å½“å‰ä¸Šä¸‹æ–‡ç”Ÿæˆæ–°çš„ä¸Šä¸‹æ–‡æ¥è®¡ç®—
 				ctx = prepareContext(ctx, sql, sqlType);
 				result = executeLocal(sql, parameters, sqlType, ctx);
 			}
@@ -387,7 +387,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * È¡Óï¾äÀàĞÍ
+	 * å–è¯­å¥ç±»å‹
 	 * 
 	 * @return
 	 */
@@ -396,7 +396,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Í¨¹ı½á¹ûÈ¡¸üĞÂÊı
+	 * é€šè¿‡ç»“æœå–æ›´æ–°æ•°
 	 * 
 	 * @param result
 	 * @return
@@ -422,7 +422,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * ±¾µØÖ´ĞĞÓï¾ä
+	 * æœ¬åœ°æ‰§è¡Œè¯­å¥
 	 * 
 	 * @param sql
 	 * @param parameters
@@ -436,7 +436,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * ×¼±¸ÉÏÏÂÎÄ¡£µ±Ö´ĞĞ±¾µØÍø¸ñÊ±£¬ÖØĞÂ´´½¨ÉÏÏÂÎÄ
+	 * å‡†å¤‡ä¸Šä¸‹æ–‡ã€‚å½“æ‰§è¡Œæœ¬åœ°ç½‘æ ¼æ—¶ï¼Œé‡æ–°åˆ›å»ºä¸Šä¸‹æ–‡
 	 * 
 	 * @param ctx
 	 * @param sql
@@ -444,7 +444,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * @return
 	 */
 	private Context prepareContext(Context ctx, String sql, byte sqlType) {
-		boolean isGrid = false; // ÊÇ·ñÖ´ĞĞÍø¸ñ
+		boolean isGrid = false; // æ˜¯å¦æ‰§è¡Œç½‘æ ¼
 		if (sqlType == JDBCConsts.TYPE_CALL || sqlType == JDBCConsts.TYPE_CALLS
 				|| sqlType == JDBCConsts.TYPE_SPL) {
 			isGrid = true;
@@ -452,7 +452,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 			sql = sql.substring(1);
 			isGrid = AppUtil.isGrid(sql);
 		}
-		if (isGrid) { // Ö´ĞĞÍø¸ñÊ±×ÜÊÇÖØĞÂ´´½¨ÉÏÏÂÎÄ
+		if (isGrid) { // æ‰§è¡Œç½‘æ ¼æ—¶æ€»æ˜¯é‡æ–°åˆ›å»ºä¸Šä¸‹æ–‡
 			ctx = ctx.newComputeContext();
 		}
 		return ctx;
@@ -526,7 +526,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 		this.result = null;
 		this.set = null;
 
-		/* JobSpaceÇåÀí×ÊÔ´ */
+		/* JobSpaceæ¸…ç†èµ„æº */
 		if (ctx != null) {
 			JobSpace jobSpace = ctx.getJobSpace();
 			if (jobSpace != null) {
@@ -540,7 +540,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 					"error.conclosed"));
 		}
 
-		/* ¹Ø±Õ³ÌĞòÖĞÃ»ÓĞ¹Ø±ÕµÄÁ¬½Ó£¬µ«ÊÇ×¢ÒâJDBC×Ô¶¯Á¬½ÓµÄ²»Òª¹Ø */
+		/* å…³é—­ç¨‹åºä¸­æ²¡æœ‰å…³é—­çš„è¿æ¥ï¼Œä½†æ˜¯æ³¨æ„JDBCè‡ªåŠ¨è¿æ¥çš„ä¸è¦å…³ */
 		if (ctx != null) {
 			Map<String, DBSession> map = ctx.getDBSessionMap();
 			if (map != null) {
@@ -986,7 +986,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * ÅúÁ¿Ö´ĞĞ
+	 * æ‰¹é‡æ‰§è¡Œ
 	 * 
 	 * @param parameters
 	 * @return

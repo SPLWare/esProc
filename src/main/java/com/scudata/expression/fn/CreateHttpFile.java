@@ -13,7 +13,7 @@ import com.scudata.expression.ParamInfo2;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ½«urlµÄ·µ»Ø½á¹û·â×°³ÉÎÄ¼şÁ÷
+ * å°†urlçš„è¿”å›ç»“æœå°è£…æˆæ–‡ä»¶æµ
  * httpfile(url:cs, post:cs:method, content; property:value,....)
  * httpfile(url:cs, post:cs:method)
  * httpfile(url,post,contenttype)

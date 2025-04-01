@@ -33,85 +33,85 @@ import com.scudata.ide.common.swing.JListEx;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * Ñ¡ÔñÊı¾İÔ´¶Ô»°¿ò
+ * é€‰æ‹©æ•°æ®æºå¯¹è¯æ¡†
  *
  */
 public class DialogSelectDataSource extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 
 	/**
-	 * Êı¾İÔ´ÁĞ±í¿Ø¼ş
+	 * æ•°æ®æºåˆ—è¡¨æ§ä»¶
 	 */
 	private JListEx listDS = new JListEx();
 
 	/**
-	 * TABÃæ°å
+	 * TABé¢æ¿
 	 */
 	private JTabbedPane tabMain = new JTabbedPane();
 
 	/**
-	 * ODBCÊı¾İÔ´ÁĞ±í
+	 * ODBCæ•°æ®æºåˆ—è¡¨
 	 */
 	private JListEx listODBC = new JListEx();
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 
 	/**
-	 * Êı¾İÔ´ÅäÖÃÒ³
+	 * æ•°æ®æºé…ç½®é¡µ
 	 */
 	private final byte TAB_CONFIG = 0;
 
 	/**
-	 * ODBCÒ³
+	 * ODBCé¡µ
 	 */
 	private final byte TAB_ODBC = 1;
 
 	/**
-	 * ÓÃ»§Ãû
+	 * ç”¨æˆ·å
 	 */
 	private JLabel labelUser = new JLabel();
 	/**
-	 * ÓÃ»§ÃûÎÄ±¾¿ò
+	 * ç”¨æˆ·åæ–‡æœ¬æ¡†
 	 */
 	private JTextField jUser = new JTextField();
 
 	/**
-	 * ÃÜÂë
+	 * å¯†ç 
 	 */
 	private JLabel labelPwd = new JLabel();
 	/**
-	 * ÃÜÂë¿ò
+	 * å¯†ç æ¡†
 	 */
 	private JPasswordField jPassword = new JPasswordField();
 
 	/**
-	 * ÊÇ·ñ×èÖ¹±ä»¯
+	 * æ˜¯å¦é˜»æ­¢å˜åŒ–
 	 */
 	private boolean preventChange = false;
 
 	/**
-	 * ÀàĞÍ
+	 * ç±»å‹
 	 */
 	private byte type = TYPE_ALL;
-	/** È«²¿ */
+	/** å…¨éƒ¨ */
 	public static final byte TYPE_ALL = 0;
 	/** SQL */
 	public static final byte TYPE_SQL = 1;
@@ -119,22 +119,22 @@ public class DialogSelectDataSource extends JDialog {
 	public static final byte TYPE_DQL = 2;
 
 	/**
-	 * Êı¾İÔ´¶ÔÏó
+	 * æ•°æ®æºå¯¹è±¡
 	 */
 	private DataSource ds;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogSelectDataSource() {
 		this(TYPE_ALL);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param type
-	 *            ÀàĞÍ
+	 *            ç±»å‹
 	 */
 	public DialogSelectDataSource(byte type) {
 		super(GV.appFrame, "", true);
@@ -154,18 +154,18 @@ public class DialogSelectDataSource extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
 		this.setTitle(mm.getMessage("dialogselectdatasource.title"));
-		jBOK.setText(mm.getMessage("button.ok")); // È·¶¨(O)
-		jBCancel.setText(mm.getMessage("button.cancel")); // È¡Ïû(C)
-		labelUser.setText(mm.getMessage("dialogodbcdatasource.user")); // ÓÃ»§Ãû
-		labelPwd.setText(mm.getMessage("dialogodbcdatasource.password")); // ÃÜÂë
+		jBOK.setText(mm.getMessage("button.ok")); // ç¡®å®š(O)
+		jBCancel.setText(mm.getMessage("button.cancel")); // å–æ¶ˆ(C)
+		labelUser.setText(mm.getMessage("dialogodbcdatasource.user")); // ç”¨æˆ·å
+		labelPwd.setText(mm.getMessage("dialogodbcdatasource.password")); // å¯†ç 
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -174,7 +174,7 @@ public class DialogSelectDataSource extends JDialog {
 	}
 
 	/**
-	 * È¡Êı¾İÔ´¶ÔÏó
+	 * å–æ•°æ®æºå¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -183,7 +183,7 @@ public class DialogSelectDataSource extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		JPanel jPanel2 = new JPanel();
@@ -277,7 +277,7 @@ public class DialogSelectDataSource extends JDialog {
 	}
 
 	/**
-	 * ODBCµÄÑ¡Ôñ±ä»¯
+	 * ODBCçš„é€‰æ‹©å˜åŒ–
 	 */
 	private void odbcChanged() {
 		boolean isDSSelected = !listODBC.isSelectionEmpty();
@@ -288,7 +288,7 @@ public class DialogSelectDataSource extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -298,7 +298,7 @@ public class DialogSelectDataSource extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -345,7 +345,7 @@ public class DialogSelectDataSource extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */

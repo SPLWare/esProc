@@ -8,7 +8,7 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * È±Ê¡²ÎÊı±íäÖÈ¾Àà
+ * ç¼ºçœå‚æ•°è¡¨æ¸²æŸ“ç±»
  * 
  * @author Joancy
  *
@@ -19,15 +19,15 @@ public class DefaultParamTableRender implements TableCellRenderer {
 	private int align = JLabel.LEFT;
 
 	/**
-	 * ´´½¨Ò»¸öÈ±Ê¡²ÎÊı±íäÖÈ¾Æ÷
+	 * åˆ›å»ºä¸€ä¸ªç¼ºçœå‚æ•°è¡¨æ¸²æŸ“å™¨
 	 */
 	public DefaultParamTableRender() {
 		this( JLabel.LEFT );
 	}
 
 	/**
-	 * ´´½¨Ò»¸öÈ±Ê¡²ÎÊı±íäÖÈ¾Æ÷
-	 * @param align ÎÄ±¾¶ÔÆë·½Ê½
+	 * åˆ›å»ºä¸€ä¸ªç¼ºçœå‚æ•°è¡¨æ¸²æŸ“å™¨
+	 * @param align æ–‡æœ¬å¯¹é½æ–¹å¼
 	 */
 	public DefaultParamTableRender( int align ) {
 		this.align = align;
@@ -38,7 +38,7 @@ public class DefaultParamTableRender implements TableCellRenderer {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸Àà³éÏó·½·¨
+	 * å®ç°çˆ¶ç±»æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
 		renderer = expRender;

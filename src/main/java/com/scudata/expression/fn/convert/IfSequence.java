@@ -8,13 +8,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ifa(x) ÅĞ¶ÏxÊÇ·ñÎªĞòÁĞ
+ * ifa(x) åˆ¤æ–­xæ˜¯å¦ä¸ºåºåˆ—
  * @author runqian
  *
  */
 public class IfSequence extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

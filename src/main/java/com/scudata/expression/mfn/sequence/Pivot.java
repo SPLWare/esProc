@@ -10,14 +10,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÅÅÁĞ×öĞĞÁĞ×ª»»
- * A.pivot(g:G,¡­;F,V;Ni:N'i,¡­)
+ * å¯¹æ’åˆ—åšè¡Œåˆ—è½¬æ¢
+ * A.pivot(g:G,â€¦;F,V;Ni:N'i,â€¦)
  * @author RunQian
  *
  */
 public class Pivot extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

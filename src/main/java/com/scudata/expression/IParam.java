@@ -7,130 +7,130 @@ import com.scudata.cellset.INormalCell;
 import com.scudata.dm.*;
 
 /**
- * º¯Êı²ÎÊı½Ó¿Ú
- * º¯Êı²ÎÊı²ÉÓÃ¶à²æÊ÷½á¹¹´æ´¢
+ * å‡½æ•°å‚æ•°æ¥å£
+ * å‡½æ•°å‚æ•°é‡‡ç”¨å¤šå‰æ ‘ç»“æ„å­˜å‚¨
  * @author RunQian
  *
  */
 public interface IParam {
-	static final char NONE = 0; // »¹Ã»ÓĞ²úÉú½Úµã£¬ÓÃÓÚ²ÎÊı·ÖÎö¹ı³Ì
+	static final char NONE = 0; // è¿˜æ²¡æœ‰äº§ç”ŸèŠ‚ç‚¹ï¼Œç”¨äºå‚æ•°åˆ†æè¿‡ç¨‹
 	
-	// ²ÎÊı½ÚµãµÄÀàĞÍ
-	public static final char Semicolon = ';'; // ²ÎÊı·ÖºÅ·Ö¸ô·û
-	public static final char Comma = ',';     // ²ÎÊı¶ººÅ·Ö¸ô·û
-	public static final char Colon = ':';     // ²ÎÊıÃ°ºÅ·Ö¸ô·û
-	public static final char Normal = 0;      // Ò¶×Ó½Úµã
+	// å‚æ•°èŠ‚ç‚¹çš„ç±»å‹
+	public static final char Semicolon = ';'; // å‚æ•°åˆ†å·åˆ†éš”ç¬¦
+	public static final char Comma = ',';     // å‚æ•°é€—å·åˆ†éš”ç¬¦
+	public static final char Colon = ':';     // å‚æ•°å†’å·åˆ†éš”ç¬¦
+	public static final char Normal = 0;      // å¶å­èŠ‚ç‚¹
 
 	/**
-	 * ·µ»Ø½ÚµãµÄÀàĞÍ
-	 * @return char Normal¡¢Semicolon¡¢Comma¡¢Colon
+	 * è¿”å›èŠ‚ç‚¹çš„ç±»å‹
+	 * @return char Normalã€Semicolonã€Commaã€Colon
 	 */
 	char getType();
 
 	/**
-	 * ·µ»ØÊÇ·ñÊÇÒ¶×Ó½Úµã
-	 * @return boolean true£ºÊÇ£¬false£º²»ÊÇ
+	 * è¿”å›æ˜¯å¦æ˜¯å¶å­èŠ‚ç‚¹
+	 * @return boolean trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	boolean isLeaf();
 
 	/**
-	 * ·µ»Ø×Ó½ÚµãÊı£¬Ò¶×Ó½Úµã·µ»Ø0
-	 * @return int ×Ó½ÚµãÊı
+	 * è¿”å›å­èŠ‚ç‚¹æ•°ï¼Œå¶å­èŠ‚ç‚¹è¿”å›0
+	 * @return int å­èŠ‚ç‚¹æ•°
 	 */
 	int getSubSize();
 
 	/**
-	 * ·µ»ØÄ³Ò»×Ó½Úµã
-	 * @param index ĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @return IParam ×Ó½Úµã
+	 * è¿”å›æŸä¸€å­èŠ‚ç‚¹
+	 * @param index åºå·ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @return IParam å­èŠ‚ç‚¹
 	 */
 	IParam getSub(int index);
 
 	/**
-	 * ·µ»Øµ±Ç°½ÚµãµÄ±í´ïÊ½×Ö·û´®£¬µ±Ç°½ÚµãÎªÒ¶×Ó½Úµã
+	 * è¿”å›å½“å‰èŠ‚ç‚¹çš„è¡¨è¾¾å¼å­—ç¬¦ä¸²ï¼Œå½“å‰èŠ‚ç‚¹ä¸ºå¶å­èŠ‚ç‚¹
 	 * @return Expression
 	 */
 	Expression getLeafExpression();
 
 	/**
-	 * È¡ËùÓĞÒ¶×Ó½ÚµãµÄ±í´ïÊ½
-	 * @param List Êä³öÖµ£¬ÓÃÓÚ´æ·Å±í´ïÊ½
+	 * å–æ‰€æœ‰å¶å­èŠ‚ç‚¹çš„è¡¨è¾¾å¼
+	 * @param List è¾“å‡ºå€¼ï¼Œç”¨äºå­˜æ”¾è¡¨è¾¾å¼
 	 */
 	void getAllLeafExpression(ArrayList<Expression> list);
 
 	/**
-	 * ·µ»Ø±í´ïÊ½Êı×é£¬Ö»Ö§³Öµ¥²ãµÄ²ÎÊı
-	 * @param function º¯ÊıÃû£¬ÓÃÓÚÅ×³öÒì³£
-	 * @param canNull ²ÎÊıÊÇ·ñ¿É¿Õ
-	 * @return ±í´ïÊ½Êı×é
+	 * è¿”å›è¡¨è¾¾å¼æ•°ç»„ï¼Œåªæ”¯æŒå•å±‚çš„å‚æ•°
+	 * @param function å‡½æ•°åï¼Œç”¨äºæŠ›å‡ºå¼‚å¸¸
+	 * @param canNull å‚æ•°æ˜¯å¦å¯ç©º
+	 * @return è¡¨è¾¾å¼æ•°ç»„
 	 */
 	Expression[] toArray(String function, boolean canNull);
 	
 	/**
-	 * ·µ»Ø±í´ïÊ½×Ö·û´®Êı×é£¬Ö»Ö§³Öµ¥²ãµÄ²ÎÊı
-	 * @param function º¯ÊıÃû£¬ÓÃÓÚÅ×³öÒì³£
-	 * @param canNull ²ÎÊıÊÇ·ñ¿É¿Õ
-	 * @return ±í´ïÊ½´®Êı×é
+	 * è¿”å›è¡¨è¾¾å¼å­—ç¬¦ä¸²æ•°ç»„ï¼Œåªæ”¯æŒå•å±‚çš„å‚æ•°
+	 * @param function å‡½æ•°åï¼Œç”¨äºæŠ›å‡ºå¼‚å¸¸
+	 * @param canNull å‚æ•°æ˜¯å¦å¯ç©º
+	 * @return è¡¨è¾¾å¼ä¸²æ•°ç»„
 	 */
 	String []toStringArray(String function, boolean canNull);
 	
 	/**
-	 * ·µ»Ø×Ö¶ÎÃûÊı×é
-	 * @param function º¯ÊıÃû£¬ÓÃÓÚÅ×³öÒì³£
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * è¿”å›å­—æ®µåæ•°ç»„
+	 * @param function å‡½æ•°åï¼Œç”¨äºæŠ›å‡ºå¼‚å¸¸
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	String []toIdentifierNames(String function);
 	
 	/**
-	 * ·µ»ØÊÇ·ñ°üº¬Ö¸¶¨²ÎÊı
-	 * @param name ²ÎÊıÃû
-	 * @return boolean true£º°üº¬£¬false£º²»°üº¬
+	 * è¿”å›æ˜¯å¦åŒ…å«æŒ‡å®šå‚æ•°
+	 * @param name å‚æ•°å
+	 * @return boolean trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	boolean containParam(String name);
 
 	/**
-	 * ²éÕÒ±í´ïÊ½ÖĞÓÃµ½²ÎÊı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param resultList Êä³öÖµ£¬ÓÃµ½µÄ²ÎÊı»áÌí¼Óµ½ÕâÀïÃæ
+	 * æŸ¥æ‰¾è¡¨è¾¾å¼ä¸­ç”¨åˆ°å‚æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param resultList è¾“å‡ºå€¼ï¼Œç”¨åˆ°çš„å‚æ•°ä¼šæ·»åŠ åˆ°è¿™é‡Œé¢
 	 */
 	void getUsedParams(Context ctx, ParamList resultList);
 	
 	/**
-	 * ²éÕÒ±í´ïÊ½ÖĞ¿ÉÄÜÓÃµ½µÄ×Ö¶Î£¬¿ÉÄÜÈ¡µÃ²»×¼È·»òÕß°üº¬¶à¸ö±íµÄ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param resultList Êä³öÖµ£¬ÓÃµ½µÄ×Ö¶ÎÃû»áÌí¼Óµ½ÕâÀïÃæ
+	 * æŸ¥æ‰¾è¡¨è¾¾å¼ä¸­å¯èƒ½ç”¨åˆ°çš„å­—æ®µï¼Œå¯èƒ½å–å¾—ä¸å‡†ç¡®æˆ–è€…åŒ…å«å¤šä¸ªè¡¨çš„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param resultList è¾“å‡ºå€¼ï¼Œç”¨åˆ°çš„å­—æ®µåä¼šæ·»åŠ åˆ°è¿™é‡Œé¢
 	 */
 	void getUsedFields(Context ctx, List<String> resultList);
 
 	/**
-	 * ²éÕÒ±í´ïÊ½ÖĞÓÃµ½µ¥Ôª¸ñ
-	 * @param resultList Êä³öÖµ£¬ÓÃµ½µÄµ¥Ôª¸ñ»áÌí¼Óµ½ÕâÀïÃæ
+	 * æŸ¥æ‰¾è¡¨è¾¾å¼ä¸­ç”¨åˆ°å•å…ƒæ ¼
+	 * @param resultList è¾“å‡ºå€¼ï¼Œç”¨åˆ°çš„å•å…ƒæ ¼ä¼šæ·»åŠ åˆ°è¿™é‡Œé¢
 	 */
 	void getUsedCells(List<INormalCell> resultList);
 
 	/**
-	 * ÓÅ»¯²ÎÊı±í´ïÊ½£¬·µ»ØËùÓĞ²ÎÊıÊÇ·ñ¶¼ÊÇ³£Êı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return boolean true£ºÊÇ£¬false£º²»ÊÇ
+	 * ä¼˜åŒ–å‚æ•°è¡¨è¾¾å¼ï¼Œè¿”å›æ‰€æœ‰å‚æ•°æ˜¯å¦éƒ½æ˜¯å¸¸æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return boolean trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	boolean optimize(Context ctx);
 
 	/**
-	 * ÓÉstartµ½end×Ó½Úµã´´½¨Ò»¸öĞÂ²ÎÊı
-	 * @param start ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param end ½áÊøÎ»ÖÃ£¬²»°üº¬
-	 * @return IParam ĞÂ²ÎÊı
+	 * ç”±startåˆ°endå­èŠ‚ç‚¹åˆ›å»ºä¸€ä¸ªæ–°å‚æ•°
+	 * @param start èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param end ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
+	 * @return IParam æ–°å‚æ•°
 	 */
 	IParam create(int start, int end);
 
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+	 * åˆ¤æ–­æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 	 * @return
 	 */
 	boolean canCalculateAll();
 	
 	/**
-	 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+	 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 	 */
 	void reset();
 }

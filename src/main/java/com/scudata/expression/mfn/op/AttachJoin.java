@@ -11,8 +11,8 @@ import com.scudata.parallel.ClusterMemoryTable;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼Ó¹ØÁªÔËËã
- * op.join(x:¡­,A:y:¡­,z:F,¡­;¡­) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ å…³è”è¿ç®—
+ * op.join(x:â€¦,A:y:â€¦,z:F,â€¦;â€¦) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */

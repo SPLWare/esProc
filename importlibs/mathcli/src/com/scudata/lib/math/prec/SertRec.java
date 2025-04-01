@@ -9,7 +9,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 
 /**
- * ÇåÀíÒì³£Öµ²ÎÊı¼ÇÂ¼
+ * æ¸…ç†å¼‚å¸¸å€¼å‚æ•°è®°å½•
  * @author bd
  */
 public class SertRec implements Externalizable {
@@ -35,7 +35,7 @@ public class SertRec implements Externalizable {
 
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉĞòÁĞ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -46,7 +46,7 @@ public class SertRec implements Externalizable {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾İSequence³õÊ¼»¯²ÎÊı
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public void init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -57,7 +57,7 @@ public class SertRec implements Externalizable {
 		this.sd = ((Number) seq.get(2)).doubleValue();
 	}
 
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 1;
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte ver = in.readByte();

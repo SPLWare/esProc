@@ -19,13 +19,13 @@ import com.scudata.util.Variant;
 
 
 /**
- * bit1(x) ·µ»ØxµÄ¶ş½øÖÆ±íÊ¾Ê±1µÄ¸öÊı
+ * bit1(x) è¿”å›xçš„äºŒè¿›åˆ¶è¡¨ç¤ºæ—¶1çš„ä¸ªæ•°
  * @author RunQian
  *
  */
 public class Bit1 extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -34,7 +34,7 @@ public class Bit1 extends Function {
 		}
 	}
 	
-	// È¡ÊıµÄ¶ş½øÖÆÎ»ÊÇ1µÄ¸öÊı
+	// å–æ•°çš„äºŒè¿›åˆ¶ä½æ˜¯1çš„ä¸ªæ•°
 	public static int bitCount(Object obj) {
 		if (obj instanceof Long) {
 			return Long.bitCount((Long)obj);
@@ -78,7 +78,7 @@ public class Bit1 extends Function {
 		long longValue = 0;
 		BigInteger bi = null;
 		
-		// Èç¹ûÓĞ³ÉÔ±ÀàĞÍÊÇBigDecimal»òBigIntegerÔòÊ¹ÓÃBigIntegerÔËËã
+		// å¦‚æœæœ‰æˆå‘˜ç±»å‹æ˜¯BigDecimalæˆ–BigIntegeråˆ™ä½¿ç”¨BigIntegerè¿ç®—
 		if (v1 instanceof BigDecimal) {
 			bi = ((BigDecimal)v1).toBigInteger();
 		} else if (v1 instanceof BigInteger) {
@@ -152,8 +152,8 @@ public class Bit1 extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -231,10 +231,10 @@ public class Bit1 extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

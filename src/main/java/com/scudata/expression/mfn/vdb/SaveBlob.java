@@ -9,7 +9,7 @@ import com.scudata.expression.VSFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ±£´æ¸½¼ş£¬Í¨³£ÊÇÍ¼Æ¬
+ * ä¿å­˜é™„ä»¶ï¼Œé€šå¸¸æ˜¯å›¾ç‰‡
  * h.saveblob(o,n;p:F)
  * @author RunQian
  *

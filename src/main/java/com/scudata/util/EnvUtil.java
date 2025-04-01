@@ -8,14 +8,14 @@ import com.scudata.dm.Param;
 import com.scudata.dm.Sequence;
 
 /**
- * »·¾³Ïà¹ØµÄ¹¤¾ßÀà
+ * ç¯å¢ƒç›¸å…³çš„å·¥å…·ç±»
  * @author RunQian
  *
  */
 public class EnvUtil {
-	//private static final long G = 1024 * 1024 * 1024; // 1GµÄ´óĞ¡
-	private static final int FIELDSIZE = 50; // ¹ÀËãÄÚ´æÊ±Ã¿¸ö×Ö¶ÎÕ¼ÓÃµÄ¿Õ¼ä´óĞ¡
-	private static final int MAXRECORDCOUNT = 20000000; // ÄÚ´æÖĞ±£´æµÄ×î´ó¼ÇÂ¼ÊıÁ¿
+	//private static final long G = 1024 * 1024 * 1024; // 1Gçš„å¤§å°
+	private static final int FIELDSIZE = 50; // ä¼°ç®—å†…å­˜æ—¶æ¯ä¸ªå­—æ®µå ç”¨çš„ç©ºé—´å¤§å°
+	private static final int MAXRECORDCOUNT = 20000000; // å†…å­˜ä¸­ä¿å­˜çš„æœ€å¤§è®°å½•æ•°é‡
 	private static double MAX_USEDMEMORY_PERCENT = 0.4;
 	
 	public static void setMaxUsedMemoryPercent(double d) {
@@ -26,11 +26,11 @@ public class EnvUtil {
 		return MAX_USEDMEMORY_PERCENT;
 	}
 	
-	// È¡µ±Ç°¿ÕÏĞÄÚ´æ¿ÉÒÔ´óÔ¼ÔÙÉú³É¶àÉÙÌõ¼ÇÂ¼
+	// å–å½“å‰ç©ºé—²å†…å­˜å¯ä»¥å¤§çº¦å†ç”Ÿæˆå¤šå°‘æ¡è®°å½•
 	/**
-	 * È¡µ±Ç°¿ÕÏĞÄÚ´æ´óÔ¼¿ÉÒÔ´æ·Å¶àÉÙÌõ¼ÇÂ¼
-	 * @param fcount ×Ö¶ÎÊı
-	 * @return ¼ÇÂ¼ÊıÁ¿
+	 * å–å½“å‰ç©ºé—²å†…å­˜å¤§çº¦å¯ä»¥å­˜æ”¾å¤šå°‘æ¡è®°å½•
+	 * @param fcount å­—æ®µæ•°
+	 * @return è®°å½•æ•°é‡
 	 */
 	public static int getCapacity(int fcount) {
 		Runtime rt = Runtime.getRuntime();
@@ -46,11 +46,11 @@ public class EnvUtil {
 	}
 	
 	/**
-	 * ²âÊÔÊÇ·ñ»¹ÓĞ¿ÕÏĞÄÚ´æ¼ÌĞø´ÓÓÎ±ê¶ÁÊı
+	 * æµ‹è¯•æ˜¯å¦è¿˜æœ‰ç©ºé—²å†…å­˜ç»§ç»­ä»æ¸¸æ ‡è¯»æ•°
 	 * @param rt Runtime
-	 * @param table ÒÑ¶ÁµÄÊı¾İ
-	 * @param readSize Ã¿´Î¶ÁµÄÊı¾İÕ¼µÄÄÚ´æ´óĞ¡£¨²»×¼È·£©
-	 * @return true£º¿ÉÒÔ¼ÌĞø¶Á£¬false£º²»¿ÉÒÔÔÙ¶ÁÁË
+	 * @param table å·²è¯»çš„æ•°æ®
+	 * @param readSize æ¯æ¬¡è¯»çš„æ•°æ®å çš„å†…å­˜å¤§å°ï¼ˆä¸å‡†ç¡®ï¼‰
+	 * @return trueï¼šå¯ä»¥ç»§ç»­è¯»ï¼Œfalseï¼šä¸å¯ä»¥å†è¯»äº†
 	 */
 	public static boolean memoryTest(Runtime rt, Sequence table, long readSize) {
 		int len = table.length();
@@ -67,7 +67,7 @@ public class EnvUtil {
 	}
 	
 	/**
-	 * Ö´ĞĞÀ¬»øÊÕ¼¯
+	 * æ‰§è¡Œåƒåœ¾æ”¶é›†
 	 * @param rt Runtime
 	 */
 	public static void runGC(Runtime rt) {
@@ -79,9 +79,9 @@ public class EnvUtil {
 	}
 
 	/**
-	 * ²éÕÒ±äÁ¿£¬ÏÈÕÒÉÏÏÂÎÄÖĞµÄ±äÁ¿£¬ÔÙÕÒSessionÖĞµÄ£¬×îºóÊÇEnvÖĞµÄÈ«¾Ö±äÁ¿¡£
-	 * @param varName String ±äÁ¿Ãû
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
+	 * æŸ¥æ‰¾å˜é‡ï¼Œå…ˆæ‰¾ä¸Šä¸‹æ–‡ä¸­çš„å˜é‡ï¼Œå†æ‰¾Sessionä¸­çš„ï¼Œæœ€åæ˜¯Envä¸­çš„å…¨å±€å˜é‡ã€‚
+	 * @param varName String å˜é‡å
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Param
 	 */
 	public static Param getParam(String varName, Context ctx) {
@@ -100,10 +100,10 @@ public class EnvUtil {
 	}
 
 	/**
-	 * É¾³ı±äÁ¿
-	 * @param varName ±äÁ¿Ãû
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Param É¾³ıµÄ±äÁ¿£¬Ã»ÕÒµ½Ôò·µ»Ø¿Õ
+	 * åˆ é™¤å˜é‡
+	 * @param varName å˜é‡å
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return Param åˆ é™¤çš„å˜é‡ï¼Œæ²¡æ‰¾åˆ°åˆ™è¿”å›ç©º
 	 */
 	public static Param removeParam(String varName, Context ctx) {
 		if (ctx != null) {
@@ -125,9 +125,9 @@ public class EnvUtil {
 	}
 
 	/**
-	 * È¡Êı¾İ¿âÁ¬½Ó¹¤³§
-	 * @param dbName Êı¾İ¿âÃû
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–æ•°æ®åº“è¿æ¥å·¥å‚
+	 * @param dbName æ•°æ®åº“å
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return ISessionFactory
 	 */
 	public static ISessionFactory getDBSessionFactory(String dbName, Context ctx) {

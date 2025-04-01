@@ -20,25 +20,25 @@ import net.lingala.zip4j.model.enums.CompressionMethod;
 import net.lingala.zip4j.model.enums.EncryptionMethod;  
  
 /** 
-* ZIPÑ¹ËõÎÄ¼ş²Ù×÷¹¤¾ßÀà 
+* ZIPå‹ç¼©æ–‡ä»¶æ“ä½œå·¥å…·ç±» 
 */  
 public class ImZipUtil {  
      
 	/** 
-    * ½âÑ¹Ö¸¶¨µÄZIPÑ¹ËõÎÄ¼şµ½µ±Ç°Ä¿Â¼
-    * @param zip Ö¸¶¨µÄZIPÑ¹ËõÎÄ¼ş 
-    * @return  ½âÑ¹ºóÎÄ¼şÊı×é 
+    * è§£å‹æŒ‡å®šçš„ZIPå‹ç¼©æ–‡ä»¶åˆ°å½“å‰ç›®å½•
+    * @param zip æŒ‡å®šçš„ZIPå‹ç¼©æ–‡ä»¶ 
+    * @return  è§£å‹åæ–‡ä»¶æ•°ç»„ 
     */  
    public static File [] unzip(String zip) throws ZipException {  
        return unzip(zip, null);  
    }
    
 	/** 
-    * Ê¹ÓÃ¸ø¶¨ÃÜÂë½âÑ¹Ö¸¶¨µÄZIPÑ¹ËõÎÄ¼şµ½µ±Ç°Ä¿Â¼ 
-    * @param zip Ö¸¶¨µÄZIPÑ¹ËõÎÄ¼ş 
-    * @param passwd ZIPÎÄ¼şµÄÃÜÂë 
-    * @return  ½âÑ¹ºóÎÄ¼şÊı×é 
-    * @throws ZipException Ñ¹ËõÎÄ¼şÓĞËğ»µ»òÕß½âÑ¹ËõÊ§°ÜÅ×³ö 
+    * ä½¿ç”¨ç»™å®šå¯†ç è§£å‹æŒ‡å®šçš„ZIPå‹ç¼©æ–‡ä»¶åˆ°å½“å‰ç›®å½• 
+    * @param zip æŒ‡å®šçš„ZIPå‹ç¼©æ–‡ä»¶ 
+    * @param passwd ZIPæ–‡ä»¶çš„å¯†ç  
+    * @return  è§£å‹åæ–‡ä»¶æ•°ç»„ 
+    * @throws ZipException å‹ç¼©æ–‡ä»¶æœ‰æŸåæˆ–è€…è§£å‹ç¼©å¤±è´¥æŠ›å‡º 
     */  
    public static File [] unzip(String zip, String passwd) throws ZipException {  
        File zipFile = new File(zip);  
@@ -47,14 +47,14 @@ public class ImZipUtil {
    }
    	   
    /** 
-    * Ê¹ÓÃ¸ø¶¨ÃÜÂë½âÑ¹Ö¸¶¨µÄZIPÑ¹ËõÎÄ¼şµ½Ö¸¶¨Ä¿Â¼ 
+    * ä½¿ç”¨ç»™å®šå¯†ç è§£å‹æŒ‡å®šçš„ZIPå‹ç¼©æ–‡ä»¶åˆ°æŒ‡å®šç›®å½• 
     *  
-    * Èç¹ûÖ¸¶¨Ä¿Â¼²»´æÔÚ,¿ÉÒÔ×Ô¶¯´´½¨,²»ºÏ·¨µÄÂ·¾¶½«µ¼ÖÂÒì³£±»Å×³ö 
-    * @param zip Ö¸¶¨µÄZIPÑ¹ËõÎÄ¼ş 
-    * @param dest ½âÑ¹Ä¿Â¼ 
-    * @param passwd ZIPÎÄ¼şµÄÃÜÂë 
-    * @return ½âÑ¹ºóÎÄ¼şÊı×é 
-    * @throws ZipException Ñ¹ËõÎÄ¼şÓĞËğ»µ»òÕß½âÑ¹ËõÊ§°ÜÅ×³ö 
+    * å¦‚æœæŒ‡å®šç›®å½•ä¸å­˜åœ¨,å¯ä»¥è‡ªåŠ¨åˆ›å»º,ä¸åˆæ³•çš„è·¯å¾„å°†å¯¼è‡´å¼‚å¸¸è¢«æŠ›å‡º 
+    * @param zip æŒ‡å®šçš„ZIPå‹ç¼©æ–‡ä»¶ 
+    * @param dest è§£å‹ç›®å½• 
+    * @param passwd ZIPæ–‡ä»¶çš„å¯†ç  
+    * @return è§£å‹åæ–‡ä»¶æ•°ç»„ 
+    * @throws ZipException å‹ç¼©æ–‡ä»¶æœ‰æŸåæˆ–è€…è§£å‹ç¼©å¤±è´¥æŠ›å‡º 
     */  
    public static File [] unzip(String zip, String dest, String passwd) throws ZipException {  
        File zipFile = new File(zip);  
@@ -63,15 +63,15 @@ public class ImZipUtil {
      
         
    /** 
-    * Ê¹ÓÃ¸ø¶¨ÃÜÂë½âÑ¹Ö¸¶¨µÄZIPÑ¹ËõÎÄ¼şµ½Ö¸¶¨Ä¿Â¼ 
+    * ä½¿ç”¨ç»™å®šå¯†ç è§£å‹æŒ‡å®šçš„ZIPå‹ç¼©æ–‡ä»¶åˆ°æŒ‡å®šç›®å½• 
     *  
-    * Èç¹ûÖ¸¶¨Ä¿Â¼²»´æÔÚ,¿ÉÒÔ×Ô¶¯´´½¨,²»ºÏ·¨µÄÂ·¾¶½«µ¼ÖÂÒì³£±»Å×³ö 
-    * @param zip Ö¸¶¨µÄZIPÑ¹ËõÎÄ¼ş 
-    * @param dest ½âÑ¹Ä¿Â¼ 
-    * @param passwd ZIPÎÄ¼şµÄÃÜÂë 
-    * @param charsetName ²ÉÓÃµÄ±àÂë
-    * @return  ½âÑ¹ºóÎÄ¼şÊı×é 
-    * @throws ZipException Ñ¹ËõÎÄ¼şÓĞËğ»µ»òÕß½âÑ¹ËõÊ§°ÜÅ×³ö 
+    * å¦‚æœæŒ‡å®šç›®å½•ä¸å­˜åœ¨,å¯ä»¥è‡ªåŠ¨åˆ›å»º,ä¸åˆæ³•çš„è·¯å¾„å°†å¯¼è‡´å¼‚å¸¸è¢«æŠ›å‡º 
+    * @param zip æŒ‡å®šçš„ZIPå‹ç¼©æ–‡ä»¶ 
+    * @param dest è§£å‹ç›®å½• 
+    * @param passwd ZIPæ–‡ä»¶çš„å¯†ç  
+    * @param charsetName é‡‡ç”¨çš„ç¼–ç 
+    * @return  è§£å‹åæ–‡ä»¶æ•°ç»„ 
+    * @throws ZipException å‹ç¼©æ–‡ä»¶æœ‰æŸåæˆ–è€…è§£å‹ç¼©å¤±è´¥æŠ›å‡º 
     */  
    public static File [] unzip(File zipFile, String dest, String passwd, String charsetName) throws ZipException {  
        ZipFile zFile = new ZipFile(zipFile);  
@@ -95,7 +95,7 @@ public class ImZipUtil {
        return extractedFiles;  
    }  
    
-   //½âÑ¹µ½Ö¸¶¨Ä¿Â¼
+   //è§£å‹åˆ°æŒ‡å®šç›®å½•
    public static File [] unzip( ZipFile zFile, String dest) throws ZipException {  
        File destDir = new File(dest);  
        if ( !destDir.exists()) {  
@@ -116,7 +116,7 @@ public class ImZipUtil {
        return extractedFiles;  
    }  
    
-   //½âÑ¹¸ø¶¨µÄÎÄ¼şµ½Ö¸¶¨Ä¿Â¼
+   //è§£å‹ç»™å®šçš„æ–‡ä»¶åˆ°æŒ‡å®šç›®å½•
    public static File [] unzip(ZipFile zFile, ArrayList<String> files, String dest) throws ZipException {  
        File destDir = new File(dest);  
        if (destDir.isDirectory() && !destDir.exists()) {  
@@ -133,7 +133,7 @@ public class ImZipUtil {
        return extractedFiles;  
    }  
    
- 	//½âÑ¹¸ø¶¨µÄÎÄ¼ş¼Ğµ½Ö¸¶¨Ä¿Â¼
+ 	//è§£å‹ç»™å®šçš„æ–‡ä»¶å¤¹åˆ°æŒ‡å®šç›®å½•
    public static File [] unzipDir(ZipFile zipFile, ArrayList<String> dirs, String dest) throws ZipException { 
 	   if (!zipFile.isValidZipFile()) {  
 		   return null;
@@ -148,11 +148,11 @@ public class ImZipUtil {
 	       if (!dir.isEmpty()){
 		    	if (!dir.endsWith(File.separator)) dir += File.separator;  
 		    }
-		    // Èç¹ûÄ¿Â¼²»´æÔÚÔòÌø¹ı  
+		    // å¦‚æœç›®å½•ä¸å­˜åœ¨åˆ™è·³è¿‡  
 		    FileHeader dirHeader = zipFile.getFileHeader(dir);  
 		    if (null == dirHeader) continue;  		   
 			
-		    // ±éÀúÑ¹ËõÎÄ¼şÖĞËùÓĞµÄFileHeader, ½«Ö¸¶¨É¾³ıÄ¿Â¼ÏÂµÄ×ÓÎÄ¼şÃû±£´æÆğÀ´  
+		    // éå†å‹ç¼©æ–‡ä»¶ä¸­æ‰€æœ‰çš„FileHeader, å°†æŒ‡å®šåˆ é™¤ç›®å½•ä¸‹çš„å­æ–‡ä»¶åä¿å­˜èµ·æ¥  
 		    String subName = "";
 		    List<FileHeader> headersList = zipFile.getFileHeaders();  
 		    
@@ -176,7 +176,7 @@ public class ImZipUtil {
 	    return fs;
    }  
    
-   //½âÑ¹ÎÄ¼ş´øÌØÊâ×Ö·ûµÄ
+   //è§£å‹æ–‡ä»¶å¸¦ç‰¹æ®Šå­—ç¬¦çš„
    public static File [] unzipFilter(ZipFile zFile, ArrayList<String> filter, String dest) throws Exception {  
        File destDir = new File(dest);  
        if (destDir.isDirectory() && !destDir.exists()) {  
@@ -205,7 +205,7 @@ public class ImZipUtil {
    }  
      
    /***************************************
-    * ²»½âÑ¹Çé¿öÏÂ£¬»ñÈ¡Ñ¹ËõÎÄ¼şzipÖĞµÄÎÄ¼şÃû.
+    * ä¸è§£å‹æƒ…å†µä¸‹ï¼Œè·å–å‹ç¼©æ–‡ä»¶zipä¸­çš„æ–‡ä»¶å.
     * **************************************/
    public static File [] listFiles(ZipFile zFile) throws ZipException {
        List<FileHeader> headerList = zFile.getFileHeaders();  
@@ -220,7 +220,7 @@ public class ImZipUtil {
        return extractedFiles;  
    }  
    
-   //»ñÈ¡zipÎÄ¼şÖĞpathÏÂµÄÎÄ¼ş£¬pathÎª¿ÕÔò»ñÈ¡ËùÓĞµÄÎÄ¼ş
+   //è·å–zipæ–‡ä»¶ä¸­pathä¸‹çš„æ–‡ä»¶ï¼Œpathä¸ºç©ºåˆ™è·å–æ‰€æœ‰çš„æ–‡ä»¶
    public static File [] listFiles(ZipFile zFile, String path, String[] filter) throws ZipException {
 	   List<FileHeader> headerList = zFile.getFileHeaders();  
        List<File> extractedFileList = new ArrayList<File>();  
@@ -268,7 +268,7 @@ public class ImZipUtil {
        }
    }
    
-   //»ñÈ¡zipÎÄ¼şÖĞpathÏÂµÄÄ¿Â¼£¬pathÎª¿ÕÔò»ñÈ¡ËùÓĞµÄÄ¿Â¼
+   //è·å–zipæ–‡ä»¶ä¸­pathä¸‹çš„ç›®å½•ï¼Œpathä¸ºç©ºåˆ™è·å–æ‰€æœ‰çš„ç›®å½•
    public static File [] listDirs(ZipFile zFile, String path) throws ZipException {
        List<FileHeader> headerList = zFile.getFileHeaders();  
        List<String> extractedFileList = new ArrayList<String>();  
@@ -326,13 +326,13 @@ public class ImZipUtil {
 	   return extractedFiles;  
    }
    
-    //zip²ÎÊıÉèÖÃ
+    //zipå‚æ•°è®¾ç½®
 	public static ZipParameters setZipParam(ZipFile zFile, String charsetName, String passwd) throws ZipException {
 	   ZipParameters zRet = new ZipParameters();
 	  
 	   zRet.setCompressionMethod(CompressionMethod.DEFLATE);  
 	   zRet.setCompressionLevel(CompressionLevel.NORMAL);
-	   //ÉèÖÃÃÜÂë
+	   //è®¾ç½®å¯†ç 
 	   if(passwd!=null && !passwd.isEmpty()){
 		   zRet.setEncryptFiles(true);  
 		   zRet.setEncryptionMethod(EncryptionMethod.ZIP_STANDARD);   
@@ -349,19 +349,19 @@ public class ImZipUtil {
 	   
    }
    /** 
-    * Ñ¹ËõÖ¸¶¨ÎÄ¼şµ½µ±Ç°ÎÄ¼ş¼Ğ 
-    * @param src ÒªÑ¹ËõµÄÖ¸¶¨ÎÄ¼ş 
-    * @return ×îÖÕµÄÑ¹ËõÎÄ¼ş´æ·ÅµÄ¾ø¶ÔÂ·¾¶,Èç¹ûÎªnullÔòËµÃ÷Ñ¹ËõÊ§°Ü. 
+    * å‹ç¼©æŒ‡å®šæ–‡ä»¶åˆ°å½“å‰æ–‡ä»¶å¤¹ 
+    * @param src è¦å‹ç¼©çš„æŒ‡å®šæ–‡ä»¶ 
+    * @return æœ€ç»ˆçš„å‹ç¼©æ–‡ä»¶å­˜æ”¾çš„ç»å¯¹è·¯å¾„,å¦‚æœä¸ºnullåˆ™è¯´æ˜å‹ç¼©å¤±è´¥. 
     */  
    public static String zip(String src) {  
        return zip(src,null);  
    }
  
    /** 
-    * Ê¹ÓÃ¸ø¶¨ÃÜÂëÑ¹ËõÖ¸¶¨ÎÄ¼ş»òÎÄ¼ş¼Ğµ½µ±Ç°Ä¿Â¼ 
-    * @param src ÒªÑ¹ËõµÄÎÄ¼ş 
-    * @param passwd Ñ¹ËõÊ¹ÓÃµÄÃÜÂë 
-    * @return ×îÖÕµÄÑ¹ËõÎÄ¼ş´æ·ÅµÄ¾ø¶ÔÂ·¾¶,Èç¹ûÎªnullÔòËµÃ÷Ñ¹ËõÊ§°Ü. 
+    * ä½¿ç”¨ç»™å®šå¯†ç å‹ç¼©æŒ‡å®šæ–‡ä»¶æˆ–æ–‡ä»¶å¤¹åˆ°å½“å‰ç›®å½• 
+    * @param src è¦å‹ç¼©çš„æ–‡ä»¶ 
+    * @param passwd å‹ç¼©ä½¿ç”¨çš„å¯†ç  
+    * @return æœ€ç»ˆçš„å‹ç¼©æ–‡ä»¶å­˜æ”¾çš„ç»å¯¹è·¯å¾„,å¦‚æœä¸ºnullåˆ™è¯´æ˜å‹ç¼©å¤±è´¥. 
     */  
    public static String zip(String src, String passwd) {  
        return zip(src, null, passwd);  
@@ -369,28 +369,28 @@ public class ImZipUtil {
    
   
    /** 
-    * Ê¹ÓÃ¸ø¶¨ÃÜÂëÑ¹ËõÖ¸¶¨ÎÄ¼ş»òÎÄ¼ş¼Ğµ½µ±Ç°Ä¿Â¼ 
-    * @param src ÒªÑ¹ËõµÄÎÄ¼ş 
-    * @param dest Ñ¹ËõÎÄ¼ş´æ·ÅÂ·¾¶ 
-    * @param passwd Ñ¹ËõÊ¹ÓÃµÄÃÜÂë 
-    * @return ×îÖÕµÄÑ¹ËõÎÄ¼ş´æ·ÅµÄ¾ø¶ÔÂ·¾¶,Èç¹ûÎªnullÔòËµÃ÷Ñ¹ËõÊ§°Ü. 
+    * ä½¿ç”¨ç»™å®šå¯†ç å‹ç¼©æŒ‡å®šæ–‡ä»¶æˆ–æ–‡ä»¶å¤¹åˆ°å½“å‰ç›®å½• 
+    * @param src è¦å‹ç¼©çš„æ–‡ä»¶ 
+    * @param dest å‹ç¼©æ–‡ä»¶å­˜æ”¾è·¯å¾„ 
+    * @param passwd å‹ç¼©ä½¿ç”¨çš„å¯†ç  
+    * @return æœ€ç»ˆçš„å‹ç¼©æ–‡ä»¶å­˜æ”¾çš„ç»å¯¹è·¯å¾„,å¦‚æœä¸ºnullåˆ™è¯´æ˜å‹ç¼©å¤±è´¥. 
     */  
    public static String zip(String src, String dest, String passwd) {  
        return zip(src, dest, true, passwd);  
    }  
     
    /** 
-    * Ê¹ÓÃ¸ø¶¨ÃÜÂëÑ¹ËõÖ¸¶¨ÎÄ¼ş»òÎÄ¼ş¼Ğµ½Ö¸¶¨Î»ÖÃ. 
+    * ä½¿ç”¨ç»™å®šå¯†ç å‹ç¼©æŒ‡å®šæ–‡ä»¶æˆ–æ–‡ä»¶å¤¹åˆ°æŒ‡å®šä½ç½®. 
     *  
-    * dest¿É´«×îÖÕÑ¹ËõÎÄ¼ş´æ·ÅµÄ¾ø¶ÔÂ·¾¶,Ò²¿ÉÒÔ´«´æ·ÅÄ¿Â¼,Ò²¿ÉÒÔ´«null»òÕß"". 
-    * Èç¹û´«null»òÕß""Ôò½«Ñ¹ËõÎÄ¼ş´æ·ÅÔÚµ±Ç°Ä¿Â¼,¼´¸úÔ´ÎÄ¼şÍ¬Ä¿Â¼,Ñ¹ËõÎÄ¼şÃûÈ¡Ô´ÎÄ¼şÃû,ÒÔ.zipÎªºó×º; 
-    * Èç¹ûÒÔÂ·¾¶·Ö¸ô·û(File.separator)½áÎ²,ÔòÊÓÎªÄ¿Â¼,Ñ¹ËõÎÄ¼şÃûÈ¡Ô´ÎÄ¼şÃû,ÒÔ.zipÎªºó×º,·ñÔòÊÓÎªÎÄ¼şÃû. 
-    * @param src ÒªÑ¹ËõµÄÎÄ¼ş»òÎÄ¼ş¼ĞÂ·¾¶ 
-    * @param dest Ñ¹ËõÎÄ¼ş´æ·ÅÂ·¾¶ 
-    * @param isCreateDir ÊÇ·ñÔÚÑ¹ËõÎÄ¼şÀï´´½¨Ä¿Â¼,½öÔÚÑ¹ËõÎÄ¼şÎªÄ¿Â¼Ê±ÓĞĞ§. 
-    * Èç¹ûÎªfalse,½«Ö±½ÓÑ¹ËõÄ¿Â¼ÏÂÎÄ¼şµ½Ñ¹ËõÎÄ¼ş. 
-    * @param passwd Ñ¹ËõÊ¹ÓÃµÄÃÜÂë 
-    * @return ×îÖÕµÄÑ¹ËõÎÄ¼ş´æ·ÅµÄ¾ø¶ÔÂ·¾¶,Èç¹ûÎªnullÔòËµÃ÷Ñ¹ËõÊ§°Ü. 
+    * destå¯ä¼ æœ€ç»ˆå‹ç¼©æ–‡ä»¶å­˜æ”¾çš„ç»å¯¹è·¯å¾„,ä¹Ÿå¯ä»¥ä¼ å­˜æ”¾ç›®å½•,ä¹Ÿå¯ä»¥ä¼ nullæˆ–è€…"". 
+    * å¦‚æœä¼ nullæˆ–è€…""åˆ™å°†å‹ç¼©æ–‡ä»¶å­˜æ”¾åœ¨å½“å‰ç›®å½•,å³è·Ÿæºæ–‡ä»¶åŒç›®å½•,å‹ç¼©æ–‡ä»¶åå–æºæ–‡ä»¶å,ä»¥.zipä¸ºåç¼€; 
+    * å¦‚æœä»¥è·¯å¾„åˆ†éš”ç¬¦(File.separator)ç»“å°¾,åˆ™è§†ä¸ºç›®å½•,å‹ç¼©æ–‡ä»¶åå–æºæ–‡ä»¶å,ä»¥.zipä¸ºåç¼€,å¦åˆ™è§†ä¸ºæ–‡ä»¶å. 
+    * @param src è¦å‹ç¼©çš„æ–‡ä»¶æˆ–æ–‡ä»¶å¤¹è·¯å¾„ 
+    * @param dest å‹ç¼©æ–‡ä»¶å­˜æ”¾è·¯å¾„ 
+    * @param isCreateDir æ˜¯å¦åœ¨å‹ç¼©æ–‡ä»¶é‡Œåˆ›å»ºç›®å½•,ä»…åœ¨å‹ç¼©æ–‡ä»¶ä¸ºç›®å½•æ—¶æœ‰æ•ˆ. 
+    * å¦‚æœä¸ºfalse,å°†ç›´æ¥å‹ç¼©ç›®å½•ä¸‹æ–‡ä»¶åˆ°å‹ç¼©æ–‡ä»¶. 
+    * @param passwd å‹ç¼©ä½¿ç”¨çš„å¯†ç  
+    * @return æœ€ç»ˆçš„å‹ç¼©æ–‡ä»¶å­˜æ”¾çš„ç»å¯¹è·¯å¾„,å¦‚æœä¸ºnullåˆ™è¯´æ˜å‹ç¼©å¤±è´¥. 
     */  
    
    public static String zip(String src, String dest, boolean isCreateDir, String passwd) {  
@@ -398,27 +398,27 @@ public class ImZipUtil {
    }
    
    /** 
-    * Ê¹ÓÃ¸ø¶¨ÃÜÂëÑ¹ËõÖ¸¶¨ÎÄ¼ş»òÎÄ¼ş¼Ğµ½Ö¸¶¨Î»ÖÃ. 
+    * ä½¿ç”¨ç»™å®šå¯†ç å‹ç¼©æŒ‡å®šæ–‡ä»¶æˆ–æ–‡ä»¶å¤¹åˆ°æŒ‡å®šä½ç½®. 
     *  
-    * @param files ÒªÑ¹ËõµÄÎÄ¼ş»òÎÄ¼ş¼ĞÂ·¾¶ 
-    * @param rootFolder Ñ¹ËõÎÄ¼ş´æ·ÅÂ·¾¶ 
-    * @param zFile Éú³ÉµÄÑ¹ËõÎÄ¼şÃû£¬ÒÔ.zipÎªºó×º; 
-    * @param passwd Ñ¹ËõÊ¹ÓÃµÄÃÜÂë
-    * @param charsetName ²ÉÓÃµÄ±àÂë  
-    * @return ×îÖÕµÄÑ¹ËõÎÄ¼ş´æ·ÅµÄ¾ø¶ÔÂ·¾¶,Èç¹ûÎªnullÔòËµÃ÷Ñ¹ËõÊ§°Ü. 
+    * @param files è¦å‹ç¼©çš„æ–‡ä»¶æˆ–æ–‡ä»¶å¤¹è·¯å¾„ 
+    * @param rootFolder å‹ç¼©æ–‡ä»¶å­˜æ”¾è·¯å¾„ 
+    * @param zFile ç”Ÿæˆçš„å‹ç¼©æ–‡ä»¶åï¼Œä»¥.zipä¸ºåç¼€; 
+    * @param passwd å‹ç¼©ä½¿ç”¨çš„å¯†ç 
+    * @param charsetName é‡‡ç”¨çš„ç¼–ç   
+    * @return æœ€ç»ˆçš„å‹ç¼©æ–‡ä»¶å­˜æ”¾çš„ç»å¯¹è·¯å¾„,å¦‚æœä¸ºnullåˆ™è¯´æ˜å‹ç¼©å¤±è´¥. 
     */  
 
-   // Ñ¹ËõÎÄ¼şÊ±´øÂ·¾¶,
+   // å‹ç¼©æ–‡ä»¶æ—¶å¸¦è·¯å¾„,
    public static String zips(ArrayList<File> files, String rootFolder, String zFile, String passwd, String charsetName) {  
 	   ZipFile zipFile = null;
 	   ZipParameters parameters = new ZipParameters();  
        createDestDirectoryIfNecessary(zFile);  
-       parameters.setCompressionMethod(CompressionMethod.DEFLATE);           // Ñ¹Ëõ·½Ê½  
-       parameters.setCompressionLevel(CompressionLevel.NORMAL);    			 // Ñ¹Ëõ¼¶±ğ  
+       parameters.setCompressionMethod(CompressionMethod.DEFLATE);           // å‹ç¼©æ–¹å¼  
+       parameters.setCompressionLevel(CompressionLevel.NORMAL);    			 // å‹ç¼©çº§åˆ«  
        try { 
 	       if (!(passwd==null || passwd.length()==0)) {  
 	           parameters.setEncryptFiles(true);  
-	           parameters.setEncryptionMethod(EncryptionMethod.ZIP_STANDARD); // ¼ÓÃÜ·½Ê½  
+	           parameters.setEncryptionMethod(EncryptionMethod.ZIP_STANDARD); // åŠ å¯†æ–¹å¼  
 	           zipFile = new ZipFile(zFile, passwd.toCharArray());  
 	       }else{        
 	    	   zipFile = new ZipFile(zFile);  
@@ -441,10 +441,10 @@ public class ImZipUtil {
        }  
        return null;  
    }  
-   /* µ¥ÎÄ¼ş×·¼Óµ½¸ø¶¨µÄdir
-    * zFile zipÎÄ¼şÃû
-    * file ÒªÑ¹ËõµÄÎÄ¼ş
-    * dir Ñ¹Ëõ°üµÄÎÄ¼ş¼Ğ
+   /* å•æ–‡ä»¶è¿½åŠ åˆ°ç»™å®šçš„dir
+    * zFile zipæ–‡ä»¶å
+    * file è¦å‹ç¼©çš„æ–‡ä»¶
+    * dir å‹ç¼©åŒ…çš„æ–‡ä»¶å¤¹
     */
    public static boolean zip(ZipFile zipFile, File file, String zipDir, ZipParameters parameters) throws IOException { 
 	   try {  
@@ -461,11 +461,11 @@ public class ImZipUtil {
        return false;  
    }  
    
-   //¶Ô¸ø¶¨µÄfiles£¬¡¡dirs½øĞĞÑ¹Ëõ´¦Àí
+   //å¯¹ç»™å®šçš„filesï¼Œã€€dirsè¿›è¡Œå‹ç¼©å¤„ç†
    public static String zip(ZipFile zipFile, ZipParameters parameters, ArrayList<File> files, ArrayList<File> dirs) {
 	   if (parameters.getCompressionLevel()!=CompressionLevel.ULTRA && parameters.getCompressionMethod()!=CompressionMethod.STORE){
-		   parameters.setCompressionMethod(CompressionMethod.DEFLATE);           // Ñ¹Ëõ·½Ê½  
-	       parameters.setCompressionLevel(CompressionLevel.NORMAL);    			 // Ñ¹Ëõ¼¶±ğ  
+		   parameters.setCompressionMethod(CompressionMethod.DEFLATE);           // å‹ç¼©æ–¹å¼  
+	       parameters.setCompressionLevel(CompressionLevel.NORMAL);    			 // å‹ç¼©çº§åˆ«  
        }
        
        try {           
@@ -484,19 +484,19 @@ public class ImZipUtil {
        return null;  
    }  
    
-   //½«srcÑ¹Ëõ³ÉdestÎÄ¼ş·µ»Ø
+   //å°†srcå‹ç¼©æˆdestæ–‡ä»¶è¿”å›
    public static String zip(String src, String dest, boolean isCreateDir, String passwd, String charsetName) {  
 	   ZipFile zipFile = null;
 	   File srcFile = new File(src);  
        dest = buildDestinationZipFilePath(srcFile, dest);  
        ZipParameters parameters = new ZipParameters();  
-       parameters.setCompressionMethod(CompressionMethod.DEFLATE);           // Ñ¹Ëõ·½Ê½  
-       parameters.setCompressionLevel(CompressionLevel.NORMAL);    			 // Ñ¹Ëõ¼¶±ğ  
+       parameters.setCompressionMethod(CompressionMethod.DEFLATE);           // å‹ç¼©æ–¹å¼  
+       parameters.setCompressionLevel(CompressionLevel.NORMAL);    			 // å‹ç¼©çº§åˆ«  
        
        try {  
     	   if (!(passwd==null || passwd.length()==0)) {  
                parameters.setEncryptFiles(true);  
-               parameters.setEncryptionMethod(EncryptionMethod.ZIP_STANDARD); // ¼ÓÃÜ·½Ê½  
+               parameters.setEncryptionMethod(EncryptionMethod.ZIP_STANDARD); // åŠ å¯†æ–¹å¼  
                zipFile = new ZipFile(dest, passwd.toCharArray());  
            } else {
         	   zipFile = new ZipFile(dest);  
@@ -509,7 +509,7 @@ public class ImZipUtil {
            }
     	   
            if (srcFile.isDirectory()) {  
-               // Èç¹û²»´´½¨Ä¿Â¼µÄ»°,½«Ö±½Ó°Ñ¸ø¶¨Ä¿Â¼ÏÂµÄÎÄ¼şÑ¹Ëõµ½Ñ¹ËõÎÄ¼ş,¼´Ã»ÓĞÄ¿Â¼½á¹¹  
+               // å¦‚æœä¸åˆ›å»ºç›®å½•çš„è¯,å°†ç›´æ¥æŠŠç»™å®šç›®å½•ä¸‹çš„æ–‡ä»¶å‹ç¼©åˆ°å‹ç¼©æ–‡ä»¶,å³æ²¡æœ‰ç›®å½•ç»“æ„  
                if (!isCreateDir) {  
                    File [] subFiles = srcFile.listFiles();  
                    ArrayList<File> temp = new ArrayList<File>();  
@@ -536,11 +536,11 @@ public class ImZipUtil {
    }  
    
    /** 
-    * ¹¹½¨Ñ¹ËõÎÄ¼ş´æ·ÅÂ·¾¶,Èç¹û²»´æÔÚ½«»á´´½¨ 
-    * ´«ÈëµÄ¿ÉÄÜÊÇÎÄ¼şÃû»òÕßÄ¿Â¼,Ò²¿ÉÄÜ²»´«,´Ë·½·¨ÓÃÒÔ×ª»»×îÖÕÑ¹ËõÎÄ¼şµÄ´æ·ÅÂ·¾¶ 
-    * @param srcFile Ô´ÎÄ¼ş 
-    * @param destParam Ñ¹ËõÄ¿±êÂ·¾¶ 
-    * @return ÕıÈ·µÄÑ¹ËõÎÄ¼ş´æ·ÅÂ·¾¶ 
+    * æ„å»ºå‹ç¼©æ–‡ä»¶å­˜æ”¾è·¯å¾„,å¦‚æœä¸å­˜åœ¨å°†ä¼šåˆ›å»º 
+    * ä¼ å…¥çš„å¯èƒ½æ˜¯æ–‡ä»¶åæˆ–è€…ç›®å½•,ä¹Ÿå¯èƒ½ä¸ä¼ ,æ­¤æ–¹æ³•ç”¨ä»¥è½¬æ¢æœ€ç»ˆå‹ç¼©æ–‡ä»¶çš„å­˜æ”¾è·¯å¾„ 
+    * @param srcFile æºæ–‡ä»¶ 
+    * @param destParam å‹ç¼©ç›®æ ‡è·¯å¾„ 
+    * @return æ­£ç¡®çš„å‹ç¼©æ–‡ä»¶å­˜æ”¾è·¯å¾„ 
     */  
    private static String buildDestinationZipFilePath(File srcFile,String destParam) { 
 	   if (destParam==null || destParam.length()==0) {
@@ -551,7 +551,7 @@ public class ImZipUtil {
                destParam = srcFile.getParent() + File.separator + fileName + ".zip";  
            }  
        } else {  
-           createDestDirectoryIfNecessary(destParam);  // ÔÚÖ¸¶¨Â·¾¶²»´æÔÚµÄÇé¿öÏÂ½«Æä´´½¨³öÀ´  
+           createDestDirectoryIfNecessary(destParam);  // åœ¨æŒ‡å®šè·¯å¾„ä¸å­˜åœ¨çš„æƒ…å†µä¸‹å°†å…¶åˆ›å»ºå‡ºæ¥  
            if (destParam.endsWith(File.separator)) {  
                String fileName = "";  
                if (srcFile.isDirectory()) {  
@@ -566,8 +566,8 @@ public class ImZipUtil {
    }  
      
    /** 
-    * ÔÚ±ØÒªµÄÇé¿öÏÂ´´½¨Ñ¹ËõÎÄ¼ş´æ·ÅÄ¿Â¼,±ÈÈçÖ¸¶¨µÄ´æ·ÅÂ·¾¶²¢Ã»ÓĞ±»´´½¨ 
-    * @param destParam Ö¸¶¨µÄ´æ·ÅÂ·¾¶,ÓĞ¿ÉÄÜ¸ÃÂ·¾¶²¢Ã»ÓĞ±»´´½¨ 
+    * åœ¨å¿…è¦çš„æƒ…å†µä¸‹åˆ›å»ºå‹ç¼©æ–‡ä»¶å­˜æ”¾ç›®å½•,æ¯”å¦‚æŒ‡å®šçš„å­˜æ”¾è·¯å¾„å¹¶æ²¡æœ‰è¢«åˆ›å»º 
+    * @param destParam æŒ‡å®šçš„å­˜æ”¾è·¯å¾„,æœ‰å¯èƒ½è¯¥è·¯å¾„å¹¶æ²¡æœ‰è¢«åˆ›å»º 
     */  
    private static void createDestDirectoryIfNecessary(String destParam) {  
        File destDir = null;  
@@ -583,16 +583,16 @@ public class ImZipUtil {
        }  
    }  
    
-   // É¾³ıÄ¿Â¼.
+   // åˆ é™¤ç›®å½•.
    public static boolean removeDirFromZipArchive(ZipFile zipFile, String removeDir) throws ZipException {  
 	   boolean bRet = false;
 	   try{
-		    // ¸øÒªÉ¾³ıµÄÄ¿Â¼¼ÓÉÏÂ·¾¶·Ö¸ô·û  
+		    // ç»™è¦åˆ é™¤çš„ç›®å½•åŠ ä¸Šè·¯å¾„åˆ†éš”ç¬¦  
 		   if (!removeDir.endsWith(File.separator)) removeDir += File.separator;  
 		   String rDir = removeDir.replace(File.separator, "/");
 		   rDir = rDir.replace("//", "/");
 		  
-		    // ±éÀúÑ¹ËõÎÄ¼şÖĞËùÓĞµÄFileHeader, ½«Ö¸¶¨É¾³ıÄ¿Â¼ÏÂµÄ×ÓÎÄ¼şÃû±£´æÆğÀ´  
+		    // éå†å‹ç¼©æ–‡ä»¶ä¸­æ‰€æœ‰çš„FileHeader, å°†æŒ‡å®šåˆ é™¤ç›®å½•ä¸‹çš„å­æ–‡ä»¶åä¿å­˜èµ·æ¥  
 		    List<FileHeader> headersList = zipFile.getFileHeaders();  
 		    List<String> removeHeaderNames = new ArrayList<String>();  
 		    for(int i=0, len = headersList.size(); i<len; i++) {  
@@ -603,7 +603,7 @@ public class ImZipUtil {
 		            removeHeaderNames.add(subHeader.getFileName());  
 		        }  
 		    }  
-		    // ±éÀúÉ¾³ıÖ¸¶¨Ä¿Â¼ÏÂµÄËùÓĞ×ÓÎÄ¼ş, ×îºóÉ¾³ıÖ¸¶¨Ä¿Â¼(´ËÊ±ÒÑÎª¿ÕÄ¿Â¼)  
+		    // éå†åˆ é™¤æŒ‡å®šç›®å½•ä¸‹çš„æ‰€æœ‰å­æ–‡ä»¶, æœ€ååˆ é™¤æŒ‡å®šç›®å½•(æ­¤æ—¶å·²ä¸ºç©ºç›®å½•)  
 		    for(String headerNameString : removeHeaderNames) {  
 		        zipFile.removeFile(headerNameString);  
 		    }  
@@ -614,11 +614,11 @@ public class ImZipUtil {
 	   return bRet;
 	}  
    
-   // É¾³ıÌõ¼şÎªÕı³£ÎÄ¼ş.
+   // åˆ é™¤æ¡ä»¶ä¸ºæ­£å¸¸æ–‡ä»¶.
    public static boolean removeFilesFromZipArchive(ZipFile zipFile,  List<String> files) throws ZipException {
 	   boolean bRet = false;
 	   try{
-		    // ±éÀúÉ¾³ıÖ¸¶¨Ä¿Â¼ÏÂµÄËùÓĞ×ÓÎÄ¼ş, ×îºóÉ¾³ıÖ¸¶¨Ä¿Â¼(´ËÊ±ÒÑÎª¿ÕÄ¿Â¼)  
+		    // éå†åˆ é™¤æŒ‡å®šç›®å½•ä¸‹çš„æ‰€æœ‰å­æ–‡ä»¶, æœ€ååˆ é™¤æŒ‡å®šç›®å½•(æ­¤æ—¶å·²ä¸ºç©ºç›®å½•)  
 		    for(String headerNameString : files) {  
 		    	try{
 		    		zipFile.removeFile(headerNameString);  
@@ -635,8 +635,8 @@ public class ImZipUtil {
 	   return bRet;
 	}  
    
-   // É¾³ıÌõ¼ş´øÌØÊâ×Ö·ûÎÄ¼ş.
-   // patternÊÇ´¿±í´ïÊ½£¬Èç£º*.xml
+   // åˆ é™¤æ¡ä»¶å¸¦ç‰¹æ®Šå­—ç¬¦æ–‡ä»¶.
+   // patternæ˜¯çº¯è¡¨è¾¾å¼ï¼Œå¦‚ï¼š*.xml
    public static boolean removePathFilePatternFromZip(ZipFile zipFile, String filePattern) throws ZipException {
 	   if (filePattern.indexOf(File.separator)!=-1){
 		   String removeDir=filePattern.substring(0, filePattern.indexOf(File.separator)+1);
@@ -654,11 +654,11 @@ public class ImZipUtil {
 	   }
    }
    
-   //¶Ô·ûºÏpatternÌõ¼şµÄÎÄ¼ş½øĞĞÉ¾³ı
+   //å¯¹ç¬¦åˆpatternæ¡ä»¶çš„æ–‡ä»¶è¿›è¡Œåˆ é™¤
    private static boolean removeFilePatternFromZip(ZipFile zipFile, String pattern) throws ZipException {
 	   boolean bRet = false;
 	   try{
-		    // ±éÀúÑ¹ËõÎÄ¼şÖĞËùÓĞµÄFileHeader, ½«Ö¸¶¨É¾³ıÄ¿Â¼ÏÂµÄ×ÓÎÄ¼şÃû±£´æÆğÀ´  
+		    // éå†å‹ç¼©æ–‡ä»¶ä¸­æ‰€æœ‰çš„FileHeader, å°†æŒ‡å®šåˆ é™¤ç›®å½•ä¸‹çš„å­æ–‡ä»¶åä¿å­˜èµ·æ¥  
 		    String subName = "", subOrg="";
 		    List<FileHeader> headersList = zipFile.getFileHeaders();  
 		    List<String> removeHeaderNames = new ArrayList<String>();  
@@ -686,15 +686,15 @@ public class ImZipUtil {
 	   return bRet;
 	}  
    
-   ////¶Ô¸ø¶¨Ä¿Â¼removeDirÏÂµÄ·ûºÏpatternÌõ¼şµÄÎÄ¼ş½øĞĞÉ¾³ı
+   ////å¯¹ç»™å®šç›®å½•removeDirä¸‹çš„ç¬¦åˆpatternæ¡ä»¶çš„æ–‡ä»¶è¿›è¡Œåˆ é™¤
    public static boolean removeFilePatternFromPathZip(ZipFile zipFile, String removeDir, String pattern) throws ZipException {
 	   boolean bRet = false;
 	   try{
-		   // ¸øÒªÉ¾³ıµÄÄ¿Â¼¼ÓÉÏÂ·¾¶·Ö¸ô·û  
+		   // ç»™è¦åˆ é™¤çš„ç›®å½•åŠ ä¸Šè·¯å¾„åˆ†éš”ç¬¦  
 		   if (!removeDir.endsWith(File.separator)) removeDir += File.separator;  
 		   String rDir = removeDir.replace(File.separator, "/");
 		   rDir = rDir.replace("//", "/");
-		    // ±éÀúÑ¹ËõÎÄ¼şÖĞËùÓĞµÄFileHeader, ½«Ö¸¶¨É¾³ıÄ¿Â¼ÏÂµÄ×ÓÎÄ¼şÃû±£´æÆğÀ´  
+		    // éå†å‹ç¼©æ–‡ä»¶ä¸­æ‰€æœ‰çš„FileHeader, å°†æŒ‡å®šåˆ é™¤ç›®å½•ä¸‹çš„å­æ–‡ä»¶åä¿å­˜èµ·æ¥  
 		    String subName = "";
 		    List<FileHeader> headersList = zipFile.getFileHeaders();  
 		    List<String> removeHeaderNames = new ArrayList<String>();  
@@ -703,7 +703,7 @@ public class ImZipUtil {
 		        FileHeader subHeader = (FileHeader) headersList.get(i);  
 		        subName = subHeader.getFileName();
 		        //System.out.println("sub="+subName);
-		        if(rDir.equals("/")){ //¸ùÄ¿Â¼ÏÂµÄÎÄ¼ş²ÅÓĞĞ§
+		        if(rDir.equals("/")){ //æ ¹ç›®å½•ä¸‹çš„æ–‡ä»¶æ‰æœ‰æ•ˆ
 		        	if (subName.indexOf("/")==-1){
 			        	if (subName.matches(pattern)){
 			        		removeHeaderNames.add(subName);  
@@ -717,7 +717,7 @@ public class ImZipUtil {
 		        	}
 		        }  
 		    }  
-		    // ±éÀúÉ¾³ıÖ¸¶¨Ä¿Â¼ÏÂµÄËùÓĞ×ÓÎÄ¼ş, ×îºóÉ¾³ıÖ¸¶¨Ä¿Â¼(´ËÊ±ÒÑÎª¿ÕÄ¿Â¼)  
+		    // éå†åˆ é™¤æŒ‡å®šç›®å½•ä¸‹çš„æ‰€æœ‰å­æ–‡ä»¶, æœ€ååˆ é™¤æŒ‡å®šç›®å½•(æ­¤æ—¶å·²ä¸ºç©ºç›®å½•)  
 		    for(String headerNameString : removeHeaderNames) {  
 		        zipFile.removeFile(headerNameString);  
 		    }
@@ -728,7 +728,7 @@ public class ImZipUtil {
 	   return bRet;
 	}  
    
-   //¶Ô¿ÕÄÚÈİµÄzipÎÄ¼ş´¦Àí.
+   //å¯¹ç©ºå†…å®¹çš„zipæ–‡ä»¶å¤„ç†.
    public static ZipFile resetZipFile(String sfile) throws ZipException{
 	   if(!isValidZipFile(sfile)){
 			File f = new File(sfile);
@@ -740,7 +740,7 @@ public class ImZipUtil {
    }
    
    
-   //¼ì²âÊÇ·ñÎªÓĞĞ§µÄzipÎÄ¼ş
+   //æ£€æµ‹æ˜¯å¦ä¸ºæœ‰æ•ˆçš„zipæ–‡ä»¶
    private static boolean isValidZipFile(String sfile ){
 		boolean bRet = false;
 		try {
@@ -759,8 +759,8 @@ public class ImZipUtil {
    public static void main(String[] args) {  
      
      try {  
-         //File[] files = unzip("d:\\tmp\\zdataºº×Ö.zip", "111");
-    	 //File[] files = unzip("d:\\tmp\\Ò»¸öÀı×Ó100.zip", "222");
+         //File[] files = unzip("d:\\tmp\\zdataæ±‰å­—.zip", "111");
+    	 //File[] files = unzip("d:\\tmp\\ä¸€ä¸ªä¾‹å­100.zip", "222");
     	 //File[] files = unzip("d:\\tmp\\zdata\\zdat.zip",null);
 //    	 File[] files = unzip("d:\\tmp\\zdata\\emp.zip");
 //         for (int i = 0; i < files.length; i++) {  

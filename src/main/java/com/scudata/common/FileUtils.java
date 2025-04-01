@@ -38,10 +38,10 @@ public class FileUtils {
 	private final static byte[] RTFID = {
 			(byte)0x7B, (byte)0x5C, (byte)0x72, (byte)0x74, (byte)0x66};
 	
-	/* ¸ù¾ÝÎÄ¼þÄÚÈÝ¼ì²âÍ¼Æ¬¸ñÊ½£¬Ö§³Ögif¡¢jpg¡¢png£¬²»ÈÏÊ¶Ê±·µ»Ønull¡¡*/
+	/* æ ¹æ®æ–‡ä»¶å†…å®¹æ£€æµ‹å›¾ç‰‡æ ¼å¼ï¼Œæ”¯æŒgifã€jpgã€pngï¼Œä¸è®¤è¯†æ—¶è¿”å›žnullã€€*/
 	public static String getPicFormat(byte[] data) {
         if (data[0] == 'G' && data[1] == 'I' && data[2] == 'F') {
-        	//GIFÍ¼Æ¬
+        	//GIFå›¾ç‰‡
         	return FileUtils.FORMAT_GIF;
         }
         else if (check(data, JPGID)) {
@@ -121,10 +121,10 @@ public class FileUtils {
         return null;
     }
 	
-	/* ¸ù¾ÝÎÄ¼þÄÚÈÝ¼ì²âÎÄ¼þ¸ñÊ½£¬Ö§³Ögif¡¢jpg¡¢png¡¢pdf¡¢xls¡¢xlsx¡¢doc¡¢docx¡¢txt£¬²»ÈÏÊ¶Ê±·µ»Ønull */
+	/* æ ¹æ®æ–‡ä»¶å†…å®¹æ£€æµ‹æ–‡ä»¶æ ¼å¼ï¼Œæ”¯æŒgifã€jpgã€pngã€pdfã€xlsã€xlsxã€docã€docxã€txtï¼Œä¸è®¤è¯†æ—¶è¿”å›žnull */
 	public static String getFileFormat(byte[] data) {
         if (data[0] == 'G' && data[1] == 'I' && data[2] == 'F') {
-        	//GIFÍ¼Æ¬
+        	//GIFå›¾ç‰‡
         	return FileUtils.FORMAT_GIF;
         }
         else if (check(data, JPGID)) {

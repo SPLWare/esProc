@@ -32,8 +32,8 @@ public class RedisSetRandMember extends RedisBase {
 			if (objs.length==1){
 				ls.add(m_jedisTool.sRandomMember(objs[0].toString()));
 				return toTable(ls.toArray());
-			}else{ //ÓÉÒ»ĞĞ¶àÁĞ×ª»»³ÉÒ»ÁĞ¶àĞĞ
-				if (option!=null && option.contains("i")){//È¥ÖØ
+			}else{ //ç”±ä¸€è¡Œå¤šåˆ—è½¬æ¢æˆä¸€åˆ—å¤šè¡Œ
+				if (option!=null && option.contains("i")){//å»é‡
 					Set<String> set = m_jedisTool.sDistinctRandomMembers(objs[0].toString(), Long.parseLong(objs[1].toString()) );
 					if (set!=null && set.size()>0){
 						List<Object[]> list = new ArrayList<Object[]>();

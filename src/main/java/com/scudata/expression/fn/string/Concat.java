@@ -15,13 +15,13 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * concat(xi,¡­) ½«²ÎÊıÁ¬½Ó³ÉÎª×Ö·û´®£¬ÇÒ´®Æ´ÈëÊ±²»¼ÓÒıºÅ¡£
+ * concat(xi,â€¦) å°†å‚æ•°è¿æ¥æˆä¸ºå­—ç¬¦ä¸²ï¼Œä¸”ä¸²æ‹¼å…¥æ—¶ä¸åŠ å¼•å·ã€‚
  * @author runqian
  *
  */
 public class Concat extends Gather {
 	private Expression exp;
-	private String sep = null; // ·Ö¸ô·û
+	private String sep = null; // åˆ†éš”ç¬¦
 	private boolean addQuotes = false;
 	private boolean addSingleQuotes = false;
 	
@@ -63,7 +63,7 @@ public class Concat extends Gather {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -90,7 +90,7 @@ public class Concat extends Gather {
 				gather(seq.getMem(i), out);
 			}
 		} else if (obj instanceof StringBuffer) {
-			// ¶àÏß³Ì¶ş´Î»ã×Ü
+			// å¤šçº¿ç¨‹äºŒæ¬¡æ±‡æ€»
 			if (sep != null) {
 				out.append(sep);
 			}
@@ -182,11 +182,11 @@ public class Concat extends Gather {
 	}
 	
 	/**
-	 * ¼ÆËãËùÓĞ¼ÇÂ¼µÄÖµ£¬»ã×Üµ½½á¹ûÊı×éÉÏ
-	 * @param result ½á¹ûÊı×é
-	 * @param resultSeqs Ã¿Ìõ¼ÇÂ¼¶ÔÓ¦µÄ½á¹ûÊı×éµÄĞòºÅ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return IArray ½á¹ûÊı×é
+	 * è®¡ç®—æ‰€æœ‰è®°å½•çš„å€¼ï¼Œæ±‡æ€»åˆ°ç»“æœæ•°ç»„ä¸Š
+	 * @param result ç»“æœæ•°ç»„
+	 * @param resultSeqs æ¯æ¡è®°å½•å¯¹åº”çš„ç»“æœæ•°ç»„çš„åºå·
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return IArray ç»“æœæ•°ç»„
 	 */
 	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
 		if (result == null) {
@@ -209,11 +209,11 @@ public class Concat extends Gather {
 	}
 
 	/**
-	 * ¶à³Ì³Ì·Ö×éµÄ¶ş´Î»ã×ÜÔËËã
-	 * @param result Ò»¸öÏß³ÌµÄ·Ö×é½á¹û
-	 * @param result2 ÁíÒ»¸öÏß³ÌµÄ·Ö×é½á¹û
-	 * @param seqs ÁíÒ»¸öÏß³ÌµÄ·Ö×é¸úµÚÒ»¸öÏß³Ì·Ö×éµÄ¶ÔÓ¦¹ØÏµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤šç¨‹ç¨‹åˆ†ç»„çš„äºŒæ¬¡æ±‡æ€»è¿ç®—
+	 * @param result ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„ç»“æœ
+	 * @param result2 å¦ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„ç»“æœ
+	 * @param seqs å¦ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„è·Ÿç¬¬ä¸€ä¸ªçº¿ç¨‹åˆ†ç»„çš„å¯¹åº”å…³ç³»
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public void gather2(IArray result, IArray result2, int []seqs, Context ctx) {
@@ -224,7 +224,7 @@ public class Concat extends Gather {
 				if (sb1 == null) {
 					result.set(seqs[i], sb2);
 				} else {
-					// ¶àÏß³Ì¶ş´Î»ã×Ü
+					// å¤šçº¿ç¨‹äºŒæ¬¡æ±‡æ€»
 					if (sep != null) {
 						sb1.append(sep);
 					}
@@ -236,8 +236,8 @@ public class Concat extends Gather {
 	}
 	
 	/**
-	 * ¶Ô·Ö×é½áÊøµÃµ½µÄ»ã×ÜÁĞ½øĞĞ×îÖÕ´¦Àí
-	 * @param array ¼ÆËãÁĞµÄÖµ
+	 * å¯¹åˆ†ç»„ç»“æŸå¾—åˆ°çš„æ±‡æ€»åˆ—è¿›è¡Œæœ€ç»ˆå¤„ç†
+	 * @param array è®¡ç®—åˆ—çš„å€¼
 	 * @return IArray
 	 */
 	public IArray finish(IArray array) {

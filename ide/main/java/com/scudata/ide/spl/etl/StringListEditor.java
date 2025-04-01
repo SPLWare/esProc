@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 /**
- * ·Ö¸ô·û·Ö¸ôµÄ×Ö·û´®±à¼­Æ÷
+ * åˆ†éš”ç¬¦åˆ†éš”çš„å­—ç¬¦ä¸²ç¼–è¾‘å™¨
  * 
  * @author Joancy
  *
@@ -20,8 +20,8 @@ public class StringListEditor extends DefaultCellEditor {
 	StringListIcon icon = new StringListIcon();
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
 	 */
 	public StringListEditor(Dialog owner) {
 		super(new JCheckBox());
@@ -51,7 +51,7 @@ public class StringListEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸Àà³éÏó·½·¨£¬·µ»Ø±à¼­¿Ø¼ş
+	 * å®ç°çˆ¶ç±»æŠ½è±¡æ–¹æ³•ï¼Œè¿”å›ç¼–è¾‘æ§ä»¶
 	 */
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int column) {
@@ -67,14 +67,14 @@ public class StringListEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­Öµ
+	 * è·å–ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
 		return editingVal;
 	}
 
 	/**
-	 * Í£Ö¹±à¼­
+	 * åœæ­¢ç¼–è¾‘
 	 */
 	public boolean stopCellEditing() {
 		return super.stopCellEditing();

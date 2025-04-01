@@ -7,7 +7,7 @@ import com.scudata.expression.DBFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 设置名为spn的回滚点，名字不能省略且不能重复
+ * 璁剧疆鍚嶄负spn鐨勫洖婊氱偣锛屽悕瀛椾笉鑳界渷鐣ヤ笖涓嶈兘閲嶅
  * db.savepoint(spn)
  * @author RunQian
  *

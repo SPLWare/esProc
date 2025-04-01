@@ -3,7 +3,7 @@ package com.scudata.expression;
 import com.scudata.vdb.IVS;
 
 /**
- * ½»Ò×¿â³ÉÔ±º¯Êı»ùÀà
+ * äº¤æ˜“åº“æˆå‘˜å‡½æ•°åŸºç±»
  * h.f()
  * @author RunQian
  *
@@ -20,7 +20,7 @@ public abstract class VSFunction extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		vs = null;

@@ -29,12 +29,12 @@ import com.scudata.dm.LocalFile;
 import com.scudata.util.Variant;
 
 /**
- * esProc jdbcÇı¶¯Àà£¬ÊµÏÖÁËjava.sql.Driver¡£ URL²ÎÊıÈçÏÂ:
- * config=raqsoftConfig.xmlÖ¸¶¨ÅäÖÃÎÄ¼şÃû³Æ¡£ÅäÖÃÎÄ¼şÖ»»á¼ÓÔØÒ»´Î¡£
- * onlyserver=true/false¡£trueÔÚ·şÎñÆ÷Ö´ĞĞ£¬falseÏÈÔÚ±¾µØÖ´ĞĞ£¬ÕÒ²»µ½Ê±ÔÚÅäÖÃµÄ·şÎñÆ÷ÉÏÖ´ĞĞ¡£
- * jobVars=varname1:value1,varname2:value2,...ÉèÖÃÈÎÎñ±äÁ¿(JobSpace)
- * debugmode=true/false¡£true»áÊä³öµ÷ÊÔĞÅÏ¢£¬false²»Êä³öµ÷ÊÔĞÅÏ¢
- * compatiblesql=true/false¡£¼òµ¥SQLÏÖÔÚÒÔ$¿ªÍ·£¬trueÊ±¼æÈİ²»ÒÔ$¿ªÍ·µÄ¡£¼æÈİÒ»¶ÎÊ±¼äºóÈ¡Ïû´ËÑ¡Ïî¡£
+ * esProc jdbcé©±åŠ¨ç±»ï¼Œå®ç°äº†java.sql.Driverã€‚ URLå‚æ•°å¦‚ä¸‹:
+ * config=raqsoftConfig.xmlæŒ‡å®šé…ç½®æ–‡ä»¶åç§°ã€‚é…ç½®æ–‡ä»¶åªä¼šåŠ è½½ä¸€æ¬¡ã€‚
+ * onlyserver=true/falseã€‚trueåœ¨æœåŠ¡å™¨æ‰§è¡Œï¼Œfalseå…ˆåœ¨æœ¬åœ°æ‰§è¡Œï¼Œæ‰¾ä¸åˆ°æ—¶åœ¨é…ç½®çš„æœåŠ¡å™¨ä¸Šæ‰§è¡Œã€‚
+ * jobVars=varname1:value1,varname2:value2,...è®¾ç½®ä»»åŠ¡å˜é‡(JobSpace)
+ * debugmode=true/falseã€‚trueä¼šè¾“å‡ºè°ƒè¯•ä¿¡æ¯ï¼Œfalseä¸è¾“å‡ºè°ƒè¯•ä¿¡æ¯
+ * compatiblesql=true/falseã€‚ç®€å•SQLç°åœ¨ä»¥$å¼€å¤´ï¼Œtrueæ—¶å…¼å®¹ä¸ä»¥$å¼€å¤´çš„ã€‚å…¼å®¹ä¸€æ®µæ—¶é—´åå–æ¶ˆæ­¤é€‰é¡¹ã€‚
  */
 public class InternalDriver implements java.sql.Driver, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -113,7 +113,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 
 		Map<String, Object> jobVars = null;
 		if (StringUtils.isValidString(sjobVars)) {
-			// ÉèÖÃÈÎÎñ±äÁ¿
+			// è®¾ç½®ä»»åŠ¡å˜é‡
 			// jobVars=varname1:value1,varname2:value2,...
 			ArgumentTokenizer at = new ArgumentTokenizer(sjobVars);
 			while (at.hasMoreTokens()) {
@@ -185,14 +185,14 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	}
 
 	/**
-	 * ¿É½ÓÊÜµÄURL
+	 * å¯æ¥å—çš„URL
 	 */
 	protected String getAcceptUrl() {
 		return "jdbc:esproc:local:";
 	}
 
 	/**
-	 * Ê¾ÀıURL
+	 * ç¤ºä¾‹URL
 	 */
 	protected String getDemoUrl() {
 		return "jdbc:esproc:local://";
@@ -275,7 +275,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	}
 
 	/**
-	 * ´´½¨Á¬½Ó¶ÔÏó
+	 * åˆ›å»ºè¿æ¥å¯¹è±¡
 	 * 
 	 * @return
 	 * @throws SQLException
@@ -380,7 +380,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 */
 	protected synchronized void initConfig(RaqsoftConfig rc, String sconfig)
 			throws SQLException {
-		if (rc != null) { // DQL API¼ÓÔØµÄ
+		if (rc != null) { // DQL APIåŠ è½½çš„
 			this.config = rc;
 			try {
 				ConfigUtil.setConfig(Env.getApplication(),
@@ -403,7 +403,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		if (config != null) {
 			if (StringUtils.isValidString(sconfig))
 				if (currentConfig == null
-						|| !currentConfig.equalsIgnoreCase(sconfig)) { // Í¨¹ıAPI¼ÓÔØ¹ıÁË
+						|| !currentConfig.equalsIgnoreCase(sconfig)) { // é€šè¿‡APIåŠ è½½è¿‡äº†
 					Logger.info(JDBCMessage.get().getMessage(
 							"server.configloadonce"));
 				}
@@ -453,19 +453,19 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 					"error.confignotfound", fileName);
 			Logger.error(errorMessage);
 			if (StringUtils.isValidString(sconfig)) {
-				// URLÖ¸¶¨µÄconfig¼ÓÔØ³ö´íÊ±Å×Òì³££¬Ä¬ÈÏ¼ÓÔØÀàÂ·¾¶ÏÂµÄ²»Å×Òì³£
+				// URLæŒ‡å®šçš„configåŠ è½½å‡ºé”™æ—¶æŠ›å¼‚å¸¸ï¼Œé»˜è®¤åŠ è½½ç±»è·¯å¾„ä¸‹çš„ä¸æŠ›å¼‚å¸¸
 				throw new SQLException(errorMessage);
 			}
 		}
 		hostNames = new ArrayList<String>();
 		if (config != null) {
-			// ¶ÁÈ¡·Ö»ú
+			// è¯»å–åˆ†æœº
 			List<String> units = config.getUnitList();
 			if (units != null && !units.isEmpty()) {
 				for (String unit : units)
 					hostNames.add(unit);
 			}
-			// ¼ÓÔØÈÕÖ¾ÅäÖÃ(*.properties)
+			// åŠ è½½æ—¥å¿—é…ç½®(*.properties)
 			Properties sps = config.getServerProperties();
 			if (sps != null) {
 				String logConfig = sps.getProperty("logConfig");
@@ -575,9 +575,9 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	private static final String KEY_ONLY_SERVER = "onlyServer";
 	private static final String KEY_JOB_VARS = "jobVars";
 
-	// ½öµ÷ÊÔÓÃ
+	// ä»…è°ƒè¯•ç”¨
 	private static final String KEY_DEBUGMODE = "debugmode";
-	// ¼æÈİÖ®Ç°¼òµ¥SQLÃ»ÓĞ$¿ªÍ·Ê±µÄÓÃ·¨
+	// å…¼å®¹ä¹‹å‰ç®€å•SQLæ²¡æœ‰$å¼€å¤´æ—¶çš„ç”¨æ³•
 	private static final String KEY_COMPATIBLESQL = "compatiblesql";
 
 }

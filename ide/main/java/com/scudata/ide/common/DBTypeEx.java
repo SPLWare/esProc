@@ -30,7 +30,7 @@ public class DBTypeEx extends DBTypes {
 	public static final String TITLE_DBONE = "DBONE";
 	public static final String TITLE_ESPROC = "esProc";
 	public static final String TITLE_DATALOGIC = "DataLogic";
-	public static final String TITLE_DAMENG = "DAMENG"; // ´ïÃÎ
+	public static final String TITLE_DAMENG = "DAMENG"; // è¾¾æ¢¦
 	public static final String TITLE_UNKNOWN = "Other";
 
 	/**

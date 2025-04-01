@@ -28,16 +28,16 @@ import com.scudata.resources.DataSetMessage;
 import com.scudata.util.DatabaseUtil;
 
 /**
- * ÓÃÓÚ´ÓÊı¾İ¿âÈ¡ÊıµÄÓÎ±ê
+ * ç”¨äºä»æ•°æ®åº“å–æ•°çš„æ¸¸æ ‡
  * @author RunQian
  *
  */
 public class DBCursor extends ICursor {
-	private String sql; // SQLÓï¾ä
-	private Object[] params; // ²ÎÊı
-	private byte[] types; // ²ÎÊıÀàĞÍ
+	private String sql; // SQLè¯­å¥
+	private Object[] params; // å‚æ•°
+	private byte[] types; // å‚æ•°ç±»å‹
 	
-	private DBObject db; // º¬ÓĞÊı¾İ¿âÁ¬½ÓµÄ¶ÔÏó
+	private DBObject db; // å«æœ‰æ•°æ®åº“è¿æ¥çš„å¯¹è±¡
 	private ResultSet rs = null;
 	private PreparedStatement pst = null;
 	private Connection con = null;
@@ -51,11 +51,11 @@ public class DBCursor extends ICursor {
 	private boolean bb = true;
 
 	private boolean isAccessBug = false;
-	private boolean isSingleField; // ÊÇ·ñ·µ»Øµ¥ÁĞ×é³ÉµÄĞòÁĞ
+	private boolean isSingleField; // æ˜¯å¦è¿”å›å•åˆ—ç»„æˆçš„åºåˆ—
 
-	//private Table cursorTable; ¸ÄÓÃICursor.dataStruct±íÊ¾
+	//private Table cursorTable; æ”¹ç”¨ICursor.dataStructè¡¨ç¤º
 
-	private String opt;//Ôö¼Ó²éÑ¯Êı¾İ£¬Ñ¡Ïî@d
+	private String opt;//å¢åŠ æŸ¥è¯¢æ•°æ®ï¼Œé€‰é¡¹@d
 	public DBCursor(String sql, Object[] params, byte[] types, DBObject db, String opt, Context ctx) {
 		this.sql = sql;
 		this.params = params;
@@ -80,9 +80,9 @@ public class DBCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (rs == null || n == 0)
@@ -105,7 +105,7 @@ public class DBCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -141,8 +141,8 @@ public class DBCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄ¼ÇÂ¼·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„è®°å½•è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -180,15 +180,15 @@ public class DBCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÔÖ¸¶¨µÄÊı¾İ¿âÁ¬½ÓÖ´ĞĞsqlÓï¾ä£¬·µ»Ø½á¹û¹¹³ÉµÄĞòÁĞ
+	 * å¯¹æŒ‡å®šçš„æ•°æ®åº“è¿æ¥æ‰§è¡Œsqlè¯­å¥ï¼Œè¿”å›ç»“æœæ„æˆçš„åºåˆ—
 	 * 
 	 * @param sql
-	 *            String sqlÓï¾ä
+	 *            String sqlè¯­å¥
 	 * @param params
-	 *            Object[] ²ÎÊıÖµÁĞ±í
+	 *            Object[] å‚æ•°å€¼åˆ—è¡¨
 	 * @param types
-	 *            byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×éÈç×Ö·û´®×éµÈÀàĞÍ
-	 *            µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
+	 *            byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹
+	 *            å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
 	 * @param dbs
 	 *            DBSession
 	 */
@@ -302,18 +302,18 @@ public class DBCursor extends ICursor {
 
 			try {
 				// pst = con.prepareStatement(sql);
-				// edited by bdl, 2010.7.28, ´¦ÀísqlserverÖĞÊı¾İÌ«¶àµÄÇé¿ö
-				// ÁíÍâÔÚoptÖĞÌí¼ÓzÑ¡Ïî£¬Èç¹û³öÏÖz±íÊ¾Ö§³Ö·´Ïò£¬·ñÔò²»Ö§³Ö
+				// edited by bdl, 2010.7.28, å¤„ç†sqlserverä¸­æ•°æ®å¤ªå¤šçš„æƒ…å†µ
+				// å¦å¤–åœ¨optä¸­æ·»åŠ zé€‰é¡¹ï¼Œå¦‚æœå‡ºç°zè¡¨ç¤ºæ”¯æŒåå‘ï¼Œå¦åˆ™ä¸æ”¯æŒ
 				int rsType = ResultSet.TYPE_FORWARD_ONLY;
 				if (opt != null && opt.indexOf("z") > -1)
 					rsType = ResultSet.TYPE_SCROLL_INSENSITIVE;
-				// added by bdl, 2010.11.22, ¶ÔÓÚaccessÊı¾İ¿â£¬°ÑrsTypeÉè¶¨Îªinsensitive
+				// added by bdl, 2010.11.22, å¯¹äºaccessæ•°æ®åº“ï¼ŒæŠŠrsTypeè®¾å®šä¸ºinsensitive
 				// else if
 				// (con.getClass().getName().equals("sun.jdbc.odbc.JdbcOdbcConnection"))
 				// {
 				// rsType = ResultSet.TYPE_SCROLL_INSENSITIVE;
 				// }
-				// eidtd by bdl, 2010.12.7, ¶ÔÓÚforwordonlyÀàĞÍµÄÖ¸Õë£¬¾ù²»ÅĞ¶Ïislast
+				// eidtd by bdl, 2010.12.7, å¯¹äºforwordonlyç±»å‹çš„æŒ‡é’ˆï¼Œå‡ä¸åˆ¤æ–­islast
 				if (rsType == ResultSet.TYPE_FORWARD_ONLY) // && dbType ==
 															// DBTypes.ACCESS )
 					this.isAccessBug = true;
@@ -328,8 +328,8 @@ public class DBCursor extends ICursor {
 						fld = clss.getField("TYPE_SS_SCROLL_KEYSET");
 					rsType = fld.getInt(null);
 				}
-				//added by bd, 2016.9.28, µ±Óöµ½POSTGRESQLÊ±£¬½«autocommitÉèÎªfalse
-				//ÒÔ·ÀÖ¹Õâ¸öJDBC½«½á¹û¼¯È«²¿·µ»Ø
+				//added by bd, 2016.9.28, å½“é‡åˆ°POSTGRESQLæ—¶ï¼Œå°†autocommitè®¾ä¸ºfalse
+				//ä»¥é˜²æ­¢è¿™ä¸ªJDBCå°†ç»“æœé›†å…¨éƒ¨è¿”å›
 				DBInfo info = dbs.getInfo();
 				if (info != null && info.getDBType() == DBTypes.POSTGRES) {
 					Logger.info("Setting POSTGRESQL...");
@@ -345,22 +345,22 @@ public class DBCursor extends ICursor {
 							ResultSet.TYPE_FORWARD_ONLY);
 					pst.setFetchSize(1000);
 				}
-				//edited by bd, 2016.12.15, ¶ÔÓÚsqlserver£¬Ò²ÉèÖÃfetchsize£¬ÒÔ·ÀÆä·µ»ØËùÓĞ½á¹û
+				//edited by bd, 2016.12.15, å¯¹äºsqlserverï¼Œä¹Ÿè®¾ç½®fetchsizeï¼Œä»¥é˜²å…¶è¿”å›æ‰€æœ‰ç»“æœ
 				else if (info != null && info.getDBType() == DBTypes.SQLSVR) {
 					con.setAutoCommit(false);
 					pst = con.prepareStatement(sql, rsType,
 							ResultSet.CONCUR_READ_ONLY);
-					//edited by bd, 2016.12.19, ·ÀÖ¹³öÏÖ¡°²»Ö§³Ö²¢·¢¡±´íÎó
+					//edited by bd, 2016.12.19, é˜²æ­¢å‡ºç°â€œä¸æ”¯æŒå¹¶å‘â€é”™è¯¯
 							//ResultSet.TYPE_FORWARD_ONLY);
 					pst.setFetchSize(1000);
 				}
-				//edited by bd, 2017.9.7, MysqlÖ´ĞĞ´óÊı¾İ²éÑ¯Ê±£¬URLÓ¦¸ÃÕâÑùĞ´£º
+				//edited by bd, 2017.9.7, Mysqlæ‰§è¡Œå¤§æ•°æ®æŸ¥è¯¢æ—¶ï¼ŒURLåº”è¯¥è¿™æ ·å†™ï¼š
 				// jdbc:mysql://127.0.0.1:3306/mysql?useCursorFetch=true
-				// ×¢ÒâÆäÖĞµÄuseCursorFetch=true£¬¿ÉÒÔÊ¹ÓÃÁ÷Ê½¼ìË÷
+				// æ³¨æ„å…¶ä¸­çš„useCursorFetch=trueï¼Œå¯ä»¥ä½¿ç”¨æµå¼æ£€ç´¢
 				else if (info != null && info.getDBType() == DBTypes.MYSQL) {
 					con.setAutoCommit(false);
-					//added by bd, 2019.1.9, mysqlÊı¾İ¿âÖĞ£¬Ê¹ÓÃÓÎ±êÊ±£¬ÕûÊıÀàĞÍµÄÊı¾İÄªÃûÆäÃîµØ¶Á²»³öÀ´
-					//×¨ÃÅÕë¶ÔÕâ¸öÌØÊâ´¦Àí
+					//added by bd, 2019.1.9, mysqlæ•°æ®åº“ä¸­ï¼Œä½¿ç”¨æ¸¸æ ‡æ—¶ï¼Œæ•´æ•°ç±»å‹çš„æ•°æ®è«åå…¶å¦™åœ°è¯»ä¸å‡ºæ¥
+					//ä¸“é—¨é’ˆå¯¹è¿™ä¸ªç‰¹æ®Šå¤„ç†
 //					if (dbType == DBTypes.MYSQL) {
 						pst = con.prepareStatement(sql);						
 //					}
@@ -369,7 +369,7 @@ public class DBCursor extends ICursor {
 //								ResultSet.TYPE_FORWARD_ONLY);
 //					}
 					pst.setFetchSize(1000);
-					//ÔÚÕâÀïÉè¶¨fetchSize£¬¶ø²»ÊÇÓÃInteger.MIN_VALUE,ÕâÖÖÊÇrow by rowµÄ
+					//åœ¨è¿™é‡Œè®¾å®šfetchSizeï¼Œè€Œä¸æ˜¯ç”¨Integer.MIN_VALUE,è¿™ç§æ˜¯row by rowçš„
 				}
 				else {
 					pst = con.prepareStatement(sql, rsType,
@@ -379,9 +379,9 @@ public class DBCursor extends ICursor {
 				// for mysql, the statement will return all the records default,
 				// which will cause the oom error when deal with big data.
 				// comment added by bd, 2016.10.21:
-				// MysqlÖ´ĞĞ´óÊı¾İ²éÑ¯Ê±£¬URLÓ¦¸ÃÕâÑùĞ´£º
+				// Mysqlæ‰§è¡Œå¤§æ•°æ®æŸ¥è¯¢æ—¶ï¼ŒURLåº”è¯¥è¿™æ ·å†™ï¼š
 				// jdbc:mysql://127.0.0.1:3306/mysql?useCursorFetch=true
-				// ×¢ÒâÆäÖĞµÄuseCursorFetch=true£¬¿ÉÒÔÊ¹µÃ²éÑ¯Õı³£
+				// æ³¨æ„å…¶ä¸­çš„useCursorFetch=trueï¼Œå¯ä»¥ä½¿å¾—æŸ¥è¯¢æ­£å¸¸
 				//if (con.getClass().getName().indexOf("com.mysql")>=0) {
 					//pst.setFetchSize(Integer.MIN_VALUE);
 					// pst.setFetchDirection(ResultSet.FETCH_REVERSE);
@@ -442,9 +442,9 @@ public class DBCursor extends ICursor {
 				throw new RQException(mm.getMessage("error.sqlException", name,
 						sql));
 			}
-			//added by bd, 2024.3.18, Ìí¼Ó@cÑ¡Ïî£¬ÇåÀí×Ö¶ÎÃû£¬´¦Àí×Ö¶ÎÃûÖĞ¿ÉÄÜ´æÔÚµÄ±íÃû£¬ÒÔ¼°ÌØÊâ×Ö·û
+			//added by bd, 2024.3.18, æ·»åŠ @cé€‰é¡¹ï¼Œæ¸…ç†å­—æ®µåï¼Œå¤„ç†å­—æ®µåä¸­å¯èƒ½å­˜åœ¨çš„è¡¨åï¼Œä»¥åŠç‰¹æ®Šå­—ç¬¦
 			boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
-			// edited by bdl, 2010.4.29, Èç¹ûÓĞ@t²Ù×÷£¬·µ»Ø¿âĞò±í
+			// edited by bdl, 2010.4.29, å¦‚æœæœ‰@tæ“ä½œï¼Œè¿”å›åº“åºè¡¨
 			DataStruct ds = crtateDataStruct(rs, db.isLower(), cleanFieldName);
 			if (opt != null && opt.indexOf("t") > -1) {
 				String[] fields = null;
@@ -454,7 +454,7 @@ public class DBCursor extends ICursor {
 					fields = new String[colCount];
 					String[][] tableCols = new String[colCount][];
 					for (int c = 1; c <= colCount; ++c) {
-						//edited by bd, 2016.8.29, ²»Ó¦¸ÃÓÃName£¬¶øÊÇLable£¬·ñÔò±ğÃûÉè²»½øÈ¥
+						//edited by bd, 2016.8.29, ä¸åº”è¯¥ç”¨Nameï¼Œè€Œæ˜¯Lableï¼Œå¦åˆ™åˆ«åè®¾ä¸è¿›å»
 						//fields[c - 1] = rsmd.getColumnName(c);
 						//String[] tCol = { rsmd.getColumnName(c) };
 						fields[c - 1] = rsmd.getColumnLabel(c);
@@ -489,8 +489,8 @@ public class DBCursor extends ICursor {
 						// null);
 					}
 				}
-				// added by bdl, 2010.8.16, Óöµ½tÑ¡ÏîÊ±£¬Éè¶¨±íĞÅÏ¢µÄÍ¬Ê±£¬
-				// ×Ô¶¯Éè¶¨Ö÷¼ü£¬ÒÔ±¸¸üĞÂµ÷ÓÃ
+				// added by bdl, 2010.8.16, é‡åˆ°té€‰é¡¹æ—¶ï¼Œè®¾å®šè¡¨ä¿¡æ¯çš„åŒæ—¶ï¼Œ
+				// è‡ªåŠ¨è®¾å®šä¸»é”®ï¼Œä»¥å¤‡æ›´æ–°è°ƒç”¨
 				if (opt != null && opt.indexOf("u") > -1) {
 					DatabaseMetaData dmd = con.getMetaData();
 					rs = dmd.getPrimaryKeys(con.getCatalog(), null, tableName);
@@ -529,14 +529,14 @@ public class DBCursor extends ICursor {
 	}
 
 	/**
-	 * È¡³ö½á¹ûÊı¾İ¼¯rsµÄÃ¿Ò»ĞĞÊı¾İÉú³É¼ÇÂ¼£¬¹¹³ÉTable·µ»Ø
+	 * å–å‡ºç»“æœæ•°æ®é›†rsçš„æ¯ä¸€è¡Œæ•°æ®ç”Ÿæˆè®°å½•ï¼Œæ„æˆTableè¿”å›
 	 * 
 	 * @param rs
-	 *            ResultSet ½á¹ûÊı¾İ¼¯
+	 *            ResultSet ç»“æœæ•°æ®é›†
 	 * @param lowercase
-	 *            boolean ½á¹ûÊı¾İ¼¯
+	 *            boolean ç»“æœæ•°æ®é›†
 	 * @param cleanFieldName
-	 *            added by bd, 2024.3.18, boolean ½á¹ûÊı¾İ¼¯
+	 *            added by bd, 2024.3.18, boolean ç»“æœæ•°æ®é›†
 	 * @return DataStruct
 	 */
 	private DataStruct crtateDataStruct(ResultSet rs, boolean lowercase, boolean cleanFieldName) 
@@ -554,8 +554,8 @@ public class DBCursor extends ICursor {
 			ArrayList<String> oldcns = new ArrayList<String>(colCount);
 			ArrayList<String> cns = new ArrayList<String>(colCount);
 			for (int c = 1; c <= colCount; ++c) {
-				//edited by bd, 2016.8.29, ²»Ó¦¸ÃÓÃName£¬¶øÊÇLable£¬·ñÔò±ğÃûÉè²»½øÈ¥
-				//edited by bd, 2019.7.19, Ìí¼ÓÁËÓÎ±êÖ§³Öconnect@l£¬ÔÊĞí·µ»Ø×Ö¶ÎÃûÎªĞ¡Ğ´
+				//edited by bd, 2016.8.29, ä¸åº”è¯¥ç”¨Nameï¼Œè€Œæ˜¯Lableï¼Œå¦åˆ™åˆ«åè®¾ä¸è¿›å»
+				//edited by bd, 2019.7.19, æ·»åŠ äº†æ¸¸æ ‡æ”¯æŒconnect@lï¼Œå…è®¸è¿”å›å­—æ®µåä¸ºå°å†™
 				String cn = null;
 				if (lowercase) {
 					cn = rsmd.getColumnLabel(c).toLowerCase();
@@ -574,9 +574,9 @@ public class DBCursor extends ICursor {
 		}
 		else {
 			for (int c = 1; c <= colCount; ++c) {
-				//edited by bd, 2016.8.29, ²»Ó¦¸ÃÓÃName£¬¶øÊÇLable£¬·ñÔò±ğÃûÉè²»½øÈ¥
+				//edited by bd, 2016.8.29, ä¸åº”è¯¥ç”¨Nameï¼Œè€Œæ˜¯Lableï¼Œå¦åˆ™åˆ«åè®¾ä¸è¿›å»
 				//colNames[c - 1] = rsmd.getColumnName(c);
-				//edited by bd, 2019.7.19, Ìí¼ÓÁËÓÎ±êÖ§³Öconnect@l£¬ÔÊĞí·µ»Ø×Ö¶ÎÃûÎªĞ¡Ğ´
+				//edited by bd, 2019.7.19, æ·»åŠ äº†æ¸¸æ ‡æ”¯æŒconnect@lï¼Œå…è®¸è¿”å›å­—æ®µåä¸ºå°å†™
 				if (lowercase) {
 					colNames[c - 1] = rsmd.getColumnLabel(c).toLowerCase();
 				}
@@ -613,7 +613,7 @@ public class DBCursor extends ICursor {
 			}
 			try {
 				Object obj = DatabaseUtil.tranData(type, dbType, rs, n,
-						tranContent, dbCharset, toCharset, bb,opt);//µ÷ÓÃÔö¼ÓoptÑ¡Ïî£¬ÊµÏÖ@d  xq 2015.4.22
+						tranContent, dbCharset, toCharset, bb,opt);//è°ƒç”¨å¢åŠ opté€‰é¡¹ï¼Œå®ç°@d  xq 2015.4.22
 				record.set(n - 1, obj);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -626,8 +626,8 @@ public class DBCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

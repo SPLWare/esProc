@@ -227,7 +227,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	}
 
 	/**
-	 * ÉèÖÃ±à¼­Æ÷×ÖÌå
+	 * è®¾ç½®ç¼–è¾‘å™¨å­—ä½“
 	 * 
 	 * @param font
 	 */
@@ -240,7 +240,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	}
 
 	/**
-	 * ´´½¨±à¼­¿Ø¼ş
+	 * åˆ›å»ºç¼–è¾‘æ§ä»¶
 	 */
 	protected void newTextEditor() {
 		textEditor = new JTextPaneEx() {
@@ -322,7 +322,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	}
 
 	/**
-	 * »Ø³µÊÂ¼ş
+	 * å›è½¦äº‹ä»¶
 	 */
 	protected void enterPressed(KeyEvent e) {
 		submitEditor(textEditor.getText(), e.isControlDown() ? FORWARD_NONE
@@ -510,9 +510,9 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		}
 	}
 
-	// ÀàÃû:SpeedButton
-	// ËµÃ÷:µ±Êó±ê½øÈëÊ±£¬°´Å¥Í»Æğ£¬µ±Êó±êÀë¿ªÊ±£¬°´Å¥±ä³É±âÆ½
-	// µ±toggle=trueÊ±£¬°´Å¥¾ßÓĞJToggle°´Å¥ÌØĞÔ
+	// ç±»å:SpeedButton
+	// è¯´æ˜:å½“é¼ æ ‡è¿›å…¥æ—¶ï¼ŒæŒ‰é’®çªèµ·ï¼Œå½“é¼ æ ‡ç¦»å¼€æ—¶ï¼ŒæŒ‰é’®å˜æˆæ‰å¹³
+	// å½“toggle=trueæ—¶ï¼ŒæŒ‰é’®å…·æœ‰JToggleæŒ‰é’®ç‰¹æ€§
 
 	/**
 	 * When the mouse enters, the button protrudes; when the mouse leaves, the

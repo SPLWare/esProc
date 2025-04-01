@@ -24,9 +24,9 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.common.MessageManager;
 
 /**
- * ¼ÆËãÆ«¶È
+ * è®¡ç®—ååº¦
  * @author bd
- * P.smooth(cn, T)/A.smooth(T), @bnie Ñ¡ÏîÖ¸Ã÷Ä¿±êÀàĞÍ£¬¸÷Ñ¡ÏîÏà³â£¬ÓÅÏÈ¼¶°´ÕÕ¶şÖµ/ÊıÖµ/ÕûÊı/Ã¶¾Ù£¬ÎŞÑ¡Ïî×Ô¶¯´¦Àí
+ * P.smooth(cn, T)/A.smooth(T), @bnie é€‰é¡¹æŒ‡æ˜ç›®æ ‡ç±»å‹ï¼Œå„é€‰é¡¹ç›¸æ–¥ï¼Œä¼˜å…ˆçº§æŒ‰ç…§äºŒå€¼/æ•°å€¼/æ•´æ•°/æšä¸¾ï¼Œæ— é€‰é¡¹è‡ªåŠ¨å¤„ç†
  * P.smooth@r(cn, Rec)/A.smooth@r(Rec)
  */
 public class Smooth extends SequenceFunction {
@@ -192,7 +192,7 @@ public class Smooth extends SequenceFunction {
 			ArrayList<Sequence> ncv = null;
 			ArrayList<String> ncn = null;
 			if (tType == Consts.F_ENUM) {
-				// ¶àÖµÄ¿±ê£¬»áÉú³É¶àÁĞ
+				// å¤šå€¼ç›®æ ‡ï¼Œä¼šç”Ÿæˆå¤šåˆ—
 				ncv = new ArrayList<Sequence>();
 				ncn = new ArrayList<String>();
 			}
@@ -235,44 +235,44 @@ public class Smooth extends SequenceFunction {
 	
 	private static double SmoothFactor = 5d;
 	/**
-	 * Æ½»¬»¯£¬½«½á¹û¸Ä±äµ½VsÖĞ
-	 * @param Vs	Ä³ÊıÖµÁĞµÄÊı¾İ
-	 * @param x	ÊıÖµÁĞ¾­¹ı¾ÀÆ«nmnv´¦ÀíµÄÊı¾İ
-	 * @param avg	Æ½¾ùÖµ
-	 * @param sd	·½²î
+	 * å¹³æ»‘åŒ–ï¼Œå°†ç»“æœæ”¹å˜åˆ°Vsä¸­
+	 * @param Vs	æŸæ•°å€¼åˆ—çš„æ•°æ®
+	 * @param x	æ•°å€¼åˆ—ç»è¿‡çº ånmnvå¤„ç†çš„æ•°æ®
+	 * @param avg	å¹³å‡å€¼
+	 * @param sd	æ–¹å·®
 	 * @return
 	 */
 	/**
-	 * Æ½»¬»¯£¬¼ÇÂ¼½á¹û
-	 * @param cvs	±äÁ¿Öµ
-	 * @param vn	±äÁ¿Ãû
-	 * @param tvs	Ä¿±êÖµ
-	 * @param ifErf	ÊÇ·ñÊ¹ÓÃerf
-	 * @param tarType	Ä¿±êÀàĞÍ
-	 * @param ncv	½á¹ûµÄĞÂ±äÁ¿Öµ
-	 * @param ncn	½á¹ûµÄĞÂ±äÁ¿Ãû
+	 * å¹³æ»‘åŒ–ï¼Œè®°å½•ç»“æœ
+	 * @param cvs	å˜é‡å€¼
+	 * @param vn	å˜é‡å
+	 * @param tvs	ç›®æ ‡å€¼
+	 * @param ifErf	æ˜¯å¦ä½¿ç”¨erf
+	 * @param tarType	ç›®æ ‡ç±»å‹
+	 * @param ncv	ç»“æœçš„æ–°å˜é‡å€¼
+	 * @param ncn	ç»“æœçš„æ–°å˜é‡å
 	 * @return
 	 */
 	protected static SmRec smooth(Sequence cvs, String vn, boolean ifErf, Sequence tvs, byte tarType,
 			ArrayList<Sequence> ncv, ArrayList<String> ncn) {
 		SmRec sr = new SmRec();
-		// ¸ù¾İerf²ÎÊı£¬¾ö¶¨ÊÇ·ñÊ¹ÓÃÄæÎó²îº¯ÊıÀ´×öÔ¤´¦Àí
+		// æ ¹æ®erfå‚æ•°ï¼Œå†³å®šæ˜¯å¦ä½¿ç”¨é€†è¯¯å·®å‡½æ•°æ¥åšé¢„å¤„ç†
 		if (ifErf) {
-			// ÄæÎó²îº¯Êı´¦ÀíÆ½»¬»¯£¬Ô¤´¦Àív2.5
+			// é€†è¯¯å·®å‡½æ•°å¤„ç†å¹³æ»‘åŒ–ï¼Œé¢„å¤„ç†v2.5
 			if (tarType == Consts.F_TWO_VALUE) {
-				// Ä¿±ê±äÁ¿ÊÇ¶şÖµĞÍ£¬Ö´ĞĞsmbtcv
+				// ç›®æ ‡å˜é‡æ˜¯äºŒå€¼å‹ï¼Œæ‰§è¡Œsmbtcv
 				Sequence X = cvs.id(null);
-				// Ôö¼Ó¶Ô¶àÖµÄ¿±êµÄ´¦Àí, ¶ÔÆÕÍ¨¶şÖµ£¬´¦ÀíÊ±Ñ¡1
+				// å¢åŠ å¯¹å¤šå€¼ç›®æ ‡çš„å¤„ç†, å¯¹æ™®é€šäºŒå€¼ï¼Œå¤„ç†æ—¶é€‰1
 				Sequence erf = calcRBinary(cvs, tvs, 1, X);
 				Prep.setSequenceB(cvs, X, erf);
 				sr.setX(X);
 				sr.setX1(erf);
 			} else if (tarType == Consts.F_ENUM) {
-				// ¶àÖµÄ¿±êµÄÔ¤´¦Àí¿ªÊ¼Ö§³Ö
+				// å¤šå€¼ç›®æ ‡çš„é¢„å¤„ç†å¼€å§‹æ”¯æŒ
 				Sequence X = cvs.id(null);
 				int[] vcs = calcCount(tvs);
 				int size = vcs.length;
-				// ÉáÆú×îµÍ·ÖÀà
+				// èˆå¼ƒæœ€ä½åˆ†ç±»
 				int mini = 0;
 				int min = vcs[0];
 				for (int i = 0; i < size; i++) {
@@ -281,24 +281,24 @@ public class Smooth extends SequenceFunction {
 						mini = i;
 					}
 				}
-				// ½Ó¿ÚÌí¼Ó×Ö¶ÎÃû²ÎÊı£¬ÕâÊÇÒòÎªÔÚ²úÉúÑÜÉú±äÁ¿Ê±Ò²¿ÉÄÜĞèÒªÆ½»¬»¯£¬´ËÊ±²»ÄÜÊ¹ÓÃ³õÊ¼×Ö¶ÎÃû£¬·ñÔò»á³öÏÖÎÊÌâ
+				// æ¥å£æ·»åŠ å­—æ®µåå‚æ•°ï¼Œè¿™æ˜¯å› ä¸ºåœ¨äº§ç”Ÿè¡ç”Ÿå˜é‡æ—¶ä¹Ÿå¯èƒ½éœ€è¦å¹³æ»‘åŒ–ï¼Œæ­¤æ—¶ä¸èƒ½ä½¿ç”¨åˆå§‹å­—æ®µåï¼Œå¦åˆ™ä¼šå‡ºç°é—®é¢˜
 				vn = "Smooth_" + vn;
 				sr = new SmMulRec();
 				SmMulRec smr = (SmMulRec) sr;
-				// ±¨¸æĞÅÏ¢µÄÑÜÉú±äÁ¿Ãû£¬²»¼ÇÂ¼¾ÀÆ«µ÷ÕûĞÅÏ¢£¬Ôİ²»¼ÇÂ¼Æ½»¬»¯ÑÜÉú
+				// æŠ¥å‘Šä¿¡æ¯çš„è¡ç”Ÿå˜é‡åï¼Œä¸è®°å½•çº åè°ƒæ•´ä¿¡æ¯ï¼Œæš‚ä¸è®°å½•å¹³æ»‘åŒ–è¡ç”Ÿ
 				//vsi.setName(vn);
 				//vsi.setIfSmooth(true);
 				//vsi.setIfSmoothDerive(true);
 				ArrayList<String> smcns = new ArrayList<String>(size - 1);
 				ArrayList<VarInfo> smvis = new ArrayList<VarInfo>(size - 1);
-				// Éú³ÉµÄ
+				// ç”Ÿæˆçš„
 				for (int i = 0; i < size; i++) {
 					if (i == mini) {
-						// ×îµÍ·ÖÀà£¬ÉáÈ¥
+						// æœ€ä½åˆ†ç±»ï¼Œèˆå»
 						smcns.add(null);
 						continue;
 					}
-					// ½Ó¿ÚÌí¼Ó×Ö¶ÎÃû²ÎÊı£¬ÕâÊÇÒòÎªÔÚ²úÉúÑÜÉú±äÁ¿Ê±Ò²¿ÉÄÜĞèÒªÆ½»¬»¯£¬´ËÊ±²»ÄÜÊ¹ÓÃ³õÊ¼×Ö¶ÎÃû£¬·ñÔò»á³öÏÖÎÊÌâ
+					// æ¥å£æ·»åŠ å­—æ®µåå‚æ•°ï¼Œè¿™æ˜¯å› ä¸ºåœ¨äº§ç”Ÿè¡ç”Ÿå˜é‡æ—¶ä¹Ÿå¯èƒ½éœ€è¦å¹³æ»‘åŒ–ï¼Œæ­¤æ—¶ä¸èƒ½ä½¿ç”¨åˆå§‹å­—æ®µåï¼Œå¦åˆ™ä¼šå‡ºç°é—®é¢˜
 					String cni = vn+"_"+i+"_TCs";
 					VarInfo smvi = new VarInfo(cni, Consts.F_TWO_VALUE);
 					SmRec sri = new SmRec();
@@ -309,24 +309,24 @@ public class Smooth extends SequenceFunction {
 					sri.setX(X);
 					sri.setX1(erf);
 					
-					// step12, ¾ÀÆ«±ä»»
+					// step12, çº åå˜æ¢
 					SCRec scr = CorSkew.corSkew(cvsi, cni);
 					cni = scr.getPrefix() + cni;
-					// step13, ÇåÀíÒì³£Öµ
+					// step13, æ¸…ç†å¼‚å¸¸å€¼
 					NumStatis ns = scr.getNumStatis();
 					Sert.sertSeq(cvsi, ns.getAvg(), ns.getSd(cvs));
 
-					// step15£¬±£ÁôÏÂÀ´µÄÊıÖµ±äÁ¿£¬×ö¹éÒ»»¯´¦Àí
+					// step15ï¼Œä¿ç•™ä¸‹æ¥çš„æ•°å€¼å˜é‡ï¼Œåšå½’ä¸€åŒ–å¤„ç†
 					NorRec nr = Normal.normal(cvsi);
 					
 					smr.addDerive(sri, scr, nr);
 
 					//if (level == ResultCol.CL_DATE ) {
-						//Ê±¼ä×Ö¶Î£¬ĞèÒªÓÃÅÅĞò
+						//æ—¶é—´å­—æ®µï¼Œéœ€è¦ç”¨æ’åº
 					//	pr.addCol(cni, cvsi, level, this.ci, index, srcCn);
 					//}
 					//else {
-						// ¶ÔÆ½»¬»¯ÑÜÉúÁĞ£¬ÔİÊ±ÏÈ²»ÅÅÄÇÃ´Ï¸ÖÂ
+						// å¯¹å¹³æ»‘åŒ–è¡ç”Ÿåˆ—ï¼Œæš‚æ—¶å…ˆä¸æ’é‚£ä¹ˆç»†è‡´
 						//pr.addCol(cni, cvsi, level, this.ci, (byte)(i+1), srcCn);
 					//}
 					ncv.add(cvsi);
@@ -338,7 +338,7 @@ public class Smooth extends SequenceFunction {
 				}
 				//pr.addSmDerive(smcns);
 			} else {
-				// Ä¿±ê±äÁ¿ÊÇÊıÖµĞÍµÄerf´¦Àí
+				// ç›®æ ‡å˜é‡æ˜¯æ•°å€¼å‹çš„erfå¤„ç†
 				Sequence X = cvs.id(null);
 				Sequence erf = calcRNumerical(cvs, tvs, X);
 				Prep.setSequenceB(cvs, X, erf);
@@ -347,13 +347,13 @@ public class Smooth extends SequenceFunction {
 			}
 		}
 		else {
-			// Ô­´¦Àí·½°¸
+			// åŸå¤„ç†æ–¹æ¡ˆ
 			if (tarType == Consts.F_TWO_VALUE) {
-				// Ä¿±ê±äÁ¿ÊÇ¶şÖµĞÍ£¬Ö´ĞĞsmbtcv
+				// ç›®æ ‡å˜é‡æ˜¯äºŒå€¼å‹ï¼Œæ‰§è¡Œsmbtcv
 				Sequence X = cvs.id(null);
 				double r1 = Freq.freq(tvs, new Integer(1));
 				double r0 = 1d - r1;
-				// Ôö¼Ó¶Ô¶àÖµÄ¿±êµÄ´¦Àí, ¶ÔÆÕÍ¨¶şÖµ£¬´¦ÀíÊ±Ñ¡1
+				// å¢åŠ å¯¹å¤šå€¼ç›®æ ‡çš„å¤„ç†, å¯¹æ™®é€šäºŒå€¼ï¼Œå¤„ç†æ—¶é€‰1
 				Sequence[] Ns = calcNBinary(cvs, tvs, 1, X);
 				Sequence N1 = Ns[1];
 				Sequence N0 = Ns[0];
@@ -362,11 +362,11 @@ public class Smooth extends SequenceFunction {
 				sr.setX(X);
 				sr.setX1(X1);
 			} else if (tarType == Consts.F_ENUM) {
-				// ¶àÖµÄ¿±êµÄÔ¤´¦Àí¿ªÊ¼Ö§³Ö
+				// å¤šå€¼ç›®æ ‡çš„é¢„å¤„ç†å¼€å§‹æ”¯æŒ
 				Sequence X = cvs.id(null);
 				int[] vcs = calcCount(tvs);
 				int size = vcs.length;
-				// ÉáÆú×îµÍ·ÖÀà
+				// èˆå¼ƒæœ€ä½åˆ†ç±»
 				int mini = 0;
 				int min = vcs[0];
 				for (int i = 0; i < size; i++) {
@@ -378,16 +378,16 @@ public class Smooth extends SequenceFunction {
 				vn = "Smooth_" + vn;
 				sr = new SmMulRec();
 				SmMulRec smr = (SmMulRec) sr;
-				// ±¨¸æĞÅÏ¢µÄÑÜÉú±äÁ¿Ãû£¬²»¼ÇÂ¼¾ÀÆ«µ÷ÕûĞÅÏ¢£¬Ôİ²»¼ÇÂ¼Æ½»¬»¯ÑÜÉú
+				// æŠ¥å‘Šä¿¡æ¯çš„è¡ç”Ÿå˜é‡åï¼Œä¸è®°å½•çº åè°ƒæ•´ä¿¡æ¯ï¼Œæš‚ä¸è®°å½•å¹³æ»‘åŒ–è¡ç”Ÿ
 				//vsi.setName(cn);
 				//vsi.setIfSmooth(true);
 				//vsi.setIfSmoothDerive(true);
 				ArrayList<String> smcns = new ArrayList<String>(size - 1);
 				ArrayList<VarInfo> smvis = new ArrayList<VarInfo>(size - 1);
-				// Éú³ÉµÄ
+				// ç”Ÿæˆçš„
 				for (int i = 0; i < size; i++) {
 					if (i == mini) {
-						// ×îµÍ·ÖÀà£¬ÉáÈ¥
+						// æœ€ä½åˆ†ç±»ï¼Œèˆå»
 						smcns.add(null);
 						continue;
 					}
@@ -406,24 +406,24 @@ public class Smooth extends SequenceFunction {
 					sri.setX(X);
 					sri.setX1(X1);
 					
-					// step12, ¾ÀÆ«±ä»»
+					// step12, çº åå˜æ¢
 					SCRec scr = CorSkew.corSkew(cvsi, cni);
 					cni = scr.getPrefix() + cni;
-					// step13, ÇåÀíÒì³£Öµ
+					// step13, æ¸…ç†å¼‚å¸¸å€¼
 					NumStatis ns = scr.getNumStatis();
 					Sert.sertSeq(cvsi, ns.getAvg(), ns.getSd(cvs));
 
-					// step15£¬±£ÁôÏÂÀ´µÄÊıÖµ±äÁ¿£¬×ö¹éÒ»»¯´¦Àí
+					// step15ï¼Œä¿ç•™ä¸‹æ¥çš„æ•°å€¼å˜é‡ï¼Œåšå½’ä¸€åŒ–å¤„ç†
 					NorRec nr = Normal.normal(cvsi);
 					
 					smr.addDerive(sri, scr, nr);
 
 					//if (level == ResultCol.CL_DATE ) {
-						//Ê±¼ä×Ö¶Î£¬ĞèÒªÓÃÅÅĞò
+						//æ—¶é—´å­—æ®µï¼Œéœ€è¦ç”¨æ’åº
 						//pr.addCol(cni, cvsi, level, this.ci, index, srcCn);
 					//}
 					//else {
-						// ¶ÔÆ½»¬»¯ÑÜÉúÁĞ£¬ÔİÊ±ÏÈ²»ÅÅÄÇÃ´Ï¸ÖÂ
+						// å¯¹å¹³æ»‘åŒ–è¡ç”Ÿåˆ—ï¼Œæš‚æ—¶å…ˆä¸æ’é‚£ä¹ˆç»†è‡´
 						//pr.addCol(cni, cvsi, level, this.ci, (byte)(i+1), srcCn);
 					//}
 					ncv.add(cvsi);
@@ -435,7 +435,7 @@ public class Smooth extends SequenceFunction {
 				}
 				//pr.addSmDerive(smcns);
 			} else {
-				// Ä¿±ê±äÁ¿ÊÇÊıÖµĞÍsmntcv
+				// ç›®æ ‡å˜é‡æ˜¯æ•°å€¼å‹smntcv
 				Sequence X = cvs.id(null);		
 				double y = ((Number) tvs.average()).doubleValue();
 				Sequence N = Prep.calcN3(cvs, X);
@@ -451,8 +451,8 @@ public class Smooth extends SequenceFunction {
 	
 	protected static void smooth(Sequence cvs, String cn, SmRec smRec, ArrayList<Sequence> ncv, ArrayList<String> ncn) {
 		if (smRec != null) {
-			// ¸ß»ùÊı·ÖÀà±äÁ¿
-			//  Æ½»¬»¯»áÓĞÁ½ÖÖÇé¿ö£¬Ä¿±êÎª¶şÖµ»ò¶àÖµ
+			// é«˜åŸºæ•°åˆ†ç±»å˜é‡
+			//  å¹³æ»‘åŒ–ä¼šæœ‰ä¸¤ç§æƒ…å†µï¼Œç›®æ ‡ä¸ºäºŒå€¼æˆ–å¤šå€¼
 			if (smRec instanceof SmMulRec) {
 				SmMulRec smr = (SmMulRec) smRec;
 				ArrayList<SmDerive> sds = smr.getDerives();
@@ -463,13 +463,13 @@ public class Smooth extends SequenceFunction {
 					String cni = cn+"_"+tv+"_TCs";
 					Sequence X = sr.getX();
 					Sequence X1 = sr.getX1();
-					//ÕâÀïÄ¿±ê±äÁ¿Ö»»áÊÇ¶àÖµĞÍ£¬Ö´ĞĞsmbtcv
+					//è¿™é‡Œç›®æ ‡å˜é‡åªä¼šæ˜¯å¤šå€¼å‹ï¼Œæ‰§è¡Œsmbtcv
 					Sequence cvsi = Prep.createSequenceB(cvs, X, X1);
 
-					// step12, ¾ÀÆ«±ä»»
+					// step12, çº åå˜æ¢
 					SCRec scRec = sd.getSCRec();
 					if (scRec == null) {
-						// Èç¹ûÎ´Ö´ĞĞ¾ÀÆ«£¬ËµÃ÷ÊÇ¶şÖµ±äÁ¿£¬Ö±½ÓÌí¼ÓÁËÁĞÖµ·µ»Ø¾ÍÊÇÁË
+						// å¦‚æœæœªæ‰§è¡Œçº åï¼Œè¯´æ˜æ˜¯äºŒå€¼å˜é‡ï¼Œç›´æ¥æ·»åŠ äº†åˆ—å€¼è¿”å›å°±æ˜¯äº†
 						ncn.add(cni);
 						ncv.add(cvsi);
 						//pr.addCol2(cni, cvsi);
@@ -479,19 +479,19 @@ public class Smooth extends SequenceFunction {
 					cni = scRec.getPrefix() + cni;
 
 					NumStatis ns = scRec.getNumStatis();
-					// step13, ÇåÀíÒì³£Öµ
+					// step13, æ¸…ç†å¼‚å¸¸å€¼
 					Sert.sertSeq(cvsi, ns.getAvg(), ns.getSd(cvsi));
 
-					// step15£¬±£ÁôÏÂÀ´µÄÊıÖµ±äÁ¿£¬×ö¹éÒ»»¯´¦Àí
+					// step15ï¼Œä¿ç•™ä¸‹æ¥çš„æ•°å€¼å˜é‡ï¼Œåšå½’ä¸€åŒ–å¤„ç†
 					NorRec nr = sd.getNorRec();
 					Normal.normal(cvsi, nr);
 					ncn.add(cni);
 					ncv.add(cvsi);
 				}
-				// Æ½»¬»¯ÑÜÉúµÄ»°£¬ÖÁ´Ë±¾ÁĞµÄ¸÷¸öÑÜÉúÁĞÒÑ¾­Éú³É¼°´¦ÀíÍê±Ï
+				// å¹³æ»‘åŒ–è¡ç”Ÿçš„è¯ï¼Œè‡³æ­¤æœ¬åˆ—çš„å„ä¸ªè¡ç”Ÿåˆ—å·²ç»ç”ŸæˆåŠå¤„ç†å®Œæ¯•
 			}
 			else {
-				// step11, Æ½»¬»¯
+				// step11, å¹³æ»‘åŒ–
 				cn = "Smooth_" + cn;
 				Sequence X = smRec.getX();
 				Sequence X1 = smRec.getX1();
@@ -519,8 +519,8 @@ public class Smooth extends SequenceFunction {
 	}
 	
 	/**
-	 * ÓÅ»¯µÄÆ½»¬»¯¼ÆËã£¬Ò»´ÎÑ­»·¼ÆËã³ö¸÷¸ö·ÖÀàµÄNi0ºÍNi1µÄÁ½¸öÏµÁĞ
-	 * ÒªÇóÆ½»¬»¯µÄÃ¶¾ÙĞòÁĞÊÇÊıÁĞ£¬¾Í²»ÔÙÈ¥ÓÃ¶ÔÏó±È½ÏÅĞ¶ÏÏàµÈÁË
+	 * ä¼˜åŒ–çš„å¹³æ»‘åŒ–è®¡ç®—ï¼Œä¸€æ¬¡å¾ªç¯è®¡ç®—å‡ºå„ä¸ªåˆ†ç±»çš„Ni0å’ŒNi1çš„ä¸¤ä¸ªç³»åˆ—
+	 * è¦æ±‚å¹³æ»‘åŒ–çš„æšä¸¾åºåˆ—æ˜¯æ•°åˆ—ï¼Œå°±ä¸å†å»ç”¨å¯¹è±¡æ¯”è¾ƒåˆ¤æ–­ç›¸ç­‰äº†
 	 * @param Vs
 	 * @param Ts
 	 * @param X
@@ -537,9 +537,9 @@ public class Smooth extends SequenceFunction {
 			n0[i] = 0;
 			n1[i] = 0;
 		}
-		// Ôö¼Ó¶Ô¶àÖµÄ¿±êµÄ´¦Àí
+		// å¢åŠ å¯¹å¤šå€¼ç›®æ ‡çš„å¤„ç†
 		if (tv < 0) {
-			// Èç¹ûÎ´Ö¸Ã÷tv£¬Ê¹ÓÃ-1×÷Îª³õÊ¼Öµ£¬´ËÊ±»á½«ÆäÉèÎª1
+			// å¦‚æœæœªæŒ‡æ˜tvï¼Œä½¿ç”¨-1ä½œä¸ºåˆå§‹å€¼ï¼Œæ­¤æ—¶ä¼šå°†å…¶è®¾ä¸º1
 			tv = 1;
 		}
 		int dlen = tvs.length();
@@ -553,7 +553,7 @@ public class Smooth extends SequenceFunction {
 					break;
 				}
 			}
-			// Ôö¼Ó¶Ô¶àÖµÄ¿±êµÄ´¦Àí
+			// å¢åŠ å¯¹å¤šå€¼ç›®æ ‡çš„å¤„ç†
 			if (t == tv) {
 				n1[p] = n1[p] + 1;
 			}
@@ -574,8 +574,8 @@ public class Smooth extends SequenceFunction {
 	
 	private static double sqrt2 = Math.sqrt(2);
 	/**
-	 * v2.5Æ½»¬»¯¼ÆËã£¬ÄæÎó²îº¯ÊıÖ®Ç°£¬¼ÆËã¸÷¸ö·ÖÀàµÄÕıÑù±¾ÅÅÃûÕÛËãÖµÊı×éR
-	 * ÒªÇóÆ½»¬»¯µÄÃ¶¾ÙĞòÁĞÊÇÊıÁĞ£¬¾Í²»ÔÙÈ¥ÓÃ¶ÔÏó±È½ÏÅĞ¶ÏÏàµÈÁË
+	 * v2.5å¹³æ»‘åŒ–è®¡ç®—ï¼Œé€†è¯¯å·®å‡½æ•°ä¹‹å‰ï¼Œè®¡ç®—å„ä¸ªåˆ†ç±»çš„æ­£æ ·æœ¬æ’åæŠ˜ç®—å€¼æ•°ç»„R
+	 * è¦æ±‚å¹³æ»‘åŒ–çš„æšä¸¾åºåˆ—æ˜¯æ•°åˆ—ï¼Œå°±ä¸å†å»ç”¨å¯¹è±¡æ¯”è¾ƒåˆ¤æ–­ç›¸ç­‰äº†
 	 * @param Vs
 	 * @param Ts
 	 * @param X
@@ -591,9 +591,9 @@ public class Smooth extends SequenceFunction {
 			n[i] = 0;
 			n1[i] = 0;
 		}
-		// Ôö¼Ó¶Ô¶àÖµÄ¿±êµÄ´¦Àí
+		// å¢åŠ å¯¹å¤šå€¼ç›®æ ‡çš„å¤„ç†
 		if (tv < 0) {
-			// Èç¹ûÎ´Ö¸Ã÷tv£¬Ê¹ÓÃ-1×÷Îª³õÊ¼Öµ£¬´ËÊ±»á½«ÆäÉèÎª1
+			// å¦‚æœæœªæŒ‡æ˜tvï¼Œä½¿ç”¨-1ä½œä¸ºåˆå§‹å€¼ï¼Œæ­¤æ—¶ä¼šå°†å…¶è®¾ä¸º1
 			tv = 1;
 		}
 		int dlen = tvs.length();
@@ -607,19 +607,19 @@ public class Smooth extends SequenceFunction {
 					break;
 				}
 			}
-			// Ôö¼Ó¶Ô¶àÖµÄ¿±êµÄ´¦Àí
+			// å¢åŠ å¯¹å¤šå€¼ç›®æ ‡çš„å¤„ç†
 			n[p] = n[p] + 1;
 			//if (t == 1) {
 			if (t == tv) {
 				n1[p] = n1[p] + 1;
 			}
 		}
-		// ÕıÑù±¾Õ¼±È
+		// æ­£æ ·æœ¬å æ¯”
 		Sequence y = new Sequence(xlen);
 		for (int i = 0; i < xlen; i++) {
 			y.add(n1[i]*1d/n[i]);
 		}
-		// ÕÛËãÅÅÃû
+		// æŠ˜ç®—æ’å
 		Sequence R = y.ranks(null);
 		Sequence erf = new Sequence(xlen);
 		for (int i = 0; i < xlen; i++) {
@@ -627,13 +627,13 @@ public class Smooth extends SequenceFunction {
 			double r = (d-0.5)/xlen;
 			erf.add(sqrt2 * Erf.erfInv(2*r - 1));
 		}
-		// ÄæÎó²î¼ÆËã
+		// é€†è¯¯å·®è®¡ç®—
 		return erf;
 	}
 
 	/**
-	 * v2.5Æ½»¬»¯¼ÆËã£¬ÊıÖµĞÍÄ¿±ê£¬ÄæÎó²îº¯ÊıÖ®Ç°£¬¼ÆËã¸÷¸ö·ÖÀàµÄÕıÑù±¾ÅÅÃûÕÛËãÖµÊı×éR
-	 * ÒªÇóÆ½»¬»¯µÄÃ¶¾ÙĞòÁĞÊÇÊıÁĞ£¬¾Í²»ÔÙÈ¥ÓÃ¶ÔÏó±È½ÏÅĞ¶ÏÏàµÈÁË
+	 * v2.5å¹³æ»‘åŒ–è®¡ç®—ï¼Œæ•°å€¼å‹ç›®æ ‡ï¼Œé€†è¯¯å·®å‡½æ•°ä¹‹å‰ï¼Œè®¡ç®—å„ä¸ªåˆ†ç±»çš„æ­£æ ·æœ¬æ’åæŠ˜ç®—å€¼æ•°ç»„R
+	 * è¦æ±‚å¹³æ»‘åŒ–çš„æšä¸¾åºåˆ—æ˜¯æ•°åˆ—ï¼Œå°±ä¸å†å»ç”¨å¯¹è±¡æ¯”è¾ƒåˆ¤æ–­ç›¸ç­‰äº†
 	 * @param Vs
 	 * @param Ts
 	 * @param X
@@ -642,7 +642,7 @@ public class Smooth extends SequenceFunction {
 	private static Sequence calcRNumerical(Sequence cvs, Sequence tvs, Sequence X) {
 		Sequence y = Prep.calcY(cvs, tvs, X);
 		int xlen = X == null ? 0 : X.length();
-		// ÕÛËãÅÅÃû
+		// æŠ˜ç®—æ’å
 		Sequence R = y.ranks(null);
 		Sequence erf = new Sequence(xlen);
 		for (int i = 0; i < xlen; i++) {
@@ -650,7 +650,7 @@ public class Smooth extends SequenceFunction {
 			double r = (d-0.5)/xlen;
 			erf.add(sqrt2 * Erf.erfInv(2*r - 1));
 		}
-		// ÄæÎó²î¼ÆËã
+		// é€†è¯¯å·®è®¡ç®—
 		return erf;
 	}
 }

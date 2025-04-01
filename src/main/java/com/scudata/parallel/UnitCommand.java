@@ -6,38 +6,38 @@ import java.util.HashMap;
 public class UnitCommand implements Serializable {
 	private static final long serialVersionUID = 559160970976735495L;
 
-	//public static final int GET_UNITS = 0; // È¡·Ö»úµÄËùÓĞ½ø³Ì
-	public static final int CREATE_GT = 1; // ´´½¨¼¯Èº×é±í
-	public static final int GET_TABLEMETADATA = 2; // ÔÚ·Ö»úÉÏ´´½¨¸½±íÔ¶³Ì´úÀí
-	public static final int GET_GT_DISTRIBUTE = 3; // È¡×é±í·Ö²¼
-	public static final int CLOSE_GT = 4; // ¹Ø±Õ¼¯Èº×é±í
-	public static final int OPEN_GT = 5; // ´ò¿ª¼¯Èº×é±í
-	public static final int LIST_FILE_PARTS = 6; // ÁĞ³ö½Úµã»úÉÏÓĞÄÄĞ©·Ö±íÎÄ¼ş
+	//public static final int GET_UNITS = 0; // å–åˆ†æœºçš„æ‰€æœ‰è¿›ç¨‹
+	public static final int CREATE_GT = 1; // åˆ›å»ºé›†ç¾¤ç»„è¡¨
+	public static final int GET_TABLEMETADATA = 2; // åœ¨åˆ†æœºä¸Šåˆ›å»ºé™„è¡¨è¿œç¨‹ä»£ç†
+	public static final int GET_GT_DISTRIBUTE = 3; // å–ç»„è¡¨åˆ†å¸ƒ
+	public static final int CLOSE_GT = 4; // å…³é—­é›†ç¾¤ç»„è¡¨
+	public static final int OPEN_GT = 5; // æ‰“å¼€é›†ç¾¤ç»„è¡¨
+	public static final int LIST_FILE_PARTS = 6; // åˆ—å‡ºèŠ‚ç‚¹æœºä¸Šæœ‰å“ªäº›åˆ†è¡¨æ–‡ä»¶
 	
-	public static final int MEMORY_GT = 10; // ÄÚ´æ»¯×é±í
-	public static final int MEMORY_CLUSTERCURSOR = 11; // ÄÚ´æ»¯¼¯ÈºÓÎ±ê
-	public static final int MEMORY_TABLE = 12; // °ÑÔ¶³ÌĞò±í±ä³É¼¯ÈºÄÚ±í
+	public static final int MEMORY_GT = 10; // å†…å­˜åŒ–ç»„è¡¨
+	public static final int MEMORY_CLUSTERCURSOR = 11; // å†…å­˜åŒ–é›†ç¾¤æ¸¸æ ‡
+	public static final int MEMORY_TABLE = 12; // æŠŠè¿œç¨‹åºè¡¨å˜æˆé›†ç¾¤å†…è¡¨
 	
-	public static final int CREATE_MT_INDEX = 13; // Ô¶³ÌÄÚ±í½¨Ë÷Òı
-	public static final int GET_MT_ROW = 14; // ·ÃÎÊÄÚ±í¼ÇÂ¼
-	public static final int DUP_CLUSTER_MT = 15; // ½«¼¯ÈºÄÚ±íTÆ´³É±¾µØÄÚ±í
-	public static final int DUP_LOCAL_MT = 16; // °Ñ±¾µØÄÚ±í¸´ÖÆ³É¼¯Èº¸´Ğ´ÄÚ±í
-	public static final int GET_MT_ROWS = 17; // È¡¶àÌõÄÚ±í¼ÇÂ¼
-	public static final int MT_ADD_OPERATION = 18; // Îª¼¯ÈºÄÚ±í¸½¼şÔËËãswitch
-	public static final int CLOSE_MT = 19; // ÊÍ·Å¼¯ÈºÄÚ±í
+	public static final int CREATE_MT_INDEX = 13; // è¿œç¨‹å†…è¡¨å»ºç´¢å¼•
+	public static final int GET_MT_ROW = 14; // è®¿é—®å†…è¡¨è®°å½•
+	public static final int DUP_CLUSTER_MT = 15; // å°†é›†ç¾¤å†…è¡¨Tæ‹¼æˆæœ¬åœ°å†…è¡¨
+	public static final int DUP_LOCAL_MT = 16; // æŠŠæœ¬åœ°å†…è¡¨å¤åˆ¶æˆé›†ç¾¤å¤å†™å†…è¡¨
+	public static final int GET_MT_ROWS = 17; // å–å¤šæ¡å†…è¡¨è®°å½•
+	public static final int MT_ADD_OPERATION = 18; // ä¸ºé›†ç¾¤å†…è¡¨é™„ä»¶è¿ç®—switch
+	public static final int CLOSE_MT = 19; // é‡Šæ”¾é›†ç¾¤å†…è¡¨
 	
-	public static final int CREATE_BINARY_CURSOR = 20; //´´½¨Ô¶³Ì¼¯ÎÄ¼şÓÎ±ê
-	public static final int CREATE_GT_CURSOR = 21; // ´´½¨Ô¶³Ì¸½±íÓÎ±ê£¬·Ç¸´Ğ´±íÊ±seg=-1
-	public static final int CREATE_SYNC_GT_CURSOR = 22; // ´´½¨Í¬²½·Ö¶Î¼¯ÈºÓÎ±ê
-	public static final int CREATE_GT_ICURSOR = 23; // ´´½¨Ë÷ÒıÓÎ±ê
-	public static final int CREATE_MT_CURSOR = 24; // ÓÉ¼¯ÈºÄÚ±í´´½¨¼¯ÈºÓÎ±ê
+	public static final int CREATE_BINARY_CURSOR = 20; //åˆ›å»ºè¿œç¨‹é›†æ–‡ä»¶æ¸¸æ ‡
+	public static final int CREATE_GT_CURSOR = 21; // åˆ›å»ºè¿œç¨‹é™„è¡¨æ¸¸æ ‡ï¼Œéå¤å†™è¡¨æ—¶seg=-1
+	public static final int CREATE_SYNC_GT_CURSOR = 22; // åˆ›å»ºåŒæ­¥åˆ†æ®µé›†ç¾¤æ¸¸æ ‡
+	public static final int CREATE_GT_ICURSOR = 23; // åˆ›å»ºç´¢å¼•æ¸¸æ ‡
+	public static final int CREATE_MT_CURSOR = 24; // ç”±é›†ç¾¤å†…è¡¨åˆ›å»ºé›†ç¾¤æ¸¸æ ‡
 	
-	public static final int CURSOR_ADD_OPERATION = 30; // ÎªÓÎ±ê¸½¼şÔËËã
-	public static final int CURSOR_FETCH = 31; // ÓÎ±êÈ¡Êı
-	public static final int CURSOR_SKIP = 32; // ÓÎ±êÌø¹ıÊı¾İ
+	public static final int CURSOR_ADD_OPERATION = 30; // ä¸ºæ¸¸æ ‡é™„ä»¶è¿ç®—
+	public static final int CURSOR_FETCH = 31; // æ¸¸æ ‡å–æ•°
+	public static final int CURSOR_SKIP = 32; // æ¸¸æ ‡è·³è¿‡æ•°æ®
 	public static final int CURSOR_CLOSE = 33;
 	public static final int CURSOR_GET_MINVALUES = 34;
-	public static final int CURSOR_TO_REMOTE = 35; // °Ñ¼¯ÈºÓÎ±ê±ä³É¶à¸öÔ¶³ÌÓÎ±ê
+	public static final int CURSOR_TO_REMOTE = 35; // æŠŠé›†ç¾¤æ¸¸æ ‡å˜æˆå¤šä¸ªè¿œç¨‹æ¸¸æ ‡
 	
 	public static final int GROUPS = 40;
 	public static final int JOINX = 41;
@@ -45,17 +45,17 @@ public class UnitCommand implements Serializable {
 	public static final int GROUPX = 43;
 	public static final int TOTAL = 44;
 	
-	public static final int CHANNEL_CS = 70; // ÓÉ¼¯ÈºÓÎ±ê´´½¨¼¯Èº¹ÜµÀ
-	public static final int CHANNEL_CH = 71; // ÓÉ¼¯Èº¹ÜµÀ´´½¨¼¯Èº¹ÜµÀ
-	public static final int CHANNEL_ADD_OPERATION = 72; // Îª¹ÜµÀ¸½¼şÔËËã
+	public static final int CHANNEL_CS = 70; // ç”±é›†ç¾¤æ¸¸æ ‡åˆ›å»ºé›†ç¾¤ç®¡é“
+	public static final int CHANNEL_CH = 71; // ç”±é›†ç¾¤ç®¡é“åˆ›å»ºé›†ç¾¤ç®¡é“
+	public static final int CHANNEL_ADD_OPERATION = 72; // ä¸ºç®¡é“é™„ä»¶è¿ç®—
 	public static final int CHANNEL_GROUPS = 73;
 	public static final int CHANNEL_GROUPX = 74;
 	public static final int CHANNEL_SORTX = 75;
 	public static final int CHANNEL_FETCH = 76;
 	public static final int CHANNEL_RESULT = 77;
 	
-	public static final int GT_APPEND_BY_CSID = 80; // ÓÉÍ¬·Ö²¼ÓÎ±ê×öappend
-	public static final int GT_APPEND_BY_DATA = 81; // ÓÉ±¾µØÓÎ±ê×öappend£¬¸ù¾İÎ¬Öµ´«ËÍÏàÓ¦µÄÊı¾İµ½½Úµã»ú×öappend
+	public static final int GT_APPEND_BY_CSID = 80; // ç”±åŒåˆ†å¸ƒæ¸¸æ ‡åšappend
+	public static final int GT_APPEND_BY_DATA = 81; // ç”±æœ¬åœ°æ¸¸æ ‡åšappendï¼Œæ ¹æ®ç»´å€¼ä¼ é€ç›¸åº”çš„æ•°æ®åˆ°èŠ‚ç‚¹æœºåšappend
 	public static final int GT_FIRST_KEY_VALUE = 82;
 	public static final int GT_UPDATE = 83;
 	public static final int GT_DELETE = 84;
@@ -64,11 +64,11 @@ public class UnitCommand implements Serializable {
 	public static final int GT_RESET = 87;
 	public static final int GT_GET_PKEY = 88;
 	public static final int GT_NEWS = 89;
-	public static final int GT_CGROUPS = 90;//Á¢·½Ìå²éÑ¯
+	public static final int GT_CGROUPS = 90;//ç«‹æ–¹ä½“æŸ¥è¯¢
 	public static final int GT_GET_COL_NAMES = 91;
-	public static final int GT_GET_STRUCT = 92;//»ñµÃ×é±í½á¹¹
+	public static final int GT_GET_STRUCT = 92;//è·å¾—ç»„è¡¨ç»“æ„
 	
-	public static final int PSEUDO_CURSOR = 101;//Ğé±í½¨Á¢ÓÎ±ê
+	public static final int PSEUDO_CURSOR = 101;//è™šè¡¨å»ºç«‹æ¸¸æ ‡
 	public static final int PSEUDO_ADD_COLNAME = 102;
 	public static final int PSEUDO_ADD_OPERATION = 103;
 	public static final int PSEUDO_CLONE = 104;
@@ -78,25 +78,25 @@ public class UnitCommand implements Serializable {
 	public static final int PSEUDO_SET_PATHCOUNT = 108;
 	public static final int PSEUDO_MEMORY = 109;
 	
-	//´´½¨Ô¶³ÌÁÙÊ±ÎÄ¼ş
+	//åˆ›å»ºè¿œç¨‹ä¸´æ—¶æ–‡ä»¶
 	public static final int CREATE_TMPFILE = 200;
 
-	//½«±¾»úÎÄ¼şlocalFile´«µ½¼´Ê±´´½¨µÄÔ¶³ÌÁÙÊ±ÎÄ¼ş
+	//å°†æœ¬æœºæ–‡ä»¶localFileä¼ åˆ°å³æ—¶åˆ›å»ºçš„è¿œç¨‹ä¸´æ—¶æ–‡ä»¶
 	public static final int CREATE_TMPFILE_FROM = 201;
 	
-	//¸ù¾İÊ×¼ü¼°¸÷¶Î×îĞ¡Öµ½«¸÷¼ÇÂ¼Ğ´µ½ÏàÓ¦·Ö»úµÄÔ¶³ÌÁÙÊ±ÎÄ¼ş£¬·µ»Ø¸÷·Ö»úÏà¶ÔÓ¦µÄÁÙÊ±ÎÄ¼şÃû£¬
-	//ÓÃRemoteFileÖ±½ÓĞ´Ô¶³Ì£¿»¹ÊÇÏÈĞ´µ½±¾µØÔÙ´«£¿
+	//æ ¹æ®é¦–é”®åŠå„æ®µæœ€å°å€¼å°†å„è®°å½•å†™åˆ°ç›¸åº”åˆ†æœºçš„è¿œç¨‹ä¸´æ—¶æ–‡ä»¶ï¼Œè¿”å›å„åˆ†æœºç›¸å¯¹åº”çš„ä¸´æ—¶æ–‡ä»¶åï¼Œ
+	//ç”¨RemoteFileç›´æ¥å†™è¿œç¨‹ï¼Ÿè¿˜æ˜¯å…ˆå†™åˆ°æœ¬åœ°å†ä¼ ï¼Ÿ
 	//attr: int proxyId, String firstKey, Object[] segMinValues, String[] hosts, int[] ports
-	//¸ù¾İ¸÷·Ö»ú´«À´µÄÁÙÊ±ÎÄ¼ş½øĞĞreduce£¬·µ»ØÓÎ±êproxyId
+	//æ ¹æ®å„åˆ†æœºä¼ æ¥çš„ä¸´æ—¶æ–‡ä»¶è¿›è¡Œreduceï¼Œè¿”å›æ¸¸æ ‡proxyId
 	public static final int SHUFFLE = 202;
 	
-	//²úÉúÖĞ¼ä±í£¬keys=null²úÉú¼ò±í£¬·ñÔò×é±í
+	//äº§ç”Ÿä¸­é—´è¡¨ï¼Œkeys=nulläº§ç”Ÿç®€è¡¨ï¼Œå¦åˆ™ç»„è¡¨
 	//attr: int csProxyId, String[] keys
-	//return: int ¼ò±í»ò¸½±íproxyId
+	//return: int ç®€è¡¨æˆ–é™„è¡¨proxyId
 	public static final int INTERM = 205;
 	
 	
-	//private String jobSpaceId; // ·ÅattributesÀï
+	//private String jobSpaceId; // æ”¾attributesé‡Œ
 	private int command;
 	private HashMap<String, Object> attributes = new HashMap<String, Object>();
 	

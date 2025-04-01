@@ -17,8 +17,8 @@ import com.scudata.parallel.ClusterFile;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ´´½¨×é±íÎÄ¼ş
- * f.create(C,¡­;x;b)
+ * åˆ›å»ºç»„è¡¨æ–‡ä»¶
+ * f.create(C,â€¦;x;b)
  * @author RunQian
  *
  */
@@ -30,7 +30,7 @@ public class Create extends FileFunction {
 		}
 		
 		IParam colParam = param;
-		Expression distributeExp = null; // ·Ö²¼±í´ïÊ½
+		Expression distributeExp = null; // åˆ†å¸ƒè¡¨è¾¾å¼
 		String distribute = null;
 		Integer blockSize = null;
 		
@@ -83,7 +83,7 @@ public class Create extends FileFunction {
 		}
 
 		if (file.isRemoteFile()) {
-			// Ô¶³ÌÎÄ¼ş
+			// è¿œç¨‹æ–‡ä»¶
 			String host = file.getIP();
 			int port = file.getPort();
 			String fileName = file.getFileName();

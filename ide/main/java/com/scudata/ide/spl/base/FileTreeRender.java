@@ -15,7 +15,7 @@ import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.swing.TristateCheckBox;
 
 /**
- * ×ÊÔ´Ê÷½áµãäÖÈ¾Æ÷
+ * èµ„æºæ ‘ç»“ç‚¹æ¸²æŸ“å™¨
  *
  */
 public class FileTreeRender extends DefaultTreeCellRenderer {
@@ -23,13 +23,13 @@ public class FileTreeRender extends DefaultTreeCellRenderer {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public FileTreeRender() {
 	}
 
 	/**
-	 * È¡ÏÔÊ¾µÄ½áµã¿Ø¼ş
+	 * å–æ˜¾ç¤ºçš„ç»“ç‚¹æ§ä»¶
 	 */
 	public Component getTreeCellRendererComponent(JTree tree, Object value,
 			boolean sel, boolean expanded, boolean leaf, int row,
@@ -43,13 +43,13 @@ public class FileTreeRender extends DefaultTreeCellRenderer {
 			// if (node.isMatched())
 			// setForeground(Color.RED);
 			// setIcon(node.getDispIcon());
-			// ÉèÖÃÎÄ¼şÊ÷Ñ¡ÖĞ×´Ì¬µÄ±³¾°É«
+			// è®¾ç½®æ–‡ä»¶æ ‘é€‰ä¸­çŠ¶æ€çš„èƒŒæ™¯è‰²
 			return setSelectBackgroundColor(tree, node, sel);
 		}
 	}
 
 	/**
-	 * È¡³ß´ç´óĞ¡
+	 * å–å°ºå¯¸å¤§å°
 	 */
 	public Dimension getPreferredSize() {
 		Dimension d = super.getPreferredSize();
@@ -57,7 +57,7 @@ public class FileTreeRender extends DefaultTreeCellRenderer {
 	}
 
 	/**
-	 * È¡¸´Ñ¡¿ò½áµãÃæ°å
+	 * å–å¤é€‰æ¡†ç»“ç‚¹é¢æ¿
 	 * 
 	 * @param tree
 	 * @param node
@@ -87,11 +87,11 @@ public class FileTreeRender extends DefaultTreeCellRenderer {
 		JLabel labelName = new JLabel("  " + node.getName());
 		panel.add(labelName, BorderLayout.EAST);
 		if (sel) {
-			// ÉèÖÃÎÄ¼şÊ÷Ñ¡ÖĞ×´Ì¬µÄ±³¾°É«
+			// è®¾ç½®æ–‡ä»¶æ ‘é€‰ä¸­çŠ¶æ€çš„èƒŒæ™¯è‰²
 			Color backColor;
 			if (ConfigOptions.getFileColor() != null) {
 				backColor = ConfigOptions.getFileColor();
-			} else { // Î´×Ô¶¨ÒåÅäÖÃÑÕÉ«£¬ÔòÓÃÏµÍ³Ä¬ÈÏÑÕÉ«
+			} else { // æœªè‡ªå®šä¹‰é…ç½®é¢œè‰²ï¼Œåˆ™ç”¨ç³»ç»Ÿé»˜è®¤é¢œè‰²
 				backColor = new DefaultTreeCellRenderer()
 						.getBackgroundSelectionColor();
 			}
@@ -114,7 +114,7 @@ public class FileTreeRender extends DefaultTreeCellRenderer {
 	}
 
 	/**
-	 * ÉèÖÃÎÄ¼şÊ÷Ñ¡ÖĞ×´Ì¬µÄ±³¾°É«
+	 * è®¾ç½®æ–‡ä»¶æ ‘é€‰ä¸­çŠ¶æ€çš„èƒŒæ™¯è‰²
 	 * 
 	 * @param tree
 	 * @param node
@@ -131,22 +131,22 @@ public class FileTreeRender extends DefaultTreeCellRenderer {
 		Color backColor;
 		if (sel) {
 			if (StringUtils.isValidString(ConfigOptions.fileColor)) {
-				// Èô´ÓÅäÖÃÎÄ¼ş¶Áµ½ÑÕÉ«ÅäÖÃ£¬ÔòÓÃ¸ÄÑÕÉ«£¬·ñÔòÓÃÏµÍ³Ä¬ÈÏÑÕÉ«
+				// è‹¥ä»é…ç½®æ–‡ä»¶è¯»åˆ°é¢œè‰²é…ç½®ï¼Œåˆ™ç”¨æ”¹é¢œè‰²ï¼Œå¦åˆ™ç”¨ç³»ç»Ÿé»˜è®¤é¢œè‰²
 				String bgColor = ConfigOptions.fileColor;
 				int red = Integer.parseInt(bgColor.substring(1, 3), 16);
 				int green = Integer.parseInt(bgColor.substring(3, 5), 16);
 				int blue = Integer.parseInt(bgColor.substring(5, 7), 16);
 				int opacity;
 				if (StringUtils.isValidString(ConfigOptions.fileColorOpacity)) {
-					// ÉèÖÃÑÕÉ«Í¸Ã÷¶È
+					// è®¾ç½®é¢œè‰²é€æ˜åº¦
 					opacity = Math.round(255 * Float
 							.parseFloat(ConfigOptions.fileColorOpacity));
 				} else {
 					opacity = 255;
 				}
-				// 77ÎªÍ¸Ã÷¶ÈÉèÖÃ£¬¼´77/255=30%Í¸Ã÷¶È
+				// 77ä¸ºé€æ˜åº¦è®¾ç½®ï¼Œå³77/255=30%é€æ˜åº¦
 				backColor = new Color(red, green, blue, opacity);
-			} else { // Î´×Ô¶¨ÒåÅäÖÃÑÕÉ«£¬ÔòÓÃÏµÍ³Ä¬ÈÏÑÕÉ«
+			} else { // æœªè‡ªå®šä¹‰é…ç½®é¢œè‰²ï¼Œåˆ™ç”¨ç³»ç»Ÿé»˜è®¤é¢œè‰²
 				backColor = new DefaultTreeCellRenderer()
 						.getBackgroundSelectionColor();
 			}

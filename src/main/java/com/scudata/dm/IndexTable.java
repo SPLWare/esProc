@@ -5,72 +5,72 @@ import com.scudata.array.IArray;
 import com.scudata.array.IntArray;
 
 /**
- * ÄÚ´æË÷Òı±í»ùÀà
+ * å†…å­˜ç´¢å¼•è¡¨åŸºç±»
  * @author WangXiaoJun
  *
  */
 abstract public class IndexTable {	
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµ£¬´Ë·½·¨ÓÃÓÚÖ÷¼üÎªÒ»¸ö×Ö¶ÎµÄ¹şÏ£±í
-	 * @param key ¼ü
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼ï¼Œæ­¤æ–¹æ³•ç”¨äºä¸»é”®ä¸ºä¸€ä¸ªå­—æ®µçš„å“ˆå¸Œè¡¨
+	 * @param key é”®
 	 * @return
 	 */
 	abstract public Object find(Object key);
 
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµ£¬´Ë·½·¨ÓÃÓÚÖ÷¼üÎªÒ»¸ö×Ö¶ÎµÄ¹şÏ£±í
-	 * @param keys ¼üÖµÊı×é
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼ï¼Œæ­¤æ–¹æ³•ç”¨äºä¸»é”®ä¸ºä¸€ä¸ªå­—æ®µçš„å“ˆå¸Œè¡¨
+	 * @param keys é”®å€¼æ•°ç»„
 	 * @return
 	 */
 	abstract public Object find(Object []keys);
 	
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµµÄÎ»ÖÃ£¬´Ë·½·¨ÓÃÓÚÖ÷¼üÎªÒ»¸ö×Ö¶ÎµÄ¹şÏ£±í
-	 * @param key ¼ü
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼çš„ä½ç½®ï¼Œæ­¤æ–¹æ³•ç”¨äºä¸»é”®ä¸ºä¸€ä¸ªå­—æ®µçš„å“ˆå¸Œè¡¨
+	 * @param key é”®
 	 * @return
 	 */
 	abstract public int[] findAllPos(IArray key);
 
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµµÄÎ»ÖÃ£¬Ö»²éÕÒsignArrayÀïÎªtrueµÄ£¬´Ë·½·¨ÓÃÓÚÖ÷¼üÎªÒ»¸ö×Ö¶ÎµÄ¹şÏ£±í
-	 * @param key ¼ü
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼çš„ä½ç½®ï¼ŒåªæŸ¥æ‰¾signArrayé‡Œä¸ºtrueçš„ï¼Œæ­¤æ–¹æ³•ç”¨äºä¸»é”®ä¸ºä¸€ä¸ªå­—æ®µçš„å“ˆå¸Œè¡¨
+	 * @param key é”®
 	 * @param signArray
 	 * @return
 	 */
 	abstract public int[] findAllPos(IArray key, BoolArray signArray);
 	
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµµÄÎ»ÖÃ£¬´Ë·½·¨ÓÃÓÚÖ÷¼üÎªÒ»¸ö×Ö¶ÎµÄ¹şÏ£±í
-	 * @param keys ¼üÖµÊı×é
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼çš„ä½ç½®ï¼Œæ­¤æ–¹æ³•ç”¨äºä¸»é”®ä¸ºä¸€ä¸ªå­—æ®µçš„å“ˆå¸Œè¡¨
+	 * @param keys é”®å€¼æ•°ç»„
 	 * @return
 	 */
 	abstract public int[] findAllPos(IArray []keys);
 	
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÎ»ÖÃ£¬Ö»²éÕÒsignArrayÀïÎªtrueµÄ£¬´Ë·½·¨ÓÃÓÚÖ÷¼üÎª¶à×Ö¶ÎµÄ¹şÏ£±í
-	 * @param keys ¼üÖµÊı×é
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„ä½ç½®ï¼ŒåªæŸ¥æ‰¾signArrayé‡Œä¸ºtrueçš„ï¼Œæ­¤æ–¹æ³•ç”¨äºä¸»é”®ä¸ºå¤šå­—æ®µçš„å“ˆå¸Œè¡¨
+	 * @param keys é”®å€¼æ•°ç»„
 	 * @param signArray
 	 * @return
 	 */
 	abstract public int[] findAllPos(IArray []keys, BoolArray signArray);
 	
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµµÄÎ»ÖÃ£¬ÕÒ²»µ½·µ»Ø0
-	 * @param key ¼ü
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼çš„ä½ç½®ï¼Œæ‰¾ä¸åˆ°è¿”å›0
+	 * @param key é”®
 	 * @return
 	 */
 	abstract public int findPos(Object key);
 	
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµµÄÎ»ÖÃ£¬ÕÒ²»µ½·µ»Ø0
-	 * @param keys ¼üÖµÊı×é
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼çš„ä½ç½®ï¼Œæ‰¾ä¸åˆ°è¿”å›0
+	 * @param keys é”®å€¼æ•°ç»„
 	 * @return
 	 */
 	abstract public int findPos(Object []keys);
 	
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµµÄÎ»ÖÃ,°üÀ¨ÖØ¸´µÄÖµ
-	 * @param key ¼ü
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼çš„ä½ç½®,åŒ…æ‹¬é‡å¤çš„å€¼
+	 * @param key é”®
 	 * @param out
 	 */
 	public void findPos(Object key, IntArray out) {
@@ -78,8 +78,8 @@ abstract public class IndexTable {
 	}
 	
 	/**
-	 * ¸ù¾İ¼ü²éÕÒ¶ÔÓ¦µÄÖµµÄÎ»ÖÃ,°üÀ¨ÖØ¸´µÄÖµ
-	 * @param key ¼ü
+	 * æ ¹æ®é”®æŸ¥æ‰¾å¯¹åº”çš„å€¼çš„ä½ç½®,åŒ…æ‹¬é‡å¤çš„å€¼
+	 * @param key é”®
 	 * @param out
 	 */
 	public void findPos(Object[] keys, IntArray out) {

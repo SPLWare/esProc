@@ -33,8 +33,8 @@ public class DatabaseUtil {
 	public static int TYPE_ORACLE_DATE = 2;
 	public static int TYPE_SYBASE_TIMESTAMP = 3;
 
-	// added by bdl, ´æ´¢¹ı³ÌÖĞ£¬²ÎÊıµÄ¡°Ä£Ê½¡±£¬·Ö±ğÎªÊäÈë²ÎÊı£¬Êä³ö²ÎÊıºÍÊäÈëÊä³ö²ÎÊı
-	// ¶ÔÓÚÓÎ±ê£¬ĞèÒªÉèÖÃ¡°Êä³ö²ÎÊı¡±£¬¶ø¶ÔÓÚ·ÇÓÎ±êµÄÊä³ö²ÎÊı»òÕßÊäÈëÊä³ö²ÎÊı£¬½«°ÑÖµÊä³öµ½Ö¸¶¨Ãû³ÆµÄ²ÎÊı
+	// added by bdl, å­˜å‚¨è¿‡ç¨‹ä¸­ï¼Œå‚æ•°çš„â€œæ¨¡å¼â€ï¼Œåˆ†åˆ«ä¸ºè¾“å…¥å‚æ•°ï¼Œè¾“å‡ºå‚æ•°å’Œè¾“å…¥è¾“å‡ºå‚æ•°
+	// å¯¹äºæ¸¸æ ‡ï¼Œéœ€è¦è®¾ç½®â€œè¾“å‡ºå‚æ•°â€ï¼Œè€Œå¯¹äºéæ¸¸æ ‡çš„è¾“å‡ºå‚æ•°æˆ–è€…è¾“å…¥è¾“å‡ºå‚æ•°ï¼Œå°†æŠŠå€¼è¾“å‡ºåˆ°æŒ‡å®šåç§°çš„å‚æ•°
 	public static byte PROC_MODE_IN = (byte) 1;
 	public static byte PROC_MODE_OUT = (byte) 2;
 	public static byte PROC_MODE_INOUT = (byte) 3;
@@ -43,14 +43,14 @@ public class DatabaseUtil {
 	private static Class<?> oracleDATE = null;
 	private static Class<?> sybaseTIMESTAMP = null;
 	
-	private static final byte Col_AutoIncrement = 0x01; // ÁĞ×Ô¶¯Ôö³¤ÊôĞÔ, moved from DataStruct by bd, 2017.1.13
+	private static final byte Col_AutoIncrement = 0x01; // åˆ—è‡ªåŠ¨å¢é•¿å±æ€§, moved from DataStruct by bd, 2017.1.13
 
 	/**
-	 * ¶ÔÖ¸¶¨µÄÊı¾İ¿âÁ¬½ÓÖ´ĞĞsqlÓï¾ä£¬·µ»Ø½á¹û¹¹³ÉµÄĞòÁĞ
-	 * @param sql	String sqlÓï¾ä
-	 * @param params	Object[] ²ÎÊıÖµÁĞ±í
-	 * @param types	byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×éÈç×Ö·û´®×éµÈÀàĞÍ
-	 * 						µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
+	 * å¯¹æŒ‡å®šçš„æ•°æ®åº“è¿æ¥æ‰§è¡Œsqlè¯­å¥ï¼Œè¿”å›ç»“æœæ„æˆçš„åºåˆ—
+	 * @param sql	String sqlè¯­å¥
+	 * @param params	Object[] å‚æ•°å€¼åˆ—è¡¨
+	 * @param types	byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹
+	 * 						å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
 	 * @param dbs	DBSession
 	 * @return Sequence
 	 */
@@ -248,7 +248,7 @@ public class DatabaseUtil {
 			}
 			Table table = populate(rs, dbCharset, tranContent, toCharset, dbType, addTable, null, false, recordLimit,
 					opt);
-			// edited by bd, 2024.3.8, Ôö¼Ó@cÑ¡Ïî£¬´¦Àí×Ö¶ÎÃûÖĞµÄ±íÃû¼°ÌØÊâ·ûºÅ
+			// edited by bd, 2024.3.8, å¢åŠ @cé€‰é¡¹ï¼Œå¤„ç†å­—æ®µåä¸­çš„è¡¨ååŠç‰¹æ®Šç¬¦å·
 			boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
 			if (opt != null && opt.indexOf("t") > -1) {
 				String[] fields = null;
@@ -356,15 +356,15 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¶ÔÖ¸¶¨µÄÊı¾İ¿âÁ¬½ÓÖ´ĞĞsqlÓï¾ä£¬·µ»Ø½á¹û¼¯ÖĞµÄµÚÒ»Ìõ¼ÇÂ¼
+	 * å¯¹æŒ‡å®šçš„æ•°æ®åº“è¿æ¥æ‰§è¡Œsqlè¯­å¥ï¼Œè¿”å›ç»“æœé›†ä¸­çš„ç¬¬ä¸€æ¡è®°å½•
 	 * 
 	 * @param sql
-	 *            String sqlÓï¾ä
+	 *            String sqlè¯­å¥
 	 * @param params
-	 *            Object[] ²ÎÊıÖµÁĞ±í
+	 *            Object[] å‚æ•°å€¼åˆ—è¡¨
 	 * @param types
-	 *            byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×éÈç×Ö·û´®×éµÈÀàĞÍ
-	 *            µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
+	 *            byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹
+	 *            å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
 	 * @param dbs
 	 *            DBSession
 	 * @return Sequence
@@ -558,13 +558,13 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¶ÔÖ¸¶¨µÄÊı¾İ¿âÁ¬½ÓÖ´ĞĞsqlÓï¾ä£¬²»·µ»Ø½á¹û¼¯
-	 * @param sql	String sqlÓï¾ä
-	 * @param params	Object[] ²ÎÊıÖµÁĞ±í
+	 * å¯¹æŒ‡å®šçš„æ•°æ®åº“è¿æ¥æ‰§è¡Œsqlè¯­å¥ï¼Œä¸è¿”å›ç»“æœé›†
+	 * @param sql	String sqlè¯­å¥
+	 * @param params	Object[] å‚æ•°å€¼åˆ—è¡¨
 	 * @param types	byte[]
-	 * @param dbs	DBSession ÉÏÏÂÎÄ edited by bdl, 2012.9.21, Ìí¼Ó@sÑ¡Ïî£¬Éè¶¨Ö®ºóÊ¹ÓÃ¹Ì»¯sql
-	 * @param opt	String Ñ¡Ïî edited by bdl, 2012.9.18, Ôö¼Ó·µ»ØÖµ
-	 * @return ÔËĞĞ½á¹û ¸üĞÂÓï¾ä·µ»ØInteger£¬ÆÕÍ¨sql·µ»ØBoolean
+	 * @param dbs	DBSession ä¸Šä¸‹æ–‡ edited by bdl, 2012.9.21, æ·»åŠ @sé€‰é¡¹ï¼Œè®¾å®šä¹‹åä½¿ç”¨å›ºåŒ–sql
+	 * @param opt	String é€‰é¡¹ edited by bdl, 2012.9.18, å¢åŠ è¿”å›å€¼
+	 * @return è¿è¡Œç»“æœ æ›´æ–°è¯­å¥è¿”å›Integerï¼Œæ™®é€šsqlè¿”å›Boolean
 	 */
 	private static Object runSQL(String sql, Object[] params, byte[] types, DBSession dbs, boolean isupdate,
 			String opt) {
@@ -811,16 +811,16 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * added by bdl, 2008.11.17£¬²»´¦Àí²ÎÊıÖĞµÄÊı×é ÒÔÖ¸¶¨µÄ²ÎÊıÖ´ĞĞÖ¸¶¨µÄPreparedStatement£¬²»·µ»Ø½á¹û¼¯
+	 * added by bdl, 2008.11.17ï¼Œä¸å¤„ç†å‚æ•°ä¸­çš„æ•°ç»„ ä»¥æŒ‡å®šçš„å‚æ•°æ‰§è¡ŒæŒ‡å®šçš„PreparedStatementï¼Œä¸è¿”å›ç»“æœé›†
 	 * @param pst	PreparedStatement
-	 * @param params	Object[]	²ÎÊı
-	 * @param types	byte[]	²ÎÊıÀàĞÍ
-	 * @param dbCharset	String	Êı¾İ¿â×Ö·û¼¯
-	 * @param toCharset	String	ÖÕ¶Ë×Ö·û¼¯
-	 * @param tranSQL	boolean	SQLÊÇ·ñĞè×ªÂë
-	 * @param tranContent	boolean	ÄÚÈİ×Ö·ûÊÇ·ñĞè×ªÂë
-	 * @param dbType	int ·µ»ØÖµ
-	 * @return ÊÇ·ñ³É¹¦ Boolean
+	 * @param params	Object[]	å‚æ•°
+	 * @param types	byte[]	å‚æ•°ç±»å‹
+	 * @param dbCharset	String	æ•°æ®åº“å­—ç¬¦é›†
+	 * @param toCharset	String	ç»ˆç«¯å­—ç¬¦é›†
+	 * @param tranSQL	boolean	SQLæ˜¯å¦éœ€è½¬ç 
+	 * @param tranContent	boolean	å†…å®¹å­—ç¬¦æ˜¯å¦éœ€è½¬ç 
+	 * @param dbType	int è¿”å›å€¼
+	 * @return æ˜¯å¦æˆåŠŸ Boolean
 	 */
 	private static Boolean runSQL2(PreparedStatement pst, Object[] params, byte[] types, String dbCharset,
 			boolean tranSQL, int dbType, String dsName, DBSession dbs) {
@@ -888,7 +888,7 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ²»´¦Àí²ÎÊıÖĞµÄÊı×é ÒÔÖ¸¶¨µÄ²ÎÊıÖ´ĞĞÖ¸¶¨µÄPreparedStatement£¬²»·µ»Ø½á¹û¼¯
+	 * ä¸å¤„ç†å‚æ•°ä¸­çš„æ•°ç»„ ä»¥æŒ‡å®šçš„å‚æ•°æ‰§è¡ŒæŒ‡å®šçš„PreparedStatementï¼Œä¸è¿”å›ç»“æœé›†
 	 * 
 	 * @param pst
 	 *            PreparedStatement
@@ -962,10 +962,10 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * È¡³ö½á¹ûÊı¾İ¼¯rsµÄÃ¿Ò»ĞĞÊı¾İÉú³É¼ÇÂ¼£¬¹¹³ÉÅÅÁĞ·µ»Ø
+	 * å–å‡ºç»“æœæ•°æ®é›†rsçš„æ¯ä¸€è¡Œæ•°æ®ç”Ÿæˆè®°å½•ï¼Œæ„æˆæ’åˆ—è¿”å›
 	 * 
 	 * @param rs
-	 *            ResultSet ½á¹ûÊı¾İ¼¯
+	 *            ResultSet ç»“æœæ•°æ®é›†
 	 * @param dbCharset
 	 *            String
 	 * @param needTranContent
@@ -973,11 +973,11 @@ public class DatabaseUtil {
 	 * @param toCharset
 	 *            String
 	 * @param dbType
-	 *            int DBTypesÖĞ¶¨ÒåµÄÀàĞÍ
+	 *            int DBTypesä¸­å®šä¹‰çš„ç±»å‹
 	 * @param addTable
-	 *            boolean ÊÇ·ñÔÚ×Ö¶ÎÃûÖĞÌí¼Ó±íÃû£¬added by bdl, 2010.9.9
+	 *            boolean æ˜¯å¦åœ¨å­—æ®µåä¸­æ·»åŠ è¡¨åï¼Œadded by bdl, 2010.9.9
 	 * @param recordLimit
-	 *            added by bdl, 2012.2.27, ·µ»Ø×î´ó¼ÇÂ¼Êı
+	 *            added by bdl, 2012.2.27, è¿”å›æœ€å¤§è®°å½•æ•°
 	 * @return Sequence
 	 * @throws Exception 
 	 */
@@ -1009,7 +1009,7 @@ public class DatabaseUtil {
 			bb = toCharset.equalsIgnoreCase(dbCharset) || dbCharset == null;
 		}
 
-		// edited by bd, 2024.3.8, Ôö¼Ó@cÑ¡Ïî£¬´¦Àí×Ö¶ÎÃûÖĞµÄ±íÃû¼°ÌØÊâ·ûºÅ
+		// edited by bd, 2024.3.8, å¢åŠ @cé€‰é¡¹ï¼Œå¤„ç†å­—æ®µåä¸­çš„è¡¨ååŠç‰¹æ®Šç¬¦å·
 		boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
 		if (table == null) {
 			int[] colTypes = new int[colCount];
@@ -1102,10 +1102,10 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * È¡³ö½á¹ûÊı¾İ¼¯rsµÄÃ¿Ò»ĞĞÊı¾İÉú³É¼ÇÂ¼£¬¹¹³ÉÅÅÁĞ·µ»Ø£¬±¾·½·¨ÓÃÓÚqueryGroupÖĞ£¬¶à´ÎÖ´ĞĞsql·µ»ØµÄÊı¾İ½á¹¹ÏàÍ¬
+	 * å–å‡ºç»“æœæ•°æ®é›†rsçš„æ¯ä¸€è¡Œæ•°æ®ç”Ÿæˆè®°å½•ï¼Œæ„æˆæ’åˆ—è¿”å›ï¼Œæœ¬æ–¹æ³•ç”¨äºqueryGroupä¸­ï¼Œå¤šæ¬¡æ‰§è¡Œsqlè¿”å›çš„æ•°æ®ç»“æ„ç›¸åŒ
 	 * 
 	 * @param rs
-	 *            ResultSet ½á¹ûÊı¾İ¼¯
+	 *            ResultSet ç»“æœæ•°æ®é›†
 	 * @param dbCharset
 	 *            String
 	 * @param needTranContent
@@ -1113,11 +1113,11 @@ public class DatabaseUtil {
 	 * @param toCharset
 	 *            String
 	 * @param dbType
-	 *            int DBTypesÖĞ¶¨ÒåµÄÀàĞÍ
+	 *            int DBTypesä¸­å®šä¹‰çš„ç±»å‹
 	 * @param ctx
-	 *            Context ÉÏÏÂÎÄ
+	 *            Context ä¸Šä¸‹æ–‡
 	 * @param ds
-	 *            DataStruct Êı¾İ½á¹¹£¬µÚÒ»´ÎÖ´ĞĞÊ±¼ÆËã
+	 *            DataStruct æ•°æ®ç»“æ„ï¼Œç¬¬ä¸€æ¬¡æ‰§è¡Œæ—¶è®¡ç®—
 	 * @throws SQLException
 	 * @throws UnsupportedEncodingException
 	 * @return Sequence
@@ -1139,7 +1139,7 @@ public class DatabaseUtil {
 
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int colCount = rsmd.getColumnCount();
-		// edited by bd, 2024.3.8, Ôö¼Ó@cÑ¡Ïî£¬´¦Àí×Ö¶ÎÃûÖĞµÄ±íÃû¼°ÌØÊâ·ûºÅ
+		// edited by bd, 2024.3.8, å¢åŠ @cé€‰é¡¹ï¼Œå¤„ç†å­—æ®µåä¸­çš„è¡¨ååŠç‰¹æ®Šç¬¦å·
 		boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
 		if (table == null) {
 			int[] colTypes = new int[colCount];
@@ -1194,10 +1194,10 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * È¡³ö½á¹ûÊı¾İ¼¯rsµÄµÚÒ»ÌõÊı¾İÉú³É¼ÇÂ¼·µ»Ø
+	 * å–å‡ºç»“æœæ•°æ®é›†rsçš„ç¬¬ä¸€æ¡æ•°æ®ç”Ÿæˆè®°å½•è¿”å›
 	 * 
 	 * @param rs
-	 *            ResultSet ½á¹ûÊı¾İ¼¯
+	 *            ResultSet ç»“æœæ•°æ®é›†
 	 * @param dbCharset
 	 *            String
 	 * @param needTranContent
@@ -1205,7 +1205,7 @@ public class DatabaseUtil {
 	 * @param toCharset
 	 *            String
 	 * @param dbType
-	 *            int DBTypesÖĞ¶¨ÒåµÄÀàĞÍ
+	 *            int DBTypesä¸­å®šä¹‰çš„ç±»å‹
 	 * @throws SQLException
 	 * @throws UnsupportedEncodingException
 	 * @return Sequence
@@ -1231,7 +1231,7 @@ public class DatabaseUtil {
 		int[] colTypes = new int[colCount];
 		String[] colNames = new String[colCount];
 
-		// edited by bd, 2024.3.8, Ôö¼Ó@cÑ¡Ïî£¬´¦Àí×Ö¶ÎÃûÖĞµÄ±íÃû¼°ÌØÊâ·ûºÅ
+		// edited by bd, 2024.3.8, å¢åŠ @cé€‰é¡¹ï¼Œå¤„ç†å­—æ®µåä¸­çš„è¡¨ååŠç‰¹æ®Šç¬¦å·
 		boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
 		try {
 			if (cleanFieldName) {
@@ -1283,26 +1283,26 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÔÚdbNameÖĞÖ´ĞĞsqlÓï¾ä
-	 * @param sql	String sqlÓï¾ä
-	 * @param params	Object[] ²ÎÊıÁĞ±í£¬¿É¿Õ
-	 * @param types	byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×éÈç×Ö·û´®×éµÈÀàĞÍ
-	 *            			µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
-	 * @param dbs	DBSession edited by bdl, 2012.9.18, Ôö¼Ó·µ»ØÖµ
-	 * @return	ÔËĞĞ½á¹û ¸üĞÂÓï¾ä·µ»ØInteger£¬ÆÕÍ¨sql·µ»ØBoolean
+	 * åœ¨dbNameä¸­æ‰§è¡Œsqlè¯­å¥
+	 * @param sql	String sqlè¯­å¥
+	 * @param params	Object[] å‚æ•°åˆ—è¡¨ï¼Œå¯ç©º
+	 * @param types	byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹
+	 *            			å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
+	 * @param dbs	DBSession edited by bdl, 2012.9.18, å¢åŠ è¿”å›å€¼
+	 * @return	è¿è¡Œç»“æœ æ›´æ–°è¯­å¥è¿”å›Integerï¼Œæ™®é€šsqlè¿”å›Boolean
 	 */
 	public static Object execute(String sql, Object[] params, byte[] types, DBSession dbs, String opt) {
 		return runSQL(sql, params, types, dbs, false, opt);
 	}
 
 	/**
-	 * ÔÚdbNameÖĞÖ´ĞĞsqlÓï¾ä£¬ÓÃ¶à×é²ÎÊıÖ´ĞĞÍ¬Ò»SQLÓï¾ä£¬ÎªÌá¸ßĞ§ÂÊ£¬ÔÚÖ´ĞĞÊ±²»È¥ÖÃ»»Óï¾äÖĞµÄ?£¬ÕâÑù¾ÍÒªÇó²ÎÊıÖĞ²»ÄÜÓĞÊı×é
-	 * @param sql	String sqlÓï¾ä
-	 * @param params	Object[][] ²ÎÊıÁĞ±íµÄÁĞ±í£¬¿É¿Õ
-	 * @param types	byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×éÈç×Ö·û´®×éµÈÀàĞÍ
-	 *            			µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
+	 * åœ¨dbNameä¸­æ‰§è¡Œsqlè¯­å¥ï¼Œç”¨å¤šç»„å‚æ•°æ‰§è¡ŒåŒä¸€SQLè¯­å¥ï¼Œä¸ºæé«˜æ•ˆç‡ï¼Œåœ¨æ‰§è¡Œæ—¶ä¸å»ç½®æ¢è¯­å¥ä¸­çš„?ï¼Œè¿™æ ·å°±è¦æ±‚å‚æ•°ä¸­ä¸èƒ½æœ‰æ•°ç»„
+	 * @param sql	String sqlè¯­å¥
+	 * @param params	Object[][] å‚æ•°åˆ—è¡¨çš„åˆ—è¡¨ï¼Œå¯ç©º
+	 * @param types	byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹
+	 *            			å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
 	 * @param dbs	DBSession
-	 * @param interrupt	boolean ÊÇ·ñÖĞ¶Ï
+	 * @param interrupt	boolean æ˜¯å¦ä¸­æ–­
 	 */
 	public static void execute2old(String sql, Object[][] paramsGroup, byte[] types, DBSession dbs, boolean interrupt) {
 		PreparedStatement pst = null;
@@ -1393,13 +1393,13 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÔÚdbNameÖĞÖ´ĞĞsqlÓï¾ä£¬ÓÃ¶à×é²ÎÊıÖ´ĞĞÍ¬Ò»SQLÓï¾ä£¬ÎªÌá¸ßĞ§ÂÊ£¬ÔÚÖ´ĞĞÊ±²»È¥ÖÃ»»Óï¾äÖĞµÄ?£¬ÕâÑù¾ÍÒªÇó²ÎÊıÖĞ²»ÄÜÓĞÊı×é
-	 * @param sql	String sqlÓï¾ä
-	 * @param params	Object[][] ²ÎÊıÁĞ±íµÄÁĞ±í£¬¿É¿Õ
-	 * @param types	byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×éÈç×Ö·û´®×éµÈÀàĞÍ
-	 *            			µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
+	 * åœ¨dbNameä¸­æ‰§è¡Œsqlè¯­å¥ï¼Œç”¨å¤šç»„å‚æ•°æ‰§è¡ŒåŒä¸€SQLè¯­å¥ï¼Œä¸ºæé«˜æ•ˆç‡ï¼Œåœ¨æ‰§è¡Œæ—¶ä¸å»ç½®æ¢è¯­å¥ä¸­çš„?ï¼Œè¿™æ ·å°±è¦æ±‚å‚æ•°ä¸­ä¸èƒ½æœ‰æ•°ç»„
+	 * @param sql	String sqlè¯­å¥
+	 * @param params	Object[][] å‚æ•°åˆ—è¡¨çš„åˆ—è¡¨ï¼Œå¯ç©º
+	 * @param types	byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹
+	 *            			å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
 	 * @param dbs	DBSession
-	 * @param interrupt	boolean ÊÇ·ñÖĞ¶Ï
+	 * @param interrupt	boolean æ˜¯å¦ä¸­æ–­
 	 */
 	public static void execute2(String sql, Object[][] paramsGroup, byte[] types, DBSession dbs, boolean interrupt) {
 		PreparedStatement pst = null;
@@ -1530,32 +1530,32 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÔÚdbNameÖĞÖ´ĞĞsqlÓï¾ä£¬ÓÃ¶à×é²ÎÊıÖ´ĞĞÍ¬Ò»SQLÓï¾ä£¬ÎªÌá¸ßĞ§ÂÊ£¬ ÔÚÖ´ĞĞÊ±²»È¥ÖÃ»»Óï¾äÖĞµÄ?£¬ÕâÑù¾ÍÒªÇó²ÎÊıÖĞ²»ÄÜÓĞÊı×é
-	 * ÕâÀïÒ»Ğ©Êı¾İ¿âĞÅÏ¢ÓÉÉÏ²ã»ñµÃ£¬Í¬Ê±sqlÒªÇóÒÑ¾­´¦Àí¹ıËùĞèµÄ×Ö¶ÎÃû×ªÂë
+	 * åœ¨dbNameä¸­æ‰§è¡Œsqlè¯­å¥ï¼Œç”¨å¤šç»„å‚æ•°æ‰§è¡ŒåŒä¸€SQLè¯­å¥ï¼Œä¸ºæé«˜æ•ˆç‡ï¼Œ åœ¨æ‰§è¡Œæ—¶ä¸å»ç½®æ¢è¯­å¥ä¸­çš„?ï¼Œè¿™æ ·å°±è¦æ±‚å‚æ•°ä¸­ä¸èƒ½æœ‰æ•°ç»„
+	 * è¿™é‡Œä¸€äº›æ•°æ®åº“ä¿¡æ¯ç”±ä¸Šå±‚è·å¾—ï¼ŒåŒæ—¶sqlè¦æ±‚å·²ç»å¤„ç†è¿‡æ‰€éœ€çš„å­—æ®µåè½¬ç 
 	 * 
 	 * @param sql
-	 *            String sqlÓï¾ä
+	 *            String sqlè¯­å¥
 	 * @param paramsGroup
-	 *            Object[][] ²ÎÊıÁĞ±íµÄÁĞ±í£¬¿É¿Õ
+	 *            Object[][] å‚æ•°åˆ—è¡¨çš„åˆ—è¡¨ï¼Œå¯ç©º
 	 * @param types
-	 *            byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×é
-	 *            Èç×Ö·û´®×éµÈÀàĞÍ¡£µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
+	 *            byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„
+	 *            å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹ã€‚å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
 	 * @param dbs
-	 *            DBSession Êı¾İ¿âĞÅÏ¢£¬¼ÇÂ¼´íÎó×´Ì¬ÓÃ
+	 *            DBSession æ•°æ®åº“ä¿¡æ¯ï¼Œè®°å½•é”™è¯¯çŠ¶æ€ç”¨
 	 * @param con
-	 *            Connection Êı¾İ¿âÁ¬½Ó¶ÔÏó
+	 *            Connection æ•°æ®åº“è¿æ¥å¯¹è±¡
 	 * @param dbCharset
-	 *            Êı¾İ¿â±àÂë£¬ÓÃÓÚ½«×Ö·û´®²ÎÊı×ªÂë
+	 *            æ•°æ®åº“ç¼–ç ï¼Œç”¨äºå°†å­—ç¬¦ä¸²å‚æ•°è½¬ç 
 	 * @param tranSQL
-	 *            ÊÇ·ñĞèÒª×ªÂë£¬Ö»ÓĞÎªtrueÊ±´¦Àí
+	 *            æ˜¯å¦éœ€è¦è½¬ç ï¼Œåªæœ‰ä¸ºtrueæ—¶å¤„ç†
 	 * @param dbType
-	 *            Êı¾İ¿âÀàĞÍ£¬¶ÔÓÚÄ³Ğ©Êı¾İ¿âÔÚÉè¶¨²ÎÊıÊ±¿ÉÄÜĞèÒªÌØÊâµ÷Õû
+	 *            æ•°æ®åº“ç±»å‹ï¼Œå¯¹äºæŸäº›æ•°æ®åº“åœ¨è®¾å®šå‚æ•°æ—¶å¯èƒ½éœ€è¦ç‰¹æ®Šè°ƒæ•´
 	 * @param dbn
-	 *            Êı¾İ¿âÃû³Æ£¬ÓÃÓÚ´íÎóÌáÊ¾
+	 *            æ•°æ®åº“åç§°ï¼Œç”¨äºé”™è¯¯æç¤º
 	 * @param batchSize
-	 *            int Åú´¦ÀíãĞÖµ£¬´ÓÉÏ²ã»ñµÃ
+	 *            int æ‰¹å¤„ç†é˜ˆå€¼ï¼Œä»ä¸Šå±‚è·å¾—
 	 * @param interrupt
-	 *            ÊÇ·ñÔÚ³ö´íÊ±ÖĞ¶Ï
+	 *            æ˜¯å¦åœ¨å‡ºé”™æ—¶ä¸­æ–­
 	 */
 	private static void executeBatch(String sql, Object[][] paramsGroup, byte[] types, DBSession dbs, Connection con,
 			String dbCharset, boolean tranSQL, int dbType, String dbn, int batchSize, boolean interrupt) {
@@ -1634,19 +1634,19 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÓÃ¶à×é²ÎÊıÖ´ĞĞÍ¬Ò»pst£¬ÎªÌá¸ßĞ§ÂÊ£¬ÔÚÖ´ĞĞÊ±²»È¥ÖÃ»»Óï¾äÖĞµÄ?£¬ÕâÑù¾ÍÒªÇó²ÎÊıÖĞ²»ÄÜÓĞÊı×é Íê³ÉºóÖ´ĞĞÒ»´ÎexecuteBatch£¬pst²»¹Ø±Õ
+	 * ç”¨å¤šç»„å‚æ•°æ‰§è¡ŒåŒä¸€pstï¼Œä¸ºæé«˜æ•ˆç‡ï¼Œåœ¨æ‰§è¡Œæ—¶ä¸å»ç½®æ¢è¯­å¥ä¸­çš„?ï¼Œè¿™æ ·å°±è¦æ±‚å‚æ•°ä¸­ä¸èƒ½æœ‰æ•°ç»„ å®Œæˆåæ‰§è¡Œä¸€æ¬¡executeBatchï¼Œpstä¸å…³é—­
 	 * 
 	 * @param pst
 	 *            PreparedStatement pst
 	 * @param params
-	 *            Object[][] ²ÎÊıÁĞ±íµÄÁĞ±í£¬¿É¿Õ
+	 *            Object[][] å‚æ•°åˆ—è¡¨çš„åˆ—è¡¨ï¼Œå¯ç©º
 	 * @param types
-	 *            byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×éÈç×Ö·û´®×éµÈÀàĞÍ
-	 *            µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
+	 *            byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹
+	 *            å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
 	 * @param dbs
 	 *            DBSession
 	 * @param interrupt
-	 *            boolean ÊÇ·ñÖĞ¶Ï
+	 *            boolean æ˜¯å¦ä¸­æ–­
 	 */
 	private static void executeBatch(PreparedStatement pst, Object[][] paramsGroup, byte[] types, DBSession dbs,
 			String dbCharset, boolean tranSQL, int dbType, String name, boolean interrupt) {
@@ -1664,7 +1664,7 @@ public class DatabaseUtil {
 				}
 			}
 			try {
-				// edited by bdl, 2014.7.8 Òì³£¸ù¾İDBSessionµÄÉè¶¨£¬@kÊ±¿ÉÄÜ²»Å×³ö
+				// edited by bdl, 2014.7.8 å¼‚å¸¸æ ¹æ®DBSessionçš„è®¾å®šï¼Œ@kæ—¶å¯èƒ½ä¸æŠ›å‡º
 				pst.executeBatch();
 				pst.clearBatch();
 			} catch (SQLException e) {
@@ -1690,16 +1690,16 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÔÚdbNameÖĞÖ´ĞĞsqlÓï¾ä
-	 * @param sql	String sqlÓï¾ä
-	 * @param params	Object[] ²ÎÊıÁĞ±í£¬¿É¿Õ
-	 * @param types	byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×éÈç×Ö·û´®×éµÈÀàĞÍ
-	 *           			 µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
+	 * åœ¨dbNameä¸­æ‰§è¡Œsqlè¯­å¥
+	 * @param sql	String sqlè¯­å¥
+	 * @param params	Object[] å‚æ•°åˆ—è¡¨ï¼Œå¯ç©º
+	 * @param types	byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹
+	 *           			 å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
 	 * @param dbs	DBSession
 	 * @return Sequence
 	 */
 	public static Sequence query(String sql, Object[] params, byte[] types, DBSession dbs, String opt) {
-		// edited by bdl, 2015.7.28, Ö§³Ö@iÑ¡Ïî£¬µ¥ÁĞÊ±·µ»ØĞòÁĞ
+		// edited by bdl, 2015.7.28, æ”¯æŒ@ié€‰é¡¹ï¼Œå•åˆ—æ—¶è¿”å›åºåˆ—
 		Table tbl = retrieve(sql, params, types, dbs, opt, -1);
 		if (tbl != null && tbl.dataStruct().getFieldCount() == 1 && opt != null && opt.indexOf('i') != -1) {
 			return tbl.fieldValues(0);
@@ -1709,32 +1709,32 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÔÚdbNameÖĞÖ´ĞĞsqlÓï¾ä£¬·µ»ØĞò±í
-	 * @param sql	String sqlÓï¾ä
-	 * @param params	Object[] ²ÎÊıÁĞ±í * @param types byte[] ²ÎÊıÀàĞÍ£¬µ±Ö¸¶¨²ÎÊıÎª¿ÕÊ±ÓĞÒâÒå
+	 * åœ¨dbNameä¸­æ‰§è¡Œsqlè¯­å¥ï¼Œè¿”å›åºè¡¨
+	 * @param sql	String sqlè¯­å¥
+	 * @param params	Object[] å‚æ•°åˆ—è¡¨ * @param types byte[] å‚æ•°ç±»å‹ï¼Œå½“æŒ‡å®šå‚æ•°ä¸ºç©ºæ—¶æœ‰æ„ä¹‰
 	 * @param dbs	DBSession
-	 * @param opt	String Ñ¡Ïî
-	 * @param ctx	Context ÉÏÏÂÎÄ»·¾³
-	 * @return Table ·µ»ØÓÃ½á¹û¼¯Éú³ÉµÄĞò±í
+	 * @param opt	String é€‰é¡¹
+	 * @param ctx	Context ä¸Šä¸‹æ–‡ç¯å¢ƒ
+	 * @return Table è¿”å›ç”¨ç»“æœé›†ç”Ÿæˆçš„åºè¡¨
 	 */
 	public static Sequence query(String sql, Object[] params, byte[] types, DBSession dbs, String opt, Context ctx) {
 		return query(sql, params, types, dbs, opt, -1, ctx);
 	}
 
 	/**
-	 * added by bdl, 2012.2.27 ÔÚdbNameÖĞÖ´ĞĞsqlÓï¾ä£¬·µ»ØĞò±í
-	 * @param sql	String sqlÓï¾ä
-	 * @param params	Object[] ²ÎÊıÁĞ±í
-	 * @param types	byte[] ²ÎÊıÀàĞÍ£¬µ±Ö¸¶¨²ÎÊıÎª¿ÕÊ±ÓĞÒâÒå
+	 * added by bdl, 2012.2.27 åœ¨dbNameä¸­æ‰§è¡Œsqlè¯­å¥ï¼Œè¿”å›åºè¡¨
+	 * @param sql	String sqlè¯­å¥
+	 * @param params	Object[] å‚æ•°åˆ—è¡¨
+	 * @param types	byte[] å‚æ•°ç±»å‹ï¼Œå½“æŒ‡å®šå‚æ•°ä¸ºç©ºæ—¶æœ‰æ„ä¹‰
 	 * @param dbs	DBSession
-	 * @param opt	String Ñ¡Ïî
+	 * @param opt	String é€‰é¡¹
 	 * @param recordLimit	int
-	 * @param ctx	Context ÉÏÏÂÎÄ»·¾³
-	 * @return Table	·µ»ØÓÃ½á¹û¼¯Éú³ÉµÄĞò±í
+	 * @param ctx	Context ä¸Šä¸‹æ–‡ç¯å¢ƒ
+	 * @return Table	è¿”å›ç”¨ç»“æœé›†ç”Ÿæˆçš„åºè¡¨
 	 */
 	public static Sequence query(String sql, Object[] params, byte[] types, DBSession dbs, String opt, int recordLimit,
 			Context ctx) {
-		// edited by bdl, 2015.7.28, Ö§³Ö@iÑ¡Ïî£¬µ¥ÁĞÊ±·µ»ØĞòÁĞ
+		// edited by bdl, 2015.7.28, æ”¯æŒ@ié€‰é¡¹ï¼Œå•åˆ—æ—¶è¿”å›åºåˆ—
 		Table tbl = retrieve(sql, params, types, dbs, opt, recordLimit);
 		if (tbl != null && tbl.dataStruct().getFieldCount() == 1 && opt != null && opt.indexOf('i') != -1) {
 			return tbl.fieldValues(0);
@@ -1744,11 +1744,11 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÒÔ¶à×é²ÎÊıÀ´Ö´ĞĞÍ¬Ò»sqlÓï¾ä£¬·µ»Ø½á¹ûĞòÁĞµÄĞòÁĞ£¬added by bdl, 2009.1.8
-	 * @param sql	String sqlÓï¾ä
-	 * @param params	Object[][] ²ÎÊıÁĞ±í£¬²»¿É¿Õ£¬ÈôÎª¿ÕÔò·µ»Ønull£¬²ÎÊıÁĞ±íÖĞµÄ²ÎÊı²»ÔÊĞíÊÇÊı×é£¬·ñÔòÓĞ¿ÉÄÜ»á³ö´í
-	 * @param types	byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×éÈç×Ö·û´®×éµÈÀàĞÍ
-	 *            			µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
+	 * ä»¥å¤šç»„å‚æ•°æ¥æ‰§è¡ŒåŒä¸€sqlè¯­å¥ï¼Œè¿”å›ç»“æœåºåˆ—çš„åºåˆ—ï¼Œadded by bdl, 2009.1.8
+	 * @param sql	String sqlè¯­å¥
+	 * @param params	Object[][] å‚æ•°åˆ—è¡¨ï¼Œä¸å¯ç©ºï¼Œè‹¥ä¸ºç©ºåˆ™è¿”å›nullï¼Œå‚æ•°åˆ—è¡¨ä¸­çš„å‚æ•°ä¸å…è®¸æ˜¯æ•°ç»„ï¼Œå¦åˆ™æœ‰å¯èƒ½ä¼šå‡ºé”™
+	 * @param types	byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹
+	 *            			å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
 	 * @param dbs	DBSession
 	 * @return Sequence
 	 */
@@ -1896,8 +1896,8 @@ public class DatabaseUtil {
 						int colCount = rsmd.getColumnCount();
 						int[] colTypes = new int[colCount];
 						String[] colNames = new String[colCount];
-						// added by bdl, 2012.10.18, ±íÃûºÍ×Ö¶ÎÃûµÄ×ªÂë
-						// edited by bd, 2024.3.8, Ôö¼Ó@cÑ¡Ïî£¬´¦Àí×Ö¶ÎÃûÖĞµÄ±íÃû¼°ÌØÊâ·ûºÅ
+						// added by bdl, 2012.10.18, è¡¨åå’Œå­—æ®µåçš„è½¬ç 
+						// edited by bd, 2024.3.8, å¢åŠ @cé€‰é¡¹ï¼Œå¤„ç†å­—æ®µåä¸­çš„è¡¨ååŠç‰¹æ®Šç¬¦å·
 						boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
 						if (cleanFieldName) {
 							ArrayList<String> oldcns = new ArrayList<String>(colCount);
@@ -1960,11 +1960,11 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¸ù¾İ¶àÖ÷¼ü²éÕÒ¼ÇÂ¼¹¹³ÉĞòÁĞ·µ»Ø
-	 * @param tableName	String ±í/ÊÓÍ¼Ãû
-	 * @param fields	String[] ´ı²éÑ¯µÄ×Ö¶Î
-	 * @param keyNames	String[] Ö÷¼üÃû
-	 * @param keyValues	Object[][] ¶à¼ÇÂ¼µÄÖ÷¼üÖµ¹¹³ÉµÄÊı×é
+	 * æ ¹æ®å¤šä¸»é”®æŸ¥æ‰¾è®°å½•æ„æˆåºåˆ—è¿”å›
+	 * @param tableName	String è¡¨/è§†å›¾å
+	 * @param fields	String[] å¾…æŸ¥è¯¢çš„å­—æ®µ
+	 * @param keyNames	String[] ä¸»é”®å
+	 * @param keyValues	Object[][] å¤šè®°å½•çš„ä¸»é”®å€¼æ„æˆçš„æ•°ç»„
 	 * @param dbs	DBSession
 	 * @return BaseRecord
 	 */
@@ -2036,11 +2036,11 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¸ù¾İÖ÷¼ü²éÕÒ¼ÇÂ¼·µ»ØÖ¸¶¨×Ö¶Î
+	 * æ ¹æ®ä¸»é”®æŸ¥æ‰¾è®°å½•è¿”å›æŒ‡å®šå­—æ®µ
 	 * @param tableName	String
-	 * @param fields	String[] ´ı²éÑ¯µÄ×Ö¶Î
-	 * @param keyNames	String[] Ö÷¼üÃû
-	 * @param keyValues	Object[]Ö÷¼üÖµ
+	 * @param fields	String[] å¾…æŸ¥è¯¢çš„å­—æ®µ
+	 * @param keyNames	String[] ä¸»é”®å
+	 * @param keyValues	Object[]ä¸»é”®å€¼
 	 * @param dbs	DBSession
 	 * @return BaseRecord
 	 */
@@ -2103,10 +2103,10 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¸ù¾İÖ÷¼ü²éÕÒ¼ÇÂ¼·µ»ØËùÓĞ×Ö¶Î
-	 * @param tableName	String ±íÃû
-	 * @param keyNames	String[] Ö÷¼üÃû
-	 * @param keyValues	Object[]Ö÷¼üÖµ
+	 * æ ¹æ®ä¸»é”®æŸ¥æ‰¾è®°å½•è¿”å›æ‰€æœ‰å­—æ®µ
+	 * @param tableName	String è¡¨å
+	 * @param keyNames	String[] ä¸»é”®å
+	 * @param keyValues	Object[]ä¸»é”®å€¼
 	 * @param dbs	DBSession
 	 * @return BaseRecord
 	 */
@@ -2117,10 +2117,10 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¸ù¾İ¶à×éÖ÷¼ü²éÕÒ¶à¼ÇÂ¼·µ»ØËùÓĞ×Ö¶Î
-	 * @param tableName	String ±íÃû
-	 * @param keyNames	String[] Ö÷¼üÃû
-	 * @param keyValues	Object[][] ¶à¼ÇÂ¼µÄÖ÷¼üÖµ¹¹³ÉµÄÊı×é
+	 * æ ¹æ®å¤šç»„ä¸»é”®æŸ¥æ‰¾å¤šè®°å½•è¿”å›æ‰€æœ‰å­—æ®µ
+	 * @param tableName	String è¡¨å
+	 * @param keyNames	String[] ä¸»é”®å
+	 * @param keyValues	Object[][] å¤šè®°å½•çš„ä¸»é”®å€¼æ„æˆçš„æ•°ç»„
 	 * @param dbs	DBSession
 	 * @return Sequence
 	 */
@@ -2130,11 +2130,11 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¸ù¾İÖ÷¼üÉú³Éupdate»òinsertÓï¾ä¸üĞÂÊı¾İ
-	 * @param tableName	String ±í/ÊÓÍ¼Ãû
-	 * @param keyValues	Object[] Ö÷¼üÖµ
-	 * @param fields	String[] Òª¸üĞÂµÄ×Ö¶ÎÃû
-	 * @param values	Object[] Òª¸üĞÂµÄ×Ö¶ÎÖµ
+	 * æ ¹æ®ä¸»é”®ç”Ÿæˆupdateæˆ–insertè¯­å¥æ›´æ–°æ•°æ®
+	 * @param tableName	String è¡¨/è§†å›¾å
+	 * @param keyValues	Object[] ä¸»é”®å€¼
+	 * @param fields	String[] è¦æ›´æ–°çš„å­—æ®µå
+	 * @param values	Object[] è¦æ›´æ–°çš„å­—æ®µå€¼
 	 * @param dbs	DBSession
 	 */
 	public static void update(String tableName, Object[] keyValues, String[] fields, Object[] values, DBSession dbs) {
@@ -2142,14 +2142,14 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¸ù¾İÖ÷¼üÉú³Éupdate»òinsertÓï¾ä¸üĞÂÊı¾İ
-	 * @param tableName	String ±í/ÊÓÍ¼Ãû
-	 * @param keyValues	Object[] Ö÷¼üÖµ
-	 * @param fields	String[] Òª¸üĞÂµÄ×Ö¶ÎÃû
-	 * @param values	Object[] Òª¸üĞÂµÄ×Ö¶ÎÖµ
-	 * @param opt	String u: Ö»Éú³ÉUPDATE, i: Ö»Éú³ÉINSERT
-	 * @param dbs	DBSession edited by bdl, 2012.9.18, Ôö¼Ó·µ»ØÖµ
-	 * @return	ÔËĞĞ½á¹û ¸üĞÂÓï¾ä·µ»ØInteger£¬ÆÕÍ¨sql·µ»ØBoolean
+	 * æ ¹æ®ä¸»é”®ç”Ÿæˆupdateæˆ–insertè¯­å¥æ›´æ–°æ•°æ®
+	 * @param tableName	String è¡¨/è§†å›¾å
+	 * @param keyValues	Object[] ä¸»é”®å€¼
+	 * @param fields	String[] è¦æ›´æ–°çš„å­—æ®µå
+	 * @param values	Object[] è¦æ›´æ–°çš„å­—æ®µå€¼
+	 * @param opt	String u: åªç”ŸæˆUPDATE, i: åªç”ŸæˆINSERT
+	 * @param dbs	DBSession edited by bdl, 2012.9.18, å¢åŠ è¿”å›å€¼
+	 * @return	è¿è¡Œç»“æœ æ›´æ–°è¯­å¥è¿”å›Integerï¼Œæ™®é€šsqlè¿”å›Boolean
 	 */
 	public static Object update(String tableName, Object[] keyValues, String[] fields, Object[] values, String opt,
 			DBSession dbs) {
@@ -2368,16 +2368,16 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ½á¹û¼¯Êı¾İ×ª»»
-	 * @param type	Êı¾İÀàĞÍ
-	 * @param dbType	Êı¾İ¿âÀàĞÍ
-	 * @param rs	½á¹û¼¯
-	 * @param index	Êı¾İĞòºÅ
-	 * @param needTranContent	ÊÇ·ñĞèÒª×ª»»×Ö·û
-	 * @param dbCharset	Êı¾İ¿â×Ö·û¼¯
-	 * @param toCharset	ÖÕ¶Ë×Ö·û¼¯
-	 * @param bb	×Ö·û¼¯ÊÇ·ñÒ»ÖÂ
-	 * @param typeErrIgn	Êı¾İÎŞ·¨Ê¶±ğÊ±½ö¾¯Ê¾£¬added by bd, 2024.8.29
+	 * ç»“æœé›†æ•°æ®è½¬æ¢
+	 * @param type	æ•°æ®ç±»å‹
+	 * @param dbType	æ•°æ®åº“ç±»å‹
+	 * @param rs	ç»“æœé›†
+	 * @param index	æ•°æ®åºå·
+	 * @param needTranContent	æ˜¯å¦éœ€è¦è½¬æ¢å­—ç¬¦
+	 * @param dbCharset	æ•°æ®åº“å­—ç¬¦é›†
+	 * @param toCharset	ç»ˆç«¯å­—ç¬¦é›†
+	 * @param bb	å­—ç¬¦é›†æ˜¯å¦ä¸€è‡´
+	 * @param typeErrIgn	æ•°æ®æ— æ³•è¯†åˆ«æ—¶ä»…è­¦ç¤ºï¼Œadded by bd, 2024.8.29
 	 * @return
 	 * @throws Exception
 	 */
@@ -2387,16 +2387,16 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ½á¹û¼¯Êı¾İ×ª»»
-	 * @param type	Êı¾İÀàĞÍ
-	 * @param dbType	Êı¾İ¿âÀàĞÍ
-	 * @param rs	½á¹û¼¯
-	 * @param index	Êı¾İĞòºÅ
-	 * @param needTranContent	ÊÇ·ñĞèÒª×ª»»×Ö·û
-	 * @param dbCharset	Êı¾İ¿â×Ö·û¼¯
-	 * @param toCharset	ÖÕ¶Ë×Ö·û¼¯
-	 * @param bb	×Ö·û¼¯ÊÇ·ñÒ»ÖÂ
-	 * @param opt	º¯ÊıÑ¡Ïî
+	 * ç»“æœé›†æ•°æ®è½¬æ¢
+	 * @param type	æ•°æ®ç±»å‹
+	 * @param dbType	æ•°æ®åº“ç±»å‹
+	 * @param rs	ç»“æœé›†
+	 * @param index	æ•°æ®åºå·
+	 * @param needTranContent	æ˜¯å¦éœ€è¦è½¬æ¢å­—ç¬¦
+	 * @param dbCharset	æ•°æ®åº“å­—ç¬¦é›†
+	 * @param toCharset	ç»ˆç«¯å­—ç¬¦é›†
+	 * @param bb	å­—ç¬¦é›†æ˜¯å¦ä¸€è‡´
+	 * @param opt	å‡½æ•°é€‰é¡¹
 	 * @return
 	 * @throws Exception
 	 */
@@ -2467,7 +2467,7 @@ public class DatabaseUtil {
 				throw new RQException(mm.getMessage("error.charset", dbCharset, toCharset));
 			}
 		}
-		// added the support for Boolean and byte[]£¬by bd, 2024.9.27
+		// added the support for Boolean and byte[]ï¼Œby bd, 2024.9.27
 		else if (obj instanceof Boolean) {
 			return obj;
 		}
@@ -2518,12 +2518,12 @@ public class DatabaseUtil {
 				}
 			}
 		} else if (obj instanceof LocalDateTime) {
-			// added by bd, 2023.10.17, Ìí¼Ó¶Ôjava.time.LocalDateTimeµÄ´¦Àí£¬ÕâÊÇÒ»¸ö²»º¬Ê±ÇøĞÅÏ¢µÄÈÕÆÚÊ±¼äÊı¾İ
+			// added by bd, 2023.10.17, æ·»åŠ å¯¹java.time.LocalDateTimeçš„å¤„ç†ï¼Œè¿™æ˜¯ä¸€ä¸ªä¸å«æ—¶åŒºä¿¡æ¯çš„æ—¥æœŸæ—¶é—´æ•°æ®
 			LocalDateTime ldt = (LocalDateTime) obj;
 			ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
 			return Timestamp.from(zdt.toInstant());
 		} else if (obj instanceof LocalDate) {
-			// added by bd, 2023.2.3, Ìí¼Ó¶Ôjava.time.LocalDateµÄ´¦Àí£¬ÕâÊÇÒ»¸ö²»º¬Ê±ÇøĞÅÏ¢µÄÈÕÆÚÊı¾İ
+			// added by bd, 2023.2.3, æ·»åŠ å¯¹java.time.LocalDateçš„å¤„ç†ï¼Œè¿™æ˜¯ä¸€ä¸ªä¸å«æ—¶åŒºä¿¡æ¯çš„æ—¥æœŸæ•°æ®
 			LocalDate ldt = (LocalDate) obj;
 			ZonedDateTime zdt = ldt.atStartOfDay(ZoneId.systemDefault());
 			return Timestamp.from(zdt.toInstant());
@@ -2538,7 +2538,7 @@ public class DatabaseUtil {
 		//	return obj;
 		//}
 
-		//added by bd, 2024.8.29£¬when the data is unrecognized, throw Exception
+		//added by bd, 2024.8.29ï¼Œwhen the data is unrecognized, throw Exception
 		Logger.debug("Unrecognized data type in SPL: " + obj.getClass().getName());
 		if (opt != null && opt.indexOf('r') > -1)
 			return obj;
@@ -2565,7 +2565,7 @@ public class DatabaseUtil {
 		return result;
 	}
 
-	// edited by bd, 2024.3.7, Ìí¼Ó×Ö¶ÎÃûÕûÀí£¬optÖĞ°üº¬fÑ¡ÏîÊ±£¬È¥³ı×îºóÒ»¸öĞ¡ÊıµãÇ°²¿·Ö£¬ÖØÃûÔò²»È¥³ı°ÑĞ¡Êıµã»»ÎªÏÂ»®Ïß
+	// edited by bd, 2024.3.7, æ·»åŠ å­—æ®µåæ•´ç†ï¼Œoptä¸­åŒ…å«fé€‰é¡¹æ—¶ï¼Œå»é™¤æœ€åä¸€ä¸ªå°æ•°ç‚¹å‰éƒ¨åˆ†ï¼Œé‡ååˆ™ä¸å»é™¤æŠŠå°æ•°ç‚¹æ¢ä¸ºä¸‹åˆ’çº¿
 	public static void cleanFieldName(String name, ArrayList<String> oldcns, ArrayList<String> cns, String tabName) {
 		String result = name;
 		String prefix = tabName == null ? "." : tabName + ".";
@@ -2574,17 +2574,17 @@ public class DatabaseUtil {
 			oldcns.add(name);
 			String result2 = result.substring(prelen);
 			if (result2.length()<1) {
-				// ³ıÁËÇ°×ºÎŞ×Ö¶ÎÃû
+				// é™¤äº†å‰ç¼€æ— å­—æ®µå
 				result2 = result;
 			}
 			result = result2;
 		}
 		else {
-			// ÎŞÇ°×º, oldcnsÖĞ¼ÇÂ¼Ìí¼ÓÇ°×ºµÄ×Ö¶ÎÃû
+			// æ— å‰ç¼€, oldcnsä¸­è®°å½•æ·»åŠ å‰ç¼€çš„å­—æ®µå
 			name = prefix+name;
 			oldcns.add(name);
 		}
-		// ×öÁËÈ¥³ıÇ°×º´¦Àíºó£¬²éÖØ£¬³öÏÖÖØÃûµÄ»°£¬ÖØÃûµÄ×Ö¶Î¶¼»ñÈ¡º¬±íÃûµÄ×Ö¶ÎÃû
+		// åšäº†å»é™¤å‰ç¼€å¤„ç†åï¼ŒæŸ¥é‡ï¼Œå‡ºç°é‡åçš„è¯ï¼Œé‡åçš„å­—æ®µéƒ½è·å–å«è¡¨åçš„å­—æ®µå
 		int loc = cns.indexOf(result);
 		if (loc > -1) {
 			result = oldcns.get(loc);
@@ -2678,25 +2678,25 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÓÃSQLÔÚÊı¾İ¿âÖĞ¸ù¾İÖ÷¼üÖµ×é²éÑ¯str£¬²¢·µ»Ø½á¹û
-	 * @param tableName	String ±íÃû
-	 * @param str	String sql±í´ïÊ½
-	 * @param keyValues	Object[] Ö÷¼ü×Ö¶Î¶ÔÓ¦Öµ
-	 * @param dbs	DBSession Êı¾İ¿âSession
-	 * @return Object ²éÑ¯½á¹û
+	 * ç”¨SQLåœ¨æ•°æ®åº“ä¸­æ ¹æ®ä¸»é”®å€¼ç»„æŸ¥è¯¢strï¼Œå¹¶è¿”å›ç»“æœ
+	 * @param tableName	String è¡¨å
+	 * @param str	String sqlè¡¨è¾¾å¼
+	 * @param keyValues	Object[] ä¸»é”®å­—æ®µå¯¹åº”å€¼
+	 * @param dbs	DBSession æ•°æ®åº“Session
+	 * @return Object æŸ¥è¯¢ç»“æœ
 	 */
 	public static Sequence select(String tableName, String str, Object[] keyValues, DBSession dbs, String opt) {
 		return select(tableName, str, null, keyValues, dbs, opt);
 	}
 
 	/**
-	 * ÓÃSQLÔÚÊı¾İ¿âÖĞ¸ù¾İÖ÷¼üÖµ×é²éÑ¯str£¬²¢·µ»Ø½á¹û
-	 * @param tableName	String ±íÃû
-	 * @param str	String sql±í´ïÊ½
-	 * @param keyNames	Ö÷¼üÃû³Æ
-	 * @param keyValues	Object[] Ö÷¼ü×Ö¶Î¶ÔÓ¦Öµ
-	 * @param dbs	DBSession Êı¾İ¿âSession
-	 * @return Object ²éÑ¯½á¹û
+	 * ç”¨SQLåœ¨æ•°æ®åº“ä¸­æ ¹æ®ä¸»é”®å€¼ç»„æŸ¥è¯¢strï¼Œå¹¶è¿”å›ç»“æœ
+	 * @param tableName	String è¡¨å
+	 * @param str	String sqlè¡¨è¾¾å¼
+	 * @param keyNames	ä¸»é”®åç§°
+	 * @param keyValues	Object[] ä¸»é”®å­—æ®µå¯¹åº”å€¼
+	 * @param dbs	DBSession æ•°æ®åº“Session
+	 * @return Object æŸ¥è¯¢ç»“æœ
 	 */
 	public static Sequence select(String tableName, String str, String[] keyNames, Object[] keyValues, DBSession dbs,
 			String opt) {
@@ -2761,12 +2761,12 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÓÃSQLÔÚÊı¾İ¿âÖĞ¸ù¾İÖ÷¼üÖµ×é²éÑ¯str¹¹³ÉÊı×é£¬²¢·µ»Ø½á¹û¹¹³ÉĞòÁĞ
-	 * @param tableName	String ±íÃû
-	 * @param str	String sql±í´ïÊ½
-	 * @param keyValues	Object[] Ö÷¼ü×Ö¶Î¶ÔÓ¦Öµ
-	 * @param dbs	DBSession Êı¾İ¿âSession
-	 * @return Object	²éÑ¯½á¹û
+	 * ç”¨SQLåœ¨æ•°æ®åº“ä¸­æ ¹æ®ä¸»é”®å€¼ç»„æŸ¥è¯¢stræ„æˆæ•°ç»„ï¼Œå¹¶è¿”å›ç»“æœæ„æˆåºåˆ—
+	 * @param tableName	String è¡¨å
+	 * @param str	String sqlè¡¨è¾¾å¼
+	 * @param keyValues	Object[] ä¸»é”®å­—æ®µå¯¹åº”å€¼
+	 * @param dbs	DBSession æ•°æ®åº“Session
+	 * @return Object	æŸ¥è¯¢ç»“æœ
 	 */
 	public static Sequence select(String tableName, String[] strs, String[] keyNames, Object[] keyValues, DBSession dbs,
 			String opt) {
@@ -2851,27 +2851,27 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÓÃSQLÔÚÊı¾İ¿âÖĞ¸ù¾İÖ÷¼üÖµ×é²éÑ¯str¹¹³ÉÊı×é£¬²¢·µ»Ø½á¹û¹¹³ÉĞòÁĞ
-	 * @param tableName	String ±íÃû
-	 * @param str	String sql±í´ïÊ½
-	 * @param keyValues	Object[] Ö÷¼ü×Ö¶Î¶ÔÓ¦Öµ
-	 * @param dbs	DBSession Êı¾İ¿âSession
-	 * @return 	Object ²éÑ¯½á¹û
+	 * ç”¨SQLåœ¨æ•°æ®åº“ä¸­æ ¹æ®ä¸»é”®å€¼ç»„æŸ¥è¯¢stræ„æˆæ•°ç»„ï¼Œå¹¶è¿”å›ç»“æœæ„æˆåºåˆ—
+	 * @param tableName	String è¡¨å
+	 * @param str	String sqlè¡¨è¾¾å¼
+	 * @param keyValues	Object[] ä¸»é”®å­—æ®µå¯¹åº”å€¼
+	 * @param dbs	DBSession æ•°æ®åº“Session
+	 * @return 	Object æŸ¥è¯¢ç»“æœ
 	 */
 	public static Sequence select(String tableName, String[] strs, Object[] keyValues, DBSession dbs, String opt) {
 		return select(tableName, strs, null, keyValues, dbs, opt);
 	}
 
 	/**
-	 * ¶ÔÖ¸¶¨µÄÊı¾İ¿âÁ¬½ÓÖ´ĞĞsqlÓï¾ä£¬·µ»Ø½á¹û¼¯ÖĞµÄ¼ÇÂ¼ĞòÁĞ£¬Èç¹ûÖ»ÓĞÒ»¸öFieldÒ»Ìõ¼ÇÂ¼£¬Ö±½Ó·µ»ØÖµ£¬·ñÔò·µ»ØÖµµÄĞòÁĞ£¬
-	 * Óöµ½¶àÌõField¶àÌõ¼ÇÂ¼£¬Ôò·µ»ØÖµĞòÁĞµÄĞòÁĞ
+	 * å¯¹æŒ‡å®šçš„æ•°æ®åº“è¿æ¥æ‰§è¡Œsqlè¯­å¥ï¼Œè¿”å›ç»“æœé›†ä¸­çš„è®°å½•åºåˆ—ï¼Œå¦‚æœåªæœ‰ä¸€ä¸ªFieldä¸€æ¡è®°å½•ï¼Œç›´æ¥è¿”å›å€¼ï¼Œå¦åˆ™è¿”å›å€¼çš„åºåˆ—ï¼Œ
+	 * é‡åˆ°å¤šæ¡Fieldå¤šæ¡è®°å½•ï¼Œåˆ™è¿”å›å€¼åºåˆ—çš„åºåˆ—
 	 * @param sql
-	 *            String sqlÓï¾ä
+	 *            String sqlè¯­å¥
 	 * @param params
-	 *            Object[] ²ÎÊıÖµÁĞ±í
+	 *            Object[] å‚æ•°å€¼åˆ—è¡¨
 	 * @param types
-	 *            byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×éÈç×Ö·û´®×éµÈÀàĞÍ
-	 *            µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
+	 *            byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹
+	 *            å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
 	 * @param dbs
 	 *            DBSession
 	 * @return Sequence
@@ -3064,10 +3064,10 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¶ÔÖ¸¶¨µÄÊı¾İ¿âÁ¬½ÓÖ´ĞĞsqlÓï¾ä£¬·µ»Ø½á¹û¼¯ÖĞµÄ¼ÇÂ¼ĞòÁĞ£¬Èç¹ûÖ»ÓĞÒ»¸öFieldÒ»Ìõ¼ÇÂ¼£¬Ö±½Ó·µ»ØÖµ£¬·ñÔò·µ»ØÖµµÄĞòÁĞ£¬
-	 * Óöµ½¶àÌõField¶àÌõ¼ÇÂ¼£¬Ôò·µ»ØÖµĞòÁĞµÄĞòÁĞ
+	 * å¯¹æŒ‡å®šçš„æ•°æ®åº“è¿æ¥æ‰§è¡Œsqlè¯­å¥ï¼Œè¿”å›ç»“æœé›†ä¸­çš„è®°å½•åºåˆ—ï¼Œå¦‚æœåªæœ‰ä¸€ä¸ªFieldä¸€æ¡è®°å½•ï¼Œç›´æ¥è¿”å›å€¼ï¼Œå¦åˆ™è¿”å›å€¼çš„åºåˆ—ï¼Œ
+	 * é‡åˆ°å¤šæ¡Fieldå¤šæ¡è®°å½•ï¼Œåˆ™è¿”å›å€¼åºåˆ—çš„åºåˆ—
 	 * @param rs
-	 *            ResultSet ½á¹ûÊı¾İ¼¯
+	 *            ResultSet ç»“æœæ•°æ®é›†
 	 * @param dbCharset
 	 *            String
 	 * @param needTranContent
@@ -3075,7 +3075,7 @@ public class DatabaseUtil {
 	 * @param toCharset
 	 *            String
 	 * @param dbType
-	 *            int DBTypesÖĞ¶¨ÒåµÄÀàĞÍ
+	 *            int DBTypesä¸­å®šä¹‰çš„ç±»å‹
 	 * @throws SQLException
 	 * @throws UnsupportedEncodingException
 	 * @return Sequence
@@ -3143,13 +3143,13 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¸ù¾İÖ÷¼üÉú³Éupdate»òinsertÓï¾ä¸üĞÂÊı¾İ
-	 * @param tableName	String ±í/ÊÓÍ¼Ãû
-	 * @param str	String Òª¸üĞÂµÄSQLÓï¾ä
-	 * @param keyNames	String[] Ö÷¼üÃû
-	 * @param keyValues	Object[] Ö÷¼üÖµ
-	 * @param dbs	DBSession edited by bdl, 2012.9.18, Ôö¼Ó·µ»ØÖµ
-	 * @return 	ÔËĞĞ½á¹û ¸üĞÂÓï¾ä·µ»ØInteger£¬ÆÕÍ¨sql·µ»ØBoolean
+	 * æ ¹æ®ä¸»é”®ç”Ÿæˆupdateæˆ–insertè¯­å¥æ›´æ–°æ•°æ®
+	 * @param tableName	String è¡¨/è§†å›¾å
+	 * @param str	String è¦æ›´æ–°çš„SQLè¯­å¥
+	 * @param keyNames	String[] ä¸»é”®å
+	 * @param keyValues	Object[] ä¸»é”®å€¼
+	 * @param dbs	DBSession edited by bdl, 2012.9.18, å¢åŠ è¿”å›å€¼
+	 * @return 	è¿è¡Œç»“æœ æ›´æ–°è¯­å¥è¿”å›Integerï¼Œæ™®é€šsqlè¿”å›Boolean
 	 */
 	public static Object update(String tableName, String str, Object[] params, byte[] types, Object[] keyValues,
 			DBSession dbs) {
@@ -3276,13 +3276,13 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¸ù¾İÖ÷¼üÉú³Éupdate»òinsertÓï¾ä¸üĞÂÊı¾İ
-	 * @param tableName	String ±í/ÊÓÍ¼Ãû
-	 * @param strs	String[] Òª¸üĞÂµÄSQLÓï¾ä×é
-	 * @param keyNames	String[] Ö÷¼üÃû
-	 * @param keyValues	Object[] Ö÷¼üÖµ
-	 * @param dbs	DBSession edited by bdl, 2012.9.18, Ôö¼Ó·µ»ØÖµ
-	 * @return ÔËĞĞ½á¹û ¸üĞÂÓï¾ä·µ»ØInteger£¬ÆÕÍ¨sql·µ»ØBoolean
+	 * æ ¹æ®ä¸»é”®ç”Ÿæˆupdateæˆ–insertè¯­å¥æ›´æ–°æ•°æ®
+	 * @param tableName	String è¡¨/è§†å›¾å
+	 * @param strs	String[] è¦æ›´æ–°çš„SQLè¯­å¥ç»„
+	 * @param keyNames	String[] ä¸»é”®å
+	 * @param keyValues	Object[] ä¸»é”®å€¼
+	 * @param dbs	DBSession edited by bdl, 2012.9.18, å¢åŠ è¿”å›å€¼
+	 * @return è¿è¡Œç»“æœ æ›´æ–°è¯­å¥è¿”å›Integerï¼Œæ™®é€šsqlè¿”å›Boolean
 	 */
 	public static Object update(String tableName, String[] strs, String[] keyNames, Object[] keyValues, DBSession dbs) {
 		if (tableName == null || tableName.trim().length() < 1) {
@@ -3374,14 +3374,14 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * Ö´ĞĞ´æ´¢¹ı³ÌÓï¾ä£¬·µ»Ø½á¹ûĞòÁĞ£¬Èç¹û·µ»Ø¶à¸öÊı¾İ¼¯£¬Ôò·µ»ØĞòÁĞµÄĞòÁĞ£¬Èç¹û·µ»ØÊıÖµ£¬ÔòÉèÈë½«ÖµÉèÈëÖ¸¶¨²ÎÊı
-	 * @param proc	String ´æ´¢¹ı³ÌÓï¾ä
-	 * @param params	Object[] ²ÎÊıÖµ
-	 * @param modes	byte[] ²ÎÊıÄ£Ê½£¬¿ÉÒÔÑ¡ÔñDatabaseUtil.PROC_MODE_IN, PROC_MODE_OUT, PROC_MODE_INOUT
-	 * @param types	byte[] ²ÎÊıÀàĞÍ
-	 * @param outVariables	String[] Êä³öÖµÊ±£¬±»¸³ÖµµÄ²ÎÊıÃû
+	 * æ‰§è¡Œå­˜å‚¨è¿‡ç¨‹è¯­å¥ï¼Œè¿”å›ç»“æœåºåˆ—ï¼Œå¦‚æœè¿”å›å¤šä¸ªæ•°æ®é›†ï¼Œåˆ™è¿”å›åºåˆ—çš„åºåˆ—ï¼Œå¦‚æœè¿”å›æ•°å€¼ï¼Œåˆ™è®¾å…¥å°†å€¼è®¾å…¥æŒ‡å®šå‚æ•°
+	 * @param proc	String å­˜å‚¨è¿‡ç¨‹è¯­å¥
+	 * @param params	Object[] å‚æ•°å€¼
+	 * @param modes	byte[] å‚æ•°æ¨¡å¼ï¼Œå¯ä»¥é€‰æ‹©DatabaseUtil.PROC_MODE_IN, PROC_MODE_OUT, PROC_MODE_INOUT
+	 * @param types	byte[] å‚æ•°ç±»å‹
+	 * @param outVariables	String[] è¾“å‡ºå€¼æ—¶ï¼Œè¢«èµ‹å€¼çš„å‚æ•°å
 	 * @param dbs	DBSession
-	 * @param ctx	Context ÉÏÏÂÎÄ»·¾³
+	 * @param ctx	Context ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 */
 	public static Sequence proc(String sql, Object[] params, byte[] modes, byte[] types, String[] outVariables,
 			DBSession dbs, Context ctx) {
@@ -3618,7 +3618,7 @@ public class DatabaseUtil {
 				else if ((dbType == DBTypes.POSTGRES || dbType == DBTypes.DBONE) && dsPos > 0) {
 					rs = (ResultSet) ((CallableStatement) pst).getObject(dsPos);
 				}
-				// edited by bd, 2022.12.11, Èç¹ûÓĞÊä³ö²ÎÊı£¬pstÒÑ¾­Ö´ĞĞ¹ıÁË
+				// edited by bd, 2022.12.11, å¦‚æœæœ‰è¾“å‡ºå‚æ•°ï¼Œpstå·²ç»æ‰§è¡Œè¿‡äº†
 				else if (hasOutParam) {
 				}
 				else {
@@ -3695,11 +3695,11 @@ public class DatabaseUtil {
 				Sequence se_add = populate(rs, dbCharset, tranContent, toCharset, dbType, false, null, false, -1, null);
 				mul_dataset.add(se_add);
 
-				// edited by bd, 2023.3.16, ·µ»ØÊı¾İ¼¯¶àÓÚ2¸öÊ±ÎŞ·¨Õı³£·µ»Øµ½½á¹ûÖĞ£¬»³ÒÉ¿ÉÄÜÊÇÅĞ¶ÏÓĞÎÊÌâ
+				// edited by bd, 2023.3.16, è¿”å›æ•°æ®é›†å¤šäº2ä¸ªæ—¶æ— æ³•æ­£å¸¸è¿”å›åˆ°ç»“æœä¸­ï¼Œæ€€ç–‘å¯èƒ½æ˜¯åˆ¤æ–­æœ‰é—®é¢˜
 				boolean more = pst.getMoreResults();
 				while (more || pst.getUpdateCount() != -1) {
 					if (!more) {
-						// edited by bd, 2023.3.16, Èç¹ûmoreÎªfalse£¬ËµÃ÷µ±Ç°·µ»Ø½á¹û²¢·Ç½á¹û¼¯
+						// edited by bd, 2023.3.16, å¦‚æœmoreä¸ºfalseï¼Œè¯´æ˜å½“å‰è¿”å›ç»“æœå¹¶éç»“æœé›†
 						more = pst.getMoreResults();
 						continue;
 					}
@@ -3718,7 +3718,7 @@ public class DatabaseUtil {
 					rs = pst.getResultSet();
 					se_add = populate(rs, dbCharset, tranContent, toCharset, dbType, false, null, false, -1, null);
 					mul_dataset.add(se_add);
-					// edited by bd, 2023.3.16, »ñÈ¡µ±Ç°½á¹û¼¯ºó£¬ÅĞ¶ÏÏÂ¸ö½á¹û
+					// edited by bd, 2023.3.16, è·å–å½“å‰ç»“æœé›†åï¼Œåˆ¤æ–­ä¸‹ä¸ªç»“æœ
 					more = pst.getMoreResults();
 				}
 				if (mul_dataset.length() > 1) {
@@ -3743,11 +3743,11 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ×¢²á²ÎÊı
+	 * æ³¨å†Œå‚æ•°
 	 * @param cst	CallableStatement
-	 * @param paramIndex	²ÎÊıĞòºÅ
-	 * @param type	²ÎÊıÀàĞÍ
-	 * @param mm	ĞÅÏ¢¹ÜÀíÆ÷
+	 * @param paramIndex	å‚æ•°åºå·
+	 * @param type	å‚æ•°ç±»å‹
+	 * @param mm	ä¿¡æ¯ç®¡ç†å™¨
 	 */
 	public static void registerOtherParameter(CallableStatement cst, int paramIndex, int type, MessageManager mm) {
 		try {
@@ -3834,7 +3834,7 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * DBObjectµ÷ÓÃ£¬Õë¶ÔĞòÁĞµÄÃ¿Ò»¸öÔªËØÖ´ĞĞ²éÑ¯Óï¾ä£¬·µ»Ø½á¹û¼¯ºÏ²¢µÄĞò±í 
+	 * DBObjectè°ƒç”¨ï¼Œé’ˆå¯¹åºåˆ—çš„æ¯ä¸€ä¸ªå…ƒç´ æ‰§è¡ŒæŸ¥è¯¢è¯­å¥ï¼Œè¿”å›ç»“æœé›†åˆå¹¶çš„åºè¡¨ 
 	 * @param sql	String
 	 * @param valueGroup	Object[][]
 	 * @param types	int[]
@@ -4075,16 +4075,16 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ¸ù¾İÓÎ±ê¸üĞÂ±ítableÖĞµÄ×Ö¶Îfields£¬ Ê¹ÓÃbatchÖ´ĞĞ£¬ÒªÇóÒ»´ÎÖ´ĞĞ¸üĞÂÕû¸öÓÎ±êÊı¾İ£¬²»È»ÎŞ·¨¿ØÖÆexecuteBatch
-	 * @param cs	ICursor Ô´ÓÎ±ê
-	 * @param table	String ±íÃû
-	 * @param fields	String[] ×Ö¶ÎÃû
-	 * @param fopts	String[] p£º×Ö¶ÎÊÇÖ÷¼ü£¬a£º×Ö¶ÎÊÇ×ÔÔö×Ö¶Î
-	 * @param exps	Expression[] Öµ±í´ïÊ½
-	 * @param opt	String t£º×÷Îª·Ç¸üĞÂĞò±í´¦Àí£¬k£ºÍê³Éºó²»ÇåÀí×´Ì¬
+	 * æ ¹æ®æ¸¸æ ‡æ›´æ–°è¡¨tableä¸­çš„å­—æ®µfieldsï¼Œ ä½¿ç”¨batchæ‰§è¡Œï¼Œè¦æ±‚ä¸€æ¬¡æ‰§è¡Œæ›´æ–°æ•´ä¸ªæ¸¸æ ‡æ•°æ®ï¼Œä¸ç„¶æ— æ³•æ§åˆ¶executeBatch
+	 * @param cs	ICursor æºæ¸¸æ ‡
+	 * @param table	String è¡¨å
+	 * @param fields	String[] å­—æ®µå
+	 * @param fopts	String[] pï¼šå­—æ®µæ˜¯ä¸»é”®ï¼Œaï¼šå­—æ®µæ˜¯è‡ªå¢å­—æ®µ
+	 * @param exps	Expression[] å€¼è¡¨è¾¾å¼
+	 * @param opt	String tï¼šä½œä¸ºéæ›´æ–°åºè¡¨å¤„ç†ï¼Œkï¼šå®Œæˆåä¸æ¸…ç†çŠ¶æ€
 	 * @param dbs	DBSession
 	 * @param ctx	Context
-	 * @return int	Ôö¼Ó·µ»ØÖµ£¬³É¹¦¸üĞÂÌõÊı
+	 * @return int	å¢åŠ è¿”å›å€¼ï¼ŒæˆåŠŸæ›´æ–°æ¡æ•°
 	 */
 	public static int update(ICursor cs, String table, String[] fields, String[] fopts, Expression[] exps, String opt,
 			DBSession dbs, Context ctx) {
@@ -4352,7 +4352,7 @@ public class DatabaseUtil {
 							}
 
 							field = fields[iField];
-							if (field != null && field.trim().length() > 0) {//´Ë´¦µÄfieldÃ»ÓĞ¹ıÂËÊÇ·ñÎªÖ÷¼ü£¬Ôì³ÉÖ÷¼ü»áÖØÉèÒ»±é£¬xq 2015.4.21
+							if (field != null && field.trim().length() > 0) {//æ­¤å¤„çš„fieldæ²¡æœ‰è¿‡æ»¤æ˜¯å¦ä¸ºä¸»é”®ï¼Œé€ æˆä¸»é”®ä¼šé‡è®¾ä¸€éï¼Œxq 2015.4.21
 								if (sets == null) {
 									sets = field + " = ?";
 								} else {
@@ -4472,7 +4472,7 @@ public class DatabaseUtil {
 					if (isAutoDetect) {
 						Expression[] expParams = new Expression[primaryParams.size()];
 						primaryParams.toArray(expParams);
-						// edited by bd, 2022.4.15, ÓÎ±ê¸üĞÂÊ±£¬ÓÉÓÚÍ¨³£Êı¾İÁ¿±È½Ï´ó£¬ÔİÊ±²»Ö§³Ö¶Ô¿ÕÖµÖ÷¼üµÄ´¦Àí
+						// edited by bd, 2022.4.15, æ¸¸æ ‡æ›´æ–°æ—¶ï¼Œç”±äºé€šå¸¸æ•°æ®é‡æ¯”è¾ƒå¤§ï¼Œæš‚æ—¶ä¸æ”¯æŒå¯¹ç©ºå€¼ä¸»é”®çš„å¤„ç†
 						Sequence recordCount = query(fetchSeq, check_sql, expParams, toByteArray(primaryTypes), opt,
 								ctx, dbs, null, null, keysize);
 						Sequence updateRecords = new Sequence();
@@ -4490,20 +4490,20 @@ public class DatabaseUtil {
 						if (updateRecords.length() > 0) {
 							//Logger.debug("Auto update, preparing update records: "+update_sql);
 							Logger.debug(mm.getMessage("info.autoUpdate", update_sql));
-							// edited by bd, 2023.3.24, ¸üĞÂÊ±²»Ó¦¸ÃÓÃÈ«Êı¾İ
+							// edited by bd, 2023.3.24, æ›´æ–°æ—¶ä¸åº”è¯¥ç”¨å…¨æ•°æ®
 							//executeBatchSql(fetchSeq, update_sql, updateParams, updateTypes, ctx, dbs);
 							executeBatchSql(updateRecords, update_sql, updateParams, updateTypes, ctx, dbs);
 						}
 						if (insertRecords.length() > 0) {
 							//Logger.debug("Auto insert, preparing insert records: "+insert_sql);
 							Logger.debug(mm.getMessage("info.autoInsert", insert_sql));
-							// edited by bd, 2023.3.24, ¸üĞÂÊ±²»Ó¦¸ÃÓÃÈ«Êı¾İ
+							// edited by bd, 2023.3.24, æ›´æ–°æ—¶ä¸åº”è¯¥ç”¨å…¨æ•°æ®
 							//executeBatchSql(fetchSeq, insert_sql, insertParams, insertTypes, ctx, dbs);
 							executeBatchSql(insertRecords, insert_sql, insertParams, insertTypes, ctx, dbs);
 						}
 					}
 
-					/* ¸ÄÔìÈçÏÂÖğĞĞÖ´ĞĞÎªÅúÁ¿Ö´ĞĞ xq 2015.4.21 end */
+					/* æ”¹é€ å¦‚ä¸‹é€è¡Œæ‰§è¡Œä¸ºæ‰¹é‡æ‰§è¡Œ xq 2015.4.21 end */
 				} catch (RQException e) {
 					//com.scudata.common.Logger.debug("update error:", e);
 					Logger.debug(mm.getMessage("error.update", e.getMessage()));
@@ -4531,21 +4531,21 @@ public class DatabaseUtil {
 				throw new RQException(e.getMessage(), e);
 			}
 		}
-		return 0;// ÅúÁ¿´¦Àí£¬²»ÖªµÀÔÚÄÄ³ö´í£¬·µ»ØÖµÎŞÒâÒå£¬Ê¼ÖÕ·µ»Ø0 xq 2015.4.21
+		return 0;// æ‰¹é‡å¤„ç†ï¼Œä¸çŸ¥é“åœ¨å“ªå‡ºé”™ï¼Œè¿”å›å€¼æ— æ„ä¹‰ï¼Œå§‹ç»ˆè¿”å›0 xq 2015.4.21
 	}
 	
 	private static byte Col_NormalKey = 0x02;
 
 	/**
-	 * db.update(A:A',tbl,F:x,¡­;P,¡­)¸ù¾İÔ´ÅÅÁĞºÍ¶Ô±ÈÅÅÁĞ£¬¸üĞÂÊı¾İ¿âÖĞµÄtbl±í
-	 * @param srcSeq	Sequence Ô´ÅÅÁĞ£¬ÓÃÓÚÔÚtblÖĞÌí¼Ó»ò¸üĞÂ¼ÇÂ¼
-	 * @param compSeq	Sequence ¶Ô±ÈÅÅÁĞ£¬ÓÃÓÚÔÚtblÖĞ£¬É¾³ıÖ÷¼üÔÚcompSeq¶ø²»ÔÚsrcSeqÖĞµÄ¼ÇÂ¼
-	 * @param table	String Êı¾İ¿âÖĞ±íÃû£¬tbl
-	 * @param fields	String[] Êı¾İ¿â±íÖĞµÄ×Ö¶ÎÃû£¬Áô¿ÕÊ±ÓÉÉÏ²ã½âÎö³öAÖĞµÄ×Ö¶Î
-	 * @param fopts	String[] Õë¶ÔÃ¿¸ö×Ö¶ÎµÄÑ¡Ïî£¬ÓÉÉÏ²ã·ÖÎö±í´ïÊ½Ê±ÉèÖÃ£¬a×ÔÔöpÖ÷¼ü
-	 * @param exps	Expression[] Õë¶ÔÃ¿¸ö×Ö¶Î¸üĞÂËùÓÃµÄ±í´ïÊ½£¬Áô¿ÕÊ±ÓÉÉÏ²ã½âÎö
-	 * @param opt	String Ñ¡Ïî£¬Ö§³Ö£ºiÖ»Ìí¼Ó;uÖ»¸üĞÂ;dÖ»É¾³ı;aÖ´ĞĞÇ°É¾³ıÔ­±íÖĞËùÓĞ¼ÇÂ¼;
-					lµÚÒ»¸ö×Ö¶ÎÊÇ×Ô¸üĞÂ×Ö¶Î(ÉÏ²ã´¦Àí);kÍê³Éºó²»Ìá½»ÊÂÎñ(ÉÏ²ã´¦Àí)
+	 * db.update(A:A',tbl,F:x,â€¦;P,â€¦)æ ¹æ®æºæ’åˆ—å’Œå¯¹æ¯”æ’åˆ—ï¼Œæ›´æ–°æ•°æ®åº“ä¸­çš„tblè¡¨
+	 * @param srcSeq	Sequence æºæ’åˆ—ï¼Œç”¨äºåœ¨tblä¸­æ·»åŠ æˆ–æ›´æ–°è®°å½•
+	 * @param compSeq	Sequence å¯¹æ¯”æ’åˆ—ï¼Œç”¨äºåœ¨tblä¸­ï¼Œåˆ é™¤ä¸»é”®åœ¨compSeqè€Œä¸åœ¨srcSeqä¸­çš„è®°å½•
+	 * @param table	String æ•°æ®åº“ä¸­è¡¨åï¼Œtbl
+	 * @param fields	String[] æ•°æ®åº“è¡¨ä¸­çš„å­—æ®µåï¼Œç•™ç©ºæ—¶ç”±ä¸Šå±‚è§£æå‡ºAä¸­çš„å­—æ®µ
+	 * @param fopts	String[] é’ˆå¯¹æ¯ä¸ªå­—æ®µçš„é€‰é¡¹ï¼Œç”±ä¸Šå±‚åˆ†æè¡¨è¾¾å¼æ—¶è®¾ç½®ï¼Œaè‡ªå¢pä¸»é”®
+	 * @param exps	Expression[] é’ˆå¯¹æ¯ä¸ªå­—æ®µæ›´æ–°æ‰€ç”¨çš„è¡¨è¾¾å¼ï¼Œç•™ç©ºæ—¶ç”±ä¸Šå±‚è§£æ
+	 * @param opt	String é€‰é¡¹ï¼Œæ”¯æŒï¼šiåªæ·»åŠ ;uåªæ›´æ–°;dåªåˆ é™¤;aæ‰§è¡Œå‰åˆ é™¤åŸè¡¨ä¸­æ‰€æœ‰è®°å½•;
+					lç¬¬ä¸€ä¸ªå­—æ®µæ˜¯è‡ªæ›´æ–°å­—æ®µ(ä¸Šå±‚å¤„ç†);kå®Œæˆåä¸æäº¤äº‹åŠ¡(ä¸Šå±‚å¤„ç†)
 	 * @param dbs	DBSession
 	 * @param ctx	Context
 	 * @return
@@ -4616,7 +4616,7 @@ public class DatabaseUtil {
 							autoKeys.add(fields[i]);
 						}
 						else if (fopt.indexOf("p") > -1) {
-							// edited by bd, 2022.4.14, ¸üĞÂÊ±²»ÔÙÉèÖÃÖ÷¼üÖµ£¬ÕâÀïÔ¤ÅĞ¶Ï
+							// edited by bd, 2022.4.14, æ›´æ–°æ—¶ä¸å†è®¾ç½®ä¸»é”®å€¼ï¼Œè¿™é‡Œé¢„åˆ¤æ–­
 							ais[i] = Col_NormalKey;
 						}
 						else {
@@ -4833,8 +4833,8 @@ public class DatabaseUtil {
 					clearAll = true;
 				}
 
-				// edited by bd, 2022.4.14, °ÑÕâ²¿·Ö¸³ÖµÌáÇ°£¬µ½Éú³ÉÓï¾äÖ®Ç°ÉèÖÃ£¬ÕâÊÇÎªÁËÓÃÕâ¸ö±í´ïÊ½È¥¼ÆËãÖ÷¼üÖĞ¿ÉÄÜ°üº¬µÄ¿ÕÖµ
-				/* ¸ÄÔìÈçÏÂÖğĞĞÖ´ĞĞÎªÅúÁ¿Ö´ĞĞ xq 2015.4.21 begin */
+				// edited by bd, 2022.4.14, æŠŠè¿™éƒ¨åˆ†èµ‹å€¼æå‰ï¼Œåˆ°ç”Ÿæˆè¯­å¥ä¹‹å‰è®¾ç½®ï¼Œè¿™æ˜¯ä¸ºäº†ç”¨è¿™ä¸ªè¡¨è¾¾å¼å»è®¡ç®—ä¸»é”®ä¸­å¯èƒ½åŒ…å«çš„ç©ºå€¼
+				/* æ”¹é€ å¦‚ä¸‹é€è¡Œæ‰§è¡Œä¸ºæ‰¹é‡æ‰§è¡Œ xq 2015.4.21 begin */
 				ArrayList<Expression> updateParams = new ArrayList<Expression>();
 				ArrayList<Expression> updateFields = new ArrayList<Expression>();
 				ArrayList<Expression> primaryParams = new ArrayList<Expression>();
@@ -4849,7 +4849,7 @@ public class DatabaseUtil {
 					}
 					insertParams.add(exps[iField]);
 					insertTypes.add(tColTypes[iField]);
-					// edited by bd, 2022.4.14, updateÊ±²»ÔÙ¸üĞÂÖ÷¼üÖµ
+					// edited by bd, 2022.4.14, updateæ—¶ä¸å†æ›´æ–°ä¸»é”®å€¼
 					if (ais[iField] != DatabaseUtil.Col_NormalKey) {
 						updateParams.add(exps[iField]);
 						updateFields.add(new Expression(fields[iField]));
@@ -4869,7 +4869,7 @@ public class DatabaseUtil {
 				updateParams.addAll(primaryParams);
 				updateTypes.addAll(primaryTypes);
 
-				// added by bd, 2022.4.14, ¼ÆËãÃ¿¸öÖ÷¼üÊÇ·ñÊÇ¿ÕÖµ
+				// added by bd, 2022.4.14, è®¡ç®—æ¯ä¸ªä¸»é”®æ˜¯å¦æ˜¯ç©ºå€¼
 				Expression[] params = new Expression[primaryParams.size()];
 				ArrayList<Integer> nullKeys = new ArrayList<Integer>();
 				primaryParams.toArray(params);
@@ -4914,11 +4914,11 @@ public class DatabaseUtil {
 					if (key != null && key.trim().length() > 0) {
 						if (condition == null) {
 							condition = "(" + key + " = ?)";
-							// added by bd, 2022.4.14, Èç¹ûµ±Ç°ÁĞ¿ÉÄÜÓĞ¿ÕÖµ£¬ÔòÔÚ¶ÔÓ¦µÄ¼¸¸öÎ»ÖÃµÄÌõ¼ş¶¼ÉèÉÏis nullÌõ¼ş
+							// added by bd, 2022.4.14, å¦‚æœå½“å‰åˆ—å¯èƒ½æœ‰ç©ºå€¼ï¼Œåˆ™åœ¨å¯¹åº”çš„å‡ ä¸ªä½ç½®çš„æ¡ä»¶éƒ½è®¾ä¸Šis nullæ¡ä»¶
 							if (ucons != null) {
 								int kloc = nullKeys.indexOf(j);
 								if (kloc>-1) {
-									// µ±Ç°Ö÷¼ü¿ÉÄÜ´æÔÚ¿ÕÖµ
+									// å½“å‰ä¸»é”®å¯èƒ½å­˜åœ¨ç©ºå€¼
 									for (int k = 0; k < nulls; k++) {
 										if ((k & (1<<kloc)) == 0) {
 											ucons[k] = key + " is null";
@@ -4931,11 +4931,11 @@ public class DatabaseUtil {
 							}
 						} else {
 							condition += " and (" + key + " = ?)";
-							// added by bd, 2022.4.14, Èç¹ûµ±Ç°ÁĞ¿ÉÄÜÓĞ¿ÕÖµ£¬ÔòÔÚ¶ÔÓ¦µÄ¼¸¸öÎ»ÖÃµÄÌõ¼ş¶¼ÉèÉÏis nullÌõ¼ş
+							// added by bd, 2022.4.14, å¦‚æœå½“å‰åˆ—å¯èƒ½æœ‰ç©ºå€¼ï¼Œåˆ™åœ¨å¯¹åº”çš„å‡ ä¸ªä½ç½®çš„æ¡ä»¶éƒ½è®¾ä¸Šis nullæ¡ä»¶
 							if (ucons != null) {
 								int kloc = nullKeys.indexOf(j);
 								if (kloc>-1) {
-									// µ±Ç°Ö÷¼ü¿ÉÄÜ´æÔÚ¿ÕÖµ
+									// å½“å‰ä¸»é”®å¯èƒ½å­˜åœ¨ç©ºå€¼
 									for (int k = 0; k < nulls; k++) {
 										if ((k & (1<<kloc)) == 0) {
 											ucons[k] += " and " + key + " is null";
@@ -4959,14 +4959,14 @@ public class DatabaseUtil {
 				}
 				String usets = null;
 				for (int iField = 0; iField < fsize; iField++) {
-					// edited by bd, 2022.4.14, ¸üĞÂÊ±²»ÔÙ½«Ö÷¼üÉèÒ»±éÁË
+					// edited by bd, 2022.4.14, æ›´æ–°æ—¶ä¸å†å°†ä¸»é”®è®¾ä¸€éäº†
 					if (ais[iField] == DataStruct.Col_AutoIncrement || 
 							ais[iField] == DatabaseUtil.Col_NormalKey) {
 						continue;
 					}
 
 					field = fields[iField];
-					if (field != null && field.trim().length() > 0) {// £¿£¿´Ë´¦µÄfieldÃ»ÓĞ¹ıÂËÊÇ·ñÎªÖ÷¼ü£¬Ôì³ÉÖ÷¼ü»áÖØÉèÒ»±é£¬xq
+					if (field != null && field.trim().length() > 0) {// ï¼Ÿï¼Ÿæ­¤å¤„çš„fieldæ²¡æœ‰è¿‡æ»¤æ˜¯å¦ä¸ºä¸»é”®ï¼Œé€ æˆä¸»é”®ä¼šé‡è®¾ä¸€éï¼Œxq
 																		// 2015.4.21
 						if (usets == null) {
 							usets = field + " = ?";
@@ -4982,7 +4982,7 @@ public class DatabaseUtil {
 						throw new RQException(mm.getMessage("error.invalidField"));
 					}
 					else {
-						// edited by bd, 2022.4.14, Èç¹ûÓÃ»§Ö»¸üĞÂÁËÖ÷¼üÖµ£¨ÆäÊµÊÇ´íÎóµÄ£¬µ«ÊÇ¾Í¸øËû¸üĞÂÒ»¸öÖ÷¼ü¾ÍÊÇÁË£©
+						// edited by bd, 2022.4.14, å¦‚æœç”¨æˆ·åªæ›´æ–°äº†ä¸»é”®å€¼ï¼ˆå…¶å®æ˜¯é”™è¯¯çš„ï¼Œä½†æ˜¯å°±ç»™ä»–æ›´æ–°ä¸€ä¸ªä¸»é”®å°±æ˜¯äº†ï¼‰
 						for (int iField = 0; iField < fsize; iField++) {
 							if (ais[iField] == DataStruct.Col_AutoIncrement) {
 								continue;
@@ -5062,14 +5062,14 @@ public class DatabaseUtil {
 
 
 				boolean isAutoDetect = true;
-				if (opt != null) {// Ã»ÓĞÑ¡ÏîÊ±£¬Ê¹ÓÃ×Ô¶¯ÅĞ¶Ï¼ÇÂ¼µÄ²åÈë»ò¸üĞÂ
+				if (opt != null) {// æ²¡æœ‰é€‰é¡¹æ—¶ï¼Œä½¿ç”¨è‡ªåŠ¨åˆ¤æ–­è®°å½•çš„æ’å…¥æˆ–æ›´æ–°
 					if (opt.indexOf('d') > -1 && !clearAll) {
 						//Logger.debug("Delete-only, preparing delete records: "+delete_sql);
 						MessageManager mm = DataSetMessage.get();
 						Logger.debug(mm.getMessage("info.deleteOnly"));
 						Expression[] keysFields = new Expression[primaryFields.size()];
 						primaryFields.toArray(keysFields);
-						// edited by bd, 2022.4.15, É¾³ıÊ±£¬Ö÷¼üÈç¹ûÎªnull£¬ÄÇÅĞ¶ÏÊ±ÎŞ·¨Ê¹ÓÃF=?£¬ĞèÒªÊ¹ÓÃF is null£¬Îª´Ë£¬ĞèÒª°ÑremainSeqÖĞ£¬Ö÷¼üÎªnullµÄ¼ÇÂ¼²ğ³öÀ´µ¥¶ÀÖ´ĞĞ
+						// edited by bd, 2022.4.15, åˆ é™¤æ—¶ï¼Œä¸»é”®å¦‚æœä¸ºnullï¼Œé‚£åˆ¤æ–­æ—¶æ— æ³•ä½¿ç”¨F=?ï¼Œéœ€è¦ä½¿ç”¨F is nullï¼Œä¸ºæ­¤ï¼Œéœ€è¦æŠŠremainSeqä¸­ï¼Œä¸»é”®ä¸ºnullçš„è®°å½•æ‹†å‡ºæ¥å•ç‹¬æ‰§è¡Œ
 						executeDifferBatch(srcSeq, compSeq, delete_sql, primaryFields, primaryParams, primaryTypes, ctx, dbs, con,
 								dbCharset, tranSQL, dbType, dbName, batchSize, de_sqls, nullKeys, keysize);
 						isAutoDetect = false;
@@ -5108,7 +5108,7 @@ public class DatabaseUtil {
 							Sequence remainSeq = isectSequence(srcSeq, compSeq, keysParam, keysFields, ctx);
 							IArray oldMems = srcSeq.getMems();
 							srcSeq.setMems(remainSeq.getMems());
-							//edited by bd, 2022.4.15, @uÑ¡ÏîÊ±£¬¸ù¾İ×îºókeysize¸öÎ»ÖÃµÄ¿ÕÖµÉèÖÃ¸üĞÂÓï¾ä
+							//edited by bd, 2022.4.15, @ué€‰é¡¹æ—¶ï¼Œæ ¹æ®æœ€åkeysizeä¸ªä½ç½®çš„ç©ºå€¼è®¾ç½®æ›´æ–°è¯­å¥
 							executeDifferBatch(compSeq, srcSeq, update_sql, updateParams, updateFields, updateTypes, ctx, dbs, con,
 									dbCharset, tranSQL, dbType, dbName, batchSize, up_sqls, nullKeys, keysize);
 							srcSeq.setMems(oldMems);
@@ -5127,7 +5127,7 @@ public class DatabaseUtil {
 							//Logger.debug("Auto delete, preparing delete lost-records: "+delete_sql);
 							MessageManager mm = DataSetMessage.get();
 							Logger.debug(mm.getMessage("info.autoDelete"));
-							//edited by bd, 2022.4.15, @uÑ¡ÏîÊ±£¬¸ù¾İ×îºókeysize¸öÎ»ÖÃµÄ¿ÕÖµÉèÖÃ¸üĞÂÓï¾ä
+							//edited by bd, 2022.4.15, @ué€‰é¡¹æ—¶ï¼Œæ ¹æ®æœ€åkeysizeä¸ªä½ç½®çš„ç©ºå€¼è®¾ç½®æ›´æ–°è¯­å¥
 							executeDifferBatch(srcSeq, compSeq, delete_sql, primaryFields, primaryParams, primaryTypes, ctx, dbs, con,
 									dbCharset, tranSQL, dbType, dbName, batchSize, de_sqls, nullKeys, keysize);
 						}
@@ -5147,16 +5147,16 @@ public class DatabaseUtil {
 						//Logger.debug("Auto update, preparing update changed-records: "+update_sql);
 						Logger.debug(mm.getMessage("info.autoUpdate", update_sql));
 						Sequence remainSeq = mergeDiffSequence(srcSeq, insertSeq, null, ctx);
-						// edited by bd, 2022.4.14, ¸üĞÂÊ±£¬Ö÷¼üÈç¹ûÎªnull£¬ÄÇÅĞ¶ÏÊ±ÎŞ·¨Ê¹ÓÃF=?£¬ĞèÒªÊ¹ÓÃF is null£¬Îª´Ë£¬ĞèÒª°ÑremainSeqÖĞ£¬Ö÷¼üÎªnullµÄ¼ÇÂ¼²ğ³öÀ´µ¥¶ÀÖ´ĞĞ
+						// edited by bd, 2022.4.14, æ›´æ–°æ—¶ï¼Œä¸»é”®å¦‚æœä¸ºnullï¼Œé‚£åˆ¤æ–­æ—¶æ— æ³•ä½¿ç”¨F=?ï¼Œéœ€è¦ä½¿ç”¨F is nullï¼Œä¸ºæ­¤ï¼Œéœ€è¦æŠŠremainSeqä¸­ï¼Œä¸»é”®ä¸ºnullçš„è®°å½•æ‹†å‡ºæ¥å•ç‹¬æ‰§è¡Œ
 						srcSeq.setMems(remainSeq.getMems());
-						//edited by bd, 2022.4.15, ¸ù¾İ×îºókeysize¸öÎ»ÖÃµÄ¿ÕÖµÉèÖÃ¸üĞÂÓï¾ä
+						//edited by bd, 2022.4.15, æ ¹æ®æœ€åkeysizeä¸ªä½ç½®çš„ç©ºå€¼è®¾ç½®æ›´æ–°è¯­å¥
 						executeDifferBatch(compSeq, srcSeq, update_sql, updateParams, updateFields, updateTypes, ctx, dbs, con,
 								dbCharset, tranSQL, dbType, dbName, batchSize, up_sqls, nullKeys, keysize);
 						srcSeq.setMems(oldMems);
 					} else {
 						Expression[] expParams = new Expression[primaryParams.size()];
 						primaryParams.toArray(expParams);
-						//edited by bd, 2022.4.15, ¸ù¾İ×îºókeysize¸öÎ»ÖÃµÄ¿ÕÖµÉèÖÃ²éÑ¯Óï¾ä
+						//edited by bd, 2022.4.15, æ ¹æ®æœ€åkeysizeä¸ªä½ç½®çš„ç©ºå€¼è®¾ç½®æŸ¥è¯¢è¯­å¥
 						Sequence recordCount = query(srcSeq, check_sql, expParams, toByteArray(primaryTypes), opt, ctx,
 								dbs, ch_sqls, nullKeys, keysize);
 						Sequence updateRecords = new Sequence();
@@ -5164,7 +5164,7 @@ public class DatabaseUtil {
 						int rsize = recordCount == null ? 0 : recordCount.length();
 						for (int i = 1; i <= rsize; i++) {
 							BaseRecord r = (BaseRecord) recordCount.get(i);
-							// edited by bd, 2022.12.9, µ±²éÑ¯¶ÔÓ¦Êı¾İÎª¿ÕÊ±£¬·ÀÖ¹´íÎó
+							// edited by bd, 2022.12.9, å½“æŸ¥è¯¢å¯¹åº”æ•°æ®ä¸ºç©ºæ—¶ï¼Œé˜²æ­¢é”™è¯¯
 							int c = 0;
 							if (r != null)
 								c = ((Number) r.getFieldValue(0)).intValue();
@@ -5194,7 +5194,7 @@ public class DatabaseUtil {
 					}
 				}
 
-				/* ¸ÄÔìÈçÏÂÖğĞĞÖ´ĞĞÎªÅúÁ¿Ö´ĞĞ xq 2015.4.21 end */
+				/* æ”¹é€ å¦‚ä¸‹é€è¡Œæ‰§è¡Œä¸ºæ‰¹é‡æ‰§è¡Œ xq 2015.4.21 end */
 			} catch (RQException e) {
 				//com.scudata.common.Logger.debug("update error:", e);
 				MessageManager mm = DataSetMessage.get();
@@ -5219,20 +5219,20 @@ public class DatabaseUtil {
 				throw new RQException(e.getMessage(), e);
 			}
 		}
-		return 0;// ÅúÁ¿´¦Àí£¬²»ÖªµÀÔÚÄÄ³ö´í£¬·µ»ØÖµÎŞÒâÒå£¬Ê¼ÖÕ·µ»Ø0 xq 2015.4.21
+		return 0;// æ‰¹é‡å¤„ç†ï¼Œä¸çŸ¥é“åœ¨å“ªå‡ºé”™ï¼Œè¿”å›å€¼æ— æ„ä¹‰ï¼Œå§‹ç»ˆè¿”å›0 xq 2015.4.21
 	}
 
 	/**
-	 * DBObjectµ÷ÓÃ£¬¸ù¾İsrcSeries¸üĞÂ±ítableÖĞµÄ×Ö¶Îfields
-	 * @param srcSeries	Sequence Ô´ÅÅÁĞ
-	 * @param table	String ±íÃû
-	 * @param fields	String[] ×Ö¶ÎÃû
-	 * @param fopts	String[] p£º×Ö¶ÎÊÇÖ÷¼ü£¬a£º×Ö¶ÎÊÇ×ÔÔö×Ö¶Î
-	 * @param exps	Expression[] Öµ±í´ïÊ½
-	 * @param opt	String t£º×÷Îª·Ç¸üĞÂĞò±í´¦Àí£¬k£ºÍê³Éºó²»ÇåÀí×´Ì¬
+	 * DBObjectè°ƒç”¨ï¼Œæ ¹æ®srcSeriesæ›´æ–°è¡¨tableä¸­çš„å­—æ®µfields
+	 * @param srcSeries	Sequence æºæ’åˆ—
+	 * @param table	String è¡¨å
+	 * @param fields	String[] å­—æ®µå
+	 * @param fopts	String[] pï¼šå­—æ®µæ˜¯ä¸»é”®ï¼Œaï¼šå­—æ®µæ˜¯è‡ªå¢å­—æ®µ
+	 * @param exps	Expression[] å€¼è¡¨è¾¾å¼
+	 * @param opt	String tï¼šä½œä¸ºéæ›´æ–°åºè¡¨å¤„ç†ï¼Œkï¼šå®Œæˆåä¸æ¸…ç†çŠ¶æ€
 	 * @param dbs	DBSession
 	 * @param ctx	Context
-	 * @return int 	Ôö¼Ó·µ»ØÖµ£¬³É¹¦¸üĞÂÌõÊı
+	 * @return int 	å¢åŠ è¿”å›å€¼ï¼ŒæˆåŠŸæ›´æ–°æ¡æ•°
 	 */
 	public static int update(Sequence srcSeries, String table, String[] fields, String[] fopts, Expression[] exps,
 			String opt, DBSession dbs, Context ctx) {
@@ -5303,7 +5303,7 @@ public class DatabaseUtil {
 							autoKeys.add(fields[i]);
 						}
 						else if (fopt.indexOf("p") > -1) {
-							// edited by bd, 2022.4.14, ¸üĞÂÊ±²»ÔÙÉèÖÃÖ÷¼üÖµ£¬ÕâÀïÔ¤ÅĞ¶Ï
+							// edited by bd, 2022.4.14, æ›´æ–°æ—¶ä¸å†è®¾ç½®ä¸»é”®å€¼ï¼Œè¿™é‡Œé¢„åˆ¤æ–­
 							ais[i] = Col_NormalKey;
 						}
 						else {
@@ -5519,8 +5519,8 @@ public class DatabaseUtil {
 					st.close();
 				}
 				
-				// edited by bd, 2022.4.15, °ÑÕâ²¿·Ö¸³ÖµÌáÇ°£¬µ½Éú³ÉÓï¾äÖ®Ç°ÉèÖÃ£¬ÕâÊÇÎªÁËÓÃÕâ¸ö±í´ïÊ½È¥¼ÆËãÖ÷¼üÖĞ¿ÉÄÜ°üº¬µÄ¿ÕÖµ
-				// ¸ÄÔìÈçÏÂÖğĞĞÖ´ĞĞÎªÅúÁ¿Ö´ĞĞ xq 2015.4.21 begin
+				// edited by bd, 2022.4.15, æŠŠè¿™éƒ¨åˆ†èµ‹å€¼æå‰ï¼Œåˆ°ç”Ÿæˆè¯­å¥ä¹‹å‰è®¾ç½®ï¼Œè¿™æ˜¯ä¸ºäº†ç”¨è¿™ä¸ªè¡¨è¾¾å¼å»è®¡ç®—ä¸»é”®ä¸­å¯èƒ½åŒ…å«çš„ç©ºå€¼
+				// æ”¹é€ å¦‚ä¸‹é€è¡Œæ‰§è¡Œä¸ºæ‰¹é‡æ‰§è¡Œ xq 2015.4.21 begin
 				ArrayList<Expression> updateParams = new ArrayList<Expression>();
 				ArrayList<Expression> primaryParams = new ArrayList<Expression>();
 				ArrayList<Expression> insertParams = new ArrayList<Expression>();
@@ -5534,7 +5534,7 @@ public class DatabaseUtil {
 					}
 					insertParams.add(exps[iField]);
 					insertTypes.add(tColTypes[iField]);
-					// edited by bd, 2022.4.14, updateÊ±²»ÔÙ¸üĞÂÖ÷¼üÖµ
+					// edited by bd, 2022.4.14, updateæ—¶ä¸å†æ›´æ–°ä¸»é”®å€¼
 					if (ais[iField] != DatabaseUtil.Col_NormalKey) {
 						updateParams.add(exps[iField]);
 						updateTypes.add(tColTypes[iField]);
@@ -5574,7 +5574,7 @@ public class DatabaseUtil {
 					}
 
 					field = fields[iField];
-					if (field != null && field.trim().length() > 0) {// £¿£¿´Ë´¦µÄfieldÃ»ÓĞ¹ıÂËÊÇ·ñÎªÖ÷¼ü£¬Ôì³ÉÖ÷¼ü»áÖØÉèÒ»±é£¬xq 2015.4.21
+					if (field != null && field.trim().length() > 0) {// ï¼Ÿï¼Ÿæ­¤å¤„çš„fieldæ²¡æœ‰è¿‡æ»¤æ˜¯å¦ä¸ºä¸»é”®ï¼Œé€ æˆä¸»é”®ä¼šé‡è®¾ä¸€éï¼Œxq 2015.4.21
 						if (sets == null) {
 							sets = field + " = ?";
 						} else {
@@ -5628,14 +5628,14 @@ public class DatabaseUtil {
 
 
 				boolean isAutoDetect = true;
-				if (opt != null) {// Ã»ÓĞÑ¡ÏîÊ±£¬Ê¹ÓÃ×Ô¶¯ÅĞ¶Ï¼ÇÂ¼µÄ²åÈë»ò¸üĞÂ
-					if (oClear || oInsert) {// Ç¿ÖÆ¶ÔÃ¿Ìõ¼ÇÂ¼Ö´ĞĞinsert£¬ºÏ·¨ĞÔÓÉ³ÌĞòÔ±±£Ö¤£¬Í¨³£»áÅäÉÏa£¬ÏÈÖ´ĞĞÉ¾³ı
+				if (opt != null) {// æ²¡æœ‰é€‰é¡¹æ—¶ï¼Œä½¿ç”¨è‡ªåŠ¨åˆ¤æ–­è®°å½•çš„æ’å…¥æˆ–æ›´æ–°
+					if (oClear || oInsert) {// å¼ºåˆ¶å¯¹æ¯æ¡è®°å½•æ‰§è¡Œinsertï¼Œåˆæ³•æ€§ç”±ç¨‹åºå‘˜ä¿è¯ï¼Œé€šå¸¸ä¼šé…ä¸Šaï¼Œå…ˆæ‰§è¡Œåˆ é™¤
 						//Logger.debug("Insert-only, preparing insert records: "+insert_sql);
 						MessageManager mm = DataSetMessage.get();
 						Logger.debug(mm.getMessage("info.insertOnly", insert_sql));
 						executeBatchSql(srcSeries, insert_sql, insertParams, insertTypes, ctx, dbs);
 						isAutoDetect = false;
-					} else if (opt.indexOf('u') > -1) {// Ç¿ÖÆ¶ÔÃ¿Ìõ¼ÇÂ¼Ö´ĞĞupdate£¬ºÏ·¨ĞÔÓÉ³ÌĞòÔ±±£Ö¤
+					} else if (opt.indexOf('u') > -1) {// å¼ºåˆ¶å¯¹æ¯æ¡è®°å½•æ‰§è¡Œupdateï¼Œåˆæ³•æ€§ç”±ç¨‹åºå‘˜ä¿è¯
 						//Logger.debug("Update-only, preparing update records: "+update_sql);
 						MessageManager mm = DataSetMessage.get();
 						Logger.debug(mm.getMessage("info.updateOnly", update_sql));
@@ -5643,7 +5643,7 @@ public class DatabaseUtil {
 						isAutoDetect = false;
 					}
 				}
-				if (isAutoDetect) {// Ê¹ÓÃ×Ô¶¯Ì½²â¼ÇÂ¼µÄ²åÈëºÍ¸üĞÂ×´Ì¬
+				if (isAutoDetect) {// ä½¿ç”¨è‡ªåŠ¨æ¢æµ‹è®°å½•çš„æ’å…¥å’Œæ›´æ–°çŠ¶æ€
 					Expression[] expParams = new Expression[primaryParams.size()];
 					primaryParams.toArray(expParams);
 					
@@ -5675,7 +5675,7 @@ public class DatabaseUtil {
 					}
 				}
 
-				// ¸ÄÔìÈçÏÂÖğĞĞÖ´ĞĞÎªÅúÁ¿Ö´ĞĞ xq 2015.4.21 end 
+				// æ”¹é€ å¦‚ä¸‹é€è¡Œæ‰§è¡Œä¸ºæ‰¹é‡æ‰§è¡Œ xq 2015.4.21 end 
 			} catch (RQException e) {
 				//com.scudata.common.Logger.debug("update error:", e);
 				MessageManager mm = DataSetMessage.get();
@@ -5700,7 +5700,7 @@ public class DatabaseUtil {
 				throw new RQException(e.getMessage(), e);
 			}
 		}
-		return 0;// ÅúÁ¿´¦Àí£¬²»ÖªµÀÔÚÄÄ³ö´í£¬·µ»ØÖµÎŞÒâÒå£¬Ê¼ÖÕ·µ»Ø0 xq 2015.4.21
+		return 0;// æ‰¹é‡å¤„ç†ï¼Œä¸çŸ¥é“åœ¨å“ªå‡ºé”™ï¼Œè¿”å›å€¼æ— æ„ä¹‰ï¼Œå§‹ç»ˆè¿”å›0 xq 2015.4.21
 	}
 
 	private static void executeBatchSql(Sequence srcSeries, String sql, ArrayList<Expression> exps, ArrayList<Byte> expTypes,
@@ -5710,9 +5710,9 @@ public class DatabaseUtil {
 		execute(srcSeries, sql, expParams, toByteArray(expTypes), ctx, dbs);
 	}
 
-	// edited by bd, 2022.4.15, Ìí¼Ó²ÎÊıde_sqlsºÍnullKeys£¬ÕâÊÇ¿¼ÂÇÔÚÖ´ĞĞÉ¾³ısqlÊ±£¬Èç¹û¼üÖµÖĞÓĞ¿ÕÖµĞèÒªÓÃis nullµÄÅĞ¶Ï£¬¶ÔÓ¦Óï¾ä´Óde_sqlsÖĞ»ñÈ¡£¬
-	// nullKeysÖĞ¼ÇÂ¼µÄÊÇ¸÷¸ö¿ÉÄÜ¿ÕÖµµÄÎ»ÖÃ£¬¸ù¾İ¿ÕÖµ²úÉúµÄÎ»ÖÃ»ñÈ¡de_sqlsÖĞÓï¾äÎ»ÖÃ£¬Èç¿ÉÄÜÓĞ3¸ö¿ÕÖµ£¬È«ÊÇ¿ÕÖµ¶ÔÓ¦Î»ÖÃ0£¬µÚ1¸ö¿ÕÖµ¶ÔÓ¦110¡­¡­µÈ
-	// Ìí¼Ókeysize¼ÇÂ¼¹²¼¸¸ö¼ü£¬ÓÃÓÚupdateÊ±µÄ±È½Ï
+	// edited by bd, 2022.4.15, æ·»åŠ å‚æ•°de_sqlså’ŒnullKeysï¼Œè¿™æ˜¯è€ƒè™‘åœ¨æ‰§è¡Œåˆ é™¤sqlæ—¶ï¼Œå¦‚æœé”®å€¼ä¸­æœ‰ç©ºå€¼éœ€è¦ç”¨is nullçš„åˆ¤æ–­ï¼Œå¯¹åº”è¯­å¥ä»de_sqlsä¸­è·å–ï¼Œ
+	// nullKeysä¸­è®°å½•çš„æ˜¯å„ä¸ªå¯èƒ½ç©ºå€¼çš„ä½ç½®ï¼Œæ ¹æ®ç©ºå€¼äº§ç”Ÿçš„ä½ç½®è·å–de_sqlsä¸­è¯­å¥ä½ç½®ï¼Œå¦‚å¯èƒ½æœ‰3ä¸ªç©ºå€¼ï¼Œå…¨æ˜¯ç©ºå€¼å¯¹åº”ä½ç½®0ï¼Œç¬¬1ä¸ªç©ºå€¼å¯¹åº”110â€¦â€¦ç­‰
+	// æ·»åŠ keysizeè®°å½•å…±å‡ ä¸ªé”®ï¼Œç”¨äºupdateæ—¶çš„æ¯”è¾ƒ
 	private static void executeDifferBatch(Sequence srcSeq, Sequence compSeq, String sql,
 			ArrayList<Expression> paramExps, ArrayList<Expression> oldFieldExps, ArrayList<Byte> paramTypes, Context ctx, DBSession dbs, Connection con,
 			String dbCharset, boolean tranSQL, int dbType, String dbn, int batchSize, String[] nullSqls, ArrayList<Integer> nullKeys, int keysize) {
@@ -5726,7 +5726,7 @@ public class DatabaseUtil {
 			return;
 		}
 		int pCount = params == null ? 0 : params.length;
-		// edited by bd, 2022.4.15, keyStart¼ÇÂ¼´ÓµÚ¼¸¸öÎ»ÖÃÆğÒÑ¾­ÊÇ¼üÖµÁË¡£
+		// edited by bd, 2022.4.15, keyStartè®°å½•ä»ç¬¬å‡ ä¸ªä½ç½®èµ·å·²ç»æ˜¯é”®å€¼äº†ã€‚
 		int keyStart = pCount - keysize;
 		int len = compSeq.length();
 		ComputeStack stack = ctx.getComputeStack();
@@ -5752,8 +5752,8 @@ public class DatabaseUtil {
 						if (nkeys && p >= keyStart && pv == null) {
 							int kloc = nullKeys.indexOf(p-keyStart);
 							nloc = nloc + (1<<kloc);
-							// Èç¹û¸Ä³ÉÁËis nullÅĞ¶Ï£¬¶ÔÓ¦µÄ²ÎÊı²»±ØÉèÁË
-							// »¹ÊÇµÃÏÈÉè¶¨£¬²»È»Ã»·¨Ö´ĞĞ±È½ÏÁË
+							// å¦‚æœæ”¹æˆäº†is nullåˆ¤æ–­ï¼Œå¯¹åº”çš„å‚æ•°ä¸å¿…è®¾äº†
+							// è¿˜æ˜¯å¾—å…ˆè®¾å®šï¼Œä¸ç„¶æ²¡æ³•æ‰§è¡Œæ¯”è¾ƒäº†
 						}
 						pValues.add(pv);
 					}
@@ -5803,7 +5803,7 @@ public class DatabaseUtil {
 		}
 		executeBatch(sql, valueGroup, types, dbs, con, dbCharset, tranSQL, dbType, dbn, batchSize, true);
 
-		// Èç¹ûcompSeqÖĞ°üº¬¿ÕÖµ¼ü
+		// å¦‚æœcompSeqä¸­åŒ…å«ç©ºå€¼é”®
 		if (nkeys) {
 			for (int i = 0; i < nulls; i++) {
 				Sequence nullParam = nullParams.get(i);
@@ -5816,7 +5816,7 @@ public class DatabaseUtil {
 				sql = nullSqls[i];
 				for (int j = 1; j <= len; ++j) {
 					Sequence seq = (Sequence) diffParamSeq.get(j);
-					// ±È½Ïºó£¬ÔÙÔÚÕâÀïÈ¥µô²ÎÊıÖĞµÄ¿ÕÖµ
+					// æ¯”è¾ƒåï¼Œå†åœ¨è¿™é‡Œå»æ‰å‚æ•°ä¸­çš„ç©ºå€¼
 					int psize = seq.length();
 					ArrayList<Object> ps = new ArrayList<Object>();
 					for (int p = 0; p < psize; p++) {
@@ -6025,7 +6025,7 @@ public class DatabaseUtil {
 		return query(srcSeries, sql, params, types, opt, ctx, dbs, null, null, 0);
 	}
 
-	/* ¹²Ïí³ö¸Ã·½·¨£¬´ÓDBObjectÅ²¹ıÀ´µÄ£¬ xq 2015.4.21 */
+	/* å…±äº«å‡ºè¯¥æ–¹æ³•ï¼Œä»DBObjectæŒªè¿‡æ¥çš„ï¼Œ xq 2015.4.21 */
 	private static Sequence query(Sequence srcSeries, String sql, Expression[] params, byte[] types, String opt,
 			Context ctx, DBSession dbs, String[] nullSqls, ArrayList<Integer> nullKeys, int keysize) {
 		if (srcSeries == null || srcSeries.length() == 0 || params == null || params.length == 0) {
@@ -6033,11 +6033,11 @@ public class DatabaseUtil {
 		}
 
 		int pCount = params.length;
-		// edited by bd, 2022.4.15, keyStart¼ÇÂ¼´ÓµÚ¼¸¸öÎ»ÖÃÆğÒÑ¾­ÊÇ¼üÖµÁË¡£
+		// edited by bd, 2022.4.15, keyStartè®°å½•ä»ç¬¬å‡ ä¸ªä½ç½®èµ·å·²ç»æ˜¯é”®å€¼äº†ã€‚
 		int keyStart = pCount - keysize;
 		int len = srcSeries.length();
 		//Object[][] valueGroup = new Object[len][pCount];
-		// edited by bd, 2022.4.15, Èç¹ûĞèÒªÓ¦¶Ô¿ÕÖµ£¬Ôò²ÎÊıµÄ¸öÊıÊÇ²»¶¨µÄ
+		// edited by bd, 2022.4.15, å¦‚æœéœ€è¦åº”å¯¹ç©ºå€¼ï¼Œåˆ™å‚æ•°çš„ä¸ªæ•°æ˜¯ä¸å®šçš„
 		ArrayList<ArrayList<Object>> vgs = new ArrayList<ArrayList<Object>>(len);
 
 		ComputeStack stack = ctx.getComputeStack();
@@ -6047,7 +6047,7 @@ public class DatabaseUtil {
 		int nulls = nullSqls == null ? 0 : nullSqls.length;
 		boolean nkeys = nullKeys != null && nullKeys.size() > 0 && nulls > 0;
 		ArrayList<ArrayList<ArrayList<Object>>> nullParams = null;
-		// res ÓÃÀ´ÒÀ´Î¼ÇÂ¼µÄ²éÑ¯½á¹ûÀ´Ô´£¬0ÊÇÀ´×ÔÎŞnullÖµµÄ²éÑ¯£¬ÆäËü¶ÔÓ¦nullParamsÖĞµÄ³ÉÔ±Î»ÖÃ+1
+		// res ç”¨æ¥ä¾æ¬¡è®°å½•çš„æŸ¥è¯¢ç»“æœæ¥æºï¼Œ0æ˜¯æ¥è‡ªæ— nullå€¼çš„æŸ¥è¯¢ï¼Œå…¶å®ƒå¯¹åº”nullParamsä¸­çš„æˆå‘˜ä½ç½®+1
 		int[] res = new int[len];
 		if (nkeys) {
 			nullParams = new ArrayList<ArrayList<ArrayList<Object>>>(nulls);
@@ -6074,8 +6074,8 @@ public class DatabaseUtil {
 						if (nkeys && p >= keyStart && pv == null) {
 							int kloc = nullKeys.indexOf(p-keyStart);
 							nloc = nloc + (1<<kloc);
-							// Èç¹û¸Ä³ÉÁËis nullÅĞ¶Ï£¬¶ÔÓ¦µÄ²ÎÊı²»±ØÉèÁË
-							// »¹ÊÇµÃÉè£¬²»È»Ö±½ÓÈ±Ê§µÄ»°£¬³¤¶ÈÓĞ±ä»¯£¬ÎŞ·¨ÓëÔ­Öµ±È½Ï
+							// å¦‚æœæ”¹æˆäº†is nullåˆ¤æ–­ï¼Œå¯¹åº”çš„å‚æ•°ä¸å¿…è®¾äº†
+							// è¿˜æ˜¯å¾—è®¾ï¼Œä¸ç„¶ç›´æ¥ç¼ºå¤±çš„è¯ï¼Œé•¿åº¦æœ‰å˜åŒ–ï¼Œæ— æ³•ä¸åŸå€¼æ¯”è¾ƒ
 						}
 						pValues.add(pv);
 					}
@@ -6096,7 +6096,7 @@ public class DatabaseUtil {
 		Object[][] valueGroup = toGroup(vgs);
 		Table tbl = DatabaseUtil.queryGroup(sql, valueGroup, types, dbs, opt, ctx);
 
-		// edited by bd, 2022.4.15, Õâ¸ö·½·¨ÔÚÕâÀïÊÇÎªÁË¸üĞÂdb.updateµÄ£¬ÕâÀï@iÑ¡ÏîÊÇ²åÈëÓÃµÄ£¬²»´æÔÚquery@iÕâÖÖ·µ»Ø³ÉÒ»ÁĞµÄÇé¿ö
+		// edited by bd, 2022.4.15, è¿™ä¸ªæ–¹æ³•åœ¨è¿™é‡Œæ˜¯ä¸ºäº†æ›´æ–°db.updateçš„ï¼Œè¿™é‡Œ@ié€‰é¡¹æ˜¯æ’å…¥ç”¨çš„ï¼Œä¸å­˜åœ¨query@iè¿™ç§è¿”å›æˆä¸€åˆ—çš„æƒ…å†µ
 		/*
 		if (tbl != null && tbl.dataStruct().getFieldCount() == 1 && opt != null && opt.indexOf('i') != -1) {
 			return tbl.fieldValues(0);
@@ -6105,7 +6105,7 @@ public class DatabaseUtil {
 		}
 		*/
 
-		// Èç¹ûcompSeqÖĞ°üº¬¿ÕÖµ¼ü
+		// å¦‚æœcompSeqä¸­åŒ…å«ç©ºå€¼é”®
 		if (nkeys) {
 			ArrayList<Table> nTbls = new ArrayList<Table>(nulls);
 			Table tbli = null;
@@ -6114,11 +6114,11 @@ public class DatabaseUtil {
 				valueGroup = toGroup(nullParam, keyStart);
 				if (valueGroup != null) {
 					//sql = nullSqls[i];
-					// ²éÑ¯Ê±£¬ÓÉÓÚ¿ÕÖµ²»¶¨£¬Òò´Ë²»ÉèÖÃ²ÎÊıÀàĞÍÁË
+					// æŸ¥è¯¢æ—¶ï¼Œç”±äºç©ºå€¼ä¸å®šï¼Œå› æ­¤ä¸è®¾ç½®å‚æ•°ç±»å‹äº†
 					//tbli = DatabaseUtil.queryGroup(sql, valueGroup, null, dbs, opt, ctx);
 					tbli = DatabaseUtil.queryGroup(nullSqls[i], valueGroup, null, dbs, opt, ctx);
 				}
-				// edited by bd, 2022.12.9, ×Ô¶¯ÅĞ¶Ï¿ÕÖµÊ±£¬is null¶ÔÓ¦µÄsqlÓĞ²»ĞèÒª²ÎÊıµÄ¿ÉÄÜĞÔ
+				// edited by bd, 2022.12.9, è‡ªåŠ¨åˆ¤æ–­ç©ºå€¼æ—¶ï¼Œis nullå¯¹åº”çš„sqlæœ‰ä¸éœ€è¦å‚æ•°çš„å¯èƒ½æ€§
 				else if (nullSqls[i].indexOf("?")<0) {
 					valueGroup = new Object[1][];
 					valueGroup[0] = null;
@@ -6137,10 +6137,10 @@ public class DatabaseUtil {
 				}
 				else {
 					//o = nTbls.get(ri-1).get(locs[ri]);
-					// edited by bd, 2022.12.9, ×Ô¶¯ÅĞ¶Ï¿ÕÖµÊ±£¬·ÀÖ¹nTblsÖĞÓĞ¿ÉÄÜÎ´¼ÇÂ¼Êı¾İ
+					// edited by bd, 2022.12.9, è‡ªåŠ¨åˆ¤æ–­ç©ºå€¼æ—¶ï¼Œé˜²æ­¢nTblsä¸­æœ‰å¯èƒ½æœªè®°å½•æ•°æ®
 					Table ot = nTbls.get(ri-1);
 					//o = ot == null ? null : ot.get(locs[ri]);
-					//edited by bd, 2023.8.11, µ±½á¹ûĞò±íÖĞ´æÔÚÖØ¸´Ö÷¼üµÄÇé¿öÊ±£¬ÔİÊ±²»ÖªµÀ»á³öÏÖÊ²Ã´¸´ÔÓµÄ×´¿ö£¬ÏÈ´¦Àí³¬³ö×ÜÊıÁ¿µÄ´íÎó¡£
+					//edited by bd, 2023.8.11, å½“ç»“æœåºè¡¨ä¸­å­˜åœ¨é‡å¤ä¸»é”®çš„æƒ…å†µæ—¶ï¼Œæš‚æ—¶ä¸çŸ¥é“ä¼šå‡ºç°ä»€ä¹ˆå¤æ‚çš„çŠ¶å†µï¼Œå…ˆå¤„ç†è¶…å‡ºæ€»æ•°é‡çš„é”™è¯¯ã€‚
 					if (ot == null) o = null; 
 					else  {
 						if(locs[ri]>ot.length()) {
@@ -6154,7 +6154,7 @@ public class DatabaseUtil {
 			return result;
 		}
 		else {
-			// Ã»ÓĞ¿ÕÖµ¼ü£¬Ö±½Ó·µ»Ø¾ÍÊÇÁË
+			// æ²¡æœ‰ç©ºå€¼é”®ï¼Œç›´æ¥è¿”å›å°±æ˜¯äº†
 			return tbl;
 		}
 	}
@@ -6201,14 +6201,14 @@ public class DatabaseUtil {
 		return result;
 	}
 
-	/* ¹²Ïí¸Ã·½·¨£¬ xq 2015.4.21 */
+	/* å…±äº«è¯¥æ–¹æ³•ï¼Œ xq 2015.4.21 */
 	public static Sequence query(String sql, Object[] params, byte[] types, String opt, Context ctx, DBSession dbs) {
 		// DBSession dbs = getDbSession();
-		// edited by bdl, 2015.7.28, Ö§³Ö@iÑ¡Ïî£¬µ¥ÁĞÊ±·µ»ØĞòÁĞ
+		// edited by bdl, 2015.7.28, æ”¯æŒ@ié€‰é¡¹ï¼Œå•åˆ—æ—¶è¿”å›åºåˆ—
 		return DatabaseUtil.query(sql, params, types, dbs, opt, ctx);
 	}
 
-	/* ½«Õë¶ÔÒ»¸öĞòÁĞexecuteÒ»¸öÅú´¦ÀíµÄsql·½·¨¹²Ïí£¬ xq 2015.4.21 */
+	/* å°†é’ˆå¯¹ä¸€ä¸ªåºåˆ—executeä¸€ä¸ªæ‰¹å¤„ç†çš„sqlæ–¹æ³•å…±äº«ï¼Œ xq 2015.4.21 */
 	public static void execute(Sequence srcSeries, String sql, Expression[] params, byte[] types, Context ctx,
 			DBSession dbs) {// String opt,
 		if (srcSeries == null)
@@ -6240,19 +6240,19 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ÅúÁ¿Ö´ĞĞ£¬¸ù¾İÄ³¸öĞòÁĞ£¬¼ÆËã²ÎÊıºó£¬Ö´ĞĞÄ³¸ösql
-	 * @param sql	String sqlÓï¾ä
-	 * @param params	Expression[] ¸÷×Ö¶Î²ÎÊıµÄ±í´ïÊ½
-	 * @param types	byte[] ²ÎÊıÀàĞÍÁĞ±í£¬¿É¿Õ£¬²ÎÊıÀàĞÍ²Î¼ûcom.scudata.common.Types£¬¿ÉÓÃÊı×é
-	 *            	Èç×Ö·û´®×éµÈÀàĞÍ¡£µ±²ÎÊıÀàĞÍ¿ÕÊ±£¬ÈÏÎªµÈÍ¬ÓÚ¡°Ä¬ÈÏ¡±ÀàĞÍ£¬´ËÊ±×¢Òâ²ÎÊıÖµ²»ÄÜÎªnull
-	 * @param ctx	Context ÉÏÏÂÎÄ£¬¼ÆËãÉÏÃæµÄ²ÎÊıÓÃ
-	 * @param dbs	DBSession Êı¾İ¿âĞÅÏ¢£¬¼ÇÂ¼´íÎó×´Ì¬ÓÃ
-	 * @param con	Connection Êı¾İ¿âÁ¬½Ó¶ÔÏó
-	 * @param dbCharset	Êı¾İ¿â±àÂë£¬ÓÃÓÚ½«×Ö·û´®²ÎÊı×ªÂë
-	 * @param tranSQL	ÊÇ·ñĞèÒª×ªÂë£¬Ö»ÓĞÎªtrueÊ±´¦Àí
-	 * @param dbType	Êı¾İ¿âÀàĞÍ£¬¶ÔÓÚÄ³Ğ©Êı¾İ¿âÔÚÉè¶¨²ÎÊıÊ±¿ÉÄÜĞèÒªÌØÊâµ÷Õû
-	 * @param dbn	Êı¾İ¿âÃû³Æ£¬ÓÃÓÚ´íÎóÌáÊ¾
-	 * @param batchSize	int Åú´¦ÀíãĞÖµ£¬´ÓÉÏ²ã»ñµÃ
+	 * æ‰¹é‡æ‰§è¡Œï¼Œæ ¹æ®æŸä¸ªåºåˆ—ï¼Œè®¡ç®—å‚æ•°åï¼Œæ‰§è¡ŒæŸä¸ªsql
+	 * @param sql	String sqlè¯­å¥
+	 * @param params	Expression[] å„å­—æ®µå‚æ•°çš„è¡¨è¾¾å¼
+	 * @param types	byte[] å‚æ•°ç±»å‹åˆ—è¡¨ï¼Œå¯ç©ºï¼Œå‚æ•°ç±»å‹å‚è§com.scudata.common.Typesï¼Œå¯ç”¨æ•°ç»„
+	 *            	å¦‚å­—ç¬¦ä¸²ç»„ç­‰ç±»å‹ã€‚å½“å‚æ•°ç±»å‹ç©ºæ—¶ï¼Œè®¤ä¸ºç­‰åŒäºâ€œé»˜è®¤â€ç±»å‹ï¼Œæ­¤æ—¶æ³¨æ„å‚æ•°å€¼ä¸èƒ½ä¸ºnull
+	 * @param ctx	Context ä¸Šä¸‹æ–‡ï¼Œè®¡ç®—ä¸Šé¢çš„å‚æ•°ç”¨
+	 * @param dbs	DBSession æ•°æ®åº“ä¿¡æ¯ï¼Œè®°å½•é”™è¯¯çŠ¶æ€ç”¨
+	 * @param con	Connection æ•°æ®åº“è¿æ¥å¯¹è±¡
+	 * @param dbCharset	æ•°æ®åº“ç¼–ç ï¼Œç”¨äºå°†å­—ç¬¦ä¸²å‚æ•°è½¬ç 
+	 * @param tranSQL	æ˜¯å¦éœ€è¦è½¬ç ï¼Œåªæœ‰ä¸ºtrueæ—¶å¤„ç†
+	 * @param dbType	æ•°æ®åº“ç±»å‹ï¼Œå¯¹äºæŸäº›æ•°æ®åº“åœ¨è®¾å®šå‚æ•°æ—¶å¯èƒ½éœ€è¦ç‰¹æ®Šè°ƒæ•´
+	 * @param dbn	æ•°æ®åº“åç§°ï¼Œç”¨äºé”™è¯¯æç¤º
+	 * @param batchSize	int æ‰¹å¤„ç†é˜ˆå€¼ï¼Œä»ä¸Šå±‚è·å¾—
 	 */
 	private static void execute(Sequence srcSeries, String sql, Expression[] params, byte[] types, Context ctx,
 			DBSession dbs, Connection con, String dbCharset, boolean tranSQL, int dbType, String dbn, int batchSize) {// String
@@ -6286,13 +6286,13 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * Õë¶ÔÒ»¸öcursor£¬ÅúÁ¿Ö´ĞĞsql£¬ÔİÊ±ÒªÇóÒ»´ÎÈ«²¿Ö´ĞĞ£¬¶ø²»ÊÇÖ¸¶¨fetch 2016.4.19
-	 * @param cs	ÓÎ±ê
-	 * @param sql	sqlÓï¾ä
-	 * @param params	Ê¹ÓÃ²ÎÊı£¬¹ØÓÚÓÎ±ê¼ÇÂ¼µÄ±í´ïÊ½
-	 * @param types	²ÎÊıÀàĞÍ£¬µ±²ÎÊıÎªnullÊ±»áÊ¹ÓÃ
-	 * @param ctx	ÉÏÏÂÎÄ
-	 * @param dbs	Êı¾İÔ´Éè¶¨
+	 * é’ˆå¯¹ä¸€ä¸ªcursorï¼Œæ‰¹é‡æ‰§è¡Œsqlï¼Œæš‚æ—¶è¦æ±‚ä¸€æ¬¡å…¨éƒ¨æ‰§è¡Œï¼Œè€Œä¸æ˜¯æŒ‡å®šfetch 2016.4.19
+	 * @param cs	æ¸¸æ ‡
+	 * @param sql	sqlè¯­å¥
+	 * @param params	ä½¿ç”¨å‚æ•°ï¼Œå…³äºæ¸¸æ ‡è®°å½•çš„è¡¨è¾¾å¼
+	 * @param types	å‚æ•°ç±»å‹ï¼Œå½“å‚æ•°ä¸ºnullæ—¶ä¼šä½¿ç”¨
+	 * @param ctx	ä¸Šä¸‹æ–‡
+	 * @param dbs	æ•°æ®æºè®¾å®š
 	 */
 	public static void execute(ICursor cs, String sql, Expression[] params, byte[] types, Context ctx, DBSession dbs) {
 		PreparedStatement pst = null;
@@ -6413,7 +6413,7 @@ public class DatabaseUtil {
 	}
 	
 	/**
-	 * ÏÂÊöÁ½¸öautoDB£¬ÓÃÓÚÔÚ¸÷´¦¼ÆËãdfxÊ±£¬Á¬½ÓºÍÊÍ·Å¶¨ÒåºÃµÄ×Ô¶¯Á¬½ÓÊı¾İÔ´
+	 * ä¸‹è¿°ä¸¤ä¸ªautoDBï¼Œç”¨äºåœ¨å„å¤„è®¡ç®—dfxæ—¶ï¼Œè¿æ¥å’Œé‡Šæ”¾å®šä¹‰å¥½çš„è‡ªåŠ¨è¿æ¥æ•°æ®æº
 	 * @param ctx
 	 * @param startDsNames
 	 */
@@ -6434,7 +6434,7 @@ public class DatabaseUtil {
 	}
 
 	/**
-	 * ×Ô¶¯¹Ø±ÕÁ¬½Ó
+	 * è‡ªåŠ¨å…³é—­è¿æ¥
 	 * @param ctx
 	 */
 	public static void closeAutoDBs(Context ctx) {

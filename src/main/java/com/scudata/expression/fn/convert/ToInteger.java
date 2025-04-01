@@ -10,13 +10,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÀàĞÍ×ª»»º¯Êı£¬È¡³ö¸ø¶¨ÊıÖµ±í´ïÊ½»òÊıÖµ×Ö·û´®ÖĞµÄÕûÊı²¿·Ö£¬²¢°ÑÆäÊı¾İÀàĞÍ×ª»»³É32Î»ÕûÊı¡£
+ * ç±»å‹è½¬æ¢å‡½æ•°ï¼Œå–å‡ºç»™å®šæ•°å€¼è¡¨è¾¾å¼æˆ–æ•°å€¼å­—ç¬¦ä¸²ä¸­çš„æ•´æ•°éƒ¨åˆ†ï¼Œå¹¶æŠŠå…¶æ•°æ®ç±»å‹è½¬æ¢æˆ32ä½æ•´æ•°ã€‚
  * @author runqian
  *
  */
 public class ToInteger extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -50,8 +50,8 @@ public class ToInteger extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {

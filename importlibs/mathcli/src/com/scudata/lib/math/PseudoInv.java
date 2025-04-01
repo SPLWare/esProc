@@ -10,7 +10,7 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¾ØÕóÇóÎ±Äæ¾ØÕópinv(A)ÇóÎ±Äæ¾ØÕó
+ * çŸ©é˜µæ±‚ä¼ªé€†çŸ©é˜µpinv(A)æ±‚ä¼ªé€†çŸ©é˜µ
  * @author bd
  *
  */

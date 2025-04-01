@@ -5,41 +5,41 @@ import java.awt.*;
 import com.scudata.dm.*;
 
 /**
- * ÓÃÓÚÃèÊöÌî³äÑÕÉ«µÄÑÕÉ«Àà
+ * ç”¨äºæè¿°å¡«å……é¢œè‰²çš„é¢œè‰²ç±»
  * @author Joancy
  *
  */
 public class ChartColor {
 	public static Integer transparentColor = new Integer(0xffffff);
-//	Ìî³äÀàĞÍ
+//	å¡«å……ç±»å‹
 	int type = Consts.PATTERN_DEFAULT;
 	
-//ÊÇ·ñÎª½¥±äÉ«
+//æ˜¯å¦ä¸ºæ¸å˜è‰²
 	boolean isGradient = true;
 
-//	Èç¹ûÊÇ½¥±äÉ«£¬½¥±äÉ«1£»·Ç½¥±äÉ«Ê±Ö»Ê¹ÓÃÑÕÉ«1
+//	å¦‚æœæ˜¯æ¸å˜è‰²ï¼Œæ¸å˜è‰²1ï¼›éæ¸å˜è‰²æ—¶åªä½¿ç”¨é¢œè‰²1
 	Color color1 = (Color) Para.getDefPalette().get(0);
 	
-//	Èç¹ûÊÇ½¥±äÉ«£¬½¥±äÉ«2
+//	å¦‚æœæ˜¯æ¸å˜è‰²ï¼Œæ¸å˜è‰²2
 	Color color2 = color1;
 
-	//½¥±äÉ«µÄ½Ç¶È·½Ïò	
+	//æ¸å˜è‰²çš„è§’åº¦æ–¹å‘	
 	int angle = 0;
-	// ÒÔcolor1ÎªÔ²ĞÄ£¬°´½Ç¶ÈangleÏòcolor2Ìİ¶È
-	// ÑÕÉ«½âÊÍËµÃ÷£»
-	// 1: µ±isGradient£½falseÊ±£»Í¼¿éÊ¹ÓÃ´¿É«color1Ìî³ä£»
-	// 2: µ±
-	// isGradient£½trueÊ±£»color2£½£½color1£¬ÔòÊ¹ÓÃcolor1Îª»ù´¡µÄcubeColor
-	// ·ñÔòÊ¹ÓÃ´Ócolor1µ½color2µÄ½¥±äÉ«
+	// ä»¥color1ä¸ºåœ†å¿ƒï¼ŒæŒ‰è§’åº¦angleå‘color2æ¢¯åº¦
+	// é¢œè‰²è§£é‡Šè¯´æ˜ï¼›
+	// 1: å½“isGradientï¼falseæ—¶ï¼›å›¾å—ä½¿ç”¨çº¯è‰²color1å¡«å……ï¼›
+	// 2: å½“
+	// isGradientï¼trueæ—¶ï¼›color2ï¼ï¼color1ï¼Œåˆ™ä½¿ç”¨color1ä¸ºåŸºç¡€çš„cubeColor
+	// å¦åˆ™ä½¿ç”¨ä»color1åˆ°color2çš„æ¸å˜è‰²
 
 	/**
-	 * ¹¹ÔìÒ»¸öÈ±Ê¡µÄÌî³äÑÕÉ«Àà
+	 * æ„é€ ä¸€ä¸ªç¼ºçœçš„å¡«å……é¢œè‰²ç±»
 	 */
 	public ChartColor() {
 	}
 
 	/**
-	 * Ê¹ÓÃµ¥Ò»ÑÕÉ«c¹¹ÔìÒ»¸ö¼òµ¥µÄÌî³äÑÕÉ«Àà
+	 * ä½¿ç”¨å•ä¸€é¢œè‰²cæ„é€ ä¸€ä¸ªç®€å•çš„å¡«å……é¢œè‰²ç±»
 	 */
 	public ChartColor(Color c) {
 		color1 = c;
@@ -47,49 +47,49 @@ public class ChartColor {
 	}
 
 	/**
-	 * Ê¹ÓÃµ¥Ò»ÑÕÉ«c(RGBÖµ)¹¹ÔìÒ»¸ö¼òµ¥µÄÌî³äÑÕÉ«Àà
+	 * ä½¿ç”¨å•ä¸€é¢œè‰²c(RGBå€¼)æ„é€ ä¸€ä¸ªç®€å•çš„å¡«å……é¢œè‰²ç±»
 	 */
 	public ChartColor(int c) {
 		setColor1(c);
 		setColor2(c);
 	}
 /**
- * ÉèÖÃÌî³äÀàĞÍ
- * @param type ÀàĞÍ²Î¿¼Consts.PATTERN¿ªÍ·µÄ³£Á¿£¬PATTERN_DEFAULTÈ±Ê¡Ä£Ê½²ÉÓÃÑÕÉ«Ìî³ä£¬ÆäËûÄ£Ê½ÓÃÓÚºÚ°×Í¼ĞÎÊ±µÄ¸÷ÖÖÀàĞÍ¡£
+ * è®¾ç½®å¡«å……ç±»å‹
+ * @param type ç±»å‹å‚è€ƒConsts.PATTERNå¼€å¤´çš„å¸¸é‡ï¼ŒPATTERN_DEFAULTç¼ºçœæ¨¡å¼é‡‡ç”¨é¢œè‰²å¡«å……ï¼Œå…¶ä»–æ¨¡å¼ç”¨äºé»‘ç™½å›¾å½¢æ—¶çš„å„ç§ç±»å‹ã€‚
  */
 	public void setType(int type) {
 		this.type = type;
 	}
 
 	/**
-	 * »ñÈ¡Ìî³äÀàĞÍ
-	 * @return Ìî³äÀàĞÍ
+	 * è·å–å¡«å……ç±»å‹
+	 * @return å¡«å……ç±»å‹
 	 */
 	public int getType() {
 		return type;
 	}
 
 /**
- * ÉèÖÃ½¥±äÉ«Ìî³ä£¬½¥±äÉ«Ê±£¬color1Ò»°ã²»ÄÜ¸úcolor2ÏàÍ¬£¬·ñÔòÃ»Ğ§¹û
- * @param gradient ÊÇ·ñ½¥±äÑÕÉ«
+ * è®¾ç½®æ¸å˜è‰²å¡«å……ï¼Œæ¸å˜è‰²æ—¶ï¼Œcolor1ä¸€èˆ¬ä¸èƒ½è·Ÿcolor2ç›¸åŒï¼Œå¦åˆ™æ²¡æ•ˆæœ
+ * @param gradient æ˜¯å¦æ¸å˜é¢œè‰²
  */
 	public void setGradient(boolean gradient) {
 		this.isGradient = gradient;
 	}
 
 	/**
-	 * ÊÇ·ñÎª½¥±äÉ«Ìî³ä
-	 * @return Ê¹ÓÃ½¥±äÉ«Ê±·µ»Øtrue£¬·ñÔòfalse
+	 * æ˜¯å¦ä¸ºæ¸å˜è‰²å¡«å……
+	 * @return ä½¿ç”¨æ¸å˜è‰²æ—¶è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isGradient() {
-		//Èç¹ûÉèÖÃµÄÍ¸Ã÷É«£¬Ã»ÓĞìÅºÍ½¥±äĞ§¹û
+		//å¦‚æœè®¾ç½®çš„é€æ˜è‰²ï¼Œæ²¡æœ‰ç‚«å’Œæ¸å˜æ•ˆæœ
 		if( color1==null ) return false;
 		return isGradient;
 	}
 
 	/**
-	 * ÊÇ·ñÊ¹ÓÃìÅÑÕÉ«£¬¼´Ê¹ÓÃCubeColor£¬ìÅÑÕÉ«Ö¸ÖùĞÎÍ¼µÄ¸÷¸öÁ¢Ãæ£¬Ê¹ÓÃ²»Í¬±¥ºÍ¶ÈµÄÑÕÉ«¹¹³ÉÁ¢ÌåÖù£¬Ê¹µÃÁ¢ÌåÖù¿´ÆğÀ´±È½ÏìÅ¡£
-	 * @return Ê¹ÓÃìÅÑÕÉ«Ê±·µ»Øtrue£¬·ñÔòfalse
+	 * æ˜¯å¦ä½¿ç”¨ç‚«é¢œè‰²ï¼Œå³ä½¿ç”¨CubeColorï¼Œç‚«é¢œè‰²æŒ‡æŸ±å½¢å›¾çš„å„ä¸ªç«‹é¢ï¼Œä½¿ç”¨ä¸åŒé¥±å’Œåº¦çš„é¢œè‰²æ„æˆç«‹ä½“æŸ±ï¼Œä½¿å¾—ç«‹ä½“æŸ±çœ‹èµ·æ¥æ¯”è¾ƒç‚«ã€‚
+	 * @return ä½¿ç”¨ç‚«é¢œè‰²æ—¶è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isDazzle(){
 		if( color1==null ) return false;
@@ -97,16 +97,16 @@ public class ChartColor {
 	}
 	
 	/**
-	 * ÉèÖÃÑÕÉ«1
-	 * @param color ÑÕÉ«Öµ
+	 * è®¾ç½®é¢œè‰²1
+	 * @param color é¢œè‰²å€¼
 	 */
 	public void setColor1(Color color) {
 		this.color1 = color;
 	}
 
 	/**
-	 * Ê¹ÓÃRGBÖµÉèÖÃÑÕÉ«1
-	 * @param color ÑÕÉ«Öµ
+	 * ä½¿ç”¨RGBå€¼è®¾ç½®é¢œè‰²1
+	 * @param color é¢œè‰²å€¼
 	 */
 	public void setColor1(int color) {
 		if(color==transparentColor){
@@ -117,16 +117,16 @@ public class ChartColor {
 	}
 
 	/**
-	 * ÉèÖÃÑÕÉ«2
-	 * @param color ÑÕÉ«Öµ
+	 * è®¾ç½®é¢œè‰²2
+	 * @param color é¢œè‰²å€¼
 	 */
 	public void setColor2(Color color) {
 		this.color2 = color;
 	}
 
 	/**
-	 * Ê¹ÓÃRGBÖµÉèÖÃÑÕÉ«2
-	 * @param color ÑÕÉ«Öµ
+	 * ä½¿ç”¨RGBå€¼è®¾ç½®é¢œè‰²2
+	 * @param color é¢œè‰²å€¼
 	 */
 	public void setColor2(int color) {
 		if(color==transparentColor){
@@ -137,40 +137,40 @@ public class ChartColor {
 	}
 
 	/**
-	 * »ñÈ¡ÑÕÉ«1
-	 * @return ColorÑÕÉ«
+	 * è·å–é¢œè‰²1
+	 * @return Coloré¢œè‰²
 	 */
 	public Color getColor1() {
 		return color1;
 	}
 
 	/**
-	 * »ñÈ¡ÑÕÉ«2
-	 * @return ColorÑÕÉ«
+	 * è·å–é¢œè‰²2
+	 * @return Coloré¢œè‰²
 	 */
 	public Color getColor2() {
 		return color2;
 	}
 
 	/**
-	 * ÉèÖÃ½¥±äÑÕÉ«µÄ½¥±ä½Ç¶È
-	 * @param angle ½Ç¶ÈÖµ
+	 * è®¾ç½®æ¸å˜é¢œè‰²çš„æ¸å˜è§’åº¦
+	 * @param angle è§’åº¦å€¼
 	 */
 	public void setAngle(int angle) {
 		this.angle = angle;
 	}
 
 	/**
-	 * »ñÈ¡½¥±äÑÕÉ«µÄ½¥±ä½Ç¶È
-	 * @return ½Ç¶ÈÖµ
+	 * è·å–æ¸å˜é¢œè‰²çš„æ¸å˜è§’åº¦
+	 * @return è§’åº¦å€¼
 	 */
 	public int getAngle() {
 		return angle;
 	}
 
 	/**
-	 * ½«¸ÃÀàµÄÊôĞÔÉèÖÃÉú³Éplotº¯ÊıµÄÃèÊö´® 
-	 * @return ·ûºÏSPLÓï·¨µÄ´®ÃèÊö
+	 * å°†è¯¥ç±»çš„å±æ€§è®¾ç½®ç”Ÿæˆplotå‡½æ•°çš„æè¿°ä¸² 
+	 * @return ç¬¦åˆSPLè¯­æ³•çš„ä¸²æè¿°
 	 */
 	public String toPlotString() {
 		Sequence seq = new Sequence();
@@ -192,16 +192,16 @@ public class ChartColor {
 	}
 
 	/**
-	 * Éú³ÉÎÄ±¾´®ÃèÊö£¬Í¬·½·¨toPlotString
+	 * ç”Ÿæˆæ–‡æœ¬ä¸²æè¿°ï¼ŒåŒæ–¹æ³•toPlotString
 	 */
 	public String toString() {
 		return toPlotString();
 	}
 
 	/**
-	 * SPLÓï·¨µÄ´®ÃèÊö£¬ĞÎ³ÉĞòÁĞºó£¬ÔÙÊµÀı»¯Îª±¾Àà
-	 * @param seq ÑÕÉ«ÃèÊöµÄĞòÁĞ
-	 * @return ÊµÀı»¯ºóµÄ±¾Àà¶ÔÏó
+	 * SPLè¯­æ³•çš„ä¸²æè¿°ï¼Œå½¢æˆåºåˆ—åï¼Œå†å®ä¾‹åŒ–ä¸ºæœ¬ç±»
+	 * @param seq é¢œè‰²æè¿°çš„åºåˆ—
+	 * @return å®ä¾‹åŒ–åçš„æœ¬ç±»å¯¹è±¡
 	 */
 	public static ChartColor getInstance(Sequence seq) {
 		ChartColor cc = new ChartColor();
@@ -220,8 +220,8 @@ public class ChartColor {
 	}
 
 	/**
-	 * Éî¶È¿ËÂ¡Ò»¸öChartColor¶ÔÏó
-	 * @return ¿ËÂ¡ºóµÄÌî³äÑÕÉ«Àà
+	 * æ·±åº¦å…‹éš†ä¸€ä¸ªChartColorå¯¹è±¡
+	 * @return å…‹éš†åçš„å¡«å……é¢œè‰²ç±»
 	 */
 	public ChartColor deepClone() {
 		ChartColor cc = new ChartColor();

@@ -17,10 +17,10 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
- * ¶àĞòÁĞ²æ³Ë
- * ½«¶à¸öĞòÁĞAi°´ÕÕ¹ØÁª×Ö¶Î/¹ØÁª±í´ïÊ½xjºÍx1ÏàµÈµÄ¹ØÏµ²æ³Ë£¬²úÉúÒÔFi,¡­Îª×Ö¶ÎµÄĞò±í£¬FiÎªÒıÓÃ×Ö¶Î£¬
- * ÒıÓÃÔ­ÅÅÁĞAiÖĞµÄ¼ÇÂ¼£¬xjÈ«Ê¡ÂÔÊ±ÓÃAiµÄÖ÷¼ü¡£Ä³¸öxj Ê¡ÂÔÊ±¸ÃÏîÌõ¼ş²»±ØÆ¥Åä¡£
- * join(Ai:Fi,xj,..;¡­) join@x(csi:Fi,xj,..;¡­)
+ * å¤šåºåˆ—å‰ä¹˜
+ * å°†å¤šä¸ªåºåˆ—AiæŒ‰ç…§å…³è”å­—æ®µ/å…³è”è¡¨è¾¾å¼xjå’Œx1ç›¸ç­‰çš„å…³ç³»å‰ä¹˜ï¼Œäº§ç”Ÿä»¥Fi,â€¦ä¸ºå­—æ®µçš„åºè¡¨ï¼ŒFiä¸ºå¼•ç”¨å­—æ®µï¼Œ
+ * å¼•ç”¨åŸæ’åˆ—Aiä¸­çš„è®°å½•ï¼Œxjå…¨çœç•¥æ—¶ç”¨Aiçš„ä¸»é”®ã€‚æŸä¸ªxj çœç•¥æ—¶è¯¥é¡¹æ¡ä»¶ä¸å¿…åŒ¹é…ã€‚
+ * join(Ai:Fi,xj,..;â€¦) join@x(csi:Fi,xj,..;â€¦)
  * @author runqian
  *
  */
@@ -31,7 +31,7 @@ public class Join extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -167,7 +167,7 @@ public class Join extends Function {
 				if (option != null) {
 					if (option.indexOf('1') != -1) {
 						type = 1;
-						if (option.indexOf('f') != -1) { // "1f"²»ÄÜÍ¬Ê±ÉèÖÃ
+						if (option.indexOf('f') != -1) { // "1f"ä¸èƒ½åŒæ—¶è®¾ç½®
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(option + mm.getMessage("engine.optConflict"));
 						}

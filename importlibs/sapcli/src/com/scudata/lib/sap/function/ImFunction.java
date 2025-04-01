@@ -13,12 +13,12 @@ import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoTable;
 
 public class ImFunction extends Function {
-	protected int m_paramSize = 0;	//参数个数
+	protected int m_paramSize = 0;	//鍙傛暟涓暟
 	protected boolean m_bCursor = false;
 	protected boolean m_bFunctionParam = false;
 	protected RfcManager m_rfcManager= null;
 	protected String m_colNames[];
-	protected String m_paramTypes[]; //除去jco句柄参数类型
+	protected String m_paramTypes[]; //闄ゅ幓jco鍙ユ焺鍙傛暟绫诲瀷
 	protected Context m_ctx;
 
 	
@@ -71,7 +71,7 @@ public class ImFunction extends Function {
 					}
 					idx++;
 				}else if (param.getSub(i).getType()==IParam.Colon){
-					if (!m_bCursor) m_bFunctionParam = true; //非游标情况下
+					if (!m_bCursor) m_bFunctionParam = true; //闈炴父鏍囨儏鍐典笅
 					IParam sub = param.getSub(i);
 					int nChildSize =sub.getSubSize();
 					for(int j=0; j<nChildSize; j++){

@@ -22,7 +22,7 @@ import com.scudata.dm.Sequence;
 
 import com.scudata.expression.IParam;
 
-// Ö»´¦Àí¶à²ÎÊıµÄFilter
+// åªå¤„ç†å¤šå‚æ•°çš„Filter
 public class ParseFilter {
 	private Context ctx;
 	private IParam param;
@@ -192,7 +192,7 @@ public class ParseFilter {
 	}	
 	
 	///////////////// Filter base Opration start ///////////////////////
-	// 1. ÁĞÖµ¹ıÂËÆ÷
+	// 1. åˆ—å€¼è¿‡æ»¤å™¨
 	// FilterIdx: 01 singleColumnValueFilter
 	public Filter doSingleColumnValueFilter( Object val[]){		
 		// 1. family, qualifier, compareOp
@@ -205,7 +205,7 @@ public class ParseFilter {
 		CompareOperator op = ImUtils.fromSymbol((String)val[3]);
 		
 		ByteArrayComparable comp = null;
-		// 2. XXFilter(abc) //¿ÉÄÜÎªString,Fiilter
+		// 2. XXFilter(abc) //å¯èƒ½ä¸ºString,Fiilter
 		if (((val[4]=ImUtils.checkValidDataTypeWithoutPrompt(param.getSub(4), ctx, "String"))!=null )){
 			String regExp = "(\\w+Filter)\\((.*)\\)";
 			Pattern p=Pattern.compile(regExp);
@@ -229,7 +229,7 @@ public class ParseFilter {
 	}
 	
 	///////////////// Filter base Opration start ///////////////////////
-	// 1. ÁĞÖµ¹ıÂËÆ÷
+	// 1. åˆ—å€¼è¿‡æ»¤å™¨
 	// FilterIdx: 01 singleColumnValueFilter
 	public static Filter singleColumnValueFilter(String family, String qualifier, CompareOperator op, String value){
 //		System.out.println("SingleColumnValueFilter family=" + family + 
@@ -273,7 +273,7 @@ public class ParseFilter {
 		return new SingleColumnValueExcludeFilter(family.getBytes(), qualifier.getBytes(), op, comparator);	
 	}
 	
-	// 2. ¼üÖµÔªÊı¾İ¹ıÂËÆ÷
+	// 2. é”®å€¼å…ƒæ•°æ®è¿‡æ»¤å™¨
 	// FilterIdx: 03 
 	// new FamilyFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes("my-family")));
 	public Filter doFamilyFilter( Object val[]){
@@ -385,7 +385,7 @@ public class ParseFilter {
 		return null;
 	}
 	
-	// 3. ĞĞ¼ü¹ıÂËÆ÷
+	// 3. è¡Œé”®è¿‡æ»¤å™¨
 	// FilterIdx: 09
 	// RowFilter filter = new RowFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes("my-row-1")));
 	public Filter doRowFilter( Object val[] ){
@@ -426,7 +426,7 @@ public class ParseFilter {
 		}
 	}
 	
-	// 4.  ¹¦ÄÜ¹ıÂËÆ÷
+	// 4.  åŠŸèƒ½è¿‡æ»¤å™¨
 	//FilterIdx: 13
 	//PageFilter filter = new PageFilter(pageSize);
 	public Filter doPageFilter(  Object val[] ){
@@ -514,9 +514,9 @@ public class ParseFilter {
 		    Bytes.toBytesBinary("\x00\x00\x00\x00_login_"),
 		    new byte[] {1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0})));
 
-		\x00±íÊ¾?
-		1±íÊ¾²»ĞèÒªÆ¥Åä
-		Ìø¹ı¶ÔÓ¦µÄ????(Ïàµ±ÓÚÍ¨Åä·û)£¬Ö»ÒªÄÜÆ¥ÅäÉÏ"_login_"(¶ÔÓ¦Îª7¸ö0)
+		\x00è¡¨ç¤º?
+		1è¡¨ç¤ºä¸éœ€è¦åŒ¹é…
+		è·³è¿‡å¯¹åº”çš„????(ç›¸å½“äºé€šé…ç¬¦)ï¼Œåªè¦èƒ½åŒ¹é…ä¸Š"_login_"(å¯¹åº”ä¸º7ä¸ª0)
 	 */
 	public Filter doFuzzyRowFilter (Object vals[]){
 		try {
@@ -600,7 +600,7 @@ public class ParseFilter {
 	}
 	
 	//FilterIdx: 24
-	/* ÔİÊ±²»ÓÃËü£¬±È½Ï·±ÔÓ
+	/* æš‚æ—¶ä¸ç”¨å®ƒï¼Œæ¯”è¾ƒç¹æ‚
 	 * MultiRowRangeFilter filter = new MultiRowRangeFilter(Arrays.asList(
                 new MultiRowRangeFilter.RowRange(key1Start, true, key1End, false),
                 new MultiRowRangeFilter.RowRange(key2Start, true, key2End, false)

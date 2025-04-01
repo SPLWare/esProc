@@ -7,7 +7,7 @@ import com.scudata.parallel.UnitClient;
 import com.scudata.resources.ParallelMessage;
 
 /**
- * ¶ÔÓ¦ÓÚcallxµÄ¶à»úÈÎÎñ
+ * å¯¹åº”äºcallxçš„å¤šæœºä»»åŠ¡
  * @author Joancy
  *
  */
@@ -16,9 +16,9 @@ public class UnitTasks {
 	static MessageManager mm = ParallelMessage.get();
 	
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param ucs ½Úµã»úÁĞ±í
-	 * @throws Exception ¹¹Ôì³ö´íÈÓ³öÒì³£
+	 * æ„é€ å‡½æ•°
+	 * @param ucs èŠ‚ç‚¹æœºåˆ—è¡¨
+	 * @throws Exception æ„é€ å‡ºé”™æ‰”å‡ºå¼‚å¸¸
 	 */
 	public UnitTasks(ArrayList<UnitClient> ucs) throws Exception{
 		int len = ucs.size();
@@ -30,9 +30,9 @@ public class UnitTasks {
 	}
 	
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param nodes ½Úµã»úÊı×é
-	 * @throws Exception ³ö´íÊ±ÈÓ³öÒì³£
+	 * æ„é€ å‡½æ•°
+	 * @param nodes èŠ‚ç‚¹æœºæ•°ç»„
+	 * @throws Exception å‡ºé”™æ—¶æ‰”å‡ºå¼‚å¸¸
 	 */
 	public UnitTasks(UnitClient[] nodes) throws Exception{
 		int len = nodes.length;
@@ -56,18 +56,18 @@ public class UnitTasks {
 		}
 	}
 	/**
-	 * »ñÈ¡µ±Ç°×î´óËãÁ¦µÄ½Úµã»ú
-	 * ¸Ã·½·¨Ö´ĞĞºó£¬½Úµã»ú¼ÙÉè·ÖÅäÁËÊÊºÏ×÷ÒµÊı£¬ÏÂÒ»´ÎÖ±½Ó×î´óËãÁ¦½Úµã»ú¼´¿É
-	 * @return ×î´óËãÁ¦½Úµã»ú
+	 * è·å–å½“å‰æœ€å¤§ç®—åŠ›çš„èŠ‚ç‚¹æœº
+	 * è¯¥æ–¹æ³•æ‰§è¡Œåï¼ŒèŠ‚ç‚¹æœºå‡è®¾åˆ†é…äº†é€‚åˆä½œä¸šæ•°ï¼Œä¸‹ä¸€æ¬¡ç›´æ¥æœ€å¤§ç®—åŠ›èŠ‚ç‚¹æœºå³å¯
+	 * @return æœ€å¤§ç®—åŠ›èŠ‚ç‚¹æœº
 	 */
 	public UnitClient getMaxCapacityUC(){
 		return getMaxCapacityUC(null);
 	}
 	
 	/**
-	 * ´ÓÖ¸¶¨ĞòºÅµÄ½Úµã»úÖĞÕÒ³ö×î´óËãÁ¦µÄ½Úµã»ú
-	 * @param ucIndexes Ö¸¶¨ĞòºÅÎ»ÖÃµÄ½Úµã»ú
-	 * @return ×î´óËãÁ¦½Úµã»ú
+	 * ä»æŒ‡å®šåºå·çš„èŠ‚ç‚¹æœºä¸­æ‰¾å‡ºæœ€å¤§ç®—åŠ›çš„èŠ‚ç‚¹æœº
+	 * @param ucIndexes æŒ‡å®šåºå·ä½ç½®çš„èŠ‚ç‚¹æœº
+	 * @return æœ€å¤§ç®—åŠ›èŠ‚ç‚¹æœº
 	 */
 	public UnitClient getMaxCapacityUC(ArrayList<Integer> ucIndexes){
 		UnitTask ut = getMaxCapacityUT(ucIndexes);
@@ -77,8 +77,8 @@ public class UnitTasks {
 	}
 	
 	/**
-	 * »ñÈ¡½ÚµãÈÎÎñ
-	 * utIndexÎª SequenceÖĞÒıÓÃµÄ1¿ªÊ¼µÄĞòºÅ£¬Êı×éÒıÓÃÒª¼õÈ¥1
+	 * è·å–èŠ‚ç‚¹ä»»åŠ¡
+	 * utIndexä¸º Sequenceä¸­å¼•ç”¨çš„1å¼€å§‹çš„åºå·ï¼Œæ•°ç»„å¼•ç”¨è¦å‡å»1
 	 * @param utIndex
 	 * @return
 	 */
@@ -87,7 +87,7 @@ public class UnitTasks {
 	}
 
 	/**
-	 * ÊµÏÖ´®»¯½Ó¿Ú
+	 * å®ç°ä¸²åŒ–æ¥å£
 	 */
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
@@ -100,11 +100,11 @@ public class UnitTasks {
 		return sb.toString();
 	}
 	/**
-	 * »ñÈ¡ÔÚÖ¸¶¨·¶Î§µÄ»úÆ÷ÄÚÕÒ³ö×î´óËãÁ¦µÄ½ÚµãÈÎÎñ
-	 * ¸Ã·½·¨·µ»Ø½ÚµãÈÎÎñºó£¬²»×Ô¶¯Ôö¼Ó½Úµã»úµÄÈÎÎñÊı£¬ĞèÒªÍâ²ãµ÷ÓÃ
-	 * UnitTask.addTaskNum(n)À´¼ÆÊıÈÎÎñ¡£
-	 * @param ucIndexes£¬Ö¸¶¨·¶Î§µÄ·Ö»úĞòºÅÁĞ±í
-	 * @return ½ÚµãÈÎÎñ
+	 * è·å–åœ¨æŒ‡å®šèŒƒå›´çš„æœºå™¨å†…æ‰¾å‡ºæœ€å¤§ç®—åŠ›çš„èŠ‚ç‚¹ä»»åŠ¡
+	 * è¯¥æ–¹æ³•è¿”å›èŠ‚ç‚¹ä»»åŠ¡åï¼Œä¸è‡ªåŠ¨å¢åŠ èŠ‚ç‚¹æœºçš„ä»»åŠ¡æ•°ï¼Œéœ€è¦å¤–å±‚è°ƒç”¨
+	 * UnitTask.addTaskNum(n)æ¥è®¡æ•°ä»»åŠ¡ã€‚
+	 * @param ucIndexesï¼ŒæŒ‡å®šèŒƒå›´çš„åˆ†æœºåºå·åˆ—è¡¨
+	 * @return èŠ‚ç‚¹ä»»åŠ¡
 	 */
 	public UnitTask getMaxCapacityUT(ArrayList<Integer> ucIndexes){
 		if(ucIndexes==null){
@@ -124,8 +124,8 @@ public class UnitTasks {
 	}
 	
 	/**
-	 * ÔÚµ±Ç°È«²¿·¶Î§µÄ»úÆ÷ÄÚÕÒ³öËãÁ¦×î´óµÄ
-	 * @return ½ÚµãÈÎÎñ
+	 * åœ¨å½“å‰å…¨éƒ¨èŒƒå›´çš„æœºå™¨å†…æ‰¾å‡ºç®—åŠ›æœ€å¤§çš„
+	 * @return èŠ‚ç‚¹ä»»åŠ¡
 	 */
 	public UnitTask getMaxCapacityUT(){
 		UnitTask ut = uts.get(0);

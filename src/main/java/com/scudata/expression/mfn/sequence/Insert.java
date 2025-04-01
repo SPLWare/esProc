@@ -12,14 +12,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÎªĞòÁĞ»òĞò±í²åÈëÔªËØ
- * A.insert(k,x) T.insert(k) T.insert(k,xi:Fi,¡­) T.insert(k:A,xi:Fi,¡­) T.insert(k:A)
+ * ä¸ºåºåˆ—æˆ–åºè¡¨æ’å…¥å…ƒç´ 
+ * A.insert(k,x) T.insert(k) T.insert(k,xi:Fi,â€¦) T.insert(k:A,xi:Fi,â€¦) T.insert(k:A)
  * @author RunQian
  *
  */
 public class Insert extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -68,7 +68,7 @@ public class Insert extends SequenceFunction {
 
 			seq.insert(((Number)posVal).intValue(), val);
 		} else {
-			// kÎ´Ğ´Ê±£¬¼Ù¶¨AÓĞĞò£¬²åÈëx£¬ÒÑ´æÔÚÔò²»²åÈë
+			// kæœªå†™æ—¶ï¼Œå‡å®šAæœ‰åºï¼Œæ’å…¥xï¼Œå·²å­˜åœ¨åˆ™ä¸æ’å…¥
 			seq.sortedInsert(val);
 		}
 		

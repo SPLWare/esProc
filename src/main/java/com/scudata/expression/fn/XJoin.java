@@ -17,9 +17,9 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * xjoin(Ai:Fi,xi;¡­)
- * ½«AiÅÅÁÐÎÞÌõ¼þ²æ³ËÆðÀ´£¬×é³ÉÒ»¸öÐÂÐò±í£¬ÐÂÐò±íÓÉ×Ö¶ÎFi,¡­×é³É£¬Ã¿¸öFiÒýÓÃÔ­ÐòÁÐAiµÄÒ»¸ö³ÉÔ±¡£²æ³Ë¹ý³ÌÖÐ£¬
- * ¹ýÂË³öAiÖÐÂú×ãÌõ¼þxiµÄ³ÉÔ±
+ * xjoin(Ai:Fi,xi;â€¦)
+ * å°†AiæŽ’åˆ—æ— æ¡ä»¶å‰ä¹˜èµ·æ¥ï¼Œç»„æˆä¸€ä¸ªæ–°åºè¡¨ï¼Œæ–°åºè¡¨ç”±å­—æ®µFi,â€¦ç»„æˆï¼Œæ¯ä¸ªFiå¼•ç”¨åŽŸåºåˆ—Aiçš„ä¸€ä¸ªæˆå‘˜ã€‚å‰ä¹˜è¿‡ç¨‹ä¸­ï¼Œ
+ * è¿‡æ»¤å‡ºAiä¸­æ»¡è¶³æ¡ä»¶xiçš„æˆå‘˜
  * @author runqian
  *
  */
@@ -30,7 +30,7 @@ public class XJoin extends Function {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓÐÐ§ÐÔ£¬ÎÞÐ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

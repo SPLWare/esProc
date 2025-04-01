@@ -27,7 +27,7 @@ public class If extends Function {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -42,7 +42,7 @@ public class If extends Function {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			return Boolean.valueOf(Variant.isTrue(obj));
 		} else if (param.getType() == IParam.Semicolon) {
-			// if(x1:y1,¡­,xk:yk;y)
+			// if(x1:y1,â€¦,xk:yk;y)
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("if" + mm.getMessage("function.invalidParam"));
@@ -142,7 +142,7 @@ public class If extends Function {
 					return null;
 				}
 			} else {
-				// if(x1:y1,¡­,xk:yk)
+				// if(x1:y1,â€¦,xk:yk)
 				for (int i = 0; i < size; ++i) {
 					sub = param.getSub(i);
 					if (sub == null || sub.getSubSize() != 2) {
@@ -176,8 +176,8 @@ public class If extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -190,7 +190,7 @@ public class If extends Function {
 				return array.isTrue();
 			}
 		} else if (param.getType() == IParam.Semicolon) {
-			// if(x1:y1,¡­,xk:yk;y)
+			// if(x1:y1,â€¦,xk:yk;y)
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("if" + mm.getMessage("function.invalidParam"));
@@ -292,7 +292,7 @@ public class If extends Function {
 				
 				return calcIf(x, a, b, ctx);
 			} else {
-				// if(x1:y1,¡­,xk:yk)
+				// if(x1:y1,â€¦,xk:yk)
 				Expression []exps = new Expression[size];
 				Expression []valExps = new Expression[size];
 				
@@ -323,10 +323,10 @@ public class If extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -334,9 +334,9 @@ public class If extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {

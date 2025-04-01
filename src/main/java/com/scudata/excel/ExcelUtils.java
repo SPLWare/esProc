@@ -155,9 +155,9 @@ public class ExcelUtils {
 			}
 			bis = new BufferedInputStream(pin, Env.FILE_BUFSIZE);
 			boolean isXlsx = isXlsxFile(bis);
-			if (isXlsx) { // Èç¹ûÀàĞÍÊÇOOXML¿ÉÒÔ¶Ï¶¨ÎÄ¼şÀàĞÍÊÇxlsx
+			if (isXlsx) { // å¦‚æœç±»å‹æ˜¯OOXMLå¯ä»¥æ–­å®šæ–‡ä»¶ç±»å‹æ˜¯xlsx
 				return true;
-			} else { // µ«ÊÇÀàĞÍÊÇOLE2µÄ£¬²»Ò»¶¨ÊÇxls£¬Ò²¿ÉÄÜÊÇ¼ÓÃÜÁËµÄxlsxÎÄ¼ş
+			} else { // ä½†æ˜¯ç±»å‹æ˜¯OLE2çš„ï¼Œä¸ä¸€å®šæ˜¯xlsï¼Œä¹Ÿå¯èƒ½æ˜¯åŠ å¯†äº†çš„xlsxæ–‡ä»¶
 				if (fo != null) {
 					String fileName = fo.getFileName();
 					if (StringUtils.isValidString(fileName)) {
@@ -231,17 +231,17 @@ public class ExcelUtils {
 	}
 
 	/**
-	 * ÊÇ·ñÈÕÆÚÊ±¼ä¸ñÊ½
+	 * æ˜¯å¦æ—¥æœŸæ—¶é—´æ ¼å¼
 	 * 
 	 * @param formatIndex
 	 * @param formatString
 	 * @return
 	 */
 	public static boolean isADateFormat(int formatIndex, String formatString) {
-		// POIµÄ·½·¨Ò²ÊÇ²»¶Ï¸Ä½øµÄ£¬¾¡Á¿»¹ÊÇÓÃÔ­Éú·½·¨
+		// POIçš„æ–¹æ³•ä¹Ÿæ˜¯ä¸æ–­æ”¹è¿›çš„ï¼Œå°½é‡è¿˜æ˜¯ç”¨åŸç”Ÿæ–¹æ³•
 		if (DateUtil.isADateFormat(formatIndex, formatString))
 			return true;
-		// Ò»Ğ©ÌØÊâµÄÖĞÎÄÈÕÆÚÊ±¼ä¸ñÊ½µ¥¶ÀÅĞ¶ÏÒ»ÏÂ
+		// ä¸€äº›ç‰¹æ®Šçš„ä¸­æ–‡æ—¥æœŸæ—¶é—´æ ¼å¼å•ç‹¬åˆ¤æ–­ä¸€ä¸‹
 		if (isChineseDateFormat(formatIndex, formatString)) {
 			return true;
 		}
@@ -249,7 +249,7 @@ public class ExcelUtils {
 	}
 
 	/**
-	 * ÌØÊâ´¦ÀíÒ»Ğ©ÖĞÎÄÈÕÆÚÊ±¼ä¸ñÊ½
+	 * ç‰¹æ®Šå¤„ç†ä¸€äº›ä¸­æ–‡æ—¥æœŸæ—¶é—´æ ¼å¼
 	 * 
 	 * @param formatIndex
 	 * @param formatString
@@ -276,13 +276,13 @@ public class ExcelUtils {
 	}
 
 	/**
-	 * ÖĞÎÄÈÕÆÚÊ±¼ä¸ñÊ½µÄ±àºÅ
+	 * ä¸­æ–‡æ—¥æœŸæ—¶é—´æ ¼å¼çš„ç¼–å·
 	 * 
 	 * @param formatIndex
 	 * @return
 	 */
 	private static boolean isChineseInternalDateFormat(int formatIndex) {
-		// ÓĞĞ©ÖĞÎÄ¸ñÊ½µÄ±àºÅ£¬ĞèÒª½øÒ»²½È·ÈÏ
+		// æœ‰äº›ä¸­æ–‡æ ¼å¼çš„ç¼–å·ï¼Œéœ€è¦è¿›ä¸€æ­¥ç¡®è®¤
 		switch (formatIndex) {
 		case 0x37:
 		case 0x38:
@@ -572,12 +572,12 @@ public class ExcelUtils {
 					type = ExcelVersionCompatibleUtilGetter.getInstance()
 							.getCellType(evaluator.evaluate(cell));
 				} catch (Exception e) {
-					// poi²»Ö§³ÖµÄº¯Êı¿ÉÄÜÅ×³öÒì³£ĞÅÏ¢
+					// poiä¸æ”¯æŒçš„å‡½æ•°å¯èƒ½æŠ›å‡ºå¼‚å¸¸ä¿¡æ¯
 					try {
 						type = ExcelVersionCompatibleUtilGetter.getInstance()
-								.getCachedFormulaResultType(cell); // È¡¹«Ê½¸ñ»º´æµÄÀàĞÍ
+								.getCachedFormulaResultType(cell); // å–å…¬å¼æ ¼ç¼“å­˜çš„ç±»å‹
 					} catch (Exception ex) {
-						// ÊÔ×ÅÈ¡Öµ
+						// è¯•ç€å–å€¼
 						try {
 							items[colIndex] = new Boolean(
 									cell.getBooleanCellValue());
@@ -656,7 +656,7 @@ public class ExcelUtils {
 			CellStyle cellStyle = cell.getCellStyle();
 			String dataFormatString = cellStyle.getDataFormatString();
 			double d = cell.getNumericCellValue();
-			if ("@".equals(dataFormatString)) { // ÊıÖµÄÚÈİ£¬ÎÄ±¾¸ñÊ½
+			if ("@".equals(dataFormatString)) { // æ•°å€¼å†…å®¹ï¼Œæ–‡æœ¬æ ¼å¼
 				DataFormatter dataFormatter = new DataFormatter();
 				return dataFormatter.formatCellValue(cell);
 			} else {
@@ -899,7 +899,7 @@ public class ExcelUtils {
 	 * 
 	 * @param data
 	 * @param isW
-	 * @wÊ±¿Õ´®¶Á³Énull
+	 * @wæ—¶ç©ºä¸²è¯»æˆnull
 	 * @return
 	 */
 	public static Object trim(Object data, boolean isW) {
@@ -1002,23 +1002,23 @@ public class ExcelUtils {
 	}
 
 	/**
-	 * ½«ExcelµÄÈÕÆÚÊ±¼äÊıÖµ×ª»»³ÉjavaµÄÈÕÆÚÊ±¼ä
+	 * å°†Excelçš„æ—¥æœŸæ—¶é—´æ•°å€¼è½¬æ¢æˆjavaçš„æ—¥æœŸæ—¶é—´
 	 * 
 	 * @param excelDateNumber
 	 * @return Date
 	 */
 	public static Date excelDateNumber2JavaDate(Number excelDateNumber) {
 		Date date = DateUtil.getJavaDate(excelDateNumber.doubleValue());
-		if (excelDateNumber instanceof Integer) { // ÕûÊı×ªÎªÈÕÆÚ
+		if (excelDateNumber instanceof Integer) { // æ•´æ•°è½¬ä¸ºæ—¥æœŸ
 			date = new java.sql.Date(date.getTime());
-		} else if (new Double(excelDateNumber.doubleValue()).compareTo(1.0d) < 0) { // Ö»ÓĞĞ¡Êı×ªÎªÊ±¼ä
+		} else if (new Double(excelDateNumber.doubleValue()).compareTo(1.0d) < 0) { // åªæœ‰å°æ•°è½¬ä¸ºæ—¶é—´
 			date = new Time(date.getTime());
 		}
 		return date;
 	}
 
 	/**
-	 * ½«javaµÄÈÕÆÚÊ±¼ä×ª»»³ÉExcelµÄÈÕÆÚÊ±¼äÊıÖµ
+	 * å°†javaçš„æ—¥æœŸæ—¶é—´è½¬æ¢æˆExcelçš„æ—¥æœŸæ—¶é—´æ•°å€¼
 	 * 
 	 * @param date
 	 * @return double
@@ -1033,7 +1033,7 @@ public class ExcelUtils {
 			time -= 1;
 		} else {
 			time = DateUtil.getExcelDate(date);
-			if (Double.compare(time, Math.round(time)) == 0) { // ÊÇÕûÊı
+			if (Double.compare(time, Math.round(time)) == 0) { // æ˜¯æ•´æ•°
 				return new Double(time).intValue();
 			}
 		}
@@ -1041,20 +1041,20 @@ public class ExcelUtils {
 	}
 
 	/**
-	 * ExcelµÄsheetÃû³Æ²»ÄÜ³¬¹ı31¸ö×Ö·û£¬²¢ÇÒ²»ÄÜ°üº¬[]:\/?*
+	 * Excelçš„sheetåç§°ä¸èƒ½è¶…è¿‡31ä¸ªå­—ç¬¦ï¼Œå¹¶ä¸”ä¸èƒ½åŒ…å«[]:\/?*
 	 * 
 	 * @return
 	 */
 	public static void checkSheetName(Object s) {
-		if (!StringUtils.isValidString(s)) { // ·Ç×Ö·û´®»òÕß¿Õ²»¼ì²é
+		if (!StringUtils.isValidString(s)) { // éå­—ç¬¦ä¸²æˆ–è€…ç©ºä¸æ£€æŸ¥
 			return;
 		}
 		String sheetName = s.toString();
-		// Excel¹¤×÷±íÃû³ÆµÄ³¤¶È²»ÄÜ³¬¹ı31¡£
+		// Excelå·¥ä½œè¡¨åç§°çš„é•¿åº¦ä¸èƒ½è¶…è¿‡31ã€‚
 		if (sheetName.length() > 31) {
 			throw new RQException(AppMessage.get().getMessage(
 					"excelutils.invalidsheetname"));
 		}
-		// ÌØÊâ×Ö·ûµÄ¼ì²époiÒÑ¾­×öÁË£¬²»ÔÙ¼ì²éÁË
+		// ç‰¹æ®Šå­—ç¬¦çš„æ£€æŸ¥poiå·²ç»åšäº†ï¼Œä¸å†æ£€æŸ¥äº†
 	}
 }

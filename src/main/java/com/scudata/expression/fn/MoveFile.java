@@ -13,11 +13,11 @@ import com.scudata.parallel.PartitionUtil;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÒÆ¶¯¡¢É¾³ı»ò¶ÔÎÄ¼şÖØÃüÃû
+ * ç§»åŠ¨ã€åˆ é™¤æˆ–å¯¹æ–‡ä»¶é‡å‘½å
  * movefile(fn,path) movefile(fn:z,path)
- * ½«ÎÄ¼şfnÒÆ¶¯µ½Ö¸¶¨Â·¾¶ÎÄ¼şpathÖĞ£¬pathÊ¡ÂÔ´ú±í½«ÎÄ¼şÉ¾³ı£¬pathÖ»ÓĞÎÄ¼şÃûÊ±±íÊ¾¶ÔÎÄ¼şÖØÃüÃû¡£
+ * å°†æ–‡ä»¶fnç§»åŠ¨åˆ°æŒ‡å®šè·¯å¾„æ–‡ä»¶pathä¸­ï¼Œpathçœç•¥ä»£è¡¨å°†æ–‡ä»¶åˆ é™¤ï¼Œpathåªæœ‰æ–‡ä»¶åæ—¶è¡¨ç¤ºå¯¹æ–‡ä»¶é‡å‘½åã€‚
  * movefile(fn:z,h;p,hs)
- * ½«·Ö»úhÉÏµÄÎÄ¼şfnÒÆµ½hs·Ö»úµÄpÂ·¾¶ÏÂ£¬hs¿ÉÊÇĞòÁĞ£»hÊ¡ÂÔ±¾»úhsÊ¡ÂÔÎª¸ÄÃû£¬p,hsÊ¡ÂÔÉ¾³ı£»hºÍpÊ¡ÂÔµ«hs²»¿ÕÔòÉ¾³ıhsÏÂµÄÎÄ¼ş
+ * å°†åˆ†æœºhä¸Šçš„æ–‡ä»¶fnç§»åˆ°hsåˆ†æœºçš„pè·¯å¾„ä¸‹ï¼Œhså¯æ˜¯åºåˆ—ï¼›hçœç•¥æœ¬æœºhsçœç•¥ä¸ºæ”¹åï¼Œp,hsçœç•¥åˆ é™¤ï¼›hå’Œpçœç•¥ä½†hsä¸ç©ºåˆ™åˆ é™¤hsä¸‹çš„æ–‡ä»¶
  * 
  * @author runqian
  *
@@ -29,7 +29,7 @@ public class MoveFile extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -38,7 +38,7 @@ public class MoveFile extends Function {
 		}
 	}
 
-	// ±¾»úÎÄ¼şÒÆ¶¯movefile(fn:z,path)
+	// æœ¬æœºæ–‡ä»¶ç§»åŠ¨movefile(fn:z,path)
 	private static Object localFileMove(IParam param, String option, Context ctx) {
 		IParam fnParam;
 		String path = null;
@@ -163,7 +163,7 @@ public class MoveFile extends Function {
 		}
 	}
 	
-	// ¼¯ÈºÎÄ¼şÒÆ¶¯movefile(fn:z,h;p,hs)
+	// é›†ç¾¤æ–‡ä»¶ç§»åŠ¨movefile(fn:z,h;p,hs)
 	private static Object clusterFileMove(IParam param, String option, Context ctx) {
 		if (param.getSubSize() != 2) {
 			MessageManager mm = EngineMessage.get();
@@ -176,9 +176,9 @@ public class MoveFile extends Function {
 			throw new RQException("movefile" + mm.getMessage("function.invalidParam"));
 		}
 		
-		String srcFile; // Ô´ÎÄ¼ş
-		int part = -1; // ·Ö±íºÅ
-		String host = null; // Ô´ÎÄ¼şËùÔÚ½Úµã»ú
+		String srcFile; // æºæ–‡ä»¶
+		int part = -1; // åˆ†è¡¨å·
+		String host = null; // æºæ–‡ä»¶æ‰€åœ¨èŠ‚ç‚¹æœº
 		int port = -1;
 		IParam fnParam;
 		
@@ -254,8 +254,8 @@ public class MoveFile extends Function {
 			}
 		}
 		
-		String path = null; // Ä¿±êÂ·¾¶
-		Machines hs = null; // Ä¿±ê»úÆ÷
+		String path = null; // ç›®æ ‡è·¯å¾„
+		Machines hs = null; // ç›®æ ‡æœºå™¨
 		IParam rightParam = param.getSub(1);
 		if (rightParam == null) {
 		} else if (rightParam.isLeaf()) {

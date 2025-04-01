@@ -11,8 +11,8 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔĞòÁĞ½øĞĞÈ¥ÖØ
- * A.id() A.id(xi,¡­;n)
+ * å¯¹åºåˆ—è¿›è¡Œå»é‡
+ * A.id() A.id(xi,â€¦;n)
  * @author RunQian
  *
  */
@@ -30,7 +30,7 @@ public class Id extends SequenceFunction {
 			return series;
 		}
 		
-		// Ã»ÓĞÉèÖÃn²ÎÊıÔòÈ¡³öËùÓĞ
+		// æ²¡æœ‰è®¾ç½®nå‚æ•°åˆ™å–å‡ºæ‰€æœ‰
 		int n = Integer.MAX_VALUE;
 		IParam expParam;
 		if (param.getType() == IParam.Semicolon) {

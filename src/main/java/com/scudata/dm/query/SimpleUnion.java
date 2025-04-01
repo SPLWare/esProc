@@ -64,7 +64,7 @@ public class SimpleUnion
 		if(start < 0)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":query, ·Ç·¨µÄ²éÑ¯Óï¾ä");
+			throw new RQException(mm.getMessage("syntax.error") + ":query, éæ³•çš„æŸ¥è¯¢è¯­å¥");
 		}
 		
 		tokens = Arrays.copyOfRange(tokens, start, next);
@@ -143,7 +143,7 @@ public class SimpleUnion
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":query, ×ö¼¯ºÏÔËËãµÄµÚ"+i+"¸ö±íÎª¿Õ±í");
+					throw new RQException(mm.getMessage("syntax.error") + ":query, åšé›†åˆè¿ç®—çš„ç¬¬"+i+"ä¸ªè¡¨ä¸ºç©ºè¡¨");
 				}
 			}
 			
@@ -151,7 +151,7 @@ public class SimpleUnion
 			if(subCurList.size() != 1 + mergeList.size())
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":query, ¼¯ºÏ¹Ø¼ü×ÖÓëÁ¬½ÓµÄ×Ó´Ó¾äÊıÄ¿²»Æ¥Åä");
+				throw new RQException(mm.getMessage("syntax.error") + ":query, é›†åˆå…³é”®å­—ä¸è¿æ¥çš„å­ä»å¥æ•°ç›®ä¸åŒ¹é…");
 			}
 			
 			this.icur = subCurList.get(0);
@@ -173,7 +173,7 @@ public class SimpleUnion
 						if(i == 0)
 						{
 							/*
-							//ÅÅĞò
+							//æ’åº
 							if(left instanceof MemoryCursor || this.isMemory)
 							{
 								left = new MemoryCursor(left.fetch().sort(exps, null, null, this.ctx));
@@ -182,16 +182,16 @@ public class SimpleUnion
 							{
 								left = CursorUtil.sortx(left, exps, this.ctx, EnvUtil.getCapacity(exps.length), null);
 							}
-							//È¥ÖØ
+							//å»é‡
 							left.addOperation(new Groups(exps, ds.getFieldNames(), new Expression[]{new Expression("count(1)")}, new String[]{"count(*)"}, "o", this.ctx), this.ctx);
-							//È¥³ı¶àÓàÏî
+							//å»é™¤å¤šä½™é¡¹
 							left.addOperation(new New(exps, ds.getFieldNames(), null), this.ctx);
 							*/
 
 							left = left == null ? null : left.groups(exps, ds.getFieldNames(), null, null, null, this.ctx);
 						}
 						/*
-						//ÅÅĞò
+						//æ’åº
 						if(right instanceof MemoryCursor || this.isMemory)
 						{
 							right = new MemoryCursor(right.fetch().sort(exps, null, null, this.ctx));
@@ -200,9 +200,9 @@ public class SimpleUnion
 						{
 							right = CursorUtil.sortx(right, exps, this.ctx, EnvUtil.getCapacity(exps.length), null);
 						}
-						//È¥ÖØ
+						//å»é‡
 						right.addOperation(new Groups(exps, ds.getFieldNames(), new Expression[]{new Expression("count(1)")}, new String[]{"count(*)"}, "o", this.ctx), this.ctx);
-						//È¥³ı¶àÓàÏî
+						//å»é™¤å¤šä½™é¡¹
 						right.addOperation(new New(exps, ds.getFieldNames(), null), this.ctx);
 						*/
 
@@ -225,7 +225,7 @@ public class SimpleUnion
 						break;
 					default:
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":query, ²»Ö§³ÖµÄ¼¯ºÏÀàĞÍ");
+						throw new RQException(mm.getMessage("syntax.error") + ":query, ä¸æ”¯æŒçš„é›†åˆç±»å‹");
 					}
 					
 					//ICursor[] curs = new ICursor[]{left, right};
@@ -241,12 +241,12 @@ public class SimpleUnion
 				if(orderList.size() <= 2)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":query, ORDER×Ó¾äÖĞÈ±ÉÙÅÅĞò×Ö¶Î");
+					throw new RQException(mm.getMessage("syntax.error") + ":query, ORDERå­å¥ä¸­ç¼ºå°‘æ’åºå­—æ®µ");
 				}
 				else if(!orderList.get(0).isKeyWord("ORDER") || !orderList.get(1).isKeyWord("BY"))
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":query, ORDER×Ó¾äµÄ¹Ø¼ü×ÖÒì³£");
+					throw new RQException(mm.getMessage("syntax.error") + ":query, ORDERå­å¥çš„å…³é”®å­—å¼‚å¸¸");
 				}
 				else
 				{ 
@@ -289,7 +289,7 @@ public class SimpleUnion
 									else
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, Éı½µĞò¹Ø¼ü×ÖÖØ¸´Ê¹ÓÃ");
+										throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, å‡é™åºå…³é”®å­—é‡å¤ä½¿ç”¨");
 									}
 								}
 								else if(orderTokens[i].isKeyWord("DESC"))
@@ -301,7 +301,7 @@ public class SimpleUnion
 									else
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, Éı½µĞò¹Ø¼ü×ÖÖØ¸´Ê¹ÓÃ");
+										throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, å‡é™åºå…³é”®å­—é‡å¤ä½¿ç”¨");
 									}
 								}
 								else
@@ -346,7 +346,7 @@ public class SimpleUnion
 									else
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, Éı½µĞò¹Ø¼ü×ÖÖØ¸´Ê¹ÓÃ");
+										throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, å‡é™åºå…³é”®å­—é‡å¤ä½¿ç”¨");
 									}
 								}
 								else if(orderTokens[i].isKeyWord("DESC"))
@@ -358,7 +358,7 @@ public class SimpleUnion
 									else
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, Éı½µĞò¹Ø¼ü×ÖÖØ¸´Ê¹ÓÃ");
+										throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, å‡é™åºå…³é”®å­—é‡å¤ä½¿ç”¨");
 									}
 								}
 								else
@@ -390,7 +390,7 @@ public class SimpleUnion
 							if(k <= 0 || k > ds.getFieldCount())
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, ÅÅĞò×Ö¶ÎĞòºÅ³¬³ö·¶Î§");
+								throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, æ’åºå­—æ®µåºå·è¶…å‡ºèŒƒå›´");
 							}
 							exps[i] = new Expression(String.format("%s#%d%s", ifDesc?"-(":"", k, ifDesc?")":""));
 						}
@@ -440,13 +440,13 @@ public class SimpleUnion
 		if(mergeList == null)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, ²ÎÊı´íÎó:¼¯ºÏÀàĞÍÁĞ±í¶ÔÏóÎª¿Õ");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, å‚æ•°é”™è¯¯:é›†åˆç±»å‹åˆ—è¡¨å¯¹è±¡ä¸ºç©º");
 		}
 		mergeList.clear();
 		if(orderList == null)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, ²ÎÊı´íÎó:ÅÅĞò×Ö¶ÎÁĞ±í¶ÔÏóÎª¿Õ");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, å‚æ•°é”™è¯¯:æ’åºå­—æ®µåˆ—è¡¨å¯¹è±¡ä¸ºç©º");
 		}
 		orderList.clear();
 		String[] keyWords = new String[]{"UNION", "INTERSECT", "EXCEPT", "MINUS"};
@@ -486,14 +486,14 @@ public class SimpleUnion
 				if(keyPos+1 == next)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, SQLÓï¾ä³¤¶È´íÎó");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, SQLè¯­å¥é•¿åº¦é”™è¯¯");
 				}
 				if(tokens[keyPos+1].getType() == Tokenizer.KEYWORD && tokens[keyPos+1].isKeyWord("ALL"))
 				{
 					if(mergeType != unionType)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, ²»Ö§³ÖEXCEPT(MINUS)»òINTERSECTÓëALL¹Ø¼ü×ÖÁ¬ÓÃ");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, ä¸æ”¯æŒEXCEPT(MINUS)æˆ–INTERSECTä¸ALLå…³é”®å­—è¿ç”¨");
 					}
 					mergeType |= allType;
 					begin = keyPos + 2;
@@ -505,7 +505,7 @@ public class SimpleUnion
 				if(begin == next)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, SQLÓï¾ä³¤¶È´íÎó");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, SQLè¯­å¥é•¿åº¦é”™è¯¯");
 				}
 				mergeList.add(mergeType);
 			}
@@ -524,9 +524,9 @@ public class SimpleUnion
 					if(i != sz-1)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, ÓĞ¼¯ºÏ¹ØÏµµÄÓï¾äORDER×Ó¾ä±ØĞëÔÚ×îºóÇÒÎ¨Ò»");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanUnion, æœ‰é›†åˆå…³ç³»çš„è¯­å¥ORDERå­å¥å¿…é¡»åœ¨æœ€åä¸”å”¯ä¸€");
 					}
-					else  // ·ñÔò×÷ÎªÈ«¾ÖµÄorder¼ÇÂ¼
+					else  // å¦åˆ™ä½œä¸ºå…¨å±€çš„orderè®°å½•
 					{
 						Token[] orderTokens = Arrays.copyOfRange(subTokens, orderPos, len);
 						orderList.addAll(Arrays.asList(orderTokens));
@@ -534,7 +534,7 @@ public class SimpleUnion
 						len = subTokens.length;
 					}
 				}
-				while(subTokens[0].getType() == Tokenizer.LPAREN) //ÍÑÈ¥ÎŞÒâÒåµÄÀ¨ºÅ
+				while(subTokens[0].getType() == Tokenizer.LPAREN) //è„±å»æ— æ„ä¹‰çš„æ‹¬å·
 				{
 					int end = Tokenizer.scanParen(subTokens, 0, len);
 					if(end == len - 1)
@@ -553,13 +553,13 @@ public class SimpleUnion
 					int topPos = Tokenizer.scanKeyWord("TOP", subTokens, 0, len);
 					int limitPos = Tokenizer.scanKeyWord("LIMIT", subTokens, 0, len);
 					int offsetPos = Tokenizer.scanKeyWord("OFFSET", subTokens, 0, len);
-					if(topPos < 0 && limitPos < 0 && offsetPos < 0) // °üº¬ÔÚÀ¨ºÅÀïµÄÃ»ÓĞtop/limit/offsetµÄÎŞÒâÒåorder½«±»ÓÅ»¯µô
+					if(topPos < 0 && limitPos < 0 && offsetPos < 0) // åŒ…å«åœ¨æ‹¬å·é‡Œçš„æ²¡æœ‰top/limit/offsetçš„æ— æ„ä¹‰orderå°†è¢«ä¼˜åŒ–æ‰
 					{
 						subTokens = Arrays.copyOfRange(subTokens, 0, orderPos);
 						len = subTokens.length;
 					}
 				}
-				while(subTokens[0].getType() == Tokenizer.LPAREN)//²Ã¼ôorderºóÔÙ´ÎÍÑÈ¥ÎŞÒâÒåµÄÀ¨ºÅ
+				while(subTokens[0].getType() == Tokenizer.LPAREN)//è£å‰ªorderåå†æ¬¡è„±å»æ— æ„ä¹‰çš„æ‹¬å·
 				{
 					int end = Tokenizer.scanParen(subTokens, 0, len);
 					if(end == len - 1)
@@ -584,22 +584,22 @@ public class SimpleUnion
 		if (start+4 >= next)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITH×Ó¾ä³¤¶È´íÎó");
+			throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITHå­å¥é•¿åº¦é”™è¯¯");
 		}
 		else if (tokens[start].getType() != Tokenizer.IDENT )
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITH×Ó¾ä±í±ğÃû´íÎó");
+			throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITHå­å¥è¡¨åˆ«åé”™è¯¯");
 		}
 		else if (!tokens[start+1].isKeyWord("AS"))
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITH×Ó¾äAS¹Ø¼ü×Ö´íÎó");
+			throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITHå­å¥ASå…³é”®å­—é”™è¯¯");
 		}
 		else if (tokens[start+2].getType() != Tokenizer.LPAREN || tokens[next-1].getType() != Tokenizer.RPAREN)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITH×Ó¾ä×óÓÒÀ¨ºÅ´íÎó");
+			throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITHå­å¥å·¦å³æ‹¬å·é”™è¯¯");
 		}
 		
 		String tableName = tokens[start].getString();
@@ -615,13 +615,13 @@ public class SimpleUnion
 		tableExpress = tableExpress.trim();
 		
 		Object tableNode = null;	
-		if(tableExpress.startsWith("\"") && tableExpress.endsWith("\"") //´ø""µÄÄ¬ÈÏÊÇ±íÎÄ¼şÃû£¬²»ÔÙÖ§³Ö
+		if(tableExpress.startsWith("\"") && tableExpress.endsWith("\"") //å¸¦""çš„é»˜è®¤æ˜¯è¡¨æ–‡ä»¶åï¼Œä¸å†æ”¯æŒ
 			&& tableExpress.substring(1, tableExpress.length()-1).indexOf("\"") == -1)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITH×Ó¾äÖĞÖ»ÄÜÊ¹ÓÃ¼¯ËãÆ÷½Å±¾»ò×Ó²éÑ¯Óï¾ä");
+			throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITHå­å¥ä¸­åªèƒ½ä½¿ç”¨é›†ç®—å™¨è„šæœ¬æˆ–å­æŸ¥è¯¢è¯­å¥");
 		}
-		else //·ñÔò¿ÉÄÜÊÇ¼¯ËãÆ÷±í´ïÊ½¡¢×Ó²éÑ¯Óï¾ä»ò±íÃû
+		else //å¦åˆ™å¯èƒ½æ˜¯é›†ç®—å™¨è¡¨è¾¾å¼ã€å­æŸ¥è¯¢è¯­å¥æˆ–è¡¨å
 		{
 			try
 			{
@@ -687,7 +687,7 @@ public class SimpleUnion
 							}
 						}
 						Map<String, Object> subWithTableMap = new HashMap<String, Object>();
-						subWithTableMap.putAll(this.withTableMap);//Éú³ÉĞÂµÄMapÒÔ·ÀÖ¹SimpleSQL»Øµ÷×ÔÉíÔì³ÉËÀÑ­»·
+						subWithTableMap.putAll(this.withTableMap);//ç”Ÿæˆæ–°çš„Mapä»¥é˜²æ­¢SimpleSQLå›è°ƒè‡ªèº«é€ æˆæ­»å¾ªç¯
 						SimpleSQL lq = new SimpleSQL(this.ics, newTokens, 0, newTokens.length, this.parameterList, this.ctx, false);
 						lq.setMemory(this.isMemory);
 						lq.setWithTableMap(subWithTableMap);
@@ -700,26 +700,26 @@ public class SimpleUnion
 						if(msg != null && msg.equalsIgnoreCase("INTO"))
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITH×Ó¾äÖĞ²»ÄÜÊ¹ÓÃINTO¹Ø¼ü×Ö");
+							throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITHå­å¥ä¸­ä¸èƒ½ä½¿ç”¨INTOå…³é”®å­—");
 						}
 						else if(msg != null && msg.equalsIgnoreCase("WITH"))
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITH×Ó¾äÖĞ²»ÄÜÇ¶Ì×WITH¹Ø¼ü×Ö");
+							throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITHå­å¥ä¸­ä¸èƒ½åµŒå¥—WITHå…³é”®å­—");
 						}
 						else if(msg != null && msg.equalsIgnoreCase("ORDER"))
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITH×Ó¾äÖĞ²»ÄÜÊ¹ÓÃORDER¹Ø¼ü×Ö³ı·ÇÓĞTOP/LIMIT/OFFSET¹Ø¼ü×Ö");
+							throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITHå­å¥ä¸­ä¸èƒ½ä½¿ç”¨ORDERå…³é”®å­—é™¤éæœ‰TOP/LIMIT/OFFSETå…³é”®å­—");
 						}
 
 						isSubQuery = false;
 					}
 				}
-				if(!isSubQuery) //²»ÔÙÖ§³Ö±íÎÄ¼şÂ·¾¶
+				if(!isSubQuery) //ä¸å†æ”¯æŒè¡¨æ–‡ä»¶è·¯å¾„
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITH×Ó¾äÖĞÖ»ÄÜÊ¹ÓÃ¼¯ËãÆ÷½Å±¾»ò×Ó²éÑ¯Óï¾ä");
+					throw new RQException(mm.getMessage("syntax.error") + ":addTable, WITHå­å¥ä¸­åªèƒ½ä½¿ç”¨é›†ç®—å™¨è„šæœ¬æˆ–å­æŸ¥è¯¢è¯­å¥");
 				}
 			}
 		}
@@ -736,7 +736,7 @@ public class SimpleUnion
 			if(withPos != start)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanWith, WITH¹Ø¼ü×ÖÎ»ÖÃ´íÎó");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanWith, WITHå…³é”®å­—ä½ç½®é”™è¯¯");
 			}
 			beginPos = withPos+1;
 			while(beginPos + 5 < next && tokens[beginPos].getType() == Tokenizer.IDENT 
@@ -748,7 +748,7 @@ public class SimpleUnion
 				if(endPos == next)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanWith, WITH×Ó¾äÈ±ÉÙÖ÷Óï¾ä");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanWith, WITHå­å¥ç¼ºå°‘ä¸»è¯­å¥");
 				}
 				else if(tokens[endPos].getType() != Tokenizer.COMMA)
 				{

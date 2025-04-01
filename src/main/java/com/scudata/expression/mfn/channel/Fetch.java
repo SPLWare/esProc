@@ -8,7 +8,7 @@ import com.scudata.expression.ChannelFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Îª¹ÜµÀ¶¨Òå±£Áô¹ÜµÀµ±Ç°Êı¾İ×÷Îª½á¹û¼¯µÄÔËËã
+ * ä¸ºç®¡é“å®šä¹‰ä¿ç•™ç®¡é“å½“å‰æ•°æ®ä½œä¸ºç»“æœé›†çš„è¿ç®—
  * ch.fetch()
  * @author RunQian
  *

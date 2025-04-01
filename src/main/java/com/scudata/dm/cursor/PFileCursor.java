@@ -14,35 +14,35 @@ import com.scudata.dm.Table;
 import com.scudata.resources.EngineMessage;
 
 /**
- * °´¸ø¶¨µÄ¼ÇÂ¼ÔÚ¼¯ÎÄ¼şÖĞµÄÎ»ÖÃ¹¹½¨ÓÎ±ê
+ * æŒ‰ç»™å®šçš„è®°å½•åœ¨é›†æ–‡ä»¶ä¸­çš„ä½ç½®æ„å»ºæ¸¸æ ‡
  * @author RunQian
  *
  */
 public class PFileCursor extends ICursor {
-	private FileObject fo; // ¼¯ÎÄ¼ş¶ÔÏó
-	private long []pos; // ¼ÇÂ¼ÔÚ¼¯ÎÄ¼şÖĞµÄÎ»ÖÃ
-	private int bufSize; // ¶ÁÎÄ¼şÓÃµÄ»º³åÇø´óĞ¡
-	private String []selFields; // Ñ¡³ö×Ö¶Î
+	private FileObject fo; // é›†æ–‡ä»¶å¯¹è±¡
+	private long []pos; // è®°å½•åœ¨é›†æ–‡ä»¶ä¸­çš„ä½ç½®
+	private int bufSize; // è¯»æ–‡ä»¶ç”¨çš„ç¼“å†²åŒºå¤§å°
+	private String []selFields; // é€‰å‡ºå­—æ®µ
 	
-	private BFileReader reader; // ¼¯ÎÄ¼ş¶ÁÈ¡Æ÷
-	private DataStruct ds; // Ô´ÎÄ¼şÊı¾İ½á¹¹
-	private DataStruct selDs; // ½á¹û¼¯Êı¾İ½á¹¹
-	private int []selIndex; // Ô´½á¹¹µÄÃ¿¸ö×Ö¶ÎÔÚ½á¹û¼¯½á¹¹ÖĞµÄĞòºÅ
-	private int index = 0; // µ±Ç°Òª¶ÁµÄ¼ÇÂ¼µÄĞòºÅ
+	private BFileReader reader; // é›†æ–‡ä»¶è¯»å–å™¨
+	private DataStruct ds; // æºæ–‡ä»¶æ•°æ®ç»“æ„
+	private DataStruct selDs; // ç»“æœé›†æ•°æ®ç»“æ„
+	private int []selIndex; // æºç»“æ„çš„æ¯ä¸ªå­—æ®µåœ¨ç»“æœé›†ç»“æ„ä¸­çš„åºå·
+	private int index = 0; // å½“å‰è¦è¯»çš„è®°å½•çš„åºå·
 	
-	// Èç¹ûskipËùÓĞÔò²»ĞèÒªÅÅĞò
-	private boolean isSorted = false; // Î»ÖÃÊı×éÊÇ·ñÒÑÅÅĞò
-	private boolean isEnd = false; // ÊÇ·ñÈ¡Êı½áÊø
-	private boolean isExist = true; // ×Ö¶ÎÊÇ·ñ¶¼ÔÚÎÄ¼şÖĞ
+	// å¦‚æœskipæ‰€æœ‰åˆ™ä¸éœ€è¦æ’åº
+	private boolean isSorted = false; // ä½ç½®æ•°ç»„æ˜¯å¦å·²æ’åº
+	private boolean isEnd = false; // æ˜¯å¦å–æ•°ç»“æŸ
+	private boolean isExist = true; // å­—æ®µæ˜¯å¦éƒ½åœ¨æ–‡ä»¶ä¸­
 	
 	/**
-	 * ¹¹½¨¶ÁÈ¡Ö¸¶¨Î»ÖÃ¼ÇÂ¼µÄÓÎ±ê
-	 * @param fo ¼¯ÎÄ¼ş¶ÔÏó
-	 * @param pos ¼ÇÂ¼Î»ÖÃÊı×é
-	 * @param bufSize ¶ÁÎÄ¼şÓÃµÄ»º³åÇøµÄ´óĞ¡
-	 * @param fields Ñ¡³ö×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî£¬u£º¼ÇÂ¼Î»ÖÃÊı×éÃ»ÓĞ°´ÕÕ´ÓĞ¡µ½´óÅÅĞò£¬Ä¬ÈÏÊÇÅÅºÃĞòµÄ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºè¯»å–æŒ‡å®šä½ç½®è®°å½•çš„æ¸¸æ ‡
+	 * @param fo é›†æ–‡ä»¶å¯¹è±¡
+	 * @param pos è®°å½•ä½ç½®æ•°ç»„
+	 * @param bufSize è¯»æ–‡ä»¶ç”¨çš„ç¼“å†²åŒºçš„å¤§å°
+	 * @param fields é€‰å‡ºå­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œuï¼šè®°å½•ä½ç½®æ•°ç»„æ²¡æœ‰æŒ‰ç…§ä»å°åˆ°å¤§æ’åºï¼Œé»˜è®¤æ˜¯æ’å¥½åºçš„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public PFileCursor(FileObject fo, long []pos, int bufSize, String []fields, String opt, Context ctx) {
 		this.fo = fo;
@@ -58,8 +58,8 @@ public class PFileCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -165,9 +165,9 @@ public class PFileCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (n < 1) {
@@ -192,7 +192,7 @@ public class PFileCursor extends ICursor {
 	}
 	
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public void close() {
 		super.close();
@@ -217,8 +217,8 @@ public class PFileCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

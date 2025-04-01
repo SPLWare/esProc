@@ -45,18 +45,18 @@ public class BufferWriter {
 	static final int RECORD = 0x25;
 	
 	public static final int MARK3 = 0x30;
-	public static final int DATE16 = 0x30; // 2000ÄêÖ®ºóµÄÈÕÆÚ
-	public static final int DATE32 = 0x31; // 2000ÄêÖ®Ç°µÄÈÕÆÚ
+	public static final int DATE16 = 0x30; // 2000å¹´ä¹‹åçš„æ—¥æœŸ
+	public static final int DATE32 = 0x31; // 2000å¹´ä¹‹å‰çš„æ—¥æœŸ
 	static final int TIME16 = 0x32;
 	static final int TIME17 = 0x33;
 	static final int DATETIME32 = 0x34;
 	static final int DATETIME33 = 0x35;
 	static final int DATETIME64 = 0x36;
 	static final int TIME32 = 0x37;
-	public static final int DATE24 = 0x38; // 2000ÄêÖ®ºóµÄÈÕÆÚ
-	public static final int DATE64 = 0x39; // ³¬½ç±íÊ¾²»ÁË¶¼µÃÈÕÆÚÓÃ64Î»±£´æ
+	public static final int DATE24 = 0x38; // 2000å¹´ä¹‹åçš„æ—¥æœŸ
+	public static final int DATE64 = 0x39; // è¶…ç•Œè¡¨ç¤ºä¸äº†éƒ½å¾—æ—¥æœŸç”¨64ä½ä¿å­˜
 	
-	public static final int SERIALBYTES = 0x40; // ÅÅºÅ
+	public static final int SERIALBYTES = 0x40; // æ’å·
 	public static final int REPEAT3 = 0x70;
 	static final int REPEAT11 = 0x78;
 	static final int MAX_REPEAT3 = 7 + 2;
@@ -79,7 +79,7 @@ public class BufferWriter {
 	public static final double MINFLOAT = 0.000001;
 	private static final int MAX_DIGIT_LEN = 30;
 
-	public static final long BASEDATE; // 1992ÄêÖ®Ç°ÓĞµÄÈÕÆÚ²»ÄÜ±»86400000Õû³ı
+	public static final long BASEDATE; // 1992å¹´ä¹‹å‰æœ‰çš„æ—¥æœŸä¸èƒ½è¢«86400000æ•´é™¤
 	static final long BASETIME;
 	static {
 		java.util.Calendar calendar = java.util.Calendar.getInstance();
@@ -93,7 +93,7 @@ public class BufferWriter {
 
 	static final int INIT_BUFFER_SIZE = 1024 * 64;
 	
-	private byte []buf; // Ğ´»º³åÇø
+	private byte []buf; // å†™ç¼“å†²åŒº
 	private int count = 0;
 	private StructManager structManager;
 	
@@ -110,7 +110,7 @@ public class BufferWriter {
 		this.structManager = structManager;
 	}
 
-	// ½áÊøĞ´£¬·µ»Ø½á¹û×Ö½ÚÊı×é
+	// ç»“æŸå†™ï¼Œè¿”å›ç»“æœå­—èŠ‚æ•°ç»„
 	public byte[] finish() throws IOException {
 		if (repeatCount > 0) {
 			writeRepeat();
@@ -217,7 +217,7 @@ public class BufferWriter {
 		}
 	}
 
-	// ³¤¶ÈĞ¡ÓÚµÈÓÚ32µÄÊı×Ö´®
+	// é•¿åº¦å°äºç­‰äº32çš„æ•°å­—ä¸²
 	private boolean isDigit(char []charr, int len) {
 		if (len > MAX_DIGIT_LEN) return false;
 
@@ -228,7 +228,7 @@ public class BufferWriter {
 		return true;
 	}
 
-	// ³¤¶ÈĞ¡ÓÚµÈÓÚ32µÄÊı×Ö´®
+	// é•¿åº¦å°äºç­‰äº32çš„æ•°å­—ä¸²
 	private void writeDigit(char []charr, int len) throws IOException {
 		if (buf.length - count < MAX_DIGIT_LEN) {
 			enlargeBuffer();
@@ -458,7 +458,7 @@ public class BufferWriter {
 		write(n & 0xFF);
 	}
 
-	// 5×Ö½Ú±íÊ¾long£¬µ¥ÎÄ¼ş´óĞ¡ÒªÇó²»³¬1T
+	// 5å­—èŠ‚è¡¨ç¤ºlongï¼Œå•æ–‡ä»¶å¤§å°è¦æ±‚ä¸è¶…1T
 	public void writeLong40(long v) throws IOException {
 		if (buf.length - count < 5) {
 			enlargeBuffer();
@@ -474,7 +474,7 @@ public class BufferWriter {
 		count = seq;
 	}
 	
-	/* 6×Ö½Ú±íÊ¾long£¬µ¥ÎÄ¼ş´óĞ¡ÒªÇó²»³¬256T£¬½ö¹²Êı¾İÍÚ¾ò±í£¬ÎÄ¼ş¶¨Î»Êı¾İµÄ±£´æ */
+	/* 6å­—èŠ‚è¡¨ç¤ºlongï¼Œå•æ–‡ä»¶å¤§å°è¦æ±‚ä¸è¶…256Tï¼Œä»…å…±æ•°æ®æŒ–æ˜è¡¨ï¼Œæ–‡ä»¶å®šä½æ•°æ®çš„ä¿å­˜ */
 	public void writeLong48(long v) throws IOException {
 		if (buf.length - count < 6) {
 			enlargeBuffer();
@@ -569,7 +569,7 @@ public class BufferWriter {
 	private void writeDate(java.sql.Date date) throws IOException {
 		long v = date.getTime();
 		if (v >= BASEDATE) {
-			// ¾«È·µ½Ìì
+			// ç²¾ç¡®åˆ°å¤©
 			int d = (int)((v - BASEDATE) / 86400000);
 			if (d > 0xFFFF) {
 				if (d > 0xFFFFFF) {
@@ -587,7 +587,7 @@ public class BufferWriter {
 				write(d & 0xFF);
 			}
 		} else {
-			// ¾«È·µ½Ãë
+			// ç²¾ç¡®åˆ°ç§’
 			long d = (BASEDATE - v) / 1000;
 			if (d > 0xFFFFFFFFL) {
 				write(DATE64);
@@ -644,7 +644,7 @@ public class BufferWriter {
 		if (ds == null) {
 			int type = DataBlockType.getSequenceDataType(seq, 1, len);
 			if (type != DataBlockType.NULL && len <= 0xFFFF) {
-				//ÊÇ´¿ÀàĞÍĞòÁĞ
+				//æ˜¯çº¯ç±»å‹åºåˆ—
 				if (type == DataBlockType.INT16) {
 					write(INT16_SEQUENCE);
 					write(len >>> 8);
@@ -680,7 +680,7 @@ public class BufferWriter {
 						writeLong64(v);
 					}
 				} else {
-					//ÆÕÍ¨ĞòÁĞ
+					//æ™®é€šåºåˆ—
 					write(SEQUENCE);
 					writeInt(len);
 					for (int i = 1; i <= len; ++i) {
@@ -688,7 +688,7 @@ public class BufferWriter {
 					}
 				}
 			} else {
-				//ÆÕÍ¨ĞòÁĞ
+				//æ™®é€šåºåˆ—
 				write(SEQUENCE);
 				writeInt(len);
 				for (int i = 1; i <= len; ++i) {
@@ -768,7 +768,7 @@ public class BufferWriter {
 			writeBytes((byte[])obj);
 		} else if (obj instanceof SerialBytes) {
 			SerialBytes sb = (SerialBytes)obj;
-			// ³¤¶È¹Ì¶¨ÊÇ16
+			// é•¿åº¦å›ºå®šæ˜¯16
 			write(SERIALBYTES);
 			writeLong64(sb.getValue1());
 			writeLong64(sb.getValue2());
@@ -786,13 +786,13 @@ public class BufferWriter {
 	}
 	
 	/**
-	 * Ğ´Èë¶ÔÏó£¬´Ë·½·¨»áÅĞ¶ÏÊÇ·ñ¸úÉÏÒ»¸öÖµÖØ¸´£¬²»ÄÜºÍÆäËüµÄwrite·½·¨»ì×ÅÓÃ£¬Èç¹ûµ÷ÓÃÍêÁËwriteObjectºóÏëµ÷ÓÃÆäËü·½·¨ĞèÒªÏÈµ÷ÓÃflush·½·¨
+	 * å†™å…¥å¯¹è±¡ï¼Œæ­¤æ–¹æ³•ä¼šåˆ¤æ–­æ˜¯å¦è·Ÿä¸Šä¸€ä¸ªå€¼é‡å¤ï¼Œä¸èƒ½å’Œå…¶å®ƒçš„writeæ–¹æ³•æ··ç€ç”¨ï¼Œå¦‚æœè°ƒç”¨å®Œäº†writeObjectåæƒ³è°ƒç”¨å…¶å®ƒæ–¹æ³•éœ€è¦å…ˆè°ƒç”¨flushæ–¹æ³•
 	 * @param obj
 	 * @throws IOException
 	 */
 	public void writeObject(Object obj) throws IOException {
 		if (repeatCount > 0) {
-			// Ôö¼ÓÀàĞÍÅĞ¶Ï£¬·ÀÖ¹0ºÍ0.0µÈµ±³ÉÁËÒ»¸ö¶ÔÏó
+			// å¢åŠ ç±»å‹åˆ¤æ–­ï¼Œé˜²æ­¢0å’Œ0.0ç­‰å½“æˆäº†ä¸€ä¸ªå¯¹è±¡
 			if (Variant.isEquals(repeatValue, obj) && 
 					(obj == null || obj.getClass() == repeatValue.getClass())) {
 				repeatCount++;
@@ -816,13 +816,13 @@ public class BufferWriter {
 		}
 	}
 	
-	//Ğ¡¶Ë·½Ê½Ğ´ÈëShort
+	//å°ç«¯æ–¹å¼å†™å…¥Short
 	public void writeLittleEndianShort(int v) throws IOException {
 		write((v >>> 0) & 0xFF);
 		write((v >>> 8) & 0xFF);
 	}
 	
-	//Ğ¡¶Ë·½Ê½Ğ´Èëint
+	//å°ç«¯æ–¹å¼å†™å…¥int
 	public void writeLittleEndianInt(int n) throws IOException {
 		write(n & 0xFF);
 		write((n >>>  8) & 0xFF);
@@ -830,7 +830,7 @@ public class BufferWriter {
 		write(n >>> 24);
 	}
 	
-	//Ğ¡¶Ë·½Ê½Ğ´ÈëLong
+	//å°ç«¯æ–¹å¼å†™å…¥Long
 	public void writeLittleEndianLong(long v) throws IOException {
 		if (buf.length - count < 8) {
 			enlargeBuffer();

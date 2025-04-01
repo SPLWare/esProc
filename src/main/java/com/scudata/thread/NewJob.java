@@ -11,21 +11,21 @@ import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
 
 /**
- * ÓÃÓÚÖ´ĞĞA.newµÄÈÎÎñ
+ * ç”¨äºæ‰§è¡ŒA.newçš„ä»»åŠ¡
  * @author RunQian
  *
  */
 class NewJob extends Job {
-	private Sequence src; // Ô´ĞòÁĞ
-	private int start; // ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	private int end; // ½áÊøÎ»ÖÃ£¬²»°üÀ¨
+	private Sequence src; // æºåºåˆ—
+	private int start; // èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	private int end; // ç»“æŸä½ç½®ï¼Œä¸åŒ…æ‹¬
 	
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹
-	private Expression[] exps; // ¼ÆËã±í´ïÊ½Êı×é
-	private String opt; // Ñ¡Ïî
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„
+	private Expression[] exps; // è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	private String opt; // é€‰é¡¹
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
 	
-	private Table result; // ½á¹û¼¯
+	private Table result; // ç»“æœé›†
 	
 	public NewJob(Sequence src, int start, int end, DataStruct ds, Expression[] exps, String opt, Context ctx) {
 		this.src = src;
@@ -81,7 +81,7 @@ class NewJob extends Job {
 						if (obj != null) {
 							r.setNormalFieldValue(c, obj);
 						} else {
-							mems.remove(i); // ¼ÆËãexps¿ÉÄÜÒÀÀµÓÚĞÂ²úÉúµÄ¼ÇÂ¼
+							mems.remove(i); // è®¡ç®—expså¯èƒ½ä¾èµ–äºæ–°äº§ç”Ÿçš„è®°å½•
 							continue Next;
 						}
 					}

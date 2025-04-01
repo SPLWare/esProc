@@ -1,13 +1,13 @@
 package com.scudata.dm;
 
 /**
- * ÇøÓò£¬ÓÃÓÚ±ê¼ÇĞòÁĞµÄÆğÊ¼Î»ÖÃºÍ½áÊøÎ»ÖÃ
+ * åŒºåŸŸï¼Œç”¨äºæ ‡è®°åºåˆ—çš„èµ·å§‹ä½ç½®å’Œç»“æŸä½ç½®
  * @author WangXiaoJun
  *
  */
 public class Region {
-	public int start; // ÆğÊ¼Î»ÖÃ£¨°üÀ¨£©
-	public int end; // ½áÊøÎ»ÖÃ£¨°üÀ¨£©
+	public int start; // èµ·å§‹ä½ç½®ï¼ˆåŒ…æ‹¬ï¼‰
+	public int end; // ç»“æŸä½ç½®ï¼ˆåŒ…æ‹¬ï¼‰
 	
 	public Region(int start, int end) {
 		this.start = start;

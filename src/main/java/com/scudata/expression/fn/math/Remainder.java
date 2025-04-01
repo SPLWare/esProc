@@ -10,9 +10,9 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * remainder(a,b) ȡ�࣬a,b����ֵ
- * b>0ʱ����[0,b)֮�����xʹ��(a-x)/b������
- * b<0ʱ������[b,-b)֮�����xʹ��(a-x)/2/b������
+ * remainder(a,b) 取余，a,b是数值
+ * b>0时返回[0,b)之间的数x使得(a-x)/b是整数
+ * b<0时，返回[b,-b)之间的数x使得(a-x)/2/b是整数
  * @author RunQian
  *
  */
@@ -21,7 +21,7 @@ public class Remainder extends Function {
 	private Expression exp2;
 
 	/**
-	 * ������ʽ����Ч�ԣ���Ч���׳��쳣
+	 * 检查表达式的有效性，无效则抛出异常
 	 */
 	public void checkValidity() {
 		if (param == null) {

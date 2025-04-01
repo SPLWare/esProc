@@ -29,28 +29,28 @@ import com.scudata.expression.operator.DotOperator;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÄÚ±íÀà
+ * å†…è¡¨ç±»
  * @author runqian
  *
  */
 public class MemoryTable extends Table {
 	private static final long serialVersionUID = 0x03310004;
 	
-	// Èç¹ûÓĞ·Ö²¼±í´ïÊ½ÔòÊı¾İÔÚ½Úµã»ú¼äÊÇ·Ö²¼µÄ£¬Èç¹ûÃ»ÓĞÔòÒªÇóÊı¾İÓĞĞò£¬ĞèÒª±È½Ï½Úµã»ú½¨Êı¾İµÄ·¶Î§ÊÇ·ñÖØºÏ
-	private String distribute; // ·Ö²¼±í´ïÊ½
-	private int part = -1; // ËùÊôµÄ·Ö±í
+	// å¦‚æœæœ‰åˆ†å¸ƒè¡¨è¾¾å¼åˆ™æ•°æ®åœ¨èŠ‚ç‚¹æœºé—´æ˜¯åˆ†å¸ƒçš„ï¼Œå¦‚æœæ²¡æœ‰åˆ™è¦æ±‚æ•°æ®æœ‰åºï¼Œéœ€è¦æ¯”è¾ƒèŠ‚ç‚¹æœºå»ºæ•°æ®çš„èŒƒå›´æ˜¯å¦é‡åˆ
+	private String distribute; // åˆ†å¸ƒè¡¨è¾¾å¼
+	private int part = -1; // æ‰€å±çš„åˆ†è¡¨
 	
-	private int []segmentFields; // Éú³É¶àÂ·ÓÎ±êÊ±ÓÃÓÚ·Ö¶ÎµÄ×Ö¶Î
+	private int []segmentFields; // ç”Ÿæˆå¤šè·¯æ¸¸æ ‡æ—¶ç”¨äºåˆ†æ®µçš„å­—æ®µ
 	private List<MemoryTableIndex> indexs;
 	
 	/**
-	 * ĞòÁĞ»¯Ê±Ê¹ÓÃ
+	 * åºåˆ—åŒ–æ—¶ä½¿ç”¨
 	 */
 	public MemoryTable() {}
 
 	/**
-	 * ´´½¨
-	 * @param fields String[] ÅÅÁĞµÄÆÕÍ¨×Ö¶Î
+	 * åˆ›å»º
+	 * @param fields String[] æ’åˆ—çš„æ™®é€šå­—æ®µ
 	 * @return Table
 	 */
 	public MemoryTable(String []fields) {
@@ -75,8 +75,8 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * ´´½¨Ñ¹ËõÄÚ´æ±í
-	 * cursorÀïµÄ¼ÇÂ¼¶¼´æ½øÈ¥
+	 * åˆ›å»ºå‹ç¼©å†…å­˜è¡¨
+	 * cursoré‡Œçš„è®°å½•éƒ½å­˜è¿›å»
 	 * @param cursor
 	 */
 	public MemoryTable(ICursor cursor) {
@@ -90,8 +90,8 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * ´´½¨Ñ¹ËõÄÚ´æ±í
-	 * cursorÀïÈ¡nÌõ¼ÇÂ¼¶¼´æ½øÈ¥
+	 * åˆ›å»ºå‹ç¼©å†…å­˜è¡¨
+	 * cursoré‡Œå–næ¡è®°å½•éƒ½å­˜è¿›å»
 	 * @param cursor
 	 * @param n
 	 */
@@ -106,7 +106,7 @@ public class MemoryTable extends Table {
 	}
 
 	/**
-	 * ÊÇ·ñÊÇÑ¹Ëõ±í£¬Ñ¹Ëõ±í´´½¨Ë÷ÒıÊ±¼ÇÖ÷¼üºÍĞòºÅ
+	 * æ˜¯å¦æ˜¯å‹ç¼©è¡¨ï¼Œå‹ç¼©è¡¨åˆ›å»ºç´¢å¼•æ—¶è®°ä¸»é”®å’Œåºå·
 	 * @return
 	 */
 	public boolean isCompressTable() {
@@ -114,13 +114,13 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * ×·¼Ó
+	 * è¿½åŠ 
 	 * @param table
 	 */
 	public Sequence append(Sequence table) {
 		IArray addMems = table.getMems();
 
-		// ¸ü¸Ä¼ÇÂ¼ËùÊôµÄÅÅÁĞºÍĞòºÅ
+		// æ›´æ”¹è®°å½•æ‰€å±çš„æ’åˆ—å’Œåºå·
 		DataStruct ds = this.ds;
 		for (int i = 1, addCount = addMems.size(); i <= addCount; ++i) {
 			Record r = (Record)addMems.get(i);
@@ -132,7 +132,7 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * ¸üĞÂ
+	 * æ›´æ–°
 	 * @param data
 	 * @param opt
 	 * @return
@@ -211,7 +211,7 @@ public class MemoryTable extends Table {
 			}
 		}
 		
-		// ĞèÒªÔÚ×îºó²åÈëµÄµ÷ÓÃappend×·¼Ó
+		// éœ€è¦åœ¨æœ€åæ’å…¥çš„è°ƒç”¨appendè¿½åŠ 
 		IArray mems = this.mems;
 		for (int i = 1; i <= len; ++i) {
 			Record r = (Record)data.getMem(i);
@@ -246,7 +246,7 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 */
 	public Sequence delete(Sequence data, String opt) {
 		if (data == null || data.length() == 0) {
@@ -291,7 +291,7 @@ public class MemoryTable extends Table {
 		}
 
 		if (keyCount == 1) {
-			// ²éÕÒÒªÉ¾³ıµÄ¼ÇÂ¼ÔÚÅÅÁĞÖĞµÄÎ»ÖÃ
+			// æŸ¥æ‰¾è¦åˆ é™¤çš„è®°å½•åœ¨æ’åˆ—ä¸­çš„ä½ç½®
 			int ki = keyIndex[0];
 			for (int i = 1; i <= count; ++i) {
 				BaseRecord r = (BaseRecord)dataMems.get(i);
@@ -305,7 +305,7 @@ public class MemoryTable extends Table {
 				}
 			}
 		} else {
-			// ²éÕÒÒªÉ¾³ıµÄ¼ÇÂ¼ÔÚÅÅÁĞÖĞµÄÎ»ÖÃ
+			// æŸ¥æ‰¾è¦åˆ é™¤çš„è®°å½•åœ¨æ’åˆ—ä¸­çš„ä½ç½®
 			int []srcPKIndex = this.ds.getPKIndex();
 			Object []keyValues = new Object[keyCount];
 			for (int i = 1; i <= count; ++i) {
@@ -339,7 +339,7 @@ public class MemoryTable extends Table {
 			index = tmp;
 		}
 
-		// ¶ÔË÷Òı½øĞĞÅÅĞò
+		// å¯¹ç´¢å¼•è¿›è¡Œæ’åº
 		Arrays.sort(index);
 		mems.remove(index);
 
@@ -353,7 +353,7 @@ public class MemoryTable extends Table {
 	}
 
 	/**
-	 * ²éÕÒ
+	 * æŸ¥æ‰¾
 	 */
 	public Object findByKey(Object key, boolean isSorted) {
 		IndexTable indexTable = getIndexTable();
@@ -362,7 +362,7 @@ public class MemoryTable extends Table {
 			return index > 0 ? mems.get(index) : null;
 		} else {
 			if (key instanceof Sequence) {
-				// key¿ÉÒÔÊÇ×Ó±íµÄ¼ÇÂ¼£¬Ö÷¼üÊı¶àÓÚB
+				// keyå¯ä»¥æ˜¯å­è¡¨çš„è®°å½•ï¼Œä¸»é”®æ•°å¤šäºB
 				if (length() == 0) {
 					return null;
 				}
@@ -402,15 +402,15 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * ÉèÖÃ·Ö±í±í´ïÊ½
-	 * @param exp ·Ö±í±í´ïÊ½
+	 * è®¾ç½®åˆ†è¡¨è¡¨è¾¾å¼
+	 * @param exp åˆ†è¡¨è¡¨è¾¾å¼
 	 */
 	public void setDistribute(String exp) {
 		distribute = exp;
 	}
 	
 	/**
-	 * È¡·Ö²¼±í´ïÊ½
+	 * å–åˆ†å¸ƒè¡¨è¾¾å¼
 	 * @return
 	 */
 	public String getDistribute() {
@@ -418,15 +418,15 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * ÉèÖÃ·Ö±íºÅ
-	 * @param part ·Ö±íºÅ
+	 * è®¾ç½®åˆ†è¡¨å·
+	 * @param part åˆ†è¡¨å·
 	 */
 	public void setPart(int part) {
 		this.part = part;
 	}
 	
 	/**
-	 * È¡·Ö±íºÅ
+	 * å–åˆ†è¡¨å·
 	 * @return
 	 */
 	public int getPart() {
@@ -434,7 +434,7 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * ÉèÖÃ·Ö¶Î×Ö¶Î
+	 * è®¾ç½®åˆ†æ®µå­—æ®µ
 	 * @param fields
 	 */
 	public void setSegmentFields(String []fields) {
@@ -452,14 +452,14 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * ÉèÖÃµÚÒ»¸ö×Ö¶ÎÎª·Ö¶Î×Ö¶Î
+	 * è®¾ç½®ç¬¬ä¸€ä¸ªå­—æ®µä¸ºåˆ†æ®µå­—æ®µ
 	 */
 	public void setSegmentField1() {
 		segmentFields = new int[] {0};
 	}
 	
 	/**
-	 * È¡·Ö¶Î×Ö¶ÎË÷Òı
+	 * å–åˆ†æ®µå­—æ®µç´¢å¼•
 	 * @return
 	 */
 	public int[] getSegmentFields() {
@@ -467,9 +467,9 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * ·µ»ØÏÂÒ»¶ÎµÄ¿ªÊ¼Î»ÖÃ
-	 * @param i ĞĞºÅ
-	 * @param segmentFields ·Ö¶Î×Ö¶Î
+	 * è¿”å›ä¸‹ä¸€æ®µçš„å¼€å§‹ä½ç½®
+	 * @param i è¡Œå·
+	 * @param segmentFields åˆ†æ®µå­—æ®µ
 	 * @return
 	 */
 	private int getSegmentEnd(int i, int []segmentFields) {
@@ -490,7 +490,7 @@ public class MemoryTable extends Table {
 			return new MemoryCursor(this);
 		}
 
-		// ²úÉú¶àÂ·ÓÎ±ê
+		// äº§ç”Ÿå¤šè·¯æ¸¸æ ‡
 		int len = length();
 		int blockSize = len / segCount;
 		int []segmentFields = this.segmentFields;
@@ -501,8 +501,8 @@ public class MemoryTable extends Table {
 			}
 			
 			ICursor []cursors = new ICursor[segCount];
-			int start = 1; // °üº¬
-			int end; // ²»°üº¬
+			int start = 1; // åŒ…å«
+			int end; // ä¸åŒ…å«
 			
 			if (segmentFields == null) {
 				for (int i = 1; i <= segCount; ++i) {
@@ -516,7 +516,7 @@ public class MemoryTable extends Table {
 					start = end;
 				}
 			} else {
-				// ÓĞ·Ö¶Î×Ö¶ÎÊ±£¬·Ö¶Î×Ö¶ÎÖµÏàÍ¬µÄ²»»á±»²ğµ½Á½¸öÓÎ±ê
+				// æœ‰åˆ†æ®µå­—æ®µæ—¶ï¼Œåˆ†æ®µå­—æ®µå€¼ç›¸åŒçš„ä¸ä¼šè¢«æ‹†åˆ°ä¸¤ä¸ªæ¸¸æ ‡
 				for (int i = 1; i <= segCount; ++i) {
 					if (i == segCount) {
 						end = len + 1;
@@ -534,9 +534,9 @@ public class MemoryTable extends Table {
 			
 			return new MultipathCursors(cursors, ctx);
 		} else {
-			// ²úÉú·Ö¶ÎÓÎ±ê
-			int start = 1; // °üº¬
-			int end; // ²»°üº¬
+			// äº§ç”Ÿåˆ†æ®µæ¸¸æ ‡
+			int start = 1; // åŒ…å«
+			int end; // ä¸åŒ…å«
 			if (segSeq == segCount) {
 				start = blockSize * (segSeq - 1) + 1;
 				end = len + 1;
@@ -572,13 +572,13 @@ public class MemoryTable extends Table {
 		return null;
 	}
 	/**
-	 * ĞÂ½¨Ë÷Òı
-	 * @param I Ë÷ÒıÃû³Æ
-	 * @param fields ×Ö¶ÎÃû³Æ
-	 * @param obj µ±KVË÷ÒıÊ±±íÊ¾Öµ×Ö¶ÎÃû³Æ£¬µ±hashË÷ÒıÊ±±íÊ¾hashÃÜ¶È
-	 * @param opt °üº¬'a'Ê±±íÊ¾×·¼Ó, °üº¬'r'Ê±±íÊ¾ÖØ½¨Ë÷Òı
-	 * @param w ½¨Á¢Ê±µÄ¹ıÂËÌõ¼ş
-	 * @param ctx ÉÏÏÂÎÄ
+	 * æ–°å»ºç´¢å¼•
+	 * @param I ç´¢å¼•åç§°
+	 * @param fields å­—æ®µåç§°
+	 * @param obj å½“KVç´¢å¼•æ—¶è¡¨ç¤ºå€¼å­—æ®µåç§°ï¼Œå½“hashç´¢å¼•æ—¶è¡¨ç¤ºhashå¯†åº¦
+	 * @param opt åŒ…å«'a'æ—¶è¡¨ç¤ºè¿½åŠ , åŒ…å«'r'æ—¶è¡¨ç¤ºé‡å»ºç´¢å¼•
+	 * @param w å»ºç«‹æ—¶çš„è¿‡æ»¤æ¡ä»¶
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 */
 	public void createIMemoryTableIndex(String I, String []fields, Object obj, String opt, Expression w, Context ctx) {
 		if (getIndex(I) != null) {
@@ -592,7 +592,7 @@ public class MemoryTable extends Table {
 		}
 		if (obj == null) {
 			if  (opt != null) {
-				//È«ÎÄ
+				//å…¨æ–‡
 				if  (opt.indexOf('w') != -1) {
 					MemoryTableIndex index = new MemoryTableIndex(I, this, fields, w, 0, MemoryTableIndex.TYPE_FULLTEXT, ctx);
 					indexs.add(index);
@@ -602,7 +602,7 @@ public class MemoryTable extends Table {
 				throw new RQException("index" + mm.getMessage("function.invalidParam"));
 			}
 			
-			//ÅÅĞò
+			//æ’åº
 			MemoryTableIndex index = new MemoryTableIndex(I, this, fields, w, 0, MemoryTableIndex.TYPE_SORT, ctx);
 			indexs.add(index);
 		} else if (obj instanceof String[]) {
@@ -617,7 +617,7 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * ¸ù¾İÒª´¦ÀíµÄ×Ö¶ÎÑ¡ÔñÒ»¸öºÏÊÊµÄË÷ÒıµÄÃû×Ö£¬Ã»ÓĞºÏÊÊµÄÔò·µ»Ø¿Õ
+	 * æ ¹æ®è¦å¤„ç†çš„å­—æ®µé€‰æ‹©ä¸€ä¸ªåˆé€‚çš„ç´¢å¼•çš„åå­—ï¼Œæ²¡æœ‰åˆé€‚çš„åˆ™è¿”å›ç©º
 	 * @param fieldNames
 	 * @return
 	 */
@@ -647,7 +647,7 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * Ë÷Òı²éÑ¯º¯ÊıicursorµÄÈë¿Ú
+	 * ç´¢å¼•æŸ¥è¯¢å‡½æ•°icursorçš„å…¥å£
 	 */
 	public ICursor icursor(String []fields, Expression filter, String iname, String opt, Context ctx) {
 		MemoryTableIndex index = null;
@@ -679,7 +679,7 @@ public class MemoryTable extends Table {
 			}
 			String indexName = chooseIndex(indexFields);
 			if (indexFields == null || indexName == null) {
-				//filterÖĞ²»°üº¬ÈÎºÎ×Ö¶Î or Ë÷Òı²»´æÔÚ
+				//filterä¸­ä¸åŒ…å«ä»»ä½•å­—æ®µ or ç´¢å¼•ä¸å­˜åœ¨
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
 			}
@@ -691,7 +691,7 @@ public class MemoryTable extends Table {
 	}
 	
 	/**
-	 * Ë÷Òı²éÑ¯º¯ÊıifindµÄÈë¿Ú
+	 * ç´¢å¼•æŸ¥è¯¢å‡½æ•°ifindçš„å…¥å£
 	 */
 	public Object ifind(Object key, String iname, String opt, Context ctx) {
 		MemoryTableIndex index = null;

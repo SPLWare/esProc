@@ -13,8 +13,8 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔĞòÁĞ×öÅÅĞò£¬·µ»ØÅÅĞòºóµÄĞòÁĞ
- * A.sort(x) A.sort(xi:di,..) A.sort(¡­;loc)
+ * å¯¹åºåˆ—åšæ’åºï¼Œè¿”å›æ’åºåçš„åºåˆ—
+ * A.sort(x) A.sort(xi:di,..) A.sort(â€¦;loc)
  * @author RunQian
  *
  */
@@ -82,7 +82,7 @@ public class Sort extends SequenceFunction {
 	}
 	
 	/**
-	 * ¼ì²é±È½ÏÊÇ·ñ¶¼ÊÇ¼ÇÂ¼µÄ×Ö¶Î
+	 * æ£€æŸ¥æ¯”è¾ƒæ˜¯å¦éƒ½æ˜¯è®°å½•çš„å­—æ®µ
 	 * @return
 	 */
 	private int[] isAllRecordFields(Expression[] exps) {

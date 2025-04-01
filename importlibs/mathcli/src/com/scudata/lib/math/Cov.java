@@ -11,7 +11,7 @@ import com.scudata.expression.fn.algebra.Matrix;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Á½¸öÏòÁ¿µÄĞ­·½²îcov(A, B)
+ * ä¸¤ä¸ªå‘é‡çš„åæ–¹å·®cov(A, B)
  * @author bd
  */
 public class Cov extends Function {
@@ -37,7 +37,7 @@ public class Cov extends Function {
 			Object o1 = sub1.getLeafExpression().calculate(ctx);
 			Object o2 = sub2.getLeafExpression().calculate(ctx);
 			if (o1 instanceof Sequence && o2 instanceof Sequence) {
-				// edited by bd, 2021.11.17, ÔÚdisº¯ÊıÖĞ£¬µ¥²ãĞòÁĞÈÏÎªÊÇºáÏòÁ¿
+				// edited by bd, 2021.11.17, åœ¨diså‡½æ•°ä¸­ï¼Œå•å±‚åºåˆ—è®¤ä¸ºæ˜¯æ¨ªå‘é‡
 				Sequence s1 = (Sequence) o1;
 				Sequence s2 = (Sequence) o2;
 				Matrix A = new Matrix(s1);
@@ -46,24 +46,24 @@ public class Cov extends Function {
 				Object o11 = s1.length() > 0 ? s1.get(1) : null;
 				Object o21 = s2.length() > 0 ? s2.get(1) : null;
 				if (!(o11 instanceof Sequence)) {
-					// AÎªµ¥ĞòÁĞ¶¨ÒåµÄÏòÁ¿£¬×ª³ÉºáÏòÁ¿
+					// Aä¸ºå•åºåˆ—å®šä¹‰çš„å‘é‡ï¼Œè½¬æˆæ¨ªå‘é‡
 					A = A.transpose();
 				}
 				if (!(o21 instanceof Sequence)) {
-					// AÎªµ¥ĞòÁĞ¶¨ÒåµÄÏòÁ¿£¬×ª³ÉºáÏòÁ¿
+					// Aä¸ºå•åºåˆ—å®šä¹‰çš„å‘é‡ï¼Œè½¬æˆæ¨ªå‘é‡
 					B = B.transpose();
 				}
 				double[] as = A.getArray()[0];
 				double[] bs = B.getArray()[0];
 				int rs = as.length;
 				if (rs != bs.length) {
-					// ²»Í¬Î¬
+					// ä¸åŒç»´
 					MessageManager mm = EngineMessage.get();
-					//edited by bd, 2020.3.10, ¾ØÕóÔËËãÖĞµÄÎÊÌâÖ»Êä³ö´íÎóĞÅÏ¢£¬²»ÖĞ¶Ï£¬·µ»Ønull
+					//edited by bd, 2020.3.10, çŸ©é˜µè¿ç®—ä¸­çš„é—®é¢˜åªè¾“å‡ºé”™è¯¯ä¿¡æ¯ï¼Œä¸ä¸­æ–­ï¼Œè¿”å›null
 					Logger.warn("cov" + mm.getMessage("function.paramTypeError"));
 					return null;
 				}
-				// Ğ­·½²î
+				// åæ–¹å·®
 				double avga = 0;
 				for (int i = 0; i < rs; i++) {
 					avga += as[i];

@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 /**
- * µÈ´ıÏß³Ì£¬ÓÃÓÚ½ÓÊÜProcess·µ»ØµÄĞÅÏ¢
+ * ç­‰å¾…çº¿ç¨‹ï¼Œç”¨äºæ¥å—Processè¿”å›çš„ä¿¡æ¯
  */
 public class ProcessWatchThread extends Thread {
 	InputStream in;

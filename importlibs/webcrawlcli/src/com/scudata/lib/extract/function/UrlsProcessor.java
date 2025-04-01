@@ -27,7 +27,7 @@ import us.codecraft.webmagic.selector.Selectable;
 
 public class UrlsProcessor implements PageProcessor {
 	private JSONArray m_json;
-	private Map<String, Object> m_map_of_object;	//遍历的url规则
+	private Map<String, Object> m_map_of_object;	//閬嶅巻鐨剈rl瑙勫垯
 	
 	private Site site = Site.me().setDomain("raqsoft.com").setSleepTime(2000)
 			.setUserAgent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0");
@@ -114,14 +114,14 @@ public class UrlsProcessor implements PageProcessor {
     		System.out.println("helpUrl = "+url);
     		parseHelpUrls(page, m_map_of_object);    	
     	}
-    	//2. 收集targetUrl
+    	//2. 鏀堕泦targetUrl
     	key = "target_url";
     	List<Object> regContent= new ArrayList<Object>();
     	m_map_of_object = ImUtils.getJsonMap(m_json, key);
     	if(ImUtils.hasKeyMap(url, m_map_of_object, regContent)){
     		parseTargetUrls(page, regContent);
     	}
-    	// 3. 保存target页面数据.
+    	// 3. 淇濆瓨target椤甸潰鏁版嵁.
     	if(page.getRequest().getExtra("target_page")!=null){
     		page.getRequest().putExtra("target_page", null);
     		System.out.println("TargetUrl = "+url);
@@ -165,12 +165,12 @@ public class UrlsProcessor implements PageProcessor {
 					Html html = new Html(content.toString());
 					page.setHtml(html);
 					String cls = sObj.get("class").toString();
-					if (cls.equalsIgnoreCase("default")){ //1. 缺省采集??
+					if (cls.equalsIgnoreCase("default")){ //1. 缂虹渷閲囬泦??
 						catchTable(page);
-					}else{								  //2. 自定义采集器
+					}else{								  //2. 鑷畾涔夐噰闆嗗櫒
 						loader(page, cls);
 					}	    				
-				}else{ 									  //3. 不用采集??		
+				}else{ 									  //3. 涓嶇敤閲囬泦??		
 					page.putField("content", content);
 				}
 				break;
@@ -227,7 +227,7 @@ public class UrlsProcessor implements PageProcessor {
     	
     	for (Object regUrl : mReg.values()){	    	
 	    	Pattern pattern = Pattern.compile(regUrl.toString());
-	    	//过滤url
+	    	//杩囨护url
 	    	for(String link:links){
 	    		matcher = pattern.matcher(link);
 	    		if (matcher.find()){
@@ -239,7 +239,7 @@ public class UrlsProcessor implements PageProcessor {
 	    		}
 	    	}
     	}
-    	//url去重处理.
+    	//url鍘婚噸澶勭悊.
     	LinkedHashSet<Object> hashSet = new LinkedHashSet<>(selectLinks);
     	selectLinks = new ArrayList<>(hashSet);
     	
@@ -272,7 +272,7 @@ public class UrlsProcessor implements PageProcessor {
 			} else {
 				Pattern pattern = Pattern.compile(regUrl);
 				List<String> links = page.getHtml().links().all();
-				// 过滤url
+				// 杩囨护url
 				for (String link : links) {
 					matcher = pattern.matcher(link);
 					if (matcher.find()) {
@@ -285,7 +285,7 @@ public class UrlsProcessor implements PageProcessor {
 				}
 			}
 		}
-		// url去重处理.
+		// url鍘婚噸澶勭悊.
 		LinkedHashSet<Object> hashSet = new LinkedHashSet<>(selectLinks);
     	selectLinks = new ArrayList<>(hashSet);
 		for (Object link : selectLinks) {
@@ -297,8 +297,8 @@ public class UrlsProcessor implements PageProcessor {
     	UrlsProcessor cls = null;
     	String str = "https://www.banban.cn/gupiao/list_cyb.html";
     	{
-			//说明??. init_url, help_url返回为list;
-			//		2. target_url, page_url返回为k:v
+			//璇存槑??. init_url, help_url杩斿洖涓簂ist;
+			//		2. target_url, page_url杩斿洖涓簁:v
 			String s = "[{web_info:{domain:\"www.banban.cn\", save_path:\"d:/tmp/data/webcrawl\",save_post:\"true\", thread_size:2,"+
 						"user_agent:\"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0\","+
 						"pipe_line:\"com.web.StockPipeline\",pipe_argv:\"d:/tmp/data/webcrawl/test\"}},"+
@@ -358,7 +358,7 @@ public class UrlsProcessor implements PageProcessor {
 		    	}	    		
 	    	}
 	    	
-	    	//获取初始化的url.
+	    	//鑾峰彇鍒濆鍖栫殑url.
 	    	List<String> urls = new ArrayList<String>();
 	    	for(String k:m.keySet()){
 	    		if (k.startsWith("init_url_")){

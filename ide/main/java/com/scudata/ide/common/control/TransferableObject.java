@@ -5,50 +5,50 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 
 /**
- * IDE¸´ÖÆÊ±´«µİµÄ¶ÔÏó
+ * IDEå¤åˆ¶æ—¶ä¼ é€’çš„å¯¹è±¡
  */
 public class TransferableObject implements Transferable {
 	/**
-	 * ¸´ÖÆµÄ¶ÔÏó
+	 * å¤åˆ¶çš„å¯¹è±¡
 	 */
 	private Object object;
 	/**
-	 * DataFlavor¶ÔÏó
+	 * DataFlavorå¯¹è±¡
 	 */
 	public static final DataFlavor objectFlavor = new DataFlavor(
 			TransferableObject.class, "object");
 
 	/**
-	 * DataFlavorÊı×é
+	 * DataFlavoræ•°ç»„
 	 */
 	static DataFlavor[] flavors = { objectFlavor };
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param object
-	 *            ¸´ÖÆµÄ¶ÔÏó
+	 *            å¤åˆ¶çš„å¯¹è±¡
 	 */
 	public TransferableObject(Object object) {
 		this.object = object;
 	}
 
 	/**
-	 * È¡´«µİµÄDataFlavorÊı×é
+	 * å–ä¼ é€’çš„DataFlavoræ•°ç»„
 	 */
 	public DataFlavor[] getTransferDataFlavors() {
 		return flavors;
 	}
 
 	/**
-	 * DataFlavorÊÇ·ñ±»Ö§³Ö
+	 * DataFlavoræ˜¯å¦è¢«æ”¯æŒ
 	 */
 	public boolean isDataFlavorSupported(DataFlavor flavor) {
 		return flavor.equals(objectFlavor);
 	}
 
 	/**
-	 * ´ÓDataFlavorÈ¡´«µİµÄ¶ÔÏó
+	 * ä»DataFlavorå–ä¼ é€’çš„å¯¹è±¡
 	 */
 	public synchronized Object getTransferData(DataFlavor flavor)
 			throws UnsupportedFlavorException {

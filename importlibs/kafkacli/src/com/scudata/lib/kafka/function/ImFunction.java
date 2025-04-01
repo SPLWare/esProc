@@ -24,7 +24,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 public class ImFunction extends Function {
-	protected int m_paramSize = 0; // ²ÎÊı¸öÊı
+	protected int m_paramSize = 0; // å‚æ•°ä¸ªæ•°
 	protected ImConnection m_conn = null;
 	protected String m_model;
 	protected Context m_ctx;
@@ -84,7 +84,7 @@ public class ImFunction extends Function {
 		}
 		if (objs.length < 1) {
 			throw new RQException("olap_param is empty");
-		} else if (option != null && option.indexOf("f") > -1) {// ×î½üÒ»¸ö²ÎÊı¿ÉÄÜÊÇÎÄ¼ş£¬×ª»»³É¶ÔÓ¦µÄÎÄ±¾.
+		} else if (option != null && option.indexOf("f") > -1) {// æœ€è¿‘ä¸€ä¸ªå‚æ•°å¯èƒ½æ˜¯æ–‡ä»¶ï¼Œè½¬æ¢æˆå¯¹åº”çš„æ–‡æœ¬.
 			try {
 				if (objs.length > 1) {
 					String s = objs[1].toString();
@@ -174,7 +174,7 @@ public class ImFunction extends Function {
 			if(partitionSize<1) partitionSize = 1;
 			int nTotal = partitionSize;
 
-			boolean bHad = false; //¶ÔºóÀ´·ÖÇø»ñÈ¡²»ÔÙµÈ´ı
+			boolean bHad = false; //å¯¹åæ¥åˆ†åŒºè·å–ä¸å†ç­‰å¾…
 			ConsumerRecords<Object, Object> consumerRecords = null;
 			for (int i = 0; i < partitionSize; i++) {
 				for(int j=0; j<6; j++){
@@ -193,13 +193,13 @@ public class ImFunction extends Function {
 					}
 				}
 				
-				 //»ñÈ¡Ã¿¸ö·ÖÇø
+				 //è·å–æ¯ä¸ªåˆ†åŒº
 	            Set<TopicPartition> partitions = consumerRecords.partitions();
-	            //±éÀúÃ¿¸ö·ÖÇø
+	            //éå†æ¯ä¸ªåˆ†åŒº
 	            for (TopicPartition partition : partitions) {
-	                //»ñÈ¡·ÖÇøµÄÊı¾İµÄÔØÌå
+	                //è·å–åˆ†åŒºçš„æ•°æ®çš„è½½ä½“
 	                List<ConsumerRecord<Object, Object>> records = consumerRecords.records(partition);
-	                //»ñÈ¡Ã¿¸öÊı¾İ
+	                //è·å–æ¯ä¸ªæ•°æ®
 	                for (ConsumerRecord<Object, Object> record : records) {
 						Object[] lines = new Object[5];
 						lines[0] = record.partition();
@@ -227,12 +227,12 @@ public class ImFunction extends Function {
 						ls.add(lines);
 					}
 	            }
-	            //´ïµ½×Ü·ÖÇøÊıÊ±ÔòÍË³ö
+	            //è¾¾åˆ°æ€»åˆ†åŒºæ•°æ—¶åˆ™é€€å‡º
 	            nTotal -= partitions.size();
 	            if (nTotal<=0){
 	            	break;
 	            }
-	            //ÊÖ¶¯Ìá½»0ffset
+	            //æ‰‹åŠ¨æäº¤0ffset
 	            //conn.m_consumer.commitSync();
 			}			
 		} catch (Exception e) {

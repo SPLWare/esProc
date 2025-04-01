@@ -11,7 +11,7 @@ import com.scudata.expression.fn.algebra.Matrix;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Á½¸öÏòÁ¿Ö®¼äµÄÂíÊÏ¾àÀëdism(A, B)
+ * ä¸¤ä¸ªå‘é‡ä¹‹é—´çš„é©¬æ°è·ç¦»dism(A, B)
  * @author bd
  */
 public class Dism extends Function {
@@ -53,15 +53,15 @@ public class Dism extends Function {
 				if (o3 instanceof Sequence) {
 					S =  new Matrix((Sequence) o3);
 				}
-				// edited by bd, 2021.11.17, ÔÚdisº¯ÊıÖĞ£¬µ¥²ãĞòÁĞÈÏÎªÊÇºáÏòÁ¿
+				// edited by bd, 2021.11.17, åœ¨diså‡½æ•°ä¸­ï¼Œå•å±‚åºåˆ—è®¤ä¸ºæ˜¯æ¨ªå‘é‡
 				Object o11 = s1.length() > 0 ? s1.get(1) : null;
 				Object o21 = s2.length() > 0 ? s2.get(1) : null;
 				if (!(o11 instanceof Sequence)) {
-					// AÎªµ¥ĞòÁĞ¶¨ÒåµÄÏòÁ¿£¬×ª³ÉºáÏòÁ¿
+					// Aä¸ºå•åºåˆ—å®šä¹‰çš„å‘é‡ï¼Œè½¬æˆæ¨ªå‘é‡
 					A = A.transpose();
 				}
 				if (!(o21 instanceof Sequence)) {
-					// AÎªµ¥ĞòÁĞ¶¨ÒåµÄÏòÁ¿£¬×ª³ÉºáÏòÁ¿
+					// Aä¸ºå•åºåˆ—å®šä¹‰çš„å‘é‡ï¼Œè½¬æˆæ¨ªå‘é‡
 					B = B.transpose();
 				}
 
@@ -77,7 +77,7 @@ public class Dism extends Function {
 				double[] bs = B.getArray()[0];
 				int rs = as.length;
 				if (rs != bs.length) {
-					// ²»Í¬Î¬
+					// ä¸åŒç»´
 					MessageManager mm = EngineMessage.get();
 					Logger.warn("dism" + mm.getMessage("function.paramTypeError"));
 					return 0;
@@ -94,7 +94,7 @@ public class Dism extends Function {
 					SI = S.inverse();
 				}
 				catch (Exception e) {
-					// SÎŞ·¨ÇóÄæÊ±£¬ÇóÎ±Äæ¾ØÕó
+					// Sæ— æ³•æ±‚é€†æ—¶ï¼Œæ±‚ä¼ªé€†çŸ©é˜µ
 					SI = S.pseudoinverse();
 				}
 				Matrix D = new Matrix(rs, 1);

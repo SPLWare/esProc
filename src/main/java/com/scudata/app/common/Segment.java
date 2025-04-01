@@ -109,7 +109,7 @@ public class Segment {
 	}
 
 	/**
-	 * 取值时不去引号
+	 * 鍙栧�兼椂涓嶅幓寮曞彿
 	 * 
 	 * @param key
 	 * @return

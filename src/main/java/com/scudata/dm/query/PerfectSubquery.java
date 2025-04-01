@@ -10,7 +10,7 @@ import com.scudata.common.MD5;
 import com.scudata.common.RQException;
 import com.scudata.common.UUID;
 
-public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
+public class PerfectSubquery //åªé’ˆå¯¹fromå­å¥ä¸­çš„å­æŸ¥è¯¢çš„ä¼˜åŒ–
 {
 	public static boolean optimizeSubquery(Token[] tokens, List<Token> sqlTokenList, boolean isSubquery, List<Boolean> canOptimizeList)
 	{
@@ -59,7 +59,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 					rightTokens = Arrays.copyOfRange(tokens, unionPos + 2, tokens.length);
 				}
 
-				while(leftTokens[0].getType() == Tokenizer.LPAREN)//×îÍâ²àÍÑÀ¨ºÅ
+				while(leftTokens[0].getType() == Tokenizer.LPAREN)//æœ€å¤–ä¾§è„±æ‹¬å·
 				{
 					int parenPos = Tokenizer.scanParen(leftTokens, 0, leftTokens.length);
 					if(parenPos == leftTokens.length - 1)
@@ -72,7 +72,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 					}
 				}
 				
-				Token[] bakTokens = SimpleSQL.copyTokens(leftTokens);//×¼±¸³¢ÊÔÓÅ»¯
+				Token[] bakTokens = SimpleSQL.copyTokens(leftTokens);//å‡†å¤‡å°è¯•ä¼˜åŒ–
 				List<Token> tokenList = new ArrayList<Token>();
 				boolean leftOptimize = optimizeSubquery(leftTokens, tokenList, isSubquery, new ArrayList<Boolean>());
 				if(!leftOptimize)
@@ -101,7 +101,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 				unionPos = Tokenizer.scanKeyWords(new String[]{"UNION", "EXCEPT", "INTERSECT", "MINUS"}, tokens, 0, tokens.length);
 				if(unionPos < 0)
 				{
-					while(tokens[0].getType() == Tokenizer.LPAREN)//×îÍâ²àÍÑÀ¨ºÅ
+					while(tokens[0].getType() == Tokenizer.LPAREN)//æœ€å¤–ä¾§è„±æ‹¬å·
 					{
 						int parenPos = Tokenizer.scanParen(tokens, 0, tokens.length);
 						if(parenPos == tokens.length - 1)
@@ -114,7 +114,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 						}
 					}
 					
-					bakTokens = SimpleSQL.copyTokens(tokens);//×¼±¸³¢ÊÔÓÅ»¯
+					bakTokens = SimpleSQL.copyTokens(tokens);//å‡†å¤‡å°è¯•ä¼˜åŒ–
 					tokenList = new ArrayList<Token>();
 					boolean rightOptimize = optimizeSubquery(tokens, tokenList, isSubquery, new ArrayList<Boolean>());
 					if(!rightOptimize)
@@ -318,7 +318,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 							{
 								if(columnTokens.length == 0)
 								{
-									throw new RQException("×Ó²éÑ¯ÖĞÁĞ±í´ïÊ½²»ÄÜÎª¿Õ");
+									throw new RQException("å­æŸ¥è¯¢ä¸­åˆ—è¡¨è¾¾å¼ä¸èƒ½ä¸ºç©º");
 								}
 								else if(columnTokens.length == 1 && (columnTokens[0].getType() == Tokenizer.IDENT || columnTokens[0].getString().equals("*")))
 								{
@@ -327,7 +327,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 								}
 								else
 								{
-									throw new RQException("×Ó²éÑ¯ÖĞÁĞ±í´ïÊ½±ØĞëÒªÓĞÕıÈ·µÄ±ğÃû");
+									throw new RQException("å­æŸ¥è¯¢ä¸­åˆ—è¡¨è¾¾å¼å¿…é¡»è¦æœ‰æ­£ç¡®çš„åˆ«å");
 								}
 							}
 							else
@@ -338,7 +338,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 								&& columnTokens[columnTokens.length - 2].getType() != Tokenizer.RPAREN
 								&& columnTokens[columnTokens.length - 2].getType() != Tokenizer.STRING)
 								{
-									throw new RQException("×Ó²éÑ¯ÖĞÁĞ±í´ïÊ½µÄ¸ñÊ½´æÔÚ´íÎó");
+									throw new RQException("å­æŸ¥è¯¢ä¸­åˆ—è¡¨è¾¾å¼çš„æ ¼å¼å­˜åœ¨é”™è¯¯");
 								}
 										
 								Token aliasToken = columnTokens[columnTokens.length - 1];
@@ -507,7 +507,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 										i = i + 2;
 									}
 									else if(i < columnTokens.length - 2 
-									&& columnTokens[i + 1].getType() == Tokenizer.LPAREN) //fun()//·Ç¾ÛºÏÆÕÍ¨º¯Êı±í´ïÊ½
+									&& columnTokens[i + 1].getType() == Tokenizer.LPAREN) //fun()//éèšåˆæ™®é€šå‡½æ•°è¡¨è¾¾å¼
 									{
 										for(int j = i; j <= i + 1; j++)
 										{
@@ -657,7 +657,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 									i = i + 2;
 								}
 								else if(i < whereTokens.length - 2 
-								&& whereTokens[i + 1].getType() == Tokenizer.LPAREN) //fun()//·Ç¾ÛºÏÆÕÍ¨º¯Êı±í´ïÊ½
+								&& whereTokens[i + 1].getType() == Tokenizer.LPAREN) //fun()//éèšåˆæ™®é€šå‡½æ•°è¡¨è¾¾å¼
 								{
 									for(int j = i; j <= i + 1; j++)
 									{
@@ -832,7 +832,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 										i = i + 2;
 									}
 									else if(i < orderTokens.length - 2 
-									&& orderTokens[i + 1].getType() == Tokenizer.LPAREN) //fun()//·Ç¾ÛºÏÆÕÍ¨º¯Êı±í´ïÊ½
+									&& orderTokens[i + 1].getType() == Tokenizer.LPAREN) //fun()//éèšåˆæ™®é€šå‡½æ•°è¡¨è¾¾å¼
 									{
 										for(int j = i; j <= i + 1; j++)
 										{
@@ -906,7 +906,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 						
 					tokensListList.add(0, newTokensList);
 				}
-				else if(subCanOptimize) //Ôİ²»ÓÅ»¯£¬ÒÔºóÌæ»»³ÉÉî¶ÈÓÅ»¯
+				else if(subCanOptimize) //æš‚ä¸ä¼˜åŒ–ï¼Œä»¥åæ›¿æ¢æˆæ·±åº¦ä¼˜åŒ–
 				{
 					if(fromTokens.length > 3 && fromTokens[0].isKeyWord("FROM") && fromTokens[1].getType() == Tokenizer.LPAREN)
 					{ 
@@ -1229,7 +1229,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 				}
 				else
 				{
-					throw new RQException("parallel×Ó¾ä¸ñÊ½´íÎó");
+					throw new RQException("parallelå­å¥æ ¼å¼é”™è¯¯");
 				}
 			}
 			else
@@ -1325,7 +1325,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 		}
 		else
 		{
-			throw new RQException("È±ÉÙFROM×Ó¾ä");
+			throw new RQException("ç¼ºå°‘FROMå­å¥");
 		}
 		
 		int parallelPos = Tokenizer.scanKeyWords(new String[]{"PARALLEL", "OLAP"}, tokens, columnsPos, fromPos);
@@ -1366,7 +1366,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 			}
 			else
 			{
-				throw new RQException("ÓÅ»¯×Ó¾ä¸ñÊ½´íÎó");
+				throw new RQException("ä¼˜åŒ–å­å¥æ ¼å¼é”™è¯¯");
 			}
 			
 			parallelPos = Tokenizer.scanKeyWords(new String[]{"PARALLEL", "OLAP"}, tokens, columnsPos, fromPos);
@@ -1746,7 +1746,7 @@ public class PerfectSubquery //Ö»Õë¶Ôfrom×Ó¾äÖĞµÄ×Ó²éÑ¯µÄÓÅ»¯
 			}
 			else
 			{
-				throw new RQException("regulateFieldTokensº¯Êı£ºÏÖÖ»Ö§³ÖSELECT×Ó¾äºÍWHERE×Ó¾ä");
+				throw new RQException("regulateFieldTokenså‡½æ•°ï¼šç°åªæ”¯æŒSELECTå­å¥å’ŒWHEREå­å¥");
 			}
 			
 			tokens = new Token[tokenList.size()];

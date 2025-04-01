@@ -9,7 +9,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 
 /**
- * ±ê×¼»¯²ÎÊı¼ÇÂ¼ Normalization Record
+ * æ ‡å‡†åŒ–å‚æ•°è®°å½• Normalization Record
  * @author bd
  *
  */
@@ -36,7 +36,7 @@ public class NorRec implements Externalizable {
 
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉĞòÁĞ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -47,7 +47,7 @@ public class NorRec implements Externalizable {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾İSequence³õÊ¼»¯²ÎÊı
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public void init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -58,7 +58,7 @@ public class NorRec implements Externalizable {
 		this.max = ((Number) seq.get(2)).doubleValue();
 	}
 
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 1;
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte ver = in.readByte();

@@ -71,7 +71,7 @@ public class DialogZoom extends RQDialog {
 	}
 
 	/**
-	 * ¶Ô»°¿ò´ò¿ªÊ±
+	 * å¯¹è¯æ¡†æ‰“å¼€æ—¶
 	 */
 	protected void dialogOpened() {
 		if (jRBCustom.isSelected())
@@ -79,7 +79,7 @@ public class DialogZoom extends RQDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼þ
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 * @return
@@ -97,7 +97,7 @@ public class DialogZoom extends RQDialog {
 			return true;
 		String strCustom = jTFCustom.getText();
 		if (!StringUtils.isValidString(strCustom)) {
-			// ÇëÊäÈë×Ô¶¨ÒåËõ·Å°Ù·Ö±È¡£
+			// è¯·è¾“å…¥è‡ªå®šä¹‰ç¼©æ”¾ç™¾åˆ†æ¯”ã€‚
 			JOptionPane.showMessageDialog(this,
 					IdeSplMessage.get().getMessage("dialogscale.emptycustom"));
 			return false;
@@ -108,7 +108,7 @@ public class DialogZoom extends RQDialog {
 			Float f = Float.parseFloat(strCustom);
 			customValue = f.intValue();
 			if (customValue > max || customValue < min) {
-				// ÇëÊäÈë{0}µ½{1}Ö®¼äµÄÊýÖµ¡£
+				// è¯·è¾“å…¥{0}åˆ°{1}ä¹‹é—´çš„æ•°å€¼ã€‚
 				JOptionPane.showMessageDialog(
 						this,
 						IdeSplMessage.get()
@@ -117,7 +117,7 @@ public class DialogZoom extends RQDialog {
 				return false;
 			}
 		} catch (Exception ex) {
-			// ÇëÊäÈë{0}µ½{1}Ö®¼äµÄÊýÖµ¡£
+			// è¯·è¾“å…¥{0}åˆ°{1}ä¹‹é—´çš„æ•°å€¼ã€‚
 			JOptionPane.showMessageDialog(
 					this,
 					IdeSplMessage.get().getMessage("dialogscale.invalidcustom",

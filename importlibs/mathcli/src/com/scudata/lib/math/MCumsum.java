@@ -10,9 +10,9 @@ import com.scudata.resources.EngineMessage;
 
 
 /**
- * ÏòÁ¿»ò¾ØÕóÖĞ¼ÆËãÀÛ»ıÇóºÍ£¬@zÑ¡ÏîÎªÄæÏòÀÛ»ı
- * mcumsum(A)£¬¼ÆËã×îÍâ²ã¾ØÕóµÄ³ÉÔ±ÀÛ»ıºÍ£¬·µ»Ø¶àÎ¬ĞòÁĞ
- * mcumsum(A, n)£¬¼ÆËãµÚn²ã£¬²»Ö§³ÖÊıÁĞ
+ * å‘é‡æˆ–çŸ©é˜µä¸­è®¡ç®—ç´¯ç§¯æ±‚å’Œï¼Œ@zé€‰é¡¹ä¸ºé€†å‘ç´¯ç§¯
+ * mcumsum(A)ï¼Œè®¡ç®—æœ€å¤–å±‚çŸ©é˜µçš„æˆå‘˜ç´¯ç§¯å’Œï¼Œè¿”å›å¤šç»´åºåˆ—
+ * mcumsum(A, n)ï¼Œè®¡ç®—ç¬¬nå±‚ï¼Œä¸æ”¯æŒæ•°åˆ—
  * @author bd
  *
  */
@@ -25,7 +25,7 @@ public class MCumsum extends Function {
 			Object oa = null;
 			Object o2 = null;
 			if (param.isLeaf()) {
-				// Ö»ÓĞÒ»¸ö²ÎÊı£¬mcumsum(A), Ïàµ±ÓÚmcumsum(A, 1)
+				// åªæœ‰ä¸€ä¸ªå‚æ•°ï¼Œmcumsum(A), ç›¸å½“äºmcumsum(A, 1)
 				oa = param.getLeafExpression().calculate(ctx);
 			}
 			else if (param.getSubSize() != 2) {

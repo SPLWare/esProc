@@ -8,7 +8,7 @@ import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
 
 /**
- * Êı¾İ¿âÁ¬½Ó£¬ÓÉh.home()º¯Êı²úÉú£¬¶ÔÓ¦ÖĞ¼äÄ¿Â¼
+ * æ•°æ®åº“è¿æ¥ï¼Œç”±h.home()å‡½æ•°äº§ç”Ÿï¼Œå¯¹åº”ä¸­é—´ç›®å½•
  * @author RunQian
  *
  */

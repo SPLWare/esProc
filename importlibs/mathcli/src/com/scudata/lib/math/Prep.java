@@ -29,9 +29,9 @@ import com.scudata.util.Variant;
 import com.scudata.common.MessageManager;
 
 /**
- * Ä³Ò»ÁĞµÄÔ¤´¦Àí£¬È«ÀàĞÍ
- * A.prep(T)/P.prep(cn, T); @bnie Ñ¡ÏîÖ¸Ã÷Ä¿±êÀàĞÍ£¬¸÷Ñ¡ÏîÏà³â£¬ÓÅÏÈ¼¶°´ÕÕ¶şÖµ/ÊıÖµ/ÕûÊı/Ã¶¾Ù£¬ÎŞÑ¡Ïî×Ô¶¯´¦Àí
- * 							@BNIED Ñ¡ÏîÖ¸Ã÷±äÁ¿ÀàĞÍ£¬¸÷Ñ¡ÏîÏà³â£¬ÓÅÏÈ¼¶°´ÕÕ¶şÖµ/ÊıÖµ/ÕûÊı/Ã¶¾Ù/ÈÕÆÚ£¬ÎŞÑ¡Ïî×Ô¶¯´¦Àí
+ * æŸä¸€åˆ—çš„é¢„å¤„ç†ï¼Œå…¨ç±»å‹
+ * A.prep(T)/P.prep(cn, T); @bnie é€‰é¡¹æŒ‡æ˜ç›®æ ‡ç±»å‹ï¼Œå„é€‰é¡¹ç›¸æ–¥ï¼Œä¼˜å…ˆçº§æŒ‰ç…§äºŒå€¼/æ•°å€¼/æ•´æ•°/æšä¸¾ï¼Œæ— é€‰é¡¹è‡ªåŠ¨å¤„ç†
+ * 							@BNIED é€‰é¡¹æŒ‡æ˜å˜é‡ç±»å‹ï¼Œå„é€‰é¡¹ç›¸æ–¥ï¼Œä¼˜å…ˆçº§æŒ‰ç…§äºŒå€¼/æ•°å€¼/æ•´æ•°/æšä¸¾/æ—¥æœŸï¼Œæ— é€‰é¡¹è‡ªåŠ¨å¤„ç†
  * A.prep@r(rec)/P.prep@r(cn, rec)
  * @author bd
  */
@@ -232,61 +232,61 @@ public class Prep extends SequenceFunction {
 	protected static VarRec prep(Sequence cvs, String cn, byte type, boolean ifErf, Sequence tvs, 
 			byte tarType, ArrayList<Sequence> ncv, ArrayList<String> ncn) {
 		double maxMI = P_maxMI;
-		// ¶ÔÃ¿Ò»ÁĞ¶¼ÏÈÊÕ¼¯»ù±¾Í³¼ÆĞÅÏ¢
+		// å¯¹æ¯ä¸€åˆ—éƒ½å…ˆæ”¶é›†åŸºæœ¬ç»Ÿè®¡ä¿¡æ¯
 		VarSrcInfo vsi = new VarSrcInfo(cn, type);
 		vsi.init(cvs);
 		double freq = vsi.getMissingRate();
 
 		try {
-			// µ÷ÕûÔ¤´¦Àí¹æÔò£¬²»ÔÙÓÃÓ²ĞÔµÄ95%×÷Îª±ê×¼ÁË
+			// è°ƒæ•´é¢„å¤„ç†è§„åˆ™ï¼Œä¸å†ç”¨ç¡¬æ€§çš„95%ä½œä¸ºæ ‡å‡†äº†
 			if (freq > maxMI) {
-				// È±Ê§ÂÊ´óÓÚãĞÖµ(²»ÔÙ¶¨ÔÚ95%)£¬¸Ã×Ö¶Î²»²ÎÓë½¨Ä£
+				// ç¼ºå¤±ç‡å¤§äºé˜ˆå€¼(ä¸å†å®šåœ¨95%)ï¼Œè¯¥å­—æ®µä¸å‚ä¸å»ºæ¨¡
 				vsi.setStatus(VarInfo.VAR_DEL_MISSING);
 				return new VarRec(false, true, vsi);
 			}
 
 			if (type == Consts.F_SINGLE_VALUE) {
-				// µ¥Öµ×Ö¶Î£¬Ö»ÓÃÈ±Ê§ÖµÉú³ÉMI
-				// µ¥Öµ×Ö¶ÎÉú³Émissingºó£¬²»ÔÙÓĞ¼ÛÖµ£¬È«¶¼É¾³ı
+				// å•å€¼å­—æ®µï¼Œåªç”¨ç¼ºå¤±å€¼ç”ŸæˆMI
+				// å•å€¼å­—æ®µç”Ÿæˆmissingåï¼Œä¸å†æœ‰ä»·å€¼ï¼Œå…¨éƒ½åˆ é™¤
 				return recMI(cvs, cn, freq, null, vsi, ncv, ncn);
 			} else if (type == Consts.F_CONTINUITY) {
-				// ID×Ö¶Î£¬²»´¦Àí
+				// IDå­—æ®µï¼Œä¸å¤„ç†
 				vsi.setStatus(VarInfo.VAR_DEL_ID);
 				return new VarRec(false, true, vsi);
 			} else if (type == Consts.F_DATE) {
-				// ±äÁ¿ÊÇÈÕÆÚĞÍ
+				// å˜é‡æ˜¯æ—¥æœŸå‹
 				DateRec dr = new DateRec(vsi);
 
-				// ÏÈ´¦ÀíÕû×Ö¶ÎµÄMissingIndicator
+				// å…ˆå¤„ç†æ•´å­—æ®µçš„MissingIndicator
 				recMI(cvs, cn, freq, dr, vsi, ncv, ncn);
 				
-				// ÈÕÆÚÁĞµÄÑÜÉú×Ö¶Î£¬µ¥Ïß³ÌÒÀ´ÎÉú³É
+				// æ—¥æœŸåˆ—çš„è¡ç”Ÿå­—æ®µï¼Œå•çº¿ç¨‹ä¾æ¬¡ç”Ÿæˆ
 				DateDerive.datederive(cvs, cn, dr, tvs, tarType, ncv, ncn);
 				//dealDateCols(cvs, cn, dr, pr, vsi);
 				//byte dtype = dr.getDateType();
 				//if (dtype == Consts.DCT_DATETIME || dtype == Consts.DCT_UDATE
 				//		|| dtype == Consts.DCT_DATE) {
-					// Éæ¼°ÈÕÆÚµÄ£¬ÓĞ¿ÉÄÜ»áĞèÒª½»²æ¼ÆËãÈÕÆÚ²î
+					// æ¶‰åŠæ—¥æœŸçš„ï¼Œæœ‰å¯èƒ½ä¼šéœ€è¦äº¤å‰è®¡ç®—æ—¥æœŸå·®
 				//	pr.addDate(Integer.valueOf(ci));
 				//}
-				// µ¥±äÁ¿Ô¤´¦ÀíÖĞ£¬²»×öÈÕÆÚ²îÖµ´¦ÖÃ
+				// å•å˜é‡é¢„å¤„ç†ä¸­ï¼Œä¸åšæ—¥æœŸå·®å€¼å¤„ç½®
 				return dr;
 			}
-			// ¶şÖµ²ÉÈ¡ºÍÃ¶¾ÙÒ»ÑùµÄ´¦Àí·½°¸ 
+			// äºŒå€¼é‡‡å–å’Œæšä¸¾ä¸€æ ·çš„å¤„ç†æ–¹æ¡ˆ 
 			else if (type == Consts.F_ENUM || type == Consts.F_TWO_VALUE) {
 				VarRec vr = new VarRec(false, false, vsi);
 				vr.setType(type);
-				// ÏÈ´¦ÀíMissingIndicator
+				// å…ˆå¤„ç†MissingIndicator
 				recMI(cvs, cn, freq, vr, vsi, ncv, ncn);
 				
 				freq = vsi.getMissingRate();
 				dealEnum(cvs, cn, freq, vr, type, tvs, tarType, vsi, ncv, ncn);
 				return vr;
 			} else if (type == Consts.F_NUMBER || type == Consts.F_COUNT) {
-				// ±äÁ¿ÊÇÊıÖµĞÍ
+				// å˜é‡æ˜¯æ•°å€¼å‹
 				VarRec vr = new VarRec(false, false, vsi);
 				vr.setType(type);
-				// ÏÈ´¦ÀíMissingIndicator
+				// å…ˆå¤„ç†MissingIndicator
 				//recMI(cvs, cn, pr, freq, vr, vsi);
 				recMI(cvs, cn, freq, vr, vsi, ncv, ncn);
 				dealNumerical(cvs, cn, freq, vr, type, vsi, ncv, ncn);
@@ -294,7 +294,7 @@ public class Prep extends SequenceFunction {
 				return vr;
 			} else {
 				vsi.setStatus(VarInfo.VAR_DEL_WRONGTYPE);
-				// ±äÁ¿ÊÇÆäËüÀàĞÍ£¬É¾³ı
+				// å˜é‡æ˜¯å…¶å®ƒç±»å‹ï¼Œåˆ é™¤
 				return new VarRec(false, true, vsi);
 			}
 		}
@@ -318,7 +318,7 @@ public class Prep extends SequenceFunction {
 	}
 	
 	/**
-	 * ´ÓÅÅÁĞÖĞ»ñÈ¡Ä³¸ö±äÁ¿
+	 * ä»æ’åˆ—ä¸­è·å–æŸä¸ªå˜é‡
 	 * @param src
 	 * @param field
 	 * @return
@@ -341,7 +341,7 @@ public class Prep extends SequenceFunction {
 	}
 	
 	/**
-	 * ´ÓÅÅÁĞÖĞ»ñÈ¡¶à¸ö±äÁ¿µÄÖµ
+	 * ä»æ’åˆ—ä¸­è·å–å¤šä¸ªå˜é‡çš„å€¼
 	 * @param src
 	 * @param fields
 	 * @return
@@ -411,14 +411,14 @@ public class Prep extends SequenceFunction {
 			}
 		}
 		if (hasNull) {
-			// ¿ÕÖµ²»¼ÆÊı
+			// ç©ºå€¼ä¸è®¡æ•°
 			len--;
 		}
 		if (len <= 1) {
-			// µ¥Öµ£¬ÌØ±ğµÄ£¬È«ÊÇnullÒ²ÊÓÎªµ¥Öµ
+			// å•å€¼ï¼Œç‰¹åˆ«çš„ï¼Œå…¨æ˜¯nullä¹Ÿè§†ä¸ºå•å€¼
 			return Consts.F_SINGLE_VALUE;
 		} else if (len == 2) {
-			// ¶şÖµ±äÁ¿
+			// äºŒå€¼å˜é‡
 			return Consts.F_TWO_VALUE;
 		} else if (hasStr || len < 20) {
 			return Consts.F_ENUM;
@@ -434,15 +434,15 @@ public class Prep extends SequenceFunction {
 		Sequence mivs = Mi.mi(cvs, freq);
 		if (mivs != null) {
 			String micn = "MI_" + cn;
-			// step06£¬ÅĞ¶ÏÊÇ·ñÖØ¸´
+			// step06ï¼Œåˆ¤æ–­æ˜¯å¦é‡å¤
 			// boolean add = pr.addMICol(micn, mivs, this.ci, cn);
-			// º¯Êı²»ÅĞ¶ÏÊÇ·ñÖØ¸´
+			// å‡½æ•°ä¸åˆ¤æ–­æ˜¯å¦é‡å¤
 			ncv.add(mivs);
 			ncn.add(micn);
 			//if (add) {
 				vsi.setMI(true);
 				if (vr == null) {
-					// Ô­Ê¼±äÁ¿£¬Ö»Éú³ÉMIµÄ 
+					// åŸå§‹å˜é‡ï¼Œåªç”ŸæˆMIçš„ 
 					vsi.setStatus(VarInfo.VAR_DEL_SINGLE);
 					return new VarRec(true, true, vsi);
 				}
@@ -467,52 +467,52 @@ public class Prep extends SequenceFunction {
 			throw new RQException("Can't find Variable Record.");
 		}
 		
-		// ÕâÒ»·½·¨ÖĞ²»ÔÙ´¦ÀíMI×Ö¶ÎµÄÉú³É£¬ÌáÇ°µ÷ÓÃrecMI
-		// step07, Ìî²¹È±Ê§Öµ
-		// step09, ºÏ²¢µÍÆµ·ÖÀà
+		// è¿™ä¸€æ–¹æ³•ä¸­ä¸å†å¤„ç†MIå­—æ®µçš„ç”Ÿæˆï¼Œæå‰è°ƒç”¨recMI
+		// step07, å¡«è¡¥ç¼ºå¤±å€¼
+		// step09, åˆå¹¶ä½é¢‘åˆ†ç±»
 		FNARec fnaRec = Impute.recFNA(cvs, cn, ctype);
-		// fnaRecÓĞ¿ÉÄÜ·µ»Ønull£¬ËµÃ÷¸ÃÁĞÎªµ¥ÖµÁĞ»òÕßÊÇ¹ıÓÚËöËéµÄÃ¶¾ÙÁĞ£¬´ËÊ±¸ÃÁĞ±»É¾³ı
+		// fnaRecæœ‰å¯èƒ½è¿”å›nullï¼Œè¯´æ˜è¯¥åˆ—ä¸ºå•å€¼åˆ—æˆ–è€…æ˜¯è¿‡äºçç¢çš„æšä¸¾åˆ—ï¼Œæ­¤æ—¶è¯¥åˆ—è¢«åˆ é™¤
 		if (fnaRec == null) {
 			vr.setOnlyMI(true);
 			return;
 		}
 		vr.setFNARec(fnaRec);
 
-		// step10, Éú³ÉBI±äÁ¿
+		// step10, ç”ŸæˆBIå˜é‡
 		BIRec biRec = Bi.recBi(cvs, cn, ncn, ncv);
 		vr.setBIRec(biRec);
 
 		if (biRec == null) {
-			// ¸ß»ùÊı·ÖÀà±äÁ¿
-			// step11, Æ½»¬»¯
+			// é«˜åŸºæ•°åˆ†ç±»å˜é‡
+			// step11, å¹³æ»‘åŒ–
 			SmRec smRec = Smooth.smooth(cvs, cn, ifErf, tvs, tType, ncv, ncn);
 			//recprep(cvs, pr, vsi, level, index, srcCn, cn);
 			vr.setSmRec(smRec);
-			// ĞŞ¸ÄÕâ²¿·ÖµÄÅĞ¶Ï£¬ÓĞ¿ÉÄÜÒÑ¾­Éú³ÉÁË¶à¸öÑÜÉúÁĞ
+			// ä¿®æ”¹è¿™éƒ¨åˆ†çš„åˆ¤æ–­ï¼Œæœ‰å¯èƒ½å·²ç»ç”Ÿæˆäº†å¤šä¸ªè¡ç”Ÿåˆ—
 			if (smRec instanceof SmMulRec) {
-				// ÕâÖÖÇé¿öÊÇ¶à·ÖÀà¶àÄ¿±ê£¬Æ½»¬»¯Ê±ÒÑÌí¼Ó¶à¸öÑÜÉúÁĞ²¢¼ÇÂ¼
+				// è¿™ç§æƒ…å†µæ˜¯å¤šåˆ†ç±»å¤šç›®æ ‡ï¼Œå¹³æ»‘åŒ–æ—¶å·²æ·»åŠ å¤šä¸ªè¡ç”Ÿåˆ—å¹¶è®°å½•
 			}
 			else {
 				cn = "prep_" + cn;
-				// ±¨¸æĞÅÏ¢µÄÑÜÉú±äÁ¿Ãû£¬²»¼ÇÂ¼¾ÀÆ«µ÷ÕûĞÅÏ¢
+				// æŠ¥å‘Šä¿¡æ¯çš„è¡ç”Ÿå˜é‡åï¼Œä¸è®°å½•çº åè°ƒæ•´ä¿¡æ¯
 				if (vsi != null) 
 					vsi.setName(cn);
-				// step12, ¾ÀÆ«±ä»»
+				// step12, çº åå˜æ¢
 				SCRec scRec = CorSkew.corSkew(cvs, cn); 
 				//recSC(cvs, cn, pr.getPath(), vsi);
 				cn = scRec.getPrefix() + cn;
 				vr.setSCRec(scRec);
-				// step13, ÇåÀíÒì³£Öµ
+				// step13, æ¸…ç†å¼‚å¸¸å€¼
 				NumStatis ns = scRec.getNumStatis();
 				//Sert.sert(cvs, cvs, ns.getAvg(), ns.getSd(cvs), vsi);
 				Sert.sertSeq(cvs, ns.getAvg(), ns.getSd(cvs));
 
-				// step15£¬±£ÁôÏÂÀ´µÄÊıÖµ±äÁ¿£¬×ö¹éÒ»»¯´¦Àí
+				// step15ï¼Œä¿ç•™ä¸‹æ¥çš„æ•°å€¼å˜é‡ï¼Œåšå½’ä¸€åŒ–å¤„ç†
 				NorRec nr = Normal.normal(cvs);//recNor(cvs);
 				vr.setNorRec(nr);
 
 				//if (level == ResultCol.CL_DATE ) {
-					//Ê±¼ä×Ö¶Î£¬ĞèÒªÓÃÅÅĞò
+					//æ—¶é—´å­—æ®µï¼Œéœ€è¦ç”¨æ’åº
 					//pr.addCol(cn, cvs, level, this.ci, index, srcCn);
 				//}
 				//else {
@@ -534,19 +534,19 @@ public class Prep extends SequenceFunction {
 			vr = new VarRec(false, false, vi);
 		}
 
-		// step07, Ìî²¹È±Ê§Öµ
+		// step07, å¡«è¡¥ç¼ºå¤±å€¼
 		//FNARec fnaRec = recFNA(cvs,freq, ctype, pr, vi);
 		FNARec fnaRec = Impute.recFNA(cvs, cn, ctype);
 		vr.setFNARec(fnaRec);
 		
-		// step12, ¾ÀÆ«±ä»»
+		// step12, çº åå˜æ¢
 		SCRec scRec = CorSkew.corSkew(cvs, cn); 
 		//SCRec scRec = recSC(cvs, cn, pr.getPath(), vi);
 		cn = scRec.getPrefix() + cn;
 		if(vi != null)
 			vi.setName(cn);
 		vr.setSCRec(scRec);
-		// step13, ÇåÀíÒì³£Öµ
+		// step13, æ¸…ç†å¼‚å¸¸å€¼
 		NumStatis ns = scRec.getNumStatis();
 		if (ns == null) {
 			System.out.println(cn);
@@ -554,12 +554,12 @@ public class Prep extends SequenceFunction {
 		//Sert.sert(cvs, cvs, ns.getAvg(), ns.getSd(cvs), vi);
 		Sert.sertSeq(cvs, ns.getAvg(), ns.getSd(cvs));
 
-		// step15£¬±£ÁôÏÂÀ´µÄÊıÖµ±äÁ¿£¬×ö¹éÒ»»¯´¦Àí
+		// step15ï¼Œä¿ç•™ä¸‹æ¥çš„æ•°å€¼å˜é‡ï¼Œåšå½’ä¸€åŒ–å¤„ç†
 		NorRec nr = Normal.normal(cvs);//NorRec nr = recNor(cvs);
 		vr.setNorRec(nr);
 
 		//if (level == ResultCol.CL_DATE ) {
-			//Ê±¼ä×Ö¶Î£¬ĞèÒªÓÃÅÅĞò
+			//æ—¶é—´å­—æ®µï¼Œéœ€è¦ç”¨æ’åº
 		//	pr.addCol(cn, cvs, level, this.ci, index, srcCn);
 		//}
 		//else {
@@ -648,11 +648,11 @@ public class Prep extends SequenceFunction {
 	protected static void prep(Sequence cvs, String cn, VarRec vr, 
 			ArrayList<Sequence> ncv, ArrayList<String> ncn) {
 		if (vr == null) {
-			// ÁĞÔÚÑ¡Ôñ¹ı³ÌÖĞ±»É¾³ı
+			// åˆ—åœ¨é€‰æ‹©è¿‡ç¨‹ä¸­è¢«åˆ é™¤
 			return;
 		}
 		Sequence newcvs = null;
-		// ÊÇ·ñÓĞÈ±Ê§ÖµÁĞMissingIndex
+		// æ˜¯å¦æœ‰ç¼ºå¤±å€¼åˆ—MissingIndex
 		if (vr.hasMI()) {
 			newcvs = Mi.ifNull(cvs);
 			ncn.add("MI_"+cn);
@@ -660,7 +660,7 @@ public class Prep extends SequenceFunction {
 			//pr.addCol2("MI_"+cn, newcvs);
 			//DMUtils.debug("**MI Variable created: "+"MI_"+cn+".");
 		}
-		//¶ÔÓÚ³ıÁËMI²»ÔÙÓĞÒâÒåµÄ×Ö¶Î£¬ÒÑ´¦ÀíÍê±Ï
+		//å¯¹äºé™¤äº†MIä¸å†æœ‰æ„ä¹‰çš„å­—æ®µï¼Œå·²å¤„ç†å®Œæ¯•
 		if (vr.onlyHasMI()) {
 			return;
 		}
@@ -675,36 +675,36 @@ public class Prep extends SequenceFunction {
 	
 	protected static void prep(VarRec vr, Sequence cvs, String cn,
 			ArrayList<Sequence> ncv, ArrayList<String> ncn) {
-		// ÕâÒ»·½·¨ÖĞ²»ÔÙ´¦ÀíMI×Ö¶ÎµÄÉú³É£¬ÌáÇ°µ÷ÓÃrecMI
-		// step07, Ìî²¹È±Ê§Öµ
-		// step09, ºÏ²¢µÍÆµ·ÖÀà
+		// è¿™ä¸€æ–¹æ³•ä¸­ä¸å†å¤„ç†MIå­—æ®µçš„ç”Ÿæˆï¼Œæå‰è°ƒç”¨recMI
+		// step07, å¡«è¡¥ç¼ºå¤±å€¼
+		// step09, åˆå¹¶ä½é¢‘åˆ†ç±»
 		FNARec fnaRec = vr.getFNARec();
-		//  Õı³£Çé¿öÏÂfnaRec²»Ó¦¸ÃÎª¿Õ£¬ÍòÒ»³öÏÖ¿ÕÖµ£¬ËµÃ÷½¨Ä£Ê±Ê¹ÓÃµÄ°æ±¾±È½ÏµÍ
-		// ÄÇÃ´Ô¤²âÊ±²»Ö´ĞĞ²¹È±£¬ÒÔ·ÀÖ¹´íÎó£¬µ«ÓĞ¿ÉÄÜ»áÓÉÓÚ¿ÕÖµ²úÉúÎÊÌâ¡£
+		//  æ­£å¸¸æƒ…å†µä¸‹fnaRecä¸åº”è¯¥ä¸ºç©ºï¼Œä¸‡ä¸€å‡ºç°ç©ºå€¼ï¼Œè¯´æ˜å»ºæ¨¡æ—¶ä½¿ç”¨çš„ç‰ˆæœ¬æ¯”è¾ƒä½
+		// é‚£ä¹ˆé¢„æµ‹æ—¶ä¸æ‰§è¡Œè¡¥ç¼ºï¼Œä»¥é˜²æ­¢é”™è¯¯ï¼Œä½†æœ‰å¯èƒ½ä¼šç”±äºç©ºå€¼äº§ç”Ÿé—®é¢˜ã€‚
 		if (fnaRec != null) {
 			Impute.impute(cvs, cn, fnaRec);
 		}
 
-		// step10, Éú³ÉBI±äÁ¿
+		// step10, ç”ŸæˆBIå˜é‡
 		BIRec biRec = vr.getBIRec();
 
 		if (biRec != null) {
-			// Éú³ÉÁËBI±äÁ¿
+			// ç”Ÿæˆäº†BIå˜é‡
 			Bi.bi(cvs, cn, biRec, ncv, ncn);
 		}
 		else {
-			// ÊôÓÚÊıÖµ±äÁ¿£¬»áÖ´ĞĞ[Æ½»¬»¯],¾ÀÆ«,È¥³ıÒì³£Öµ,±ê×¼»¯µÈ´¦Àí
+			// å±äºæ•°å€¼å˜é‡ï¼Œä¼šæ‰§è¡Œ[å¹³æ»‘åŒ–],çº å,å»é™¤å¼‚å¸¸å€¼,æ ‡å‡†åŒ–ç­‰å¤„ç†
 			SmRec smRec = vr.getSmRec();
 			if (smRec != null) {
-				// ¸ß»ùÊı·ÖÀà±äÁ¿
-				//  Æ½»¬»¯»áÓĞÁ½ÖÖÇé¿ö£¬Ä¿±êÎª¶şÖµ»ò¶àÖµ
+				// é«˜åŸºæ•°åˆ†ç±»å˜é‡
+				//  å¹³æ»‘åŒ–ä¼šæœ‰ä¸¤ç§æƒ…å†µï¼Œç›®æ ‡ä¸ºäºŒå€¼æˆ–å¤šå€¼
 				Smooth.smooth(cvs, cn, smRec, ncv, ncn);
 			}
 
-			// step12, ¾ÀÆ«±ä»»
+			// step12, çº åå˜æ¢
 			SCRec scRec = vr.getSCRec();
 			if (scRec == null) {
-				// Èç¹ûÎ´Ö´ĞĞ¾ÀÆ«£¬ËµÃ÷ÊÇ¶şÖµ±äÁ¿£¬Ö±½ÓÌí¼ÓÁËÁĞÖµ·µ»Ø¾ÍÊÇÁË
+				// å¦‚æœæœªæ‰§è¡Œçº åï¼Œè¯´æ˜æ˜¯äºŒå€¼å˜é‡ï¼Œç›´æ¥æ·»åŠ äº†åˆ—å€¼è¿”å›å°±æ˜¯äº†
 				ncn.add(cn);
 				ncv.add(cvs);
 				return;
@@ -713,10 +713,10 @@ public class Prep extends SequenceFunction {
 			NumStatis ns = scRec.getNumStatis();
 			cn = scRec.getPrefix() + cn;
 			
-			// step13, ÇåÀíÒì³£Öµ
+			// step13, æ¸…ç†å¼‚å¸¸å€¼
 			Sert.sertSeq(cvs, ns.getAvg(), ns.getSd(cvs));
 
-			// step15£¬±£ÁôÏÂÀ´µÄÊıÖµ±äÁ¿£¬×ö¹éÒ»»¯´¦Àí
+			// step15ï¼Œä¿ç•™ä¸‹æ¥çš„æ•°å€¼å˜é‡ï¼Œåšå½’ä¸€åŒ–å¤„ç†
 			NorRec nr = vr.getNorRec();
 			Normal.normal(cvs, nr);
 			ncn.add(cn);
@@ -756,7 +756,7 @@ public class Prep extends SequenceFunction {
 	}
 
 	/**
-	 * ¶Ô¼ÆÊıĞÍ±äÁ¿²¹È±£¬Ö»»áÓÃÖÚÊı
+	 * å¯¹è®¡æ•°å‹å˜é‡è¡¥ç¼ºï¼Œåªä¼šç”¨ä¼—æ•°
 	 * @param Vs
 	 * @param avg
 	 */
@@ -790,7 +790,7 @@ public class Prep extends SequenceFunction {
 	protected static double MISSING_MAX = 0.95;
 	protected static double MISSING_MIN = 0.05;
 
-	//·µ»ØĞòÁĞ°´Öµ·Ö×éÖĞ£¬Ã¿×é³ÉÔ±µÄĞòºÅList
+	//è¿”å›åºåˆ—æŒ‰å€¼åˆ†ç»„ä¸­ï¼Œæ¯ç»„æˆå‘˜çš„åºå·List
 	protected static ArrayList<ArrayList<Integer>> group(Sequence values) {
 		int size = values.length();
 		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>(size / 4);
@@ -810,7 +810,7 @@ public class Prep extends SequenceFunction {
 			if (Variant.isEquals(prev, cur)) {
 				group.add(pos);
 			} else {
-				// ĞÂ×é
+				// æ–°ç»„
 				prev = cur;
 				group.trimToSize();
 				group = new ArrayList<Integer>(7);
@@ -903,7 +903,7 @@ public class Prep extends SequenceFunction {
 		return res;
 	}
 	
-	//ĞŞ¸ÄºóµÄÆ½»¬»¯´¦Àí£¬²»×ö×ÔÈ»¶ÔÊı
+	//ä¿®æ”¹åçš„å¹³æ»‘åŒ–å¤„ç†ï¼Œä¸åšè‡ªç„¶å¯¹æ•°
 	protected static Sequence calcX1N2(Sequence X, Sequence N, Sequence Y, double y, double m) {
 		int xlen = X == null ? 0 : X.length();
 		Sequence res = new Sequence(xlen);

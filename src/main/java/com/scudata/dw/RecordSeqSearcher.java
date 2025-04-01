@@ -7,28 +7,28 @@ import com.scudata.dm.ObjectReader;
 import com.scudata.util.Variant;
 
 /**
- * ¼ÇÂ¼²éÕÒÆ÷
+ * è®°å½•æŸ¥æ‰¾å™¨
  * @author runqian
  *
  */
 class RecordSeqSearcher {
-	private ColPhyTable table;//±¾±í
+	private ColPhyTable table;//æœ¬è¡¨
 	
-	private long prevRecordCount = 0;//µ±Ç°ÒÑ¾­È¡³öµÄ¼ÇÂ¼Êı
-	private int curBlock = -1;//µ±Ç°¿éºÅ
-	private int totalBlockCount;//×Ü¿éÊı
+	private long prevRecordCount = 0;//å½“å‰å·²ç»å–å‡ºçš„è®°å½•æ•°
+	private int curBlock = -1;//å½“å‰å—å·
+	private int totalBlockCount;//æ€»å—æ•°
 	
 	private BlockLinkReader rowCountReader;
 	private BlockLinkReader []colReaders;
 	private ObjectReader []segmentReaders;
 	
-	private long []positions; // µ±Ç°¿éµÄÃ¿¸ö¼üÁĞµÄÎ»ÖÃ
-	private Object []minValues; // µ±Ç°¿éµÄÃ¿¸ö¼üÁĞµÄ×îĞ¡Öµ
-	private Object []maxValues; // µ±Ç°¿éµÄÃ¿¸ö¼üÁĞµÄ×î´óÖµ
+	private long []positions; // å½“å‰å—çš„æ¯ä¸ªé”®åˆ—çš„ä½ç½®
+	private Object []minValues; // å½“å‰å—çš„æ¯ä¸ªé”®åˆ—çš„æœ€å°å€¼
+	private Object []maxValues; // å½“å‰å—çš„æ¯ä¸ªé”®åˆ—çš„æœ€å¤§å€¼
 	
-	private int curRecordCount = 0; // µ±Ç°¿éµÄ¼ÇÂ¼Êı
-	private int curIndex = -1; // ¿éÄÚË÷Òı£¬µÈÓÚ-1Ôò¼ü¿é»¹Ã»¼ÓÔØ
-	private Object [][]blockKeyValues;//±¾¿éµÄËùÓĞÎ¬Öµ
+	private int curRecordCount = 0; // å½“å‰å—çš„è®°å½•æ•°
+	private int curIndex = -1; // å—å†…ç´¢å¼•ï¼Œç­‰äº-1åˆ™é”®å—è¿˜æ²¡åŠ è½½
+	private Object [][]blockKeyValues;//æœ¬å—çš„æ‰€æœ‰ç»´å€¼
 	private boolean isEnd = false;
 
 	public RecordSeqSearcher(ColPhyTable table) {
@@ -58,7 +58,7 @@ class RecordSeqSearcher {
 			segmentReaders[k] = columns[k].getSegmentReader();
 		}
 		
-		nextBlock();//È¡³öÀ´Ò»¿é
+		nextBlock();//å–å‡ºæ¥ä¸€å—
 	}
 	
 	private boolean nextBlock() {
@@ -79,7 +79,7 @@ class RecordSeqSearcher {
 				maxValues[k] = segmentReaders[k].readObject();
 				segmentReaders[k].skipObject();
 			}
-			//Èç¹ûÊÇ¶à×Ö¶ÎÎ¬£¬ÔòÈ¡×îºóÒ»ÌõÎ¬Öµ×÷Îªmax
+			//å¦‚æœæ˜¯å¤šå­—æ®µç»´ï¼Œåˆ™å–æœ€åä¸€æ¡ç»´å€¼ä½œä¸ºmax
 			if (keyCount > 1) {
 				loadKeyValues();
 				int idx = blockKeyValues[0].length - 1;
@@ -112,8 +112,8 @@ class RecordSeqSearcher {
 	}
 	
 	/**
-	 * ²éÕÒ £¨µ¥×Ö¶ÎÖ÷¼üÊ±£©
-	 * Èç¹ûÄÜÕÒµ½Ôò·µ»Ø¼ÇÂ¼ĞòºÅ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
+	 * æŸ¥æ‰¾ ï¼ˆå•å­—æ®µä¸»é”®æ—¶ï¼‰
+	 * å¦‚æœèƒ½æ‰¾åˆ°åˆ™è¿”å›è®°å½•åºå·ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›è´Ÿæ’å…¥ä½ç½®
 	 * @param keyValue
 	 * @return
 	 */
@@ -166,8 +166,8 @@ class RecordSeqSearcher {
 	}
 	
 	/**
-	 * ²éÕÒ £¨¶à×Ö¶ÎÖ÷¼üÊ±£©
-	 * Èç¹ûÄÜÕÒµ½Ôò·µ»Ø¼ÇÂ¼ĞòºÅ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
+	 * æŸ¥æ‰¾ ï¼ˆå¤šå­—æ®µä¸»é”®æ—¶ï¼‰
+	 * å¦‚æœèƒ½æ‰¾åˆ°åˆ™è¿”å›è®°å½•åºå·ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›è´Ÿæ’å…¥ä½ç½®
 	 * @param keyValues
 	 * @return
 	 */
@@ -200,7 +200,7 @@ class RecordSeqSearcher {
 						}
 					}
 					
-					// ¶¼ÏàµÈ
+					// éƒ½ç›¸ç­‰
 					curIndex = i;
 					return prevRecordCount + i;
 				}

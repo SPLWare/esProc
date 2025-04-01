@@ -1,7 +1,7 @@
 package com.scudata.dm;
 
 /**
- * ×÷Òµ³ö´íĞèÒªÖØËãÊ±£¬Å×³ö¸ÃÒì³£
+ * ä½œä¸šå‡ºé”™éœ€è¦é‡ç®—æ—¶ï¼ŒæŠ›å‡ºè¯¥å¼‚å¸¸
  * @author Joancy
  *
  */
@@ -9,31 +9,31 @@ public class RetryException extends RuntimeException {
 	private static final long serialVersionUID = -1177620135140049645L;
 
 	/**
-	 * ¿Õ¹¹Ôìº¯Êı
+	 * ç©ºæ„é€ å‡½æ•°
 	 */
 	public RetryException() {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param msg ³ö´íÔ­Òò
+	 * æ„é€ å‡½æ•°
+	 * @param msg å‡ºé”™åŸå› 
 	 */
 	public RetryException(String msg) {
 		super(msg);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param msg ³ö´íÔ­Òò
-	 * @param cause ÒıÆğ´íÎóµÄÒì³£
+	 * æ„é€ å‡½æ•°
+	 * @param msg å‡ºé”™åŸå› 
+	 * @param cause å¼•èµ·é”™è¯¯çš„å¼‚å¸¸
 	 */
 	public RetryException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param cause ÒıÆğ´íÎóµÄÒì³£
+	 * æ„é€ å‡½æ•°
+	 * @param cause å¼•èµ·é”™è¯¯çš„å¼‚å¸¸
 	 */
 	public RetryException(Throwable cause) {
 		super(cause);

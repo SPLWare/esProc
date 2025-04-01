@@ -373,7 +373,7 @@ public class ConfigWriter {
 							rs.getMinFreeSpace() + "",
 							ConfigConsts.BLOCK_BUFFER_SIZE,
 							rs.getBlockBufferSize() + "",
-					// optionÀïÓÐ»º´æÉèÖÃÁË
+					// optioné‡Œæœ‰ç¼“å­˜è®¾ç½®äº†
 					// ConfigConsts.CACHE_ENABLED,
 					// String.valueOf(rs.isCacheEnabled()),
 					// ConfigConsts.OPTION, rs.getOption()

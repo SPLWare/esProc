@@ -32,7 +32,7 @@ public class ImUtils {
 		return bret;
 	}
 	
-	//通过value of map �?测是否符合规则�??
+	//閫氳繃value of map 妫?娴嬫槸鍚︾鍚堣鍒欍??
 	public static boolean hasValueOfMap(String url, Map<String, Object> mReg) {      
 		boolean bRet = false;
 		try{
@@ -49,7 +49,7 @@ public class ImUtils {
 		return bRet;
 	}
 	
-	//通过key of map �?测是否符合规则�??
+	//閫氳繃key of map 妫?娴嬫槸鍚︾鍚堣鍒欍??
 	public static boolean hasKeyOfMap(String url, Map<String, Object> mReg) {      
 		boolean bRet = false;
 		try{
@@ -66,7 +66,7 @@ public class ImUtils {
 		return bRet;
 	}
 	
-	//�?测是否符合规则，并返回对应的内容规则.
+	//妫?娴嬫槸鍚︾鍚堣鍒欙紝骞惰繑鍥炲搴旂殑鍐呭瑙勫垯.
 	public static boolean hasKeyMap(String url, Map<String, Object> mReg, List<Object> retContentReg) {
 		boolean bRet = false;
 		try {
@@ -92,7 +92,7 @@ public class ImUtils {
 		return bRet;
 	}
 	
-	//根据url, urlReg，获取对应的内容规则.
+	//鏍规嵁url, urlReg锛岃幏鍙栧搴旂殑鍐呭瑙勫垯.
 	public static List<String> getExtractReg(String url, Map<String, String> mReg) {      
 		List<String> ret = new ArrayList<String>();
 		try{
@@ -180,7 +180,7 @@ public class ImUtils {
 	 }
 	
 	public static String getOsSystem() {
-		String osName = System.getProperty("os.name");//获取指定键（即os.name）的系统属�??,如：Windows 7�?
+		String osName = System.getProperty("os.name");//鑾峰彇鎸囧畾閿紙鍗硂s.name锛夌殑绯荤粺灞炴??,濡傦細Windows 7銆?
 		String OSname=null;
 		if (Pattern.matches("Linux.*", osName)) {
 			OSname="linux";

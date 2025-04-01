@@ -10,18 +10,18 @@ import com.scudata.expression.fn.gather.ICount.ICountPositionSet;
 import com.scudata.util.HashUtil;
 
 /**
- * ¶ÔĞòÁĞ½øĞĞ¹şÏ£È¥ÖØ
+ * å¯¹åºåˆ—è¿›è¡Œå“ˆå¸Œå»é‡
  * @author LW
  *
  */
 public class HashIdJob extends Job {
-	private Sequence src; // Ô´ĞòÁĞ
-	private int start; // ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	private int end; // ½áÊøÎ»ÖÃ£¬²»°üÀ¨
+	private Sequence src; // æºåºåˆ—
+	private int start; // èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	private int end; // ç»“æŸä½ç½®ï¼Œä¸åŒ…æ‹¬
 	
-	private String opt; // Ñ¡Ïî
+	private String opt; // é€‰é¡¹
 	
-	private Sequence result; // ½á¹û¼¯
+	private Sequence result; // ç»“æœé›†
 	
 	public HashIdJob(Sequence src, int start, int end, String opt) {
 		this.src = src;

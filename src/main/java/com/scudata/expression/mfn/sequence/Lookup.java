@@ -10,8 +10,8 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶àĞòÁĞ×éºÏ²éÕÒ
- * A.lookup(Ai:xi,¡­)
+ * å¤šåºåˆ—ç»„åˆæŸ¥æ‰¾
+ * A.lookup(Ai:xi,â€¦)
  * @author RunQian
  *
  */

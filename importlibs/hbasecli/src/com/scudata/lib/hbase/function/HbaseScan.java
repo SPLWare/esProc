@@ -28,20 +28,20 @@ public class HbaseScan extends HbaseQuery {
 		return null;
 	}
 
-	// È«±íÉ¨Ãèparam(conn, tableName)
+	// å…¨è¡¨æ‰«æparam(conn, tableName)
 	public Object doHbaseQuery( Object obj[]){
 		String option = this.getOption();
-		if (option!=null && option.equals("c")){ //for ÓÎ±ê
+		if (option!=null && option.equals("c")){ //for æ¸¸æ ‡
 			return hbaseCursor(obj);
 		}else{
 			return hbaseQuery( obj);
 		}		
 	}
 	
-	// Í¶Ó°×Ö¶Î
+	// æŠ•å½±å­—æ®µ
 	public Object doHbaseQuery( TableInfo tb ) throws IOException{
 		String option = this.getOption();
-		if (option!=null && option.equals("c")){ //for ÓÎ±ê
+		if (option!=null && option.equals("c")){ //for æ¸¸æ ‡
 			return hbaseCursor(tb);
 		}else{
 			return hbaseQuery( tb);
@@ -77,7 +77,7 @@ public class HbaseScan extends HbaseQuery {
     		 Scan scan = hbaseScanInfo(tb);
     		 HbaseDriverCli client = (HbaseDriverCli)tb.m_connect;
     		 org.apache.hadoop.hbase.client.Table table = client.m_conn.getTable(TableName.valueOf(tb.m_tableName));
-             ResultScanner scanner=table.getScanner(scan);//·µ»Øµü´úÆ÷
+             ResultScanner scanner=table.getScanner(scan);//è¿”å›è¿­ä»£å™¨
              tbl = toTable(scanner, tb, 0);
              scanner.close();
              scanner = null;
@@ -90,7 +90,7 @@ public class HbaseScan extends HbaseQuery {
     	 return tbl;
     }
   
-  	// È«±íÉ¨Ãèparam(conn, tableName)
+  	// å…¨è¡¨æ‰«æparam(conn, tableName)
 	public Object hbaseCursor( Object obj[])
 	{
 	   	 try {

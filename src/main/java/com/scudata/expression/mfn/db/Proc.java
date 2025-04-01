@@ -9,8 +9,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.DatabaseUtil;
 
 /**
- * µ÷ÓÃ´æ´¢¹ı³Ì¼ÆËã£¬·µ»ØµÄ½á¹û¼¯ÓÉ²ÎÊıÖĞµÄv´ø³ö
- * db.proc(sql,a:t:m:v,¡­)
+ * è°ƒç”¨å­˜å‚¨è¿‡ç¨‹è®¡ç®—ï¼Œè¿”å›çš„ç»“æœé›†ç”±å‚æ•°ä¸­çš„vå¸¦å‡º
+ * db.proc(sql,a:t:m:v,â€¦)
  * @author RunQian
  *
  */
@@ -28,7 +28,7 @@ public class Proc extends DBFunction {
 		String[] outParams = null;
 
 		char type = param.getType();
-		if (type == IParam.Normal) { // Ã»ÓĞ²ÎÊı
+		if (type == IParam.Normal) { // æ²¡æœ‰å‚æ•°
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (!(obj instanceof String)) {
 				MessageManager mm = EngineMessage.get();
@@ -37,7 +37,7 @@ public class Proc extends DBFunction {
 
 			strSql = (String)obj;
 		} else if (type == IParam.Comma) {
-			IParam sub0 = param.getSub(0); // sql±í´ïÊ½
+			IParam sub0 = param.getSub(0); // sqlè¡¨è¾¾å¼
 			if (sub0 == null || !sub0.isLeaf()) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("proc" + mm.getMessage("function.invalidParam"));
@@ -51,7 +51,7 @@ public class Proc extends DBFunction {
 
 			strSql = (String)obj;
 
-			int paramSize = param.getSubSize() - 1; // ²ÎÊı¸öÊı
+			int paramSize = param.getSubSize() - 1; // å‚æ•°ä¸ªæ•°
 			sqlParams = new Object[paramSize];
 			types = new byte[paramSize];
 			modes = new byte[paramSize];
@@ -62,7 +62,7 @@ public class Proc extends DBFunction {
 				IParam sub = param.getSub(i + 1);
 				if (sub == null) continue;
 
-				if (sub.isLeaf()) { // Ö»ÓĞ²ÎÊıÃ»ÓĞÖ¸¶¨ÀàĞÍ
+				if (sub.isLeaf()) { // åªæœ‰å‚æ•°æ²¡æœ‰æŒ‡å®šç±»å‹
 					sqlParams[i] = sub.getLeafExpression().calculate(ctx);
 				} else {
 					int size = sub.getSubSize();
@@ -71,8 +71,8 @@ public class Proc extends DBFunction {
 						throw new RQException("proc" + mm.getMessage("function.invalidParam"));
 					}
 
-					IParam subi0 = sub.getSub(0); // ²ÎÊıÖµ
-					IParam subi1 = sub.getSub(1); // ²ÎÊıÀàĞÍ
+					IParam subi0 = sub.getSub(0); // å‚æ•°å€¼
+					IParam subi1 = sub.getSub(1); // å‚æ•°ç±»å‹
 					if (subi0 != null) sqlParams[i] = subi0.getLeafExpression().calculate(ctx);
 					if (subi1 != null) {
 						Object tmp = subi1.getLeafExpression().calculate(ctx);
@@ -85,7 +85,7 @@ public class Proc extends DBFunction {
 					}
 
 					if (size > 2) {
-						IParam subi2 = sub.getSub(2); // ÊäÈëÊä³öÄ£Ê½
+						IParam subi2 = sub.getSub(2); // è¾“å…¥è¾“å‡ºæ¨¡å¼
 						if (subi2 != null) {
 							Object tmp = subi2.getLeafExpression().calculate(ctx);
 							if (!(tmp instanceof String)) {
@@ -93,7 +93,7 @@ public class Proc extends DBFunction {
 								throw new RQException("proc" + mm.getMessage("function.paramTypeError"));
 							}
 
-							// Ä¬ÈÏÎªÊäÈë²ÎÊı
+							// é»˜è®¤ä¸ºè¾“å…¥å‚æ•°
 							String modeStr = (String)tmp;
 							if (modeStr.indexOf('i') != -1) {
 								if (modeStr.indexOf('o') != -1) {
@@ -108,7 +108,7 @@ public class Proc extends DBFunction {
 					}
 
 					if (size > 3) {
-						IParam subi3 = sub.getSub(3); // Êä³ö²ÎÊıÃû
+						IParam subi3 = sub.getSub(3); // è¾“å‡ºå‚æ•°å
 						if (subi3 != null) {
 							outParams[i] = subi3.getLeafExpression().getIdentifierName();
 						}

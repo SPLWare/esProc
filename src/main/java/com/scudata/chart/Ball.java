@@ -34,8 +34,8 @@ public class Ball {
 	}
 
 	public void makeImages(int bsize) {
-		//�뾶����̫��̫��ʱ�������maxrԽ������255λ
-//		if( bsize>230 ){//�̶��뾶�������Ч�����ã���䶼���ø�ͼƬȥѹ����������
+		//半径不能太大，太大时，会造成maxr越出数组255位
+//		if( bsize>230 ){//固定半径的球光照效果更好，填充都会用该图片去压缩或者拉伸
 			bsize = 230;
 //		}
 		this.bsize = bsize * 2;

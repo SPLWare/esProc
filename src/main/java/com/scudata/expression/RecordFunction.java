@@ -3,13 +3,13 @@ package com.scudata.expression;
 import com.scudata.dm.BaseRecord;
 
 /**
- * ¼ÇÂ¼³ÉÔ±º¯Êı»ùÀà
+ * è®°å½•æˆå‘˜å‡½æ•°åŸºç±»
  * r.f()
  * @author RunQian
  *
  */
 public abstract class RecordFunction extends MemberFunction {
-	protected BaseRecord srcRecord; // Ô´¼ÇÂ¼
+	protected BaseRecord srcRecord; // æºè®°å½•
 	
 	public boolean isLeftTypeMatch(Object obj) {
 		return obj instanceof BaseRecord;
@@ -20,7 +20,7 @@ public abstract class RecordFunction extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		srcRecord = null;

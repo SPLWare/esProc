@@ -8,245 +8,245 @@ import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
 
 /**
- * Êı¾İ¿âÁ¬½Ó½Ó¿Ú
+ * æ•°æ®åº“è¿æ¥æ¥å£
  * @author RunQian
  *
  */
 public interface IVS {
 	/**
-	 * È¡Á¬½Ó¶ÔÓ¦µÄ¸ùÁ¬½Ó
+	 * å–è¿æ¥å¯¹åº”çš„æ ¹è¿æ¥
 	 * @return VDB
 	 */
 	VDB getVDB();
 	
 	/**
-	 * È¡Á¬½ÓµÄµ±Ç°½Ú
+	 * å–è¿æ¥çš„å½“å‰èŠ‚
 	 * @return ISection
 	 */
 	ISection getHome();
 	
 	// 
 	/**
-	 * ÉèÖÃµ±Ç°Â·¾¶£¬ºóĞø¶ÁĞ´²Ù×÷½«Ïà¶ÔÓÚ´ËÂ·¾¶
+	 * è®¾ç½®å½“å‰è·¯å¾„ï¼Œåç»­è¯»å†™æ“ä½œå°†ç›¸å¯¹äºæ­¤è·¯å¾„
 	 * @param path
 	 * @return IVS
 	 */
 	IVS home(Object path);
 	
 	/**
-	 * ·µ»Øµ±Ç°Â·¾¶
+	 * è¿”å›å½“å‰è·¯å¾„
 	 * @param opt
 	 * @return Object
 	 */
 	Object path(String opt);
 
 	/**
-	 * Ëø×¡µ±Ç°Â·¾¶
-	 * @param opt Ñ¡Ïî£¬r£ºÕû¸öÂ·¾¶Óò¶¼¼ÓĞ´Ëø£¬u£º½âËø
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * é”ä½å½“å‰è·¯å¾„
+	 * @param opt é€‰é¡¹ï¼Œrï¼šæ•´ä¸ªè·¯å¾„åŸŸéƒ½åŠ å†™é”ï¼Œuï¼šè§£é”
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int lock(String opt);
 	
 	/**
-	 * Ëø×¡Ö¸¶¨Â·¾¶
-	 * @param path Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param opt Ñ¡Ïî£¬r£ºÕû¸öÂ·¾¶Óò¶¼¼ÓĞ´Ëø£¬u£º½âËø
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * é”ä½æŒ‡å®šè·¯å¾„
+	 * @param path è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param opt é€‰é¡¹ï¼Œrï¼šæ•´ä¸ªè·¯å¾„åŸŸéƒ½åŠ å†™é”ï¼Œuï¼šè§£é”
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int lock(Object path, String opt);
 	
 	/**
-	 * ÁĞ³öµ±Ç°Â·¾¶ÏÂµÄ×ÓÎÄ¼ş£¬·µ»Ø³ÉĞòÁĞ
-	 * @param opt Ñ¡Ïî£¬d£ºÁĞ³ö×ÓÄ¿Â¼£¬w£º²»Çø·ÖÎÄ¼şºÍÄ¿Â¼È«²¿ÁĞ³ö£¬l£ºÏÈ¼ÓËø
+	 * åˆ—å‡ºå½“å‰è·¯å¾„ä¸‹çš„å­æ–‡ä»¶ï¼Œè¿”å›æˆåºåˆ—
+	 * @param opt é€‰é¡¹ï¼Œdï¼šåˆ—å‡ºå­ç›®å½•ï¼Œwï¼šä¸åŒºåˆ†æ–‡ä»¶å’Œç›®å½•å…¨éƒ¨åˆ—å‡ºï¼Œlï¼šå…ˆåŠ é”
 	 * @return Sequence
 	 */
 	Sequence list(String opt);
 	
 	/**
-	 * ÁĞ³öÖ¸¶¨Â·¾¶ÏÂµÄ×ÓÎÄ¼ş£¬·µ»Ø³ÉĞòÁĞ
-	 * @param path Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param opt Ñ¡Ïî£¬d£ºÁĞ³ö×ÓÄ¿Â¼£¬w£º²»Çø·ÖÎÄ¼şºÍÄ¿Â¼È«²¿ÁĞ³ö£¬l£ºÏÈ¼ÓËø
+	 * åˆ—å‡ºæŒ‡å®šè·¯å¾„ä¸‹çš„å­æ–‡ä»¶ï¼Œè¿”å›æˆåºåˆ—
+	 * @param path è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param opt é€‰é¡¹ï¼Œdï¼šåˆ—å‡ºå­ç›®å½•ï¼Œwï¼šä¸åŒºåˆ†æ–‡ä»¶å’Œç›®å½•å…¨éƒ¨åˆ—å‡ºï¼Œlï¼šå…ˆåŠ é”
 	 * @return Sequence
 	 */
 	Sequence list(Object path, String opt);
 	
 	/**
-	 * ¶Áµ±Ç°±íµ¥µÄÊı¾İ
-	 * @param opt Ñ¡Ïî£¬l£ºÏÈ¼ÓËø
+	 * è¯»å½“å‰è¡¨å•çš„æ•°æ®
+	 * @param opt é€‰é¡¹ï¼Œlï¼šå…ˆåŠ é”
 	 * @return Object
 	 */
 	Object load(String opt);
 	
 	/**
-	 * ¶ÁÖ¸¶¨Â·¾¶µÄ±íµ¥µÄÊı¾İ
-	 * @param path Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param opt Ñ¡Ïî£¬l£ºÏÈ¼ÓËø
+	 * è¯»æŒ‡å®šè·¯å¾„çš„è¡¨å•çš„æ•°æ®
+	 * @param path è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param opt é€‰é¡¹ï¼Œlï¼šå…ˆåŠ é”
 	 * @return Object
 	 */
 	Object load(Object path, String opt);
 	
 	/**
-	 * ·µ»ØÂ·¾¶µÄ×îĞÂÌá½»Ê±¿Ì
+	 * è¿”å›è·¯å¾„çš„æœ€æ–°æäº¤æ—¶åˆ»
 	 * @return Timestamp
 	 */
 	Timestamp date();
 
 	/**
-	 * °ÑÊı¾İĞ´Èëµ½µ±Ç°±íµ¥
-	 * @param value Êı¾İ
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * æŠŠæ•°æ®å†™å…¥åˆ°å½“å‰è¡¨å•
+	 * @param value æ•°æ®
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int save(Object value);
 	
 	/**
-	 * °ÑÊı¾İĞ´Èëµ½Ö¸¶¨Â·¾¶µÄ±íµ¥
-	 * @param value Êı¾İ
-	 * @param path Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param name Â·¾¶Ãû»òÂ·¾¶ÃûĞòÁĞ
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * æŠŠæ•°æ®å†™å…¥åˆ°æŒ‡å®šè·¯å¾„çš„è¡¨å•
+	 * @param value æ•°æ®
+	 * @param path è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param name è·¯å¾„åæˆ–è·¯å¾„ååºåˆ—
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int save(Object value, Object path, Object name);
 
 	/**
-	 * ¶Á³öµ±Ç°Â·¾¶ÏÂËùÓĞ°üº¬Ö¸¶¨×Ö¶ÎµÄ±íµ¥µÄÊı¾İ
-	 * @param fields ×Ö¶ÎÃûÊı×é
-	 * @return Ğò±í
+	 * è¯»å‡ºå½“å‰è·¯å¾„ä¸‹æ‰€æœ‰åŒ…å«æŒ‡å®šå­—æ®µçš„è¡¨å•çš„æ•°æ®
+	 * @param fields å­—æ®µåæ•°ç»„
+	 * @return åºè¡¨
 	 */
 	Table importTable(String []fields);
 	
 	 /**
-	  *  ¶Á³öµ±Ç°Â·¾¶ÏÂËùÓĞ°üº¬Ö¸¶¨×Ö¶ÎµÄ±íµ¥µÄÊı¾İ
-	  * @param fields ×Ö¶ÎÃûÊı×é
-	  * @param filters ¹ıÂË±í´ïÊ½Êı×é
-	  * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	  * @return Ğò±í
+	  *  è¯»å‡ºå½“å‰è·¯å¾„ä¸‹æ‰€æœ‰åŒ…å«æŒ‡å®šå­—æ®µçš„è¡¨å•çš„æ•°æ®
+	  * @param fields å­—æ®µåæ•°ç»„
+	  * @param filters è¿‡æ»¤è¡¨è¾¾å¼æ•°ç»„
+	  * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	  * @return åºè¡¨
 	  */
 	Table importTable(String []fields, Expression []filters, Context ctx);
 	
 	/**
-	 * Èç¹ûÑ¡ÏîÎª¿ÕÔòÉ¾³ı½Úµã£¬Èç¹ûÑ¡ÏîÎª¡°e¡±ÔòÉ¾³ıÆäÏÂµÄ¿Õ×Ó½Úµã
-	 * @param opt e£ºÖ»É¾³ıÆäÏÂµÄ¿Õ½Úµã
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * å¦‚æœé€‰é¡¹ä¸ºç©ºåˆ™åˆ é™¤èŠ‚ç‚¹ï¼Œå¦‚æœé€‰é¡¹ä¸ºâ€œeâ€åˆ™åˆ é™¤å…¶ä¸‹çš„ç©ºå­èŠ‚ç‚¹
+	 * @param opt eï¼šåªåˆ é™¤å…¶ä¸‹çš„ç©ºèŠ‚ç‚¹
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
-	int delete(String opt); // É¾³ı½Ú
+	int delete(String opt); // åˆ é™¤èŠ‚
 	
 	/**
-	 * Èç¹ûÑ¡ÏîÎª¿ÕÔòÉ¾³ı½Úµã£¬Èç¹ûÑ¡ÏîÎª¡°e¡±ÔòÉ¾³ıÆäÏÂµÄ¿Õ×Ó½Úµã
-	 * @param path Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param opt e£ºÖ»É¾³ıÆäÏÂµÄ¿Õ½Úµã
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * å¦‚æœé€‰é¡¹ä¸ºç©ºåˆ™åˆ é™¤èŠ‚ç‚¹ï¼Œå¦‚æœé€‰é¡¹ä¸ºâ€œeâ€åˆ™åˆ é™¤å…¶ä¸‹çš„ç©ºå­èŠ‚ç‚¹
+	 * @param path è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param opt eï¼šåªåˆ é™¤å…¶ä¸‹çš„ç©ºèŠ‚ç‚¹
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
-	int delete(Object path, String opt); // É¾³ı½Ú
+	int delete(Object path, String opt); // åˆ é™¤èŠ‚
 	
 	/**
-	 * É¾³ı¶à½Ú
+	 * åˆ é™¤å¤šèŠ‚
 	 * @param paths
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int deleteAll(Sequence paths);
 	
 	/**
-	 * ÒÆ¶¯Ä¿Â¼µ½Ö¸¶¨Ä¿Â¼
-	 * @param srcPath Ô´Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param destPath Ä¿±êÂ·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param name Ä¿±êÂ·¾¶Ãû»òÂ·¾¶ÃûĞòÁĞ
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * ç§»åŠ¨ç›®å½•åˆ°æŒ‡å®šç›®å½•
+	 * @param srcPath æºè·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param destPath ç›®æ ‡è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param name ç›®æ ‡è·¯å¾„åæˆ–è·¯å¾„ååºåˆ—
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int move(Object srcPath, Object destPath, Object name);
 	
 	/**
-	 * ´´½¨Ä¿Â¼
-	 * @param path Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param name Â·¾¶Ãû»òÂ·¾¶ÃûĞòÁĞ
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * åˆ›å»ºç›®å½•
+	 * @param path è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param name è·¯å¾„åæˆ–è·¯å¾„ååºåˆ—
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int makeDir(Object path, Object name);
 	
 	/**
-	 * ´ÓÊı¾İ¿âÖĞ¶ÁÈ¡ÆäËü×Ö¶Î×·¼Óµ½Ö¸¶¨ÅÅÁĞÉÏ
-	 * @param seq ÅÅÁĞ
-	 * @param pathExp Â·¾¶±í´ïÊ½
-	 * @param fields Òª¶ÁÈ¡µÄ×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ½á¹û¼¯Ğò±í
+	 * ä»æ•°æ®åº“ä¸­è¯»å–å…¶å®ƒå­—æ®µè¿½åŠ åˆ°æŒ‡å®šæ’åˆ—ä¸Š
+	 * @param seq æ’åˆ—
+	 * @param pathExp è·¯å¾„è¡¨è¾¾å¼
+	 * @param fields è¦è¯»å–çš„å­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return ç»“æœé›†åºè¡¨
 	 */
 	Table read(Sequence seq, Expression pathExp, String []fields, Expression filter, Context ctx);
 	
 	/**
-	 * °ÑÅÅÁĞµÄÖ¸¶¨×Ö¶ÎĞ´Èëµ½±íµ¥
-	 * @param seq ÅÅÁĞ
-	 * @param pathExp Â·¾¶±í´ïÊ½
-	 * @param fieldExps ×Ö¶ÎÖµ±í´ïÊ½Êı×é
-	 * @param fields ×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * æŠŠæ’åˆ—çš„æŒ‡å®šå­—æ®µå†™å…¥åˆ°è¡¨å•
+	 * @param seq æ’åˆ—
+	 * @param pathExp è·¯å¾„è¡¨è¾¾å¼
+	 * @param fieldExps å­—æ®µå€¼è¡¨è¾¾å¼æ•°ç»„
+	 * @param fields å­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int write(Sequence seq, Expression pathExp, Expression []fieldExps, 
 			String []fields, Expression filter, Context ctx);
 
 	/**
-	 * ¸ù¾İÌõ¼ş¼ìË÷Êı¾İ
-	 * @param dirNames Â·¾¶ÃûÊı×é
-	 * @param dirValues Â·¾¶ÖµÊı×é£¬ÓÃÓÚ¹ıÂË
-	 * @param valueSigns true£º¶ÔÄ¿Â¼ÌáÌõ¼ş£¬´ËÊ±Èç¹û´«ÈëµÄÄ¿Â¼ÖµÊÇnull£¬Ôò»áÑ¡ÖµÊÇnullµÄÄ¿Â¼£¬false£ºÊ¡ÂÔÄ¿Â¼Öµ£¬¼´²»¶Ô´ËÄ¿Â¼ÌáÌõ¼ş
-	 * @param fields µ¥¾İÖĞÒª¶ÁµÄ×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂËÌõ¼ş
-	 * @param opt Ñ¡Ïî£¬r£º¹éÈ¥ÕÒ×ÓÂ·¾¶£¬È±Ê¡½«¶Áµ½²ÎÊıËùÉæ¼°²ã¼´Í£Ö¹
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ½á¹û¼¯ÅÅÁĞ
+	 * æ ¹æ®æ¡ä»¶æ£€ç´¢æ•°æ®
+	 * @param dirNames è·¯å¾„åæ•°ç»„
+	 * @param dirValues è·¯å¾„å€¼æ•°ç»„ï¼Œç”¨äºè¿‡æ»¤
+	 * @param valueSigns trueï¼šå¯¹ç›®å½•ææ¡ä»¶ï¼Œæ­¤æ—¶å¦‚æœä¼ å…¥çš„ç›®å½•å€¼æ˜¯nullï¼Œåˆ™ä¼šé€‰å€¼æ˜¯nullçš„ç›®å½•ï¼Œfalseï¼šçœç•¥ç›®å½•å€¼ï¼Œå³ä¸å¯¹æ­¤ç›®å½•ææ¡ä»¶
+	 * @param fields å•æ®ä¸­è¦è¯»çš„å­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤æ¡ä»¶
+	 * @param opt é€‰é¡¹ï¼Œrï¼šå½’å»æ‰¾å­è·¯å¾„ï¼Œç¼ºçœå°†è¯»åˆ°å‚æ•°æ‰€æ¶‰åŠå±‚å³åœæ­¢
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return ç»“æœé›†æ’åˆ—
 	 */
 	Sequence retrieve(String []dirNames, Object []dirValues, boolean []valueSigns,
 			String []fields, Expression filter, String opt, Context ctx);
 	
 	/**
-	 * ÕÒ³öÂú×ãÌõ¼şµÄµ¥¾İºó¸ÄĞ´µ¥¾İµÄ×Ö¶ÎÖµ
-	 * @param dirNames Â·¾¶ÃûÊı×é
-	 * @param dirValues Â·¾¶ÖµÊı×é£¬ÓÃÓÚ¹ıÂË
-	 * @param valueSigns true£º¶ÔÄ¿Â¼ÌáÌõ¼ş£¬´ËÊ±Èç¹û´«ÈëµÄÄ¿Â¼ÖµÊÇnull£¬Ôò»áÑ¡ÖµÊÇnullµÄÄ¿Â¼£¬false£ºÊ¡ÂÔÄ¿Â¼Öµ£¬¼´²»¶Ô´ËÄ¿Â¼ÌáÌõ¼ş
-	 * @param fvals µ¥¾İÖĞµÄ×Ö¶ÎÖµÊı×é
-	 * @param fields µ¥¾İÖĞµÄ×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂËÌõ¼ş
-	 * @param opt Ñ¡Ïî£¬r£º¹éÈ¥ÕÒ×ÓÂ·¾¶£¬È±Ê¡½«¶Áµ½²ÎÊıËùÉæ¼°²ã¼´Í£Ö¹
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * æ‰¾å‡ºæ»¡è¶³æ¡ä»¶çš„å•æ®åæ”¹å†™å•æ®çš„å­—æ®µå€¼
+	 * @param dirNames è·¯å¾„åæ•°ç»„
+	 * @param dirValues è·¯å¾„å€¼æ•°ç»„ï¼Œç”¨äºè¿‡æ»¤
+	 * @param valueSigns trueï¼šå¯¹ç›®å½•ææ¡ä»¶ï¼Œæ­¤æ—¶å¦‚æœä¼ å…¥çš„ç›®å½•å€¼æ˜¯nullï¼Œåˆ™ä¼šé€‰å€¼æ˜¯nullçš„ç›®å½•ï¼Œfalseï¼šçœç•¥ç›®å½•å€¼ï¼Œå³ä¸å¯¹æ­¤ç›®å½•ææ¡ä»¶
+	 * @param fvals å•æ®ä¸­çš„å­—æ®µå€¼æ•°ç»„
+	 * @param fields å•æ®ä¸­çš„å­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤æ¡ä»¶
+	 * @param opt é€‰é¡¹ï¼Œrï¼šå½’å»æ‰¾å­è·¯å¾„ï¼Œç¼ºçœå°†è¯»åˆ°å‚æ•°æ‰€æ¶‰åŠå±‚å³åœæ­¢
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int update(String []dirNames, Object []dirValues, boolean []valueSigns, 
 			Object []fvals, String []fields, Expression filter, String opt, Context ctx);
 	
 	/**
-	 * ±£´æ¸½¼ş£¬Í¨³£ÊÇÍ¼Æ¬
-	 * @param oldValues ÉÏÒ»´Îµ÷ÓÃ´Îº¯ÊıµÄ·µ»ØÖµ
-	 * @param newValues ĞŞ¸ÄºóµÄÖµ
-	 * @param path Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param name Â·¾¶Ãû»òÂ·¾¶ÃûĞòÁĞ
-	 * @return ÖµĞòÁĞ£¬ÓÃÓÚÏÂÒ»´Îµ÷ÓÃ´Ëº¯Êı
+	 * ä¿å­˜é™„ä»¶ï¼Œé€šå¸¸æ˜¯å›¾ç‰‡
+	 * @param oldValues ä¸Šä¸€æ¬¡è°ƒç”¨æ¬¡å‡½æ•°çš„è¿”å›å€¼
+	 * @param newValues ä¿®æ”¹åçš„å€¼
+	 * @param path è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param name è·¯å¾„åæˆ–è·¯å¾„ååºåˆ—
+	 * @return å€¼åºåˆ—ï¼Œç”¨äºä¸‹ä¸€æ¬¡è°ƒç”¨æ­¤å‡½æ•°
 	 */
 	Sequence saveBlob(Sequence oldValues, Sequence newValues, Object path, String name);
 	
 	/**
-	 * ÖØĞÂÃüÃûÂ·¾¶Ãû
-	 * @param Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param Â·¾¶Ãû»òÂ·¾¶ÃûĞòÁĞ
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * é‡æ–°å‘½åè·¯å¾„å
+	 * @param è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param è·¯å¾„åæˆ–è·¯å¾„ååºåˆ—
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int rename(Object path, String name);
 	
 	/**
-	 * ¹éµµÖ¸¶¨Â·¾¶£¬¹éµµºóÂ·¾¶²»¿ÉÔÙĞ´£¬Õ¼ÓÃµÄ¿Õ¼ä»á±äĞ¡£¬²éÑ¯ËÙ¶È»á±ä¿ì
-	 * @param path Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * å½’æ¡£æŒ‡å®šè·¯å¾„ï¼Œå½’æ¡£åè·¯å¾„ä¸å¯å†å†™ï¼Œå ç”¨çš„ç©ºé—´ä¼šå˜å°ï¼ŒæŸ¥è¯¢é€Ÿåº¦ä¼šå˜å¿«
+	 * @param path è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int archive(Object path);
 	
 	/**
-	 * ¸´ÖÆÂ·¾¶µ½Ö¸¶¨Â·¾¶ÏÂ
-	 * @param destPath Ä¿±êÂ·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @param destName Ä¿±êÂ·¾¶Ãû»òÂ·¾¶ÃûĞòÁĞ
-	 * @param src Ô´Êı¾İ¿âÁ¬½Ó
-	 * @param srcPath Ô´Â·¾¶»òÂ·¾¶ĞòÁĞ
-	 * @return ³É¹¦£ºVDB.S_SUCCESS£¬ÆäËü£ºÊ§°Ü
+	 * å¤åˆ¶è·¯å¾„åˆ°æŒ‡å®šè·¯å¾„ä¸‹
+	 * @param destPath ç›®æ ‡è·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @param destName ç›®æ ‡è·¯å¾„åæˆ–è·¯å¾„ååºåˆ—
+	 * @param src æºæ•°æ®åº“è¿æ¥
+	 * @param srcPath æºè·¯å¾„æˆ–è·¯å¾„åºåˆ—
+	 * @return æˆåŠŸï¼šVDB.S_SUCCESSï¼Œå…¶å®ƒï¼šå¤±è´¥
 	 */
 	int copy(Object destPath, Object destName, IVS src, Object srcPath);
 }

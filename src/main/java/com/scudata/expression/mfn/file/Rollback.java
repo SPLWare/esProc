@@ -16,7 +16,7 @@ import com.scudata.expression.FileFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Èç¹û¸üĞÂ×é±íÎÄ¼şÊ§°Ü£¬µ÷ÓÃ´Ëº¯Êı»Ö¸´Êı¾İ
+ * å¦‚æœæ›´æ–°ç»„è¡¨æ–‡ä»¶å¤±è´¥ï¼Œè°ƒç”¨æ­¤å‡½æ•°æ¢å¤æ•°æ®
  * @author RunQian
  *
  */
@@ -65,7 +65,7 @@ public class Rollback extends FileFunction {
 				raf.readFully(mac1);
 				raf.close();
 				
-				//¼ì²é±¸·İÈÕÖ¾ÎÄ¼şµÄÍêÕûĞÔ
+				//æ£€æŸ¥å¤‡ä»½æ—¥å¿—æ–‡ä»¶çš„å®Œæ•´æ€§
 				byte []mac2 = MD5.get(bytes);
 				for (int i = 0; i < 16; ++i) {
 					if (mac1[i] != mac2[i]) {
@@ -96,7 +96,7 @@ public class Rollback extends FileFunction {
 				reader.readInt32();
 				
 				byte []reserve = new byte[32];
-				reader.read(reserve); // ±£ÁôÎ»
+				reader.read(reserve); // ä¿ç•™ä½
 				long freePos = reader.readLong40();
 				long fileSize = reader.readLong40();
 				if (reserve[0] > 0) {
@@ -122,7 +122,7 @@ public class Rollback extends FileFunction {
 				raf.getChannel().force(false);
 				
 				raf.setLength(freePos);//clear
-				raf.setLength(fileSize);//»Ö¸´ÎÄ¼ş´óĞ¡
+				raf.setLength(fileSize);//æ¢å¤æ–‡ä»¶å¤§å°
 				raf.close();
 				
 				logFile.delete();
@@ -136,7 +136,7 @@ public class Rollback extends FileFunction {
 			}
 		}
 		
-		//´¦ÀíË÷ÒıµÄ»Ö¸´
+		//å¤„ç†ç´¢å¼•çš„æ¢å¤
 		dir = file.getAbsolutePath() + "_I_TransactionLog";
 		logFile = new FileObject(dir);
 		if (logFile.isExists()) {

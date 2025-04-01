@@ -13,10 +13,10 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.common.MessageManager;
 
 /**
- * ÇåÀíÒì³£Öµ 
+ * æ¸…ç†å¼‚å¸¸å€¼ 
  * @author bd
- * Ô­ĞÍx.sert(): a=x.avg()£¬se=x.se()£¬x.range(a-5*se,a+5*se) /
- * Ô­ĞÍA.sert()	P.sert(cn), A.sert@r(rec), P.sert(cn, rec)
+ * åŸå‹x.sert(): a=x.avg()ï¼Œse=x.se()ï¼Œx.range(a-5*se,a+5*se) /
+ * åŸå‹A.sert()	P.sert(cn), A.sert@r(rec), P.sert(cn, rec)
  */
 public class Sert extends SequenceFunction{
 	public Object calculate(Context ctx) {
@@ -179,11 +179,11 @@ public class Sert extends SequenceFunction{
 	}
 	
 	/**
-	 * ÇåÀíÒì³£Öµ£¬½«½á¹û¸Ä±äµ½VsÖĞ
-	 * @param Vs	Ä³ÊıÖµÁĞµÄÊı¾İ
-	 * @param x	ÊıÖµÁĞ¾­¹ı¾ÀÆ«nmnv´¦ÀíµÄÊı¾İ
-	 * @param avg	Æ½¾ùÖµ
-	 * @param sd	·½²î
+	 * æ¸…ç†å¼‚å¸¸å€¼ï¼Œå°†ç»“æœæ”¹å˜åˆ°Vsä¸­
+	 * @param Vs	æŸæ•°å€¼åˆ—çš„æ•°æ®
+	 * @param x	æ•°å€¼åˆ—ç»è¿‡çº ånmnvå¤„ç†çš„æ•°æ®
+	 * @param avg	å¹³å‡å€¼
+	 * @param sd	æ–¹å·®
 	 * @return
 	 */
 	protected static void sert(Sequence Vs, Sequence x, double avg, double sd, VarInfo vi) {

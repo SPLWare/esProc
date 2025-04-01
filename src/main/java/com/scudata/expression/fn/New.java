@@ -12,8 +12,8 @@ import com.scudata.expression.ParamInfo2;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Éú³ÉÒ»Ìõ¼ÇÂ¼
- * new(xi:Fi,¡­) Éú³ÉÒ»Ìõ×Ö¶ÎÃû³ÆÎªFi×Ö¶ÎÖµÎªxiµÄ¼ÇÂ¼¡£
+ * ç”Ÿæˆä¸€æ¡è®°å½•
+ * new(xi:Fi,â€¦) ç”Ÿæˆä¸€æ¡å­—æ®µåç§°ä¸ºFiå­—æ®µå€¼ä¸ºxiçš„è®°å½•ã€‚
  * @author runqian
  *
  */
@@ -24,7 +24,7 @@ public class New extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

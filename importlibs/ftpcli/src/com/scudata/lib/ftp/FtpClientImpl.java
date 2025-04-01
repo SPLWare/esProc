@@ -24,8 +24,8 @@ public class FtpClientImpl implements IResource {
 //	public class FtpClient implements IResource
 //	{
 //		public FtpClient(Context, String url, int mode);
-//		public FtpClient(Context ctx, String url, int port, int mode);	//×¢ÒâÁ¬½Ó³É¹¦ºóÒªctx.addResource,mode=0±íÊ¾Ö÷¶¯£¬1±íÊ¾±»¶¯
-//		public boolean login(String user, String pwd);		//·µ»ØÊÇ·ñ³É¹¦£¬Èç¹ûÓĞ¸üÏêÏ¸µÄ´íÎó´úÂë£¬¿É·µ»ØintÖ®Àà
+//		public FtpClient(Context ctx, String url, int port, int mode);	//æ³¨æ„è¿æ¥æˆåŠŸåè¦ctx.addResource,mode=0è¡¨ç¤ºä¸»åŠ¨ï¼Œ1è¡¨ç¤ºè¢«åŠ¨
+//		public boolean login(String user, String pwd);		//è¿”å›æ˜¯å¦æˆåŠŸï¼Œå¦‚æœæœ‰æ›´è¯¦ç»†çš„é”™è¯¯ä»£ç ï¼Œå¯è¿”å›intä¹‹ç±»
 //		public boolean changeRemoteDir(String dir);/
 //		public boolean put(String remoteFileName, InputStream in, boolean overwrited);
 //		public boolean get(String remoteFileName, FileObject localFile, boolean overwrited);
@@ -34,26 +34,26 @@ public class FtpClientImpl implements IResource {
 //	}
 //
 //	package com.scudata.lib.ftp.function;
-	/*º¯Êı
-	ftp_client(url:port, user, pwd) ·µ»ØFtpClient, port¿ÉÊ¡ÂÔ£¬@d±»¶¯Ä£Ê½
+	/*å‡½æ•°
+	ftp_client(url:port, user, pwd) è¿”å›FtpClient, portå¯çœç•¥ï¼Œ@dè¢«åŠ¨æ¨¡å¼
 	ftp_cd(client, path)
-	ftp_put(client, remoteFileName, localFileName»òFileObject)   @f¸²¸Ç£¬ ·µ»Øfalse±íÊ¾²»³É¹¦
-	ftp_get(client, remoteFileName, localFileName»òFileObject)   @f¸²¸Ç£¬ ·µ»Øfalse±íÊ¾²»³É¹¦
+	ftp_put(client, remoteFileName, localFileNameæˆ–FileObject)   @fè¦†ç›–ï¼Œ è¿”å›falseè¡¨ç¤ºä¸æˆåŠŸ
+	ftp_get(client, remoteFileName, localFileNameæˆ–FileObject)   @fè¦†ç›–ï¼Œ è¿”å›falseè¡¨ç¤ºä¸æˆåŠŸ
 	ftp_mkdir(client, remotePath)
 	ftp_close(client);
 
-	ftp_dir(client, path) ÁĞ³öÎÄ¼ş£¬pathÖ§³ÖÍ¨Åä·ûÂğ£¿
-	@d  Ö»ÁĞ×ÓÄ¿Â¼
-	@p  ÍêÕûÂ·¾¶Ãû
-	@m  ´´½¨Ä¿Â¼		//ftp_mkdirÎÄµµÖĞ²»ÔÙ³öÏÖ
-	@r  É¾³ıÄ¿Â¼
+	ftp_dir(client, path) åˆ—å‡ºæ–‡ä»¶ï¼Œpathæ”¯æŒé€šé…ç¬¦å—ï¼Ÿ
+	@d  åªåˆ—å­ç›®å½•
+	@p  å®Œæ•´è·¯å¾„å
+	@m  åˆ›å»ºç›®å½•		//ftp_mkdiræ–‡æ¡£ä¸­ä¸å†å‡ºç°
+	@r  åˆ é™¤ç›®å½•
 	
-	Èç¹ûÖ§³Ömget£¬ÄÇÔÚÔ­ftp_getÌá¹©Ò»¸ö@mÑ¡Ïî£¬Ò²¾ÍÊÇÄ¿Â¼µ½Ä¿Â¼
-	»òÕßÊÇ´øÍ¨Åä·ûµÄÂ·¾¶µ½±¾µØÄ¿Â¼
+	å¦‚æœæ”¯æŒmgetï¼Œé‚£åœ¨åŸftp_getæä¾›ä¸€ä¸ª@mé€‰é¡¹ï¼Œä¹Ÿå°±æ˜¯ç›®å½•åˆ°ç›®å½•
+	æˆ–è€…æ˜¯å¸¦é€šé…ç¬¦çš„è·¯å¾„åˆ°æœ¬åœ°ç›®å½•
 
-	ftp_mput(client,remoteFolder,localFolder,´øÍ¨Åä·ûµÄlocalFiles;)   @f¸²¸Ç£¬@tÌø¹ıÒÑ´æÔÚÎÄ¼ş£¬ ·µ»Øfalse±íÊ¾²»³É¹¦
-	ftp_mget(client,remoteFolder,localFolder,´øÍ¨Åä·ûµÄremoteFiles)   @f¸²¸Ç£¬@tÌø¹ıÒÑ´æÔÚÎÄ¼ş£¬ ·µ»Øfalse±íÊ¾²»³É¹¦
-	ftp_dir(client, ´øÍ¨Åä·ûµÄremoteFiles) ÁĞ³öÎÄ¼ş£¬pathÖ§³ÖÍ¨Åä·ûÂğ£¿
+	ftp_mput(client,remoteFolder,localFolder,å¸¦é€šé…ç¬¦çš„localFiles;)   @fè¦†ç›–ï¼Œ@tè·³è¿‡å·²å­˜åœ¨æ–‡ä»¶ï¼Œ è¿”å›falseè¡¨ç¤ºä¸æˆåŠŸ
+	ftp_mget(client,remoteFolder,localFolder,å¸¦é€šé…ç¬¦çš„remoteFiles)   @fè¦†ç›–ï¼Œ@tè·³è¿‡å·²å­˜åœ¨æ–‡ä»¶ï¼Œ è¿”å›falseè¡¨ç¤ºä¸æˆåŠŸ
+	ftp_dir(client, å¸¦é€šé…ç¬¦çš„remoteFiles) åˆ—å‡ºæ–‡ä»¶ï¼Œpathæ”¯æŒé€šé…ç¬¦å—ï¼Ÿ
 
 	*/
 	public String toString() {		
@@ -67,9 +67,9 @@ public class FtpClientImpl implements IResource {
 	private int maxFileNum = 10000;
 	
 	
-	/** ±¾µØ×Ö·û±àÂë */
+	/** æœ¬åœ°å­—ç¬¦ç¼–ç  */
 	private static String LOCAL_CHARSET = "GBK";
-	// FTPĞ­ÒéÀïÃæ£¬¹æ¶¨ÎÄ¼şÃû±àÂëÎªiso-8859-1
+	// FTPåè®®é‡Œé¢ï¼Œè§„å®šæ–‡ä»¶åç¼–ç ä¸ºiso-8859-1
 	private static String SERVER_CHARSET = "ISO-8859-1";
 	
 	public FtpClientImpl(Context ctx, String url, int port, int mode) throws Exception {
@@ -87,16 +87,16 @@ public class FtpClientImpl implements IResource {
         ftp.setControlEncoding("UTF-8");
         ftp.configure(config);
         //ftp.enterLocalPassiveMode(); 
-		//ÓÉÓÚapache²»Ö§³ÖÖĞÎÄÓïÑÔ»·¾³£¬Í¨¹ı¶¨ÖÆÀà½âÎöÖĞÎÄÈÕÆÚÀàĞÍ
+		//ç”±äºapacheä¸æ”¯æŒä¸­æ–‡è¯­è¨€ç¯å¢ƒï¼Œé€šè¿‡å®šåˆ¶ç±»è§£æä¸­æ–‡æ—¥æœŸç±»å‹
 		//ftp.configure(new FTPClientConfig("org.apache.commons.net.ftp.parser.UnixFTPEntryParser")); //com.zznode.tnms.ra.c11n.nj.resource.ftp
         if (port != 0) ftp.connect(url, port);
         else ftp.connect(url);
         
-     // ¿ªÆô·şÎñÆ÷¶ÔUTF-8µÄÖ§³Ö£¬Èç¹û·şÎñÆ÷Ö§³Ö¾ÍÓÃUTF-8±àÂë£¬·ñÔò¾ÍÊ¹ÓÃ±¾µØ±àÂë£¨GBK£©.
+     // å¼€å¯æœåŠ¡å™¨å¯¹UTF-8çš„æ”¯æŒï¼Œå¦‚æœæœåŠ¡å™¨æ”¯æŒå°±ç”¨UTF-8ç¼–ç ï¼Œå¦åˆ™å°±ä½¿ç”¨æœ¬åœ°ç¼–ç ï¼ˆGBKï¼‰.
         if (FTPReply.isPositiveCompletion(ftp.sendCommand("OPTS UTF8", "ON"))) {
         	//LOCAL_CHARSET = "UTF-8";
 		}
-        Logger.debug("LOCAL_CHARSET £º " + LOCAL_CHARSET);
+        Logger.debug("LOCAL_CHARSET ï¼š " + LOCAL_CHARSET);
         //ftp.setControlEncoding("UTF-8");
 		//ftp.setControlEncoding(LOCAL_CHARSET);
 	}
@@ -194,7 +194,7 @@ public class FtpClientImpl implements IResource {
 	 * 
 	 * @param parent
 	 * @param level
-	 * @param patterns ÒªÇóÊÇ¾ø¶ÔÂ·¾¶£¬ÅÌ·û¼°Â·¾¶ÊÇĞ¡Ğ´£¬·Ö¸ô·ûÊÇ/
+	 * @param patterns è¦æ±‚æ˜¯ç»å¯¹è·¯å¾„ï¼Œç›˜ç¬¦åŠè·¯å¾„æ˜¯å°å†™ï¼Œåˆ†éš”ç¬¦æ˜¯/
 	 * @throws Exception
 	 */
 	private void loadLocal(String parent,byte level,ArrayList<String> patterns) throws Exception {
@@ -518,7 +518,7 @@ public class FtpClientImpl implements IResource {
 		if (r) {
 			Logger.debug("changeRemoteDir success : " + dir);
 			this.dir = dir;
-		} else Logger.warn("changeRemoteDir ¡°"+dir+"¡± failed, current remote dir is ¡°"+this.dir+"¡±");
+		} else Logger.warn("changeRemoteDir â€œ"+dir+"â€ failed, current remote dir is â€œ"+this.dir+"â€");
 		return r;
 		//FTPFile fs[] = ftp.listDirectories();
 		//Logger.debug(fs.length);
@@ -549,7 +549,7 @@ public class FtpClientImpl implements IResource {
 				if (sts.length==4){
 					msg = "folder had been existed";
 				}
-				Logger.warn("mkdir dir ¡°"+dir+"¡± failed");
+				Logger.warn("mkdir dir â€œ"+dir+"â€ failed");
 			}
 			BaseRecord r2 = result.insert(0);
 			r2.set("folder",this.getFullPath(dirs.get(i)));
@@ -578,7 +578,7 @@ public class FtpClientImpl implements IResource {
 			if (r) {
 				Logger.debug("delete dir success : " + dir);
 				//this.dir = dir;
-			} else Logger.warn("delete dir ¡°"+dir+"¡± failed");
+			} else Logger.warn("delete dir â€œ"+dir+"â€ failed");
 			BaseRecord r2 = result.insert(0);
 			r2.set("folder",this.getFullPath(dirs.get(i)));
 			r2.set("result",r?"success":"fail");
@@ -639,8 +639,8 @@ public class FtpClientImpl implements IResource {
 	}
 
     /**
-     * £¿´ú±íµ¥¸ö×Ö·û£¬*´ú±íÈÎÒâ×Ö·û£¬**´ú±íÈÎÒâ×Ö·ûºÍÄ¿Â¼ 
-     * ½«Í¨Åä·û±í´ïÊ½×ª»¯ÎªÕıÔò±í´ïÊ½
+     * ï¼Ÿä»£è¡¨å•ä¸ªå­—ç¬¦ï¼Œ*ä»£è¡¨ä»»æ„å­—ç¬¦ï¼Œ**ä»£è¡¨ä»»æ„å­—ç¬¦å’Œç›®å½• 
+     * å°†é€šé…ç¬¦è¡¨è¾¾å¼è½¬åŒ–ä¸ºæ­£åˆ™è¡¨è¾¾å¼
      *  
      * @param path 
      * @return 
@@ -651,24 +651,24 @@ public class FtpClientImpl implements IResource {
         StringBuilder sb = new StringBuilder();  
         boolean preX = false;  
         for(int i=0;i<len;i++){  
-            if (chars[i] == '*'){//Óöµ½*×Ö·û  
-                if (preX){//Èç¹ûÊÇµÚ¶ş´ÎÓöµ½*£¬Ôò½«**Ìæ»»³É.*  
+            if (chars[i] == '*'){//é‡åˆ°*å­—ç¬¦  
+                if (preX){//å¦‚æœæ˜¯ç¬¬äºŒæ¬¡é‡åˆ°*ï¼Œåˆ™å°†**æ›¿æ¢æˆ.*  
                     sb.append(".*");  
                     preX = false;  
-                }else if(i+1 == len){//Èç¹ûÊÇÓöµ½µ¥ĞÇ£¬ÇÒµ¥ĞÇÊÇ×îºóÒ»¸ö×Ö·û£¬ÔòÖ±½Ó½«*×ª³É[^/]*  
+                }else if(i+1 == len){//å¦‚æœæ˜¯é‡åˆ°å•æ˜Ÿï¼Œä¸”å•æ˜Ÿæ˜¯æœ€åä¸€ä¸ªå­—ç¬¦ï¼Œåˆ™ç›´æ¥å°†*è½¬æˆ[^/]*  
                     sb.append("[^/]*");  
-                }else{//·ñÔòµ¥ĞÇºóÃæ»¹ÓĞ×Ö·û£¬Ôò²»×öÈÎºÎ¶¯×÷£¬ÏÂÒ»°ÑÔÙ×ö¶¯×÷  
+                }else{//å¦åˆ™å•æ˜Ÿåé¢è¿˜æœ‰å­—ç¬¦ï¼Œåˆ™ä¸åšä»»ä½•åŠ¨ä½œï¼Œä¸‹ä¸€æŠŠå†åšåŠ¨ä½œ  
                     preX = true;  
                     continue;  
                 }  
-            }else{//Óöµ½·Ç*×Ö·û  
-                if (preX){//Èç¹ûÉÏÒ»°ÑÊÇ*£¬ÔòÏÈ°ÑÉÏÒ»°ÑµÄ*¶ÔÓ¦µÄ[^/]*Ìí½øÀ´  
+            }else{//é‡åˆ°é*å­—ç¬¦  
+                if (preX){//å¦‚æœä¸Šä¸€æŠŠæ˜¯*ï¼Œåˆ™å…ˆæŠŠä¸Šä¸€æŠŠçš„*å¯¹åº”çš„[^/]*æ·»è¿›æ¥  
                     sb.append("[^/]*");  
                     preX = false;  
                 }  
-                if (chars[i] == '?'){//½Ó×ÅÅĞ¶Ïµ±Ç°×Ö·ûÊÇ²»ÊÇ?£¬ÊÇµÄ»°Ìæ»»³É.  
+                if (chars[i] == '?'){//æ¥ç€åˆ¤æ–­å½“å‰å­—ç¬¦æ˜¯ä¸æ˜¯?ï¼Œæ˜¯çš„è¯æ›¿æ¢æˆ.  
                     sb.append('.');  
-                }else{//²»ÊÇ?µÄ»°£¬Ôò¾ÍÊÇÆÕÍ¨×Ö·û£¬Ö±½ÓÌí½øÀ´  
+                }else{//ä¸æ˜¯?çš„è¯ï¼Œåˆ™å°±æ˜¯æ™®é€šå­—ç¬¦ï¼Œç›´æ¥æ·»è¿›æ¥  
                     sb.append(chars[i]);  
                 }
             }

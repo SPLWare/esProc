@@ -18,14 +18,14 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ±í´ïÊ½½Úµã»ùÀà
+ * è¡¨è¾¾å¼èŠ‚ç‚¹åŸºç±»
  * @author WangXiaoJun
  *
  */
 public abstract class Node {
-	// ÓÅÏÈ¼¶³£Á¿¶¨Òå£¬ÊıÔ½Ğ¡ÓÅÏÈ¼¶Ô½µÍ
-	public static final byte PRI_CMA = (byte) 1; //¶ººÅÔËËã·û
-	public static final byte PRI_EVL = (byte) 2; //¸³Öµ
+	// ä¼˜å…ˆçº§å¸¸é‡å®šä¹‰ï¼Œæ•°è¶Šå°ä¼˜å…ˆçº§è¶Šä½
+	public static final byte PRI_CMA = (byte) 1; //é€—å·è¿ç®—ç¬¦
+	public static final byte PRI_EVL = (byte) 2; //èµ‹å€¼
 	//public static final byte PRI_ASS = (byte) 3;
 	//public static final byte PRI_CON = (byte) 4;
 	public static final byte PRI_LINK = (byte) 4;
@@ -54,37 +54,37 @@ public abstract class Node {
 	public static final byte PRI_NEGT = (byte) 17; //-
 	public static final byte PRI_PLUS = (byte) 17; //+
 	public static final byte PRI_SUF = (byte) 18; // A1(n), A.fn() r.f
-	public static final byte PRI_NUM = (byte) 19; // ±êÊ¶·û¡¢³£ÊıµÈ
-	public static final byte PRI_BRK = (byte) 20; // À¨ºÅ
+	public static final byte PRI_NUM = (byte) 19; // æ ‡è¯†ç¬¦ã€å¸¸æ•°ç­‰
+	public static final byte PRI_BRK = (byte) 20; // æ‹¬å·
 
-	protected int priority; // ÓÅÏÈ¼¶
+	protected int priority; // ä¼˜å…ˆçº§
 
 	/**
-	 * ¹¹Ôì½Úµã
+	 * æ„é€ èŠ‚ç‚¹
 	 */
 	public Node() {
 		priority = PRI_NUM;
 	}
 
 	/**
-	 * µ±Ç°½ÚµãÔÚÀ¨ºÅÄÚ£¬¸ø½ÚµãµÄÓÅÏÈ¼¶¼ÓÉÏÀ¨ºÅµÄÓÅÏÈ¼¶
-	 * @param inBrackets À¨ºÅ²ãÊı
+	 * å½“å‰èŠ‚ç‚¹åœ¨æ‹¬å·å†…ï¼Œç»™èŠ‚ç‚¹çš„ä¼˜å…ˆçº§åŠ ä¸Šæ‹¬å·çš„ä¼˜å…ˆçº§
+	 * @param inBrackets æ‹¬å·å±‚æ•°
 	 */
 	public void setInBrackets(int inBrackets) {
 		this.priority += inBrackets * PRI_BRK;
 	}
 
 	/**
-	 * È¡µÃµ±Ç°½ÚµãµÄÓÅÏÈ¼¶
-	 * @return ÓÅÏÈ¼¶
+	 * å–å¾—å½“å‰èŠ‚ç‚¹çš„ä¼˜å…ˆçº§
+	 * @return ä¼˜å…ˆçº§
 	 */
 	public int getPriority() {
 		return this.priority;
 	}
 
 	/**
-	 * ÉèÖÃ½ÚµãµÄ×ó²à½Úµã
-	 * @param node ½Úµã
+	 * è®¾ç½®èŠ‚ç‚¹çš„å·¦ä¾§èŠ‚ç‚¹
+	 * @param node èŠ‚ç‚¹
 	 */
 	public void setLeft(Node node) {
 		if (node != null) {
@@ -94,8 +94,8 @@ public abstract class Node {
 	}
 
 	/**
-	 * ÉèÖÃ½ÚµãµÄÓÒ²à½Úµã
-	 * @param node ½Úµã
+	 * è®¾ç½®èŠ‚ç‚¹çš„å³ä¾§èŠ‚ç‚¹
+	 * @param node èŠ‚ç‚¹
 	 */
 	public void setRight(Node node) {
 		if (node != null) {
@@ -105,7 +105,7 @@ public abstract class Node {
 	}
 
 	/**
-	 * È¡½ÚµãµÄ×ó²à½Úµã£¬Ã»ÓĞ·µ»Ø¿Õ
+	 * å–èŠ‚ç‚¹çš„å·¦ä¾§èŠ‚ç‚¹ï¼Œæ²¡æœ‰è¿”å›ç©º
 	 * @return Node
 	 */
 	public Node getLeft() {
@@ -113,7 +113,7 @@ public abstract class Node {
 	}
 
 	/**
-	 * È¡½ÚµãµÄÓÒ²à½Úµã£¬Ã»ÓĞ·µ»Ø¿Õ
+	 * å–èŠ‚ç‚¹çš„å³ä¾§èŠ‚ç‚¹ï¼Œæ²¡æœ‰è¿”å›ç©º
 	 * @return Node
 	 */
 	public Node getRight() {
@@ -121,8 +121,8 @@ public abstract class Node {
 	}
 
 	/**
-	 * °Ñµã²Ù×÷·ûµÄ×ó²à¶ÔÏóÉè¸øÓÒ²à³ÉÔ±º¯Êı
-	 * @param obj ×ó²à¶ÔÏó
+	 * æŠŠç‚¹æ“ä½œç¬¦çš„å·¦ä¾§å¯¹è±¡è®¾ç»™å³ä¾§æˆå‘˜å‡½æ•°
+	 * @param obj å·¦ä¾§å¯¹è±¡
 	 */
 	public void setDotLeftObject(Object obj) {
 		MessageManager mm = EngineMessage.get();
@@ -130,14 +130,14 @@ public abstract class Node {
 	}
 
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 	}
 	
 	/**
-	 * ÅĞ¶Ïµ±Ç°½ÚµãÊÇ·ñÊÇĞòÁĞº¯Êı
-	 * Èç¹ûµã²Ù×÷·ûµÄÓÒ²à½ÚµãÊÇĞòÁĞº¯Êı£¬×ó²à½Úµã¼ÆËã³öÊı£¬ÔòĞèÒª°ÑÊı×ª³ÉÊıÁĞ
+	 * åˆ¤æ–­å½“å‰èŠ‚ç‚¹æ˜¯å¦æ˜¯åºåˆ—å‡½æ•°
+	 * å¦‚æœç‚¹æ“ä½œç¬¦çš„å³ä¾§èŠ‚ç‚¹æ˜¯åºåˆ—å‡½æ•°ï¼Œå·¦ä¾§èŠ‚ç‚¹è®¡ç®—å‡ºæ•°ï¼Œåˆ™éœ€è¦æŠŠæ•°è½¬æˆæ•°åˆ—
 	 * @return
 	 */
 	public boolean isSequenceFunction() {
@@ -145,17 +145,17 @@ public abstract class Node {
 	}
 	
 	/**
-	 * ÓÃÓÚÅĞ¶Ïµã²Ù×÷·ûÓÒÃæµÄº¯ÊıÊÇ·ñºÍ×óÃæ¶ÔÏóµÄÀàĞÍÆ¥Åä
-	 * @param obj ×óÃæ¶ÔÏó
-	 * @return true£ºÓÒÃæµÄ½Úµã¸ú×óÃæ¶ÔÏóµÄÀàĞÍÆ¥Åä£¬ÊÇÆä³ÉÔ±»ò³ÉÔ±º¯Êı£¬false£º²»Æ¥Åä
+	 * ç”¨äºåˆ¤æ–­ç‚¹æ“ä½œç¬¦å³é¢çš„å‡½æ•°æ˜¯å¦å’Œå·¦é¢å¯¹è±¡çš„ç±»å‹åŒ¹é…
+	 * @param obj å·¦é¢å¯¹è±¡
+	 * @return trueï¼šå³é¢çš„èŠ‚ç‚¹è·Ÿå·¦é¢å¯¹è±¡çš„ç±»å‹åŒ¹é…ï¼Œæ˜¯å…¶æˆå‘˜æˆ–æˆå‘˜å‡½æ•°ï¼Œfalseï¼šä¸åŒ¹é…
 	 */
 	public boolean isLeftTypeMatch(Object obj) {
 		return true;
 	}
 	
 	/**
-	 * È¡Óëµ±Ç°³ÉÔ±º¯ÊıÍ¬ÃûµÄÏÂÒ»¸öÍ¬Ãûº¯Êı£¬Ã»ÓĞÔò·µ»Ø¿Õ
-	 * @return ÏÂÒ»¸öÍ¬ÃûµÄ³ÉÔ±º¯Êı
+	 * å–ä¸å½“å‰æˆå‘˜å‡½æ•°åŒåçš„ä¸‹ä¸€ä¸ªåŒåå‡½æ•°ï¼Œæ²¡æœ‰åˆ™è¿”å›ç©º
+	 * @return ä¸‹ä¸€ä¸ªåŒåçš„æˆå‘˜å‡½æ•°
 	 */
 	public MemberFunction getNextFunction() {
 		MessageManager mm = EngineMessage.get();
@@ -163,15 +163,15 @@ public abstract class Node {
 	}
 	
 	/**
-	 * ¼ÆËã½ÚµãµÄÖµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è®¡ç®—èŠ‚ç‚¹çš„å€¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Object
 	 */
 	public abstract Object calculate(Context ctx);
 
 	/**
-	 * ¼ÆËã³öÒıÓÃµÄµ¥Ôª¸ñ£¬²»ÊÇÈ¡µ¥Ôª¸ñµÄÖµ£¬Èç¹û±í´ïÊ½²»ÊÇµ¥Ôª¸ñÒıÓÃÔò·µ»Ø¿Õ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è®¡ç®—å‡ºå¼•ç”¨çš„å•å…ƒæ ¼ï¼Œä¸æ˜¯å–å•å…ƒæ ¼çš„å€¼ï¼Œå¦‚æœè¡¨è¾¾å¼ä¸æ˜¯å•å…ƒæ ¼å¼•ç”¨åˆ™è¿”å›ç©º
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return INormalCell
 	 */
 	public INormalCell calculateCell(Context ctx) {
@@ -180,79 +180,79 @@ public abstract class Node {
 	}
 
 	/**
-	 * ·µ»ØÊÇ·ñ°üº¬Ö¸¶¨²ÎÊı
-	 * @param name ²ÎÊıÃû
-	 * @return boolean true£º°üº¬£¬false£º²»°üº¬
+	 * è¿”å›æ˜¯å¦åŒ…å«æŒ‡å®šå‚æ•°
+	 * @param name å‚æ•°å
+	 * @return boolean trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	protected boolean containParam(String name) {
 		return false;
 	}
 
 	/**
-	 * ²éÕÒ±í´ïÊ½ÖĞÓÃµ½²ÎÊı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param resultList Êä³öÖµ£¬ÓÃµ½µÄ²ÎÊı»áÌí¼Óµ½ÕâÀïÃæ
+	 * æŸ¥æ‰¾è¡¨è¾¾å¼ä¸­ç”¨åˆ°å‚æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param resultList è¾“å‡ºå€¼ï¼Œç”¨åˆ°çš„å‚æ•°ä¼šæ·»åŠ åˆ°è¿™é‡Œé¢
 	 */
 	protected void getUsedParams(Context ctx, ParamList resultList) {
 	}
 	
 	/**
-	 * ²éÕÒ±í´ïÊ½ÖĞ¿ÉÄÜÓÃµ½µÄ×Ö¶Î£¬¿ÉÄÜÈ¡µÃ²»×¼È·»òÕß°üº¬¶à¸ö±íµÄ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param resultList Êä³öÖµ£¬ÓÃµ½µÄ×Ö¶ÎÃû»áÌí¼Óµ½ÕâÀïÃæ
+	 * æŸ¥æ‰¾è¡¨è¾¾å¼ä¸­å¯èƒ½ç”¨åˆ°çš„å­—æ®µï¼Œå¯èƒ½å–å¾—ä¸å‡†ç¡®æˆ–è€…åŒ…å«å¤šä¸ªè¡¨çš„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param resultList è¾“å‡ºå€¼ï¼Œç”¨åˆ°çš„å­—æ®µåä¼šæ·»åŠ åˆ°è¿™é‡Œé¢
 	 */
 	public void getUsedFields(Context ctx, List<String> resultList) {
 	}
 	
 	/**
-	 * ²éÕÒ±í´ïÊ½ÖĞÓÃµ½µ¥Ôª¸ñ
-	 * @param resultList Êä³öÖµ£¬ÓÃµ½µÄµ¥Ôª¸ñ»áÌí¼Óµ½ÕâÀïÃæ
+	 * æŸ¥æ‰¾è¡¨è¾¾å¼ä¸­ç”¨åˆ°å•å…ƒæ ¼
+	 * @param resultList è¾“å‡ºå€¼ï¼Œç”¨åˆ°çš„å•å…ƒæ ¼ä¼šæ·»åŠ åˆ°è¿™é‡Œé¢
 	 */
 	protected void getUsedCells(List<INormalCell> resultList) {
 	}
 	
 	/**
-	 * ÅĞ¶Ï½ÚµãÊÇ·ñ»áĞŞ¸ÄĞòÁĞµÄ³ÉÔ±Öµ£¬´Ë·½·¨ÎªÁËÓÅ»¯[1,2,3].contain(...)ÕâÖÖ±í´ïÊ½£¬
-	 * Èç¹ûĞòÁĞ²»»á±»¸ü¸ÄÔò[1,2,3]¿ÉÒÔ±»²úÉú³É³£ÊıĞòÁĞ£¬¶ø²»ÊÇÃ¿´Î¼ÆËã¶¼²úÉúÒ»¸öĞòÁĞ
-	 * @return true£º»áĞŞ¸Ä£¬false£º²»»áĞŞ¸Ä
+	 * åˆ¤æ–­èŠ‚ç‚¹æ˜¯å¦ä¼šä¿®æ”¹åºåˆ—çš„æˆå‘˜å€¼ï¼Œæ­¤æ–¹æ³•ä¸ºäº†ä¼˜åŒ–[1,2,3].contain(...)è¿™ç§è¡¨è¾¾å¼ï¼Œ
+	 * å¦‚æœåºåˆ—ä¸ä¼šè¢«æ›´æ”¹åˆ™[1,2,3]å¯ä»¥è¢«äº§ç”Ÿæˆå¸¸æ•°åºåˆ—ï¼Œè€Œä¸æ˜¯æ¯æ¬¡è®¡ç®—éƒ½äº§ç”Ÿä¸€ä¸ªåºåˆ—
+	 * @return trueï¼šä¼šä¿®æ”¹ï¼Œfalseï¼šä¸ä¼šä¿®æ”¹
 	 */
 	public boolean ifModifySequence() {
 		return true;
 	}
 	
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param optSequence ÊÇ·ñÓÅ»¯³£ÊıĞòÁĞ±ÈÈç[1,2,3].contain(...)£¬true£ºÓÅ»¯
-	 * @return ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param optSequence æ˜¯å¦ä¼˜åŒ–å¸¸æ•°åºåˆ—æ¯”å¦‚[1,2,3].contain(...)ï¼Œtrueï¼šä¼˜åŒ–
+	 * @return ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx, boolean optSequence) {
 		return optimize(ctx);
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯£¬³£Êı±í´ïÊ½ÏÈËã³É³£Êı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–ï¼Œå¸¸æ•°è¡¨è¾¾å¼å…ˆç®—æˆå¸¸æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		return this;
 	}
 	
 	/**
-	 * ¶Ô½Úµã×öÉî¶ÈÓÅ»¯£¨°üÀ¨µ¥Ôª¸ñºÍ²ÎÊıÒıÓÃ£©£¬³£Êı±í´ïÊ½ÏÈËã³É³£Êı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšæ·±åº¦ä¼˜åŒ–ï¼ˆåŒ…æ‹¬å•å…ƒæ ¼å’Œå‚æ•°å¼•ç”¨ï¼‰ï¼Œå¸¸æ•°è¡¨è¾¾å¼å…ˆç®—æˆå¸¸æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node deepOptimize(Context ctx) {
 		return optimize(ctx);
 	}
 
 	/**
-	 * ¶Ôµ±Ç°½Úµã½øĞĞ¸³Öµ
-	 * @param value ÓÒ²àÖµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ÓÒ²àÖµ
+	 * å¯¹å½“å‰èŠ‚ç‚¹è¿›è¡Œèµ‹å€¼
+	 * @param value å³ä¾§å€¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å³ä¾§å€¼
 	 */
 	public Object assign(Object value, Context ctx) {
 		MessageManager mm = EngineMessage.get();
@@ -260,10 +260,10 @@ public abstract class Node {
 	}
 	
 	/**
-	 * ¶Ôµ±Ç°½Úµã×ö+=ÔËËã
-	 * @param value ÓÒ²àÖµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Object ÔËËã½á¹û
+	 * å¯¹å½“å‰èŠ‚ç‚¹åš+=è¿ç®—
+	 * @param value å³ä¾§å€¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return Object è¿ç®—ç»“æœ
 	 */
 	public Object addAssign(Object value, Context ctx) {
 		MessageManager mm = EngineMessage.get();
@@ -271,18 +271,18 @@ public abstract class Node {
 	}
 
 	/**
-	 * ·µ»Ø½ÚµãµÄ·µ»ØÖµÀàĞÍ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return byte ÀàĞÍ¶¨ÒåÔÚExpressionÖĞ
+	 * è¿”å›èŠ‚ç‚¹çš„è¿”å›å€¼ç±»å‹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return byte ç±»å‹å®šä¹‰åœ¨Expressionä¸­
 	 */
 	public byte calcExpValueType(Context ctx) {
 		return Expression.TYPE_OTHER;
 	}
 	
 	/**
-	 * ÓÃÓÚÈ¡Æ«ÒÆ£¬ĞÎÈçA[-1]£¬F[-1]ÕâÖÖÈ¡ÉÏÒ»¸öµÄÔËËã
-	 * @param node ÓÒ²àMove½Úµã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ç”¨äºå–åç§»ï¼Œå½¢å¦‚A[-1]ï¼ŒF[-1]è¿™ç§å–ä¸Šä¸€ä¸ªçš„è¿ç®—
+	 * @param node å³ä¾§MoveèŠ‚ç‚¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Object
 	 */
 	public Object move(Move node, Context ctx) {
@@ -304,11 +304,11 @@ public abstract class Node {
 	}
 
 	/**
-	 * ÓÃÓÚ¶ÔÆ«ÒÆ¶ÔÏó½øĞĞ¸³Öµ£¬ĞÎÈçA[-1]=x£¬F[-1]=xÕâÖÖ¸³ÖµÔËËã
-	 * @param node ÓÒ²àMove½Úµã
-	 * @param value ÓÒ²àÖµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ÓÒ²àÖµ
+	 * ç”¨äºå¯¹åç§»å¯¹è±¡è¿›è¡Œèµ‹å€¼ï¼Œå½¢å¦‚A[-1]=xï¼ŒF[-1]=xè¿™ç§èµ‹å€¼è¿ç®—
+	 * @param node å³ä¾§MoveèŠ‚ç‚¹
+	 * @param value å³ä¾§å€¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å³ä¾§å€¼
 	 */
 	public Object moveAssign(Move node, Object value, Context ctx) {
 		Object obj = calculate(ctx);
@@ -330,10 +330,10 @@ public abstract class Node {
 	}
 
 	/**
-	 * ÓÃÓÚÈ¡·¶Î§Æ«ÒÆ£¬ĞÎÈçA[-1:1]£¬F[-1:1]ÕâÖÖÈ¡ÉÏÒ»¸öµ½ÏÂÒ»¸öÖ®¼äµÄÔªËØµÄÔËËã
-	 * @param node ÓÒ²àMove½Úµã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Object ½á¹û¼¯ĞòÁĞ
+	 * ç”¨äºå–èŒƒå›´åç§»ï¼Œå½¢å¦‚A[-1:1]ï¼ŒF[-1:1]è¿™ç§å–ä¸Šä¸€ä¸ªåˆ°ä¸‹ä¸€ä¸ªä¹‹é—´çš„å…ƒç´ çš„è¿ç®—
+	 * @param node å³ä¾§MoveèŠ‚ç‚¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return Object ç»“æœé›†åºåˆ—
 	 */
 	public Object moves(Move node, Context ctx) {
 		Object obj = calculate(ctx);
@@ -349,7 +349,7 @@ public abstract class Node {
 			throw new RQException("[]" + mm.getMessage("engine.seriesNotInStack"));
 		}
 
-		// ¼ÆËã½á¹û¼¯·¶Î§
+		// è®¡ç®—ç»“æœé›†èŒƒå›´
 		int []range = node.calculateIndexRange(current, ctx);
 		if (range == null) {
 			return new Sequence(0);
@@ -366,48 +366,48 @@ public abstract class Node {
 	}
 	
 	/**
-	 * ÅĞ¶Ï½ÚµãÊÇ·ñÊÇÖ¸¶¨º¯Êı
-	 * @param name º¯ÊıÃû
-	 * @return true£ºÊÇÖ¸¶¨º¯Êı£¬false£º²»ÊÇ
+	 * åˆ¤æ–­èŠ‚ç‚¹æ˜¯å¦æ˜¯æŒ‡å®šå‡½æ•°
+	 * @param name å‡½æ•°å
+	 * @return trueï¼šæ˜¯æŒ‡å®šå‡½æ•°ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isFunction(String name) {
 		return false;
 	}
 
-	/*--------ÒÔÏÂº¯ÊıÎªÁËÊµÏÖgroupsÀïµÄ»ã×Üº¯Êı¿ÉÒÔÊÇ·Ç¾ÛºÏ±í´ïÊ½--------*/
+	/*--------ä»¥ä¸‹å‡½æ•°ä¸ºäº†å®ç°groupsé‡Œçš„æ±‡æ€»å‡½æ•°å¯ä»¥æ˜¯éèšåˆè¡¨è¾¾å¼--------*/
 	
 	/**
-	 * ×ö·Ö×éÔËËãÇ°×¼±¸¹¤×÷
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åšåˆ†ç»„è¿ç®—å‰å‡†å¤‡å·¥ä½œ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void prepare(Context ctx) {
 	}
 	
 	/**
-	 * ¼ÆËãĞÂ×éÊ×Ìõ¼ÇÂ¼µÄ»ã×ÜÖµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return »ã×ÜÖµ
+	 * è®¡ç®—æ–°ç»„é¦–æ¡è®°å½•çš„æ±‡æ€»å€¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æ±‡æ€»å€¼
 	 */
 	public Object gather(Context ctx) {
 		return calculate(ctx);
 	}
 	
 	/**
-	 * ¼ÆËãµ±Ç°¼ÇÂ¼µÄÖµ£¬»ã×Üµ½Ö®Ç°µÄ»ã×Ü½á¹ûoldValueÉÏ
-	 * @param oldValue Ö®Ç°µÄ»ã×Ü½á¹û
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return »ã×ÜÖµ
+	 * è®¡ç®—å½“å‰è®°å½•çš„å€¼ï¼Œæ±‡æ€»åˆ°ä¹‹å‰çš„æ±‡æ€»ç»“æœoldValueä¸Š
+	 * @param oldValue ä¹‹å‰çš„æ±‡æ€»ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æ±‡æ€»å€¼
 	 */
 	public Object gather(Object oldValue, Context ctx) {
 		return oldValue;
 	}
 	
 	/**
-	 * ¼ÆËãËùÓĞ¼ÇÂ¼µÄÖµ£¬»ã×Üµ½½á¹ûÊı×éÉÏ
-	 * @param result ½á¹ûÊı×é
-	 * @param resultSeqs Ã¿Ìõ¼ÇÂ¼¶ÔÓ¦µÄ½á¹ûÊı×éµÄĞòºÅ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return IArray ½á¹ûÊı×é
+	 * è®¡ç®—æ‰€æœ‰è®°å½•çš„å€¼ï¼Œæ±‡æ€»åˆ°ç»“æœæ•°ç»„ä¸Š
+	 * @param result ç»“æœæ•°ç»„
+	 * @param resultSeqs æ¯æ¡è®°å½•å¯¹åº”çš„ç»“æœæ•°ç»„çš„åºå·
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return IArray ç»“æœæ•°ç»„
 	 */
 	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
 		IArray array = calculateAll(ctx);
@@ -416,7 +416,7 @@ public abstract class Node {
 		}
 		
 		for (int i = 1, len = array.size(); i <= len; ++i) {
-			// ĞÂ²úÉúµÄ×éÈ¡µÚÒ»Ìõ¼ÇÂ¼µÄÖµ£¬ÒÑ¾­²úÉúµÄ×éÔò²»ÔÙ¼ÆËã
+			// æ–°äº§ç”Ÿçš„ç»„å–ç¬¬ä¸€æ¡è®°å½•çš„å€¼ï¼Œå·²ç»äº§ç”Ÿçš„ç»„åˆ™ä¸å†è®¡ç®—
 			if (result.size() < resultSeqs[i]) {
 				result.add(array, i);
 			}
@@ -426,20 +426,20 @@ public abstract class Node {
 	}
 
 	/**
-	 * ¶à³Ì³Ì·Ö×éµÄ¶ş´Î»ã×ÜÔËËã
-	 * @param result Ò»¸öÏß³ÌµÄ·Ö×é½á¹û
-	 * @param result2 ÁíÒ»¸öÏß³ÌµÄ·Ö×é½á¹û
-	 * @param seqs ÁíÒ»¸öÏß³ÌµÄ·Ö×é¸úµÚÒ»¸öÏß³Ì·Ö×éµÄ¶ÔÓ¦¹ØÏµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤šç¨‹ç¨‹åˆ†ç»„çš„äºŒæ¬¡æ±‡æ€»è¿ç®—
+	 * @param result ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„ç»“æœ
+	 * @param result2 å¦ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„ç»“æœ
+	 * @param seqs å¦ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„è·Ÿç¬¬ä¸€ä¸ªçº¿ç¨‹åˆ†ç»„çš„å¯¹åº”å…³ç³»
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public void gather2(IArray result, IArray result2, int []seqs, Context ctx) {
 	}
 	
 	/**
-	 * È¡¶ş´Î»ã×Ü¶ÔÓ¦µÄ±í´ïÊ½
-	 * ¶àÏß³Ì·Ö×éÊ±£¬Ã¿¸öÏß³ÌËã³öÒ»¸ö·Ö×é½á¹û£¬×îºóĞèÒªÔÚµÚÒ»´Î·Ö×é½á¹ûÉÏÔÙ×ö¶ş´Î·Ö×é
-	 * @param q »ã×Ü×Ö¶ÎĞòºÅ
+	 * å–äºŒæ¬¡æ±‡æ€»å¯¹åº”çš„è¡¨è¾¾å¼
+	 * å¤šçº¿ç¨‹åˆ†ç»„æ—¶ï¼Œæ¯ä¸ªçº¿ç¨‹ç®—å‡ºä¸€ä¸ªåˆ†ç»„ç»“æœï¼Œæœ€åéœ€è¦åœ¨ç¬¬ä¸€æ¬¡åˆ†ç»„ç»“æœä¸Šå†åšäºŒæ¬¡åˆ†ç»„
+	 * @param q æ±‡æ€»å­—æ®µåºå·
 	 * @return Expression
 	 */
 	public Expression getRegatherExpression(int q) {
@@ -448,25 +448,25 @@ public abstract class Node {
 	}
 	
 	/**
-	 * µÚÒ»²½·Ö×é½áÊøÊ±ÊÇ·ñĞèÒªµ÷ÓÃfinish1¶Ô»ã×ÜÖµ½øĞĞÊ×´Î´¦Àí£¬topĞèÒªµ÷ÓÃ
-	 * @return true£ºĞèÒª£¬false£º²»ĞèÒª
+	 * ç¬¬ä¸€æ­¥åˆ†ç»„ç»“æŸæ—¶æ˜¯å¦éœ€è¦è°ƒç”¨finish1å¯¹æ±‡æ€»å€¼è¿›è¡Œé¦–æ¬¡å¤„ç†ï¼Œtopéœ€è¦è°ƒç”¨
+	 * @return trueï¼šéœ€è¦ï¼Œfalseï¼šä¸éœ€è¦
 	 */
 	public boolean needFinish1() {
 		return false;
 	}
 	
 	/**
-	 * ¶ÔµÚÒ»´Î·Ö×éµÃµ½µÄ»ã×ÜÖµ½øĞĞÊ×´Î´¦Àí£¬´¦ÀíºóµÄÖµ»¹Òª²Î¼Ó¶ş´Î·Ö×éÔËËã
-	 * @param val »ã×ÜÖµ
-	 * @return ´¦ÀíºóµÄ»ã×ÜÖµ
+	 * å¯¹ç¬¬ä¸€æ¬¡åˆ†ç»„å¾—åˆ°çš„æ±‡æ€»å€¼è¿›è¡Œé¦–æ¬¡å¤„ç†ï¼Œå¤„ç†åçš„å€¼è¿˜è¦å‚åŠ äºŒæ¬¡åˆ†ç»„è¿ç®—
+	 * @param val æ±‡æ€»å€¼
+	 * @return å¤„ç†åçš„æ±‡æ€»å€¼
 	 */
 	public Object finish1(Object val) {
 		return val;
 	}
 	
 	/**
-	 * ¶ÔµÚÒ»´Î·Ö×éµÃµ½µÄ»ã×ÜÁĞ½øĞĞÊ×´Î´¦Àí£¬´¦ÀíºóµÄÖµ»¹Òª²Î¼Ó¶ş´Î·Ö×éÔËËã
-	 * @param array ¼ÆËãÁĞµÄÖµ
+	 * å¯¹ç¬¬ä¸€æ¬¡åˆ†ç»„å¾—åˆ°çš„æ±‡æ€»åˆ—è¿›è¡Œé¦–æ¬¡å¤„ç†ï¼Œå¤„ç†åçš„å€¼è¿˜è¦å‚åŠ äºŒæ¬¡åˆ†ç»„è¿ç®—
+	 * @param array è®¡ç®—åˆ—çš„å€¼
 	 * @return IArray
 	 */
 	public IArray finish1(IArray array) {
@@ -474,25 +474,25 @@ public abstract class Node {
 	}
 	
 	/**
-	 * ÊÇ·ñĞèÒª¶Ô×îÖÕ»ã×ÜÖµ½øĞĞ´¦Àí
-	 * @return true£ºĞèÒª£¬false£º²»ĞèÒª
+	 * æ˜¯å¦éœ€è¦å¯¹æœ€ç»ˆæ±‡æ€»å€¼è¿›è¡Œå¤„ç†
+	 * @return trueï¼šéœ€è¦ï¼Œfalseï¼šä¸éœ€è¦
 	 */
 	public boolean needFinish() {
 		return false;
 	}
 	
 	/**
-	 * ¶Ô·Ö×é½áÊøµÃµ½µÄ»ã×ÜÖµ½øĞĞ×îÖÕ´¦Àí£¬ÏñÆ½¾ùÖµĞèÒª×ösum/count´¦Àí
-	 * @param val »ã×ÜÖµ
-	 * @return ´¦ÀíºóµÄ»ã×ÜÖµ
+	 * å¯¹åˆ†ç»„ç»“æŸå¾—åˆ°çš„æ±‡æ€»å€¼è¿›è¡Œæœ€ç»ˆå¤„ç†ï¼Œåƒå¹³å‡å€¼éœ€è¦åšsum/countå¤„ç†
+	 * @param val æ±‡æ€»å€¼
+	 * @return å¤„ç†åçš„æ±‡æ€»å€¼
 	 */
 	public Object finish(Object val) {
 		return val;
 	}
 	
 	/**
-	 * ¶Ô·Ö×é½áÊøµÃµ½µÄ»ã×ÜÁĞ½øĞĞ×îÖÕ´¦Àí
-	 * @param array ¼ÆËãÁĞµÄÖµ
+	 * å¯¹åˆ†ç»„ç»“æŸå¾—åˆ°çš„æ±‡æ€»åˆ—è¿›è¡Œæœ€ç»ˆå¤„ç†
+	 * @param array è®¡ç®—åˆ—çš„å€¼
 	 * @return IArray
 	 */
 	public IArray finish(IArray array) {
@@ -500,14 +500,14 @@ public abstract class Node {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
-		// ÅÉÉúÀà¼Ì³Ğ´Ë·½·¨¼ì²éÓï·¨ÊÇ·ñÓĞĞ§
+		// æ´¾ç”Ÿç±»ç»§æ‰¿æ­¤æ–¹æ³•æ£€æŸ¥è¯­æ³•æ˜¯å¦æœ‰æ•ˆ
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+	 * åˆ¤æ–­æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 	 * @return
 	 */
 	public boolean canCalculateAll() {
@@ -515,8 +515,8 @@ public abstract class Node {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -535,10 +535,10 @@ public abstract class Node {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -561,9 +561,9 @@ public abstract class Node {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -585,16 +585,16 @@ public abstract class Node {
 	}
 	
 	/**
-	 * ·µ»Ø½ÚµãÊÇ·ñµ¥µ÷µİÔöµÄ
-	 * @return true£ºÊÇµ¥µ÷µİÔöµÄ£¬false£º²»ÊÇ
+	 * è¿”å›èŠ‚ç‚¹æ˜¯å¦å•è°ƒé€’å¢çš„
+	 * @return trueï¼šæ˜¯å•è°ƒé€’å¢çš„ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isMonotone() {
 		return false;
 	}
 	
 	/**
-	 * ¼ÆËã±í´ïÊ½µÄÈ¡Öµ·¶Î§
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—è¡¨è¾¾å¼çš„å–å€¼èŒƒå›´
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return
 	 */
 	public IArray calculateRange(Context ctx) {
@@ -606,16 +606,16 @@ public abstract class Node {
 	}
 	
 	/**
-	 * ÅĞ¶Ï¸ø¶¨µÄÖµÓò·¶Î§ÊÇ·ñÂú×ãµ±Ç°Ìõ¼ş±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @return È¡Öµ²ÎÕÕRelation. -1£ºÖµÓò·¶Î§ÄÚÃ»ÓĞÂú×ãÌõ¼şµÄÖµ£¬0£ºÖµÓò·¶Î§ÄÚÓĞÂú×ãÌõ¼şµÄÖµ£¬1£ºÖµÓò·¶Î§µÄÖµ¶¼Âú×ãÌõ¼ş
+	 * åˆ¤æ–­ç»™å®šçš„å€¼åŸŸèŒƒå›´æ˜¯å¦æ»¡è¶³å½“å‰æ¡ä»¶è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @return å–å€¼å‚ç…§Relation. -1ï¼šå€¼åŸŸèŒƒå›´å†…æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ0ï¼šå€¼åŸŸèŒƒå›´å†…æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ1ï¼šå€¼åŸŸèŒƒå›´çš„å€¼éƒ½æ»¡è¶³æ¡ä»¶
 	 */
 	public int isValueRangeMatch(Context ctx) {
 		return Relation.PARTICALMATCH;
 	}
 	
 	/**
-	 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+	 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 	 */
 	public void reset() {
 	}

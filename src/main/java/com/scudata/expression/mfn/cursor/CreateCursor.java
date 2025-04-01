@@ -15,7 +15,7 @@ import com.scudata.resources.EngineMessage;
 
 // 
 /**
- * °Ñ¶àÂ·ÓÎ±ê×ª³ÉÂ·Êı¸üÉÙµÄ¶àÂ·ÓÎ±ê»òµ¥Â·ÓÎ±ê
+ * æŠŠå¤šè·¯æ¸¸æ ‡è½¬æˆè·¯æ•°æ›´å°‘çš„å¤šè·¯æ¸¸æ ‡æˆ–å•è·¯æ¸¸æ ‡
  * mcs.cursor(n)
  * @author RunQian
  *

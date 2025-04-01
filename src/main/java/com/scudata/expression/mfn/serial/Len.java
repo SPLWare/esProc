@@ -5,7 +5,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.SerialFunction;
 
 /**
- * 取排号的长度
+ * 鍙栨帓鍙风殑闀垮害
  * k.len()
  * @author RunQian
  *

@@ -19,63 +19,63 @@ import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.ide.spl.GCSpl;
 
 /**
- * ÁĞ±íÍ·¼àÌıÆ÷
+ * åˆ—è¡¨å¤´ç›‘å¬å™¨
  *
  */
 public class ColHeaderListener implements MouseMotionListener, MouseListener,
 		KeyListener {
 	/**
-	 * Íø¸ñ¿Ø¼ş
+	 * ç½‘æ ¼æ§ä»¶
 	 */
 	private SplControl control;
 
-	/** ±»Ñ¡ÔñµÄ¿ªÊ¼ÁĞºÅ */
+	/** è¢«é€‰æ‹©çš„å¼€å§‹åˆ—å· */
 	private int startSelectedCol;
 
-	/** ÁĞ¿í¸Ä±äÊ±µÄÆğÊ¼X×ø±ê */
+	/** åˆ—å®½æ”¹å˜æ—¶çš„èµ·å§‹Xåæ ‡ */
 	private int resizeStartX;
 
-	/** ÁĞ¿í¸Ä±äÊ±µÄ±»À­ÉìÁĞºÅ */
+	/** åˆ—å®½æ”¹å˜æ—¶çš„è¢«æ‹‰ä¼¸åˆ—å· */
 	private int resizeStartCol;
 
-	/** ÁĞ¿í¸Ä±äÇ°µÄÔ­Ê¼¿í¶È */
+	/** åˆ—å®½æ”¹å˜å‰çš„åŸå§‹å®½åº¦ */
 	private float oldCellWidth;
 
-	/** ÁĞ¿í¸Ä±ä¹ı³ÌÖĞµÄÁÙÊ±¿í¶È */
+	/** åˆ—å®½æ”¹å˜è¿‡ç¨‹ä¸­çš„ä¸´æ—¶å®½åº¦ */
 	private int tmpWidth;
 
 	/**
-	 * ÊÇ·ñ¿É±à¼­
+	 * æ˜¯å¦å¯ç¼–è¾‘
 	 */
 	private boolean editable = true;
 
 	/**
-	 * µ±Ç°¸ñ
+	 * å½“å‰æ ¼
 	 */
 	private transient CellLocation activeCell = null;
 
 	/**
-	 * Ö§³ÖÁĞÍ·¶àÑ¡
+	 * æ”¯æŒåˆ—å¤´å¤šé€‰
 	 */
 	protected boolean supportMultiSelect = true;
 
 	/**
-	 * ¼àÌıÆ÷¹¹Ôìº¯Êı
+	 * ç›‘å¬å™¨æ„é€ å‡½æ•°
 	 * 
 	 * @param control
-	 *            Íø¸ñ¿Ø¼ş
+	 *            ç½‘æ ¼æ§ä»¶
 	 */
 	public ColHeaderListener(SplControl control) {
 		this(control, true);
 	}
 
 	/**
-	 * ¼àÌıÆ÷¹¹Ôìº¯Êı
+	 * ç›‘å¬å™¨æ„é€ å‡½æ•°
 	 *
 	 * @param control
-	 *            Íø¸ñ¿Ø¼ş
+	 *            ç½‘æ ¼æ§ä»¶
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public ColHeaderListener(SplControl control, boolean editable) {
 		this.control = control;
@@ -83,16 +83,16 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * Êó±ê½øÈëÊÂ¼ş
+	 * é¼ æ ‡è¿›å…¥äº‹ä»¶
 	 */
 	public void mouseEntered(MouseEvent e) {
 	}
 
 	/**
-	 * °´ÏÂÊó±ê×ó¼üÊ±µÄ´¦Àí
+	 * æŒ‰ä¸‹é¼ æ ‡å·¦é”®æ—¶çš„å¤„ç†
 	 *
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void mousePressed(MouseEvent e) {
 		if (!editable) {
@@ -116,7 +116,7 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 			}
 		}
 		if (e.getButton() == MouseEvent.BUTTON1 || !colIsSelected) {
-			// ÔÚÎ´Ñ¡ÖĞµÄĞĞÊ×¸ñ°´ÓÒ¼üÊ±ÏÈ½«ÆäÑ¡ÖĞ
+			// åœ¨æœªé€‰ä¸­çš„è¡Œé¦–æ ¼æŒ‰å³é”®æ—¶å…ˆå°†å…¶é€‰ä¸­
 			if (control.status != GCSpl.STATUS_CELLRESIZE
 					|| e.getButton() != MouseEvent.BUTTON1) {
 				resizeStartCol = 0;
@@ -126,7 +126,7 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 				}
 				control.m_selectedRows.clear();
 
-				// Ñ§Ï°excel°ÑÑ¡ÖĞÇøÓòµÄÊ×¸ñ×÷Îªµ±Ç°¸ñ
+				// å­¦ä¹ excelæŠŠé€‰ä¸­åŒºåŸŸçš„é¦–æ ¼ä½œä¸ºå½“å‰æ ¼
 				int firstRow = control.getContentPanel().drawStartRow;
 				if (firstRow < 1 || firstRow > control.cellSet.getRowCount())
 					firstRow = 1;
@@ -169,10 +169,10 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * Êó±ê×ó¼üÊÍ·ÅÊ±µÄ´¦Àí
+	 * é¼ æ ‡å·¦é”®é‡Šæ”¾æ—¶çš„å¤„ç†
 	 *
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void mouseReleased(MouseEvent e) {
 		if (!editable) {
@@ -182,7 +182,7 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 		int x = e.getX();
 		int col = (int) ControlUtils.lookupHeaderIndex(x, control.cellX,
 				control.cellW);
-		// ÍÏ×§Ê±£¬Ë¢ĞÂ¿Ø¼şÔì³ÉÍÏ²»¶¯£¬Ö»Òª±»ÍÏ×§ÁË£¬¾Í½ûÖ¹»î¶¯¸ñ,ÒÅÁôÎÊÌâ£¬ÍÏ×§Òş²ØÁË»î¶¯¸ñ£¬Ôì³É¹â±êÃ»·¨×ßµ½ÏÂÒ»¸ñ
+		// æ‹–æ‹½æ—¶ï¼Œåˆ·æ–°æ§ä»¶é€ æˆæ‹–ä¸åŠ¨ï¼Œåªè¦è¢«æ‹–æ‹½äº†ï¼Œå°±ç¦æ­¢æ´»åŠ¨æ ¼,é—ç•™é—®é¢˜ï¼Œæ‹–æ‹½éšè—äº†æ´»åŠ¨æ ¼ï¼Œé€ æˆå…‰æ ‡æ²¡æ³•èµ°åˆ°ä¸‹ä¸€æ ¼
 		if (activeCell != null && activeCell.getCol() == col) {
 			control.setActiveCell(activeCell, false);
 		}
@@ -222,7 +222,7 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 				showPopup(me);
 			}
 		};
-		SwingUtilities.invokeLater(t); // ÑÓ³Ùµ¯³ö£¬±ÜÃâ²Ëµ¥ÔÚ¿Ø¼şÖĞ±»µ²×¡
+		SwingUtilities.invokeLater(t); // å»¶è¿Ÿå¼¹å‡ºï¼Œé¿å…èœå•åœ¨æ§ä»¶ä¸­è¢«æŒ¡ä½
 	}
 
 	protected void resizeColWidth(Vector<Integer> willResizeCols, float newWidth) {
@@ -230,10 +230,10 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * Êó±êµã»÷ÊÂ¼ş
+	 * é¼ æ ‡ç‚¹å‡»äº‹ä»¶
 	 */
 	public void mouseClicked(MouseEvent e) {
-		// Ë«»÷ÁĞ±êÌâµÄ¸ñÏß£¬´¥·¢×Ô¶¯µ÷ÕûÁĞ¿íµÄ¹¦ÄÜ
+		// åŒå‡»åˆ—æ ‡é¢˜çš„æ ¼çº¿ï¼Œè§¦å‘è‡ªåŠ¨è°ƒæ•´åˆ—å®½çš„åŠŸèƒ½
 		if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
 			int x = e.getX();
 			int col = (int) ControlUtils.lookupHeaderIndex(x, control.cellX,
@@ -257,16 +257,16 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * Êó±êÍË³öÊÂ¼ş
+	 * é¼ æ ‡é€€å‡ºäº‹ä»¶
 	 */
 	public void mouseExited(MouseEvent e) {
 	}
 
 	/**
-	 * °´ÏÂÊó±ê×ó¼ü²¢ÍÏ¶¯Êó±êÊ±µÄ´¦Àí
+	 * æŒ‰ä¸‹é¼ æ ‡å·¦é”®å¹¶æ‹–åŠ¨é¼ æ ‡æ—¶çš„å¤„ç†
 	 *
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void mouseDragged(MouseEvent e) {
 		if (!editable) {
@@ -285,7 +285,7 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 			if (start <= 0) { // wunan
 				return;
 			}
-			control.m_selectedCols.clear(); // ÍÏ×§¶àÁĞÔÙ·µ»ØÊ±£¬ÁĞ±»¶àÑ¡
+			control.m_selectedCols.clear(); // æ‹–æ‹½å¤šåˆ—å†è¿”å›æ—¶ï¼Œåˆ—è¢«å¤šé€‰
 			for (int i = start; i <= end; i++) {
 				control.addSelectedCol(new Integer(i));
 			}
@@ -318,7 +318,7 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 					cc.setWidth(newWidth);
 				control.getColumnHeader().getView().repaint();
 
-				// ÍÏ×§¹ı³Ì²»ÊµÊ±Ë¢ĞÂÄÚÈİ£¬»áµ¼ÖÂÎÄ×ÖµÄwrapBuffer¼±¾çÈßÓà
+				// æ‹–æ‹½è¿‡ç¨‹ä¸å®æ—¶åˆ·æ–°å†…å®¹ï¼Œä¼šå¯¼è‡´æ–‡å­—çš„wrapBufferæ€¥å‰§å†—ä½™
 				control.getViewport().getView().repaint();
 				ControlUtilsBase.clearWrapBuffer();
 			}
@@ -326,10 +326,10 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * Êó±êÒÆ¶¯Ê±µÄ´¦Àí
+	 * é¼ æ ‡ç§»åŠ¨æ—¶çš„å¤„ç†
 	 *
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void mouseMoved(MouseEvent e) {
 		if (!editable) {
@@ -363,7 +363,7 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * ÓÒ¼üµ¯³ö²Ëµ¥
+	 * å³é”®å¼¹å‡ºèœå•
 	 * 
 	 * @param e
 	 */
@@ -374,16 +374,16 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * °´¼üÌ§ÆğÊÂ¼ş
+	 * æŒ‰é”®æŠ¬èµ·äº‹ä»¶
 	 */
 	public void keyReleased(KeyEvent e) {
 	}
 
 	/**
-	 * ¼üÅÌ±»°´ÏÂµÄ´¦Àí Èô°´ÏÂµÄÊÇshift+·½Ïò¼ü£¬ÏàÓ¦¸Ä±äµ±Ç°Ñ¡ÖĞµÄÁĞ
+	 * é”®ç›˜è¢«æŒ‰ä¸‹çš„å¤„ç† è‹¥æŒ‰ä¸‹çš„æ˜¯shift+æ–¹å‘é”®ï¼Œç›¸åº”æ”¹å˜å½“å‰é€‰ä¸­çš„åˆ—
 	 *
 	 * @param e
-	 *            ¼üÅÌÊÂ¼ş
+	 *            é”®ç›˜äº‹ä»¶
 	 */
 	public void keyPressed(KeyEvent e) {
 		if (!editable) {
@@ -476,7 +476,7 @@ public class ColHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * °´¼ü°´ÏÂÊÂ¼ş
+	 * æŒ‰é”®æŒ‰ä¸‹äº‹ä»¶
 	 */
 	public void keyTyped(KeyEvent e) {
 	}

@@ -12,7 +12,7 @@ import com.scudata.chart.*;
 import com.scudata.ide.common.swing.*;
 
 /**
- *ÊôĞÔ¿òµ¥Ôª±à¼­Æ÷
+ *å±æ€§æ¡†å•å…ƒç¼–è¾‘å™¨
  */
 public class EachRowEditor implements TableCellEditor {
 	int currentRow, editTypeCol;
@@ -21,7 +21,7 @@ public class EachRowEditor implements TableCellEditor {
 	private TableCellEditor editor;
 
 	public TableCellEditor defaultEditor;
-//¹«¹²±à¼­Æ÷
+//å…¬å…±ç¼–è¾‘å™¨
 	private DefaultCellEditor checkEditor;
 
 	private TableCellEditor lineStyleEditor;
@@ -55,10 +55,10 @@ public class EachRowEditor implements TableCellEditor {
 
 	ActionListener al;
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param table ±¾Ìå±í
-	 * @param editTypeCol ±à¼­ÀàĞÍ
-	 * @param owner ¸¸´°¿Ú
+	 * æ„é€ å‡½æ•°
+	 * @param table æœ¬ä½“è¡¨
+	 * @param editTypeCol ç¼–è¾‘ç±»å‹
+	 * @param owner çˆ¶çª—å£
 	 */
 	public EachRowEditor( final JTableEx table, int editTypeCol, Dialog owner ) {
 		this.table = table;
@@ -78,7 +78,7 @@ public class EachRowEditor implements TableCellEditor {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸Àà³éÏó·½·¨
+	 * å®ç°çˆ¶ç±»æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellEditorComponent( JTable table,
 												  Object value,
@@ -91,29 +91,29 @@ public class EachRowEditor implements TableCellEditor {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­Öµ
+	 * è·å–ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
 		return editor.getCellEditorValue();
 	}
 
 	/**
-	 * Í£Ö¹±à¼­
+	 * åœæ­¢ç¼–è¾‘
 	 */
 	public boolean stopCellEditing() {
 		return editor.stopCellEditing();
 	}
 
 	/**
-	 * È¡Ïû±à¼­
+	 * å–æ¶ˆç¼–è¾‘
 	 */
 	public void cancelCellEditing() {
 		editor.cancelCellEditing();
 	}
 
 	/**
-	 * ·µ»ØÊÇ·ñÔËĞĞ±à¼­
-	 * @param anEvent ÊÂ¼ş¶ÔÏó
+	 * è¿”å›æ˜¯å¦è¿è¡Œç¼–è¾‘
+	 * @param anEvent äº‹ä»¶å¯¹è±¡
 	 */
 	public boolean isCellEditable( EventObject anEvent ) {
 		if(anEvent instanceof MouseEvent){
@@ -125,22 +125,22 @@ public class EachRowEditor implements TableCellEditor {
 	}
 
 	/**
-	 * Ôö¼Ó¸ñ×Ó±à¼­¼àÌıÆ÷
+	 * å¢åŠ æ ¼å­ç¼–è¾‘ç›‘å¬å™¨
 	 */
 	public void addCellEditorListener( CellEditorListener l ) {
 		editor.addCellEditorListener( l );
 	}
 
 	/**
-	 * ÒÆ³ı¸ñ×Ó±à¼­¼àÌıÆ÷
+	 * ç§»é™¤æ ¼å­ç¼–è¾‘ç›‘å¬å™¨
 	 */
 	public void removeCellEditorListener( CellEditorListener l ) {
 		editor.removeCellEditorListener( l );
 	}
 
 	/**
-	 * Ñ¡ÖĞ¸ñ×Ó
-	 * @param anEvent ÊÂ¼ş¶ÔÏó
+	 * é€‰ä¸­æ ¼å­
+	 * @param anEvent äº‹ä»¶å¯¹è±¡
 	 */
 	public boolean shouldSelectCell( EventObject anEvent ) {
 		return editor.shouldSelectCell( anEvent );
@@ -157,11 +157,11 @@ public class EachRowEditor implements TableCellEditor {
 	}
 
 	/**
-	 * ¸ù¾İĞĞrow¶¯Ì¬Ñ¡Ôñ±à¼­Æ÷
-	 * @param tbl ±¾Ìå±í
-	 * @param row ĞĞºÅ
-	 * @param editTypeColumn ±à¼­ÀàĞÍËùÔÚÁĞ
-	 * @return ¶ÔÓ¦±à¼­Æ÷
+	 * æ ¹æ®è¡ŒrowåŠ¨æ€é€‰æ‹©ç¼–è¾‘å™¨
+	 * @param tbl æœ¬ä½“è¡¨
+	 * @param row è¡Œå·
+	 * @param editTypeColumn ç¼–è¾‘ç±»å‹æ‰€åœ¨åˆ—
+	 * @return å¯¹åº”ç¼–è¾‘å™¨
 	 */
 	public TableCellEditor selectEditor( JTable tbl, int row, int editTypeColumn ) {
 		int editType = ( ( Integer ) tbl.getModel().getValueAt( row, editTypeColumn ) ).intValue();
@@ -169,9 +169,9 @@ public class EachRowEditor implements TableCellEditor {
 	}
 
 	/**
-	 * ¸ù¾İ±à¼­ÀàĞÍeditType·µ»Ø¶ÔÓ¦±à¼­Æ÷
-	 * @param editType ±à¼­ÀàĞÍ
-	 * @return ±à¼­Æ÷
+	 * æ ¹æ®ç¼–è¾‘ç±»å‹editTypeè¿”å›å¯¹åº”ç¼–è¾‘å™¨
+	 * @param editType ç¼–è¾‘ç±»å‹
+	 * @return ç¼–è¾‘å™¨
 	 */
 	public TableCellEditor selectEditor( int editType ) {
 		TableCellEditor editor1 = null;
@@ -467,8 +467,8 @@ public class EachRowEditor implements TableCellEditor {
 	}
 
 	/**
-	 * ÉèÖÃ¸¸´°¿Ú
-	 * @param dialog ¸¸´°¿Ú
+	 * è®¾ç½®çˆ¶çª—å£
+	 * @param dialog çˆ¶çª—å£
 	 */
 	public void setOwner( Dialog dialog ) {
 		owner = dialog;

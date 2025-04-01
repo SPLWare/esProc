@@ -1,7 +1,7 @@
 package com.scudata.util;
 
 /**
- * °ÜÕßÊ÷£¬ÓÃÓÚÓĞĞòÊı¾İµÄ¶àÂ·¹é²¢£¬Ã¿Ò»Â·ÎªÊ÷µÄÒ»¸ö½Úµã
+ * è´¥è€…æ ‘ï¼Œç”¨äºæœ‰åºæ•°æ®çš„å¤šè·¯å½’å¹¶ï¼Œæ¯ä¸€è·¯ä¸ºæ ‘çš„ä¸€ä¸ªèŠ‚ç‚¹
  * @author RunQian
  *
  */
@@ -11,8 +11,8 @@ public class LoserTree {
 	private int size;
 	
 	/**
-	 * ÓÃÖ¸¶¨µÄ½Úµã¹¹½¨°ÜÕßÊ÷£¬¶àÂ·ÓÎ±êµÄÃ¿Ò»Â·µ±×öÒ»¸ö½Úµã
-	 * @param nodes ½Úµã
+	 * ç”¨æŒ‡å®šçš„èŠ‚ç‚¹æ„å»ºè´¥è€…æ ‘ï¼Œå¤šè·¯æ¸¸æ ‡çš„æ¯ä¸€è·¯å½“åšä¸€ä¸ªèŠ‚ç‚¹
+	 * @param nodes èŠ‚ç‚¹
 	 */
 	public LoserTree(ILoserTreeNode []nodes) {
 		int q = 0;
@@ -32,7 +32,7 @@ public class LoserTree {
 		init();
 	}
 	
-	// ³õÊ¼»¯£¬¹¹½¨°ÜÕßÊ÷
+	// åˆå§‹åŒ–ï¼Œæ„å»ºè´¥è€…æ ‘
 	private void init() {
 		int size = this.size;
 		for (int i = 0; i < size; ++i) {
@@ -63,7 +63,7 @@ public class LoserTree {
 		tree[0] = s;
 	}
 	
-	// s½ÚµãÖµ·¢Éú¸Ä±ä£¬ÖØĞÂ
+	// sèŠ‚ç‚¹å€¼å‘ç”Ÿæ”¹å˜ï¼Œé‡æ–°
 	private void adjust(int s) {
 		ILoserTreeNode []nodes = this.nodes;
 		int []tree = this.tree;
@@ -72,7 +72,7 @@ public class LoserTree {
 			p = tree[t];
 			int cmp = nodes[s].compareTo(nodes[p]);
 			if (cmp > 0 || (cmp == 0 && s > p)) {
-				// Í¬ÖµµÄÏÈÈ¡Ç°Ãæ³ÉÔ±µÄ
+				// åŒå€¼çš„å…ˆå–å‰é¢æˆå‘˜çš„
 				tree[t] = s;
 				s = p;
 			}
@@ -82,15 +82,15 @@ public class LoserTree {
 	}
 	
 	/**
-	 * ·µ»ØÊÇ·ñ»¹ÓĞÊı¾İ
-	 * @return true£ºÓĞ£¬false£ºÃ»ÓĞ
+	 * è¿”å›æ˜¯å¦è¿˜æœ‰æ•°æ®
+	 * @return trueï¼šæœ‰ï¼Œfalseï¼šæ²¡æœ‰
 	 */
 	public boolean hasNext() {
 		return size > 0;
 	}
 	
 	/**
-	 * µ¯³ö×îĞ¡µÄÊı¾İ
+	 * å¼¹å‡ºæœ€å°çš„æ•°æ®
 	 * @return
 	 */
 	public Object pop() {

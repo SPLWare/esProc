@@ -3,43 +3,43 @@ package com.scudata.common;
 import java.util.*;
 
 /**
-*     ËùÎ½¶Î¼´ÊÇ"[key]=[value]"ĞÎÊ½µÄ¼üÖµ¶Ô,¶ø¶Î¼¯ÔòÊÇÖ¸ÒÔÒ»¶¨·Ö¸ô·û·Ö¸ôµÄ¶à¸ö¶Î.ÔÚ¶ÎÖĞ,
-* µ¥Ë«ÒıºÅ¼°Ô²À¨ºÅÄÚµÄ·Ö¸ô·û½«±»ºöÂÔ,¶øÇÒ¼ü²»»áÖØ¸´¡£Òª×¢Òâ,ËùÓĞ¼üÓëÖµÈôÎªnull»òÕßÎª¿Õ°××Ö·û
-* ×é³ÉµÄ´®ÔòÖÃÎª¿Õ´®,²¢ÇÒÔÚisCaseSensitiveÎªfalseÊ±¼ü¾ùÒÔĞ¡Ğ´·½Ê½±£´æÓë²Ù×÷.
-* @see java.util.Map ²Î¼ûMap
+*     æ‰€è°“æ®µå³æ˜¯"[key]=[value]"å½¢å¼çš„é”®å€¼å¯¹,è€Œæ®µé›†åˆ™æ˜¯æŒ‡ä»¥ä¸€å®šåˆ†éš”ç¬¦åˆ†éš”çš„å¤šä¸ªæ®µ.åœ¨æ®µä¸­,
+* å•åŒå¼•å·åŠåœ†æ‹¬å·å†…çš„åˆ†éš”ç¬¦å°†è¢«å¿½ç•¥,è€Œä¸”é”®ä¸ä¼šé‡å¤ã€‚è¦æ³¨æ„,æ‰€æœ‰é”®ä¸å€¼è‹¥ä¸ºnullæˆ–è€…ä¸ºç©ºç™½å­—ç¬¦
+* ç»„æˆçš„ä¸²åˆ™ç½®ä¸ºç©ºä¸²,å¹¶ä¸”åœ¨isCaseSensitiveä¸ºfalseæ—¶é”®å‡ä»¥å°å†™æ–¹å¼ä¿å­˜ä¸æ“ä½œ.
+* @see java.util.Map å‚è§Map
 */
 public final class SegmentSet {
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public SegmentSet()  {
 		this(null, false, ';', true);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param str ÓÃÓÚ·Ö¶ÎµÄ×Ö·û´®,ÈôÎªnullÔò½¨Á¢Ò»¸ö¿ÕµÄ¶Î¼¯
+	 * æ„é€ å‡½æ•°
+	 * @param str ç”¨äºåˆ†æ®µçš„å­—ç¬¦ä¸²,è‹¥ä¸ºnullåˆ™å»ºç«‹ä¸€ä¸ªç©ºçš„æ®µé›†
 	 */
 	public SegmentSet(String str)  {
 		this(str, false, ';', true);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param str ÓÃÓÚ·Ö¶ÎµÄ×Ö·û´®,ÈôÎªnullÔò½¨Á¢Ò»¸ö¿ÕµÄ¶Î¼¯
-	 * @param delim ÓÃÓÚ·Ö¶ÎµÄ×Ö·û
+	 * æ„é€ å‡½æ•°
+	 * @param str ç”¨äºåˆ†æ®µçš„å­—ç¬¦ä¸²,è‹¥ä¸ºnullåˆ™å»ºç«‹ä¸€ä¸ªç©ºçš„æ®µé›†
+	 * @param delim ç”¨äºåˆ†æ®µçš„å­—ç¬¦
 	 */
 	public SegmentSet(String str, char delim)  {
 		this(str, false, delim, true);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param keys ¶à¸ökeyÖµ,ÒÔdelim·Ö¸ô
-	 * @param values ¶à¸övalueÖµ,ÒÔdelim·Ö¸ô,²¢ÒªÓëkeysÖĞkeyÏà¶ÔÓ¦
-	 * @param delim ÓÃÓÚ·Ö¶ÎµÄ×Ö·û
-	 * @param isCaseSensitive keyÊÇ·ñ´óĞ¡Ğ´Ãô¸Ğ
+	 * æ„é€ å‡½æ•°
+	 * @param keys å¤šä¸ªkeyå€¼,ä»¥delimåˆ†éš”
+	 * @param values å¤šä¸ªvalueå€¼,ä»¥delimåˆ†éš”,å¹¶è¦ä¸keysä¸­keyç›¸å¯¹åº”
+	 * @param delim ç”¨äºåˆ†æ®µçš„å­—ç¬¦
+	 * @param isCaseSensitive keyæ˜¯å¦å¤§å°å†™æ•æ„Ÿ
 	 */
 	public SegmentSet(String keys, String values, char delim)  {
 		this(keys, values, false, delim);
@@ -98,16 +98,16 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * Çå³ı¶Î¼¯ÖĞµÄËùÓĞ¶Î
+	 * æ¸…é™¤æ®µé›†ä¸­çš„æ‰€æœ‰æ®µ
 	 */
 	public void clear()  {
 		segs.clear();
 	}
 
 	/**
-	 * ÔÚ¶Î¼¯²éÕÒÊÇ·ñÓĞÖ¸¶¨¼üµÄ¶Î
-	 * @param key Ö¸¶¨µÄ¼ü
-	 * @return ÕÒµ½Ôò·µ»Øtrue,·ñÔòfalse
+	 * åœ¨æ®µé›†æŸ¥æ‰¾æ˜¯å¦æœ‰æŒ‡å®šé”®çš„æ®µ
+	 * @param key æŒ‡å®šçš„é”®
+	 * @return æ‰¾åˆ°åˆ™è¿”å›true,å¦åˆ™false
 	 */
 	public boolean containsKey(String key)  {
 		key = checkKey(key);
@@ -115,9 +115,9 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * ÔÚ¶Î¼¯ÖĞ²éÕÒÊÇ·ñÓĞÖ¸¶¨ÖµµÄ¶Î
-	 * @param key Ö¸¶¨µÄÖµ
-	 * @return ÕÒµ½·µ»Øtrue,·ñÔòfalse
+	 * åœ¨æ®µé›†ä¸­æŸ¥æ‰¾æ˜¯å¦æœ‰æŒ‡å®šå€¼çš„æ®µ
+	 * @param key æŒ‡å®šçš„å€¼
+	 * @return æ‰¾åˆ°è¿”å›true,å¦åˆ™false
 	 */
 	public boolean containsValue(String value)  {
 		value = checkValue(value);
@@ -125,16 +125,16 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * »ñÈ¡ËùÓĞ¼üÖµ¶ÔµÄ¼¯ºÏ
+	 * è·å–æ‰€æœ‰é”®å€¼å¯¹çš„é›†åˆ
 	 */
 	public Set entrySet()  {
 		return segs.entrySet();
 	}
 
 	/**
-	 * ±È½ÏÓëÁíÒ»¸ö¶Î¼¯ÊÇ·ñÏàµÈ
-	 * @param obj ÓÃÓÚ±È½ÏµÄ¶ÔÏó
-	 * @return ÏàµÈ·µ»Øtrue,·ñÔòfalse
+	 * æ¯”è¾ƒä¸å¦ä¸€ä¸ªæ®µé›†æ˜¯å¦ç›¸ç­‰
+	 * @param obj ç”¨äºæ¯”è¾ƒçš„å¯¹è±¡
+	 * @return ç›¸ç­‰è¿”å›true,å¦åˆ™false
 	 */
 	public boolean equals(Object obj)  {
 		if (obj == null)  return false;
@@ -142,9 +142,9 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * È¡Ö¸¶¨¼ü¶ÔÓ¦µÄÖµ
-	 * @param key Ö¸¶¨µÄ¼ü
-	 * @return ·µ»Ø¶ÔÓ¦µÄÖµ
+	 * å–æŒ‡å®šé”®å¯¹åº”çš„å€¼
+	 * @param key æŒ‡å®šçš„é”®
+	 * @return è¿”å›å¯¹åº”çš„å€¼
 	 */
 	public String get(String key)  {
 		key = checkKey(key);
@@ -152,34 +152,34 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * È¡µÃ±¾¶ÔÏóµÄHASHÂë
-	 * @return ±¾¶ÔÏóµÄHASHÂë
+	 * å–å¾—æœ¬å¯¹è±¡çš„HASHç 
+	 * @return æœ¬å¯¹è±¡çš„HASHç 
 	 */
 	public int hashCode()  {
 		return segs.hashCode();
 	}
 
 	/**
-	 * ¼ì²éÊÇ·ñÓĞ¼üÖµ¶Ô
-	 * @return true»òfalse
+	 * æ£€æŸ¥æ˜¯å¦æœ‰é”®å€¼å¯¹
+	 * @return trueæˆ–false
 	 */
 	public boolean isEmpty()  {
 		return segs.isEmpty();
 	}
 
 	/**
-	 * È¡ËùÓĞ¼ü
-	 * @return ËùÓĞ¼ü¼¯
+	 * å–æ‰€æœ‰é”®
+	 * @return æ‰€æœ‰é”®é›†
 	 */
 	public Set keySet()  {
 		return segs.keySet();
 	}
 
 	/**
-	 * ¼ÓÈëÒ»¸ö¼üÖµ¶Ô
-	 * @param key ¼ü
-	 * @param value Öµ
-	 * @return Èô¶Î¼¯ÖĞÒÑÓĞÖ¸¶¨µÄ¼ü,Ôò·µ»ØËü¶ÔÓ¦µÄ¾ÉÖµ,·ñÔò·µ»Ønull
+	 * åŠ å…¥ä¸€ä¸ªé”®å€¼å¯¹
+	 * @param key é”®
+	 * @param value å€¼
+	 * @return è‹¥æ®µé›†ä¸­å·²æœ‰æŒ‡å®šçš„é”®,åˆ™è¿”å›å®ƒå¯¹åº”çš„æ—§å€¼,å¦åˆ™è¿”å›null
 	 */
 	public String put(String key, String value)  {
 		key = checkKey(key);
@@ -188,7 +188,7 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * ¼ÓÈë¶à¸ö¼üÖµ¶Ô
+	 * åŠ å…¥å¤šä¸ªé”®å€¼å¯¹
 	 */
 	public void putAll(Map t)  {
 		if ( t == null || t.isEmpty() )  return ;
@@ -201,9 +201,9 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * É¾³ıÖ¸¶¨¼üµÄ¶Î
-	 * @param key Ö¸¶¨µÄ¼ü
-	 * @return ÈôÖ¸¶¨¼üÓĞ¶ÔÓ¦µÄÖµ,Ôò·µ»ØÆä¶ÔÓ¦Öµ,·ñÔò·µ»Ønull
+	 * åˆ é™¤æŒ‡å®šé”®çš„æ®µ
+	 * @param key æŒ‡å®šçš„é”®
+	 * @return è‹¥æŒ‡å®šé”®æœ‰å¯¹åº”çš„å€¼,åˆ™è¿”å›å…¶å¯¹åº”å€¼,å¦åˆ™è¿”å›null
 	 */
 	public String remove(String key)  {
 		key = checkKey(key);
@@ -211,34 +211,34 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * È¡¶Î¼¯ÖĞ¶ÎµÄ¸öÊı
-	 * @return ¶Î¼¯ÖĞ¶ÎµÄ¸öÊı
+	 * å–æ®µé›†ä¸­æ®µçš„ä¸ªæ•°
+	 * @return æ®µé›†ä¸­æ®µçš„ä¸ªæ•°
 	 */
 	public int size()  {
 		return segs.size();
 	}
 
 	/**
-	 * È¡¶Î¼¯ÖĞËùÓĞÖµµÄ¼¯ºÏ
-	 * @return ¶Î¼¯ÖĞËùÓĞÖµµÄ¼¯ºÏ
+	 * å–æ®µé›†ä¸­æ‰€æœ‰å€¼çš„é›†åˆ
+	 * @return æ®µé›†ä¸­æ‰€æœ‰å€¼çš„é›†åˆ
 	 */
 	public Collection values()  {
 		return segs.values();
 	}
 
 	/**
-	 * ·µ»ØÒÔ·ÖºÅ·Ö¸ôµÄ¼üÖµ¶ÔµÄ´®
-	 * @return ÒÔ·ÖºÅ·Ö¸ôµÄ¼üÖµ¶ÔµÄ´®
+	 * è¿”å›ä»¥åˆ†å·åˆ†éš”çš„é”®å€¼å¯¹çš„ä¸²
+	 * @return ä»¥åˆ†å·åˆ†éš”çš„é”®å€¼å¯¹çš„ä¸²
 	 */
 	public String toString()  {
 		return toString(";");
 	}
 
 	/**
-	 * ¼ì²é¶Î¼¯ÖĞÊÇ·ñ°üº¬Ö¸¶¨µÄ¶à¸ö¼ü
-	 * @param keys ÒÔdelim·Ö¸ôµÄ¶à¸ö¼ü
-	 * @param delim ·Ö¸ô·û
-	 * @return Èô¶¼°üº¬Ôò·µ»Øtrue,·ñÔò·µ»Øfalse
+	 * æ£€æŸ¥æ®µé›†ä¸­æ˜¯å¦åŒ…å«æŒ‡å®šçš„å¤šä¸ªé”®
+	 * @param keys ä»¥delimåˆ†éš”çš„å¤šä¸ªé”®
+	 * @param delim åˆ†éš”ç¬¦
+	 * @return è‹¥éƒ½åŒ…å«åˆ™è¿”å›true,å¦åˆ™è¿”å›false
 	 */
 	public boolean containsKeys(String keys, char delim)  {
 		ArgumentTokenizer at = new ArgumentTokenizer(keys, delim);
@@ -248,9 +248,9 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * ¼ì²é¶Î¼¯ÖĞÊÇ·ñ°üº¬Ö¸¶¨¼ü¼¯ÖĞËùÓĞ¼ü
-	 * @param keys ¼ü¼¯
-	 * @return ÈôkeysÎªnull»ò¿ÕÔò·µ»Øtrue,Èô¶¼°üº¬Ôò·µ»Øtrue,·ñÔò·µ»Øfalse
+	 * æ£€æŸ¥æ®µé›†ä¸­æ˜¯å¦åŒ…å«æŒ‡å®šé”®é›†ä¸­æ‰€æœ‰é”®
+	 * @param keys é”®é›†
+	 * @return è‹¥keysä¸ºnullæˆ–ç©ºåˆ™è¿”å›true,è‹¥éƒ½åŒ…å«åˆ™è¿”å›true,å¦åˆ™è¿”å›false
 	 */
 	public boolean containsKeys(Set keys)  {
 		if (keys == null || keys.isEmpty())  return true;
@@ -263,10 +263,10 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * ½«ÒÔdelim·Ö¸ôµÄ¶à¸ö¼ü¼°Ïà¶ÔÓ¦µÄ¶à¸öÖµ¼ÓÈë¶Î¼¯
-	 * @param keys ÒÔdelim·Ö¸ôµÄ¶à¸ö¼ü
-	 * @param values ÒÔdelim·Ö¸ôµÄ¶à¸öÖµ
-	 * @param delim ·Ö¸ô·û
+	 * å°†ä»¥delimåˆ†éš”çš„å¤šä¸ªé”®åŠç›¸å¯¹åº”çš„å¤šä¸ªå€¼åŠ å…¥æ®µé›†
+	 * @param keys ä»¥delimåˆ†éš”çš„å¤šä¸ªé”®
+	 * @param values ä»¥delimåˆ†éš”çš„å¤šä¸ªå€¼
+	 * @param delim åˆ†éš”ç¬¦
 	 */
 	public void putAll(String keys, String values, char delim)  {
 		ArgumentTokenizer atkey = new ArgumentTokenizer(keys, delim);
@@ -276,8 +276,8 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * ½«ÁíÒ»¸ö¶Î¼¯ÖĞËùÓĞµÄ¶Î¼ÓÈë¶Î¼¯
-	 * @param segs Òª¼ÓÈëµÄ¶Î¼¯
+	 * å°†å¦ä¸€ä¸ªæ®µé›†ä¸­æ‰€æœ‰çš„æ®µåŠ å…¥æ®µé›†
+	 * @param segs è¦åŠ å…¥çš„æ®µé›†
 	 */
 	public void putAll(SegmentSet segs)  {
 		Iterator it = segs.keySet().iterator();
@@ -288,11 +288,11 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * È¡ÒÔdelim·Ö¸ôµÄ¶à¸ö¼ü¶ÔÓ¦µÄ¶à¸öÖµ
-	 * @param keys Ö¸¶¨µÄ¶à¸ö¼ü
-	 * @param valueIfBlank ÈôÖ¸¶¨µÄ¼ü¶ÔÓ¦µÄÖµÎª¿ÕÖµ,Ôò½«·µ»ØµÄ¶ÔÓ¦ÖµÖÃÎªËü
-	 * @param delim ·Ö¸ô·û
-	 * @return ·µ»ØÒÔdelim·Ö¸ôµÄ¶à¸öÖµ,ÈôÓĞ²ÎÊıÎªnull,Ôò·µ»Ønull
+	 * å–ä»¥delimåˆ†éš”çš„å¤šä¸ªé”®å¯¹åº”çš„å¤šä¸ªå€¼
+	 * @param keys æŒ‡å®šçš„å¤šä¸ªé”®
+	 * @param valueIfBlank è‹¥æŒ‡å®šçš„é”®å¯¹åº”çš„å€¼ä¸ºç©ºå€¼,åˆ™å°†è¿”å›çš„å¯¹åº”å€¼ç½®ä¸ºå®ƒ
+	 * @param delim åˆ†éš”ç¬¦
+	 * @return è¿”å›ä»¥delimåˆ†éš”çš„å¤šä¸ªå€¼,è‹¥æœ‰å‚æ•°ä¸ºnull,åˆ™è¿”å›null
 	 */
 	public String getValues(String keys, String valueIfBlank, char delim)  {
 		if (keys == null || valueIfBlank == null)  return null;
@@ -312,10 +312,10 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * È¡ÒÔdelim·Ö¸ôµÄËùÓĞ¼üÖµ¶Ô,¿ÉÓÃÓÚ·µ»ØSQLÓï¾äÖĞ¶ÔÓ¦µÄWHERE×Ó¾ä,Èç¶Î¼¯ÖĞÓĞÁ½¸ö¼üÖµ¶Ô,
-	 * ·Ö±ğÎª"id1"Óë"01", "id2"Óë"1111",Ôò¿ÉÒÔÊ¹ÓÃtoString(" AND ")·µ»Ø
+	 * å–ä»¥delimåˆ†éš”çš„æ‰€æœ‰é”®å€¼å¯¹,å¯ç”¨äºè¿”å›SQLè¯­å¥ä¸­å¯¹åº”çš„WHEREå­å¥,å¦‚æ®µé›†ä¸­æœ‰ä¸¤ä¸ªé”®å€¼å¯¹,
+	 * åˆ†åˆ«ä¸º"id1"ä¸"01", "id2"ä¸"1111",åˆ™å¯ä»¥ä½¿ç”¨toString(" AND ")è¿”å›
 	 * "id1=01 AND id2=1111"
-	 * @param delim ·Ö¸ô´®
+	 * @param delim åˆ†éš”ä¸²
 	 */
 	public String toString(String delim)  {
 		StringBuffer str = new StringBuffer(300);
@@ -332,8 +332,8 @@ public final class SegmentSet {
 	}
 
 	/**
-	 * ½«¶Î¼¯·­Òë³ÉÓ³Éä±í
-	 * @return ·µ»ØÒ»¸öÓ³Éä±í
+	 * å°†æ®µé›†ç¿»è¯‘æˆæ˜ å°„è¡¨
+	 * @return è¿”å›ä¸€ä¸ªæ˜ å°„è¡¨
 	 */
 	public Map toMap()  {
 		return (Map)segs.clone();

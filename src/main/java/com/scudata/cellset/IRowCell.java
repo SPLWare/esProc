@@ -8,37 +8,37 @@ public interface IRowCell
 	extends ICloneable, Externalizable, IRecord {
 
 	/**
-	 * ·µ»ØĞĞºÅ
+	 * è¿”å›è¡Œå·
 	 * @return int
 	 */
 	public int getRow();
 
 	/**
-	 * ÉèÖÃĞĞºÅ
+	 * è®¾ç½®è¡Œå·
 	 * @param row int
 	 */
 	public void setRow(int row);
 
 	/**
-	 * ·µ»ØĞĞ¸ß
+	 * è¿”å›è¡Œé«˜
 	 * @return float
 	 */
 	public float getHeight();
 
 	/**
-	 * ÉèÖÃĞĞ¸ß
+	 * è®¾ç½®è¡Œé«˜
 	 * @param h float
 	 */
 	public void setHeight(float h);
 
 	/**
-	 * ·µ»Ø²ãºÅ
+	 * è¿”å›å±‚å·
 	 * @return int
 	 */
 	public int getLevel();
 
 	/**
-	 * ÉèÖÃ²ãºÅ
+	 * è®¾ç½®å±‚å·
 	 * @param level int
 	 */
 	public void setLevel(int level);

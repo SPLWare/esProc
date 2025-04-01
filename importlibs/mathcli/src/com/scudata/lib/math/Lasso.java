@@ -13,7 +13,7 @@ import com.scudata.resources.EngineMessage;
 public class Lasso extends Function {
 
 	/**
-	 * »Ø¹éº¯Êılasso(X,Y,r,p, alpha)ºÍlasso(X,F), ·µ»ØµÄÖ÷³É·ÖÏµÊı¾ØÕóÎŞ·¨½µÎ¬£¬µ«¿ÉÒÔÓÃÀ´¼ÆËãÖ÷³É·ÖµÃ·Ö
+	 * å›å½’å‡½æ•°lasso(X,Y,r,p, alpha)å’Œlasso(X,F), è¿”å›çš„ä¸»æˆåˆ†ç³»æ•°çŸ©é˜µæ— æ³•é™ç»´ï¼Œä½†å¯ä»¥ç”¨æ¥è®¡ç®—ä¸»æˆåˆ†å¾—åˆ†
 	 * @param ctx
 	 * @return
 	 */
@@ -26,7 +26,7 @@ public class Lasso extends Function {
 			throw new RQException("lasso" + mm.getMessage("function.invalidParam"));
 		} else {
 			if (param.getSubSize() >= 4) {
-				// ·µ»Øfit½á¹ûĞòÁĞ£¬²ÎÊıÓÉ4¸ö³ÉÔ±×é³É£¬µÚ1¸öÎª¶şÎ¬ĞòÁĞ£¬µÚ2¸öÎªb
+				// è¿”å›fitç»“æœåºåˆ—ï¼Œå‚æ•°ç”±4ä¸ªæˆå‘˜ç»„æˆï¼Œç¬¬1ä¸ªä¸ºäºŒç»´åºåˆ—ï¼Œç¬¬2ä¸ªä¸ºb
 				IParam sub1 = param.getSub(0);
 				IParam sub2 = param.getSub(1);
 				IParam sub3 = param.getSub(2);
@@ -51,7 +51,7 @@ public class Lasso extends Function {
 						p = ((Number) o4).intValue();
 					}
 				}
-				// added by bd, 2022.11.8, Ìí¼Óalpha²ÎÊı
+				// added by bd, 2022.11.8, æ·»åŠ alphaå‚æ•°
 				double alpha = 0.1;
 				if (param.getSubSize() > 4) {
 					IParam sub5 = param.getSub(4);
@@ -66,7 +66,7 @@ public class Lasso extends Function {
 					Matrix A = new Matrix((Sequence)o1);
 					Matrix T = new Matrix((Sequence)o2);
 					Object v1 = ((Sequence)o2).get(1);
-					// edited by bd, 2021.2.25, Èç¹ûTÎªµ¥ĞĞÏòÁ¿Ê±£¬×Ô¶¯×ªÖÃ
+					// edited by bd, 2021.2.25, å¦‚æœTä¸ºå•è¡Œå‘é‡æ—¶ï¼Œè‡ªåŠ¨è½¬ç½®
 					boolean ifv = v1 instanceof Number;
 					if (T.getRows() == 1) {
 						T = T.transpose();
@@ -97,7 +97,7 @@ public class Lasso extends Function {
 				}
 			}
 			else if (param.getSubSize() == 2) {
-				// ·µ»ØÄâºÏ½á¹û£¬½á¹ûÎª¾ØÕó×ª»»ÎªµÄ¶şÎ¬ĞòÁĞ£¬²ÎÊıÓÉ2¸ö³ÉÔ±×é³É£¬µÚ1¸öÎª¶şÎ¬ĞòÁĞ£¬µÚ2¸öÎªfit»ñµÃcoefĞòÁĞ
+				// è¿”å›æ‹Ÿåˆç»“æœï¼Œç»“æœä¸ºçŸ©é˜µè½¬æ¢ä¸ºçš„äºŒç»´åºåˆ—ï¼Œå‚æ•°ç”±2ä¸ªæˆå‘˜ç»„æˆï¼Œç¬¬1ä¸ªä¸ºäºŒç»´åºåˆ—ï¼Œç¬¬2ä¸ªä¸ºfitè·å¾—coefåºåˆ—
 				IParam sub1 = param.getSub(0);
 				IParam sub2 = param.getSub(1);
 				if (sub1 == null || sub2 == null) {
@@ -114,13 +114,13 @@ public class Lasso extends Function {
 						//Object v1 = s1.get(1);
 						Matrix A = new Matrix(s1);
 						Object v2 = s2.get(1);
-						// edited by bd, 2021.3.5, Èç¹ûAÎªµ¥ÁĞÏòÁ¿Ê±£¬×Ô¶¯×ªÖÃ
+						// edited by bd, 2021.3.5, å¦‚æœAä¸ºå•åˆ—å‘é‡æ—¶ï¼Œè‡ªåŠ¨è½¬ç½®
 						if (A.getCols() == 1) {
 							A = A.transpose();
 						}
 						
 						if (v2 instanceof Sequence) {
-							// edited by bd, 2021.3.17, Ö§³Ö¶àÁĞ£¬Èç¹û½¨Ä£Ê±YÎª¶àÁĞ£¬·µ»Ø½á¹û¾ÍÊÇ¾ØÕó
+							// edited by bd, 2021.3.17, æ”¯æŒå¤šåˆ—ï¼Œå¦‚æœå»ºæ¨¡æ—¶Yä¸ºå¤šåˆ—ï¼Œè¿”å›ç»“æœå°±æ˜¯çŸ©é˜µ
 							Sequence coef = (Sequence) s2;
 							Matrix result = predict(A, coef);
 							return result.toSequence(option, true);
@@ -161,7 +161,7 @@ public class Lasso extends Function {
             Matrix allLoss= y_hat.minus(Y).elementSquare().divide(num_train + sumDoubleAlpha(w,alpha));
             double loss = sumDouble(allLoss.getArray());
             if (loss < 0) {
-            	// ±ÜÃâ¾¯¸æ
+            	// é¿å…è­¦å‘Š
             }
             double[][] sign = signW(w,alpha);
             Matrix tttt= X.transpose().times(y_hat.minus(Y)).divide(num_train);
@@ -179,7 +179,7 @@ public class Lasso extends Function {
     }
     
     /**
-     * edited by bd, 2022.11.11, ÖØĞÂĞŞ¸ÄfitµÄ·½·¨£¬ÓÉÓÚÓëÔ­Á÷³Ì²îÒì±È½Ï´ó£¬Òò´ËÁíÆğ¸öÃû×Ö
+     * edited by bd, 2022.11.11, é‡æ–°ä¿®æ”¹fitçš„æ–¹æ³•ï¼Œç”±äºä¸åŸæµç¨‹å·®å¼‚æ¯”è¾ƒå¤§ï¼Œå› æ­¤å¦èµ·ä¸ªåå­—
      * @param X
      * @param Y
      * @param learning_rate
@@ -234,7 +234,7 @@ public class Lasso extends Function {
     }
     
     /**
-     * ÓÉgithub.com/haifengl/smileĞŞ¸ÄµÄlassoËã·¨
+     * ç”±github.com/haifengl/smileä¿®æ”¹çš„lassoç®—æ³•
      * Fits the LASSO model.
      * @param x the design matrix.
      * @param y the responsible variable Matrix.

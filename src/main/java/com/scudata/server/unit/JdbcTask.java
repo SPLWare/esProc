@@ -15,7 +15,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.parallel.Request;
 
 /**
- * JDBCÖ´ĞĞÈÎÎñ
+ * JDBCæ‰§è¡Œä»»åŠ¡
  * 
  * @author Joancy
  *
@@ -28,11 +28,11 @@ public class JdbcTask {
 	Thread execThread = null;
 
 	/**
-	 * ´´½¨Ò»¸öJDBCÈÎÎñ
-	 * @param cmd ÈÎÎñÖ´ĞĞµÄÃüÁî
-	 * @param args ²ÎÊıÁĞ±í
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param envParams »·¾³²ÎÊı
+	 * åˆ›å»ºä¸€ä¸ªJDBCä»»åŠ¡
+	 * @param cmd ä»»åŠ¡æ‰§è¡Œçš„å‘½ä»¤
+	 * @param args å‚æ•°åˆ—è¡¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param envParams ç¯å¢ƒå‚æ•°
 	 */
 	public JdbcTask(String cmd, ArrayList args, Context ctx,
 			Map<String, Object> envParams) {
@@ -43,8 +43,8 @@ public class JdbcTask {
 	}
 
 	/**
-	 * Ö´ĞĞµ±Ç°ÈÎÎñ
-	 * @return ½á¹ûĞò±í
+	 * æ‰§è¡Œå½“å‰ä»»åŠ¡
+	 * @return ç»“æœåºè¡¨
 	 * @throws Exception
 	 */
 	public Sequence execute() throws Exception {
@@ -66,7 +66,7 @@ public class JdbcTask {
 	public static Object checkResult(Object r) throws Exception {
 		if(r==null)
 			return null;
-		if (r instanceof ICursor) {// ÓÎ±ê²»±ØÊµÏÖĞòÁĞ»¯£¬»á²úÉúÔ¶³ÌÓÎ±ê
+		if (r instanceof ICursor) {// æ¸¸æ ‡ä¸å¿…å®ç°åºåˆ—åŒ–ï¼Œä¼šäº§ç”Ÿè¿œç¨‹æ¸¸æ ‡
 			return r;
 		}
 		if (!(r instanceof Serializable)) {
@@ -77,8 +77,8 @@ public class JdbcTask {
 	}
 
 	/**
-	 * È¡Ïûµ±Ç°ÈÎÎñ
-	 * @return ³É¹¦È¡Ïû·µ»Øtrue
+	 * å–æ¶ˆå½“å‰ä»»åŠ¡
+	 * @return æˆåŠŸå–æ¶ˆè¿”å›true
 	 * @throws Exception
 	 */
 	public boolean cancel() throws Exception {
@@ -97,16 +97,16 @@ public class JdbcTask {
 	}
 
 	/**
-	 * »ñÈ¡Ö´ĞĞÃüÁî£¬±ÈÈçdfxÃû³Æ
-	 * @return ÃüÁî
+	 * è·å–æ‰§è¡Œå‘½ä»¤ï¼Œæ¯”å¦‚dfxåç§°
+	 * @return å‘½ä»¤
 	 */
 	public String getCmd() {
 		return cmd;
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıÁĞ±í
-	 * @return dfx²ÎÊı
+	 * è·å–å‚æ•°åˆ—è¡¨
+	 * @return dfxå‚æ•°
 	 */
 	public ArrayList getArgs() {
 		return args;
@@ -133,7 +133,7 @@ public class JdbcTask {
 										context, (String) gateway);
 								execGateway = true;
 							} catch (RetryException re) {
-								// ÒÔend·½Ê½½áÊøÊ±£¬½«°´ÎŞÍø¹Ø·½Ê½Ö´ĞĞ
+								// ä»¥endæ–¹å¼ç»“æŸæ—¶ï¼Œå°†æŒ‰æ— ç½‘å…³æ–¹å¼æ‰§è¡Œ
 							}
 						}
 						if (!execGateway)

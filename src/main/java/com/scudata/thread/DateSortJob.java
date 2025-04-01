@@ -3,7 +3,7 @@ package com.scudata.thread;
 import java.util.Date;
 
 /**
- * ÓÃÓÚÖ´ĞĞÅÅĞòµÄÈÎÎñ
+ * ç”¨äºæ‰§è¡Œæ’åºçš„ä»»åŠ¡
  * @author RunQian
  *
  */
@@ -11,11 +11,11 @@ class DateSortJob extends Job {
 	private Date []src;
 	private Date []dest;
 	
-	private int fromIndex; // ÆğÊ¼Î»ÖÃ£¬°üº¬
-	private int toIndex; // ½áÊøÎ»ÖÃ£¬²»°üº¬
-	private int off; // Á½¸öÊı×éµÄÆ«ÒÆÁ¿
+	private int fromIndex; // èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	private int toIndex; // ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
+	private int off; // ä¸¤ä¸ªæ•°ç»„çš„åç§»é‡
 	
-	private int threadCount; // ÅÅĞòÏß³ÌÊı
+	private int threadCount; // æ’åºçº¿ç¨‹æ•°
 	
 	public DateSortJob(Date []src, Date []dest, int fromIndex, int toIndex, int off, int threadCount) {
 		this.src = src;

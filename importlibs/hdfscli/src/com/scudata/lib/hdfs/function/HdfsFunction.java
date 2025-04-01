@@ -15,10 +15,10 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 public class HdfsFunction extends Function {
-	protected int m_paramSize = 0;	//参数个数
+	protected int m_paramSize = 0;	//鍙傛暟涓暟
 	protected FileSystem m_hdfs = null;
 	protected String m_colNames[];
-	protected String m_paramTypes[]; //除去hdfs句柄参数类型
+	protected String m_paramTypes[]; //闄ゅ幓hdfs鍙ユ焺鍙傛暟绫诲瀷
 	protected Context m_ctx;
 	
 	public Node optimize(Context ctx) {

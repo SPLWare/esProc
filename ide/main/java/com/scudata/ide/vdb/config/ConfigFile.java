@@ -31,13 +31,13 @@ public class ConfigFile {
 	public static final String CONNECTIONS = "Connections";
 	public static final String CONNECTION = "Connection";
 
-	// ÅäÖÃÎÄ¼şÃû³Æ
+	// é…ç½®æ–‡ä»¶åç§°
 	public static final String CONFIG_FILE_NAME = "vdbuserconfig.xml";
 
 	public static final String BAK_SUFFIX = ".bak";
 
 	/**
-	 * ÅäÖÃÎÄ¼şÂ·¾¶
+	 * é…ç½®æ–‡ä»¶è·¯å¾„
 	 * 
 	 * @return
 	 */
@@ -46,7 +46,7 @@ public class ConfigFile {
 	}
 
 	/**
-	 * ±£´æÅäÖÃ
+	 * ä¿å­˜é…ç½®
 	 * 
 	 * @param options
 	 * @throws Exception
@@ -63,7 +63,7 @@ public class ConfigFile {
 	}
 
 	/**
-	 * µ¼ÈëÅäÖÃ
+	 * å¯¼å…¥é…ç½®
 	 * 
 	 * @param options
 	 * @throws Exception
@@ -109,7 +109,7 @@ public class ConfigFile {
 	}
 
 	/**
-	 * ÎÄ¼ş²»ºÏ·¨Ê±ÖØĞÂÉú³ÉÒ»¸ö
+	 * æ–‡ä»¶ä¸åˆæ³•æ—¶é‡æ–°ç”Ÿæˆä¸€ä¸ª
 	 * 
 	 * @throws Exception
 	 */
@@ -123,7 +123,7 @@ public class ConfigFile {
 	}
 
 	/**
-	 * ±¸·İ
+	 * å¤‡ä»½
 	 */
 	public static void backup() {
 		String filePath = getConfigFilePath();

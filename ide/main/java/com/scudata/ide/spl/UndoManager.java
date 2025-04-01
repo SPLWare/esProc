@@ -11,33 +11,33 @@ import com.scudata.ide.spl.control.EditControl;
 import com.scudata.ide.spl.control.SplEditor;
 
 /**
- * ÓÃÓÚÖØ×ö³·ÏúµÄ¹ÜÀíÆ÷
+ * ç”¨äºé‡åšæ’¤é”€çš„ç®¡ç†å™¨
  *
  */
 public class UndoManager {
 	/**
-	 * ³·ÏúÔ­×ÓÃüÁîÈİÆ÷
+	 * æ’¤é”€åŸå­å‘½ä»¤å®¹å™¨
 	 */
 	private LimitedStack undoContainer = new LimitedStack(
 			ConfigOptions.iUndoCount);
 	/**
-	 * ÖØ×öÔ­×ÓÃüÁîÈİÆ÷
+	 * é‡åšåŸå­å‘½ä»¤å®¹å™¨
 	 */
 	private LimitedStack redoContainer = new LimitedStack(
 			ConfigOptions.iUndoCount);
 	/**
-	 * Íø¸ñ±à¼­Æ÷
+	 * ç½‘æ ¼ç¼–è¾‘å™¨
 	 */
 	private SplEditor mEditor;
 	/**
-	 * Íø¸ñ¿Ø¼ş
+	 * ç½‘æ ¼æ§ä»¶
 	 */
 	private EditControl editControl;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
-	 * @param editor Íø¸ñ±à¼­Æ÷
+	 * @param editor ç½‘æ ¼ç¼–è¾‘å™¨
 	 */
 	public UndoManager(SplEditor editor) {
 		mEditor = editor;
@@ -45,7 +45,7 @@ public class UndoManager {
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ³·Ïú
+	 * æ˜¯å¦å¯ä»¥æ’¤é”€
 	 * 
 	 * @return
 	 */
@@ -54,7 +54,7 @@ public class UndoManager {
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔÖØ×ö
+	 * æ˜¯å¦å¯ä»¥é‡åš
 	 * 
 	 * @return
 	 */
@@ -63,7 +63,7 @@ public class UndoManager {
 	}
 
 	/**
-	 * ³·Ïú
+	 * æ’¤é”€
 	 */
 	public void undo() {
 		if (undoContainer.empty()) {
@@ -74,7 +74,7 @@ public class UndoManager {
 	}
 
 	/**
-	 * ÖØ×ö
+	 * é‡åš
 	 */
 	public void redo() {
 		if (redoContainer.empty()) {
@@ -85,9 +85,9 @@ public class UndoManager {
 	}
 
 	/**
-	 * Ö´ĞĞÔ­×ÓÃüÁî¼¯
+	 * æ‰§è¡ŒåŸå­å‘½ä»¤é›†
 	 *
-	 * @param microCmds £¬ÒªÖ´ĞĞµÄÔ­×Ó¼¯ÏòÁ¿
+	 * @param microCmds ï¼Œè¦æ‰§è¡Œçš„åŸå­é›†å‘é‡
 	 */
 	public void doing(Vector<IAtomicCmd> microCmds) {
 		if (microCmds == null || microCmds.size() == 0) {
@@ -98,7 +98,7 @@ public class UndoManager {
 	}
 
 	/**
-	 * Ö´ĞĞÔ­×ÓÃüÁî
+	 * æ‰§è¡ŒåŸå­å‘½ä»¤
 	 * 
 	 * @param cmd
 	 */
@@ -110,9 +110,9 @@ public class UndoManager {
 	}
 
 	/**
-	 * »Ö¸´Ô­×ÓÃüÁî¼¯
+	 * æ¢å¤åŸå­å‘½ä»¤é›†
 	 * 
-	 * @param v Ô­×ÓÃüÁî¼¯
+	 * @param v åŸå­å‘½ä»¤é›†
 	 * @return
 	 */
 	private Vector<IAtomicCmd> reverseVector(Vector<IAtomicCmd> v) {
@@ -124,10 +124,10 @@ public class UndoManager {
 	}
 
 	/**
-	 * Ö´ĞĞÔ­×ÓÃüÁî¼¯
+	 * æ‰§è¡ŒåŸå­å‘½ä»¤é›†
 	 * 
-	 * @param cmds  Ô­×ÓÃüÁî¼¯
-	 * @param stack ¶ÑÕ»
+	 * @param cmds  åŸå­å‘½ä»¤é›†
+	 * @param stack å †æ ˆ
 	 */
 	private void executeCommands(Vector<IAtomicCmd> cmds, LimitedStack stack) {
 		Vector<IAtomicCmd> vReverseCmds = new Vector<IAtomicCmd>();
@@ -146,7 +146,7 @@ public class UndoManager {
 		if (splEditor != null) {
 			splEditor.resetSelectedAreas();
 		}
-		// Undo²Ù×÷ºó£¬¹â±êËùÔÚ¸ñ×ÓÖµÓĞ¿ÉÄÜ±ä»¯£¬ÖØĞÂ×°ÔØ¸ÃÎ»ÖÃÎÄ±¾
+		// Undoæ“ä½œåï¼Œå…‰æ ‡æ‰€åœ¨æ ¼å­å€¼æœ‰å¯èƒ½å˜åŒ–ï¼Œé‡æ–°è£…è½½è¯¥ä½ç½®æ–‡æœ¬
 		try {
 			editControl.validate();
 		} catch (Exception ex) {

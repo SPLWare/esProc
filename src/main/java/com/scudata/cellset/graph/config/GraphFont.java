@@ -7,7 +7,7 @@ import com.scudata.common.*;
 import java.awt.*;
 
 /**
- *  Í³¼ÆÍ¼ÖĞµÄ×ÖÌåÀà¶¨Òå
+ *  ç»Ÿè®¡å›¾ä¸­çš„å­—ä½“ç±»å®šä¹‰
  * @author Joancy
  *
  */
@@ -15,136 +15,136 @@ public class GraphFont implements ICloneable, Externalizable, IRecord {
 	private final static long serialVersionUID = 82857881736578L;
 	private byte version = ( byte ) 1;
 
-	/** ×ÖÌåÃû³Æ */
+	/** å­—ä½“åç§° */
 	private String family;
-	/** ×ÖÌå´óĞ¡ */
+	/** å­—ä½“å¤§å° */
 	private int size = 12;
-	/** ÊÇ·ñ×Ô¶¯µ÷Õû´óĞ¡ */
+	/** æ˜¯å¦è‡ªåŠ¨è°ƒæ•´å¤§å° */
 	private boolean autoResize = false;
-	/** ÊÇ·ñ´ÖÌå */
+	/** æ˜¯å¦ç²—ä½“ */
 	private boolean bold = false;
-	/** ×ÖÌåÑÕÉ« */
+	/** å­—ä½“é¢œè‰² */
 	private int color = Color.black.getRGB();
-	/** ÊÇ·ñÊúÅÅÎÄ×Ö */
+	/** æ˜¯å¦ç«–æ’æ–‡å­— */
 	private boolean verticalText = false;
-	/** Ğı×ª½Ç¶È */
+	/** æ—‹è½¬è§’åº¦ */
 	private int angle;
 
 	/**
-	 * ÉèÖÃ×ÖÌåÃû³Æ
-	 * @param family ×ÖÌåÃû³Æ
+	 * è®¾ç½®å­—ä½“åç§°
+	 * @param family å­—ä½“åç§°
 	 */
 	public void setFamily( String family ) {
 		this.family = family;
 	}
 
 	/**
-	 * ÉèÖÃ×ÖÌå´óĞ¡
-	 * @param size ×ÖÌå´óĞ¡
+	 * è®¾ç½®å­—ä½“å¤§å°
+	 * @param size å­—ä½“å¤§å°
 	 */
 	public void setSize( int size ) {
 		this.size = size;
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ×Ô¶¯µ÷Õû×ÖÌå´óĞ¡
-	 * @param b ÊÇ·ñ×Ô¶¯µ÷Õû
+	 * è®¾ç½®æ˜¯å¦è‡ªåŠ¨è°ƒæ•´å­—ä½“å¤§å°
+	 * @param b æ˜¯å¦è‡ªåŠ¨è°ƒæ•´
 	 */
 	public void setAutoResize( boolean b ) {
 		this.autoResize = b;
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ´ÖÌå
-	 * @param b ÊÇ·ñ´ÖÌå
+	 * è®¾ç½®æ˜¯å¦ç²—ä½“
+	 * @param b æ˜¯å¦ç²—ä½“
 	 */
 	public void setBold( boolean b ) {
 		this.bold = b;
 	}
 
 	/**
-	 * ÉèÖÃ×ÖÌåÑÕÉ«
-	 * @param c ÑÕÉ«Öµ
+	 * è®¾ç½®å­—ä½“é¢œè‰²
+	 * @param c é¢œè‰²å€¼
 	 */
 	public void setColor( int c ) {
 		this.color = c;
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÊúÅÅÎÄ×Ö
-	 * @param b ÊÇ·ñÊúÅÅÎÄ×Ö
+	 * è®¾ç½®æ˜¯å¦ç«–æ’æ–‡å­—
+	 * @param b æ˜¯å¦ç«–æ’æ–‡å­—
 	 */
 	public void setVerticalText( boolean b ) {
 		this.verticalText = b;
 	}
 
 	/**
-	 * ÉèÖÃĞı×ª½Ç¶È
-	 * @param angle ½Ç¶ÈÖµ
+	 * è®¾ç½®æ—‹è½¬è§’åº¦
+	 * @param angle è§’åº¦å€¼
 	 */
 	public void setAngle( int angle ) {
 		this.angle = angle;
 	}
 
 	/**
-	 * È¡×ÖÌåÃû³Æ
-	 * @return String¡¡×ÖÌåÃû³Æ
+	 * å–å­—ä½“åç§°
+	 * @return Stringã€€å­—ä½“åç§°
 	 */
 	public String getFamily() {
 		return family;
 	}
 
 	/**
-	 * È¡×ÖÌå´óĞ¡
-	 * @return int¡¡×ÖÌå´óĞ¡
+	 * å–å­—ä½“å¤§å°
+	 * @return intã€€å­—ä½“å¤§å°
 	 */
 	public int getSize() {
 		return size;
 	}
 
 	/**
-	 * ÊÇ·ñ×Ô¶¯µ÷Õû´óĞ¡
-	 * @return boolean ×Ô¶¯µ÷ÕûÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦è‡ªåŠ¨è°ƒæ•´å¤§å°
+	 * @return boolean è‡ªåŠ¨è°ƒæ•´æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isAutoResize() {
 		return autoResize;
 	}
 
 	/**
-	 * ÊÇ·ñ´ÖÌå
-	 * @return boolean ´ÖÌå·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦ç²—ä½“
+	 * @return boolean ç²—ä½“è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isBold() {
 		return bold;
 	}
 
 	/**
-	 * È¡×ÖÌåÑÕÉ«
-	 * @return int¡¡×ÖÌåÑÕÉ«
+	 * å–å­—ä½“é¢œè‰²
+	 * @return intã€€å­—ä½“é¢œè‰²
 	 */
 	public int getColor() {
 		return color;
 	}
 
 	/**
-	 * ÊÇ·ñÊúÅÅÎÄ×Ö
-	 * @return boolean ÊúÅÅÎÄ×Ö·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦ç«–æ’æ–‡å­—
+	 * @return boolean ç«–æ’æ–‡å­—è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isVerticalText() {
 		return verticalText;
 	}
 
 	/**
-	 * È¡Ğı×ª½Ç¶È
-	 * @return int¡¡Ğı×ª½Ç¶È
+	 * å–æ—‹è½¬è§’åº¦
+	 * @return intã€€æ—‹è½¬è§’åº¦
 	 */
 	public int getAngle() {
 		return angle;
 	}
 
 	/**
-	 * Éî¶È¿ËÂ¡
-	 * @return Object ¿ËÂ¡ºóµÄ×ÖÌå¶ÔÏó
+	 * æ·±åº¦å…‹éš†
+	 * @return Object å…‹éš†åçš„å­—ä½“å¯¹è±¡
 	 */
 	public Object deepClone() {
 		GraphFont font = new GraphFont();
@@ -159,7 +159,7 @@ public class GraphFont implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖĞòÁĞ»¯½Ó¿Ú
+	 * å®ç°åºåˆ—åŒ–æ¥å£
 	 */
 	public void writeExternal( ObjectOutput out ) throws IOException{
 		out.writeByte( version );
@@ -173,7 +173,7 @@ public class GraphFont implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖĞòÁĞ»¯½Ó¿Ú
+	 * å®ç°åºåˆ—åŒ–æ¥å£
 	 */
 	public void readExternal( ObjectInput in ) throws IOException, ClassNotFoundException{
 		byte ver = in.readByte();
@@ -187,7 +187,7 @@ public class GraphFont implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public byte[] serialize() throws IOException{
 	  ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -202,7 +202,7 @@ public class GraphFont implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public void fillRecord(byte[] buf) throws IOException, ClassNotFoundException {
 	  ByteArrayInputRecord in = new ByteArrayInputRecord(buf);

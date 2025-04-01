@@ -9,7 +9,7 @@ import com.scudata.resources.ParallelMessage;
 import com.scudata.server.unit.UnitServer;
 
 /**
- * ½Úµã»ú×÷ÒµÏß³Ì
+ * èŠ‚ç‚¹æœºä½œä¸šçº¿ç¨‹
  * 
  * @author Joancy
  *
@@ -17,16 +17,16 @@ import com.scudata.server.unit.UnitServer;
 public class UnitWorker extends Thread {
 	SocketData socketData;
 	
-//	À´×ÔÓÚsocketµÄ¿Í»§¶ËÊÇ·ñÍ¨¹ıÁË°×Ãûµ¥ÑéÖ¤
+//	æ¥è‡ªäºsocketçš„å®¢æˆ·ç«¯æ˜¯å¦é€šè¿‡äº†ç™½åå•éªŒè¯
 	boolean errorCheck = false;
 	String clientIP=null;
 	
 	private volatile boolean stop = false;
 
 	/**
-	 * ¹¹ÔìÒ»¸ö×÷ÒµÏß³Ì
-	 * @param tg Ïß³Ì×é
-	 * @param name Ïß³ÌÃû³Æ
+	 * æ„é€ ä¸€ä¸ªä½œä¸šçº¿ç¨‹
+	 * @param tg çº¿ç¨‹ç»„
+	 * @param name çº¿ç¨‹åç§°
 	 */
 	public UnitWorker(ThreadGroup tg, String name){
 		super(tg,name);
@@ -38,15 +38,15 @@ public class UnitWorker extends Thread {
 	}
 	
 	/**
-	 * ÉèÖÃÊı¾İÌ×½Ó×ÖÍ¨Ñ¶¶ÔÏó
-	 * @param sd Êı¾İÌ×½Ó×Ö
+	 * è®¾ç½®æ•°æ®å¥—æ¥å­—é€šè®¯å¯¹è±¡
+	 * @param sd æ•°æ®å¥—æ¥å­—
 	 */
 	public void setSocket(SocketData sd){
 		this.socketData = sd;
 	}
 
 	/**
-	 * Ïß³ÌÔËĞĞ
+	 * çº¿ç¨‹è¿è¡Œ
 	 */
 	public void run() {
 		try {
@@ -77,7 +77,7 @@ public class UnitWorker extends Thread {
 					try {
 						RemoteCursorProxyManager rcpm;
 						if(taskId==-1){
-//							¼¯ÈºÓÎ±êÃ»ÓĞÈÎÎñºÅ£¬Ê¹ÓÃ¾²Ì¬µÄÓÎ±ê¹ÜÀíÆ÷
+//							é›†ç¾¤æ¸¸æ ‡æ²¡æœ‰ä»»åŠ¡å·ï¼Œä½¿ç”¨é™æ€çš„æ¸¸æ ‡ç®¡ç†å™¨
 							rcpm = RemoteCursorProxyManager.getInstance();
 						}else{
 							ITask t = TaskManager.getTask(taskId);
@@ -91,8 +91,8 @@ public class UnitWorker extends Thread {
 					break;
 				case Request.TYPE_FILE:
 					setName("UnitWorker[serve file]:"+req);
-					//ÎªÁËÌá¸ß¶ÁÈ¡ÎÄ¼şµÄËÙ¶È²»ÄÜÔÚ¶ÁÎÄ¼şµÄ¹ı³ÌÖĞ²ÉÓÃrequest,responseµÄÎÊ´ğÊ½£¬¶øÊÇĞèÒª
-					//¶ÔsocketDataÁ¬ĞøĞ´ÎÄ¼şÊı¾İ£¬ËùÒÔÕâÀà·şÎñĞèÒª°ÑsocketData½»¸øÏàÓ¦¹ÜÀíÆ÷£¬ÈçÏÂ·ÖÇøpartition·şÎñÍ¬¡£
+					//ä¸ºäº†æé«˜è¯»å–æ–‡ä»¶çš„é€Ÿåº¦ä¸èƒ½åœ¨è¯»æ–‡ä»¶çš„è¿‡ç¨‹ä¸­é‡‡ç”¨request,responseçš„é—®ç­”å¼ï¼Œè€Œæ˜¯éœ€è¦
+					//å¯¹socketDataè¿ç»­å†™æ–‡ä»¶æ•°æ®ï¼Œæ‰€ä»¥è¿™ç±»æœåŠ¡éœ€è¦æŠŠsocketDataäº¤ç»™ç›¸åº”ç®¡ç†å™¨ï¼Œå¦‚ä¸‹åˆ†åŒºpartitionæœåŠ¡åŒã€‚
 					response = RemoteFileProxyManager.execute(req, socketData);
 					break;
 				case Request.TYPE_PARTITION:
@@ -129,14 +129,14 @@ public class UnitWorker extends Thread {
 	}
 
 	/**
-	 * Í£Ö¹Ïß³Ì×÷Òµ
+	 * åœæ­¢çº¿ç¨‹ä½œä¸š
 	 */
 	public void shutdown() {
 		stop = true;
 	}
 
 	/**
-	 * ÊµÏÖtoStringÃèÊö£¬·½±ãµ÷ÊÔ²é¿´Ïß³ÌĞÅÏ¢
+	 * å®ç°toStringæè¿°ï¼Œæ–¹ä¾¿è°ƒè¯•æŸ¥çœ‹çº¿ç¨‹ä¿¡æ¯
 	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();

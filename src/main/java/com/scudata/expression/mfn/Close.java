@@ -6,8 +6,8 @@ import com.scudata.expression.MemberFunction;
 import com.scudata.vdb.VDB;
 
 /**
- * ¹Ø±Õ×ÊÔ´
- * db.close() T.close() cs.close()µÈ
+ * å…³é—­èµ„æº
+ * db.close() T.close() cs.close()ç­‰
  * @author RunQian
  *
  */
@@ -23,7 +23,7 @@ public class Close extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		resource = null;

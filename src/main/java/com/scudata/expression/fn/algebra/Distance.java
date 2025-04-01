@@ -9,12 +9,12 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Á½¸öÏòÁ¿Ö®¼äµÄÅ·ÊÏ¾àÀëdis(A, B)
+ * ä¸¤ä¸ªå‘é‡ä¹‹é—´çš„æ¬§æ°è·ç¦»dis(A, B)
  * @author bd
  */
 public class Distance extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -59,7 +59,7 @@ public class Distance extends Function {
 			Object o1 = sub1.getLeafExpression().calculate(ctx);
 			Object o2 = sub2.getLeafExpression().calculate(ctx);
 			if (o1 instanceof Sequence && o2 instanceof Sequence) {
-				// edited by bd, 2021.11.17, ÔÚdisº¯ÊıÖĞ£¬µ¥²ãĞòÁĞÈÏÎªÊÇºáÏòÁ¿
+				// edited by bd, 2021.11.17, åœ¨diså‡½æ•°ä¸­ï¼Œå•å±‚åºåˆ—è®¤ä¸ºæ˜¯æ¨ªå‘é‡
 				s1 = (Sequence) o1;
 				s2 = (Sequence) o2;
 			}
@@ -68,7 +68,7 @@ public class Distance extends Function {
 			Matrix A = new Matrix(s1);
 			Object o11 = s1.length() > 0 ? s1.get(1) : null;
 			if (!(o11 instanceof Sequence)) {
-				// AÎªµ¥ĞòÁĞ¶¨ÒåµÄÏòÁ¿£¬×ª³ÉºáÏòÁ¿
+				// Aä¸ºå•åºåˆ—å®šä¹‰çš„å‘é‡ï¼Œè½¬æˆæ¨ªå‘é‡
 				A = A.transpose();
 			}
 			Matrix B = null;
@@ -76,7 +76,7 @@ public class Distance extends Function {
 				B = new Matrix(s2);
 				Object o21 = s2.length() > 0 ? s2.get(1) : null;
 				if (!(o21 instanceof Sequence)) {
-					// AÎªµ¥ĞòÁĞ¶¨ÒåµÄÏòÁ¿£¬×ª³ÉºáÏòÁ¿
+					// Aä¸ºå•åºåˆ—å®šä¹‰çš„å‘é‡ï¼Œè½¬æˆæ¨ªå‘é‡
 					B = B.transpose();
 				}
 			}

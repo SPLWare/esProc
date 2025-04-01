@@ -12,23 +12,23 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ A.insert()
- * º¯ÊıÃûÇ°×ºA±íÊ¾Ğò±í
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ A.insert()
+ * å‡½æ•°åå‰ç¼€Aè¡¨ç¤ºåºè¡¨
  * 
  * @author Joancy
  *
  */
 public class AInsert extends ObjectElement {
 	public int k=0;
-	public String originalTable;//ÒÀÕÕÔ´±í²åÈë£¬¸ÃÊôĞÔÒ²¿ÉÒÔÒÀÕÕÕûÊı³¤¶È²åÈë£¬Ã»·¨»ìºÏ±à¼­£¬ºöÂÔ¸ÃÕûÊıĞ´·¨£¬×Ô¼ºĞ´±í´ïÊ½È¥
-	public ArrayList<FieldDefine> expFields;//²åÈëµÄÖµÒÔ¼°¶ÔÓ¦×Ö¶Î
+	public String originalTable;//ä¾ç…§æºè¡¨æ’å…¥ï¼Œè¯¥å±æ€§ä¹Ÿå¯ä»¥ä¾ç…§æ•´æ•°é•¿åº¦æ’å…¥ï¼Œæ²¡æ³•æ··åˆç¼–è¾‘ï¼Œå¿½ç•¥è¯¥æ•´æ•°å†™æ³•ï¼Œè‡ªå·±å†™è¡¨è¾¾å¼å»
+	public ArrayList<FieldDefine> expFields;//æ’å…¥çš„å€¼ä»¥åŠå¯¹åº”å­—æ®µ
 	
 	public boolean n;
 	public boolean r;
 	public boolean f;
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -48,17 +48,17 @@ public class AInsert extends ObjectElement {
 
 
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
-	 * @return Ç°×ºA¿ªÍ·µÄº¯Êı£¬¾ù·µ»ØEtlConsts.TYPE_SEQUENCE
+	 * @return å‰ç¼€Aå¼€å¤´çš„å‡½æ•°ï¼Œå‡è¿”å›EtlConsts.TYPE_SEQUENCE
 	 */
 	public byte getParentType() {
 		return EtlConsts.TYPE_SEQUENCE;
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_SEQUENCE
 	 */
 	public byte getReturnType() {
@@ -66,7 +66,7 @@ public class AInsert extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄÑ¡Ïî´®
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„é€‰é¡¹ä¸²
 	 */
 	public String optionString(){
 		StringBuffer options = new StringBuffer();
@@ -83,15 +83,15 @@ public class AInsert extends ObjectElement {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÃû
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°å
 	 */
 	public String getFuncName() {
 		return "insert";
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÌå
-	 * ¸úsetFuncBodyÊÇÄæº¯Êı£¬È»ºó±í´ïÊ½µÄ¸³ÖµÒ²×ÜÊÇ»¥ÄæµÄ
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°ä½“
+	 * è·ŸsetFuncBodyæ˜¯é€†å‡½æ•°ï¼Œç„¶åè¡¨è¾¾å¼çš„èµ‹å€¼ä¹Ÿæ€»æ˜¯äº’é€†çš„
 	 */
 	public String getFuncBody() {
 		StringBuffer sb = new StringBuffer();
@@ -110,8 +110,8 @@ public class AInsert extends ObjectElement {
 	}
 
 	/**
-	 * ÉèÖÃº¯ÊıÌå
-	 * @param funcBody º¯ÊıÌå
+	 * è®¾ç½®å‡½æ•°ä½“
+	 * @param funcBody å‡½æ•°ä½“
 	 */
 	public boolean setFuncBody(String funcBody) {
 		StringTokenizer st = new StringTokenizer(funcBody,",");

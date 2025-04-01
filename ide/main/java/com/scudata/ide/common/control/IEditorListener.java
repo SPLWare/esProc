@@ -3,35 +3,35 @@ package com.scudata.ide.common.control;
 import java.awt.Component;
 
 /**
- * ±à¼­¿Ø¼ş¼àÌıÆ÷
+ * ç¼–è¾‘æ§ä»¶ç›‘å¬å™¨
  *
  */
 public interface IEditorListener {
 	/**
-	 * ±à¼­¿Ø¼şµÄÑ¡Ôñ×´Ì¬·¢ÉúÁË±ä»¯ ¸ù¾İÕâ¸ö±ä»¯ÓÃ»§Ó¦¸ÃÖØĞÂ»ñÈ¡ÏÔÊ¾ÊôĞÔÀ´Ë¢ĞÂ²Ëµ¥»òÕß×´Ì¬Ìõ¡£
-	 * ¿ÉÒÔµ÷ÓÃDMEditor.getDisplayProperty()ºÍ
-	 * DMEditor.getDisplayExpression()À´»ñµÃË¢ĞÂµÄÊôĞÔÁĞ±í¡£
+	 * ç¼–è¾‘æ§ä»¶çš„é€‰æ‹©çŠ¶æ€å‘ç”Ÿäº†å˜åŒ– æ ¹æ®è¿™ä¸ªå˜åŒ–ç”¨æˆ·åº”è¯¥é‡æ–°è·å–æ˜¾ç¤ºå±æ€§æ¥åˆ·æ–°èœå•æˆ–è€…çŠ¶æ€æ¡ã€‚
+	 * å¯ä»¥è°ƒç”¨DMEditor.getDisplayProperty()å’Œ
+	 * DMEditor.getDisplayExpression()æ¥è·å¾—åˆ·æ–°çš„å±æ€§åˆ—è¡¨ã€‚
 	 * 
 	 * @param newState
-	 *            byte£¬ĞÂµÄ×´Ì¬£¬ÖµÎªIDMEditor¶¨ÒåµÄ×´Ì¬
+	 *            byteï¼Œæ–°çš„çŠ¶æ€ï¼Œå€¼ä¸ºIDMEditorå®šä¹‰çš„çŠ¶æ€
 	 */
 	public void selectStateChanged(byte newState, boolean keyEvent);
 
 	/**
-	 * ÓÃ»§ÓÒ»÷ÊÂ¼şµÄ·¢Éú£¬ÓÃÓÚµ¯³ö¿ì½İ²Ëµ¥
+	 * ç”¨æˆ·å³å‡»äº‹ä»¶çš„å‘ç”Ÿï¼Œç”¨äºå¼¹å‡ºå¿«æ·èœå•
 	 * 
 	 * @param invoker
-	 *            JComponent£¬µ¯³ö¿ì½İ²Ëµ¥µÄËŞÖ÷¿Ø¼ş
+	 *            JComponentï¼Œå¼¹å‡ºå¿«æ·èœå•çš„å®¿ä¸»æ§ä»¶
 	 * @param x
-	 *            int£¬ ºá×ø±ê
+	 *            intï¼Œ æ¨ªåæ ‡
 	 * @param y
-	 *            int£¬ ×İ×ø±ê
+	 *            intï¼Œ çºµåæ ‡
 	 */
 	public void rightClicked(Component invoker, int x, int y);
 
 	/**
-	 * ÓÃ»§²Ù×÷±»Ö´ĞĞÁË£¬ÓÃÓÚË¢ĞÂUndo,Redo£¬Save²Ëµ¥ µ÷ÓÃDMEditor.canUndo()ºÍDMEditor.canRedo()
-	 * RepoertEditor.isDataChangedÊôĞÔÅĞ¶ÏÊÇ·ñĞèÒª±£´æ
+	 * ç”¨æˆ·æ“ä½œè¢«æ‰§è¡Œäº†ï¼Œç”¨äºåˆ·æ–°Undo,Redoï¼ŒSaveèœå• è°ƒç”¨DMEditor.canUndo()å’ŒDMEditor.canRedo()
+	 * RepoertEditor.isDataChangedå±æ€§åˆ¤æ–­æ˜¯å¦éœ€è¦ä¿å­˜
 	 */
 	public void commandExcuted();
 }

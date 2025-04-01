@@ -19,9 +19,9 @@ import com.scudata.ide.spl.dialog.DialogDisplayChart;
 import com.scudata.ide.spl.resources.ChartMessage;
 
 /**
- * Í¼ĞÎÊôĞÔ±à¼­Æ÷
+ * å›¾å½¢å±æ€§ç¼–è¾‘å™¨
  * 
- * Ó¦ÓÃ³ÌĞòÖ÷Ãæ°åÖĞÖ±½ÓÊ¹ÓÃ½á¹ûĞò±í»æÍ¼Ê± Ê¹ÓÃ¸Ã´°¿ÚÁÙÊ±±à¼­Í¼ĞÎÊôĞÔ
+ * åº”ç”¨ç¨‹åºä¸»é¢æ¿ä¸­ç›´æ¥ä½¿ç”¨ç»“æœåºè¡¨ç»˜å›¾æ—¶ ä½¿ç”¨è¯¥çª—å£ä¸´æ—¶ç¼–è¾‘å›¾å½¢å±æ€§
  * 
  * @author Joancy
  *
@@ -38,10 +38,10 @@ public class DialogGraphEdit extends JDialog {
 	private DialogDisplayChart ddc;
 
 	/**
-	 * ¹¹½¨Í¼ĞÎÊôĞÔ±à¼­Æ÷
+	 * æ„å»ºå›¾å½¢å±æ€§ç¼–è¾‘å™¨
 	 * 
 	 * @param ddc
-	 *            ÏÔÊ¾Í¼ĞÎ¸¸´°¿Ú
+	 *            æ˜¾ç¤ºå›¾å½¢çˆ¶çª—å£
 	 */
 	public DialogGraphEdit(DialogDisplayChart ddc) {
 		super(ddc);
@@ -93,7 +93,7 @@ public class DialogGraphEdit extends JDialog {
 	}
 
 	/**
-	 * ¸ù¾İµ±Ç°ÊôĞÔÉèÖÃË¢ĞÂ¸¸´°¿ÚµÄÏÔÊ¾Í¼ĞÎ
+	 * æ ¹æ®å½“å‰å±æ€§è®¾ç½®åˆ·æ–°çˆ¶çª—å£çš„æ˜¾ç¤ºå›¾å½¢
 	 */
 	public void refreshDDC() {
 		HashMap<String, Object> p = elmInfo.getProperties(propPanel.infoList);
@@ -101,7 +101,7 @@ public class DialogGraphEdit extends JDialog {
 	}
 
 	/**
-	 * ÏÔÊ¾²ÎÊıµÄÏêÏ¸ĞÅÏ¢
+	 * æ˜¾ç¤ºå‚æ•°çš„è¯¦ç»†ä¿¡æ¯
 	 */
 	public void dispDetail() {
 		propPanel.setElementInfo(elmInfo);

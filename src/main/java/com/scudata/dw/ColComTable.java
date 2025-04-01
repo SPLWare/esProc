@@ -14,13 +14,13 @@ import com.scudata.dm.Env;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÁĞ´æ×é±íÀà
+ * åˆ—å­˜ç»„è¡¨ç±»
  * @author runqian
  *
  */
 public class ColComTable extends ComTable {
 	/**
-	 * ´ò¿ªÒÑ¾­´æÔÚµÄ×é±í
+	 * æ‰“å¼€å·²ç»å­˜åœ¨çš„ç»„è¡¨
 	 * @param file
 	 * @param raf
 	 * @param ctx
@@ -36,7 +36,7 @@ public class ColComTable extends ComTable {
 	}
 
 	/**
-	 * ´ò¿ªÒÑ¾­´æÔÚµÄ×é±í
+	 * æ‰“å¼€å·²ç»å­˜åœ¨çš„ç»„è¡¨
 	 * @param file
 	 * @param ctx
 	 * @throws IOException
@@ -51,7 +51,7 @@ public class ColComTable extends ComTable {
 	}
 	
 	/**
-	 * ´ò¿ªÒÑ¾­´æÔÚµÄ×é±í,²»¼ì²é³ö´íÈÕÖ¾£¬½öÄÚ²¿Ê¹ÓÃ
+	 * æ‰“å¼€å·²ç»å­˜åœ¨çš„ç»„è¡¨,ä¸æ£€æŸ¥å‡ºé”™æ—¥å¿—ï¼Œä»…å†…éƒ¨ä½¿ç”¨
 	 * @param file
 	 * @throws IOException
 	 */
@@ -62,12 +62,12 @@ public class ColComTable extends ComTable {
 	}
 
 	/**
-	 * ´´½¨×é±í
-	 * @param file ±íÎÄ¼ş
-	 * @param colNames ÁĞÃû³Æ
-	 * @param distribute ·Ö²¼±í´ïÊ½
-	 * @param opt u£º²»Ñ¹ËõÊı¾İ£¬p£º°´µÚÒ»×Ö¶Î·Ö¶Î
-	 * @param ctx ÉÏÏÂÎÄ
+	 * åˆ›å»ºç»„è¡¨
+	 * @param file è¡¨æ–‡ä»¶
+	 * @param colNames åˆ—åç§°
+	 * @param distribute åˆ†å¸ƒè¡¨è¾¾å¼
+	 * @param opt uï¼šä¸å‹ç¼©æ•°æ®ï¼Œpï¼šæŒ‰ç¬¬ä¸€å­—æ®µåˆ†æ®µ
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @throws IOException
 	 */
 	public ColComTable(File file, String []colNames, String distribute, String opt, Context ctx) 
@@ -76,13 +76,13 @@ public class ColComTable extends ComTable {
 	}
 	
 	/**
-	 * ´´½¨×é±í
-	 * @param file ±íÎÄ¼ş
-	 * @param colNames ÁĞÃû³Æ
-	 * @param distribute ·Ö²¼±í´ïÊ½
-	 * @param opt u£º²»Ñ¹ËõÊı¾İ£¬p£º°´µÚÒ»×Ö¶Î·Ö¶Î
-	 * @param blockSize Çø¿é´óĞ¡
-	 * @param ctx ÉÏÏÂÎÄ
+	 * åˆ›å»ºç»„è¡¨
+	 * @param file è¡¨æ–‡ä»¶
+	 * @param colNames åˆ—åç§°
+	 * @param distribute åˆ†å¸ƒè¡¨è¾¾å¼
+	 * @param opt uï¼šä¸å‹ç¼©æ•°æ®ï¼Œpï¼šæŒ‰ç¬¬ä¸€å­—æ®µåˆ†æ®µ
+	 * @param blockSize åŒºå—å¤§å°
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @throws IOException
 	 */
 	public ColComTable(File file, String []colNames, String distribute, String opt, Integer blockSize, Context ctx) 
@@ -91,14 +91,14 @@ public class ColComTable extends ComTable {
 	}
 	
 	/**
-	 * ´´½¨×é±í
-	 * @param file ±íÎÄ¼ş
-	 * @param raf Ö¸¶¨µÄraf
-	 * @param colNames ÁĞÃû³Æ
-	 * @param distribute ·Ö²¼±í´ïÊ½
-	 * @param opt u£º²»Ñ¹ËõÊı¾İ£¬p£º°´µÚÒ»×Ö¶Î·Ö¶Î
-	 * @param blockSize Çø¿é´óĞ¡
-	 * @param ctx ÉÏÏÂÎÄ
+	 * åˆ›å»ºç»„è¡¨
+	 * @param file è¡¨æ–‡ä»¶
+	 * @param raf æŒ‡å®šçš„raf
+	 * @param colNames åˆ—åç§°
+	 * @param distribute åˆ†å¸ƒè¡¨è¾¾å¼
+	 * @param opt uï¼šä¸å‹ç¼©æ•°æ®ï¼Œpï¼šæŒ‰ç¬¬ä¸€å­—æ®µåˆ†æ®µ
+	 * @param blockSize åŒºå—å¤§å°
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @throws IOException
 	 */
 	public ColComTable(File file, RandomAccessFile raf, String []colNames, String distribute, String opt, Integer blockSize, Context ctx) 
@@ -106,7 +106,7 @@ public class ColComTable extends ComTable {
 		file.delete();
 		File parent = file.getParentFile();
 		if (parent != null) {
-			// ´´½¨Ä¿Â¼£¬·ñÔòÈç¹ûÄ¿Â¼²»´æÔÚRandomAccessFile»áÅ×Òì³£
+			// åˆ›å»ºç›®å½•ï¼Œå¦åˆ™å¦‚æœç›®å½•ä¸å­˜åœ¨RandomAccessFileä¼šæŠ›å¼‚å¸¸
 			parent.mkdirs();
 		}
 		
@@ -121,19 +121,19 @@ public class ColComTable extends ComTable {
 			ctx.addResource(this);
 		}
 		
-		// ÊÇ·ñÑ¹Ëõ
+		// æ˜¯å¦å‹ç¼©
 		if (opt != null && opt.indexOf('u') != -1) {
 			setCompress(false);
 		}
-		// ÊÇ·ñ¼ì²éÊı¾İÀàĞÍ´¿
+		// æ˜¯å¦æ£€æŸ¥æ•°æ®ç±»å‹çº¯
 		if (opt != null && opt.indexOf('v') != -1) {
 			setCheckDataPure(true);
 		}
-		// ÊÇ·ñÓĞÊ±¼ä¼ü
+		// æ˜¯å¦æœ‰æ—¶é—´é”®
 		if (opt != null && opt.indexOf('t') != -1) {
 			setTimeKey(true);
 		}
-		// ÊÇ·ñÓĞÉ¾³ı¼ü
+		// æ˜¯å¦æœ‰åˆ é™¤é”®
 		if (opt != null && opt.indexOf('d') != -1) {
 			setDeleteKey(true);
 		}
@@ -143,7 +143,7 @@ public class ColComTable extends ComTable {
 		else {
 			int tempSize = blockSize % MIN_BLOCK_SIZE;
 			if (tempSize != 0) 
-				blockSize = blockSize - tempSize + MIN_BLOCK_SIZE;//4K¶ÔÆë
+				blockSize = blockSize - tempSize + MIN_BLOCK_SIZE;//4Kå¯¹é½
 			if (blockSize < MIN_BLOCK_SIZE)
 				blockSize = MIN_BLOCK_SIZE;
 		}
@@ -156,7 +156,7 @@ public class ColComTable extends ComTable {
 		baseTable = new ColPhyTable(this, colNames);
 		structManager = new StructManager();
 		
-		// °´µÚÒ»×Ö¶Î·Ö¶Î
+		// æŒ‰ç¬¬ä¸€å­—æ®µåˆ†æ®µ
 		if (opt != null && opt.indexOf('p') != -1) {
 			baseTable.segmentCol = baseTable.getColName(0);
 		}
@@ -167,9 +167,9 @@ public class ColComTable extends ComTable {
 	}
 	
 	/**
-	 * ¸´ÖÆsrcµÄ½á¹¹´´½¨Ò»¸öĞÂ×é±íÎÄ¼ş
-	 * @param file ĞÂ±íµÄÎÄ¼ş
-	 * @param src Ô­×é±í
+	 * å¤åˆ¶srcçš„ç»“æ„åˆ›å»ºä¸€ä¸ªæ–°ç»„è¡¨æ–‡ä»¶
+	 * @param file æ–°è¡¨çš„æ–‡ä»¶
+	 * @param src åŸç»„è¡¨
 	 * @throws IOException
 	 */
 	public ColComTable(File file, ColComTable src) throws IOException {
@@ -202,11 +202,11 @@ public class ColComTable extends ComTable {
 	}
 	
 	/**
-	 * ÖØĞÂ´ò¿ª×é±í£¬ÎÄ¼ş±»ÆäËü¶ÔÏóĞŞ¸Ä
+	 * é‡æ–°æ‰“å¼€ç»„è¡¨ï¼Œæ–‡ä»¶è¢«å…¶å®ƒå¯¹è±¡ä¿®æ”¹
 	 * @throws IOException
 	 */
 	protected void reopen() throws IOException {
-		// ¶ÁĞ´ÎÄ¼şÍ·Ê±×öÍ¬²½ÒÔÖ§³ÖÍ¬Ê±¶ÁĞ´
+		// è¯»å†™æ–‡ä»¶å¤´æ—¶åšåŒæ­¥ä»¥æ”¯æŒåŒæ—¶è¯»å†™
 		raf = new RandomAccessFile(file, "rw");
 		Object syncObj = getSyncObject();
 		synchronized(syncObj) {
@@ -243,7 +243,7 @@ public class ColComTable extends ComTable {
 			blockSize = reader.readInt32();
 			headerBlockLink.readExternal(reader);
 			
-			reader.read(reserve); // ±£ÁôÎ»
+			reader.read(reserve); // ä¿ç•™ä½
 			freePos = reader.readLong40();
 			fileSize = reader.readLong40();
 			
@@ -277,11 +277,11 @@ public class ColComTable extends ComTable {
 	}
 	
 	/**
-	 * ¶ÁÈ¡ÎÄ¼şÍ·
-	 * ĞŞ¸Ä¶ÁĞ´Ê±ĞèÒªÍ¬²½ĞŞ¸Äreopenº¯Êı
+	 * è¯»å–æ–‡ä»¶å¤´
+	 * ä¿®æ”¹è¯»å†™æ—¶éœ€è¦åŒæ­¥ä¿®æ”¹reopenå‡½æ•°
 	 */
 	protected void readHeader() throws IOException {
-		// ¶ÁĞ´ÎÄ¼şÍ·Ê±×öÍ¬²½ÒÔÖ§³ÖÍ¬Ê±¶ÁĞ´
+		// è¯»å†™æ–‡ä»¶å¤´æ—¶åšåŒæ­¥ä»¥æ”¯æŒåŒæ—¶è¯»å†™
 		Object syncObj = getSyncObject();
 		synchronized(syncObj) {
 			//restoreTransaction();
@@ -317,7 +317,7 @@ public class ColComTable extends ComTable {
 			blockSize = reader.readInt32();
 			headerBlockLink.readExternal(reader);
 			
-			reader.read(reserve); // ±£ÁôÎ»
+			reader.read(reserve); // ä¿ç•™ä½
 			freePos = reader.readLong40();
 			fileSize = reader.readLong40();
 			
@@ -351,16 +351,16 @@ public class ColComTable extends ComTable {
 	}
 	
 	/**
-	 * Ğ´ÎÄ¼şÍ·
+	 * å†™æ–‡ä»¶å¤´
 	 */
 	protected void writeHeader() throws IOException {
-		//²»ÄÜĞ´µÍ°æ±¾µÄÎÄ¼ş
+		//ä¸èƒ½å†™ä½ç‰ˆæœ¬çš„æ–‡ä»¶
 		if (reserve[0] < 4) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("dw.oldVersion2"));
 		}
 		
-		// ¶ÁĞ´ÎÄ¼şÍ·Ê±×öÍ¬²½ÒÔÖ§³ÖÍ¬Ê±¶ÁĞ´
+		// è¯»å†™æ–‡ä»¶å¤´æ—¶åšåŒæ­¥ä»¥æ”¯æŒåŒæ—¶è¯»å†™
 		Object syncObj = getSyncObject();
 		synchronized(syncObj) {
 			beginTransaction(null);
@@ -376,17 +376,17 @@ public class ColComTable extends ComTable {
 			writer.writeInt32(blockSize);
 			headerBlockLink.writeExternal(writer);
 			
-			reserve[0] = 4; // 1Ôö¼ÓÃÜÂë£¬2Ôö¼Ó·Ö²¼º¯Êı£¬3Ôö¼ÓÔ¤·Ö×é£¬4ÁĞÊ½´æ´¢£¨Êı¾İÀàĞÍ£¬×ÖµäµÈ£©
-			writer.write(reserve); // ±£ÁôÎ»
+			reserve[0] = 4; // 1å¢åŠ å¯†ç ï¼Œ2å¢åŠ åˆ†å¸ƒå‡½æ•°ï¼Œ3å¢åŠ é¢„åˆ†ç»„ï¼Œ4åˆ—å¼å­˜å‚¨ï¼ˆæ•°æ®ç±»å‹ï¼Œå­—å…¸ç­‰ï¼‰
+			writer.write(reserve); // ä¿ç•™ä½
 			
 			writer.writeLong40(freePos);
 			writer.writeLong40(fileSize);
 			
-			// ÏÂÃæÁ½¸ö³ÉÔ±°æ±¾1Ôö¼ÓµÄ
+			// ä¸‹é¢ä¸¤ä¸ªæˆå‘˜ç‰ˆæœ¬1å¢åŠ çš„
 			writer.writeString(writePswHash);
 			writer.writeString(readPswHash);
 			
-			writer.writeString(distribute); // °æ±¾2Ôö¼Ó
+			writer.writeString(distribute); // ç‰ˆæœ¬2å¢åŠ 
 			
 			ArrayList<DataStruct> dsList = structManager.getStructList();
 			if (dsList != null) {
@@ -406,7 +406,7 @@ public class ColComTable extends ComTable {
 			headerWriter.close();
 			//headerWriter.finishWrite();
 			
-			// ÖØĞ´headerBlockLink
+			// é‡å†™headerBlockLink
 			writer.write('r');
 			writer.write('q');
 			writer.write('d');
@@ -425,7 +425,7 @@ public class ColComTable extends ComTable {
 	}
 	
 	/**
-	 * »ñµÃÇø¿éÁ´ĞÅÏ¢,²»°üº¬×é±íheaderºÍ²¹Çø
+	 * è·å¾—åŒºå—é“¾ä¿¡æ¯,ä¸åŒ…å«ç»„è¡¨headerå’Œè¡¥åŒº
 	 */
 	public long[] getBlockLinkInfo() {
 		LongArray info = new LongArray(1024);
@@ -450,7 +450,7 @@ public class ColComTable extends ComTable {
 			info.add(segmentBlockLink.lastBlockPos);
 			info.add(segmentBlockLink.freeIndex);
 			info.add(segmentBlockLink.blockCount);
-			//µ¼ÁĞ block link
+			//å¯¼åˆ— block link
 			((ColPhyTable) table).getGuideColumn().getBlockLinkInfo(info);
 			//columns block link
 			columns = ((ColPhyTable) table).getColumns();

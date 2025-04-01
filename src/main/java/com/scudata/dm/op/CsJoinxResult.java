@@ -17,8 +17,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
- * ´¦ÀíÊı¾İÓëÅÅÁĞ»òÕßÍâ´æ±í×öÁ¬½ÓµÄ½á¹û¼¯ÔËËã
- * cs.joinx(C:¡­,f:K:¡­,x:F,¡­;¡­;¡­;n)
+ * å¤„ç†æ•°æ®ä¸æ’åˆ—æˆ–è€…å¤–å­˜è¡¨åšè¿æ¥çš„ç»“æœé›†è¿ç®—
+ * cs.joinx(C:â€¦,f:K:â€¦,x:F,â€¦;â€¦;â€¦;n)
  * @author RunQian
  *
  */
@@ -50,9 +50,9 @@ public class CsJoinxResult implements IResult {
 	}
 	
 	/**
-	 * ´¦ÀíÍÆËÍ¹ıÀ´µÄÊı¾İ£¬ÀÛ»ıµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¨é€è¿‡æ¥çš„æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æœä¸Š
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void push(Sequence table, Context ctx) {
 		try {
@@ -94,7 +94,7 @@ public class CsJoinxResult implements IResult {
 	}
 	
 	/**
-	 * È¡½á¹û¼¯ÓÎ±ê
+	 * å–ç»“æœé›†æ¸¸æ ‡
 	 * @return ICursor
 	 */
 	public ICursor getResultCursor() {
@@ -134,14 +134,14 @@ public class CsJoinxResult implements IResult {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊøÊ±µ÷ÓÃ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®æ¨é€ç»“æŸæ—¶è°ƒç”¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void finish(Context ctx) {
 	}
 	
 	 /**
-	  * Êı¾İÍÆËÍ½áÊø£¬È¡×îÖÕµÄ¼ÆËã½á¹û
+	  * æ•°æ®æ¨é€ç»“æŸï¼Œå–æœ€ç»ˆçš„è®¡ç®—ç»“æœ
 	  * @return
 	  */
 	public Object result() {
@@ -149,7 +149,7 @@ public class CsJoinxResult implements IResult {
 	}
 	
 	/**
-	 * ²»Ö§³Ö´Ëº¯Êı
+	 * ä¸æ”¯æŒæ­¤å‡½æ•°
 	 */
 	public Object combineResult(Object []results) {
 		throw new RuntimeException();

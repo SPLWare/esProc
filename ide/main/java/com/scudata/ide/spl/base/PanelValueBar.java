@@ -24,127 +24,127 @@ import com.scudata.ide.spl.MenuSpl;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ÖµÃæ°åµÄ¹¤¾ßÌõ
+ * å€¼é¢æ¿çš„å·¥å…·æ¡
  *
  */
 public class PanelValueBar extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ³·»Ø
+	 * æ’¤å›
 	 */
 	private JButton jBUndo = new JButton();
 	/**
-	 * ÖØ×ö
+	 * é‡åš
 	 */
 	private JButton jBRedo = new JButton();
 	/**
-	 * ×Ö¶ÎÄÚÈİ
+	 * å­—æ®µå†…å®¹
 	 */
 	private JButton jBCell = new JButton();
 	/**
-	 * ¸´ÖÆÊı¾İ
+	 * å¤åˆ¶æ•°æ®
 	 */
 	private JButton jBCopy = new JButton();
 	/**
-	 * ¸´ÖÆ×Ö¶ÎÃû
+	 * å¤åˆ¶å­—æ®µå
 	 */
 	private JButton jBCopyColNames = new JButton();
 
 	/**
-	 * »æÖÆÍ¼ĞÎ
+	 * ç»˜åˆ¶å›¾å½¢
 	 */
 	private JButton jBDrawChart = new JButton();
 
 	/**
-	 * ÏÔÊ¾³¤ÎÄ±¾
+	 * æ˜¾ç¤ºé•¿æ–‡æœ¬
 	 */
 	private JButton jBShowText = new JButton();
 
 	/**
-	 * µ¥Ôª¸ñ×ø±ê
+	 * å•å…ƒæ ¼åæ ‡
 	 */
 	private JLabel labelCell = new JLabel();
 
 	/**
-	 * Ëø¶¨°´Å¥
+	 * é”å®šæŒ‰é’®
 	 */
 	private JToggleButton jBPin = new JToggleButton();
 
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager splMM = IdeSplMessage.get();
 
-	/** ÏÔÊ¾¹Ì¶¨¸ñÖµ */
+	/** æ˜¾ç¤ºå›ºå®šæ ¼å€¼ */
 	private final String PIN_ON = splMM.getMessage("panelvaluebar.pin1");
-	/** ÏÔÊ¾½¹µã¸ñÖµ */
+	/** æ˜¾ç¤ºç„¦ç‚¹æ ¼å€¼ */
 	private final String PIN_OFF = splMM.getMessage("panelvaluebar.pin2");
 
-	/** ³·»Ø */
+	/** æ’¤å› */
 	private final short iUNDO = 1;
-	/** ÖØ×ö */
+	/** é‡åš */
 	private final short iREDO = 3;
-	/** ¹Ì¶¨ÏÔÊ¾µ¥Ôª¸ñÖµ */
+	/** å›ºå®šæ˜¾ç¤ºå•å…ƒæ ¼å€¼ */
 	private final short iPIN = 5;
-	/** ×Ö¶ÎÄÚÈİ */
+	/** å­—æ®µå†…å®¹ */
 	private final short iDRILLCELL = 6;
-	/** »æÖÆÍ¼ĞÎ */
+	/** ç»˜åˆ¶å›¾å½¢ */
 	private final short iDRAWCHART = 7;
-	/** ¸´ÖÆÊı¾İ */
+	/** å¤åˆ¶æ•°æ® */
 	private final short iCOPY = 8;
-	/** ¸´ÖÆÁĞÃû */
+	/** å¤åˆ¶åˆ—å */
 	private final short iCOPY_COLNAMES = 9;
-	/** ÏÔÊ¾³¤ÎÄ±¾ */
+	/** æ˜¾ç¤ºé•¿æ–‡æœ¬ */
 	private final short iSHOW_TEXT = 10;
 
 	/**
-	 * ·½±ã¼¯ÎÄ¼şä¯ÀÀ¼¯³ÉÊ±£¬²»ĞèÒªPinÊôĞÔ£¬ÔÊĞí»Òµô¸Ã°´Å¥
+	 * æ–¹ä¾¿é›†æ–‡ä»¶æµè§ˆé›†æˆæ—¶ï¼Œä¸éœ€è¦Pinå±æ€§ï¼Œå…è®¸ç°æ‰è¯¥æŒ‰é’®
 	 */
 	private boolean disablePin = false;
 
 	/**
-	 * ·½±ã¼¯ÎÄ¼şä¯ÀÀ¼¯³ÉÊ±£¬²»ĞèÒªPinÊôĞÔ£¬ÔÊĞí»Òµô¸Ã°´Å¥
+	 * æ–¹ä¾¿é›†æ–‡ä»¶æµè§ˆé›†æˆæ—¶ï¼Œä¸éœ€è¦Pinå±æ€§ï¼Œå…è®¸ç°æ‰è¯¥æŒ‰é’®
 	 */
 	public void disablePin() {
 		disablePin = true;
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public PanelValueBar() {
 		setLayout(new GridBagLayout());
 		add(labelCell, getGBC(1, 1, true));
 		jBUndo.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "m_pmtundo.gif"));
-		jBUndo.setToolTipText(splMM.getMessage("panelvaluebar.undo")); // ºóÍË
+		jBUndo.setToolTipText(splMM.getMessage("panelvaluebar.undo")); // åé€€
 		initButton(jBUndo, iUNDO);
 		add(jBUndo, getGBC(1, 2));
 		jBRedo.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "m_pmtredo.gif"));
-		jBRedo.setToolTipText(splMM.getMessage("panelvaluebar.redo")); // Ç°½ø
+		jBRedo.setToolTipText(splMM.getMessage("panelvaluebar.redo")); // å‰è¿›
 		initButton(jBRedo, iREDO);
 		add(jBRedo, getGBC(1, 3));
 		jBCell.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "m_pmtcell.gif"));
-		jBCell.setToolTipText(splMM.getMessage("panelvaluebar.cell")); // ×Ö¶ÎÄÚÈİ
+		jBCell.setToolTipText(splMM.getMessage("panelvaluebar.cell")); // å­—æ®µå†…å®¹
 		initButton(jBCell, iDRILLCELL);
 		add(jBCell, getGBC(1, 4));
 		jBCopy.setIcon(GM.getMenuImageIcon("copy"));
-		jBCopy.setToolTipText(TIP_COPY_CONTENT); // ¸´ÖÆ
+		jBCopy.setToolTipText(TIP_COPY_CONTENT); // å¤åˆ¶
 		initButton(jBCopy, iCOPY);
 		add(jBCopy, getGBC(1, 5));
 
 		jBCopyColNames.setIcon(GM.getMenuImageIcon("coldefine"));
-		jBCopyColNames.setToolTipText(TIP_COPY_COLNAMES); // ¸´ÖÆÁĞÃû
+		jBCopyColNames.setToolTipText(TIP_COPY_COLNAMES); // å¤åˆ¶åˆ—å
 		initButton(jBCopyColNames, iCOPY_COLNAMES);
 		add(jBCopyColNames, getGBC(1, 6));
 
 		jBDrawChart.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "m_drawchart.gif"));
-		jBDrawChart.setToolTipText(splMM.getMessage("panelvaluebar.chart")); // Í¼ĞÎ»æÖÆ
+		jBDrawChart.setToolTipText(splMM.getMessage("panelvaluebar.chart")); // å›¾å½¢ç»˜åˆ¶
 		initButton(jBDrawChart, iDRAWCHART);
 		add(jBDrawChart, getGBC(1, 7));
 
 		jBShowText.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "b_showtext.gif"));
-		jBShowText.setToolTipText(JTableValue.LABEL_VIEW_TEXT); // ²é¿´³¤ÎÄ±¾
+		jBShowText.setToolTipText(JTableValue.LABEL_VIEW_TEXT); // æŸ¥çœ‹é•¿æ–‡æœ¬
 		initButton(jBShowText, iSHOW_TEXT);
 		add(jBShowText, getGBC(1, 8));
 
@@ -160,7 +160,7 @@ public class PanelValueBar extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ¹Ì¶¨µ¥Ôª¸ñÖµ
+	 * è®¾ç½®æ˜¯å¦å›ºå®šå•å…ƒæ ¼å€¼
 	 * 
 	 * @param isLocked
 	 */
@@ -174,13 +174,13 @@ public class PanelValueBar extends JPanel {
 		}
 	}
 
-	/** ¸´ÖÆÊı¾İ */
+	/** å¤åˆ¶æ•°æ® */
 	private final String TIP_COPY_CONTENT = splMM.getMessage("panelvaluebar.copy");
-	/** ¸´ÖÆÁĞÃû */
+	/** å¤åˆ¶åˆ—å */
 	private final String TIP_COPY_COLNAMES = splMM.getMessage("panelvaluebar.copycolnames");
 
 	/**
-	 * È¡GridBagConstraints¶ÔÏó
+	 * å–GridBagConstraintså¯¹è±¡
 	 * 
 	 * @param r
 	 * @param c
@@ -191,7 +191,7 @@ public class PanelValueBar extends JPanel {
 	}
 
 	/**
-	 * È¡GridBagConstraints¶ÔÏó
+	 * å–GridBagConstraintså¯¹è±¡
 	 * 
 	 * @param r
 	 * @param c
@@ -205,7 +205,7 @@ public class PanelValueBar extends JPanel {
 	}
 
 	/**
-	 * Ë¢ĞÂ
+	 * åˆ·æ–°
 	 */
 	public void refresh() {
 		JTableValue table = GVSpl.panelValue.tableValue;
@@ -234,7 +234,7 @@ public class PanelValueBar extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ¿ÉÓÃ
+	 * è®¾ç½®æ˜¯å¦å¯ç”¨
 	 */
 	public void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
@@ -247,7 +247,7 @@ public class PanelValueBar extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯°´Å¥
+	 * åˆå§‹åŒ–æŒ‰é’®
 	 * 
 	 * @param button
 	 * @param cmd
@@ -263,7 +263,7 @@ public class PanelValueBar extends JPanel {
 	}
 
 	/**
-	 * ÓÒ¼üµ¯³ö²Ëµ¥¼àÌı
+	 * å³é”®å¼¹å‡ºèœå•ç›‘å¬
 	 */
 	ActionListener popupAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -288,7 +288,7 @@ public class PanelValueBar extends JPanel {
 				break;
 			case iPIN:
 				table.setLocked(!table.isLocked());
-				if (!table.isLocked()) { // ½âËø
+				if (!table.isLocked()) { // è§£é”
 					GVSpl.appSheet.refresh();
 				}
 				break;

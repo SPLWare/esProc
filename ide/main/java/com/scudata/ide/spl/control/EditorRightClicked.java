@@ -6,41 +6,41 @@ import java.awt.event.MouseEvent;
 import com.scudata.ide.common.GC;
 
 /**
- * Íø¸ñ±à¼­Æ÷µÄÓÒ¼üµã»÷ÊÂ¼ş
+ * ç½‘æ ¼ç¼–è¾‘å™¨çš„å³é”®ç‚¹å‡»äº‹ä»¶
  *
  */
 public class EditorRightClicked extends MouseAdapter {
 	/**
-	 * Íø¸ñ¿Ø¼ş
+	 * ç½‘æ ¼æ§ä»¶
 	 */
 	private SplControl control;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param control
-	 *            Íø¸ñ¿Ø¼ş
+	 *            ç½‘æ ¼æ§ä»¶
 	 */
 	public EditorRightClicked(SplControl control) {
 		this.control = control;
 	}
 
 	/**
-	 * Êó±ê°´ÏÂ
+	 * é¼ æ ‡æŒ‰ä¸‹
 	 */
 	public void mousePressed(MouseEvent e) {
 		showPopup(e);
 	}
 
 	/**
-	 * Êó±êÊÍ·Å
+	 * é¼ æ ‡é‡Šæ”¾
 	 */
 	public void mouseReleased(MouseEvent e) {
 		showPopup(e);
 	}
 
 	/**
-	 * ÏÔÊ¾ÓÒ¼üµ¯³ö²Ëµ¥
+	 * æ˜¾ç¤ºå³é”®å¼¹å‡ºèœå•
 	 * 
 	 * @param e
 	 */

@@ -11,30 +11,30 @@ import com.scudata.dw.BufferReader;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ´æ´óÊıµÄÁĞÀà
+ * å­˜å¤§æ•°çš„åˆ—ç±»
  * @author runqian
  *
  */
 public class BigDecimalColumn extends Column {
 	private static final int NULL = -1;
 	
-	private int scale = Integer.MIN_VALUE; // ÊÇ·ñ¿ÉÒÔÒªÇóÒ»ÖÂ£¿
+	private int scale = Integer.MIN_VALUE; // æ˜¯å¦å¯ä»¥è¦æ±‚ä¸€è‡´ï¼Ÿ
 	
-	// Êı¾İ°´¿é´æ´¢£¬Ã¿¿é´æ·ÅColumn.BLOCK_RECORD_COUNTÌõ¼ÇÂ¼
+	// æ•°æ®æŒ‰å—å­˜å‚¨ï¼Œæ¯å—å­˜æ”¾Column.BLOCK_RECORD_COUNTæ¡è®°å½•
 	private ArrayList<byte[]> blockList = new ArrayList<byte[]>(1024);
 	
-	// Êı¾İÔÚblockListÀï¶ÔÓ¦¿éµÄÎ»ÖÃ, -1±íÊ¾null
+	// æ•°æ®åœ¨blockListé‡Œå¯¹åº”å—çš„ä½ç½®, -1è¡¨ç¤ºnull
 	private ArrayList<int[]> posList = new ArrayList<int[]>(1024);
-	private int lastRecordCount = Column.BLOCK_RECORD_COUNT; // ×îºóÒ»¿éµÄ¼ÇÂ¼Êı
-	private int nextPos = -1; // ÏÂÒ»ĞĞĞ´Èëµ½bufferÖĞµÄÎ»ÖÃ
+	private int lastRecordCount = Column.BLOCK_RECORD_COUNT; // æœ€åä¸€å—çš„è®°å½•æ•°
+	private int nextPos = -1; // ä¸‹ä¸€è¡Œå†™å…¥åˆ°bufferä¸­çš„ä½ç½®
 	
-	// ÉêÇëĞÂ¿éÊ±Ê¹ÓÃbuffer£¬buffer²»×ãÊ±ÖØĞÂÉêÇë1.5±¶³¤¶ÈµÄĞÂbuffer£¬¿é¼ÇÂ¼ÊıĞ´ÂúºóÔò¸´ÖÆÊµ¼ÊµÄ´óĞ¡±£´æµ½blockListÖĞ
+	// ç”³è¯·æ–°å—æ—¶ä½¿ç”¨bufferï¼Œbufferä¸è¶³æ—¶é‡æ–°ç”³è¯·1.5å€é•¿åº¦çš„æ–°bufferï¼Œå—è®°å½•æ•°å†™æ»¡ååˆ™å¤åˆ¶å®é™…çš„å¤§å°ä¿å­˜åˆ°blockListä¸­
 	private byte []buffer = new byte[65536];
 
 	public void addData(Object data) {
 		if (lastRecordCount == Column.BLOCK_RECORD_COUNT) {
 			if (blockList.size() > 0) {
-				// ¿é¼ÇÂ¼ÊıĞ´Âúºóµ÷Õû¿é´óĞ¡ÎªÊµ¼Ê´óĞ¡
+				// å—è®°å½•æ•°å†™æ»¡åè°ƒæ•´å—å¤§å°ä¸ºå®é™…å¤§å°
 				byte []block = new byte[nextPos];
 				System.arraycopy(buffer, 0, block, 0, nextPos);
 				blockList.set(blockList.size() - 1, block);
@@ -63,7 +63,7 @@ public class BigDecimalColumn extends Column {
 			int len = bts.length;
 			int free = buffer.length - nextPos;
 			
-			// Èç¹û×îºóÒ»¿éµÄ»º´æÇø¿Õ¼ä²»×ãÔòÖØĞÂÉêÇëÒ»¿é´óµÄ»º³åÇø
+			// å¦‚æœæœ€åä¸€å—çš„ç¼“å­˜åŒºç©ºé—´ä¸è¶³åˆ™é‡æ–°ç”³è¯·ä¸€å—å¤§çš„ç¼“å†²åŒº
 			if (free < len) {
 				byte []tmp = new byte[buffer.length * 3 / 2];
 				System.arraycopy(buffer, 0, tmp, 0, buffer.length);
@@ -79,15 +79,15 @@ public class BigDecimalColumn extends Column {
 			int []posBlock = posList.get(posList.size() - 1);
 			posBlock[lastRecordCount++] = NULL;
 		} else {
-			// Å×Òì³£
+			// æŠ›å¼‚å¸¸
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("ds.colTypeDif"));
 		}
 	}
 	
-	// È¡µÚrowĞĞµÄÊı¾İ
+	// å–ç¬¬rowè¡Œçš„æ•°æ®
 	public Object getData(int row) {
-		// rowĞĞºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
+		// rowè¡Œå·ï¼Œä»1å¼€å§‹è®¡æ•°
 		row--;
 		int b = row / Column.BLOCK_RECORD_COUNT;
 		int index = row % Column.BLOCK_RECORD_COUNT;
@@ -101,7 +101,7 @@ public class BigDecimalColumn extends Column {
 		byte []block = blockList.get(b);
 		int endPos;
 		
-		// ÊÇ·ñ×îºóÒ»¿é
+		// æ˜¯å¦æœ€åä¸€å—
 		if (b == blockList.size() - 1) {
 			endPos = nextPos;
 			for (int i = index + 1, end = lastRecordCount; i < end; ++i) {

@@ -9,7 +9,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * pad(s,c,l) ÔÚ×Ö·û´®sÇ°Á¬ĞøÆ´½Ó×Ö·û´®c£¬Ö±µ½µÚÒ»¸ö×Ö·û´®µÄ×Ü³¤¶ÈÎªlÎªÖ¹¡£
+ * pad(s,c,l) åœ¨å­—ç¬¦ä¸²så‰è¿ç»­æ‹¼æ¥å­—ç¬¦ä¸²cï¼Œç›´åˆ°ç¬¬ä¸€ä¸ªå­—ç¬¦ä¸²çš„æ€»é•¿åº¦ä¸ºlä¸ºæ­¢ã€‚
  * @author runqian
  *
  */
@@ -19,7 +19,7 @@ public class Pad extends Function {
 	private Expression exp3;
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

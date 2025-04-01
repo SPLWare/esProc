@@ -13,7 +13,7 @@ import com.scudata.resources.EngineMessage;
 
 
 /**
- * ÒÆÎ»ÔËËã£¬s<0×óÒÆ£¬s>0ÓÒÒÆ
+ * ç§»ä½è¿ç®—ï¼Œs<0å·¦ç§»ï¼Œs>0å³ç§»
  * @author yanjing
  *
  */
@@ -22,7 +22,7 @@ public class Shift	extends Function {
 	private Expression exp2;
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -68,44 +68,44 @@ public class Shift	extends Function {
 		
 		if (result1 instanceof BigDecimal) {
 			BigInteger bi = ((BigDecimal)result1).toBigInteger();
-			if (n > 0) { // ÓÒÒÆ
+			if (n > 0) { // å³ç§»
 				bi = bi.shiftRight(n);
-			} else { // ×óÒÆ
+			} else { // å·¦ç§»
 				bi = bi.shiftLeft(-n);
 			}
 			
 			return new BigDecimal(bi);
 		} else if (result1 instanceof BigInteger) {
 			BigInteger bi = (BigInteger)result1;
-			if (n > 0) { // ÓÒÒÆ
+			if (n > 0) { // å³ç§»
 				bi = bi.shiftRight(n);
-			} else { // ×óÒÆ
+			} else { // å·¦ç§»
 				bi = bi.shiftLeft(-n);
 			}
 			
 			return new BigDecimal(bi);
 		} else if (result1 instanceof Integer) {
 			int x = ((Number)result1).intValue();
-			if (n > 0) { // ÓÒÒÆ
+			if (n > 0) { // å³ç§»
 				if (option == null || option.indexOf('s') == -1) {
-					// ·ûºÅÎ»²¹0
+					// ç¬¦å·ä½è¡¥0
 					return x >>> n;
 				} else {
 					return x >> n;
 				}
-			} else { // ×óÒÆ
+			} else { // å·¦ç§»
 				return x << -n;
 			}
 		} else {
 			long x = ((Number)result1).longValue();
-			if (n > 0) { // ÓÒÒÆ
+			if (n > 0) { // å³ç§»
 				if (option == null || option.indexOf('s') == -1) {
-					// ·ûºÅÎ»²¹0
+					// ç¬¦å·ä½è¡¥0
 					return x >>> n;
 				} else {
 					return x >> n;
 				}
-			} else { // ×óÒÆ
+			} else { // å·¦ç§»
 				return x << -n;
 			}
 		}

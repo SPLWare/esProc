@@ -7,7 +7,7 @@ import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 
 /**
- * ³ÌĞòÍøÀï¶¨ÒåµÄº¯ÊıµÄµ÷ÓÃ fn(arg)fnÎª³ÌĞòÍøÖĞ¶¨ÒåµÄº¯ÊıµÄÃû×Ö
+ * ç¨‹åºç½‘é‡Œå®šä¹‰çš„å‡½æ•°çš„è°ƒç”¨ fn(arg)fnä¸ºç¨‹åºç½‘ä¸­å®šä¹‰çš„å‡½æ•°çš„åå­—
  * 
  * @author runqian
  *
@@ -70,7 +70,7 @@ public class PCSFunction extends Function {
 	}
 
 	/**
-	 * È¡º¯Êıµ÷ÓÃĞÅÏ¢
+	 * å–å‡½æ•°è°ƒç”¨ä¿¡æ¯
 	 * 
 	 * @return
 	 */

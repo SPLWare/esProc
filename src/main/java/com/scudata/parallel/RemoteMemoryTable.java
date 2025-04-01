@@ -7,24 +7,24 @@ class RemoteMemoryTable implements Serializable {
 	
 	private String host;
 	private int port;
-	private int proxyId; // ´úÀíºÅ
-	private int recordCount; // ¼ÇÂ¼Êı
+	private int proxyId; // ä»£ç†å·
+	private int recordCount; // è®°å½•æ•°
 	
-	// Èç¹û²»ÊÇ·Ö²¼µÄÔòÒªÇóÊı¾İÓĞĞò
-	private Object startKeyValue; // Ê×Ìõ¼ÇÂ¼µÄÖ÷¼üÖµ
+	// å¦‚æœä¸æ˜¯åˆ†å¸ƒçš„åˆ™è¦æ±‚æ•°æ®æœ‰åº
+	private Object startKeyValue; // é¦–æ¡è®°å½•çš„ä¸»é”®å€¼
 	private int keyCount;
 	
-	private String distribute; // ·Ö²¼±í´ïÊ½
-	private int part; // ·ÖÇø
+	private String distribute; // åˆ†å¸ƒè¡¨è¾¾å¼
+	private int part; // åˆ†åŒº
 	
 	public RemoteMemoryTable() {
 	}
 	
 	/**
-	 * @param host ½Úµã»úip
-	 * @param port ½Úµã»ú¶Ë¿Ú
-	 * @param proxyId Ô¶³Ì´úÀí±êÊ¶
-	 * @param recordCount ¼ÇÂ¼Êı
+	 * @param host èŠ‚ç‚¹æœºip
+	 * @param port èŠ‚ç‚¹æœºç«¯å£
+	 * @param proxyId è¿œç¨‹ä»£ç†æ ‡è¯†
+	 * @param recordCount è®°å½•æ•°
 	 */
 	public RemoteMemoryTable(String host, int port, int proxyId, int recordCount) {
 		this.host = host;
@@ -34,8 +34,8 @@ class RemoteMemoryTable implements Serializable {
 	}
 	
 	/**
-	 * @param startKeyValue Ê×Ìõ¼ÇÂ¼Ö÷¼üÖµ£¬¶à×Ö¶ÎÖ÷¼üÊ±ÎªÖ÷¼üÖµÊı×é
-	 * @param keyCount Ö÷¼ü¸öÊı
+	 * @param startKeyValue é¦–æ¡è®°å½•ä¸»é”®å€¼ï¼Œå¤šå­—æ®µä¸»é”®æ—¶ä¸ºä¸»é”®å€¼æ•°ç»„
+	 * @param keyCount ä¸»é”®ä¸ªæ•°
 	 */
 	public void setStartKeyValue(Object startKeyValue, int keyCount) {
 		this.startKeyValue = startKeyValue;

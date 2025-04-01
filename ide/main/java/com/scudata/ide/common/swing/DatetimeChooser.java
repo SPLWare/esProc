@@ -40,27 +40,27 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
- * ÈÕÆÚÊ±¼äÑ¡Ôñ¶Ô»°¿ò
+ * æ—¥æœŸæ—¶é—´é€‰æ‹©å¯¹è¯æ¡†
  *
  */
 public class DatetimeChooser extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 	/**
-	 * ÈÕÀúµÄÊµÀı
+	 * æ—¥å†çš„å®ä¾‹
 	 */
 	private Calendar calendar;
 	/**
-	 * Ñ¡ÔñµÄÈÕÀú
+	 * é€‰æ‹©çš„æ—¥å†
 	 */
 	private Calendar retCal;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DatetimeChooser() {
 		super();
@@ -68,10 +68,10 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 */
 	public DatetimeChooser(Dialog owner) {
 		super(owner);
@@ -79,12 +79,12 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 */
 	public DatetimeChooser(Dialog owner, boolean modal) {
 		super(owner, modal);
@@ -92,12 +92,12 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 */
 	public DatetimeChooser(Dialog owner, String title) {
 		super(owner, title);
@@ -105,14 +105,14 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 */
 	public DatetimeChooser(Dialog owner, String title, boolean modal) {
 		super(owner, title, modal);
@@ -120,14 +120,14 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 * @param gc
 	 *            GraphicsConfiguration
 	 */
@@ -138,10 +138,10 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 */
 	public DatetimeChooser(Frame owner) {
 		super(owner);
@@ -149,12 +149,12 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 */
 	public DatetimeChooser(Frame owner, boolean modal) {
 		super(owner, modal);
@@ -162,12 +162,12 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 */
 	public DatetimeChooser(Frame owner, String title) {
 		super(owner, title);
@@ -175,14 +175,14 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 */
 	public DatetimeChooser(Frame owner, String title, boolean modal) {
 		super(owner, title, modal);
@@ -190,14 +190,14 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 * @param gc
 	 *            GraphicsConfiguration
 	 */
@@ -208,7 +208,7 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯ÈÕÆÚÊ±¼ä
+	 * åˆå§‹åŒ–æ—¥æœŸæ—¶é—´
 	 * 
 	 * @param calendar
 	 */
@@ -224,7 +224,7 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		initComponents();
@@ -234,7 +234,7 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 */
 	private void initComponents() {
 		JPanel basePanel = new JPanel();
@@ -371,7 +371,7 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 */
 	private void okActionPerformed() {
 		if (monthCalendar.getSelectedIndex() < 0) {
@@ -384,7 +384,7 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 */
 	private void cancelActionPerformed() {
 		GM.setWindowDimension(this);
@@ -392,7 +392,7 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ÈÕÆÚÊÂ¼şÖµ±ä»¯
+	 * æ—¥æœŸäº‹ä»¶å€¼å˜åŒ–
 	 * 
 	 * @param evt
 	 */
@@ -404,7 +404,7 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ÏÂÀ­ÔÂ·İ±ä»¯
+	 * ä¸‹æ‹‰æœˆä»½å˜åŒ–
 	 * 
 	 * @param evt
 	 */
@@ -417,7 +417,7 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ¹Ø±Õ´°¿ÚÊÂ¼ş
+	 * å…³é—­çª—å£äº‹ä»¶
 	 * 
 	 * @param evt
 	 */
@@ -491,11 +491,11 @@ public class DatetimeChooser extends JDialog {
 	}
 
 	/**
-	 * ÔÂ·İÏÂÀ­¿ò
+	 * æœˆä»½ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBox jComboBox1;
 	/**
-	 * ÈÕÆÚÊ±¼äÖµ
+	 * æ—¥æœŸæ—¶é—´å€¼
 	 */
 	private JSpinner jSpinner1;
 	/**
@@ -503,15 +503,15 @@ public class DatetimeChooser extends JDialog {
 	 */
 	private MonthlyCalendar monthCalendar;
 	/**
-	 * Ğ¡Ê±±à¼­¿Ø¼ş
+	 * å°æ—¶ç¼–è¾‘æ§ä»¶
 	 */
 	private JSpinner jSpinH;
 	/**
-	 * ·ÖÖÓ±à¼­¿Ø¼ş
+	 * åˆ†é’Ÿç¼–è¾‘æ§ä»¶
 	 */
 	private JSpinner jSpinM;
 	/**
-	 * Ãë±à¼­¿Ø¼ş
+	 * ç§’ç¼–è¾‘æ§ä»¶
 	 */
 	private JSpinner jSpinS;
 

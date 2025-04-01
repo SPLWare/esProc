@@ -12,7 +12,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Table;
 import com.scudata.resources.EngineMessage;
 
-//½âÑ¹ÎÄ¼ş
+//è§£å‹æ–‡ä»¶
 public class ImZipExtract extends ImFunction {	
 	public Object doQuery(Object[] objs){
 		Table tbl = new Table(new String[]{"FileName"});
@@ -22,7 +22,7 @@ public class ImZipExtract extends ImFunction {
 			if ( m_passwd!=null){
 				m_zipfile.setPassword(m_passwd.toCharArray());
 			}
-			if (objs.length==0){//Ö»ÓĞzipFileÊ±
+			if (objs.length==0){//åªæœ‰zipFileæ—¶
 				fs = ImZipUtil.unzip(m_zipfile.getFile().getCanonicalPath());
 				for(File f:fs){
 					os[0] = f;
@@ -30,37 +30,37 @@ public class ImZipExtract extends ImFunction {
 				}
 			}else if (objs.length==1 || objs.length==2){
 				ArrayList<String> lfile = new ArrayList<String>();
-				ArrayList<String> ldir = new ArrayList<String>(); //ÌØÊâ×Ö·û
-				ArrayList<String> lpat = new ArrayList<String>(); //ÌØÊâ×Ö·û
+				ArrayList<String> ldir = new ArrayList<String>(); //ç‰¹æ®Šå­—ç¬¦
+				ArrayList<String> lpat = new ArrayList<String>(); //ç‰¹æ®Šå­—ç¬¦
 				ArrayList<File> ls = new ArrayList<File>();
 				
 				ImUtils.getZipFilterList(m_zipfile, null, objs[0], lfile, ldir, lpat);
 				
 				String dest = null;
-				if (objs.length==1){ //ÎŞpathÊ±
+				if (objs.length==1){ //æ— pathæ—¶
 					File parentDir = m_zipfile.getFile().getParentFile();  
 				    dest = parentDir.getAbsolutePath();
 				}else{
 					dest = objs[1].toString();
 				}
 				
-				//2.1 ½âÑ¹Õı³£ÎÄ¼ş
+				//2.1 è§£å‹æ­£å¸¸æ–‡ä»¶
 				if (lfile.size()>0){
 					fs = ImZipUtil.unzip(m_zipfile, lfile, dest );
 					ls.addAll(Arrays.asList(fs));
 				}
-				//2.2 ½âÑ¹ÎÄ¼ş¼Ğ			
+				//2.2 è§£å‹æ–‡ä»¶å¤¹			
 				if (ldir.size()>0){
 					fs = ImZipUtil.unzipDir(m_zipfile, ldir, dest);
 					ls.addAll(Arrays.asList(fs));
 				}
-				//2.2 ½âÑ¹ÌØÊâ×Ö·ûÎÄ¼ş¡£
+				//2.2 è§£å‹ç‰¹æ®Šå­—ç¬¦æ–‡ä»¶ã€‚
 				if (lpat.size()>0){
 					fs = ImZipUtil.unzipFilter(m_zipfile, lpat, dest);
 					ls.addAll(Arrays.asList(fs));
 				}
 				
-				//2.4È¥ÖØ´¦Àí:
+				//2.4å»é‡å¤„ç†:
 				HashSet<File> h = new HashSet<File>(ls);   
 			    ls.clear();   
 			    ls.addAll(h);   

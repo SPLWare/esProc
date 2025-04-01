@@ -28,34 +28,34 @@ import com.scudata.common.StringUtils;
 import com.scudata.ide.common.GM;
 
 /**
- * ËÑË÷×ÊÔ´£¬ÄÚ²¿µ÷ÊÔÊ¹ÓÃ£¬ÓÃÓÚ²éÕÒÖ¸¶¨Àà´ÓÄÄ¸ö°ü¼ÓÔØµÄ
+ * æœç´¢èµ„æºï¼Œå†…éƒ¨è°ƒè¯•ä½¿ç”¨ï¼Œç”¨äºæŸ¥æ‰¾æŒ‡å®šç±»ä»å“ªä¸ªåŒ…åŠ è½½çš„
  *
  */
 public class DialogResourceSearch extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ÀàÃûÎÄ±¾¿ò
+	 * ç±»åæ–‡æœ¬æ¡†
 	 */
 	private JTextField textClass = new JTextField();
 	/**
-	 * ËÑË÷°´Å¥
+	 * æœç´¢æŒ‰é’®
 	 */
 	private JButton buttonSearch = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton buttonCancel = new JButton();
 	/**
-	 * ½á¹ûÎÄ±¾¿ò
+	 * ç»“æœæ–‡æœ¬æ¡†
 	 */
 	private JTextArea textResults = new JTextArea();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param frame
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 */
 	public DialogResourceSearch(JFrame frame) {
 		super(frame, "Resource search", true);
@@ -74,7 +74,7 @@ public class DialogResourceSearch extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void initUI() {
 		this.getContentPane().setLayout(new BorderLayout());
@@ -95,7 +95,7 @@ public class DialogResourceSearch extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * Ö´ĞĞ²éÕÒ
+	 * æ‰§è¡ŒæŸ¥æ‰¾
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object c = e.getSource();
@@ -117,7 +117,7 @@ public class DialogResourceSearch extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ²éÕÒÀàµÄ°üÂ·¾¶
+	 * æŸ¥æ‰¾ç±»çš„åŒ…è·¯å¾„
 	 * 
 	 * @param clzName
 	 * @return
@@ -158,7 +158,7 @@ public class DialogResourceSearch extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ²éÕÒÀàµÄ°üÂ·¾¶
+	 * æŸ¥æ‰¾ç±»çš„åŒ…è·¯å¾„
 	 * 
 	 * @param cl
 	 * @param clzName
@@ -179,7 +179,7 @@ public class DialogResourceSearch extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * »ñÈ¡ÀàËùÓĞµÄÂ·¾¶
+	 * è·å–ç±»æ‰€æœ‰çš„è·¯å¾„
 	 * 
 	 * @param cls
 	 * @return

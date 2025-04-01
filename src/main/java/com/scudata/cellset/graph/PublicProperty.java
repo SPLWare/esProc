@@ -9,15 +9,15 @@ import com.scudata.common.*;
 
 /**
  * 
- * ËùÓĞÍ¼ĞÎµÄ¹«¹²ÊôĞÔ
+ * æ‰€æœ‰å›¾å½¢çš„å…¬å…±å±æ€§
  * 
  * @author Joancy
  *
  */
 public class PublicProperty implements IGraphProperty, ICloneable,
 		Externalizable, IRecord {
-//	Í¼ĞÎÑÕÉ«16777215ÎªÍ¸Ã÷£¬±à¼­µÄÍ¸Ã÷É«Îªnull¶ÔÏó£»ËùÒÔËùÓĞÉèÖÃ½Ó¿Ú¶¼¸ÄÎªColorÈë¿Ú
-	/** Í³¼ÆÍ¼ÀàĞÍ */
+//	å›¾å½¢é¢œè‰²16777215ä¸ºé€æ˜ï¼Œç¼–è¾‘çš„é€æ˜è‰²ä¸ºnullå¯¹è±¡ï¼›æ‰€ä»¥æ‰€æœ‰è®¾ç½®æ¥å£éƒ½æ”¹ä¸ºColorå…¥å£
+	/** ç»Ÿè®¡å›¾ç±»å‹ */
 	private byte type = GraphTypes.GT_COL;
 	private byte curveType = CURVE_LAGRANGE;
 	private byte borderStyle = IStyle.LINE_SOLID;
@@ -25,138 +25,138 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	private int borderColor = Color.black.getRGB();
 	private boolean borderShadow = true;
 
-	/** ×ø±êÖáÑÕÉ« */
+	/** åæ ‡è½´é¢œè‰² */
 	private int axisColor = Color.black.getRGB();
 
-	/** È«Í¼±³¾°ÑÕÉ« */
+	/** å…¨å›¾èƒŒæ™¯é¢œè‰² */
 	private int canvasColor = Color.white.getRGB();
 
-	/** Í¼ĞÎÇø±³¾°ÑÕÉ« */
+	/** å›¾å½¢åŒºèƒŒæ™¯é¢œè‰² */
 	private int graphBackColor = Color.white.getRGB();
 
-	/** ºáÖá±êÌâ */
+	/** æ¨ªè½´æ ‡é¢˜ */
 	private String xTitle;
 
-	/** ×İÖá±êÌâ */
+	/** çºµè½´æ ‡é¢˜ */
 	private String yTitle;
 
-	/** Í³¼ÆÍ¼±êÌâ */
+	/** ç»Ÿè®¡å›¾æ ‡é¢˜ */
 	private String graphTitle;
 
-	/** Íø¸ñÏßÎ»ÖÃ*/
+	/** ç½‘æ ¼çº¿ä½ç½®*/
 	private byte gridLineLocation = GRID_VALUE;
-	/** Íø¸ñÏßÀàĞÍ */
+	/** ç½‘æ ¼çº¿ç±»å‹ */
 	private byte gridLineType = LINE_NONE;
 
-	/** Íø¸ñÏßÑÕÉ« */
+	/** ç½‘æ ¼çº¿é¢œè‰² */
 	private int gridLineColor = Color.lightGray.getRGB();
 
-	/** ÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à */
+	/** æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è· */
 	private int barDistance;
 
-	/** Í¼ĞÎ¸ñÊ½ */
+	/** å›¾å½¢æ ¼å¼ */
 	private byte imageFormat = IMAGE_JPG;
 
-	/** Í¼ĞÎÊÇ·ñÍ¸Ã÷ */
+	/** å›¾å½¢æ˜¯å¦é€æ˜ */
 	private boolean graphTransparent = false;
 
-	/** »æÖÆÊı¾İ±í */
+	/** ç»˜åˆ¶æ•°æ®è¡¨ */
 	private boolean isDrawDataTable = false,isDataCenter=false;
 	
-	/** ÊÇ·ñ½¥±äÉ«,×¢Òâ¸ÃÊôĞÔÓëraisedBorderÊÇ»¥³âµÄ */
+	/** æ˜¯å¦æ¸å˜è‰²,æ³¨æ„è¯¥å±æ€§ä¸raisedBorderæ˜¯äº’æ–¥çš„ */
 	private boolean gradientColor = true;
 
-	/** ÓÃÇ°NÌõÊı¾İ»­Í¼ */
+	/** ç”¨å‰Næ¡æ•°æ®ç”»å›¾ */
 	private int topData;
 
-	/** Ê±Ğò×´Ì¬Í¼¡¢¸ÊÌØÍ¼»òÀï³Ì±®Í¼¿ªÊ¼Ê±¼ä±í´ïÊ½ */
+	/** æ—¶åºçŠ¶æ€å›¾ã€ç”˜ç‰¹å›¾æˆ–é‡Œç¨‹ç¢‘å›¾å¼€å§‹æ—¶é—´è¡¨è¾¾å¼ */
 	private String statusStartTimeExp;
 
-	/** Ê±Ğò×´Ì¬Í¼¡¢¸ÊÌØÍ¼»òÀï³Ì±®Í¼½áÊøÊ±¼ä±í´ïÊ½ */
+	/** æ—¶åºçŠ¶æ€å›¾ã€ç”˜ç‰¹å›¾æˆ–é‡Œç¨‹ç¢‘å›¾ç»“æŸæ—¶é—´è¡¨è¾¾å¼ */
 	private String statusEndTimeExp;
 
-	/** Ê±Ğò×´Ì¬Í¼·ÖÀà±í´ïÊ½»ò¸ÊÌØÍ¼ºÍÀï³Ì±®Í¼µÄÏîÄ¿±í´ïÊ½ */
+	/** æ—¶åºçŠ¶æ€å›¾åˆ†ç±»è¡¨è¾¾å¼æˆ–ç”˜ç‰¹å›¾å’Œé‡Œç¨‹ç¢‘å›¾çš„é¡¹ç›®è¡¨è¾¾å¼ */
 	private String statusCategoryExp;
 
-	/** Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬±í´ïÊ½ */
+	/** æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€è¡¨è¾¾å¼ */
 	private String statusStateExp;
 
-	/** Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È */
+	/** æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦ */
 	private String statusBarWidth;
 
-	/** Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼Ê±¼ä¿Ì¶ÈÀàĞÍ */
+	/** æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾æ—¶é—´åˆ»åº¦ç±»å‹ */
 	private byte statusTimeType = TIME_HOUR;
 	private String statusTimeFormat = null;
 
-	/** Í³¼ÆÍ¼ÖĞµÄ×ÖÌå */
+	/** ç»Ÿè®¡å›¾ä¸­çš„å­—ä½“ */
 	private GraphFonts fonts = new GraphFonts();
 
-	/** ¾¯½äÏß¶¨Òå */
+	/** è­¦æˆ’çº¿å®šä¹‰ */
 	private AlarmLine[] alarms;
 
-	/** Í¼ÖĞÏÔÊ¾Êı¾İ¶¨Òå */
+	/** å›¾ä¸­æ˜¾ç¤ºæ•°æ®å®šä¹‰ */
 	private byte displayData = DISPDATA_NONE;
 	private byte displayData2 = DISPDATA_NONE;
 
-	/** Í¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå */
+	/** å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰ */
 	private String displayDataFormat;
 
-	/** Í³¼ÆÍ¼³¬Á´½Ó */
+	/** ç»Ÿè®¡å›¾è¶…é“¾æ¥ */
 	private String link;
 
-	/** Í³¼ÆÍ¼Í¼Àı³¬Á´½Ó 2009.5.13 xq add */
+	/** ç»Ÿè®¡å›¾å›¾ä¾‹è¶…é“¾æ¥ 2009.5.13 xq add */
 	private String legendLink;
 
-	/** Í³¼ÆÍ¼³¬Á´½ÓÄ¿±ê´°¿Ú */
+	/** ç»Ÿè®¡å›¾è¶…é“¾æ¥ç›®æ ‡çª—å£ */
 	private String linkTarget;
 
-	/** Í³¼ÆÍ¼µÄÍ¼ÀıÎ»ÖÃ */
+	/** ç»Ÿè®¡å›¾çš„å›¾ä¾‹ä½ç½® */
 	private byte legendLocation = LEGEND_NONE;
 
-	/** Í³¼ÆÍ¼µÄÍ¼Àı×İÏò¼ä¾à */
+	/** ç»Ÿè®¡å›¾çš„å›¾ä¾‹çºµå‘é—´è· */
 	private int legendVerticalGap = 4;
-	/** Í³¼ÆÍ¼µÄÍ¼ÀıºáÏò¼ä¾à */
+	/** ç»Ÿè®¡å›¾çš„å›¾ä¾‹æ¨ªå‘é—´è· */
 	private int legendHorizonGap = 4;
 
-	/** ×Ü°´ÏµÁĞ»­Í¼Àı */
+	/** æ€»æŒ‰ç³»åˆ—ç”»å›¾ä¾‹ */
 	private boolean drawLegendBySery = false;
 
-	/** Í³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû */
+	/** ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå */
 	private String colorConfig = "";
 
-	/** Í³¼ÆÖµÆğÊ¼Öµ */
+	/** ç»Ÿè®¡å€¼èµ·å§‹å€¼ */
 	private String yStartValue;
 
-	/** Í³¼ÆÖµ½áÊøÖµ */
+	/** ç»Ÿè®¡å€¼ç»“æŸå€¼ */
 	private String yEndValue;
 
-	/** Í³¼ÆÖµ±êÇ©¼ä¸ô */
+	/** ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš” */
 	private String yInterval;
 
-	/** Í³¼ÆÖµÊıÁ¿µ¥Î» */
+	/** ç»Ÿè®¡å€¼æ•°é‡å•ä½ */
 	private double dataUnit = UNIT_ORIGIN;
 
-	/** Í³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı */
+	/** ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•° */
 	private int yMinMarks = 2;
 
-	/** ±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à */
+	/** æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è· */
 	private int titleMargin = 20;
 
-	/** ÕÛÏßÍ¼ÊÇ·ñ±ê×¢Êı¾İµã */
+	/** æŠ˜çº¿å›¾æ˜¯å¦æ ‡æ³¨æ•°æ®ç‚¹ */
 	private boolean drawLineDot = true;
 	private boolean isOverlapOrigin = false;
 
-	/** ÕÛÏßÍ¼ÊÇ·ñ»­Ç÷ÊÆÏß */
+	/** æŠ˜çº¿å›¾æ˜¯å¦ç”»è¶‹åŠ¿çº¿ */
 	private boolean drawLineTrend = false;
 
-	/** ÕÛÏßÍ¼Ö±Ïß´ÖÏ¸¶È */
+	/** æŠ˜çº¿å›¾ç›´çº¿ç²—ç»†åº¦ */
 	private byte lineThick = 1;
 	private byte lineStyle = LINE_SOLID;
 
-	/** ÏàÁÚÊıÖµ»ò±êÇ©ÖØµşÊ±ÊÇ·ñÏÔÊ¾ºóÒ»ÊıÖµ»ò±êÇ© */
+	/** ç›¸é‚»æ•°å€¼æˆ–æ ‡ç­¾é‡å æ—¶æ˜¯å¦æ˜¾ç¤ºåä¸€æ•°å€¼æˆ–æ ‡ç­¾ */
 	private boolean showOverlapText = true;
 
-	/** ±ıÍ¼ÖĞÊÇ·ñ·ÖÀë³öÒ»ÉÈÏÔÊ¾ */
+	/** é¥¼å›¾ä¸­æ˜¯å¦åˆ†ç¦»å‡ºä¸€æ‰‡æ˜¾ç¤º */
 	private boolean pieSpacing = false;
 	private boolean isMeterColorEnd = true;
 	private boolean isMeterTick = false;
@@ -165,54 +165,54 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	private int pieLine = 8;
 
 	private boolean isDispStackSumValue = false;
-	/** ·ÖÀàÖá±êÇ©¼ä¸ô */
+	/** åˆ†ç±»è½´æ ‡ç­¾é—´éš” */
 	private int xInterval;
 
-	/** ÕÛÏßÍ¼ÊÇ·ñºöÂÔ¿ÕÖµ Ö»¶ÔÓÚÕÛÏßÍ¼ÓĞĞ§ */
+	/** æŠ˜çº¿å›¾æ˜¯å¦å¿½ç•¥ç©ºå€¼ åªå¯¹äºæŠ˜çº¿å›¾æœ‰æ•ˆ */
 	private boolean ignoreNull;
 
-	/** ×Ô¶¨ÒåÍ¼ĞÎÀàÃû */
+	/** è‡ªå®šä¹‰å›¾å½¢ç±»å */
 	private String customClass;
 
-	/** ×Ô¶¨ÒåÍ¼ĞÎÏà¹Ø²ÎÊı */
+	/** è‡ªå®šä¹‰å›¾å½¢ç›¸å…³å‚æ•° */
 	private String customParam;
 
-	/** Æ½ÃæÕÛÏßÍ¼,Æ½Ãæ±ıÍ¼£¬Æ½ÃæÖùÍ¼ÊÇ·ñ»­ÒõÓ° */
+	/** å¹³é¢æŠ˜çº¿å›¾,å¹³é¢é¥¼å›¾ï¼Œå¹³é¢æŸ±å›¾æ˜¯å¦ç”»é˜´å½± */
 	private boolean drawShade = true;
 
-	/** Æ½ÃæÖùÍ¼µÄÍ»³ö±ß¿ò */
+	/** å¹³é¢æŸ±å›¾çš„çªå‡ºè¾¹æ¡† */
 	private boolean raisedBorder = false;
 
-	/** Í¼ĞÎµÄ±³¾°Í¼ */
+	/** å›¾å½¢çš„èƒŒæ™¯å›¾ */
 	private BackGraphConfig backGraph = null;
 
-	/** topN Ê±ÊÇ·ñ¶ªµôotherÊı¾İ */
+	/** topN æ—¶æ˜¯å¦ä¸¢æ‰otheræ•°æ® */
 	private long flag = 0;
 
-	/** ÖáÏßÑÕÉ«ÒÔ¼°Í¼Àı±ß¿òÑÕÉ«£¬¿ÉÀ©³ä,´ÎĞò¿ÉÒÔÒıÓÃ±¾Àà¶¨ÒåµÄ³£Á¿ AXIS_xxx */
-	/** ÑÕÉ«¶¨Òå£¬´úÌæÔ­À´ÖáÑÕÉ«£¬Öá¾ØĞÎ·Ö¿ªÎªËÄ¸ùÏßµÄÑÕÉ«£¬Ë³ĞòÒÀ´ÎÎªÉÏ£¬ÏÂ£¬×ó£¬ÓÒ£¬Í¼Àı */
+	/** è½´çº¿é¢œè‰²ä»¥åŠå›¾ä¾‹è¾¹æ¡†é¢œè‰²ï¼Œå¯æ‰©å……,æ¬¡åºå¯ä»¥å¼•ç”¨æœ¬ç±»å®šä¹‰çš„å¸¸é‡ AXIS_xxx */
+	/** é¢œè‰²å®šä¹‰ï¼Œä»£æ›¿åŸæ¥è½´é¢œè‰²ï¼Œè½´çŸ©å½¢åˆ†å¼€ä¸ºå››æ ¹çº¿çš„é¢œè‰²ï¼Œé¡ºåºä¾æ¬¡ä¸ºä¸Šï¼Œä¸‹ï¼Œå·¦ï¼Œå³ï¼Œå›¾ä¾‹ */
 	private int[] axisColors = new int[20];
 
-	private int leftMargin = 10; // ×ó±ß¾à
-	private int rightMargin = 10; /* ÓÒ±ß¾à */
-	private int topMargin = 10; /* ÉÏ±ß¾à */
-	private int bottomMargin = 10; /* ÏÂ±ß¾à */
-	private int tickLen = 4; /* ¿Ì¶È³¤¶È */
-	private int coorWidth = 100; /* 3DÖá¿í¶ÈÕ¼ĞòÁĞ¿í¶ÈµÄ°Ù·Ö±È */
-	private double categorySpan = 190; /* Àà±ğ¼äµÄ¼ä¸ôÕ¼ĞòÁĞ¿í¶ÈµÄ°Ù·Ö±È */
-	private int seriesSpan = 100; /* ĞòÁĞ¼äµÄ¼ä¸ôÕ¼ĞòÁĞÉî¶ÈµÄ°Ù·Ö±È */
-	private int pieRotation = 50; /* ×İÖáÕ¼ºáÖáµÄ³¤¶È°Ù·Ö±È */
-	private int pieHeight = 70; /* ±ıĞÍÍ¼µÄ¸ß¶ÈÕ¼°ë¾¶µÄ°Ù·Ö±È<=100 */
+	private int leftMargin = 10; // å·¦è¾¹è·
+	private int rightMargin = 10; /* å³è¾¹è· */
+	private int topMargin = 10; /* ä¸Šè¾¹è· */
+	private int bottomMargin = 10; /* ä¸‹è¾¹è· */
+	private int tickLen = 4; /* åˆ»åº¦é•¿åº¦ */
+	private int coorWidth = 100; /* 3Dè½´å®½åº¦å åºåˆ—å®½åº¦çš„ç™¾åˆ†æ¯” */
+	private double categorySpan = 190; /* ç±»åˆ«é—´çš„é—´éš”å åºåˆ—å®½åº¦çš„ç™¾åˆ†æ¯” */
+	private int seriesSpan = 100; /* åºåˆ—é—´çš„é—´éš”å åºåˆ—æ·±åº¦çš„ç™¾åˆ†æ¯” */
+	private int pieRotation = 50; /* çºµè½´å æ¨ªè½´çš„é•¿åº¦ç™¾åˆ†æ¯” */
+	private int pieHeight = 70; /* é¥¼å‹å›¾çš„é«˜åº¦å åŠå¾„çš„ç™¾åˆ†æ¯”<=100 */
 
 	private String otherStackedSeries=null;
 	
 	/**
-	 * È±Ê¡Öµ¹¹Ôìº¯Êı
+	 * ç¼ºçœå€¼æ„é€ å‡½æ•°
 	 */
 	public PublicProperty() {
-		/* Init Property ×¢Òâ¸Ã³õÊ¼»¯¶¯×÷Í¬²½Ò»ÏÂ ReportGraphProperty*/
+		/* Init Property æ³¨æ„è¯¥åˆå§‹åŒ–åŠ¨ä½œåŒæ­¥ä¸€ä¸‹ ReportGraphProperty*/
 		for (int i = 0; i < axisColors.length; i++) {
-			axisColors[i] = 16777215;//Í¸Ã÷É«
+			axisColors[i] = 16777215;//é€æ˜è‰²
 		}
 		axisColors[this.AXIS_BOTTOM]=Color.lightGray.getRGB();
 		type = GraphTypes.GT_COL3DOBJ;
@@ -225,93 +225,93 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼ÀàĞÍ
+	 * å–ç»Ÿè®¡å›¾ç±»å‹
 	 * 
-	 * @return byte Í³¼ÆÍ¼ÀàĞÍ£¬ÓÉGraphTypesÖĞµÄ³£Á¿¶¨Òå
+	 * @return byte ç»Ÿè®¡å›¾ç±»å‹ï¼Œç”±GraphTypesä¸­çš„å¸¸é‡å®šä¹‰
 	 */
 	public byte getType() {
 		return type;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼ÀàĞÍ
+	 * è®¾ç½®ç»Ÿè®¡å›¾ç±»å‹
 	 * 
-	 * @param type Í³¼ÆÍ¼ÀàĞÍ£¬ÓÉGraphTypesÖĞµÄ³£Á¿¶¨Òå
+	 * @param type ç»Ÿè®¡å›¾ç±»å‹ï¼Œç”±GraphTypesä¸­çš„å¸¸é‡å®šä¹‰
 	 */
 	public void setType(byte type) {
 		this.type = type;
 	}
 
 	/**
-	 * ÉèÖÃÇúÏßÀàĞÍ
-	 * @param curveType ÀàĞÍÖµ£¬²Î¿¼	IGraphProperty.CURVE_XXX
+	 * è®¾ç½®æ›²çº¿ç±»å‹
+	 * @param curveType ç±»å‹å€¼ï¼Œå‚è€ƒ	IGraphProperty.CURVE_XXX
 	 */
 	public void setCurveType(byte curveType) {
 		this.curveType = curveType;
 	}
 
 	/**
-	 * »ñÈ¡ÇúÏßÀàĞÍ
-	 * @return ÇúÏßµÄÀàĞÍ
+	 * è·å–æ›²çº¿ç±»å‹
+	 * @return æ›²çº¿çš„ç±»å‹
 	 */
 	public byte getCurveType() {
 		return curveType;
 	}
 
 	/**
-	 * È¡×Ô¶¨ÒåÍ¼ĞÎÀàÃû³Æ
+	 * å–è‡ªå®šä¹‰å›¾å½¢ç±»åç§°
 	 * 
-	 * @return String ×Ô¶¨ÒåÍ¼ÀàÃû³Æ
+	 * @return String è‡ªå®šä¹‰å›¾ç±»åç§°
 	 */
 	public String getCustomClass() {
 		return customClass;
 	}
 
 	/**
-	 * ÉèÖÃ×Ô¶¨ÒåÍ¼ĞÎÀàÃû³Æ
+	 * è®¾ç½®è‡ªå®šä¹‰å›¾å½¢ç±»åç§°
 	 */
 	public void setCustomClass(String customClass) {
 		this.customClass = customClass;
 	}
 
 	/**
-	 * È¡×Ô¶¨ÒåÍ¼ĞÎÀà²ÎÊı
+	 * å–è‡ªå®šä¹‰å›¾å½¢ç±»å‚æ•°
 	 * 
-	 * @return String ×Ô¶¨ÒåÍ¼Àà²ÎÊı
+	 * @return String è‡ªå®šä¹‰å›¾ç±»å‚æ•°
 	 */
 	public String getCustomParam() {
 		return customParam;
 	}
 
 	/**
-	 * ÉèÖÃ×Ô¶¨ÒåÍ¼ĞÎÀà²ÎÊı
+	 * è®¾ç½®è‡ªå®šä¹‰å›¾å½¢ç±»å‚æ•°
 	 */
 	public void setCustomParam(String customParam) {
 		this.customParam = customParam;
 	}
 
 	/**
-	 * È¡×ø±êÖáÑÕÉ«
+	 * å–åæ ‡è½´é¢œè‰²
 	 * 
-	 * @return int RGBÖµ±íÊ¾µÄÑÕÉ«
+	 * @return int RGBå€¼è¡¨ç¤ºçš„é¢œè‰²
 	 */
 	public int getAxisColor() {
 		return axisColor;
 	}
 
 	/**
-	 * ÉèÖÃ×ø±êÖáÑÕÉ«
-	 * ¸Ã·½·¨ÒÑ¾­·ÏÆú²»ÓÃ£¬ÓÉÊı×éaxisColors
-	 * @param color ×ø±êÖáÑÕÉ«
+	 * è®¾ç½®åæ ‡è½´é¢œè‰²
+	 * è¯¥æ–¹æ³•å·²ç»åºŸå¼ƒä¸ç”¨ï¼Œç”±æ•°ç»„axisColors
+	 * @param color åæ ‡è½´é¢œè‰²
 	 */
 	public void setAxisColor(int color) {
 		this.axisColor = color;
 	}
 
 	/**
-	 * ÉèÖÃÖ¸¶¨ĞòºÅÖáµÄÑÕÉ«
-	 * @param index ĞòºÅ
-	 * @param c ÑÕÉ«
+	 * è®¾ç½®æŒ‡å®šåºå·è½´çš„é¢œè‰²
+	 * @param index åºå·
+	 * @param c é¢œè‰²
 	 */
 	public void setAxisColor(int index, Color c) {
 		this.axisColors[index] = color(c);
@@ -323,11 +323,11 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 	
 	/**
-	 * ÉèÖÃ±ß¿òµÄÊôĞÔ
-	 * @param borderStyle ±ß¿ò·ç¸ñ
-	 * @param borderWidth ±ß¿ò´Ö¶È
-	 * @param borderColor ±ß¿òÑÕÉ«
-	 * @param borderShadow ±ß¿òÒõÓ°
+	 * è®¾ç½®è¾¹æ¡†çš„å±æ€§
+	 * @param borderStyle è¾¹æ¡†é£æ ¼
+	 * @param borderWidth è¾¹æ¡†ç²—åº¦
+	 * @param borderColor è¾¹æ¡†é¢œè‰²
+	 * @param borderShadow è¾¹æ¡†é˜´å½±
 	 */
 	public void setBorder(byte borderStyle, float borderWidth, Color borderColor,
 			boolean borderShadow) {
@@ -338,26 +338,26 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * È¥±ß¿ò·ç¸ñ
-	 * @return ·ç¸ñÖµ
+	 * å»è¾¹æ¡†é£æ ¼
+	 * @return é£æ ¼å€¼
 	 */
 	public byte getBorderStyle() {
 		return borderStyle;
 	}
 
 	/**
-	 * È¡±ß¿ò´Ö¶È
-	 * @return ´Ö¶ÈÖµ
+	 * å–è¾¹æ¡†ç²—åº¦
+	 * @return ç²—åº¦å€¼
 	 */
 	public float getBorderWidth() {
 		return borderWidth;
 	}
 
 	/**
-	 * È¡RGBÖµ±íÊ¾µÄÑÕÉ«¶ÔÓ¦»æÍ¼ÓÃµÄColor
-	 * ÑÕÉ«ÖµÎª16777215Ê±±íÊ¾Í¸Ã÷É«£¬·µ»Ønull
-	 * @param c RGB±íÊ¾µÄÑÕÉ«Öµ
-	 * @return ÑÕÉ«¶ÔÏó
+	 * å–RGBå€¼è¡¨ç¤ºçš„é¢œè‰²å¯¹åº”ç»˜å›¾ç”¨çš„Color
+	 * é¢œè‰²å€¼ä¸º16777215æ—¶è¡¨ç¤ºé€æ˜è‰²ï¼Œè¿”å›null
+	 * @param c RGBè¡¨ç¤ºçš„é¢œè‰²å€¼
+	 * @return é¢œè‰²å¯¹è±¡
 	 */
 	public static Color getColorObject(int c){
 		if(c==16777215) return null;
@@ -365,134 +365,134 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 	
 	/**
-	 * È¡±ß¿òÑÕÉ«
-	 * @return RGB±íÊ¾µÄÕûÊıÑÕÉ«
+	 * å–è¾¹æ¡†é¢œè‰²
+	 * @return RGBè¡¨ç¤ºçš„æ•´æ•°é¢œè‰²
 	 */
 	public int getBorderColor() {
 		return borderColor;
 	}
 
 	/**
-	 * ±ß¿òÊÇ·ñ»æÖÆÒõÓ°
-	 * @return ÓĞÒõÓ°·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è¾¹æ¡†æ˜¯å¦ç»˜åˆ¶é˜´å½±
+	 * @return æœ‰é˜´å½±è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean getBorderShadow() {
 		return borderShadow;
 	}
 
 	/**
-	 * È¡È«Í¼±³¾°ÑÕÉ«
+	 * å–å…¨å›¾èƒŒæ™¯é¢œè‰²
 	 * 
-	 * @return int¡¡È«Í¼±³¾°ÑÕÉ«
+	 * @return intã€€å…¨å›¾èƒŒæ™¯é¢œè‰²
 	 */
 	public int getCanvasColor() {
 		return canvasColor;
 	}
 
 	/**
-	 * ÉèÖÃÈ«Í¼±³¾°ÑÕÉ«
+	 * è®¾ç½®å…¨å›¾èƒŒæ™¯é¢œè‰²
 	 * 
 	 * @param color
-	 *            È«Í¼±³¾°ÑÕÉ«
+	 *            å…¨å›¾èƒŒæ™¯é¢œè‰²
 	 */
 	public void setCanvasColor(int color) {
 		this.canvasColor = color;
 	}
 	
 	/**
-	 * ÉèÖÃÈ«Í¼±³¾°É«
-	 * @param c ÑÕÉ«¶ÔÏó
+	 * è®¾ç½®å…¨å›¾èƒŒæ™¯è‰²
+	 * @param c é¢œè‰²å¯¹è±¡
 	 */
 	public void setCanvasColor(Color c) {
 		this.canvasColor = color(c);
 	}
 
 	/**
-	 * È¡Í¼ĞÎÇø±³¾°ÑÕÉ«
+	 * å–å›¾å½¢åŒºèƒŒæ™¯é¢œè‰²
 	 * 
-	 * @return int¡¡Í¼ĞÎÇø±³¾°ÑÕÉ«
+	 * @return intã€€å›¾å½¢åŒºèƒŒæ™¯é¢œè‰²
 	 */
 	public int getGraphBackColor() {
 		return this.graphBackColor;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÇø±³¾°ÑÕÉ«
+	 * è®¾ç½®å›¾å½¢åŒºèƒŒæ™¯é¢œè‰²
 	 * 
-	 * @param color Í¼ĞÎÇø±³¾°ÑÕÉ«
+	 * @param color å›¾å½¢åŒºèƒŒæ™¯é¢œè‰²
 	 */
 	public void setGraphBackColor(int color) {
 		this.graphBackColor = color;
 	}
 	/**
-	 * ÉèÖÃÍ¼ĞÎÇø±³¾°ÑÕÉ«
-	 * @param c ÑÕÉ«¶ÔÏó
+	 * è®¾ç½®å›¾å½¢åŒºèƒŒæ™¯é¢œè‰²
+	 * @param c é¢œè‰²å¯¹è±¡
 	 */
 	public void setGraphBackColor(Color c) {
 		this.graphBackColor = color(c);
 	}
 
 	/**
-	 * È¡ºáÖá±êÌâ
+	 * å–æ¨ªè½´æ ‡é¢˜
 	 * 
-	 * @return String ºáÖá±êÌâ
+	 * @return String æ¨ªè½´æ ‡é¢˜
 	 */
 	public String getXTitle() {
 		return xTitle;
 	}
 
 	/**
-	 * ÉèÖÃºáÖá±êÌâ
+	 * è®¾ç½®æ¨ªè½´æ ‡é¢˜
 	 * 
 	 * @param title
-	 *            ºáÖá±êÌâ
+	 *            æ¨ªè½´æ ‡é¢˜
 	 */
 	public void setXTitle(String title) {
 		this.xTitle = title;
 	}
 
 	/**
-	 * È¡×İÖá±êÌâ
+	 * å–çºµè½´æ ‡é¢˜
 	 * 
-	 * @return String ×İÖá±êÌâ
+	 * @return String çºµè½´æ ‡é¢˜
 	 */
 	public String getYTitle() {
 		return yTitle;
 	}
 
 	/**
-	 * ÉèÖÃ×İÖá±êÌâ
+	 * è®¾ç½®çºµè½´æ ‡é¢˜
 	 * 
 	 * @param title
-	 *            ×İÖá±êÌâ
+	 *            çºµè½´æ ‡é¢˜
 	 */
 	public void setYTitle(String title) {
 		this.yTitle = title;
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼±êÌâ
+	 * å–ç»Ÿè®¡å›¾æ ‡é¢˜
 	 * 
-	 * @return String¡¡Í³¼ÆÍ¼±êÌâ
+	 * @return Stringã€€ç»Ÿè®¡å›¾æ ‡é¢˜
 	 */
 	public String getGraphTitle() {
 		return graphTitle;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼±êÌâ
+	 * è®¾ç½®ç»Ÿè®¡å›¾æ ‡é¢˜
 	 * 
 	 * @param title
-	 *            Í³¼ÆÍ¼±êÌâ
+	 *            ç»Ÿè®¡å›¾æ ‡é¢˜
 	 */
 	public void setGraphTitle(String title) {
 		this.graphTitle = title;
 	}
 
 	/**
-	 * È¡Íø¸ñÏßÀàĞÍ
+	 * å–ç½‘æ ¼çº¿ç±»å‹
 	 * 
-	 * @return byte¡¡Íø¸ñÏßÀàĞÍ£¬ÖµÎªIGraphProperty.LINE_NONE, LINE_SOLID, LINE_LONG_DASH,
+	 * @return byteã€€ç½‘æ ¼çº¿ç±»å‹ï¼Œå€¼ä¸ºIGraphProperty.LINE_NONE, LINE_SOLID, LINE_LONG_DASH,
 	 *         LINE_SHORT_DASH, LINE_DOT_DASH, LINE_2DOT_DASH
 	 */
 	public byte getGridLineType() {
@@ -500,10 +500,10 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñÏßÀàĞÍ
+	 * è®¾ç½®ç½‘æ ¼çº¿ç±»å‹
 	 * 
 	 * @param type
-	 *            Íø¸ñÏßÀàĞÍ, È¡ÖµÎªLINE_NONE, LINE_SOLID, LINE_LONG_DASH,
+	 *            ç½‘æ ¼çº¿ç±»å‹, å–å€¼ä¸ºLINE_NONE, LINE_SOLID, LINE_LONG_DASH,
 	 *            LINE_SHORT_DASH, LINE_DOT_DASH, LINE_2DOT_DASH
 	 */
 	public void setGridLineType(byte type) {
@@ -511,64 +511,64 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * È¡Íø¸ñÏßÑÕÉ«
+	 * å–ç½‘æ ¼çº¿é¢œè‰²
 	 * 
-	 * @return int¡¡Íø¸ñÏßÑÕÉ«
+	 * @return intã€€ç½‘æ ¼çº¿é¢œè‰²
 	 */
 	public int getGridLineColor() {
 		return gridLineColor;
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñÏßÑÕÉ«
+	 * è®¾ç½®ç½‘æ ¼çº¿é¢œè‰²
 	 * 
 	 * @param color
-	 *            Íø¸ñÏßÑÕÉ«
+	 *            ç½‘æ ¼çº¿é¢œè‰²
 	 */
 	public void setGridLineColor(int color) {
 		this.gridLineColor = color;
 	}
 
 	/**
-	 * È¡ÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à
+	 * å–æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è·
 	 * 
-	 * @return String¡¡ÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à
+	 * @return Stringã€€æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è·
 	 */
 	public int getBarDistance() {
 		return barDistance;
 	}
 
 	/**
-	 * ÉèÖÃÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à
+	 * è®¾ç½®æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è·
 	 * 
 	 * @param distance
-	 *            ÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à
+	 *            æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è·
 	 */
 	public void setBarDistance(int distance) {
 		this.barDistance = distance;
 	}
 
 	/**
-	 * È¡Í¼ĞÎ¸ñÊ½
+	 * å–å›¾å½¢æ ¼å¼
 	 * 
-	 * @return byte¡¡Í¼ĞÎ¸ñÊ½, ÖµÎªIMAGE_JPG, IMAGE_GIF, IMAGE_PNG
+	 * @return byteã€€å›¾å½¢æ ¼å¼, å€¼ä¸ºIMAGE_JPG, IMAGE_GIF, IMAGE_PNG
 	 */
 	public byte getImageFormat() {
 		return imageFormat;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎ¸ñÊ½
+	 * è®¾ç½®å›¾å½¢æ ¼å¼
 	 * 
 	 * @param format
-	 *            Í¼ĞÎ¸ñÊ½£¬È¡ÖµÎªIMAGE_JPG, IMAGE_GIF, IMAGE_PNG
+	 *            å›¾å½¢æ ¼å¼ï¼Œå–å€¼ä¸ºIMAGE_JPG, IMAGE_GIF, IMAGE_PNG
 	 */
 	public void setImageFormat(byte format) {
 		this.imageFormat = format;
 	}
 
 	/**
-	 * È¡Í¼ĞÎÊÇ·ñÍ¸Ã÷
+	 * å–å›¾å½¢æ˜¯å¦é€æ˜
 	 * 
 	 * @return boolean
 	 */
@@ -577,174 +577,174 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÊÇ·ñÔÚÍ¼ĞÎÏÂ·½»æÖÆÊı¾İ±í
-	 * @return »æÖÆÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦åœ¨å›¾å½¢ä¸‹æ–¹ç»˜åˆ¶æ•°æ®è¡¨
+	 * @return ç»˜åˆ¶æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isDrawDataTable(){
 		return isDrawDataTable;
 	}
 	
 	/**
-	 * ÉèÖÃÊÇ·ñ»æÖÆÊı¾İ±í
-	 * @param b ÊÇ·ñ»æÖÆ
+	 * è®¾ç½®æ˜¯å¦ç»˜åˆ¶æ•°æ®è¡¨
+	 * @param b æ˜¯å¦ç»˜åˆ¶
 	 */
 	public void setDrawDataTable(boolean b){
 		this.isDrawDataTable = b;
 	}
 	/**
-	 * Èç¹û»æÖÆÊı¾İ±í£¬Êı¾İÔÚ¸ñ×ÓÖĞ¼äÊÇ·ñ¾ÓÖĞ
-	 * @return Èç¹û¾ÓÖĞ»æÖÆ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å¦‚æœç»˜åˆ¶æ•°æ®è¡¨ï¼Œæ•°æ®åœ¨æ ¼å­ä¸­é—´æ˜¯å¦å±…ä¸­
+	 * @return å¦‚æœå±…ä¸­ç»˜åˆ¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isDataCenter(){
 		return isDataCenter;
 	}
 	/**
-	 * ÉèÖÃÊı¾İ±íµÄÊı¾İÊÇ·ñ¾ÓÖĞ»æÖÆ
-	 * Èç¹û²»¾ÓÖĞµÄ»°£¬¾ÍÊÇ×ó¶ÔÆë
-	 * @param b ¾ÓÖĞÏÔÊ¾
+	 * è®¾ç½®æ•°æ®è¡¨çš„æ•°æ®æ˜¯å¦å±…ä¸­ç»˜åˆ¶
+	 * å¦‚æœä¸å±…ä¸­çš„è¯ï¼Œå°±æ˜¯å·¦å¯¹é½
+	 * @param b å±…ä¸­æ˜¾ç¤º
 	 */
 	public void setDataCenter(boolean b){
 		this.isDataCenter = b;
 	}
 	/**
-	 * ÉèÖÃÍ¼ĞÎÊÇ·ñÍ¸Ã÷
+	 * è®¾ç½®å›¾å½¢æ˜¯å¦é€æ˜
 	 * 
-	 * @param b ÊÇ·ñÍ¸Ã÷
+	 * @param b æ˜¯å¦é€æ˜
 	 */
 	public void setGraphTransparent(boolean b) {
 		this.graphTransparent = b;
 	}
 
 	/**
-	 * È¡ÊÇ·ñ½¥±äÉ«
+	 * å–æ˜¯å¦æ¸å˜è‰²
 	 * 
-	 * @return boolean ÊÇ·ñ½¥±äÉ«
+	 * @return boolean æ˜¯å¦æ¸å˜è‰²
 	 */
 	public boolean isGradientColor() {
 		return gradientColor;
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ½¥±äÉ«
+	 * è®¾ç½®æ˜¯å¦æ¸å˜è‰²
 	 * 
-	 * @param b ÊÇ·ñÊ¹ÓÃ½¥±äÉ«
+	 * @param b æ˜¯å¦ä½¿ç”¨æ¸å˜è‰²
 	 */
 	public void setGradientColor(boolean b) {
 		this.gradientColor = b;
 	}
 
 	/**
-	 * È¡ÓÃÇ°NÌõÊı¾İ»­Í¼
+	 * å–ç”¨å‰Næ¡æ•°æ®ç”»å›¾
 	 * 
-	 * @return int¡¡ÓÃÇ°NÌõÊı¾İ»­Í¼
+	 * @return intã€€ç”¨å‰Næ¡æ•°æ®ç”»å›¾
 	 */
 	public int getTopData() {
 		return topData;
 	}
 
 	/**
-	 * ÉèÖÃÓÃÇ°NÌõÊı¾İ»­Í¼
+	 * è®¾ç½®ç”¨å‰Næ¡æ•°æ®ç”»å›¾
 	 * 
-	 * @param n  Êı¾İÌõÊı
+	 * @param n  æ•°æ®æ¡æ•°
 	 */
 	public void setTopData(int n) {
 		this.topData = n;
 	}
 
 	/**
-	 * È¡Ê±Ğò×´Ì¬Í¼¡¢¸ÊÌØÍ¼»òÀï³Ì±®Í¼¿ªÊ¼Ê±¼ä±í´ïÊ½
+	 * å–æ—¶åºçŠ¶æ€å›¾ã€ç”˜ç‰¹å›¾æˆ–é‡Œç¨‹ç¢‘å›¾å¼€å§‹æ—¶é—´è¡¨è¾¾å¼
 	 * 
-	 * @return String¡¡Ê±Ğò×´Ì¬Í¼¡¢¸ÊÌØÍ¼»òÀï³Ì±®Í¼¿ªÊ¼Ê±¼ä±í´ïÊ½
+	 * @return Stringã€€æ—¶åºçŠ¶æ€å›¾ã€ç”˜ç‰¹å›¾æˆ–é‡Œç¨‹ç¢‘å›¾å¼€å§‹æ—¶é—´è¡¨è¾¾å¼
 	 */
 	public String getStatusStartTimeExp() {
 		return statusStartTimeExp;
 	}
 
 	/**
-	 * ÉèÖÃÊ±Ğò×´Ì¬Í¼¡¢¸ÊÌØÍ¼»òÀï³Ì±®Í¼¿ªÊ¼Ê±¼ä±í´ïÊ½
+	 * è®¾ç½®æ—¶åºçŠ¶æ€å›¾ã€ç”˜ç‰¹å›¾æˆ–é‡Œç¨‹ç¢‘å›¾å¼€å§‹æ—¶é—´è¡¨è¾¾å¼
 	 * 
-	 * @param exp Ê±Ğò×´Ì¬Í¼¡¢¸ÊÌØÍ¼»òÀï³Ì±®Í¼¿ªÊ¼Ê±¼ä±í´ïÊ½
+	 * @param exp æ—¶åºçŠ¶æ€å›¾ã€ç”˜ç‰¹å›¾æˆ–é‡Œç¨‹ç¢‘å›¾å¼€å§‹æ—¶é—´è¡¨è¾¾å¼
 	 */
 	public void setStatusStartTimeExp(String exp) {
 		this.statusStartTimeExp = exp;
 	}
 
 	/**
-	 * È¡Ê±Ğò×´Ì¬Í¼¡¢¸ÊÌØÍ¼»òÀï³Ì±®Í¼½áÊøÊ±¼ä±í´ïÊ½
+	 * å–æ—¶åºçŠ¶æ€å›¾ã€ç”˜ç‰¹å›¾æˆ–é‡Œç¨‹ç¢‘å›¾ç»“æŸæ—¶é—´è¡¨è¾¾å¼
 	 * 
-	 * @return String¡¡Ê±Ğò×´Ì¬Í¼¡¢¸ÊÌØÍ¼»òÀï³Ì±®Í¼½áÊøÊ±¼ä±í´ïÊ½
+	 * @return Stringã€€æ—¶åºçŠ¶æ€å›¾ã€ç”˜ç‰¹å›¾æˆ–é‡Œç¨‹ç¢‘å›¾ç»“æŸæ—¶é—´è¡¨è¾¾å¼
 	 */
 	public String getStatusEndTimeExp() {
 		return statusEndTimeExp;
 	}
 
 	/**
-	 * ÉèÖÃÊ±Ğò×´Ì¬Í¼¡¢¸ÊÌØÍ¼»òÀï³Ì±®Í¼½áÊøÊ±¼ä±í´ïÊ½
+	 * è®¾ç½®æ—¶åºçŠ¶æ€å›¾ã€ç”˜ç‰¹å›¾æˆ–é‡Œç¨‹ç¢‘å›¾ç»“æŸæ—¶é—´è¡¨è¾¾å¼
 	 * 
-	 * @param exp Ê±Ğò×´Ì¬Í¼¡¢¸ÊÌØÍ¼»òÀï³Ì±®Í¼½áÊøÊ±¼ä±í´ïÊ½
+	 * @param exp æ—¶åºçŠ¶æ€å›¾ã€ç”˜ç‰¹å›¾æˆ–é‡Œç¨‹ç¢‘å›¾ç»“æŸæ—¶é—´è¡¨è¾¾å¼
 	 */
 	public void setStatusEndTimeExp(String exp) {
 		this.statusEndTimeExp = exp;
 	}
 
 	/**
-	 * È¡Ê±Ğò×´Ì¬Í¼·ÖÀà±í´ïÊ½»ò¸ÊÌØÍ¼ºÍÀï³Ì±®Í¼µÄÏîÄ¿±í´ïÊ½
+	 * å–æ—¶åºçŠ¶æ€å›¾åˆ†ç±»è¡¨è¾¾å¼æˆ–ç”˜ç‰¹å›¾å’Œé‡Œç¨‹ç¢‘å›¾çš„é¡¹ç›®è¡¨è¾¾å¼
 	 * 
-	 * @return String¡¡Ê±Ğò×´Ì¬Í¼·ÖÀà±í´ïÊ½»ò¸ÊÌØÍ¼ºÍÀï³Ì±®Í¼µÄÏîÄ¿±í´ïÊ½
+	 * @return Stringã€€æ—¶åºçŠ¶æ€å›¾åˆ†ç±»è¡¨è¾¾å¼æˆ–ç”˜ç‰¹å›¾å’Œé‡Œç¨‹ç¢‘å›¾çš„é¡¹ç›®è¡¨è¾¾å¼
 	 */
 	public String getStatusCategoryExp() {
 		return statusCategoryExp;
 	}
 
 	/**
-	 * ÉèÖÃÊ±Ğò×´Ì¬Í¼·ÖÀà±í´ïÊ½»ò¸ÊÌØÍ¼ºÍÀï³Ì±®Í¼µÄÏîÄ¿±í´ïÊ½
+	 * è®¾ç½®æ—¶åºçŠ¶æ€å›¾åˆ†ç±»è¡¨è¾¾å¼æˆ–ç”˜ç‰¹å›¾å’Œé‡Œç¨‹ç¢‘å›¾çš„é¡¹ç›®è¡¨è¾¾å¼
 	 * 
-	 * @param exp Ê±Ğò×´Ì¬Í¼·ÖÀà±í´ïÊ½»ò¸ÊÌØÍ¼ºÍÀï³Ì±®Í¼µÄÏîÄ¿±í´ïÊ½
+	 * @param exp æ—¶åºçŠ¶æ€å›¾åˆ†ç±»è¡¨è¾¾å¼æˆ–ç”˜ç‰¹å›¾å’Œé‡Œç¨‹ç¢‘å›¾çš„é¡¹ç›®è¡¨è¾¾å¼
 	 */
 	public void setStatusCategoryExp(String exp) {
 		this.statusCategoryExp = exp;
 	}
 
 	/**
-	 * È¡Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬±í´ïÊ½
+	 * å–æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€è¡¨è¾¾å¼
 	 * 
-	 * @return String¡¡Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬±í´ïÊ½
+	 * @return Stringã€€æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€è¡¨è¾¾å¼
 	 */
 	public String getStatusStateExp() {
 		return statusStateExp;
 	}
 
 	/**
-	 * ÉèÖÃÊ±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬±í´ïÊ½
+	 * è®¾ç½®æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€è¡¨è¾¾å¼
 	 * 
-	 * @param exp Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬±í´ïÊ½
+	 * @param exp æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€è¡¨è¾¾å¼
 	 */
 	public void setStatusStateExp(String exp) {
 		this.statusStateExp = exp;
 	}
 
 	/**
-	 * È¡Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È
+	 * å–æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦
 	 * 
-	 * @return String¡¡Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È
+	 * @return Stringã€€æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦
 	 */
 	public String getStatusBarWidth() {
 		return statusBarWidth;
 	}
 
 	/**
-	 * ÉèÖÃÊ±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È
+	 * è®¾ç½®æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦
 	 * 
-	 * @param width Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È
+	 * @param width æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦
 	 */
 	public void setStatusBarWidth(String width) {
 		this.statusBarWidth = width;
 	}
 
 	/**
-	 * È¡Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼Ê±¼ä¿Ì¶ÈÀàĞÍ
+	 * å–æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾æ—¶é—´åˆ»åº¦ç±»å‹
 	 * 
-	 * @return byte¡¡Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼Ê±¼ä¿Ì¶ÈÀàĞÍ£¬ÖµÎªTIME_YEAR, TIME_MONTH, TIME_DAY,
+	 * @return byteã€€æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾æ—¶é—´åˆ»åº¦ç±»å‹ï¼Œå€¼ä¸ºTIME_YEAR, TIME_MONTH, TIME_DAY,
 	 *         TIME_HOUR, TIME_MINUTE, TIME_SECOND
 	 */
 	public byte getStatusTimeType() {
@@ -755,10 +755,10 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÉèÖÃÊ±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼Ê±¼ä¿Ì¶ÈÀàĞÍ
+	 * è®¾ç½®æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾æ—¶é—´åˆ»åº¦ç±»å‹
 	 * 
 	 * @param type
-	 *            Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼Ê±¼ä¿Ì¶ÈÀàĞÍ£¬È¡ÖµÎªTIME_YEAR, TIME_MONTH, TIME_DAY, TIME_HOUR,
+	 *            æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾æ—¶é—´åˆ»åº¦ç±»å‹ï¼Œå–å€¼ä¸ºTIME_YEAR, TIME_MONTH, TIME_DAY, TIME_HOUR,
 	 *            TIME_MINUTE, TIME_SECOND
 	 */
 	public void setStatusTimeType(byte type) {
@@ -769,46 +769,46 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼×ÖÌå
+	 * å–ç»Ÿè®¡å›¾å­—ä½“
 	 * 
-	 * @return GraphFonts¡¡Í³¼ÆÍ¼×ÖÌå
+	 * @return GraphFontsã€€ç»Ÿè®¡å›¾å­—ä½“
 	 */
 	public GraphFonts getFonts() {
 		return fonts;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼×ÖÌå
+	 * è®¾ç½®ç»Ÿè®¡å›¾å­—ä½“
 	 * 
-	 * @param fonts Í³¼ÆÍ¼×ÖÌå
+	 * @param fonts ç»Ÿè®¡å›¾å­—ä½“
 	 */
 	public void setFonts(GraphFonts fonts) {
 		this.fonts = fonts;
 	}
 
 	/**
-	 * È¡¾¯½äÏß¶¨Òå
+	 * å–è­¦æˆ’çº¿å®šä¹‰
 	 * 
-	 * @return AlarmLine[]¡¡¾¯½äÏß¶¨Òå
+	 * @return AlarmLine[]ã€€è­¦æˆ’çº¿å®šä¹‰
 	 */
 	public AlarmLine[] getAlarmLines() {
 		return alarms;
 	}
 
 	/**
-	 * ÉèÖÃ¾¯½äÏß¶¨Òå
+	 * è®¾ç½®è­¦æˆ’çº¿å®šä¹‰
 	 * 
 	 * @param alarms
-	 *            ¾¯½äÏß¶¨Òå
+	 *            è­¦æˆ’çº¿å®šä¹‰
 	 */
 	public void setAlarmLines(AlarmLine[] alarms) {
 		this.alarms = alarms;
 	}
 
 	/**
-	 * È¡Í¼ÖĞÏÔÊ¾Êı¾İ¶¨Òå
+	 * å–å›¾ä¸­æ˜¾ç¤ºæ•°æ®å®šä¹‰
 	 * 
-	 * @return byte¡¡Í¼ÖĞÏÔÊ¾Êı¾İ¶¨Òå£¬ÖµÎªDISPDATA_NONE, DISPDATA_VALUE,
+	 * @return byteã€€å›¾ä¸­æ˜¾ç¤ºæ•°æ®å®šä¹‰ï¼Œå€¼ä¸ºDISPDATA_NONE, DISPDATA_VALUE,
 	 *         DISPDATA_PERCENTAGE
 	 */
 	public byte getDisplayData() {
@@ -819,10 +819,10 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ÖĞÏÔÊ¾Êı¾İ¶¨Òå
+	 * è®¾ç½®å›¾ä¸­æ˜¾ç¤ºæ•°æ®å®šä¹‰
 	 * 
 	 * @param displayData
-	 *            Í¼ÖĞÏÔÊ¾Êı¾İ¶¨Òå£¬È¡ÖµÎªDISPDATA_NONE, DISPDATA_VALUE, DISPDATA_PERCENTAGE
+	 *            å›¾ä¸­æ˜¾ç¤ºæ•°æ®å®šä¹‰ï¼Œå–å€¼ä¸ºDISPDATA_NONE, DISPDATA_VALUE, DISPDATA_PERCENTAGE
 	 */
 	public void setDisplayData(byte displayData) {
 		this.displayData = displayData;
@@ -832,80 +832,80 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * È¡Í¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå
+	 * å–å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰
 	 * 
-	 * @return String¡¡Í¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå
+	 * @return Stringã€€å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰
 	 */
 	public String getDisplayDataFormat() {
 		return displayDataFormat;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå
+	 * è®¾ç½®å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰
 	 * 
 	 * @param format
-	 *            Í¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå£¬Ë«ÖáÍ¼Ê±ÓÃ·ÖºÅ¸ô¿ª
+	 *            å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰ï¼ŒåŒè½´å›¾æ—¶ç”¨åˆ†å·éš”å¼€
 	 */
 	public void setDisplayDataFormat(String format) {
 		this.displayDataFormat = format;
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼³¬Á´½Ó
+	 * å–ç»Ÿè®¡å›¾è¶…é“¾æ¥
 	 * 
-	 * @return String¡¡Í³¼ÆÍ¼³¬Á´½Ó
+	 * @return Stringã€€ç»Ÿè®¡å›¾è¶…é“¾æ¥
 	 */
 	public String getLink() {
 		return link;
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼ÖĞµÄÍ¼Àı³¬Á´½Ó
-	 * @return String Í¼Àı³¬Á´½Ó
+	 * å–ç»Ÿè®¡å›¾ä¸­çš„å›¾ä¾‹è¶…é“¾æ¥
+	 * @return String å›¾ä¾‹è¶…é“¾æ¥
 	 */
 	public String getLegendLink() {
 		return legendLink;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼³¬Á´½Ó
+	 * è®¾ç½®ç»Ÿè®¡å›¾è¶…é“¾æ¥
 	 * 
-	 * @param link Í³¼ÆÍ¼³¬Á´½Ó
+	 * @param link ç»Ÿè®¡å›¾è¶…é“¾æ¥
 	 */
 	public void setLink(String link) {
 		this.link = link;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼Àı³¬Á´½Ó
-	 * @param link Í¼Àı³¬Á´½Ó
+	 * è®¾ç½®å›¾ä¾‹è¶…é“¾æ¥
+	 * @param link å›¾ä¾‹è¶…é“¾æ¥
 	 */
 	public void setLegendLink(String link) {
 		this.legendLink = link;
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼³¬Á´½ÓÄ¿±ê´°¿Ú
+	 * å–ç»Ÿè®¡å›¾è¶…é“¾æ¥ç›®æ ‡çª—å£
 	 * 
-	 * @return String¡¡Í³¼ÆÍ¼³¬Á´½ÓÄ¿±ê´°¿Ú
+	 * @return Stringã€€ç»Ÿè®¡å›¾è¶…é“¾æ¥ç›®æ ‡çª—å£
 	 */
 	public String getLinkTarget() {
 		return linkTarget;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼³¬Á´½ÓÄ¿±ê´°¿Ú
+	 * è®¾ç½®ç»Ÿè®¡å›¾è¶…é“¾æ¥ç›®æ ‡çª—å£
 	 * 
-	 * @param target Í³¼ÆÍ¼³¬Á´½ÓÄ¿±ê´°¿Ú
+	 * @param target ç»Ÿè®¡å›¾è¶…é“¾æ¥ç›®æ ‡çª—å£
 	 */
 	public void setLinkTarget(String target) {
 		this.linkTarget = target;
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼µÄÍ¼ÀıÎ»ÖÃ
+	 * å–ç»Ÿè®¡å›¾çš„å›¾ä¾‹ä½ç½®
 	 * 
-	 * @return byte¡¡Í³¼ÆÍ¼µÄÍ¼ÀıÎ»ÖÃ£¬ÖµÎªLEGEND_LEFT, LEGEND_RIGHT, LEGEND_TOP,
+	 * @return byteã€€ç»Ÿè®¡å›¾çš„å›¾ä¾‹ä½ç½®ï¼Œå€¼ä¸ºLEGEND_LEFT, LEGEND_RIGHT, LEGEND_TOP,
 	 *         LEGEND_BOTTOM, LEGEND_NONE
 	 */
 	public byte getLegendLocation() {
@@ -913,10 +913,10 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼µÄÍ¼ÀıÎ»ÖÃ
+	 * è®¾ç½®ç»Ÿè®¡å›¾çš„å›¾ä¾‹ä½ç½®
 	 * 
 	 * @param location
-	 *            Í³¼ÆÍ¼µÄÍ¼ÀıÎ»ÖÃ, È¡ÖµÎªLEGEND_LEFT, LEGEND_RIGHT, LEGEND_TOP,
+	 *            ç»Ÿè®¡å›¾çš„å›¾ä¾‹ä½ç½®, å–å€¼ä¸ºLEGEND_LEFT, LEGEND_RIGHT, LEGEND_TOP,
 	 *            LEGEND_BOTTOM, LEGEND_NONE
 	 */
 	public void setLegendLocation(byte location) {
@@ -924,132 +924,132 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÉèÖÃÍ¼Àı²¼¾ÖµÄ×İÏò¼äÏ¶
-	 * @param gap ¼äÏ¶Öµ
+	 * è®¾ç½®å›¾ä¾‹å¸ƒå±€çš„çºµå‘é—´éš™
+	 * @param gap é—´éš™å€¼
 	 */
 	public void setLegendVerticalGap(int gap){
 		this.legendVerticalGap = gap;
 	}
 	/**
-	 * È¡Í¼ÀıµÄ×İÏò¼äÏ¶Öµ
-	 * @return int ¼äÏ¶Öµ
+	 * å–å›¾ä¾‹çš„çºµå‘é—´éš™å€¼
+	 * @return int é—´éš™å€¼
 	 */
 	public int getLegendVerticalGap(){
 		return legendVerticalGap;
 	}
 	
 	/**
-	 * ÉèÖÃÍ¼ÀıµÄºáÏò¼äÏ¶Öµ
-	 * @param gap ¼äÏ¶Öµ
+	 * è®¾ç½®å›¾ä¾‹çš„æ¨ªå‘é—´éš™å€¼
+	 * @param gap é—´éš™å€¼
 	 */
 	public void setLegendHorizonGap(int gap){
 		this.legendHorizonGap = gap;
 	}
 	
 	/**
-	 * È¥Í¼ÀıºáÏò¼äÏ¶Öµ
-	 * @return ¼äÏ¶Öµ
+	 * å»å›¾ä¾‹æ¨ªå‘é—´éš™å€¼
+	 * @return é—´éš™å€¼
 	 */
 	public int getLegendHorizonGap(){
 		return legendHorizonGap;
 	}
 
 	/**
-	 * Í¼ÀıÊÇ·ñ°´ÕÕÏµÁĞ»æÖÆ
-	 * @return °´ÏµÁĞ»æÖÆÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å›¾ä¾‹æ˜¯å¦æŒ‰ç…§ç³»åˆ—ç»˜åˆ¶
+	 * @return æŒ‰ç³»åˆ—ç»˜åˆ¶æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean getDrawLegendBySery() {
 		return drawLegendBySery;
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ°´ÕÕÏµÁĞÖµ»æÖÆÍ¼Àı
-	 * @param b ÊÇ·ñ°´ÏµÁĞ»æÍ¼Àı
+	 * è®¾ç½®æ˜¯å¦æŒ‰ç…§ç³»åˆ—å€¼ç»˜åˆ¶å›¾ä¾‹
+	 * @param b æ˜¯å¦æŒ‰ç³»åˆ—ç»˜å›¾ä¾‹
 	 */
 	public void setDrawLegendBySery(boolean b) {
 		this.drawLegendBySery = b;
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû
+	 * å–ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå
 	 * 
-	 * @return String¡¡Í³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû
+	 * @return Stringã€€ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå
 	 */
 	public String getColorConfig() {
 		return colorConfig;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû
+	 * è®¾ç½®ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå
 	 * 
 	 * @param config
-	 *            Í³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû
+	 *            ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå
 	 */
 	public void setColorConfig(String config) {
 		this.colorConfig = config;
 	}
 
 	/**
-	 * È¡Í³¼ÆÖµÆğÊ¼Öµ
+	 * å–ç»Ÿè®¡å€¼èµ·å§‹å€¼
 	 * 
-	 * @return String¡¡Í³¼ÆÖµÆğÊ¼Öµ
+	 * @return Stringã€€ç»Ÿè®¡å€¼èµ·å§‹å€¼
 	 */
 	public String getYStartValue() {
 		return yStartValue;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÖµÆğÊ¼Öµ
+	 * è®¾ç½®ç»Ÿè®¡å€¼èµ·å§‹å€¼
 	 * 
 	 * @param value
-	 *            Í³¼ÆÖµÆğÊ¼Öµ, Ë«ÖáÍ¼Ê±ÓÃ·ÖºÅ¸ô¿ª
+	 *            ç»Ÿè®¡å€¼èµ·å§‹å€¼, åŒè½´å›¾æ—¶ç”¨åˆ†å·éš”å¼€
 	 */
 	public void setYStartValue(String value) {
 		this.yStartValue = value;
 	}
 
 	/**
-	 * È¡Í³¼ÆÖµ½áÊøÖµ
+	 * å–ç»Ÿè®¡å€¼ç»“æŸå€¼
 	 * 
-	 * @return String¡¡Í³¼ÆÖµ½áÊøÖµ
+	 * @return Stringã€€ç»Ÿè®¡å€¼ç»“æŸå€¼
 	 */
 	public String getYEndValue() {
 		return yEndValue;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÖµ½áÊøÖµ
+	 * è®¾ç½®ç»Ÿè®¡å€¼ç»“æŸå€¼
 	 * 
 	 * @param value
-	 *            Í³¼ÆÖµ½áÊøÖµ, Ë«ÖáÍ¼Ê±ÓÃ·ÖºÅ¸ô¿ª
+	 *            ç»Ÿè®¡å€¼ç»“æŸå€¼, åŒè½´å›¾æ—¶ç”¨åˆ†å·éš”å¼€
 	 */
 	public void setYEndValue(String value) {
 		this.yEndValue = value;
 	}
 
 	/**
-	 * È¡Í³¼ÆÖµ±êÇ©¼ä¸ô
+	 * å–ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš”
 	 * 
-	 * @return String¡¡Í³¼ÆÖµ±êÇ©¼ä¸ô
+	 * @return Stringã€€ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš”
 	 */
 	public String getYInterval() {
 		return yInterval;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÖµ±êÇ©¼ä¸ô
+	 * è®¾ç½®ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš”
 	 * 
 	 * @param interval
-	 *            Í³¼ÆÖµ±êÇ©¼ä¸ô£¬Ë«ÖáÍ¼Ê±ÓÃ·ÖºÅ¸ô¿ª
+	 *            ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš”ï¼ŒåŒè½´å›¾æ—¶ç”¨åˆ†å·éš”å¼€
 	 */
 	public void setYInterval(String interval) {
 		this.yInterval = interval;
 	}
 
 	/**
-	 * È¡Í³¼ÆÖµÊıÁ¿µ¥Î»
+	 * å–ç»Ÿè®¡å€¼æ•°é‡å•ä½
 	 * 
-	 * @return double¡¡Í³¼ÆÖµÊıÁ¿µ¥Î»£¬ÖµÎªUNIT_ORIGIN, UNIT_AUTO, UNIT_THOUSAND,
+	 * @return doubleã€€ç»Ÿè®¡å€¼æ•°é‡å•ä½ï¼Œå€¼ä¸ºUNIT_ORIGIN, UNIT_AUTO, UNIT_THOUSAND,
 	 *         UNIT_10THOUSAND, UNIT_MILLION, UNIT_10MILLION, UNIT_100MILLION,
 	 *         UNIT_BILLION, UNIT_001, UNIT_0001, UNIT_00001, UNIT_0000001
 	 */
@@ -1058,10 +1058,10 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÖµÊıÁ¿µ¥Î»
+	 * è®¾ç½®ç»Ÿè®¡å€¼æ•°é‡å•ä½
 	 * 
 	 * @param unit
-	 *            Í³¼ÆÖµÊıÁ¿µ¥Î»£¬È¡ÖµÎªUNIT_ORIGIN, UNIT_AUTO, UNIT_THOUSAND,
+	 *            ç»Ÿè®¡å€¼æ•°é‡å•ä½ï¼Œå–å€¼ä¸ºUNIT_ORIGIN, UNIT_AUTO, UNIT_THOUSAND,
 	 *            UNIT_10THOUSAND, UNIT_MILLION, UNIT_10MILLION,
 	 *            UNIT_100MILLION, UNIT_BILLION, UNIT_001, UNIT_0001,
 	 *            UNIT_00001, UNIT_0000001
@@ -1071,245 +1071,245 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * È¡Í³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı
+	 * å–ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•°
 	 * 
-	 * @return String¡¡Í³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı
+	 * @return Stringã€€ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•°
 	 */
 	public int getYMinMarks() {
 		return yMinMarks;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı
+	 * è®¾ç½®ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•°
 	 * 
 	 * @param marks
-	 *            Í³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı
+	 *            ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•°
 	 */
 	public void setYMinMarks(int marks) {
 		this.yMinMarks = marks;
 	}
 
 	/**
-	 * È¡±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à
+	 * å–æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è·
 	 * 
-	 * @return String¡¡±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à
+	 * @return Stringã€€æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è·
 	 */
 	public int getTitleMargin() {
 		return titleMargin;
 	}
 
 	/**
-	 * ÉèÖÃ±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à
+	 * è®¾ç½®æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è·
 	 * 
 	 * @param margin
-	 *            ±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à
+	 *            æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è·
 	 */
 	public void setTitleMargin(int margin) {
 		this.titleMargin = margin;
 	}
 
 	/**
-	 * È¡ÕÛÏßÍ¼ÊÇ·ñ±ê×¢Êı¾İµã
+	 * å–æŠ˜çº¿å›¾æ˜¯å¦æ ‡æ³¨æ•°æ®ç‚¹
 	 * 
-	 * @return boolean »æÖÆÊı¾İµãÊ±·µ»Øtrue£¬·ñÔòfalse
+	 * @return boolean ç»˜åˆ¶æ•°æ®ç‚¹æ—¶è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isDrawLineDot() {
 		return drawLineDot;
 	}
 
 	/**
-	 * ÕÛÏßÍ¼ÊÇ·ñ»­Ç÷ÊÆÏß
+	 * æŠ˜çº¿å›¾æ˜¯å¦ç”»è¶‹åŠ¿çº¿
 	 * 
-	 * @return boolean »æÖÆÇ÷ÊÆÏßÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * @return boolean ç»˜åˆ¶è¶‹åŠ¿çº¿æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isDrawLineTrend() {
 		return drawLineTrend;
 	}
 
 	/**
-	 * ÕÛÏßÍ¼µÄ´ÖÏ¸¶È
+	 * æŠ˜çº¿å›¾çš„ç²—ç»†åº¦
 	 * 
-	 * @return byte ´Ö¶È
+	 * @return byte ç²—åº¦
 	 */
 	public byte getLineThick() {
 		return lineThick;
 	}
 
 	/**
-	 * È¡ÕÛÏßµÄÏßĞÍ·ç¸ñ
-	 * @return ·ç¸ñ
+	 * å–æŠ˜çº¿çš„çº¿å‹é£æ ¼
+	 * @return é£æ ¼
 	 */
 	public byte getLineStyle() {
 		return lineStyle;
 	}
 
 	/**
-	 * ÉèÖÃÕÛÏßÍ¼ÊÇ·ñ±ê×¢Êı¾İµã
+	 * è®¾ç½®æŠ˜çº¿å›¾æ˜¯å¦æ ‡æ³¨æ•°æ®ç‚¹
 	 * 
-	 * @param b ÊÇ·ñ±ê×¢
+	 * @param b æ˜¯å¦æ ‡æ³¨
 	 */
 	public void setDrawLineDot(boolean b) {
 		this.drawLineDot = b;
 	}
 
 	/**
-	 * ÉèÖÃÔ­µãÖØºÏ
-	 * @param b ÊÇ·ñÖØºÏ
+	 * è®¾ç½®åŸç‚¹é‡åˆ
+	 * @param b æ˜¯å¦é‡åˆ
 	 */
 	public void setOverlapOrigin(boolean b) {
 		this.isOverlapOrigin = b;
 	}
 	
 	/**
-	 * È¡Ô­µãÊÇ·ñÖØºÏ
-	 * @return ÖØºÏÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å–åŸç‚¹æ˜¯å¦é‡åˆ
+	 * @return é‡åˆæ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isOverlapOrigin() {
 		return isOverlapOrigin;
 	}
 	
 	/**
-	 * ÉèÖÃÕÛÏßÍ¼ÊÇ·ñ»­Ç÷ÊÆÏß
+	 * è®¾ç½®æŠ˜çº¿å›¾æ˜¯å¦ç”»è¶‹åŠ¿çº¿
 	 * 
-	 * @param b ÊÇ·ñ»­Ç÷ÊÆÏß
+	 * @param b æ˜¯å¦ç”»è¶‹åŠ¿çº¿
 	 */
 	public void setDrawLineTrend(boolean b) {
 		this.drawLineTrend = b;
 	}
 
 	/**
-	 * ÉèÖÃÕÛÏßÍ¼´ÖÏ¸¶È
+	 * è®¾ç½®æŠ˜çº¿å›¾ç²—ç»†åº¦
 	 * 
-	 * @byte thick ´Ö¶È
+	 * @byte thick ç²—åº¦
 	 */
 	public void setLineThick(byte thick) {
 		this.lineThick = thick;
 	}
 
 	/**
-	 * ÉèÖÃÕÛÏßÍ¼µÄÏßĞÍ
-	 * @param style  ÏßĞÍ
+	 * è®¾ç½®æŠ˜çº¿å›¾çš„çº¿å‹
+	 * @param style  çº¿å‹
 	 */
 	public void setLineStyle(byte style) {
 		this.lineStyle = style;
 	}
 
 	/**
-	 * È¡ÏàÁÚÊıÖµ»ò±êÇ©ÖØµşÊ±ÊÇ·ñÏÔÊ¾ºóÒ»ÊıÖµ»ò±êÇ©
+	 * å–ç›¸é‚»æ•°å€¼æˆ–æ ‡ç­¾é‡å æ—¶æ˜¯å¦æ˜¾ç¤ºåä¸€æ•°å€¼æˆ–æ ‡ç­¾
 	 * 
-	 * @return boolean ÔÊĞíÎÄ±¾ÖØµşÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * @return boolean å…è®¸æ–‡æœ¬é‡å æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isShowOverlapText() {
 		return showOverlapText;
 	}
 
 	/**
-	 * ÉèÖÃÏàÁÚÊıÖµ»ò±êÇ©ÖØµşÊ±ÊÇ·ñÏÔÊ¾ºóÒ»ÊıÖµ»ò±êÇ©
+	 * è®¾ç½®ç›¸é‚»æ•°å€¼æˆ–æ ‡ç­¾é‡å æ—¶æ˜¯å¦æ˜¾ç¤ºåä¸€æ•°å€¼æˆ–æ ‡ç­¾
 	 * 
-	 * @param b ÊÇ·ñÔÊĞíÎÄ±¾ÖØµş»æÖÆ
+	 * @param b æ˜¯å¦å…è®¸æ–‡æœ¬é‡å ç»˜åˆ¶
 	 */
 	public void setShowOverlapText(boolean b) {
 		this.showOverlapText = b;
 	}
 
 	/**
-	 * È¡±ıÍ¼ÖĞÊÇ·ñ·ÖÀë³öÒ»ÉÈÏÔÊ¾
+	 * å–é¥¼å›¾ä¸­æ˜¯å¦åˆ†ç¦»å‡ºä¸€æ‰‡æ˜¾ç¤º
 	 * 
-	 * @return boolean ÊÇ·ñ·ÖÀë
+	 * @return boolean æ˜¯å¦åˆ†ç¦»
 	 */
 	public boolean isPieSpacing() {
 		return pieSpacing;
 	}
 
 	/**
-	 * ÒÇ±íÅÌ×ÅÉ«ÊÇ·ñ½«¿Ì¶È»æÖÆµ½ÑÕÉ«Ä©¶Ë
-	 * ±ÈÈç¶¨Òå20¶ÈÎªÂÌÉ«±íÊ¾ÊæÊÊ£¬30¶ÈÎªºìÉ«±íÊ¾Ñ×ÈÈ
-	 * Ôò°´ÕÕÄ©¶Ë»æÖÆÔòÎªÇø¼ä0µ½20»­ÂÌÉ«£¬20µ½30»­ºìÉ«
-	 * ¶ø·ÇÄ©¶ËÊ±Ö¸¿Ì¶ÈÎ»ÓÚÑÕÉ«ÖĞ¼ä£¬´ËÊ±15µ½25»­ÂÌÉ«£¬ÈÃ20Î»ÓÚÑÕÉ«ÖĞ¼ä£»¶ø25µ½30²Å»­ºìÉ«¡£
+	 * ä»ªè¡¨ç›˜ç€è‰²æ˜¯å¦å°†åˆ»åº¦ç»˜åˆ¶åˆ°é¢œè‰²æœ«ç«¯
+	 * æ¯”å¦‚å®šä¹‰20åº¦ä¸ºç»¿è‰²è¡¨ç¤ºèˆ’é€‚ï¼Œ30åº¦ä¸ºçº¢è‰²è¡¨ç¤ºç‚çƒ­
+	 * åˆ™æŒ‰ç…§æœ«ç«¯ç»˜åˆ¶åˆ™ä¸ºåŒºé—´0åˆ°20ç”»ç»¿è‰²ï¼Œ20åˆ°30ç”»çº¢è‰²
+	 * è€Œéæœ«ç«¯æ—¶æŒ‡åˆ»åº¦ä½äºé¢œè‰²ä¸­é—´ï¼Œæ­¤æ—¶15åˆ°25ç”»ç»¿è‰²ï¼Œè®©20ä½äºé¢œè‰²ä¸­é—´ï¼›è€Œ25åˆ°30æ‰ç”»çº¢è‰²ã€‚
 	 */
 	public boolean isMeterColorEnd() {
 		return isMeterColorEnd;
 	}
 	/**
-	 * ÊÇ·ñ»æÖÆÒÇ±íÅÌ¿Ì¶È±êÇ©
-	 * ²»»­¿Ì¶ÈÊ±½ö±ê³ö¶¨ÒåµÄ±êÇ©
+	 * æ˜¯å¦ç»˜åˆ¶ä»ªè¡¨ç›˜åˆ»åº¦æ ‡ç­¾
+	 * ä¸ç”»åˆ»åº¦æ—¶ä»…æ ‡å‡ºå®šä¹‰çš„æ ‡ç­¾
 	 */
 	public boolean isMeterTick() {
 		return isMeterTick;
 	}
 	/**
-	 * ÉèÖÃÊÇ·ñ»æÖÆÒÇ±íÅÌ¿Ì¶È±êÇ©
-	 * @param b ÊÇ·ñ»æÖÆ
+	 * è®¾ç½®æ˜¯å¦ç»˜åˆ¶ä»ªè¡¨ç›˜åˆ»åº¦æ ‡ç­¾
+	 * @param b æ˜¯å¦ç»˜åˆ¶
 	 */
 	public void setMeterTick(boolean b){
 		isMeterTick = b;
 	}
 	
 	/**
-	 * È¡ÒÇ±íÅÌ3d±ß¿òºñ¶È
+	 * å–ä»ªè¡¨ç›˜3dè¾¹æ¡†åšåº¦
 	 */
 	public int getMeter3DEdge() {
 		return meter3DEdge;
 	}
 	
 	/**
-	 * È¡ÒÇ±íÅÌ²Êºç±ßºñ¶È
+	 * å–ä»ªè¡¨ç›˜å½©è™¹è¾¹åšåº¦
 	 */
 	public int getMeterRainbowEdge() {
 		return meterRainbowEdge;
 	}
 	/**
-	 * È¡±ıÍ¼µÄÁ¬½ÓÏß
+	 * å–é¥¼å›¾çš„è¿æ¥çº¿
 	 */
 	public int getPieLine() {
 		return pieLine;
 	}
 	
 	/**
-	 * ¶Ñ»ıÍ¼ĞÎÊ±£¬ÊÇ·ñÏÔÊ¾»ã×ÜÖµ
+	 * å †ç§¯å›¾å½¢æ—¶ï¼Œæ˜¯å¦æ˜¾ç¤ºæ±‡æ€»å€¼
 	 */
 	public boolean isDispStackSumValue(){
 		return isDispStackSumValue;
 	}
 	/**
-	 * ÉèÖÃ¶Ñ»ıÍ¼Ê±ÊÇ·ñ»æÖÆ»ã×ÜÖµ
-	 * @param b ÊÇ·ñ»æÖÆ
+	 * è®¾ç½®å †ç§¯å›¾æ—¶æ˜¯å¦ç»˜åˆ¶æ±‡æ€»å€¼
+	 * @param b æ˜¯å¦ç»˜åˆ¶
 	 */
 	public void setDispStackSumValue(boolean b){
 		isDispStackSumValue = b;
 	}
 	 
 	/**
-	 * ÉèÖÃ±ıÍ¼ÖĞÊÇ·ñ·ÖÀë³öÒ»ÉÈÏÔÊ¾
+	 * è®¾ç½®é¥¼å›¾ä¸­æ˜¯å¦åˆ†ç¦»å‡ºä¸€æ‰‡æ˜¾ç¤º
 	 * 
 	 * @param b
-	 *            ±ıÍ¼ÖĞÊÇ·ñ·ÖÀë³öÒ»ÉÈÏÔÊ¾
+	 *            é¥¼å›¾ä¸­æ˜¯å¦åˆ†ç¦»å‡ºä¸€æ‰‡æ˜¾ç¤º
 	 */
 	public void setPieSpacing(boolean b) {
 		this.pieSpacing = b;
 	}
 
 	/**
-	 * È¡·ÖÀàÖá±êÇ©¼ä¸ô
+	 * å–åˆ†ç±»è½´æ ‡ç­¾é—´éš”
 	 * 
-	 * @return String¡¡·ÖÀàÖá±êÇ©¼ä¸ô
+	 * @return Stringã€€åˆ†ç±»è½´æ ‡ç­¾é—´éš”
 	 */
 	public int getXInterval() {
 		return xInterval;
 	}
 
 	/**
-	 * ÉèÖÃ·ÖÀàÖá±êÇ©¼ä¸ô
+	 * è®¾ç½®åˆ†ç±»è½´æ ‡ç­¾é—´éš”
 	 * 
 	 * @param interval
-	 *            ·ÖÀàÖá±êÇ©¼ä¸ô
+	 *            åˆ†ç±»è½´æ ‡ç­¾é—´éš”
 	 */
 	public void setXInterval(int interval) {
 		this.xInterval = interval;
 	}
 
 	/**
-	 * ÕÛÏßÍ¼ÊÇ·ñºöÂÔ¿ÕÖµ
+	 * æŠ˜çº¿å›¾æ˜¯å¦å¿½ç•¥ç©ºå€¼
 	 * 
 	 * @return boolean
 	 */
@@ -1318,7 +1318,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÉèÖÃÕÛÏßÍ¼ÊÇ·ñºöÂÔ¿ÕÖµ
+	 * è®¾ç½®æŠ˜çº¿å›¾æ˜¯å¦å¿½ç•¥ç©ºå€¼
 	 * 
 	 * @param b
 	 */
@@ -1327,38 +1327,38 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÊÇ·ñ»­ÒõÓ°
+	 * æ˜¯å¦ç”»é˜´å½±
 	 */
 	public boolean isDrawShade() {
 		return drawShade;
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ»­ÒõÓ°
-	 * @param isDrawShade ÊÇ·ñ»­ÒõÓ°
+	 * è®¾ç½®æ˜¯å¦ç”»é˜´å½±
+	 * @param isDrawShade æ˜¯å¦ç”»é˜´å½±
 	 */
 	public void setDrawShade(boolean isDrawShade) {
 		drawShade = isDrawShade;
 	}
 
 	/**
-	 * ÖùÍ¼ĞÎÊ½£¬ÊÇ·ñ»­Í¹³ö±ß¿ò
+	 * æŸ±å›¾å½¢å¼ï¼Œæ˜¯å¦ç”»å‡¸å‡ºè¾¹æ¡†
 	 */
 	public boolean isRaisedBorder() {
 		return raisedBorder;
 	}
 
 	/**
-	 * ÉèÖÃÖùÍ¼ÊÇ·ñ»æÖÆÍ¹³ö±ß¿ò
-	 * @param isRaisedBorder ÊÇ·ñÍ¹³ö±ß¿ò
+	 * è®¾ç½®æŸ±å›¾æ˜¯å¦ç»˜åˆ¶å‡¸å‡ºè¾¹æ¡†
+	 * @param isRaisedBorder æ˜¯å¦å‡¸å‡ºè¾¹æ¡†
 	 */
 	public void setRaisedBorder(boolean isRaisedBorder) {
 		raisedBorder = isRaisedBorder;
 	}
 
 	/**
-	 * ¿ÉÓÃÓÚÀ©³äµÄ±êÖ¾Î»£¬ÕûÌå»ñÈ¡Ê±ÎŞÒâÒå
-	 * ²Î¿¼getFlag(prop)
+	 * å¯ç”¨äºæ‰©å……çš„æ ‡å¿—ä½ï¼Œæ•´ä½“è·å–æ—¶æ— æ„ä¹‰
+	 * å‚è€ƒgetFlag(prop)
 	 * @return
 	 */
 	public long getFlag() {
@@ -1366,25 +1366,25 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÉèÖÃ±êÖ¾Î»
-	 * @param newFlag ±êÖ¾Î»
+	 * è®¾ç½®æ ‡å¿—ä½
+	 * @param newFlag æ ‡å¿—ä½
 	 */
 	public void setFlag(long newFlag) {
 		flag = newFlag;
 	}
 
 	/**
-	 * »ñÈ¡±êÖ¾Î»ÊôĞÔ£¬¿ÉÀ©³ä
-	 * Ä¿Ç°Ö»ÊµÏÖFLAG_DISCARDOTHER
+	 * è·å–æ ‡å¿—ä½å±æ€§ï¼Œå¯æ‰©å……
+	 * ç›®å‰åªå®ç°FLAG_DISCARDOTHER
 	 */
 	public boolean getFlag(byte prop) {
 		return (this.flag & (0x01 << prop)) != 0;
 	}
 
 	/**
-	 * ÉèÖÃ±êÖ¾Î»µÄ²¼¶ûÖµ
-	 * @param prop ±êÖ¾Î»
-	 * @param isOn ²¼¶û×´Ì¬
+	 * è®¾ç½®æ ‡å¿—ä½çš„å¸ƒå°”å€¼
+	 * @param prop æ ‡å¿—ä½
+	 * @param isOn å¸ƒå°”çŠ¶æ€
 	 */
 	public void setFlag(byte prop, boolean isOn) {
 		if (isOn) {
@@ -1395,44 +1395,44 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * È¡±³¾°Í¼ÅäÖÃ
-	 * @return ±³¾°Í¼ÅäÖÃ
+	 * å–èƒŒæ™¯å›¾é…ç½®
+	 * @return èƒŒæ™¯å›¾é…ç½®
 	 */
 	public BackGraphConfig getBackGraphConfig() {
 		return backGraph;
 	}
 
 	/**
-	 * ÉèÖÃ±³¾°Í¼ÅäÖÃ
-	 * @param backGraphConfig ±³¾°Í¼¶ÔÏó
+	 * è®¾ç½®èƒŒæ™¯å›¾é…ç½®
+	 * @param backGraphConfig èƒŒæ™¯å›¾å¯¹è±¡
 	 */
 	public void setBackGraphConfig(BackGraphConfig backGraphConfig) {
 		backGraph = backGraphConfig;
 	}
 
 	/**
-	 * È¡Í¼ĞÎËÄ±ßÒÔ¼°Í¼ÀıµÄÑÕÉ«Êı×é
+	 * å–å›¾å½¢å››è¾¹ä»¥åŠå›¾ä¾‹çš„é¢œè‰²æ•°ç»„
 	 */
 	public int[] getAxisColors() {
 		return axisColors;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎËÄ±ßÖáÒÔ¼°Í¼ÀıµÄÑÕÉ«Êı×é
+	 * è®¾ç½®å›¾å½¢å››è¾¹è½´ä»¥åŠå›¾ä¾‹çš„é¢œè‰²æ•°ç»„
 	 */
 	public void setAxisColors(int[] colors) {
 		axisColors = colors;
 	}
 
 	/**
-	 * È¡Í¼ĞÎ×ó±ß¾à
+	 * å–å›¾å½¢å·¦è¾¹è·
 	 */
 	public int getLeftMargin() {
 		return leftMargin;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎµÄ×ó±ß¾à
+	 * è®¾ç½®å›¾å½¢çš„å·¦è¾¹è·
 	 * @param leftMargin
 	 */
 	public void setLeftMargin(int leftMargin) {
@@ -1440,143 +1440,143 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * È¡Í¼ĞÎµÄÓÒ±ß¾à
+	 * å–å›¾å½¢çš„å³è¾¹è·
 	 */
 	public int getRightMargin() {
 		return rightMargin;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎµÄÓÒ±ß¾à
-	 * @param rightMargin ÓÒ±ß¾à
+	 * è®¾ç½®å›¾å½¢çš„å³è¾¹è·
+	 * @param rightMargin å³è¾¹è·
 	 */
 	public void setRightMargin(int rightMargin) {
 		this.rightMargin = rightMargin;
 	}
 
 	/**
-	 * È¡Í¼ĞÎµÄ¶¥±ß¾à
+	 * å–å›¾å½¢çš„é¡¶è¾¹è·
 	 */
 	public int getTopMargin() {
 		return topMargin;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎµÄ¶¥±ß¾à
-	 * @param topMargin ¶¥±ß¾à
+	 * è®¾ç½®å›¾å½¢çš„é¡¶è¾¹è·
+	 * @param topMargin é¡¶è¾¹è·
 	 */
 	public void setTopMargin(int topMargin) {
 		this.topMargin = topMargin;
 	}
 
 	/**
-	 * È¡Í¼ĞÎµÄµ×±ß¾à
+	 * å–å›¾å½¢çš„åº•è¾¹è·
 	 */
 	public int getBottomMargin() {
 		return bottomMargin;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎµÄµ×±ß¾à
-	 * @param bottomMargin µ×±ß¾à
+	 * è®¾ç½®å›¾å½¢çš„åº•è¾¹è·
+	 * @param bottomMargin åº•è¾¹è·
 	 */
 	public void setBottomMargin(int bottomMargin) {
 		this.bottomMargin = bottomMargin;
 	}
 
 	/**
-	 * È¡¿Ì¶ÈµÄ»æÖÆ³¤¶È
+	 * å–åˆ»åº¦çš„ç»˜åˆ¶é•¿åº¦
 	 */
 	public int getTickLen() {
 		return tickLen;
 	}
 
 	/**
-	 * ÉèÖÃ¿Ì¶ÈµÄ»æÖÆ³¤¶È
-	 * @param tickLen ³¤¶È
+	 * è®¾ç½®åˆ»åº¦çš„ç»˜åˆ¶é•¿åº¦
+	 * @param tickLen é•¿åº¦
 	 */
 	public void setTickLen(int tickLen) {
 		this.tickLen = tickLen;
 	}
 
 	/**
-	 * È¡×ø±êÏµºñ¶È
+	 * å–åæ ‡ç³»åšåº¦
 	 */
 	public int getCoorWidth() {
 		return coorWidth;
 	}
 
 	/**
-	 * »ñÈ¡×ø±êÏµºñ¶È
-	 * @param coorWidth ºñ¶ÈÖµ
+	 * è·å–åæ ‡ç³»åšåº¦
+	 * @param coorWidth åšåº¦å€¼
 	 */
 	public void setCoorWidth(int coorWidth) {
 		this.coorWidth = coorWidth;
 	}
 
 	/**
-	 * È¡Í¼ĞÎ·ÖÀàµÄ¼äÏ¶Öµ
+	 * å–å›¾å½¢åˆ†ç±»çš„é—´éš™å€¼
 	 */
 	public double getCategorySpan() {
 		return categorySpan;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎ·ÖÀàÖµÖ®¼äµÄ¼äÏ¶
-	 * @param categorySpan ¼äÏ¶Öµ
+	 * è®¾ç½®å›¾å½¢åˆ†ç±»å€¼ä¹‹é—´çš„é—´éš™
+	 * @param categorySpan é—´éš™å€¼
 	 */
 	public void setCategorySpan(double categorySpan) {
 		this.categorySpan = categorySpan;
 	}
 
 	/**
-	 * È¡ÏàÁÚÏµÁĞÖ®¼äµÄ¼äÏ¶Öµ
+	 * å–ç›¸é‚»ç³»åˆ—ä¹‹é—´çš„é—´éš™å€¼
 	 */
 	public int getSeriesSpan() {
 		return seriesSpan;
 	}
 
 	/**
-	 * ÉèÖÃÏµÁĞÖ®¼äµÄ¼äÏ¶Öµ
-	 * @param seriesSpan ¼äÏ¶Öµ
+	 * è®¾ç½®ç³»åˆ—ä¹‹é—´çš„é—´éš™å€¼
+	 * @param seriesSpan é—´éš™å€¼
 	 */
 	public void setSeriesSpan(int seriesSpan) {
 		this.seriesSpan = seriesSpan;
 	}
 
 	/**
-	 * È¡±ıÍ¼µÄĞı×ª½Ç¶È
+	 * å–é¥¼å›¾çš„æ—‹è½¬è§’åº¦
 	 */
 	public int getPieRotation() {
 		return pieRotation;
 	}
 
 	/**
-	 * ÉèÖÃ±ıÍ¼µÄĞı×ª½Ç¶È
-	 * @param pieRotation ½Ç¶È
+	 * è®¾ç½®é¥¼å›¾çš„æ—‹è½¬è§’åº¦
+	 * @param pieRotation è§’åº¦
 	 */
 	public void setPieRotation(int pieRotation) {
 		this.pieRotation = pieRotation;
 	}
 
 	/**
-	 * È¡Á¢Ìå±ıÍ¼µÄ¸ß¶È
+	 * å–ç«‹ä½“é¥¼å›¾çš„é«˜åº¦
 	 */
 	public int getPieHeight() {
 		return pieHeight;
 	}
 
 	/**
-	 * ÉèÖÃÁ¢Ìå±ıÍ¼µÄ¸ß¶È
-	 * @param pieHeight ¸ß¶ÈÖµ
+	 * è®¾ç½®ç«‹ä½“é¥¼å›¾çš„é«˜åº¦
+	 * @param pieHeight é«˜åº¦å€¼
 	 */
 	public void setPieHeight(int pieHeight) {
 		this.pieHeight = pieHeight;
 	}
 
 	/**
-	 * ÉèÖÃ¹²ÓĞÊôĞÔ
-	 * @param pp ¹²ÓĞÊôĞÔ
+	 * è®¾ç½®å…±æœ‰å±æ€§
+	 * @param pp å…±æœ‰å±æ€§
 	 */
 	public void setPublicProperty(PublicProperty pp){
 		type=pp.getType();
@@ -1662,9 +1662,9 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 	
 	/**
-	 * Éî¶È¿ËÂ¡
+	 * æ·±åº¦å…‹éš†
 	 * 
-	 * @return Object ¿ËÂ¡µÄÍ¼ĞÎÊôĞÔ
+	 * @return Object å…‹éš†çš„å›¾å½¢å±æ€§
 	 */
 	public Object deepClone() {
 		GraphProperty gp = new GraphProperty();
@@ -1673,7 +1673,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * °´°æ±¾ĞòÁĞ»¯
+	 * æŒ‰ç‰ˆæœ¬åºåˆ—åŒ–
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		out.writeByte(10);
@@ -1755,7 +1755,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * °´°æ±¾·´ĞòÁĞ»¯
+	 * æŒ‰ç‰ˆæœ¬ååºåˆ—åŒ–
 	 */
 	public void readExternal(ObjectInput in) throws IOException,
 			ClassNotFoundException {
@@ -1856,7 +1856,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public byte[] serialize() throws IOException {
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -1957,7 +1957,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public void fillRecord(byte[] buf) throws IOException,
 			ClassNotFoundException {
@@ -2070,50 +2070,50 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	}
 
 	/**
-	 * ÉèÖÃÆäËû¶Ñ»ıÏµÁĞ
-	 * ±ÈÈç¹²ÓĞÓïÎÄÊıÑ§Ó¢ÓïµÈ7ÃÅ¿Î£¬ÏÖÔÚÖ»¹Ø×¢ÓïÎÄÊıÑ§£¬ÆäËûµÄ¿Î³Ì¿ÉÒÔ»ã×ÜÔÚÒ»Æğ£¬ÁĞÔÚÆäËûÏµÁĞ
+	 * è®¾ç½®å…¶ä»–å †ç§¯ç³»åˆ—
+	 * æ¯”å¦‚å…±æœ‰è¯­æ–‡æ•°å­¦è‹±è¯­ç­‰7é—¨è¯¾ï¼Œç°åœ¨åªå…³æ³¨è¯­æ–‡æ•°å­¦ï¼Œå…¶ä»–çš„è¯¾ç¨‹å¯ä»¥æ±‡æ€»åœ¨ä¸€èµ·ï¼Œåˆ—åœ¨å…¶ä»–ç³»åˆ—
 	 */
 	public void setOtherStackedSeries(String other) {
 		this.otherStackedSeries = other;
 	}
 
 	/**
-	 * È¡ÆäËû¶Ñ»ıĞòÁĞ
+	 * å–å…¶ä»–å †ç§¯åºåˆ—
 	 */
 	public String getOtherStackedSeries() {
 		return otherStackedSeries;
 	}
 
 	/**
-	 * ºáÖá±êÌâµÄË®Æ½¶ÔÆë·½Ê½
+	 * æ¨ªè½´æ ‡é¢˜çš„æ°´å¹³å¯¹é½æ–¹å¼
 	 */
 	public byte getXTitleAlign() {
 		return IStyle.HALIGN_CENTER;
 	}
 	
 	/**
-	 * ×İÖá±êÌâµÄ´¹Ö±¶ÔÆë·½Ê½
+	 * çºµè½´æ ‡é¢˜çš„å‚ç›´å¯¹é½æ–¹å¼
 	 */
 	public byte getYTitleAlign() {
 		return IStyle.VALIGN_MIDDLE;
 	}
 
 	/**
-	 * Í¼ĞÎ±êÌâµÄË®Æ½¶ÔÆë·½Ê½
+	 * å›¾å½¢æ ‡é¢˜çš„æ°´å¹³å¯¹é½æ–¹å¼
 	 */
 	public byte getGraphTitleAlign() {
 		return IStyle.HALIGN_CENTER;
 	}
 
 	/**
-	 * Íø¸ñÏßÎ»ÖÃ
+	 * ç½‘æ ¼çº¿ä½ç½®
 	 */
 	public byte getGridLocation() {
 		return gridLineLocation;
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñÏßÎ»ÖÃ
+	 * è®¾ç½®ç½‘æ ¼çº¿ä½ç½®
 	 */
 	public void setGridLocation(byte loc) {
 		gridLineLocation = loc;

@@ -3,23 +3,23 @@ package com.scudata.thread;
 import com.scudata.common.RQException;
 
 /**
- * ÈÎÎñ¶ÔÏó£¬¿ÉÒÔÌá½»¸øThreadPool»òÕßJobThreadÖ´ĞĞ
+ * ä»»åŠ¡å¯¹è±¡ï¼Œå¯ä»¥æäº¤ç»™ThreadPoolæˆ–è€…JobThreadæ‰§è¡Œ
  * @author WangXiaoJun
  *
  */
 public abstract class Job implements Runnable {
-	private boolean isFinished; // ÈÎÎñÊÇ·ñÒÑÍê³É
-	private Throwable error; // ÈÎÎñÖ´ĞĞ¹ı³ÌÖĞµÄÒì³£ĞÅÏ¢£¬Ã»´íÎóÔòÎª¿Õ
+	private boolean isFinished; // ä»»åŠ¡æ˜¯å¦å·²å®Œæˆ
+	private Throwable error; // ä»»åŠ¡æ‰§è¡Œè¿‡ç¨‹ä¸­çš„å¼‚å¸¸ä¿¡æ¯ï¼Œæ²¡é”™è¯¯åˆ™ä¸ºç©º
 	
 	/**
-	 * µÈ´ıÈÎÎñÖ´ĞĞÍê
+	 * ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œ
 	 */
 	public final synchronized void join() {
 		if (!isFinished) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				// ide½áÊøÏß³Ì£¬´Ë´¦Å×³öÒì³£¿ÉÄÜµ¼ÖÂjvm±ÀÀ£
+				// ideç»“æŸçº¿ç¨‹ï¼Œæ­¤å¤„æŠ›å‡ºå¼‚å¸¸å¯èƒ½å¯¼è‡´jvmå´©æºƒ
 				//throw new RQException(e);
 			}
 		}

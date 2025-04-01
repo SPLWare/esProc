@@ -9,7 +9,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¿¨·½·Ö²¼ÄæÀÛ»ıº¯Êı
+ * å¡æ–¹åˆ†å¸ƒé€†ç´¯ç§¯å‡½æ•°
  * @author bd
  */
 public class Chi2Inv extends Function {

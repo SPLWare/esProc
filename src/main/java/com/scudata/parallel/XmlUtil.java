@@ -3,7 +3,7 @@ package com.scudata.parallel;
 import org.w3c.dom.*;
 
 /**
- * XMLÎÄ¼ş½âÎö¹¤¾ß
+ * XMLæ–‡ä»¶è§£æå·¥å…·
  * 
  * @author Joancy
  *
@@ -11,9 +11,9 @@ import org.w3c.dom.*;
 public class XmlUtil {
 
 	/**
-	 * »ñÈ¡½ÚµãÖµ
-	 * @param node ½Úµã
-	 * @return Öµ
+	 * è·å–èŠ‚ç‚¹å€¼
+	 * @param node èŠ‚ç‚¹
+	 * @return å€¼
 	 */
 	public static String getNodeValue(org.w3c.dom.Node node) {
 		if (node != null && node.getFirstChild() != null) {
@@ -23,10 +23,10 @@ public class XmlUtil {
 	}
 
 	/**
-	 * ¸ù¾İÃû×ÖsonName²éÕÒ×Ó½Úµã
-	 * @param pNode ¸¸½Úµã
-	 * @param sonName ×Ó½ÚµãÃû³Æ
-	 * @return ×Ó½Úµã£¬Ã»ÕÒµ½Ê±·µ»Ønull
+	 * æ ¹æ®åå­—sonNameæŸ¥æ‰¾å­èŠ‚ç‚¹
+	 * @param pNode çˆ¶èŠ‚ç‚¹
+	 * @param sonName å­èŠ‚ç‚¹åç§°
+	 * @return å­èŠ‚ç‚¹ï¼Œæ²¡æ‰¾åˆ°æ—¶è¿”å›null
 	 */
 	public static Node findSonNode(Node pNode, String sonName) {
 		NodeList list = pNode.getChildNodes();
@@ -40,10 +40,10 @@ public class XmlUtil {
 	}
 
 	/**
-	 * »ñÈ¡½ÚµãµÄÊôĞÔÖµ
-	 * @param node ½Úµã¶ÔÏó
-	 * @param attrName ÊôĞÔÃû³Æ
-	 * @return ÊôĞÔÖµ
+	 * è·å–èŠ‚ç‚¹çš„å±æ€§å€¼
+	 * @param node èŠ‚ç‚¹å¯¹è±¡
+	 * @param attrName å±æ€§åç§°
+	 * @return å±æ€§å€¼
 	 */
 	public static String getAttribute(Node node, String attrName) {
 		NamedNodeMap attrs = node.getAttributes();

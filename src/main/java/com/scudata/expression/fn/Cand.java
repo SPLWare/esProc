@@ -9,14 +9,14 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ¶Ô²ÎÊıÖ´ĞĞÂß¼­ÓëÔËËã
- * cand(x1,¡­)
+ * å¯¹å‚æ•°æ‰§è¡Œé€»è¾‘ä¸è¿ç®—
+ * cand(x1,â€¦)
  * @author RunQian
  *
  */
 public class Cand extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

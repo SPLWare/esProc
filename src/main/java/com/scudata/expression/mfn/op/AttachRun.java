@@ -7,8 +7,8 @@ import com.scudata.expression.OperableFunction;
 import com.scudata.expression.ParamInfo2;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼Ó¼ÆËã±í´ïÊ½ÔËËã
- * op.run(xi,¡­) op.run(xi:Fi:,¡­) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ è®¡ç®—è¡¨è¾¾å¼è¿ç®—
+ * op.run(xi,â€¦) op.run(xi:Fi:,â€¦) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */

@@ -3,17 +3,17 @@ package com.scudata.common;
 public final class Escape {
 
 /**
-*	Ïàµ±ÓÚµ÷ÓÃ add(str, '\\')
+*	ç›¸å½“äºè°ƒç”¨ add(str, '\\')
 */
 	public static String add( String str ) {
 		return add( str, '\\' );
 	}
 
 /**
-*   Îª¸ø¶¨µÄ×Ö·û(\t,\r,\n,\',\"¼°¶¨ÒåµÄescapeChar)´®Ôö¼ÓÖ¸¶¨µÄ×ªÒå·û£¬²¢·µ»ØĞÂ²úÉúµÄĞÂ´®
-*   @param str ĞèÒªÔö¼Ó×ªÒå·ûµÄ×Ö·û´®
-*   @param escapeChar ×ªÒå·û
-*   @return ĞÂ´®
+*   ä¸ºç»™å®šçš„å­—ç¬¦(\t,\r,\n,\',\"åŠå®šä¹‰çš„escapeChar)ä¸²å¢åŠ æŒ‡å®šçš„è½¬ä¹‰ç¬¦ï¼Œå¹¶è¿”å›æ–°äº§ç”Ÿçš„æ–°ä¸²
+*   @param str éœ€è¦å¢åŠ è½¬ä¹‰ç¬¦çš„å­—ç¬¦ä¸²
+*   @param escapeChar è½¬ä¹‰ç¬¦
+*   @return æ–°ä¸²
 */
 	public static String add( String str, char escapeChar ) {
 		if ( str == null )
@@ -57,23 +57,23 @@ public final class Escape {
 
 
 /**
-*   Îª¸ø¶¨µÄ×Ö·û´®Ôö¼ÓÖ¸¶¨µÄ×ªÒå·û£¬²¢·µ»ØĞÂ²úÉúµÄĞÂ´®
+*   ä¸ºç»™å®šçš„å­—ç¬¦ä¸²å¢åŠ æŒ‡å®šçš„è½¬ä¹‰ç¬¦ï¼Œå¹¶è¿”å›æ–°äº§ç”Ÿçš„æ–°ä¸²
 *
-*   @param str ĞèÒªÔö¼Ó×ªÒå·ûµÄ×Ö·û´®
-*	@param escapedChars ĞèÒª±»×ªÒåµÄ×Ö·û
-*   @return ĞÂ´®
+*   @param str éœ€è¦å¢åŠ è½¬ä¹‰ç¬¦çš„å­—ç¬¦ä¸²
+*	@param escapedChars éœ€è¦è¢«è½¬ä¹‰çš„å­—ç¬¦
+*   @return æ–°ä¸²
 */
 	public static String add( String str, String escapedChars ) {
 		return add( str, escapedChars, '\\');
 	}
 
 /**
-*   Îª¸ø¶¨µÄ×Ö·û´®Ôö¼ÓÖ¸¶¨µÄ×ªÒå·û£¬²¢·µ»ØĞÂ²úÉúµÄĞÂ´®
+*   ä¸ºç»™å®šçš„å­—ç¬¦ä¸²å¢åŠ æŒ‡å®šçš„è½¬ä¹‰ç¬¦ï¼Œå¹¶è¿”å›æ–°äº§ç”Ÿçš„æ–°ä¸²
 *
-*   @param str ĞèÒªÔö¼Ó×ªÒå·ûµÄ×Ö·û´®
-*	@param escapedChars ĞèÒª±»×ªÒåµÄ×Ö·û
-*   @param escapeChar ×ªÒå·û
-*   @return ĞÂ´®
+*   @param str éœ€è¦å¢åŠ è½¬ä¹‰ç¬¦çš„å­—ç¬¦ä¸²
+*	@param escapedChars éœ€è¦è¢«è½¬ä¹‰çš„å­—ç¬¦
+*   @param escapeChar è½¬ä¹‰ç¬¦
+*   @return æ–°ä¸²
 */
 	public static String add( String str, String escapedChars, char escapeChar ) {
 		if ( str == null )
@@ -165,18 +165,18 @@ public final class Escape {
 
 
 /**
-*	Ïàµ±ÓÚµ÷ÓÃ remove( str, '\\')
+*	ç›¸å½“äºè°ƒç”¨ remove( str, '\\')
 */
 	public static String remove( String str ) {
 		return remove( str, '\\' );
 	}
 
 /**
-*   ½«Ö¸¶¨µÄ×Ö·û´®ÒÆÈ¥Ö¸¶¨×ªÒå·û£¬²¢·µ»ØĞÂ²úÉúµÄĞÂ´®
+*   å°†æŒ‡å®šçš„å­—ç¬¦ä¸²ç§»å»æŒ‡å®šè½¬ä¹‰ç¬¦ï¼Œå¹¶è¿”å›æ–°äº§ç”Ÿçš„æ–°ä¸²
 *
-*   @param str ĞèÒªÒÆÈ¥×ªÒå·ûµÄ×Ö·û´®
-*   @param escapeChar ×ªÒå×Ö·û
-*   @return Ô­´®ÒÆÈ¥×ªÒå·ûºóµÄĞÂ´®
+*   @param str éœ€è¦ç§»å»è½¬ä¹‰ç¬¦çš„å­—ç¬¦ä¸²
+*   @param escapeChar è½¬ä¹‰å­—ç¬¦
+*   @return åŸä¸²ç§»å»è½¬ä¹‰ç¬¦åçš„æ–°ä¸²
 */
 	public static String remove( String str, char escapeChar ) {
 		if ( str == null )
@@ -214,11 +214,11 @@ public final class Escape {
 	}
 
 /**
-*	½«Ê¹ÓÃ¾É×ªÒå·ûµÄ×Ö·û´®±ä»»Ê¹ÓÃĞÂ×ªÒå·ûµÄ×Ö·û´®
-*	@param str ĞèÒª±ä»»×ªÒå·ûµÄ´®
-*	@param oldEscapeChar ¾É×ªÒå·û
-*	@param newEscapeChar ĞÂ×ªÒå·û
-*	@return ±ä»»ºóµÄĞÂ´®
+*	å°†ä½¿ç”¨æ—§è½¬ä¹‰ç¬¦çš„å­—ç¬¦ä¸²å˜æ¢ä½¿ç”¨æ–°è½¬ä¹‰ç¬¦çš„å­—ç¬¦ä¸²
+*	@param str éœ€è¦å˜æ¢è½¬ä¹‰ç¬¦çš„ä¸²
+*	@param oldEscapeChar æ—§è½¬ä¹‰ç¬¦
+*	@param newEscapeChar æ–°è½¬ä¹‰ç¬¦
+*	@return å˜æ¢åçš„æ–°ä¸²
 */
 	public static String change( String str, char oldEscapeChar, char newEscapeChar ) {
 		if ( str == null )
@@ -239,33 +239,33 @@ public final class Escape {
 	}
 
 /**
-*	Ïàµ±ÓÚµ÷ÓÃ addEscAndQuote(str, true, '\\')
+*	ç›¸å½“äºè°ƒç”¨ addEscAndQuote(str, true, '\\')
 */
 	public static String addEscAndQuote( String str ) {
 		return addEscAndQuote( str, true, '\\' );
 	}
 
 /**
-*	Ïàµ±ÓÚµ÷ÓÃ addEscAndQuote(str, ifDblQuote, '\\')
+*	ç›¸å½“äºè°ƒç”¨ addEscAndQuote(str, ifDblQuote, '\\')
 */
 	public static String addEscAndQuote( String str, boolean ifDblQuote) {
 		return addEscAndQuote( str, ifDblQuote, '\\' );
 	}
 
 /**
-*	Ïàµ±ÓÚµ÷ÓÃ addEscapeAndQuote(str, true, '\\')
+*	ç›¸å½“äºè°ƒç”¨ addEscapeAndQuote(str, true, '\\')
 */
 	public static String addEscAndQuote( String str, char escapeChar) {
 		return addEscAndQuote( str, true, escapeChar );
 	}
 
 /**
-*   Îª¸ø¶¨µÄ×Ö·û´®Ôö¼ÓÖ¸¶¨µÄ×ªÒå·û£¬ÇÒÇ°ºó²¹ÉÏÒıºÅ£¬²¢·µ»ØĞÂ²úÉúµÄĞÂ´®
+*   ä¸ºç»™å®šçš„å­—ç¬¦ä¸²å¢åŠ æŒ‡å®šçš„è½¬ä¹‰ç¬¦ï¼Œä¸”å‰åè¡¥ä¸Šå¼•å·ï¼Œå¹¶è¿”å›æ–°äº§ç”Ÿçš„æ–°ä¸²
 *
-*   @param str ĞèÒªÔö¼Ó×ªÒå·ûµÄ×Ö·û´®
-*	@param ifDblQuote ÎªtrueÊ±¼ÓÉÏË«ÒıºÅ£¬·ñÔò¼ÓÉÏµ¥ÒıºÅ
-*   @param escapeChar ×ªÒå·û
-*   @return ĞÂ´®
+*   @param str éœ€è¦å¢åŠ è½¬ä¹‰ç¬¦çš„å­—ç¬¦ä¸²
+*	@param ifDblQuote ä¸ºtrueæ—¶åŠ ä¸ŠåŒå¼•å·ï¼Œå¦åˆ™åŠ ä¸Šå•å¼•å·
+*   @param escapeChar è½¬ä¹‰ç¬¦
+*   @return æ–°ä¸²
 */
 	public static String addEscAndQuote( String str, boolean ifDblQuote, char escapeChar ) {
 		if ( str == null )
@@ -312,7 +312,7 @@ public final class Escape {
 	}
 	
 	/**
-	 * Ê¹ÓÃexcel±ê×¼Ìí¼ÓË«ÒıºÅ
+	 * ä½¿ç”¨excelæ ‡å‡†æ·»åŠ åŒå¼•å·
 	 * @param str
 	 * @return
 	 */
@@ -340,18 +340,18 @@ public final class Escape {
 	}
 
 	/**
-	*	Ïàµ±ÓÚµ÷ÓÃ removeEscAndQuote( str, '\\')
+	*	ç›¸å½“äºè°ƒç”¨ removeEscAndQuote( str, '\\')
 	*/
 	public static String removeEscAndQuote( String str ) {
 		return removeEscAndQuote( str, '\\' );
 	}
 
 	/**
-	*   ½«Ö¸¶¨µÄ×Ö·û´®ÒÆÈ¥×îÍâ±ßµÄÒıºÅ¼°Ö¸¶¨×ªÒå·û£¬²¢·µ»ØĞÂ²úÉúµÄĞÂ´®
+	*   å°†æŒ‡å®šçš„å­—ç¬¦ä¸²ç§»å»æœ€å¤–è¾¹çš„å¼•å·åŠæŒ‡å®šè½¬ä¹‰ç¬¦ï¼Œå¹¶è¿”å›æ–°äº§ç”Ÿçš„æ–°ä¸²
 	*
-	*   @param str ĞèÒªÒÆÈ¥×ªÒå·ûµÄ×Ö·û´®
-	*   @param escapeChar ×ªÒå×Ö·û
-	*   @return Ô­´®ÒÆÈ¥×ªÒå·ûºóµÄĞÂ´®
+	*   @param str éœ€è¦ç§»å»è½¬ä¹‰ç¬¦çš„å­—ç¬¦ä¸²
+	*   @param escapeChar è½¬ä¹‰å­—ç¬¦
+	*   @return åŸä¸²ç§»å»è½¬ä¹‰ç¬¦åçš„æ–°ä¸²
 	*/
 	public static String removeEscAndQuote( String str, char escapeChar ) {
 		if ( str == null )
@@ -397,7 +397,7 @@ public final class Escape {
 	}
 
 	public static void main(String[] args) {
-		String s = "a=\"(1+1)\";b=\"£¨salary£©+1\"";
+		String s = "a=\"(1+1)\";b=\"ï¼ˆsalaryï¼‰+1\"";
 		s = add(s, "()[]{}");
 		System.out.println(s);
 		s = remove(s);

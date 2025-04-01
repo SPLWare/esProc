@@ -20,8 +20,8 @@ import com.scudata.util.Variant;
 
 
 /**
- * ¶àÓÎ±ê£¨ÅÅÁĞ£©°´¼ü×öÓĞĞò¹é²¢Á¬½Ó
- * A.pjoin(K:..,x:F,¡­; Ai:z,K:¡­,x:F,¡­; ¡­)
+ * å¤šæ¸¸æ ‡ï¼ˆæ’åˆ—ï¼‰æŒ‰é”®åšæœ‰åºå½’å¹¶è¿æ¥
+ * A.pjoin(K:..,x:F,â€¦; Ai:z,K:â€¦,x:F,â€¦; â€¦)
  * @author RunQian
  *
  */
@@ -30,29 +30,29 @@ public class PrimaryJoin extends Operation {
 	private Expression []srcNewExps;
 	private String []srcNewNames;
 	
-	private ICursor []cursors; // ¹ØÁªÓÎ±êÊı×é
+	private ICursor []cursors; // å…³è”æ¸¸æ ‡æ•°ç»„
 	private String []options;
 	private Expression [][]keyExps;
 	private Expression [][]newExps;
 	private String [][]newNames;
 	private String opt;
 	
-	private DataStruct resultDs; // ½á¹û¼¯Êı¾İ½á¹¹
+	private DataStruct resultDs; // ç»“æœé›†æ•°æ®ç»“æ„
 	private Object []resultValues;
 	private Object []srcKeyValues;
-	private int []newSeqs; // new×Ö¶ÎÔÚ½á¹û¼¯Êı¾İ½á¹¹ÖĞµÄĞòºÅ
-	private int []keySeqs; // ¹ØÁª×Ö¶ÎÔÚ½á¹û¼¯Êı¾İ½á¹¹ÖĞµÄĞòºÅ
+	private int []newSeqs; // newå­—æ®µåœ¨ç»“æœé›†æ•°æ®ç»“æ„ä¸­çš„åºå·
+	private int []keySeqs; // å…³è”å­—æ®µåœ¨ç»“æœé›†æ•°æ®ç»“æ„ä¸­çš„åºå·
 	private int tableCount;
 	private PrimaryJoinItem []joinItems;
-	private int []joinTypes; // ¹ØÁªÀàĞÍ£¬0:ÄÚÁ¬½Ó, 1:×óÁ¬½Ó, 2£º²îÔËËã£¬±£ÁôÆ¥Åä²»ÉÏµÄ
+	private int []joinTypes; // å…³è”ç±»å‹ï¼Œ0:å†…è¿æ¥, 1:å·¦è¿æ¥, 2ï¼šå·®è¿ç®—ï¼Œä¿ç•™åŒ¹é…ä¸ä¸Šçš„
 	
-	private int []ranks; // µ±Ç°ÔªËØµÄÅÅÃû£¬0¡¢1¡¢-1 ÓÃÓÚfull join
-	private Object []minValues; // ×îĞ¡¹ØÁ¬×Ö¶ÎÖµ
-	private int srcRefCount; // ½á¹û¼¯ÖĞÒıÓÃ×ó²à±íµÄ×Ö¶ÎÊı
+	private int []ranks; // å½“å‰å…ƒç´ çš„æ’åï¼Œ0ã€1ã€-1 ç”¨äºfull join
+	private Object []minValues; // æœ€å°å…³è¿å­—æ®µå€¼
+	private int srcRefCount; // ç»“æœé›†ä¸­å¼•ç”¨å·¦ä¾§è¡¨çš„å­—æ®µæ•°
 
 	private boolean hasNew = false;
 	private boolean isPrevMatch = false;
-	//private boolean hasGather = false; // ¼ÆËã±í´ïÊ½ÊÇ·ñ°üº¬»ã×Ü±í´ïÊ½
+	//private boolean hasGather = false; // è®¡ç®—è¡¨è¾¾å¼æ˜¯å¦åŒ…å«æ±‡æ€»è¡¨è¾¾å¼
 	private boolean isFullJoin = false;
 	private boolean hasTimeKey = false;
 	
@@ -110,9 +110,9 @@ public class PrimaryJoin extends Operation {
 	}
 	
 	/**
-	 * È¡²Ù×÷ÊÇ·ñ»á¼õÉÙÔªËØÊı£¬±ÈÈç¹ıÂËº¯Êı»á¼õÉÙ¼ÇÂ¼
-	 * ´Ëº¯ÊıÓÃÓÚÓÎ±êµÄ¾«È·È¡Êı£¬Èç¹û¸½¼ÓµÄ²Ù×÷²»»áÊ¹¼ÇÂ¼Êı¼õÉÙÔòÖ»Ğè°´´«ÈëµÄÊıÁ¿È¡Êı¼´¿É
-	 * @return true£º»á£¬false£º²»»á
+	 * å–æ“ä½œæ˜¯å¦ä¼šå‡å°‘å…ƒç´ æ•°ï¼Œæ¯”å¦‚è¿‡æ»¤å‡½æ•°ä¼šå‡å°‘è®°å½•
+	 * æ­¤å‡½æ•°ç”¨äºæ¸¸æ ‡çš„ç²¾ç¡®å–æ•°ï¼Œå¦‚æœé™„åŠ çš„æ“ä½œä¸ä¼šä½¿è®°å½•æ•°å‡å°‘åˆ™åªéœ€æŒ‰ä¼ å…¥çš„æ•°é‡å–æ•°å³å¯
+	 * @return trueï¼šä¼šï¼Œfalseï¼šä¸ä¼š
 	 */
 	public boolean isDecrease() {
 		if (isFullJoin) {
@@ -240,7 +240,7 @@ public class PrimaryJoin extends Operation {
 		}
 	}
 	
-	// ¼ÆËã¹ØÁ¬±íµÄµ±Ç°¹ØÁ¬¼üÖµµÄÅÅÃû
+	// è®¡ç®—å…³è¿è¡¨çš„å½“å‰å…³è¿é”®å€¼çš„æ’å
 	private void calcRanks() {
 		PrimaryJoinItem []joinItems = this.joinItems;
 		int tableCount = this.tableCount;

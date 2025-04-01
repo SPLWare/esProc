@@ -10,14 +10,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Õë¶ÔÅÅÁĞµÄĞòÁĞ×Ö¶Î×ö¼ÆËã£¬ºÏ²¢Éú³ÉĞÂĞò±í
- * A.news(X;xi:Fi,¡­)
+ * é’ˆå¯¹æ’åˆ—çš„åºåˆ—å­—æ®µåšè®¡ç®—ï¼Œåˆå¹¶ç”Ÿæˆæ–°åºè¡¨
+ * A.news(X;xi:Fi,â€¦)
  * @author RunQian
  *
  */
 public class News extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 	}

@@ -25,13 +25,13 @@ import com.scudata.common.RQException;
  * GNU General Public License for more details.
  * 
  * EncodingDetect.java<br>
- * ×Ô¶¯»ñÈ¡ÎÄ¼şµÄ±àÂë
- * Ê¹ÓÃÊ¾Àı
+ * è‡ªåŠ¨è·å–æ–‡ä»¶çš„ç¼–ç 
+ * ä½¿ç”¨ç¤ºä¾‹
 
 String filePath="D:/test.txt";    
-//»ñµÃÎÄ¼ş±àÂë  
+//è·å¾—æ–‡ä»¶ç¼–ç   
 String fileEncode=EncodingDetect.getJavaEncode(filePath);    
-//¸ù¾İÎÄ¼ş±àÂë»ñµÃÎÄ¼şÄÚÈİ  
+//æ ¹æ®æ–‡ä»¶ç¼–ç è·å¾—æ–‡ä»¶å†…å®¹  
 String fileContent=FileUtils.readFileToString(new File(filePath),fileEncode)  
  * @author Billows.Van
  * @since Create on 2010-01-27 11:19:00   
@@ -47,16 +47,16 @@ public class CharEncodingDetectEx {
 //    	s = "d:/tmp/charset/utf16-big-endian.xml"; //UTF-16BE
 //    	s = "d:/tmp/charset/utf16-big-endian-no-bom.xml"; //ASCII
 //    	s = "d:/tmp/charset/utf16-no-bom.xml"; //ASCII
-    	s = "d:/tmp/charset/html½âÎö1.html";
+    	s = "d:/tmp/charset/htmlè§£æ1.html";
         String encode=getJavaEncode(s);
         System.out.println(encode);
         //readFile(s,encode);
     }
     
     /**
-     * µÃµ½ÎÄ¼şµÄ±àÂë
-     * @param Object²ÎÊıÖ§³ÖFile, URL¼°byte[]ÈıÖÖÀàĞÍ
-     * @return ÎÄ¼şµÄ±àÂë
+     * å¾—åˆ°æ–‡ä»¶çš„ç¼–ç 
+     * @param Objectå‚æ•°æ”¯æŒFile, URLåŠbyte[]ä¸‰ç§ç±»å‹
+     * @return æ–‡ä»¶çš„ç¼–ç 
      */
     public static String getJavaEncode(Object o){
     	String sCode = null;
@@ -85,13 +85,13 @@ public class CharEncodingDetectEx {
             fr = new BufferedReader(read);
             String line = null;
             int flag=1;
-            // ¶ÁÈ¡Ã¿Ò»ĞĞ£¬Èç¹û½áÊøÁË£¬line»áÎª¿Õ
+            // è¯»å–æ¯ä¸€è¡Œï¼Œå¦‚æœç»“æŸäº†ï¼Œlineä¼šä¸ºç©º
             while ((line = fr.readLine()) != null && line.trim().length() > 0) {
                 if(flag==1) {
-                    line=line.substring(1);//È¥µôÎÄ¼şÍ·
+                    line=line.substring(1);//å»æ‰æ–‡ä»¶å¤´
                     flag++;
                 }
-                // Ã¿Ò»ĞĞ´´½¨Ò»¸öStudent¶ÔÏó£¬²¢´æÈëÊı×éÖĞ
+                // æ¯ä¸€è¡Œåˆ›å»ºä¸€ä¸ªStudentå¯¹è±¡ï¼Œå¹¶å­˜å…¥æ•°ç»„ä¸­
                 System.out.println(line);
             }
             fr.close();

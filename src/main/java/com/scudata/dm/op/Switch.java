@@ -17,26 +17,26 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * Á¬½Ó²Ù×÷£¬ÓÃÓÚÅÅÁĞ¡¢ÓÎ±ê¡¢¹ÜµÀµÄÁ¬½Ó²Ù×÷
+ * è¿æ¥æ“ä½œï¼Œç”¨äºæ’åˆ—ã€æ¸¸æ ‡ã€ç®¡é“çš„è¿æ¥æ“ä½œ
  * @author WangXiaoJun
  *
  */
 public class Switch extends Operation {
-	private String []fkNames; // Íâ¼ü×Ö¶ÎÃûÊı×é
-	private String []timeFkNames; // Ê±¼äÍâ¼ü×Ö¶ÎÃûÊı×é
+	private String []fkNames; // å¤–é”®å­—æ®µåæ•°ç»„
+	private String []timeFkNames; // æ—¶é—´å¤–é”®å­—æ®µåæ•°ç»„
 	
-	private Sequence []codes; // Î¬±íÊı×é
-	private Expression []exps; // Î¬±íµÄÖ÷¼ü±í´ïÊ½Êı×é
-	private Expression []timeExps; // Î¬±íµÄÊ±¼ä¸üĞÂ¼üÊı×é
-	private String opt; // Ñ¡Ïî
+	private Sequence []codes; // ç»´è¡¨æ•°ç»„
+	private Expression []exps; // ç»´è¡¨çš„ä¸»é”®è¡¨è¾¾å¼æ•°ç»„
+	private Expression []timeExps; // ç»´è¡¨çš„æ—¶é—´æ›´æ–°é”®æ•°ç»„
+	private String opt; // é€‰é¡¹
 
-	private IndexTable []indexTables; // Î¬±í¶ÔÓ¦µÄË÷Òı±íÊı×é
-	private boolean isIsect; // ×ö½»Á¬½Ó
-	private boolean isDiff; // ×ö²îÁ¬½Ó
+	private IndexTable []indexTables; // ç»´è¡¨å¯¹åº”çš„ç´¢å¼•è¡¨æ•°ç»„
+	private boolean isIsect; // åšäº¤è¿æ¥
+	private boolean isDiff; // åšå·®è¿æ¥
 	
-	private boolean isLeft; // ×óÁ´½Ó£¬ÕÒ²»µ½F¶ÔÓ¦ÖµÊ±£¬°´²ÎÊıÊı¾İ½á¹¹Éú³É¿ÕÖµ£¨³ıÖ÷¼üÍâ£©¼ÇÂ¼¶ÔÓ¦
-	private DataStruct []dataStructs; // isLeftÎªtrueÊ±Ê¹ÓÃ£¬¶ÔÓ¦Î¬±íµÄÊı¾İ½á¹¹
-	private int []keySeqs; // Î¬±íÖ÷¼ü×Ö¶ÎµÄĞòºÅ
+	private boolean isLeft; // å·¦é“¾æ¥ï¼Œæ‰¾ä¸åˆ°Få¯¹åº”å€¼æ—¶ï¼ŒæŒ‰å‚æ•°æ•°æ®ç»“æ„ç”Ÿæˆç©ºå€¼ï¼ˆé™¤ä¸»é”®å¤–ï¼‰è®°å½•å¯¹åº”
+	private DataStruct []dataStructs; // isLeftä¸ºtrueæ—¶ä½¿ç”¨ï¼Œå¯¹åº”ç»´è¡¨çš„æ•°æ®ç»“æ„
+	private int []keySeqs; // ç»´è¡¨ä¸»é”®å­—æ®µçš„åºå·
 	
 	public String[] getFkNames() {
 		return fkNames;
@@ -71,14 +71,14 @@ public class Switch extends Operation {
 	}
 	
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param function ËùÊôµÄº¯Êı¶ÔÏó
-	 * @param fkNames Íâ¼ü×Ö¶ÎÃûÊı×é
-	 * @param timeFkNames Ê±¼äÍâ¼üÃûÊı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param exps Î¬±íÖ÷¼üÊı×é
-	 * @param timeExps Î¬±íµÄÊ±¼ä¸üĞÂ¼üÊı×é
-	 * @param opt Ñ¡Ïî
+	 * æ„é€ å‡½æ•°
+	 * @param function æ‰€å±çš„å‡½æ•°å¯¹è±¡
+	 * @param fkNames å¤–é”®å­—æ®µåæ•°ç»„
+	 * @param timeFkNames æ—¶é—´å¤–é”®åæ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param exps ç»´è¡¨ä¸»é”®æ•°ç»„
+	 * @param timeExps ç»´è¡¨çš„æ—¶é—´æ›´æ–°é”®æ•°ç»„
+	 * @param opt é€‰é¡¹
 	 */
 	public Switch(Function function, String[] fkNames, String[] timeFkNames, Sequence[] codes, Expression[] exps, Expression[] timeExps, String opt) {
 		super(function);
@@ -101,17 +101,17 @@ public class Switch extends Operation {
 	}
 	
 	/**
-	 * ·µ»Ø´Ë²Ù×÷ÊÇ·ñ»áÊ¹¼ÇÂ¼Êı±äÉÙ
-	 * @return true£º·ñ»áÊ¹¼ÇÂ¼Êı±äÉÙ£¬false£º²»»á±äÉÙ
+	 * è¿”å›æ­¤æ“ä½œæ˜¯å¦ä¼šä½¿è®°å½•æ•°å˜å°‘
+	 * @return trueï¼šå¦ä¼šä½¿è®°å½•æ•°å˜å°‘ï¼Œfalseï¼šä¸ä¼šå˜å°‘
 	 */
 	public boolean isDecrease() {
 		return isIsect || isDiff;
 	}
 	
 	/**
-	 * ¸´ÖÆ´Ë²Ù×÷
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¸´ÖÆµÄSwitch²Ù×÷
+	 * å¤åˆ¶æ­¤æ“ä½œ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å¤åˆ¶çš„Switchæ“ä½œ
 	 */
 	public Operation duplicate(Context ctx) {
 		Expression []exps = dupExpressions(this.exps, ctx);
@@ -188,10 +188,10 @@ public class Switch extends Operation {
 	}
 
 	/**
-	 * ¶Ô´«ÈëµÄÊı¾İ×öÁ¬½Ó£¬·µ»ØÁ¬½Ó½á¹û
-	 * @param seq Òª´¦ÀíµÄÊı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Á¬½Ó½á¹û
+	 * å¯¹ä¼ å…¥çš„æ•°æ®åšè¿æ¥ï¼Œè¿”å›è¿æ¥ç»“æœ
+	 * @param seq è¦å¤„ç†çš„æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return è¿æ¥ç»“æœ
 	 */
 	public Sequence process(Sequence seq, Context ctx) {
 		if (isIsect) {
@@ -220,9 +220,9 @@ public class Switch extends Operation {
 			IndexTable indexTable = getIndexTable(f, ctx);
 			String fkName = fkNames[f];
 			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
-			int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
+			int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
 			int timeCol = -1;
-			BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+			BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 			if (indexTable != null) {
 				if (isLeft) {
@@ -258,7 +258,7 @@ public class Switch extends Operation {
 							}
 						}
 					} else {
-						// ÓĞÊ±¼ä¸üĞÂ¼üÊ±²éÕÒÊ±°´Á½¸ö×Ö¶Î²éÕÒ
+						// æœ‰æ—¶é—´æ›´æ–°é”®æ—¶æŸ¥æ‰¾æ—¶æŒ‰ä¸¤ä¸ªå­—æ®µæŸ¥æ‰¾
 						Object []values = new Object[2];
 						for (int i = 1; i <= len; ++i) {
 							Object obj = mems.get(i);
@@ -322,7 +322,7 @@ public class Switch extends Operation {
 							}
 						}
 					} else {
-						// ÓĞÊ±¼ä¸üĞÂ¼üÊ±²éÕÒÊ±°´Á½¸ö×Ö¶Î²éÕÒ
+						// æœ‰æ—¶é—´æ›´æ–°é”®æ—¶æŸ¥æ‰¾æ—¶æŒ‰ä¸¤ä¸ªå­—æ®µæŸ¥æ‰¾
 						Object []values = new Object[2];
 						for (int i = 1; i <= len; ++i) {
 							Object obj = mems.get(i);
@@ -356,7 +356,7 @@ public class Switch extends Operation {
 					}
 				}
 			} else if (codes[f] == null) {
-				// Ö¸Òı×Ö¶Î±ä³ÉÖµ
+				// æŒ‡å¼•å­—æ®µå˜æˆå€¼
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
 					if (obj instanceof BaseRecord) {
@@ -425,9 +425,9 @@ public class Switch extends Operation {
 
 			String fkName = fkNames[f];
 			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
-			int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
+			int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
 			int timeCol = -1;
-			BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+			BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 			
 			if (indexTable != null) {
 				ObjectArray resultMems = new ObjectArray(len);
@@ -458,7 +458,7 @@ public class Switch extends Operation {
 						}
 					}
 				} else {
-					// ÓĞÊ±¼ä¸üĞÂ¼üÊ±²éÕÒÊ±°´Á½¸ö×Ö¶Î²éÕÒ£¬ÒıÓÃÉèµÚÒ»¸ö×Ö¶ÎÉÏ
+					// æœ‰æ—¶é—´æ›´æ–°é”®æ—¶æŸ¥æ‰¾æ—¶æŒ‰ä¸¤ä¸ªå­—æ®µæŸ¥æ‰¾ï¼Œå¼•ç”¨è®¾ç¬¬ä¸€ä¸ªå­—æ®µä¸Š
 					Object []values = new Object[2];
 					for (int i = 1; i <= len; ++i) {
 						Object obj = mems.get(i);
@@ -496,7 +496,7 @@ public class Switch extends Operation {
 				
 				mems = resultMems;
 			} else if (codes[f] == null) {
-				// Ö¸Òı×Ö¶Î±ä³ÉÖµ
+				// æŒ‡å¼•å­—æ®µå˜æˆå€¼
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
 					if (obj instanceof BaseRecord) {
@@ -574,9 +574,9 @@ public class Switch extends Operation {
 			
 			String fkName = fkNames[f];
 			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
-			int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
+			int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
 			int timeCol = -1;
-			BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+			BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 			if (indexTable != null) {
 				ObjectArray resultMems = new ObjectArray(len);
@@ -605,7 +605,7 @@ public class Switch extends Operation {
 						}
 					}
 				} else {
-					// ÓĞÊ±¼ä¸üĞÂ¼üÊ±²éÕÒÊ±°´Á½¸ö×Ö¶Î²éÕÒ
+					// æœ‰æ—¶é—´æ›´æ–°é”®æ—¶æŸ¥æ‰¾æ—¶æŒ‰ä¸¤ä¸ªå­—æ®µæŸ¥æ‰¾
 					Object []values = new Object[2];
 					for (int i = 1; i <= len; ++i) {
 						Object obj = mems.get(i);
@@ -642,7 +642,7 @@ public class Switch extends Operation {
 
 				mems = resultMems;
 			} else if (codes[f] == null) {
-				// Ö¸Òı×Ö¶Î±ä³ÉÖµ
+				// æŒ‡å¼•å­—æ®µå˜æˆå€¼
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
 					if (obj instanceof BaseRecord) {

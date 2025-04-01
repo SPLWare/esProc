@@ -16,13 +16,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÇóĞòÁĞ³ÉÔ±»ò¶à¸ö²ÎÊıµÄ°´Î»Óë,·ÇÊıÖµ³ÉÔ±±»ºöÂÔ
+ * æ±‚åºåˆ—æˆå‘˜æˆ–å¤šä¸ªå‚æ•°çš„æŒ‰ä½ä¸,éæ•°å€¼æˆå‘˜è¢«å¿½ç•¥
  * @author yanjing
  *
  */
 public class And extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -31,7 +31,7 @@ public class And extends Function {
 		}
 	}
 
-	// ¼ÆËãĞòÁĞ³ÉÔ±°´Î»Óë
+	// è®¡ç®—åºåˆ—æˆå‘˜æŒ‰ä½ä¸
 	private static Object and(Sequence seq) {
 		int size = seq.length();
 		if (size == 0) {
@@ -41,11 +41,11 @@ public class And extends Function {
 		}
 		
 		Object obj = seq.getMem(1);
-		boolean returnInt = true; // ÊÇ·ñÈ«²¿¶¼ÊÇInteger£¬Èç¹ûÊÇÔò·µ»ØInteger£¬·ñÔò·µ»ØLong
+		boolean returnInt = true; // æ˜¯å¦å…¨éƒ¨éƒ½æ˜¯Integerï¼Œå¦‚æœæ˜¯åˆ™è¿”å›Integerï¼Œå¦åˆ™è¿”å›Long
 		long longValue = 0;
-		BigInteger bi = null; // Èç¹ûº¬ÓĞBigIntegerÔò·µ»ØBigInteger
+		BigInteger bi = null; // å¦‚æœå«æœ‰BigIntegeråˆ™è¿”å›BigInteger
 		
-		// Èç¹ûÓĞ³ÉÔ±ÀàĞÍÊÇBigDecimal»òBigIntegerÔòÊ¹ÓÃBigIntegerÔËËã
+		// å¦‚æœæœ‰æˆå‘˜ç±»å‹æ˜¯BigDecimalæˆ–BigIntegeråˆ™ä½¿ç”¨BigIntegerè¿ç®—
 		if (obj instanceof BigDecimal) {
 			bi = ((BigDecimal)obj).toBigInteger();
 		} else if (obj instanceof BigInteger) {
@@ -108,9 +108,9 @@ public class And extends Function {
 	
 	public static Object and(Object v1, Object v2) {
 		long longValue = 0;
-		BigInteger bi = null; // Èç¹ûº¬ÓĞBigIntegerÔò·µ»ØBigInteger
+		BigInteger bi = null; // å¦‚æœå«æœ‰BigIntegeråˆ™è¿”å›BigInteger
 		
-		// Èç¹ûÓĞ³ÉÔ±ÀàĞÍÊÇBigDecimal»òBigIntegerÔòÊ¹ÓÃBigIntegerÔËËã
+		// å¦‚æœæœ‰æˆå‘˜ç±»å‹æ˜¯BigDecimalæˆ–BigIntegeråˆ™ä½¿ç”¨BigIntegerè¿ç®—
 		if (v1 instanceof BigDecimal) {
 			bi = ((BigDecimal)v1).toBigInteger();
 		} else if (v1 instanceof BigInteger) {
@@ -173,11 +173,11 @@ public class And extends Function {
 			}
 			
 			Object obj = sub.getLeafExpression().calculate(ctx);
-			boolean returnInt = true; // ÊÇ·ñÈ«²¿¶¼ÊÇInteger£¬Èç¹ûÊÇÔò·µ»ØInteger£¬·ñÔò·µ»ØLong
+			boolean returnInt = true; // æ˜¯å¦å…¨éƒ¨éƒ½æ˜¯Integerï¼Œå¦‚æœæ˜¯åˆ™è¿”å›Integerï¼Œå¦åˆ™è¿”å›Long
 			long longValue = 0;
-			BigInteger bi = null; // Èç¹ûº¬ÓĞBigIntegerÔò·µ»ØBigInteger
+			BigInteger bi = null; // å¦‚æœå«æœ‰BigIntegeråˆ™è¿”å›BigInteger
 			
-			// Èç¹ûÓĞ³ÉÔ±ÀàĞÍÊÇBigDecimal»òBigIntegerÔòÊ¹ÓÃBigIntegerÔËËã
+			// å¦‚æœæœ‰æˆå‘˜ç±»å‹æ˜¯BigDecimalæˆ–BigIntegeråˆ™ä½¿ç”¨BigIntegerè¿ç®—
 			if (obj instanceof BigDecimal) {
 				bi = ((BigDecimal)obj).toBigInteger();
 			} else if (obj instanceof BigInteger) {
@@ -246,8 +246,8 @@ public class And extends Function {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -291,10 +291,10 @@ public class And extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -302,8 +302,8 @@ public class And extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã±í´ïÊ½µÄÈ¡Öµ·¶Î§
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—è¡¨è¾¾å¼çš„å–å€¼èŒƒå›´
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return
 	 */
 	public IArray calculateRange(Context ctx) {
@@ -315,7 +315,7 @@ public class And extends Function {
 				throw new RQException("and" + mm.getMessage("function.invalidParam"));
 			}
 			
-			// ×î´óÖµºÍ×îĞ¡ÖµÏàµÈÊ±Ôò·µ»Ø·¶Î§Öµ£¬·ñÔò·µ»Ø¿Õ
+			// æœ€å¤§å€¼å’Œæœ€å°å€¼ç›¸ç­‰æ—¶åˆ™è¿”å›èŒƒå›´å€¼ï¼Œå¦åˆ™è¿”å›ç©º
 			Object value0;
 			IArray array0 = sub0.getLeafExpression().calculateRange(ctx);
 			if (array0 == null) {

@@ -31,28 +31,28 @@ import com.scudata.common.MessageManager;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
- * ÈÕÆÚÑ¡ÔñÆ÷
+ * æ—¥æœŸé€‰æ‹©å™¨
  *
  */
 public class DateChooser extends javax.swing.JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ÈÕÀúµÄÊµÀı
+	 * æ—¥å†çš„å®ä¾‹
 	 */
 	private Calendar calendar;
 	/**
-	 * Ñ¡ÔñµÄÈÕÀú
+	 * é€‰æ‹©çš„æ—¥å†
 	 */
 	private Calendar retCal;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DateChooser() {
 		super();
@@ -60,10 +60,10 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 */
 	public DateChooser(Dialog owner) {
 		super(owner);
@@ -71,12 +71,12 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 */
 	public DateChooser(Dialog owner, boolean modal) {
 		super(owner, modal);
@@ -84,12 +84,12 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 */
 	public DateChooser(Dialog owner, String title) {
 		super(owner, title);
@@ -97,14 +97,14 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 */
 	public DateChooser(Dialog owner, String title, boolean modal) {
 		super(owner, title, modal);
@@ -112,14 +112,14 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 * @param gc
 	 *            GraphicsConfiguration
 	 */
@@ -130,10 +130,10 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 */
 	public DateChooser(Frame owner) {
 		super(owner);
@@ -141,12 +141,12 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 */
 	public DateChooser(Frame owner, boolean modal) {
 		super(owner, modal);
@@ -154,12 +154,12 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 */
 	public DateChooser(Frame owner, String title) {
 		super(owner, title);
@@ -167,14 +167,14 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 */
 	public DateChooser(Frame owner, String title, boolean modal) {
 		super(owner, title, modal);
@@ -182,14 +182,14 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param modal
-	 *            ÊÇ·ñÄ£Ì¬µÄ
+	 *            æ˜¯å¦æ¨¡æ€çš„
 	 * @param gc
 	 *            GraphicsConfiguration
 	 */
@@ -200,7 +200,7 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯ÈÕÆÚ
+	 * åˆå§‹åŒ–æ—¥æœŸ
 	 * 
 	 * @param calendar
 	 */
@@ -212,7 +212,7 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		initComponents();
@@ -222,7 +222,7 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 */
 	private void initComponents() {
 		JPanel basePanel = new JPanel();
@@ -301,7 +301,7 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ÈÕÆÚÖµ·¢Éú±ä»¯
+	 * æ—¥æœŸå€¼å‘ç”Ÿå˜åŒ–
 	 * 
 	 * @param evt
 	 */
@@ -313,7 +313,7 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ÏÂÀ­ÔÂ·İ±ä»¯
+	 * ä¸‹æ‹‰æœˆä»½å˜åŒ–
 	 * 
 	 * @param evt
 	 */
@@ -326,7 +326,7 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param evt
 	 */
@@ -397,11 +397,11 @@ public class DateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ÔÂ·İÏÂÀ­¿ò
+	 * æœˆä»½ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBox jComboBox1;
 	/**
-	 * ÈÕÆÚÊ±¼äÖµ
+	 * æ—¥æœŸæ—¶é—´å€¼
 	 */
 	private JSpinner jSpinner1;
 	/**

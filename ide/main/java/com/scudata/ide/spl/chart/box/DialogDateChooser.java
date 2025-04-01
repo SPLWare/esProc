@@ -13,7 +13,7 @@ import com.scudata.ide.common.resources.*;
 import com.scudata.ide.common.swing.*;
 
 /**
- * ÈÕÆÚÀàÊı¾İÑ¡ÔñÆ÷
+ * æ—¥æœŸç±»æ•°æ®é€‰æ‹©å™¨
  * 
  * @author Joancy
  *
@@ -41,7 +41,7 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * È±Ê¡¹¹Ôìº¯Êı
+	 * ç¼ºçœæ„é€ å‡½æ•°
 	 */
 	public DialogDateChooser() {
 		super();
@@ -49,8 +49,8 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
 	 */
 	public DialogDateChooser( Dialog owner ) {
 		super( owner );
@@ -58,9 +58,9 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
-	 * @param modal Ä£Ì¬
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
+	 * @param modal æ¨¡æ€
 	 */
 	public DialogDateChooser( Dialog owner, boolean modal ) {
 		super( owner, modal );
@@ -68,9 +68,9 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
-	 * @param title ´°¿Ú±êÌâ
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
+	 * @param title çª—å£æ ‡é¢˜
 	 */
 	public DialogDateChooser( Dialog owner, String title ) {
 		super( owner, title );
@@ -78,10 +78,10 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
-	 * @param title ´°¿Ú±êÌâ
-	 * @param modal Ä£Ì¬
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
+	 * @param title çª—å£æ ‡é¢˜
+	 * @param modal æ¨¡æ€
 	 */
 	public DialogDateChooser( Dialog owner, String title, boolean modal ) {
 		super( owner, title, modal );
@@ -89,11 +89,11 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
-	 * @param title ´°¿Ú±êÌâ
-	 * @param modal Ä£Ì¬
-	 * @param gc Í¼ĞÎÅäÖÃ
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
+	 * @param title çª—å£æ ‡é¢˜
+	 * @param modal æ¨¡æ€
+	 * @param gc å›¾å½¢é…ç½®
 	 */
 	public DialogDateChooser( Dialog owner, String title, boolean modal,
 							  GraphicsConfiguration gc ) {
@@ -102,8 +102,8 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°Ìå
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—ä½“
 	 */
 	public DialogDateChooser( Frame owner ) {
 		super( owner );
@@ -111,9 +111,9 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°Ìå
-	 * @param modal Ä£Ì¬
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—ä½“
+	 * @param modal æ¨¡æ€
 	 */
 	public DialogDateChooser( Frame owner, boolean modal ) {
 		super( owner, modal );
@@ -121,9 +121,9 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°Ìå
-	 * @param title ±êÌâ
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—ä½“
+	 * @param title æ ‡é¢˜
 	 */
 	public DialogDateChooser( Frame owner, String title ) {
 		super( owner, title );
@@ -131,10 +131,10 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°Ìå
-	 * @param title ±êÌâ
-	 * @param modal Ä£Ì¬
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—ä½“
+	 * @param title æ ‡é¢˜
+	 * @param modal æ¨¡æ€
 	 */
 	public DialogDateChooser( Frame owner, String title, boolean modal ) {
 		super( owner, title, modal );
@@ -142,11 +142,11 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°Ìå
-	 * @param title ±êÌâ
-	 * @param modal Ä£Ì¬
-	 * @param gc Í¼ĞÎÅäÖÃ
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—ä½“
+	 * @param title æ ‡é¢˜
+	 * @param modal æ¨¡æ€
+	 * @param gc å›¾å½¢é…ç½®
 	 */
 	public DialogDateChooser( Frame owner, String title, boolean modal,
 							  GraphicsConfiguration gc ) {
@@ -155,8 +155,8 @@ public class DialogDateChooser extends javax.swing.JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯ÈÕÆÚ
-	 * @param calendar ÈÕÀú¶ÔÏó
+	 * åˆå§‹åŒ–æ—¥æœŸ
+	 * @param calendar æ—¥å†å¯¹è±¡
 	 */
 	public void initDate( Calendar calendar ) {
 		int m = calendar.get( Calendar.MONTH );

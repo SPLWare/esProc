@@ -63,41 +63,41 @@ import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.parallel.UnitContext;
 
 /**
- * ¼¯ËãÆ÷Ñ¡Ïî´°¿Ú
+ * é›†ç®—å™¨é€‰é¡¹çª—å£
  *
  */
 public class DialogOptions extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ¹«¹²×ÊÔ´¹ÜÀíÆ÷
+	 * å…¬å…±èµ„æºç®¡ç†å™¨
 	 */
 	public MessageManager mm = IdeCommonMessage.get();
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CLOSED_OPTION;
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 
 	/**
-	 * ½çÃæÑùÊ½ÏÂÀ­¿ò
+	 * ç•Œé¢æ ·å¼ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBLNF = new JComboBoxEx();
 
 	/**
-	 * ÊÇ·ñ×Ô¶¯±¸·İ
+	 * æ˜¯å¦è‡ªåŠ¨å¤‡ä»½
 	 */
 	private JCheckBox jCBAutoBackup = new JCheckBox();
 
 	/**
-	 * ÊÇ·ñ×Ô¶¯Á¬½Ó×î½üÊı¾İÔ´¸´Ñ¡¿ò
+	 * æ˜¯å¦è‡ªåŠ¨è¿æ¥æœ€è¿‘æ•°æ®æºå¤é€‰æ¡†
 	 */
 	private JCheckBox jCBAutoConnect = new JCheckBox();
 
@@ -105,7 +105,7 @@ public class DialogOptions extends JDialog {
 			"dialogoptions.autosavetip",
 			ConfigOptions.iAutoSaveMinutes.intValue());
 	/**
-	 * ÊÇ·ñ×Ô¶¯±£´æ¸´Ñ¡¿ò
+	 * æ˜¯å¦è‡ªåŠ¨ä¿å­˜å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBAutoSave = new JCheckBox(
 			mm.getMessage("dialogoptions.autosave"));
@@ -117,7 +117,7 @@ public class DialogOptions extends JDialog {
 	protected JPanel jPIdeOpt = new JPanel();
 
 	/**
-	 * ×Ô¶¯±£´æµÄÊ±¼ä¼ä¸ô
+	 * è‡ªåŠ¨ä¿å­˜çš„æ—¶é—´é—´éš”
 	 */
 	private JSpinner jSAutoSaveInterval = new JSpinner(new SpinnerNumberModel(
 			ConfigOptions.iAutoSaveMinutes.intValue(), 1, 60 * 24, 1));
@@ -125,143 +125,143 @@ public class DialogOptions extends JDialog {
 	private JLabel jLAutoSaveMinutes = new JLabel(
 			mm.getMessage("dialogoptions.autosaveminutes"));
 
-	// private JLabel jLAutoSaveDir = new JLabel("ĞÂ½¨ÎÄ¼ş»º´æÂ·¾¶");
+	// private JLabel jLAutoSaveDir = new JLabel("æ–°å»ºæ–‡ä»¶ç¼“å­˜è·¯å¾„");
 
 	// private JTextField jTFAutoSaveDir = new JTextField();
 
 	/**
-	 * ×Ô¶¯Çå³ı×Ö·û´®Î²²¿\0¸´Ñ¡¿ò
+	 * è‡ªåŠ¨æ¸…é™¤å­—ç¬¦ä¸²å°¾éƒ¨\0å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBAutoTrimChar0 = new JCheckBox();
 
 	/**
-	 * ³·ÏúºÍÖØ×ö×î´ó´ÎÊı±êÇ©
+	 * æ’¤é”€å’Œé‡åšæœ€å¤§æ¬¡æ•°æ ‡ç­¾
 	 */
 	private JLabel jLUndoCount = new JLabel(IdeSplMessage.get().getMessage(
-			"dialogoptions.undocount")); // ³·Ïú/ÖØ×öµÄ×î´ó´ÎÊı
+			"dialogoptions.undocount")); // æ’¤é”€/é‡åšçš„æœ€å¤§æ¬¡æ•°
 	/**
-	 * ³·ÏúºÍÖØ×ö×î´ó´ÎÊı¿Ø¼ş
+	 * æ’¤é”€å’Œé‡åšæœ€å¤§æ¬¡æ•°æ§ä»¶
 	 */
 	private JSpinner jSUndoCount = new JSpinner(new SpinnerNumberModel(20, 5,
 			Integer.MAX_VALUE, 1));
 
 	/**
-	 * ¶à±êÇ©¿Ø¼ş
+	 * å¤šæ ‡ç­¾æ§ä»¶
 	 */
 	protected JTabbedPane tabMain = new JTabbedPane();
 
 	/**
-	 * Êı¾İ¿âÁ¬½Ó³¬Ê±Ê±¼ä
+	 * æ•°æ®åº“è¿æ¥è¶…æ—¶æ—¶é—´
 	 */
 	private JSpinner jSConnectTimeout = new JSpinner(new SpinnerNumberModel(10,
 			0, Integer.MAX_VALUE, 1));
 
 	/**
-	 * ×ÖÌå´óĞ¡¿Ø¼ş
+	 * å­—ä½“å¤§å°æ§ä»¶
 	 */
 	private JSpinner jSFontSize = new JSpinner(new SpinnerNumberModel(12, 1,
 			36, 1));
 
 	/**
-	 * ½«Òì³£Ğ´ÈëÈÕÖ¾ÎÄ¼ş¿Ø¼ş
+	 * å°†å¼‚å¸¸å†™å…¥æ—¥å¿—æ–‡ä»¶æ§ä»¶
 	 */
 	// private JCheckBox jCBLogException = new JCheckBox();
 	/**
-	 * Á¬½Óµ½Êı¾İ¿âÊ±×î³¤µÈ´ı
+	 * è¿æ¥åˆ°æ•°æ®åº“æ—¶æœ€é•¿ç­‰å¾…
 	 */
 	private JLabel jLabelTimeout = new JLabel();
 
 	/**
-	 * Ãë
+	 * ç§’
 	 */
 	private JLabel jLabel9 = new JLabel();
 
 	/**
-	 * ½Ó¹Ü¿ØÖÆÌ¨¸´Ñ¡¿ò
+	 * æ¥ç®¡æ§åˆ¶å°å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBIdeConsole = new JCheckBox();
 
 	/**
-	 * ×Ô¶¯´ò¿ª×î½üÎÄ¼ş¸´Ñ¡¿ò
+	 * è‡ªåŠ¨æ‰“å¼€æœ€è¿‘æ–‡ä»¶å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBAutoOpen = new JCheckBox();
 
 	/**
-	 * ÏÔÊ¾Êı¾İ¿â½á¹¹¸´Ñ¡¿ò
+	 * æ˜¾ç¤ºæ•°æ®åº“ç»“æ„å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBShowDBStruct = new JCheckBox();
 
 	/**
-	 * ×¢Òâ£º³£¹æÑ¡ÏîÀïÃæÀ¶É«µÄÑ¡ÏîĞèÒªÖØĞÂÆô¶¯IDE²ÅÄÜÉúĞ§¡£
+	 * æ³¨æ„ï¼šå¸¸è§„é€‰é¡¹é‡Œé¢è“è‰²çš„é€‰é¡¹éœ€è¦é‡æ–°å¯åŠ¨IDEæ‰èƒ½ç”Ÿæ•ˆã€‚
 	 */
 	private JLabel jLabelNote = new JLabel();
 
 	/**
-	 * Ó¦ÓÃ³ÌĞòÍâ¹Û±êÇ©
+	 * åº”ç”¨ç¨‹åºå¤–è§‚æ ‡ç­¾
 	 */
 	private JLabel jLabel22 = new JLabel();
 
 	/**
-	 * ¼ÇÒä´°¿ÚÎ»ÖÃ´óĞ¡¸´Ñ¡¿ò
+	 * è®°å¿†çª—å£ä½ç½®å¤§å°å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBWindow = new JCheckBox();
 
 	/**
-	 * ÄÚÈİ³å³öµ¥Ôª¸ñÏÔÊ¾¸´Ñ¡¿ò
+	 * å†…å®¹å†²å‡ºå•å…ƒæ ¼æ˜¾ç¤ºå¤é€‰æ¡†
 	 */
 	private JCheckBox jCBDispOutCell = new JCheckBox();
 	/**
-	 * ×ÔÔö³¤±í´ïÊ½±à¼­¿ò¸´Ñ¡¿ò
+	 * è‡ªå¢é•¿è¡¨è¾¾å¼ç¼–è¾‘æ¡†å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBMultiLineExpEditor = new JCheckBox();
 
 	/**
-	 * µ¥²½Ö´ĞĞÊ±¹â±ê¸úËæ¸´Ñ¡¿ò
+	 * å•æ­¥æ‰§è¡Œæ—¶å…‰æ ‡è·Ÿéšå¤é€‰æ¡†
 	 */
 	private JCheckBox jCBStepLastLocation = new JCheckBox();
 
 	/**
-	 * ×Ô¶¯µ÷ÕûĞĞ¸ß¸´Ñ¡¿ò
+	 * è‡ªåŠ¨è°ƒæ•´è¡Œé«˜å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBAutoSizeRowHeight = new JCheckBox();
 
 	/**
-	 * ÊÇ·ñ±äÇ¨×¢ÊÍ¸ñÖĞµÄµ¥Ôª¸ñ
+	 * æ˜¯å¦å˜è¿æ³¨é‡Šæ ¼ä¸­çš„å•å…ƒæ ¼
 	 */
 	private JCheckBox jCBAdjustNoteCell = new JCheckBox(
 			mm.getMessage("dialogoptions.adjustnotecell"));
 
 	/**
-	 * ÈÕÖ¾¼¶±ğ±êÇ©
+	 * æ—¥å¿—çº§åˆ«æ ‡ç­¾
 	 */
 	private JLabel jLabelLevel = new JLabel();
 
 	/**
-	 * ÈÕÖ¾¼¶±ğÏÂÀ­¿ò
+	 * æ—¥å¿—çº§åˆ«ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBLevel = new JComboBoxEx();
 
 	/**
-	 * ÈÕÖ¾ÀàĞÍ±êÇ©
+	 * æ—¥å¿—ç±»å‹æ ‡ç­¾
 	 */
 	private JLabel jLabelLogType = new JLabel();
 
 	/**
-	 * ÈÕÖ¾ÀàĞÍÏÂÀ­¿ò
+	 * æ—¥å¿—ç±»å‹ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBLogType = new JComboBoxEx();
 
 	/**
-	 * JAVAĞéÄâ»úÄÚ´æ±êÇ©
+	 * JAVAè™šæ‹Ÿæœºå†…å­˜æ ‡ç­¾
 	 */
 	private JLabel jLXmx = new JLabel(mm.getMessage("dialogoptions.xmx"));
 	/**
-	 * JAVAĞéÄâ»úÄÚ´æÎÄ±¾¿ò
+	 * JAVAè™šæ‹Ÿæœºå†…å­˜æ–‡æœ¬æ¡†
 	 */
 	private JTextField jTFXmx = new JTextField();
 
 	/**
-	 * GCÈÕÖ¾ÎÄ¼ş
+	 * GCæ—¥å¿—æ–‡ä»¶
 	 */
 	private JLabel jLGCLog = new JLabel(mm.getMessage("dialogoptions.gclog"));
 
@@ -270,178 +270,178 @@ public class DialogOptions extends JDialog {
 	private JButton jBGCLog = new JButton(mm.getMessage("dialogoptions.select"));
 
 	/**
-	 * ´òÓ¡GCµÄÏêÏ¸ÈÕÖ¾
+	 * æ‰“å°GCçš„è¯¦ç»†æ—¥å¿—
 	 */
 	private JCheckBox jCBPrintGCDetails = new JCheckBox(
 			mm.getMessage("dialogoptions.printgcdetails"));
 	/**
-	 * ´òÓ¡GCÊ±¼ä´Á
+	 * æ‰“å°GCæ—¶é—´æˆ³
 	 */
 	private JCheckBox jCBPrintGCTimeStamps = new JCheckBox(
 			mm.getMessage("dialogoptions.printgctime"));
 	/**
-	 * ´òÓ¡GCÈÕÆÚÊ±¼ä´Á
+	 * æ‰“å°GCæ—¥æœŸæ—¶é—´æˆ³
 	 */
 	private JCheckBox jCBPrintGCDateStamps = new JCheckBox(
 			mm.getMessage("dialogoptions.printgcdate"));
 	/**
-	 * ´òÓ¡GCÊ±¶ÑµÄĞÅÏ¢
+	 * æ‰“å°GCæ—¶å †çš„ä¿¡æ¯
 	 */
 	private JCheckBox jCBPrintHeapAtGC = new JCheckBox(
 			mm.getMessage("dialogoptions.printheap"));
 
 	/**
-	 * ĞĞÊı¿Ø¼ş
+	 * è¡Œæ•°æ§ä»¶
 	 */
 	private JSpinner jSPRowCount;
 
 	/**
-	 * ÁĞÊı¿Ø¼ş
+	 * åˆ—æ•°æ§ä»¶
 	 */
 	private JSpinner jSPColCount;
 
 	/**
-	 * ĞĞ¸ß¿Ø¼ş
+	 * è¡Œé«˜æ§ä»¶
 	 */
 	private JSpinner jSPRowHeight;
 
 	/**
-	 * ÁĞ¿í¿Ø¼ş
+	 * åˆ—å®½æ§ä»¶
 	 */
 	private JSpinner jSPColWidth;
 
 	/**
-	 * ³£Á¿Ç°¾°É«¿Ø¼ş
+	 * å¸¸é‡å‰æ™¯è‰²æ§ä»¶
 	 */
 	private ColorComboBox constFColor;
 	/**
-	 * ³£Á¿±³¾°É«¿Ø¼ş
+	 * å¸¸é‡èƒŒæ™¯è‰²æ§ä»¶
 	 */
 	private ColorComboBox constBColor;
 	/**
-	 * ×¢ÊÍ¸ñÇ°¾°É«¿Ø¼ş
+	 * æ³¨é‡Šæ ¼å‰æ™¯è‰²æ§ä»¶
 	 */
 	private ColorComboBox noteFColor;
 	/**
-	 * ×¢ÊÍ¸ñ±³¾°É«¿Ø¼ş
+	 * æ³¨é‡Šæ ¼èƒŒæ™¯è‰²æ§ä»¶
 	 */
 	private ColorComboBox noteBColor;
 	/**
-	 * ÓĞÖµ¸ñÇ°¾°É«¿Ø¼ş
+	 * æœ‰å€¼æ ¼å‰æ™¯è‰²æ§ä»¶
 	 */
 	private ColorComboBox valFColor;
 	/**
-	 * ÓĞÖµ¸ñ±³¾°É«¿Ø¼ş
+	 * æœ‰å€¼æ ¼èƒŒæ™¯è‰²æ§ä»¶
 	 */
 	private ColorComboBox valBColor;
 	/**
-	 * ÎŞÖµ¸ñÇ°¾°É«¿Ø¼ş
+	 * æ— å€¼æ ¼å‰æ™¯è‰²æ§ä»¶
 	 */
 	private ColorComboBox nValFColor;
 	/**
-	 * ÎŞÖµ¸ñ±³¾°É«¿Ø¼ş
+	 * æ— å€¼æ ¼èƒŒæ™¯è‰²æ§ä»¶
 	 */
 	private ColorComboBox nValBColor;
 	/**
-	 * ×ÖÌåÃû³ÆÏÂÀ­¿ò
+	 * å­—ä½“åç§°ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBox jCBFontName;
 	/**
-	 * ×ÖÌå´óĞ¡ÏÂÀ­¿ò
+	 * å­—ä½“å¤§å°ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBFontSize;
 	/**
-	 * ´ÖÌå¸´Ñ¡¿ò
+	 * ç²—ä½“å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBBold;
 	/**
-	 * Ğ±Ìå¸´Ñ¡¿ò
+	 * æ–œä½“å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBItalic;
 	/**
-	 * ÏÂ»®Ïß¸´Ñ¡¿ò
+	 * ä¸‹åˆ’çº¿å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBUnderline;
 	/**
-	 * Íø¸ñÏß¸´Ñ¡¿ò
+	 * ç½‘æ ¼çº¿å¤é€‰æ¡†
 	 */
 	private JCheckBox jCBGridline;
 	/**
-	 * ¼ä¸ô±à¼­¿Ø¼ş
+	 * é—´éš”ç¼–è¾‘æ§ä»¶
 	 */
 	private JSpinner jSPIndent;
 	/**
-	 * Ë®Æ½¶ÔÆëÏÂÀ­¿ò
+	 * æ°´å¹³å¯¹é½ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBHAlign;
 	/**
-	 * ´¹Ö±¶ÔÆëÏÂÀ­¿ò
+	 * å‚ç›´å¯¹é½ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBVAlign;
 
 	/**
-	 * ×ÖºÅ
+	 * å­—å·
 	 */
 	private JLabel labelFontSize = new JLabel(
 			mm.getMessage("dialogoptions.fontsize"));
 
 	/**
-	 * ĞòÁĞÏÔÊ¾³ÉÔ±Êı±à¼­¿Ø¼ş
+	 * åºåˆ—æ˜¾ç¤ºæˆå‘˜æ•°ç¼–è¾‘æ§ä»¶
 	 */
 	private JSpinner jSSeqMembers;
 	/**
-	 * ÓïÑÔ
+	 * è¯­è¨€
 	 */
 	private JLabel labelLocale = new JLabel(
 			mm.getMessage("dialogoptions.labellocale"));
 	/**
-	 * ×ÖÌå
+	 * å­—ä½“
 	 */
 	private JLabel labelFontName = new JLabel(
 			mm.getMessage("dialogoptions.fontname"));
 
 	/**
-	 * ±¾»úÓïÑÔÏÂÀ­¿ò
+	 * æœ¬æœºè¯­è¨€ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBLocale = new JComboBoxEx();
 
-	/** ³£¹æÒ³ */
+	/** å¸¸è§„é¡µ */
 	private final byte TAB_NORMAL = 0;
-	/** »·¾³Ò³ */
+	/** ç¯å¢ƒé¡µ */
 	private final byte TAB_ENV = 1;
 
 	/**
-	 * ÊÇ·ñ½Úµã»úÑ¡Ïî
+	 * æ˜¯å¦èŠ‚ç‚¹æœºé€‰é¡¹
 	 */
 	private boolean isUnit = false;
 
 	/**
-	 * ÊÇ·ñ°´ÏÂÁËCTRL¼ü
+	 * æ˜¯å¦æŒ‰ä¸‹äº†CTRLé”®
 	 */
 	private boolean isCtrlDown = false;
 
 	/**
-	 * »·¾³Ãæ°å
+	 * ç¯å¢ƒé¢æ¿
 	 */
 	protected PanelEnv panelEnv;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogOptions() {
 		this(GV.appFrame, false);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param parent
-	 *            ¸¸´°¿Ú¿Ø¼ş
+	 *            çˆ¶çª—å£æ§ä»¶
 	 * @param isUnit
-	 *            ÊÇ·ñ½Úµã»úÑ¡Ïî´°¿Ú
+	 *            æ˜¯å¦èŠ‚ç‚¹æœºé€‰é¡¹çª—å£
 	 */
 	public DialogOptions(JFrame parent, boolean isUnit) {
-		super(parent, "Ñ¡Ïî", true);
+		super(parent, "é€‰é¡¹", true);
 		try {
 			this.isUnit = isUnit;
 			if (isUnit) {
@@ -470,7 +470,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -479,7 +479,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * ¼üÅÌ¼àÌıÆ÷
+	 * é”®ç›˜ç›‘å¬å™¨
 	 */
 	private KeyListener keyListener = new KeyListener() {
 		public void keyPressed(KeyEvent e) {
@@ -504,7 +504,7 @@ public class DialogOptions extends JDialog {
 	};
 
 	/**
-	 * ÏÔÊ¾ÏÂÒ»¸ö±êÇ©Ò³
+	 * æ˜¾ç¤ºä¸‹ä¸€ä¸ªæ ‡ç­¾é¡µ
 	 */
 	private void showNextTab() {
 		int size = tabMain.getComponentCount();
@@ -526,7 +526,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * Ôö¼Ó°´¼ü¼àÌıÆ÷
+	 * å¢åŠ æŒ‰é”®ç›‘å¬å™¨
 	 * 
 	 * @param comp
 	 */
@@ -544,35 +544,35 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	void resetLangText() {
-		setTitle(mm.getMessage("dialogoptions.title")); // Ñ¡Ïî
+		setTitle(mm.getMessage("dialogoptions.title")); // é€‰é¡¹
 		jBOK.setText(mm.getMessage("button.ok"));
 		jBCancel.setText(mm.getMessage("button.cancel"));
 		// Normal
-		jCBIdeConsole.setText(mm.getMessage("dialogoptions.ideconsole")); // ½Ó¹Ü¿ØÖÆÌ¨
-		jCBAutoOpen.setText(mm.getMessage("dialogoptions.autoopen")); // ×Ô¶¯´ò¿ª£¨×î½üÎÄ¼ş£©
-		jCBAutoBackup.setText(mm.getMessage("dialogoptions.autobackup")); // ±£´æÊ±×Ô¶¯±¸·İ£¨¼ÓÎÄ¼şºó×º.BAK£©
+		jCBIdeConsole.setText(mm.getMessage("dialogoptions.ideconsole")); // æ¥ç®¡æ§åˆ¶å°
+		jCBAutoOpen.setText(mm.getMessage("dialogoptions.autoopen")); // è‡ªåŠ¨æ‰“å¼€ï¼ˆæœ€è¿‘æ–‡ä»¶ï¼‰
+		jCBAutoBackup.setText(mm.getMessage("dialogoptions.autobackup")); // ä¿å­˜æ—¶è‡ªåŠ¨å¤‡ä»½ï¼ˆåŠ æ–‡ä»¶åç¼€.BAKï¼‰
 		// jCBLogException.setText(mm.getMessage("dialogoptions.logexception"));
-		// // ½«Òì³£Ğ´ÈëÈÕÖ¾ÎÄ¼ş
-		jCBAutoConnect.setText(mm.getMessage("dialogoptions.autoconnect")); // ×Ô¶¯Á¬½Ó£¨×î½üÁ¬½Ó£©
-		jCBAutoTrimChar0.setText(mm.getMessage("dialogoptions.autotrimchar0")); // ×Ô¶¯Çå³ı×Ö·û´®Î²²¿\0
-		jCBWindow.setText(mm.getMessage("dialogoptions.windowsize")); // ¼ÇÒä´°¿ÚÎ»ÖÃ´óĞ¡
-		jLabel22.setText(mm.getMessage("dialogoptions.applnf")); // Ó¦ÓÃ³ÌĞòÍâ¹Û
-		jLabelTimeout.setText(mm.getMessage("dialogoptions.timeoutnum")); // Á¬½Óµ½Êı¾İ¿âÊ±×î³¤µÈ´ı
-		jLabel9.setText(mm.getMessage("dialogoptions.second")); // Ãë
-		jLabelNote.setText(mm.getMessage("dialogoptions.attention")); // ×¢Òâ£º³£¹æÑ¡ÏîÀïÃæÀ¶É«µÄÑ¡ÏîĞèÒªÖØĞÂÆô¶¯IDE²ÅÄÜÉúĞ§¡£
-		jLabelLevel.setText(mm.getMessage("dialogoptions.loglevel")); // ÈÕÖ¾¼¶±ğ
-		jLabelLogType.setText(mm.getMessage("dialogoptions.logtype")); // ÈÕÖ¾ÀàĞÍ
-		jCBDispOutCell.setText(mm.getMessage("dialogoptions.dispoutcell")); // ÄÚÈİ³å³öµ¥Ôª¸ñÏÔÊ¾
+		// // å°†å¼‚å¸¸å†™å…¥æ—¥å¿—æ–‡ä»¶
+		jCBAutoConnect.setText(mm.getMessage("dialogoptions.autoconnect")); // è‡ªåŠ¨è¿æ¥ï¼ˆæœ€è¿‘è¿æ¥ï¼‰
+		jCBAutoTrimChar0.setText(mm.getMessage("dialogoptions.autotrimchar0")); // è‡ªåŠ¨æ¸…é™¤å­—ç¬¦ä¸²å°¾éƒ¨\0
+		jCBWindow.setText(mm.getMessage("dialogoptions.windowsize")); // è®°å¿†çª—å£ä½ç½®å¤§å°
+		jLabel22.setText(mm.getMessage("dialogoptions.applnf")); // åº”ç”¨ç¨‹åºå¤–è§‚
+		jLabelTimeout.setText(mm.getMessage("dialogoptions.timeoutnum")); // è¿æ¥åˆ°æ•°æ®åº“æ—¶æœ€é•¿ç­‰å¾…
+		jLabel9.setText(mm.getMessage("dialogoptions.second")); // ç§’
+		jLabelNote.setText(mm.getMessage("dialogoptions.attention")); // æ³¨æ„ï¼šå¸¸è§„é€‰é¡¹é‡Œé¢è“è‰²çš„é€‰é¡¹éœ€è¦é‡æ–°å¯åŠ¨IDEæ‰èƒ½ç”Ÿæ•ˆã€‚
+		jLabelLevel.setText(mm.getMessage("dialogoptions.loglevel")); // æ—¥å¿—çº§åˆ«
+		jLabelLogType.setText(mm.getMessage("dialogoptions.logtype")); // æ—¥å¿—ç±»å‹
+		jCBDispOutCell.setText(mm.getMessage("dialogoptions.dispoutcell")); // å†…å®¹å†²å‡ºå•å…ƒæ ¼æ˜¾ç¤º
 		jCBAutoSizeRowHeight.setText(mm
-				.getMessage("dialogoptions.autosizerowheight")); // ×Ô¶¯µ÷ÕûĞĞ¸ß
+				.getMessage("dialogoptions.autosizerowheight")); // è‡ªåŠ¨è°ƒæ•´è¡Œé«˜
 		jCBShowDBStruct.setText(mm.getMessage("dialogoptions.showdbstruct"));
 
-		jCBMultiLineExpEditor.setText(mm.getMessage("dialogoptions.multiline")); // ×ÔÔö³¤±í´ïÊ½±à¼­¿ò
+		jCBMultiLineExpEditor.setText(mm.getMessage("dialogoptions.multiline")); // è‡ªå¢é•¿è¡¨è¾¾å¼ç¼–è¾‘æ¡†
 		jCBStepLastLocation.setText(mm
-				.getMessage("dialogoptions.steplastlocation")); // µ¥²½Ö´ĞĞÊ±¹â±ê¸úËæ
+				.getMessage("dialogoptions.steplastlocation")); // å•æ­¥æ‰§è¡Œæ—¶å…‰æ ‡è·Ÿéš
 
 	}
 
@@ -580,7 +580,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * ±£´æÑ¡Ïî
+	 * ä¿å­˜é€‰é¡¹
 	 * 
 	 * @return
 	 * @throws Throwable
@@ -599,7 +599,7 @@ public class DialogOptions extends JDialog {
 			newXmx = newXmx.trim();
 			try {
 				Integer.parseInt(newXmx);
-				newXmx += "M"; // Ã»Ğ´µ¥Î»Æ´ÉÏM
+				newXmx += "M"; // æ²¡å†™å•ä½æ‹¼ä¸ŠM
 			} catch (Exception e) {
 			}
 			if (StringUtils.isValidString(newXmx)) {
@@ -614,7 +614,7 @@ public class DialogOptions extends JDialog {
 		String newGCLogFile = jTFGCLog.getText();
 		if (isArgChanged(oldGCLogFile, newGCLogFile)) {
 			if (StringUtils.isValidString(newGCLogFile)) {
-				if (GM.isWindowsOS()) // windowsÏµÍ³¼ÓÒıºÅ
+				if (GM.isWindowsOS()) // windowsç³»ç»ŸåŠ å¼•å·
 					newGCLogFile = Escape.addEscAndQuote(newGCLogFile);
 				jvmArgMap
 						.put(GMSpl.KEY_GC_LOG, GMSpl.KEY_GC_LOG + newGCLogFile);
@@ -703,7 +703,7 @@ public class DialogOptions extends JDialog {
 		ConfigOptions.sFontName = (String) jCBFontName.getSelectedItem();
 		Object oSize = jCBFontSize.x_getSelectedItem();
 		Short iSize;
-		if (oSize instanceof String) { // ÓÃ»§Ö±½ÓÊäÈëµÄÊı×Ö
+		if (oSize instanceof String) { // ç”¨æˆ·ç›´æ¥è¾“å…¥çš„æ•°å­—
 			iSize = new Short((String) oSize);
 		} else {
 			iSize = (Short) oSize;
@@ -744,13 +744,13 @@ public class DialogOptions extends JDialog {
 
 	private boolean isArgChanged(String oldArg, String newArg) {
 		if (StringUtils.isValidString(oldArg)) {
-			if (!StringUtils.isValidString(newArg)) // É¾³ı
+			if (!StringUtils.isValidString(newArg)) // åˆ é™¤
 				return true;
-			if (!oldArg.equalsIgnoreCase(newArg)) { // ĞŞ¸Ä
+			if (!oldArg.equalsIgnoreCase(newArg)) { // ä¿®æ”¹
 				return true;
 			}
 		} else {
-			if (StringUtils.isValidString(newArg)) { // ĞÂÔö
+			if (StringUtils.isValidString(newArg)) { // æ–°å¢
 				return true;
 			}
 		}
@@ -765,7 +765,7 @@ public class DialogOptions extends JDialog {
 	private boolean oldPrintHeapAtGC = false;
 
 	/**
-	 * ¼ÓÔØÑ¡Ïî
+	 * åŠ è½½é€‰é¡¹
 	 */
 	private void load() {
 		final String[] JVM_ARG_KEYS = new String[] { GMSpl.KEY_XMX,
@@ -789,7 +789,7 @@ public class DialogOptions extends JDialog {
 				gcLogFile = gcLogFile.substring(GMSpl.KEY_GC_LOG.length());
 				if (StringUtils.isValidString(gcLogFile)) {
 					oldGCLogFile = gcLogFile.trim();
-					if (GM.isWindowsOS()) // windowsÏµÍ³¼ÓÒıºÅ
+					if (GM.isWindowsOS()) // windowsç³»ç»ŸåŠ å¼•å·
 						oldGCLogFile = Escape.removeEscAndQuote(oldGCLogFile);
 					jTFGCLog.setText(oldGCLogFile);
 				}
@@ -908,7 +908,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * ¼ÓÔØ½Úµã»úÅäÖÃ
+	 * åŠ è½½èŠ‚ç‚¹æœºé…ç½®
 	 * 
 	 * @return
 	 */
@@ -930,7 +930,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * ×Ô¶¯´ò¿ªÎÄ¼şÑ¡Ïî±ä»¯ÁË
+	 * è‡ªåŠ¨æ‰“å¼€æ–‡ä»¶é€‰é¡¹å˜åŒ–äº†
 	 */
 	private void autoOpenChanged() {
 		boolean isAutoOpen = jCBAutoOpen.isSelected();
@@ -944,7 +944,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * ×Ô¶¯±£´æÑ¡Ïî±ä»¯ÁË
+	 * è‡ªåŠ¨ä¿å­˜é€‰é¡¹å˜åŒ–äº†
 	 */
 	private void autoSaveChanged() {
 		boolean isAutoSave = jCBAutoSave.isSelected();
@@ -958,18 +958,18 @@ public class DialogOptions extends JDialog {
 	public static final Color NOTE_COLOR = new Color(165, 0, 0);
 
 	/**
-	 * ³õÊ¼»¯½çÃæ
+	 * åˆå§‹åŒ–ç•Œé¢
 	 * 
 	 * @throws Exception
 	 */
 	private void initUI() throws Exception {
-		jCBAutoBackup.setText("±£´æÊ±×Ô¶¯±¸·İ£¨¼ÓÎÄ¼şºó×º.BAK£©");
-		jCBAutoConnect.setText("×Ô¶¯Á¬½Ó£¨×î½üÁ¬½Ó£©");
+		jCBAutoBackup.setText("ä¿å­˜æ—¶è‡ªåŠ¨å¤‡ä»½ï¼ˆåŠ æ–‡ä»¶åç¼€.BAKï¼‰");
+		jCBAutoConnect.setText("è‡ªåŠ¨è¿æ¥ï¼ˆæœ€è¿‘è¿æ¥ï¼‰");
 		jCBAutoConnect.setEnabled(true);
 		jCBAutoConnect.setForeground(Color.blue);
 		labelLocale.setForeground(Color.blue);
-		// jCBLogException.setText("½«Òì³£Ğ´ÈëÈÕÖ¾ÎÄ¼ş");
-		jLabelTimeout.setText("Á¬½Óµ½Êı¾İ¿âÊ±×î³¤µÈ´ı");
+		// jCBLogException.setText("å°†å¼‚å¸¸å†™å…¥æ—¥å¿—æ–‡ä»¶");
+		jLabelTimeout.setText("è¿æ¥åˆ°æ•°æ®åº“æ—¶æœ€é•¿ç­‰å¾…");
 		jSConnectTimeout.setBorder(BorderFactory.createLoweredBevelBorder());
 		jSConnectTimeout.setPreferredSize(new Dimension(80, 25));
 
@@ -981,21 +981,21 @@ public class DialogOptions extends JDialog {
 		jCBPrintHeapAtGC.setForeground(Color.BLUE);
 
 		jSFontSize.setBorder(BorderFactory.createLoweredBevelBorder());
-		jCBIdeConsole.setText("½Ó¹Ü¿ØÖÆÌ¨");
+		jCBIdeConsole.setText("æ¥ç®¡æ§åˆ¶å°");
 		jCBAutoOpen.setForeground(Color.blue);
-		jCBAutoOpen.setText("×Ô¶¯´ò¿ª£¨×î½üÎÄ¼ş£©");
+		jCBAutoOpen.setText("è‡ªåŠ¨æ‰“å¼€ï¼ˆæœ€è¿‘æ–‡ä»¶ï¼‰");
 
-		jLabel9.setText("Ãë");
+		jLabel9.setText("ç§’");
 
 		jLabelNote.setForeground(NOTE_COLOR);
-		jLabelNote.setText("×¢Òâ£ºÑ¡ÏîÀïÃæÀ¶É«µÄÑ¡ÏîĞèÒªÖØĞÂÆô¶¯IDE²ÅÄÜÉúĞ§¡£");
+		jLabelNote.setText("æ³¨æ„ï¼šé€‰é¡¹é‡Œé¢è“è‰²çš„é€‰é¡¹éœ€è¦é‡æ–°å¯åŠ¨IDEæ‰èƒ½ç”Ÿæ•ˆã€‚");
 		jLabel22.setForeground(Color.blue);
-		jLabel22.setText("Ó¦ÓÃ³ÌĞòÍâ¹Û");
-		jCBWindow.setText("¼ÇÒä´°¿ÚÎ»ÖÃ´óĞ¡");
-		jCBDispOutCell.setText("ÄÚÈİ³å³öµ¥Ôª¸ñÏÔÊ¾");
-		jCBMultiLineExpEditor.setText("¶àĞĞ±í´ïÊ½±à¼­");
-		jCBStepLastLocation.setText("µ¥²½Ö´ĞĞÊ±¹â±ê¸úËæ");
-		jCBAutoSizeRowHeight.setText("×Ô¶¯µ÷ÕûĞĞ¸ß");
+		jLabel22.setText("åº”ç”¨ç¨‹åºå¤–è§‚");
+		jCBWindow.setText("è®°å¿†çª—å£ä½ç½®å¤§å°");
+		jCBDispOutCell.setText("å†…å®¹å†²å‡ºå•å…ƒæ ¼æ˜¾ç¤º");
+		jCBMultiLineExpEditor.setText("å¤šè¡Œè¡¨è¾¾å¼ç¼–è¾‘");
+		jCBStepLastLocation.setText("å•æ­¥æ‰§è¡Œæ—¶å…‰æ ‡è·Ÿéš");
+		jCBAutoSizeRowHeight.setText("è‡ªåŠ¨è°ƒæ•´è¡Œé«˜");
 		Vector<Byte> lnfCodes = LookAndFeelManager.listLNFCode();
 		Vector<String> lnfDisps = LookAndFeelManager.listLNFDisp();
 		jCBLNF.x_setData(lnfCodes, lnfDisps);
@@ -1005,22 +1005,22 @@ public class DialogOptions extends JDialog {
 		VFlowLayout VFlowLayout1 = new VFlowLayout();
 		jPanelButton.setLayout(VFlowLayout1);
 		jBOK.setActionCommand("");
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogOptions_jBOK_actionAdapter(this));
 		jBOK.setMnemonic('O');
 		jBCancel.setActionCommand("");
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogOptions_jBCancel_actionAdapter(
 				this));
 		jBCancel.setMnemonic('C');
 		jPanelButton.add(jBOK, null);
 		jPanelButton.add(jBCancel, null);
-		jLabelLevel.setText("ÈÕÖ¾¼¶±ğ");
+		jLabelLevel.setText("æ—¥å¿—çº§åˆ«");
 		jCBLevel.x_setData(ConfigOptions.dispLevels(),
 				ConfigOptions.dispLevels());
 		jCBLevel.x_setSelectedCodeItem(Logger.DEBUG);
 
-		jLabelLogType.setText("ÈÕÖ¾ÀàĞÍ");
+		jLabelLogType.setText("æ—¥å¿—ç±»å‹");
 		jCBLogType.x_setData(ConfigOptions.codeLogTypes(),
 				ConfigOptions.dispLogTypes());
 		jCBLogType.x_setSelectedCodeItem(ConfigConsts.LOG_DEFAULT);
@@ -1050,7 +1050,7 @@ public class DialogOptions extends JDialog {
 		JPanel jPanelTimeout = new JPanel();
 		jPanelTimeout.setLayout(fl1);
 		jPanelTimeout.add(jSConnectTimeout);
-		jPanelTimeout.add(jLabel9); // Ãë
+		jPanelTimeout.add(jLabel9); // ç§’
 
 		boolean isHighVersionJDK = false;
 		String javaVersion = System.getProperty("java.version");
@@ -1058,7 +1058,7 @@ public class DialogOptions extends JDialog {
 			isHighVersionJDK = true;
 		}
 		JPanel panelMid = new JPanel(new GridBagLayout());
-		if (!isHighVersionJDK) { // SubstanceUI²»Ö§³Ö¸ß°æ±¾JDK
+		if (!isHighVersionJDK) { // SubstanceUIä¸æ”¯æŒé«˜ç‰ˆæœ¬JDK
 			panelMid.add(jLabel22, GM.getGBC(1, 1));
 			panelMid.add(jCBLNF, GM.getGBC(1, 2, true));
 			panelMid.add(labelLocale, GM.getGBC(1, 3));
@@ -1088,7 +1088,7 @@ public class DialogOptions extends JDialog {
 			panelMid.add(jLabelTimeout, GM.getGBC(4, 3));
 			panelMid.add(jPanelTimeout, GM.getGBC(4, 4, true));
 		}
-		// µ±³·Ïú/ÖØ×öµÄ×î´ó´ÎÊı¹ı´óÊ±£¬¿ÉÄÜ»áÕ¼ÓÃ¸ü¶àµÄÄÚ´æ¡£
+		// å½“æ’¤é”€/é‡åšçš„æœ€å¤§æ¬¡æ•°è¿‡å¤§æ—¶ï¼Œå¯èƒ½ä¼šå ç”¨æ›´å¤šçš„å†…å­˜ã€‚
 		jLUndoCount.setToolTipText(IdeSplMessage.get().getMessage(
 				"dialogoptions.undocountcause"));
 		jSUndoCount.setToolTipText(IdeSplMessage.get().getMessage(
@@ -1190,31 +1190,31 @@ public class DialogOptions extends JDialog {
 		panelSpl.add(panelSplGrid, BorderLayout.NORTH);
 		panelSplGrid.setLayout(new GridBagLayout());
 		JLabel labelRowCount = new JLabel(
-				mm.getMessage("dialogoptions.rowcount")); // ĞĞÊı
+				mm.getMessage("dialogoptions.rowcount")); // è¡Œæ•°
 		JLabel labelColCount = new JLabel(
-				mm.getMessage("dialogoptions.colcount")); // ÁĞÊı
+				mm.getMessage("dialogoptions.colcount")); // åˆ—æ•°
 		JLabel labelRowHeight = new JLabel(
-				mm.getMessage("dialogoptions.rowheight")); // ĞĞ¸ß
+				mm.getMessage("dialogoptions.rowheight")); // è¡Œé«˜
 		JLabel labelColWidth = new JLabel(
-				mm.getMessage("dialogoptions.colwidth")); // ÁĞ¿í
-		JLabel labelCFColor = new JLabel(mm.getMessage("dialogoptions.cfcolor")); // ³£Á¿Ç°¾°É«
-		JLabel labelCBColor = new JLabel(mm.getMessage("dialogoptions.cbcolor")); // ³£Á¿±³¾°É«
-		JLabel labelNFColor = new JLabel(mm.getMessage("dialogoptions.nfcolor")); // ×¢ÊÍÇ°¾°É«
-		JLabel labelNBColor = new JLabel(mm.getMessage("dialogoptions.nbcolor")); // ×¢ÊÍ±³¾°É«
-		JLabel labelVFColor = new JLabel(mm.getMessage("dialogoptions.vfcolor")); // ÓĞÖµ±í´ïÊ½Ç°¾°É«
-		JLabel labelVBColor = new JLabel(mm.getMessage("dialogoptions.vbcolor")); // ÓĞÖµ±í´ïÊ½±³¾°É«
+				mm.getMessage("dialogoptions.colwidth")); // åˆ—å®½
+		JLabel labelCFColor = new JLabel(mm.getMessage("dialogoptions.cfcolor")); // å¸¸é‡å‰æ™¯è‰²
+		JLabel labelCBColor = new JLabel(mm.getMessage("dialogoptions.cbcolor")); // å¸¸é‡èƒŒæ™¯è‰²
+		JLabel labelNFColor = new JLabel(mm.getMessage("dialogoptions.nfcolor")); // æ³¨é‡Šå‰æ™¯è‰²
+		JLabel labelNBColor = new JLabel(mm.getMessage("dialogoptions.nbcolor")); // æ³¨é‡ŠèƒŒæ™¯è‰²
+		JLabel labelVFColor = new JLabel(mm.getMessage("dialogoptions.vfcolor")); // æœ‰å€¼è¡¨è¾¾å¼å‰æ™¯è‰²
+		JLabel labelVBColor = new JLabel(mm.getMessage("dialogoptions.vbcolor")); // æœ‰å€¼è¡¨è¾¾å¼èƒŒæ™¯è‰²
 		JLabel labelNVFColor = new JLabel(
-				mm.getMessage("dialogoptions.nvfcolor")); // ÎŞÖµ±í´ïÊ½Ç°¾°É«
+				mm.getMessage("dialogoptions.nvfcolor")); // æ— å€¼è¡¨è¾¾å¼å‰æ™¯è‰²
 		JLabel labelNVBColor = new JLabel(
-				mm.getMessage("dialogoptions.nvbcolor")); // ÎŞÖµ±í´ïÊ½±³¾°É«
-		JLabel labelIndent = new JLabel(mm.getMessage("dialogoptions.indent")); // Ëõ½ø
+				mm.getMessage("dialogoptions.nvbcolor")); // æ— å€¼è¡¨è¾¾å¼èƒŒæ™¯è‰²
+		JLabel labelIndent = new JLabel(mm.getMessage("dialogoptions.indent")); // ç¼©è¿›
 		JLabel labelSeqMembers = new JLabel(
-				mm.getMessage("dialogoptions.seqmembers")); // ĞòÁĞÏÔÊ¾³ÉÔ±ÉÏÏŞ
+				mm.getMessage("dialogoptions.seqmembers")); // åºåˆ—æ˜¾ç¤ºæˆå‘˜ä¸Šé™
 
 		JLabel labelHAlign = new JLabel(IdeSplMessage.get().getMessage(
-				"dialogoptionsdfx.halign")); // Ë®Æ½¶ÔÆë
+				"dialogoptionsdfx.halign")); // æ°´å¹³å¯¹é½
 		JLabel labelVAlign = new JLabel(IdeSplMessage.get().getMessage(
-				"dialogoptionsdfx.valign")); // ×İÏò¶ÔÆë
+				"dialogoptionsdfx.valign")); // çºµå‘å¯¹é½
 		jSPRowCount = new JSpinner(new SpinnerNumberModel(20, 1, 100000, 1));
 		jSPColCount = new JSpinner(new SpinnerNumberModel(6, 1, 10000, 1));
 		jSPRowHeight = new JSpinner(new SpinnerNumberModel(25f, 1f, 100f, 1f));
@@ -1231,10 +1231,10 @@ public class DialogOptions extends JDialog {
 
 		jCBFontSize = GM.getFontSizes();
 		jCBFontSize.setEditable(true);
-		jCBBold = new JCheckBox(mm.getMessage("dialogoptions.bold")); // ¼Ó´Ö
-		jCBItalic = new JCheckBox(mm.getMessage("dialogoptions.italic")); // ÇãĞ±
-		jCBUnderline = new JCheckBox(mm.getMessage("dialogoptions.underline")); // ÏÂ»®Ïß
-		jCBGridline = new JCheckBox(mm.getMessage("dialogoptions.gridline")); // Íø¸ñÏß
+		jCBBold = new JCheckBox(mm.getMessage("dialogoptions.bold")); // åŠ ç²—
+		jCBItalic = new JCheckBox(mm.getMessage("dialogoptions.italic")); // å€¾æ–œ
+		jCBUnderline = new JCheckBox(mm.getMessage("dialogoptions.underline")); // ä¸‹åˆ’çº¿
+		jCBGridline = new JCheckBox(mm.getMessage("dialogoptions.gridline")); // ç½‘æ ¼çº¿
 		jSPIndent = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
 		jSSeqMembers = new JSpinner(new SpinnerNumberModel(3, 1,
 				Integer.MAX_VALUE, 1));
@@ -1334,7 +1334,7 @@ public class DialogOptions extends JDialog {
 		} else {
 			tabMain.add(panelNormal, mm.getMessage("dialogoptions.panel0"));
 			tabMain.add(panelEnv, mm.getMessage("dialogoptions.panel1"));
-			tabMain.add(panelSpl, mm.getMessage("dialogoptions.panel2")); // ¼¯ËãÆ÷
+			tabMain.add(panelSpl, mm.getMessage("dialogoptions.panel2")); // é›†ç®—å™¨
 		}
 
 		this.addWindowListener(new DialogOptions_this_windowAdapter(this));
@@ -1354,26 +1354,26 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * ¼ì²éJVM×î´óÄÚ´æ
+	 * æ£€æŸ¥JVMæœ€å¤§å†…å­˜
 	 * 
 	 * @return
 	 */
 	private boolean checkXmx() {
 		String sNum = jTFXmx.getText();
 		if (!StringUtils.isValidString(sNum)) {
-			return true; // ²»Ìî¾Í²»ÉèÖÃ
+			return true; // ä¸å¡«å°±ä¸è®¾ç½®
 		}
 		sNum = sNum.trim();
 		try {
 			Integer.parseInt(sNum);
-			// Ã»ÓĞĞ´µ¥Î»Ä¬ÈÏÊÇM
+			// æ²¡æœ‰å†™å•ä½é»˜è®¤æ˜¯M
 			return true;
 		} catch (Exception e) {
 		}
-		// ÓĞ¿ÉÄÜĞ´ÁËµ¥Î»£¬±ÈÈçG,M,KµÈ
+		// æœ‰å¯èƒ½å†™äº†å•ä½ï¼Œæ¯”å¦‚G,M,Kç­‰
 		int buffer = ConfigUtil.parseBufferSize(sNum);
 		if (buffer == -1) {
-			return true; // ²»Ìî¾Í²»ÉèÖÃÁË
+			return true; // ä¸å¡«å°±ä¸è®¾ç½®äº†
 		} else if (buffer == -2) {
 			GM.messageDialog(this, mm.getMessage("dialogoptions.invalidxmx"));
 			return false;
@@ -1382,7 +1382,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1393,7 +1393,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1418,7 +1418,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1428,7 +1428,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * È¡Ë®Æ½¶ÔÆë´úÂëÖµ
+	 * å–æ°´å¹³å¯¹é½ä»£ç å€¼
 	 * 
 	 * @return
 	 */
@@ -1441,7 +1441,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * È¡Ë®Æ½¶ÔÆëÏÔÊ¾Öµ
+	 * å–æ°´å¹³å¯¹é½æ˜¾ç¤ºå€¼
 	 * 
 	 * @return
 	 */
@@ -1449,14 +1449,14 @@ public class DialogOptions extends JDialog {
 		MessageManager mm = IdeCommonMessage.get();
 
 		Vector<String> hAligns = new Vector<String>();
-		hAligns.add(mm.getMessage("dialogoptions.hleft")); // ×ó¶ÔÆë
-		hAligns.add(mm.getMessage("dialogoptions.hcenter")); // ÖĞ¶ÔÆë
-		hAligns.add(mm.getMessage("dialogoptions.hright")); // ÓÒ¶ÔÆë
+		hAligns.add(mm.getMessage("dialogoptions.hleft")); // å·¦å¯¹é½
+		hAligns.add(mm.getMessage("dialogoptions.hcenter")); // ä¸­å¯¹é½
+		hAligns.add(mm.getMessage("dialogoptions.hright")); // å³å¯¹é½
 		return hAligns;
 	}
 
 	/**
-	 * È¡´¹Ö±¶ÔÆë´úÂëÖµ
+	 * å–å‚ç›´å¯¹é½ä»£ç å€¼
 	 * 
 	 * @return
 	 */
@@ -1469,21 +1469,21 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * È¡´¹Ö±¶ÔÆëÏÔÊ¾Öµ
+	 * å–å‚ç›´å¯¹é½æ˜¾ç¤ºå€¼
 	 * 
 	 * @return
 	 */
 	public static Vector<String> getVAlignDisps() {
 		MessageManager mm = IdeCommonMessage.get();
 		Vector<String> vAligns = new Vector<String>();
-		vAligns.add(mm.getMessage("dialogoptions.vtop")); // ¿¿ÉÏ
-		vAligns.add(mm.getMessage("dialogoptions.vcenter")); // ¾ÓÖĞ
-		vAligns.add(mm.getMessage("dialogoptions.vbottom")); // ¿¿ÏÂ
+		vAligns.add(mm.getMessage("dialogoptions.vtop")); // é ä¸Š
+		vAligns.add(mm.getMessage("dialogoptions.vcenter")); // å±…ä¸­
+		vAligns.add(mm.getMessage("dialogoptions.vbottom")); // é ä¸‹
 		return vAligns;
 	}
 
 	/**
-	 * ÒÔÇ°¶¨ÒåÓĞÖØ¸´£¬ÇÒÖµ²»Ò»ÖÂ£¬ËùÒÔ¶ÔË®Æ½¡¢´¹Ö±¶ÔÆë×öÒ»ÏÂ¼æÈİ´¦Àí£¬¹ıÒ»¶ÎÊ±¼ä¾Í¿ÉÒÔÈ¥µôÕâ¸öÁË¡£
+	 * ä»¥å‰å®šä¹‰æœ‰é‡å¤ï¼Œä¸”å€¼ä¸ä¸€è‡´ï¼Œæ‰€ä»¥å¯¹æ°´å¹³ã€å‚ç›´å¯¹é½åšä¸€ä¸‹å…¼å®¹å¤„ç†ï¼Œè¿‡ä¸€æ®µæ—¶é—´å°±å¯ä»¥å»æ‰è¿™ä¸ªäº†ã€‚
 	 */
 	private Byte compatibleHalign(Byte value) {
 		switch (value.byteValue()) {
@@ -1498,7 +1498,7 @@ public class DialogOptions extends JDialog {
 	}
 
 	/**
-	 * ÒòÎªIStyle¸ÄÁË³£Á¿Öµ£¬¼æÈİ´¦ÀíÒ»ÏÂ£¬ºáÏòµÄÎŞ·¨´¦Àí¡£
+	 * å› ä¸ºIStyleæ”¹äº†å¸¸é‡å€¼ï¼Œå…¼å®¹å¤„ç†ä¸€ä¸‹ï¼Œæ¨ªå‘çš„æ— æ³•å¤„ç†ã€‚
 	 */
 	private Byte compatibleValign(Byte value) {
 		switch (value.byteValue()) {

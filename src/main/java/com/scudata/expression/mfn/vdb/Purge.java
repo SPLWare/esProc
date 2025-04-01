@@ -11,7 +11,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.vdb.Library;
 
 /**
- * 整理数据库数据，使访问速度更快
+ * 鏁寸悊鏁版嵁搴撴暟鎹紝浣胯闂�熷害鏇村揩
  * v.purge()
  * @author RunQian
  *

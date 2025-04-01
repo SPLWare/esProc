@@ -2,35 +2,35 @@ package com.scudata.array;
 
 public interface NumberArray extends IArray {
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÔªËØµÄÕûÊıÖµ
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @return ÕûÊıÖµ
+	 * å–æŒ‡å®šä½ç½®å…ƒç´ çš„æ•´æ•°å€¼
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @return æ•´æ•°å€¼
 	 */
 	//int getInt(int index);
 
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÔªËØµÄ³¤ÕûÊıÖµ
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @return ³¤ÕûÊıÖµ
+	 * å–æŒ‡å®šä½ç½®å…ƒç´ çš„é•¿æ•´æ•°å€¼
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @return é•¿æ•´æ•°å€¼
 	 */
 	//long getLong(int index);
 	
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÔªËØµÄ¸¡µãÊıÖµ
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @return ¸¡µãÊıÖµ
+	 * å–æŒ‡å®šä½ç½®å…ƒç´ çš„æµ®ç‚¹æ•°å€¼
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @return æµ®ç‚¹æ•°å€¼
 	 */
 	double getDouble(int index);
 	
 	/**
-	 * Á½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±½øĞĞ±È½Ï£¬·µ»Ø±È½Ï½á¹ûÊı×é
-	 * @param rightArray ÓÒ²àÊı×é
-	 * @return IntArray 1£º×ó²à´ó£¬0£ºÏàµÈ£¬-1£ºÓÒ²à´ó
+	 * ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜è¿›è¡Œæ¯”è¾ƒï¼Œè¿”å›æ¯”è¾ƒç»“æœæ•°ç»„
+	 * @param rightArray å³ä¾§æ•°ç»„
+	 * @return IntArray 1ï¼šå·¦ä¾§å¤§ï¼Œ0ï¼šç›¸ç­‰ï¼Œ-1ï¼šå³ä¾§å¤§
 	 */
 	IntArray memberCompare(NumberArray rightArray);
 	
 	/**
-	 * ÊÇ·ñÓĞnullÖµÊı×é
+	 * æ˜¯å¦æœ‰nullå€¼æ•°ç»„
 	 * @return
 	 */
 	boolean hasSigns();

@@ -9,7 +9,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.resources.EngineMessage;
 
-//向zip追加文件进行压缩处理
+//鍚憐ip杩藉姞鏂囦欢杩涜鍘嬬缉澶勭悊
 public class ImZipAdd extends ImFunction {	
 	public Object doQuery(Object[] objs){
 		try {

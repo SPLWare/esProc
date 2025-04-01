@@ -10,7 +10,7 @@ import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * °ÑÖ¸¶¨Êı¾İ´Ó×é±íÖĞÉ¾³ı£¬×é±íĞèÓĞÖ÷¼ü
+ * æŠŠæŒ‡å®šæ•°æ®ä»ç»„è¡¨ä¸­åˆ é™¤ï¼Œç»„è¡¨éœ€æœ‰ä¸»é”®
  * T.delete(P)
  * @author RunQian
  *

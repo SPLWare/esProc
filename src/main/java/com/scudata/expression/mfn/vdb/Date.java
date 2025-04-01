@@ -8,7 +8,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.vdb.IVS;
 
 /**
- * 返回路径的最新提交时刻，路径不存在返回空
+ * 杩斿洖璺緞鐨勬渶鏂版彁浜ゆ椂鍒伙紝璺緞涓嶅瓨鍦ㄨ繑鍥炵┖
  * h.date(p)
  * @author RunQian
  *

@@ -3,7 +3,7 @@ package com.scudata.dm;
 import java.io.IOException;
 
 /**
- * 可以改变输出位置的写对象
+ * 鍙互鏀瑰彉杈撳嚭浣嶇疆鐨勫啓瀵硅薄
  * @author WangXiaoJun
  *
  */
@@ -11,8 +11,8 @@ final public class RandomObjectWriter extends ObjectWriter {
 	RandomOutputStream ros;
 	
 	/**
-	 * 构建可以改变输出位置的写对象
-	 * @param out 可以改变输出位置的输出流
+	 * 鏋勫缓鍙互鏀瑰彉杈撳嚭浣嶇疆鐨勫啓瀵硅薄
+	 * @param out 鍙互鏀瑰彉杈撳嚭浣嶇疆鐨勮緭鍑烘祦
 	 */
 	public RandomObjectWriter(RandomOutputStream out) {
 		super(out);
@@ -20,7 +20,7 @@ final public class RandomObjectWriter extends ObjectWriter {
 	}
 
 	/**
-	 * 返回当前输出位置
+	 * 杩斿洖褰撳墠杈撳嚭浣嶇疆
 	 * @return
 	 * @throws IOException
 	 */
@@ -29,7 +29,7 @@ final public class RandomObjectWriter extends ObjectWriter {
 	}
 	
 	/**
-	 * 设置输出位置
+	 * 璁剧疆杈撳嚭浣嶇疆
 	 * @param newPosition
 	 * @throws IOException
 	 */

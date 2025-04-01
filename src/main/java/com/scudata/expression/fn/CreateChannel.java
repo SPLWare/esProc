@@ -14,7 +14,7 @@ import com.scudata.parallel.ClusterCursor;
 import com.scudata.resources.EngineMessage;
 
 /**
- * channel() 创建管道
+ * channel() 鍒涘缓绠￠亾
  * @author runqian
  *
  */

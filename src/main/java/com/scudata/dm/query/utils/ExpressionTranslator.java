@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 import com.scudata.common.Logger;
 
-public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦ÀíSQLÓï¾ä
+public class ExpressionTranslator //åªèƒ½å¤„ç†ä¸­é—´è¿‡ç¨‹ä¸­çš„è¡¨è¾¾å¼ï¼Œä¸èƒ½ç›´æ¥ç”¨æ¥å¤„ç†SQLè¯­å¥
 {
 	public static List<String> marksList = new ArrayList<String>();
 	public static List<String> funcsList = new ArrayList<String>();
@@ -23,10 +23,10 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 			return exp;
 		}
 		//Logger.debug("translateExp beg : "+ exp);		
-		exp = moveOutMarks(exp);//±£»¤¿ÉÄÜ°üº¬×Ö¶ÎÃûµÄ×Ö·û´®""
-		exp = moveOutFuncs(exp, trMap);//±£»¤Óë×Ö¶ÎÍ¬ÃûµÄº¯Êıfun(
+		exp = moveOutMarks(exp);//ä¿æŠ¤å¯èƒ½åŒ…å«å­—æ®µåçš„å­—ç¬¦ä¸²""
+		exp = moveOutFuncs(exp, trMap);//ä¿æŠ¤ä¸å­—æ®µåŒåçš„å‡½æ•°fun(
 		
-		//³¤µÄÔÚÇ°£¬¶ÌµÄÔÚºó£¬·ÀÖ¹³¤µÄ°üº¬¶ÌµÄ
+		//é•¿çš„åœ¨å‰ï¼ŒçŸ­çš„åœ¨åï¼Œé˜²æ­¢é•¿çš„åŒ…å«çŸ­çš„
 		String[] keyBuf = new String[trMap.size()];
 		trMap.keySet().toArray(keyBuf);
 		Arrays.sort(keyBuf, new NameComprator()); 
@@ -40,9 +40,9 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 			valueList.add(value);
 		}
 		
-		String specials = "^$.[]*\\?+{}|()";//ÕıÔò±í´ïÊ½µÄÌØÊâ×Ö·û
+		String specials = "^$.[]*\\?+{}|()";//æ­£åˆ™è¡¨è¾¾å¼çš„ç‰¹æ®Šå­—ç¬¦
 		
-		//¶Ô¸¶´óĞ¡Ğ´Í¬Ê±´æÔÚµÄÇé¿ö
+		//å¯¹ä»˜å¤§å°å†™åŒæ—¶å­˜åœ¨çš„æƒ…å†µ
 		Map<String, List<String>> ignoreCaseMap = new LinkedHashMap<String, List<String>>();
 		for(int i = 0; i < keyList.size(); i++)
 		{
@@ -60,7 +60,7 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 			}
 		}
 		
-		//ÏÈÓÃ²»¿É¼û±êÊ¶Ìæ»»ËùÓĞkey£¬·ÀÖ¹ÖĞÍ¾Ìæ»»µÄvalueÖĞ°üº¬ºóÃæµÄkey
+		//å…ˆç”¨ä¸å¯è§æ ‡è¯†æ›¿æ¢æ‰€æœ‰keyï¼Œé˜²æ­¢ä¸­é€”æ›¿æ¢çš„valueä¸­åŒ…å«åé¢çš„key
 		for(Map.Entry<String, List<String>> ignoreCaseEntry : ignoreCaseMap.entrySet())
 		{
 			List<String> ignoreCaseList = ignoreCaseEntry.getValue();
@@ -73,7 +73,7 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 					char ch = sameKeyIgnoreCase.charAt(k);
 					if(specials.indexOf(ch) != -1)
 					{
-						sb.append('\\');//ÕıÔò±í´ïÊ½µÄÌØÊâ×Ö·ûÒª¼Ó\
+						sb.append('\\');//æ­£åˆ™è¡¨è¾¾å¼çš„ç‰¹æ®Šå­—ç¬¦è¦åŠ \
 						sb.append(ch);
 					}
 					else
@@ -93,7 +93,7 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 				char ch = sameKeyIgnoreCase.charAt(k);
 				if(specials.indexOf(ch) != -1)
 				{
-					sb.append('\\');//ÕıÔò±í´ïÊ½µÄÌØÊâ×Ö·ûÒª¼Ó\
+					sb.append('\\');//æ­£åˆ™è¡¨è¾¾å¼çš„ç‰¹æ®Šå­—ç¬¦è¦åŠ \
 					sb.append(ch);
 				}
 				else
@@ -105,7 +105,7 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 			exp = exp.replaceAll("(?i)" + sameKeyIgnoreCase, "" + (char)30 + (index + 1) + (char)31);
 		}
 		
-		//×îºóÓÃvalueÌæ»»ËùÓĞ²»¿É¼û±êÊ¶
+		//æœ€åç”¨valueæ›¿æ¢æ‰€æœ‰ä¸å¯è§æ ‡è¯†
 		for(int j = 0; j < valueList.size(); j++)
 		{
 			String value = valueList.get(j);
@@ -127,7 +127,7 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 			return exp;
 		}
 		
-		//³¤µÄÔÚÇ°£¬¶ÌµÄÔÚºó£¬·ÀÖ¹³¤µÄ°üº¬¶ÌµÄ
+		//é•¿çš„åœ¨å‰ï¼ŒçŸ­çš„åœ¨åï¼Œé˜²æ­¢é•¿çš„åŒ…å«çŸ­çš„
 		String[] keyBuf = new String[trMap.size()];
 		trMap.keySet().toArray(keyBuf);
 		Arrays.sort(keyBuf, new NameComprator()); 
@@ -141,9 +141,9 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 			valueList.add(value);
 		}
 		
-		String specials = "^$.[]*\\?+{}|()";//ÕıÔò±í´ïÊ½µÄÌØÊâ×Ö·û
+		String specials = "^$.[]*\\?+{}|()";//æ­£åˆ™è¡¨è¾¾å¼çš„ç‰¹æ®Šå­—ç¬¦
 		
-		//¶Ô¸¶´óĞ¡Ğ´Í¬Ê±´æÔÚµÄÇé¿ö
+		//å¯¹ä»˜å¤§å°å†™åŒæ—¶å­˜åœ¨çš„æƒ…å†µ
 		Map<String, List<String>> ignoreCaseMap = new LinkedHashMap<String, List<String>>();
 		for(int i = 0; i < keyList.size(); i++)
 		{
@@ -161,7 +161,7 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 			}
 		}		
 				
-		//ÏÈÓÃ²»¿É¼û±êÊ¶Ìæ»»ËùÓĞkey£¬·ÀÖ¹ÖĞÍ¾Ìæ»»µÄvalueÖĞ°üº¬ºóÃæµÄkey
+		//å…ˆç”¨ä¸å¯è§æ ‡è¯†æ›¿æ¢æ‰€æœ‰keyï¼Œé˜²æ­¢ä¸­é€”æ›¿æ¢çš„valueä¸­åŒ…å«åé¢çš„key
 		for(Map.Entry<String, List<String>> ignoreCaseEntry : ignoreCaseMap.entrySet())
 		{
 			List<String> ignoreCaseList = ignoreCaseEntry.getValue();
@@ -174,7 +174,7 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 					char ch = sameKeyIgnoreCase.charAt(k);
 					if(specials.indexOf(ch) != -1)
 					{
-						sb.append('\\');//ÕıÔò±í´ïÊ½µÄÌØÊâ×Ö·ûÒª¼Ó\
+						sb.append('\\');//æ­£åˆ™è¡¨è¾¾å¼çš„ç‰¹æ®Šå­—ç¬¦è¦åŠ \
 						sb.append(ch);
 					}
 					else
@@ -194,7 +194,7 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 				char ch = sameKeyIgnoreCase.charAt(k);
 				if(specials.indexOf(ch) != -1)
 				{
-					sb.append('\\');//ÕıÔò±í´ïÊ½µÄÌØÊâ×Ö·ûÒª¼Ó\
+					sb.append('\\');//æ­£åˆ™è¡¨è¾¾å¼çš„ç‰¹æ®Šå­—ç¬¦è¦åŠ \
 					sb.append(ch);
 				}
 				else
@@ -206,7 +206,7 @@ public class ExpressionTranslator //Ö»ÄÜ´¦ÀíÖĞ¼ä¹ı³ÌÖĞµÄ±í´ïÊ½£¬²»ÄÜÖ±½ÓÓÃÀ´´¦Àí
 			exp = exp.replaceAll("(?i)" + sameKeyIgnoreCase, "" + (char)30 + (index + 1) + (char)31);
 		}		
 		
-		//×îºóÓÃvalueÌæ»»ËùÓĞ²»¿É¼û±êÊ¶
+		//æœ€åç”¨valueæ›¿æ¢æ‰€æœ‰ä¸å¯è§æ ‡è¯†
 		for(int j = 0; j < valueList.size(); j++)
 		{
 			String value = valueList.get(j);

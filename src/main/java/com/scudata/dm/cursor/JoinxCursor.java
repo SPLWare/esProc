@@ -11,35 +11,35 @@ import com.scudata.expression.Expression;
 import com.scudata.util.Variant;
 
 /**
- * ¶àÓÎ±ê×öÓĞĞò¹é²¢Á¬½Ó£¬ÓÎ±ê°´¹ØÁª×Ö¶ÎÓĞĞò
- * joinx(csi:Fi,xj,..;¡­)
+ * å¤šæ¸¸æ ‡åšæœ‰åºå½’å¹¶è¿æ¥ï¼Œæ¸¸æ ‡æŒ‰å…³è”å­—æ®µæœ‰åº
+ * joinx(csi:Fi,xj,..;â€¦)
  * @author RunQian
  *
  */
 public class JoinxCursor extends ICursor {
-	private ICursor []cursors; // ÓÎ±êÊı×é
-	private Expression[][] exps; // ¹ØÁª±í´ïÊ½Êı×é
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹
+	private ICursor []cursors; // æ¸¸æ ‡æ•°ç»„
+	private Expression[][] exps; // å…³è”è¡¨è¾¾å¼æ•°ç»„
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„
 	private int type = 0; // 0:JOIN, 1:LEFTJOIN, 2:FULLJOIN
-	private boolean isEnd = false; // ÊÇ·ñÈ¡Êı½áÊø
+	private boolean isEnd = false; // æ˜¯å¦å–æ•°ç»“æŸ
 
-	private Sequence []tables; // Ã¿¸öÓÎ±êÈ¡³öµÄÊı¾İ»º´æ
-	private Object [][]values; // ¹ØÁª×Ö¶ÎÖµÊı×é
-	private int []seqs; // Ã¿¸öÓÎ±êµ±Ç°»º´æ±éÀúµÄĞòºÅ
-	private int []ranks; // µ±Ç°ÔªËØµÄÅÅÃû£¬0¡¢1¡¢-1
-	private Sequence []nextTables; // »º´æ±éÀú½áÊøÊ±È¡³öµÄºóĞø»º´æ
-	private Object [][]nextValues; // ºóĞø»º´æµÚÒ»Ìõ¼ÇÂ¼¶ÔÓ¦µÄ¹ØÁª×Ö¶ÎµÄÖµ
+	private Sequence []tables; // æ¯ä¸ªæ¸¸æ ‡å–å‡ºçš„æ•°æ®ç¼“å­˜
+	private Object [][]values; // å…³è”å­—æ®µå€¼æ•°ç»„
+	private int []seqs; // æ¯ä¸ªæ¸¸æ ‡å½“å‰ç¼“å­˜éå†çš„åºå·
+	private int []ranks; // å½“å‰å…ƒç´ çš„æ’åï¼Œ0ã€1ã€-1
+	private Sequence []nextTables; // ç¼“å­˜éå†ç»“æŸæ—¶å–å‡ºçš„åç»­ç¼“å­˜
+	private Object [][]nextValues; // åç»­ç¼“å­˜ç¬¬ä¸€æ¡è®°å½•å¯¹åº”çš„å…³è”å­—æ®µçš„å€¼
 	
-	private Context []ctxs; // Ã¿¸ö±í¼ÆËãexpsÓÃ×Ô¼ºµÄÉÏÏÂÎÄ£¬Ã¿¸ö±íÈ¡³öÊı¾İºóÏÈÑ¹Õ»
-	private Current []currents; // ĞòÁĞµÄµ±Ç°¼ÆËã¶ÔÏó£¬ÓÃÓÚÑ¹Õ»
+	private Context []ctxs; // æ¯ä¸ªè¡¨è®¡ç®—expsç”¨è‡ªå·±çš„ä¸Šä¸‹æ–‡ï¼Œæ¯ä¸ªè¡¨å–å‡ºæ•°æ®åå…ˆå‹æ ˆ
+	private Current []currents; // åºåˆ—çš„å½“å‰è®¡ç®—å¯¹è±¡ï¼Œç”¨äºå‹æ ˆ
 
 	/**
-	 * ´´½¨ÓĞĞò¹é²¢¹ØÁªÓÎ±ê
-	 * @param cursors ÓÎ±êÊı×é£¬ÓÎ±ê°´¹ØÁª×Ö¶ÎÓĞĞò
-	 * @param exps ¹ØÁª±í´ïÊ½Êı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åˆ›å»ºæœ‰åºå½’å¹¶å…³è”æ¸¸æ ‡
+	 * @param cursors æ¸¸æ ‡æ•°ç»„ï¼Œæ¸¸æ ‡æŒ‰å…³è”å­—æ®µæœ‰åº
+	 * @param exps å…³è”è¡¨è¾¾å¼æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public JoinxCursor(ICursor []cursors, Expression[][] exps, String []names, String opt, Context ctx) {
 		this.cursors = cursors;
@@ -62,8 +62,8 @@ public class JoinxCursor extends ICursor {
 		}
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			for (ICursor cursor : cursors) {
@@ -76,8 +76,8 @@ public class JoinxCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -170,7 +170,7 @@ public class JoinxCursor extends ICursor {
 		}
 	}
 
-	// °Ñµ±Ç°ËùÓĞÅÅÃûµÚÒ»µÄÓÎ±êµÄÔªËØÌø¹ı
+	// æŠŠå½“å‰æ‰€æœ‰æ’åç¬¬ä¸€çš„æ¸¸æ ‡çš„å…ƒç´ è·³è¿‡
 	private void popAll() {
 		Sequence []tables = this.tables;
 		Object [][]values = this.values;
@@ -228,7 +228,7 @@ public class JoinxCursor extends ICursor {
 		}
 	}
 
-	// ÓĞÏàÍ¬ÔªËØµÄĞòÁĞµ¯³öÕ»¶¥ÔªËØ£¬Èç¹û¶¼Ã»ÓĞÏàÍ¬µÄÔò¶¼µ¯³ö
+	// æœ‰ç›¸åŒå…ƒç´ çš„åºåˆ—å¼¹å‡ºæ ˆé¡¶å…ƒç´ ï¼Œå¦‚æœéƒ½æ²¡æœ‰ç›¸åŒçš„åˆ™éƒ½å¼¹å‡º
 	private void popRepeated() {
 		Sequence []tables = this.tables;
 		Object [][]values = this.values;
@@ -338,7 +338,7 @@ public class JoinxCursor extends ICursor {
 			return;
 		}
 
-		// ÖØÖÃ±í´ïÊ½
+		// é‡ç½®è¡¨è¾¾å¼
 		for (Expression []curExps : exps) {
 			for (Expression exp : curExps) {
 				exp.reset();
@@ -350,7 +350,7 @@ public class JoinxCursor extends ICursor {
 		tables = new Sequence[tcount];
 		values = new Object[tcount][];
 		seqs = new int[tcount];
-		ranks = new int[tcount]; // ĞòÁĞµÄµ±Ç°ÔªËØµÄÅÅÃû
+		ranks = new int[tcount]; // åºåˆ—çš„å½“å‰å…ƒç´ çš„æ’å
 
 		nextTables = new Sequence[tcount];
 		nextValues = new Object[tcount][];
@@ -398,9 +398,9 @@ public class JoinxCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (isEnd || n < 1) {
@@ -464,7 +464,7 @@ public class JoinxCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -483,8 +483,8 @@ public class JoinxCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

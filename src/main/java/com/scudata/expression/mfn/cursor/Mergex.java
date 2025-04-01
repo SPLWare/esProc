@@ -12,8 +12,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
- * °Ñ¶àÂ·ÓÎ±ê°´Ö¸¶¨±í´ïÊ½¹é²¢³Éµ¥Â·ÓÎ±ê£¬Ã¿Ò»Â·ÓÎ±ê¶¼°´±í´ïÊ½ÓĞĞò
- * mcs.mergex(xi,¡­)
+ * æŠŠå¤šè·¯æ¸¸æ ‡æŒ‰æŒ‡å®šè¡¨è¾¾å¼å½’å¹¶æˆå•è·¯æ¸¸æ ‡ï¼Œæ¯ä¸€è·¯æ¸¸æ ‡éƒ½æŒ‰è¡¨è¾¾å¼æœ‰åº
+ * mcs.mergex(xi,â€¦)
  * @author RunQian
  *
  */
@@ -31,7 +31,7 @@ public class Mergex extends CursorFunction {
 
 		Expression []exps = null;
 		if (param == null) {
-		} else if (param.isLeaf()) { // Ö»ÓĞÒ»¸ö²ÎÊı
+		} else if (param.isLeaf()) { // åªæœ‰ä¸€ä¸ªå‚æ•°
 			exps = new Expression[]{ param.getLeafExpression() };
 		} else if (param.getType() == IParam.Comma) { // ,
 			int size = param.getSubSize();

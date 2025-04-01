@@ -9,32 +9,32 @@ import javax.swing.event.EventListenerList;
 import com.scudata.common.Logger;
 
 /**
- * ÏÂÀ­¿ò±à¼­Æ÷
+ * ä¸‹æ‹‰æ¡†ç¼–è¾‘å™¨
  */
 
 public abstract class AbstractComboBoxEditor implements ComboBoxEditor {
 
 	/**
-	 * ¼àÌıÆ÷ÁĞ±í
+	 * ç›‘å¬å™¨åˆ—è¡¨
 	 */
 	EventListenerList listenerList = new EventListenerList();
 
 	/**
-	 * Ôö¼Ó¼àÌıÆ÷
+	 * å¢åŠ ç›‘å¬å™¨
 	 */
 	public void addActionListener(ActionListener listener) {
 		listenerList.add(ActionListener.class, listener);
 	}
 
 	/**
-	 * É¾³ı¼àÌıÆ÷
+	 * åˆ é™¤ç›‘å¬å™¨
 	 */
 	public void removeActionListener(ActionListener listener) {
 		listenerList.remove(ActionListener.class, listener);
 	}
 
 	/**
-	 * Ö´ĞĞÊÂ¼ş
+	 * æ‰§è¡Œäº‹ä»¶
 	 * 
 	 * @param e
 	 */

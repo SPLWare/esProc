@@ -43,7 +43,7 @@ import com.scudata.util.HashUtil;
 import com.scudata.util.Variant;
 
 /**
- * ¼¯ÈºÄÚ±í
+ * é›†ç¾¤å†…è¡¨
  * @author RunQian
  *
  */
@@ -52,17 +52,17 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 	
 	private Cluster cluster;
 	
-	// Êı¾İÒªÇó°´Ö÷¼üÔÚ½Úµã»úÄÚ¡¢½Úµã»ú¼äÓĞĞò
+	// æ•°æ®è¦æ±‚æŒ‰ä¸»é”®åœ¨èŠ‚ç‚¹æœºå†…ã€èŠ‚ç‚¹æœºé—´æœ‰åº
 	private RemoteMemoryTable []tables;
-	private boolean isDistributed; // ÊÇ·ñ·Ö²¼ÄÚ±í£¬·Ö²¼ÎÄ¼ş»òÕß·Ö¶ÎÔòÎª·Ö²¼ÄÚ±í
+	private boolean isDistributed; // æ˜¯å¦åˆ†å¸ƒå†…è¡¨ï¼Œåˆ†å¸ƒæ–‡ä»¶æˆ–è€…åˆ†æ®µåˆ™ä¸ºåˆ†å¸ƒå†…è¡¨
 	
-	private Expression distribute; // ·Ö²¼±í´ïÊ½£¬¿ÉÒÔÎª¿Õ
-	private String []sortedColNames; // Ö÷¼ü»òÅÅĞò×Ö¶Î
-	private DataStruct distDs; // ¼ÆËã·Ö²¼Ê±ÓÃµÄ±í´ïÊ½
+	private Expression distribute; // åˆ†å¸ƒè¡¨è¾¾å¼ï¼Œå¯ä»¥ä¸ºç©º
+	private String []sortedColNames; // ä¸»é”®æˆ–æ’åºå­—æ®µ
+	private DataStruct distDs; // è®¡ç®—åˆ†å¸ƒæ—¶ç”¨çš„è¡¨è¾¾å¼
 	
-	private RemoteMemoryTable []sortedTables; // °´ÕÕÖ÷¼ü»ò·ÖÇøÅÅĞò
-	private int partCount; // µ±Ç°ÄÚ±í°üº¬µÄ×î´ó·ÖÇøÊı
-	private int []partIndex; // Ã¿¸ö·ÖÇø¶ÔÓ¦µÄÔ¶³ÌÄÚ±íµÄË÷Òı
+	private RemoteMemoryTable []sortedTables; // æŒ‰ç…§ä¸»é”®æˆ–åˆ†åŒºæ’åº
+	private int partCount; // å½“å‰å†…è¡¨åŒ…å«çš„æœ€å¤§åˆ†åŒºæ•°
+	private int []partIndex; // æ¯ä¸ªåˆ†åŒºå¯¹åº”çš„è¿œç¨‹å†…è¡¨çš„ç´¢å¼•
 	
 	public ClusterMemoryTable() {
 	}
@@ -73,7 +73,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 		this.isDistributed = isDistributed;
 	}
 	
-	// µ±Î¬±í±»switch»òjoinÊ±£¬ÏÈ¶Ô½Úµã»ú°´·ÖÇø»òÖ÷¼üÖµÅÅĞò
+	// å½“ç»´è¡¨è¢«switchæˆ–joinæ—¶ï¼Œå…ˆå¯¹èŠ‚ç‚¹æœºæŒ‰åˆ†åŒºæˆ–ä¸»é”®å€¼æ’åº
 	private void prepareFind(Context ctx) {
 		if (sortedTables != null) {
 			return;
@@ -101,7 +101,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 		System.arraycopy(tables, 0, sortedTables, 0, count);
 		
 		if (distribute == null) {
-			// °´Ö÷¼üÖµÅÅĞò
+			// æŒ‰ä¸»é”®å€¼æ’åº
 			Comparator<RemoteMemoryTable> cmp = new Comparator<RemoteMemoryTable>() {
 				public int compare(RemoteMemoryTable o1, RemoteMemoryTable o2) {
 					return Variant.compare(o1.getStartKeyValue(), o2.getStartKeyValue());
@@ -110,7 +110,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 			
 			Arrays.sort(sortedTables, cmp);
 		} else {
-			// °´·ÖÇøÅÅĞò
+			// æŒ‰åˆ†åŒºæ’åº
 			Comparator<RemoteMemoryTable> cmp = new Comparator<RemoteMemoryTable>() {
 				public int compare(RemoteMemoryTable o1, RemoteMemoryTable o2) {
 					return o1.getPart() <= o2.getPart() ? -1 : 1;
@@ -128,7 +128,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 				partIndex[sortedTables[i].getPart()] = i;
 			}
 
-			// Éú³É¼ÆËã·ÖÇøÓÃµÄÊı¾İ½á¹¹
+			// ç”Ÿæˆè®¡ç®—åˆ†åŒºç”¨çš„æ•°æ®ç»“æ„
 			if (sortedColNames != null) {
 				distDs = new DataStruct(sortedColNames);
 			} else {
@@ -176,7 +176,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 		return ids;
 	}
 	
-	// È¡¼¯ÈºÄÚ±íÔÚµ±Ç°½Úµã»úÉÏ¶ÔÓ¦µÄÄÚ±íµÄproxyId
+	// å–é›†ç¾¤å†…è¡¨åœ¨å½“å‰èŠ‚ç‚¹æœºä¸Šå¯¹åº”çš„å†…è¡¨çš„proxyId
 	public int getCurrentClusterProxyId() {
 		HostManager hm = HostManager.instance();
 		String host = hm.getHost();
@@ -225,7 +225,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 	
 	/**
 	 * k.row(T)
-	 * @param key ´ı²éÕÒµÄÃû×Ö×Ö¶ÎµÄÖµ
+	 * @param key å¾…æŸ¥æ‰¾çš„åå­—å­—æ®µçš„å€¼
 	 * @return
 	 */
 	public BaseRecord getRow(Object key) {
@@ -245,7 +245,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 				command.setAttribute("key", key);
 				Response response = client.send(command);
 				r = (BaseRecord)response.checkResult();
-				if (r != null) break;//Ö»ÒªÕÒµ½ÁË¾Í·µ»Ø
+				if (r != null) break;//åªè¦æ‰¾åˆ°äº†å°±è¿”å›
 			} finally {
 				client.close();
 			}
@@ -271,7 +271,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 		}
 	}
 		
-	//Èç¹ûÓĞÄ³¸ö·Ö»úÃ»ÓĞ³É¹¦´´½¨ÔòÈçºÎ´¦Àí£¿
+	//å¦‚æœæœ‰æŸä¸ªåˆ†æœºæ²¡æœ‰æˆåŠŸåˆ›å»ºåˆ™å¦‚ä½•å¤„ç†ï¼Ÿ
 	public boolean createIndex(Integer capacity, String opt) {
 		Cluster cluster = this.cluster;
 		int count = cluster.getUnitCount();
@@ -500,9 +500,9 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 			ICursor cursor;
 			int len = table.length();
 			int start = 1;
-			int end = len + 1; // ²»°üº¬
+			int end = len + 1; // ä¸åŒ…å«
 			
-			// ½Úµã»ú¼ä½øĞĞÇĞ·Ö
+			// èŠ‚ç‚¹æœºé—´è¿›è¡Œåˆ‡åˆ†
 			if (isSeg) {
 				int blockSize = len / unitCount;
 				start = blockSize * unit + 1;
@@ -518,7 +518,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 				
 				len = end - start;
 				if (segCount > 1 && segCount < len) {
-					// ½Úµã»úÉÏ²úÉú¶àÂ·ÓÎ±ê
+					// èŠ‚ç‚¹æœºä¸Šäº§ç”Ÿå¤šè·¯æ¸¸æ ‡
 					int blockSize = len / segCount;
 					ICursor []cursors = new ICursor[segCount];
 					for (int i = 1; i <= segCount; ++i) {
@@ -584,7 +584,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 			tables[i] = (RemoteMemoryTable)response.checkResult();
 		}
 
-		// Èç¹ûÊ×Ìõ¼ÇÂ¼µÄÖ÷¼üÖµ²»Í¬ÔòÈÏÎªÊÇ·Ö²¼µÄ
+		// å¦‚æœé¦–æ¡è®°å½•çš„ä¸»é”®å€¼ä¸åŒåˆ™è®¤ä¸ºæ˜¯åˆ†å¸ƒçš„
 		Object keyValue1 = tables[0].getStartKeyValue();
 		Object keyValue2 = tables[1].getStartKeyValue();
 		boolean b = count > 1 && !Variant.isEquals(keyValue1, keyValue2);
@@ -596,7 +596,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 		String varName = (String)attributes.get("varName");
 		Integer unit = (Integer)attributes.get("unit");
 		
-		// °ÑvarNameµ±±í´ïÊ½¼ÆËã£¬½á¹ûÓ¦¸ÃÎªÅÅÁĞ
+		// æŠŠvarNameå½“è¡¨è¾¾å¼è®¡ç®—ï¼Œç»“æœåº”è¯¥ä¸ºæ’åˆ—
 		JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 		Context ctx = new Context();
 		ctx.setJobSpace(js);
@@ -632,7 +632,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 		}
 	}
 
-	// È¡Ö÷¼ü¸öÊı
+	// å–ä¸»é”®ä¸ªæ•°
 	private int getKeyCount() {
 		return tables[0].getKeyCount();
 	}
@@ -760,9 +760,9 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 	}
 	
 	/**
-	 * °´Ö÷¼üÖµÈ¡¼ÇÂ¼
-	 * @param keySeq Ö÷¼üÖµĞòÁĞ
-	 * @param newExps ·µ»ØµÄ¼ÆËã×Ö¶Î±í´ïÊ½£¬¿ÕÔò·µ»ØÔ´¼ÇÂ¼
+	 * æŒ‰ä¸»é”®å€¼å–è®°å½•
+	 * @param keySeq ä¸»é”®å€¼åºåˆ—
+	 * @param newExps è¿”å›çš„è®¡ç®—å­—æ®µè¡¨è¾¾å¼ï¼Œç©ºåˆ™è¿”å›æºè®°å½•
 	 * @param newNames
 	 * @param ctx
 	 * @return
@@ -832,7 +832,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 			}
 		}
 
-		// ¶ÔÖ÷¼üĞòÁĞ½øĞĞ·Ö×é
+		// å¯¹ä¸»é”®åºåˆ—è¿›è¡Œåˆ†ç»„
 		Sequence []seqs = group(ids, ctx);
 		
 		int gcount = seqs.length;
@@ -853,7 +853,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 
 		Sequence []tables = getRows(keySeqs, newExps, newNames);
 
-		// °Ñ·µ»ØµÄtablesÓëÖ÷¼üĞòÁĞ¹ØÁªÆğÀ´£¬²¢ºÏ²¢µ½Í¬Ò»¸ötableÉÏ
+		// æŠŠè¿”å›çš„tablesä¸ä¸»é”®åºåˆ—å…³è”èµ·æ¥ï¼Œå¹¶åˆå¹¶åˆ°åŒä¸€ä¸ªtableä¸Š
 		//DataStruct ds = new DataStruct(newNames);
 		for (int g = 0; g < gcount; ++g) {
 			Sequence seq = seqs[g];
@@ -891,12 +891,12 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 		return result;
 	}
 	
-	// ¶ÔÖ÷¼üĞòÁĞ°´½Úµã»ú½øĞĞ·Ö×é
+	// å¯¹ä¸»é”®åºåˆ—æŒ‰èŠ‚ç‚¹æœºè¿›è¡Œåˆ†ç»„
 	private Sequence[] group(Sequence result, Context ctx) {
 		RemoteMemoryTable []tables = this.sortedTables;
 		int groupCount = tables.length;
 		
-		// Èç¹û²»ÊÇ·Ö²¼ÄÚ±íÖ»´ÓµÚÒ»¸ö½Úµã»úÕÒ£¿
+		// å¦‚æœä¸æ˜¯åˆ†å¸ƒå†…è¡¨åªä»ç¬¬ä¸€ä¸ªèŠ‚ç‚¹æœºæ‰¾ï¼Ÿ
 		if (!isDistributed) {
 			Sequence []seqs = new Sequence[groupCount];
 			seqs[0] = new Sequence(result);
@@ -965,8 +965,8 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 				}
 			}
 		} else {
-			int partCount = this.partCount; // µ±Ç°ÄÚ±í°üº¬µÄ×î´ó·ÖÇøÊı
-			int []partIndex = this.partIndex; // Ã¿¸ö·ÖÇø¶ÔÓ¦µÄÔ¶³ÌÄÚ±íµÄË÷Òı
+			int partCount = this.partCount; // å½“å‰å†…è¡¨åŒ…å«çš„æœ€å¤§åˆ†åŒºæ•°
+			int []partIndex = this.partIndex; // æ¯ä¸ªåˆ†åŒºå¯¹åº”çš„è¿œç¨‹å†…è¡¨çš„ç´¢å¼•
 			Expression distribute = this.distribute;
 			int keyCount = distDs.getFieldCount();
 			Record r = new Record(distDs);
@@ -1093,7 +1093,7 @@ public class ClusterMemoryTable extends Operable implements IClusterObject, IRes
 		}
 	}
 		
-	// ¹Ø±Õ¼¯ÈºÄÚ±íÊÍ·Å½Úµã»ú×ÊÔ´
+	// å…³é—­é›†ç¾¤å†…è¡¨é‡Šæ”¾èŠ‚ç‚¹æœºèµ„æº
 	public void close() {
 		Cluster cluster = this.cluster;
 		int count = cluster.getUnitCount();

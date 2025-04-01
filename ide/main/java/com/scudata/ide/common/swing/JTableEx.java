@@ -53,7 +53,7 @@ import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
- * À©Õ¹µÄJTable¡£×¢Òâ: ÓÉÓÚÍ¨¹ıjTable.getValueAt²»ÄÜ·ÃÎÊ±»Òş²ØÁËµÄÁĞ,ËùÒÔ Ò»°ãÓÃ jTable.data.getValueAt
+ * æ‰©å±•çš„JTableã€‚æ³¨æ„: ç”±äºé€šè¿‡jTable.getValueAtä¸èƒ½è®¿é—®è¢«éšè—äº†çš„åˆ—,æ‰€ä»¥ ä¸€èˆ¬ç”¨ jTable.data.getValueAt
  */
 
 public class JTableEx extends JTable implements MouseListener,
@@ -61,55 +61,55 @@ public class JTableEx extends JTable implements MouseListener,
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ±í¸ñÄ£ĞÍ
+	 * è¡¨æ ¼æ¨¡å‹
 	 */
 	public DefaultTableModel data = new DefaultTableModel();
 
 	/**
-	 * ÌáÊ¾£¬½ûÖ¹Ê¹ÓÃdata.setRowCount(0);¶øÓÃthis.removeAllRows()
+	 * æç¤ºï¼Œç¦æ­¢ä½¿ç”¨data.setRowCount(0);è€Œç”¨this.removeAllRows()
 	 */
 	private int indexCol = -1;
 
 	/**
-	 * columnKeeper ÓÃÓÚ±£´æ×¡ÁĞ±íÖĞµÄÁĞ¶ÔÏó£»Ê¹µÃhideColumn()ÒÔ¼° showColumn()·½·¨µÃÒÔÊµÏÖ
-	 * ×¢Òâ¶¯Ì¬Ôö¼ÓTableÖĞµÄÁĞµÄÊ±ºò£¬Ö»ÄÜÊ¹ÓÃTable.AddColumn(col); ×¢Òâ!!!!!!!!!!!!!!!!!!!!!!
-	 * ¶ø²»ÒªÊ¹ÓÃTable.data.AddColumn(col)
+	 * columnKeeper ç”¨äºä¿å­˜ä½åˆ—è¡¨ä¸­çš„åˆ—å¯¹è±¡ï¼›ä½¿å¾—hideColumn()ä»¥åŠ showColumn()æ–¹æ³•å¾—ä»¥å®ç°
+	 * æ³¨æ„åŠ¨æ€å¢åŠ Tableä¸­çš„åˆ—çš„æ—¶å€™ï¼Œåªèƒ½ä½¿ç”¨Table.AddColumn(col); æ³¨æ„!!!!!!!!!!!!!!!!!!!!!!
+	 * è€Œä¸è¦ä½¿ç”¨Table.data.AddColumn(col)
 	 */
 	private HashMap<Object, TableColumn> columnKeeper = new HashMap<Object, TableColumn>();
 
 	/**
-	 * ÊÇ·ñ¼¤»îĞĞ½¹µã±ä»¯
+	 * æ˜¯å¦æ¿€æ´»è¡Œç„¦ç‚¹å˜åŒ–
 	 */
 	private boolean ifFireRowfocusChangedEvent = true;
 
 	/**
-	 * Êó±êµã»÷¼àÌıÆ÷ÈİÆ÷
+	 * é¼ æ ‡ç‚¹å‡»ç›‘å¬å™¨å®¹å™¨
 	 */
 	public HashSet<JTableExListener> clickedListener = new HashSet<JTableExListener>();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public JTableEx() {
 		setModel(data);
 		addMouseListener(this);
 		addTableExListener(this);
 		getColumnModel().addColumnModelListener(new TableColListener(this));
-		// Ä¬ÈÏ²»Ö§³ÖÅ²¶¯ÁĞ£¬·ñÔòË«»÷ÊÂ¼şÉèÖÃ²»¶Ô
+		// é»˜è®¤ä¸æ”¯æŒæŒªåŠ¨åˆ—ï¼Œå¦åˆ™åŒå‡»äº‹ä»¶è®¾ç½®ä¸å¯¹
 		getTableHeader().setReorderingAllowed(false);
 
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param colNames
-	 *            ÁĞÃûÊı×é
+	 *            åˆ—åæ•°ç»„
 	 */
 	public JTableEx(String[] colNames) {
 		this();
@@ -122,41 +122,41 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param columnNames
-	 *            ¶ººÅ·Ö¸ôµÄÁĞÃû
+	 *            é€—å·åˆ†éš”çš„åˆ—å
 	 */
 	public JTableEx(String columnNames) {
 		this(new Section(columnNames).toStringArray());
 	}
 
 	/**
-	 * Êó±êÓÒ¼üµã»÷ÊÂ¼ş
+	 * é¼ æ ‡å³é”®ç‚¹å‡»äº‹ä»¶
 	 */
 	public void rightClicked(int xpos, int ypos, int row, int col, MouseEvent e) {
 	}
 
 	/**
-	 * Êó±êË«»÷ÊÂ¼ş
+	 * é¼ æ ‡åŒå‡»äº‹ä»¶
 	 */
 	public void doubleClicked(int xpos, int ypos, int row, int col, MouseEvent e) {
 	}
 
 	/**
-	 * Êó±êµã»÷ÊÂ¼ş
+	 * é¼ æ ‡ç‚¹å‡»äº‹ä»¶
 	 */
 	public void clicked(int xpos, int ypos, int row, int col, MouseEvent e) {
 	}
 
 	/**
-	 * ĞĞ½¹µã±ä»¯ÊÂ¼ş
+	 * è¡Œç„¦ç‚¹å˜åŒ–äº‹ä»¶
 	 */
 	public void rowfocusChanged(int oldRow, int newRow) {
 	}
 
 	/**
-	 * ĞĞ½¹µãÕıÔÚ±ä»¯ÊÂ¼ş
+	 * è¡Œç„¦ç‚¹æ­£åœ¨å˜åŒ–äº‹ä»¶
 	 * 
 	 * @param oldRow
 	 * @param newRow
@@ -165,7 +165,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * Êó±êµã»÷ÊÂ¼ş
+	 * é¼ æ ‡ç‚¹å‡»äº‹ä»¶
 	 */
 	public void mouseClicked(final MouseEvent e) {
 		java.awt.Container p = getParent();
@@ -180,33 +180,33 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * Êó±ê°´¼üÊÂ¼ş
+	 * é¼ æ ‡æŒ‰é”®äº‹ä»¶
 	 */
 	public void mousePressed(MouseEvent e) {
 	}
 
 	/**
-	 * Êó±ê¹â±ê½øÈëÊÂ¼ş
+	 * é¼ æ ‡å…‰æ ‡è¿›å…¥äº‹ä»¶
 	 */
 	public void mouseEntered(MouseEvent e) {
 	}
 
 	/**
-	 * Êó±êÊÍ·ÅÊÂ¼ş
+	 * é¼ æ ‡é‡Šæ”¾äº‹ä»¶
 	 */
 	public void mouseReleased(MouseEvent e) {
-		// ²¿·ÖÑ¡ÖĞĞĞ¶¯×÷£¬Ã»ÓĞÖØ»­½çÃæ
+		// éƒ¨åˆ†é€‰ä¸­è¡ŒåŠ¨ä½œï¼Œæ²¡æœ‰é‡ç”»ç•Œé¢
 		repaint();
 	}
 
 	/**
-	 * Êó±êÍË³öÊÂ¼ş
+	 * é¼ æ ‡é€€å‡ºäº‹ä»¶
 	 */
 	public void mouseExited(MouseEvent e) {
 	}
 
 	/**
-	 * ¹ÜÀíÁĞÃû
+	 * ç®¡ç†åˆ—å
 	 */
 	void holdColumnNames() {
 		if (columnKeeper == null) {
@@ -227,7 +227,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃµã»÷¼¸´Î½øÈë±à¼­×´Ì¬
+	 * è®¾ç½®ç‚¹å‡»å‡ æ¬¡è¿›å…¥ç¼–è¾‘çŠ¶æ€
 	 * 
 	 * @param startCount
 	 */
@@ -246,14 +246,14 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÖµÊÇ·ñ·¢Éú±ä»¯ÁË
+	 * å€¼æ˜¯å¦å‘ç”Ÿå˜åŒ–äº†
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param column
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param newValue
-	 *            ĞÂÖµ
+	 *            æ–°å€¼
 	 * @return
 	 */
 	protected boolean isItemDataChanged(int row, int column, Object newValue) {
@@ -277,14 +277,14 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * µ¼³öÊı¾İ
+	 * å¯¼å‡ºæ•°æ®
 	 * 
 	 * @param exportTitle
-	 *            ÊÇ·ñµ¼³ö±êÌâ
+	 *            æ˜¯å¦å¯¼å‡ºæ ‡é¢˜
 	 * @param fw
 	 *            FileWriter
 	 * @param dosFormat
-	 *            ¸ñÊ½
+	 *            æ ¼å¼
 	 * @return
 	 * @throws Exception
 	 */
@@ -324,7 +324,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃ±íÄ£ĞÍ
+	 * è®¾ç½®è¡¨æ¨¡å‹
 	 */
 	public void setModel(TableModel dataModel) {
 		data = (DefaultTableModel) dataModel;
@@ -334,10 +334,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÖØÉèÁĞÃû
+	 * é‡è®¾åˆ—å
 	 * 
 	 * @param newColNames
-	 *            ÁĞÃûÁĞ±í
+	 *            åˆ—ååˆ—è¡¨
 	 */
 	public void resetColumns(ArrayList newColNames) {
 		data.setColumnCount(0);
@@ -348,7 +348,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ½ÓÊÜÌá½»Êı¾İ
+	 * æ¥å—æäº¤æ•°æ®
 	 */
 	public void acceptText() {
 		if (getCellEditor() != null && getRowCount() > 0) {
@@ -363,7 +363,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * Ôö¼Ó¼àÌıÆ÷
+	 * å¢åŠ ç›‘å¬å™¨
 	 * 
 	 * @param jcl
 	 */
@@ -372,7 +372,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * É¾³ı¼àÌıÆ÷
+	 * åˆ é™¤ç›‘å¬å™¨
 	 * 
 	 * @param jcl
 	 */
@@ -381,14 +381,14 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ´¥·¢Êó±êµã»÷ÊÂ¼ş
+	 * è§¦å‘é¼ æ ‡ç‚¹å‡»äº‹ä»¶
 	 * 
 	 * @param xpos
-	 *            X×ø±ê
+	 *            Xåæ ‡
 	 * @param ypos
-	 *            Y×ø±ê
+	 *            Yåæ ‡
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void fireClicked(int xpos, int ypos, MouseEvent e) {
 		Iterator it = clickedListener.iterator();
@@ -432,7 +432,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * Ôö¼ÓÁĞ
+	 * å¢åŠ åˆ—
 	 * 
 	 * @param colName
 	 */
@@ -442,10 +442,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÕæÕıÉ¾³ıÁËÖ¸¶¨µÄÁĞ£¬°üÀ¨Êı¾İModel
+	 * çœŸæ­£åˆ é™¤äº†æŒ‡å®šçš„åˆ—ï¼ŒåŒ…æ‹¬æ•°æ®Model
 	 * 
 	 * @param aColumn
-	 *            TableColumnÁĞ¶ÔÏó
+	 *            TableColumnåˆ—å¯¹è±¡
 	 */
 	public void deleteColumn(TableColumn aColumn) {
 		String colName = (String) aColumn.getIdentifier();
@@ -465,10 +465,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È¡ÁĞ¶ÔÏó
+	 * å–åˆ—å¯¹è±¡
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public TableColumn getColumn(int columnIndex) {
@@ -476,10 +476,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È¡ÁĞ¶ÔÏó
+	 * å–åˆ—å¯¹è±¡
 	 * 
 	 * @param colName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @return
 	 */
 	public int getColumnIndex(String colName) {
@@ -487,12 +487,12 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È¡ÁĞĞòºÅ
+	 * å–åˆ—åºå·
 	 * 
 	 * @param colName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param includeHideColumns
-	 *            ÊÇ·ñ°üº¬Òş²ØÁĞ
+	 *            æ˜¯å¦åŒ…å«éšè—åˆ—
 	 * @return
 	 */
 	public int getColumnIndex(String colName, boolean includeHideColumns) {
@@ -515,7 +515,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * É¾³ıËùÓĞĞĞ
+	 * åˆ é™¤æ‰€æœ‰è¡Œ
 	 */
 	public void removeAllRows() {
 		data.setRowCount(0);
@@ -523,10 +523,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È¡ÁĞÊı¾İ
+	 * å–åˆ—æ•°æ®
 	 * 
 	 * @param colIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public Vector<Object> getColumnData(int colIndex) {
@@ -538,12 +538,12 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ×îĞ¡»¯µÄÁĞ¼¯ºÏ
+	 * æœ€å°åŒ–çš„åˆ—é›†åˆ
 	 */
 	private transient HashMap<Integer, String> minimizedColumn = new HashMap<Integer, String>();
 
 	/**
-	 * ×îĞ¡»¯ÁĞ£¬¼´°ÑÁĞµÄ¿í¶ÈÉèÎª0£¬ÒÔÖÁÓÚ¿´²»¼û
+	 * æœ€å°åŒ–åˆ—ï¼Œå³æŠŠåˆ—çš„å®½åº¦è®¾ä¸º0ï¼Œä»¥è‡³äºçœ‹ä¸è§
 	 * 
 	 * @param colIndex
 	 *            int
@@ -563,7 +563,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * »¹Ô­×îĞ¡»¯µÄÁĞ
+	 * è¿˜åŸæœ€å°åŒ–çš„åˆ—
 	 * 
 	 * @param colIndex
 	 *            int
@@ -591,10 +591,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * Òş²ØÁĞ
+	 * éšè—åˆ—
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 */
 	public void hideColumn(String columnName) {
 		if (!isColumnVisible(columnName)) {
@@ -607,24 +607,24 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞÊÇ·ñ¿ÉÓÃ
+	 * è®¾ç½®åˆ—æ˜¯å¦å¯ç”¨
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param enable
-	 *            ÊÇ·ñ¿ÉÓÃ
+	 *            æ˜¯å¦å¯ç”¨
 	 */
 	public void setColumnEnable(int columnIndex, boolean enable) {
 		setColumnEnable(getColumnName(columnIndex), enable);
 	}
 
 	/**
-	 * ÉèÖÃÁĞÊÇ·ñ¿ÉÓÃ
+	 * è®¾ç½®åˆ—æ˜¯å¦å¯ç”¨
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param enable
-	 *            ÊÇ·ñ¿É±à¼­
+	 *            æ˜¯å¦å¯ç¼–è¾‘
 	 */
 	public void setColumnEnable(String columnName, boolean enable) {
 		if (!isColumnVisible(columnName)) {
@@ -656,10 +656,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È¡ÁĞ±à¼­Æ÷
+	 * å–åˆ—ç¼–è¾‘å™¨
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public TableCellEditor getColumnEditor(int columnIndex) {
@@ -668,20 +668,20 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞÈ±Ê¡±à¼­¿Ø¼ş
+	 * è®¾ç½®åˆ—ç¼ºçœç¼–è¾‘æ§ä»¶
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 */
 	public void setColumnDefaultEditor(int columnIndex) {
 		setColumnDefaultEditor(getColumnName(columnIndex));
 	}
 
 	/**
-	 * ÉèÖÃÁĞÈ±Ê¡±à¼­¿Ø¼ş
+	 * è®¾ç½®åˆ—ç¼ºçœç¼–è¾‘æ§ä»¶
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 */
 	public void setColumnDefaultEditor(String columnName) {
 		TableColumn col = getColumn(columnName);
@@ -692,20 +692,20 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞÊıÖµ±à¼­¿Ø¼ş
+	 * è®¾ç½®åˆ—æ•°å€¼ç¼–è¾‘æ§ä»¶
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 */
 	public void setColumnSpinner(int columnIndex) {
 		setColumnSpinner(getColumnName(columnIndex));
 	}
 
 	/**
-	 * ÉèÖÃÁĞÊıÖµ±à¼­¿Ø¼ş
+	 * è®¾ç½®åˆ—æ•°å€¼ç¼–è¾‘æ§ä»¶
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 */
 	public void setColumnSpinner(String columnName) {
 		DefaultCellEditor integerEditor = new JTextAreaEditor(this,
@@ -715,44 +715,44 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¸´Ñ¡¿ò¿Ø¼ş
+	 * è®¾ç½®åˆ—å¤é€‰æ¡†æ§ä»¶
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 */
 	public void setColumnCheckBox(int columnIndex) {
 		setColumnCheckBox(getColumnName(columnIndex));
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¸´Ñ¡¿ò¿Ø¼ş
+	 * è®¾ç½®åˆ—å¤é€‰æ¡†æ§ä»¶
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param enable
-	 *            ÊÇ·ñ¿É±à¼­
+	 *            æ˜¯å¦å¯ç¼–è¾‘
 	 */
 	public void setColumnCheckBox(int columnIndex, boolean enable) {
 		setColumnCheckBox(getColumnName(columnIndex), enable);
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¸´Ñ¡¿ò¿Ø¼ş
+	 * è®¾ç½®åˆ—å¤é€‰æ¡†æ§ä»¶
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 */
 	public void setColumnCheckBox(String columnName) {
 		setColumnCheckBox(columnName, true);
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¸´Ñ¡¿ò¿Ø¼ş
+	 * è®¾ç½®åˆ—å¤é€‰æ¡†æ§ä»¶
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param enable
-	 *            ÊÇ·ñ¿É±à¼­
+	 *            æ˜¯å¦å¯ç¼–è¾‘
 	 */
 	public void setColumnCheckBox(String columnName, final boolean enable) {
 		JCheckBox checkBoxEditor = new JCheckBox();
@@ -795,14 +795,14 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞÏÂÀ­¿Ø¼ş
+	 * è®¾ç½®åˆ—ä¸‹æ‹‰æ§ä»¶
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param codeItems
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @param dispItems
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 * @return
 	 */
 	public JComboBoxEx setColumnDropDown(int columnIndex, Vector codeItems,
@@ -812,21 +812,21 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞÏÂÀ­¿Ø¼ş
+	 * è®¾ç½®åˆ—ä¸‹æ‹‰æ§ä»¶
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param codeItems
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @param dispItems
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 * @param editable
-	 *            ÊÇ·ñ¿É±à¼­
+	 *            æ˜¯å¦å¯ç¼–è¾‘
 	 * @return
 	 */
 	public JComboBoxEx setColumnDropDown(int columnIndex, Vector codeItems,
 			Vector dispItems, boolean editable) {
-		// ¶à´Î·´¸´ÉèÖÃÏÂÀ­ÁĞÊ±£¬µ±Ç°µÄÏÂÀ­¿Ø¼şÒªÏÈÇå³ıµô£¬·ñÔò²»ÄÜÁ¢¿ÌË¢ĞÂ
+		// å¤šæ¬¡åå¤è®¾ç½®ä¸‹æ‹‰åˆ—æ—¶ï¼Œå½“å‰çš„ä¸‹æ‹‰æ§ä»¶è¦å…ˆæ¸…é™¤æ‰ï¼Œå¦åˆ™ä¸èƒ½ç«‹åˆ»åˆ·æ–°
 		acceptText();
 
 		return setColumnDropDown(getColumnName(columnIndex), codeItems,
@@ -834,14 +834,14 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞÏÂÀ­¿Ø¼ş
+	 * è®¾ç½®åˆ—ä¸‹æ‹‰æ§ä»¶
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param codeItems
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @param dispItems
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 * @return
 	 */
 	public JComboBoxEx setColumnDropDown(String columnName, Vector codeItems,
@@ -850,16 +850,16 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞÏÂÀ­¿Ø¼ş
+	 * è®¾ç½®åˆ—ä¸‹æ‹‰æ§ä»¶
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param codeItems
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @param dispItems
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 * @param editable
-	 *            ÊÇ·ñ¿É±à¼­
+	 *            æ˜¯å¦å¯ç¼–è¾‘
 	 * @return
 	 */
 	public JComboBoxEx setColumnDropDown(final String columnName,
@@ -883,26 +883,26 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞÊÇ·ñ¿É±à¼­
+	 * è®¾ç½®åˆ—æ˜¯å¦å¯ç¼–è¾‘
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param allowEdit
-	 *            ÊÇ·ñ¿É±à¼­
+	 *            æ˜¯å¦å¯ç¼–è¾‘
 	 */
 	public void setColumnEditable(int columnIndex, boolean allowEdit) {
 		setColumnEditable(getColumnName(columnIndex), allowEdit);
 	}
 
 	/**
-	 * ÉèÖÃÁĞÊÇ·ñ¿É±à¼­
+	 * è®¾ç½®åˆ—æ˜¯å¦å¯ç¼–è¾‘
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param allowEdit
-	 *            ÊÇ·ñ¿É±à¼­
+	 *            æ˜¯å¦å¯ç¼–è¾‘
 	 * @param centerAlign
-	 *            ÊÇ·ñ¾ÓÖĞÏÔÊ¾
+	 *            æ˜¯å¦å±…ä¸­æ˜¾ç¤º
 	 */
 	public void setColumnEditable(int columnIndex, boolean allowEdit,
 			boolean centerAlign) {
@@ -910,26 +910,26 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞÊÇ·ñ¿É±à¼­
+	 * è®¾ç½®åˆ—æ˜¯å¦å¯ç¼–è¾‘
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param allowEdit
-	 *            ÊÇ·ñ¿É±à¼­
+	 *            æ˜¯å¦å¯ç¼–è¾‘
 	 */
 	public void setColumnEditable(String columnName, boolean allowEdit) {
 		setColumnEditable(columnName, allowEdit, false);
 	}
 
 	/**
-	 * ÉèÖÃÁĞÊÇ·ñ¿É±à¼­
+	 * è®¾ç½®åˆ—æ˜¯å¦å¯ç¼–è¾‘
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param allowEdit
-	 *            ÊÇ·ñ¿É±à¼­
+	 *            æ˜¯å¦å¯ç¼–è¾‘
 	 * @param centerAlign
-	 *            ÊÇ·ñ¾ÓÖĞÏÔÊ¾
+	 *            æ˜¯å¦å±…ä¸­æ˜¾ç¤º
 	 */
 	public void setColumnEditable(String columnName, boolean allowEdit,
 			final boolean centerAlign) {
@@ -1005,12 +1005,12 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞµÄ×î´ó¿í¶È
+	 * è®¾ç½®åˆ—çš„æœ€å¤§å®½åº¦
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param width
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 */
 	public void setColumnFixedWidth(int columnIndex, int width) {
 		String columnName = getColumnName(columnIndex);
@@ -1023,24 +1023,24 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¿í¶È
+	 * è®¾ç½®åˆ—å®½åº¦
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param width
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 */
 	public void setColumnWidth(int columnIndex, int width) {
 		setColumnWidth(getColumnName(columnIndex), width);
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¿í¶È
+	 * è®¾ç½®åˆ—å®½åº¦
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param width
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 */
 	public void setColumnWidth(String columnName, int width) {
 		if (!isColumnVisible(columnName)) {
@@ -1050,32 +1050,32 @@ public class JTableEx extends JTable implements MouseListener,
 		col.setPreferredWidth(width);
 	}
 
-	/** ºáÏò×ó¶ÔÆë */
+	/** æ¨ªå‘å·¦å¯¹é½ */
 	static public int ALIGN_LEFT = JLabel.LEFT;
-	/** ºáÏò¾ÓÖĞ¶ÔÆë */
+	/** æ¨ªå‘å±…ä¸­å¯¹é½ */
 	static public int ALIGN_CENTER = JLabel.CENTER;
-	/** ºáÏòÓÒ¶ÔÆë */
+	/** æ¨ªå‘å³å¯¹é½ */
 	static public int ALIGN_RIGHT = JLabel.RIGHT;
 
 	/**
-	 * ÉèÖÃÁĞµÄºáÏò¶ÔÆë
+	 * è®¾ç½®åˆ—çš„æ¨ªå‘å¯¹é½
 	 * 
 	 * @param columnIndex
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param alignment
-	 *            ¶ÔÆë·½Ê½
+	 *            å¯¹é½æ–¹å¼
 	 */
 	public void setColumnAlign(int columnIndex, int alignment) {
 		setColumnAlign(getColumnName(columnIndex), alignment);
 	}
 
 	/**
-	 * ÉèÖÃÁĞµÄºáÏò¶ÔÆë
+	 * è®¾ç½®åˆ—çš„æ¨ªå‘å¯¹é½
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param alignment
-	 *            ¶ÔÆë·½Ê½
+	 *            å¯¹é½æ–¹å¼
 	 */
 	public void setColumnAlign(String columnName, int alignment) {
 		if (!isColumnVisible(columnName)) {
@@ -1099,11 +1099,11 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È¡ĞĞÊı¾İ
+	 * å–è¡Œæ•°æ®
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
-	 * @return ĞĞÊı¾İÊı×é
+	 *            è¡Œå·
+	 * @return è¡Œæ•°æ®æ•°ç»„
 	 */
 	public Object[] getRowDataArray(int row) {
 		int colCount = data.getColumnCount();
@@ -1118,10 +1118,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È¡ĞĞÊı¾İµÄ×Ö·û´®£¬ÓÉ\t·Ö¸ô
+	 * å–è¡Œæ•°æ®çš„å­—ç¬¦ä¸²ï¼Œç”±\tåˆ†éš”
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @return
 	 */
 	public String getRowData(int row) {
@@ -1141,7 +1141,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È¡Êı¾İ¿é£¬ÓÉ\tºÍ\n·Ö¸ô
+	 * å–æ•°æ®å—ï¼Œç”±\tå’Œ\nåˆ†éš”
 	 * 
 	 * @return
 	 */
@@ -1161,10 +1161,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÊı¾İ¿éµÄ×Ö·û´®
+	 * è®¾ç½®æ•°æ®å—çš„å­—ç¬¦ä¸²
 	 * 
 	 * @param ls_data
-	 *            ÓÉ\tºÍ\n·Ö¸ô
+	 *            ç”±\tå’Œ\nåˆ†éš”
 	 * @return
 	 */
 	public int setBlockData(String ls_data) {
@@ -1213,7 +1213,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃĞòºÅÁĞ
+	 * è®¾ç½®åºå·åˆ—
 	 * 
 	 * @param indexCol
 	 */
@@ -1225,7 +1225,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÖØÖÃĞòºÅÁĞ
+	 * é‡ç½®åºå·åˆ—
 	 */
 	public void resetIndex() {
 		if (indexCol == -1) {
@@ -1239,12 +1239,12 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ¼ì²éÁĞÊı¾İ
+	 * æ£€æŸ¥åˆ—æ•°æ®
 	 * 
 	 * @param colIndex
-	 *            ÁĞĞòºÅ
+	 *            åˆ—åºå·
 	 * @param colDesc
-	 *            ÁĞÃèÊö
+	 *            åˆ—æè¿°
 	 * @return
 	 */
 	public boolean verifyColumnData(int colIndex, String colDesc) {
@@ -1252,14 +1252,14 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ¼ì²éÁĞÊı¾İ
+	 * æ£€æŸ¥åˆ—æ•°æ®
 	 * 
 	 * @param colIndex
-	 *            ÁĞĞòºÅ
+	 *            åˆ—åºå·
 	 * @param colDesc
-	 *            ÁĞÃèÊö
+	 *            åˆ—æè¿°
 	 * @param caseRepeat
-	 *            ÊÇ·ñ¼ì²éÁĞÊı¾İÖØ¸´
+	 *            æ˜¯å¦æ£€æŸ¥åˆ—æ•°æ®é‡å¤
 	 * @return
 	 */
 	public boolean verifyColumnData(int colIndex, String colDesc,
@@ -1268,16 +1268,16 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ¼ì²éÁĞÊı¾İ
+	 * æ£€æŸ¥åˆ—æ•°æ®
 	 * 
 	 * @param colIndex
-	 *            ÁĞĞòºÅ
+	 *            åˆ—åºå·
 	 * @param colDesc
-	 *            ÁĞÃèÊö
+	 *            åˆ—æè¿°
 	 * @param caseRepeat
-	 *            ÊÇ·ñ¼ì²éÁĞÊı¾İÖØ¸´
+	 *            æ˜¯å¦æ£€æŸ¥åˆ—æ•°æ®é‡å¤
 	 * @param parent
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @return
 	 */
 	public boolean verifyColumnData(int colIndex, String colDesc,
@@ -1286,18 +1286,18 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ¼ì²éÁĞÊı¾İ
+	 * æ£€æŸ¥åˆ—æ•°æ®
 	 * 
 	 * @param colIndex
-	 *            ÁĞĞòºÅ
+	 *            åˆ—åºå·
 	 * @param colDesc
-	 *            ÁĞÃèÊö
+	 *            åˆ—æè¿°
 	 * @param caseNull
-	 *            ÊÇ·ñ¼ì²éÁĞÊı¾İÊÇ·ñÎª¿Õ
+	 *            æ˜¯å¦æ£€æŸ¥åˆ—æ•°æ®æ˜¯å¦ä¸ºç©º
 	 * @param caseRepeat
-	 *            ÊÇ·ñ¼ì²éÁĞÊı¾İÖØ¸´
+	 *            æ˜¯å¦æ£€æŸ¥åˆ—æ•°æ®é‡å¤
 	 * @param parent
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @return
 	 */
 	public boolean verifyColumnData(int colIndex, String colDesc,
@@ -1314,7 +1314,7 @@ public class JTableEx extends JTable implements MouseListener,
 			if (caseNull && !StringUtils.isValidString(key)) {
 				GM.messageDialog(parent, mm.getMessage("jtableex.null",
 						String.valueOf((i + 1)), colDesc), mm
-						.getMessage("public.note"), JOptionPane.WARNING_MESSAGE); // µÚ£º{0}ĞĞµÄ{1}Îª¿Õ¡£
+						.getMessage("public.note"), JOptionPane.WARNING_MESSAGE); // ç¬¬ï¼š{0}è¡Œçš„{1}ä¸ºç©ºã€‚
 				return false;
 			}
 			if (caseRepeat && keys.contains(key)) {
@@ -1327,7 +1327,7 @@ public class JTableEx extends JTable implements MouseListener,
 			if (!StringUtils.isValidString(key)) {
 				nullCount++;
 			}
-			if (caseRepeat && nullCount > 1) { // ÎªÁËÈÃ¿ÕÖµÒ²²»ÄÜÖØ¸´
+			if (caseRepeat && nullCount > 1) { // ä¸ºäº†è®©ç©ºå€¼ä¹Ÿä¸èƒ½é‡å¤
 				GM.messageDialog(parent, mm.getMessage("jtableex.repeat")
 						+ colDesc + ": " + key, mm.getMessage("public.note"),
 						JOptionPane.WARNING_MESSAGE);
@@ -1339,12 +1339,12 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉèÖÃÁĞÊÇ·ñ¿ÉÊÓ
+	 * è®¾ç½®åˆ—æ˜¯å¦å¯è§†
 	 * 
 	 * @param colName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param vis
-	 *            ÊÇ·ñ¿ÉÊÓ
+	 *            æ˜¯å¦å¯è§†
 	 */
 	public void setColumnVisible(String colName, boolean vis) {
 		if (vis) {
@@ -1355,7 +1355,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉÏÒÆÑ¡ÔñĞĞ
+	 * ä¸Šç§»é€‰æ‹©è¡Œ
 	 * 
 	 * @return
 	 */
@@ -1364,11 +1364,11 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÉÏÒÆÖ¸¶¨µÄ¼ÇÂ¼ĞĞ
+	 * ä¸Šç§»æŒ‡å®šçš„è®°å½•è¡Œ
 	 * 
 	 * @param row
-	 *            int£¬ÒªÒÆ¶¯µÄĞĞºÅ£¬Èç¹ûÎªĞ¡ÓÚ0µÄÊı×ÖÔòÒÆ¶¯µ±Ç°Ñ¡ÖĞµÄĞĞ
-	 * @return int£¬ÒÆ¶¯ºóµÄĞÂĞĞºÅ,·µ»Ø-1±íÊ¾Ã»ÓĞÒÆ¶¯
+	 *            intï¼Œè¦ç§»åŠ¨çš„è¡Œå·ï¼Œå¦‚æœä¸ºå°äº0çš„æ•°å­—åˆ™ç§»åŠ¨å½“å‰é€‰ä¸­çš„è¡Œ
+	 * @return intï¼Œç§»åŠ¨åçš„æ–°è¡Œå·,è¿”å›-1è¡¨ç¤ºæ²¡æœ‰ç§»åŠ¨
 	 */
 	public int shiftRowUp(int row) {
 		acceptText();
@@ -1394,7 +1394,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÏÂÒÆÑ¡ÔñĞĞ
+	 * ä¸‹ç§»é€‰æ‹©è¡Œ
 	 * 
 	 * @return
 	 */
@@ -1403,10 +1403,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÏÂÒÆÖ¸¶¨ĞĞ
+	 * ä¸‹ç§»æŒ‡å®šè¡Œ
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @return
 	 */
 	public int shiftRowDown(int row) {
@@ -1432,10 +1432,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÏÔÊ¾ÁĞ
+	 * æ˜¾ç¤ºåˆ—
 	 * 
 	 * @param columnName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 */
 	public void showColumn(String columnName) {
 		if (isColumnVisible(columnName)) {
@@ -1449,7 +1449,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * É¾³ıÑ¡ÖĞµÄĞĞ¼¯£¬É¾³ıºó²¢ÇÒÑ¡ÖĞÓĞĞ§¼ÇÂ¼
+	 * åˆ é™¤é€‰ä¸­çš„è¡Œé›†ï¼Œåˆ é™¤åå¹¶ä¸”é€‰ä¸­æœ‰æ•ˆè®°å½•
 	 */
 	public boolean deleteSelectedRows() {
 		acceptText();
@@ -1469,7 +1469,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * É¾³ıËùÓĞÑ¡ÔñµÄĞĞ
+	 * åˆ é™¤æ‰€æœ‰é€‰æ‹©çš„è¡Œ
 	 * 
 	 * @return
 	 */
@@ -1492,9 +1492,9 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * É¾³ıµ±Ç°Ñ¡ÖĞµÄ¼ÇÂ¼ĞĞ¼¯ µ«ÊÇ²»Ó°ÏìÑ¡ÖĞµÄĞĞ¼¯ºÏ
+	 * åˆ é™¤å½“å‰é€‰ä¸­çš„è®°å½•è¡Œé›† ä½†æ˜¯ä¸å½±å“é€‰ä¸­çš„è¡Œé›†åˆ
 	 * 
-	 * @return É¾³ıµÄĞĞÊı
+	 * @return åˆ é™¤çš„è¡Œæ•°
 	 */
 	public int removeCurrentRow() {
 		acceptText();
@@ -1509,10 +1509,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * É¾³ıÖ¸¶¨ĞĞ
+	 * åˆ é™¤æŒ‡å®šè¡Œ
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @return
 	 */
 	public int removeRow(int row) {
@@ -1534,10 +1534,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * Ñ¡ÖĞÖ¸¶¨ĞĞ
+	 * é€‰ä¸­æŒ‡å®šè¡Œ
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 */
 	public void selectRow(int row) {
 		DefaultListSelectionModel selectModel = new DefaultListSelectionModel();
@@ -1554,7 +1554,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ²¹³äµÄ¶àĞĞÒÆ¶¯ÓÃ
+	 * è¡¥å……çš„å¤šè¡Œç§»åŠ¨ç”¨
 	 * 
 	 * @param start
 	 * @param end
@@ -1577,7 +1577,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÁĞÑ¡ÔñÖ»ÄÜÊÇÁ¬ĞøµÄÇø¼ä
+	 * åˆ—é€‰æ‹©åªèƒ½æ˜¯è¿ç»­çš„åŒºé—´
 	 * 
 	 * @param cols
 	 */
@@ -1593,13 +1593,13 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÔÚ±í¸ñµÄSearchColumnÁĞÀïÃæ²éÕÒ¶ÔÏóvalue
+	 * åœ¨è¡¨æ ¼çš„SearchColumnåˆ—é‡Œé¢æŸ¥æ‰¾å¯¹è±¡value
 	 * 
 	 * @param value
 	 *            Object
 	 * @param searchColumn
 	 *            int
-	 * @return int, ÕÒµ½¸Ã¶ÔÏó·µ»Ø¶ÔÏóËùÔÚµÄĞĞºÅ,·ñÔò·µ»Ø-1
+	 * @return int, æ‰¾åˆ°è¯¥å¯¹è±¡è¿”å›å¯¹è±¡æ‰€åœ¨çš„è¡Œå·,å¦åˆ™è¿”å›-1
 	 */
 	public int searchValue(Object value, int searchColumn) {
 		Object o;
@@ -1613,13 +1613,13 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÔÚ±í¸ñµÄSearchColumnÁĞÀïÃæ²éÕÒName
+	 * åœ¨è¡¨æ ¼çš„SearchColumnåˆ—é‡Œé¢æŸ¥æ‰¾Name
 	 * 
 	 * @param name
 	 *            String
 	 * @param searchColumn
 	 *            int
-	 * @return int, ÕÒµ½¸Ã¶ÔÏó·µ»Ø¶ÔÏóËùÔÚµÄĞĞºÅ,·ñÔò·µ»Ø-1
+	 * @return int, æ‰¾åˆ°è¯¥å¯¹è±¡è¿”å›å¯¹è±¡æ‰€åœ¨çš„è¡Œå·,å¦åˆ™è¿”å›-1
 	 */
 	public int searchName(String name, int searchColumn, boolean caseSens) {
 		Object o;
@@ -1640,7 +1640,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ×·¼ÓĞĞ
+	 * è¿½åŠ è¡Œ
 	 * 
 	 * @return
 	 */
@@ -1649,10 +1649,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ×·¼ÓĞĞ
+	 * è¿½åŠ è¡Œ
 	 * 
 	 * @param resetIndex
-	 *            ÊÇ·ñÖØÖÃĞòºÅÁĞ
+	 *            æ˜¯å¦é‡ç½®åºå·åˆ—
 	 * @return
 	 */
 	public int addRow(boolean resetIndex) {
@@ -1660,10 +1660,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ×·¼ÓĞĞ
+	 * è¿½åŠ è¡Œ
 	 * 
 	 * @param oa
-	 *            ×·¼ÓµÄĞĞÊı¾İÊı×é
+	 *            è¿½åŠ çš„è¡Œæ•°æ®æ•°ç»„
 	 * @return
 	 */
 	public int addRow(Object[] oa) {
@@ -1671,12 +1671,12 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ×·¼ÓĞĞ
+	 * è¿½åŠ è¡Œ
 	 * 
 	 * @param oa
-	 *            ×·¼ÓµÄĞĞÊı¾İÊı×é
+	 *            è¿½åŠ çš„è¡Œæ•°æ®æ•°ç»„
 	 * @param resetIndex
-	 *            ÊÇ·ñÖØÖÃĞòºÅÁĞ
+	 *            æ˜¯å¦é‡ç½®åºå·åˆ—
 	 * @return
 	 */
 	public int addRow(Object[] oa, boolean resetIndex) {
@@ -1684,12 +1684,12 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ²åÈëĞĞ
+	 * æ’å…¥è¡Œ
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param rowData
-	 *            ĞĞÊı¾İÊı×é
+	 *            è¡Œæ•°æ®æ•°ç»„
 	 * @return
 	 */
 	public int insertRow(int row, Object[] rowData) {
@@ -1697,14 +1697,14 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ²åÈëĞĞ
+	 * æ’å…¥è¡Œ
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param rowData
-	 *            ĞĞÊı¾İÊı×é
+	 *            è¡Œæ•°æ®æ•°ç»„
 	 * @param resetIndex
-	 *            ÊÇ·ñÖØÖÃĞòºÅÁĞ
+	 *            æ˜¯å¦é‡ç½®åºå·åˆ—
 	 * @return
 	 */
 	public int insertRow(int row, Object[] rowData, boolean resetIndex) {
@@ -1727,10 +1727,10 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ÁĞÊÇ·ñ¿ÉÊÓ
+	 * åˆ—æ˜¯å¦å¯è§†
 	 * 
 	 * @param column
-	 *            ÁĞ±êÊ¶·û
+	 *            åˆ—æ ‡è¯†ç¬¦
 	 * @return
 	 */
 	public boolean isColumnVisible(Object column) {
@@ -1746,12 +1746,12 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ĞĞ¹â±ê±ä»¯
+	 * è¡Œå…‰æ ‡å˜åŒ–
 	 * 
 	 * @param oldRow
-	 *            Ö®Ç°Ñ¡ÔñµÄĞĞ
+	 *            ä¹‹å‰é€‰æ‹©çš„è¡Œ
 	 * @param newRow
-	 *            ĞÂÑ¡ÔñµÄĞĞ
+	 *            æ–°é€‰æ‹©çš„è¡Œ
 	 */
 	private void fireRowfocusChanged(int oldRow, int newRow) {
 		if (!ifFireRowfocusChangedEvent) {
@@ -1769,21 +1769,21 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È¡ÏûĞĞ½¹µã±ä»¯
+	 * å–æ¶ˆè¡Œç„¦ç‚¹å˜åŒ–
 	 */
 	public void disableRowfocusChanged() {
 		ifFireRowfocusChangedEvent = false;
 	}
 
 	/**
-	 * ¼¤»îĞĞ½¹µã±ä»¯
+	 * æ¿€æ´»è¡Œç„¦ç‚¹å˜åŒ–
 	 */
 	public void enableRowfocusChanged() {
 		ifFireRowfocusChangedEvent = true;
 	}
 
 	/**
-	 * Ñ¡ÔñĞĞ±ä»¯
+	 * é€‰æ‹©è¡Œå˜åŒ–
 	 */
 	public void valueChanged(ListSelectionEvent e) {
 		int r = getSelectedRow();
@@ -1802,22 +1802,22 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * Ö®Ç°Ñ¡ÔñµÄĞĞ
+	 * ä¹‹å‰é€‰æ‹©çš„è¡Œ
 	 */
 	private int oldRow = -1;
 
 	/**
-	 * ²»¿ÉÓÃµÄ±³¾°É«
+	 * ä¸å¯ç”¨çš„èƒŒæ™¯è‰²
 	 */
 	private Color disabledBackColor = Color.lightGray;
 
 	/**
-	 * ²»¿ÉÓÃµÄÇ°¾°É«
+	 * ä¸å¯ç”¨çš„å‰æ™¯è‰²
 	 */
 	private Color disabledForeColor = Color.black;
 
 	/**
-	 * ÉèÖÃ½ûÖ¹ÁĞµÄÑÕÉ«
+	 * è®¾ç½®ç¦æ­¢åˆ—çš„é¢œè‰²
 	 * 
 	 * @param c
 	 *            Color
@@ -1841,7 +1841,7 @@ public class JTableEx extends JTable implements MouseListener,
 
 	/**
 	 * 
-	 * ²»¿ÉÓÃµÄµ¥Ôª¸ñ±à¼­Æ÷
+	 * ä¸å¯ç”¨çš„å•å…ƒæ ¼ç¼–è¾‘å™¨
 	 */
 	class DisabledEditor extends DefaultCellEditor {
 		private static final long serialVersionUID = 1L;
@@ -1858,7 +1858,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È¡È±Ê¡µÄµ¥Ôª¸ñ±à¼­Æ÷
+	 * å–ç¼ºçœçš„å•å…ƒæ ¼ç¼–è¾‘å™¨
 	 * 
 	 * @param tf
 	 * @param parent
@@ -1869,7 +1869,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * È±Ê¡µÄµ¥Ôª¸ñ±à¼­Æ÷
+	 * ç¼ºçœçš„å•å…ƒæ ¼ç¼–è¾‘å™¨
 	 *
 	 */
 	class SimpleEditor extends DefaultCellEditor implements KeyListener,
@@ -1933,7 +1933,7 @@ public class JTableEx extends JTable implements MouseListener,
 		 *            FocusEvent
 		 */
 		public void focusLost(FocusEvent e) {
-			// Ö»ÓĞÔÚÖµ¸Ä¶¯¹ıÊ±´¥·¢½ÓÊÜ£¬·ñÔòµ¥»÷±í¸ñ²»ÄÜÖ±½Ó±à¼­£¬ÒÔ¼°»áÓ°Ïìµ½ÊäÈë·¨
+			// åªæœ‰åœ¨å€¼æ”¹åŠ¨è¿‡æ—¶è§¦å‘æ¥å—ï¼Œå¦åˆ™å•å‡»è¡¨æ ¼ä¸èƒ½ç›´æ¥ç¼–è¾‘ï¼Œä»¥åŠä¼šå½±å“åˆ°è¾“å…¥æ³•
 			// if( edited ){
 			// parent.acceptText();
 			// edited = false;
@@ -1960,7 +1960,7 @@ public class JTableEx extends JTable implements MouseListener,
 			if (e != null) {
 				Object src = e.getSource();
 				if (src instanceof JTextField) {
-					// ²»¿ÉeditableµÄTextFieldÈÔÈ»ÄÜ½ÓÊÕµ½°´¼üÊÂ¼ş
+					// ä¸å¯editableçš„TextFieldä»ç„¶èƒ½æ¥æ”¶åˆ°æŒ‰é”®äº‹ä»¶
 					JTextField txt = (JTextField) src;
 					if (!txt.isEditable())
 						return;
@@ -1980,7 +1980,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ±í¸ñÁĞ¼àÌıÆ÷
+	 * è¡¨æ ¼åˆ—ç›‘å¬å™¨
 	 *
 	 */
 	class TableColListener implements TableColumnModelListener {
@@ -2008,7 +2008,7 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
-	 * ±í¸ñÄÚµÄ±à¼­¶¯×÷½«´¥·¢¸ÃÊÂ¼ş,·½±ãÉÏ²ãµÄ±à¼­×´Ì¬Áª¶¯
+	 * è¡¨æ ¼å†…çš„ç¼–è¾‘åŠ¨ä½œå°†è§¦å‘è¯¥äº‹ä»¶,æ–¹ä¾¿ä¸Šå±‚çš„ç¼–è¾‘çŠ¶æ€è”åŠ¨
 	 */
 	public void stateChanged(ChangeEvent e) {
 	}

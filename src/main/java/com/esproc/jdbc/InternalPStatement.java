@@ -33,17 +33,17 @@ import com.scudata.dm.Sequence;
 public abstract class InternalPStatement extends InternalStatement implements
 		java.sql.PreparedStatement {
 	/**
-	 * ²ÎÊıÁĞ±í
+	 * å‚æ•°åˆ—è¡¨
 	 */
 	protected ArrayList<Object> parameters = new ArrayList<Object>();
 
 	/**
-	 * ²ÎÊıÁĞ±íµÄÁĞ±í
+	 * å‚æ•°åˆ—è¡¨çš„åˆ—è¡¨
 	 */
 	protected ArrayList<ArrayList<?>> paramsList = new ArrayList<ArrayList<?>>();
 
 	/**
-	 * CALLSÓÃµ½µÄ²ÎÊıĞòÁĞµÄÁĞ±í
+	 * CALLSç”¨åˆ°çš„å‚æ•°åºåˆ—çš„åˆ—è¡¨
 	 */
 	protected ArrayList<Sequence> callsParameters = new ArrayList<Sequence>();
 
@@ -1091,13 +1091,13 @@ public abstract class InternalPStatement extends InternalStatement implements
 	}
 
 	/**
-	 * »ñµÃÊäÈëÁ÷ÖĞµÄ×Ö½ÚÊı×é
+	 * è·å¾—è¾“å…¥æµä¸­çš„å­—èŠ‚æ•°ç»„
 	 * 
 	 * @param is
-	 *            ÊäÈëÁ÷¶ÔÏó
+	 *            è¾“å…¥æµå¯¹è±¡
 	 * @throws Exception
-	 *             ÊäÈëÊä³ö´íÎó
-	 * @return ×Ö½ÚÊı×é
+	 *             è¾“å…¥è¾“å‡ºé”™è¯¯
+	 * @return å­—èŠ‚æ•°ç»„
 	 */
 	private byte[] inputStream2Bytes(InputStream is) throws Exception {
 		if (is == null) {
@@ -1227,13 +1227,13 @@ public abstract class InternalPStatement extends InternalStatement implements
 	}
 
 	/**
-	 * »ñµÃÊäÈëÁ÷ÖĞµÄ×Ö½ÚÊı×é
+	 * è·å¾—è¾“å…¥æµä¸­çš„å­—èŠ‚æ•°ç»„
 	 * 
 	 * @param is
-	 *            ÊäÈëÁ÷¶ÔÏó
+	 *            è¾“å…¥æµå¯¹è±¡
 	 * @throws Exception
-	 *             ÊäÈëÊä³ö´íÎó
-	 * @return ×Ö½ÚÊı×é
+	 *             è¾“å…¥è¾“å‡ºé”™è¯¯
+	 * @return å­—èŠ‚æ•°ç»„
 	 */
 	private String reader2String(Reader reader) throws Exception {
 		if (reader == null) {

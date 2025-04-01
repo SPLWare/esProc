@@ -16,21 +16,21 @@ public class FtpUtil {
   
       
     /* 
-     * ´ÓSFTP·şÎñÆ÷ÏÂÔØÎÄ¼ş 
+     * ä»SFTPæœåŠ¡å™¨ä¸‹è½½æ–‡ä»¶ 
      *  
-     * @param ftpHost SFTP IPµØÖ· 
+     * @param ftpHost SFTP IPåœ°å€ 
      *  
-     * @param ftpUserName SFTP ÓÃ»§Ãû 
+     * @param ftpUserName SFTP ç”¨æˆ·å 
      *  
-     * @param ftpPassword SFTPÓÃ»§ÃûÃÜÂë 
+     * @param ftpPassword SFTPç”¨æˆ·åå¯†ç  
      *  
-     * @param ftpPort SFTP¶Ë¿Ú 
+     * @param ftpPort SFTPç«¯å£ 
      *  
-     * @param ftpPath SFTP·şÎñÆ÷ÖĞÎÄ¼şËùÔÚÂ·¾¶ ¸ñÊ½£º ftptest/aa 
+     * @param ftpPath SFTPæœåŠ¡å™¨ä¸­æ–‡ä»¶æ‰€åœ¨è·¯å¾„ æ ¼å¼ï¼š ftptest/aa 
      *  
-     * @param localPath ÏÂÔØµ½±¾µØµÄÎ»ÖÃ ¸ñÊ½£ºH:/download 
+     * @param localPath ä¸‹è½½åˆ°æœ¬åœ°çš„ä½ç½® æ ¼å¼ï¼šH:/download 
      *  
-     * @param fileName ÎÄ¼şÃû³Æ 
+     * @param fileName æ–‡ä»¶åç§° 
      */  
     public static void downloadSftpFile(String ftpHost, String ftpUserName,  
             String ftpPassword, int ftpPort, String ftpPath, String localPath,  

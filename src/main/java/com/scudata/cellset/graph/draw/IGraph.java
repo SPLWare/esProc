@@ -1,14 +1,14 @@
 package com.scudata.cellset.graph.draw;
 
 /**
- * Í³¼ÆÍ¼ĞÎ½Ó¿Ú
+ * ç»Ÿè®¡å›¾å½¢æ¥å£
  * @author Joancy
  *
  */
 public interface IGraph {
 	/**
-	 * Í¼ĞÎ»æÖÆ·½·¨
-	 * @param htmlLink ³¬Á´½Ó»º³å
+	 * å›¾å½¢ç»˜åˆ¶æ–¹æ³•
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å†²
 	 */
   public void draw( StringBuffer htmlLink );
 }

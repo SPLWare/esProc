@@ -39,92 +39,92 @@ import com.scudata.ide.common.swing.FreeLayout;
 import com.scudata.ide.spl.GMSpl;
 
 /**
- * ¹ØÓÚ¶Ô»°¿ò
+ * å…³äºå¯¹è¯æ¡†
  *
  */
 public class DialogAbout extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	protected MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * Logo¿Ø¼ş
+	 * Logoæ§ä»¶
 	 */
 	protected JLabel jLabelLogo;
 	/**
-	 * ¹Ø±Õ°´Å¥
+	 * å…³é—­æŒ‰é’®
 	 */
 	protected JButton jBClose = new JButton();
 	/**
-	 * ÉÏ²¿Ãæ°å
+	 * ä¸Šéƒ¨é¢æ¿
 	 */
 	protected JPanel panelTop = new JPanel();
 	/**
-	 * ·¢²¼Ê±¼ä
+	 * å‘å¸ƒæ—¶é—´
 	 */
 	protected JLabel jLReleaseDate1 = new JLabel();
 	/**
-	 * ·¢²¼Ê±¼ä
+	 * å‘å¸ƒæ—¶é—´
 	 */
 	protected JLabel jLReleaseDate2 = new JLabel();
 	/**
-	 * ¹«Ë¾Ãû
+	 * å…¬å¸å
 	 */
 	protected JLabel jLCompanyName = new JLabel();
 	/**
-	 * ÍøÖ·
+	 * ç½‘å€
 	 */
 	protected JLabel jLWebsite = new JLabel();
 	/**
-	 * µç»°
+	 * ç”µè¯
 	 */
 	protected JLabel jLTel = new JLabel();
 
 	/**
-	 * ÍøÖ·
+	 * ç½‘å€
 	 */
 	protected JLabel jLbHttp = new JLabel();
 	/**
-	 * ÍøÖ·2
+	 * ç½‘å€2
 	 */
 	protected JLabel jLbHttp2 = new JLabel();
 
 	/**
-	 * µç»°ÎÄ±¾¿ò
+	 * ç”µè¯æ–‡æœ¬æ¡†
 	 */
 	protected JLabel jLTel2 = new JLabel();
 	/**
-	 * ¹«Ë¾Ãû³Æ
+	 * å…¬å¸åç§°
 	 */
 	protected JLabel jLbName = new JLabel();
 
 	/**
-	 * ¹«Ë¾Ãû³Æ2
+	 * å…¬å¸åç§°2
 	 */
 	protected JLabel jLbName2 = new JLabel();
 	/**
-	 * ²úÆ·Ãû
+	 * äº§å“å
 	 */
 	protected JLabel jLProductName1 = new JLabel();
 	/**
-	 * ²úÆ·Ãû
+	 * äº§å“å
 	 */
 	protected JLabel jLProductName2 = new JLabel();
 	/**
-	 * JDK°´Å¥
+	 * JDKæŒ‰é’®
 	 */
 	protected JButton jBJDK = new JButton();
 
 	/**
-	 * ²úÆ·Ãû³Æ
+	 * äº§å“åç§°
 	 */
 	protected String productName = null;
 
 	/**
-	 * °´Å¥Ãæ°å
+	 * æŒ‰é’®é¢æ¿
 	 */
 	protected JPanel jPButton = new JPanel();
 
@@ -133,7 +133,7 @@ public class DialogAbout extends JDialog {
 	public static final int ROW_HEIGHT = 25;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 */
 	public DialogAbout() {
@@ -159,7 +159,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * µ÷ÓÃÊ±¿ÉÒÔÖØĞ´´Ë·½·¨À´Ìæ»»Logo
+	 * è°ƒç”¨æ—¶å¯ä»¥é‡å†™æ­¤æ–¹æ³•æ¥æ›¿æ¢Logo
 	 * 
 	 * @return
 	 */
@@ -168,7 +168,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * ÖØĞ´´Ë·½·¨¿ÉÒÔÌæ»»·¢²¼ÈÕÆÚ
+	 * é‡å†™æ­¤æ–¹æ³•å¯ä»¥æ›¿æ¢å‘å¸ƒæ—¥æœŸ
 	 * 
 	 * @return
 	 */
@@ -177,7 +177,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±Õ
+	 * çª—å£å…³é—­
 	 */
 	protected void closeDialog() {
 		GM.setWindowDimension(this);
@@ -185,15 +185,15 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * °´ÓïÑÔ¼ÓÔØ
+	 * æŒ‰è¯­è¨€åŠ è½½
 	 */
 	private void resetLangText() {
-		jBClose.setText(mm.getMessage("button.close")); // ¹Ø±Õ(C)
-		jBJDK.setText(mm.getMessage("dialogabout.jdk")); // JDK»·¾³
+		jBClose.setText(mm.getMessage("button.close")); // å…³é—­(C)
+		jBJDK.setText(mm.getMessage("dialogabout.jdk")); // JDKç¯å¢ƒ
 	}
 
 	/**
-	 * ÉèÖÃÏÔÊ¾ÎÄ±¾
+	 * è®¾ç½®æ˜¾ç¤ºæ–‡æœ¬
 	 * 
 	 * @param sDefault
 	 * @param sText
@@ -206,7 +206,7 @@ public class DialogAbout extends JDialog {
 			return;
 		}
 		int i = -1;
-		i = sText.indexOf("£º"); // ±ØĞëÓÃÖĞÎÄÃ°ºÅ×÷Îª·Ö¸ô·û·Ö¿ª£¬ÒÔºÍhttp://µÄÓ¢ÎÄÃ°ºÅÇø·Ö¿ª
+		i = sText.indexOf("ï¼š"); // å¿…é¡»ç”¨ä¸­æ–‡å†’å·ä½œä¸ºåˆ†éš”ç¬¦åˆ†å¼€ï¼Œä»¥å’Œhttp://çš„è‹±æ–‡å†’å·åŒºåˆ†å¼€
 
 		if (i == -1) {
 			lbTitle.setText(sDefault);
@@ -226,7 +226,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * ¼ÓÔØĞÅÏ¢
+	 * åŠ è½½ä¿¡æ¯
 	 */
 	protected void loadMessage() {
 		jLProductName1.setText(mm.getMessage("dialogabout.productname"));
@@ -236,13 +236,13 @@ public class DialogAbout extends JDialog {
 		jLProductName2.setText(productName);
 		jLReleaseDate2.setText(getReleaseDate());
 
-		String tmp = mm.getMessage("dialogabout.providername");// ¹«Ë¾Ãû³Æ
+		String tmp = mm.getMessage("dialogabout.providername");// å…¬å¸åç§°
 		String vendorName = mm.getMessage("dialogabout.defvendor");
 		setText(tmp, vendorName, jLCompanyName, jLbName);
-		tmp = mm.getMessage("dialogabout.providerhttp");// ¹«Ë¾ÍøÖ·
+		tmp = mm.getMessage("dialogabout.providerhttp");// å…¬å¸ç½‘å€
 		String vendorURL = mm.getMessage("dialogabout.defvendorurl1");
 		setText(tmp, vendorURL, jLWebsite, jLbHttp);
-		tmp = mm.getMessage("dialogabout.providertel");// ¹«Ë¾µç»°
+		tmp = mm.getMessage("dialogabout.providertel");// å…¬å¸ç”µè¯
 		String vendorTel = "010-51295366";
 		setText(tmp, vendorTel, jLTel, jLTel2);
 
@@ -263,7 +263,7 @@ public class DialogAbout extends JDialog {
 	protected int x1, y1;
 
 	/**
-	 * °Ú·ÅLogo
+	 * æ‘†æ”¾Logo
 	 */
 	protected void placeLogo() {
 		final int LABEL1_WIDTH = getTopLabel1Width();
@@ -288,7 +288,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * °Ú·Å³¤Logo
+	 * æ‘†æ”¾é•¿Logo
 	 */
 	protected void placeLongLogo() {
 		final int LABEL1_WIDTH = getTopLabel1Width();
@@ -314,7 +314,7 @@ public class DialogAbout extends JDialog {
 	protected final Font URL_FONT = new Font("Comic Sans MS", 2, 13);
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @param product
 	 * @throws Exception
@@ -349,7 +349,7 @@ public class DialogAbout extends JDialog {
 
 		jBClose.setDoubleBuffered(false);
 		jBClose.setMnemonic('C');
-		jBClose.setText("¹Ø±Õ(C)");
+		jBClose.setText("å…³é—­(C)");
 
 		jBClose.addActionListener(new DialogAbout_jBClose_actionAdapter(this));
 		jLWebsite.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -385,7 +385,7 @@ public class DialogAbout extends JDialog {
 		this.getContentPane().setLayout(new BorderLayout());
 		this.addWindowListener(new DialogAbout_this_windowAdapter(this));
 		jBJDK.setMnemonic('K');
-		jBJDK.setText("JDK»·¾³");
+		jBJDK.setText("JDKç¯å¢ƒ");
 		jBJDK.addActionListener(new DialogAbout_jBJDK_actionAdapter(this));
 
 		jLCompanyName.setForeground(SystemColor.textHighlight);
@@ -458,7 +458,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * ¹Ø±Õ°´Å¥ÃüÁî
+	 * å…³é—­æŒ‰é’®å‘½ä»¤
 	 * 
 	 * @param e
 	 */
@@ -467,7 +467,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * Êó±êµã»÷HTTP
+	 * é¼ æ ‡ç‚¹å‡»HTTP
 	 * 
 	 * @param e
 	 */
@@ -484,7 +484,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * Êó±êµã»÷µç»°ºÅ
+	 * é¼ æ ‡ç‚¹å‡»ç”µè¯å·
 	 * 
 	 * @param e
 	 */
@@ -497,7 +497,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * JDK°´Å¥ÃüÁî
+	 * JDKæŒ‰é’®å‘½ä»¤
 	 * 
 	 * @param e
 	 */
@@ -522,7 +522,7 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±Õ
+	 * çª—å£å…³é—­
 	 * 
 	 * @param e
 	 */

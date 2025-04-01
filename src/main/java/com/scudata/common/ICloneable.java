@@ -1,12 +1,12 @@
 package com.scudata.common;
 
 /**
- * 深度克隆接口
+ * 娣卞害鍏嬮殕鎺ュ彛
  */
 public interface ICloneable {
 	/**
-	 * 深度克隆
-	 *@return 克隆出的对象
+	 * 娣卞害鍏嬮殕
+	 *@return 鍏嬮殕鍑虹殑瀵硅薄
 	 */
 	public Object deepClone();
 }

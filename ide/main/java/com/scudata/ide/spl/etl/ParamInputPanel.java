@@ -13,7 +13,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.ide.common.GM;
 
 /**
- * ²ÎÊıÊäÈëÃæ°å
+ * å‚æ•°è¾“å…¥é¢æ¿
  * 
  * @author Joancy
  *
@@ -23,16 +23,16 @@ public class ParamInputPanel extends JPanel {
 
 	private TableParamEdit table;
 	JLabel lbType = new JLabel();
-	JLabel lbDesc = new JLabel("ÊôĞÔ±à¼­");
+	JLabel lbDesc = new JLabel("å±æ€§ç¼–è¾‘");
 	ParamInfoList infoList;
 	MessageManager mm = FuncMessage.get();
 	JDialog owner;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸´°¿Ú
+	 *            çˆ¶çª—å£
 	 */
 	public ParamInputPanel(JDialog owner) {
 		this.owner = owner;
@@ -47,16 +47,16 @@ public class ParamInputPanel extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıĞÅÏ¢
+	 * è®¾ç½®å‚æ•°ä¿¡æ¯
 	 * 
 	 * @param funcType
-	 *            º¯ÊıÀàĞÍ
+	 *            å‡½æ•°ç±»å‹
 	 * @param funcTitle
-	 *            º¯Êı±êÌâ
+	 *            å‡½æ•°æ ‡é¢˜
 	 * @param funcDesc
-	 *            º¯ÊıµÄÃèÊöĞÅÏ¢
+	 *            å‡½æ•°çš„æè¿°ä¿¡æ¯
 	 * @param list
-	 *            º¯ÊıµÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 *            å‡½æ•°çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public void setParamInfoList(String funcType, String funcTitle,
 			String funcDesc, ParamInfoList list) {
@@ -71,18 +71,18 @@ public class ParamInputPanel extends JPanel {
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊı±à¼­±í
+	 * è·å–å‚æ•°ç¼–è¾‘è¡¨
 	 * 
-	 * @return ²ÎÊı±à¼­±í
+	 * @return å‚æ•°ç¼–è¾‘è¡¨
 	 */
 	public TableParamEdit getParamTable() {
 		return table;
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 * 
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		table.acceptText();

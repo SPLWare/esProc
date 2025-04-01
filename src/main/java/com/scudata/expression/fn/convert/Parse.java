@@ -10,13 +10,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * parse(s) ·ÖÎö×Ö·û´®sºó£¬°Ñ×Ö·û´®½âÎö³ÉÏàÓ¦µÄÊı¾İÀàĞÍ¡£
+ * parse(s) åˆ†æå­—ç¬¦ä¸²såï¼ŒæŠŠå­—ç¬¦ä¸²è§£ææˆç›¸åº”çš„æ•°æ®ç±»å‹ã€‚
  * @author runqian
  *
  */
 public class Parse extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -37,7 +37,7 @@ public class Parse extends Function {
 		String str = (String)obj;
 		if (option != null) {
 			if (option.indexOf('q') != -1) {
-				int start = 0; // ÆğÊ¼Î»ÖÃ£¬³ıÁË¿Õ°×ÍâÊÇ²»ÊÇÒÔÒıºÅ¿ªÍ·
+				int start = 0; // èµ·å§‹ä½ç½®ï¼Œé™¤äº†ç©ºç™½å¤–æ˜¯ä¸æ˜¯ä»¥å¼•å·å¼€å¤´
 				int len = str.length();
 				for (; start < len; ++start) {
 					char c = str.charAt(start);
@@ -70,7 +70,7 @@ public class Parse extends Function {
 					}
 				}
 			} else if (option.indexOf('n') != -1) {
-				int start = 0; // ÆğÊ¼Î»ÖÃ£¬Ç°Ãæ¿ÉÒÔÓĞ¿Õ°×·û£¬Ö§³ÖÒÔ.»ò-¿ªÊ¼
+				int start = 0; // èµ·å§‹ä½ç½®ï¼Œå‰é¢å¯ä»¥æœ‰ç©ºç™½ç¬¦ï¼Œæ”¯æŒä»¥.æˆ–-å¼€å§‹
 				int len = str.length();
 				for (; start < len; ++start) {
 					char c = str.charAt(start);

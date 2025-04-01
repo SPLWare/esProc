@@ -6,8 +6,8 @@ import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.RecordFunction;
 
 /**
- * Õë¶Ô¼ÇÂ¼¼ÆËã±í´ïÊ½£¬·µ»Ø¼ÇÂ¼±¾Éí
- * r.run(xi,¡­) r.run(xi:Fi:,¡­)
+ * é’ˆå¯¹è®°å½•è®¡ç®—è¡¨è¾¾å¼ï¼Œè¿”å›è®°å½•æœ¬èº«
+ * r.run(xi,â€¦) r.run(xi:Fi:,â€¦)
  * @author RunQian
  *
  */

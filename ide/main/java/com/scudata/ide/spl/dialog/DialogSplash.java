@@ -16,22 +16,22 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.common.swing.FreeLayout;
 
 /**
- * ¼¯ËãÆ÷ÏÔÊ¾Æô¶¯Í¼Æ¬´°¿Ú
+ * é›†ç®—å™¨æ˜¾ç¤ºå¯åŠ¨å›¾ç‰‡çª—å£
  * 
  */
 public class DialogSplash extends JWindow {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param splashImage
-	 *            splashÍ¼Æ¬Â·¾¶
+	 *            splashå›¾ç‰‡è·¯å¾„
 	 */
 	public DialogSplash(String splashImage) {
 		try {
 			// this.setUndecorated(true);
-			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)); // ÉèÖÃ¹â±ê
+			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)); // è®¾ç½®å…‰æ ‡
 			this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 			this.getRootPane().setBorder(null);
 			this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -45,7 +45,7 @@ public class DialogSplash extends JWindow {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -63,14 +63,14 @@ public class DialogSplash extends JWindow {
 	}
 
 	/**
-	 * ¹Ø±Õ´°¿Ú
+	 * å…³é—­çª—å£
 	 */
 	public void closeWindow() {
 		dispose();
 	}
 
 	/**
-	 * È¡Í¼Æ¬¶ÔÏó
+	 * å–å›¾ç‰‡å¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -94,7 +94,7 @@ public class DialogSplash extends JWindow {
 	}
 
 	/**
-	 * Ä¬ÈÏµÄÍ¼±êÎÄ¼şÃû
+	 * é»˜è®¤çš„å›¾æ ‡æ–‡ä»¶å
 	 * 
 	 * @return
 	 */
@@ -103,7 +103,7 @@ public class DialogSplash extends JWindow {
 	}
 
 	/**
-	 * ÏÔÊ¾Í¼Æ¬µÄÃæ°å
+	 * æ˜¾ç¤ºå›¾ç‰‡çš„é¢æ¿
 	 *
 	 */
 	class ImagePanel extends JPanel {

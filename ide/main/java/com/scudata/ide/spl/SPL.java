@@ -79,14 +79,14 @@ import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.util.CellSetUtil;
 
 /**
- * ¼¯ËãÆ÷IDEµÄÖ÷½çÃæÀà
+ * é›†ç®—å™¨IDEçš„ä¸»ç•Œé¢ç±»
  *
  */
 public class SPL extends AppFrame {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * MACÏµÍ³Ê±£¬ÉèÖÃDOCKÍ¼±ê
+	 * MACç³»ç»Ÿæ—¶ï¼Œè®¾ç½®DOCKå›¾æ ‡
 	 */
 	static {
 		try {
@@ -102,47 +102,47 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * Ö÷·Ö¸ôÃæ°å
+	 * ä¸»åˆ†éš”é¢æ¿
 	 */
 	private JSplitPane splitMain = new JSplitPane();
 
 	/**
-	 * ¹¤¾ßÀ¸Ãæ°å
+	 * å·¥å…·æ é¢æ¿
 	 */
 	private JPanel barPanel = new JPanel();
 
 	/**
-	 * ÖĞ²¿·Ö¸ôÃæ°å
+	 * ä¸­éƒ¨åˆ†éš”é¢æ¿
 	 */
 	private JSplitPane splitCenter = new JSplitPane();
 
 	/**
-	 * ÓÒ±ß·Ö¸ôÃæ°å
+	 * å³è¾¹åˆ†éš”é¢æ¿
 	 */
 	private JSplitPane splitEast = new JSplitPane();
 
 	/**
-	 * ÓÒÏÂ±êÇ©Ê½Ãæ°å
+	 * å³ä¸‹æ ‡ç­¾å¼é¢æ¿
 	 */
 	private JTabbedParam tabParam;
 
 	/**
-	 * ²Ëµ¥
+	 * èœå•
 	 */
 	protected AppMenu currentMenu;
 
 	/**
-	 * Ö÷¹ö¶¯Ãæ°å
+	 * ä¸»æ»šåŠ¨é¢æ¿
 	 */
 	private JSplitPane spMain = new JSplitPane();
 
 	/**
-	 * ÍË³öÊ±ÊÇ·ñ¹Ø±ÕJVM
+	 * é€€å‡ºæ—¶æ˜¯å¦å…³é—­JVM
 	 */
 	private boolean terminalVM = true;
 
 	/**
-	 * ×Ô¶¯Á¬½ÓµÄÊı¾İÔ´Ãû³ÆÊı×é
+	 * è‡ªåŠ¨è¿æ¥çš„æ•°æ®æºåç§°æ•°ç»„
 	 */
 	private String[] startDsNames = null;
 
@@ -150,7 +150,7 @@ public class SPL extends AppFrame {
 	protected JTabbedPane jTPRight = new JTabbedPane();
 
 	/**
-	 * ×ÊÔ´Ê÷¿Ø¼ş
+	 * èµ„æºæ ‘æ§ä»¶
 	 */
 	protected FileTree fileTree;
 
@@ -161,39 +161,39 @@ public class SPL extends AppFrame {
 	// protected JLabel jLFileTreeMessage = new JLabel();
 
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeSplMessage.get();
 
 	/**
-	 * ÎÄ¼şÊ÷¿í¶ÈÊÇ·ñ³õÊ¼»¯
+	 * æ–‡ä»¶æ ‘å®½åº¦æ˜¯å¦åˆå§‹åŒ–
 	 */
 	private boolean isInit = false;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public SPL() {
 		this(null);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param openFile
-	 *            Æô¶¯Ê±×Ô¶¯´ò¿ªÎÄ¼ş
+	 *            å¯åŠ¨æ—¶è‡ªåŠ¨æ‰“å¼€æ–‡ä»¶
 	 */
 	public SPL(String openFile) {
 		this(openFile, true);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param openFile
-	 *            Æô¶¯Ê±×Ô¶¯´ò¿ªÎÄ¼ş
+	 *            å¯åŠ¨æ—¶è‡ªåŠ¨æ‰“å¼€æ–‡ä»¶
 	 * @param terminalVMwhileExit
-	 *            ÍË³öÊ±ÊÇ·ñ¹Ø±ÕJVM
+	 *            é€€å‡ºæ—¶æ˜¯å¦å…³é—­JVM
 	 */
 	public SPL(String openFile, boolean terminalVMwhileExit) {
 		super();
@@ -356,8 +356,8 @@ public class SPL extends AppFrame {
 				this.tabParam.consoleVisible(true);
 			}
 			splitCenter.setLeftComponent(jTPLeft);
-			// ½«ÎÄ¼şÊ÷ºÍ¿ØÖÆÌ¨·ÅÔÚÉè¼ÆÆ÷µÄ×ó²à
-			// Òòtab±êÇ©Ôö¼ÓÎÄ¼şÊ÷£¬tab±êÇ©»áÒ»Ö±´æÔÚ£¬½«¿Ø×¡¿ØÖÆÌ¨¿í¶ÈµÄ´úÂëÌáµ½ÍâÃæ
+			// å°†æ–‡ä»¶æ ‘å’Œæ§åˆ¶å°æ”¾åœ¨è®¾è®¡å™¨çš„å·¦ä¾§
+			// å› tabæ ‡ç­¾å¢åŠ æ–‡ä»¶æ ‘ï¼Œtabæ ‡ç­¾ä¼šä¸€ç›´å­˜åœ¨ï¼Œå°†æ§ä½æ§åˆ¶å°å®½åº¦çš„ä»£ç æåˆ°å¤–é¢
 			if (ConfigOptions.iConsoleLocation != null
 					&& ConfigOptions.iConsoleLocation.intValue() > -1) {
 				lastLeftLocation = ConfigOptions.iConsoleLocation.intValue();
@@ -419,7 +419,7 @@ public class SPL extends AppFrame {
 			GV.allFrames.add(this);
 
 			int width = splitCenter.getWidth();
-			if (isInit || lastLeftLocation == 0) { // ÎÄ¼şÊ÷¿í¶ÈÊÇ·ñ³õÊ¼»¯
+			if (isInit || lastLeftLocation == 0) { // æ–‡ä»¶æ ‘å®½åº¦æ˜¯å¦åˆå§‹åŒ–
 				width = Math.round(width * 0.4f);
 			} else {
 				width = lastLeftLocation;
@@ -437,7 +437,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´´½¨×ÊÔ´Ê÷
+	 * åˆ›å»ºèµ„æºæ ‘
 	 */
 	protected void newResourceTree() {
 		fileTree = new FileTree();
@@ -445,7 +445,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´´½¨»ù´¡²Ëµ¥
+	 * åˆ›å»ºåŸºç¡€èœå•
 	 * 
 	 * @return
 	 */
@@ -454,7 +454,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´´½¨±à¼­²Ëµ¥
+	 * åˆ›å»ºç¼–è¾‘èœå•
 	 * 
 	 * @return
 	 */
@@ -463,7 +463,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´´½¨SPL¹¤¾ßÌõ
+	 * åˆ›å»ºSPLå·¥å…·æ¡
 	 * 
 	 * @return
 	 */
@@ -476,7 +476,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ²é¿´²ÎÊıÖµ
+	 * æŸ¥çœ‹å‚æ•°å€¼
 	 * 
 	 * @param varName
 	 * @param val
@@ -488,7 +488,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ³õÊ¼»¯½çÃæ
+	 * åˆå§‹åŒ–ç•Œé¢
 	 */
 	private void initUI() {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -503,7 +503,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * È¡ËùÓĞµÄ´ò¿ªÎÄ¼ş´°¿Ú¶ÔÏó
+	 * å–æ‰€æœ‰çš„æ‰“å¼€æ–‡ä»¶çª—å£å¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -512,7 +512,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * È¡ËùÓĞµÄÒ³±êÌâ
+	 * å–æ‰€æœ‰çš„é¡µæ ‡é¢˜
 	 * 
 	 * @return
 	 */
@@ -530,19 +530,19 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ¹Ø±ÕÖ¸¶¨Ò³
+	 * å…³é—­æŒ‡å®šé¡µ
 	 */
 	public boolean closeSheet(Object sheet) {
 		return closeSheet(sheet, true);
 	}
 
 	/**
-	 * ¹Ø±ÕÖ¸¶¨Ò³
+	 * å…³é—­æŒ‡å®šé¡µ
 	 * 
 	 * @param sheet
-	 *            Ò³¶ÔÏó
+	 *            é¡µå¯¹è±¡
 	 * @param showSheet
-	 *            ¹Ø±ÕºóÊÇ·ñÏÔÊ¾ÆäËûÒ³¡£¹Ø±ÕÈ«²¿Ò³Ê±Ó¦¸ÃÓÃfalse
+	 *            å…³é—­åæ˜¯å¦æ˜¾ç¤ºå…¶ä»–é¡µã€‚å…³é—­å…¨éƒ¨é¡µæ—¶åº”è¯¥ç”¨false
 	 * @return boolean
 	 */
 	public boolean closeSheet(Object sheet, boolean showSheet) {
@@ -551,21 +551,21 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 
-	 * ¹Ø±ÕÖ¸¶¨Ò³
+	 * å…³é—­æŒ‡å®šé¡µ
 	 * 
 	 * @param sheet
-	 *            Ò³¶ÔÏó
+	 *            é¡µå¯¹è±¡
 	 * @param showSheet
-	 *            ¹Ø±ÕºóÊÇ·ñÏÔÊ¾ÆäËûÒ³¡£¹Ø±ÕÈ«²¿Ò³Ê±Ó¦¸ÃÓÃfalse
+	 *            å…³é—­åæ˜¯å¦æ˜¾ç¤ºå…¶ä»–é¡µã€‚å…³é—­å…¨éƒ¨é¡µæ—¶åº”è¯¥ç”¨false
 	 * @param isQuit
-	 *            ÊÇ·ñÍË³öÊ±µ÷ÓÃµÄ
+	 *            æ˜¯å¦é€€å‡ºæ—¶è°ƒç”¨çš„
 	 * @return boolean
 	 */
 	public boolean closeSheet(Object sheet, boolean showSheet, boolean isQuit) {
 		if (sheet == null) {
 			return false;
 		}
-		if (isQuit && sheet instanceof SheetSpl) { // ¹Ø±ÕÈ«²¿
+		if (isQuit && sheet instanceof SheetSpl) { // å…³é—­å…¨éƒ¨
 			SheetSpl ss = (SheetSpl) sheet;
 			if (!ss.close(isQuit))
 				return false;
@@ -591,7 +591,7 @@ public class SPL extends AppFrame {
 					showSheet(frames[0], false);
 				}
 			} catch (Exception x) {
-				// ÕÒ²»µ½¿ÉÏÔÊ¾µÄ¾ÍËãÀ²
+				// æ‰¾ä¸åˆ°å¯æ˜¾ç¤ºçš„å°±ç®—å•¦
 			}
 			try {
 				((AppMenu) GV.appMenu).refreshRecentFileOnClose(sheetTitle,
@@ -606,7 +606,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ¹Ø±ÕÈ«²¿Ò³
+	 * å…³é—­å…¨éƒ¨é¡µ
 	 * 
 	 * @return boolean
 	 */
@@ -615,10 +615,10 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ¹Ø±ÕÈ«²¿Ò³
+	 * å…³é—­å…¨éƒ¨é¡µ
 	 * 
 	 * @param isQuit
-	 *            ÊÇ·ñÍË³öÊ±´¥·¢µÄ
+	 *            æ˜¯å¦é€€å‡ºæ—¶è§¦å‘çš„
 	 * @return
 	 */
 	public boolean closeAll(boolean isQuit) {
@@ -657,7 +657,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ÊÇ·ñ±¾µØÎÄ¼ş
+	 * æ˜¯å¦æœ¬åœ°æ–‡ä»¶
 	 * 
 	 * @param sheet
 	 * @return
@@ -667,7 +667,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ³ÌĞòÍË³ö
+	 * ç¨‹åºé€€å‡º
 	 */
 	public boolean exit() {
 		try {
@@ -684,7 +684,7 @@ public class SPL extends AppFrame {
 			}
 
 			if (fileTree != null && fileTree instanceof FileTree) {
-				// ÍË³öÊ±£¬¼Ç×¡±¾´Î´ò¿ªÎÄ¼şÊ÷Ãæ°åµÄ¿í¶È
+				// é€€å‡ºæ—¶ï¼Œè®°ä½æœ¬æ¬¡æ‰“å¼€æ–‡ä»¶æ ‘é¢æ¿çš„å®½åº¦
 				((FileTree) fileTree).saveExpandState(splitCenter
 						.getDividerLocation());
 			}
@@ -746,14 +746,14 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ÍË³ö×Ô¶¨Òå³ÌĞò
+	 * é€€å‡ºè‡ªå®šä¹‰ç¨‹åº
 	 */
 	protected boolean exitCustom() {
 		return true;
 	}
 
 	/**
-	 * Èç¹û¹Ø±ÕÁËËùÓĞÒ³£¬ÔòÍË³ö¡£
+	 * å¦‚æœå…³é—­äº†æ‰€æœ‰é¡µï¼Œåˆ™é€€å‡ºã€‚
 	 */
 	public void quit() {
 		if (closeAll(true)) {
@@ -762,7 +762,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´ò¿ªÎÄ¼ş
+	 * æ‰“å¼€æ–‡ä»¶
 	 */
 	public synchronized JInternalFrame openSheetFile(String filePath)
 			throws Exception {
@@ -779,7 +779,7 @@ public class SPL extends AppFrame {
 		}
 
 		ICellSet cs = null;
-		if (!StringUtils.isValidString(filePath)) { // ĞÂ½¨
+		if (!StringUtils.isValidString(filePath)) { // æ–°å»º
 			String pre;
 			if (filePath == null) {
 				pre = GCSpl.PRE_NEWPGM;
@@ -788,9 +788,9 @@ public class SPL extends AppFrame {
 			}
 			filePath = GMSpl.getNewName(pre);
 		} else {
-			// ²»Í¬µÄ²ÎÊı´«µİ£¬¿ÉÄÜ»áÔÚºóÃæ¶à¼Ó¿Õ¸ñ
+			// ä¸åŒçš„å‚æ•°ä¼ é€’ï¼Œå¯èƒ½ä¼šåœ¨åé¢å¤šåŠ ç©ºæ ¼
 			filePath = filePath.trim();
-			// ´ò¿ªÊ±¼ì²éÈ¨ÏŞ
+			// æ‰“å¼€æ—¶æ£€æŸ¥æƒé™
 			cs = readCellSet(filePath);
 			if (cs == null)
 				return null;
@@ -800,12 +800,12 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´ò¿ªÒ³Ãæ
+	 * æ‰“å¼€é¡µé¢
 	 * 
 	 * @param filePath
-	 *            ÎÄ¼şÂ·¾¶
+	 *            æ–‡ä»¶è·¯å¾„
 	 * @param cellSet
-	 *            Íø¸ñ¶ÔÏó
+	 *            ç½‘æ ¼å¯¹è±¡
 	 * @return
 	 */
 	public synchronized JInternalFrame openSheet(String filePath, Object cellSet) {
@@ -813,7 +813,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´´½¨Íø¸ñÒ³Ãæ
+	 * åˆ›å»ºç½‘æ ¼é¡µé¢
 	 * 
 	 * @param filePath
 	 * @param cs
@@ -825,7 +825,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´´½¨Íø¸ñÒ³Ãæ
+	 * åˆ›å»ºç½‘æ ¼é¡µé¢
 	 * 
 	 * @param filePath
 	 * @param cs
@@ -838,14 +838,14 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´ò¿ªÒ³Ãæ
+	 * æ‰“å¼€é¡µé¢
 	 * 
 	 * @param filePath
-	 *            ÎÄ¼şÂ·¾¶
+	 *            æ–‡ä»¶è·¯å¾„
 	 * @param cellSet
-	 *            Íø¸ñ¶ÔÏó
+	 *            ç½‘æ ¼å¯¹è±¡
 	 * @param refreshRecentFile
-	 *            ÊÇ·ñË¢ĞÂ×î½üÎÄ¼ş
+	 *            æ˜¯å¦åˆ·æ–°æœ€è¿‘æ–‡ä»¶
 	 * @return
 	 */
 	public synchronized JInternalFrame openSheet(String filePath,
@@ -854,16 +854,16 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´ò¿ªÒ³Ãæ
+	 * æ‰“å¼€é¡µé¢
 	 * 
 	 * @param filePath
-	 *            ÎÄ¼şÂ·¾¶
+	 *            æ–‡ä»¶è·¯å¾„
 	 * @param cellSet
-	 *            Íø¸ñ¶ÔÏó
+	 *            ç½‘æ ¼å¯¹è±¡
 	 * @param refreshRecentFile
-	 *            ÊÇ·ñË¢ĞÂ×î½üÎÄ¼ş
+	 *            æ˜¯å¦åˆ·æ–°æœ€è¿‘æ–‡ä»¶
 	 * @param stepInfo
-	 *            ·Ö²½µ÷ÊÔĞÅÏ¢¡£Ã»ÓĞµÄ´«null
+	 *            åˆ†æ­¥è°ƒè¯•ä¿¡æ¯ã€‚æ²¡æœ‰çš„ä¼ null
 	 * @return
 	 */
 	public synchronized JInternalFrame openSheet(String filePath,
@@ -905,14 +905,14 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ¶ÁÈ¡Íø¸ñ
+	 * è¯»å–ç½‘æ ¼
 	 * 
 	 * @param filePath
 	 * @return
 	 * @throws Exception
 	 */
 	public PgmCellSet readCellSet(String filePath) throws Exception {
-		// ´Óä¯ÀÀÆ÷Ë«»÷¹ıÀ´µÄÂ·¾¶º¬ÓĞ¿Õ¸ñ·ûºÅ
+		// ä»æµè§ˆå™¨åŒå‡»è¿‡æ¥çš„è·¯å¾„å«æœ‰ç©ºæ ¼ç¬¦å·
 		filePath = filePath.trim();
 		PgmCellSet cs = null;
 		String path = filePath.toLowerCase();
@@ -935,7 +935,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ¶ÁÈ¡Íø¸ñÎÄ¼ş
+	 * è¯»å–ç½‘æ ¼æ–‡ä»¶
 	 * 
 	 * @param is
 	 * @return
@@ -953,7 +953,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * Ñ¡ÏîÈ·ÈÏºóË¢ĞÂ
+	 * é€‰é¡¹ç¡®è®¤ååˆ·æ–°
 	 */
 	public void refreshOptions() {
 		try {
@@ -961,7 +961,7 @@ public class SPL extends AppFrame {
 					.refreshRecentMainPath(ConfigOptions.sMainPath);
 		} catch (Throwable e) {
 		}
-		fileTree.changeMainPath(ConfigOptions.sMainPath); // Ë¢ĞÂ×ÊÔ´Ê÷Ö÷Ä¿Â¼
+		fileTree.changeMainPath(ConfigOptions.sMainPath); // åˆ·æ–°èµ„æºæ ‘ä¸»ç›®å½•
 
 		if (ConfigOptions.bIdeConsole.booleanValue()) {
 			holdConsole();
@@ -977,15 +977,15 @@ public class SPL extends AppFrame {
 			GM.setCurrentPath(GV.appSheet.getSheetTitle());
 		}
 		GM.fontMap.clear();
-		// ×Ô¶¯±£´æ
+		// è‡ªåŠ¨ä¿å­˜
 		autoSaveOption();
 	}
 
 	/**
-	 * ÏÔÊ¾ÏÂÒ»¸öÒ³Ãæ
+	 * æ˜¾ç¤ºä¸‹ä¸€ä¸ªé¡µé¢
 	 * 
 	 * @param isCtrlDown
-	 *            ÊÇ·ñ°´ÁËCTRL¼ü
+	 *            æ˜¯å¦æŒ‰äº†CTRLé”®
 	 */
 	public void showNextSheet(boolean isCtrlDown) {
 		JInternalFrame[] frames = desk.getAllFrames();
@@ -1019,7 +1019,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ÇĞ»»´°¿ÚÁĞ±í
+	 * åˆ‡æ¢çª—å£åˆ—è¡¨
 	 */
 	public void switchWinList() {
 		ConfigOptions.bViewWinList = new Boolean(
@@ -1035,65 +1035,65 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ÏÔÊ¾ºÍÒş²ØÃæ°åÊ±£¬Ğ¡ÓÚSPLIT_GAPÈÏÎªÊ±ÊÕÆğ×´Ì¬
+	 * æ˜¾ç¤ºå’Œéšè—é¢æ¿æ—¶ï¼Œå°äºSPLIT_GAPè®¤ä¸ºæ—¶æ”¶èµ·çŠ¶æ€
 	 */
 	private static int SPLIT_GAP = 50;
 
 	/**
-	 * Ö®Ç°×ó²àÃæ°åµÄÎ»ÖÃ
+	 * ä¹‹å‰å·¦ä¾§é¢æ¿çš„ä½ç½®
 	 */
 	private int lastLeftLocation;
 
 	/**
-	 * ÏÔÊ¾Êä³öÃæ°å
+	 * æ˜¾ç¤ºè¾“å‡ºé¢æ¿
 	 */
 	public void viewTabConsole() {
 		tabParam.consoleVisible(true);
 	}
 
 	/**
-	 * ÏÔÊ¾×ó²àÃæ°å
+	 * æ˜¾ç¤ºå·¦ä¾§é¢æ¿
 	 */
 	public void viewLeft() {
 		int pos = splitCenter.getDividerLocation();
 		int width = splitCenter.getWidth();
-		if (pos <= 0 || (1 < pos && pos <= SPLIT_GAP)) { // ÊÕËõ×´Ì¬£¬Õ¹¿ª
+		if (pos <= 0 || (1 < pos && pos <= SPLIT_GAP)) { // æ”¶ç¼©çŠ¶æ€ï¼Œå±•å¼€
 			lastLeftLocation = lastLeftLocation == 0 ? Math.round(width * 0.4f)
 					: lastLeftLocation;
 			splitCenter.setDividerLocation(lastLeftLocation);
-		} else { // Õ¹¿ª×´Ì¬£¬ÊÕËõ
+		} else { // å±•å¼€çŠ¶æ€ï¼Œæ”¶ç¼©
 			lastLeftLocation = pos;
 			splitCenter.setDividerLocation(0);
 		}
 	}
 
 	/**
-	 * Ö®Ç°ÓÒ²àÃæ°åµÄÎ»ÖÃ
+	 * ä¹‹å‰å³ä¾§é¢æ¿çš„ä½ç½®
 	 */
 	private int lastRightLocation;
 
 	/**
-	 * ÏÔÊ¾ÓÒ²àÃæ°å
+	 * æ˜¾ç¤ºå³ä¾§é¢æ¿
 	 */
 	public void viewRight() {
 		int pos = splitMain.getDividerLocation();
 		int width = splitMain.getWidth();
-		if (width - pos <= SPLIT_GAP) { // ÊÕËõ×´Ì¬£¬Õ¹¿ª
+		if (width - pos <= SPLIT_GAP) { // æ”¶ç¼©çŠ¶æ€ï¼Œå±•å¼€
 			splitMain.setDividerLocation(lastRightLocation);
-		} else { // Õ¹¿ª×´Ì¬£¬ÊÕËõ
+		} else { // å±•å¼€çŠ¶æ€ï¼Œæ”¶ç¼©
 			lastRightLocation = pos;
 			splitMain.setDividerLocation(width);
 		}
 	}
 
 	/**
-	 * ÖØÖÃµ±Ç°SPL¹¤×÷Ò³µÄÖ´ĞĞ×´Ì¬
+	 * é‡ç½®å½“å‰SPLå·¥ä½œé¡µçš„æ‰§è¡ŒçŠ¶æ€
 	 */
 	public void resetRunStatus() {
 	}
 
 	/**
-	 * ´ò¿ª×î½üÎÄ¼ş
+	 * æ‰“å¼€æœ€è¿‘æ–‡ä»¶
 	 */
 	public void startAutoRecent() {
 		if (StringUtils.isValidString(GV.directOpenFile)) {
@@ -1178,20 +1178,20 @@ public class SPL extends AppFrame {
 		}
 
 		if (!autoConnect) {
-			calcInitSpl(); // ÓĞ×Ô¶¯Á¬½ÓÊ±£¬µÈÁ¬½ÓºóÔÙ¼ÆËã
+			calcInitSpl(); // æœ‰è‡ªåŠ¨è¿æ¥æ—¶ï¼Œç­‰è¿æ¥åå†è®¡ç®—
 		}
 
-		// ×Ô¶¯±£´æ
+		// è‡ªåŠ¨ä¿å­˜
 		autoSaveOption();
 	}
 
 	/**
-	 * ÊÇ·ñ×Ô¶¯Á¬½Ó×î½üÊı¾İÔ´Á¬½Ó
+	 * æ˜¯å¦è‡ªåŠ¨è¿æ¥æœ€è¿‘æ•°æ®æºè¿æ¥
 	 */
 	private boolean autoConnect = false;
 
 	/**
-	 * ¼ÆËã³õÊ¼»¯³ÌĞòÍø¸ñ
+	 * è®¡ç®—åˆå§‹åŒ–ç¨‹åºç½‘æ ¼
 	 */
 	private void calcInitSpl() {
 		if (GV.config == null)
@@ -1202,7 +1202,7 @@ public class SPL extends AppFrame {
 				Context ctx = GMSpl.prepareParentContext();
 				ConfigUtil.calcInitSpl(splPath, ctx);
 			} catch (Throwable t) {
-				// ¼ÆËã³õÊ¼»¯³ÌĞò{0}Ê§°Ü£º
+				// è®¡ç®—åˆå§‹åŒ–ç¨‹åº{0}å¤±è´¥ï¼š
 				GM.showException(GV.appFrame, t, true, null, IdeCommonMessage
 						.get().getMessage("dfx.calcinitdfx", splPath));
 			}
@@ -1211,12 +1211,12 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ÒÑ¾­Á¬½ÓµÄÊı¾İÔ´ÊıÁ¿
+	 * å·²ç»è¿æ¥çš„æ•°æ®æºæ•°é‡
 	 */
 	private static Integer startDBCount = new Integer(0);
 
 	/**
-	 * ÖØÖÃÊı¾İÔ´»·¾³
+	 * é‡ç½®æ•°æ®æºç¯å¢ƒ
 	 */
 	private void resetDBEnv() {
 		synchronized (startDBCount) {
@@ -1230,7 +1230,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ±£´æËùÓĞÍø¸ñ
+	 * ä¿å­˜æ‰€æœ‰ç½‘æ ¼
 	 */
 	public boolean saveAll() {
 		JInternalFrame[] sheets = getAllInternalFrames();
@@ -1247,12 +1247,12 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ×Ô¶¯±£´æËùÓĞÍø¸ñ
+	 * è‡ªåŠ¨ä¿å­˜æ‰€æœ‰ç½‘æ ¼
 	 */
 	public boolean autoSaveAll() {
-		// ÇåÀí»º´æÎÄ¼şÄ¿Â¼
+		// æ¸…ç†ç¼“å­˜æ–‡ä»¶ç›®å½•
 		clearBackup();
-		// ±£´æ×Ô¶¯±£´æÎÄ¼şÃû
+		// ä¿å­˜è‡ªåŠ¨ä¿å­˜æ–‡ä»¶å
 		saveAutoOpenFileNames();
 
 		JInternalFrame[] sheets = getAllInternalFrames();
@@ -1272,14 +1272,14 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ÇåÀí»º´æÎÄ¼şÄ¿Â¼
+	 * æ¸…ç†ç¼“å­˜æ–‡ä»¶ç›®å½•
 	 */
 	private void clearBackup() {
 		File backupDir = new File(
 				GM.getAbsolutePath(ConfigOptions.sBackupDirectory));
 		if (!backupDir.exists()) {
 			backupDir.mkdirs();
-		} else { // ÇåÀíÖ®Ç°»º´æµÄÎÄ¼ş
+		} else { // æ¸…ç†ä¹‹å‰ç¼“å­˜çš„æ–‡ä»¶
 			try {
 				File[] files = backupDir.listFiles();
 				if (files != null) {
@@ -1293,7 +1293,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ÊÕËõÕ¹¿ªÓÒ²àÃæ°å
+	 * æ”¶ç¼©å±•å¼€å³ä¾§é¢æ¿
 	 */
 	public void swapRightTab() {
 		if (splitMain.getDividerLocation() == splitMain
@@ -1305,7 +1305,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ¸ü»»²Ëµ¥ºÍ¹¤¾ßÀ¸
+	 * æ›´æ¢èœå•å’Œå·¥å…·æ 
 	 */
 	public void changeMenuAndToolBar(JMenuBar menu, JToolBar toolBar) {
 		if (GV.appSheet == null) {
@@ -1320,13 +1320,13 @@ public class SPL extends AppFrame {
 		repaint();
 	}
 
-	/** ¹¤¾ßÀ¸×îĞ¡¸ß¶È */
+	/** å·¥å…·æ æœ€å°é«˜åº¦ */
 	private final int TOOL_MIN_LOCATION = 62;
-	/** ¹¤¾ßÀ¸×î´ó¸ß¶È */
+	/** å·¥å…·æ æœ€å¤§é«˜åº¦ */
 	private final int TOOL_MAX_LOCATION = 200;
 
 	/**
-	 * Õ¹¿ª»òÊÕÆğ¹¤¾ßÀ¸
+	 * å±•å¼€æˆ–æ”¶èµ·å·¥å…·æ 
 	 */
 	public void setToolBarExpand() {
 		boolean isExt = isToolBarExpand();
@@ -1342,7 +1342,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ¹¤¾ßÀ¸ÊÇ·ñÕ¹¿ª×´Ì¬
+	 * å·¥å…·æ æ˜¯å¦å±•å¼€çŠ¶æ€
 	 * 
 	 * @return
 	 */
@@ -1352,15 +1352,15 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * Æô¶¯Í¼Æ¬´°¿Ú
+	 * å¯åŠ¨å›¾ç‰‡çª—å£
 	 */
 	public static DialogSplash splashWindow = null;
 
 	/**
-	 * ×¼±¸»·¾³
+	 * å‡†å¤‡ç¯å¢ƒ
 	 * 
 	 * @param args
-	 *            JVM²ÎÊı
+	 *            JVMå‚æ•°
 	 * @return
 	 * @throws Throwable
 	 */
@@ -1375,11 +1375,11 @@ public class SPL extends AppFrame {
 				+ "Example:\n"
 				+ "java com.scudata.ide.spl.SPL d:\\test.splx      Start IDE with default file d:\\test.splx\n";
 
-		if (args.length == 1) { // exe ´«À´µÄ²ÎÊıÈÔÈ»ÊÇÒ»¸ö³¤´®
+		if (args.length == 1) { // exe ä¼ æ¥çš„å‚æ•°ä»ç„¶æ˜¯ä¸€ä¸ªé•¿ä¸²
 			arg = args[0].trim();
 			if (arg.trim().indexOf(" ") > 0) {
-				if (arg.charAt(1) != ':') {// ¾ø¶ÔÂ·¾¶µÄÎÄ¼şÃû×ÜÊÇ [ÅÌ·û]:¿ªÍ·
-					// Èç¹û²ÎÊı½ö½öÎªÒ»¸öÎÄ¼şÃûÊ±£¬²»Òª×ö²ÎÊı×ª»»£¬µ±ÎÄ¼şÃû°üº¬¿Õ¸ñÊ±¾Í´íÁË
+				if (arg.charAt(1) != ':') {// ç»å¯¹è·¯å¾„çš„æ–‡ä»¶åæ€»æ˜¯ [ç›˜ç¬¦]:å¼€å¤´
+					// å¦‚æœå‚æ•°ä»…ä»…ä¸ºä¸€ä¸ªæ–‡ä»¶åæ—¶ï¼Œä¸è¦åšå‚æ•°è½¬æ¢ï¼Œå½“æ–‡ä»¶ååŒ…å«ç©ºæ ¼æ—¶å°±é”™äº†
 					Section st = new Section(arg, ' ');
 					args = st.toStringArray();
 				}
@@ -1389,7 +1389,7 @@ public class SPL extends AppFrame {
 			for (int i = 0; i < args.length; i++) {
 				arg = args[i].toLowerCase();
 				if (arg.equalsIgnoreCase("com.scudata.ide.spl.SPL")) {
-					// ÓÃbat´ò¿ªµÄÎÄ¼ş£¬ÀàÃû±¾Éí»áÊÇ²ÎÊı
+					// ç”¨batæ‰“å¼€çš„æ–‡ä»¶ï¼Œç±»åæœ¬èº«ä¼šæ˜¯å‚æ•°
 					continue;
 				}
 				if (!arg.startsWith("-")) {
@@ -1417,10 +1417,10 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ³ÌĞòÖ÷º¯Êı
+	 * ç¨‹åºä¸»å‡½æ•°
 	 * 
 	 * @param args
-	 *            JVM²ÎÊı
+	 *            JVMå‚æ•°
 	 */
 	public static void main(final String args[]) {
 		mainInit();
@@ -1430,7 +1430,7 @@ public class SPL extends AppFrame {
 				initLNF();
 				loadExtLibs();
 				try {
-					// µ±Ç°²úÆ·Æô¶¯Ê±£¬µ÷ÓÃµ±Ç°ĞĞ¼ì²é£¬²¢·ÅÔÚtryÀïÃæ£¬Òì³£ºóÍË³ö
+					// å½“å‰äº§å“å¯åŠ¨æ—¶ï¼Œè°ƒç”¨å½“å‰è¡Œæ£€æŸ¥ï¼Œå¹¶æ”¾åœ¨tryé‡Œé¢ï¼Œå¼‚å¸¸åé€€å‡º
 					String openFile = prepareEnv(args);
 					SPL frame = new SPL(openFile);
 					showFrame(frame);
@@ -1447,7 +1447,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ³õÊ¼»¯Éè¼ÆÆ÷
+	 * åˆå§‹åŒ–è®¾è®¡å™¨
 	 */
 	public static void mainInit() {
 		resetInstallDirectories();
@@ -1483,13 +1483,13 @@ public class SPL extends AppFrame {
 		ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
 		String splashFile = null;
 		if (sysConfig != null) {
-			// ½«ÏÔÊ¾splashÍ¼Æ¬ºÍÁ¬½Ó¹ÙÍø·ÅÔÚÍ¬Ò»¸ö½çÃæÖĞ
+			// å°†æ˜¾ç¤ºsplashå›¾ç‰‡å’Œè¿æ¥å®˜ç½‘æ”¾åœ¨åŒä¸€ä¸ªç•Œé¢ä¸­
 			splashFile = sysConfig.getAttrValue("splashFile");
 		}
 		if (StringUtils.isValidString(splashFile)) {
 			splashFile = GM.getAbsolutePath(splashFile);
 		} else {
-			// ÔÚDialogSplashÖĞ°´²úÆ·ÕÒ£¬ÕâÀï·µ»Ønull
+			// åœ¨DialogSplashä¸­æŒ‰äº§å“æ‰¾ï¼Œè¿™é‡Œè¿”å›null
 			return null;
 			// splashFile = GC.IMAGES_PATH + "esproc" + GM.getLanguageSuffix()
 			// + ".png";
@@ -1513,7 +1513,7 @@ public class SPL extends AppFrame {
 		try {
 			ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
 			if (sysConfig != null) {
-				// ´ÓÏµÍ³ÅäÖÃÖĞ¶ÁÈ¡±³¾°ÑÕÉ«ºÍÍ¸Ã÷¶È
+				// ä»ç³»ç»Ÿé…ç½®ä¸­è¯»å–èƒŒæ™¯é¢œè‰²å’Œé€æ˜åº¦
 				ConfigOptions.fileColor = sysConfig.getAttrValue("fileColor");
 				ConfigOptions.fileColorOpacity = sysConfig
 						.getAttrValue("fileColorOpacity");
@@ -1531,7 +1531,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ³õÊ¼»¯Íâ¹ÛÑùÊ½
+	 * åˆå§‹åŒ–å¤–è§‚æ ·å¼
 	 */
 	public static void initLNF() {
 		try {
@@ -1547,7 +1547,7 @@ public class SPL extends AppFrame {
 						.getSystemLookAndFeelClassName());
 			}
 			int fontSize = GC.font.getSize();
-			// Ì«´ó»òÌ«Ğ¡Ó°Ïì²¼¾Ö
+			// å¤ªå¤§æˆ–å¤ªå°å½±å“å¸ƒå±€
 			if (fontSize > 14)
 				fontSize = 14;
 			if (fontSize < 11)
@@ -1588,7 +1588,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ÏÔÊ¾IDEÖ÷Ãæ°å
+	 * æ˜¾ç¤ºIDEä¸»é¢æ¿
 	 * 
 	 * @param frame
 	 */
@@ -1604,7 +1604,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * È¡Êä³öÃæ°å
+	 * å–è¾“å‡ºé¢æ¿
 	 * 
 	 * @return
 	 */
@@ -1613,7 +1613,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´°¿Ú¼¤»îÊÂ¼ş
+	 * çª—å£æ¿€æ´»äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1623,7 +1623,7 @@ public class SPL extends AppFrame {
 		GV.appMenu.resetLiveMenu();
 		GV.appMenu.resetPrivilegeMenu();
 
-		// ¼¤»îÊ±²é¿´ÊÇ·ñÓĞÍâ²¿µÄ¸´ÖÆ£¬Èç¹ûÓĞ£¬ÔòÇå³ıÄÚ²¿¼ôÌù°å
+		// æ¿€æ´»æ—¶æŸ¥çœ‹æ˜¯å¦æœ‰å¤–éƒ¨çš„å¤åˆ¶ï¼Œå¦‚æœæœ‰ï¼Œåˆ™æ¸…é™¤å†…éƒ¨å‰ªè´´æ¿
 		if (GV.cellSelection != null) {
 			Object clip = GV.cellSelection.systemClip;
 			if (clip != null && !clip.equals(GM.clipBoard())) {
@@ -1637,12 +1637,12 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ´°¿ÚÕıÔÚ¹Ø±Õ
+	 * çª—å£æ­£åœ¨å…³é—­
 	 * 
 	 * @param e
 	 */
 	void this_windowClosing(WindowEvent e) {
-		// this.update(this.getGraphics()); ËÙ¶È±äÂı£¬²»¼ÇµÃÎªÊ²Ã´ÕâÑùË¢ĞÂ
+		// this.update(this.getGraphics()); é€Ÿåº¦å˜æ…¢ï¼Œä¸è®°å¾—ä¸ºä»€ä¹ˆè¿™æ ·åˆ·æ–°
 		if (!closeAll(true)) {
 			this.setDefaultCloseOperation(SPL.DO_NOTHING_ON_CLOSE);
 			return;
@@ -1656,19 +1656,19 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * È¡²úÆ·Ãû³Æ
+	 * å–äº§å“åç§°
 	 */
 	public String getProductName() {
 		return IdeSplMessage.get().getMessage("spl.productname");
 	}
 
 	/**
-	 * ×Ô¶¯±£´æµÄ¶¨Ê±Ïß³Ì
+	 * è‡ªåŠ¨ä¿å­˜çš„å®šæ—¶çº¿ç¨‹
 	 */
 	private AutoSaveThread autoSaveThread;
 
 	/**
-	 * ´¦Àí×Ô¶¯±£´æ
+	 * å¤„ç†è‡ªåŠ¨ä¿å­˜
 	 */
 	private void autoSaveOption() {
 		if (ConfigOptions.bAutoSave) {
@@ -1677,7 +1677,7 @@ public class SPL extends AppFrame {
 				autoSaveThread.start();
 			}
 
-			// ±£´æ×Ô¶¯±£´æÎÄ¼şÃû
+			// ä¿å­˜è‡ªåŠ¨ä¿å­˜æ–‡ä»¶å
 			saveAutoOpenFileNames();
 		} else {
 			if (autoSaveThread != null)
@@ -1687,7 +1687,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ±£´æ×Ô¶¯±£´æÎÄ¼şÃû
+	 * ä¿å­˜è‡ªåŠ¨ä¿å­˜æ–‡ä»¶å
 	 */
 	private void saveAutoOpenFileNames() {
 		JInternalFrame[] frames = desk.getAllFrames();
@@ -1716,7 +1716,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * ×Ô¶¯±£´æµÄÏß³Ì
+	 * è‡ªåŠ¨ä¿å­˜çš„çº¿ç¨‹
 	 *
 	 */
 	class AutoSaveThread extends Thread {
@@ -1728,7 +1728,7 @@ public class SPL extends AppFrame {
 
 		public void run() {
 			while (!isStopped) {
-				try { // ¸ù¾İÑ¡Ïîµ÷Õû¼ä¸ôÊ±¼ä
+				try { // æ ¹æ®é€‰é¡¹è°ƒæ•´é—´éš”æ—¶é—´
 					sleep(ConfigOptions.iAutoSaveMinutes.intValue() * 60 * 1000);
 				} catch (Exception e) {
 				}
@@ -1752,17 +1752,17 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * µÚÈı·½Substance UIÊÇ·ñ¿ÉÓÃ
+	 * ç¬¬ä¸‰æ–¹Substance UIæ˜¯å¦å¯ç”¨
 	 * 
 	 * @return
 	 */
 	private static boolean isSubstanceUIEnabled() {
-		// ¸ß°æ±¾jdk²»Ö§³Ö
+		// é«˜ç‰ˆæœ¬jdkä¸æ”¯æŒ
 		String javaVersion = System.getProperty("java.version");
 		if (javaVersion.compareTo("1.9") > 0) {
 			return false;
 		}
-		// SUSEÏµÍ³²»Ö§³Ö
+		// SUSEç³»ç»Ÿä¸æ”¯æŒ
 		if (isSUSEOS()) {
 			return false;
 		}
@@ -1770,7 +1770,7 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * Í¨¹ıjavaÈ¡osĞÅÏ¢£¬ÎŞ·¨È¡µ½SUSEÏµÍ³Ãû£¬Ö»ÄÜÖ´ĞĞlinuxÃüÁîÀ´Ö´ĞĞÁË
+	 * é€šè¿‡javaå–osä¿¡æ¯ï¼Œæ— æ³•å–åˆ°SUSEç³»ç»Ÿåï¼Œåªèƒ½æ‰§è¡Œlinuxå‘½ä»¤æ¥æ‰§è¡Œäº†
 	 * 
 	 * @return
 	 */
@@ -1783,7 +1783,7 @@ public class SPL extends AppFrame {
 			if (osName.indexOf("suse") > -1)
 				return true;
 			if (!"linux".equalsIgnoreCase(osName)) {
-				// SUSEÏµÍ³µÄos.nameÊÇLinux
+				// SUSEç³»ç»Ÿçš„os.nameæ˜¯Linux
 				return false;
 			}
 			Runtime runtime = Runtime.getRuntime();

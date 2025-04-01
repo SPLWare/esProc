@@ -38,7 +38,7 @@ import com.scudata.thread.ThreadPool;
 import com.scudata.util.Variant;
 
 /**
- * ¼¯Èº×é±í
+ * é›†ç¾¤ç»„è¡¨
  * @author RunQian
  *
  */
@@ -48,11 +48,11 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	public static final int TYPE_NEWS = 2;
 	public static final int TYPE_DERIVE = 3;
 	private ClusterFile clusterFile;
-	private int[] tmdProxyIds; // ¶ÔÓ¦µÄ½Úµã»ú¸½±í´úÀí±êÊ¶
+	private int[] tmdProxyIds; // å¯¹åº”çš„èŠ‚ç‚¹æœºé™„è¡¨ä»£ç†æ ‡è¯†
 	
-	private String []allColNames; // ËùÓĞ×Ö¶Î
-	private String []sortedColNames; // Ö÷¼ü»òÅÅĞò×Ö¶Î
-	private Expression distribute; // ·Ö²¼±í´ïÊ½
+	private String []allColNames; // æ‰€æœ‰å­—æ®µ
+	private String []sortedColNames; // ä¸»é”®æˆ–æ’åºå­—æ®µ
+	private Expression distribute; // åˆ†å¸ƒè¡¨è¾¾å¼
 	private Context ctx;
 
 	public ClusterPhyTable(ClusterFile clusterFile, int[] tmdProxyIds, Context ctx) {
@@ -70,17 +70,17 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 
 	/**
-	 * ´´½¨Í¬²½·Ö¶Î¼¯ÈºÓÎ±ê
-	 * @param mcs ¼¯ÈºÓÎ±ê£¬°´ÕÕ´ËÓÎ±êµÄ·Ö¶Î¶Ôµ±Ç°ÓÎ±ê×öÍ¬²½·Ö¶Î
-	 * @param exps ×Ö¶Î±í´ïÊ½Êı×é
-	 * @param fields ×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂËÌõ¼ş
-	 * @param fkNames Íâ¼üÃûÊı×é
-	 * @param codeExps Î¬±í±í´ïÊ½Êı×é
-	 * @param opts ¹ØÁª×Ö¶Î½øĞĞ¹ØÁªµÄÑ¡Ïî
-	 * @param opt Ñ¡Ïî£¬k£ºÓÃmcsµÄÊ×¼ü¶ÔÓ¦
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¼¯ÈºÓÎ±ê
+	 * åˆ›å»ºåŒæ­¥åˆ†æ®µé›†ç¾¤æ¸¸æ ‡
+	 * @param mcs é›†ç¾¤æ¸¸æ ‡ï¼ŒæŒ‰ç…§æ­¤æ¸¸æ ‡çš„åˆ†æ®µå¯¹å½“å‰æ¸¸æ ‡åšåŒæ­¥åˆ†æ®µ
+	 * @param exps å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param fields å­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤æ¡ä»¶
+	 * @param fkNames å¤–é”®åæ•°ç»„
+	 * @param codeExps ç»´è¡¨è¡¨è¾¾å¼æ•°ç»„
+	 * @param opts å…³è”å­—æ®µè¿›è¡Œå…³è”çš„é€‰é¡¹
+	 * @param opt é€‰é¡¹ï¼Œkï¼šç”¨mcsçš„é¦–é”®å¯¹åº”
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return é›†ç¾¤æ¸¸æ ‡
 	 */
 	public ClusterCursor cursor(ClusterCursor mcs, Expression []exps, String []fields, Expression filter, 
 			String []fkNames, Expression []codeExps, String []opts, String opt, Context ctx) {
@@ -160,9 +160,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ´´½¨Í¬²½¶àÂ·ÓÎ±ê
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œåˆ›å»ºåŒæ­¥å¤šè·¯æ¸¸æ ‡
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeCreateSyncCursor(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -231,16 +231,16 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 		
 	/**
-	 * ´´½¨¼¯ÈºÓÎ±ê
-	 * @param exps ×Ö¶Î±í´ïÊ½Êı×é
-	 * @param fields ×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂËÌõ¼ş
-	 * @param fkNames Íâ¼üÃûÊı×é
-	 * @param codeExps Î¬±í±í´ïÊ½Êı×é
-	 * @param opts ¹ØÁª×Ö¶Î½øĞĞ¹ØÁªµÄÑ¡Ïî
-	 * @param opt Ñ¡Ïî£¬k£ºÓÃmcsµÄÊ×¼ü¶ÔÓ¦
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¼¯ÈºÓÎ±ê
+	 * åˆ›å»ºé›†ç¾¤æ¸¸æ ‡
+	 * @param exps å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param fields å­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤æ¡ä»¶
+	 * @param fkNames å¤–é”®åæ•°ç»„
+	 * @param codeExps ç»´è¡¨è¡¨è¾¾å¼æ•°ç»„
+	 * @param opts å…³è”å­—æ®µè¿›è¡Œå…³è”çš„é€‰é¡¹
+	 * @param opt é€‰é¡¹ï¼Œkï¼šç”¨mcsçš„é¦–é”®å¯¹åº”
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return é›†ç¾¤æ¸¸æ ‡
 	 */
 	public ClusterCursor cursor(Expression []exps, String []fields, Expression filter, 
 			String []fkNames, Expression []codeExps, String []opts, int segCount, String opt, Context ctx) {
@@ -248,9 +248,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 		int count = clusterFile.getUnitCount();
 		int[] cursorProxyIds = new int[count];
 		
-		// ·Ö²¼ÎÄ¼ş²¢ÇÒÓĞzÑ¡ÏîÊ±°´½Úµã»úÊı¶ÔÎÄ¼ş½øĞĞÇĞ·Ö
+		// åˆ†å¸ƒæ–‡ä»¶å¹¶ä¸”æœ‰zé€‰é¡¹æ—¶æŒ‰èŠ‚ç‚¹æœºæ•°å¯¹æ–‡ä»¶è¿›è¡Œåˆ‡åˆ†
 		boolean isDistributedFile = clusterFile.isDistributedFile();
-		boolean isSeg = !isDistributedFile; // Ä¿Ç°Ö»ÓĞ·Ö²¼ÎÄ¼şÁË£¬²»ĞèÒª×ö²ğ·Ö£¬ÔİÊ±±£ÁôÕâ¸ö±êÊ¶
+		boolean isSeg = !isDistributedFile; // ç›®å‰åªæœ‰åˆ†å¸ƒæ–‡ä»¶äº†ï¼Œä¸éœ€è¦åšæ‹†åˆ†ï¼Œæš‚æ—¶ä¿ç•™è¿™ä¸ªæ ‡è¯†
 		
 		String []expStrs = null;
 		if (exps != null) {
@@ -322,9 +322,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ´´½¨ÓÎ±ê
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œåˆ›å»ºæ¸¸æ ‡
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeCreateCursor(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -385,7 +385,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 			
 			ICursor cursor;
 			if (isSeg) {
-				// ½Úµã»ú¼äĞèÒª½øĞĞÇĞ·ÖÊı¾İ
+				// èŠ‚ç‚¹æœºé—´éœ€è¦è¿›è¡Œåˆ‡åˆ†æ•°æ®
 				cursor = tableMetaData.cursor(exps, fields, exp, fkNames, codes, opts, unit + 1, unitCount, segCount, opt, ctx);
 			} else {
 				if (segCount > 1) {
@@ -406,11 +406,11 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ¶Á³ö×é±í×Ö¶Î³É¼¯ÈºÄÚ±í
-	 * @param fields Òª¶Á³öµÄ×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂËÌõ¼ş
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¼¯ÈºÄÚ±í
+	 * è¯»å‡ºç»„è¡¨å­—æ®µæˆé›†ç¾¤å†…è¡¨
+	 * @param fields è¦è¯»å‡ºçš„å­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤æ¡ä»¶
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return é›†ç¾¤å†…è¡¨
 	 */
 	public ClusterMemoryTable memory(String []fields, Expression filter, String option, Context ctx) {
 		ClusterFile clusterFile = getClusterFile();
@@ -436,7 +436,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 		}
 
 		for (int i = 0; i < count; ++i) {
-			// µÈ´ıÈÎÎñÖ´ĞĞÍê±Ï
+			// ç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 			jobs[i].join();
 			tables[i] = (RemoteMemoryTable)jobs[i].getResult();
 		}
@@ -448,9 +448,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ¶ÁÈ¡Êı¾İ³ÉÄÚ±í
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œè¯»å–æ•°æ®æˆå†…è¡¨
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeMemory(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -503,13 +503,13 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * Ê¹ÓÃË÷Òı²éÑ¯
-	 * @param fields È¡³ö×Ö¶Î
-	 * @param filter ¹ıÂË±í´ïÊ½
-	 * @param iname Ë÷Òı×Ö¶Î
-	 * @param opt °üº¬'u'Ê±,²»µ÷ÕûfilterÀï¸÷Ìõ¼şµÄ¹ıÂËÓÅÏÈ¼¶
-	 * @param ctx ÉÏÏÂÎÄ
-	 * @return ¼¯ÈºÓÎ±ê
+	 * ä½¿ç”¨ç´¢å¼•æŸ¥è¯¢
+	 * @param fields å–å‡ºå­—æ®µ
+	 * @param filter è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param iname ç´¢å¼•å­—æ®µ
+	 * @param opt åŒ…å«'u'æ—¶,ä¸è°ƒæ•´filteré‡Œå„æ¡ä»¶çš„è¿‡æ»¤ä¼˜å…ˆçº§
+	 * @param ctx ä¸Šä¸‹æ–‡
+	 * @return é›†ç¾¤æ¸¸æ ‡
 	 */
 	public ClusterCursor icursor(String []fields, Expression filter, String iname, String opt, Context ctx) {
 		ClusterFile clusterFile = getClusterFile();
@@ -549,9 +549,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÀûÓÃË÷Òı½øĞĞÊı¾İ¹ıÂË£¬Éú³ÉÓÎ±ê
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œåˆ©ç”¨ç´¢å¼•è¿›è¡Œæ•°æ®è¿‡æ»¤ï¼Œç”Ÿæˆæ¸¸æ ‡
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeICursor(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -580,9 +580,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * È¡¸½±í
-	 * @param tableName ¸½±íÃû
-	 * @return ¼¯Èº×é±í
+	 * å–é™„è¡¨
+	 * @param tableName é™„è¡¨å
+	 * @return é›†ç¾¤ç»„è¡¨
 	 */
 	public ClusterPhyTable getTableMetaData(String tableName) {
 		ClusterFile clusterFile = this.clusterFile;
@@ -611,9 +611,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÈ¡¸½±í
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šå–é™„è¡¨
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeGetTableMetaData(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -736,9 +736,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}*/
 	
 	/**
-	 * °´·Ö²¼±í´ïÊ½×·¼ÓÊı¾İµ½½Úµã»ú
-	 * @param cursor Êı¾İÓÎ±ê
-	 * @param distribute ·Ö²¼±í´ïÊ½£¬·µ»Ø[1,·ÖÇøÊı]Ö®¼äµÄÕûÊı
+	 * æŒ‰åˆ†å¸ƒè¡¨è¾¾å¼è¿½åŠ æ•°æ®åˆ°èŠ‚ç‚¹æœº
+	 * @param cursor æ•°æ®æ¸¸æ ‡
+	 * @param distribute åˆ†å¸ƒè¡¨è¾¾å¼ï¼Œè¿”å›[1,åˆ†åŒºæ•°]ä¹‹é—´çš„æ•´æ•°
 	 * @param ctx
 	 */
 	private void append(ICursor cursor, Expression distribute, Context ctx) {
@@ -813,8 +813,8 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 		int unitCount = cluster.getUnitCount();
 		
 		if (cursor instanceof ClusterCursor) {
-			// tmdProxyIdsºÍClusterCursor.cursorProxyIdsÒ»Ò»¶ÔÓ¦
-			// °ÑcursorProxyId´«¸øÏàÓ¦µÄ½Úµã»ú£¬½Úµã»úÈ¡µ½cursor×öappend
+			// tmdProxyIdså’ŒClusterCursor.cursorProxyIdsä¸€ä¸€å¯¹åº”
+			// æŠŠcursorProxyIdä¼ ç»™ç›¸åº”çš„èŠ‚ç‚¹æœºï¼ŒèŠ‚ç‚¹æœºå–åˆ°cursoråšappend
 			ClusterCursor cs = (ClusterCursor)cursor;
 			if (!cluster.isEquals(cs.getCluster())) {
 				MessageManager mm = EngineMessage.get();
@@ -837,8 +837,8 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 				}
 			}
 		} else {
-			// ÒªÇó¸½±íÒÑ¾­append¹ıÊı¾İ£¬²¢ÇÒÓĞÎ¬×Ö¶ÎÇÒÓĞĞò
-			// ·¢ÃüÁîµ½½Úµã»úÈ¡³öÊ×Ìõ¼ÇÂ¼µÄÎ¬Öµ£¬±éÀúcursorµÄÊı¾İ£¬°´ÕÕÎ¬Öµ»®·Ö³öËùÊôµÄ½Úµã»ú£¬È»ºó°ÑÊı¾İ´«ËÍµ½½Úµã»ú½øĞĞappend
+			// è¦æ±‚é™„è¡¨å·²ç»appendè¿‡æ•°æ®ï¼Œå¹¶ä¸”æœ‰ç»´å­—æ®µä¸”æœ‰åº
+			// å‘å‘½ä»¤åˆ°èŠ‚ç‚¹æœºå–å‡ºé¦–æ¡è®°å½•çš„ç»´å€¼ï¼Œéå†cursorçš„æ•°æ®ï¼ŒæŒ‰ç…§ç»´å€¼åˆ’åˆ†å‡ºæ‰€å±çš„èŠ‚ç‚¹æœºï¼Œç„¶åæŠŠæ•°æ®ä¼ é€åˆ°èŠ‚ç‚¹æœºè¿›è¡Œappend
 			Object [][]firstKeyValues = new Object[unitCount][];
 			String []keys = null;
 
@@ -901,9 +901,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ¸ø×é±íÌí¼ÓÓÎ±êÊı¾İ
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œç»™ç»„è¡¨æ·»åŠ æ¸¸æ ‡æ•°æ®
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeAppendByCSID(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -925,9 +925,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÈ¡µÚÒ»Ìõ¼ÇÂ¼µÄÎ¬Öµ
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œå–ç¬¬ä¸€æ¡è®°å½•çš„ç»´å€¼
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeGetFirstKeyValue(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -946,7 +946,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 				throw new RQException(mm.getMessage("dw.needClusterCursor"));
 			}
 			
-			// ¸ÄÎªÔÚexecuteAppendByData´´½¨ÁÙÊ±ÎÄ¼ş
+			// æ”¹ä¸ºåœ¨executeAppendByDataåˆ›å»ºä¸´æ—¶æ–‡ä»¶
 			//FileObject fo = FileObject.createTempFileObject();
 			//tmd.setTempFile(fo);
 			
@@ -961,9 +961,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ¸ø×é±íÌí¼ÓÅÅÁĞÊı¾İ
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œç»™ç»„è¡¨æ·»åŠ æ’åˆ—æ•°æ®
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeAppendByData(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -978,7 +978,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 
 			Context ctx = ClusterUtil.createContext(js, attributes);
 			if (seq == 0) {
-				// µÚÒ»´Îµ÷ÓÃ´´½¨ÁÙÊ±ÎÄ¼ş±£´æ´«À´µÄÊı¾İ
+				// ç¬¬ä¸€æ¬¡è°ƒç”¨åˆ›å»ºä¸´æ—¶æ–‡ä»¶ä¿å­˜ä¼ æ¥çš„æ•°æ®
 				tmd.createTempFile();
 			}
 			
@@ -1037,9 +1037,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ¸üĞÂÊı¾İ
-	 * @param data Òª¸üĞÂµÄÊı¾İ£¨±ØĞëÒªÖ÷¼ü£©
-	 * @param opt 'n',·µ»ØĞ´Èë³É¹¦µÄÊı¾İ
+	 * æ›´æ–°æ•°æ®
+	 * @param data è¦æ›´æ–°çš„æ•°æ®ï¼ˆå¿…é¡»è¦ä¸»é”®ï¼‰
+	 * @param opt 'n',è¿”å›å†™å…¥æˆåŠŸçš„æ•°æ®
 	 * @return Sequence
 	 */
 	public Sequence update(Sequence data, String opt) {
@@ -1052,7 +1052,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 		Sequence result = new Sequence();
 		Cluster cluster = getCluster();
 		int unitCount = cluster.getUnitCount();
-		// °ÑcursorProxyId´«¸øÏàÓ¦µÄ½Úµã»ú£¬½Úµã»ú×öupdate
+		// æŠŠcursorProxyIdä¼ ç»™ç›¸åº”çš„èŠ‚ç‚¹æœºï¼ŒèŠ‚ç‚¹æœºåšupdate
 
 		if (distribute != null) {
 			Sequence []groups = group(data, distribute, ctx, unitCount);
@@ -1138,9 +1138,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ¸üĞÂÊı¾İ
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œæ›´æ–°æ•°æ®
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeUpdate(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -1163,16 +1163,16 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * É¾³ıÊı¾İ
-	 * @param data Òª¸üĞÂµÄÊı¾İ £¨±ØĞëÒªÖ÷¼ü£©
-	 * @param opt 'n',·µ»ØÉ¾³ı³É¹¦µÄÊı¾İ
+	 * åˆ é™¤æ•°æ®
+	 * @param data è¦æ›´æ–°çš„æ•°æ® ï¼ˆå¿…é¡»è¦ä¸»é”®ï¼‰
+	 * @param opt 'n',è¿”å›åˆ é™¤æˆåŠŸçš„æ•°æ®
 	 * @return Sequence
 	 */
 	public Sequence delete(Sequence data, String opt) {
 		checkDistributedFile();
 		Cluster cluster = getCluster();
 		int unitCount = cluster.getUnitCount();
-		// °ÑcursorProxyId´«¸øÏàÓ¦µÄ½Úµã»ú£¬½Úµã»ú×ödelete
+		// æŠŠcursorProxyIdä¼ ç»™ç›¸åº”çš„èŠ‚ç‚¹æœºï¼ŒèŠ‚ç‚¹æœºåšdelete
 
 		Sequence result = new Sequence();
 		if (data == null || data.length() == 0) {
@@ -1201,9 +1201,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÉ¾³ıÖ¸¶¨Êı¾İ
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œåˆ é™¤æŒ‡å®šæ•°æ®
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeDelete(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -1226,8 +1226,8 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * É¾³ıË÷Òı
-	 * @param indexName Ë÷ÒıÃû£¬Èç¹ûindexNameÎªnull£¬±íÊ¾É¾³ıËùÓĞ
+	 * åˆ é™¤ç´¢å¼•
+	 * @param indexName ç´¢å¼•åï¼Œå¦‚æœindexNameä¸ºnullï¼Œè¡¨ç¤ºåˆ é™¤æ‰€æœ‰
 	 * @return Sequence
 	 */
 	public Sequence deleteIndex(String indexName) {
@@ -1235,7 +1235,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 		checkDistributedFile();
 		Cluster cluster = getCluster();
 		int unitCount = cluster.getUnitCount();
-		// °ÑcursorProxyId´«¸øÏàÓ¦µÄ½Úµã»ú£¬½Úµã»ú×ödelete
+		// æŠŠcursorProxyIdä¼ ç»™ç›¸åº”çš„èŠ‚ç‚¹æœºï¼ŒèŠ‚ç‚¹æœºåšdelete
 
 		for (int i = 0; i < unitCount; ++i) {
 			UnitClient client = new UnitClient(cluster.getHost(i), cluster.getPort(i));
@@ -1247,7 +1247,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 				
 				Response response = client.send(command);
 				Object val = response.checkResult();
-				result.add(val);//·µ»ØÃ¿¸ö½Úµã»úµÄÖ´ĞĞÇé¿ö
+				result.add(val);//è¿”å›æ¯ä¸ªèŠ‚ç‚¹æœºçš„æ‰§è¡Œæƒ…å†µ
 			} finally {
 				client.close();
 			}
@@ -1256,9 +1256,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÉ¾³ıË÷Òı
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šåˆ é™¤ç´¢å¼•
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeDeleteIndex(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -1279,12 +1279,12 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 		}
 	}
 	
-	//½¨Á¢Ë÷Òı
+	//å»ºç«‹ç´¢å¼•
 	public void createIndex(String I, String []fields, Object obj, String opt, Expression w) {
 		checkDistributedFile();
 		Cluster cluster = getCluster();
 		int unitCount = cluster.getUnitCount();
-		// °ÑcursorProxyId´«¸øÏàÓ¦µÄ½Úµã»ú£¬½Úµã»ú×öindex
+		// æŠŠcursorProxyIdä¼ ç»™ç›¸åº”çš„èŠ‚ç‚¹æœºï¼ŒèŠ‚ç‚¹æœºåšindex
 
 		for (int i = 0; i < unitCount; ++i) {
 			UnitClient client = new UnitClient(cluster.getHost(i), cluster.getPort(i));
@@ -1308,9 +1308,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ´´½¨Ë÷Òı
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œåˆ›å»ºç´¢å¼•
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeCreateIndex(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -1372,8 +1372,8 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ·µ»ØËùÓĞµÄÎ¬×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * è¿”å›æ‰€æœ‰çš„ç»´å­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getAllSortedColNames() {
 		if (sortedColNames != null) {
@@ -1395,9 +1395,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÈ¡Î¬×Ö¶ÎÃû
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œå–ç»´å­—æ®µå
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeGetPkey(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -1418,8 +1418,8 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 
 	/**
-	 * ·µ»ØËùÓĞ×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * è¿”å›æ‰€æœ‰å­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getAllColNames() {
 		if (allColNames != null) {
@@ -1441,9 +1441,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÈ¡Î¬×Ö¶ÎÃû
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œå–ç»´å­—æ®µå
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeGetAllColNames(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -1473,10 +1473,10 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	
 	/**
 	 * T.new/news/derive
-	 * @param exps	Ñ¡³ö×Ö¶Î»ò±í´ïÊ½
-	 * @param fields	Ñ¡³ö×Ö¶ÎĞÂÃû³Æ
+	 * @param exps	é€‰å‡ºå­—æ®µæˆ–è¡¨è¾¾å¼
+	 * @param fields	é€‰å‡ºå­—æ®µæ–°åç§°
 	 * @param cursor2	
-	 * @param csNames cursor2µÄÁ¬½Ó×Ö¶Î (ÎªnullÊ±ÓÃÖ÷¼ü)
+	 * @param csNames cursor2çš„è¿æ¥å­—æ®µ (ä¸ºnullæ—¶ç”¨ä¸»é”®)
 	 * @param type
 	 * @param option
 	 * @param filter
@@ -1494,7 +1494,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 		ClusterMemoryTable cmt = null;
 		
 		if (cursor2 instanceof ClusterCursor) {
-			// °ÑcursorProxyId´«¸øÏàÓ¦µÄ½Úµã»ú£¬½Úµã»úÈ¡µ½cursor×öappend
+			// æŠŠcursorProxyIdä¼ ç»™ç›¸åº”çš„èŠ‚ç‚¹æœºï¼ŒèŠ‚ç‚¹æœºå–åˆ°cursoråšappend
 			cs = (ClusterCursor)cursor2;
 			if (!cluster.isEquals(cs.getCluster())) {
 				MessageManager mm = EngineMessage.get();
@@ -1549,9 +1549,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞnewsÔËËã
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œnewsè¿ç®—
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeNews(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -1599,7 +1599,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 				for (int i = 0; i < pathCount; ++i) {
 					Expression w = null;
 					if (filter != null) {
-						w = filter.newExpression(ctx); // ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+						w = filter.newExpression(ctx); // åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 					}
 					ICursor cs = new JoinCursor(tmd.getTableMetaData(), exps, fields, cursors[i], csNames, 
 							type | 0x10, option, w, fkNames, codes, opts, ctx);
@@ -1621,7 +1621,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 		}
 	}
 	
-	// ¹Ø±Õ¼¯Èº×é±í
+	// å…³é—­é›†ç¾¤ç»„è¡¨
 	public void close() {
 		Cluster cluster = clusterFile.getCluster();
 		int count = cluster.getUnitCount();
@@ -1640,9 +1640,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ¹Ø±Õ×é±í
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œå…³é—­ç»„è¡¨
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeCloseGroupTable(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");
@@ -1661,7 +1661,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 		}
 	}
 	
-	//Ô¶³Ìcgroups,Ä¿Ç°ÓÃ²»µ½£¬ÏÈ±£Áô
+	//è¿œç¨‹cgroups,ç›®å‰ç”¨ä¸åˆ°ï¼Œå…ˆä¿ç•™
 	public Sequence cgroups(String []expNames, String []names, String []newExpNames, String []newNames,
 			Expression w, boolean hasM, int n, String option,  Context ctx) {
 		ClusterFile clusterFile = getClusterFile();
@@ -1700,9 +1700,9 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÀûÓÃÔ¤»ã×ÜÁ¢·½Ìå¼ÆËã·Ö×é»ã×Ü
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œåˆ©ç”¨é¢„æ±‡æ€»ç«‹æ–¹ä½“è®¡ç®—åˆ†ç»„æ±‡æ€»
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeCgroups(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String) attributes.get("jobSpaceId");

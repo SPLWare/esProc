@@ -5,23 +5,23 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Êı¾İÔ´Á¬½Ó
+ * æ•°æ®æºè¿æ¥
  */
 public class DBSession {
 	private Object session = null;
 	private DBInfo info = null;
-	//private boolean autoCommit = true; // deleted 2010/11/2 ¸úDataListµÄupdate³åÍ»
+	//private boolean autoCommit = true; // deleted 2010/11/2 è·ŸDataListçš„updateå†²çª
 
 	//added by bdl, 2010.8.30
 	private SQLException error;
 	private boolean registerCause = false;
-	private HashMap<String,Savepoint> map = null;  //±£´æ»Ø¹öµã
+	private HashMap<String,Savepoint> map = null;  //ä¿å­˜å›æ»šç‚¹
 	
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param dbType Êı¾İÔ´
-	 * @param session Êı¾İÔ´µÄÁ¬½Ó
+	 * æ„é€ å‡½æ•°
+	 * @param dbType æ•°æ®æº
+	 * @param session æ•°æ®æºçš„è¿æ¥
 	 */
 	public DBSession( Object session, DBInfo info ) {
 		this.session = session;
@@ -32,46 +32,46 @@ public class DBSession {
 
 
 	/**
-	 * ÉèÊı¾İÔ´µÄÁ¬½Ó
+	 * è®¾æ•°æ®æºçš„è¿æ¥
 	 */
 	public Object getSession() {
 		return this.session;
 	}
 
 	/**
-	 * È¡¹ØÏµÊı¾İ¿â»òÊı¾İ²Ö¿âµÄÁ¬½Ó
+	 * å–å…³ç³»æ•°æ®åº“æˆ–æ•°æ®ä»“åº“çš„è¿æ¥
 	 */
 	public void setSession( Object session ) {
 		this.session = session;
 	}
 
 	/**
-	 * È¡Êı¾İÔ´ĞÅÏ¢
+	 * å–æ•°æ®æºä¿¡æ¯
 	 */
 	public DBInfo getInfo() {
 		return this.info;
 	}
 
 	/**
-	 * ÉèÊı¾İÔ´ĞÅÏ¢
-	 *@param info Êı¾İÔ´ĞÅÏ¢
+	 * è®¾æ•°æ®æºä¿¡æ¯
+	 *@param info æ•°æ®æºä¿¡æ¯
 	 */
 	public void setInfo( DBInfo info ) {
 		this.info = info;
 	}
 
 	/**
-	 * ¹Ø±ÕÁ¬½Ó
+	 * å…³é—­è¿æ¥
 	 */
 	public void close() {
 		if ( session == null ) return;
 		try {
-			//ÒÔÏÂĞ´·¨ÊÇÎªÁË²»Ê¹ÓÃESSBASEÊ±£¬²»ĞèÒª¼ÓÔØESSBASEµÄ°ü
+			//ä»¥ä¸‹å†™æ³•æ˜¯ä¸ºäº†ä¸ä½¿ç”¨ESSBASEæ—¶ï¼Œä¸éœ€è¦åŠ è½½ESSBASEçš„åŒ…
 			if ( info.getDBType() == DBTypes.ESSBASE ) {
 				Method m = session.getClass().getMethod( "disconnect", new Class[]{} );
 				m.invoke( session, new Object[]{} );
 			} else {
-				map = null;		//ÔİÊ±Ö±½Ó¶ªÆú£¬Î´µ÷ÓÃreleaseSavepoint
+				map = null;		//æš‚æ—¶ç›´æ¥ä¸¢å¼ƒï¼Œæœªè°ƒç”¨releaseSavepoint
 				Method m = session.getClass().getMethod( "close", new Class[]{} );
 				m.setAccessible(true);
 				m.invoke( session, new Object[]{} );
@@ -82,7 +82,7 @@ public class DBSession {
 	}
 	
 	/**
-	 * ÈôÊÇÊı¾İ¿âÔò·µ»ØÊÇ·ñ×Ô¶¯Ìá½»£¬·ñÔò·µ»Øfalse
+	 * è‹¥æ˜¯æ•°æ®åº“åˆ™è¿”å›æ˜¯å¦è‡ªåŠ¨æäº¤ï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean getAutoCommit() {
 		if(session instanceof Connection){
@@ -95,16 +95,16 @@ public class DBSession {
 	}
 	
 	/**
-	 * »ñÈ¡ºÍÉèÖÃµ±Ç°Êı¾İ¿âÁ¬½ÓµÄÊÂÎñ¹ÂÁ¢ĞÔ¼¶±ğ
-	 * @param option nullºÍ¿Õ´®±íÊ¾È¡µ±Ç°¹ÂÁ¢ĞÔ¼¶±ğ£¬µ¥×Ö·ûncursÖĞÒ»¸ö±íÊ¾ÏàÓ¦µÄ¼¶±ğ
-	 * @return Ô­¼¶±ğ£¬·ÇÊı¾İ¿âÊ±·µ»Ønull
+	 * è·å–å’Œè®¾ç½®å½“å‰æ•°æ®åº“è¿æ¥çš„äº‹åŠ¡å­¤ç«‹æ€§çº§åˆ«
+	 * @param option nullå’Œç©ºä¸²è¡¨ç¤ºå–å½“å‰å­¤ç«‹æ€§çº§åˆ«ï¼Œå•å­—ç¬¦ncursä¸­ä¸€ä¸ªè¡¨ç¤ºç›¸åº”çš„çº§åˆ«
+	 * @return åŸçº§åˆ«ï¼Œéæ•°æ®åº“æ—¶è¿”å›null
 	 * @throws SQLException
 	 */
 	public String isolate(String option) throws SQLException {
 		if( !(session instanceof Connection) ) return null;
 		Connection conn = (Connection)session;
-		//edited by bd, 2017.7.4, Âó½İ¿Æ¼¼µÄÊı¾İ¿âJDBC²»ÍêÉÆ£¬²¢Ã»ÓĞgetTransactionIsolation
-		//ĞŞ¸Ä£º°ÑÏÂÃæµÄµ÷ÓÃtryÒ»ÏÂ£¬siÄ¬ÈÏÖµÎª¡°n¡±
+		//edited by bd, 2017.7.4, éº¦æ·ç§‘æŠ€çš„æ•°æ®åº“JDBCä¸å®Œå–„ï¼Œå¹¶æ²¡æœ‰getTransactionIsolation
+		//ä¿®æ”¹ï¼šæŠŠä¸‹é¢çš„è°ƒç”¨tryä¸€ä¸‹ï¼Œsié»˜è®¤å€¼ä¸ºâ€œnâ€
 		//String si = null;
 		String si = "n";
 		try {
@@ -121,8 +121,8 @@ public class DBSession {
 			e.printStackTrace();
 		}
 		if(option==null) return si;
-		//edited by bd, 2017.7.4, Âó½İ¿Æ¼¼µÄÊı¾İ¿âJDBC²»ÍêÉÆ£¬²¢Ã»ÓĞgetTransactionIsolation
-		//ÀàËÆµÄ£º°ÑÏÂÃæµÄsetTransactionIsolationµ÷ÓÃÒ²tryÒ»ÏÂ
+		//edited by bd, 2017.7.4, éº¦æ·ç§‘æŠ€çš„æ•°æ®åº“JDBCä¸å®Œå–„ï¼Œå¹¶æ²¡æœ‰getTransactionIsolation
+		//ç±»ä¼¼çš„ï¼šæŠŠä¸‹é¢çš„setTransactionIsolationè°ƒç”¨ä¹Ÿtryä¸€ä¸‹
 		try {
 			if(option.indexOf('n')>=0) conn.setTransactionIsolation(Connection.TRANSACTION_NONE);
 			else if(option.indexOf('c')>=0) conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
@@ -137,9 +137,9 @@ public class DBSession {
 	}
 	
 	/**
-	 * ÉèÖÃ»Ø¹öµã
-	 * @param name£¬»Ø¹öµãÃû³Æ£¬²»ÔÊĞíÎª¿Õ
-	 * @return ·ÇÊı¾İ¿â·µ»Øfalse£¬Êı¾İ¿â·µ»Øtrue
+	 * è®¾ç½®å›æ»šç‚¹
+	 * @param nameï¼Œå›æ»šç‚¹åç§°ï¼Œä¸å…è®¸ä¸ºç©º
+	 * @return éæ•°æ®åº“è¿”å›falseï¼Œæ•°æ®åº“è¿”å›true
 	 */
 	public boolean savepoint(String name) throws SQLException {
 		if( !(session instanceof Connection) ) return false;
@@ -150,9 +150,9 @@ public class DBSession {
 		return true;
 	}
 	
-	/** »Ø¹öµ½Ö¸¶¨Ãû³ÆµÄ»Ø¹öµã
-	 * @param name£¬»Ø¹öµãÃû³Æ£¬ÎªnullÊ±±íÊ¾»Ø¹öËùÓĞĞŞ¸Ä
-	 * @return ·ÇÊı¾İ¿â»òÎŞÖ¸¶¨Ãû³ÆµÄ»Ø¹öµãÊ±·µ»Øfalse£¬Êı¾İ¿â·µ»Øtrue
+	/** å›æ»šåˆ°æŒ‡å®šåç§°çš„å›æ»šç‚¹
+	 * @param nameï¼Œå›æ»šç‚¹åç§°ï¼Œä¸ºnullæ—¶è¡¨ç¤ºå›æ»šæ‰€æœ‰ä¿®æ”¹
+	 * @return éæ•°æ®åº“æˆ–æ— æŒ‡å®šåç§°çš„å›æ»šç‚¹æ—¶è¿”å›falseï¼Œæ•°æ®åº“è¿”å›true
 	 */
 	public boolean rollback(String name) throws SQLException {
 		if( !(session instanceof Connection) ) return false;
@@ -169,12 +169,12 @@ public class DBSession {
 	}
 
 	/**
-	 * ¼ì²éÊÇ·ñ¹Ø±Õ
+	 * æ£€æŸ¥æ˜¯å¦å…³é—­
 	 */
 	public boolean isClosed() {
 		if ( session == null ) return true;
 		try {
-			//ÒÔÏÂĞ´·¨ÊÇÎªÁË²»Ê¹ÓÃESSBASEÊ±£¬²»ĞèÒª¼ÓÔØESSBASEµÄ°ü
+			//ä»¥ä¸‹å†™æ³•æ˜¯ä¸ºäº†ä¸ä½¿ç”¨ESSBASEæ—¶ï¼Œä¸éœ€è¦åŠ è½½ESSBASEçš„åŒ…
 			if ( info.getDBType() == DBTypes.ESSBASE ) {
 				Method m = session.getClass().getDeclaredMethod( "isConnected", new Class[]{} );
 				Object o = m.invoke( session, new Object[]{} );
@@ -187,7 +187,7 @@ public class DBSession {
 			}
 		}
 		catch (java.lang.NoSuchMethodException noMethodE ) {
-		  //added by bdl, 2009.12.3£¬µ±Êı¾İ¿âÇı¶¯ÖĞÃ»ÓĞ¡°isClosed¡±·½·¨Ê±£¬ÈÏÎªÊı¾İÔ´Î´¹Ø±Õ
+		  //added by bdl, 2009.12.3ï¼Œå½“æ•°æ®åº“é©±åŠ¨ä¸­æ²¡æœ‰â€œisClosedâ€æ–¹æ³•æ—¶ï¼Œè®¤ä¸ºæ•°æ®æºæœªå…³é—­
 		  return false;
 		}
 		catch( Exception e ) {
@@ -209,7 +209,7 @@ public class DBSession {
 	}
 
 		/**
-		 * Éè¶¨´íÎóĞÅÏ¢
+		 * è®¾å®šé”™è¯¯ä¿¡æ¯
 		 * @return SQLException
 		 */
 		public void setError(SQLException error) {
@@ -217,7 +217,7 @@ public class DBSession {
 		}
 
 		/**
-		 * »ñÈ¡´íÎóĞÅÏ¢
+		 * è·å–é”™è¯¯ä¿¡æ¯
 		 * @return SQLException
 		 */
 		public SQLException error() {
@@ -225,7 +225,7 @@ public class DBSession {
 		}
 
 		/**
-		 * ÊÇ·ñ¼ÇÂ¼´íÎóÒì³£
+		 * æ˜¯å¦è®°å½•é”™è¯¯å¼‚å¸¸
 		 * @param registerCause boolean
 		 */
 		public void setErrorMode(boolean registerCause) {
@@ -233,7 +233,7 @@ public class DBSession {
 		}
 
 		/**
-		 * »ñÈ¡ÊÇ·ñ¼ÇÂ¼´íÎóÒì³£
+		 * è·å–æ˜¯å¦è®°å½•é”™è¯¯å¼‚å¸¸
 		 * @return boolean
 		 */
 		public boolean getErrorMode() {

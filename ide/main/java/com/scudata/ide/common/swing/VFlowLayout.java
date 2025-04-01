@@ -7,91 +7,91 @@ import java.awt.FlowLayout;
 import java.awt.Insets;
 
 /**
- * VFlowLayout¼Ì³ĞFlowLayout£¬ÓÃÓÚ´¹Ö±ÅÅÁĞ¿Ø¼ş¡£
+ * VFlowLayoutç»§æ‰¿FlowLayoutï¼Œç”¨äºå‚ç›´æ’åˆ—æ§ä»¶ã€‚
  */
 public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/** ¾ÓÉÏ */
+	/** å±…ä¸Š */
 	public static final int TOP = 0;
-	/** ¾ÓÖĞ */
+	/** å±…ä¸­ */
 	public static final int MIDDLE = 1;
-	/** ¾ÓÏÂ */
+	/** å±…ä¸‹ */
 	public static final int BOTTOM = 2;
 	/**
-	 * ºáÏò¼ä¸ô
+	 * æ¨ªå‘é—´éš”
 	 */
 	private int hgap;
 	/**
-	 * ×İÏò¼ä¸ô
+	 * çºµå‘é—´éš”
 	 */
 	private int vgap;
 	/**
-	 * ÊÇ·ñºáÏòÌî³ä
+	 * æ˜¯å¦æ¨ªå‘å¡«å……
 	 */
 	private boolean hfill;
 	/**
-	 * ÊÇ·ñ×İÏòÌî³ä
+	 * æ˜¯å¦çºµå‘å¡«å……
 	 */
 	private boolean vfill;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public VFlowLayout() {
 		this(TOP, 5, 5, true, false);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param hfill
-	 *            ÊÇ·ñºáÏòÌî³ä
+	 *            æ˜¯å¦æ¨ªå‘å¡«å……
 	 * @param vfill
-	 *            ÊÇ·ñ×İÏòÌî³ä
+	 *            æ˜¯å¦çºµå‘å¡«å……
 	 */
 	public VFlowLayout(boolean hfill, boolean vfill) {
 		this(TOP, 5, 5, hfill, vfill);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param align
-	 *            Ë®Æ½¶ÔÆë
+	 *            æ°´å¹³å¯¹é½
 	 */
 	public VFlowLayout(int align) {
 		this(align, 5, 5, true, false);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param align
-	 *            Ë®Æ½¶ÔÆë
+	 *            æ°´å¹³å¯¹é½
 	 * @param hfill
-	 *            ÊÇ·ñºáÏòÌî³ä
+	 *            æ˜¯å¦æ¨ªå‘å¡«å……
 	 * @param vfill
-	 *            ÊÇ·ñ×İÏòÌî³ä
+	 *            æ˜¯å¦çºµå‘å¡«å……
 	 */
 	public VFlowLayout(int align, boolean hfill, boolean vfill) {
 		this(align, 5, 5, hfill, vfill);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param align
-	 *            Ë®Æ½¶ÔÆë
+	 *            æ°´å¹³å¯¹é½
 	 * @param hgap
-	 *            ºáÏò¼ä¸ô
+	 *            æ¨ªå‘é—´éš”
 	 * @param vgap
-	 *            ×İÏò¼ä¸ô
+	 *            çºµå‘é—´éš”
 	 * @param hfill
-	 *            ÊÇ·ñºáÏòÌî³ä
+	 *            æ˜¯å¦æ¨ªå‘å¡«å……
 	 * @param vfill
-	 *            ÊÇ·ñ×İÏòÌî³ä
+	 *            æ˜¯å¦çºµå‘å¡«å……
 	 */
 	public VFlowLayout(int align, int hgap, int vgap, boolean hfill,
 			boolean vfill) {
@@ -103,14 +103,14 @@ public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 	}
 
 	/**
-	 * È¡ºáÏò¼ä¸ô
+	 * å–æ¨ªå‘é—´éš”
 	 */
 	public int getHgap() {
 		return hgap;
 	}
 
 	/**
-	 * ÉèÖÃºáÏò¼ä¸ô
+	 * è®¾ç½®æ¨ªå‘é—´éš”
 	 */
 	public void setHgap(int hgap) {
 		super.setHgap(hgap);
@@ -118,14 +118,14 @@ public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 	}
 
 	/**
-	 * È¡×İÏò¼ä¸ô
+	 * å–çºµå‘é—´éš”
 	 */
 	public int getVgap() {
 		return vgap;
 	}
 
 	/**
-	 * ÉèÖÃ×İÏò¼ä¸ô
+	 * è®¾ç½®çºµå‘é—´éš”
 	 */
 	public void setVgap(int vgap) {
 		super.setVgap(vgap);
@@ -166,7 +166,7 @@ public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 	}
 
 	/**
-	 * ×îĞ¡µÄ³ß´ç´óĞ¡
+	 * æœ€å°çš„å°ºå¯¸å¤§å°
 	 */
 	public Dimension minimumLayoutSize(Container target) {
 		synchronized (target.getTreeLock()) {
@@ -192,7 +192,7 @@ public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ×İÏòÌî³ä
+	 * è®¾ç½®æ˜¯å¦çºµå‘å¡«å……
 	 * 
 	 * @param vfill
 	 */
@@ -201,7 +201,7 @@ public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 	}
 
 	/**
-	 * È¡ÊÇ·ñ×İÏòÌî³ä
+	 * å–æ˜¯å¦çºµå‘å¡«å……
 	 * 
 	 * @return
 	 */
@@ -210,7 +210,7 @@ public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñºáÏòÌî³ä
+	 * è®¾ç½®æ˜¯å¦æ¨ªå‘å¡«å……
 	 * 
 	 * @param hfill
 	 */
@@ -219,7 +219,7 @@ public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 	}
 
 	/**
-	 * È¡ÊÇ·ñºáÏòÌî³ä
+	 * å–æ˜¯å¦æ¨ªå‘å¡«å……
 	 * 
 	 * @return
 	 */
@@ -228,7 +228,7 @@ public class VFlowLayout extends FlowLayout implements java.io.Serializable {
 	}
 
 	/**
-	 * ÒÆ¶¯
+	 * ç§»åŠ¨
 	 * 
 	 * @param target
 	 * @param x

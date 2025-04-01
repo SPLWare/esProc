@@ -8,11 +8,11 @@ import com.scudata.dm.Sequence;
 import com.scudata.dw.BufferReader;
 
 public class SeqRefColumn extends Column {
-	private Sequence table; // ÒıÓÃµÄ±í
+	private Sequence table; // å¼•ç”¨çš„è¡¨
 	
-	// Êı¾İ°´¿é´æ´¢£¬Ã¿¿é´æ·ÅColumn.BLOCK_RECORD_COUNTÌõ¼ÇÂ¼
+	// æ•°æ®æŒ‰å—å­˜å‚¨ï¼Œæ¯å—å­˜æ”¾Column.BLOCK_RECORD_COUNTæ¡è®°å½•
 	private ArrayList<int[]> blockList = new ArrayList<int[]>(1024);
-	private int lastRecordCount = Column.BLOCK_RECORD_COUNT; // ×îºóÒ»¿éµÄ¼ÇÂ¼Êı
+	private int lastRecordCount = Column.BLOCK_RECORD_COUNT; // æœ€åä¸€å—çš„è®°å½•æ•°
 	
 	public SeqRefColumn() {
 	}
@@ -22,8 +22,8 @@ public class SeqRefColumn extends Column {
 	}
 	
 	/**
-	 * Ìí¼ÓÒıÓÃ¼ÇÂ¼µÄĞòºÅ
-	 * @param seq Ö¸Òı×Ö¶ÎÖ¸ÏòµÄ¼ÇÂ¼ÔÚÅÅÁĞÖĞµÄĞòºÅ
+	 * æ·»åŠ å¼•ç”¨è®°å½•çš„åºå·
+	 * @param seq æŒ‡å¼•å­—æ®µæŒ‡å‘çš„è®°å½•åœ¨æ’åˆ—ä¸­çš„åºå·
 	 */
 	public void addData(int seq) {
 		if (lastRecordCount < Column.BLOCK_RECORD_COUNT) {
@@ -41,9 +41,9 @@ public class SeqRefColumn extends Column {
 		throw new RQException();
 	}
 	
-	// È¡µÚrowĞĞµÄÊı¾İ
+	// å–ç¬¬rowè¡Œçš„æ•°æ®
 	public Object getData(int row) {
-		// rowĞĞºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
+		// rowè¡Œå·ï¼Œä»1å¼€å§‹è®¡æ•°
 		row--;
 		int []block = blockList.get(row / Column.BLOCK_RECORD_COUNT);
 		int value = block[row % Column.BLOCK_RECORD_COUNT];
@@ -54,9 +54,9 @@ public class SeqRefColumn extends Column {
 		}
 	}
 	
-	// È¡µÚrowĞĞµÄseq
+	// å–ç¬¬rowè¡Œçš„seq
 	public int getSeq(int row) {
-		// rowĞĞºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
+		// rowè¡Œå·ï¼Œä»1å¼€å§‹è®¡æ•°
 		row--;
 		int []block = blockList.get(row / Column.BLOCK_RECORD_COUNT);
 		int value = block[row % Column.BLOCK_RECORD_COUNT];

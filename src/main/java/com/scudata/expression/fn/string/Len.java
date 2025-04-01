@@ -15,13 +15,13 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * len(s,cs) ¼ÆËã×Ö·û´®sµÄ³¤¶È£¬×Ö·û¼¯csÈ±Ê¡ÎªGB2312£¬Ê¡ÂÔcsÊ±£¬¼ÆËãsµÄunicode³¤¶È
+ * len(s,cs) è®¡ç®—å­—ç¬¦ä¸²sçš„é•¿åº¦ï¼Œå­—ç¬¦é›†csç¼ºçœä¸ºGB2312ï¼Œçœç•¥csæ—¶ï¼Œè®¡ç®—sçš„unicodeé•¿åº¦
  * @author runqian
  *
  */
 public class Len extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -81,8 +81,8 @@ public class Len extends Function {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -229,10 +229,10 @@ public class Len extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

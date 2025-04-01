@@ -10,14 +10,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Õë¶ÔĞòÁĞµÄÄ³¸ö»òÄ³Ğ©ÔªËØ¼ÆËã±í´ïÊ½
+ * é’ˆå¯¹åºåˆ—çš„æŸä¸ªæˆ–æŸäº›å…ƒç´ è®¡ç®—è¡¨è¾¾å¼
  *  A.calc(k,x) A.calc(p,x)
  * @author RunQian
  *
  */
 public class Calc extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

@@ -41,7 +41,7 @@ import com.scudata.util.DatabaseUtil;
 import com.scudata.util.Variant;
 
 /**
- * Ê¹ÓÃ¸ÃÀàÔÚdosÃüÁîÖÐÖ±½ÓÖ´ÐÐÒ»¸ödfx½Å±¾
+ * ä½¿ç”¨è¯¥ç±»åœ¨doså‘½ä»¤ä¸­ç›´æŽ¥æ‰§è¡Œä¸€ä¸ªdfxè„šæœ¬
  * 
  * @author Joancy
  *
@@ -51,13 +51,13 @@ public class Esprocx {
 	static Object remoteStore;
 	
 	public static void loadDataSource(Context ctx) throws Exception {
-		// ¼ÓÔØÏµÍ³Êý¾ÝÔ´
+		// åŠ è½½ç³»ç»Ÿæ•°æ®æº
 		ConfigFile cf = ConfigFile.getSystemConfigFile();
 		if(cf==null) {
 			return;
 		}
 		XMLFile configFile = cf.xmlFile();
-		Section ss = new Section(); // Òì³£µ¼ÖÂÎÞ·¨¼ÓdemoÊý¾ÝÔ´£¬Å²µ½ÏÂÃæ
+		Section ss = new Section(); // å¼‚å¸¸å¯¼è‡´æ— æ³•åŠ demoæ•°æ®æºï¼ŒæŒªåˆ°ä¸‹é¢
 		ss = configFile.listElement(ConfigFile.PATH_DATASOURCE);
 		String sId, name;
 		String sconfig;
@@ -77,10 +77,10 @@ public class Esprocx {
 	
 
 	/**
-	 * ´ÓGM³­¹ýÀ´¸Ã·½·¨£¬²»Òªµ÷ÓÃGMÀà£¬±ÜÃâ²»±ØÒªµÄawtÒýÓÃ£¬
-	 * ÒÔÊÊÓ¦ÔÚ·ÇÍ¼ÐÎ²Ù×÷ÏµÍ³ÏÂÖ´ÐÐ¸ÃÀà¡£
-	 * @param path Ïà¶ÔÂ·¾¶ÎÄ¼þÃû
-	 * @return ¾ø¶ÔÂ·¾¶Ãû
+	 * ä»ŽGMæŠ„è¿‡æ¥è¯¥æ–¹æ³•ï¼Œä¸è¦è°ƒç”¨GMç±»ï¼Œé¿å…ä¸å¿…è¦çš„awtå¼•ç”¨ï¼Œ
+	 * ä»¥é€‚åº”åœ¨éžå›¾å½¢æ“ä½œç³»ç»Ÿä¸‹æ‰§è¡Œè¯¥ç±»ã€‚
+	 * @param path ç›¸å¯¹è·¯å¾„æ–‡ä»¶å
+	 * @return ç»å¯¹è·¯å¾„å
 	 */
 	public static String getAbsolutePath(String path) {
 		String home = System.getProperty("start.home");
@@ -88,10 +88,10 @@ public class Esprocx {
 	}
 
 	/**
-	 * ½«Â·¾¶Æ´ÉÏhome£¬ºÏ²¢Îª¾ø¶ÔÂ·¾¶
-	 * @param path Ïà¶ÔÎÄ¼þÃû
-	 * @param home homeÂ·¾¶
-	 * @return ¾ø¶ÔÂ·¾¶Ãû
+	 * å°†è·¯å¾„æ‹¼ä¸Šhomeï¼Œåˆå¹¶ä¸ºç»å¯¹è·¯å¾„
+	 * @param path ç›¸å¯¹æ–‡ä»¶å
+	 * @param home homeè·¯å¾„
+	 * @return ç»å¯¹è·¯å¾„å
 	 */
 	public static String getAbsolutePath(String path, String home) {
 		if (home != null && (home.endsWith("\\") || home.endsWith("/"))) {
@@ -126,8 +126,8 @@ public class Esprocx {
 
 	/**
 	 * 
-	 * initÖ®Ç°Ã»ÓÐµ÷ÊÔ¼¶±ð£¬Ö»ÄÜsystem.err; 
-	 * initÖ®ºóµÄ´úÂë²ÅÄÜÊ¹ÓÃlogger.debug
+	 * initä¹‹å‰æ²¡æœ‰è°ƒè¯•çº§åˆ«ï¼Œåªèƒ½system.err; 
+	 * initä¹‹åŽçš„ä»£ç æ‰èƒ½ä½¿ç”¨logger.debug
 	 *
 	 * @throws Exception
 	 */
@@ -136,7 +136,7 @@ public class Esprocx {
 		if (!StringUtils.isValidString(startHome)) {
 			System.setProperty("raqsoft.home", System.getProperty("user.home"));
 		} else {
-			System.setProperty("raqsoft.home", startHome + ""); // Ô­À´ÓÃuser.dir,
+			System.setProperty("raqsoft.home", startHome + ""); // åŽŸæ¥ç”¨user.dir,
 		}
 
 		String envFile = getAbsolutePath("/config/raqsoftConfig.xml");
@@ -198,8 +198,8 @@ public class Esprocx {
 	static int finishedWorkers = 0;
 
 	/**
-	 * ¶à×÷Òµ²¢·¢Ê±£¬Íê³ÉÒ»¸ö×÷Òµµ÷ÓÃÒ»´Î¸Ä·½·¨
-	 * ¼ÆÊýÒ»¸öÍê³ÉµÄ×÷Òµ
+	 * å¤šä½œä¸šå¹¶å‘æ—¶ï¼Œå®Œæˆä¸€ä¸ªä½œä¸šè°ƒç”¨ä¸€æ¬¡æ”¹æ–¹æ³•
+	 * è®¡æ•°ä¸€ä¸ªå®Œæˆçš„ä½œä¸š
 	 */
 	public static synchronized void addFinish() {
 		finishedWorkers++;
@@ -208,7 +208,7 @@ public class Esprocx {
 	}
 
 	/**
-	 * ¼ì²éÖ÷Ä¿Â¼ÉèÖÃ£¬Èç¹ûÖ÷Ä¿Â¼Îª¿Õ£¬ÔòÉèÖÃÎªµ±Ç°Ä¿Â¼
+	 * æ£€æŸ¥ä¸»ç›®å½•è®¾ç½®ï¼Œå¦‚æžœä¸»ç›®å½•ä¸ºç©ºï¼Œåˆ™è®¾ç½®ä¸ºå½“å‰ç›®å½•
 	 */
 	private static void checkMainPath() {
 		String mainPath = Env.getMainPath();
@@ -225,34 +225,34 @@ public class Esprocx {
 	}
 	
 	/**
-	 * Ê¹ÓÃ¸úIDEÏàÍ¬µÄÅäÖÃÒÔ¼°×¢²áÂëÔÚDos´°¿ÚÖ´ÐÐÒ»¸ödfx 
-	 * ÓÃ¶àÏß³ÌnÍ¬Ê±²¢·¢Ö´ÐÐµ±Ç°µÄdfx¡£ 
+	 * ä½¿ç”¨è·ŸIDEç›¸åŒçš„é…ç½®ä»¥åŠæ³¨å†Œç åœ¨Dosçª—å£æ‰§è¡Œä¸€ä¸ªdfx 
+	 * ç”¨å¤šçº¿ç¨‹nåŒæ—¶å¹¶å‘æ‰§è¡Œå½“å‰çš„dfxã€‚ 
 	 * 
-	 * @param args Ö´ÐÐµÄ²ÎÊý
+	 * @param args æ‰§è¡Œçš„å‚æ•°
 	 */
 	public static void main(String[] args) throws Exception {
 		boolean debug = false;
 		String etlUsage = "esProcx [etlFile] [argN] ...\r\n"
-				+ " [etlFile]   Ïà¶ÔÓÚÑ°Ö·Â·¾¶»òÕßÖ÷Â·¾¶µÄetlÎÄ¼þÃû£¬Ò²¿ÉÒÔÊÇ¾ø¶ÔÂ·¾¶¡£\r\n"
-				+ " [argN]      etlFileÓÐ²ÎÊýÊ±£¬²ÎÊý°´ÕÕ ²ÎÊýË³Ðò Ö¸¶¨¡£\r\n";
+				+ " [etlFile]   ç›¸å¯¹äºŽå¯»å€è·¯å¾„æˆ–è€…ä¸»è·¯å¾„çš„etlæ–‡ä»¶åï¼Œä¹Ÿå¯ä»¥æ˜¯ç»å¯¹è·¯å¾„ã€‚\r\n"
+				+ " [argN]      etlFileæœ‰å‚æ•°æ—¶ï¼Œå‚æ•°æŒ‰ç…§ å‚æ•°é¡ºåº æŒ‡å®šã€‚\r\n";
 
 		String fileExts = AppConsts.SPL_FILE_EXTS + "," + "etl";
 
-		String usage = "ÓÃÓÚÖ´ÐÐÒ»¸ö" + fileExts
-				+ "ÎÄ¼þ¡¢Ò»¸ö¼òÒ×µÄ±í´ïÊ½¡¢¼òµ¥SQL»òÒ»¸öÎÄ±¾ÃèÊöµÄdfx½Å±¾¡£\r\n\r\n"
-				+ "esProcx [-r] [-c]\r\n" + " [-r]   ´òÓ¡·µ»Ø½á¹ûµ½¿ØÖÆÌ¨¡£\r\n"
-				+ " [-c]   ´Ó¿ØÖÆÌ¨¶ÁÈëÒ»¸öÁÐÓÃTab¼ü·Ö¿ªµÄ¶àÐÐÊ½Íø¸ñ½Å±¾À´Ö´ÐÐ(Ctrl+C½áÊøÂ¼Èë)¡£\r\n\r\n"
+		String usage = "ç”¨äºŽæ‰§è¡Œä¸€ä¸ª" + fileExts
+				+ "æ–‡ä»¶ã€ä¸€ä¸ªç®€æ˜“çš„è¡¨è¾¾å¼ã€ç®€å•SQLæˆ–ä¸€ä¸ªæ–‡æœ¬æè¿°çš„dfxè„šæœ¬ã€‚\r\n\r\n"
+				+ "esProcx [-r] [-c]\r\n" + " [-r]   æ‰“å°è¿”å›žç»“æžœåˆ°æŽ§åˆ¶å°ã€‚\r\n"
+				+ " [-c]   ä»ŽæŽ§åˆ¶å°è¯»å…¥ä¸€ä¸ªåˆ—ç”¨Tabé”®åˆ†å¼€çš„å¤šè¡Œå¼ç½‘æ ¼è„šæœ¬æ¥æ‰§è¡Œ(Ctrl+Cç»“æŸå½•å…¥)ã€‚\r\n\r\n"
 				+ "esProcx [-r] [dfxFile] [arg0] [arg1]...\r\n"
-				+ " [splxFile]   Ïà¶ÔÓÚÑ°Ö·Â·¾¶»òÕßÖ÷Â·¾¶µÄsplxÎÄ¼þÃû£¬Ò²¿ÉÒÔÊÇ¾ø¶ÔÂ·¾¶¡£\r\n"
-				+ " [argN]      Èç¹ûÊÇsplxFileÇÒÓÐ²ÎÊý£¬°´Ë³ÐòÒÀ´Î¶ÔÓ¦¡£\r\n\r\n" + etlUsage
-				+ "esProcx [-r] [exp]\r\n" + " [exp]   Ò»¾ädfx½Å±¾ÃüÁî¡£\r\n\r\n"
-				+ "Ê¾Àý:\r\n" + "  esProcx -r -c\r\n"
-				+ "    Ö´ÐÐÒ»¸ö´ýÂ¼ÈëµÄÎÄ±¾Ê½Íø¸ñ²¢´òÓ¡·µ»Ø½á¹û¡£\r\n"
+				+ " [splxFile]   ç›¸å¯¹äºŽå¯»å€è·¯å¾„æˆ–è€…ä¸»è·¯å¾„çš„splxæ–‡ä»¶åï¼Œä¹Ÿå¯ä»¥æ˜¯ç»å¯¹è·¯å¾„ã€‚\r\n"
+				+ " [argN]      å¦‚æžœæ˜¯splxFileä¸”æœ‰å‚æ•°ï¼ŒæŒ‰é¡ºåºä¾æ¬¡å¯¹åº”ã€‚\r\n\r\n" + etlUsage
+				+ "esProcx [-r] [exp]\r\n" + " [exp]   ä¸€å¥dfxè„šæœ¬å‘½ä»¤ã€‚\r\n\r\n"
+				+ "ç¤ºä¾‹:\r\n" + "  esProcx -r -c\r\n"
+				+ "    æ‰§è¡Œä¸€ä¸ªå¾…å½•å…¥çš„æ–‡æœ¬å¼ç½‘æ ¼å¹¶æ‰“å°è¿”å›žç»“æžœã€‚\r\n"
 				+ "  esProcx -r demo.splx arg1 arg2\r\n"
-				+ "    ÓÃ²ÎÊýarg1¡¢arg2Ö´ÐÐÑ°Ö·Â·¾¶ÉÏµÄdemo.splx£¬´òÓ¡·µ»Ø½á¹û¡£\r\n"
+				+ "    ç”¨å‚æ•°arg1ã€arg2æ‰§è¡Œå¯»å€è·¯å¾„ä¸Šçš„demo.splxï¼Œæ‰“å°è¿”å›žç»“æžœã€‚\r\n"
 				+ "  esProcx SELECT count(*) FROM t.json\r\n"
-				+ "    Ö´ÐÐÒ»¾ä¼òµ¥SQL¡£\r\n" + "  esProcx demo.etl 1\r\n"
-				+ "    ¶ÔÓ¦²ÎÊýmonthÎª1ÔÂ£¬Ö´ÐÐÑ°Ö·Â·¾¶ÉÏµÄdemo.etl¡£\r\n";
+				+ "    æ‰§è¡Œä¸€å¥ç®€å•SQLã€‚\r\n" + "  esProcx demo.etl 1\r\n"
+				+ "    å¯¹åº”å‚æ•°monthä¸º1æœˆï¼Œæ‰§è¡Œå¯»å€è·¯å¾„ä¸Šçš„demo.etlã€‚\r\n";
 
 		String etlUsageEn = "esProcx [etlFile] [argN]...\r\n"
 				+ " [etlFile]   An etl file name relative to a search path or a main path; can be an absolute path. \r\n"
@@ -305,15 +305,15 @@ public class Esprocx {
 //		args = new String[] {"esProcx.sh","other.cmd","from","a.txt"};
 //		args = new String[] {"field1","field2","from","a.txt"};
 //		args = new String[] {"$select","field1","field2","from","a.txt"};
-		boolean existStar = false;// ´¦Àí Select *
-		boolean isSql = false;// ÓÉÓÚ$select»á±»linux²Ù×÷ÏµÍ³½âÎöµô£¬ÓÃfrom
-//		¹Ø¼ü×ÖÀ´ÅÐ¶Ïµ±Ç°±í´ïÊ½ÊÇ·ñÎªsqlÓï¾ä
+		boolean existStar = false;// å¤„ç† Select *
+		boolean isSql = false;// ç”±äºŽ$selectä¼šè¢«linuxæ“ä½œç³»ç»Ÿè§£æžæŽ‰ï¼Œç”¨from
+//		å…³é”®å­—æ¥åˆ¤æ–­å½“å‰è¡¨è¾¾å¼æ˜¯å¦ä¸ºsqlè¯­å¥
 		if (args.length > 0) {
 			for (int i = 0; i < args.length; i++) {
 				arg = args[i];// .toLowerCase();
 //				Logger.debug("arg "+i+"=" + arg);
 				
-				boolean existSpace = false;// ´Ë´¦Ìæ»»»Øc´«¹ýÀ´µÄÌØÊâ´¦ÀíµÄ¿Õ¸ñ¸úÒýºÅ
+				boolean existSpace = false;// æ­¤å¤„æ›¿æ¢å›žcä¼ è¿‡æ¥çš„ç‰¹æ®Šå¤„ç†çš„ç©ºæ ¼è·Ÿå¼•å·
 				char[] argchars = arg.toCharArray();
 				for (int n = 0; n < argchars.length; n++) {
 					if (argchars[n] == 2) {
@@ -328,7 +328,7 @@ public class Esprocx {
 					arg = new String(argchars);
 				}
 
-				if (arg.toLowerCase().equals("com.scudata.ide.spl.esprocx")) { // ÓÃbat´ò¿ªµÄÎÄ¼þ£¬ÀàÃû±¾Éí»áÊÇ²ÎÊý
+				if (arg.toLowerCase().equals("com.scudata.ide.spl.esprocx")) { // ç”¨batæ‰“å¼€çš„æ–‡ä»¶ï¼Œç±»åæœ¬èº«ä¼šæ˜¯å‚æ•°
 					continue;
 				}
 				if (arg.toLowerCase().startsWith("-r")) {
@@ -337,7 +337,7 @@ public class Esprocx {
 					i++;
 					String tmp = args[i];
 					threadCount = Integer.parseInt(tmp);
-				} else if (arg.toLowerCase().startsWith("-s")) {// ´®ÐÐÖ´ÐÐ
+				} else if (arg.toLowerCase().startsWith("-s")) {// ä¸²è¡Œæ‰§è¡Œ
 					i++;
 					String tmp = args[i];
 					threadCount = Integer.parseInt(tmp);
@@ -383,8 +383,8 @@ public class Esprocx {
 						}
 					} else {
 						if(arg.equalsIgnoreCase("esProcx.sh")) {
-							dfxFile="$select";//LinuxÏÂÖ´ÐÐ esProcx.sh $select * from txtÊ±
-//							»á½«$select±¾ÉíÒ²Ìæ»»µôÁË
+							dfxFile="$select";//Linuxä¸‹æ‰§è¡Œ esProcx.sh $select * from txtæ—¶
+//							ä¼šå°†$selectæœ¬èº«ä¹Ÿæ›¿æ¢æŽ‰äº†
 							existStar = true;
 						}else {
 							dfxFile = arg;
@@ -404,9 +404,9 @@ public class Esprocx {
 			if (debug) {
 				dfxFile = "d:\\p2.splx";
 			}
-			initEnv();// Éè¶¨¸úIDEÏàÍ¬µÄStartHome
+			initEnv();// è®¾å®šè·ŸIDEç›¸åŒçš„StartHome
 			checkMainPath();
-			// ÓÐÁË»·¾³ºó²ÅÄÜÅÐ¶Ï¿ØÖÆµã
+			// æœ‰äº†çŽ¯å¢ƒåŽæ‰èƒ½åˆ¤æ–­æŽ§åˆ¶ç‚¹
 
 			long workBegin = System.currentTimeMillis();
 			boolean isFile = false, isDfx = false, isEtl = false, isSplx = false, isSpl = false;
@@ -461,9 +461,9 @@ public class Esprocx {
 					}
 				} else {
 					Logger.severe(ParallelMessage.get().getMessage(
-							"esProc.unsupportedfile", dfxFile));// "²»Ö§³ÖµÄÎÄ¼þ£º"+dfxFile);
+							"esProc.unsupportedfile", dfxFile));// "ä¸æ”¯æŒçš„æ–‡ä»¶ï¼š"+dfxFile);
 				}
-			} else {// ±í´ïÊ½
+			} else {// è¡¨è¾¾å¼
 				Context context = AppUtil.prepareEnv(config);
 				Esprocx.loadDataSource(context);
 				try {
@@ -472,9 +472,9 @@ public class Esprocx {
 						cmd = fileArgs.toString();
 					} else {
 						if(dfxFile.equalsIgnoreCase("select") || dfxFile.equalsIgnoreCase("$select")) {
-							dfxFile = "$Select";//ÒªÇóselectÓï·¨±ØÐë¼ÓÉÏ$£¬ÒÔ¸úDQLÒ»ÖÂ2023Äê9ÔÂ18ÈÕ xq
+							dfxFile = "$Select";//è¦æ±‚selectè¯­æ³•å¿…é¡»åŠ ä¸Š$ï¼Œä»¥è·ŸDQLä¸€è‡´2023å¹´9æœˆ18æ—¥ xq
 						}else if(isSql) {
-							dfxFile = "$Select "+dfxFile;//Èç¹ûÊäÈëµÄÎª$select field from t.txtÊ±
+							dfxFile = "$Select "+dfxFile;//å¦‚æžœè¾“å…¥çš„ä¸º$select field from t.txtæ—¶
 						}
 						cmd = dfxFile + " " + fileArgs;
 					}
@@ -504,8 +504,8 @@ public class Esprocx {
 	}
 
 	/**
-	 * »ñÈ¡È«¾ÖµÄÎ¨Ò»ºÅ
-	 * @return Î¨Ò»±àºÅ
+	 * èŽ·å–å…¨å±€çš„å”¯ä¸€å·
+	 * @return å”¯ä¸€ç¼–å·
 	 */
 	public static synchronized String getUUID() {
 		return UUID.randomUUID().toString();
@@ -538,8 +538,8 @@ public class Esprocx {
 	}
 	
 	/**
-	 * ½«Ö´ÐÐµÄ½á¹û´òÓ¡µ½¿ØÖÆÌ¨
-	 * @param result ¼ÆËã½á¹û
+	 * å°†æ‰§è¡Œçš„ç»“æžœæ‰“å°åˆ°æŽ§åˆ¶å°
+	 * @param result è®¡ç®—ç»“æžœ
 	 */
 	public static void printResult(Object result) {
 		if (result instanceof Sequence) {
@@ -559,7 +559,7 @@ public class Esprocx {
 			while (pcs.hasNextResult()) {
 				CellLocation cl = pcs.nextResultLocation();
 				System.out.println();
-				if (cl != null) {// Ã»ÓÃreturnÓï¾äÊ±£¬Î»ÖÃÎªnull
+				if (cl != null) {// æ²¡ç”¨returnè¯­å¥æ—¶ï¼Œä½ç½®ä¸ºnull
 					String msg = cl + ":";
 					System.err.println(msg);
 				}
@@ -598,7 +598,7 @@ class Worker extends Thread {
 				while (pcs.hasNextResult()) {
 					CellLocation cl = pcs.nextResultLocation();
 					System.out.println();
-					if (cl != null) {// Ã»ÓÃreturnÓï¾äÊ±£¬Î»ÖÃÎªnull
+					if (cl != null) {// æ²¡ç”¨returnè¯­å¥æ—¶ï¼Œä½ç½®ä¸ºnull
 						String msg = cl + ":";
 						System.err.println(msg);
 					}

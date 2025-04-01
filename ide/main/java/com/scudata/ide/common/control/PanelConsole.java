@@ -23,51 +23,51 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
- * Êä³öÃæ°å
+ * è¾“å‡ºé¢æ¿
  *
  */
 public class PanelConsole extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¿ØÖÆÌ¨¶ÔÏó
+	 * æ§åˆ¶å°å¯¹è±¡
 	 */
 	private Console console;
 	/**
-	 * ¸´ÖÆ
+	 * å¤åˆ¶
 	 */
 	private JButton jBCopy = new JButton();
 	/**
-	 * ÇåÀí
+	 * æ¸…ç†
 	 */
 	private JButton jBClean = new JButton();
 	/**
-	 * ¼ÆËãÇ°×Ô¶¯ÇåÀí
+	 * è®¡ç®—å‰è‡ªåŠ¨æ¸…ç†
 	 */
 	private JCheckBox jCBAutoClean = new JCheckBox(IdeCommonMessage.get()
 			.getMessage("panelconsole.autoclean"));
 	/**
-	 * ÊÇ·ñ¼¯ËãÆ÷IDE
+	 * æ˜¯å¦é›†ç®—å™¨IDE
 	 */
 	private boolean isSPL = false;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param console
-	 *            ¿ØÖÆÌ¨¶ÔÏó
+	 *            æ§åˆ¶å°å¯¹è±¡
 	 */
 	public PanelConsole(Console console) {
 		this(console, false);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param console
-	 *            ¿ØÖÆÌ¨¶ÔÏó
+	 *            æ§åˆ¶å°å¯¹è±¡
 	 * @param isSPL
-	 *            ÊÇ·ñ¼¯ËãÆ÷IDE
+	 *            æ˜¯å¦é›†ç®—å™¨IDE
 	 */
 	public PanelConsole(Console console, boolean isSPL) {
 		super(new BorderLayout());
@@ -75,10 +75,10 @@ public class PanelConsole extends JPanel {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param parent
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param console
 	 * @param isSPL
 	 */
@@ -101,7 +101,7 @@ public class PanelConsole extends JPanel {
 	}
 
 	/**
-	 * ×Ô¶¯ÇåÀí
+	 * è‡ªåŠ¨æ¸…ç†
 	 */
 	public void autoClean() {
 		if (jCBAutoClean.isSelected()) {
@@ -110,7 +110,7 @@ public class PanelConsole extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃ¿Ø¼şµÄÏÔÊ¾ÎÄ±¾
+	 * è®¾ç½®æ§ä»¶çš„æ˜¾ç¤ºæ–‡æœ¬
 	 */
 	private void resetLangText() {
 		MessageManager mm = IdeCommonMessage.get();
@@ -119,16 +119,16 @@ public class PanelConsole extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
 	private void initUI() throws Exception {
 		// jBCopy.setMnemonic('C');
-		// jBCopy.setText("¸´ÖÆ(C)");
+		// jBCopy.setText("å¤åˆ¶(C)");
 		jBCopy.addActionListener(new PanelConsole_jBCopy_actionAdapter(this));
 		// jBClean.setMnemonic('R');
-		// jBClean.setText("Çå³ı(R)");
+		// jBClean.setText("æ¸…é™¤(R)");
 		jBClean.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
 		jBClean.addActionListener(new PanelConsole_jBClean_actionAdapter(this));
 		JTextArea jTextArea1 = console.getTextArea();
@@ -167,7 +167,7 @@ public class PanelConsole extends JPanel {
 	}
 
 	/**
-	 * ¸´ÖÆ
+	 * å¤åˆ¶
 	 * 
 	 * @param e
 	 */
@@ -176,7 +176,7 @@ public class PanelConsole extends JPanel {
 	}
 
 	/**
-	 * ÇåÀí
+	 * æ¸…ç†
 	 * 
 	 * @param e
 	 */

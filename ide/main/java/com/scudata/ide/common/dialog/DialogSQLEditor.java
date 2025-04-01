@@ -63,357 +63,357 @@ import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * SQL±à¼­Æ÷
+ * SQLç¼–è¾‘å™¨
  *
  */
 public class DialogSQLEditor extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * SELECT ³É¼¨.Ñ§ÉúID, ³É¼¨.ÓïÎÄ, sum(³É¼¨.ÊıÑ§), ³É¼¨.Ó¢Óï,Ñ§Éú±í.¼®¹á FROM ³É¼¨ // LEFT OUTER
-	 * JOIN Ñ§Éú±í ON ³É¼¨.Ñ§ÉúID = Ñ§Éú±í.id WHERE (³É¼¨.Ó¢Óï>60) GROUP BY ³É¼¨.Ñ§ÉúID HAVING
-	 * sum(³É¼¨.ÊıÑ§)>300 ORDER BY ³É¼¨.ĞÕÃû
+	 * SELECT æˆç»©.å­¦ç”ŸID, æˆç»©.è¯­æ–‡, sum(æˆç»©.æ•°å­¦), æˆç»©.è‹±è¯­,å­¦ç”Ÿè¡¨.ç±è´¯ FROM æˆç»© // LEFT OUTER
+	 * JOIN å­¦ç”Ÿè¡¨ ON æˆç»©.å­¦ç”ŸID = å­¦ç”Ÿè¡¨.id WHERE (æˆç»©.è‹±è¯­>60) GROUP BY æˆç»©.å­¦ç”ŸID HAVING
+	 * sum(æˆç»©.æ•°å­¦)>300 ORDER BY æˆç»©.å§“å
 	 * 
-	 * whereÊÇÏÈ°´ÕÕ¸ÃÌõ¼ş¼ìË÷Êı¾İ£¬ havingÊÇ¼ìË÷Íê³É²¢ÇÒ·Ö×é¼ÆËãºó£¬°Ñ½á¹û¼¯¹ıÂË
+	 * whereæ˜¯å…ˆæŒ‰ç…§è¯¥æ¡ä»¶æ£€ç´¢æ•°æ®ï¼Œ havingæ˜¯æ£€ç´¢å®Œæˆå¹¶ä¸”åˆ†ç»„è®¡ç®—åï¼ŒæŠŠç»“æœé›†è¿‡æ»¤
 	 */
 
-	/** FROMÒ³ */
+	/** FROMé¡µ */
 	public static final int TAB_FROM = 0;
-	/** SELECTÒ³ */
+	/** SELECTé¡µ */
 	public static final int TAB_SELECT = 1;
-	/** WHEREÒ³ */
+	/** WHEREé¡µ */
 	public static final int TAB_WHERE = 2;
-	/** JOINÒ³ */
+	/** JOINé¡µ */
 	public static final int TAB_JOIN = 3;
-	/** GROUP BYÒ³ */
+	/** GROUP BYé¡µ */
 	public static final int TAB_GROUP = 4;
-	/** HAVINGÒ³ */
+	/** HAVINGé¡µ */
 	public static final int TAB_HAVING = 5;
-	/** ORDER BYÒ³ */
+	/** ORDER BYé¡µ */
 	public static final int TAB_ORDER = 6;
-	/** SQLÒ³ */
+	/** SQLé¡µ */
 	public static final int TAB_SQL = 7;
 
 	/**
-	 * ĞòºÅÁĞ£¬×Ö¶ÎÁĞ£¬Ñ¡ÏîÁĞ£¬ÖµÁĞ£¬Á¬½ÓÁĞ
+	 * åºå·åˆ—ï¼Œå­—æ®µåˆ—ï¼Œé€‰é¡¹åˆ—ï¼Œå€¼åˆ—ï¼Œè¿æ¥åˆ—
 	 */
 	private static final int COL_ID = 0, COL_FIELD = 1, COL_OPT = 2,
 			COL_VAL = 3, COL_CONNECT = 4;
 
 	/**
-	 * ±í·¢Éú±ä»¯
+	 * è¡¨å‘ç”Ÿå˜åŒ–
 	 */
 	private TableChanged tableChanged = new TableChanged(this);
 
 	/**
-	 * ±íÃûÁĞ±í
+	 * è¡¨ååˆ—è¡¨
 	 */
 	private Vector codeTable = new Vector();
 
 	/**
-	 * ±íÃûÏÔÊ¾Öµ
+	 * è¡¨åæ˜¾ç¤ºå€¼
 	 */
 	private DefaultComboBoxModel dispTable = new DefaultComboBoxModel();
 
 	/**
-	 * ×Ö¶ÎÃûÁĞ±í
+	 * å­—æ®µååˆ—è¡¨
 	 */
 	private Vector codeFields = new Vector();
 	/**
-	 * ×Ö¶ÎÃûÏÔÊ¾ÖµÁĞ±í
+	 * å­—æ®µåæ˜¾ç¤ºå€¼åˆ—è¡¨
 	 */
 	private DefaultListModel dispFields = new DefaultListModel();
 
 	/**
-	 * ²Ù×÷·ûºÅÁĞ±í
+	 * æ“ä½œç¬¦å·åˆ—è¡¨
 	 */
 	private Vector<String> operateCodeItems = new Vector<String>(),
 			operateDispItems = new Vector<String>();
 
 	/**
-	 * Á¬½Ó·ûºÅÁĞ±í
+	 * è¿æ¥ç¬¦å·åˆ—è¡¨
 	 */
 	private Vector<String> connectCodeItems = new Vector<String>(),
 			connectDispItems = new Vector<String>();
 
 	/**
-	 * SQL TABÃæ°å
+	 * SQL TABé¢æ¿
 	 */
 	private JTabbedPane jTabbedPaneSql = new JTabbedPane();
 
 	/**
-	 * SQL±à¼­¿ò
+	 * SQLç¼–è¾‘æ¡†
 	 */
 	private JTextPane jTextPaneSql = new JTextPane();
 
 	/**
-	 * Ôö¼Ó±í°´Å¥
+	 * å¢åŠ è¡¨æŒ‰é’®
 	 */
 	private JButton fromButtonRight = new JButton();
 	/**
-	 * É¾³ı±í°´Å¥
+	 * åˆ é™¤è¡¨æŒ‰é’®
 	 */
 	private JButton fromButtonLeft = new JButton();
 
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 
 	/**
-	 * Ôö¼Ó×Ö¶Î°´Å¥
+	 * å¢åŠ å­—æ®µæŒ‰é’®
 	 */
 	private JButton selectButtonRight = new JButton();
 	/**
-	 * É¾³ı×Ö¶Î°´Å¥
+	 * åˆ é™¤å­—æ®µæŒ‰é’®
 	 */
 	private JButton selectButtonLeft = new JButton();
 
 	/**
-	 * Ôö¼Ó·Ö×é°´Å¥
+	 * å¢åŠ åˆ†ç»„æŒ‰é’®
 	 */
 	private JButton groupButtonRight = new JButton();
 	/**
-	 * É¾³ı·Ö×é°´Å¥
+	 * åˆ é™¤åˆ†ç»„æŒ‰é’®
 	 */
 	private JButton groupButtonLeft = new JButton();
 
 	/**
-	 * Ôö¼ÓÅÅĞò°´Å¥
+	 * å¢åŠ æ’åºæŒ‰é’®
 	 */
 	private JButton orderButtonRight = new JButton();
 	/**
-	 * É¾³ıÅÅĞò°´Å¥
+	 * åˆ é™¤æ’åºæŒ‰é’®
 	 */
 	private JButton orderButtonLeft = new JButton();
 
 	/**
-	 * ¾ÛºÏ·½Ê½¿Ø¼ş
+	 * èšåˆæ–¹å¼æ§ä»¶
 	 */
 	private JComboBoxEx selectComboSum = new JComboBoxEx();
 	/**
-	 * FROMÃæ°å
+	 * FROMé¢æ¿
 	 */
 	private JPanel fromPanel = new JPanel();
 
 	/**
-	 * Ñ¡³öÏÂÀ­¿Ø¼ş
+	 * é€‰å‡ºä¸‹æ‹‰æ§ä»¶
 	 */
 	private JComboBoxEx selectComboLeft = new JComboBoxEx();
 	/**
-	 * ·Ö×éÏÂÀ­¿Ø¼ş
+	 * åˆ†ç»„ä¸‹æ‹‰æ§ä»¶
 	 */
 	private JComboBoxEx groupComboLeft = new JComboBoxEx();
 	/**
-	 * ÅÅĞòÏÂÀ­¿Ø¼ş
+	 * æ’åºä¸‹æ‹‰æ§ä»¶
 	 */
 	private JComboBoxEx orderComboLeft = new JComboBoxEx();
 
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	protected int m_option = JOptionPane.CLOSED_OPTION;
 
 	/**
-	 * Ôö¼ÓÌõ¼ş
+	 * å¢åŠ æ¡ä»¶
 	 */
 	private JButton whereButtonAdd = new JButton();
 
 	/**
-	 * É¾³ıÌõ¼ş
+	 * åˆ é™¤æ¡ä»¶
 	 */
 	private JButton whereButtonDel = new JButton();
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ĞòºÅ,×Ö¶Î,ÔËËã·û,Öµ,Á¬½Ó·û
+	 * åºå·,å­—æ®µ,è¿ç®—ç¬¦,å€¼,è¿æ¥ç¬¦
 	 */
 	private final String TABLE_COLS = mm
 			.getMessage("dialogsqleditor.tablecols");
 
 	/**
-	 * Ìõ¼ş±í¸ñ¿Ø¼ş
+	 * æ¡ä»¶è¡¨æ ¼æ§ä»¶
 	 */
 	private JTableEx whereTable = new JTableEx(TABLE_COLS);
 
 	/**
-	 * Ôö¼ÓÁ¬½Ó
+	 * å¢åŠ è¿æ¥
 	 */
 	private JButton joinButtonAdd = new JButton();
 
 	/**
-	 * É¾³ıÁ¬½Ó
+	 * åˆ é™¤è¿æ¥
 	 */
 	private JButton joinButtonDel = new JButton();
 
 	/**
-	 * Á¬½Ó±í¸ñ¿Ø¼ş
+	 * è¿æ¥è¡¨æ ¼æ§ä»¶
 	 */
 	private JTableEx joinTable = new JTableEx(TABLE_COLS);
 
 	/**
-	 * Ôö¼ÓHAVINGÌõ¼ş
+	 * å¢åŠ HAVINGæ¡ä»¶
 	 */
 	private JButton havingButtonAdd = new JButton();
 	/**
-	 * É¾³ıHAVINGÌõ¼ş
+	 * åˆ é™¤HAVINGæ¡ä»¶
 	 */
 	private JButton havingButtonDel = new JButton();
 
 	/**
-	 * HAVINGÌõ¼ş¿Ø¼ş
+	 * HAVINGæ¡ä»¶æ§ä»¶
 	 */
 	private JTableEx havingTable = new JTableEx(TABLE_COLS);
 
 	/**
-	 * Ä£Ê½Ãû¿Ø¼ş
+	 * æ¨¡å¼åæ§ä»¶
 	 */
 	private JComboBox<String> jCBSchema = new JComboBox<String>();
 
 	/**
-	 * µ±Ç°µÄ±í
+	 * å½“å‰çš„è¡¨
 	 */
 	private String currentFrom = null;
 
 	/**
-	 * ÊÖ¶¯ĞŞ¸Ä
+	 * æ‰‹åŠ¨ä¿®æ”¹
 	 */
 	private boolean bEditByHand = false;
 
 	/**
-	 * ÊÇ·ñ³õÊ¼»¯ºó
+	 * æ˜¯å¦åˆå§‹åŒ–å
 	 */
 	private boolean afterInit = false;
 
 	/**
-	 * Êı¾İÔ´¶ÔÏó
+	 * æ•°æ®æºå¯¹è±¡
 	 */
 	private DataSource ds;
 
 	/**
-	 * ´ıÑ¡FROMÁĞ±í
+	 * å¾…é€‰FROMåˆ—è¡¨
 	 */
 	private JListEx fromListLeft = new JListEx();
 	/**
-	 * Ñ¡³öFROMÁĞ±í
+	 * é€‰å‡ºFROMåˆ—è¡¨
 	 */
 	private JListEx fromListRight = new JListEx();
 	/**
-	 * ´ıÑ¡SELECTÁĞ±í
+	 * å¾…é€‰SELECTåˆ—è¡¨
 	 */
 	private JListEx selectListLeft = new JListEx();
 	/**
-	 * Ñ¡³öSELECTÁĞ±í
+	 * é€‰å‡ºSELECTåˆ—è¡¨
 	 */
 	private JListEx selectListRight = new JListEx();
 	/**
-	 * ´ıÑ¡·Ö×éÁĞ±í
+	 * å¾…é€‰åˆ†ç»„åˆ—è¡¨
 	 */
 	private JListEx groupListLeft = new JListEx();
 	/**
-	 * Ñ¡³ö·Ö×éÁĞ±í
+	 * é€‰å‡ºåˆ†ç»„åˆ—è¡¨
 	 */
 	private JListEx groupListRight = new JListEx();
 	/**
-	 * ´ıÑ¡ÅÅĞòÁĞ±í
+	 * å¾…é€‰æ’åºåˆ—è¡¨
 	 */
 	private JListEx orderListLeft = new JListEx();
 	/**
-	 * Ñ¡³öÅÅĞòÁĞ±í
+	 * é€‰å‡ºæ’åºåˆ—è¡¨
 	 */
 	private JListEx orderListRight = new JListEx();
 
 	/**
-	 * ´ıÑ¡µÄ±íÃû
+	 * å¾…é€‰çš„è¡¨å
 	 */
 	private final String AVAILABLE_TABLE = mm
 			.getMessage("dialogsqleditor.availabletable");
 
 	/**
-	 * Ñ¡³ö±íÃû
+	 * é€‰å‡ºè¡¨å
 	 */
 	private final String SELECTED_TABLE = mm
 			.getMessage("dialogsqleditor.selectedtable");
 
 	/**
-	 * Ñ¡³ö×Ö¶ÎÃû
+	 * é€‰å‡ºå­—æ®µå
 	 */
 	private final String SELECTED_FIELD = mm
 			.getMessage("dialogsqleditor.selectedfield");
 
 	/**
-	 * ÎŞ
+	 * æ— 
 	 */
 	private final String OPT_NUL = "";
 	/**
-	 * ÇóºÍ
+	 * æ±‚å’Œ
 	 */
 	private final String OPT_SUM = "SUM";
 	/**
-	 * ×î´óÖµ
+	 * æœ€å¤§å€¼
 	 */
 	private final String OPT_MAX = "MAX";
 
 	/**
-	 * ×îĞ¡Öµ
+	 * æœ€å°å€¼
 	 */
 	private final String OPT_MIN = "MIN";
 	/**
-	 * ¼ÆÊı
+	 * è®¡æ•°
 	 */
 	private final String OPT_COUNT = "COUNT";
 	/**
-	 * Æ½¾ùÖµ
+	 * å¹³å‡å€¼
 	 */
 	private final String OPT_AVG = "AVG";
 	/**
-	 * µÈºÅ
+	 * ç­‰å·
 	 */
 	private final String OPT_EQUAL = "=";
 	/**
-	 * ²»µÈºÅ
+	 * ä¸ç­‰å·
 	 */
 	private final String OPT_NOT_EQUAL = "<>";
 	/**
-	 * ´óÓÚºÅ
+	 * å¤§äºå·
 	 */
 	private final String OPT_MORE = ">";
 	/**
-	 * Ğ¡ÓÚºÅ
+	 * å°äºå·
 	 */
 	private final String OPT_LESS = "<";
 	/**
-	 * ²¢ÇÒ
+	 * å¹¶ä¸”
 	 */
 	private final String OPT_AND = "and";
 	/**
-	 * »òÕß
+	 * æˆ–è€…
 	 */
 	private final String OPT_OR = "or";
 
 	/**
-	 * ÊÇ·ñ¸´ÖÆÄ£Ê½
+	 * æ˜¯å¦å¤åˆ¶æ¨¡å¼
 	 */
 	private boolean isCopyMode = false;
 
 	/**
-	 * ½ø¶È´°¿Ú
+	 * è¿›åº¦çª—å£
 	 */
 	public ProcessWindow pw;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param ds
-	 *            Êı¾İÔ´
+	 *            æ•°æ®æº
 	 */
 	public DialogSQLEditor(DataSource ds) {
 		super(GV.appFrame, "", false);
@@ -471,7 +471,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃ¸´ÖÆÄ£Ê½
+	 * è®¾ç½®å¤åˆ¶æ¨¡å¼
 	 */
 	public void setCopyMode() {
 		isCopyMode = true;
@@ -481,7 +481,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -490,10 +490,10 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ¸üĞÂÑ¡ÖĞµÄ±í»òÊÓÍ¼µÄÁĞĞÅÏ¢
+	 * æ›´æ–°é€‰ä¸­çš„è¡¨æˆ–è§†å›¾çš„åˆ—ä¿¡æ¯
 	 * 
 	 * @param table
-	 *            ±í»òÊÓÍ¼Ãû
+	 *            è¡¨æˆ–è§†å›¾å
 	 * @throws Exception
 	 */
 	private void changeSelectTable(String table) throws Exception {
@@ -505,7 +505,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * Ë¢ĞÂ±íÃû
+	 * åˆ·æ–°è¡¨å
 	 */
 	private void refreshTables() {
 		String realSchema = GM.getRealSchema(jCBSchema.getSelectedItem());
@@ -521,7 +521,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡SQL
+	 * å–SQL
 	 * 
 	 * @return
 	 */
@@ -530,18 +530,18 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ½ø¶È´°¿Ú
+	 * è¿›åº¦çª—å£
 	 *
 	 */
 	class ProcessWindow extends JWindow {
 		private static final long serialVersionUID = 1L;
 		/**
-		 * ½ø¶ÈÌø
+		 * è¿›åº¦è·³
 		 */
 		private JProgressBar bar;
 
 		/**
-		 * ¹¹Ôìº¯Êı
+		 * æ„é€ å‡½æ•°
 		 */
 		ProcessWindow() {
 			super(DialogSQLEditor.this);
@@ -553,7 +553,7 @@ public class DialogSQLEditor extends JDialog {
 			JPanel panelMain = new JPanel(new BorderLayout());
 			panelMain.setBorder(BorderFactory.createLineBorder(Color.black));
 			JPanel panelCenter = new JPanel(new GridBagLayout());
-			// ÕıÔÚ¼ÓÔØ±í½á¹¹£¬ÇëÉÔºò¡£
+			// æ­£åœ¨åŠ è½½è¡¨ç»“æ„ï¼Œè¯·ç¨å€™ã€‚
 			panelCenter.add(
 					new JLabel(IdeCommonMessage.get().getMessage(
 							"dialogsqleditor.loadds")), GM.getGBC(0, 0, true));
@@ -564,7 +564,7 @@ public class DialogSQLEditor extends JDialog {
 		}
 
 		/**
-		 * ¹Ø±Õ´°¿Ú
+		 * å…³é—­çª—å£
 		 */
 		public void disposeWindow() {
 			bar.setIndeterminate(false);
@@ -574,7 +574,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡´¹Ö±°Ú·ÅµÄÃæ°å
+	 * å–å‚ç›´æ‘†æ”¾çš„é¢æ¿
 	 * 
 	 * @param bt1
 	 * @param bt2
@@ -597,15 +597,15 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
-		jBOK.setText(mm.getMessage("button.ok")); // È·¶¨(O)
-		jBCancel.setText(mm.getMessage("button.cancel")); // È¡Ïû(C)
+		jBOK.setText(mm.getMessage("button.ok")); // ç¡®å®š(O)
+		jBCancel.setText(mm.getMessage("button.cancel")); // å–æ¶ˆ(C)
 	}
 
 	/**
-	 * È¡FROMÃæ°å
+	 * å–FROMé¢æ¿
 	 * 
 	 * @return
 	 */
@@ -656,7 +656,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡SELECTÃæ°å
+	 * å–SELECTé¢æ¿
 	 * 
 	 * @return
 	 */
@@ -758,7 +758,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ½âÎö¼ÆËãÁĞ
+	 * è§£æè®¡ç®—åˆ—
 	 * 
 	 * @param exp
 	 * @return
@@ -786,7 +786,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡WHEREÃæ°å
+	 * å–WHEREé¢æ¿
 	 * 
 	 * @return
 	 */
@@ -829,7 +829,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡JOINÃæ°å
+	 * å–JOINé¢æ¿
 	 * 
 	 * @return
 	 */
@@ -871,7 +871,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯Í¼±ê°´Å¥
+	 * åˆå§‹åŒ–å›¾æ ‡æŒ‰é’®
 	 * 
 	 * @param b
 	 */
@@ -883,7 +883,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡·Ö×éÃæ°å
+	 * å–åˆ†ç»„é¢æ¿
 	 * 
 	 * @return
 	 */
@@ -954,7 +954,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡HAVINGÃæ°å
+	 * å–HAVINGé¢æ¿
 	 * 
 	 * @return
 	 */
@@ -996,7 +996,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡ÅÅĞòÃæ°å
+	 * å–æ’åºé¢æ¿
 	 * 
 	 * @return
 	 */
@@ -1053,7 +1053,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡SQLÃæ°å
+	 * å–SQLé¢æ¿
 	 * 
 	 * @return
 	 */
@@ -1072,12 +1072,12 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡Íâ¼üÓ³Éä
+	 * å–å¤–é”®æ˜ å°„
 	 * 
 	 * @param ds
-	 *            Êı¾İÔ´
+	 *            æ•°æ®æº
 	 * @param schema
-	 *            Ä£Ê½Ãû
+	 *            æ¨¡å¼å
 	 * @return
 	 */
 	private FKMap getFKMap(DataSource ds, String schema) {
@@ -1106,16 +1106,16 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡Íâ¼üÓ³Éä
+	 * å–å¤–é”®æ˜ å°„
 	 * 
 	 * @param ds
-	 *            Êı¾İÔ´
+	 *            æ•°æ®æº
 	 * @param schema
-	 *            Ä£Ê½Ãû
+	 *            æ¨¡å¼å
 	 * @param table
-	 *            ±íÃû
+	 *            è¡¨å
 	 * @param tables
-	 *            ÒÑÑ¡±íÃû
+	 *            å·²é€‰è¡¨å
 	 * @return
 	 * @throws Throwable
 	 */
@@ -1167,7 +1167,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * Íâ¼üÓ³Éä¶ÔÏó
+	 * å¤–é”®æ˜ å°„å¯¹è±¡
 	 *
 	 */
 	class FKMap {
@@ -1209,7 +1209,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -1305,7 +1305,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 */
 	protected void processWindowEvent(WindowEvent e) {
 		super.processWindowEvent(e);
@@ -1323,10 +1323,10 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ¸üĞÂ±íÃû
+	 * æ›´æ–°è¡¨å
 	 * 
 	 * @param tables
-	 *            ±íÃû
+	 *            è¡¨å
 	 * @throws Exception
 	 */
 	private void updateTableName(String tables) throws Exception {
@@ -1347,7 +1347,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ¸üĞÂ±í×Ö¶Î
+	 * æ›´æ–°è¡¨å­—æ®µ
 	 * 
 	 * @param tableName
 	 * @throws Exception
@@ -1367,12 +1367,12 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡±í×Ö¶Î
+	 * å–è¡¨å­—æ®µ
 	 * 
 	 * @param schema
-	 *            Ä£Ê½Ãû
+	 *            æ¨¡å¼å
 	 * @param tableName
-	 *            ±íÃû
+	 *            è¡¨å
 	 * @return
 	 */
 	private Vector<String> getListTableColumns(String schema, String tableName) {
@@ -1453,14 +1453,14 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃÑ¡ÔñµÄÏîÄ¿
+	 * è®¾ç½®é€‰æ‹©çš„é¡¹ç›®
 	 * 
 	 * @param currentTable
-	 *            µ±Ç°±í
+	 *            å½“å‰è¡¨
 	 * @param source
-	 *            Ô´ÁĞ±í¿Ø¼ş
+	 *            æºåˆ—è¡¨æ§ä»¶
 	 * @param target
-	 *            Ä¿±êÁĞ±í¿Ø¼ş
+	 *            ç›®æ ‡åˆ—è¡¨æ§ä»¶
 	 */
 	private void setSelectedItems(String currentTable, JListEx source,
 			Object target) {
@@ -1501,14 +1501,14 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃÑ¡³öµÄÅÅĞòÏîÄ¿
+	 * è®¾ç½®é€‰å‡ºçš„æ’åºé¡¹ç›®
 	 * 
 	 * @param table
-	 *            ±íÃû
+	 *            è¡¨å
 	 * @param source
-	 *            Ô´ÁĞ±í¿Ø¼ş
+	 *            æºåˆ—è¡¨æ§ä»¶
 	 * @param target
-	 *            Ä¿±êÁĞ±í¿Ø¼ş
+	 *            ç›®æ ‡åˆ—è¡¨æ§ä»¶
 	 */
 	private void setSelectedSortItems(String table, JListEx source,
 			JListEx target) {
@@ -1527,7 +1527,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ±íÃûÔö¼ÓÒıºÅ
+	 * è¡¨åå¢åŠ å¼•å·
 	 * 
 	 * @param fromStr
 	 * @return
@@ -1559,7 +1559,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * Ôö¼Ó±íÊÂ¼ş
+	 * å¢åŠ è¡¨äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1575,7 +1575,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * É¾³ı±íÊÂ¼ş
+	 * åˆ é™¤è¡¨äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1593,7 +1593,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1604,7 +1604,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1632,7 +1632,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * Ñ¡³ö×Ö¶ÎÊÂ¼ş
+	 * é€‰å‡ºå­—æ®µäº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1643,7 +1643,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * É¾³ı×Ö¶ÎÊÂ¼ş
+	 * åˆ é™¤å­—æ®µäº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1653,7 +1653,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * Ñ¡ÔñµÄ±í·¢Éú±ä»¯
+	 * é€‰æ‹©çš„è¡¨å‘ç”Ÿå˜åŒ–
 	 */
 	private void selectedTableChanged() {
 		FKMap map = getFKMap(ds, GM.getRealSchema(jCBSchema.getSelectedItem()));
@@ -1686,7 +1686,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ÊÇ·ñ´æÔÚÌõ¼ş
+	 * æ˜¯å¦å­˜åœ¨æ¡ä»¶
 	 * 
 	 * @param f1
 	 * @param f2
@@ -1710,7 +1710,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * Ñ¡³öµÄ×Ö¶Î·¢Éú±ä»¯
+	 * é€‰å‡ºçš„å­—æ®µå‘ç”Ÿå˜åŒ–
 	 */
 	private void selectedFieldChanged() {
 		Section s = new Section(selectListRight.totalItems());
@@ -1722,7 +1722,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡¼ÆËãÁĞÁĞ±í
+	 * å–è®¡ç®—åˆ—åˆ—è¡¨
 	 * 
 	 * @param s
 	 * @return
@@ -1745,7 +1745,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * È¡³£¹æ×Ö¶ÎÁĞ±í
+	 * å–å¸¸è§„å­—æ®µåˆ—è¡¨
 	 * 
 	 * @param s
 	 * @return
@@ -1768,7 +1768,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * Ôö¼ÓÅÅĞòÊÂ¼ş
+	 * å¢åŠ æ’åºäº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1778,7 +1778,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * É¾³ıÅÅĞòÊÂ¼ş
+	 * åˆ é™¤æ’åºäº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1787,18 +1787,18 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * µ¯³öÌáÊ¾¶Ô»°¿ò
+	 * å¼¹å‡ºæç¤ºå¯¹è¯æ¡†
 	 * 
 	 * @param text
-	 *            ÌáÊ¾ĞÅÏ¢
+	 *            æç¤ºä¿¡æ¯
 	 */
 	void messageBox(String text) {
-		GM.messageDialog(this, text, mm.getMessage("dialogsqlsrcdata.prompt"), // ÌáÊ¾
+		GM.messageDialog(this, text, mm.getMessage("dialogsqlsrcdata.prompt"), // æç¤º
 				JOptionPane.WARNING_MESSAGE);
 	}
 
 	/**
-	 * È¡WHEREÌõ¼ş
+	 * å–WHEREæ¡ä»¶
 	 * 
 	 * @param table
 	 * @return
@@ -1857,10 +1857,10 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * Éú³ÉSQLÓï¾ä
+	 * ç”ŸæˆSQLè¯­å¥
 	 * 
 	 * @param tabIndex
-	 *            µ±Ç°Ñ¡ÔñµÄTABĞòºÅ
+	 *            å½“å‰é€‰æ‹©çš„TABåºå·
 	 * @return
 	 */
 	private String generateSql(int tabIndex) {
@@ -1917,7 +1917,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * Ñ¡ÔñµÄTABÒ³±ä»¯¼àÌıÆ÷
+	 * é€‰æ‹©çš„TABé¡µå˜åŒ–ç›‘å¬å™¨
 	 *
 	 */
 	class TabChangeListener implements ChangeListener {
@@ -1928,7 +1928,7 @@ public class DialogSQLEditor extends JDialog {
 			case TAB_FROM:
 				currentFrom = fromListRight.totalItems();
 
-				// ¸Ä±äÑ¡Ôñ±í
+				// æ”¹å˜é€‰æ‹©è¡¨
 				try {
 					updateTableName(currentFrom);
 				} catch (Exception x) {
@@ -1954,7 +1954,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * SQL±à¼­¿ò°´¼üºó
+	 * SQLç¼–è¾‘æ¡†æŒ‰é”®å
 	 * 
 	 * @param e
 	 */
@@ -1963,7 +1963,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * Ä£Ê½Ãû±ä»¯ÊÂ¼ş
+	 * æ¨¡å¼åå˜åŒ–äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1974,7 +1974,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ±í·¢Éú±ä»¯
+	 * è¡¨å‘ç”Ÿå˜åŒ–
 	 *
 	 */
 	class TableChanged implements ItemListener {
@@ -2000,7 +2000,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * ĞÂÔö·Ö×é
+	 * æ–°å¢åˆ†ç»„
 	 * 
 	 * @param e
 	 */
@@ -2010,7 +2010,7 @@ public class DialogSQLEditor extends JDialog {
 	}
 
 	/**
-	 * É¾³ı·Ö×é
+	 * åˆ é™¤åˆ†ç»„
 	 * 
 	 * @param e
 	 */

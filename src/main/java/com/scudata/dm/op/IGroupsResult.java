@@ -10,20 +10,20 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.Expression;
 
 /**
- * ÄÚ´æ·Ö×é»ã×Ü½á¹û»ùÀà
+ * å†…å­˜åˆ†ç»„æ±‡æ€»ç»“æžœåŸºç±»
  * @author RunQian
  *
  */
 abstract public class IGroupsResult implements IResult {
 	/**
-	 * ¸ù¾Ý²ÎÊýÈ¡ÄÚ´æ·Ö×é»ã×Ü´¦ÀíÀà
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êý×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊý×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êý×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊý×é
-	 * @param srcDs Ô´Êý¾Ý½á¹¹£¬ÓÃÓÚ°Ñ#n±ä³ÉÏàÓ¦×Ö¶ÎÃû
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ ¹æ®å‚æ•°å–å†…å­˜åˆ†ç»„æ±‡æ€»å¤„ç†ç±»
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param srcDs æºæ•°æ®ç»“æž„ï¼Œç”¨äºŽæŠŠ#nå˜æˆç›¸åº”å­—æ®µå
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IGroupsResult
 	 */
 	public static IGroupsResult instance(Expression[] exps, String[] names, Expression[] calcExps, 
@@ -66,15 +66,15 @@ abstract public class IGroupsResult implements IResult {
 	}
 	
 	/**
-	 * ¸ù¾Ý²ÎÊýÈ¡ÄÚ´æ·Ö×é»ã×Ü´¦ÀíÀà
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êý×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊý×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êý×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊý×é
-	 * @param srcDs Ô´Êý¾Ý½á¹¹£¬ÓÃÓÚ°Ñ#n±ä³ÉÏàÓ¦×Ö¶ÎÃû
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity ÓÃÓÚ·Ö×éÔËËãµÄ¹þÏ£±íÈÝÁ¿
+	 * æ ¹æ®å‚æ•°å–å†…å­˜åˆ†ç»„æ±‡æ€»å¤„ç†ç±»
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param srcDs æºæ•°æ®ç»“æž„ï¼Œç”¨äºŽæŠŠ#nå˜æˆç›¸åº”å­—æ®µå
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity ç”¨äºŽåˆ†ç»„è¿ç®—çš„å“ˆå¸Œè¡¨å®¹é‡
 	 * @return IGroupsResult
 	 */
 	public static IGroupsResult instance(Expression[] exps, String[] names, Expression[] calcExps, 
@@ -114,79 +114,79 @@ abstract public class IGroupsResult implements IResult {
 	}
 	
 	/**
-	 * È¡·Ö×é±í´ïÊ½
-	 * @return ±í´ïÊ½Êý×é
+	 * å–åˆ†ç»„è¡¨è¾¾å¼
+	 * @return è¡¨è¾¾å¼æ•°ç»„
 	 */
 	abstract public Expression[] getExps();
 
 	/**
-	 * È¡·Ö×é×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊý×é
+	 * å–åˆ†ç»„å­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	abstract public String[] getNames();
 
 	/**
-	 * È¡»ã×Ü±í´ïÊ½
-	 * @return ±í´ïÊ½Êý×é
+	 * å–æ±‡æ€»è¡¨è¾¾å¼
+	 * @return è¡¨è¾¾å¼æ•°ç»„
 	 */
 	abstract public Expression[] getCalcExps();
 
 	/**
-	 * È¡»ã×Ü×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊý×é
+	 * å–æ±‡æ€»å­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	abstract public String[] getCalcNames();
 
 	/**
-	 * È¡Ñ¡Ïî
+	 * å–é€‰é¡¹
 	 * @return
 	 */
 	abstract public String getOption();
 	
 	/**
-	 * È¡ÊÇ·ñÊÇÓÐÐò·Ö×é
-	 * @return true£ºÊÇ£¬Êý¾Ý°´·Ö×é×Ö¶ÎÓÐÐò£¬false£º²»ÊÇ
+	 * å–æ˜¯å¦æ˜¯æœ‰åºåˆ†ç»„
+	 * @return trueï¼šæ˜¯ï¼Œæ•°æ®æŒ‰åˆ†ç»„å­—æ®µæœ‰åºï¼Œfalseï¼šä¸æ˜¯
 	 */
 	abstract public boolean isSortedGroup();
 
 	/**
-	 * È¡¶þ´Î»ã×Ü±í´ïÊ½£¬ÓÃÓÚ¶àÏß³Ì·Ö×é
+	 * å–äºŒæ¬¡æ±‡æ€»è¡¨è¾¾å¼ï¼Œç”¨äºŽå¤šçº¿ç¨‹åˆ†ç»„
 	 * @return
 	 */
 	abstract public Expression[] getRegatherExpressions();
 	
 	/**
-	 * È¡¶þ´Î»ã×ÜÊý¾Ý½á¹¹
+	 * å–äºŒæ¬¡æ±‡æ€»æ•°æ®ç»“æž„
 	 * @return DataStruct
 	 */
 	abstract public DataStruct getRegatherDataStruct();
 	
 	/**
-	 * È¡¶þ´Î»ã×ÜºóÓÃÓÚ¼ÆËã×îÖÕ½á¹ûµÄ±í´ïÊ½£¬avg¿ÉÄÜ±»·Ö³Ésum¡¢countÁ½ÁÐ½øÐÐ¼ÆËã
+	 * å–äºŒæ¬¡æ±‡æ€»åŽç”¨äºŽè®¡ç®—æœ€ç»ˆç»“æžœçš„è¡¨è¾¾å¼ï¼Œavgå¯èƒ½è¢«åˆ†æˆsumã€countä¸¤åˆ—è¿›è¡Œè®¡ç®—
 	 * @return
 	 */
 	abstract public Expression[] getResultExpressions();
 
 	/**
-	 * È¡½á¹û¼¯Êý¾Ý½á¹¹
+	 * å–ç»“æžœé›†æ•°æ®ç»“æž„
 	 * @return DataStruct
 	 */
 	abstract public DataStruct getResultDataStruct();
 	
 	/**
-	 * ²¢ÐÐÔËËãÊ±£¬È¡³öÃ¿¸öÏß³ÌµÄÖÐ¼ä¼ÆËã½á¹û£¬»¹ÐèÒª½øÐÐ¶þ´Î»ã×Ü
+	 * å¹¶è¡Œè¿ç®—æ—¶ï¼Œå–å‡ºæ¯ä¸ªçº¿ç¨‹çš„ä¸­é—´è®¡ç®—ç»“æžœï¼Œè¿˜éœ€è¦è¿›è¡ŒäºŒæ¬¡æ±‡æ€»
 	 * @return Table
 	 */
 	abstract public Table getTempResult();
 	
 	/**
-	 * È¡·Ö×é»ã×Ü½á¹û
+	 * å–åˆ†ç»„æ±‡æ€»ç»“æžœ
 	 * @return Table
 	 */
 	abstract public Table getResultTable();
 	
 	 /**
-	  * Êý¾ÝÍÆËÍ½áÊø£¬È¡×îÖÕµÄ¼ÆËã½á¹û
+	  * æ•°æ®æŽ¨é€ç»“æŸï¼Œå–æœ€ç»ˆçš„è®¡ç®—ç»“æžœ
 	  * @return
 	  */
 	public Object result() {
@@ -194,21 +194,21 @@ abstract public class IGroupsResult implements IResult {
 	}
 	
 	/**
-	 * ´¦ÀíÍÆËÍ¹ýÀ´µÄÊý¾Ý£¬ÀÛ»ýµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param seq Êý¾Ý
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æŽ¨é€è¿‡æ¥çš„æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æžœä¸Š
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	abstract public void push(Sequence table, Context ctx);
 
 	/**
-	 * ´¦ÀíÍÆËÍ¹ýÀ´µÄÓÎ±êÊý¾Ý£¬ÀÛ»ýµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param cursor ÓÎ±êÊý¾Ý
+	 * å¤„ç†æŽ¨é€è¿‡æ¥çš„æ¸¸æ ‡æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æžœä¸Š
+	 * @param cursor æ¸¸æ ‡æ•°æ®
 	 */
 	abstract public void push(ICursor cursor);
 
 	/**
-	 * ´¦ÀíÍÆËÍ¹ýÀ´µÄÓÎ±êÊý¾Ý£¬ÀÛ»ýµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param reader ÓÎ±êÊý¾Ý
+	 * å¤„ç†æŽ¨é€è¿‡æ¥çš„æ¸¸æ ‡æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æžœä¸Š
+	 * @param reader æ¸¸æ ‡æ•°æ®
 	 */
 	public void push(GroupsSyncReader reader, int hashStart, int hashEnd) {
 		throw new RuntimeException();
@@ -219,29 +219,29 @@ abstract public class IGroupsResult implements IResult {
 	}
 	
 	/**
-	 * ÉèÖÃ·Ö×éÊý£¬@zÑ¡ÏîÊ¹ÓÃ
+	 * è®¾ç½®åˆ†ç»„æ•°ï¼Œ@zé€‰é¡¹ä½¿ç”¨
 	 * @param groupCount
 	 */
 	public void setCapacity(int capacity) {
 	}
 	
 	/**
-	 * ÉèÖÃ·Ö×éÊý£¬@nÑ¡ÏîÊ¹ÓÃ
+	 * è®¾ç½®åˆ†ç»„æ•°ï¼Œ@né€‰é¡¹ä½¿ç”¨
 	 * @param groupCount
 	 */
 	abstract public void setGroupCount(int groupCount);
 	
 	/**
-	 * ¶àÂ·ÔËËãÊ±¶Ô°ÑËùÓÐÂ·µÄÔËËã½á¹ûºÏ²¢½øÐÐ¶þ´Î·Ö×é»ã×Ü£¬µÃµ½×îÖÕµÄ»ã×Ü½á¹û
-	 * @param results ËùÓÐÂ·µÄ·Ö×é½á¹û¹¹³ÉµÄÊý×é
-	 * @return ×îÖÕµÄ»ã×Ü½á¹û
+	 * å¤šè·¯è¿ç®—æ—¶å¯¹æŠŠæ‰€æœ‰è·¯çš„è¿ç®—ç»“æžœåˆå¹¶è¿›è¡ŒäºŒæ¬¡åˆ†ç»„æ±‡æ€»ï¼Œå¾—åˆ°æœ€ç»ˆçš„æ±‡æ€»ç»“æžœ
+	 * @param results æ‰€æœ‰è·¯çš„åˆ†ç»„ç»“æžœæž„æˆçš„æ•°ç»„
+	 * @return æœ€ç»ˆçš„æ±‡æ€»ç»“æžœ
 	 */
 	abstract public Object combineResult(Object []results);
 	
 	/**
-	 * ¶àÂ·ÓÎ±ê²¢ÐÐ·Ö×éÍê³Éºó½øÐÐºÏ²¢£¬Éú³É×îÖÕ·Ö×é½á¹û
+	 * å¤šè·¯æ¸¸æ ‡å¹¶è¡Œåˆ†ç»„å®ŒæˆåŽè¿›è¡Œåˆå¹¶ï¼Œç”Ÿæˆæœ€ç»ˆåˆ†ç»„ç»“æžœ
 	 * @param others
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Table combineGroupsResult(IGroupsResult []others, Context ctx) {
@@ -258,7 +258,7 @@ abstract public class IGroupsResult implements IResult {
 			return result;
 		}
 		
-		// Éú³É¶þ´Î·Ö×é»ã×Ü±í´ïÊ½£¬avg¿ÉÄÜ±»·Ö³Ésum¡¢countÁ½ÁÐ½øÐÐ¼ÆËã
+		// ç”ŸæˆäºŒæ¬¡åˆ†ç»„æ±‡æ€»è¡¨è¾¾å¼ï¼Œavgå¯èƒ½è¢«åˆ†æˆsumã€countä¸¤åˆ—è¿›è¡Œè®¡ç®—
 		Expression []valExps = getRegatherExpressions();
 		DataStruct tempDs = getRegatherDataStruct();
 		int tempFieldCount = tempDs.getFieldCount();
@@ -270,7 +270,7 @@ abstract public class IGroupsResult implements IResult {
 			keyCount = tempFieldCount;
 		}
 		
-		// Éú³É¶þ´Î·Ö×é·Ö×é±í´ïÊ½
+		// ç”ŸæˆäºŒæ¬¡åˆ†ç»„åˆ†ç»„è¡¨è¾¾å¼
 		Expression []keyExps = null;
 		String []names = null;
 		if (keyCount > 0) {
@@ -291,7 +291,7 @@ abstract public class IGroupsResult implements IResult {
 			}
 		}
 		
-		// ½øÐÐ¶þ´Î·Ö×é
+		// è¿›è¡ŒäºŒæ¬¡åˆ†ç»„
 		result = result.groups(keyExps, names, valExps, calcNames, getOption(), ctx);
 		Expression []newExps = getResultExpressions();
 		if (newExps != null) {

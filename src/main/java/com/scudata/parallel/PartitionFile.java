@@ -20,24 +20,24 @@ import com.scudata.dw.PhyTable;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ½Úµã»ú·ÖÇøÎÄ¼ş
+ * èŠ‚ç‚¹æœºåˆ†åŒºæ–‡ä»¶
  * @author RunQian
  *
  */
 class PartitionFile {
-	private ClusterFile clusterFile; // ËùÊôµÄ¼¯ÈºÎÄ¼ş
+	private ClusterFile clusterFile; // æ‰€å±çš„é›†ç¾¤æ–‡ä»¶
 	private String host; // IP
-	private int port; // ¶Ë¿Ú
+	private int port; // ç«¯å£
 	
-	//private int partition; // ·ÖÇø£¬-1±íÊ¾Ö±½ÓÓÃÎÄ¼şÃûÈ¡
-	private int []parts; // ·Ö±íºÅÊı×é£¬¶à¸öÔòÎª¸´×é±í£¬¿ÕÔòÖ±½ÓÓÃÎÄ¼şÃûÈ¡
+	//private int partition; // åˆ†åŒºï¼Œ-1è¡¨ç¤ºç›´æ¥ç”¨æ–‡ä»¶åå–
+	private int []parts; // åˆ†è¡¨å·æ•°ç»„ï¼Œå¤šä¸ªåˆ™ä¸ºå¤ç»„è¡¨ï¼Œç©ºåˆ™ç›´æ¥ç”¨æ–‡ä»¶åå–
 		
 	/**
-	 * ¹¹½¨½Úµã»ú·ÖÇøÎÄ¼ş
-	 * @param clusterFile ËùÊôµÄ¼¯ÈºÎÄ¼ş
+	 * æ„å»ºèŠ‚ç‚¹æœºåˆ†åŒºæ–‡ä»¶
+	 * @param clusterFile æ‰€å±çš„é›†ç¾¤æ–‡ä»¶
 	 * @param host IP
-	 * @param port ¶Ë¿Ú
-	 * @param partition ·ÖÇø
+	 * @param port ç«¯å£
+	 * @param partition åˆ†åŒº
 	 */
 	public PartitionFile(ClusterFile clusterFile, String host, int port, int partition) {
 		this.clusterFile = clusterFile;
@@ -58,7 +58,7 @@ class PartitionFile {
 	}
 	
 	/**
-	 * ¸´ÖÆ¶ÔÏó
+	 * å¤åˆ¶å¯¹è±¡
 	 * @param clusterFile
 	 * @return
 	 */
@@ -68,8 +68,8 @@ class PartitionFile {
 	}
 	
 	/**
-	 * ´´½¨×é±í
-	 * @param colNames ×Ö¶ÎÃûÊı×é
+	 * åˆ›å»ºç»„è¡¨
+	 * @param colNames å­—æ®µåæ•°ç»„
 	 * @param serialBytesLen
 	 * @param segmentCol
 	 * @param serialLen
@@ -103,7 +103,7 @@ class PartitionFile {
 	}
 	
 	/**
-	 * ÔÚ½Úµã»úÉÏÖ´ĞĞ´´½¨×é±íÃüÁî
+	 * åœ¨èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œåˆ›å»ºç»„è¡¨å‘½ä»¤
 	 * @param attributes
 	 * @return
 	 */
@@ -161,8 +161,8 @@ class PartitionFile {
 	}
 
 	/**
-	 * ´ò¿ª×é±í
-	 * @return ½Úµã»ú×é±í´úÀíID
+	 * æ‰“å¼€ç»„è¡¨
+	 * @return èŠ‚ç‚¹æœºç»„è¡¨ä»£ç†ID
 	 */
 	public int openGroupTable() {
 		UnitClient client = new UnitClient(host, port);
@@ -182,7 +182,7 @@ class PartitionFile {
 	}
 	
 	/**
-	 * ÔÚ½Úµã»úÉÏÖ´ĞĞ´ò¿ª×é±íÃüÁî
+	 * åœ¨èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œæ‰“å¼€ç»„è¡¨å‘½ä»¤
 	 * @param attributes
 	 * @return
 	 */
@@ -226,13 +226,13 @@ class PartitionFile {
 	}
 	
 	/**
-	 * ´´½¨¼¯Èº¼¯ÎÄ¼şÓÎ±ê
-	 * @param fields Ñ¡³ö×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param segSeq ·Ö¶ÎºÅ
-	 * @param segCount ·Ö¶ÎÊı
-	 * @param unit ½Úµã»úĞòºÅ
-	 * @return ½Úµã»úÓÎ±ê´úÀíºÅ
+	 * åˆ›å»ºé›†ç¾¤é›†æ–‡ä»¶æ¸¸æ ‡
+	 * @param fields é€‰å‡ºå­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param segSeq åˆ†æ®µå·
+	 * @param segCount åˆ†æ®µæ•°
+	 * @param unit èŠ‚ç‚¹æœºåºå·
+	 * @return èŠ‚ç‚¹æœºæ¸¸æ ‡ä»£ç†å·
 	 */
 	public int createBinaryCursor(String []fields, String opt, int segSeq, int segCount, int unit) {
 		UnitClient client = new UnitClient(host, port);
@@ -258,7 +258,7 @@ class PartitionFile {
 	}
 	
 	/**
-	 * ÔÚ½Úµã»úÉÏÖ´ĞĞ´´½¨¼¯ÎÄ¼şÓÎ±êÃüÁî
+	 * åœ¨èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œåˆ›å»ºé›†æ–‡ä»¶æ¸¸æ ‡å‘½ä»¤
 	 * @param attributes
 	 * @return
 	 */
@@ -298,12 +298,12 @@ class PartitionFile {
 	}
 	
 	/**
-	 * ÕûÀí×é±í
-	 * @param file ĞÂ×é±í¶ÔÓ¦µÄÎÄ¼ş£¬Ê¡ÂÔÔò¸²¸ÇÔ´ÎÄ¼ş
-	 * @param option Ñ¡Ïî
-	 * @param distribute ĞÂ·Ö²¼±í´ïÊ½
-	 * @param blockSize ĞÂÇø¿é´óĞ¡
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * æ•´ç†ç»„è¡¨
+	 * @param file æ–°ç»„è¡¨å¯¹åº”çš„æ–‡ä»¶ï¼Œçœç•¥åˆ™è¦†ç›–æºæ–‡ä»¶
+	 * @param option é€‰é¡¹
+	 * @param distribute æ–°åˆ†å¸ƒè¡¨è¾¾å¼
+	 * @param blockSize æ–°åŒºå—å¤§å°
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public boolean resetGroupTable(String file, String option, String distribute, Integer blockSize) {
 		UnitClient client = new UnitClient(host, port);
@@ -328,7 +328,7 @@ class PartitionFile {
 	}
 	
 	/**
-	 * ÔÚ½Úµã»úÉÏÖ´ĞĞÖØÉè×é±íÃüÁî
+	 * åœ¨èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œé‡è®¾ç»„è¡¨å‘½ä»¤
 	 * @param attributes
 	 * @return
 	 */
@@ -382,7 +382,7 @@ class PartitionFile {
 	}
 
 	/**
-	 * È¡½Úµã»úIP
+	 * å–èŠ‚ç‚¹æœºIP
 	 * @return String
 	 */
 	public String getHost() {
@@ -390,7 +390,7 @@ class PartitionFile {
 	}
 
 	/**
-	 * È¡½Úµã»ú¶Ë¿Ú
+	 * å–èŠ‚ç‚¹æœºç«¯å£
 	 * @return int
 	 */
 	public int getPort() {
@@ -398,7 +398,7 @@ class PartitionFile {
 	}
 
 	/**
-	 * È¡·ÖÇø
+	 * å–åˆ†åŒº
 	 * @return int
 	 */
 	public int getPartition() {

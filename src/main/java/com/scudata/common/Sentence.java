@@ -3,36 +3,36 @@ package com.scudata.common;
 import java.io.*;
 
 /**
- * ´ËÀàÊ¹ÓÃ×ªÒå×Ö·ûÊ±Çë×¢Òâ²»ÄÜÊ¹ÓÃµ¥ÒıºÅ¡¢Ë«ÒıºÅ¡¢Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅºÍ´óÀ¨ºÅ¡£ ´ËÀàÖ§³Ö×ªÒå×Ö·û\£¬¼´\ºóµÄÒıºÅÓëÀ¨ºÅ²»Æğ×÷ÓÃ£¬½«±»Ìø¹ı
+ * æ­¤ç±»ä½¿ç”¨è½¬ä¹‰å­—ç¬¦æ—¶è¯·æ³¨æ„ä¸èƒ½ä½¿ç”¨å•å¼•å·ã€åŒå¼•å·ã€åœ†æ‹¬å·ã€ä¸­æ‹¬å·å’Œå¤§æ‹¬å·ã€‚ æ­¤ç±»æ”¯æŒè½¬ä¹‰å­—ç¬¦\ï¼Œå³\åçš„å¼•å·ä¸æ‹¬å·ä¸èµ·ä½œç”¨ï¼Œå°†è¢«è·³è¿‡
  */
 
 public final class Sentence {
 	/**
-	 * ËÑË÷Ê±ºöÂÔ´óĞ¡Ğ´
+	 * æœç´¢æ—¶å¿½ç•¥å¤§å°å†™
 	 */
 	public static final int IGNORE_CASE = 1;
 	/**
-	 * ËÑË÷Ê±ºöÂÔÔ²À¨ºÅ,¼´ÒªÉ¨ÃèÀ¨ºÅÖĞÄÚÈİ
+	 * æœç´¢æ—¶å¿½ç•¥åœ†æ‹¬å·,å³è¦æ‰«ææ‹¬å·ä¸­å†…å®¹
 	 */
 	public static final int IGNORE_PARS = 2;
 	/**
-	 * ËÑË÷Ê±½ö½ö²éÕÒµÚÒ»¸öÆ¥Åä´®
+	 * æœç´¢æ—¶ä»…ä»…æŸ¥æ‰¾ç¬¬ä¸€ä¸ªåŒ¹é…ä¸²
 	 */
 	public static final int ONLY_FIRST = 4;
 	/**
-	 * ËÑË÷Ê±½ö½öÔÚÆ¥Åä´®ÊÇ±êÊ¶·ûÊ±³É¹¦
+	 * æœç´¢æ—¶ä»…ä»…åœ¨åŒ¹é…ä¸²æ˜¯æ ‡è¯†ç¬¦æ—¶æˆåŠŸ
 	 */
 	public static final int ONLY_PHRASE = 8;
 	/**
-	 * ËÑË÷Ê±ºöÂÔÒıºÅ,¼´ÒªÉ¨ÃèÒıºÅÖĞÄÚÈİ
+	 * æœç´¢æ—¶å¿½ç•¥å¼•å·,å³è¦æ‰«æå¼•å·ä¸­å†…å®¹
 	 */
 	public static final int IGNORE_QUOTE = 16;
 	/**
-	 * Ö¸Ê¾É¾³ı×Ö·û´®ÖĞ¿Õ°××Ö·ûÊ±½«ÒıºÅÍâµÄ×Ö·û´óĞ´
+	 * æŒ‡ç¤ºåˆ é™¤å­—ç¬¦ä¸²ä¸­ç©ºç™½å­—ç¬¦æ—¶å°†å¼•å·å¤–çš„å­—ç¬¦å¤§å†™
 	 */
 	public static final int UPPER_WHEN_TRIM = 16;
 	/**
-	 * Ö¸Ê¾É¾³ı×Ö·û´®ÖĞ¿Õ°××Ö·ûÊ±½«ÒıºÅÍâµÄ×Ö·ûĞ¡Ğ´
+	 * æŒ‡ç¤ºåˆ é™¤å­—ç¬¦ä¸²ä¸­ç©ºç™½å­—ç¬¦æ—¶å°†å¼•å·å¤–çš„å­—ç¬¦å°å†™
 	 */
 	public static final int LOWER_WHEN_TRIM = 32;
 
@@ -44,22 +44,22 @@ public final class Sentence {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param str
-	 *            ĞèÒª½øĞĞ¾ä·¨·ÖÎöµÄ×Ö·û´®
+	 *            éœ€è¦è¿›è¡Œå¥æ³•åˆ†æçš„å­—ç¬¦ä¸²
 	 */
 	public Sentence(String str) {
 		this.str = str;
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param str
-	 *            ĞèÒª½øĞĞ¾ä·¨·ÖÎöµÄ×Ö·û´®
+	 *            éœ€è¦è¿›è¡Œå¥æ³•åˆ†æçš„å­—ç¬¦ä¸²
 	 * @param escapeChar
-	 *            ×ªÒå×Ö·û
+	 *            è½¬ä¹‰å­—ç¬¦
 	 */
 	public Sentence(String str, char escapeChar) {
 		this.str = str;
@@ -67,13 +67,13 @@ public final class Sentence {
 	}
 
 	/**
-	 * ËÑË÷±êÊ¶·û
+	 * æœç´¢æ ‡è¯†ç¬¦
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷±êÊ¶µÄÔ­´®
+	 *            éœ€è¦æœç´¢æ ‡è¯†çš„åŸä¸²
 	 * @param start
-	 *            ËÑË÷µÄÆğÊ¼Î»ÖÃ
-	 * @return ·µ»Ø±êÊ¶·û×îºóÒ»¸ö×Ö·ûÔÚÔ­´®ÖĞµÄÎ»ÖÃ
+	 *            æœç´¢çš„èµ·å§‹ä½ç½®
+	 * @return è¿”å›æ ‡è¯†ç¬¦æœ€åä¸€ä¸ªå­—ç¬¦åœ¨åŸä¸²ä¸­çš„ä½ç½®
 	 */
 	public static int scanIdentifier(String str, int start) {
 		int len = str.length();
@@ -117,15 +117,15 @@ public final class Sentence {
 	}
 
 	/**
-	 * ËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄÒıºÅ'»ò"
+	 * æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„å¼•å·'æˆ–"
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷ÒıºÅµÄÔ­´®
+	 *            éœ€è¦æœç´¢å¼•å·çš„åŸä¸²
 	 * @param start
-	 *            ÆğÊ¼Î»ÖÃ,¼´Í·Ò»ÒıºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ
+	 *            èµ·å§‹ä½ç½®,å³å¤´ä¸€å¼•å·åœ¨åŸä¸²ä¸­çš„ä½ç½®
 	 * @param escapeChar
-	 *            ×ªÒå×Ö·û
-	 * @return ÈôÕÒµ½,Ôò·µ»ØÆ¥ÅäµÄÒıºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 *            è½¬ä¹‰å­—ç¬¦
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›åŒ¹é…çš„å¼•å·åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int scanQuotation(String str, int start, char escapeChar) {
 		char quote = str.charAt(start);
@@ -149,28 +149,28 @@ public final class Sentence {
 	}
 
 	/**
-	 * ËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄÒıºÅ'»ò",È±Ê¡×ªÒå×Ö·ûÎª\
+	 * æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„å¼•å·'æˆ–",ç¼ºçœè½¬ä¹‰å­—ç¬¦ä¸º\
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷ÒıºÅµÄÔ­´®
+	 *            éœ€è¦æœç´¢å¼•å·çš„åŸä¸²
 	 * @param start
-	 *            ÆğÊ¼Î»ÖÃ,¼´Í·Ò»ÒıºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ
-	 * @return ÈôÕÒµ½,Ôò·µ»ØÆ¥ÅäµÄÒıºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 *            èµ·å§‹ä½ç½®,å³å¤´ä¸€å¼•å·åœ¨åŸä¸²ä¸­çš„ä½ç½®
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›åŒ¹é…çš„å¼•å·åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int scanQuotation(String str, int start) {
 		return scanQuotation(str, start, '\\');
 	}
 
 	/**
-	 * ËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄÔ²À¨ºÅ£¬µ«ÒıºÅÄÚµÄÔ²À¨ºÅ±»Ìø¹ı
+	 * æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„åœ†æ‹¬å·ï¼Œä½†å¼•å·å†…çš„åœ†æ‹¬å·è¢«è·³è¿‡
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷À¨ºÅµÄÔ­´®
+	 *            éœ€è¦æœç´¢æ‹¬å·çš„åŸä¸²
 	 * @param start
-	 *            ÆğÊ¼Î»ÖÃ,¼´×óÔ²À¨ºÅ(ÔÚÔ­´®ÖĞµÄÎ»ÖÃ
+	 *            èµ·å§‹ä½ç½®,å³å·¦åœ†æ‹¬å·(åœ¨åŸä¸²ä¸­çš„ä½ç½®
 	 * @param escapeChar
-	 *            ×ªÒå×Ö·û
-	 * @return ÈôÕÒµ½,Ôò·µ»ØÆ¥ÅäµÄÓÒÔ²À¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 *            è½¬ä¹‰å­—ç¬¦
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›åŒ¹é…çš„å³åœ†æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int scanParenthesis(String str, int start, char escapeChar) {
 		if (str.charAt(start) != '(')
@@ -220,28 +220,28 @@ public final class Sentence {
 	}
 
 	/**
-	 * ËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄÔ²À¨ºÅ,È±Ê¡×ªÒå×Ö·ûÎª\£¬ÇÒÒıºÅÄÚµÄÔ²À¨ºÅ±»Ìø¹ı
+	 * æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„åœ†æ‹¬å·,ç¼ºçœè½¬ä¹‰å­—ç¬¦ä¸º\ï¼Œä¸”å¼•å·å†…çš„åœ†æ‹¬å·è¢«è·³è¿‡
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷À¨ºÅµÄÔ­´®
+	 *            éœ€è¦æœç´¢æ‹¬å·çš„åŸä¸²
 	 * @param start
-	 *            ÆğÊ¼Î»ÖÃ,¼´×óÔ²À¨ºÅ(ÔÚÔ­´®ÖĞµÄÎ»ÖÃ
-	 * @return ÈôÕÒµ½,Ôò·µ»ØÆ¥ÅäµÄÓÒÔ²À¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 *            èµ·å§‹ä½ç½®,å³å·¦åœ†æ‹¬å·(åœ¨åŸä¸²ä¸­çš„ä½ç½®
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›åŒ¹é…çš„å³åœ†æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int scanParenthesis(String str, int start) {
 		return scanParenthesis(str, start, '\\');
 	}
 
 	/**
-	 * ËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄÖĞÀ¨ºÅ£¬µ«ÒıºÅÄÚµÄÖĞÀ¨ºÅ±»Ìø¹ı
+	 * æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„ä¸­æ‹¬å·ï¼Œä½†å¼•å·å†…çš„ä¸­æ‹¬å·è¢«è·³è¿‡
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷À¨ºÅµÄÔ­´®
+	 *            éœ€è¦æœç´¢æ‹¬å·çš„åŸä¸²
 	 * @param start
-	 *            ÆğÊ¼Î»ÖÃ,¼´×óÖĞÀ¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ
+	 *            èµ·å§‹ä½ç½®,å³å·¦ä¸­æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®
 	 * @param escapeChar
-	 *            ×ªÒå×Ö·û
-	 * @return ÈôÕÒµ½,Ôò·µ»ØÆ¥ÅäµÄÓÒÖĞÀ¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 *            è½¬ä¹‰å­—ç¬¦
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›åŒ¹é…çš„å³ä¸­æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int scanBracket(String str, int start, char escapeChar) {
 		if (str.charAt(start) != '[')
@@ -279,28 +279,28 @@ public final class Sentence {
 	}
 
 	/**
-	 * ËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄÖĞÀ¨ºÅ,È±Ê¡×ªÒå×Ö·ûÎª\£¬ÇÒÒıºÅÄÚµÄÖĞÀ¨ºÅ±»Ìø¹ı
+	 * æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„ä¸­æ‹¬å·,ç¼ºçœè½¬ä¹‰å­—ç¬¦ä¸º\ï¼Œä¸”å¼•å·å†…çš„ä¸­æ‹¬å·è¢«è·³è¿‡
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷À¨ºÅµÄÔ­´®
+	 *            éœ€è¦æœç´¢æ‹¬å·çš„åŸä¸²
 	 * @param start
-	 *            ÆğÊ¼Î»ÖÃ,¼´×óÖĞÀ¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ
-	 * @return ÈôÕÒµ½,Ôò·µ»ØÆ¥ÅäµÄÓÒÖĞÀ¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 *            èµ·å§‹ä½ç½®,å³å·¦ä¸­æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›åŒ¹é…çš„å³ä¸­æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int scanBracket(String str, int start) {
 		return scanBracket(str, start, '\\');
 	}
 
 	/**
-	 * ËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄ»¨À¨ºÅ£¬µ«ÒıºÅÄÚµÄ»¨À¨ºÅ±»Ìø¹ı
+	 * æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„èŠ±æ‹¬å·ï¼Œä½†å¼•å·å†…çš„èŠ±æ‹¬å·è¢«è·³è¿‡
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷À¨ºÅµÄÔ­´®
+	 *            éœ€è¦æœç´¢æ‹¬å·çš„åŸä¸²
 	 * @param start
-	 *            ÆğÊ¼Î»ÖÃ,¼´×ó»¨À¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ
+	 *            èµ·å§‹ä½ç½®,å³å·¦èŠ±æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®
 	 * @param escapeChar
-	 *            ×ªÒå×Ö·û
-	 * @return ÈôÕÒµ½,Ôò·µ»ØÆ¥ÅäµÄÓÒ»¨À¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 *            è½¬ä¹‰å­—ç¬¦
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›åŒ¹é…çš„å³èŠ±æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int scanBrace(String str, int start, char escapeChar) {
 		if (str.charAt(start) != '{')
@@ -338,20 +338,20 @@ public final class Sentence {
 	}
 
 	/**
-	 * ËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄ»¨À¨ºÅ,È±Ê¡×ªÒå×Ö·ûÎª\£¬ÇÒÒıºÅÄÚµÄ»¨À¨ºÅ±»Ìø¹ı
+	 * æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„èŠ±æ‹¬å·,ç¼ºçœè½¬ä¹‰å­—ç¬¦ä¸º\ï¼Œä¸”å¼•å·å†…çš„èŠ±æ‹¬å·è¢«è·³è¿‡
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷À¨ºÅµÄÔ­´®
+	 *            éœ€è¦æœç´¢æ‹¬å·çš„åŸä¸²
 	 * @param start
-	 *            ÆğÊ¼Î»ÖÃ,¼´×ó»¨À¨ºÅ(ÔÚÔ­´®ÖĞµÄÎ»ÖÃ
-	 * @return ÈôÕÒµ½,Ôò·µ»ØÆ¥ÅäµÄÓÒ»¨À¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 *            èµ·å§‹ä½ç½®,å³å·¦èŠ±æ‹¬å·(åœ¨åŸä¸²ä¸­çš„ä½ç½®
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›åŒ¹é…çš„å³èŠ±æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int scanBrace(String str, int start) {
 		return scanBrace(str, start, '\\');
 	}
 
 	/**
-	 * É¨ÃèÖĞÎÄÀ¨ºÅÆ¥Åä£¬°üº¬£¨¡¢¡¾¡¢¡¶¡¢<
+	 * æ‰«æä¸­æ–‡æ‹¬å·åŒ¹é…ï¼ŒåŒ…å«ï¼ˆã€ã€ã€ã€Šã€<
 	 * @param str
 	 * @param start
 	 * @return
@@ -359,12 +359,12 @@ public final class Sentence {
 	public static int scanChineseBracket(String str, int start) {
 		char cb = str.charAt(start);
 		char matchChar;
-		if (cb == '£¨') {
-			matchChar = '£©';
-		} else if (cb == '¡¾') {
-			matchChar = '¡¿';
-		} else if (cb == '¡¶') {
-			matchChar = '¡·';
+		if (cb == 'ï¼ˆ') {
+			matchChar = 'ï¼‰';
+		} else if (cb == 'ã€') {
+			matchChar = 'ã€‘';
+		} else if (cb == 'ã€Š') {
+			matchChar = 'ã€‹';
 		} else {
 			matchChar = '>';
 		}
@@ -397,16 +397,16 @@ public final class Sentence {
 	}
 	
 	/**
-	 * ½«Ô­´®ÖĞµÄ¿Õ°××Ö·ûÉ¾³ı,²¢¸ù¾İifcase²ÎÊı½«Ô­´®ÖĞµÄ·ÇÒıºÅÄÚ×Ö·û´óĞ´,Ğ¡Ğ´»ò²»¶¯
+	 * å°†åŸä¸²ä¸­çš„ç©ºç™½å­—ç¬¦åˆ é™¤,å¹¶æ ¹æ®ifcaseå‚æ•°å°†åŸä¸²ä¸­çš„éå¼•å·å†…å­—ç¬¦å¤§å†™,å°å†™æˆ–ä¸åŠ¨
 	 * 
 	 * @param str
-	 *            ĞèÒªÉ¾³ı¿Õ°××Ö·ûµÄÔ­´®
+	 *            éœ€è¦åˆ é™¤ç©ºç™½å­—ç¬¦çš„åŸä¸²
 	 * @param ifcase
-	 *            ¿ÉÒÔÊ¹ÓÃ0, UPPER_WHEN_TRIM, LOWER_WHEN_TRIM,
+	 *            å¯ä»¥ä½¿ç”¨0, UPPER_WHEN_TRIM, LOWER_WHEN_TRIM,
 	 *            UPPER_WHEN_TRIM+LOWER_WHEN_TRIM
 	 * @param escapeChar
-	 *            ×ªÒå×Ö·û
-	 * @return É¾³ı¿Õ°××Ö·ûºóµÄ´®
+	 *            è½¬ä¹‰å­—ç¬¦
+	 * @return åˆ é™¤ç©ºç™½å­—ç¬¦åçš„ä¸²
 	 */
 	public static String trim(String str, int ifcase, char escapeChar) {
 		int idx = 0, len = str.length();
@@ -423,7 +423,7 @@ public final class Sentence {
 					dst.append(' ');
 				int i = scanQuotation(str, idx, escapeChar);
 				if (i < 0)
-					throw new RuntimeException("Î´ÕÒµ½Î»ÖÃ" + idx + "´¦¶ÔÓ¦µÄÒıºÅ");
+					throw new RuntimeException("æœªæ‰¾åˆ°ä½ç½®" + idx + "å¤„å¯¹åº”çš„å¼•å·");
 				i++;
 				for (int j = idx; j < i; j++)
 					dst.append(str.charAt(j));
@@ -460,33 +460,33 @@ public final class Sentence {
 	}
 
 	/**
-	 * ½«Ô­´®ÖĞµÄ¿Õ°××Ö·ûÉ¾³ı,²¢¸ù¾İifcase²ÎÊı½«Ô­´®ÖĞµÄ·ÇÒıºÅÄÚ×Ö·û´óĞ´,Ğ¡Ğ´»ò²»¶¯,È±Ê¡×ªÒå×Ö·ûÎª\
+	 * å°†åŸä¸²ä¸­çš„ç©ºç™½å­—ç¬¦åˆ é™¤,å¹¶æ ¹æ®ifcaseå‚æ•°å°†åŸä¸²ä¸­çš„éå¼•å·å†…å­—ç¬¦å¤§å†™,å°å†™æˆ–ä¸åŠ¨,ç¼ºçœè½¬ä¹‰å­—ç¬¦ä¸º\
 	 * 
 	 * @param str
-	 *            ĞèÒªÉ¾³ı¿Õ°××Ö·ûµÄÔ­´®
+	 *            éœ€è¦åˆ é™¤ç©ºç™½å­—ç¬¦çš„åŸä¸²
 	 * @param ifcase
-	 *            ¿ÉÒÔÎª0, UPPER_WHEN_TRIM, LOWER_WHEN_TRIM,
+	 *            å¯ä»¥ä¸º0, UPPER_WHEN_TRIM, LOWER_WHEN_TRIM,
 	 *            UPPER_WHEN_TRIM+LOWER_WHEN_TRIM
-	 * @return É¾³ı¿Õ°××Ö·ûºóµÄ´®
+	 * @return åˆ é™¤ç©ºç™½å­—ç¬¦åçš„ä¸²
 	 */
 	public static String trim(String str, int ifcase) {
 		return trim(str, ifcase, '\\');
 	}
 
 	/**
-	 * ÔÚÔ­´®ÖĞËÑË÷¶ÌÓï£¬²»ËÑË÷ÒıºÅÖĞÄÚÈİ
+	 * åœ¨åŸä¸²ä¸­æœç´¢çŸ­è¯­ï¼Œä¸æœç´¢å¼•å·ä¸­å†…å®¹
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷¶ÌÓïµÄÔ­´®
+	 *            éœ€è¦æœç´¢çŸ­è¯­çš„åŸä¸²
 	 * @param phrase
-	 *            ĞèÒªËÑË÷µÄ¶ÌÓï
+	 *            éœ€è¦æœç´¢çš„çŸ­è¯­
 	 * @param start
-	 *            ÔÚÔ­´®ÖĞµÄÆğÊ¼Î»ÖÃ
+	 *            åœ¨åŸä¸²ä¸­çš„èµ·å§‹ä½ç½®
 	 * @param flag
-	 *            ¿ÉÒÔÎª0,IGNORE_CASE,IGNORE_PARS,IGNORE_CASE+IGNORE_PARS
+	 *            å¯ä»¥ä¸º0,IGNORE_CASE,IGNORE_PARS,IGNORE_CASE+IGNORE_PARS
 	 * @param escapeChar
-	 *            ×ªÒå×Ö·û
-	 * @return ÈôÕÒµ½,Ôò·µ»Ø¶ÌÓïÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 *            è½¬ä¹‰å­—ç¬¦
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›çŸ­è¯­åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int phraseAt(String str, String phrase, int start, int flag,
 			char escapeChar) {
@@ -525,45 +525,45 @@ public final class Sentence {
 	}
 
 	/**
-	 * ÔÚÔ­´®ÖĞËÑË÷¶ÌÓï,È±Ê¡×ªÒå×Ö·ûÎª\
+	 * åœ¨åŸä¸²ä¸­æœç´¢çŸ­è¯­,ç¼ºçœè½¬ä¹‰å­—ç¬¦ä¸º\
 	 * 
 	 * @param str
-	 *            ĞèÒªËÑË÷¶ÌÓïµÄÔ­´®
+	 *            éœ€è¦æœç´¢çŸ­è¯­çš„åŸä¸²
 	 * @param phrase
-	 *            ĞèÒªËÑË÷µÄ¶ÌÓï
+	 *            éœ€è¦æœç´¢çš„çŸ­è¯­
 	 * @param start
-	 *            ÔÚÔ­´®ÖĞµÄÆğÊ¼Î»ÖÃ
+	 *            åœ¨åŸä¸²ä¸­çš„èµ·å§‹ä½ç½®
 	 * @param flag
-	 *            ¿ÉÒÔÎª0,IGNORE_CASE,IGNORE_PARS¼°Æä¼Ó·¨×éºÏ
-	 * @return ÈôÕÒµ½,Ôò·µ»Ø¶ÌÓïÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 *            å¯ä»¥ä¸º0,IGNORE_CASE,IGNORE_PARSåŠå…¶åŠ æ³•ç»„åˆ
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›çŸ­è¯­åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int phraseAt(String str, String phrase, int start, int flag) {
 		return phraseAt(str, phrase, start, flag, '\\');
 	}
 
 	/**
-	 * Ìæ»»Ô­´®ÖĞµÄ×Ó´®
+	 * æ›¿æ¢åŸä¸²ä¸­çš„å­ä¸²
 	 * 
 	 * @param str
-	 *            ĞèÒªÌæ»»µÄÔ­´®
+	 *            éœ€è¦æ›¿æ¢çš„åŸä¸²
 	 * @param start
-	 *            ¶ÔÔ­´®¿ªÊ¼Ìæ»»µÄÆğÊ¼Î»ÖÃ
+	 *            å¯¹åŸä¸²å¼€å§‹æ›¿æ¢çš„èµ·å§‹ä½ç½®
 	 * @param sold
-	 *            ĞèÒªÌæ»»µÄ×Ó´®
+	 *            éœ€è¦æ›¿æ¢çš„å­ä¸²
 	 * @param snew
-	 *            Ìæ»»´®
+	 *            æ›¿æ¢ä¸²
 	 * @param flag
-	 *            ¿ÉÎª0,IGNORE_CASE,IGNORE_PARS,IGNORE_QUOTE,ONLY_FIRST,
-	 *            ONLY_PHRASE¼°Æä¼Ó·¨×éºÏ
+	 *            å¯ä¸º0,IGNORE_CASE,IGNORE_PARS,IGNORE_QUOTE,ONLY_FIRST,
+	 *            ONLY_PHRASEåŠå…¶åŠ æ³•ç»„åˆ
 	 * @param escapeChar
-	 *            ×ªÒå×Ö·û
-	 * @return Ìæ»»ºóµÄ´®
+	 *            è½¬ä¹‰å­—ç¬¦
+	 * @return æ›¿æ¢åçš„ä¸²
 	 */
 	public static String replace(String str, int start, String sold,
 			String snew, int flag, char escapeChar) {
 		int strlen = str.length(), len = sold.length();
 		StringBuffer dst = null;
-		char preChar = '*'; // Ö¸Ê¾Æ¥Åä´®Ç°Ò»¸ö×Ö·û²»ÊÇÓĞĞ§±êÊ¶·û×Ö·û
+		char preChar = '*'; // æŒ‡ç¤ºåŒ¹é…ä¸²å‰ä¸€ä¸ªå­—ç¬¦ä¸æ˜¯æœ‰æ•ˆæ ‡è¯†ç¬¦å­—ç¬¦
 		int i = start;
 		while (i < strlen) {
 			char ch = str.charAt(i);
@@ -571,7 +571,7 @@ public final class Sentence {
 					&& (i == 0 || (i > 0 && str.charAt(i - 1) != escapeChar))) {
 				int idx = scanQuotation(str, i, escapeChar);
 				if (idx < 0)
-					throw new RuntimeException("Î´ÕÒµ½Î»ÖÃ" + i + "´¦¶ÔÓ¦µÄÒıºÅ");
+					throw new RuntimeException("æœªæ‰¾åˆ°ä½ç½®" + i + "å¤„å¯¹åº”çš„å¼•å·");
 				idx++;
 				if (dst != null)
 					for (int j = i; j < idx; j++)
@@ -583,7 +583,7 @@ public final class Sentence {
 			if (((flag & IGNORE_PARS) == 0) && (ch == '(')) {
 				int idx = scanParenthesis(str, i, escapeChar);
 				if (idx < 0)
-					throw new RuntimeException("Î´ÕÒµ½Î»ÖÃ" + i + "´¦¶ÔÓ¦µÄÔ²À¨ºÅ");
+					throw new RuntimeException("æœªæ‰¾åˆ°ä½ç½®" + i + "å¤„å¯¹åº”çš„åœ†æ‹¬å·");
 				idx++;
 				if (dst != null)
 					for (int j = i; j < idx; j++)
@@ -595,9 +595,9 @@ public final class Sentence {
 			boolean lb;
 			lb = sold.regionMatches((flag & IGNORE_CASE) > 0, 0, str, i, len);
 			if (lb && (flag & ONLY_PHRASE) > 0) {
-				// ±»Æ¥Åä´®µÄµÚÒ»×Ö·û¼°Ç°Ò»×Ö·ûÓĞÒ»¸ö²»ÊÇ±êÊ¶·û×Ö·ûÊ±ÎªÕæ
+				// è¢«åŒ¹é…ä¸²çš„ç¬¬ä¸€å­—ç¬¦åŠå‰ä¸€å­—ç¬¦æœ‰ä¸€ä¸ªä¸æ˜¯æ ‡è¯†ç¬¦å­—ç¬¦æ—¶ä¸ºçœŸ
 				lb = !isWordChar(sold.charAt(0)) || !isWordChar(preChar);
-				// ±»Æ¥Åä´®µÄ×îºó×Ö·û¼°ºóÒ»×Ö·ûÓĞÒ»¸ö²»ÊÇ±êÊ¶·û×Ö·ûÊ±
+				// è¢«åŒ¹é…ä¸²çš„æœ€åå­—ç¬¦åŠåä¸€å­—ç¬¦æœ‰ä¸€ä¸ªä¸æ˜¯æ ‡è¯†ç¬¦å­—ç¬¦æ—¶
 				if ((i + len) < strlen)
 					lb = lb
 							&& (!isWordChar(sold.charAt(len - 1)) || !isWordChar(str
@@ -629,19 +629,19 @@ public final class Sentence {
 	}
 
 	/**
-	 * Ìæ»»Ô­´®ÖĞµÄ×Ó´®,È±Ê¡×ªÒå×Ö·ûÎª\
+	 * æ›¿æ¢åŸä¸²ä¸­çš„å­ä¸²,ç¼ºçœè½¬ä¹‰å­—ç¬¦ä¸º\
 	 * 
 	 * @param str
-	 *            ĞèÒªÌæ»»µÄÔ­´®
+	 *            éœ€è¦æ›¿æ¢çš„åŸä¸²
 	 * @param start
-	 *            ¶ÔÔ­´®¿ªÊ¼Ìæ»»µÄÆğÊ¼Î»ÖÃ
+	 *            å¯¹åŸä¸²å¼€å§‹æ›¿æ¢çš„èµ·å§‹ä½ç½®
 	 * @param sold
-	 *            ĞèÒªÌæ»»µÄ×Ó´®
+	 *            éœ€è¦æ›¿æ¢çš„å­ä¸²
 	 * @param snew
-	 *            Ìæ»»´®
+	 *            æ›¿æ¢ä¸²
 	 * @param flag
-	 *            ¿ÉÎª0,IGNORE_CASE,IGNORE_PARS,ONLY_FIRST,ONLY_PHRASE¼°Æä¼Ó·¨×éºÏ
-	 * @return Ìæ»»ºóµÄ´®
+	 *            å¯ä¸º0,IGNORE_CASE,IGNORE_PARS,ONLY_FIRST,ONLY_PHRASEåŠå…¶åŠ æ³•ç»„åˆ
+	 * @return æ›¿æ¢åçš„ä¸²
 	 */
 	public static String replace(String str, int start, String sold,
 			String snew, int flag) {
@@ -649,76 +649,76 @@ public final class Sentence {
 	}
 
 	/**
-	 * Ìæ»»Ô­´®ÖĞµÄ×Ó´®,È±Ê¡×ªÒå×Ö·ûÎª\
+	 * æ›¿æ¢åŸä¸²ä¸­çš„å­ä¸²,ç¼ºçœè½¬ä¹‰å­—ç¬¦ä¸º\
 	 * 
 	 * @param str
-	 *            ĞèÒªÌæ»»µÄÔ­´®
+	 *            éœ€è¦æ›¿æ¢çš„åŸä¸²
 	 * @param sold
-	 *            ĞèÒªÌæ»»µÄ×Ó´®
+	 *            éœ€è¦æ›¿æ¢çš„å­ä¸²
 	 * @param snew
-	 *            Ìæ»»´®
+	 *            æ›¿æ¢ä¸²
 	 * @param flag
-	 *            ¿ÉÎª0,IGNORE_CASE,IGNORE_PARS,ONLY_FIRST,ONLY_PHRASE¼°Æä¼Ó·¨×éºÏ
-	 * @return Ìæ»»ºóµÄ´®
+	 *            å¯ä¸º0,IGNORE_CASE,IGNORE_PARS,ONLY_FIRST,ONLY_PHRASEåŠå…¶åŠ æ³•ç»„åˆ
+	 * @return æ›¿æ¢åçš„ä¸²
 	 */
 	public static String replace(String str, String sold, String snew, int flag) {
 		return replace(str, 0, sold, snew, flag, '\\');
 	}
 
 	/**
-	 * ËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄÒıºÅ'»ò"
+	 * æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„å¼•å·'æˆ–"
 	 * 
 	 * @param start
-	 *            ÆğÊ¼Î»ÖÃ,¼´Í·Ò»ÒıºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ
-	 * @return ÏÂÒ»¸öÆ¥ÅäµÄÒıºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ
+	 *            èµ·å§‹ä½ç½®,å³å¤´ä¸€å¼•å·åœ¨åŸä¸²ä¸­çš„ä½ç½®
+	 * @return ä¸‹ä¸€ä¸ªåŒ¹é…çš„å¼•å·åœ¨åŸä¸²ä¸­çš„ä½ç½®
 	 */
 	public int scanQuotation(int start) {
 		return scanQuotation(this.str, start, escapeChar);
 	}
 
 	/**
-	 * ½«Ô­´®ÖĞµÄ¿Õ°××Ö·ûÉ¾³ı,²¢¸ù¾İifcase²ÎÊı½«Ô­´®ÖĞµÄ·ÇÒıºÅÄÚ×Ö·û´óĞ´,Ğ¡Ğ´»ò²»¶¯£¬ ½«getSentence()·µ»ØµÄ´®¸ü¸ÄÎª½á¹û´®
+	 * å°†åŸä¸²ä¸­çš„ç©ºç™½å­—ç¬¦åˆ é™¤,å¹¶æ ¹æ®ifcaseå‚æ•°å°†åŸä¸²ä¸­çš„éå¼•å·å†…å­—ç¬¦å¤§å†™,å°å†™æˆ–ä¸åŠ¨ï¼Œ å°†getSentence()è¿”å›çš„ä¸²æ›´æ”¹ä¸ºç»“æœä¸²
 	 * 
 	 * @param ifcase
-	 *            ¿ÉÒÔÎª0, UPPER_WHEN_TRIM, LOWER_WHEN_TRIM¼°Æä¼Ó·¨×éºÏ
-	 * @return É¾³ı¿Õ°××Ö·ûºóµÄ´®
+	 *            å¯ä»¥ä¸º0, UPPER_WHEN_TRIM, LOWER_WHEN_TRIMåŠå…¶åŠ æ³•ç»„åˆ
+	 * @return åˆ é™¤ç©ºç™½å­—ç¬¦åçš„ä¸²
 	 */
 	public void trim(int ifcase) {
 		this.str = trim(this.str, ifcase, escapeChar);
 	}
 
 	/**
-	 * ÔÚÔ­´®ÖĞËÑË÷¶ÌÓï
+	 * åœ¨åŸä¸²ä¸­æœç´¢çŸ­è¯­
 	 * 
 	 * @param phrase
-	 *            ĞèÒªËÑË÷µÄ¶ÌÓï
+	 *            éœ€è¦æœç´¢çš„çŸ­è¯­
 	 * @param start
-	 *            ÔÚÔ­´®ÖĞµÄÆğÊ¼Î»ÖÃ
+	 *            åœ¨åŸä¸²ä¸­çš„èµ·å§‹ä½ç½®
 	 * @param flag
-	 *            ¿ÉÒÔÎª0,IGNORE_CASE,IGNORE_PARS,IGNORE_CASE+IGNORE_PARS
-	 * @return ¶ÌÓïÔÚÔ­´®ÖĞµÄÎ»ÖÃ
+	 *            å¯ä»¥ä¸º0,IGNORE_CASE,IGNORE_PARS,IGNORE_CASE+IGNORE_PARS
+	 * @return çŸ­è¯­åœ¨åŸä¸²ä¸­çš„ä½ç½®
 	 */
 	public int phraseAt(String phrase, int start, int flag) {
 		return phraseAt(this.str, phrase, start, flag, escapeChar);
 	}
 
 	/**
-	 * Ìæ»»Ô­´®ÖĞµÄ×Ó´®£¬²¢½«getSentence()·µ»ØµÄ×Ö·û´®¸ü¸ÄÎª½á¹û´®
+	 * æ›¿æ¢åŸä¸²ä¸­çš„å­ä¸²ï¼Œå¹¶å°†getSentence()è¿”å›çš„å­—ç¬¦ä¸²æ›´æ”¹ä¸ºç»“æœä¸²
 	 * 
 	 * @param start
-	 *            ¶ÔÔ­´®¿ªÊ¼Ìæ»»µÄÆğÊ¼Î»ÖÃ
+	 *            å¯¹åŸä¸²å¼€å§‹æ›¿æ¢çš„èµ·å§‹ä½ç½®
 	 * @param sold
-	 *            ĞèÒªÌæ»»µÄ×Ó´®
+	 *            éœ€è¦æ›¿æ¢çš„å­ä¸²
 	 * @param snew
-	 *            Ìæ»»´®
+	 *            æ›¿æ¢ä¸²
 	 * @param flag
-	 *            ¿ÉÎª0,IGNORE_CASE,IGNORE_PARS,ONLY_FIRST,ONLY_PHRASE¼°Æä¼Ó·¨×éºÏ
-	 * @return ±»Ìæ»»×Ó´®µÄ¸öÊı
+	 *            å¯ä¸º0,IGNORE_CASE,IGNORE_PARS,ONLY_FIRST,ONLY_PHRASEåŠå…¶åŠ æ³•ç»„åˆ
+	 * @return è¢«æ›¿æ¢å­ä¸²çš„ä¸ªæ•°
 	 */
 	public int replace(int start, String sold, String snew, int flag) {
 		int strlen = str.length(), len = sold.length(), count = 0;
 		StringBuffer dst = null;
-		char preChar = '*'; // Ö¸Ê¾Æ¥Åä´®Ç°Ò»¸ö×Ö·û²»ÊÇÓĞĞ§±êÊ¶·û×Ö·û
+		char preChar = '*'; // æŒ‡ç¤ºåŒ¹é…ä¸²å‰ä¸€ä¸ªå­—ç¬¦ä¸æ˜¯æœ‰æ•ˆæ ‡è¯†ç¬¦å­—ç¬¦
 		int i = start;
 		while (i < strlen) {
 			char ch = str.charAt(i);
@@ -751,9 +751,9 @@ public final class Sentence {
 			boolean lb;
 			lb = sold.regionMatches((flag & IGNORE_CASE) > 0, 0, str, i, len);
 			if (lb && (flag & ONLY_PHRASE) > 0) {
-				// ±»Æ¥Åä´®µÄµÚÒ»×Ö·û¼°Ç°Ò»×Ö·ûÓĞÒ»¸ö²»ÊÇ±êÊ¶·û×Ö·ûÊ±ÎªÕæ
+				// è¢«åŒ¹é…ä¸²çš„ç¬¬ä¸€å­—ç¬¦åŠå‰ä¸€å­—ç¬¦æœ‰ä¸€ä¸ªä¸æ˜¯æ ‡è¯†ç¬¦å­—ç¬¦æ—¶ä¸ºçœŸ
 				lb = !isWordChar(sold.charAt(0)) || !isWordChar(preChar);
-				// ±»Æ¥Åä´®µÄ×îºó×Ö·û¼°ºóÒ»×Ö·ûÓĞÒ»¸ö²»ÊÇ±êÊ¶·û×Ö·ûÊ±
+				// è¢«åŒ¹é…ä¸²çš„æœ€åå­—ç¬¦åŠåä¸€å­—ç¬¦æœ‰ä¸€ä¸ªä¸æ˜¯æ ‡è¯†ç¬¦å­—ç¬¦æ—¶
 				if ((i + len) < strlen)
 					lb = lb
 							&& (!isWordChar(sold.charAt(len - 1)) || !isWordChar(str
@@ -786,33 +786,33 @@ public final class Sentence {
 	}
 
 	/**
-	 * È¡·ÖÎöºóµÄ´®
+	 * å–åˆ†æåçš„ä¸²
 	 * 
-	 * @return ·ÖÎöºóµÄ´®
+	 * @return åˆ†æåçš„ä¸²
 	 */
 	public String toString() {
 		return this.str;
 	}
 
 	/**
-	 * È¡·ÖÎöºóµÄ´®
+	 * å–åˆ†æåçš„ä¸²
 	 * 
-	 * @return ·ÖÎöºóµÄ´®
+	 * @return åˆ†æåçš„ä¸²
 	 */
 	public String getSentence() {
 		return this.str;
 	}
 
 	/**
-	 * ÔÚÔ­´®ÖĞËÑË÷×Ö·û´®(¿ÉÒÔ±»°üº¬ÖĞ¶ÌÓïÖĞ)
+	 * åœ¨åŸä¸²ä¸­æœç´¢å­—ç¬¦ä¸²(å¯ä»¥è¢«åŒ…å«ä¸­çŸ­è¯­ä¸­)
 	 * 
 	 * @param phrase
-	 *            ĞèÒªËÑË÷µÄ×Ö·û´®
+	 *            éœ€è¦æœç´¢çš„å­—ç¬¦ä¸²
 	 * @param start
-	 *            ÔÚÔ­´®ÖĞµÄÆğÊ¼Î»ÖÃ
+	 *            åœ¨åŸä¸²ä¸­çš„èµ·å§‹ä½ç½®
 	 * @param flag
-	 *            ¿ÉÒÔÎª0,IGNORE_CASE,IGNORE_PARS,IGNORE_CASE+IGNORE_PARS
-	 * @return ×Ö·û´®ÔÚÔ­´®ÖĞµÄÎ»ÖÃ
+	 *            å¯ä»¥ä¸º0,IGNORE_CASE,IGNORE_PARS,IGNORE_CASE+IGNORE_PARS
+	 * @return å­—ç¬¦ä¸²åœ¨åŸä¸²ä¸­çš„ä½ç½®
 	 */
 	public static int indexOf(String str, String find, int start, int flag,
 			char escapeChar) {
@@ -820,7 +820,7 @@ public final class Sentence {
 		for (int i = start; i < slen;) {
 			char ch = str.charAt(i);
 			if ((flag & IGNORE_QUOTE) == 0
-					&& // xq add,¼ÓÉÏÖ§³ÖÒıºÅÄÚËÑË÷ 2010.8.25
+					&& // xq add,åŠ ä¸Šæ”¯æŒå¼•å·å†…æœç´¢ 2010.8.25
 					(ch == '\"' || ch == '\'')
 					&& ((i > 0 && str.charAt(i - 1) != '\\') || i == 0)) {
 				i = scanQuotation(str, i, escapeChar);
@@ -853,15 +853,15 @@ public final class Sentence {
 	}
 
 	/**
-	 * ¼¯ËãÆ÷²éÕÒ×¨ÓÃ£¬ÎªÁËÖ§³ÖONLY_PHRASE£¨wunan£© ÔÚÔ­´®ÖĞËÑË÷×Ö·û´®(¿ÉÒÔ±»°üº¬ÖĞ¶ÌÓïÖĞ)
+	 * é›†ç®—å™¨æŸ¥æ‰¾ä¸“ç”¨ï¼Œä¸ºäº†æ”¯æŒONLY_PHRASEï¼ˆwunanï¼‰ åœ¨åŸä¸²ä¸­æœç´¢å­—ç¬¦ä¸²(å¯ä»¥è¢«åŒ…å«ä¸­çŸ­è¯­ä¸­)
 	 * 
 	 * @param phrase
-	 *            ĞèÒªËÑË÷µÄ×Ö·û´®
+	 *            éœ€è¦æœç´¢çš„å­—ç¬¦ä¸²
 	 * @param start
-	 *            ÔÚÔ­´®ÖĞµÄÆğÊ¼Î»ÖÃ
+	 *            åœ¨åŸä¸²ä¸­çš„èµ·å§‹ä½ç½®
 	 * @param flag
-	 *            ¿ÉÒÔÎª0,IGNORE_CASE,IGNORE_PARS,IGNORE_CASE+IGNORE_PARS
-	 * @return ×Ö·û´®ÔÚÔ­´®ÖĞµÄÎ»ÖÃ
+	 *            å¯ä»¥ä¸º0,IGNORE_CASE,IGNORE_PARS,IGNORE_CASE+IGNORE_PARS
+	 * @return å­—ç¬¦ä¸²åœ¨åŸä¸²ä¸­çš„ä½ç½®
 	 */
 	public static int indexOf(String str, int start, String find, int flag) {
 		char escapeChar = '\\';
@@ -870,7 +870,7 @@ public final class Sentence {
 		for (int i = start; i < slen;) {
 			char ch = str.charAt(i);
 			if ((flag & IGNORE_QUOTE) == 0
-					&& // ¼ÓÉÏÖ§³ÖÒıºÅÄÚËÑË÷ 2018.10.9 wunan
+					&& // åŠ ä¸Šæ”¯æŒå¼•å·å†…æœç´¢ 2018.10.9 wunan
 					(ch == '\"' || ch == '\'')
 					&& ((i > 0 && str.charAt(i - 1) != '\\') || i == 0)) {
 				i = scanQuotation(str, i, escapeChar);
@@ -899,10 +899,10 @@ public final class Sentence {
 			}
 			if (find.regionMatches((flag & IGNORE_CASE) > 0, 0, str, i, plen)) {
 				if ((flag & ONLY_PHRASE) > 0) {
-					// ±»Æ¥Åä´®µÄµÚÒ»×Ö·û¼°Ç°Ò»×Ö·ûÓĞÒ»¸ö²»ÊÇ±êÊ¶·û×Ö·ûÊ±ÎªÕæ
+					// è¢«åŒ¹é…ä¸²çš„ç¬¬ä¸€å­—ç¬¦åŠå‰ä¸€å­—ç¬¦æœ‰ä¸€ä¸ªä¸æ˜¯æ ‡è¯†ç¬¦å­—ç¬¦æ—¶ä¸ºçœŸ
 					boolean lb = !isWordChar(find.charAt(0))
 							|| !isWordChar(preChar);
-					// ±»Æ¥Åä´®µÄ×îºó×Ö·û¼°ºóÒ»×Ö·ûÓĞÒ»¸ö²»ÊÇ±êÊ¶·û×Ö·ûÊ±
+					// è¢«åŒ¹é…ä¸²çš„æœ€åå­—ç¬¦åŠåä¸€å­—ç¬¦æœ‰ä¸€ä¸ªä¸æ˜¯æ ‡è¯†ç¬¦å­—ç¬¦æ—¶
 					if ((i + plen) < slen)
 						lb = lb
 								&& (!isWordChar(find.charAt(plen - 1)) || !isWordChar(str
@@ -922,10 +922,10 @@ public final class Sentence {
 	}
 	
 	/**
-	 * ´ÓºóÍùÇ°²éÕÒ×Ö·û´®£¬×öÒıºÅ¡¢À¨ºÅÆ¥Åä
-	 * @param src Ô´´®
-	 * @param find Òª²éÕÒµÄ´®
-	 * @return ÕÒ²»µ½·µ»Ø-1
+	 * ä»åå¾€å‰æŸ¥æ‰¾å­—ç¬¦ä¸²ï¼Œåšå¼•å·ã€æ‹¬å·åŒ¹é…
+	 * @param src æºä¸²
+	 * @param find è¦æŸ¥æ‰¾çš„ä¸²
+	 * @return æ‰¾ä¸åˆ°è¿”å›-1
 	 */
 	public static int lastIndexOf(String src, String find) {
 		int end = src.length() - 1;
@@ -942,7 +942,7 @@ public final class Sentence {
 						return end;
 					}
 				} else if (c == '"' || c == '\'' || c == ')' || c == ']' || c == '}' || c == '\\') {
-					// ´ÓÍ·¿ªÊ¼ÕÒÆ¥Åä
+					// ä»å¤´å¼€å§‹æ‰¾åŒ¹é…
 					break;
 				} else {
 					end--;
@@ -962,7 +962,7 @@ public final class Sentence {
 					return -1;
 				} else {
 					i = match + 1;
-					continue; // Ìø¹ıÒıºÅÄÚµÄÄÚÈİ
+					continue; // è·³è¿‡å¼•å·å†…çš„å†…å®¹
 				}
 			case '(':
 				match = Sentence.scanParenthesis(src, i, '\\');
@@ -970,7 +970,7 @@ public final class Sentence {
 					return -1;
 				} else {
 					i = match + 1;
-					continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
+					continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
 				}
 			case '[':
 				match = Sentence.scanBracket(src, i, '\\');
@@ -978,7 +978,7 @@ public final class Sentence {
 					return -1;
 				} else {
 					i = match + 1;
-					continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
+					continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
 				}
 			case '{':
 				match = Sentence.scanBrace(src, i, '\\');
@@ -986,7 +986,7 @@ public final class Sentence {
 					return -1;
 				} else {
 					i = match + 1;
-					continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
+					continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
 				}
 			case '\\':
 				i += 2;
@@ -1009,7 +1009,7 @@ public final class Sentence {
 				|| Character.isJavaIdentifierPart(ch);
 	}
 	
-	//²éÕÒÏÂÒ»¸ö\r»ò\nµÄÎ»ÖÃ£¬Î´ÕÒµ½·µ»Ø³¤¶È
+	//æŸ¥æ‰¾ä¸‹ä¸€ä¸ª\ræˆ–\nçš„ä½ç½®ï¼Œæœªæ‰¾åˆ°è¿”å›é•¿åº¦
 	private static int scanCRLF(String str, int start) {
 		int len = str.length();
 		while(start<len){
@@ -1021,7 +1021,7 @@ public final class Sentence {
 		return len;
 	}
 	
-	//²éÕÒ*/µÄÎ»ÖÃ£¬Î´ÕÒµ½·µ»Ø³¤¶È
+	//æŸ¥æ‰¾*/çš„ä½ç½®ï¼Œæœªæ‰¾åˆ°è¿”å›é•¿åº¦
 	private static int scanCommentEnd(String str, int start) {
 		int len = str.length();
 		while(start<len) {
@@ -1034,7 +1034,7 @@ public final class Sentence {
 	}
 	
 	/**
-	 * É¾³ı´®ÖĞjava·ç¸ñµÄĞĞ×¢ÊÍºÍ¶ÎÂä×¢ÊÍ 
+	 * åˆ é™¤ä¸²ä¸­javaé£æ ¼çš„è¡Œæ³¨é‡Šå’Œæ®µè½æ³¨é‡Š 
 	 */
 	public static String removeComment(String str){
 		int idx=0, len=str.length();
@@ -1057,7 +1057,7 @@ public final class Sentence {
 				}
 				char ch2 = str.charAt(idx+1);
 				if(ch2=='/') {
-					idx = scanCRLF(str, idx+2);  //Î»ÖÃ²»¼Ó£¬ºóĞø»Ø³µ»»ĞĞĞèÊä³ö
+					idx = scanCRLF(str, idx+2);  //ä½ç½®ä¸åŠ ï¼Œåç»­å›è½¦æ¢è¡Œéœ€è¾“å‡º
 				}else if(ch2=='*'){
 					idx = scanCommentEnd(str, idx+2)+2;
 				}else{

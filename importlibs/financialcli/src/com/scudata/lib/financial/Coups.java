@@ -15,24 +15,24 @@ import java.util.Calendar;
 
 
 /**
- * ���ؽ��������ڸ�Ϣ�ڵļ�Ϣ������
+ * 返回结算日所在付息期的计息天数。
  * @author yanjing
- * Fcoups(settlement,maturity)�����ڽ����պ͵�����֮��ĸ�Ϣ�������������뵽���������
- * @d  ����һ����Ϣ�յ���һ����Ϣ�յļ�Ϣ����
- * @b  ����һ����Ϣ�յ������յļ�Ϣ����
- * @n  �ӽ����յ���һ����Ϣ�յļ�Ϣ����
+ * Fcoups(settlement,maturity)返回在结算日和到期日之间的付息次数，向上舍入到最近的整数
+ * @d  从上一个付息日到下一个付息日的计息天数
+ * @b  从上一个付息日到结算日的计息天数
+ * @n  从结算日到下一个付息日的计息天数
  * 
- * @param settlement ֤ȯ�Ľ�����
- * @param maturity  ֤ȯ�ĵ�����
- *   �ޣ�����֧����frequency = 1��
- *   @2 ��������֧����frequency = 2��
- *   @4 ����֧����frequency = 4
+ * @param settlement 证券的结算日
+ * @param maturity  证券的到期日
+ *   无，按年支付，frequency = 1；
+ *   @2 按半年期支付，frequency = 2；
+ *   @4 按季支付，frequency = 4
  *   
  * 	 @e 30/360, 
- * 	 @1 ʵ������/��ʵ��������
- * 	 @0 ʵ������/360�� 
- * 	 @5 ʵ������/365��
- * 	 ȱʡΪ30/360*  
+ * 	 @1 实际天数/年实际天数，
+ * 	 @0 实际天数/360， 
+ * 	 @5 实际天数/365，
+ * 	 缺省为30/360*  
  * @return
  * 
  * 

@@ -28,7 +28,7 @@ public class XlsxSImporter implements ILineInput {
 	private OPCPackage xlsxPackage;
 
 	/**
-	 * Á÷Ê½½âÎöSheet
+	 * æµå¼è§£æSheet
 	 */
 	private XlsxSSheetParser sheetParser;
 
@@ -90,7 +90,7 @@ public class XlsxSImporter implements ILineInput {
 					this.xlsxPackage = OPCPackage.open(is);
 				}
 			} else {
-				// ±¾µØµÄÖ§³ÖÏà¶ÔÂ·¾¶
+				// æœ¬åœ°çš„æ”¯æŒç›¸å¯¹è·¯å¾„
 				filePath = ConfigUtil.getPath(Env.getMainPath(), filePath);
 				if (pwd != null) {
 					is = new FileInputStream(filePath);

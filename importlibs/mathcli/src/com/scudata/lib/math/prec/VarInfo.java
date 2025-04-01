@@ -12,7 +12,7 @@ import com.scudata.util.Variant;
 import com.scudata.lib.math.Sd;
 
 /**
- * µ¥¸ö±äÁ¿µÄËùÓĞÔ¤´¦ÀíĞÅÏ¢
+ * å•ä¸ªå˜é‡çš„æ‰€æœ‰é¢„å¤„ç†ä¿¡æ¯
  * 
  * @author bd
  *
@@ -20,102 +20,102 @@ import com.scudata.lib.math.Sd;
 public class VarInfo implements Externalizable {
 	private static final long serialVersionUID = 5143312822863255779L;
 
-	// ³£Á¿£¬±äÁ¿×´Ì¬
-	// ±äÁ¿Õı³£
+	// å¸¸é‡ï¼Œå˜é‡çŠ¶æ€
+	// å˜é‡æ­£å¸¸
 	public final static byte VAR_NORMAL = 0;
-	// ±äÁ¿ÎªID±äÁ¿£¬²»²ÎÓë´¦Àí
+	// å˜é‡ä¸ºIDå˜é‡ï¼Œä¸å‚ä¸å¤„ç†
 	public final static byte VAR_DEL_ID = 1;
-	// ±äÁ¿ÓÉÓÚÈ±Ê§Öµ¹ı¶à±»É¾³ı
+	// å˜é‡ç”±äºç¼ºå¤±å€¼è¿‡å¤šè¢«åˆ é™¤
 	public final static byte VAR_DEL_MISSING = 2;
-	// ±äÁ¿ÓÉÓÚÎªµ¥Öµ±»É¾³ı
+	// å˜é‡ç”±äºä¸ºå•å€¼è¢«åˆ é™¤
 	public final static byte VAR_DEL_SINGLE = 3;
-	// ±äÁ¿ÓÉÓÚÎªµ¥Öµ±»É¾³ı
+	// å˜é‡ç”±äºä¸ºå•å€¼è¢«åˆ é™¤
 	public final static byte VAR_DEL_WRONGTYPE = 4;
-	// ±äÁ¿ÓÉÓÚÃ¶¾ÙÖµ¹ı¶à±»É¾³ı
+	// å˜é‡ç”±äºæšä¸¾å€¼è¿‡å¤šè¢«åˆ é™¤
 	public final static byte VAR_DEL_CATEGORY = 11;
-	// ±äÁ¿Î´Í¨¹ıT¼ìÑé±»É¾³ı
+	// å˜é‡æœªé€šè¿‡Tæ£€éªŒè¢«åˆ é™¤
 	public final static byte VAR_DEL_TTEST = 21;
-	// ±äÁ¿Î´Í¨¹ı¿¨·½¼ìÑé±»É¾³ı
+	// å˜é‡æœªé€šè¿‡å¡æ–¹æ£€éªŒè¢«åˆ é™¤
 	public final static byte VAR_DEL_CHI_SQUARE = 22;
-	// ±äÁ¿Î´Í¨¹ıSPEARMAN¼ìÑé±»É¾³ı
+	// å˜é‡æœªé€šè¿‡SPEARMANæ£€éªŒè¢«åˆ é™¤
 	public final static byte VAR_DEL_SPEARMAN = 23;
-	// ±äÁ¿Î´Í¨¹ıPEARSON¼ìÑé±»É¾³ı
+	// å˜é‡æœªé€šè¿‡PEARSONæ£€éªŒè¢«åˆ é™¤
 	public final static byte VAR_DEL_PEARSON = 24;
 
-	// ³£Á¿£¬±äÁ¿ÀàĞÍ
-	// Ô­±äÁ¿
+	// å¸¸é‡ï¼Œå˜é‡ç±»å‹
+	// åŸå˜é‡
 	public final static byte TYPE_ORIGIN = 0;
-	// MI±äÁ¿
+	// MIå˜é‡
 	public final static byte TYPE_MI = 1;
-	// MVP±äÁ¿
+	// MVPå˜é‡
 	public final static byte TYPE_MVP = 2;
-	// BI±äÁ¿
+	// BIå˜é‡
 	public final static byte TYPE_BI = 3;
-	// ÆäËüÑÜÉú±äÁ¿
+	// å…¶å®ƒè¡ç”Ÿå˜é‡
 	public final static byte TYPE_DERIVE = 4;
 
-	// ³£Á¿£¬Ô¤´¦ÀíÖÇÄÜÌî²¹³£Á¿
+	// å¸¸é‡ï¼Œé¢„å¤„ç†æ™ºèƒ½å¡«è¡¥å¸¸é‡
 	public final static String FILL_IMPUTE = "$YM_Auto_Impute$";
 
-	// ±äÁ¿Ãû
+	// å˜é‡å
 	private String name;
-	// Ö¸ÏòµÄ³õÊ¼±äÁ¿Ãû
+	// æŒ‡å‘çš„åˆå§‹å˜é‡å
 	private String srcName;
-	// ±äÁ¿ÀàĞÍ
+	// å˜é‡ç±»å‹
 	private byte varType = TYPE_ORIGIN;
 
-	// ±äÁ¿ÀàĞÍ£¬¶şÖµ¡¢¶àÖµ¡¢ÊıÖµ¡¢¼ÆÊıµÈ
+	// å˜é‡ç±»å‹ï¼ŒäºŒå€¼ã€å¤šå€¼ã€æ•°å€¼ã€è®¡æ•°ç­‰
 	private byte type = Consts.F_TWO_VALUE;
-	// ±äÁ¿×´Ì¬
+	// å˜é‡çŠ¶æ€
 	private byte status = VAR_NORMAL;
-	// È±Ê§ÂÊ
+	// ç¼ºå¤±ç‡
 	private double missingRate = 0d;
 
-	// Ô¤´¦Àí²úÉú£º²¹È±Öµ£¬ÎªnullÊ±±íÃ÷ÎŞĞè²¹È±£¬ÎªFILL_IMPUTEÊ±±íÃ÷Ê¹ÓÃÁËÖÇÄÜ²¹È±
+	// é¢„å¤„ç†äº§ç”Ÿï¼šè¡¥ç¼ºå€¼ï¼Œä¸ºnullæ—¶è¡¨æ˜æ— éœ€è¡¥ç¼ºï¼Œä¸ºFILL_IMPUTEæ—¶è¡¨æ˜ä½¿ç”¨äº†æ™ºèƒ½è¡¥ç¼º
 	private Object fillMissing = null;
-	// Ô¤´¦Àí²úÉú£¬ÔİÊ±Ö»¼ÇÂ¼²»¿ª·Å»ñÈ¡£¬Ìî²¹Ğ¡·ÖÀàÖµÊ¹ÓÃµÄÊı¾İ
+	// é¢„å¤„ç†äº§ç”Ÿï¼Œæš‚æ—¶åªè®°å½•ä¸å¼€æ”¾è·å–ï¼Œå¡«è¡¥å°åˆ†ç±»å€¼ä½¿ç”¨çš„æ•°æ®
 	private Object fillOthers = null;
-	// Ô¤´¦Àí²úÉú£¬ÔİÊ±Ö»¼ÇÂ¼²»¿ª·Å»ñÈ¡£¬Êı¾İÖĞÕı³£Ê¹ÓÃµÄ·ÖÀàÊı
+	// é¢„å¤„ç†äº§ç”Ÿï¼Œæš‚æ—¶åªè®°å½•ä¸å¼€æ”¾è·å–ï¼Œæ•°æ®ä¸­æ­£å¸¸ä½¿ç”¨çš„åˆ†ç±»æ•°
 	private Sequence keepValues = null;
 
-	// µ¥Öµ¶şÖµ¼°¶àÖµÊı¾İµÄÖ¸±ê
-	// ·ÖÀà¸öÊı
+	// å•å€¼äºŒå€¼åŠå¤šå€¼æ•°æ®çš„æŒ‡æ ‡
+	// åˆ†ç±»ä¸ªæ•°
 	private int category = 0;
 
-	// ÊıÖµ¼°¼ÆÊıÊı¾İµÄÖ¸±ê
-	// Æ«¶È
+	// æ•°å€¼åŠè®¡æ•°æ•°æ®çš„æŒ‡æ ‡
+	// ååº¦
 	private double skewness0 = 0d;
-	// ¾ùÖµ
+	// å‡å€¼
 	private double average = 0d;
-	// ÖĞÎ»Êı
+	// ä¸­ä½æ•°
 	private Number median = null;
-	// ·½²î
+	// æ–¹å·®
 	private double variance = 0d;
-	// Ô¤´¦Àí²úÉú£¬ÊÇ·ñ×öÁËÆ½»¬»¯´¦Àí
+	// é¢„å¤„ç†äº§ç”Ÿï¼Œæ˜¯å¦åšäº†å¹³æ»‘åŒ–å¤„ç†
 	private boolean ifSmooth = false;
-	// Ô¤´¦Àí²úÉú£¬ÊÇ·ñ×öÁËÆ½»¬»¯´¦ÀíÖĞÊÇ·ñ²úÉúÁËÑÜÉúÁĞ
+	// é¢„å¤„ç†äº§ç”Ÿï¼Œæ˜¯å¦åšäº†å¹³æ»‘åŒ–å¤„ç†ä¸­æ˜¯å¦äº§ç”Ÿäº†è¡ç”Ÿåˆ—
 	private boolean ifSmoothDerive = false;
-	// ´¦ÀíºóÆ«¶È
+	// å¤„ç†åååº¦
 	private double skewness1 = 0d;
-	// ¾ÀÆ«´¦Àí·½°¸
+	// çº åå¤„ç†æ–¹æ¡ˆ
 	private byte skewMode = SCRec.MODE_ORI;
-	// ¾ÀÆ«Ê¹ÓÃµÄÃİ
+	// çº åä½¿ç”¨çš„å¹‚
 	private double skewP = 0d;
-	// ÇåÀíÒì³£ÖµÊı
+	// æ¸…ç†å¼‚å¸¸å€¼æ•°
 	private int cleanCount = 0;
 
-	// ×î´ó×îĞ¡ÈÕÆÚÖµ
+	// æœ€å¤§æœ€å°æ—¥æœŸå€¼
 	private Date minDate = null;
 	private Date maxDate = null;
 
 	/**
-	 * ³õÊ¼»¯£¬ĞòÁĞ»¯ÓÃ
+	 * åˆå§‹åŒ–ï¼Œåºåˆ—åŒ–ç”¨
 	 */
 	public VarInfo() {
 	}
 
 	/**
-	 * ³õÊ¼»¯£¬ÉèÖÃÔ­Ê¼±äÁ¿Ãû³ÆÒÔ¼°±äÁ¿ÀàĞÍ
+	 * åˆå§‹åŒ–ï¼Œè®¾ç½®åŸå§‹å˜é‡åç§°ä»¥åŠå˜é‡ç±»å‹
 	 * @param srcName
 	 * @param type
 	 */
@@ -125,7 +125,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡±äÁ¿Ãû£¬×îÖÕ
+	 * è·å–å˜é‡åï¼Œæœ€ç»ˆ
 	 * @return the name
 	 */
 	public String getName() {
@@ -136,7 +136,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ±äÁ¿Ãû£¬×îÖÕ
+	 * è®¾ç½®å˜é‡åï¼Œæœ€ç»ˆ
 	 * @param name	the name to set
 	 */
 	public void setName(String name) {
@@ -144,7 +144,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡±äÁ¿Ãû£¬³õÊ¼
+	 * è·å–å˜é‡åï¼Œåˆå§‹
 	 * @return the srcName
 	 */
 	public String getSrcName() {
@@ -152,7 +152,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ±äÁ¿Ãû£¬³õÊ¼
+	 * è®¾ç½®å˜é‡åï¼Œåˆå§‹
 	 * @param srcName	the srcName to set
 	 */
 	public void setSrcName(String srcName) {
@@ -160,7 +160,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡±äÁ¿ÀàĞÍ
+	 * è·å–å˜é‡ç±»å‹
 	 * @return the varType
 	 */
 	public byte getVarType() {
@@ -168,7 +168,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ±äÁ¿ÀàĞÍ
+	 * è®¾ç½®å˜é‡ç±»å‹
 	 * @param varType	the varType to set
 	 */
 	public void setVarType(byte varType) {
@@ -176,7 +176,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡Êı¾İÀàĞÍ
+	 * è·å–æ•°æ®ç±»å‹
 	 * @return the type
 	 */
 	public byte getType() {
@@ -184,7 +184,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÊı¾İÀàĞÍ
+	 * è®¾ç½®æ•°æ®ç±»å‹
 	 * @param type	the type to set
 	 */
 	public void setType(byte type) {
@@ -192,7 +192,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡±äÁ¿×´Ì¬
+	 * è·å–å˜é‡çŠ¶æ€
 	 * @return the status
 	 */
 	public byte getStatus() {
@@ -200,7 +200,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ±äÁ¿×´Ì¬
+	 * è®¾ç½®å˜é‡çŠ¶æ€
 	 * @param status	the status to set
 	 */
 	public void setStatus(byte status) {
@@ -208,7 +208,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡È±Ê§ÂÊ
+	 * è·å–ç¼ºå¤±ç‡
 	 * @return the missingRate
 	 */
 	public double getMissingRate() {
@@ -216,7 +216,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÈ±Ê§ÂÊ
+	 * è®¾ç½®ç¼ºå¤±ç‡
 	 * @param missingRate	the missingRate to set
 	 */
 	public void setMissingRate(double missingRate) {
@@ -224,7 +224,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡È±Ê§Ìî²¹Öµ
+	 * è·å–ç¼ºå¤±å¡«è¡¥å€¼
 	 * @return the fillMissing
 	 */
 	public Object getFillMissing() {
@@ -232,19 +232,19 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡È±Ê§Ìî²¹Öµ
+	 * è·å–ç¼ºå¤±å¡«è¡¥å€¼
 	 * @param fillMissing
 	 *            the fillMissing to set
 	 */
 	public void setFillMissing(Object fillMissing) {
-		// ÖÇÄÜÌî²¹ºó£¬ÎŞÈ±Ê§ÖµµÄÊı¾İÒ²ÈÔÈ»»áÖ´ĞĞµ½ÕâÀï£¬ĞèÒªÅĞ¶Ï
+		// æ™ºèƒ½å¡«è¡¥åï¼Œæ— ç¼ºå¤±å€¼çš„æ•°æ®ä¹Ÿä»ç„¶ä¼šæ‰§è¡Œåˆ°è¿™é‡Œï¼Œéœ€è¦åˆ¤æ–­
 		if (this.fillMissing == null || this.fillMissing != FILL_IMPUTE) {
 			this.fillMissing = fillMissing;
 		}
 	}
 
 	/**
-	 * »ñÈ¡µÍ·ÖÀàÌî²¹Öµ
+	 * è·å–ä½åˆ†ç±»å¡«è¡¥å€¼
 	 * @return the fillMissing
 	 */
 	public Object getFillOthers() {
@@ -252,7 +252,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃµÍ·ÖÀàÌî²¹Öµ
+	 * è®¾ç½®ä½åˆ†ç±»å¡«è¡¥å€¼
 	 * 
 	 * @param fillMissing
 	 *            the fillMissing to set
@@ -262,7 +262,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡·ÖÀà±äÁ¿±£ÁôÖµ
+	 * è·å–åˆ†ç±»å˜é‡ä¿ç•™å€¼
 	 * 
 	 * @return the fillMissing
 	 */
@@ -271,7 +271,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ·ÖÀà±äÁ¿±£ÁôÖµ
+	 * è®¾ç½®åˆ†ç±»å˜é‡ä¿ç•™å€¼
 	 * 
 	 * @param fillMissing
 	 *            the fillMissing to set
@@ -281,7 +281,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡·ÖÀàÊı
+	 * è·å–åˆ†ç±»æ•°
 	 * 
 	 * @return the category
 	 */
@@ -290,7 +290,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ·ÖÀàÊı
+	 * è®¾ç½®åˆ†ç±»æ•°
 	 * 
 	 * @param category
 	 *            the category to set
@@ -300,7 +300,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡³õÊ¼Æ«¶È
+	 * è·å–åˆå§‹ååº¦
 	 * 
 	 * @return the skewness0
 	 */
@@ -309,7 +309,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ³õÊ¼Æ«¶È
+	 * è®¾ç½®åˆå§‹ååº¦
 	 * 
 	 * @param skewness0
 	 *            the skewness0 to set
@@ -319,7 +319,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡¾ùÖµ
+	 * è·å–å‡å€¼
 	 * 
 	 * @return the average
 	 */
@@ -328,7 +328,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ¾ùÖµ
+	 * è®¾ç½®å‡å€¼
 	 * 
 	 * @param average
 	 *            the average to set
@@ -338,7 +338,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡ÖĞÎ»Êı
+	 * è·å–ä¸­ä½æ•°
 	 * 
 	 * @return the median
 	 */
@@ -347,7 +347,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÖĞÎ»Êı
+	 * è®¾ç½®ä¸­ä½æ•°
 	 * 
 	 * @param median
 	 *            to set
@@ -357,7 +357,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡·½²î
+	 * è·å–æ–¹å·®
 	 * 
 	 * @return the variance
 	 */
@@ -366,7 +366,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ·½²î
+	 * è®¾ç½®æ–¹å·®
 	 * 
 	 * @param variance
 	 *            the variance to set
@@ -376,7 +376,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡¾ÀÆ«ºóÆ«¶È
+	 * è·å–çº ååååº¦
 	 * 
 	 * @return the skewness1
 	 */
@@ -385,7 +385,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ¾ÀÆ«ºóÆ«¶È
+	 * è®¾ç½®çº ååååº¦
 	 * 
 	 * @param skewness1
 	 *            the skewness1 to set
@@ -395,7 +395,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡¾ÀÆ«´¦Àí·½°¸
+	 * è·å–çº åå¤„ç†æ–¹æ¡ˆ
 	 * 
 	 * @return the skew mode
 	 */
@@ -404,7 +404,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ¾ÀÆ«´¦Àí·½°¸
+	 * è®¾ç½®çº åå¤„ç†æ–¹æ¡ˆ
 	 * 
 	 * @param skew
 	 *            mode
@@ -414,7 +414,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡¾ÀÆ«Ê¹ÓÃÃİ£¬ÅÅĞò£¬lnµÈ¼ÆËã·µ»Ø0
+	 * è·å–çº åä½¿ç”¨å¹‚ï¼Œæ’åºï¼Œlnç­‰è®¡ç®—è¿”å›0
 	 * 
 	 * @return the skew power
 	 */
@@ -423,7 +423,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ¾ÀÆ«Ê¹ÓÃÃİ
+	 * è®¾ç½®çº åä½¿ç”¨å¹‚
 	 * 
 	 * @param skew
 	 *            power
@@ -433,7 +433,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡ÇåÀíÒì³£ÖµÊı
+	 * è·å–æ¸…ç†å¼‚å¸¸å€¼æ•°
 	 * 
 	 * @return
 	 */
@@ -442,7 +442,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÇåÀíÒì³£ÖµÊı
+	 * è®¾ç½®æ¸…ç†å¼‚å¸¸å€¼æ•°
 	 * 
 	 * @param count
 	 */
@@ -451,7 +451,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡×îĞ¡Öµ
+	 * è·å–æœ€å°å€¼
 	 * 
 	 * @return the min
 	 */
@@ -460,7 +460,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ×îĞ¡Öµ
+	 * è®¾ç½®æœ€å°å€¼
 	 * 
 	 * @param min
 	 *            the min to set
@@ -470,7 +470,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡×î´óÖµ
+	 * è·å–æœ€å¤§å€¼
 	 * 
 	 * @return the max
 	 */
@@ -479,7 +479,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃ×î´óÖµ
+	 * è®¾ç½®æœ€å¤§å€¼
 	 * 
 	 * @param max
 	 *            the max to set
@@ -489,7 +489,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÊÇ·ñ×öÁËÆ½»¬»¯
+	 * æ˜¯å¦åšäº†å¹³æ»‘åŒ–
 	 * 
 	 * @return if smooth
 	 */
@@ -498,15 +498,15 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ×öÁËÆ½»¬»¯
-	 * @param b	ÊÇ·ñ×öÁËÆ½»¬»¯
+	 * è®¾ç½®æ˜¯å¦åšäº†å¹³æ»‘åŒ–
+	 * @param b	æ˜¯å¦åšäº†å¹³æ»‘åŒ–
 	 */
 	public void setIfSmooth(boolean b) {
 		this.ifSmooth = b;
 	}
 
 	/**
-	 * ÊÇ·ñ×öÁËÆ½»¬»¯ÑÜÉú
+	 * æ˜¯å¦åšäº†å¹³æ»‘åŒ–è¡ç”Ÿ
 	 * 
 	 * @return if smooth
 	 */
@@ -515,15 +515,15 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ×öÁËÆ½»¬»¯ÑÜÉú
-	 * @param b	ÊÇ·ñ×öÁËÆ½»¬»¯
+	 * è®¾ç½®æ˜¯å¦åšäº†å¹³æ»‘åŒ–è¡ç”Ÿ
+	 * @param b	æ˜¯å¦åšäº†å¹³æ»‘åŒ–
 	 */
 	public void setIfSmoothDerive(boolean b) {
 		this.ifSmoothDerive = b;
 	}
 
 	/**
-	 * ¸ù¾İÁĞÊı¾İ³õÊ¼»¯Í³¼ÆĞÅÏ¢
+	 * æ ¹æ®åˆ—æ•°æ®åˆå§‹åŒ–ç»Ÿè®¡ä¿¡æ¯
 	 * 
 	 * @param vs
 	 */
@@ -533,7 +533,7 @@ public class VarInfo implements Externalizable {
 			return;
 		}
 		if (this.type == Consts.F_ENUM || this.type == Consts.F_SINGLE_VALUE || this.type == Consts.F_TWO_VALUE) {
-			// Ã¶¾ÙÀà±äÁ¿, ¼ÆËãÈ±Ê§ÂÊºÍ·ÖÀà¸öÊı£¨²»¼Ç¿ÕÖµ£©
+			// æšä¸¾ç±»å˜é‡, è®¡ç®—ç¼ºå¤±ç‡å’Œåˆ†ç±»ä¸ªæ•°ï¼ˆä¸è®°ç©ºå€¼ï¼‰
 			int missing = 0;
 			HashSet<Object> hs = new HashSet<Object>();
 
@@ -548,7 +548,7 @@ public class VarInfo implements Externalizable {
 			this.missingRate = missing * 1d / size;
 			this.category = hs.size();
 		} else if (this.type == Consts.F_NUMBER || this.type == Consts.F_COUNT) {
-			// ÊıÖµ±äÁ¿
+			// æ•°å€¼å˜é‡
 			Number result = null;
 			int count = 0;
 			int missing = 0;
@@ -572,7 +572,7 @@ public class VarInfo implements Externalizable {
 			this.variance = Sd.sd(vs, this.average);
 			this.median = VarInfo.getMedian(vs);
 		} else if (this.type == Consts.F_COUNT) {
-			// ¼ÆÊı±äÁ¿
+			// è®¡æ•°å˜é‡
 			Number result = null;
 			int count = 0;
 			int missing = 0;
@@ -594,7 +594,7 @@ public class VarInfo implements Externalizable {
 			this.average = (Double) Variant.avg(result, count);
 			this.median = VarInfo.getMedian(vs);
 		} else if (this.type == Consts.F_DATE) {
-			// ÈÕÆÚ±äÁ¿
+			// æ—¥æœŸå˜é‡
 			int missing = 0;
 			Date max = null;
 			Date min = null;
@@ -616,15 +616,15 @@ public class VarInfo implements Externalizable {
 			this.maxDate = max;
 			this.minDate = min;
 		} else {
-			// ID±äÁ¿»òÕßÎÄ±¾±äÁ¿
-			// ÎŞ²Ù×÷
+			// IDå˜é‡æˆ–è€…æ–‡æœ¬å˜é‡
+			// æ— æ“ä½œ
 		}
 
 	}
 
 	/**
-	 * »ñÈ¡ÖĞÎ»Êı
-	 * @param cvs	±äÁ¿Êı¾İÖµĞòÁĞ£¬ÂÒĞò
+	 * è·å–ä¸­ä½æ•°
+	 * @param cvs	å˜é‡æ•°æ®å€¼åºåˆ—ï¼Œä¹±åº
 	 * @return
 	 */
 	private static Number getMedian(Sequence cvs) {
@@ -637,7 +637,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÅÅĞò£¬ĞòÁĞleftµ½right±ÕÇø¼ä·¶Î§ÄÚµÄÊı¾İÉıĞòÅÅĞò
+	 * æ’åºï¼Œåºåˆ—leftåˆ°righté—­åŒºé—´èŒƒå›´å†…çš„æ•°æ®å‡åºæ’åº
 	 * @param seq
 	 * @param left
 	 * @param right
@@ -656,22 +656,22 @@ public class VarInfo implements Externalizable {
 		}
 	}
 
-	// Ñ°ÕÒÖĞÎ»ÊıµÄÖĞÎ»Êı
+	// å¯»æ‰¾ä¸­ä½æ•°çš„ä¸­ä½æ•°
 	private static Object findMid(Sequence seq, int left, int right) {
 		if (left == right) {
 			return seq.get(left);
 		}
 		int i = 0;
 		int n = 0;
-		// ´ÓleftÎ»ÖÃÆğ£¬Ã¿5¸ö³ÉÔ±ÉıĞòÅÅĞò
+		// ä»leftä½ç½®èµ·ï¼Œæ¯5ä¸ªæˆå‘˜å‡åºæ’åº
 		for (i = left; i < right - 5; i += 5) {
 			insertSort(seq, i, i + 4);
 			n = i - left;
-			//¼¯ÖĞºóÃæÃ¿Ò»¶ÎµÄÖĞÎ»Êıµ½leftºóÃæÇø¼ä
+			//é›†ä¸­åé¢æ¯ä¸€æ®µçš„ä¸­ä½æ•°åˆ°leftåé¢åŒºé—´
 			swap(seq, left + n / 5, i + 2);
 		}
 
-		// ´¦ÀíÊ£ÓàÔªËØ
+		// å¤„ç†å‰©ä½™å…ƒç´ 
 		int num = right - i + 1;
 		if (num > 0) {
 			insertSort(seq, i, i + num - 1);
@@ -686,7 +686,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ½»»»ĞòÁĞÖĞµÄÁ½¸ö³ÉÔ±
+	 * äº¤æ¢åºåˆ—ä¸­çš„ä¸¤ä¸ªæˆå‘˜
 	 * @param seq
 	 * @param i
 	 * @param j
@@ -697,7 +697,7 @@ public class VarInfo implements Externalizable {
 		seq.set(j, o);
 	}
 
-	// Ñ°ÕÒÖĞÎ»ÊıµÄËùÔÚÎ»ÖÃ
+	// å¯»æ‰¾ä¸­ä½æ•°çš„æ‰€åœ¨ä½ç½®
 	private static int findId(Sequence seq, int left, int right, Object num) {
 		for (int i = left; i <= right; i++)
 			if (Variant.compare(seq.get(i), num) == 0 ) {
@@ -706,7 +706,7 @@ public class VarInfo implements Externalizable {
 		return -1;
 	}
 
-	// ½øĞĞ»®·Ö¹ı³Ì
+	// è¿›è¡Œåˆ’åˆ†è¿‡ç¨‹
 	private static int partion(Sequence seq, int left, int right, int p) {
 		swap(seq, p, left);
 		int i = left;
@@ -723,7 +723,7 @@ public class VarInfo implements Externalizable {
 			seq.set(j, seq.get(i));
 		}
 		seq.set(i, pivot);
-		// ÏàµÈµÄÊı±È½Ï¶àÊ±£¬¼ÓËÙÒ»ÏÂ£¬·ÀÖ¹¶ÑÕ»Òç³ö
+		// ç›¸ç­‰çš„æ•°æ¯”è¾ƒå¤šæ—¶ï¼ŒåŠ é€Ÿä¸€ä¸‹ï¼Œé˜²æ­¢å †æ ˆæº¢å‡º
     	int num = right - i;
     	if (num > 1000) {
     		if (Variant.compare(seq.get(i+num/2), pivot) == 0) {
@@ -740,8 +740,8 @@ public class VarInfo implements Externalizable {
 	}
 
 	private static Object bfptr(Sequence seq, int left, int right, int k) {
-		Object num = findMid(seq, left, right); // Ñ°ÕÒÖĞÎ»ÊıµÄÖĞÎ»Êı
-		int p = findId(seq, left, right, num); // ÕÒµ½ÖĞÎ»ÊıµÄÖĞÎ»Êı¶ÔÓ¦µÄid
+		Object num = findMid(seq, left, right); // å¯»æ‰¾ä¸­ä½æ•°çš„ä¸­ä½æ•°
+		int p = findId(seq, left, right, num); // æ‰¾åˆ°ä¸­ä½æ•°çš„ä¸­ä½æ•°å¯¹åº”çš„id
 		int i = partion(seq, left, right, p);
 
 		int m = i - left + 1;
@@ -770,14 +770,14 @@ public class VarInfo implements Externalizable {
 	}
 	*/
 
-	/************************* ÒÔÏÂ¼Ì³Ğ×ÔExternalizable ************************/
-	private byte version = 5;// 5×÷Îª³õÊ¼Öµ
+	/************************* ä»¥ä¸‹ç»§æ‰¿è‡ªExternalizable ************************/
+	private byte version = 5;// 5ä½œä¸ºåˆå§‹å€¼
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
+	 * å†™å†…å®¹åˆ°æµ
 	 * 
 	 * @param out
-	 *            Êä³öÁ÷
+	 *            è¾“å‡ºæµ
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		out.writeByte(this.version);
@@ -824,10 +824,10 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
+	 * ä»æµä¸­è¯»å†…å®¹
 	 * 
 	 * @param in
-	 *            ÊäÈëÁ÷
+	 *            è¾“å…¥æµ
 	 */
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte version = in.readByte();
@@ -871,7 +871,7 @@ public class VarInfo implements Externalizable {
 	}
 
 	/**
-	 * ÓÃÀ´Ğ´³ö²»Ã÷ÀàĞÍµÄ¶ÔÏó
+	 * ç”¨æ¥å†™å‡ºä¸æ˜ç±»å‹çš„å¯¹è±¡
 	 * 
 	 * @throws IOException
 	 */
@@ -893,7 +893,7 @@ public class VarInfo implements Externalizable {
 			out.writeByte(5);
 			out.writeObject(obj.toString());
 		} else {
-			// ÆäËü²¹È±Öµ£¬ÓĞ¿ÉÄÜ¶ÁĞ´Òì³£
+			// å…¶å®ƒè¡¥ç¼ºå€¼ï¼Œæœ‰å¯èƒ½è¯»å†™å¼‚å¸¸
 			out.writeByte(255);
 			out.writeObject(obj);
 		}

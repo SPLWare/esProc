@@ -583,7 +583,7 @@ public class SheetXls extends SheetObject {
 			if (pos2 != null) {
 				endRow = pos2.getRow() - 1;
 				endCol = pos2.getCol() - 1;
-			} else { // pos2Ó¦¸Ã×Ü²»ÊÇnullÁË
+			} else { // pos2åº”è¯¥æ€»ä¸æ˜¯nulläº†
 				endRow = startRow;
 				endCol = startCol;
 			}
@@ -730,7 +730,7 @@ public class SheetXls extends SheetObject {
 			Sequence seq = (Sequence) content;
 			int rowCount = seq.length();
 			if (isRowInsert) {
-				// £º²åÈëÐÐºó³¬³öÐÐÊýÏÞÖÆ£º{0}
+				// ï¼šæ’å…¥è¡ŒåŽè¶…å‡ºè¡Œæ•°é™åˆ¶ï¼š{0}
 				if (totalCount + rowCount - 1 > getMaxRowCount()) {
 					throw new RQException("xlscell"
 							+ AppMessage.get().getMessage(

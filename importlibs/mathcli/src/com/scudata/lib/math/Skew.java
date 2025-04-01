@@ -6,9 +6,9 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.lib.math.prec.NumStatis;
 
 /**
- * 计算偏度
+ * 璁＄畻鍋忓害
  * @author bd
- * 原型A.skew()：n=A.len()，a=A.avg()，s= A.sd()，A.sum((~-a)3)/s3/(n-1)
+ * 鍘熷瀷A.skew()锛歯=A.len()锛宎=A.avg()锛宻= A.sd()锛孉.sum((~-a)3)/s3/(n-1)
  */
 public class Skew extends SequenceFunction {
 	

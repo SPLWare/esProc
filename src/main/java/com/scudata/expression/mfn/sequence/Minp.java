@@ -9,7 +9,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 取使表达式返回值最小的记录
+ * 鍙栦娇琛ㄨ揪寮忚繑鍥炲�兼渶灏忕殑璁板綍
  * A.minp(x)
  * @author RunQian
  *

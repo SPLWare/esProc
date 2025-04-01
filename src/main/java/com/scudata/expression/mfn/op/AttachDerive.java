@@ -18,8 +18,8 @@ import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼ÓÌí¼Ó×Ö¶ÎÉú³ÉĞÂĞò±íÔËËã
- * op.derive(xi:Fi,¡­) op.derive@x(xi:Fi,¡­;n) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ æ·»åŠ å­—æ®µç”Ÿæˆæ–°åºè¡¨è¿ç®—
+ * op.derive(xi:Fi,â€¦) op.derive@x(xi:Fi,â€¦;n) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */

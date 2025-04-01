@@ -9,8 +9,8 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ CS.groupx()
- * º¯ÊıÃûÇ°×ºCs±íÊ¾ÓÎ±ê
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ CS.groupx()
+ * å‡½æ•°åå‰ç¼€Csè¡¨ç¤ºæ¸¸æ ‡
  * 
  * @author Joancy
  *
@@ -19,7 +19,7 @@ public class CsGroupx extends CsGroups {
 	public String bufferN;
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -38,8 +38,8 @@ public class CsGroupx extends CsGroups {
 	}
 
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
@@ -48,7 +48,7 @@ public class CsGroupx extends CsGroups {
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
 	public byte getReturnType() {
@@ -56,22 +56,22 @@ public class CsGroupx extends CsGroups {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄÑ¡Ïî´®
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„é€‰é¡¹ä¸²
 	 */
 	public String optionString(){
 		StringBuffer options = new StringBuffer();
 		if(n){
 			options.append("n");
 		}
-		if(u && !n){//u,n»¥³â
+		if(u && !n){//u,näº’æ–¥
 			options.append("u");
 		}
 		return options.toString();
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÌå
-	 * ¸úsetFuncBodyÊÇÄæº¯Êı£¬È»ºó±í´ïÊ½µÄ¸³ÖµÒ²×ÜÊÇ»¥ÄæµÄ
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°ä½“
+	 * è·ŸsetFuncBodyæ˜¯é€†å‡½æ•°ï¼Œç„¶åè¡¨è¾¾å¼çš„èµ‹å€¼ä¹Ÿæ€»æ˜¯äº’é€†çš„
 	 */
 	public String getFuncBody() {
 		StringBuffer sb = new StringBuffer();
@@ -90,8 +90,8 @@ public class CsGroupx extends CsGroups {
 	}
 
 	/**
-	 * ÉèÖÃº¯ÊıÌå
-	 * @param funcBody º¯ÊıÌå
+	 * è®¾ç½®å‡½æ•°ä½“
+	 * @param funcBody å‡½æ•°ä½“
 	 */
 	public boolean setFuncBody(String funcBody) {
 		StringTokenizer st = new StringTokenizer(funcBody,";");

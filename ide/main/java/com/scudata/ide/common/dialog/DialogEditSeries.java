@@ -17,58 +17,58 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * ĞòÁĞ±à¼­¶Ô»°¿ò
+ * åºåˆ—ç¼–è¾‘å¯¹è¯æ¡†
  *
  */
 public class DialogEditSeries extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 	/**
-	 * ĞòÁĞÃæ°å
+	 * åºåˆ—é¢æ¿
 	 */
 	private PanelSeries panelSeries = new PanelSeries(this);
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * Ôö¼Ó°´Å¥
+	 * å¢åŠ æŒ‰é’®
 	 */
 	private JButton jBAdd = new JButton();
 	/**
-	 * É¾³ı°´Å¥
+	 * åˆ é™¤æŒ‰é’®
 	 */
 	private JButton jBDel = new JButton();
 	/**
-	 * ²åÈë°´Å¥
+	 * æ’å…¥æŒ‰é’®
 	 */
 	private JButton jBInsert = new JButton();
 	/**
-	 * ÉÏÒÆ°´Å¥
+	 * ä¸Šç§»æŒ‰é’®
 	 */
 	private JButton jBUp = new JButton();
 	/**
-	 * ÏÂÒÆ°´Å¥
+	 * ä¸‹ç§»æŒ‰é’®
 	 */
 	private JButton jBDown = new JButton();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogEditSeries(JDialog parent) {
-		super(parent, "ĞòÁĞ±à¼­", true);
+		super(parent, "åºåˆ—ç¼–è¾‘", true);
 		try {
 			initUI();
 			setSize(400, 300);
@@ -80,10 +80,10 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetText() {
-		setTitle(mm.getMessage("dialogeditseries.title")); // ĞòÁĞ±à¼­
+		setTitle(mm.getMessage("dialogeditseries.title")); // åºåˆ—ç¼–è¾‘
 		jBOK.setText(mm.getMessage("button.ok"));
 		jBCancel.setText(mm.getMessage("button.cancel"));
 		jBAdd.setText(mm.getMessage("button.add"));
@@ -95,7 +95,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -104,7 +104,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃĞòÁĞ¶ÔÏó
+	 * è®¾ç½®åºåˆ—å¯¹è±¡
 	 * 
 	 * @param param
 	 */
@@ -113,7 +113,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * È¡ĞòÁĞ¶ÔÏó
+	 * å–åºåˆ—å¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -122,35 +122,35 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
 	private void initUI() throws Exception {
 		JPanel jPanel2 = new JPanel(new VFlowLayout());
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogEditSeries_jBOK_actionAdapter(this));
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogEditSeries_jBCancel_actionAdapter(
 				this));
 		jBAdd.setMnemonic('A');
-		jBAdd.setText("Ôö¼Ó(A)");
+		jBAdd.setText("å¢åŠ (A)");
 		jBAdd.addActionListener(new DialogEditSeries_jBAdd_actionAdapter(this));
 		jBDel.setMnemonic('D');
-		jBDel.setText("É¾³ı(D)");
+		jBDel.setText("åˆ é™¤(D)");
 		jBDel.addActionListener(new DialogEditSeries_jBDel_actionAdapter(this));
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new DialogEditSeries_this_windowAdapter(this));
 		jBUp.setMnemonic('U');
-		jBUp.setText("ÉÏÒÆ(U)");
+		jBUp.setText("ä¸Šç§»(U)");
 		jBUp.addActionListener(new DialogEditSeries_jBUp_actionAdapter(this));
 		jBDown.setMnemonic('W');
-		jBDown.setText("ÏÂÒÆ(W)");
+		jBDown.setText("ä¸‹ç§»(W)");
 		jBDown.addActionListener(new DialogEditSeries_jBDown_actionAdapter(this));
 		jBInsert.setMnemonic('I');
-		jBInsert.setText("²åÈë(I)");
+		jBInsert.setText("æ’å…¥(I)");
 		jBInsert.addActionListener(new DialogEditSeries_jBInsert_actionAdapter(
 				this));
 		this.getContentPane().add(panelSeries, BorderLayout.CENTER);
@@ -166,7 +166,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -180,7 +180,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -190,7 +190,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * Ôö¼Ó°´Å¥ÊÂ¼ş
+	 * å¢åŠ æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -199,7 +199,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * É¾³ı°´Å¥ÊÂ¼ş
+	 * åˆ é™¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -208,7 +208,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -218,7 +218,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * ÉÏÒÆ°´Å¥ÊÂ¼ş
+	 * ä¸Šç§»æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -227,7 +227,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * ÏÂÒÆ°´Å¥ÊÂ¼ş
+	 * ä¸‹ç§»æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -236,7 +236,7 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * ²åÈë°´Å¥ÊÂ¼ş
+	 * æ’å…¥æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */

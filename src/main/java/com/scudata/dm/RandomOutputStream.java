@@ -5,34 +5,34 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * ¿ÉÒÔ¸Ä±äÊä³öÎ»ÖÃµÄÊä³öÁ÷
+ * å¯ä»¥æ”¹å˜è¾“å‡ºä½ç½®çš„è¾“å‡ºæµ
  * @author WangXiaoJun
  *
  */
 public abstract class RandomOutputStream extends OutputStream {
 	/**
-	 * ÉèÖÃÊä³öÎ»ÖÃ
+	 * è®¾ç½®è¾“å‡ºä½ç½®
 	 * @param newPosition
 	 * @throws IOException
 	 */
 	public abstract void position(long newPosition) throws IOException;
 	
 	/**
-	 * ·µ»Øµ±Ç°Êä³öÎ»ÖÃ
+	 * è¿”å›å½“å‰è¾“å‡ºä½ç½®
 	 * @return
 	 * @throws IOException
 	 */
 	public abstract long position() throws IOException;
 	
 	/**
-	 * Èç¹ûËø¶¨³É¹¦·µ»Øtrue
+	 * å¦‚æœé”å®šæˆåŠŸè¿”å›true
 	 * @return
 	 * @throws IOException
 	 */
 	public abstract boolean tryLock() throws IOException;
 	
 	/**
-	 * µÈ´ıËø£¬Ö±µ½Ëø³É¹¦
+	 * ç­‰å¾…é”ï¼Œç›´åˆ°é”æˆåŠŸ
 	 * @return boolean
 	 * @throws IOException
 	 */
@@ -41,8 +41,8 @@ public abstract class RandomOutputStream extends OutputStream {
 	}
 	
 	/**
-	 * È¡´ÓÖ¸¶¨Î»ÖÃ¿ªÊ¼µÄÊäÈëÁ÷
-	 * @param pos Î»ÖÃ
+	 * å–ä»æŒ‡å®šä½ç½®å¼€å§‹çš„è¾“å…¥æµ
+	 * @param pos ä½ç½®
 	 * @return InputStream
 	 * @throws IOException
 	 */

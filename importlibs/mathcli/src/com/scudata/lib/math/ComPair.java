@@ -9,10 +9,10 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸´¹²éî¶Ô×é
- * ½«¹²éî¸´Êý¶ÔÖØÐÂ°´ÐèÇóÅÅÐò,ÒªÇó´«ÈëµÄÊý¾ÝÈ«²¿Îª¿ÉÅä¶ÔµÄ¹²éî¸´Êý»òÊµÊý
- * ¹æÔò£ºµÝÔöÊµ²¿£¨Êµ²¿Îª0Ò²°üº¬ÔÚÄÚ£©£¬´øÓÐ¸ºÐéÊýµÄÅÅÔÚÇ°Ãæ£»
- *    ÈôÊµ²¿Ò»Ñù£¬ÔòÐé²¿°´Êý×Ö´óÐ¡½µÐò£¬ÇÒ·ûºÏ¸ºÐéÊýÔÚÇ°µÄ¹æÔò£»ËùÓÐ¸´ÊýÅÅÐòÍêÔÙÅÅÊµÊý£¬Ò²ÊÇµÝÔö
+ * å¤å…±è½­å¯¹ç»„
+ * å°†å…±è½­å¤æ•°å¯¹é‡æ–°æŒ‰éœ€æ±‚æŽ’åº,è¦æ±‚ä¼ å…¥çš„æ•°æ®å…¨éƒ¨ä¸ºå¯é…å¯¹çš„å…±è½­å¤æ•°æˆ–å®žæ•°
+ * è§„åˆ™ï¼šé€’å¢žå®žéƒ¨ï¼ˆå®žéƒ¨ä¸º0ä¹ŸåŒ…å«åœ¨å†…ï¼‰ï¼Œå¸¦æœ‰è´Ÿè™šæ•°çš„æŽ’åœ¨å‰é¢ï¼›
+ *    è‹¥å®žéƒ¨ä¸€æ ·ï¼Œåˆ™è™šéƒ¨æŒ‰æ•°å­—å¤§å°é™åºï¼Œä¸”ç¬¦åˆè´Ÿè™šæ•°åœ¨å‰çš„è§„åˆ™ï¼›æ‰€æœ‰å¤æ•°æŽ’åºå®Œå†æŽ’å®žæ•°ï¼Œä¹Ÿæ˜¯é€’å¢ž
  */
 public class ComPair extends SequenceFunction {
     public Object calculate (Context ctx) {

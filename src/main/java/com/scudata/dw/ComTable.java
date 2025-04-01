@@ -29,58 +29,58 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.FileSyncManager;
 
 /**
- * ×é±íÀà
- * Çø¿éÁ´*1£ºÎÄ¼şÍ·£¨ÎÄ¼ş±êÊ¶¡¢Çø¿é´óĞ¡¡¢¿ÕÏĞÎ»ÖÃ¡¢ÁĞĞÅÏ¢¡¢±íĞÅÏ¢¡¢¸´ÁĞÊı¾İ½á¹¹¡¢·Ö¶ÎĞÅÏ¢¡¢²¹¿éĞÅÏ¢£¨²åÈë¼ÇÂ¼Êı¡¢ĞŞ¸Ä¼ÇÂ¼Êı¡¢É¾³ı¼ÇÂ¼Êı£©£©£¬Ã¿´Î¸ü¸ÄÖØĞ´
- * Çø¿éÁ´*T£º±í·Ö¿éĞÅÏ¢£¨Ã¿¸öÁĞ¿éµÄ¼ÇÂ¼Êı£©
- * Çø¿éÁ´*C£ºÁĞ·Ö¿éĞÅÏ¢£¨ÁĞÇø¿éÎ»ÖÃ¡¢Î¬×Ö¶Î×î´ó×îĞ¡Öµ£©
- * Çø¿éÁ´*C£ºÁĞÊı¾İ£¨°´Çø¿éÑ¹Ëõ£©
- * Çø¿éÁ´*T£º²¹¿é£¬Ã¿´Î¸ü¸ÄÖØĞ´
+ * ç»„è¡¨ç±»
+ * åŒºå—é“¾*1ï¼šæ–‡ä»¶å¤´ï¼ˆæ–‡ä»¶æ ‡è¯†ã€åŒºå—å¤§å°ã€ç©ºé—²ä½ç½®ã€åˆ—ä¿¡æ¯ã€è¡¨ä¿¡æ¯ã€å¤åˆ—æ•°æ®ç»“æ„ã€åˆ†æ®µä¿¡æ¯ã€è¡¥å—ä¿¡æ¯ï¼ˆæ’å…¥è®°å½•æ•°ã€ä¿®æ”¹è®°å½•æ•°ã€åˆ é™¤è®°å½•æ•°ï¼‰ï¼‰ï¼Œæ¯æ¬¡æ›´æ”¹é‡å†™
+ * åŒºå—é“¾*Tï¼šè¡¨åˆ†å—ä¿¡æ¯ï¼ˆæ¯ä¸ªåˆ—å—çš„è®°å½•æ•°ï¼‰
+ * åŒºå—é“¾*Cï¼šåˆ—åˆ†å—ä¿¡æ¯ï¼ˆåˆ—åŒºå—ä½ç½®ã€ç»´å­—æ®µæœ€å¤§æœ€å°å€¼ï¼‰
+ * åŒºå—é“¾*Cï¼šåˆ—æ•°æ®ï¼ˆæŒ‰åŒºå—å‹ç¼©ï¼‰
+ * åŒºå—é“¾*Tï¼šè¡¥å—ï¼Œæ¯æ¬¡æ›´æ”¹é‡å†™
  * @author runqian
  *
  */
 abstract public class ComTable implements IBlockStorage {
-	// ²¹ÎÄ¼şºó×ºÓÉ_SF¸ÄÎª.ext
-	public static final String SF_SUFFIX = ".ext"; //²¹ÎÄ¼şºó×º
+	// è¡¥æ–‡ä»¶åç¼€ç”±_SFæ”¹ä¸º.ext
+	public static final String SF_SUFFIX = ".ext"; //è¡¥æ–‡ä»¶åç¼€
 	protected static int MIN_BLOCK_SIZE = 1024 * 4;
 	protected FileObject fileObject;
 	protected File file;
 	protected RandomAccessFile raf;
 	protected PhyTable baseTable;
 	
-	protected int blockSize; // ¿é´óĞ¡
-	protected transient int enlargeSize; // À©´óÎÄ¼şÊ±µÄÔö·ù
+	protected int blockSize; // å—å¤§å°
+	protected transient int enlargeSize; // æ‰©å¤§æ–‡ä»¶æ—¶çš„å¢å¹…
 	protected BlockLink headerBlockLink;
 	
 	/**
-	 * ±£Áô£¬×Ö½Ú1´æ·Å°æ±¾£¬
-	 * ×Ö½Ú2´æ·ÅÊÇ·ñÑ¹Ëõ£¬0£ºÑ¹Ëõ£¬1£º²»Ñ¹Ëõ£¬
-	 * ×Ö½Ú3´æ·ÅÊÇ·ñ¼ì²éÊı¾İ´¿£¬0£º²»¼ì²é£¬1£º¼ì²é£¬
-	 * ×Ö½Ú4´æ·ÅÊÇ·ñÓĞÊ±¼ä¼ü£¬0£ºÃ»ÓĞ£¬1£ºÓĞ£¬
-	 * ×Ö½Ú5´æ·ÅÊÇ·ñÓĞÉ¾³ı¼ü£¬0£ºÃ»ÓĞ£¬1£ºÓĞ£¬
+	 * ä¿ç•™ï¼Œå­—èŠ‚1å­˜æ”¾ç‰ˆæœ¬ï¼Œ
+	 * å­—èŠ‚2å­˜æ”¾æ˜¯å¦å‹ç¼©ï¼Œ0ï¼šå‹ç¼©ï¼Œ1ï¼šä¸å‹ç¼©ï¼Œ
+	 * å­—èŠ‚3å­˜æ”¾æ˜¯å¦æ£€æŸ¥æ•°æ®çº¯ï¼Œ0ï¼šä¸æ£€æŸ¥ï¼Œ1ï¼šæ£€æŸ¥ï¼Œ
+	 * å­—èŠ‚4å­˜æ”¾æ˜¯å¦æœ‰æ—¶é—´é”®ï¼Œ0ï¼šæ²¡æœ‰ï¼Œ1ï¼šæœ‰ï¼Œ
+	 * å­—èŠ‚5å­˜æ”¾æ˜¯å¦æœ‰åˆ é™¤é”®ï¼Œ0ï¼šæ²¡æœ‰ï¼Œ1ï¼šæœ‰ï¼Œ
 	 */
 	protected byte []reserve = new byte[32]; 
-	protected long freePos = 0; // ¿ÕÏĞÎ»ÖÃ
-	protected long fileSize; // ÎÄ¼ş×Ü´óĞ¡
+	protected long freePos = 0; // ç©ºé—²ä½ç½®
+	protected long fileSize; // æ–‡ä»¶æ€»å¤§å°
 	
-	// ÃÜÂëÒÑ·ÏÆú£¬ÎÄ¼şÖĞ±£ÁôÕâ¸öÊôĞÔ£¬ ¶ÁĞ´Ê±²»ÔÙ×öÃÜÂë¼ì²é
-	protected String writePswHash; // Ğ´ÃÜÂë¹şÏ£Öµ£¬°æ±¾1Ìí¼Ó
-	protected String readPswHash; // ¶ÁÃÜÂë¹şÏ£Öµ£¬°æ±¾1Ìí¼Ó
+	// å¯†ç å·²åºŸå¼ƒï¼Œæ–‡ä»¶ä¸­ä¿ç•™è¿™ä¸ªå±æ€§ï¼Œ è¯»å†™æ—¶ä¸å†åšå¯†ç æ£€æŸ¥
+	protected String writePswHash; // å†™å¯†ç å“ˆå¸Œå€¼ï¼Œç‰ˆæœ¬1æ·»åŠ 
+	protected String readPswHash; // è¯»å¯†ç å“ˆå¸Œå€¼ï¼Œç‰ˆæœ¬1æ·»åŠ 
 	
-	protected String distribute; // ·Ö²¼±í´ïÊ½£¬°æ±¾2Ìí¼Ó
+	protected String distribute; // åˆ†å¸ƒè¡¨è¾¾å¼ï¼Œç‰ˆæœ¬2æ·»åŠ 
 
 	//private transient boolean canWrite = true;
 	//private transient boolean canRead = true;
 	
-	protected StructManager structManager; // ¸´ÁĞµÄÊı¾İ½á¹¹
+	protected StructManager structManager; // å¤åˆ—çš„æ•°æ®ç»“æ„
 	protected transient Context ctx;
 	
 	private transient ComTable sfGroupTable;
-	private transient Integer partition; // ×éÎÄ¼şËùÊô·ÖÇø
-	private transient int cursorCount;//´ò¿ªµÄÓÎ±êµÄ¸öÊı
+	private transient Integer partition; // ç»„æ–‡ä»¶æ‰€å±åˆ†åŒº
+	private transient int cursorCount;//æ‰“å¼€çš„æ¸¸æ ‡çš„ä¸ªæ•°
 	
 	/**
-	 * »ñµÃ×é±íµÄ²¹ÎÄ¼ş
-	 * @param file ×é±íÎÄ¼ş
+	 * è·å¾—ç»„è¡¨çš„è¡¥æ–‡ä»¶
+	 * @param file ç»„è¡¨æ–‡ä»¶
 	 * @return
 	 */
 	public static File getSupplementFile(File file) {
@@ -90,7 +90,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 
 	/**
-	 * ¸´ÖÆµ±Ç°×é±íµÄ½á¹¹²úÉúĞÂ×é±íÎÄ¼ş
+	 * å¤åˆ¶å½“å‰ç»„è¡¨çš„ç»“æ„äº§ç”Ÿæ–°ç»„è¡¨æ–‡ä»¶
 	 * @param sf
 	 * @return
 	 */
@@ -99,7 +99,7 @@ abstract public class ComTable implements IBlockStorage {
 		ComTable newGroupTable = null;
 		
 		try {
-			//Éú³ÉĞÂ×é±íÎÄ¼ş
+			//ç”Ÿæˆæ–°ç»„è¡¨æ–‡ä»¶
 			if (this instanceof ColComTable) {
 				newGroupTable = new ColComTable(sf, (ColComTable)this);
 			} else {
@@ -115,8 +115,8 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * µÃµ½²¹ÎÄ¼ş¶ÔÏó
-	 * @param isCreate ÊÇ·ñĞÂ½¨
+	 * å¾—åˆ°è¡¥æ–‡ä»¶å¯¹è±¡
+	 * @param isCreate æ˜¯å¦æ–°å»º
 	 * @return
 	 */
 	public ComTable getSupplement(boolean isCreate) {
@@ -141,7 +141,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 
 	/**
-	 * ´ò¿ªÒÑ¾­´æÔÚµÄ×é±í
+	 * æ‰“å¼€å·²ç»å­˜åœ¨çš„ç»„è¡¨
 	 * @param file
 	 * @param ctx
 	 * @return
@@ -219,7 +219,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ´ò¿ªÒÑ¾­´æÔÚµÄ×é±í,²»¼ì²é³ö´íÈÕÖ¾£¬½öÄÚ²¿Ê¹ÓÃ
+	 * æ‰“å¼€å·²ç»å­˜åœ¨çš„ç»„è¡¨,ä¸æ£€æŸ¥å‡ºé”™æ—¥å¿—ï¼Œä»…å†…éƒ¨ä½¿ç”¨
 	 * @param file
 	 * @return
 	 * @throws IOException
@@ -244,7 +244,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ´ò¿ª»ù±í
+	 * æ‰“å¼€åŸºè¡¨
 	 * @param file
 	 * @param ctx
 	 * @return
@@ -259,7 +259,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ´ò¿ª»ù±í
+	 * æ‰“å¼€åŸºè¡¨
 	 * @param file
 	 * @param ctx
 	 * @return
@@ -297,7 +297,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 
 	/**
-	 * È¡»ù±í
+	 * å–åŸºè¡¨
 	 * @return
 	 */
 	public PhyTable getBaseTable() {
@@ -305,7 +305,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 
 	/**
-	 * ÉèÖÃÇø¿é´óĞ¡
+	 * è®¾ç½®åŒºå—å¤§å°
 	 * @param size
 	 */
 	protected void setBlockSize(int size) {
@@ -318,10 +318,10 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * É¾³ı×é±íÎÄ¼ş
+	 * åˆ é™¤ç»„è¡¨æ–‡ä»¶
 	 */
 	public void delete() {
-		// ÓÃÓÚf.create@y()
+		// ç”¨äºf.create@y()
 		checkWritable();
 		ComTable sgt = getSupplement(false);
 		if (sgt != null) {
@@ -385,7 +385,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»¿éÊı¾İ
+	 * è¯»å–ä¸€å—æ•°æ®
 	 */
 	public synchronized void loadBlock(long pos, byte []block) throws IOException {
 		raf.seek(pos);
@@ -403,7 +403,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ÉêÇëÒ»¸öĞÂ¿é
+	 * ç”³è¯·ä¸€ä¸ªæ–°å—
 	 */
 	public long applyNewBlock() throws IOException {
 		long pos = freePos;
@@ -445,8 +445,8 @@ abstract public class ComTable implements IBlockStorage {
 	}
 
 	/**
-	 * ¿ªÆôÊÂÎñ±£»¤
-	 * °Ñ×é±íµÄ¹Ø¼üĞÅÏ¢Ôİ´æµ½ÁÙÊ±ÎÄ¼ş
+	 * å¼€å¯äº‹åŠ¡ä¿æŠ¤
+	 * æŠŠç»„è¡¨çš„å…³é”®ä¿¡æ¯æš‚å­˜åˆ°ä¸´æ—¶æ–‡ä»¶
 	 * @param table
 	 * @throws IOException
 	 */
@@ -466,7 +466,7 @@ abstract public class ComTable implements IBlockStorage {
 		raf.getChannel().force(false);
 		raf.close();
 		
-		//¼Ç×Å¸üĞÂµÄtable name£¬ÊÇÎªÁË»Ö¸´Ë÷Òı
+		//è®°ç€æ›´æ–°çš„table nameï¼Œæ˜¯ä¸ºäº†æ¢å¤ç´¢å¼•
 		if (table != null) {
 			if (table.indexNames == null)
 				return;
@@ -482,9 +482,9 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * Ìá½»ÊÂÎñ
-	 * É¾³ı±¸·İÈÕÖ¾ÎÄ¼ş
-	 * @param step 0£¬É¾³ı×é±íÈÕÖ¾£»1£¬É¾³ıË÷ÒıÈÕÖ¾
+	 * æäº¤äº‹åŠ¡
+	 * åˆ é™¤å¤‡ä»½æ—¥å¿—æ–‡ä»¶
+	 * @param step 0ï¼Œåˆ é™¤ç»„è¡¨æ—¥å¿—ï¼›1ï¼Œåˆ é™¤ç´¢å¼•æ—¥å¿—
 	 */
 	protected void commitTransaction(int step) {
 		if (step == 1) {
@@ -499,14 +499,14 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * »Ö¸´ÊÂÎñ
-	 * µ±Ğ´×é±íÊ±³öÏÖÒì³£Çé¿ö£¬Ê¹ÓÃÕâ¸ö·½·¨À´»Ö¸´µ½Ğ´ÊÂÎñÖ®Ç°µÄ×´Ì¬
+	 * æ¢å¤äº‹åŠ¡
+	 * å½“å†™ç»„è¡¨æ—¶å‡ºç°å¼‚å¸¸æƒ…å†µï¼Œä½¿ç”¨è¿™ä¸ªæ–¹æ³•æ¥æ¢å¤åˆ°å†™äº‹åŠ¡ä¹‹å‰çš„çŠ¶æ€
 	 */
 	protected void restoreTransaction() {
 		String dir = file.getAbsolutePath() + "_TransactionLog";
 		FileObject logFile = new FileObject(dir);
 		if (logFile.isExists()) {
-			//ĞèÒªµ÷ÓÃrollback
+			//éœ€è¦è°ƒç”¨rollback
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(file.getName() + mm.getMessage("dw.needRollback"));
 		}
@@ -514,7 +514,7 @@ abstract public class ComTable implements IBlockStorage {
 		dir = file.getAbsolutePath() + "_I_TransactionLog";
 		logFile = new FileObject(dir);
 		if (logFile.isExists()) {
-			//ĞèÒªµ÷ÓÃrollback
+			//éœ€è¦è°ƒç”¨rollback
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(file.getName() + mm.getMessage("dw.needRollback"));
 		}
@@ -522,11 +522,11 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ÖØÖÃ×é±í
-	 * @param file ×é±íÎÄ¼ş
-	 * @param opt r,ÖØÖÃÎªĞĞ´æ¡£c,ÖØÖÃÎªÁĞ´æ¡£
+	 * é‡ç½®ç»„è¡¨
+	 * @param file ç»„è¡¨æ–‡ä»¶
+	 * @param opt r,é‡ç½®ä¸ºè¡Œå­˜ã€‚c,é‡ç½®ä¸ºåˆ—å­˜ã€‚
 	 * @param ctx
-	 * @param distribute ĞÂµÄ·Ö²¼±í´ïÊ½£¬Ê¡ÂÔÔòÓÃÔ­À´µÄ
+	 * @param distribute æ–°çš„åˆ†å¸ƒè¡¨è¾¾å¼ï¼Œçœç•¥åˆ™ç”¨åŸæ¥çš„
 	 * @return
 	 */
 	public boolean reset(File file, String opt, Context ctx, String distribute) {
@@ -566,13 +566,13 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ÖØÖÃ×é±í
-	 * @param file ×é±íÎÄ¼ş
-	 * @param opt r,ÖØÖÃÎªĞĞ´æ¡£c,ÖØÖÃÎªÁĞ´æ¡£
+	 * é‡ç½®ç»„è¡¨
+	 * @param file ç»„è¡¨æ–‡ä»¶
+	 * @param opt r,é‡ç½®ä¸ºè¡Œå­˜ã€‚c,é‡ç½®ä¸ºåˆ—å­˜ã€‚
 	 * @param ctx
-	 * @param distribute ĞÂµÄ·Ö²¼±í´ïÊ½£¬Ê¡ÂÔÔòÓÃÔ­À´µÄ
-	 * @param blockSize ĞÂµÄÇø¿é´óĞ¡
-	 * @param cursor Òª¹é²¢µÄÓÎ±êÊı¾İ
+	 * @param distribute æ–°çš„åˆ†å¸ƒè¡¨è¾¾å¼ï¼Œçœç•¥åˆ™ç”¨åŸæ¥çš„
+	 * @param blockSize æ–°çš„åŒºå—å¤§å°
+	 * @param cursor è¦å½’å¹¶çš„æ¸¸æ ‡æ•°æ®
 	 * @return
 	 */
 	public boolean reset(File file, String opt, Context ctx, String distribute, Integer blockSize, ICursor cursor) {
@@ -583,12 +583,12 @@ abstract public class ComTable implements IBlockStorage {
 		
 		boolean isCol = this instanceof ColComTable;
 		boolean hasQ = false;
-		boolean hasN = false;// Ö»¸´ÖÆÎÄ¼ş½á¹¹(°üÀ¨¸½±í)
+		boolean hasN = false;// åªå¤åˆ¶æ–‡ä»¶ç»“æ„(åŒ…æ‹¬é™„è¡¨)
 		boolean hasW = false;
-		boolean onlyDataStruct = false; // Ö»¸´ÖÆÎÄ¼ş½á¹¹
-		boolean compress = false; // Ñ¹Ëõ
-		boolean uncompress = false; // ²»Ñ¹Ëõ
-		boolean hasP = false;// ²¢ĞĞĞ´
+		boolean onlyDataStruct = false; // åªå¤åˆ¶æ–‡ä»¶ç»“æ„
+		boolean compress = false; // å‹ç¼©
+		boolean uncompress = false; // ä¸å‹ç¼©
+		boolean hasP = false;// å¹¶è¡Œå†™
 		
 		if (opt != null) {
 			if (opt.indexOf('r') != -1) {
@@ -621,12 +621,12 @@ abstract public class ComTable implements IBlockStorage {
 			if (opt.indexOf('q') != -1) {
 //				hasQ = true;
 //				if (file != null) {
-//					//ÓĞ@qÊ±²»ÄÜÓĞf'
+//					//æœ‰@qæ—¶ä¸èƒ½æœ‰f'
 //					MessageManager mm = EngineMessage.get();
 //					throw new RQException("reset" + mm.getMessage("function.invalidParam"));
 //				}
 //				
-//				//ÓĞ¹é²¢µÄÓÎ±êÊı¾İÊ±Ê±²»ÄÜÓÃ@q
+//				//æœ‰å½’å¹¶çš„æ¸¸æ ‡æ•°æ®æ—¶æ—¶ä¸èƒ½ç”¨@q
 //				if (cursor != null) {
 //					hasQ = false;
 //				}
@@ -635,7 +635,7 @@ abstract public class ComTable implements IBlockStorage {
 			if (opt.indexOf('n') != -1) {
 				hasN = true;
 				if (file == null) {
-					//ÓĞ@nÊ±±ØĞëÓĞf'
+					//æœ‰@næ—¶å¿…é¡»æœ‰f'
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("reset" + mm.getMessage("function.invalidParam"));
 				}
@@ -689,7 +689,7 @@ abstract public class ComTable implements IBlockStorage {
 			newFile = file;
 		}
 		
-		// Éú³É·Ö¶ÎÑ¡Ïî£¬ÊÇ·ñ°´µÚÒ»×Ö¶Î·Ö¶Î
+		// ç”Ÿæˆåˆ†æ®µé€‰é¡¹ï¼Œæ˜¯å¦æŒ‰ç¬¬ä¸€å­—æ®µåˆ†æ®µ
 		String newOpt = "";
 		String segmentCol = baseTable.getSegmentCol();
 		if (segmentCol != null) {
@@ -701,7 +701,7 @@ abstract public class ComTable implements IBlockStorage {
 		
 		ComTable newGroupTable = null;
 		try {
-			//Éú³ÉĞÂ×é±íÎÄ¼ş
+			//ç”Ÿæˆæ–°ç»„è¡¨æ–‡ä»¶
 			if (isCol) {
 				newGroupTable = new ColComTable(newFile, colNames, distribute, newOpt, blockSize, ctx);
 				if (compress) {
@@ -715,14 +715,14 @@ abstract public class ComTable implements IBlockStorage {
 				newGroupTable = new RowComTable(newFile, colNames, distribute, newOpt, blockSize, ctx);
 			}
 			
-			//´¦Àí·Ö¶Î
+			//å¤„ç†åˆ†æ®µ
 			boolean needSeg = baseTable.segmentCol != null;
 			if (needSeg) {
 				newGroupTable.baseTable.setSegmentCol(baseTable.segmentCol, baseTable.segmentSerialLen);
 			}
 			PhyTable newBaseTable = newGroupTable.baseTable;
 			
-			//½¨Á¢»ù±íµÄ×Ó±í
+			//å»ºç«‹åŸºè¡¨çš„å­è¡¨
 			ArrayList<PhyTable> tableList = baseTable.tableList;
 			for (PhyTable t : tableList) {
 				srcColNames = t.getColNames();
@@ -757,10 +757,10 @@ abstract public class ComTable implements IBlockStorage {
 				return Boolean.TRUE;
 			}
 			
-			//Ğ´Êı¾İµ½ĞÂ»ù±í
+			//å†™æ•°æ®åˆ°æ–°åŸºè¡¨
 			ICursor cs = null;
 			if (hasQ) {
-				//»ñµÃ×Ô¼ºµÄ´¿ÓÎ±ê£¨²»º¬²¹ÎÄ¼şµÄ£©
+				//è·å¾—è‡ªå·±çš„çº¯æ¸¸æ ‡ï¼ˆä¸å«è¡¥æ–‡ä»¶çš„ï¼‰
 				if (baseTable instanceof ColPhyTable) {
 					cs = new Cursor((ColPhyTable)baseTable);
 				} else {
@@ -775,9 +775,9 @@ abstract public class ComTable implements IBlockStorage {
 				}
 			}
 			
-			int startBlock = -1;//hasQÊ±²ÅÓĞÓÃ
+			int startBlock = -1;//hasQæ—¶æ‰æœ‰ç”¨
 			if (hasQ) {
-				//´Ó»ù±í¸½±íÖĞ¸ù¾İ²¹ÇøÕÒ×î¿¿Ç°µÄ¿éºÅ
+				//ä»åŸºè¡¨é™„è¡¨ä¸­æ ¹æ®è¡¥åŒºæ‰¾æœ€é å‰çš„å—å·
 				startBlock = baseTable.getFirstBlockFromModifyRecord();
 				tableList = baseTable.tableList;
 				for (PhyTable t : tableList) {
@@ -792,14 +792,14 @@ abstract public class ComTable implements IBlockStorage {
 					newGroupTable.delete();
 					return Boolean.FALSE;
 				} else if (startBlock == 0) {
-					hasQ = false;//Èç¹ûresetµã¾ÍÔÚµÚÒ»¿é£¬ÔòÍêÈ«reset
+					hasQ = false;//å¦‚æœresetç‚¹å°±åœ¨ç¬¬ä¸€å—ï¼Œåˆ™å®Œå…¨reset
 				} else {
 					((Cursor) cs).setSegment(startBlock, baseTable.getDataBlockCount());
 				}
 			}
 			
 			if (cs != null && cursor != null) {
-				// ¼ì²é¹é²¢µÄÓÎ±êÊÇ·ñ¼æÈİ
+				// æ£€æŸ¥å½’å¹¶çš„æ¸¸æ ‡æ˜¯å¦å…¼å®¹
 				DataStruct ds1 = cs.getDataStruct();
 				DataStruct ds2 = cursor.peek(1).dataStruct();
 				for (int i = 0, count = ds1.getFieldCount(); i < count; i++) {
@@ -809,7 +809,7 @@ abstract public class ComTable implements IBlockStorage {
 					}
 				}
 				
-				// ¹é²¢»òÕßÁ¬½ÓÓÎ±ê
+				// å½’å¹¶æˆ–è€…è¿æ¥æ¸¸æ ‡
 				if (hasW) {
 					int deleteField = baseTable.getDeleteFieldIndex(null, ds1.getFieldNames());
 					cursor = new UpdateIdCursor(cursor, ds1.getPKIndex(), deleteField);
@@ -824,7 +824,7 @@ abstract public class ComTable implements IBlockStorage {
 				}
 			}
 			
-			//Ğ´Êı¾İµ½»ù±í
+			//å†™æ•°æ®åˆ°åŸºè¡¨
 			if (cs != null) {
 				if (hasP && cs instanceof MultipathCursors) {
 					parallelReset(newBaseTable, (MultipathCursors) cs, ctx);
@@ -834,11 +834,11 @@ abstract public class ComTable implements IBlockStorage {
 				}
 			}
 			
-			//Ğ´Êı¾İµ½»ù±íµÄ×Ó±í
+			//å†™æ•°æ®åˆ°åŸºè¡¨çš„å­è¡¨
 			for (PhyTable t : tableList) {
 				PhyTable newTable = newBaseTable.getAnnexTable(t.tableName);
 				if (hasQ) {
-					//»ñµÃ×Ô¼ºµÄ´¿ÓÎ±ê£¨²»º¬²¹ÎÄ¼şµÄ£©
+					//è·å¾—è‡ªå·±çš„çº¯æ¸¸æ ‡ï¼ˆä¸å«è¡¥æ–‡ä»¶çš„ï¼‰
 					if (t instanceof ColPhyTable) {
 						cs = new Cursor((ColPhyTable)t, t.allColNames);
 					} else {
@@ -860,7 +860,7 @@ abstract public class ComTable implements IBlockStorage {
 			}
 			
 			if (hasQ) {
-				//resetÔ­×é±í£¬½ØÖ¹µ½¿éºÅ
+				//resetåŸç»„è¡¨ï¼Œæˆªæ­¢åˆ°å—å·
 				long pos, freePos;
 				freePos = baseTable.resetByBlock(startBlock);
 				for (PhyTable t : tableList) {
@@ -874,7 +874,7 @@ abstract public class ComTable implements IBlockStorage {
 				readHeader();
 				tableList = baseTable.tableList;
 				
-				//Ğ´Èë¿éºÅÖ®ºóµÄÊı¾İ
+				//å†™å…¥å—å·ä¹‹åçš„æ•°æ®
 				cs = newBaseTable.cursor();
 				baseTable.append(cs);
 				ArrayList<PhyTable> newTableList = newBaseTable.tableList;
@@ -884,18 +884,18 @@ abstract public class ComTable implements IBlockStorage {
 					tableList.get(i).append(cs);
 				}
 				
-				//É¾³ıÁÙÊ±×é±í
+				//åˆ é™¤ä¸´æ—¶ç»„è¡¨
 				newGroupTable.close();
 				newGroupTable.file.delete();
 				
-				//ÖØ½¨Ë÷ÒıÎÄ¼ş
+				//é‡å»ºç´¢å¼•æ–‡ä»¶
 				baseTable.resetIndex(ctx);
 				newTableList = baseTable.tableList;
 				for (PhyTable table : newTableList) {
 					table.resetIndex(ctx);
 				}
 				
-				//hasQÊ±²»ÓÃ´¦Àícuboid
+				//hasQæ—¶ä¸ç”¨å¤„ç†cuboid
 				return Boolean.TRUE;
 			} else {
 				if (sgt != null) {
@@ -903,8 +903,8 @@ abstract public class ComTable implements IBlockStorage {
 				}
 			}
 			
-			//Èç¹ûÃ»ÓĞf'²ÎÊı¾Í½¨Á¢Ë÷Òı
-			//»ù±íË÷Òı
+			//å¦‚æœæ²¡æœ‰f'å‚æ•°å°±å»ºç«‹ç´¢å¼•
+			//åŸºè¡¨ç´¢å¼•
 			String []indexNames = baseTable.indexNames;
 			if (indexNames != null) {
 				String [][]indexFields = baseTable.indexFields;
@@ -913,7 +913,7 @@ abstract public class ComTable implements IBlockStorage {
 					newBaseTable.addIndex(indexNames[j], indexFields[j], indexValueFields[j]);
 				}
 			}
-			//×Ó±íË÷Òı
+			//å­è¡¨ç´¢å¼•
 			ArrayList<PhyTable> newTableList = newBaseTable.tableList;
 			len = tableList.size();
 			for (int i = 0; i < len; i++) {
@@ -928,14 +928,14 @@ abstract public class ComTable implements IBlockStorage {
 				}
 			}
 			
-			//»ù±ícuboid
+			//åŸºè¡¨cuboid
 			String []cuboids = baseTable.cuboids;
 			if (cuboids != null) {
 				for (String cuboid : cuboids) {
 					newBaseTable.addCuboid(cuboid);
 				}
 			}
-			//×Ó±ícuboid
+			//å­è¡¨cuboid
 			for (int i = 0; i < len; i++) {
 				PhyTable oldTable = tableList.get(i);
 				PhyTable newTable = newTableList.get(i);
@@ -952,7 +952,7 @@ abstract public class ComTable implements IBlockStorage {
 			throw new RQException(e.getMessage(), e);
 		}
 		
-		//É¾³ı¾ÉµÄ×é±í
+		//åˆ é™¤æ—§çš„ç»„è¡¨
 		String path = this.file.getAbsolutePath();
 		close();
 		boolean b = this.file.delete();
@@ -969,7 +969,7 @@ abstract public class ComTable implements IBlockStorage {
 			throw new RQException(e.getMessage(), e);
 		}
 		
-		//ÖØ½¨Ë÷ÒıÎÄ¼şºÍcuboid
+		//é‡å»ºç´¢å¼•æ–‡ä»¶å’Œcuboid
 		newGroupTable.baseTable.resetIndex(ctx);
 		newGroupTable.baseTable.resetCuboid(ctx);
 		ArrayList<PhyTable> newTableList = newGroupTable.baseTable.tableList;
@@ -983,13 +983,13 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * °Ñµ±Ç°×é±íĞ´³öµ½Ò»¸öĞÂµÄÎÄ¼ş×é
-	 * @param fileGroup ÎÄ¼ş×é
-	 * @param opt r,ÖØÖÃÎªĞĞ´æ¡£c,ÖØÖÃÎªÁĞ´æ¡£
+	 * æŠŠå½“å‰ç»„è¡¨å†™å‡ºåˆ°ä¸€ä¸ªæ–°çš„æ–‡ä»¶ç»„
+	 * @param fileGroup æ–‡ä»¶ç»„
+	 * @param opt r,é‡ç½®ä¸ºè¡Œå­˜ã€‚c,é‡ç½®ä¸ºåˆ—å­˜ã€‚
 	 * @param ctx
-	 * @param distribute ĞÂµÄ·Ö²¼±í´ïÊ½£¬Ê¡ÂÔÔòÓÃÔ­À´µÄ
-	 * @param blockSize ĞÂµÄÇø¿é´óĞ¡
-	 * @param cursor Òª¹é²¢µÄÓÎ±êÊı¾İ
+	 * @param distribute æ–°çš„åˆ†å¸ƒè¡¨è¾¾å¼ï¼Œçœç•¥åˆ™ç”¨åŸæ¥çš„
+	 * @param blockSize æ–°çš„åŒºå—å¤§å°
+	 * @param cursor è¦å½’å¹¶çš„æ¸¸æ ‡æ•°æ®
 	 * @return
 	 */
 	public boolean resetFileGroup(FileGroup fileGroup, String opt, Context ctx, String distribute, Integer blockSize, ICursor cursor) {
@@ -997,7 +997,7 @@ abstract public class ComTable implements IBlockStorage {
 			distribute = this.distribute;
 		}
 		boolean isCol = this instanceof ColComTable;
-		boolean uncompress = false; // ²»Ñ¹Ëõ
+		boolean uncompress = false; // ä¸å‹ç¼©
 		boolean hasW = false;
 		
 		if (opt != null) {
@@ -1044,7 +1044,7 @@ abstract public class ComTable implements IBlockStorage {
 			}
 		}
 		
-		// Éú³É·Ö¶ÎÑ¡Ïî£¬ÊÇ·ñ°´µÚÒ»×Ö¶Î·Ö¶Î
+		// ç”Ÿæˆåˆ†æ®µé€‰é¡¹ï¼Œæ˜¯å¦æŒ‰ç¬¬ä¸€å­—æ®µåˆ†æ®µ
 		String newOpt = "";
 		if (opt != null && opt.indexOf('y') != -1) {
 			newOpt = "y";
@@ -1070,13 +1070,13 @@ abstract public class ComTable implements IBlockStorage {
 		}
 		
 		try {
-			//Ğ´»ù±í
+			//å†™åŸºè¡¨
 			PhyTableGroup newTableGroup = fileGroup.create(colNames, distribute, newOpt, blockSize, ctx);
 			ICursor cs = baseTable.cursor();
 			
-			// ¹é²¢»òÕßÁ¬½ÓÓÎ±ê
+			// å½’å¹¶æˆ–è€…è¿æ¥æ¸¸æ ‡
 			if (cursor != null) {
-				// ¼ì²é¹é²¢µÄÓÎ±êÊÇ·ñ¼æÈİ
+				// æ£€æŸ¥å½’å¹¶çš„æ¸¸æ ‡æ˜¯å¦å…¼å®¹
 				DataStruct ds1 = cs.getDataStruct();
 				DataStruct ds2 = cursor.getDataStruct();
 				for (int i = 0, count = ds1.getFieldCount(); i < count; i++) {
@@ -1101,7 +1101,7 @@ abstract public class ComTable implements IBlockStorage {
 			
 			newTableGroup.append(cs, "xi");
 			
-			//Ğ´×Ó±í
+			//å†™å­è¡¨
 			ArrayList<PhyTable> tableList = baseTable.tableList;
 			for (PhyTable t : tableList) {
 				len = t.colNames.length;
@@ -1123,7 +1123,7 @@ abstract public class ComTable implements IBlockStorage {
 				}
 				IPhyTable newTable = newTableGroup.createAnnexTable(colNames, t.getSerialBytesLen(), t.tableName);
 				
-				//¸½±íµÄÓÎ±ê£¬È¡³ö×Ö¶ÎÀïÒª°üº¬»ù±íËùÓĞ×Ö¶Î£¬ÕâÊÇÒòÎªĞèÒª¼ÆËã·Ö²¼
+				//é™„è¡¨çš„æ¸¸æ ‡ï¼Œå–å‡ºå­—æ®µé‡Œè¦åŒ…å«åŸºè¡¨æ‰€æœ‰å­—æ®µï¼Œè¿™æ˜¯å› ä¸ºéœ€è¦è®¡ç®—åˆ†å¸ƒ
 				String[] allColNames = Arrays.copyOf(srcColNames, srcColNames.length + t.colNames.length);
 				System.arraycopy(t.colNames, 0, allColNames, srcColNames.length, t.colNames.length);
 				cs = t.cursor(allColNames);
@@ -1140,12 +1140,12 @@ abstract public class ComTable implements IBlockStorage {
 	public abstract long[] getBlockLinkInfo();
 	
 	/**
-	 * ¶Ô±È¿éÁ´ĞÅÏ¢
-	 * @param blockLinkInfo ĞÂ×é±íÎÄ¼şµÄÇø¿éĞÅÏ¢
-	 * @return Ã¿¸öĞèÒªÍ¬²½µÄÇø¿éÁ´µÄÆğÊ¼µØÖ·
+	 * å¯¹æ¯”å—é“¾ä¿¡æ¯
+	 * @param blockLinkInfo æ–°ç»„è¡¨æ–‡ä»¶çš„åŒºå—ä¿¡æ¯
+	 * @return æ¯ä¸ªéœ€è¦åŒæ­¥çš„åŒºå—é“¾çš„èµ·å§‹åœ°å€
 	 */
 	public long[] cmpBlockLinkInfo(long []blockLinkInfo) {
-		//µ÷ÓÃÕâ¸ö·½·¨µÄ¶ÔÏóÊÇ¾ÉÎÄ¼ş
+		//è°ƒç”¨è¿™ä¸ªæ–¹æ³•çš„å¯¹è±¡æ˜¯æ—§æ–‡ä»¶
 		long []localBlockInfo = getBlockLinkInfo();
 		int localSize = localBlockInfo.length / 4;
 		int size = blockLinkInfo.length / 4;
@@ -1158,7 +1158,7 @@ abstract public class ComTable implements IBlockStorage {
 			int blockCount = (int) blockLinkInfo[i * 4 + 3];
 			
 			if (firstBlockPos >= fileSize) {
-				//Èç¹û´óÓÚfile sizeÔò²»´¦Àí
+				//å¦‚æœå¤§äºfile sizeåˆ™ä¸å¤„ç†
 				continue;
 			}
 			boolean find = false;
@@ -1170,12 +1170,12 @@ abstract public class ComTable implements IBlockStorage {
 				if (firstBlockPos == localFirstBlockPos) {
 					find = true;
 					if (lastBlockPos < localLastBlockPos) {
-						//Òì³£
+						//å¼‚å¸¸
 					}
 					if ((lastBlockPos != localLastBlockPos) ||
 							(freeIndex != localFreeIndex) || 
 							(blockCount !=localBlockCount)) {
-						//ÕÒµ½ÁËµ«ÊÇ²»ÏàµÈ£¬Ò²ĞèÒªÍ¬²½
+						//æ‰¾åˆ°äº†ä½†æ˜¯ä¸ç›¸ç­‰ï¼Œä¹Ÿéœ€è¦åŒæ­¥
 						posArray.add(localLastBlockPos);
 					}
 					break;
@@ -1183,7 +1183,7 @@ abstract public class ComTable implements IBlockStorage {
 				
 			}
 			if (!find) {
-				//Ã»ÕÒµ½£¬ĞèÒªÍ¬²½
+				//æ²¡æ‰¾åˆ°ï¼Œéœ€è¦åŒæ­¥
 				posArray.add(firstBlockPos);
 			}
 		}
@@ -1194,14 +1194,14 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * µÃµ½Í¬²½µØÖ·
-	 * @param positions Ã¿¸öĞèÒªÍ¬²½µÄÇø¿éÁ´µÄÆğÊ¼µØÖ·
-	 * @return ĞèÒªÍ¬²½µÄËùÓĞµØÖ·
+	 * å¾—åˆ°åŒæ­¥åœ°å€
+	 * @param positions æ¯ä¸ªéœ€è¦åŒæ­¥çš„åŒºå—é“¾çš„èµ·å§‹åœ°å€
+	 * @return éœ€è¦åŒæ­¥çš„æ‰€æœ‰åœ°å€
 	 */
 	public long[] getSyncPosition(long []positions) {
-		//²¹ÇøblockLink ¶¼ÒªÍ¬²½
-		//headerBlockLink »á·Åµ½×îºóÒ»²½Í¬²½
-		//ÎÄ¼şÎ²ÔöÁ¿²¿·Ö»áÌØ±ğ´¦Àí
+		//è¡¥åŒºblockLink éƒ½è¦åŒæ­¥
+		//headerBlockLink ä¼šæ”¾åˆ°æœ€åä¸€æ­¥åŒæ­¥
+		//æ–‡ä»¶å°¾å¢é‡éƒ¨åˆ†ä¼šç‰¹åˆ«å¤„ç†
 		LongArray posArray = new LongArray(1024);
 		byte []block = new byte[5];
 		for (int i = 0, len = positions.length; i < len; ++i) {
@@ -1232,7 +1232,7 @@ abstract public class ComTable implements IBlockStorage {
 
 	/**
 	 * 
-	 * @return ²¹ÇøĞèÒªÍ¬²½µÄËùÓĞµØÖ·
+	 * @return è¡¥åŒºéœ€è¦åŒæ­¥çš„æ‰€æœ‰åœ°å€
 	 */
 	public long[] getModifyPosition() {
 		int count = 1 + baseTable.tableList.size();
@@ -1277,11 +1277,11 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ·µ»Ø¿éÁ´ÉÏµÄËùÓĞÍ·µØÖ·
+	 * è¿”å›å—é“¾ä¸Šçš„æ‰€æœ‰å¤´åœ°å€
 	 * @return
 	 */
 	public long[] getHeaderPosition() {
-		//headerBlockLink »á·Åµ½×îºóÒ»²½Í¬²½
+		//headerBlockLink ä¼šæ”¾åˆ°æœ€åä¸€æ­¥åŒæ­¥
 		LongArray posArray = new LongArray(1024);
 		byte []block = new byte[5];
 		long pos = 0;
@@ -1319,16 +1319,16 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ·µ»ØÊÇ·ñÉèÖÃÁËÃÜÂë
-	 * @return true£ºÓĞÃÜÂë£¬false£ºÃ»ÃÜÂë
+	 * è¿”å›æ˜¯å¦è®¾ç½®äº†å¯†ç 
+	 * @return trueï¼šæœ‰å¯†ç ï¼Œfalseï¼šæ²¡å¯†ç 
 	 */
 	public boolean hasPassword() {
 		return writePswHash != null || readPswHash != null;
 	}
 	
 	/**
-	 * ÉèÖÃÁËÃÜÂëµÄ×é±íĞèÒªµ÷ÓÃ´Ëº¯Êı²ÅÄÜ·ÃÎÊ
-	 * @param psw Ğ´ÃÜÂë»òÕß¶ÁÃÜÂë£¬Èç¹ûÊÇĞ´ÃÜÂëÔò¼È¿É¶ÁÓÖ¿ÉĞ´£¬Èç¹ûÊÇ¶ÁÃÜÂëÔòÖ»¿É¶Á
+	 * è®¾ç½®äº†å¯†ç çš„ç»„è¡¨éœ€è¦è°ƒç”¨æ­¤å‡½æ•°æ‰èƒ½è®¿é—®
+	 * @param psw å†™å¯†ç æˆ–è€…è¯»å¯†ç ï¼Œå¦‚æœæ˜¯å†™å¯†ç åˆ™æ—¢å¯è¯»åˆå¯å†™ï¼Œå¦‚æœæ˜¯è¯»å¯†ç åˆ™åªå¯è¯»
 	 */
 	public void checkPassword(String psw) {
 		/*if (writePswHash != null) {
@@ -1351,7 +1351,7 @@ abstract public class ComTable implements IBlockStorage {
 				MD5 md5 = new MD5();
 				canRead = md5.getMD5ofStr(psw).equals(readPswHash);
 				if (!canRead) {
-					//added by hhw 2019.6Èç¹û¶ÁÊÇfalseĞ´Ò²¾ÍÎªfalse
+					//added by hhw 2019.6å¦‚æœè¯»æ˜¯falseå†™ä¹Ÿå°±ä¸ºfalse
 					canWrite = false;
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(mm.getMessage("cellset.pswError"));
@@ -1375,7 +1375,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ·µ»ØÊÇ·ñ¿ÉĞ´
+	 * è¿”å›æ˜¯å¦å¯å†™
 	 * @return
 	 */
 	public boolean canWrite() {
@@ -1383,7 +1383,7 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * ·µ»ØÊÇ·ñ¿É¶Á
+	 * è¿”å›æ˜¯å¦å¯è¯»
 	 * @return
 	 */
 	public boolean canRead() {
@@ -1400,17 +1400,17 @@ abstract public class ComTable implements IBlockStorage {
 		}
 	}
 	
-	// È¡·Ö²¼±í´ïÊ½´®
+	// å–åˆ†å¸ƒè¡¨è¾¾å¼ä¸²
 	public String getDistribute() {
 		return distribute;
 	}
 	
-	// ·µ»ØÊÇ·ñÑ¹ËõÁĞÊı¾İ
+	// è¿”å›æ˜¯å¦å‹ç¼©åˆ—æ•°æ®
 	public boolean isCompress() {
 		return reserve[1] == 0;
 	}
 	
-	// ÉèÖÃÊÇ·ñÑ¹ËõÁĞÊı¾İ
+	// è®¾ç½®æ˜¯å¦å‹ç¼©åˆ—æ•°æ®
 	public void setCompress(boolean isCompress) {
 		if (isCompress) {
 			reserve[1] = 0;
@@ -1419,12 +1419,12 @@ abstract public class ComTable implements IBlockStorage {
 		}
 	}
 	
-	// ·µ»ØÊÇ·ñ¼ì²éÊı¾İ´¿
+	// è¿”å›æ˜¯å¦æ£€æŸ¥æ•°æ®çº¯
 	public boolean isCheckDataPure() {
 		return reserve[2] == 1;
 	}
 	
-	// ÉèÖÃÊÇ·ñ¼ì²éÊı¾İ´¿
+	// è®¾ç½®æ˜¯å¦æ£€æŸ¥æ•°æ®çº¯
 	public void setCheckDataPure(boolean isCheck) {
 		if (isCheck) {
 			reserve[2] = 1;
@@ -1433,12 +1433,12 @@ abstract public class ComTable implements IBlockStorage {
 		}
 	}
 	
-	// ·µ»ØÊÇ·ñÓĞÊ±¼ä¼ü
+	// è¿”å›æ˜¯å¦æœ‰æ—¶é—´é”®
 	public boolean hasTimeKey() {
 		return reserve[3] == 1;
 	}
 	
-	// ÉèÖÃÊÇ·ñ´æÔÚÊ±¼ä¼ü
+	// è®¾ç½®æ˜¯å¦å­˜åœ¨æ—¶é—´é”®
 	public void setTimeKey(boolean hasTimeKey) {
 		if (hasTimeKey) {
 			reserve[3] = 1;
@@ -1447,12 +1447,12 @@ abstract public class ComTable implements IBlockStorage {
 		}
 	}
 	
-	// ·µ»ØÊÇ·ñÓĞÉ¾³ı¼ü
+	// è¿”å›æ˜¯å¦æœ‰åˆ é™¤é”®
 	public boolean hasDeleteKey() {
 		return reserve[4] == 1;
 	}
 	
-	// ÉèÖÃÊÇ·ñ´æÔÚÉ¾³ı¼ü
+	// è®¾ç½®æ˜¯å¦å­˜åœ¨åˆ é™¤é”®
 	public void setDeleteKey(boolean hasDeleteKey) {
 		if (hasDeleteKey) {
 			reserve[4] = 1;
@@ -1495,9 +1495,9 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	/**
-	 * µÃµ½×é±íµÄËùÓĞÏà¹ØÎÄ¼ş£¬°üÀ¨²¹ÎÄ¼ş¡¢Ë÷ÒıºÍcuboid
-	 * @param self °üº¬×ÔÉí
-	 * @param auto °üº¬Ë÷ÒıÎÄ¼ş
+	 * å¾—åˆ°ç»„è¡¨çš„æ‰€æœ‰ç›¸å…³æ–‡ä»¶ï¼ŒåŒ…æ‹¬è¡¥æ–‡ä»¶ã€ç´¢å¼•å’Œcuboid
+	 * @param self åŒ…å«è‡ªèº«
+	 * @param auto åŒ…å«ç´¢å¼•æ–‡ä»¶
 	 * @return
 	 */
 	public List<File> getFiles(boolean self, boolean auto) {

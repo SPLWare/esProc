@@ -7,14 +7,14 @@ import com.scudata.expression.fn.Call;
 import com.scudata.expression.fn.PCSFunction;
 
 /**
- * ×¢²áµÄ½Å²½º¯Êı
+ * æ³¨å†Œçš„è„šæ­¥å‡½æ•°
  * @author WangXiaoJun
  *
  */
 public class DfxFunction {
-	//private String funcName; // º¯ÊıÃû
-	private String dfxPathName; // ½Å±¾Â·¾¶Ãû
-	private boolean hasOptParam; // ÊÇ·ñÓĞÑ¡Ïî²ÎÊı
+	//private String funcName; // å‡½æ•°å
+	private String dfxPathName; // è„šæœ¬è·¯å¾„å
+	private boolean hasOptParam; // æ˜¯å¦æœ‰é€‰é¡¹å‚æ•°
 	
 	private PgmCellSet.FuncInfo funcInfo;
 	

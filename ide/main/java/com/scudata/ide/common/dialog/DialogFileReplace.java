@@ -42,37 +42,37 @@ import com.scudata.ide.spl.GMSpl;
 import com.scudata.util.CellSetUtil;
 
 /**
- * ÔÚÎÄ¼şÖĞ²éÕÒ/Ìæ»»¶Ô»°¿ò
+ * åœ¨æ–‡ä»¶ä¸­æŸ¥æ‰¾/æ›¿æ¢å¯¹è¯æ¡†
  *
  */
 public abstract class DialogFileReplace extends RQDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * CommonÓïÑÔ×ÊÔ´
+	 * Commonè¯­è¨€èµ„æº
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 	/**
-	 * ËÑË÷×Ö·û´®
+	 * æœç´¢å­—ç¬¦ä¸²
 	 */
 	private String searchString = "";
 	/**
-	 * Ìæ»»×Ö·û´®
+	 * æ›¿æ¢å­—ç¬¦ä¸²
 	 */
 	private String replaceString = "";
 	/**
-	 * ËÑË÷µÄÑ¡Ïî
+	 * æœç´¢çš„é€‰é¡¹
 	 */
 	private int searchFlag = 0;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸¿Ø¼ş
+	 *            çˆ¶æ§ä»¶
 	 */
 	public DialogFileReplace(Frame owner) {
-		super(owner, "ÔÚÎÄ¼şÖĞ²éÕÒ/Ìæ»»", 600, 500);
+		super(owner, "åœ¨æ–‡ä»¶ä¸­æŸ¥æ‰¾/æ›¿æ¢", 600, 500);
 		try {
 			this.setModal(false);
 			setTitle(mm.getMessage("dialogfilereplace.title"));
@@ -84,7 +84,7 @@ public abstract class DialogFileReplace extends RQDialog {
 	}
 
 	/**
-	 * ¶ÁÈ¡¼ÓÃÜÍø¸ñ
+	 * è¯»å–åŠ å¯†ç½‘æ ¼
 	 * 
 	 * @param buf
 	 * @return
@@ -93,52 +93,52 @@ public abstract class DialogFileReplace extends RQDialog {
 			String fileName) throws Exception;
 
 	/**
-	 * È¡ÎÄ¼şÁĞ±í
+	 * å–æ–‡ä»¶åˆ—è¡¨
 	 * 
 	 * @return
 	 */
 	private List<File> getFiles() {
 		String sDir = jTFDir.getText();
 		if (!StringUtils.isValidString(sDir)) {
-			GM.messageDialog(this, mm.getMessage("dialogfilereplace.selectdir")); // ÇëÑ¡ÔñÎÄ¼şËùÔÚÄ¿Â¼¡£
+			GM.messageDialog(this, mm.getMessage("dialogfilereplace.selectdir")); // è¯·é€‰æ‹©æ–‡ä»¶æ‰€åœ¨ç›®å½•ã€‚
 			return null;
 		}
 		File dir = new File(sDir);
 		if (!dir.exists()) {
 			GM.messageDialog(this,
-					mm.getMessage("dialogfilereplace.dirnotexists", sDir)); // Ä¿Â¼£º{0}²»´æÔÚ¡£
+					mm.getMessage("dialogfilereplace.dirnotexists", sDir)); // ç›®å½•ï¼š{0}ä¸å­˜åœ¨ã€‚
 			return null;
 		}
 		if (!dir.isDirectory()) {
 			GM.messageDialog(this,
-					mm.getMessage("dialogfilereplace.notdir", sDir)); // {0}²»ÊÇÒ»¸öÄ¿Â¼¡£
+					mm.getMessage("dialogfilereplace.notdir", sDir)); // {0}ä¸æ˜¯ä¸€ä¸ªç›®å½•ã€‚
 			return null;
 		}
 		File[] subFiles = dir.listFiles();
 		if (subFiles == null || subFiles.length == 0) {
 			GM.messageDialog(this,
-					mm.getMessage("dialogfilereplace.nofilefound")); // Ä¿Â¼ÏÂÃ»ÓĞ²éÕÒµ½ÎÄ¼ş¡£
+					mm.getMessage("dialogfilereplace.nofilefound")); // ç›®å½•ä¸‹æ²¡æœ‰æŸ¥æ‰¾åˆ°æ–‡ä»¶ã€‚
 			return null;
 		}
 		List<File> files = new ArrayList<File>();
 		getSubFiles(dir, files, jCBSub.isSelected());
 		if (files.isEmpty()) {
 			GM.messageDialog(this,
-					mm.getMessage("dialogfilereplace.nofilefound")); // Ä¿Â¼ÏÂÃ»ÓĞ²éÕÒµ½ÎÄ¼ş¡£
+					mm.getMessage("dialogfilereplace.nofilefound")); // ç›®å½•ä¸‹æ²¡æœ‰æŸ¥æ‰¾åˆ°æ–‡ä»¶ã€‚
 			return null;
 		}
 		return files;
 	}
 
 	/**
-	 * È¡Ä¿Â¼ÏÂÎÄ¼ş
+	 * å–ç›®å½•ä¸‹æ–‡ä»¶
 	 * 
 	 * @param dir
-	 *            Ä¿Â¼
+	 *            ç›®å½•
 	 * @param files
-	 *            ÎÄ¼şÁĞ±íÈİÆ÷
+	 *            æ–‡ä»¶åˆ—è¡¨å®¹å™¨
 	 * @param isSub
-	 *            ÊÇ·ñ°üº¬×ÓÄ¿Â¼
+	 *            æ˜¯å¦åŒ…å«å­ç›®å½•
 	 */
 	private void getSubFiles(File dir, List<File> files, boolean isSub) {
 		File[] subFiles = dir.listFiles();
@@ -159,7 +159,7 @@ public abstract class DialogFileReplace extends RQDialog {
 	}
 
 	/**
-	 * ÉèÖÃËÑË÷Ñ¡Ïî
+	 * è®¾ç½®æœç´¢é€‰é¡¹
 	 */
 	private void setSearchConfig() {
 		searchString = jTFSearch.getText();
@@ -184,10 +184,10 @@ public abstract class DialogFileReplace extends RQDialog {
 	protected Map<String, String> passwordMap = new HashMap<String, String>();
 
 	/**
-	 * ²éÕÒ
+	 * æŸ¥æ‰¾
 	 * 
 	 * @param isReplace
-	 *            ÊÇ·ñÌæ»»
+	 *            æ˜¯å¦æ›¿æ¢
 	 */
 	private void search(boolean isReplace) {
 		fileResultMap.clear();
@@ -195,7 +195,7 @@ public abstract class DialogFileReplace extends RQDialog {
 		setSearchConfig();
 		if (searchString == null || "".equals(searchString)) {
 			GM.messageDialog(this,
-					mm.getMessage("dialogfilereplace.searchnull")); // ²éÕÒÄÚÈİ²»ÄÜÎª¿Õ¡£
+					mm.getMessage("dialogfilereplace.searchnull")); // æŸ¥æ‰¾å†…å®¹ä¸èƒ½ä¸ºç©ºã€‚
 			return;
 		}
 		List<File> files = getFiles();
@@ -210,12 +210,12 @@ public abstract class DialogFileReplace extends RQDialog {
 				String fileName = getFileName(sDir, filePath);
 				if (!f.canRead()) {
 					fileResultMap.put(filePath, mm.getMessage(
-							"dialogfilereplace.cannotread", fileName)); // ÎÄ¼ş£º{0}Ã»ÓĞ¶ÁÈ¡È¨ÏŞ¡£
+							"dialogfilereplace.cannotread", fileName)); // æ–‡ä»¶ï¼š{0}æ²¡æœ‰è¯»å–æƒé™ã€‚
 					continue;
 				}
 				if (isReplace && !f.canWrite()) {
 					fileResultMap.put(filePath, mm.getMessage(
-							"dialogfilereplace.cannotwrite", fileName)); // ÎÄ¼ş£º{0}Ã»ÓĞĞ´ÈëÈ¨ÏŞ¡£
+							"dialogfilereplace.cannotwrite", fileName)); // æ–‡ä»¶ï¼š{0}æ²¡æœ‰å†™å…¥æƒé™ã€‚
 					continue;
 				}
 				boolean isSplFile = filePath.toLowerCase().endsWith(
@@ -271,11 +271,11 @@ public abstract class DialogFileReplace extends RQDialog {
 					}
 					fileResultMap.put(filePath, mm.getMessage(
 							"dialogfilereplace.replacecount", fileName,
-							searchCount));// ÎÄ¼ş£º{0}ÖĞÌæ»»ÁË{1}¸öµ¥Ôª¸ñ¡£
+							searchCount));// æ–‡ä»¶ï¼š{0}ä¸­æ›¿æ¢äº†{1}ä¸ªå•å…ƒæ ¼ã€‚
 				} else {
 					fileResultMap.put(filePath, mm.getMessage(
 							"dialogfilereplace.searchcount", fileName,
-							searchCount));// ÎÄ¼ş£º{0}ÖĞ²éÕÒµ½ÁË{1}¸öµ¥Ôª¸ñ¡£
+							searchCount));// æ–‡ä»¶ï¼š{0}ä¸­æŸ¥æ‰¾åˆ°äº†{1}ä¸ªå•å…ƒæ ¼ã€‚
 				}
 			}
 			Iterator<String> it = fileResultMap.keySet().iterator();
@@ -294,7 +294,7 @@ public abstract class DialogFileReplace extends RQDialog {
 	}
 
 	/**
-	 * È¡ÎÄ¼şÃû
+	 * å–æ–‡ä»¶å
 	 * 
 	 * @param sDir
 	 * @param filePath
@@ -325,7 +325,7 @@ public abstract class DialogFileReplace extends RQDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		panelCenter.setLayout(new GridBagLayout());
@@ -353,7 +353,7 @@ public abstract class DialogFileReplace extends RQDialog {
 
 		JPanel panelOpt = new JPanel(new GridLayout(2, 2));
 		panelOpt.setBorder(BorderFactory.createTitledBorder(mm
-				.getMessage("dialogfilereplace.option"))); // Ñ¡Ïî
+				.getMessage("dialogfilereplace.option"))); // é€‰é¡¹
 		panelOpt.add(jCBSensitive);
 		panelOpt.add(jCBWordOnly);
 		panelOpt.add(jCBQuote);
@@ -368,10 +368,10 @@ public abstract class DialogFileReplace extends RQDialog {
 		panelCenter.add(new JScrollPane(jListResult), gbc);
 
 		this.remove(panelSouth);
-		jCBSensitive.setText(mm.getMessage("dialogfilereplace.sensitive")); // Çø·Ö´óĞ¡Ğ´
-		jCBWordOnly.setText(mm.getMessage("dialogfilereplace.wordonly")); // ½öËÑË÷¶ÀÁ¢µ¥´Ê
-		jCBQuote.setText(mm.getMessage("dialogfilereplace.quote")); // ºöÂÔÒıºÅÖĞµ¥´Ê
-		jCBPars.setText(mm.getMessage("dialogfilereplace.pars")); // ºöÂÔÔ²À¨ºÅÖĞµ¥´Ê
+		jCBSensitive.setText(mm.getMessage("dialogfilereplace.sensitive")); // åŒºåˆ†å¤§å°å†™
+		jCBWordOnly.setText(mm.getMessage("dialogfilereplace.wordonly")); // ä»…æœç´¢ç‹¬ç«‹å•è¯
+		jCBQuote.setText(mm.getMessage("dialogfilereplace.quote")); // å¿½ç•¥å¼•å·ä¸­å•è¯
+		jCBPars.setText(mm.getMessage("dialogfilereplace.pars")); // å¿½ç•¥åœ†æ‹¬å·ä¸­å•è¯
 
 		jBDir.addActionListener(new ActionListener() {
 
@@ -427,7 +427,7 @@ public abstract class DialogFileReplace extends RQDialog {
 	}
 
 	/**
-	 * ´ò¿ªÎÄ¼ş
+	 * æ‰“å¼€æ–‡ä»¶
 	 * 
 	 * @param filePath
 	 * @throws Exception
@@ -437,74 +437,74 @@ public abstract class DialogFileReplace extends RQDialog {
 	}
 
 	/**
-	 * ÎÄ¼şÀàĞÍ
+	 * æ–‡ä»¶ç±»å‹
 	 */
 	private final String[] FILE_TYPES = AppConsts.SPL_FILE_EXTS.split(",");
 	/**
-	 * Ä¿Â¼
+	 * ç›®å½•
 	 */
 	private JLabel jLDir = new JLabel(mm.getMessage("dialogfilereplace.dir"));
 	/**
-	 * Ä¿Â¼ÎÄ±¾¿ò
+	 * ç›®å½•æ–‡æœ¬æ¡†
 	 */
 	private JTextField jTFDir = new JTextField();
 	/**
-	 * Ñ¡ÔñÄ¿Â¼
+	 * é€‰æ‹©ç›®å½•
 	 */
 	private JButton jBDir = new JButton(
 			mm.getMessage("dialogfilereplace.dirbutton"));
 
 	/**
-	 * ÊÇ·ñ°üº¬×ÓÄ¿Â¼
+	 * æ˜¯å¦åŒ…å«å­ç›®å½•
 	 */
 	private JCheckBox jCBSub = new JCheckBox(
 			mm.getMessage("dialogfilereplace.containssub"));
 	/**
-	 * ²éÕÒÄÚÈİ
+	 * æŸ¥æ‰¾å†…å®¹
 	 */
 	private JLabel jLSearch = new JLabel(
 			mm.getMessage("dialogfilereplace.searchstr"));
 	/**
-	 * ²éÕÒÄÚÈİÎÄ±¾¿ò
+	 * æŸ¥æ‰¾å†…å®¹æ–‡æœ¬æ¡†
 	 */
 	private JTextField jTFSearch = new JTextField();
 	/**
-	 * ²éÕÒ°´Å¥
+	 * æŸ¥æ‰¾æŒ‰é’®
 	 */
 	private JButton jBSearch = new JButton(
 			mm.getMessage("dialogfilereplace.searchbutton"));
 	/**
-	 * Ìæ»»Îª
+	 * æ›¿æ¢ä¸º
 	 */
 	private JLabel jLReplace = new JLabel(
 			mm.getMessage("dialogfilereplace.replaceto"));
 	/**
-	 * Ìæ»»ÎÄ±¾¿ò
+	 * æ›¿æ¢æ–‡æœ¬æ¡†
 	 */
 	private JTextField jTFReplace = new JTextField();
 	/**
-	 * Ìæ»»°´Å¥
+	 * æ›¿æ¢æŒ‰é’®
 	 */
 	private JButton jBReplace = new JButton(
 			mm.getMessage("dialogfilereplace.replacebutton"));
 	/**
-	 * ÊÇ·ñ´óĞ¡Ğ´Ãô¸Ğ
+	 * æ˜¯å¦å¤§å°å†™æ•æ„Ÿ
 	 */
 	private JCheckBox jCBSensitive = new JCheckBox();
 	/**
-	 * ÊÇ·ñËÑË÷¶ÀÁ¢µ¥´Ê
+	 * æ˜¯å¦æœç´¢ç‹¬ç«‹å•è¯
 	 */
 	private JCheckBox jCBWordOnly = new JCheckBox();
 	/**
-	 * ÊÇ·ñºöÂÔÒıºÅÄÚ
+	 * æ˜¯å¦å¿½ç•¥å¼•å·å†…
 	 */
 	private JCheckBox jCBQuote = new JCheckBox();
 	/**
-	 * ÊÇ·ñºöÂÔÀ¨ºÅÄÚ
+	 * æ˜¯å¦å¿½ç•¥æ‹¬å·å†…
 	 */
 	private JCheckBox jCBPars = new JCheckBox();
 	/**
-	 * ½á¹ûÁĞ±í
+	 * ç»“æœåˆ—è¡¨
 	 */
 	private JListEx jListResult = new JListEx();
 }

@@ -9,14 +9,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡ĞòÁĞÇ°n¸ö×îĞ¡µÄ³ÉÔ±
- * A.top(n) A.top(n,x) A.top(n,y,x) A.top(n;x,¡­)
+ * å–åºåˆ—å‰nä¸ªæœ€å°çš„æˆå‘˜
+ * A.top(n) A.top(n,x) A.top(n,y,x) A.top(n;x,â€¦)
  * @author WangXiaoJun
  *
  */
 public class Top extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

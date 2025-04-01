@@ -17,21 +17,21 @@ import org.influxdb.dto.QueryResult;
 import com.scudata.common.Logger;
 
 /**
- * InfluxDBÊı¾İ¿âÁ¬½Ó²Ù×÷Àà
+ * InfluxDBæ•°æ®åº“è¿æ¥æ“ä½œç±»
  * 
  * @author 
  */
 public class InfluxDBUtil {
-	// ÓÃ»§Ãû
+	// ç”¨æˆ·å
 	private String username;
-	// ÃÜÂë
+	// å¯†ç 
 	private String password;
-	// Á¬½ÓµØÖ·
+	// è¿æ¥åœ°å€
 	private String openurl;
-	// Êı¾İ¿â
+	// æ•°æ®åº“
 	private String database;
 
-	// ±£Áô²ßÂÔ
+	// ä¿ç•™ç­–ç•¥
 	private String retentionPolicy;
 	private InfluxDB influxDB;
 
@@ -46,7 +46,7 @@ public class InfluxDBUtil {
 	}
 	  
 	/**
-	 * ´´½¨Êı¾İ¿â
+	 * åˆ›å»ºæ•°æ®åº“
 	 * 
 	 * @param dbName
 	 */
@@ -56,7 +56,7 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * É¾³ıÊı¾İ¿â
+	 * åˆ é™¤æ•°æ®åº“
 	 * 
 	 * @param dbName
 	 */
@@ -70,9 +70,9 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * ²âÊÔÁ¬½ÓÊÇ·ñÕı³£
+	 * æµ‹è¯•è¿æ¥æ˜¯å¦æ­£å¸¸
 	 * 
-	 * @return true Õı³£
+	 * @return true æ­£å¸¸
 	 */
 	public boolean ping() {
 		boolean isConnected = false;
@@ -88,7 +88,7 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * Á¬½ÓÊ±ĞòÊı¾İ¿â £¬Èô²»´æÔÚÔò´´½¨
+	 * è¿æ¥æ—¶åºæ•°æ®åº“ ï¼Œè‹¥ä¸å­˜åœ¨åˆ™åˆ›å»º
 	 * 
 	 * @return
 	 */
@@ -104,7 +104,7 @@ public class InfluxDBUtil {
 			// influxDB.createDatabase(database);
 			// }
 		} catch (Exception e) {
-			// ¸ÃÊı¾İ¿â¿ÉÄÜÉèÖÃ¶¯Ì¬´úÀí£¬²»Ö§³Ö´´½¨Êı¾İ¿â
+			// è¯¥æ•°æ®åº“å¯èƒ½è®¾ç½®åŠ¨æ€ä»£ç†ï¼Œä¸æ”¯æŒåˆ›å»ºæ•°æ®åº“
 			// Logger.error(e.getMessage());
 		} finally {
 			influxDB.setRetentionPolicy(retentionPolicy);
@@ -114,16 +114,16 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * ´´½¨×Ô¶¨Òå±£Áô²ßÂÔ
+	 * åˆ›å»ºè‡ªå®šä¹‰ä¿ç•™ç­–ç•¥
 	 * 
 	 * @param policyName
-	 *            ²ßÂÔÃû
+	 *            ç­–ç•¥å
 	 * @param duration
-	 *            ±£´æÌìÊı
+	 *            ä¿å­˜å¤©æ•°
 	 * @param replication
-	 *            ±£´æ¸±±¾ÊıÁ¿
+	 *            ä¿å­˜å‰¯æœ¬æ•°é‡
 	 * @param isDefault
-	 *            ÊÇ·ñÉèÎªÄ¬ÈÏ±£Áô²ßÂÔ
+	 *            æ˜¯å¦è®¾ä¸ºé»˜è®¤ä¿ç•™ç­–ç•¥
 	 */
 	public void createRetentionPolicy(String policyName, String duration, int replication, Boolean isDefault) {
 		String sql = String.format("CREATE RETENTION POLICY \"%s\" ON \"%s\" DURATION %s REPLICATION %s ", policyName,
@@ -135,10 +135,10 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * ´´½¨Ä¬ÈÏµÄ±£Áô²ßÂÔ
+	 * åˆ›å»ºé»˜è®¤çš„ä¿ç•™ç­–ç•¥
 	 * 
-	 * @param ²ßÂÔÃû£ºdefault£¬±£´æÌìÊı£º30Ìì£¬±£´æ¸±±¾ÊıÁ¿£º1
-	 *            ÉèÎªÄ¬ÈÏ±£Áô²ßÂÔ
+	 * @param ç­–ç•¥åï¼šdefaultï¼Œä¿å­˜å¤©æ•°ï¼š30å¤©ï¼Œä¿å­˜å‰¯æœ¬æ•°é‡ï¼š1
+	 *            è®¾ä¸ºé»˜è®¤ä¿ç•™ç­–ç•¥
 	 */
 	public void createDefaultRetentionPolicy() {
 		String command = String.format("CREATE RETENTION POLICY \"%s\" ON \"%s\" DURATION %s REPLICATION %s DEFAULT",
@@ -147,10 +147,10 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * ²éÑ¯
+	 * æŸ¥è¯¢
 	 * 
 	 * @param command
-	 *            ²éÑ¯Óï¾ä
+	 *            æŸ¥è¯¢è¯­å¥
 	 * @return
 	 */
 	public QueryResult query(String command) {
@@ -158,14 +158,14 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * ²åÈë
+	 * æ’å…¥
 	 * 
 	 * @param measurement
-	 *            ±í
+	 *            è¡¨
 	 * @param tags
-	 *            ±êÇ©
+	 *            æ ‡ç­¾
 	 * @param fields
-	 *            ×Ö¶Î
+	 *            å­—æ®µ
 	 */
 	public void insert(String measurement, Map<String, String> tags, Map<String, Object> fields, long time,
 			TimeUnit timeUnit) {
@@ -179,7 +179,7 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * ÅúÁ¿Ğ´Èë²âµã
+	 * æ‰¹é‡å†™å…¥æµ‹ç‚¹
 	 * 
 	 * @param batchPoints
 	 */
@@ -192,16 +192,16 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * ÅúÁ¿Ğ´ÈëÊı¾İ
+	 * æ‰¹é‡å†™å…¥æ•°æ®
 	 * 
 	 * @param database
-	 *            Êı¾İ¿â
+	 *            æ•°æ®åº“
 	 * @param retentionPolicy
-	 *            ±£´æ²ßÂÔ
+	 *            ä¿å­˜ç­–ç•¥
 	 * @param consistency
-	 *            Ò»ÖÂĞÔ
+	 *            ä¸€è‡´æ€§
 	 * @param records
-	 *            Òª±£´æµÄÊı¾İ£¨µ÷ÓÃBatchPoints.lineProtocol()¿ÉµÃµ½Ò»Ìõrecord£©
+	 *            è¦ä¿å­˜çš„æ•°æ®ï¼ˆè°ƒç”¨BatchPoints.lineProtocol()å¯å¾—åˆ°ä¸€æ¡recordï¼‰
 	 */
 	public void batchInsert(final String database, final String retentionPolicy, final ConsistencyLevel consistency,
 			final List<String> records) {
@@ -209,11 +209,11 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 * 
 	 * @param command
-	 *            É¾³ıÓï¾ä
-	 * @return ·µ»Ø´íÎóĞÅÏ¢
+	 *            åˆ é™¤è¯­å¥
+	 * @return è¿”å›é”™è¯¯ä¿¡æ¯
 	 */
 	public String deleteMeasurementData(String command) {
 		QueryResult result = influxDB.query(new Query(command, database));
@@ -221,14 +221,14 @@ public class InfluxDBUtil {
 	}
 
 	/**
-	 * ¹Ø±ÕÊı¾İ¿â
+	 * å…³é—­æ•°æ®åº“
 	 */
 	public void close() {
 		influxDB.close();
 	}
 
 	/**
-	 * ¹¹½¨Point
+	 * æ„å»ºPoint
 	 * 
 	 * @param measurement
 	 * @param time

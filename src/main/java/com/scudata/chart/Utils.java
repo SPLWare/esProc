@@ -27,13 +27,13 @@ import com.scudata.expression.*;
 import com.scudata.util.*;
 
 /**
- * »­Í¼µÄÒ»Ğ©»ù´¡¹«ÓÃ·½·¨
- * ·²ÊÇ·½·¨ºóÃæ´øÉÏ1.2.3²½ÖèµÄ£¬¾ùÎªÍ¬Ò»Í¼ÔªĞèÒª·ÖÈı²½»æÖÆµÄ·Ö½â¶¯×÷
- * ÇÒÃ¿Ò»¸ö¶¯×÷¶¼ĞèÒª´øÉÏ¶ÀÁ¢µÄ·ç¸ñ£¬ÑÕÉ«
- * ²½Öè1ÎªÍ¼ÏñµÄÒõÓ°£¬ÔÚdrawBackÖĞµ÷ÓÃ£»
- * ²½Öè2ÎªÍ¼ÏñµÄÌî³äÉ«£¬ÔÚdrawÖĞµ÷ÓÃ£»
- * ²½Öè3ÎªÍ¼ÏñµÄ±ß¿ò£¬ÔÚdrawForeÖĞµ÷ÓÃ¡£ 
- * ²»´øÊı×ÖµÄ·½·¨¾ùÎª¼òµ¥º¯Êı£¬²»ĞèÒª·Ö²½µÄÍ¼Ïñ£¬ÇÒ·ç¸ñÔÚÉÏ²ã³ÌĞòÒÑ¾­ÉèÖÃ
+ * ç”»å›¾çš„ä¸€äº›åŸºç¡€å…¬ç”¨æ–¹æ³•
+ * å‡¡æ˜¯æ–¹æ³•åé¢å¸¦ä¸Š1.2.3æ­¥éª¤çš„ï¼Œå‡ä¸ºåŒä¸€å›¾å…ƒéœ€è¦åˆ†ä¸‰æ­¥ç»˜åˆ¶çš„åˆ†è§£åŠ¨ä½œ
+ * ä¸”æ¯ä¸€ä¸ªåŠ¨ä½œéƒ½éœ€è¦å¸¦ä¸Šç‹¬ç«‹çš„é£æ ¼ï¼Œé¢œè‰²
+ * æ­¥éª¤1ä¸ºå›¾åƒçš„é˜´å½±ï¼Œåœ¨drawBackä¸­è°ƒç”¨ï¼›
+ * æ­¥éª¤2ä¸ºå›¾åƒçš„å¡«å……è‰²ï¼Œåœ¨drawä¸­è°ƒç”¨ï¼›
+ * æ­¥éª¤3ä¸ºå›¾åƒçš„è¾¹æ¡†ï¼Œåœ¨drawForeä¸­è°ƒç”¨ã€‚ 
+ * ä¸å¸¦æ•°å­—çš„æ–¹æ³•å‡ä¸ºç®€å•å‡½æ•°ï¼Œä¸éœ€è¦åˆ†æ­¥çš„å›¾åƒï¼Œä¸”é£æ ¼åœ¨ä¸Šå±‚ç¨‹åºå·²ç»è®¾ç½®
  * 
  */
 
@@ -50,7 +50,7 @@ public class Utils {
 		double y1 = b.getY() + shift;// SHADE_SPAN;
 		double x2 = e.getX() + shift;// SHADE_SPAN;
 		double y2 = e.getY() + shift;// SHADE_SPAN;
-		// ¼ÆËã²İÍ¼²Î¿¼ÊÖĞ´¼ÇÊÂ±¾ µÚ Ö±ÏßÒõÓ°¼ÆËãÍ¼ĞÎ Ò³
+		// è®¡ç®—è‰å›¾å‚è€ƒæ‰‹å†™è®°äº‹æœ¬ ç¬¬ ç›´çº¿é˜´å½±è®¡ç®—å›¾å½¢ é¡µ
 		// Point2D P1 = new Point2D.Double(x1, y1);
 		// Point2D P2 = new Point2D.Double(x2, y2);
 		double P2e = Math.abs(y2 - y1);
@@ -72,13 +72,13 @@ public class Utils {
 	}
 
 	/**
-	 * »­Ö±ÏßµÄÒõÓ°
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param b Ïß¶ÎÆğµã
-	 * @param e Ïß¶ÎÖÕµã
-	 * @param style ÏßµÄ·ç¸ñ
-	 * @param weight ÏßµÄ´Ö¶È
-	 * @return Ïß¶ÎµÄ³¬Á´½ÓĞÎ×´
+	 * ç”»ç›´çº¿çš„é˜´å½±
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param b çº¿æ®µèµ·ç‚¹
+	 * @param e çº¿æ®µç»ˆç‚¹
+	 * @param style çº¿çš„é£æ ¼
+	 * @param weight çº¿çš„ç²—åº¦
+	 * @return çº¿æ®µçš„è¶…é“¾æ¥å½¢çŠ¶
 	 */
 	public static Shape drawLine1(Graphics2D g, Point2D b, Point2D e,
 			int style, float weight) {
@@ -113,17 +113,17 @@ public class Utils {
 		g.fill(s);
 		setTransparent(g, 1);
 
-		return getLine1ShapeArea(0, b, e, weight);// ·µ»ØÃ»ÓĞÎ»ÒÆµÄ¶à±ßĞÎÖ±Ïß×´ÇøÓò
+		return getLine1ShapeArea(0, b, e, weight);// è¿”å›æ²¡æœ‰ä½ç§»çš„å¤šè¾¹å½¢ç›´çº¿çŠ¶åŒºåŸŸ
 	}
 
 	/**
-	 * »æÖÆÒ»ÌõÖ±Ïß
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param b ÏßµÄÆğµã
-	 * @param e ÏßµÄÖÕµã
-	 * @param color ÑÕÉ«
-	 * @param style ÏßĞÍ
-	 * @param weight ´Ö¶È
+	 * ç»˜åˆ¶ä¸€æ¡ç›´çº¿
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param b çº¿çš„èµ·ç‚¹
+	 * @param e çº¿çš„ç»ˆç‚¹
+	 * @param color é¢œè‰²
+	 * @param style çº¿å‹
+	 * @param weight ç²—åº¦
 	 */
 	public static void drawLine2(Graphics2D g, Point2D b, Point2D e,
 			Color color, int style, float weight) {
@@ -137,9 +137,9 @@ public class Utils {
 
 	public static String xToChinese(double dd) {
 		try {
-			String s = "ÁãÒ¼·¡ÈşËÁÎéÂ½Æâ°Æ¾Á";
-			// String s1 = "Ê°°ÛÇªÍòÊ°°ÛÇªÒÚÊ°°ÛÇªÍò";
-			String s1 = "Ê®°ÙÇ§ÍòÊ®°ÙÇ§ÒÚÊ®°ÙÇ§Íò";
+			String s = "é›¶å£¹è´°åè‚†ä¼é™†æŸ’æŒç–";
+			// String s1 = "æ‹¾ä½°ä»Ÿä¸‡æ‹¾ä½°ä»Ÿäº¿æ‹¾ä½°ä»Ÿä¸‡";
+			String s1 = "åç™¾åƒä¸‡åç™¾åƒäº¿åç™¾åƒä¸‡";
 			String m;
 			int j;
 			StringBuffer k = new StringBuffer();
@@ -147,11 +147,11 @@ public class Utils {
 			for (j = m.length(); j >= 1; j--) {
 				char n = s.charAt(Integer.parseInt(m.substring(m.length() - j,
 						m.length() - j + 1)));
-				if (n == 'Áã' && k.charAt(k.length() - 1) == 'Áã') {
+				if (n == 'é›¶' && k.charAt(k.length() - 1) == 'é›¶') {
 					continue;
 				}
 				k.append(n);
-				if (n == 'Áã') {
+				if (n == 'é›¶') {
 					continue;
 				}
 				int u = j - 2;
@@ -159,16 +159,16 @@ public class Utils {
 					k.append(s1.charAt(u));
 				}
 				if (u > 3 && u < 7) {
-					k.append('Íò');
+					k.append('ä¸‡');
 				}
 				if (u > 7) {
-					k.append('ÒÚ');
+					k.append('äº¿');
 				}
 			}
-			if (k.length() > 0 && k.charAt(k.length() - 1) == 'Áã') {
+			if (k.length() > 0 && k.charAt(k.length() - 1) == 'é›¶') {
 				k.deleteCharAt(k.length() - 1);
 			}
-			if (k.length() > 0 && k.charAt(0) == 'Ò¼') {
+			if (k.length() > 0 && k.charAt(0) == 'å£¹') {
 				k.deleteCharAt(0);
 			}
 			return k.toString();
@@ -179,10 +179,10 @@ public class Utils {
 	}
 
 	/**
-	 * ¶ÔÁĞ±íÀïÃæµÄÊı¾İÅÅĞò
-	 * @param list ÁĞ±íÊı¾İ£¬ÒªÇóÖµÎª¿É±È½ÏµÄ
-	 * @param ascend ÊÇ·ñÉıĞò
-	 * @return ÅÅĞòÍê³É·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å¯¹åˆ—è¡¨é‡Œé¢çš„æ•°æ®æ’åº
+	 * @param list åˆ—è¡¨æ•°æ®ï¼Œè¦æ±‚å€¼ä¸ºå¯æ¯”è¾ƒçš„
+	 * @param ascend æ˜¯å¦å‡åº
+	 * @return æ’åºå®Œæˆè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean sort(AbstractList list, boolean ascend) {
 		Comparable ci, cj;
@@ -225,7 +225,7 @@ public class Utils {
 	}
 
 	/**
-	 * ´ÓÖĞĞÄµã cx,cy°´c1µ½c2µÄÑÕÉ«»·×´·¢É¢Ìİ¶ÈÌî³äĞÎ×´s
+	 * ä»ä¸­å¿ƒç‚¹ cx,cyæŒ‰c1åˆ°c2çš„é¢œè‰²ç¯çŠ¶å‘æ•£æ¢¯åº¦å¡«å……å½¢çŠ¶s
 	 * 
 	 * @param s
 	 *            Shape
@@ -236,7 +236,7 @@ public class Utils {
 	 */
 	public static synchronized void fillRadioGradientShape(Graphics2D g,
 			Shape s, Color c1, Color c2, float transparent) {
-		// ¼òµ¥»ÒÉ«Ìî³äºÃÁË
+		// ç®€å•ç°è‰²å¡«å……å¥½äº†
 		setTransparent(g, transparent);
 		g.setColor(Utils.getShadeColor(1));
 		g.fill(s);
@@ -244,7 +244,7 @@ public class Utils {
 	}
 
 	/**
-	 * ¸ÃËã·¨Ê¹ÓÃ¾ØĞÎµÄ¶Ô½ÇÏßÎªÌî³äÌİ¶ÈµÄ³¤¶È£»½Ç¶ÈangleÎª¶Ô½ÇÏß´Óµ×±ßÄæÊ±ÕëµÄĞı×ª½Ç¶È£»
+	 * è¯¥ç®—æ³•ä½¿ç”¨çŸ©å½¢çš„å¯¹è§’çº¿ä¸ºå¡«å……æ¢¯åº¦çš„é•¿åº¦ï¼›è§’åº¦angleä¸ºå¯¹è§’çº¿ä»åº•è¾¹é€†æ—¶é’ˆçš„æ—‹è½¬è§’åº¦ï¼›
 	 * 
 	 * @param x
 	 * @param y
@@ -259,8 +259,8 @@ public class Utils {
 			double height, Color color1, Color color2, int angle) {
 		double x1 = 0, y1 = 0, x2 = 0, y2 = 0, h = 0;
 		h = height;
-		double antiAngleLen = Math.sqrt(width * width + h * h);// ¶Ô½ÇÏß³¤¶È
-		double rad = angle * Math.PI / 180;// ½Ç¶ÈµÄ»¡¶ÈÊı
+		double antiAngleLen = Math.sqrt(width * width + h * h);// å¯¹è§’çº¿é•¿åº¦
+		double rad = angle * Math.PI / 180;// è§’åº¦çš„å¼§åº¦æ•°
 		if (angle >= 0 && angle <= 90) {
 			if (angle == 0) {
 				x1 = x;
@@ -320,14 +320,14 @@ public class Utils {
 	}
 
 	/**
-	 * ÉèÖÃ»æÍ¼µÄÌî³ä·ç¸ñ
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param x Ìî³äµÄx×ø±ê
-	 * @param y Ìî³äµÄy×ø±ê
-	 * @param width Ìî³äµÄ¿í¶È
-	 * @param height Ìî³äµÄ¸ß¶È
-	 * @param cc ¶¨ÒåÁËÌî³ä·ç¸ñµÄ Ìî³äÑÕÉ«Àà
-	 * @return Ìî³äÉèÖÃÍê³É·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è®¾ç½®ç»˜å›¾çš„å¡«å……é£æ ¼
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param x å¡«å……çš„xåæ ‡
+	 * @param y å¡«å……çš„yåæ ‡
+	 * @param width å¡«å……çš„å®½åº¦
+	 * @param height å¡«å……çš„é«˜åº¦
+	 * @param cc å®šä¹‰äº†å¡«å……é£æ ¼çš„ å¡«å……é¢œè‰²ç±»
+	 * @return å¡«å……è®¾ç½®å®Œæˆè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean setPaint(Graphics2D g, double x, double y, double width,
 			double height, ChartColor cc) {
@@ -344,7 +344,7 @@ public class Utils {
 			return false;
 
 		switch (pattern) {
-		case Consts.PATTERN_DEFAULT: // Ìî³äÍ¼°¸£¬È«Ìî³ä
+		case Consts.PATTERN_DEFAULT: // å¡«å……å›¾æ¡ˆï¼Œå…¨å¡«å……
 			if (cc.isGradient()) {
 				paint = getGradientPaint(x, y, width, height, c1, c2,
 						cc.getAngle());
@@ -353,7 +353,7 @@ public class Utils {
 				return true;
 			}
 			break;
-		case Consts.PATTERN_H_THIN_LINE: // Ìî³äÍ¼°¸£¬Ë®Æ½Ï¸Ïß
+		case Consts.PATTERN_H_THIN_LINE: // å¡«å……å›¾æ¡ˆï¼Œæ°´å¹³ç»†çº¿
 			rect = new Rectangle2D.Double(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -366,7 +366,7 @@ public class Utils {
 			tempG.drawLine(0, 5, 6, 5);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_H_THICK_LINE: // Ìî³äÍ¼°¸£¬Ë®Æ½´ÖÏß
+		case Consts.PATTERN_H_THICK_LINE: // å¡«å……å›¾æ¡ˆï¼Œæ°´å¹³ç²—çº¿
 			rect = new Rectangle2D.Double(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -378,7 +378,7 @@ public class Utils {
 			tempG.drawLine(0, 5, 6, 5);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_V_THIN_LINE: // Ìî³äÍ¼°¸£¬´¹Ö±Ï¸Ïß
+		case Consts.PATTERN_V_THIN_LINE: // å¡«å……å›¾æ¡ˆï¼Œå‚ç›´ç»†çº¿
 			rect = new Rectangle2D.Double(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -391,7 +391,7 @@ public class Utils {
 			tempG.drawLine(5, 0, 5, 6);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_V_THICK_LINE: // Ìî³äÍ¼°¸£¬´¹Ö±´ÖÏß
+		case Consts.PATTERN_V_THICK_LINE: // å¡«å……å›¾æ¡ˆï¼Œå‚ç›´ç²—çº¿
 			rect = new Rectangle2D.Double(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -403,7 +403,7 @@ public class Utils {
 			tempG.drawLine(5, 0, 5, 6);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_THIN_SLASH: // Ìî³äÍ¼°¸£¬Ï¸Ğ±Ïß
+		case Consts.PATTERN_THIN_SLASH: // å¡«å……å›¾æ¡ˆï¼Œç»†æ–œçº¿
 			rect = new Rectangle2D.Double(x + 1, y + 1, 3, 3);
 			tempbi = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -414,7 +414,7 @@ public class Utils {
 			tempG.drawLine(0, 0, 3, 3);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_THICK_SLASH: // Ìî³äÍ¼°¸£¬´ÖĞ±Ïß
+		case Consts.PATTERN_THICK_SLASH: // å¡«å……å›¾æ¡ˆï¼Œç²—æ–œçº¿
 			rect = new Rectangle2D.Double(x + 1, y + 1, 4, 4);
 			tempbi = new BufferedImage(4, 4, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -429,7 +429,7 @@ public class Utils {
 			tempG.drawLine(-1, 3, 1, 5);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_THIN_BACKSLASH: // Ìî³äÍ¼°¸£¬Ï¸·´Ğ±Ïß
+		case Consts.PATTERN_THIN_BACKSLASH: // å¡«å……å›¾æ¡ˆï¼Œç»†åæ–œçº¿
 			rect = new Rectangle2D.Double(x + 1, y + 1, 3, 3);
 			tempbi = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -440,7 +440,7 @@ public class Utils {
 			tempG.drawLine(2, 0, -1, 3);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_THICK_BACKSLASH: // Ìî³äÍ¼°¸£¬´Ö·´Ğ±Ïß
+		case Consts.PATTERN_THICK_BACKSLASH: // å¡«å……å›¾æ¡ˆï¼Œç²—åæ–œçº¿
 			rect = new Rectangle2D.Double(x + 1, y + 1, 4, 4);
 			tempbi = new BufferedImage(4, 4, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -455,7 +455,7 @@ public class Utils {
 			tempG.drawLine(3, 5, 5, 3);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_THIN_GRID: // Ìî³äÍ¼°¸£¬Ï¸Íø¸ñ
+		case Consts.PATTERN_THIN_GRID: // å¡«å……å›¾æ¡ˆï¼Œç»†ç½‘æ ¼
 			rect = new Rectangle2D.Double(x + 1, y + 1, 3, 3);
 			tempbi = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -468,7 +468,7 @@ public class Utils {
 			tempG.drawLine(0, 1, 3, 1);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_THICK_GRID: // Ìî³äÍ¼°¸£¬´ÖÍø¸ñ
+		case Consts.PATTERN_THICK_GRID: // å¡«å……å›¾æ¡ˆï¼Œç²—ç½‘æ ¼
 			rect = new Rectangle2D.Double(x + 1, y + 1, 5, 5);
 			tempbi = new BufferedImage(5, 5, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -481,7 +481,7 @@ public class Utils {
 			tempG.drawLine(0, 3, 5, 3);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_THIN_BEVEL_GRID: // Ìî³äÍ¼°¸£¬Ï¸Ğ±Íø¸ñ
+		case Consts.PATTERN_THIN_BEVEL_GRID: // å¡«å……å›¾æ¡ˆï¼Œç»†æ–œç½‘æ ¼
 			rect = new Rectangle2D.Double(x + 1, y + 1, 5, 5);
 			tempbi = new BufferedImage(5, 5, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -494,7 +494,7 @@ public class Utils {
 			tempG.drawLine(0, 5, 5, 0);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_THICK_BEVEL_GRID: // Ìî³äÍ¼°¸£¬´ÖĞ±Íø¸ñ
+		case Consts.PATTERN_THICK_BEVEL_GRID: // å¡«å……å›¾æ¡ˆï¼Œç²—æ–œç½‘æ ¼
 			rect = new Rectangle2D.Double(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -508,7 +508,7 @@ public class Utils {
 			tempG.drawLine(0, 6, 6, 0);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_DOT_1: // Ìî³äÍ¼°¸£¬Ï¡Êèµã
+		case Consts.PATTERN_DOT_1: // å¡«å……å›¾æ¡ˆï¼Œç¨€ç–ç‚¹
 			rect = new Rectangle2D.Double(x, y, 12, 12);
 			tempbi = new BufferedImage(12, 12, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -522,7 +522,7 @@ public class Utils {
 			tempG.drawLine(8, 9, 8, 9);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_DOT_2: // Ìî³äÍ¼°¸£¬½ÏÏ¡µã
+		case Consts.PATTERN_DOT_2: // å¡«å……å›¾æ¡ˆï¼Œè¾ƒç¨€ç‚¹
 			rect = new Rectangle2D.Double(x, y, 12, 12);
 			tempbi = new BufferedImage(12, 12, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -536,7 +536,7 @@ public class Utils {
 			tempG.drawLine(10, 7, 10, 7);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_DOT_3: // Ìî³äÍ¼°¸£¬½ÏÃÜµã
+		case Consts.PATTERN_DOT_3: // å¡«å……å›¾æ¡ˆï¼Œè¾ƒå¯†ç‚¹
 			rect = new Rectangle2D.Double(x, y, 9, 9);
 			tempbi = new BufferedImage(9, 9, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -551,7 +551,7 @@ public class Utils {
 			tempG.drawLine(8, 5, 8, 5);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_DOT_4: // Ìî³äÍ¼°¸£¬³íÃÜµã
+		case Consts.PATTERN_DOT_4: // å¡«å……å›¾æ¡ˆï¼Œç¨ å¯†ç‚¹
 			rect = new Rectangle2D.Double(x, y, 4, 4);
 			tempbi = new BufferedImage(4, 4, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -564,7 +564,7 @@ public class Utils {
 			tempG.drawLine(3, 1, 3, 1);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_SQUARE_FLOOR: // Ìî³äÍ¼°¸£¬Õı·½¿éµØ°å×©
+		case Consts.PATTERN_SQUARE_FLOOR: // å¡«å……å›¾æ¡ˆï¼Œæ­£æ–¹å—åœ°æ¿ç –
 			rect = new Rectangle2D.Double(0, 0, 8, 8);
 			tempbi = new BufferedImage(8, 8, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -575,7 +575,7 @@ public class Utils {
 			tempG.fillRect(4, 4, 4, 4);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_DIAMOND_FLOOR: // Ìî³äÍ¼°¸£¬ÁâĞÎµØ°å×©
+		case Consts.PATTERN_DIAMOND_FLOOR: // å¡«å……å›¾æ¡ˆï¼Œè±å½¢åœ°æ¿ç –
 			rect = new Rectangle2D.Double(x + 1, y + 1, 8, 8);
 			tempbi = new BufferedImage(8, 8, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -587,7 +587,7 @@ public class Utils {
 			tempG.fillPolygon(xs, ys, 4);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case Consts.PATTERN_BRICK_WALL: // Ìî³äÍ¼°¸£¬×©Ç½
+		case Consts.PATTERN_BRICK_WALL: // å¡«å……å›¾æ¡ˆï¼Œç –å¢™
 			rect = new Rectangle2D.Double(x + 1, y + 1, 12, 12);
 			tempbi = new BufferedImage(12, 12, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -621,14 +621,14 @@ public class Utils {
 	private static ArrayList doubleStrokes = null;
 
 	/**
-	 * ÉèÖÃ»æÖÆÖ±ÏßµÄ·ç¸ñ
+	 * è®¾ç½®ç»˜åˆ¶ç›´çº¿çš„é£æ ¼
 	 * @param g
 	 *            Graphics2D
 	 * @param c
-	 *            Color,Îªnull²»ÉèÖÃ£¬±íÊ¾ÓÃµ±Ç°µÄÑÕÉ« ±¸×¢£ºnullµ½µ×ÊÇ±íÊ¾µ±Ç°»­±ÊÑÕÉ«»¹ÊÇÍ¸Ã÷É«£¿
-	 * @param style ·ç¸ñ
-	 * @param weight ´Ö¶È
-	 * @return boolean ÉèÖÃ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 *            Color,ä¸ºnullä¸è®¾ç½®ï¼Œè¡¨ç¤ºç”¨å½“å‰çš„é¢œè‰² å¤‡æ³¨ï¼šnullåˆ°åº•æ˜¯è¡¨ç¤ºå½“å‰ç”»ç¬”é¢œè‰²è¿˜æ˜¯é€æ˜è‰²ï¼Ÿ
+	 * @param style é£æ ¼
+	 * @param weight ç²—åº¦
+	 * @return boolean è®¾ç½®æˆåŠŸè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean setStroke(Graphics2D g, Color c, int style,
 			float weight) {
@@ -753,12 +753,12 @@ public class Utils {
 	}
 
 	/**
-	 * ÒÔ»¡¶È½Ç¶Èradian£¬»­Ò»¸ö¼ıÍ·ÆğÊ¼ÓÚdx,dyµÄ¼ıÍ·
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param dx ÊµÊı¾«¶ÈµÄx×ø±ê
-	 * @param dy y×ø±ê
-	 * @param radian »¡¶ÈÖÆµÄ½Ç¶ÈÖµ
-	 * @param style ¼ıÍ··ç¸ñ
+	 * ä»¥å¼§åº¦è§’åº¦radianï¼Œç”»ä¸€ä¸ªç®­å¤´èµ·å§‹äºdx,dyçš„ç®­å¤´
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param dx å®æ•°ç²¾åº¦çš„xåæ ‡
+	 * @param dy yåæ ‡
+	 * @param radian å¼§åº¦åˆ¶çš„è§’åº¦å€¼
+	 * @param style ç®­å¤´é£æ ¼
 	 */
 	public static void drawLineArrow(Graphics2D g, double dx, double dy,
 			double radian, int style) {
@@ -772,7 +772,7 @@ public class Utils {
 		AffineTransform at1 = AffineTransform.getRotateInstance(radian, x, y);
 		g.transform(at1);
 		switch (style) {
-		case Consts.LINE_ARROW_NONE: // ÎŞ¼ıÍ·
+		case Consts.LINE_ARROW_NONE: // æ— ç®­å¤´
 			break;
 		case Consts.LINE_ARROW:
 			x += 8;
@@ -780,13 +780,13 @@ public class Utils {
 			int[] ys_arr = { y, y - 4, y, y + 4 };
 			g.fillPolygon(xs_arr, ys_arr, 4);
 			break;
-		case Consts.LINE_ARROW_L://×ó¼ıÍ·
+		case Consts.LINE_ARROW_L://å·¦ç®­å¤´
 			x -= 8;
 			int[] xl_arr = { x, x + 12, x+8, x + 12 };
 			int[] yl_arr = { y, y - 4, y, y + 4 };
 			g.fillPolygon(xl_arr, yl_arr, 4);
 			break;
-		case Consts.LINE_ARROW_BOTH: // Ë«¼ıÍ·
+		case Consts.LINE_ARROW_BOTH: // åŒç®­å¤´
 			x += 8;
 			int[] xs_bot = { x - 8, x - 12, x, x - 12 };
 			int[] ys_bot = { y, y - 4, y, y + 4 };
@@ -795,7 +795,7 @@ public class Utils {
 			int[] ys_bot2 = { y, y - 4, y, y + 4 };
 			g.fillPolygon(xs_bot2, ys_bot2, 4);
 			break;
-		case Consts.LINE_ARROW_HEART: // ĞÄĞÎ¼ıÍ·
+		case Consts.LINE_ARROW_HEART: // å¿ƒå½¢ç®­å¤´
 			int r_h = 4;
 			int cdy = (int) (r_h * 1.732d);
 			int cdx = 3 * r_h;
@@ -807,13 +807,13 @@ public class Utils {
 			int d2x = (int) 3.5 * r_h;
 			g.fillOval(x - d2x - r_h, y - d2y - r_h, 2 * r_h - 1, 2 * r_h - 1);
 			g.fillOval(x - d2x - r_h, y + d2y - r_h, 2 * r_h - 1, 2 * r_h - 1);
-			// ËùÎ½ĞÄĞÎ£¬Êµ¼ÊÉÏ¾ÍÊÇÒ»¸öÈı½ÇĞÎ¼ÓÉÏÁ½¸öºÍÁ½ÑüÏàÇĞµÄÔ²£¬ÔÚÕâÀïÓÃÕıÈı½ÇĞÎÀ´¼ÆËã
+			// æ‰€è°“å¿ƒå½¢ï¼Œå®é™…ä¸Šå°±æ˜¯ä¸€ä¸ªä¸‰è§’å½¢åŠ ä¸Šä¸¤ä¸ªå’Œä¸¤è…°ç›¸åˆ‡çš„åœ†ï¼Œåœ¨è¿™é‡Œç”¨æ­£ä¸‰è§’å½¢æ¥è®¡ç®—
 			break;
-		case Consts.LINE_ARROW_CIRCEL: // Ô²ĞÎ¼ıÍ·
+		case Consts.LINE_ARROW_CIRCEL: // åœ†å½¢ç®­å¤´
 			x += 8;
 			g.fillOval(x - 8, y - 4, 8, 8);
 			break;
-		case Consts.LINE_ARROW_DIAMOND: // ÁâĞÎ¼ıÍ·
+		case Consts.LINE_ARROW_DIAMOND: // è±å½¢ç®­å¤´
 			x += 14;
 			int[] xs_dia = { x - 14, x - 7, x, x - 7 };
 			int[] ys_dia = { y, y - 4, y, y + 4 };
@@ -824,40 +824,40 @@ public class Utils {
 	}
 
 	/**
-	 * ¸ù¾İfontStyleÅĞ¶ÏÊÇ·ñÎªÊúÅÅÎÄ×Ö
-	 * @param fontStyle ×ÖÌå·ç¸ñ
-	 * @return ÊúÅÅ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ ¹æ®fontStyleåˆ¤æ–­æ˜¯å¦ä¸ºç«–æ’æ–‡å­—
+	 * @param fontStyle å­—ä½“é£æ ¼
+	 * @return ç«–æ’è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isVertical(int fontStyle) {
 		return (fontStyle & Consts.FONT_VERTICAL) != 0;
 	}
 
 	/**
-	 * ¸ù¾İfontStyleÅĞ¶ÏÊÇ·ñÎªÏÂ»®ÏßÎÄ×Ö
-	 * @param fontStyle ×ÖÌå·ç¸ñ
-	 * @return ÓĞÏÂ»®Ïß·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ ¹æ®fontStyleåˆ¤æ–­æ˜¯å¦ä¸ºä¸‹åˆ’çº¿æ–‡å­—
+	 * @param fontStyle å­—ä½“é£æ ¼
+	 * @return æœ‰ä¸‹åˆ’çº¿è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isUnderline(int fontStyle) {
 		return (fontStyle & Consts.FONT_UNDERLINE) != 0;
 	}
 
 	/**
-	 * ¸ù¾İfontStyleÅĞ¶ÏÊÇ·ñÎª´ÖÌåÎÄ×Ö
-	 * @param fontStyle ×ÖÌå·ç¸ñ
-	 * @return ÓĞ´ÖÌå·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ ¹æ®fontStyleåˆ¤æ–­æ˜¯å¦ä¸ºç²—ä½“æ–‡å­—
+	 * @param fontStyle å­—ä½“é£æ ¼
+	 * @return æœ‰ç²—ä½“è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isBold(int fontStyle) {
 		return (fontStyle & Consts.FONT_BOLD) != 0;
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ±¾Õ¼ÓÃµÄ¿í¸ß£¬Ê¹ÓÃRectangleµÄ¿íºÍ¸ß´æ´¢ĞÅÏ¢
-	 * @param text Òª²âÁ¿µÄÎÄ±¾
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param fontStyle ·ç¸ñ
-	 * @param angle ÎÄ±¾µÄĞı×ª½Ç¶È
-	 * @param font ×ÖÌå
-	 * @return ¾ØĞÎ´æ´¢µÄ¿í¸ßĞÅÏ¢
+	 * è·å–æ–‡æœ¬å ç”¨çš„å®½é«˜ï¼Œä½¿ç”¨Rectangleçš„å®½å’Œé«˜å­˜å‚¨ä¿¡æ¯
+	 * @param text è¦æµ‹é‡çš„æ–‡æœ¬
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param fontStyle é£æ ¼
+	 * @param angle æ–‡æœ¬çš„æ—‹è½¬è§’åº¦
+	 * @param font å­—ä½“
+	 * @return çŸ©å½¢å­˜å‚¨çš„å®½é«˜ä¿¡æ¯
 	 */
 	public static Rectangle getTextSize(String text, java.awt.Graphics g,
 			int fontStyle, int angle, Font font) {
@@ -866,13 +866,13 @@ public class Utils {
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ±¾Õ¼ÓÃµÄ¿í¸ß£¬Ê¹ÓÃRectangleµÄ¿íºÍ¸ß´æ´¢ĞÅÏ¢
-	 * @param text Òª²âÁ¿µÄÎÄ±¾
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param vertical ÊÇ·ñ´¹Ö±»æÖÆ
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param font ×ÖÌå
-	 * @return ¾ØĞÎ´æ´¢µÄ¿í¸ßĞÅÏ¢
+	 * è·å–æ–‡æœ¬å ç”¨çš„å®½é«˜ï¼Œä½¿ç”¨Rectangleçš„å®½å’Œé«˜å­˜å‚¨ä¿¡æ¯
+	 * @param text è¦æµ‹é‡çš„æ–‡æœ¬
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param vertical æ˜¯å¦å‚ç›´ç»˜åˆ¶
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param font å­—ä½“
+	 * @return çŸ©å½¢å­˜å‚¨çš„å®½é«˜ä¿¡æ¯
 	 */
 	public static Rectangle getTextSize(String text, java.awt.Graphics g,
 			boolean vertical, int angle, Font font) {
@@ -887,7 +887,7 @@ public class Utils {
 		} else {
 			rect = getRotationArea(text, g, angle, font);
 		}
-		// added by bdl, 2009.5.8, ÔÚĞı×ª½Ç¶È²»Îª0Ê±£¬rectµÄ¿í¶È»òÕß¸ß¶ÈÓĞ¿ÉÄÜ²úÉú¸ºÖµ£¬¸øÁô¿ÕµÈ²Ù×÷´øÀ´Âé·³£¬È«ÉèÎªÕıÖµ
+		// added by bdl, 2009.5.8, åœ¨æ—‹è½¬è§’åº¦ä¸ä¸º0æ—¶ï¼Œrectçš„å®½åº¦æˆ–è€…é«˜åº¦æœ‰å¯èƒ½äº§ç”Ÿè´Ÿå€¼ï¼Œç»™ç•™ç©ºç­‰æ“ä½œå¸¦æ¥éº»çƒ¦ï¼Œå…¨è®¾ä¸ºæ­£å€¼
 		if (rect.width < 0) {
 			rect.width = -rect.width;
 		}
@@ -901,19 +901,19 @@ public class Utils {
 		for (int i = 0; i < text.length(); i++) {
 			char c = text.charAt(i);
 			if (c > 255) {
-				return "ºº";
+				return "æ±‰";
 			}
 		}
 		return "A";
 	}
 
 	/**
-	 * ÎÄ±¾ÊúÅÅÅÅ°æÊ±µÄ¿í¸ß
-	 * @param text Òª²âÁ¿µÄÎÄ±¾
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param font ×ÖÌå
-	 * @return ¾ØĞÎ´æ´¢µÄ¿í¸ßĞÅÏ¢
+	 * æ–‡æœ¬ç«–æ’æ’ç‰ˆæ—¶çš„å®½é«˜
+	 * @param text è¦æµ‹é‡çš„æ–‡æœ¬
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param font å­—ä½“
+	 * @return çŸ©å½¢å­˜å‚¨çš„å®½é«˜ä¿¡æ¯
 	 */
 	public static Rectangle getVerticalArea(String text, java.awt.Graphics g,
 			int angle, Font font) {
@@ -949,11 +949,11 @@ public class Utils {
 	}
 
 	/**
-	 * ÎÄ±¾Ë®Æ½ÅÅ°æÊ±µÄ¿í¸ß
-	 * @param text Òª²âÁ¿µÄÎÄ±¾
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param font ×ÖÌå
-	 * @return ¾ØĞÎ´æ´¢µÄ¿í¸ßĞÅÏ¢
+	 * æ–‡æœ¬æ°´å¹³æ’ç‰ˆæ—¶çš„å®½é«˜
+	 * @param text è¦æµ‹é‡çš„æ–‡æœ¬
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param font å­—ä½“
+	 * @return çŸ©å½¢å­˜å‚¨çš„å®½é«˜ä¿¡æ¯
 	 */
 	public static Rectangle getHorizonArea(String text, java.awt.Graphics g,
 			Font font) {
@@ -967,12 +967,12 @@ public class Utils {
 	}
 
 	/**
-	 * ÎÄ±¾Ğı×ª½Ç¶ÈÅÅ°æÊ±Õ¼ÓÃµÄ¿í¸ß
-	 * @param text Òª²âÁ¿µÄÎÄ±¾
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param font ×ÖÌå
-	 * @return ¾ØĞÎ´æ´¢µÄ¿í¸ßĞÅÏ¢
+	 * æ–‡æœ¬æ—‹è½¬è§’åº¦æ’ç‰ˆæ—¶å ç”¨çš„å®½é«˜
+	 * @param text è¦æµ‹é‡çš„æ–‡æœ¬
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param font å­—ä½“
+	 * @return çŸ©å½¢å­˜å‚¨çš„å®½é«˜ä¿¡æ¯
 	 */
 	public static Rectangle getRotationArea(String text, java.awt.Graphics g,
 			int angle, Font font) {
@@ -998,16 +998,16 @@ public class Utils {
 	}
 
 	/**
-	 * ¸ù¾İÖ¸¶¨²ÎÊıºÍÎ»ÖÃ»æÖÆÒ»´®ÎÄ±¾
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param txt Òª»æÖÆµÄÎÄ±¾
-	 * @param dx ºá×ø±êx
-	 * @param dy ×İ×ø±êy
-	 * @param font ×ÖÌå
-	 * @param c Ç°¾°É«
-	 * @param fontStyle ·ç¸ñ
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param location Ïà¶ÔÓÚÎÄ±¾ÖĞĞÄµãµÄÆ«ÒÆÎ»ÖÃ£¬Öµ²Î¿¼Consts.LOCATION_XX
+	 * æ ¹æ®æŒ‡å®šå‚æ•°å’Œä½ç½®ç»˜åˆ¶ä¸€ä¸²æ–‡æœ¬
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param txt è¦ç»˜åˆ¶çš„æ–‡æœ¬
+	 * @param dx æ¨ªåæ ‡x
+	 * @param dy çºµåæ ‡y
+	 * @param font å­—ä½“
+	 * @param c å‰æ™¯è‰²
+	 * @param fontStyle é£æ ¼
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param location ç›¸å¯¹äºæ–‡æœ¬ä¸­å¿ƒç‚¹çš„åç§»ä½ç½®ï¼Œå€¼å‚è€ƒConsts.LOCATION_XX
 	 */
 	public static void drawText(Graphics2D g, String txt, double dx, double dy,
 			Font font, Color c, int fontStyle, int angle, int location) {
@@ -1015,17 +1015,17 @@ public class Utils {
 	}
 
 	/**
-	 * ¸ù¾İÖ¸¶¨²ÎÊı»æÖÆÒ»¶ÎÎÄ±¾
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param txt Òª»æÖÆµÄÎÄ±¾
-	 * @param dx ºá×ø±êx
-	 * @param dy ×İ×ø±êy
-	 * @param font ×ÖÌå
-	 * @param c Ç°¾°É«
-	 * @param backC ±³¾°É«
-	 * @param fontStyle ·ç¸ñ
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param location Ïà¶ÔÓÚÎÄ±¾ÖĞĞÄµãµÄÆ«ÒÆÎ»ÖÃ£¬Öµ²Î¿¼Consts.LOCATION_XX
+	 * æ ¹æ®æŒ‡å®šå‚æ•°ç»˜åˆ¶ä¸€æ®µæ–‡æœ¬
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param txt è¦ç»˜åˆ¶çš„æ–‡æœ¬
+	 * @param dx æ¨ªåæ ‡x
+	 * @param dy çºµåæ ‡y
+	 * @param font å­—ä½“
+	 * @param c å‰æ™¯è‰²
+	 * @param backC èƒŒæ™¯è‰²
+	 * @param fontStyle é£æ ¼
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param location ç›¸å¯¹äºæ–‡æœ¬ä¸­å¿ƒç‚¹çš„åç§»ä½ç½®ï¼Œå€¼å‚è€ƒConsts.LOCATION_XX
 	 */
 	public static void drawText(Graphics2D g, String txt, double dx, double dy,
 			Font font, Color c, Color backC, int fontStyle, int angle,
@@ -1035,17 +1035,17 @@ public class Utils {
 	}
 
 	/**
-	 * ¸ù¾İÖ¸¶¨²ÎÊı»æÖÆÒ»¶ÎÎÄ±¾
-	 * @param e »æÍ¼ÒıÇæ
-	 * @param txt Òª»æÖÆµÄÎÄ±¾
-	 * @param dx ºá×ø±êx
-	 * @param dy ×İ×ø±êy
-	 * @param font ×ÖÌå
-	 * @param c Ç°¾°É«
-	 * @param fontStyle ·ç¸ñ
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param location Ïà¶ÔÓÚÎÄ±¾ÖĞĞÄµãµÄÆ«ÒÆÎ»ÖÃ£¬Öµ²Î¿¼Consts.LOCATION_XX
-	 * @param allowIntersect ÊÇ·ñÔÊĞíÎÄ×ÖÖØµş(²»ÔÊĞíÖØµşÊ±£¬ºóÃæµÄÖØµşÎÄ±¾½«ºöÂÔ)
+	 * æ ¹æ®æŒ‡å®šå‚æ•°ç»˜åˆ¶ä¸€æ®µæ–‡æœ¬
+	 * @param e ç»˜å›¾å¼•æ“
+	 * @param txt è¦ç»˜åˆ¶çš„æ–‡æœ¬
+	 * @param dx æ¨ªåæ ‡x
+	 * @param dy çºµåæ ‡y
+	 * @param font å­—ä½“
+	 * @param c å‰æ™¯è‰²
+	 * @param fontStyle é£æ ¼
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param location ç›¸å¯¹äºæ–‡æœ¬ä¸­å¿ƒç‚¹çš„åç§»ä½ç½®ï¼Œå€¼å‚è€ƒConsts.LOCATION_XX
+	 * @param allowIntersect æ˜¯å¦å…è®¸æ–‡å­—é‡å (ä¸å…è®¸é‡å æ—¶ï¼Œåé¢çš„é‡å æ–‡æœ¬å°†å¿½ç•¥)
 	 */
 	public static void drawText(Engine e, String txt, double dx, double dy,
 			Font font, Color c, int fontStyle, int angle, int location,
@@ -1055,17 +1055,17 @@ public class Utils {
 	}
 
 	/**
-	 * ¸ù¾İÖ¸¶¨²ÎÊı»æÖÆÒ»¶ÎÎÄ±¾
-	 * @param e »æÍ¼ÒıÇæ
-	 * @param txt Òª»æÖÆµÄÎÄ±¾
-	 * @param dx ºá×ø±êx
-	 * @param dy ×İ×ø±êy
-	 * @param font ×ÖÌå
-	 * @param c Ç°¾°É«
-	 * @param fontStyle ·ç¸ñ
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param location Ïà¶ÔÓÚÎÄ±¾ÖĞĞÄµãµÄÆ«ÒÆÎ»ÖÃ£¬Öµ²Î¿¼Consts.LOCATION_XX
-	 * @param allowIntersect ÊÇ·ñÔÊĞíÎÄ×ÖÖØµş(²»ÔÊĞíÖØµşÊ±£¬ºóÃæµÄÖØµşÎÄ±¾½«ºöÂÔ)
+	 * æ ¹æ®æŒ‡å®šå‚æ•°ç»˜åˆ¶ä¸€æ®µæ–‡æœ¬
+	 * @param e ç»˜å›¾å¼•æ“
+	 * @param txt è¦ç»˜åˆ¶çš„æ–‡æœ¬
+	 * @param dx æ¨ªåæ ‡x
+	 * @param dy çºµåæ ‡y
+	 * @param font å­—ä½“
+	 * @param c å‰æ™¯è‰²
+	 * @param fontStyle é£æ ¼
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param location ç›¸å¯¹äºæ–‡æœ¬ä¸­å¿ƒç‚¹çš„åç§»ä½ç½®ï¼Œå€¼å‚è€ƒConsts.LOCATION_XX
+	 * @param allowIntersect æ˜¯å¦å…è®¸æ–‡å­—é‡å (ä¸å…è®¸é‡å æ—¶ï¼Œåé¢çš„é‡å æ–‡æœ¬å°†å¿½ç•¥)
 	 */
 	public static void drawText(Engine e, String txt, double dx, double dy,
 			Font font, Color c, Color backC, int fontStyle, int angle,
@@ -1075,23 +1075,23 @@ public class Utils {
 	}
 
 	/**
-	 * ÓÉÓÚÃèÊöÎÄ±¾Î»ÖÃÊ±£¬²ÉÓÃµÄÊÇÖĞĞÄµã£»¶øÊµ¼Ê»æÖÆÎÄ±¾»òÕßÍ¼Æ¬Ê±£¬
-	 * isImageÊ±£¬Òª±ä»»Îª×óÉÏ½Ç£¬ ÎÄ±¾Ê±±ä»»Îª×óÏÂ½Ç£»
-	 * ÒòÎªgÔÚ×óÏÂ½Ç»æÖÆÎÄ±¾£¬ ×óÉÏ½Ç»æÖÆÍ¼ĞÎ¡£
-	 * @param posDesc ¸ù¾İÖĞĞÄµãÃèÊöµÄÎÄ±¾Î»ÖÃ
-	 * @param location ÎÄ±¾Ïà¶ÔÖĞĞÄµãµÄ·½Î»
-	 * @param isImage ÊÇ·ñ»æÖÆÍ¼ĞÎ£¬·ñÔò°´ÎÄ±¾Ëã·¨
-	 * @return Í¼ĞÎÉè±¸Ö±½ÓÊä³öµÄÊµ¼Ê×ø±ê
+	 * ç”±äºæè¿°æ–‡æœ¬ä½ç½®æ—¶ï¼Œé‡‡ç”¨çš„æ˜¯ä¸­å¿ƒç‚¹ï¼›è€Œå®é™…ç»˜åˆ¶æ–‡æœ¬æˆ–è€…å›¾ç‰‡æ—¶ï¼Œ
+	 * isImageæ—¶ï¼Œè¦å˜æ¢ä¸ºå·¦ä¸Šè§’ï¼Œ æ–‡æœ¬æ—¶å˜æ¢ä¸ºå·¦ä¸‹è§’ï¼›
+	 * å› ä¸ºgåœ¨å·¦ä¸‹è§’ç»˜åˆ¶æ–‡æœ¬ï¼Œ å·¦ä¸Šè§’ç»˜åˆ¶å›¾å½¢ã€‚
+	 * @param posDesc æ ¹æ®ä¸­å¿ƒç‚¹æè¿°çš„æ–‡æœ¬ä½ç½®
+	 * @param location æ–‡æœ¬ç›¸å¯¹ä¸­å¿ƒç‚¹çš„æ–¹ä½
+	 * @param isImage æ˜¯å¦ç»˜åˆ¶å›¾å½¢ï¼Œå¦åˆ™æŒ‰æ–‡æœ¬ç®—æ³•
+	 * @return å›¾å½¢è®¾å¤‡ç›´æ¥è¾“å‡ºçš„å®é™…åæ ‡
 	 */
 	public static Point getRealDrawPoint(Rectangle posDesc, int location,boolean isImage) {
 		Rectangle rect = posDesc;
-		// »æÍ¼ÖĞĞÄµã
+		// ç»˜å›¾ä¸­å¿ƒç‚¹
 		int xloc = rect.x;
 		int yloc = rect.y;
 
 		if (location == Consts.LOCATION_LT || location == Consts.LOCATION_CT
 				|| location == Consts.LOCATION_RT) {
-			// Ëù¸øµãÔÚÉÏ±ß£¬ĞèÒªÇóµ½×óÏÂ½ÇµÄy×ø±ê
+			// æ‰€ç»™ç‚¹åœ¨ä¸Šè¾¹ï¼Œéœ€è¦æ±‚åˆ°å·¦ä¸‹è§’çš„yåæ ‡
 			if (isImage) {
 				yloc -= rect.height;
 			} else {
@@ -1100,7 +1100,7 @@ public class Utils {
 		} else if (location == Consts.LOCATION_LM
 				|| location == Consts.LOCATION_CM
 				|| location == Consts.LOCATION_RM) {
-			// Ëù¸ø²Î¿¼µãÔÚÖĞ¼ä£¬ĞèÒªÇóµ½×óÏÂ½Çy×ø±ê
+			// æ‰€ç»™å‚è€ƒç‚¹åœ¨ä¸­é—´ï¼Œéœ€è¦æ±‚åˆ°å·¦ä¸‹è§’yåæ ‡
 			if (isImage) {
 				yloc -= rect.height / 2;
 			} else {
@@ -1111,12 +1111,12 @@ public class Utils {
 		}
 		if (location == Consts.LOCATION_RT || location == Consts.LOCATION_RM
 				|| location == Consts.LOCATION_RB) {
-			// Ëù¸øµãÔÚÓÒ±ß£¬ĞèÒªÇóµ½×óÏÂ½ÇµÄx×ø±ê
+			// æ‰€ç»™ç‚¹åœ¨å³è¾¹ï¼Œéœ€è¦æ±‚åˆ°å·¦ä¸‹è§’çš„xåæ ‡
 			xloc -= rect.width;
 		} else if (location == Consts.LOCATION_CT
 				|| location == Consts.LOCATION_CM
 				|| location == Consts.LOCATION_CB) {
-			// Ëù¸ø²Î¿¼µãÔÚÖĞ¼ä£¬ĞèÒªÇóµ½×óÏÂ½Çx×ø±ê
+			// æ‰€ç»™å‚è€ƒç‚¹åœ¨ä¸­é—´ï¼Œéœ€è¦æ±‚åˆ°å·¦ä¸‹è§’xåæ ‡
 			xloc -= rect.width / 2;
 		} else {
 			xloc += 1;
@@ -1125,19 +1125,19 @@ public class Utils {
 	}
 
 	/**
-	 * ¸ù¾İÖ¸¶¨²ÎÊı»æÖÆÒ»¶ÎÎÄ±¾
-	 * @param e »æÍ¼ÒıÇæ
-	 * @param txt Òª»æÖÆµÄÎÄ±¾
-	 * @param dx ºá×ø±êx
-	 * @param dy ×İ×ø±êy
-	 * @param font ×ÖÌå
-	 * @param c Ç°¾°É«
-	 * @param backC ±³¾°É«
-	 * @param fontStyle ·ç¸ñ
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param location Ïà¶ÔÓÚÎÄ±¾ÖĞĞÄµãµÄÆ«ÒÆÎ»ÖÃ£¬Öµ²Î¿¼Consts.LOCATION_XX
-	 * @param allowIntersect ÊÇ·ñÔÊĞíÎÄ×ÖÖØµş(²»ÔÊĞíÖØµşÊ±£¬ºóÃæµÄÖØµşÎÄ±¾½«ºöÂÔ)
-	 * @param g Í¼ĞÎÉè±¸
+	 * æ ¹æ®æŒ‡å®šå‚æ•°ç»˜åˆ¶ä¸€æ®µæ–‡æœ¬
+	 * @param e ç»˜å›¾å¼•æ“
+	 * @param txt è¦ç»˜åˆ¶çš„æ–‡æœ¬
+	 * @param dx æ¨ªåæ ‡x
+	 * @param dy çºµåæ ‡y
+	 * @param font å­—ä½“
+	 * @param c å‰æ™¯è‰²
+	 * @param backC èƒŒæ™¯è‰²
+	 * @param fontStyle é£æ ¼
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param location ç›¸å¯¹äºæ–‡æœ¬ä¸­å¿ƒç‚¹çš„åç§»ä½ç½®ï¼Œå€¼å‚è€ƒConsts.LOCATION_XX
+	 * @param allowIntersect æ˜¯å¦å…è®¸æ–‡å­—é‡å (ä¸å…è®¸é‡å æ—¶ï¼Œåé¢çš„é‡å æ–‡æœ¬å°†å¿½ç•¥)
+	 * @param g å›¾å½¢è®¾å¤‡
 	 */
 	public static void drawText(Engine e, String txt, double dx, double dy,
 			Font font, Color c, Color backC, int fontStyle, int angle,
@@ -1150,7 +1150,7 @@ public class Utils {
 		boolean vertical = isVertical(fontStyle);
 		FontMetrics fm = g.getFontMetrics(font);
 
-		// ÎÄ×Ö²»ÖØµş
+		// æ–‡å­—ä¸é‡å 
 		Rectangle rect = getTextSize(txt, g, vertical, angle, font);
 		rect.x = x;
 		rect.y = y;
@@ -1172,7 +1172,7 @@ public class Utils {
 		Utils.setGraphAntiAliasingOff(g);
 
 		if (!vertical) {
-			// ·ÇÊúÅÅÎÄ×Ö
+			// éç«–æ’æ–‡å­—
 			if (angle != 0) {
 				AffineTransform at = g.getTransform();
 				Rectangle rect2 = getTextSize(txt, g, vertical, 0, font);
@@ -1221,9 +1221,9 @@ public class Utils {
 				g.drawString(txt, xloc, yloc);
 			}
 		} else {
-			// ÊúÅÅÎÄ×Ö£¬ÊúÅÅÎÄ×ÖÈç¹ûÓĞĞı×ª½Ç¶ÈµÄ»°£¬ÊôÓÚ±È½ÏÆæ¹ÖµÄÊ¹ÓÃ
-			// ÓÉÓÚÃ¿¸ö×ÖÈ¥Ğı×ªÈ»ºóÊúÅÅµÄ»°£¬ÓĞ¿ÉÄÜ²úÉúÕÚµ²£¬ËùÒÔÕâÀï²ÉÓÃÖ§³ÖÊúÅÅÁËÔÙĞı×ªµÄ·½Ê½
-			// ÔÚ¿¼²ìÊúÅÅĞı×ªµÄÎÄ×ÖÊ±£¬ÎªÁËĞ§ÂÊ£¬Ö»Ê¹ÓÃµÚÒ»¸ö×Ö·û¼ÆËã£¬Èç¹û·ÇÒªÊúÅÅÖĞÓ¢»ìÅÅµÄÎÄ×Ö£¬ÄÇÃ´ÂÒÁËÒ²Ã»ÓĞ°ì·¨
+			// ç«–æ’æ–‡å­—ï¼Œç«–æ’æ–‡å­—å¦‚æœæœ‰æ—‹è½¬è§’åº¦çš„è¯ï¼Œå±äºæ¯”è¾ƒå¥‡æ€ªçš„ä½¿ç”¨
+			// ç”±äºæ¯ä¸ªå­—å»æ—‹è½¬ç„¶åç«–æ’çš„è¯ï¼Œæœ‰å¯èƒ½äº§ç”Ÿé®æŒ¡ï¼Œæ‰€ä»¥è¿™é‡Œé‡‡ç”¨æ”¯æŒç«–æ’äº†å†æ—‹è½¬çš„æ–¹å¼
+			// åœ¨è€ƒå¯Ÿç«–æ’æ—‹è½¬çš„æ–‡å­—æ—¶ï¼Œä¸ºäº†æ•ˆç‡ï¼Œåªä½¿ç”¨ç¬¬ä¸€ä¸ªå­—ç¬¦è®¡ç®—ï¼Œå¦‚æœéè¦ç«–æ’ä¸­è‹±æ··æ’çš„æ–‡å­—ï¼Œé‚£ä¹ˆä¹±äº†ä¹Ÿæ²¡æœ‰åŠæ³•
 			AffineTransform at = g.getTransform();
 			Rectangle rect2 = getTextSize(txt, g, vertical, 0, font);
 			rect2.setLocation(xloc, yloc - rect2.height);
@@ -1259,8 +1259,8 @@ public class Utils {
 			g.setTransform(at);
 		}
 		if (isUnderline(fontStyle)) {
-			// ĞèÒªÏÂ»®Ïß£¬»­Ò»Ìõ£¨Ä¿Ç°Ö»ÔÚºáÅÅÎÄ×Ö£¬ÇÒ²»Ğı×ªµÄÊ±ºò»­£©
-			// /ÖÁÓÚºáÅÅ»òÕßÊÇĞı×ª¸ö½Ç¶ÈµÄ»°ÔõÃ´´¦Àí£¬ÖÃºó¡£
+			// éœ€è¦ä¸‹åˆ’çº¿ï¼Œç”»ä¸€æ¡ï¼ˆç›®å‰åªåœ¨æ¨ªæ’æ–‡å­—ï¼Œä¸”ä¸æ—‹è½¬çš„æ—¶å€™ç”»ï¼‰
+			// /è‡³äºæ¨ªæ’æˆ–è€…æ˜¯æ—‹è½¬ä¸ªè§’åº¦çš„è¯æ€ä¹ˆå¤„ç†ï¼Œç½®åã€‚
 			if (!vertical && angle == 0) {
 				setStroke(g, null, Consts.LINE_SOLID, 0.5f);
 				drawLine(g, xloc, yloc + 2, xloc + rect.width, yloc + 2);
@@ -1270,12 +1270,12 @@ public class Utils {
 	}
 
 	/**
-	 * ´óÁ¿»æÖÆÎÄ±¾Ê±£¬ÓÉÓÚ×ÖÌå´ó¶àÏàÍ¬£¬ÎªÁË»æÖÆĞÔÄÜ£¬±ÜÃâ´óÁ¿new×ÖÌå¶ÔÏó
-	 * ²ÉÓÃ×ÖÌå»º´æ»ñÈ¡¶ÔÓ¦×ÖÌå
-	 * @param fontName ×ÖÌåÃû³Æ
-	 * @param fontStyle ·ç¸ñ
-	 * @param fontSize ×ÖºÅ
-	 * @return ×ÖÌå¶ÔÏó
+	 * å¤§é‡ç»˜åˆ¶æ–‡æœ¬æ—¶ï¼Œç”±äºå­—ä½“å¤§å¤šç›¸åŒï¼Œä¸ºäº†ç»˜åˆ¶æ€§èƒ½ï¼Œé¿å…å¤§é‡newå­—ä½“å¯¹è±¡
+	 * é‡‡ç”¨å­—ä½“ç¼“å­˜è·å–å¯¹åº”å­—ä½“
+	 * @param fontName å­—ä½“åç§°
+	 * @param fontStyle é£æ ¼
+	 * @param fontSize å­—å·
+	 * @return å­—ä½“å¯¹è±¡
 	 */
 	public synchronized static Font getFont(String fontName, int fontStyle,
 			int fontSize) {
@@ -1297,10 +1297,10 @@ public class Utils {
 	}
 
 	/**
-	 * ¸ù¾İÎÄ±¾µÄĞı×ª½Ç¶È¼ÆËã³öÊµ¼Ê»æÖÆÎÄ±¾Ê±£¬
-	 * ÎÄ±¾µÄÏà¶ÔÖĞĞÄµãµÄ·½Î»
-	 * @param angle Ğı×ª½Ç¶È
-	 * @return Ïà¶ÔÖĞĞÄµãµÄ·½Î»£¬ÖµÎªConsts.LOCATION_XX
+	 * æ ¹æ®æ–‡æœ¬çš„æ—‹è½¬è§’åº¦è®¡ç®—å‡ºå®é™…ç»˜åˆ¶æ–‡æœ¬æ—¶ï¼Œ
+	 * æ–‡æœ¬çš„ç›¸å¯¹ä¸­å¿ƒç‚¹çš„æ–¹ä½
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @return ç›¸å¯¹ä¸­å¿ƒç‚¹çš„æ–¹ä½ï¼Œå€¼ä¸ºConsts.LOCATION_XX
 	 */
 	public static int getAngleTextLocation(double angle) {
 		if (angle == 0) {
@@ -1326,9 +1326,9 @@ public class Utils {
 	}
 
 	/**
-	 * ÅĞ¶ÏÊı¾İÍ¼ÔªÁĞ±íÀïÃæÊÇ·ñº¬ÓĞ¶Ñ»ıÀàĞÍÊôĞÔ£¬¶Ñ»ıÍ¼µÄ×ø±ê·¶Î§ĞèÒªÀÛ¼Æ¼ÆËã
-	 * @param dataElements Êı¾İÍ¼ÔªÁĞ±í
-	 * @return Èç¹ûÓĞ¶Ñ»ıÀàĞÍ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­æ•°æ®å›¾å…ƒåˆ—è¡¨é‡Œé¢æ˜¯å¦å«æœ‰å †ç§¯ç±»å‹å±æ€§ï¼Œå †ç§¯å›¾çš„åæ ‡èŒƒå›´éœ€è¦ç´¯è®¡è®¡ç®—
+	 * @param dataElements æ•°æ®å›¾å…ƒåˆ—è¡¨
+	 * @return å¦‚æœæœ‰å †ç§¯ç±»å‹è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isStackedGraph(ArrayList dataElements) {
 		for (int i = 0; i < dataElements.size(); i++) {
@@ -1343,20 +1343,20 @@ public class Utils {
 	}
 
 	/**
-	 * ½«ÊµÊıo°´ÕÕformat¸ñÊ½»¯ÎªÎÄ±¾
-	 * @param o ÊıÖµ
-	 * @param format ¸ñÊ½ĞÅÏ¢
-	 * @return ¸ñÊ½»¯ºóµÄÎÄ±¾
+	 * å°†å®æ•°oæŒ‰ç…§formatæ ¼å¼åŒ–ä¸ºæ–‡æœ¬
+	 * @param o æ•°å€¼
+	 * @param format æ ¼å¼ä¿¡æ¯
+	 * @return æ ¼å¼åŒ–åçš„æ–‡æœ¬
 	 */
 	public static String format(double o, String format) {
 		return format(new java.lang.Double(o), format);
 	}
 
 	/**
-	 * ½«Êı¾İo°´ÕÕformat¸ñÊ½»¯ÎªÎÄ±¾
-	 * @param o ÈÎÒâÀàĞÍµÄÊı¾İ(³£ÓÃµÄÈÕÆÚ£¬ÊıÖµ£¬ÒÔ¼°ÁĞ±íµÈ)
-	 * @param format ¸ñÊ½ĞÅÏ¢
-	 * @return ¸ñÊ½»¯ºóµÄÎÄ±¾
+	 * å°†æ•°æ®oæŒ‰ç…§formatæ ¼å¼åŒ–ä¸ºæ–‡æœ¬
+	 * @param o ä»»æ„ç±»å‹çš„æ•°æ®(å¸¸ç”¨çš„æ—¥æœŸï¼Œæ•°å€¼ï¼Œä»¥åŠåˆ—è¡¨ç­‰)
+	 * @param format æ ¼å¼ä¿¡æ¯
+	 * @return æ ¼å¼åŒ–åçš„æ–‡æœ¬
 	 */
 	public static String format(Object o, String format) {
 		if (o instanceof Date) {
@@ -1401,15 +1401,15 @@ public class Utils {
 	};
 
 	/**
-	 * °´ÕÕÖ¸¶¨²ÎÊı¸øĞÎ×´ÉèÖÃÌî³ä
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param shape ĞèÒªÌî³äµÄĞÎ×´
-	 * @param transparent Ìî³äÍ¸Ã÷¶È
-	 * @param c Ìî³äÑÕÉ«£¬Èç¹û¸ÃÖµÎªnull£¬Ôò±íÊ¾µ±Ç°ĞÎ×´Í¸Ã÷£¬²»×öÌî³ä¡£
+	 * æŒ‰ç…§æŒ‡å®šå‚æ•°ç»™å½¢çŠ¶è®¾ç½®å¡«å……
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param shape éœ€è¦å¡«å……çš„å½¢çŠ¶
+	 * @param transparent å¡«å……é€æ˜åº¦
+	 * @param c å¡«å……é¢œè‰²ï¼Œå¦‚æœè¯¥å€¼ä¸ºnullï¼Œåˆ™è¡¨ç¤ºå½“å‰å½¢çŠ¶é€æ˜ï¼Œä¸åšå¡«å……ã€‚
 	 */
 	public static void fill(Graphics2D g, Shape shape, float transparent,
 			Color c) {
-		if (c == null) {// Í¸Ã÷É«£¬²»Ìî³ä
+		if (c == null) {// é€æ˜è‰²ï¼Œä¸å¡«å……
 			return;
 		}
 		g.setColor(c);
@@ -1419,10 +1419,10 @@ public class Utils {
 	}
 
 	/**
-	 * Ê¹ÓÃÍ¼ĞÎÉè±¸µ±Ç°ÑÕÉ«£¬ÔÙ°´ÕÕÖ¸¶¨²ÎÊı¸øĞÎ×´ÉèÖÃÌî³ä
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param shape ĞèÒªÌî³äµÄĞÎ×´
-	 * @param transparent Ìî³äÍ¸Ã÷¶È
+	 * ä½¿ç”¨å›¾å½¢è®¾å¤‡å½“å‰é¢œè‰²ï¼Œå†æŒ‰ç…§æŒ‡å®šå‚æ•°ç»™å½¢çŠ¶è®¾ç½®å¡«å……
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param shape éœ€è¦å¡«å……çš„å½¢çŠ¶
+	 * @param transparent å¡«å……é€æ˜åº¦
 	 */
 	public static void fillPaint(Graphics2D g, Shape shape, float transparent) {
 		setTransparent(g, transparent);
@@ -1431,9 +1431,9 @@ public class Utils {
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÉè±¸µ±Ç°µÄÍ¸Ã÷¶È
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param transparent Í¸Ã÷¶È£¬È¡Öµ·¶Î§ÎªÇø¼ä[0,1]£¬Ô½½çµÄÊıÖµµ±0»ò1´¦Àí
+	 * è®¾ç½®å›¾å½¢è®¾å¤‡å½“å‰çš„é€æ˜åº¦
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param transparent é€æ˜åº¦ï¼Œå–å€¼èŒƒå›´ä¸ºåŒºé—´[0,1]ï¼Œè¶Šç•Œçš„æ•°å€¼å½“0æˆ–1å¤„ç†
 	 */
 	public static void setTransparent(Graphics2D g, float transparent) {
 		if (transparent > 1) {
@@ -1446,23 +1446,23 @@ public class Utils {
 	}
 
 	/**
-	 * ÔÚµ±Ç°µÄÍ¼ĞÎÉè±¸»·¾³ÏÂ»æÖÆÒ»ÌõÏß¶Î
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param b ÆğÊ¼µã
-	 * @param e ½áÊøµã
+	 * åœ¨å½“å‰çš„å›¾å½¢è®¾å¤‡ç¯å¢ƒä¸‹ç»˜åˆ¶ä¸€æ¡çº¿æ®µ
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param b èµ·å§‹ç‚¹
+	 * @param e ç»“æŸç‚¹
 	 */
 	public static void drawLine(Graphics2D g, Point2D b, Point2D e) {
 		drawLine(g,b,e,Consts.LINE_ARROW_NONE);
 	}
 	
 	/**
-	 * ÔÚµ±Ç°µÄÍ¼ĞÎÉè±¸»·¾³ÏÂ»æÖÆÒ»Ìõ´ø¼ıÍ·µÄÏß¶Î
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param b ÆğÊ¼µã
-	 * @param e ½áÊøµã
-	 * @param arrow ¼ıÍ·ĞÎ×´£¬Öµ½öÖ§³Ö
-	 * Consts.LINE_ARROW ½áÊøµã³ö»æÖÆÓÒ¼ıÍ·
-	 * Consts.LINE_ARROW_L ÆğÊ¼µã´¦»æÖÆ×ó¼ıÍ· 
+	 * åœ¨å½“å‰çš„å›¾å½¢è®¾å¤‡ç¯å¢ƒä¸‹ç»˜åˆ¶ä¸€æ¡å¸¦ç®­å¤´çš„çº¿æ®µ
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param b èµ·å§‹ç‚¹
+	 * @param e ç»“æŸç‚¹
+	 * @param arrow ç®­å¤´å½¢çŠ¶ï¼Œå€¼ä»…æ”¯æŒ
+	 * Consts.LINE_ARROW ç»“æŸç‚¹å‡ºç»˜åˆ¶å³ç®­å¤´
+	 * Consts.LINE_ARROW_L èµ·å§‹ç‚¹å¤„ç»˜åˆ¶å·¦ç®­å¤´ 
 	 */
 	public static void drawLine(Graphics2D g, Point2D b, Point2D e, int arrow) {
 		if (b == null || e == null) {
@@ -1472,20 +1472,20 @@ public class Utils {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨²ÎÊı»æÖÆÒ»¸öÌî³äµÄ¾ØĞÎ£¬¶ÔÓ¦ÓÚÖùÍ¼Ôª
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param x x×ø±ê
-	 * @param y y×ø±ê
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
-	 * @param borderColor ±ß¿òÑÕÉ«
-	 * @param borderStyle ±ß¿ò·ç¸ñ
-	 * @param borderWeight ±ß¿ò´Ö¶È
-	 * @param drawShade »æÖÆÒõÓ°
-	 * @param convexEdge ÊÇ·ñÍ¹³ö±ß¿ò
-	 * @param transparent Ìî³äÍ¸Ã÷¶È
-	 * @param fillColor Ìî³äÑÕÉ«
-	 * @param isVertical ÊÇ·ñÊúÏòÖù×Ó(Öù×ÓµÄºá×İ²»Í¬Ê±£¬²ÉÓÃµÄÌî³ä½¥±äÉ«²»Í¬)
+	 * æŒ‰ç…§æŒ‡å®šå‚æ•°ç»˜åˆ¶ä¸€ä¸ªå¡«å……çš„çŸ©å½¢ï¼Œå¯¹åº”äºæŸ±å›¾å…ƒ
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param x xåæ ‡
+	 * @param y yåæ ‡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
+	 * @param borderColor è¾¹æ¡†é¢œè‰²
+	 * @param borderStyle è¾¹æ¡†é£æ ¼
+	 * @param borderWeight è¾¹æ¡†ç²—åº¦
+	 * @param drawShade ç»˜åˆ¶é˜´å½±
+	 * @param convexEdge æ˜¯å¦å‡¸å‡ºè¾¹æ¡†
+	 * @param transparent å¡«å……é€æ˜åº¦
+	 * @param fillColor å¡«å……é¢œè‰²
+	 * @param isVertical æ˜¯å¦ç«–å‘æŸ±å­(æŸ±å­çš„æ¨ªçºµä¸åŒæ—¶ï¼Œé‡‡ç”¨çš„å¡«å……æ¸å˜è‰²ä¸åŒ)
 	 */
 	public static void draw2DRect(Graphics2D g, double x, double y, double w, double h,
 			Color borderColor, int borderStyle, float borderWeight,
@@ -1500,7 +1500,7 @@ public class Utils {
 			Utils.setPaint(g, x, y, w, h, fillColor);
 			fillRect(g, x, y, w, h);
 		}else if (fillColor.getColor1() != null) {
-			// ìÅĞ§¹û
+			// ç‚«æ•ˆæœ
 			if (fillColor.isDazzle()) {
 				CubeColor ccr = new CubeColor(fillColor.getColor1());
 				Color c1 = ccr.getR1(), c2 = ccr.getT1();
@@ -1544,7 +1544,7 @@ public class Utils {
 			drawRaisedBorder(g, x, y, w, h, fillColor.getColor1());
 		}
 		if (setStroke(g, borderColor, borderStyle, borderWeight)) {
-			if (borderColor != null) {// ±ß¿òcolorÎªnull±íÊ¾ÓÃµ±Ç°Ê¹ÓÃÖĞµÄ»­±Ê
+			if (borderColor != null) {// è¾¹æ¡†colorä¸ºnullè¡¨ç¤ºç”¨å½“å‰ä½¿ç”¨ä¸­çš„ç”»ç¬”
 				g.setColor(borderColor);
 			}
 			drawRect(g,x, y, w, h);
@@ -1553,11 +1553,11 @@ public class Utils {
 	}
 
 	/**
-	 * »ñÈ¡¶à¸ö×ø±êµãµÄ»æÖÆÂ·¾¶(µã±È½ÏÉÙÊ±×¼È·£¬µã¶àÇÒÃÜ¼¯Ê±£¬javaÓĞbug£¬»æÖÆµÄÏß´íÎó)
-	 * ±ÜÃâÊ¹ÓÃ¸Ã·½·¨»æÖÆ¶àÌõÏß¶Î
-	 * @param points µã×ø±ê
-	 * @param closePath ÊÇ·ñ·â±ÕÂ·¾¶
-	 * @return »æÖÆÂ·¾¶
+	 * è·å–å¤šä¸ªåæ ‡ç‚¹çš„ç»˜åˆ¶è·¯å¾„(ç‚¹æ¯”è¾ƒå°‘æ—¶å‡†ç¡®ï¼Œç‚¹å¤šä¸”å¯†é›†æ—¶ï¼Œjavaæœ‰bugï¼Œç»˜åˆ¶çš„çº¿é”™è¯¯)
+	 * é¿å…ä½¿ç”¨è¯¥æ–¹æ³•ç»˜åˆ¶å¤šæ¡çº¿æ®µ
+	 * @param points ç‚¹åæ ‡
+	 * @param closePath æ˜¯å¦å°é—­è·¯å¾„
+	 * @return ç»˜åˆ¶è·¯å¾„
 	 */
 	public static Path2D getPath2D(ArrayList<Point2D> points, boolean closePath) {
 		Path2D.Double path2D = new Path2D.Double();
@@ -1579,10 +1579,10 @@ public class Utils {
 		return newPolygon2DShape(x,y);
 	}
 	/**
-	 * ²ÉÓÃÂ·¾¶ÒÀ´ÎÁ¬½Ó¸ø¶¨µÄµã×ø±ê
-	 * @param x x×ø±ê
-	 * @param y y×ø±ê
-	 * @return ·â±ÕÂ·¾¶µÄĞÎ×´
+	 * é‡‡ç”¨è·¯å¾„ä¾æ¬¡è¿æ¥ç»™å®šçš„ç‚¹åæ ‡
+	 * @param x xåæ ‡
+	 * @param y yåæ ‡
+	 * @return å°é—­è·¯å¾„çš„å½¢çŠ¶
 	 */
 	public static Shape newPolygon2DShape(double[] x, double[] y) {
 		Path2D.Double polygon2D = new Path2D.Double();
@@ -1596,8 +1596,8 @@ public class Utils {
 
 	private static void drawRaisedBorder(Graphics2D g, double x, double y, double w,
 			double h, Color borderColor) {
-		// Ì«Ï¸µÄÖù×ÓÒ²²»»æÖÆÍ¹³ö±ß¿ò
-		// T1×îÁÁ£¬R1Ïà¶Ô°µ.½¥±äÉ«µÄÍ¹³ö±ß¿ò²»ºÃ¿´£¬½¥±äÉ«Ê±ºöÂÔÍ¹³ö±ß¿òÊôĞÔ£»
+		// å¤ªç»†çš„æŸ±å­ä¹Ÿä¸ç»˜åˆ¶å‡¸å‡ºè¾¹æ¡†
+		// T1æœ€äº®ï¼ŒR1ç›¸å¯¹æš—.æ¸å˜è‰²çš„å‡¸å‡ºè¾¹æ¡†ä¸å¥½çœ‹ï¼Œæ¸å˜è‰²æ—¶å¿½ç•¥å‡¸å‡ºè¾¹æ¡†å±æ€§ï¼›
 		Color dazzel = CubeColor.getDazzelColor(borderColor);
 		CubeColor ccr = new CubeColor(dazzel);
 		int d = 5;
@@ -1616,13 +1616,13 @@ public class Utils {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨ÇøÓò»æÖÆ¾ØĞÎÒõÓ°
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param x x×ø±ê
-	 * @param y y×ø±ê
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
-	 * @return ÒõÓ°Í¨³£ĞèÒªÆ«ÒÆ£¬·µ»ØÕâ¸öÆ«ÒÆÁ¿£¬µ¥Î»ÏñËØ
+	 * åœ¨æŒ‡å®šåŒºåŸŸç»˜åˆ¶çŸ©å½¢é˜´å½±
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param x xåæ ‡
+	 * @param y yåæ ‡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
+	 * @return é˜´å½±é€šå¸¸éœ€è¦åç§»ï¼Œè¿”å›è¿™ä¸ªåç§»é‡ï¼Œå•ä½åƒç´ 
 	 */
 	public static int drawRectShadow(Graphics2D g, double x, double y, double w, double h) {
 		if (w == 0 || h == 0)
@@ -1690,9 +1690,9 @@ public class Utils {
 	}
 
 	/**
-	 * »ñÈ¡ºÏÊÊµÄ3D×ø±êÆ½Ì¨µÄºñ¶È£¬²»ÄÜÌ«ºñ£¬Ò²²»ÄÜÌ«±¡
-	 * @param coorShift 3D×ø±êÆ«ÒÆÁ¿
-	 * @return µ÷ÕûºóµÄÊÊÖĞÆ«ÒÆÁ¿
+	 * è·å–åˆé€‚çš„3Dåæ ‡å¹³å°çš„åšåº¦ï¼Œä¸èƒ½å¤ªåšï¼Œä¹Ÿä¸èƒ½å¤ªè–„
+	 * @param coorShift 3Dåæ ‡åç§»é‡
+	 * @return è°ƒæ•´åçš„é€‚ä¸­åç§»é‡
 	 */
 	public static double getPlatformH(double coorShift) {
 		double h = coorShift;
@@ -1704,21 +1704,21 @@ public class Utils {
 	}
 
 	/**
-	 * ½«Ö¸¶¨²ÎÊı·â×°ÎªÈıÎ¬Á¢ÌåÖùÃèÊö¶ÔÏó£¬Ê¹´úÂë¸ü¼ò½à
-	 * @param x x×ø±ê
-	 * @param y y×ø±ê
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
-	 * @param borderColor ±ß¿òÑÕÉ«
-	 * @param borderStyle ±ß¿ò·ç¸ñ
-	 * @param borderWeight ±ß¿ò´Ö¶È
-	 * @param drawShade ÊÇ·ñ»æÖÆÒõÓ°
-	 * @param convexEdge ÊÇ·ñÍ¹³ö±ß¿ò
-	 * @param transparent Ìî³äÍ¸Ã÷¶È
-	 * @param fillColor Ìî³äÑÕÉ«
-	 * @param isVertical ÊÇ·ñÊúÏòÖù×Ó
-	 * @param coorShift ÈıÎ¬ºñ¶È
-	 * @return °üº¬ÉÏÊö²ÎÊıµÄ·â×°Àà
+	 * å°†æŒ‡å®šå‚æ•°å°è£…ä¸ºä¸‰ç»´ç«‹ä½“æŸ±æè¿°å¯¹è±¡ï¼Œä½¿ä»£ç æ›´ç®€æ´
+	 * @param x xåæ ‡
+	 * @param y yåæ ‡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
+	 * @param borderColor è¾¹æ¡†é¢œè‰²
+	 * @param borderStyle è¾¹æ¡†é£æ ¼
+	 * @param borderWeight è¾¹æ¡†ç²—åº¦
+	 * @param drawShade æ˜¯å¦ç»˜åˆ¶é˜´å½±
+	 * @param convexEdge æ˜¯å¦å‡¸å‡ºè¾¹æ¡†
+	 * @param transparent å¡«å……é€æ˜åº¦
+	 * @param fillColor å¡«å……é¢œè‰²
+	 * @param isVertical æ˜¯å¦ç«–å‘æŸ±å­
+	 * @param coorShift ä¸‰ç»´åšåº¦
+	 * @return åŒ…å«ä¸Šè¿°å‚æ•°çš„å°è£…ç±»
 	 */
 	public static Desc3DRect get3DRect(double x, double y, double w, double h,
 			Color borderColor, int borderStyle, float borderWeight,
@@ -1742,9 +1742,9 @@ public class Utils {
 	}
 
 	/**
-	 * Ê¹ÓÃÈıÎ¬ÃèÊöµÄÁ¢ÌåÖù£¬»æÖÆÒ»¸öÁ¢·½Ìå
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param d3 ·â×°ÁËÁ¢·½Ìå²ÎÊıµÄÃèÊö¶ÔÏó
+	 * ä½¿ç”¨ä¸‰ç»´æè¿°çš„ç«‹ä½“æŸ±ï¼Œç»˜åˆ¶ä¸€ä¸ªç«‹æ–¹ä½“
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param d3 å°è£…äº†ç«‹æ–¹ä½“å‚æ•°çš„æè¿°å¯¹è±¡
 	 */
 	public static void draw3DRect(Graphics2D g, Desc3DRect d3) {
 		draw3DRect(g, d3.x, d3.y, d3.w, d3.h, d3.borderColor, d3.borderStyle,
@@ -1753,12 +1753,12 @@ public class Utils {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ°´ÕÕÅäÖÃ»æÖÆÒ»¸öÁ¢ÌåÖù×Ó 3DÖù×Ó»­ÉÏ±ß¿ò¾Í²»ºÃ¿´ÁË£¬ËùÒÔborderColorÎªnullÊÇÎªÍ¸Ã÷É«£¬
-	 * ²»½âÊÍÎªÊ¹ÓÃµ±Ç°ÑÕÉ«
-	 * ·µ»Ø³¬Á´½ÓµÄÇøÓòĞÎ×´ isDrawTop,isDrawRight,
-	 * ÊÇ·ñ»æÖÆ¶¥±ß£¨×İÏòÖù×Ó£©£¬»òÕßÓÒ±ß£¨ºáÏòÌõ×´£©£¬¸ÃÑ¡ÏîÓÃÓÚÓĞ¸ºÖµÀÛ»ıÊ±
-	 * ÓÉÓÚÀÛ»ı·½ÏòÏà·´£¬ËùÒÔ£¬³ıµÚÒ»¸ö¿¿½ü
-	 * ÖáµÄÖù×ÓÈ«»­£¬ÆäÓàµÄ¶¼²»»æÖÆ¶¥²¿£¬·ñÔò»áÔì³ÉÖù×Ó¼ä¸²¸Ç
+	 * åœ¨æŒ‡å®šä½ç½®æŒ‰ç…§é…ç½®ç»˜åˆ¶ä¸€ä¸ªç«‹ä½“æŸ±å­ 3DæŸ±å­ç”»ä¸Šè¾¹æ¡†å°±ä¸å¥½çœ‹äº†ï¼Œæ‰€ä»¥borderColorä¸ºnullæ˜¯ä¸ºé€æ˜è‰²ï¼Œ
+	 * ä¸è§£é‡Šä¸ºä½¿ç”¨å½“å‰é¢œè‰²
+	 * è¿”å›è¶…é“¾æ¥çš„åŒºåŸŸå½¢çŠ¶ isDrawTop,isDrawRight,
+	 * æ˜¯å¦ç»˜åˆ¶é¡¶è¾¹ï¼ˆçºµå‘æŸ±å­ï¼‰ï¼Œæˆ–è€…å³è¾¹ï¼ˆæ¨ªå‘æ¡çŠ¶ï¼‰ï¼Œè¯¥é€‰é¡¹ç”¨äºæœ‰è´Ÿå€¼ç´¯ç§¯æ—¶
+	 * ç”±äºç´¯ç§¯æ–¹å‘ç›¸åï¼Œæ‰€ä»¥ï¼Œé™¤ç¬¬ä¸€ä¸ªé è¿‘
+	 * è½´çš„æŸ±å­å…¨ç”»ï¼Œå…¶ä½™çš„éƒ½ä¸ç»˜åˆ¶é¡¶éƒ¨ï¼Œå¦åˆ™ä¼šé€ æˆæŸ±å­é—´è¦†ç›–
 	 */
 	public static void draw3DRect(Graphics2D g, double x, double y, double w, double h,
 			Color borderColor, int borderStyle, float borderWeight,
@@ -1770,7 +1770,7 @@ public class Utils {
 		}
 		CubeColor ccr = new CubeColor(fillColor.getColor1());
 		if (transparent < 1) {
-			// 1:±»ÕÚµ²µÄ±³Ãæ£¬Í¸Ã÷Ê±²ÅÄÜ¿´µ½£»
+			// 1:è¢«é®æŒ¡çš„èƒŒé¢ï¼Œé€æ˜æ—¶æ‰èƒ½çœ‹åˆ°ï¼›
 			// g.setColor(fillColor.getColor1());
 			Utils.fill(g, new Rectangle2D.Double(x + coorShift, y - coorShift, w, h),
 					transparent, fillColor.getColor1());
@@ -1778,7 +1778,7 @@ public class Utils {
 					&& borderColor != null) {
 				drawRect(g,x + coorShift, y - coorShift, w, h);
 			}
-			// 2:±»ÕÚµ²µÄµ×Ãæ
+			// 2:è¢«é®æŒ¡çš„åº•é¢
 			double[] xPointsB = { x, x + w, x + w + coorShift, x + coorShift };
 			double[] yPointsB = { y + h, y + h, y + h - coorShift,y + h - coorShift };
 			poly = newPolygon2D(xPointsB, yPointsB);
@@ -1789,7 +1789,7 @@ public class Utils {
 				g.draw(poly);
 			}
 
-			// 3:±»ÕÚµ²µÄ×ó²àÃæ
+			// 3:è¢«é®æŒ¡çš„å·¦ä¾§é¢
 			double[] xPointsL = { x, x, x + coorShift, x + coorShift };
 			double[] yPointsL = { y, y + h, y + h - coorShift, y - coorShift };
 			// g.setColor(fillColor.getColor1());
@@ -1801,7 +1801,7 @@ public class Utils {
 			}
 		}
 		Rectangle bound;
-		// 4:ÓÒ±ß²àÃæ
+		// 4:å³è¾¹ä¾§é¢
 		// if (isDrawRight) {
 		double[] xPointsR = { x + w, x + w, x + w + coorShift, x + w + coorShift };
 		double[] yPointsR = { y, y + h, y + h - coorShift, y - coorShift };
@@ -1833,13 +1833,13 @@ public class Utils {
 		}
 		// }
 
-		// 5:¶¥Ãæ
+		// 5:é¡¶é¢
 		// if (isDrawTop) {
 		double[] xPointsT = { x, x + w, x + w + coorShift, x + coorShift };
 		double[] yPointsT = { y, y, y - coorShift, y - coorShift };
 		poly = newPolygon2D(xPointsT, yPointsT);
 		bound = poly.getBounds();
-		if (fillColor.isGradient()) {// £¬ÓÒÃæºÍ¶¥Ãæ¶¼Ê¹ÓÃ½¥±äÊ±¾ÍìÅ
+		if (fillColor.isGradient()) {// ï¼Œå³é¢å’Œé¡¶é¢éƒ½ä½¿ç”¨æ¸å˜æ—¶å°±ç‚«
 			ChartColor tmpcc = new ChartColor();
 			tmpcc.setGradient(true);
 			tmpcc.setAngle(180);
@@ -1866,8 +1866,8 @@ public class Utils {
 		// }
 
 		boolean isSet = false;
-		if (fillColor.isDazzle()) {// Ö»ÓĞÇ°ÃæµÃÇø·ÖÊÇ·ñìÅĞ§¹û
-			// Ç°Ãæ
+		if (fillColor.isDazzle()) {// åªæœ‰å‰é¢å¾—åŒºåˆ†æ˜¯å¦ç‚«æ•ˆæœ
+			// å‰é¢
 			ChartColor tmpcc = new ChartColor();
 			if (isVertical) {
 				tmpcc.setColor1(ccr.getF1());
@@ -1929,17 +1929,17 @@ public class Utils {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨²ÎÊı»æÖÆÒ»¸öÆ½Ãæ±ıÍ¼
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param ellipseBounds ±ıÍ¼»òÉÈĞÎµÄ±ß½ç
-	 * @param startAngle ÉÈĞÎµÄÆğÊ¼½Ç¶È
-	 * @param extentAngle ½Ç¶È³¤¶È·¶Î§(±ÈÈçÆğÊ¼5¶È£¬»æÖÆ³¤¶È45¶È£¬±íÊ¾´Ó5¶È»­µ½50¶ÈµÄÒ»¸öÉÈĞÎ)
-	 * @param borderColor ±ß¿òÑÕÉ«
-	 * @param borderStyle ±ß¿ò·ç¸ñ
-	 * @param borderWeight ±ß¿ò´Ö¶È
-	 * @param transparent Í¸Ã÷¶È
-	 * @param fillColor Ìî³äÑÕÉ«
-	 * @param dazzelCount ±ß¿òìÅµÄºñ¶È
+	 * æŒ‰ç…§æŒ‡å®šå‚æ•°ç»˜åˆ¶ä¸€ä¸ªå¹³é¢é¥¼å›¾
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param ellipseBounds é¥¼å›¾æˆ–æ‰‡å½¢çš„è¾¹ç•Œ
+	 * @param startAngle æ‰‡å½¢çš„èµ·å§‹è§’åº¦
+	 * @param extentAngle è§’åº¦é•¿åº¦èŒƒå›´(æ¯”å¦‚èµ·å§‹5åº¦ï¼Œç»˜åˆ¶é•¿åº¦45åº¦ï¼Œè¡¨ç¤ºä»5åº¦ç”»åˆ°50åº¦çš„ä¸€ä¸ªæ‰‡å½¢)
+	 * @param borderColor è¾¹æ¡†é¢œè‰²
+	 * @param borderStyle è¾¹æ¡†é£æ ¼
+	 * @param borderWeight è¾¹æ¡†ç²—åº¦
+	 * @param transparent é€æ˜åº¦
+	 * @param fillColor å¡«å……é¢œè‰²
+	 * @param dazzelCount è¾¹æ¡†ç‚«çš„åšåº¦
 	 */
 	public static void draw2DPie(Graphics2D g, Rectangle2D ellipseBounds,
 			double startAngle, double extentAngle, Color borderColor,
@@ -1951,18 +1951,18 @@ public class Utils {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨²ÎÊı»æÖÆÉÈĞÎµÄÊµÏÖ
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param ellipseBounds ±ıÍ¼»òÉÈĞÎµÄ±à¼­
-	 * @param startAngle ÆğÊ¼½Ç¶È
-	 * @param extentAngle ½Ç¶È·¶Î§
-	 * @param borderColor ±ß¿òÑÕÉ«
-	 * @param borderStyle ±ß¿ò·ç¸ñ
-	 * @param borderWeight ±ß¿ò´Ö¶È
-	 * @param transparent Í¸Ã÷¶È
-	 * @param fillColor Ìî³äÑÕÉ«
-	 * @param dazzelCount ±ß¿òìÅµÄºñ¶È
-	 * @param arcType »¡µÄÀàĞÍ£¬Öµ²Î¿¼£ºArc2D.XXX
+	 * æŒ‰ç…§æŒ‡å®šå‚æ•°ç»˜åˆ¶æ‰‡å½¢çš„å®ç°
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param ellipseBounds é¥¼å›¾æˆ–æ‰‡å½¢çš„ç¼–è¾‘
+	 * @param startAngle èµ·å§‹è§’åº¦
+	 * @param extentAngle è§’åº¦èŒƒå›´
+	 * @param borderColor è¾¹æ¡†é¢œè‰²
+	 * @param borderStyle è¾¹æ¡†é£æ ¼
+	 * @param borderWeight è¾¹æ¡†ç²—åº¦
+	 * @param transparent é€æ˜åº¦
+	 * @param fillColor å¡«å……é¢œè‰²
+	 * @param dazzelCount è¾¹æ¡†ç‚«çš„åšåº¦
+	 * @param arcType å¼§çš„ç±»å‹ï¼Œå€¼å‚è€ƒï¼šArc2D.XXX
 	 */
 	public static void draw2DArc(Graphics2D g, Rectangle2D ellipseBounds,
 			double startAngle, double extentAngle, Color borderColor,
@@ -1976,9 +1976,9 @@ public class Utils {
 			Color dazzel = CubeColor.getDazzelColor(cc.getColor1());
 			CubeColor ccr = new CubeColor(dazzel);
 			GradientPaint gp;
-			// ÓÉÍâ¼°ÀïÃæÑÕÉ«½¥±ä»­³ö±ß¿ò£¬×îºóÒ»È¦Ğ¡µÄÊ¹ÓÃ½¥±äÉ«Ìî³äÍ»³öìÅ
+			// ç”±å¤–åŠé‡Œé¢é¢œè‰²æ¸å˜ç”»å‡ºè¾¹æ¡†ï¼Œæœ€åä¸€åœˆå°çš„ä½¿ç”¨æ¸å˜è‰²å¡«å……çªå‡ºç‚«
 			// setTransparent(g, transparent);
-			if (dazzelCount > 10) {// ¸ÃÊıÖµ²»ÄÜÌ«´ó£¬Ã»ÓĞ×ã¹»µÄÑÕÉ«ÒÔ¼°ĞÔÄÜÉÏ
+			if (dazzelCount > 10) {// è¯¥æ•°å€¼ä¸èƒ½å¤ªå¤§ï¼Œæ²¡æœ‰è¶³å¤Ÿçš„é¢œè‰²ä»¥åŠæ€§èƒ½ä¸Š
 				dazzelCount = 10;
 			}
 			for (int k = 0; k < dazzelCount; k++) {
@@ -2000,11 +2000,11 @@ public class Utils {
 					Utils.fill(g, tmpArc, transparent, tmp);
 				}
 			}
-		} else if (cc.color1 != null) {// Èç¹û²»ÊÇÍ¸Ã÷É«
+		} else if (cc.color1 != null) {// å¦‚æœä¸æ˜¯é€æ˜è‰²
 			if (Utils.setPaint(g, rect.x, rect.y, rect.width, rect.height, cc)) {
 				Utils.fillPaint(g, arc, transparent);
 			}
-		}// ·ñÔòÎªÍ¸Ã÷É«£¬²»ÓÃ»æÖÆ
+		}// å¦åˆ™ä¸ºé€æ˜è‰²ï¼Œä¸ç”¨ç»˜åˆ¶
 		if (Utils.setStroke(g, borderColor, borderStyle, borderWeight)) {
 			g.draw(arc);
 		}
@@ -2012,13 +2012,13 @@ public class Utils {
 	}
 
 	/**
-	 * °´ÕÕ¸ø¶¨×ø±êÒÔ¼°µ±Ç°Í¼ĞÎÉè±¸µÄ»·¾³»æÖÆÒ»ÌõÏß¶Î
-	 * drawLine¸údrawLineShadeÖ®ËùÒÔÒª·Ö¿ª£¬ÊÇÒòÎª»æÍ¼Ê±ĞèÒªÏÈ°ÑÒõÓ°»­Íê£¬È»ºó²ÅÄÜ»­Ïß£¬²»ÄÜ½»´í»­£»
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param x1 Æğµãx×ø±ê
-	 * @param y1 Æğµãy×ø±ê
-	 * @param x2 ÖÕµãx×ø±ê
-	 * @param y2 ÖÕµãy×ø±ê
+	 * æŒ‰ç…§ç»™å®šåæ ‡ä»¥åŠå½“å‰å›¾å½¢è®¾å¤‡çš„ç¯å¢ƒç»˜åˆ¶ä¸€æ¡çº¿æ®µ
+	 * drawLineè·ŸdrawLineShadeä¹‹æ‰€ä»¥è¦åˆ†å¼€ï¼Œæ˜¯å› ä¸ºç»˜å›¾æ—¶éœ€è¦å…ˆæŠŠé˜´å½±ç”»å®Œï¼Œç„¶åæ‰èƒ½ç”»çº¿ï¼Œä¸èƒ½äº¤é”™ç”»ï¼›
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param x1 èµ·ç‚¹xåæ ‡
+	 * @param y1 èµ·ç‚¹yåæ ‡
+	 * @param x2 ç»ˆç‚¹xåæ ‡
+	 * @param y2 ç»ˆç‚¹yåæ ‡
 	 */
 	public static void drawLine(Graphics2D g, double x1, double y1, double x2,
 			double y2) {
@@ -2026,27 +2026,27 @@ public class Utils {
 	}
 	
 	/**
-	 * °´ÕÕ¸ø¶¨×ø±êÒÔ¼°µ±Ç°Í¼ĞÎÉè±¸µÄ»·¾³»æÖÆÒ»Ìõ´ø¼ıÍ·µÄÏß¶Î
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param x1 Æğµãx×ø±ê
-	 * @param y1 Æğµãy×ø±ê
-	 * @param x2 ÖÕµãx×ø±ê
-	 * @param y2 ÖÕµãy×ø±ê
-	 * @param arrow ¼ıÍ·Î»ÖÃ£¬È¡ÖµÖ»ÄÜÎª
-	 * ÎŞ Consts.LINE_ARROW_NONE (¼´ÆÕÍ¨Ïß¶Î)
-	 * ×ó Consts.LINE_ARROW_L(Æğµã´¦)
-	 * ÓÒ Consts.LINE_ARROW  (ÖÕµã´¦)
+	 * æŒ‰ç…§ç»™å®šåæ ‡ä»¥åŠå½“å‰å›¾å½¢è®¾å¤‡çš„ç¯å¢ƒç»˜åˆ¶ä¸€æ¡å¸¦ç®­å¤´çš„çº¿æ®µ
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param x1 èµ·ç‚¹xåæ ‡
+	 * @param y1 èµ·ç‚¹yåæ ‡
+	 * @param x2 ç»ˆç‚¹xåæ ‡
+	 * @param y2 ç»ˆç‚¹yåæ ‡
+	 * @param arrow ç®­å¤´ä½ç½®ï¼Œå–å€¼åªèƒ½ä¸º
+	 * æ—  Consts.LINE_ARROW_NONE (å³æ™®é€šçº¿æ®µ)
+	 * å·¦ Consts.LINE_ARROW_L(èµ·ç‚¹å¤„)
+	 * å³ Consts.LINE_ARROW  (ç»ˆç‚¹å¤„)
 	 */
 	public static void drawLine(Graphics2D g, double x1, double y1, double x2,
 			double y2, int arrow) {
 		Line2D line = new Line2D.Double(x1, y1, x2, y2);
 		g.draw(line);
-//		ÏßµÄ¼ıÍ·ÔİÊ±Ö»Ö§³ÖÆÕÍ¨µÄ×óÓÒ¼ıÍ·
+//		çº¿çš„ç®­å¤´æš‚æ—¶åªæ”¯æŒæ™®é€šçš„å·¦å³ç®­å¤´
 		if(arrow==Consts.LINE_ARROW || arrow==Consts.LINE_ARROW_L){
-//			»¡¶È±íÊ¾µÄÁ½µãÖ®¼äµÄĞ±ÂÊ
+//			å¼§åº¦è¡¨ç¤ºçš„ä¸¤ç‚¹ä¹‹é—´çš„æ–œç‡
 			double radian = Math.atan2(y2-y1,x2-x1);
 			double x = x2, y = y2;
-			if(arrow==Consts.LINE_ARROW_L){//×ó¼ıÍ·Ê±£¬ĞèÒª¸ø¶¨x1
+			if(arrow==Consts.LINE_ARROW_L){//å·¦ç®­å¤´æ—¶ï¼Œéœ€è¦ç»™å®šx1
 				x = x1;
 				y = y1;
 			}
@@ -2055,9 +2055,9 @@ public class Utils {
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÉè±¸µÄµ±Ç°»­±ÊÑÕÉ«
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param c »­±ÊÑÕÉ«£¬ÑÕÉ«ÎªnullÊ±£¬²»¸Ä±äµ±Ç°»­±ÊÑÕÉ«
+	 * è®¾ç½®å›¾å½¢è®¾å¤‡çš„å½“å‰ç”»ç¬”é¢œè‰²
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param c ç”»ç¬”é¢œè‰²ï¼Œé¢œè‰²ä¸ºnullæ—¶ï¼Œä¸æ”¹å˜å½“å‰ç”»ç¬”é¢œè‰²
 	 */
 	public static void setColor(Graphics2D g, Color c) {
 		if (c != null) {
@@ -2105,17 +2105,17 @@ public class Utils {
 			double radiusx, double radiusy) {
 		Shape pShape = null;
 		switch (shape) {
-		case Consts.PT_NONE: // ÎŞ
+		case Consts.PT_NONE: // æ— 
 			break;
-		case Consts.PT_CIRCLE: // Ô²
+		case Consts.PT_CIRCLE: // åœ†
 			pShape = new Ellipse2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_SQUARE: // Õı·½ĞÎ
+		case Consts.PT_SQUARE: // æ­£æ–¹å½¢
 			pShape = new Rectangle2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_TRIANGLE: // Èı½ÇĞÎ
+		case Consts.PT_TRIANGLE: // ä¸‰è§’å½¢
 			double[] xs_tr = new double[] {
 					x - radiusx * Math.cos(Math.toRadians(30)), x,
 					x + radiusx * Math.cos(Math.toRadians(30)) };
@@ -2123,38 +2123,38 @@ public class Utils {
 					y + radiusy / 2 };
 			pShape = newPolygon2DShape(xs_tr, ys_tr);
 			break;
-		case Consts.PT_RECTANGLE: // ³¤·½ĞÎ
+		case Consts.PT_RECTANGLE: // é•¿æ–¹å½¢
 			pShape = new Rectangle2D.Double(x - radiusx, y - radiusy * 7 / 10,
 					radiusx * 2, radiusy * 7 / 5);
 			break;
-		case Consts.PT_STAR: // ĞÇĞÎ
+		case Consts.PT_STAR: // æ˜Ÿå½¢
 			pShape = new Ellipse2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_DIAMOND: // ÁâĞÎ
+		case Consts.PT_DIAMOND: // è±å½¢
 			double[] xs_di,
 			ys_di;
 			xs_di = new double[] { x - radiusx, x, x + radiusx, x };
 			ys_di = new double[] { y, y - radiusy, y, y + radiusy };
 			pShape = newPolygon2DShape(xs_di, ys_di);
 			break;
-		case Consts.PT_CORSS: // ²æĞÎ
+		case Consts.PT_CORSS: // å‰å½¢
 			pShape = new Rectangle2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_PLUS: // ¼ÓºÅ
+		case Consts.PT_PLUS: // åŠ å·
 			pShape = new Rectangle2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_D_CIRCEL: // Ë«Ô²
+		case Consts.PT_D_CIRCEL: // åŒåœ†
 			pShape = new Ellipse2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_D_SQUARE: // Ë«Õı·½ĞÎ
+		case Consts.PT_D_SQUARE: // åŒæ­£æ–¹å½¢
 			pShape = new Rectangle2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_D_TRIANGLE: // Ë«Èı½ÇĞÎ
+		case Consts.PT_D_TRIANGLE: // åŒä¸‰è§’å½¢
 			double delta = radiusx * Math.cos(Math.toRadians(30));
 			double[] xs_dtr1,
 			ys_dtr1;
@@ -2163,11 +2163,11 @@ public class Utils {
 					y + radiusy / 2 };
 			pShape = newPolygon2DShape(xs_dtr1, ys_dtr1);
 			break;
-		case Consts.PT_D_RECTANGLE: // Ë«³¤·½ĞÎ
+		case Consts.PT_D_RECTANGLE: // åŒé•¿æ–¹å½¢
 			pShape = new Rectangle2D.Double(x - radiusx, y - radiusy * 7 / 10,
 					radiusx * 2, radiusy * 7 / 5);
 			break;
-		case Consts.PT_D_DIAMOND: // Ë«ÁâĞÎ
+		case Consts.PT_D_DIAMOND: // åŒè±å½¢
 			double[] xs_ddi2,
 			ys_ddi2;
 			xs_ddi2 = new double[] { x - radiusx, x, x + radiusx, x };
@@ -2175,15 +2175,15 @@ public class Utils {
 			pShape = newPolygon2DShape(xs_ddi2, ys_ddi2);
 
 			break;
-		case Consts.PT_CIRCLE_PLUS: // Ô²ÄÚ¼ÓºÅ
+		case Consts.PT_CIRCLE_PLUS: // åœ†å†…åŠ å·
 			pShape = new Ellipse2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_SQUARE_PLUS: // ·½ÄÚ¼ÓºÅ
+		case Consts.PT_SQUARE_PLUS: // æ–¹å†…åŠ å·
 			pShape = new Rectangle2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_TRIANGLE_PLUS: // Èı½ÇÄÚ¼ÓºÅ
+		case Consts.PT_TRIANGLE_PLUS: // ä¸‰è§’å†…åŠ å·
 			double[] xs_trp,
 			ys_trp;
 			xs_trp = new double[] { x - radiusx * Math.cos(Math.toRadians(30)),
@@ -2192,11 +2192,11 @@ public class Utils {
 					y + radiusy / 2 };
 			pShape = newPolygon2DShape(xs_trp, ys_trp);
 			break;
-		case Consts.PT_RECTANGLE_PLUS: // ³¤·½ĞÎÄÚ¼ÓºÅ
+		case Consts.PT_RECTANGLE_PLUS: // é•¿æ–¹å½¢å†…åŠ å·
 			pShape = new Rectangle2D.Double(x - radiusx, y - radiusy * 7 / 10,
 					radiusx * 2, radiusy * 7 / 5);
 			break;
-		case Consts.PT_DIAMOND_PLUS: // ÁâÄÚ¼ÓºÅ
+		case Consts.PT_DIAMOND_PLUS: // è±å†…åŠ å·
 			double[] xs_dip,
 			ys_dip;
 			xs_dip = new double[] { x - radiusx, x, x + radiusx, x };
@@ -2208,37 +2208,37 @@ public class Utils {
 	}
 
 	/**
-	 * »æÖÆÖ±½Ç×ø±êÏµÏÂÒ»¸öµãµÄ²½Öè1(Í¼ÔªÖ®ËùÒÔ·Ö²½Öè»æÖÆÓÃÒÔ·ÀÖ¹±³¾°É«¸²¸Ç±ğµÄÇ°¾°ÎÄ×Ö)
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param point µã×ø±ê
-	 * @param shape µãµÄĞÎ×´£¬È¡Öµ²Î¿¼Consts.PT_XXX
-	 * @param radiusx xÖáÉÏµÄÒµÎñ°ë¾¶¼ÆËã¹ıºóµÄÏñËØµ¥Î»£¬Ë×³ÆÎªÖáÉÏµÄÒµÎñ°ë¾¶
-	 * @param radiusy yÖáÉÏµÄÒµÎñ°ë¾¶¼ÆËã¹ıºóµÄÏñËØµ¥Î»
-	 * @param rw x£¬yÖáÉÏµÄÒµÎñ°ë¾¶¶¼Îª0Ê±£¬Ê¹ÓÃ¶Ô³ÆµÄ°ë¾¶ÏñËØµ¥Î»£¬Ë×³ÆÎªÒµÎñÎŞ¹ØµÄÏñËØ°ë¾¶
-	 * @param style ±ß¿ò·ç¸ñ
-	 * @param weight ±ß¿ò´Ö¶È 
-	 * @param transparent Í¸Ã÷¶È
-	 * @return µãµÄĞÎ×´¶ÔÏó(ÓÃÓÚ¼ÆËã³¬Á´½Ó)
+	 * ç»˜åˆ¶ç›´è§’åæ ‡ç³»ä¸‹ä¸€ä¸ªç‚¹çš„æ­¥éª¤1(å›¾å…ƒä¹‹æ‰€ä»¥åˆ†æ­¥éª¤ç»˜åˆ¶ç”¨ä»¥é˜²æ­¢èƒŒæ™¯è‰²è¦†ç›–åˆ«çš„å‰æ™¯æ–‡å­—)
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param point ç‚¹åæ ‡
+	 * @param shape ç‚¹çš„å½¢çŠ¶ï¼Œå–å€¼å‚è€ƒConsts.PT_XXX
+	 * @param radiusx xè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„è®¡ç®—è¿‡åçš„åƒç´ å•ä½ï¼Œä¿—ç§°ä¸ºè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„
+	 * @param radiusy yè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„è®¡ç®—è¿‡åçš„åƒç´ å•ä½
+	 * @param rw xï¼Œyè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„éƒ½ä¸º0æ—¶ï¼Œä½¿ç”¨å¯¹ç§°çš„åŠå¾„åƒç´ å•ä½ï¼Œä¿—ç§°ä¸ºä¸šåŠ¡æ— å…³çš„åƒç´ åŠå¾„
+	 * @param style è¾¹æ¡†é£æ ¼
+	 * @param weight è¾¹æ¡†ç²—åº¦ 
+	 * @param transparent é€æ˜åº¦
+	 * @return ç‚¹çš„å½¢çŠ¶å¯¹è±¡(ç”¨äºè®¡ç®—è¶…é“¾æ¥)
 	 */
 	public static Shape drawCartesianPoint1(Graphics2D g, Point2D point,
 			int shape, double radiusx, double radiusy, double rw, int style,
 			float weight, float transparent) {
 		double x = point.getX();
 		double y = point.getY();
-		// Ã»ÓĞÖ¸¶¨×ø±êÖµÒµÎñ°ë¾¶Ê±£¬Ê¹ÓÃ¶Ô³ÆµÄÏñËØ°ë¾¶rw radiusWeight:°ë¾¶ºñ¶È£¬ÎŞÒµÎñ°ë¾¶Ê±Ê¹ÓÃµÄ¶Ô³Æ°ë¾¶
+		// æ²¡æœ‰æŒ‡å®šåæ ‡å€¼ä¸šåŠ¡åŠå¾„æ—¶ï¼Œä½¿ç”¨å¯¹ç§°çš„åƒç´ åŠå¾„rw radiusWeight:åŠå¾„åšåº¦ï¼Œæ— ä¸šåŠ¡åŠå¾„æ—¶ä½¿ç”¨çš„å¯¹ç§°åŠå¾„
 		if (radiusx == 0 && radiusy == 0) {
 			radiusx = rw;
 			radiusy = rw;
 		}
 		if (radiusx + radiusy == 0)
-			return null;// ÎŞÂÛÒµÎñ°ë¾¶»¹ÊÇÏñËØ°ë¾¶¶¼ÎªÁãÊ±£¬²»»­µã
+			return null;// æ— è®ºä¸šåŠ¡åŠå¾„è¿˜æ˜¯åƒç´ åŠå¾„éƒ½ä¸ºé›¶æ—¶ï¼Œä¸ç”»ç‚¹
 		Point2D p1, p2;
-		if (radiusx == 0) {// x×ø±êÎª0Ê±£¬µãĞÍÎŞĞ§£¬»­×İÏòÖ±Ïß
+		if (radiusx == 0) {// xåæ ‡ä¸º0æ—¶ï¼Œç‚¹å‹æ— æ•ˆï¼Œç”»çºµå‘ç›´çº¿
 			p1 = new Point2D.Double(x, y - radiusy);
 			p2 = new Point2D.Double(x, y + radiusy);
 			return drawLine1(g, p1, p2, style, weight);
 		}
-		if (radiusy == 0) {// »­ºáÏòÖ±Ïß
+		if (radiusy == 0) {// ç”»æ¨ªå‘ç›´çº¿
 			p1 = new Point2D.Double(x - radiusx, y);
 			p2 = new Point2D.Double(x + radiusx, y);
 			return drawLine1(g, p1, p2, style, weight);
@@ -2255,18 +2255,18 @@ public class Utils {
 		pShape = getCPoint1ShapeArea(shape, x, y, radiusx, radiusy);
 		if (pShape != null) {
 			fillRadioGradientShape(g, pShape, Color.darkGray, Color.white,
-					transparent / 2);// ÒõÓ°µÄÍ¸Ã÷¶È¼õ°ë
+					transparent / 2);// é˜´å½±çš„é€æ˜åº¦å‡åŠ
 		}
 		return linkShape;
 	}
 
 	/**
-	 * »ñÈ¡ïÎ¿ÕµÄĞÎ×´
+	 * è·å–é•‚ç©ºçš„å½¢çŠ¶
 	 * 
 	 * @param outer
-	 *            ,´óĞÎ×´
+	 *            ,å¤§å½¢çŠ¶
 	 * @param inner
-	 *            ,ïÎ¿ÕµôµÄĞ¡ĞÎ×´
+	 *            ,é•‚ç©ºæ‰çš„å°å½¢çŠ¶
 	 * @return
 	 */
 	private static Shape getLouKongShape(Shape outer, Shape inner) {
@@ -2277,42 +2277,42 @@ public class Utils {
 	}
 
 	/**
-	 * »æÖÆÖ±½Ç×ø±êÏµÏÂÒ»¸öµãµÄ²½Öè2
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param point µã×ø±ê
-	 * @param shape µãµÄĞÎ×´£¬È¡Öµ²Î¿¼Consts.PT_XXX
-	 * @param radiusx xÖáÉÏµÄÒµÎñ°ë¾¶¼ÆËã¹ıºóµÄÏñËØµ¥Î»£¬Ë×³ÆÎªÖáÉÏµÄÒµÎñ°ë¾¶
-	 * @param radiusy yÖáÉÏµÄÒµÎñ°ë¾¶¼ÆËã¹ıºóµÄÏñËØµ¥Î»
-	 * @param rw x£¬yÖáÉÏµÄÒµÎñ°ë¾¶¶¼Îª0Ê±£¬Ê¹ÓÃ¶Ô³ÆµÄ°ë¾¶ÏñËØµ¥Î»£¬Ë×³ÆÎªÒµÎñÎŞ¹ØµÄÏñËØ°ë¾¶
-	 * @param style ±ß¿ò·ç¸ñ
-	 * @param weight ±ß¿ò´Ö¶È 
-	 * @param ccr Ìî³äÑÕÉ« 
-	 * @param foreColor Ç°¾°É«£¬±ß¿òÑÕÉ« 
-	 * @param transparent Í¸Ã÷¶È
-	 * @return µãµÄĞÎ×´¶ÔÏó(ÓÃÓÚ¼ÆËã³¬Á´½Ó)
+	 * ç»˜åˆ¶ç›´è§’åæ ‡ç³»ä¸‹ä¸€ä¸ªç‚¹çš„æ­¥éª¤2
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param point ç‚¹åæ ‡
+	 * @param shape ç‚¹çš„å½¢çŠ¶ï¼Œå–å€¼å‚è€ƒConsts.PT_XXX
+	 * @param radiusx xè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„è®¡ç®—è¿‡åçš„åƒç´ å•ä½ï¼Œä¿—ç§°ä¸ºè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„
+	 * @param radiusy yè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„è®¡ç®—è¿‡åçš„åƒç´ å•ä½
+	 * @param rw xï¼Œyè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„éƒ½ä¸º0æ—¶ï¼Œä½¿ç”¨å¯¹ç§°çš„åŠå¾„åƒç´ å•ä½ï¼Œä¿—ç§°ä¸ºä¸šåŠ¡æ— å…³çš„åƒç´ åŠå¾„
+	 * @param style è¾¹æ¡†é£æ ¼
+	 * @param weight è¾¹æ¡†ç²—åº¦ 
+	 * @param ccr å¡«å……é¢œè‰² 
+	 * @param foreColor å‰æ™¯è‰²ï¼Œè¾¹æ¡†é¢œè‰² 
+	 * @param transparent é€æ˜åº¦
+	 * @return ç‚¹çš„å½¢çŠ¶å¯¹è±¡(ç”¨äºè®¡ç®—è¶…é“¾æ¥)
 	 */
 	public static Shape drawCartesianPoint2(Graphics2D g, Point2D point,
 			int shape, double radiusx, double radiusy, double rw, int style,
 			float weight, ChartColor ccr, Color foreColor, float transparent) {
 		double x = point.getX();
 		double y = point.getY();
-		if (rw == 0) {// rwÎª0±íÊ¾²ÉÓÃÏß´Ö°ë¾¶»­µã
+		if (rw == 0) {// rwä¸º0è¡¨ç¤ºé‡‡ç”¨çº¿ç²—åŠå¾„ç”»ç‚¹
 			rw = weight / 2 + 1;
 			if (rw < 4)
 				rw = 3;
 		}
 
-		// Ã»ÓĞÖ¸¶¨×ø±êÖµÒµÎñ°ë¾¶Ê±£¬Ê¹ÓÃ¶Ô³ÆµÄÏñËØ°ë¾¶radius
+		// æ²¡æœ‰æŒ‡å®šåæ ‡å€¼ä¸šåŠ¡åŠå¾„æ—¶ï¼Œä½¿ç”¨å¯¹ç§°çš„åƒç´ åŠå¾„radius
 		if (radiusx == 0 && radiusy == 0) {
 			radiusx = rw;
 			radiusy = rw;
 		}
-		if (radiusx == radiusy) {// ¶Ô³Æ°ë¾¶Ê±£¬²»Ê¹ÓÃÏß´ÖÊôĞÔ£¬ÕæÕıµÄÏß´ÖÊ¹ÓÃ1
+		if (radiusx == radiusy) {// å¯¹ç§°åŠå¾„æ—¶ï¼Œä¸ä½¿ç”¨çº¿ç²—å±æ€§ï¼ŒçœŸæ­£çš„çº¿ç²—ä½¿ç”¨1
 			weight = 1;
 		}
 
 		Point2D p1, p2;
-		if (radiusx == 0) {// x×ø±êÎª0Ê±£¬µãĞÍÎŞĞ§£¬»­×İÏòÖ±Ïß
+		if (radiusx == 0) {// xåæ ‡ä¸º0æ—¶ï¼Œç‚¹å‹æ— æ•ˆï¼Œç”»çºµå‘ç›´çº¿
 			p1 = new Point2D.Double(x, y - radiusy);
 			p2 = new Point2D.Double(x, y + radiusy);
 			drawLine2(g, p1, p2, ccr.color1, style, weight);
@@ -2328,23 +2328,23 @@ public class Utils {
 		Shape fillShape = null, outerShape, innerShape;
 		ArrayList<Shape> drawShapes = new ArrayList<Shape>();
 		switch (shape) {
-		case Consts.PT_NONE: // ÎŞ
+		case Consts.PT_NONE: // æ— 
 			break;
-		case Consts.PT_CIRCLE: // Ô²
+		case Consts.PT_CIRCLE: // åœ†
 			fillShape = new Ellipse2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_DOT: // ÊµĞÄµã
+		case Consts.PT_DOT: // å®å¿ƒç‚¹
 			fillShape = new Ellipse2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			g.setColor(foreColor);
 			fillPaint(g, fillShape, transparent);
 			return fillShape;
-		case Consts.PT_SQUARE: // Õı·½ĞÎ
+		case Consts.PT_SQUARE: // æ­£æ–¹å½¢
 			fillShape = new Rectangle2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			break;
-		case Consts.PT_TRIANGLE: // Èı½ÇĞÎ
+		case Consts.PT_TRIANGLE: // ä¸‰è§’å½¢
 			double[] xs_tr,
 			ys_tr;
 			xs_tr = new double[] { x - radiusx * Math.cos(Math.toRadians(30)),
@@ -2353,11 +2353,11 @@ public class Utils {
 					y + radiusy / 2 };
 			fillShape = newPolygon2DShape(xs_tr, ys_tr);
 			break;
-		case Consts.PT_RECTANGLE: // ³¤·½ĞÎ
+		case Consts.PT_RECTANGLE: // é•¿æ–¹å½¢
 			fillShape = new Rectangle2D.Double(x - radiusx, y - radiusy * 7
 					/ 10, radiusx * 2, radiusy * 7 / 5);
 			break;
-		case Consts.PT_STAR: // ĞÇĞÎ
+		case Consts.PT_STAR: // æ˜Ÿå½¢
 			fillShape = new Ellipse2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			if (setStroke(g, foreColor, style, weight)) {
@@ -2371,14 +2371,14 @@ public class Utils {
 						+ deltax, y - deltay));
 			}
 			break;
-		case Consts.PT_DIAMOND: // ÁâĞÎ
+		case Consts.PT_DIAMOND: // è±å½¢
 			double[] xs_di,
 			ys_di;
 			xs_di = new double[] { x - radiusx, x, x + radiusx, x };
 			ys_di = new double[] { y, y - radiusy, y, y + radiusy };
 			fillShape = newPolygon2DShape(xs_di, ys_di);
 			break;
-		case Consts.PT_CORSS: // ²æĞÎ
+		case Consts.PT_CORSS: // å‰å½¢
 			fillShape = new Rectangle2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			if (setStroke(g, foreColor, style, weight)) {
@@ -2390,7 +2390,7 @@ public class Utils {
 						+ deltax, y - deltay));
 			}
 			break;
-		case Consts.PT_PLUS: // ¼ÓºÅ
+		case Consts.PT_PLUS: // åŠ å·
 			fillShape = new Rectangle2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			if (setStroke(g, foreColor, style, weight)) {
@@ -2400,21 +2400,21 @@ public class Utils {
 						.add(new Line2D.Double(x, y + radiusy, x, y - radiusy));
 			}
 			break;
-		case Consts.PT_D_CIRCEL: // Ë«Ô²
+		case Consts.PT_D_CIRCEL: // åŒåœ†
 			outerShape = new Ellipse2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			innerShape = new Ellipse2D.Double(x - radiusx / 2, y - radiusy / 2,
 					radiusx, radiusy);
 			fillShape = getLouKongShape(outerShape, innerShape);
 			break;
-		case Consts.PT_D_SQUARE: // Ë«Õı·½ĞÎ
+		case Consts.PT_D_SQUARE: // åŒæ­£æ–¹å½¢
 			outerShape = new Rectangle2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			innerShape = new Rectangle2D.Double(x - radiusx / 2, y - radiusy
 					/ 2, radiusx, radiusy);
 			fillShape = getLouKongShape(outerShape, innerShape);
 			break;
-		case Consts.PT_D_TRIANGLE: // Ë«Èı½ÇĞÎ
+		case Consts.PT_D_TRIANGLE: // åŒä¸‰è§’å½¢
 			double delta = radiusx * Math.cos(Math.toRadians(30));
 			double[] xs_dtr1,
 			ys_dtr1;
@@ -2431,14 +2431,14 @@ public class Utils {
 			innerShape = newPolygon2DShape(xs_dtr2, ys_dtr2);
 			fillShape = getLouKongShape(outerShape, innerShape);
 			break;
-		case Consts.PT_D_RECTANGLE: // Ë«³¤·½ĞÎ
+		case Consts.PT_D_RECTANGLE: // åŒé•¿æ–¹å½¢
 			outerShape = new Rectangle2D.Double(x - radiusx, y - radiusy * 7
 					/ 10, radiusx * 2, radiusy * 7 / 5);
 			innerShape = new Rectangle2D.Double(x - radiusx / 2, y - radiusy
 					* 7 / 20, radiusx, radiusy * 7 / 10);
 			fillShape = getLouKongShape(outerShape, innerShape);
 			break;
-		case Consts.PT_D_DIAMOND: // Ë«ÁâĞÎ
+		case Consts.PT_D_DIAMOND: // åŒè±å½¢
 			double[] xs_ddi2,
 			ys_ddi2;
 			xs_ddi2 = new double[] { x - radiusx, x, x + radiusx, x };
@@ -2449,7 +2449,7 @@ public class Utils {
 			innerShape = newPolygon2DShape(xs_ddi1, ys_ddi1);
 			fillShape = getLouKongShape(outerShape, innerShape);
 			break;
-		case Consts.PT_CIRCLE_PLUS: // Ô²ÄÚ¼ÓºÅ
+		case Consts.PT_CIRCLE_PLUS: // åœ†å†…åŠ å·
 			fillShape = new Ellipse2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			if (setStroke(g, foreColor, style, weight)) {
@@ -2460,7 +2460,7 @@ public class Utils {
 						.add(new Line2D.Double(x - radiusx, y, x + radiusx, y));
 			}
 			break;
-		case Consts.PT_SQUARE_PLUS: // ·½ÄÚ¼ÓºÅ
+		case Consts.PT_SQUARE_PLUS: // æ–¹å†…åŠ å·
 			fillShape = new Rectangle2D.Double(x - radiusx, y - radiusy,
 					radiusx * 2, radiusy * 2);
 			if (setStroke(g, foreColor, style, weight)) {
@@ -2471,7 +2471,7 @@ public class Utils {
 						.add(new Line2D.Double(x - radiusx, y, x + radiusx, y));
 			}
 			break;
-		case Consts.PT_TRIANGLE_PLUS: // Èı½ÇÄÚ¼ÓºÅ
+		case Consts.PT_TRIANGLE_PLUS: // ä¸‰è§’å†…åŠ å·
 			double[] xs_trp,
 			ys_trp;
 			xs_trp = new double[] { x - radiusx * Math.cos(Math.toRadians(30)),
@@ -2488,7 +2488,7 @@ public class Utils {
 						* Math.tan(Math.toRadians(30)), y));
 			}
 			break;
-		case Consts.PT_RECTANGLE_PLUS: // ³¤·½ĞÎÄÚ¼ÓºÅ
+		case Consts.PT_RECTANGLE_PLUS: // é•¿æ–¹å½¢å†…åŠ å·
 			fillShape = new Rectangle2D.Double(x - radiusx, y - radiusy * 7
 					/ 10, radiusx * 2, radiusy * 7 / 5);
 			if (setStroke(g, foreColor, style, weight)) {
@@ -2499,7 +2499,7 @@ public class Utils {
 						.add(new Line2D.Double(x - radiusx, y, x + radiusx, y));
 			}
 			break;
-		case Consts.PT_DIAMOND_PLUS: // ÁâÄÚ¼ÓºÅ
+		case Consts.PT_DIAMOND_PLUS: // è±å†…åŠ å·
 			double[] xs_dip,
 			ys_dip;
 			xs_dip = new double[] { x - radiusx, x, x + radiusx, x };
@@ -2540,10 +2540,10 @@ public class Utils {
 		Point2D polarDot, p1, p2;
 
 		switch (shape) {
-		case Consts.PT_NONE: // ÎŞ
+		case Consts.PT_NONE: // æ— 
 			break;
-		case Consts.PT_RECTANGLE: // ³¤·½ĞÎ,¼«×ø±êÏÂ£¬³¤·½ĞÎ£¬Õı·½ĞÎÍ¬Ñù´¦Àí
-		case Consts.PT_SQUARE: // Õı·½ĞÎ,¼«×ø±êÏÂÑİ±äÎªÒ»¶Î»·
+		case Consts.PT_RECTANGLE: // é•¿æ–¹å½¢,æåæ ‡ä¸‹ï¼Œé•¿æ–¹å½¢ï¼Œæ­£æ–¹å½¢åŒæ ·å¤„ç†
+		case Consts.PT_SQUARE: // æ­£æ–¹å½¢,æåæ ‡ä¸‹æ¼”å˜ä¸ºä¸€æ®µç¯
 			bound = pc.getEllipseBounds(r + radiusR);
 			arc = new Arc2D.Double(bound.getX() + shadowShift, bound.getY()
 					+ shadowShift, bound.getWidth(), bound.getHeight(), a
@@ -2553,13 +2553,13 @@ public class Utils {
 				bound = pc.getEllipseBounds(r - radiusR);
 				arc = new Arc2D.Double(bound.getX() + shadowShift, bound.getY()
 						+ shadowShift, bound.getWidth(), bound.getHeight(), a
-						- radiusA - 5, radiusA * 2 + 10, Arc2D.PIE);// Ğ¡ÉÈĞÎ¶à10¶È£¬ÉÈĞÎÎó²îºóÈÔÄÜ¼õ¸É¾»
+						- radiusA - 5, radiusA * 2 + 10, Arc2D.PIE);// å°æ‰‡å½¢å¤š10åº¦ï¼Œæ‰‡å½¢è¯¯å·®åä»èƒ½å‡å¹²å‡€
 				java.awt.geom.Area sArea = new java.awt.geom.Area(arc);
 				bigArea.subtract(sArea);
-			}// else ¼«Öá×ø±êĞ¡ÓÚµÈÓÚ°ë¾¶Ê±£¬Ö±½Ó»­ÉÈĞÎ
+			}// else æè½´åæ ‡å°äºç­‰äºåŠå¾„æ—¶ï¼Œç›´æ¥ç”»æ‰‡å½¢
 			pShape = bigArea;
 			break;
-		case Consts.PT_DIAMOND: // ÁâĞÎ£¬´ËÊ±µÄÁâĞÎÎª»·ÖĞµãµÄ±äĞÎÁâĞÎ
+		case Consts.PT_DIAMOND: // è±å½¢ï¼Œæ­¤æ—¶çš„è±å½¢ä¸ºç¯ä¸­ç‚¹çš„å˜å½¢è±å½¢
 			double[] xs_di,
 			ys_di;
 			xs_di = new double[4];
@@ -2586,21 +2586,21 @@ public class Utils {
 
 			pShape = newPolygon2DShape(xs_di, ys_di);
 			break;
-		case Consts.PT_CIRCLE: // Ô²
-		case Consts.PT_TRIANGLE: // Èı½ÇĞÎ
-		case Consts.PT_STAR: // ĞÇĞÎ
-		case Consts.PT_CORSS: // ²æĞÎ
-		case Consts.PT_PLUS: // ¼ÓºÅ
-		case Consts.PT_D_CIRCEL: // Ë«Ô²
-		case Consts.PT_D_SQUARE: // Ë«Õı·½ĞÎ
-		case Consts.PT_D_TRIANGLE: // Ë«Èı½ÇĞÎ
-		case Consts.PT_D_RECTANGLE: // Ë«³¤·½ĞÎ
-		case Consts.PT_D_DIAMOND: // Ë«ÁâĞÎ
-		case Consts.PT_CIRCLE_PLUS: // Ô²ÄÚ¼ÓºÅ
-		case Consts.PT_SQUARE_PLUS: // ·½ÄÚ¼ÓºÅ
-		case Consts.PT_TRIANGLE_PLUS: // Èı½ÇÄÚ¼ÓºÅ
-		case Consts.PT_RECTANGLE_PLUS: // ³¤·½ĞÎÄÚ¼ÓºÅ
-		case Consts.PT_DIAMOND_PLUS: // ÁâÄÚ¼ÓºÅ
+		case Consts.PT_CIRCLE: // åœ†
+		case Consts.PT_TRIANGLE: // ä¸‰è§’å½¢
+		case Consts.PT_STAR: // æ˜Ÿå½¢
+		case Consts.PT_CORSS: // å‰å½¢
+		case Consts.PT_PLUS: // åŠ å·
+		case Consts.PT_D_CIRCEL: // åŒåœ†
+		case Consts.PT_D_SQUARE: // åŒæ­£æ–¹å½¢
+		case Consts.PT_D_TRIANGLE: // åŒä¸‰è§’å½¢
+		case Consts.PT_D_RECTANGLE: // åŒé•¿æ–¹å½¢
+		case Consts.PT_D_DIAMOND: // åŒè±å½¢
+		case Consts.PT_CIRCLE_PLUS: // åœ†å†…åŠ å·
+		case Consts.PT_SQUARE_PLUS: // æ–¹å†…åŠ å·
+		case Consts.PT_TRIANGLE_PLUS: // ä¸‰è§’å†…åŠ å·
+		case Consts.PT_RECTANGLE_PLUS: // é•¿æ–¹å½¢å†…åŠ å·
+		case Consts.PT_DIAMOND_PLUS: // è±å†…åŠ å·
 			throw new RuntimeException("Unsupportted dot shape:" + shape
 					+ " in polar coordinate system.");
 		}
@@ -2608,19 +2608,19 @@ public class Utils {
 	}
 
 	/**
-	 * »æÖÆ¼«×ø±êÏµÏÂÒ»¸öµãµÄ²½Öè1
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param point µã×ø±ê(¼«×ø±ê)
-	 * @param shape µãµÄĞÎ×´£¬È¡Öµ²Î¿¼Consts.PT_XXX
-	 * @param radiusR ¼«ÖáÉÏµÄÒµÎñ°ë¾¶¼ÆËã¹ıºóµÄÏñËØµ¥Î»£¬Ë×³ÆÎªÖáÉÏµÄÒµÎñ°ë¾¶
-	 * @param radiusA ½ÇÖáÉÏµÄÒµÎñ°ë¾¶
-	 * @param rw Ã»ÓĞÖ¸¶¨×ø±êÖµÒµÎñ°ë¾¶Ê±£¬Ê¹ÓÃ¶Ô³ÆµÄÏñËØ°ë¾¶rw£¬ÎŞÒµÎñ°ë¾¶Ê±Ê¹ÓÃµÄ¶Ô³Æ°ë¾¶
-	 * 			  ¼«×ø±êÏÂÎŞÒµÎñ°ë¾¶Ê±£¬µã»æÖÆÍ¬Ö±½Ç×ø±êÏµ¡£
-	 * @param style ±ß¿ò·ç¸ñ
-	 * @param weight ±ß¿ò´Ö¶È 
-	 * @param pc ¼«×ø±êÏµ 
-	 * @param transparent Í¸Ã÷¶È
-	 * @return µãµÄĞÎ×´¶ÔÏó(ÓÃÓÚ¼ÆËã³¬Á´½Ó)
+	 * ç»˜åˆ¶æåæ ‡ç³»ä¸‹ä¸€ä¸ªç‚¹çš„æ­¥éª¤1
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param point ç‚¹åæ ‡(æåæ ‡)
+	 * @param shape ç‚¹çš„å½¢çŠ¶ï¼Œå–å€¼å‚è€ƒConsts.PT_XXX
+	 * @param radiusR æè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„è®¡ç®—è¿‡åçš„åƒç´ å•ä½ï¼Œä¿—ç§°ä¸ºè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„
+	 * @param radiusA è§’è½´ä¸Šçš„ä¸šåŠ¡åŠå¾„
+	 * @param rw æ²¡æœ‰æŒ‡å®šåæ ‡å€¼ä¸šåŠ¡åŠå¾„æ—¶ï¼Œä½¿ç”¨å¯¹ç§°çš„åƒç´ åŠå¾„rwï¼Œæ— ä¸šåŠ¡åŠå¾„æ—¶ä½¿ç”¨çš„å¯¹ç§°åŠå¾„
+	 * 			  æåæ ‡ä¸‹æ— ä¸šåŠ¡åŠå¾„æ—¶ï¼Œç‚¹ç»˜åˆ¶åŒç›´è§’åæ ‡ç³»ã€‚
+	 * @param style è¾¹æ¡†é£æ ¼
+	 * @param weight è¾¹æ¡†ç²—åº¦ 
+	 * @param pc æåæ ‡ç³» 
+	 * @param transparent é€æ˜åº¦
+	 * @return ç‚¹çš„å½¢çŠ¶å¯¹è±¡(ç”¨äºè®¡ç®—è¶…é“¾æ¥)
 	 */
 	public static Shape drawPolarPoint1(Graphics2D g, Point2D point, int shape,
 			double radiusR, double radiusA, double rw, int style, float weight,
@@ -2639,7 +2639,7 @@ public class Utils {
 		if (shadowShift < SHADE_SPAN) {
 			shadowShift = SHADE_SPAN;
 		}
-		if (radiusR == 0) {// radiusRÎª0Ê±£¬µãĞÍÎŞĞ§£¬ÎªÒ»¶Î»¡Ïß
+		if (radiusR == 0) {// radiusRä¸º0æ—¶ï¼Œç‚¹å‹æ— æ•ˆï¼Œä¸ºä¸€æ®µå¼§çº¿
 			Color dark = getShadeColor(1);
 			bound = pc.getEllipseBounds(r);
 			arc = new Arc2D.Double(bound.getX() + shadowShift, bound.getY()
@@ -2661,7 +2661,7 @@ public class Utils {
 			arcSmallArea = new java.awt.geom.Area(arcSmall);
 			arcArea.subtract(arcSmallArea);
 			return arcArea;
-		} else if (radiusA == 0) {// radiusAÎª0Ê±£¬ÎªÒ»¶Î°ë¾¶Ö±Ïß
+		} else if (radiusA == 0) {// radiusAä¸º0æ—¶ï¼Œä¸ºä¸€æ®µåŠå¾„ç›´çº¿
 			polarDot = new Point2D.Double(r + radiusR, a);
 			p1 = pc.getScreenPoint(polarDot);
 			polarDot = new Point2D.Double(r - radiusR, a);
@@ -2682,27 +2682,27 @@ public class Utils {
 	}
 
 	/**
-	 * »æÖÆ¼«×ø±êÏµÏÂÒ»¸öµãµÄ²½Öè2
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param point µã×ø±ê(ÊıÖµ×ø±ê£¬´Ë´¦Îª¼«×ø±ê)
-	 * @param shape µãµÄĞÎ×´£¬È¡Öµ²Î¿¼Consts.PT_XXX
-	 * @param radiusR ¼«ÖáÉÏµÄÒµÎñ°ë¾¶¼ÆËã¹ıºóµÄÏñËØµ¥Î»£¬Ë×³ÆÎªÖáÉÏµÄÒµÎñ°ë¾¶
-	 * @param radiusA ½ÇÖáÉÏµÄÒµÎñ°ë¾¶
-	 * @param rw Ã»ÓĞÖ¸¶¨×ø±êÖµÒµÎñ°ë¾¶Ê±£¬Ê¹ÓÃ¶Ô³ÆµÄÏñËØ°ë¾¶rw£¬ÎŞÒµÎñ°ë¾¶Ê±Ê¹ÓÃµÄ¶Ô³Æ°ë¾¶
-	 * 			  ¼«×ø±êÏÂÎŞÒµÎñ°ë¾¶Ê±£¬µã»æÖÆÍ¬Ö±½Ç×ø±êÏµ¡£
-	 * @param style ±ß¿ò·ç¸ñ
-	 * @param weight ±ß¿ò´Ö¶È 
-	 * @param pc ¼«×ø±êÏµ 
-	 * @param ccr Ìî³äÑÕÉ« 
-	 * @param foreColor ±ß¿òÑÕÉ« 
-	 * @param transparent Í¸Ã÷¶È
-	 * @return µãµÄĞÎ×´¶ÔÏó(ÓÃÓÚ¼ÆËã³¬Á´½Ó)
+	 * ç»˜åˆ¶æåæ ‡ç³»ä¸‹ä¸€ä¸ªç‚¹çš„æ­¥éª¤2
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param point ç‚¹åæ ‡(æ•°å€¼åæ ‡ï¼Œæ­¤å¤„ä¸ºæåæ ‡)
+	 * @param shape ç‚¹çš„å½¢çŠ¶ï¼Œå–å€¼å‚è€ƒConsts.PT_XXX
+	 * @param radiusR æè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„è®¡ç®—è¿‡åçš„åƒç´ å•ä½ï¼Œä¿—ç§°ä¸ºè½´ä¸Šçš„ä¸šåŠ¡åŠå¾„
+	 * @param radiusA è§’è½´ä¸Šçš„ä¸šåŠ¡åŠå¾„
+	 * @param rw æ²¡æœ‰æŒ‡å®šåæ ‡å€¼ä¸šåŠ¡åŠå¾„æ—¶ï¼Œä½¿ç”¨å¯¹ç§°çš„åƒç´ åŠå¾„rwï¼Œæ— ä¸šåŠ¡åŠå¾„æ—¶ä½¿ç”¨çš„å¯¹ç§°åŠå¾„
+	 * 			  æåæ ‡ä¸‹æ— ä¸šåŠ¡åŠå¾„æ—¶ï¼Œç‚¹ç»˜åˆ¶åŒç›´è§’åæ ‡ç³»ã€‚
+	 * @param style è¾¹æ¡†é£æ ¼
+	 * @param weight è¾¹æ¡†ç²—åº¦ 
+	 * @param pc æåæ ‡ç³» 
+	 * @param ccr å¡«å……é¢œè‰² 
+	 * @param foreColor è¾¹æ¡†é¢œè‰² 
+	 * @param transparent é€æ˜åº¦
+	 * @return ç‚¹çš„å½¢çŠ¶å¯¹è±¡(ç”¨äºè®¡ç®—è¶…é“¾æ¥)
 	 */
 	public static void drawPolarPoint2(Graphics2D g, Point2D point, int shape,
 			double radiusR, double radiusA, double rw, int style, float weight,
 			PolarCoor pc, ChartColor ccr, Color foreColor, float transparent) {
-		// Ã»ÓĞÖ¸¶¨×ø±êÖµÒµÎñ°ë¾¶Ê±£¬Ê¹ÓÃ¶Ô³ÆµÄÏñËØ°ë¾¶rw radiusWeight:°ë¾¶ºñ¶È£¬ÎŞÒµÎñ°ë¾¶Ê±Ê¹ÓÃµÄ¶Ô³Æ°ë¾¶
-		// ¼«×ø±êÏÂÎŞÒµÎñ°ë¾¶Ê±£¬µã»æÖÆÍ¬Ö±½Ç×ø±êÏµ¡£
+		// æ²¡æœ‰æŒ‡å®šåæ ‡å€¼ä¸šåŠ¡åŠå¾„æ—¶ï¼Œä½¿ç”¨å¯¹ç§°çš„åƒç´ åŠå¾„rw radiusWeight:åŠå¾„åšåº¦ï¼Œæ— ä¸šåŠ¡åŠå¾„æ—¶ä½¿ç”¨çš„å¯¹ç§°åŠå¾„
+		// æåæ ‡ä¸‹æ— ä¸šåŠ¡åŠå¾„æ—¶ï¼Œç‚¹ç»˜åˆ¶åŒç›´è§’åæ ‡ç³»ã€‚
 		if (radiusR == 0 && radiusA == 0) {
 			point = pc.getScreenPoint(point);
 			drawCartesianPoint2(g, point, shape, 0, 0, rw, style, weight, ccr,
@@ -2714,7 +2714,7 @@ public class Utils {
 		Rectangle2D bound;
 		Point2D polarDot, p1, p2;
 		Arc2D arc;
-		if (radiusR == 0) {// radiusRÎª0Ê±£¬µãĞÍÎŞĞ§£¬ÎªÒ»¶Î»¡Ïß
+		if (radiusR == 0) {// radiusRä¸º0æ—¶ï¼Œç‚¹å‹æ— æ•ˆï¼Œä¸ºä¸€æ®µå¼§çº¿
 			bound = pc.getEllipseBounds(r);
 			arc = new Arc2D.Double(bound.getX(), bound.getY(),
 					bound.getWidth(), bound.getHeight(), a - radiusA,
@@ -2723,7 +2723,7 @@ public class Utils {
 				g.draw(arc);
 			}
 			return;
-		} else if (radiusA == 0) {// radiusAÎª0Ê±£¬ÎªÒ»¶Î°ë¾¶Ö±Ïß
+		} else if (radiusA == 0) {// radiusAä¸º0æ—¶ï¼Œä¸ºä¸€æ®µåŠå¾„ç›´çº¿
 			polarDot = new Point2D.Double(r + radiusR, a);
 			p1 = pc.getScreenPoint(polarDot);
 			polarDot = new Point2D.Double(r - radiusR, a);
@@ -2734,16 +2734,16 @@ public class Utils {
 
 		Shape pShape = null;
 		switch (shape) {
-		case Consts.PT_NONE: // ÎŞ
+		case Consts.PT_NONE: // æ— 
 			break;
-		case Consts.PT_RECTANGLE: // ³¤·½ĞÎ,¼«×ø±êÏÂ£¬³¤·½ĞÎ£¬Õı·½ĞÎÍ¬Ñù´¦Àí
-		case Consts.PT_SQUARE: // Õı·½ĞÎ,¼«×ø±êÏÂÑİ±äÎªÒ»¶Î»·
+		case Consts.PT_RECTANGLE: // é•¿æ–¹å½¢,æåæ ‡ä¸‹ï¼Œé•¿æ–¹å½¢ï¼Œæ­£æ–¹å½¢åŒæ ·å¤„ç†
+		case Consts.PT_SQUARE: // æ­£æ–¹å½¢,æåæ ‡ä¸‹æ¼”å˜ä¸ºä¸€æ®µç¯
 			Rectangle2D bigBounds = pc.getEllipseBounds(r + radiusR);
 			Rectangle2D smallBounds = pc.getEllipseBounds(r - radiusR);
 			draw2DRing(g, bigBounds, smallBounds, a - radiusA, radiusA * 2,
 					foreColor, style, weight, transparent, ccr);
 			return;
-		case Consts.PT_DIAMOND: // ÁâĞÎ£¬´ËÊ±µÄÁâĞÎÎª»·ÖĞµãµÄ±äĞÎÁâĞÎ
+		case Consts.PT_DIAMOND: // è±å½¢ï¼Œæ­¤æ—¶çš„è±å½¢ä¸ºç¯ä¸­ç‚¹çš„å˜å½¢è±å½¢
 			double[] xs_di,
 			ys_di;
 			xs_di = new double[4];
@@ -2770,21 +2770,21 @@ public class Utils {
 
 			pShape = newPolygon2DShape(xs_di, ys_di);
 			break;
-		case Consts.PT_CIRCLE: // Ô²
-		case Consts.PT_TRIANGLE: // Èı½ÇĞÎ
-		case Consts.PT_STAR: // ĞÇĞÎ
-		case Consts.PT_CORSS: // ²æĞÎ
-		case Consts.PT_PLUS: // ¼ÓºÅ
-		case Consts.PT_D_CIRCEL: // Ë«Ô²
-		case Consts.PT_D_SQUARE: // Ë«Õı·½ĞÎ
-		case Consts.PT_D_TRIANGLE: // Ë«Èı½ÇĞÎ
-		case Consts.PT_D_RECTANGLE: // Ë«³¤·½ĞÎ
-		case Consts.PT_D_DIAMOND: // Ë«ÁâĞÎ
-		case Consts.PT_CIRCLE_PLUS: // Ô²ÄÚ¼ÓºÅ
-		case Consts.PT_SQUARE_PLUS: // ·½ÄÚ¼ÓºÅ
-		case Consts.PT_TRIANGLE_PLUS: // Èı½ÇÄÚ¼ÓºÅ
-		case Consts.PT_RECTANGLE_PLUS: // ³¤·½ĞÎÄÚ¼ÓºÅ
-		case Consts.PT_DIAMOND_PLUS: // ÁâÄÚ¼ÓºÅ
+		case Consts.PT_CIRCLE: // åœ†
+		case Consts.PT_TRIANGLE: // ä¸‰è§’å½¢
+		case Consts.PT_STAR: // æ˜Ÿå½¢
+		case Consts.PT_CORSS: // å‰å½¢
+		case Consts.PT_PLUS: // åŠ å·
+		case Consts.PT_D_CIRCEL: // åŒåœ†
+		case Consts.PT_D_SQUARE: // åŒæ­£æ–¹å½¢
+		case Consts.PT_D_TRIANGLE: // åŒä¸‰è§’å½¢
+		case Consts.PT_D_RECTANGLE: // åŒé•¿æ–¹å½¢
+		case Consts.PT_D_DIAMOND: // åŒè±å½¢
+		case Consts.PT_CIRCLE_PLUS: // åœ†å†…åŠ å·
+		case Consts.PT_SQUARE_PLUS: // æ–¹å†…åŠ å·
+		case Consts.PT_TRIANGLE_PLUS: // ä¸‰è§’å†…åŠ å·
+		case Consts.PT_RECTANGLE_PLUS: // é•¿æ–¹å½¢å†…åŠ å·
+		case Consts.PT_DIAMOND_PLUS: // è±å†…åŠ å·
 			throw new RQException("Unsupportted dot shape:" + shape
 					+ " in polar coordinate system.");
 		}
@@ -2800,8 +2800,8 @@ public class Utils {
 	}
 
 	/**
-	 * Í¼ÔªµÄ²ÎÊıÈç¹ûÊÇParaÀàĞÍÊ±£¬Ò²ĞèÒªÉèÖÃÒıÇæ»·¾³
-	 * @param chartElement Í¼Ôª
+	 * å›¾å…ƒçš„å‚æ•°å¦‚æœæ˜¯Paraç±»å‹æ—¶ï¼Œä¹Ÿéœ€è¦è®¾ç½®å¼•æ“ç¯å¢ƒ
+	 * @param chartElement å›¾å…ƒ
 	 */
 	public static void setParamsEngine(IElement chartElement) {
 		try {
@@ -2827,26 +2827,26 @@ public class Utils {
 	};
 
 	/**
-	 * Ïß³Ì°²È«ÏÂµÄ¾²Ì¬Öµ£¬GIF¸ñÊ½ÑÕÉ«²»ÄÜÌ«¶à£¬²»ÄÜÊ¹ÓÃÎÄ±¾µÄ¹â»¬Ğ§¹û
-	 * ÓÃ´Ë¿ª¹ØÀ´¿ØÖÆÍ¼ĞÎµÄ»æÖÆÄ£Ê½
+	 * çº¿ç¨‹å®‰å…¨ä¸‹çš„é™æ€å€¼ï¼ŒGIFæ ¼å¼é¢œè‰²ä¸èƒ½å¤ªå¤šï¼Œä¸èƒ½ä½¿ç”¨æ–‡æœ¬çš„å…‰æ»‘æ•ˆæœ
+	 * ç”¨æ­¤å¼€å…³æ¥æ§åˆ¶å›¾å½¢çš„ç»˜åˆ¶æ¨¡å¼
 	 */
 	public static void setIsGif(boolean isGif) {
 		tlIsGif.set( isGif );
 	}
 
 	/**
-	 * ÊÇ·ñÏß³Ì°²È«ÏÂµÄGIF¸ñÊ½
+	 * æ˜¯å¦çº¿ç¨‹å®‰å…¨ä¸‹çš„GIFæ ¼å¼
 	 */
 	public static boolean isGif() {
 		return (tlIsGif.get()).booleanValue();
 	}
 
-	// ÎªÁË±£Ö¤Ô²»¡µÄÔ²»¬£¬ÒÔ¼°ÎÄ×ÖµÄ²»Ê¹ÓÃ¾â³İµÄÇåÎú×´Ì¬£¬Ê¹ÓÃÈçÏÂ¿ª¹ØÀ´Çø·Ö»­ÎÄ×ÖºÍÔ²»¡µÄÌõ¼ş£»
-	// µ«ÊÇgif¸ñÊ½Ê±£¬²»ÄÜÊ¹ÓÃ¿¹¾â³İÊôĞÔ£¬»áÔì³ÉÑÕÉ«¹ı¶à¡£
-//	Ä¿Ç°µÄÓÃ·¨ÊÇ»æÍ¼Ç°¾Í½«Æ½»¬´ò¿ª£¬È»ºóÔÚ»æÖÆÎÄ±¾Ê±£¬ÏÈ¹Øµô£¬»­ÍêÎÄ±¾ºó£¬ÔÙ´ò¿ª£¬±£Ö¤Í¼ĞÎÆ½»¬£¬ÎÄ×ÖÇåÎú¡£
+	// ä¸ºäº†ä¿è¯åœ†å¼§çš„åœ†æ»‘ï¼Œä»¥åŠæ–‡å­—çš„ä¸ä½¿ç”¨é”¯é½¿çš„æ¸…æ™°çŠ¶æ€ï¼Œä½¿ç”¨å¦‚ä¸‹å¼€å…³æ¥åŒºåˆ†ç”»æ–‡å­—å’Œåœ†å¼§çš„æ¡ä»¶ï¼›
+	// ä½†æ˜¯gifæ ¼å¼æ—¶ï¼Œä¸èƒ½ä½¿ç”¨æŠ—é”¯é½¿å±æ€§ï¼Œä¼šé€ æˆé¢œè‰²è¿‡å¤šã€‚
+//	ç›®å‰çš„ç”¨æ³•æ˜¯ç»˜å›¾å‰å°±å°†å¹³æ»‘æ‰“å¼€ï¼Œç„¶ååœ¨ç»˜åˆ¶æ–‡æœ¬æ—¶ï¼Œå…ˆå…³æ‰ï¼Œç”»å®Œæ–‡æœ¬åï¼Œå†æ‰“å¼€ï¼Œä¿è¯å›¾å½¢å¹³æ»‘ï¼Œæ–‡å­—æ¸…æ™°ã€‚
 	public static void setGraphAntiAliasingOn(Graphics2D g) {
-		// gif¸ñÊ½Ê±²»ÄÜ´ò¿ª¾â³İ¿ª¹Ø£¬ÒÔ·ÀÑÕÉ«¹ı¶à£»
-		if (isGif()) {//gif¸ñÊ½Ê±£¬×ÜÊÇ¹Ø±Õ£¬´Ë´¦Ç¿ĞĞ¹Ø±Õ£¬ÒÔ·ÀÍ¬Ïß³ÌÖĞ±ğµÄ¸ñÊ½ÒÑ¾­ÉèÎªon
+		// gifæ ¼å¼æ—¶ä¸èƒ½æ‰“å¼€é”¯é½¿å¼€å…³ï¼Œä»¥é˜²é¢œè‰²è¿‡å¤šï¼›
+		if (isGif()) {//gifæ ¼å¼æ—¶ï¼Œæ€»æ˜¯å…³é—­ï¼Œæ­¤å¤„å¼ºè¡Œå…³é—­ï¼Œä»¥é˜²åŒçº¿ç¨‹ä¸­åˆ«çš„æ ¼å¼å·²ç»è®¾ä¸ºon
 			setGraphAntiAliasingOff(g);
 			return;
 		}
@@ -2863,9 +2863,9 @@ public class Utils {
 	}
 
 	/**
-	 * ½«ĞòÁĞseq¶ÔÏóÃèÊöµÄÌî³äÑÕÉ«×ª»»Îª¶ÔÓ¦µÄ ÀàÊµÀı
-	 * @param seq ÊôĞÔĞòÁĞ
-	 * @return ChartColor£¬Ìî³äÑÕÉ«ÊµÀı£¬×ª»»Ê§°Ü(±ÈÈç´íÎóµÄ¸ñÊ½)Ê±·µ»Ønull
+	 * å°†åºåˆ—seqå¯¹è±¡æè¿°çš„å¡«å……é¢œè‰²è½¬æ¢ä¸ºå¯¹åº”çš„ ç±»å®ä¾‹
+	 * @param seq å±æ€§åºåˆ—
+	 * @return ChartColorï¼Œå¡«å……é¢œè‰²å®ä¾‹ï¼Œè½¬æ¢å¤±è´¥(æ¯”å¦‚é”™è¯¯çš„æ ¼å¼)æ—¶è¿”å›null
 	 */
 	public static ChartColor sequenceToChartColor(Sequence seq) {
 		if (seq.length() < 1)
@@ -2881,11 +2881,11 @@ public class Utils {
 	}
 
 	/**
-	 * ÎÄ±¾´®ÃèÊöµÄÂß¼­Êı¾İ£¬²ÉÓÃ¶ººÅ (±ØĞëÎªÓ¢ÎÄ¶ººÅ) ·Ö¸ô·ÖÀàºÍÏµÁĞ
-	 * ¸Ã·½·¨»ñÈ¡ÆäÖĞµÄ·ÖÀàÖµ
-	 * (±ÈÈçÖµÎª   "ÕÅÈı,ÓïÎÄ" Ê±£¬·µ»Ø·ÖÀàÖµ  "ÕÅÈı")
-	 * @param data ´ø¸ñÊ½µÄÂß¼­Êı¾İ
-	 * @return ·ÖÀàÖµ
+	 * æ–‡æœ¬ä¸²æè¿°çš„é€»è¾‘æ•°æ®ï¼Œé‡‡ç”¨é€—å· (å¿…é¡»ä¸ºè‹±æ–‡é€—å·) åˆ†éš”åˆ†ç±»å’Œç³»åˆ—
+	 * è¯¥æ–¹æ³•è·å–å…¶ä¸­çš„åˆ†ç±»å€¼
+	 * (æ¯”å¦‚å€¼ä¸º   "å¼ ä¸‰,è¯­æ–‡" æ—¶ï¼Œè¿”å›åˆ†ç±»å€¼  "å¼ ä¸‰")
+	 * @param data å¸¦æ ¼å¼çš„é€»è¾‘æ•°æ®
+	 * @return åˆ†ç±»å€¼
 	 */
 	public static Object parseCategory(Object data) {
 		if (data == null) {
@@ -2903,11 +2903,11 @@ public class Utils {
 	}
 
 	/**
-	 * ÎÄ±¾´®ÃèÊöµÄÂß¼­Êı¾İ£¬²ÉÓÃ¶ººÅ (±ØĞëÎªÓ¢ÎÄ¶ººÅ) ·Ö¸ô·ÖÀàºÍÏµÁĞ
-	 * ¸Ã·½·¨»ñÈ¡ÆäÖĞµÄÏµÁĞÖµ£¬Èç¹ûÃ»ÓĞ¶ººÅ·Ö¸ôµÄÊı¾İ£¬Ôò±íÊ¾Ã»ÓĞÏµÁĞ
-	 * (±ÈÈçÖµÎª   "ÕÅÈı,ÓïÎÄ" Ê±£¬·µ»ØÏµÁĞÖµ  "ÓïÎÄ")
-	 * @param data ´ø¸ñÊ½µÄÂß¼­Êı¾İ
-	 * @return ÏµÁĞÖµ
+	 * æ–‡æœ¬ä¸²æè¿°çš„é€»è¾‘æ•°æ®ï¼Œé‡‡ç”¨é€—å· (å¿…é¡»ä¸ºè‹±æ–‡é€—å·) åˆ†éš”åˆ†ç±»å’Œç³»åˆ—
+	 * è¯¥æ–¹æ³•è·å–å…¶ä¸­çš„ç³»åˆ—å€¼ï¼Œå¦‚æœæ²¡æœ‰é€—å·åˆ†éš”çš„æ•°æ®ï¼Œåˆ™è¡¨ç¤ºæ²¡æœ‰ç³»åˆ—
+	 * (æ¯”å¦‚å€¼ä¸º   "å¼ ä¸‰,è¯­æ–‡" æ—¶ï¼Œè¿”å›ç³»åˆ—å€¼  "è¯­æ–‡")
+	 * @param data å¸¦æ ¼å¼çš„é€»è¾‘æ•°æ®
+	 * @return ç³»åˆ—å€¼
 	 */
 	public static Object parseSeries(Object data) {
 		if (data == null) {
@@ -2933,11 +2933,11 @@ public class Utils {
 	}
 
 	/**
-	 * ÕÒ³öµ±Ç°µÄ·ÖÀàcatNameºÍÏµÁĞserNameÔÚÃ¶¾ÙenumDataĞòÁĞÖĞµÄË÷ÒıĞòºÅ
-	 * @param enumData ´ø¸ñÊ½µÄÂß¼­Êı¾İ
-	 * @param catName ·ÖÀàÃû³Æ
-	 * @param serName ÏµÁĞÃû³Æ
-	 * @return int ĞòºÅ(´Ó1¿ªÊ¼)
+	 * æ‰¾å‡ºå½“å‰çš„åˆ†ç±»catNameå’Œç³»åˆ—serNameåœ¨æšä¸¾enumDataåºåˆ—ä¸­çš„ç´¢å¼•åºå·
+	 * @param enumData å¸¦æ ¼å¼çš„é€»è¾‘æ•°æ®
+	 * @param catName åˆ†ç±»åç§°
+	 * @param serName ç³»åˆ—åç§°
+	 * @return int åºå·(ä»1å¼€å§‹)
 	 */
 	public static int indexOf(Sequence enumData, String catName, String serName) {
 		if (catName == null)
@@ -2950,11 +2950,11 @@ public class Utils {
 	}
 
 	/**
-	 * Í³¼Æ·ÖÀàcatNameµÄ»ã×ÜÖµ
-	 * @param catName ·ÖÀàÃû³Æ
-	 * @param enumData Ã¶¾ÙÖµµÄÊı¾İĞòÁĞ
-	 * @param numData ÊıÖµµÄÊı¾İĞòÁĞ
-	 * @return »ã×ÜÖµ
+	 * ç»Ÿè®¡åˆ†ç±»catNameçš„æ±‡æ€»å€¼
+	 * @param catName åˆ†ç±»åç§°
+	 * @param enumData æšä¸¾å€¼çš„æ•°æ®åºåˆ—
+	 * @param numData æ•°å€¼çš„æ•°æ®åºåˆ—
+	 * @return æ±‡æ€»å€¼
 	 */
 	public static double sumCategory(String catName, Sequence enumData,
 			Sequence numData) {
@@ -2965,7 +2965,7 @@ public class Utils {
 			Object cat = parseCategory(enumObj);
 			if (catName.equals(cat)) {
 				double d = ((Number) numData.get(i)).doubleValue();
-				// ÀÛ»ıÖµ²»´¦Àí¸ºÊı
+				// ç´¯ç§¯å€¼ä¸å¤„ç†è´Ÿæ•°
 				if (d > 0) {
 					sum += d;
 				}
@@ -2975,22 +2975,22 @@ public class Utils {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨²ÎÊı»æÖÆÔ²ÖùÌåµÄ¶¥Ãæ
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param topOval ¶¥ÃæÔ²
-	 * @param bc ±ß¿òÑÕÉ«
-	 * @param bs ±ß¿ò·ç¸ñ
-	 * @param bw ±ß¿ò´Ö¶È
-	 * @param transparent Í¸Ã÷¶È
-	 * @param chartColor Ìî³äÑÕÉ«
-	 * @param isVertical ÊÇ·ñÊúÏòÔ²Öù
+	 * æŒ‰ç…§æŒ‡å®šå‚æ•°ç»˜åˆ¶åœ†æŸ±ä½“çš„é¡¶é¢
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param topOval é¡¶é¢åœ†
+	 * @param bc è¾¹æ¡†é¢œè‰²
+	 * @param bs è¾¹æ¡†é£æ ¼
+	 * @param bw è¾¹æ¡†ç²—åº¦
+	 * @param transparent é€æ˜åº¦
+	 * @param chartColor å¡«å……é¢œè‰²
+	 * @param isVertical æ˜¯å¦ç«–å‘åœ†æŸ±
 	 */
 	public static void drawCylinderTop(Graphics2D g, Arc2D.Double topOval,
 			Color bc, int bs, float bw, float transparent,
 			ChartColor chartColor, boolean isVertical) {
 		Rectangle bound = topOval.getBounds();
 		CubeColor ccr = new CubeColor(chartColor.getColor1());
-		// ¶¥ÃæÔ²Ö»Òª½¥±äÉ«¾ÍÊ¹ÓÃìÅĞ§¹û
+		// é¡¶é¢åœ†åªè¦æ¸å˜è‰²å°±ä½¿ç”¨ç‚«æ•ˆæœ
 		if (chartColor.isDazzle()) {
 			if (ccr.getT1() != null && ccr.getT2() != null) {
 				GradientPaint gp;
@@ -3026,15 +3026,15 @@ public class Utils {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨²ÎÊı»æÖÆÔ²ÖùÌåµÄÕıÃæ
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param front ÕıÃæÇøÓò
-	 * @param bc ±ß¿òÑÕÉ«
-	 * @param bs ±ß¿ò·ç¸ñ
-	 * @param bw ±ß¿ò´Ö¶È
-	 * @param transparent Í¸Ã÷¶È
-	 * @param chartColor Ìî³äÑÕÉ«
-	 * @param isVertical ÊÇ·ñÊúÏòÔ²Öù
+	 * æŒ‰ç…§æŒ‡å®šå‚æ•°ç»˜åˆ¶åœ†æŸ±ä½“çš„æ­£é¢
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param front æ­£é¢åŒºåŸŸ
+	 * @param bc è¾¹æ¡†é¢œè‰²
+	 * @param bs è¾¹æ¡†é£æ ¼
+	 * @param bw è¾¹æ¡†ç²—åº¦
+	 * @param transparent é€æ˜åº¦
+	 * @param chartColor å¡«å……é¢œè‰²
+	 * @param isVertical æ˜¯å¦ç«–å‘åœ†æŸ±
 	 */
 	public static void drawCylinderFront(Graphics2D g,
 			java.awt.geom.Area front, Color bc, int bs, float bw,
@@ -3044,17 +3044,17 @@ public class Utils {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨²ÎÊı»æÖÆÔ²ÖùÌåµÄÕıÃæ
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param front ÕıÃæÇøÓò
-	 * @param bc ±ß¿òÑÕÉ«
-	 * @param bs ±ß¿ò·ç¸ñ
-	 * @param bw ±ß¿ò´Ö¶È
-	 * @param transparent Í¸Ã÷¶È
-	 * @param chartColor Ìî³äÑÕÉ«
-	 * @param isVertical ÊÇ·ñÊúÏòÔ²Öù
-	 * @param shinningRange ìÅĞ§¹ûÇøÓò
-	 * @param isCurve ÊÇ·ñÇúÃæ
+	 * æŒ‰ç…§æŒ‡å®šå‚æ•°ç»˜åˆ¶åœ†æŸ±ä½“çš„æ­£é¢
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param front æ­£é¢åŒºåŸŸ
+	 * @param bc è¾¹æ¡†é¢œè‰²
+	 * @param bs è¾¹æ¡†é£æ ¼
+	 * @param bw è¾¹æ¡†ç²—åº¦
+	 * @param transparent é€æ˜åº¦
+	 * @param chartColor å¡«å……é¢œè‰²
+	 * @param isVertical æ˜¯å¦ç«–å‘åœ†æŸ±
+	 * @param shinningRange ç‚«æ•ˆæœåŒºåŸŸ
+	 * @param isCurve æ˜¯å¦æ›²é¢
 	 */
 	public static void drawCylinderFront(Graphics2D g,
 			java.awt.geom.Area front, Color bc, int bs, float bw,
@@ -3065,7 +3065,7 @@ public class Utils {
 		Rectangle bound = front.getBounds();
 		GradientPaint paint;
 		Color c1, c2;
-		// ìÅĞ§¹û
+		// ç‚«æ•ˆæœ
 		if (chartColor.isDazzle()) {
 			Rectangle2D r2d = shinningRange;
 			if (r2d == null) {
@@ -3119,7 +3119,7 @@ public class Utils {
 				d = r2d.getWidth() * 2 / 3;
 				tmp = new java.awt.geom.Area(new Rectangle2D.Double(r2d.getX()
 						+ d - 1, r2d.getY(), r2d.getBounds().width - d + 1,
-						r2d.getHeight()));// ÓÉÓÚËÄÉáÎåÈëµÄÎó²î£¬ÈÃÓÒ±ßÍù×ó¶à°üº¬Ò»¸öÏñËØ
+						r2d.getHeight()));// ç”±äºå››èˆäº”å…¥çš„è¯¯å·®ï¼Œè®©å³è¾¹å¾€å·¦å¤šåŒ…å«ä¸€ä¸ªåƒç´ 
 			} else {
 				d = r2d.getHeight() * 2 / 3;
 				tmp = new java.awt.geom.Area(new Rectangle2D.Double(r2d.getX(),
@@ -3162,23 +3162,23 @@ public class Utils {
 			}
 		}
 
-		// Öù×ÓµÄ±ß¿ò
+		// æŸ±å­çš„è¾¹æ¡†
 		if (Utils.setStroke(g, bc, bs, bw)) {
 			g.draw(front);
 		}
 	}
 
 	/**
-	 * »æÖÆ¼«×ø±êÏµÏÂµÄÎÄ±¾
-	 * @param e »æÍ¼ÒıÇæ
-	 * @param txt ÎÄ±¾
-	 * @param pc ¼«×ø±êÏµ
-	 * @param txtPolarPoint ¼«×ø±êµã
-	 * @param fontName ×ÖÌå
-	 * @param fontStyle ·ç¸ñ
-	 * @param fontSize ×ÖºÅ
-	 * @param c Ç°¾°É«
-	 * @param textOverlapping ÔÊĞíÎÄ±¾ÖØµş
+	 * ç»˜åˆ¶æåæ ‡ç³»ä¸‹çš„æ–‡æœ¬
+	 * @param e ç»˜å›¾å¼•æ“
+	 * @param txt æ–‡æœ¬
+	 * @param pc æåæ ‡ç³»
+	 * @param txtPolarPoint æåæ ‡ç‚¹
+	 * @param fontName å­—ä½“
+	 * @param fontStyle é£æ ¼
+	 * @param fontSize å­—å·
+	 * @param c å‰æ™¯è‰²
+	 * @param textOverlapping å…è®¸æ–‡æœ¬é‡å 
 	 */
 	public static void drawPolarPointText(Engine e, String txt, PolarCoor pc,
 			Point2D txtPolarPoint, String fontName, int fontStyle,
@@ -3189,17 +3189,17 @@ public class Utils {
 	}
 
 	/**
-	 * »æÖÆ¼«×ø±êÏµÏÂµÄÎÄ±¾
-	 * @param e »æÍ¼ÒıÇæ
-	 * @param txt ÎÄ±¾
-	 * @param pc ¼«×ø±êÏµ
-	 * @param txtPolarPoint ¼«×ø±êµã
-	 * @param fontName ×ÖÌå
-	 * @param fontStyle ·ç¸ñ
-	 * @param fontSize ×ÖºÅ
-	 * @param c Ç°¾°É«
-	 * @param textOverlapping ÔÊĞíÎÄ±¾ÖØµş
-	 * @param specifiedLocation Ïà¶ÔÖĞĞÄµã·½Î»
+	 * ç»˜åˆ¶æåæ ‡ç³»ä¸‹çš„æ–‡æœ¬
+	 * @param e ç»˜å›¾å¼•æ“
+	 * @param txt æ–‡æœ¬
+	 * @param pc æåæ ‡ç³»
+	 * @param txtPolarPoint æåæ ‡ç‚¹
+	 * @param fontName å­—ä½“
+	 * @param fontStyle é£æ ¼
+	 * @param fontSize å­—å·
+	 * @param c å‰æ™¯è‰²
+	 * @param textOverlapping å…è®¸æ–‡æœ¬é‡å 
+	 * @param specifiedLocation ç›¸å¯¹ä¸­å¿ƒç‚¹æ–¹ä½
 	 */
 	public static void drawPolarPointText(Engine e, String txt, PolarCoor pc,
 			Point2D txtPolarPoint, String fontName, int fontStyle,
@@ -3223,18 +3223,18 @@ public class Utils {
 	}
 
 	/**
-	 * Ö¸¶¨²ÎÊı»æÖÆÆ½Ãæ»·
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param bigBounds Íâ»·±ß½ç
-	 * @param smallBounds ÄÚ»·±ß½ç
-	 * @param start ÆğÊ¼½Ç¶È
-	 * @param extent ½Ç¶È·¶Î§
-	 * @param borderColor ±ß¿òÑÕÉ«
-	 * @param borderStyle ±ß¿ò·ç¸ñ
-	 * @param borderWeight ±ß¿ò´Ö¶È
-	 * @param transparent Í¸Ã÷¶È
-	 * @param fillColor Ìî³äÑÕÉ«
-	 * @return ¶ÔÓ¦»·»¡µÄĞÎ×´
+	 * æŒ‡å®šå‚æ•°ç»˜åˆ¶å¹³é¢ç¯
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param bigBounds å¤–ç¯è¾¹ç•Œ
+	 * @param smallBounds å†…ç¯è¾¹ç•Œ
+	 * @param start èµ·å§‹è§’åº¦
+	 * @param extent è§’åº¦èŒƒå›´
+	 * @param borderColor è¾¹æ¡†é¢œè‰²
+	 * @param borderStyle è¾¹æ¡†é£æ ¼
+	 * @param borderWeight è¾¹æ¡†ç²—åº¦
+	 * @param transparent é€æ˜åº¦
+	 * @param fillColor å¡«å……é¢œè‰²
+	 * @return å¯¹åº”ç¯å¼§çš„å½¢çŠ¶
 	 */
 	public static Shape draw2DRing(Graphics2D g, Rectangle2D bigBounds,
 			Rectangle2D smallBounds, double start, double extent,
@@ -3246,19 +3246,19 @@ public class Utils {
 	}
 
 	/**
-	 * Ö¸¶¨²ÎÊı»æÖÆÆ½Ãæ»·
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param bigBounds Íâ»·±ß½ç
-	 * @param smallBounds ÄÚ»·±ß½ç
-	 * @param start ÆğÊ¼½Ç¶È
-	 * @param extent ½Ç¶È·¶Î§
-	 * @param borderColor ±ß¿òÑÕÉ«
-	 * @param borderStyle ±ß¿ò·ç¸ñ
-	 * @param borderWeight ±ß¿ò´Ö¶È
-	 * @param transparent Í¸Ã÷¶È
-	 * @param fillColor Ìî³äÑÕÉ«
-	 * @param fillAsPie ÄÚ°ë¾¶Îª0,ÇÒÖ»ÓĞÒ»¸ö·ÖÀàÊ±£¬»·ÍË»¯ÎªÉÈ£¬Ö±½Ó»­ÉÈĞÎ£¬ÓÉÉÏ²ã³ÌĞò¸æËßÊÇ·ñÖ»ÓĞÒ»¸ö·ÖÀà
-	 * @return ¶ÔÓ¦»·»¡µÄĞÎ×´
+	 * æŒ‡å®šå‚æ•°ç»˜åˆ¶å¹³é¢ç¯
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param bigBounds å¤–ç¯è¾¹ç•Œ
+	 * @param smallBounds å†…ç¯è¾¹ç•Œ
+	 * @param start èµ·å§‹è§’åº¦
+	 * @param extent è§’åº¦èŒƒå›´
+	 * @param borderColor è¾¹æ¡†é¢œè‰²
+	 * @param borderStyle è¾¹æ¡†é£æ ¼
+	 * @param borderWeight è¾¹æ¡†ç²—åº¦
+	 * @param transparent é€æ˜åº¦
+	 * @param fillColor å¡«å……é¢œè‰²
+	 * @param fillAsPie å†…åŠå¾„ä¸º0,ä¸”åªæœ‰ä¸€ä¸ªåˆ†ç±»æ—¶ï¼Œç¯é€€åŒ–ä¸ºæ‰‡ï¼Œç›´æ¥ç”»æ‰‡å½¢ï¼Œç”±ä¸Šå±‚ç¨‹åºå‘Šè¯‰æ˜¯å¦åªæœ‰ä¸€ä¸ªåˆ†ç±»
+	 * @return å¯¹åº”ç¯å¼§çš„å½¢çŠ¶
 	 */
 	public static Shape draw2DRing(Graphics2D g, Rectangle2D bigBounds,
 			Rectangle2D smallBounds, double start, double extent,
@@ -3271,7 +3271,7 @@ public class Utils {
 		h = (bigBounds.getHeight() + smallBounds.getHeight()) / 2;
 		Rectangle2D midBounds = new Rectangle2D.Double(x, y, w, h);
 
-		// Ğ¡µÄÔ²»¡½ÇÓòÔö¼Ó10¶È£¬·ÀÖ¹½ÇÓòÏàÍ¬Ê±£¬¼ÆËã¾«¶ÈÎÊÌâ»á¼õ²»¾»£¬ÁôÏÂÒ»ÌõÖ±ÏßµÈ×´Ì¬
+		// å°çš„åœ†å¼§è§’åŸŸå¢åŠ 10åº¦ï¼Œé˜²æ­¢è§’åŸŸç›¸åŒæ—¶ï¼Œè®¡ç®—ç²¾åº¦é—®é¢˜ä¼šå‡ä¸å‡€ï¼Œç•™ä¸‹ä¸€æ¡ç›´çº¿ç­‰çŠ¶æ€
 		Arc2D smallSector = new Arc2D.Double(smallBounds, start - 5,
 				extent + 10, Arc2D.PIE);
 		Arc2D bigSector = new Arc2D.Double(bigBounds, start, extent, Arc2D.PIE);
@@ -3294,14 +3294,14 @@ public class Utils {
 					g.setPaint(gp);
 					Utils.fillPaint(g, ring, transparent);
 				}
-			} else {// Ô²»·,donut
+			} else {// åœ†ç¯,donut
 				double dAngle = 3;
 				double sAngle = start;
 				while (sAngle <= endAngle) {
 					smallSector = new Arc2D.Double(smallBounds, sAngle - 5,
 							dAngle + 10, Arc2D.PIE);
 					double tmps = sAngle, tmpa = dAngle;
-					if (tmps != start) {// ÈÃÃ¿Ò»¸ödring±Ë´ËÖØµş£¬±ÜÃâdeltaÖ®¼äµÄ¿ÕÏ¶
+					if (tmps != start) {// è®©æ¯ä¸€ä¸ªdringå½¼æ­¤é‡å ï¼Œé¿å…deltaä¹‹é—´çš„ç©ºéš™
 						tmps -= dAngle;
 						tmpa += dAngle * 2;
 					}
@@ -3316,7 +3316,7 @@ public class Utils {
 							dAngle / 2f, Arc2D.PIE);
 					bigSector = new Arc2D.Double(midBounds, sAngle,
 							dAngle / 2f, Arc2D.PIE);
-					// delta»·µÄ»·ÖĞµã
+					// deltaç¯çš„ç¯ä¸­ç‚¹
 					Point2D dp1 = smallSector.getEndPoint();
 					Point2D dp2 = bigSector.getEndPoint();
 					if (ccr.getF1() != null && ccr.getF2() != null) {
@@ -3363,11 +3363,11 @@ public class Utils {
 	}
 
 	/**
-	 * ·â×°¼òÒ×Ìæ»»²Ù×÷£¬ºöÂÔÒıºÅÀ¨ºÅµÈ×ªÒå·ûÄÚÈİ£¬Ò²¾ÍÊÇ³¹µ×Ìæ»»
-	 * @param src Ô´ÎÄ±¾´®
-	 * @param sold ĞèÒªÌæ»»µôµÄÎÄ±¾
-	 * @param snew ĞÂÎÄ±¾
-	 * @return Ìæ»»Íê³ÉµÄÄ¿±ê´®
+	 * å°è£…ç®€æ˜“æ›¿æ¢æ“ä½œï¼Œå¿½ç•¥å¼•å·æ‹¬å·ç­‰è½¬ä¹‰ç¬¦å†…å®¹ï¼Œä¹Ÿå°±æ˜¯å½»åº•æ›¿æ¢
+	 * @param src æºæ–‡æœ¬ä¸²
+	 * @param sold éœ€è¦æ›¿æ¢æ‰çš„æ–‡æœ¬
+	 * @param snew æ–°æ–‡æœ¬
+	 * @return æ›¿æ¢å®Œæˆçš„ç›®æ ‡ä¸²
 	 */
 	public static String replaceAll(String src, String sold, String snew) {
 		return Sentence.replace(src, 0, sold, snew, Sentence.IGNORE_CASE
@@ -3376,13 +3376,13 @@ public class Utils {
 	}
 
 	/**
-	 * ´¦Àí³¬Á´½ÓÎÄ±¾´®£¬½«ÄÚÈİÌæ»»µôÏàÓ¦µÄ²ÎÊı¸ñÊ½
-	 * @param link ÒªÌæ»»µÄ°üº¬²ÎÊı¸ñÊ½µÄ´®
-	 * @param data1  Ìæ»»¸ñÊ½"@data1"ÄÚÈİ
-	 * @param data2  Ìæ»»¸ñÊ½"@data2"ÄÚÈİ
-	 * @param text  Ìæ»»¸ñÊ½"@text"ÄÚÈİ
-	 * @param legend  Ìæ»»¸ñÊ½"@legend"ÄÚÈİ
-	 * @return Ìæ»»ºóµÄ´®
+	 * å¤„ç†è¶…é“¾æ¥æ–‡æœ¬ä¸²ï¼Œå°†å†…å®¹æ›¿æ¢æ‰ç›¸åº”çš„å‚æ•°æ ¼å¼
+	 * @param link è¦æ›¿æ¢çš„åŒ…å«å‚æ•°æ ¼å¼çš„ä¸²
+	 * @param data1  æ›¿æ¢æ ¼å¼"@data1"å†…å®¹
+	 * @param data2  æ›¿æ¢æ ¼å¼"@data2"å†…å®¹
+	 * @param text  æ›¿æ¢æ ¼å¼"@text"å†…å®¹
+	 * @param legend  æ›¿æ¢æ ¼å¼"@legend"å†…å®¹
+	 * @return æ›¿æ¢åçš„ä¸²
 	 */
 	public static String getHtmlLink(String link, Object data1, Object data2,
 			String text, String legend) {
@@ -3405,16 +3405,16 @@ public class Utils {
 	}
 
 	/**
-	 * ÎÄ±¾Êä³öÎªÌõĞÎÂëÊ±£¬»æÖÆÎª»º³åÍ¼ÏñµÄÌõÂë
-	 * @param value ÎÄ±¾Í¼Ôª
-	 * @param index ÎÄ±¾Êı¾İÎªĞòÁĞÊ±µÄÎÄ±¾ĞòºÅ
-	 * @param fore Ç°¾°É«
-	 * @param back ±³¾°É«
-	 * @return »º³åÍ¼Ïñ
+	 * æ–‡æœ¬è¾“å‡ºä¸ºæ¡å½¢ç æ—¶ï¼Œç»˜åˆ¶ä¸ºç¼“å†²å›¾åƒçš„æ¡ç 
+	 * @param value æ–‡æœ¬å›¾å…ƒ
+	 * @param index æ–‡æœ¬æ•°æ®ä¸ºåºåˆ—æ—¶çš„æ–‡æœ¬åºå·
+	 * @param fore å‰æ™¯è‰²
+	 * @param back èƒŒæ™¯è‰²
+	 * @return ç¼“å†²å›¾åƒ
 	 */
 	public static BufferedImage calcBarcodeImage(Text value, int index, Color fore,
 			Color back) {
-		int TRANSPARENT = 0x00FFFFFF;// ²»ÄÜÊÇÓÃÈ«0£¬»áÔì³Éµ¼³öpdfÊ§°Ü£»
+		int TRANSPARENT = 0x00FFFFFF;// ä¸èƒ½æ˜¯ç”¨å…¨0ï¼Œä¼šé€ æˆå¯¼å‡ºpdfå¤±è´¥ï¼›
 		int BLACK = 0xFF000000;
 		int WHITE = 0xFFFFFFFF;
 
@@ -3436,18 +3436,18 @@ public class Utils {
 		}
 
 		if (value.barType == Consts.TYPE_QRCODE) {
-			// Èç¹ûÊÇ¶şÎ¬Âë£¬ÓÃÕı·½ĞÎÇøÓòÀ´»æÍ¼£¬ÇÒÓÉÓÚÓĞQuietZoneµÄ°×±ß£¬¶à¸ø30ÏñËØÀ´»æÖÆ£¬È»ºóÈ¡Êı¾İÇøÓò
+			// å¦‚æœæ˜¯äºŒç»´ç ï¼Œç”¨æ­£æ–¹å½¢åŒºåŸŸæ¥ç»˜å›¾ï¼Œä¸”ç”±äºæœ‰QuietZoneçš„ç™½è¾¹ï¼Œå¤šç»™30åƒç´ æ¥ç»˜åˆ¶ï¼Œç„¶åå–æ•°æ®åŒºåŸŸ
 			int minWH = w < h ? w : h;
-			w = h = (minWH + 30);// Áô³ö30±ß¿òÒÔ±ã²Ã¼ôÊı¾İÇøÓòºó£¬¸ü½Ó½üÓÚÊµ¼Ê¿í¸ß
+			w = h = (minWH + 30);// ç•™å‡º30è¾¹æ¡†ä»¥ä¾¿è£å‰ªæ•°æ®åŒºåŸŸåï¼Œæ›´æ¥è¿‘äºå®é™…å®½é«˜
 		} else if (value.dispText) {
-			// Èç¹ûÊÇÌõĞÎÂë£¬ÇÒÏÔÊ¾ÎÄ×Ö£¬Áô³öÎÄ×Ö¿Õ¼ä
+			// å¦‚æœæ˜¯æ¡å½¢ç ï¼Œä¸”æ˜¾ç¤ºæ–‡å­—ï¼Œç•™å‡ºæ–‡å­—ç©ºé—´
 			Rectangle rect = getTextRect(value,index);
 			h -= (rect.height + 10);
 		}
 
 		MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 		Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
-		// ËµÊÇ×Ö·û¼¯Ãû³ÆĞ¡Ğ´ºó£¬Ä³Ğ©É¨ÃèÇ¹²ÅÕı³££¬·ñÔòÓĞ¶àÓà×Ö·û xq 2016Äê12ÔÂ1ÈÕ
+		// è¯´æ˜¯å­—ç¬¦é›†åç§°å°å†™åï¼ŒæŸäº›æ‰«ææªæ‰æ­£å¸¸ï¼Œå¦åˆ™æœ‰å¤šä½™å­—ç¬¦ xq 2016å¹´12æœˆ1æ—¥
 		hints.put(EncodeHintType.CHARACTER_SET, value.charSet.toLowerCase());
 		char errLevel = value.recError.charAt(0);
 		ErrorCorrectionLevel ecl;
@@ -3462,7 +3462,7 @@ public class Utils {
 		}
 		hints.put(EncodeHintType.ERROR_CORRECTION, ecl);
 		if(value.barType==Consts.TYPE_QRCODE) {
-//			¶şÎ¬Âë¸Ä³ÉÄ¬ÈÏÎªÕı·½ĞÎ
+//			äºŒç»´ç æ”¹æˆé»˜è®¤ä¸ºæ­£æ–¹å½¢
 			hints.put(EncodeHintType.DATA_MATRIX_SHAPE, SymbolShapeHint.FORCE_SQUARE);
 		}
 		try {
@@ -3506,10 +3506,10 @@ public class Utils {
 	}
 
 	/**
-	 * ¼ÆËãÎÄ±¾Í¼ÔªÖĞµÚindex¸öÎÄ±¾µÄ¿Õ¼äÎ»ÖÃ
-	 * @param value ÎÄ±¾Í¼Ôª
-	 * @param index ÎÄ×ÖĞòºÅ
-	 * @return ¾ØĞÎÃèÊöµÄ¿Õ¼ä
+	 * è®¡ç®—æ–‡æœ¬å›¾å…ƒä¸­ç¬¬indexä¸ªæ–‡æœ¬çš„ç©ºé—´ä½ç½®
+	 * @param value æ–‡æœ¬å›¾å…ƒ
+	 * @param index æ–‡å­—åºå·
+	 * @return çŸ©å½¢æè¿°çš„ç©ºé—´
 	 */
 	public static Rectangle getTextRect(Text value,int index) {
 		Font font = new Font(value.textFont.stringValue(index), Font.PLAIN, value.textSize.intValue(index));
@@ -3527,7 +3527,7 @@ public class Utils {
 		int height = matrix.getHeight();
 		int x1 = 0, x2 = width;
 		int y1 = 0, y2 = height;
-		// pdf417, ÌõÂë³ß´ç»á×Ô¶¯³Å´ó
+		// pdf417, æ¡ç å°ºå¯¸ä¼šè‡ªåŠ¨æ’‘å¤§
 		if (value.barType == Consts.TYPE_PDF417) {
 			Point leftUpCorner = get417Margin(matrix);
 			x1 = leftUpCorner.x;
@@ -3544,8 +3544,8 @@ public class Utils {
 			dh = dh + rect.height;
 		}
 		BufferedImage image = new BufferedImage(dw, dh,
-				BufferedImage.TYPE_INT_RGB);// ²»ÄÜÊ¹ÓÃARGB£¬·ñÔòµ¼³öµ½Excel»áÓĞ°ëÍ¸Ã÷Ğ§¹û xq
-											// 2016Äê11ÔÂ22ÈÕ
+				BufferedImage.TYPE_INT_RGB);// ä¸èƒ½ä½¿ç”¨ARGBï¼Œå¦åˆ™å¯¼å‡ºåˆ°Excelä¼šæœ‰åŠé€æ˜æ•ˆæœ xq
+											// 2016å¹´11æœˆ22æ—¥
 		Graphics2D g = image.createGraphics();
 		g.setBackground(new Color(backColor));
 		g.clearRect(0, 0, dw, dh);
@@ -3553,7 +3553,7 @@ public class Utils {
 		int txtHeight = 0;
 
 		if (value.dispText) {
-			// ÉÏÊö´úÂë×Ô¶¯Ôö¼ÓÎÄ×Ö¸ß¶Èºó£¬²»ĞèÒªÅĞ¶Ï¸ß¶È¿Õ¼äÁË
+			// ä¸Šè¿°ä»£ç è‡ªåŠ¨å¢åŠ æ–‡å­—é«˜åº¦åï¼Œä¸éœ€è¦åˆ¤æ–­é«˜åº¦ç©ºé—´äº†
 			// txtHeight = fm.getHeight();
 			boolean isSpaceEnough = (txtHeight < dh - 10);
 			int txtWidth = fm.stringWidth(value.getDispText(index));
@@ -3587,12 +3587,12 @@ public class Utils {
 	}
 
 	/**
-	 * ½«¶şÎ¬ÂëĞÅÏ¢matrixÈÚºÏÎÄ±¾ÄÚÈİ£¬±ÈÈç´òÓ¡logoµ½¶şÎ¬Âë
-	 * @param text ÎÄ±¾Í¼Ôª
-	 * @param matrix ¶şÎ¬ÂëĞÅÏ¢¾ØÕó
-	 * @param foreColor Ç°¾°É«
-	 * @param backColor ±³¾°É«
-	 * @return ÈÚºÏÎÄ±¾ĞÅÏ¢µÄ¶şÎ¬Âë»º³åÍ¼Ïñ
+	 * å°†äºŒç»´ç ä¿¡æ¯matrixèåˆæ–‡æœ¬å†…å®¹ï¼Œæ¯”å¦‚æ‰“å°logoåˆ°äºŒç»´ç 
+	 * @param text æ–‡æœ¬å›¾å…ƒ
+	 * @param matrix äºŒç»´ç ä¿¡æ¯çŸ©é˜µ
+	 * @param foreColor å‰æ™¯è‰²
+	 * @param backColor èƒŒæ™¯è‰²
+	 * @return èåˆæ–‡æœ¬ä¿¡æ¯çš„äºŒç»´ç ç¼“å†²å›¾åƒ
 	 */
 	public static BufferedImage toBufferedQRImage(Text text, BitMatrix matrix,
 			int foreColor, int backColor) {
@@ -3644,9 +3644,9 @@ public class Utils {
 	}
 
 	/**
-	 * ¶Á³ö»·¾³ÅäÖÃÏÂÎÄ¼şµÄÄÚÈİ£¬±ÈÈçÎ»ÓÚËÑË÷Â·¾¶ÏÂµÄÎÄ¼ş
-	 * @param fileValue ÎÄ¼şÃû£¬ÓÃÓÚ¼æÈİµ÷ÓÃ£¬ÎÄ¼şÃû±¾Éí¿ÉÒÔÒÑ¾­Îª×Ö½ÚÄÚÈİ
-	 * @return ÎÄ¼şÄÚÈİµÄ×Ö½ÚÊı×é
+	 * è¯»å‡ºç¯å¢ƒé…ç½®ä¸‹æ–‡ä»¶çš„å†…å®¹ï¼Œæ¯”å¦‚ä½äºæœç´¢è·¯å¾„ä¸‹çš„æ–‡ä»¶
+	 * @param fileValue æ–‡ä»¶åï¼Œç”¨äºå…¼å®¹è°ƒç”¨ï¼Œæ–‡ä»¶åæœ¬èº«å¯ä»¥å·²ç»ä¸ºå­—èŠ‚å†…å®¹
+	 * @return æ–‡ä»¶å†…å®¹çš„å­—èŠ‚æ•°ç»„
 	 */
 	public static byte[] getFileBytes(Object fileValue) {
 		Object imgVal = fileValue;
@@ -3708,8 +3708,8 @@ public class Utils {
 	}
 	
 	/**
-	 * zxingµÄcode28Ö»ÓĞautoÀàĞÍ£¬³­ÁËÒ»¸öÀàCode128ABC
-	  *  Ê¹ÓÃÇ¿ÖÆµÄABCÀàĞÍ
+	 * zxingçš„code28åªæœ‰autoç±»å‹ï¼ŒæŠ„äº†ä¸€ä¸ªç±»Code128ABC
+	  *  ä½¿ç”¨å¼ºåˆ¶çš„ABCç±»å‹
 	 * @param raqType
 	 * @return
 	 */
@@ -3729,10 +3729,10 @@ public class Utils {
 		case Consts.TYPE_CODE128C:
 			return BarcodeFormat.CODE_128;
 		case Consts.TYPE_CODE39:
-			// Code 39Ö»½ÓÊÜÈçÏÂ43¸öÓĞĞ§ÊäÈë×Ö·û£º ¡¡¡¡26¸ö´óĞ´×ÖÄ¸£¨A - Z£©£¬ ¡¡¡¡Ê®¸öÊı×Ö£¨0 - 9£©
-			// ×¢ÒâĞ¡Ğ´×ÖÄ¸»á±¨´í
+			// Code 39åªæ¥å—å¦‚ä¸‹43ä¸ªæœ‰æ•ˆè¾“å…¥å­—ç¬¦ï¼š ã€€ã€€26ä¸ªå¤§å†™å­—æ¯ï¼ˆA - Zï¼‰ï¼Œ ã€€ã€€åä¸ªæ•°å­—ï¼ˆ0 - 9ï¼‰
+			// æ³¨æ„å°å†™å­—æ¯ä¼šæŠ¥é”™
 			return BarcodeFormat.CODE_39;
-		case Consts.TYPE_EAN13:// ean13¶Ô±àÂëÓĞÑÏ¸ñ¹æÔò£¬²»ÄÜÊÇËæ±ãµÄÊı×Ö,Ê¾ÀıÖµ£º7501054530107
+		case Consts.TYPE_EAN13:// ean13å¯¹ç¼–ç æœ‰ä¸¥æ ¼è§„åˆ™ï¼Œä¸èƒ½æ˜¯éšä¾¿çš„æ•°å­—,ç¤ºä¾‹å€¼ï¼š7501054530107
 			return BarcodeFormat.EAN_13;
 		case Consts.TYPE_EAN8:
 			return BarcodeFormat.EAN_8;
@@ -3748,14 +3748,14 @@ public class Utils {
 	}
 
 	/**
-	 * Çó³ö¾­¹ıµãp1ºÍp2µÄÖ±ÏßÉÏµÄµã
-	 * @param p1 ¶Ëµã1
-	 * @param p2 ¶Ëµã2
-	 * @param x, ¾­¹ıÁ½µãµÄÖ±Ïß£¬´ıÇóµãµÄx×ø±ê
-	 * @return x¶ÔÓ¦µÄy×ø±ê
+	 * æ±‚å‡ºç»è¿‡ç‚¹p1å’Œp2çš„ç›´çº¿ä¸Šçš„ç‚¹
+	 * @param p1 ç«¯ç‚¹1
+	 * @param p2 ç«¯ç‚¹2
+	 * @param x, ç»è¿‡ä¸¤ç‚¹çš„ç›´çº¿ï¼Œå¾…æ±‚ç‚¹çš„xåæ ‡
+	 * @return xå¯¹åº”çš„yåæ ‡
 	 */
 	public static double calcLineY(Point2D.Double p1, Point2D.Double p2, double x){
-//		Ö±ÏßµÄ·½³ÌÎªy=kx+b
+//		ç›´çº¿çš„æ–¹ç¨‹ä¸ºy=kx+b
 //		y1=kx1+b;y2=kx2+b;
 //		k=(y2-y1)/(x2-x1)
 //		b = y1-kx1

@@ -3,24 +3,24 @@ package com.scudata.ide.vdb.commonvdb;
 import java.awt.Font;
 
 /**
- * 常量
+ * 甯搁噺
  * 
  * @author wunan
  *
  */
 public class GC {
-	// 资源路径
+	// 璧勬簮璺緞
 	public final static String RESOURCE_PATH = "/com/scudata/ide/vdb/resources/";
-	// 图片路径
+	// 鍥剧墖璺緞
 	public final static String IMAGES_PATH = "/com/scudata/ide/vdb/img/";
-	// 配置
+	// 閰嶇疆
 	public final static String PATH_CONFIG = "/config";
-	// 图标
+	// 鍥炬爣
 	public final static String PATH_LOGO = "/logo";
-	// 日志
+	// 鏃ュ織
 	public final static String PATH_LOG = "/log";
 
-	// 文件类型
+	// 鏂囦欢绫诲瀷
 	public final static String FILE_VDB = "vdb";
 
 	public final static String FILE_TXT = "txt";

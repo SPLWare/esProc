@@ -126,23 +126,23 @@ public class FileXls extends XlsFileObject {
 			initTableInfo();
 		} catch (RQException e) {
 			throw e;
-		} catch (OLE2NotOfficeXmlFileException e) { // xlsx¸ñÊ½
+		} catch (OLE2NotOfficeXmlFileException e) { // xlsxæ ¼å¼
 			if (pwd == null) {
-				// ExcelÎÄ¼şÊÇXLS¸ñÊ½£¬»òÕßÊÇ¼ÓÃÜÎÄ¼ş¡£
+				// Excelæ–‡ä»¶æ˜¯XLSæ ¼å¼ï¼Œæˆ–è€…æ˜¯åŠ å¯†æ–‡ä»¶ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsximporter.ole2nopwd"), e);
 			} else {
-				// ExcelÎÄ¼şÊÇXLS¸ñÊ½¡£
+				// Excelæ–‡ä»¶æ˜¯XLSæ ¼å¼ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsximporter.ole2pwd"), e);
 			}
-		} catch (EncryptedDocumentException e) { // xls¸ñÊ½
+		} catch (EncryptedDocumentException e) { // xlsæ ¼å¼
 			if (pwd == null) {
-				// ExcelÎÄ¼şÊÇ¼ÓÃÜÎÄ¼ş£¬ÇëÊäÈëÃÜÂë¡£
+				// Excelæ–‡ä»¶æ˜¯åŠ å¯†æ–‡ä»¶ï¼Œè¯·è¾“å…¥å¯†ç ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsximporter.xlsnopwd"), e);
 			} else {
-				// ExcelÎÄ¼şµÄÃÜÂë²»ÕıÈ·¡£
+				// Excelæ–‡ä»¶çš„å¯†ç ä¸æ­£ç¡®ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsximporter.xlsinvalidpwd"), e);
 			}
@@ -319,7 +319,7 @@ public class FileXls extends XlsFileObject {
 				sheet = wb.getSheetAt(index - 1);
 				if (deleteOldSheet) {
 					String oldName = sheet.getSheetName();
-					// ÏÈÉ¾³ı¾ÉµÄ
+					// å…ˆåˆ é™¤æ—§çš„
 					wb.removeSheetAt(index - 1);
 					removeSheet(oldName);
 					this.insert(index, new Object[] { oldName, new Integer(0),
@@ -436,7 +436,7 @@ public class FileXls extends XlsFileObject {
 	}
 
 	/**
-	 * ¿ËÂ¡Ò»¸ö¹¤×÷±ís£¬²¢ÃüÃûÎªs1
+	 * å…‹éš†ä¸€ä¸ªå·¥ä½œè¡¨sï¼Œå¹¶å‘½åä¸ºs1
 	 * 
 	 * @param s
 	 * @param s1

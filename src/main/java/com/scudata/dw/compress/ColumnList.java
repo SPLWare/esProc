@@ -27,8 +27,8 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶à¸öÁÐµÄList
- * ÁÐÀàÐÍÖ»Ö§³Öint¡¢long¡¢double¡¢BigDecimal¡¢String¡¢Data¡¢TimeStamp¡¢Time
+ * å¤šä¸ªåˆ—çš„List
+ * åˆ—ç±»åž‹åªæ”¯æŒintã€longã€doubleã€BigDecimalã€Stringã€Dataã€TimeStampã€Time
  * @author runqian
  *
  */
@@ -47,7 +47,7 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * °ÑÓÎ±êcs¶Á³ÉÄÚ´æÑ¹Ëõ±í
+	 * æŠŠæ¸¸æ ‡csè¯»æˆå†…å­˜åŽ‹ç¼©è¡¨
 	 * @param cs
 	 */
 	public ColumnList(ICursor cs) {
@@ -116,7 +116,7 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * ´ÓÓÎ±êcs¶ÁnÌõ£¬´æÈëÑ¹Ëõ±í
+	 * ä»Žæ¸¸æ ‡csè¯»næ¡ï¼Œå­˜å…¥åŽ‹ç¼©è¡¨
 	 * @param cs
 	 * @param n
 	 */
@@ -197,7 +197,7 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * ¶Á¼ÇÂ¼
+	 * è¯»è®°å½•
 	 */
 	public Object get(int index) {
 		Record record = new Record(ds);
@@ -241,7 +241,7 @@ public class ColumnList implements IArray {
 	}
 
 	/**
-	 * ½¨Á¢ÄÚ´æË÷Òý
+	 * å»ºç«‹å†…å­˜ç´¢å¼•
 	 * @param codes
 	 * @param exps
 	 * @param ctx
@@ -409,7 +409,7 @@ public class ColumnList implements IArray {
 						Object key = oldColumn.getData(i);
 						int seq = ((HashIndexTable)indexTable).findPos(key);
 						if (isDiff) {
-							// ÕÒ²»µ½Ê±±£ÁôÔ´Öµ
+							// æ‰¾ä¸åˆ°æ—¶ä¿ç•™æºå€¼
 							if (seq > 0) {
 								column.addData(-1);
 							}
@@ -424,7 +424,7 @@ public class ColumnList implements IArray {
 						if (val instanceof Number) {
 							int seq = ((Number)val).intValue();
 							if (isDiff) {
-								// ÕÒ²»µ½Ê±±£ÁôÔ´Öµ
+								// æ‰¾ä¸åˆ°æ—¶ä¿ç•™æºå€¼
 								if (seq > 0 && seq <= codeLen) {
 									column.addData(-1);
 								}
@@ -446,7 +446,7 @@ public class ColumnList implements IArray {
 						Object key = oldColumn.getData(i);
 						Object obj = indexTable.find(key);
 						if (isDiff) {
-							// ÕÒ²»µ½Ê±±£ÁôÔ´Öµ
+							// æ‰¾ä¸åˆ°æ—¶ä¿ç•™æºå€¼
 							if (obj != null) {
 								column.addData(null);
 							}
@@ -461,7 +461,7 @@ public class ColumnList implements IArray {
 						if (val instanceof Number) {
 							int seq = ((Number)val).intValue();
 							if (isDiff) {
-								// ÕÒ²»µ½Ê±±£ÁôÔ´Öµ
+								// æ‰¾ä¸åˆ°æ—¶ä¿ç•™æºå€¼
 								if (seq > 0 && seq <= codeLen) {
 									column.addData(-1);
 								}
@@ -527,10 +527,10 @@ public class ColumnList implements IArray {
 	}
 
 	/**
-	 * ×·¼ÓÒ»×éÔªËØ£¬Èç¹ûÀàÐÍ²»¼æÈÝÔòÅ×³öÒì³£
-	 * @param array ÔªËØÊý×é
-	 * @param index Òª¼ÓÈëµÄÊý¾ÝµÄÆðÊ¼Î»ÖÃ
-	 * @param count ÊýÁ¿
+	 * è¿½åŠ ä¸€ç»„å…ƒç´ ï¼Œå¦‚æžœç±»åž‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param array å…ƒç´ æ•°ç»„
+	 * @param index è¦åŠ å…¥çš„æ•°æ®çš„èµ·å§‹ä½ç½®
+	 * @param count æ•°é‡
 	 */
 	public void addAll(IArray array, int index, int count) {
 		// TODO Auto-generated method stub
@@ -553,7 +553,7 @@ public class ColumnList implements IArray {
 	}
 
 	/**
-	 * ×·¼ÓÒ»¸ö¿Õ³ÉÔ±£¨²»¼ì²éÈÝÁ¿£¬ÈÏÎªÓÐ×ã¹»¿Õ¼ä´æ·ÅÔªËØ£©
+	 * è¿½åŠ ä¸€ä¸ªç©ºæˆå‘˜ï¼ˆä¸æ£€æŸ¥å®¹é‡ï¼Œè®¤ä¸ºæœ‰è¶³å¤Ÿç©ºé—´å­˜æ”¾å…ƒç´ ï¼‰
 	 */
 	public void pushNull() {
 	}
@@ -810,9 +810,9 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * ¼ÆËãÁ½¸öÊý×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ°´Î»»ò
-	 * @param array ÓÒ²àÊý×é
-	 * @return °´Î»»ò½á¹ûÊý×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„æŒ‰ä½æˆ–
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return æŒ‰ä½æˆ–ç»“æžœæ•°ç»„
 	 */
 	public IArray bitwiseOr(IArray array) {
 		// TODO Auto-generated method stub
@@ -820,9 +820,9 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * ¼ÆËãÁ½¸öÊý×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ°´Î»Òì»ò
-	 * @param array ÓÒ²àÊý×é
-	 * @return °´Î»Òì»ò½á¹ûÊý×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„æŒ‰ä½å¼‚æˆ–
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return æŒ‰ä½å¼‚æˆ–ç»“æžœæ•°ç»„
 	 */
 	public IArray bitwiseXOr(IArray array) {
 		// TODO Auto-generated method stub
@@ -830,8 +830,8 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * ¼ÆËãÊý×é³ÉÔ±µÄ°´Î»È¡·´
-	 * @return ³ÉÔ±°´Î»È¡·´½á¹ûÊý×é
+	 * è®¡ç®—æ•°ç»„æˆå‘˜çš„æŒ‰ä½å–å
+	 * @return æˆå‘˜æŒ‰ä½å–åç»“æžœæ•°ç»„
 	 */
 	public IArray bitwiseNot() {
 		// TODO Auto-generated method stub
@@ -844,9 +844,9 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * ÅÐ¶ÏÊý×éµÄÁ½¸ö³ÉÔ±ÊÇ·ñÏàµÈ
-	 * @param index1 ³ÉÔ±1
-	 * @param index2 ³ÉÔ±2
+	 * åˆ¤æ–­æ•°ç»„çš„ä¸¤ä¸ªæˆå‘˜æ˜¯å¦ç›¸ç­‰
+	 * @param index1 æˆå‘˜1
+	 * @param index2 æˆå‘˜2
 	 * @return
 	 */
 	public boolean isMemberEquals(int index1, int index2) {
@@ -909,10 +909,10 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * È¡Ä³Ò»Çø¶Î±êÊ¶Êý×éÈ¡ÖµÎªÕæµÄÐÐ×é³ÉÐÂÊý×é
-	 * @param start ÆðÊ¼Î»ÖÃ£¨°üÀ¨£©
-	 * @param end ½áÊøÎ»ÖÃ£¨²»°üÀ¨£©
-	 * @param signArray ±êÊ¶Êý×é
+	 * å–æŸä¸€åŒºæ®µæ ‡è¯†æ•°ç»„å–å€¼ä¸ºçœŸçš„è¡Œç»„æˆæ–°æ•°ç»„
+	 * @param start èµ·å§‹ä½ç½®ï¼ˆåŒ…æ‹¬ï¼‰
+	 * @param end ç»“æŸä½ç½®ï¼ˆä¸åŒ…æ‹¬ï¼‰
+	 * @param signArray æ ‡è¯†æ•°ç»„
 	 * @return IArray
 	 */
 	public IArray select(int start, int end, IArray signArray) {
@@ -981,10 +981,10 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * ¶ÔÊý×éÔªËØ´ÓÐ¡µ½´ó×öÅÅÃû£¬È¡Ç°countÃûµÄÎ»ÖÃ
-	 * @param count Èç¹ûcountÐ¡ÓÚ0Ôò´Ó´óµ½Ð¡×öÅÅÃû
-	 * @param ignoreNull ÊÇ·ñºöÂÔ¿ÕÔªËØ
-	 * @param iopt ÊÇ·ñ°´È¥ÖØ·½Ê½×öÅÅÃû
+	 * å¯¹æ•°ç»„å…ƒç´ ä»Žå°åˆ°å¤§åšæŽ’åï¼Œå–å‰countåçš„ä½ç½®
+	 * @param count å¦‚æžœcountå°äºŽ0åˆ™ä»Žå¤§åˆ°å°åšæŽ’å
+	 * @param ignoreNull æ˜¯å¦å¿½ç•¥ç©ºå…ƒç´ 
+	 * @param iopt æ˜¯å¦æŒ‰åŽ»é‡æ–¹å¼åšæŽ’å
 	 * @return IntArray
 	 */
 	public IntArray ptopRank(int count, boolean ignoreNull, boolean iopt) {
@@ -1017,8 +1017,8 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * ±£ÁôÊý×éÊý¾ÝÓÃÓÚÉú³ÉÐòÁÐ»òÐò±í
-	 * @param refOrigin ÒýÓÃÔ´ÁÐ£¬²»¸´ÖÆÊý¾Ý
+	 * ä¿ç•™æ•°ç»„æ•°æ®ç”¨äºŽç”Ÿæˆåºåˆ—æˆ–åºè¡¨
+	 * @param refOrigin å¼•ç”¨æºåˆ—ï¼Œä¸å¤åˆ¶æ•°æ®
 	 * @return
 	 */
 
@@ -1043,17 +1043,17 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * ·µ»ØÖ¸¶¨Êý×éµÄ³ÉÔ±ÔÚµ±Ç°Êý×éÖÐµÄÎ»ÖÃ
-	 * @param array ´ý²éÕÒµÄÊý×é
-	 * @param opt Ñ¡Ïî£¬b£ºÍ¬Ðò¹é²¢·¨²éÕÒ£¬i£º·µ»Øµ¥µÝÔöÊýÁÐ£¬c£ºÁ¬Ðø³öÏÖ
-	 * @return Î»ÖÃ»òÕßÎ»ÖÃÐòÁÐ
+	 * è¿”å›žæŒ‡å®šæ•°ç»„çš„æˆå‘˜åœ¨å½“å‰æ•°ç»„ä¸­çš„ä½ç½®
+	 * @param array å¾…æŸ¥æ‰¾çš„æ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œbï¼šåŒåºå½’å¹¶æ³•æŸ¥æ‰¾ï¼Œiï¼šè¿”å›žå•é€’å¢žæ•°åˆ—ï¼Œcï¼šè¿žç»­å‡ºçŽ°
+	 * @return ä½ç½®æˆ–è€…ä½ç½®åºåˆ—
 	 */
 	public Object pos(IArray array, String opt) {
 		return ArrayUtil.pos(this, array, opt);
 	}
 
 	/**
-	 * ·µ»ØÊý×é³ÉÔ±µÄ¶þ½øÖÆ±íÊ¾Ê±1µÄ¸öÊýºÍ
+	 * è¿”å›žæ•°ç»„æˆå‘˜çš„äºŒè¿›åˆ¶è¡¨ç¤ºæ—¶1çš„ä¸ªæ•°å’Œ
 	 * @return
 	 */
 	public int bit1() {
@@ -1062,9 +1062,9 @@ public class ColumnList implements IArray {
 	}
 
 	/**
-	 * ·µ»ØÊý×é³ÉÔ±°´Î»Òì»òÖµµÄ¶þ½øÖÆ±íÊ¾Ê±1µÄ¸öÊýºÍ
-	 * @param array Òì»òÊý×é
-	 * @return 1µÄ¸öÊýºÍ
+	 * è¿”å›žæ•°ç»„æˆå‘˜æŒ‰ä½å¼‚æˆ–å€¼çš„äºŒè¿›åˆ¶è¡¨ç¤ºæ—¶1çš„ä¸ªæ•°å’Œ
+	 * @param array å¼‚æˆ–æ•°ç»„
+	 * @return 1çš„ä¸ªæ•°å’Œ
 	 */
 	public int bit1(IArray array) {
 		MessageManager mm = EngineMessage.get();
@@ -1072,9 +1072,9 @@ public class ColumnList implements IArray {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÁ¬ÐøÏàÍ¬µÄÔªËØÊýÁ¿
-	 * @param index Î»ÖÃ
-	 * @return Á¬ÐøÏàÍ¬µÄÔªËØÊýÁ¿
+	 * å–æŒ‡å®šä½ç½®è¿žç»­ç›¸åŒçš„å…ƒç´ æ•°é‡
+	 * @param index ä½ç½®
+	 * @return è¿žç»­ç›¸åŒçš„å…ƒç´ æ•°é‡
 	 */
 	public int getNextEqualCount(int index) {
 		throw new RuntimeException();

@@ -19,53 +19,53 @@ import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.ide.spl.GCSpl;
 
 /**
- * ĞĞ±íÍ·¼àÌıÆ÷
+ * è¡Œè¡¨å¤´ç›‘å¬å™¨
  *
  */
 public class RowHeaderListener implements MouseMotionListener, MouseListener,
 		KeyListener {
-	/** Íø¸ñ±à¼­¿Ø¼ş */
+	/** ç½‘æ ¼ç¼–è¾‘æ§ä»¶ */
 	private SplControl control;
 
-	/** Ñ¡ÔñÊ±µÄÆğÊ¼ĞĞ */
+	/** é€‰æ‹©æ—¶çš„èµ·å§‹è¡Œ */
 	private int startSelectedRow;
 
-	/** ¸Ä±äĞĞ¸ßÊ±µÄÊó±êÆğÊ¼µãY×ø±ê */
+	/** æ”¹å˜è¡Œé«˜æ—¶çš„é¼ æ ‡èµ·å§‹ç‚¹Yåæ ‡ */
 	private int resizeStartY;
 
-	/** ¸Ä±äĞĞ¸ßÊ±µÄ±»²Ù×÷ĞĞ */
+	/** æ”¹å˜è¡Œé«˜æ—¶çš„è¢«æ“ä½œè¡Œ */
 	private int resizeStartRow;
 
-	/** ¸Ä±äĞĞ¸ßÇ°µÄÔ­Ê¼ĞĞ¸ß */
+	/** æ”¹å˜è¡Œé«˜å‰çš„åŸå§‹è¡Œé«˜ */
 	private float oldCellHeight;
 
-	/** ¸Ä±äĞĞ¸ß¹ı³ÌÖĞµÄÁÙÊ±ĞĞ¸ß */
+	/** æ”¹å˜è¡Œé«˜è¿‡ç¨‹ä¸­çš„ä¸´æ—¶è¡Œé«˜ */
 	private int tmpHeight;
 
-	/** ÊÇ·ñ¿ÉÒÔ±à¼­ */
+	/** æ˜¯å¦å¯ä»¥ç¼–è¾‘ */
 	private boolean editable = true;
-	/** µ±Ç°¸ñ×ø±ê */
+	/** å½“å‰æ ¼åæ ‡ */
 	private transient CellLocation activeCell = null;
 
 	/**
-	 * Ö§³ÖĞĞÍ·¶àÑ¡
+	 * æ”¯æŒè¡Œå¤´å¤šé€‰
 	 */
 	protected boolean supportMultiSelect = true;
 
 	/**
-	 * ¼àÌıÆ÷¹¹Ôìº¯Êı
+	 * ç›‘å¬å™¨æ„é€ å‡½æ•°
 	 * 
-	 * @param control Íø¸ñ±à¼­¿Ø¼ş
+	 * @param control ç½‘æ ¼ç¼–è¾‘æ§ä»¶
 	 */
 	public RowHeaderListener(SplControl control) {
 		this(control, true);
 	}
 
 	/**
-	 * ¼àÌıÆ÷¹¹Ôìº¯Êı
+	 * ç›‘å¬å™¨æ„é€ å‡½æ•°
 	 * 
-	 * @param control  Íø¸ñ±à¼­¿Ø¼ş
-	 * @param editable ÊÇ·ñ¿ÉÒÔ±à¼­
+	 * @param control  ç½‘æ ¼ç¼–è¾‘æ§ä»¶
+	 * @param editable æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public RowHeaderListener(SplControl control, boolean editable) {
 		this.control = control;
@@ -73,7 +73,7 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * Êó±ê½øÈëÊÂ¼ş
+	 * é¼ æ ‡è¿›å…¥äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -81,9 +81,9 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * Êó±ê°´ÏÂÊ±µÄ´¦Àí
+	 * é¼ æ ‡æŒ‰ä¸‹æ—¶çš„å¤„ç†
 	 * 
-	 * @param e Êó±êÊÂ¼ş
+	 * @param e é¼ æ ‡äº‹ä»¶
 	 */
 	public void mousePressed(MouseEvent e) {
 		if (!editable) {
@@ -117,7 +117,7 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 				}
 				control.m_selectedCols.clear();
 
-				// Ñ§Ï°excel°ÑÑ¡ÖĞÇøÓòµÄÊ×¸ñ×÷Îªµ±Ç°¸ñ
+				// å­¦ä¹ excelæŠŠé€‰ä¸­åŒºåŸŸçš„é¦–æ ¼ä½œä¸ºå½“å‰æ ¼
 				int firstCol = control.getContentPanel().drawStartCol;
 				if (firstCol < 1 || firstCol > control.cellSet.getColCount())
 					firstCol = 1;
@@ -158,9 +158,9 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * Êó±êÊÍ·ÅÊ±µÄ´¦Àí
+	 * é¼ æ ‡é‡Šæ”¾æ—¶çš„å¤„ç†
 	 * 
-	 * @param e Êó±êÊÂ¼ş
+	 * @param e é¼ æ ‡äº‹ä»¶
 	 */
 	public void mouseReleased(MouseEvent e) {
 		if (!editable) {
@@ -170,7 +170,7 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 		int y = e.getY();
 		int row = ControlUtils.lookupHeaderIndex(y, control.cellY,
 				control.cellH);
-		// ÍÏ×§Ê±£¬Ë¢ĞÂ¿Ø¼şÔì³ÉÍÏ²»¶¯£¬Ö»Òª±»ÍÏ×§ÁË£¬¾Í½ûÖ¹»î¶¯¸ñ
+		// æ‹–æ‹½æ—¶ï¼Œåˆ·æ–°æ§ä»¶é€ æˆæ‹–ä¸åŠ¨ï¼Œåªè¦è¢«æ‹–æ‹½äº†ï¼Œå°±ç¦æ­¢æ´»åŠ¨æ ¼
 		if (activeCell != null && control.m_selectedRows != null
 				&& control.m_selectedRows.contains(activeCell.getRow())) {
 			control.setActiveCell(activeCell, false);
@@ -233,14 +233,14 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 				showPopup(me);
 			}
 		};
-		SwingUtilities.invokeLater(t); // ÑÓ³Ùµ¯³ö£¬±ÜÃâ²Ëµ¥ÔÚ¿Ø¼şÖĞ±»µ²×¡
+		SwingUtilities.invokeLater(t); // å»¶è¿Ÿå¼¹å‡ºï¼Œé¿å…èœå•åœ¨æ§ä»¶ä¸­è¢«æŒ¡ä½
 	}
 
 	/**
-	 * Êó±êµã»÷ÊÂ¼ş
+	 * é¼ æ ‡ç‚¹å‡»äº‹ä»¶
 	 */
 	public void mouseClicked(MouseEvent e) {
-		// Ë«»÷ĞĞ±êÌâµÄ¸ñÏß£¬´¥·¢×Ô¶¯µ÷ÕûĞĞ¸ßµÄ¹¦ÄÜ
+		// åŒå‡»è¡Œæ ‡é¢˜çš„æ ¼çº¿ï¼Œè§¦å‘è‡ªåŠ¨è°ƒæ•´è¡Œé«˜çš„åŠŸèƒ½
 		if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
 			int y = e.getY();
 			int row = ControlUtils.lookupHeaderIndex(y, control.cellY,
@@ -262,15 +262,15 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * Êó±êÍË³öÊÂ¼ş
+	 * é¼ æ ‡é€€å‡ºäº‹ä»¶
 	 */
 	public void mouseExited(MouseEvent e) {
 	}
 
 	/**
-	 * °´×¡×ó¼üÍÏ¶¯Êó±êÊ±µÄ´¦Àí
+	 * æŒ‰ä½å·¦é”®æ‹–åŠ¨é¼ æ ‡æ—¶çš„å¤„ç†
 	 * 
-	 * @param e Êó±êÊÂ¼ş
+	 * @param e é¼ æ ‡äº‹ä»¶
 	 */
 	public void mouseDragged(MouseEvent e) {
 		if (!editable) {
@@ -288,7 +288,7 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 			if (start <= 0) {
 				return;
 			}
-			// ÍÏ×§¶àĞĞÔÙ·µ»ØÊ±£¬ĞĞ±»¶àÑ¡
+			// æ‹–æ‹½å¤šè¡Œå†è¿”å›æ—¶ï¼Œè¡Œè¢«å¤šé€‰
 			control.m_selectedRows.clear();
 			for (int i = start; i <= end; i++) {
 				control.addSelectedRow(new Integer(i));
@@ -322,7 +322,7 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 					rc.setHeight(newHeight);
 				control.getRowHeader().getView().repaint();
 
-				// ÍÏ×§¹ı³Ì²»ÊµÊ±Ë¢ĞÂÄÚÈİ£¬»áµ¼ÖÂÎÄ×ÖµÄwrapBuffer¼±¾çÈßÓà
+				// æ‹–æ‹½è¿‡ç¨‹ä¸å®æ—¶åˆ·æ–°å†…å®¹ï¼Œä¼šå¯¼è‡´æ–‡å­—çš„wrapBufferæ€¥å‰§å†—ä½™
 				control.getViewport().getView().repaint();
 				ControlUtilsBase.clearWrapBuffer();
 			}
@@ -330,9 +330,9 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * Êó±êÒÆ¶¯Ê±µÄ´¦Àí
+	 * é¼ æ ‡ç§»åŠ¨æ—¶çš„å¤„ç†
 	 * 
-	 * @param e Êó±êÊÂ¼ş
+	 * @param e é¼ æ ‡äº‹ä»¶
 	 */
 	public void mouseMoved(MouseEvent e) {
 		if (!editable) {
@@ -366,7 +366,7 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * ÏÔÊ¾ÓÒ¼üµ¯³ö²Ëµ¥
+	 * æ˜¾ç¤ºå³é”®å¼¹å‡ºèœå•
 	 * 
 	 * @param e
 	 */
@@ -377,15 +377,15 @@ public class RowHeaderListener implements MouseMotionListener, MouseListener,
 	}
 
 	/**
-	 * ¼üÅÌ°´¼üÊÍ·ÅÊÂ¼ş
+	 * é”®ç›˜æŒ‰é”®é‡Šæ”¾äº‹ä»¶
 	 */
 	public void keyReleased(KeyEvent e) {
 	}
 
 	/**
-	 * ¼üÅÌ±»°´ÏÂµÄ´¦Àí Èô°´ÏÂµÄÊÇshift+·½Ïò¼ü£¬ÏàÓ¦¸Ä±äµ±Ç°Ñ¡ÖĞµÄĞĞ
+	 * é”®ç›˜è¢«æŒ‰ä¸‹çš„å¤„ç† è‹¥æŒ‰ä¸‹çš„æ˜¯shift+æ–¹å‘é”®ï¼Œç›¸åº”æ”¹å˜å½“å‰é€‰ä¸­çš„è¡Œ
 	 * 
-	 * @param e ¼üÅÌÊÂ¼ş
+	 * @param e é”®ç›˜äº‹ä»¶
 	 */
 	public void keyPressed(KeyEvent e) {
 		if (!editable) {

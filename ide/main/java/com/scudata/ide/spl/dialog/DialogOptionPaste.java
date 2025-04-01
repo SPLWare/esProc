@@ -25,57 +25,57 @@ import com.scudata.ide.spl.control.SplEditor;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * Ñ¡ÏîÕ³Ìù¶Ô»°¿ò
+ * é€‰é¡¹ç²˜è´´å¯¹è¯æ¡†
  *
  */
 public class DialogOptionPaste extends JDialog {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * Õ³ÌùÇ°Ä¿±êÇøÓò¶¯×÷
+	 * ç²˜è´´å‰ç›®æ ‡åŒºåŸŸåŠ¨ä½œ
 	 */
 	private TitledBorder titledBorder1;
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 	/**
-	 * ²åÈëÊÊµ±¿ÕÁĞ
+	 * æ’å…¥é€‚å½“ç©ºåˆ—
 	 */
 	private JRadioButton jRBCol = new JRadioButton();
 	/**
-	 * ²åÈëÊÊµ±¿ÕĞĞ
+	 * æ’å…¥é€‚å½“ç©ºè¡Œ
 	 */
 	private JRadioButton jRBRow = new JRadioButton();
 	/**
-	 * Ä¿±êÇøÓò¸ñ×ÓÏÂÒÆ
+	 * ç›®æ ‡åŒºåŸŸæ ¼å­ä¸‹ç§»
 	 */
 	private JRadioButton jRBBottom = new JRadioButton();
 	/**
-	 * Ä¿±êÇøÓò¸ñ×ÓÓÒÒÆ
+	 * ç›®æ ‡åŒºåŸŸæ ¼å­å³ç§»
 	 */
 	private JRadioButton jRBRight = new JRadioButton();
 	/**
-	 * µ÷Õû±í´ïÊ½
+	 * è°ƒæ•´è¡¨è¾¾å¼
 	 */
 	private JCheckBox jCBAdjust = new JCheckBox();
 	/**
-	 * ¼¯ËãÆ÷ÓïÑÔ×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨è¯­è¨€èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager splMM = IdeSplMessage.get();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogOptionPaste() {
-		super(GV.appFrame, "Ñ¡ÏîÊ½Õ³Ìù", true);
+		super(GV.appFrame, "é€‰é¡¹å¼ç²˜è´´", true);
 		try {
 			initUI();
 			setSize(400, 250);
@@ -87,22 +87,22 @@ public class DialogOptionPaste extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
-		setTitle(splMM.getMessage("dialogoptionpaste.title")); // Ñ¡ÏîÊ½Õ³Ìù
-		jBOK.setText(splMM.getMessage("button.ok")); // È·¶¨(O)
-		jBCancel.setText(splMM.getMessage("button.cancel")); // È¡Ïû(C)
-		titledBorder1.setTitle(splMM.getMessage("dialogoptionpaste.titleborder1")); // Õ³ÌùÇ°Ä¿±êÇøÓò¶¯×÷
-		jRBCol.setText(splMM.getMessage("dialogoptionpaste.insertcol")); // ²åÈëÊÊµ±¿ÕÁĞ(L)
-		jRBRow.setText(splMM.getMessage("dialogoptionpaste.insertrow")); // ²åÈëÊÊµ±¿ÕĞĞ(H)
-		jRBBottom.setText(splMM.getMessage("dialogoptionpaste.bottom")); // Ä¿±êÇøÓò¸ñ×ÓÏÂÒÆ(D)
-		jRBRight.setText(splMM.getMessage("dialogoptionpaste.right")); // Ä¿±êÇøÓò¸ñ×ÓÓÒÒÆ(R)
+		setTitle(splMM.getMessage("dialogoptionpaste.title")); // é€‰é¡¹å¼ç²˜è´´
+		jBOK.setText(splMM.getMessage("button.ok")); // ç¡®å®š(O)
+		jBCancel.setText(splMM.getMessage("button.cancel")); // å–æ¶ˆ(C)
+		titledBorder1.setTitle(splMM.getMessage("dialogoptionpaste.titleborder1")); // ç²˜è´´å‰ç›®æ ‡åŒºåŸŸåŠ¨ä½œ
+		jRBCol.setText(splMM.getMessage("dialogoptionpaste.insertcol")); // æ’å…¥é€‚å½“ç©ºåˆ—(L)
+		jRBRow.setText(splMM.getMessage("dialogoptionpaste.insertrow")); // æ’å…¥é€‚å½“ç©ºè¡Œ(H)
+		jRBBottom.setText(splMM.getMessage("dialogoptionpaste.bottom")); // ç›®æ ‡åŒºåŸŸæ ¼å­ä¸‹ç§»(D)
+		jRBRight.setText(splMM.getMessage("dialogoptionpaste.right")); // ç›®æ ‡åŒºåŸŸæ ¼å­å³ç§»(R)
 		jCBAdjust.setText(splMM.getMessage("dialogoptionpaste.adjust"));
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -111,7 +111,7 @@ public class DialogOptionPaste extends JDialog {
 	}
 
 	/**
-	 * ÊÇ·ñµ÷Õû±í´ïÊ½
+	 * æ˜¯å¦è°ƒæ•´è¡¨è¾¾å¼
 	 * 
 	 * @return
 	 */
@@ -120,7 +120,7 @@ public class DialogOptionPaste extends JDialog {
 	}
 
 	/**
-	 * È¡Õ³ÌùÑ¡Ïî
+	 * å–ç²˜è´´é€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -136,7 +136,7 @@ public class DialogOptionPaste extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -146,14 +146,14 @@ public class DialogOptionPaste extends JDialog {
 		VFlowLayout vFlowLayout1 = new VFlowLayout();
 		GridBagLayout gridBagLayout1 = new GridBagLayout();
 		titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(142, 142, 142)),
-				"Õ³ÌùÇ°Ä¿±êÇøÓò¶¯×÷");
+				"ç²˜è´´å‰ç›®æ ‡åŒºåŸŸåŠ¨ä½œ");
 		jPanel2.setLayout(vFlowLayout1);
 		jPanel1.setLayout(gridBagLayout1);
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogOptionPaste_jBOK_actionAdapter(this));
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogOptionPaste_jBCancel_actionAdapter(this));
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new DialogOptionPaste_this_windowAdapter(this));
@@ -163,16 +163,16 @@ public class DialogOptionPaste extends JDialog {
 		jPOption.setBorder(titledBorder1);
 		jPOption.setLayout(VFlowLayout2);
 		jRBCol.setMnemonic('L');
-		jRBCol.setText("²åÈëÊÊµ±¿ÕÁĞ(L)");
+		jRBCol.setText("æ’å…¥é€‚å½“ç©ºåˆ—(L)");
 		jRBRow.setMinimumSize(new Dimension(120, 26));
 		jRBRow.setMnemonic('H');
-		jRBRow.setText("²åÈëÊÊµ±¿ÕĞĞ(H)");
+		jRBRow.setText("æ’å…¥é€‚å½“ç©ºè¡Œ(H)");
 		jRBRow.setSelected(true);
 		jRBBottom.setMnemonic('D');
-		jRBBottom.setText("Ä¿±êÇøÓò¸ñ×ÓÏÂÒÆ(D)");
+		jRBBottom.setText("ç›®æ ‡åŒºåŸŸæ ¼å­ä¸‹ç§»(D)");
 		jRBRight.setToolTipText("");
 		jRBRight.setMnemonic('R');
-		jRBRight.setText("Ä¿±êÇøÓò¸ñ×ÓÓÒÒÆ(R)");
+		jRBRight.setText("ç›®æ ‡åŒºåŸŸæ ¼å­å³ç§»(R)");
 		JPanel panelCenter = new JPanel(new BorderLayout());
 		panelCenter.add(jPanel1, BorderLayout.CENTER);
 		JPanel panelAdjust = new JPanel(new GridBagLayout());
@@ -195,7 +195,7 @@ public class DialogOptionPaste extends JDialog {
 	}
 
 	/**
-	 * ¹Ø±Õ´°¿Ú
+	 * å…³é—­çª—å£
 	 */
 	private void close() {
 		GM.setWindowDimension(this);
@@ -203,7 +203,7 @@ public class DialogOptionPaste extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -212,7 +212,7 @@ public class DialogOptionPaste extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -222,7 +222,7 @@ public class DialogOptionPaste extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */

@@ -29,14 +29,14 @@ import com.scudata.resources.EngineMessage;
 /**
  * 
  * @author lxch
- * ÁĞÃû²¿·Ö½âÎö
- * 1. Çø·Ö´øÌõ¼ş»¹ÊÇ²»´øÌõ¼ş£¬·ÖºÅ¾ö¶¨
- * 2. ×Ö¶Î²¿·Ö£ºlist»òIParam::array.
- * 3. CHECK_TABLEºóÎªÁĞÃû²¿·Ö£¬ ÆäÇ°Îªconn,tableName, rowkey
- * 4. ¼ì²âÊÇ·ñÎªfamily:column½á¹¹£¬ÈôÊÇÔò±ê¼ÇCHECK_COLUMN
- * 5. ´¦Àífamily:columnºó£¬ÔÙ´¦Àícheck_type
- * 6. "family:column"::aliasÊ±£¬check_type¶ÔÓ¦ÖµÎªnull
- * 7. Ñ­»·4,5,6²¿·Ö¡£
+ * åˆ—åéƒ¨åˆ†è§£æ
+ * 1. åŒºåˆ†å¸¦æ¡ä»¶è¿˜æ˜¯ä¸å¸¦æ¡ä»¶ï¼Œåˆ†å·å†³å®š
+ * 2. å­—æ®µéƒ¨åˆ†ï¼šlistæˆ–IParam::array.
+ * 3. CHECK_TABLEåä¸ºåˆ—åéƒ¨åˆ†ï¼Œ å…¶å‰ä¸ºconn,tableName, rowkey
+ * 4. æ£€æµ‹æ˜¯å¦ä¸ºfamily:columnç»“æ„ï¼Œè‹¥æ˜¯åˆ™æ ‡è®°CHECK_COLUMN
+ * 5. å¤„ç†family:columnåï¼Œå†å¤„ç†check_type
+ * 6. "family:column"::aliasæ—¶ï¼Œcheck_typeå¯¹åº”å€¼ä¸ºnull
+ * 7. å¾ªç¯4,5,6éƒ¨åˆ†ã€‚
  */
 public class HbaseQuery extends Function {
 	enum CheckType {
@@ -178,7 +178,7 @@ public class HbaseQuery extends Function {
 		} 		
 	}
 	
-	// È«±íÉ¨Ãè	
+	// å…¨è¡¨æ‰«æ	
 	public Object doHbaseQuery( TableInfo tb ) throws IOException
 	{      
 		return null;
@@ -211,7 +211,7 @@ public class HbaseQuery extends Function {
 		 return null;
 	}
 	/*
-	 * hbase_scan(client,±íÃû,ÁĞ1:ÀàĞÍ:±ğÃû,ÁĞ2:ÀàĞÍ:±ğÃû,...;rowPrefix:x,
+	 * hbase_scan(client,è¡¨å,åˆ—1:ç±»å‹:åˆ«å,åˆ—2:ç±»å‹:åˆ«å,...;rowPrefix:x,
 	 * filter:f,limit:l,version
 	 * :i,startRow:x,stopRow:x,timeRange:[t1,t2],timeStamp:t)
 	 */
@@ -265,7 +265,7 @@ public class HbaseQuery extends Function {
 		// m_tableInfo.printTest("scan param part");
 	}
 
-	//´¦Àí´«µİ²ÎÊı
+	//å¤„ç†ä¼ é€’å‚æ•°
 	protected void doTableColumn(Context ctx, ArrayList<Expression> list) {
 		int size = list.size();
 		Object obj = new Object();
@@ -339,13 +339,13 @@ public class HbaseQuery extends Function {
 		m_chkType = CheckType.CHECK_TABLE;
 		
 		for (int i = 0; i < size; i++) {
-			if (param.getSub(i).isLeaf() ){ //ÎŞÌõ¼ş
+			if (param.getSub(i).isLeaf() ){ //æ— æ¡ä»¶
 				if (i==0){ // for conn handle;
 					obj = param.getSub(i).getLeafExpression().calculate(ctx);
 				}else{
 					s = (String)param.getSub(i).getLeafExpression().calculate(ctx);
 				}
-			}else{ //ÓĞÌõ¼ş
+			}else{ //æœ‰æ¡ä»¶
 				list.clear();
 				param.getSub(i).getAllLeafExpression(list);
 			}
@@ -394,8 +394,8 @@ public class HbaseQuery extends Function {
 		}
 	}
 	
-	// ½âÎöFamily:Column
-	// return bRet: ÊÇ·ñÎªFamily:Column
+	// è§£æFamily:Column
+	// return bRet: æ˜¯å¦ä¸ºFamily:Column
 	protected void parseFamilyColumn(Matcher m[]) {
 		if (m[0].groupCount() == 2) { // A101 family, column, alias
 			m_tmpColumnName = m[0].group(1) + "." + m[0].group(2);
@@ -409,7 +409,7 @@ public class HbaseQuery extends Function {
 		m_chkType = CheckType.CHECK_TYPE;		
 	}
 		  
-	//½«ResultScanner×ª»»³ÉTalbe, 
+	//å°†ResultScannerè½¬æ¢æˆTalbe, 
 	public static Table toTable(ResultScanner scanner) throws IOException {
   		if ( scanner == null) return null;
   		String[] colNames = null;
@@ -449,7 +449,7 @@ public class HbaseQuery extends Function {
   	            }
   	        }//endfor
   		}//endfor
-  		//ÓĞ¼ÇÂ¼Ôò¸ÄÃû
+  		//æœ‰è®°å½•åˆ™æ”¹å
 //  		if (list.size()>0 && table!=null ){
 //	  		String[] cols = list.toArray(new String[list.size()]);
 //	  		table.rename(colNames, cols);
@@ -522,7 +522,7 @@ public class HbaseQuery extends Function {
   	            	r.set(fullName, Bytes.toString(CellUtil.cloneValue(c)));
   	            }
   	        }  			  			
-  			if (limit > 0 && ++nCount>=limit) break; //×î´ó¼ÇÂ¼Êı;
+  			if (limit > 0 && ++nCount>=limit) break; //æœ€å¤§è®°å½•æ•°;
   		}
   		
   		return table;

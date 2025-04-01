@@ -5,19 +5,19 @@ import java.util.Locale;
 import com.scudata.common.MessageManager;
 
 /**
- * ¼¯ËãÆ÷×ÊÔ´
+ * é›†ç®—å™¨èµ„æº
  *
  */
 public class IdeSplMessage {
 
 	/**
-	 * Ë½ÓĞ¹¹Ôìº¯Êı
+	 * ç§æœ‰æ„é€ å‡½æ•°
 	 */
 	private IdeSplMessage() {
 	}
 
 	/**
-	 * »ñÈ¡×ÊÔ´¹ÜÀíÆ÷¶ÔÏó
+	 * è·å–èµ„æºç®¡ç†å™¨å¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -26,9 +26,9 @@ public class IdeSplMessage {
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨ÇøÓòµÄ×ÊÔ´¹ÜÀíÆ÷¶ÔÏó
+	 * è·å–æŒ‡å®šåŒºåŸŸçš„èµ„æºç®¡ç†å™¨å¯¹è±¡
 	 * 
-	 * @param locale ÇøÓò
+	 * @param locale åŒºåŸŸ
 	 * @return
 	 */
 	public static MessageManager get(Locale locale) {

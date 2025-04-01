@@ -16,17 +16,17 @@ import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ĞòÁĞµÄµ±Ç°Ñ­»·ĞòºÅ
+ * åºåˆ—çš„å½“å‰å¾ªç¯åºå·
  * #  A.#
  * @author RunQian
  *
  */
 public class CurrentSeq extends Node {
 	private Sequence sequence;
-	private Node left; // µã²Ù×÷·ûµÄ×ó²à½Úµã	
+	private Node left; // ç‚¹æ“ä½œç¬¦çš„å·¦ä¾§èŠ‚ç‚¹	
 
 	/**
-	 * È¡½ÚµãµÄ×ó²à½Úµã£¬Ã»ÓĞ·µ»Ø¿Õ
+	 * å–èŠ‚ç‚¹çš„å·¦ä¾§èŠ‚ç‚¹ï¼Œæ²¡æœ‰è¿”å›ç©º
 	 * @return Node
 	 */
 	public Node getLeft() {
@@ -34,8 +34,8 @@ public class CurrentSeq extends Node {
 	}
 
 	/**
-	 * ÉèÖÃ½ÚµãµÄ×ó²à½Úµã
-	 * @param node ½Úµã
+	 * è®¾ç½®èŠ‚ç‚¹çš„å·¦ä¾§èŠ‚ç‚¹
+	 * @param node èŠ‚ç‚¹
 	 */
 	public void setLeft(Node node) {
 		left = node;
@@ -53,7 +53,7 @@ public class CurrentSeq extends Node {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		sequence = null;
@@ -78,10 +78,10 @@ public class CurrentSeq extends Node {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -89,9 +89,9 @@ public class CurrentSeq extends Node {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -108,8 +108,8 @@ public class CurrentSeq extends Node {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -159,8 +159,8 @@ public class CurrentSeq extends Node {
 	}
 	
 	/**
-	 * ·µ»Ø½ÚµãÊÇ·ñµ¥µ÷µİÔöµÄ
-	 * @return true£ºÊÇµ¥µ÷µİÔöµÄ£¬false£º²»ÊÇ
+	 * è¿”å›èŠ‚ç‚¹æ˜¯å¦å•è°ƒé€’å¢çš„
+	 * @return trueï¼šæ˜¯å•è°ƒé€’å¢çš„ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isMonotone() {
 		return true;

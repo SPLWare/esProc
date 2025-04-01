@@ -8,7 +8,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼ÆËãĞòÁĞµÄÕ¼±È
+ * è®¡ç®—åºåˆ—çš„å æ¯”
  * A.proportion() A.proportion(x)
  * @author RunQian
  *

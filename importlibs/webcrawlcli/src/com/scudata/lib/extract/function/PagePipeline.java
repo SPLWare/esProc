@@ -27,7 +27,7 @@ public class PagePipeline extends FilePersistentBase implements Pipeline {
 		m_bPostfix = bPostfix;
 	}
 	
-	//加md5Hex为防止重�?
+	//鍔爉d5Hex涓洪槻姝㈤噸鍚?
 	public void process(ResultItems resultItems, Task task) {
 		String saveFile = null;
 		Object o = null;
@@ -49,7 +49,7 @@ public class PagePipeline extends FilePersistentBase implements Pipeline {
 			}
 			Object[] ret = new Object[1];
 			mMatch = ImUtils.hasMatch(url, "=((sz|sh|)\\d{6}$)", ret, 1);
-			//1. 有股票代码的优先
+			//1. 鏈夎偂绁ㄤ唬鐮佺殑浼樺厛
 			if (mMatch){
 				if (m_bPostfix){
 					saveFile = spath + ret[0].toString()+ "_"+hex+".txt";
@@ -58,14 +58,14 @@ public class PagePipeline extends FilePersistentBase implements Pipeline {
 				}
 				break;
 			}
-			//2. 网页�?
+			//2. 缃戦〉鍚?
 			int start = url.lastIndexOf("/");
     		int end = url.lastIndexOf("?");
     		if (end<0) {
     			end=url.length();
     		}
     		String link = url.substring(start+1, end);
-    		//2. 带后�?名的文件�?.
+    		//2. 甯﹀悗缂?鍚嶇殑鏂囦欢鐨?.
     		//mMatch = ImUtils.hasMatch(link, "\\.(xml|json|txt|html|htm|csv|dat|xls|xlsx|zip|rar|tar|tgz|tar\\.gz)");
     		end = link.indexOf(".");
     		if (end>=0){

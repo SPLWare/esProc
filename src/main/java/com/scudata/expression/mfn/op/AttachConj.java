@@ -10,25 +10,25 @@ import com.scudata.expression.OperableFunction;
 import com.scudata.expression.ParamParser;
 import com.scudata.resources.EngineMessage;
 
-// ³ÉÔ±µÄºÍÁĞ
+// æˆå‘˜çš„å’Œåˆ—
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼ÓĞòÁĞºÍÁĞÔËËã
- * op.conj() op.conj(x)£¬opÊÇĞòÁĞµÄÓÎ±ê»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ åºåˆ—å’Œåˆ—è¿ç®—
+ * op.conj() op.conj(x)ï¼Œopæ˜¯åºåˆ—çš„æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */
 public class AttachConj extends OperableFunction {
 	/**
-	 * ÉèÖÃº¯Êı²ÎÊı
-	 * @param cs Íø¸ñ¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param param º¯Êı²ÎÊı×Ö·û´®
+	 * è®¾ç½®å‡½æ•°å‚æ•°
+	 * @param cs ç½‘æ ¼å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param param å‡½æ•°å‚æ•°å­—ç¬¦ä¸²
 	 */
 	public void setParameter(ICellSet cs, Context ctx, String param) {
 		strParam = param;
 		this.cs = cs;
 		
-		// A.conj(x,¡­)°Ñ²ÎÊıµ±³ÉÒ»¸öÕûÌå´´½¨³É¶ººÅ±í´ïÊ½
+		// A.conj(x,â€¦)æŠŠå‚æ•°å½“æˆä¸€ä¸ªæ•´ä½“åˆ›å»ºæˆé€—å·è¡¨è¾¾å¼
 		this.param = ParamParser.newLeafParam(param, cs, ctx);
 		if (next != null) {
 			next.setParameter(cs, ctx, param);

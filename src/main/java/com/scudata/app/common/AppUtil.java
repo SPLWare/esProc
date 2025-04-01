@@ -98,7 +98,7 @@ public class AppUtil {
 	}
 
 	/**
-	 * Ö´ĞĞ½Å±¾
+	 * æ‰§è¡Œè„šæœ¬
 	 * 
 	 * @param cmd
 	 *            statement
@@ -107,7 +107,7 @@ public class AppUtil {
 	 * @param ctx
 	 *            The context
 	 * @param escape
-	 *            ÊÇ·ñÍÑÒıºÅ
+	 *            æ˜¯å¦è„±å¼•å·
 	 * @return The result
 	 * @throws SQLException
 	 */
@@ -116,7 +116,7 @@ public class AppUtil {
 		if (!StringUtils.isValidString(cmd)) {
 			return null;
 		}
-		// trim»áµ¼ÖÂÊ×Î²µÄ»»ĞĞ»»ÁĞ·ûºÅ±»È¥µô
+		// trimä¼šå¯¼è‡´é¦–å°¾çš„æ¢è¡Œæ¢åˆ—ç¬¦å·è¢«å»æ‰
 		// cmd = cmd.trim();
 		boolean returnValue = true;
 		boolean isExp = false;
@@ -304,7 +304,7 @@ public class AppUtil {
 	public static boolean isGrid(String sql) {
 		if (sql == null || sql.trim().length() == 0)
 			return false;
-		if (sql.startsWith("#")) // ²ÎÊı¶¨Òå
+		if (sql.startsWith("#")) // å‚æ•°å®šä¹‰
 			return true;
 		try {
 			PgmCellSet cs = CellSetUtil.toPgmCellSet(sql);
@@ -313,19 +313,19 @@ public class AppUtil {
 			}
 		} catch (Throwable t) {
 		}
-		if (Command.isCommand(sql)) { // µ¥¸ö±í´ïÊ½Ò²¿ÉÄÜÊÇÍø¸ñ±í´ïÊ½
+		if (Command.isCommand(sql)) { // å•ä¸ªè¡¨è¾¾å¼ä¹Ÿå¯èƒ½æ˜¯ç½‘æ ¼è¡¨è¾¾å¼
 			return true;
 		}
 		return false;
 	}
 
 	/**
-	 * Ö´ĞĞµ¥±í´ïÊ½£¬²»Éú³ÉÍø¸ñ
+	 * æ‰§è¡Œå•è¡¨è¾¾å¼ï¼Œä¸ç”Ÿæˆç½‘æ ¼
 	 * 
 	 * @param src
-	 *            ±í´ïÊ½
+	 *            è¡¨è¾¾å¼
 	 * @param args
-	 *            ²ÎÊıÖµ¹¹³ÉµÄĞòÁĞ£¬ÓÃ?iÒıÓÃ
+	 *            å‚æ•°å€¼æ„æˆçš„åºåˆ—ï¼Œç”¨?iå¼•ç”¨
 	 * @param ctx
 	 * @return
 	 */
@@ -335,11 +335,11 @@ public class AppUtil {
 	}
 
 	/**
-	 * Ö´ĞĞ±í´ïÊ½´®£¬ÁĞÓÃtab·Ö¸ô£¬ĞĞÓÃ»Ø³µ·Ö¸ô
+	 * æ‰§è¡Œè¡¨è¾¾å¼ä¸²ï¼Œåˆ—ç”¨tabåˆ†éš”ï¼Œè¡Œç”¨å›è½¦åˆ†éš”
 	 * 
 	 * @param src
 	 * @param args
-	 *            ²ÎÊıÖµ¹¹³ÉµÄĞòÁĞ£¬ÓÃ?argiÒıÓÃ
+	 *            å‚æ•°å€¼æ„æˆçš„åºåˆ—ï¼Œç”¨?argiå¼•ç”¨
 	 * @param ctx
 	 * @return
 	 */
@@ -371,7 +371,7 @@ public class AppUtil {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıµ½Íø¸ñ£¬»á¿¼ÂÇ¶¯Ì¬²ÎÊı
+	 * è®¾ç½®å‚æ•°åˆ°ç½‘æ ¼ï¼Œä¼šè€ƒè™‘åŠ¨æ€å‚æ•°
 	 * 
 	 * @param cellSet
 	 * @param args
@@ -382,7 +382,7 @@ public class AppUtil {
 		ParamList list = cellSet.getParamList();
 		if (list == null)
 			return;
-		// È¡³öËùÓĞ±äÁ¿£¬³£Á¿²»ÉèÖÃ
+		// å–å‡ºæ‰€æœ‰å˜é‡ï¼Œå¸¸é‡ä¸è®¾ç½®
 		ParamList varList = new ParamList();
 		list.getAllVarParams(varList);
 		int paramCount = varList.count();
@@ -391,14 +391,14 @@ public class AppUtil {
 		int argCount = args == null ? 0 : args.length();
 		boolean isDynamicParam = cellSet.isDynamicParam();
 		Context ctx = cellSet.getContext();
-		// ²»ÊÇ¶¯Ì¬²ÎÊı£¬»òÕßÊäÈëµÄ²ÎÊı¸öÊıĞ¡ÓÚ¶¨ÒåµÄÊıÁ¿£¬°´Ë³ĞòÌîÈë
+		// ä¸æ˜¯åŠ¨æ€å‚æ•°ï¼Œæˆ–è€…è¾“å…¥çš„å‚æ•°ä¸ªæ•°å°äºå®šä¹‰çš„æ•°é‡ï¼ŒæŒ‰é¡ºåºå¡«å…¥
 		if (!isDynamicParam || argCount < paramCount) {
 			for (int i = 0; i < paramCount; i++) {
 				Param p = varList.get(i);
 				if (i < argCount) {
 					ctx.setParamValue(p.getName(), args.get(i + 1));
 				} else {
-					// Ã»ÓĞÉèÖÃ²ÎÊıÖµ£¬ÓÃÈ±Ê¡Öµ
+					// æ²¡æœ‰è®¾ç½®å‚æ•°å€¼ï¼Œç”¨ç¼ºçœå€¼
 					Object obj = p.getEditValue();
 					if (obj == null) {
 						obj = p.getValue();
@@ -409,12 +409,12 @@ public class AppUtil {
 					ctx.setParamValue(p.getName(), obj);
 				}
 			}
-		} else { // ¶¯Ì¬²ÎÊı£¬ÊäÈëµÄ²ÎÊı´óÓÚµÈÓÚ¶¨Òå£¬×îºóÊ£ÏÂµÄÒ»¸ö»ò¶à¸ö²ÎÊıÆ´³ÉĞòÁĞÉèÖÃµ½×îºóÒ»¸ö¶¯Ì¬²ÎÊı
+		} else { // åŠ¨æ€å‚æ•°ï¼Œè¾“å…¥çš„å‚æ•°å¤§äºç­‰äºå®šä¹‰ï¼Œæœ€åå‰©ä¸‹çš„ä¸€ä¸ªæˆ–å¤šä¸ªå‚æ•°æ‹¼æˆåºåˆ—è®¾ç½®åˆ°æœ€åä¸€ä¸ªåŠ¨æ€å‚æ•°
 			for (int i = 0; i < paramCount - 1; i++) {
 				Param p = varList.get(i);
 				ctx.setParamValue(p.getName(), args.get(i + 1));
 			}
-			// ¶¯Ì¬²ÎÊıÖµÎªĞòÁĞ£¬Ö»ÓĞÒ»¸ö²ÎÊıÒ²»áÆ´³ÉĞòÁĞ
+			// åŠ¨æ€å‚æ•°å€¼ä¸ºåºåˆ—ï¼Œåªæœ‰ä¸€ä¸ªå‚æ•°ä¹Ÿä¼šæ‹¼æˆåºåˆ—
 			Sequence dynamicParam = args.get(paramCount, argCount + 1);
 			Param p = varList.get(paramCount - 1);
 			ctx.setParamValue(p.getName(), dynamicParam);
@@ -422,13 +422,13 @@ public class AppUtil {
 	}
 
 	/**
-	 * É¨ÃèID
+	 * æ‰«æID
 	 * 
 	 * @param expStr
-	 *            ±í´ïÊ½×Ö·û´®
+	 *            è¡¨è¾¾å¼å­—ç¬¦ä¸²
 	 * @param location
-	 *            ÆğÊ¼Î»ÖÃ
-	 * @return ÕÒµ½µÄID
+	 *            èµ·å§‹ä½ç½®
+	 * @return æ‰¾åˆ°çš„ID
 	 */
 	public static String scanId(String expStr, int location) {
 		int len = expStr.length();
@@ -447,15 +447,15 @@ public class AppUtil {
 	}
 
 	/**
-	 * ·µ»ØÏÂÒ»¸ö×Ö·ûÊÇ·ñÊÇÖ¸¶¨×Ö·ûc£¬¿Õ×Ö·ûÌø¹ı
+	 * è¿”å›ä¸‹ä¸€ä¸ªå­—ç¬¦æ˜¯å¦æ˜¯æŒ‡å®šå­—ç¬¦cï¼Œç©ºå­—ç¬¦è·³è¿‡
 	 * 
 	 * @param c
-	 *            ×Ö·û
+	 *            å­—ç¬¦
 	 * @param expStr
-	 *            ±í´ïÊ½×Ö·û´®
+	 *            è¡¨è¾¾å¼å­—ç¬¦ä¸²
 	 * @param location
-	 *            ÆğÊ¼Î»ÖÃ
-	 * @return ÏÂÒ»¸ö×Ö·ûÊÇ·ñÊÇÖ¸¶¨×Ö·ûc
+	 *            èµ·å§‹ä½ç½®
+	 * @return ä¸‹ä¸€ä¸ªå­—ç¬¦æ˜¯å¦æ˜¯æŒ‡å®šå­—ç¬¦c
 	 */
 	public static boolean isNextChar(char c, String expStr, int location) {
 		int len = expStr.length();
@@ -740,7 +740,7 @@ public class AppUtil {
 		} catch (Exception x) {
 			Logger.info("Error on get localhost:" + x.getMessage());
 		}
-		if (ips.isEmpty()) {// ·ÀÖ¹ÕÒ²»µ½Íø¿¨ÊÇ·µ»Ønull¶ÔÏó£¬Å×nullÒì³£
+		if (ips.isEmpty()) {// é˜²æ­¢æ‰¾ä¸åˆ°ç½‘å¡æ˜¯è¿”å›nullå¯¹è±¡ï¼ŒæŠ›nullå¼‚å¸¸
 			return new String[0];
 		}
 		return StringUtils.toStringArray(ips);
@@ -815,10 +815,10 @@ public class AppUtil {
 	}
 
 	/**
-	 * ¶ÁÈ¡SPLÎÄ¼şµ½³ÌĞòÍø¸ñ
+	 * è¯»å–SPLæ–‡ä»¶åˆ°ç¨‹åºç½‘æ ¼
 	 * 
 	 * @param filePath
-	 *            SPLÎÄ¼şÂ·¾¶
+	 *            SPLæ–‡ä»¶è·¯å¾„
 	 * @return The PgmCellSet
 	 * @throws Exception
 	 */
@@ -828,10 +828,10 @@ public class AppUtil {
 	}
 
 	/**
-	 * Á÷Ê½¶ÁÈ¡SPLÎÄ¼şµ½³ÌĞòÍø¸ñ
+	 * æµå¼è¯»å–SPLæ–‡ä»¶åˆ°ç¨‹åºç½‘æ ¼
 	 * 
 	 * @param in
-	 *            ÎÄ¼şÊäÈëÁ÷
+	 *            æ–‡ä»¶è¾“å…¥æµ
 	 * @return PgmCellSet
 	 * @throws Exception
 	 */
@@ -841,7 +841,7 @@ public class AppUtil {
 	}
 
 	/**
-	 * Í¨¹ı×Ö·û´®SPL´´½¨³ÌĞòÍø¸ñ
+	 * é€šè¿‡å­—ç¬¦ä¸²SPLåˆ›å»ºç¨‹åºç½‘æ ¼
 	 * 
 	 * @param spl
 	 * @return PgmCellSet
@@ -872,7 +872,7 @@ public class AppUtil {
 	}
 
 	/**
-	 * Í¨¹ıÖµ»ñÈ¡±à¼­Öµ¡£splÎÄ¼ş£¬»òÕßapiÉú³ÉµÄsplxÓÃµ½
+	 * é€šè¿‡å€¼è·å–ç¼–è¾‘å€¼ã€‚splæ–‡ä»¶ï¼Œæˆ–è€…apiç”Ÿæˆçš„splxç”¨åˆ°
 	 * 
 	 * @param value
 	 * @return
@@ -893,10 +893,10 @@ public class AppUtil {
 	}
 
 	/**
-	 * ¶ÁÈ¡SPLÎÄ¼şÎª×Ö·û´®
+	 * è¯»å–SPLæ–‡ä»¶ä¸ºå­—ç¬¦ä¸²
 	 * 
 	 * @param filePath
-	 *            SPLÎÄ¼şÂ·¾¶
+	 *            SPLæ–‡ä»¶è·¯å¾„
 	 * @return String
 	 * @throws Exception
 	 */
@@ -954,12 +954,12 @@ public class AppUtil {
 	}
 
 	/**
-	 * µ¼³öÍø¸ñµ½SPLÎÄ¼ş
+	 * å¯¼å‡ºç½‘æ ¼åˆ°SPLæ–‡ä»¶
 	 * 
 	 * @param filePath
-	 *            SPLÎÄ¼şÂ·¾¶
+	 *            SPLæ–‡ä»¶è·¯å¾„
 	 * @param cellSet
-	 *            ³ÌĞòÍø¶ÔÏó
+	 *            ç¨‹åºç½‘å¯¹è±¡
 	 * @throws Exception
 	 */
 	public static void writeSPLFile(String filePath, PgmCellSet cellSet)
@@ -969,12 +969,12 @@ public class AppUtil {
 	}
 
 	/**
-	 * µ¼³öÍø¸ñ×Ö·û´®µ½SPLÎÄ¼ş
+	 * å¯¼å‡ºç½‘æ ¼å­—ç¬¦ä¸²åˆ°SPLæ–‡ä»¶
 	 * 
 	 * @param filePath
-	 *            SPLÎÄ¼şÂ·¾¶
+	 *            SPLæ–‡ä»¶è·¯å¾„
 	 * @param cellSetStr
-	 *            Íø¸ñ×Ö·û´®
+	 *            ç½‘æ ¼å­—ç¬¦ä¸²
 	 * @throws Exception
 	 */
 	public static void writeSPLFile(String filePath, String cellSetStr)
@@ -1007,11 +1007,11 @@ public class AppUtil {
 	}
 
 	/**
-	 * ÊÇ·ñSPLÎÄ¼ş
+	 * æ˜¯å¦SPLæ–‡ä»¶
 	 * 
 	 * @param fileName
-	 *            ÎÄ¼şÃû
-	 * @return ÊÇ·ñSPLÎÄ¼ş
+	 *            æ–‡ä»¶å
+	 * @return æ˜¯å¦SPLæ–‡ä»¶
 	 */
 	public static boolean isSPLFile(String fileName) {
 		if (!StringUtils.isValidString(fileName)) {
@@ -1026,11 +1026,11 @@ public class AppUtil {
 	}
 
 	/**
-	 * ¶ÁÈ¡³ÌĞòÍø¸ñ
+	 * è¯»å–ç¨‹åºç½‘æ ¼
 	 * 
 	 * @param filePath
-	 *            Íø¸ñÎÄ¼şÂ·¾¶
-	 * @return ³ÌĞòÍø¸ñ¶ÔÏó
+	 *            ç½‘æ ¼æ–‡ä»¶è·¯å¾„
+	 * @return ç¨‹åºç½‘æ ¼å¯¹è±¡
 	 * @throws Exception
 	 */
 	public static PgmCellSet readCellSet(String filePath) throws Exception {
@@ -1068,7 +1068,7 @@ public class AppUtil {
 	}
 
 	/**
-	 * ²éÕÒSPLÎÄ¼şÃû£¬ÓÃÓÚÖ§³ÖÎŞºó×ºÃûµÄÇé¿ö
+	 * æŸ¥æ‰¾SPLæ–‡ä»¶åï¼Œç”¨äºæ”¯æŒæ— åç¼€åçš„æƒ…å†µ
 	 * 
 	 * @param filePath
 	 * @return
@@ -1080,7 +1080,7 @@ public class AppUtil {
 		boolean isSearched = false;
 		if (isSPLFile(filePath)) {
 			isSearched = true;
-		} else { // Ã»ÓĞºó×ºÊ±ĞèÒª°´splx,spl,dfxË³ĞòÕÒÎÄ¼ş
+		} else { // æ²¡æœ‰åç¼€æ—¶éœ€è¦æŒ‰splx,spl,dfxé¡ºåºæ‰¾æ–‡ä»¶
 			String[] splExts = AppConsts.SPL_FILE_EXTS.split(",");
 			boolean endWithPoint = filePath.endsWith(".");
 			for (String ext : splExts) {
@@ -1105,10 +1105,10 @@ public class AppUtil {
 	}
 
 	/**
-	 * ½«Òì³£ĞÅÏ¢×ªÎª×Ö·û´®
+	 * å°†å¼‚å¸¸ä¿¡æ¯è½¬ä¸ºå­—ç¬¦ä¸²
 	 * 
 	 * @param e
-	 *            Òì³£
+	 *            å¼‚å¸¸
 	 * @return String
 	 */
 	public static String getThrowableString(Throwable e) {
@@ -1155,7 +1155,7 @@ public class AppUtil {
 	}
 
 	/**
-	 * Æ¥ÅäÀ¨ºÅ
+	 * åŒ¹é…æ‹¬å·
 	 * 
 	 * @param caret
 	 * @return
@@ -1188,7 +1188,7 @@ public class AppUtil {
 	}
 
 	/**
-	 * ÕÒÀ¨ºÅ
+	 * æ‰¾æ‹¬å·
 	 * 
 	 * @param caret
 	 * @return
@@ -1212,7 +1212,7 @@ public class AppUtil {
 						inBrackets--;
 						if (inBrackets == 0) {
 							return i;
-						} else if (inBrackets < 0) { // À¨ºÅ²»Æ¥Åä
+						} else if (inBrackets < 0) { // æ‹¬å·ä¸åŒ¹é…
 							return -1;
 						}
 					}
@@ -1234,7 +1234,7 @@ public class AppUtil {
 						inBrackets--;
 						if (inBrackets == 0) {
 							return i;
-						} else if (inBrackets < 0) { // À¨ºÅ²»Æ¥Åä
+						} else if (inBrackets < 0) { // æ‹¬å·ä¸åŒ¹é…
 							return -1;
 						}
 					}
@@ -1245,7 +1245,7 @@ public class AppUtil {
 	}
 
 	/**
-	 * ×Ö·ûÊÇ·ñºÏ·¨
+	 * å­—ç¬¦æ˜¯å¦åˆæ³•
 	 * 
 	 * @param index
 	 * @return
@@ -1255,7 +1255,7 @@ public class AppUtil {
 	}
 
 	/**
-	 * ×Ö·û´®ÊÇ·ñºÏ·¨
+	 * å­—ç¬¦ä¸²æ˜¯å¦åˆæ³•
 	 * 
 	 * @param index
 	 * @param len
@@ -1269,8 +1269,8 @@ public class AppUtil {
 	}
 
 	/**
-	 * ×¼±¸¼ÆËãÉÏÏÂÎÄ»·¾³
-	 * @return ÉÏÏÂÎÄ»·¾³
+	 * å‡†å¤‡è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
+	 * @return ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 */
 	public static Context prepareEnv(RaqsoftConfig config) {
 		Context ctx;

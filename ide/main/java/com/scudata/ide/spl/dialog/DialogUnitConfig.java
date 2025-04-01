@@ -43,7 +43,7 @@ import com.scudata.parallel.UnitConfig.Host;
 import com.scudata.parallel.UnitContext;
 
 /**
- * ·Ö»úÅäÖÃĞÅÏ¢´°¿Ú
+ * åˆ†æœºé…ç½®ä¿¡æ¯çª—å£
  * 
  * @author Joancy
  *
@@ -66,21 +66,21 @@ public class DialogUnitConfig extends JDialog {
 	private JButton jBCancel = new JButton();
 
 	private JLabel labelTempTimeOut = new JLabel(
-			mm.getMessage("dialogunitconfig.temptimeout")); // ÁÙÊ±ÎÄ¼ş¹ıÆÚÊ±¼ä(Ãë)
+			mm.getMessage("dialogunitconfig.temptimeout")); // ä¸´æ—¶æ–‡ä»¶è¿‡æœŸæ—¶é—´(ç§’)
 	private JSpinner jSTempTimeOut = new JSpinner(new SpinnerNumberModel(12, 0,
 			Integer.MAX_VALUE, 1));
 	private JLabel labelProxyTimeOut = new JLabel(
-			mm.getMessage("dialogunitconfig.proxytimeout")); // ´úÀí¹ıÆÚÊ±¼ä(Ãë)
+			mm.getMessage("dialogunitconfig.proxytimeout")); // ä»£ç†è¿‡æœŸæ—¶é—´(ç§’)
 	private JSpinner jSProxyTimeOut = new JSpinner(new SpinnerNumberModel(12,
 			0, Integer.MAX_VALUE, 1));
 	private JLabel labelInterval = new JLabel(
-			mm.getMessage("dialogunitconfig.checkinterval")); // ¼ì²é¹ıÆÚ¼ä¸ô(Ãë)
+			mm.getMessage("dialogunitconfig.checkinterval")); // æ£€æŸ¥è¿‡æœŸé—´éš”(ç§’)
 	private JSpinner jSInterval = new JSpinner(new SpinnerNumberModel(0, 0,
 			Integer.MAX_VALUE, 1));
 	private JLabel labelBacklog = new JLabel(
-			mm.getMessage("dialogunitconfig.backlog")); // ²¢·¢Á¬½ÓÊı
+			mm.getMessage("dialogunitconfig.backlog")); // å¹¶å‘è¿æ¥æ•°
 	private JSpinner jSBacklog = new JSpinner(new SpinnerNumberModel(10, 1, 50,
-			1));// ²Ù×÷ÏµÍ³µÄÈ±Ê¡×î´óÁ¬½ÓÊıÄ¿Îª50£¬³¬¹ıËüÃ»ÓĞÒâÒå
+			1));// æ“ä½œç³»ç»Ÿçš„ç¼ºçœæœ€å¤§è¿æ¥æ•°ç›®ä¸º50ï¼Œè¶…è¿‡å®ƒæ²¡æœ‰æ„ä¹‰
 
 	private JLabel labelHost = new JLabel(
 			mm.getMessage("dialogunitconfig.hostlist"));
@@ -95,23 +95,23 @@ public class DialogUnitConfig extends JDialog {
 	private final int COL_MAXTASKNUM = 3;
 	private final int COL_ISLOCAL = 4;
 
-	private final String TITLE_INDEX = mm.getMessage("dialogunitconfig.index"); // ĞòºÅ
-	private final String TITLE_HOST = mm.getMessage("dialogunitconfig.tabunit"); // ·Ö»ú
-	private final String TITLE_PORT = mm.getMessage("dialogunitconfig.port"); // ¶Ë¿Ú
+	private final String TITLE_INDEX = mm.getMessage("dialogunitconfig.index"); // åºå·
+	private final String TITLE_HOST = mm.getMessage("dialogunitconfig.tabunit"); // åˆ†æœº
+	private final String TITLE_PORT = mm.getMessage("dialogunitconfig.port"); // ç«¯å£
 	private final String TITLE_MAXTASKNUM = mm
-			.getMessage("dialogunitconfig.maxtasknum"); // ×î´ó×÷ÒµÊı
+			.getMessage("dialogunitconfig.maxtasknum"); // æœ€å¤§ä½œä¸šæ•°
 	// private final String TITLE_PREFERREDTASKNUM = mm
-	// .getMessage("dialogunitconfig.preferredtasknum"); // ÊÊºÏ×÷ÒµÊı
+	// .getMessage("dialogunitconfig.preferredtasknum"); // é€‚åˆä½œä¸šæ•°
 	private final String TITLE_ISLOCAL = mm
-			.getMessage("dialogunitconfig.islocal"); // ÊÇ·ñ±¾»ú
+			.getMessage("dialogunitconfig.islocal"); // æ˜¯å¦æœ¬æœº
 
 	protected JTableEx tableHosts = new JTableEx(new String[] { TITLE_INDEX,
 			TITLE_HOST, TITLE_PORT, TITLE_MAXTASKNUM, TITLE_ISLOCAL });
 
 	private final int COL_START = 1;
 	private final int COL_END = 2;
-	private final String TITLE_START = mm.getMessage("dialogunitconfig.start"); // ÆğÊ¼IP
-	private final String TITLE_END = mm.getMessage("dialogunitconfig.end"); // ½áÊøIP
+	private final String TITLE_START = mm.getMessage("dialogunitconfig.start"); // èµ·å§‹IP
+	private final String TITLE_END = mm.getMessage("dialogunitconfig.end"); // ç»“æŸIP
 	private JTableEx tableClients = new JTableEx(new String[] { TITLE_INDEX,
 			TITLE_START, TITLE_END });
 	JCheckBox cbCheck = new JCheckBox(mm.getMessage("dialogunitconfig.check"));
@@ -128,12 +128,12 @@ public class DialogUnitConfig extends JDialog {
 	protected UnitConfig unitConfig = null;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param parent
-	 *            ¸¸´°Ìå
+	 *            çˆ¶çª—ä½“
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 */
 	public DialogUnitConfig(JFrame parent, String title) {
 		super(parent, title, true);
@@ -153,11 +153,11 @@ public class DialogUnitConfig extends JDialog {
 	}
 
 	/**
-	 * ´ò¿ª¶Ô»°¿òÑ¡ÖĞÒ»¸öÄ¿Â¼
+	 * æ‰“å¼€å¯¹è¯æ¡†é€‰ä¸­ä¸€ä¸ªç›®å½•
 	 * 
 	 * @param oldPath
-	 *            ÒÑÓĞµÄÄ¿Â¼
-	 * @return Ñ¡ÔñµÄÄ¿Â¼
+	 *            å·²æœ‰çš„ç›®å½•
+	 * @return é€‰æ‹©çš„ç›®å½•
 	 */
 	public static String dialogSelectDirectory(String oldPath) {
 		String path = GM.dialogSelectDirectory(GV.appFrame, oldPath);
@@ -165,29 +165,29 @@ public class DialogUnitConfig extends JDialog {
 	}
 
 	/**
-	 * ´ò¿ª¶Ô»°¿òÑ¡ÔñÒ»¸öÎÄ¼ş
+	 * æ‰“å¼€å¯¹è¯æ¡†é€‰æ‹©ä¸€ä¸ªæ–‡ä»¶
 	 * 
 	 * @param exts
-	 *            ÎÄ¼şµÄÀ©Õ¹Ãû
-	 * @return ÎÄ¼ş¶ÔÏó
+	 *            æ–‡ä»¶çš„æ‰©å±•å
+	 * @return æ–‡ä»¶å¯¹è±¡
 	 */
 	public static File dialogSelectFile(String exts) {
 		return GM.dialogSelectFile(GV.appFrame, exts);
 	}
 
 	/**
-	 * »ñÈ¡·Ö»úÅäÖÃ
+	 * è·å–åˆ†æœºé…ç½®
 	 * 
-	 * @return ·Ö»úÅäÖÃ
+	 * @return åˆ†æœºé…ç½®
 	 */
 	public UnitConfig getUnitConfig() {
 		return unitConfig;
 	}
 
 	/**
-	 * »ñÈ¡´°¿ÚµÄ¶¯×÷Ñ¡Ïî
+	 * è·å–çª—å£çš„åŠ¨ä½œé€‰é¡¹
 	 * 
-	 * @return Ñ¡Ïî
+	 * @return é€‰é¡¹
 	 */
 	public int getOption() {
 		return option;
@@ -263,12 +263,12 @@ public class DialogUnitConfig extends JDialog {
 	}
 
 	/**
-	 * ·Ö»úÎÄ¼şÄ¬ÈÏÎªconfigÄ¿Â¼ÏÂ£»ÏÈÕÒÀàÂ·¾¶£¬È»ºóÕÒstart.homeÏÂµÄ¾ø¶ÔÂ·¾¶
+	 * åˆ†æœºæ–‡ä»¶é»˜è®¤ä¸ºconfigç›®å½•ä¸‹ï¼›å…ˆæ‰¾ç±»è·¯å¾„ï¼Œç„¶åæ‰¾start.homeä¸‹çš„ç»å¯¹è·¯å¾„
 	 * 
 	 * @param relativePath
-	 *            String Ïà¶ÔÂ·¾¶
+	 *            String ç›¸å¯¹è·¯å¾„
 	 * @throws Exception
-	 * @return InputStream ÊäÈëÁ÷
+	 * @return InputStream è¾“å…¥æµ
 	 */
 	private InputStream getUnitInputStream(String relativePath)
 			throws Exception {
@@ -346,19 +346,19 @@ public class DialogUnitConfig extends JDialog {
 		jBOK.setText(mm.getMessage("button.ok"));
 		jBCancel.setText(mm.getMessage("button.cancel"));
 
-		tabMain.setTitleAt(TAB_UNIT, mm.getMessage("dialogunitconfig.tabunit")); // ·Ö»ú
+		tabMain.setTitleAt(TAB_UNIT, mm.getMessage("dialogunitconfig.tabunit")); // åˆ†æœº
 		tabMain.setTitleAt(TAB_CLIENT,
-				mm.getMessage("dialogunitconfig.tabclient")); // °×Ãûµ¥
+				mm.getMessage("dialogunitconfig.tabclient")); // ç™½åå•
 	}
 
 	private void rqInit() throws Exception {
 		jPanelButton.setLayout(new VFlowLayout());
 		jBOK.setActionCommand("");
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogUnitConfig_jBOK_actionAdapter(this));
 		jBOK.setMnemonic('O');
 		jBCancel.setActionCommand("");
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogUnitConfig_jBCancel_actionAdapter(
 				this));
 		jBCancel.setMnemonic('C');
@@ -527,10 +527,10 @@ public class DialogUnitConfig extends JDialog {
 			return host;
 		}
 
-		String[] ipStr = host.split("\\."); // ÒÔ"."²ğ·Ö×Ö·û´®
+		String[] ipStr = host.split("\\."); // ä»¥"."æ‹†åˆ†å­—ç¬¦ä¸²
 		int[] ipBuf = new int[4];
 		for (int n = 0; n < 4; n++) {
-			ipBuf[n] = (Integer.parseInt(ipStr[n]) & 0xFF); // µ÷ÕûÕûÊı´óĞ¡¡£
+			ipBuf[n] = (Integer.parseInt(ipStr[n]) & 0xFF); // è°ƒæ•´æ•´æ•°å¤§å°ã€‚
 		}
 		if (ipBuf[3] == 255) {
 			ipBuf[3] = 1;

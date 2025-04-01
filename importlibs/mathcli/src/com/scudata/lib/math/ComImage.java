@@ -8,7 +8,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * »ñÈ¡¸´ÊıµÄĞé²¿
+ * è·å–å¤æ•°çš„è™šéƒ¨
  */
 
 public class ComImage extends SequenceFunction {

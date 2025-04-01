@@ -6,7 +6,7 @@ import com.scudata.ide.common.ConfigMenuAction;
 import com.scudata.ide.common.dialog.DialogDemoFiles;
 
 /**
- * 打开样例程序
+ * 鎵撳紑鏍蜂緥绋嬪簭
  * 
  * @author wunan
  *

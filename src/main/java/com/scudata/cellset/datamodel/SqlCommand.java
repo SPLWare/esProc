@@ -27,7 +27,7 @@ public class SqlCommand extends Command {
 		if (len < 6) return false;
 
 		String str;
-		if (sql.charAt(0) == '$') { // Âß¼­sql
+		if (sql.charAt(0) == '$') { // é€»è¾‘sql
 			int i = 1;
 			while (Character.isWhitespace(sql.charAt(i))) {
 				i++;

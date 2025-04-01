@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import com.scudata.ide.common.GM;
 
 /**
- * JTableµÄµ¥Ôª¸ñ±à¼­Æ÷
+ * JTableçš„å•å…ƒæ ¼ç¼–è¾‘å™¨
  *
  */
 public class AllPurposeEditor extends DefaultCellEditor implements KeyListener,
@@ -27,20 +27,20 @@ public class AllPurposeEditor extends DefaultCellEditor implements KeyListener,
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ±í¸ñ¿Ø¼ş
+	 * è¡¨æ ¼æ§ä»¶
 	 */
 	private JTableEx parent;
 	/**
-	 * ÎÄ±¾¿ò¿Ø¼ş
+	 * æ–‡æœ¬æ¡†æ§ä»¶
 	 */
 	private JTextField textField;
 	/**
-	 * Öµ
+	 * å€¼
 	 */
 	private Object value;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param tf
 	 * @param parent
@@ -58,7 +58,7 @@ public class AllPurposeEditor extends DefaultCellEditor implements KeyListener,
 	}
 
 	/**
-	 * Êó±êµã»÷ÊÂ¼ş
+	 * é¼ æ ‡ç‚¹å‡»äº‹ä»¶
 	 */
 	public void mouseClicked(final MouseEvent e) {
 		JComponent editor = (JComponent) e.getSource();
@@ -135,27 +135,27 @@ public class AllPurposeEditor extends DefaultCellEditor implements KeyListener,
 	}
 
 	/**
-	 * È¡±à¼­Öµ
+	 * å–ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
-		// Èç¹û±à¼­Æ÷µÄÎÄ±¾¸ú¶ÔÏóÖµµÄÏÔÊ¾ÎÄ±¾Ò»ÖÂ£¬ÔòÈÏÎªÃ»ÓĞ±à¼­£¬·µ»Ø¶ÔÏó±¾Éí
+		// å¦‚æœç¼–è¾‘å™¨çš„æ–‡æœ¬è·Ÿå¯¹è±¡å€¼çš„æ˜¾ç¤ºæ–‡æœ¬ä¸€è‡´ï¼Œåˆ™è®¤ä¸ºæ²¡æœ‰ç¼–è¾‘ï¼Œè¿”å›å¯¹è±¡æœ¬èº«
 		String editorText = textField.getText();
 		if (editorText.equals(GM.renderValueText(value))) {
 			return value;
 		}
-		// ·ñÔò±»ÓÃ»§±à¼­¹ıµÄĞÂÎÄ±¾´®Ôò×÷Îª±é¼°¹ıµÄÎÄ±¾·µ»Ø
+		// å¦åˆ™è¢«ç”¨æˆ·ç¼–è¾‘è¿‡çš„æ–°æ–‡æœ¬ä¸²åˆ™ä½œä¸ºéåŠè¿‡çš„æ–‡æœ¬è¿”å›
 		return editorText;
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ±à¼­
+	 * æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public boolean isCellEditable(EventObject anEvent) {
 		return textField.isEditable();
 	}
 
 	/**
-	 * Ö÷ÒªÊµÏÖ·½·¨£¬·µ»Ø±à¼­¿Ø¼ş
+	 * ä¸»è¦å®ç°æ–¹æ³•ï¼Œè¿”å›ç¼–è¾‘æ§ä»¶
 	 */
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int column) {

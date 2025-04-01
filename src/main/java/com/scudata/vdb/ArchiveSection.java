@@ -19,19 +19,19 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.HashUtil;
 
 /**
- * ¹éµµ½Ú
+ * å½’æ¡£èŠ‚
  * @author RunQian
  *
  */
 class ArchiveSection extends ISection {
-	private byte sign; // ±£ÁôÎ»
-	private int subDataHeader = -1; // ×ÓÎÄ¼şÊı¾İÕ¼ÓÃµÄÎïÀí¿éÊ×¿é
+	private byte sign; // ä¿ç•™ä½
+	private int subDataHeader = -1; // å­æ–‡ä»¶æ•°æ®å ç”¨çš„ç‰©ç†å—é¦–å—
 	private ArchiveDir []subDirs;
 	
-	private IDir dir; // ½Ú¶ÔÓ¦µÄÄ¿Â¼ĞÅÏ¢
-	private int header = -1; // Ê×¿éºÅ
-	private int []otherBlocks; // ³ıµÚÒ»¿éÍâÕ¼ÓÃµÄÆäËüÎïÀí¿é£¬¿ÉÄÜÎªnull
-	private Sequence subDatas; // Â·¾¶ÏÂ°üº¬µÄ±íµ¥µÄÊı¾İ
+	private IDir dir; // èŠ‚å¯¹åº”çš„ç›®å½•ä¿¡æ¯
+	private int header = -1; // é¦–å—å·
+	private int []otherBlocks; // é™¤ç¬¬ä¸€å—å¤–å ç”¨çš„å…¶å®ƒç‰©ç†å—ï¼Œå¯èƒ½ä¸ºnull
+	private Sequence subDatas; // è·¯å¾„ä¸‹åŒ…å«çš„è¡¨å•çš„æ•°æ®
 	
 	public ArchiveSection() {
 	}
@@ -70,7 +70,7 @@ class ArchiveSection extends ISection {
 		reader.close();
 	}
 	
-	// ½«section¹éµµ
+	// å°†sectionå½’æ¡£
 	private ArchiveSection(VDB vdb, Section section, ArchiveDir dir) throws IOException {
 		Library library = vdb.getLibrary();
 		if (dir == null) {
@@ -115,7 +115,7 @@ class ArchiveSection extends ISection {
 		}
 		
 		if (dir == null && section.isFile()) {
-			// ¹éµµµÄÊ×Ä¿Â¼
+			// å½’æ¡£çš„é¦–ç›®å½•
 			if (fileDatas == null) {
 				fileDatas = new Sequence(1);
 			}
@@ -277,7 +277,7 @@ class ArchiveSection extends ISection {
 				return archiveDir.getFileData(vdb);
 			}
 		} else if ((sign & ISection.SIGN_ARCHIVE_FILE) != 0) {
-			// ¹éµµÂ·¾¶ÓòµÄÆğÊ¼½ÚÈç¹ûÓĞÍ¬Ãû±íµ¥ÔòÊı¾İ´æ·ÅÔÚsubDatasµÄ½áÎ²
+			// å½’æ¡£è·¯å¾„åŸŸçš„èµ·å§‹èŠ‚å¦‚æœæœ‰åŒåè¡¨å•åˆ™æ•°æ®å­˜æ”¾åœ¨subDatasçš„ç»“å°¾
 			loadSubDatas(vdb);
 			return subDatas.getMem(subDatas.length());
 		}
@@ -289,7 +289,7 @@ class ArchiveSection extends ISection {
 		Object data = load(vdb, null);
 		if (data != null) {
 			addDataToTable(table, values, signs, data);
-			// Èç¹ûÓĞµ¥¾İÂú×ãÁËÑ¡³ö×Ö¶ÎÔò²»ÔÙ±éÀú×Ó
+			// å¦‚æœæœ‰å•æ®æ»¡è¶³äº†é€‰å‡ºå­—æ®µåˆ™ä¸å†éå†å­
 			//if (isAdded) {
 			//	return;
 			//}
@@ -325,7 +325,7 @@ class ArchiveSection extends ISection {
 		Object data = load(vdb, null);
 		if (data != null) {
 			addDataToTable(table, values, signs, data, filter, ctx);
-			// Èç¹ûÓĞµ¥¾İÂú×ãÁËÑ¡³ö×Ö¶ÎÔò²»ÔÙ±éÀú×Ó
+			// å¦‚æœæœ‰å•æ®æ»¡è¶³äº†é€‰å‡ºå­—æ®µåˆ™ä¸å†éå†å­
 			//if (isAdded) {
 			//	return;
 			//}
@@ -387,10 +387,10 @@ class ArchiveSection extends ISection {
 					out.addAll(seq);
 				}
 
-				// Èç¹ûÓĞµ¥¾İÂú×ãÁËÑ¡³ö×Ö¶ÎÔò²»ÔÙ±éÀú×Ó£¿
+				// å¦‚æœæœ‰å•æ®æ»¡è¶³äº†é€‰å‡ºå­—æ®µåˆ™ä¸å†éå†å­ï¼Ÿ
 			}
 			
-			// ²»µİ¹é±éÀúËùÓĞ×Ó½Úµã
+			// ä¸é€’å½’éå†æ‰€æœ‰å­èŠ‚ç‚¹
 			if (!isRecursion) {
 				return;
 			}
@@ -413,7 +413,7 @@ class ArchiveSection extends ISection {
 	}
 
 	static RQException getModifyException() {
-		return new RQException("¹éµµÂ·¾¶Óò²»¿ÉÒÔÔÙ±»ĞŞ¸Ä");
+		return new RQException("å½’æ¡£è·¯å¾„åŸŸä¸å¯ä»¥å†è¢«ä¿®æ”¹");
 	}
 
 	public int lockForWrite(VDB vdb) {

@@ -36,8 +36,8 @@ public final class SQLParser {
       "UPDATE", "SET", "WHERE"};
 
   /**
-   * ¹¹Ôìº¯Êı
-   * @param sql ĞèÒª·ÖÎöµÄSQLÓï¾ä
+   * æ„é€ å‡½æ•°
+   * @param sql éœ€è¦åˆ†æçš„SQLè¯­å¥
    */
   public SQLParser(String sql) {
     this.sql = sql;
@@ -80,10 +80,10 @@ public final class SQLParser {
   }
 
   /**
-   * »ñÈ¡SQLÖĞµÄ×Ó¾ä
-   * @param sql ĞèÒª·ÖÎöµÄSQLÓï¾ä
-   * @param key ¼ìË÷×Ó¾ä¶ÔÓ¦µÄ¹Ø¼ü×Ö
-   * @return ·µ»Ø¼ìË÷µ½µÄ×Ó¾ä
+   * è·å–SQLä¸­çš„å­å¥
+   * @param sql éœ€è¦åˆ†æçš„SQLè¯­å¥
+   * @param key æ£€ç´¢å­å¥å¯¹åº”çš„å…³é”®å­—
+   * @return è¿”å›æ£€ç´¢åˆ°çš„å­å¥
    */
   public static String getClause(String sql, int key) {
     switch (parseSQLType(sql)) {
@@ -100,9 +100,9 @@ public final class SQLParser {
   }
 
   /**
-   * »ñÈ¡SQLÖĞµÄ×Ó¾ä
-   * @param key ¼ìË÷×Ó¾ä¶ÔÓ¦µÄ¹Ø¼ü×Ö
-   * @return ·µ»Ø¼ìË÷µ½µÄ×Ó¾ä
+   * è·å–SQLä¸­çš„å­å¥
+   * @param key æ£€ç´¢å­å¥å¯¹åº”çš„å…³é”®å­—
+   * @return è¿”å›æ£€ç´¢åˆ°çš„å­å¥
    */
   public String getClause(int key) {
     switch (type) {
@@ -128,7 +128,7 @@ public final class SQLParser {
       i++;
       if (i == keyValues.length)break;
     }
-    if (p > 0) { //ÕÒµ½×Ô¼º»òºóÃæµÄ¹Ø¼ü×Ö
+    if (p > 0) { //æ‰¾åˆ°è‡ªå·±æˆ–åé¢çš„å…³é”®å­—
       dst.append(sql.substring(0, p));
     }
     else if (p < 0) {
@@ -148,14 +148,14 @@ public final class SQLParser {
       dst.append(clause);
     }
     if (p < 0)return dst.toString();
-    if (i == key + 1) { //ÈôÕÒµ½×Ô¼º,ÔòĞèÒª¼ÌĞøÕÒÏÂÒ»¸ö¹Ø¼ü×Ö
+    if (i == key + 1) { //è‹¥æ‰¾åˆ°è‡ªå·±,åˆ™éœ€è¦ç»§ç»­æ‰¾ä¸‹ä¸€ä¸ªå…³é”®å­—
       int q = -1;
       while (q < 0 && i < keyValues.length) {
         q = Sentence.phraseAt(sql, keyValues[i], p, Sentence.IGNORE_CASE);
         if (q >= 0)break;
         i++;
       }
-      p = q; //p¼ÇÂ¼ÏÂÒ»¸ö¹Ø¼ü×ÖÎ»ÖÃ
+      p = q; //pè®°å½•ä¸‹ä¸€ä¸ªå…³é”®å­—ä½ç½®
     }
     if (p >= 0) {
       dst.append(' ');
@@ -165,11 +165,11 @@ public final class SQLParser {
   }
 
   /**
-   * ĞŞ¸ÄÖ¸¶¨SQLÓï¾äÖĞÖ¸¶¨µÄ×Ó¾ä
-   * @param sql ĞèÒª·ÖÎöµÄSQLÓï¾ä
-   * @param key ĞèÒªĞŞ¸Ä×Ó¾äµÄ¹Ø¼ü×Ö
-   * @param clause ÓÃÓÚÌæ»»µÄ×Ó¾ä
-   * @return ĞŞ¸ÄºóµÄSQLÓï¾ä
+   * ä¿®æ”¹æŒ‡å®šSQLè¯­å¥ä¸­æŒ‡å®šçš„å­å¥
+   * @param sql éœ€è¦åˆ†æçš„SQLè¯­å¥
+   * @param key éœ€è¦ä¿®æ”¹å­å¥çš„å…³é”®å­—
+   * @param clause ç”¨äºæ›¿æ¢çš„å­å¥
+   * @return ä¿®æ”¹åçš„SQLè¯­å¥
    */
   public static String modify(String sql, int key, String clause) {
     switch (parseSQLType(sql)) {
@@ -187,9 +187,9 @@ public final class SQLParser {
   }
 
   /**
-   * ĞŞ¸ÄÖ¸¶¨µÄ×Ó¾ä
-   * @param key ĞèÒªĞŞ¸Ä×Ó¾äµÄ¹Ø¼ü×Ö
-   * @param clause ÓÃÓÚÌæ»»µÄ×Ó¾ä
+   * ä¿®æ”¹æŒ‡å®šçš„å­å¥
+   * @param key éœ€è¦ä¿®æ”¹å­å¥çš„å…³é”®å­—
+   * @param clause ç”¨äºæ›¿æ¢çš„å­å¥
    */
   public void modify(int key, String clause) {
     switch (type) {
@@ -243,10 +243,10 @@ public final class SQLParser {
   }
 
   /**
-   * ½«Ìõ¼ş±í´ïÊ½ºÏ²¢½øSQLÓï¾äÖĞµÄWHERE×Ó¾ä
-   * @param sql ĞèÒªºÏ²¢WHERE×Ó¾äµÄSQLÓï¾ä
-   * @param where Òª¼ÓÈëµÄWHEREÌõ¼ş
-   * @return ºÏ²¢ºóµÄSQLÓï¾ä
+   * å°†æ¡ä»¶è¡¨è¾¾å¼åˆå¹¶è¿›SQLè¯­å¥ä¸­çš„WHEREå­å¥
+   * @param sql éœ€è¦åˆå¹¶WHEREå­å¥çš„SQLè¯­å¥
+   * @param where è¦åŠ å…¥çš„WHEREæ¡ä»¶
+   * @return åˆå¹¶åçš„SQLè¯­å¥
    */
   public static String mergeWhere(String sql, String where) {
     if (where == null || where.trim().length() == 0)return sql;
@@ -263,8 +263,8 @@ public final class SQLParser {
   }
 
   /**
-   * ½«Ìõ¼ş±í´ïÊ½ºÏ²¢½øSQLÓï¾äÖĞµÄWHERE×Ó¾ä
-   * @param where Òª¼ÓÈëµÄWHEREÌõ¼ş
+   * å°†æ¡ä»¶è¡¨è¾¾å¼åˆå¹¶è¿›SQLè¯­å¥ä¸­çš„WHEREå­å¥
+   * @param where è¦åŠ å…¥çš„WHEREæ¡ä»¶
    */
   public void mergeWhere(String where) {
     if (where == null || where.trim().length() == 0)return;
@@ -283,16 +283,16 @@ public final class SQLParser {
   }
 
   /**
-   * ·µ»Øµ±Ç°µÄSQLÓï¾ä
+   * è¿”å›å½“å‰çš„SQLè¯­å¥
    */
   public String toString() {
     return this.sql;
   }
 
   /**
-   * ·ÖÎöÖ¸¶¨SQLÓï¾äµÄDML(Êı¾İ²Ù×İ)ÀàĞÍ
-   * @param sql SQLÓï¾ä
-   * @return ·µ»ØDMLÀàĞÍ
+   * åˆ†ææŒ‡å®šSQLè¯­å¥çš„DML(æ•°æ®æ“çºµ)ç±»å‹
+   * @param sql SQLè¯­å¥
+   * @return è¿”å›DMLç±»å‹
    */
   public static int parseSQLType(String sql) {
     if (sql == null)return SQL_UNKNOWN;
@@ -317,19 +317,19 @@ public final class SQLParser {
   }
 
   /**
-   * ·ÖÎöDML(Êı¾İ²Ù×İ)ÀàĞÍ
-   * @return ·µ»ØDMLÀàĞÍ
+   * åˆ†æDML(æ•°æ®æ“çºµ)ç±»å‹
+   * @return è¿”å›DMLç±»å‹
    */
   public int parseSQLType() {
     return type;
   }
 
   /**
-   * ÔÚSQLÖĞËÑË÷Æ¥ÅäµÄÒıºÅÎ»ÖÃ
-   * @param sql SQLÓï¾ä´®
-   * @param start ÆğÊ¼Î»ÖÃ
-   * @param quote ×Ö·û´®ËùÊ¹ÓÃµÄÒıºÅ×Ö·û(µ¥/Ë«)
-   * @param ³É¹¦·µ»ØÆ¥ÅäµÄÒıºÅÎ»ÖÃ£¬·ñÔò·µ»Ø-1
+   * åœ¨SQLä¸­æœç´¢åŒ¹é…çš„å¼•å·ä½ç½®
+   * @param sql SQLè¯­å¥ä¸²
+   * @param start èµ·å§‹ä½ç½®
+   * @param quote å­—ç¬¦ä¸²æ‰€ä½¿ç”¨çš„å¼•å·å­—ç¬¦(å•/åŒ)
+   * @param æˆåŠŸè¿”å›åŒ¹é…çš„å¼•å·ä½ç½®ï¼Œå¦åˆ™è¿”å›-1
    */
   public static int scanQuotation(String sql, int start, char quote) {
     if (quote != sql.charAt(start))return -1;

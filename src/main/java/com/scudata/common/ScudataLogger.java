@@ -18,28 +18,28 @@ import javax.servlet.ServletContext;
 import com.scudata.dm.Env;
 
 /**
- * ÈÕÖ¾¼¶±ğ·ÖÎªOFF,SEVERE,WARNING,INFO,DEBUG, ÓÅÏÈ¼¶ÒÀ´Î½µµÍ£¬OFF×î¸ß£¬DEBUG×îµÍ£¬Ö»ÓĞ¸ßÓÚµ±Ç°ÉèÖÃµÄÈÕÖ¾¼¶±ğ²Å»áÊä³ö¡£
- * ÒªÉèÖÃµÄÈÕÖ¾¼¶±ğÓĞÁ½´¦: 1Îª¿´ÃÅ¼¶±ğ£¬ÓÃÓÚ×ÜÌåÉÏ¶ÔËùÓĞÈÕÖ¾µÄ¿ØÖÆ¡£
- * 						2ÎªÊä³ö¼¶±ğ£¬Ö»ÓĞÂú×ã(¸ß)ÓÚÊä³ö¼¶±ğµÄÈÕÖ¾²Å»á±»¼ÇÂ¼£¬ÓÃÓÚ·ÖÀà¼ÇÂ¼¡£
- * ×îÖÕÊä³öµÄÈÕÖ¾Îª1ºÍ2µÄ½»¼¯¼¶±ğ¡£
- * 	1£º¿´ÃÅ¼¶±ğ£»ÉèÖÃ·½·¨ÎªLogger.setLevel(l)£¬Ö»ÓĞ¸ßÓÚ¿´ÃÅ¼¶±ğµÄÈÕÖ¾²Å»á´«µİ¸ø2È¥¼ÇÂ¼£¬Ïàµ±ÓÚÈë¿Ú¹ıÂË£¬¿´ÃÅ¼¶±ğ¿ÉÒÔ²»ÉèÖÃ£¬
- * 		²»ÉèÖÃÊ±È±Ê¡Îª×îµÍ¼¶±ğDEBUG£¬Ò²¼´ËùÓĞÈÕÖ¾¶¼¼ÇÂ¼¡£¸Ã¼¶±ğµÄ¶ÔÓ¦ÅäÖÃÔÚConfig.xml£¬ÓÃÓÚÏµÍ³ÎÈ¶¨ºóÎªÌá¸ßĞÔÄÜÊ±£¬Ö±½Ó¹Ø±ÕÈÕÖ¾¡£
- * 	2£ºÊä³ö¼¶±ğ£»ÉèÖÃ·½·¨Îªhandler.setLevel(l)£¬¸Ã·½·¨²»ÄÜ±»Ö±½Óµ÷ÓÃ£¬Ö»ÄÜÍ¨¹ıLogger.setPropertyConfig(p)·½·¨
- * 		¼ä½Ó¼ÓÔØÒ»¸ölogger.propertiesÎÄ¼şÀ´ÉèÖÃ¡£Êä³ö¼¶±ğ¶ÔÓ¦Á½ÖÖÊä³ö·½Ê½£¬
- * 		A£¬¿ØÖÆÌ¨Êä³ö·½Ê½£»
- * 		B£¬ÎÄ¼şÊä³ö·½Ê½¡£¾­¹ı1¹ıÂËºóµÄÈÕÖ¾£¬
- * 		²Å¸ù¾İÊä³ö¼¶±ğ·ÖÀàÊä³öµ½ÏàÓ¦µÄÎÄ¼ş»òÕß¿ØÖÆÌ¨¡£Êä³ö¼¶±ğÈÔÈ»¿ÉÒÔ²»ÉèÖÃ£¬
- * 		²»ÉèÖÃÊ±È±Ê¡Éú³ÉÒ»¸ö×îµÍ¼¶±ğDEBUGµÄ¿ØÖÆÌ¨Êä³ö¡£¸Ã¼¶±ğµÄ¶ÔÓ¦ÅäÖÃÔÚÒ»¸öÔ¤¶¨ÒåµÄpropertiesÎÄ¼şÖĞ¡£
+ * æ—¥å¿—çº§åˆ«åˆ†ä¸ºOFF,SEVERE,WARNING,INFO,DEBUG, ä¼˜å…ˆçº§ä¾æ¬¡é™ä½ï¼ŒOFFæœ€é«˜ï¼ŒDEBUGæœ€ä½ï¼Œåªæœ‰é«˜äºå½“å‰è®¾ç½®çš„æ—¥å¿—çº§åˆ«æ‰ä¼šè¾“å‡ºã€‚
+ * è¦è®¾ç½®çš„æ—¥å¿—çº§åˆ«æœ‰ä¸¤å¤„: 1ä¸ºçœ‹é—¨çº§åˆ«ï¼Œç”¨äºæ€»ä½“ä¸Šå¯¹æ‰€æœ‰æ—¥å¿—çš„æ§åˆ¶ã€‚
+ * 						2ä¸ºè¾“å‡ºçº§åˆ«ï¼Œåªæœ‰æ»¡è¶³(é«˜)äºè¾“å‡ºçº§åˆ«çš„æ—¥å¿—æ‰ä¼šè¢«è®°å½•ï¼Œç”¨äºåˆ†ç±»è®°å½•ã€‚
+ * æœ€ç»ˆè¾“å‡ºçš„æ—¥å¿—ä¸º1å’Œ2çš„äº¤é›†çº§åˆ«ã€‚
+ * 	1ï¼šçœ‹é—¨çº§åˆ«ï¼›è®¾ç½®æ–¹æ³•ä¸ºLogger.setLevel(l)ï¼Œåªæœ‰é«˜äºçœ‹é—¨çº§åˆ«çš„æ—¥å¿—æ‰ä¼šä¼ é€’ç»™2å»è®°å½•ï¼Œç›¸å½“äºå…¥å£è¿‡æ»¤ï¼Œçœ‹é—¨çº§åˆ«å¯ä»¥ä¸è®¾ç½®ï¼Œ
+ * 		ä¸è®¾ç½®æ—¶ç¼ºçœä¸ºæœ€ä½çº§åˆ«DEBUGï¼Œä¹Ÿå³æ‰€æœ‰æ—¥å¿—éƒ½è®°å½•ã€‚è¯¥çº§åˆ«çš„å¯¹åº”é…ç½®åœ¨Config.xmlï¼Œç”¨äºç³»ç»Ÿç¨³å®šåä¸ºæé«˜æ€§èƒ½æ—¶ï¼Œç›´æ¥å…³é—­æ—¥å¿—ã€‚
+ * 	2ï¼šè¾“å‡ºçº§åˆ«ï¼›è®¾ç½®æ–¹æ³•ä¸ºhandler.setLevel(l)ï¼Œè¯¥æ–¹æ³•ä¸èƒ½è¢«ç›´æ¥è°ƒç”¨ï¼Œåªèƒ½é€šè¿‡Logger.setPropertyConfig(p)æ–¹æ³•
+ * 		é—´æ¥åŠ è½½ä¸€ä¸ªlogger.propertiesæ–‡ä»¶æ¥è®¾ç½®ã€‚è¾“å‡ºçº§åˆ«å¯¹åº”ä¸¤ç§è¾“å‡ºæ–¹å¼ï¼Œ
+ * 		Aï¼Œæ§åˆ¶å°è¾“å‡ºæ–¹å¼ï¼›
+ * 		Bï¼Œæ–‡ä»¶è¾“å‡ºæ–¹å¼ã€‚ç»è¿‡1è¿‡æ»¤åçš„æ—¥å¿—ï¼Œ
+ * 		æ‰æ ¹æ®è¾“å‡ºçº§åˆ«åˆ†ç±»è¾“å‡ºåˆ°ç›¸åº”çš„æ–‡ä»¶æˆ–è€…æ§åˆ¶å°ã€‚è¾“å‡ºçº§åˆ«ä»ç„¶å¯ä»¥ä¸è®¾ç½®ï¼Œ
+ * 		ä¸è®¾ç½®æ—¶ç¼ºçœç”Ÿæˆä¸€ä¸ªæœ€ä½çº§åˆ«DEBUGçš„æ§åˆ¶å°è¾“å‡ºã€‚è¯¥çº§åˆ«çš„å¯¹åº”é…ç½®åœ¨ä¸€ä¸ªé¢„å®šä¹‰çš„propertiesæ–‡ä»¶ä¸­ã€‚
  */
 public class ScudataLogger {
-//	ÈÕÖ¾¼¶±ğµÄ´®Ğ´·¨£¬ÔÚÏàÓ¦µÄpropertiesÎÄ¼şÖĞ£¬¸ù¾İÏÂÃæ³£Á¿¼¶±ğĞ´·¨¶¨Òå
+//	æ—¥å¿—çº§åˆ«çš„ä¸²å†™æ³•ï¼Œåœ¨ç›¸åº”çš„propertiesæ–‡ä»¶ä¸­ï¼Œæ ¹æ®ä¸‹é¢å¸¸é‡çº§åˆ«å†™æ³•å®šä¹‰
 	public static String OFF = "OFF";
 	public static String SEVERE = "SEVERE";
 	public static String WARNING = "WARNING";
 	public static String INFO = "INFO";
 	public static String DEBUG = "DEBUG";
 
-//	ÈÕÖ¾¼¶±ğÔÚ±¾ÀàÖĞ¶ÔÓ¦µÄ¼¶±ğºÅ	
+//	æ—¥å¿—çº§åˆ«åœ¨æœ¬ç±»ä¸­å¯¹åº”çš„çº§åˆ«å·	
 	public static int iDOLOG = -1;
 	public static int iOFF = 0;
 	public static int iSEVERE = 10;
@@ -48,7 +48,7 @@ public class ScudataLogger {
 	public static int iDEBUG = 40;
 	public static String lineSeparator = System.getProperty("line.separator", "\n");
 
-//ÈÕÖ¾ÎÄ¼ş»á¸ù¾İÈÕÆÚÉú³É²»Í¬µÄlogÎÄ¼ş£¬·ÀÖ¹ÎÄ¼ş¼¯ÖĞÒÔ¼°¹ıÓÚÅÓ´ó	
+//æ—¥å¿—æ–‡ä»¶ä¼šæ ¹æ®æ—¥æœŸç”Ÿæˆä¸åŒçš„logæ–‡ä»¶ï¼Œé˜²æ­¢æ–‡ä»¶é›†ä¸­ä»¥åŠè¿‡äºåºå¤§	
 	String currentMark;
 
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
@@ -82,17 +82,17 @@ public class ScudataLogger {
 	}
 
 	/**
-	 * ÁĞ³öËùÓĞÖ§³ÖµÄÈÕÖ¾¼¶±ğµÄÎÄ±¾´®Ğ´·¨£¬¿ÉÓÃÓÚ½çÃæ±à¼­µÈ¡£
-	 * @return	°üº¬È«²¿ÈÕÖ¾¼¶±ğµÄ×Ö·û´®Êı×é
+	 * åˆ—å‡ºæ‰€æœ‰æ”¯æŒçš„æ—¥å¿—çº§åˆ«çš„æ–‡æœ¬ä¸²å†™æ³•ï¼Œå¯ç”¨äºç•Œé¢ç¼–è¾‘ç­‰ã€‚
+	 * @return	åŒ…å«å…¨éƒ¨æ—¥å¿—çº§åˆ«çš„å­—ç¬¦ä¸²æ•°ç»„
 	 */
 	public static String[] listLevelNames() {
 		return new String[] { OFF, SEVERE, WARNING, INFO, DEBUG };
 	}
 
 	/**
-	 * »ñÈ¡ÈÕÖ¾ÎÄ±¾´®Ğ´·¨¶ÔÓ¦µÄÈÕÖ¾¼¶±ğºÅ
-	 * @param level	Òª¶ÔÓ¦µÄÈÕÖ¾¼¶±ğ
-	 * @return	ÏàÓ¦µÄÈÕÖ¾¼¶±ğºÅ
+	 * è·å–æ—¥å¿—æ–‡æœ¬ä¸²å†™æ³•å¯¹åº”çš„æ—¥å¿—çº§åˆ«å·
+	 * @param level	è¦å¯¹åº”çš„æ—¥å¿—çº§åˆ«
+	 * @return	ç›¸åº”çš„æ—¥å¿—çº§åˆ«å·
 	 */
 	public static int getLevel(String level) {
 		if (!StringUtils.isValidString(level)) {
@@ -113,9 +113,9 @@ public class ScudataLogger {
 	}
 
 	/**
-	 * »ñÈ¡ÈÕÖ¾¼¶±ğºÅµÄÎÄ±¾´®Ğ´·¨
-	 * @param level Òª¶ÔÓ¦µÄÈÕÖ¾¼¶±ğºÅ
-	 * @return	ÏàÓ¦µÄÈÕÖ¾¼¶±ğ
+	 * è·å–æ—¥å¿—çº§åˆ«å·çš„æ–‡æœ¬ä¸²å†™æ³•
+	 * @param level è¦å¯¹åº”çš„æ—¥å¿—çº§åˆ«å·
+	 * @return	ç›¸åº”çš„æ—¥å¿—çº§åˆ«
 	 */
 	public static String getLevelName(int level) {
 		if (level == iDOLOG)
@@ -171,25 +171,25 @@ public class ScudataLogger {
 	}
 
 	/**
-	 * Í¨³£»á´ÓÅäÖÃµÄpropertiesÎÄ¼ş×Ô¶¯¼ÓÔØÏàÓ¦µÄÈÕÖ¾´¦ÀíÆ÷£¬Ìá¹©¸Ã·½·¨Ê¹µÃ³ÌĞòÔ±¿ÉÒÔÊÖ¶¯Ìí¼ÓÏàÓ¦µÄÈÕÖ¾´¦ÀíÆ÷¡£
-	 * ¸Ã·½·¨Ìí¼ÓÒ»¸öÊä³öµ½ÎÄ¼şµÄÈÕÖ¾´¦ÀíÆ÷¡£
-	 * @param fh	ĞèÒªÌí¼ÓµÄÎÄ¼şÊä³ö´¦ÀíÆ÷
+	 * é€šå¸¸ä¼šä»é…ç½®çš„propertiesæ–‡ä»¶è‡ªåŠ¨åŠ è½½ç›¸åº”çš„æ—¥å¿—å¤„ç†å™¨ï¼Œæä¾›è¯¥æ–¹æ³•ä½¿å¾—ç¨‹åºå‘˜å¯ä»¥æ‰‹åŠ¨æ·»åŠ ç›¸åº”çš„æ—¥å¿—å¤„ç†å™¨ã€‚
+	 * è¯¥æ–¹æ³•æ·»åŠ ä¸€ä¸ªè¾“å‡ºåˆ°æ–‡ä»¶çš„æ—¥å¿—å¤„ç†å™¨ã€‚
+	 * @param fh	éœ€è¦æ·»åŠ çš„æ–‡ä»¶è¾“å‡ºå¤„ç†å™¨
 	 */
 	public static void addFileHandler(FileHandler fh) {
 		logger.handlers.add(fh);
 	}
 
 	/**
-	 * È±Ê¡Çé¿öÏÂ£¬ÈÕÖ¾»áÄ¬ÈÏ²úÉúÒ»¸öÊä³öµ½¿ØÖÆÌ¨µÄÈÕÖ¾´¦ÀíÆ÷¡£
-	 * ¸Ã·½·¨Ìí¼ÓÒ»¸ö¿ØÖÆÌ¨´¦ÀíÆ÷¡£
-	 * @param ch	Êä³öµ½¿ØÖÆÌ¨µÄÈÕÖ¾´¦ÀíÆ÷
+	 * ç¼ºçœæƒ…å†µä¸‹ï¼Œæ—¥å¿—ä¼šé»˜è®¤äº§ç”Ÿä¸€ä¸ªè¾“å‡ºåˆ°æ§åˆ¶å°çš„æ—¥å¿—å¤„ç†å™¨ã€‚
+	 * è¯¥æ–¹æ³•æ·»åŠ ä¸€ä¸ªæ§åˆ¶å°å¤„ç†å™¨ã€‚
+	 * @param ch	è¾“å‡ºåˆ°æ§åˆ¶å°çš„æ—¥å¿—å¤„ç†å™¨
 	 */
 	public static void addConsoleHandler(ConsoleHandler ch) {
 		logger.handlers.add(ch);
 	}
 
 	/**
-	 * ½«synchronized ¸Äµ½´Ë´¦£¬ÒÔÇ°ÔÚhandlerÄÚ²¿£¬±£Ö¤Ñ­»·handlersÊ±µÄÏß³Ì°²È«
+	 * å°†synchronized æ”¹åˆ°æ­¤å¤„ï¼Œä»¥å‰åœ¨handlerå†…éƒ¨ï¼Œä¿è¯å¾ªç¯handlersæ—¶çš„çº¿ç¨‹å®‰å…¨
 	 * http://111.198.29.167:9000/browse/REPORT-1478
 	 * @param level
 	 * @param msg
@@ -214,7 +214,7 @@ public class ScudataLogger {
 		Handler h = null;
 		if (tmp.equalsIgnoreCase("Console")) {
 			h = logger.new ConsoleHandler();
-		} else {// ÎÄ¼ş
+		} else {// æ–‡ä»¶
 			String file = tmp;
 			tmp = p.getProperty(name + ".encoding");
 			String buf = p.getProperty(name + ".isFixedFileName");
@@ -234,9 +234,9 @@ public class ScudataLogger {
 	}
 
 /**
- * ÈÕÖ¾µÄÊä³ö´¦ÀíÆ÷¶¨ÒåÔÚpropertiesÎÄ¼şÖĞÊ±£¬Ê¹ÓÃ¸Ã·½·¨¼ÓÔØÎÄ¼şÄÚÈİ¶¨ÒåºÃµÄÈÕÖ¾´¦ÀíÆ÷¡£	
- * @param p	¶¨ÒåÎªÊôĞÔ¸ñÊ½µÄÈÕÖ¾´¦ÀíÆ÷ÄÚÈİ
- * @throws Exception ¸ñÊ½´íÎóÊ±Å×³öÒì³£
+ * æ—¥å¿—çš„è¾“å‡ºå¤„ç†å™¨å®šä¹‰åœ¨propertiesæ–‡ä»¶ä¸­æ—¶ï¼Œä½¿ç”¨è¯¥æ–¹æ³•åŠ è½½æ–‡ä»¶å†…å®¹å®šä¹‰å¥½çš„æ—¥å¿—å¤„ç†å™¨ã€‚	
+ * @param p	å®šä¹‰ä¸ºå±æ€§æ ¼å¼çš„æ—¥å¿—å¤„ç†å™¨å†…å®¹
+ * @throws Exception æ ¼å¼é”™è¯¯æ—¶æŠ›å‡ºå¼‚å¸¸
  */
 	public static void setPropertyConfig(Properties p) throws Exception {
 //		if(Logger.isUseSLF4J()) {
@@ -257,7 +257,7 @@ public class ScudataLogger {
 					logger.addHandler(h);
 				}
 			} catch (Exception x) {
-				// Ä³ÎÄ¼şHandler³ö´íÊ±£¬´ò³öÒì³£ÏûÏ¢£¬²»Ó°Ïì¼ÓÔØÏÂÒ»¸ö
+				// æŸæ–‡ä»¶Handlerå‡ºé”™æ—¶ï¼Œæ‰“å‡ºå¼‚å¸¸æ¶ˆæ¯ï¼Œä¸å½±å“åŠ è½½ä¸‹ä¸€ä¸ª
 				x.printStackTrace();
 			}
 		}
@@ -272,59 +272,59 @@ public class ScudataLogger {
 	}
 
 	/**
-	 * ÍùÈÕÖ¾ÖĞ¼ÇÂ¼Ò»¸ö´íÎóÏûÏ¢£¬¸Ã·½·¨ÓÃÓÚ¼æÈİÒÔÇ°µÄ°æ±¾£¬²»Òªµ÷ÓÃ¸Ã·½·¨¡£
-	 * ¶ÔÓ¦µÄÈÕÖ¾¼¶±ğÎªSEVERE
-	 * @param msg ´ı¼ÇÂ¼µÄÈÕÖ¾ÏûÏ¢
+	 * å¾€æ—¥å¿—ä¸­è®°å½•ä¸€ä¸ªé”™è¯¯æ¶ˆæ¯ï¼Œè¯¥æ–¹æ³•ç”¨äºå…¼å®¹ä»¥å‰çš„ç‰ˆæœ¬ï¼Œä¸è¦è°ƒç”¨è¯¥æ–¹æ³•ã€‚
+	 * å¯¹åº”çš„æ—¥å¿—çº§åˆ«ä¸ºSEVERE
+	 * @param msg å¾…è®°å½•çš„æ—¥å¿—æ¶ˆæ¯
 	 */
 	public static void error(Object msg) {
 		error(msg, isException(msg));
 	}
 
 	/**
-	 * ¼ÇÂ¼ÃèÊöµÄ´íÎóÏûÏ¢ÒÔ¼°Â¼Èë¸üÏêÏ¸µÄÒì³£ĞÅÏ¢
-	 * @param msg ´ı¼ÇÂ¼µÄÈÕÖ¾ÏûÏ¢
-	 * @param t	¶ÔÓ¦µÄÏêÏ¸Òì³£
+	 * è®°å½•æè¿°çš„é”™è¯¯æ¶ˆæ¯ä»¥åŠå½•å…¥æ›´è¯¦ç»†çš„å¼‚å¸¸ä¿¡æ¯
+	 * @param msg å¾…è®°å½•çš„æ—¥å¿—æ¶ˆæ¯
+	 * @param t	å¯¹åº”çš„è¯¦ç»†å¼‚å¸¸
 	 */
 	public static void error(Object msg, Throwable t) {
 		severe(msg, t);
 	}
 
 	/**
-	 * Ç¿ÖÆ¼ÇÂ¼Ò»¸öÏûÏ¢ÒÔ¼°Òì³££¬¼´Ê¹ÒÑ¾­Ê¹ÓÃÁËOFF¼¶±ğ£¬ÈÔÈ»»áÊä³ö¡£
-	 * @param msg ´ı¼ÇÂ¼µÄÈÕÖ¾ÏûÏ¢
-	 * @param t	¶ÔÓ¦µÄÏêÏ¸Òì³£
+	 * å¼ºåˆ¶è®°å½•ä¸€ä¸ªæ¶ˆæ¯ä»¥åŠå¼‚å¸¸ï¼Œå³ä½¿å·²ç»ä½¿ç”¨äº†OFFçº§åˆ«ï¼Œä»ç„¶ä¼šè¾“å‡ºã€‚
+	 * @param msg å¾…è®°å½•çš„æ—¥å¿—æ¶ˆæ¯
+	 * @param t	å¯¹åº”çš„è¯¦ç»†å¼‚å¸¸
 	 */
 	public static void doLog(Object msg, Throwable t) {
 		logger.doLog(iDOLOG, msg, t);
 	}
 
 	/**
-	 * Ç¿ÖÆ¼ÇÂ¼Ò»¸öÏûÏ¢£¬¼´Ê¹ÒÑ¾­Ê¹ÓÃÁËOFF¼¶±ğ£¬ÈÔÈ»»áÊä³ö¡£
-	 * @param msg ´ı¼ÇÂ¼µÄÈÕÖ¾ÏûÏ¢
+	 * å¼ºåˆ¶è®°å½•ä¸€ä¸ªæ¶ˆæ¯ï¼Œå³ä½¿å·²ç»ä½¿ç”¨äº†OFFçº§åˆ«ï¼Œä»ç„¶ä¼šè¾“å‡ºã€‚
+	 * @param msg å¾…è®°å½•çš„æ—¥å¿—æ¶ˆæ¯
 	 */
 	public static void doLog(Object msg) {
 		ScudataLogger.doLog(msg, null);
 	}
 
 	/**
-	 * ÓÃÓÚ¼ÇÂ¼´úÂëÖĞµÄÑÏÖØ³ö´í£¬¸Ã¼¶±ğµÄÏûÏ¢Ê±ÓÃ»§±ØĞë²é¿´ÈÕÖ¾À´È·¶¨´íÎóÔ­Òò¡£
-	 * @param msg ´ı¼ÇÂ¼µÄÈÕÖ¾ÏûÏ¢£¬Í¨³£ÓÃÓÚ¼ÓÉî»òÕß²¹³äÒì³£µÄÏêÏ¸ÃèÊö
-	 * @param t	¶ÔÓ¦µÄÏêÏ¸Òì³£
+	 * ç”¨äºè®°å½•ä»£ç ä¸­çš„ä¸¥é‡å‡ºé”™ï¼Œè¯¥çº§åˆ«çš„æ¶ˆæ¯æ—¶ç”¨æˆ·å¿…é¡»æŸ¥çœ‹æ—¥å¿—æ¥ç¡®å®šé”™è¯¯åŸå› ã€‚
+	 * @param msg å¾…è®°å½•çš„æ—¥å¿—æ¶ˆæ¯ï¼Œé€šå¸¸ç”¨äºåŠ æ·±æˆ–è€…è¡¥å……å¼‚å¸¸çš„è¯¦ç»†æè¿°
+	 * @param t	å¯¹åº”çš„è¯¦ç»†å¼‚å¸¸
 	 */
 	public static void severe(Object msg, Throwable t) {
 		logger.doLog(iSEVERE, msg, t);
 	}
 
 	/**
-	 * ¼òµ¥¼ÇÂ¼´úÂëÖĞµÄÑÏÖØÏûÏ¢
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢£¬¸ÃÏûÏ¢Èç¹ûÊÇÎÄ±¾´®£¬Ôò¼ÇÂ¼ÎÄ±¾´®£»Èç¹ûÊÇÒì³£Àà£¬Ôò»áµ÷ÓÃÏàÓ¦µÄsevere(msg,t)·½·¨
+	 * ç®€å•è®°å½•ä»£ç ä¸­çš„ä¸¥é‡æ¶ˆæ¯
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯ï¼Œè¯¥æ¶ˆæ¯å¦‚æœæ˜¯æ–‡æœ¬ä¸²ï¼Œåˆ™è®°å½•æ–‡æœ¬ä¸²ï¼›å¦‚æœæ˜¯å¼‚å¸¸ç±»ï¼Œåˆ™ä¼šè°ƒç”¨ç›¸åº”çš„severe(msg,t)æ–¹æ³•
 	 */
 	public static void severe(Object msg) {
 		severe(msg, isException(msg));
 	}
 
 	/**
-	 * Í¬warning·½·¨£¬ÓÃÓÚÒÔÇ°°æ±¾µÄ¼æÈİ£¬²»Òªµ÷ÓÃ¸Ã·½·¨¡£
+	 * åŒwarningæ–¹æ³•ï¼Œç”¨äºä»¥å‰ç‰ˆæœ¬çš„å…¼å®¹ï¼Œä¸è¦è°ƒç”¨è¯¥æ–¹æ³•ã€‚
 	 * @param msg
 	 */
 	public static void warn(Object msg) {
@@ -336,59 +336,59 @@ public class ScudataLogger {
 	}
 
 	/**
-	 * ÏêÏ¸¼ÇÂ¼Ò»¸ö¾¯¸æÏûÏ¢ÒÔ¼°ÏàÓ¦Òì³£
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
-	 * @param t	¶ÔÓ¦µÄÏêÏ¸Òì³£
+	 * è¯¦ç»†è®°å½•ä¸€ä¸ªè­¦å‘Šæ¶ˆæ¯ä»¥åŠç›¸åº”å¼‚å¸¸
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
+	 * @param t	å¯¹åº”çš„è¯¦ç»†å¼‚å¸¸
 	 */
 	public static void warning(Object msg, Throwable t) {
 		logger.doLog(iWARNING, msg, t);
 	}
 
 	/**
-	 * ¼ÇÂ¼Ò»¸ö¾¯¸æÏûÏ¢
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
+	 * è®°å½•ä¸€ä¸ªè­¦å‘Šæ¶ˆæ¯
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
 	 */
 	public static void warning(Object msg) {
 		warning(msg, isException(msg));
 	}
 
 	/**
-	 * ÏêÏ¸¼ÇÂ¼Ò»¸öÆÕÍ¨ÏûÏ¢ÒÔ¼°ÏàÓ¦Òì³£
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
-	 * @param t	¶ÔÓ¦µÄÏêÏ¸Òì³£
+	 * è¯¦ç»†è®°å½•ä¸€ä¸ªæ™®é€šæ¶ˆæ¯ä»¥åŠç›¸åº”å¼‚å¸¸
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
+	 * @param t	å¯¹åº”çš„è¯¦ç»†å¼‚å¸¸
 	 */
 	public static void info(Object msg, Throwable t) {
 		logger.doLog(iINFO, msg, t);
 	}
 
 	/**
-	 * ¼òµ¥¼ÇÂ¼Ò»¸öÆÕÍ¨ÏûÏ¢
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
+	 * ç®€å•è®°å½•ä¸€ä¸ªæ™®é€šæ¶ˆæ¯
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
 	 */
 	public static void info(Object msg) {
 		info(msg, isException(msg));
 	}
 
 	/**
-	 * ÏêÏ¸¼ÇÂ¼Ò»¸öµ÷ÊÔÏûÏ¢ÒÔ¼°ÏàÓ¦Òì³£
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
-	 * @param t	¶ÔÓ¦µÄÏêÏ¸Òì³£
+	 * è¯¦ç»†è®°å½•ä¸€ä¸ªè°ƒè¯•æ¶ˆæ¯ä»¥åŠç›¸åº”å¼‚å¸¸
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
+	 * @param t	å¯¹åº”çš„è¯¦ç»†å¼‚å¸¸
 	 */
 	public static void debug(Object msg, Throwable t) {
 		logger.doLog(iDEBUG, msg, t);
 	}
 
 	/**
-	 * ¼òµ¥¼ÇÂ¼Ò»¸öµ÷ÊÔÏûÏ¢
-	 * @param msg	´ı¼ÇÂ¼µÄÏûÏ¢
+	 * ç®€å•è®°å½•ä¸€ä¸ªè°ƒè¯•æ¶ˆæ¯
+	 * @param msg	å¾…è®°å½•çš„æ¶ˆæ¯
 	 */
 	public static void debug(Object msg) {
 		debug(msg, isException(msg));
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°ÈÕÖ¾µÄ¿´ÃÅ¼¶±ğÊÇ·ñÎªµ÷ÊÔÄ£Ê½
-	 * @return ÊÇ·ñµ÷ÊÔÄ£Ê½
+	 * åˆ¤æ–­å½“å‰æ—¥å¿—çš„çœ‹é—¨çº§åˆ«æ˜¯å¦ä¸ºè°ƒè¯•æ¨¡å¼
+	 * @return æ˜¯å¦è°ƒè¯•æ¨¡å¼
 	 */
 	public static boolean isDebugLevel() {
 		int level = gateLevel;
@@ -396,16 +396,16 @@ public class ScudataLogger {
 	}
 
 	/**
-	 * Í¨³£ÇéĞÎÏÂ£¬µ÷ÊÔÄ£Ê½»áÊä³öËùÓĞ¼¶±ğµÄÈÕÖ¾£¬¼æÈİÒÔÇ°°æ±¾µÄÊÇ·ñµ÷ÊÔ¼¶±ğĞ´·¨£¬²»Òªµ÷ÓÃ¸Ã·½·¨¡£
-	 * @return ÊÇ·ñµ÷ÊÔÄ£Ê½
+	 * é€šå¸¸æƒ…å½¢ä¸‹ï¼Œè°ƒè¯•æ¨¡å¼ä¼šè¾“å‡ºæ‰€æœ‰çº§åˆ«çš„æ—¥å¿—ï¼Œå…¼å®¹ä»¥å‰ç‰ˆæœ¬çš„æ˜¯å¦è°ƒè¯•çº§åˆ«å†™æ³•ï¼Œä¸è¦è°ƒç”¨è¯¥æ–¹æ³•ã€‚
+	 * @return æ˜¯å¦è°ƒè¯•æ¨¡å¼
 	 */
 	public static boolean isAllLevel() {
 		return isDebugLevel();
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°ÈÕÖ¾µÄ¼ÇÂ¼¼¶±ğ
-	 * @param level	¸ÃÎÄ¼ş¶¨ÒåµÄÈÕÖ¾¼¶±ğ³£Á¿´®
+	 * è®¾ç½®å½“å‰æ—¥å¿—çš„è®°å½•çº§åˆ«
+	 * @param level	è¯¥æ–‡ä»¶å®šä¹‰çš„æ—¥å¿—çº§åˆ«å¸¸é‡ä¸²
 	 */
 	public static void setLevel(String level) {
 		int l = getLevel(level);
@@ -414,8 +414,8 @@ public class ScudataLogger {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ÈÕÖ¾¼ÇÂ¼¼¶±ğ
-	 * @return	·µ»Ø¼ÇÂ¼¼¶±ğºÅ
+	 * è·å–å½“å‰æ—¥å¿—è®°å½•çº§åˆ«
+	 * @return	è¿”å›è®°å½•çº§åˆ«å·
 	 */
 	public static int getLevel() {
 		return gateLevel;
@@ -453,7 +453,7 @@ public class ScudataLogger {
 		void doLog(int level, String msg) {
 			if (level > logLevel)
 				return;
-			System.err.println(msg);// outÓÃÓÚÊä³öÊı¾İ£¬¿ÉÔÚdos¿ØÖÆÌ¨ÊÕ¼¯
+			System.err.println(msg);// outç”¨äºè¾“å‡ºæ•°æ®ï¼Œå¯åœ¨dosæ§åˆ¶å°æ”¶é›†
 		}
 
 		void close() {
@@ -468,7 +468,7 @@ public class ScudataLogger {
 		String fileName, encoding = "UTF-8";
 		boolean isFixedFileName = false;
 		int maxFileSize = 10*1024*1024;
-		String absolutePath = null;//ÓÉÓÚ¹¹ÔìÏà¶ÔÂ·¾¶µÄÎÄ¼şÊ±£¬¹¹ÔìÌõ¼şµÄ²»Í¬¿ÉÄÜÔì³É¾ø¶ÔÂ·¾¶²»Ò»ÖÂ£¬¼ÓÉÏ¾ø¶ÔÂ·¾¶£¬ÓÃÓÚÒ»µ©ÎÄ¼şÉú³É¾ø¶ÔÂ·¾¶ºó£¬ÒÔºóËùÓĞÂ·¾¶¶¼ÓÃ¸Ã¾ø¶ÔÂ·¾¶
+		String absolutePath = null;//ç”±äºæ„é€ ç›¸å¯¹è·¯å¾„çš„æ–‡ä»¶æ—¶ï¼Œæ„é€ æ¡ä»¶çš„ä¸åŒå¯èƒ½é€ æˆç»å¯¹è·¯å¾„ä¸ä¸€è‡´ï¼ŒåŠ ä¸Šç»å¯¹è·¯å¾„ï¼Œç”¨äºä¸€æ—¦æ–‡ä»¶ç”Ÿæˆç»å¯¹è·¯å¾„åï¼Œä»¥åæ‰€æœ‰è·¯å¾„éƒ½ç”¨è¯¥ç»å¯¹è·¯å¾„
 		File currentFile = null;
 		BufferedWriter br = null;
 		FileOutputStream fos = null;
@@ -476,7 +476,7 @@ public class ScudataLogger {
 		public FileHandler(String file) throws Exception {
 			this(file, null,false,null);
 		}
-//		maxSize:  µ¥Î»ÎªM£¬ ¿ÉÒÔĞ´10£¬ »òÕß10M
+//		maxSize:  å•ä½ä¸ºMï¼Œ å¯ä»¥å†™10ï¼Œ æˆ–è€…10M
 		public FileHandler(String file, String encode,boolean isFixedFileName,String maxSize) throws Exception {
 			this.fileName = file;
 			this.isFixedFileName = isFixedFileName;
@@ -504,7 +504,7 @@ public class ScudataLogger {
 		}
 
 		/**
-		 * ÉèÖÃ×î´óÎÄ¼ş³ß´ç£¬µ¥Î»M
+		 * è®¾ç½®æœ€å¤§æ–‡ä»¶å°ºå¯¸ï¼Œå•ä½M
 		 * @param maxSize
 		 */
 		public void setMaxFileSize(String maxSize) {
@@ -559,7 +559,7 @@ public class ScudataLogger {
 		
 		private ArrayList<String> bufFiles = new ArrayList<String>();
 		private Object[] getLogFile(String fileName, boolean isFixedFileName) {
-			Object[] files = new Object[2];//µÚ0·µ»Ø¹¤×÷File£¬µÚ1·µ»Ø¾ø¶ÔÂ·¾¶
+			Object[] files = new Object[2];//ç¬¬0è¿”å›å·¥ä½œFileï¼Œç¬¬1è¿”å›ç»å¯¹è·¯å¾„
 			File f = new File(fileName);
 			if (!f.isAbsolute()) {
 				String home = System.getProperty("start.home");
@@ -571,11 +571,11 @@ public class ScudataLogger {
 						home = sc.getRealPath("/");
 					}
 					if (home != null) {
-						f = new File(home, fileName);// Ïà¶ÔÓÚwebÓ¦ÓÃµÄ¸ùÄ¿Â¼
+						f = new File(home, fileName);// ç›¸å¯¹äºwebåº”ç”¨çš„æ ¹ç›®å½•
 					} else {
-						// ÕâÖÖÇé¿öÎªwar°ü·¢²¼Ê±£¬homeÈÔÈ»»áÎªnull£¬´ËÊ±Ïà¶ÔÓÚµ±Ç°µÄ¹¤×÷Â·¾¶£¬Ò²¼´web
-						// serverµÄÆô¶¯exeµÄÂ·¾¶¡£
-						f = new File(f.getAbsolutePath());// ÔÚµ±Ç°¹¤×÷Â·¾¶ÏÂÎÄ¼ş
+						// è¿™ç§æƒ…å†µä¸ºwaråŒ…å‘å¸ƒæ—¶ï¼Œhomeä»ç„¶ä¼šä¸ºnullï¼Œæ­¤æ—¶ç›¸å¯¹äºå½“å‰çš„å·¥ä½œè·¯å¾„ï¼Œä¹Ÿå³web
+						// serverçš„å¯åŠ¨exeçš„è·¯å¾„ã€‚
+						f = new File(f.getAbsolutePath());// åœ¨å½“å‰å·¥ä½œè·¯å¾„ä¸‹æ–‡ä»¶
 					}
 				}
 				files[1] = f.getAbsolutePath();
@@ -606,7 +606,7 @@ public class ScudataLogger {
 				}
 			}
 			if(!bufFiles.contains(filePath)) {
-				if(!Logger.isUseSLF4J()) {//Ê¹ÓÃ¿ò¼ÜÊ±£¬ÉèÖÃµÄÈÕÖ¾ÅäÖÃ±ãÓÃ²»ÉÏÁË
+				if(!Logger.isUseSLF4J()) {//ä½¿ç”¨æ¡†æ¶æ—¶ï¼Œè®¾ç½®çš„æ—¥å¿—é…ç½®ä¾¿ç”¨ä¸ä¸Šäº†
 					System.err.println("esProc is using log file:\r\n" + filePath + "\r\n");
 				}
 				
@@ -671,10 +671,10 @@ public class ScudataLogger {
 		Thread t3 = new Thread() {
 			public void run() {
 				String name = "t3:";
-				Logger.severe(name + "ÑÏÖØ");
-				Logger.warning(name + "¾¯¸æ");
-				Logger.info(name + "ĞÅÏ¢");
-				Logger.debug(name + "µ÷ÊÔ");
+				Logger.severe(name + "ä¸¥é‡");
+				Logger.warning(name + "è­¦å‘Š");
+				Logger.info(name + "ä¿¡æ¯");
+				Logger.debug(name + "è°ƒè¯•");
 			}
 		};
 		t1.start();

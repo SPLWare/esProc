@@ -9,7 +9,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 
 /**
- * ¶şÖµ±êÖ¾ÑÜÉú±äÁ¿¼ÇÂ¼
+ * äºŒå€¼æ ‡å¿—è¡ç”Ÿå˜é‡è®°å½•
  * @author bd
  *
  */
@@ -25,7 +25,7 @@ public class BIRec implements Externalizable {
 	}
 
 	/**
-	 * »ñÈ¡BIÉú³ÉµÄid¼ÇÂ¼
+	 * è·å–BIç”Ÿæˆçš„idè®°å½•
 	 * @return the x
 	 */
 	public Sequence getX() {
@@ -34,7 +34,7 @@ public class BIRec implements Externalizable {
 	
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉĞòÁĞ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -44,7 +44,7 @@ public class BIRec implements Externalizable {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾İSequence³õÊ¼»¯²ÎÊı
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public void init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -54,7 +54,7 @@ public class BIRec implements Externalizable {
 		this.X = (Sequence) seq.get(1);
 	}
 	
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 1;
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte ver = in.readByte();

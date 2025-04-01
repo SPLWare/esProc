@@ -13,39 +13,39 @@ import com.scudata.expression.FunctionLib;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼ÆËãÓÃµ½µÄÉÏÏÂÎÄ
+ * è®¡ç®—ç”¨åˆ°çš„ä¸Šä¸‹æ–‡
  * @author WangXiaoJun
  *
  */
 public class Context {
-	private Context parent; // ¸¸ÉÏÏÂÎÄ
-	private JobSpace js; // ×÷Òµ¿Õ¼ä
-	private Map<String, DBSession> dbSessions = new HashMap<String, DBSession>();// DBSessionÓ³Éä
-	private Map<String, ISessionFactory> dbsfs = new HashMap<String, ISessionFactory>(); // ISessionFactoryÓ³Éä
+	private Context parent; // çˆ¶ä¸Šä¸‹æ–‡
+	private JobSpace js; // ä½œä¸šç©ºé—´
+	private Map<String, DBSession> dbSessions = new HashMap<String, DBSession>();// DBSessionæ˜ å°„
+	private Map<String, ISessionFactory> dbsfs = new HashMap<String, ISessionFactory>(); // ISessionFactoryæ˜ å°„
 
-	private ParamList paramList = new ParamList(); // ±äÁ¿ÁĞ±í
-	private ComputeStack computeStack = new ComputeStack(); // ¼ÆËã¶ÑÕ»
-	private String defDsName; // È±Ê¡Êı¾İ¿âÁ´½ÓÃû³Æ
+	private ParamList paramList = new ParamList(); // å˜é‡åˆ—è¡¨
+	private ComputeStack computeStack = new ComputeStack(); // è®¡ç®—å †æ ˆ
+	private String defDsName; // ç¼ºçœæ•°æ®åº“é“¾æ¥åç§°
 
-	private Random random; // ÓÃÓÚÉú³ÉËæ»úÖµ
-	private Param iterateParam = new Param(KeyWord.ITERATEPARAM, Param.VAR, null); // µü´ú±äÁ¿
+	private Random random; // ç”¨äºç”Ÿæˆéšæœºå€¼
+	private Param iterateParam = new Param(KeyWord.ITERATEPARAM, Param.VAR, null); // è¿­ä»£å˜é‡
 	
 	/**
-	 * ´´½¨ÉÏÏÂÎÄ¶ÔÏó
+	 * åˆ›å»ºä¸Šä¸‹æ–‡å¯¹è±¡
 	 */
 	public Context() {
 	}
 
 	/**
-	 * ´´½¨ÉÏÏÂÎÄ¶ÔÏó, ºÍ¸¸ÉÏÏÂÎÄ¹²ÏíÓïÒå²ã
-	 * @param parent ¸¸ÉÏÏÂÎÄ
+	 * åˆ›å»ºä¸Šä¸‹æ–‡å¯¹è±¡, å’Œçˆ¶ä¸Šä¸‹æ–‡å…±äº«è¯­ä¹‰å±‚
+	 * @param parent çˆ¶ä¸Šä¸‹æ–‡
 	 */
 	public Context(Context parent) {
 		this.parent = parent;
 	}
 
 	/**
-	 * ÉèÖÃ¸¸ÉÏÏÂÎÄ
+	 * è®¾ç½®çˆ¶ä¸Šä¸‹æ–‡
 	 * @param parent Context
 	 */
 	public void setParent(Context parent) {
@@ -53,16 +53,16 @@ public class Context {
 	}
 
 	/**
-	 * È¡µÃ¸¸¶ÔÏóÉÏÏÂÎÄ
-	 * @return  ¸¸ÉÏÏÂÎÄ
+	 * å–å¾—çˆ¶å¯¹è±¡ä¸Šä¸‹æ–‡
+	 * @return  çˆ¶ä¸Šä¸‹æ–‡
 	 */
 	public Context getParent() {
 		return parent;
 	}
 
 	/**
-	 * °´Ãû³ÆÈ¡Êı¾İ¿â»òOLAPÅäÖÃ
-	 * @param dbName Êı¾İ¿â»òOLAPÃû
+	 * æŒ‰åç§°å–æ•°æ®åº“æˆ–OLAPé…ç½®
+	 * @param dbName æ•°æ®åº“æˆ–OLAPå
 	 * @return DataSourceConfig
 	 */
 	public DBSession getDBSession(String dbName) {
@@ -77,25 +77,25 @@ public class Context {
 	}
 
 	/**
-	 * ·µ»ØËùÓĞÊı¾İ¿âÁ¬½Ó
-	 * @return Map name£ºDBSession
+	 * è¿”å›æ‰€æœ‰æ•°æ®åº“è¿æ¥
+	 * @return Map nameï¼šDBSession
 	 */
 	public Map<String, DBSession> getDBSessionMap() {
 		return dbSessions;
 	}
 
 	/**
-	 * °´Ãû³ÆÉèÊı¾İ¿â»òOLAPÅäÖÃ
-	 * @param dbName Êı¾İÔ´Ãû
-	 * @param dbSession Êı¾İÔ´ÅäÖÃ
+	 * æŒ‰åç§°è®¾æ•°æ®åº“æˆ–OLAPé…ç½®
+	 * @param dbName æ•°æ®æºå
+	 * @param dbSession æ•°æ®æºé…ç½®
 	 */
 	public void setDBSession(String dbName, DBSession dbSession) {
 		dbSessions.put(dbName, dbSession);
 	}
 
 	/**
-	 * É¾³ıÊı¾İ¿âÁ¬½Ó
-	 * @param dbName String Êı¾İ¿âÁ¬½ÓÃû
+	 * åˆ é™¤æ•°æ®åº“è¿æ¥
+	 * @param dbName String æ•°æ®åº“è¿æ¥å
 	 * @return DBSession
 	 */
 	public DBSession removeDBSession(String dbName) {
@@ -105,9 +105,9 @@ public class Context {
 	}
 
 	/**
-	 * »ñÈ¡Êı¾İ¿âÁ¬½Ó¹¤³§
-	 * @param name String Êı¾İ¿âÃû³Æ
-	 * @return ISessionFactory Êı¾İ¿âÁ¬½Ó¹¤³§
+	 * è·å–æ•°æ®åº“è¿æ¥å·¥å‚
+	 * @param name String æ•°æ®åº“åç§°
+	 * @return ISessionFactory æ•°æ®åº“è¿æ¥å·¥å‚
 	 */
 	public ISessionFactory getDBSessionFactory(String name) {
 		ISessionFactory sf = dbsfs.get(name);
@@ -116,24 +116,24 @@ public class Context {
 	 }
 
 	 /**
-	  * ·µ»ØËùÓĞÊı¾İ¿âÁ¬½Ó¹¤³§
-	  * @return Map name£ºISessionFactory
+	  * è¿”å›æ‰€æœ‰æ•°æ®åº“è¿æ¥å·¥å‚
+	  * @return Map nameï¼šISessionFactory
 	  */
 	 public Map<String, ISessionFactory> getDBSessionFactoryMap() {
 		 return dbsfs;
 	 }
 
 	 /**
-	  * ÉèÖÃÊı¾İ¿âÁ¬½Ó¹¤³§
-	  * @param name String Êı¾İ¿âÃû³Æ
-	  * @param sf ISessionFactory Êı¾İ¿âÁ¬½Ó¹¤³§
+	  * è®¾ç½®æ•°æ®åº“è¿æ¥å·¥å‚
+	  * @param name String æ•°æ®åº“åç§°
+	  * @param sf ISessionFactory æ•°æ®åº“è¿æ¥å·¥å‚
 	  */
 	 public void setDBSessionFactory(String name, ISessionFactory sf) {
 		 dbsfs.put(name, sf);
 	 }
 
 	 /**
-	  * É¾³ıÊı¾İ¿âÁ¬½Ó¹¤³§
+	  * åˆ é™¤æ•°æ®åº“è¿æ¥å·¥å‚
 	  * @param name String
 	  * @return ISessionFactory
 	  */
@@ -144,20 +144,20 @@ public class Context {
 	 }
 
 	/**
-	 * °´Ãû³ÆÈ¡±äÁ¿
-	 * @param name ±äÁ¿Ãû
+	 * æŒ‰åç§°å–å˜é‡
+	 * @param name å˜é‡å
 	 * @return DataStruct
 	 */
 	public Param getParam(String name) {
-		// ²»ÔÙ´Ó¸¸ÉÏÏÂÎÄÈ¡
-		// ¶àÂ·ÓÎ±êÓĞ×Ô¼ºµÄÉÏÏÂÎÄ£¬´´½¨¶àÂ·ÓÎ±êºóÖ÷dfxÔÙ´´½¨±äÁ¿¶àÂ·ÓÎ±êÀï·ÃÎÊ²»µ½ÁË
+		// ä¸å†ä»çˆ¶ä¸Šä¸‹æ–‡å–
+		// å¤šè·¯æ¸¸æ ‡æœ‰è‡ªå·±çš„ä¸Šä¸‹æ–‡ï¼Œåˆ›å»ºå¤šè·¯æ¸¸æ ‡åä¸»dfxå†åˆ›å»ºå˜é‡å¤šè·¯æ¸¸æ ‡é‡Œè®¿é—®ä¸åˆ°äº†
 		Param param = paramList.get(name);
 		if (param != null) return param;
 		return parent == null ? null : parent.getParam(name);
 	}
 
 	/**
-	 * ·µ»Ø²ÎÊıÁĞ±í
+	 * è¿”å›å‚æ•°åˆ—è¡¨
 	 * @return ParamList
 	 */
 	public ParamList getParamList() {
@@ -165,7 +165,7 @@ public class Context {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıÁĞ±í
+	 * è®¾ç½®å‚æ•°åˆ—è¡¨
 	 * @param list ParamList
 	 */
 	public void setParamList(ParamList list) {
@@ -177,27 +177,27 @@ public class Context {
 	}
 
 	/**
-	 * Ìí¼Ó±äÁ¿
-	 * @param param ±äÁ¿
+	 * æ·»åŠ å˜é‡
+	 * @param param å˜é‡
 	 */
 	public void addParam(Param param) {
 		paramList.add(param);
 	}
 
 	/**
-	 * °´Ãû³ÆÉ¾³ı±äÁ¿
+	 * æŒ‰åç§°åˆ é™¤å˜é‡
 	 * @param name String
 	 * @return Param
 	 */
 	public Param removeParam(String name) {
 		return paramList.remove(name);
-		// ²»ÔÙ´Ó¸¸ÉÏÏÂÎÄÉ¾
+		// ä¸å†ä»çˆ¶ä¸Šä¸‹æ–‡åˆ 
 		//if (param != null) return param;
 		//return parent == null ? null : parent.removeParam(name);
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıµÄÖµ£¬Èç¹û±äÁ¿²»´æÔÚÔò²úÉúÒ»¸öVARÀàĞÍµÄ²ÎÊı
+	 * è®¾ç½®å‚æ•°çš„å€¼ï¼Œå¦‚æœå˜é‡ä¸å­˜åœ¨åˆ™äº§ç”Ÿä¸€ä¸ªVARç±»å‹çš„å‚æ•°
 	 * @param name String
 	 * @param value Object
 	 */
@@ -211,7 +211,7 @@ public class Context {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıµÄÖµ£¬Èç¹û±äÁ¿²»´æÔÚÔò²úÉúÒ»¸öparamTypeÀàĞÍµÄ²ÎÊı
+	 * è®¾ç½®å‚æ•°çš„å€¼ï¼Œå¦‚æœå˜é‡ä¸å­˜åœ¨åˆ™äº§ç”Ÿä¸€ä¸ªparamTypeç±»å‹çš„å‚æ•°
 	 * @param name String
 	 * @param value Object
 	 * @param paramType byte Param.VAR  ARG
@@ -226,7 +226,7 @@ public class Context {
 	}
 
 	/**
-	 * È¡¼ÆËã¶ÑÕ»£¬ÓÃÓÚ³ÉÔ±º¯Êı×ó²à¶ÔÏóµÄÑ¹Õ»
+	 * å–è®¡ç®—å †æ ˆï¼Œç”¨äºæˆå‘˜å‡½æ•°å·¦ä¾§å¯¹è±¡çš„å‹æ ˆ
 	 * @return
 	 */
 	public ComputeStack getComputeStack() {
@@ -234,7 +234,7 @@ public class Context {
 	}
 
 	/**
-	 * ·µ»ØÈ±Ê¡Êı¾İ¿âÁ´½ÓÃû³Æ
+	 * è¿”å›ç¼ºçœæ•°æ®åº“é“¾æ¥åç§°
 	 * @return String
 	 */
 	public String getDefDBsessionName() {
@@ -242,7 +242,7 @@ public class Context {
 	}
 
 	/**
-	 * ÉèÖÃÈ±Ê¡Êı¾İ¿âÁ´½ÓÃû³Æ
+	 * è®¾ç½®ç¼ºçœæ•°æ®åº“é“¾æ¥åç§°
 	 * @param dsn String
 	 */
 	public void setDefDBsessionName(String dsn) {
@@ -250,14 +250,14 @@ public class Context {
 	}
 
 	/**
-	 * ·µ»ØÈ±Ê¡Êı¾İ¿âÁ´½Ó
+	 * è¿”å›ç¼ºçœæ•°æ®åº“é“¾æ¥
 	 * @return DBSession
 	 */
 	public DBSession getDefDBsession() {
 		return getDBSession(defDsName);
 	}
 
-	// ·µ»ØÒ»¸öÒÑÁ¬½ÓµÄÊı¾İ¿â
+	// è¿”å›ä¸€ä¸ªå·²è¿æ¥çš„æ•°æ®åº“
 	public DBSession getDBSession() {
 		if (dbSessions.size() != 0) {
 			return dbSessions.values().iterator().next();
@@ -271,7 +271,7 @@ public class Context {
 	}
 
 	/**
-	 * ·µ»Ørandom¶ÔÏó
+	 * è¿”å›randomå¯¹è±¡
 	 * @return Random
 	 */
 	public Random getRandom() {
@@ -280,8 +280,8 @@ public class Context {
 	}
 
 	/**
-	 * ·µ»Ø¸ùÎªseedµÄrandom¶ÔÏó
-	 * @param seed long ¸ù
+	 * è¿”å›æ ¹ä¸ºseedçš„randomå¯¹è±¡
+	 * @param seed long æ ¹
 	 * @return Random
 	 */
 	public Random getRandom(long seed) {
@@ -295,15 +295,15 @@ public class Context {
 	}
 
 	/**
-	 * ÉèÖÃ¹¤×÷¿Õ¼ä
-	 * @param space ¹¤×÷¿Õ¼ä
+	 * è®¾ç½®å·¥ä½œç©ºé—´
+	 * @param space å·¥ä½œç©ºé—´
 	 */
 	public void setJobSpace(JobSpace space) {
 		this.js = space;
 	}
 
 	/**
-	 * È¡¹¤×÷¿Õ¼ä
+	 * å–å·¥ä½œç©ºé—´
 	 * @return JobSpace
 	 */
 	public JobSpace getJobSpace() {
@@ -311,7 +311,7 @@ public class Context {
 	}
 
 	/**
-	 * È¡×ÊÔ´¹ÜÀíÆ÷
+	 * å–èµ„æºç®¡ç†å™¨
 	 * @return ResourceManager
 	 */
 	public ResourceManager getResourceManager() {
@@ -323,8 +323,8 @@ public class Context {
 	}
 	
 	/**
-	 * Ìí¼ÓÖ¸¶¨×ÊÔ´µ½×ÊÔ´¹ÜÀíÆ÷
-	 * @param resource ×ÊÔ´
+	 * æ·»åŠ æŒ‡å®šèµ„æºåˆ°èµ„æºç®¡ç†å™¨
+	 * @param resource èµ„æº
 	 */
 	public void addResource(IResource resource) {
 		ResourceManager rm = getResourceManager();
@@ -334,8 +334,8 @@ public class Context {
 	}
 	
 	/**
-	 * °ÑÖ¸¶¨×ÊÔ´´Ó×ÊÔ´¹ÜÀíÆ÷ÖĞÉ¾³ı
-	 * @param resource ×ÊÔ´
+	 * æŠŠæŒ‡å®šèµ„æºä»èµ„æºç®¡ç†å™¨ä¸­åˆ é™¤
+	 * @param resource èµ„æº
 	 */
 	public void removeResource(IResource resource) {
 		ResourceManager rm = getResourceManager();
@@ -345,11 +345,11 @@ public class Context {
 	}
 	
 	/**
-	 * ´´½¨ĞÂµÄ¼ÆËã»·¾³
+	 * åˆ›å»ºæ–°çš„è®¡ç®—ç¯å¢ƒ
 	 * @return Context
 	 */
 	public Context newComputeContext() {
-		// ²»ÔÙÖ¸¶¨thisÎª¸¸£¬funcµ÷ÓÃ²ãÊı¶àÁËÈİÒ×µ¼ÖÂStackOverflowErrorÒì³£
+		// ä¸å†æŒ‡å®šthisä¸ºçˆ¶ï¼Œfuncè°ƒç”¨å±‚æ•°å¤šäº†å®¹æ˜“å¯¼è‡´StackOverflowErrorå¼‚å¸¸
 		Context ctx = new Context();
 		ctx.js = js;
 		ctx.dbSessions = dbSessions;
@@ -367,8 +367,8 @@ public class Context {
 	}
 	
 	/**
-	 * ¸´ÖÆÖ¸¶¨ÉÏÏßÎÄµÄ¼ÆËã»·¾³£¬²»¸´ÖÆ±äÁ¿
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶æŒ‡å®šä¸Šçº¿æ–‡çš„è®¡ç®—ç¯å¢ƒï¼Œä¸å¤åˆ¶å˜é‡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void setEnv(Context ctx) {
 		js = ctx.js;
@@ -378,7 +378,7 @@ public class Context {
 	}
 
 	/**
-	 * È¡µü´ú±äÁ¿
+	 * å–è¿­ä»£å˜é‡
 	 * @return Param
 	 */
 	public Param getIterateParam() {
@@ -386,9 +386,9 @@ public class Context {
 	}
 	
 	/**
-	 * Ìí¼Ó³ÌĞòÍøº¯Êı
-	 * @param fnName º¯ÊıÃû
-	 * @param dfxPathName ³ÌĞòÍøÂ·¾¶Ãû
+	 * æ·»åŠ ç¨‹åºç½‘å‡½æ•°
+	 * @param fnName å‡½æ•°å
+	 * @param dfxPathName ç¨‹åºç½‘è·¯å¾„å
 	 */
 	public void addDFXFunction(String fnName, String dfxPathName, String opt) {
 		if (opt == null || opt.indexOf('j') == -1) {
@@ -402,9 +402,9 @@ public class Context {
 	}
 	
 	/**
-	 * Ìí¼Ó³ÌĞòÍøº¯Êı
-	 * @param fnName º¯ÊıÃû
-	 * @param funcInfo º¯ÊıÌåĞÅÏ¢
+	 * æ·»åŠ ç¨‹åºç½‘å‡½æ•°
+	 * @param fnName å‡½æ•°å
+	 * @param funcInfo å‡½æ•°ä½“ä¿¡æ¯
 	 */
 	public void addDFXFunction(String fnName, PgmCellSet.FuncInfo funcInfo) {
 		String opt = funcInfo.getOption();
@@ -419,8 +419,8 @@ public class Context {
 	}
 	
 	/**
-	 * É¾³ı³ÌĞòÍøº¯Êı
-	 * @param fnName º¯ÊıÃû
+	 * åˆ é™¤ç¨‹åºç½‘å‡½æ•°
+	 * @param fnName å‡½æ•°å
 	 */
 	public void removeDFXFunction(String fnName) {
 		if (js != null) {
@@ -429,9 +429,9 @@ public class Context {
 	}
 	
 	/**
-	 * ¸ù¾İº¯ÊıÃûÈ¡³ÌĞòÍø
-	 * @param fnName º¯ÊıÃû
-	 * @return ³ÌĞòÍøº¯Êı
+	 * æ ¹æ®å‡½æ•°åå–ç¨‹åºç½‘
+	 * @param fnName å‡½æ•°å
+	 * @return ç¨‹åºç½‘å‡½æ•°
 	 */
 	public DfxFunction getDFXFunction(String fnName) {
 		if (js != null) {
@@ -447,10 +447,10 @@ public class Context {
 	}
 	
 	/**
-	 * ¸ù¾İº¯ÊıÃûÈ¡³ÌĞòÍø
-	 * @param fnName º¯ÊıÃû
+	 * æ ¹æ®å‡½æ•°åå–ç¨‹åºç½‘
+	 * @param fnName å‡½æ•°å
 	 * @param ctx
-	 * @return ³ÌĞòÍøº¯Êı
+	 * @return ç¨‹åºç½‘å‡½æ•°
 	 */
 	public static DfxFunction getDFXFunction(String fnName, Context ctx) {
 		if (ctx != null) {

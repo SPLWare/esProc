@@ -8,37 +8,37 @@ public interface IColCell
 	extends ICloneable, Externalizable, IRecord {
 
 	/**
-	 * ·µ»ØÁĞºÅ
+	 * è¿”å›åˆ—å·
 	 * @return int
 	 */
 	public int getCol();
 
 	/**
-	 * ÉèÖÃÁĞºÅ
+	 * è®¾ç½®åˆ—å·
 	 * @param col int
 	 */
 	public void setCol(int col);
 
 	/**
-	 * ·µ»ØÁĞ¿í
+	 * è¿”å›åˆ—å®½
 	 * @return float
 	 */
 	public float getWidth();
 
 	/**
-	 * ÉèÖÃÁĞ¿í
+	 * è®¾ç½®åˆ—å®½
 	 * @param w float
 	 */
 	public void setWidth(float w);
 
 	/**
-	 * ·µ»Ø²ãºÅ
+	 * è¿”å›å±‚å·
 	 * @return int
 	 */
 	public int getLevel();
 
 	/**
-	 * ÉèÖÃ²ãºÅ
+	 * è®¾ç½®å±‚å·
 	 * @param level int
 	 */
 	public void setLevel(int level);

@@ -20,29 +20,29 @@ import com.scudata.expression.mfn.sequence.Export;
 import com.scudata.resources.EngineMessage;
 
 /**
- * E(x) xÊÇ¶ş²ãĞòÁĞÊ±£¬×ª»»³É¶àĞĞĞò±í£¬Ã¿ĞĞÒ»Ìõ¼ÇÂ¼£¬µÚÒ»ĞĞÊÇ±êÌâ¡£ xÊÇ´®£¬Àí½âÎª»Ø³µ·Ö¸ôĞĞ/TAB·Ö¸ôÁĞµÄ´®£¬ÏÈ²ğ¿ªÔÙ×ª»»¡£
- * xÊÇĞò±í/ÅÅÁĞÊ±£¬×ª»»³É¶ş²ãĞòÁĞ¡£ xÊÇÊıÖµÔò°´Excel¹æÔòµÄÈÕÆÚ/Ê±¼ä¡£ xÊÇÈÕÆÚ/Ê±¼äÔò×ª³ÉÊıÖµ¡£ Î´¶¨ÒåµÄÇé¿öÔò·µ»Øx±¾Éí¡£
+ * E(x) xæ˜¯äºŒå±‚åºåˆ—æ—¶ï¼Œè½¬æ¢æˆå¤šè¡Œåºè¡¨ï¼Œæ¯è¡Œä¸€æ¡è®°å½•ï¼Œç¬¬ä¸€è¡Œæ˜¯æ ‡é¢˜ã€‚ xæ˜¯ä¸²ï¼Œç†è§£ä¸ºå›è½¦åˆ†éš”è¡Œ/TABåˆ†éš”åˆ—çš„ä¸²ï¼Œå…ˆæ‹†å¼€å†è½¬æ¢ã€‚
+ * xæ˜¯åºè¡¨/æ’åˆ—æ—¶ï¼Œè½¬æ¢æˆäºŒå±‚åºåˆ—ã€‚ xæ˜¯æ•°å€¼åˆ™æŒ‰Excelè§„åˆ™çš„æ—¥æœŸ/æ—¶é—´ã€‚ xæ˜¯æ—¥æœŸ/æ—¶é—´åˆ™è½¬æˆæ•°å€¼ã€‚ æœªå®šä¹‰çš„æƒ…å†µåˆ™è¿”å›xæœ¬èº«ã€‚
  * 
- * @b ÎŞ±êÌâ
- * @p ¶ş²ãĞòÁĞÊÇ×ªÖÃµÄ£¬Èç¹û×ª»Ø¶ş²ãĞòÁĞÊ±Ò²×ª»»
- * @s xÊÇĞò±íÊ±·µ»Ø³É»Ø³µ/TAB·Ö¸ôµÄ´®
- * @1 ×ª³Éµ¥²ãĞòÁĞ£¬xÊÇµ¥ÖµÊ±·µ»Ø[x]£»xÊÇ¶ş²ãĞòÁĞ·µ»Øx.conj()£¬ÓĞ@pÊ±ÏÈÁĞºóĞĞ
- * @2 xÊÇµ¥ÖµÊ±·µ»Ø[[x]]£¬ÓĞ@pÊ±½«×ªÖÃ·µ»Ø
+ * @b æ— æ ‡é¢˜
+ * @p äºŒå±‚åºåˆ—æ˜¯è½¬ç½®çš„ï¼Œå¦‚æœè½¬å›äºŒå±‚åºåˆ—æ—¶ä¹Ÿè½¬æ¢
+ * @s xæ˜¯åºè¡¨æ—¶è¿”å›æˆå›è½¦/TABåˆ†éš”çš„ä¸²
+ * @1 è½¬æˆå•å±‚åºåˆ—ï¼Œxæ˜¯å•å€¼æ—¶è¿”å›[x]ï¼›xæ˜¯äºŒå±‚åºåˆ—è¿”å›x.conj()ï¼Œæœ‰@pæ—¶å…ˆåˆ—åè¡Œ
+ * @2 xæ˜¯å•å€¼æ—¶è¿”å›[[x]]ï¼Œæœ‰@pæ—¶å°†è½¬ç½®è¿”å›
  * 
  */
 public class E extends Function {
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
 	 * 
 	 * @param ctx
-	 *            ¼ÆËãÉÏÏÂÎÄ
+	 *            è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @param Node
-	 *            ÓÅ»¯ºóµÄ½Úµã
+	 *            ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 
@@ -50,7 +50,7 @@ public class E extends Function {
 	}
 
 	/**
-	 * ¼ÆËã
+	 * è®¡ç®—
 	 */
 	public Object calculate(Context ctx) {
 		final String FUNC_NAME = "E";
@@ -84,52 +84,52 @@ public class E extends Function {
 		boolean is1 = opt != null && opt.indexOf("1") != -1;
 		boolean is2 = opt != null && opt.indexOf("2") != -1;
 
-		if (is1) { // ×ª³Éµ¥²ãĞòÁĞ
+		if (is1) { // è½¬æˆå•å±‚åºåˆ—
 			Sequence seq;
 			if (x instanceof Sequence) {
 				seq = (Sequence) x;
 				if (isTableOrPmt(seq)) {
-					// xÊÇĞò±í/ÅÅÁĞÊ±£¬×ª»»³É¶ş²ãĞòÁĞ¡£
+					// xæ˜¯åºè¡¨/æ’åˆ—æ—¶ï¼Œè½¬æ¢æˆäºŒå±‚åºåˆ—ã€‚
 					if (isP) {
 						seq = pmtToSequenceP(seq, !isB);
 					} else {
 						seq = pmtToSequence(seq, !isB);
 					}
 					seq = seq.conj(null);
-				} else if (isSequence2(seq)) { // xÊÇ¶ş²ãĞòÁĞ·µ»Øx.conj()
-					if (isP) { // ÓĞ@pÊ±ÏÈÁĞºóĞĞ
+				} else if (isSequence2(seq)) { // xæ˜¯äºŒå±‚åºåˆ—è¿”å›x.conj()
+					if (isP) { // æœ‰@pæ—¶å…ˆåˆ—åè¡Œ
 						seq = ExcelUtils.transpose(seq);
 					}
 					seq = seq.conj(null);
 				} else {
-					// µ¥²ãĞòÁĞ²»×ö´¦Àí
+					// å•å±‚åºåˆ—ä¸åšå¤„ç†
 				}
-			} else { // xÊÇµ¥ÖµÊ±·µ»Ø[x]
+			} else { // xæ˜¯å•å€¼æ—¶è¿”å›[x]
 				seq = new Sequence();
 				seq.add(x);
 			}
 			return seq;
 		}
 
-		if (is2) { // ×ª³É¶ş²ãĞòÁĞ
+		if (is2) { // è½¬æˆäºŒå±‚åºåˆ—
 			Sequence seq;
 			if (x instanceof Sequence) {
 				seq = (Sequence) x;
 				if (isTableOrPmt(seq)) {
-					// xÊÇĞò±í/ÅÅÁĞÊ±£¬×ª»»³É¶ş²ãĞòÁĞ¡£
+					// xæ˜¯åºè¡¨/æ’åˆ—æ—¶ï¼Œè½¬æ¢æˆäºŒå±‚åºåˆ—ã€‚
 					if (isP) {
 						seq = pmtToSequenceP(seq, !isB);
 					} else {
 						seq = pmtToSequence(seq, !isB);
 					}
-				} else if (isSequence2(seq)) { // ¶ş²ãĞòÁĞ
-					if (isP) { // ÓĞ@pÊ±½«×ªÖÃ·µ»Ø
+				} else if (isSequence2(seq)) { // äºŒå±‚åºåˆ—
+					if (isP) { // æœ‰@pæ—¶å°†è½¬ç½®è¿”å›
 						seq = ExcelUtils.transpose(seq);
 					}
-				} else { // Excel²ÎÊı²»Ó¦¸ÃÓĞµ¥²ãĞòÁĞ£¬Ò²´¦ÀíÒ»ÏÂ°É
+				} else { // Excelå‚æ•°ä¸åº”è¯¥æœ‰å•å±‚åºåˆ—ï¼Œä¹Ÿå¤„ç†ä¸€ä¸‹å§
 					seqToSeq2(seq);
 				}
-			} else { // xÊÇµ¥ÖµÊ±·µ»Ø[[x]]
+			} else { // xæ˜¯å•å€¼æ—¶è¿”å›[[x]]
 				seq = new Sequence();
 				Sequence memSeq = new Sequence();
 				memSeq.add(x);
@@ -138,21 +138,21 @@ public class E extends Function {
 			return seq;
 		}
 
-		if (x instanceof Number) { // excelÈÕÆÚÊ±¼äµÄÊıÖµ×ª³ÉjavaÈÕÆÚÊ±¼ä
+		if (x instanceof Number) { // excelæ—¥æœŸæ—¶é—´çš„æ•°å€¼è½¬æˆjavaæ—¥æœŸæ—¶é—´
 			Date date = ExcelUtils.excelDateNumber2JavaDate((Number) x);
 			return date;
-		} else if (x instanceof Date) { // javaÈÕÆÚÊ±¼ä×ª³ÉexcelÈÕÆÚÊ±¼äµÄÊıÖµ
+		} else if (x instanceof Date) { // javaæ—¥æœŸæ—¶é—´è½¬æˆexcelæ—¥æœŸæ—¶é—´çš„æ•°å€¼
 			Number excelDateNumber = ExcelUtils
 					.javaDate2ExcelDateNumber((Date) x);
 			return excelDateNumber;
 		} else if (x instanceof Sequence) {
 			Sequence seq = (Sequence) x;
 			if (isS && seq instanceof Table) {
-				// @s xÊÇĞò±íÊ±·µ»Ø³É»Ø³µ/TAB·Ö¸ôµÄ´®
+				// @s xæ˜¯åºè¡¨æ—¶è¿”å›æˆå›è½¦/TABåˆ†éš”çš„ä¸²
 				return exportS((Table) seq, !isB);
 			}
 			if (isTableOrPmt(seq)) {
-				// xÊÇĞò±í/ÅÅÁĞÊ±£¬×ª»»³É¶ş²ãĞòÁĞ¡£
+				// xæ˜¯åºè¡¨/æ’åˆ—æ—¶ï¼Œè½¬æ¢æˆäºŒå±‚åºåˆ—ã€‚
 				if (isP) {
 					seq = pmtToSequenceP(seq, !isB);
 				} else {
@@ -160,7 +160,7 @@ public class E extends Function {
 				}
 				return seq;
 			} else if (isSequence2(seq)) {
-				// xÊÇ¶ş²ãĞòÁĞÊ±£¬×ª»»³É¶àĞĞĞò±í£¬Ã¿ĞĞÒ»Ìõ¼ÇÂ¼£¬µÚÒ»ĞĞÊÇ±êÌâ¡£
+				// xæ˜¯äºŒå±‚åºåˆ—æ—¶ï¼Œè½¬æ¢æˆå¤šè¡Œåºè¡¨ï¼Œæ¯è¡Œä¸€æ¡è®°å½•ï¼Œç¬¬ä¸€è¡Œæ˜¯æ ‡é¢˜ã€‚
 				if (isP) {
 					seq = sequenceToTableP(seq, !isB);
 				} else {
@@ -171,14 +171,14 @@ public class E extends Function {
 				return x;
 			}
 		} else if (x instanceof String) {
-			// xÊÇ´®£¬Àí½âÎª»Ø³µ·Ö¸ôĞĞ/TAB·Ö¸ôÁĞµÄ´®£¬ÏÈ²ğ¿ªÔÙ×ª»»¡£
+			// xæ˜¯ä¸²ï¼Œç†è§£ä¸ºå›è½¦åˆ†éš”è¡Œ/TABåˆ†éš”åˆ—çš„ä¸²ï¼Œå…ˆæ‹†å¼€å†è½¬æ¢ã€‚
 			return transposeString(x, isB, isP);
 		}
 		return x;
 	}
 
 	/**
-	 * xÊÇ´®£¬Àí½âÎª»Ø³µ·Ö¸ôĞĞ/TAB·Ö¸ôÁĞµÄ´®£¬ÏÈ²ğ¿ªÔÙ×ª»»¡£
+	 * xæ˜¯ä¸²ï¼Œç†è§£ä¸ºå›è½¦åˆ†éš”è¡Œ/TABåˆ†éš”åˆ—çš„ä¸²ï¼Œå…ˆæ‹†å¼€å†è½¬æ¢ã€‚
 	 * 
 	 * @return
 	 */
@@ -190,14 +190,14 @@ public class E extends Function {
 		if (seq == null) {
 			return x;
 		}
-		if (isTableOrPmt(seq)) { // Ğò±í»òÅÅÁĞ×ª³É¶ş²ãĞòÁĞ
+		if (isTableOrPmt(seq)) { // åºè¡¨æˆ–æ’åˆ—è½¬æˆäºŒå±‚åºåˆ—
 			if (isP) {
 				seq = pmtToSequenceP(seq, !isB);
 			} else {
 				seq = pmtToSequence(seq, !isB);
 			}
 		} else {
-			if (isP) { // ĞĞÁĞ×ªÖÃ·µ»Ø
+			if (isP) { // è¡Œåˆ—è½¬ç½®è¿”å›
 				seq = ExcelUtils.transpose(seq);
 			}
 		}
@@ -215,12 +215,12 @@ public class E extends Function {
 	}
 
 	/**
-	 * »Ø³µ·Ö¸ôĞĞ/TAB·Ö¸ôÁĞµÄ´®£¬×ª³ÉĞò±í
+	 * å›è½¦åˆ†éš”è¡Œ/TABåˆ†éš”åˆ—çš„ä¸²ï¼Œè½¬æˆåºè¡¨
 	 * 
 	 * @param str
-	 *            »Ø³µ·Ö¸ôĞĞ/TAB·Ö¸ôÁĞµÄ´®
+	 *            å›è½¦åˆ†éš”è¡Œ/TABåˆ†éš”åˆ—çš„ä¸²
 	 * @param hasTitle
-	 *            ÊÇ·ñÓĞ±êÌâĞĞ
+	 *            æ˜¯å¦æœ‰æ ‡é¢˜è¡Œ
 	 * @return
 	 */
 	private static Sequence importS(String str, boolean hasTitle) {
@@ -236,11 +236,11 @@ public class E extends Function {
 	}
 
 	/**
-	 * Ğò±í×ª³É»Ø³µ/TAB·Ö¸ôµÄ´®
+	 * åºè¡¨è½¬æˆå›è½¦/TABåˆ†éš”çš„ä¸²
 	 * 
 	 * @param t
-	 *            Ğò±í
-	 * @return »Ø³µ/TAB·Ö¸ôµÄ´®
+	 *            åºè¡¨
+	 * @return å›è½¦/TABåˆ†éš”çš„ä¸²
 	 */
 	private String exportS(Table t, boolean hasTitle) {
 		String opt = hasTitle ? "t" : null;
@@ -250,20 +250,20 @@ public class E extends Function {
 	}
 
 	/**
-	 * ½«Ğò±í»òÕßÅÅÁĞ£¬×ª»»Îª¶ş²ãĞòÁĞ¡£µ÷ÓÃÇ°ĞèÒª±£Ö¤pmtÊÇĞò±í»òÅÅÁĞ
+	 * å°†åºè¡¨æˆ–è€…æ’åˆ—ï¼Œè½¬æ¢ä¸ºäºŒå±‚åºåˆ—ã€‚è°ƒç”¨å‰éœ€è¦ä¿è¯pmtæ˜¯åºè¡¨æˆ–æ’åˆ—
 	 * 
 	 * @param pmt
-	 *            Ğò±í»òÕßÅÅÁĞ
+	 *            åºè¡¨æˆ–è€…æ’åˆ—
 	 * @param hasTitle
-	 *            ÊÇ·ñÓĞ±êÌâĞĞ
-	 * @return ¶ş²ãĞòÁĞ
+	 *            æ˜¯å¦æœ‰æ ‡é¢˜è¡Œ
+	 * @return äºŒå±‚åºåˆ—
 	 */
 	private static Sequence pmtToSequence(Sequence pmt, boolean hasTitle) {
 		if (pmt == null)
 			return pmt;
 		int len = pmt.length();
 		Sequence seq;
-		if (hasTitle) { // ±êÌâĞĞ×÷ÎªµÚÒ»ĞĞ¼ÇÂ¼
+		if (hasTitle) { // æ ‡é¢˜è¡Œä½œä¸ºç¬¬ä¸€è¡Œè®°å½•
 			seq = new Sequence(len + 1);
 			DataStruct ds = pmt.dataStruct();
 			if (ds != null) {
@@ -281,13 +281,13 @@ public class E extends Function {
 	}
 
 	/**
-	 * ½«Ğò±í»òÕßÅÅÁĞ£¬×ª»»Îª¶ş²ãĞòÁĞ£¬ĞĞÁĞ×ªÖÃ·µ»Ø¡£µ÷ÓÃÇ°ĞèÒª±£Ö¤pmtÊÇĞò±í»òÅÅÁĞ
+	 * å°†åºè¡¨æˆ–è€…æ’åˆ—ï¼Œè½¬æ¢ä¸ºäºŒå±‚åºåˆ—ï¼Œè¡Œåˆ—è½¬ç½®è¿”å›ã€‚è°ƒç”¨å‰éœ€è¦ä¿è¯pmtæ˜¯åºè¡¨æˆ–æ’åˆ—
 	 * 
 	 * @param pmt
-	 *            Ğò±í»òÕßÅÅÁĞ
+	 *            åºè¡¨æˆ–è€…æ’åˆ—
 	 * @param hasTitle
-	 *            ÊÇ·ñÓĞ±êÌâĞĞ
-	 * @return ¶ş²ãĞòÁĞ
+	 *            æ˜¯å¦æœ‰æ ‡é¢˜è¡Œ
+	 * @return äºŒå±‚åºåˆ—
 	 */
 	private static Sequence pmtToSequenceP(Sequence pmt, boolean hasTitle) {
 		if (pmt == null)
@@ -298,13 +298,13 @@ public class E extends Function {
 		int colCount = 0;
 		if (hasTitle) {
 			DataStruct ds = pmt.dataStruct();
-			if (ds == null) // ÓĞ±êÌâĞĞµÄÊı¾İ½á¹¹²»ÄÜÎªnull
+			if (ds == null) // æœ‰æ ‡é¢˜è¡Œçš„æ•°æ®ç»“æ„ä¸èƒ½ä¸ºnull
 				return pmt;
 			fieldNames = ds.getFieldNames();
 			colCount = fieldNames.length;
 		} else {
 			if (firstMem == null) {
-				// ³ÉÔ±È«ÊÇ¿Õ£¬·µ»ØÒ»¸ö¶ş²ã¿ÕĞòÁĞ
+				// æˆå‘˜å…¨æ˜¯ç©ºï¼Œè¿”å›ä¸€ä¸ªäºŒå±‚ç©ºåºåˆ—
 				Sequence seq = new Sequence();
 				seq.add(new Sequence());
 				return seq;
@@ -317,7 +317,7 @@ public class E extends Function {
 		Sequence colSeq;
 		for (int c = 0; c < colCount; c++) {
 			colSeq = new Sequence(len);
-			if (fieldNames != null) { // ÓĞ±êÌâÊ±ÏÈ¼Ó±êÌâ
+			if (fieldNames != null) { // æœ‰æ ‡é¢˜æ—¶å…ˆåŠ æ ‡é¢˜
 				colSeq.add(fieldNames[c]);
 			}
 			for (int i = 1; i <= len; i++) {
@@ -337,13 +337,13 @@ public class E extends Function {
 	}
 
 	/**
-	 * ½«¶ş²ãĞòÁĞ×ª»»ÎªĞò±í
+	 * å°†äºŒå±‚åºåˆ—è½¬æ¢ä¸ºåºè¡¨
 	 * 
 	 * @param seq
-	 *            ¶ş²ãĞòÁĞ
+	 *            äºŒå±‚åºåˆ—
 	 * @param hasTitle
-	 *            ÊÇ·ñÓĞ±êÌâĞĞ
-	 * @return Ğò±í
+	 *            æ˜¯å¦æœ‰æ ‡é¢˜è¡Œ
+	 * @return åºè¡¨
 	 */
 	private Table sequenceToTable(Sequence seq, boolean hasTitle) {
 		Table t = null;
@@ -380,13 +380,13 @@ public class E extends Function {
 	}
 
 	/**
-	 * ½«ĞĞÁĞ×ªÖÃµÄ¶ş²ãĞòÁĞ×ª»»ÎªĞò±í
+	 * å°†è¡Œåˆ—è½¬ç½®çš„äºŒå±‚åºåˆ—è½¬æ¢ä¸ºåºè¡¨
 	 * 
 	 * @param seq
-	 *            ¶ş²ãĞòÁĞ
+	 *            äºŒå±‚åºåˆ—
 	 * @param hasTitle
-	 *            ÊÇ·ñÓĞ±êÌâĞĞ
-	 * @return Ğò±í
+	 *            æ˜¯å¦æœ‰æ ‡é¢˜è¡Œ
+	 * @return åºè¡¨
 	 */
 	private Table sequenceToTableP(Sequence seq, boolean hasTitle) {
 		Table t = null;
@@ -435,7 +435,7 @@ public class E extends Function {
 	}
 
 	/**
-	 * ¸ù¾İÊı¾İÉú³É×Ö¶ÎÃû
+	 * æ ¹æ®æ•°æ®ç”Ÿæˆå­—æ®µå
 	 * 
 	 * @param seq
 	 * @return
@@ -461,7 +461,7 @@ public class E extends Function {
 	}
 
 	/**
-	 * ·µ»ØÈ±Ê¡×Ö¶ÎÃû
+	 * è¿”å›ç¼ºçœå­—æ®µå
 	 * 
 	 * @param cc
 	 * @return
@@ -475,11 +475,11 @@ public class E extends Function {
 	}
 
 	/**
-	 * ÊÇ·ñ¶ş²ãĞòÁĞ
+	 * æ˜¯å¦äºŒå±‚åºåˆ—
 	 * 
 	 * @param seq
-	 *            ĞòÁĞ
-	 * @return ÊÇ·ñ¶ş²ãĞòÁĞ
+	 *            åºåˆ—
+	 * @return æ˜¯å¦äºŒå±‚åºåˆ—
 	 */
 	private boolean isSequence2(Sequence seq) {
 		if (seq == null)
@@ -492,7 +492,7 @@ public class E extends Function {
 				if (obj instanceof Sequence) {
 					memIsSequence = true;
 				} else {
-					return false; // ·Ç¿Õ³ÉÔ±²»ÊÇĞòÁĞ·µ»Øfalse
+					return false; // éç©ºæˆå‘˜ä¸æ˜¯åºåˆ—è¿”å›false
 				}
 			}
 		}
@@ -500,7 +500,7 @@ public class E extends Function {
 	}
 
 	/**
-	 * µ¥²ãĞòÁĞ×ªÎª¶ş²ãĞòÁĞ
+	 * å•å±‚åºåˆ—è½¬ä¸ºäºŒå±‚åºåˆ—
 	 */
 	private void seqToSeq2(Sequence seq) {
 		Object obj;

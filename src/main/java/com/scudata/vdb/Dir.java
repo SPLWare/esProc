@@ -7,7 +7,7 @@ import com.scudata.dm.ObjectReader;
 import com.scudata.dm.ObjectWriter;
 
 /**
- * Ä¿Â¼
+ * ç›®å½•
  * @author RunQian
  *
  */
@@ -16,8 +16,8 @@ class Dir extends IDir {
 	public static final int S_DELETE = -1;
 	public static final int S_MOVE = -2;
 	
-	private ArrayList<DirZone> zones; // ÇøÎ»ÁĞ±í
-	private transient Section parent; // ¸¸½Ú
+	private ArrayList<DirZone> zones; // åŒºä½åˆ—è¡¨
+	private transient Section parent; // çˆ¶èŠ‚
 	
 	public Dir(Section parent) {
 		this.parent = parent;
@@ -91,7 +91,7 @@ class Dir extends IDir {
 		if (zones == null) {
 			zones = new ArrayList<DirZone>(1);
 		}/* else {
-			// Èç¹ûÒÑ¾­ÓĞÒ»¸ö»¹Ã»Ìá½»µÄÇøÎ»Ôò¸²¸Ç
+			// å¦‚æœå·²ç»æœ‰ä¸€ä¸ªè¿˜æ²¡æäº¤çš„åŒºä½åˆ™è¦†ç›–
 			int size = zones.size();
 			if (size > 0) {
 				DirZone zone = zones.get(size - 1);
@@ -100,7 +100,7 @@ class Dir extends IDir {
 					return zone;
 				}
 			}
-		}*/ // move²»ÓÃÓÃÓÚ¸²¸Ç
+		}*/ // moveä¸ç”¨ç”¨äºè¦†ç›–
 		
 		DirZone zone = new DirZone();
 		zone.setBlock(state);
@@ -109,7 +109,7 @@ class Dir extends IDir {
 		return zone;
 	}
 	
-	// ·µ»ØÇøÎ»Êı
+	// è¿”å›åŒºä½æ•°
 	public synchronized int roolBack() {
 		for (int i = zones.size() - 1; i >= 0; --i) {
 			DirZone zone = zones.get(i);
@@ -123,7 +123,7 @@ class Dir extends IDir {
 		return 0;
 	}
 	
-	// ÅĞ¶ÏÖ¸¶¨Âß¼­¿âÄÜ·ñ¿´µ½×ÓÄ¿Â¼path
+	// åˆ¤æ–­æŒ‡å®šé€»è¾‘åº“èƒ½å¦çœ‹åˆ°å­ç›®å½•path
 	public synchronized DirZone getZone(VDB vdb, boolean isLockVDB) {
 		ArrayList<DirZone> zones = this.zones;
 		if (zones == null) return null;
@@ -149,9 +149,9 @@ class Dir extends IDir {
 		}
 	}
 	
-	// É¾³ı±ÈÊÂÎñºÅtxSeqÔçµÄ¶àÓàµÄÇøÎ»
+	// åˆ é™¤æ¯”äº‹åŠ¡å·txSeqæ—©çš„å¤šä½™çš„åŒºä½
 	public synchronized void deleteOutdatedZone(Library library, int outerSeq, long txSeq) {
-		// ×îÉÙ±£ÁôÒ»¸öÒÑÌá½»µÄÇøÎ»£¬ÓÃÓÚ³ö´íÊ±»Ö¸´£¿
+		// æœ€å°‘ä¿ç•™ä¸€ä¸ªå·²æäº¤çš„åŒºä½ï¼Œç”¨äºå‡ºé”™æ—¶æ¢å¤ï¼Ÿ
 		ArrayList<DirZone> zones = this.zones;
 		int last = zones.size() - 1;
 		if (last < 1) {
@@ -177,7 +177,7 @@ class Dir extends IDir {
 		}
 	}
 	
-	// Æô¶¯Êı¾İ¿âºóµÄ×¼±¸¹¤×÷£¬É¾³ı¾ÉÇøÎ»£¬È¡±»Õ¼ÓÃµÄÎïÀí¿é
+	// å¯åŠ¨æ•°æ®åº“åçš„å‡†å¤‡å·¥ä½œï¼Œåˆ é™¤æ—§åŒºä½ï¼Œå–è¢«å ç”¨çš„ç‰©ç†å—
 	public boolean scanUsedBlocks(Library library, BlockManager manager) throws IOException {
 		ArrayList<DirZone> zones = this.zones;
 		int size = zones.size();

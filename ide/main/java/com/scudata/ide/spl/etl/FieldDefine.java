@@ -1,9 +1,9 @@
 package com.scudata.ide.spl.etl;
 
 /**
- * ×Ö¶Î¶¨ÒåÀà
- * Êä³ö×Ö¶ÎÍ¨³£ĞèÒª¶¨ÒåÃû³Æ£¬±í´ïÊ½£¬¸ñÊ½£¬»òÕßÆäËûµÄÖµ
- * Í¨¹ı¸ÃÀàÍ¨ÓÃ»¯ÏàÓ¦³¡¾°µÄ±à¼­£¬ÊôĞÔÖµ°´one£¬two£¬three»º´æ
+ * å­—æ®µå®šä¹‰ç±»
+ * è¾“å‡ºå­—æ®µé€šå¸¸éœ€è¦å®šä¹‰åç§°ï¼Œè¡¨è¾¾å¼ï¼Œæ ¼å¼ï¼Œæˆ–è€…å…¶ä»–çš„å€¼
+ * é€šè¿‡è¯¥ç±»é€šç”¨åŒ–ç›¸åº”åœºæ™¯çš„ç¼–è¾‘ï¼Œå±æ€§å€¼æŒ‰oneï¼Œtwoï¼Œthreeç¼“å­˜
  * @author Joancy
  *
  */
@@ -13,48 +13,48 @@ public class FieldDefine{
 	String three;
 
 	/**
-	 * »ñÈ¡µÚ1¸ö¶¨Òå
-	 * @return ¶¨ÒåÖµ
+	 * è·å–ç¬¬1ä¸ªå®šä¹‰
+	 * @return å®šä¹‰å€¼
 	 */
 	public String getOne() {
 		return one;
 	}
 
 	/**
-	 * ÉèÖÃµÚ1¸ö¶¨Òå
-	 * @param one ¶¨ÒåÖµ
+	 * è®¾ç½®ç¬¬1ä¸ªå®šä¹‰
+	 * @param one å®šä¹‰å€¼
 	 */
 	public void setOne(String one) {
 		this.one = one;
 	}
 
 	/**
-	 * »ñÈ¡µÚ2¸ö¶¨Òå
-	 * @return ¶¨ÒåÖµ
+	 * è·å–ç¬¬2ä¸ªå®šä¹‰
+	 * @return å®šä¹‰å€¼
 	 */
 	public String getTwo() {
 		return two;
 	}
 
 	/**
-	 * ÉèÖÃµÚ2¸ö¶¨Òå
-	 * @param two ¶¨ÒåÖµ
+	 * è®¾ç½®ç¬¬2ä¸ªå®šä¹‰
+	 * @param two å®šä¹‰å€¼
 	 */
 	public void setTwo(String two) {
 		this.two = two;
 	}
 
 	/**
-	 * »ñÈ¡µÚ3¸ö¶¨Òå
-	 * @return ¶¨ÒåÖµ
+	 * è·å–ç¬¬3ä¸ªå®šä¹‰
+	 * @return å®šä¹‰å€¼
 	 */
 	public String getThree() {
 		return three;
 	}
 
 	/**
-	 * ÉèÖÃµÚ3¸ö¶¨Òå
-	 * @param three ¶¨ÒåÖµ
+	 * è®¾ç½®ç¬¬3ä¸ªå®šä¹‰
+	 * @param three å®šä¹‰å€¼
 	 */
 	public void setThree(String three) {
 		this.three = three;

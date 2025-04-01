@@ -11,8 +11,8 @@ import com.scudata.expression.VSFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * °ÑÅÅÁĞµÄÖ¸¶¨×Ö¶ÎĞ´Èëµ½±íµ¥»òÉ¾³ıÂú×ãÌõ¼şµÄ±íµ¥
- * h.write(A:xp,x:F,¡­;w)
+ * æŠŠæ’åˆ—çš„æŒ‡å®šå­—æ®µå†™å…¥åˆ°è¡¨å•æˆ–åˆ é™¤æ»¡è¶³æ¡ä»¶çš„è¡¨å•
+ * h.write(A:xp,x:F,â€¦;w)
  * @author RunQian
  *
  */

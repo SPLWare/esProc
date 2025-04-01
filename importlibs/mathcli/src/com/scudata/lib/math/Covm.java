@@ -9,7 +9,7 @@ import com.scudata.expression.fn.algebra.Matrix;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Ğ­·½²î¾ØÕó´¦Àí
+ * åæ–¹å·®çŸ©é˜µå¤„ç†
  * @author bd
  *
  */
@@ -24,13 +24,13 @@ public class Covm extends Function{
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("covm" + mm.getMessage("function.paramTypeError"));
 			}
-			// edited by bd, 2021.11.17, ÔÚdisº¯ÊıÖĞ£¬µ¥²ãĞòÁĞÈÏÎªÊÇºáÏòÁ¿
+			// edited by bd, 2021.11.17, åœ¨diså‡½æ•°ä¸­ï¼Œå•å±‚åºåˆ—è®¤ä¸ºæ˜¯æ¨ªå‘é‡
 			Sequence s1 = (Sequence) result1;
 			Matrix A = new Matrix(s1);
 			
 			Object o11 = s1.length() > 0 ? s1.get(1) : null;
 			if (!(o11 instanceof Sequence)) {
-				// AÎªµ¥ĞòÁĞ¶¨ÒåµÄÏòÁ¿£¬×ª³ÉºáÏòÁ¿
+				// Aä¸ºå•åºåˆ—å®šä¹‰çš„å‘é‡ï¼Œè½¬æˆæ¨ªå‘é‡
 				A = A.transpose();
 			}
 			if (A.getCols() == 0 || A.getRows() == 0) {

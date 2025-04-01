@@ -13,13 +13,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÇóĞòÁĞ³ÉÔ±»ò¶à¸ö²ÎÊıµÄ×î´ó¹«Ô¼Êı,·ÇÊıÖµ³ÉÔ±±»ºöÂÔ£¬ÊıÖµ³ÉÔ±±»×Ô¶¯È¡Õû,ÈôÓĞĞ¡ÓÚ0µÄ³ÉÔ±·µ»Ø´íÎóÖµ0
+ * æ±‚åºåˆ—æˆå‘˜æˆ–å¤šä¸ªå‚æ•°çš„æœ€å¤§å…¬çº¦æ•°,éæ•°å€¼æˆå‘˜è¢«å¿½ç•¥ï¼Œæ•°å€¼æˆå‘˜è¢«è‡ªåŠ¨å–æ•´,è‹¥æœ‰å°äº0çš„æˆå‘˜è¿”å›é”™è¯¯å€¼0
  * @author yanjing
  *
  */
 public class Gcd extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -72,15 +72,15 @@ public class Gcd extends Function {
 	}
 	
 	/**
-	 * ÇóÊı×éµÄ×î´ó¹«Ô¼Êı£¬ÒòÎª×îĞ¡¹«±¶Êıº¯ÊıÒªÓÃµ½±¾º¯Êı£¬ËùÒÔµ¥¶ÀÄÃ³öÀ´
+	 * æ±‚æ•°ç»„çš„æœ€å¤§å…¬çº¦æ•°ï¼Œå› ä¸ºæœ€å°å…¬å€æ•°å‡½æ•°è¦ç”¨åˆ°æœ¬å‡½æ•°ï¼Œæ‰€ä»¥å•ç‹¬æ‹¿å‡ºæ¥
 	 * @param num
 	 * @param k
 	 * @return
 	 */
 	public static long gcd(Number[] num,int k){
-		Arrays.sort(num);//´ÓĞ¡µ½´óÅÅĞò
+		Arrays.sort(num);//ä»å°åˆ°å¤§æ’åº
 		
-		//´Ó×îĞ¡µÄÊı¿ªÊ¼£¬°¤¸öÁ½Á½Çó×î´ó¹«Ô¼Êı
+		//ä»æœ€å°çš„æ•°å¼€å§‹ï¼ŒæŒ¨ä¸ªä¸¤ä¸¤æ±‚æœ€å¤§å…¬çº¦æ•°
 		long d = Variant.longValue(num[0]);
 		if (d<0) {
 			return 0;
@@ -96,7 +96,7 @@ public class Gcd extends Function {
 	}
 	
 	/**
-	 * ÇóÁ½¸öÊıµÄ×î´ó¹«Ô¼Êı£¬²ÉÈ¡Å·¼¸ÀïµÂ¶¨Àí£¬f(a,b)=f(b,a%b)
+	 * æ±‚ä¸¤ä¸ªæ•°çš„æœ€å¤§å…¬çº¦æ•°ï¼Œé‡‡å–æ¬§å‡ é‡Œå¾·å®šç†ï¼Œf(a,b)=f(b,a%b)
 	 * @param max
 	 * @param min
 	 * @return
@@ -113,7 +113,7 @@ public class Gcd extends Function {
 		}
 		
 		if(min==0) {
-			return max;//ÒòÎª0ÄÜ±»ÈÎºÎÊıÕû³ı£¬ÒÀ¾İ°Ù¶È°Ù¿Æ
+			return max;//å› ä¸º0èƒ½è¢«ä»»ä½•æ•°æ•´é™¤ï¼Œä¾æ®ç™¾åº¦ç™¾ç§‘
 		} else {
 			return gcd(min,max%min);
 		}

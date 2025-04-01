@@ -17,59 +17,59 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ¼¯ÎÄ¼ş¶ÁÈ¡¶ÔÏó
+ * é›†æ–‡ä»¶è¯»å–å¯¹è±¡
  * @author WangXiaoJun
  *
  */
 public class BFileReader {
-	private FileObject file; // ¼¯ÎÄ¼ş¶ÔÓ¦µÄÎÄ¼ş¶ÔÏó
-	private int type; // ¼¯ÎÄ¼şÀàĞÍ
-	private long []blocks; // Ã¿Ò»¿éµÄ½áÊøÎ»ÖÃ
-	private int lastBlock; // ×îºóÒ»¿éµÄË÷Òı
-	private long totalRecordCount;	// ¼ÇÂ¼×ÜÊı
-	private long blockRecordCount;	// Çø¿é×ÜÊı
-	private long firstRecordPos; // µÚÒ»Ìõ¼ÇÂ¼µÄÎ»ÖÃ
+	private FileObject file; // é›†æ–‡ä»¶å¯¹åº”çš„æ–‡ä»¶å¯¹è±¡
+	private int type; // é›†æ–‡ä»¶ç±»å‹
+	private long []blocks; // æ¯ä¸€å—çš„ç»“æŸä½ç½®
+	private int lastBlock; // æœ€åä¸€å—çš„ç´¢å¼•
+	private long totalRecordCount;	// è®°å½•æ€»æ•°
+	private long blockRecordCount;	// åŒºå—æ€»æ•°
+	private long firstRecordPos; // ç¬¬ä¸€æ¡è®°å½•çš„ä½ç½®
 	
-	private DataStruct ds; // ¼¯ÎÄ¼şÊı¾İ½á¹¹
-	private DataStruct readDs; // Ñ¡³ö×Ö¶Î×é³ÉµÄÊı¾İ½á¹¹
-	private String []readFields; // Ñ¡³ö×Ö¶Î
-	private int []readIndex; // Ñ¡³ö×Ö¶Î¶ÔÓ¦µÄĞòºÅ
-	private boolean isSingleField; // ÊÇ·ñ·µ»Øµ¥ÁĞ×é³ÉµÄĞòÁĞ
-	private boolean isSequenceMember; // ÊÇ·ñ·µ»ØĞòÁĞ×é³ÉµÄĞòÁĞ
-	private boolean isExist = true; // ×Ö¶ÎÊÇ·ñ¶¼ÔÚÎÄ¼şÖĞ
+	private DataStruct ds; // é›†æ–‡ä»¶æ•°æ®ç»“æ„
+	private DataStruct readDs; // é€‰å‡ºå­—æ®µç»„æˆçš„æ•°æ®ç»“æ„
+	private String []readFields; // é€‰å‡ºå­—æ®µ
+	private int []readIndex; // é€‰å‡ºå­—æ®µå¯¹åº”çš„åºå·
+	private boolean isSingleField; // æ˜¯å¦è¿”å›å•åˆ—ç»„æˆçš„åºåˆ—
+	private boolean isSequenceMember; // æ˜¯å¦è¿”å›åºåˆ—ç»„æˆçš„åºåˆ—
+	private boolean isExist = true; // å­—æ®µæ˜¯å¦éƒ½åœ¨æ–‡ä»¶ä¸­
 
-	private int segSeq; // ·Ö¶ÎĞòºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
-	private int segCount; // ·Ö¶ÎÊı
-	private long endPos = -1; // ¶ÁÈ¡µÄ½áÊøÎ»ÖÃ£¬ÓÃÓÚ¶àÏß³Ì·Ö¶Î¶ÁÈ¡
+	private int segSeq; // åˆ†æ®µåºå·ï¼Œä»1å¼€å§‹è®¡æ•°
+	private int segCount; // åˆ†æ®µæ•°
+	private long endPos = -1; // è¯»å–çš„ç»“æŸä½ç½®ï¼Œç”¨äºå¤šçº¿ç¨‹åˆ†æ®µè¯»å–
 	
-	private ObjectReader importer; // ¶ÔÏó¶ÁÈ¡Àà
+	private ObjectReader importer; // å¯¹è±¡è¯»å–ç±»
 	
 	/**
-	 * ÓÉÎÄ¼ş¶ÔÏó´´½¨¼¯ÎÄ¼ş¶ÁÈ¡Àà
+	 * ç”±æ–‡ä»¶å¯¹è±¡åˆ›å»ºé›†æ–‡ä»¶è¯»å–ç±»
 	 * 
-	 * @param file	ÎÄ¼ş¶ÔÏó
+	 * @param file	æ–‡ä»¶å¯¹è±¡
 	 */
 	public BFileReader(FileObject file) {
 		this(file, null, null);
 	}
 	
 	/**
-	 * ÓÃÎÄ¼ş¶ÔÏó¡¢ÁĞÃûºÍ¶ÁĞ´×Ö·û´®´´½¨¶ş½øÖÆÎÄ¼ş
-	 * @param file ÎÄ¼ş¶ÔÏó
-	 * @param fields Ñ¡³ö×Ö¶Î
-	 * @param opt Ñ¡Ïî£¬i£º½á¹û¼¯Ö»ÓĞ1ÁĞÊ±·µ»Ø³ÉĞòÁĞ£¬e£ºÔÚÎÄ¼şÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í£¬w£º°ÑÃ¿ĞĞ¶Á³ÉĞòÁĞ
+	 * ç”¨æ–‡ä»¶å¯¹è±¡ã€åˆ—åå’Œè¯»å†™å­—ç¬¦ä¸²åˆ›å»ºäºŒè¿›åˆ¶æ–‡ä»¶
+	 * @param file æ–‡ä»¶å¯¹è±¡
+	 * @param fields é€‰å‡ºå­—æ®µ
+	 * @param opt é€‰é¡¹ï¼Œiï¼šç»“æœé›†åªæœ‰1åˆ—æ—¶è¿”å›æˆåºåˆ—ï¼Œeï¼šåœ¨æ–‡ä»¶ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™ï¼Œwï¼šæŠŠæ¯è¡Œè¯»æˆåºåˆ—
 	 */
 	public BFileReader(FileObject file, String []fields, String opt) {
 		this(file, fields, 1, 1, opt);
 	}
 
 	/**
-	 * ÓÃÎÄ¼ş¶ÔÏó¡¢ÁĞÃûºÍ¶ÁĞ´×Ö·û´®´´½¨¶ş½øÖÆÎÄ¼ş
-	 * @param file ÎÄ¼ş¶ÔÏó
-	 * @param fields Ñ¡³ö×Ö¶Î
-	 * @param segSeq Òª¶ÁÈ¡µÄ¶ÎºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param segCount ·Ö¶ÎÊı
-	 * @param opt Ñ¡Ïî£¬i£º½á¹û¼¯Ö»ÓĞ1ÁĞÊ±·µ»Ø³ÉĞòÁĞ£¬e£ºÔÚÎÄ¼şÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í£¬w£º°ÑÃ¿ĞĞ¶Á³ÉĞòÁĞ
+	 * ç”¨æ–‡ä»¶å¯¹è±¡ã€åˆ—åå’Œè¯»å†™å­—ç¬¦ä¸²åˆ›å»ºäºŒè¿›åˆ¶æ–‡ä»¶
+	 * @param file æ–‡ä»¶å¯¹è±¡
+	 * @param fields é€‰å‡ºå­—æ®µ
+	 * @param segSeq è¦è¯»å–çš„æ®µå·ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param segCount åˆ†æ®µæ•°
+	 * @param opt é€‰é¡¹ï¼Œiï¼šç»“æœé›†åªæœ‰1åˆ—æ—¶è¿”å›æˆåºåˆ—ï¼Œeï¼šåœ¨æ–‡ä»¶ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™ï¼Œwï¼šæŠŠæ¯è¡Œè¯»æˆåºåˆ—
 	 */
 	public BFileReader(FileObject file, String []fields, int segSeq, int segCount, String opt) {
 		this.file = file;
@@ -96,7 +96,7 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ·µ»ØÁĞ½á¹¹
+	 * è¿”å›åˆ—ç»“æ„
 	 * @return DataStruct
 	 */
 	public DataStruct getFileDataStruct() {
@@ -104,7 +104,7 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ¶ÔÎÄ¼ş½øĞĞ·Ö¶Î
+	 * å¯¹æ–‡ä»¶è¿›è¡Œåˆ†æ®µ
 	 * 
 	 * @throws IOException
 	 */
@@ -113,7 +113,7 @@ public class BFileReader {
 		int avg = (lastBlock + 1) / segCount;
 		
 		if (avg < 1) {
-			// Ã¿¶Î²»×ãÒ»¿é
+			// æ¯æ®µä¸è¶³ä¸€å—
 			if (segSeq > lastBlock) {
 				endPos = 0;
 			} else {
@@ -127,7 +127,7 @@ public class BFileReader {
 				int s = segSeq * avg - 1;
 				int e = s + avg;
 				
-				// Ê£ÓàµÄ¿éºóÃæµÄÃ¿¶Î¶àÒ»¿é
+				// å‰©ä½™çš„å—åé¢çš„æ¯æ®µå¤šä¸€å—
 				int mod = (lastBlock + 1) % segCount;
 				int n = mod - (segCount - segSeq - 1);
 				if (n > 0) {
@@ -144,17 +144,17 @@ public class BFileReader {
 	}
 	
 	/**
-	 * µ±Ç°¶Áµ½µÄÁ÷µÄÎ»ÖÃ
-	 * @return	·µ»Øµ±Ç°¶Áµ½µÄÎ»ÖÃ
+	 * å½“å‰è¯»åˆ°çš„æµçš„ä½ç½®
+	 * @return	è¿”å›å½“å‰è¯»åˆ°çš„ä½ç½®
 	 */
 	public long position() {
 		return importer.position();
 	}
 	
 	/**
-	 * ¶¨Î»¡¢µ½¸ø¶¨Î»ÖÃ¡£
-	 * Ö§³ÖÏòºó¶¨Î»¡£ÏòÇ°¶¨Î»µÄ»°£¬Èô³¬³ö»º³åÇø·¶Î§£¬¾Í»áÅ×Òì³£¡£
-	 * @param pos	Òª¶¨Î»µÄÎ»ÖÃ
+	 * å®šä½ã€åˆ°ç»™å®šä½ç½®ã€‚
+	 * æ”¯æŒå‘åå®šä½ã€‚å‘å‰å®šä½çš„è¯ï¼Œè‹¥è¶…å‡ºç¼“å†²åŒºèŒƒå›´ï¼Œå°±ä¼šæŠ›å¼‚å¸¸ã€‚
+	 * @param pos	è¦å®šä½çš„ä½ç½®
 	 * @throws IOException
 	 */
 	public void seek(long pos) throws IOException {
@@ -162,7 +162,7 @@ public class BFileReader {
 	}
 	
 	/**
-	 * µ±Ç°¶ÁÈ¡ÀàÊÇ·ñ´ò¿ª
+	 * å½“å‰è¯»å–ç±»æ˜¯å¦æ‰“å¼€
 	 * 
 	 * @return
 	 */
@@ -179,9 +179,9 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ÖØĞÂ´ò¿ª
+	 * é‡æ–°æ‰“å¼€
 	 * 
-	 * @param bufSize	»º³åÇøµÄ´óĞ¡
+	 * @param bufSize	ç¼“å†²åŒºçš„å¤§å°
 	 */
 	private void reopen(int bufSize) {
 		InputStream in = file.getBlockInputStream(bufSize);
@@ -190,9 +190,9 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ´ò¿ªÒ»¸ö¶ş½øÖÆÎÄ¼ş£¬²¢ÓÃbufSize³õÊ¼»¯ÎÄ¼ş¶ÁÈ¡ÀàµÄ»º³åÇø´óĞ¡¡£
+	 * æ‰“å¼€ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œå¹¶ç”¨bufSizeåˆå§‹åŒ–æ–‡ä»¶è¯»å–ç±»çš„ç¼“å†²åŒºå¤§å°ã€‚
 	 * 
-	 * @param bufSize	»º³åÇøµÄ´óĞ¡
+	 * @param bufSize	ç¼“å†²åŒºçš„å¤§å°
 	 * @throws IOException
 	 */
 	public void open(int bufSize) throws IOException {
@@ -302,7 +302,7 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ¹Ø±ÕÎÄ¼ş£¬¹Ø±ÕÁ÷
+	 * å…³é—­æ–‡ä»¶ï¼Œå…³é—­æµ
 	 * @throws IOException
 	 */
 	public void close() throws IOException {
@@ -313,7 +313,7 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ¶ÁÈ¡ÎÄ¼şÖĞËùÓĞµÄ¼ÇÂ¼£¬²¢×é³ÉĞòÁĞ·µ»Ø¡£
+	 * è¯»å–æ–‡ä»¶ä¸­æ‰€æœ‰çš„è®°å½•ï¼Œå¹¶ç»„æˆåºåˆ—è¿”å›ã€‚
 	 * 
 	 * @return
 	 * @throws IOException
@@ -323,9 +323,9 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄ¼ÇÂ¼
-	 * @param n	Òª¶ÁÈ¡µÄ¼ÇÂ¼Êı
-	 * @return	ÓÃĞòÁĞ±£´æµÄ¼ÇÂ¼¼¯
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„è®°å½•
+	 * @param n	è¦è¯»å–çš„è®°å½•æ•°
+	 * @return	ç”¨åºåˆ—ä¿å­˜çš„è®°å½•é›†
 	 * @throws IOException
 	 */
 	public Sequence read(int n) throws IOException {
@@ -340,7 +340,7 @@ public class BFileReader {
 		if (n <= ICursor.FETCHCOUNT) {
 			initSize = n;
 		} else if (n >= totalRecordCount && totalRecordCount > 0) {
-			// ·Ö¶Î¶ş½øÖÆ¼ÇÁË¼ÇÂ¼×ÜÊı;
+			// åˆ†æ®µäºŒè¿›åˆ¶è®°äº†è®°å½•æ€»æ•°;
 			initSize = (int)totalRecordCount;
 		} else if (n < ICursor.MAXSIZE) {
 			initSize = n;
@@ -469,10 +469,10 @@ public class BFileReader {
 	}
 	
 	/**
-	 * Ìø¹ı£¬Ìø¹ıÖ¸¶¨µÄ¼ÇÂ¼Êı
+	 * è·³è¿‡ï¼Œè·³è¿‡æŒ‡å®šçš„è®°å½•æ•°
 	 * 
-	 * @param n	ÒªÌø¹ıµÄ¼ÇÂ¼Êı
-	 * @return	·µ»ØÊµ¼ÊµÄÌø¹ıµÄ¼ÇÂ¼Êı
+	 * @param n	è¦è·³è¿‡çš„è®°å½•æ•°
+	 * @return	è¿”å›å®é™…çš„è·³è¿‡çš„è®°å½•æ•°
 	 * @throws IOException
 	 */
 	public long skip(long n) throws IOException {
@@ -510,12 +510,12 @@ public class BFileReader {
 	}
 	
 	/**
-	 * È¡µ±Ç°¼ÇÂ¼µÄÖ¸¶¨×Ö¶Î
+	 * å–å½“å‰è®°å½•çš„æŒ‡å®šå­—æ®µ
 	 * 
-	 * @param fields	×Ö¶Î±ê¼Ç£¬ÖµÎª-1µÄ²»È¡Êı¡£
-	 * @param values	½á¹ûÊı×é
-	 * @return		true	È¡Êı³É¹¦
-	 * 				false	È¡ÊıÊ§°Ü
+	 * @param fields	å­—æ®µæ ‡è®°ï¼Œå€¼ä¸º-1çš„ä¸å–æ•°ã€‚
+	 * @param values	ç»“æœæ•°ç»„
+	 * @return		true	å–æ•°æˆåŠŸ
+	 * 				false	å–æ•°å¤±è´¥
 	 * @throws IOException
 	 */
 	public boolean readRecord(int []fields, Object []values) throws IOException {
@@ -536,9 +536,9 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»¸öÒ»Ìõ¼ÇÂ¼µÄÄ³¸ö×Ö¶Î¡£
-	 * @param field	Ö¸¶¨µÄ×Ö¶ÎË÷Òı¡£
-	 * @return	·µ»ØÖµ¶ÁÈ¡µÄ½á¹û
+	 * è¯»å–ä¸€ä¸ªä¸€æ¡è®°å½•çš„æŸä¸ªå­—æ®µã€‚
+	 * @param field	æŒ‡å®šçš„å­—æ®µç´¢å¼•ã€‚
+	 * @return	è¿”å›å€¼è¯»å–çš„ç»“æœ
 	 * @throws IOException
 	 */
 	private Object readRecordField(int field) throws IOException {
@@ -550,13 +550,13 @@ public class BFileReader {
 		return importer.readObject();
 	}
 	
-	// È¡µ±Ç°¼ÇÂ¼µÄ×Ö¶Î
+	// å–å½“å‰è®°å½•çš„å­—æ®µ
 	/**
-	 * ¶ÁÈ¡Ò»Ìõ¼ÇÂ¼
+	 * è¯»å–ä¸€æ¡è®°å½•
 	 * 
-	 * @param values	±£´æ¼ÇÂ¼µÄ¶ÔÏóÊı×é
-	 * @return			true	È¡Êı³É¹¦
-	 * 					false	È¡ÊıÊ§°Ü
+	 * @param values	ä¿å­˜è®°å½•çš„å¯¹è±¡æ•°ç»„
+	 * @return			true	å–æ•°æˆåŠŸ
+	 * 					false	å–æ•°å¤±è´¥
 	 * @throws IOException
 	 */
 	public boolean readRecord(Object []values) throws IOException {
@@ -573,7 +573,7 @@ public class BFileReader {
 	}
 	
 	/**
-	 * Ìø¹ı¼ÇÂ¼£¬Èç¹ûµ½ÎÄ¼şÎ²Ôò·µ»Øfalse
+	 * è·³è¿‡è®°å½•ï¼Œå¦‚æœåˆ°æ–‡ä»¶å°¾åˆ™è¿”å›false
 	 * @return
 	 * @throws IOException
 	 */
@@ -591,24 +591,24 @@ public class BFileReader {
 	}
 			
 	/**
-	 * ´Ó¶ÔxÓĞĞòµÄÎÄ¼şf¶Á³öxÔÚĞòÁĞAÖĞµÄ¼ÇÂ¼¹¹³ÉÓÎ±ê
-	 * ´Óµ±Ç°Êı¾İ¼¯ÖĞ£¬Ñ¡³ökeyÖµÔÚvaluesÖĞµÄ¼ÇÂ¼£¬Ñ¡È¡fields×Ö¶ÎÖµ¹¹³ÉĞÂ±í¡£²¢·µ»ØĞÂ±íµÄÓÎ±ê¡£
-	 * @param key		ÒÑ¾­ÅÅºÃĞòµÄ×Ö¶ÎµÄ×Ö¶ÎÃû¡£
-	 * @param values	²Î¿¼Öµ£¬ÓÉkey×Ö¶ÎÓëÕâĞ©Öµ×ö¶Ô±È
-	 * @param fields	×Ö¶ÎÃûÁĞ±í£¬×îÖÕµÃ½á¹û±í£¬ÓÉÕâĞ©×Ö¶Î×é³É
-	 * @param opt		e£º×Ö¶ÎÔÚÔ´Ğò±íÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
-	 * @param ctx		ÉÏÏÂÎÄ±äÁ¿
-	 * @return			·µ»ØÉ¸Ñ¡³öµÄÊı¾İ¼¯µÄÓÎ±ê
+	 * ä»å¯¹xæœ‰åºçš„æ–‡ä»¶fè¯»å‡ºxåœ¨åºåˆ—Aä¸­çš„è®°å½•æ„æˆæ¸¸æ ‡
+	 * ä»å½“å‰æ•°æ®é›†ä¸­ï¼Œé€‰å‡ºkeyå€¼åœ¨valuesä¸­çš„è®°å½•ï¼Œé€‰å–fieldså­—æ®µå€¼æ„æˆæ–°è¡¨ã€‚å¹¶è¿”å›æ–°è¡¨çš„æ¸¸æ ‡ã€‚
+	 * @param key		å·²ç»æ’å¥½åºçš„å­—æ®µçš„å­—æ®µåã€‚
+	 * @param values	å‚è€ƒå€¼ï¼Œç”±keyå­—æ®µä¸è¿™äº›å€¼åšå¯¹æ¯”
+	 * @param fields	å­—æ®µååˆ—è¡¨ï¼Œæœ€ç»ˆå¾—ç»“æœè¡¨ï¼Œç”±è¿™äº›å­—æ®µç»„æˆ
+	 * @param opt		eï¼šå­—æ®µåœ¨æºåºè¡¨ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
+	 * @param ctx		ä¸Šä¸‹æ–‡å˜é‡
+	 * @return			è¿”å›ç­›é€‰å‡ºçš„æ•°æ®é›†çš„æ¸¸æ ‡
 	 */
 	public ICursor iselect(String key, Sequence values, String []fields, String opt, Context ctx) {
 		int count = values.length();
 		if (count == 0) {
-			//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+			//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 			return new MemoryCursor(null);
 		}
 		
 		try {
-			// ´ò¿ª¶ş½øÖÆÎÄ¼ş£¬²¢ÉèÖÃ»º³åÇø´óĞ¡
+			// æ‰“å¼€äºŒè¿›åˆ¶æ–‡ä»¶ï¼Œå¹¶è®¾ç½®ç¼“å†²åŒºå¤§å°
 			open(1024);
 			long []blocks = this.blocks;
 			if (blocks == null) {
@@ -616,7 +616,7 @@ public class BFileReader {
 				throw new RQException(mm.getMessage("license.fileFormatError"));
 			}
 			
-			// È¡µÃ×Ö¶ÎË÷Òı
+			// å–å¾—å­—æ®µç´¢å¼•
 			int keyField = ds.getFieldIndex(key);
 			if (keyField < 0) {
 				MessageManager mm = EngineMessage.get();
@@ -627,7 +627,7 @@ public class BFileReader {
 			int fcount = ds.getFieldCount();
 			Object []vals = new Object[fcount];
 			
-			// ¶¨Òå·Ö¶Î
+			// å®šä¹‰åˆ†æ®µ
 			LongArray posArray = new LongArray(count > 5 ? count * 2 : 10);
 			long prevEnd = position();
 			int nextBlock = 0;
@@ -643,7 +643,7 @@ public class BFileReader {
 				Object val = values.getMem(i);
 				int cmp = Variant.compare(val, nextBlockVal);
 				
-				// ÒòÎªÎÄ¼ş¿ÉÄÜÓĞÖØ¸´µÄÖµ£¬ÏàµÈµÄÊ±ºòĞèÒª´ÓÇ°Ò»¿é¿ªÊ¼ÕÒ
+				// å› ä¸ºæ–‡ä»¶å¯èƒ½æœ‰é‡å¤çš„å€¼ï¼Œç›¸ç­‰çš„æ—¶å€™éœ€è¦ä»å‰ä¸€å—å¼€å§‹æ‰¾
 				if (cmp <= 0) {
 					if (position() > prevEnd) {
 						close();
@@ -680,7 +680,7 @@ public class BFileReader {
 								break;
 							}
 
-							// ÎÄ¼ş¿ÉÄÜÓĞÖØ¸´µÄÖµ£¬¼ÌĞøÕÒÓĞÃ»ÓĞºÍµ±Ç°ÖµÖØ¸´µÄ
+							// æ–‡ä»¶å¯èƒ½æœ‰é‡å¤çš„å€¼ï¼Œç»§ç»­æ‰¾æœ‰æ²¡æœ‰å’Œå½“å‰å€¼é‡å¤çš„
 							continue;
 						} else {
 							i++;
@@ -759,7 +759,7 @@ public class BFileReader {
 			}
 			
 			if (posArray.size() == 0) {
-				//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+				//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 				return new MemoryCursor(null);
 			}
 						
@@ -775,14 +775,14 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ´Ó¶ÔxÓĞĞòµÄÎÄ¼şf¶Á³öxÔÚ[a,b]Çø¼äµÄ¼ÇÂ¼¹¹³ÉÓÎ±ê
-	 * ´Óµ±Ç°Êı¾İ¼¯ÖĞ£¬Ñ¡³ökeyÖµÔÚstartValºÍendValÖ®¼äµÄ¼ÇÂ¼£¬Ñ¡È¡fields×Ö¶ÎÖµ¹¹³ÉĞÂ±í¡£²¢·µ»ØĞÂ±íµÄÓÎ±ê¡£
-	 * @param key		ÒÑ¾­ÅÅºÃĞòµÄ×Ö¶ÎµÄ×Ö¶ÎÃû¡£
-	 * @param startVal	É¸Ñ¡Êı¾İµÄÆğÊ¼Öµ
-	 * @param endVal	É¸Ñ¡Êı¾İµÄ½áÊøÖµ
-	 * @param fields	×Ö¶ÎÃûÁĞ±í£¬×îÖÕµÃ½á¹û±í£¬ÓÉÕâĞ©×Ö¶Î×é³É
-	 * @param opt		e£º×Ö¶ÎÔÚÔ´Ğò±íÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
-	 * @param ctx		ÉÏÏÂÎÄ±äÁ¿
+	 * ä»å¯¹xæœ‰åºçš„æ–‡ä»¶fè¯»å‡ºxåœ¨[a,b]åŒºé—´çš„è®°å½•æ„æˆæ¸¸æ ‡
+	 * ä»å½“å‰æ•°æ®é›†ä¸­ï¼Œé€‰å‡ºkeyå€¼åœ¨startValå’ŒendValä¹‹é—´çš„è®°å½•ï¼Œé€‰å–fieldså­—æ®µå€¼æ„æˆæ–°è¡¨ã€‚å¹¶è¿”å›æ–°è¡¨çš„æ¸¸æ ‡ã€‚
+	 * @param key		å·²ç»æ’å¥½åºçš„å­—æ®µçš„å­—æ®µåã€‚
+	 * @param startVal	ç­›é€‰æ•°æ®çš„èµ·å§‹å€¼
+	 * @param endVal	ç­›é€‰æ•°æ®çš„ç»“æŸå€¼
+	 * @param fields	å­—æ®µååˆ—è¡¨ï¼Œæœ€ç»ˆå¾—ç»“æœè¡¨ï¼Œç”±è¿™äº›å­—æ®µç»„æˆ
+	 * @param opt		eï¼šå­—æ®µåœ¨æºåºè¡¨ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
+	 * @param ctx		ä¸Šä¸‹æ–‡å˜é‡
 	 * @return
 	 */
 	public ICursor iselect(String key, Object startVal, Object endVal, String []fields, String opt, Context ctx) {
@@ -860,7 +860,7 @@ public class BFileReader {
 				readRecord(vals);
 				if (Variant.compare(vals[keyField], startVal) >= 0) {
 					if (endVal != null && Variant.compare(vals[keyField], endVal) > 0) {
-						//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+						//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 						return new MemoryCursor(null);
 					}
 					
@@ -894,7 +894,7 @@ public class BFileReader {
 				cursor.setPosRange(startPos, endPos);
 				return cursor;
 			} else {
-				//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+				//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 				return new MemoryCursor(null);
 			}
 		} catch (IOException e) {
@@ -908,15 +908,15 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ÉèÖÃ¶ÁÈ¡µÄ½áÊøÎ»ÖÃ£¬ÓÃÓÚ¶àÏß³Ì·Ö¶Î¶ÁÈ¡
-	 * @param pos Î»ÖÃ
+	 * è®¾ç½®è¯»å–çš„ç»“æŸä½ç½®ï¼Œç”¨äºå¤šçº¿ç¨‹åˆ†æ®µè¯»å–
+	 * @param pos ä½ç½®
 	 */
 	public void setEndPos(long pos) {
 		this.endPos = pos;
 	}
 	
 	/**
-	 * È¡½á¹û¼¯Êı¾İ½á¹¹
+	 * å–ç»“æœé›†æ•°æ®ç»“æ„
 	 * @return
 	 */
 	public DataStruct getResultSetDataStruct() {
@@ -928,13 +928,13 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ¶Ô±È¶à¸ö×Ö¶ÎµÄÖµ
+	 * å¯¹æ¯”å¤šä¸ªå­—æ®µçš„å€¼
 	 * 
-	 * @param fieldsValue	×Ö¶ÎÖµ
-	 * @param refValues		²Î¿¼Öµ
-	 * @return	1	fieldsValueµÄÖµ±È½Ï´ó
-	 * 			0	Á½¸ö²ÎÊıÒ»Ñù´ó
-	 * 			-1	refValuesµÄÖµ±È½Ï´ó
+	 * @param fieldsValue	å­—æ®µå€¼
+	 * @param refValues		å‚è€ƒå€¼
+	 * @return	1	fieldsValueçš„å€¼æ¯”è¾ƒå¤§
+	 * 			0	ä¸¤ä¸ªå‚æ•°ä¸€æ ·å¤§
+	 * 			-1	refValuesçš„å€¼æ¯”è¾ƒå¤§
 	 */
 	private int	compareFields(Object[] fieldsValue, Object refValues ) {
 		Object refObj = null;
@@ -954,13 +954,13 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ¶Ô±È¶à¸ö×Ö¶ÎµÄÖµ
+	 * å¯¹æ¯”å¤šä¸ªå­—æ®µçš„å€¼
 	 * 
-	 * @param fieldsValue	×Ö¶ÎÖµ
-	 * @param refValues		²Î¿¼Öµ
-	 * @return	1	refValuesµÄÖµ±È½Ï´ó
-	 * 			0	Á½¸ö²ÎÊıÒ»Ñù´ó
-	 * 			-1	fieldsValueµÄÖµ±È½Ï´ó
+	 * @param fieldsValue	å­—æ®µå€¼
+	 * @param refValues		å‚è€ƒå€¼
+	 * @return	1	refValuesçš„å€¼æ¯”è¾ƒå¤§
+	 * 			0	ä¸¤ä¸ªå‚æ•°ä¸€æ ·å¤§
+	 * 			-1	fieldsValueçš„å€¼æ¯”è¾ƒå¤§
 	 */	
 	private int compareFields(Object refValues, Object[] fieldsValue) {
 		Object refObj = null;
@@ -980,29 +980,29 @@ public class BFileReader {
 	}
 	
 	/**
-	 * Ñ¡³ö±í´ïÊ½µÄ¼ÆËã½á¹ûÔÚvaluesÖĞµÄ¼ÇÂ¼
-	 * @param exp		±í´ïÊ½
-	 * @param values	¶Ô±È½á¹û
-	 * @param fields	×é³É½á¹ûµÄ×Ö¶Î
-	 * @param opt		e£º×Ö¶ÎÔÚÔ´Ğò±íÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
-	 * @param ctx		ÉÏÏÂÎÄ±äÁ¿
-	 * @return			·µ»ØÉ¸Ñ¡³öµÄ¼ÇÂ¼
+	 * é€‰å‡ºè¡¨è¾¾å¼çš„è®¡ç®—ç»“æœåœ¨valuesä¸­çš„è®°å½•
+	 * @param exp		è¡¨è¾¾å¼
+	 * @param values	å¯¹æ¯”ç»“æœ
+	 * @param fields	ç»„æˆç»“æœçš„å­—æ®µ
+	 * @param opt		eï¼šå­—æ®µåœ¨æºåºè¡¨ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
+	 * @param ctx		ä¸Šä¸‹æ–‡å˜é‡
+	 * @return			è¿”å›ç­›é€‰å‡ºçš„è®°å½•
 	 */
 	public ICursor iselect(Expression exp, Sequence values, String []fields, String opt, Context ctx) {
 		if (exp == null) {
-			//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+			//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 			return new MemoryCursor(null);
 		}
 		
-		// ¶à×Ö¶Î±í´ïÊ½£¬×ßÁíÍâµÄÁ÷³Ì£¬¿ÉÒÔ´ó·ùÌá¸ßĞ§ÂÊ
-		//  ÊäÈë±í´ïÊ½ÊÇ·ñÊ½¶à×Ö·û´®
+		// å¤šå­—æ®µè¡¨è¾¾å¼ï¼Œèµ°å¦å¤–çš„æµç¨‹ï¼Œå¯ä»¥å¤§å¹…æé«˜æ•ˆç‡
+		//  è¾“å…¥è¡¨è¾¾å¼æ˜¯å¦å¼å¤šå­—ç¬¦ä¸²
 		String[] fieldNames = exp.toFields();
 		
 		try {
 			open(1024);
 			
 			if (blocks == null) {
-				// ²»·Ö¶Î¼¯ÎÄ¼ş²ÉÓÃË³Ğò²éÕÒ
+				// ä¸åˆ†æ®µé›†æ–‡ä»¶é‡‡ç”¨é¡ºåºæŸ¥æ‰¾
 				Sequence result = readAll();
 				Sequence fieldValues = result.calc(exp, ctx);
 				IArray valueArray = fieldValues.getMems();
@@ -1056,19 +1056,19 @@ public class BFileReader {
 	}
 	
 	/**
-	 * µ¥×Ö¶Î¡¢¶à×Ö¶Î´Óµ±Ç°Êı¾İ¼¯ÖĞÑ¡³öÔÚ valuesÖĞµÄ¼ÇÂ¼
+	 * å•å­—æ®µã€å¤šå­—æ®µä»å½“å‰æ•°æ®é›†ä¸­é€‰å‡ºåœ¨ valuesä¸­çš„è®°å½•
 	 * 
-	 * @param	refFields	²Î¿¼×Ö¶Î
-	 * @param	values		²Î¿¼×Ö¶ÎµÄ²Î¿¼Öµ
-	 * @param	fields      ¹¹³ÉĞÂ±íµÄ×Ö¶Î£¬¿ÉÒÔ²»°üÀ¨²Î¿¼×Ö¶Î
-	 * @param	opt			e£º×Ö¶ÎÔÚÔ´Ğò±íÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
-	 * @param	ctx			ÉÏÏÂÎÄ±äÁ¿
+	 * @param	refFields	å‚è€ƒå­—æ®µ
+	 * @param	values		å‚è€ƒå­—æ®µçš„å‚è€ƒå€¼
+	 * @param	fields      æ„æˆæ–°è¡¨çš„å­—æ®µï¼Œå¯ä»¥ä¸åŒ…æ‹¬å‚è€ƒå­—æ®µ
+	 * @param	opt			eï¼šå­—æ®µåœ¨æºåºè¡¨ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
+	 * @param	ctx			ä¸Šä¸‹æ–‡å˜é‡
 	 * 
-	 * @return	·µ»ØÉ¸Ñ¡³öµÄÊı¾İ¼¯cursor
+	 * @return	è¿”å›ç­›é€‰å‡ºçš„æ•°æ®é›†cursor
 	 * 
 	*/
 	public ICursor iselectFields(String[] refFields, Sequence values, String []fields, String opt, Context ctx) {
-		// ²éÕÒ¶ÔÓ¦ÁĞµÄË÷Òı
+		// æŸ¥æ‰¾å¯¹åº”åˆ—çš„ç´¢å¼•
 		int fcount = ds.getFieldCount();
 		int[] selFields = new int[fcount];
 		for (int i = 0; i < fcount; i++) {
@@ -1086,15 +1086,15 @@ public class BFileReader {
 			fcou++;
 		}
 		
-		// È¡µÃ¼ÇÂ¼³¤¶È
+		// å–å¾—è®°å½•é•¿åº¦
 		int count = values.length();
 		if (count == 0) {
-			//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+			//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 			return new MemoryCursor(null);
 		}
 		
 		try {
-			// ´ò¿ªÎÄ¼ş
+			// æ‰“å¼€æ–‡ä»¶
 			open(1024);
 			long []blocks = this.blocks;
 			if (blocks == null) {
@@ -1117,7 +1117,7 @@ public class BFileReader {
 			
 			int i = 1;
 			while (i <= count && nextBlock < lastBlock) {
-				// È¡µÃÒ»¸ö²Î¿¼Öµ
+				// å–å¾—ä¸€ä¸ªå‚è€ƒå€¼
 				Object val = values.getMem(i);
 				int cmp = compareFields(val, nextBlockVal);
 				if (cmp <= 0) {
@@ -1160,7 +1160,7 @@ public class BFileReader {
 						} else {
 							i++;
 							while (i <= count) {
-								// È¡µÃÒ»¸ö²Î¿¼Öµ
+								// å–å¾—ä¸€ä¸ªå‚è€ƒå€¼
 								val = values.getMem(i);
 								cmp = compareFields(val, vals);
 								if (cmp > 0) {
@@ -1235,7 +1235,7 @@ public class BFileReader {
 			}
 			
 			if (posArray.size() == 0) {
-				//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+				//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 				return new MemoryCursor(null);
 			}
 						
@@ -1253,7 +1253,7 @@ public class BFileReader {
 	private ICursor iselectExpression(Expression exp, Sequence values, String []fields, String opt, Context ctx) {
 		int count = values.length();
 		if (count == 0) {
-			//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+			//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 			return new MemoryCursor(null);
 		}
 		
@@ -1406,7 +1406,7 @@ public class BFileReader {
 			}
 			
 			if (posArray.size() == 0) {
-				//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+				//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 				return new MemoryCursor(null);
 			}
 			
@@ -1422,20 +1422,20 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ±í´ïÊ½µÄÖµ£¬ÔÚstartValºÍendValÖ®¼äµÄ¼ÇÂ¼
-	 * @param	exp			±í´ïÊ½¡£ÈôeÎªnull, Ôò½á¹ûÒ²Îªnull
-	 * @param	startVal	ÆğÊ¼Öµ
-	 * @param	endVal		½áÊøÖµ
-	 * @param	fields      ¹¹³ÉĞÂ±íµÄ×Ö¶Î£¬¿ÉÒÔ²»°üÀ¨²Î¿¼×Ö¶Î
-	 * @param	opt			e£º×Ö¶ÎÔÚÔ´Ğò±íÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
-	 * @param	ctx			ÉÏÏÂÎÄ±äÁ¿
+	 * è¡¨è¾¾å¼çš„å€¼ï¼Œåœ¨startValå’ŒendValä¹‹é—´çš„è®°å½•
+	 * @param	exp			è¡¨è¾¾å¼ã€‚è‹¥eä¸ºnull, åˆ™ç»“æœä¹Ÿä¸ºnull
+	 * @param	startVal	èµ·å§‹å€¼
+	 * @param	endVal		ç»“æŸå€¼
+	 * @param	fields      æ„æˆæ–°è¡¨çš„å­—æ®µï¼Œå¯ä»¥ä¸åŒ…æ‹¬å‚è€ƒå­—æ®µ
+	 * @param	opt			eï¼šå­—æ®µåœ¨æºåºè¡¨ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
+	 * @param	ctx			ä¸Šä¸‹æ–‡å˜é‡
 	 * 
-	 * @return	·µ»Ø¶ÔÓ¦µÄÓÎ±ê
+	 * @return	è¿”å›å¯¹åº”çš„æ¸¸æ ‡
 	*/
 	public ICursor iselect(Expression exp, Object startVal,
 			Object endVal, String []fields, String opt, Context ctx) {
 		if (exp == null) {
-			//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+			//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 			return new MemoryCursor(null);
 		}
 		
@@ -1443,7 +1443,7 @@ public class BFileReader {
 			open(1024);
 
 			if (blocks == null) {
-				// ²»·Ö¶Î¼¯ÎÄ¼ş²ÉÓÃË³Ğò²éÕÒ
+				// ä¸åˆ†æ®µé›†æ–‡ä»¶é‡‡ç”¨é¡ºåºæŸ¥æ‰¾
 				Sequence result = readAll();
 				Sequence values = result.calc(exp, ctx);
 				int len = values.length();
@@ -1482,12 +1482,12 @@ public class BFileReader {
 			throw new RQException(mm.getMessage("file.fileNoExist", file.getFileName()));
 		}
 
-		// ¶à×Ö¶Î±í´ïÊ½£¬×ßÁíÍâµÄÁ÷³Ì£¬¿ÉÒÔ´ó·ùÌá¸ßĞ§ÂÊ
-		//  ÊäÈë±í´ïÊ½ÊÇ·ñÊ½¶à×Ö·û´®
+		// å¤šå­—æ®µè¡¨è¾¾å¼ï¼Œèµ°å¦å¤–çš„æµç¨‹ï¼Œå¯ä»¥å¤§å¹…æé«˜æ•ˆç‡
+		//  è¾“å…¥è¡¨è¾¾å¼æ˜¯å¦å¼å¤šå­—ç¬¦ä¸²
 		String[] fieldNames = exp.toFields();
 		if (null != fieldNames) {
 			boolean multi = true;
-			// ÅĞ¶ÏÊÇ·ñÊ½¶à×Ö¶Î
+			// åˆ¤æ–­æ˜¯å¦å¼å¤šå­—æ®µ
 			loop:for (int i = 0; i < fieldNames.length; i++) {
 				for (int j = 0; j < ds.getFieldCount(); j ++) {
 					if (fieldNames[i].equals(ds.getFieldName(j)))
@@ -1503,32 +1503,32 @@ public class BFileReader {
 			}
 		}
 		
-		// ×ßÆÕÍ¨µÄÁ÷³Ì
+		// èµ°æ™®é€šçš„æµç¨‹
 		
 		return iselectExpression(exp, startVal, endVal, fields, opt, ctx);
 	}
 	
 	/**
-	 * µ¥×Ö¶Î¡¢¶à×Ö¶ÎÖµ£¬ÔÚstartValºÍendValÖ®¼äµÄ¼ÇÂ¼
+	 * å•å­—æ®µã€å¤šå­—æ®µå€¼ï¼Œåœ¨startValå’ŒendValä¹‹é—´çš„è®°å½•
 	 * 
-	 * @param	refFields	²Î¿¼×Ö¶Î
-	 * @param	startVal	ÆğÊ¼Öµ
-	 * @param	endVal		½áÊøÖµ
-	 * @param	fields      ¹¹³ÉĞÂ±íµÄ×Ö¶Î£¬¿ÉÒÔ²»°üÀ¨²Î¿¼×Ö¶Î
-	 * @param	opt			e£º×Ö¶ÎÔÚÔ´Ğò±íÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
-	 * @param	ctx			ÉÏÏÂÎÄ±äÁ¿
+	 * @param	refFields	å‚è€ƒå­—æ®µ
+	 * @param	startVal	èµ·å§‹å€¼
+	 * @param	endVal		ç»“æŸå€¼
+	 * @param	fields      æ„æˆæ–°è¡¨çš„å­—æ®µï¼Œå¯ä»¥ä¸åŒ…æ‹¬å‚è€ƒå­—æ®µ
+	 * @param	opt			eï¼šå­—æ®µåœ¨æºåºè¡¨ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
+	 * @param	ctx			ä¸Šä¸‹æ–‡å˜é‡
 	 * 
-	 * @return	·µ»Ø¶ÔÓ¦µÄÓÎ±ê
+	 * @return	è¿”å›å¯¹åº”çš„æ¸¸æ ‡
 	*/
 	private ICursor iselectFields(String[] refFields, Object startVal, Object endVal, String []fields, String opt, Context ctx) {
 		int startBlock;
 		int endBlock ;
 		long firstPos;
-		Object[] vals = null; // ¶ÁÈ¡µÄ¼ÇÂ¼Êı¾İ,¿ÉÄÜÊÇµ¥×Ö¶Î»ò¶à×Ö¶Î
+		Object[] vals = null; // è¯»å–çš„è®°å½•æ•°æ®,å¯èƒ½æ˜¯å•å­—æ®µæˆ–å¤šå­—æ®µ
 		int fcount = ds.getFieldCount();
-		int[] selFields = new int[fcount]; // Òª¶ÁÈ¡µÄ×Ö¶Î
+		int[] selFields = new int[fcount]; // è¦è¯»å–çš„å­—æ®µ
 		
-		// ²éÕÒ¶ÔÓ¦ÁĞµÄË÷Òı
+		// æŸ¥æ‰¾å¯¹åº”åˆ—çš„ç´¢å¼•
 		for (int i = 0; i < fcount; i++) {
 			selFields[i] = -1;
 		}
@@ -1606,7 +1606,7 @@ public class BFileReader {
 				readRecord(selFields, vals);
 				if (compareFields(vals, startVal) >= 0) {
 					if (endVal != null && compareFields(vals, endVal) > 0) {
-						//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+						//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 						return new MemoryCursor(null);
 					}
 					
@@ -1640,7 +1640,7 @@ public class BFileReader {
 				cursor.setPosRange(startPos, endPos);
 				return cursor;
 			} else {
-				//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+				//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 				return new MemoryCursor(null);
 			}
 		} catch (IOException e) {
@@ -1654,25 +1654,25 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ±í´ïÊ½£¬ÔÚstartValºÍendValÖ®¼äµÄ¼ÇÂ¼
+	 * è¡¨è¾¾å¼ï¼Œåœ¨startValå’ŒendValä¹‹é—´çš„è®°å½•
 	 * 
-	 * @param	e			¼ÆËã±í´ïÊ½
-	 * @param	startVal	ÆğÊ¼Öµ
-	 * @param	endVal		½áÊøÖµ
-	 * @param	fields      ¹¹³ÉĞÂ±íµÄ×Ö¶Î£¬¿ÉÒÔ²»°üÀ¨²Î¿¼×Ö¶Î
-	 * @param	opt			e£º×Ö¶ÎÔÚÔ´Ğò±íÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
-	 * @param	ctx			ÉÏÏÂÎÄ±äÁ¿
+	 * @param	e			è®¡ç®—è¡¨è¾¾å¼
+	 * @param	startVal	èµ·å§‹å€¼
+	 * @param	endVal		ç»“æŸå€¼
+	 * @param	fields      æ„æˆæ–°è¡¨çš„å­—æ®µï¼Œå¯ä»¥ä¸åŒ…æ‹¬å‚è€ƒå­—æ®µ
+	 * @param	opt			eï¼šå­—æ®µåœ¨æºåºè¡¨ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
+	 * @param	ctx			ä¸Šä¸‹æ–‡å˜é‡
 	 * 
-	 * @return	·µ»Ø¶ÔÓ¦µÄÓÎ±ê
+	 * @return	è¿”å›å¯¹åº”çš„æ¸¸æ ‡
 	*/
 	private ICursor iselectExpression(Expression exp, Object startVal, Object endVal, String []fields, String opt, Context ctx) {
 		int startBlock;
 		int endBlock ;
 		long firstPos;
-		Object[] vals = null; // ¶ÁÈ¡µÄ¼ÇÂ¼Êı¾İ,¿ÉÄÜÊÇµ¥×Ö¶Î»ò¶à×Ö¶Î
+		Object[] vals = null; // è¯»å–çš„è®°å½•æ•°æ®,å¯èƒ½æ˜¯å•å­—æ®µæˆ–å¤šå­—æ®µ
 		Record rec = new Record(ds);
 		
-		// ÓëÆğÊ¼Öµ×ö±È½Ï
+		// ä¸èµ·å§‹å€¼åšæ¯”è¾ƒ
 		try {
 			open(1024);
 			firstPos = position();
@@ -1721,7 +1721,7 @@ public class BFileReader {
 			}
 		}
 		
-		// Óë½áÊøÖµ×ö±È½Ï
+		// ä¸ç»“æŸå€¼åšæ¯”è¾ƒ
 		try {
 			reopen(1024);
 			seek(firstPos);
@@ -1739,7 +1739,7 @@ public class BFileReader {
 				rec.values = vals;
 				if (Variant.compare(rec.calc(exp, ctx), startVal) >= 0) {
 					if (endVal != null && Variant.compare(rec.calc(exp, ctx), endVal) > 0) {
-						//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+						//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 						return new MemoryCursor(null);
 					}
 					
@@ -1774,7 +1774,7 @@ public class BFileReader {
 				cursor.setPosRange(startPos, endPos);
 				return cursor;
 			} else {
-				//return null; ¸Ä³É·µ»Ø¿ÕÓÎ±ê£¬ÕâÑùcs.groups@t»á·µ»Ø¿ÕĞò±í
+				//return null; æ”¹æˆè¿”å›ç©ºæ¸¸æ ‡ï¼Œè¿™æ ·cs.groups@tä¼šè¿”å›ç©ºåºè¡¨
 				return new MemoryCursor(null);
 			}
 		} catch (IOException e) {
@@ -1788,10 +1788,10 @@ public class BFileReader {
 	}
 	
 	/**
-	 * ¸ù¾İn·µ»Ø·Ö¶ÎµãÖµºÍÃ¿¶ÎÌõÊı
-	 * @param list ·µ»ØµÄÃ¿¶ÎÌõÊı
-	 * @param values ·µ»Ø·Ö¶ÎµãÖµ
-	 * @param n ÆÚÍûµÄÃ¿¶ÎÌõÊı
+	 * æ ¹æ®nè¿”å›åˆ†æ®µç‚¹å€¼å’Œæ¯æ®µæ¡æ•°
+	 * @param list è¿”å›çš„æ¯æ®µæ¡æ•°
+	 * @param values è¿”å›åˆ†æ®µç‚¹å€¼
+	 * @param n æœŸæœ›çš„æ¯æ®µæ¡æ•°
 	 * @throws IOException 
 	 */
 	public void getSegmentInfo(ArrayList<Integer> list, Sequence values, int n) throws IOException {
@@ -1820,7 +1820,7 @@ public class BFileReader {
 			}
 		}
 		
-		list.add(sum);//×îºóÒ»¸ö·Ö¶ÎÌõÊı£¬ÓĞ¿ÉÄÜÖ»ÓĞÕâÒ»¸ö
+		list.add(sum);//æœ€åä¸€ä¸ªåˆ†æ®µæ¡æ•°ï¼Œæœ‰å¯èƒ½åªæœ‰è¿™ä¸€ä¸ª
 		close();
 	}
 	

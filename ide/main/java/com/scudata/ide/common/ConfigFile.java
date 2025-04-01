@@ -132,7 +132,7 @@ public class ConfigFile {
 	/**
 	 * Get systemconfig file object
 	 * 
-	 * @return 文件不存在时会返回null
+	 * @return 鏂囦欢涓嶅瓨鍦ㄦ椂浼氳繑鍥瀗ull
 	 */
 	public static ConfigFile getSystemConfigFile() {
 		String file = GC.PATH_CONFIG + "/systemconfig" + GM.getLanguageSuffix()

@@ -18,22 +18,22 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓÃÓÚÖ´ĞĞA.newsµÄÈÎÎñ
+ * ç”¨äºæ‰§è¡ŒA.newsçš„ä»»åŠ¡
  * @author RunQian
  *
  */
 class NewsJob extends Job {
-	private Sequence src; // Ô´ĞòÁĞ
-	private int start; // ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	private int end; // ½áÊøÎ»ÖÃ£¬²»°üÀ¨
+	private Sequence src; // æºåºåˆ—
+	private int start; // èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	private int end; // ç»“æŸä½ç½®ï¼Œä¸åŒ…æ‹¬
 	
 	private Expression gexp;
-	private Expression[] exps; // ¼ÆËã±í´ïÊ½Êı×é
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹
-	private String opt; // Ñ¡Ïî
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
+	private Expression[] exps; // è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„
+	private String opt; // é€‰é¡¹
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
 	
-	private Table result; // ½á¹û¼¯
+	private Table result; // ç»“æœé›†
 	
 	public NewsJob(Sequence src, int start, int end, 
 			Expression gexp, Expression[] exps, DataStruct ds, String opt, Context ctx) {
@@ -64,7 +64,7 @@ class NewsJob extends Job {
 		boolean isLeft = opt != null && opt.indexOf('1') != -1;
 		Sequence ns = null;
 		if (isLeft) {
-			// Èç¹ûÊÇ×óÁ¬½ÓÔòÕÒ³ö±í´ïÊ½ÖĞÒıÓÃXµÄ×Ö¶Î£¬Éú³ÉÒ»Ìõ¿ÕÖµµÄ¼ÇÂ¼ÔÚXÈ¡ÖµÎªnullÊ±°ÑÕâÌõ¼ÇÂ¼Ñ¹Õ»
+			// å¦‚æœæ˜¯å·¦è¿æ¥åˆ™æ‰¾å‡ºè¡¨è¾¾å¼ä¸­å¼•ç”¨Xçš„å­—æ®µï¼Œç”Ÿæˆä¸€æ¡ç©ºå€¼çš„è®°å½•åœ¨Xå–å€¼ä¸ºnullæ—¶æŠŠè¿™æ¡è®°å½•å‹æ ˆ
 			ArrayList<String> fieldList = new ArrayList<String>();
 			for (Expression exp : exps) {
 				exp.getUsedFields(ctx, fieldList);
@@ -95,7 +95,7 @@ class NewsJob extends Job {
 			}
 		}
 		
-		// ÏÈ°ÑĞÂ²úÉúµÄĞò±íÑ¹Õ»£¬·ÀÖ¹ÒıÓÃ²»µ½Ô´Ğò±í
+		// å…ˆæŠŠæ–°äº§ç”Ÿçš„åºè¡¨å‹æ ˆï¼Œé˜²æ­¢å¼•ç”¨ä¸åˆ°æºåºè¡¨
 		ComputeStack stack = ctx.getComputeStack();
 		Current resultCurrent = new Current(result);
 		Current current = new Current(src);

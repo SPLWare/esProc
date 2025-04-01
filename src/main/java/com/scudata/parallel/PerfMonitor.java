@@ -3,11 +3,11 @@ package com.scudata.parallel;
 import com.scudata.common.Logger;
 
 public class PerfMonitor {
-//·Ö½ø³ÌËø£¬¸ù¾İ×î´ó×÷Òµ/ÊÊºÏ×÷ÒµÊıµ÷¶È,Ò²¼´¶¨ÒåµÄ±¶Êı	
+//åˆ†è¿›ç¨‹é”ï¼Œæ ¹æ®æœ€å¤§ä½œä¸š/é€‚åˆä½œä¸šæ•°è°ƒåº¦,ä¹Ÿå³å®šä¹‰çš„å€æ•°	
 	private static Object LOCK1 = new Object();
 	private static volatile int concurrents = 0;
 
-//Ö÷½ø³ÌËø£¬¸ù¾İ×î´ó×÷ÒµÊıµ÷¶È
+//ä¸»è¿›ç¨‹é”ï¼Œæ ¹æ®æœ€å¤§ä½œä¸šæ•°è°ƒåº¦
 	private static Object LOCKPROCESS = new Object();
 	private static volatile int processConcurrents = 0;
 
@@ -34,7 +34,7 @@ public class PerfMonitor {
 	}
 
 	/**
-	 * »ñÈ¡·Ö»úÉÏÕıÔÚÔËĞĞµÄ²¢·¢ÈÎÎñÊıÄ¿£¬Ô¶³Ì·ÖÇøÈßÓàÎÄ¼şĞèÒªÌôÑ¡ÈÎÎñ×îÉÙµÄ·Ö»ú
+	 * è·å–åˆ†æœºä¸Šæ­£åœ¨è¿è¡Œçš„å¹¶å‘ä»»åŠ¡æ•°ç›®ï¼Œè¿œç¨‹åˆ†åŒºå†—ä½™æ–‡ä»¶éœ€è¦æŒ‘é€‰ä»»åŠ¡æœ€å°‘çš„åˆ†æœº
 	 * @return
 	 */
 	public static int getConcurrentTasks() {
@@ -42,7 +42,7 @@ public class PerfMonitor {
 	}
 
 	/**
-	 * ½øÈëÈÎÎñ£¬´¦Àí²¢·¢Êı¼°µÈ´ıÊı
+	 * è¿›å…¥ä»»åŠ¡ï¼Œå¤„ç†å¹¶å‘æ•°åŠç­‰å¾…æ•°
 	 */
 	public static void enterTask(Object mark) {
 		synchronized (LOCK1) {

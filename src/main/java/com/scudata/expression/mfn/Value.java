@@ -5,7 +5,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.MemberFunction;
 
 /**
- * 返回记录的键，如果没有主键则返回所有字段组成的序列，如果不是记录则返回本身
+ * 杩斿洖璁板綍鐨勯敭锛屽鏋滄病鏈変富閿垯杩斿洖鎵�鏈夊瓧娈电粍鎴愮殑搴忓垪锛屽鏋滀笉鏄褰曞垯杩斿洖鏈韩
  * v.v()
  * @author RunQian
  *
@@ -22,7 +22,7 @@ public class Value extends MemberFunction {
 	}
 	
 	/**
-	 * 释放节点引用的点操作符左侧的对象
+	 * 閲婃斁鑺傜偣寮曠敤鐨勭偣鎿嶄綔绗﹀乏渚х殑瀵硅薄
 	 */
 	public void releaseDotLeftObject() {
 		src = null;

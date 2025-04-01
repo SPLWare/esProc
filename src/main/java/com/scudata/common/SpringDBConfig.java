@@ -3,25 +3,25 @@ package com.scudata.common;
 import java.io.Serializable;
 
 /**
- * SpringÊı¾İÔ´ÅäÖÃ
+ * Springæ•°æ®æºé…ç½®
  *
  */
 public class SpringDBConfig extends DBInfo implements Cloneable, Serializable {
 
-	private String id; // datasourceµÄid
+	private String id; // datasourceçš„id
 
 	/**
-	 * ³õÊ¼»¯
-	 * @param dbType	Êı¾İ¿âÀàĞÍ
+	 * åˆå§‹åŒ–
+	 * @param dbType	æ•°æ®åº“ç±»å‹
 	 */
 	public SpringDBConfig(int dbType) {
 		super(dbType);
 	}
 
 	/**
-	 * ³õÊ¼»¯
-	 * @param dbType	Êı¾İ¿âÀàĞÍ
-	 * @param id	SpringµÄdatasourceµÄid
+	 * åˆå§‹åŒ–
+	 * @param dbType	æ•°æ®åº“ç±»å‹
+	 * @param id	Springçš„datasourceçš„id
 	 */
 	public SpringDBConfig(int dbType, String id) {
 		super(dbType);
@@ -29,7 +29,7 @@ public class SpringDBConfig extends DBInfo implements Cloneable, Serializable {
 	}
 
 	/**
-	 * È¡ID
+	 * å–ID
 	 * @return the id
 	 */
 	public String getId() {
@@ -37,7 +37,7 @@ public class SpringDBConfig extends DBInfo implements Cloneable, Serializable {
 	}
 
 	/**
-	 * ÉèÖÃID
+	 * è®¾ç½®ID
 	 * @param id the id to set
 	 */
 	public void setId(String id) {
@@ -45,7 +45,7 @@ public class SpringDBConfig extends DBInfo implements Cloneable, Serializable {
 	}
 
 	/**
-	 * ´´½¨Á¬½Ó¹¤³§
+	 * åˆ›å»ºè¿æ¥å·¥å‚
 	 */
 	public ISessionFactory createSessionFactory() throws Exception {
 		return SpringDBSessionFactory.create(id, dbType);

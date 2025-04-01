@@ -6,9 +6,9 @@ import java.awt.geom.Point2D;
 import com.scudata.chart.Consts;
 
 /**
- * ·â×°ÁËĞÎ×´£¬ÑÕÉ«µÈÊôĞÔµÄÊı¾İµã
- * ÀàËÆÓÚÎÄ±¾±êÇ©£¬Êı¾İµãÓÉÓÚÒ»°ã±È½ÏĞ¡£¬Ò²ĞèÒªÔÚºóÃæÍ³Ò»»æÖÆ
- * ·ÀÖ¹±»¸²¸Ç
+ * å°è£…äº†å½¢çŠ¶ï¼Œé¢œè‰²ç­‰å±æ€§çš„æ•°æ®ç‚¹
+ * ç±»ä¼¼äºæ–‡æœ¬æ ‡ç­¾ï¼Œæ•°æ®ç‚¹ç”±äºä¸€èˆ¬æ¯”è¾ƒå°ï¼Œä¹Ÿéœ€è¦åœ¨åé¢ç»Ÿä¸€ç»˜åˆ¶
+ * é˜²æ­¢è¢«è¦†ç›–
  * @author Joancy
  *
  */
@@ -18,9 +18,9 @@ public class ValuePoint {
 	public int shape = Consts.PT_CIRCLE;
 	public int radius = -1;
 	/**
-	 * ¹¹ÔìÒ»¸öÊı¾İµã
-	 * @param p ×ø±ê
-	 * @param bc ±ß¿òÑÕÉ«
+	 * æ„é€ ä¸€ä¸ªæ•°æ®ç‚¹
+	 * @param p åæ ‡
+	 * @param bc è¾¹æ¡†é¢œè‰²
 	 */
 	public ValuePoint(Point2D.Double p, Color bc) {
 		this.p = p;
@@ -28,12 +28,12 @@ public class ValuePoint {
 	}
 
 	/**
-	 * ¹¹ÔìÒ»¸öÊı¾İµã
-	 * @param p ×ø±ê
-	 * @param bc ±ß¿òÑÕÉ«
-	 * @param fillColor Ìî³äÑÕÉ«
-	 * @param shape µãµÄĞÎ×´
-	 * @param radius µãµÄ°ë¾¶
+	 * æ„é€ ä¸€ä¸ªæ•°æ®ç‚¹
+	 * @param p åæ ‡
+	 * @param bc è¾¹æ¡†é¢œè‰²
+	 * @param fillColor å¡«å……é¢œè‰²
+	 * @param shape ç‚¹çš„å½¢çŠ¶
+	 * @param radius ç‚¹çš„åŠå¾„
 	 */
 	public ValuePoint(Point2D.Double p, Color bc,Color fillColor, int shape, int radius) {
 		this(p, bc);

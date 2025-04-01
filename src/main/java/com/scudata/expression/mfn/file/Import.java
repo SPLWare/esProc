@@ -8,14 +8,14 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.FileFunction;
 
 /**
- * ´ÓÎÄ±¾ÎÄ¼ş»òÕß¼¯ÎÄ¼şµ¼ÈëÊı¾İ
- * f.import(Fi:type:fmt,¡­;k:n,s)
+ * ä»æ–‡æœ¬æ–‡ä»¶æˆ–è€…é›†æ–‡ä»¶å¯¼å…¥æ•°æ®
+ * f.import(Fi:type:fmt,â€¦;k:n,s)
  * @author RunQian
  *
  */
 public class Import extends FileFunction {
 	public Object calculate(Context ctx) {
-		// file.cursorÓĞ@xÑ¡Ïî£¬·ÀÖ¹´íĞ´ÁË@x°ÑÎÄ¼şÉ¾ÁË
+		// file.cursoræœ‰@xé€‰é¡¹ï¼Œé˜²æ­¢é”™å†™äº†@xæŠŠæ–‡ä»¶åˆ äº†
 		String option = this.option;
 		if (option != null) {
 			option = option.replace('x', ' ');

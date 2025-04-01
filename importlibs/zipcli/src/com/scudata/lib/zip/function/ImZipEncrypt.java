@@ -8,7 +8,7 @@ import com.scudata.resources.EngineMessage;
 import net.lingala.zip4j.model.enums.AesKeyStrength;
 import net.lingala.zip4j.model.enums.EncryptionMethod;
 
-//设置加密方式
+//璁剧疆鍔犲瘑鏂瑰紡
 public class ImZipEncrypt extends ImFunction {	
 	public Object doQuery(Object[] objs){
 		boolean bRet = false;
@@ -32,7 +32,7 @@ public class ImZipEncrypt extends ImFunction {
 					m_parameters.setEncryptFiles(false);
 					mod = EncryptionMethod.NONE;
 				}
-				m_parameters.setEncryptionMethod(mod); // 加密方式  		
+				m_parameters.setEncryptionMethod(mod); // 鍔犲瘑鏂瑰紡  		
 				
 				bRet = true;
 			}else{

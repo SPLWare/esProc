@@ -16,21 +16,21 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * µ÷ÓÃ×Ó³ÌĞò
- * func(a,arg)ÔÚ²éÑ¯ÖĞ¶¨ÒåÍê³É×Ó³ÌĞòºó£¬¾Í¿ÉÒÔÔÚÈÎÒâµ¥Ôª¸ñÖĞ½øĞĞ×Ó³ÌĞòµÄµ÷ÓÃ¡£  
+ * è°ƒç”¨å­ç¨‹åº
+ * func(a,arg)åœ¨æŸ¥è¯¢ä¸­å®šä¹‰å®Œæˆå­ç¨‹åºåï¼Œå°±å¯ä»¥åœ¨ä»»æ„å•å…ƒæ ¼ä¸­è¿›è¡Œå­ç¨‹åºçš„è°ƒç”¨ã€‚  
  * @author runqian
  *
  */
 public class Func extends Function {
-	// Ò»ÏÂÓÃÓÚÓÅ»¯mÑ¡Ïî
-	private Expression resultExp; // ´Ë±í´ïÊ½Îªfuncº¯ÊıÌåÄÚµÄ±í´ïÊ½
-	private Expression []paramExps; // ²ÎÊı±í´ïÊ½Êı×é
-	private INormalCell funcCell; // funcËùÔÚµÄµ¥Ôª¸ñ
-	//private String []argNames = null; // ²ÎÊıÃûÊı×é
+	// ä¸€ä¸‹ç”¨äºä¼˜åŒ–mé€‰é¡¹
+	private Expression resultExp; // æ­¤è¡¨è¾¾å¼ä¸ºfuncå‡½æ•°ä½“å†…çš„è¡¨è¾¾å¼
+	private Expression []paramExps; // å‚æ•°è¡¨è¾¾å¼æ•°ç»„
+	private INormalCell funcCell; // funcæ‰€åœ¨çš„å•å…ƒæ ¼
+	//private String []argNames = null; // å‚æ•°åæ•°ç»„
 	
 	public class CallInfo {
-		private INormalCell cell; // ¶¨Òåº¯ÊıÊ±Ã»ÓĞÆğÃû×Ö£¬ÓÃº¯ÊıËùÔÚµÄµ¥Ôª¸ñÒıÓÃ
-		private String fnName; // ¶¨Òåº¯ÊıÊ±ÆğÁËÃû×Ö
+		private INormalCell cell; // å®šä¹‰å‡½æ•°æ—¶æ²¡æœ‰èµ·åå­—ï¼Œç”¨å‡½æ•°æ‰€åœ¨çš„å•å…ƒæ ¼å¼•ç”¨
+		private String fnName; // å®šä¹‰å‡½æ•°æ—¶èµ·äº†åå­—
 		private Object []args;
 		
 		public CallInfo(INormalCell cell) {
@@ -117,7 +117,7 @@ public class Func extends Function {
 			int endRow = pcs.getCodeBlockEndRow(row, col);
 			int colCount = pcs.getColCount();
 			
-			// Ö»ÓÅ»¯º¯ÊıÌåÄÚÓĞÒ»¸ö±í´ïÊ½µÄÇé¿ö
+			// åªä¼˜åŒ–å‡½æ•°ä½“å†…æœ‰ä¸€ä¸ªè¡¨è¾¾å¼çš„æƒ…å†µ
 			
 			for (int r = row; r <= endRow; ++r) {
 				for (int c = col + 1; c <= colCount; ++c) {
@@ -158,9 +158,9 @@ public class Func extends Function {
 	}
 	
 	public Object calculate(Context ctx) {
-		// ¶ÔmÑ¡Ïî½øĞĞÓÅ»¯
+		// å¯¹mé€‰é¡¹è¿›è¡Œä¼˜åŒ–
 		if (resultExp != null) {
-			// ÉèÖÃ²ÎÊıÖµ
+			// è®¾ç½®å‚æ•°å€¼
 			if (paramExps != null) {
 				int paramRow = funcCell.getRow();
 				int paramCol = funcCell.getCol();
@@ -200,7 +200,7 @@ public class Func extends Function {
 		}
 	}
 	
-	// ideÓÃÀ´È¡µ÷ÓÃĞÅÏ¢½øĞĞµ¥²½¸ú×Ù
+	// ideç”¨æ¥å–è°ƒç”¨ä¿¡æ¯è¿›è¡Œå•æ­¥è·Ÿè¸ª
 	public CallInfo getCallInfo(Context ctx) {
 		CallInfo callInfo;
 		if (param.isLeaf()) {

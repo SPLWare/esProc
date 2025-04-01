@@ -11,7 +11,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
 /**
- * µ¥Ôª¸ñÒıÓÃ
+ * å•å…ƒæ ¼å¼•ç”¨
  * A1
  * @author RunQian
  *
@@ -49,9 +49,9 @@ public class CSVariable extends Node {
 	}
 	
 	/**
-	 * ¶Ô½Úµã×öÉî¶ÈÓÅ»¯£¨°üÀ¨µ¥Ôª¸ñºÍ²ÎÊıÒıÓÃ£©£¬³£Êı±í´ïÊ½ÏÈËã³É³£Êı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšæ·±åº¦ä¼˜åŒ–ï¼ˆåŒ…æ‹¬å•å…ƒæ ¼å’Œå‚æ•°å¼•ç”¨ï¼‰ï¼Œå¸¸æ•°è¡¨è¾¾å¼å…ˆç®—æˆå¸¸æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node deepOptimize(Context ctx) {
 		return new Constant(calculate(ctx));
@@ -66,8 +66,8 @@ public class CSVariable extends Node {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -76,10 +76,10 @@ public class CSVariable extends Node {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -87,9 +87,9 @@ public class CSVariable extends Node {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -107,8 +107,8 @@ public class CSVariable extends Node {
 	}
 	
 	/**
-	 * ·µ»Ø½ÚµãÊÇ·ñµ¥µ÷µİÔöµÄ
-	 * @return true£ºÊÇµ¥µ÷µİÔöµÄ£¬false£º²»ÊÇ
+	 * è¿”å›èŠ‚ç‚¹æ˜¯å¦å•è°ƒé€’å¢çš„
+	 * @return trueï¼šæ˜¯å•è°ƒé€’å¢çš„ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isMonotone() {
 		return true;

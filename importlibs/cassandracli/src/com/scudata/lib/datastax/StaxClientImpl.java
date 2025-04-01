@@ -43,20 +43,20 @@ public class StaxClientImpl implements IResource {
 //	}
 
 	/*
-	ÀàĞÍ×ª»»£º 
-	UUID×ª³Éstring
-	Set¡¢List¡¢TupleValue¡¢UDTValueµÈ×ª³ÉSequence
-	ByteBuffer×ª³Ébyte[]
-	byte¡¢short×ª³Éint
-	float×ª³Édouble
-	InetAddress×ª³Éstring
-	BigInteger×ª³Édecimal
-	Map×ª³Étable(ÁĞÃûÎªk¡¢v)
+	ç±»å‹è½¬æ¢ï¼š 
+	UUIDè½¬æˆstring
+	Setã€Listã€TupleValueã€UDTValueç­‰è½¬æˆSequence
+	ByteBufferè½¬æˆbyte[]
+	byteã€shortè½¬æˆint
+	floatè½¬æˆdouble
+	InetAddressè½¬æˆstring
+	BigIntegerè½¬æˆdecimal
+	Mapè½¬æˆtable(åˆ—åä¸ºkã€v)
 	
-¼¯ËãÆ÷º¯Êı:
-stax_connect(nodes[:port],[user:pwd][;[keyspace:xx][,compressor:"lz4"][,initializer:"com.scudata.lib.datastax.InitializerImpl"])	//»¹ÓĞºÜ¶àÅäÖÃÑ¡Ïî£¬µ÷ÑĞÏÂÄÜ·ñÓÃÅäÖÃÎÄ¼şÀ´³õÊ¼»¯
+é›†ç®—å™¨å‡½æ•°:
+stax_connect(nodes[:port],[user:pwd][;[keyspace:xx][,compressor:"lz4"][,initializer:"com.scudata.lib.datastax.InitializerImpl"])	//è¿˜æœ‰å¾ˆå¤šé…ç½®é€‰é¡¹ï¼Œè°ƒç ”ä¸‹èƒ½å¦ç”¨é…ç½®æ–‡ä»¶æ¥åˆå§‹åŒ–
 stax_query(staxClient, cql, [value1], [value2], ...)
-stax_cursor(staxClient, cql, [value1], [value2], ...)	//ÔİÊ±²»Ìá¹©Ô¤½âÎö
+stax_cursor(staxClient, cql, [value1], [value2], ...)	//æš‚æ—¶ä¸æä¾›é¢„è§£æ
 stax_close(staxClient)
 	*/
 	private Cluster cluster = null;
@@ -141,15 +141,15 @@ stax_close(staxClient)
 	}
 	
 	private Object getValue(Object o) {
-//			ÀàĞÍ×ª»»£º 
-//			UUID×ª³Éstring
-//			Set¡¢List¡¢TupleValue¡¢UDTValueµÈ×ª³ÉSequence
-//			ByteBuffer×ª³Ébyte[]
-//			byte¡¢short×ª³Éint
-//			float×ª³Édouble
-//			InetAddress×ª³Éstring
-//			BigInteger×ª³Édecimal
-//			Map×ª³Étable(ÁĞÃûÎªk¡¢v)
+//			ç±»å‹è½¬æ¢ï¼š 
+//			UUIDè½¬æˆstring
+//			Setã€Listã€TupleValueã€UDTValueç­‰è½¬æˆSequence
+//			ByteBufferè½¬æˆbyte[]
+//			byteã€shortè½¬æˆint
+//			floatè½¬æˆdouble
+//			InetAddressè½¬æˆstring
+//			BigIntegerè½¬æˆdecimal
+//			Mapè½¬æˆtable(åˆ—åä¸ºkã€v)
 		if (o == null) return null;
 		if (o instanceof java.util.UUID){
 			java.util.UUID uuid= (java.util.UUID) o;

@@ -25,7 +25,7 @@ import com.scudata.ide.common.swing.FreeLayout;
 import com.scudata.ide.common.swing.MemoryMonitor;
 
 /**
- * ÇåÀíÄÚ´æ¶Ô»°¿ò
+ * æ¸…ç†å†…å­˜å¯¹è¯æ¡†
  *
  */
 public class DialogMemory extends JDialog {
@@ -34,40 +34,40 @@ public class DialogMemory extends JDialog {
 	private JButton jBCancel = new JButton();
 	private JButton jBClean = new JButton();
 	/**
-	 * ĞéÄâ»úÕ¼ÓÃµÄÄÚ´æ
+	 * è™šæ‹Ÿæœºå ç”¨çš„å†…å­˜
 	 */
 	private JLabel jLabel1 = new JLabel();
 	/**
-	 * ÏÔÊ¾¸ñÊ½
+	 * æ˜¾ç¤ºæ ¼å¼
 	 */
 	private DecimalFormat df = new DecimalFormat("###,###");
 	/**
-	 * ×ÜÄÚ´æÎÄ±¾¿ò
+	 * æ€»å†…å­˜æ–‡æœ¬æ¡†
 	 */
 	private JFormattedTextField jTFTotal = new JFormattedTextField();
 	/**
-	 * ¿ÉÓÃµÄ×î´óÄÚ´æÊı
+	 * å¯ç”¨çš„æœ€å¤§å†…å­˜æ•°
 	 */
 	private JLabel jLabel2 = new JLabel();
 	/**
-	 * ¿ÉÓÃµÄ×î´óÄÚ´æÊıÎÄ±¾¿ò
+	 * å¯ç”¨çš„æœ€å¤§å†…å­˜æ•°æ–‡æœ¬æ¡†
 	 */
 	private JFormattedTextField jTFMax = new JFormattedTextField();
 	/**
-	 * Ó¦ÓÃÊ¹ÓÃÁËµÄÄÚ´æ
+	 * åº”ç”¨ä½¿ç”¨äº†çš„å†…å­˜
 	 */
 	private JLabel jLabel3 = new JLabel();
 	/**
-	 * ¿ÕÏĞÄÚ´æÎÄ±¾¿ò
+	 * ç©ºé—²å†…å­˜æ–‡æœ¬æ¡†
 	 */
 	private JFormattedTextField jTFFree = new JFormattedTextField();
 	/**
-	 * ÄÚ´æ¼à¿ØÃæ°å
+	 * å†…å­˜ç›‘æ§é¢æ¿
 	 */
 	private MemoryMonitor jPanel1 = new MemoryMonitor();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogMemory() {
 		this(GV.appFrame);
@@ -77,10 +77,10 @@ public class DialogMemory extends JDialog {
 	private static final int DIALOG_HEIGHT = 332;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogMemory(JFrame parent) {
-		super(parent, "ÄÚ´æÇåÀí - µ¥Î»£º[×Ö½Ú]", true);
+		super(parent, "å†…å­˜æ¸…ç† - å•ä½ï¼š[å­—èŠ‚]", true);
 		try {
 			initUI();
 			refreshMemory();
@@ -109,7 +109,7 @@ public class DialogMemory extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
 		MessageManager mm = IdeCommonMessage.get();
@@ -122,7 +122,7 @@ public class DialogMemory extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -131,14 +131,14 @@ public class DialogMemory extends JDialog {
 		FreeLayout freeLayout1 = new FreeLayout();
 		panel1.setLayout(freeLayout1);
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("¹Ø±Õ(C)");
+		jBCancel.setText("å…³é—­(C)");
 		jBCancel.addActionListener(new DialogMemory_jBCancel_actionAdapter(this));
 		jBClean.setMnemonic('E');
-		jBClean.setText("ÇåÀí(E)");
+		jBClean.setText("æ¸…ç†(E)");
 		jBClean.addActionListener(new DialogMemory_jBClean_actionAdapter(this));
-		jLabel1.setText("ĞéÄâ»úÕ¼ÓÃµÄÄÚ´æ:");
-		jLabel2.setText("¿ÉÓÃµÄ×î´óÄÚ´æÊı:");
-		jLabel3.setText("Ó¦ÓÃÊ¹ÓÃÁËµÄÄÚ´æ:");
+		jLabel1.setText("è™šæ‹Ÿæœºå ç”¨çš„å†…å­˜:");
+		jLabel2.setText("å¯ç”¨çš„æœ€å¤§å†…å­˜æ•°:");
+		jLabel3.setText("åº”ç”¨ä½¿ç”¨äº†çš„å†…å­˜:");
 		jTFTotal.setBackground(UIManager.getColor("Button.background"));
 		jTFTotal.setBorder(null);
 		jTFTotal.setToolTipText("");
@@ -191,7 +191,7 @@ public class DialogMemory extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 * 
 	 * @param e
 	 */
@@ -201,7 +201,7 @@ public class DialogMemory extends JDialog {
 	}
 
 	/**
-	 * ÇåÀí°´Å¥
+	 * æ¸…ç†æŒ‰é’®
 	 * 
 	 * @param e
 	 */
@@ -215,7 +215,7 @@ public class DialogMemory extends JDialog {
 	}
 
 	/**
-	 * Ë¢ĞÂÄÚ´æ
+	 * åˆ·æ–°å†…å­˜
 	 */
 	void refreshMemory() {
 		long total, tmp;
@@ -231,7 +231,7 @@ public class DialogMemory extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */

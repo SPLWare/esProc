@@ -8,7 +8,7 @@ import com.scudata.expression.fn.gather.Top;
 import com.scudata.util.MinHeap;
 
 /**
- * Top±í´ïÊ½µÄ¹ıÂËÆ÷
+ * Topè¡¨è¾¾å¼çš„è¿‡æ»¤å™¨
  * @author runqian
  *
  */

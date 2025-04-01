@@ -44,7 +44,7 @@ public class GV {
 	public static Console console = null;
 
 	/**
-	 * Í¨¹ı²ÎÊı´«µİµÄÆô¶¯ÎÄ¼şÃû£¨Ë«»÷´ò¿ªÊ±´«µİµÄ£©
+	 * é€šè¿‡å‚æ•°ä¼ é€’çš„å¯åŠ¨æ–‡ä»¶åï¼ˆåŒå‡»æ‰“å¼€æ—¶ä¼ é€’çš„ï¼‰
 	 */
 	public static String directOpenFile = "";
 

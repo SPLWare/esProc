@@ -61,15 +61,15 @@ public class ImConnection implements IResource {
 			ClassLoader loader = ImConnection.class.getClassLoader();
 			Thread.currentThread().setContextClassLoader(loader);
 			
-			//´´½¨Ö÷Ìâ
-			AdminClient client = KafkaAdminClient.create(m_properties);//´´½¨²Ù×÷¿Í»§¶Ë
+			//åˆ›å»ºä¸»é¢˜
+			AdminClient client = KafkaAdminClient.create(m_properties);//åˆ›å»ºæ“ä½œå®¢æˆ·ç«¯
 			ListTopicsResult dr = client.listTopics();
 			if (!isExistedTopic(dr, topic)){
 				 NewTopic tmp = new NewTopic(m_topic, nPartitionSize, (short) 1); 
 				 CreateTopicsResult cr = client.createTopics(Arrays.asList(tmp));
 				 cr.all().get();
 			}
-			client.close();//¹Ø±Õ
+			client.close();//å…³é—­
 
 		}catch(Exception e){
 			Logger.error(e.getMessage());
@@ -163,14 +163,14 @@ public class ImConnection implements IResource {
 	public KafkaConsumer<Object, Object> initConsumerCluster(List<Integer> partitions){
 		final KafkaConsumer<Object, Object> consumer = new KafkaConsumer<Object, Object>(m_properties);
 
-		// Ö¸¶¨·ÖÇøÏû·Ñ
+		// æŒ‡å®šåˆ†åŒºæ¶ˆè´¹
 		List<TopicPartition> ls = new ArrayList<TopicPartition>();		
 		if (partitions.size()>0){
 			for(Integer part : partitions){
 				TopicPartition partition = new TopicPartition(m_topic, part);
 				ls.add(partition);
 			}
-			// °ó¶¨topics
+			// ç»‘å®štopics
 	        consumer.assign(ls);
 		}else{
 			consumer.subscribe(Arrays.asList(m_topic));

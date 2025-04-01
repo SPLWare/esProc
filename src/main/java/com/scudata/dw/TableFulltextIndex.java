@@ -32,13 +32,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.EnvUtil;
 
 /**
- * È«ÎÄË÷Òı
+ * å…¨æ–‡ç´¢å¼•
  * @author runqian
  *
  */
 public class TableFulltextIndex extends PhyTableIndex {
 	private static final int FETCH_SIZE = 1000;
-	private long limit;//Ã¿¸ökeyÖµÔÊĞíµÄ×î¶à¼ÇÂ¼Êı
+	private long limit;//æ¯ä¸ªkeyå€¼å…è®¸çš„æœ€å¤šè®°å½•æ•°
 	
 	public TableFulltextIndex(PhyTable table, FileObject indexFile) {
 		this(table, indexFile, null);
@@ -67,16 +67,16 @@ public class TableFulltextIndex extends PhyTableIndex {
 		writer.write('w');
 		writer.write('i');
 		writer.write('d');
-		writer.write('w');//Ä£ºı²éÑ¯Ë÷Òı
+		writer.write('w');//æ¨¡ç³ŠæŸ¥è¯¢ç´¢å¼•
 
 		writer.write(new byte[32]);
 		writer.writeLong64(recordCount);
 		writer.writeLong64(index1EndPos);
 		writer.writeLong64(index1RecordCount);
-		writer.writeLong64(rootItPos);// Ö¸Ïòroot1 info ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(rootItPos2);// Ö¸Ïòroot2 info ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(indexPos);// 1st index ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(indexPos2);// second index ¿ªÊ¼Î»ÖÃ
+		writer.writeLong64(rootItPos);// æŒ‡å‘root1 info å¼€å§‹ä½ç½®
+		writer.writeLong64(rootItPos2);// æŒ‡å‘root2 info å¼€å§‹ä½ç½®
+		writer.writeLong64(indexPos);// 1st index å¼€å§‹ä½ç½®
+		writer.writeLong64(indexPos2);// second index å¼€å§‹ä½ç½®
 		
 		writer.writeStrings(ifields);
 		if (filter != null) {
@@ -113,7 +113,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 	}
 	
 	/**
-	 * ¼ì²é×Ö·ûkey³öÏÖµÄ´ÎÊı
+	 * æ£€æŸ¥å­—ç¬¦keyå‡ºç°çš„æ¬¡æ•°
 	 * @param strCounters
 	 * @param key
 	 * @return
@@ -179,9 +179,9 @@ public class TableFulltextIndex extends PhyTableIndex {
 			}
 
 			Runtime rt = Runtime.getRuntime();
-			int baseCount = 100000;//Ã¿´ÎÈ¡³öÀ´µÄÌõÊı
-			boolean flag = false;//ÊÇ·ñµ÷Õû¹ıÁÙÊ±ÎÄ¼ş´óĞ¡
-			HashMap<String, Long> strCounters = new HashMap<String, Long>();//¼ÇÂ¼Ã¿¸ö×Ö·û³öÏÖµÄ´ÎÊı
+			int baseCount = 100000;//æ¯æ¬¡å–å‡ºæ¥çš„æ¡æ•°
+			boolean flag = false;//æ˜¯å¦è°ƒæ•´è¿‡ä¸´æ—¶æ–‡ä»¶å¤§å°
+			HashMap<String, Long> strCounters = new HashMap<String, Long>();//è®°å½•æ¯ä¸ªå­—ç¬¦å‡ºç°çš„æ¬¡æ•°
 			int fieldsCount;
 			if (isColTable) {
 				fieldsCount = ((CTableCursor)srcCursor).ds.getFieldCount();
@@ -231,16 +231,16 @@ public class TableFulltextIndex extends PhyTableIndex {
 					}
 					String ifield = ((String) objs[0]).toLowerCase();
 					
-					list.clear();//ÓÃÓÚÅĞ¶ÏÖØ¸´µÄ×Ö·û£¬ÀıÈç"±¦±¦°ÍÊ¿"£¬ÖØ¸´µÄ"±¦"×Ö²»ÄÜ±»ÖØ¸´Ë÷Òı
+					list.clear();//ç”¨äºåˆ¤æ–­é‡å¤çš„å­—ç¬¦ï¼Œä¾‹å¦‚"å®å®å·´å£«"ï¼Œé‡å¤çš„"å®"å­—ä¸èƒ½è¢«é‡å¤ç´¢å¼•
 					int strLen = ifield.length();
 					for (int j = 0; j < strLen; j++) {
 						char ch1 = ifield.charAt(j);
 						if (ch1 == ' ') {
-							continue;//¿Õ¸ñ
+							continue;//ç©ºæ ¼
 						}
 						
 						if (checkAlpha(ch1)) {
-							//Ó¢ÎÄÒªÁ¬ĞøÈ¡3¸ö¡¢4¸ö×ÖÄ¸
+							//è‹±æ–‡è¦è¿ç»­å–3ä¸ªã€4ä¸ªå­—æ¯
 							if (j + 2 < strLen) {
 								char ch2 = ifield.charAt(j + 1);
 								char ch3 = ifield.charAt(j + 2);
@@ -276,9 +276,9 @@ public class TableFulltextIndex extends PhyTableIndex {
 						} else if (ch1 > 255) {
 							String str = new String("" + ch1);
 							if (list.contains(str)) {
-								continue;//ÒÑ¾­´æÔÚ
+								continue;//å·²ç»å­˜åœ¨
 							}				
-							//´¦Àí¼ÆÊıÆ÷
+							//å¤„ç†è®¡æ•°å™¨
 							if (checkStringCount(strCounters, str)) {
 								continue;
 							}
@@ -337,7 +337,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 	}
 	
 	/**
-	 * ´´½¨Ë÷Òı
+	 * åˆ›å»ºç´¢å¼•
 	 */
 	protected void createIndexTable(ICursor cursor, FileObject indexFile, boolean isAppends) {
 		RandomOutputStream os = indexFile.getRandomOutputStream(true);
@@ -346,10 +346,10 @@ public class TableFulltextIndex extends PhyTableIndex {
 		long perCount = MAX_LEAF_BLOCK_COUNT;
 
 		ArrayList<Record> maxValues = new ArrayList<Record>();
-		Record []rootMaxValues;// rootË÷Òı¿éµÄ×î´óÖµ
-		long []positions; // internalË÷Òı¿éÔÚÎÄ¼şÖĞµÄÆğÊ¼Î»ÖÃ
-		long []rootPositions; // rootË÷Òı¿éÔÚÎÄ¼şÖĞµÄÆğÊ¼Î»ÖÃ
-		int blockCount = 0; // Ë÷Òı¿éÊı
+		Record []rootMaxValues;// rootç´¢å¼•å—çš„æœ€å¤§å€¼
+		long []positions; // internalç´¢å¼•å—åœ¨æ–‡ä»¶ä¸­çš„èµ·å§‹ä½ç½®
+		long []rootPositions; // rootç´¢å¼•å—åœ¨æ–‡ä»¶ä¸­çš„èµ·å§‹ä½ç½®
+		int blockCount = 0; // ç´¢å¼•å—æ•°
 		long itPos;
 		
 		Context ctx = new Context();
@@ -397,7 +397,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 					for (int i = 0; i < len; ++i) {
 						r = (Record)mems.get(i + p);
 						writer.writeObject(r.getNormalFieldValue(icount));
-						//ĞĞ´æÊ±£¬Òª°ÑµØÖ·Ò²¶¼Ğ´ÏÂÀ´
+						//è¡Œå­˜æ—¶ï¼Œè¦æŠŠåœ°å€ä¹Ÿéƒ½å†™ä¸‹æ¥
 						for (int j = 1; j <= posCount; ++j) {
 							writer.writeObject(r.getNormalFieldValue(icount + j));
 						}
@@ -452,7 +452,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 					
 					for (int j = 0; j < count; ++j) {
 						reader.readLong();
-						//ĞĞ´æÊ±£¬Òª°ÑµØÖ·Ò²¶¼Ìø¹ı
+						//è¡Œå­˜æ—¶ï¼Œè¦æŠŠåœ°å€ä¹Ÿéƒ½è·³è¿‡
 						for (int c = 0; c < posCount; ++c) {
 							reader.readLong();
 						}
@@ -460,7 +460,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 				}
 			}
 			
-			itPos = reader.position();//interBlock¿ªÊ¼Î»ÖÃ
+			itPos = reader.position();//interBlockå¼€å§‹ä½ç½®
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {
@@ -497,7 +497,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 			} catch (IOException ie){};
 		}
 		
-		//»ñµÃrootMaxValues 
+		//è·å¾—rootMaxValues 
 		int rootBlockCount = (blockCount/MAX_INTER_BLOCK_COUNT);
 		rootBlockCount += (blockCount % MAX_INTER_BLOCK_COUNT==0) ? 0 : 1;
 		rootMaxValues = new Record[rootBlockCount];
@@ -506,12 +506,12 @@ public class TableFulltextIndex extends PhyTableIndex {
 		}
 		rootMaxValues[rootBlockCount - 1] = maxValues.get(blockCount - 1);
 		
-		//»ñµÃ rootPositions
+		//è·å¾— rootPositions
 		rootPositions = new long[rootBlockCount];
 		is = indexFile.getInputStream();
 		reader = new ObjectReader(is, BUFFER_SIZE);
 		try {
-			reader.seek(itPos);//¶¨Î»µ½internalBlock start
+			reader.seek(itPos);//å®šä½åˆ°internalBlock start
 			for (int i = 0; i < blockCount; ++i) {
 				if (i % MAX_INTER_BLOCK_COUNT == 0){
 					rootPositions[i/MAX_INTER_BLOCK_COUNT] = reader.position();
@@ -541,11 +541,11 @@ public class TableFulltextIndex extends PhyTableIndex {
 			rootItPos = itPos;
 			rootItPos2 = 0;
 			recordCount = srcTable.getTotalRecordCount();
-			index1RecordCount = recordCount;//1ÇøÀïµÄ¼ÇÂ¼ÌõÊı£¬¹ıÂËºóµÄ
-			index1EndPos = srcTable.getTotalRecordCount();//½¨Á¢1ÇøÊ±Ô´±íÀïµÄÌõÊı£¬²»ÊÇ±»Ìõ¼ş¹ıÂËºóµÄ£¬Ò²²»°üº¬²¹Çø
+			index1RecordCount = recordCount;//1åŒºé‡Œçš„è®°å½•æ¡æ•°ï¼Œè¿‡æ»¤åçš„
+			index1EndPos = srcTable.getTotalRecordCount();//å»ºç«‹1åŒºæ—¶æºè¡¨é‡Œçš„æ¡æ•°ï¼Œä¸æ˜¯è¢«æ¡ä»¶è¿‡æ»¤åçš„ï¼Œä¹Ÿä¸åŒ…å«è¡¥åŒº
 		}
 
-		//Ğ´rootMaxValues rootPositions
+		//å†™rootMaxValues rootPositions
 		os = indexFile.getRandomOutputStream(true);
 		writer = new RandomObjectWriter(os);
 		try {
@@ -559,7 +559,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 				writer.writeLong(rootPositions[i]);
 			}
 			
-			writer.writeLong64(blockCount);//internal¿éµÄ×Ü¸öÊı
+			writer.writeLong64(blockCount);//internalå—çš„æ€»ä¸ªæ•°
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {
@@ -587,9 +587,9 @@ public class TableFulltextIndex extends PhyTableIndex {
 	}
 	
 	/**
-	 * ²éÑ¯
-	 * @param exp ¹ıÂË±í´ïÊ½
-	 * @param fields È¡³ö×Ö¶Î
+	 * æŸ¥è¯¢
+	 * @param exp è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fields å–å‡ºå­—æ®µ
 	 * @param opt 
 	 * @param ctx
 	 */
@@ -603,7 +603,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 		}
 
 		Node home = exp.getHome();
-		//´¦Àílike(F,"*xxx*")±í´ïÊ½
+		//å¤„ç†like(F,"*xxx*")è¡¨è¾¾å¼
 		while (home instanceof Like) {
 			if (((Like) home).getParam().getSubSize() != 2) {
 				break;
@@ -615,7 +615,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 				break;
 			}
 			
-			//±ØĞëÊÇlike("*¹Ø¼ü×Ö*")¸ñÊ½µÄ¡£·ñÔò°´ÕÕÆÕÍ¨µÄ´¦Àí
+			//å¿…é¡»æ˜¯like("*å…³é”®å­—*")æ ¼å¼çš„ã€‚å¦åˆ™æŒ‰ç…§æ™®é€šçš„å¤„ç†
 			String fmtExp = (String) sub2.getLeafExpression().calculate(ctx);
 			int idx = fmtExp.indexOf("*");
 			if (idx != 0) {
@@ -650,7 +650,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 					}
 				}
 				
-				//ĞèÒªÔÙ¹ıÂËÒ»ÏÂ
+				//éœ€è¦å†è¿‡æ»¤ä¸€ä¸‹
 				Expression tempExp = new Expression("like@c(" + f + ",\"*" + fmtExp + "*\")");
 				Select select = new Select(tempExp, null);
 				cs.addOperation(select, ctx);
@@ -678,19 +678,19 @@ public class TableFulltextIndex extends PhyTableIndex {
 			recCountOfSegment = ((ColPhyTable)srcTable).getSegmentInfo();
 		}
 		
-		//¶ÔÃ¿¸ö¹Ø¼ü×Ö·û½øĞĞ¹ıÂË£¬Çó½»¼¯
+		//å¯¹æ¯ä¸ªå…³é”®å­—ç¬¦è¿›è¡Œè¿‡æ»¤ï¼Œæ±‚äº¤é›†
 		String regex = "[a-zA-Z0-9]+";
 		String search = "";
 		LongArray tempPos = null;
 		int strLen = fmtExp.length();
 		int j;
-		int p = 0;//±íÊ¾´¦Àíµ½µÄÎ»ÖÃ
+		int p = 0;//è¡¨ç¤ºå¤„ç†åˆ°çš„ä½ç½®
 		for (j = 0; j < strLen; ) {
 			String str = fmtExp.substring(j, j + 1);
 			p = j + 1;
 			if (str.matches(regex)) {
-				//Ó¢ÎÄ
-				//³¢ÊÔÁ¬ĞøÈ¡4¸ö×ÖÄ¸
+				//è‹±æ–‡
+				//å°è¯•è¿ç»­å–4ä¸ªå­—æ¯
 //				if (j + 3 < strLen) {
 //					String str4 = fmtExp.substring(j, j + 4);
 //					if (str4.matches(regex)) {
@@ -698,7 +698,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 //						p = j + 4;
 //					}
 //				} else 
-				if (j + 2 < strLen) {//³¢ÊÔÁ¬ĞøÈ¡3¸ö×ÖÄ¸
+				if (j + 2 < strLen) {//å°è¯•è¿ç»­å–3ä¸ªå­—æ¯
 					String str3 = fmtExp.substring(j, j + 3);
 					if (str3.matches(regex)) {
 						str = str3;
@@ -708,7 +708,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 			}
 			j++;
 			if (search.indexOf(str) >= 0) {
-				continue;//ÖØ¸´µÄ²»ÔÙ²éÑ¯
+				continue;//é‡å¤çš„ä¸å†æŸ¥è¯¢
 			}
 			search = fmtExp.substring(0, p);
 			Expression tempExp = new Expression(f + "==\"" + str + "\"");
@@ -723,7 +723,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 				sort = false;
 			}
 			
-			//ÅÅĞò£¬¹é²¢Çó½»¼¯
+			//æ’åºï¼Œå½’å¹¶æ±‚äº¤é›†
 			if (isRow) {
 				tempPos = PhyTable.longArrayUnite(tempPos, srcPos.toArray(), getPositionCount(), sort);
 				if (tempPos.size() <= ITableIndex.MIN_ICURSOR_REC_COUNT) {

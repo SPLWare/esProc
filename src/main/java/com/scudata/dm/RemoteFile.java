@@ -6,7 +6,7 @@ import java.util.*;
 import com.scudata.common.*;
 import com.scudata.parallel.*;
 /**
- * Ô¶³ÌÎÄ¼ş
+ * è¿œç¨‹æ–‡ä»¶
  * 
  * @author Joancy
  *
@@ -21,8 +21,8 @@ public class RemoteFile implements IFile {
 
 	private transient HashMap property = null;
 	/**
-	 * Ô¶³ÌÎÄ¼şÊäÈëÁ÷(ÄÚ²¿Àà)£¬³¤Á¬½Ó
-	 * ÔİÖ»ÊµÏÖ3¸öread·½·¨£¬ÆäËü·½·¨Å×Î´ÊµÏÖÒì³££¬¾ßÌåÊµÏÖ¿É²Î¼ûBufferInputStream
+	 * è¿œç¨‹æ–‡ä»¶è¾“å…¥æµ(å†…éƒ¨ç±»)ï¼Œé•¿è¿æ¥
+	 * æš‚åªå®ç°3ä¸ªreadæ–¹æ³•ï¼Œå…¶å®ƒæ–¹æ³•æŠ›æœªå®ç°å¼‚å¸¸ï¼Œå…·ä½“å®ç°å¯å‚è§BufferInputStream
 	 * @author Joancy
 	 *
 	 */
@@ -50,10 +50,10 @@ public class RemoteFile implements IFile {
 		}
 
 		/**
-		 * ¹¹Ôì·½·¨ÓÃÓÚ´ÓÊä³öÁ÷µÄgetInputStreamÖĞÈ¥»ñÈ¡£¬²»´ÓÎÄ¼şÃûÈ¡¡£		
-		 * @param fileHandle ÎÄ¼ş¾ä±ú
-		 * @param bufSize Ã¿´ÎÈ¡ÊıµÄ»º³åÇø´óĞ¡
-		 * @param pos È¡ÊıÎ»ÖÃ
+		 * æ„é€ æ–¹æ³•ç”¨äºä»è¾“å‡ºæµçš„getInputStreamä¸­å»è·å–ï¼Œä¸ä»æ–‡ä»¶åå–ã€‚		
+		 * @param fileHandle æ–‡ä»¶å¥æŸ„
+		 * @param bufSize æ¯æ¬¡å–æ•°çš„ç¼“å†²åŒºå¤§å°
+		 * @param pos å–æ•°ä½ç½®
 		 * @throws Exception
 		 */
 		public RemoteFileInputStream(int fileHandle,int bufSize,long pos) throws Exception {
@@ -70,7 +70,7 @@ public class RemoteFile implements IFile {
 		}
 		
 		/**
-		 * ÊµÏÖtoString½Ó¿Ú
+		 * å®ç°toStringæ¥å£
 		 */
 		public String toString() {
 			if (filepath == null) {
@@ -105,13 +105,13 @@ public class RemoteFile implements IFile {
 				throw new IOException("Read remote file:" + uc+"-"+r.getMessage() + " error.", r);
 			}
 			return buf;
-		} // Ô¶³Ì´ò¿ª¡¢¶ÁÈ¡È»ºó¹Ø±Õ
+		} // è¿œç¨‹æ‰“å¼€ã€è¯»å–ç„¶åå…³é—­
 
 		/**
-		 * ¹Ø±Õscoket
+		 * å…³é—­scoket
 		 */
 		public void close() {
-			if(isSubRandomStream){//´ÓÊä³öÁ÷µÃµ½µÄ×ÓÊäÈëÁ÷£¬²»ÄÜ¹Ø·şÎñ¶Ë£»µÃÓĞÊä³öÁ÷À´¹Ø
+			if(isSubRandomStream){//ä»è¾“å‡ºæµå¾—åˆ°çš„å­è¾“å…¥æµï¼Œä¸èƒ½å…³æœåŠ¡ç«¯ï¼›å¾—æœ‰è¾“å‡ºæµæ¥å…³
 				uc.close();
 			}else{
 				closeHandle(uc, handle);
@@ -119,7 +119,7 @@ public class RemoteFile implements IFile {
 		}
 
 		/**
-		 * ÊµÏÖread·½·¨
+		 * å®ç°readæ–¹æ³•
 		 *  
 		 * @return int 
 		 * @throws IOException 
@@ -151,7 +151,7 @@ public class RemoteFile implements IFile {
 				return bufLen;
 			} else {
 				System.arraycopy(buf, pos, b, off, retCount);
-				if (count == bufSize) { // Ğ¡ÓÚ±íÊ¾ÎÄ¼şÒÑ¾­½áÊø
+				if (count == bufSize) { // å°äºè¡¨ç¤ºæ–‡ä»¶å·²ç»ç»“æŸ
 					remoteRead();
 					if (count == 0) {
 						return retCount == 0 ? -1 : retCount;
@@ -325,7 +325,7 @@ public class RemoteFile implements IFile {
 		}
 		
 		/**
-		 * µÈ´ıËø£¬Ö±µ½Ëø³É¹¦
+		 * ç­‰å¾…é”ï¼Œç›´åˆ°é”æˆåŠŸ
 		 */
 		public boolean lock() throws IOException {
 			Request req = new Request(Request.FILE_LOCK);
@@ -391,18 +391,18 @@ public class RemoteFile implements IFile {
 	}
 
 	/**
-	 * Ö±½Ó¿ìËÙ¶ÁÈ¡ÎÄ¼ş×Ö½ÚÁ÷£¬·µ»ØnullÊ±±íÊ¾ÎÄ¼ş½áÊø
+	 * ç›´æ¥å¿«é€Ÿè¯»å–æ–‡ä»¶å­—èŠ‚æµï¼Œè¿”å›nullæ—¶è¡¨ç¤ºæ–‡ä»¶ç»“æŸ
 	 * 
 	 * @throws Exception
 	 * @return byte[]
 	 */
 	public byte[] directRead() throws Exception {
-		Object obj = directSd.read();// ·şÎñ¶ËÒì³£Ê±£¬¶Á¹ıÀ´µÄÊÇResponse
+		Object obj = directSd.read();// æœåŠ¡ç«¯å¼‚å¸¸æ—¶ï¼Œè¯»è¿‡æ¥çš„æ˜¯Response
 		if (obj instanceof byte[]) {
 			return (byte[]) obj;
 		}
 		Response res;
-		if (obj == null) {// ÎÄ¼şÒÔnullÕı³£½áÊøºó£¬»¹ÓĞ¸öResponse
+		if (obj == null) {// æ–‡ä»¶ä»¥nullæ­£å¸¸ç»“æŸåï¼Œè¿˜æœ‰ä¸ªResponse
 			res = (Response) directSd.read();
 			return null;
 		}
@@ -412,7 +412,7 @@ public class RemoteFile implements IFile {
 	}
 
 	/**
-	 * Ê¹ÓÃÁËÖ±½Ó¿ìËÙ¶ÁÈ¡ÎÄ¼şÊ±¹Ø±Õ·şÎñ¶Ë·şÎñ
+	 * ä½¿ç”¨äº†ç›´æ¥å¿«é€Ÿè¯»å–æ–‡ä»¶æ—¶å…³é—­æœåŠ¡ç«¯æœåŠ¡
 	 * 
 	 * @throws Exception
 	 */
@@ -424,9 +424,9 @@ public class RemoteFile implements IFile {
 	}
 
 	/*
-	 * optº¬tÊ±¸¸Ä¿Â¼ÎªEnv.getTempPath()£¬partition²»Æğ×÷ÓÃ
-	 * partition=nullÊ±¸¸Ä¿Â¼ÎªEnv.getMainPath() parent!=nullÇÒÄ¿Â¼²»´æÔÚÊ±ÔÚ¸¸Ç×Ä¿Â¼ÏÂ½¨
-	 * fileNameÈôº¬Ä¿Â¼ÔòÔÚĞ´ÎÄ¼şÊ±×Ô¶¯´´½¨Ä¿Â¼ / public RemoteFile(String host, int port,
+	 * optå«tæ—¶çˆ¶ç›®å½•ä¸ºEnv.getTempPath()ï¼Œpartitionä¸èµ·ä½œç”¨
+	 * partition=nullæ—¶çˆ¶ç›®å½•ä¸ºEnv.getMainPath() parent!=nullä¸”ç›®å½•ä¸å­˜åœ¨æ—¶åœ¨çˆ¶äº²ç›®å½•ä¸‹å»º
+	 * fileNameè‹¥å«ç›®å½•åˆ™åœ¨å†™æ–‡ä»¶æ—¶è‡ªåŠ¨åˆ›å»ºç›®å½• / public RemoteFile(String host, int port,
 	 * String partition, String parent, String fileName, String opt) { if
 	 * (parent != null) { fileName = new File(parent, fileName).getPath(); }
 	 * this.opt = opt; setRemoteFile(host, port, partition, fileName); } /*
@@ -474,7 +474,7 @@ public class RemoteFile implements IFile {
 	}
 
 	/**
-	 * ´Ó·şÎñÆ÷É¾³ıµ±Ç°ÎÄ¼ş
+	 * ä»æœåŠ¡å™¨åˆ é™¤å½“å‰æ–‡ä»¶
 	 * 
 	 * @return boolean
 	 */
@@ -500,7 +500,7 @@ public class RemoteFile implements IFile {
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ¼şÊäÈëÁ÷
+	 * è·å–æ–‡ä»¶è¾“å…¥æµ
 	 * 
 	 * @return InputStream
 	 */
@@ -514,18 +514,18 @@ public class RemoteFile implements IFile {
 	}
 
 	/**
-	 * ´Ó¶à¸ö½Úµã»úÖĞÕÒµ½µÄÎÄ¼şÈ±Ê¡Îª²»¿ÉĞ´£¬ µ±½öÖ¸¶¨Ò»¸ö½Úµã»úÊ±£¬
-	 * ²ÅĞèÒªµ÷ÓÃ¸Ã·½·¨£¬Ê¹µÃ´ËÔ¶³ÌÎÄ¼ş¿ÉĞ´¡£
+	 * ä»å¤šä¸ªèŠ‚ç‚¹æœºä¸­æ‰¾åˆ°çš„æ–‡ä»¶ç¼ºçœä¸ºä¸å¯å†™ï¼Œ å½“ä»…æŒ‡å®šä¸€ä¸ªèŠ‚ç‚¹æœºæ—¶ï¼Œ
+	 * æ‰éœ€è¦è°ƒç”¨è¯¥æ–¹æ³•ï¼Œä½¿å¾—æ­¤è¿œç¨‹æ–‡ä»¶å¯å†™ã€‚
 	 */
 	public void setWritable() {
 		isWritable = true;
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ¼şÊä³öÁ÷
+	 * è·å–æ–‡ä»¶è¾“å‡ºæµ
 	 * 
 	 * @param isAppend
-	 *            boolean ÊÇ·ñ×·¼Ó
+	 *            boolean æ˜¯å¦è¿½åŠ 
 	 * @return OutputStream
 	 */
 	public OutputStream getOutputStream(boolean isAppend) {
@@ -533,7 +533,7 @@ public class RemoteFile implements IFile {
 	}
 
 	/**
-	 * ×î½üĞŞ¸ÄÊ±¼ä
+	 * æœ€è¿‘ä¿®æ”¹æ—¶é—´
 	 * 
 	 * @return long
 	 */
@@ -542,8 +542,8 @@ public class RemoteFile implements IFile {
 	}
 
 	/**
-	 * ÒÆ¶¯ÎÄ¼ş
-	 * Î´ÊµÏÖ
+	 * ç§»åŠ¨æ–‡ä»¶
+	 * æœªå®ç°
 	 * 
 	 * @param path
 	 *            String
@@ -556,8 +556,8 @@ public class RemoteFile implements IFile {
 	}
 
 	/**
-	 * ÉèÖÃÎÄ¼şÃû³Æ
-	 * Î´ÊµÏÖ
+	 * è®¾ç½®æ–‡ä»¶åç§°
+	 * æœªå®ç°
 	 * @param fileName
 	 *            String
 	 */
@@ -595,7 +595,7 @@ public class RemoteFile implements IFile {
 	}
 	
 	/**
-	 * È¡Ëæ»ú·ÃÎÊÎÄ¼ş¶ÔÏó£¬Èç¹û²»Ö§³ÖÔò·µ»Ønull
+	 * å–éšæœºè®¿é—®æ–‡ä»¶å¯¹è±¡ï¼Œå¦‚æœä¸æ”¯æŒåˆ™è¿”å›null
 	 * @return RandomAccessFile
 	 */
 	public RandomAccessFile getRandomAccessFile() {
@@ -603,8 +603,8 @@ public class RemoteFile implements IFile {
 	}
 	
 	/**
-	 * ·µ»ØÊÇ·ñÊÇÔÆÎÄ¼ş
-	 * @return true£ºÊÇÔÆÎÄ¼ş£¬false£º²»ÊÇÔÆÎÄ¼ş
+	 * è¿”å›æ˜¯å¦æ˜¯äº‘æ–‡ä»¶
+	 * @return trueï¼šæ˜¯äº‘æ–‡ä»¶ï¼Œfalseï¼šä¸æ˜¯äº‘æ–‡ä»¶
 	 */
 	public boolean isCloudFile() {
 		return false;

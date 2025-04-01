@@ -20,7 +20,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.Node;
 
-// sql²éÑ¯
+// sqlæŸ¥è¯¢
 public class ImInsert extends ImFunction {
 	private InfluxDBUtil m_influxDB;
 	
@@ -117,9 +117,9 @@ public class ImInsert extends ImFunction {
 	
 	public Date getUTCTime(){
 	   	Calendar cal = Calendar.getInstance();
-	   	//»ñµÃÊ±ÇøºÍ GMT-0 µÄÊ±¼ä²î,Æ«ÒÆÁ¿
+	   	//è·å¾—æ—¶åŒºå’Œ GMT-0 çš„æ—¶é—´å·®,åç§»é‡
 	   	int offset = cal.get(Calendar.ZONE_OFFSET);
-	   	//»ñµÃÏÄÁîÊ±  Ê±²î
+	   	//è·å¾—å¤ä»¤æ—¶  æ—¶å·®
 	   	int dstoff = cal.get(Calendar.DST_OFFSET);
 	   	cal.add(Calendar.MILLISECOND, (offset + dstoff));
 		return cal.getTime();

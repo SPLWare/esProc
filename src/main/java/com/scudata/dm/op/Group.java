@@ -9,23 +9,23 @@ import com.scudata.expression.Function;
 import com.scudata.util.Variant;
 
 /**
- * ¶ÔÍÆËÍÀ´µÄÊı¾İÖ´ĞĞÓĞĞò·Ö×é£¬ÓÃÓÚ¹ÜµÀºÍÓÎ±êµÄgroupÑÓ³Ù¼ÆËãº¯Êı
+ * å¯¹æ¨é€æ¥çš„æ•°æ®æ‰§è¡Œæœ‰åºåˆ†ç»„ï¼Œç”¨äºç®¡é“å’Œæ¸¸æ ‡çš„groupå»¶è¿Ÿè®¡ç®—å‡½æ•°
  * @author RunQian
  *
  */
 public class Group extends Operation {
-	private Expression []exps; // ·Ö×é±í´ïÊ½Êı×é
-	private String opt; // Ñ¡Ïî
-	private boolean isign = false; // ÊÇ·ñÊÇ@iÑ¡Ïî
-	private boolean isDistinct = false; // ÊÇ·ñÈ¥ÖØ
-	private boolean isReturnTable = false; // È¥ÖØÊ±ÊÇ·ñ·µ»ØĞò±í
+	private Expression []exps; // åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	private String opt; // é€‰é¡¹
+	private boolean isign = false; // æ˜¯å¦æ˜¯@ié€‰é¡¹
+	private boolean isDistinct = false; // æ˜¯å¦å»é‡
+	private boolean isReturnTable = false; // å»é‡æ—¶æ˜¯å¦è¿”å›åºè¡¨
 	
-	private Sequence data; // µ±Ç°×éµÄÊı¾İ
-	private Object []values; // µ±Ç°·Ö×éµÄ·Ö×é×Ö¶ÎÖµ
+	private Sequence data; // å½“å‰ç»„çš„æ•°æ®
+	private Object []values; // å½“å‰åˆ†ç»„çš„åˆ†ç»„å­—æ®µå€¼
 	
-	// group@qÊı¾İÒÑ°´Ç°°ë²¿·Ö±í´ïÊ½ÓĞĞò
-	private Expression []sortExps; // ºó°ë²¿·ÖÅÅĞò±í´ïÊ½
-	private boolean isSort; // ÊÇ·ñÖ»ÅÅĞò
+	// group@qæ•°æ®å·²æŒ‰å‰åŠéƒ¨åˆ†è¡¨è¾¾å¼æœ‰åº
+	private Expression []sortExps; // ååŠéƒ¨åˆ†æ’åºè¡¨è¾¾å¼
+	private boolean isSort; // æ˜¯å¦åªæ’åº
 	
 	public Group(Expression []exps, String opt) {
 		this(null, exps, opt);
@@ -64,17 +64,17 @@ public class Group extends Operation {
 	}
 	
 	/**
-	 * È¡²Ù×÷ÊÇ·ñ»á¼õÉÙÔªËØÊı£¬±ÈÈç¹ıÂËº¯Êı»á¼õÉÙ¼ÇÂ¼
-	 * ´Ëº¯ÊıÓÃÓÚÓÎ±êµÄ¾«È·È¡Êı£¬Èç¹û¸½¼ÓµÄ²Ù×÷²»»áÊ¹¼ÇÂ¼Êı¼õÉÙÔòÖ»Ğè°´´«ÈëµÄÊıÁ¿È¡Êı¼´¿É
-	 * @return true£º»á£¬false£º²»»á
+	 * å–æ“ä½œæ˜¯å¦ä¼šå‡å°‘å…ƒç´ æ•°ï¼Œæ¯”å¦‚è¿‡æ»¤å‡½æ•°ä¼šå‡å°‘è®°å½•
+	 * æ­¤å‡½æ•°ç”¨äºæ¸¸æ ‡çš„ç²¾ç¡®å–æ•°ï¼Œå¦‚æœé™„åŠ çš„æ“ä½œä¸ä¼šä½¿è®°å½•æ•°å‡å°‘åˆ™åªéœ€æŒ‰ä¼ å…¥çš„æ•°é‡å–æ•°å³å¯
+	 * @return trueï¼šä¼šï¼Œfalseï¼šä¸ä¼š
 	 */
 	public boolean isDecrease() {
 		return true;
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -88,8 +88,8 @@ public class Group extends Operation {
 	}
 	
 	/**
-	 * Êı¾İÈ«²¿ÍÆËÍÍê³ÉÊ±µ÷ÓÃ£¬·µ»Ø×îºóÒ»×éµÄÊı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®å…¨éƒ¨æ¨é€å®Œæˆæ—¶è°ƒç”¨ï¼Œè¿”å›æœ€åä¸€ç»„çš„æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public Sequence finish(Context ctx) {
@@ -262,7 +262,7 @@ public class Group extends Operation {
 				current.setCurrent(i);
 				boolean isSame = true;
 				
-				// ¼ÆËãÇ°°ë¶Î±í´ïÊ½£¬¼ì²éÊÇ·ñÓëÇ°Ò»Ìõ¼ÇÂ¼ÏàÍ¬
+				// è®¡ç®—å‰åŠæ®µè¡¨è¾¾å¼ï¼Œæ£€æŸ¥æ˜¯å¦ä¸å‰ä¸€æ¡è®°å½•ç›¸åŒ
 				for (int v = 0; v < fcount1; ++v) {
 					if (isSame) {
 						Object value = exps[v].calculate(ctx);
@@ -302,9 +302,9 @@ public class Group extends Operation {
 	}
 	
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

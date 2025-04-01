@@ -10,14 +10,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÅÅÁĞ×öÖ÷¼üÊ½¹ØÁª
- * A.pjoin(K:..,x:F,¡­; Ai:z,K:¡­,x:F,¡­; ¡­)
+ * å¯¹æ’åˆ—åšä¸»é”®å¼å…³è”
+ * A.pjoin(K:..,x:F,â€¦; Ai:z,K:â€¦,x:F,â€¦; â€¦)
  * @author RunQian
  *
  */
 public class PJoin extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -36,7 +36,7 @@ public class PJoin extends SequenceFunction {
 		String []srcNewNames = null;
 		
 		if (sub.getType() == IParam.Comma) {
-			// K:..,x:F,¡­
+			// K:..,x:F,â€¦
 			keyParam = sub.getSub(0);
 			if (keyParam == null) {
 				MessageManager mm = EngineMessage.get();
@@ -96,7 +96,7 @@ public class PJoin extends SequenceFunction {
 		}
 		
 		int tableCount = param.getSubSize() - 1;
-		Sequence []sequences = new Sequence[tableCount]; // ¹ØÁªÓÎ±êÊı×é
+		Sequence []sequences = new Sequence[tableCount]; // å…³è”æ¸¸æ ‡æ•°ç»„
 		String []options = new String[tableCount];
 		Expression [][]keyExps = new Expression[tableCount][];
 		Expression [][]newExps = new Expression[tableCount][];
@@ -109,7 +109,7 @@ public class PJoin extends SequenceFunction {
 				throw new RQException("pjoin" + mm.getMessage("function.invalidParam"));
 			}
 			
-			// Ai:z,K:¡­,x:F,¡­
+			// Ai:z,K:â€¦,x:F,â€¦
 			Object table;
 			sub = tableParam.getSub(0);
 			

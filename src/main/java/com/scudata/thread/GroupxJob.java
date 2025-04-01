@@ -19,25 +19,25 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
- * Ö´ĞĞÍâ´æ·Ö×éÔËËãµÄÈÎÎñ
+ * æ‰§è¡Œå¤–å­˜åˆ†ç»„è¿ç®—çš„ä»»åŠ¡
  * @author RunQian
  *
  */
 public class GroupxJob extends Job {
-	private ICursor cursor; // Êı¾İÓÎ±ê
-	private Expression gexp; // @gÑ¡ÏîÊ±µÄ·Ö¶Î±í´ïÊ½
-	private Expression[] exps; // ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	private String[] names; // ·Ö×é×Ö¶ÎÃûÊı×é
-	private Expression[] calcExps; // »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	private String[] calcNames; // »ã×Ü×Ö¶ÎÃûÊı×é
+	private ICursor cursor; // æ•°æ®æ¸¸æ ‡
+	private Expression gexp; // @gé€‰é¡¹æ—¶çš„åˆ†æ®µè¡¨è¾¾å¼
+	private Expression[] exps; // åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String[] names; // åˆ†ç»„å­—æ®µåæ•°ç»„
+	private Expression[] calcExps; // æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String[] calcNames; // æ±‡æ€»å­—æ®µåæ•°ç»„
 	
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
-	private int fetchCount; // Ã¿´ÎÈ¡ÊıµÄÊıÁ¿
-	private int capacity; // ÄÚ´æÄÜ¹»´æ·ÅµÄ·Ö×é½á¹ûµÄÊıÁ¿£¬ÓÃÓÚgroupx@n
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
+	private int fetchCount; // æ¯æ¬¡å–æ•°çš„æ•°é‡
+	private int capacity; // å†…å­˜èƒ½å¤Ÿå­˜æ”¾çš„åˆ†ç»„ç»“æœçš„æ•°é‡ï¼Œç”¨äºgroupx@n
 	
-	private TreeMap<Object, BFileWriter> fileMap; // ´ó·Ö×éÖµºÍÁÙÊ±¼¯ÎÄ¼şÓ³Éä
+	private TreeMap<Object, BFileWriter> fileMap; // å¤§åˆ†ç»„å€¼å’Œä¸´æ—¶é›†æ–‡ä»¶æ˜ å°„
 	
-	// @gÑ¡ÏîÊ¹ÓÃ
+	// @gé€‰é¡¹ä½¿ç”¨
 	public GroupxJob(ICursor cursor, Expression gexp, Expression[] exps, String[] names,
 			Expression[] calcExps, String[] calcNames, Context ctx, 
 			int fetchCount, TreeMap<Object, BFileWriter> fileMap) {
@@ -57,7 +57,7 @@ public class GroupxJob extends Job {
 		}
 	}
 
-	// @nÑ¡ÏîÊ¹ÓÃ
+	// @né€‰é¡¹ä½¿ç”¨
 	public GroupxJob(ICursor cursor, Expression[] exps, String[] names,
 			Expression[] calcExps, String[] calcNames, Context ctx, 
 			int capacity, int fetchCount, TreeMap<Object, BFileWriter> fileMap) {
@@ -91,25 +91,25 @@ public class GroupxJob extends Job {
 		DataStruct ds = cursor.getDataStruct();
 		
 		try {
-			// ±éÀúÓÎ±êÊı¾İ
+			// éå†æ¸¸æ ‡æ•°æ®
 			while (true) {
 				Sequence seq = cursor.fetch(fetchCount);
 				if (seq == null || seq.length() == 0) {
 					break;
 				}
 
-				// °´´ó·Ö×é±í´ïÊ½¶ÔÊı¾İ½øĞĞ·Ö×é
+				// æŒ‰å¤§åˆ†ç»„è¡¨è¾¾å¼å¯¹æ•°æ®è¿›è¡Œåˆ†ç»„
 				Sequence groups = seq.group(gexp, null, ctx);
 				int gcount = groups.length();
 				for (int i = 1; i <= gcount; ++i) {
-					// ¶ÔÃ¿¸ö´ó·Ö×é½øĞĞÊ×´Î»ã×Ü
+					// å¯¹æ¯ä¸ªå¤§åˆ†ç»„è¿›è¡Œé¦–æ¬¡æ±‡æ€»
 					Sequence group = (Sequence)groups.getMem(i);
 					Object gval = group.calc(1, gexp, ctx);
 					IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, null, ctx);
 					gresult.push(group, ctx);
 					group = gresult.getTempResult();
 					
-					// ¶ÔÎÄ¼şÓ³Éä×öÍ¬²½È¡µÃÏàÓ¦µÄÁÙÊ±ÎÄ¼ş
+					// å¯¹æ–‡ä»¶æ˜ å°„åšåŒæ­¥å–å¾—ç›¸åº”çš„ä¸´æ—¶æ–‡ä»¶
 					BFileWriter writer = null;
 					synchronized(fileMap) {
 						writer = fileMap.get(gval);
@@ -122,7 +122,7 @@ public class GroupxJob extends Job {
 						}
 					}
 					
-					// Ëø×¡ÁÙÊ±ÎÄ¼ş²¢°ÑÊ×´Î·Ö×é½á¹ûĞ´µ½ÁÙÊ±ÎÄ¼şÖĞ
+					// é”ä½ä¸´æ—¶æ–‡ä»¶å¹¶æŠŠé¦–æ¬¡åˆ†ç»„ç»“æœå†™åˆ°ä¸´æ—¶æ–‡ä»¶ä¸­
 					synchronized(writer) {
 						writer.write(group);
 					}
@@ -148,14 +148,14 @@ public class GroupxJob extends Job {
 		DataStruct ds = cursor.getDataStruct();
 		
 		try {
-			// ±éÀúÓÎ±êÊı¾İ
+			// éå†æ¸¸æ ‡æ•°æ®
 			while (true) {
 				Sequence seq = cursor.fetch(fetchCount);
 				if (seq == null || seq.length() == 0) {
 					break;
 				}
 
-				// ½øĞĞÊ×´Î»ã×Ü»ã×Ü
+				// è¿›è¡Œé¦–æ¬¡æ±‡æ€»æ±‡æ€»
 				IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, null, ctx);
 				gresult.push(seq, ctx);
 				seq = gresult.getTempResult();
@@ -172,7 +172,7 @@ public class GroupxJob extends Job {
 					int index = ((Number)r.getNormalFieldValue(0)).intValue() / capacity + 1;
 					Integer gval = new Integer(index);
 					
-					// ¶ÔÎÄ¼şÓ³Éä×öÍ¬²½È¡µÃÏàÓ¦µÄÁÙÊ±ÎÄ¼ş
+					// å¯¹æ–‡ä»¶æ˜ å°„åšåŒæ­¥å–å¾—ç›¸åº”çš„ä¸´æ—¶æ–‡ä»¶
 					BFileWriter writer = null;
 					synchronized(fileMap) {
 						writer = fileMap.get(gval);
@@ -185,7 +185,7 @@ public class GroupxJob extends Job {
 						}
 					}
 					
-					// Ëø×¡ÁÙÊ±ÎÄ¼ş²¢°ÑÊ×´Î·Ö×é½á¹ûĞ´µ½ÁÙÊ±ÎÄ¼şÖĞ
+					// é”ä½ä¸´æ—¶æ–‡ä»¶å¹¶æŠŠé¦–æ¬¡åˆ†ç»„ç»“æœå†™åˆ°ä¸´æ—¶æ–‡ä»¶ä¸­
 					synchronized(writer) {
 						writer.write(group);
 					}

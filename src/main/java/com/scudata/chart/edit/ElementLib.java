@@ -8,8 +8,8 @@ import com.scudata.common.MessageManager;
 import java.io.*;
 
 /**
- * Í¼Ôª¿â¹ÜÀíÀà£¬Ã¿Ò»¸öĞÂÊµÏÖµÄÍ¼Ôª¶¼ĞèÒªÔÚloadSystemElements()ÖĞµÇ¼Ç
- * µÇ¼ÇºóµÄÍ¼Ôª²Å»áÔÚ½çÃæ×Ô¶¯ÁĞ³ö£¬ÒÔ¼°¶Ô²ÎÊı½øĞĞ±à¼­
+ * å›¾å…ƒåº“ç®¡ç†ç±»ï¼Œæ¯ä¸€ä¸ªæ–°å®ç°çš„å›¾å…ƒéƒ½éœ€è¦åœ¨loadSystemElements()ä¸­ç™»è®°
+ * ç™»è®°åçš„å›¾å…ƒæ‰ä¼šåœ¨ç•Œé¢è‡ªåŠ¨åˆ—å‡ºï¼Œä»¥åŠå¯¹å‚æ•°è¿›è¡Œç¼–è¾‘
  * @author Joancy
  *
  */
@@ -47,9 +47,9 @@ public class ElementLib {
 	}
 
 	/**
-	 * ¸ù¾İÍ¼ÔªÃû³Æ»ñÈ¡¶ÔÓ¦µÄÍ¼ÔªĞÅÏ¢Àà
-	 * @param name Ãû³Æ
-	 * @return Í¼ÔªĞÅÏ¢Àà
+	 * æ ¹æ®å›¾å…ƒåç§°è·å–å¯¹åº”çš„å›¾å…ƒä¿¡æ¯ç±»
+	 * @param name åç§°
+	 * @return å›¾å…ƒä¿¡æ¯ç±»
 	 */
 	public static ElementInfo getElementInfo(String name) {
 		for (int i = 0; i < elementList.size(); i++) {
@@ -62,10 +62,10 @@ public class ElementLib {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨µÄÍ¼ÔªĞÅÏ¢ÁĞ±íÖĞ²éÕÒÍ¼ÔªĞÅÏ¢
-	 * @param al Í¼ÔªĞÅÏ¢ÁĞ±í
-	 * @param name Í¼ÔªÃû³Æ
-	 * @return Í¼ÔªĞÅÏ¢Àà
+	 * åœ¨æŒ‡å®šçš„å›¾å…ƒä¿¡æ¯åˆ—è¡¨ä¸­æŸ¥æ‰¾å›¾å…ƒä¿¡æ¯
+	 * @param al å›¾å…ƒä¿¡æ¯åˆ—è¡¨
+	 * @param name å›¾å…ƒåç§°
+	 * @return å›¾å…ƒä¿¡æ¯ç±»
 	 */
 	public static ElementInfo getElementInfo(ArrayList<ElementInfo> al,
 			String name) {
@@ -76,10 +76,10 @@ public class ElementLib {
 	}
 
 	/**
-	 * ÔÚ³ÌĞòÖĞÌí¼ÓÒ»¸öÍ¼ÔªĞÅÏ¢
-	 * @param group Í¼ÔªËùÊôµÄ·Ö×é
-	 * @param name Ãû³Æ
-	 * @param className ÀàµÄÈ«Â·¾¶Ãû³Æ
+	 * åœ¨ç¨‹åºä¸­æ·»åŠ ä¸€ä¸ªå›¾å…ƒä¿¡æ¯
+	 * @param group å›¾å…ƒæ‰€å±çš„åˆ†ç»„
+	 * @param name åç§°
+	 * @param className ç±»çš„å…¨è·¯å¾„åç§°
 	 */
 	public static void addElement(String group, String name, String className) {
 		try {
@@ -102,23 +102,23 @@ public class ElementLib {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°»·¾³ÏÂµÄÈ«²¿Í¼ÔªĞÅÏ¢ÁĞ±í
-	 * @return Í¼ÔªĞÅÏ¢ÁĞ±í
+	 * è·å–å½“å‰ç¯å¢ƒä¸‹çš„å…¨éƒ¨å›¾å…ƒä¿¡æ¯åˆ—è¡¨
+	 * @return å›¾å…ƒä¿¡æ¯åˆ—è¡¨
 	 */
 	public static ArrayList<ArrayList<ElementInfo>> getElementInfoList() {
 		return elementList;
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°»·¾³ÏÂÈ«²¿Í¼Ôª×é±êÌâ
-	 * @return È«²¿×é±êÌâÁĞ±í
+	 * è·å–å½“å‰ç¯å¢ƒä¸‹å…¨éƒ¨å›¾å…ƒç»„æ ‡é¢˜
+	 * @return å…¨éƒ¨ç»„æ ‡é¢˜åˆ—è¡¨
 	 */
 	public static ArrayList<String> getElementTitleList() {
 		return groupList;
 	}
 
 	/**
-	 * µÇ¼ÇÈ«²¿ÊµÏÖµÄÏµÍ³Í¼Ôª
+	 * ç™»è®°å…¨éƒ¨å®ç°çš„ç³»ç»Ÿå›¾å…ƒ
 	 */
 	public static void loadSystemElements() {
 		String group = "axis";
@@ -149,8 +149,8 @@ public class ElementLib {
 	}
 
 	/**
-	 * ¼ÓÔØ×Ô¶¨ÒåÍ¼ÔªĞÅÏ¢
-	 * @param is ×Ô¶¨ÒåĞÅÏ¢µÄÅäÖÃÎÄ¼şÁ÷
+	 * åŠ è½½è‡ªå®šä¹‰å›¾å…ƒä¿¡æ¯
+	 * @param is è‡ªå®šä¹‰ä¿¡æ¯çš„é…ç½®æ–‡ä»¶æµ
 	 */
 	public static void loadCustomElements(InputStream is) {
 		try {

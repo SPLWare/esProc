@@ -3,80 +3,80 @@ package com.scudata.chart;
 import com.scudata.cellset.IStyle;
 
 /**
- * »æÍ¼µÄ¸÷ÖÖ³£Á¿Öµ¶¨Òå
+ * ç»˜å›¾çš„å„ç§å¸¸é‡å€¼å®šä¹‰
  * @author Joancy
  *
  */
 public class Consts {
-//	ÊıÖµÖáµÄÊıÖµ±ä»»ÀàĞÍ
-  public final static int TRANSFORM_NONE = 0;//²»±ä»»
-  public final static int TRANSFORM_SCALE = 1;//°´±ÈÀı±ä»»
-  public final static int TRANSFORM_LOG = 2;//°´¶ÔÊı±ä»»
-  public final static int TRANSFORM_EXP = 3;//°´Ö¸Êı±ä»»
+//	æ•°å€¼è½´çš„æ•°å€¼å˜æ¢ç±»å‹
+  public final static int TRANSFORM_NONE = 0;//ä¸å˜æ¢
+  public final static int TRANSFORM_SCALE = 1;//æŒ‰æ¯”ä¾‹å˜æ¢
+  public final static int TRANSFORM_LOG = 2;//æŒ‰å¯¹æ•°å˜æ¢
+  public final static int TRANSFORM_EXP = 3;//æŒ‰æŒ‡æ•°å˜æ¢
 
-//  Í¼ĞÎÊôĞÔµÄ±à¼­ÀàĞÍ
-  public final static int INPUT_NORMAL = 1;//ÆÕÍ¨µÄ×Ö·û´®
-  public final static int INPUT_EXP = 2;//ÆÕÍ¨µÄ±í´ïÊ½
-  public final static int INPUT_COLOR = 3;//ÑÕÉ«
-  public final static int INPUT_LINESTYLE = 4;//ÏßĞÍ
-  public final static int INPUT_FONT = 5;//×ÖÌå
-  public final static int INPUT_TEXTURE = 6;//ÎÆÀí£¬Ìî³ä
-  public final static int INPUT_POINTSTYLE = 7;//µãµÄĞÎ×´
-  public final static int INPUT_FONTSTYLE = 8;//×ÖÌå·ç¸ñ£¬°üº¬´ÖÌå£¬Ğ±Ìå£¬ÏÂ»®Ïß
-  public final static int INPUT_COLUMNSTYLE = 9;//ÖùÍ¼ÀàĞÍ
-  public final static int INPUT_CHECKBOX = 10;//¸´Ñ¡¿ò
-  public final static int INPUT_DROPDOWN = 11;//ÏÂÀ­ÁĞ±í
-  public final static int INPUT_CHARTCOLOR = 12;//Ìî³äÑÕÉ«£¬¿ÉÒÔ¶¨Òå½¥±äÉ«£¬ÊÇ·ñìÅÑÕÉ«
-  public final static int INPUT_DATE = 13;//ÈÕÆÚ±à¼­
-  public final static int INPUT_ARROW = 14;//¼ıÍ·
-  public final static int INPUT_TICKS = 15;//¿Ì¶È
-  public final static int INPUT_ANGLE = 16;//½Ç¶È
-  public final static int INPUT_UNIT = 17;//µ¥Î»
-  public final static int INPUT_COORDINATES = 18;//×ø±êÏµ
-  public final static int INPUT_AXISLOCATION = 19;//ÖáÎ»ÖÃ£¬ºáÖá¡¢×İÖá£¬¼«Öá¡¢½ÇÖá
-  public final static int INPUT_FONTSIZE = 20;//×ÖºÅ
-  public final static int INPUT_HALIGN = 21;//Ë®Æ½¶ÔÆë
-  public final static int INPUT_VALIGN = 22;//´¹Ö±¶ÔÆë
-  public final static int INPUT_LEGENDICON = 23;//Í¼ÀıÍ¼±ê
-  public final static int INPUT_INTEGER = 24;//ÕûÊı
-  public final static int INPUT_DOUBLE = 25;//ÊµÊı
-  public final static int INPUT_DATEUNIT = 26;//ÈÕÆÚ
-  public final static int INPUT_TRANSFORM = 27;//±ä»»
+//  å›¾å½¢å±æ€§çš„ç¼–è¾‘ç±»å‹
+  public final static int INPUT_NORMAL = 1;//æ™®é€šçš„å­—ç¬¦ä¸²
+  public final static int INPUT_EXP = 2;//æ™®é€šçš„è¡¨è¾¾å¼
+  public final static int INPUT_COLOR = 3;//é¢œè‰²
+  public final static int INPUT_LINESTYLE = 4;//çº¿å‹
+  public final static int INPUT_FONT = 5;//å­—ä½“
+  public final static int INPUT_TEXTURE = 6;//çº¹ç†ï¼Œå¡«å……
+  public final static int INPUT_POINTSTYLE = 7;//ç‚¹çš„å½¢çŠ¶
+  public final static int INPUT_FONTSTYLE = 8;//å­—ä½“é£æ ¼ï¼ŒåŒ…å«ç²—ä½“ï¼Œæ–œä½“ï¼Œä¸‹åˆ’çº¿
+  public final static int INPUT_COLUMNSTYLE = 9;//æŸ±å›¾ç±»å‹
+  public final static int INPUT_CHECKBOX = 10;//å¤é€‰æ¡†
+  public final static int INPUT_DROPDOWN = 11;//ä¸‹æ‹‰åˆ—è¡¨
+  public final static int INPUT_CHARTCOLOR = 12;//å¡«å……é¢œè‰²ï¼Œå¯ä»¥å®šä¹‰æ¸å˜è‰²ï¼Œæ˜¯å¦ç‚«é¢œè‰²
+  public final static int INPUT_DATE = 13;//æ—¥æœŸç¼–è¾‘
+  public final static int INPUT_ARROW = 14;//ç®­å¤´
+  public final static int INPUT_TICKS = 15;//åˆ»åº¦
+  public final static int INPUT_ANGLE = 16;//è§’åº¦
+  public final static int INPUT_UNIT = 17;//å•ä½
+  public final static int INPUT_COORDINATES = 18;//åæ ‡ç³»
+  public final static int INPUT_AXISLOCATION = 19;//è½´ä½ç½®ï¼Œæ¨ªè½´ã€çºµè½´ï¼Œæè½´ã€è§’è½´
+  public final static int INPUT_FONTSIZE = 20;//å­—å·
+  public final static int INPUT_HALIGN = 21;//æ°´å¹³å¯¹é½
+  public final static int INPUT_VALIGN = 22;//å‚ç›´å¯¹é½
+  public final static int INPUT_LEGENDICON = 23;//å›¾ä¾‹å›¾æ ‡
+  public final static int INPUT_INTEGER = 24;//æ•´æ•°
+  public final static int INPUT_DOUBLE = 25;//å®æ•°
+  public final static int INPUT_DATEUNIT = 26;//æ—¥æœŸ
+  public final static int INPUT_TRANSFORM = 27;//å˜æ¢
   
-  //ÒÔÏÂÊÇÍ¼ĞÎ²ÎÊıÔö¼ÓµÄÊäÈë·½Ê½£¬added by sjr
-  public final static int INPUT_URLTARGET = 28;//urlÁ´½Ó
-  public final static int INPUT_STACKTYPE = 29;//¶Ñ»ıÀàĞÍ
+  //ä»¥ä¸‹æ˜¯å›¾å½¢å‚æ•°å¢åŠ çš„è¾“å…¥æ–¹å¼ï¼Œadded by sjr
+  public final static int INPUT_URLTARGET = 28;//urlé“¾æ¥
+  public final static int INPUT_STACKTYPE = 29;//å †ç§¯ç±»å‹
   
-  public final static int INPUT_DISPLAYDATA = 40;//ÏÔÊ¾Êı¾İ
-  public final static int INPUT_LEGENDLOCATION = 41;//Í¼Àı·½Î»
-  public final static int INPUT_COLUMNTYPE = 42;//ÖùÍ¼ÀàĞÍ
-  public final static int INPUT_LINETYPE = 43;//ÕÛÏßÀàĞÍ
-  public final static int INPUT_PIETYPE = 44;//±ıÍ¼ÀàĞÍ
-  public final static int INPUT_2AXISTYPE = 45;//Ë«ÖáÍ¼ÀàĞÍ
-  public final static int INPUT_IMAGEMODE = 46;//Í¼Ïñ¸ñÊ½
-  public final static int INPUT_SIMPLE_ARROW = 47;//¼òÒ×¼ıÍ·
+  public final static int INPUT_DISPLAYDATA = 40;//æ˜¾ç¤ºæ•°æ®
+  public final static int INPUT_LEGENDLOCATION = 41;//å›¾ä¾‹æ–¹ä½
+  public final static int INPUT_COLUMNTYPE = 42;//æŸ±å›¾ç±»å‹
+  public final static int INPUT_LINETYPE = 43;//æŠ˜çº¿ç±»å‹
+  public final static int INPUT_PIETYPE = 44;//é¥¼å›¾ç±»å‹
+  public final static int INPUT_2AXISTYPE = 45;//åŒè½´å›¾ç±»å‹
+  public final static int INPUT_IMAGEMODE = 46;//å›¾åƒæ ¼å¼
+  public final static int INPUT_SIMPLE_ARROW = 47;//ç®€æ˜“ç®­å¤´
   
-  /** ×Ô¶¨ÒåÏÂÀ­ */
+  /** è‡ªå®šä¹‰ä¸‹æ‹‰ */
   public final static int INPUT_CUSTOMDROPDOWN = 50;
-  /** Ñ¡ÔñÎÄ¼şÃû */
+  /** é€‰æ‹©æ–‡ä»¶å */
   public final static int INPUT_FILE = 51;
-  /**Í¼ÔªÀàĞÍ*/
+  /**å›¾å…ƒç±»å‹*/
   public final static int INPUT_POINTERTYPE = 52;
   
   
-//  ÌõĞÎÂëÏà¹ØÊôĞÔ
+//  æ¡å½¢ç ç›¸å…³å±æ€§
   public final static int INPUT_BARTYPE = 60;
   public final static int INPUT_CHARSET = 61;
   public final static int INPUT_RECERROR = 62;
   
 
-  public final static int COORDINATES_CARTESIAN = 0; //µÑ¿¨¶û×ø±êÏµ£¬¼´Ö±½Ç×ø±êÏµ
-  public final static int COORDINATES_POLAR = 1; //¼«×ø±êÏµ
-  public final static int COORDINATES_CARTE_3D = 2; //Á¢ÌåÕ¹ÏÖÖ±½Ç×ø±êÏµ
-  public final static int COORDINATES_CARTE_VIRTUAL_3D = 3; //Á¢ÌåĞ§¹ûµÄÆ½ÃæÖ±½Ç×ø±êÏµ
-  public final static int COORDINATES_POLAR_3D = 4; //Á¢ÌåÕ¹ÏÖ¼«×ø±êÏµ
-  public final static int COORDINATES_POLAR_VIRTUAL_3D = 5; //Á¢ÌåĞ§¹ûµÄÆ½Ãæ¼«×ø±êÏµ
-  public final static int COORDINATES_LEGEND = 6; //Í¼Àı×ø±êÏµ£¬ÓÃÓÚ×Ô¶¨ÒåÍ¼Àı»æÖÆ
+  public final static int COORDINATES_CARTESIAN = 0; //ç¬›å¡å°”åæ ‡ç³»ï¼Œå³ç›´è§’åæ ‡ç³»
+  public final static int COORDINATES_POLAR = 1; //æåæ ‡ç³»
+  public final static int COORDINATES_CARTE_3D = 2; //ç«‹ä½“å±•ç°ç›´è§’åæ ‡ç³»
+  public final static int COORDINATES_CARTE_VIRTUAL_3D = 3; //ç«‹ä½“æ•ˆæœçš„å¹³é¢ç›´è§’åæ ‡ç³»
+  public final static int COORDINATES_POLAR_3D = 4; //ç«‹ä½“å±•ç°æåæ ‡ç³»
+  public final static int COORDINATES_POLAR_VIRTUAL_3D = 5; //ç«‹ä½“æ•ˆæœçš„å¹³é¢æåæ ‡ç³»
+  public final static int COORDINATES_LEGEND = 6; //å›¾ä¾‹åæ ‡ç³»ï¼Œç”¨äºè‡ªå®šä¹‰å›¾ä¾‹ç»˜åˆ¶
   public final static int COORDINATES_FREE = 9;
 
   public final static int AXIS_LOC_H = 1;
@@ -85,104 +85,104 @@ public class Consts {
   public final static int AXIS_LOC_ANGLE = 4;
   public final static int AXIS_LOC_3D = 5;
 
-  /** Íø¸ñÏßÎ»ÖÃ -- ÊıÖµÖá */
+  /** ç½‘æ ¼çº¿ä½ç½® -- æ•°å€¼è½´ */
   public static final int GRID_VALUE = 0;
-  /** Íø¸ñÏßÎ»ÖÃ -- ·ÖÀàÖá */
+  /** ç½‘æ ¼çº¿ä½ç½® -- åˆ†ç±»è½´ */
   public static final int GRID_CATEGORY = 1;
-  /** Íø¸ñÏßÎ»ÖÃ -- È«²¿*/
+  /** ç½‘æ ¼çº¿ä½ç½® -- å…¨éƒ¨*/
   public static final int GRID_BOTH = 2;
 
-  //×¢Òâ£ºÏßĞÍÓÉÏßĞÎÓë¼ıÍ·Ïà¼ÓµÃÀ´
-  //ÏßĞÎ
-  public final static int LINE_NONE = IStyle.LINE_NONE; //ÎŞ
-  public final static int LINE_SOLID = IStyle.LINE_SOLID; //ÊµÏß
-  public final static int LINE_DASHED = IStyle.LINE_DASHED; //ĞéÏß
-  public final static int LINE_DOTTED = IStyle.LINE_DOT; //µãÏß
-  public final static int LINE_DOUBLE = IStyle.LINE_DOUBLE; //Ë«ÊµÏß
-  public final static int LINE_DOTDASH = IStyle.LINE_DOTDASH; //µã»®Ïß
+  //æ³¨æ„ï¼šçº¿å‹ç”±çº¿å½¢ä¸ç®­å¤´ç›¸åŠ å¾—æ¥
+  //çº¿å½¢
+  public final static int LINE_NONE = IStyle.LINE_NONE; //æ— 
+  public final static int LINE_SOLID = IStyle.LINE_SOLID; //å®çº¿
+  public final static int LINE_DASHED = IStyle.LINE_DASHED; //è™šçº¿
+  public final static int LINE_DOTTED = IStyle.LINE_DOT; //ç‚¹çº¿
+  public final static int LINE_DOUBLE = IStyle.LINE_DOUBLE; //åŒå®çº¿
+  public final static int LINE_DOTDASH = IStyle.LINE_DOTDASH; //ç‚¹åˆ’çº¿
 
-  //ÏßµÄ¼ıÍ·Ö»ÄÜ°´°ÙµÄÕûÊı±¶¶¨Òå£¬ºóÃæÓĞÈ¡byte¶¯×÷£¬»á½ØµôÊ®Î»¼°¸öÎ»
-  public final static int LINE_ARROW_NONE = 0x0; //ÎŞ
-  public final static int LINE_ARROW = 0x100; //µ¥¼ıÍ·
-  public final static int LINE_ARROW_BOTH = 0x200; //Ë«¼ıÍ·
-  public final static int LINE_ARROW_HEART = 0x300; //ĞÄ×´Í·
-  public final static int LINE_ARROW_CIRCEL = 0x400; //Ô²×´Í·
-  public final static int LINE_ARROW_DIAMOND = 0x500; //Áâ×´Í·
-  public final static int LINE_ARROW_L = 0x600; //×óµ¥¼ıÍ·
+  //çº¿çš„ç®­å¤´åªèƒ½æŒ‰ç™¾çš„æ•´æ•°å€å®šä¹‰ï¼Œåé¢æœ‰å–byteåŠ¨ä½œï¼Œä¼šæˆªæ‰åä½åŠä¸ªä½
+  public final static int LINE_ARROW_NONE = 0x0; //æ— 
+  public final static int LINE_ARROW = 0x100; //å•ç®­å¤´
+  public final static int LINE_ARROW_BOTH = 0x200; //åŒç®­å¤´
+  public final static int LINE_ARROW_HEART = 0x300; //å¿ƒçŠ¶å¤´
+  public final static int LINE_ARROW_CIRCEL = 0x400; //åœ†çŠ¶å¤´
+  public final static int LINE_ARROW_DIAMOND = 0x500; //è±çŠ¶å¤´
+  public final static int LINE_ARROW_L = 0x600; //å·¦å•ç®­å¤´
 
-  /**----------------------¿Ì¶ÈÏßÎ»ÖÃ----------------------------*/
-  public final static int TICK_RIGHTUP = 0; // ¿¿ÓÒ»òÉÏ
-  public final static int TICK_LEFTDOWN = 1; // ¿¿×ó»òÏÂ
-  public final static int TICK_CROSS = 2; // Ñ¹Öá
-  public final static int TICK_NONE = 3; // ÎŞ¿Ì¶ÈÏß
+  /**----------------------åˆ»åº¦çº¿ä½ç½®----------------------------*/
+  public final static int TICK_RIGHTUP = 0; // é å³æˆ–ä¸Š
+  public final static int TICK_LEFTDOWN = 1; // é å·¦æˆ–ä¸‹
+  public final static int TICK_CROSS = 2; // å‹è½´
+  public final static int TICK_NONE = 3; // æ— åˆ»åº¦çº¿
 
-  //µãĞÍ
-  public final static int PT_NONE = 0; //ÎŞ
-  public final static int PT_CIRCLE = 1; //Ô²
-  public final static int PT_SQUARE = 2; //Õı·½ĞÎ
-  public final static int PT_TRIANGLE = 3; //Èı½ÇĞÎ
-  public final static int PT_RECTANGLE = 4; //³¤·½ĞÎ
-  public final static int PT_STAR = 5; //ĞÇĞÎ
-  public final static int PT_DIAMOND = 6; //ÁâĞÎ
-  public final static int PT_CORSS = 7; //²æĞÎ
-  public final static int PT_PLUS = 8; //¼ÓºÅ
-  public final static int PT_D_CIRCEL = 9; //Ë«Ô²
-  public final static int PT_D_SQUARE = 10; //Ë«Õı·½ĞÎ
-  public final static int PT_D_TRIANGLE = 11; //Ë«Èı½ÇĞÎ
-  public final static int PT_D_RECTANGLE = 12; //Ë«³¤·½ĞÎ
-  public final static int PT_D_DIAMOND = 13; //Ë«ÁâĞÎ
-  public final static int PT_CIRCLE_PLUS = 14; //Ô²ÄÚ¼ÓºÅ
-  public final static int PT_SQUARE_PLUS = 15; //·½ÄÚ¼ÓºÅ
-  public final static int PT_TRIANGLE_PLUS = 16; //Èı½ÇÄÚ¼ÓºÅ
-  public final static int PT_RECTANGLE_PLUS = 17; //³¤·½ĞÎÄÚ¼ÓºÅ
-  public final static int PT_DIAMOND_PLUS = 18; //ÁâÄÚ¼ÓºÅ
-  public final static int PT_DOT = 19; //ÊµĞÄµã,²»Ê¹ÓÃÌî³äÉ«£¬Ö»ÓÃÇ°¾°É«
+  //ç‚¹å‹
+  public final static int PT_NONE = 0; //æ— 
+  public final static int PT_CIRCLE = 1; //åœ†
+  public final static int PT_SQUARE = 2; //æ­£æ–¹å½¢
+  public final static int PT_TRIANGLE = 3; //ä¸‰è§’å½¢
+  public final static int PT_RECTANGLE = 4; //é•¿æ–¹å½¢
+  public final static int PT_STAR = 5; //æ˜Ÿå½¢
+  public final static int PT_DIAMOND = 6; //è±å½¢
+  public final static int PT_CORSS = 7; //å‰å½¢
+  public final static int PT_PLUS = 8; //åŠ å·
+  public final static int PT_D_CIRCEL = 9; //åŒåœ†
+  public final static int PT_D_SQUARE = 10; //åŒæ­£æ–¹å½¢
+  public final static int PT_D_TRIANGLE = 11; //åŒä¸‰è§’å½¢
+  public final static int PT_D_RECTANGLE = 12; //åŒé•¿æ–¹å½¢
+  public final static int PT_D_DIAMOND = 13; //åŒè±å½¢
+  public final static int PT_CIRCLE_PLUS = 14; //åœ†å†…åŠ å·
+  public final static int PT_SQUARE_PLUS = 15; //æ–¹å†…åŠ å·
+  public final static int PT_TRIANGLE_PLUS = 16; //ä¸‰è§’å†…åŠ å·
+  public final static int PT_RECTANGLE_PLUS = 17; //é•¿æ–¹å½¢å†…åŠ å·
+  public final static int PT_DIAMOND_PLUS = 18; //è±å†…åŠ å·
+  public final static int PT_DOT = 19; //å®å¿ƒç‚¹,ä¸ä½¿ç”¨å¡«å……è‰²ï¼Œåªç”¨å‰æ™¯è‰²
 
-  //ÖùĞÍ
-  public final static int COL_COBOID = 1; //·½Öù
-  public final static int COL_CUBE = 2; //Á¢Ìå·½Öù
-  public final static int COL_CYLINDER = 3; //Ô²Öù
-//  public final static int COL_CONE = 4; //Ô²×¶
-
-
-  public final static int PATTERN_DEFAULT = 0; //Ìî³äÍ¼°¸£¬È«Ìî³ä
-  public final static int PATTERN_H_THIN_LINE = 1; //Ìî³äÍ¼°¸£¬Ë®Æ½Ï¸Ïß
-  public final static int PATTERN_H_THICK_LINE = 2; //Ìî³äÍ¼°¸£¬Ë®Æ½´ÖÏß
-  public final static int PATTERN_V_THIN_LINE = 3; //Ìî³äÍ¼°¸£¬´¹Ö±Ï¸Ïß
-  public final static int PATTERN_V_THICK_LINE = 4; //Ìî³äÍ¼°¸£¬´¹Ö±´ÖÏß
-  public final static int PATTERN_THIN_SLASH = 5; //Ìî³äÍ¼°¸£¬Ï¸Ğ±Ïß
-  public final static int PATTERN_THICK_SLASH = 6; //Ìî³äÍ¼°¸£¬´ÖĞ±Ïß
-  public final static int PATTERN_THIN_BACKSLASH = 7; //Ìî³äÍ¼°¸£¬Ï¸·´Ğ±Ïß
-  public final static int PATTERN_THICK_BACKSLASH = 8; //Ìî³äÍ¼°¸£¬´Ö·´Ğ±Ïß
-  public final static int PATTERN_THIN_GRID = 9; //Ìî³äÍ¼°¸£¬Ï¸Íø¸ñ
-  public final static int PATTERN_THICK_GRID = 10; //Ìî³äÍ¼°¸£¬´ÖÍø¸ñ
-  public final static int PATTERN_THIN_BEVEL_GRID = 11; //Ìî³äÍ¼°¸£¬Ï¸Ğ±Íø¸ñ
-  public final static int PATTERN_THICK_BEVEL_GRID = 12; //Ìî³äÍ¼°¸£¬´ÖĞ±Íø¸ñ
-  public final static int PATTERN_DOT_1 = 13; //Ìî³äÍ¼°¸£¬Ï¡Êèµã
-  public final static int PATTERN_DOT_2 = 14; //Ìî³äÍ¼°¸£¬½ÏÏ¡µã
-  public final static int PATTERN_DOT_3 = 15; //Ìî³äÍ¼°¸£¬½ÏÃÜµã
-  public final static int PATTERN_DOT_4 = 16; //Ìî³äÍ¼°¸£¬³íÃÜµã
-  public final static int PATTERN_SQUARE_FLOOR = 17; //Ìî³äÍ¼°¸£¬Õı·½¿éµØ°å×©
-  public final static int PATTERN_DIAMOND_FLOOR = 18; //Ìî³äÍ¼°¸£¬ÁâĞÎµØ°å×©
-  public final static int PATTERN_BRICK_WALL = 19; //Ìî³äÍ¼°¸£¬×©Ç½
-
-  //×ÖÌå·ç¸ñ£¬¸÷Î»Îª1Îª±íÊ¾ÊÇ£¬Îª0±íÊ¾·ñ
-  public final static int FONT_BOLD = 1; //ºÚÌå
-  public final static int FONT_ITALIC = 2; //Ğ±Ìå
-  public final static int FONT_UNDERLINE = 4; //ÏÂ»®Ïß
-  public final static int FONT_VERTICAL = 8; //ÊúÅÅ
+  //æŸ±å‹
+  public final static int COL_COBOID = 1; //æ–¹æŸ±
+  public final static int COL_CUBE = 2; //ç«‹ä½“æ–¹æŸ±
+  public final static int COL_CYLINDER = 3; //åœ†æŸ±
+//  public final static int COL_CONE = 4; //åœ†é”¥
 
 
-  public final static int NUNIT_NONE = 0; //ÎŞ£¬1
-  public final static int NUNIT_HUNDREDS = 2; //°Ù£¬10^2
-  public final static int NUNIT_THOUSANDS = 3; //Ç§£¬10^3
-  public final static int NUNIT_TEN_THOUSANDS = 4; //Íò£¬10^4
-  public final static int NUNIT_HUNDRED_THOUSANDS = 5; //Ê®Íò£¬10^5
-  public final static int NUNIT_MILLIONS = 6; //°ÙÍò£¬10^6
-  public final static int NUNIT_TEN_MILLIONS = 7; //Ç§Íò£¬10^7
-  public final static int NUNIT_HUNDRED_MILLIONS = 8; //ÒÚ£¬10^8
-  public final static int NUNIT_THOUSAND_MILLIONS = 9; //Ê®ÒÚ£¬10^9
-  public final static int NUNIT_BILLIONS = 12; //ÍòÒÚ£¬10^12
+  public final static int PATTERN_DEFAULT = 0; //å¡«å……å›¾æ¡ˆï¼Œå…¨å¡«å……
+  public final static int PATTERN_H_THIN_LINE = 1; //å¡«å……å›¾æ¡ˆï¼Œæ°´å¹³ç»†çº¿
+  public final static int PATTERN_H_THICK_LINE = 2; //å¡«å……å›¾æ¡ˆï¼Œæ°´å¹³ç²—çº¿
+  public final static int PATTERN_V_THIN_LINE = 3; //å¡«å……å›¾æ¡ˆï¼Œå‚ç›´ç»†çº¿
+  public final static int PATTERN_V_THICK_LINE = 4; //å¡«å……å›¾æ¡ˆï¼Œå‚ç›´ç²—çº¿
+  public final static int PATTERN_THIN_SLASH = 5; //å¡«å……å›¾æ¡ˆï¼Œç»†æ–œçº¿
+  public final static int PATTERN_THICK_SLASH = 6; //å¡«å……å›¾æ¡ˆï¼Œç²—æ–œçº¿
+  public final static int PATTERN_THIN_BACKSLASH = 7; //å¡«å……å›¾æ¡ˆï¼Œç»†åæ–œçº¿
+  public final static int PATTERN_THICK_BACKSLASH = 8; //å¡«å……å›¾æ¡ˆï¼Œç²—åæ–œçº¿
+  public final static int PATTERN_THIN_GRID = 9; //å¡«å……å›¾æ¡ˆï¼Œç»†ç½‘æ ¼
+  public final static int PATTERN_THICK_GRID = 10; //å¡«å……å›¾æ¡ˆï¼Œç²—ç½‘æ ¼
+  public final static int PATTERN_THIN_BEVEL_GRID = 11; //å¡«å……å›¾æ¡ˆï¼Œç»†æ–œç½‘æ ¼
+  public final static int PATTERN_THICK_BEVEL_GRID = 12; //å¡«å……å›¾æ¡ˆï¼Œç²—æ–œç½‘æ ¼
+  public final static int PATTERN_DOT_1 = 13; //å¡«å……å›¾æ¡ˆï¼Œç¨€ç–ç‚¹
+  public final static int PATTERN_DOT_2 = 14; //å¡«å……å›¾æ¡ˆï¼Œè¾ƒç¨€ç‚¹
+  public final static int PATTERN_DOT_3 = 15; //å¡«å……å›¾æ¡ˆï¼Œè¾ƒå¯†ç‚¹
+  public final static int PATTERN_DOT_4 = 16; //å¡«å……å›¾æ¡ˆï¼Œç¨ å¯†ç‚¹
+  public final static int PATTERN_SQUARE_FLOOR = 17; //å¡«å……å›¾æ¡ˆï¼Œæ­£æ–¹å—åœ°æ¿ç –
+  public final static int PATTERN_DIAMOND_FLOOR = 18; //å¡«å……å›¾æ¡ˆï¼Œè±å½¢åœ°æ¿ç –
+  public final static int PATTERN_BRICK_WALL = 19; //å¡«å……å›¾æ¡ˆï¼Œç –å¢™
+
+  //å­—ä½“é£æ ¼ï¼Œå„ä½ä¸º1ä¸ºè¡¨ç¤ºæ˜¯ï¼Œä¸º0è¡¨ç¤ºå¦
+  public final static int FONT_BOLD = 1; //é»‘ä½“
+  public final static int FONT_ITALIC = 2; //æ–œä½“
+  public final static int FONT_UNDERLINE = 4; //ä¸‹åˆ’çº¿
+  public final static int FONT_VERTICAL = 8; //ç«–æ’
+
+
+  public final static int NUNIT_NONE = 0; //æ— ï¼Œ1
+  public final static int NUNIT_HUNDREDS = 2; //ç™¾ï¼Œ10^2
+  public final static int NUNIT_THOUSANDS = 3; //åƒï¼Œ10^3
+  public final static int NUNIT_TEN_THOUSANDS = 4; //ä¸‡ï¼Œ10^4
+  public final static int NUNIT_HUNDRED_THOUSANDS = 5; //åä¸‡ï¼Œ10^5
+  public final static int NUNIT_MILLIONS = 6; //ç™¾ä¸‡ï¼Œ10^6
+  public final static int NUNIT_TEN_MILLIONS = 7; //åƒä¸‡ï¼Œ10^7
+  public final static int NUNIT_HUNDRED_MILLIONS = 8; //äº¿ï¼Œ10^8
+  public final static int NUNIT_THOUSAND_MILLIONS = 9; //åäº¿ï¼Œ10^9
+  public final static int NUNIT_BILLIONS = 12; //ä¸‡äº¿ï¼Œ10^12
 
   public final static int LEGEND_RECT = 1;
   public final static int LEGEND_POINT = 2;
@@ -190,37 +190,37 @@ public class Consts {
   public final static int LEGEND_LINEPOINT = 4;
   public final static int LEGEND_NONE = 5;
 
-  /**----------------------Ë®Æ½¶ÔÆëÈ¡Öµ----------------------------*/
-  public final static int HALIGN_LEFT = IStyle.HALIGN_LEFT; // ×ó¶ÔÆë
-  public final static int HALIGN_CENTER = IStyle.HALIGN_CENTER; // ÖĞ¶ÔÆë
-  public final static int HALIGN_RIGHT = IStyle.HALIGN_RIGHT; // ÓÒ¶ÔÆë
+  /**----------------------æ°´å¹³å¯¹é½å–å€¼----------------------------*/
+  public final static int HALIGN_LEFT = IStyle.HALIGN_LEFT; // å·¦å¯¹é½
+  public final static int HALIGN_CENTER = IStyle.HALIGN_CENTER; // ä¸­å¯¹é½
+  public final static int HALIGN_RIGHT = IStyle.HALIGN_RIGHT; // å³å¯¹é½
 
-  /**----------------------´¹Ö±¶ÔÆëÈ¡Öµ----------------------------*/
-  public final static int VALIGN_TOP = IStyle.VALIGN_TOP; // ¿¿ÉÏ
-  public final static int VALIGN_MIDDLE = IStyle.VALIGN_MIDDLE; // ¾ÓÖĞ
-  public final static int VALIGN_BOTTOM = IStyle.VALIGN_BOTTOM; // ¿¿ÏÂ
+  /**----------------------å‚ç›´å¯¹é½å–å€¼----------------------------*/
+  public final static int VALIGN_TOP = IStyle.VALIGN_TOP; // é ä¸Š
+  public final static int VALIGN_MIDDLE = IStyle.VALIGN_MIDDLE; // å±…ä¸­
+  public final static int VALIGN_BOTTOM = IStyle.VALIGN_BOTTOM; // é ä¸‹
 
-  public final static int LOCATION_LT = HALIGN_LEFT + VALIGN_TOP; //×óÉÏ½Ç
-  public final static int LOCATION_LM = HALIGN_LEFT + VALIGN_MIDDLE; //×ó±ßÖĞĞÄµã
-  public final static int LOCATION_LB = HALIGN_LEFT + VALIGN_BOTTOM; //×óÏÂ½Ç
-  public final static int LOCATION_CT = HALIGN_CENTER + VALIGN_TOP; //ÉÏ±ßÖĞĞÄµã
-  public final static int LOCATION_CM = HALIGN_CENTER + VALIGN_MIDDLE; //ÖĞĞÄµã
-  public final static int LOCATION_CB = HALIGN_CENTER + VALIGN_BOTTOM; //ÏÂ±ßÖĞĞÄµã
-  public final static int LOCATION_RT = HALIGN_RIGHT + VALIGN_TOP; //ÓÒÉÏ½Ç
-  public final static int LOCATION_RM = HALIGN_RIGHT + VALIGN_MIDDLE; //ÓÒ±ßÖĞĞÄµã
-  public final static int LOCATION_RB = HALIGN_RIGHT + VALIGN_BOTTOM; //ÓÒÏÂ½Ç
+  public final static int LOCATION_LT = HALIGN_LEFT + VALIGN_TOP; //å·¦ä¸Šè§’
+  public final static int LOCATION_LM = HALIGN_LEFT + VALIGN_MIDDLE; //å·¦è¾¹ä¸­å¿ƒç‚¹
+  public final static int LOCATION_LB = HALIGN_LEFT + VALIGN_BOTTOM; //å·¦ä¸‹è§’
+  public final static int LOCATION_CT = HALIGN_CENTER + VALIGN_TOP; //ä¸Šè¾¹ä¸­å¿ƒç‚¹
+  public final static int LOCATION_CM = HALIGN_CENTER + VALIGN_MIDDLE; //ä¸­å¿ƒç‚¹
+  public final static int LOCATION_CB = HALIGN_CENTER + VALIGN_BOTTOM; //ä¸‹è¾¹ä¸­å¿ƒç‚¹
+  public final static int LOCATION_RT = HALIGN_RIGHT + VALIGN_TOP; //å³ä¸Šè§’
+  public final static int LOCATION_RM = HALIGN_RIGHT + VALIGN_MIDDLE; //å³è¾¹ä¸­å¿ƒç‚¹
+  public final static int LOCATION_RB = HALIGN_RIGHT + VALIGN_BOTTOM; //å³ä¸‹è§’
 
 
-  //ÈÕÆÚµ¥Î»
-  public final static int DATEUNIT_YEAR = 1; //Äê
-  public final static int DATEUNIT_MONTH = 2; //ÔÂ
-  public final static int DATEUNIT_DAY = 3; //ÈÕ
-  public final static int DATEUNIT_HOUR = 4; //Ê±
-  public final static int DATEUNIT_MINUTE = 5; //·Ö
-  public final static int DATEUNIT_SECOND = 6; //Ãë
-  public final static int DATEUNIT_MILLISECOND = 7; //ºÁÃë
+  //æ—¥æœŸå•ä½
+  public final static int DATEUNIT_YEAR = 1; //å¹´
+  public final static int DATEUNIT_MONTH = 2; //æœˆ
+  public final static int DATEUNIT_DAY = 3; //æ—¥
+  public final static int DATEUNIT_HOUR = 4; //æ—¶
+  public final static int DATEUNIT_MINUTE = 5; //åˆ†
+  public final static int DATEUNIT_SECOND = 6; //ç§’
+  public final static int DATEUNIT_MILLISECOND = 7; //æ¯«ç§’
 
-  /** Í¼ĞÎ¸ñÊ½ -- JPG  */
+  /** å›¾å½¢æ ¼å¼ -- JPG  */
   public static final byte IMAGE_JPG = (byte) 1;
   public static final byte IMAGE_GIF = (byte) 2;
   public static final byte IMAGE_PNG = (byte) 3;
@@ -228,13 +228,13 @@ public class Consts {
   public static final byte IMAGE_SVG = (byte) 5;
   public static final byte IMAGE_TIFF = (byte) 6;
   
-  //¶Ñ»ıÀàĞÍ
-  public final static int STACK_NONE = 0; //²»¶Ñ»ı
-  public final static int STACK_PERCENT = 1; //°Ù·Ö±È¶Ñ»ı
-  public final static int STACK_VALUE = 2; //Ô­Öµ¶Ñ»ı
+  //å †ç§¯ç±»å‹
+  public final static int STACK_NONE = 0; //ä¸å †ç§¯
+  public final static int STACK_PERCENT = 1; //ç™¾åˆ†æ¯”å †ç§¯
+  public final static int STACK_VALUE = 2; //åŸå€¼å †ç§¯
   
   
-//ÌõĞÎÂëÀàĞÍ
+//æ¡å½¢ç ç±»å‹
 	public static final int TYPE_NONE = 0;
 	public static final int TYPE_CODABAR = 1;
 	public static final int TYPE_CODE39 = 2;
@@ -250,18 +250,18 @@ public class Consts {
 	public static final int TYPE_PDF417 = 25;
 	public static final int TYPE_QRCODE = 256;
 
-//	±³¾°Í¼ÔªÌî³äÄ£Ê½
-	public static final int MODE_NONE = 0; // È±Ê¡
-	public static final int MODE_FILL = 1; // Ìî³ä
-	public static final int MODE_TILE = 2; // Æ½ÆÌ
+//	èƒŒæ™¯å›¾å…ƒå¡«å……æ¨¡å¼
+	public static final int MODE_NONE = 0; // ç¼ºçœ
+	public static final int MODE_FILL = 1; // å¡«å……
+	public static final int MODE_TILE = 2; // å¹³é“º
 	
-	//Ë«ÖáÍ¼ĞÎÊ±£¬¿ÉÒÔÖ¸¶¨ÏµÁĞÔÚÄÄ¸öÖáÉÏ
+	//åŒè½´å›¾å½¢æ—¶ï¼Œå¯ä»¥æŒ‡å®šç³»åˆ—åœ¨å“ªä¸ªè½´ä¸Š
 	public static byte AXIS_LEFT = 1;
 	public static byte AXIS_RIGHT = 2;
 
-	//ÊôĞÔ¶ÔÓ¦Í¼Àı»æÖÆÀàĞÍ
-	public static final byte LEGEND_P_LINECOLOR = 1;//ÏßÑÕÉ«
-	public static final byte LEGEND_P_MARKERSTYLE = 2;//ĞÎ×´
-	public static final byte LEGEND_P_FILLCOLOR = 3;//Ìî³äÉ«
+	//å±æ€§å¯¹åº”å›¾ä¾‹ç»˜åˆ¶ç±»å‹
+	public static final byte LEGEND_P_LINECOLOR = 1;//çº¿é¢œè‰²
+	public static final byte LEGEND_P_MARKERSTYLE = 2;//å½¢çŠ¶
+	public static final byte LEGEND_P_FILLCOLOR = 3;//å¡«å……è‰²
 	
   }

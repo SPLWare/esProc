@@ -17,8 +17,8 @@ import com.scudata.expression.StringFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * °Ñ¶şÎ¬±í×Ö·û´®µ¼³ÉĞò±í
- * S.import(F:type:fmt,¡­; s)
+ * æŠŠäºŒç»´è¡¨å­—ç¬¦ä¸²å¯¼æˆåºè¡¨
+ * S.import(F:type:fmt,â€¦; s)
  * @author RunQian
  *
  */

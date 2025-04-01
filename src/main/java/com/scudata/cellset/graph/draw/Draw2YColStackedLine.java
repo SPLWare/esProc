@@ -1,29 +1,29 @@
 package com.scudata.cellset.graph.draw;
 
 /**
- * Ë«Öá¶Ñ»ıÖùÏßÍ¼µÄÊµÏÖ
+ * åŒè½´å †ç§¯æŸ±çº¿å›¾çš„å®ç°
  * @author Joancy
  *
  */
 public class Draw2YColStackedLine extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
-//		ÃªµãÓĞÖØºÏÊ±£¬Ë­ÔÚÇ°Ãæ£¬ä¯ÀÀÆ÷ÏÈÕÒµ½Ë­¡£ÓÉÓÚµãĞ¡£¬½«µãµÄÃªµã·ÅÔÚÖù×ÓÇ°Ãæ¡£ xq 2017Äê11ÔÂ13ÈÕ
+//		é”šç‚¹æœ‰é‡åˆæ—¶ï¼Œè°åœ¨å‰é¢ï¼Œæµè§ˆå™¨å…ˆæ‰¾åˆ°è°ã€‚ç”±äºç‚¹å°ï¼Œå°†ç‚¹çš„é”šç‚¹æ”¾åœ¨æŸ±å­å‰é¢ã€‚ xq 2017å¹´11æœˆ13æ—¥
 		StringBuffer colLink = new StringBuffer();
 		int serNum = DrawColStacked.drawing(db,colLink,true);
 
-//		Ë«ÖáÖùÏßÍ¼Ê±£¬²»ÄÜÔ­µãÖØºÏ
+//		åŒè½´æŸ±çº¿å›¾æ—¶ï¼Œä¸èƒ½åŸç‚¹é‡åˆ
 		db.gp.isOverlapOrigin = false;
 		Draw2Y2Line.drawY2Line(db, serNum, htmlLink);
 		

@@ -7,7 +7,7 @@ import com.scudata.expression.DBFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * »Ø¹öÊı¾İ¿âµ½Ö¸¶¨»Ø¹öµã£¬ÎŞ²ÎÊıÊÇ»Ø¹öÈ«²¿¸üĞÂµã
+ * å›æ»šæ•°æ®åº“åˆ°æŒ‡å®šå›æ»šç‚¹ï¼Œæ— å‚æ•°æ˜¯å›æ»šå…¨éƒ¨æ›´æ–°ç‚¹
  * db.rollback(spn)
  * @author RunQian
  *

@@ -10,9 +10,9 @@ import com.scudata.chart.edit.*;
 import com.scudata.common.ImageUtils;
 
 /**
- * ±³¾°Í¼Ôª
- * ÏÈ»­±³¾°ÑÕÉ«£¬ÔÙ»­±³¾°Í¼£¬Èç¹û±³¾°Í¼ÊÇÍ¸Ã÷µÄ£¬Á½Õß²Å»á¶¼ÉúĞ§¡£
- * ·ñÔòÍ¼Æ¬»á¸Ç×¡ÑÕÉ« 
+ * èƒŒæ™¯å›¾å…ƒ
+ * å…ˆç”»èƒŒæ™¯é¢œè‰²ï¼Œå†ç”»èƒŒæ™¯å›¾ï¼Œå¦‚æœèƒŒæ™¯å›¾æ˜¯é€æ˜çš„ï¼Œä¸¤è€…æ‰ä¼šéƒ½ç”Ÿæ•ˆã€‚
+ * å¦åˆ™å›¾ç‰‡ä¼šç›–ä½é¢œè‰² 
  * @author Joancy
  *
  */
@@ -20,33 +20,33 @@ public class BackGround extends ObjectElement {
 	public ChartColor backColor = new ChartColor(Color.white);
 	public float transparent = 1f;
 	public boolean visible = true;
-	// Í¼Æ¬±³¾°
+	// å›¾ç‰‡èƒŒæ™¯
 	public Para imageValue = new Para();
-	// Í¼Æ¬Ìî³äÄ£Ê½
+	// å›¾ç‰‡å¡«å……æ¨¡å¼
 	public int imageMode = Consts.MODE_NONE;
 
 	/**
-	 * Í¼ÔªÊÇ·ñ¿É¼û
+	 * å›¾å…ƒæ˜¯å¦å¯è§
 	 */
 	public boolean isVisible() {
 		return visible;
 	}
 
 	/**
-	 * ±³¾°Í¼»á×îÏÈ»æÖÆ£¬¸Ã²ãºöÂÔ
+	 * èƒŒæ™¯å›¾ä¼šæœ€å…ˆç»˜åˆ¶ï¼Œè¯¥å±‚å¿½ç•¥
 	 */
 	public void beforeDraw() {
 	}
 
 	/**
-	 * ±³¾°Í¼»á×îÏÈ»æÖÆ£¬¸Ã²ãºöÂÔ
+	 * èƒŒæ™¯å›¾ä¼šæœ€å…ˆç»˜åˆ¶ï¼Œè¯¥å±‚å¿½ç•¥
 	 */
 	public void draw() {
 	}
 	
 	/**
-	 * »ñÈ¡Í¼ÏñµÄÔ­Ê¼¿í¸ß
-	 * @return ¿íºÍ¸ßµÄÏñËØÖµ
+	 * è·å–å›¾åƒçš„åŸå§‹å®½é«˜
+	 * @return å®½å’Œé«˜çš„åƒç´ å€¼
 	 */
 	public int[] getOrginalWH(){
 		Object imgVal = imageValue.getValue();
@@ -61,7 +61,7 @@ public class BackGround extends ObjectElement {
 	}
 
 	/**
-	 * ±³¾°²ã»æÖÆ
+	 * èƒŒæ™¯å±‚ç»˜åˆ¶
 	 */
 	public void drawBack() {
 		if (!isVisible()) {
@@ -107,14 +107,14 @@ public class BackGround extends ObjectElement {
 	}
 
 	/**
-	 * Ç°¾°²ã»æÖÆ£¬ºöÂÔ¸Ã²ã
+	 * å‰æ™¯å±‚ç»˜åˆ¶ï¼Œå¿½ç•¥è¯¥å±‚
 	 */
 	public void drawFore() {
 	}
 
 	/**
-	 * Ã¿¸öÍ¼Ôª¶¼ĞèÒªÊÂÏÈµÄ¿É±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ParamInfoList µ±Ç°Í¼ÔªµÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * æ¯ä¸ªå›¾å…ƒéƒ½éœ€è¦äº‹å…ˆçš„å¯ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return ParamInfoList å½“å‰å›¾å…ƒçš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -131,8 +131,8 @@ public class BackGround extends ObjectElement {
 	}
 
 	/**
-	 * Í¼Ôª»æÖÆÍê³Éºó£¬²úÉúµÄÁ´½Óshape
-	 * µ±Ç°Í¼ÔªÎŞÒâÒå
+	 * å›¾å…ƒç»˜åˆ¶å®Œæˆåï¼Œäº§ç”Ÿçš„é“¾æ¥shape
+	 * å½“å‰å›¾å…ƒæ— æ„ä¹‰
 	 * @return Shape null
 	 */
 	public ArrayList<Shape> getShapes() {
@@ -140,8 +140,8 @@ public class BackGround extends ObjectElement {
 	}
 
 	/**
-	 * Í¼Ôª»æÖÆÍê³Éºó£¬²úÉúµÄ³¬Á´½ÓÁĞ±í
-	 * µ±Ç°Í¼ÔªÎŞÒâÒå
+	 * å›¾å…ƒç»˜åˆ¶å®Œæˆåï¼Œäº§ç”Ÿçš„è¶…é“¾æ¥åˆ—è¡¨
+	 * å½“å‰å›¾å…ƒæ— æ„ä¹‰
 	 * @return null
 	 */
 	public ArrayList<String> getLinks() {
@@ -151,7 +151,7 @@ public class BackGround extends ObjectElement {
 	protected transient Engine e;
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÒıÇæ
+	 * è®¾ç½®å›¾å½¢å¼•æ“
 	 */
 	public void setEngine(Engine e) {
 		this.e = e;
@@ -159,8 +159,8 @@ public class BackGround extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Í¼ĞÎÒıÇæ
-	 * @return ÒıÇæ
+	 * è·å–å½“å‰å›¾å½¢å¼•æ“
+	 * @return å¼•æ“
 	 */
 	public Engine getEngine() {
 		return e;

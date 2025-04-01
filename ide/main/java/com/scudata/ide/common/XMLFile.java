@@ -430,7 +430,7 @@ public class XMLFile {
 	 * @throws Exception
 	 */
 	public void save(String file) throws Exception {
-		// È¥³ı¿ÕĞĞ
+		// å»é™¤ç©ºè¡Œ
 		if (xmlDocument != null)
 			trimWhitespace(xmlDocument.getDocumentElement());
 		writeNodeToFile(xmlDocument, file);
@@ -458,7 +458,7 @@ public class XMLFile {
 	 * @throws Exception
 	 */
 	public void save(OutputStream os) throws Exception {
-		// È¥³ı¿ÕĞĞ
+		// å»é™¤ç©ºè¡Œ
 		if (xmlDocument != null)
 			trimWhitespace(xmlDocument.getDocumentElement());
 		outputDocument(xmlDocument, os);
@@ -524,7 +524,7 @@ public class XMLFile {
 					continue;
 				if (child.getNodeType() == Node.TEXT_NODE) {
 					String content = child.getTextContent();
-					// È¥³ı¿ÕĞĞ
+					// å»é™¤ç©ºè¡Œ
 					if (content != null && !StringUtils.isValidString(content))
 						child.setTextContent("");
 				}
@@ -685,7 +685,7 @@ public class XMLFile {
 	}
 
 	/**
-	 * ½âÎöXML
+	 * è§£æXML
 	 * @param is
 	 * @return
 	 * @throws Exception
@@ -698,7 +698,7 @@ public class XMLFile {
 	}
 
 	/**
-	 * °´Ãû³ÆÈ¡×Ó½Úµã
+	 * æŒ‰åç§°å–å­èŠ‚ç‚¹
 	 * @param parent
 	 * @param childName
 	 * @return
@@ -721,7 +721,7 @@ public class XMLFile {
 	}
 
 	/**
-	 * °´Ãû×ÖÈ¡¶à¸ö×Ó½Úµã
+	 * æŒ‰åå­—å–å¤šä¸ªå­èŠ‚ç‚¹
 	 * @param parent
 	 * @param childName
 	 * @return

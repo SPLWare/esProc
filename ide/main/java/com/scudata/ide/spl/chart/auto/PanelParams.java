@@ -9,7 +9,7 @@ import com.scudata.ide.spl.chart.TableParamEdit;
 import java.awt.*;
 
 /**
- * ²ÎÊı±à¼­Ãæ°å
+ * å‚æ•°ç¼–è¾‘é¢æ¿
  * 
  * @author Joancy
  *
@@ -22,25 +22,25 @@ public abstract class PanelParams extends JPanel{
 	private Dialog owner;
 
 	/**
-	 * ÉèÖÃ²ÎÊıĞÅÏ¢
-	 * @param info ²ÎÊıĞÅÏ¢
+	 * è®¾ç½®å‚æ•°ä¿¡æ¯
+	 * @param info å‚æ•°ä¿¡æ¯
 	 */
 	public void setElementInfo( ElementInfo info ) {
 		init( owner, info.getParamInfoList() );
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @param owner ¸¸´°¿Ú
-	 * @param list ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è®¾ç½®å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @param owner çˆ¶çª—å£
+	 * @param list å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public void setParamInfoList( Dialog owner, ParamInfoList list ) {
 		init( owner, list );
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
 	 */
 	public PanelParams( Dialog owner ) {
 		this.owner = owner;
@@ -49,14 +49,14 @@ public abstract class PanelParams extends JPanel{
 	public abstract void refresh();
 
 	/**
-	 * Õ¹¿ªËùÓĞ²ÎÊı
+	 * å±•å¼€æ‰€æœ‰å‚æ•°
 	 */
 	public void expandAll(){
 		table.expandAll();
 	}
 	
 	/**
-	 * ÊÕÆğËùÓĞ²ÎÊı
+	 * æ”¶èµ·æ‰€æœ‰å‚æ•°
 	 */
 	public void collapseAll(){
 		table.collapseAll();
@@ -65,7 +65,7 @@ public abstract class PanelParams extends JPanel{
 	private void init( Dialog owner, ParamInfoList list ) {
 		this.infoList = list;
 		setLayout( new BorderLayout() );
-//		Êı¾İÓÉ½çÃæÆ´³ö
+//		æ•°æ®ç”±ç•Œé¢æ‹¼å‡º
 		list.delete("categories");
 		list.delete("values");
 		table = new TableParamEdit( owner, list ){
@@ -92,16 +92,16 @@ public abstract class PanelParams extends JPanel{
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊı±à¼­±í
-	 * @return ²ÎÊı±í
+	 * è·å–å‚æ•°ç¼–è¾‘è¡¨
+	 * @return å‚æ•°è¡¨
 	 */
 	public TableParamEdit getParamTable() {
 		return table;
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		table.acceptText();

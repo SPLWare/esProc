@@ -7,20 +7,20 @@ import com.scudata.expression.Node;
 import com.scudata.util.Variant;
 
 /**
- * °üº¬¹ıÂËÆ÷Àà
- * ÓÃÓÚÅĞ¶ÏÒ»¸ö¶ÔÏóÊÇ·ñ°üº¬ÔÚ¸ø¶¨µÄĞòÁĞÀï
+ * åŒ…å«è¿‡æ»¤å™¨ç±»
+ * ç”¨äºåˆ¤æ–­ä¸€ä¸ªå¯¹è±¡æ˜¯å¦åŒ…å«åœ¨ç»™å®šçš„åºåˆ—é‡Œ
  * @author runqian
  *
  */
 public class ContainFilter extends IFilter {
-	public static final int BINARYSEARCH_COUNT = 3; // ÔªËØ¸öÊı´óÓÚ´ËÖµ²ÉÓÃ¶ş·Ö·¨²éÕÒ
+	public static final int BINARYSEARCH_COUNT = 3; // å…ƒç´ ä¸ªæ•°å¤§äºæ­¤å€¼é‡‡ç”¨äºŒåˆ†æ³•æŸ¥æ‰¾
 	private IArray values;
 	/**
-	 * ¹¹ÔìÆ÷
-	 * @param column ÁĞ¶ÔÏó
-	 * @param priority ÓÅÏÈ¼¶
-	 * @param sequence ¸ø¶¨µÄĞòÁĞ
-	 * @param opt µÈÓÚbÊ±±íÊ¾sequenceÒÑ¾­ÓĞĞò
+	 * æ„é€ å™¨
+	 * @param column åˆ—å¯¹è±¡
+	 * @param priority ä¼˜å…ˆçº§
+	 * @param sequence ç»™å®šçš„åºåˆ—
+	 * @param opt ç­‰äºbæ—¶è¡¨ç¤ºsequenceå·²ç»æœ‰åº
 	 */
 	public ContainFilter(ColumnMetaData column, int priority, Sequence sequence, String opt) {
 		super(column, priority);
@@ -40,11 +40,11 @@ public class ContainFilter extends IFilter {
 	}
 	
 	/**
-	 * ¹¹ÔìÆ÷ (ÓÃÓÚĞĞ´æ)
-	 * @param columnName ÁĞÃû³Æ
-	 * @param priority ÓÅÏÈ¼¶
-	 * @param sequence ¸ø¶¨µÄĞòÁĞ
-	 * @param opt µÈÓÚbÊ±±íÊ¾sequenceÒÑ¾­ÓĞĞò
+	 * æ„é€ å™¨ (ç”¨äºè¡Œå­˜)
+	 * @param columnName åˆ—åç§°
+	 * @param priority ä¼˜å…ˆçº§
+	 * @param sequence ç»™å®šçš„åºåˆ—
+	 * @param opt ç­‰äºbæ—¶è¡¨ç¤ºsequenceå·²ç»æœ‰åº
 	 */
 	public ContainFilter(String columnName, int priority, Sequence sequence, String opt) {
 		this.columnName = columnName;
@@ -63,7 +63,7 @@ public class ContainFilter extends IFilter {
 		IArray values = this.values;
 		int len = values.size();
 		
-		// ¶ş·Ö·¨²éÕÒ×îĞ¡ÖµÔÚÊı×éÖĞµÄÎ»ÖÃ
+		// äºŒåˆ†æ³•æŸ¥æ‰¾æœ€å°å€¼åœ¨æ•°ç»„ä¸­çš„ä½ç½®
 		int low1 = 1;
 		int high1 = len;
 		while (low1 <= high1) {
@@ -78,12 +78,12 @@ public class ContainFilter extends IFilter {
 				return true; // key found
 		}
 		
-		// ¿é×îĞ¡Öµ±È¼¯ºÏ×î´óÖµ´ó»òÕß¿é×îĞ¡ÖµµÈÓÚ×î´óÖµÔòÃ»ÓĞ·ûºÏÌõ¼şµÄ¼ÇÂ¼
+		// å—æœ€å°å€¼æ¯”é›†åˆæœ€å¤§å€¼å¤§æˆ–è€…å—æœ€å°å€¼ç­‰äºæœ€å¤§å€¼åˆ™æ²¡æœ‰ç¬¦åˆæ¡ä»¶çš„è®°å½•
 		if (low1 > len || Variant.isEquals(minValue, maxValue)) {
 			return false;
 		}
 		
-		// ¶ş·Ö·¨²éÕÒ×î´óÖµÔÚÊı×éÖĞµÄÎ»ÖÃ
+		// äºŒåˆ†æ³•æŸ¥æ‰¾æœ€å¤§å€¼åœ¨æ•°ç»„ä¸­çš„ä½ç½®
 		int low2 = low1;
 		int high2 = len;
 		while (low2 <= high2) {
@@ -98,7 +98,7 @@ public class ContainFilter extends IFilter {
 				return true; // key found
 		}
 		
-		// Èç¹û¿é×îĞ¡ÖµºÍ¿é×î´óÖµÔÚ¼¯ºÏÖĞµÄ²åÈëÎ»ÖÃÏàÍ¬ÔòÃ»ÓĞ·ûºÏÌõ¼şµÄ¼ÇÂ¼
+		// å¦‚æœå—æœ€å°å€¼å’Œå—æœ€å¤§å€¼åœ¨é›†åˆä¸­çš„æ’å…¥ä½ç½®ç›¸åŒåˆ™æ²¡æœ‰ç¬¦åˆæ¡ä»¶çš„è®°å½•
 		return low1 != low2;
 	}
 }

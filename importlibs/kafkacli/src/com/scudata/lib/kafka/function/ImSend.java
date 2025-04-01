@@ -27,7 +27,7 @@ public class ImSend extends ImFunction {
 			if (m_conn.m_bClose){
 				return null;
 			}
-			//分区参数
+			//鍒嗗尯鍙傛暟
 			
 			Param param = null;
 			boolean bSameConn = false;

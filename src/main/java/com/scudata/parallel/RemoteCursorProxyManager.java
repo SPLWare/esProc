@@ -8,7 +8,7 @@ import com.scudata.dm.cursor.ICursor;
 import java.lang.reflect.*;
 
 /**
- * Ô¶³ÌÓÎ±ê´úÀí¹ÜÀíÆ÷
+ * è¿œç¨‹æ¸¸æ ‡ä»£ç†ç®¡ç†å™¨
  * @author Joancy
  *
  */
@@ -19,8 +19,8 @@ public class RemoteCursorProxyManager {
 	ArrayList<RemoteCursorProxy> proxys = new ArrayList<RemoteCursorProxy>();
 
 	/**
-	 * ÎªÁËÖ§³Ö¼¯ÈºÓÎ±ê£¬Ê¹ÓÃ¾²Ì¬¹ÜÀíÆ÷£¬¸Ã¹ÜÀíÆ÷²»ÊôÓÚÈÎºÎTask£¬taskÎªnull
-	 * @return ÓÎ±ê´úÀí¹ÜÀíÆ÷
+	 * ä¸ºäº†æ”¯æŒé›†ç¾¤æ¸¸æ ‡ï¼Œä½¿ç”¨é™æ€ç®¡ç†å™¨ï¼Œè¯¥ç®¡ç†å™¨ä¸å±äºä»»ä½•Taskï¼Œtaskä¸ºnull
+	 * @return æ¸¸æ ‡ä»£ç†ç®¡ç†å™¨
 	 */
 	public static RemoteCursorProxyManager getInstance(){
 		if(instance==null){
@@ -30,9 +30,9 @@ public class RemoteCursorProxyManager {
 	}
 	
 	/**
-	 * Ôö¼ÓÒ»¸öÓÎ±ê£¬·µ»ØÓÎ±ê´úÀíºÅ
-	 * @param c ÓÎ±ê
-	 * @return ´úÀíºÅ
+	 * å¢åŠ ä¸€ä¸ªæ¸¸æ ‡ï¼Œè¿”å›æ¸¸æ ‡ä»£ç†å·
+	 * @param c æ¸¸æ ‡
+	 * @return ä»£ç†å·
 	 */
 	public static int addCursor(ICursor c){
 		RemoteCursorProxyManager rcpm = RemoteCursorProxyManager.getInstance();
@@ -42,23 +42,23 @@ public class RemoteCursorProxyManager {
 	}
 
 	/**
-	 * ´´½¨ÓÎ±ê´úÀí¹ÜÀíÆ÷
-	 * @param t Á¥ÊôµÄÈÎÎñ
+	 * åˆ›å»ºæ¸¸æ ‡ä»£ç†ç®¡ç†å™¨
+	 * @param t éš¶å±çš„ä»»åŠ¡
 	 */
 	public RemoteCursorProxyManager(ITask t) {
 		this.task = t;
 	}
 
 	/**
-	 * »ñÈ¡´úÀíÁĞ±í
-	 * @return ´úÀíÁĞ±í
+	 * è·å–ä»£ç†åˆ—è¡¨
+	 * @return ä»£ç†åˆ—è¡¨
 	 */
 	public ArrayList<RemoteCursorProxy> getProxys(){
 		return proxys;
 	}
 	
 	/**
-	 * Ïú»Ùµ±Ç°´úÀíÆ÷
+	 * é”€æ¯å½“å‰ä»£ç†å™¨
 	 */
 	public void destroy() {
 		for (int i = 0; i < proxys.size(); i++) {
@@ -69,17 +69,17 @@ public class RemoteCursorProxyManager {
 	}
 
 	/**
-	 * »ñÈ¡ÈÎÎñ¶ÔÏó
-	 * @return ÈÎÎñ
+	 * è·å–ä»»åŠ¡å¯¹è±¡
+	 * @return ä»»åŠ¡
 	 */
 	public ITask getTask() {
 		return task;
 	}
 
 	/**
-	 * Ö´ĞĞÇëÇó
-	 * @param req ÇëÇó
-	 * @return ÏìÓ¦
+	 * æ‰§è¡Œè¯·æ±‚
+	 * @param req è¯·æ±‚
+	 * @return å“åº”
 	 */
 	public Response execute(Request req) {
 		if(task!=null){
@@ -92,7 +92,7 @@ public class RemoteCursorProxyManager {
 			RemoteCursorProxy rcp = getProxy(proxyId);
 			String methodName = (String) req.getAttr(Request.METHOD_MethodName);
 			if(methodName.equals("close")&&rcp==null){
-//ÓÉÓÚ´úÀí¶ËÓÎ±êfetchÍêºó£¬×Ô¶¯closeµôÁË£¬´ËÊ±¿Í»§¶ËÔÙ·¢À´µÄclose£¬²»Ğè´¦Àí£¬ÒÑ¾­²»´æÔÚ¸Ã´úÀí¡£				
+//ç”±äºä»£ç†ç«¯æ¸¸æ ‡fetchå®Œåï¼Œè‡ªåŠ¨closeæ‰äº†ï¼Œæ­¤æ—¶å®¢æˆ·ç«¯å†å‘æ¥çš„closeï¼Œä¸éœ€å¤„ç†ï¼Œå·²ç»ä¸å­˜åœ¨è¯¥ä»£ç†ã€‚				
 				return res;
 			}
 			Object[] args = (Object[]) req.getAttr(Request.METHOD_ArgValues);
@@ -116,17 +116,17 @@ public class RemoteCursorProxyManager {
 	}
 
 	/**
-	 * Ôö¼ÓÓÎ±ê´úÀí
-	 * @param rcp ÓÎ±ê´úÀí
+	 * å¢åŠ æ¸¸æ ‡ä»£ç†
+	 * @param rcp æ¸¸æ ‡ä»£ç†
 	 */
 	public synchronized void addProxy(RemoteCursorProxy rcp) {
 		proxys.add(rcp);
 	}
 
 	/**
-	 * É¾³ı´úÀí¶ÔÏó
-	 * ËùÓĞ´úÀí¶¼É¾¿Õºó½«ÈÎÎñÖĞµÄ³ÌĞòÍøÊÍ·Å
-	 * @param proxyID ÒªÉ¾³ıµÄ´úÀí±àºÅ
+	 * åˆ é™¤ä»£ç†å¯¹è±¡
+	 * æ‰€æœ‰ä»£ç†éƒ½åˆ ç©ºåå°†ä»»åŠ¡ä¸­çš„ç¨‹åºç½‘é‡Šæ”¾
+	 * @param proxyID è¦åˆ é™¤çš„ä»£ç†ç¼–å·
 	 */
 	public synchronized void delProxy(int proxyID) {
 		for (int i = 0; i < proxys.size(); i++) {
@@ -144,9 +144,9 @@ public class RemoteCursorProxyManager {
 	}
 
 	/**
-	 * ¸ù¾İ´úÀí±àºÅproxyIDÈ¥´úÀí¶ÔÏó
-	 * @param proxyID ´úÀí±àºÅ
-	 * @return ÓÎ±ê´úÀí¶ÔÏó
+	 * æ ¹æ®ä»£ç†ç¼–å·proxyIDå»ä»£ç†å¯¹è±¡
+	 * @param proxyID ä»£ç†ç¼–å·
+	 * @return æ¸¸æ ‡ä»£ç†å¯¹è±¡
 	 */
 	public synchronized RemoteCursorProxy getProxy(int proxyID) {
 		for (int i = 0; i < proxys.size(); i++) {
@@ -159,12 +159,12 @@ public class RemoteCursorProxyManager {
 	}
 
 	/**
-	 * Ê¹ÓÃ·´ÉäÖ´ĞĞÀàµÄ·½·¨
-	 * @param owner Ö÷Àà
-	 * @param methodName ·½·¨Ãû
-	 * @param args ²ÎÊı
-	 * @return Ö´ĞĞ½á¹û
-	 * @throws Exception ³ö´íÊ±Å×³öÒì³£
+	 * ä½¿ç”¨åå°„æ‰§è¡Œç±»çš„æ–¹æ³•
+	 * @param owner ä¸»ç±»
+	 * @param methodName æ–¹æ³•å
+	 * @param args å‚æ•°
+	 * @return æ‰§è¡Œç»“æœ
+	 * @throws Exception å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public static Object invokeMethod(Object owner, String methodName,
 			Object[] args) throws Exception {
@@ -210,7 +210,7 @@ public class RemoteCursorProxyManager {
 	}
 
 	private static boolean localMatch(Class c, Object o) {
-		// ²ÎÊıÎªnullÊ±£¬¼ÙÉèÆ¥Åä
+		// å‚æ•°ä¸ºnullæ—¶ï¼Œå‡è®¾åŒ¹é…
 		if (o == null)
 			return true;
 
@@ -241,12 +241,12 @@ public class RemoteCursorProxyManager {
 	}
 
 	/**
-	 * ¼ì²é´úÀí³¬Ê±
-	 * @param proxyTimeOut ³¬Ê±Ê±¼ä
+	 * æ£€æŸ¥ä»£ç†è¶…æ—¶
+	 * @param proxyTimeOut è¶…æ—¶æ—¶é—´
 	 */
 	public static synchronized void checkTimeOut(int proxyTimeOut) {
 		RemoteCursorProxyManager instance = RemoteCursorProxyManager.getInstance();
-		// »»Ëã³ÉÃë£¬timeOutµ¥Î»ÎªÃë
+		// æ¢ç®—æˆç§’ï¼ŒtimeOutå•ä½ä¸ºç§’
 		ArrayList<RemoteCursorProxy> proxys = instance.getProxys();
 		for (int i = proxys.size() - 1; i >= 0; i--) {
 			RemoteCursorProxy rcp = proxys.get(i);

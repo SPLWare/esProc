@@ -10,8 +10,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.HTMLUtil;
 
 /**
- * È¡³öHTML´®ÖĞÖ¸¶¨tagÏÂµÄÖ¸¶¨ĞòºÅµÄÎÄ±¾£¬·µ»Ø³ÉĞòÁĞ
- * s.htmlparse(tag:i:j,¡­)
+ * å–å‡ºHTMLä¸²ä¸­æŒ‡å®štagä¸‹çš„æŒ‡å®šåºå·çš„æ–‡æœ¬ï¼Œè¿”å›æˆåºåˆ—
+ * s.htmlparse(tag:i:j,â€¦)
  * @author RunQian
  *
  */

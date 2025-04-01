@@ -27,25 +27,25 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.MinHeap;
 
 /**
- * È¡ÅÅÃûÇ°¼¸µÄÔªËØ
- * top(n,x) top(n;x,¡­) top(n,y,x)
+ * å–æ’åå‰å‡ çš„å…ƒç´ 
+ * top(n,x) top(n;x,â€¦) top(n,y,x)
  * @author RunQian
  *
  */
 public class Top extends Gather {
 	private int count = 1;
-	private Expression exp; // ±È½Ï±í´ïÊ½
-	private Expression getExp; // ½á¹û¼¯È¡Öµ±í´ïÊ½
-	private boolean isCurrent; // ÊÇ·ñÈ¡µ±Ç°¼ÇÂ¼
+	private Expression exp; // æ¯”è¾ƒè¡¨è¾¾å¼
+	private Expression getExp; // ç»“æœé›†å–å€¼è¡¨è¾¾å¼
+	private boolean isCurrent; // æ˜¯å¦å–å½“å‰è®°å½•
 	
-	private boolean isPositive = true; // nÊÇ·ñÊÇÕıÊı
-	private boolean isOne = false; // ÊÇ·ñÓĞ@1Ñ¡Ïî
-	private boolean isSame = false; // ÊÇ·ñÈ¡ËùÓĞ×î´ó»ò×îĞ¡µÄ
-	private boolean isRank = false; // ÊÇ·ñÓÃÅÅÃû·½Ê½È¡Ç°¼¸
-	private boolean isDistinct = false; // ÊÇ·ñ°´È¥ÖØ·½Ê½ËãÅÅÃû
+	private boolean isPositive = true; // næ˜¯å¦æ˜¯æ­£æ•°
+	private boolean isOne = false; // æ˜¯å¦æœ‰@1é€‰é¡¹
+	private boolean isSame = false; // æ˜¯å¦å–æ‰€æœ‰æœ€å¤§æˆ–æœ€å°çš„
+	private boolean isRank = false; // æ˜¯å¦ç”¨æ’åæ–¹å¼å–å‰å‡ 
+	private boolean isDistinct = false; // æ˜¯å¦æŒ‰å»é‡æ–¹å¼ç®—æ’å
 	
 	private Comparator<Object> comparator;
-	private int expIndex = -1; // ±È½Ï±í´ïÊ½µÄ×Ö¶ÎË÷Òı
+	private int expIndex = -1; // æ¯”è¾ƒè¡¨è¾¾å¼çš„å­—æ®µç´¢å¼•
 
 	public void prepare(Context ctx) {
 		if (option != null) {
@@ -403,7 +403,7 @@ public class Top extends Gather {
 		}
 	}
 	
-	// ÓÃÓÚtop(1,x)È¡ËùÓĞ×î´ó»ò×îĞ¡µÄ
+	// ç”¨äºtop(1,x)å–æ‰€æœ‰æœ€å¤§æˆ–æœ€å°çš„
 	private static void addToSequence(Sequence seq, Object obj, Comparator<Object> comparator) {
 		if (obj == null) {
 			return;
@@ -721,7 +721,7 @@ public class Top extends Gather {
 		return oldValue;
 	}
 	
-	// È¡ËùÓĞ×îĞ¡Öµ
+	// å–æ‰€æœ‰æœ€å°å€¼
 	private IArray minAll(IArray result, int []resultSeqs, Context ctx) {
 		Expression exp = this.exp;
 		if (result == null) {
@@ -762,7 +762,7 @@ public class Top extends Gather {
 		return result;
 	}
 		
-	// È¡ËùÓĞÊ¹Ö¸¶¨±í´ïÊ½×î´ó»ò×îĞ¡µÄ¼ÇÂ¼
+	// å–æ‰€æœ‰ä½¿æŒ‡å®šè¡¨è¾¾å¼æœ€å¤§æˆ–æœ€å°çš„è®°å½•
 	private IArray topAll(IArray result, int []resultSeqs, Context ctx) {
 		if (result == null) {
 			result = new ObjectArray(Env.INITGROUPSIZE);
@@ -786,7 +786,7 @@ public class Top extends Gather {
 		return result;
 	}
 	
-	// È¡×î´óÖµ
+	// å–æœ€å¤§å€¼
 	/*private IArray max(IArray result, int []resultSeqs, Context ctx) {
 		Expression exp = this.exp;
 		if (getExp == null) {
@@ -857,7 +857,7 @@ public class Top extends Gather {
 		return result;
 	}
 	
-	// È¡×îĞ¡Öµ
+	// å–æœ€å°å€¼
 	private IArray min(IArray result, int []resultSeqs, Context ctx) {
 		Expression exp = this.exp;
 		if (getExp == null) {
@@ -928,7 +928,7 @@ public class Top extends Gather {
 		return result;
 	}*/
 	
-	// È¡ËùÓĞ×î´óµÄ
+	// å–æ‰€æœ‰æœ€å¤§çš„
 	private IArray maxAll(IArray result, int []resultSeqs, Context ctx) {
 		Expression exp = this.exp;
 		if (result == null) {
@@ -970,11 +970,11 @@ public class Top extends Gather {
 	}
 	
 	/**
-	 * ¼ÆËãËùÓĞ¼ÇÂ¼µÄÖµ£¬»ã×Üµ½½á¹ûÊı×éÉÏ
-	 * @param result ½á¹ûÊı×é
-	 * @param resultSeqs Ã¿Ìõ¼ÇÂ¼¶ÔÓ¦µÄ½á¹ûÊı×éµÄĞòºÅ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return IArray ½á¹ûÊı×é
+	 * è®¡ç®—æ‰€æœ‰è®°å½•çš„å€¼ï¼Œæ±‡æ€»åˆ°ç»“æœæ•°ç»„ä¸Š
+	 * @param result ç»“æœæ•°ç»„
+	 * @param resultSeqs æ¯æ¡è®°å½•å¯¹åº”çš„ç»“æœæ•°ç»„çš„åºå·
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return IArray ç»“æœæ•°ç»„
 	 */
 	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
 		if (isRank) {
@@ -1182,7 +1182,7 @@ public class Top extends Gather {
 		}
 	}
 	
-	// È¡ËùÓĞÊ¹Ö¸¶¨±í´ïÊ½×î´ó»ò×îĞ¡µÄ¼ÇÂ¼
+	// å–æ‰€æœ‰ä½¿æŒ‡å®šè¡¨è¾¾å¼æœ€å¤§æˆ–æœ€å°çš„è®°å½•
 	private void topAll(IArray result, IArray result2, int []seqs, Context ctx) {
 		Expression exp = this.exp;
 		Comparator<Object> comparator = this.comparator;
@@ -1240,11 +1240,11 @@ public class Top extends Gather {
 	}
 	
 	/**
-	 * ¶à³Ì³Ì·Ö×éµÄ¶ş´Î»ã×ÜÔËËã
-	 * @param result Ò»¸öÏß³ÌµÄ·Ö×é½á¹û
-	 * @param result2 ÁíÒ»¸öÏß³ÌµÄ·Ö×é½á¹û
-	 * @param seqs ÁíÒ»¸öÏß³ÌµÄ·Ö×é¸úµÚÒ»¸öÏß³Ì·Ö×éµÄ¶ÔÓ¦¹ØÏµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤šç¨‹ç¨‹åˆ†ç»„çš„äºŒæ¬¡æ±‡æ€»è¿ç®—
+	 * @param result ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„ç»“æœ
+	 * @param result2 å¦ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„ç»“æœ
+	 * @param seqs å¦ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„è·Ÿç¬¬ä¸€ä¸ªçº¿ç¨‹åˆ†ç»„çš„å¯¹åº”å…³ç³»
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public void gather2(IArray result, IArray result2, int []seqs, Context ctx) {

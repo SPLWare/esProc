@@ -89,7 +89,7 @@ public class AppendDataThread extends Thread {
 				try {
 					val = record.getFieldValue(nNames[j]);
 				} catch (Exception e) {
-					// È¡²»µ½µÄÏÔÊ¾¿Õ
+					// å–ä¸åˆ°çš„æ˜¾ç¤ºç©º
 					continue;
 				}
 				int col = table.getColumnIndex(nNames[j]);

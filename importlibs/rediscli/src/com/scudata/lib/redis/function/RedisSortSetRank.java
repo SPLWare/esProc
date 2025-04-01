@@ -8,7 +8,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.Node;
 
 public class RedisSortSetRank extends RedisBase {
-	boolean m_bReverse = false;	//µ¹ÅÅĞò
+	boolean m_bReverse = false;	//å€’æ’åº
 	public Node optimize(Context ctx) {
 		m_paramTypes = new String[]{"string","string"};
 		return super.optimize(ctx);

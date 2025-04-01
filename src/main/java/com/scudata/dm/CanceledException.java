@@ -4,7 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.resources.ParallelMessage;
 
 /**
- * ×÷Òµ±»È¡ÏûºóÒıÆğµÄÒì³£
+ * ä½œä¸šè¢«å–æ¶ˆåå¼•èµ·çš„å¼‚å¸¸
  * @author Joancy
  *
  */
@@ -17,31 +17,31 @@ public class CanceledException extends RuntimeException {
 	public static String TYPE_OTHER = "Canceled by other task.";
 	
 	/**
-	 * È±Ê¡¹¹Ôìº¯Êı
+	 * ç¼ºçœæ„é€ å‡½æ•°
 	 */
 	public CanceledException() {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param msg È¡ÏûÔ­Òò
+	 * æ„é€ å‡½æ•°
+	 * @param msg å–æ¶ˆåŸå› 
 	 */
 	public CanceledException(String msg) {
 		super(msg);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param msg È¡ÏûÔ­Òò
-	 * @param cause ÒıÆğ´íÎóµÄÒì³£
+	 * æ„é€ å‡½æ•°
+	 * @param msg å–æ¶ˆåŸå› 
+	 * @param cause å¼•èµ·é”™è¯¯çš„å¼‚å¸¸
 	 */
 	public CanceledException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param cause ÒıÆğ´íÎóµÄÒì³£
+	 * æ„é€ å‡½æ•°
+	 * @param cause å¼•èµ·é”™è¯¯çš„å¼‚å¸¸
 	 */
 	public CanceledException(Throwable cause) {
 		super(cause);

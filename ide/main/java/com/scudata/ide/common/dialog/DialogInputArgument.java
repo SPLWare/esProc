@@ -28,37 +28,37 @@ import com.scudata.ide.common.swing.VFlowLayout;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ÊäÈë²ÎÊı¶Ô»°¿ò
+ * è¾“å…¥å‚æ•°å¯¹è¯æ¡†
  *
  */
 public class DialogInputArgument extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
-	/** ÏÔÊ¾Ãû³ÆÁĞ */
+	/** æ˜¾ç¤ºåç§°åˆ— */
 	private final int COL_DISP = 0;
-	/** ÊıÖµÁĞ */
+	/** æ•°å€¼åˆ— */
 	private final int COL_VALUE = 1;
-	/** Ãû³ÆÁĞ */
+	/** åç§°åˆ— */
 	private final int COL_NAME = 2;
-	/** ÖĞÎÄËµÃ÷ */
+	/** ä¸­æ–‡è¯´æ˜ */
 	private final String TITLE_DISP = mm.getMessage("dialoginputargument.name");
-	/** ÊıÖµÁĞ */
+	/** æ•°å€¼åˆ— */
 	private final String TITLE_VALUE = mm
 			.getMessage("dialoginputargument.value");
-	/** ÕæÊµÃû³Æ */
+	/** çœŸå®åç§° */
 	private final String TITLE_NAME = "TITLE_NAME";
 
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CLOSED_OPTION;
 
 	/**
-	 * ²ÎÊı±í¸ñ¿Ø¼ş
+	 * å‚æ•°è¡¨æ ¼æ§ä»¶
 	 */
 	private JTableEx paraTable = new JTableEx(new String[] { TITLE_DISP,
 			TITLE_VALUE, TITLE_NAME }) {
@@ -75,22 +75,22 @@ public class DialogInputArgument extends JDialog {
 	};
 
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param ctx
-	 *            ÉÏÏÂÎÄ
+	 *            ä¸Šä¸‹æ–‡
 	 */
 	public DialogInputArgument(Context ctx) {
-		super(GV.appFrame, "ÉèÖÃ²ÎÊıÖµ¡²Ë«»÷ÊıÖµÁĞµ¯³ö±à¼­´°¿Ú¡³", true);
+		super(GV.appFrame, "è®¾ç½®å‚æ•°å€¼ã€”åŒå‡»æ•°å€¼åˆ—å¼¹å‡ºç¼–è¾‘çª—å£ã€•", true);
 		try {
 			initUI();
 			setSize(400, 300);
@@ -103,16 +103,16 @@ public class DialogInputArgument extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetText() {
-		setTitle(mm.getMessage("dialoginputargument.title")); // ÉèÖÃ²ÎÊıÖµ¡²Ë«»÷ÊıÖµÁĞµ¯³ö±à¼­´°¿Ú¡³
+		setTitle(mm.getMessage("dialoginputargument.title")); // è®¾ç½®å‚æ•°å€¼ã€”åŒå‡»æ•°å€¼åˆ—å¼¹å‡ºç¼–è¾‘çª—å£ã€•
 		jBOK.setText(mm.getMessage("button.ok"));
 		jBCancel.setText(mm.getMessage("button.cancel"));
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -121,10 +121,10 @@ public class DialogInputArgument extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ¿É±à¼­
+	 * è®¾ç½®æ˜¯å¦å¯ç¼–è¾‘
 	 * 
 	 * @param editable
-	 *            ÊÇ·ñ¿É±à¼­
+	 *            æ˜¯å¦å¯ç¼–è¾‘
 	 */
 	public void setEditable(boolean editable) {
 		if (!editable) {
@@ -133,7 +133,7 @@ public class DialogInputArgument extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -146,11 +146,11 @@ public class DialogInputArgument extends JDialog {
 		paraTable.setCellSelectionEnabled(false);
 		jBOK.setDefaultCapable(true);
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogInputArgument_jBOK_actionAdapter(this));
 
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.setDefaultCapable(false);
 		jBCancel.addActionListener(new DialogInputArgument_jBCancel_actionAdapter(
 				this));
@@ -169,7 +169,7 @@ public class DialogInputArgument extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıÁĞ±í
+	 * è®¾ç½®å‚æ•°åˆ—è¡¨
 	 * 
 	 * @param paras
 	 */
@@ -192,7 +192,7 @@ public class DialogInputArgument extends JDialog {
 	}
 
 	/**
-	 * È¡²ÎÊı¼üÖµÓ³Éä
+	 * å–å‚æ•°é”®å€¼æ˜ å°„
 	 * 
 	 * @return
 	 */
@@ -201,12 +201,12 @@ public class DialogInputArgument extends JDialog {
 	}
 
 	/**
-	 * ²ÎÊı¼üÖµÓ³Éä
+	 * å‚æ•°é”®å€¼æ˜ å°„
 	 */
 	private HashMap<String, Object> paramMap = null;
 
 	/**
-	 * È¡²ÎÊı¼üÖµÓ³Éä
+	 * å–å‚æ•°é”®å€¼æ˜ å°„
 	 * 
 	 * @return
 	 */
@@ -215,7 +215,7 @@ public class DialogInputArgument extends JDialog {
 		String name; // , value
 		paraTable.acceptText();
 		Object o;
-		// È¡²ÎÊıµÄÖµ
+		// å–å‚æ•°çš„å€¼
 		for (int i = 0; i < paraTable.getRowCount(); ++i) {
 			o = paraTable.data.getValueAt(i, COL_NAME);
 			if (o == null)
@@ -224,7 +224,7 @@ public class DialogInputArgument extends JDialog {
 			o = paraTable.data.getValueAt(i, COL_VALUE);
 			if (StringUtils.isValidString(o)) {
 				try {
-					// ÔÚÈ·ÈÏÊ±½âÎö²ÎÊı£¬¿ÉÒÔ²¶×½Òì³£
+					// åœ¨ç¡®è®¤æ—¶è§£æå‚æ•°ï¼Œå¯ä»¥æ•æ‰å¼‚å¸¸
 					o = PgmNormalCell.parseConstValue((String) o);
 				} catch (Exception ex) {
 					paraTable.selectRow(i);
@@ -246,7 +246,7 @@ public class DialogInputArgument extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -262,7 +262,7 @@ public class DialogInputArgument extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -273,7 +273,7 @@ public class DialogInputArgument extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */

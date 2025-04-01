@@ -48,15 +48,15 @@ public class ALiClient {
 		client = new SyncClient(endpoint, accessKeyId, accessKeySecret, instanceName);
 	}
 	
-	// ¹Ø±ÕÁ¬½ÓÊÍ·Å×ÊÔ´
+	// å…³é—­è¿æ¥é‡Šæ”¾èµ„æº
 	public void close() {
 		client.shutdown();
 	}
 	
 	/**
-	 * °¢ÀïÔÆRow×ªÎªÈóÇ¬Ğò±í
-	 * @param row Row °¢ÀïÔÆRow
-	 * @param colNames String [] ×Ö¶ÎÃû£¬Èç¹ûÊÇnullÔòÓÃ´ÓrowÀïË³ĞòÈ¡
+	 * é˜¿é‡Œäº‘Rowè½¬ä¸ºæ¶¦ä¹¾åºè¡¨
+	 * @param row Row é˜¿é‡Œäº‘Row
+	 * @param colNames String [] å­—æ®µåï¼Œå¦‚æœæ˜¯nullåˆ™ç”¨ä»rowé‡Œé¡ºåºå–
 	 * @return
 	 */
 	static Table toTable(Row row, String []colNames) {
@@ -110,9 +110,9 @@ public class ALiClient {
 	}
 	
 	/**
-	 * °¢ÀïÔÆRowÊı×é×ªÎªÈóÇ¬Ğò±í
-	 * @param rows Row[] °¢ÀïÔÆRowÊı×é
-	 * @param colNames String[] ×Ö¶ÎÃû£¬Èç¹ûÊÇnullÔòÒÔµÚÒ»ĞĞÎª×¼
+	 * é˜¿é‡Œäº‘Rowæ•°ç»„è½¬ä¸ºæ¶¦ä¹¾åºè¡¨
+	 * @param rows Row[] é˜¿é‡Œäº‘Rowæ•°ç»„
+	 * @param colNames String[] å­—æ®µåï¼Œå¦‚æœæ˜¯nullåˆ™ä»¥ç¬¬ä¸€è¡Œä¸ºå‡†
 	 * @return
 	 */
 	static Table toTable(Row []rows, String []colNames) {
@@ -171,7 +171,7 @@ public class ALiClient {
 		int count = colNames.length;
 		Object []values = new Object[count];
 		
-		int []pkIndex = new int[count]; // ×Ö¶Î¶ÔÓ¦µÚ¼¸¸öÖ÷¼ü£¬²»ÊÇÖ÷¼üÔòÎª-1
+		int []pkIndex = new int[count]; // å­—æ®µå¯¹åº”ç¬¬å‡ ä¸ªä¸»é”®ï¼Œä¸æ˜¯ä¸»é”®åˆ™ä¸º-1
 		for (int i = 0; i < count; ++i) {
 			pkIndex[i] = -1;
 		}
@@ -231,7 +231,7 @@ public class ALiClient {
 		} else if (value == null && nullObj != null) {
 			return nullObj;
 		} else {
-			throw new RQException("·Ç·¨µÄÖ÷¼üÖµ");
+			throw new RQException("éæ³•çš„ä¸»é”®å€¼");
 		}
 	}
 	
@@ -249,7 +249,7 @@ public class ALiClient {
 		} else if (value instanceof byte[]) {
 			return new ColumnValue(value, ColumnType.BINARY);
 		} else {
-			throw new RQException("·Ç·¨µÄÁĞÖµ");
+			throw new RQException("éæ³•çš„åˆ—å€¼");
 		}
 	}
 	
@@ -266,7 +266,7 @@ public class ALiClient {
 		case BINARY:
 			return value.asBinary();
         default:
-        	throw new RQException("²»¿ÉÊ¶±ğµÄÊı¾İÀàĞÍ");
+        	throw new RQException("ä¸å¯è¯†åˆ«çš„æ•°æ®ç±»å‹");
 		}
 	}
 	
@@ -279,7 +279,7 @@ public class ALiClient {
 		case BINARY:
 			return value.asBinary();
         default:
-        	throw new RQException("²»¿ÉÊ¶±ğµÄÊı¾İÀàĞÍ");
+        	throw new RQException("ä¸å¯è¯†åˆ«çš„æ•°æ®ç±»å‹");
 		}
 	}
 	
@@ -287,7 +287,7 @@ public class ALiClient {
 		if (node instanceof UnknownSymbol) {
 			return ((UnknownSymbol)node).getName();
 		} else {
-			throw new RQException("·Ç·¨µÄ¹ıÂË±í´ïÊ½");
+			throw new RQException("éæ³•çš„è¿‡æ»¤è¡¨è¾¾å¼");
 		}
 	}
 	
@@ -327,7 +327,7 @@ public class ALiClient {
 		} else if (node instanceof NotEquals) {
 			operator = SingleColumnValueFilter.CompareOperator.NOT_EQUAL;
 		} else {
-			throw new RQException("·Ç·¨µÄ¹ıÂË±í´ïÊ½");
+			throw new RQException("éæ³•çš„è¿‡æ»¤è¡¨è¾¾å¼");
 		}
 		
 		String field = getFieldName(node.getLeft());
@@ -344,14 +344,14 @@ public class ALiClient {
 	}
 	
 	/**
-	 * ²éÑ¯µ¥Ìõ¼ÇÂ¼
-	 * @param tableName ±íÃû
-	 * @param keyName Ö÷¼üÃû£¬Èç¹û¶àÖ÷¼üÔòÊÇÖ÷¼üÃû¹¹³ÉµÄĞòÁĞ(Sequence)
-	 * @param keyValue Ö÷¼üÖµ£¬Èç¹û¶àÖ÷¼üÔòÊÇÖ÷¼üÖµ¹¹³ÉµÄĞòÁĞ(Sequence)£¬Èç¹û²é¶àĞĞÔòÊÇ¶à×éÖ÷¼ü¹¹³ÉµÄĞòÁĞ(Sequence)
-	 * @param selectCol Ñ¡³ö×Ö¶ÎÃû£¬null±íÊ¾Ñ¡³öËùÓĞ×Ö¶Î£¬¶à×Ö¶ÎÓÃĞòÁĞ(Sequence)
-	 * @param exp ×Ö¶Î¹ıÂË±í´ïÊ½£¬¿ÉÓÃ &&¡¢||¡¢!¡¢>¡¢>=¡¢==¡¢<¡¢<=¡¢!=
+	 * æŸ¥è¯¢å•æ¡è®°å½•
+	 * @param tableName è¡¨å
+	 * @param keyName ä¸»é”®åï¼Œå¦‚æœå¤šä¸»é”®åˆ™æ˜¯ä¸»é”®åæ„æˆçš„åºåˆ—(Sequence)
+	 * @param keyValue ä¸»é”®å€¼ï¼Œå¦‚æœå¤šä¸»é”®åˆ™æ˜¯ä¸»é”®å€¼æ„æˆçš„åºåˆ—(Sequence)ï¼Œå¦‚æœæŸ¥å¤šè¡Œåˆ™æ˜¯å¤šç»„ä¸»é”®æ„æˆçš„åºåˆ—(Sequence)
+	 * @param selectCol é€‰å‡ºå­—æ®µåï¼Œnullè¡¨ç¤ºé€‰å‡ºæ‰€æœ‰å­—æ®µï¼Œå¤šå­—æ®µç”¨åºåˆ—(Sequence)
+	 * @param exp å­—æ®µè¿‡æ»¤è¡¨è¾¾å¼ï¼Œå¯ç”¨ &&ã€||ã€!ã€>ã€>=ã€==ã€<ã€<=ã€!=
 	 * @param ctx
-	 * @param opt x£º²éÑ¯½áÊøºó¹Ø±ÕÁ¬½Ó
+	 * @param opt xï¼šæŸ¥è¯¢ç»“æŸåå…³é—­è¿æ¥
 	 * @return
 	 */
 	public Table query(String tableName, Object keyName, Object keyValue, 
@@ -364,11 +364,11 @@ public class ALiClient {
 			selectCols = new String[seq.length()];
 			seq.toArray(selectCols);
 		} else if (selectCol != null) {
-			throw new RQException("Ñ¡³ö×Ö¶ÎÃû³Æ´íÎó");
+			throw new RQException("é€‰å‡ºå­—æ®µåç§°é”™è¯¯");
 		}
 		
-		if (keyName instanceof String) { // µ¥×Ö¶ÎÖ÷¼ü
-			if (keyValue instanceof Sequence) { // ÅúÁ¿È¡
+		if (keyName instanceof String) { // å•å­—æ®µä¸»é”®
+			if (keyValue instanceof Sequence) { // æ‰¹é‡å–
 				String name = (String)keyName;
 				Object []values = ((Sequence)keyValue).toArray();
 				int valCount = values.length;
@@ -383,15 +383,15 @@ public class ALiClient {
 				PrimaryKey pk = toPrimaryKey((String)keyName, keyValue, null);
 				return getRow(tableName, pk, selectCols, filter, ctx, opt);
 			}
-		} else if (keyName instanceof Sequence) { // ¶à×Ö¶ÎÖ÷¼ü
+		} else if (keyName instanceof Sequence) { // å¤šå­—æ®µä¸»é”®
 			if (!(keyValue instanceof Sequence)) {
-				throw new RQException("Ö÷¼üÖµºÍÖ÷¼üÃû²»Æ¥Åä");
+				throw new RQException("ä¸»é”®å€¼å’Œä¸»é”®åä¸åŒ¹é…");
 			}
 			
 			Sequence valueSeq = (Sequence)keyValue;
 			int valCount = valueSeq.length();
 			if (valCount == 0) {
-				throw new RQException("Ö÷¼üÖµºÍÖ÷¼üÃû²»Æ¥Åä");
+				throw new RQException("ä¸»é”®å€¼å’Œä¸»é”®åä¸åŒ¹é…");
 			}
 			
 			Sequence nameSeq = (Sequence)keyName;
@@ -399,7 +399,7 @@ public class ALiClient {
 			String []keyNames = new String[pkCount];
 			nameSeq.toArray(keyNames);
 			
-			if (valueSeq.get(1) instanceof Sequence) { // ÅúÁ¿È¡
+			if (valueSeq.get(1) instanceof Sequence) { // æ‰¹é‡å–
 				Sequence []seqs = new Sequence[valCount];
 				valueSeq.toArray(seqs);
 				
@@ -407,7 +407,7 @@ public class ALiClient {
 				for (int i = 0; i < valCount; ++i) {
 					Object []values = seqs[i].toArray();
 					if (values.length != pkCount) {
-						throw new RQException("Ö÷¼üÖµºÍÖ÷¼üÃû²»Æ¥Åä");
+						throw new RQException("ä¸»é”®å€¼å’Œä¸»é”®åä¸åŒ¹é…");
 					}
 					
 					pks[i] = toPrimaryKey(keyNames, values, null);
@@ -416,7 +416,7 @@ public class ALiClient {
 				return batchGetRow(tableName, pks, selectCols, filter, ctx, opt);
 			} else {
 				if (valCount != pkCount) {
-					throw new RQException("Ö÷¼üÖµºÍÖ÷¼üÃû²»Æ¥Åä");
+					throw new RQException("ä¸»é”®å€¼å’Œä¸»é”®åä¸åŒ¹é…");
 				}
 				
 				Object []keyValues = valueSeq.toArray();
@@ -424,7 +424,7 @@ public class ALiClient {
 				return getRow(tableName, pk, selectCols, filter, ctx, opt);
 			}
 		} else {
-			throw new RQException("·Ç·¨µÄÖ÷¼üÃû³Æ");
+			throw new RQException("éæ³•çš„ä¸»é”®åç§°");
 		}
 	}
 	
@@ -438,12 +438,12 @@ public class ALiClient {
 			selectCols = new String[seq.length()];
 			seq.toArray(selectCols);
 		} else if (selectCol != null) {
-			throw new RQException("Ñ¡³ö×Ö¶ÎÃû³Æ´íÎó");
+			throw new RQException("é€‰å‡ºå­—æ®µåç§°é”™è¯¯");
 		}
 
 		boolean isForward = opt == null || opt.indexOf('z') == -1;
 		PrimaryKey startPK, endPK;
-		if (keyName instanceof String) { // µ¥×Ö¶ÎÖ÷¼ü
+		if (keyName instanceof String) { // å•å­—æ®µä¸»é”®
 			String name = (String)keyName;
 			if (isForward) {
 				startPK = toPrimaryKey(name, startValue, PrimaryKeyValue.INF_MIN);
@@ -452,7 +452,7 @@ public class ALiClient {
 				startPK = toPrimaryKey(name, startValue, PrimaryKeyValue.INF_MAX);
 				endPK = toPrimaryKey(name, endValue, PrimaryKeyValue.INF_MIN);
 			}
-		} else if (keyName instanceof Sequence) { // ¶à×Ö¶ÎÖ÷¼ü
+		} else if (keyName instanceof Sequence) { // å¤šå­—æ®µä¸»é”®
 			Sequence nameSeq = (Sequence)keyName;
 			int pkCount = nameSeq.length();
 			String []keyNames = new String[pkCount];
@@ -462,24 +462,24 @@ public class ALiClient {
 			if (startValue instanceof Sequence) {
 				Sequence seq = (Sequence)startValue;
 				if (seq.length() != pkCount) {
-					throw new RQException("Ö÷¼üÖµºÍÖ÷¼üÃû²»Æ¥Åä");
+					throw new RQException("ä¸»é”®å€¼å’Œä¸»é”®åä¸åŒ¹é…");
 				}
 				
 				seq.toArray(startValues);
 			} else if (startValue != null) {
-				throw new RQException("Ö÷¼üÖµºÍÖ÷¼üÃû²»Æ¥Åä");
+				throw new RQException("ä¸»é”®å€¼å’Œä¸»é”®åä¸åŒ¹é…");
 			}
 			
 			Object []endValues = new Object[pkCount];
 			if (endValue instanceof Sequence) {
 				Sequence seq = (Sequence)endValue;
 				if (seq.length() != pkCount) {
-					throw new RQException("Ö÷¼üÖµºÍÖ÷¼üÃû²»Æ¥Åä");
+					throw new RQException("ä¸»é”®å€¼å’Œä¸»é”®åä¸åŒ¹é…");
 				}
 				
 				seq.toArray(endValues);
 			} else if (endValue != null) {
-				throw new RQException("Ö÷¼üÖµºÍÖ÷¼üÃû²»Æ¥Åä");
+				throw new RQException("ä¸»é”®å€¼å’Œä¸»é”®åä¸åŒ¹é…");
 			}
 			
 			if (isForward) {
@@ -490,7 +490,7 @@ public class ALiClient {
 				endPK = toPrimaryKey(keyNames, endValues, PrimaryKeyValue.INF_MIN);
 			}
 		} else {
-			throw new RQException("·Ç·¨µÄÖ÷¼üÃû³Æ");
+			throw new RQException("éæ³•çš„ä¸»é”®åç§°");
 		}
 		
 		return getRange(tableName, startPK, endPK, selectCols, filter, ctx, opt);

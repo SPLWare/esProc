@@ -7,7 +7,7 @@ import com.scudata.dm.LocalFile;
 import com.scudata.expression.FileFunction;
 
 /**
- * È¡ÎÄ¼şÏà¶ÔÓÚÖ÷Ä¿Â¼µÄÂ·¾¶Ãû£¬²»ÔÚÖ÷Ä¿Â¼ÏÂ·µ»ØÈ«Â·¾¶
+ * å–æ–‡ä»¶ç›¸å¯¹äºä¸»ç›®å½•çš„è·¯å¾„åï¼Œä¸åœ¨ä¸»ç›®å½•ä¸‹è¿”å›å…¨è·¯å¾„
  * f.name()
  * @author RunQian
  *

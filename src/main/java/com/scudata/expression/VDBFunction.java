@@ -3,13 +3,13 @@ package com.scudata.expression;
 import com.scudata.vdb.VDB;
 
 /**
- * ½»Ò×¿â³ÉÔ±º¯Êı»ùÀà
+ * äº¤æ˜“åº“æˆå‘˜å‡½æ•°åŸºç±»
  * v.f()
  * @author RunQian
  *
  */
 public abstract class VDBFunction extends MemberFunction {
-	protected VDB vdb; // Ô´Êı¾İ¿â
+	protected VDB vdb; // æºæ•°æ®åº“
 	
 	public boolean isLeftTypeMatch(Object obj) {
 		return obj instanceof VDB;
@@ -20,7 +20,7 @@ public abstract class VDBFunction extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		vdb = null;

@@ -10,9 +10,9 @@ import com.scudata.resources.EngineMessage;
 
 
 /**
- * ¹éÒ»»¯Êı¾İ£¬°´ÏòÁ¿·µ»Ø A ÖĞÊı¾İµÄ z Öµ£¨ÖĞĞÄÎª 0¡¢±ê×¼²îÎª 1£©
- * mnorm(A)£¬°´ÕÕA´óĞ¡²»µÈÓÚ 1µÄµÚÒ»¸öÊı×éÎ¬¶È½øĞĞÔËËã
- * mnorm(A, n)£¬¼ÆËãµÚn²ãÎ¬¶È£¬²»Ö§³ÖÊıÁĞ
+ * å½’ä¸€åŒ–æ•°æ®ï¼ŒæŒ‰å‘é‡è¿”å› A ä¸­æ•°æ®çš„ z å€¼ï¼ˆä¸­å¿ƒä¸º 0ã€æ ‡å‡†å·®ä¸º 1ï¼‰
+ * mnorm(A)ï¼ŒæŒ‰ç…§Aå¤§å°ä¸ç­‰äº 1çš„ç¬¬ä¸€ä¸ªæ•°ç»„ç»´åº¦è¿›è¡Œè¿ç®—
+ * mnorm(A, n)ï¼Œè®¡ç®—ç¬¬nå±‚ç»´åº¦ï¼Œä¸æ”¯æŒæ•°åˆ—
  * @author bd
  *
  */
@@ -25,7 +25,7 @@ public class MNormalize extends Function {
 			Object oa = null;
 			Object o2 = null;
 			if (param.isLeaf()) {
-				// Ö»ÓĞÒ»¸ö²ÎÊı£¬mnorm(A), °´ÕÕA´óĞ¡²»µÈÓÚ 1µÄµÚÒ»¸öÊı×éÎ¬¶È½øĞĞÔËËã
+				// åªæœ‰ä¸€ä¸ªå‚æ•°ï¼Œmnorm(A), æŒ‰ç…§Aå¤§å°ä¸ç­‰äº 1çš„ç¬¬ä¸€ä¸ªæ•°ç»„ç»´åº¦è¿›è¡Œè¿ç®—
 				oa = param.getLeafExpression().calculate(ctx);
 			}
 			else if (param.getSubSize() != 2) {
@@ -42,7 +42,7 @@ public class MNormalize extends Function {
 				oa = sub1.getLeafExpression().calculate(ctx);
 				o2 = sub2.getLeafExpression().calculate(ctx);
 			}
-			// ÊÇ·ñÓÃÑù±¾n-1¼ÆËã·½²î£¬Ä¬ÈÏ²»ÓÃ
+			// æ˜¯å¦ç”¨æ ·æœ¬n-1è®¡ç®—æ–¹å·®ï¼Œé»˜è®¤ä¸ç”¨
 			boolean s = option != null && option.contains("s");
 			if (oa instanceof Sequence) {
 				MulMatrix A = new MulMatrix((Sequence)oa);

@@ -4,8 +4,8 @@ import java.util.*;
 
 import com.scudata.common.RQException;
 
-//¿Õ¼ä¹ÜÀíÆ÷
-//Ôİ²»×ö³¬Ê±×Ô¶¯¼à²â
+//ç©ºé—´ç®¡ç†å™¨
+//æš‚ä¸åšè¶…æ—¶è‡ªåŠ¨ç›‘æµ‹
 public class JobSpaceManager {
 	private static ArrayList<JobSpace> spaces = new ArrayList<JobSpace>();
 
@@ -18,11 +18,11 @@ public class JobSpaceManager {
 		JobSpace js;
 		for (int i = spaces.size()-1; i >=0; i--) {
 			js = spaces.get(i);
-//			if( js==null ){//|| js.getID()==null){//Ô­ÔòÉÏ²»Ó¦¸Ã³öÏÖjsÎªnullµÄ¶ÔÏó£¬µ«Ä¿Ç°²»Ã÷Ô­ÒòÓĞnullÒì³£
+//			if( js==null ){//|| js.getID()==null){//åŸåˆ™ä¸Šä¸åº”è¯¥å‡ºç°jsä¸ºnullçš„å¯¹è±¡ï¼Œä½†ç›®å‰ä¸æ˜åŸå› æœ‰nullå¼‚å¸¸
 //				spaces.remove(i);
 //				continue;
 //			}
-//			¶ÔÓÚ²»¿ÉÄÜ³öÏÖµÄÇé¿ö£¬ÏÈºöÂÔ£¬ÒÔÃâÓ°ÏìĞÔÄÜ£¬ÕæµÄÅöµ½Õâ¸öÎÊÌâÊ±£¬ÔÙÈÏÕæµ÷ÊÔ¸ã³öÔ­Òò£»2015.6.24
+//			å¯¹äºä¸å¯èƒ½å‡ºç°çš„æƒ…å†µï¼Œå…ˆå¿½ç•¥ï¼Œä»¥å…å½±å“æ€§èƒ½ï¼ŒçœŸçš„ç¢°åˆ°è¿™ä¸ªé—®é¢˜æ—¶ï¼Œå†è®¤çœŸè°ƒè¯•æå‡ºåŸå› ï¼›2015.6.24
 			if (js.getID().equals(spaceId))
 				return js;
 		}
@@ -69,7 +69,7 @@ public class JobSpaceManager {
 	 * checkTimeOut
 	 */
 	public synchronized static void checkTimeOut(int timeOut) {
-		// »»Ëã³ÉÃë£¬timeOutµ¥Î»ÎªÃë
+		// æ¢ç®—æˆç§’ï¼ŒtimeOutå•ä½ä¸ºç§’
 		for (int i = spaces.size() - 1; i >= 0; i--) {
 			JobSpace js = spaces.get(i);
 			if (js.checkTimeOut(timeOut)) {

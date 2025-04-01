@@ -13,16 +13,16 @@ import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
 /**
- * xo.xlsmove(s,s¡¯;xo¡¯)
+ * xo.xlsmove(s,sâ€™;xoâ€™)
  * 
- * °ÑxoÖĞÃûÎªsµÄsheetÒÆ¶¯µ½xo¡¯£¬ÃüÃûÎªs¡¯£» xo¡¯Ê¡ÂÔ£¬±íÊ¾sheet¸ÄÃû£¬s¡¯Ò²Ê¡ÂÔ±íÊ¾É¾³ı£» xo¡¯Î´Ê¡ÂÔ£¬s¡¯Ê¡ÂÔ±íÊ¾ÓÃsµÄÔ­Ãû
+ * æŠŠxoä¸­åä¸ºsçš„sheetç§»åŠ¨åˆ°xoâ€™ï¼Œå‘½åä¸ºsâ€™ï¼› xoâ€™çœç•¥ï¼Œè¡¨ç¤ºsheetæ”¹åï¼Œsâ€™ä¹Ÿçœç•¥è¡¨ç¤ºåˆ é™¤ï¼› xoâ€™æœªçœç•¥ï¼Œsâ€™çœç•¥è¡¨ç¤ºç”¨sçš„åŸå
  * 
- * @c ¸´ÖÆ
+ * @c å¤åˆ¶
  */
 public class XlsMove extends XOFunction {
 
 	/**
-	 * ¼ÆËã
+	 * è®¡ç®—
 	 */
 	public Object calculate(Context ctx) {
 		if (param == null) {
@@ -82,7 +82,7 @@ public class XlsMove extends XOFunction {
 				throw new RQException("xlsmove"
 						+ mm.getMessage("function.paramTypeError"));
 			}
-			if (file == xo1) { // Èç¹ûxoºÍxo'ÏàÍ¬£¬ÈÏÎªÊÇÍ¬¹¤×÷²¾
+			if (file == xo1) { // å¦‚æœxoå’Œxo'ç›¸åŒï¼Œè®¤ä¸ºæ˜¯åŒå·¥ä½œç°¿
 				xo1 = null;
 			}
 		}
@@ -93,11 +93,11 @@ public class XlsMove extends XOFunction {
 					+ mm.getMessage("function.invalidParam"));
 		}
 
-		// ¼ì²ésheetÃû³Æ
+		// æ£€æŸ¥sheetåç§°
 		ExcelUtils.checkSheetName(s);
 		ExcelUtils.checkSheetName(s1);
 
-		// Í¬¹¤×÷²¾Ã»ÓĞs'²»ÄÜÓÃ¸´ÖÆÑ¡Ïî
+		// åŒå·¥ä½œç°¿æ²¡æœ‰s'ä¸èƒ½ç”¨å¤åˆ¶é€‰é¡¹
 		if (xo1 == null && !StringUtils.isValidString(s1) && isCopy) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("xlsmove"
@@ -122,16 +122,16 @@ public class XlsMove extends XOFunction {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
 	 * 
 	 * @param ctx
-	 *            ¼ÆËãÉÏÏÂÎÄ
+	 *            è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @param Node
-	 *            ÓÅ»¯ºóµÄ½Úµã
+	 *            ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 

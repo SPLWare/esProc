@@ -1,21 +1,21 @@
 package com.scudata.common;
 
 /**
- * Êı¾İÔ´ÃÜÂë¼ÓÃÜ½âÃÜ½Ó¿Ú
+ * æ•°æ®æºå¯†ç åŠ å¯†è§£å¯†æ¥å£
  *
  */
 public interface IPwd {
 	/**
-	 * ¼ÓÃÜ
-	 * @param pwd ÃÜÂë
-	 * @return ¼ÓÃÜºóµÄÃÜÂë
+	 * åŠ å¯†
+	 * @param pwd å¯†ç 
+	 * @return åŠ å¯†åçš„å¯†ç 
 	 */
 	public String encrypt(String pwd);
 
 	/**
-	 * ½âÃÜ
-	 * @param pwd ¼ÓÃÜµÄÃÜÂë
-	 * @return Ô­ÃÜÂë£¨½âÃÜºó£©
+	 * è§£å¯†
+	 * @param pwd åŠ å¯†çš„å¯†ç 
+	 * @return åŸå¯†ç ï¼ˆè§£å¯†åï¼‰
 	 */
 	public String decrypt(String pwd);
 }

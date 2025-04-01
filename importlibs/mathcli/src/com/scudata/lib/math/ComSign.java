@@ -8,9 +8,9 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Signº¯Êı£¨·ûºÅº¯Êı£©
- * Ö»´¦Àí¸´ÊıµÄ·ûºÅº¯Êı
- * Y = sign(x) ·µ»ØÓë x ´óĞ¡ÏàÍ¬µÄÊı×é Y£¬ÆäÖĞ Y µÄÃ¿¸öÔªËØÊÇ£ºx./abs(x)£¬Ç°ÌáÊÇ x Îª¸´Êı¡£
+ * Signå‡½æ•°ï¼ˆç¬¦å·å‡½æ•°ï¼‰
+ * åªå¤„ç†å¤æ•°çš„ç¬¦å·å‡½æ•°
+ * Y = sign(x) è¿”å›ä¸ x å¤§å°ç›¸åŒçš„æ•°ç»„ Yï¼Œå…¶ä¸­ Y çš„æ¯ä¸ªå…ƒç´ æ˜¯ï¼šx./abs(x)ï¼Œå‰ææ˜¯ x ä¸ºå¤æ•°ã€‚
  *
  */
 public class ComSign extends SequenceFunction {

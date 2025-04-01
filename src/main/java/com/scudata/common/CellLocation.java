@@ -3,7 +3,7 @@ package com.scudata.common;
 import java.io.*;
 
 /**
- * ±¾Àà¶ÔÓ¦µ¥Ôª¸ñµÄ±êÊ¾
+ * æœ¬ç±»å¯¹åº”å•å…ƒæ ¼çš„æ ‡ç¤º
  */
 public class CellLocation implements java.io.Serializable, IRecord {
 	private static final long serialVersionUID = 0x00010001;
@@ -13,7 +13,7 @@ public class CellLocation implements java.io.Serializable, IRecord {
 	private int row = -1;
 	private int col = -1;
 
-	// ´æÅÌÊ±Ê¹ÓÃ
+	// å­˜ç›˜æ—¶ä½¿ç”¨
 	public CellLocation() {
 	}
 
@@ -111,7 +111,7 @@ public class CellLocation implements java.io.Serializable, IRecord {
 	}
 
 	/**
-	 * ½«×Ö·û´®×ª³ÉÁĞºÅ
+	 * å°†å­—ç¬¦ä¸²è½¬æˆåˆ—å·
 	 * @param id String
 	 * @return int
 	 */
@@ -132,7 +132,7 @@ public class CellLocation implements java.io.Serializable, IRecord {
 	}
 
 	/**
-	 * ½«×Ö·û´®×ª³ÉĞĞºÅ
+	 * å°†å­—ç¬¦ä¸²è½¬æˆè¡Œå·
 	 * @param id String
 	 * @return int
 	 */
@@ -152,7 +152,7 @@ public class CellLocation implements java.io.Serializable, IRecord {
 		return row;
 	}
 
-	//µ¥Ôª¸ñµÄ±êÊ¾×ª»»ÎªĞĞºÅÁĞºÅ
+	//å•å…ƒæ ¼çš„æ ‡ç¤ºè½¬æ¢ä¸ºè¡Œå·åˆ—å·
 	public static CellLocation parse(String id) {
 		if (id == null) {
 			return null;
@@ -212,7 +212,7 @@ public class CellLocation implements java.io.Serializable, IRecord {
 	}
 
 	/**
-	 * ¸ù¾İĞĞºÅÁĞºÅ×ª»»Îªµ¥Ôª¸ñµÄ±êÊ¾
+	 * æ ¹æ®è¡Œå·åˆ—å·è½¬æ¢ä¸ºå•å…ƒæ ¼çš„æ ‡ç¤º
 	 * @param row int
 	 * @param col int
 	 * @return String

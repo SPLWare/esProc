@@ -5,13 +5,13 @@ import com.scudata.dm.*;
 import com.scudata.util.*;
 
 /**
- * valueÎª×Ö·û´®µÄÊ±ºò£¬A1±íÊ¾ÊäÈë´®£¬=A1±íÊ¾ÊäÈë±í´ïÊ½ ´æ´¢ÔÚplot×Ö·û´®º¯ÊıÊ±£¬·Ö±ğÎª£º "A1"£¬ A1
+ * valueä¸ºå­—ç¬¦ä¸²çš„æ—¶å€™ï¼ŒA1è¡¨ç¤ºè¾“å…¥ä¸²ï¼Œ=A1è¡¨ç¤ºè¾“å…¥è¡¨è¾¾å¼ å­˜å‚¨åœ¨plotå­—ç¬¦ä¸²å‡½æ•°æ—¶ï¼Œåˆ†åˆ«ä¸ºï¼š "A1"ï¼Œ A1
  */
 public class ChartParam {
-	// ²ÎÊıÃû³Æ£¬¸Ã²ÎÊıÃû³ÆÖ±½ÓÎªÍ¼ÔªµÄÊôĞÔÃû³Æ
+	// å‚æ•°åç§°ï¼Œè¯¥å‚æ•°åç§°ç›´æ¥ä¸ºå›¾å…ƒçš„å±æ€§åç§°
 	protected String name;
 	protected Object value;
-	protected String axis; // ²ÎÊıÖµ¶ÔÓ¦µÄÖá
+	protected String axis; // å‚æ•°å€¼å¯¹åº”çš„è½´
 
 	public ChartParam() {
 	}
@@ -60,7 +60,7 @@ public class ChartParam {
 			axis = Escape.removeEscAndQuote(at.next());
 			value = "=" + tmp;
 		} else{
-			boolean removeEscape = !tmp.startsWith("["); // Èç¹ûÊÇĞòÁĞ£¬Ôò½âÎöÊ±²»ÄÜÈ¥ÒıºÅ
+			boolean removeEscape = !tmp.startsWith("["); // å¦‚æœæ˜¯åºåˆ—ï¼Œåˆ™è§£ææ—¶ä¸èƒ½å»å¼•å·
 			value = Variant.parse(tmp, removeEscape);
 			if (value instanceof String && Variant.isEquals(tmp, value)) {
 				value = "=" + value;
@@ -72,7 +72,7 @@ public class ChartParam {
 		if (val.startsWith("=")) {
 			return val.substring(1);
 		} else {
-//			ÎÄ±¾¿ò±à¼­³öµÄÊıÖµ£¬ ²»¼ÓÒıºÅ
+//			æ–‡æœ¬æ¡†ç¼–è¾‘å‡ºçš„æ•°å€¼ï¼Œ ä¸åŠ å¼•å·
 			Object obj = Variant.parse(val, false);
 			if(obj instanceof Number){
 				return val;

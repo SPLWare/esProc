@@ -9,7 +9,7 @@ import com.scudata.expression.RecordFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 对记录的外键做递归查询
+ * 瀵硅褰曠殑澶栭敭鍋氶�掑綊鏌ヨ
  * r.prior(F,r',n)
  * @author RunQian
  *

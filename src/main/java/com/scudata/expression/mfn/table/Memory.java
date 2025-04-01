@@ -5,7 +5,7 @@ import com.scudata.dm.Table;
 import com.scudata.expression.TableFunction;
 
 /**
- * °ÑĞò±í¶Á³ÉÄÚ±í
+ * æŠŠåºè¡¨è¯»æˆå†…è¡¨
  * T.memory()
  * @author LW
  *

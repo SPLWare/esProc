@@ -30,7 +30,7 @@ public class StaxClient  extends Function {
 			String option = this.option;
 			if (option == null) option = "";
 	
-			//stax_connect(nodes[:port],[user:pwd][;[keyspace:xx][,compressor:"lz4"][,initializer:"com.scudata.lib.datastax.InitializerImpl"])	//»¹ÓĞºÜ¶àÅäÖÃÑ¡Ïî£¬µ÷ÑĞÏÂÄÜ·ñÓÃÅäÖÃÎÄ¼şÀ´³õÊ¼»¯
+			//stax_connect(nodes[:port],[user:pwd][;[keyspace:xx][,compressor:"lz4"][,initializer:"com.scudata.lib.datastax.InitializerImpl"])	//è¿˜æœ‰å¾ˆå¤šé…ç½®é€‰é¡¹ï¼Œè°ƒç ”ä¸‹èƒ½å¦ç”¨é…ç½®æ–‡ä»¶æ¥åˆå§‹åŒ–
 			List<String> ns = new ArrayList<String>();
 			int port = 9042;
 			String user = null;

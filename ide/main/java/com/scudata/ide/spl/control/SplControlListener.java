@@ -18,26 +18,26 @@ import com.scudata.ide.spl.AtomicCell;
 import com.scudata.ide.spl.GCSpl;
 
 /**
- * Íø¸ñ¿Ø¼şµÄ¼àÌıÆ÷
+ * ç½‘æ ¼æ§ä»¶çš„ç›‘å¬å™¨
  *
  */
 public class SplControlListener implements EditorListener {
 	/**
-	 * Íø¸ñ¿Ø¼ş±à¼­Æ÷
+	 * ç½‘æ ¼æ§ä»¶ç¼–è¾‘å™¨
 	 */
 	SplEditor editor;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
-	 * @param editor Íø¸ñ¿Ø¼ş±à¼­Æ÷
+	 * @param editor ç½‘æ ¼æ§ä»¶ç¼–è¾‘å™¨
 	 */
 	public SplControlListener(SplEditor editor) {
 		this.editor = editor;
 	}
 
 	/**
-	 * È¡Íø¸ñ¿Ø¼ş±à¼­Æ÷
+	 * å–ç½‘æ ¼æ§ä»¶ç¼–è¾‘å™¨
 	 * 
 	 * @return
 	 */
@@ -46,7 +46,7 @@ public class SplControlListener implements EditorListener {
 	}
 
 	/**
-	 * ÓÒ¼üµã»÷ÊÂ¼ş
+	 * å³é”®ç‚¹å‡»äº‹ä»¶
 	 */
 	public void rightClicked(MouseEvent e, int clickPlace) {
 		editor.getSplListener().rightClicked(e.getComponent(), e.getX(),
@@ -54,7 +54,7 @@ public class SplControlListener implements EditorListener {
 	}
 
 	/**
-	 * Ñ¡ÔñÇøÓò
+	 * é€‰æ‹©åŒºåŸŸ
 	 */
 	public void regionsSelect(Vector<Object> vectRegion,
 			Vector<Integer> selectedRows, Vector<Integer> selectedColumns,
@@ -86,10 +86,10 @@ public class SplControlListener implements EditorListener {
 	}
 
 	/**
-	 * ÁĞ¿í±ä»¯ÁË
+	 * åˆ—å®½å˜åŒ–äº†
 	 */
 	public boolean columnWidthChange(Vector<Integer> vectColumn, float nWidth) {
-		// ĞĞ¸ßÁĞ¿í¸Ä±äÊ±»á²úÉú´óÁ¿ÈßÓàµÄwrapString Key£¬Çå¿ÕÒ»ÏÂ
+		// è¡Œé«˜åˆ—å®½æ”¹å˜æ—¶ä¼šäº§ç”Ÿå¤§é‡å†—ä½™çš„wrapString Keyï¼Œæ¸…ç©ºä¸€ä¸‹
 		ControlUtils.clearWrapBuffer();
 		editor.selectedCols = vectColumn;
 		editor.setColumnWidth(nWidth);
@@ -97,10 +97,10 @@ public class SplControlListener implements EditorListener {
 	}
 
 	/**
-	 * ĞĞ¸ß±ä»¯ÁË
+	 * è¡Œé«˜å˜åŒ–äº†
 	 */
 	public boolean rowHeightChange(Vector<Integer> vectRow, float nHeight) {
-		// ĞĞ¸ßÁĞ¿í¸Ä±äÊ±»á²úÉú´óÁ¿ÈßÓàµÄwrapString Key£¬Çå¿ÕÒ»ÏÂ
+		// è¡Œé«˜åˆ—å®½æ”¹å˜æ—¶ä¼šäº§ç”Ÿå¤§é‡å†—ä½™çš„wrapString Keyï¼Œæ¸…ç©ºä¸€ä¸‹
 		ControlUtils.clearWrapBuffer();
 		editor.selectedRows = vectRow;
 		editor.setRowHeight(nHeight);
@@ -108,11 +108,11 @@ public class SplControlListener implements EditorListener {
 	}
 
 	/**
-	 * ÇøÓòÒÆ¶¯ÊÂ¼ş
+	 * åŒºåŸŸç§»åŠ¨äº‹ä»¶
 	 * 
-	 * @param area       ÇøÓò
-	 * @param nRowPos    ĞĞºÅ
-	 * @param nColumnPos ÁĞºÅ
+	 * @param area       åŒºåŸŸ
+	 * @param nRowPos    è¡Œå·
+	 * @param nColumnPos åˆ—å·
 	 * @return
 	 */
 	public boolean cellRegionMove(Area area, int nRowPos, int nColumnPos) {
@@ -120,53 +120,53 @@ public class SplControlListener implements EditorListener {
 	}
 
 	/**
-	 * ÇøÓòÕ³ÌûÏûÏ¢
+	 * åŒºåŸŸç²˜å¸–æ¶ˆæ¯
 	 * 
-	 * @param area       Õ³ÌùµÄ±í¸ñÇøÓò
-	 * @param nRowPos    Õ³ÌùµÄĞĞÎ»ÖÃ
-	 * @param nColumnPos Õ³ÌùµÄÁĞÎ»ÖÃ
-	 * @return ture ÏûÏ¢ÒÑ±»´¦Àí£¬false ÏûÏ¢Î´±»´¦Àí
+	 * @param area       ç²˜è´´çš„è¡¨æ ¼åŒºåŸŸ
+	 * @param nRowPos    ç²˜è´´çš„è¡Œä½ç½®
+	 * @param nColumnPos ç²˜è´´çš„åˆ—ä½ç½®
+	 * @return ture æ¶ˆæ¯å·²è¢«å¤„ç†ï¼Œfalse æ¶ˆæ¯æœªè¢«å¤„ç†
 	 */
 	public boolean cellRegionPaste(Area area, int nRowPos, int nColumnPos) {
 		return true;
 	}
 
 	/**
-	 * ÇøÓòÀ©Õ¹ÏûÏ¢£¨ÉĞÃ»ÊµÏÖ£©
+	 * åŒºåŸŸæ‰©å±•æ¶ˆæ¯ï¼ˆå°šæ²¡å®ç°ï¼‰
 	 * 
-	 * @param area          À©Õ¹µÄ±í¸ñÇøÓò
-	 * @param nColumnExpand ÁĞÀ©Õ¹Êı(Õı£¬ÏòÓÒÀ©Õ¹£»¸º£¬Ïò×óÀ©Õ¹£»0£¬²»À©Õ¹)
-	 * @param nRowExpand    ĞĞÀ©Õ¹Êı(Õı£¬ÏòÏÂÀ©Õ¹£»¸º£¬ÏòÉÏÀ©Õ¹£»0£¬²»À©Õ¹)
-	 * @return ture ÏûÏ¢ÒÑ±»´¦Àí£¬false ÏûÏ¢Î´±»´¦Àí
+	 * @param area          æ‰©å±•çš„è¡¨æ ¼åŒºåŸŸ
+	 * @param nColumnExpand åˆ—æ‰©å±•æ•°(æ­£ï¼Œå‘å³æ‰©å±•ï¼›è´Ÿï¼Œå‘å·¦æ‰©å±•ï¼›0ï¼Œä¸æ‰©å±•)
+	 * @param nRowExpand    è¡Œæ‰©å±•æ•°(æ­£ï¼Œå‘ä¸‹æ‰©å±•ï¼›è´Ÿï¼Œå‘ä¸Šæ‰©å±•ï¼›0ï¼Œä¸æ‰©å±•)
+	 * @return ture æ¶ˆæ¯å·²è¢«å¤„ç†ï¼Œfalse æ¶ˆæ¯æœªè¢«å¤„ç†
 	 */
 	public boolean cellRegionExpand(Area area, int nColumnExpand, int nRowExpand) {
 		return true;
 	}
 
 	/**
-	 * ÇøÓòËõ¼õÏûÏ¢£¨ÉĞÃ»ÊµÏÖ£©
+	 * åŒºåŸŸç¼©å‡æ¶ˆæ¯ï¼ˆå°šæ²¡å®ç°ï¼‰
 	 * 
-	 * @param area          Ëõ¼õµÄ±í¸ñÇøÓò
-	 * @param nRowShrink    ĞĞËõ¼õÊı£¨Õı£¬ËõÈ¥µÄĞĞÊı£»0£¬²»Ëõ¼õ£©
-	 * @param nColumnShrink ÁĞËõ¼õÊı£¨Õı£¬ËõÈ¥µÄÁĞÊı£»0£¬²»Ëõ¼õ£©
-	 * @return ture ÏûÏ¢ÒÑ±»´¦Àí£¬false ÏûÏ¢Î´±»´¦Àí
+	 * @param area          ç¼©å‡çš„è¡¨æ ¼åŒºåŸŸ
+	 * @param nRowShrink    è¡Œç¼©å‡æ•°ï¼ˆæ­£ï¼Œç¼©å»çš„è¡Œæ•°ï¼›0ï¼Œä¸ç¼©å‡ï¼‰
+	 * @param nColumnShrink åˆ—ç¼©å‡æ•°ï¼ˆæ­£ï¼Œç¼©å»çš„åˆ—æ•°ï¼›0ï¼Œä¸ç¼©å‡ï¼‰
+	 * @return ture æ¶ˆæ¯å·²è¢«å¤„ç†ï¼Œfalse æ¶ˆæ¯æœªè¢«å¤„ç†
 	 */
 	public boolean cellRegionShrink(Area area, int nColumnShrink, int nRowShrink) {
 		return true;
 	}
 
 	/**
-	 * È¡ÁĞ¸ß±ä»¯µÄÔ­×ÓÃüÁî
+	 * å–åˆ—é«˜å˜åŒ–çš„åŸå­å‘½ä»¤
 	 * 
-	 * @param control Íø¸ñ¿Ø¼ş
-	 * @param row     ĞĞºÅ
-	 * @param col     ÁĞºÅ
-	 * @param newText ÎÄ±¾
+	 * @param control ç½‘æ ¼æ§ä»¶
+	 * @param row     è¡Œå·
+	 * @param col     åˆ—å·
+	 * @param newText æ–‡æœ¬
 	 * @return
 	 */
 	public static AtomicCell getCellHeightCmd(SplControl control, int row,
 			int col, String newText) {
-		// ³å³öµ¥Ôª¸ñÏÔÊ¾Ê±²»×Ô¶¯µ÷ÕûĞĞ¸ß£¬Ï£Íû¿´µ½µÄ¾ÍÊÇÒ»ĞĞ´úÂë
+		// å†²å‡ºå•å…ƒæ ¼æ˜¾ç¤ºæ—¶ä¸è‡ªåŠ¨è°ƒæ•´è¡Œé«˜ï¼Œå¸Œæœ›çœ‹åˆ°çš„å°±æ˜¯ä¸€è¡Œä»£ç 
 		if (!ConfigOptions.bAutoSizeRowHeight.booleanValue()) {
 			return null;
 		}
@@ -185,12 +185,12 @@ public class SplControlListener implements EditorListener {
 	}
 
 	/**
-	 * ±í¸ñÎÄ±¾±à¼­ÏûÏ¢
+	 * è¡¨æ ¼æ–‡æœ¬ç¼–è¾‘æ¶ˆæ¯
 	 * 
-	 * @param row     ±à¼­µÄĞĞºÅ
-	 * @param col     ±à¼­µÄÁĞºÅ
-	 * @param strText ±à¼­ºóµÄÎÄ±¾
-	 * @return ture ÏûÏ¢ÒÑ±»´¦Àí£¬false ÏûÏ¢Î´±»´¦Àí
+	 * @param row     ç¼–è¾‘çš„è¡Œå·
+	 * @param col     ç¼–è¾‘çš„åˆ—å·
+	 * @param strText ç¼–è¾‘åçš„æ–‡æœ¬
+	 * @return ture æ¶ˆæ¯å·²è¢«å¤„ç†ï¼Œfalse æ¶ˆæ¯æœªè¢«å¤„ç†
 	 */
 	public boolean cellTextInput(int row, int col, String strText) {
 		CellSet ics = editor.getComponent().cellSet;
@@ -218,7 +218,7 @@ public class SplControlListener implements EditorListener {
 	}
 
 	/**
-	 * Êó±êË«»÷ÊÂ¼ş
+	 * é¼ æ ‡åŒå‡»äº‹ä»¶
 	 * 
 	 * @param e MouseEvent
 	 */
@@ -235,16 +235,16 @@ public class SplControlListener implements EditorListener {
 	}
 
 	/**
-	 * Êó±êÒÆ¶¯
+	 * é¼ æ ‡ç§»åŠ¨
 	 * 
-	 * @param row ĞĞ
-	 * @param col ÁĞ
+	 * @param row è¡Œ
+	 * @param col åˆ—
 	 */
 	public void mouseMove(int row, int col) {
 	}
 
 	/**
-	 * ¹ö¶¯ÌõÒÆ¶¯ÊÂ¼ş
+	 * æ»šåŠ¨æ¡ç§»åŠ¨äº‹ä»¶
 	 */
 	public void scrollBarMoved() {
 

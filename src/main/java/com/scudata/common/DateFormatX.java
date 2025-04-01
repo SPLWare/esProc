@@ -15,7 +15,7 @@ public class DateFormatX extends SimpleDateFormat {
     //private final static int TAG_QUOTE_ASCII_CHAR	= 100;
     private final static int TAG_QUOTE_CHARS = 101;
     
-    // Ö§³ÖµÄÄ£Ê½£¬Èç¹û°üº¬ÆäËüµÄÔòµ÷ÓÃ»ùÀà´¦Àí
+    // æ”¯æŒçš„æ¨¡å¼ï¼Œå¦‚æœåŒ…å«å…¶å®ƒçš„åˆ™è°ƒç”¨åŸºç±»å¤„ç†
     private static final String  patternChars = "yMdHmsS";
     
     // Map index into pattern character string to Calendar field number
@@ -23,7 +23,7 @@ public class DateFormatX extends SimpleDateFormat {
         Calendar.YEAR, Calendar.MONTH, Calendar.DATE,
         Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND, Calendar.MILLISECOND};
 
-    // Èç¹û¿ÕÔòµ÷ÓÃ»ùÀà´¦Àí
+    // å¦‚æœç©ºåˆ™è°ƒç”¨åŸºç±»å¤„ç†
     private char[] compiledPattern;
 
 
@@ -109,7 +109,7 @@ public class DateFormatX extends SimpleDateFormat {
 		    }
 		}
 
-		// ²»¶Ô20181028¸ñÊ½µÄÈÕÆÚ×öÓÅ»¯
+		// ä¸å¯¹20181028æ ¼å¼çš„æ—¥æœŸåšä¼˜åŒ–
 		if (!hasQuote) {
 			return null;
 		}
@@ -167,7 +167,7 @@ public class DateFormatX extends SimpleDateFormat {
 				//boolean obeyCount = false;
 				start = subParse(text, start, tag);
 				if (start < 0) {
-					// ÓÉ¸¸Àà´¦Àí
+					// ç”±çˆ¶ç±»å¤„ç†
 		    		ParsePosition pos = new ParsePosition(0);
 		    		Date date = parse(text, pos);
 		    		if (date == null) {
@@ -185,7 +185,7 @@ public class DateFormatX extends SimpleDateFormat {
 		    }
 	    }
 
-        // ¼ì²éÈÕÆÚºóÃæÊÇ·ñ»¹ÓĞ¶àÓàµÄ·Ç¿Õ°××Ö·û
+        // æ£€æŸ¥æ—¥æœŸåé¢æ˜¯å¦è¿˜æœ‰å¤šä½™çš„éç©ºç™½å­—ç¬¦
         for (;start < textLength; ++start) {
         	if (!Character.isWhitespace(text.charAt(start))) {
         		return null;
@@ -216,7 +216,7 @@ public class DateFormatX extends SimpleDateFormat {
         int end = start;
     	int len = text.length();
     	
-    	// ÔİÊ±²»Ö§³Ö´øÓĞ¿Õ¸ñ
+    	// æš‚æ—¶ä¸æ”¯æŒå¸¦æœ‰ç©ºæ ¼
     	for (; end < len; ++end) {
     		char c = text.charAt(end);
     		if (c >= '0' && c <= '9') {

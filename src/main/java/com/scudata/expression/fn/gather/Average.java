@@ -16,14 +16,14 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÇóÆ½¾ùÖµ
- * avg(n1,¡­)
+ * æ±‚å¹³å‡å€¼
+ * avg(n1,â€¦)
  * @author RunQian
  *
  */
 public class Average extends Gather {
 	private Expression exp;
-	private String countFieldName; // ½á¹û¼¯¼ÆÊı×Ö¶ÎÃû³Æ
+	private String countFieldName; // ç»“æœé›†è®¡æ•°å­—æ®µåç§°
 	
 	public void setCountFieldName(String countFieldName) {
 		this.countFieldName = countFieldName;
@@ -127,12 +127,12 @@ public class Average extends Gather {
 	}
 	
 	/**
-	 * ¼ÆËãËùÓĞ¼ÇÂ¼µÄÖµ£¬»ã×Üµ½½á¹ûÊı×éÉÏ
-	 * @param sumResult ÇóºÍ½á¹ûÊı×é
-	 * @param countResult ¼ÆÊı½á¹ûÊı×é
-	 * @param resultSeqs Ã¿Ìõ¼ÇÂ¼¶ÔÓ¦µÄ½á¹ûÊı×éµÄĞòºÅ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return IArray ½á¹ûÊı×é
+	 * è®¡ç®—æ‰€æœ‰è®°å½•çš„å€¼ï¼Œæ±‡æ€»åˆ°ç»“æœæ•°ç»„ä¸Š
+	 * @param sumResult æ±‚å’Œç»“æœæ•°ç»„
+	 * @param countResult è®¡æ•°ç»“æœæ•°ç»„
+	 * @param resultSeqs æ¯æ¡è®°å½•å¯¹åº”çš„ç»“æœæ•°ç»„çš„åºå·
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return IArray ç»“æœæ•°ç»„
 	 */
 	public IArray gather(IArray sumResult, LongArray countResult, int []resultSeqs, Context ctx) {
 		IArray array = exp.calculateAll(ctx);

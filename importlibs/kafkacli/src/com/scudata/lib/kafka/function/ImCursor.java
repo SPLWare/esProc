@@ -12,9 +12,9 @@ public class ImCursor extends ICursor {
 	private Context m_ctx;	
 	private ImConnection m_conn = null;
 	public  List<Object[]> m_buffer;
-	private int m_nPart;   //·ÖÇøÊı
-	private int m_nTotal;  //¼ÇÂ¼×ÜÊı
-	private int m_current; //µ±Ç°Î»ÖÃ
+	private int m_nPart;   //åˆ†åŒºæ•°
+	private int m_nTotal;  //è®°å½•æ€»æ•°
+	private int m_current; //å½“å‰ä½ç½®
 	private boolean m_bFirst = true;
 	private long m_nTimeout = 1000;
 	
@@ -84,7 +84,7 @@ public class ImCursor extends ICursor {
 	
 	private List<Object[]> getData(int n) {
 		List<Object[]> ls = new ArrayList<Object[]>();
-		// 1¡£»º³å×ã¹»¶à
+		// 1ã€‚ç¼“å†²è¶³å¤Ÿå¤š
 		if (n < m_buffer.size()) {
 			m_current += n;
 			Iterator<Object[]> iter = m_buffer.iterator();
@@ -94,11 +94,11 @@ public class ImCursor extends ICursor {
 				n--;
 			}
 			
-		} else if (n == m_buffer.size()) { // 2¡£»º³å==nÊ±
+		} else if (n == m_buffer.size()) { // 2ã€‚ç¼“å†²==næ—¶
 			ls.addAll(m_buffer);
 			m_buffer.clear();
 			m_current += n;
-		} else if (n > m_buffer.size()) { // 3¡£»º³å<nÊ±
+		} else if (n > m_buffer.size()) { // 3ã€‚ç¼“å†²<næ—¶
 			if(m_current >= m_nTotal) return ls;
 			Iterator<Object[]> iter = m_buffer.iterator();
 			while (iter.hasNext()) {
@@ -107,7 +107,7 @@ public class ImCursor extends ICursor {
 			n = n - m_buffer.size();
 			m_current = m_buffer.size();
 			m_buffer.clear();
-			//ÓĞ¶àÉÙ¼ÇÂ¼ÏÔÊ¾¶àÉÙ£¬ÈôĞèÒªÓën±£³ÖÒ»ÖÂ£¬²Î¿¼elasticµÄÊµÏÖ.
+			//æœ‰å¤šå°‘è®°å½•æ˜¾ç¤ºå¤šå°‘ï¼Œè‹¥éœ€è¦ä¸nä¿æŒä¸€è‡´ï¼Œå‚è€ƒelasticçš„å®ç°.
 			
 			try {
 				int nTotal = 0;
@@ -128,7 +128,7 @@ public class ImCursor extends ICursor {
 						break;
 					}
 				}
-				// Êı¾İ²¹³äµ½lsÖĞ.
+				// æ•°æ®è¡¥å……åˆ°lsä¸­.
 				iter = m_buffer.iterator();
 				while (iter.hasNext() && n > 0) {
 					ls.add(iter.next());
@@ -154,7 +154,7 @@ public class ImCursor extends ICursor {
 	private long skipData(long n) {
 		long org = n;
 		if (m_buffer == null || n == 0) return 0;
-		// 1¡£»º³å×ã¹»¶à
+		// 1ã€‚ç¼“å†²è¶³å¤Ÿå¤š
 		if (n < m_buffer.size()) {
 			m_current += n;
 			Iterator<Object[]> iter = m_buffer.iterator();
@@ -163,18 +163,18 @@ public class ImCursor extends ICursor {
 				iter.remove();
 				n--;
 			}
-		} else if (n == m_buffer.size()) { // 2¡£»º³å==nÊ±
+		} else if (n == m_buffer.size()) { // 2ã€‚ç¼“å†²==næ—¶
 			m_current += n;
 			n = 0;
 			m_buffer.clear();
 			
-		} else if (n > m_buffer.size()) { // 3¡£»º³å<nÊ±
+		} else if (n > m_buffer.size()) { // 3ã€‚ç¼“å†²<næ—¶
 			if(m_current >= m_nTotal) return 0;
 			Iterator<Object[]> iter = null;
 			n = n - m_buffer.size();
 			m_current = m_buffer.size();
 			m_buffer.clear();
-			//ÓĞ¶àÉÙ¼ÇÂ¼Ìø¹ı¶àÉÙ£¬ÈôĞèÒªÓën±£³ÖÒ»ÖÂ£¬²Î¿¼elasticµÄÊµÏÖ.
+			//æœ‰å¤šå°‘è®°å½•è·³è¿‡å¤šå°‘ï¼Œè‹¥éœ€è¦ä¸nä¿æŒä¸€è‡´ï¼Œå‚è€ƒelasticçš„å®ç°.
 			
 			try {
 				int nTotal = 0;
@@ -195,7 +195,7 @@ public class ImCursor extends ICursor {
 						break;
 					}
 				}
-				// Êı¾İ²¹³äµ½lsÖĞ.
+				// æ•°æ®è¡¥å……åˆ°lsä¸­.
 				iter = m_buffer.iterator();
 				while (iter.hasNext() && n > 0) {
 					iter.next();

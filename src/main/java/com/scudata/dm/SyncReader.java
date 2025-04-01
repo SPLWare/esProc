@@ -13,18 +13,18 @@ import com.scudata.dw.MemoryTable;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
-//ÓÃÓÚ¶à¸öÏß³ÌÍ¬²½´Ó×é±í¡¢¼¯ÎÄ¼ş¡¢ÓÎ±êÈ¡Êı
+//ç”¨äºå¤šä¸ªçº¿ç¨‹åŒæ­¥ä»ç»„è¡¨ã€é›†æ–‡ä»¶ã€æ¸¸æ ‡å–æ•°
 public class SyncReader {
 
 	private Object srcObj;
-	private ArrayList<Integer> countList = new ArrayList<Integer>();//Ã¿¶ÎµÄÌõÊı
-	private Sequence values = new Sequence();//Ã¿¶ÎµÄÊ×ÌõÖµ
+	private ArrayList<Integer> countList = new ArrayList<Integer>();//æ¯æ®µçš„æ¡æ•°
+	private Sequence values = new Sequence();//æ¯æ®µçš„é¦–æ¡å€¼
 	
 	private int fetched[];
 	private int parallCount = 1;
-	private int SYNC_THREAD_NUM = 8;//Í¬Ê±È¡³öµÄÎ¬±í¿éÊı£¨Ê±¿Ì±£Ö¤ÓĞÕâÃ´¶à¸ö¿é¿ÉÓÃ£©
+	private int SYNC_THREAD_NUM = 8;//åŒæ—¶å–å‡ºçš„ç»´è¡¨å—æ•°ï¼ˆæ—¶åˆ»ä¿è¯æœ‰è¿™ä¹ˆå¤šä¸ªå—å¯ç”¨ï¼‰
 	private Sequence datas[];
-	private String[] fields;//ĞèÒªµÄÎ¬±í×Ö¶Î
+	private String[] fields;//éœ€è¦çš„ç»´è¡¨å­—æ®µ
 	private Thread []threads;
 	
 	public ArrayList<Integer> getCountList() {
@@ -70,7 +70,7 @@ public class SyncReader {
 	}
 	
 	public SyncReader(FileObject file, Expression []exps, int n) {
-		//×ª»»ÎªString[]
+		//è½¬æ¢ä¸ºString[]
 		int len = exps.length;
 		String []keys = new String[len];
 		for (int j = 0; j < len; j++) {
@@ -88,7 +88,7 @@ public class SyncReader {
 	}
 	
 	public SyncReader(Cursor cursor, Expression []exps, int n) {
-		//×ª»»ÎªString[]
+		//è½¬æ¢ä¸ºString[]
 		int len = exps.length;
 		String []keys = new String[len];
 		for (int j = 0; j < len; j++) {
@@ -120,7 +120,7 @@ public class SyncReader {
 			datas[index] = new MemoryTable(cursor);
 		} else {
 			ICursor srcCursor = new BFileCursor((FileObject) srcObj, null, null, null);
-			//TODO ÉèÖÃ·Ö¶Îpos
+			//TODO è®¾ç½®åˆ†æ®µpos
 			datas[index] = srcCursor.fetch(countList.get(index));
 		}
 	}
@@ -137,7 +137,7 @@ public class SyncReader {
 			datas[index] = new MemoryTable(cursor);
 		} else {
 			ICursor srcCursor = new BFileCursor((FileObject) srcObj, null, null, null);
-			//TODO ÉèÖÃ·Ö¶Îpos
+			//TODO è®¾ç½®åˆ†æ®µpos
 			datas[index] = new MemoryTable(srcCursor, countList.get(index));
 		}
 	}
@@ -151,8 +151,8 @@ public class SyncReader {
 			} else {
 
 				try {
-					//runµ½ÕâÀï¾ÍËµÃ÷joinµÄËÙ¶È±ÈÕâÀïÈ¡ÊıÒª¿ì
-					//Ò»´ÎÆô¶¯¶à¸ö
+					//runåˆ°è¿™é‡Œå°±è¯´æ˜joinçš„é€Ÿåº¦æ¯”è¿™é‡Œå–æ•°è¦å¿«
+					//ä¸€æ¬¡å¯åŠ¨å¤šä¸ª
 					int num = SYNC_THREAD_NUM;
 					Thread[] threads = this.threads;
 					for (int i = 0; i < num; i++) {
@@ -160,7 +160,7 @@ public class SyncReader {
 							break;
 						}
 						if (threads[index + i].getState() == Thread.State.NEW) {
-							threads[index + i].start(); //Æô¶¯
+							threads[index + i].start(); //å¯åŠ¨
 						}
 					}
 					for (int i = 0; i < num; i++) {
@@ -177,12 +177,12 @@ public class SyncReader {
 		}
 		
 		if (fetched[index] == parallCount) {
-			//Èç¹ûËùÓĞµÄÏß³Ì(joinxÏß³Ì)¶¼È¡¹ıÁË
+			//å¦‚æœæ‰€æœ‰çš„çº¿ç¨‹(joinxçº¿ç¨‹)éƒ½å–è¿‡äº†
 			Sequence data = datas[index];
 			datas[index] = null;
 			
 			if (!(srcObj instanceof FileObject)) {
-				//Æô¶¯ÏÂÒ»¸öÎ´Æô¶¯µÄÏß³Ì
+				//å¯åŠ¨ä¸‹ä¸€ä¸ªæœªå¯åŠ¨çš„çº¿ç¨‹
 				int next = index + SYNC_THREAD_NUM;
 				if (next < threads.length) {
 					Thread t = threads[next];
@@ -204,7 +204,7 @@ public class SyncReader {
 		
 		if (parallCount == 1) return;
 		for (int i = 0; i < SYNC_THREAD_NUM; ++i) {
-			threads[i].start(); // Æô¶¯Ïß³Ì·Ö¶ÎÈ¡Êı
+			threads[i].start(); // å¯åŠ¨çº¿ç¨‹åˆ†æ®µå–æ•°
 		}
 	}
 	

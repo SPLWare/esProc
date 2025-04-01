@@ -50,9 +50,9 @@ public class PartitionUtil {
 	}
 
 	/**
-	 * ´Ó·Ö»úĞòÁĞmcsÖĞÕÒÎÄ¼şfile£¬ÓÅÏÈ±¾µØ£¬hs´óÓÚ1Ö»¶Á£¬·ñÔò¿É¶ÁĞ´
-	 * @param mcs ·Ö»ú×é
-	 * @param file ÎÄ¼şÃû
+	 * ä»åˆ†æœºåºåˆ—mcsä¸­æ‰¾æ–‡ä»¶fileï¼Œä¼˜å…ˆæœ¬åœ°ï¼Œhså¤§äº1åªè¯»ï¼Œå¦åˆ™å¯è¯»å†™
+	 * @param mcs åˆ†æœºç»„
+	 * @param file æ–‡ä»¶å
 	 * @return FileObject
 	 */
 	public static FileObject locate(Machines mcs, String file) {
@@ -60,10 +60,10 @@ public class PartitionUtil {
 	}
 
 /**
- * ´Ó·Ö»úĞòÁĞhsÖĞÕÒÎÄ¼şfn£¬ÓÅÏÈ±¾µØ£¬hs´óÓÚ1Ö»¶Á£¬·ñÔò¿É¶ÁĞ´
- * @param mcs ·Ö»ú×é
- * @param file ÎÄ¼şÃû
- * @param z ·Ö±íÇøºÅ
+ * ä»åˆ†æœºåºåˆ—hsä¸­æ‰¾æ–‡ä»¶fnï¼Œä¼˜å…ˆæœ¬åœ°ï¼Œhså¤§äº1åªè¯»ï¼Œå¦åˆ™å¯è¯»å†™
+ * @param mcs åˆ†æœºç»„
+ * @param file æ–‡ä»¶å
+ * @param z åˆ†è¡¨åŒºå·
  * @return FileObject
  */
 	public static FileObject locate(Machines mcs, String file, Integer z) {
@@ -77,9 +77,9 @@ public class PartitionUtil {
 			int port = mcs.getPort(0);
 			fo = new FileObject(file, host, port);
 			fo.setPartition(z);
-			fo.setRemoteFileWritable();//½öÖ¸¶¨Î¨Ò»·Ö»úÊ±£¬ÉèÖÃÔ¶³ÌÎÄ¼ş¿ÉĞ´
+			fo.setRemoteFileWritable();//ä»…æŒ‡å®šå”¯ä¸€åˆ†æœºæ—¶ï¼Œè®¾ç½®è¿œç¨‹æ–‡ä»¶å¯å†™
 			return fo;
-		}else if (fo.isExists()) {//¶à¸öhsÊ±£¬ÓÅÏÈ±¾µØ
+		}else if (fo.isExists()) {//å¤šä¸ªhsæ—¶ï¼Œä¼˜å…ˆæœ¬åœ°
 			
 			return fo;
 		}
@@ -116,11 +116,11 @@ public class PartitionUtil {
 	}
 
 	/**
-	 * ÁĞ³ö·Ö»úhostµÄÂ·¾¶pathÏÂµÄËùÓĞÎÄ¼şĞÅÏ¢
-	 * @param host ·Ö»úIP
-	 * @param port ·Ö»ú¶Ë¿ÚºÅ
-	 * @param path Â·¾¶Ãû³Æ
-	 * @return ÎÄ¼şĞÅÏ¢µÄÁĞ±í
+	 * åˆ—å‡ºåˆ†æœºhostçš„è·¯å¾„pathä¸‹çš„æ‰€æœ‰æ–‡ä»¶ä¿¡æ¯
+	 * @param host åˆ†æœºIP
+	 * @param port åˆ†æœºç«¯å£å·
+	 * @param path è·¯å¾„åç§°
+	 * @return æ–‡ä»¶ä¿¡æ¯çš„åˆ—è¡¨
 	 */
 	public static List<FileInfo> listFiles(String host, int port,String path) {
 		Request req = new Request(Request.PARTITION_LISTFILES);
@@ -129,12 +129,12 @@ public class PartitionUtil {
 	}
 
 	/**
-	 * ½«±¾»úÎÄ¼şfnÒÆµ½hs·Ö»úµÄpÂ·¾¶ÏÂ£¬hs¿ÉÊÇĞòÁĞ£»hÊ¡ÂÔ±¾»ú
-	 * @param fileName Ô´ÎÄ¼ş
-	 * @param partition ·ÖÇø±íºÅ
-	 * @param hs Ä¿±ê·Ö»ú×é
-	 * @param dstPath Ä¿±êÂ·¾¶
-	 * @param option Ñ¡Ïî
+	 * å°†æœ¬æœºæ–‡ä»¶fnç§»åˆ°hsåˆ†æœºçš„pè·¯å¾„ä¸‹ï¼Œhså¯æ˜¯åºåˆ—ï¼›hçœç•¥æœ¬æœº
+	 * @param fileName æºæ–‡ä»¶
+	 * @param partition åˆ†åŒºè¡¨å·
+	 * @param hs ç›®æ ‡åˆ†æœºç»„
+	 * @param dstPath ç›®æ ‡è·¯å¾„
+	 * @param option é€‰é¡¹
 	 */
 	public static void moveFile(String fileName,int partition,
 			Machines hs, String dstPath, String option) {
@@ -148,21 +148,21 @@ public class PartitionUtil {
 		return option!=null && option.indexOf("y")>-1;
 	}
 	/**
-	 * movefile(fn:z,h;p,hs)	½«·Ö»úhÉÏµÄÎÄ¼şfnÒÆµ½hs·Ö»úµÄpÂ·¾¶ÏÂ£¬hs¿ÉÊÇĞòÁĞ£»hÊ¡ÂÔ±¾»ú
-	 * hsÊ¡ÂÔÎª¸ÄÃû
-	 * p:hsÊ¡ÂÔÉ¾³ı
-	 * hºÍpÊ¡ÂÔµ«hs²»¿ÕÔòÉ¾³ıhsÏÂµÄÎÄ¼ş
-	 * @param host Ô´»úIP
-	 * @param port Ô´»ú¶Ë¿ÚºÅ
-	 * @param fileName Ô´ÎÄ¼ş
-	 * @param partition ·ÖÇø±íºÅ
-	 * @param hs Ä¿±ê·Ö»ú×é
-	 * @param dstPath Ä¿±êÂ·¾¶
-	 * @param option Ñ¡Ïî
+	 * movefile(fn:z,h;p,hs)	å°†åˆ†æœºhä¸Šçš„æ–‡ä»¶fnç§»åˆ°hsåˆ†æœºçš„pè·¯å¾„ä¸‹ï¼Œhså¯æ˜¯åºåˆ—ï¼›hçœç•¥æœ¬æœº
+	 * hsçœç•¥ä¸ºæ”¹å
+	 * p:hsçœç•¥åˆ é™¤
+	 * hå’Œpçœç•¥ä½†hsä¸ç©ºåˆ™åˆ é™¤hsä¸‹çš„æ–‡ä»¶
+	 * @param host æºæœºIP
+	 * @param port æºæœºç«¯å£å·
+	 * @param fileName æºæ–‡ä»¶
+	 * @param partition åˆ†åŒºè¡¨å·
+	 * @param hs ç›®æ ‡åˆ†æœºç»„
+	 * @param dstPath ç›®æ ‡è·¯å¾„
+	 * @param option é€‰é¡¹
 	 */
 	public static boolean moveFile(String host, int port, String fileName,int partition,
 			Machines hs, String dstPath, String option) {
-		// 1:Èç¹ûÍ¬²½µÄhost²»ÊÇ±¾µØ»úÆ÷£¬·¢ËÍÏûÏ¢µ½host£¬´Óhost»úÆ÷Ö´ĞĞ±¾µØ²Ù×÷¡£
+		// 1:å¦‚æœåŒæ­¥çš„hostä¸æ˜¯æœ¬åœ°æœºå™¨ï¼Œå‘é€æ¶ˆæ¯åˆ°hostï¼Œä»hostæœºå™¨æ‰§è¡Œæœ¬åœ°æ“ä½œã€‚
 		if (host != null) {
 			boolean isLocal = host.equals(hm.getHost()) && port == hm.getPort();
 			if (!isLocal) {
@@ -177,26 +177,26 @@ public class PartitionUtil {
 			}
 		}
 		
-		//2:¸ÄÃû»òÕßÉ¾³ı
+		//2:æ”¹åæˆ–è€…åˆ é™¤
 		String absolute = PartitionManager.getAbsolutePath(fileName);
 		File file = new File( absolute );
 		
-		if (hs == null) {//hsÊ¡ÂÔÊ±
-			if(!file.exists()){//Ö»ÄÜÔÚ±¾µØ²Ù×÷Ê±£¬ÅĞ¶Ï¸ÃÎÄ¼şÊÇ·ñ´æÔÚ
+		if (hs == null) {//hsçœç•¥æ—¶
+			if(!file.exists()){//åªèƒ½åœ¨æœ¬åœ°æ“ä½œæ—¶ï¼Œåˆ¤æ–­è¯¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 				throw new RQException( absolute + " is not exist.");
 			}
-			if(!StringUtils.isValidString(dstPath)){//pÒ²Ê¡ÂÔÊ±£¬ÔòÉ¾³ı±¾µØÎÄ¼ş
+			if(!StringUtils.isValidString(dstPath)){//pä¹Ÿçœç•¥æ—¶ï¼Œåˆ™åˆ é™¤æœ¬åœ°æ–‡ä»¶
 				file.delete();
 			}else{
-			//¸ÄÃû
+			//æ”¹å
 				if (file.exists()) {
 					File newFile = new File(file.getParent(), dstPath);
 					file.renameTo(newFile);
 				}
 			}
 			return true;
-		}else if(!StringUtils.isValidString(dstPath)){//pÒ²Ê¡ÂÔÊ±£¬ÔòÉ¾³ıhsÉÏµÄÏà¹ØÎÄ¼ş
-			//´Ë´¦²Ù×÷µÄÊÇÔ¶³Ì·Ö»úÉÏµÄÎÄ¼ş£¬²»ÄÜÅĞ¶ÏfileÊÇ·ñ´æÔÚ
+		}else if(!StringUtils.isValidString(dstPath)){//pä¹Ÿçœç•¥æ—¶ï¼Œåˆ™åˆ é™¤hsä¸Šçš„ç›¸å…³æ–‡ä»¶
+			//æ­¤å¤„æ“ä½œçš„æ˜¯è¿œç¨‹åˆ†æœºä¸Šçš„æ–‡ä»¶ï¼Œä¸èƒ½åˆ¤æ–­fileæ˜¯å¦å­˜åœ¨
 			for(int n=0;n<hs.size();n++){
 				String tmpHost = hs.getHost(n);
 				int tmpPort = hs.getPort(n);
@@ -205,7 +205,7 @@ public class PartitionUtil {
 				req.setAttr(Request.DELETE_Option, option);
 				try{
 					ask(tmpHost, tmpPort, req);
-				}catch(Exception x){//²¶»ñÒì³£ÒÔ×èÖ¹Ò»Ì¨·Ö»ú±¨´í£¬Ó°ÏìÆäËû·Ö»úÖ´ĞĞ
+				}catch(Exception x){//æ•è·å¼‚å¸¸ä»¥é˜»æ­¢ä¸€å°åˆ†æœºæŠ¥é”™ï¼Œå½±å“å…¶ä»–åˆ†æœºæ‰§è¡Œ
 					Logger.warn(x);
 				}
 			}
@@ -219,7 +219,7 @@ public class PartitionUtil {
 			throw new RQException( absolute + " is not exist.");
 		}
 
-		// 4:ÒÀ´ÎÉÏ´«µ½ËùÓĞ·Ö»ú
+		// 4:ä¾æ¬¡ä¸Šä¼ åˆ°æ‰€æœ‰åˆ†æœº
 		File dstFile = new File(dstPath);
 		boolean isDstAbsolute = dstFile.isAbsolute();
 		for (int n = 0; n < hs.size(); n++) {
@@ -234,7 +234,7 @@ public class PartitionUtil {
 			upload(hs.getHost(n), hs.getPort(n), tmpUpFiles, targetPath, true, isYOption(option));
 		}
 		
-		if(!isCOption(option)){//²»ÊÇ¸´ÖÆÄ£Ê½Ê±£¬×îºóÉ¾³ı±¾»úÎÄ¼ş
+		if(!isCOption(option)){//ä¸æ˜¯å¤åˆ¶æ¨¡å¼æ—¶ï¼Œæœ€ååˆ é™¤æœ¬æœºæ–‡ä»¶
 			file.delete();
 		}
 		
@@ -297,15 +297,15 @@ public class PartitionUtil {
 		Logger.debug("upload: " + file.getAbsolutePath() + " OK.");
 	}
 
-	// ÉÏÔØ
+	// ä¸Šè½½
 	/**
-	 * Íù·Ö»úhostÉÏÉÏ´«Ò»¸öÎÄ¼ş»òÕßÎÄ¼ş¼Ğ
-	 * @param host ·Ö»úµÄIPµØÖ·
-	 * @param port ·Ö»úµÄ¶Ë¿ÚºÅ
+	 * å¾€åˆ†æœºhostä¸Šä¸Šä¼ ä¸€ä¸ªæ–‡ä»¶æˆ–è€…æ–‡ä»¶å¤¹
+	 * @param host åˆ†æœºçš„IPåœ°å€
+	 * @param port åˆ†æœºçš„ç«¯å£å·
 	 * @param localFile
-	 *            ±¾µØÎÄ¼ş»òÕßÎÄ¼ş¼Ğ
+	 *            æœ¬åœ°æ–‡ä»¶æˆ–è€…æ–‡ä»¶å¤¹
 	 * @param dstPath
-	 *            ÉÏÔØµ½Ä¿±êµÄÎÄ¼şÃû£¬nullÊ±ÓëlocalFileÍ¬Ãû
+	 *            ä¸Šè½½åˆ°ç›®æ ‡çš„æ–‡ä»¶åï¼Œnullæ—¶ä¸localFileåŒå
 	 * @throws Exception
 	 */
 	public static void upload(String host, int port, List localFiles, String dstPath) {
@@ -313,15 +313,15 @@ public class PartitionUtil {
 	}
 	
 	/**
-	 * Íù·Ö»úhostÉÏÉÏ´«Ò»¸öÒÆ¶¯Ä£Ê½µÄÎÄ¼ş£¬¼´²»±È½ÏLastModifiedÖµÀ´¾ö¶¨ÊÇ·ñÒÆ¶¯
-	 * @param host ·Ö»úµÄIPµØÖ·
-	 * @param port ·Ö»úµÄ¶Ë¿ÚºÅ
+	 * å¾€åˆ†æœºhostä¸Šä¸Šä¼ ä¸€ä¸ªç§»åŠ¨æ¨¡å¼çš„æ–‡ä»¶ï¼Œå³ä¸æ¯”è¾ƒLastModifiedå€¼æ¥å†³å®šæ˜¯å¦ç§»åŠ¨
+	 * @param host åˆ†æœºçš„IPåœ°å€
+	 * @param port åˆ†æœºçš„ç«¯å£å·
 	 * @param localFile
-	 *            ±¾µØÎÄ¼ş»òÕßÎÄ¼ş¼Ğ
+	 *            æœ¬åœ°æ–‡ä»¶æˆ–è€…æ–‡ä»¶å¤¹
 	 * @param dstPath
-	 *            ÉÏÔØµ½Ä¿±êµÄÎÄ¼şÃû£¬nullÊ±ÓëlocalFileÍ¬Ãû
-	 * @param isMove ÊÇ·ñÎªÒÆ¶¯Ä£Ê½µÄÉÏ´«ÎÄ¼ş
-	 * @param isY ÒÆ¶¯Ä£Ê½Ê±£¬ÊÇ·ñÇ¿ÖÆ¸²¸ÇÄ¿±êÎÄ¼ş£¬·ñµÄ»°£¬´æÔÚÄ¿±êÊ±£¬±¨´í
+	 *            ä¸Šè½½åˆ°ç›®æ ‡çš„æ–‡ä»¶åï¼Œnullæ—¶ä¸localFileåŒå
+	 * @param isMove æ˜¯å¦ä¸ºç§»åŠ¨æ¨¡å¼çš„ä¸Šä¼ æ–‡ä»¶
+	 * @param isY ç§»åŠ¨æ¨¡å¼æ—¶ï¼Œæ˜¯å¦å¼ºåˆ¶è¦†ç›–ç›®æ ‡æ–‡ä»¶ï¼Œå¦çš„è¯ï¼Œå­˜åœ¨ç›®æ ‡æ—¶ï¼ŒæŠ¥é”™
 	 */
 	public static void upload(String host, int port, List localFiles, String dstPath, boolean isMove, boolean isY) {
 		MessageManager mm = EngineMessage.get();
@@ -349,23 +349,23 @@ public class PartitionUtil {
 
 
 	/**
-	 * ½«±¾»úÂ·¾¶pathÏÂµÄÎÄ¼şÍ¬²½µ½machines
-	 * @param machines Ä¿µÄ·Ö»úÈº
-	 * @param path Â·¾¶Ãû³Æ
+	 * å°†æœ¬æœºè·¯å¾„pathä¸‹çš„æ–‡ä»¶åŒæ­¥åˆ°machines
+	 * @param machines ç›®çš„åˆ†æœºç¾¤
+	 * @param path è·¯å¾„åç§°
 	 */
 	public static void syncTo(Machines machines, String path) {
 		syncTo(null,0,machines,path);
 	}
 	/**
-	 * ½«host»úÆ÷Â·¾¶pÏÂµÄÎÄ¼şÍ¬²½µ½machinesµÄ¶ÔÓ¦pÂ·¾¶
-	 * @param host Í¬²½µÄ»úÆ÷IP
-	 * @param port Í¬²½µÄ»úÆ÷¶Ë¿Ú
-	 * @param machines ´ıÍ¬²½µÄÄ¿µÄ»úÆ÷Èº
-	 * @param path£¬ÒªÍ¬²½µÄÂ·¾¶Ãû
+	 * å°†hostæœºå™¨è·¯å¾„pä¸‹çš„æ–‡ä»¶åŒæ­¥åˆ°machinesçš„å¯¹åº”pè·¯å¾„
+	 * @param host åŒæ­¥çš„æœºå™¨IP
+	 * @param port åŒæ­¥çš„æœºå™¨ç«¯å£
+	 * @param machines å¾…åŒæ­¥çš„ç›®çš„æœºå™¨ç¾¤
+	 * @param pathï¼Œè¦åŒæ­¥çš„è·¯å¾„å
 	 */
 	public static void syncTo(String host, int port, Machines machines, String path) {
 		MessageManager mm = EngineMessage.get();
-		// 0:¼ì²éÄ¿µÄ·Ö»ú
+		// 0:æ£€æŸ¥ç›®çš„åˆ†æœº
 		if (machines == null || machines.size() == 0) {
 			throw new RQException(mm.getMessage("partitionutil.notarget"));
 		}
@@ -379,7 +379,7 @@ public class PartitionUtil {
 		}
 		
 		
-		// 1:Èç¹ûÍ¬²½µÄhost²»ÊÇ±¾µØ»úÆ÷£¬·¢ËÍÏûÏ¢µ½host£¬´Óhost»úÆ÷Ö´ĞĞ±¾µØ²Ù×÷¡£
+		// 1:å¦‚æœåŒæ­¥çš„hostä¸æ˜¯æœ¬åœ°æœºå™¨ï¼Œå‘é€æ¶ˆæ¯åˆ°hostï¼Œä»hostæœºå™¨æ‰§è¡Œæœ¬åœ°æ“ä½œã€‚
 		if (host != null) {
 			boolean isLocal = host.equals(hm.getHost()) && port == hm.getPort();
 			if (!isLocal) {
@@ -391,19 +391,19 @@ public class PartitionUtil {
 			}
 		}
 		
-		// 2:ÁĞ³öÄ¿±ê»úÆ÷ÉÏµÄËùÓĞÎÄ¼ş
+		// 2:åˆ—å‡ºç›®æ ‡æœºå™¨ä¸Šçš„æ‰€æœ‰æ–‡ä»¶
 		List<FileInfo>[] machineFileList = new List[machines.size()];
 		for (int i = 0; i < machines.size(); i++) {
 			List<FileInfo> fileInfosN = listFiles(machines.getHost(i), machines.getPort(i),path);
 			machineFileList[i] = fileInfosN;
 		}
 		
-		// 3:ÁĞ³ö±¾»úÎÄ¼şÁĞ±í
+		// 3:åˆ—å‡ºæœ¬æœºæ–‡ä»¶åˆ—è¡¨
 		List<FileInfo> localFiles = PartitionManager.listPathFiles( path, true);
 		
-		// 4:°´±¾»úÎÄ¼şÁĞ±í£¬ÒÀ´Î¸üĞÂµ½ËùÓĞ·Ö»ú
+		// 4:æŒ‰æœ¬æœºæ–‡ä»¶åˆ—è¡¨ï¼Œä¾æ¬¡æ›´æ–°åˆ°æ‰€æœ‰åˆ†æœº
 		for (int i = 0; i < localFiles.size(); i++) {
-			FileInfo syncFi = (FileInfo) localFiles.get(i);// ´ıÍ¬²½ÎÄ¼ş
+			FileInfo syncFi = (FileInfo) localFiles.get(i);// å¾…åŒæ­¥æ–‡ä»¶
 			if(syncFi.isDir()){
 				continue;
 			}
@@ -413,7 +413,7 @@ public class PartitionUtil {
 				if (index >= 0) {
 					FileInfo fiN = (FileInfo) fileInfosN.get(index);
 					if (fiN.lastModified() > syncFi.lastModified())
-						continue;// ·Ö»úµÄÎÄ¼ş¸üĞÂÒ»Ğ©
+						continue;// åˆ†æœºçš„æ–‡ä»¶æ›´æ–°ä¸€äº›
 				}
 				ArrayList<String> tmpUpFiles = new ArrayList<String>();
 				File absFile = syncFi.getFile(path);
@@ -425,7 +425,7 @@ public class PartitionUtil {
 	}
 	
 
-	//ÉÏÔØ×é±íÎÄ¼ş
+	//ä¸Šè½½ç»„è¡¨æ–‡ä»¶
 	private static void uploadCtxFile(UnitClient uc, File file, String dstPathName) throws Exception {
 		Request req;
 		if (!file.exists()) {
@@ -510,7 +510,7 @@ public class PartitionUtil {
 						continue;
 					raf.seek(pos);
 					raf.read(buf);
-					uc.write("m");//±íÊ¾ÊÇ²¹¿é
+					uc.write("m");//è¡¨ç¤ºæ˜¯è¡¥å—
 					uc.write(pos);
 					uc.write(buf);
 				}
@@ -522,7 +522,7 @@ public class PartitionUtil {
 						continue;
 					raf.seek(pos);
 					raf.read(buf);
-					uc.write("n");//±íÊ¾ÊÇÕı³£¿é
+					uc.write("n");//è¡¨ç¤ºæ˜¯æ­£å¸¸å—
 					uc.write(pos);
 					uc.write(buf);
 				}
@@ -532,7 +532,7 @@ public class PartitionUtil {
 			while (remoteFileSize < fileSize) {
 				raf.seek(remoteFileSize);
 				raf.read(buf);
-				uc.write("a");//±íÊ¾ÊÇÔöÁ¿¿é
+				uc.write("a");//è¡¨ç¤ºæ˜¯å¢é‡å—
 				uc.write(remoteFileSize);
 				uc.write(buf);
 				remoteFileSize += blockSize;
@@ -544,7 +544,7 @@ public class PartitionUtil {
 					continue;
 				raf.seek(pos);
 				raf.read(buf);
-				uc.write("h");//±íÊ¾ÊÇheader¿é
+				uc.write("h");//è¡¨ç¤ºæ˜¯headerå—
 				uc.write(pos);
 				uc.write(buf);
 			}
@@ -578,7 +578,7 @@ public class PartitionUtil {
 		Logger.debug("upload: " + file.getAbsolutePath() + " OK.");
 	}
 	
-	//ÉÏÔØ×é±íË÷ÒıÎÄ¼ş
+	//ä¸Šè½½ç»„è¡¨ç´¢å¼•æ–‡ä»¶
 	private static void uploadIdxFile(UnitClient uc, File file, String dstPathName) throws Exception {
 		Request req;
 		if (!file.exists()) {

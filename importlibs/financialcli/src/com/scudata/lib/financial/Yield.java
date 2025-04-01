@@ -17,25 +17,25 @@ import java.util.Calendar;
 /**
  * @author yanjing
  * 
- * Fyield(settlement,maturity;rate,pr,redemption) ·µ»Ø¶¨ÆÚ¸¶Ï¢ÓĞ¼ÛÖ¤È¯µÄÊÕÒæÂÊ
- * Fyield@d(settlement,maturity;0,pr,redemption) ·µ»ØÕÛ¼Û·¢ĞĞµÄÓĞ¼ÛÖ¤È¯µÄÄêÊÕÒæÂÊ
- * Fyield@m(settlement,maturity,issue;rate,pr) ·µ»Øµ½ÆÚ¸¶Ï¢ÓĞ¼ÛÖ¤È¯µÄÄêÊÕÒæÂÊ
- *   ÎŞ£¬°´ÄêÖ§¸¶£¬frequency = 1£»
- *   @2 °´°ëÄêÆÚÖ§¸¶£¬frequency = 2£»
- *   @4 °´¼¾Ö§¸¶£¬frequency = 4
+ * Fyield(settlement,maturity;rate,pr,redemption) è¿”å›å®šæœŸä»˜æ¯æœ‰ä»·è¯åˆ¸çš„æ”¶ç›Šç‡
+ * Fyield@d(settlement,maturity;0,pr,redemption) è¿”å›æŠ˜ä»·å‘è¡Œçš„æœ‰ä»·è¯åˆ¸çš„å¹´æ”¶ç›Šç‡
+ * Fyield@m(settlement,maturity,issue;rate,pr) è¿”å›åˆ°æœŸä»˜æ¯æœ‰ä»·è¯åˆ¸çš„å¹´æ”¶ç›Šç‡
+ *   æ— ï¼ŒæŒ‰å¹´æ”¯ä»˜ï¼Œfrequency = 1ï¼›
+ *   @2 æŒ‰åŠå¹´æœŸæ”¯ä»˜ï¼Œfrequency = 2ï¼›
+ *   @4 æŒ‰å­£æ”¯ä»˜ï¼Œfrequency = 4
  *   
  * 	 @e 30/360, 
- * 	 @1 Êµ¼ÊÌìÊı/ÄêÊµ¼ÊÌìÊı£¬
- * 	 @0 Êµ¼ÊÌìÊı/360£¬ 
- * 	 @5 Êµ¼ÊÌìÊı/365£¬
- * 	 È±Ê¡Îª30/360* * 
+ * 	 @1 å®é™…å¤©æ•°/å¹´å®é™…å¤©æ•°ï¼Œ
+ * 	 @0 å®é™…å¤©æ•°/360ï¼Œ 
+ * 	 @5 å®é™…å¤©æ•°/365ï¼Œ
+ * 	 ç¼ºçœä¸º30/360* * 
  * 
- * @param settlement Ö¤È¯µÄ½áËãÈÕ
- * @param maturity  Ö¤È¯µÄµ½ÆÚÈÕ
- * @param issue ·¢ĞĞÈÕ
- * @param Rate ÎªÓĞ¼ÛÖ¤È¯µÄÀûÂÊ¡£
- * @param Pr ÎªÃæÖµ £¤100 µÄÓĞ¼ÛÖ¤È¯µÄ¼Û¸ñ¡£
- * @param Redemption ÎªÃæÖµ £¤100 µÄÓĞ¼ÛÖ¤È¯µÄÇå³¥¼ÛÖµ¡£ 
+ * @param settlement è¯åˆ¸çš„ç»“ç®—æ—¥
+ * @param maturity  è¯åˆ¸çš„åˆ°æœŸæ—¥
+ * @param issue å‘è¡Œæ—¥
+ * @param Rate ä¸ºæœ‰ä»·è¯åˆ¸çš„åˆ©ç‡ã€‚
+ * @param Pr ä¸ºé¢å€¼ ï¿¥100 çš„æœ‰ä»·è¯åˆ¸çš„ä»·æ ¼ã€‚
+ * @param Redemption ä¸ºé¢å€¼ ï¿¥100 çš„æœ‰ä»·è¯åˆ¸çš„æ¸…å¿ä»·å€¼ã€‚ 
  */
 public class Yield extends Function {
                                                                                                                             
@@ -113,16 +113,16 @@ public class Yield extends Function {
 		else if(option!=null && option.indexOf("e")>=0) basis=4;
 		else basis=0;
 		
-		double m=Price.interval(settlement, maturity,basis, 'm');//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄÔÂÊı
-		int z=12/frequency;//Ã¿¸ö¸¶Ï¢ÆÚµÄÔÂÊı
-		int n=new Double(Math.ceil(m/z)).intValue();//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄ¸¶Ï¢´ÎÊı
+		double m=Price.interval(settlement, maturity,basis, 'm');//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„æœˆæ•°
+		int z=12/frequency;//æ¯ä¸ªä»˜æ¯æœŸçš„æœˆæ•°
+		int n=new Double(Math.ceil(m/z)).intValue();//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„ä»˜æ¯æ¬¡æ•°
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(maturity);
 		calendar.add(Calendar.MONTH, -n*z);
-		Date end=new Date();//ÏÂÒ»¸ö¸¶Ï¢ÈÕ
+		Date end=new Date();//ä¸‹ä¸€ä¸ªä»˜æ¯æ—¥
 		end.setTime(calendar.getTimeInMillis());
-		Date start=new Date();//ÉÏÒ»¸ö¸¶Ï¢ÈÕ
+		Date start=new Date();//ä¸Šä¸€ä¸ªä»˜æ¯æ—¥
 		if(Variant.compare(settlement, end)==1){
 			start.setTime(end.getTime());
 			calendar.add(Calendar.MONTH, z);
@@ -140,7 +140,7 @@ public class Yield extends Function {
 		if(n<=1){
 			return new Double((redemption/100.0+rate/frequency-pr/100.0-A*rate/E/frequency)*frequency*E/dsr/(pr/100.0+A*rate/E/frequency));
 		}
-		long dsc=Price.interval(settlement,end,basis,'d');//½áËãÈÕÓëÏÂÒ»¸¶Ï¢ÈÕÖ®¼äµÄÌìÊı
+		long dsc=Price.interval(settlement,end,basis,'d');//ç»“ç®—æ—¥ä¸ä¸‹ä¸€ä»˜æ¯æ—¥ä¹‹é—´çš„å¤©æ•°
 		double lguess=0.1;
 		double guess=0.1;
 		double lvalue=0;
@@ -234,9 +234,9 @@ public class Yield extends Function {
 		else if(option!=null && option.indexOf("e")>=0) basis=4;
 		else basis=0;
 		
-		long m=Variant.interval(settlement, maturity, "m");//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄÔÂÊı
+		long m=Variant.interval(settlement, maturity, "m");//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„æœˆæ•°
 		double B=360;
-		double DSM;//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄÌìÊı
+		double DSM;//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„å¤©æ•°
 		
 		if(basis==0 || basis==4){
 			DSM=30.0*m+DateFactory.get().day(maturity)-DateFactory.get().day(settlement);
@@ -297,9 +297,9 @@ public class Yield extends Function {
 		else if(option!=null && option.indexOf("e")>=0) basis=4;
 		else basis=0;
 		
-		long m=Variant.interval(settlement, maturity, "m");//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄÔÂÊı
+		long m=Variant.interval(settlement, maturity, "m");//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„æœˆæ•°
 		double B=360;
-		double DSM;//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄÌìÊı
+		double DSM;//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„å¤©æ•°
 		
 		if(basis==0 || basis==4){
 			DSM=30.0*m+DateFactory.get().day(maturity)-DateFactory.get().day(settlement);
@@ -312,7 +312,7 @@ public class Yield extends Function {
 			B=DateFactory.get().daysInYear(maturity);
 		}
 		m=Variant.interval(issue, maturity, "m");
-		double DIM;//·¢ĞĞÈÕºÍµ½ÆÚÈÕÖ®¼äµÄÌìÊı
+		double DIM;//å‘è¡Œæ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„å¤©æ•°
 		if(basis==0 || basis==4){
 			DIM=30.0*m+DateFactory.get().day(maturity)-DateFactory.get().day(issue);
 		}

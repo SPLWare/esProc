@@ -22,11 +22,11 @@ public class ConfigOptionsWriter {
 	private TransformerHandler handler = null;
 	// private String fileName;
 	// private AttributesImpl atts;
-	// ÔªËØ²ã´Î£¬ÓÃÓÚ¿ØÖÆXMLËõ½ø
+	// å…ƒç´ å±‚æ¬¡ï¼Œç”¨äºæ§åˆ¶XMLç¼©è¿›
 	private int level = 0;
-	// Ã¿¸ö²ã´Î¸¸¼¶Ëõ½ø4¸ö¿Õ¸ñ£¬¼´Ò»¸ötab
+	// æ¯ä¸ªå±‚æ¬¡çˆ¶çº§ç¼©è¿›4ä¸ªç©ºæ ¼ï¼Œå³ä¸€ä¸ªtab
 	private final String tab = "    ";
-	// ÏµÍ³»»ĞĞ·û£¬WindowsÎª£º"\n"£¬Linux/UnixÎª£º"/n"
+	// ç³»ç»Ÿæ¢è¡Œç¬¦ï¼ŒWindowsä¸ºï¼š"\n"ï¼ŒLinux/Unixä¸ºï¼š"/n"
 	private final String separator = System.getProperties().getProperty("os.name").toUpperCase()
 			.indexOf("WINDOWS") != -1 ? "\n" : "/n";
 
@@ -35,11 +35,11 @@ public class ConfigOptionsWriter {
 			SAXTransformerFactory fac = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
 			handler = fac.newTransformerHandler();
 			Transformer transformer = handler.getTransformer();
-			// ÉèÖÃÊä³ö²ÉÓÃµÄ±àÂë·½Ê½
+			// è®¾ç½®è¾“å‡ºé‡‡ç”¨çš„ç¼–ç æ–¹å¼
 			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-			// ÊÇ·ñ×Ô¶¯Ìí¼Ó¶îÍâµÄ¿Õ°×
+			// æ˜¯å¦è‡ªåŠ¨æ·»åŠ é¢å¤–çš„ç©ºç™½
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			// ÊÇ·ñºöÂÔxmlÉùÃ÷
+			// æ˜¯å¦å¿½ç•¥xmlå£°æ˜
 			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 			// outStream = new FileOutputStream(fileName);
 
@@ -49,8 +49,8 @@ public class ConfigOptionsWriter {
 		}
 	}
 
-	// ÔªËØÀïÃæ»áÇ¶Ì××Ó½Úµã£¬Òò´ËÔªËØµÄ¿ªÊ¼ºÍ½áÊø·Ö¿ªĞ´
-	// Èç£º<a><b>bcd</b></a>
+	// å…ƒç´ é‡Œé¢ä¼šåµŒå¥—å­èŠ‚ç‚¹ï¼Œå› æ­¤å…ƒç´ çš„å¼€å§‹å’Œç»“æŸåˆ†å¼€å†™
+	// å¦‚ï¼š<a><b>bcd</b></a>
 	private void startElement(String objectElement, AttributesImpl attrs) throws SAXException {
 		if (attrs == null) {
 			attrs = new AttributesImpl();
@@ -58,14 +58,14 @@ public class ConfigOptionsWriter {
 		// level++;
 		appendTab();
 		if (objectElement != null) {
-			// ×¢Òâ£¬Èç¹ûatts.addAttributeÉèÖÃÁËÊôĞÔ£¬Ôò»áÊä³öÈç£º<a key="key"
-			// value="value">abc</a>¸ñÊ½
-			// Èç¹ûÃ»ÓĞÉèÖÃÊôĞÔ£¬ÔòÊä³öÈç£º<a>abc</a>¸ñÊ½
+			// æ³¨æ„ï¼Œå¦‚æœatts.addAttributeè®¾ç½®äº†å±æ€§ï¼Œåˆ™ä¼šè¾“å‡ºå¦‚ï¼š<a key="key"
+			// value="value">abc</a>æ ¼å¼
+			// å¦‚æœæ²¡æœ‰è®¾ç½®å±æ€§ï¼Œåˆ™è¾“å‡ºå¦‚ï¼š<a>abc</a>æ ¼å¼
 			handler.startElement("", "", objectElement, attrs);
 		}
 	}
 
-	// Õı³£ÔªËØ½áÊø±ê¼Ç£¬Èç£º</a>
+	// æ­£å¸¸å…ƒç´ ç»“æŸæ ‡è®°ï¼Œå¦‚ï¼š</a>
 	private void endElement(String objectElement) throws SAXException {
 		// level--;
 		appendTab();
@@ -74,13 +74,13 @@ public class ConfigOptionsWriter {
 		}
 	}
 
-	// ×Ô·â±ÕµÄ¿ÕÔªËØ£¬Èç<a key="key" value="value"/>£¬²»ÓÃ»»ĞĞ£¬Ğ´ÔÚÒ»ĞĞÊ±XML×Ô¶¯»á×Ô·â±Õ
+	// è‡ªå°é—­çš„ç©ºå…ƒç´ ï¼Œå¦‚<a key="key" value="value"/>ï¼Œä¸ç”¨æ¢è¡Œï¼Œå†™åœ¨ä¸€è¡Œæ—¶XMLè‡ªåŠ¨ä¼šè‡ªå°é—­
 	private void endEmptyElement(String objectElement) throws SAXException {
 		// level--;
 		handler.endElement("", "", objectElement);
 	}
 
-	// ÎŞ×Ó½ÚµãµÄÔªËØ³ÉÎªÊôĞÔ£¬Èç<a>abc</a>
+	// æ— å­èŠ‚ç‚¹çš„å…ƒç´ æˆä¸ºå±æ€§ï¼Œå¦‚<a>abc</a>
 	private void writeAttribute(String key, String value) throws SAXException {
 		if (value == null)
 			value = "";
@@ -91,7 +91,7 @@ public class ConfigOptionsWriter {
 		// level--;
 	}
 
-	// TabËõ½ø£¬SAXÄ¬ÈÏ²»×Ô¶¯Ëõ½ø£¬Òò´ËĞèÒªÊÖ¶¯¸ù¾İÔªËØ²ã´Î½øĞĞËõ½ø¿ØÖÆ
+	// Tabç¼©è¿›ï¼ŒSAXé»˜è®¤ä¸è‡ªåŠ¨ç¼©è¿›ï¼Œå› æ­¤éœ€è¦æ‰‹åŠ¨æ ¹æ®å…ƒç´ å±‚æ¬¡è¿›è¡Œç¼©è¿›æ§åˆ¶
 	private void appendTab() throws SAXException {
 		StringBuffer sb = new StringBuffer(separator);
 		for (int i = 0; i < level; i++) {
@@ -102,7 +102,7 @@ public class ConfigOptionsWriter {
 	}
 
 	/**
-	 * °ÑÊı¾İÔ´ºÍ»·¾³Ğ´µ½ÎÄ¼ş
+	 * æŠŠæ•°æ®æºå’Œç¯å¢ƒå†™åˆ°æ–‡ä»¶
 	 * 
 	 * @param dslm
 	 * @throws SAXException
@@ -134,9 +134,9 @@ public class ConfigOptionsWriter {
 		handler.setResult(resultxml);
 		level = 0;
 		handler.startDocument();
-		// ÉèÖÃ¸ù½ÚµãºÍ°æ±¾
+		// è®¾ç½®æ ¹èŠ‚ç‚¹å’Œç‰ˆæœ¬
 		handler.startElement("", "", ConfigFile.ROOT, getAttributesImpl(new String[] { ConfigFile.VERSION, "1" }));
-		// Ñ¡Ïî
+		// é€‰é¡¹
 		level = 1;
 		startElement(ConfigFile.OPTIONS, null);
 		Map<String, Object> options = ConfigOptions.options;
@@ -152,7 +152,7 @@ public class ConfigOptionsWriter {
 		level = 1;
 		endElement(ConfigFile.OPTIONS);
 		
-		// ´°¿ÚÎ»ÖÃ´óĞ¡
+		// çª—å£ä½ç½®å¤§å°
 		startElement(ConfigFile.DIMENSIONS, null);
 		Map<String, String> dimensions = ConfigOptions.dimensions;
 		it = dimensions.keySet().iterator();
@@ -167,7 +167,7 @@ public class ConfigOptionsWriter {
 		endElement(ConfigFile.DIMENSIONS);
 		
 		
-		// Á¬½ÓĞÅÏ¢
+		// è¿æ¥ä¿¡æ¯
 		startElement(ConfigFile.CONNECTIONS, null);
 		Map<String, String> connections = ConfigOptions.connections;
 		it = connections.keySet().iterator();
@@ -183,7 +183,7 @@ public class ConfigOptionsWriter {
 
 		level = 0;
 		handler.endElement("", "", ConfigFile.ROOT);
-		// ÎÄµµ½áÊø,Í¬²½µ½´ÅÅÌ
+		// æ–‡æ¡£ç»“æŸ,åŒæ­¥åˆ°ç£ç›˜
 		handler.endDocument();
 	}
 
@@ -197,7 +197,7 @@ public class ConfigOptionsWriter {
 		AttributesImpl attrImpl = new AttributesImpl();
 		int size = attrs.length;
 		for (int i = 0; i < size; i += 2) {
-			if (attrs[i + 1] != null) // ¿Õ½Úµã²»Ğ´ÁË
+			if (attrs[i + 1] != null) // ç©ºèŠ‚ç‚¹ä¸å†™äº†
 				attrImpl.addAttribute("", "", attrs[i], String.class.getName(), String.valueOf(attrs[i + 1]));
 		}
 		return attrImpl;

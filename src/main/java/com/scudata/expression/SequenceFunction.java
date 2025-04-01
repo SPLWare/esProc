@@ -3,13 +3,13 @@ package com.scudata.expression;
 import com.scudata.dm.Sequence;
 
 /**
- * ĞòÁĞ³ÉÔ±º¯Êı»ùÀà
+ * åºåˆ—æˆå‘˜å‡½æ•°åŸºç±»
  * A.f()
  * @author RunQian
  *
  */
 public abstract class SequenceFunction extends MemberFunction {
-	protected Sequence srcSequence; // ĞòÁĞ
+	protected Sequence srcSequence; // åºåˆ—
 
 	public boolean isLeftTypeMatch(Object obj) {
 		return obj instanceof Sequence;
@@ -20,15 +20,15 @@ public abstract class SequenceFunction extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		srcSequence = null;
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°½ÚµãÊÇ·ñÊÇĞòÁĞº¯Êı
-	 * Èç¹ûµã²Ù×÷·ûµÄÓÒ²à½ÚµãÊÇĞòÁĞº¯Êı£¬×ó²à½Úµã¼ÆËã³öÊı£¬ÔòĞèÒª°ÑÊı×ª³ÉÊıÁĞ
+	 * åˆ¤æ–­å½“å‰èŠ‚ç‚¹æ˜¯å¦æ˜¯åºåˆ—å‡½æ•°
+	 * å¦‚æœç‚¹æ“ä½œç¬¦çš„å³ä¾§èŠ‚ç‚¹æ˜¯åºåˆ—å‡½æ•°ï¼Œå·¦ä¾§èŠ‚ç‚¹è®¡ç®—å‡ºæ•°ï¼Œåˆ™éœ€è¦æŠŠæ•°è½¬æˆæ•°åˆ—
 	 * @return
 	 */
 	public boolean isSequenceFunction() {

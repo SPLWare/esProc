@@ -9,8 +9,8 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ CS.group()
- * º¯ÊıÃûÇ°×ºCs±íÊ¾ÓÎ±ê
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ CS.group()
+ * å‡½æ•°åå‰ç¼€Csè¡¨ç¤ºæ¸¸æ ‡
  * 
  * @author Joancy
  *
@@ -24,7 +24,7 @@ public class CsGroup extends ObjectElement {
 	public boolean s;
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -42,8 +42,8 @@ public class CsGroup extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
@@ -52,7 +52,7 @@ public class CsGroup extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
 	public byte getReturnType() {
@@ -60,7 +60,7 @@ public class CsGroup extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄÑ¡Ïî´®
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„é€‰é¡¹ä¸²
 	 */
 	public String optionString(){
 		StringBuffer options = new StringBuffer();
@@ -72,7 +72,7 @@ public class CsGroup extends ObjectElement {
 		}
 		if(q){
 			options.append("q");
-			if(s){//½öÅÅĞò£¬²»·Ö×é£¬±ØĞëÒªÓë@qÅäºÏÊ¹ÓÃ
+			if(s){//ä»…æ’åºï¼Œä¸åˆ†ç»„ï¼Œå¿…é¡»è¦ä¸@qé…åˆä½¿ç”¨
 				options.append("s");
 			}
 		}
@@ -80,23 +80,23 @@ public class CsGroup extends ObjectElement {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÃû
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°å
 	 */
 	public String getFuncName() {
 		return "group";
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÌå
-	 * ¸úsetFuncBodyÊÇÄæº¯Êı£¬È»ºó±í´ïÊ½µÄ¸³ÖµÒ²×ÜÊÇ»¥ÄæµÄ
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°ä½“
+	 * è·ŸsetFuncBodyæ˜¯é€†å‡½æ•°ï¼Œç„¶åè¡¨è¾¾å¼çš„èµ‹å€¼ä¹Ÿæ€»æ˜¯äº’é€†çš„
 	 */
 	public String getFuncBody() {
 		return getStringListExp(groupFields,",");
 	}
 
 	/**
-	 * ÉèÖÃº¯ÊıÌå
-	 * @param funcBody º¯ÊıÌå
+	 * è®¾ç½®å‡½æ•°ä½“
+	 * @param funcBody å‡½æ•°ä½“
 	 */
 	public boolean setFuncBody(String funcBody) {
 		groupFields = getStringList(funcBody,",");

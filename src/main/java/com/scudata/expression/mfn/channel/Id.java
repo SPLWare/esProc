@@ -9,8 +9,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Îª¹ÜµÀ¶¨Òå»ñÈ¡Ö¸¶¨±í´ïÊ½µÄ²»Í¬ÖµĞÎ³ÉµÄĞòÁĞµÄĞòÁĞ·µ»ØµÄ½á¹û¼¯ÔËËã
- * ch.id(xi,¡­;n) Ö»ÓĞÒ»¸öxiÊ±·µ»Ø³ÉÒ»¸öĞòÁĞ£¬Ã¿¸öxiÕÒµ½n¸öºó²»ÔÙÕÒ£¬nÊ¡ÂÔ·µ»ØËùÓĞ
+ * ä¸ºç®¡é“å®šä¹‰è·å–æŒ‡å®šè¡¨è¾¾å¼çš„ä¸åŒå€¼å½¢æˆçš„åºåˆ—çš„åºåˆ—è¿”å›çš„ç»“æœé›†è¿ç®—
+ * ch.id(xi,â€¦;n) åªæœ‰ä¸€ä¸ªxiæ—¶è¿”å›æˆä¸€ä¸ªåºåˆ—ï¼Œæ¯ä¸ªxiæ‰¾åˆ°nä¸ªåä¸å†æ‰¾ï¼Œnçœç•¥è¿”å›æ‰€æœ‰
  * @author RunQian
  *
  */
@@ -21,7 +21,7 @@ public class Id extends ChannelFunction {
 			throw new RQException("id" + mm.getMessage("function.missingParam"));
 		}
 
-		// Ã»ÓĞÉèÖÃn²ÎÊıÔòÈ¡³öËùÓĞ
+		// æ²¡æœ‰è®¾ç½®nå‚æ•°åˆ™å–å‡ºæ‰€æœ‰
 		int n = Integer.MAX_VALUE;
 		IParam expParam;
 		if (param.getType() == IParam.Semicolon) {

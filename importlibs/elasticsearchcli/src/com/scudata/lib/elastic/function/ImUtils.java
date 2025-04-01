@@ -21,7 +21,7 @@ public class ImUtils {
 	}
 	
 	/**
-     * ¶ÁÈ¡jsonÎÄ¼ş£¬·µ»Øjson´®
+     * è¯»å–jsonæ–‡ä»¶ï¼Œè¿”å›jsonä¸²
      * @param fileName
      * @return
      */

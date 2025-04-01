@@ -9,35 +9,35 @@ import com.scudata.expression.Expression;
 import com.scudata.util.Variant;
 
 /**
- * ¶àÓÎ±ê×öÓĞĞò¹ıÂËÔËËã£¬ÓÎ±ê°´¹ØÁª×Ö¶ÎÓĞĞò
- * joinx(csi:Fi,xj,..;¡­)
- * @i ×öĞòÁĞ½»ÔËËã
- * @d ×öĞòÁĞ²îÔËËã
+ * å¤šæ¸¸æ ‡åšæœ‰åºè¿‡æ»¤è¿ç®—ï¼Œæ¸¸æ ‡æŒ‰å…³è”å­—æ®µæœ‰åº
+ * joinx(csi:Fi,xj,..;â€¦)
+ * @i åšåºåˆ—äº¤è¿ç®—
+ * @d åšåºåˆ—å·®è¿ç®—
  * @author RunQian
  *
  */
 public class MergeFilterCursor extends ICursor {
-	private ICursor []cursors; // ÓÎ±êÊı×é
-	private Expression[][] exps; // ¹ØÁª±í´ïÊ½Êı×é
-	private boolean isIsect = true; // true£º×öĞòÁĞ½»ÔËËã£¬false£º×öĞòÁĞ²îÔËËã
-	private boolean isEnd = false; // ÊÇ·ñÈ¡Êı½áÊø
+	private ICursor []cursors; // æ¸¸æ ‡æ•°ç»„
+	private Expression[][] exps; // å…³è”è¡¨è¾¾å¼æ•°ç»„
+	private boolean isIsect = true; // trueï¼šåšåºåˆ—äº¤è¿ç®—ï¼Œfalseï¼šåšåºåˆ—å·®è¿ç®—
+	private boolean isEnd = false; // æ˜¯å¦å–æ•°ç»“æŸ
 
-	private Sequence []tables; // Ã¿¸öÓÎ±êÈ¡³öµÄÊı¾İ»º´æ
-	private Object [][]values; // ¹ØÁª×Ö¶ÎÖµÊı×é
-	private int []seqs; // Ã¿¸öÓÎ±êµ±Ç°»º´æ±éÀúµÄĞòºÅ
-	private int []ranks; // µ±Ç°ÔªËØµÄÅÅÃû£¬0¡¢1¡¢-1
-	private Sequence []nextTables; // »º´æ±éÀú½áÊøÊ±È¡³öµÄºóĞø»º´æ
-	private Object [][]nextValues; // ºóĞø»º´æµÚÒ»Ìõ¼ÇÂ¼¶ÔÓ¦µÄ¹ØÁª×Ö¶ÎµÄÖµ
+	private Sequence []tables; // æ¯ä¸ªæ¸¸æ ‡å–å‡ºçš„æ•°æ®ç¼“å­˜
+	private Object [][]values; // å…³è”å­—æ®µå€¼æ•°ç»„
+	private int []seqs; // æ¯ä¸ªæ¸¸æ ‡å½“å‰ç¼“å­˜éå†çš„åºå·
+	private int []ranks; // å½“å‰å…ƒç´ çš„æ’åï¼Œ0ã€1ã€-1
+	private Sequence []nextTables; // ç¼“å­˜éå†ç»“æŸæ—¶å–å‡ºçš„åç»­ç¼“å­˜
+	private Object [][]nextValues; // åç»­ç¼“å­˜ç¬¬ä¸€æ¡è®°å½•å¯¹åº”çš„å…³è”å­—æ®µçš„å€¼
 	
-	private Context []ctxs; // Ã¿¸ö±í¼ÆËãexpsÓÃ×Ô¼ºµÄÉÏÏÂÎÄ£¬Ã¿¸ö±íÈ¡³öÊı¾İºóÏÈÑ¹Õ»
-	private Current []currents; // ĞòÁĞµÄµ±Ç°¼ÆËã¶ÔÏó£¬ÓÃÓÚÑ¹Õ»
+	private Context []ctxs; // æ¯ä¸ªè¡¨è®¡ç®—expsç”¨è‡ªå·±çš„ä¸Šä¸‹æ–‡ï¼Œæ¯ä¸ªè¡¨å–å‡ºæ•°æ®åå…ˆå‹æ ˆ
+	private Current []currents; // åºåˆ—çš„å½“å‰è®¡ç®—å¯¹è±¡ï¼Œç”¨äºå‹æ ˆ
 
 	/**
-	 * ´´½¨ÓĞĞò¹ıÂËÓÎ±ê
-	 * @param cursors ÓÎ±êÊı×é£¬ÓÎ±ê°´¹ØÁª×Ö¶ÎÓĞĞò
-	 * @param exps ¹ØÁª±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî£¬i£º¸ù¾İ¹ØÁª×Ö¶Î×ö½»ÔËËã£¬d£º¸ù¾İ¹ØÁª×Ö¶Î×ö²îÔËËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åˆ›å»ºæœ‰åºè¿‡æ»¤æ¸¸æ ‡
+	 * @param cursors æ¸¸æ ‡æ•°ç»„ï¼Œæ¸¸æ ‡æŒ‰å…³è”å­—æ®µæœ‰åº
+	 * @param exps å…³è”è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œiï¼šæ ¹æ®å…³è”å­—æ®µåšäº¤è¿ç®—ï¼Œdï¼šæ ¹æ®å…³è”å­—æ®µåšå·®è¿ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public MergeFilterCursor(ICursor []cursors, Expression[][] exps, String opt, Context ctx) {
 		this.cursors = cursors;
@@ -50,8 +50,8 @@ public class MergeFilterCursor extends ICursor {
 		}
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			for (ICursor cursor : cursors) {
@@ -64,8 +64,8 @@ public class MergeFilterCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -88,7 +88,7 @@ public class MergeFilterCursor extends ICursor {
 		}
 
 		if (isIsect) {
-			// ×öĞòÁĞ½»ÔËËã
+			// åšåºåˆ—äº¤è¿ç®—
 			Next:
 			for (; n != 0;) {
 				for (int i = 0; i < tcount; ++i) {
@@ -105,7 +105,7 @@ public class MergeFilterCursor extends ICursor {
 				popRepeated();
 			}
 		} else {
-			// ×öĞòÁĞ²îÔËËã
+			// åšåºåˆ—å·®è¿ç®—
 			Next:
 			for (; n != 0;) {
 				if (ranks[0] == 0) {
@@ -135,7 +135,7 @@ public class MergeFilterCursor extends ICursor {
 		}
 	}
 
-	// °Ñµ±Ç°ËùÓĞÅÅÃûµÚÒ»µÄÓÎ±êµÄÔªËØÌø¹ı
+	// æŠŠå½“å‰æ‰€æœ‰æ’åç¬¬ä¸€çš„æ¸¸æ ‡çš„å…ƒç´ è·³è¿‡
 	private void popAll() {
 		Sequence []tables = this.tables;
 		Object [][]values = this.values;
@@ -193,7 +193,7 @@ public class MergeFilterCursor extends ICursor {
 		}
 	}
 
-	// ÓĞÏàÍ¬ÔªËØµÄĞòÁĞµ¯³öÕ»¶¥ÔªËØ£¬Èç¹û¶¼Ã»ÓĞÏàÍ¬µÄÔò¶¼µ¯³ö
+	// æœ‰ç›¸åŒå…ƒç´ çš„åºåˆ—å¼¹å‡ºæ ˆé¡¶å…ƒç´ ï¼Œå¦‚æœéƒ½æ²¡æœ‰ç›¸åŒçš„åˆ™éƒ½å¼¹å‡º
 	private void popRepeated() {
 		Sequence []tables = this.tables;
 		Object [][]values = this.values;
@@ -308,7 +308,7 @@ public class MergeFilterCursor extends ICursor {
 		tables = new Sequence[tcount];
 		values = new Object[tcount][];
 		seqs = new int[tcount];
-		ranks = new int[tcount]; // ĞòÁĞµÄµ±Ç°ÔªËØµÄÅÅÃû
+		ranks = new int[tcount]; // åºåˆ—çš„å½“å‰å…ƒç´ çš„æ’å
 
 		nextTables = new Sequence[tcount];
 		nextValues = new Object[tcount][];
@@ -356,9 +356,9 @@ public class MergeFilterCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (isEnd || n < 1) {
@@ -372,7 +372,7 @@ public class MergeFilterCursor extends ICursor {
 		long count = 0;
 
 		if (isIsect) {
-			// ×öĞòÁĞ½»ÔËËã
+			// åšåºåˆ—äº¤è¿ç®—
 			Next:
 			while (count < n) {
 				for (int i = 0; i < tcount; ++i) {
@@ -388,7 +388,7 @@ public class MergeFilterCursor extends ICursor {
 				popRepeated();
 			}
 		} else {
-			// ×öĞòÁĞ²îÔËËã
+			// åšåºåˆ—å·®è¿ç®—
 			Next:
 			while (count < n) {
 				if (ranks[0] == 0) {
@@ -414,7 +414,7 @@ public class MergeFilterCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -433,8 +433,8 @@ public class MergeFilterCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

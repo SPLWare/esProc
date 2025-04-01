@@ -12,15 +12,15 @@ import com.scudata.dm.SerialBytes;
 import com.scudata.dm.Table;
 
 /**
- * ĞĞ´æÊ±µÄ¶ÁÈ¡´¦ÀíÀà
+ * è¡Œå­˜æ—¶çš„è¯»å–å¤„ç†ç±»
  * @author runqian
  *
  */
 public class RowBufferReader {
 	private StructManager structManager;
-	private byte[] buffer; // Ã¿´Î¶ÁÈëµÄ×Ö½Ú»º´æ
-	private int index; // ÏÂÒ»×Ö½ÚÔÚbufferÖĞµÄË÷Òı
-	private int count; // ¶ÁÈëbufferµÄÊµ¼Ê×Ö½ÚÊıÄ¿
+	private byte[] buffer; // æ¯æ¬¡è¯»å…¥çš„å­—èŠ‚ç¼“å­˜
+	private int index; // ä¸‹ä¸€å­—èŠ‚åœ¨bufferä¸­çš„ç´¢å¼•
+	private int count; // è¯»å…¥bufferçš„å®é™…å­—èŠ‚æ•°ç›®
 
 	private byte[] readBuffer = new byte[32];
 	private char[] charBuffer = new char[128];
@@ -52,7 +52,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°¶ÁÈ¡Î»ÖÃ
+	 * è¿”å›å½“å‰è¯»å–ä½ç½®
 	 * @return
 	 */
 	public long position() {
@@ -60,7 +60,7 @@ public class RowBufferReader {
 	}
 	
 	/**
-	 * Ìø¹ın×Ö½Ú,²»×ãn×Ö½Ú¾ÍÌøµ½Ä©Î²
+	 * è·³è¿‡nå­—èŠ‚,ä¸è¶³nå­—èŠ‚å°±è·³åˆ°æœ«å°¾
 	 * @param n
 	 * @throws IOException
 	 */
@@ -75,7 +75,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * Ìø¹ın×Ö½Ú
+	 * è·³è¿‡nå­—èŠ‚
 	 * @param n
 	 * @throws IOException
 	 */
@@ -93,7 +93,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * Ìø¹ın×Ö½Ú
+	 * è·³è¿‡nå­—èŠ‚
 	 * @param n
 	 * @throws IOException
 	 */
@@ -111,7 +111,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ÊÇ·ñ»¹ÓĞÊı¾İ¿É¶Á
+	 * æ˜¯å¦è¿˜æœ‰æ•°æ®å¯è¯»
 	 * @return
 	 * @throws IOException
 	 */
@@ -120,7 +120,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * Ê£Óà¿É¶ÁÊı¾İ³¤¶È
+	 * å‰©ä½™å¯è¯»æ•°æ®é•¿åº¦
 	 * @return
 	 * @throws IOException
 	 */
@@ -129,14 +129,14 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ÖØÖÃ£¬Ìøµ½¿ªÍ·Î»ÖÃ
+	 * é‡ç½®ï¼Œè·³åˆ°å¼€å¤´ä½ç½®
 	 */
 	public void reset() {
 		index = 0;
 	}
 	
 	/**
-	 * Ìøµ½Ä©Î²Î»ÖÃ
+	 * è·³åˆ°æœ«å°¾ä½ç½®
 	 */
 	public void close() throws IOException {
 		index = count;
@@ -155,7 +155,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ¶ÁÈ¡µ½Êı×éb£¬°´ÕÕÊı×éµÄ³¤¶È
+	 * è¯»å–åˆ°æ•°ç»„bï¼ŒæŒ‰ç…§æ•°ç»„çš„é•¿åº¦
 	 * @param b
 	 * @return
 	 * @throws IOException
@@ -165,7 +165,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ¶ÁÈ¡µ½Êı×éb£¬°´ÕÕÖ¸¶¨µÄÆ«ÒÆºÍ³¤¶È
+	 * è¯»å–åˆ°æ•°ç»„bï¼ŒæŒ‰ç…§æŒ‡å®šçš„åç§»å’Œé•¿åº¦
 	 * @param b
 	 * @param off
 	 * @param len
@@ -188,7 +188,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ¶ÁÈ¡µ½Êı×éb£¬»á¼ì²éÄ©Î²
+	 * è¯»å–åˆ°æ•°ç»„bï¼Œä¼šæ£€æŸ¥æœ«å°¾
 	 * @param b
 	 */
 	public void readFully(byte []b) throws IOException {
@@ -204,7 +204,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸ö×Ö½Ú
+	 * è¯»å–ä¸€ä¸ªå­—èŠ‚
 	 * @return
 	 * @throws IOException
 	 */
@@ -213,7 +213,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸öÎŞ·ûºÅ×Ö½Ú
+	 * è¯»å–ä¸€ä¸ªæ— ç¬¦å·å­—èŠ‚
 	 * @return
 	 * @throws IOException
 	 */
@@ -222,7 +222,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸öshort
+	 * è¯»å–ä¸€ä¸ªshort
 	 * @return
 	 * @throws IOException
 	 */
@@ -232,7 +232,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸öÎŞ·ûºÅshort
+	 * è¯»å–ä¸€ä¸ªæ— ç¬¦å·short
 	 * @return
 	 * @throws IOException
 	 */
@@ -254,7 +254,7 @@ public class RowBufferReader {
 		int b = read2();
 		if (b == BufferWriter.FLOAT16) {
 			int n = readUInt16();
-			int scale = n >>> 14; // ¸ßÁ½Î»´æĞ¡ÊıÎ»Êı
+			int scale = n >>> 14; // é«˜ä¸¤ä½å­˜å°æ•°ä½æ•°
 			n &= 0x3FFF;
 
 			if (scale == 0) {
@@ -268,7 +268,7 @@ public class RowBufferReader {
 			}
 		} else if (b == BufferWriter.FLOAT32) {
 			int n = readInt32();
-			int scale = n >>> 30; // ¸ßÁ½Î»´æĞ¡ÊıÎ»Êı
+			int scale = n >>> 30; // é«˜ä¸¤ä½å­˜å°æ•°ä½æ•°
 			n &= 0x3FFFFFFF;
 
 			if (scale == 0) {
@@ -338,8 +338,8 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ¶ÁÈ¡Êı×Ö×é³ÉµÄ×Ö·û´®
-	 * @param size ³¤¶È
+	 * è¯»å–æ•°å­—ç»„æˆçš„å­—ç¬¦ä¸²
+	 * @param size é•¿åº¦
 	 * @return
 	 * @throws IOException
 	 */
@@ -505,7 +505,7 @@ public class RowBufferReader {
 	}
 	
 	/**
-	 * ¶ÁÈ¡5×Ö½Ú±íÊ¾long
+	 * è¯»å–5å­—èŠ‚è¡¨ç¤ºlong
 	 * @return
 	 * @throws IOException
 	 */
@@ -521,7 +521,7 @@ public class RowBufferReader {
 	}
 
 	/**
-	 * ¶ÁÈ¡6×Ö½Ú±íÊ¾long
+	 * è¯»å–6å­—èŠ‚è¡¨ç¤ºlong
 	 * @return
 	 * @throws IOException
 	 */
@@ -740,7 +740,7 @@ public class RowBufferReader {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»¸ö¶ÔÏó
+	 * è¯»å–ä¸€ä¸ªå¯¹è±¡
 	 * @return
 	 * @throws IOException
 	 */
@@ -786,7 +786,7 @@ public class RowBufferReader {
 	}
 	
 	/**
-	 * Ìø¹ıÒ»¸ö¶ÔÏó
+	 * è·³è¿‡ä¸€ä¸ªå¯¹è±¡
 	 * @return
 	 * @throws IOException
 	 */
@@ -871,7 +871,7 @@ public class RowBufferReader {
 	private void skipTable() throws IOException {
 		int fcount = readInt();
 		for (int i = 0; i < fcount; ++i) {
-			readString(); // Ìø¹ı×Ö¶ÎÃû
+			readString(); // è·³è¿‡å­—æ®µå
 		}
 
 		int len = readInt();
@@ -883,7 +883,7 @@ public class RowBufferReader {
 	}
 	
 	/**
-	 * ·µ»Øµ±Ç°¶Áµ½µÄ»º³åÇøµÄÎ»ÖÃ
+	 * è¿”å›å½“å‰è¯»åˆ°çš„ç¼“å†²åŒºçš„ä½ç½®
 	 * @return
 	 */
 	public int getCurPos() {

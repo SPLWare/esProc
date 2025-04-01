@@ -28,7 +28,7 @@ import com.scudata.util.JSONUtil;
 import net.sf.json.JSONObject;
 
 public class ImFunction extends Function {
-	protected int m_paramSize = 0; // ²ÎÊı¸öÊı
+	protected int m_paramSize = 0; // å‚æ•°ä¸ªæ•°
 	protected RestConn m_restConn = null;
 	protected String m_model;
 	protected Context m_ctx;
@@ -93,7 +93,7 @@ public class ImFunction extends Function {
 		}
 		if (objs.length < 1) {
 			throw new RQException("olap_param is empty");
-		}else if(option!=null && option.indexOf("f")>-1){//×î½üÒ»¸ö²ÎÊıÎªÎÄ¼şÊ±£¬×ª»»³É¶ÔÓ¦µÄÎÄ±¾.
+		}else if(option!=null && option.indexOf("f")>-1){//æœ€è¿‘ä¸€ä¸ªå‚æ•°ä¸ºæ–‡ä»¶æ—¶ï¼Œè½¬æ¢æˆå¯¹åº”çš„æ–‡æœ¬.
 			try {
 				if (objs.length>=2){
 					String s = objs[1].toString();
@@ -193,7 +193,7 @@ public class ImFunction extends Function {
 		}
 	}
 	
-	// ¸ù¾İkÖµÕÒµ½Ã¿¸ö×Ö¶ÎµÄÎ»ÖÃ·¶Î§£¬½âÎöÈ¡×Ö¶ÎÖµÔÙÈ¥µô¿Õ¸ñ
+	// æ ¹æ®kå€¼æ‰¾åˆ°æ¯ä¸ªå­—æ®µçš„ä½ç½®èŒƒå›´ï¼Œè§£æå–å­—æ®µå€¼å†å»æ‰ç©ºæ ¼
 	private void parseKVInfo(String retStr, List<Object[]> ls ) {
 		try {
 		do{		
@@ -209,10 +209,10 @@ public class ImFunction extends Function {
 			if (vs.length!=ks.length){
 				vs = new String[ks.length];
 				int[] ns = new int[ks.length+1];
-				for(n=0; n<ks.length;n++){//¼ÇÂ¼×Ö¶ÎµÄÎ»ÖÃ.
+				for(n=0; n<ks.length;n++){//è®°å½•å­—æ®µçš„ä½ç½®.
 					ns[n] = lines[0].indexOf(ks[n]);
 				}
-				ns[ks.length] = lines[1].length(); //×Ö·û´®³¤¶È
+				ns[ks.length] = lines[1].length(); //å­—ç¬¦ä¸²é•¿åº¦
 				
 				String val = "";
 				for(n=0; n<ks.length;n++){
@@ -252,14 +252,14 @@ public class ImFunction extends Function {
 			}
 			
 			int[] ns = new int[ks.length+1];
-			for(n=0; n<ks.length;n++){//¼ÇÂ¼×Ö¶ÎµÄÎ»ÖÃ.
+			for(n=0; n<ks.length;n++){//è®°å½•å­—æ®µçš„ä½ç½®.
 				ns[n] = lines[0].indexOf(ks[n]);
 			}
 			for(int i=1; i<lines.length; i++){
 				String[] vs = lines[i].split("\\s+");
 				
 				vs = new String[ks.length];
-				ns[ks.length] = lines[1].length(); //×Ö·û´®³¤¶È
+				ns[ks.length] = lines[1].length(); //å­—ç¬¦ä¸²é•¿åº¦
 				
 				String val = "";
 				for(n=0; n<ks.length;n++){

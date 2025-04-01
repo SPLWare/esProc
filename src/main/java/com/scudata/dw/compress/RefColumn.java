@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import com.scudata.dw.BufferReader;
 
 public class RefColumn extends Column {
-	// Êı¾İ°´¿é´æ´¢£¬Ã¿¿é´æ·ÅColumn.BLOCK_RECORD_COUNTÌõ¼ÇÂ¼
+	// æ•°æ®æŒ‰å—å­˜å‚¨ï¼Œæ¯å—å­˜æ”¾Column.BLOCK_RECORD_COUNTæ¡è®°å½•
 	private ArrayList<Object[]> blockList = new ArrayList<Object[]>(1024);
-	private int lastRecordCount = Column.BLOCK_RECORD_COUNT; // ×îºóÒ»¿éµÄ¼ÇÂ¼Êı
+	private int lastRecordCount = Column.BLOCK_RECORD_COUNT; // æœ€åä¸€å—çš„è®°å½•æ•°
 	
 	public void addData(Object r) {
 		if (lastRecordCount < Column.BLOCK_RECORD_COUNT) {
@@ -22,9 +22,9 @@ public class RefColumn extends Column {
 		}
 	}
 	
-	// È¡µÚrowĞĞµÄÊı¾İ
+	// å–ç¬¬rowè¡Œçš„æ•°æ®
 	public Object getData(int row) {
-		// rowĞĞºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
+		// rowè¡Œå·ï¼Œä»1å¼€å§‹è®¡æ•°
 		row--;
 		Object []block = blockList.get(row / Column.BLOCK_RECORD_COUNT);
 		return block[row % Column.BLOCK_RECORD_COUNT];

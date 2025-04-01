@@ -25,7 +25,7 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÎÄ¼ş×é
+ * æ–‡ä»¶ç»„
  * @author runqian
  *
  */
@@ -37,7 +37,7 @@ public class PhyTableGroup implements IPhyTable {
 	private Context ctx;
 	private Expression distribute;
 	
-	private Sequence memoryTable; // ÄÚ´æ·Ö±í
+	private Sequence memoryTable; // å†…å­˜åˆ†è¡¨
 	
 	public PhyTableGroup(String fileName, IPhyTable []tables, int []partitions, String opt, Context ctx) {
 		this.fileName = fileName;
@@ -64,8 +64,8 @@ public class PhyTableGroup implements IPhyTable {
 	}
 	
 	/**
-	 * ·µ»Ø×é±íÊÇ·ñÊÇ°´ÁĞ´æ´¢µÄ
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * è¿”å›ç»„è¡¨æ˜¯å¦æ˜¯æŒ‰åˆ—å­˜å‚¨çš„
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isColumnStored() {
 		return tables[0] instanceof ColPhyTable;
@@ -96,7 +96,7 @@ public class PhyTableGroup implements IPhyTable {
 	}
 	
 	/**
-	 * ´øxÑ¡ÏîÊ±µÄÊı¾İ×·¼Ó£¬ÓÎ±êÀïµÄÊı¾İ¶ÔÓ¦¶à¸ö·ÖÇø
+	 * å¸¦xé€‰é¡¹æ—¶çš„æ•°æ®è¿½åŠ ï¼Œæ¸¸æ ‡é‡Œçš„æ•°æ®å¯¹åº”å¤šä¸ªåˆ†åŒº
 	 * @param cursor
 	 * @param opt
 	 * @throws IOException
@@ -121,7 +121,7 @@ public class PhyTableGroup implements IPhyTable {
 		}
 		
 		ArrayList<BFileWriter>tmpFiles = new ArrayList<BFileWriter>();
-		tmpFiles.add(null); // 0Î»ÖÃ±£Áô£¬·ÖÇø1·ÅÔÚListµÄË÷Òı1´¦
+		tmpFiles.add(null); // 0ä½ç½®ä¿ç•™ï¼Œåˆ†åŒº1æ”¾åœ¨Listçš„ç´¢å¼•1å¤„
 		int partCount = 0;
 		
 		try {
@@ -172,7 +172,7 @@ public class PhyTableGroup implements IPhyTable {
 				getPartition(p).append(bcs, opt);
 			}
 		} finally {
-			// É¾³ıÁÙÊ±ÎÄ¼ş
+			// åˆ é™¤ä¸´æ—¶æ–‡ä»¶
 			for (int i = 1; i <= partCount; ++i) {
 				BFileWriter writer = tmpFiles.get(i);
 				if (writer != null) {
@@ -199,7 +199,7 @@ public class PhyTableGroup implements IPhyTable {
 			throw new RQException(mm.getMessage("dw.lessDistribute"));
 		}
 		
-		// Ã¿¸öµ¥Â·ÓÎ±êµÄÊı¾İÊôÓÚÍ¬Ò»¸ö·ÖÇø
+		// æ¯ä¸ªå•è·¯æ¸¸æ ‡çš„æ•°æ®å±äºåŒä¸€ä¸ªåˆ†åŒº
 		if (cursor instanceof MultipathCursors) {
 			ICursor []cursors = ((MultipathCursors)cursor).getCursors();
 			for (ICursor cs : cursors) {
@@ -252,7 +252,7 @@ public class PhyTableGroup implements IPhyTable {
 			}
 		}
 		
-		// Èç¹û»¹Ã»ÓĞ´´½¨´Ë·ÖÇøµÄ×é±íÔò´´½¨
+		// å¦‚æœè¿˜æ²¡æœ‰åˆ›å»ºæ­¤åˆ†åŒºçš„ç»„è¡¨åˆ™åˆ›å»º
 		File file = Env.getPartitionFile(p, fileName);
 		PhyTable tmd = (PhyTable)tables[0];
 		ComTable gt = tmd.getGroupTable().dupStruct(file);
@@ -671,7 +671,7 @@ public class PhyTableGroup implements IPhyTable {
 			}
 		}
 		
-		// °ÑÃ¿¸öÎÄ¼ş·Ö³ÉpathCountÂ·£¬È»ºóËùÓĞµÄiÂ·ºÏ³ÉÒ»¸öÓÎ±ê£¬×îºóÔÙ×é³É¶àÂ·ÓÎ±ê
+		// æŠŠæ¯ä¸ªæ–‡ä»¶åˆ†æˆpathCountè·¯ï¼Œç„¶åæ‰€æœ‰çš„iè·¯åˆæˆä¸€ä¸ªæ¸¸æ ‡ï¼Œæœ€åå†ç»„æˆå¤šè·¯æ¸¸æ ‡
 		for (int i = 0; i < pathCount; ++i) {
 			lists[i] = new ArrayList<ICursor>(tableCount);
 		}
@@ -870,7 +870,7 @@ public class PhyTableGroup implements IPhyTable {
 							sort = false;
 						}
 					} else if (cursor instanceof Cursor) {
-						//ÓĞ¿ÉÄÜ·µ»ØCursor£¬´ËÊ±ÎŞĞò
+						//æœ‰å¯èƒ½è¿”å›Cursorï¼Œæ­¤æ—¶æ— åº
 						sort = false;
 					} else if (cursor instanceof ConjxCursor) {
 						sort = false;
@@ -895,23 +895,23 @@ public class PhyTableGroup implements IPhyTable {
 	}
 
 	/**
-	 * È¡Ö÷¼ü×Ö¶ÎÃû£¨º¬Ö÷±í£©
-	 * @return Ö÷¼ü×Ö¶ÎÃûÊı×é
+	 * å–ä¸»é”®å­—æ®µåï¼ˆå«ä¸»è¡¨ï¼‰
+	 * @return ä¸»é”®å­—æ®µåæ•°ç»„
 	 */
 	public String[] getAllKeyColNames() {
 		return tables[0].getAllKeyColNames();
 	}
 	
 	/**
-	 * ·µ»ØÅÅĞò×Ö¶ÎÃû£¨º¬Ö÷±í£©
-	 * @return ÅÅĞò×Ö¶ÎÃûÊı×é
+	 * è¿”å›æ’åºå­—æ®µåï¼ˆå«ä¸»è¡¨ï¼‰
+	 * @return æ’åºå­—æ®µåæ•°ç»„
 	 */
 	public String[] getAllSortedColNames() {
 		return tables[0].getAllSortedColNames();
 	}
 	
 	/**
-	 * ·µ»ØËùÓĞÁĞ¡££¨º¬Ö÷±íkeyÁĞ£©
+	 * è¿”å›æ‰€æœ‰åˆ—ã€‚ï¼ˆå«ä¸»è¡¨keyåˆ—ï¼‰
 	 * @return
 	 */
 	public String[] getAllColNames() {
@@ -935,7 +935,7 @@ public class PhyTableGroup implements IPhyTable {
 		}
 	}
 	
-	// È¡·Ö²¼±í´ïÊ½´®
+	// å–åˆ†å¸ƒè¡¨è¾¾å¼ä¸²
 	public String getDistribute() {
 		return tables[0].getDistribute();
 	}
@@ -953,9 +953,9 @@ public class PhyTableGroup implements IPhyTable {
 	}
 	
 	/**
-	 * °´ÅÅĞò×Ö¶Î¹é²¢·Ö±íµÄÊı¾İ·µ»Ø³ÉÓÎ±ê
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ÓÎ±ê
+	 * æŒ‰æ’åºå­—æ®µå½’å¹¶åˆ†è¡¨çš„æ•°æ®è¿”å›æˆæ¸¸æ ‡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æ¸¸æ ‡
 	 */
 	public ICursor merge(Context ctx) {
 		String []sortFields = tables[0].getAllSortedColNames();
@@ -969,7 +969,7 @@ public class PhyTableGroup implements IPhyTable {
 			cursors[i] = tables[i].cursor();
 		}
 		
-		// ÅÅĞò×Ö¶ÎÔÚÇ°Ãæ
+		// æ’åºå­—æ®µåœ¨å‰é¢
 		int fcount = sortFields.length;
 		int []fields = new int[fcount];
 		for (int i = 0; i < fcount; ++i) {
@@ -985,15 +985,15 @@ public class PhyTableGroup implements IPhyTable {
 	}
 	
 	/**
-	 * Ê¹ÓÃÔ¤·Ö×é½øĞĞ·Ö×é¼ÆËã
-	 * @param exps ·Ö×é±í´ïÊ½
-	 * @param names ·Ö×é±í´ïÊ½ĞÂÃû×Ö
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü±í´ïÊ½ĞÂÃû×Ö
-	 * @param srcTable Òª·Ö×éµÄ×é±í
-	 * @param w ¹ıÂËÌõ¼ş
-	 * @param hasM ÊÇ·ñ²¢ĞĞ
-	 * @param n ²¢ĞĞÊı
+	 * ä½¿ç”¨é¢„åˆ†ç»„è¿›è¡Œåˆ†ç»„è®¡ç®—
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼
+	 * @param names åˆ†ç»„è¡¨è¾¾å¼æ–°åå­—
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»è¡¨è¾¾å¼æ–°åå­—
+	 * @param srcTable è¦åˆ†ç»„çš„ç»„è¡¨
+	 * @param w è¿‡æ»¤æ¡ä»¶
+	 * @param hasM æ˜¯å¦å¹¶è¡Œ
+	 * @param n å¹¶è¡Œæ•°
 	 * @param option
 	 * @param ctx
 	 * @return
@@ -1002,7 +1002,7 @@ public class PhyTableGroup implements IPhyTable {
 			Expression w, boolean hasM, int n, String option, FileObject[] files, Context ctx) {
 			int count = tables.length;
 			
-			//°ÑËùÓĞ±íµÄ½á¹û·Åµ½Ò»Æğ
+			//æŠŠæ‰€æœ‰è¡¨çš„ç»“æœæ”¾åˆ°ä¸€èµ·
 			Sequence result = Cuboid.cgroups(expNames, names, newExpNames, newNames, 
 					(PhyTable) tables[0], w, hasM, n, option, files, ctx);
 			for (int i = 1; i < count; ++i) {
@@ -1011,23 +1011,23 @@ public class PhyTableGroup implements IPhyTable {
 				result.addAll(seq);
 			}
 			
-			//×éÖ¯·Ö×é±í´ïÊ½
+			//ç»„ç»‡åˆ†ç»„è¡¨è¾¾å¼
 			count = names.length;
 			Expression exps[] = new Expression[count];
 			for (int i = 0; i < count; i++) {
 				exps[i] = new Expression(names[i]);
 			}
 			
-			//×éÖ¯ÔÙ¾ÛºÏ±í´ïÊ½
-			Expression newExps[] = new Expression[count = newNames.length];//ÓÃÀ´´æ´¢Òª¾ÛºÏµÄÔ­×Ö¶Î
+			//ç»„ç»‡å†èšåˆè¡¨è¾¾å¼
+			Expression newExps[] = new Expression[count = newNames.length];//ç”¨æ¥å­˜å‚¨è¦èšåˆçš„åŸå­—æ®µ
 			for (int i = 0, len = count; i < len; i++) {
 				String str = newExpNames[i];
-				//¶ÔcountÔÙ¾ÛºÏ£¬Òª±äÎªÀÛ¼Ó
+				//å¯¹countå†èšåˆï¼Œè¦å˜ä¸ºç´¯åŠ 
 				if (str.indexOf("count(") != -1) {
 					str = str.replaceFirst("count", "sum");
 				}
 				
-				//ÔÙ¾ÛºÏÊ±ÒªÌæ»»Ò»ÏÂ×Ö¶ÎÃû
+				//å†èšåˆæ—¶è¦æ›¿æ¢ä¸€ä¸‹å­—æ®µå
 				String sub = str.substring(str.indexOf('(') + 1, str.indexOf(')'));
 				str = str.replaceAll(sub, "'" + newNames[i] + "'");
 				newExps[i] = new Expression(str);
@@ -1040,7 +1040,7 @@ public class PhyTableGroup implements IPhyTable {
 	}
 
 	/**
-	 * È¡ÄÚ´æ·Ö±í
+	 * å–å†…å­˜åˆ†è¡¨
 	 * @return Sequence
 	 */
 	public Sequence getMemoryTable() {
@@ -1048,8 +1048,8 @@ public class PhyTableGroup implements IPhyTable {
 	}
 
 	/**
-	 * ¸ø¸´×é±íÌí¼ÓÄÚ´æ·Ö±í£¬ÓÃÓÚÀúÊ·Êı¾İºÍÊµÊ±Êı¾İ»ìºÏ¼ÆËã
-	 * @param memoryTable ÄÚĞÄĞò±í
+	 * ç»™å¤ç»„è¡¨æ·»åŠ å†…å­˜åˆ†è¡¨ï¼Œç”¨äºå†å²æ•°æ®å’Œå®æ—¶æ•°æ®æ··åˆè®¡ç®—
+	 * @param memoryTable å†…å¿ƒåºè¡¨
 	 */
 	public void setMemoryTable(Sequence memoryTable) {
 		this.memoryTable = memoryTable;

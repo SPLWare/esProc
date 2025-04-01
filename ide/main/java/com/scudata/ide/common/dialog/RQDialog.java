@@ -19,84 +19,84 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
- * ¶Ô»°¿ò»ùÀà
+ * å¯¹è¯æ¡†åŸºç±»
  *
  */
 public class RQDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	public JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	public JButton jBCancel = new JButton();
 
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	protected int m_option = JOptionPane.CLOSED_OPTION;
 	/**
-	 * ÖĞ¼äÃæ°å
+	 * ä¸­é—´é¢æ¿
 	 */
 	protected JPanel panelCenter = new JPanel(new BorderLayout());
 	/**
-	 * µ×²¿°´Å¥Ãæ°å
+	 * åº•éƒ¨æŒ‰é’®é¢æ¿
 	 */
 	protected JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 	/**
-	 * È±Ê¡¿í¶È
+	 * ç¼ºçœå®½åº¦
 	 */
 	private static final int DEF_WIDTH = 400;
 	/**
-	 * È±Ê¡¸ß¶È
+	 * ç¼ºçœé«˜åº¦
 	 */
 	private static final int DEF_HEIGHT = 300;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public RQDialog() {
 		this("");
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 */
 	public RQDialog(String title) {
 		this(title, DEF_WIDTH, DEF_HEIGHT);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param width
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 * @param height
-	 *            ¸ß¶È
+	 *            é«˜åº¦
 	 */
 	public RQDialog(String title, int width, int height) {
 		this(GV.appFrame, title, width, height);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param width
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 * @param height
-	 *            ¸ß¶È
+	 *            é«˜åº¦
 	 */
 	public RQDialog(Frame owner, String title, int width, int height) {
 		super(owner, title, true);
@@ -108,28 +108,28 @@ public class RQDialog extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 */
 	public RQDialog(Dialog owner, String title) {
 		this(owner, title, DEF_WIDTH, DEF_HEIGHT);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param width
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 * @param height
-	 *            ¸ß¶È
+	 *            é«˜åº¦
 	 */
 	public RQDialog(Dialog owner, String title, int width, int height) {
 		super(owner, title, true);
@@ -141,7 +141,7 @@ public class RQDialog extends JDialog {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -150,7 +150,7 @@ public class RQDialog extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		jBOK.setMnemonic('O');
@@ -188,14 +188,14 @@ public class RQDialog extends JDialog {
 	}
 
 	/**
-	 * ¶Ô»°¿ò´ò¿ªÊ±
+	 * å¯¹è¯æ¡†æ‰“å¼€æ—¶
 	 */
 	protected void dialogOpened() {
 
 	}
 
 	/**
-	 * ¹Ø±Õ¶Ô»°¿ò
+	 * å…³é—­å¯¹è¯æ¡†
 	 * 
 	 * @param option
 	 */
@@ -209,7 +209,7 @@ public class RQDialog extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 * @return
@@ -219,14 +219,14 @@ public class RQDialog extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 */
 	protected void cancelAction() {
 		closeDialog(JOptionPane.CANCEL_OPTION);
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -238,7 +238,7 @@ public class RQDialog extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */

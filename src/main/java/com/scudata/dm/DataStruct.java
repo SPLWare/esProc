@@ -14,30 +14,30 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Ðò±íµÄÊý¾Ý½á¹¹
+ * åºè¡¨çš„æ•°æ®ç»“æž„
  * @author WangXiaoJun
  *
  */
 public class DataStruct implements Externalizable, IRecord {
-	public static final byte Col_AutoIncrement = 0x01; // ÁÐ×Ô¶¯Ôö³¤ÊôÐÔ
+	public static final byte Col_AutoIncrement = 0x01; // åˆ—è‡ªåŠ¨å¢žé•¿å±žæ€§
 	
 	private static final long serialVersionUID = 0x02010001;
-	private static final String DefNamePrefix = "_"; // Ä¬ÈÏ×Ö¶ÎÃûÇ°×º
+	private static final String DefNamePrefix = "_"; // é»˜è®¤å­—æ®µåå‰ç¼€
 	
 	private static final int SIGN_TIMEKEY = 0x01;
 	private static final int SIGN_SEQKEY = 0x02;
 
-	private String[] fieldNames; // ×Ö¶ÎÃû³Æ
-	private String[] primary; // ½á¹¹Ö÷¼ü
-	private int sign = 0; // ±êÖ¾£¬È¡ÖµÎªÉÏÃæ¶¨ÒåµÄ³£Á¿
-	transient private int[] pkIndex; // Ö÷¼üË÷Òý
+	private String[] fieldNames; // å­—æ®µåç§°
+	private String[] primary; // ç»“æž„ä¸»é”®
+	private int sign = 0; // æ ‡å¿—ï¼Œå–å€¼ä¸ºä¸Šé¢å®šä¹‰çš„å¸¸é‡
+	transient private int[] pkIndex; // ä¸»é”®ç´¢å¼•
 
-	// ÐòÁÐ»¯Ê±Ê¹ÓÃ
+	// åºåˆ—åŒ–æ—¶ä½¿ç”¨
 	public DataStruct() {}
 
 	/**
-	 * ¹¹½¨Êý¾Ý½á¹¹
-	 * @param fields ×Ö¶ÎÃûÊý×é
+	 * æž„å»ºæ•°æ®ç»“æž„
+	 * @param fields å­—æ®µåæ•°ç»„
 	 */
 	public DataStruct(String[] fields) {
 		if (fields == null) {
@@ -54,7 +54,7 @@ public class DataStruct implements Externalizable, IRecord {
 				name = DefNamePrefix + (i + 1);
 				fields[i] = name;
 			} /*else if (name.charAt(0) == '#') {
-				// ×Ö¶ÎÃû¿ÉÄÜÊÇ#abc£¬²»ÔÙµ±Ö÷¼üÖ¸Ê¾·ûÁË
+				// å­—æ®µåå¯èƒ½æ˜¯#abcï¼Œä¸å†å½“ä¸»é”®æŒ‡ç¤ºç¬¦äº†
 				name = name.substring(1);
 				if (name.length() == 0) {
 					name = DefNamePrefix + (i + 1);
@@ -68,13 +68,13 @@ public class DataStruct implements Externalizable, IRecord {
 				pkList.add(name);
 			}*/
 
-			// ²»¼ì²éÃû×ÖµÄºÏ·¨ÐÔ£¬sqlÓï¾ä¿ÉÄÜ²úÉú¿ÕÃû×Ö¶Î»òÏàÍ¬Ãû×ÖµÄ×Ö¶Î
+			// ä¸æ£€æŸ¥åå­—çš„åˆæ³•æ€§ï¼Œsqlè¯­å¥å¯èƒ½äº§ç”Ÿç©ºåå­—æ®µæˆ–ç›¸åŒåå­—çš„å­—æ®µ
 		}
 	}
 
 	/**
-	 * °ÑÊý¾Ý½á¹¹ÐòÁÐ»¯³É×Ö½ÚÊý×é
-	 * @return ×Ö½ÚÊý×é
+	 * æŠŠæ•°æ®ç»“æž„åºåˆ—åŒ–æˆå­—èŠ‚æ•°ç»„
+	 * @return å­—èŠ‚æ•°ç»„
 	 */
 	public byte[] serialize() throws IOException{
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -85,14 +85,14 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ÓÉ×Ö½ÚÊý×éÌî³äÊý¾Ý½á¹¹
-	 * @param buf ×Ö½ÚÊý×é
+	 * ç”±å­—èŠ‚æ•°ç»„å¡«å……æ•°æ®ç»“æž„
+	 * @param buf å­—èŠ‚æ•°ç»„
 	 */
 	public void fillRecord(byte[] buf) throws IOException, ClassNotFoundException {
 		ByteArrayInputRecord in = new ByteArrayInputRecord(buf);
 		fieldNames = in.readStrings();
 		if (fieldNames == null) {
-			// ³¤¶ÈÎª0µÄÊý×é¶ÁÈëºó»á±ä³Énull
+			// é•¿åº¦ä¸º0çš„æ•°ç»„è¯»å…¥åŽä¼šå˜æˆnull
 			fieldNames = new String[0];
 		}
 		
@@ -103,24 +103,24 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeByte(3); // °æ±¾ºÅ
+		out.writeByte(3); // ç‰ˆæœ¬å·
 		out.writeObject(fieldNames);
 		out.writeObject(primary);
-		out.writeInt(sign); // °æ±¾3Ìí¼Ó
+		out.writeInt(sign); // ç‰ˆæœ¬3æ·»åŠ 
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		int v = in.readByte(); // °æ±¾ºÅ
+		int v = in.readByte(); // ç‰ˆæœ¬å·
 		fieldNames = (String[])in.readObject();
 		setPrimary((String[])in.readObject());
 		
-		if (v > 2) { // °æ±¾3Ìí¼Ó
+		if (v > 2) { // ç‰ˆæœ¬3æ·»åŠ 
 			sign = in.readInt();
 		}
 	}
 
 	/**
-	 * ¸´ÖÆÊý¾Ý½á¹¹
+	 * å¤åˆ¶æ•°æ®ç»“æž„
 	 */
 	public DataStruct dup() {
 		String []names = new String[fieldNames.length];
@@ -132,8 +132,8 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ´´½¨Ò»¸öÐÂ½á¹¹£¬Ê¹ÓÃÔ´½á¹¹µÄÖ÷¼üÐÅÏ¢
-	 * @param newFields ÐÂ½á¹¹×Ö¶ÎÃû
+	 * åˆ›å»ºä¸€ä¸ªæ–°ç»“æž„ï¼Œä½¿ç”¨æºç»“æž„çš„ä¸»é”®ä¿¡æ¯
+	 * @param newFields æ–°ç»“æž„å­—æ®µå
 	 * @return
 	 */
 	public DataStruct create(String []newFields) {
@@ -151,7 +151,7 @@ public class DataStruct implements Externalizable, IRecord {
 				}
 			}
 
-			// Ä³¸öÖ÷¼üÃ»ÁË£¬°ÑËû¶ªµô
+			// æŸä¸ªä¸»é”®æ²¡äº†ï¼ŒæŠŠä»–ä¸¢æŽ‰
 			if (delCount > 0) {
 				if (delCount < keyCount) {
 					String []newPrimary = new String[keyCount - delCount];
@@ -174,7 +174,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»Ø×Ö¶ÎµÄË÷Òý£¬Èç¹û×Ö¶Î²»´æÔÚ·µ»Ø-1
+	 * è¿”å›žå­—æ®µçš„ç´¢å¼•ï¼Œå¦‚æžœå­—æ®µä¸å­˜åœ¨è¿”å›ž-1
 	 * @param fieldName String
 	 * @return int
 	 */
@@ -188,7 +188,7 @@ public class DataStruct implements Externalizable, IRecord {
 			}
 		}
 
-		// Ë÷Òýid
+		// ç´¢å¼•id
 		if (KeyWord.isFieldId(fieldName)) {
 			int i = KeyWord.getFiledId(fieldName);
 			if (i > 0 && i <= fcount) {
@@ -200,8 +200,8 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»Ø×Ö¶ÎµÄÃûÃû³Æ
-	 * @param int index ×Ö¶ÎË÷Òý£¬´Ó0¿ªÊ¼¼ÆÊý
+	 * è¿”å›žå­—æ®µçš„ååç§°
+	 * @param int index å­—æ®µç´¢å¼•ï¼Œä»Ž0å¼€å§‹è®¡æ•°
 	 * @return String
 	 */
 	public String getFieldName(int index) {
@@ -214,7 +214,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃ×Ö¶ÎÃû³Æ
+	 * è®¾ç½®å­—æ®µåç§°
 	 * @param fieldNames
 	 */
 	public void setFieldName(String[] fieldNames) {
@@ -222,7 +222,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ·µ»Ø×Ö¶ÎÊýÄ¿
+	 * è¿”å›žå­—æ®µæ•°ç›®
 	 * @return int
 	 */
 	public int getFieldCount() {
@@ -230,7 +230,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»Ø×Ö¶ÎÃû³ÆÊý×é
+	 * è¿”å›žå­—æ®µåç§°æ•°ç»„
 	 * @return String[]
 	 */
 	public String[] getFieldNames() {
@@ -238,7 +238,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÁ½Êý¾Ý½á¹¹ÊÇ·ñ¼æÈÝ
+	 * è¿”å›žä¸¤æ•°æ®ç»“æž„æ˜¯å¦å…¼å®¹
 	 * @param other DataStruct
 	 * @return boolean
 	 */
@@ -249,7 +249,7 @@ public class DataStruct implements Externalizable, IRecord {
 		String []names = other.fieldNames;
 		if (fieldNames.length != names.length) return false;
 
-		// ×Ö¶ÎË³ÐòÐèÒªÒ»ÖÂ
+		// å­—æ®µé¡ºåºéœ€è¦ä¸€è‡´
 		for (int i = 0, count = names.length; i < count; ++i) {
 			if (names[i] == null || names[i].length() == 0) {
 				if (fieldNames[i] != null && fieldNames[i].length() != 0) {
@@ -264,14 +264,14 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ÅÐ¶Ï½á¹¹ÊÇ·ñÓë¸ø¶¨µÄ×Ö¶ÎÃûÊý×é¼æÈÝ£¬ÐèÒª×Ö¶ÎÃûÏàÍ¬²¢ÇÒ×Ö¶ÎË³ÐòÏàÍ¬
-	 * @param names ×Ö¶ÎÃûÊý×é
+	 * åˆ¤æ–­ç»“æž„æ˜¯å¦ä¸Žç»™å®šçš„å­—æ®µåæ•°ç»„å…¼å®¹ï¼Œéœ€è¦å­—æ®µåç›¸åŒå¹¶ä¸”å­—æ®µé¡ºåºç›¸åŒ
+	 * @param names å­—æ®µåæ•°ç»„
 	 * @return
 	 */
 	public boolean isCompatible(String []names) {
 		if (fieldNames.length != names.length) return false;
 
-		// ×Ö¶ÎË³ÐòÐèÒªÒ»ÖÂ
+		// å­—æ®µé¡ºåºéœ€è¦ä¸€è‡´
 		for (int i = 0, count = names.length; i < count; ++i) {
 			if (names[i] == null || names[i].length() == 0) {
 				if (fieldNames[i] != null && fieldNames[i].length() != 0) {
@@ -286,7 +286,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃ½á¹¹µÄÖ÷¼ü
+	 * è®¾ç½®ç»“æž„çš„ä¸»é”®
 	 * @param names String[]
 	 */
 	public void setPrimary(String []names) {
@@ -294,9 +294,9 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ÉèÖÃ½á¹¹µÄÖ÷¼ü
+	 * è®¾ç½®ç»“æž„çš„ä¸»é”®
 	 * @param names String[]
-	 * @param opt String t£º×îºóÒ»¸öÎª
+	 * @param opt String tï¼šæœ€åŽä¸€ä¸ªä¸º
 	 */
 	public void setPrimary(String []names, String opt) {
 		sign = 0;
@@ -334,7 +334,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»Ø½á¹¹µÄÖ÷¼ü
+	 * è¿”å›žç»“æž„çš„ä¸»é”®
 	 * @return String[]
 	 */
 	public String[] getPrimary() {
@@ -342,7 +342,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÖ÷¼üÊÇ·ñÊÇÐòºÅ¼ü
+	 * è¿”å›žä¸»é”®æ˜¯å¦æ˜¯åºå·é”®
 	 * @return
 	 */
 	public boolean isSeqKey() {
@@ -350,7 +350,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * È¡Ê±¼ä¼üÊýÁ¿£¬Ã»ÓÐÊ±¼ä¼üÔò·µ»Ø0
+	 * å–æ—¶é—´é”®æ•°é‡ï¼Œæ²¡æœ‰æ—¶é—´é”®åˆ™è¿”å›ž0
 	 * @return
 	 */
 	public int getTimeKeyCount() {
@@ -358,7 +358,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÖ÷¼üÔÚ½á¹¹ÖÐµÄË÷Òý£¬Ã»ÓÐ¶¨ÒåÖ÷¼üÔò·µ»Ø¿Õ
+	 * è¿”å›žä¸»é”®åœ¨ç»“æž„ä¸­çš„ç´¢å¼•ï¼Œæ²¡æœ‰å®šä¹‰ä¸»é”®åˆ™è¿”å›žç©º
 	 * @return int[]
 	 */
 	public int[] getPKIndex() {
@@ -366,7 +366,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
-	 * È¡Ö÷¼üÊý£¬Èç¹ûÃ»ÓÐÉèÖÃÖ÷¼üÔò·µ»Ø0
+	 * å–ä¸»é”®æ•°ï¼Œå¦‚æžœæ²¡æœ‰è®¾ç½®ä¸»é”®åˆ™è¿”å›ž0
 	 * @return
 	 */
 	public int getPKCount() {
@@ -378,7 +378,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * È¡»ù±¾½¨µÄË÷Òý£¬²»°üº¬¸üÐÂ¼ü
+	 * å–åŸºæœ¬å»ºçš„ç´¢å¼•ï¼Œä¸åŒ…å«æ›´æ–°é”®
 	 * @return int[]
 	 */
 	public int[] getBaseKeyIndex() {
@@ -393,7 +393,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * È¡¸üÐÂÊ±¼ä¼üµÄË÷Òý
+	 * å–æ›´æ–°æ—¶é—´é”®çš„ç´¢å¼•
 	 * @return
 	 */
 	public int getTimeKeyIndex() {
@@ -401,7 +401,7 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ÖØÃüÃûÖ¸¶¨×Ö¶Î
+	 * é‡å‘½åæŒ‡å®šå­—æ®µ
 	 * @param srcFields
 	 * @param newFields
 	 */
@@ -410,11 +410,11 @@ public class DataStruct implements Externalizable, IRecord {
 			return;
 		}
 		
-		String[] fieldNames = this.fieldNames; // ÆÕÍ¨×Ö¶Î
+		String[] fieldNames = this.fieldNames; // æ™®é€šå­—æ®µ
 		for (int i = 0, count = srcFields.length; i < count; ++i) {
 			int f = getFieldIndex(srcFields[i]);
 			if (f < 0) {
-				continue; // ²»´æÔÚÊ±ºöÂÔ£¬²»ÔÙ±¨´í
+				continue; // ä¸å­˜åœ¨æ—¶å¿½ç•¥ï¼Œä¸å†æŠ¥é”™
 				//MessageManager mm = EngineMessage.get();
 				//throw new RQException(srcFields[i] + mm.getMessage("ds.fieldNotExist"));
 			}
@@ -437,10 +437,10 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ÅÐ¶Ï±í´ïÊ½ÊÇ·ñÊÇÖ¸¶¨µÄ×Ö¶Î
-	 * @param exps ±í´ïÊ½Êý×é
-	 * @param fields ×Ö¶ÎË÷ÒýÊý×é
-	 * @return true£ºÊÇÏàÍ¬×Ö¶Î
+	 * åˆ¤æ–­è¡¨è¾¾å¼æ˜¯å¦æ˜¯æŒ‡å®šçš„å­—æ®µ
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param fields å­—æ®µç´¢å¼•æ•°ç»„
+	 * @return trueï¼šæ˜¯ç›¸åŒå­—æ®µ
 	 */
 	public boolean isSameFields(Expression []exps, int []fields) {
 		int len = exps.length;

@@ -9,16 +9,16 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 
 /**
- * µü´ú½á¹û¼¯£¬ÓÃÓÚ¹ÜµÀµÄµü´úÔËËã
+ * è¿­ä»£ç»“æœé›†ï¼Œç”¨äºç®¡é“çš„è¿­ä»£è¿ç®—
  * @author WangXiaoJun
  *
  */
 public class IterateResult implements IResult {
-	private Expression exp; // µü´ú±í´ïÊ½
-	private Object prevValue; // Ç°Ò»´Îµü´ú½á¹û
-	private Expression c; // ½áÊøÌõ¼ş±í´ïÊ½
+	private Expression exp; // è¿­ä»£è¡¨è¾¾å¼
+	private Object prevValue; // å‰ä¸€æ¬¡è¿­ä»£ç»“æœ
+	private Expression c; // ç»“æŸæ¡ä»¶è¡¨è¾¾å¼
 	
-	private boolean sign = false; // ÊÇ·ñÂú×ã½áÊøÌõ¼ş
+	private boolean sign = false; // æ˜¯å¦æ»¡è¶³ç»“æŸæ¡ä»¶
 	
 	public IterateResult(Expression exp, Object initVal, Expression c, Context ctx) {
 		this.exp = exp;
@@ -27,9 +27,9 @@ public class IterateResult implements IResult {
 	}
 	
 	/**
-	 * µü´úÍÆËÍÀ´µÄÊı¾İ
-	 * @param table Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ£¬¿ÉÄÜ¶à¸öÏß³ÌÍù¹ÜµÀÍÆËÍÊı¾İ£¬ĞèÒªÊ¹ÓÃÏß³Ì×Ô¼ºµÄÉÏÏÂÎÄ£¬·ñÔò¼ÆËã¿ÉÄÜ³ö´í
+	 * è¿­ä»£æ¨é€æ¥çš„æ•°æ®
+	 * @param table æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡ï¼Œå¯èƒ½å¤šä¸ªçº¿ç¨‹å¾€ç®¡é“æ¨é€æ•°æ®ï¼Œéœ€è¦ä½¿ç”¨çº¿ç¨‹è‡ªå·±çš„ä¸Šä¸‹æ–‡ï¼Œå¦åˆ™è®¡ç®—å¯èƒ½å‡ºé”™
 	 */
 	public void push(Sequence table, Context ctx) {
 		if (table == null || table.length() == 0 || sign) return;
@@ -58,7 +58,7 @@ public class IterateResult implements IResult {
 					current.setCurrent(i);
 					Object obj = c.calculate(ctx);
 					
-					// Èç¹ûÌõ¼şÎªÕæÔò·µ»Ø
+					// å¦‚æœæ¡ä»¶ä¸ºçœŸåˆ™è¿”å›
 					if (obj instanceof Boolean && ((Boolean)obj).booleanValue()) {
 						sign = true;
 						break;
@@ -76,14 +76,14 @@ public class IterateResult implements IResult {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊøÊ±µ÷ÓÃ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®æ¨é€ç»“æŸæ—¶è°ƒç”¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void finish(Context ctx) {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊø£¬È¡×îÖÕµÄ¼ÆËã½á¹û
+	 * æ•°æ®æ¨é€ç»“æŸï¼Œå–æœ€ç»ˆçš„è®¡ç®—ç»“æœ
 	 * @return
 	 */
 	public Object result() {
@@ -91,7 +91,7 @@ public class IterateResult implements IResult {
 	}
 	
 	/**
-	 * ´Ëº¯Êı²»Ö§³Ö²¢ĞĞÔËËã
+	 * æ­¤å‡½æ•°ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 	 */
 	public Object combineResult(Object []results) {
 		throw new RQException("Unimplemented function.");

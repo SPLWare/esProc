@@ -44,7 +44,7 @@ public final class ArrayUtil {
 	}
 	
 	/**
-	 * È¡Êı×é³ÉÔ±µÄ²¼¶ûÖµ×é³ÉĞÂÊı×é
+	 * å–æ•°ç»„æˆå‘˜çš„å¸ƒå°”å€¼ç»„æˆæ–°æ•°ç»„
 	 * @param array
 	 * @param value
 	 * @return
@@ -63,21 +63,21 @@ public final class ArrayUtil {
 	}
 	
 	/**
-	 * ¼ÆËãÊı×éµÄ³ÉÔ±ºÍnullµÄ¹ØÏµ
-	 * @param signs Êı×é³ÉÔ±ÊÇ·ñÎª¿Õ±êÖ¾£¬trueÎª¿Õ
-	 * @param size Êı×é³ÉÔ±Êı
-	 * @param relation ±È½Ï¹ØÏµ
-	 * @return BoolArray ±È½ÏÖµÊı×é
+	 * è®¡ç®—æ•°ç»„çš„æˆå‘˜å’Œnullçš„å…³ç³»
+	 * @param signs æ•°ç»„æˆå‘˜æ˜¯å¦ä¸ºç©ºæ ‡å¿—ï¼Œtrueä¸ºç©º
+	 * @param size æ•°ç»„æˆå‘˜æ•°
+	 * @param relation æ¯”è¾ƒå…³ç³»
+	 * @return BoolArray æ¯”è¾ƒå€¼æ•°ç»„
 	 */
 	public static BoolArray calcRelationNull(boolean []signs, int size, int relation) {
 		boolean []resultDatas = new boolean[size + 1];		
 		if (relation == Relation.EQUAL) {
-			// ÊÇ·ñµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ç­‰äºåˆ¤æ–­
 			if (signs != null) {
 				System.arraycopy(signs, 1, resultDatas, 1, size);
 			}
 		} else if (relation == Relation.GREATER) {
-			// ÊÇ·ñ´óÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºåˆ¤æ–­
 			if (signs == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = true;
@@ -90,19 +90,19 @@ public final class ArrayUtil {
 				}
 			}
 		} else if (relation == Relation.GREATER_EQUAL) {
-			// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 			for (int i = 1; i <= size; ++i) {
 				resultDatas[i] = true;
 			}
 		} else if (relation == Relation.LESS) {
-			// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºåˆ¤æ–­
 		} else if (relation == Relation.LESS_EQUAL) {
-			// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 			if (signs != null) {
 				System.arraycopy(signs, 1, resultDatas, 1, size);
 			}
 		} else if (relation == Relation.NOT_EQUAL) {
-			// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 			if (signs == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = true;
@@ -132,44 +132,44 @@ public final class ArrayUtil {
 	}
 	
 	/**
-	 * Êı×éµÄ³ÉÔ±ºÍnull×ö±È½Ï
-	 * @param datas Êı×é
-	 * @param size Êı×é³ÉÔ±Êı
-	 * @param relation ±È½Ï¹ØÏµ
-	 * @return BoolArray ±È½ÏÖµÊı×é
+	 * æ•°ç»„çš„æˆå‘˜å’Œnullåšæ¯”è¾ƒ
+	 * @param datas æ•°ç»„
+	 * @param size æ•°ç»„æˆå‘˜æ•°
+	 * @param relation æ¯”è¾ƒå…³ç³»
+	 * @return BoolArray æ¯”è¾ƒå€¼æ•°ç»„
 	 */
 	public static BoolArray calcRelationNull(Object []datas, int size, int relation) {
 		boolean []resultDatas = new boolean[size + 1];		
 		if (relation == Relation.EQUAL) {
-			// ÊÇ·ñµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ç­‰äºåˆ¤æ–­
 			for (int i = 1; i <= size; ++i) {
 				if (datas[i] == null) {
 					resultDatas[i] = true;
 				}
 			}
 		} else if (relation == Relation.GREATER) {
-			// ÊÇ·ñ´óÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºåˆ¤æ–­
 			for (int i = 1; i <= size; ++i) {
 				if (datas[i] != null) {
 					resultDatas[i] = true;
 				}
 			}
 		} else if (relation == Relation.GREATER_EQUAL) {
-			// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 			for (int i = 1; i <= size; ++i) {
 				resultDatas[i] = true;
 			}
 		} else if (relation == Relation.LESS) {
-			// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºåˆ¤æ–­
 		} else if (relation == Relation.LESS_EQUAL) {
-			// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 			for (int i = 1; i <= size; ++i) {
 				if (datas[i] == null) {
 					resultDatas[i] = true;
 				}
 			}
 		} else if (relation == Relation.NOT_EQUAL) {
-			// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 			for (int i = 1; i <= size; ++i) {
 				if (datas[i] != null) {
 					resultDatas[i] = true;
@@ -187,46 +187,46 @@ public final class ArrayUtil {
 	}
 	
 	/**
-	 * Êı×éµÄ³ÉÔ±ºÍnull×ö±È½Ï
-	 * @param datas Êı×é
-	 * @param start °üº¬
-	 * @param end °üº¬
-	 * @param size Êı×é³ÉÔ±Êı
-	 * @param relation ±È½Ï¹ØÏµ
+	 * æ•°ç»„çš„æˆå‘˜å’Œnullåšæ¯”è¾ƒ
+	 * @param datas æ•°ç»„
+	 * @param start åŒ…å«
+	 * @param end åŒ…å«
+	 * @param size æ•°ç»„æˆå‘˜æ•°
+	 * @param relation æ¯”è¾ƒå…³ç³»
 	 * @return
 	 */
 	public static BoolArray calcRelationNull(Object []datas, int start, int end, int size, int relation) {
 		boolean []resultDatas = new boolean[size + 1];		
 		if (relation == Relation.EQUAL) {
-			// ÊÇ·ñµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ç­‰äºåˆ¤æ–­
 			for (int i = start; i <= end; ++i) {
 				if (datas[i] == null) {
 					resultDatas[i] = true;
 				}
 			}
 		} else if (relation == Relation.GREATER) {
-			// ÊÇ·ñ´óÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºåˆ¤æ–­
 			for (int i = start; i <= end; ++i) {
 				if (datas[i] != null) {
 					resultDatas[i] = true;
 				}
 			}
 		} else if (relation == Relation.GREATER_EQUAL) {
-			// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 			for (int i = start; i <= end; ++i) {
 				resultDatas[i] = true;
 			}
 		} else if (relation == Relation.LESS) {
-			// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºåˆ¤æ–­
 		} else if (relation == Relation.LESS_EQUAL) {
-			// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 			for (int i = start; i <= end; ++i) {
 				if (datas[i] == null) {
 					resultDatas[i] = true;
 				}
 			}
 		} else if (relation == Relation.NOT_EQUAL) {
-			// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 			for (int i = start; i <= end; ++i) {
 				if (datas[i] != null) {
 					resultDatas[i] = true;
@@ -244,19 +244,19 @@ public final class ArrayUtil {
 	}
 	
 	/**
-	 * ¼ÆËãÊı×éµÄ³ÉÔ±ºÍnullµÄ¹ØÏµ
-	 * @param signs Êı×é³ÉÔ±ÊÇ·ñÎª¿Õ±êÖ¾£¬trueÎª¿Õ
-	 * @param size Êı×é³ÉÔ±Êı
-	 * @param relation ±È½Ï¹ØÏµ
-	 * @param result ×ó²à¼ÆËã½á¹û£¬µ±Ç°¹ØÏµÔËËã½á¹ûĞèÒªÓë×ó²à½á¹û×öÂß¼­&&»òÕß||ÔËËã
-	 * @param isAnd true£ºÓë×ó²à×ö && ÔËËã£¬false£ºÓë×ó²à×ö || ÔËËã
+	 * è®¡ç®—æ•°ç»„çš„æˆå‘˜å’Œnullçš„å…³ç³»
+	 * @param signs æ•°ç»„æˆå‘˜æ˜¯å¦ä¸ºç©ºæ ‡å¿—ï¼Œtrueä¸ºç©º
+	 * @param size æ•°ç»„æˆå‘˜æ•°
+	 * @param relation æ¯”è¾ƒå…³ç³»
+	 * @param result å·¦ä¾§è®¡ç®—ç»“æœï¼Œå½“å‰å…³ç³»è¿ç®—ç»“æœéœ€è¦ä¸å·¦ä¾§ç»“æœåšé€»è¾‘&&æˆ–è€…||è¿ç®—
+	 * @param isAnd trueï¼šä¸å·¦ä¾§åš && è¿ç®—ï¼Œfalseï¼šä¸å·¦ä¾§åš || è¿ç®—
 	 */
 	public static void calcRelationsNull(boolean []signs, int size, int relation, BoolArray result, boolean isAnd) {
 		boolean []resultDatas = result.getDatas();
 		if (isAnd) {
-			// Óë×ó²à½á¹ûÖ´ĞĞ&&ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ&&è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				if (signs == null) {
 					for (int i = 1; i <= size; ++i) {
 						resultDatas[i] = false;
@@ -269,7 +269,7 @@ public final class ArrayUtil {
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				if (signs != null) {
 					for (int i = 1; i <= size; ++i) {
 						if (signs[i]) {
@@ -278,14 +278,14 @@ public final class ArrayUtil {
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = false;
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				if (signs != null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!signs[i]) {
@@ -294,7 +294,7 @@ public final class ArrayUtil {
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				if (signs != null) {
 					for (int i = 1; i <= size; ++i) {
 						if (signs[i]) {
@@ -306,9 +306,9 @@ public final class ArrayUtil {
 				throw new RuntimeException();
 			}
 		} else {
-			// Óë×ó²à½á¹ûÖ´ĞĞ||ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ||è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				if (signs != null) {
 					for (int i = 1; i <= size; ++i) {
 						if (signs[i]) {
@@ -317,7 +317,7 @@ public final class ArrayUtil {
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				if (signs == null) {
 					for (int i = 1; i <= size; ++i) {
 						resultDatas[i] = true;
@@ -330,14 +330,14 @@ public final class ArrayUtil {
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = true;
 				}
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				if (signs != null) {
 					for (int i = 1; i <= size; ++i) {
 						if (signs[i]) {
@@ -346,7 +346,7 @@ public final class ArrayUtil {
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				if (signs == null) {
 					for (int i = 1; i <= size; ++i) {
 						resultDatas[i] = true;
@@ -365,47 +365,47 @@ public final class ArrayUtil {
 	}
 	
 	/**
-	 * Êı×éµÄ³ÉÔ±ºÍnull×ö±È½Ï
-	 * @param datas Êı×é
-	 * @param size Êı×é³ÉÔ±Êı
-	 * @param relation ±È½Ï¹ØÏµ
-	 * @param result ×ó²à¼ÆËã½á¹û£¬µ±Ç°¹ØÏµÔËËã½á¹ûĞèÒªÓë×ó²à½á¹û×öÂß¼­&&»òÕß||ÔËËã
-	 * @param isAnd true£ºÓë×ó²à×ö && ÔËËã£¬false£ºÓë×ó²à×ö || ÔËËã
+	 * æ•°ç»„çš„æˆå‘˜å’Œnullåšæ¯”è¾ƒ
+	 * @param datas æ•°ç»„
+	 * @param size æ•°ç»„æˆå‘˜æ•°
+	 * @param relation æ¯”è¾ƒå…³ç³»
+	 * @param result å·¦ä¾§è®¡ç®—ç»“æœï¼Œå½“å‰å…³ç³»è¿ç®—ç»“æœéœ€è¦ä¸å·¦ä¾§ç»“æœåšé€»è¾‘&&æˆ–è€…||è¿ç®—
+	 * @param isAnd trueï¼šä¸å·¦ä¾§åš && è¿ç®—ï¼Œfalseï¼šä¸å·¦ä¾§åš || è¿ç®—
 	 */
 	public static void calcRelationsNull(Object []datas, int size, int relation, BoolArray result, boolean isAnd) {
 		boolean []resultDatas = result.getDatas();	
 		if (isAnd) {
-			// Óë×ó²à½á¹ûÖ´ĞĞ&&ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ&&è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					if (datas[i] != null) {
 						resultDatas[i] = false;
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					if (datas[i] == null) {
 						resultDatas[i] = false;
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = false;
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					if (datas[i] != null) {
 						resultDatas[i] = false;
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					if (datas[i] == null) {
 						resultDatas[i] = false;
@@ -415,37 +415,37 @@ public final class ArrayUtil {
 				throw new RuntimeException();
 			}
 		} else {
-			// Óë×ó²à½á¹ûÖ´ĞĞ||ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ||è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					if (datas[i] == null) {
 						resultDatas[i] = true;
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					if (datas[i] != null) {
 						resultDatas[i] = true;
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = true;
 				}
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					if (datas[i] == null) {
 						resultDatas[i] = true;
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				for (int i = 1; i <= size; ++i) {
 					if (datas[i] != null) {
 						resultDatas[i] = true;
@@ -458,7 +458,7 @@ public final class ArrayUtil {
 	}
 	
 	/**
-	 * È¡Óà»òĞòÁĞ³ÉÔ±Òì»òÁĞ
+	 * å–ä½™æˆ–åºåˆ—æˆå‘˜å¼‚æˆ–åˆ—
 	 * @param o1 Object
 	 * @param o2 Object
 	 * @return Object
@@ -508,7 +508,7 @@ public final class ArrayUtil {
 	}
 	
 	/**
-	 * Õû³ö»òĞòÁĞ³ÉÔ±²î¼¯
+	 * æ•´å‡ºæˆ–åºåˆ—æˆå‘˜å·®é›†
 	 * @param o1 Object
 	 * @param o2 Object
 	 * @return Object
@@ -544,11 +544,11 @@ public final class ArrayUtil {
 	}
 	
 	/**
-	 * ·µ»ØÖ¸¶¨Êı×éµÄ³ÉÔ±ÔÚµ±Ç°Êı×éÖĞµÄÎ»ÖÃ
-	 * @param src Ô´Êı×é
-	 * @param array ´ı²éÕÒµÄÊı×é
-	 * @param opt Ñ¡Ïî£¬b£ºÍ¬Ğò¹é²¢·¨²éÕÒ£¬i£º·µ»Øµ¥µİÔöÊıÁĞ£¬c£ºÁ¬Ğø³öÏÖ
-	 * @return Î»ÖÃ»òÕßÎ»ÖÃĞòÁĞ
+	 * è¿”å›æŒ‡å®šæ•°ç»„çš„æˆå‘˜åœ¨å½“å‰æ•°ç»„ä¸­çš„ä½ç½®
+	 * @param src æºæ•°ç»„
+	 * @param array å¾…æŸ¥æ‰¾çš„æ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œbï¼šåŒåºå½’å¹¶æ³•æŸ¥æ‰¾ï¼Œiï¼šè¿”å›å•é€’å¢æ•°åˆ—ï¼Œcï¼šè¿ç»­å‡ºç°
+	 * @return ä½ç½®æˆ–è€…ä½ç½®åºåˆ—
 	 */
 	public static Object pos(IArray src, IArray array, String opt) {
 		int len = src.size();
@@ -564,12 +564,12 @@ public final class ArrayUtil {
 			if (opt.indexOf('c') != -1) isContinuous = true;
 		}
 
-		// ÔªËØÒÀ´Î³öÏÖÔÚÔ´ĞòÁĞÖĞ
+		// å…ƒç´ ä¾æ¬¡å‡ºç°åœ¨æºåºåˆ—ä¸­
 		if (isIncre) {
 			Sequence result = new Sequence(subLen);
 			IArray resultMems = result.getMems();
 
-			if (isSorted) { // Ô´ĞòÁĞÓĞĞò
+			if (isSorted) { // æºåºåˆ—æœ‰åº
 				int pos = 1;
 				for (int t = 1; t <= subLen; ++t) {
 					pos = src.binarySearch(array.get(t), pos, len);
@@ -595,12 +595,12 @@ public final class ArrayUtil {
 
 			return result;
 		} else if (isContinuous) {
-			int maxCandidate = len - subLen + 1; // ±È½ÏµÄ´ÎÊı
+			int maxCandidate = len - subLen + 1; // æ¯”è¾ƒçš„æ¬¡æ•°
 			if (isSorted) {
 				Object o1 = array.get(1);
 				int candidate = 1;
 
-				// ÕÒµ½µÚÒ»¸öÏàµÈµÄÔªËØµÄĞòºÅ
+				// æ‰¾åˆ°ç¬¬ä¸€ä¸ªç›¸ç­‰çš„å…ƒç´ çš„åºå·
 				Next:
 				while (candidate <= maxCandidate) {
 					int result = Variant.compare(o1, src.get(candidate), true);
@@ -638,7 +638,7 @@ public final class ArrayUtil {
 			Sequence result = new Sequence(subLen);
 			IArray resultMems = result.getMems();
 
-			if (isSorted) { // Ô´ĞòÁĞÓĞĞò
+			if (isSorted) { // æºåºåˆ—æœ‰åº
 				for (int t = 1; t <= subLen; ++t) {
 					int pos = src.binarySearch(array.get(t));
 					if (pos > 0) {

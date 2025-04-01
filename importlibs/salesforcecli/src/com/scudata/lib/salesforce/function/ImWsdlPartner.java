@@ -32,7 +32,7 @@ public class ImWsdlPartner {
 			String[] cols = null;
 			Object[] os = null;
 			SObject record = null;
-			List<String> keys = new ArrayList<String>();	//字段可能重复
+			List<String> keys = new ArrayList<String>();	//瀛楁鍙兘閲嶅
 			
 			String sSql = soqlQuery.toLowerCase();
 			int off = sSql.indexOf("fields");

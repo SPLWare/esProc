@@ -10,13 +10,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸ù¾İ¸ø¶¨µÄUnicode±àÂë»òÕßASCIIÂë»ñÈ¡¶ÔÓ¦µÄ×Ö·û
+ * æ ¹æ®ç»™å®šçš„Unicodeç¼–ç æˆ–è€…ASCIIç è·å–å¯¹åº”çš„å­—ç¬¦
  * @author runqian
  *
  */
 public class ToChar extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -42,8 +42,8 @@ public class ToChar extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {

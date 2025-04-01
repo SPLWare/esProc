@@ -26,7 +26,7 @@ public class ImUtils {
 	}
 
 	/**
-	 * 字节数组转为Object对象
+	 * 瀛楄妭鏁扮粍杞负Object瀵硅薄
 	 * 
 	 * @param bytes
 	 * @return

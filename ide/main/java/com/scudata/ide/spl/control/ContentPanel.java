@@ -59,139 +59,139 @@ import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.SheetSpl;
 import com.scudata.ide.spl.ToolBarProperty;
 
-/** Íø¸ñÄÚÈİÃæ°å */
+/** ç½‘æ ¼å†…å®¹é¢æ¿ */
 public class ContentPanel extends JPanel implements InputMethodListener,
 		InputMethodRequests {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Òì»òÑÕÉ«
+	 * å¼‚æˆ–é¢œè‰²
 	 */
 	public static Color XOR_COLOR = new Color(51, 0, 51);
 
-	/** Íø¸ñ¶ÔÏó */
+	/** ç½‘æ ¼å¯¹è±¡ */
 	CellSet cellSet;
 
-	/** Íø¸ñ·ÖÎöÆ÷ */
+	/** ç½‘æ ¼åˆ†æå™¨ */
 	protected CellSetParser parser;
 
-	/** ÄÚÈİÃæ°å»æÖÆµÄÆğÊ¼ĞĞ */
+	/** å†…å®¹é¢æ¿ç»˜åˆ¶çš„èµ·å§‹è¡Œ */
 	protected int startRow;
 
-	/** ÄÚÈİÃæ°å»æÖÆµÄ½áÊøĞĞ */
+	/** å†…å®¹é¢æ¿ç»˜åˆ¶çš„ç»“æŸè¡Œ */
 	protected int endRow;
 
-	/** ÄÚÈİÃæ°å»æÖÆµÄÆğÊ¼ÁĞ */
+	/** å†…å®¹é¢æ¿ç»˜åˆ¶çš„èµ·å§‹åˆ— */
 	protected int startCol;
 
-	/** ÄÚÈİÃæ°å»æÖÆµÄ½áÊøÁĞ */
+	/** å†…å®¹é¢æ¿ç»˜åˆ¶çš„ç»“æŸåˆ— */
 	protected int endCol;
 
 	/**
-	 * ÊÇ·ñ´¦ÓÚ±à¼­×´Ì¬£¬Çø·Öµ¥Ôª¸ñÖµÏÔÊ¾±í´ïÊ½»¹ÊÇÏÔÊ¾¸ñÖµÓÃµÄ¡£ ÏÖÔÚÓ¦¸ÃÊÇÃ»ÓÃµÄÊôĞÔÁË£¬´«µÄ×ÜÊÇtrue£¬Ò²¾ÍÊÇ×ÜÏÔÊ¾µÄµ¥Ôª¸ñ±í´ïÊ½
+	 * æ˜¯å¦å¤„äºç¼–è¾‘çŠ¶æ€ï¼ŒåŒºåˆ†å•å…ƒæ ¼å€¼æ˜¾ç¤ºè¡¨è¾¾å¼è¿˜æ˜¯æ˜¾ç¤ºæ ¼å€¼ç”¨çš„ã€‚ ç°åœ¨åº”è¯¥æ˜¯æ²¡ç”¨çš„å±æ€§äº†ï¼Œä¼ çš„æ€»æ˜¯trueï¼Œä¹Ÿå°±æ˜¯æ€»æ˜¾ç¤ºçš„å•å…ƒæ ¼è¡¨è¾¾å¼
 	 **/
 	protected boolean isEditing;
 
-	/** ÊÇ·ñÖ»»­´¦ÓÚÏÔÊ¾´°¿Ú´óĞ¡ÄÚµÄÄÚÈİ */
+	/** æ˜¯å¦åªç”»å¤„äºæ˜¾ç¤ºçª—å£å¤§å°å†…çš„å†…å®¹ */
 	protected boolean onlyDrawCellInWin;
 
-	/** ÊÇ·ñ¿É±à¼­ */
+	/** æ˜¯å¦å¯ç¼–è¾‘ */
 	protected boolean editable;
 
-	/** ÈİÄÉÄÚÈİÃæ°åµÄ¹ö¶¯´°¸ñ */
+	/** å®¹çº³å†…å®¹é¢æ¿çš„æ»šåŠ¨çª—æ ¼ */
 	JScrollPane jsp;
 
-	/** Íø¸ñ¿Ø¼ş */
+	/** ç½‘æ ¼æ§ä»¶ */
 	protected SplControl control;
 
-	/** µ¥Ôª¸ñµÄX×ø±êÊı×é */
+	/** å•å…ƒæ ¼çš„Xåæ ‡æ•°ç»„ */
 	int[][] cellX;
 
-	/** µ¥Ôª¸ñµÄY×ø±êÊı×é */
+	/** å•å…ƒæ ¼çš„Yåæ ‡æ•°ç»„ */
 	int[][] cellY;
 
-	/** µ¥Ôª¸ñµÄ¿í¶ÈÊı×é */
+	/** å•å…ƒæ ¼çš„å®½åº¦æ•°ç»„ */
 	int[][] cellW;
 
-	/** µ¥Ôª¸ñµÄ¸ß¶ÈÊı×é */
+	/** å•å…ƒæ ¼çš„é«˜åº¦æ•°ç»„ */
 	int[][] cellH;
 
-	/** »æÍ¼¿ªÊ¼µÄĞĞ¡¢ÁĞ£¬»æÍ¼½áÊøµÄĞĞ¡¢ÁĞ */
+	/** ç»˜å›¾å¼€å§‹çš„è¡Œã€åˆ—ï¼Œç»˜å›¾ç»“æŸçš„è¡Œã€åˆ— */
 	public int drawStartRow, drawStartCol, drawEndRow, drawEndCol;
 
-	/** ¶àĞĞ±à¼­¿ò */
+	/** å¤šè¡Œç¼–è¾‘æ¡† */
 	protected JTextPaneEx multiEditor;
 
-	/** µ±Ç°±à¼­¿Ø¼ş */
+	/** å½“å‰ç¼–è¾‘æ§ä»¶ */
 	protected JComponent editor;
 
-	/** ÓÃ·½Ïò¼ü¸Ä±äµ±Ç°µ¥Ôª¸ñÊ±£¬¼ÇÂ¼µÄµ±Ç°¹â±êĞĞºÅ */
+	/** ç”¨æ–¹å‘é”®æ”¹å˜å½“å‰å•å…ƒæ ¼æ—¶ï¼Œè®°å½•çš„å½“å‰å…‰æ ‡è¡Œå· */
 	public int rememberedRow = 0;
 
-	/** ÓÃ·½Ïò¼ü¸Ä±äµ±Ç°µ¥Ôª¸ñÊ±£¬¼ÇÂ¼µÄµ±Ç°¹â±êÁĞºÅ */
+	/** ç”¨æ–¹å‘é”®æ”¹å˜å½“å‰å•å…ƒæ ¼æ—¶ï¼Œè®°å½•çš„å½“å‰å…‰æ ‡åˆ—å· */
 	public int rememberedCol = 0;
 
-	/** ¶àĞĞ±à¼­Æ÷ÀàĞÍ */
+	/** å¤šè¡Œç¼–è¾‘å™¨ç±»å‹ */
 	public static final int MULTI_EDITOR = 2;
 
 	/**
-	 * ¶àĞĞ±à¼­Æ÷µÄ¹ö¶¯Ãæ°å
+	 * å¤šè¡Œç¼–è¾‘å™¨çš„æ»šåŠ¨é¢æ¿
 	 */
 	protected JScrollPane spEditor;
 
 	/**
-	 * ÊÇ·ñ×èÖ¹±ä»¯
+	 * æ˜¯å¦é˜»æ­¢å˜åŒ–
 	 */
 	protected boolean preventChange = false;
 
 	/**
-	 * ±ß¿òÑùÊ½
+	 * è¾¹æ¡†æ ·å¼
 	 */
 	protected BorderStyle borderStyle = new BorderStyle();
 
-	/** Í¼ĞÎÂÖÀªäÖÈ¾Æ÷£¬ĞéÏß·ç¸ñ4f */
+	/** å›¾å½¢è½®å»“æ¸²æŸ“å™¨ï¼Œè™šçº¿é£æ ¼4f */
 	public static BasicStroke bs1 = new BasicStroke(2.0f, BasicStroke.CAP_BUTT,
 			BasicStroke.JOIN_MITER, 1f, new float[] { 4f }, 0f);
-	/** Í¼ĞÎÂÖÀªäÖÈ¾Æ÷£¬ĞéÏß·ç¸ñ5f */
+	/** å›¾å½¢è½®å»“æ¸²æŸ“å™¨ï¼Œè™šçº¿é£æ ¼5f */
 	public static BasicStroke bs2 = new BasicStroke(2.0f, BasicStroke.CAP_BUTT,
 			BasicStroke.JOIN_MITER, 1f, new float[] { 5f }, 0f);
 
 	/**
-	 * Í¼ĞÎÂÖÀªäÖÈ¾Æ÷
+	 * å›¾å½¢è½®å»“æ¸²æŸ“å™¨
 	 */
 	protected BasicStroke bs = null;
 
 	/**
-	 * ÕıÔÚ±à¼­µÄµ¥Ôª¸ñ×ø±ê
+	 * æ­£åœ¨ç¼–è¾‘çš„å•å…ƒæ ¼åæ ‡
 	 */
 	protected CellLocation editPos = null;
 
 	/**
-	 * ÓÃÓÚ»¹Ô­±à¼­ÎÄ±¾
+	 * ç”¨äºè¿˜åŸç¼–è¾‘æ–‡æœ¬
 	 */
 	protected String undoExp = null;
 
 	protected SheetSpl sheet;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param cellSet
-	 *            Íø¸ñ¶ÔÏó
+	 *            ç½‘æ ¼å¯¹è±¡
 	 * @param startRow
-	 *            ÄÚÈİÃæ°åÆğÊ¼ĞĞ
+	 *            å†…å®¹é¢æ¿èµ·å§‹è¡Œ
 	 * @param endRow
-	 *            ÄÚÈİÃæ°å½áÊøĞĞ
+	 *            å†…å®¹é¢æ¿ç»“æŸè¡Œ
 	 * @param startCol
-	 *            ÄÚÈİÃæ°åÆğÊ¼ÁĞ
+	 *            å†…å®¹é¢æ¿èµ·å§‹åˆ—
 	 * @param endCol
-	 *            ÄÚÈİÃæ°å½áÊøÁĞ
+	 *            å†…å®¹é¢æ¿ç»“æŸåˆ—
 	 * @param isEditing
-	 *            Ãæ°åÊÇ·ñÎ»ÓÚ±à¼­¿Ø¼şÖĞ
+	 *            é¢æ¿æ˜¯å¦ä½äºç¼–è¾‘æ§ä»¶ä¸­
 	 * @param onlyDrawCellInWin
-	 *            ÊÇ·ñÖ»»­ÏÔÊ¾´°¿Ú´óĞ¡ÄÚµÄÃæ°å
+	 *            æ˜¯å¦åªç”»æ˜¾ç¤ºçª—å£å¤§å°å†…çš„é¢æ¿
 	 * @param jsp
-	 *            ÈİÄÉÃæ°åµÄ¹ö¶¯´°¸ñ
+	 *            å®¹çº³é¢æ¿çš„æ»šåŠ¨çª—æ ¼
 	 */
 	public ContentPanel(CellSet cellSet, int startRow, int endRow,
 			int startCol, int endCol, boolean isEditing,
@@ -201,26 +201,26 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param cellSet
-	 *            Íø¸ñ¶ÔÏó
+	 *            ç½‘æ ¼å¯¹è±¡
 	 * @param startRow
-	 *            ÄÚÈİÃæ°åÆğÊ¼ĞĞ
+	 *            å†…å®¹é¢æ¿èµ·å§‹è¡Œ
 	 * @param endRow
-	 *            ÄÚÈİÃæ°å½áÊøĞĞ
+	 *            å†…å®¹é¢æ¿ç»“æŸè¡Œ
 	 * @param startCol
-	 *            ÄÚÈİÃæ°åÆğÊ¼ÁĞ
+	 *            å†…å®¹é¢æ¿èµ·å§‹åˆ—
 	 * @param endCol
-	 *            ÄÚÈİÃæ°å½áÊøÁĞ
+	 *            å†…å®¹é¢æ¿ç»“æŸåˆ—
 	 * @param isEditing
-	 *            Ãæ°åÊÇ·ñÎ»ÓÚ±à¼­¿Ø¼şÖĞ
+	 *            é¢æ¿æ˜¯å¦ä½äºç¼–è¾‘æ§ä»¶ä¸­
 	 * @param onlyDrawCellInWin
-	 *            ÊÇ·ñÖ»»­ÏÔÊ¾´°¿Ú´óĞ¡ÄÚµÄÃæ°å
+	 *            æ˜¯å¦åªç”»æ˜¾ç¤ºçª—å£å¤§å°å†…çš„é¢æ¿
 	 * @param jsp
-	 *            ÈİÄÉÃæ°åµÄ¹ö¶¯´°¸ñ
+	 *            å®¹çº³é¢æ¿çš„æ»šåŠ¨çª—æ ¼
 	 * @param sheet
-	 *            Ò³Ãæ¶ÔÏó
+	 *            é¡µé¢å¯¹è±¡
 	 */
 	public ContentPanel(CellSet cellSet, int startRow, int endRow,
 			int startCol, int endCol, boolean isEditing,
@@ -275,7 +275,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ´´½¨±à¼­¿Ø¼ş
+	 * åˆ›å»ºç¼–è¾‘æ§ä»¶
 	 */
 	protected void newEditor() {
 		multiEditor = new JTextPaneEx() {
@@ -310,10 +310,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ´´½¨Íø¸ñ½âÎöÆ÷
+	 * åˆ›å»ºç½‘æ ¼è§£æå™¨
 	 * 
 	 * @param cellSet
-	 *            Íø¸ñ
+	 *            ç½‘æ ¼
 	 * @return CellSetParser
 	 */
 	protected CellSetParser newCellSetParser(CellSet cellSet) {
@@ -321,7 +321,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñ±à¼­¼àÌıÆ÷
+	 * è®¾ç½®ç½‘æ ¼ç¼–è¾‘ç›‘å¬å™¨
 	 * 
 	 * @return
 	 */
@@ -332,7 +332,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * Ôö¼Ó±à¼­¿Ø¼ş½¹µãÊÂ¼ş
+	 * å¢åŠ ç¼–è¾‘æ§ä»¶ç„¦ç‚¹äº‹ä»¶
 	 * 
 	 * @param jtext
 	 */
@@ -345,7 +345,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ¿ÉÒÔ±à¼­
+	 * è®¾ç½®æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 * 
 	 * @param editable
 	 */
@@ -355,7 +355,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * È¡ÊÇ·ñ¿ÉÒÔ±à¼­
+	 * å–æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 * 
 	 * @return
 	 */
@@ -368,10 +368,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñ¶ÔÏó
+	 * è®¾ç½®ç½‘æ ¼å¯¹è±¡
 	 * 
 	 * @param newCellSet
-	 *            Íø¸ñ¶ÔÏó
+	 *            ç½‘æ ¼å¯¹è±¡
 	 */
 	public void setCellSet(CellSet newCellSet) {
 		this.cellSet = newCellSet;
@@ -380,7 +380,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * È¡Íø¸ñ¿Ø¼ş
+	 * å–ç½‘æ ¼æ§ä»¶
 	 * 
 	 * @return
 	 */
@@ -389,23 +389,23 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * »ñµÃÃæ°åµÄ³ß´ç
+	 * è·å¾—é¢æ¿çš„å°ºå¯¸
 	 * 
-	 * @return Ãæ°åµÄ³ß´ç
+	 * @return é¢æ¿çš„å°ºå¯¸
 	 */
 	public Dimension getPreferredSize() {
 		float scale = 1.0f;
 		if (control != null) {
 			scale = control.scale;
 		}
-		/* UndoÊ±Ã»ÓĞÖØĞÂ¹¹½¨Ãæ°åÔì³ÉendCol¸úÊµ¼ÊÓĞ¿ÉÄÜ²»·û */
+		/* Undoæ—¶æ²¡æœ‰é‡æ–°æ„å»ºé¢æ¿é€ æˆendColè·Ÿå®é™…æœ‰å¯èƒ½ä¸ç¬¦ */
 		if (endCol > cellSet.getColCount()) {
 			endCol = cellSet.getColCount();
 		}
 		if (endRow > cellSet.getRowCount()) {
 			endRow = cellSet.getRowCount();
 		}
-		/* ²»·ûEnd */
+		/* ä¸ç¬¦End */
 		int width = 0;
 		for (int col = startCol; col <= cellSet.getColCount(); col++) {
 			if (!parser.isColVisible(col)) {
@@ -424,7 +424,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * »ñÈ¡ĞĞºÅÏà¶ÔÓÚ¶¥±ßµÄÏñËØ¸ß¶È£¬ÓÃÓÚ¹ö¶¯Ìõ¶¨Î»
+	 * è·å–è¡Œå·ç›¸å¯¹äºé¡¶è¾¹çš„åƒç´ é«˜åº¦ï¼Œç”¨äºæ»šåŠ¨æ¡å®šä½
 	 * 
 	 * @param row
 	 *            int
@@ -442,7 +442,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * »ñÈ¡ÁĞºÅÏà¶ÔÓÚ×ó±ßµÄÏñËØ¸ß¶È£¬ÓÃÓÚ¹ö¶¯Ìõ¶¨Î»
+	 * è·å–åˆ—å·ç›¸å¯¹äºå·¦è¾¹çš„åƒç´ é«˜åº¦ï¼Œç”¨äºæ»šåŠ¨æ¡å®šä½
 	 * 
 	 * @param col
 	 * @return
@@ -459,10 +459,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * »æÖÆÃæ°å
+	 * ç»˜åˆ¶é¢æ¿
 	 * 
 	 * @param g
-	 *            »­²¼
+	 *            ç”»å¸ƒ
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -536,7 +536,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			drawStartCol = i;
 		}
 
-		// »æÖÆÏÂ»®ÏßÊ¹ÓÃµÄ
+		// ç»˜åˆ¶ä¸‹åˆ’çº¿ä½¿ç”¨çš„
 		float underLineSize = 0.75f;
 		underLineSize *= control.scale;
 		((Graphics2D) g).setStroke(new BasicStroke(underLineSize));
@@ -579,7 +579,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 				cellY[row][col] = y;
 				cellH[row][col] = height;
 
-				// »­¸ñ×ÓÖ®Ç°Í³Ò»ÉèÖÃÒ»ÏÂ²»ÄÜ³å³ö¸ñ×ÓÏÔÊ¾
+				// ç”»æ ¼å­ä¹‹å‰ç»Ÿä¸€è®¾ç½®ä¸€ä¸‹ä¸èƒ½å†²å‡ºæ ¼å­æ˜¾ç¤º
 				Shape oldClip = g.getClip();
 				try {
 					double dispWidth = width;
@@ -594,7 +594,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 									+ displayWin.height - y);
 						}
 					}
-					// ¸ñ×Ó¿ÉÄÜ»­²»È«£¬ÆğÊ¼Î»ÖÃÒ²Òªµ÷Õû
+					// æ ¼å­å¯èƒ½ç”»ä¸å…¨ï¼Œèµ·å§‹ä½ç½®ä¹Ÿè¦è°ƒæ•´
 					double clipx = x;
 					double clipy = y;
 					if (displayWin != null) {
@@ -630,7 +630,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 					if (isCellSelected(row, col)) {
 
 						/**
-						 * ¸ü¸Äµ¥Ôª¸ñ±³¾°É«
+						 * æ›´æ”¹å•å…ƒæ ¼èƒŒæ™¯è‰²
 						 */
 						Color selectCellBkcolor;
 						if (ConfigOptions.getCellColor() != null) {
@@ -675,7 +675,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 					g.setClip(oldClip);
 				}
 				// draw border
-				if (ConfigOptions.bGridline) { // ¸ù¾İÑ¡ÏîÊÇ·ñ»­Íø¸ñÏß
+				if (ConfigOptions.bGridline) { // æ ¹æ®é€‰é¡¹æ˜¯å¦ç”»ç½‘æ ¼çº¿
 					CellBorder.setEnv(g, borderStyle, row, col,
 							parser.getRowCount(), parser.getColCount(),
 							isEditing);
@@ -715,7 +715,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		}
 
 		if (this.control != null && ConfigOptions.bDispOutCell.booleanValue()) {
-			// Èç¹û³å³öµ¥Ôª¸ñÏÔÊ¾£¬Ôò×îºó»­ÎÄ×Ö£¬Ê¹µÃÎÄ×ÖÔÚ×îÉÏ²ã
+			// å¦‚æœå†²å‡ºå•å…ƒæ ¼æ˜¾ç¤ºï¼Œåˆ™æœ€åç”»æ–‡å­—ï¼Œä½¿å¾—æ–‡å­—åœ¨æœ€ä¸Šå±‚
 			for (int row = drawStartRow; row <= drawEndRow; row++) {
 				for (int col = drawStartCol; col <= drawEndCol; col++) {
 					if (cellX[row][col] == 0) {
@@ -744,7 +744,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			}
 			Area a = control.getCopySourceArea();
 			int copyBeginRow = a.getBeginRow();
-			// ¸´ÖÆµÄAreaÓĞ¿ÉÄÜ³¬³ö»æ»­Ãæ°å
+			// å¤åˆ¶çš„Areaæœ‰å¯èƒ½è¶…å‡ºç»˜ç”»é¢æ¿
 			int copyEndRow = a.getEndRow();
 			int copyBeginCol = a.getBeginCol();
 			int copyEndCol = a.getEndCol();
@@ -790,8 +790,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		}
 
 		/*
-		 * ²ÎÊıÎªtrue£º¼´ÖØ»­Ê±×°ÔØ¿Ø¼şÎÄ±¾»áµ¼ÖÂ¹ö¶¯Ã»·¨²Ù×÷ false£º²»×°ÔØÔòÊäÈëÎÄ×Ö
-		 * µ«ÖØ»­Ê±²»×°ÔØ¿Ø¼şÎÄ±¾,ËÆºõÄ³¸öÇé¿öÏÂÊäÈë·¨ÊäÈëÎÄ×ÖÊ±¿´²»µ½
+		 * å‚æ•°ä¸ºtrueï¼šå³é‡ç”»æ—¶è£…è½½æ§ä»¶æ–‡æœ¬ä¼šå¯¼è‡´æ»šåŠ¨æ²¡æ³•æ“ä½œ falseï¼šä¸è£…è½½åˆ™è¾“å…¥æ–‡å­—
+		 * ä½†é‡ç”»æ—¶ä¸è£…è½½æ§ä»¶æ–‡æœ¬,ä¼¼ä¹æŸä¸ªæƒ…å†µä¸‹è¾“å…¥æ³•è¾“å…¥æ–‡å­—æ—¶çœ‹ä¸åˆ°
 		 */
 		initEditor(submitEditor(true));
 
@@ -803,12 +803,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * µ¥Ôª¸ñÊÇ·ñ±»Ñ¡ÖĞ
+	 * å•å…ƒæ ¼æ˜¯å¦è¢«é€‰ä¸­
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	protected boolean isCellSelected(int row, int col) {
@@ -835,7 +835,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ÉèÖÃ±à¼­¿òµÄÎÄ±¾
+	 * è®¾ç½®ç¼–è¾‘æ¡†çš„æ–‡æœ¬
 	 * 
 	 * @param text
 	 */
@@ -854,7 +854,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ÖØÖÃ±à¼­¿òµÄ±ß½ç
+	 * é‡ç½®ç¼–è¾‘æ¡†çš„è¾¹ç•Œ
 	 */
 	protected void resetEditorBounds() {
 		if (editor == null || control == null
@@ -868,7 +868,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		if (ConfigOptions.bDispOutCell.booleanValue()) {
 			int ew = getEditableWidth(editingText, r, c, control.scale);
 			if (srcRect.width < ew) {
-				editingText += "a"; // ÌáÇ°¼Ó¸ö×Ö·û¿í¶È
+				editingText += "a"; // æå‰åŠ ä¸ªå­—ç¬¦å®½åº¦
 			}
 		}
 		CellRect rect = getEditorBounds(editingText, r, c, control.scale);
@@ -884,7 +884,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			if (w != srcRect.width || h != srcRect.height) {
 				spEditor.setSize(w, h);
 			}
-		} else { // Í¬Ò»¸ö¸ñ×ÓÈç¹ûËõĞ¡ÁË±à¼­¿ò²»ÓÃ±äĞ¡
+		} else { // åŒä¸€ä¸ªæ ¼å­å¦‚æœç¼©å°äº†ç¼–è¾‘æ¡†ä¸ç”¨å˜å°
 			if (w > srcRect.width || h > srcRect.height) {
 				if (w < srcRect.width)
 					w = srcRect.width;
@@ -896,12 +896,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ÉèÖÃ¹â±ê
+	 * è®¾ç½®å…‰æ ‡
 	 * 
 	 * @param caretPosition
-	 *            ¹â±êÎ»ÖÃ
+	 *            å…‰æ ‡ä½ç½®
 	 * @param newText
-	 *            ĞÂÎÄ±¾
+	 *            æ–°æ–‡æœ¬
 	 */
 	protected void setCaret(int caretPosition, String newText) {
 		int len = newText.length();
@@ -915,7 +915,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * Í¨¹ı³ÌĞòÉèÖÃÁËcellµÄvalue»òexp£¬ÖØĞÂË¢ĞÂµ½Editor¿Ø¼ş Õ³ÌùÊ±,Ò²Òª´Ë¶¯×÷
+	 * é€šè¿‡ç¨‹åºè®¾ç½®äº†cellçš„valueæˆ–expï¼Œé‡æ–°åˆ·æ–°åˆ°Editoræ§ä»¶ ç²˜è´´æ—¶,ä¹Ÿè¦æ­¤åŠ¨ä½œ
 	 */
 	public void reloadEditorText() {
 		CellLocation m_activeCell = control.getActiveCell();
@@ -937,12 +937,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * È¡Òª»æÖÆµÄ¿í¶È
+	 * å–è¦ç»˜åˆ¶çš„å®½åº¦
 	 * 
 	 * @param cr
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param cc
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public int getPaintableWidth(int cr, int cc, float scale) {
@@ -985,14 +985,14 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * È¡Òª±à¼­µÄ¿í¶È
+	 * å–è¦ç¼–è¾‘çš„å®½åº¦
 	 * 
 	 * @param editingText
-	 *            ±à¼­ÎÄ±¾
+	 *            ç¼–è¾‘æ–‡æœ¬
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public int getEditableWidth(String editingText, int row, int col,
@@ -1018,22 +1018,22 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * È¡¿ÉÒÔ±à¼­µÄ¸ß¶È
+	 * å–å¯ä»¥ç¼–è¾‘çš„é«˜åº¦
 	 * 
 	 * @param text
-	 *            ÎÄ±¾
+	 *            æ–‡æœ¬
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param maxW
-	 *            ×î´ó¿í¶È
+	 *            æœ€å¤§å®½åº¦
 	 * @return
 	 */
 	protected int getEditableHeight(String text, int row, int col, int maxW,
 			float scale) {
 		int h = parser.getRowHeight(row, scale);
-		// ±à¼­¿Ø¼ş±¾ÉíÒªÕ¼¿í¶È,¶àÁô³ö5¸öµã
+		// ç¼–è¾‘æ§ä»¶æœ¬èº«è¦å å®½åº¦,å¤šç•™å‡º5ä¸ªç‚¹
 		float textH = ControlUtils.getStringHeight(text, maxW - 5,
 				GM.getScaleFont(scale));
 		for (int r = row + 1; r <= cellSet.getRowCount(); r++) {
@@ -1049,7 +1049,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * »æÖÆÑ¡ÔñÇøÓòµÄ±ß¿ò
+	 * ç»˜åˆ¶é€‰æ‹©åŒºåŸŸçš„è¾¹æ¡†
 	 * 
 	 * @param g
 	 */
@@ -1063,12 +1063,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		int endRow = area.getEndRow();
 		int endCol = area.getEndCol();
 		boolean drawTop = true;
-		if (row < drawStartRow && endRow >= drawStartRow) { // Ê×ĞĞ±»Òş²Ø
+		if (row < drawStartRow && endRow >= drawStartRow) { // é¦–è¡Œè¢«éšè—
 			row = drawStartRow;
 			drawTop = false;
 		}
 		boolean drawLeft = true;
-		if (col < drawStartCol && endCol >= drawStartCol) { // Ê×ÁĞ±»Òş²Ø
+		if (col < drawStartCol && endCol >= drawStartCol) { // é¦–åˆ—è¢«éšè—
 			col = drawStartCol;
 			drawLeft = false;
 		}
@@ -1159,20 +1159,20 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * »­µ¥Ôª¸ñ±ê¼Ç
+	 * ç”»å•å…ƒæ ¼æ ‡è®°
 	 * 
 	 * @param g
-	 *            »­°å
+	 *            ç”»æ¿
 	 * @param x
-	 *            X×ø±ê
+	 *            Xåæ ‡
 	 * @param y
-	 *            Y×ø±ê
+	 *            Yåæ ‡
 	 * @param parser
-	 *            Íø¸ñ½âÎöÆ÷
+	 *            ç½‘æ ¼è§£æå™¨
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 */
 	public static void drawFlag(Graphics g, int x, int y, CellSetParser parser,
 			int row, int col, float scale) {
@@ -1205,7 +1205,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ³õÊ¼»¯¸ñ×ÓµÄ×ø±ê
+	 * åˆå§‹åŒ–æ ¼å­çš„åæ ‡
 	 */
 	public void initCellLocations() {
 		int rows = parser.getRowCount() + 1;
@@ -1214,12 +1214,12 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ³õÊ¼»¯¸ñ×ÓµÄ×ø±ê
+	 * åˆå§‹åŒ–æ ¼å­çš„åæ ‡
 	 * 
 	 * @param rows
-	 *            ĞĞÊı
+	 *            è¡Œæ•°
 	 * @param cols
-	 *            ÁĞÊı
+	 *            åˆ—æ•°
 	 */
 	public void initCellLocations(int rows, int cols) {
 		cellX = new int[rows][cols];
@@ -1229,24 +1229,24 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * »æÖÆµ¥Ôª¸ñÖĞÏÔÊ¾µÄÎÄ±¾
+	 * ç»˜åˆ¶å•å…ƒæ ¼ä¸­æ˜¾ç¤ºçš„æ–‡æœ¬
 	 * 
 	 * @param g
-	 *            »­°å
+	 *            ç”»æ¿
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param x
-	 *            X×ø±ê
+	 *            Xåæ ‡
 	 * @param y
-	 *            Y×ø±ê
+	 *            Yåæ ‡
 	 * @param w
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 * @param h
-	 *            ¸ß¶È
+	 *            é«˜åº¦
 	 * @param scale
-	 *            ÏÔÊ¾±ÈÀı
+	 *            æ˜¾ç¤ºæ¯”ä¾‹
 	 */
 	protected void drawText(Graphics g, int row, int col, int x, int y, int w,
 			int h, float scale) {
@@ -1267,26 +1267,26 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * »æÖÆµ¥Ôª¸ñÖĞÏÔÊ¾µÄÎÄ±¾
+	 * ç»˜åˆ¶å•å…ƒæ ¼ä¸­æ˜¾ç¤ºçš„æ–‡æœ¬
 	 * 
 	 * @param text
-	 *            ÎÄ±¾
+	 *            æ–‡æœ¬
 	 * @param g
-	 *            »­°å
+	 *            ç”»æ¿
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param x
-	 *            X×ø±ê
+	 *            Xåæ ‡
 	 * @param y
-	 *            Y×ø±ê
+	 *            Yåæ ‡
 	 * @param w
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 * @param h
-	 *            ¸ß¶È
+	 *            é«˜åº¦
 	 * @param scale
-	 *            ÏÔÊ¾±ÈÀı
+	 *            æ˜¾ç¤ºæ¯”ä¾‹
 	 */
 	protected void drawText(String text, Graphics g, int row, int col, int x,
 			int y, int w, int h, float scale) {
@@ -1301,7 +1301,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			c = Color.darkGray;
 		}
 		try {
-			// XORMode»æÖÆ²»ÇåÎú£¬±ßÔµÄ£ºı£¬»¹ÊÇÓÃÕı³£Ç°¾°É«
+			// XORModeç»˜åˆ¶ä¸æ¸…æ™°ï¼Œè¾¹ç¼˜æ¨¡ç³Šï¼Œè¿˜æ˜¯ç”¨æ­£å¸¸å‰æ™¯è‰²
 			// if (control.getStepPosition() != null
 			// && !control.cellSet.isAutoCalc()) {
 			// CellLocation cp = control.getStepPosition();
@@ -1310,8 +1310,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			// if (rr == row && cc == col) {
 			// c = Color.white;
 			// /*
-			// * Ç°¾°É«Îª°×É«Ê±£¬Èç¹û³å³öµ¥Ôª¸ñÏÔÊ¾£¬Óë±³¾°Í¬É«¿´²»³öÀ´ÁË£¬ËùÒÔÓÃXORÄ£Ê½ÏÔÊ¾
-			// * µ«ÊÇÔÚ×îºófinallyÒªÉèÖÃ»ØpaintÄ£Ê½
+			// * å‰æ™¯è‰²ä¸ºç™½è‰²æ—¶ï¼Œå¦‚æœå†²å‡ºå•å…ƒæ ¼æ˜¾ç¤ºï¼Œä¸èƒŒæ™¯åŒè‰²çœ‹ä¸å‡ºæ¥äº†ï¼Œæ‰€ä»¥ç”¨XORæ¨¡å¼æ˜¾ç¤º
+			// * ä½†æ˜¯åœ¨æœ€åfinallyè¦è®¾ç½®å›paintæ¨¡å¼
 			// */
 			// g.setXORMode(XOR_COLOR);
 			// }
@@ -1334,7 +1334,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ½«µ¥Ôª¸ñ×ø±êºÍ¸ß¿íÊı×éÇåÁã
+	 * å°†å•å…ƒæ ¼åæ ‡å’Œé«˜å®½æ•°ç»„æ¸…é›¶
 	 */
 	protected void clearCoordinate() {
 		for (int i = 0; i < cellX.length; i++) {
@@ -1348,7 +1348,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * È¡±à¼­¿ò
+	 * å–ç¼–è¾‘æ¡†
 	 * 
 	 * @return
 	 */
@@ -1357,7 +1357,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ÊÇ·ñÕıÔÚ±à¼­
+	 * æ˜¯å¦æ­£åœ¨ç¼–è¾‘
 	 * 
 	 * @return
 	 */
@@ -1366,10 +1366,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * Ïò±à¼­¿òÖĞÔö¼ÓÎÄ±¾
+	 * å‘ç¼–è¾‘æ¡†ä¸­å¢åŠ æ–‡æœ¬
 	 * 
 	 * @param text
-	 *            ÒªÔö¼ÓµÄÎÄ±¾
+	 *            è¦å¢åŠ çš„æ–‡æœ¬
 	 */
 	public void addText(String text) {
 		if (editor == null) {
@@ -1401,14 +1401,14 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ±à¼­Æ÷µÄÊó±êµã»÷
+	 * ç¼–è¾‘å™¨çš„é¼ æ ‡ç‚¹å‡»
 	 * 
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 */
 	public void editorMousePressed(MouseEvent e, int row, int col) {
 		if (editor == null)
@@ -1441,25 +1441,25 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		}
 	}
 
-	/** Ë¢ĞÂÎÄ±¾¿ò */
+	/** åˆ·æ–°æ–‡æœ¬æ¡† */
 	public static final byte MODE_PAINT = 0;
-	/** ÏÔÊ¾ÎÄ±¾¿ò */
+	/** æ˜¾ç¤ºæ–‡æœ¬æ¡† */
 	public static final byte MODE_SHOW = 1;
-	/** Òş²ØÎÄ±¾¿ò */
+	/** éšè—æ–‡æœ¬æ¡† */
 	public static final byte MODE_HIDE = 2;
 
 	/**
-	 * ³õÊ¼»¯±à¼­¿ò
+	 * åˆå§‹åŒ–ç¼–è¾‘æ¡†
 	 * 
 	 * @param caretPosition
-	 *            ¹â±êÎ»ÖÃ
+	 *            å…‰æ ‡ä½ç½®
 	 */
 	protected void initEditor(int caretPosition) {
 		initEditor(caretPosition, MODE_PAINT);
 	}
 
 	/**
-	 * ³õÊ¼»¯±à¼­¿ò
+	 * åˆå§‹åŒ–ç¼–è¾‘æ¡†
 	 * 
 	 * @param mode
 	 *            MODE_PAINT,MODE_SHOW,MODE_HIDE
@@ -1483,10 +1483,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ³õÊ¼»¯±à¼­¿ò
+	 * åˆå§‹åŒ–ç¼–è¾‘æ¡†
 	 * 
 	 * @param caretPosition
-	 *            ¹â±êÎ»ÖÃ
+	 *            å…‰æ ‡ä½ç½®
 	 * @param mode
 	 *            MODE_PAINT,MODE_SHOW,MODE_HIDE
 	 */
@@ -1517,7 +1517,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			return;
 		}
 
-		// ÈçÏÂ´úÂë×èÖ¹Æ½ÆÌÊ±·Ç¼¤»îµÄÒ³Ãæ
+		// å¦‚ä¸‹ä»£ç é˜»æ­¢å¹³é“ºæ—¶éæ¿€æ´»çš„é¡µé¢
 		Container container = this.getParent();
 		while (container != null) {
 			if (container instanceof JInternalFrame) {
@@ -1601,14 +1601,14 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * È¡±à¼­¿òµÄ±ß½ç
+	 * å–ç¼–è¾‘æ¡†çš„è¾¹ç•Œ
 	 * 
 	 * @param text
-	 *            ÎÄ±¾
+	 *            æ–‡æœ¬
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public CellRect getEditorBounds(String text, int row, int col, float scale) {
@@ -1642,7 +1642,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * Ìá½»µ±Ç°±à¼­Æ÷ÖĞµÄÄÚÈİ,·µ»Ø¹â±êÎ»ÖÃ
+	 * æäº¤å½“å‰ç¼–è¾‘å™¨ä¸­çš„å†…å®¹,è¿”å›å…‰æ ‡ä½ç½®
 	 * 
 	 * @return
 	 */
@@ -1651,10 +1651,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * Ìá½»µ±Ç°±à¼­Æ÷ÖĞµÄÄÚÈİ,·µ»Ø¹â±êÎ»ÖÃ
+	 * æäº¤å½“å‰ç¼–è¾‘å™¨ä¸­çš„å†…å®¹,è¿”å›å…‰æ ‡ä½ç½®
 	 * 
 	 * @param isPaint
-	 *            ÊÇ·ñË¢ĞÂ
+	 *            æ˜¯å¦åˆ·æ–°
 	 * @return
 	 */
 	protected int submitEditor(boolean isPaint) {
@@ -1677,7 +1677,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * µ¥Ôª¸ñÕıÔÚ±à¼­£¬Íø¸ñÖĞ»òÕß¹¤¾ßÀ¸¶¼Ëã
+	 * å•å…ƒæ ¼æ­£åœ¨ç¼–è¾‘ï¼Œç½‘æ ¼ä¸­æˆ–è€…å·¥å…·æ éƒ½ç®—
 	 * 
 	 * @return
 	 */
@@ -1691,7 +1691,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * »¹Ô­±à¼­¿òµÄÎÄ±¾
+	 * è¿˜åŸç¼–è¾‘æ¡†çš„æ–‡æœ¬
 	 */
 	public void undoEditor() {
 		String text = ((JTextComponent) editor).getText();
@@ -1720,28 +1720,28 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * »ñµÃÊäÈë·¨ÉêÇë¶ÔÏó
+	 * è·å¾—è¾“å…¥æ³•ç”³è¯·å¯¹è±¡
 	 * 
-	 * @return ÊäÈë·¨ÉêÇë¶ÔÏó
+	 * @return è¾“å…¥æ³•ç”³è¯·å¯¹è±¡
 	 */
 	public InputMethodRequests getInputMethodRequests() {
 		return this;
 	}
 
 	/**
-	 * È¡¹¤¾ßÌáÊ¾µÄ×ø±ê
+	 * å–å·¥å…·æç¤ºçš„åæ ‡
 	 */
 	public Point getToolTipLocation(MouseEvent e) {
 		return getTipPos(e.getX(), e.getY());
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñÌáÊ¾µÄ×ø±ê
+	 * å–å•å…ƒæ ¼æç¤ºçš„åæ ‡
 	 * 
 	 * @param x1
-	 *            X×ø±ê
+	 *            Xåæ ‡
 	 * @param y1
-	 *            Y×ø±ê
+	 *            Yåæ ‡
 	 * @return
 	 */
 	protected Point getTipPos(int x1, int y1) {
@@ -1783,10 +1783,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ´ÓÊäÈë·¨¿Ø¼şÖĞÊäÈëĞÂµÄÎÄ±¾Ê±µÄ´¦Àí
+	 * ä»è¾“å…¥æ³•æ§ä»¶ä¸­è¾“å…¥æ–°çš„æ–‡æœ¬æ—¶çš„å¤„ç†
 	 * 
 	 * @param event
-	 *            ÊäÈë·¨ÊÂ¼ş
+	 *            è¾“å…¥æ³•äº‹ä»¶
 	 */
 	public void inputMethodTextChanged(InputMethodEvent event) {
 		try {
@@ -1815,34 +1815,34 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * ¹â±êÎ»ÖÃ±ä»¯
+	 * å…‰æ ‡ä½ç½®å˜åŒ–
 	 */
 	public void caretPositionChanged(InputMethodEvent event) {
 	}
 
 	/**
-	 * È¡ÎÄ±¾µÄÎ»ÖÃ
+	 * å–æ–‡æœ¬çš„ä½ç½®
 	 */
 	public Rectangle getTextLocation(TextHitInfo offset) {
 		return new Rectangle(0, 0);
 	}
 
 	/**
-	 * È¡µÖÏûµÄÎ»ÖÃ
+	 * å–æŠµæ¶ˆçš„ä½ç½®
 	 */
 	public TextHitInfo getLocationOffset(int x, int y) {
 		return null;
 	}
 
 	/**
-	 * È¡²åÈë×ø±êµÖÏûµÄÎ»ÖÃ
+	 * å–æ’å…¥åæ ‡æŠµæ¶ˆçš„ä½ç½®
 	 */
 	public int getInsertPositionOffset() {
 		return 0;
 	}
 
 	/**
-	 * È¡Ìá½»µÄÎÄ±¾
+	 * å–æäº¤çš„æ–‡æœ¬
 	 */
 	public AttributedCharacterIterator getCommittedText(int beginIndex,
 			int endIndex, Attribute[] attributes) {
@@ -1850,14 +1850,14 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * È¡Ìá½»ÎÄ±¾µÄ³¤¶È
+	 * å–æäº¤æ–‡æœ¬çš„é•¿åº¦
 	 */
 	public int getCommittedTextLength() {
 		return 0;
 	}
 
 	/**
-	 * È¡Ïû×îºóÌá½»µÄÎÄ±¾
+	 * å–æ¶ˆæœ€åæäº¤çš„æ–‡æœ¬
 	 */
 	public AttributedCharacterIterator cancelLatestCommittedText(
 			Attribute[] attributes) {
@@ -1865,14 +1865,14 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	}
 
 	/**
-	 * È¡Ñ¡ÔñµÄÎÄ±¾
+	 * å–é€‰æ‹©çš„æ–‡æœ¬
 	 */
 	public AttributedCharacterIterator getSelectedText(Attribute[] attributes) {
 		return null;
 	}
 
 	/**
-	 * ¹Ø±Õ
+	 * å…³é—­
 	 */
 	public void dispose() {
 		cellSet = null;

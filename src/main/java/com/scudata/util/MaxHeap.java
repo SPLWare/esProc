@@ -1,19 +1,19 @@
 package com.scudata.util;
 
 /**
- * ÓÃÓÚÈ¡×î´óµÄn¸öÖµµÄ¶Ñ
+ * ç”¨äºå–æœ€å¤§çš„nä¸ªå€¼çš„å †
  * @author WangXiaoJun
  *
  */
 public class MaxHeap {
-	// Ğ¡¸ù¶Ñ(¶Ñ¶¥ÔªËØ×îĞ¡)£¬ÓĞĞÂÔªËØ½øÀ´Ê±ÏÈ¸ú¶Ñ¶¥½øĞĞ±È½Ï£¬Èç¹û±È¶Ñ¶¥Ğ¡Ôò¶ªÆú
-	private Object []heap; // ÓÃÓÚ±£´æ¶ş²æÊ÷¸÷¸ö½ÚµãµÄÖµ£¬Êı×é0µÄÎ»ÖÃ¿ÕÏĞ
-	private int maxSize; // ×î¶à±£ÁôµÄÖµµÄÊıÁ¿
-	private int currentSize; // µ±Ç°ÒÑÓĞµÄÖµµÄÊıÁ¿
+	// å°æ ¹å †(å †é¡¶å…ƒç´ æœ€å°)ï¼Œæœ‰æ–°å…ƒç´ è¿›æ¥æ—¶å…ˆè·Ÿå †é¡¶è¿›è¡Œæ¯”è¾ƒï¼Œå¦‚æœæ¯”å †é¡¶å°åˆ™ä¸¢å¼ƒ
+	private Object []heap; // ç”¨äºä¿å­˜äºŒå‰æ ‘å„ä¸ªèŠ‚ç‚¹çš„å€¼ï¼Œæ•°ç»„0çš„ä½ç½®ç©ºé—²
+	private int maxSize; // æœ€å¤šä¿ç•™çš„å€¼çš„æ•°é‡
+	private int currentSize; // å½“å‰å·²æœ‰çš„å€¼çš„æ•°é‡
 
 	/**
-	 * ¹¹½¨È¡maxSize¸ö×î´óÖµµÄ¶Ñ
-	 * @param maxSize ÊıÁ¿
+	 * æ„å»ºå–maxSizeä¸ªæœ€å¤§å€¼çš„å †
+	 * @param maxSize æ•°é‡
 	 */
 	public MaxHeap(int maxSize) {
 		this.heap = new Object[maxSize + 1];
@@ -22,17 +22,17 @@ public class MaxHeap {
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°µÄÖµÊıÁ¿
-	 * @return ÊıÁ¿
+	 * è¿”å›å½“å‰çš„å€¼æ•°é‡
+	 * @return æ•°é‡
 	 */
 	public int size() {
 		return currentSize;
 	}
 
 	/**
-	 * ¼ÓÈëĞÂÖµ
-	 * @param o Öµ
-	 * @return true£ºµ±Ç°ÖµÔİÊ±ÔÚ×î´óµÄmaxSize¸öÖµ·¶Î§ÄÚ£¬false£ºµ±Ç°ÖµÌ«Ğ¡±»¶ªÆú
+	 * åŠ å…¥æ–°å€¼
+	 * @param o å€¼
+	 * @return trueï¼šå½“å‰å€¼æš‚æ—¶åœ¨æœ€å¤§çš„maxSizeä¸ªå€¼èŒƒå›´å†…ï¼Œfalseï¼šå½“å‰å€¼å¤ªå°è¢«ä¸¢å¼ƒ
 	 */
 	public boolean insert(Object o) {
 		Object []heap = this.heap;
@@ -46,8 +46,8 @@ public class MaxHeap {
 		} else {
 			int i = ++currentSize;
 			while (i != 1 && Variant.compare(o, heap[i/2], true) < 0) {
-				heap[i] = heap[i/2]; // ½«ÔªËØÏÂÒÆ
-				i /= 2;              // ÒÆÏò¸¸½Úµã
+				heap[i] = heap[i/2]; // å°†å…ƒç´ ä¸‹ç§»
+				i /= 2;              // ç§»å‘çˆ¶èŠ‚ç‚¹
 			}
 
 			heap[i] = o;
@@ -56,19 +56,19 @@ public class MaxHeap {
 	}
 
 	/**
-	 * É¾³ı¸ù½Úµã
+	 * åˆ é™¤æ ¹èŠ‚ç‚¹
 	 */
 	private void deleteRoot() {
-		// °Ñ×îºóÒ»¸öÔªËØ·ÅÔÚ¶Ñ¶¥£¬È»ºó×Ô¶¥ÏòÏÂµ÷Õû
+		// æŠŠæœ€åä¸€ä¸ªå…ƒç´ æ”¾åœ¨å †é¡¶ï¼Œç„¶åè‡ªé¡¶å‘ä¸‹è°ƒæ•´
 		Object []heap = this.heap;
 		int currentSize = this.currentSize;
 		Object o = heap[currentSize];
 
 		int i = 1;
-		int c = 2; // ×Ó½Úµã
+		int c = 2; // å­èŠ‚ç‚¹
 		while(c < currentSize) {
-			// ÕÒ³ö½ÏĞ¡µÄ×Ó½Úµã
-			int rc = c + 1;  // ÓÒ×Ó½Úµã
+			// æ‰¾å‡ºè¾ƒå°çš„å­èŠ‚ç‚¹
+			int rc = c + 1;  // å³å­èŠ‚ç‚¹
 			if (rc < currentSize && Variant.compare(heap[rc], heap[c], true) < 0) {
 				c = rc;
 			}
@@ -88,8 +88,8 @@ public class MaxHeap {
 	}
 
 	/**
-	 * ·µ»ØËùÓĞÔªËØ
-	 * @return ÔªËØÊı×é
+	 * è¿”å›æ‰€æœ‰å…ƒç´ 
+	 * @return å…ƒç´ æ•°ç»„
 	 */
 	public Object[] toArray() {
 		Object []objs = new Object[currentSize];

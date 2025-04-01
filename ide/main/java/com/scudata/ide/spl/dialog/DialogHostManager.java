@@ -26,72 +26,72 @@ import com.scudata.ide.common.swing.VFlowLayout;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * Ö÷»ú¹ÜÀí¶Ô»°¿ò
+ * ä¸»æœºç®¡ç†å¯¹è¯æ¡†
  *
  */
 public class DialogHostManager extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ¼¯ËãÆ÷ÓïÑÔ¹ÜÀí
+	 * é›†ç®—å™¨è¯­è¨€ç®¡ç†
 	 */
 	private MessageManager mm = IdeSplMessage.get();
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * Ôö¼Ó°´Å¥
+	 * å¢åŠ æŒ‰é’®
 	 */
 	private JButton jBAdd = new JButton();
 	/**
-	 * É¾³ı°´Å¥
+	 * åˆ é™¤æŒ‰é’®
 	 */
 	private JButton jBDelete = new JButton();
 	/**
-	 * ÉÏÒÆ°´Å¥
+	 * ä¸Šç§»æŒ‰é’®
 	 */
 	private JButton jBUp = new JButton();
 	/**
-	 * ÏÂÒÆ°´Å¥
+	 * ä¸‹ç§»æŒ‰é’®
 	 */
 	private JButton jBDown = new JButton();
 
-	/** ĞòºÅÁĞ */
+	/** åºå·åˆ— */
 	private final int COL_INDEX = 0;
-	/** Ö÷»úÃûÁĞ */
+	/** ä¸»æœºååˆ— */
 	private final int COL_HOST = 1;
-	/** ¶Ë¿ÚÁĞ */
+	/** ç«¯å£åˆ— */
 	private final int COL_PORT = 2;
-	/** ÓÃ»§ÁĞ */
+	/** ç”¨æˆ·åˆ— */
 	private final int COL_USER = 3;
-	/** ÃÜÂëÁĞ */
+	/** å¯†ç åˆ— */
 	private final int COL_PASSWORD = 4;
-	/** Ä¿Â¼ÁĞ */
+	/** ç›®å½•åˆ— */
 	private final int COL_DIRECTORY = 5;
-	/** Ñ¡³öÁĞ */
+	/** é€‰å‡ºåˆ— */
 	private final int COL_SELECTED = 6;
 
-	/** ĞòºÅ */
+	/** åºå· */
 	private final String TITLE_INDEX = mm
 			.getMessage("dialoguploadresult.index");
-	/** Ö÷»úÃû */
+	/** ä¸»æœºå */
 	private final String TITLE_HOST = mm
 			.getMessage("dialoguploadresult.hostname");
-	/** ¶Ë¿Ú */
+	/** ç«¯å£ */
 	private final String TITLE_PORT = mm.getMessage("dialoghostmanager.port");
-	/** ÓÃ»§ */
+	/** ç”¨æˆ· */
 	private final String TITLE_USER = mm.getMessage("dialoguploadresult.user");
-	/** ÃÜÂë */
+	/** å¯†ç  */
 	private final String TITLE_PASSWORD = mm
 			.getMessage("dialoghostmanager.password");
-	/** Ä¿Â¼ */
+	/** ç›®å½• */
 	private final String TITLE_DIRECTORY = mm
 			.getMessage("dialoghostmanager.dir");
-	/** TITLE_SELECTEDÒş²ØÁĞ */
+	/** TITLE_SELECTEDéšè—åˆ— */
 	private final String TITLE_SELECTED = "TITLE_SELECTED";
 	private JTableEx tableHost = new JTableEx(TITLE_INDEX + "," + TITLE_HOST
 			+ "," + TITLE_PORT + "," + TITLE_USER + "," + TITLE_PASSWORD + ","
@@ -112,15 +112,15 @@ public class DialogHostManager extends JDialog implements ActionListener {
 		}
 	};
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CLOSED_OPTION;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogHostManager(JDialog parent) {
-		super(parent, "FTPÖ÷»ú¹ÜÀí", true);
+		super(parent, "FTPä¸»æœºç®¡ç†", true);
 		try {
 			init();
 			setSize(600, 300);
@@ -132,7 +132,7 @@ public class DialogHostManager extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * È¡FTP·şÎñĞÅÏ¢ÁĞ±í
+	 * å–FTPæœåŠ¡ä¿¡æ¯åˆ—è¡¨
 	 * 
 	 * @return
 	 */
@@ -164,10 +164,10 @@ public class DialogHostManager extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÉèÖÃFTP·şÎñĞÅÏ¢ÁĞ±í
+	 * è®¾ç½®FTPæœåŠ¡ä¿¡æ¯åˆ—è¡¨
 	 * 
 	 * @param ftpInfos
-	 *            FTP·şÎñĞÅÏ¢ÁĞ±í
+	 *            FTPæœåŠ¡ä¿¡æ¯åˆ—è¡¨
 	 */
 	public void setFTPInfo(FTPInfo[] ftpInfos) {
 		if (ftpInfos == null || ftpInfos.length == 0)
@@ -188,20 +188,20 @@ public class DialogHostManager extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetText() {
-		setTitle(mm.getMessage("dialoghostmanager.title")); // FTPÖ÷»ú¹ÜÀí
+		setTitle(mm.getMessage("dialoghostmanager.title")); // FTPä¸»æœºç®¡ç†
 		jBOK.setText(mm.getMessage("button.ok"));
 		jBCancel.setText(mm.getMessage("button.cancel"));
 		jBAdd.setText(mm.getMessage("button.add"));
 		jBDelete.setText(mm.getMessage("button.delete"));
-		jBUp.setText(mm.getMessage("button.up"));// ÉÏÒÆ(U)
-		jBDown.setText(mm.getMessage("button.down"));// ÏÂÒÆ(W)
+		jBUp.setText(mm.getMessage("button.up"));// ä¸Šç§»(U)
+		jBDown.setText(mm.getMessage("button.down"));// ä¸‹ç§»(W)
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -210,29 +210,29 @@ public class DialogHostManager extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
 	private void init() throws Exception {
 		JPanel panelEast = new JPanel(new VFlowLayout());
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(this);
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(this);
 		jBAdd.setMnemonic('A');
-		jBAdd.setText("Ôö¼Ó(A)");
+		jBAdd.setText("å¢åŠ (A)");
 		jBAdd.addActionListener(this);
 		jBDelete.setMnemonic('D');
-		jBDelete.setText("É¾³ı(D)");
+		jBDelete.setText("åˆ é™¤(D)");
 		jBDelete.addActionListener(this);
 		jBUp.setMnemonic('U');
-		jBUp.setText("ÉÏÒÆ(U)");
+		jBUp.setText("ä¸Šç§»(U)");
 		jBUp.addActionListener(this);
 		jBDown.setMnemonic('W');
-		jBDown.setText("ÏÂÒÆ(W)");
+		jBDown.setText("ä¸‹ç§»(W)");
 		jBDown.addActionListener(this);
 		this.getContentPane().add(panelEast, BorderLayout.EAST);
 		panelEast.add(jBOK, null);
@@ -258,7 +258,7 @@ public class DialogHostManager extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -268,7 +268,7 @@ public class DialogHostManager extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ¿Ø¼şÊÂ¼ş
+	 * æ§ä»¶äº‹ä»¶
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
@@ -290,7 +290,7 @@ public class DialogHostManager extends JDialog implements ActionListener {
 									.getMessage(
 											"dialoghostmanager.invalidport", i
 													+ 1 + ""));
-							// µÚ" + (i + 1) + "ĞĞ¶Ë¿Ú¸ñÊ½²»ÕıÈ·£¬Ó¦ÎªÕûÊı¡£
+							// ç¬¬" + (i + 1) + "è¡Œç«¯å£æ ¼å¼ä¸æ­£ç¡®ï¼Œåº”ä¸ºæ•´æ•°ã€‚
 							return;
 						}
 					}

@@ -5,8 +5,8 @@ import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.TableFunction;
 
 /**
- * ¶ÔĞò±íµÄ×Ö¶Î½øĞĞÖØÃüÃû
- * T.rename(F:F',¡­)
+ * å¯¹åºè¡¨çš„å­—æ®µè¿›è¡Œé‡å‘½å
+ * T.rename(F:F',â€¦)
  * @author RunQian
  *
  */

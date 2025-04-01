@@ -15,7 +15,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * replace(src,a,b) ½«×Ö·û´®srcµÄ×Ó×Ö·û´®a±äÎª×Ö·û´®b
+ * replace(src,a,b) å°†å­—ç¬¦ä¸²srcçš„å­å­—ç¬¦ä¸²aå˜ä¸ºå­—ç¬¦ä¸²b
  * @author runqian
  *
  */
@@ -26,7 +26,7 @@ public class Replace extends Function {
 	private Expression exp3;
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -74,7 +74,7 @@ public class Replace extends Function {
 		}
 	}
 
-	// pos´Ó1¿ªÊ¼¼ÆÊı£¬Ğ¡ÓÚ±íÊ¾´ÓºóÊı£¬0±íÊ¾×·¼Ó
+	// posä»1å¼€å§‹è®¡æ•°ï¼Œå°äºè¡¨ç¤ºä»åæ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ 
 	private static String replace(String srcString, int pos, String replacement) {
 		if (replacement == null) {
 			return srcString;
@@ -93,7 +93,7 @@ public class Replace extends Function {
 		}
 	}
 	
-	// pos´Ó1¿ªÊ¼¼ÆÊı£¬Ğ¡ÓÚ±íÊ¾´ÓºóÊı£¬0±íÊ¾×·¼Ó
+	// posä»1å¼€å§‹è®¡æ•°ï¼Œå°äºè¡¨ç¤ºä»åæ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ 
 	private static String replace(String srcString, int pos, int len, String replacement) {
 		int srcLen = srcString.length();
 		if (pos <= 0) {
@@ -174,22 +174,22 @@ public class Replace extends Function {
 			int flag = Sentence.IGNORE_PARS;
 			if (option != null) {
 				if (option.indexOf('q') == -1) {
-					//ÒıºÅÀïÃæµÄ×Ö·ûÒ²ĞèÒª±ä»»
+					//å¼•å·é‡Œé¢çš„å­—ç¬¦ä¹Ÿéœ€è¦å˜æ¢
 					flag += Sentence.IGNORE_QUOTE;
 				}
 				
 				if (option.indexOf('1') != -1) {
-					// Ö»Ìæ»»µÚÒ»¸ö
+					// åªæ›¿æ¢ç¬¬ä¸€ä¸ª
 					flag += Sentence.ONLY_FIRST;
 				}
 				
 				if (option.indexOf('c') != -1) {
-					// ºöÂÔ´óĞ¡Ğ´
+					// å¿½ç•¥å¤§å°å†™
 					flag += Sentence.IGNORE_CASE;
 				}
 				
 				if (option.indexOf('w') != -1) {
-					// ĞèÒªÕû´ÊÆ¥Åä
+					// éœ€è¦æ•´è¯åŒ¹é…
 					flag += Sentence.ONLY_PHRASE;
 				}
 			} else {
@@ -219,22 +219,22 @@ public class Replace extends Function {
 			}
 			
 			if (option.indexOf('q') == -1) {
-				//ÒıºÅÀïÃæµÄ×Ö·ûÒ²ĞèÒª±ä»»
+				//å¼•å·é‡Œé¢çš„å­—ç¬¦ä¹Ÿéœ€è¦å˜æ¢
 				flag += Sentence.IGNORE_QUOTE;
 			}
 			
 			if (option.indexOf('1') != -1) {
-				// Ö»Ìæ»»µÚÒ»¸ö
+				// åªæ›¿æ¢ç¬¬ä¸€ä¸ª
 				flag += Sentence.ONLY_FIRST;
 			}
 			
 			if (option.indexOf('c') != -1) {
-				// ºöÂÔ´óĞ¡Ğ´
+				// å¿½ç•¥å¤§å°å†™
 				flag += Sentence.IGNORE_CASE;
 			}
 			
 			if (option.indexOf('w') != -1) {
-				// ĞèÒªÕû´ÊÆ¥Åä
+				// éœ€è¦æ•´è¯åŒ¹é…
 				flag += Sentence.ONLY_PHRASE;
 			}
 		} else {
@@ -268,8 +268,8 @@ public class Replace extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -330,22 +330,22 @@ public class Replace extends Function {
 			}
 			
 			if (option.indexOf('q') == -1) {
-				//ÒıºÅÀïÃæµÄ×Ö·ûÒ²ĞèÒª±ä»»
+				//å¼•å·é‡Œé¢çš„å­—ç¬¦ä¹Ÿéœ€è¦å˜æ¢
 				flag += Sentence.IGNORE_QUOTE;
 			}
 			
 			if (option.indexOf('1') != -1) {
-				// Ö»Ìæ»»µÚÒ»¸ö
+				// åªæ›¿æ¢ç¬¬ä¸€ä¸ª
 				flag += Sentence.ONLY_FIRST;
 			}
 			
 			if (option.indexOf('c') != -1) {
-				// ºöÂÔ´óĞ¡Ğ´
+				// å¿½ç•¥å¤§å°å†™
 				flag += Sentence.IGNORE_CASE;
 			}
 			
 			if (option.indexOf('w') != -1) {
-				// ĞèÒªÕû´ÊÆ¥Åä
+				// éœ€è¦æ•´è¯åŒ¹é…
 				flag += Sentence.ONLY_PHRASE;
 			}
 		} else {
@@ -558,10 +558,10 @@ public class Replace extends Function {
 	}
 
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -639,22 +639,22 @@ public class Replace extends Function {
 			}
 			
 			if (option.indexOf('q') == -1) {
-				//ÒıºÅÀïÃæµÄ×Ö·ûÒ²ĞèÒª±ä»»
+				//å¼•å·é‡Œé¢çš„å­—ç¬¦ä¹Ÿéœ€è¦å˜æ¢
 				flag += Sentence.IGNORE_QUOTE;
 			}
 			
 			if (option.indexOf('1') != -1) {
-				// Ö»Ìæ»»µÚÒ»¸ö
+				// åªæ›¿æ¢ç¬¬ä¸€ä¸ª
 				flag += Sentence.ONLY_FIRST;
 			}
 			
 			if (option.indexOf('c') != -1) {
-				// ºöÂÔ´óĞ¡Ğ´
+				// å¿½ç•¥å¤§å°å†™
 				flag += Sentence.IGNORE_CASE;
 			}
 			
 			if (option.indexOf('w') != -1) {
-				// ĞèÒªÕû´ÊÆ¥Åä
+				// éœ€è¦æ•´è¯åŒ¹é…
 				flag += Sentence.ONLY_PHRASE;
 			}
 		} else {

@@ -5,7 +5,7 @@ import java.awt.geom.*;
 import com.scudata.chart.element.*;
 
 /**
- * ¼«×ø±êÏµ
+ * æåæ ‡ç³»
  * @author Joancy
  *
  */
@@ -13,22 +13,22 @@ public class PolarCoor implements ICoor {
 	TickAxis a1, a2;
 
 	/**
-	 * ÉèÖÃ¿Ì¶ÈÖá1
+	 * è®¾ç½®åˆ»åº¦è½´1
 	 */
 	public void setAxis1(TickAxis axis) {
 		this.a1 = axis;
 	}
 
 	/**
-	 * »ñÈ¡¿Ì¶ÈÖá1
+	 * è·å–åˆ»åº¦è½´1
 	 */
 	public TickAxis getAxis1() {
 		return a1;
 	}
 
 	/**
-	 * »ñÈ¡¼«Öá
-	 * @return ¼«Öá¶ÔÏó
+	 * è·å–æè½´
+	 * @return æè½´å¯¹è±¡
 	 */
 	public TickAxis getPolarAxis() {
 		if (a1.getLocation() == Consts.AXIS_LOC_POLAR) {
@@ -38,22 +38,22 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * ÉèÖÃ¿Ì¶ÈÖá2
+	 * è®¾ç½®åˆ»åº¦è½´2
 	 */
 	public void setAxis2(TickAxis axis) {
 		this.a2 = axis;
 	}
 
 	/**
-	 * »ñÈ¡¿Ì¶ÈÖá2
+	 * è·å–åˆ»åº¦è½´2
 	 */
 	public TickAxis getAxis2() {
 		return a2;
 	}
 
 	/**
-	 * »ñÈ¡½ÇÖá
-	 * @return ½ÇÖá¶ÔÏó
+	 * è·å–è§’è½´
+	 * @return è§’è½´å¯¹è±¡
 	 */
 	public TickAxis getAngleAxis() {
 		if (a1.getLocation() == Consts.AXIS_LOC_ANGLE) {
@@ -63,10 +63,10 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * ·µ»Ø¼«×ø±êÏµÏÂµÄÊıÖµµã£»ÆäÖĞ P.x = ¼«Öá³¤¶È£¬ P.y=½ÇÖá½Ç¶È
-	 * @param val1 Âß¼­×ø±ê1
-	 * @param val2 Âß¼­×ø±ê2
-	 * @return Point ÊıÖµ×ø±ê
+	 * è¿”å›æåæ ‡ç³»ä¸‹çš„æ•°å€¼ç‚¹ï¼›å…¶ä¸­ P.x = æè½´é•¿åº¦ï¼Œ P.y=è§’è½´è§’åº¦
+	 * @param val1 é€»è¾‘åæ ‡1
+	 * @param val2 é€»è¾‘åæ ‡2
+	 * @return Point æ•°å€¼åæ ‡
 	 */
 	public Point2D getPolarPoint(Object val1, Object val2) {
 		return getNumericPoint(val1,val2);
@@ -86,9 +86,9 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * ½«¼«×ø±êµã×ª»»ÎªÍ¼ĞÎÆÁÄ»ÏñËØÎ»ÖÃ
-	 * @param polarPoint ¼«×ø±êµã
-	 * @return ÆÁÄ»ÏñËØ¾ø¶Ô×ø±ê
+	 * å°†æåæ ‡ç‚¹è½¬æ¢ä¸ºå›¾å½¢å±å¹•åƒç´ ä½ç½®
+	 * @param polarPoint æåæ ‡ç‚¹
+	 * @return å±å¹•åƒç´ ç»å¯¹åæ ‡
 	 */
 	public Point2D getScreenPoint(Point2D numericPoint) {
 		TickAxis polarAxis = (TickAxis) getPolarAxis();
@@ -103,10 +103,10 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * Ö±½Ó¸ù¾İÂß¼­×ø±êÖµ£¬¼ÆËã³öÆÁÄ»ÏñËØ¾ø¶Ô×ø±ê
-	 * @param Âß¼­×ø±ê1
-	 * @param Âß¼­×ø±ê2
-	 * @return ÆÁÄ»ÏñËØ¾ø¶Ô×ø±ê
+	 * ç›´æ¥æ ¹æ®é€»è¾‘åæ ‡å€¼ï¼Œè®¡ç®—å‡ºå±å¹•åƒç´ ç»å¯¹åæ ‡
+	 * @param é€»è¾‘åæ ‡1
+	 * @param é€»è¾‘åæ ‡2
+	 * @return å±å¹•åƒç´ ç»å¯¹åæ ‡
 	 */
 	public Point2D getScreenPoint(Object val1, Object val2) {
 		Point2D nDot = getNumericPoint(val1, val2);
@@ -114,9 +114,9 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * »ñÈ¡Ïà¶ÔÔ­µã¼«Öá³¤ÎªpolarLenµÄÍÖÔ²±ß½ç
-	 * @param polarLen ¼«Öá³¤¶È
-	 * @return Double ±ß½ç¶ÔÏó
+	 * è·å–ç›¸å¯¹åŸç‚¹æè½´é•¿ä¸ºpolarLençš„æ¤­åœ†è¾¹ç•Œ
+	 * @param polarLen æè½´é•¿åº¦
+	 * @return Double è¾¹ç•Œå¯¹è±¡
 	 */
 	public Rectangle2D getEllipseBounds(double polarLen) {
 		TickAxis polarAxis = (TickAxis) getPolarAxis();
@@ -129,9 +129,9 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * ÅĞ¶ÏÁ½¸ö×ø±êÏµÊÇ·ñÏàµÈ
-	 * @param ÁíÒ»¸ö×ø±êÏµ
-	 * @return ÏàµÈ·µ»Øtrue£¬ ·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­ä¸¤ä¸ªåæ ‡ç³»æ˜¯å¦ç›¸ç­‰
+	 * @param å¦ä¸€ä¸ªåæ ‡ç³»
+	 * @return ç›¸ç­‰è¿”å›trueï¼Œ å¦åˆ™è¿”å›false
 	 */
 	public boolean equals(Object another) {
 		if (another instanceof PolarCoor) {
@@ -143,7 +143,7 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * ÓÃ·¨Í¬CartesianCoor
+	 * ç”¨æ³•åŒCartesianCoor
 	 */
 	public NumericAxis getNumericAxis() {
 		TickAxis axis = CartesianCoor.getAxis(this, NumericAxis.class);
@@ -153,7 +153,7 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * ÓÃ·¨Í¬CartesianCoor
+	 * ç”¨æ³•åŒCartesianCoor
 	 */
 	public EnumAxis getEnumAxis() {
 		TickAxis axis = CartesianCoor.getAxis(this, EnumAxis.class);
@@ -163,14 +163,14 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * ×ø±êÏµµÄÃèÊöĞÅÏ¢
+	 * åæ ‡ç³»çš„æè¿°ä¿¡æ¯
 	 */
 	public String toString() {
 		return "PolarCoor Axis1:" + a1.getName() + " Axis2:" + a2.getName();
 	}
 
 	/**
-	 * ÊÇ·ñÎª¼«×ø±êÏµ
+	 * æ˜¯å¦ä¸ºæåæ ‡ç³»
 	 * @return true
 	 */
 	public boolean isPolarCoor() {
@@ -178,7 +178,7 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * ÊÇ·ñÎªÖ±½Ç×ø±êÏµ
+	 * æ˜¯å¦ä¸ºç›´è§’åæ ‡ç³»
 	 * @return false
 	 */
 	public boolean isCartesianCoor() {
@@ -186,7 +186,7 @@ public class PolarCoor implements ICoor {
 	}
 
 	/**
-	 * ´¹ÏòµÄ1ÖáÊÇÃ¶¾ÙÖá£¬¾ÍËãÊÇ»ùÓÚÃ¶¾ÙÖá
+	 * å‚å‘çš„1è½´æ˜¯æšä¸¾è½´ï¼Œå°±ç®—æ˜¯åŸºäºæšä¸¾è½´
 	 */
 	public boolean isEnumBased() {
 			TickAxis ta = getAxis1();

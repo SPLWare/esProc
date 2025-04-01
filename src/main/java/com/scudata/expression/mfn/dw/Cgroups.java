@@ -15,8 +15,8 @@ import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÀûÓÃÔ¤»ã×ÜÁ¢·½Ìå¼ÆËã·Ö×é»ã×Ü
- * T.cgroups(Fi,¡­;y:Gi,¡­;w;f)
+ * åˆ©ç”¨é¢„æ±‡æ€»ç«‹æ–¹ä½“è®¡ç®—åˆ†ç»„æ±‡æ€»
+ * T.cgroups(Fi,â€¦;y:Gi,â€¦;w;f)
  * @author RunQian
  *
  */

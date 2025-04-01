@@ -12,14 +12,14 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
- * °ÑÅÅÁĞÓëÆäËüÅÅÁĞ»òÕßÍâ´æ±í×öÁ¬½Ó£¬¸´ÖÆÒ»Ğ©×Ö¶ÎÉú³ÉĞÂĞò±í·µ»Ø
- * T.joinx(x:¡­,A:y:¡­,z:F,¡­;x:¡­,A:y:¡­,z:F,¡­;)
+ * æŠŠæ’åˆ—ä¸å…¶å®ƒæ’åˆ—æˆ–è€…å¤–å­˜è¡¨åšè¿æ¥ï¼Œå¤åˆ¶ä¸€äº›å­—æ®µç”Ÿæˆæ–°åºè¡¨è¿”å›
+ * T.joinx(x:â€¦,A:y:â€¦,z:F,â€¦;x:â€¦,A:y:â€¦,z:F,â€¦;)
  * @author RunQian
  *
  */
 public class Joinx extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

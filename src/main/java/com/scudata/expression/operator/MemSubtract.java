@@ -9,8 +9,8 @@ import com.scudata.expression.Operator;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÔËËã·û£º--
- * ĞòÁĞ³ÉÔ±Ïà¼õ
+ * è¿ç®—ç¬¦ï¼š--
+ * åºåˆ—æˆå‘˜ç›¸å‡
  * @author RunQian
  *
  */
@@ -20,7 +20,7 @@ public class MemSubtract extends Operator {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (left == null) {

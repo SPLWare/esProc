@@ -25,22 +25,22 @@ import com.scudata.util.CursorUtil;
 import com.scudata.util.HashUtil;
 
 /**
- * ¶àÂ·ÓÎ±ê£¬ÓÃÓÚ¶àÏß³Ì¼ÆËã
+ * å¤šè·¯æ¸¸æ ‡ï¼Œç”¨äºå¤šçº¿ç¨‹è®¡ç®—
  * @author WangXiaoJun
  *
  */
 public class MultipathCursors extends ICursor implements IMultipath {
-	private ICursor []cursors; // Ã¿Ò»Â·µÄÓÎ±ê¹¹³ÉµÄÊı×é
+	private ICursor []cursors; // æ¯ä¸€è·¯çš„æ¸¸æ ‡æ„æˆçš„æ•°ç»„
 	
-	// ÒÔÏÂ³ÉÔ±ÓÃÓÚÓÎ±êµÄfetchº¯Êı£¬Í¨³£¶àÂ·ÓÎ±êµÄfetchÊÇ²»»á±»µ÷ÓÃµÄ
-	private Sequence table; // ¶Á³öµÄ¼ÇÂ¼»º´æ
-	private CursorReader []readers; // Ã¿Ò»Â·ÓÎ±êµÄÈ¡ÊıÈÎÎñ£¬²ÉÓÃ¶àÏß³Ì
-	private boolean isEnd = false; // ÊÇ·ñÈ¡Êı½áÊø
+	// ä»¥ä¸‹æˆå‘˜ç”¨äºæ¸¸æ ‡çš„fetchå‡½æ•°ï¼Œé€šå¸¸å¤šè·¯æ¸¸æ ‡çš„fetchæ˜¯ä¸ä¼šè¢«è°ƒç”¨çš„
+	private Sequence table; // è¯»å‡ºçš„è®°å½•ç¼“å­˜
+	private CursorReader []readers; // æ¯ä¸€è·¯æ¸¸æ ‡çš„å–æ•°ä»»åŠ¡ï¼Œé‡‡ç”¨å¤šçº¿ç¨‹
+	private boolean isEnd = false; // æ˜¯å¦å–æ•°ç»“æŸ
 	
 	/**
-	 * ¹¹½¨¶àÂ·ÓÎ±ê
-	 * @param cursors ÓÎ±êÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºå¤šè·¯æ¸¸æ ‡
+	 * @param cursors æ¸¸æ ‡æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public MultipathCursors(ICursor []cursors, Context ctx) {
 		setDataStruct(cursors[0].getDataStruct());
@@ -61,9 +61,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ¹¹½¨¶àÂ·ÓÎ±ê
-	 * @param cursors ÓÎ±êÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºå¤šè·¯æ¸¸æ ‡
+	 * @param cursors æ¸¸æ ‡æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public MultipathCursors(ICursor []cursors) {
 		this.cursors = cursors;
@@ -71,15 +71,15 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 
 	/**
-	 * ·µ»ØËùÓĞÂ·ÓÎ±ê×é³ÉµÄÊı×é
-	 * @return ÓÎ±êÊı×é
+	 * è¿”å›æ‰€æœ‰è·¯æ¸¸æ ‡ç»„æˆçš„æ•°ç»„
+	 * @return æ¸¸æ ‡æ•°ç»„
 	 */
 	public ICursor[] getCursors() {
 		return cursors;
 	}
 	
 	/**
-	 * È¡Ö¸¶¨Â·µÄÓÎ±ê
+	 * å–æŒ‡å®šè·¯çš„æ¸¸æ ‡
 	 * @param p
 	 * @return
 	 */
@@ -88,8 +88,8 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * È¡¶àÂ·ÓÎ±êÂ·Êı
-	 * @return Â·Êı
+	 * å–å¤šè·¯æ¸¸æ ‡è·¯æ•°
+	 * @return è·¯æ•°
 	 */
 	public int getPathCount() {
 		return cursors.length;
@@ -110,9 +110,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ÎªÓÎ±ê¸½¼ÓÔËËã
-	 * @param op ÔËËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ä¸ºæ¸¸æ ‡é™„åŠ è¿ç®—
+	 * @param op è¿ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public Operable addOperation(Operation op, Context ctx) {
 		for (ICursor cursor : cursors) {
@@ -125,8 +125,8 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ·µ»ØËùÓĞÂ·ÓÎ±ê×é³ÉµÄÊı×é
-	 * @return ÓÎ±êÊı×é
+	 * è¿”å›æ‰€æœ‰è·¯æ¸¸æ ‡ç»„æˆçš„æ•°ç»„
+	 * @return æ¸¸æ ‡æ•°ç»„
 	 */
 	public ICursor[] getParallelCursors() {
 		if (readers != null) {
@@ -177,8 +177,8 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -243,9 +243,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (isEnd || n < 1) return 0;
@@ -316,7 +316,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -333,8 +333,8 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();
@@ -351,7 +351,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 
 	private static Table groups(ICursor []cursors, Expression[] exps, String[] names, 
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int groupCount) {
-		// Éú³É·Ö×éÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆåˆ†ç»„ä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		int cursorCount = cursors.length;		
 		ThreadPool pool = ThreadPool.newInstance(cursorCount);
 		GroupsJob []jobs = new GroupsJob[cursorCount];
@@ -373,7 +373,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 				pool.submit(jobs[i]);
 			}
 			
-			// µÈ´ı·Ö×éÈÎÎñÖ´ĞĞÍê±Ï£¬²¢°Ñ½á¹ûÌí¼Óµ½Ò»¸öĞò±í
+			// ç­‰å¾…åˆ†ç»„ä»»åŠ¡æ‰§è¡Œå®Œæ¯•ï¼Œå¹¶æŠŠç»“æœæ·»åŠ åˆ°ä¸€ä¸ªåºè¡¨
 			for (int i = 0; i < cursorCount; ++i) {
 				jobs[i].join();
 				
@@ -392,12 +392,12 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	
 	private static Table groups2(ICursor []cursors, Expression[] exps, String[] names, 
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int groupCount) {
-		int capacity = groupCount > 0 ? groupCount : 30000000;//Ä¬ÈÏ3000Íò
+		int capacity = groupCount > 0 ? groupCount : 30000000;//é»˜è®¤3000ä¸‡
 		HashUtil hashUtil = new HashUtil(capacity);
 		GroupsSyncReader cursorReader = new GroupsSyncReader(cursors, exps, hashUtil, ctx);
 		capacity = hashUtil.getCapacity();
 		
-		// Éú³É·Ö×éÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆåˆ†ç»„ä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		int cursorCount = cursors.length / 2;
 		if (cursorCount < 2) cursorCount = 2;
 		ThreadPool pool = ThreadPool.newInstance(cursorCount);
@@ -419,7 +419,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 				pool.submit(jobs[i]);
 			}
 			
-			// µÈ´ı·Ö×éÈÎÎñÖ´ĞĞÍê±Ï£¬²¢°Ñ½á¹ûÌí¼Óµ½Ò»¸öĞò±í
+			// ç­‰å¾…åˆ†ç»„ä»»åŠ¡æ‰§è¡Œå®Œæ¯•ï¼Œå¹¶æŠŠç»“æœæ·»åŠ åˆ°ä¸€ä¸ªåºè¡¨
 			for (int i = 0; i < cursorCount; ++i) {
 				jobs[i].join();
 				
@@ -447,13 +447,13 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * È¡·Ö×é¼ÆËã¶ÔÏó
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–åˆ†ç»„è®¡ç®—å¯¹è±¡
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IGroupsResult
 	 */
 	public IGroupsResult getGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
@@ -462,14 +462,14 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * È¡´ó½á¹û¼¯·Ö×é¼ÆËã¶ÔÏó
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param capacity ³õÊ¼ÈİÁ¿
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–å¤§ç»“æœé›†åˆ†ç»„è®¡ç®—å¯¹è±¡
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param capacity åˆå§‹å®¹é‡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IHugeGroupsResult
 	 */
 	public IHugeGroupsResult getHugeGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
@@ -478,14 +478,14 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ¶ÔÓÎ±ê½øĞĞ·Ö×é»ã×Ü
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ·Ö×é½á¹û
+	 * å¯¹æ¸¸æ ‡è¿›è¡Œåˆ†ç»„æ±‡æ€»
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åˆ†ç»„ç»“æœ
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, String opt, Context ctx) {
 		if (cursors.length == 1) {
@@ -499,15 +499,15 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ¶ÔÓÎ±ê½øĞĞ·Ö×é»ã×Ü
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param groupCount ½á¹û¼¯ÊıÁ¿
-	 * @return ·Ö×é½á¹û
+	 * å¯¹æ¸¸æ ‡è¿›è¡Œåˆ†ç»„æ±‡æ€»
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param groupCount ç»“æœé›†æ•°é‡
+	 * @return åˆ†ç»„ç»“æœ
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx, int groupCount) {
@@ -528,15 +528,15 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ÓëÓÎ±ê×öÓĞĞò¹é²¢Á¬½Ó
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param cursors Î¬±íÓÎ±êÊı×é
-	 * @param codeExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
+	 * ä¸æ¸¸æ ‡åšæœ‰åºå½’å¹¶è¿æ¥
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param cursors ç»´è¡¨æ¸¸æ ‡æ•°ç»„
+	 * @param codeExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable mergeJoinx(Function function, Expression[][] exps, 
@@ -548,7 +548,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 		for (int p = 0; p < pathCount; ++p) {
 			ICursor []curCodeCursors = new ICursor[tableCount];
 			for (int t = 0; t < tableCount; ++t) {
-				// Ö÷×Ó±íĞèÒªÍ¬²½·Ö¶Î£¬Í¬Ò»Â·µÄ×öÁ¬½Ó
+				// ä¸»å­è¡¨éœ€è¦åŒæ­¥åˆ†æ®µï¼ŒåŒä¸€è·¯çš„åšè¿æ¥
 				if (codeCursors[t] == null) {
 					continue;
 				} else if (!(codeCursors[t] instanceof MultipathCursors)) {
@@ -565,7 +565,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 				curCodeCursors[t] = mcs.getPathCursor(p);
 			}
 			
-			// ¸´ÖÆ±í´ïÊ½
+			// å¤åˆ¶è¡¨è¾¾å¼
 			ctx = cursors[p].getContext();
 			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
 			Expression [][]curCodeExps = Operation.dupExpressions(codeExps, ctx);
@@ -577,22 +577,22 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ×öÁ¬½Ó
-	 * @param function ¶ÔÓ¦µÄº¯Êı
+	 * åšè¿æ¥
+	 * @param function å¯¹åº”çš„å‡½æ•°
 	 * @param fname
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable join(Function function, String fname, Expression[][] exps, Sequence[] codes,
 			  Expression[][] dataExps, Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
 		for (ICursor subCursor : cursors) {
-			// ¸´ÖÆ±í´ïÊ½
+			// å¤åˆ¶è¡¨è¾¾å¼
 			ctx = subCursor.getContext();
 			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
 			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
@@ -604,23 +604,23 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ÓëÔ¶³Ì±í×öÁ¬½Ó
-	 * @param function ¶ÔÓ¦µÄº¯Êı
+	 * ä¸è¿œç¨‹è¡¨åšè¿æ¥
+	 * @param function å¯¹åº”çš„å‡½æ•°
 	 * @param fname
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable joinRemote(Function function, String fname, Expression[][] exps, 
 			Object[] codes, Expression[][] dataExps, 
 			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
 		for (ICursor subCursor : cursors) {
-			// ¸´ÖÆ±í´ïÊ½
+			// å¤åˆ¶è¡¨è¾¾å¼
 			ctx = subCursor.getContext();
 			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
 			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
@@ -632,20 +632,20 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ×öÍâ¼üÊ½Á¬½Ó
+	 * åšå¤–é”®å¼è¿æ¥
 	 * @param function
-	 * @param dimExps Á¬½Ó±í´ïÊ½Êı×é
-	 * @param aliasNames Î¬±í¼ÇÂ¼±ğÃû
-	 * @param newExps ĞÂ²úÉú×Ö¶Î±í´ïÊ½Êı×é
-	 * @param newNames ĞÂ²úÉú×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî£¬i£º×ö½»Á¬½Ó
+	 * @param dimExps è¿æ¥è¡¨è¾¾å¼æ•°ç»„
+	 * @param aliasNames ç»´è¡¨è®°å½•åˆ«å
+	 * @param newExps æ–°äº§ç”Ÿå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param newNames æ–°äº§ç”Ÿå­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œiï¼šåšäº¤è¿æ¥
 	 * @param ctx
 	 * @return
 	 */
 	public Operable fjoin(Function function, Expression[] dimExps, String []aliasNames, 
 			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
 		for (ICursor subCursor : cursors) {
-			// ¸´ÖÆ±í´ïÊ½
+			// å¤åˆ¶è¡¨è¾¾å¼
 			ctx = subCursor.getContext();
 			Expression []curDimExps = Operation.dupExpressions(dimExps, ctx);
 			Expression [][]curNewExps = Operation.dupExpressions(newExps, ctx);
@@ -656,14 +656,14 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ÓÎ±ê°´Ö÷¼ü×öÓĞĞòÁ¬½Ó
+	 * æ¸¸æ ‡æŒ‰ä¸»é”®åšæœ‰åºè¿æ¥
 	 * @param function
-	 * @param srcKeyExps Á¬½Ó±í´ïÊ½Êı×é
+	 * @param srcKeyExps è¿æ¥è¡¨è¾¾å¼æ•°ç»„
 	 * @param srcNewExps
 	 * @param srcNewNames
-	 * @param joinCursors ¹ØÁªÓÎ±êÊı×é
-	 * @param options ¹ØÁªÑ¡Ïî
-	 * @param keyExps Á¬½Ó±í´ïÊ½Êı×é
+	 * @param joinCursors å…³è”æ¸¸æ ‡æ•°ç»„
+	 * @param options å…³è”é€‰é¡¹
+	 * @param keyExps è¿æ¥è¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
 	 * @param opt
@@ -679,7 +679,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 		for (int p = 0; p < pathCount; ++p) {
 			ICursor []curCursors = new ICursor[tableCount];
 			for (int t = 0; t < tableCount; ++t) {
-				// Ö÷×Ó±íĞèÒªÍ¬²½·Ö¶Î£¬Í¬Ò»Â·µÄ×öÁ¬½Ó
+				// ä¸»å­è¡¨éœ€è¦åŒæ­¥åˆ†æ®µï¼ŒåŒä¸€è·¯çš„åšè¿æ¥
 				if (joinCursors[t] == null) {
 					continue;
 				} else if (!(joinCursors[t] instanceof MultipathCursors)) {
@@ -696,7 +696,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 				curCursors[t] = mcs.getPathCursor(p);
 			}
 			
-			// ¸´ÖÆ±í´ïÊ½
+			// å¤åˆ¶è¡¨è¾¾å¼
 			ctx = cursors[p].getContext();
 			Expression []curSrcKeyExps = Operation.dupExpressions(srcKeyExps, ctx);
 			Expression []curSrcNewExps = Operation.dupExpressions(srcNewExps, ctx);
@@ -710,18 +710,18 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ½øĞĞÁ¬½Ó¹ıÂË£¬±£ÁôÄÜ¹ØÁªÉÏµÄ
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿›è¡Œè¿æ¥è¿‡æ»¤ï¼Œä¿ç•™èƒ½å…³è”ä¸Šçš„
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable filterJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt, Context ctx) {
 		for (ICursor subCursor : cursors) {
-			// ¸´ÖÆ±í´ïÊ½
+			// å¤åˆ¶è¡¨è¾¾å¼
 			ctx = subCursor.getContext();
 			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
 			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
@@ -732,18 +732,18 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ½øĞĞÁ¬½Ó¹ıÂË£¬±£ÁôÄÜ¹ØÁª²»ÉÏµÄ
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿›è¡Œè¿æ¥è¿‡æ»¤ï¼Œä¿ç•™èƒ½å…³è”ä¸ä¸Šçš„
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable diffJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt, Context ctx) {
 		for (ICursor subCursor : cursors) {
-			// ¸´ÖÆ±í´ïÊ½
+			// å¤åˆ¶è¡¨è¾¾å¼
 			ctx = subCursor.getContext();
 			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
 			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
@@ -754,11 +754,11 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ¹ıÂË
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param fltExp ¹ıÂËÌõ¼ş
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿‡æ»¤
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param fltExp è¿‡æ»¤æ¡ä»¶
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable select(Function function, Expression fltExp, String opt, Context ctx) {
@@ -771,12 +771,12 @@ public class MultipathCursors extends ICursor implements IMultipath {
 		return this;
 	}
 	/**
-	 * ¹ıÂË
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param fltExp ¹ıÂËÌõ¼ş
-	 * @param opt Ñ¡Ïî
-	 * @param pipe ÓÃÓÚ´¦Àí²»Âú×ãÌõ¼şµÄ³ÉÔ±
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿‡æ»¤
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param fltExp è¿‡æ»¤æ¡ä»¶
+	 * @param opt é€‰é¡¹
+	 * @param pipe ç”¨äºå¤„ç†ä¸æ»¡è¶³æ¡ä»¶çš„æˆå‘˜
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable select(Function function, Expression fltExp, String opt, IPipe pipe, Context ctx) {
@@ -790,13 +790,13 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * Ìí¼Ó¼ÆËãÁĞ
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps ¼ÆËã±í´ïÊ½Êı×é
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
+	 * æ·»åŠ è®¡ç®—åˆ—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
 	 * @param level
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable derive(Function function, Expression []exps, String []names, String opt, int level, Context ctx) {
@@ -810,12 +810,12 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ²úÉúĞÂĞò±í
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param newExps ¼ÆËã±í´ïÊ½Êı×é
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * äº§ç”Ÿæ–°åºè¡¨
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param newExps è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable newTable(Function function, Expression []newExps, String []names, String opt, Context ctx) {
@@ -829,11 +829,11 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression []exps, String opt, Context ctx) {
@@ -846,12 +846,12 @@ public class MultipathCursors extends ICursor implements IMultipath {
 		return this;
 	}
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps Ç°°ë²¿·ÖÓĞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param sortExps ºó°ë²¿·ÖÎŞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å‰åŠéƒ¨åˆ†æœ‰åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param sortExps ååŠéƒ¨åˆ†æ— åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression []exps, Expression []sortExps, String opt, Context ctx) {
@@ -866,14 +866,14 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression[] exps, String []names, 
@@ -889,16 +889,16 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps Ç°°ë²¿·ÖÓĞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param sortExps ºó°ë²¿·ÖÎŞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param sortNames ×Ö¶ÎÃûÊı×é
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å‰åŠéƒ¨åˆ†æœ‰åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param sortExps ååŠéƒ¨åˆ†æ— åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param sortNames å­—æ®µåæ•°ç»„
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression[] exps, String []names, 
@@ -916,14 +916,14 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * Á¬½Ó¼ÆËã
-	 * @param function ËùÊôµÄº¯Êı¶ÔÏó
-	 * @param fkNames Íâ¼ü×Ö¶ÎÃûÊı×é
-	 * @param timeFkNames Ê±¼äÍâ¼üÃûÊı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param exps Î¬±íÖ÷¼üÊı×é
-	 * @param timeExps Î¬±íµÄÊ±¼ä¸üĞÂ¼üÊı×é
-	 * @param opt Ñ¡Ïî
+	 * è¿æ¥è®¡ç®—
+	 * @param function æ‰€å±çš„å‡½æ•°å¯¹è±¡
+	 * @param fkNames å¤–é”®å­—æ®µåæ•°ç»„
+	 * @param timeFkNames æ—¶é—´å¤–é”®åæ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param exps ç»´è¡¨ä¸»é”®æ•°ç»„
+	 * @param timeExps ç»´è¡¨çš„æ—¶é—´æ›´æ–°é”®æ•°ç»„
+	 * @param opt é€‰é¡¹
 	 */
 	public Operable switchFk(Function function, String[] fkNames, String[] timeFkNames, Sequence[] codes, Expression[] exps, Expression[] timeExps, String opt, Context ctx) {
 		for (ICursor subCursor : cursors) {
@@ -937,9 +937,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 
 	/**
-	 * ´´½¨Ò»¸öÓëµ±Ç°ÓÎ±êÏàÆ¥ÅäµÄ¹ÜµÀ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param doPush ÊÇ·ñ¶ÔÓÎ±êÉú³Épush²Ù×÷
+	 * åˆ›å»ºä¸€ä¸ªä¸å½“å‰æ¸¸æ ‡ç›¸åŒ¹é…çš„ç®¡é“
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param doPush æ˜¯å¦å¯¹æ¸¸æ ‡ç”Ÿæˆpushæ“ä½œ
 	 * @return Channel
 	 */
 	public Channel newChannel(Context ctx, boolean doPush) {
@@ -947,7 +947,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ÓÎ±êÊÇ·ñ¿ÉÒÔÌø¿é
+	 * æ¸¸æ ‡æ˜¯å¦å¯ä»¥è·³å—
 	 * @return
 	 */
 	public boolean canSkipBlock() {
@@ -963,7 +963,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * µÃµ½ÓÎ±ê½á¹ûËùÔÚ¿éµÄ·¶Î§
+	 * å¾—åˆ°æ¸¸æ ‡ç»“æœæ‰€åœ¨å—çš„èŒƒå›´
 	 * @param key
 	 * @return
 	 */
@@ -978,10 +978,10 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
-	 * ½«ÓÎ±êÉèÖÃÎª°´ÕÕkey×Ö¶ÎÌø¿é £¨pjoinÊ±Ê¹ÓÃ£©
-	 * ÉèÖÃºó£¬ÓÎ±ê»á°´ÕÕvaluesÀïµÄÖµ½øĞĞÌø¿é¡£
-	 * @param key Î¬×Ö¶ÎÃû
-	 * @param values [[minValue, maxValue],[minValue, maxValue],¡­¡­] 
+	 * å°†æ¸¸æ ‡è®¾ç½®ä¸ºæŒ‰ç…§keyå­—æ®µè·³å— ï¼ˆpjoinæ—¶ä½¿ç”¨ï¼‰
+	 * è®¾ç½®åï¼Œæ¸¸æ ‡ä¼šæŒ‰ç…§valuesé‡Œçš„å€¼è¿›è¡Œè·³å—ã€‚
+	 * @param key ç»´å­—æ®µå
+	 * @param values [[minValue, maxValue],[minValue, maxValue],â€¦â€¦] 
 	 */
 	public void setSkipBlockInfo(String key, IArray[] values) {
 		if (key == null || values == null) return;

@@ -11,11 +11,11 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ѭ�������е������㣬������ͬ�ֶ�ֵ�ĳ�Աͳһ���
- * rank(F; Gi,��)
- * ����ѭ�������У����Gi�ֶ�ֵ��ͬ���F�ֶ�ֵ��ͬ�ĳ�Ա�Ĵ�1��ʼ��ţ�F�ֶ�ֵ��ͬ�ı����ͬ��
- * ��F�ֶ�ֵ�����仯ʱ��һ��F�ֶ�ֵ�ı�ű�Ϊ��һ��F�ֶ�ֵ�ı�ż�����һ��F�ֶ���ֵͬ�ĸ�����
- * ���Gi�ֶ�ֵ�����仯�����ظ���������
+ * 循环函数中迭代运算，对有相同字段值的成员统一编号
+ * rank(F; Gi,…)
+ * 用于循环函数中，如果Gi字段值相同则对F字段值相同的成员的从1开始编号，F字段值相同的编号相同，
+ * 当F字段值发生变化时下一个F字段值的编号变为上一个F字段值的编号加上上一个F字段相同值的个数。
+ * 如果Gi字段值发生变化，则重复上述运算
  * @author runqian
  *
  */
@@ -34,7 +34,7 @@ public class Rank extends Function {
 	}
 	
 	/**
-	 * ������ʽ����Ч�ԣ���Ч���׳��쳣
+	 * 检查表达式的有效性，无效则抛出异常
 	 */
 	public void checkValidity() {
 		if (param == null) {

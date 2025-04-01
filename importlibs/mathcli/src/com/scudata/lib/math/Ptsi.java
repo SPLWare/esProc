@@ -3,9 +3,9 @@ package com.scudata.lib.math;
 import com.scudata.dm.Sequence;
 
 /**
- * ¾ÀÆ«µÄÄæÏò»¹Ô­´¦Àí
+ * çº åçš„é€†å‘è¿˜åŽŸå¤„ç†
  * @author bd
- * Ô­ÐÍx.ptsi(p, m)
+ * åŽŸåž‹x.ptsi(p, m)
  */
 public class Ptsi {
 	protected static Sequence ptsi(Sequence seq, double p, double m) {
@@ -16,7 +16,7 @@ public class Ptsi {
 				Number tmp = (Number) seq.get(i);
 				boolean newLn = true;
 				if (!newLn) {
-					// ÔÝÊ±±£Áô¾ÉËã·¨
+					// æš‚æ—¶ä¿ç•™æ—§ç®—æ³•
 					double ex = Math.pow(Math.E, tmp.doubleValue());
 					if (m >= 1) {
 					}
@@ -26,7 +26,7 @@ public class Ptsi {
 					result.add(new Double(ex));
 				}
 				else {
-					// v2.5ÐÂµÄlnËã·¨
+					// v2.5æ–°çš„lnç®—æ³•
 					double sign = 1d;
 					double tv = tmp.doubleValue();
 					if (tv < 0) {

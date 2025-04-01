@@ -15,70 +15,70 @@ import com.scudata.dm.*;
 import com.scudata.util.Variant;
 
 /**
- * ÊıÖµÖá
+ * æ•°å€¼è½´
  * @author Joancy
  *
  */
 public class NumericAxis extends TickAxis {
-	// ×Ô¶¯¼ÆËã×î´óĞ¡ÖµµÄ·¶Î§
+	// è‡ªåŠ¨è®¡ç®—æœ€å¤§å°å€¼çš„èŒƒå›´
 	public boolean autoCalcValueRange = true;
-	// ×Ô¶¯·¶Î§Ê±´Ó0ÆğÊ¼Öµ
+	// è‡ªåŠ¨èŒƒå›´æ—¶ä»0èµ·å§‹å€¼
 	public boolean autoRangeFromZero = true;
 
-	// ÖµÖáÊôĞÔ£¬×î´óÖµ
+	// å€¼è½´å±æ€§ï¼Œæœ€å¤§å€¼
 	public double maxValue = 10;
 
-	// ÖµÖáÊôĞÔ£¬×îĞ¡Öµ
+	// å€¼è½´å±æ€§ï¼Œæœ€å°å€¼
 	public double minValue = 0;
 
-	// ÖµÖáÊôĞÔ£¬¿Ì¶ÈÊı
+	// å€¼è½´å±æ€§ï¼Œåˆ»åº¦æ•°
 	public int scaleNum = 5;
 
-	// ÖµÖáÊôĞÔ£¬¿Ì¶ÈÏÔÊ¾¸ñÊ½
+	// å€¼è½´å±æ€§ï¼Œåˆ»åº¦æ˜¾ç¤ºæ ¼å¼
 	public String format = "#.##";
 
-	// µ¥Î»×ÖÌå
-	public String unitFont;// = "ËÎÌå";
+	// å•ä½å­—ä½“
+	public String unitFont;// = "å®‹ä½“";
 
-	// ÑÕÉ«
+	// é¢œè‰²
 	public Color unitColor = Color.blue.darker();
 
-	// ÑùÊ½
+	// æ ·å¼
 	public int unitStyle;
 
-	// Ğı×ª
+	// æ—‹è½¬
 	public int unitAngle = 0;
 
-	// ´óĞ¡
+	// å¤§å°
 	public int unitSize = 12;
 
-	// ±ä»»
-	public int transform = 0; // 0ÎŞ±ä»»£¬1±ÈÀı£¬2¶ÔÊı£¬3Ö¸Êı£¨ÔÚConstsÖĞ¶¨Òå³£Êı£©
+	// å˜æ¢
+	public int transform = 0; // 0æ— å˜æ¢ï¼Œ1æ¯”ä¾‹ï¼Œ2å¯¹æ•°ï¼Œ3æŒ‡æ•°ï¼ˆåœ¨Constsä¸­å®šä¹‰å¸¸æ•°ï¼‰
 
-	// Èç¹ûÊÇ±ÈÀı±ä»»£¬±ÈÀı³ß¶È, 1:scale
+	// å¦‚æœæ˜¯æ¯”ä¾‹å˜æ¢ï¼Œæ¯”ä¾‹å°ºåº¦, 1:scale
 	public double scale = 1;
 
-	// Èç¹ûÊÇ¶ÔÊı±ä»»£¬¶ÔÊıµÄµ×Êı
+	// å¦‚æœæ˜¯å¯¹æ•°å˜æ¢ï¼Œå¯¹æ•°çš„åº•æ•°
 	public double logBase = 10;
 
-	// Èç¹ûÊÇÖ¸Êı±ä»»£¬Ö¸ÊıµÄµ×Êı
+	// å¦‚æœæ˜¯æŒ‡æ•°å˜æ¢ï¼ŒæŒ‡æ•°çš„åº•æ•°
 	public double powerExponent = Math.E;
 
-	/* ¾¯½äÏß¶¨Òå */
+	/* è­¦æˆ’çº¿å®šä¹‰ */
 	public Para warnLineStyle = new Para(new Integer(Consts.LINE_DASHED));
 	public Para warnLineWeight = new Para(new Float(1));
 	public Para warnLineColor = new Para(Color.red);
 	public Sequence warnLineData = null;
 
 	/**
-	 * È±Ê¡²ÎÊı¹¹Ôìº¯Êı
+	 * ç¼ºçœå‚æ•°æ„é€ å‡½æ•°
 	 */
 	public NumericAxis() {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -125,9 +125,9 @@ public class NumericAxis extends TickAxis {
 	}
 	
 	/**
-	 * »ñÈ¡Êı¾İµÄÊµÊıÖµ£¬¼æÈİÎÄ±¾´®Ğ´·¨
-	 * @param val Êı¾İÖµ
-	 * @return ¶ÔÓ¦µÄÊµÊı
+	 * è·å–æ•°æ®çš„å®æ•°å€¼ï¼Œå…¼å®¹æ–‡æœ¬ä¸²å†™æ³•
+	 * @param val æ•°æ®å€¼
+	 * @return å¯¹åº”çš„å®æ•°
 	 */
 	public double getNumber(Object val){
 		double tmp;
@@ -155,7 +155,7 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/*
-	 * ¿Ì¶ÈÖµ×ÜÊÇÖáÉÏÆ½¾ù·ÖÅä£¬ÇÒ¸úÖáµÄÎ»ÖÃÓĞ¹Ø
+	 * åˆ»åº¦å€¼æ€»æ˜¯è½´ä¸Šå¹³å‡åˆ†é…ï¼Œä¸”è·Ÿè½´çš„ä½ç½®æœ‰å…³
 	 */
 	protected double getTickPosition(Object tickVal) {
 		double val = ((Number) tickVal).doubleValue();
@@ -180,8 +180,8 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * »ñÈ¡»ùÖµµÄ×ø±êµã
-	 * @return Point ×ø±êµã
+	 * è·å–åŸºå€¼çš„åæ ‡ç‚¹
+	 * @return Point åæ ‡ç‚¹
 	 */
 	public Point2D getBasePoint() {
 		switch (location) {
@@ -195,9 +195,9 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * »ñÈ¡³¬Á´½ÓµÄĞÎ×´ÇøÓò
+	 * è·å–è¶…é“¾æ¥çš„å½¢çŠ¶åŒºåŸŸ
 	 * 
-	 * @return Shape ÎŞÒâÒå£¬·µ»Ønull
+	 * @return Shape æ— æ„ä¹‰ï¼Œè¿”å›null
 	 */
 	public Shape getShape() {
 		return null;
@@ -236,11 +236,11 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * »æÍ¼Ç°µÄÊı¾İ×¼±¸
+	 * ç»˜å›¾å‰çš„æ•°æ®å‡†å¤‡
 	 */
 	public void prepare(ArrayList<DataElement> dataElements) {
 		super.prepare(dataElements);
-		// µ±Ò»ÊıÖµÖáÉÏµÄÍ¼ÔªÓĞ²»Í¬µÄ¶Ñ»ıÀàĞÍÊ±£¬È¡×î´óµÄ¶Ñ»ıÀàĞÍÎª¹«¹²ÀàĞÍ
+		// å½“ä¸€æ•°å€¼è½´ä¸Šçš„å›¾å…ƒæœ‰ä¸åŒçš„å †ç§¯ç±»å‹æ—¶ï¼Œå–æœ€å¤§çš„å †ç§¯ç±»å‹ä¸ºå…¬å…±ç±»å‹
 		int stackType = Consts.STACK_NONE;
 		for (int i = 0; i < dataElements.size(); i++) {
 			DataElement de = dataElements.get(i);
@@ -271,7 +271,7 @@ public class NumericAxis extends TickAxis {
 				break;
 		}
 
-		// ½ÇÖáÒ²²»ÄÜ×Ô¶¯¼ÆËã
+		// è§’è½´ä¹Ÿä¸èƒ½è‡ªåŠ¨è®¡ç®—
 		if (autoCalcValueRange){
 			maxValue = Double.NEGATIVE_INFINITY;
 			for (int i = 0; i < dataElements.size(); i++) {
@@ -284,7 +284,7 @@ public class NumericAxis extends TickAxis {
 				Object data;
 				if (de instanceof Column) {
 					Column co = (Column) de;
-					co.stackType = stackType;// ÖØĞÂµ÷ÕûÍ¼ÔªµÄ¶Ñ»ıÀàĞÍ
+					co.stackType = stackType;// é‡æ–°è°ƒæ•´å›¾å…ƒçš„å †ç§¯ç±»å‹
 					data = Column.getMaxValue(de, name);
 				} else if (de instanceof Line) {
 					Line li = (Line) de;
@@ -292,7 +292,7 @@ public class NumericAxis extends TickAxis {
 					data = Column.getMaxValue(de, name);
 				} else if (de instanceof Sector) {
 					Sector se = (Sector) de;
-					se.stackType = stackType;// ÖØĞÂµ÷ÕûÍ¼ÔªµÄ¶Ñ»ıÀàĞÍ
+					se.stackType = stackType;// é‡æ–°è°ƒæ•´å›¾å…ƒçš„å †ç§¯ç±»å‹
 					data = Column.getMaxValue(de, name);
 				} else {
 					data = de.getAxisData(name);
@@ -317,12 +317,12 @@ public class NumericAxis extends TickAxis {
 			double absMax = Math
 					.max(Math.abs(t_maxValue), Math.abs(t_minValue));
 			double tmpScale = 1;
-			while (absMax < scaleNum) { // È¥µôĞ¡Êı
+			while (absMax < scaleNum) { // å»æ‰å°æ•°
 				tmpScale *= 0.1;
 				absMax *= 10;
 			}
 			absMax = Math.ceil(absMax);
-			if (scaleNum < 1) {// ¿Ì¶ÈÊıÄ¿Ğ¡ÓÚ1Ê±£¬×Ô¶¯¼ÆËã³öÒ»¸ö¸ÕºÃ³ı¾¡×î´óÖµµÄÊıÄ¿
+			if (scaleNum < 1) {// åˆ»åº¦æ•°ç›®å°äº1æ—¶ï¼Œè‡ªåŠ¨è®¡ç®—å‡ºä¸€ä¸ªåˆšå¥½é™¤å°½æœ€å¤§å€¼çš„æ•°ç›®
 				int tmp = 5;
 				double leave = absMax % tmp;
 				while (leave > 0) {
@@ -334,20 +334,20 @@ public class NumericAxis extends TickAxis {
 
 				double delta = 0;
 				if (stackType == Consts.STACK_NONE){
-//					·ñÔò½öÈÃÊıÖµÁ½Í·µÄ±êÇ©Ôö¼Ó10%£¬·ÀÖ¹¼«Öµ¸ÕºÃÂäÔÚ×ø±êÖá
-					delta = (t_maxValue - t_minValue)*0.1; // Áô³ö¼«Öµ·ìÏ¶
+//					å¦åˆ™ä»…è®©æ•°å€¼ä¸¤å¤´çš„æ ‡ç­¾å¢åŠ 10%ï¼Œé˜²æ­¢æå€¼åˆšå¥½è½åœ¨åæ ‡è½´
+					delta = (t_maxValue - t_minValue)*0.1; // ç•™å‡ºæå€¼ç¼éš™
 				}
-				if (t_minValue >= 0) { // È«ÎªÕıÊı
+				if (t_minValue >= 0) { // å…¨ä¸ºæ­£æ•°
 					t_maxValue += delta;
 					if(t_minValue>0){
 						t_minValue -= delta;	
 					}
-				} else if (t_maxValue <= 0) { // È«Îª¸ºÊı
+				} else if (t_maxValue <= 0) { // å…¨ä¸ºè´Ÿæ•°
 					t_minValue -= delta;
 					if(t_maxValue<0){
 						t_maxValue += delta;	
 					}
-				} else { // ÓĞÕıÓĞ¸º
+				} else { // æœ‰æ­£æœ‰è´Ÿ
 					t_maxValue += delta;
 					t_minValue -= delta;
 				}
@@ -366,14 +366,14 @@ public class NumericAxis extends TickAxis {
 			}
 			break;
 		case Consts.TRANSFORM_LOG:
-			// ¶ÔÊıºÍÖ¸Êı¶¼ÒÑ¾­Ê¹ÓÃÔ­Öµ×÷Îª×ø±êÖµ£¬²»±ØÔÙĞ´ÉÏ±ä»»µ¥Î»
+			// å¯¹æ•°å’ŒæŒ‡æ•°éƒ½å·²ç»ä½¿ç”¨åŸå€¼ä½œä¸ºåæ ‡å€¼ï¼Œä¸å¿…å†å†™ä¸Šå˜æ¢å•ä½
 			break;
 		case Consts.TRANSFORM_EXP:
 			break;
 		}
 
 		if (!(autoCalcValueRange || stackType > Consts.STACK_NONE)) {
-			// ×Ô¶¯¼ÆËã»ò¶Ñ»ıÍ¼»òÕß½ÇÖá£¬²ÅÄÜÉèÖÃ»ùÖµ
+			// è‡ªåŠ¨è®¡ç®—æˆ–å †ç§¯å›¾æˆ–è€…è§’è½´ï¼Œæ‰èƒ½è®¾ç½®åŸºå€¼
 			t_baseValue = t_minValue;
 		}
 
@@ -381,10 +381,10 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * Çó¶ÔÊı
-	 * @param base µ×
-	 * @param d ÊıÖµ
-	 * @return ¶ÔÊıÖµ
+	 * æ±‚å¯¹æ•°
+	 * @param base åº•
+	 * @param d æ•°å€¼
+	 * @return å¯¹æ•°å€¼
 	 */
 	public static double log(double base, double d) {
 		if (base < 0 || d <= 0 || base == 1) {
@@ -394,10 +394,10 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * ÇóÖ¸Êı
-	 * @param base µ×
-	 * @param exp Ö¸Êı
-	 * @return Ö¸ÊıÖµ
+	 * æ±‚æŒ‡æ•°
+	 * @param base åº•
+	 * @param exp æŒ‡æ•°
+	 * @return æŒ‡æ•°å€¼
 	 */
 	public static double power(double base, double exp) {
 		if (base < 0 || exp < 0 || base == 1) {
@@ -407,7 +407,7 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/*
-	 * ¶ÔÊıºÍÖ¸Êı±ä»»Ê±£¬°Ñ×ø±êµ¥Î»»¹Ô­
+	 * å¯¹æ•°å’ŒæŒ‡æ•°å˜æ¢æ—¶ï¼ŒæŠŠåæ ‡å•ä½è¿˜åŸ
 	 */
 	private double recoverTickValue(double value) {
 		switch (transform) {
@@ -436,22 +436,22 @@ public class NumericAxis extends TickAxis {
 
 	private void createCoorValue() {
 		double tmp, delta;
-		if (t_minValue >= 0.0 || t_maxValue <= 0) { // ************************************È«ÎªÕıÊı»òÕßÈ«Îª¸ºÊı
+		if (t_minValue >= 0.0 || t_maxValue <= 0) { // ************************************å…¨ä¸ºæ­£æ•°æˆ–è€…å…¨ä¸ºè´Ÿæ•°
 			double dCoor = (t_maxValue - t_minValue) / scaleNum;
 			delta = Math.ceil(dCoor);
 			double cha = delta - dCoor;
-			boolean isLeagalRange = cha <= dCoor * 0.2;// µ÷ÕûºóµÄ×î´óÖµ²»ÄÜ³¬¹ıÔ­ÖµµÄ20%;
+			boolean isLeagalRange = cha <= dCoor * 0.2;// è°ƒæ•´åçš„æœ€å¤§å€¼ä¸èƒ½è¶…è¿‡åŸå€¼çš„20%;
 
-			if (autoCalcValueRange && isLeagalRange) {// ÖµµÄ·¶Î§³¬¹ı1µÄ×öÒ»ÏÂ×î´óÖµµ÷Õû //t_maxValue-t_minValue > 1
+			if (autoCalcValueRange && isLeagalRange) {// å€¼çš„èŒƒå›´è¶…è¿‡1çš„åšä¸€ä¸‹æœ€å¤§å€¼è°ƒæ•´ //t_maxValue-t_minValue > 1
 								// && delta - dCoor<dCoor
-				t_maxValue = Math.ceil(t_maxValue);// È¡Õû
+				t_maxValue = Math.ceil(t_maxValue);// å–æ•´
 				t_minValue = Math.floor(t_minValue);
-				delta = Math.ceil((t_maxValue - t_minValue) / scaleNum);// ¼ä¸ôÊıÖµÈ¡Õû
+				delta = Math.ceil((t_maxValue - t_minValue) / scaleNum);// é—´éš”æ•°å€¼å–æ•´
 				for (int i = 0; i <= scaleNum; i++) {
 					tmp = t_minValue + i * delta;
 					t_coorValue.add(new Double(tmp));
 				}
-				t_maxValue = t_minValue + scaleNum * delta;// ÖØĞÂÉèÖÃ×î´óÖµ
+				t_maxValue = t_minValue + scaleNum * delta;// é‡æ–°è®¾ç½®æœ€å¤§å€¼
 			} else {
 				delta = (t_maxValue - t_minValue) / scaleNum;
 				for (int i = 0; i <= scaleNum; i++) {
@@ -459,7 +459,7 @@ public class NumericAxis extends TickAxis {
 					t_coorValue.add(new Double(tmp));
 				}
 			}
-		} else { // ************************************ÓĞÕıÓĞ¸º
+		} else { // ************************************æœ‰æ­£æœ‰è´Ÿ
 			double absMax = t_maxValue;
 			double absMin = Math.abs(t_minValue);
 			delta = Math.max(absMax, absMin) / scaleNum;
@@ -501,11 +501,11 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * Éè¶¨ÖáµÄÊı¾İ·¶Î§
-	 * ±ıÍ¼ÊÇ¸öÌØÊâÍ¼ĞÎ£¬¼ÆËã±ıÍ¼µÄ¹ı³ÌÖĞ£¬Òª¸ù¾İ²»Í¬·ÖÀà¶¯Ì¬ÉèÖÃÖµÓò·¶Î§
-	 * ´ËÊ±µÄ×ø±êÒÑ¾­Ã»ÓĞÒâÒå£¬Ò»°ãÇé¿öÏÂ£¬×ø±êÏµÒ²Ã»ÓĞ»­³öÀ´µÄ±ØÒª
-	 * @param max ×î´óÖµ
-	 * @param min ×îĞ¡Öµ
+	 * è®¾å®šè½´çš„æ•°æ®èŒƒå›´
+	 * é¥¼å›¾æ˜¯ä¸ªç‰¹æ®Šå›¾å½¢ï¼Œè®¡ç®—é¥¼å›¾çš„è¿‡ç¨‹ä¸­ï¼Œè¦æ ¹æ®ä¸åŒåˆ†ç±»åŠ¨æ€è®¾ç½®å€¼åŸŸèŒƒå›´
+	 * æ­¤æ—¶çš„åæ ‡å·²ç»æ²¡æœ‰æ„ä¹‰ï¼Œä¸€èˆ¬æƒ…å†µä¸‹ï¼Œåæ ‡ç³»ä¹Ÿæ²¡æœ‰ç”»å‡ºæ¥çš„å¿…è¦
+	 * @param max æœ€å¤§å€¼
+	 * @param min æœ€å°å€¼
 	 */
 	public void setValueRange(double max, double min) {
 		t_maxValue = max;
@@ -513,7 +513,7 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * »­Í¼Ç°µÄÊı¾İ×¼±¸¹¤×÷
+	 * ç”»å›¾å‰çš„æ•°æ®å‡†å¤‡å·¥ä½œ
 	 */
 	public void beforeDraw() {
 		double length = getAxisLength();
@@ -539,7 +539,7 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * »æÖÆÇ°¾°²ã
+	 * ç»˜åˆ¶å‰æ™¯å±‚
 	 */
 	public void drawFore() {
 		if (!isVisible()) {
@@ -571,7 +571,7 @@ public class NumericAxis extends TickAxis {
 					unitAngle, Consts.LOCATION_CB, true);
 			break;
 		case Consts.AXIS_LOC_ANGLE:
-			// ½ÇÖá²»»æÖÆ
+			// è§’è½´ä¸ç»˜åˆ¶
 			break;
 		}
 
@@ -624,7 +624,7 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * »æÖÆÖĞ¼ä²ã
+	 * ç»˜åˆ¶ä¸­é—´å±‚
 	 */
 	public void draw() {
 		super.draw();
@@ -702,7 +702,7 @@ public class NumericAxis extends TickAxis {
 				}
 				TickAxis angleAxis = (TickAxis) pc.getAngleAxis();
 				Point2D orginalPoint = new Point2D.Double(getLeftX(),
-						getBottomY()); // Ô­µã
+						getBottomY()); // åŸç‚¹
 				for (int t = 1; t <= tCount; t++) {
 					Object tickVal = warnLineData(t);
 					ArrayList<Point2D> points = new ArrayList<Point2D>();
@@ -720,7 +720,7 @@ public class NumericAxis extends TickAxis {
 							points.add(pc.getScreenPoint(polarPoint));
 						}
 						warnShape = Utils.getPath2D(points, isCircleAngle());
-					} else { // ÉÈĞÎ
+					} else { // æ‰‡å½¢
 						double w, h, tmpLen;
 						tmpLen = x - orginalPoint.getX();
 						x = orginalPoint.getX() - tmpLen;
@@ -749,14 +749,14 @@ public class NumericAxis extends TickAxis {
 				}
 				TickAxis polarAxis = (TickAxis) pc.getPolarAxis();
 				Point2D orginalPoint = new Point2D.Double(polarAxis.getLeftX(),
-						polarAxis.getBottomY()); // Ô­µã
+						polarAxis.getBottomY()); // åŸç‚¹
 				double polarLen = polarAxis.getAxisLength();
 				for (int t = 1; t <= tCount; t++) {
 					Object tickVal = warnLineData(t);
 					double angle = getValueLen(tickVal);
 
 					if (isPolygonalRegion) {
-					} else { // ÉÈĞÎ
+					} else { // æ‰‡å½¢
 					}
 					p = new Point2D.Double(polarLen, angle);
 					warnShape = new Line2D.Double(orginalPoint,
@@ -770,7 +770,7 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * ÊÇ·ñÃ¶¾ÙÖá
+	 * æ˜¯å¦æšä¸¾è½´
 	 * @return false
 	 */
 	public boolean isEnumAxis() {
@@ -778,7 +778,7 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * ÊÇ·ñÈÕÆÚÖá
+	 * æ˜¯å¦æ—¥æœŸè½´
 	 * @return false
 	 */
 	public boolean isDateAxis() {
@@ -786,20 +786,20 @@ public class NumericAxis extends TickAxis {
 	}
 
 	/**
-	 * ÊÇ·ñÊıÖµÖá
+	 * æ˜¯å¦æ•°å€¼è½´
 	 * @return true
 	 */
 	public boolean isNumericAxis() {
 		return true;
 	}
 
-	// ËùÓĞ»æÖÆÍ¼ĞÎÏà¹ØµÄÖĞ¼ä¼ÆËã±äÁ¿¶¼ÓÉtransientÏŞ¶¨´ÊÖ¸³ö£¬²¢ÇÒ±äÁ¿ÃûÓÉt_×÷ÎªÇ°×º
+	// æ‰€æœ‰ç»˜åˆ¶å›¾å½¢ç›¸å…³çš„ä¸­é—´è®¡ç®—å˜é‡éƒ½ç”±transienté™å®šè¯æŒ‡å‡ºï¼Œå¹¶ä¸”å˜é‡åç”±t_ä½œä¸ºå‰ç¼€
 	private transient double t_maxValue=Double.MIN_VALUE, t_minValue=Double.MAX_VALUE;
 
-	// »ùÖµ,Í¨³£Îª0£»Èç¹ûÓÃ»§Ö¸¶¨ÁË×îĞ¡Öµ£¬Ôò»ùÖµÎª×îĞ¡Öµ
+	// åŸºå€¼,é€šå¸¸ä¸º0ï¼›å¦‚æœç”¨æˆ·æŒ‡å®šäº†æœ€å°å€¼ï¼Œåˆ™åŸºå€¼ä¸ºæœ€å°å€¼
 	private transient double t_baseValue = 0;
 	private transient int t_baseValueLine = 0;
-	// µ¥Î»ËµÃ÷
+	// å•ä½è¯´æ˜
 	private transient String t_unitText = "";
 
 	public static void main(String[] args) {

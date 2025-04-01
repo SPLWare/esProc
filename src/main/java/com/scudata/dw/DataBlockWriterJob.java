@@ -48,12 +48,12 @@ public class DataBlockWriterJob  extends Job {
 	}
 	
 	/**
-	 * °ÑdataĞòÁĞµÄÖ¸¶¨·¶Î§µÄÊı¾İĞ´³öµ½byte[]
-	 * @param data Êı¾İĞòÁĞ
-	 * @param dict È«¾Ö×Öµä
-	 * @param col ÁĞºÅ
-	 * @param start ¿ªÊ¼Î»ÖÃ
-	 * @param end ½áÊøÎ»ÖÃ
+	 * æŠŠdataåºåˆ—çš„æŒ‡å®šèŒƒå›´çš„æ•°æ®å†™å‡ºåˆ°byte[]
+	 * @param data æ•°æ®åºåˆ—
+	 * @param dict å…¨å±€å­—å…¸
+	 * @param col åˆ—å·
+	 * @param start å¼€å§‹ä½ç½®
+	 * @param end ç»“æŸä½ç½®
 	 * @return 
 	 * @throws IOException
 	 */
@@ -281,7 +281,7 @@ public class DataBlockWriterJob  extends Job {
 		}
 	}
 	
-	//ĞèÒªÍ³¼ÆMAX¡¢MINÊ±ÓÃÕâ¸ö
+	//éœ€è¦ç»Ÿè®¡MAXã€MINæ—¶ç”¨è¿™ä¸ª
 	public static void writeDataBlock(BufferWriter bufferWriter, Sequence data, Sequence dict, int col, int start, int end, 
 			Object[] maxValues, Object[] minValues, Object[] startValues, int[] dataType) throws IOException {
 		BaseRecord r;
@@ -298,7 +298,7 @@ public class DataBlockWriterJob  extends Job {
 				maxValues[col] = null;
 			}
 			if (i == start) {
-				minValues[col] = obj;//µÚÒ»¸öÒª¸³Öµ£¬ÒòÎªnull±íÊ¾×îĞ¡
+				minValues[col] = obj;//ç¬¬ä¸€ä¸ªè¦èµ‹å€¼ï¼Œå› ä¸ºnullè¡¨ç¤ºæœ€å°
 				startValues[col] = obj;
 			}
 			try {
@@ -312,13 +312,13 @@ public class DataBlockWriterJob  extends Job {
 	}
 	
 	/**
-	 * ¼ì²éÊÇ·ñ¿ÉÒÔÓÃÈ«¾Ö×Öµä,±ØÒªÊ±ºÏ²¢
+	 * æ£€æŸ¥æ˜¯å¦å¯ä»¥ç”¨å…¨å±€å­—å…¸,å¿…è¦æ—¶åˆå¹¶
 	 * @param column_dict
 	 * @param block_dict
 	 * @return
 	 */
 	private static boolean checkDict(Sequence column_dict, Sequence block_dict) {
-		//³ÉÔ±ÀïÓĞdsÊ±£¬ÔİÊ±²»×÷Îª×Öµä´¦Àí
+		//æˆå‘˜é‡Œæœ‰dsæ—¶ï¼Œæš‚æ—¶ä¸ä½œä¸ºå­—å…¸å¤„ç†
 		for (int i = 1, len = block_dict.length(); i <= len; i++) {
 			Object obj = block_dict.get(i);
 			if (obj instanceof Sequence || obj instanceof BaseRecord) {
@@ -363,9 +363,9 @@ public class DataBlockWriterJob  extends Job {
 	}
 	
 	/**
-	 * ×ª»»È«¾Ö×ÖµäµÄÊı¾İ¿é¸ñÊ½
-	 * @param dict È«¾Ö×Öµä
-	 * @param data Êı¾İ
+	 * è½¬æ¢å…¨å±€å­—å…¸çš„æ•°æ®å—æ ¼å¼
+	 * @param dict å…¨å±€å­—å…¸
+	 * @param data æ•°æ®
 	 */
 	public static void convertDictData(Sequence dict, Sequence data) {
 		

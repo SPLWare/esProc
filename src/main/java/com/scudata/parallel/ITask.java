@@ -1,42 +1,42 @@
 package com.scudata.parallel;
 
 /**
- * ×÷Òµ½Ó¿Ú
+ * ä½œä¸šæ¥å£
  * @author Joancy
  *
  */
 public interface ITask{
 	/**
-	 * Ë¢ĞÂ·ÃÎÊÊ±¼ä
+	 * åˆ·æ–°è®¿é—®æ—¶é—´
 	 */
 	public void access();
 	
 	/**
-	 * ÖØÖÃ·ÃÎÊÊ±¼ä 
+	 * é‡ç½®è®¿é—®æ—¶é—´ 
 	 */
 	public void resetAccess();
 	
 	/**
-	 * È¡ÈÎÎñ±àºÅ
-	 * @return ±àºÅ
+	 * å–ä»»åŠ¡ç¼–å·
+	 * @return ç¼–å·
 	 */
 	public int getTaskID();
 	
 	 /**
-	  * ¼ì²é´úÀí³¬Ê±
-	  * @param timeOut ³¬Ê±Ê±¼ä
-	  * @return Õı³£·µ»Øtrue£¬·ñÔòfalse
+	  * æ£€æŸ¥ä»£ç†è¶…æ—¶
+	  * @param timeOut è¶…æ—¶æ—¶é—´
+	  * @return æ­£å¸¸è¿”å›trueï¼Œå¦åˆ™false
 	  */
 	public boolean checkTimeOut(int timeOut);
 	
 	/**
-	 * ¹Ø±Õµ±Ç°×÷Òµ
+	 * å…³é—­å½“å‰ä½œä¸š
 	 */
 	public void close();
 	
 	/**
-	 * È¡Ô¶³ÌÓÎ±ê´úÀí¹ÜÀíÆ÷
-	 * @return ¹ÜÀíÆ÷
+	 * å–è¿œç¨‹æ¸¸æ ‡ä»£ç†ç®¡ç†å™¨
+	 * @return ç®¡ç†å™¨
 	 */
 	public RemoteCursorProxyManager getCursorManager();
 }

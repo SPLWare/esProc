@@ -16,7 +16,7 @@ import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 创建组表文件,用T的数据结构创建新的组表文件f
+ * 鍒涘缓缁勮〃鏂囦欢,鐢═鐨勬暟鎹粨鏋勫垱寤烘柊鐨勭粍琛ㄦ枃浠秄
  * T.create(f;x)
  * @author RunQian
  *

@@ -26,8 +26,8 @@ import com.scudata.dw.PhyTableGroup;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÎÄ¼ş×é
- * file(fn:z) zÊıÁĞ
+ * æ–‡ä»¶ç»„
+ * file(fn:z) zæ•°åˆ—
  * @author RunQian
  *
  */
@@ -48,8 +48,8 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * °Ñµ±Ç°¶ÔÏóĞ´µ½Êä³öÁ÷
-	 * @param out Êä³öÁ÷
+	 * æŠŠå½“å‰å¯¹è±¡å†™åˆ°è¾“å‡ºæµ
+	 * @param out è¾“å‡ºæµ
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		out.writeObject(fileName);
@@ -60,8 +60,8 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * ´ÓÊäÈëÁ÷¶Á³öÎÄ¼ş×é¶ÔÏó
-	 * @param in ÊäÈëÁ÷
+	 * ä»è¾“å…¥æµè¯»å‡ºæ–‡ä»¶ç»„å¯¹è±¡
+	 * @param in è¾“å…¥æµ
 	 */
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		fileName = (String)in.readObject();
@@ -73,7 +73,7 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * È¡ÎÄ¼şÃû
+	 * å–æ–‡ä»¶å
 	 * @return
 	 */
 	public String getFileName() {
@@ -81,7 +81,7 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * È¡·Ö±íºÅ
+	 * å–åˆ†è¡¨å·
 	 * @return
 	 */
 	public int[] getPartitions() {
@@ -89,9 +89,9 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * ´ò¿ª×é±í
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ‰“å¼€ç»„è¡¨
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public PhyTableGroup open(String opt, Context ctx) {
@@ -114,12 +114,12 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * ´´½¨×é±í
-	 * @param colNames ×Ö¶ÎÃûÊı×é
-	 * @param distribute ·Ö²¼±í´ïÊ½
-	 * @param opt Ñ¡Ïî
-	 * @param blockSize Çø¿é´óĞ¡
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åˆ›å»ºç»„è¡¨
+	 * @param colNames å­—æ®µåæ•°ç»„
+	 * @param distribute åˆ†å¸ƒè¡¨è¾¾å¼
+	 * @param opt é€‰é¡¹
+	 * @param blockSize åŒºå—å¤§å°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 * @throws IOException
 	 */
@@ -160,10 +160,10 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * ½¨Á¢µ±Ç°ÎÄ¼ş×éµÄ¹é²¢ÓÎ±ê
-	 * @param tableGroup µ±Ç°¸´×é±í
-	 * @param hasW ¸üĞÂ·½Ê½¹é²¢
-	 * @param cursor Òª¹é²¢µÄÓÎ±ê 
+	 * å»ºç«‹å½“å‰æ–‡ä»¶ç»„çš„å½’å¹¶æ¸¸æ ‡
+	 * @param tableGroup å½“å‰å¤ç»„è¡¨
+	 * @param hasW æ›´æ–°æ–¹å¼å½’å¹¶
+	 * @param cursor è¦å½’å¹¶çš„æ¸¸æ ‡ 
 	 * @return
 	 */
 	private ICursor makeCursor(PhyTableGroup tableGroup, boolean hasW, ICursor cursor, Context ctx) {
@@ -202,19 +202,19 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * ÕûÀí×é±íÊı¾İ
-	 * @param opt Ñ¡Ïî
-	 * @param blockSize Çø¿é´óĞ¡
-	 * @param ctx¼ÆËãÉÏÏÂÎÄ
-	 * @param ¹é²¢µÄÓÎ±ê
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * æ•´ç†ç»„è¡¨æ•°æ®
+	 * @param opt é€‰é¡¹
+	 * @param blockSize åŒºå—å¤§å°
+	 * @param ctxè®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param å½’å¹¶çš„æ¸¸æ ‡
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public boolean resetGroupTable(String opt, Integer blockSize, ICursor cursor, Context ctx) {
 		if (cursor != null) {
-			FileGroup tempFileGroup = createResetTempFileGroup(opt, blockSize, ctx);//µÃµ½Ò»¸öÍ¬¹¹µÄÁÙÊ±ÎÄ¼ş×é
-			resetGroupTable(tempFileGroup, opt, null, blockSize, cursor, ctx);//°Ñµ±Ç°ÎÄ¼ş×éresetµ½ÁÙÊ±ÎÄ¼ş×é
-			delete(ctx);//É¾³ıµ±Ç°
-			tempFileGroup.rename(fileName, ctx);//¸ÄÃû
+			FileGroup tempFileGroup = createResetTempFileGroup(opt, blockSize, ctx);//å¾—åˆ°ä¸€ä¸ªåŒæ„çš„ä¸´æ—¶æ–‡ä»¶ç»„
+			resetGroupTable(tempFileGroup, opt, null, blockSize, cursor, ctx);//æŠŠå½“å‰æ–‡ä»¶ç»„resetåˆ°ä¸´æ—¶æ–‡ä»¶ç»„
+			delete(ctx);//åˆ é™¤å½“å‰
+			tempFileGroup.rename(fileName, ctx);//æ”¹å
 		} else {
 			int pcount = partitions.length;
 			for (int i = 0; i < pcount; ++i) {
@@ -232,13 +232,13 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * °Ñ¸´×é±íÕûÀí³Éµ¥×é±í
-	 * @param newFile ĞÂ×é±í¶ÔÓ¦µÄÎÄ¼ş
-	 * @param opt Ñ¡Ïî
-	 * @param blockSize Çø¿é´óĞ¡
-	 * @param ¹é²¢µÄÓÎ±ê
-	 * @param ctx¼ÆËãÉÏÏÂÎÄ
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * æŠŠå¤ç»„è¡¨æ•´ç†æˆå•ç»„è¡¨
+	 * @param newFile æ–°ç»„è¡¨å¯¹åº”çš„æ–‡ä»¶
+	 * @param opt é€‰é¡¹
+	 * @param blockSize åŒºå—å¤§å°
+	 * @param å½’å¹¶çš„æ¸¸æ ‡
+	 * @param ctxè®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public boolean resetGroupTable(File newFile, String opt, Integer blockSize, ICursor cursor, Context ctx) {
 		PhyTableGroup tableGroup = open(null, ctx);
@@ -247,8 +247,8 @@ public class FileGroup implements Externalizable {
 		boolean isCol = baseTable.getGroupTable() instanceof ColComTable;
 		boolean hasN = false;
 		boolean hasW = false;
-		boolean compress = false; // Ñ¹Ëõ
-		boolean uncompress = false; // ²»Ñ¹Ëõ
+		boolean compress = false; // å‹ç¼©
+		boolean uncompress = false; // ä¸å‹ç¼©
 		
 		if (opt != null) {
 			if (opt.indexOf('q') != -1) {
@@ -322,7 +322,7 @@ public class FileGroup implements Externalizable {
 			}
 		}
 
-		// Éú³É·Ö¶ÎÑ¡Ïî£¬ÊÇ·ñ°´µÚÒ»×Ö¶Î·Ö¶Î
+		// ç”Ÿæˆåˆ†æ®µé€‰é¡¹ï¼Œæ˜¯å¦æŒ‰ç¬¬ä¸€å­—æ®µåˆ†æ®µ
 		String newOpt = "";
 		String segmentCol = baseTable.getSegmentCol();
 		if (segmentCol != null) {
@@ -334,7 +334,7 @@ public class FileGroup implements Externalizable {
 		
 		ComTable newGroupTable = null;
 		try {
-			//Éú³ÉĞÂ×é±íÎÄ¼ş
+			//ç”Ÿæˆæ–°ç»„è¡¨æ–‡ä»¶
 			if (isCol) {
 				newGroupTable = new ColComTable(newFile, colNames, null, newOpt, blockSize, ctx);
 				if (compress) {
@@ -348,7 +348,7 @@ public class FileGroup implements Externalizable {
 				newGroupTable = new RowComTable(newFile, colNames, null, newOpt, blockSize, ctx);
 			}
 			
-			//´¦Àí·Ö¶Î
+			//å¤„ç†åˆ†æ®µ
 			boolean needSeg = baseTable.getSegmentCol() != null;
 			if (needSeg) {
 				newGroupTable.getBaseTable().setSegmentCol(baseTable.getSegmentCol(), baseTable.getSegmentSerialLen());
@@ -359,7 +359,7 @@ public class FileGroup implements Externalizable {
 				return Boolean.TRUE;
 			}
 			
-			//ĞÂ»ù±í
+			//æ–°åŸºè¡¨
 			PhyTable newBaseTable = newGroupTable.getBaseTable();
 			ICursor cs;
 			if (cursor != null) {
@@ -373,7 +373,7 @@ public class FileGroup implements Externalizable {
 			newBaseTable.append(cs);
 			newBaseTable.appendCache();
 			
-			//»ù±íµÄ×Ó±í
+			//åŸºè¡¨çš„å­è¡¨
 			ArrayList<PhyTable> tableList = baseTable.getTableList();
 			for (PhyTable t : tableList) {
 				colNames = t.getColNames();
@@ -414,7 +414,7 @@ public class FileGroup implements Externalizable {
 			throw new RQException(e.getMessage(), e);
 		}
 		
-		//ÖØ½¨Ë÷ÒıÎÄ¼şºÍcuboid
+		//é‡å»ºç´¢å¼•æ–‡ä»¶å’Œcuboid
 		newGroupTable.getBaseTable().resetIndex(ctx);
 		newGroupTable.getBaseTable().resetCuboid(ctx);
 		ArrayList<PhyTable> newTableList = newGroupTable.getBaseTable().getTableList();
@@ -428,18 +428,18 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * °Ñ¸´×é±íÊı¾İÕûÀíµ½ÁíÒ»¸ö¸´×é±í£¬Èç¹ûÓĞ·Ö²¼±í´ïÊ½¸ü¸ÄÊı¾İµÄ·Ö²¼
-	 * @param newFileGroup ĞÂÎÄ¼ş×é
-	 * @param opt Ñ¡Ïî
-	 * @param distribute ·Ö²¼±í´ïÊ½
-	 * @param blockSize Çø¿é´óĞ¡
-	 * @param ¹é²¢µÄÓÎ±ê
-	 * @param ctx¼ÆËãÉÏÏÂÎÄ
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * æŠŠå¤ç»„è¡¨æ•°æ®æ•´ç†åˆ°å¦ä¸€ä¸ªå¤ç»„è¡¨ï¼Œå¦‚æœæœ‰åˆ†å¸ƒè¡¨è¾¾å¼æ›´æ”¹æ•°æ®çš„åˆ†å¸ƒ
+	 * @param newFileGroup æ–°æ–‡ä»¶ç»„
+	 * @param opt é€‰é¡¹
+	 * @param distribute åˆ†å¸ƒè¡¨è¾¾å¼
+	 * @param blockSize åŒºå—å¤§å°
+	 * @param å½’å¹¶çš„æ¸¸æ ‡
+	 * @param ctxè®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public boolean resetGroupTable(FileGroup newFileGroup, String opt, String distribute, Integer blockSize, ICursor cursor, Context ctx) {
 		if ((distribute == null || distribute.length() == 0) && cursor == null) {
-			// ·Ö²¼²»±ä
+			// åˆ†å¸ƒä¸å˜
 			int pcount = partitions.length;
 			if (pcount != newFileGroup.partitions.length) {
 				MessageManager mm = EngineMessage.get();
@@ -459,11 +459,11 @@ public class FileGroup implements Externalizable {
 				}
 			}
 		} else {
-			// ¸ü»»·Ö²¼±í´ïÊ½
+			// æ›´æ¢åˆ†å¸ƒè¡¨è¾¾å¼
 			PhyTableGroup tableGroup = open(null, ctx);
 			PhyTable baseTable = (PhyTable) tableGroup.getTables()[0];
 			boolean isCol = baseTable.getGroupTable() instanceof ColComTable;
-			boolean uncompress = false; // ²»Ñ¹Ëõ
+			boolean uncompress = false; // ä¸å‹ç¼©
 			boolean hasW = false;
 			if (opt != null) {
 				if (opt.indexOf('r') != -1) {
@@ -509,7 +509,7 @@ public class FileGroup implements Externalizable {
 				}
 			}
 			
-			// Éú³É·Ö¶ÎÑ¡Ïî£¬ÊÇ·ñ°´µÚÒ»×Ö¶Î·Ö¶Î
+			// ç”Ÿæˆåˆ†æ®µé€‰é¡¹ï¼Œæ˜¯å¦æŒ‰ç¬¬ä¸€å­—æ®µåˆ†æ®µ
 			String newOpt = "y";
 			String segmentCol = baseTable.getSegmentCol();
 			if (segmentCol != null) {
@@ -531,12 +531,12 @@ public class FileGroup implements Externalizable {
 			}
 			
 			try {
-				//Ğ´»ù±í
+				//å†™åŸºè¡¨
 				PhyTableGroup newTableGroup = newFileGroup.create(colNames, distribute, newOpt, blockSize, ctx);
 				ICursor cs = this.makeCursor(tableGroup, hasW, cursor, ctx);//tableGroup.merge(ctx);
 				newTableGroup.append(cs, "xi");
 				
-				//Ğ´×Ó±í
+				//å†™å­è¡¨
 				ArrayList<PhyTable> tableList = baseTable.getTableList();
 				for (PhyTable t : tableList) {
 					len = t.getColNames().length;
@@ -558,7 +558,7 @@ public class FileGroup implements Externalizable {
 					}
 					IPhyTable newTable = newTableGroup.createAnnexTable(colNames, t.getSerialBytesLen(), t.getTableName());
 					
-					//¸½±íµÄÓÎ±ê£¬È¡³ö×Ö¶ÎÀïÒª°üº¬»ù±íËùÓĞ×Ö¶Î£¬ÕâÊÇÒòÎªĞèÒª¼ÆËã·Ö²¼
+					//é™„è¡¨çš„æ¸¸æ ‡ï¼Œå–å‡ºå­—æ®µé‡Œè¦åŒ…å«åŸºè¡¨æ‰€æœ‰å­—æ®µï¼Œè¿™æ˜¯å› ä¸ºéœ€è¦è®¡ç®—åˆ†å¸ƒ
 					String[] allColNames = Arrays.copyOf(srcColNames, srcColNames.length + t.getColNames().length);
 					System.arraycopy(t.getColNames(), 0, allColNames, srcColNames.length, t.getColNames().length);
 					cs = tableGroup.getAnnexTable(t.getTableName()).cursor(allColNames);
@@ -577,8 +577,8 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨ĞòºÅ¶ÔÓ¦µÄ·Ö±íÎÄ¼ş
-	 * @param index ĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å–æŒ‡å®šåºå·å¯¹åº”çš„åˆ†è¡¨æ–‡ä»¶
+	 * @param index åºå·ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public File getPartitionFile(int index) {
@@ -586,8 +586,8 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * È¡·Ö±íÊı
-	 * @return ·Ö±íÊı
+	 * å–åˆ†è¡¨æ•°
+	 * @return åˆ†è¡¨æ•°
 	 */
 	public int getPartitionCount() {
 		return partitions.length;
@@ -640,7 +640,7 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
-	 * ¸ù¾İµ±Ç°ÎÄ¼ş×é£¬µÃµ½Ò»¸öÁÙÊ±ÎÄ¼ş×é
+	 * æ ¹æ®å½“å‰æ–‡ä»¶ç»„ï¼Œå¾—åˆ°ä¸€ä¸ªä¸´æ—¶æ–‡ä»¶ç»„
 	 * @return
 	 */
 	private FileGroup createResetTempFileGroup(String opt, Integer blockSize, Context ctx) {

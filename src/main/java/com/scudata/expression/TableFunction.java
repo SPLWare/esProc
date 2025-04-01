@@ -3,13 +3,13 @@ package com.scudata.expression;
 import com.scudata.dm.Table;
 
 /**
- * Ğò±í³ÉÔ±º¯Êı»ùÀà
+ * åºè¡¨æˆå‘˜å‡½æ•°åŸºç±»
  * T.f()
  * @author RunQian
  *
  */
 public abstract class TableFunction extends MemberFunction {
-	protected Table srcTable; // Ô´Ğò±í
+	protected Table srcTable; // æºåºè¡¨
 	
 	public boolean isLeftTypeMatch(Object obj) {
 		return obj instanceof Table;
@@ -20,7 +20,7 @@ public abstract class TableFunction extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		srcTable = null;

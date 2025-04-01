@@ -6,16 +6,16 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 
 /**
- * ÓÎ±ê»ò¹ÜµÀ¸½¼ÓµÄ¼ÆËã±í´ïÊ½ÔËËã´¦ÀíÀà
- * op.run(xi,¡­) op.run(xi:Fi:,¡­) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ çš„è®¡ç®—è¡¨è¾¾å¼è¿ç®—å¤„ç†ç±»
+ * op.run(xi,â€¦) op.run(xi:Fi:,â€¦) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */
 public class Run extends Operation {
-	private Expression exp; // ±í´ïÊ½£¬Èç¹ûÎª¿ÕÔò²ÉÓÃÏÂÃæxi:FiĞÎÊ½µÄ²ÎÊı
+	private Expression exp; // è¡¨è¾¾å¼ï¼Œå¦‚æœä¸ºç©ºåˆ™é‡‡ç”¨ä¸‹é¢xi:Fiå½¢å¼çš„å‚æ•°
 	
-	private Expression []assignExps; // ×Ö¶ÎÃû±í´ïÊ½Êı×é
-	private Expression []exps; // Öµ±í´ïÊ½Êı×é
+	private Expression []assignExps; // å­—æ®µåè¡¨è¾¾å¼æ•°ç»„
+	private Expression []exps; // å€¼è¡¨è¾¾å¼æ•°ç»„
 
 	public Run(Expression exp) {
 		this(null, exp);
@@ -37,8 +37,8 @@ public class Run extends Operation {
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -53,9 +53,9 @@ public class Run extends Operation {
 	}
 
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

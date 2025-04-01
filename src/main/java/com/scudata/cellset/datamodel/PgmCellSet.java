@@ -48,50 +48,50 @@ import com.scudata.thread.Job;
 import com.scudata.thread.ThreadPool;
 import com.scudata.util.Variant;
 
-// ³ÌĞòÍø
+// ç¨‹åºç½‘
 public class PgmCellSet extends CellSet {
 	private static final long serialVersionUID = 0x02010010;
-	public static final int PRIVILEGE_FULL = 0; // ÍêÈ«¿ØÖÆ£¬¿ÉÒÔ×öÈÎºÎÊÂÇé
-	public static final int PRIVILEGE_EXEC = 1; // Ö»¿ÉÒÔÖ´ĞĞ
+	public static final int PRIVILEGE_FULL = 0; // å®Œå…¨æ§åˆ¶ï¼Œå¯ä»¥åšä»»ä½•äº‹æƒ…
+	public static final int PRIVILEGE_EXEC = 1; // åªå¯ä»¥æ‰§è¡Œ
 
-	private static final int SIGN_AUTOCALC = 0x00000010; // ×Ô¶¯¼ÆËã
-	private static final int SIGN_DYNAMICPARAM = 0x00000010; // ½Å±¾×îºóÒ»¸ö²ÎÊıÎª¶¯Ì¬²ÎÊı
+	private static final int SIGN_AUTOCALC = 0x00000010; // è‡ªåŠ¨è®¡ç®—
+	private static final int SIGN_DYNAMICPARAM = 0x00000010; // è„šæœ¬æœ€åä¸€ä¸ªå‚æ•°ä¸ºåŠ¨æ€å‚æ•°
 
 	private int sign = 0;
-	private ByteMap customPropMap; // ×Ô¶¨ÒåÊôĞÔ
+	private ByteMap customPropMap; // è‡ªå®šä¹‰å±æ€§
 
-	// private String []psws = new String[2]; // 2¼¶ÃÜÂë£¬¸ß¼¶±ğÔÚÇ°
-	private String pswHash; // ÃÜÂëhashÖµ
-	private int nullPswPrivilege = PRIVILEGE_EXEC; // ÎŞÃÜÂëµÇÂ½Ê±µÄÈ¨ÏŞ
-	transient private int curPrivilege = PRIVILEGE_FULL; // µ±Ç°µÄÈ¨ÏŞ
+	// private String []psws = new String[2]; // 2çº§å¯†ç ï¼Œé«˜çº§åˆ«åœ¨å‰
+	private String pswHash; // å¯†ç hashå€¼
+	private int nullPswPrivilege = PRIVILEGE_EXEC; // æ— å¯†ç ç™»é™†æ—¶çš„æƒé™
+	transient private int curPrivilege = PRIVILEGE_FULL; // å½“å‰çš„æƒé™
 
-	transient protected CellLocation curLct; // µ±Ç°ÔËËãµÄµ¥Ôª¸ñµÄÎ»ÖÃ
-	transient private Object curDb; // DBObject»òthis£¬this±íÊ¾ÎÄ¼ş¼òµ¥dql
+	transient protected CellLocation curLct; // å½“å‰è¿ç®—çš„å•å…ƒæ ¼çš„ä½ç½®
+	transient private Object curDb; // DBObjectæˆ–thisï¼Œthisè¡¨ç¤ºæ–‡ä»¶ç®€å•dql
 
-	transient private LinkedList<CmdCode> stack = new LinkedList<CmdCode>(); // ¼ÆËã¶ÑÕ»
-	transient private CellLocation parseLct; // µ±Ç°ÕıÔÚ½âÎö±í´ïÊ½µÄµ¥Ôª¸ñ
+	transient private LinkedList<CmdCode> stack = new LinkedList<CmdCode>(); // è®¡ç®—å †æ ˆ
+	transient private CellLocation parseLct; // å½“å‰æ­£åœ¨è§£æè¡¨è¾¾å¼çš„å•å…ƒæ ¼
 
-	transient private Sequence resultValue; // resultÓï¾ä·µ»ØÖµ£¬ºóÃæµÄ»á¸²¸ÇÇ°ÃæµÄ
+	transient private Sequence resultValue; // resultè¯­å¥è¿”å›å€¼ï¼Œåé¢çš„ä¼šè¦†ç›–å‰é¢çš„
 	transient private int resultCurrent;
-	transient private CellLocation resultLct; // resultÓï¾äËùÔÚµ¥Ôª¸ñ
+	transient private CellLocation resultLct; // resultè¯­å¥æ‰€åœ¨å•å…ƒæ ¼
 
-	transient private boolean interrupt; // ÊÇ·ñµ÷ÓÃ¹ıinterrupt
-	transient private boolean isInterrupted; // ¼ÆËãÊ±Ê¹ÓÃ£¬ÔİÍ£ºó»áÖØÖÃ
+	transient private boolean interrupt; // æ˜¯å¦è°ƒç”¨è¿‡interrupt
+	transient private boolean isInterrupted; // è®¡ç®—æ—¶ä½¿ç”¨ï¼Œæš‚åœåä¼šé‡ç½®
 	transient private boolean hasReturn = false;
 
-	transient private String name; // ÍøÃû£¬ÔÚDfxManagerÖĞÊ¹ÓÃ
+	transient private String name; // ç½‘åï¼Œåœ¨DfxManagerä¸­ä½¿ç”¨
 
-	// func fn(arg,¡­)
-	transient private HashMap<String, FuncInfo> fnMap; // [º¯ÊıÃû, º¯ÊıĞÅÏ¢]Ó³Éä
-	transient private ForkCmdCode forkCmdCode; // µ±Ç°Ö´ĞĞµÄfork´úÂë¿é
+	// func fn(arg,â€¦)
+	transient private HashMap<String, FuncInfo> fnMap; // [å‡½æ•°å, å‡½æ•°ä¿¡æ¯]æ˜ å°„
+	transient private ForkCmdCode forkCmdCode; // å½“å‰æ‰§è¡Œçš„forkä»£ç å—
 
-	private String isvHash; // ÓĞ¹¦ÄÜµã14£¨KIT£©Ê±£¬Ğ´³ödfxÊ±ĞèÒªĞ´³öÊÚÈ¨ÎÄ¼şÖĞisvµÄMD5Öµ
+	private String isvHash; // æœ‰åŠŸèƒ½ç‚¹14ï¼ˆKITï¼‰æ—¶ï¼Œå†™å‡ºdfxæ—¶éœ€è¦å†™å‡ºæˆæƒæ–‡ä»¶ä¸­isvçš„MD5å€¼
 
 	private static class CmdCode {
-		protected byte type; // CommandÀàĞÍ
-		protected int row; // CommandµÄĞĞºÅ
-		protected int col; // CommandµÄÁĞºÅ
-		protected int blockEndRow; // CommandµÄ´úÂë¿é½áÊøĞĞĞĞºÅ
+		protected byte type; // Commandç±»å‹
+		protected int row; // Commandçš„è¡Œå·
+		protected int col; // Commandçš„åˆ—å·
+		protected int blockEndRow; // Commandçš„ä»£ç å—ç»“æŸè¡Œè¡Œå·
 
 		public CmdCode(byte type, int r, int c, int endRow) {
 			this.type = type;
@@ -102,7 +102,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	private static abstract class ForCmdCode extends CmdCode {
-		protected int seq = 0; // forÑ­»·ĞòºÅ
+		protected int seq = 0; // forå¾ªç¯åºå·
 
 		public ForCmdCode(int r, int c, int endRow) {
 			super(Command.FOR, r, c, endRow);
@@ -129,7 +129,7 @@ public class PgmCellSet extends CellSet {
 	}
 	
 	private static class ForkCmdCode extends CmdCode {
-		protected int seq = 0; // forkÏß³ÌĞòºÅ
+		protected int seq = 0; // forkçº¿ç¨‹åºå·
 
 		public ForkCmdCode(int r, int c, int endRow, int seq) {
 			super(Command.FORK, r, c, endRow);
@@ -251,7 +251,7 @@ public class PgmCellSet extends CellSet {
 		private Context ctx;
 		private Sequence table;
 
-		// private boolean bi = false; // ÊÇ·ñÓÃgroup@i
+		// private boolean bi = false; // æ˜¯å¦ç”¨group@i
 
 		public CursorForCmdCode(int r, int c, int endRow, ICursor cursor,
 				int count, Expression gexp, Context ctx) {
@@ -326,15 +326,15 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * Íø¸ñÖĞ¶¨ÒåµÄº¯ÊıĞÅÏ¢
+	 * ç½‘æ ¼ä¸­å®šä¹‰çš„å‡½æ•°ä¿¡æ¯
 	 * @author RunQian
 	 *
 	 */
 	public class FuncInfo {
 		private String fnName;
 		private String option;
-		private PgmNormalCell cell; // º¯ÊıËùÔÚµ¥Ôª¸ñ
-		private String[] argNames; // ²ÎÊıÃû
+		private PgmNormalCell cell; // å‡½æ•°æ‰€åœ¨å•å…ƒæ ¼
+		private String[] argNames; // å‚æ•°å
 
 		public FuncInfo(String fnName, PgmNormalCell cell, String[] argNames) {
 			this.fnName = fnName;
@@ -354,7 +354,7 @@ public class PgmCellSet extends CellSet {
 		}
 
 		/**
-		 * È¡º¯ÊıËùÔÚµÄµ¥Ôª¸ñ
+		 * å–å‡½æ•°æ‰€åœ¨çš„å•å…ƒæ ¼
 		 * @return
 		 */
 		public PgmNormalCell getCell() {
@@ -362,7 +362,7 @@ public class PgmCellSet extends CellSet {
 		}
 
 		/**
-		 * È¡º¯ÊıµÄ²ÎÊıÃû
+		 * å–å‡½æ•°çš„å‚æ•°å
 		 * @return
 		 */
 		public String[] getArgNames() {
@@ -390,9 +390,9 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ¹¹ÔìÒ»¸öÖ¸¶¨ĞĞÊıºÍÁĞÊıµÄ±í¸ñ
-	 * @param row int ĞĞÊı
-	 * @param col int ÁĞÊı
+	 * æ„é€ ä¸€ä¸ªæŒ‡å®šè¡Œæ•°å’Œåˆ—æ•°çš„è¡¨æ ¼
+	 * @param row int è¡Œæ•°
+	 * @param col int åˆ—æ•°
 	 */
 	public PgmCellSet(int row, int col) {
 		super(row, col);
@@ -431,13 +431,13 @@ public class PgmCellSet extends CellSet {
 		}
 	}
 
-	// ´´½¨Ò»¸öĞÂµÄÍø¸ñ£¬ĞÂÍøÒıÓÃÔ´ÍøµÄµ¥Ôª¸ñ£¬ÓµÓĞ×Ô¼ºµÄ¼ÆËã»·¾³
+	// åˆ›å»ºä¸€ä¸ªæ–°çš„ç½‘æ ¼ï¼Œæ–°ç½‘å¼•ç”¨æºç½‘çš„å•å…ƒæ ¼ï¼Œæ‹¥æœ‰è‡ªå·±çš„è®¡ç®—ç¯å¢ƒ
 	public PgmCellSet newCalc() {
 		Context ctx = getContext();
 		return newCalc(ctx);
 	}
 	
-	// ´´½¨Ò»¸öĞÂµÄÍø¸ñ£¬ĞÂÍøÒıÓÃÔ´ÍøµÄµ¥Ôª¸ñ£¬ÓµÓĞ×Ô¼ºµÄ¼ÆËã»·¾³
+	// åˆ›å»ºä¸€ä¸ªæ–°çš„ç½‘æ ¼ï¼Œæ–°ç½‘å¼•ç”¨æºç½‘çš„å•å…ƒæ ¼ï¼Œæ‹¥æœ‰è‡ªå·±çš„è®¡ç®—ç¯å¢ƒ
 	public PgmCellSet newCalc(Context ctx) {
 		Matrix m1 = cellMatrix;
 		int colSize = cellMatrix.getColSize();
@@ -461,7 +461,7 @@ public class PgmCellSet extends CellSet {
 		return pcs;
 	}
 
-	// Éú³ÉĞÂµÄÍø¸ñ¹©cursor(c,¡­)Ê¹ÓÃ
+	// ç”Ÿæˆæ–°çš„ç½‘æ ¼ä¾›cursor(c,â€¦)ä½¿ç”¨
 	public PgmCellSet newCursorDFX(INormalCell cell, Object[] args) {
 		int rowCount = getRowCount();
 		int colCount = getColCount();
@@ -471,7 +471,7 @@ public class PgmCellSet extends CellSet {
 		int col = cell.getCol();
 		int endRow = getCodeBlockEndRow(row, col);
 
-		// ´úÂë¿éÍâµÄ¸ñ×ÓÖ»ÒıÓÃ¸ñÖµ£¬²»ÉèÖÃ±í´ïÊ½
+		// ä»£ç å—å¤–çš„æ ¼å­åªå¼•ç”¨æ ¼å€¼ï¼Œä¸è®¾ç½®è¡¨è¾¾å¼
 		for (int r = 1; r < row; ++r) {
 			for (int c = 1; c <= colCount; ++c) {
 				Object val = getPgmNormalCell(r, c).getValue();
@@ -500,7 +500,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// °Ñ²ÎÊıÖµÉèµ½funcµ¥Ôª¸ñÉÏ¼°ºóÃæµÄ¸ñ×Ó
+		// æŠŠå‚æ•°å€¼è®¾åˆ°funcå•å…ƒæ ¼ä¸ŠåŠåé¢çš„æ ¼å­
 		if (args != null) {
 			int paramRow = row;
 			int paramCol = col;
@@ -529,8 +529,8 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * Éî¶È¿ËÂ¡
-	 * @return ¿ËÂ¡³öµÄ¶ÔÏó
+	 * æ·±åº¦å…‹éš†
+	 * @return å…‹éš†å‡ºçš„å¯¹è±¡
 	 */
 	public Object deepClone() {
 		PgmCellSet pcs = new PgmCellSet();
@@ -549,7 +549,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// ĞĞÊ×¸ñºÍÁĞÊ×¸ñ
+		// è¡Œé¦–æ ¼å’Œåˆ—é¦–æ ¼
 		for (int col = 1; col < colSize; col++)
 			pcs.cellMatrix.set(0, col, getColCell(col).deepClone());
 		for (int row = 1; row < rowSize; row++)
@@ -572,24 +572,24 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
-	 * @param out ObjectOutput Êä³öÁ÷
+	 * å†™å†…å®¹åˆ°æµ
+	 * @param out ObjectOutput è¾“å‡ºæµ
 	 * @throws IOException
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		super.writeExternal(out);
 		out.writeByte(2);
-		out.writeInt(sign); // ²»Óë±¨±í4¼¯³É
+		out.writeInt(sign); // ä¸ä¸æŠ¥è¡¨4é›†æˆ
 		out.writeObject(customPropMap);
 		out.writeObject(pswHash);
 		out.writeInt(nullPswPrivilege);
 		
-		out.writeObject(name); // °æ±¾2Ğ´³ö
+		out.writeObject(name); // ç‰ˆæœ¬2å†™å‡º
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-	 * @param in ObjectInput ÊäÈëÁ÷
+	 * ä»æµä¸­è¯»å†…å®¹
+	 * @param in ObjectInput è¾“å…¥æµ
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
@@ -610,7 +610,7 @@ public class PgmCellSet extends CellSet {
 	public byte[] serialize() throws IOException {
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
 
-		// ĞòÁĞ»¯µ¥Ôª¸ñ¾ØÕó
+		// åºåˆ—åŒ–å•å…ƒæ ¼çŸ©é˜µ
 		int rowCount = getRowCount();
 		int colCount = getColCount();
 		out.writeInt(rowCount);
@@ -631,11 +631,11 @@ public class PgmCellSet extends CellSet {
 		}
 
 		out.writeRecord(paramList);
-		out.writeInt(sign); // ²»Óë±¨±í4¼¯³É
+		out.writeInt(sign); // ä¸ä¸æŠ¥è¡¨4é›†æˆ
 		out.writeRecord(customPropMap);
 
-		out.writeStrings(null); // ÎªÁË¼æÈİpsws
-		out.writeInt(0); // ¼æÈİÖ®Ç°µÄ»­²¼
+		out.writeStrings(null); // ä¸ºäº†å…¼å®¹psws
+		out.writeInt(0); // å…¼å®¹ä¹‹å‰çš„ç”»å¸ƒ
 
 		out.writeString(pswHash);
 		out.writeInt(nullPswPrivilege);
@@ -646,7 +646,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
+	 * ä»æµä¸­è¯»å†…å®¹
 	 * @param buf byte[]
 	 * @throws IOException
 	 * @throws ClassNotFoundException
@@ -655,7 +655,7 @@ public class PgmCellSet extends CellSet {
 			ClassNotFoundException {
 		ByteArrayInputRecord in = new ByteArrayInputRecord(buf);
 
-		// Éú³Éµ¥Ôª¸ñ¾ØÕó
+		// ç”Ÿæˆå•å…ƒæ ¼çŸ©é˜µ
 		int rowCount = in.readInt();
 		int colCount = in.readInt();
 		cellMatrix = new Matrix(rowCount + 1, colCount + 1);
@@ -681,7 +681,7 @@ public class PgmCellSet extends CellSet {
 		if (in.available() > 0) {
 			in.readStrings();
 			if (in.available() > 0) {
-				in.readInt(); // ¼æÈİÖ®Ç°µÄ»­²¼
+				in.readInt(); // å…¼å®¹ä¹‹å‰çš„ç”»å¸ƒ
 				if (in.available() > 0) {
 					pswHash = in.readString();
 					nullPswPrivilege = in.readInt();
@@ -693,18 +693,18 @@ public class PgmCellSet extends CellSet {
 		}
 	}
 
-	// Ìø¹ıelse´úÂë¿é
+	// è·³è¿‡elseä»£ç å—
 	private void skipCodeBlock() {
 		int curRow = curLct.getRow();
 		int curCol = curLct.getCol();
 		int endBlock = getCodeBlockEndRow(curRow, curCol);
 
-		// ÏÂÒ»¸öÒªÖ´ĞĞµÄµ¥Ôª¸ñÉèµ½´úÂë¿éºóµÄµ¥Ôª¸ñ
+		// ä¸‹ä¸€ä¸ªè¦æ‰§è¡Œçš„å•å…ƒæ ¼è®¾åˆ°ä»£ç å—åçš„å•å…ƒæ ¼
 		setNext(endBlock + 1, 1, true);
 	}
 
-	// °ÑÏÂÒ»¸öÒªÖ´ĞĞµÄ¸ñÉèµ½ifËù¶ÔÓ¦µÄelseÓï¾äµÄÏÂÒ»¸ñ
-	// µ±Ç°¸ñÎªifÓï¾ä¸ñ
+	// æŠŠä¸‹ä¸€ä¸ªè¦æ‰§è¡Œçš„æ ¼è®¾åˆ°ifæ‰€å¯¹åº”çš„elseè¯­å¥çš„ä¸‹ä¸€æ ¼
+	// å½“å‰æ ¼ä¸ºifè¯­å¥æ ¼
 	private void toElseCmd() {
 		int curRow = curLct.getRow();
 		int curCol = curLct.getCol();
@@ -713,20 +713,20 @@ public class PgmCellSet extends CellSet {
 		int level = 0;
 		Command command;
 
-		// ÔÚ±¾ĞĞÖĞÑ°ÕÒelse·ÖÖ§
+		// åœ¨æœ¬è¡Œä¸­å¯»æ‰¾elseåˆ†æ”¯
 		for (int c = curCol + 1; c <= totalCol; ++c) {
 			PgmNormalCell cell = getPgmNormalCell(curRow, c);
 			if ((command = cell.getCommand()) != null) {
 				byte type = command.getType();
 				if (type == Command.ELSE) {
-					if (level == 0) { // ÕÒµ½¶ÔÓ¦µÄelse·ÖÖ§
+					if (level == 0) { // æ‰¾åˆ°å¯¹åº”çš„elseåˆ†æ”¯
 						setNext(curRow, c + 1, false);
 						return;
 					} else {
 						level--;
 					}
 				} else if (type == Command.ELSEIF) {
-					if (level == 0) { // ÕÒµ½¶ÔÓ¦µÄelseif·ÖÖ§
+					if (level == 0) { // æ‰¾åˆ°å¯¹åº”çš„elseifåˆ†æ”¯
 						setNext(curRow, c, false);
 						runIfCmd(cell, command);
 						return;
@@ -737,14 +737,14 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// Ìø¹ı´úÂë¿é
+		// è·³è¿‡ä»£ç å—
 		int endBlock = getCodeBlockEndRow(curRow, curCol);
 		int nextRow = endBlock + 1;
 		if (nextRow <= getRowCount()) {
 			for (int c = 1; c <= totalCol; ++c) {
 				PgmNormalCell cell = getPgmNormalCell(nextRow, c);
 				if (!cell.isBlankCell()) {
-					if (c != curCol) { // Ã»ÓĞelse·ÖÖ§
+					if (c != curCol) { // æ²¡æœ‰elseåˆ†æ”¯
 						setNext(nextRow, c, true);
 					} else {
 						command = cell.getCommand();
@@ -752,9 +752,9 @@ public class PgmCellSet extends CellSet {
 							setNext(nextRow, c, true);
 						} else {
 							byte type = command.getType();
-							if (type == Command.ELSE) { // ÕÒµ½¶ÔÓ¦µÄelse·ÖÖ§
+							if (type == Command.ELSE) { // æ‰¾åˆ°å¯¹åº”çš„elseåˆ†æ”¯
 								setNext(nextRow, c + 1, false);
-							} else if (type == Command.ELSEIF) { // ÕÒµ½¶ÔÓ¦µÄelseif·ÖÖ§
+							} else if (type == Command.ELSEIF) { // æ‰¾åˆ°å¯¹åº”çš„elseifåˆ†æ”¯
 								setNext(nextRow, c, false);
 								runIfCmd(cell, command);
 							} else {
@@ -766,7 +766,7 @@ public class PgmCellSet extends CellSet {
 				}
 			}
 		} else {
-			setNext(nextRow, 1, true); // ¿ÉÄÜÔÚÑ­»·»òº¯ÊıÀï
+			setNext(nextRow, 1, true); // å¯èƒ½åœ¨å¾ªç¯æˆ–å‡½æ•°é‡Œ
 		}
 	}
 
@@ -775,19 +775,19 @@ public class PgmCellSet extends CellSet {
 		int totalCol = getColCount();
 		Command command;
 
-		// ÔÚ±¾ĞĞÖĞÑ°ÕÒelse·ÖÖ§
+		// åœ¨æœ¬è¡Œä¸­å¯»æ‰¾elseåˆ†æ”¯
 		for (int c = pcol + 1; c <= totalCol; ++c) {
 			PgmNormalCell cell = getPgmNormalCell(prow, c);
 			if ((command = cell.getCommand()) != null) {
 				byte type = command.getType();
 				if (type == Command.ELSE) {
-					if (level == 0) { // ÕÒµ½¶ÔÓ¦µÄelse·ÖÖ§
+					if (level == 0) { // æ‰¾åˆ°å¯¹åº”çš„elseåˆ†æ”¯
 						return prow;
 					} else {
 						level--;
 					}
 				} else if (type == Command.ELSEIF) {
-					if (level == 0) { // ÕÒµ½¶ÔÓ¦µÄelseif·ÖÖ§
+					if (level == 0) { // æ‰¾åˆ°å¯¹åº”çš„elseifåˆ†æ”¯
 						return prow;
 					}
 				} else if (type == Command.IF) {
@@ -796,7 +796,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// Ìø¹ı´úÂë¿é
+		// è·³è¿‡ä»£ç å—
 		int endBlock = getCodeBlockEndRow(prow, pcol);
 		int totalRow = getRowCount();
 		if (endBlock < totalRow) {
@@ -811,9 +811,9 @@ public class PgmCellSet extends CellSet {
 					return endBlock;
 				} else {
 					byte type = command.getType();
-					if (type == Command.ELSE) { // ÕÒµ½¶ÔÓ¦µÄelse·ÖÖ§
+					if (type == Command.ELSE) { // æ‰¾åˆ°å¯¹åº”çš„elseåˆ†æ”¯
 						return getCodeBlockEndRow(nextRow, c);
-					} else if (type == Command.ELSEIF) { // ÕÒµ½¶ÔÓ¦µÄelseif·ÖÖ§
+					} else if (type == Command.ELSEIF) { // æ‰¾åˆ°å¯¹åº”çš„elseifåˆ†æ”¯
 						return getIfBlockEndRow(nextRow, c);
 					} else {
 						return endBlock;
@@ -826,7 +826,7 @@ public class PgmCellSet extends CellSet {
 		}
 	}
 
-	// Ö´ĞĞif³ÌĞò¸ñ
+	// æ‰§è¡Œifç¨‹åºæ ¼
 	private void runIfCmd(NormalCell cell, Command command) {
 		Context ctx = getContext();
 		Expression exp = command.getExpression(this, ctx);
@@ -845,9 +845,9 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ·µ»Øforµ¥Ôª¸ñµ±Ç°µÄÑ­»·ĞòºÅ #A1
-	 * @param r int forµ¥Ôª¸ñµÄĞĞºÅ
-	 * @param c int forµ¥Ôª¸ñµÄÁĞºÅ
+	 * è¿”å›forå•å…ƒæ ¼å½“å‰çš„å¾ªç¯åºå· #A1
+	 * @param r int forå•å…ƒæ ¼çš„è¡Œå·
+	 * @param c int forå•å…ƒæ ¼çš„åˆ—å·
 	 * @return int
 	 */
 	public int getForCellRepeatSeq(int r, int c) {
@@ -871,20 +871,20 @@ public class PgmCellSet extends CellSet {
 				+ mm.getMessage("engine.needInFor"));
 	}
 
-	// Ö´ĞĞfor³ÌĞò¸ñ
+	// æ‰§è¡Œforç¨‹åºæ ¼
 	private void runForCmd(NormalCell cell, Command command) {
 		int row = curLct.getRow();
 		int col = curLct.getCol();
 		if (stack.size() > 0) {
 			CmdCode cmd = stack.getFirst();
 			if (cmd != null && cmd.row == row && cmd.col == col) {
-				// Ö´ĞĞÏÂÒ»´ÎÑ­»·
+				// æ‰§è¡Œä¸‹ä¸€æ¬¡å¾ªç¯
 				ForCmdCode forCmd = (ForCmdCode) cmd;
 				if (forCmd.hasNextValue()) {
 					cell.setValue(forCmd.nextValue());
-					setNext(row, col + 1, false); // Ö´ĞĞÏÂÒ»µ¥Ôª¸ñ
+					setNext(row, col + 1, false); // æ‰§è¡Œä¸‹ä¸€å•å…ƒæ ¼
 				} else {
-					// Ìø³öÑ­»·
+					// è·³å‡ºå¾ªç¯
 					cell.setValue(forCmd.endValue());
 					stack.removeFirst();
 					endForCommand(forCmd);
@@ -895,7 +895,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// Ê×´ÎÖ´ĞĞÑ­»·£¬¼ÆËãÑ­»·±äÁ¿
+		// é¦–æ¬¡æ‰§è¡Œå¾ªç¯ï¼Œè®¡ç®—å¾ªç¯å˜é‡
 		ForCmdCode cmdCode;
 		Context ctx = getContext();
 		int endRow = getCodeBlockEndRow(row, col);
@@ -971,7 +971,7 @@ public class PgmCellSet extends CellSet {
 					stack.addFirst(cmdCode);
 					setNext(row, col + 1, false);
 				} else {
-					setNext(endRow + 1, 1, true); // Ìø³öÑ­»·
+					setNext(endRow + 1, 1, true); // è·³å‡ºå¾ªç¯
 				}
 
 				return;
@@ -1040,7 +1040,7 @@ public class PgmCellSet extends CellSet {
 			stack.addFirst(cmdCode);
 			setNext(row, col + 1, false);
 		} else {
-			setNext(endRow + 1, 1, true); // Ìø³öÑ­»·
+			setNext(endRow + 1, 1, true); // è·³å‡ºå¾ªç¯
 		}
 	}
 
@@ -1065,7 +1065,7 @@ public class PgmCellSet extends CellSet {
 		}
 
 		for (int i = 0; i < index; ++i) {
-			// Ìø³öÄÚ²¿forÑ­»·
+			// è·³å‡ºå†…éƒ¨forå¾ªç¯
 			CmdCode cmd = stack.removeFirst();
 			if (cmd.type == Command.FOR) {
 				endForCommand((ForCmdCode) cmd);
@@ -1097,7 +1097,7 @@ public class PgmCellSet extends CellSet {
 		}
 
 		for (int i = 0; i < index; ++i) {
-			// Ìø³öÄÚ²¿forÑ­»·
+			// è·³å‡ºå†…éƒ¨forå¾ªç¯
 			CmdCode cmd = stack.removeFirst();
 			if (cmd.type == Command.FOR) {
 				endForCommand((ForCmdCode) cmd);
@@ -1129,7 +1129,7 @@ public class PgmCellSet extends CellSet {
 				if (r == cmd.row) {
 					index = i;
 				} else {
-					// ²»ÄÜÌøµ½Ñ­»·ÄÚµÄÇ°ÃæµÄ¿Õ°×¸ñ
+					// ä¸èƒ½è·³åˆ°å¾ªç¯å†…çš„å‰é¢çš„ç©ºç™½æ ¼
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(
 							mm.getMessage("cellset.invalidGotoCell"));
@@ -1140,7 +1140,7 @@ public class PgmCellSet extends CellSet {
 		}
 
 		for (int i = 0; i <= index; ++i) {
-			// Ìø³öÄÚ²¿forÑ­»·
+			// è·³å‡ºå†…éƒ¨forå¾ªç¯
 			CmdCode cmd = stack.removeFirst();
 			if (cmd.type == Command.FOR) {
 				endForCommand((ForCmdCode) cmd);
@@ -1150,12 +1150,12 @@ public class PgmCellSet extends CellSet {
 		setNext(r, c, false);
 	}
 
-	// ½áÊøforÑ­»·
+	// ç»“æŸforå¾ªç¯
 	private void endForCommand(ForCmdCode cmd) {
 		cmd.close();
 	}
 
-	// ´´½¨ÓÃÓÚÖ´ĞĞforkÃüÁîµÄÍø¸ñ
+	// åˆ›å»ºç”¨äºæ‰§è¡Œforkå‘½ä»¤çš„ç½‘æ ¼
 	private PgmCellSet newForkPgmCellSet(int row, int col, int endRow,
 			Context ctx, boolean isLocal) {
 		int rowCount = getRowCount();
@@ -1174,7 +1174,7 @@ public class PgmCellSet extends CellSet {
 
 			pcs.setContext(ctx.newComputeContext());
 		} else {
-			// ¶à»úµ÷ÓÃÊ±£¬Èç¹ûÒıÓÃÁË±äÁ¿ºÍfork´úÂë¿éÍâµÄ¸ñ×ÓÔò´«ËÍÕâĞ©±äÁ¿ºÍ¸ñ×ÓÖµ
+			// å¤šæœºè°ƒç”¨æ—¶ï¼Œå¦‚æœå¼•ç”¨äº†å˜é‡å’Œforkä»£ç å—å¤–çš„æ ¼å­åˆ™ä¼ é€è¿™äº›å˜é‡å’Œæ ¼å­å€¼
 			ParamList usedParams = new ParamList();
 			ArrayList<INormalCell> usedCells = new ArrayList<INormalCell>();
 
@@ -1213,7 +1213,7 @@ public class PgmCellSet extends CellSet {
 		} while (lct != null && lct.getRow() <= endRow && resultValue == null);
 
 		if (resultValue == null) {
-			// Î´Åöµ½resultºÍendÈ±Ê¡·µ»Ø´úÂëÖĞ×îºóÒ»¸ö¼ÆËã¸ñÖµ
+			// æœªç¢°åˆ°resultå’Œendç¼ºçœè¿”å›ä»£ç ä¸­æœ€åä¸€ä¸ªè®¡ç®—æ ¼å€¼
 			int colCount = getColCount();
 			for (int r = endRow; r >= row; --r) {
 				for (int c = colCount; c > col; --c) {
@@ -1243,7 +1243,7 @@ public class PgmCellSet extends CellSet {
 		}
 	}
 
-	// ÅĞ¶ÏforkºóÊÇ·ñ½ô¸ú×Åfork£¬Á¬ĞøµÄfork²¢ĞĞÖ´ĞĞ
+	// åˆ¤æ–­forkåæ˜¯å¦ç´§è·Ÿç€forkï¼Œè¿ç»­çš„forkå¹¶è¡Œæ‰§è¡Œ
 	private boolean isNextCommandBlock(int prevEndRow, int col, byte cmdType) {
 		int totalRowCount = getRowCount();
 		if (prevEndRow == totalRowCount) {
@@ -1273,11 +1273,11 @@ public class PgmCellSet extends CellSet {
 		int endRow = getCodeBlockEndRow(row, col);
 		IParam param = command.getParam(this, ctx);
 
-		// Ö»ÓĞµ¥¸öfork
+		// åªæœ‰å•ä¸ªfork
 		if (!isNextCommandBlock(endRow, col, Command.FORK)) {
 			runForkCmd(param, row, col, endRow, ctx);
 		} else {
-			// ¶à¸öÁ¬ĞøµÄfork²¢ĞĞÖ´ĞĞ
+			// å¤šä¸ªè¿ç»­çš„forkå¹¶è¡Œæ‰§è¡Œ
 			ArrayList<SubForkJob> list = new ArrayList<SubForkJob>();
 			while (true) {
 				SubForkJob job = new SubForkJob(param, row, col, endRow, ctx);
@@ -1311,7 +1311,7 @@ public class PgmCellSet extends CellSet {
 		setNext(endRow + 1, 1, true);
 	}
 
-	// fork ¡­.;h,s
+	// fork â€¦.;h,s
 	private void runForkxCmd(IParam param, int row, int col, int endRow,
 			Context ctx) {
 		if (param.getSubSize() != 2) {
@@ -1341,8 +1341,8 @@ public class PgmCellSet extends CellSet {
 		String[] hosts = mc.getHosts();
 		int[] ports = mc.getPorts();
 
-		int mcount = -1; // ²¢ĞĞÊı
-		Object[] args = null; // ²ÎÊı
+		int mcount = -1; // å¹¶è¡Œæ•°
+		Object[] args = null; // å‚æ•°
 		if (leftParam == null) {
 		} else if (leftParam.isLeaf()) {
 			Object val = leftParam.getLeafExpression().calculate(ctx);
@@ -1386,7 +1386,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// ¸´ÖÆfork´úÂë¿é³ÉĞÂÍø¸ñ´«¸ø½Úµã»ú
+		// å¤åˆ¶forkä»£ç å—æˆæ–°ç½‘æ ¼ä¼ ç»™èŠ‚ç‚¹æœº
 		PgmCellSet pcs = newForkPgmCellSet(row, col, endRow, ctx, false);
 		ParallelCaller caller = new ParallelCaller(pcs, hosts, ports);
 		caller.setContext(ctx);
@@ -1394,7 +1394,7 @@ public class PgmCellSet extends CellSet {
 		// caller.setOptions("a");
 		// }
 
-		// ²éÕÒÓĞÃ»ÓĞ¶ÔÓ¦µÄreduce
+		// æŸ¥æ‰¾æœ‰æ²¡æœ‰å¯¹åº”çš„reduce
 		int nextRow = endRow + 1;
 		if (nextRow <= getRowCount()) {
 			Command command = getPgmNormalCell(nextRow, col).getCommand();
@@ -1408,7 +1408,7 @@ public class PgmCellSet extends CellSet {
 		}
 
 		if (args != null) {
-			// Í¨¹ıÍø¸ñ±äÁ¿´«µİ²ÎÊı£¬È»ºóÉèÖÃforkËùÔÚ¸ñµÄ±í´ïÊ½Îª=±äÁ¿
+			// é€šè¿‡ç½‘æ ¼å˜é‡ä¼ é€’å‚æ•°ï¼Œç„¶åè®¾ç½®forkæ‰€åœ¨æ ¼çš„è¡¨è¾¾å¼ä¸º=å˜é‡
 			final String pname = "tmp_fork_param";
 			ParamList pl = pcs.getParamList();
 			if (pl == null) {
@@ -1459,7 +1459,7 @@ public class PgmCellSet extends CellSet {
 		getPgmNormalCell(row, col).setValue(result);
 	}
 
-	// Ö´ĞĞfork³ÌĞò¸ñ
+	// æ‰§è¡Œforkç¨‹åºæ ¼
 	private void runForkCmd(IParam param, int row, int col, int endRow,
 			Context ctx) {
 		Object[] args;
@@ -1495,8 +1495,8 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		int pcount = args.length; // ²ÎÊı¸öÊı
-		int mcount = -1; // ²¢ĞĞÊı
+		int pcount = args.length; // å‚æ•°ä¸ªæ•°
+		int mcount = -1; // å¹¶è¡Œæ•°
 		for (int i = 0; i < pcount; ++i) {
 			if (args[i] instanceof Sequence) {
 				int len = ((Sequence) args[i]).length();
@@ -1526,7 +1526,7 @@ public class PgmCellSet extends CellSet {
 
 		try {
 			for (int i = 0; i < mcount; ++i) {
-				// Èç¹ûÊÇÓÎ±êÖØĞÂÉèÖÃÒ»ÏÂÉÏÏÂÎÄ£¬·ñÔòÓÎ±êÀï¸½¼ÓµÄÔËËãÓÃÍ¬Ò»¸öÉÏÏÂÎÄ»áÊÜÓ°Ïì
+				// å¦‚æœæ˜¯æ¸¸æ ‡é‡æ–°è®¾ç½®ä¸€ä¸‹ä¸Šä¸‹æ–‡ï¼Œå¦åˆ™æ¸¸æ ‡é‡Œé™„åŠ çš„è¿ç®—ç”¨åŒä¸€ä¸ªä¸Šä¸‹æ–‡ä¼šå—å½±å“
 				PgmCellSet pcs = newForkPgmCellSet(row, col, endRow, ctx, true);
 				pcs.forkCmdCode = new ForkCmdCode(row, col, endRow, i + 1);
 				
@@ -1599,12 +1599,12 @@ public class PgmCellSet extends CellSet {
 		int col = curLct.getCol();
 		int endRow = getCodeBlockEndRow(row, col);
 
-		// ¶ÔÃ¿¸öchannelËùÔÚµÄ¸ñ×Ó´´½¨¹ÜµÀ£¬²¢ÉèÎªµ¥Ôª¸ñÖµ
+		// å¯¹æ¯ä¸ªchannelæ‰€åœ¨çš„æ ¼å­åˆ›å»ºç®¡é“ï¼Œå¹¶è®¾ä¸ºå•å…ƒæ ¼å€¼
 		ArrayList<PgmNormalCell> cellList = new ArrayList<PgmNormalCell>();
 		PgmNormalCell cell = getPgmNormalCell(row, col);
 
-		// ¶¨ÒåÍê¹ÜµÀµÄÔËËãÔÙ¸øÓÎ±ê¸½¼şpushÔËËã£¬ÒòÎªÓÎ±ê¿ÉÄÜµ÷ÓÃfetch@0»º´æÁËÒ»²¿·ÖÊı¾İ
-		// Èç¹û»¹Ã»¶¨ÒåÍê¹ÜµÀµÄÔËËã£¬ÔòÓÎ±ê»º´æµÄÊı¾İÔò²»»áÖ´ĞĞ¹ÜµÀºóÀ´¸½¼ÓµÄÔËËã
+		// å®šä¹‰å®Œç®¡é“çš„è¿ç®—å†ç»™æ¸¸æ ‡é™„ä»¶pushè¿ç®—ï¼Œå› ä¸ºæ¸¸æ ‡å¯èƒ½è°ƒç”¨fetch@0ç¼“å­˜äº†ä¸€éƒ¨åˆ†æ•°æ®
+		// å¦‚æœè¿˜æ²¡å®šä¹‰å®Œç®¡é“çš„è¿ç®—ï¼Œåˆ™æ¸¸æ ‡ç¼“å­˜çš„æ•°æ®åˆ™ä¸ä¼šæ‰§è¡Œç®¡é“åæ¥é™„åŠ çš„è¿ç®—
 		Channel channel = cs.newChannel(ctx, false);
 		cell.setValue(channel);
 		cellList.add(cell);
@@ -1616,7 +1616,7 @@ public class PgmCellSet extends CellSet {
 
 		channel.addPushToCursor(cs);
 
-		// ÕÒÁ¬Ğø²»´ø²ÎÊıµÄchannel´úÂë¿é
+		// æ‰¾è¿ç»­ä¸å¸¦å‚æ•°çš„channelä»£ç å—
 		while (isNextCommandBlock(endRow, col, Command.CHANNEL)) {
 			row = endRow + 1;
 			cell = getPgmNormalCell(row, col);
@@ -1637,7 +1637,7 @@ public class PgmCellSet extends CellSet {
 			channel.addPushToCursor(cs);
 		}
 
-		// ±éÀúÓÎ±êÊı¾İ
+		// éå†æ¸¸æ ‡æ•°æ®
 		if (cs instanceof MultipathCursors) {
 			MultipathCursors mcs = (MultipathCursors) cs;
 			ICursor[] cursors = mcs.getCursors();
@@ -1665,7 +1665,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// È¡³ö¹ÜµÀµÄ¼ÆËã½á¹ûÉè¸øµ¥Ôª¸ñ
+		// å–å‡ºç®¡é“çš„è®¡ç®—ç»“æœè®¾ç»™å•å…ƒæ ¼
 		for (PgmNormalCell chCell : cellList) {
 			channel = (Channel) chCell.getValue();
 			chCell.setValue(channel.result());
@@ -1695,7 +1695,7 @@ public class PgmCellSet extends CellSet {
 		getCell(r, c).setValue(resultValue);
 		resultLct = new CellLocation(r, c);
 		
-		// ³ÌĞòÍøÓÎ±êĞèÒª¶à¸öreturn£¬ËùÒÔ²»½áÊø³ÌĞòÖ´ĞĞ£¬µ÷ÓÃµÄµØ·½×Ô¼ºÅĞ¶ÏÊÇ·ñ½áÊø
+		// ç¨‹åºç½‘æ¸¸æ ‡éœ€è¦å¤šä¸ªreturnï¼Œæ‰€ä»¥ä¸ç»“æŸç¨‹åºæ‰§è¡Œï¼Œè°ƒç”¨çš„åœ°æ–¹è‡ªå·±åˆ¤æ–­æ˜¯å¦ç»“æŸ
 		setNext(r, c + 1, false);
 		//runFinished();
 	}
@@ -1735,7 +1735,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// Ìø¹ı´úÂë¿é
+		// è·³è¿‡ä»£ç å—
 		// int endRow = getCodeBlockEndRow(curLct.getRow(), curLct.getCol());
 		String sql = command.getSql();
 		if (sql == null) {
@@ -1785,7 +1785,7 @@ public class PgmCellSet extends CellSet {
 		}
 
 		cell.setValue(val);
-		// Ìø¹ı´úÂë¿é
+		// è·³è¿‡ä»£ç å—
 		// setNext(endRow + 1, 1, true);
 		setNext(curLct.getRow(), curLct.getCol() + 1, false);
 	}
@@ -1818,7 +1818,7 @@ public class PgmCellSet extends CellSet {
 		int right;
 		int bottom;
 
-		// ½öĞ´A1:±íÊ¾Çå³ıÒÔA1ÎªÖ÷¸ñµÄ´úÂë¿é¸ñÖµ
+		// ä»…å†™A1:è¡¨ç¤ºæ¸…é™¤ä»¥A1ä¸ºä¸»æ ¼çš„ä»£ç å—æ ¼å€¼
 		if (endParam == null) {
 			right = getColCount();
 			bottom = getCodeBlockEndRow(top, left);
@@ -1834,13 +1834,13 @@ public class PgmCellSet extends CellSet {
 		}
 
 		if (top <= bottom) {
-			if (left <= right) { // ×óÉÏ - ÓÒÏÂ
+			if (left <= right) { // å·¦ä¸Š - å³ä¸‹
 				for (int r = top; r <= bottom; ++r) {
 					for (int c = left; c <= right; ++c) {
 						cs.getCell(r, c).clear();
 					}
 				}
-			} else { // ÓÒÉÏ - ×óÏÂ
+			} else { // å³ä¸Š - å·¦ä¸‹
 				for (int r = top; r <= bottom; ++r) {
 					for (int c = left; c >= right; --c) {
 						cs.getCell(r, c).clear();
@@ -1848,13 +1848,13 @@ public class PgmCellSet extends CellSet {
 				}
 			}
 		} else {
-			if (left <= right) { // ×óÏÂ - ÓÒÉÏ
+			if (left <= right) { // å·¦ä¸‹ - å³ä¸Š
 				for (int r = top; r >= bottom; --r) {
 					for (int c = left; c <= right; ++c) {
 						cs.getCell(r, c).clear();
 					}
 				}
-			} else { // ÓÒÏÂ - ×óÉÏ
+			} else { // å³ä¸‹ - å·¦ä¸Š
 				for (int r = top; r >= bottom; --r) {
 					for (int c = left; c >= right; --c) {
 						cs.getCell(r, c).clear();
@@ -1925,26 +1925,26 @@ public class PgmCellSet extends CellSet {
 		}
 	}
 
-	// ÉèÖÃÏÂÒ»¸öÒªÖ´ĞĞµÄµ¥Ôª¸ñ
+	// è®¾ç½®ä¸‹ä¸€ä¸ªè¦æ‰§è¡Œçš„å•å…ƒæ ¼
 	public void setNext(int row, int col, boolean isCheckStack) {
 		int colCount = getColCount();
 		if (col > colCount) {
 			row++;
 			col = 1;
-			isCheckStack = true; // »»ĞĞ¼ì²é¶ÑÕ»
+			isCheckStack = true; // æ¢è¡Œæ£€æŸ¥å †æ ˆ
 		}
 
 		if (isCheckStack) {
 			while (stack.size() > 0) {
-				// ÏÂÒ»¸öÒªÖ´ĞĞµÄµ¥Ôª¸ñÊÇ·ñÔÚ´úÂë¿é·¶Î§ÄÚ
+				// ä¸‹ä¸€ä¸ªè¦æ‰§è¡Œçš„å•å…ƒæ ¼æ˜¯å¦åœ¨ä»£ç å—èŒƒå›´å†…
 				CmdCode cmd = stack.getFirst();
 				if (row > cmd.blockEndRow) {
 					if (cmd.type == Command.FOR) {
-						// ¼ÌĞøÏÂÒ»´ÎÑ­»·
+						// ç»§ç»­ä¸‹ä¸€æ¬¡å¾ªç¯
 						curLct.set(cmd.row, cmd.col);
 						return;
 					} else {
-						// Ìø³ötry¿é£¬¼ÌĞø¼ì²é¶ÑÕ»
+						// è·³å‡ºtryå—ï¼Œç»§ç»­æ£€æŸ¥å †æ ˆ
 						stack.removeFirst();
 					}
 				} else {
@@ -1956,11 +1956,11 @@ public class PgmCellSet extends CellSet {
 		if (row > getRowCount()) {
 			runFinished();
 		} else {
-			// Ìø¹ı¿Õµ¥Ôª¸ñ¡¢×¢ÊÍ¸ñ¡¢³£Êı¸ñ
+			// è·³è¿‡ç©ºå•å…ƒæ ¼ã€æ³¨é‡Šæ ¼ã€å¸¸æ•°æ ¼
 			PgmNormalCell cell = getPgmNormalCell(row, col);
 			if (cell.isBlankCell() || cell.isNoteCell() || cell.isConstCell()) {
 				setNext(row, col + 1, false);
-			} else if (cell.isNoteBlock()) { // Ìø¹ı×¢ÊÍ¿é
+			} else if (cell.isNoteBlock()) { // è·³è¿‡æ³¨é‡Šå—
 				setNext(getCodeBlockEndRow(row, col) + 1, 1, true);
 			} else {
 				curLct.set(row, col);
@@ -1969,7 +1969,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñ´úÂë¿éµÄ½áÊøĞĞĞĞºÅ
+	 * è¿”å›å•å…ƒæ ¼ä»£ç å—çš„ç»“æŸè¡Œè¡Œå·
 	 * @param prow int
 	 * @param pcol int
 	 * @return int
@@ -1991,7 +1991,7 @@ public class PgmCellSet extends CellSet {
 	private CellLocation runNext2() {
 		Context ctx = getContext();
 		if (curLct == null) {
-			// ¿ªÊ¼Ö´ĞĞÊ±°ÑÏÂÒ»¸öÒªÖ´ĞĞµÄ¸ñÉèµ½µÚÒ»¸öµ¥Ôª¸ñÉÏ
+			// å¼€å§‹æ‰§è¡Œæ—¶æŠŠä¸‹ä¸€ä¸ªè¦æ‰§è¡Œçš„æ ¼è®¾åˆ°ç¬¬ä¸€ä¸ªå•å…ƒæ ¼ä¸Š
 			curLct = new CellLocation();
 			setNext(1, 1, false);
 			hasReturn = false;
@@ -2000,7 +2000,7 @@ public class PgmCellSet extends CellSet {
 		}
 
 		try {
-			// Ö´ĞĞµ±Ç°µÄµ¥Ôª¸ñ£¬²¢ÕÒ³öÏÂÒ»¸öÒªÖ´ĞĞµÄ¸ñ
+			// æ‰§è¡Œå½“å‰çš„å•å…ƒæ ¼ï¼Œå¹¶æ‰¾å‡ºä¸‹ä¸€ä¸ªè¦æ‰§è¡Œçš„æ ¼
 			PgmNormalCell cell = getPgmNormalCell(curLct.getRow(),
 					curLct.getCol());
 			Command command = cell.getCommand();
@@ -2111,7 +2111,7 @@ public class PgmCellSet extends CellSet {
 
 	private boolean goCatch(String error) {
 		while (stack.size() > 0) {
-			// ÏÂÒ»¸öÒªÖ´ĞĞµÄµ¥Ôª¸ñÊÇ·ñÔÚ´úÂë¿é·¶Î§ÄÚ
+			// ä¸‹ä¸€ä¸ªè¦æ‰§è¡Œçš„å•å…ƒæ ¼æ˜¯å¦åœ¨ä»£ç å—èŒƒå›´å†…
 			CmdCode cmd = stack.getFirst();
 			if (cmd.type == Command.TRY) {
 				stack.removeFirst();
@@ -2127,7 +2127,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * Ö´ĞĞÏÂÒ»¸öµ¥Ôª¸ñ£¬Èç¹û·µ»Ø¿ÕÔòÖ´ĞĞÍê±Ï
+	 * æ‰§è¡Œä¸‹ä¸€ä¸ªå•å…ƒæ ¼ï¼Œå¦‚æœè¿”å›ç©ºåˆ™æ‰§è¡Œå®Œæ¯•
 	 * @return CellLocation
 	 */
 	public CellLocation runNext() {
@@ -2140,7 +2140,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ´Óµ±Ç°¸ñ¼ÌĞøÖ´ĞĞ£¬Ö±µ½ÔËËã½áÊø
+	 * ä»å½“å‰æ ¼ç»§ç»­æ‰§è¡Œï¼Œç›´åˆ°è¿ç®—ç»“æŸ
 	 */
 	public void run() {
 		while (true) {
@@ -2152,7 +2152,7 @@ public class PgmCellSet extends CellSet {
 			if (runNext2() == null) {
 				break;
 			} else if (hasReturn()) {
-				// Åöµ½returnÔòÍ£Ö¹Ö´ĞĞ
+				// ç¢°åˆ°returnåˆ™åœæ­¢æ‰§è¡Œ
 				runFinished();
 				break;
 			}
@@ -2160,7 +2160,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ÒÀ´Î¼ÆËã´úÂë¿éÖĞ³ıÖ÷¸ñÍâµÄµ¥Ôª¸ñ£¬·µ»Ø×îºóÒ»¸ö¼ÆËã¸ñµÄ½á¹û
+	 * ä¾æ¬¡è®¡ç®—ä»£ç å—ä¸­é™¤ä¸»æ ¼å¤–çš„å•å…ƒæ ¼ï¼Œè¿”å›æœ€åä¸€ä¸ªè®¡ç®—æ ¼çš„ç»“æœ
 	 * @param int row
 	 * @param int col
 	 * @return Object
@@ -2177,7 +2177,7 @@ public class PgmCellSet extends CellSet {
 		if (col == colCount)
 			return null;
 
-		// ±£´æÏÖ³¡
+		// ä¿å­˜ç°åœº
 		CellLocation oldLct = curLct;
 		LinkedList<CmdCode> oldStack = stack;
 		Object retVal = null;
@@ -2187,7 +2187,7 @@ public class PgmCellSet extends CellSet {
 			stack = new LinkedList<CmdCode>();
 
 			int endRow = getCodeBlockEndRow(row, col);
-			setNext(row, col + 1, false); // ²»Ö´ĞĞÖ÷¸ñ,´Ó×Ó¸ñ¿ªÊ¼Ö´ĞĞ
+			setNext(row, col + 1, false); // ä¸æ‰§è¡Œä¸»æ ¼,ä»å­æ ¼å¼€å§‹æ‰§è¡Œ
 			for (; curLct != null;) {
 				int curRow = curLct.getRow();
 				if (curRow > endRow)
@@ -2202,7 +2202,7 @@ public class PgmCellSet extends CellSet {
 				}
 			}
 		} finally {
-			// »Ö¸´ÏÖ³¡
+			// æ¢å¤ç°åœº
 			curLct = oldLct;
 			stack = oldStack;
 		}
@@ -2211,9 +2211,9 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * Ö´ĞĞÄ³¸öµ¥Ôª¸ñ£¬Èç¹ûÊÇÑ­»·¿éÔòÖ´ĞĞ´úÂë¿é
-	 * @param row int µ¥Ôª¸ñĞĞºÅ
-	 * @param col int µ¥Ôª¸ñÁĞºÅ
+	 * æ‰§è¡ŒæŸä¸ªå•å…ƒæ ¼ï¼Œå¦‚æœæ˜¯å¾ªç¯å—åˆ™æ‰§è¡Œä»£ç å—
+	 * @param row int å•å…ƒæ ¼è¡Œå·
+	 * @param col int å•å…ƒæ ¼åˆ—å·
 	 */
 	public void runCell(int row, int col) {
 		// if (curLct == null) checkLicense();
@@ -2222,7 +2222,7 @@ public class PgmCellSet extends CellSet {
 		if (!cell.needCalculate())
 			return;
 
-		// ±£´æÏÖ³¡
+		// ä¿å­˜ç°åœº
 		CellLocation oldLct = curLct;
 		LinkedList<CmdCode> oldStack = stack;
 
@@ -2288,19 +2288,19 @@ public class PgmCellSet extends CellSet {
 		} finally {
 			// leaveTask();
 
-			// »Ö¸´ÏÖ³¡
+			// æ¢å¤ç°åœº
 			curLct = oldLct;
 			stack = oldStack;
 		}
 	}
 
 	/**
-	 * Ö´ĞĞÖ¸¶¨¸ñ×ÓµÄ×Óº¯Êı£¬¿Éµİ¹éµ÷ÓÃ
-	 * @param row int ×Óº¯ÊıËùÔÚµÄĞĞ
-	 * @param col int ×Óº¯ÊıËùÔÚµÄÁĞ
-	 * @param args Object[] ²ÎÊıÊı×é
-	 * @param opt String i£º²»µİ¹éµ÷ÓÃ£¬²»ÓÃ¸´ÖÆÍø¸ñ
-	 * @return Object ×Óº¯Êı·µ»ØÖµ
+	 * æ‰§è¡ŒæŒ‡å®šæ ¼å­çš„å­å‡½æ•°ï¼Œå¯é€’å½’è°ƒç”¨
+	 * @param row int å­å‡½æ•°æ‰€åœ¨çš„è¡Œ
+	 * @param col int å­å‡½æ•°æ‰€åœ¨çš„åˆ—
+	 * @param args Object[] å‚æ•°æ•°ç»„
+	 * @param opt String iï¼šä¸é€’å½’è°ƒç”¨ï¼Œä¸ç”¨å¤åˆ¶ç½‘æ ¼
+	 * @return Object å­å‡½æ•°è¿”å›å€¼
 	 */
 	public Object executeFunc(int row, int col, Object[] args, String opt) {
 		PgmNormalCell cell = getPgmNormalCell(row, col);
@@ -2325,7 +2325,7 @@ public class PgmCellSet extends CellSet {
 			return result;
 		}
 
-		// ¹²Ïíº¯ÊıÌåÍâµÄ¸ñ×Ó
+		// å…±äº«å‡½æ•°ä½“å¤–çš„æ ¼å­
 		PgmCellSet pcs = newCalc();
 		int colCount = getColCount();
 		for (int r = row; r <= endRow; ++r) {
@@ -2341,8 +2341,8 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ¸ù¾İº¯ÊıÃûÈ¡º¯ÊıĞÅÏ¢
-	 * @param fnName º¯ÊıÃû
+	 * æ ¹æ®å‡½æ•°åå–å‡½æ•°ä¿¡æ¯
+	 * @param fnName å‡½æ•°å
 	 * @return
 	 */
 	public FuncInfo getFuncInfo(String fnName) {
@@ -2350,11 +2350,11 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * Ö´ĞĞÖ¸¶¨Ãû×ÖµÄ×Óº¯Êı£¬¿Éµİ¹éµ÷ÓÃ
-	 * @param funcInfo º¯ÊıĞÅÏ¢
-	 * @param args Object[] ²ÎÊıÊı×é
-	 * @param opt String i£º²»µİ¹éµ÷ÓÃ£¬²»ÓÃ¸´ÖÆÍø¸ñ
-	 * @return Object º¯Êı·µ»ØÖµ
+	 * æ‰§è¡ŒæŒ‡å®šåå­—çš„å­å‡½æ•°ï¼Œå¯é€’å½’è°ƒç”¨
+	 * @param funcInfo å‡½æ•°ä¿¡æ¯
+	 * @param args Object[] å‚æ•°æ•°ç»„
+	 * @param opt String iï¼šä¸é€’å½’è°ƒç”¨ï¼Œä¸ç”¨å¤åˆ¶ç½‘æ ¼
+	 * @return Object å‡½æ•°è¿”å›å€¼
 	 */
 	public Object executeFunc(FuncInfo funcInfo, Object[] args, String opt) {
 		Context ctx = getContext();
@@ -2362,12 +2362,12 @@ public class PgmCellSet extends CellSet {
 	}
 	
 	/**
-	 * Ö´ĞĞÖ¸¶¨Ãû×ÖµÄ×Óº¯Êı£¬¿Éµİ¹éµ÷ÓÃ
-	 * @param funcInfo º¯ÊıĞÅÏ¢
-	 * @param args Object[] ²ÎÊıÊı×é
-	 * @param opt String i£º²»µİ¹éµ÷ÓÃ£¬²»ÓÃ¸´ÖÆÍø¸ñ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Object º¯Êı·µ»ØÖµ
+	 * æ‰§è¡ŒæŒ‡å®šåå­—çš„å­å‡½æ•°ï¼Œå¯é€’å½’è°ƒç”¨
+	 * @param funcInfo å‡½æ•°ä¿¡æ¯
+	 * @param args Object[] å‚æ•°æ•°ç»„
+	 * @param opt String iï¼šä¸é€’å½’è°ƒç”¨ï¼Œä¸ç”¨å¤åˆ¶ç½‘æ ¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return Object å‡½æ•°è¿”å›å€¼
 	 */
 	public Object executeFunc(FuncInfo funcInfo, Object[] args, String opt, Context ctx) {
 		PgmNormalCell cell = funcInfo.getCell();
@@ -2376,11 +2376,11 @@ public class PgmCellSet extends CellSet {
 		int colCount = getColCount();
 		int endRow = getCodeBlockEndRow(row, col);
 
-		// ¹²Ïíº¯ÊıÌåÍâµÄ¸ñ×Ó
+		// å…±äº«å‡½æ•°ä½“å¤–çš„æ ¼å­
 		PgmCellSet pcs = newCalc(ctx);
 		String[] argNames = funcInfo.getArgNames();
 		if (argNames != null) {
-			// °Ñ²ÎÊıÉèµ½ÉÏÏÂÎÄÖĞ
+			// æŠŠå‚æ•°è®¾åˆ°ä¸Šä¸‹æ–‡ä¸­
 			int argCount = argNames.length;
 			if (args == null || args.length != argCount) {
 				MessageManager mm = EngineMessage.get();
@@ -2403,16 +2403,16 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// ¶¨ÒåÁËÃû×ÖºÍ²ÎÊıµÄº¯Êı²»ÔÙ½«²ÎÊıÌîÈëµ¥Ôª¸ñ
+		// å®šä¹‰äº†åå­—å’Œå‚æ•°çš„å‡½æ•°ä¸å†å°†å‚æ•°å¡«å…¥å•å…ƒæ ¼
 		return pcs.executeFunc(row, col, endRow, null); // args
 	}
 	
 	/**
-	 * Ö´ĞĞÖ¸¶¨Ãû×ÖµÄ×Óº¯Êı£¬¿Éµİ¹éµ÷ÓÃ
-	 * @param fnName º¯ÊıÃû
-	 * @param args Object[] ²ÎÊıÊı×é
-	 * @param opt String i£º²»µİ¹éµ÷ÓÃ£¬²»ÓÃ¸´ÖÆÍø¸ñ
-	 * @return Object º¯Êı·µ»ØÖµ
+	 * æ‰§è¡ŒæŒ‡å®šåå­—çš„å­å‡½æ•°ï¼Œå¯é€’å½’è°ƒç”¨
+	 * @param fnName å‡½æ•°å
+	 * @param args Object[] å‚æ•°æ•°ç»„
+	 * @param opt String iï¼šä¸é€’å½’è°ƒç”¨ï¼Œä¸ç”¨å¤åˆ¶ç½‘æ ¼
+	 * @return Object å‡½æ•°è¿”å›å€¼
 	 */
 	public Object executeFunc(String fnName, Object[] args, String opt) {
 		FuncInfo funcInfo = getFuncInfo(fnName);
@@ -2427,7 +2427,7 @@ public class PgmCellSet extends CellSet {
 	private Object executeFunc(int row, int col, int endRow, Object[] args) {
 		int colCount = getColCount();
 
-		// °Ñ²ÎÊıÖµÉèµ½funcµ¥Ôª¸ñÉÏ¼°ºóÃæµÄ¸ñ×Ó
+		// æŠŠå‚æ•°å€¼è®¾åˆ°funcå•å…ƒæ ¼ä¸ŠåŠåé¢çš„æ ¼å­
 		if (args != null) {
 			int paramRow = row;
 			int paramCol = col;
@@ -2449,11 +2449,11 @@ public class PgmCellSet extends CellSet {
 		}
 
 		curLct = new CellLocation(row, col);
-		setNext(row, col + 1, false); // ´Ó×Ó¸ñ¿ªÊ¼Ö´ĞĞ
+		setNext(row, col + 1, false); // ä»å­æ ¼å¼€å§‹æ‰§è¡Œ
 
 		for (; curLct != null;) {
 			int curRow = curLct.getRow();
-			if (curRow > endRow) { // ³¬³öÁË´úÂë¿é£¬Ã»ÓĞreturn¸ñ
+			if (curRow > endRow) { // è¶…å‡ºäº†ä»£ç å—ï¼Œæ²¡æœ‰returnæ ¼
 				break;
 			}
 
@@ -2475,7 +2475,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// Î´Åöµ½returnÈ±Ê¡·µ»Ø´úÂë¿éÖĞ×îºóÒ»¸ö¼ÆËã¸ñÖµ
+		// æœªç¢°åˆ°returnç¼ºçœè¿”å›ä»£ç å—ä¸­æœ€åä¸€ä¸ªè®¡ç®—æ ¼å€¼
 		for (int r = endRow; r >= row; --r) {
 			for (int c = colCount; c > col; --c) {
 				PgmNormalCell cell = getPgmNormalCell(r, c);
@@ -2489,11 +2489,11 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * Ö´ĞĞ×Óº¯Êı£¬²»¿Éµİ¹éµ÷ÓÃ
-	 * @param row int ×Óº¯ÊıËùÔÚµÄĞĞ
-	 * @param col int ×Óº¯ÊıËùÔÚµÄÁĞ
-	 * @param args Object[] ²ÎÊıÊı×é
-	 * @return Object ×Óº¯Êı·µ»ØÖµ
+	 * æ‰§è¡Œå­å‡½æ•°ï¼Œä¸å¯é€’å½’è°ƒç”¨
+	 * @param row int å­å‡½æ•°æ‰€åœ¨çš„è¡Œ
+	 * @param col int å­å‡½æ•°æ‰€åœ¨çš„åˆ—
+	 * @param args Object[] å‚æ•°æ•°ç»„
+	 * @return Object å­å‡½æ•°è¿”å›å€¼
 	 */
 	/*
 	 * public Object executeFunc_nr(int row, int col, Object []args) { if (row <
@@ -2506,7 +2506,7 @@ public class PgmCellSet extends CellSet {
 	 * MessageManager mm = EngineMessage.get(); throw new
 	 * RQException(mm.getMessage("engine.callNeedSub")); }
 	 * 
-	 * // °Ñ²ÎÊıÖµÉèµ½funcµ¥Ôª¸ñÉÏ¼°ºóÃæµÄ¸ñ×Ó if (args != null) { int paramRow = row; int
+	 * // æŠŠå‚æ•°å€¼è®¾åˆ°funcå•å…ƒæ ¼ä¸ŠåŠåé¢çš„æ ¼å­ if (args != null) { int paramRow = row; int
 	 * paramCol = col; for (int i = 0, pcount = args.length; i < pcount; ++i) {
 	 * getPgmNormalCell(paramRow, paramCol).setValue(args[i]); if (paramCol <
 	 * getColCount()) { paramCol++; } else { break; //if (paramRow ==
@@ -2516,28 +2516,28 @@ public class PgmCellSet extends CellSet {
 	 * //paramCol = 1; } } }
 	 * 
 	 * 
-	 * // ±£´æÏÖ³¡ CellLocation oldLct = curLct; LinkedList <CmdCode> oldStack =
+	 * // ä¿å­˜ç°åœº CellLocation oldLct = curLct; LinkedList <CmdCode> oldStack =
 	 * stack;
 	 * 
 	 * try { curLct = new CellLocation(row, col); stack = new LinkedList
-	 * <CmdCode>(); setNext(row, col + 1, false); // ´Ó×Ó¸ñ¿ªÊ¼Ö´ĞĞ int endRow =
+	 * <CmdCode>(); setNext(row, col + 1, false); // ä»å­æ ¼å¼€å§‹æ‰§è¡Œ int endRow =
 	 * getCodeBlockEndRow(row, col);
 	 * 
 	 * for (; curLct != null;) { int curRow = curLct.getRow(); if (curRow >
-	 * endRow) { // ³¬³öÁË´úÂë¿é£¬Ã»ÓĞreturn¸ñ return null; }
+	 * endRow) { // è¶…å‡ºäº†ä»£ç å—ï¼Œæ²¡æœ‰returnæ ¼ return null; }
 	 * 
 	 * int curCol = curLct.getCol(); cell = getPgmNormalCell(curRow, curCol);
 	 * cmd = cell.getCommand(); if (cmd == null) { runNext2(); } else if
 	 * (cmd.getType() == Command.RETURN) { Context ctx = getContext();
 	 * Expression exp = cmd.getExpression(this, ctx); if (exp != null) { return
 	 * exp.calculate(ctx); } else { return null; } } else { runNext2(); } } }
-	 * finally { // »Ö¸´ÏÖ³¡ curLct = oldLct; stack = oldStack; }
+	 * finally { // æ¢å¤ç°åœº curLct = oldLct; stack = oldStack; }
 	 * 
 	 * return null; }
 	 */
 
 	/**
-	 * ½áÊøÔËĞĞ£¬ÊÍ·Å×ÊÔ´£¬¸ñÖµÈÔ±£Áô
+	 * ç»“æŸè¿è¡Œï¼Œé‡Šæ”¾èµ„æºï¼Œæ ¼å€¼ä»ä¿ç•™
 	 */
 	public void runFinished() {
 		super.runFinished();
@@ -2621,7 +2621,7 @@ public class PgmCellSet extends CellSet {
 				if (cell.isBlankCell() || cell.isNoteCell())
 					continue;
 				if (cell.isNoteBlock()) {
-					// Ìø¹ı×¢ÊÍ¿é
+					// è·³è¿‡æ³¨é‡Šå—
 					r = getCodeBlockEndRow(r, c);
 					break;
 				}
@@ -2641,17 +2641,17 @@ public class PgmCellSet extends CellSet {
 		return null;
 	}
 
-	// callÊÇ·ñ±»ÖĞ¶Ï
+	// callæ˜¯å¦è¢«ä¸­æ–­
 	public boolean isCallInterrupted() {
 		return curLct != null && resultValue == null;
 	}
 
 	/**
-	 * ¼ÆËãÍø¸ñ£¬·µ»Øresultµ¥Ôª¸ñµÄÖµ
+	 * è®¡ç®—ç½‘æ ¼ï¼Œè¿”å›resultå•å…ƒæ ¼çš„å€¼
 	 * @return Object
 	 */
 	public Object execute() {
-		// ÔËËãµÚÒ»¸öresultÓï¾ä
+		// è¿ç®—ç¬¬ä¸€ä¸ªresultè¯­å¥
 		resultValue = null;
 		while (runNext2() != null && resultValue == null) {
 			if (isInterrupted) {
@@ -2669,12 +2669,12 @@ public class PgmCellSet extends CellSet {
 				return resultValue;
 			}
 		} else {
-			// Î´Åöµ½resultºÍendÈ±Ê¡·µ»Ø´úÂëÖĞ×îºóÒ»¸ö¼ÆËã¸ñÖµ
+			// æœªç¢°åˆ°resultå’Œendç¼ºçœè¿”å›ä»£ç ä¸­æœ€åä¸€ä¸ªè®¡ç®—æ ¼å€¼
 			return getLastCalculableCellValue();
 		}
 	}
 
-	// È¡×îºóÒ»¸ö¼ÆËã¸ñµÄ¸ñÖµ
+	// å–æœ€åä¸€ä¸ªè®¡ç®—æ ¼çš„æ ¼å€¼
 	public Object getLastCalculableCellValue() {
 		int colCount = getColCount();
 		for (int r = getRowCount(); r > 0; --r) {
@@ -2693,21 +2693,21 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ¿ªÊ¼¼ÆËãÍø¸ñ·µ»Ø½á¹û
+	 * å¼€å§‹è®¡ç®—ç½‘æ ¼è¿”å›ç»“æœ
 	 */
 	public void calculateResult() {
 		execute();
 	}
 
 	/**
-	 * ÊÇ·ñ»¹ÓĞ½á¹û·µ»Ø
+	 * æ˜¯å¦è¿˜æœ‰ç»“æœè¿”å›
 	 * @return boolean
 	 */
 	public boolean hasNextResult() {
 		if (resultValue != null && resultValue.length() > 0) {
 			return true;
 		} else if (curLct == null) {
-			return false; // ¼ÆËãÍê±Ï
+			return false; // è®¡ç®—å®Œæ¯•
 		} else {
 			resultValue = null;
 			resultCurrent = 0;
@@ -2722,13 +2722,13 @@ public class PgmCellSet extends CellSet {
 		}
 	}
 
-	// ÊÇ·ñÖ´ĞĞµ½ÁËreturnÓï¾ä
+	// æ˜¯å¦æ‰§è¡Œåˆ°äº†returnè¯­å¥
 	public boolean hasReturn() {
 		return hasReturn;
 	}
 
 	/**
-	 * È¡ÏÂÒ»¸ö½á¹û
+	 * å–ä¸‹ä¸€ä¸ªç»“æœ
 	 * @return Object
 	 */
 	public Object nextResult() {
@@ -2736,7 +2736,7 @@ public class PgmCellSet extends CellSet {
 			return null;
 
 		if (resultCurrent < 1)
-			resultCurrent = 1; // Ê×´ÎÈ¡
+			resultCurrent = 1; // é¦–æ¬¡å–
 
 		Object obj = resultValue.get(resultCurrent);
 		if (resultCurrent < resultValue.length()) {
@@ -2750,7 +2750,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * È¡ÏÂÒ»¸ö½á¹ûµÄÎ»ÖÃ
+	 * å–ä¸‹ä¸€ä¸ªç»“æœçš„ä½ç½®
 	 * @return CellLocation
 	 */
 	public CellLocation nextResultLocation() {
@@ -2760,7 +2760,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ÖĞ¶ÏÖ´ĞĞ£¬ÒÔµ¥Ôª¸ñÎªµ¥Î»
+	 * ä¸­æ–­æ‰§è¡Œï¼Œä»¥å•å…ƒæ ¼ä¸ºå•ä½
 	 */
 	public void interrupt() {
 		interrupt = true;
@@ -2772,7 +2772,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ×Ô¶¯¼ÆËã
+	 * è®¾ç½®æ˜¯å¦è‡ªåŠ¨è®¡ç®—
 	 * @param b boolean
 	 */
 	public void setAutoCalc(boolean b) {
@@ -2784,7 +2784,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ·µ»ØÊÇ·ñ×Ô¶¯¼ÆËã
+	 * è¿”å›æ˜¯å¦è‡ªåŠ¨è®¡ç®—
 	 * @return boolean
 	 */
 	public boolean isAutoCalc() {
@@ -2792,7 +2792,7 @@ public class PgmCellSet extends CellSet {
 	}
 	
 	/**
-	 * ÉèÖÃ×îºóÒ»¸ö²ÎÊıÊÇ·ñÊÇ¶¯Ì¬²ÎÊı
+	 * è®¾ç½®æœ€åä¸€ä¸ªå‚æ•°æ˜¯å¦æ˜¯åŠ¨æ€å‚æ•°
 	 * @param b boolean
 	 */
 	public void setDynamicParam(boolean b) {
@@ -2804,7 +2804,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ·µ»Ø×îºóÒ»¸ö²ÎÊıÊÇ·ñÊÇ¶¯Ì¬²ÎÊı
+	 * è¿”å›æœ€åä¸€ä¸ªå‚æ•°æ˜¯å¦æ˜¯åŠ¨æ€å‚æ•°
 	 * @return boolean
 	 */
 	public boolean isDynamicParam() {
@@ -2820,7 +2820,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * È¡×Ô¶¨ÒåÊôĞÔÓ³Éä
+	 * å–è‡ªå®šä¹‰å±æ€§æ˜ å°„
 	 * @return ByteMap
 	 */
 	public ByteMap getCustomPropMap() {
@@ -2828,7 +2828,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ÉèÖÃ×Ô¶¨ÒåÊôĞÔÓ³Éä
+	 * è®¾ç½®è‡ªå®šä¹‰å±æ€§æ˜ å°„
 	 * @param map ByteMap
 	 */
 	public void setCustomPropMap(ByteMap map) {
@@ -2838,7 +2838,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ÉèÖÃÃÜÂë
+	 * è®¾ç½®å¯†ç 
 	 * @param psw String
 	 */
 	public void setPassword(String psw) {
@@ -2855,23 +2855,23 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ÉèÖÃÎŞÃÜÂëµÇÂ½Ê±µÄÈ¨ÏŞ
-	 * @param p int£ºPRIVILEGE_FULL¡¢PRIVILEGE_EXEC
+	 * è®¾ç½®æ— å¯†ç ç™»é™†æ—¶çš„æƒé™
+	 * @param p intï¼šPRIVILEGE_FULLã€PRIVILEGE_EXEC
 	 */
 	// public void setNullPasswordPrivilege(int p) {
 	// this.nullPswPrivilege = p;
 	// }
 
 	/**
-	 * È¡ÎŞÃÜÂëµÇÂ½Ê±µÄÈ¨ÏŞ
-	 * @return int£ºPRIVILEGE_FULL¡¢PRIVILEGE_EXEC
+	 * å–æ— å¯†ç ç™»é™†æ—¶çš„æƒé™
+	 * @return intï¼šPRIVILEGE_FULLã€PRIVILEGE_EXEC
 	 */
 	public int getNullPasswordPrivilege() {
 		return this.nullPswPrivilege;
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÃÜÂë
+	 * è®¾ç½®å½“å‰çš„å¯†ç 
 	 * @param psw String
 	 */
 	public void setCurrentPassword(String psw) {
@@ -2897,7 +2897,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°Íø¸ñµÄÈ¨ÏŞ
+	 * è¿”å›å½“å‰ç½‘æ ¼çš„æƒé™
 	 * @return int
 	 */
 	public int getCurrentPrivilege() {
@@ -2910,7 +2910,7 @@ public class PgmCellSet extends CellSet {
 
 	public HashMap<String, FuncInfo> getFunctionMap() {
 		if (fnMap == null) {
-			// ±éÀúÍø¸ñÖĞ¶¨ÒåµÄº¯Êı£¬Éú³Éº¯ÊıÃûÓ³Éä±í
+			// éå†ç½‘æ ¼ä¸­å®šä¹‰çš„å‡½æ•°ï¼Œç”Ÿæˆå‡½æ•°åæ˜ å°„è¡¨
 			fnMap = new HashMap<String, FuncInfo>();
 			int rowCount = getRowCount();
 			int colCount = getColCount();

@@ -1,15 +1,15 @@
 package com.scudata.lib.informix.helper;
 
 public class ImColumn {
-	public int	  nIndex;	//ÁĞË÷ÒıºÅ
-	public String colName;	//ÁĞÃû
-	public String colType;	//Êı¾İÀàĞÍÃû³Æ
-	public DATA_TYPE nType;	//Êı¾İÀàĞÍ±êÊ¶
-	public short nColLength;//Êı¾İ³¤¶È£¨datetime£©
-	public short nSize;		//Êı¾İ³¤¶È(decimalÇ°Ãæ²¿·Ö³¤¶È)
-	public short nStartSize;//Êı¾İ³¤¶È(decimalÇ°Ãæ²¿·Ö³¤¶È)
-	public short nEndSize;	//decimalºóÃæ²¿·Ö³¤¶È
-	public Object value;	//½á¹ûÖµ.(row, col¶ÔÓ¦µÄÖµ)
+	public int	  nIndex;	//åˆ—ç´¢å¼•å·
+	public String colName;	//åˆ—å
+	public String colType;	//æ•°æ®ç±»å‹åç§°
+	public DATA_TYPE nType;	//æ•°æ®ç±»å‹æ ‡è¯†
+	public short nColLength;//æ•°æ®é•¿åº¦ï¼ˆdatetimeï¼‰
+	public short nSize;		//æ•°æ®é•¿åº¦(decimalå‰é¢éƒ¨åˆ†é•¿åº¦)
+	public short nStartSize;//æ•°æ®é•¿åº¦(decimalå‰é¢éƒ¨åˆ†é•¿åº¦)
+	public short nEndSize;	//decimalåé¢éƒ¨åˆ†é•¿åº¦
+	public Object value;	//ç»“æœå€¼.(row, colå¯¹åº”çš„å€¼)
 	
 	// dataType: blob,clob, text, byte not support
 	public enum DATA_TYPE{

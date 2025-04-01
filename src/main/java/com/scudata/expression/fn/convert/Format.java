@@ -8,14 +8,14 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ´´½¨¸ñÊ½»¯µÄ×Ö·û´®
- * format (s,¡­) Éú³É´®£¬¡­±íÊ¾sµÄ²ÎÊı£¬Í¨¹ıJava¸ñÊ½²Ù×÷£¬Ê¹ÈÎÒâÀàĞÍµÄÊı¾İ×ª»»³ÉÒ»¸ö×Ö·û´®¡£
+ * åˆ›å»ºæ ¼å¼åŒ–çš„å­—ç¬¦ä¸²
+ * format (s,â€¦) ç”Ÿæˆä¸²ï¼Œâ€¦è¡¨ç¤ºsçš„å‚æ•°ï¼Œé€šè¿‡Javaæ ¼å¼æ“ä½œï¼Œä½¿ä»»æ„ç±»å‹çš„æ•°æ®è½¬æ¢æˆä¸€ä¸ªå­—ç¬¦ä¸²ã€‚
  * @author runqian
  *
  */
 public class Format extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

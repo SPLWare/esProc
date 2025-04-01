@@ -20,19 +20,19 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JTableEx;
 
 /**
- * È±Ê§Öµ¶¨Òå
+ * ç¼ºå¤±å€¼å®šä¹‰
  *
  */
 public class DialogMissingFormat extends RQDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
-	 * @param owner ¸¸×é¼ş
+	 * @param owner çˆ¶ç»„ä»¶
 	 */
 	public DialogMissingFormat(Dialog parent) {
-		super(parent, "È±Ê§Öµ¶¨Òå");
+		super(parent, "ç¼ºå¤±å€¼å®šä¹‰");
 		try {
 			init();
 			GM.centerWindow(this);
@@ -42,7 +42,7 @@ public class DialogMissingFormat extends RQDialog {
 	}
 
 	/**
-	 * ÉèÖÃÈ±Ê§Öµ¶¨Òå
+	 * è®¾ç½®ç¼ºå¤±å€¼å®šä¹‰
 	 * 
 	 * @param missingExps
 	 */
@@ -61,7 +61,7 @@ public class DialogMissingFormat extends RQDialog {
 	}
 
 	/**
-	 * È¡È±Ê§Öµ¶¨Òå
+	 * å–ç¼ºå¤±å€¼å®šä¹‰
 	 * 
 	 * @return
 	 */
@@ -81,11 +81,11 @@ public class DialogMissingFormat extends RQDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		MessageManager mm = IdeCommonMessage.get();
-		setTitle(mm.getMessage("dialognullstrings.title")); // È±Ê§Öµ¶¨Òå
+		setTitle(mm.getMessage("dialognullstrings.title")); // ç¼ºå¤±å€¼å®šä¹‰
 		tableList = new JTableEx(new String[] { mm.getMessage("dialognullstrings.nullstrings") });
 		panelCenter.add(new JScrollPane(tableList), BorderLayout.CENTER);
 		JLabel labelNote = new JLabel(mm.getMessage("dialognullstrings.casesen"));
@@ -117,19 +117,19 @@ public class DialogMissingFormat extends RQDialog {
 	}
 
 	/**
-	 * Ôö¼Ó°´Å¥
+	 * å¢åŠ æŒ‰é’®
 	 */
 	private JButton buttonAdd = GM.getCommonIconButton(GM.B_ADD);
 	/**
-	 * É¾³ı°´Å¥
+	 * åˆ é™¤æŒ‰é’®
 	 */
 	private JButton buttonDel = GM.getCommonIconButton(GM.B_DEL);
 	/**
-	 * ±í´ïÊ½ÁĞ
+	 * è¡¨è¾¾å¼åˆ—
 	 */
 	private final int COL_EXP = 0;
 	/**
-	 * ÁĞ±í¿Ø¼ş
+	 * åˆ—è¡¨æ§ä»¶
 	 */
 	private JTableEx tableList;
 }

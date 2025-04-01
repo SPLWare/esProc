@@ -4,7 +4,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 
 /**
- * 用于产生遍历游标数据的Job
+ * 鐢ㄤ簬浜х敓閬嶅巻娓告爣鏁版嵁鐨凧ob
  * @author WangXiaoJun
  *
  */

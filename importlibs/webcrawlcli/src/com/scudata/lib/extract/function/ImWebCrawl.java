@@ -110,7 +110,7 @@ public class ImWebCrawl extends ImFunction {
 	    		}
 	    	}	    		
     	}
-    	//获取初始化的url.
+    	//鑾峰彇鍒濆鍖栫殑url.
     	List<String> urls = new ArrayList<String>();
     	for(String k:m.keySet()){
     		if (k.startsWith("init_url_")){

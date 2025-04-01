@@ -6,8 +6,8 @@ import com.scudata.expression.OperableFunction;
 import com.scudata.expression.ParamInfo2;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼Ó¶Ô×Ö¶Î½øĞĞÖØÃüÃûÔËËã
- * op.rename(F:F',¡­) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ å¯¹å­—æ®µè¿›è¡Œé‡å‘½åè¿ç®—
+ * op.rename(F:F',â€¦) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */

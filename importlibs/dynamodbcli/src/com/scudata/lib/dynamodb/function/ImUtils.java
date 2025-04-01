@@ -56,7 +56,7 @@ public class ImUtils {
 		return null;
 	}
 
-	// 输出修改时间，如2009-08-17
+	// 杈撳嚭淇敼鏃堕棿锛屽2009-08-17
 	public static String getModifiedTime(String fname) {
 		File f = new File(fname);
 		Calendar cal = Calendar.getInstance();

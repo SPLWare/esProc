@@ -7,13 +7,13 @@ import com.scudata.dm.Context;
 import com.scudata.dm.ParamList;
 
 /**
- * ±í´ïÊ½ÀïÔËËã·û½Úµã»ùÀà
+ * è¡¨è¾¾å¼é‡Œè¿ç®—ç¬¦èŠ‚ç‚¹åŸºç±»
  * @author RunQian
  *
  */
 public abstract class Operator extends Node {
-	protected Node left; // ×ó½Úµã
-	protected Node right; // ÓÒ½Úµã
+	protected Node left; // å·¦èŠ‚ç‚¹
+	protected Node right; // å³èŠ‚ç‚¹
 
 	public void setLeft(Node node) {
 		this.left = node;
@@ -53,7 +53,7 @@ public abstract class Operator extends Node {
 	}
 	
 	/**
-	 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+	 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 	 */
 	public void reset() {
 		if (left != null) left.reset();
@@ -72,7 +72,7 @@ public abstract class Operator extends Node {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+	 * åˆ¤æ–­æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 	 * @return
 	 */
 	public boolean canCalculateAll() {

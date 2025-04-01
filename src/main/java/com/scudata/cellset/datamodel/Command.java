@@ -17,7 +17,7 @@ import com.scudata.expression.ParamParser;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ³ÌĞòÍø¸ñÀïµÄÓï¾ä£¬if¡¢forµÈ
+ * ç¨‹åºç½‘æ ¼é‡Œçš„è¯­å¥ï¼Œifã€forç­‰
  * @author WangXiaoJun
  *
  */
@@ -34,7 +34,7 @@ public class Command {
 	public static final byte FUNC = 8;
 	public static final byte RETURN = 9;
 	public static final byte END = 10;
-	public static final byte RESULT = 11; // Íø¸ñ·µ»ØÖµ
+	public static final byte RESULT = 11; // ç½‘æ ¼è¿”å›å€¼
 
 	public static final byte SQL = 12;
 	public static final byte CLEAR = 13;
@@ -44,8 +44,8 @@ public class Command {
 	public static final byte REDUCE = 16;
 	public static final byte GOTO = 17;
 	
-	public static final byte CHANNEL = 18; // ¹ÜµÀ
-	public static final byte TRY = 19; // Òì³£²¶×½
+	public static final byte CHANNEL = 18; // ç®¡é“
+	public static final byte TRY = 19; // å¼‚å¸¸æ•æ‰
 
 	private static final HashMap<String, Byte> keyMap = new HashMap<String, Byte>(20);
 	static {
@@ -72,31 +72,31 @@ public class Command {
 		keyMap.put("try", new Byte(TRY));
 	}
 
-	private byte type; // ÃüÁîÀàĞÍ
+	private byte type; // å‘½ä»¤ç±»å‹
 
 	/**
-	 * goto£º  µ¥Ôª¸ñÎ»ÖÃ
-	 * break  forËùÔÚ¸ñµÄÎ»ÖÃ
-	 * next£º  forËùÔÚ¸ñµÄÎ»ÖÃ
+	 * gotoï¼š  å•å…ƒæ ¼ä½ç½®
+	 * break  foræ‰€åœ¨æ ¼çš„ä½ç½®
+	 * nextï¼š  foræ‰€åœ¨æ ¼çš„ä½ç½®
 	 */
 	private String lctStr;
 	private CellLocation lct;
 
 	/**
-	 * if£º    Ìõ¼ş±í´ïÊ½
-	 * elseif: Ìõ¼ş±í´ïÊ½
-	 * for£º   Ñ­»·ĞòÁĞ±í´ïÊ½
-	 * func c£º  ²ÎÊı±í´ïÊ½
-	 * return£º·µ»ØÖµ±í´ïÊ½
+	 * ifï¼š    æ¡ä»¶è¡¨è¾¾å¼
+	 * elseif: æ¡ä»¶è¡¨è¾¾å¼
+	 * forï¼š   å¾ªç¯åºåˆ—è¡¨è¾¾å¼
+	 * func cï¼š  å‚æ•°è¡¨è¾¾å¼
+	 * returnï¼šè¿”å›å€¼è¡¨è¾¾å¼
 	 */
 	protected String expStr;
 	private IParam param;
 
 	/**
-	 * ¹¹½¨Óï¾ä¶ÔÏó
-	 * @param type Óï¾äÀàĞÍ
-	 * @param lctStr µ¥Ôª¸ñ±êÊ¶·û
-	 * @param expStr ±í´ïÊ½´®
+	 * æ„å»ºè¯­å¥å¯¹è±¡
+	 * @param type è¯­å¥ç±»å‹
+	 * @param lctStr å•å…ƒæ ¼æ ‡è¯†ç¬¦
+	 * @param expStr è¡¨è¾¾å¼ä¸²
 	 */
 	public Command(byte type, String lctStr, String expStr) {
 		this.type = type;
@@ -116,9 +116,9 @@ public class Command {
 	}
 
 	/**
-	 * È¡Óï¾äÒıÓÃµÄµ¥Ôª¸ñ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return µ¥Ôª¸ñÎ»ÖÃ
+	 * å–è¯­å¥å¼•ç”¨çš„å•å…ƒæ ¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å•å…ƒæ ¼ä½ç½®
 	 */
 	public CellLocation getCellLocation(Context ctx) {
 		if (lct != null) {
@@ -137,15 +137,15 @@ public class Command {
 	}
 
 	/**
-	 * È¡Óï¾ä²ÎÊı±í´ïÊ½×Ö·û´®
-	 * @return ²ÎÊı±í´ïÊ½×Ö·û´®
+	 * å–è¯­å¥å‚æ•°è¡¨è¾¾å¼å­—ç¬¦ä¸²
+	 * @return å‚æ•°è¡¨è¾¾å¼å­—ç¬¦ä¸²
 	 */
 	public String getExpression() {
 		return expStr;
 	}
 
 	/**
-	 * È¡Óï¾äµÄ²ÎÊı
+	 * å–è¯­å¥çš„å‚æ•°
 	 * @param cs
 	 * @param ctx
 	 * @return
@@ -159,10 +159,10 @@ public class Command {
 	}
 	
 	/**
-	 * È¡Óï¾ä²ÎÊı¶ÔÓ¦µÄ±í´ïÊ½£¬´ËÓï¾äÖ»ÓĞÒ»¸ö²ÎÊı
-	 * @param cs Íø¸ñ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ±í´ïÊ½¶ÔÏó
+	 * å–è¯­å¥å‚æ•°å¯¹åº”çš„è¡¨è¾¾å¼ï¼Œæ­¤è¯­å¥åªæœ‰ä¸€ä¸ªå‚æ•°
+	 * @param cs ç½‘æ ¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return è¡¨è¾¾å¼å¯¹è±¡
 	 */
 	public Expression getExpression(ICellSet cs, Context ctx) {
 		IParam param = getParam(cs, ctx);
@@ -181,10 +181,10 @@ public class Command {
 	}
 
 	/**
-	 * È¡Óï¾ä²ÎÊı¶ÔÓ¦µÄ±í´ïÊ½Êı×é£¬´ËÓï¾ä¿ÉÒÔÓĞ¶à¸ö²ÎÊı
-	 * @param cs Íø¸ñ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ±í´ïÊ½¶ÔÏóÊı×é
+	 * å–è¯­å¥å‚æ•°å¯¹åº”çš„è¡¨è¾¾å¼æ•°ç»„ï¼Œæ­¤è¯­å¥å¯ä»¥æœ‰å¤šä¸ªå‚æ•°
+	 * @param cs ç½‘æ ¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return è¡¨è¾¾å¼å¯¹è±¡æ•°ç»„
 	 */
 	public Expression[] getExpressions(ICellSet cs, Context ctx) {
 		IParam param = getParam(cs, ctx);
@@ -205,26 +205,26 @@ public class Command {
 	}
 
 	/**
-	 * ÅĞ¶Ï±í´ïÊÇ·ñÊÇresultÓï¾ä
-	 * @param cmdStr ±í´ïÊ½´®
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­è¡¨è¾¾æ˜¯å¦æ˜¯resultè¯­å¥
+	 * @param cmdStr è¡¨è¾¾å¼ä¸²
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isResultCommand(String cmdStr) {
 		return cmdStr.startsWith("result");
 	}
 
 	/**
-	 * ÅĞ¶Ï±í´ïÊÇ·ñÊÇsqlÓï¾ä
-	 * @param cmdStr ±í´ïÊ½´®
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­è¡¨è¾¾æ˜¯å¦æ˜¯sqlè¯­å¥
+	 * @param cmdStr è¡¨è¾¾å¼ä¸²
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isSqlCommand(String cmdStr) {
 		return cmdStr != null && cmdStr.length() > 0 && cmdStr.charAt(0) == '$';
 	}
 
 	/**
-	 * ÅĞ¶Ï±í´ïÊ½ÊÇ·ñÊÇÓï¾ä
-	 * @param cmdStr ±í´ïÊ½´®
+	 * åˆ¤æ–­è¡¨è¾¾å¼æ˜¯å¦æ˜¯è¯­å¥
+	 * @param cmdStr è¡¨è¾¾å¼ä¸²
 	 * @return
 	 */
 	public static boolean isCommand(String cmdStr) {
@@ -245,9 +245,9 @@ public class Command {
 	}
 
 	/**
-	 * °Ñ´®½âÎö³ÉÏàÓ¦µÄÓï¾ä
-	 * @param cmdStr±í´ïÊ½´®
-	 * @return Óï¾ä
+	 * æŠŠä¸²è§£ææˆç›¸åº”çš„è¯­å¥
+	 * @param cmdStrè¡¨è¾¾å¼ä¸²
+	 * @return è¯­å¥
 	 */
 	public static Command parse(String cmdStr) {
 		if (cmdStr == null || cmdStr.length() == 0) {
@@ -270,7 +270,7 @@ public class Command {
 		}
 	}
 
-	// Ìø¹ıÒıºÅÄÚµÄ×Ö·û
+	// è·³è¿‡å¼•å·å†…çš„å­—ç¬¦
 	private static int scanSemicolon(String str, int start) {
 		int idx = 0, len = str.length();
 		while(idx < len) {
@@ -284,7 +284,7 @@ public class Command {
 				
 				idx ++;
 			} else if (ch == '{') {
-				// »¨À¨ºÅÄÚÊÇ¼¯ËãÆ÷±í´ïÊ½¿ÉÄÜº¬ÒıºÅ
+				// èŠ±æ‹¬å·å†…æ˜¯é›†ç®—å™¨è¡¨è¾¾å¼å¯èƒ½å«å¼•å·
 				idx = Sentence.scanBrace(str, idx);
 				if(idx < 0) {
 					MessageManager mm = EngineMessage.get();
@@ -366,7 +366,7 @@ public class Command {
 		case END:
 		case FORK:
 		case CHANNEL:
-		case FUNC: // func fn(arg,¡­)
+		case FUNC: // func fn(arg,â€¦)
 			exp = param;
 			break;
 		case CONTINUE:
@@ -401,10 +401,10 @@ public class Command {
 	}
 	
 	/**
-	 * È¡Óï¾äÒıÓÃµ½µÄµ¥Ôª¸ñ
-	 * @param cs Íø¸ñ¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param resultList Êä³ö²ÎÊı£¬´æ·ÅÒıÓÃµ½µÄÍø¸ñ
+	 * å–è¯­å¥å¼•ç”¨åˆ°çš„å•å…ƒæ ¼
+	 * @param cs ç½‘æ ¼å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param resultList è¾“å‡ºå‚æ•°ï¼Œå­˜æ”¾å¼•ç”¨åˆ°çš„ç½‘æ ¼
 	 */
 	public void getUsedCells(ICellSet cs, Context ctx, List<INormalCell> resultList) {
 		IParam param = getParam(cs, ctx);

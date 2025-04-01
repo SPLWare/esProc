@@ -5,9 +5,9 @@ import java.util.*;
 import com.scudata.common.*;
 
 /**
- * ²ÎÊıĞÅÏ¢ÁĞ±í
+ * å‚æ•°ä¿¡æ¯åˆ—è¡¨
  * 
- * º¯ÊıµÄ¶ÔÏóÔªËØµÄËùÓĞ²ÎÊıµÄ¼¯ºÏ
+ * å‡½æ•°çš„å¯¹è±¡å…ƒç´ çš„æ‰€æœ‰å‚æ•°çš„é›†åˆ
  * @author Joancy
  *
  */
@@ -20,27 +20,27 @@ public class ParamInfoList {
 	private MessageManager mm = FuncMessage.get();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ParamInfoList() {
 	}
 
 	/**
-	 * »ñÈ¡¸ù²ÎÊıĞÅÏ¢ÁĞ±í
-	 * ÓÉÓÚÔªËØµÄ²ÎÊıÍ¨³£±È½Ï¶à£¬ËùÒÔ»á½«²ÎÊı·Ö×éÒÔ·½±ã±à¼­
-	 * ÆäÖĞÍ¨ÓÃµÄ»á·Öµ½¸ù×é
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–æ ¹å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * ç”±äºå…ƒç´ çš„å‚æ•°é€šå¸¸æ¯”è¾ƒå¤šï¼Œæ‰€ä»¥ä¼šå°†å‚æ•°åˆ†ç»„ä»¥æ–¹ä¾¿ç¼–è¾‘
+	 * å…¶ä¸­é€šç”¨çš„ä¼šåˆ†åˆ°æ ¹ç»„
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	private ArrayList<ParamInfo> getrootList() {
 		return rootList;
 	}
 
 	/**
-	 * ×·¼ÓËùÓĞ²ÎÊıĞÅÏ¢
-	 * @param pil ÁíÒ»¸ö²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è¿½åŠ æ‰€æœ‰å‚æ•°ä¿¡æ¯
+	 * @param pil å¦ä¸€ä¸ªå‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public void addAll(ParamInfoList pil) {
-		//pilÖĞ·Ö×éÃû³ÆÒª¸ú±¾²ÎÊı·Ö×éÏàÍ¬Ãû³ÆºÏ²¢
+		//pilä¸­åˆ†ç»„åç§°è¦è·Ÿæœ¬å‚æ•°åˆ†ç»„ç›¸åŒåç§°åˆå¹¶
 		ArrayList<String> groupNames = pil.getGroupNames();
 		for( int i=0; i<groupNames.size(); i++){
 			String grpName = groupNames.get(i);
@@ -53,9 +53,9 @@ public class ParamInfoList {
 	}
 
 	/**
-	 * ½«²ÎÊıĞÅÏ¢pi×·¼Óµ½·Ö×égroupÏÂÃæ
-	 * @param group ×éÃû³Æ
-	 * @param pi ²ÎÊıĞÅÏ¢
+	 * å°†å‚æ•°ä¿¡æ¯piè¿½åŠ åˆ°åˆ†ç»„groupä¸‹é¢
+	 * @param group ç»„åç§°
+	 * @param pi å‚æ•°ä¿¡æ¯
 	 */
 	public void add(String group, ParamInfo pi) {
 		ArrayList<ParamInfo> pis = null;
@@ -79,9 +79,9 @@ public class ParamInfoList {
 	}
 
 	/**
-	 * É¾³ı×égroupÏÂµÄÃûÎªnameµÄ²ÎÊı
-	 * @param group ×éÃû³Æ
-	 * @param name ²ÎÊıÃû³Æ
+	 * åˆ é™¤ç»„groupä¸‹çš„åä¸ºnameçš„å‚æ•°
+	 * @param group ç»„åç§°
+	 * @param name å‚æ•°åç§°
 	 */
 	public void delete(String group, String name){
 		group = mm.getMessage(group);
@@ -89,24 +89,24 @@ public class ParamInfoList {
 	}
 	
 	/**
-	 * Íù¸ù×éÔö¼ÓÒ»¸ö²ÎÊıĞÅÏ¢
-	 * @param pi ²ÎÊıĞÅÏ¢
+	 * å¾€æ ¹ç»„å¢åŠ ä¸€ä¸ªå‚æ•°ä¿¡æ¯
+	 * @param pi å‚æ•°ä¿¡æ¯
 	 */
 	public void add(ParamInfo pi) {
 		rootList.add(pi);
 	}
 	/**
-	 * É¾³ı¸ù×éÏÂµÄÃûÎªnameµÄ²ÎÊı
-	 * @param name ²ÎÊıÃû³Æ
+	 * åˆ é™¤æ ¹ç»„ä¸‹çš„åä¸ºnameçš„å‚æ•°
+	 * @param name å‚æ•°åç§°
 	 */
 	public void delete(String name){
 		delete(rootList,name);
 	}
 	
 	/**
-	 * É¾³ı²ÎÊıĞÅÏ¢ÁĞ±ílistÖĞµÄÃûÎªnameµÄ²ÎÊı
-	 * @param list ²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @param name ²ÎÊıÃû³Æ
+	 * åˆ é™¤å‚æ•°ä¿¡æ¯åˆ—è¡¨listä¸­çš„åä¸ºnameçš„å‚æ•°
+	 * @param list å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @param name å‚æ•°åç§°
 	 */
 	public void delete(ArrayList<ParamInfo> list,String name){
 		for(int i=0; i<list.size();i++){
@@ -119,17 +119,17 @@ public class ParamInfoList {
 	}
 
 	/**
-	 * »ñÈ¡ËùÓĞ×éµÄ×éÃû³Æ
-	 * @return ×éÃû³ÆÁĞ±í
+	 * è·å–æ‰€æœ‰ç»„çš„ç»„åç§°
+	 * @return ç»„åç§°åˆ—è¡¨
 	 */
 	public ArrayList<String> getGroupNames() {
 		return groupNames;
 	}
 
 	/**
-	 * »ñÈ¡ÃûÎªgroupNameµÄ×éµÄËùÓĞ²ÎÊıĞÅÏ¢
-	 * @param groupName ×éÃû³Æ
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–åä¸ºgroupNameçš„ç»„çš„æ‰€æœ‰å‚æ•°ä¿¡æ¯
+	 * @param groupName ç»„åç§°
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ArrayList<ParamInfo> getParams(String groupName) {
 		ArrayList<ParamInfo> pis = null;
@@ -143,17 +143,17 @@ public class ParamInfoList {
 	}
 
 	/**
-	 * »ñÈ¡¸ù×éµÄ²ÎÊıĞÅÏ¢
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–æ ¹ç»„çš„å‚æ•°ä¿¡æ¯
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ArrayList<ParamInfo> getRootParams() {
 		return rootList;
 	}
 
 	/**
-	 * ÔÚËùÓĞ²ÎÊıÖĞÕÒµ½ÃûÎªnameµÄ²ÎÊıĞÅÏ¢
-	 * @param name ²ÎÊıÃû³Æ
-	 * @return ²ÎÊıĞÅÏ¢£¬ÕÒ²»µ½Ê±·µ»Ønull
+	 * åœ¨æ‰€æœ‰å‚æ•°ä¸­æ‰¾åˆ°åä¸ºnameçš„å‚æ•°ä¿¡æ¯
+	 * @param name å‚æ•°åç§°
+	 * @return å‚æ•°ä¿¡æ¯ï¼Œæ‰¾ä¸åˆ°æ—¶è¿”å›null
 	 */
 	public ParamInfo getParamInfoByName(String name) {
 		ArrayList<ParamInfo> aps = getAllParams();
@@ -168,8 +168,8 @@ public class ParamInfoList {
 	}
 
 	/**
-	 * »ñÈ¡ËùÓĞ×éµÄÈ«²¿²ÎÊıĞÅÏ¢
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–æ‰€æœ‰ç»„çš„å…¨éƒ¨å‚æ•°ä¿¡æ¯
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ArrayList<ParamInfo> getAllParams() {
 		ArrayList<ParamInfo> aps = new ArrayList<ParamInfo>();
@@ -189,7 +189,7 @@ public class ParamInfoList {
 	}
 	
 	/**
-	 * ¶ÔËùÓĞ²ÎÊıÖ´ĞĞ¿ÕÖµ¼ì²é
+	 * å¯¹æ‰€æœ‰å‚æ•°æ‰§è¡Œç©ºå€¼æ£€æŸ¥
 	 */
 	public void check(){
 		ArrayList<ParamInfo> all = getAllParams();

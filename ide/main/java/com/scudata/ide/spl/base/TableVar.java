@@ -37,7 +37,7 @@ import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.util.Variant;
 
 /**
- * ±äÁ¿±í¿Ø¼ş
+ * å˜é‡è¡¨æ§ä»¶
  *
  */
 public abstract class TableVar extends JPanel {
@@ -45,22 +45,22 @@ public abstract class TableVar extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ÊÇ·ñ×èÖ¹±ä»¯
+	 * æ˜¯å¦é˜»æ­¢å˜åŒ–
 	 */
 	private boolean preventChange = false;
 
 	/**
-	 * ±äÁ¿ÁĞ±í
+	 * å˜é‡åˆ—è¡¨
 	 */
 	private ParamList vl;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public TableVar() {
 		super(new BorderLayout());
@@ -69,32 +69,32 @@ public abstract class TableVar extends JPanel {
 	}
 
 	/**
-	 * Ñ¡Ôñ±äÁ¿
+	 * é€‰æ‹©å˜é‡
 	 * 
 	 * @param val
-	 *            Öµ
+	 *            å€¼
 	 * @param varName
-	 *            ±äÁ¿Ãû
+	 *            å˜é‡å
 	 */
 	public abstract void select(Object val, String varName);
 
 	/**
-	 * ÉèÖÃ±äÁ¿ÁĞ±í
+	 * è®¾ç½®å˜é‡åˆ—è¡¨
 	 * 
 	 * @param pl
-	 *            ±äÁ¿ÁĞ±í
+	 *            å˜é‡åˆ—è¡¨
 	 */
 	public synchronized void setParamList(ParamList pl) {
 		setParamList(pl, false);
 	}
 
 	/**
-	 * ÉèÖÃ±äÁ¿ÁĞ±í
+	 * è®¾ç½®å˜é‡åˆ—è¡¨
 	 * 
 	 * @param pl
-	 *            ±äÁ¿ÁĞ±í
+	 *            å˜é‡åˆ—è¡¨
 	 * @param isReset
-	 *            ÊÇ·ñĞŞ¸ÄÏÔÊ¾ÖµºóË¢ĞÂµÄ
+	 *            æ˜¯å¦ä¿®æ”¹æ˜¾ç¤ºå€¼ååˆ·æ–°çš„
 	 */
 	public synchronized void setParamList(ParamList pl, boolean isRefresh) {
 		if (setParamThread != null) {
@@ -142,7 +142,7 @@ public abstract class TableVar extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıµÄÏß³Ì
+	 * è®¾ç½®å‚æ•°çš„çº¿ç¨‹
 	 */
 	private SetParamThread setParamThread = null;
 
@@ -151,12 +151,12 @@ public abstract class TableVar extends JPanel {
 
 		private int dispRows;
 		/**
-		 * ÊÇ·ñÍ£Ö¹ÁË
+		 * æ˜¯å¦åœæ­¢äº†
 		 */
 		boolean isStoped = false;
 
 		/**
-		 * ¹¹Ôìº¯Êı
+		 * æ„é€ å‡½æ•°
 		 * 
 		 * @param pl
 		 */
@@ -166,7 +166,7 @@ public abstract class TableVar extends JPanel {
 		}
 
 		/**
-		 * Ö´ĞĞ
+		 * æ‰§è¡Œ
 		 */
 		public void run() {
 			try {
@@ -189,7 +189,7 @@ public abstract class TableVar extends JPanel {
 		}
 
 		/**
-		 * Í£Ö¹Ïß³Ì
+		 * åœæ­¢çº¿ç¨‹
 		 */
 		void stopThread() {
 			isStoped = true;
@@ -197,7 +197,7 @@ public abstract class TableVar extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		JScrollPane jSPTable = new JScrollPane(tableVar);
@@ -256,7 +256,7 @@ public abstract class TableVar extends JPanel {
 	}
 
 	/**
-	 * È¡ÏÔÊ¾ĞĞ
+	 * å–æ˜¾ç¤ºè¡Œ
 	 * 
 	 * @return
 	 */
@@ -267,15 +267,15 @@ public abstract class TableVar extends JPanel {
 		return dispRows;
 	}
 
-	/** ĞòºÅÁĞ */
+	/** åºå·åˆ— */
 	private final byte COL_INDEX = 0;
-	/** Ãû³ÆÁĞ */
+	/** åç§°åˆ— */
 	private final byte COL_NAME = 1;
-	/** ÖµÁĞ */
+	/** å€¼åˆ— */
 	private final byte COL_VALUE = 2;
 
 	/**
-	 * ±äÁ¿±í¿Ø¼ş¡£ĞòºÅ,Ãû³Æ,Öµ¡£
+	 * å˜é‡è¡¨æ§ä»¶ã€‚åºå·,åç§°,å€¼ã€‚
 	 */
 	private JTableEx tableVar = new JTableEx(
 			mm.getMessage("jtabbedparam.tableconst")) {
@@ -358,7 +358,7 @@ public abstract class TableVar extends JPanel {
 	private static final int DEFAULT_ROW_COUNT = 100;
 
 	/**
-	 * ÏÔÊ¾µÄ×î´óĞĞÊıÃæ°å
+	 * æ˜¾ç¤ºçš„æœ€å¤§è¡Œæ•°é¢æ¿
 	 */
 	private JSpinner jSDispRows = new JSpinner(new SpinnerNumberModel(
 			DEFAULT_ROW_COUNT, 1, Integer.MAX_VALUE, 1));

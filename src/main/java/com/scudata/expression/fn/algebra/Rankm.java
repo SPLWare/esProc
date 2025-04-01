@@ -8,13 +8,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¾ØÕóÇóĞĞÁĞÊ½
+ * çŸ©é˜µæ±‚è¡Œåˆ—å¼
  * @author bd
  *
  */
 public class Rankm extends Function{
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -34,7 +34,7 @@ public class Rankm extends Function{
 		}
 		Matrix A = new Matrix((Sequence) result1);
 		if (A.getCols() == 0 || A.getRows() == 0) {
-			// ¿Õ¾ØÕóµÄÖÈ·µ»Ø0
+			// ç©ºçŸ©é˜µçš„ç§©è¿”å›0
 			return 0;
 		}
 		return A.rank();

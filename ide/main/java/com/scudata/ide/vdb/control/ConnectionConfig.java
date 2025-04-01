@@ -82,9 +82,9 @@ public class ConnectionConfig{
 				editChanged = false;
 				return true;
 			}
-			throw new Exception("Ìá½»Êı¾İ¿âÊ§°Ü£¬´íÎóÂëÎª£º"+r);
+			throw new Exception("æäº¤æ•°æ®åº“å¤±è´¥ï¼Œé”™è¯¯ç ä¸ºï¼š"+r);
 		}
-		throw new Exception("Ìá½»Êı¾İ¿âÊ§°Ü£¬Êı¾İ¿âÃ»ÓĞÆô¶¯¡£");
+		throw new Exception("æäº¤æ•°æ®åº“å¤±è´¥ï¼Œæ•°æ®åº“æ²¡æœ‰å¯åŠ¨ã€‚");
 	}
 	
 	public void rollback(){

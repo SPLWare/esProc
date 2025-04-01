@@ -9,13 +9,13 @@ import com.scudata.common.ICloneable;
 
 public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable {
 
-	private String name; // Ãû³Æ
-	private String type; // ÀàĞÍ
-	private String cachePath; // »º´æÂ·¾¶
-	private long minFreeSpace = 0;// ×îĞ¡¿ÕÏĞ¿Õ¼ä
-	private int blockBufferSize = 0;// »º´æ¿é´óĞ¡
-	// private boolean cacheEnabled = true; // ÆôÓÃ»º´æ£¬Ä¬ÈÏÆôÓÃ£¬optionÖĞÓĞ
-	private String option; // JSON¸ñÊ½
+	private String name; // åç§°
+	private String type; // ç±»å‹
+	private String cachePath; // ç¼“å­˜è·¯å¾„
+	private long minFreeSpace = 0;// æœ€å°ç©ºé—²ç©ºé—´
+	private int blockBufferSize = 0;// ç¼“å­˜å—å¤§å°
+	// private boolean cacheEnabled = true; // å¯ç”¨ç¼“å­˜ï¼Œé»˜è®¤å¯ç”¨ï¼Œoptionä¸­æœ‰
+	private String option; // JSONæ ¼å¼
 
 	public RemoteStoreConfig() {
 	}

@@ -33,7 +33,7 @@ import com.scudata.server.unit.UnitServer;
 import sun.net.util.IPAddressUtil;
 
 /**
- * Http·şÎñÆ÷µÄ»·¾³ÅäÖÃ²ÎÊıÀà
+ * HttpæœåŠ¡å™¨çš„ç¯å¢ƒé…ç½®å‚æ•°ç±»
  * 
  * @author Joancy
  *
@@ -52,8 +52,8 @@ public class HttpContext extends ConfigWriter {
 	static MessageManager mm = ParallelMessage.get();
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param showException ÊÇ·ñ½«¹¹ÔìÒì³£´òÓ¡µ½¿ØÖÆÌ¨£¬·ñÔòºöÂÔ
+	 * æ„é€ å‡½æ•°
+	 * @param showException æ˜¯å¦å°†æ„é€ å¼‚å¸¸æ‰“å°åˆ°æ§åˆ¶å°ï¼Œå¦åˆ™å¿½ç•¥
 	 */
 	public HttpContext(boolean showException) {
 		try {
@@ -70,8 +70,8 @@ public class HttpContext extends ConfigWriter {
 	}
 
 	/**
-	 * »ñÈ¡È±Ê¡µÄ·ÃÎÊurlµØÖ·
-	 * @return urlµØÖ·
+	 * è·å–ç¼ºçœçš„è®¿é—®urlåœ°å€
+	 * @return urlåœ°å€
 	 */
 	public String getDefaultUrl() {
 		String tmp = host;
@@ -87,9 +87,9 @@ public class HttpContext extends ConfigWriter {
 	}
 
 	/**
-	 * ´ÓÅäÖÃÎÄ¼şµÄÊäÈëÁ÷¼ÓÔØ»·¾³²ÎÊı
-	 * @param is ÅäÖÃÎÄ¼şÊäÈëÁ÷
-	 * @throws Exception ¸ñÊ½³ö´íÊ±Å×³öÒì³£
+	 * ä»é…ç½®æ–‡ä»¶çš„è¾“å…¥æµåŠ è½½ç¯å¢ƒå‚æ•°
+	 * @param is é…ç½®æ–‡ä»¶è¾“å…¥æµ
+	 * @throws Exception æ ¼å¼å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void load(InputStream is) throws Exception {
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
@@ -108,7 +108,7 @@ public class HttpContext extends ConfigWriter {
 			throw new Exception(mm.getMessage("UnitConfig.errorxml"));
 		}
 
-		// Server ÅäÖÃ
+		// Server é…ç½®
 		String buf = XmlUtil.getAttribute(root, "host");
 		if (StringUtils.isValidString(buf)) {
 			host = buf;
@@ -124,7 +124,7 @@ public class HttpContext extends ConfigWriter {
 			autoStart = Boolean.parseBoolean(buf);
 		}
 
-		// ¹Ì¶¨Êä³öÈÕÖ¾µ½¿ØÖÆÌ¨£¬ ºÍ start.home/nodes/[ip_port]/log Ä¿Â¼ÏÂ
+		// å›ºå®šè¾“å‡ºæ—¥å¿—åˆ°æ§åˆ¶å°ï¼Œ å’Œ start.home/nodes/[ip_port]/log ç›®å½•ä¸‹
 		String home = UnitServer.getHome();
 		String file = "http/" + UnitClient.getHostPath(host) + "_" + port + "/log/log.txt";
 		File f = new File(home, file);
@@ -152,10 +152,10 @@ public class HttpContext extends ConfigWriter {
 			File main = new File( mp );
 			if( main.exists() ) {
 				String mainPath = main.getAbsolutePath();
-				addSubdir2Sappath( main, mainPath );//±ØĞë¼Ó×°×ÓÄ¿Â¼£¬·ñÔò×ÓÄ¿Â¼ÏÂµÄsplxÎÄ¼ş£¬¼òĞ´Ê±£¬·ÃÎÊ²»µ½ xq 2023Äê9ÔÂ6ÈÕ
+				addSubdir2Sappath( main, mainPath );//å¿…é¡»åŠ è£…å­ç›®å½•ï¼Œå¦åˆ™å­ç›®å½•ä¸‹çš„splxæ–‡ä»¶ï¼Œç®€å†™æ—¶ï¼Œè®¿é—®ä¸åˆ° xq 2023å¹´9æœˆ6æ—¥
 			}
 		}
-		/*buf = XmlUtil.getAttribute(root, "sapPath");//Õâ¸ö×ÓÄ¿Â¼²»»º´æµ½ÅäÖÃÎÄ¼şÁË£¬Ò»µ©Á¿ºÜ´ó£¬½âÎöÊ±Ì«Âı£¬»áÓ°Ïìµ½½çÃæ²Ù×÷ÁË
+		/*buf = XmlUtil.getAttribute(root, "sapPath");//è¿™ä¸ªå­ç›®å½•ä¸ç¼“å­˜åˆ°é…ç½®æ–‡ä»¶äº†ï¼Œä¸€æ—¦é‡å¾ˆå¤§ï¼Œè§£ææ—¶å¤ªæ…¢ï¼Œä¼šå½±å“åˆ°ç•Œé¢æ“ä½œäº†
 		if (StringUtils.isValidString(buf)) {
 			ArgumentTokenizer at = new ArgumentTokenizer(buf, ',');
 			while (at.hasMoreTokens()) {
@@ -185,7 +185,7 @@ public class HttpContext extends ConfigWriter {
 		handler.setResult(resultxml);
 		level = 0;
 		handler.startDocument();
-		// ÉèÖÃ¸ù½ÚµãºÍ°æ±¾
+		// è®¾ç½®æ ¹èŠ‚ç‚¹å’Œç‰ˆæœ¬
 		String paths = "";
 		for (int i = 0; i < sapPath.size(); i++) {
 			if (paths.length() > 0)
@@ -198,7 +198,7 @@ public class HttpContext extends ConfigWriter {
 				"sapPath", paths }));
 
 		handler.endElement("", "", "Server");
-		// ÎÄµµ½áÊø,Í¬²½µ½´ÅÅÌ
+		// æ–‡æ¡£ç»“æŸ,åŒæ­¥åˆ°ç£ç›˜
 		handler.endDocument();
 	}
 

@@ -21,7 +21,7 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * Êı¾İÔ´ÀàĞÍ¶Ô»°¿ò
+ * æ•°æ®æºç±»å‹å¯¹è¯æ¡†
  *
  */
 public class DialogDataSourceType extends JDialog {
@@ -31,42 +31,42 @@ public class DialogDataSourceType extends JDialog {
 	public static final byte TYPE_RELATIONAL = 0;
 	/** ODBC */
 	public static final byte TYPE_ODBC = 1;
-	/** ESSBASEÀàĞÍÔİÊ±È¡ÏûÁË */
+	/** ESSBASEç±»å‹æš‚æ—¶å–æ¶ˆäº† */
 	public static final byte TYPE_ESSBASE = 2;
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CLOSED_OPTION;
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * JDBC°´Å¥
+	 * JDBCæŒ‰é’®
 	 */
 	private JRadioButton jRBRelational = new JRadioButton();
 	/**
-	 * ODBC°´Å¥
+	 * ODBCæŒ‰é’®
 	 */
 	private JRadioButton jRBOdbc = new JRadioButton();
 	/**
-	 * Êı¾İ¿âÀàĞÍ
+	 * æ•°æ®åº“ç±»å‹
 	 */
 	private TitledBorder titledBorder1;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogDataSourceType(JDialog parent) {
-		super(parent, "Êı¾İ¿âÀàĞÍ", true);
+		super(parent, "æ•°æ®åº“ç±»å‹", true);
 		try {
 			initUI();
 			resetLangText();
@@ -78,7 +78,7 @@ public class DialogDataSourceType extends JDialog {
 	}
 
 	/**
-	 * È¡´°¿Ú¹Ø±ÕÑ¡Ïî
+	 * å–çª—å£å…³é—­é€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -87,7 +87,7 @@ public class DialogDataSourceType extends JDialog {
 	}
 
 	/**
-	 * È¡Êı¾İÔ´ÀàĞÍ
+	 * å–æ•°æ®æºç±»å‹
 	 * 
 	 * @return
 	 */
@@ -102,7 +102,7 @@ public class DialogDataSourceType extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
 		this.setTitle(mm.getMessage("dialogdatasourcetype.title"));
@@ -111,17 +111,17 @@ public class DialogDataSourceType extends JDialog {
 		jRBRelational.setText(mm.getMessage("dialogdatasourcetype.relational"));
 		jRBOdbc.setText(mm.getMessage("dialogdatasourcetype.jrbodbc"));
 		titledBorder1.setTitle(mm
-				.getMessage("dialogdatasourcetype.databasetype")); // Êı¾İ¿âÀàĞÍ
+				.getMessage("dialogdatasourcetype.databasetype")); // æ•°æ®åº“ç±»å‹
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
 	private void initUI() throws Exception {
 		titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(
-				Color.white, new Color(142, 142, 142)), "Êı¾İ¿âÀàĞÍ");
+				Color.white, new Color(142, 142, 142)), "æ•°æ®åº“ç±»å‹");
 		this.getContentPane().setLayout(new BorderLayout());
 		JPanel panel1 = new JPanel();
 		JPanel jPanel1 = new JPanel();
@@ -129,11 +129,11 @@ public class DialogDataSourceType extends JDialog {
 		panel1.setForeground(Color.black);
 		jBOK.setDefaultCapable(true);
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogDataSourceType_jBOK_actionAdapter(this));
 
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.setDefaultCapable(false);
 		jBCancel.addActionListener(new DialogDataSourceType_jBCancel_actionAdapter(
 				this));
@@ -143,12 +143,12 @@ public class DialogDataSourceType extends JDialog {
 		jPanel1.setLayout(new VFlowLayout());
 		jPanel1.setBorder(titledBorder1);
 		jRBRelational.setSelected(true);
-		jRBRelational.setText("Ö±Á¬¹ØÏµÊı¾İ¿â");
+		jRBRelational.setText("ç›´è¿å…³ç³»æ•°æ®åº“");
 		jRBRelational
 				.addMouseListener(new DialogDataSourceType_jRBRelational_mouseAdapter(
 						this));
 		this.setResizable(false);
-		jRBOdbc.setText("ODBCÊı¾İÔ´");
+		jRBOdbc.setText("ODBCæ•°æ®æº");
 		jRBOdbc.addMouseListener(new DialogDataSourceType_jRBOdbc_mouseAdapter(
 				this));
 		panel1.add(jBOK);
@@ -162,7 +162,7 @@ public class DialogDataSourceType extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -173,7 +173,7 @@ public class DialogDataSourceType extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -184,7 +184,7 @@ public class DialogDataSourceType extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -194,7 +194,7 @@ public class DialogDataSourceType extends JDialog {
 	}
 
 	/**
-	 * Ë«»÷JDBC°´Å¥
+	 * åŒå‡»JDBCæŒ‰é’®
 	 * 
 	 * @param e
 	 */
@@ -206,7 +206,7 @@ public class DialogDataSourceType extends JDialog {
 	}
 
 	/**
-	 * Ë«»÷ODBC°´Å¥
+	 * åŒå‡»ODBCæŒ‰é’®
 	 * 
 	 * @param e
 	 */

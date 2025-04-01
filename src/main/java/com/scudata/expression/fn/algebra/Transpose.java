@@ -8,13 +8,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¾ØÕó×ªÖÃ
+ * çŸ©é˜µè½¬ç½®
  * @author bd
  *
  */
 public class Transpose extends Function{
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -32,8 +32,8 @@ public class Transpose extends Function{
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("transpose" + mm.getMessage("function.paramTypeError"));
 		}
-		// µ¥´¿ÓÃĞòÁĞ×ªÖÃ£¬²»¸Ä±ä³ÉÔ±Êı¾İÀàĞÍ£¬µ«×ªÖÃºó¾ØÕóÒ»¶¨»áÌîÂú£¬È±Ê§ÖµÓÃ0d
-		// edited by bd, 2023.10.23, Ìí¼ÓÑ¡Ïî@n, ÔÊĞí×ªÖÃºóÊ¹ÓÃ¿ÕÖµ
+		// å•çº¯ç”¨åºåˆ—è½¬ç½®ï¼Œä¸æ”¹å˜æˆå‘˜æ•°æ®ç±»å‹ï¼Œä½†è½¬ç½®åçŸ©é˜µä¸€å®šä¼šå¡«æ»¡ï¼Œç¼ºå¤±å€¼ç”¨0d
+		// edited by bd, 2023.10.23, æ·»åŠ é€‰é¡¹@n, å…è®¸è½¬ç½®åä½¿ç”¨ç©ºå€¼
 		boolean ifn = this.option != null && this.option.indexOf('n') > -1; 
 		Sequence seq = (Sequence) result1;
 		int rows = seq.length();
@@ -45,11 +45,11 @@ public class Transpose extends Function{
 			}
 		}
 		Double zero = Double.valueOf(0);
-		// edited by bd, 2023.10.23, Ìí¼ÓÑ¡Ïî@n, ÔÊĞí×ªÖÃºóÊ¹ÓÃ¿ÕÖµ
+		// edited by bd, 2023.10.23, æ·»åŠ é€‰é¡¹@n, å…è®¸è½¬ç½®åä½¿ç”¨ç©ºå€¼
 		if (ifn) zero = null;
 		if (cols == 0) {
 			Sequence result = new Sequence(rows);
-			// Ò»Î»ĞòÁĞ£¬Ö»Ğè×ª³ÉÁĞÊ½¾ÍĞĞ
+			// ä¸€ä½åºåˆ—ï¼Œåªéœ€è½¬æˆåˆ—å¼å°±è¡Œ
 			for (int r = 1; r <= rows; r++ ) {
 				Object o = seq.get(r);
 				Sequence sub = new Sequence(1);
@@ -68,7 +68,7 @@ public class Transpose extends Function{
 					if (subSeq.length() >= c) {
 						o = subSeq.get(c);
 					}
-					// edited by bd, 2023.10.23, ÕâÀï´¦Àí´æÔÚÎÊÌâ£¬Èç¹û¾ØÕó²»Âú£¬ĞòÁĞ³¤¶È²»×ãÊ±£¬Ó¦¸ÃÉèÎªnull
+					// edited by bd, 2023.10.23, è¿™é‡Œå¤„ç†å­˜åœ¨é—®é¢˜ï¼Œå¦‚æœçŸ©é˜µä¸æ»¡ï¼Œåºåˆ—é•¿åº¦ä¸è¶³æ—¶ï¼Œåº”è¯¥è®¾ä¸ºnull
 					else {
 						o = zero;
 					}

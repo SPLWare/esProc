@@ -10,10 +10,10 @@ import com.scudata.lib.hive.function.HiveBase;
 import com.scudata.resources.EngineMessage;
 
 public class HiveFunction extends Function {
-	protected int m_paramSize = 0;	//参数个数
+	protected int m_paramSize = 0;	//鍙傛暟涓暟
 	protected HiveBase m_hiveBase = null;
 	protected String m_colNames[];
-	protected String m_paramTypes[]; //除去hive句柄参数类型
+	protected String m_paramTypes[]; //闄ゅ幓hive鍙ユ焺鍙傛暟绫诲瀷
 	protected Context m_ctx;
 	
 	public Node optimize(Context ctx) {

@@ -1,12 +1,12 @@
 package com.scudata.dm.comparator;
 
 /**
- * ÓÃÓÚ×îºó·µ»ØÎ»ÖÃĞÅÏ¢µÄÅÅĞò
+ * ç”¨äºæœ€åè¿”å›ä½ç½®ä¿¡æ¯çš„æ’åº
  * @author WangXiaoJun
  *
  */
 public class PSortItem {
-	public int index; // ´Ó1¿ªÊ¼¼ÆÊı
+	public int index; // ä»1å¼€å§‹è®¡æ•°
 	public Object value;
 	
 	public PSortItem(int i, Object obj) {

@@ -10,8 +10,8 @@ import com.scudata.expression.VSFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÕÒ³öÂú×ãÌõ¼şµÄµ¥¾İºó¸ÄĞ´µ¥¾İµÄ×Ö¶ÎÖµ
- * h.update(F:v,¡­;x:F,¡­;w)
+ * æ‰¾å‡ºæ»¡è¶³æ¡ä»¶çš„å•æ®åæ”¹å†™å•æ®çš„å­—æ®µå€¼
+ * h.update(F:v,â€¦;x:F,â€¦;w)
  * @author RunQian
  *
  */
@@ -74,7 +74,7 @@ public class Update extends VSFunction {
 			for (int i = 0; i < size; ++i) {
 				if (exps[i] != null) {
 					dirValues[i] = exps[i].calculate(ctx);
-					valueSigns[i] = true; // Ã»ÓĞÊ¡ÂÔÄ¿Â¼Öµ²ÎÊı
+					valueSigns[i] = true; // æ²¡æœ‰çœç•¥ç›®å½•å€¼å‚æ•°
 				}
 			}
 		}

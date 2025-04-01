@@ -5,33 +5,33 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 
 /**
- * Íâ´æ·Ö×éÓÎ±ê£¬¶ÔÓÎ±êÊı¾İ½øĞĞÍâ´æ·Ö×é£¬È»ºóÒÔÓÎ±ê·½Ê½·µ»Ø
- * ÓÃÓÚ¹şÏ£·¨ÊµÏÖÍâ´æ·Ö×éº¯Êıcs.groupx()µÄ¶ş´Î·Ö×é£¬Íâ´æ·Ö×é»á°Ñ·Ö×é×Ö¶Î¹şÏ£ÖµÏàÍ¬µÄ×éĞ´µ½Í¬Ò»¸öÁÙÊ±ÎÄ¼ş£¬
- * È»ºóÃ¿¸öÁÙÊ±ÎÄ¼şÉú³ÉÒ»¸ö´ËÓÎ±ê£¬ÒªÈ¡´ËÓÎ±êÊı¾İÊ±Ôò»á½øĞĞ¶ş´ÎÍâ´æ·Ö×é
+ * å¤–å­˜åˆ†ç»„æ¸¸æ ‡ï¼Œå¯¹æ¸¸æ ‡æ•°æ®è¿›è¡Œå¤–å­˜åˆ†ç»„ï¼Œç„¶åä»¥æ¸¸æ ‡æ–¹å¼è¿”å›
+ * ç”¨äºå“ˆå¸Œæ³•å®ç°å¤–å­˜åˆ†ç»„å‡½æ•°cs.groupx()çš„äºŒæ¬¡åˆ†ç»„ï¼Œå¤–å­˜åˆ†ç»„ä¼šæŠŠåˆ†ç»„å­—æ®µå“ˆå¸Œå€¼ç›¸åŒçš„ç»„å†™åˆ°åŒä¸€ä¸ªä¸´æ—¶æ–‡ä»¶ï¼Œ
+ * ç„¶åæ¯ä¸ªä¸´æ—¶æ–‡ä»¶ç”Ÿæˆä¸€ä¸ªæ­¤æ¸¸æ ‡ï¼Œè¦å–æ­¤æ¸¸æ ‡æ•°æ®æ—¶åˆ™ä¼šè¿›è¡ŒäºŒæ¬¡å¤–å­˜åˆ†ç»„
  * @author RunQian
  *
  */
 public class GroupxCursor extends ICursor {
-	private ICursor src; // ÓÎ±ê
-	private Expression[] exps; // ·Ö×é±í´ïÊ½
-	private String []names; // ·Ö×é×Ö¶ÎÃû
-	private Expression[] calcExps; // »ã×Ü±í´ïÊ½
-	private String []calcNames; // »ã×Ü×Ö¶ÎÃû
-	private String opt; // Ñ¡Ïî
-	private int capacity; // ÄÚ´æÖĞ±£´æµÄ×î´ó·Ö×é½á¹ûÊı
+	private ICursor src; // æ¸¸æ ‡
+	private Expression[] exps; // åˆ†ç»„è¡¨è¾¾å¼
+	private String []names; // åˆ†ç»„å­—æ®µå
+	private Expression[] calcExps; // æ±‡æ€»è¡¨è¾¾å¼
+	private String []calcNames; // æ±‡æ€»å­—æ®µå
+	private String opt; // é€‰é¡¹
+	private int capacity; // å†…å­˜ä¸­ä¿å­˜çš„æœ€å¤§åˆ†ç»„ç»“æœæ•°
 	
-	private ICursor result; // ½á¹û¼¯ÓÎ±ê
+	private ICursor result; // ç»“æœé›†æ¸¸æ ‡
 
 	/**
-	 * Éú³ÉÍâ´æ·Ö×éÓÎ±ê
-	 * @param cursor Ô´Êı¾İÓÎ±ê
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names	·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½	Êı×é
-	 * @param calcNames	»ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity	ÄÚ´æÖĞ±£´æµÄ×î´ó·Ö×é½á¹ûÊı
+	 * ç”Ÿæˆå¤–å­˜åˆ†ç»„æ¸¸æ ‡
+	 * @param cursor æºæ•°æ®æ¸¸æ ‡
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names	åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼	æ•°ç»„
+	 * @param calcNames	æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity	å†…å­˜ä¸­ä¿å­˜çš„æœ€å¤§åˆ†ç»„ç»“æœæ•°
 	 */
 	public GroupxCursor(ICursor cursor, Expression[] exps, String []names, 
 			Expression[] calcExps, String []calcNames, String opt, Context ctx, int capacity) {
@@ -45,8 +45,8 @@ public class GroupxCursor extends ICursor {
 		this.capacity = capacity;
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			src.resetContext(ctx);
@@ -55,8 +55,8 @@ public class GroupxCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -72,9 +72,9 @@ public class GroupxCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (result == null) {
@@ -89,7 +89,7 @@ public class GroupxCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();

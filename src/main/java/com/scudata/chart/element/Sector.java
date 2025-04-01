@@ -9,33 +9,33 @@ import com.scudata.common.*;
 import com.scudata.dm.*;
 import com.scudata.util.Variant;
 /**
- * ÉÈĞÎÍ¼£¬Ö»ÄÜÓ¦ÓÃÓÚ¼«×ø±êÏµ
- * Í¨³£±íÏÖÎª±ıÍ¼
+ * æ‰‡å½¢å›¾ï¼Œåªèƒ½åº”ç”¨äºæåæ ‡ç³»
+ * é€šå¸¸è¡¨ç°ä¸ºé¥¼å›¾
  * @author Joancy
  *
  */
 public class Sector extends Ring {
-	// ÎÄ×ÖÒıµ¼Ïß
+	// æ–‡å­—å¼•å¯¼çº¿
 	public Para textLineStyle = new Para(new Integer(Consts.LINE_SOLID));
 	public Para textLineWeight = new Para(new Float(1));
 	public Para textLineColor = new Para(Color.lightGray);
 
-	// ÓĞ±êÊ¾ÎÄ×ÖÒıÏßÊ±£¬ ÒıÏßµÄ×î´ó±ß½ç
+	// æœ‰æ ‡ç¤ºæ–‡å­—å¼•çº¿æ—¶ï¼Œ å¼•çº¿çš„æœ€å¤§è¾¹ç•Œ
 	private transient double outerRadius = 0;
 
 	/**
-	 * È±Ê¡²ÎÊıµÄ¹¹Ôìº¯Êı
+	 * ç¼ºçœå‚æ•°çš„æ„é€ å‡½æ•°
 	 */
 	public Sector() {
 		stackType = Consts.STACK_PERCENT;
 	}
 
 	/**
-	 * »æÖÆ±³¾°²ã
+	 * ç»˜åˆ¶èƒŒæ™¯å±‚
 	 */
 	public void drawBack() {
 		super.drawBack();
-		// ÓĞ±êÊ¾ÎÄ×ÖÒıÏßÊ±£¬ ÒıÏßµÄ×î´ó±ß½ç
+		// æœ‰æ ‡ç¤ºæ–‡å­—å¼•çº¿æ—¶ï¼Œ å¼•çº¿çš„æœ€å¤§è¾¹ç•Œ
 		ICoor coor = getCoor();
 		if (coor.isPolarCoor()) {
 			PolarCoor pc = (PolarCoor) coor;
@@ -46,7 +46,7 @@ public class Sector extends Ring {
 	}
 
 	/**
-	 * »æÖÆÖĞ¼ä²ã
+	 * ç»˜åˆ¶ä¸­é—´å±‚
 	 */
 	public void draw() {
 		ICoor coor = getCoor();
@@ -60,7 +60,7 @@ public class Sector extends Ring {
 			for (int s = 1; s <= serCount; s++) {
 				String serName = (String) series.get(s);
 				int index = Utils.indexOf(data1, catName, serName);
-				if (index == 0) { // Ä³¸ö·ÖÀàºÍÏµÁĞµÄÊıÖµÈ±ÉÙ
+				if (index == 0) { // æŸä¸ªåˆ†ç±»å’Œç³»åˆ—çš„æ•°å€¼ç¼ºå°‘
 					continue;
 				}
 				Object val1 = discardSeries(data1.get(index));
@@ -102,10 +102,10 @@ public class Sector extends Ring {
 	}
 
 	/**
-	 * »ñÈ¡Öù¿í
-	 * @param ia ¿Ì¶ÈÖá
-	 * @param index ÊıÖµĞòºÅ
-	 * @return ÊµÊı¾«¶ÈµÄÖù¿í
+	 * è·å–æŸ±å®½
+	 * @param ia åˆ»åº¦è½´
+	 * @param index æ•°å€¼åºå·
+	 * @return å®æ•°ç²¾åº¦çš„æŸ±å®½
 	 */
 	public double getColumnWidth(TickAxis ia, int index) {
 		ICoor coor = getCoor();
@@ -122,7 +122,7 @@ public class Sector extends Ring {
 		return true;
 	}
 
-	// »­ÒıÏßÒÔ¼°·ÖÀà
+	// ç”»å¼•çº¿ä»¥åŠåˆ†ç±»
 	protected void drawCategoryAndLine(int index, Point2D polarIn) {
 		PolarCoor pc = (PolarCoor) getCoor();
 		EnumAxis ea = pc.getEnumAxis();
@@ -135,7 +135,7 @@ public class Sector extends Ring {
 		if (!StringUtils.isValidString(txt)) {
 			return;
 		}
-		// ÎÄ×ÖÒıÏß
+		// æ–‡å­—å¼•çº¿
 		Graphics2D g = e.getGraphics();
 		int style = textLineStyle.intValue(index);
 		float weight = textLineWeight.intValue(index);
@@ -155,8 +155,8 @@ public class Sector extends Ring {
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -172,7 +172,7 @@ public class Sector extends Ring {
 
 		paramInfos.addAll(super.getParamInfoList());
 
-		//		È¥µôÉÈĞÎµÄÎïÀí×ø±êÃèÊö
+		//		å»æ‰æ‰‡å½¢çš„ç‰©ç†åæ ‡æè¿°
 		ParamInfo pi = paramInfos.getParamInfoByName("data1");
 		String tmp = pi.getTitle();
 		int i = tmp.indexOf('/');
@@ -192,7 +192,7 @@ public class Sector extends Ring {
 	}
 
 	/**
-	 * »æÍ¼Ç°µÄ¼ÆËã×¼±¸£¬Êı¾İºÏ·¨ĞÔ¼ì²é
+	 * ç»˜å›¾å‰çš„è®¡ç®—å‡†å¤‡ï¼Œæ•°æ®åˆæ³•æ€§æ£€æŸ¥
 	 */
 	public void prepare() {
 		super.prepare();
@@ -202,7 +202,7 @@ public class Sector extends Ring {
 					"Sector graph does not support cartesian coordinate system.");
 		}
 
-		if (!isStacked()) { // ÉÈÍ¼ÒªÇó¶Ñ»ıÀàĞÍ
+		if (!isStacked()) { // æ‰‡å›¾è¦æ±‚å †ç§¯ç±»å‹
 			throw new RuntimeException(
 					"Sector graph must be stacked by value or percent.");
 		}
@@ -212,8 +212,8 @@ public class Sector extends Ring {
 					"Sector graph must specify an enumeration axis as polar axis.");
 		}
 
-		// ĞÎÈç["ÕÅÈı","ÀîËÄ","ÍõÎå"]µÄÃ¶¾ÙÊı¾İ£»ÓÉÓÚÖá×ÜÊÇ°´ÕÕ·ÖÀàÀ´½âÊÍ³¤¶È£»¶ÔÓÚ±ıÍ¼À´Ëµ£¬Ó¦¸ÃÊÇÍ¬Ò»¸öÈ¦£¬Ó¦¸ÃÁ¥ÊôÍ¬Ò»¸ö
-		// ·ÖÀà£¬¹Êµ÷ÕûÊı¾İÎª: [" ,ÕÅÈı"," ,ÀîËÄ"," ,ÍõÎå"]£»¼´¶¼ÊÇ ¿Õ ·ÖÀà¡£±ıÍ¼Êı¾İ¾ÍÍ³Ò»ÁË£¬¿Õ·ÖÀà²»Ó°Ïì±êÇ©»æÖÆ
+		// å½¢å¦‚["å¼ ä¸‰","æå››","ç‹äº”"]çš„æšä¸¾æ•°æ®ï¼›ç”±äºè½´æ€»æ˜¯æŒ‰ç…§åˆ†ç±»æ¥è§£é‡Šé•¿åº¦ï¼›å¯¹äºé¥¼å›¾æ¥è¯´ï¼Œåº”è¯¥æ˜¯åŒä¸€ä¸ªåœˆï¼Œåº”è¯¥éš¶å±åŒä¸€ä¸ª
+		// åˆ†ç±»ï¼Œæ•…è°ƒæ•´æ•°æ®ä¸º: [" ,å¼ ä¸‰"," ,æå››"," ,ç‹äº”"]ï¼›å³éƒ½æ˜¯ ç©º åˆ†ç±»ã€‚é¥¼å›¾æ•°æ®å°±ç»Ÿä¸€äº†ï¼Œç©ºåˆ†ç±»ä¸å½±å“æ ‡ç­¾ç»˜åˆ¶
 		String eaName = ea.getName();
 		Sequence enumData = getAxisData(eaName);
 		Sequence data = null;
@@ -231,22 +231,22 @@ public class Sector extends Ring {
 			}
 		}
 		setAxisData(eaName, data);
-		ea.gapRatio = 0;// ÉÈĞÎÍ¼£¬gap×ÜÊÇÎª0
-//		¸¸ÀàÖĞ×¼±¸Êı¾İÊ±¶Ôµ±Ç°categories¸³Öµ£¬sectorµ÷ÕûÁË·ÖÀàÖµ£¬ĞèÒªÖØĞÂprepare
+		ea.gapRatio = 0;// æ‰‡å½¢å›¾ï¼Œgapæ€»æ˜¯ä¸º0
+//		çˆ¶ç±»ä¸­å‡†å¤‡æ•°æ®æ—¶å¯¹å½“å‰categoriesèµ‹å€¼ï¼Œsectorè°ƒæ•´äº†åˆ†ç±»å€¼ï¼Œéœ€è¦é‡æ–°prepare
 		super.prepare();
 	}
 	
 	/**
-	 * ¿ËÂ¡Êı¾İÖµ
-	 * @param s ÁíÒ»¸öÉÈĞÎ
+	 * å…‹éš†æ•°æ®å€¼
+	 * @param s å¦ä¸€ä¸ªæ‰‡å½¢
 	 */
 	public void clone(Sector s){
 		super.clone(s);
 	}
 	
 	/**
-	 * Éî¶È¿ËÂ¡ÉÈÍ¼Ôª
-	 * @return ¿ËÂ¡ºóµÄÉÈÍ¼Ôª
+	 * æ·±åº¦å…‹éš†æ‰‡å›¾å…ƒ
+	 * @return å…‹éš†åçš„æ‰‡å›¾å…ƒ
 	 */
 	public Object deepClone() {
 		Sector s = new Sector();

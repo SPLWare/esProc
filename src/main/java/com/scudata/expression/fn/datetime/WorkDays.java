@@ -15,8 +15,8 @@ import com.scudata.resources.EngineMessage;
 
 /**
  * workdays(b,e,h)
- * ¼ÆËãÈÕÆÚbºÍÈÕÆÚeÖ®¼äµÄ¹¤×÷ÈÕÐòÁÐ£¬°üº¬bºÍe¡£hÊÇ(·Ç)¼ÙÈÕÐòÁÐ£¬¼´hÖÐ³ÉÔ±Èô·ÇÖÜÄ©ÔòÊÇ¼ÙÈÕ£¬
- * ÊÇÖÜÄ©Ôò·Ç¼ÙÈÕ£¬ÈôÎªÖÜÄ©Ê±°´µ÷ÐÝ¼ÆËã£¬µ÷Îª¹¤×÷ÈÕ
+ * è®¡ç®—æ—¥æœŸbå’Œæ—¥æœŸeä¹‹é—´çš„å·¥ä½œæ—¥åºåˆ—ï¼ŒåŒ…å«bå’Œeã€‚hæ˜¯(éž)å‡æ—¥åºåˆ—ï¼Œå³hä¸­æˆå‘˜è‹¥éžå‘¨æœ«åˆ™æ˜¯å‡æ—¥ï¼Œ
+ * æ˜¯å‘¨æœ«åˆ™éžå‡æ—¥ï¼Œè‹¥ä¸ºå‘¨æœ«æ—¶æŒ‰è°ƒä¼‘è®¡ç®—ï¼Œè°ƒä¸ºå·¥ä½œæ—¥
  * @author runqian
  *
  */
@@ -27,7 +27,7 @@ public class WorkDays extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓÐÐ§ÐÔ£¬ÎÞÐ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

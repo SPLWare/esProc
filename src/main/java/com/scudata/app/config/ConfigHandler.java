@@ -24,8 +24,8 @@ public class ConfigHandler extends DefaultHandler {
 	/**
 	 * Version
 	 * 
-	 * version3:½ÚµãÃû³ÆÖĞµÄdfx¸ÄÎªspl¡£
-	 * version2:Ôö¼ÓÁË¶àÂ·ÓÎ±êÂ·ÊıCursorParallelNum¡£½«Ö®Ç°°æ±¾µÄParallelNumÉèÖÃÎªCursorParallelNum¡£logLevel´ÓEsprocÅ²µ½RuntimeÏÂ¡£
+	 * version3:èŠ‚ç‚¹åç§°ä¸­çš„dfxæ”¹ä¸ºsplã€‚
+	 * version2:å¢åŠ äº†å¤šè·¯æ¸¸æ ‡è·¯æ•°CursorParallelNumã€‚å°†ä¹‹å‰ç‰ˆæœ¬çš„ParallelNumè®¾ç½®ä¸ºCursorParallelNumã€‚logLevelä»EsprocæŒªåˆ°Runtimeä¸‹ã€‚
 	 */
 	protected int version = 3;
 
@@ -83,7 +83,7 @@ public class ConfigHandler extends DefaultHandler {
 			RemoteStoreConfig rs = new RemoteStoreConfig();
 			rs.setName(attributes.getValue(ConfigConsts.NAME));
 			rs.setType(attributes.getValue(ConfigConsts.TYPE));
-			// ÕâÀï¼æÈİÒ»ÏÂÖ®Ç°µÄoption
+			// è¿™é‡Œå…¼å®¹ä¸€ä¸‹ä¹‹å‰çš„option
 			rs.setOption(attributes.getValue(ConfigConsts.OPTION));
 			rs.setCachePath(attributes.getValue(ConfigConsts.CACHE_PATH));
 
@@ -589,7 +589,7 @@ public class ConfigHandler extends DefaultHandler {
 				config.setLogType(value);
 			}
 		} else if (activeNode == INIT) {
-			if (version < 3) { // ¼æÈİ¾É°æ±¾½ÚµãÃûÎª<dfx>
+			if (version < 3) { // å…¼å®¹æ—§ç‰ˆæœ¬èŠ‚ç‚¹åä¸º<dfx>
 				if (qName.equalsIgnoreCase("dfx")) {
 					if (config.getInitSpl() == null)
 						config.setInitSpl(value);

@@ -8,7 +8,7 @@ import com.scudata.chart.*;
 import com.scudata.chart.edit.*;
 
 /** 
- * ÖùĞÎÍ¼»òÌõĞÎÍ¼
+ * æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾
  * 
  */
 public class GraphColumn extends GraphElement {
@@ -16,10 +16,10 @@ public class GraphColumn extends GraphElement {
 	public int barDistance;
 
 	public byte columnType = GraphTypes.GT_COL; 
-	public Color columnBorderColor = null;//ÑÕÉ«ÉèÖÃÎªnull±íÊ¾ÎªÍ¸Ã÷É«£»
+	public Color columnBorderColor = null;//é¢œè‰²è®¾ç½®ä¸ºnullè¡¨ç¤ºä¸ºé€æ˜è‰²ï¼›
 
 	/**
-	 * È±Ê¡²ÎÊı¹¹Ôìº¯Êı
+	 * ç¼ºçœå‚æ•°æ„é€ å‡½æ•°
 	 */
 	public GraphColumn() {
 	}
@@ -34,8 +34,8 @@ public class GraphColumn extends GraphElement {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();

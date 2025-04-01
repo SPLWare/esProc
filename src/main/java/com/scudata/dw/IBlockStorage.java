@@ -5,14 +5,14 @@ import java.io.IOException;
 import com.scudata.dm.IResource;
 
 public interface IBlockStorage extends IResource {
-	static final int POS_SIZE = 5; // Î»ÖÃÓÃ5×Ö½ÚµÄÕıÊı±íÊ¾
+	static final int POS_SIZE = 5; // ä½ç½®ç”¨5å­—èŠ‚çš„æ­£æ•°è¡¨ç¤º
 	
-	int getBlockSize(); // È¡Çø¿é´óĞ¡
-	void loadBlock(long pos, byte []block) throws IOException; // ×°ÔØÇø¿é
-	void saveBlock(long pos, byte []block) throws IOException; // ±£´æÇø¿é
+	int getBlockSize(); // å–åŒºå—å¤§å°
+	void loadBlock(long pos, byte []block) throws IOException; // è£…è½½åŒºå—
+	void saveBlock(long pos, byte []block) throws IOException; // ä¿å­˜åŒºå—
 	void saveBlock(long pos, byte []block, int off, int len) throws IOException;
-	long applyNewBlock() throws IOException; // ÉêÇëĞÂÇø¿ì
+	long applyNewBlock() throws IOException; // ç”³è¯·æ–°åŒºå¿«
 	StructManager getStructManager();
-	boolean isCompress(); // ÊÇ·ñÑ¹Ëõ´æ´¢
-	boolean isPureFormat(); // ÊÇ·ñ´¿ÁĞ´æ´¢
+	boolean isCompress(); // æ˜¯å¦å‹ç¼©å­˜å‚¨
+	boolean isPureFormat(); // æ˜¯å¦çº¯åˆ—å­˜å‚¨
 }

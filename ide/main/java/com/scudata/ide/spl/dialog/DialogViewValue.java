@@ -23,30 +23,30 @@ import com.scudata.ide.spl.base.JTableView;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ²é¿´±äÁ¿Öµ¶Ô»°¿ò
+ * æŸ¥çœ‹å˜é‡å€¼å¯¹è¯æ¡†
  *
  */
 public class DialogViewValue extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ºóÍË°´Å¥
+	 * åé€€æŒ‰é’®
 	 */
 	private JButton jBUndo = new JButton();
 	/**
-	 * Ç°½ø°´Å¥
+	 * å‰è¿›æŒ‰é’®
 	 */
 	private JButton jBRedo = new JButton();
 	/**
-	 * ¸´ÖÆ°´Å¥
+	 * å¤åˆ¶æŒ‰é’®
 	 */
 	private JButton jBCopy = new JButton();
 	/**
-	 * ¹Ø±Õ°´Å¥
+	 * å…³é—­æŒ‰é’®
 	 */
 	private JButton jBClose = new JButton();
 
 	/**
-	 * ±í¸ñ¿Ø¼ş
+	 * è¡¨æ ¼æ§ä»¶
 	 */
 	private JTableView tableValue = new JTableView() {
 		private static final long serialVersionUID = 1L;
@@ -60,15 +60,15 @@ public class DialogViewValue extends JDialog implements ActionListener {
 	};
 
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager splMM = IdeSplMessage.get();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogViewValue() {
-		super(GV.appFrame, IdeSplMessage.get().getMessage("dialogviewvalue.title"), true);// ²é¿´±äÁ¿Öµ
+		super(GV.appFrame, IdeSplMessage.get().getMessage("dialogviewvalue.title"), true);// æŸ¥çœ‹å˜é‡å€¼
 		init();
 		setSize(400, 300);
 		GM.setDialogDefaultButton(this, new JButton(), jBClose);
@@ -76,7 +76,7 @@ public class DialogViewValue extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÉèÖÃÒª²é¿´µÄÖµ
+	 * è®¾ç½®è¦æŸ¥çœ‹çš„å€¼
 	 * 
 	 * @param value
 	 */
@@ -85,26 +85,26 @@ public class DialogViewValue extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		this.getContentPane().setLayout(new BorderLayout());
 		JPanel panelNorth = new JPanel(new GridBagLayout());
 		panelNorth.add(new JLabel(), getGBC(1, 1, true));
 		jBUndo.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH + "m_pmtundo.gif"));
-		jBUndo.setToolTipText(splMM.getMessage("panelvaluebar.undo")); // ºóÍË
+		jBUndo.setToolTipText(splMM.getMessage("panelvaluebar.undo")); // åé€€
 		initButton(jBUndo);
 		panelNorth.add(jBUndo, getGBC(1, 2));
 		jBRedo.setIcon(GM.getImageIcon(this, GC.IMAGES_PATH + "m_pmtredo.gif"));
-		jBRedo.setToolTipText(splMM.getMessage("panelvaluebar.redo")); // Ç°½ø
+		jBRedo.setToolTipText(splMM.getMessage("panelvaluebar.redo")); // å‰è¿›
 		initButton(jBRedo);
 		panelNorth.add(jBRedo, getGBC(1, 3));
 		jBCopy.setIcon(GM.getMenuImageIcon("copy"));
-		jBCopy.setToolTipText(splMM.getMessage("panelvaluebar.copy")); // ¸´ÖÆ
+		jBCopy.setToolTipText(splMM.getMessage("panelvaluebar.copy")); // å¤åˆ¶
 		initButton(jBCopy);
 		panelNorth.add(jBCopy, getGBC(1, 4));
 		jBClose.setIcon(GM.getMenuImageIcon("quit"));
-		jBClose.setToolTipText(splMM.getMessage("panelvaluebar.quit")); // ÍË³ö
+		jBClose.setToolTipText(splMM.getMessage("panelvaluebar.quit")); // é€€å‡º
 		initButton(jBClose);
 		jBClose.setEnabled(true);
 		panelNorth.add(jBClose, getGBC(1, 5));
@@ -113,7 +113,7 @@ public class DialogViewValue extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ³õÊ¼»¯°´Å¥
+	 * åˆå§‹åŒ–æŒ‰é’®
 	 * 
 	 * @param button
 	 */
@@ -127,10 +127,10 @@ public class DialogViewValue extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * È¡×ÔÓÉ²¼¾Ö
+	 * å–è‡ªç”±å¸ƒå±€
 	 * 
-	 * @param r ĞĞºÅ
-	 * @param c ÁĞºÅ
+	 * @param r è¡Œå·
+	 * @param c åˆ—å·
 	 * @return
 	 */
 	private GridBagConstraints getGBC(int r, int c) {
@@ -138,11 +138,11 @@ public class DialogViewValue extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * È¡×ÔÓÉ²¼¾Ö
+	 * å–è‡ªç”±å¸ƒå±€
 	 *
-	 * @param r ĞĞºÅ
-	 * @param c ÁĞºÅ
-	 * @param b ÊÇ·ñºáÏòÀ©³ä
+	 * @param r è¡Œå·
+	 * @param c åˆ—å·
+	 * @param b æ˜¯å¦æ¨ªå‘æ‰©å……
 	 * @return
 	 */
 	private GridBagConstraints getGBC(int r, int c, boolean b) {
@@ -152,7 +152,7 @@ public class DialogViewValue extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ¿Ø¼şµÄÊÂ¼ş
+	 * æ§ä»¶çš„äº‹ä»¶
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();

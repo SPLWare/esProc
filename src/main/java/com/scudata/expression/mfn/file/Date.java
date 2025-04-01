@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.FileFunction;
 
 /**
- * È¡ÎÄ¼ş×îºóĞŞ¸ÄÈÕÆÚÊ±¼ä
+ * å–æ–‡ä»¶æœ€åä¿®æ”¹æ—¥æœŸæ—¶é—´
  * f.date()
  * @author RunQian
  *

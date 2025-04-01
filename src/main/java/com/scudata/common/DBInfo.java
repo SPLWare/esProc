@@ -12,14 +12,14 @@ public class DBInfo implements Cloneable, Externalizable {
   private static final long serialVersionUID = 10001110L;
 
   /**
-   * ¹¹Ôìº¯Êı
+   * æ„é€ å‡½æ•°
    */
   public DBInfo() {
   }
 
   /**
-   * ¹¹Ôìº¯Êı
-   *@param dbType Êı¾İÔ´ÀàĞÍ£¬²Î¼ûDBTypes
+   * æ„é€ å‡½æ•°
+   *@param dbType æ•°æ®æºç±»å‹ï¼Œå‚è§DBTypes
    */
   public DBInfo(int dbType) {
 	this.dbType = dbType;
@@ -40,156 +40,156 @@ public class DBInfo implements Cloneable, Externalizable {
   }
 
   /**
-   * ÉèÖÃÊı¾İ¿â·ÃÎÊÈ¨ÏŞ
-   * @param isPublic boolean true£ºÓµÓĞ¶ÔÊı¾İ¿âµÄÈ«²¿È¨ÏŞ£¬false£ºÖ»ÓĞÓïÒå²ã¿É¼û
+   * è®¾ç½®æ•°æ®åº“è®¿é—®æƒé™
+   * @param isPublic boolean trueï¼šæ‹¥æœ‰å¯¹æ•°æ®åº“çš„å…¨éƒ¨æƒé™ï¼Œfalseï¼šåªæœ‰è¯­ä¹‰å±‚å¯è§
    */
   public void setAccessPrivilege(boolean isPublic) {
 	this.isPublic = isPublic;
   }
 
   /**
-   * ·µ»ØÊı¾İ¿â·ÃÎÊÈ¨ÏŞ
-   * @return boolean true£ºÓµÓĞ¶ÔÊı¾İ¿âµÄÈ«²¿È¨ÏŞ£¬false£ºÖ»ÓĞÓïÒå²ã¿É¼û
+   * è¿”å›æ•°æ®åº“è®¿é—®æƒé™
+   * @return boolean trueï¼šæ‹¥æœ‰å¯¹æ•°æ®åº“çš„å…¨éƒ¨æƒé™ï¼Œfalseï¼šåªæœ‰è¯­ä¹‰å±‚å¯è§
    */
   public boolean getAccessPrivilege() {
 	return isPublic;
   }
 
   /**
-   * È¡Êı¾İÔ´ÀàĞÍ£¬È¡Öµ¼ûDBTypes
+   * å–æ•°æ®æºç±»å‹ï¼Œå–å€¼è§DBTypes
    */
   public int getDBType() {
 	return this.dbType;
   }
 
   /**
-   * ÉèÊı¾İÔ´ÀàĞÍ
-   *@param dbType Êı¾İÔ´ÀàĞÍ£¬²Î¼ûDBTypes
+   * è®¾æ•°æ®æºç±»å‹
+   *@param dbType æ•°æ®æºç±»å‹ï¼Œå‚è§DBTypes
    */
   public void setDBType(int dbType) {
 	this.dbType = dbType;
   }
 
   /**
-   * ÉèÊı¾İÔ´Ãû³Æ
-   *@param name Êı¾İÔ´Ãû³Æ
+   * è®¾æ•°æ®æºåç§°
+   *@param name æ•°æ®æºåç§°
    */
   public void setName(String name) {
 	this.name = name;
   }
 
   /**
-   * È¡Êı¾İÔ´Ãû³Æ
+   * å–æ•°æ®æºåç§°
    */
   public String getName() {
 	return name;
   }
 
   /**
-   * È¡Êı¾İÔ´Ê¹ÓÃµÄ×Ö·û¼¯Ãû
+   * å–æ•°æ®æºä½¿ç”¨çš„å­—ç¬¦é›†å
    */
   public String getDBCharset() {
 	return this.dbCharset;
   }
 
   /**
-   * ÉèÊı¾İÔ´Ê¹ÓÃµÄ×Ö·û¼¯Ãû
-   *@param charset1 ×Ö·û¼¯Ãû
+   * è®¾æ•°æ®æºä½¿ç”¨çš„å­—ç¬¦é›†å
+   *@param charset1 å­—ç¬¦é›†å
    */
   public void setDBCharset(String dbCharset) {
 	this.dbCharset = dbCharset;
   }
 
   /**
-   * È¡¿Í»§¶ËÊ¹ÓÃµÄ×Ö·û¼¯Ãû
+   * å–å®¢æˆ·ç«¯ä½¿ç”¨çš„å­—ç¬¦é›†å
    */
   public String getClientCharset() {
 	return this.clientCharset;
   }
 
   /**
-   * Éè¿Í»§¶ËÊ¹ÓÃµÄ×Ö·û¼¯Ãû
-   *@param charset2 ×Ö·û¼¯Ãû
+   * è®¾å®¢æˆ·ç«¯ä½¿ç”¨çš„å­—ç¬¦é›†å
+   *@param charset2 å­—ç¬¦é›†å
    */
   public void setClientCharset(String clientCharset) {
 	this.clientCharset = clientCharset;
   }
 
   /**
-   * È¡ÊÇ·ñĞèÒª×ª»»¼ìË÷ÄÚÈİµÄ±àÂë
+   * å–æ˜¯å¦éœ€è¦è½¬æ¢æ£€ç´¢å†…å®¹çš„ç¼–ç 
    */
   public boolean getNeedTranContent() {
 	return this.needTranContent;
   }
 
   /**
-   * ÉèÊÇ·ñĞèÒª×ª»»¼ìË÷ÄÚÈİµÄ±àÂë
+   * è®¾æ˜¯å¦éœ€è¦è½¬æ¢æ£€ç´¢å†…å®¹çš„ç¼–ç 
    */
   public void setNeedTranContent(boolean needTranContent) {
 	this.needTranContent = needTranContent;
   }
 
   /**
-   * È¡ÊÇ·ñĞèÒª×ª»»¼ìË÷Óï¾äµÄ±àÂë
+   * å–æ˜¯å¦éœ€è¦è½¬æ¢æ£€ç´¢è¯­å¥çš„ç¼–ç 
    */
   public boolean getNeedTranSentence() {
 	return this.needTranSentence;
   }
 
   /**
-   * ÉèÊÇ·ñĞèÒª×ª»»¼ìË÷Óï¾äµÄ±àÂë
+   * è®¾æ˜¯å¦éœ€è¦è½¬æ¢æ£€ç´¢è¯­å¥çš„ç¼–ç 
    */
   public void setNeedTranSentence(boolean needTranSentence) {
 	this.needTranSentence = needTranSentence;
   }
 
   /**
-   * È¡Êı¾İÔ´µÄÈÕÆÚ¸ñÊ½
+   * å–æ•°æ®æºçš„æ—¥æœŸæ ¼å¼
    */
   public String getDateFormat() {
 	return this.df;
   }
 
   /**
-   * ÉèÊı¾İÔ´µÄÈÕÆÚ¸ñÊ½£¬´Ëº¯ÊıÖ÷ÒªÎªÆ´SQLÓï¾äÊ¹ÓÃ
-   * @param df ÈÕÆÚ¸ñÊ½
+   * è®¾æ•°æ®æºçš„æ—¥æœŸæ ¼å¼ï¼Œæ­¤å‡½æ•°ä¸»è¦ä¸ºæ‹¼SQLè¯­å¥ä½¿ç”¨
+   * @param df æ—¥æœŸæ ¼å¼
    */
   public void setDateFormat(String df) {
 	this.df = df;
   }
 
   /**
-   * È¡Êı¾İÔ´µÄÊ±¼ä¸ñÊ½
+   * å–æ•°æ®æºçš„æ—¶é—´æ ¼å¼
    */
   public String getTimeFormat() {
 	return this.tf;
   }
 
   /**
-   * ÉèÊı¾İÔ´µÄÊ±¼ä¸ñÊ½£¬´Ëº¯ÊıÖ÷ÒªÎªÆ´SQLÓï¾äÊ¹ÓÃ
-   * @param tf Ê±¼ä¸ñÊ½
+   * è®¾æ•°æ®æºçš„æ—¶é—´æ ¼å¼ï¼Œæ­¤å‡½æ•°ä¸»è¦ä¸ºæ‹¼SQLè¯­å¥ä½¿ç”¨
+   * @param tf æ—¶é—´æ ¼å¼
    */
   public void setTimeFormat(String tf) {
 	this.tf = tf;
   }
 
   /**
-   * È¡Êı¾İÔ´µÄÈÕÆÚÊ±¼ä¸ñÊ½
+   * å–æ•°æ®æºçš„æ—¥æœŸæ—¶é—´æ ¼å¼
    */
   public String getDatetimeFormat() {
 	return this.dtf;
   }
 
   /**
-   * ÉèÊı¾İÔ´µÄÈÕÆÚÊ±¼ä¸ñÊ½£¬´Ëº¯ÊıÖ÷ÒªÎªÆ´SQLÓï¾äÊ¹ÓÃ
-   * @param dtf ÈÕÆÚÊ±¼ä¸ñÊ½
+   * è®¾æ•°æ®æºçš„æ—¥æœŸæ—¶é—´æ ¼å¼ï¼Œæ­¤å‡½æ•°ä¸»è¦ä¸ºæ‹¼SQLè¯­å¥ä½¿ç”¨
+   * @param dtf æ—¥æœŸæ—¶é—´æ ¼å¼
    */
   public void setDatetimeFormat(String dtf) {
 	this.dtf = dtf;
   }
 
   /**
-   * ÉèBatch Size
+   * è®¾Batch Size
    *@param size Batch Size
    */
   public void setBatchSize(int size) {
@@ -197,27 +197,27 @@ public class DBInfo implements Cloneable, Externalizable {
   }
 
   /**
-   * È¡Batch Size
+   * å–Batch Size
    */
   public int getBatchSize() {
 	return this.batchSize;
   }
 
   /**
-   * ²úÉúÊı¾İÔ´Á¬½Ó¹¤³§
-   * ±¾·½·¨Ö±½ÓÅ×Òì³££¬ĞèÒª×ÓÀàÖØÔØ
+   * äº§ç”Ÿæ•°æ®æºè¿æ¥å·¥å‚
+   * æœ¬æ–¹æ³•ç›´æ¥æŠ›å¼‚å¸¸ï¼Œéœ€è¦å­ç±»é‡è½½
    */
   public ISessionFactory createSessionFactory() throws Exception {
 	throw new RuntimeException("not implemented");
   }
 
-  /** °æ±¾ºÅ£¬È¡Öµbyte */
-  private static byte version = (byte)2; // 2009.9.14½øĞĞĞŞ¸Ä Ìí¼ÓÁËeditValue
+  /** ç‰ˆæœ¬å·ï¼Œå–å€¼byte */
+  private static byte version = (byte)2; // 2009.9.14è¿›è¡Œä¿®æ”¹ æ·»åŠ äº†editValue
 
-  /*************************ÒÔÏÂ¼Ì³Ğ×ÔExternalizable************************/
+  /*************************ä»¥ä¸‹ç»§æ‰¿è‡ªExternalizable************************/
   /**
-   * Ğ´ÄÚÈİµ½Á÷
-   *@param out Êä³öÁ÷
+   * å†™å†…å®¹åˆ°æµ
+   *@param out è¾“å‡ºæµ
    */
   public void writeExternal(ObjectOutput out) throws IOException {
 	out.writeByte(version);
@@ -231,14 +231,14 @@ public class DBInfo implements Cloneable, Externalizable {
 	out.writeBoolean(isPublic);
 	out.writeInt(batchSize);
 
-	// °æ±¾2
+	// ç‰ˆæœ¬2
 	out.writeBoolean(needTranContent);
 	out.writeBoolean(needTranSentence);
   }
 
   /**
-   * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-   *@param in ÊäÈëÁ÷
+   * ä»æµä¸­è¯»å†…å®¹
+   *@param in è¾“å…¥æµ
    */
   public void readExternal(ObjectInput in) throws IOException,
 	  ClassNotFoundException {

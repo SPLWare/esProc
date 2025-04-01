@@ -3,25 +3,25 @@ package com.scudata.dm;
 import java.io.IOException;
 
 /**
- * 按行输入
+ * 鎸夎杈撳叆
  */
 public interface ILineInput {
 	/**
-	 * 返回下一行，如果结束了则返回null
+	 * 杩斿洖涓嬩竴琛岋紝濡傛灉缁撴潫浜嗗垯杩斿洖null
 	 * @return Object[]
 	 * @throws IOException
 	 */
 	Object[] readLine() throws IOException;
 	
 	/**
-	 * 跳过下一行，如果结束了则返回false，否则返回true
+	 * 璺宠繃涓嬩竴琛岋紝濡傛灉缁撴潫浜嗗垯杩斿洖false锛屽惁鍒欒繑鍥瀟rue
 	 * @return boolean
 	 * @throws IOException
 	 */
 	boolean skipLine() throws IOException;
 	
 	/**
-	 * 关闭输入
+	 * 鍏抽棴杈撳叆
 	 * @throws IOException
 	 */
 	void close() throws IOException;

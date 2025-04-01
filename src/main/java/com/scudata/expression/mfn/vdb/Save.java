@@ -8,7 +8,7 @@ import com.scudata.expression.VSFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * °ÑÊı¾İĞ´Èëµ½Ö¸¶¨Â·¾¶µÄ±íµ¥
+ * æŠŠæ•°æ®å†™å…¥åˆ°æŒ‡å®šè·¯å¾„çš„è¡¨å•
  * h.save(x,p,F)
  * @author RunQian
  *
@@ -50,7 +50,7 @@ public class Save extends VSFunction {
 			Object value = sub0.getLeafExpression().calculate(ctx);
 			return vs.save(value, path, name);
 		} else {
-			// Ã»ÓĞ¸ø³ö±íµ¥ÄÚÈİÔò´´½¨Ä¿Â¼
+			// æ²¡æœ‰ç»™å‡ºè¡¨å•å†…å®¹åˆ™åˆ›å»ºç›®å½•
 			return vs.makeDir(path, name);
 		}
 	}

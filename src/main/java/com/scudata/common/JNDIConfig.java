@@ -6,17 +6,17 @@ public class JNDIConfig extends DBInfo implements Cloneable, Serializable
 	private String jndi;
 
 	/**
-	 * ³õÊ¼»¯
-	 * @param dbType	Êı¾İ¿âÀàĞÍ
+	 * åˆå§‹åŒ–
+	 * @param dbType	æ•°æ®åº“ç±»å‹
 	 */
 	public JNDIConfig( int dbType ) {
 		super(dbType);
 	}
 
 	/**
-	 * ³õÊ¼»¯
-	 * @param dbType	Êı¾İ¿âÀàĞÍ
-	 * @param jndi	jndi´®
+	 * åˆå§‹åŒ–
+	 * @param dbType	æ•°æ®åº“ç±»å‹
+	 * @param jndi	jndiä¸²
 	 */
 	public JNDIConfig( int dbType, String jndi ) {
 		super(dbType);
@@ -24,7 +24,7 @@ public class JNDIConfig extends DBInfo implements Cloneable, Serializable
 	}
 
 	/**
-	 * ÉèÖÃjndi
+	 * è®¾ç½®jndi
 	 * @param jndi
 	 */
 	public void setJNDI( String jndi ) {
@@ -32,7 +32,7 @@ public class JNDIConfig extends DBInfo implements Cloneable, Serializable
 	}
 
 	/**
-	 * »ñÈ¡jndi
+	 * è·å–jndi
 	 * @return
 	 */
 	public String getJNDI() {
@@ -40,7 +40,7 @@ public class JNDIConfig extends DBInfo implements Cloneable, Serializable
 	}
 
 	/**
-	 * ´´½¨Á¬½Ó¹¤³§
+	 * åˆ›å»ºè¿æ¥å·¥å‚
 	 */
 	public ISessionFactory createSessionFactory() throws Exception {
 		return new JNDISessionFactory( this );

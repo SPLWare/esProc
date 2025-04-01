@@ -9,29 +9,29 @@ import com.scudata.dm.op.IGroupsResult;
 import com.scudata.expression.Expression;
 
 /**
- * ¶ÔÓÎ±ê»òÅÅÁĞÖ´ĞĞ·Ö×éÔËËãµÄÈÎÎñ
+ * å¯¹æ¸¸æ ‡æˆ–æ’åˆ—æ‰§è¡Œåˆ†ç»„è¿ç®—çš„ä»»åŠ¡
  * @author LW
  *
  */
 public class GroupsJob2 extends Job {
-	private Sequence data;// Êı¾İ
-	private Object key; // Êı¾İµÄkey (dataÊÇÁĞÊ½Ê±²ÅÓĞÒâÒå)
-	private IntArray hashValue; // Êı¾İµÄkeyµÄhash (dataÊÇÁĞÊ½Ê±²ÅÓĞÒâÒå)
+	private Sequence data;// æ•°æ®
+	private Object key; // æ•°æ®çš„key (dataæ˜¯åˆ—å¼æ—¶æ‰æœ‰æ„ä¹‰)
+	private IntArray hashValue; // æ•°æ®çš„keyçš„hash (dataæ˜¯åˆ—å¼æ—¶æ‰æœ‰æ„ä¹‰)
 	
-	private GroupsSyncReader reader; // Êı¾İÓÎ±ê
+	private GroupsSyncReader reader; // æ•°æ®æ¸¸æ ‡
 	
-	private Expression[] exps; // ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	private String[] names; // ·Ö×é×Ö¶ÎÃûÊı×é
-	private Expression[] calcExps; // »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	private String[] calcNames; // »ã×Ü×Ö¶ÎÃûÊı×é
-	private String opt; // Ñ¡Ïî
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
+	private Expression[] exps; // åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String[] names; // åˆ†ç»„å­—æ®µåæ•°ç»„
+	private Expression[] calcExps; // æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String[] calcNames; // æ±‡æ€»å­—æ®µåæ•°ç»„
+	private String opt; // é€‰é¡¹
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
 	
-	private IGroupsResult groupsResult; // ·Ö×é¶ÔÏó
-	private int capacity; // hash±í´óĞ¡
+	private IGroupsResult groupsResult; // åˆ†ç»„å¯¹è±¡
+	private int capacity; // hashè¡¨å¤§å°
 	
-	private int hashStart;// °üº¬
-	private int hashEnd;// ²»°üº¬
+	private int hashStart;// åŒ…å«
+	private int hashEnd;// ä¸åŒ…å«
 	
 	public GroupsJob2(GroupsSyncReader reader, Expression[] exps, String[] names,
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int capacity) {
@@ -60,7 +60,7 @@ public class GroupsJob2 extends Job {
 	}
 	
 	/**
-	 * È¡·Ö×é¶ÔÏó
+	 * å–åˆ†ç»„å¯¹è±¡
 	 * @return IGroupsResult
 	 */
 	public IGroupsResult getGroupsResult() {

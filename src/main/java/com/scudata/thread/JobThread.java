@@ -1,7 +1,7 @@
 package com.scudata.thread;
 
 /**
- * Ö´ĞĞÈÎÎñµÄÏß³Ì¶ÔÏó
+ * æ‰§è¡Œä»»åŠ¡çš„çº¿ç¨‹å¯¹è±¡
  * @author WangXiaoJun
  *
  */

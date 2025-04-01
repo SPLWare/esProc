@@ -13,7 +13,7 @@ import com.scudata.ide.common.swing.*;
 import com.scudata.ide.spl.resources.*;
 
 /**
- * Ìî³äÑÕÉ«±à¼­¶Ô»°¿ò
+ * å¡«å……é¢œè‰²ç¼–è¾‘å¯¹è¯æ¡†
  * 
  * @author Joancy
  *
@@ -39,9 +39,9 @@ public class ChartColorDialog extends JDialog {
 
 	boolean isInit = false;
 	/**
-	 * ¹¹½¨Ò»¸öÌî³äÑÕÉ«±à¼­¶Ô»°¿ò
+	 * æ„å»ºä¸€ä¸ªå¡«å……é¢œè‰²ç¼–è¾‘å¯¹è¯æ¡†
 	 * 
-	 * @param owner ¸¸´°¿Ú
+	 * @param owner çˆ¶çª—å£
 	 */
 	public ChartColorDialog( Dialog owner ) {
 		super( owner );
@@ -100,7 +100,7 @@ public class ChartColorDialog extends JDialog {
 			}
 		});
 		jianjin.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
-		jianjin.setText( ChartMessage.get().getMessage( "ccd.usegradient" ) );  //"Ê¹ÓÃ½¥½üÉ«" );
+		jianjin.setText( ChartMessage.get().getMessage( "ccd.usegradient" ) );  //"ä½¿ç”¨æ¸è¿‘è‰²" );
 		jianjin.addActionListener( new java.awt.event.ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				jianjin_actionPerformed( e );
@@ -108,13 +108,13 @@ public class ChartColorDialog extends JDialog {
 		} );
 		okbtn.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
 		okbtn.setMargin( new Insets( 2, 5, 2, 5 ) );
-		okbtn.setText( ChartMessage.get().getMessage( "button.ok" ) );  //"È·¶¨(O)" );
+		okbtn.setText( ChartMessage.get().getMessage( "button.ok" ) );  //"ç¡®å®š(O)" );
 		okbtn.addActionListener( new java.awt.event.ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				okbtn_actionPerformed( e );
 			}
 		} );
-		cancelbtn.setText( ChartMessage.get().getMessage( "button.cancel" ) );  //"È¡Ïû(C)" );
+		cancelbtn.setText( ChartMessage.get().getMessage( "button.cancel" ) );  //"å–æ¶ˆ(C)" );
 		cancelbtn.addActionListener( new java.awt.event.ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				cancelbtn_actionPerformed( e );
@@ -123,12 +123,12 @@ public class ChartColorDialog extends JDialog {
 		cancelbtn.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
 		cancelbtn.setMargin( new Insets( 2, 5, 2, 5 ) );
 		labelC1.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
-		labelC1.setText( ChartMessage.get().getMessage( "ccd.color1" ) );  //"ÑÕÉ«Ò»" );
-		labelC2.setText( ChartMessage.get().getMessage( "ccd.color2" ) );  //"ÑÕÉ«¶ş" );
+		labelC1.setText( ChartMessage.get().getMessage( "ccd.color1" ) );  //"é¢œè‰²ä¸€" );
+		labelC2.setText( ChartMessage.get().getMessage( "ccd.color2" ) );  //"é¢œè‰²äºŒ" );
 		labelC2.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
 		labelAngle.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
 		labelAngle.setToolTipText( "" );
-		labelAngle.setText( ChartMessage.get().getMessage( "ccd.angle" ) ); //"½¥½ü½Ç¶È" );
+		labelAngle.setText( ChartMessage.get().getMessage( "ccd.angle" ) ); //"æ¸è¿‘è§’åº¦" );
 		angle.addChangeListener( new javax.swing.event.ChangeListener() {
 			public void stateChanged( ChangeEvent e ) {
 				angle_stateChanged( e );
@@ -193,8 +193,8 @@ public class ChartColorDialog extends JDialog {
 	}
 	
 	/**
-	 * ÉèÖÃÌî³äÑÕÉ«¶ÔÏó
-	 * @param c Ìî³äÑÕÉ«
+	 * è®¾ç½®å¡«å……é¢œè‰²å¯¹è±¡
+	 * @param c å¡«å……é¢œè‰²
 	 */
 	public void setChartColor( ChartColor c ) {
 		if ( c == null ) {
@@ -216,16 +216,16 @@ public class ChartColorDialog extends JDialog {
 	}
 
 	/**
-	 * ·µ»Ø´°¿ÚÓÃ»§Ñ¡Ïî
-	 * @return ´°¿ÚÑ¡Ïî
+	 * è¿”å›çª—å£ç”¨æˆ·é€‰é¡¹
+	 * @return çª—å£é€‰é¡¹
 	 */
 	public int getOption() {
 		return m_option;
 	}
 
 	/**
-	 * ·µ»Ø±à¼­ºÃµÄÌî³äÑÕÉ«
-	 * @return Ìî³äÑÕÉ«
+	 * è¿”å›ç¼–è¾‘å¥½çš„å¡«å……é¢œè‰²
+	 * @return å¡«å……é¢œè‰²
 	 */
 	public ChartColor getChartColor() {
 		return cc;

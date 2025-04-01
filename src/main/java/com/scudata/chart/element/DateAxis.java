@@ -8,35 +8,35 @@ import com.scudata.chart.edit.*;
 import com.scudata.dm.*;
 import com.scudata.util.*;
 /**
- * ÈÕÆÚÖá
- * Êı¾İÀàĞÍÎªDateµÄÖá£¬ÎªÁËÒ×ÓÃĞÔ£¬Êı¾İÒ²¿ÉÒÔĞ´³É´®ÀàĞÍµÄÈÕÆÚ
+ * æ—¥æœŸè½´
+ * æ•°æ®ç±»å‹ä¸ºDateçš„è½´ï¼Œä¸ºäº†æ˜“ç”¨æ€§ï¼Œæ•°æ®ä¹Ÿå¯ä»¥å†™æˆä¸²ç±»å‹çš„æ—¥æœŸ
  * @author Joancy
  *
  */
 public class DateAxis extends TickAxis {
-	// ×Ô¶¯¼ÆËã×î´óĞ¡ÖµµÄ·¶Î§
+	// è‡ªåŠ¨è®¡ç®—æœ€å¤§å°å€¼çš„èŒƒå›´
 	public boolean autoCalcValueRange = true;
-	// ÖµÖáÊôĞÔ£¬×î´óÖµ
+	// å€¼è½´å±æ€§ï¼Œæœ€å¤§å€¼
 	public Date endDate = GregorianCalendar.getInstance().getTime();
 
-	// ÖµÖáÊôĞÔ£¬×îĞ¡Öµ
+	// å€¼è½´å±æ€§ï¼Œæœ€å°å€¼
 	public Date beginDate = endDate;
 
-	// ÖµÖáÊôĞÔ£¬¿Ì¶Èµ¥Î»
+	// å€¼è½´å±æ€§ï¼Œåˆ»åº¦å•ä½
 	public int scaleUnit = Consts.DATEUNIT_DAY;
 
-	// ÖµÖáÊôĞÔ£¬¿Ì¶ÈÏÔÊ¾¸ñÊ½
+	// å€¼è½´å±æ€§ï¼Œåˆ»åº¦æ˜¾ç¤ºæ ¼å¼
 	public String format = "yyyy/MM/dd";
 
 	/**
-	 * È±Ê¡Öµ¹¹Ôìº¯Êı
+	 * ç¼ºçœå€¼æ„é€ å‡½æ•°
 	 */
 	public DateAxis() {
 	}
 
 	/**
-	 * ÈÕÆÚÖáÍ¼ÔªµÄ±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * æ—¥æœŸè½´å›¾å…ƒçš„ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -56,10 +56,10 @@ public class DateAxis extends TickAxis {
 	}
 
 	/**
-	 * ½«ÈÕÆÚ°´getTime()È¡ÕûÊı£¬ÒÔ¼°ÊıÖµÀàĞÍµÄÖµ£¬·µ»ØÊµÊı
-	 * ¸Ãº¯ÊıµÄ×÷ÓÃÖ÷ÒªÓÃÓÚ¼ÆËãÈÕÆÚÒÔ¼°ÊıÖµµÄ¾ø¶ÔÇø¼ä
-	 * @param date ¿ÉÒÔÎªÊıÖµ£¬ÈÕÆÚ£¬»òÕß´®ÃèÊöµÄÈÕÆÚÀàĞÍ
-	 * @return ÊµÊı¾«¶ÈµÄ¾ø¶ÔÖµ
+	 * å°†æ—¥æœŸæŒ‰getTime()å–æ•´æ•°ï¼Œä»¥åŠæ•°å€¼ç±»å‹çš„å€¼ï¼Œè¿”å›å®æ•°
+	 * è¯¥å‡½æ•°çš„ä½œç”¨ä¸»è¦ç”¨äºè®¡ç®—æ—¥æœŸä»¥åŠæ•°å€¼çš„ç»å¯¹åŒºé—´
+	 * @param date å¯ä»¥ä¸ºæ•°å€¼ï¼Œæ—¥æœŸï¼Œæˆ–è€…ä¸²æè¿°çš„æ—¥æœŸç±»å‹
+	 * @return å®æ•°ç²¾åº¦çš„ç»å¯¹å€¼
 	 */
 	public static double getDoubleDate(Object date) {
 		if (date instanceof Number) {
@@ -78,14 +78,14 @@ public class DateAxis extends TickAxis {
 	}
 
 	/*
-	 * @return Object£¬½á¹ûÎªµ½ÖáÔ­µãµÄ³¤¶È Èç¹ûÊÇ¼«ÖáÔòÎª¼«Öá³¤¶È Èç¹ûÊÇ½ÇÖáÔòÎª¾ø¶Ô½Ç¶È
+	 * @return Objectï¼Œç»“æœä¸ºåˆ°è½´åŸç‚¹çš„é•¿åº¦ å¦‚æœæ˜¯æè½´åˆ™ä¸ºæè½´é•¿åº¦ å¦‚æœæ˜¯è§’è½´åˆ™ä¸ºç»å¯¹è§’åº¦
 	 */
 	double getValueLength(Object val, boolean isAbsolute) {
 		double len = 0;
 		double axisLen = getAxisLength();
 		if (isAbsolute) {
 			len = ((Number) val).doubleValue();
-			long valMillSecs = (long) (len * 24 * 60 * 60 * 1000);// ½«val´ú±íµÄÌìÊı×ª»»ÎªºÁÃëÊı
+			long valMillSecs = (long) (len * 24 * 60 * 60 * 1000);// å°†valä»£è¡¨çš„å¤©æ•°è½¬æ¢ä¸ºæ¯«ç§’æ•°
 			len = axisLen * (valMillSecs / (t_maxDate - t_minDate));
 		} else {
 			double tmp = getDoubleDate(val);
@@ -96,9 +96,9 @@ public class DateAxis extends TickAxis {
 	}
 
 	/**
-	 * »ñÈ¡»ùÖµµÄ×ø±êµã
-	 * ¶ÔÓÚÖùÍ¼ÔªµÄ»æÖÆ£¬Ò»°ãÊÇ´Ó»ùÖµ»­µ½ÁíÒ»¸ß¶È
-	 * @return Point ×ø±êµã
+	 * è·å–åŸºå€¼çš„åæ ‡ç‚¹
+	 * å¯¹äºæŸ±å›¾å…ƒçš„ç»˜åˆ¶ï¼Œä¸€èˆ¬æ˜¯ä»åŸºå€¼ç”»åˆ°å¦ä¸€é«˜åº¦
+	 * @return Point åæ ‡ç‚¹
 	 */
 	public Point2D getRootPoint() {
 		switch (location) {
@@ -113,10 +113,10 @@ public class DateAxis extends TickAxis {
 
 
 	/**
-	 * »ñÈ¡v¸úĞòÁĞdÖĞËùÓĞÖµ±È½ÏºóµÄ×î´óÖµ
-	 * @param v ÖµĞòÁĞ
-	 * @param d ´ı±È½ÏµÄÖµ
-	 * @return ×î´óÖµ
+	 * è·å–vè·Ÿåºåˆ—dä¸­æ‰€æœ‰å€¼æ¯”è¾ƒåçš„æœ€å¤§å€¼
+	 * @param v å€¼åºåˆ—
+	 * @param d å¾…æ¯”è¾ƒçš„å€¼
+	 * @return æœ€å¤§å€¼
 	 */
 	public static  double max(double v, Sequence d) {
 		Sequence al = (Sequence) d;
@@ -128,10 +128,10 @@ public class DateAxis extends TickAxis {
 	}
 
 	/**
-	 * »ñÈ¡v¸úĞòÁĞdÖĞËùÓĞÖµ±È½ÏºóµÄ×îĞ¡Öµ
-	 * @param v ÖµĞòÁĞ
-	 * @param d ´ı±È½ÏµÄÖµ
-	 * @return ×îĞ¡Öµ
+	 * è·å–vè·Ÿåºåˆ—dä¸­æ‰€æœ‰å€¼æ¯”è¾ƒåçš„æœ€å°å€¼
+	 * @param v å€¼åºåˆ—
+	 * @param d å¾…æ¯”è¾ƒçš„å€¼
+	 * @return æœ€å°å€¼
 	 */
 	public static double min(double v, Sequence d) {
 		Sequence al = (Sequence) d;
@@ -143,7 +143,7 @@ public class DateAxis extends TickAxis {
 	}
 
 	/**
-	 * »æÍ¼Ç°µÄÊı¾İ×¼±¸¹¤×÷
+	 * ç»˜å›¾å‰çš„æ•°æ®å‡†å¤‡å·¥ä½œ
 	 */
 	public void prepare(ArrayList<DataElement> dataElements) {
 		super.prepare(dataElements);
@@ -177,7 +177,7 @@ public class DateAxis extends TickAxis {
 		Date start = new Date((long)t_minDate);
 		Date end = new Date((long)t_maxDate);
 
-		// ÈÕÆÚ±êÇ©tickÒÑ¾­°´ÕÕtickStep¹ıÂËÁË¿Ì¶È£¬ËùÒÔ²úÉú¿Ì¶Èºó£¬tickStepÖØÖÃÎª1
+		// æ—¥æœŸæ ‡ç­¾tickå·²ç»æŒ‰ç…§tickStepè¿‡æ»¤äº†åˆ»åº¦ï¼Œæ‰€ä»¥äº§ç”Ÿåˆ»åº¦åï¼ŒtickStepé‡ç½®ä¸º1
 		createCoorValue(start, end, scaleUnit, displayStep, t_coorValue);
 		displayStep = 1;
 	}
@@ -321,7 +321,7 @@ public class DateAxis extends TickAxis {
 	}
 
 	/**
-	 * Ã¿´ÎÖØ»æÇ°¸ù¾İµ±Ç°»­²¼µÄ³ß´ç£¬¼ÆËãÏà¹ØÁÙÊ±»æÖÆ²ÎÊı
+	 * æ¯æ¬¡é‡ç»˜å‰æ ¹æ®å½“å‰ç”»å¸ƒçš„å°ºå¯¸ï¼Œè®¡ç®—ç›¸å…³ä¸´æ—¶ç»˜åˆ¶å‚æ•°
 	 */
 	public void beforeDraw() {
 		switch (location) {
@@ -339,7 +339,7 @@ public class DateAxis extends TickAxis {
 	}
 
 	/**
-	 * ÊÇ·ñÃ¶¾ÙÖá
+	 * æ˜¯å¦æšä¸¾è½´
 	 * @return false
 	 */
 	public boolean isEnumAxis(){
@@ -347,7 +347,7 @@ public class DateAxis extends TickAxis {
 	}
 
 	/**
-	 * ÊÇ·ñÈÕÆÚÖá
+	 * æ˜¯å¦æ—¥æœŸè½´
 	 * @return true
 	 */
 	public boolean isDateAxis(){
@@ -355,7 +355,7 @@ public class DateAxis extends TickAxis {
 	}
 	
 	/**
-	 * ÊÇ·ñÊıÖµÖá
+	 * æ˜¯å¦æ•°å€¼è½´
 	 * @return false
 	 */
 	public boolean isNumericAxis(){
@@ -369,14 +369,14 @@ public class DateAxis extends TickAxis {
 		}
 	}
 	/**
-	 * ½«Âß¼­Öµval×ª»»ÎªÊ±¼äÖáÊıÖµ
+	 * å°†é€»è¾‘å€¼valè½¬æ¢ä¸ºæ—¶é—´è½´æ•°å€¼
 	 */
 	public double animateDoubleValue(Object val){
 		return getDoubleDate( val );
 	}
 
-	// ËùÓĞ»æÖÆÍ¼ĞÎÏà¹ØµÄÖĞ¼ä¼ÆËã±äÁ¿¶¼ÓÉtransientÏŞ¶¨´ÊÖ¸³ö£¬²¢ÇÒ±äÁ¿ÃûÓÉt_×÷ÎªÇ°×º
-	// ÊıÁ¿µ¥Î»
+	// æ‰€æœ‰ç»˜åˆ¶å›¾å½¢ç›¸å…³çš„ä¸­é—´è®¡ç®—å˜é‡éƒ½ç”±transienté™å®šè¯æŒ‡å‡ºï¼Œå¹¶ä¸”å˜é‡åç”±t_ä½œä¸ºå‰ç¼€
+	// æ•°é‡å•ä½
 	private transient double t_maxDate=0, t_minDate=Long.MAX_VALUE;
 	private transient int t_valueBaseLine = 0;
 }

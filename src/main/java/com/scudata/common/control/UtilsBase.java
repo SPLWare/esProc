@@ -13,27 +13,27 @@ import com.scudata.common.StringUtils;
  */
 public class UtilsBase {
 	/**
-	 * ¼Ç×¡×Ö·ûµÄ¿í¶È£¬¼ÓËÙ»æÍ¼ËÙ¶È
+	 * è®°ä½å­—ç¬¦çš„å®½åº¦ï¼ŒåŠ é€Ÿç»˜å›¾é€Ÿåº¦
 	 */
 	private static HashMap<String, Integer> fmWidthBuf = new HashMap<String, Integer>();
 	/**
-	 * ¿ÕÁĞ±í
+	 * ç©ºåˆ—è¡¨
 	 */
 	private static ArrayList<String> emptyArrayList = new ArrayList<String>();
 	/**
-	 * »º´æÎÄ±¾ÕÛĞĞµÄÓ³Éä±í¡£KEYÊÇ×Ö·û´®£¬VALUEÊÇÕÛĞĞºóµÄÎÄ±¾ÁĞ±í
+	 * ç¼“å­˜æ–‡æœ¬æŠ˜è¡Œçš„æ˜ å°„è¡¨ã€‚KEYæ˜¯å­—ç¬¦ä¸²ï¼ŒVALUEæ˜¯æŠ˜è¡Œåçš„æ–‡æœ¬åˆ—è¡¨
 	 */
 	public static HashMap<String, ArrayList<String>> wrapStringBuffer = new HashMap<String, ArrayList<String>>();
 
 	/**
-	 * ÕÛĞĞ
+	 * æŠ˜è¡Œ
 	 * 
 	 * @param text
-	 *            ÒªÕÛĞĞµÄÎÄ±¾
+	 *            è¦æŠ˜è¡Œçš„æ–‡æœ¬
 	 * @param fm
 	 *            FontMetrics
 	 * @param w
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 * @return
 	 */
 	public static ArrayList<String> wrapString(String text, FontMetrics fm,
@@ -42,13 +42,13 @@ public class UtilsBase {
 	}
 
 	/**
-	 * »ñÈ¡×Ö·û´®µÄÏÔÊ¾¿í¶È
+	 * è·å–å­—ç¬¦ä¸²çš„æ˜¾ç¤ºå®½åº¦
 	 * 
 	 * @param fm
 	 *            FontMetrics
 	 * @param text
-	 *            ÒªÏÔÊ¾µÄ×Ö·û´®
-	 * @return ¿í¶È
+	 *            è¦æ˜¾ç¤ºçš„å­—ç¬¦ä¸²
+	 * @return å®½åº¦
 	 */
 	public static int stringWidth(FontMetrics fm, String text) {
 		String key = fm.hashCode() + "," + text.hashCode();
@@ -65,16 +65,16 @@ public class UtilsBase {
 	}
 
 	/**
-	 * ÕÛĞĞ
+	 * æŠ˜è¡Œ
 	 * 
 	 * @param text
-	 *            ÒªÕÛĞĞµÄÎÄ±¾
+	 *            è¦æŠ˜è¡Œçš„æ–‡æœ¬
 	 * @param fm
 	 *            FontMetrics
 	 * @param w
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 * @param maxRow
-	 *            ×î´óĞĞÊı(³¬¹ı´ËĞĞÊıµÄ¾Í²»ÒªÁË)
+	 *            æœ€å¤§è¡Œæ•°(è¶…è¿‡æ­¤è¡Œæ•°çš„å°±ä¸è¦äº†)
 	 * @return
 	 */
 	public static ArrayList<String> wrapString(String text, FontMetrics fm,
@@ -103,8 +103,8 @@ public class UtilsBase {
 						return wrapedString;
 					}
 				} else {
-					// ÔÚjdk6£¬New Times Roman×ÖÌåÊ¹ÓÃLineBreakMeasurer³öÏÖjvmÍË³öÒì³£¡£
-					// ¸ã²»Çå³ş×îÔçÊÇÊ²Ã´Ê±ºòÊ¹ÓÃµÄLineBreakMeasurer£¬ÔİÊ±Ìæ»»³É±¨±íµÄÕÛĞĞ·½·¨¡£wunan
+					// åœ¨jdk6ï¼ŒNew Times Romanå­—ä½“ä½¿ç”¨LineBreakMeasurerå‡ºç°jvmé€€å‡ºå¼‚å¸¸ã€‚
+					// æä¸æ¸…æ¥šæœ€æ—©æ˜¯ä»€ä¹ˆæ—¶å€™ä½¿ç”¨çš„LineBreakMeasurerï¼Œæš‚æ—¶æ›¿æ¢æˆæŠ¥è¡¨çš„æŠ˜è¡Œæ–¹æ³•ã€‚wunan
 					// 2018-05-29
 					wrapedString = StringUtils2.wrapString(text, fm, w, false,
 							maxRow);

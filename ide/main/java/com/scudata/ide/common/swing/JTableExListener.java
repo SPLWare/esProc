@@ -3,65 +3,65 @@ package com.scudata.ide.common.swing;
 import java.awt.event.MouseEvent;
 
 /**
- * ±í¸ñ¿Ø¼ş¼àÌıÆ÷
+ * è¡¨æ ¼æ§ä»¶ç›‘å¬å™¨
  *
  */
 public interface JTableExListener {
 	/**
-	 * Êó±êÓÒ¼üµã»÷
+	 * é¼ æ ‡å³é”®ç‚¹å‡»
 	 * 
 	 * @param xpos
-	 *            X×ø±ê
+	 *            Xåæ ‡
 	 * @param ypos
-	 *            Y×ø±ê
+	 *            Yåæ ‡
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void rightClicked(int xpos, int ypos, int row, int col, MouseEvent e);
 
 	/**
-	 * Êó±êË«»÷
+	 * é¼ æ ‡åŒå‡»
 	 * 
 	 * @param xpos
-	 *            X×ø±ê
+	 *            Xåæ ‡
 	 * @param ypos
-	 *            Y×ø±ê
+	 *            Yåæ ‡
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void doubleClicked(int xpos, int ypos, int row, int col, MouseEvent e);
 
 	/**
-	 * Êó±êµã»÷
+	 * é¼ æ ‡ç‚¹å‡»
 	 *
 	 * @param xpos
-	 *            X×ø±ê
+	 *            Xåæ ‡
 	 * @param ypos
-	 *            Y×ø±ê
+	 *            Yåæ ‡
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void clicked(int xpos, int ypos, int row, int col, MouseEvent e);
 
 	/**
-	 * ĞĞ½¹µã·¢Éú±ä»¯
+	 * è¡Œç„¦ç‚¹å‘ç”Ÿå˜åŒ–
 	 * 
 	 * @param oldRow
-	 *            Ö®Ç°Ñ¡ÔñµÄĞĞ
+	 *            ä¹‹å‰é€‰æ‹©çš„è¡Œ
 	 * @param newRow
-	 *            ĞÂÑ¡ÔñµÄĞĞ
+	 *            æ–°é€‰æ‹©çš„è¡Œ
 	 */
 	public void rowfocusChanged(int oldRow, int newRow);
 	public void stateChanged(javax.swing.event.ChangeEvent arg0);

@@ -9,13 +9,13 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼ÆËãË¹Æ¤¶ûÂüÏµÊıspearman(A,B)£¬BÊ¡ÂÔÊ±ÓÃto(A.len())
+ * è®¡ç®—æ–¯çš®å°”æ›¼ç³»æ•°spearman(A,B)ï¼ŒBçœç•¥æ—¶ç”¨to(A.len())
  * @author bd, 2021.1.19
  *
  */
 public class Spearman extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

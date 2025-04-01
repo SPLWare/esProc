@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.scudata.common.RQException;
 
 /**
- * ÇëÇóÏìÓ¦
+ * è¯·æ±‚å“åº”
  * 
  * @author Joancy
  *
@@ -13,59 +13,59 @@ import com.scudata.common.RQException;
 public class Response implements Serializable {
 	private static final long serialVersionUID = -5641784958339382118L;
 	
-	private Exception exception = null;//Ò»°ãĞÔµÄ¼ÆËãÒì³£
-	private Error error = null;//ĞéÄâ»úµÈ´íÎó£¬ÄÚ´æÒç³öµÈ
+	private Exception exception = null;//ä¸€èˆ¬æ€§çš„è®¡ç®—å¼‚å¸¸
+	private Error error = null;//è™šæ‹Ÿæœºç­‰é”™è¯¯ï¼Œå†…å­˜æº¢å‡ºç­‰
 	private Object result = null;
 	
 	transient String fromHost = null;
 	/**
-	 * ¹¹ÔìÈ±Ê¡ÏìÓ¦
+	 * æ„é€ ç¼ºçœå“åº”
 	 */
 	public Response() {
 	}
 	
 	/**
-	 * ´´½¨ÏìÓ¦¶ÔÏó
-	 * @param result ·µ»ØÖµ
+	 * åˆ›å»ºå“åº”å¯¹è±¡
+	 * @param result è¿”å›å€¼
 	 */
 	public Response(Object result) {
 		this.result = result;
 	}
 	
 	/**
-	 * ÉèÖÃÏìÓ¦µÄipÀ´Ô´
-	 * @param ip ipµØÖ·
+	 * è®¾ç½®å“åº”çš„ipæ¥æº
+	 * @param ip ipåœ°å€
 	 */
 	public void setFromHost(String ip){
 		this.fromHost = ip;
 	}
 	
 	/**
-	 * È¡ÏìÓ¦ÖĞµÄÒì³£
-	 * @return ÓĞÒì³£Ê±·µ»ØÒì³££¬·ñÔò·µ»Ønull 
+	 * å–å“åº”ä¸­çš„å¼‚å¸¸
+	 * @return æœ‰å¼‚å¸¸æ—¶è¿”å›å¼‚å¸¸ï¼Œå¦åˆ™è¿”å›null 
 	 */
 	public Exception getException() {
 		return exception;
 	} 
 	
 	/**
-	 * ÉèÖÃÏìÓ¦µÄÒì³£
-	 * @param e Òì³£¶ÔÏó
+	 * è®¾ç½®å“åº”çš„å¼‚å¸¸
+	 * @param e å¼‚å¸¸å¯¹è±¡
 	 */
 	public void setException(Exception e) {
 		this.exception = e;
 	}
 	
 	/**
-	 * ÉèÖÃÏìÓ¦µÄ´íÎó
-	 * @param e ´íÎó¶ÔÏó
+	 * è®¾ç½®å“åº”çš„é”™è¯¯
+	 * @param e é”™è¯¯å¯¹è±¡
 	 */
 	public void setError(Error e){
 		this.error = e;
 	}
 	/**
-	 * È¡ÏìÓ¦µÄ´íÎó
-	 * @return ´íÎó¶ÔÏó
+	 * å–å“åº”çš„é”™è¯¯
+	 * @return é”™è¯¯å¯¹è±¡
 	 */
 	public Error getError(){
 		return error;
@@ -73,24 +73,24 @@ public class Response implements Serializable {
 	
 
 	/**
-	 * È¡ÏìÓ¦½á¹û
-	 * @return ½á¹ûÖµ
+	 * å–å“åº”ç»“æœ
+	 * @return ç»“æœå€¼
 	 */
 	public Object getResult() {
 		return result;
 	}
 
 	/**
-	 * ÉèÖÃÏìÓ¦µÄ½á¹ûÖµ
-	 * @param res ½á¹ûÖµ
+	 * è®¾ç½®å“åº”çš„ç»“æœå€¼
+	 * @param res ç»“æœå€¼
 	 */
 	public void setResult(Object res) {
 		this.result = res;
 	}
 	
 	/**
-	 * ¸ù¾İ½á¹ûÒÔ¼°Òì³£ÏûÏ¢£¬¼¯ÖĞ·µ»ØÏìÓ¦½á¹û
-	 * @return ÏàÓ¦µÄÏìÓ¦Öµ
+	 * æ ¹æ®ç»“æœä»¥åŠå¼‚å¸¸æ¶ˆæ¯ï¼Œé›†ä¸­è¿”å›å“åº”ç»“æœ
+	 * @return ç›¸åº”çš„å“åº”å€¼
 	 */
 	public Object checkResult() {
 		if (result != null) {
@@ -100,7 +100,7 @@ public class Response implements Serializable {
 		} else if (error != null) {
 			throw new RQException("["+fromHost+"]"+error.getMessage(), error);
 		} else {
-			return null; // ½á¹ûÊÇnull
+			return null; // ç»“æœæ˜¯null
 		}
 	}
 }

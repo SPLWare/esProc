@@ -5,7 +5,7 @@ import java.util.*;
 import java.math.*;
 
 /**
- * ÓÃÓÚ°Ñ¶ÔÏóÊä³ö³É×Ö½ÚÁ÷£¬¿ÉÒÔÖ§³Ö¶ÁÈ¡²»Í¬°æ±¾³ÌĞò±£´æµÄÊı¾İ
+ * ç”¨äºæŠŠå¯¹è±¡è¾“å‡ºæˆå­—èŠ‚æµï¼Œå¯ä»¥æ”¯æŒè¯»å–ä¸åŒç‰ˆæœ¬ç¨‹åºä¿å­˜çš„æ•°æ®
  * 
  * @author RunQian
  *
@@ -199,7 +199,7 @@ public class ByteArrayOutputRecord {
 		}
 	}
 
-	// writeObject²»ÒªÇáÒ×µ÷ÓÃ£¬µ÷ÓÃÊ±£¬Èç¹ûÓöµ½·ÇÊı¾İ·Ç×Ö·û´®¶ÔÏó£¬ÓĞ¿ÉÄÜ»á°´null´¦Àí
+	// writeObjectä¸è¦è½»æ˜“è°ƒç”¨ï¼Œè°ƒç”¨æ—¶ï¼Œå¦‚æœé‡åˆ°éæ•°æ®éå­—ç¬¦ä¸²å¯¹è±¡ï¼Œæœ‰å¯èƒ½ä¼šæŒ‰nullå¤„ç†
 	public void writeObject(Object o, boolean test) throws IOException {
 		if (o == null) {
 			out.write(-1);
@@ -208,7 +208,7 @@ public class ByteArrayOutputRecord {
 			writeString(o.getClass().getName());
 			writeRecord((IRecord) o);
 		} else if (o instanceof String) {
-			// edited by bd, 2017.3.24, ´¦Àí×Ö·û´®³¤¶È³¬¹ı65535µÄÇé¿ö
+			// edited by bd, 2017.3.24, å¤„ç†å­—ç¬¦ä¸²é•¿åº¦è¶…è¿‡65535çš„æƒ…å†µ
 			String s = (String) o;
 			int len = s.length();
 			if (len > 65535) {
@@ -263,7 +263,7 @@ public class ByteArrayOutputRecord {
 			out.write(12);
 			writeShort(((Short) o).shortValue());
 		} else {
-			// ¶ÔÒ»°ãObject£¬×÷null´¦Àí
+			// å¯¹ä¸€èˆ¬Objectï¼Œä½œnullå¤„ç†
 			out.write(-1);
 			// out.writeObject( o );
 		}

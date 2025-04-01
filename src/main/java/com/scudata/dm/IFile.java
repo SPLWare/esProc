@@ -5,92 +5,92 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 
 /**
- * ÎÄ¼ş½Ó¿Ú
+ * æ–‡ä»¶æ¥å£
  * @author WangXiaoJun
  *
  */
 public interface IFile {
 	/**
-	 * ÉèÖÃÎÄ¼şÃû
+	 * è®¾ç½®æ–‡ä»¶å
 	 * @param fileName
 	 */
 	void setFileName(String fileName);
 
 	/**
-	 * È¡ÊäÈëÁ÷
+	 * å–è¾“å…¥æµ
 	 * @throws IOException
 	 * @return InputStream
 	 */
 	InputStream getInputStream();
 
 	/**
-	 * È¡Êä³öÁ÷£¬ÎÄ¼ş²»´æÔÚÔò´´½¨
-	 * @param isAppend boolean ÊÇ·ñ×·¼Ó
+	 * å–è¾“å‡ºæµï¼Œæ–‡ä»¶ä¸å­˜åœ¨åˆ™åˆ›å»º
+	 * @param isAppend boolean æ˜¯å¦è¿½åŠ 
 	 * @return OutputStream
 	 */
 	OutputStream getOutputStream(boolean isAppend);
 
 	/**
-	 * È¡ÄÜ¹»Ëæ»úĞ´µÄÊä³öÁ÷£¬ÎÄ¼ş²»´æÔÚÔò´´½¨
-	 * @param isAppend boolean ÊÇ·ñ×·¼Ó
+	 * å–èƒ½å¤Ÿéšæœºå†™çš„è¾“å‡ºæµï¼Œæ–‡ä»¶ä¸å­˜åœ¨åˆ™åˆ›å»º
+	 * @param isAppend boolean æ˜¯å¦è¿½åŠ 
 	 * @return RandomOutputStream
 	 */
 	RandomOutputStream getRandomOutputStream(boolean isAppend);
 
 	/**
-	 * ·µ»ØÎÄ¼şÊÇ·ñ´æÔÚ
+	 * è¿”å›æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 	 * @return boolean
 	 */
 	boolean exists();
 
 	/**
-	 * ·µ»ØÎÄ¼ş´óĞ¡
+	 * è¿”å›æ–‡ä»¶å¤§å°
 	 * @return long
 	 */
 	long size();
 
 	/**
-	 * ·µ»Ø×î½üĞŞ¸ÄÊ±¼ä
+	 * è¿”å›æœ€è¿‘ä¿®æ”¹æ—¶é—´
 	 * @return long
 	 */
 	long lastModified();
 
 	/**
-	 * É¾³ıÎÄ¼ş£¬·µ»ØÊÇ·ñ³É¹¦
+	 * åˆ é™¤æ–‡ä»¶ï¼Œè¿”å›æ˜¯å¦æˆåŠŸ
 	 * @return boolean
 	 */
 	boolean delete();
 	
 	/**
-	 * É¾³ıÎÄ¼ş¼Ğ¼°Æä×ÓÎÄ¼ş
+	 * åˆ é™¤æ–‡ä»¶å¤¹åŠå…¶å­æ–‡ä»¶
 	 * @return
 	 */
 	boolean deleteDir();
 
 	/**
-	 * ÒÆ¶¯ÎÄ¼şµ½path£¬pathÖ»ÓĞÎÄ¼şÃûÔò¸ÄÃû
-	 * @param path String ÎÄ¼şÃû»òÎÄ¼şÂ·¾¶Ãû
-	 * @param opt String @y	Ä¿±êÎÄ¼şÒÑ´æÔÚÊ±Ç¿ĞĞ¸´ÖÆ£¨È±Ê¡½«Ê§°Ü£©£¬@c	¸´ÖÆ
+	 * ç§»åŠ¨æ–‡ä»¶åˆ°pathï¼Œpathåªæœ‰æ–‡ä»¶ååˆ™æ”¹å
+	 * @param path String æ–‡ä»¶åæˆ–æ–‡ä»¶è·¯å¾„å
+	 * @param opt String @y	ç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨æ—¶å¼ºè¡Œå¤åˆ¶ï¼ˆç¼ºçœå°†å¤±è´¥ï¼‰ï¼Œ@c	å¤åˆ¶
 	 * @return boolean
 	 */
 	boolean move(String path, String opt);
 
 	/**
-	 * ´´½¨ÁÙÊ±ÎÄ¼ş
+	 * åˆ›å»ºä¸´æ—¶æ–‡ä»¶
 	 * @param prefix String
-	 * @return String ·µ»Ø¾ø¶ÔÂ·¾¶ÎÄ¼şÃû
+	 * @return String è¿”å›ç»å¯¹è·¯å¾„æ–‡ä»¶å
 	 */
 	String createTempFile(String prefix);
 	
 	/**
-	 * È¡Ëæ»ú·ÃÎÊÎÄ¼ş¶ÔÏó£¬Èç¹û²»Ö§³ÖÔò·µ»Ønull
+	 * å–éšæœºè®¿é—®æ–‡ä»¶å¯¹è±¡ï¼Œå¦‚æœä¸æ”¯æŒåˆ™è¿”å›null
 	 * @return RandomAccessFile
 	 */
 	RandomAccessFile getRandomAccessFile();
 	
 	/**
-	 * ·µ»ØÊÇ·ñÊÇÔÆÎÄ¼ş
-	 * @return true£ºÊÇÔÆÎÄ¼ş£¬false£º²»ÊÇÔÆÎÄ¼ş
+	 * è¿”å›æ˜¯å¦æ˜¯äº‘æ–‡ä»¶
+	 * @return trueï¼šæ˜¯äº‘æ–‡ä»¶ï¼Œfalseï¼šä¸æ˜¯äº‘æ–‡ä»¶
 	 */
 	public boolean isCloudFile();
 }

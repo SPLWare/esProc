@@ -7,13 +7,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ·µ»ØÄ³Ò»Êı×ÖµÄ·´Ë«ÇúÕıÏÒÖµasinh(z)=ln(z+sqrt(z*z+1))
+ * è¿”å›æŸä¸€æ•°å­—çš„ååŒæ›²æ­£å¼¦å€¼asinh(z)=ln(z+sqrt(z*z+1))
  * @author yanjing
  *
  */
 public class Arcsinh extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

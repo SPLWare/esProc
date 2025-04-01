@@ -6,18 +6,18 @@ import java.io.Serializable;
 import com.scudata.dm.Env;
 
 /**
- * ÓÃÓÚ´æ´¢Ïà¶ÔÓÚÄ³¸öÂ·¾¶ÏÂµÄÎÄ¼şĞÅÏ¢
+ * ç”¨äºå­˜å‚¨ç›¸å¯¹äºæŸä¸ªè·¯å¾„ä¸‹çš„æ–‡ä»¶ä¿¡æ¯
  * @author Joancy
  *
  */
 public class FileInfo implements Serializable,Comparable<Object> {
 	private static final long serialVersionUID = 3777477339763658303L;
 
-//	public Integer partition;//µ±·ÖÇøÎª-1Ê±£¬±íÊ¾fileNameÏà¶ÔÓÚEnv.getMainPath()
-	public String fileName; // Ïà¶ÔÂ·¾¶Ãû£¬Â·¾¶¼äÓÃ/·Ö¸ô
-	private boolean isDir; // ÊÇ·ñÄ¿Â¼
+//	public Integer partition;//å½“åˆ†åŒºä¸º-1æ—¶ï¼Œè¡¨ç¤ºfileNameç›¸å¯¹äºEnv.getMainPath()
+	public String fileName; // ç›¸å¯¹è·¯å¾„åï¼Œè·¯å¾„é—´ç”¨/åˆ†éš”
+	private boolean isDir; // æ˜¯å¦ç›®å½•
 	
-	private boolean isDirEmpty = false; // Èç¹ûÊÇÄ¿Â¼£¬µ±Ç°µÄÄ¿Â¼ÊÇ·ñÎª¿Õ
+	private boolean isDirEmpty = false; // å¦‚æœæ˜¯ç›®å½•ï¼Œå½“å‰çš„ç›®å½•æ˜¯å¦ä¸ºç©º
 
 	private long lastModified = -1;
 
@@ -52,10 +52,10 @@ public class FileInfo implements Serializable,Comparable<Object> {
 		return f.isAbsolute();
 	}
 /**
- * ·µ»ØÎÄ¼ş¸´ÖÆµ½Ä¿±ê»úÆ÷µÄÂ·¾¶
- * @param parent ÎÄ¼şÔÚ±¾»úµÄ¸¸Â·¾¶
- * @return Ä¿±ê»úÆ÷µÄÂ·¾¶£¬Èç¹ûparentÊÇ¾ø¶ÔÂ·¾¶£¬ÔòÄ¿±ê»úÆ÷Ê¹ÓÃÏàÍ¬µÄ¾ø¶ÔÂ·¾¶
- * Èç¹ûparentÊÇÏà¶ÔÂ·¾¶£¬ÔòÄ¿±ê»úÆ÷Â·¾¶ÒàÎªÈ¥µôÁË±¾»úÖ÷Â·¾¶µÄÏà¶ÔÂ·¾¶
+ * è¿”å›æ–‡ä»¶å¤åˆ¶åˆ°ç›®æ ‡æœºå™¨çš„è·¯å¾„
+ * @param parent æ–‡ä»¶åœ¨æœ¬æœºçš„çˆ¶è·¯å¾„
+ * @return ç›®æ ‡æœºå™¨çš„è·¯å¾„ï¼Œå¦‚æœparentæ˜¯ç»å¯¹è·¯å¾„ï¼Œåˆ™ç›®æ ‡æœºå™¨ä½¿ç”¨ç›¸åŒçš„ç»å¯¹è·¯å¾„
+ * å¦‚æœparentæ˜¯ç›¸å¯¹è·¯å¾„ï¼Œåˆ™ç›®æ ‡æœºå™¨è·¯å¾„äº¦ä¸ºå»æ‰äº†æœ¬æœºä¸»è·¯å¾„çš„ç›¸å¯¹è·¯å¾„
  */
 	public String getDestPath(String parent){
 		File p = new File(parent);

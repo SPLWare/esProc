@@ -7,22 +7,22 @@ import java.awt.Frame;
 import javax.swing.JDialog;
 
 /**
- * ×î´ó»¯´°¿Ú»ùÀà
+ * æœ€å¤§åŒ–çª—å£åŸºç±»
  *
  */
 public class DialogMaxmizable extends JDialog {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ¾É³ß´ç
+	 * æ—§å°ºå¯¸
 	 */
 	public Dimension oldSize = null;
 	/**
-	 * ÊÇ·ñ×î´ó»¯
+	 * æ˜¯å¦æœ€å¤§åŒ–
 	 */
 	public boolean isMaxized = false;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param frame
 	 * @param title
@@ -33,7 +33,7 @@ public class DialogMaxmizable extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param parent
 	 * @param title

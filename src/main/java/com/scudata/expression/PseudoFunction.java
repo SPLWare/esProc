@@ -15,7 +15,7 @@ public abstract class PseudoFunction extends MemberFunction {
 
 	
 	/**
-	 * 释放节点引用的点操作符左侧的对象
+	 * 閲婃斁鑺傜偣寮曠敤鐨勭偣鎿嶄綔绗﹀乏渚х殑瀵硅薄
 	 */
 	public void releaseDotLeftObject() {
 		pseudo = null;

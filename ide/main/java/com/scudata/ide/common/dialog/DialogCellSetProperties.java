@@ -24,69 +24,69 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * Íø¸ñÊôĞÔ¶Ô»°¿ò
+ * ç½‘æ ¼å±æ€§å¯¹è¯æ¡†
  */
 public class DialogCellSetProperties extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * Íø¸ñ±êÌâ±êÇ©¿Ø¼ş
+	 * ç½‘æ ¼æ ‡é¢˜æ ‡ç­¾æ§ä»¶
 	 */
-	private JLabel labelFileTitle = new JLabel("±êÌâ");
+	private JLabel labelFileTitle = new JLabel("æ ‡é¢˜");
 
 	/**
-	 * Íø¸ñ±êÌâÎÄ±¾¿ò¿Ø¼ş
+	 * ç½‘æ ¼æ ‡é¢˜æ–‡æœ¬æ¡†æ§ä»¶
 	 */
 	private JTextField tfTitle = new JTextField();
 
 	/**
-	 * Íø¸ñÃèÊö±êÇ©¿Ø¼ş
+	 * ç½‘æ ¼æè¿°æ ‡ç­¾æ§ä»¶
 	 */
-	private JLabel labelDesc = new JLabel("ÃèÊö");
+	private JLabel labelDesc = new JLabel("æè¿°");
 
 	/**
-	 * Íø¸ñÃèÊöÎÄ±¾¿ò¿Ø¼ş
+	 * ç½‘æ ¼æè¿°æ–‡æœ¬æ¡†æ§ä»¶
 	 */
 	private JTextArea tpDesc = new JTextArea();
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÑ¡Ïî
+	 * çª—å£å…³é—­é€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ±à¼­
+	 * æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	private boolean editable = false;
 
 	/**
-	 * Íø¸ñÊôĞÔµÄÓ³Éä±í
+	 * ç½‘æ ¼å±æ€§çš„æ˜ å°„è¡¨
 	 */
 	private ByteMap map;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public DialogCellSetProperties(boolean editable) {
-		super(GV.appFrame, "ÊôĞÔ", true);
+		super(GV.appFrame, "å±æ€§", true);
 		try {
 			this.editable = editable;
 			initUI();
@@ -102,7 +102,7 @@ public class DialogCellSetProperties extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		tfTitle.setEditable(editable);
@@ -111,7 +111,7 @@ public class DialogCellSetProperties extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñÊôĞÔ£¬ÔİÊ±Ö»ÓĞÍø¸ñ±êÌâºÍÍø¸ñÃèÊö
+	 * è®¾ç½®ç½‘æ ¼å±æ€§ï¼Œæš‚æ—¶åªæœ‰ç½‘æ ¼æ ‡é¢˜å’Œç½‘æ ¼æè¿°
 	 * 
 	 * @param properties
 	 */
@@ -131,7 +131,7 @@ public class DialogCellSetProperties extends JDialog {
 	}
 
 	/**
-	 * È¡Íø¸ñÊôĞÔ
+	 * å–ç½‘æ ¼å±æ€§
 	 * 
 	 * @return
 	 */
@@ -153,7 +153,7 @@ public class DialogCellSetProperties extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
 		this.setTitle(mm.getMessage("dialogcellsetproperties.title"));
@@ -165,17 +165,17 @@ public class DialogCellSetProperties extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
 	private void initUI() throws Exception {
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogCellSetProperties_jBOK_actionAdapter(
 				this));
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogCellSetProperties_jBCancel_actionAdapter(
 				this));
 		JPanel jPanel2 = new JPanel(new VFlowLayout());
@@ -196,7 +196,7 @@ public class DialogCellSetProperties extends JDialog {
 	}
 
 	/**
-	 * ·µ»Ø´°¿Ú¹Ø±ÕÑ¡Ïî
+	 * è¿”å›çª—å£å…³é—­é€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -205,7 +205,7 @@ public class DialogCellSetProperties extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -215,7 +215,7 @@ public class DialogCellSetProperties extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -225,7 +225,7 @@ public class DialogCellSetProperties extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */

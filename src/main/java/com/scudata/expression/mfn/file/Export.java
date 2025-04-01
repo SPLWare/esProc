@@ -19,8 +19,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * µ¼³öÅÅÁÐµ½ÎÄ±¾ÎÄ¼þ»ò¼¯ÎÄ¼þ
- * f.export(A,xi:Fi,¡­;s)
+ * å¯¼å‡ºæŽ’åˆ—åˆ°æ–‡æœ¬æ–‡ä»¶æˆ–é›†æ–‡ä»¶
+ * f.export(A,xi:Fi,â€¦;s)
  * @author RunQian
  *
  */
@@ -104,7 +104,7 @@ public class Export extends FileFunction {
 	
 	private static void export(FileObject fo, Object src, Expression []exps, String []names, 
 			Expression sexp, String opt, Context ctx) {
-		// Èç¹û²»ÊÇ×·¼ÓÐ´²¢ÇÒÔ´ÎÄ¼þÒÑ´æÔÚ£¬ÔòÏÈÐ´ÈëÁÙÊ±ÎÄ¼þ£¬³É¹¦ºó°ÑÔ´ÎÄ¼þÉ¾³ýÔÙ°ÑÁÙÊ±ÎÄ¼þÖØÃüÃû³ÉÔ´ÎÄ¼þ
+		// å¦‚æžœä¸æ˜¯è¿½åŠ å†™å¹¶ä¸”æºæ–‡ä»¶å·²å­˜åœ¨ï¼Œåˆ™å…ˆå†™å…¥ä¸´æ—¶æ–‡ä»¶ï¼ŒæˆåŠŸåŽæŠŠæºæ–‡ä»¶åˆ é™¤å†æŠŠä¸´æ—¶æ–‡ä»¶é‡å‘½åæˆæºæ–‡ä»¶
 		IFile ifile = fo.getFile();
 		if ((opt == null || opt.indexOf('a') == -1) && 
 			ifile instanceof LocalFile && ifile.size() > 0) {

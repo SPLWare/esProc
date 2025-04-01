@@ -11,7 +11,7 @@ import javax.swing.border.*;
 import java.awt.event.*;
 
 /**
- * 参数值的序列表编辑表头渲染类
+ * 鍙傛暟鍊肩殑搴忓垪琛ㄧ紪杈戣〃澶存覆鏌撶被
  * 
  * @author Joancy
  *
@@ -29,7 +29,7 @@ public class HeaderRenderer extends JPanel implements TableCellRenderer, ActionL
 	private JButton extButton;
 
 	/**
-	 * 创建一个缺省参数的表头渲染实例
+	 * 鍒涘缓涓�涓己鐪佸弬鏁扮殑琛ㄥご娓叉煋瀹炰緥
 	 */
 	public HeaderRenderer() {
 		super( new FlowLayout( FlowLayout.CENTER, 0, 0 ) );
@@ -53,7 +53,7 @@ public class HeaderRenderer extends JPanel implements TableCellRenderer, ActionL
 	}
 
 	/**
-	 * 实现渲染接口
+	 * 瀹炵幇娓叉煋鎺ュ彛
 	 */
 	public Component getTableCellRendererComponent( JTable table, Object value,
 													boolean isSelected, boolean hasFocus, int row, int column ) {
@@ -90,9 +90,9 @@ public class HeaderRenderer extends JPanel implements TableCellRenderer, ActionL
 	}
 
 	/**
-	 * 表头点击事件触发
+	 * 琛ㄥご鐐瑰嚮浜嬩欢瑙﹀彂
 	 *
-	 * @param e ActionEvent 事件对象
+	 * @param e ActionEvent 浜嬩欢瀵硅薄
 	 */
 	public void actionPerformed( ActionEvent e ) {
 		Object o = e.getSource();
@@ -117,9 +117,9 @@ public class HeaderRenderer extends JPanel implements TableCellRenderer, ActionL
 	}
 
 	/**
-	 * 鼠标点击事件触发
+	 * 榧犳爣鐐瑰嚮浜嬩欢瑙﹀彂
 	 * 
-	 * @param e 鼠标事件实例
+	 * @param e 榧犳爣浜嬩欢瀹炰緥
 	 */
 	public void mouseClicked( MouseEvent e ) {
 		JTableHeader header = (JTableHeader) (e.getSource());

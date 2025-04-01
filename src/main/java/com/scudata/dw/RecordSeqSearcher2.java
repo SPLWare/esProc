@@ -7,7 +7,7 @@ import com.scudata.dm.ObjectReader;
 import com.scudata.util.Variant;
 
 /**
- * ¼ÇÂ¼²éÕÒÆ÷ £¨¸½±íÓÃ£©
+ * è®°å½•æŸ¥æ‰¾å™¨ ï¼ˆé™„è¡¨ç”¨ï¼‰
  * @author runqian
  *
  */
@@ -15,8 +15,8 @@ class RecordSeqSearcher2 {
 	private ColPhyTable table;
 	private ColPhyTable baseTable;
 	
-	private long prevRecordCount = 0;//µ±Ç°ÒÑ¾­È¡³öµÄ¼ÇÂ¼Êı
-	private long basePrevRecordCount = 0;//»ù±íµ±Ç°ÒÑ¾­È¡³öµÄ¼ÇÂ¼Êı
+	private long prevRecordCount = 0;//å½“å‰å·²ç»å–å‡ºçš„è®°å½•æ•°
+	private long basePrevRecordCount = 0;//åŸºè¡¨å½“å‰å·²ç»å–å‡ºçš„è®°å½•æ•°
 	private int curBlock = -1;
 	private int totalBlockCount;
 	
@@ -25,18 +25,18 @@ class RecordSeqSearcher2 {
 	private BlockLinkReader []colReaders;
 	private ObjectReader []segmentReaders;
 	
-	private long []positions; // µ±Ç°¿éµÄÃ¿¸ö¼üÁĞµÄÎ»ÖÃ
-	private Object []minValues; // µ±Ç°¿éµÄÃ¿¸ö¼üÁĞµÄ×îĞ¡Öµ
-	private Object []maxValues; // µ±Ç°¿éµÄÃ¿¸ö¼üÁĞµÄ×î´óÖµ
+	private long []positions; // å½“å‰å—çš„æ¯ä¸ªé”®åˆ—çš„ä½ç½®
+	private Object []minValues; // å½“å‰å—çš„æ¯ä¸ªé”®åˆ—çš„æœ€å°å€¼
+	private Object []maxValues; // å½“å‰å—çš„æ¯ä¸ªé”®åˆ—çš„æœ€å¤§å€¼
 	
-	private int curRecordCount = 0; // µ±Ç°¿éµÄ¼ÇÂ¼Êı
-	private int curIndex = -1; // ¿éÄÚË÷Òı£¬µÈÓÚ-1Ôò¼ü¿é»¹Ã»¼ÓÔØ
-	private int baseCurRecordCount = 0; // Ö÷±íµ±Ç°¿éµÄ¼ÇÂ¼Êı
+	private int curRecordCount = 0; // å½“å‰å—çš„è®°å½•æ•°
+	private int curIndex = -1; // å—å†…ç´¢å¼•ï¼Œç­‰äº-1åˆ™é”®å—è¿˜æ²¡åŠ è½½
+	private int baseCurRecordCount = 0; // ä¸»è¡¨å½“å‰å—çš„è®°å½•æ•°
 	private Object [][]blockKeyValues;
 	private boolean isEnd = false;
 	
 	private int baseKeyCount;
-	private ColumnMetaData guideColumn;//µ¼ÁĞ
+	private ColumnMetaData guideColumn;//å¯¼åˆ—
 	private BlockLinkReader guideColReader;
 	private ObjectReader guideSegmentReader;
 	private long guidePosition;
@@ -119,7 +119,7 @@ class RecordSeqSearcher2 {
 			}
 			
 			for (int k = 0; k < baseKeyCount; ++k) {
-				int baseCount = 1;//Ö¸ÏòÖ÷±íµÄ¼ÇÂ¼
+				int baseCount = 1;//æŒ‡å‘ä¸»è¡¨çš„è®°å½•
 				long basePrevRecordCount = this.basePrevRecordCount;
 				BufferReader reader = colReaders[k].readBlockData(positions[k], baseCurRecordCount);
 				Object []vals = new Object[count];
@@ -150,11 +150,11 @@ class RecordSeqSearcher2 {
 	}
 
 	/**
-	 * Èç¹ûÄÜÕÒµ½Ôò·µ»Ø¼ÇÂ¼ĞòºÅ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
-	 * ×Ó±íinsertÊ±£¬Èç¹û¼ÇÂ¼´æÔÚ£¬»¹Ó¦¸Ã·µ»Ø¶ÔÓ¦Ö÷±íÁĞÇøµÄÎ±ºÅ
-	 * ×Ó±íupdateÊ±£¬±ØĞëÏÈupdateÖ÷±í£»
+	 * å¦‚æœèƒ½æ‰¾åˆ°åˆ™è¿”å›è®°å½•åºå·ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›è´Ÿæ’å…¥ä½ç½®
+	 * å­è¡¨insertæ—¶ï¼Œå¦‚æœè®°å½•å­˜åœ¨ï¼Œè¿˜åº”è¯¥è¿”å›å¯¹åº”ä¸»è¡¨åˆ—åŒºçš„ä¼ªå·
+	 * å­è¡¨updateæ—¶ï¼Œå¿…é¡»å…ˆupdateä¸»è¡¨ï¼›
 	 * @param keyValue 
-	 * @param block ÕâÊÇ¸öÊä³ö²ÎÊı¡£block[0]ÊÇÕÒµ½µÄ¿éºÅ
+	 * @param block è¿™æ˜¯ä¸ªè¾“å‡ºå‚æ•°ã€‚block[0]æ˜¯æ‰¾åˆ°çš„å—å·
 	 * @return
 	 */
 	public long findNext(Object keyValue, int block[]) {
@@ -181,7 +181,7 @@ class RecordSeqSearcher2 {
 					}
 				}
 				
-				//Ã¿Ò»¶ÎµÄµ×²¿Î»ÖÃ
+				//æ¯ä¸€æ®µçš„åº•éƒ¨ä½ç½®
 				curIndex = curRecordCount;
 				block[0] = curBlock + 1;
 				return -prevRecordCount - curIndex;
@@ -206,12 +206,12 @@ class RecordSeqSearcher2 {
 	}
 	
 	/**
-	 * ¶à×Ö¶ÎÖ÷¼üµÄ²éÕÒ
-	 * Èç¹ûÄÜÕÒµ½Ôò·µ»Ø¼ÇÂ¼ĞòºÅ£¬ÕÒ²»µ½Ôò·µ»Ø¸º²åÈëÎ»ÖÃ
-	 * ×Ó±íinsertÊ±£¬Èç¹û¼ÇÂ¼´æÔÚ£¬»¹Ó¦¸Ã·µ»Ø¶ÔÓ¦Ö÷±íÁĞÇøµÄÎ±ºÅ
-	 * ×Ó±íupdateÊ±£¬±ØĞëÏÈupdateÖ÷±í£»
+	 * å¤šå­—æ®µä¸»é”®çš„æŸ¥æ‰¾
+	 * å¦‚æœèƒ½æ‰¾åˆ°åˆ™è¿”å›è®°å½•åºå·ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›è´Ÿæ’å…¥ä½ç½®
+	 * å­è¡¨insertæ—¶ï¼Œå¦‚æœè®°å½•å­˜åœ¨ï¼Œè¿˜åº”è¯¥è¿”å›å¯¹åº”ä¸»è¡¨åˆ—åŒºçš„ä¼ªå·
+	 * å­è¡¨updateæ—¶ï¼Œå¿…é¡»å…ˆupdateä¸»è¡¨ï¼›
 	 * @param keyValue 
-	 * @param block ÕâÊÇ¸öÊä³ö²ÎÊı¡£block[0]ÊÇÕÒµ½µÄ¿éºÅ
+	 * @param block è¿™æ˜¯ä¸ªè¾“å‡ºå‚æ•°ã€‚block[0]æ˜¯æ‰¾åˆ°çš„å—å·
 	 * @return
 	 */
 	public long findNext(Object []keyValues, int block[]) {
@@ -220,7 +220,7 @@ class RecordSeqSearcher2 {
 			return -prevRecordCount - 1;
 		}
 		if (0 == curRecordCount) {
-			//Èç¹ûÊÇ¸ö¿Õ¿é
+			//å¦‚æœæ˜¯ä¸ªç©ºå—
 			int cmp = Variant.compareArrays(keyValues, maxValues, baseKeyCount);
 			if (cmp <= 0) {
 				block[0] = curBlock + 1;
@@ -260,12 +260,12 @@ class RecordSeqSearcher2 {
 						}
 					}
 					
-					// ¶¼ÏàµÈ
+					// éƒ½ç›¸ç­‰
 					curIndex = i;
 					return prevRecordCount + i;
 				}
 
-				//Ã¿Ò»¶ÎµÄµ×²¿Î»ÖÃ
+				//æ¯ä¸€æ®µçš„åº•éƒ¨ä½ç½®
 				curIndex = curRecordCount;
 				block[0] = curBlock + 1;
 				return -prevRecordCount - curIndex;
@@ -299,7 +299,7 @@ class RecordSeqSearcher2 {
 	}
 	
 	/**
-	 * ²éÕÒ£¬²»·µ»Ø²åÈëÎ»ÖÃ
+	 * æŸ¥æ‰¾ï¼Œä¸è¿”å›æ’å…¥ä½ç½®
 	 * @param keyValues
 	 * @param keyLen
 	 * @return
@@ -329,7 +329,7 @@ class RecordSeqSearcher2 {
 						}
 					}
 					
-					// ¶¼ÏàµÈ
+					// éƒ½ç›¸ç­‰
 					curIndex = i + 1;
 					return prevRecordCount + i;
 				}
@@ -354,7 +354,7 @@ class RecordSeqSearcher2 {
 	}
 	
 	/**
-	 * ·µ»Øµ±Ç°ÌõÔÚÖ÷±íÁĞÇøµÄÎ±ºÅ
+	 * è¿”å›å½“å‰æ¡åœ¨ä¸»è¡¨åˆ—åŒºçš„ä¼ªå·
 	 * @return
 	 */
 	long getRecNum() {

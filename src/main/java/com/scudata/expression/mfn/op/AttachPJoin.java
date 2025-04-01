@@ -12,14 +12,14 @@ import com.scudata.expression.OperableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓĞĞòÓÎ±êÉÏ×öÖ÷¼üÊ½¹ØÁª
- * cs.pjoin(K:..,x:F,¡­;Ai:z,K:¡­,x:F,¡­; ¡­)
+ * æœ‰åºæ¸¸æ ‡ä¸Šåšä¸»é”®å¼å…³è”
+ * cs.pjoin(K:..,x:F,â€¦;Ai:z,K:â€¦,x:F,â€¦; â€¦)
  * @author RunQian
  *
  */
 public class AttachPJoin extends OperableFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -38,7 +38,7 @@ public class AttachPJoin extends OperableFunction {
 		String []srcNewNames = null;
 		
 		if (sub.getType() == IParam.Comma) {
-			// K:..,x:F,¡­
+			// K:..,x:F,â€¦
 			keyParam = sub.getSub(0);
 			if (keyParam == null) {
 				MessageManager mm = EngineMessage.get();
@@ -98,7 +98,7 @@ public class AttachPJoin extends OperableFunction {
 		}
 		
 		int tableCount = param.getSubSize() - 1;
-		ICursor []cursors = new ICursor[tableCount]; // ¹ØÁªÓÎ±êÊı×é
+		ICursor []cursors = new ICursor[tableCount]; // å…³è”æ¸¸æ ‡æ•°ç»„
 		String []options = new String[tableCount];
 		Expression [][]keyExps = new Expression[tableCount][];
 		Expression [][]newExps = new Expression[tableCount][];
@@ -111,7 +111,7 @@ public class AttachPJoin extends OperableFunction {
 				throw new RQException("pjoin" + mm.getMessage("function.invalidParam"));
 			}
 			
-			// Ai:z,K:¡­,x:F,¡­
+			// Ai:z,K:â€¦,x:F,â€¦
 			Object table;
 			sub = tableParam.getSub(0);
 			

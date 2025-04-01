@@ -63,7 +63,7 @@ public class ImDriverCli implements IResource{
 		}
 	}
 
-	// 关闭连接释放资源
+	// 鍏抽棴杩炴帴閲婃斁璧勬簮
 	public void close() {
 		m_rfcManager.close();
 	}

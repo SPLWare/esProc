@@ -8,7 +8,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡Ğò±íÖ¸¶¨×Ö¶ÎµÄĞòºÅ»ò×Ö¶ÎÊıÁ¿
+ * å–åºè¡¨æŒ‡å®šå­—æ®µçš„åºå·æˆ–å­—æ®µæ•°é‡
  * T.fno(F) T.fno()
  * @author RunQian
  *

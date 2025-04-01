@@ -9,88 +9,88 @@ public interface ICellSet
 	extends ICloneable, Externalizable, IRecord {
 
 	/**
-	 * È¡ÆÕÍ¨µ¥Ôª¸ñ
-	 * @param row ĞĞºÅ(´Ó1¿ªÊ¼)
-	 * @param col ÁĞºÅ(´Ó1¿ªÊ¼)
+	 * å–æ™®é€šå•å…ƒæ ¼
+	 * @param row è¡Œå·(ä»1å¼€å§‹)
+	 * @param col åˆ—å·(ä»1å¼€å§‹)
 	 * @return INormalCell
 	 */
 	public INormalCell getCell(int row, int col);
 
 	/**
-	 * È¡ÆÕÍ¨µ¥Ôª¸ñ
-	 * @param id String µ¥Ôª¸ñ×Ö·û´®±êÊ¶: B2
+	 * å–æ™®é€šå•å…ƒæ ¼
+	 * @param id String å•å…ƒæ ¼å­—ç¬¦ä¸²æ ‡è¯†: B2
 	 * @return INormalCell
 	 */
 	public INormalCell getCell(String id);
 
 	/**
-	 * ÉèÆÕÍ¨µ¥Ôª¸ñ
-	 * @param r ĞĞºÅ(´Ó1¿ªÊ¼)
-	 * @param c ÁĞºÅ(´Ó1¿ªÊ¼)
-	 * @param cell ÆÕÍ¨µ¥Ôª¸ñ
+	 * è®¾æ™®é€šå•å…ƒæ ¼
+	 * @param r è¡Œå·(ä»1å¼€å§‹)
+	 * @param c åˆ—å·(ä»1å¼€å§‹)
+	 * @param cell æ™®é€šå•å…ƒæ ¼
 	 */
 	public void setCell(int r, int c, INormalCell cell);
 
 	/**
-	 * È¡ĞĞÊ×µ¥Ôª¸ñ
-	 * @param r ĞĞºÅ(´Ó1¿ªÊ¼)
+	 * å–è¡Œé¦–å•å…ƒæ ¼
+	 * @param r è¡Œå·(ä»1å¼€å§‹)
 	 * @return IRCell
 	 */
 	public IRowCell getRowCell(int r);
 
 	/**
-	 * ÉèĞĞÊ×µ¥Ôª¸ñ
-	 * @param r ĞĞºÅ(´Ó1¿ªÊ¼)
-	 * @param rc ĞĞÊ×µ¥Ôª¸ñ
+	 * è®¾è¡Œé¦–å•å…ƒæ ¼
+	 * @param r è¡Œå·(ä»1å¼€å§‹)
+	 * @param rc è¡Œé¦–å•å…ƒæ ¼
 	 */
 	public void setRowCell(int r, IRowCell rc);
 
 	/**
-	 * È¡ÁĞÊ×µ¥Ôª¸ñ
-	 * @param c ÁĞºÅ(´Ó1¿ªÊ¼)
+	 * å–åˆ—é¦–å•å…ƒæ ¼
+	 * @param c åˆ—å·(ä»1å¼€å§‹)
 	 * @return IColCell
 	 */
 	public IColCell getColCell(int c);
 
 	/**
-	 * ÉèÁĞÊ×µ¥Ôª¸ñ
-	 * @param c ÁĞºÅ(´Ó1¿ªÊ¼)
-	 * @param cc ÁĞÊ×µ¥Ôª¸ñ
+	 * è®¾åˆ—é¦–å•å…ƒæ ¼
+	 * @param c åˆ—å·(ä»1å¼€å§‹)
+	 * @param cc åˆ—é¦–å•å…ƒæ ¼
 	 */
 	public void setColCell(int c, IColCell cc);
 
 	/**
-	 * @return int ·µ»Ø±¨±íĞĞÊı
+	 * @return int è¿”å›æŠ¥è¡¨è¡Œæ•°
 	 */
 	public int getRowCount();
 
 	/**
-	 * @return int ·µ»Ø±¨±íÁĞÊı
+	 * @return int è¿”å›æŠ¥è¡¨åˆ—æ•°
 	 */
 	public int getColCount();
 
 	/**
-	 * ·µ»Øµ±Ç°ÕıÔÚ¼ÆËãµÄµ¥Ôª¸ñ
+	 * è¿”å›å½“å‰æ­£åœ¨è®¡ç®—çš„å•å…ƒæ ¼
 	 * @return INormalCell
 	 */
 	public INormalCell getCurrent();
 
 	/**
-	 * ·µ»ØÁĞµÄ²ã
-	 * @param c int ÁĞºÅ
+	 * è¿”å›åˆ—çš„å±‚
+	 * @param c int åˆ—å·
 	 * @return int
 	 */
 	public int getColLevel(int c);
 
 	/**
-	 * ·µ»ØĞĞµÄ²ã
-	 * @param r int ĞĞºÅ
+	 * è¿”å›è¡Œçš„å±‚
+	 * @param r int è¡Œå·
 	 * @return int
 	 */
 	public int getRowLevel(int r);
 
 	/**
-	 * ·µ»Ø¼ÆËãÉÏÏÂÎÄ
+	 * è¿”å›è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Context
 	 */
 	public Context getContext();

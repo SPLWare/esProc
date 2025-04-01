@@ -9,7 +9,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 用于生成序列
+ * 鐢ㄤ簬鐢熸垚搴忓垪
  * [o1,o2...]
  * @author RunQian
  *
@@ -106,7 +106,7 @@ public class ValueList extends Function {
 		int bottom = endCell.getRow();
 
 		if (top <= bottom) {
-			if (left <= right) { // 左上 - 右下
+			if (left <= right) { // 宸︿笂 - 鍙充笅
 				Sequence series = new Sequence( (right - left + 1) * (bottom - top + 1));
 				for (int r = top; r <= bottom; ++r) {
 					for (int c = left; c <= right; ++c) {
@@ -115,7 +115,7 @@ public class ValueList extends Function {
 				}
 
 				return series;
-			} else { // 右上 - 左下
+			} else { // 鍙充笂 - 宸︿笅
 				Sequence series = new Sequence( (left - right + 1) * (bottom - top + 1));
 				for (int r = top; r <= bottom; ++r) {
 					for (int c = left; c >= right; --c) {
@@ -126,7 +126,7 @@ public class ValueList extends Function {
 				return series;
 			}
 		} else {
-			if (left <= right) { // 左下 - 右上
+			if (left <= right) { // 宸︿笅 - 鍙充笂
 				Sequence series = new Sequence( (right - left + 1) * (top - bottom + 1));
 				for (int r = top; r >= bottom; --r) {
 					for (int c = left; c <= right; ++c) {
@@ -135,7 +135,7 @@ public class ValueList extends Function {
 				}
 
 				return series;
-			} else { // 右下 - 左上
+			} else { // 鍙充笅 - 宸︿笂
 				Sequence series = new Sequence( (left - right + 1) * (top - bottom + 1));
 				for (int r = top; r >= bottom; --r) {
 					for (int c = left; c >= right; --c) {

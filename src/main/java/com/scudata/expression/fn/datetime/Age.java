@@ -18,7 +18,7 @@ import com.scudata.resources.EngineMessage;
 
 /**
  * age(dateExp) age(stringExp,formatExp)
- * ¼ÆËã´Ó²ÎÊýdateExp1¶¨ÒåµÄÊ±¼äµ½dateExp2¼ä¸ôµÄÕûÄêÊý£¬dateExp2È±Ê¡Îªnow()
+ * è®¡ç®—ä»Žå‚æ•°dateExp1å®šä¹‰çš„æ—¶é—´åˆ°dateExp2é—´éš”çš„æ•´å¹´æ•°ï¼ŒdateExp2ç¼ºçœä¸ºnow()
  * @author runqian
  *
  */
@@ -29,7 +29,7 @@ public class Age extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓÐÐ§ÐÔ£¬ÎÞÐ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -40,7 +40,7 @@ public class Age extends Function {
 
 	public Object calculate(Context ctx) {
 		Date date;
-		Date now = null; // Ä¿±êÈÕÆÚ£¬È±Ê¡Îªµ±Ç°ÈÕÆÚ
+		Date now = null; // ç›®æ ‡æ—¥æœŸï¼Œç¼ºçœä¸ºå½“å‰æ—¥æœŸ
 		if (param.getType() == IParam.Comma) {
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -81,7 +81,7 @@ public class Age extends Function {
 
 		int year1 = DateFactory.get().year(date);
 		int year2 = DateFactory.get().year(now);
-		if (isMonth) { //ÔÂ
+		if (isMonth) { //æœˆ
 			int month1 = DateFactory.get().month(date);
 			int month2 = DateFactory.get().month(now);
 			if (month2 >= month1) {
@@ -89,9 +89,9 @@ public class Age extends Function {
 			} else {
 				return ObjectCache.getInteger(year2 - year1 - 1);
 			}
-		} else if (isYear) { //Äê
+		} else if (isYear) { //å¹´
 			return ObjectCache.getInteger(year2 - year1);
-		} else { //ÈÕ
+		} else { //æ—¥
 			int month1 = DateFactory.get().month(date);
 			int month2 = DateFactory.get().month(now);
 			if (month2 > month1) {

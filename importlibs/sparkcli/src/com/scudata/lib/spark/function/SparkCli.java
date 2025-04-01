@@ -134,7 +134,7 @@ public class SparkCli implements IResource{
 		Thread.currentThread().setContextClassLoader(loader);
 	}
 	
-	// ¹Ø±ÕÁ¬½ÓÊÍ·Å×ÊÔ´
+	// å…³é—­è¿æ¥é‡Šæ”¾èµ„æº
 	public void close() {
 		if (m_classLoader!=null){
 			Thread.currentThread().setContextClassLoader(m_classLoader);
@@ -144,10 +144,10 @@ public class SparkCli implements IResource{
 	}
 	
 	/**
-	 * spark List<Object>×ªÎªÈóÇ¬Ğò±í
+	 * spark List<Object>è½¬ä¸ºæ¶¦ä¹¾åºè¡¨
 	 * 
 	 * @param sql
-	 *  sql Óï¾ä;
+	 *  sql è¯­å¥;
 	 * @return Table
 	 */
 	public Table exec(String strVal) {
@@ -220,10 +220,10 @@ public class SparkCli implements IResource{
 	
 	
 	/**
-	 * spark¶ÁÈ¡Êı¾İ
+	 * sparkè¯»å–æ•°æ®
 	 * 
 	 * @param sql
-	 *  sql Óï¾ä;
+	 *  sql è¯­å¥;
 	 * @return Table
 	 */
 	public boolean execRead(String strVal, Map<String,String> map) {
@@ -242,7 +242,7 @@ public class SparkCli implements IResource{
 			boolean bNeedRun = true;
 			String sfile = strVal.toLowerCase();
 			String format=null;
-			if (sfile.endsWith(".csv")){ //È±Ê¡·Ö¸ô·ûÎª";"
+			if (sfile.endsWith(".csv")){ //ç¼ºçœåˆ†éš”ç¬¦ä¸º";"
 				format="csv";
 				bNeedRun = false;
 				if (!map.containsKey("sep")){
@@ -256,7 +256,7 @@ public class SparkCli implements IResource{
 				format="json";
 			}else if(sfile.endsWith(".avro")){
 				format="com.databricks.spark.avro";
-			}else if(sfile.endsWith(".txt")){//ÓÃtext()½âÎöĞèÒª×ª»»,È±Ê¡·Ö¸ô·ûÎª","
+			}else if(sfile.endsWith(".txt")){//ç”¨text()è§£æéœ€è¦è½¬æ¢,ç¼ºçœåˆ†éš”ç¬¦ä¸º","
 				format="csv";
 				bNeedRun = false;
 				if (!map.containsKey("sep")){
@@ -344,7 +344,7 @@ public class SparkCli implements IResource{
 		}
 	}
 	
-	//½«List<List>×ª»»³ÉTalbe, 
+	//å°†List<List>è½¬æ¢æˆTalbe, 
 	private Table toTable(Iterator<Row> itr, String []colNames, int len) {
 		if (len<1 || itr == null) return null;
 		Table table = new Table(colNames);
@@ -441,12 +441,12 @@ public class SparkCli implements IResource{
 		return true;
 	}
 	
-	// Í¨¹ıUrl»ñÈ¡Ö÷»úÃû£¬port, warehouse
+	// é€šè¿‡Urlè·å–ä¸»æœºåï¼Œport, warehouse
 	private boolean isMatch(String strUrl, String regExp, Matcher[] retMatch)
 	{
-		// 1.Í¨¹ıUrl»ñÈ¡Ö÷»úÃû£¬port, warehouse
+		// 1.é€šè¿‡Urlè·å–ä¸»æœºåï¼Œport, warehouse
 		//String regex="hdfs:\\/\\/(.*?):(\\d+)(\\/.*)";
-		// 2.Í¨¹ıUrl»ñÈ¡Ö÷»úÃû£¬port
+		// 2.é€šè¿‡Urlè·å–ä¸»æœºåï¼Œport
 		//String regex="hdfs:\\/\\/(.*?):(\\d+)";
 		if (strUrl==null || strUrl.isEmpty()){
 			throw new RQException("spark isMatch strUrl is empty");

@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.VDBFunction;
 
 /**
- * Æô¶¯ÊÂÎñ
+ * å¯åŠ¨äº‹åŠ¡
  * v.begin()
  * @author RunQian
  *

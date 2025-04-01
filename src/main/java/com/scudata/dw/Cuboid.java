@@ -49,24 +49,24 @@ import com.scudata.util.EnvUtil;
 import com.scudata.util.Variant;
 
 /**
- * Á¢·½ÌåÀà
- * ¼Ì³Ğ×ÔĞĞ´æ×é±í£¬ÓÃÓÚ´æ´¢Ò»¸ö±íµÄÔ¤»ã×Ü½á¹û
+ * ç«‹æ–¹ä½“ç±»
+ * ç»§æ‰¿è‡ªè¡Œå­˜ç»„è¡¨ï¼Œç”¨äºå­˜å‚¨ä¸€ä¸ªè¡¨çš„é¢„æ±‡æ€»ç»“æœ
  * @author runqian
  *
  */
 public class Cuboid extends RowComTable {
-	public static final String CUBE_PREFIX = "_CUBOID@";//Á¢·½ÌåÎÄ¼şÇ°×º
-	private static final int FIXED_OBJ_LEN = 9;//¶¨³¤×Ö¶ÎµÄ³¤¶È
-	//ÎÄ¼şÍ·Ôö¼ÓÒÔÏÂÄÚÈİ
-	protected String[] exps;//·Ö×é±í´ïÊ½
-	protected String[] newExps;//»ã×Ü±í´ïÊ½
-	private long srcCount;//Ô­±íÀïÒÑ·Ö×éÌõÊı 
+	public static final String CUBE_PREFIX = "_CUBOID@";//ç«‹æ–¹ä½“æ–‡ä»¶å‰ç¼€
+	private static final int FIXED_OBJ_LEN = 9;//å®šé•¿å­—æ®µçš„é•¿åº¦
+	//æ–‡ä»¶å¤´å¢åŠ ä»¥ä¸‹å†…å®¹
+	protected String[] exps;//åˆ†ç»„è¡¨è¾¾å¼
+	protected String[] newExps;//æ±‡æ€»è¡¨è¾¾å¼
+	private long srcCount;//åŸè¡¨é‡Œå·²åˆ†ç»„æ¡æ•° 
 
 	protected CuboidTable baseTable;
 	
 	/**
-	 * ´ò¿ª,»á¼ì²é±¸·İ±êÖ¾
-	 * @param file Á¢·½ÌåÎÄ¼ş
+	 * æ‰“å¼€,ä¼šæ£€æŸ¥å¤‡ä»½æ ‡å¿—
+	 * @param file ç«‹æ–¹ä½“æ–‡ä»¶
 	 * @param ctx
 	 * @throws IOException
 	 */
@@ -81,15 +81,15 @@ public class Cuboid extends RowComTable {
 	}
 
 	/**
-	 * ĞÂ½¨Ò»¸öÁ¢·½Ìå
-	 * @param file ÎÄ¼ş¶ÔÏó
-	 * @param colNames ÁĞÃû³Æ
-	 * @param serialBytesLen Ã¿¸öÁĞµÄÅÅºÅ³¤¶È
+	 * æ–°å»ºä¸€ä¸ªç«‹æ–¹ä½“
+	 * @param file æ–‡ä»¶å¯¹è±¡
+	 * @param colNames åˆ—åç§°
+	 * @param serialBytesLen æ¯ä¸ªåˆ—çš„æ’å·é•¿åº¦
 	 * @param ctx
-	 * @param writePsw Ğ´ÃÜÂë
-	 * @param readPsw ¶ÁÃÜÂë
-	 * @param exps ·Ö×é±í´ïÊ½
-	 * @param newExps »ã×Ü±í´ïÊ½
+	 * @param writePsw å†™å¯†ç 
+	 * @param readPsw è¯»å¯†ç 
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
 	 * @throws IOException
 	 */
 	public Cuboid(File file, String []colNames, int []serialBytesLen, Context ctx, 
@@ -101,7 +101,7 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ¶ÁÎÄ¼şÍ·
+	 * è¯»æ–‡ä»¶å¤´
 	 */
 	protected void readHeader() throws IOException {
 		Object syncObj = getSyncObject();
@@ -135,7 +135,7 @@ public class Cuboid extends RowComTable {
 			blockSize = reader.readInt32();
 			headerBlockLink.readExternal(reader);
 			
-			reader.read(reserve); // ±£ÁôÎ»
+			reader.read(reserve); // ä¿ç•™ä½
 			freePos = reader.readLong40();
 			fileSize = reader.readLong40();
 			
@@ -175,7 +175,7 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * Ğ´³öÎÄ¼şÍ·
+	 * å†™å‡ºæ–‡ä»¶å¤´
 	 */
 	public void writeHeader() throws IOException {
 		Object syncObj = getSyncObject();
@@ -193,17 +193,17 @@ public class Cuboid extends RowComTable {
 			writer.writeInt32(blockSize);
 			headerBlockLink.writeExternal(writer);
 			
-			reserve[0] = 3; // 1Ôö¼ÓÃÜÂë£¬2Ôö¼Ó·Ö²¼º¯Êı£¬3Ôö¼ÓÔ¤·Ö×é
-			writer.write(reserve); // ±£ÁôÎ»
+			reserve[0] = 3; // 1å¢åŠ å¯†ç ï¼Œ2å¢åŠ åˆ†å¸ƒå‡½æ•°ï¼Œ3å¢åŠ é¢„åˆ†ç»„
+			writer.write(reserve); // ä¿ç•™ä½
 			
 			writer.writeLong40(freePos);
 			writer.writeLong40(fileSize);
 			
-			// ÏÂÃæÁ½¸ö³ÉÔ±°æ±¾1Ôö¼ÓµÄ
+			// ä¸‹é¢ä¸¤ä¸ªæˆå‘˜ç‰ˆæœ¬1å¢åŠ çš„
 			writer.writeString(writePswHash);
 			writer.writeString(readPswHash);
 			
-			writer.writeString(distribute); // °æ±¾2Ôö¼Ó
+			writer.writeString(distribute); // ç‰ˆæœ¬2å¢åŠ 
 	
 			ArrayList<DataStruct> dsList = structManager.getStructList();
 			if (dsList != null) {
@@ -225,7 +225,7 @@ public class Cuboid extends RowComTable {
 			headerWriter.rewriteBlocks(writer.finish());
 			headerWriter.close();
 			
-			// ÖØĞ´headerBlockLink
+			// é‡å†™headerBlockLink
 			writer.write('r');
 			writer.write('q');
 			writer.write('d');
@@ -252,7 +252,7 @@ public class Cuboid extends RowComTable {
 	}
 
 	/**
-	 * ¸ñÊ½»¯±í´ïÊ½£¬Èç¹û¸úÔ¤·Ö×é×Ö¶ÎÆ¥ÅäÔò¼Ó''£¬Èç¹û²»Æ¥ÅäÔòÈÏÎªÊÇ±í´ïÊ½
+	 * æ ¼å¼åŒ–è¡¨è¾¾å¼ï¼Œå¦‚æœè·Ÿé¢„åˆ†ç»„å­—æ®µåŒ¹é…åˆ™åŠ ''ï¼Œå¦‚æœä¸åŒ¹é…åˆ™è®¤ä¸ºæ˜¯è¡¨è¾¾å¼
 	 * @param exps
 	 * @param ds
 	 */
@@ -260,21 +260,21 @@ public class Cuboid extends RowComTable {
 		int expsLen = exps == null ? 0 : exps.length;
 		for (int i = 0; i < expsLen; i++) {
 			if (ds.getFieldIndex(exps[i].getIdentifierName()) >= 0) {
-				//Èç¹ûÖ±½Ó¾ÍÊÇÔ¤·Ö×éµÄ×Ö¶Î
+				//å¦‚æœç›´æ¥å°±æ˜¯é¢„åˆ†ç»„çš„å­—æ®µ
 				exps[i] = new Expression("'" + exps[i].getIdentifierName() + "'");
 			}
 		}
 	}
 	
 	/**
-	 * È¡µÃ·Ö×é±í´ïÊ½expsºÍ¾ÛºÏ±í´ïÊ½newExpsÀïÓÃµ½µÄ×Ö¶Î£¬²¢·µ»ØÔ­±íÓÎ±ê
-	 * @param srcTable Ô­±í
-	 * @param exps ·Ö×é±í´ïÊ½
-	 * @param newExps ¾ÛºÏ±í´ïÊ½
-	 * @param w ¹ıÂË±í´ïÊ½
-	 * @param hasM ÊÇ·ñ¶àÂ·
-	 * @param n ²¢ĞĞÂ·Êı
-	 * @param ctx ÉÏÏÂÎÄ
+	 * å–å¾—åˆ†ç»„è¡¨è¾¾å¼expså’Œèšåˆè¡¨è¾¾å¼newExpsé‡Œç”¨åˆ°çš„å­—æ®µï¼Œå¹¶è¿”å›åŸè¡¨æ¸¸æ ‡
+	 * @param srcTable åŸè¡¨
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼
+	 * @param newExps èšåˆè¡¨è¾¾å¼
+	 * @param w è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param hasM æ˜¯å¦å¤šè·¯
+	 * @param n å¹¶è¡Œè·¯æ•°
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	private static ICursor makeCursor(PhyTable srcTable, Expression []exps, Expression []newExps,
@@ -301,22 +301,22 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ·Ö×é
-	 * @param exps ·Ö×é±í´ïÊ½
-	 * @param names ·Ö×é±í´ïÊ½ĞÂÃû×Ö
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü±í´ïÊ½ĞÂÃû×Ö
-	 * @param srcTable Òª·Ö×éµÄ×é±í
-	 * @param w ¹ıÂËÌõ¼ş
-	 * @param hasM ÊÇ·ñ²¢ĞĞ
-	 * @param n ²¢ĞĞÊı
+	 * åˆ†ç»„
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼
+	 * @param names åˆ†ç»„è¡¨è¾¾å¼æ–°åå­—
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»è¡¨è¾¾å¼æ–°åå­—
+	 * @param srcTable è¦åˆ†ç»„çš„ç»„è¡¨
+	 * @param w è¿‡æ»¤æ¡ä»¶
+	 * @param hasM æ˜¯å¦å¹¶è¡Œ
+	 * @param n å¹¶è¡Œæ•°
 	 * @param option
 	 * @param ctx
 	 * @return
 	 */
 	public static Sequence cgroups(String []expNames, String []names, String []newExpNames, String []newNames,
 			PhyTable srcTable, Expression w, boolean hasM, int n, String option,  Context ctx) {
-		//×¢Òâ£¬cgroups_µÃµ½µÄÊÇ°üº¬²¹ÎÄ¼şcuboidµÄ
+		//æ³¨æ„ï¼Œcgroups_å¾—åˆ°çš„æ˜¯åŒ…å«è¡¥æ–‡ä»¶cuboidçš„
 		
 		return cgroups_(expNames, names, newExpNames, newNames, srcTable, w, hasM, n, option, null, ctx);
 		
@@ -324,23 +324,23 @@ public class Cuboid extends RowComTable {
 		if (tmd == null) {
 			return seq;
 		} else {			
-			//×éÖ¯·Ö×é±í´ïÊ½
+			//ç»„ç»‡åˆ†ç»„è¡¨è¾¾å¼
 			int count = names.length;
 			Expression exps[] = new Expression[count];
 			for (int i = 0; i < count; i++) {
 				exps[i] = new Expression(names[i]);
 			}
 			
-			//×éÖ¯ÔÙ¾ÛºÏ±í´ïÊ½
-			Expression newExps[] = new Expression[count = newNames.length];//ÓÃÀ´´æ´¢Òª¾ÛºÏµÄÔ­×Ö¶Î
+			//ç»„ç»‡å†èšåˆè¡¨è¾¾å¼
+			Expression newExps[] = new Expression[count = newNames.length];//ç”¨æ¥å­˜å‚¨è¦èšåˆçš„åŸå­—æ®µ
 			for (int i = 0, len = count; i < len; i++) {
 				String str = newExpNames[i];
-				//¶ÔcountÔÙ¾ÛºÏ£¬Òª±äÎªÀÛ¼Ó
+				//å¯¹countå†èšåˆï¼Œè¦å˜ä¸ºç´¯åŠ 
 				if (str.indexOf("count(") != -1) {
 					str = str.replaceFirst("count", "sum");
 				}
 				
-				//ÔÙ¾ÛºÏÊ±ÒªÌæ»»Ò»ÏÂ×Ö¶ÎÃû
+				//å†èšåˆæ—¶è¦æ›¿æ¢ä¸€ä¸‹å­—æ®µå
 				String sub = str.substring(str.indexOf('(') + 1, str.indexOf(')'));
 				str = str.replaceAll(sub, "'" + newNames[i] + "'");
 				newExps[i] = new Expression(str);
@@ -394,12 +394,12 @@ public class Cuboid extends RowComTable {
 		}
 		try {
 			if (obj instanceof ArrayList) {
-				//ÓĞ¶à¸öÔ¤·Ö×éÁ¢·½Ìå
+				//æœ‰å¤šä¸ªé¢„åˆ†ç»„ç«‹æ–¹ä½“
 				@SuppressWarnings("unchecked")
 				ArrayList<PhyTable> tableList = (ArrayList<PhyTable>) obj;
 				int size = tableList.size();
 				if (size == 0) {
-					//Ã»ÓĞÔ¤·Ö×éÁ¢·½Ìå
+					//æ²¡æœ‰é¢„åˆ†ç»„ç«‹æ–¹ä½“
 					ICursor cs = makeCursor(srcTable, exps, newExps, w, hasM, n, ctx);
 					return cs.groups(exps, names, newExps, newNames, option, ctx);
 				} else {
@@ -407,7 +407,7 @@ public class Cuboid extends RowComTable {
 					if (size == 1) {
 						table = (CuboidTable) tableList.get(0);
 					} else {
-						//Ñ¡Ò»¸ö¼ÇÂ¼ÌõÊı×îÉÙµÄ
+						//é€‰ä¸€ä¸ªè®°å½•æ¡æ•°æœ€å°‘çš„
 						int idx = 0;
 						long cnt = tableList.get(0).getTotalRecordCount();
 						for (int i = 1; i < size; i++) {
@@ -426,8 +426,8 @@ public class Cuboid extends RowComTable {
 					}
 
 					
-					//Ô¤·Ö×é²»ÔÙ¸úËæ×é±í¸üĞÂ£¬ÒÔÏÂÉ¾³ı
-//					¼ì²éÔ¤·Ö×éÊÇ·ñÊÇ×îĞÂµÄ
+					//é¢„åˆ†ç»„ä¸å†è·Ÿéšç»„è¡¨æ›´æ–°ï¼Œä»¥ä¸‹åˆ é™¤
+//					æ£€æŸ¥é¢„åˆ†ç»„æ˜¯å¦æ˜¯æœ€æ–°çš„
 //					if (((Cuboid) table.groupTable).getSrcCount() != srcTable.getActualRecordCount()) {
 //						try {
 //							((Cuboid) table.groupTable).update(srcTable);
@@ -443,15 +443,15 @@ public class Cuboid extends RowComTable {
 					
 
 					ArrayList<Expression> fieldExpList = new ArrayList<Expression>();
-					Expression[] fieldExps;//ÔÙ¾ÛºÏÊ±ÒªÈ¡³öÀ´µÄ×Ö¶Î
+					Expression[] fieldExps;//å†èšåˆæ—¶è¦å–å‡ºæ¥çš„å­—æ®µ
 					int expsLen = exps == null ? 0 : exps.length;
 					DataStruct ds = table.getDataStruct();
 					for (int i = 0; i < expsLen; i++) {
 						if (ds.getFieldIndex(expNames[i]) >= 0) {
-							//Èç¹ûÖ±½Ó¾ÍÊÇÔ¤·Ö×éµÄ×Ö¶Î
+							//å¦‚æœç›´æ¥å°±æ˜¯é¢„åˆ†ç»„çš„å­—æ®µ
 							fieldExpList.add(new Expression("'" + expNames[i] + "'"));
 						} else {
-							//ÌáÈ¡Éæ¼°µ½µÄ×Ö¶Î
+							//æå–æ¶‰åŠåˆ°çš„å­—æ®µ
 							Expression exp = new Expression(expNames[i]);
 							ArrayList<String> strList = new ArrayList<String>();
 							exp.getUsedFields(ctx, strList);
@@ -466,19 +466,19 @@ public class Cuboid extends RowComTable {
 					fieldExps = new Expression[fieldExpList.size()];
 					fieldExpList.toArray(fieldExps);
 
-					Expression newSrcExps[] = new Expression[newExps.length];//ÓÃÀ´´æ´¢Òª¾ÛºÏµÄÔ­×Ö¶Î
+					Expression newSrcExps[] = new Expression[newExps.length];//ç”¨æ¥å­˜å‚¨è¦èšåˆçš„åŸå­—æ®µ
 					for (int i = 0, len = newExps.length; i < len; i++) {
 						String str = new String(newExps[i].getIdentifierName());
 						if (newNames[i] == null) {
 							newNames[i] = str;
 						}
 
-						//¶ÔcountÔÙ¾ÛºÏ£¬Òª±äÎªÀÛ¼Ó
+						//å¯¹countå†èšåˆï¼Œè¦å˜ä¸ºç´¯åŠ 
 						if (str.indexOf("count(") != -1) {
 							str = str.replaceFirst("count", "sum");
 						}
 
-						//¶ÔÔ¤·Ö×éÁ¢·½ÌåÔÙ¾ÛºÏÊ±ÒªÌæ»»Ò»ÏÂ×Ö¶ÎÃû
+						//å¯¹é¢„åˆ†ç»„ç«‹æ–¹ä½“å†èšåˆæ—¶è¦æ›¿æ¢ä¸€ä¸‹å­—æ®µå
 						String sub = str.substring(str.indexOf('(') + 1, str.indexOf(')'));
 						str = str.replaceAll(sub, "'" + newExpNames[i] + "'");
 						newExps[i] = new Expression(str);
@@ -488,13 +488,13 @@ public class Cuboid extends RowComTable {
 						newSrcExps[i] = new Expression(sub);
 					}
 
-					//´¦ÀíÊ±¼äÇø¼äÓÅ»¯
+					//å¤„ç†æ—¶é—´åŒºé—´ä¼˜åŒ–
 					while (w != null) {
-						//´ÓÁ¢·½ÌåÀïÈ¡³öÀ´ÈÕÆÚ·Ö×éµÄ×Ö¶Î£¬¿ÉÄÜÓĞ¶à¸ö
+						//ä»ç«‹æ–¹ä½“é‡Œå–å‡ºæ¥æ—¥æœŸåˆ†ç»„çš„å­—æ®µï¼Œå¯èƒ½æœ‰å¤šä¸ª
 						ArrayList<Object> list = new ArrayList<Object>();
 						getDateFields(table, list);
 
-						//ÓÃÕâĞ©ÈÕÆÚ×Ö¶ÎÈ¥Æ¥Åäw
+						//ç”¨è¿™äº›æ—¥æœŸå­—æ®µå»åŒ¹é…w
 						int count = list.size();
 						if (count > 0) {
 							Object[] interval = new Object[2];
@@ -504,12 +504,12 @@ public class Cuboid extends RowComTable {
 								String fname = (String) list.get(i);
 								getDateInterval(fname, w.getHome(), interval, isEQ, otherNodes, (Integer) list.get(i + 1), ctx);
 								if (interval[0] != null || interval[1] != null) {
-									//Èç¹ûwÀïÓĞÊ±¼äÇø¼ä
+									//å¦‚æœwé‡Œæœ‰æ—¶é—´åŒºé—´
 									Node nodes[] = makeNode(fname, table.colNames, interval, isEQ,
 											(Integer) list.get(i + 1));
 									if (nodes != null) {
 										if (nodes[0] == null) {
-											//Ö»ĞèÒª·ÃÎÊÁ¢·½Ìå
+											//åªéœ€è¦è®¿é—®ç«‹æ–¹ä½“
 											otherNodes.add(nodes[1]);
 											Expression w2 = conbineNodes(otherNodes);
 											ICursor cursor2 = table.cursor(null, w2, ctx);
@@ -542,11 +542,11 @@ public class Cuboid extends RowComTable {
 								otherNodes.clear();
 							}
 						} else {
-							//Ã»ÓĞÈÕÆÚ×Ö¶Î
+							//æ²¡æœ‰æ—¥æœŸå­—æ®µ
 							break;
 						}
 
-						//ÎŞ·¨Ê¹ÓÃÔ¤·Ö×éÁ¢·½Ìå(µ±wÇø¼äĞ¡ÓÚÁ¢·½Ìå·Ö×éµÄµ¥Î»£¬±ÈÈç²»¹»Ò»¸öÄê£¬²Å»áÔËĞĞµ½ÕâÀï£¬Êµ¼ÊÉÏÕâÀï¿ÉÒÔÔÙ¼ì²éÏÂÒ»¸öÁ¢·½Ìå)
+						//æ— æ³•ä½¿ç”¨é¢„åˆ†ç»„ç«‹æ–¹ä½“(å½“wåŒºé—´å°äºç«‹æ–¹ä½“åˆ†ç»„çš„å•ä½ï¼Œæ¯”å¦‚ä¸å¤Ÿä¸€ä¸ªå¹´ï¼Œæ‰ä¼šè¿è¡Œåˆ°è¿™é‡Œï¼Œå®é™…ä¸Šè¿™é‡Œå¯ä»¥å†æ£€æŸ¥ä¸‹ä¸€ä¸ªç«‹æ–¹ä½“)
 						for (int i = 0; i < newExps.length; i++) {
 							newExps[i] = new Expression(newNames[i]);
 						}
@@ -594,7 +594,7 @@ public class Cuboid extends RowComTable {
 					hasM = false;
 				}
 
-				//×ª»»w
+				//è½¬æ¢w
 				if (w != null) {
 					String str = w.getIdentifierName();
 					for (int i = 0, len = names.length; i < len; i++) {
@@ -633,17 +633,17 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ¼¯Èº±íµÄcgroups
-	 * @param exps ·Ö×é±í´ïÊ½
-	 * @param names ·Ö×é±í´ïÊ½ĞÂÃû×Ö
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü±í´ïÊ½ĞÂÃû×Ö
-	 * @param srcTable Òª·Ö×éµÄ×é±í
-	 * @param w ¹ıÂËÌõ¼ş
-	 * @param hasM ÊÇ·ñ²¢ĞĞ
-	 * @param n ²¢ĞĞÂ·Êı
-	 * @param option ·Ö×éÊôĞÔ
-	 * @param ctx ÉÏÏÂÎÄ
+	 * é›†ç¾¤è¡¨çš„cgroups
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼
+	 * @param names åˆ†ç»„è¡¨è¾¾å¼æ–°åå­—
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»è¡¨è¾¾å¼æ–°åå­—
+	 * @param srcTable è¦åˆ†ç»„çš„ç»„è¡¨
+	 * @param w è¿‡æ»¤æ¡ä»¶
+	 * @param hasM æ˜¯å¦å¹¶è¡Œ
+	 * @param n å¹¶è¡Œè·¯æ•°
+	 * @param option åˆ†ç»„å±æ€§
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public static Sequence cgroups(String []expNames, String []names, String []newExpNames, String []newNames,
@@ -681,12 +681,12 @@ public class Cuboid extends RowComTable {
 		Object obj = findCuboid(srcTable, expNames, newExpNames, w, ctx);
 		try {
 			if (obj instanceof ArrayList) {
-				//ÓĞ¶à¸öÔ¤·Ö×éÁ¢·½Ìå
+				//æœ‰å¤šä¸ªé¢„åˆ†ç»„ç«‹æ–¹ä½“
 				@SuppressWarnings("unchecked")
 				ArrayList<PhyTable> tableList = (ArrayList<PhyTable>) obj;
 				int size = tableList.size();
 				if (size == 0) {
-					//Ã»ÓĞÔ¤·Ö×éÁ¢·½Ìå
+					//æ²¡æœ‰é¢„åˆ†ç»„ç«‹æ–¹ä½“
 					ClusterCursor cc = srcTable.cursor(null, null, null, null, null, null, 0, null, ctx);
 					return (Sequence) cc.groups(exps, names, newExps, newNames, option, ctx);
 				} else {
@@ -694,7 +694,7 @@ public class Cuboid extends RowComTable {
 					if (size == 1) {
 						table = (CuboidTable) tableList.get(0);
 					} else {
-						//Ñ¡Ò»¸ö¼ÇÂ¼ÌõÊı×îÉÙµÄ
+						//é€‰ä¸€ä¸ªè®°å½•æ¡æ•°æœ€å°‘çš„
 						int idx = 0;
 						long cnt = tableList.get(0).getTotalRecordCount();
 						for (int i = 1; i < size; i++) {
@@ -713,15 +713,15 @@ public class Cuboid extends RowComTable {
 					}
 
 					ArrayList<Expression> fieldExpList = new ArrayList<Expression>();
-					Expression[] fieldExps;//ÔÙ¾ÛºÏÊ±ÒªÈ¡³öÀ´µÄ×Ö¶Î
+					Expression[] fieldExps;//å†èšåˆæ—¶è¦å–å‡ºæ¥çš„å­—æ®µ
 					int expsLen = exps == null ? 0 : exps.length;
 					DataStruct ds = table.getDataStruct();
 					for (int i = 0; i < expsLen; i++) {
 						if (ds.getFieldIndex(expNames[i]) > 0) {
-							//Èç¹ûÖ±½Ó¾ÍÊÇÔ¤·Ö×éµÄ×Ö¶Î
+							//å¦‚æœç›´æ¥å°±æ˜¯é¢„åˆ†ç»„çš„å­—æ®µ
 							fieldExpList.add(new Expression("'" + expNames[i] + "'"));
 						} else {
-							//ÌáÈ¡Éæ¼°µ½µÄ×Ö¶Î
+							//æå–æ¶‰åŠåˆ°çš„å­—æ®µ
 							Expression exp = new Expression(expNames[i]);
 							ArrayList<String> strList = new ArrayList<String>();
 							exp.getUsedFields(ctx, strList);
@@ -736,19 +736,19 @@ public class Cuboid extends RowComTable {
 					fieldExps = new Expression[fieldExpList.size()];
 					fieldExpList.toArray(fieldExps);
 
-					Expression newSrcExps[] = new Expression[newExps.length];//ÓÃÀ´´æ´¢Òª¾ÛºÏµÄÔ­×Ö¶Î
+					Expression newSrcExps[] = new Expression[newExps.length];//ç”¨æ¥å­˜å‚¨è¦èšåˆçš„åŸå­—æ®µ
 					for (int i = 0, len = newExps.length; i < len; i++) {
 						String str = new String(newExps[i].getIdentifierName());
 						if (newNames[i] == null) {
 							newNames[i] = str;
 						}
 
-						//¶ÔcountÔÙ¾ÛºÏ£¬Òª±äÎªÀÛ¼Ó
+						//å¯¹countå†èšåˆï¼Œè¦å˜ä¸ºç´¯åŠ 
 						if (str.indexOf("count(") != -1) {
 							str = str.replaceFirst("count", "sum");
 						}
 
-						//¶ÔÔ¤·Ö×éÁ¢·½ÌåÔÙ¾ÛºÏÊ±ÒªÌæ»»Ò»ÏÂ×Ö¶ÎÃû
+						//å¯¹é¢„åˆ†ç»„ç«‹æ–¹ä½“å†èšåˆæ—¶è¦æ›¿æ¢ä¸€ä¸‹å­—æ®µå
 						String sub = str.substring(str.indexOf('(') + 1, str.indexOf(')'));
 						str = str.replaceAll(sub, "'" + newExpNames[i] + "'");
 						newExps[i] = new Expression(str);
@@ -791,7 +791,7 @@ public class Cuboid extends RowComTable {
 					hasM = false;
 				}
 
-				//×ª»»w
+				//è½¬æ¢w
 				if (w != null) {
 					String str = w.getIdentifierName();
 					for (int i = 0, len = names.length; i < len; i++) {
@@ -830,13 +830,13 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ÀûÓÃÔ¤·Ö×é½øĞĞÔÙ·Ö×é
-	 * @param sub0 ·Ö×é×Ö¶Î
-	 * @param sub1 ·Ö×é±í´ïÊ½
-	 * @param srcTable Òª·Ö×éµÄ×é±í
-	 * @param w ¹ıÂËÌõ¼ş
-	 * @param hasM ÊÇ·ñ²¢ĞĞ
-	 * @param n ²¢ĞĞÊı
+	 * åˆ©ç”¨é¢„åˆ†ç»„è¿›è¡Œå†åˆ†ç»„
+	 * @param sub0 åˆ†ç»„å­—æ®µ
+	 * @param sub1 åˆ†ç»„è¡¨è¾¾å¼
+	 * @param srcTable è¦åˆ†ç»„çš„ç»„è¡¨
+	 * @param w è¿‡æ»¤æ¡ä»¶
+	 * @param hasM æ˜¯å¦å¹¶è¡Œ
+	 * @param n å¹¶è¡Œæ•°
 	 * @param opt
 	 * @param ctx
 	 * @return
@@ -879,11 +879,11 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ²éÕÒºÏÊÊµÄÁ¢·½Ìå
-	 * @param srcTable Ô­±í
-	 * @param names Òª·Ö×éµÄ×Ö¶ÎÃû³Æ
-	 * @param expNames ¾ÛºÏ±í´ïÊ½Ãû³Æ
-	 * @param w ¹ıÂË±í´ïÊ½
+	 * æŸ¥æ‰¾åˆé€‚çš„ç«‹æ–¹ä½“
+	 * @param srcTable åŸè¡¨
+	 * @param names è¦åˆ†ç»„çš„å­—æ®µåç§°
+	 * @param expNames èšåˆè¡¨è¾¾å¼åç§°
+	 * @param w è¿‡æ»¤è¡¨è¾¾å¼
 	 * @return
 	 */
 	public static Object findCuboid(PhyTable srcTable, String names[], String expNames[], Expression w) {
@@ -891,11 +891,11 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ²éÕÒºÏÊÊµÄÁ¢·½Ìå
-	 * @param srcTable Ô­±í
-	 * @param names Òª·Ö×éµÄ×Ö¶ÎÃû³Æ
-	 * @param expNames ¾ÛºÏ±í´ïÊ½Ãû³Æ
-	 * @param w ¹ıÂË±í´ïÊ½
+	 * æŸ¥æ‰¾åˆé€‚çš„ç«‹æ–¹ä½“
+	 * @param srcTable åŸè¡¨
+	 * @param names è¦åˆ†ç»„çš„å­—æ®µåç§°
+	 * @param expNames èšåˆè¡¨è¾¾å¼åç§°
+	 * @param w è¿‡æ»¤è¡¨è¾¾å¼
 	 * @param ctx
 	 * @return
 	 */
@@ -907,8 +907,8 @@ public class Cuboid extends RowComTable {
 		if (cuboids == null) return tableList;
 		ArrayList<PhyTable> tableList2 = new ArrayList<PhyTable>();
 		
-		//¼ì²éexps£¬avg²»ÄÜ×öÔÙ¾ÛºÏ
-		boolean flag = false;//±íÊ¾²»ÄÜÔÙ¾ÛºÏ
+		//æ£€æŸ¥expsï¼Œavgä¸èƒ½åšå†èšåˆ
+		boolean flag = false;//è¡¨ç¤ºä¸èƒ½å†èšåˆ
 		for (String exp : expNames) {
 			if (exp.indexOf("avg(") != -1) {
 				flag = true;//return tableList;
@@ -947,7 +947,7 @@ public class Cuboid extends RowComTable {
 				} else if ( match == 2 && !flag) {
 					tableList2.add(baseTable);
 				} else if (match == 3) {
-					//×îÆ¥Åä£¬·µ»Ø±í¶ÔÏó
+					//æœ€åŒ¹é…ï¼Œè¿”å›è¡¨å¯¹è±¡
 					for (PhyTable tbl : tableList) {
 						tbl.close();
 					}
@@ -967,7 +967,7 @@ public class Cuboid extends RowComTable {
 			}
 		}
 
-		//È¥µôÆ¥Åä¶ÈµÍµÄ£¨Èç¹ûÓĞ2µÄ£¬ÔòÈ¥µô1µÄ£©
+		//å»æ‰åŒ¹é…åº¦ä½çš„ï¼ˆå¦‚æœæœ‰2çš„ï¼Œåˆ™å»æ‰1çš„ï¼‰
 		if (tableList2.size() != 0) {
 			for (PhyTable tbl : tableList) {
 				tbl.close();
@@ -978,12 +978,12 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ²éÕÒºÏÊÊµÄÁ¢·½Ìå
-	 * @param srcTable Ô­±í
-	 * @param names Òª·Ö×éµÄ×Ö¶ÎÃû³Æ
-	 * @param expNames ¾ÛºÏ±í´ïÊ½Ãû³Æ
-	 * @param w ¹ıÂË±í´ïÊ½
-	 * @param files Á¢·½ÌåÎÄ¼ş
+	 * æŸ¥æ‰¾åˆé€‚çš„ç«‹æ–¹ä½“
+	 * @param srcTable åŸè¡¨
+	 * @param names è¦åˆ†ç»„çš„å­—æ®µåç§°
+	 * @param expNames èšåˆè¡¨è¾¾å¼åç§°
+	 * @param w è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param files ç«‹æ–¹ä½“æ–‡ä»¶
 	 * @param ctx
 	 * @return
 	 */
@@ -995,8 +995,8 @@ public class Cuboid extends RowComTable {
 		if (files == null) return tableList;
 		ArrayList<PhyTable> tableList2 = new ArrayList<PhyTable>();
 		
-		//¼ì²éexps£¬avg²»ÄÜ×öÔÙ¾ÛºÏ
-		boolean flag = false;//±íÊ¾²»ÄÜÔÙ¾ÛºÏ
+		//æ£€æŸ¥expsï¼Œavgä¸èƒ½åšå†èšåˆ
+		boolean flag = false;//è¡¨ç¤ºä¸èƒ½å†èšåˆ
 		for (String exp : expNames) {
 			if (exp.indexOf("avg(") != -1) {
 				flag = true;//return tableList;
@@ -1034,7 +1034,7 @@ public class Cuboid extends RowComTable {
 				} else if ( match == 2 && !flag) {
 					tableList2.add(baseTable);
 				} else if (match == 3) {
-					//×îÆ¥Åä£¬·µ»Ø±í¶ÔÏó
+					//æœ€åŒ¹é…ï¼Œè¿”å›è¡¨å¯¹è±¡
 					for (PhyTable tbl : tableList) {
 						tbl.close();
 					}
@@ -1054,7 +1054,7 @@ public class Cuboid extends RowComTable {
 			}
 		}
 
-		//È¥µôÆ¥Åä¶ÈµÍµÄ£¨Èç¹ûÓĞ2µÄ£¬ÔòÈ¥µô1µÄ£©
+		//å»æ‰åŒ¹é…åº¦ä½çš„ï¼ˆå¦‚æœæœ‰2çš„ï¼Œåˆ™å»æ‰1çš„ï¼‰
 		if (tableList2.size() != 0) {
 			for (PhyTable tbl : tableList) {
 				tbl.close();
@@ -1065,11 +1065,11 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ²éÕÒºÏÊÊµÄÁ¢·½Ìå (¼¯Èº)
-	 * @param srcTable Ô­±í
-	 * @param names Òª·Ö×éµÄ×Ö¶ÎÃû³Æ
-	 * @param expNames ¾ÛºÏ±í´ïÊ½Ãû³Æ
-	 * @param w ¹ıÂË±í´ïÊ½
+	 * æŸ¥æ‰¾åˆé€‚çš„ç«‹æ–¹ä½“ (é›†ç¾¤)
+	 * @param srcTable åŸè¡¨
+	 * @param names è¦åˆ†ç»„çš„å­—æ®µåç§°
+	 * @param expNames èšåˆè¡¨è¾¾å¼åç§°
+	 * @param w è¿‡æ»¤è¡¨è¾¾å¼
 	 * @param ctx
 	 * @return
 	 */
@@ -1080,7 +1080,7 @@ public class Cuboid extends RowComTable {
 		if (cuboids == null) return tableList;
 		ArrayList<PhyTable> tableList2 = new ArrayList<PhyTable>();
 		
-		//¼ì²éexps£¬avg²»ÄÜ×öÔÙ¾ÛºÏ
+		//æ£€æŸ¥expsï¼Œavgä¸èƒ½åšå†èšåˆ
 		for (String exp : expNames) {
 			if (exp.indexOf("avg(") != -1) {
 				return tableList;
@@ -1119,7 +1119,7 @@ public class Cuboid extends RowComTable {
 				} else if ( match == 2) {
 					tableList2.add(baseTable);
 				} else if (match == 3) {
-					//×îÆ¥Åä£¬·µ»Ø±í¶ÔÏó
+					//æœ€åŒ¹é…ï¼Œè¿”å›è¡¨å¯¹è±¡
 					for (PhyTable tbl : tableList) {
 						tbl.close();
 					}
@@ -1139,7 +1139,7 @@ public class Cuboid extends RowComTable {
 			}
 		}
 		
-		//È¥µôÆ¥Åä¶ÈµÍµÄ£¨Èç¹ûÓĞ2µÄ£¬ÔòÈ¥µô1µÄ£©
+		//å»æ‰åŒ¹é…åº¦ä½çš„ï¼ˆå¦‚æœæœ‰2çš„ï¼Œåˆ™å»æ‰1çš„ï¼‰
 		if (tableList2.size() != 0) {
 			for (PhyTable tbl : tableList) {
 				tbl.close();
@@ -1150,21 +1150,21 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ¼ì²é·Ö×é×Ö¶ÎºÍÁ¢·½Ìå(×é±íÎÄ¼ş)×Ö¶ÎµÄÆ¥ÅäĞÔ
-	 * @param fields Á¢·½ÌåµÄ×Ö¶Î
-	 * @param kcount Á¢·½ÌåµÄÎ¬×Ö¶Î¸öÊı
-	 * @param names Òª·Ö×éµÄ×Ö¶Î
-	 * @param expNames ¾ÛºÏ±í´ïÊ½
-	 * @param filterFields ¹ıÂË±í´ïÊ½wÀïµÄ×Ö¶Î
-	 * @return 0 ²»Æ¥Åä,1 Æ¥Åä,2 Ìõ¼şÀïÓĞ×Ö¶ÎÆ¥Åä,3È«Æ¥Åä
+	 * æ£€æŸ¥åˆ†ç»„å­—æ®µå’Œç«‹æ–¹ä½“(ç»„è¡¨æ–‡ä»¶)å­—æ®µçš„åŒ¹é…æ€§
+	 * @param fields ç«‹æ–¹ä½“çš„å­—æ®µ
+	 * @param kcount ç«‹æ–¹ä½“çš„ç»´å­—æ®µä¸ªæ•°
+	 * @param names è¦åˆ†ç»„çš„å­—æ®µ
+	 * @param expNames èšåˆè¡¨è¾¾å¼
+	 * @param filterFields è¿‡æ»¤è¡¨è¾¾å¼wé‡Œçš„å­—æ®µ
+	 * @return 0 ä¸åŒ¹é…,1 åŒ¹é…,2 æ¡ä»¶é‡Œæœ‰å­—æ®µåŒ¹é…,3å…¨åŒ¹é…
 	 */
 	private static int check(String fields[], int kcount, String names[], String expNames[], ArrayList<String> filterFields, Context ctx) {
 		int fcount = names == null ? 0 : names.length;
 		int ecount = expNames.length;
 		int size = fields.length;
-		//boolean hasYearDate = false;//²»Ö±½ÓÆ¥Åä£¬¶øÊÇÆ¥Åäµ½year¡¢date±í´ïÊ½
+		//boolean hasYearDate = false;//ä¸ç›´æ¥åŒ¹é…ï¼Œè€Œæ˜¯åŒ¹é…åˆ°yearã€dateè¡¨è¾¾å¼
 		
-		//¼ì²éwÀïµÄ×Ö¶ÎÊÇ·ñ¶¼ÔÚÁ¢·½Ìå×Ö¶ÎÀï³öÏÖ
+		//æ£€æŸ¥wé‡Œçš„å­—æ®µæ˜¯å¦éƒ½åœ¨ç«‹æ–¹ä½“å­—æ®µé‡Œå‡ºç°
 		if (filterFields != null) {
 			ArrayList<String> flist = new ArrayList<String>();
 			for (int i = 0; i < kcount; i++) {
@@ -1173,7 +1173,7 @@ public class Cuboid extends RowComTable {
 			for (String f : filterFields) {
 				boolean flag = flist.contains(f);
 				if (!flag) {
-					//Èç¹û²»´æÔÚÕâ¸ö×Ö¶Î,µ«ÊÇ´æÔÚ°üº¬Ê±¼äÇø¼äµÄ±í´ïÊ½Ò²¿ÉÒÔ
+					//å¦‚æœä¸å­˜åœ¨è¿™ä¸ªå­—æ®µ,ä½†æ˜¯å­˜åœ¨åŒ…å«æ—¶é—´åŒºé—´çš„è¡¨è¾¾å¼ä¹Ÿå¯ä»¥
 					if (flist.contains("year(" + f + ")")) {
 						//hasYearDate = true;
 						flag = true;
@@ -1193,7 +1193,7 @@ public class Cuboid extends RowComTable {
 		}
 		
 		if (size >= fcount + ecount) {
-			//¼ì²éÁ¢·½ÌåÀïÊÇ·ñÓĞexp
+			//æ£€æŸ¥ç«‹æ–¹ä½“é‡Œæ˜¯å¦æœ‰exp
 			for (String exp : expNames) {
 				boolean find = false;
 				for (int i = 0; i < size; i++) {
@@ -1205,15 +1205,15 @@ public class Cuboid extends RowComTable {
 				if (!find) return 0;
 			}
 			
-			//ÅĞ¶ÏÊÇ²»ÊÇcontain
+			//åˆ¤æ–­æ˜¯ä¸æ˜¯contain
 			if (ctx != null && fcount == 1 && names[0].indexOf("contain") != -1) {
-				//¼ì²écontain±í´ïÊ½Éæ¼°×Ö¶ÎÊÇ·ñÊÇÁ¢·½ÌåÀïµÄFi
+				//æ£€æŸ¥containè¡¨è¾¾å¼æ¶‰åŠå­—æ®µæ˜¯å¦æ˜¯ç«‹æ–¹ä½“é‡Œçš„Fi
 				Expression exp = new Expression(names[0]);
 				if (exp.getHome() instanceof DotOperator 
 						&& exp.getHome().getRight() instanceof Contain) {
 					ArrayList<String> list = new ArrayList<String>();
 					exp.getUsedFields(ctx, list);
-					//ÒªÇólistÀïµÄ×Ö¶Î¶¼ÄÜÔÚfieldsÀïÕÒµ½
+					//è¦æ±‚listé‡Œçš„å­—æ®µéƒ½èƒ½åœ¨fieldsé‡Œæ‰¾åˆ°
 					boolean find = false;
 					for (String str : list) {
 						find = false;
@@ -1233,7 +1233,7 @@ public class Cuboid extends RowComTable {
 				}
 			}
 			
-			//°´Ë³Ğò¼ì²éFiºÍÁ¢·½ÌåÀïµÄFi
+			//æŒ‰é¡ºåºæ£€æŸ¥Fiå’Œç«‹æ–¹ä½“é‡Œçš„Fi
 			for (int i = 0; i < fcount; i++) {
 				String name = names[i];
 				if (! name.equals(fields[i])) {
@@ -1243,7 +1243,7 @@ public class Cuboid extends RowComTable {
 			if (fcount == kcount && filterFields == null) {
 				return 3;
 			} else if (filterFields != null && filterFields.size() != 0) {
-				return 2;//Ìõ¼şÀïÓĞ×Ö¶ÎÆ¥Åä
+				return 2;//æ¡ä»¶é‡Œæœ‰å­—æ®µåŒ¹é…
 			} else {
 				return 1;
 			}
@@ -1254,9 +1254,9 @@ public class Cuboid extends RowComTable {
 	}
 
 	/**
-	 * È¡³ötableÀï×ª»»ÎªÄêÔÂÈÕµÄÈÕÆÚÀàĞÍµÄÔ­×Ö¶Î
+	 * å–å‡ºtableé‡Œè½¬æ¢ä¸ºå¹´æœˆæ—¥çš„æ—¥æœŸç±»å‹çš„åŸå­—æ®µ
 	 * @param table
-	 * @param list Êä³ö{×Ö¶ÎÃû£¬·Ö×é²ã´Î} ·Ö×é²ã´Î:1 year ,2 month,3 day
+	 * @param list è¾“å‡º{å­—æ®µåï¼Œåˆ†ç»„å±‚æ¬¡} åˆ†ç»„å±‚æ¬¡:1 year ,2 month,3 day
 	 */
 	private static void getDateFields(PhyTable table, ArrayList<Object> list) {
 		String[] fields = table.getAllSortedColNames();
@@ -1286,12 +1286,12 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ´Ó±í´ïÊ½ÀïÌáÈ¡Çø¼ä
-	 * @param field Çø¼ä×Ö¶ÎÃû
-	 * @param node ±í´ïÊ½½Úµã
-	 * @param interval Çø¼äÊä³ö
-	 * @param isEQ Çø¼äµÈºÅ±êÖ¾
-	 * @param otherNodes ²»Éæ¼°Çø¼äµÄÆäËünode
+	 * ä»è¡¨è¾¾å¼é‡Œæå–åŒºé—´
+	 * @param field åŒºé—´å­—æ®µå
+	 * @param node è¡¨è¾¾å¼èŠ‚ç‚¹
+	 * @param interval åŒºé—´è¾“å‡º
+	 * @param isEQ åŒºé—´ç­‰å·æ ‡å¿—
+	 * @param otherNodes ä¸æ¶‰åŠåŒºé—´çš„å…¶å®ƒnode
 	 * @param ctx
 	 */
 	private static void getDateInterval(String field, Node node, Object[] interval,
@@ -1397,18 +1397,18 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * °ÑÊ±¼äÇø¼ä×ª»»ÎªÁ½¸ö±í´ïÊ½£º1 ·ÃÎÊÔ­×é±íµÄ 2 ·ÃÎÊÁ¢·½ÌåµÄ
-	 * @param field	Ô­×é±í×Ö¶ÎÃû
-	 * @param field	Á¢·½ÌåÈ¡³ö×Ö¶Î
-	 * @param array		Ê±¼äÇø¼ä
-	 * @param isEQ		ÊÇ·ñÏàµÈ
+	 * æŠŠæ—¶é—´åŒºé—´è½¬æ¢ä¸ºä¸¤ä¸ªè¡¨è¾¾å¼ï¼š1 è®¿é—®åŸç»„è¡¨çš„ 2 è®¿é—®ç«‹æ–¹ä½“çš„
+	 * @param field	åŸç»„è¡¨å­—æ®µå
+	 * @param field	ç«‹æ–¹ä½“å–å‡ºå­—æ®µ
+	 * @param array		æ—¶é—´åŒºé—´
+	 * @param isEQ		æ˜¯å¦ç›¸ç­‰
 	 * @param timeUnit
 	 * @return
 	 */
 	private static Node[] makeNode(String field, String fields[], Object array[], boolean isEQ[], Integer timeUnit) {
 		Node nodes[] = null;
 		
-		//·ÃÎÊÁ¢·½ÌåµÄ×Ö¶ÎÃû×ª»»Îª#i
+		//è®¿é—®ç«‹æ–¹ä½“çš„å­—æ®µåè½¬æ¢ä¸º#i
 		String year = "year(" + field + ")";
 		String month = "month@y(" + field + ")";
 		String date = "date(" + field + ")";
@@ -1429,7 +1429,7 @@ public class Cuboid extends RowComTable {
 		
 		if (timeUnit == 1) {//year
 			if ((array[0] != null && array[0] instanceof Integer) ||
-					(array[1] != null && array[1] instanceof Integer)) {//Integer±íÊ¾ÊÇ°´ÕÕYearº¯ÊıÌáÌõ¼ş
+					(array[1] != null && array[1] instanceof Integer)) {//Integerè¡¨ç¤ºæ˜¯æŒ‰ç…§Yearå‡½æ•°ææ¡ä»¶
 				Integer from = null, to = null;
 				if (array[0] != null && array[0] instanceof Integer) {
 					from = (Integer) array[0];
@@ -1450,16 +1450,16 @@ public class Cuboid extends RowComTable {
 				nodes[1] = new Expression(s).getHome();
 				return nodes;
 			}
-			//ÕâÀïÊÇ°´Çø¼ä°ÑÌõ¼ş²ğ·ÖÎª3¸ö£¬×óÓÒµÄÈ¥Ô­±íÀïÈ¡Êı£¬ÖĞ¼äµÄÌõ¼şÊÇÀûÓÃÁ¢·½Ìå
+			//è¿™é‡Œæ˜¯æŒ‰åŒºé—´æŠŠæ¡ä»¶æ‹†åˆ†ä¸º3ä¸ªï¼Œå·¦å³çš„å»åŸè¡¨é‡Œå–æ•°ï¼Œä¸­é—´çš„æ¡ä»¶æ˜¯åˆ©ç”¨ç«‹æ–¹ä½“
 			Integer from = array[0] == null ? null : DateFactory.get().year( (Date) array[0]);
 			Integer to = array[1] == null ? null : DateFactory.get().year( (Date) array[1]);
 			if (from != null && to != null && (to - from < 2)) {
-				return null;//ÓÃ²»µ½Á¢·½Ìå
+				return null;//ç”¨ä¸åˆ°ç«‹æ–¹ä½“
 			}
 			
 			nodes = new Node[2];
 			Node n1, n2;
-			Node and1 = null;//ÓÃÓÚTµÄ×óÇø¼ä
+			Node and1 = null;//ç”¨äºTçš„å·¦åŒºé—´
 			Node and2 = null;
 			if (array[0] != null) {
 				if (!isEQ[0]) {
@@ -1515,7 +1515,7 @@ public class Cuboid extends RowComTable {
 				nodes[0] = and2;
 			}
 			
-			//×éÖ¯ÓÃÓÚÁ¢·½ÌåµÄnode
+			//ç»„ç»‡ç”¨äºç«‹æ–¹ä½“çš„node
 			String s;
 			if (from != null && to != null) {
 				int begin = from + 1;
@@ -1532,7 +1532,7 @@ public class Cuboid extends RowComTable {
 			nodes[1] = new Expression(s).getHome();
 		} else if (timeUnit == 2) {
 			if ((array[0] != null && array[0] instanceof Integer) ||
-					(array[1] != null && array[1] instanceof Integer)) {//Integer±íÊ¾ÊÇ°´ÕÕYearº¯ÊıÌáÌõ¼ş
+					(array[1] != null && array[1] instanceof Integer)) {//Integerè¡¨ç¤ºæ˜¯æŒ‰ç…§Yearå‡½æ•°ææ¡ä»¶
 				Integer from = null, to = null;
 				if (array[0] != null && array[0] instanceof Integer) {
 					from = (Integer) array[0];
@@ -1595,7 +1595,7 @@ public class Cuboid extends RowComTable {
 			}
 			
 			nodes = new Node[2];
-			Node n1, n2;//ÓÃÓÚTµÄ
+			Node n1, n2;//ç”¨äºTçš„
 			Node and1 = null, and2 = null;
 			if (hasInterval1) {
 				if (!isEQ[0]) {
@@ -1651,7 +1651,7 @@ public class Cuboid extends RowComTable {
 				nodes[0] = and2;
 			}
 			
-			//×éÖ¯ÓÃÓÚÁ¢·½ÌåµÄnode
+			//ç»„ç»‡ç”¨äºç«‹æ–¹ä½“çš„node
 			String yearAndMonth = monthFieldName;
 			if (hasInterval1 && hasInterval2) {
 				String s = yearAndMonth +">=" + (fromYear*100 + fromMonth);
@@ -1703,7 +1703,7 @@ public class Cuboid extends RowComTable {
 			}
 			
 			nodes = new Node[2];
-			Node n1, n2;//ÓÃÓÚTµÄ
+			Node n1, n2;//ç”¨äºTçš„
 			Node and1 = null, and2 = null;
 			if (hasInterval1) {
 				if (!isEQ[0]) {
@@ -1751,7 +1751,7 @@ public class Cuboid extends RowComTable {
 				nodes[0] = and2;
 			}
 			
-			//×éÖ¯ÓÃÓÚÁ¢·½ÌåµÄnode
+			//ç»„ç»‡ç”¨äºç«‹æ–¹ä½“çš„node
 			String fieldExp = dateFieldName;
 			if (hasInterval1 && hasInterval2) {
 				n1 = new NotSmaller();
@@ -1779,8 +1779,8 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ÌáÈ¡node±í´ïÊ½ÀïµÄ×Ö¶ÎÃû £¨Óöµ½year½ÚµãÊ±£¬²»ÔÚfieldsÀïµÄ»á±»¹ıÂËµô£©
-	 * @param fields ÒÑÖªµÄ×Ö¶ÎÃû
+	 * æå–nodeè¡¨è¾¾å¼é‡Œçš„å­—æ®µå ï¼ˆé‡åˆ°yearèŠ‚ç‚¹æ—¶ï¼Œä¸åœ¨fieldsé‡Œçš„ä¼šè¢«è¿‡æ»¤æ‰ï¼‰
+	 * @param fields å·²çŸ¥çš„å­—æ®µå
 	 * @param node
 	 * @param list
 	 */
@@ -1840,47 +1840,47 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * Ô­±í¸üĞÂºóÖØĞÂ»ã×Ü
+	 * åŸè¡¨æ›´æ–°åé‡æ–°æ±‡æ€»
 	 * @param srcTable
 	 * @throws IOException
 	 */
 	public void update(PhyTable srcTable) throws IOException {
-		//1 °ÑÔ­±íÀïÎ´»ã×ÜµÄ²¿·Ö½øĞĞ»ã×Ü
+		//1 æŠŠåŸè¡¨é‡Œæœªæ±‡æ€»çš„éƒ¨åˆ†è¿›è¡Œæ±‡æ€»
 		
-		//µÃµ½Òª»ã×ÜµÄÌõÊı
+		//å¾—åˆ°è¦æ±‡æ€»çš„æ¡æ•°
 		long count = srcTable.getActualRecordCount();
 		count = count - getSrcCount();
 		if (count <= 0) return;
-		//¼ÆËã»º³åÌõÊı
+		//è®¡ç®—ç¼“å†²æ¡æ•°
 		int fcount = exps == null ? 0 : exps.length;
 		if (newExps != null) fcount += newExps.length;
 		int capacity = EnvUtil.getCapacity(srcTable.getAllColNames().length + fcount);
-		//µÃµ½Ô­±íÒª»ã×ÜµÄ¼ÇÂ¼µÄÓÎ±ê
+		//å¾—åˆ°åŸè¡¨è¦æ±‡æ€»çš„è®°å½•çš„æ¸¸æ ‡
 		ICursor cursor = srcTable.cursor();
-		cursor.skip(getSrcCount());//Ìø¹ıÒÑ¾­»ã×ÜµÄ
-		//×éÖ¯»ã×Üµ÷ÓÃµÄ²ÎÊı
+		cursor.skip(getSrcCount());//è·³è¿‡å·²ç»æ±‡æ€»çš„
+		//ç»„ç»‡æ±‡æ€»è°ƒç”¨çš„å‚æ•°
 		int expsLength = exps.length;
 		int newExpsLength = newExps.length;
-		Expression expressions[] = new Expression[expsLength];//·Ö×é×Ö¶Î±í´ïÊ½
+		Expression expressions[] = new Expression[expsLength];//åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
 		for (int i = 0; i < expsLength; i++) {
 			expressions[i] = new Expression(exps[i]);
 		}
-		Expression newExpressions[] = new Expression[newExpsLength];//»ã×Ü×Ö¶Î±í´ïÊ½
+		Expression newExpressions[] = new Expression[newExpsLength];//æ±‡æ€»å­—æ®µè¡¨è¾¾å¼
 		for (int i = 0; i < newExpsLength; i++) {
 			newExpressions[i] = new Expression(newExps[i]);
 		}
-		String names[] = new String[expsLength];//ĞÂµÄ·Ö×é×Ö¶ÎÃû
-		String newNames[] = new String[newExpsLength];//ĞÂµÄ»ã×Ü×Ö¶ÎÃû
+		String names[] = new String[expsLength];//æ–°çš„åˆ†ç»„å­—æ®µå
+		String newNames[] = new String[newExpsLength];//æ–°çš„æ±‡æ€»å­—æ®µå
 		String cols[] = baseTable.colNames;
 		System.arraycopy(cols, 0, names, 0, names.length);
 		System.arraycopy(cols, names.length, newNames, 0, newNames.length);
 		
-		//µÃµ½ĞÂ×·¼ÓÊı¾İµÄ·Ö×é»ã×Ü½á¹ûÓÎ±ê
+		//å¾—åˆ°æ–°è¿½åŠ æ•°æ®çš„åˆ†ç»„æ±‡æ€»ç»“æœæ¸¸æ ‡
 		ICursor cs = cursor.groupx(expressions, names, newExpressions,
 				newNames, null, ctx, capacity / 2);
 		
-		//2°Ñcs¹é²¢µ½Ô¤·Ö×éÁ¢·½Ìå(baseTable)ÖĞ
-		//µÃµ½×Ü¿éÊı£¬ÏÂÃæ°´¿é´¦Àí
+		//2æŠŠcså½’å¹¶åˆ°é¢„åˆ†ç»„ç«‹æ–¹ä½“(baseTable)ä¸­
+		//å¾—åˆ°æ€»å—æ•°ï¼Œä¸‹é¢æŒ‰å—å¤„ç†
 		CuboidTable baseTable = this.baseTable;
 		int totalBlockCount = baseTable.getDataBlockCount();
 		if (totalBlockCount == 0) {
@@ -1892,12 +1892,12 @@ public class Cuboid extends RowComTable {
 			return;
 		}
 		
-		BlockLinkReader rowReader = baseTable.getRowReader(true);//Êı¾İreader
-		ObjectReader segmentReader = baseTable.getSegmentObjectReader();//·Ö¶ÎĞÅÏ¢reader
-		Object []maxValues = new Object[expsLength];//Ã¿Ò»¶ÎµÄ×î´óÖµ
-		Sequence dataToInsert = new Sequence();//´æ·ÅÒª²åÈëµÄÊı¾İ
+		BlockLinkReader rowReader = baseTable.getRowReader(true);//æ•°æ®reader
+		ObjectReader segmentReader = baseTable.getSegmentObjectReader();//åˆ†æ®µä¿¡æ¯reader
+		Object []maxValues = new Object[expsLength];//æ¯ä¸€æ®µçš„æœ€å¤§å€¼
+		Sequence dataToInsert = new Sequence();//å­˜æ”¾è¦æ’å…¥çš„æ•°æ®
 		
-		//È¡Ò»¶ÎÊı¾İ³öÀ´
+		//å–ä¸€æ®µæ•°æ®å‡ºæ¥
 		Sequence data = cs.fetch(ICursor.FETCHCOUNT);
 		if (data == null || data.length() == 0) {
 			return;
@@ -1907,50 +1907,50 @@ public class Cuboid extends RowComTable {
 		BaseRecord record = (BaseRecord) data.get(idx);
 		Object vals[] = record.getFieldValues();
 		
-		//¶¨Òå¶ÁĞ´¶¨³¤×Ö¶ÎµÄreader writer
+		//å®šä¹‰è¯»å†™å®šé•¿å­—æ®µçš„reader writer
 		byte[] bytes = new byte[FIXED_OBJ_LEN];
 		RowBufferReader bufferReader = new RowBufferReader(null, bytes);
 		RowBufferWriter bufferWriter = new RowBufferWriter(null, bytes);
 		
 		RandomAccessFile rafile = raf;//new RandomAccessFile(file, "rw");
 		ObjectReader reader = new ObjectReader(rowReader, blockSize - ComTable.POS_SIZE);;
-		//±éÀúÃ¿Ò»¿é½øĞĞ´¦Àí
+		//éå†æ¯ä¸€å—è¿›è¡Œå¤„ç†
 		NEXT:
 		for(int i = 0; i < totalBlockCount; i++) {
 			int curRecordCount = 0;
-			int curRecordSum = segmentReader.readInt32();//µ±Ç°¿éµÄÌõÊı
-			segmentReader.readLong40();//µ±Ç°¿éµÄµØÖ·		
+			int curRecordSum = segmentReader.readInt32();//å½“å‰å—çš„æ¡æ•°
+			segmentReader.readLong40();//å½“å‰å—çš„åœ°å€		
 			for (int k = 0; k < expsLength; ++k) {
-				segmentReader.skipObject();//Ìø¹ı×îĞ¡Öµ
-				maxValues[k] = segmentReader.readObject();//µÃµ½×î´óÖµ
+				segmentReader.skipObject();//è·³è¿‡æœ€å°å€¼
+				maxValues[k] = segmentReader.readObject();//å¾—åˆ°æœ€å¤§å€¼
 			}
 			Object curObjs[] = null;
-			int blockSize = reader.readInt32();//ÕâÊÇ¿é´óĞ¡£¬Æ«ÒÆ¹ıÈ¥
+			int blockSize = reader.readInt32();//è¿™æ˜¯å—å¤§å°ï¼Œåç§»è¿‡å»
 			long position = reader.position();
-			//´Ó±¾¶ÎÀï¶ÁÒ»Ìõ³öÀ´¶Ô±È
+			//ä»æœ¬æ®µé‡Œè¯»ä¸€æ¡å‡ºæ¥å¯¹æ¯”
 			curObjs = new Object[fcount];
-			reader.skipObject();//Ìø¹ıÎ±ºÅ
+			reader.skipObject();//è·³è¿‡ä¼ªå·
 			for (int k = 0; k < expsLength; ++k) {
 				curObjs[k] = reader.readObject();
 			}
 			curRecordCount = 1;
 			
 			while(true) {
-				//ÅĞ¶ÏrecordÊÇ·ñÔÚÕâ¸ö¿éÀï
+				//åˆ¤æ–­recordæ˜¯å¦åœ¨è¿™ä¸ªå—é‡Œ
 				int cmp = Variant.compare(vals[0], maxValues[0]);
 				if (cmp <= 0) {
-					//¿ÉÄÜÔÚ±¾¶ÎÀï
+					//å¯èƒ½åœ¨æœ¬æ®µé‡Œ
 					cmp = Variant.compareArrays(vals, curObjs, expsLength);
 					if (cmp < 0) {
-						//ÕâÒ»ÌõÊÇ²åÈë£¬¶ÁÏÂÒ»Ìõrecord
+						//è¿™ä¸€æ¡æ˜¯æ’å…¥ï¼Œè¯»ä¸‹ä¸€æ¡record
 						dataToInsert.add(record);
 						
-						//Èç¹ûdataÈ¡ÍêÁË£¬¾ÍÔÙÈ¡³öÀ´Ò»Ğ©
+						//å¦‚æœdataå–å®Œäº†ï¼Œå°±å†å–å‡ºæ¥ä¸€äº›
 						idx++;
 						if (idx > len) {
 							data = cs.fetch(ICursor.FETCHCOUNT);
 							if (data == null || data.length() == 0) {
-								break NEXT;//Èç¹ûÃ»ÓĞÏÂÒ»ÌõrecordÁË
+								break NEXT;//å¦‚æœæ²¡æœ‰ä¸‹ä¸€æ¡recordäº†
 							}
 							idx = 1;
 							len = data.length();
@@ -1958,26 +1958,26 @@ public class Cuboid extends RowComTable {
 						record = (BaseRecord) data.get(idx);
 						vals = record.getFieldValues();
 					} else if (cmp == 0) {
-						//ÕÒµ½ÁË£¬¸üĞÂ£¬¶ÁÏÂÒ»Ìõrecord£¬¶Á±¾¿éÏÂÒ»Ìõ
+						//æ‰¾åˆ°äº†ï¼Œæ›´æ–°ï¼Œè¯»ä¸‹ä¸€æ¡recordï¼Œè¯»æœ¬å—ä¸‹ä¸€æ¡
 						
-						//½øĞĞÔÙ»ã×Ü
+						//è¿›è¡Œå†æ±‡æ€»
 						for (int k = 0; k < newExpsLength; ++k) {
-							long pos = calcPosition(rowReader, reader);//Òª¸üĞÂµÄµØÖ·
-							reader.readFully(bytes);//¶ÁÈ¡¶¨³¤9×Ö½Ú
-							bufferReader.reset();//buffer reader ¸´Î»
-							Object obj = bufferReader.readObject();//¶ÁÈ¡Ò»¸ö¶¨³¤µÄ»ã×Ü×Ö¶Î
-							obj = regroup(obj, vals[expsLength + k], newNames[k]);//ÔÙ»ã×Ü
+							long pos = calcPosition(rowReader, reader);//è¦æ›´æ–°çš„åœ°å€
+							reader.readFully(bytes);//è¯»å–å®šé•¿9å­—èŠ‚
+							bufferReader.reset();//buffer reader å¤ä½
+							Object obj = bufferReader.readObject();//è¯»å–ä¸€ä¸ªå®šé•¿çš„æ±‡æ€»å­—æ®µ
+							obj = regroup(obj, vals[expsLength + k], newNames[k]);//å†æ±‡æ€»
 							bufferWriter.reset();
 							bufferWriter.writeFixedLengthObject(obj);
-							rewrite(rafile, pos, bytes);//¸üĞÂ
+							rewrite(rafile, pos, bytes);//æ›´æ–°
 						}
 						
-						//¶ÁÏÂÒ»Ìõrecord,Èç¹ûdataÈ¡ÍêÁË£¬¾ÍÔÙÈ¡³öÀ´Ò»Ğ©
+						//è¯»ä¸‹ä¸€æ¡record,å¦‚æœdataå–å®Œäº†ï¼Œå°±å†å–å‡ºæ¥ä¸€äº›
 						idx++;
 						if (idx > len) {
 							data = cs.fetch(ICursor.FETCHCOUNT);
 							if (data == null || data.length() == 0) {
-								break NEXT;//Èç¹ûÃ»ÓĞÏÂÒ»ÌõrecordÁË
+								break NEXT;//å¦‚æœæ²¡æœ‰ä¸‹ä¸€æ¡recordäº†
 							}
 							idx = 1;
 							len = data.length();
@@ -1985,41 +1985,41 @@ public class Cuboid extends RowComTable {
 						record = (BaseRecord) data.get(idx);
 						vals = record.getFieldValues();
 						
-						//¶Á±¾¿éÏÂÒ»Ìõ
+						//è¯»æœ¬å—ä¸‹ä¸€æ¡
 						curRecordCount++;
 						if (curRecordCount > curRecordSum) {
-							break;//ÅĞ¶Ï±¾¿éÊÇ·ñ¶ÁÍêÁË
+							break;//åˆ¤æ–­æœ¬å—æ˜¯å¦è¯»å®Œäº†
 						}
 						
-						//Ìø¹ıÎ±ºÅ
+						//è·³è¿‡ä¼ªå·
 						reader.skipObject();
-						//¶Á³öÀ´(Î¬)·Ö×é×Ö¶Î
+						//è¯»å‡ºæ¥(ç»´)åˆ†ç»„å­—æ®µ
 						for (int k = 0; k < expsLength; ++k) {
 							curObjs[k] = reader.readObject();
 						}
 					} else {
-						//¶Á±¾¿éÏÂÒ»Ìõ
+						//è¯»æœ¬å—ä¸‹ä¸€æ¡
 						
-						//Ìø¹ıÃ»¶Á³öÀ´µÄ»ã×Ü×Ö¶Î
+						//è·³è¿‡æ²¡è¯»å‡ºæ¥çš„æ±‡æ€»å­—æ®µ
 						for (int k = 0; k < newExpsLength; ++k) {
 							reader.skipBytes(FIXED_OBJ_LEN);
 						}
 						
-						//ÅĞ¶Ï±¾¿éÊÇ·ñ¶ÁÍêÁË
+						//åˆ¤æ–­æœ¬å—æ˜¯å¦è¯»å®Œäº†
 						curRecordCount++;
 						if (curRecordCount > curRecordSum) {
 							break;
 						}
 						
-						//Ìø¹ıÎ±ºÅ
+						//è·³è¿‡ä¼ªå·
 						reader.skipObject();
-						//¶Á³öÀ´(Î¬)·Ö×é×Ö¶Î
+						//è¯»å‡ºæ¥(ç»´)åˆ†ç»„å­—æ®µ
 						for (int k = 0; k < expsLength; ++k) {
 							curObjs[k] = reader.readObject();
 						}
 					}
 				} else {
-					//ÏÂÒ»¶Î
+					//ä¸‹ä¸€æ®µ
 					reader.skip(blockSize - (reader.position() - position));
 					break;
 				}
@@ -2030,15 +2030,15 @@ public class Cuboid extends RowComTable {
 		segmentReader.close();
 		rowReader.close();
 		
-		//Èç¹ûdataÀï»¹ÓĞÊı¾İ
+		//å¦‚æœdataé‡Œè¿˜æœ‰æ•°æ®
 		if (data != null && data.length() != 0 && idx <= len) {
 			Sequence seq = data.split(idx);
 			baseTable.append(new MemoryCursor(seq));
 		}
-		//csÀï¿ÉÄÜ»¹ÓĞÊı¾İ
+		//csé‡Œå¯èƒ½è¿˜æœ‰æ•°æ®
 		baseTable.append(cs);
 		
-		//ÓĞ²åÈëÊı¾İÔò½øĞĞ¹é²¢
+		//æœ‰æ’å…¥æ•°æ®åˆ™è¿›è¡Œå½’å¹¶
 		if (dataToInsert.length() != 0) {
 			baseTable.append(new MemoryCursor(dataToInsert), "m");
 		}
@@ -2049,9 +2049,9 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ¸ù¾İsrcĞÂ½¨Ò»¸öÁ¢·½Ìå£¬Ğ´³öµ½file
+	 * æ ¹æ®srcæ–°å»ºä¸€ä¸ªç«‹æ–¹ä½“ï¼Œå†™å‡ºåˆ°file
 	 * @param file
-	 * @param srcCount Ä¿Ç°¹Ì¶¨Îª0£¬¿ÉÄÜ»áÓĞÆäËüÓÃ´¦
+	 * @param srcCount ç›®å‰å›ºå®šä¸º0ï¼Œå¯èƒ½ä¼šæœ‰å…¶å®ƒç”¨å¤„
 	 * @param src
 	 * @throws IOException
 	 */
@@ -2148,7 +2148,7 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * ¸´ÖÆµ±Ç°Á¢·½Ìåµ½file £¨½ö¸´ÖÆ½á¹¹£¬²»º¬Êı¾İ£©
+	 * å¤åˆ¶å½“å‰ç«‹æ–¹ä½“åˆ°file ï¼ˆä»…å¤åˆ¶ç»“æ„ï¼Œä¸å«æ•°æ®ï¼‰
 	 * @param file
 	 * @return
 	 */
@@ -2176,20 +2176,20 @@ public class Cuboid extends RowComTable {
 	}
 	
 	/**
-	 * µÃµ½Õâ¸ö±íµÄËùÓĞÁ¢·½Ìå
+	 * å¾—åˆ°è¿™ä¸ªè¡¨çš„æ‰€æœ‰ç«‹æ–¹ä½“
 	 * @param srcTable
 	 * @return
 	 */
     public static List<String> getCuboids(ClusterPhyTable srcTable) {
     	String folderPath = Env.getMainPath();
     	String queryStr = srcTable.getClusterFile().getFileName() + Cuboid.CUBE_PREFIX;
-        List<String> fileNameList = new ArrayList<String>();//ÎÄ¼şÃûÁĞ±í
+        List<String> fileNameList = new ArrayList<String>();//æ–‡ä»¶ååˆ—è¡¨
         File f = new File(folderPath);
-        if (!f.exists()) { //Â·¾¶²»´æÔÚ
+        if (!f.exists()) { //è·¯å¾„ä¸å­˜åœ¨
             return null;
         }else{
                 File fa[] = f.listFiles();
-                queryStr = queryStr==null ? "" : queryStr;//ÈôqueryStr´«ÈëÎªnull,ÔòÌæ»»Îª¿Õ£¨indexOfÆ¥ÅäÖµ²»ÄÜÎªnull£©
+                queryStr = queryStr==null ? "" : queryStr;//è‹¥querySträ¼ å…¥ä¸ºnull,åˆ™æ›¿æ¢ä¸ºç©ºï¼ˆindexOfåŒ¹é…å€¼ä¸èƒ½ä¸ºnullï¼‰
                 for (int i = 0; i < fa.length; i++) {
                     File fs = fa[i];
                     if(fs.getName().indexOf(queryStr)!=-1){
@@ -2203,8 +2203,8 @@ public class Cuboid extends RowComTable {
     }
     
     /**
-     * ¸üĞÂ¼¯Èº±íµÄÁ¢·½Ìå
-     * µ±¼¯Èº±íÓĞĞ´ÈëĞÂ¼ÇÂ¼Ê±Ê¹ÓÃ
+     * æ›´æ–°é›†ç¾¤è¡¨çš„ç«‹æ–¹ä½“
+     * å½“é›†ç¾¤è¡¨æœ‰å†™å…¥æ–°è®°å½•æ—¶ä½¿ç”¨
      * @param srcTable
      * @param ctx
      */
@@ -2248,7 +2248,7 @@ public class Cuboid extends RowComTable {
     						fo.delete();
     					}
     					
-    					//±£´æ
+    					//ä¿å­˜
     					file = fo.getLocalFile().file();
     					String colNames[] = new String[fields.length];
     					int sbytes[] = new int[fields.length];
@@ -2265,7 +2265,7 @@ public class Cuboid extends RowComTable {
     								expNames, newNames);
     						ctable.save();
     						ctable.close();
-    						ctable = new Cuboid(file, ctx);//ÖØĞÂ´ò¿ª
+    						ctable = new Cuboid(file, ctx);//é‡æ–°æ‰“å¼€
     						ctable.checkPassword("cuboid");
     						ctable.append(cursor);
     						ctable.writeHeader();
@@ -2295,8 +2295,8 @@ public class Cuboid extends RowComTable {
 }
 
 /**
- * Á¢·½Ìå»ù±íÀà
- * Ô¤»ã×ÜµÄÊı¾İÊµ¼Ê´æ·ÅÔÚÕâ¸öÀà
+ * ç«‹æ–¹ä½“åŸºè¡¨ç±»
+ * é¢„æ±‡æ€»çš„æ•°æ®å®é™…å­˜æ”¾åœ¨è¿™ä¸ªç±»
  * @author runqian
  *
  */
@@ -2314,7 +2314,7 @@ class CuboidTable extends RowPhyTable {
 	}
 	
 	/**
-	 * Ğ´ÈëĞÂÊı¾İ
+	 * å†™å…¥æ–°æ•°æ®
 	 */
 	public void append(ICursor cursor, String opt) throws IOException {
 		if (opt == null || opt.indexOf('m') == -1 || !isSorted) {
@@ -2322,14 +2322,14 @@ class CuboidTable extends RowPhyTable {
 			return;
 		}
 		
-		// ²»Ö§³Ö´ø¸½±íµÄ×é±í¹é²¢×·¼Ó
+		// ä¸æ”¯æŒå¸¦é™„è¡¨çš„ç»„è¡¨å½’å¹¶è¿½åŠ 
 		if (!isSingleTable()) {
 			throw new RQException("'append@m' is unimplemented in annex table!");
 		}
 		
 		int []serialBytesLen = this.serialBytesLen;
 		
-		// ¹é²¢¶ÁµÄÊı¾İÏÈ±£´æµ½ÁÙÊ±ÎÄ¼ş
+		// å½’å¹¶è¯»çš„æ•°æ®å…ˆä¿å­˜åˆ°ä¸´æ—¶æ–‡ä»¶
 		Cuboid groupTable = (Cuboid)getGroupTable();
 		File srcFile = groupTable.getFile();
 		File tmpFile = File.createTempFile("tmpdata", "", srcFile.getParentFile());
@@ -2357,19 +2357,19 @@ class CuboidTable extends RowPhyTable {
 				mergeExps[i] = new Expression(sortedColNames[i]);
 			}
 			
-			// ×ö¹é²¢
+			// åšå½’å¹¶
 			RowCursor srcCursor = new RowCursor(this);
 			ICursor []cursors = new ICursor[]{srcCursor, cursor};
 			MergesCursor mergeCursor = new MergesCursor(cursors, mergeExps, ctx);
 			baseTable.append(mergeCursor);
 			baseTable.close();
 			
-			// ¹Ø±Õ²¢É¾³ı×é±íÎÄ¼ş£¬°ÑÁÙÊ±ÎÄ¼şÖØÃüÃûÎª×é±íÎÄ¼şÃû
+			// å…³é—­å¹¶åˆ é™¤ç»„è¡¨æ–‡ä»¶ï¼ŒæŠŠä¸´æ—¶æ–‡ä»¶é‡å‘½åä¸ºç»„è¡¨æ–‡ä»¶å
 			groupTable.raf.close();
 			groupTable.file.delete();
 			tmpFile.renameTo(groupTable.file);
 			
-			// ÖØĞÂ´ò¿ª×é±í
+			// é‡æ–°æ‰“å¼€ç»„è¡¨
 			groupTable.reopen();
 		} finally {
 			tmpFile.delete();
@@ -2380,8 +2380,8 @@ class CuboidTable extends RowPhyTable {
 		BaseRecord r;
 		int count = colNames.length;
 		boolean isDim[] = getDimIndex();
-		Object []minValues = null;//Ò»¿éµÄ×îĞ¡Î¬Öµ
-		Object []maxValues = null;//Ò»¿éµÄ×î´óÎ¬Öµ
+		Object []minValues = null;//ä¸€å—çš„æœ€å°ç»´å€¼
+		Object []maxValues = null;//ä¸€å—çš„æœ€å¤§ç»´å€¼
 
 		if (sortedColNames != null) {
 			minValues = new Object[count];
@@ -2394,8 +2394,8 @@ class CuboidTable extends RowPhyTable {
 		for (int i = start; i <= end; ++i) {
 			r = (BaseRecord) data.get(i);
 			Object[] vals = r.getFieldValues();
-			//°ÑÒ»ÌõµÄËùÓĞÁĞĞ´µ½buffer
-			bufferWriter.writeObject(++recNum);//ĞĞ´æÒªÏÈĞ´Ò»¸öÎ±ºÅ
+			//æŠŠä¸€æ¡çš„æ‰€æœ‰åˆ—å†™åˆ°buffer
+			bufferWriter.writeObject(++recNum);//è¡Œå­˜è¦å…ˆå†™ä¸€ä¸ªä¼ªå·
 			for (int j = 0; j < count; j++) {
 				Object obj = vals[j];
 				if (isDim[j]) {
@@ -2403,7 +2403,7 @@ class CuboidTable extends RowPhyTable {
 					if (Variant.compare(obj, maxValues[j], true) > 0)
 						maxValues[j] = obj;
 					if (i == start)
-						minValues[j] = obj;//µÚÒ»¸öÒª¸³Öµ£¬ÒòÎªnull±íÊ¾×îĞ¡
+						minValues[j] = obj;//ç¬¬ä¸€ä¸ªè¦èµ‹å€¼ï¼Œå› ä¸ºnullè¡¨ç¤ºæœ€å°
 					if (Variant.compare(obj, minValues[j], true) < 0)
 						minValues[j] = obj;
 				} else {
@@ -2412,17 +2412,17 @@ class CuboidTable extends RowPhyTable {
 			}
 		}
 		
-		//Ğ´Êı¾İÊ±²»Ñ¹Ëõ
+		//å†™æ•°æ®æ—¶ä¸å‹ç¼©
 		if (sortedColNames == null) {
-			//Ìá½»bufferµ½ĞĞ¿é
+			//æäº¤bufferåˆ°è¡Œå—
 			long pos = colWriter.writeDataBuffer(bufferWriter.finish());
-			//¸üĞÂ·Ö¶ÎĞÅÏ¢
+			//æ›´æ–°åˆ†æ®µä¿¡æ¯
 			appendSegmentBlock(end - start + 1);
 			objectWriter.writeLong40(pos);
 		} else {
-			//Ìá½»bufferµ½ĞĞ¿é
+			//æäº¤bufferåˆ°è¡Œå—
 			long pos = colWriter.writeDataBuffer(bufferWriter.finish());
-			//¸üĞÂ·Ö¶ÎĞÅÏ¢
+			//æ›´æ–°åˆ†æ®µä¿¡æ¯
 			appendSegmentBlock(end - start + 1);
 			objectWriter.writeLong40(pos);
 			for (int i = 0; i < count; ++i) {

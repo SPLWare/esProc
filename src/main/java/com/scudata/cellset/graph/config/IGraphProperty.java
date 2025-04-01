@@ -3,136 +3,136 @@ package com.scudata.cellset.graph.config;
 import com.scudata.chart.Consts;
 
 /**
- * Í¼ĞÎÊôĞÔ½Ó¿Ú£¬ÒÔ¼°Í¼ĞÎ³£Á¿¶¨Òå
+ * å›¾å½¢å±æ€§æ¥å£ï¼Œä»¥åŠå›¾å½¢å¸¸é‡å®šä¹‰
  * @author Joancy
  *
  */
 public interface IGraphProperty{
-  /** Íø¸ñÏßÎ»ÖÃ -- ÊıÖµÖá */
+  /** ç½‘æ ¼çº¿ä½ç½® -- æ•°å€¼è½´ */
   public static final byte GRID_VALUE = (byte)Consts.GRID_VALUE;
-  /** Íø¸ñÏßÎ»ÖÃ -- ·ÖÀàÖá */
+  /** ç½‘æ ¼çº¿ä½ç½® -- åˆ†ç±»è½´ */
   public static final byte GRID_CATEGORY = (byte)Consts.GRID_CATEGORY;
-  /** Íø¸ñÏßÎ»ÖÃ -- È«²¿*/
+  /** ç½‘æ ¼çº¿ä½ç½® -- å…¨éƒ¨*/
   public static final byte GRID_BOTH = (byte)Consts.GRID_BOTH;
 
-  /** ÏßÀàĞÍ -- Ã»ÓĞÏß */
+  /** çº¿ç±»å‹ -- æ²¡æœ‰çº¿ */
   public static final byte LINE_NONE = (byte)Consts.LINE_NONE;
 
-  /** ÏßÀàĞÍ -- ÊµÏß */
+  /** çº¿ç±»å‹ -- å®çº¿ */
   public static final byte LINE_SOLID = (byte)Consts.LINE_SOLID;
 
-  /** ÏßÀàĞÍ -- ³¤ĞéÏß */
+  /** çº¿ç±»å‹ -- é•¿è™šçº¿ */
   public static final byte LINE_LONG_DASH = (byte)Consts.LINE_DASHED;
 
-  /** ÏßÀàĞÍ -- ¶ÌĞéÏß */
+  /** çº¿ç±»å‹ -- çŸ­è™šçº¿ */
   public static final byte LINE_SHORT_DASH = (byte)Consts.LINE_DOTTED;
 
-  /** ÏßÀàĞÍ -- µã»®Ïß */
+  /** çº¿ç±»å‹ -- ç‚¹åˆ’çº¿ */
   public static final byte LINE_DOT_DASH = (byte)Consts.LINE_DOTDASH;
 
-  /** ÏßÀàĞÍ -- Ë«µã»®Ïß */
+  /** çº¿ç±»å‹ -- åŒç‚¹åˆ’çº¿ */
   public static final byte LINE_2DOT_DASH = (byte)Consts.LINE_DOUBLE;
 
-  /** Í¼ĞÎ¸ñÊ½ -- JPG  */
+  /** å›¾å½¢æ ¼å¼ -- JPG  */
   public static final byte IMAGE_JPG = Consts.IMAGE_JPG;
 
-  /** Í¼ĞÎ¸ñÊ½ -- GIF  */
+  /** å›¾å½¢æ ¼å¼ -- GIF  */
   public static final byte IMAGE_GIF = Consts.IMAGE_GIF;
 
-  /** Í¼ĞÎ¸ñÊ½ -- PNG  */
+  /** å›¾å½¢æ ¼å¼ -- PNG  */
   public static final byte IMAGE_PNG = Consts.IMAGE_PNG;
 
-  /** Í¼ĞÎ¸ñÊ½ -- FLASH*/
+  /** å›¾å½¢æ ¼å¼ -- FLASH*/
   public static final byte IMAGE_FLASH = Consts.IMAGE_FLASH;
 
-  /** Í¼ĞÎ¸ñÊ½ -- SVG */
+  /** å›¾å½¢æ ¼å¼ -- SVG */
   public static final byte IMAGE_SVG = Consts.IMAGE_SVG;
 
-  /** Ê±¼ä¿Ì¶ÈÀàĞÍ -- Äê  */
+  /** æ—¶é—´åˆ»åº¦ç±»å‹ -- å¹´  */
   public static final byte TIME_YEAR = (byte) 1;
 
-  /** Ê±¼ä¿Ì¶ÈÀàĞÍ -- ÔÂ  */
+  /** æ—¶é—´åˆ»åº¦ç±»å‹ -- æœˆ  */
   public static final byte TIME_MONTH = (byte) 2;
 
-  /** Ê±¼ä¿Ì¶ÈÀàĞÍ -- ÈÕ  */
+  /** æ—¶é—´åˆ»åº¦ç±»å‹ -- æ—¥  */
   public static final byte TIME_DAY = (byte) 3;
 
-  /** Ê±¼ä¿Ì¶ÈÀàĞÍ -- Ê±  */
+  /** æ—¶é—´åˆ»åº¦ç±»å‹ -- æ—¶  */
   public static final byte TIME_HOUR = (byte) 4;
 
-  /** Ê±¼ä¿Ì¶ÈÀàĞÍ -- ·Ö  */
+  /** æ—¶é—´åˆ»åº¦ç±»å‹ -- åˆ†  */
   public static final byte TIME_MINUTE = (byte) 5;
 
-  /** Ê±¼ä¿Ì¶ÈÀàĞÍ -- Ãë  */
+  /** æ—¶é—´åˆ»åº¦ç±»å‹ -- ç§’  */
   public static final byte TIME_SECOND = (byte) 6;
 
-  /** Í¼ÖĞÏÔÊ¾Êı¾İ -- ÎŞ  */
+  /** å›¾ä¸­æ˜¾ç¤ºæ•°æ® -- æ—   */
   public static final byte DISPDATA_NONE = (byte) 1;
 
-  /** Í¼ÖĞÏÔÊ¾Êı¾İ -- Í³¼ÆÖµ  */
+  /** å›¾ä¸­æ˜¾ç¤ºæ•°æ® -- ç»Ÿè®¡å€¼  */
   public static final byte DISPDATA_VALUE = (byte) 2;
 
-  /** Í¼ÖĞÏÔÊ¾Êı¾İ -- °Ù·Ö±È  */
+  /** å›¾ä¸­æ˜¾ç¤ºæ•°æ® -- ç™¾åˆ†æ¯”  */
   public static final byte DISPDATA_PERCENTAGE = (byte) 3;
 
-  /** Í¼ÖĞÏÔÊ¾Êı¾İ -- ÏÔÊ¾ÏµÁĞ±êÌâ  */
+  /** å›¾ä¸­æ˜¾ç¤ºæ•°æ® -- æ˜¾ç¤ºç³»åˆ—æ ‡é¢˜  */
   public static final byte DISPDATA_TITLE = (byte) 4;
   
-  /** Í¼ÖĞÏÔÊ¾Êı¾İ -- Ãû³ÆºÍÍ³¼ÆÖµ  */
+  /** å›¾ä¸­æ˜¾ç¤ºæ•°æ® -- åç§°å’Œç»Ÿè®¡å€¼  */
   public static final byte DISPDATA_NAME_VALUE = (byte) 5;
   
-  /** Í¼ÖĞÏÔÊ¾Êı¾İ -- Ãû³ÆºÍ°Ù·Ö±È  */
+  /** å›¾ä¸­æ˜¾ç¤ºæ•°æ® -- åç§°å’Œç™¾åˆ†æ¯”  */
   public static final byte DISPDATA_NAME_PERCENTAGE = (byte) 6;
 
-  /** Í¼ÀıÎ»ÖÃ -- ×ó±ß  */
+  /** å›¾ä¾‹ä½ç½® -- å·¦è¾¹  */
   public static final byte LEGEND_LEFT = (byte) 1;
 
-  /** Í¼ÀıÎ»ÖÃ -- ÓÒ±ß  */
+  /** å›¾ä¾‹ä½ç½® -- å³è¾¹  */
   public static final byte LEGEND_RIGHT = (byte) 2;
 
-  /** Í¼ÀıÎ»ÖÃ -- ÉÏ±ß  */
+  /** å›¾ä¾‹ä½ç½® -- ä¸Šè¾¹  */
   public static final byte LEGEND_TOP = (byte) 3;
 
-  /** Í¼ÀıÎ»ÖÃ -- ÏÂ±ß  */
+  /** å›¾ä¾‹ä½ç½® -- ä¸‹è¾¹  */
   public static final byte LEGEND_BOTTOM = (byte) 4;
 
-  /** Í¼ÀıÎ»ÖÃ -- ÎŞ  */
+  /** å›¾ä¾‹ä½ç½® -- æ—   */
   public static final byte LEGEND_NONE = (byte) 5;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- ÎŞËõ·Å */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- æ— ç¼©æ”¾ */
   public static final double UNIT_ORIGIN = 1;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- ×Ô¶¯¼ÆËã */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- è‡ªåŠ¨è®¡ç®— */
   public static final double UNIT_AUTO = 2;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- Ç§ */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- åƒ */
   public static final double UNIT_THOUSAND = 1000;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- Íò */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- ä¸‡ */
   public static final double UNIT_10THOUSAND = 10000;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- °ÙÍò */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- ç™¾ä¸‡ */
   public static final double UNIT_MILLION = 1000000;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- Ç§Íò */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- åƒä¸‡ */
   public static final double UNIT_10MILLION = 10000000;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- ÒÚ */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- äº¿ */
   public static final double UNIT_100MILLION = 100000000;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- Ê®ÒÚ */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- åäº¿ */
   public static final double UNIT_BILLION = 1000000000;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- °Ù·ÖÖ®Ò» */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- ç™¾åˆ†ä¹‹ä¸€ */
   public static final double UNIT_001 = 0.01;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- Ç§·ÖÖ®Ò» */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- åƒåˆ†ä¹‹ä¸€ */
   public static final double UNIT_0001 = 0.001;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- Íò·ÖÖ®Ò» */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- ä¸‡åˆ†ä¹‹ä¸€ */
   public static final double UNIT_00001 = 0.0001;
 
-  /** Í³¼ÆÖµÊıÁ¿µ¥Î» -- °ÙÍò·ÖÖ®Ò» */
+  /** ç»Ÿè®¡å€¼æ•°é‡å•ä½ -- ç™¾ä¸‡åˆ†ä¹‹ä¸€ */
   public static final double UNIT_0000001 = 0.000001;
 
   public static final int AXIS_TOP = 0;
@@ -143,9 +143,9 @@ public interface IGraphProperty{
   public static final int AXIS_COLBORDER = 5;
   public static final int AXIS_PIEJOIN = 6;
 
-  public static final byte CURVE_LAGRANGE = 0; //À­¸ñÀÊÈÕÇúÏß
-  public static final byte CURVE_AKIMA = 1; //°¢¿ËÂêÇúÏß
-  public static final byte CURVE_3SAMPLE = 2; //Èı´ÎÑùÌõÇúÏß
+  public static final byte CURVE_LAGRANGE = 0; //æ‹‰æ ¼æœ—æ—¥æ›²çº¿
+  public static final byte CURVE_AKIMA = 1; //é˜¿å…‹ç›æ›²çº¿
+  public static final byte CURVE_3SAMPLE = 2; //ä¸‰æ¬¡æ ·æ¡æ›²çº¿
 
   public static byte FLAG_DISCARDOTHER = 0;
 

@@ -21,7 +21,7 @@ import com.scudata.common.GMBase;
 import com.scudata.resources.ParallelMessage;
 
 /**
- * ½Úµã»ú·şÎñÆ÷ÉÏÏÂÎÄ
+ * èŠ‚ç‚¹æœºæœåŠ¡å™¨ä¸Šä¸‹æ–‡
  * @author Joancy
  *
  */
@@ -30,9 +30,9 @@ public class UnitContext {
 
 	HostManager hostManager = HostManager.instance();
 
-	int tempTimeOut = 0; // ÁÙÊ±ÎÄ¼ş´æ»îÊ±¼ä£¬Ğ¡Ê±Îªµ¥Î»£¬0Îª²»¼ì²é³¬Ê±
-	private int interval = 5, proxyTimeOut = 0; // ¼ì²é´úÀí»òÕßÁÙÊ±ÎÄ¼ş¹ıÆÚµÄÊ±¼ä¼ä¸ô£¬0Îª²»¼ì²é¹ıÆÚ¡£ÎÄ¼şÒÔ¼°ÓÎ±ê´úÀíµÄ¹ıÆÚÊ±¼ä
-	private int backlog = 10; // ·şÎñÆ÷×î´ó²¢·¢Á¬½Ó£¬²Ù×÷ÏµÍ³È±Ê¡×î´óÎª50£¬ÏŞ¶¨·¶Î§1µ½50
+	int tempTimeOut = 0; // ä¸´æ—¶æ–‡ä»¶å­˜æ´»æ—¶é—´ï¼Œå°æ—¶ä¸ºå•ä½ï¼Œ0ä¸ºä¸æ£€æŸ¥è¶…æ—¶
+	private int interval = 5, proxyTimeOut = 0; // æ£€æŸ¥ä»£ç†æˆ–è€…ä¸´æ—¶æ–‡ä»¶è¿‡æœŸçš„æ—¶é—´é—´éš”ï¼Œ0ä¸ºä¸æ£€æŸ¥è¿‡æœŸã€‚æ–‡ä»¶ä»¥åŠæ¸¸æ ‡ä»£ç†çš„è¿‡æœŸæ—¶é—´
+	private int backlog = 10; // æœåŠ¡å™¨æœ€å¤§å¹¶å‘è¿æ¥ï¼Œæ“ä½œç³»ç»Ÿç¼ºçœæœ€å¤§ä¸º50ï¼Œé™å®šèŒƒå›´1åˆ°50
 
 	private RaqsoftConfig raqsoftConfig = null;
 	private boolean checkClient = false,autoStart=false;
@@ -42,16 +42,16 @@ public class UnitContext {
 	private String logFile;
 
 	/**
-	 * È¡Ó¦ÓÃÅäÖÃĞÅÏ¢
-	 * @return ÅäÖÃĞÅÏ¢
+	 * å–åº”ç”¨é…ç½®ä¿¡æ¯
+	 * @return é…ç½®ä¿¡æ¯
 	 */
 	public RaqsoftConfig getRaqsoftConfig() {
 		return raqsoftConfig;
 	}
 
 	/**
-	 * ÉèÖÃÒıÓÃÅäÖÃĞÅÏ¢
-	 * @param rc Ó¦ÓÃÅäÖÃ
+	 * è®¾ç½®å¼•ç”¨é…ç½®ä¿¡æ¯
+	 * @param rc åº”ç”¨é…ç½®
 	 * @param needCheckIP
 	 */
 	public void setRaqsoftConfig(RaqsoftConfig rc) {
@@ -59,8 +59,8 @@ public class UnitContext {
 	}
 
 	/**
-	 * È¡ÈÕÖ¾ÎÄ¼ş
-	 * @return ÈÕÖ¾ÎÄ¼şÃû
+	 * å–æ—¥å¿—æ–‡ä»¶
+	 * @return æ—¥å¿—æ–‡ä»¶å
 	 */
 	public String getLogFile(){
 		return logFile;
@@ -71,8 +71,8 @@ public class UnitContext {
 	}
 
 	/**
-	 * ÊÇ·ñ×Ô¶¯Æô¶¯
-	 * @return ×Ô¶¯Æô¶¯·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦è‡ªåŠ¨å¯åŠ¨
+	 * @return è‡ªåŠ¨å¯åŠ¨è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isAutoStart() {
 		return autoStart;
@@ -115,18 +115,18 @@ public class UnitContext {
 	}
 
 	/**
-	 * ½Úµã»úÎÄ¼şÄ¬ÈÏÎªconfigÄ¿Â¼ÏÂ£»ÏÈÕÒÀàÂ·¾¶£¬È»ºóÕÒstart.homeÏÂµÄ¾ø¶ÔÂ·¾¶
+	 * èŠ‚ç‚¹æœºæ–‡ä»¶é»˜è®¤ä¸ºconfigç›®å½•ä¸‹ï¼›å…ˆæ‰¾ç±»è·¯å¾„ï¼Œç„¶åæ‰¾start.homeä¸‹çš„ç»å¯¹è·¯å¾„
 	 * 
 	 * @param relativePath
-	 *            String Ïà¶ÔÎÄ¼şÃû
-	 * @throws Exception ³ö´íÊ±Å×³öÒì³£
-	 * @return InputStream ÊäÈëÁ÷
+	 *            String ç›¸å¯¹æ–‡ä»¶å
+	 * @throws Exception å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
+	 * @return InputStream è¾“å…¥æµ
 	 */
 	public static InputStream getUnitInputStream(String relativePath)
 			throws Exception {
-		relativePath = "config/" + relativePath;// ÅäÖÃÎÄ¼ş¶¼µÃÔÚconfigÄ¿Â¼ÏÂ
+		relativePath = "config/" + relativePath;// é…ç½®æ–‡ä»¶éƒ½å¾—åœ¨configç›®å½•ä¸‹
 		InputStream inputStream = null;
-		// Ö»ÄÜÓÃ¾ø¶ÔÂ·¾¶ÏÂµÄ£¬µØ·½¶àÁË£¬¶¼¸ã²»Çåµ½µ×ÓÃµÄÄÄµÄ
+		// åªèƒ½ç”¨ç»å¯¹è·¯å¾„ä¸‹çš„ï¼Œåœ°æ–¹å¤šäº†ï¼Œéƒ½æä¸æ¸…åˆ°åº•ç”¨çš„å“ªçš„
 		if (inputStream == null) {
 			String serverPath = GMBase.getAbsolutePath(relativePath);
 
@@ -150,9 +150,9 @@ public class UnitContext {
 	}
 
 	/**
-	 * ÁĞ³öËùÓĞ·Ö»úÅäÖÃ
-	 * @return ·Ö»úĞÅÏ¢ÁĞ±í
-	 * @throws Exception ³ö´íÊ±Å×³öÒì³£
+	 * åˆ—å‡ºæ‰€æœ‰åˆ†æœºé…ç½®
+	 * @return åˆ†æœºä¿¡æ¯åˆ—è¡¨
+	 * @throws Exception å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public static ArrayList<UnitContext.UnitInfo> listNodes() throws Exception {
 		ArrayList<UnitContext.UnitInfo> uis = new ArrayList<UnitContext.UnitInfo>();
@@ -169,10 +169,10 @@ public class UnitContext {
 	}
 
 	/**
-	 * ¸ù¾İÖ¸¶¨µÄµØÖ·¹¹Ôì½Úµã»úÉÏÏÂÎÄ
-	 * @param specifyHost Ö¸¶¨IP
-	 * @param specifyPort Ö¸¶¨¶Ë¿Ú
-	 * @throws Exception ¹¹Ôì³ö´íÊ±Å×³öÒì³£
+	 * æ ¹æ®æŒ‡å®šçš„åœ°å€æ„é€ èŠ‚ç‚¹æœºä¸Šä¸‹æ–‡
+	 * @param specifyHost æŒ‡å®šIP
+	 * @param specifyPort æŒ‡å®šç«¯å£
+	 * @throws Exception æ„é€ å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public UnitContext(String specifyHost, int specifyPort) throws Exception {
 		UnitConfig uc = getUnitConfig();
@@ -189,20 +189,20 @@ public class UnitContext {
 			ucHost = hosts.get(i);
 			String tmpHost = ucHost.getIp();
 			if (tmpHost.equalsIgnoreCase("localhost")) {
-				// Ö§³ÖlocalhostĞ´·¨Ê±£¬Òª½«Ëü×ª»»ÎªÈ±Ê¡µÄ±¾»úip4£¬¶ø²»ÊÇ127.0.0.1£¬¸ù±¾Ã»°²×°Íø¿¨Ê±²ÅÊ¹ÓÃ127.0.0.1
+				// æ”¯æŒlocalhostå†™æ³•æ—¶ï¼Œè¦å°†å®ƒè½¬æ¢ä¸ºç¼ºçœçš„æœ¬æœºip4ï¼Œè€Œä¸æ˜¯127.0.0.1ï¼Œæ ¹æœ¬æ²¡å®‰è£…ç½‘å¡æ—¶æ‰ä½¿ç”¨127.0.0.1
 				tmpHost = UnitContext.getDefaultHost();
 			}
 
 			int p;
 			if (specifyHost != null) {
-				if (specifyHost.equalsIgnoreCase("localhost")) {// Í¬ÉÏ
+				if (specifyHost.equalsIgnoreCase("localhost")) {// åŒä¸Š
 					specifyHost = UnitContext.getDefaultHost();
 				}
 
 				if (!tmpHost.equals(specifyHost)) {
 					continue;
 				} else {
-					if (specifyPort == 0) {// Ö¸¶¨¶Ë¿ÚÎª0Ê±£¬ÓÃÓÚdockerÆô¶¯·Ö»ú£¬dockerµÄ¶Ë¿ÚÎªĞéÄâ×Ô¶¯¶Ë¿ÚºÅ£¬Ã»·¨ÊÂÏÈÖ¸¶¨
+					if (specifyPort == 0) {// æŒ‡å®šç«¯å£ä¸º0æ—¶ï¼Œç”¨äºdockerå¯åŠ¨åˆ†æœºï¼Œdockerçš„ç«¯å£ä¸ºè™šæ‹Ÿè‡ªåŠ¨ç«¯å£å·ï¼Œæ²¡æ³•äº‹å…ˆæŒ‡å®š
 						p = ucHost.getPort();
 					} else {
 						if (specifyPort == ucHost.getPort()) {
@@ -216,7 +216,7 @@ public class UnitContext {
 				p = ucHost.getPort();
 			}
 
-			if (tmpHost.equalsIgnoreCase("localhost")) {// Ö§³ÖlocalhostĞ´·¨Ê±£¬Òª½«Ëü×ª»»ÎªÈ±Ê¡host£¬À´¸ú·Ö½ø³Ì±È½Ï
+			if (tmpHost.equalsIgnoreCase("localhost")) {// æ”¯æŒlocalhostå†™æ³•æ—¶ï¼Œè¦å°†å®ƒè½¬æ¢ä¸ºç¼ºçœhostï¼Œæ¥è·Ÿåˆ†è¿›ç¨‹æ¯”è¾ƒ
 				String defIP = UnitContext.getDefaultHost();
 				Logger.info("Using IP:" + defIP + " instead of:" + tmpHost
 						+ ".");
@@ -250,7 +250,7 @@ public class UnitContext {
 		FileHandler lfh = ScudataLogger.newFileHandler(logFile);
 		ScudataLogger.addFileHandler(lfh);
 
-		// ¹Ì¶¨½Úµã»úµÄÁÙÊ±Ä¿Â¼µ½£º start.home/nodes/[ip_port]/tempÄ¿Â¼ÏÂ
+		// å›ºå®šèŠ‚ç‚¹æœºçš„ä¸´æ—¶ç›®å½•åˆ°ï¼š start.home/nodes/[ip_port]/tempç›®å½•ä¸‹
 		String path = "nodes/" + UnitClient.getHostPath(host) + "_" + port + "/temp";
 		f = new File(home, path);
 		if (!f.exists()) {
@@ -264,14 +264,14 @@ public class UnitContext {
 		enabledClientsStart = uc.getEnabledClientsStart();
 		enabledClientsEnd = uc.getEnabledClientsEnd();
 
-		// Æô¶¯½Úµã»úºó£¬ÓÃ½Úµã»úµÄIPÌæ»»µô´Óconfig.xml¼ÓÔØµÄlocalHost
+		// å¯åŠ¨èŠ‚ç‚¹æœºåï¼Œç”¨èŠ‚ç‚¹æœºçš„IPæ›¿æ¢æ‰ä»config.xmlåŠ è½½çš„localHost
 		hostManager.setHost(host);
 		hostManager.setPort(port);
 
 		hostManager.setMaxTaskNum(ucHost.getMaxTaskNum());
 		hostManager.setPreferredTaskNum(ucHost.getPreferredTaskNum());
 
-		// Server ÅäÖÃ
+		// Server é…ç½®
 		tempTimeOut = uc.getTempTimeOut();
 		if (tempTimeOut > 0) {
 			Logger.debug(ParallelMessage.get().getMessage("UnitContext.temptimeout", tempTimeOut));
@@ -279,7 +279,7 @@ public class UnitContext {
 
 		int t = uc.getInterval();
 		if (t > 0)
-			interval = t;// ÉèÖÃ²»ÕıÈ·Ê±£¬Ê¹ÓÃÈ±Ê¡¼ì²é¼ä¸ô
+			interval = t;// è®¾ç½®ä¸æ­£ç¡®æ—¶ï¼Œä½¿ç”¨ç¼ºçœæ£€æŸ¥é—´éš”
 
 		t = uc.getBacklog();
 		if (t > 0)
@@ -303,7 +303,7 @@ public class UnitContext {
 			ScudataLogger.addFileHandler(lfh);
 		}
 
-		// Server ÅäÖÃ
+		// Server é…ç½®
 		if(StringUtils.isValidString(ssc.tempTimeOut)) {
 			tempTimeOut = Integer.parseInt(ssc.tempTimeOut);
 			if (tempTimeOut > 0) {
@@ -332,8 +332,8 @@ public class UnitContext {
 	}
 
 	/**
-	 * »ñÈ¡È±Ê¡Ö÷»úÃèÊö´®
-	 * @return Ö÷»úÃèÊö
+	 * è·å–ç¼ºçœä¸»æœºæè¿°ä¸²
+	 * @return ä¸»æœºæè¿°
 	 */
 	public static String getDefaultHost() {
 		String[] allHosts = AppUtil.getLocalIps();
@@ -341,7 +341,7 @@ public class UnitContext {
 		if (allHosts.length > 0) {
 			for(int i=0;i<allHosts.length;i++){
 				tmpHost = allHosts[i];
-				if(tmpHost.indexOf(':')>0)continue;//È±Ê¡²»Ñ¡IP6
+				if(tmpHost.indexOf(':')>0)continue;//ç¼ºçœä¸é€‰IP6
 				if(!tmpHost.equals("127.0.0.1")) break;
 			}
 		}
@@ -349,15 +349,15 @@ public class UnitContext {
 	}
 
 	/**
-	 * È¡ÁÙÊ±ÎÄ¼şµÄ³¬Ê±
-	 * @return Ê±¼ä
+	 * å–ä¸´æ—¶æ–‡ä»¶çš„è¶…æ—¶
+	 * @return æ—¶é—´
 	 */
 	public int getTimeOut() {
 		return tempTimeOut;
 	}
 
 	/**
-	 * Í¬getTimeOut
+	 * åŒgetTimeOut
 	 * @return
 	 */
 	public int getTimeOutHour() {
@@ -365,30 +365,30 @@ public class UnitContext {
 	}
 
 	/**
-	 * È¡¼ì²é³¬Ê±µÄÊ±¼ä¼ä¸ô
-	 * @return Ê±¼ä¼ä¸ô
+	 * å–æ£€æŸ¥è¶…æ—¶çš„æ—¶é—´é—´éš”
+	 * @return æ—¶é—´é—´éš”
 	 */
 	public int getInterval() {
 		return interval;
 	}
 
 	/**
-	 * »ñÈ¡Á¬½Ó²¢·¢Êı
-	 * @return ²¢·¢Á¬½ÓÊı
+	 * è·å–è¿æ¥å¹¶å‘æ•°
+	 * @return å¹¶å‘è¿æ¥æ•°
 	 */
 	public int getBacklog() {
 		return backlog;
 	}
 	/**
-	 * È¡´úÀí³¬Ê±
-	 * @return ´úÀí³¬Ê±Ê±¼ä
+	 * å–ä»£ç†è¶…æ—¶
+	 * @return ä»£ç†è¶…æ—¶æ—¶é—´
 	 */
 	public int getProxyTimeOut() {
 		return proxyTimeOut;
 	}
 
 	/**
-	 * Í¬getProxyTimeOut
+	 * åŒgetProxyTimeOut
 	 * @return
 	 */
 	public int getProxyTimeOutHour() {
@@ -396,30 +396,30 @@ public class UnitContext {
 	}
 
 	/**
-	 * È¡±¾µØÖ÷»úÃèÊö
-	 * @return Ö÷»úÃèÊö
+	 * å–æœ¬åœ°ä¸»æœºæè¿°
+	 * @return ä¸»æœºæè¿°
 	 */
 	public String getLocalHost() {
 		return hostManager.getHost();
 	}
 
 	/**
-	 * È¡±¾µØ¶Ë¿ÚºÅ
-	 * @return ¶Ë¿ÚºÅ
+	 * å–æœ¬åœ°ç«¯å£å·
+	 * @return ç«¯å£å·
 	 */
 	public int getLocalPort() {
 		return hostManager.getPort();
-	} // ½Úµã»ú¶Ë¿Ú
+	} // èŠ‚ç‚¹æœºç«¯å£
 
 	/**
-	 * ÓÃÖ÷»úĞÅÏ¢ÊµÏÖtoString
+	 * ç”¨ä¸»æœºä¿¡æ¯å®ç°toString
 	 */
 	public String toString() {
 		return hostManager.toString();
 	}
 
 	/**
-	 * ·Ö»úĞÅÏ¢
+	 * åˆ†æœºä¿¡æ¯
 	 * @author Joancy
 	 *
 	 */

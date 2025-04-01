@@ -26,8 +26,8 @@ import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ´´½¨×é±íÓÎ±ê
- * T.cursor(x:C,¡­;w;k:n)
+ * åˆ›å»ºç»„è¡¨æ¸¸æ ‡
+ * T.cursor(x:C,â€¦;w;k:n)
  * @author RunQian
  *
  */
@@ -88,7 +88,7 @@ public class CreateCursor extends PhyTableFunction {
 		}
 	}
 	
-	//°ÑÓÎ±êÄæĞò
+	//æŠŠæ¸¸æ ‡é€†åº
 	private static ICursor rvs(ICursor src) {
 		if (src instanceof Cursor) {
 			Cursor cs = (Cursor) src;
@@ -131,22 +131,22 @@ public class CreateCursor extends PhyTableFunction {
 	}
 	
 	public static ICursor createCursor(IPhyTable table, IParam param, String opt, Context ctx) {
-		// ÊÇ·ñ²úÉú¶àÂ·ÓÎ±ê
+		// æ˜¯å¦äº§ç”Ÿå¤šè·¯æ¸¸æ ‡
 		boolean isMultiThread = opt != null && opt.indexOf('m') != -1;
 		
 		if (param == null && !isMultiThread) {
 			return table.cursor(null, null, null, null, null, null, opt, ctx);
 		}
 		
-		IParam fieldParam = null; // Ñ¡³ö×Ö¶Î²ÎÊı
-		Expression filter = null; // ¹ıÂËÌõ¼ş
+		IParam fieldParam = null; // é€‰å‡ºå­—æ®µå‚æ•°
+		Expression filter = null; // è¿‡æ»¤æ¡ä»¶
 		
-		// ×ö¹ØÁªµÄ×Ö¶ÎºÍ¹ØÁªµÄÎ¬±í
+		// åšå…³è”çš„å­—æ®µå’Œå…³è”çš„ç»´è¡¨
 		String []fkNames = null;
 		Sequence []codes = null;
 		String []opts = null;
 		
-		MultipathCursors mcs = null; // Í¬²½·Ö¶ÎÓÎ±ê
+		MultipathCursors mcs = null; // åŒæ­¥åˆ†æ®µæ¸¸æ ‡
 		int segSeq = 0;
 		int segCount = 0;
 		if (isMultiThread) {
@@ -216,7 +216,7 @@ public class CreateCursor extends PhyTableFunction {
 					if (obj instanceof MultipathCursors) {
 						mcs = (MultipathCursors)obj;
 					} else if (obj instanceof ICursor) {
-						// cursor@mÈç¹û½á¹û¼¯Îª¿Õ»òÕßÂú×ãÌõ¼şµÄ¿éĞ¡ÓÚ2¿ÉÄÜ²»»á·µ»Ø¶àÂ·ÓÎ±ê
+						// cursor@må¦‚æœç»“æœé›†ä¸ºç©ºæˆ–è€…æ»¡è¶³æ¡ä»¶çš„å—å°äº2å¯èƒ½ä¸ä¼šè¿”å›å¤šè·¯æ¸¸æ ‡
 						isMultiThread = false;
 					} else {
 						if (!isMultiThread) {

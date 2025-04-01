@@ -10,13 +10,13 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ´¦Àíº¯Êıpolyfit(A,B,n)£¬ÓÃn´Î¶àÏîÊ½ÄâºÏÏòÁ¿XºÍY
- * Í¨¹ı½â·¨·½³Ì»ñµÃ¶àÏîÊ½ÏµÊı
+ * å¤„ç†å‡½æ•°polyfit(A,B,n)ï¼Œç”¨næ¬¡å¤šé¡¹å¼æ‹Ÿåˆå‘é‡Xå’ŒY
+ * é€šè¿‡è§£æ³•æ–¹ç¨‹è·å¾—å¤šé¡¹å¼ç³»æ•°
  * @author bd
  */
 public class Polyfit extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -55,7 +55,7 @@ public class Polyfit extends Function {
 				Sequence B = (Sequence) o2;
 				int size = A.length();
 				if (size != B.length()) {
-					// ²»Í¬Î¬
+					// ä¸åŒç»´
 					MessageManager mm = EngineMessage.get();
 					Logger.warn("polyfit" + mm.getMessage("function.paramTypeError"));
 					return null;
@@ -80,11 +80,11 @@ public class Polyfit extends Function {
 				for (int i = 0; i < n+1; i++) {
 					for (int j = 0; j < n+1; j++) {
 						if (i > j) {
-							// ÒÑ¾­¼ÆËã¹ıµÄ
+							// å·²ç»è®¡ç®—è¿‡çš„
 							ps[i][j] = ps[j][i];
 						}
 						else {
-							// ¶Ô½ÇÏßÉÏ¼°ÓÒÉÏÈı½ÇµÄÏµÊı
+							// å¯¹è§’çº¿ä¸ŠåŠå³ä¸Šä¸‰è§’çš„ç³»æ•°
 							double p = 0;
 							for (int k = 0; k < size; k++) {
 								p += Math.pow(as[k], i+j);

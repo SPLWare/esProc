@@ -22,23 +22,23 @@ import com.scudata.dm.sql.simple.IFunction;
 import com.scudata.expression.fn.Eval;
 import com.scudata.util.Variant;
 
-//º¯ÊıĞÅÏ¢¹ÜÀíÆ÷(º¯ÊıĞÅÏ¢Ôö¼ÓÊ±°´Ãû³Æ¼°²ÎÊı¸öÊıÅÅĞò)
-//***ÔİÎ´¿¼ÂÇÊı¾İ¿â²»Í¬°æ±¾ÖĞµÄº¯Êı²îÒì
-//***²ÎÊı¸öÊı²»¹Ì¶¨µÄÖ»ÄÜÔ¤ÏÈ¶¨ÒåºÃ
+//å‡½æ•°ä¿¡æ¯ç®¡ç†å™¨(å‡½æ•°ä¿¡æ¯å¢åŠ æ—¶æŒ‰åç§°åŠå‚æ•°ä¸ªæ•°æ’åº)
+//***æš‚æœªè€ƒè™‘æ•°æ®åº“ä¸åŒç‰ˆæœ¬ä¸­çš„å‡½æ•°å·®å¼‚
+//***å‚æ•°ä¸ªæ•°ä¸å›ºå®šçš„åªèƒ½é¢„å…ˆå®šä¹‰å¥½
 public class FunInfoManager {
-	public static final int COVER = 0; // ¸²¸Ç
+	public static final int COVER = 0; // è¦†ç›–
 
-	public static final int SKIP = 1; // ºöÂÔ
+	public static final int SKIP = 1; // å¿½ç•¥
 
-	public static final int ERROR = 2; // ±¨´í
+	public static final int ERROR = 2; // æŠ¥é”™
 
 	private static TreeMap<FunInfo, FunInfo> funMap = new TreeMap<FunInfo, FunInfo>(); // [FunInfo-FunInfo]
 
 
-	//<dbtype<name<paramcount:value>>> ²ÎÊı¸öÊı-1±íÊ¾²»¹Ì¶¨²ÎÊıº¯Êı£¬-2±í´ïÊ½ÊÇSPL½Å±¾µÄ²»¹Ì¶¨²ÎÊıº¯Êı
+	//<dbtype<name<paramcount:value>>> å‚æ•°ä¸ªæ•°-1è¡¨ç¤ºä¸å›ºå®šå‚æ•°å‡½æ•°ï¼Œ-2è¡¨è¾¾å¼æ˜¯SPLè„šæœ¬çš„ä¸å›ºå®šå‚æ•°å‡½æ•°
 	public static Map<String, Map<String, Map<Integer, String>>> dbMap = new HashMap<String,Map<String, Map<Integer, String>>>();
 
-	static { // ×Ô¶¯¼ÓÔØº¯ÊıÎÄ¼ş
+	static { // è‡ªåŠ¨åŠ è½½å‡½æ•°æ–‡ä»¶
 		try {
 			InputStream in = FunInfoManager.class.getResourceAsStream("/com/scudata/dm/sql/function.xml");
 			addFrom(in, COVER);
@@ -70,7 +70,7 @@ public class FunInfoManager {
 		return (FixedParamFunInfo)funMap.get(key);
 	}
 	
-	// ¸ù¾İ±ê×¼º¯ÊıÃû³ÆÓë²ÎÊı¸öÊı²éÕÒº¯ÊıĞÅÏ¢£¬²ÎÊı¸öÊıÎŞ¾«È·Æ¥ÅäÊ±¿ÉÆ¥Åä-1
+	// æ ¹æ®æ ‡å‡†å‡½æ•°åç§°ä¸å‚æ•°ä¸ªæ•°æŸ¥æ‰¾å‡½æ•°ä¿¡æ¯ï¼Œå‚æ•°ä¸ªæ•°æ— ç²¾ç¡®åŒ¹é…æ—¶å¯åŒ¹é…-1
 	public static FunInfo getFunInfo(String name, int pcount) {
 		FunInfo key = new FunInfo(name, pcount);
 		FunInfo val = funMap.get(key);
@@ -83,12 +83,12 @@ public class FunInfoManager {
 		}
 	}
 
-	// ÉèÖÃº¯ÊıĞÅÏ¢£¬±£Ö¤£¨º¯ÊıÃû+²ÎÊı¸öÊı£©Î¨Ò»
+	// è®¾ç½®å‡½æ•°ä¿¡æ¯ï¼Œä¿è¯ï¼ˆå‡½æ•°å+å‚æ•°ä¸ªæ•°ï¼‰å”¯ä¸€
 	public  static void setFunInfo(FunInfo fi) {
 		funMap.put(fi, fi);
 	}
 
-	// ´ÓxmlÎÄ¼şÖĞÔö¼Óº¯ÊıĞÅÏ¢£¬sameModeÖ¸ÒÑÓĞÍ¬Ò»º¯ÊıÊ±µÄ´¦Àí·½Ê½
+	// ä»xmlæ–‡ä»¶ä¸­å¢åŠ å‡½æ•°ä¿¡æ¯ï¼ŒsameModeæŒ‡å·²æœ‰åŒä¸€å‡½æ•°æ—¶çš„å¤„ç†æ–¹å¼
 	private static void addFrom(InputStream in, int sameMode) {
 		if (in == null) {
 			return;
@@ -240,7 +240,7 @@ public class FunInfoManager {
 		return null;
 	}
 
-	// Çå³ıº¯ÊıĞÅÏ¢
+	// æ¸…é™¤å‡½æ•°ä¿¡æ¯
 	public static void clear() {
 		funMap.clear();
 	}
@@ -250,9 +250,9 @@ public class FunInfoManager {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ´æÔÚÖ¸¶¨Ãû³ÆµÄº¯Êı
-	 * @param dbtype Êı¾İ¿âÀàĞÍ
-	 * @param name º¯ÊıÃû
+	 * åˆ¤æ–­æ˜¯å¦å­˜åœ¨æŒ‡å®šåç§°çš„å‡½æ•°
+	 * @param dbtype æ•°æ®åº“ç±»å‹
+	 * @param name å‡½æ•°å
 	 * @return
 	 */
 	public static boolean isFunction(String dbtype, String name) {
@@ -294,7 +294,7 @@ public class FunInfoManager {
 				sb.append(")");
 				formula = sb.toString();
 			} else if(formula.equalsIgnoreCase("N/A")) {
-				throw new RQException("´Ëº¯ÊıÏµÍ³Ôİ²»Ö§³Ö:"+name);
+				throw new RQException("æ­¤å‡½æ•°ç³»ç»Ÿæš‚ä¸æ”¯æŒ:"+name);
 			} else if(count == 1) {
 				formula = formula.replace("?1", "?");
 				formula = formula.replace("?", "?1");
@@ -312,7 +312,7 @@ public class FunInfoManager {
 					IFunction functionClass = (IFunction)Class.forName(className).newInstance();
 					return functionClass.getFormula(params);
 				} catch (Exception e) {
-					throw new RQException("¼ÓÔØ·Ç¹Ì¶¨²ÎÊı¸öÊıµÄº¯ÊıµÄ×Ô¶¨ÒåÀàÊ±³öÏÖ´íÎó", e);
+					throw new RQException("åŠ è½½éå›ºå®šå‚æ•°ä¸ªæ•°çš„å‡½æ•°çš„è‡ªå®šä¹‰ç±»æ—¶å‡ºç°é”™è¯¯", e);
 				}
 			} else {
 				className = typeFunctionMap.get(-2);
@@ -326,7 +326,7 @@ public class FunInfoManager {
 			}
 		}
 		
-		//throw new RQException("Î´ÖªµÄº¯Êı¶¨Òå, Ãû³Æ:"+name+", ²ÎÊı¸öÊı:"+params.length);
+		//throw new RQException("æœªçŸ¥çš„å‡½æ•°å®šä¹‰, åç§°:"+name+", å‚æ•°ä¸ªæ•°:"+params.length);
 		return null;
 	}
 

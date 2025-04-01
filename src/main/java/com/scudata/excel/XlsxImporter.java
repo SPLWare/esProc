@@ -64,18 +64,18 @@ public class XlsxImporter implements IExcelTool {
 			}
 			sheet = wb.getSheetAt(0);
 			dataFormat = wb.createDataFormat();
-			// ¼ÆËãÊ±¿ÉÄÜ³ö´í£¬ÏÈÈ¥µô
+			// è®¡ç®—æ—¶å¯èƒ½å‡ºé”™ï¼Œå…ˆå»æ‰
 			// formulaEvaluate();
 
 		} catch (RQException e) {
 			throw e;
 		} catch (OLE2NotOfficeXmlFileException e) {
 			if (pwd == null) {
-				// ExcelÎÄ¼şÊÇXLS¸ñÊ½£¬»òÕßÊÇ¼ÓÃÜÎÄ¼ş¡£
+				// Excelæ–‡ä»¶æ˜¯XLSæ ¼å¼ï¼Œæˆ–è€…æ˜¯åŠ å¯†æ–‡ä»¶ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsximporter.ole2nopwd"), e);
 			} else {
-				// ExcelÎÄ¼şÊÇXLS¸ñÊ½¡£
+				// Excelæ–‡ä»¶æ˜¯XLSæ ¼å¼ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsximporter.ole2pwd"), e);
 			}
@@ -190,10 +190,10 @@ public class XlsxImporter implements IExcelTool {
 	}
 
 	/**
-	 * ¼ÆËã¹«Ê½¸ñ
+	 * è®¡ç®—å…¬å¼æ ¼
 	 */
 	private void formulaEvaluate() {
-		if (evaluator != null) // Ö»¼ÆËãÒ»´Î
+		if (evaluator != null) // åªè®¡ç®—ä¸€æ¬¡
 			return;
 		evaluator = wb.getCreationHelper().createFormulaEvaluator();
 		if (evaluator != null) {

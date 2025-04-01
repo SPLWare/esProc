@@ -9,7 +9,7 @@ import com.scudata.common.*;
 import java.awt.*;
 
 /**
- * ²ÎÊıĞÅÏ¢
+ * å‚æ•°ä¿¡æ¯
  * 
  * @author Joancy
  *
@@ -17,21 +17,21 @@ import java.awt.*;
 public class ParamInfo extends FuncParam {
 	private String title;
 	private int inputType;
-	private Object defValue;// Ö»¸ø±à¼­ÓÃµÄÈ±Ê¡Öµ£¬ÓÃÓÚÉ¾³ı±í´ïÊ½ºó£¬ÓÃ¸ÃÖµäÖÈ¾£¬¸ÃÖµ¸úÀàµÄÈ±Ê¡ÖµÒ»ÖÂ
+	private Object defValue;// åªç»™ç¼–è¾‘ç”¨çš„ç¼ºçœå€¼ï¼Œç”¨äºåˆ é™¤è¡¨è¾¾å¼åï¼Œç”¨è¯¥å€¼æ¸²æŸ“ï¼Œè¯¥å€¼è·Ÿç±»çš„ç¼ºçœå€¼ä¸€è‡´
 
-	// µ±Ç°ÕıÔÚ»ñÈ¡²ÎÊıµÄÀà£¬ĞèÒª´Ó¸ÃÀàÖĞ¸ù¾İ²ÎÊıÃû»ñÈ¡ÏàÓ¦²ÎÊıµÄ¶¨Òå
+	// å½“å‰æ­£åœ¨è·å–å‚æ•°çš„ç±»ï¼Œéœ€è¦ä»è¯¥ç±»ä¸­æ ¹æ®å‚æ•°åè·å–ç›¸åº”å‚æ•°çš„å®šä¹‰
 	private static transient Class currentClass;
 	private static transient Object currentObj;
 	private static transient Object defaultObj;
 
 	private MessageManager mm = FuncMessage.get();
 
-	private boolean needCheckEmpty = false;//ÊÇ·ñĞèÒª¼ì²éÊôĞÔÖµÎª¿Õ
+	private boolean needCheckEmpty = false;//æ˜¯å¦éœ€è¦æ£€æŸ¥å±æ€§å€¼ä¸ºç©º
 	
 	/**
-	 * ÉèÖÃµ±Ç°¶ÔÏóÊµÀı£¬È¡×ÊÔ´Ê±ĞèÒª¸ù¾İÊµÀı²éÕÒÏà¹ØÊôĞÔ
+	 * è®¾ç½®å½“å‰å¯¹è±¡å®ä¾‹ï¼Œå–èµ„æºæ—¶éœ€è¦æ ¹æ®å®ä¾‹æŸ¥æ‰¾ç›¸å…³å±æ€§
 	 * @param objClass Class
-	 * @param obj ¶ÔÏó
+	 * @param obj å¯¹è±¡
 	 */
 	public static void setCurrent(Class objClass, Object obj) {
 		currentClass = objClass;
@@ -43,37 +43,37 @@ public class ParamInfo extends FuncParam {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param name ²ÎÊıÃû
-	 * @param needCheck ÊÇ·ñĞèÒª¼ì²é¿ÕÖµ
-	 * Èç¹û¼ì²é¿ÕÖµ£¬ÔòÔÚ±à¼­½çÃæÊ±£¬Óöµ½¿ÕÖµ»á±¨´í£¬²¢×èÖ¹½çÃæÍË³ö
+	 * æ„é€ å‡½æ•°
+	 * @param name å‚æ•°å
+	 * @param needCheck æ˜¯å¦éœ€è¦æ£€æŸ¥ç©ºå€¼
+	 * å¦‚æœæ£€æŸ¥ç©ºå€¼ï¼Œåˆ™åœ¨ç¼–è¾‘ç•Œé¢æ—¶ï¼Œé‡åˆ°ç©ºå€¼ä¼šæŠ¥é”™ï¼Œå¹¶é˜»æ­¢ç•Œé¢é€€å‡º
 	 */
 	public ParamInfo(String name,boolean needCheck) {
 		this(name, Consts.INPUT_NORMAL,needCheck);
 	}
 	
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param name ²ÎÊıÃû
+	 * æ„é€ å‡½æ•°
+	 * @param name å‚æ•°å
 	 */
 	public ParamInfo(String name) {
 		this(name, Consts.INPUT_NORMAL);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param name ²ÎÊıÃû
-	 * @param inputType ÊäÈëÀàĞÍ
+	 * æ„é€ å‡½æ•°
+	 * @param name å‚æ•°å
+	 * @param inputType è¾“å…¥ç±»å‹
 	 */
 	public ParamInfo(String name, int inputType) {
 		this(name,inputType,false);
 	}
 	
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param name ²ÎÊıÃû
-	 * @param inputType ÊäÈëÀàĞÍ
-	 * @param needCheck ÊÇ·ñ¼ì²é¿ÕÖµ
+	 * æ„é€ å‡½æ•°
+	 * @param name å‚æ•°å
+	 * @param inputType è¾“å…¥ç±»å‹
+	 * @param needCheck æ˜¯å¦æ£€æŸ¥ç©ºå€¼
 	 */
 	public ParamInfo(String name, int inputType, boolean needCheck) {
 		this.name = name;
@@ -98,16 +98,16 @@ public class ParamInfo extends FuncParam {
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıµÄÈ±Ê¡Öµ
-	 * @return È±Ê¡Öµ
+	 * è·å–å‚æ•°çš„ç¼ºçœå€¼
+	 * @return ç¼ºçœå€¼
 	 */
 	public Object getDefValue() {
 		return defValue;
 	}
 
 	/**
-	 * ÉèÖÃº¯Êı²ÎÊı¶ÔÏó£¬½«Öµ¸³¸øµ±Ç°ÊµÀı
-	 * @param fp º¯Êı²ÎÊı
+	 * è®¾ç½®å‡½æ•°å‚æ•°å¯¹è±¡ï¼Œå°†å€¼èµ‹ç»™å½“å‰å®ä¾‹
+	 * @param fp å‡½æ•°å‚æ•°
 	 */
 	public void setFuncParam(FuncParam fp) {
 		Object tmp = fp.getValue();
@@ -115,24 +115,24 @@ public class ParamInfo extends FuncParam {
 	}
 
 	/**
-	 * ²ÎÊı±êÌâ£¬ÓÃÓÚÏÔÊ¾ÔÚ±à¼­½çÃæ
-	 * @return ±êÌâ
+	 * å‚æ•°æ ‡é¢˜ï¼Œç”¨äºæ˜¾ç¤ºåœ¨ç¼–è¾‘ç•Œé¢
+	 * @return æ ‡é¢˜
 	 */
 	public String getTitle() {
 		return title;
 	}
 
 	/**
-	 * »ñÈ¡ÊäÈëÀàĞÍ
-	 * ²ÎÊıµÄ±à¼­½çÃæ¸ù¾İÊäÈëÀàĞÍÌá¹©²»Í¬µÄ±à¼­Æ÷
-	 * @return ÊäÈëÀàĞÍ
+	 * è·å–è¾“å…¥ç±»å‹
+	 * å‚æ•°çš„ç¼–è¾‘ç•Œé¢æ ¹æ®è¾“å…¥ç±»å‹æä¾›ä¸åŒçš„ç¼–è¾‘å™¨
+	 * @return è¾“å…¥ç±»å‹
 	 */
 	public int getInputType() {
 		return inputType;
 	}
 	
 	/**
-	 * ¼ì²é¿Õ²ÎÊı£¬¿ÕÖµÊ±Å×³öÏàÓ¦Òì³£
+	 * æ£€æŸ¥ç©ºå‚æ•°ï¼Œç©ºå€¼æ—¶æŠ›å‡ºç›¸åº”å¼‚å¸¸
 	 */
 	public void check(){
 		if(needCheckEmpty){

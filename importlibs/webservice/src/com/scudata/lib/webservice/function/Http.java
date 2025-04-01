@@ -18,17 +18,17 @@ public class Http {
             conn.setDoOutput(true);    
             conn.setDoInput(true);    
             conn.setUseCaches(false);    
-            // ÉèÖÃÇëÇó·½Ê½£¨GET/POST£©    
+            // è®¾ç½®è¯·æ±‚æ–¹å¼ï¼ˆGET/POSTï¼‰    
             conn.setRequestMethod(requestMethod);    
             conn.setRequestProperty("content-type", "text/xml; charset=UTF-8");
-            // µ±outputStr²»ÎªnullÊ±ÏòÊä³öÁ÷Ğ´Êı¾İ    
+            // å½“outputSträ¸ä¸ºnullæ—¶å‘è¾“å‡ºæµå†™æ•°æ®    
             if (null != outputStr) {    
                 OutputStream outputStream = conn.getOutputStream();    
-                // ×¢Òâ±àÂë¸ñÊ½    
+                // æ³¨æ„ç¼–ç æ ¼å¼    
                 outputStream.write(outputStr.getBytes("UTF-8"));    
                 outputStream.close();    
             }    
-            // ´ÓÊäÈëÁ÷¶ÁÈ¡·µ»ØÄÚÈİ    
+            // ä»è¾“å…¥æµè¯»å–è¿”å›å†…å®¹    
             InputStream inputStream = conn.getInputStream();    
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");    
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);    
@@ -37,7 +37,7 @@ public class Http {
             while ((str = bufferedReader.readLine()) != null) {    
                 buffer.append(str);    
             }    
-            // ÊÍ·Å×ÊÔ´    
+            // é‡Šæ”¾èµ„æº    
             bufferedReader.close();    
             inputStreamReader.close();    
             inputStream.close();    
@@ -45,7 +45,7 @@ public class Http {
             conn.disconnect();    
             return buffer.toString();    
         } catch (Exception e) {    
-            System.out.println("httpÇëÇóÒì³££º{}"+ e);
+            System.out.println("httpè¯·æ±‚å¼‚å¸¸ï¼š{}"+ e);
             Logger.error(e.getMessage());
         }    
         return null;    
@@ -53,11 +53,11 @@ public class Http {
 
 
 //    public synchronized static String accessService(String wsdl,String content,String contentType)throws Exception{    
-//        //Æ´½Ó²ÎÊı    
+//        //æ‹¼æ¥å‚æ•°    
 //        String soapResponseData = "";    
-//        //Æ´½ÓSOAP    
+//        //æ‹¼æ¥SOAP    
 //        PostMethod postMethod = new PostMethod(wsdl);    
-//        // È»ºó°ÑSoapÇëÇóÊı¾İÌí¼Óµ½PostMethodÖĞ    
+//        // ç„¶åæŠŠSoapè¯·æ±‚æ•°æ®æ·»åŠ åˆ°PostMethodä¸­    
 //        byte[] b=null;    
 //        InputStream is=null;    
 //        try {    

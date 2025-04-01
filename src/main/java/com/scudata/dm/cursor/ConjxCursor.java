@@ -6,17 +6,17 @@ import com.scudata.dm.op.IGroupsResult;
 import com.scudata.expression.Expression;
 
 /**
- * °Ñ¶à¸öÓÎ±ê×İÏòÁ¬³ÉÒ»¸öÓÎ±ê£¬È¡ÊıÊ±»áÒÀ´Î±éÀúÃ¿¸öÓÎ±ê£¬Ö±µ½×îºóÒ»¸öÓÎ±êÈ¡Êı½áÊø
- * ½á¹¹ÒÔµÚÒ»¸öÓÎ±êÎª×¼
+ * æŠŠå¤šä¸ªæ¸¸æ ‡çºµå‘è¿æˆä¸€ä¸ªæ¸¸æ ‡ï¼Œå–æ•°æ—¶ä¼šä¾æ¬¡éå†æ¯ä¸ªæ¸¸æ ‡ï¼Œç›´åˆ°æœ€åä¸€ä¸ªæ¸¸æ ‡å–æ•°ç»“æŸ
+ * ç»“æ„ä»¥ç¬¬ä¸€ä¸ªæ¸¸æ ‡ä¸ºå‡†
  * @author 
  *
  */
 public class ConjxCursor extends ICursor {
-	private ICursor []cursors; // ÓÎ±êÊı×é
-	private int curIndex = 0; // µ±Ç°ÕıÔÚ¶ÁÊıµÄÓÎ±êË÷Òı
+	private ICursor []cursors; // æ¸¸æ ‡æ•°ç»„
+	private int curIndex = 0; // å½“å‰æ­£åœ¨è¯»æ•°çš„æ¸¸æ ‡ç´¢å¼•
 
 	/**
-	 * ¹¹½¨×İÏòÁ¬½ÓÓÎ±ê¶ÔÏó
+	 * æ„å»ºçºµå‘è¿æ¥æ¸¸æ ‡å¯¹è±¡
 	 * @param cursors
 	 */
 	public ConjxCursor(ICursor []cursors) {
@@ -24,8 +24,8 @@ public class ConjxCursor extends ICursor {
 		setDataStruct(cursors[0].getDataStruct());
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			for (ICursor cursor : cursors) {
@@ -37,13 +37,13 @@ public class ConjxCursor extends ICursor {
 	}
 	
 	/**
-	 * È¡·Ö×é¼ÆËã¶ÔÏó
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–åˆ†ç»„è®¡ç®—å¯¹è±¡
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IGroupsResult
 	 */
 	public IGroupsResult getGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
@@ -52,8 +52,8 @@ public class ConjxCursor extends ICursor {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -96,9 +96,9 @@ public class ConjxCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (cursors.length == curIndex || n < 1) return 0;
@@ -115,7 +115,7 @@ public class ConjxCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -126,8 +126,8 @@ public class ConjxCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		curIndex = 0;

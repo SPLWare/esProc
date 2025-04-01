@@ -36,33 +36,33 @@ import com.scudata.ide.common.swing.VFlowLayout;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ÉÏ´«µ½FTP¶Ô»°¿ò
+ * ä¸Šä¼ åˆ°FTPå¯¹è¯æ¡†
  *
  */
 public class DialogFTP extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ¼¯ËãÆ÷ÓïÑÔ×ÊÔ´
+	 * é›†ç®—å™¨è¯­è¨€èµ„æº
 	 */
 	private MessageManager mm = IdeSplMessage.get();
 	/**
-	 * ±£´æ°´Å¥
+	 * ä¿å­˜æŒ‰é’®
 	 */
 	private JButton jBSave = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * ¹ÜÀí°´Å¥
+	 * ç®¡ç†æŒ‰é’®
 	 */
 	private JButton jBManage = new JButton();
 
 	/**
-	 * Ö÷»ú±í¿Ø¼ş
+	 * ä¸»æœºè¡¨æ§ä»¶
 	 */
 	private TableSelectName tableHost = new TableSelectName(this,
-			mm.getMessage("dialoguploadresult.hostname")) {// Ö÷»úÃû
+			mm.getMessage("dialoguploadresult.hostname")) {// ä¸»æœºå
 		private static final long serialVersionUID = 1L;
 
 		public void doubleClick(int row, int col) {
@@ -72,40 +72,40 @@ public class DialogFTP extends JDialog implements ActionListener {
 	};
 
 	/**
-	 * ASCII¿Ø¼ş
+	 * ASCIIæ§ä»¶
 	 */
 	private JRadioButton jRBAsc = new JRadioButton();
 	/**
-	 * ¶ş½øÖÆ¿Ø¼ş
+	 * äºŒè¿›åˆ¶æ§ä»¶
 	 */
 	private JRadioButton jRBBinary = new JRadioButton();
 
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CLOSED_OPTION;
 	/**
-	 * ÊÇ·ñµÍ°æ±¾JDK£¨1.7ÒÔÏÂ£©
+	 * æ˜¯å¦ä½ç‰ˆæœ¬JDKï¼ˆ1.7ä»¥ä¸‹ï¼‰
 	 */
 	private boolean isLowVersionJDK = false;
 	/**
-	 * FTP·şÎñĞÅÏ¢ÁĞ±í
+	 * FTPæœåŠ¡ä¿¡æ¯åˆ—è¡¨
 	 */
 	private FTPInfo[] ftpInfos = null;
 	/**
-	 * FTP·şÎñ¿Í»§¶Ë¶ÔÏó
+	 * FTPæœåŠ¡å®¢æˆ·ç«¯å¯¹è±¡
 	 */
 	private FtpClient ftpClient = null;
 	/**
-	 * ÎÄ¼şÂ·¾¶
+	 * æ–‡ä»¶è·¯å¾„
 	 */
 	private String filePath;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogFTP() {
-		super(GV.appFrame, "±£´æµ½FTP", true);
+		super(GV.appFrame, "ä¿å­˜åˆ°FTP", true);
 		try {
 
 			String javaVersion = System.getProperty("java.version");
@@ -123,17 +123,17 @@ public class DialogFTP extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÉèÖÃÎÄ¼şÂ·¾¶
+	 * è®¾ç½®æ–‡ä»¶è·¯å¾„
 	 * 
 	 * @param filePath
-	 *            ÎÄ¼şÂ·¾¶
+	 *            æ–‡ä»¶è·¯å¾„
 	 */
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
 
 	/**
-	 * ¼ÓÔØFTP·şÎñĞÅÏ¢
+	 * åŠ è½½FTPæœåŠ¡ä¿¡æ¯
 	 */
 	private void loadFTPInfo() {
 		try {
@@ -145,7 +145,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÉèÖÃFTP·şÎñĞÅÏ¢
+	 * è®¾ç½®FTPæœåŠ¡ä¿¡æ¯
 	 */
 	private void setFTPInfo() {
 		if (ftpInfos != null && ftpInfos.length > 0) {
@@ -163,7 +163,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ±£´æFTP·şÎñĞÅÏ¢
+	 * ä¿å­˜FTPæœåŠ¡ä¿¡æ¯
 	 */
 	private void saveFTPInfo() {
 		if (ftpInfos != null) {
@@ -183,18 +183,18 @@ public class DialogFTP extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetText() {
 		jBSave.setText(mm.getMessage("button.save"));
 		jBCancel.setText(mm.getMessage("button.cancel"));
-		setTitle(mm.getMessage("dialogftp.title")); // ±£´æµ½FTP
-		jBManage.setText(mm.getMessage("dialogftp.manager")); // Ö÷»ú¹ÜÀí(M)
-		jRBBinary.setText(mm.getMessage("dialogftp.binary")); // ¶ş½øÖÆ
+		setTitle(mm.getMessage("dialogftp.title")); // ä¿å­˜åˆ°FTP
+		jBManage.setText(mm.getMessage("dialogftp.manager")); // ä¸»æœºç®¡ç†(M)
+		jRBBinary.setText(mm.getMessage("dialogftp.binary")); // äºŒè¿›åˆ¶
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -203,14 +203,14 @@ public class DialogFTP extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ±£´æ
+	 * ä¿å­˜
 	 */
 	private void save() {
 		if (ftpInfos == null)
 			return;
 		int[] indexes = tableHost.getSelectedIndexes();
 		if (indexes == null || indexes.length == 0) {
-			// ÇëÑ¡ÔñÒª±£´æµ½µÄÖ÷»ú¡£
+			// è¯·é€‰æ‹©è¦ä¿å­˜åˆ°çš„ä¸»æœºã€‚
 			GM.messageDialog(this, mm.getMessage("dialogftp.savetohost"));
 			return;
 		}
@@ -227,8 +227,8 @@ public class DialogFTP extends JDialog implements ActionListener {
 				String password = ftpInfo.getPassword();
 				Class clz = Class.forName("sun.net.ftp.FtpClient");
 				Method m;
-				// ¸ù¾İJDK°æ±¾ÅĞ¶ÏÊ¹ÓÃÄÄÌ×½Ó¿Ú
-				if (isLowVersionJDK) { // 1.7ÒÔÏÂ
+				// æ ¹æ®JDKç‰ˆæœ¬åˆ¤æ–­ä½¿ç”¨å“ªå¥—æ¥å£
+				if (isLowVersionJDK) { // 1.7ä»¥ä¸‹
 					Constructor declaredConstructor = clz
 							.getDeclaredConstructor();
 					ftpClient = (FtpClient) declaredConstructor.newInstance();
@@ -256,7 +256,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 					// } else if (jRBBinary.isSelected()) {
 					// ftpClient.binary();
 					// }
-				} else { // 1.7ºÍÒÔÉÏ°æ±¾
+				} else { // 1.7å’Œä»¥ä¸Šç‰ˆæœ¬
 					SocketAddress addr = new InetSocketAddress(host, port);
 					m = clz.getMethod("create");
 					ftpClient = (FtpClient) m.invoke(clz);
@@ -291,7 +291,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 			try {
 				Class clz = Class.forName("sun.net.ftp.FtpClient");
 				Method m;
-				// ¸ù¾İJDK°æ±¾ÅĞ¶ÏÊ¹ÓÃÄÄÌ×½Ó¿Ú
+				// æ ¹æ®JDKç‰ˆæœ¬åˆ¤æ–­ä½¿ç”¨å“ªå¥—æ¥å£
 				if (isLowVersionJDK) {
 					m = clz.getMethod("closeServer");
 					m.invoke(ftpClient);
@@ -310,7 +310,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ÉÏ´«ÎÄ¼ş
+	 * ä¸Šä¼ æ–‡ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -322,7 +322,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 			fis = new FileInputStream(filePath);
 			Class clz = Class.forName("sun.net.ftp.FtpClient");
 			Method m;
-			// ¸ù¾İJDK°æ±¾ÅĞ¶ÏÊ¹ÓÃÄÄÌ×½Ó¿Ú
+			// æ ¹æ®JDKç‰ˆæœ¬åˆ¤æ–­ä½¿ç”¨å“ªå¥—æ¥å£
 			if (isLowVersionJDK) {
 				m = clz.getMethod("put", String.class);
 				tos = (OutputStream) m.invoke(ftpClient, file.getName());
@@ -347,24 +347,24 @@ public class DialogFTP extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
 	private void init() throws Exception {
 		JPanel panelEast = new JPanel(new VFlowLayout());
 		jBSave.setMnemonic('S');
-		jBSave.setText("±£´æ(S)");
+		jBSave.setText("ä¿å­˜(S)");
 		jBSave.addActionListener(this);
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(this);
 		jBManage.setMnemonic('M');
-		jBManage.setText("Ö÷»ú¹ÜÀí(M)"); // Ö÷»ú¹ÜÀí(M)
+		jBManage.setText("ä¸»æœºç®¡ç†(M)"); // ä¸»æœºç®¡ç†(M)
 		jBManage.addActionListener(this);
-		JLabel labelOpt = new JLabel(mm.getMessage("dialogftp.sendtype")); // ·¢ËÍÀàĞÍ£º
+		JLabel labelOpt = new JLabel(mm.getMessage("dialogftp.sendtype")); // å‘é€ç±»å‹ï¼š
 		jRBAsc.setText("ASCII");
-		jRBBinary.setText("¶ş½øÖÆ");
+		jRBBinary.setText("äºŒè¿›åˆ¶");
 		ButtonGroup bgOpt = new ButtonGroup();
 		bgOpt.add(jRBAsc);
 		bgOpt.add(jRBBinary);
@@ -385,7 +385,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -396,7 +396,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ¿Ø¼şÊÂ¼ş
+	 * æ§ä»¶äº‹ä»¶
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
@@ -412,7 +412,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * Ö÷»ú¹ÜÀí¶Ô»°¿ò
+	 * ä¸»æœºç®¡ç†å¯¹è¯æ¡†
 	 */
 	private void hostManager() {
 		DialogHostManager dhm = new DialogHostManager(this);

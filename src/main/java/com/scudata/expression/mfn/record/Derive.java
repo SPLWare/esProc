@@ -13,8 +13,8 @@ import com.scudata.expression.RecordFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÎªÅÅÁĞÌí¼Ó×Ö¶ÎÉú³ÉĞÂĞò±í
- * r.derive(xi:Fi,¡­) r.derive@x(xi:Fi,¡­;n)
+ * ä¸ºæ’åˆ—æ·»åŠ å­—æ®µç”Ÿæˆæ–°åºè¡¨
+ * r.derive(xi:Fi,â€¦) r.derive@x(xi:Fi,â€¦;n)
  * @author RunQian
  *
  */

@@ -11,7 +11,7 @@ import com.scudata.expression.CursorFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * �ѵ�·�α�ת�ɶ�·�α�
+ * 把单路游标转成多路游标
  * cs.mcursor(n)
  * @author RunQian
  *

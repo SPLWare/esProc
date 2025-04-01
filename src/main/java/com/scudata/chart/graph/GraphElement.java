@@ -13,9 +13,9 @@ import com.scudata.chart.edit.*;
 import com.scudata.dm.*;
 import com.scudata.util.Variant;
 
-//Í¼ĞÎÍ¼Ôª
+//å›¾å½¢å›¾å…ƒ
 public class GraphElement extends GraphBase {
-	/** ºáÖá±êÌâ */
+	/** æ¨ªè½´æ ‡é¢˜ */
 	public String xTitle;
 	public String xTitleFont;// = "Dialog";
 	public boolean xTitleBold = false;
@@ -24,7 +24,7 @@ public class GraphElement extends GraphBase {
 	public Color xTitleColor = Color.black;
 	public int xTitleAngle = 0;
 
-	/** ×İÖá±êÌâ */
+	/** çºµè½´æ ‡é¢˜ */
 	public String yTitle;
 	public String yTitleFont;// = "Dialog";
 	public boolean yTitleBold = false;
@@ -33,7 +33,7 @@ public class GraphElement extends GraphBase {
 	public Color yTitleColor = Color.black;
 	public int yTitleAngle;
 
-	/** ºáÖá±êÇ© */
+	/** æ¨ªè½´æ ‡ç­¾ */
 	public String xLabelFont;// = "Dialog";
 	public boolean xLabelBold = false;
 	public boolean xLabelVertical = false;
@@ -42,7 +42,7 @@ public class GraphElement extends GraphBase {
 	public int xLabelAngle = 0;
 	public int xLabelInterval = 0;
 
-	/** ×İÖá */
+	/** çºµè½´ */
 	public String yLabelFont;// = "Dialog";
 	public boolean yLabelBold = false;
 	public boolean yLabelVertical = false;
@@ -55,25 +55,25 @@ public class GraphElement extends GraphBase {
 	public double dataUnit = IGraphProperty.UNIT_ORIGIN;
 	public int yMinMarks = 2;
 
-	// Íø¸ñÏß
-	/** Íø¸ñÏßÀàĞÍ */
+	// ç½‘æ ¼çº¿
+	/** ç½‘æ ¼çº¿ç±»å‹ */
 	public int gridLineType = Consts.LINE_DASHED;
-	/** Íø¸ñÏßÑÕÉ« */
+	/** ç½‘æ ¼çº¿é¢œè‰² */
 	public Color gridLineColor = Color.lightGray;
 
-	/* ¾¯½äÏß¶¨Òå */
+	/* è­¦æˆ’çº¿å®šä¹‰ */
 	public Para warnLineStyle = new Para(new Integer(Consts.LINE_DASHED));
 	public Para warnLineWeight = new Para(new Float(1));
 	public Para warnLineColor = new Para(Color.red);
 	public Sequence warnLineData = null;
 
-	/** ×ø±êÖáÑÕÉ« */
+	/** åæ ‡è½´é¢œè‰² */
 	public Color axisTopColor = Color.white;
 	public Color axisBottomColor = Color.lightGray;
 	public Color axisLeftColor = Color.lightGray;
 	public Color axisRightColor = Color.white;
 
-	/** Í¼ĞÎÇø±³¾°ÑÕÉ« */
+	/** å›¾å½¢åŒºèƒŒæ™¯é¢œè‰² */
 	public Color graphBackColor = Color.white;
 
 	public ParamInfoList getParamInfoList() {
@@ -195,7 +195,7 @@ public class GraphElement extends GraphBase {
 		return als;
 	}
 
-	// ×ÓÍ¼ĞÎ¸ù¾İ×Ô¼ºµÄÊôĞÔ£¬¹¹½¨PublicProperty¶ÔÏó·µ»Ø¸øGraphElement.
+	// å­å›¾å½¢æ ¹æ®è‡ªå·±çš„å±æ€§ï¼Œæ„å»ºPublicPropertyå¯¹è±¡è¿”å›ç»™GraphElement.
 	protected PublicProperty getPublicProperty() {
 		PublicProperty pp = super.getPublicProperty();
 		pp.setXTitle(xTitle);

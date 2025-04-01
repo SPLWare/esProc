@@ -631,7 +631,7 @@ public class PerfectWhere
 				else if(i < len - 2 
 				&& whereTokens[i + 1].getType() == Tokenizer.LPAREN) //fun()
 				{
-					int end = Tokenizer.scanParen(whereTokens, i + 1, whereTokens.length);//º¯Êý±í´ïÊ½
+					int end = Tokenizer.scanParen(whereTokens, i + 1, whereTokens.length);//å‡½æ•°è¡¨è¾¾å¼
 					appendBuffer.append(" AND ");
 					for(int j = i; j <= end; j++)
 					{
@@ -653,7 +653,7 @@ public class PerfectWhere
 			}
 			else if(token.getType() == Tokenizer.LPAREN)
 			{
-				int end = Tokenizer.scanParen(whereTokens, i, whereTokens.length);//À¨ºÅ±í´ïÊ½
+				int end = Tokenizer.scanParen(whereTokens, i, whereTokens.length);//æ‹¬å·è¡¨è¾¾å¼
 				
 				int queryPos = Tokenizer.scanKeyWords(new String[]{"UNION","MINUS","EXCEPT","INTERSECT","SELECT"}, whereTokens, i + 1, end);
 				
@@ -878,7 +878,7 @@ public class PerfectWhere
 		{
 			if(node.getLeft() == null || node.getRight() == null)
 			{
-				throw new RQException("WHERE×Ó¾äÓï·¨´íÎó");
+				throw new RQException("WHEREå­å¥è¯­æ³•é”™è¯¯");
 			}
 			getOnFromTokens(node.getLeft(), nodeList, tableAliasSet, outerFieldSet, innerFieldSet);
 			getOnFromTokens(node.getRight(), nodeList, tableAliasSet, outerFieldSet, innerFieldSet);
@@ -887,7 +887,7 @@ public class PerfectWhere
 		{
 			if(node.getLeft() == null || node.getRight() == null)
 			{
-				throw new RQException("WHERE×Ó¾äÓï·¨´íÎó");
+				throw new RQException("WHEREå­å¥è¯­æ³•é”™è¯¯");
 			}
 			getOnFromTokens(node.getLeft(), null, tableAliasSet, null, null);
 			getOnFromTokens(node.getRight(), null, tableAliasSet, null, null);
@@ -951,7 +951,7 @@ public class PerfectWhere
 				{
 					if(hasOnlyEqual != null)
 					{
-						throw new RQException("WHERE×Ó¾äÖÐÄ³²¼¶û±í´ïÊ½´íÎó");
+						throw new RQException("WHEREå­å¥ä¸­æŸå¸ƒå°”è¡¨è¾¾å¼é”™è¯¯");
 					}
 					hasOnlyEqual = false;
 					n = n + 1;
@@ -962,7 +962,7 @@ public class PerfectWhere
 				{
 					if(hasOnlyEqual != null)
 					{
-						throw new RQException("WHERE×Ó¾äÖÐÄ³²¼¶û±í´ïÊ½´íÎó");
+						throw new RQException("WHEREå­å¥ä¸­æŸå¸ƒå°”è¡¨è¾¾å¼é”™è¯¯");
 					}
 					hasOnlyEqual = false;
 					n = n + 1;
@@ -973,7 +973,7 @@ public class PerfectWhere
 				{
 					if(hasOnlyEqual != null)
 					{
-						throw new RQException("WHERE×Ó¾äÖÐÄ³²¼¶û±í´ïÊ½´íÎó");
+						throw new RQException("WHEREå­å¥ä¸­æŸå¸ƒå°”è¡¨è¾¾å¼é”™è¯¯");
 					}
 					hasOnlyEqual = false;
 					n = n + 1;
@@ -984,7 +984,7 @@ public class PerfectWhere
 				{
 					if(hasOnlyEqual != null)
 					{
-						throw new RQException("WHERE×Ó¾äÖÐÄ³²¼¶û±í´ïÊ½´íÎó");
+						throw new RQException("WHEREå­å¥ä¸­æŸå¸ƒå°”è¡¨è¾¾å¼é”™è¯¯");
 					}
 					hasOnlyEqual = false;
 					n = n + 1;
@@ -993,7 +993,7 @@ public class PerfectWhere
 				{
 					if(hasOnlyEqual != null)
 					{
-						throw new RQException("WHERE×Ó¾äÖÐÄ³²¼¶û±í´ïÊ½´íÎó");
+						throw new RQException("WHEREå­å¥ä¸­æŸå¸ƒå°”è¡¨è¾¾å¼é”™è¯¯");
 					}
 					hasOnlyEqual = false;
 				}
@@ -1001,7 +1001,7 @@ public class PerfectWhere
 				{
 					if(hasOnlyEqual != null)
 					{
-						throw new RQException("WHERE×Ó¾äÖÐÄ³²¼¶û±í´ïÊ½´íÎó");
+						throw new RQException("WHEREå­å¥ä¸­æŸå¸ƒå°”è¡¨è¾¾å¼é”™è¯¯");
 					}
 					hasOnlyEqual = false;
 				}
@@ -1009,7 +1009,7 @@ public class PerfectWhere
 				{
 					if(hasOnlyEqual != null)
 					{
-						throw new RQException("WHERE×Ó¾äÖÐÄ³²¼¶û±í´ïÊ½´íÎó");
+						throw new RQException("WHEREå­å¥ä¸­æŸå¸ƒå°”è¡¨è¾¾å¼é”™è¯¯");
 					}
 					hasOnlyEqual = true;
 				}
@@ -1120,7 +1120,7 @@ public class PerfectWhere
 		{
 			if(node.getLeft() == null || node.getRight() == null)
 			{
-				throw new RQException("WHERE×Ó¾äÓï·¨´íÎó");
+				throw new RQException("WHEREå­å¥è¯­æ³•é”™è¯¯");
 			}
 			getTopFromTokens(node.getLeft(), nodeFieldMap, tablePath, tableAlias);
 			getTopFromTokens(node.getRight(), nodeFieldMap, tablePath, tableAlias);
@@ -1147,7 +1147,7 @@ public class PerfectWhere
 					}
 					else
 					{
-						throw new RQException("Òì³£µÄ²¼¶û±í´ïÊ½");
+						throw new RQException("å¼‚å¸¸çš„å¸ƒå°”è¡¨è¾¾å¼");
 					}
 				}
 				else if(token.getType() == Tokenizer.LPAREN)

@@ -3,8 +3,8 @@ package com.scudata.excel;
 import com.scudata.common.Logger;
 
 /**
- * »ñÈ¡Poi5.0.0»òPoi3.17°æ±¾µÄµ¼³ö¹¤¾ßÊµÏÖÀà
- * ÀàµÄÃû³ÆÒ»ÖÂ£¬µ«¸ù¾İ°æ±¾²»Í¬£¬´æ·ÅÓÚ²»Í¬µÄ°üÖĞ¡£ÎªÁËÇø·Ö¿ªÒıÈë£¬·Ö±ğ·Åµ½ÁËpoi-5.0.0.jarÖĞºÍpoi-3.17.jarÖĞ¡£
+ * è·å–Poi5.0.0æˆ–Poi3.17ç‰ˆæœ¬çš„å¯¼å‡ºå·¥å…·å®ç°ç±»
+ * ç±»çš„åç§°ä¸€è‡´ï¼Œä½†æ ¹æ®ç‰ˆæœ¬ä¸åŒï¼Œå­˜æ”¾äºä¸åŒçš„åŒ…ä¸­ã€‚ä¸ºäº†åŒºåˆ†å¼€å¼•å…¥ï¼Œåˆ†åˆ«æ”¾åˆ°äº†poi-5.0.0.jarä¸­å’Œpoi-3.17.jarä¸­ã€‚
  * */
 public class ExcelVersionCompatibleUtilGetter {
 	private static ExcelVersionCompatibleUtilInterface e = null;

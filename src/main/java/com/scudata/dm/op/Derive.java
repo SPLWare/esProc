@@ -10,18 +10,18 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓÎ±ê»ò¹ÜµÀµÄÑÓ³ÙÅÉÉú×Ö¶Î´¦ÀíÀà
+ * æ¸¸æ ‡æˆ–ç®¡é“çš„å»¶è¿Ÿæ´¾ç”Ÿå­—æ®µå¤„ç†ç±»
  * @author RunQian
  *
  */
 public class Derive extends Operation  {
-	private Expression[] exps; // ÅÉÉú×Ö¶ÎµÄ±í´ïÊ½Êı×é
-	private String[] names; // ÅÉÉú×Ö¶ÎµÄ×Ö¶ÎÃûÊı×é
-	private String opt; // Ñ¡Ïî
+	private Expression[] exps; // æ´¾ç”Ÿå­—æ®µçš„è¡¨è¾¾å¼æ•°ç»„
+	private String[] names; // æ´¾ç”Ÿå­—æ®µçš„å­—æ®µåæ•°ç»„
+	private String opt; // é€‰é¡¹
 	
-	private int oldColCount; // Ô´×Ö¶ÎÊı
-	private DataStruct newDs; // ½á¹û¼¯Êı¾İ½á¹¹
-	//private boolean containNull; // ÊÇ·ñ±£Áônull
+	private int oldColCount; // æºå­—æ®µæ•°
+	private DataStruct newDs; // ç»“æœé›†æ•°æ®ç»“æ„
+	//private boolean containNull; // æ˜¯å¦ä¿ç•™null
 	
 	private int level = 0;
 	
@@ -39,8 +39,8 @@ public class Derive extends Operation  {
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -76,7 +76,7 @@ public class Derive extends Operation  {
 			String []oldNames = ds.getFieldNames();
 			oldColCount = oldNames.length;
 			
-			// ºÏ²¢×Ö¶Î
+			// åˆå¹¶å­—æ®µ
 			int newColCount = oldColCount + colCount;
 			String []totalNames = new String[newColCount];
 			System.arraycopy(oldNames, 0, totalNames, 0, oldColCount);
@@ -88,9 +88,9 @@ public class Derive extends Operation  {
 	}
 	
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

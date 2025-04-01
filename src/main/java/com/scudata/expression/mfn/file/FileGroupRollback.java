@@ -7,7 +7,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.FileGroupFunction;
 
 /**
- * 如果更新组表文件失败，调用此函数恢复数据
+ * 濡傛灉鏇存柊缁勮〃鏂囦欢澶辫触锛岃皟鐢ㄦ鍑芥暟鎭㈠鏁版嵁
  * f.rollback()
  * @author RunQian
  *

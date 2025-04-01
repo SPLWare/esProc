@@ -20,105 +20,105 @@ import com.scudata.chart.Utils;
 import com.scudata.chart.edit.ParamInfo;
 import com.scudata.chart.edit.ParamInfoList;
 /**
- * ÎÄ±¾Í¼Ôª
- * ÎÄ±¾Í¼Ôª²»¹â¿ÉÒÔÎÄ±¾ĞÎÊ½Õ¹ÏÖ£¬»¹¿ÉÒÔÒÔÌõĞÎÂëÕ¹Ê¾
+ * æ–‡æœ¬å›¾å…ƒ
+ * æ–‡æœ¬å›¾å…ƒä¸å…‰å¯ä»¥æ–‡æœ¬å½¢å¼å±•ç°ï¼Œè¿˜å¯ä»¥ä»¥æ¡å½¢ç å±•ç¤º
  * @author Joancy
  *
  */
 public class Text extends DataElement{
-	//µ¥ĞĞÎÄ±¾Ê±£¬¿í¸ßÎŞĞ§£¬¸ù¾İÎÄ×ÖÊµ¼Ê¿í¸ßÀ´µÄ£»
-//	¶àĞĞÎÄ±¾Ê±£¬ ³¬³ö¿í¸ßµÄ½«½Øµô
-//	ÌõÂëÊ±²ÉÓÃ¿í¸ßÀ´ÊÊÅä ÌõÂë³ß´ç
+	//å•è¡Œæ–‡æœ¬æ—¶ï¼Œå®½é«˜æ— æ•ˆï¼Œæ ¹æ®æ–‡å­—å®é™…å®½é«˜æ¥çš„ï¼›
+//	å¤šè¡Œæ–‡æœ¬æ—¶ï¼Œ è¶…å‡ºå®½é«˜çš„å°†æˆªæ‰
+//	æ¡ç æ—¶é‡‡ç”¨å®½é«˜æ¥é€‚é… æ¡ç å°ºå¯¸
 	public Para width=new Para(new Double(0));
-	public Para height=new Para(new Double(0));//ÌõÂëÊ±£¬»á¸ù¾İ¿í¸ßÊÊÅä
+	public Para height=new Para(new Double(0));//æ¡ç æ—¶ï¼Œä¼šæ ¹æ®å®½é«˜é€‚é…
 
 	public Para text = new Para(null);
-	public Para textFont = new Para("Dialog");//"ËÎÌå"
+	public Para textFont = new Para("Dialog");//"å®‹ä½“"
 	public Para textStyle = new Para(new Integer(0));
 	public Para textSize = new Para(new Integer(14));
 	public Para textColor = new Para(Color.black);
 	public Para backColor = new Para(null);
 	
-//	ÊÇ·ñ¶àĞĞÊ½ÎÄ±¾£¬µ¥ĞĞÎÄ±¾Ê±£¬²»²ÉÓÃwidthºÍheight£¬x£¬yÎªÎÄ±¾ÖĞĞÄµã£¬±³¾°Ò²½öÎÄ×ÖÓĞ±³¾°
-//	¶àĞĞÎÄ±¾Ê±£¬x,yÎª×óÉÏ½Ç£¬²ÉÓÃ¿íºÍ¸ß£¬ºöÂÔĞı×ªºÍ×İÏòÊôĞÔ£¬±³¾°Îªw£¬hÏŞ¶¨µÄ¾ØĞÎ
+//	æ˜¯å¦å¤šè¡Œå¼æ–‡æœ¬ï¼Œå•è¡Œæ–‡æœ¬æ—¶ï¼Œä¸é‡‡ç”¨widthå’Œheightï¼Œxï¼Œyä¸ºæ–‡æœ¬ä¸­å¿ƒç‚¹ï¼ŒèƒŒæ™¯ä¹Ÿä»…æ–‡å­—æœ‰èƒŒæ™¯
+//	å¤šè¡Œæ–‡æœ¬æ—¶ï¼Œx,yä¸ºå·¦ä¸Šè§’ï¼Œé‡‡ç”¨å®½å’Œé«˜ï¼Œå¿½ç•¥æ—‹è½¬å’Œçºµå‘å±æ€§ï¼ŒèƒŒæ™¯ä¸ºwï¼Œhé™å®šçš„çŸ©å½¢
 	public boolean isMulti = false;
 
-	// Ğı×ª½Ç¶È
+	// æ—‹è½¬è§’åº¦
 	public int textAngle = 0;
 
-	// ºáÏò¶ÔÆë
+	// æ¨ªå‘å¯¹é½
 	public int hAlign = Consts.HALIGN_CENTER;
 
-	// ×İÏò¶ÔÆë
+	// çºµå‘å¯¹é½
 	public int vAlign = Consts.VALIGN_MIDDLE;
 	
-	// ÌõĞÎÂëÏà¹ØÊôĞÔ
+	// æ¡å½¢ç ç›¸å…³å±æ€§
 	public int barType = Consts.TYPE_NONE;
 
-	// ×Ö·û¼¯ 
+	// å­—ç¬¦é›† 
 	public String charSet = "UTF-8";
 	
-	// ÌõĞÎÂëÊ±ÏÔÊ¾ÎÄ×Ö
+	// æ¡å½¢ç æ—¶æ˜¾ç¤ºæ–‡å­—
 	public boolean dispText = false;
 
-	// Èİ´íÂÊ
+	// å®¹é”™ç‡
 	public String recError = "M";
 	
-	//logoÍ¼ÄÚÈİ
+	//logoå›¾å†…å®¹
 	public Para logoValue = new Para();
 	
-	//logoÕ¼Í¼ĞÎµÄ°Ù·Ö±ÈÀı
+	//logoå å›¾å½¢çš„ç™¾åˆ†æ¯”ä¾‹
 	public int logoSize=15;
 
-	// logo±³¾°¿ò
+	// logoèƒŒæ™¯æ¡†
 	public boolean logoFrame = true;
 	
 	/**
-	 * ÊÇ·ñÎª¶àĞĞÎÄ±¾
-	 * @return Èç¹ûÊÇ¶àĞĞÎÄ±¾·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦ä¸ºå¤šè¡Œæ–‡æœ¬
+	 * @return å¦‚æœæ˜¯å¤šè¡Œæ–‡æœ¬è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isMulti() {
 		return isMulti;
 	}
 
 	/**
-	 * »æÍ¼Ç°×¼±¸¹¤×÷£¬µ±Ç°ºöÂÔ¸Ãº¯Êı
+	 * ç»˜å›¾å‰å‡†å¤‡å·¥ä½œï¼Œå½“å‰å¿½ç•¥è¯¥å‡½æ•°
 	 */
 	public void beforeDraw() {
 	}
 
 	/**
-	 * »æÖÆÖĞ¼ä²ã£¬ºöÂÔ£¬ÎŞÒâÒå
+	 * ç»˜åˆ¶ä¸­é—´å±‚ï¼Œå¿½ç•¥ï¼Œæ— æ„ä¹‰
 	 */
 	public void draw() {
 	}
 
 	/**
-	 * »æÖÆ±³¾°²ã£¬ºöÂÔ
+	 * ç»˜åˆ¶èƒŒæ™¯å±‚ï¼Œå¿½ç•¥
 	 */
 	public void drawBack() {
 	}
 
 	/**
-	 * »ñÈ¡ĞòºÅÎ»ÖÃµÄÎÄ±¾ËùÕ¼¿í¶È
-	 * @param index ĞòºÅ
-	 * @return ÏñËØ¿í¶È
+	 * è·å–åºå·ä½ç½®çš„æ–‡æœ¬æ‰€å å®½åº¦
+	 * @param index åºå·
+	 * @return åƒç´ å®½åº¦
 	 */
 	public int getWidth(int index){
 		return (int)e.getXPixel(width.doubleValue(index));
 	}
 	
 	/**
-	 * »ñÈ¡ĞòºÅÎ»ÖÃµÄÎÄ±¾ËùÕ¼¸ã¶È
-	 * @param index ĞòºÅ
-	 * @return ÏñËØ¸ß¶È
+	 * è·å–åºå·ä½ç½®çš„æ–‡æœ¬æ‰€å æåº¦
+	 * @param index åºå·
+	 * @return åƒç´ é«˜åº¦
 	 */
 	public int getHeight(int index){
 		return (int)e.getYPixel(height.doubleValue(index));
 	}
 	
 	/**
-	 * »æÖÆÇ°¾°²ã
+	 * ç»˜åˆ¶å‰æ™¯å±‚
 	 */
 	public void drawFore() {
 		if (!isVisible()) {
@@ -128,7 +128,7 @@ public class Text extends DataElement{
 	}
 	
 	private void drawTexts() {
-		// Êı¾İ
+		// æ•°æ®
 		int size = pointSize();
 		for (int i = 1; i <= size; i++) {
 			Point2D p = getScreenPoint(i);
@@ -156,7 +156,7 @@ public class Text extends DataElement{
 			Rectangle shape;
 			Graphics g = e.getGraphics();
 			if(!isMulti){
-//				µ¥ĞĞÎÄ±¾Ê±£¬²»²ÉÓÃ¿í¸ß£¬Ö¸¶¨µÄx£¬yÎªÎÄ±¾ÖĞĞÄµã
+//				å•è¡Œæ–‡æœ¬æ—¶ï¼Œä¸é‡‡ç”¨å®½é«˜ï¼ŒæŒ‡å®šçš„xï¼Œyä¸ºæ–‡æœ¬ä¸­å¿ƒç‚¹
 				Utils.drawText(e, aText, px, py, font, c, backC, ts, textAngle, hAlign
 						+ vAlign, true);
 				shape = Utils.getTextSize(aText, g, ts, textAngle, font);
@@ -167,15 +167,15 @@ public class Text extends DataElement{
 				int fheight = fm.getHeight();
 				int w = getWidth(index);
 				if(w<1){
-					w = 60;//Î´ÉèÖÃÊ±È±Ê¡¿í¶È
+					w = 60;//æœªè®¾ç½®æ—¶ç¼ºçœå®½åº¦
 				}
 				ArrayList<String> wrapedString = StringUtils2.wrapString(aText, fm, w, false, -1);
-				//	¶àĞĞÊ±£¬ºöÂÔ´¹Ö±²¼¾Ö£¬Ğı×ªµÈÌØÊâ×´Ì¬
+				//	å¤šè¡Œæ—¶ï¼Œå¿½ç•¥å‚ç›´å¸ƒå±€ï¼Œæ—‹è½¬ç­‰ç‰¹æ®ŠçŠ¶æ€
 				int h = getHeight(index);
 				int lineH = StringUtils2.getTextRowHeight(fm);
 				int lines = wrapedString.size();
 				if(h<1){
-					h = lineH*lines;//Î´ÉèÖÃÊ±È±Ê¡¿í¶È
+					h = lineH*lines;//æœªè®¾ç½®æ—¶ç¼ºçœå®½åº¦
 				}
 				shape = new Rectangle((int)px, (int)py, w, h);
 				if(backC!=null){
@@ -194,7 +194,7 @@ public class Text extends DataElement{
 					yy = (int)py;
 				}
 				for (int i = 0; i < lines; i++) {
-					if (i > 0 && yy + lineH > py + h) { // µÚÒ»ĞĞ×ÜÊÇ»æÖÆ£¬ÆäÓàĞĞÈç¹ûÔÚ¿òÍâ²»»­£¬·ñÔòÕÚ¸Ç±ğµÄ¸ñ×ÓÎÄ×Ö
+					if (i > 0 && yy + lineH > py + h) { // ç¬¬ä¸€è¡Œæ€»æ˜¯ç»˜åˆ¶ï¼Œå…¶ä½™è¡Œå¦‚æœåœ¨æ¡†å¤–ä¸ç”»ï¼Œå¦åˆ™é®ç›–åˆ«çš„æ ¼å­æ–‡å­—
 						break;
 					}
 
@@ -221,17 +221,17 @@ public class Text extends DataElement{
 			posDesc.setBounds((int)px, (int)py, barcodeImg.getWidth(), barcodeImg.getHeight());
 			Point drawPoint = Utils.getRealDrawPoint(posDesc, hAlign + vAlign,true);
 			g.drawImage(barcodeImg, drawPoint.x, drawPoint.y, null);
-//			g.drawImage(barcodeImg, (int)px, (int)py,null);Ôø¾­×¢ÊÍ¹ı×ø±êµ÷Õû£¬Í¼Æ¬»¹ÊÇĞèÒª¸ù¾İ¶ÔÆë·½Ê½²¼ÖÃ
+//			g.drawImage(barcodeImg, (int)px, (int)py,null);æ›¾ç»æ³¨é‡Šè¿‡åæ ‡è°ƒæ•´ï¼Œå›¾ç‰‡è¿˜æ˜¯éœ€è¦æ ¹æ®å¯¹é½æ–¹å¼å¸ƒç½®
 			return posDesc;
 		}
 	}
 
 	/**
-	 * ¼ÆËãÖ¸¶¨×ÖÌåÏÂµÄÎÄ±¾Õ¼ÓÃ¿í¶È
-	 * @param fm ×ÖÌå¶ÈÁ¿
-	 * @param text ÎÄ±¾Öµ
-	 * @param g Í¼ĞÎÉè±¸
-	 * @return Õ¼ÓÃ¿í¶È£¬µ¥Î»ÎªÏñËØ
+	 * è®¡ç®—æŒ‡å®šå­—ä½“ä¸‹çš„æ–‡æœ¬å ç”¨å®½åº¦
+	 * @param fm å­—ä½“åº¦é‡
+	 * @param text æ–‡æœ¬å€¼
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @return å ç”¨å®½åº¦ï¼Œå•ä½ä¸ºåƒç´ 
 	 */
 	public static int stringWidth(FontMetrics fm, String text, Graphics g) {
 		Graphics displayG = g;
@@ -240,8 +240,8 @@ public class Text extends DataElement{
 	}
 	
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -285,42 +285,42 @@ public class Text extends DataElement{
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨ĞòºÅÏÂµÄÏÔÊ¾ÎÄ±¾
-	 * @param index ĞòºÅ
-	 * @return ÎÄ±¾ÄÚÈİ
+	 * è·å–æŒ‡å®šåºå·ä¸‹çš„æ˜¾ç¤ºæ–‡æœ¬
+	 * @param index åºå·
+	 * @return æ–‡æœ¬å†…å®¹
 	 */
 	public String getDispText(int index) {
 		return text.stringValue(index);
 	}
 	
 	protected String getText(int index) {
-//		ÌõÂëÊ±£¬ tipÎªµ±Ç°ÎÄ×Ö
+//		æ¡ç æ—¶ï¼Œ tipä¸ºå½“å‰æ–‡å­—
 		if(barType!=Consts.TYPE_NONE){
 			return text.stringValue(index);
 		}
-//		ÎÄ±¾Ê±£¬´Ë´¦²»·µ»Ø£¬ µ×²ã·µ»Ø×ø±êĞÅÏ¢
+//		æ–‡æœ¬æ—¶ï¼Œæ­¤å¤„ä¸è¿”å›ï¼Œ åº•å±‚è¿”å›åæ ‡ä¿¡æ¯
 		return null;
 	}
 
 	/**
-	 * ÊÇ·ñ°üº¬½¥±äÑÕÉ«
-	 * ¸Ãº¯ÊıÎŞÒâÒå£¬·µ»Øfalse
+	 * æ˜¯å¦åŒ…å«æ¸å˜é¢œè‰²
+	 * è¯¥å‡½æ•°æ— æ„ä¹‰ï¼Œè¿”å›false
 	 */
 	public boolean hasGradientColor() {
 		return false;
 	}
 
 	/**
-	 * ¿ËÂ¡ÎÄ±¾ÄÚÈİ
-	 * @param t ÁíÒ»¸öÎÄ±¾¶ÔÏó
+	 * å…‹éš†æ–‡æœ¬å†…å®¹
+	 * @param t å¦ä¸€ä¸ªæ–‡æœ¬å¯¹è±¡
 	 */
 	public void clone(Text t){
 		super.clone(t);
 	}
 	
 	/**
-	 * Éî¶È¿ËÂ¡Ò»¸öÎÄ±¾Í¼Ôª
-	 * @return ¿ËÂ¡ºóµÄÎÄ±¾Í¼Ôª
+	 * æ·±åº¦å…‹éš†ä¸€ä¸ªæ–‡æœ¬å›¾å…ƒ
+	 * @return å…‹éš†åçš„æ–‡æœ¬å›¾å…ƒ
 	 */
 	public Object deepClone() {
 		Text t = new Text();

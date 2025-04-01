@@ -6,7 +6,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 
 /**
- * ÊôĞÔÁĞ±í£¬ÓÃÓÚ¶ÁÈ¡×Ô¶¨Òåº¯ÊıÎÄ¼ş
+ * å±æ€§åˆ—è¡¨ï¼Œç”¨äºè¯»å–è‡ªå®šä¹‰å‡½æ•°æ–‡ä»¶
  * @author WangXiaoJun
  *
  */
@@ -14,7 +14,7 @@ public class Properties extends ArrayList<Property> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * ¶ÁÈ¡ÊôĞÔÎÄ¼ş
+     * è¯»å–å±æ€§æ–‡ä»¶
      * @param reader
      * @throws IOException
      */
@@ -23,7 +23,7 @@ public class Properties extends ArrayList<Property> {
     }
 
     /**
-     * ¶ÁÈ¡ÊôĞÔÎÄ¼ş
+     * è¯»å–å±æ€§æ–‡ä»¶
      * @param inStream
      * @throws IOException
      */

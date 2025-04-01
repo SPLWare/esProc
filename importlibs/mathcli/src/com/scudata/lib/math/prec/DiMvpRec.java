@@ -9,7 +9,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 
 /**
- * ÈÕÆÚ²îÖµÑÜÉú±äÁ¿¼ÇÂ¼
+ * æ—¥æœŸå·®å€¼è¡ç”Ÿå˜é‡è®°å½•
  * @author bd
  *
  */
@@ -28,11 +28,11 @@ public class DiMvpRec extends VarRec {
 	
 	public DiMvpRec(VarInfo vi) {
 		super(false, false, vi);
-		//ÑÜÉúÁĞ¼ÇÂ¼ÔÚ´¦ÀíÊ±Ó¦¸Ã²¢²»»áÊ¹ÓÃµ½type
+		//è¡ç”Ÿåˆ—è®°å½•åœ¨å¤„ç†æ—¶åº”è¯¥å¹¶ä¸ä¼šä½¿ç”¨åˆ°type
 	}
 	
 	/**
-	 * »ñÈ¡ÈÕÆÚ²îÖµ×Ö¶ÎµÄ¼ÇÂ¼ÁĞ±í£¬ºÍ²úÉúË³ĞòÒ»Ò»¶ÔÓ¦
+	 * è·å–æ—¥æœŸå·®å€¼å­—æ®µçš„è®°å½•åˆ—è¡¨ï¼Œå’Œäº§ç”Ÿé¡ºåºä¸€ä¸€å¯¹åº”
 	 * @return
 	 */
 	public ArrayList<VarRec> getIntervalRecs() {
@@ -40,7 +40,7 @@ public class DiMvpRec extends VarRec {
 	}
 
 	/**
-	 * »ñÈ¡²ÎÓë¼ÆËãÈÕÆÚ²îÖµ¼ÆËãµÄ±»¼õÊıÁĞÃû
+	 * è·å–å‚ä¸è®¡ç®—æ—¥æœŸå·®å€¼è®¡ç®—çš„è¢«å‡æ•°åˆ—å
 	 * @return
 	 */
 	public ArrayList<String> getInterval1() {
@@ -48,7 +48,7 @@ public class DiMvpRec extends VarRec {
 	}
 
 	/**
-	 * »ñÈ¡²ÎÓë¼ÆËãÈÕÆÚ²îÖµ¼ÆËãµÄ¼õÊıÁĞÃû
+	 * è·å–å‚ä¸è®¡ç®—æ—¥æœŸå·®å€¼è®¡ç®—çš„å‡æ•°åˆ—å
 	 * @return
 	 */
 	public ArrayList<String> getInterval2() {
@@ -56,7 +56,7 @@ public class DiMvpRec extends VarRec {
 	}
 	
 	/**
-	 * »ñÈ¡MVP¸÷ÁĞµÄ´¦Àí¼ÇÂ¼£¬ºÍ²úÉúË³ĞòÒ»Ò»¶ÔÓ¦
+	 * è·å–MVPå„åˆ—çš„å¤„ç†è®°å½•ï¼Œå’Œäº§ç”Ÿé¡ºåºä¸€ä¸€å¯¹åº”
 	 * @return
 	 */
 	public ArrayList<VarRec> getMVPRecs() {
@@ -64,7 +64,7 @@ public class DiMvpRec extends VarRec {
 	}
 
 	/**
-	 * »ñÈ¡²ÎÓë¼ÆËãMVP¸÷ÁĞµÄ×Ö¶ÎÃû³Æ
+	 * è·å–å‚ä¸è®¡ç®—MVPå„åˆ—çš„å­—æ®µåç§°
 	 * @return
 	 */
 	public ArrayList<ArrayList<String>> getMVPCns() {
@@ -72,7 +72,7 @@ public class DiMvpRec extends VarRec {
 	}
 	
 	/**
-	 * Ìí¼ÓÒ»¸öÈÕÆÚÁĞÑÜÉú×Ö¶ÎµÄ¼ÇÂ¼
+	 * æ·»åŠ ä¸€ä¸ªæ—¥æœŸåˆ—è¡ç”Ÿå­—æ®µçš„è®°å½•
 	 * @return
 	 */
 	public void addIntervalRec(VarRec vr, String cn1, String cn2) {
@@ -82,7 +82,7 @@ public class DiMvpRec extends VarRec {
 	}
 	
 	/**
-	 * Ìí¼ÓÒ»¸öMVP×Ö¶ÎµÄ¼ÇÂ¼
+	 * æ·»åŠ ä¸€ä¸ªMVPå­—æ®µçš„è®°å½•
 	 * @return
 	 */
 	public void addMVPRec(VarRec vr, ArrayList<String> cns) {
@@ -92,7 +92,7 @@ public class DiMvpRec extends VarRec {
 
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉĞòÁĞ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -144,7 +144,7 @@ public class DiMvpRec extends VarRec {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾İSequence³õÊ¼»¯²ÎÊı
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public void init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -193,7 +193,7 @@ public class DiMvpRec extends VarRec {
 		}
 	}
 
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 2;
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte ver = in.readByte();

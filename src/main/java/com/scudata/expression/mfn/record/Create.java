@@ -5,7 +5,7 @@ import com.scudata.dm.Table;
 import com.scudata.expression.RecordFunction;
 
 /**
- * 使用记录的数据结构产生空序表返回
+ * 浣跨敤璁板綍鐨勬暟鎹粨鏋勪骇鐢熺┖搴忚〃杩斿洖
  * r.create()
  * @author RunQian
  *

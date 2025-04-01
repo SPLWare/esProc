@@ -14,12 +14,12 @@ import com.scudata.dm.ParamList;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ½âÎöº¯Êı²ÎÊı³É¶à²æÊ÷
+ * è§£æå‡½æ•°å‚æ•°æˆå¤šå‰æ ‘
  * @author RunQian
  *
  */
 public final class ParamParser {
-	// ·Ö¸ô·û½Úµã ';' ',' ':'
+	// åˆ†éš”ç¬¦èŠ‚ç‚¹ ';' ',' ':'
 	private static class SymbolParam implements IParam {
 		private char level;
 		private ArrayList<IParam> paramList = new ArrayList<IParam>(3);
@@ -62,9 +62,9 @@ public final class ParamParser {
 		}
 		
 		/**
-		 * ·µ»Ø±í´ïÊ½Êı×é£¬Ö»Ö§³Öµ¥²ãµÄ²ÎÊı
-		 * @param function º¯ÊıÃû£¬ÓÃÓÚÅ×³öÒì³£
-		 * @param canNull ²ÎÊıÊÇ·ñ¿É¿Õ
+		 * è¿”å›è¡¨è¾¾å¼æ•°ç»„ï¼Œåªæ”¯æŒå•å±‚çš„å‚æ•°
+		 * @param function å‡½æ•°åï¼Œç”¨äºæŠ›å‡ºå¼‚å¸¸
+		 * @param canNull å‚æ•°æ˜¯å¦å¯ç©º
 		 * @return
 		 */
 		public Expression[] toArray(String function, boolean canNull) {
@@ -89,10 +89,10 @@ public final class ParamParser {
 		}
 		
 		/**
-		 * ·µ»Ø±í´ïÊ½×Ö·û´®Êı×é£¬Ö»Ö§³Öµ¥²ãµÄ²ÎÊı
-		 * @param function º¯ÊıÃû£¬ÓÃÓÚÅ×³öÒì³£
-		 * @param canNull ²ÎÊıÊÇ·ñ¿É¿Õ
-		 * @return ±í´ïÊ½´®Êı×é
+		 * è¿”å›è¡¨è¾¾å¼å­—ç¬¦ä¸²æ•°ç»„ï¼Œåªæ”¯æŒå•å±‚çš„å‚æ•°
+		 * @param function å‡½æ•°åï¼Œç”¨äºæŠ›å‡ºå¼‚å¸¸
+		 * @param canNull å‚æ•°æ˜¯å¦å¯ç©º
+		 * @return è¡¨è¾¾å¼ä¸²æ•°ç»„
 		 */
 		public String []toStringArray(String function, boolean canNull) {
 			int size = getSubSize();
@@ -116,9 +116,9 @@ public final class ParamParser {
 		}
 		
 		/**
-		 * ·µ»Ø×Ö¶ÎÃûÊı×é
-		 * @param function º¯ÊıÃû£¬ÓÃÓÚÅ×³öÒì³£
-		 * @return ×Ö¶ÎÃûÊı×é
+		 * è¿”å›å­—æ®µåæ•°ç»„
+		 * @param function å‡½æ•°åï¼Œç”¨äºæŠ›å‡ºå¼‚å¸¸
+		 * @return å­—æ®µåæ•°ç»„
 		 */
 		public String []toIdentifierNames(String function) {
 			int size = getSubSize();
@@ -154,7 +154,7 @@ public final class ParamParser {
 		}
 
 		/**
-		 * ·µ»ØÊÇ·ñ°üº¬Ö¸¶¨²ÎÊı
+		 * è¿”å›æ˜¯å¦åŒ…å«æŒ‡å®šå‚æ•°
 		 * @param name String
 		 * @return boolean
 		 */
@@ -188,7 +188,7 @@ public final class ParamParser {
 		}
 		
 		/**
-		 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+		 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 		 */
 		public void reset() {
 			for (int i = 0, size = getSubSize(); i < size; ++i) {
@@ -210,7 +210,7 @@ public final class ParamParser {
 		}
 		
 		/**
-		 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+		 * åˆ¤æ–­æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 		 * @return
 		 */
 		public boolean canCalculateAll() {
@@ -225,7 +225,7 @@ public final class ParamParser {
 		}
 	}
 
-	// Ò¶×Ó½Úµã
+	// å¶å­èŠ‚ç‚¹
 	private static class LeafParam implements IParam {
 		private Expression exp;
 
@@ -258,9 +258,9 @@ public final class ParamParser {
 		}
 		
 		/**
-		 * ·µ»Ø±í´ïÊ½Êı×é£¬Ö»Ö§³Öµ¥²ãµÄ²ÎÊı
-		 * @param function º¯ÊıÃû£¬ÓÃÓÚÅ×³öÒì³£
-		 * @param canNull ²ÎÊıÊÇ·ñ¿É¿Õ
+		 * è¿”å›è¡¨è¾¾å¼æ•°ç»„ï¼Œåªæ”¯æŒå•å±‚çš„å‚æ•°
+		 * @param function å‡½æ•°åï¼Œç”¨äºæŠ›å‡ºå¼‚å¸¸
+		 * @param canNull å‚æ•°æ˜¯å¦å¯ç©º
 		 * @return
 		 */
 		public Expression[] toArray(String function, boolean canNull) {
@@ -268,19 +268,19 @@ public final class ParamParser {
 		}
 		
 		/**
-		 * ·µ»Ø±í´ïÊ½×Ö·û´®Êı×é£¬Ö»Ö§³Öµ¥²ãµÄ²ÎÊı
-		 * @param function º¯ÊıÃû£¬ÓÃÓÚÅ×³öÒì³£
-		 * @param canNull ²ÎÊıÊÇ·ñ¿É¿Õ
-		 * @return ±í´ïÊ½´®Êı×é
+		 * è¿”å›è¡¨è¾¾å¼å­—ç¬¦ä¸²æ•°ç»„ï¼Œåªæ”¯æŒå•å±‚çš„å‚æ•°
+		 * @param function å‡½æ•°åï¼Œç”¨äºæŠ›å‡ºå¼‚å¸¸
+		 * @param canNull å‚æ•°æ˜¯å¦å¯ç©º
+		 * @return è¡¨è¾¾å¼ä¸²æ•°ç»„
 		 */
 		public String []toStringArray(String function, boolean canNull) {
 			return new String[]{exp.toString()};
 		}
 		
 		/**
-		 * ·µ»Ø×Ö¶ÎÃûÊı×é
-		 * @param function º¯ÊıÃû£¬ÓÃÓÚÅ×³öÒì³£
-		 * @return ×Ö¶ÎÃûÊı×é
+		 * è¿”å›å­—æ®µåæ•°ç»„
+		 * @param function å‡½æ•°åï¼Œç”¨äºæŠ›å‡ºå¼‚å¸¸
+		 * @return å­—æ®µåæ•°ç»„
 		 */
 		public String []toIdentifierNames(String function) {
 			return new String[]{exp.getIdentifierName()};
@@ -291,7 +291,7 @@ public final class ParamParser {
 		}
 
 		/**
-		 * ·µ»ØÊÇ·ñ°üº¬Ö¸¶¨²ÎÊı
+		 * è¿”å›æ˜¯å¦åŒ…å«æŒ‡å®šå‚æ•°
 		 * @param name String
 		 * @return boolean
 		 */
@@ -312,7 +312,7 @@ public final class ParamParser {
 		}
 		
 		/**
-		 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+		 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 		 */
 		public void reset() {
 			exp.reset();
@@ -325,7 +325,7 @@ public final class ParamParser {
 		}
 		
 		/**
-		 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+		 * åˆ¤æ–­æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 		 * @return
 		 */
 		public boolean canCalculateAll() {
@@ -334,7 +334,7 @@ public final class ParamParser {
 	}
 
 	/**
-	 * ²úÉúÒ»¸öÒ¶×Ó½Úµã²ÎÊı
+	 * äº§ç”Ÿä¸€ä¸ªå¶å­èŠ‚ç‚¹å‚æ•°
 	 * @param paramStr
 	 * @param cs
 	 * @param ctx
@@ -354,36 +354,36 @@ public final class ParamParser {
 	}
 	
 	/**
-	 * ½âÎö²ã´Î²ÎÊı£¬·µ»Ø¸ù½Úµã£¬²»×öºêÌæ»»
-	 * @param cs Íø¸ñ¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param paramStr ²ÎÊı´®
-	 * @return IParam ²ÎÊı¸ù½Úµã£¬Ã»ÓĞ²ÎÊıÔòÎª¿Õ
+	 * è§£æå±‚æ¬¡å‚æ•°ï¼Œè¿”å›æ ¹èŠ‚ç‚¹ï¼Œä¸åšå®æ›¿æ¢
+	 * @param cs ç½‘æ ¼å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param paramStr å‚æ•°ä¸²
+	 * @return IParam å‚æ•°æ ¹èŠ‚ç‚¹ï¼Œæ²¡æœ‰å‚æ•°åˆ™ä¸ºç©º
 	 */
 	public static IParam parse(String paramStr, ICellSet cs, Context ctx) {
 		return parse(paramStr, cs, ctx, IParam.NONE, false, Expression.DoOptimize);
 	}
 
 	/**
-	 * ½âÎö²ã´Î²ÎÊı£¬·µ»Ø¸ù½Úµã
-	 * @param cs Íø¸ñ¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param paramStr ²ÎÊı´®
-	 * @param doMacro ÊÇ·ñ×öºêÌæ»»£¬true£º×ö£¬false£º²»×ö
-	 * @return IParam ²ÎÊı¸ù½Úµã£¬Ã»ÓĞ²ÎÊıÔòÎª¿Õ
+	 * è§£æå±‚æ¬¡å‚æ•°ï¼Œè¿”å›æ ¹èŠ‚ç‚¹
+	 * @param cs ç½‘æ ¼å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param paramStr å‚æ•°ä¸²
+	 * @param doMacro æ˜¯å¦åšå®æ›¿æ¢ï¼Œtrueï¼šåšï¼Œfalseï¼šä¸åš
+	 * @return IParam å‚æ•°æ ¹èŠ‚ç‚¹ï¼Œæ²¡æœ‰å‚æ•°åˆ™ä¸ºç©º
 	 */
 	public static IParam parse(String paramStr, ICellSet cs, Context ctx, boolean doMacro) {
 		return parse(paramStr, cs, ctx, IParam.NONE, doMacro, Expression.DoOptimize);
 	}
 
 	/**
-	 * ½âÎö²ã´Î²ÎÊı£¬·µ»Ø¸ù½Úµã
-	 * @param paramStr ²ÎÊı´®
-	 * @param cs Íø¸ñ¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param doMacro ÊÇ·ñ×öºêÌæ»»£¬true£º×ö£¬false£º²»×ö
-	 * @param doOpt ÊÇ·ñ×öÓÅ»¯£¬true£º×ö£¬false£º²»×ö
-	 * @return IParam ²ÎÊı¸ù½Úµã£¬Ã»ÓĞ²ÎÊıÔòÎª¿Õ
+	 * è§£æå±‚æ¬¡å‚æ•°ï¼Œè¿”å›æ ¹èŠ‚ç‚¹
+	 * @param paramStr å‚æ•°ä¸²
+	 * @param cs ç½‘æ ¼å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param doMacro æ˜¯å¦åšå®æ›¿æ¢ï¼Œtrueï¼šåšï¼Œfalseï¼šä¸åš
+	 * @param doOpt æ˜¯å¦åšä¼˜åŒ–ï¼Œtrueï¼šåšï¼Œfalseï¼šä¸åš
+	 * @return IParam å‚æ•°æ ¹èŠ‚ç‚¹ï¼Œæ²¡æœ‰å‚æ•°åˆ™ä¸ºç©º
 	 */
 	public static IParam parse(String paramStr, ICellSet cs, Context ctx, boolean doMacro, boolean doOpt) {
 		return parse(paramStr, cs, ctx, IParam.NONE, doMacro, doOpt);
@@ -399,15 +399,15 @@ public final class ParamParser {
 			return null;
 		}
 
-		// Ã°ºÅ·Ö¸ô·ûÏÂÖ»ÄÜÊÇÒ¶×Ó½Úµã
+		// å†’å·åˆ†éš”ç¬¦ä¸‹åªèƒ½æ˜¯å¶å­èŠ‚ç‚¹
 		if (prevLevel == IParam.Colon) {
 			return new LeafParam(new Expression(cs, ctx, paramStr, doOpt, doMacro));
 		}
 
-		// ÕÒµ½²ÎÊı´®ÖĞ´æÔÚµÄ·Ö¸ô·û
+		// æ‰¾åˆ°å‚æ•°ä¸²ä¸­å­˜åœ¨çš„åˆ†éš”ç¬¦
 		char level = getNextLevel(prevLevel);
 		while (!hasSeparator(paramStr, level)) {
-			// Ã°ºÅ·Ö¸ô·ûÏÂÖ»ÄÜÊÇÒ¶×Ó½Úµã
+			// å†’å·åˆ†éš”ç¬¦ä¸‹åªèƒ½æ˜¯å¶å­èŠ‚ç‚¹
 			if (level == IParam.Colon) {
 				return new LeafParam(new Expression(cs, ctx, paramStr, doOpt, doMacro));
 			} else {
@@ -415,7 +415,7 @@ public final class ParamParser {
 			}
 		}
 
-		// Éú³É·Ö¸ô·û½Úµã£¬È»ºóµİ¹é½âÎö×Ó½Úµã
+		// ç”Ÿæˆåˆ†éš”ç¬¦èŠ‚ç‚¹ï¼Œç„¶åé€’å½’è§£æå­èŠ‚ç‚¹
 		SymbolParam param = new SymbolParam(level);
 		ArgumentTokenizer arg = new ArgumentTokenizer(paramStr, level);
 		while (arg.hasMoreElements()) {
@@ -425,7 +425,7 @@ public final class ParamParser {
 		return param;
 	}
 
-	// È¡·Ö¸ô·ûµÄÏÂÒ»²ã·Ö¸ô·û
+	// å–åˆ†éš”ç¬¦çš„ä¸‹ä¸€å±‚åˆ†éš”ç¬¦
 	private static char getNextLevel(char prevLevel) {
 		switch (prevLevel) {
 		case IParam.NONE:
@@ -439,13 +439,13 @@ public final class ParamParser {
 		}
 	}
 
-	// ÅĞ¶Ï²ÎÊı´®ÖĞÊÇ·ñ´æÔÚÖ¸¶¨·Ö¸ô·û
+	// åˆ¤æ–­å‚æ•°ä¸²ä¸­æ˜¯å¦å­˜åœ¨æŒ‡å®šåˆ†éš”ç¬¦
 	private static boolean hasSeparator(String str, char separator) {
 		int len = str.length();
 		int index = 0;
 		
 		while (index < len) {
-			// ĞèÒªÌø¹ıÒıºÅ¡¢À¨ºÅºÍ×ªÒå·û
+			// éœ€è¦è·³è¿‡å¼•å·ã€æ‹¬å·å’Œè½¬ä¹‰ç¬¦
 			char ch = str.charAt(index);
 
 			if (ch == separator) {

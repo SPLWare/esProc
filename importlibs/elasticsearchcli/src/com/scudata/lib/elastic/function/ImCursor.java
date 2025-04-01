@@ -32,8 +32,8 @@ public class ImCursor extends ICursor {
 	private HttpEntity m_entity;
 	private String m_method = "POST";
 	private String m_sOldIndex="";
-	private int m_nTotal;  //¼ÇÂ¼×ÜÊı
-	private int m_current; //µ±Ç°Î»ÖÃ
+	private int m_nTotal;  //è®°å½•æ€»æ•°
+	private int m_current; //å½“å‰ä½ç½®
 	protected Map<String, Integer> m_colMap;
 	
 	public ImCursor(Context c, RestConn conn, Object[] objs) {
@@ -95,7 +95,7 @@ public class ImCursor extends ICursor {
 	
 	private List<Object[]> getData(int n) {
 		List<Object[]> ls = new ArrayList<Object[]>();
-		// 1¡£»º³å>nÊ±
+		// 1ã€‚ç¼“å†²>næ—¶
 		if (n < m_buffer.size()) {
 			Iterator<Object[]> iter = m_buffer.iterator();
 			while (iter.hasNext() && n > 0) {
@@ -103,10 +103,10 @@ public class ImCursor extends ICursor {
 				iter.remove();
 				n--;
 			}
-		} else if (n == m_buffer.size()) { // 2¡£»º³å==nÊ±
+		} else if (n == m_buffer.size()) { // 2ã€‚ç¼“å†²==næ—¶
 			ls.addAll(m_buffer);
 			m_buffer.clear();
-		} else if (n > m_buffer.size()) { // 3¡£»º³å<nÊ±
+		} else if (n > m_buffer.size()) { // 3ã€‚ç¼“å†²<næ—¶
 			if(m_current >= m_nTotal) {
 				if (m_buffer.size()>0){
 					ls.addAll(m_buffer);
@@ -137,7 +137,7 @@ public class ImCursor extends ICursor {
 						break;
 					}
 				}
-				// Êı¾İ²¹³äµ½lsÖĞ.
+				// æ•°æ®è¡¥å……åˆ°lsä¸­.
 				iter = m_buffer.iterator();
 				while (iter.hasNext() && n > 0) {
 					ls.add(iter.next());
@@ -162,7 +162,7 @@ public class ImCursor extends ICursor {
 	private long skipData(long n) {
 		long org = n;
 		if (m_buffer == null || n == 0) return 0;
-		// 1¡£»º³å>nÊ±
+		// 1ã€‚ç¼“å†²>næ—¶
 		if (n < m_buffer.size()) {
 			Iterator<Object[]> iter = m_buffer.iterator();
 			while (iter.hasNext() && n > 0) {
@@ -170,10 +170,10 @@ public class ImCursor extends ICursor {
 				iter.remove();
 				n--;
 			}
-		} else if (n == m_buffer.size()) { // 2¡£»º³å==nÊ±
+		} else if (n == m_buffer.size()) { // 2ã€‚ç¼“å†²==næ—¶
 			n = 0;
 			m_buffer.clear();
-		} else if (n > m_buffer.size()) { // 3¡£»º³å<nÊ±
+		} else if (n > m_buffer.size()) { // 3ã€‚ç¼“å†²<næ—¶
 			if(m_current >= m_nTotal) return 0;
 			Iterator<Object[]> iter = null;
 			n = n - m_buffer.size();
@@ -195,7 +195,7 @@ public class ImCursor extends ICursor {
 						break;
 					}
 				}
-				// Êı¾İ²¹³äµ½lsÖĞ.
+				// æ•°æ®è¡¥å……åˆ°lsä¸­.
 				iter = m_buffer.iterator();
 				while (iter.hasNext() && n > 0) {
 					iter.next();
@@ -210,7 +210,7 @@ public class ImCursor extends ICursor {
 		return org - n;
 	}
 	
-	//½âÎöheaderĞÅÏ¢
+	//è§£æheaderä¿¡æ¯
 	private void parseHeaderInfo(String s, Map<String, Object> map) {
 		try {
 			JSONObject result = JSONObject.fromString(s); // Convert String to JSON Object
@@ -239,7 +239,7 @@ public class ImCursor extends ICursor {
 			int nRet = tokenList.length();
 			map.put("ret", nRet);
 		    for(int i=0;i<tokenList.length();i++){
-		      JSONObject jobs = tokenList.getJSONObject(i);  // ±éÀú jsonarray Êı×é£¬°ÑÃ¿Ò»¸ö¶ÔÏó×ª³É json ¶ÔÏó
+		      JSONObject jobs = tokenList.getJSONObject(i);  // éå† jsonarray æ•°ç»„ï¼ŒæŠŠæ¯ä¸€ä¸ªå¯¹è±¡è½¬æˆ json å¯¹è±¡
 		   
 		      doParseLine(jobs, m_buffer, i);
 		    }
@@ -261,7 +261,7 @@ public class ImCursor extends ICursor {
 				map.put("total", nRet);
 				map.put("ret", nRet);
 			    for(int i=0;i<tokenList.length();i++){
-			      JSONObject jobs = tokenList.getJSONObject(i);  // ±éÀú jsonarray Êı×é£¬°ÑÃ¿Ò»¸ö¶ÔÏó×ª³É json ¶ÔÏó
+			      JSONObject jobs = tokenList.getJSONObject(i);  // éå† jsonarray æ•°ç»„ï¼ŒæŠŠæ¯ä¸€ä¸ªå¯¹è±¡è½¬æˆ json å¯¹è±¡
 			      doParseLine(jobs, m_buffer, n);
 			      n++;
 			    }
@@ -298,7 +298,7 @@ public class ImCursor extends ICursor {
 			JSONArray tokenList = ret.getJSONArray("hits");
 			nRet = tokenList.length();				
 			for(int i=0;i<tokenList.length();i++){
-			    JSONObject jobs = tokenList.getJSONObject(i);  // ±éÀú jsonarray Êı×é
+			    JSONObject jobs = tokenList.getJSONObject(i);  // éå† jsonarray æ•°ç»„
 			    doParseLine(jobs, m_buffer, 1);
 			}	
 		} catch (Exception e) {
@@ -314,7 +314,7 @@ public class ImCursor extends ICursor {
 			JSONArray tokenList = ret.getJSONArray("buckets");
 			nRet = tokenList.length();				
 			for(int i=0;i<tokenList.length();i++){
-			    JSONObject jobs = tokenList.getJSONObject(i);  // ±éÀú jsonarray Êı×é
+			    JSONObject jobs = tokenList.getJSONObject(i);  // éå† jsonarray æ•°ç»„
 			    doParseLine(jobs, m_buffer, 1);
 			}	
 		} catch (Exception e) {
@@ -354,7 +354,7 @@ public class ImCursor extends ICursor {
 	protected void doParseJoson(JSONObject job, List<Object[]> ls, Boolean bTitle){
 		Iterator iterator = job.keys();
 		Object[] objs = null;
-		// Ã¿¸ö¶ÔÏóÖĞµÄÊôĞÔÖµ
+		// æ¯ä¸ªå¯¹è±¡ä¸­çš„å±æ€§å€¼
 		int n = 0;
 		if (bTitle) {
 			objs = new Object[job.length()];

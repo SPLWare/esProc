@@ -8,13 +8,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¾ØÕóÇóĞĞÁĞÊ½
+ * çŸ©é˜µæ±‚è¡Œåˆ—å¼
  * @author bd
  *
  */
 public class Det extends Function{
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -35,7 +35,7 @@ public class Det extends Function{
 		
 		Matrix A = new Matrix((Sequence) result1);
 		if (A.getCols() == 0 || A.getRows() == 0) {
-			// ¿Õ¾ØÕó£¬ĞĞÁĞÊ½·µ»Ø1
+			// ç©ºçŸ©é˜µï¼Œè¡Œåˆ—å¼è¿”å›1
 			return 1;
 		}
 		

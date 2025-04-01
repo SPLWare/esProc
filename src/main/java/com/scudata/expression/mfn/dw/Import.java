@@ -6,8 +6,8 @@ import com.scudata.dw.IPhyTable;
 import com.scudata.expression.PhyTableFunction;
 
 /**
- * ¶ÁÈë×é±íÊı¾İ
- * T.import(x:C,¡­;w;k:n)
+ * è¯»å…¥ç»„è¡¨æ•°æ®
+ * T.import(x:C,â€¦;w;k:n)
  * @author RunQian
  *
  */

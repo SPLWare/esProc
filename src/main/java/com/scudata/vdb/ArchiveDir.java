@@ -7,17 +7,17 @@ import com.scudata.dm.ObjectReader;
 import com.scudata.dm.ObjectWriter;
 
 /**
- * ¹éµµÄ¿Â¼
+ * å½’æ¡£ç›®å½•
  * @author RunQian
  *
  */
 class ArchiveDir extends IDir {
-	private int header = -1; // Ê×¿éºÅ
-	private int fileIndex = -1; // µ±Ç°½Ú¶ÔÓ¦µÄ±íµ¥ÔÚ¸¸Ä¿Â¼±íµ¥ÖĞµÄË÷Òı
-	private long commitTime; // Ìá½»Ê±¼ä
+	private int header = -1; // é¦–å—å·
+	private int fileIndex = -1; // å½“å‰èŠ‚å¯¹åº”çš„è¡¨å•åœ¨çˆ¶ç›®å½•è¡¨å•ä¸­çš„ç´¢å¼•
+	private long commitTime; // æäº¤æ—¶é—´
 	
-	private ArchiveSection parent; // ¸¸½Ú
-	private ArchiveSection section; // Â·¾¶¶ÔÓ¦µÄ½Ú
+	private ArchiveSection parent; // çˆ¶èŠ‚
+	private ArchiveSection section; // è·¯å¾„å¯¹åº”çš„èŠ‚
 	
 	public ArchiveDir(ArchiveDir src) {
 		value = src.value;

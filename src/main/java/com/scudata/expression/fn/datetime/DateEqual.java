@@ -12,7 +12,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * deq(datetimeExp1,datetimeExp2) ½«dateExp1ºÍdateExp2Á½¸öÈÕÆÚ²ÎÊı±È½Ï£¬ÅĞ¶ÏÊÇ·ñÏàÍ¬
+ * deq(datetimeExp1,datetimeExp2) å°†dateExp1å’ŒdateExp2ä¸¤ä¸ªæ—¥æœŸå‚æ•°æ¯”è¾ƒï¼Œåˆ¤æ–­æ˜¯å¦ç›¸åŒ
  * @author runqian
  *
  */
@@ -21,7 +21,7 @@ public class DateEqual extends Function {
 	private Expression exp2;
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

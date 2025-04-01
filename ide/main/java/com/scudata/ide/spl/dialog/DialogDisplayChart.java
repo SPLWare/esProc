@@ -68,7 +68,7 @@ import com.scudata.ide.spl.resources.ChartMessage;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ½«»­²¼¶ÔÏó»òÕßÒÑ¾­»­ºÃµÄÍ¼ÏñĞÅÏ¢ ÏÔÊ¾ÎªÍ³¼ÆÍ¼
+ * å°†ç”»å¸ƒå¯¹è±¡æˆ–è€…å·²ç»ç”»å¥½çš„å›¾åƒä¿¡æ¯ æ˜¾ç¤ºä¸ºç»Ÿè®¡å›¾
  * 
  * @author Joancy
  *
@@ -88,18 +88,18 @@ public class DialogDisplayChart extends JDialog {
 	private Component imageDisplay;
 	private JButton close, saveAs, copy;
 
-	private JLabel labelGraphType = new JLabel("Í¼ÀàĞÍ");
+	private JLabel labelGraphType = new JLabel("å›¾ç±»å‹");
 	private JComboBoxGraph cbGraphType = new JComboBoxGraph();
-	private JLabel labelCategory = new JLabel("·ÖÀà×Ö¶Î");
+	private JLabel labelCategory = new JLabel("åˆ†ç±»å­—æ®µ");
 	private JComboBox<String> cbCategory = new JComboBox<String>();
-	private JLabel labelSeries = new JLabel("ÏµÁĞ×Ö¶Î");
+	private JLabel labelSeries = new JLabel("ç³»åˆ—å­—æ®µ");
 	private JComboBox<String> cbSeries = new JComboBox<String>();
-	private JLabel labelValue = new JLabel("ÊıÖµ×Ö¶Î");
+	private JLabel labelValue = new JLabel("æ•°å€¼å­—æ®µ");
 	private JComboBox<String> cbValue = new JComboBox<String>();
-	private JLabel labelAccumulate = new JLabel("¾ÛºÏº¯Êı");
+	private JLabel labelAccumulate = new JLabel("èšåˆå‡½æ•°");
 	private JComboBoxEx cbAccumulate = new JComboBoxEx();
 
-	private JButton settings = new JButton("ÉèÖÃ");
+	private JButton settings = new JButton("è®¾ç½®");
 	private Table data = null;
 	int sliderScale = 1;
 	private HashMap<String, Object> properties = new HashMap<String, Object>();
@@ -107,24 +107,24 @@ public class DialogDisplayChart extends JDialog {
 	MessageManager splMM = IdeSplMessage.get();
 	MessageManager mm = ChartMessage.get();
 
-	/************ ¶¯»­ ****************/
-	private JLabel labelFrameCount = new JLabel("¶¯»­Ö¡Êı");
+	/************ åŠ¨ç”» ****************/
+	private JLabel labelFrameCount = new JLabel("åŠ¨ç”»å¸§æ•°");
 	int defCount = 24;
 	private JSpinner spFrameCount = new JSpinner(new SpinnerNumberModel(
 			defCount, 2, 10240, 1));
-	private JLabel labelFrameDelay = new JLabel("Ö¡¼äÑÓÊ±(ºÁÃë)");
+	private JLabel labelFrameDelay = new JLabel("å¸§é—´å»¶æ—¶(æ¯«ç§’)");
 	private JSpinner spFrameDelay = new JSpinner(new SpinnerNumberModel(100,
 			10, 10000, 10));
-	private JCheckBox cbLoop = new JCheckBox("Ñ­»·");
+	private JCheckBox cbLoop = new JCheckBox("å¾ªç¯");
 	JSlider slider = new JSlider(JSlider.HORIZONTAL, 1, defCount, 1);
-	private JButton play = new JButton("²¥·Å");
+	private JButton play = new JButton("æ’­æ”¾");
 	boolean stop = false;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param imageBytes
-	 *            Í¼ÏñÊı¾İ
+	 *            å›¾åƒæ•°æ®
 	 */
 	public DialogDisplayChart(byte[] imageBytes) {
 		super(GV.appFrame, "Chart Display", true);
@@ -167,10 +167,10 @@ public class DialogDisplayChart extends JDialog {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param data
-	 *            Êı¾İ±í
+	 *            æ•°æ®è¡¨
 	 */
 	public DialogDisplayChart(Table data) {
 		super(GV.appFrame, "Chart Display", true);
@@ -199,13 +199,13 @@ public class DialogDisplayChart extends JDialog {
 	private void resetLangText() {
 		String svgTip = "";
 		if (!copy.isEnabled()) {
-			//SVGÒÑ¾­¼ÓÉÏÁË¿í¸ßÊôĞÔ
+			//SVGå·²ç»åŠ ä¸Šäº†å®½é«˜å±æ€§
 			svgTip = "";//splMM.getMessage("dialogdisplaychart.svgtip");
 		}
-		setTitle(splMM.getMessage("dialogdisplaychart.title", svgTip)); // Í¼ĞÎÔ¤ÀÀ
-		close.setText(splMM.getMessage("button.close")); // ¹Ø±Õ
-		saveAs.setText(splMM.getMessage("button.saveas")); // Áí´æÎª
-		copy.setText(splMM.getMessage("button.copy")); // ¸´ÖÆ
+		setTitle(splMM.getMessage("dialogdisplaychart.title", svgTip)); // å›¾å½¢é¢„è§ˆ
+		close.setText(splMM.getMessage("button.close")); // å…³é—­
+		saveAs.setText(splMM.getMessage("button.saveas")); // å¦å­˜ä¸º
+		copy.setText(splMM.getMessage("button.copy")); // å¤åˆ¶
 		labelGraphType
 				.setText(splMM.getMessage("dialogdisplaychart.graphType"));
 		labelCategory.setText(splMM.getMessage("dialogdisplaychart.category"));
@@ -224,9 +224,9 @@ public class DialogDisplayChart extends JDialog {
 	}
 
 	/**
-	 * »ñÈ¡Í¼ĞÎÃû³Æ
+	 * è·å–å›¾å½¢åç§°
 	 * 
-	 * @return Ãû³Æ
+	 * @return åç§°
 	 */
 	public String getGraphName() {
 		byte graphType = cbGraphType.getValue();
@@ -254,19 +254,19 @@ public class DialogDisplayChart extends JDialog {
 	}
 
 	/**
-	 * »ñÈ¡ÊôĞÔÓ³Éä±í
+	 * è·å–å±æ€§æ˜ å°„è¡¨
 	 * 
-	 * @return ÊôĞÔÖµÓ³Éä±í
+	 * @return å±æ€§å€¼æ˜ å°„è¡¨
 	 */
 	public HashMap<String, Object> getProperties() {
 		return properties;
 	}
 
 	/**
-	 * ÉèÖÃÊôĞÔÖµÓ³Éä±í
+	 * è®¾ç½®å±æ€§å€¼æ˜ å°„è¡¨
 	 * 
 	 * @param properties
-	 *            ÊôĞÔÖµ
+	 *            å±æ€§å€¼
 	 */
 	public void setProperties(HashMap<String, Object> properties) {
 		this.properties = properties;
@@ -690,7 +690,7 @@ public class DialogDisplayChart extends JDialog {
 	}
 
 	private String getAccumulateExp() {
-		// ¼ì²éµ±Ç°µÄ·ÖÀà£¬ÏµÁĞ×Ö¶ÎµÄÖµÊÇ·ñÎ¨Ò»£¬²»Î¨Ò»µÄ»°£¬ĞèÒª¾ÛºÏÍ³¼Æ
+		// æ£€æŸ¥å½“å‰çš„åˆ†ç±»ï¼Œç³»åˆ—å­—æ®µçš„å€¼æ˜¯å¦å”¯ä¸€ï¼Œä¸å”¯ä¸€çš„è¯ï¼Œéœ€è¦èšåˆç»Ÿè®¡
 		String sCategory = (String) cbCategory.getSelectedItem();
 		if (sCategory == null) {
 			return null;
@@ -771,21 +771,21 @@ public class DialogDisplayChart extends JDialog {
 			this.setSize(w, h);
 		} else {
 			this.setSize(800, 600);
-			copy.setEnabled(false);// svgÍ¼Æ¬²»Ö§³Ö¸´ÖÆ
+			copy.setEnabled(false);// svgå›¾ç‰‡ä¸æ”¯æŒå¤åˆ¶
 		}
 
 		resetLangText();
 		GM.setDialogDefaultButton(this, close, close);
-		if (data != null) {// Ö±½ÓÓÃÊı¾İ±í»æÍ¼Ê±£¬Íù×ó±ß¿Õ³öÊôĞÔÉèÖÃ´°¿Ú
+		if (data != null) {// ç›´æ¥ç”¨æ•°æ®è¡¨ç»˜å›¾æ—¶ï¼Œå¾€å·¦è¾¹ç©ºå‡ºå±æ€§è®¾ç½®çª—å£
 			setLocation(getX() - 200, getY());
 		}
 	}
 
 	/**
-	 * ½«Í¼ÏñÊı¾İ¸´ÖÆµ½ÏµÍ³¼ôÌù°å
+	 * å°†å›¾åƒæ•°æ®å¤åˆ¶åˆ°ç³»ç»Ÿå‰ªè´´æ¿
 	 * 
 	 * @param image
-	 *            Í¼Ïñ
+	 *            å›¾åƒ
 	 */
 	public static void setClipboardImage(final Image image) {
 		Transferable trans = new Transferable() {

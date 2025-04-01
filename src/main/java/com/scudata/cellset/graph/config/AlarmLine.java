@@ -7,69 +7,69 @@ import com.scudata.common.*;
 import java.awt.*;
 
 /**
- * Í³¼ÆÍ¼ÖĞµÄ¾¯½äÏßÊôĞÔÀà
+ * ç»Ÿè®¡å›¾ä¸­çš„è­¦æˆ’çº¿å±æ€§ç±»
  */
 public class AlarmLine implements ICloneable, Externalizable, IRecord {
 	private final static long serialVersionUID = 82857881736578L;
 	private byte version = (byte) 3;
-	// °æ±¾3£¬Ôö¼Ó ±êÊ¶¾¯½äÖµ
+	// ç‰ˆæœ¬3ï¼Œå¢åŠ  æ ‡è¯†è­¦æˆ’å€¼
 
-	/** ¡¡¾¯½äÏßÃû³Æ¡¡ */
+	/** ã€€è­¦æˆ’çº¿åç§°ã€€ */
 	private String name;
-	/** ¡¡¾¯½äÖµ¡¡ */
+	/** ã€€è­¦æˆ’å€¼ã€€ */
 	private String alarmValue;
-	/** ¡¡¾¯½äÏßÀàĞÍ¡¡ */
+	/** ã€€è­¦æˆ’çº¿ç±»å‹ã€€ */
 	private byte lineType = IGraphProperty.LINE_SOLID;
-	/** ¾¯½äÏßÑÕÉ« */
+	/** è­¦æˆ’çº¿é¢œè‰² */
 	private int color = Color.red.getRGB();
 
-	private byte lineThick = 1; /* ÕÛÏßÍ¼µÄ´ÖÏ¸¶È */
-	private boolean isDrawAlarmValue = true; /* ±êÊ¶¾¯½äÖµ */
+	private byte lineThick = 1; /* æŠ˜çº¿å›¾çš„ç²—ç»†åº¦ */
+	private boolean isDrawAlarmValue = true; /* æ ‡è¯†è­¦æˆ’å€¼ */
 
 	/**
-	 * ÉèÖÃÃû³Æ
+	 * è®¾ç½®åç§°
 	 * 
 	 * @param name
-	 *            Ãû³Æ
+	 *            åç§°
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * ÉèÖÃ¾¯½äÖµ
+	 * è®¾ç½®è­¦æˆ’å€¼
 	 * 
 	 * @param value
-	 *            ¾¯½äÖµ
+	 *            è­¦æˆ’å€¼
 	 */
 	public void setAlarmValue(String value) {
 		this.alarmValue = value;
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ»æÖÆ¾¯½äÖµ
+	 * è®¾ç½®æ˜¯å¦ç»˜åˆ¶è­¦æˆ’å€¼
 	 * 
 	 * @param isDrawAlarmValue
-	 *            ÊÇ·ñ»æÖÆ
+	 *            æ˜¯å¦ç»˜åˆ¶
 	 */
 	public void setDrawAlarmValue(boolean isDrawAlarmValue) {
 		this.isDrawAlarmValue = isDrawAlarmValue;
 	}
 
 	/**
-	 * È¡ÊÇ·ñ»æÖÆ¾¯½äÖµ
+	 * å–æ˜¯å¦ç»˜åˆ¶è­¦æˆ’å€¼
 	 * 
-	 * @return »æÖÆ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * @return ç»˜åˆ¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isDrawAlarmValue() {
 		return isDrawAlarmValue;
 	}
 
 	/**
-	 * ÉèÖÃ¾¯½äÏßÀàĞÍ
+	 * è®¾ç½®è­¦æˆ’çº¿ç±»å‹
 	 * 
 	 * @param type
-	 *            ¾¯½äÏßÀàĞÍ£¬È¡ÖµÎªGraphProperty.LINE_NONE, LINE_SOLID, LINE_LONG_DASH,
+	 *            è­¦æˆ’çº¿ç±»å‹ï¼Œå–å€¼ä¸ºGraphProperty.LINE_NONE, LINE_SOLID, LINE_LONG_DASH,
 	 *            LINE_SHORT_DASH, LINE_DOT_DASH, LINE_2DOT_DASH
 	 */
 	public void setLineType(byte type) {
@@ -77,37 +77,37 @@ public class AlarmLine implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃÑÕÉ«
+	 * è®¾ç½®é¢œè‰²
 	 * 
 	 * @param color
-	 *            ÑÕÉ«Öµ
+	 *            é¢œè‰²å€¼
 	 */
 	public void setColor(int color) {
 		this.color = color;
 	}
 
 	/**
-	 * È¡Ãû³Æ
+	 * å–åç§°
 	 * 
-	 * @return String¡¡Ãû³Æ
+	 * @return Stringã€€åç§°
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * È¡¾¯½äÖµ
+	 * å–è­¦æˆ’å€¼
 	 * 
-	 * @return String¡¡¾¯½äÖµ
+	 * @return Stringã€€è­¦æˆ’å€¼
 	 */
 	public String getAlarmValue() {
 		return alarmValue;
 	}
 
 	/**
-	 * È¡¾¯½äÏßÀàĞÍ
+	 * å–è­¦æˆ’çº¿ç±»å‹
 	 * 
-	 * @return byte¡¡¾¯½äÏßÀàĞÍ£¬ÖµÎªGraphProperty.LINE_NONE, LINE_SOLID, LINE_LONG_DASH,
+	 * @return byteã€€è­¦æˆ’çº¿ç±»å‹ï¼Œå€¼ä¸ºGraphProperty.LINE_NONE, LINE_SOLID, LINE_LONG_DASH,
 	 *         LINE_SHORT_DASH, LINE_DOT_DASH, LINE_2DOT_DASH
 	 */
 	public byte getLineType() {
@@ -115,28 +115,28 @@ public class AlarmLine implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * È¡ÑÕÉ«
+	 * å–é¢œè‰²
 	 * 
-	 * @return int¡¡ÑÕÉ«
+	 * @return intã€€é¢œè‰²
 	 */
 	public int getColor() {
 		return color;
 	}
 
 	/**
-	 * ¾¯½äÏß´ÖÏ¸¶È
+	 * è­¦æˆ’çº¿ç²—ç»†åº¦
 	 * 
-	 * @return byte ´Ö¶È
+	 * @return byte ç²—åº¦
 	 */
 	public byte getLineThick() {
 		return lineThick;
 	}
 
 	/**
-	 * ÉèÖÃÏßµÄ´Ö¶È
+	 * è®¾ç½®çº¿çš„ç²—åº¦
 	 * 
 	 * @param thick
-	 *            ´Ö¶ÈÖµ
+	 *            ç²—åº¦å€¼
 	 */
 	public void setLineThick(byte thick) {
 		if (thick < 0 || thick > 10) {
@@ -146,9 +146,9 @@ public class AlarmLine implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * Éî¶È¿ËÂ¡
+	 * æ·±åº¦å…‹éš†
 	 * 
-	 * @return Object ¿ËÂ¡µÄ¾¯½äÏß¶ÔÏó
+	 * @return Object å…‹éš†çš„è­¦æˆ’çº¿å¯¹è±¡
 	 */
 	public Object deepClone() {
 		AlarmLine line = new AlarmLine();
@@ -162,7 +162,7 @@ public class AlarmLine implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖĞòÁĞ»¯½Ó¿Ú
+	 * å®ç°åºåˆ—åŒ–æ¥å£
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		out.writeByte(version);
@@ -175,7 +175,7 @@ public class AlarmLine implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖĞòÁĞ»¯½Ó¿Ú
+	 * å®ç°åºåˆ—åŒ–æ¥å£
 	 */
 	public void readExternal(ObjectInput in) throws IOException,
 			ClassNotFoundException {
@@ -193,7 +193,7 @@ public class AlarmLine implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public byte[] serialize() throws IOException {
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -207,7 +207,7 @@ public class AlarmLine implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public void fillRecord(byte[] buf) throws IOException,
 			ClassNotFoundException {

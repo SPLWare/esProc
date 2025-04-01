@@ -21,7 +21,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.JSONUtil;
 /**
- * Ô¶³ÌÎÄ¼ş
+ * è¿œç¨‹æ–‡ä»¶
  * 
  * @author Joancy
  *
@@ -31,8 +31,8 @@ public class WebHdfsFile extends Function implements IFile {
 	private String params = "";
 	private String charSet = "UTF-8";
 	/**
-	 * Ô¶³ÌÎÄ¼şÊäÈëÁ÷(ÄÚ²¿Àà)£¬³¤Á¬½Ó
-	 * ÔİÖ»ÊµÏÖ3¸öread·½·¨£¬ÆäËü·½·¨Å×Î´ÊµÏÖÒì³££¬¾ßÌåÊµÏÖ¿É²Î¼ûBufferInputStream
+	 * è¿œç¨‹æ–‡ä»¶è¾“å…¥æµ(å†…éƒ¨ç±»)ï¼Œé•¿è¿æ¥
+	 * æš‚åªå®ç°3ä¸ªreadæ–¹æ³•ï¼Œå…¶å®ƒæ–¹æ³•æŠ›æœªå®ç°å¼‚å¸¸ï¼Œå…·ä½“å®ç°å¯å‚è§BufferInputStream
 	 * @author Joancy
 	 *
 	 */
@@ -51,7 +51,7 @@ public class WebHdfsFile extends Function implements IFile {
 		}
 		
 		/**
-		 * ÊµÏÖtoString½Ó¿Ú
+		 * å®ç°toStringæ¥å£
 		 */
 		public String toString() {
 			if (filepath == null) {
@@ -76,17 +76,17 @@ public class WebHdfsFile extends Function implements IFile {
 				throw new RQException("Read WebHdfs file Error: " + url + " exception.");
 			}
 			return buf;
-		} // Ô¶³Ì´ò¿ª¡¢¶ÁÈ¡È»ºó¹Ø±Õ
+		} // è¿œç¨‹æ‰“å¼€ã€è¯»å–ç„¶åå…³é—­
 
 		/**
-		 * ¹Ø±Õscoket
+		 * å…³é—­scoket
 		 */
 		public void close() {
 
 		}
 
 		/**
-		 * ÊµÏÖread·½·¨
+		 * å®ç°readæ–¹æ³•
 		 *  
 		 * @return int 
 		 * @throws IOException 
@@ -118,7 +118,7 @@ public class WebHdfsFile extends Function implements IFile {
 				return bufLen;
 			} else {
 				System.arraycopy(buf, pos, b, off, retCount);
-				if (count == bufSize) { // Ğ¡ÓÚ±íÊ¾ÎÄ¼şÒÑ¾­½áÊø
+				if (count == bufSize) { // å°äºè¡¨ç¤ºæ–‡ä»¶å·²ç»ç»“æŸ
 					remoteRead();
 					if (count == 0) {
 						return retCount == 0 ? -1 : retCount;
@@ -230,7 +230,7 @@ public class WebHdfsFile extends Function implements IFile {
 		} 
 		
 		/**
-		 * µÈ´ıËø£¬Ö±µ½Ëø³É¹¦
+		 * ç­‰å¾…é”ï¼Œç›´åˆ°é”æˆåŠŸ
 		 */
 		public boolean lock() throws IOException {
 			return true;
@@ -282,7 +282,7 @@ public class WebHdfsFile extends Function implements IFile {
 	}
 
 	/**
-	 * ´Ó·şÎñÆ÷É¾³ıµ±Ç°ÎÄ¼ş
+	 * ä»æœåŠ¡å™¨åˆ é™¤å½“å‰æ–‡ä»¶
 	 * 
 	 * @return boolean
 	 */
@@ -302,7 +302,7 @@ public class WebHdfsFile extends Function implements IFile {
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ¼şÊäÈëÁ÷
+	 * è·å–æ–‡ä»¶è¾“å…¥æµ
 	 * 
 	 * @return InputStream
 	 */
@@ -316,10 +316,10 @@ public class WebHdfsFile extends Function implements IFile {
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ¼şÊä³öÁ÷
+	 * è·å–æ–‡ä»¶è¾“å‡ºæµ
 	 * 
 	 * @param isAppend
-	 *            boolean ÊÇ·ñ×·¼Ó
+	 *            boolean æ˜¯å¦è¿½åŠ 
 	 * @return OutputStream
 	 */
 	public OutputStream getOutputStream(boolean isAppend) {
@@ -327,7 +327,7 @@ public class WebHdfsFile extends Function implements IFile {
 	}
 
 	/**
-	 * ×î½üĞŞ¸ÄÊ±¼ä
+	 * æœ€è¿‘ä¿®æ”¹æ—¶é—´
 	 * 
 	 * @return long
 	 */
@@ -351,8 +351,8 @@ public class WebHdfsFile extends Function implements IFile {
 	}
 
 	/**
-	 * ÒÆ¶¯ÎÄ¼ş
-	 * Î´ÊµÏÖ
+	 * ç§»åŠ¨æ–‡ä»¶
+	 * æœªå®ç°
 	 * 
 	 * @param path
 	 *            String
@@ -365,8 +365,8 @@ public class WebHdfsFile extends Function implements IFile {
 	}
 
 	/**
-	 * ÉèÖÃÎÄ¼şÃû³Æ
-	 * Î´ÊµÏÖ
+	 * è®¾ç½®æ–‡ä»¶åç§°
+	 * æœªå®ç°
 	 * @param fileName
 	 *            String
 	 */

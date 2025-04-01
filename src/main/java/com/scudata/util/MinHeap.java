@@ -5,29 +5,29 @@ import java.util.Comparator;
 import com.scudata.dm.comparator.BaseComparator;
 
 /**
- * ÓÃÓÚÈ¡×îĞ¡µÄn¸öÖµµÄ¶Ñ
+ * ç”¨äºå–æœ€å°çš„nä¸ªå€¼çš„å †
  * @author WangXiaoJun
  *
  */
 public class MinHeap {
-	// ´ó¸ù¶Ñ(¶Ñ¶¥ÔªËØ×î´ó)£¬ÓĞĞÂÔªËØ½øÀ´Ê±ÏÈ¸ú¶Ñ¶¥½øĞĞ±È½Ï£¬Èç¹û±È¶Ñ¶¥´óÔò¶ªÆú
-	private Object []heap; // ÓÃÓÚ±£´æ¶ş²æÊ÷¸÷¸ö½ÚµãµÄÖµ£¬Êı×é0µÄÎ»ÖÃ¿ÕÏĞ
-	private int maxSize; // ×î¶à±£ÁôµÄÖµµÄÊıÁ¿
-	private int currentSize; // µ±Ç°ÒÑÓĞµÄÖµµÄÊıÁ¿
-	private Comparator<Object> comparator; // Öµ±È½ÏÆ÷
+	// å¤§æ ¹å †(å †é¡¶å…ƒç´ æœ€å¤§)ï¼Œæœ‰æ–°å…ƒç´ è¿›æ¥æ—¶å…ˆè·Ÿå †é¡¶è¿›è¡Œæ¯”è¾ƒï¼Œå¦‚æœæ¯”å †é¡¶å¤§åˆ™ä¸¢å¼ƒ
+	private Object []heap; // ç”¨äºä¿å­˜äºŒå‰æ ‘å„ä¸ªèŠ‚ç‚¹çš„å€¼ï¼Œæ•°ç»„0çš„ä½ç½®ç©ºé—²
+	private int maxSize; // æœ€å¤šä¿ç•™çš„å€¼çš„æ•°é‡
+	private int currentSize; // å½“å‰å·²æœ‰çš„å€¼çš„æ•°é‡
+	private Comparator<Object> comparator; // å€¼æ¯”è¾ƒå™¨
 
 	/**
-	 * ¹¹½¨È¡maxSize¸ö×îĞ¡ÖµµÄ¶Ñ
-	 * @param maxSize ÊıÁ¿
+	 * æ„å»ºå–maxSizeä¸ªæœ€å°å€¼çš„å †
+	 * @param maxSize æ•°é‡
 	 */
 	public MinHeap(int maxSize) {
 		this(maxSize, new BaseComparator());
 	}
 	
 	/**
-	 * ¹¹½¨È¡maxSize¸ö×îĞ¡ÖµµÄ¶Ñ
-	 * @param maxSize ÊıÁ¿
-	 * @param comparator ±È½ÏÆ÷
+	 * æ„å»ºå–maxSizeä¸ªæœ€å°å€¼çš„å †
+	 * @param maxSize æ•°é‡
+	 * @param comparator æ¯”è¾ƒå™¨
 	 */
 	public MinHeap(int maxSize, Comparator<Object> comparator) {
 		this.heap = new Object[maxSize + 1];
@@ -37,17 +37,17 @@ public class MinHeap {
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°µÄÖµÊıÁ¿
-	 * @return ÊıÁ¿
+	 * è¿”å›å½“å‰çš„å€¼æ•°é‡
+	 * @return æ•°é‡
 	 */
 	public int size() {
 		return currentSize;
 	}
 
 	/**
-	 * ¼ÓÈëĞÂÖµ
-	 * @param o Öµ
-	 * @return true£ºµ±Ç°ÖµÔİÊ±ÔÚ×îĞ¡µÄmaxSize¸öÖµ·¶Î§ÄÚ£¬false£ºµ±Ç°ÖµÌ«´ó±»¶ªÆú
+	 * åŠ å…¥æ–°å€¼
+	 * @param o å€¼
+	 * @return trueï¼šå½“å‰å€¼æš‚æ—¶åœ¨æœ€å°çš„maxSizeä¸ªå€¼èŒƒå›´å†…ï¼Œfalseï¼šå½“å‰å€¼å¤ªå¤§è¢«ä¸¢å¼ƒ
 	 */
 	public boolean insert(Object o) {
 		Object []heap = this.heap;
@@ -61,8 +61,8 @@ public class MinHeap {
 		} else {
 			int i = ++currentSize;
 			while (i != 1 && comparator.compare(o, heap[i/2]) > 0) {
-				heap[i] = heap[i/2]; // ½«ÔªËØÏÂÒÆ
-				i /= 2;              // ÒÆÏò¸¸½Úµã
+				heap[i] = heap[i/2]; // å°†å…ƒç´ ä¸‹ç§»
+				i /= 2;              // ç§»å‘çˆ¶èŠ‚ç‚¹
 			}
 
 			heap[i] = o;
@@ -71,7 +71,7 @@ public class MinHeap {
 	}
 	
 	/**
-	 * °ÑÁíÒ»¸ö¶ÑµÄÊı¾İ¼Óµ½µ±Ç°¶Ñ
+	 * æŠŠå¦ä¸€ä¸ªå †çš„æ•°æ®åŠ åˆ°å½“å‰å †
 	 * @param other
 	 */
 	public void insertAll(MinHeap other) {
@@ -82,19 +82,19 @@ public class MinHeap {
 	}
 
 	/**
-	 * É¾³ı¸ù½Úµã
+	 * åˆ é™¤æ ¹èŠ‚ç‚¹
 	 */
 	private void deleteRoot() {
-		// °Ñ×îºóÒ»¸öÔªËØ·ÅÔÚ¶Ñ¶¥£¬È»ºó×Ô¶¥ÏòÏÂµ÷Õû
+		// æŠŠæœ€åä¸€ä¸ªå…ƒç´ æ”¾åœ¨å †é¡¶ï¼Œç„¶åè‡ªé¡¶å‘ä¸‹è°ƒæ•´
 		Object []heap = this.heap;
 		int currentSize = this.currentSize;
 		Object o = heap[currentSize];
 
 		int i = 1;
-		int c = 2; // ×Ó½Úµã
+		int c = 2; // å­èŠ‚ç‚¹
 		while(c < currentSize) {
-			// ÕÒ³ö½Ï´óµÄ×Ó½Úµã
-			int rc = c + 1;  // ÓÒ×Ó½Úµã
+			// æ‰¾å‡ºè¾ƒå¤§çš„å­èŠ‚ç‚¹
+			int rc = c + 1;  // å³å­èŠ‚ç‚¹
 			if (rc < currentSize && comparator.compare(heap[rc], heap[c]) > 0) {
 				c = rc;
 			}
@@ -114,8 +114,8 @@ public class MinHeap {
 	}
 
 	/**
-	 * ·µ»ØËùÓĞÔªËØ
-	 * @return ÔªËØÊı×é
+	 * è¿”å›æ‰€æœ‰å…ƒç´ 
+	 * @return å…ƒç´ æ•°ç»„
 	 */
 	public Object[] toArray() {
 		Object []objs = new Object[currentSize];
@@ -125,7 +125,7 @@ public class MinHeap {
 	}
 	
 	/**
-	 * È¡¶Ñ¶¥ÔªËØ
+	 * å–å †é¡¶å…ƒç´ 
 	 * @return
 	 */
 	public Object getTop() {

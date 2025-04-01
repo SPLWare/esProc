@@ -15,7 +15,7 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ¼¯ËãÆ÷²Ëµ¥£¨´ò¿ªÎÄ¼şºó£©
+ * é›†ç®—å™¨èœå•ï¼ˆæ‰“å¼€æ–‡ä»¶åï¼‰
  *
  */
 public class MenuSpl extends AppMenu {
@@ -23,42 +23,42 @@ public class MenuSpl extends AppMenu {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	protected MessageManager mm = IdeSplMessage.get();
 	/**
-	 * ĞĞÁĞ²Ëµ¥
+	 * è¡Œåˆ—èœå•
 	 */
 	protected JMenu menuRowCol;
 	/**
-	 * ÔİÍ£\¼ÌĞøÖ´ĞĞ²Ëµ¥
+	 * æš‚åœ\ç»§ç»­æ‰§è¡Œèœå•
 	 */
 	protected JMenuItem pauseMenuItem;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public MenuSpl() {
 		init();
 	}
 
 	/**
-	 * ³õÊ¼»¯²Ëµ¥
+	 * åˆå§‹åŒ–èœå•
 	 */
 	protected void init() {
-		// ÎÄ¼ş²Ëµ¥
+		// æ–‡ä»¶èœå•
 		add(getFileMenu());
-		// ±à¼­²Ëµ¥
+		// ç¼–è¾‘èœå•
 		add(getEditMenu());
-		// ³ÌĞò²Ëµ¥
+		// ç¨‹åºèœå•
 		add(getProgramMenu());
-		// ¹¤¾ß²Ëµ¥
+		// å·¥å…·èœå•
 		add(getToolMenu());
-		// ´°¿Ú²Ëµ¥
+		// çª—å£èœå•
 		tmpLiveMenu = getWindowMenu();
 		add(tmpLiveMenu);
 
-		// °ïÖú²Ëµ¥
+		// å¸®åŠ©èœå•
 		add(getHelpMenu());
 
 		setEnable(getMenuItems(), false);
@@ -66,9 +66,9 @@ public class MenuSpl extends AppMenu {
 	}
 
 	/**
-	 * ÎÄ¼ş²Ëµ¥
+	 * æ–‡ä»¶èœå•
 	 * 
-	 * @return ÎÄ¼ş²Ëµ¥
+	 * @return æ–‡ä»¶èœå•
 	 */
 	protected JMenu getFileMenu() {
 		JMenu menu;
@@ -84,7 +84,7 @@ public class MenuSpl extends AppMenu {
 		menuTemp = newSplMenuItem(GCSpl.iFILE_REOPEN, GCSpl.FILE_REOPEN, 'R',
 				GC.NO_MASK, true);
 		menu.add(menuTemp);
-		// (char) KeyEvent.VK_F4 ¸ús³åÍ»
+		// (char) KeyEvent.VK_F4 è·Ÿså†²çª
 		menuTemp = newCommonMenuItem(GC.iFILE_CLOSE, GC.FILE_CLOSE, 'W',
 				ActionEvent.CTRL_MASK);
 		menu.add(menuTemp);
@@ -104,7 +104,7 @@ public class MenuSpl extends AppMenu {
 		menuTemp = newCommonMenuItem(GC.iSAVEALL, GC.SAVEALL, 'V', GC.NO_MASK,
 				true);
 		menu.add(menuTemp);
-		// Ö°³¡°æ²»ÏÔÊ¾Ô¶³Ì¹¦ÄÜ
+		// èŒåœºç‰ˆä¸æ˜¾ç¤ºè¿œç¨‹åŠŸèƒ½
 		menuTemp = newSplMenuItem(GCSpl.iSAVE_FTP, GCSpl.SAVE_FTP, 'P',
 				GC.NO_MASK, true);
 		menu.add(menuTemp);
@@ -122,9 +122,9 @@ public class MenuSpl extends AppMenu {
 	protected JMenu copyMenu, pasteMenu;
 
 	/**
-	 * ±à¼­²Ëµ¥
+	 * ç¼–è¾‘èœå•
 	 * 
-	 * @return ±à¼­²Ëµ¥
+	 * @return ç¼–è¾‘èœå•
 	 */
 	protected JMenu getEditMenu() {
 		JMenu menu = getSplMenuItem(GCSpl.EDIT, 'E', true);
@@ -152,7 +152,7 @@ public class MenuSpl extends AppMenu {
 		JMenuItem miCopyHtml = newSplMenuItem(GCSpl.iCOPY_HTML,
 				GCSpl.COPY_HTML, 'C', ActionEvent.ALT_MASK
 						+ ActionEvent.SHIFT_MASK);
-		miCopyHtml.setVisible(false); // ²»ÏÔÊ¾²Ëµ¥£¬Ö»ÓĞ¿ì½İ¼ü
+		miCopyHtml.setVisible(false); // ä¸æ˜¾ç¤ºèœå•ï¼Œåªæœ‰å¿«æ·é”®
 		copyMenu.add(miCopyHtml);
 
 		copyMenu.add(newSplMenuItem(GCSpl.iCOPY_HTML_DIALOG,
@@ -270,9 +270,9 @@ public class MenuSpl extends AppMenu {
 	}
 
 	/**
-	 * ¹¤¾ß²Ëµ¥
+	 * å·¥å…·èœå•
 	 * 
-	 * @return ¹¤¾ß²Ëµ¥
+	 * @return å·¥å…·èœå•
 	 */
 	protected JMenu getToolMenu() {
 		JMenu menu = getSplMenuItem(GCSpl.TOOL, 'T', true);
@@ -296,9 +296,9 @@ public class MenuSpl extends AppMenu {
 	}
 
 	/**
-	 * ³ÌĞò²Ëµ¥
+	 * ç¨‹åºèœå•
 	 * 
-	 * @return ³ÌĞò²Ëµ¥
+	 * @return ç¨‹åºèœå•
 	 */
 	protected JMenu getProgramMenu() {
 		JMenu menu = getSplMenuItem(GCSpl.PROGRAM, 'P', true);
@@ -352,7 +352,7 @@ public class MenuSpl extends AppMenu {
 				ActionEvent.CTRL_MASK, true);
 		menu.add(menuTemp);
 		menu.addSeparator();
-		// ÆôÓÃ¼ÆËãµ¥Ôª¸ñ£¬²¢¸³Óè¿ì½İ¼üALT-ENTER
+		// å¯ç”¨è®¡ç®—å•å…ƒæ ¼ï¼Œå¹¶èµ‹äºˆå¿«æ·é”®ALT-ENTER
 		JMenuItem calcArea = newSplMenuItem(GCSpl.iCALC_AREA, GCSpl.CALC_AREA,
 				(char) KeyEvent.VK_ENTER, ActionEvent.ALT_MASK, true);
 		// calcArea.setVisible(false);
@@ -372,7 +372,7 @@ public class MenuSpl extends AppMenu {
 	}
 
 	/**
-	 * ÉèÖÃĞĞÁĞ²Ëµ¥ÊÇ·ñ¿ÉÓÃ
+	 * è®¾ç½®è¡Œåˆ—èœå•æ˜¯å¦å¯ç”¨
 	 * 
 	 * @param isEnabled
 	 */
@@ -380,21 +380,21 @@ public class MenuSpl extends AppMenu {
 		menuRowCol.setEnabled(isEnabled);
 	}
 
-	/** ¼ÌĞøÖ´ĞĞ */
+	/** ç»§ç»­æ‰§è¡Œ */
 	private final String S_CONTINUE = mm.getMessage("menu.program.continue");
-	/** ÔİÍ£ */
+	/** æš‚åœ */
 	private final String S_PAUSE = mm.getMessage("menu.program.pause");
 
-	/** ¼ÌĞøÖ´ĞĞÍ¼±ê */
+	/** ç»§ç»­æ‰§è¡Œå›¾æ ‡ */
 	private final ImageIcon I_CONTINUE = GM.getMenuImageIcon(GCSpl.CONTINUE);
-	/** ÔİÍ£Í¼±ê */
+	/** æš‚åœå›¾æ ‡ */
 	private final ImageIcon I_PAUSE = GM.getMenuImageIcon(GCSpl.PAUSE);
 
 	/**
-	 * ÖØÖÃÔİÍ£/¼ÌĞøÖ´ĞĞ²Ëµ¥ÏîµÄÎÄ±¾ºÍÍ¼±ê
+	 * é‡ç½®æš‚åœ/ç»§ç»­æ‰§è¡Œèœå•é¡¹çš„æ–‡æœ¬å’Œå›¾æ ‡
 	 * 
 	 * @param isPause
-	 *            ÊÇ·ñÔİÍ£¡£trueÔİÍ££¬falseÖ´ĞĞ
+	 *            æ˜¯å¦æš‚åœã€‚trueæš‚åœï¼Œfalseæ‰§è¡Œ
 	 */
 	public void resetPauseMenu(boolean isPause) {
 		if (isPause) {
@@ -407,14 +407,14 @@ public class MenuSpl extends AppMenu {
 	}
 
 	/**
-	 * È¡ËùÓĞ¿É±ä×´Ì¬µÄ²Ëµ¥
+	 * å–æ‰€æœ‰å¯å˜çŠ¶æ€çš„èœå•
 	 */
 	public short[] getMenuItems() {
 		short[] menus = new short[] {
-				// ÎÄ¼ş
+				// æ–‡ä»¶
 				GCSpl.iSAVE,
 				GCSpl.iSAVEAS,
-				// ±à¼­
+				// ç¼–è¾‘
 				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE,
 				GCSpl.iCODE_COPY, GCSpl.iCOPY_HTML_DIALOG, GCSpl.iCUT,
 				GCSpl.iPASTE, GCSpl.iPASTE_ADJUST, GCSpl.iPASTE_SPECIAL,
@@ -431,30 +431,30 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iMOVE_COPY_DOWN,
 				GCSpl.iMOVE_COPY_LEFT,
 				GCSpl.iMOVE_COPY_RIGHT,
-				// ³ÌĞò
+				// ç¨‹åº
 				GCSpl.iPARAM, GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iCALC_AREA,
 				GCSpl.iCALC_LOCK, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_CURSOR,
 				GCSpl.iSTOP, GCSpl.iSHOW_VALUE, GCSpl.iCLEAR_VALUE,
 				GCSpl.iPAUSE, GCSpl.iBREAKPOINTS, GCSpl.iDRAW_CHART,
-				// ¹¤¾ß
+				// å·¥å…·
 				GC.iPROPERTY, GCSpl.iCONST };
 		return menus;
 	}
 
 	/**
-	 * È¡ËùÓĞ²Ëµ¥Ïî
+	 * å–æ‰€æœ‰èœå•é¡¹
 	 * 
 	 * @return
 	 */
 	public short[] getAllMenuItems() {
 		short[] menus = new short[] {
-				// ÎÄ¼ş
+				// æ–‡ä»¶
 				GCSpl.iSAVE,
 				GCSpl.iSAVEAS,
 				GCSpl.iSAVEALL,
 				GCSpl.iFILE_REOPEN,
 				GCSpl.iSAVE_FTP,
-				// ±à¼­
+				// ç¼–è¾‘
 				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE,
 				GCSpl.iCODE_COPY, GCSpl.iCOPY_HTML_DIALOG, GCSpl.iCUT,
 				GCSpl.iPASTE, GCSpl.iPASTE_ADJUST, GCSpl.iPASTE_SPECIAL,
@@ -472,7 +472,7 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iMOVE_COPY_DOWN,
 				GCSpl.iMOVE_COPY_LEFT,
 				GCSpl.iMOVE_COPY_RIGHT,
-				// ³ÌĞò
+				// ç¨‹åº
 				GCSpl.iPARAM, GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
 				GCSpl.iRESET_CELLSET, GCSpl.iRESET_GLOBAL, GCSpl.iCALC_AREA,
 				GCSpl.iCALC_LOCK, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_CURSOR,
@@ -484,7 +484,7 @@ public class MenuSpl extends AppMenu {
 	}
 
 	/**
-	 * Êı¾İÔ´Á¬½Óºó
+	 * æ•°æ®æºè¿æ¥å
 	 */
 	public void dataSourceConnected() {
 		if (GVSpl.tabParam != null)

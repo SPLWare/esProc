@@ -9,66 +9,66 @@ import com.scudata.common.*;
 import com.scudata.dm.*;
 
 /**
- * ÖùºÍÉÈµÄ»ùÀà£¬»·
+ * æŸ±å’Œæ‰‡çš„åŸºç±»ï¼Œç¯
  * @author Joancy
  *
  */
 public abstract class Ring extends DataElement {
 	public int stackType = Consts.STACK_NONE;
 
-	// Í¸Ã÷¶È
+	// é€æ˜åº¦
 	public float transparent = 1f;
 
-	// ±ß¿òÀàĞÍ
+	// è¾¹æ¡†ç±»å‹
 	public Para borderStyle = new Para(new Integer(Consts.LINE_SOLID));
 
-	// ±ß¿ò¿í¶È
+	// è¾¹æ¡†å®½åº¦
 	public Para borderWeight = new Para(new Integer(0));
 
-	// ±ß¿òÑÕÉ«
+	// è¾¹æ¡†é¢œè‰²
 	public Para borderColor = new Para(new Integer(Color.DARK_GRAY.getRGB()),Consts.LEGEND_P_LINECOLOR);
 
-	// Ìî³äÑÕÉ«
+	// å¡«å……é¢œè‰²
 	public Para fillColor = new Para(Consts.LEGEND_P_FILLCOLOR);
 
-	// ±êÊ¾ÎÄ×Ö
+	// æ ‡ç¤ºæ–‡å­—
 	public Para text = new Para(null);
 
-	// ±êÊ¾ÎÄ×Ö×ÖÌå
+	// æ ‡ç¤ºæ–‡å­—å­—ä½“
 	public Para textFont = new Para();//"Dialog");
 
-	// ±êÊ¾ÎÄ×Ö×ÖĞÍ
+	// æ ‡ç¤ºæ–‡å­—å­—å‹
 	public Para textStyle = new Para(new Integer(0));
 
-	// ±êÊ¾ÎÄ×Ö´óĞ¡
+	// æ ‡ç¤ºæ–‡å­—å¤§å°
 	public Para textSize = new Para(new Integer(12));
 
-	// ±êÊ¾ÎÄ×ÖÑÕÉ«
+	// æ ‡ç¤ºæ–‡å­—é¢œè‰²
 	public Para textColor = new Para(Color.black);
 
-	// ÎÄ×ÖÖØµşÏÔÊ¾
+	// æ–‡å­—é‡å æ˜¾ç¤º
 	public boolean textOverlapping = true;
 
 
 	/**
-	 * È±Ê¡ÖµµÄ¹¹Ôìº¯Êı
+	 * ç¼ºçœå€¼çš„æ„é€ å‡½æ•°
 	 */
 	public Ring() {
 	}
 
 	/**
-	 * ÊÇ·ñ¶Ñ»ıÍ¼ĞÎ
-	 * @return Èç¹ûÊÇ¶Ñ»ıÀàĞÍ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦å †ç§¯å›¾å½¢
+	 * @return å¦‚æœæ˜¯å †ç§¯ç±»å‹è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isStacked() {
 		return (stackType>Consts.STACK_NONE);
 	}
 
 	/**
-	 * »ñÈ¡Í¼ÔªÖĞµÄ×î´óÊıÖµ£¬¶Ñ»ıÍ¼Ê±°´·ÖÀà»ã×Ü¼ÆËã
-	 * @param de Êı¾İµÚÒ»
-	 * @param numericAxis ÊıÖµÖáÃû³Æ
-	 * @return ×î´óÖµ
+	 * è·å–å›¾å…ƒä¸­çš„æœ€å¤§æ•°å€¼ï¼Œå †ç§¯å›¾æ—¶æŒ‰åˆ†ç±»æ±‡æ€»è®¡ç®—
+	 * @param de æ•°æ®ç¬¬ä¸€
+	 * @param numericAxis æ•°å€¼è½´åç§°
+	 * @return æœ€å¤§å€¼
 	 */
 	public static Double getMaxValue(DataElement de, String numericAxis) {
 		Sequence numData = de.getAxisData(numericAxis);
@@ -82,7 +82,7 @@ public abstract class Ring extends DataElement {
 			stackType = ((Line)de).stackType;
 		}
 		if (stackType==Consts.STACK_VALUE) {
-//			Ã¶¾ÙÖµÖ±½Ó´ÓÍ¼Ôª×ÔÉíÕÒ£¬ÖáÉÏµÄÊÇËùÓĞÍ¼ÔªµÄºÏ²¢Öµ
+//			æšä¸¾å€¼ç›´æ¥ä»å›¾å…ƒè‡ªèº«æ‰¾ï¼Œè½´ä¸Šçš„æ˜¯æ‰€æœ‰å›¾å…ƒçš„åˆå¹¶å€¼
 			int catSize = de.categories.length();
 			for (int c = 1; c <= catSize; c++) {
 				String catName = (String) de.categories.get(c);
@@ -113,7 +113,7 @@ public abstract class Ring extends DataElement {
 		return text.stringValue(index);
 	}
 	
-	// colorIndex,ÔÚÃ¶¾ÙÖáÏÂ£¬colorIndexÎªÏµÁĞÖµ£¬Í¬ÏµÁĞ£¬ÑÕÉ«Í³Ò»
+	// colorIndex,åœ¨æšä¸¾è½´ä¸‹ï¼ŒcolorIndexä¸ºç³»åˆ—å€¼ï¼ŒåŒç³»åˆ—ï¼Œé¢œè‰²ç»Ÿä¸€
 	private void drawData(int index, double halfColWidth, int step,
 			int seriesIndex) {
 		String title = getTipTitle(index);
@@ -134,8 +134,8 @@ public abstract class Ring extends DataElement {
 			}
 
 			p1 = new Point2D.Double(p.getX() - halfColWidth,
-					basePoint.getY()); // ×óÏÂ½Ç
-			p2 = new Point2D.Double(p.getX() + halfColWidth, p.getY()); // ÓÒÉÏ½Ç
+					basePoint.getY()); // å·¦ä¸‹è§’
+			p2 = new Point2D.Double(p.getX() + halfColWidth, p.getY()); // å³ä¸Šè§’
 			Shape dataLinkShape = drawFreeColumn(index, p1, p2, step, true, seriesIndex);
 			if(dataLinkShape!=null){
 				addLink(dataLinkShape, htmlLink.stringValue(index), title,linkTarget.stringValue(index));
@@ -172,12 +172,12 @@ public abstract class Ring extends DataElement {
 
 			if (isVerticalColumn) {
 				p1 = new Point2D.Double(p.getX() - halfColWidth,
-						basePoint.getY()); // ×óÏÂ½Ç
-				p2 = new Point2D.Double(p.getX() + halfColWidth, p.getY()); // ÓÒÉÏ½Ç
+						basePoint.getY()); // å·¦ä¸‹è§’
+				p2 = new Point2D.Double(p.getX() + halfColWidth, p.getY()); // å³ä¸Šè§’
 			} else {
 				p1 = new Point2D.Double(basePoint.getX(), p.getY()
-						+ halfColWidth); // ×óÏÂ½Ç
-				p2 = new Point2D.Double(p.getX(), p.getY() - halfColWidth); // ÓÒÉÏ½Ç
+						+ halfColWidth); // å·¦ä¸‹è§’
+				p2 = new Point2D.Double(p.getX(), p.getY() - halfColWidth); // å³ä¸Šè§’
 			}
 			dataLinkShape = drawFreeColumn(index, p1, p2, step, isVerticalColumn, seriesIndex);
 		} else {
@@ -190,7 +190,7 @@ public abstract class Ring extends DataElement {
 			int bs = borderStyle.intValue(seriesIndex);
 			float bw = borderWeight.floatValue(seriesIndex);
 			ChartColor fc = fillColor.chartColorValue(seriesIndex);
-			if (t1.getLocation() == Consts.AXIS_LOC_POLAR) {// ´¹ÏòÖáÊÇ¼«ÖáÊ±£¬ÎªÒ»¶Î»·
+			if (t1.getLocation() == Consts.AXIS_LOC_POLAR) {// å‚å‘è½´æ˜¯æè½´æ—¶ï¼Œä¸ºä¸€æ®µç¯
 				if (getData3() == null) {
 					start = angleAxis.startAngle;
 					extent = p.getY();
@@ -201,7 +201,7 @@ public abstract class Ring extends DataElement {
 					extent = Math.abs(p.getY() - angle3);
 				}
 				switch (step) {
-				case 1: // »­»·
+				case 1: // ç”»ç¯
 					Rectangle2D bigBounds = pc.getEllipseBounds(p.getX()
 							+ halfColWidth);
 					Rectangle2D smallBounds = pc.getEllipseBounds(p.getX()
@@ -224,7 +224,7 @@ public abstract class Ring extends DataElement {
 							fontStyle, fontSize, c, textOverlapping);
 					break;
 				}
-			} else {// ´¹ÏòÖáÎª½ÇÖáÊ±£¬ÎªÒ»¶ÎÉÈ£»
+			} else {// å‚å‘è½´ä¸ºè§’è½´æ—¶ï¼Œä¸ºä¸€æ®µæ‰‡ï¼›
 				TickAxis polarAxis = pc.getPolarAxis();
 				double r3 = 0;
 				if (getData3() != null) {
@@ -238,7 +238,7 @@ public abstract class Ring extends DataElement {
 				start = angleAxis.startAngle + p.getY() - halfColWidth;
 				extent = halfColWidth * 2;
 				switch (step) {
-				case 1: // »­ÉÈ
+				case 1: // ç”»æ‰‡
 						dataLinkShape = Utils.draw2DRing(g, bigBounds, smallBounds, start,
 								extent, bc, bs, bw, transparent, fc,isFillPie());
 					break;
@@ -264,9 +264,9 @@ public abstract class Ring extends DataElement {
 	}
 
 	/**
-	 * ³éÈ¡·Ö¸ô´®valÖĞµÄ·ÖÀàÖµ²¿·Ö
-	 * @param val Êı¾İÖµ
-	 * @return ·ÖÀàÖµ
+	 * æŠ½å–åˆ†éš”ä¸²valä¸­çš„åˆ†ç±»å€¼éƒ¨åˆ†
+	 * @param val æ•°æ®å€¼
+	 * @return åˆ†ç±»å€¼
 	 */
 	public static Object discardSeries(Object val) {
 		if (val instanceof Number) {
@@ -276,12 +276,12 @@ public abstract class Ring extends DataElement {
 	}
 
 	/**
-	 * Ëã³ö·ÖÀàcatNameÖĞ£¬numValÕ¼·ÖÀàÍ³¼ÆÖµµÄ°Ù·Ö±È
-	 * @param catName ·ÖÀàÃû³Æ
-	 * @param numVal µ±Ç°ÊıÖµ
-	 * @param enumData ·ÖÀàĞòÁĞ
-	 * @param numData ¶ÔÓ¦µÄÊıÖµĞòÁĞ
-	 * @return ÊµÊı¾«¶ÈµÄ°Ù·Ö±ÈÖµ
+	 * ç®—å‡ºåˆ†ç±»catNameä¸­ï¼ŒnumValå åˆ†ç±»ç»Ÿè®¡å€¼çš„ç™¾åˆ†æ¯”
+	 * @param catName åˆ†ç±»åç§°
+	 * @param numVal å½“å‰æ•°å€¼
+	 * @param enumData åˆ†ç±»åºåˆ—
+	 * @param numData å¯¹åº”çš„æ•°å€¼åºåˆ—
+	 * @return å®æ•°ç²¾åº¦çš„ç™¾åˆ†æ¯”å€¼
 	 */
 	public static Double getPercentValue(Object catName,Object numVal,Sequence enumData,Sequence numData){
 		double catSum = Utils.sumCategory(catName.toString(), enumData, numData);
@@ -313,16 +313,16 @@ public abstract class Ring extends DataElement {
 			Point2D basePoint = ta1.getBasePoint(coor);
 			if (isVerticalColumn) {
 				p1 = new Point2D.Double(p.getX() - halfColWidth,
-						lastPoint.getY()); // ×óÏÂ½Ç
+						lastPoint.getY()); // å·¦ä¸‹è§’
 				columnLength = basePoint.getY() - p.getY();
 				p2 = new Point2D.Double(p.getX() + halfColWidth,
-						lastPoint.getY() - columnLength); // ÓÒÉÏ½Ç
+						lastPoint.getY() - columnLength); // å³ä¸Šè§’
 			} else {
 				p1 = new Point2D.Double(lastPoint.getX(), p.getY()
-						+ halfColWidth); // ×óÏÂ½Ç
+						+ halfColWidth); // å·¦ä¸‹è§’
 				columnLength = p.getX() - basePoint.getX();
 				p2 = new Point2D.Double(lastPoint.getX() + columnLength,
-						p.getY() - halfColWidth); // ÓÒÉÏ½Ç
+						p.getY() - halfColWidth); // å³ä¸Šè§’
 			}
 			linkShape = drawFreeColumn(index, p1, p2, step, isVerticalColumn, seriesIndex);
 		} else {
@@ -335,7 +335,7 @@ public abstract class Ring extends DataElement {
 			int bs = borderStyle.intValue(seriesIndex);
 			float bw = borderWeight.floatValue(seriesIndex);
 			ChartColor fc = fillColor.chartColorValue(seriesIndex);
-			if (ta1.getLocation() == Consts.AXIS_LOC_POLAR) {// ´¹ÏòÖáÊÇ¼«ÖáÊ±£¬ÎªÒ»¶Î»·
+			if (ta1.getLocation() == Consts.AXIS_LOC_POLAR) {// å‚å‘è½´æ˜¯æè½´æ—¶ï¼Œä¸ºä¸€æ®µç¯
 				if (lastPoint == null) {
 					start = angleAxis.startAngle;
 				} else {
@@ -343,7 +343,7 @@ public abstract class Ring extends DataElement {
 				}
 				extent = p.getY();
 				switch (step) {
-				case 1: // »­»·
+				case 1: // ç”»ç¯
 					Rectangle2D bigBounds = pc.getEllipseBounds(p.getX()
 							+ halfColWidth);
 					Rectangle2D smallBounds = pc.getEllipseBounds(p.getX()
@@ -368,7 +368,7 @@ public abstract class Ring extends DataElement {
 					break;
 				}
 				p2 = new Point2D.Double(p.getX(), start + extent);
-			} else {// ´¹ÏòÖáÎª½ÇÖáÊ±£¬ÎªÒ»¶ÎÉÈ£»
+			} else {// å‚å‘è½´ä¸ºè§’è½´æ—¶ï¼Œä¸ºä¸€æ®µæ‰‡ï¼›
 				double innerR, outerR;
 				if (lastPoint == null) {
 					innerR = 0;
@@ -380,7 +380,7 @@ public abstract class Ring extends DataElement {
 				start = angleAxis.startAngle + p.getY() - halfColWidth;
 				extent = halfColWidth * 2;
 				switch (step) {
-				case 1: // »­»·
+				case 1: // ç”»ç¯
 					Rectangle2D bigBounds = pc.getEllipseBounds(outerR);
 					Rectangle2D smallBounds = pc.getEllipseBounds(innerR);
 					linkShape = Utils.draw2DRing(g, bigBounds, smallBounds, start, extent,
@@ -412,8 +412,8 @@ public abstract class Ring extends DataElement {
 	}
 
 	/**
-	 * ·Ö²½»æÖÆÍ¼ĞÎ
-	 * @param step Òª»æÖÆµÄ²½Öè
+	 * åˆ†æ­¥ç»˜åˆ¶å›¾å½¢
+	 * @param step è¦ç»˜åˆ¶çš„æ­¥éª¤
 	 */
 	public void drawStep(int step) {
 		if (!isVisible()) {
@@ -432,7 +432,7 @@ public abstract class Ring extends DataElement {
 		int size = pointSize();
 		Sequence sort = null;
 		sort = data1.psort(null);
-		//µ±ÓĞ3DÖùÊ±£¬Òª´ÓĞ¡µ½´óË³Ğò»­£¬·ñÔò»áÓĞÕÚ¸Ç²»Õı³££»
+		//å½“æœ‰3DæŸ±æ—¶ï¼Œè¦ä»å°åˆ°å¤§é¡ºåºç”»ï¼Œå¦åˆ™ä¼šæœ‰é®ç›–ä¸æ­£å¸¸ï¼›
 		for (int i = 1; i <= size; i++) {
 			int index = ((Number)sort.get(i)).intValue();
 			double colWidth = getColumnWidth(ia1, index);
@@ -447,14 +447,14 @@ public abstract class Ring extends DataElement {
 		Sequence enumData = data1;// getAxisData(ea.getName());
 
 		int catCount = categories.length();
-		for (int c = 1; c <= catCount; c++) { // °¤¸ö·ÖÀà»­Öù×Ó
+		for (int c = 1; c <= catCount; c++) { // æŒ¨ä¸ªåˆ†ç±»ç”»æŸ±å­
 			String catName = (String) categories.get(c);
 
 			int index = 0;
 			int serCount = series.length();
 			if (serCount == 0) {
 				index = Utils.indexOf(enumData, catName, null);
-				if (index == 0) { // Ä³¸ö·ÖÀàºÍÏµÁĞµÄÊıÖµÈ±ÉÙ
+				if (index == 0) { // æŸä¸ªåˆ†ç±»å’Œç³»åˆ—çš„æ•°å€¼ç¼ºå°‘
 					continue;
 				}
 				double colWidth = getColumnWidth(ea, index);
@@ -469,7 +469,7 @@ public abstract class Ring extends DataElement {
 					for (int s = 1; s <= serCount; s++) {
 						String serName = (String) series.get(s);
 						index = Utils.indexOf(enumData, catName, serName);
-						if (index == 0) { // Ä³¸ö·ÖÀàºÍÏµÁĞµÄÊıÖµÈ±ÉÙ
+						if (index == 0) { // æŸä¸ªåˆ†ç±»å’Œç³»åˆ—çš„æ•°å€¼ç¼ºå°‘
 							continue;
 						}
 						double colWidth = getColumnWidth(ea, index);
@@ -481,7 +481,7 @@ public abstract class Ring extends DataElement {
 					for (int s = 1; s <= serCount; s++) {
 						String serName = (String) series.get(s);
 						index = Utils.indexOf(enumData, catName, serName);
-						if (index == 0) { // Ä³¸ö·ÖÀàºÍÏµÁĞµÄÊıÖµÈ±ÉÙ
+						if (index == 0) { // æŸä¸ªåˆ†ç±»å’Œç³»åˆ—çš„æ•°å€¼ç¼ºå°‘
 							continue;
 						}
 						double colWidth = getColumnWidth(ea, index);
@@ -495,7 +495,7 @@ public abstract class Ring extends DataElement {
 	}
 	
 	/**
-	 * »æÖÆ±³¾°²ã
+	 * ç»˜åˆ¶èƒŒæ™¯å±‚
 	 */
 	public void drawBack() {
 		drawStep(1);
@@ -503,21 +503,21 @@ public abstract class Ring extends DataElement {
 
 
 	/**
-	 * »æÖÆÖĞ¼ä²ã£¬µ±Ç°ºöÂÔ
+	 * ç»˜åˆ¶ä¸­é—´å±‚ï¼Œå½“å‰å¿½ç•¥
 	 */
 	public void draw() {
 	}
 
 	/**
-	 * »æÖÆÇ°¾°²ã
+	 * ç»˜åˆ¶å‰æ™¯å±‚
 	 */
 	public void drawFore() {
 		drawStep(2);
 	}
 
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -544,7 +544,7 @@ public abstract class Ring extends DataElement {
 		paramInfos.add(group, new ParamInfo("textSize", Consts.INPUT_FONTSIZE));
 		paramInfos.add(group, new ParamInfo("textColor", Consts.INPUT_COLOR));
 
-		// group = "Á´½Ó";
+		// group = "é“¾æ¥";
 		// paramInfos.add(group, new ParamInfo("tip"));
 		// paramInfos.add(group, new ParamInfo("url"));
 		// paramInfos.add(group, new ParamInfo("target"));
@@ -557,7 +557,7 @@ public abstract class Ring extends DataElement {
 	}
 	
 	/**
-	 * Í¼ĞÎ»æÖÆÇ°µÄ×¼±¸¹¤×÷
+	 * å›¾å½¢ç»˜åˆ¶å‰çš„å‡†å¤‡å·¥ä½œ
 	 */
 	public void prepare() {
 		super.prepare();
@@ -565,8 +565,8 @@ public abstract class Ring extends DataElement {
 	}
 
 	/**
-	 * ¼ì²éÊı¾İÍ¼ÔªµÄ¶Ñ»ıÊôĞÔÊÇ·ñºÏ·¨
-	 * @param de Êı¾İÍ¼Ôª
+	 * æ£€æŸ¥æ•°æ®å›¾å…ƒçš„å †ç§¯å±æ€§æ˜¯å¦åˆæ³•
+	 * @param de æ•°æ®å›¾å…ƒ
 	 */
 	public static void checkStackProperties(DataElement de) {
 		boolean isStacked = false;
@@ -581,7 +581,7 @@ public abstract class Ring extends DataElement {
 			isStacked = l.isStacked();
 		}
 
-		if (isStacked) { // ¶Ñ»ıÍ¼²»ÔÊĞí¸ºÊı
+		if (isStacked) { // å †ç§¯å›¾ä¸å…è®¸è´Ÿæ•°
 			if(de.isPhysicalCoor()){
 				throw new RuntimeException("Stacked graph does not support physical coordinates.");
 			}
@@ -613,19 +613,19 @@ public abstract class Ring extends DataElement {
 	}
 
 	/**
-	 * ÊÇ·ñ¶¨ÒåÁË½¥±äÌî³äÉ«
-	 * @return Èç¹ûÓĞ½¥±ä·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦å®šä¹‰äº†æ¸å˜å¡«å……è‰²
+	 * @return å¦‚æœæœ‰æ¸å˜è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean hasGradientColor() {
 		return fillColor.hasGradientColor();
 	}
 
 	/**
-	 * Ã¶¾Ù¶¼ÊÇ±ÈÏµÁĞ¿í¶È£»ÈÕÆÚÖá¶¼ÊÇ°´ÌìËã³¤¶È£¬ÊıÖµÖáÔò°´Êı×ÖËã£»²»·Ö´óĞ¡Óë1µÄÇé¿öÁË£»
+	 * æšä¸¾éƒ½æ˜¯æ¯”ç³»åˆ—å®½åº¦ï¼›æ—¥æœŸè½´éƒ½æ˜¯æŒ‰å¤©ç®—é•¿åº¦ï¼Œæ•°å€¼è½´åˆ™æŒ‰æ•°å­—ç®—ï¼›ä¸åˆ†å¤§å°ä¸1çš„æƒ…å†µäº†ï¼›
 	 */
 	protected Shape drawFreeColumn(int index, Point2D p1, Point2D p2, int step,
 			boolean isVertical, int seriesIndex){return null;}
 	protected Sequence getData3(){return null;}
-	protected boolean isFillPie(){return false;}//Ìî³ä»·µÄìÅÑÕÉ«Ê±£¬ÊÇ·ñÊ¹ÓÃÉÈ×´Ìî³ä£¬·ñÔòÎª»·×´
+	protected boolean isFillPie(){return false;}//å¡«å……ç¯çš„ç‚«é¢œè‰²æ—¶ï¼Œæ˜¯å¦ä½¿ç”¨æ‰‡çŠ¶å¡«å……ï¼Œå¦åˆ™ä¸ºç¯çŠ¶
 	public abstract double getColumnWidth(TickAxis ia, int index);
 }

@@ -11,7 +11,7 @@ public class Concat implements IFunction
 		{
 			if(params[i].isEmpty())
 			{
-				throw new RQException("Concat函数参数不能为空");
+				throw new RQException("Concat鍑芥暟鍙傛暟涓嶈兘涓虹┖");
 			}
 			if(i > 0)
 			{

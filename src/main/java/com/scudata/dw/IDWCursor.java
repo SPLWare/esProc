@@ -13,7 +13,7 @@ public abstract class IDWCursor extends ICursor {
 	abstract public void setSegment(int startBlock, int endBlock);
 	abstract public PhyTable getTableMetaData();
 	abstract protected Sequence get(int n);
-	abstract protected Sequence getStartBlockData(int n);//Ö»¶ÁµÚÒ»¿éµÄÊı¾İ,²»º¬appendData
+	abstract protected Sequence getStartBlockData(int n);//åªè¯»ç¬¬ä¸€å—çš„æ•°æ®,ä¸å«appendData
 	abstract public void setCache(Sequence cache);
 	
 	abstract public int getStartBlock();
@@ -37,8 +37,8 @@ public abstract class IDWCursor extends ICursor {
 	}
 	
 	/**
-	 * È¡·Ö¶ÎÓÎ±êµÄÆğÊ¼Öµ£¬Èç¹ûÓĞ·Ö¶Î×Ö¶ÎÔò·µ»Ø·Ö¶Î×Ö¶ÎµÄÖµ£¬Ã»ÓĞÔò·µ»ØÎ¬×Ö¶ÎµÄÖµ
-	 * @return ·Ö¶ÎÓÎ±êÊ×Ìõ¼ÇÂ¼µÄ·Ö¶Î×Ö¶ÎµÄÖµ£¬Èç¹ûµ±Ç°¶ÎÊıÎª0Ôò·µ»Ønull
+	 * å–åˆ†æ®µæ¸¸æ ‡çš„èµ·å§‹å€¼ï¼Œå¦‚æœæœ‰åˆ†æ®µå­—æ®µåˆ™è¿”å›åˆ†æ®µå­—æ®µçš„å€¼ï¼Œæ²¡æœ‰åˆ™è¿”å›ç»´å­—æ®µçš„å€¼
+	 * @return åˆ†æ®µæ¸¸æ ‡é¦–æ¡è®°å½•çš„åˆ†æ®µå­—æ®µçš„å€¼ï¼Œå¦‚æœå½“å‰æ®µæ•°ä¸º0åˆ™è¿”å›null
 	 */
 	public Object[] getSegmentStartValues(String option) {
 		boolean hasK = option != null && option.indexOf('k') != -1;

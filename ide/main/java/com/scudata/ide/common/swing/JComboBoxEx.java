@@ -10,37 +10,37 @@ import com.scudata.common.Logger;
 import com.scudata.util.Variant;
 
 /**
- * Êı¾İ¹æÔò£¬ÏÔÊ¾ÖµÒªÇó±ØĞëÎªStringÀàĞÍ£¬·½±ãÏÔÊ¾³ÌĞò Êı¾İÖµ¿ÉÒÔÊÇÈÎÒâÀàĞÍ£¬´ËÒªÇó¸úJListExÏàÍ¬
+ * æ•°æ®è§„åˆ™ï¼Œæ˜¾ç¤ºå€¼è¦æ±‚å¿…é¡»ä¸ºStringç±»å‹ï¼Œæ–¹ä¾¿æ˜¾ç¤ºç¨‹åº æ•°æ®å€¼å¯ä»¥æ˜¯ä»»æ„ç±»å‹ï¼Œæ­¤è¦æ±‚è·ŸJListExç›¸åŒ
  *
  */
 public class JComboBoxEx extends JComboBox {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔĞŞ¸ÄÖµ
+	 * æ˜¯å¦å¯ä»¥ä¿®æ”¹å€¼
 	 */
 	private boolean isItemChangeable = true;
 	/**
-	 * ÏÂÀ­ÁĞ±íÄ£ĞÍ
+	 * ä¸‹æ‹‰åˆ—è¡¨æ¨¡å‹
 	 */
 	public DefaultComboBoxModel data = new DefaultComboBoxModel();
 	/**
-	 * ´úÂëÖµ
+	 * ä»£ç å€¼
 	 */
 	public Vector<Object> codeData = new Vector<Object>();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public JComboBoxEx() {
 		super.setModel(data);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param items
-	 *            ÓÉ¶ººÅ·Ö¸ôµÄÏÂÀ­Ïî×Ö·û´®
+	 *            ç”±é€—å·åˆ†éš”çš„ä¸‹æ‹‰é¡¹å­—ç¬¦ä¸²
 	 */
 	public JComboBoxEx(String items) {
 		this();
@@ -48,12 +48,12 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param items
-	 *            ÓÉdelim·Ö¸ôµÄÏÂÀ­Ïî×Ö·û´®
+	 *            ç”±delimåˆ†éš”çš„ä¸‹æ‹‰é¡¹å­—ç¬¦ä¸²
 	 * @param delim
-	 *            ·Ö¸ô·û
+	 *            åˆ†éš”ç¬¦
 	 */
 	public JComboBoxEx(String items, char delim) {
 		this();
@@ -61,10 +61,10 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param items
-	 *            ÏÂÀ­ÏîÊı×é
+	 *            ä¸‹æ‹‰é¡¹æ•°ç»„
 	 */
 	public JComboBoxEx(Object[] items) {
 		this();
@@ -72,10 +72,10 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param items
-	 *            ÏÂÀ­Ïî¼¯ºÏ
+	 *            ä¸‹æ‹‰é¡¹é›†åˆ
 	 */
 	public JComboBoxEx(Vector items) {
 		this();
@@ -83,10 +83,10 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param model
-	 *            ÏÂÀ­¿òÄ£ĞÍ
+	 *            ä¸‹æ‹‰æ¡†æ¨¡å‹
 	 */
 	public JComboBoxEx(DefaultComboBoxModel model) {
 		this();
@@ -97,7 +97,7 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * È¡³ÉÔ±ÊÇ·ñ¿ÉĞŞ¸Ä
+	 * å–æˆå‘˜æ˜¯å¦å¯ä¿®æ”¹
 	 * 
 	 * @return
 	 */
@@ -106,7 +106,7 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ÉèÖÃ³ÉÔ±ÊÇ·ñ¿ÉĞŞ¸Ä
+	 * è®¾ç½®æˆå‘˜æ˜¯å¦å¯ä¿®æ”¹
 	 * 
 	 * @param changeable
 	 */
@@ -115,12 +115,12 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÊı¾İÎªitems
+	 * è®¾ç½®å½“å‰çš„æ•°æ®ä¸ºitems
 	 *
 	 * @param items
-	 *            delim·Ö¸ôµÄÏÂÀ­Ïî×Ö·û´®
+	 *            delimåˆ†éš”çš„ä¸‹æ‹‰é¡¹å­—ç¬¦ä¸²
 	 * @param delim
-	 *            ÓÃÓÚ·Ö¿ªitemsÊı¾İµÄ·Ö¸î·ûºÅ
+	 *            ç”¨äºåˆ†å¼€itemsæ•°æ®çš„åˆ†å‰²ç¬¦å·
 	 */
 	public void setListData(String items, char delim) {
 		if (items == null) {
@@ -136,20 +136,20 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÊı¾İÎªitems
+	 * è®¾ç½®å½“å‰çš„æ•°æ®ä¸ºitems
 	 *
 	 * @param items
-	 *            ÓÃ','·Ö¿ªµÄÊı¾İÁĞ±í
+	 *            ç”¨','åˆ†å¼€çš„æ•°æ®åˆ—è¡¨
 	 */
 	public void setListData(String items) {
 		setListData(items, ',');
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÊı¾İÎªlistData
+	 * è®¾ç½®å½“å‰çš„æ•°æ®ä¸ºlistData
 	 *
 	 * @param listData
-	 *            °üº¬Êı¾İµÄ¶ÔÏóÊı×é
+	 *            åŒ…å«æ•°æ®çš„å¯¹è±¡æ•°ç»„
 	 */
 	public void setListData(Object[] listData) {
 		if (listData == null) {
@@ -164,10 +164,10 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÊı¾İÎªlistData
+	 * è®¾ç½®å½“å‰çš„æ•°æ®ä¸ºlistData
 	 *
 	 * @param listData
-	 *            °üº¬Êı¾İµÄVector¶ÔÏó
+	 *            åŒ…å«æ•°æ®çš„Vectorå¯¹è±¡
 	 */
 	public void setListData(Vector listData) {
 		if (listData == null) {
@@ -177,10 +177,10 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÊı¾İÎªmodel
+	 * è®¾ç½®å½“å‰çš„æ•°æ®ä¸ºmodel
 	 *
 	 * @param model
-	 *            °üº¬Êı¾İµÄListModel¶ÔÏó
+	 *            åŒ…å«æ•°æ®çš„ListModelå¯¹è±¡
 	 */
 	public void setModel(DefaultComboBoxModel model) {
 		if (model == null) {
@@ -191,7 +191,7 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°Ñ¡ÔñµÄÊı¾İ
+	 * è®¾ç½®å½“å‰é€‰æ‹©çš„æ•°æ®
 	 */
 	public void setSelectedItem(Object anObject) {
 		if (anObject == null) {
@@ -205,9 +205,9 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * »ñµÃµ±Ç°ÁĞ±í¿òÖĞµÄËùÓĞÏîÄ¿Ãû
+	 * è·å¾—å½“å‰åˆ—è¡¨æ¡†ä¸­çš„æ‰€æœ‰é¡¹ç›®å
 	 *
-	 * @return ×Ö·û´®ĞÎÊ½µÄÏîÄ¿ÁĞ±í£¬ÁĞ±íÖ®¼äÓÃ¡®£¬¡¯·Ö¿ª
+	 * @return å­—ç¬¦ä¸²å½¢å¼çš„é¡¹ç›®åˆ—è¡¨ï¼Œåˆ—è¡¨ä¹‹é—´ç”¨â€˜ï¼Œâ€™åˆ†å¼€
 	 */
 	public String totalItems() {
 		if (data.getSize() == 0) {
@@ -222,14 +222,14 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * x_ ÎªÇ°×ºµÄº¯ÊıÓÃÓÚÏÔÊ¾ÖµºÍÕæÊµÖµÏÔÊ¾£¬ËùÓĞµÄº¯Êı¶¼µÃÓÃÏàÓ¦µÄ x_... ÏÔÊ¾Öµ±ØĞëÊÇ×Ö·û´®ĞÎÊ½£¬ ÕæÊµÖµ¿ÉÒÔÊÇÈÎºÎÖµ
+	 * x_ ä¸ºå‰ç¼€çš„å‡½æ•°ç”¨äºæ˜¾ç¤ºå€¼å’ŒçœŸå®å€¼æ˜¾ç¤ºï¼Œæ‰€æœ‰çš„å‡½æ•°éƒ½å¾—ç”¨ç›¸åº”çš„ x_... æ˜¾ç¤ºå€¼å¿…é¡»æ˜¯å­—ç¬¦ä¸²å½¢å¼ï¼Œ çœŸå®å€¼å¯ä»¥æ˜¯ä»»ä½•å€¼
 	 *
 	 * @param codeData
 	 * @param dispData
 	 */
 	public void x_setData(Vector codeData, Vector dispData) {
 		isItemChangeable = false;
-		// ±ØĞëµÃÏÈÉèÖÃcodeData,·ñÔò¸Ã¿Ø¼şµÄActionPerformedÊÂ¼şÖĞµÃµ½µÄx_getSelectedItem()µÄÀàĞÍÓĞ´í
+		// å¿…é¡»å¾—å…ˆè®¾ç½®codeData,å¦åˆ™è¯¥æ§ä»¶çš„ActionPerformedäº‹ä»¶ä¸­å¾—åˆ°çš„x_getSelectedItem()çš„ç±»å‹æœ‰é”™
 
 		this.codeData.removeAllElements();
 		this.codeData.addAll(codeData);
@@ -240,12 +240,12 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ÅÅĞò
+	 * æ’åº
 	 * 
 	 * @param sortByDisp
-	 *            ÊÇ·ñÓÃÏÔÊ¾ÖµÅÅĞò
+	 *            æ˜¯å¦ç”¨æ˜¾ç¤ºå€¼æ’åº
 	 * @param ascend
-	 *            ÕıĞò
+	 *            æ­£åº
 	 * @return
 	 */
 	public boolean x_sort(boolean sortByDisp, boolean ascend) {
@@ -301,7 +301,7 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ´òÓ¡
+	 * æ‰“å°
 	 * 
 	 * @param v
 	 */
@@ -331,10 +331,10 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ¸ù¾İÏÔÊ¾ÖµÈ¡´úÂëÖµ
+	 * æ ¹æ®æ˜¾ç¤ºå€¼å–ä»£ç å€¼
 	 * 
 	 * @param dispItem
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 * @return
 	 */
 	public Object x_getCodeItem(Object dispItem) {
@@ -359,10 +359,10 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ¸ù¾İ´úÂëÖµÈ¡ÏÔÊ¾Öµ
+	 * æ ¹æ®ä»£ç å€¼å–æ˜¾ç¤ºå€¼
 	 * 
 	 * @param codeItem
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @return
 	 */
 	public String x_getDispItem(Object codeItem) {
@@ -387,12 +387,12 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ÉèÖÃ´úÂëÖµºÍÏÔÊ¾Ä£ĞÍ
+	 * è®¾ç½®ä»£ç å€¼å’Œæ˜¾ç¤ºæ¨¡å‹
 	 * 
 	 * @param codeData
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @param dispModel
-	 *            ÏÔÊ¾Ä£ĞÍ
+	 *            æ˜¾ç¤ºæ¨¡å‹
 	 */
 	public void x_setModel(Vector codeData, DefaultComboBoxModel dispModel) {
 		data = dispModel;
@@ -401,7 +401,7 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * É¾³ıÈ«²¿³ÉÔ±
+	 * åˆ é™¤å…¨éƒ¨æˆå‘˜
 	 */
 	public void x_removeAllElements() {
 		data.removeAllElements();
@@ -409,10 +409,10 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * °´ĞòºÅÉ¾³ı³ÉÔ±
+	 * æŒ‰åºå·åˆ é™¤æˆå‘˜
 	 * 
 	 * @param i
-	 *            ĞòºÅ
+	 *            åºå·
 	 */
 	public void x_removeElement(int i) {
 		data.removeElementAt(i);
@@ -420,12 +420,12 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * Ôö¼Ó³ÉÔ±
+	 * å¢åŠ æˆå‘˜
 	 * 
 	 * @param code
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 * @param disp
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 */
 	public void x_addElement(Object code, String disp) {
 		codeData.addElement(code);
@@ -433,7 +433,7 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * È¡µ±Ç°Ñ¡ÔñµÄ´úÂëÖµ
+	 * å–å½“å‰é€‰æ‹©çš„ä»£ç å€¼
 	 * 
 	 * @return
 	 */
@@ -442,20 +442,20 @@ public class JComboBoxEx extends JComboBox {
 	}
 
 	/**
-	 * ÉèÖÃÑ¡ÔñµÄÏÔÊ¾Öµ
+	 * è®¾ç½®é€‰æ‹©çš„æ˜¾ç¤ºå€¼
 	 * 
 	 * @param dispItem
-	 *            ÏÔÊ¾Öµ
+	 *            æ˜¾ç¤ºå€¼
 	 */
 	public void x_setSelectedDispItem(String dispItem) {
 		data.setSelectedItem(dispItem);
 	}
 
 	/**
-	 * ÉèÖÃÑ¡ÔñµÄ´úÂëÖµ
+	 * è®¾ç½®é€‰æ‹©çš„ä»£ç å€¼
 	 * 
 	 * @param codeItem
-	 *            ´úÂëÖµ
+	 *            ä»£ç å€¼
 	 */
 	public void x_setSelectedCodeItem(Object codeItem) {
 		x_setSelectedDispItem(x_getDispItem(codeItem));

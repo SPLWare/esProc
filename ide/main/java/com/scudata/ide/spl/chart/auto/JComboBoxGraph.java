@@ -10,7 +10,7 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.spl.resources.ChartMessage;
 
 /**
- * Í³¼ÆÍ¼ÀàĞÍÏÂÀ­Ñ¡Ôñ¿ò 
+ * ç»Ÿè®¡å›¾ç±»å‹ä¸‹æ‹‰é€‰æ‹©æ¡† 
  */
  public class JComboBoxGraph extends JComboBox<Object> {
 	private static final long serialVersionUID = 1L;
@@ -19,23 +19,23 @@ import com.scudata.ide.spl.resources.ChartMessage;
 		MessageManager mm = ChartMessage.get();
 		setRenderer(new TypeSelectBoxRenderer());
 
-		addItem(new TypeItem(mm.getMessage("GraphType.COL"), GraphTypes.GT_COL)); // ÖùĞÎÍ¼
-		addItem(new TypeItem(mm.getMessage("GraphType.PIE"), GraphTypes.GT_PIE)); // "±ıĞÍÍ¼"
+		addItem(new TypeItem(mm.getMessage("GraphType.COL"), GraphTypes.GT_COL)); // æŸ±å½¢å›¾
+		addItem(new TypeItem(mm.getMessage("GraphType.PIE"), GraphTypes.GT_PIE)); // "é¥¼å‹å›¾"
 		addItem(new TypeItem(mm.getMessage("GraphType.LINE"),
 				GraphTypes.GT_LINE));
 	}
 
 	/**
-	 * »ñÈ¡ÏÂÀ­Öµ
-	 * @return Í¼ĞÎÀàĞÍ
+	 * è·å–ä¸‹æ‹‰å€¼
+	 * @return å›¾å½¢ç±»å‹
 	 */
 	public byte getValue() {
 		return ((TypeItem) getSelectedItem()).getType();
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÀàĞÍ
-	 * @param type ÀàĞÍ
+	 * è®¾ç½®å›¾å½¢ç±»å‹
+	 * @param type ç±»å‹
 	 */
 	public void setValue(byte type) {
 		for (int i = 0; i < getItemCount(); i++) {

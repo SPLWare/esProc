@@ -15,9 +15,9 @@ import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
 // ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]
 // redis_zrangebyscore(key, min, max, offset, n, [withscores])
 public class RedisSortSetRangeByScore extends RedisBase {
-	boolean m_bDouble2 = false; //²ÎÊı2 ·ñÎªdoubleÀàĞÍ
-	boolean m_bDouble3 = false;  //²ÎÊı23·ñÎªdoubleÀàĞÍ
-	boolean m_bReverse = false;	//µ¹ÅÅĞò
+	boolean m_bDouble2 = false; //å‚æ•°2 å¦ä¸ºdoubleç±»å‹
+	boolean m_bDouble3 = false;  //å‚æ•°23å¦ä¸ºdoubleç±»å‹
+	boolean m_bReverse = false;	//å€’æ’åº
 	boolean m_bWithscores = false;
 	protected String m_paramTypes2[];
 	public Node optimize(Context ctx) { //skip param:WITHSCORES
@@ -71,7 +71,7 @@ public class RedisSortSetRangeByScore extends RedisBase {
 								}
 							}
 						}else{
-							if (i==2){ //[string, int],Í¬Ê±Îªdouble²Åµ÷ÓÃdouble¶ÔÓ¦µÄ½Ó¿Ú
+							if (i==2){ //[string, int],åŒæ—¶ä¸ºdoubleæ‰è°ƒç”¨doubleå¯¹åº”çš„æ¥å£
 								m_bDouble2 = true;
 							}else if (i==3){
 								m_bDouble3 = true;

@@ -10,7 +10,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 
 /**
- * ÈÕÆÚÑÜÉú±äÁ¿¼ÇÂ¼
+ * æ—¥æœŸè¡ç”Ÿå˜é‡è®°å½•
  * @author bd
  *
  */
@@ -29,15 +29,15 @@ public class DateRec extends VarRec {
 	}
 	
 	/**
-	 * »ñÈ¡ÈÕÆÚÊı¾İµÄÀàĞÍ
-	 * @return À´×ÔConsts£¬¿ÉÄÜÊÇDCT_DATETIME¡¢DCT_DATE¡¢DCT_TIME»òÕßDCT_UDATE
+	 * è·å–æ—¥æœŸæ•°æ®çš„ç±»å‹
+	 * @return æ¥è‡ªConstsï¼Œå¯èƒ½æ˜¯DCT_DATETIMEã€DCT_DATEã€DCT_TIMEæˆ–è€…DCT_UDATE
 	 */
 	public byte getDateType() {
 		return this.dateType;
 	}
 	
 	/**
-	 * Éè¶¨ÈÕÆÚÊı¾İµÄÀàĞÍ£¬À´×ÔConsts£¬¿ÉÄÜÊÇDCT_DATETIME¡¢DCT_DATE¡¢DCT_TIME»òÕßDCT_UDATE
+	 * è®¾å®šæ—¥æœŸæ•°æ®çš„ç±»å‹ï¼Œæ¥è‡ªConstsï¼Œå¯èƒ½æ˜¯DCT_DATETIMEã€DCT_DATEã€DCT_TIMEæˆ–è€…DCT_UDATE
 	 * @param dateType
 	 */
 	public void setDateType(byte type) {
@@ -45,7 +45,7 @@ public class DateRec extends VarRec {
 	}
 	
 	/**
-	 * »ñÈ¡ÈÕÆÚÁĞÑÜÉú×Ö¶ÎµÄ¼ÇÂ¼ÁĞ±í£¬ºÍ²úÉúË³ĞòÒ»Ò»¶ÔÓ¦£¬²»°üÀ¨ÈÕÆÚ²îÖµÁĞ
+	 * è·å–æ—¥æœŸåˆ—è¡ç”Ÿå­—æ®µçš„è®°å½•åˆ—è¡¨ï¼Œå’Œäº§ç”Ÿé¡ºåºä¸€ä¸€å¯¹åº”ï¼Œä¸åŒ…æ‹¬æ—¥æœŸå·®å€¼åˆ—
 	 * @return
 	 */
 	public ArrayList<VarRec> getDeriveRecs() {
@@ -53,7 +53,7 @@ public class DateRec extends VarRec {
 	}
 	
 	/**
-	 * Ìí¼ÓÒ»¸öÈÕÆÚÁĞÑÜÉú×Ö¶ÎµÄ¼ÇÂ¼
+	 * æ·»åŠ ä¸€ä¸ªæ—¥æœŸåˆ—è¡ç”Ÿå­—æ®µçš„è®°å½•
 	 * @return
 	 */
 	public void addDeriveRecs(VarRec vr) {
@@ -61,7 +61,7 @@ public class DateRec extends VarRec {
 	}
 	
 	/**
-	 * »ñÈ¡½¨Ä£Ê±Ê¹ÓÃµÄnow
+	 * è·å–å»ºæ¨¡æ—¶ä½¿ç”¨çš„now
 	 * @return
 	 */
 	public Date getNow() {
@@ -69,7 +69,7 @@ public class DateRec extends VarRec {
 	}
 	
 	/**
-	 * ÉèÖÃ½¨Ä£Ê±Ê¹ÓÃµÄnow
+	 * è®¾ç½®å»ºæ¨¡æ—¶ä½¿ç”¨çš„now
 	 * @param now
 	 */
 	public void setNow(Date now) {
@@ -78,7 +78,7 @@ public class DateRec extends VarRec {
 
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉĞòÁĞ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -103,7 +103,7 @@ public class DateRec extends VarRec {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾İSequence³õÊ¼»¯²ÎÊı
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public void init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -129,7 +129,7 @@ public class DateRec extends VarRec {
 		}
 	}
 
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 1;
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte ver = in.readByte();

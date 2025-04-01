@@ -5,7 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 /**
- * µ¥¸ö±äÁ¿µÄËùÓĞÔ¤´¦ÀíĞÅÏ¢£¬»ù´¡±äÁ¿°üÀ¨³õÊ¼±äÁ¿ÒÔ¼°ÑÜÉú³öÇÒĞèÒª¼ÌĞøÔ¤´¦ÀíµÄ±äÁ¿
+ * å•ä¸ªå˜é‡çš„æ‰€æœ‰é¢„å¤„ç†ä¿¡æ¯ï¼ŒåŸºç¡€å˜é‡åŒ…æ‹¬åˆå§‹å˜é‡ä»¥åŠè¡ç”Ÿå‡ºä¸”éœ€è¦ç»§ç»­é¢„å¤„ç†çš„å˜é‡
  * @author bd
  *
  */
@@ -20,13 +20,13 @@ public class VarDateInterval extends VarSrcInfo {
 		super(srcName, type);
 	}
 	
-	// ×öÈÕÆÚ²îÖµÊ±£¬µÚÒ»¸ö±äÁ¿Ãû£¬×îÖÕÃû
+	// åšæ—¥æœŸå·®å€¼æ—¶ï¼Œç¬¬ä¸€ä¸ªå˜é‡åï¼Œæœ€ç»ˆå
 	private String date1;
-	// ×öÈÕÆÚ²îÖµÊ±£¬µÚ¶ş¸ö±äÁ¿Ãû£¬×îÖÕÃû
+	// åšæ—¥æœŸå·®å€¼æ—¶ï¼Œç¬¬äºŒä¸ªå˜é‡åï¼Œæœ€ç»ˆå
 	private String date2;
 	
 	/**
-	 * ÉèÖÃÈÕÆÚ±äÁ¿×îÖÕÃû
+	 * è®¾ç½®æ—¥æœŸå˜é‡æœ€ç»ˆå
 	 * @param miDerived the miDerived to set
 	 */
 	public void setDateVar(String dcn1, String dcn2) {
@@ -35,7 +35,7 @@ public class VarDateInterval extends VarSrcInfo {
 	}
 	
 	/**
-	 * »ñÈ¡µÚÒ»¸öÈÕÆÚ±äÁ¿×îÖÕÃû
+	 * è·å–ç¬¬ä¸€ä¸ªæ—¥æœŸå˜é‡æœ€ç»ˆå
 	 * @return
 	 */
 	public String getDateVar1() {
@@ -43,14 +43,14 @@ public class VarDateInterval extends VarSrcInfo {
 	}
 	
 	/**
-	 * »ñÈ¡µÚ¶ş¸öÈÕÆÚ±äÁ¿×îÖÕÃû
+	 * è·å–ç¬¬äºŒä¸ªæ—¥æœŸå˜é‡æœ€ç»ˆå
 	 * @return
 	 */
 	public String getDateVar2() {
 		return this.date2;
 	}
 	
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 5;
 	public void writeExternal(ObjectOutput out) throws IOException {
 		super.writeExternal(out);

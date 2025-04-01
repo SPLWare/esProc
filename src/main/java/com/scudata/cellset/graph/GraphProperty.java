@@ -5,28 +5,28 @@ import java.io.*;
 import com.scudata.common.*;
 
 /**
- * ¹«ÓĞÊôĞÔÖ®ÍâµÄÊı¾İÊôĞÔ
+ * å…¬æœ‰å±æ€§ä¹‹å¤–çš„æ•°æ®å±æ€§
  * @author Joancy
  *
  */
 public class GraphProperty extends PublicProperty {
 	private final static long serialVersionUID = 82857881736578L;
-	/** ·ÖÀà¶¨Òå */
-	private String category; // ·ÖÀàµ¥Ôª¸ñ£¨Ô´¸ñ£©
-	private String series; // ÏµÁĞµ¥Ôª¸ñ£¬¿É¿Õ£¨Ô´¸ñ£©
-	private String value; // Öµµ¥Ôª¸ñ£¨Ô´¸ñ£©
+	/** åˆ†ç±»å®šä¹‰ */
+	private String category; // åˆ†ç±»å•å…ƒæ ¼ï¼ˆæºæ ¼ï¼‰
+	private String series; // ç³»åˆ—å•å…ƒæ ¼ï¼Œå¯ç©ºï¼ˆæºæ ¼ï¼‰
+	private String value; // å€¼å•å…ƒæ ¼ï¼ˆæºæ ¼ï¼‰
 
 	private int x, y, w = 400, h = 260;
 
 	/**
-	 * È¡Í³¼ÆÍ¼·ÖÀà¶¨Òå
+	 * å–ç»Ÿè®¡å›¾åˆ†ç±»å®šä¹‰
 	 */
 	public String getCategory() {
 		return category;
 	}
 
 	/**
-	 * Öµµ¥Ôª¸ñ
+	 * å€¼å•å…ƒæ ¼
 	 * @return
 	 */
 	public String getValue() {
@@ -34,107 +34,107 @@ public class GraphProperty extends PublicProperty {
 	}
 
 	/**
-	 * »ñÈ¡ÏµÁĞ±í´ïÊ½
-	 * @return ÏµÁĞ±í´ïÊ½ 
+	 * è·å–ç³»åˆ—è¡¨è¾¾å¼
+	 * @return ç³»åˆ—è¡¨è¾¾å¼ 
 	 */
 	public String getSeries() {
 		return series;
 	}
 
 	/**
-	 * x×ø±ê
-	 * @return ×ø±êÖµ
+	 * xåæ ‡
+	 * @return åæ ‡å€¼
 	 */
 	public int getX() {
 		return x;
 	}
 
 	/**
-	 * y×ø±ê
-	 * @return ×ø±êÖµ
+	 * yåæ ‡
+	 * @return åæ ‡å€¼
 	 */
 	public int getY() {
 		return y;
 	}
 
 	/**
-	 * Í¼ĞÎ¿í¶È
-	 * @return ¿í¶ÈÖµ
+	 * å›¾å½¢å®½åº¦
+	 * @return å®½åº¦å€¼
 	 */
 	public int getW() {
 		return w;
 	}
 
 	/**
-	 * Í¼ĞÎ¸ß¶È
-	 * @return ¸ß¶ÈÖµ
+	 * å›¾å½¢é«˜åº¦
+	 * @return é«˜åº¦å€¼
 	 */
 	public int getH() {
 		return h;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼·ÖÀà¶¨Òå
+	 * è®¾ç½®ç»Ÿè®¡å›¾åˆ†ç±»å®šä¹‰
 	 * 
 	 * @param categories
-	 *            Í³¼ÆÍ¼·ÖÀà¶¨Òå
+	 *            ç»Ÿè®¡å›¾åˆ†ç±»å®šä¹‰
 	 */
 	public void setCategory(String category) {
 		this.category = category;
 	}
 
 	/**
-	 * Öµ±í´ïÊ½
-	 * @param value ±í´ïÊ½
+	 * å€¼è¡¨è¾¾å¼
+	 * @param value è¡¨è¾¾å¼
 	 */
 	public void setValue(String value) {
 		this.value = value;
 	}
 
 	/**
-	 * ÉèÖÃÏµÁĞ±í´ïÊ½
-	 * @param series ±í´ïÊ½
+	 * è®¾ç½®ç³»åˆ—è¡¨è¾¾å¼
+	 * @param series è¡¨è¾¾å¼
 	 */
 	public void setSeries(String series) {
 		this.series = series;
 	}
 
 	/**
-	 * ÉèÖÃºá×ø±ê
-	 * @param x ×ø±êÖµ
+	 * è®¾ç½®æ¨ªåæ ‡
+	 * @param x åæ ‡å€¼
 	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
 	/**
-	 * ÉèÖÃ×İ×ø±ê
-	 * @param y ×ø±êÖµ
+	 * è®¾ç½®çºµåæ ‡
+	 * @param y åæ ‡å€¼
 	 */
 	public void setY(int y) {
 		this.y = y;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎ¿í¶È
-	 * @param w ¿í¶ÈÖµ
+	 * è®¾ç½®å›¾å½¢å®½åº¦
+	 * @param w å®½åº¦å€¼
 	 */
 	public void setW(int w) {
 		this.w = w;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎ¸ß¶È
-	 * @param h ¸ß¶ÈÖµ
+	 * è®¾ç½®å›¾å½¢é«˜åº¦
+	 * @param h é«˜åº¦å€¼
 	 */
 	public void setH(int h) {
 		this.h = h;
 	}
 
 	/**
-	 * ÉèÖÃ×ø±êÎ»ÖÃ
-	 * @param x ºá×ø±ê
-	 * @param y ×İ×ø±ê
+	 * è®¾ç½®åæ ‡ä½ç½®
+	 * @param x æ¨ªåæ ‡
+	 * @param y çºµåæ ‡
 	 */
 	public void setLocation(int x, int y) {
 		this.x = x;
@@ -142,9 +142,9 @@ public class GraphProperty extends PublicProperty {
 	}
 
 	/**
-	 * ÉèÖÃ´óĞ¡
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
+	 * è®¾ç½®å¤§å°
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
 	 */
 	public void setSize(int w, int h) {
 		this.w = w;
@@ -152,9 +152,9 @@ public class GraphProperty extends PublicProperty {
 	}
 
 	/**
-	 * Éî¶È¿ËÂ¡
+	 * æ·±åº¦å…‹éš†
 	 * 
-	 * @return Object ¿ËÂ¡ºóµÄÍ¼ĞÎÊôĞÔ
+	 * @return Object å…‹éš†åçš„å›¾å½¢å±æ€§
 	 */
 	public Object deepClone() {
 		GraphProperty gp = new GraphProperty();
@@ -168,7 +168,7 @@ public class GraphProperty extends PublicProperty {
 	}
 
 	/**
-	 * ÊµÏÖĞòÁĞ»¯½Ó¿Ú
+	 * å®ç°åºåˆ—åŒ–æ¥å£
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		super.writeExternal(out);
@@ -184,7 +184,7 @@ public class GraphProperty extends PublicProperty {
 	}
 
 	/**
-	 * ÊµÏÖĞòÁĞ»¯½Ó¿Ú
+	 * å®ç°åºåˆ—åŒ–æ¥å£
 	 */
 	public void readExternal(ObjectInput in) throws IOException,
 			ClassNotFoundException {
@@ -201,7 +201,7 @@ public class GraphProperty extends PublicProperty {
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public byte[] serialize() throws IOException {
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -219,7 +219,7 @@ public class GraphProperty extends PublicProperty {
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public void fillRecord(byte[] buf) throws IOException,
 			ClassNotFoundException {

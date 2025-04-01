@@ -13,7 +13,7 @@ import com.scudata.expression.Expression;
 import com.scudata.util.CursorUtil;
 
 /**
- * 内存虚表；从内存变量产生虚表
+ * 鍐呭瓨铏氳〃锛涗粠鍐呭瓨鍙橀噺浜х敓铏氳〃
  * @author LW
  *
  */

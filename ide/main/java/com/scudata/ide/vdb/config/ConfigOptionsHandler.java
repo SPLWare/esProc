@@ -42,7 +42,7 @@ class ConfigOptionsHandler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 	}
 
-	// <dateFormat>yyyy-MM-dd</dateFormat>，获取其中的yyyy-MM-dd
+	// <dateFormat>yyyy-MM-dd</dateFormat>锛岃幏鍙栧叾涓殑yyyy-MM-dd
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		buf.append(ch, start, length);
 	}

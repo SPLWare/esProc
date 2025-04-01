@@ -10,16 +10,16 @@ import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
 /**
- * xo.xlsimport(Fi,..;s,b:e) ´ÓÒ³sÖĞÈ¡³öĞò±í
+ * xo.xlsimport(Fi,..;s,b:e) ä»é¡µsä¸­å–å‡ºåºè¡¨
  * 
- * @t Ê×ĞĞÊÇ±êÌâ£¬ÓĞb²ÎÊıÊ±ÈÏÎª±êÌâÔÚbĞĞ
- * @c ·µ»Ø³ÉÓÎ±ê£¬xo±ØĞëÓÃ@r´ò¿ª£¬´ËÊ±e²»ÄÜÊÇ¸ºÊı
- * @b È¥³ıÇ°ºóµÄ¿Õ°×ĞĞ£¬@cÊ±²»Ö§³Ö
+ * @t é¦–è¡Œæ˜¯æ ‡é¢˜ï¼Œæœ‰bå‚æ•°æ—¶è®¤ä¸ºæ ‡é¢˜åœ¨bè¡Œ
+ * @c è¿”å›æˆæ¸¸æ ‡ï¼Œxoå¿…é¡»ç”¨@ræ‰“å¼€ï¼Œæ­¤æ—¶eä¸èƒ½æ˜¯è´Ÿæ•°
+ * @b å»é™¤å‰åçš„ç©ºç™½è¡Œï¼Œ@cæ—¶ä¸æ”¯æŒ
  */
 public class XlsImport extends XOFunction {
 
 	/**
-	 * ¼ÆËã
+	 * è®¡ç®—
 	 */
 	public Object calculate(Context ctx) {
 		String opt = option;
@@ -166,16 +166,16 @@ public class XlsImport extends XOFunction {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
 	 * 
 	 * @param ctx
-	 *            ¼ÆËãÉÏÏÂÎÄ
+	 *            è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @param Node
-	 *            ÓÅ»¯ºóµÄ½Úµã
+	 *            ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 

@@ -1,7 +1,7 @@
 package com.scudata.app.common;
 
 /**
- * 产品中公用的常量
+ * 浜у搧涓叕鐢ㄧ殑甯搁噺
  *
  */
 public class AppConsts {
@@ -37,10 +37,10 @@ public class AppConsts {
 	public static final String FILE_XML = "xml";
 	/** LOG file extension */
 	public static final String FILE_LOG = "log";
-	/** 资源文件 **/
+	/** 璧勬簮鏂囦欢 **/
 	public static final String FILE_PROPERTIES = "properties";
 
-	/** 支持的SPL文件类型 */
+	/** 鏀寔鐨凷PL鏂囦欢绫诲瀷 */
 	public static final String SPL_FILE_EXTS = AppConsts.FILE_SPLX + "," + AppConsts.FILE_SPL + ","
 			+ AppConsts.FILE_DFX;
 }

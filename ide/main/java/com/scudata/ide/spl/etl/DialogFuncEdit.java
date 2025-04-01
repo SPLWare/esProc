@@ -35,7 +35,7 @@ import com.scudata.ide.common.swing.JComboBoxEx;
 import com.scudata.ide.spl.resources.ChartMessage;
 
 /**
- * SPLº¯Êı¸¨Öú¿ª·¢ ½çÃæ±à¼­Æ÷
+ * SPLå‡½æ•°è¾…åŠ©å¼€å‘ ç•Œé¢ç¼–è¾‘å™¨
  * 
  * @author Joancy
  *
@@ -49,25 +49,25 @@ public class DialogFuncEdit extends JDialog {
 	JButton okbtn = new JButton();
 	JButton cancelbtn = new JButton();
 	ParamInputPanel propPanel;
-	JLabel lbCellNames = new JLabel("ÇëÑ¡Ôñµ¥Ôª¸ñ£º");
+	JLabel lbCellNames = new JLabel("è¯·é€‰æ‹©å•å…ƒæ ¼ï¼š");
 	JComboBoxEx jCBCellNames = new JComboBoxEx();
-	JLabel lbFuncNames = new JLabel("ÇëÑ¡Ôñº¯Êı£º");
+	JLabel lbFuncNames = new JLabel("è¯·é€‰æ‹©å‡½æ•°ï¼š");
 	JComboBoxEx jCBElementNames = new JComboBoxEx();
 
 	transient HashMap<String, ObjectElement> cellNames = null;
 	transient ObjectElement oe;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param cellNames
-	 *            Ã¿¸öÖ§³Ö¸¨Öúº¯ÊıµÄµ¥Ôª¸ñÃû×Ö¸úº¯Êı¶ÔÏóÔªËØµÄÓ³Éä
+	 *            æ¯ä¸ªæ”¯æŒè¾…åŠ©å‡½æ•°çš„å•å…ƒæ ¼åå­—è·Ÿå‡½æ•°å¯¹è±¡å…ƒç´ çš„æ˜ å°„
 	 * @param currentOe
-	 *            µ±Ç°±à¼­µÄº¯Êı¶ÔÏóÔªËØ
+	 *            å½“å‰ç¼–è¾‘çš„å‡½æ•°å¯¹è±¡å…ƒç´ 
 	 */
 	public DialogFuncEdit(HashMap<String, ObjectElement> cellNames,
 			ObjectElement currentOe) {
-		super(GV.appFrame, "º¯Êı±à¼­", true);
+		super(GV.appFrame, "å‡½æ•°ç¼–è¾‘", true);
 		try {
 			this.cellNames = cellNames;
 			this.oe = currentOe;
@@ -93,7 +93,7 @@ public class DialogFuncEdit extends JDialog {
 		lbUrl.setForeground(Color.blue);
 		lbUrl.setBorder(null);
 
-		okbtn.setText(ChartMessage.get().getMessage("button.ok")); // "È·¶¨(O)" );
+		okbtn.setText(ChartMessage.get().getMessage("button.ok")); // "ç¡®å®š(O)" );
 		okbtn.setPreferredSize(new Dimension(70, 25));
 		okbtn.setMargin(new Insets(2, 10, 2, 10));
 		okbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +101,7 @@ public class DialogFuncEdit extends JDialog {
 				okbtn_actionPerformed(e);
 			}
 		});
-		cancelbtn.setText(ChartMessage.get().getMessage("button.cancel")); // "È¡Ïû(C)"
+		cancelbtn.setText(ChartMessage.get().getMessage("button.cancel")); // "å–æ¶ˆ(C)"
 		cancelbtn.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cancelbtn_actionPerformed(e);
@@ -161,11 +161,11 @@ public class DialogFuncEdit extends JDialog {
 	}
 
 	/**
-	 * ´ÓÓ³Éä±íÖĞ½«ËùÓĞµ¥Ôª¸ñµÄÃû×ÖÁĞ³öÀ´£¬²¢½«·ûºÏÀàĞÍcellTypesµÄÃû³Æ¹¹ÔìÎªÏÂÀ­ÁĞ±í
+	 * ä»æ˜ å°„è¡¨ä¸­å°†æ‰€æœ‰å•å…ƒæ ¼çš„åå­—åˆ—å‡ºæ¥ï¼Œå¹¶å°†ç¬¦åˆç±»å‹cellTypesçš„åç§°æ„é€ ä¸ºä¸‹æ‹‰åˆ—è¡¨
 	 * 
 	 * @param cellTypes
-	 *            µ¥Ôª¸ñÀàĞÍ
-	 * @return Ãû³ÆÏÂÀ­ÁĞ±í
+	 *            å•å…ƒæ ¼ç±»å‹
+	 * @return åç§°ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public JComboBoxEx getCellNameDropdownBox(byte[] cellTypes) {
 		Vector<String> scodes = new Vector<String>(), sdisps = new Vector<String>();
@@ -175,7 +175,7 @@ public class DialogFuncEdit extends JDialog {
 			ArrayList<String> ans = getAncestorNames();
 			while (it.hasNext()) {
 				String name = it.next();
-				if (ans.contains(name)) {// ÒªÁĞ³öµÄÏÂÀ­¸ñ×Ó²»ÄÜ°üº¬µ±Ç°¸ñ×ÓµÄ×æÏÈ¸ñ£¬·ñÔò¾ÍÇ¶Ì×ÁË
+				if (ans.contains(name)) {// è¦åˆ—å‡ºçš„ä¸‹æ‹‰æ ¼å­ä¸èƒ½åŒ…å«å½“å‰æ ¼å­çš„ç¥–å…ˆæ ¼ï¼Œå¦åˆ™å°±åµŒå¥—äº†
 					continue;
 				}
 				names.add(name);
@@ -273,7 +273,7 @@ public class DialogFuncEdit extends JDialog {
 			Object dispItem = jCBElementNames.getItemAt(0);
 			jCBElementNames.x_setSelectedCodeItem(dispItem);
 		} else {
-			// ´ò¿ªÒÑÓĞ¶ÔÏóºó£¬ÔÊĞíĞŞ¸ÄÎªÍ¬ÀàĞÍµÄ¸ñ×Ó
+			// æ‰“å¼€å·²æœ‰å¯¹è±¡åï¼Œå…è®¸ä¿®æ”¹ä¸ºåŒç±»å‹çš„æ ¼å­
 			Vector<String> vNames = new Vector<String>();
 			Vector<String> vTitles = new Vector<String>();
 
@@ -323,18 +323,18 @@ public class DialogFuncEdit extends JDialog {
 	}
 
 	/**
-	 * »ñÈ¡´°¿Ú·µ»ØµÄ¶¯×÷Ñ¡Ïî
+	 * è·å–çª—å£è¿”å›çš„åŠ¨ä½œé€‰é¡¹
 	 * 
-	 * @return Ñ¡Ïî
+	 * @return é€‰é¡¹
 	 */
 	public int getOption() {
 		return m_option;
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°±à¼­º¯Êı¶ÔÏóÔªËØ
+	 * è·å–å½“å‰ç¼–è¾‘å‡½æ•°å¯¹è±¡å…ƒç´ 
 	 * 
-	 * @return º¯Êı¶ÔÏóÔªËØ
+	 * @return å‡½æ•°å¯¹è±¡å…ƒç´ 
 	 */
 	public ObjectElement getObjectElement() {
 		String cellName = (String) jCBCellNames.x_getSelectedItem();
@@ -343,7 +343,7 @@ public class DialogFuncEdit extends JDialog {
 	}
 
 	/**
-	 * ½«µ±Ç°µÄº¯Êı¶ÔÏóÔªËØÄÚÈİÏÔÊ¾µ½²ÎÊıÃæ°å
+	 * å°†å½“å‰çš„å‡½æ•°å¯¹è±¡å…ƒç´ å†…å®¹æ˜¾ç¤ºåˆ°å‚æ•°é¢æ¿
 	 */
 	public void dispDetail() {
 		String funcTitle = (String) jCBElementNames.getSelectedItem();

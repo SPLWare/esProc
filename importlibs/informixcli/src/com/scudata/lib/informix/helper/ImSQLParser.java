@@ -53,11 +53,11 @@ public class ImSQLParser {
 		do{
 			String segWhere="";
 			/********************************
-			 * Çø¼ä²ÎÊı´«µİÊ±¼ìÑéÊı¾İµÄÓĞĞ§ĞÔ
-			 * 0. Çø¼ä: [min,max],start²»¿ÉÈ±
-			   1. start=s,end=m ´Ósµ½m
-			 * 2. start×îĞ¡Îª1, endÎª×îºóÒ»¸öÔò²»ÉèÖÃ
-			 * 3. start=end,»òend=0,ÔòÖ»ÓĞstart
+			 * åŒºé—´å‚æ•°ä¼ é€’æ—¶æ£€éªŒæ•°æ®çš„æœ‰æ•ˆæ€§
+			 * 0. åŒºé—´: [min,max],startä¸å¯ç¼º
+			   1. start=s,end=m ä»såˆ°m
+			 * 2. startæœ€å°ä¸º1, endä¸ºæœ€åä¸€ä¸ªåˆ™ä¸è®¾ç½®
+			 * 3. start=end,æˆ–end=0,åˆ™åªæœ‰start
 			 */
 			int nStart = m_frag.getSegmentStart();
 			int nEnd = m_frag.getSegmentEnd();
@@ -65,7 +65,7 @@ public class ImSQLParser {
 				break;
 			}
 			
-    		//Éú³ÉĞÂµÄsqlVal
+    		//ç”Ÿæˆæ–°çš„sqlVal
     		sqlVal = "select "+m_colNames+" from " + m_tableName;
 			if (m_sWhere!=null){
 				sqlVal += " where (" + m_sWhere+")";
@@ -298,7 +298,7 @@ public class ImSQLParser {
 				String ord = m_sOrderby.toLowerCase();
 				String col = m_frag.getFieldName().toLowerCase();
 				String cols = col;
-				if (ord.indexOf(col)!=-1){ //´æÔÚ£¬µ«¿ÉÄÜ²»ÊÇµÚÒ»¸ö.
+				if (ord.indexOf(col)!=-1){ //å­˜åœ¨ï¼Œä½†å¯èƒ½ä¸æ˜¯ç¬¬ä¸€ä¸ª.
 					String a[] = ord.split(",");
 					for(String s : a){
 						if (s.equals(col)) continue;
@@ -422,7 +422,7 @@ public class ImSQLParser {
 								sComparision = mV2.group(1)+";"+mV2.group(4);
 							}
 							frag.addComparison(sComparision);
-						}else if (mV1.find()){ //µ¥±ß
+						}else if (mV1.find()){ //å•è¾¹
 							if (mV1.group(1).indexOf("<")>=0){
 								frag.addPartition(frag.getMaxValue());
 								sComparision = ">=;"+mV1.group(1);
@@ -449,7 +449,7 @@ public class ImSQLParser {
 					Matcher match = pTitle.matcher(v);
 					Matcher mVal2 = pVal2.matcher(v);	
 					String sComparision = "";
-					if (match.find()) { //1. Ë«±ßÖµ
+					if (match.find()) { //1. åŒè¾¹å€¼
 						String sMax = match.group(3).trim();
 						String sMin = match.group(6).trim();						
 						if (match.group(2).indexOf(">")>=0){
@@ -473,7 +473,7 @@ public class ImSQLParser {
 						}else{
 							frag.setMaxValue(sMax); //maxVal
 						}	
-					}else if (mVal2.find()) { //2. µ¥±ßÖµ
+					}else if (mVal2.find()) { //2. å•è¾¹å€¼
 						String sVal = mVal2.group(3).trim();						
 						if (mVal2.group(2).indexOf("<")>=0){
 							frag.addPartition(frag.getMaxValue());
@@ -488,7 +488,7 @@ public class ImSQLParser {
 						if ("remainder".compareToIgnoreCase(v)==0){
 							frag.addPartition(frag.getMaxValue());
 							frag.setMaxValue(null);
-							// >[=]·ûºÅ
+							// >[=]ç¬¦å·
 							int lastIdx = frag.getComparisonCount();
 							if (lastIdx>0){
 								String last = frag.getComparison(lastIdx-1);
@@ -566,12 +566,12 @@ public class ImSQLParser {
 			String tableName = rs.getString(1);
 			frag.setTableName(tableName);
 			
-			if (rs.getInt(2) == -3) { // ×Ö¶ÎÃû³Æ
+			if (rs.getInt(2) == -3) { // å­—æ®µåç§°
 				colName = rs.getString(3);
 			} else {
 				// ((d < datetime(2012-01-01 00:00:00.00000) year to fraction(5) ) AND (d >= datetime(2011-01-01 00:00:00.00000) year to fraction(5) ) )
 				String regTitle= "\\([\\s]?+\\((.*) [>=<]+(.*)\\) and \\((.*) [>=<]+(.*)\\)[\\s]?\\)"; 
-				String regVal2 = "\\((.*) ([>=<]+)(.*)\\)"; //µ¥±ßÖµ
+				String regVal2 = "\\((.*) ([>=<]+)(.*)\\)"; //å•è¾¹å€¼
 				Pattern pTitle = Pattern.compile(regTitle);				
 				Pattern pVal2 = Pattern.compile(regVal2);
 				

@@ -9,7 +9,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡ĞòÁĞµÄÄ³¶Î³ÉÔ±×é³ÉĞÂĞòÁĞ
+ * å–åºåˆ—çš„æŸæ®µæˆå‘˜ç»„æˆæ–°åºåˆ—
  * A.to(a) A.to(a,b) A.to@z(i,n)
  * @author WangXiaoJun
  *
@@ -149,7 +149,7 @@ public class To extends SequenceFunction {
 		}
 		
 		if (start <= end) {
-			// Æ½¾ù·Ö³Éend¶Î£¬È¡³öµÚstart
+			// å¹³å‡åˆ†æˆendæ®µï¼Œå–å‡ºç¬¬start
 			if (option != null && option.indexOf('z') != -1) {
 				return getSeg(srcSequence, start, end);
 			} else {
@@ -166,7 +166,7 @@ public class To extends SequenceFunction {
 		}
 	}
 	
-	// °ÑĞòÁĞÆ½¾ù·Ö³ÉsegCount¶ÎÈ¡µÚsegSeq¶Î
+	// æŠŠåºåˆ—å¹³å‡åˆ†æˆsegCountæ®µå–ç¬¬segSeqæ®µ
 	private Sequence getSeg(Sequence sequence, int segSeq, int segCount) {
 		int len = sequence.length();
 		int avg = len / segCount;
@@ -179,7 +179,7 @@ public class To extends SequenceFunction {
 			}
 		}
 		
-		// Ç°ÃæµÄ¿éÃ¿¶Î¶àÒ»
+		// å‰é¢çš„å—æ¯æ®µå¤šä¸€
 		int mod = len % segCount;
 		int end = segSeq * avg;
 		int start = end - avg;

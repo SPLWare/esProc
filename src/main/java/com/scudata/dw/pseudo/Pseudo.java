@@ -21,10 +21,10 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 public class Pseudo extends IPseudo {
-	protected PseudoDefination pd;//Êµ±íµÄ¶¨Òå
-	protected Sequence cache = null;//¶ÔimportµÄ½á¹ûµÄcache
+	protected PseudoDefination pd;//å®è¡¨çš„å®šä¹‰
+	protected Sequence cache = null;//å¯¹importçš„ç»“æœçš„cache
 	
-	//´´½¨ÓÎ±êĞèÒªµÄ²ÎÊı
+	//åˆ›å»ºæ¸¸æ ‡éœ€è¦çš„å‚æ•°
 	protected String []names;
 	protected Expression []exps;
 	protected Context ctx;
@@ -34,10 +34,10 @@ public class Pseudo extends IPseudo {
 	protected ArrayList<Sequence> codeList;
 	protected ArrayList<String> optList;
 	
-	protected ArrayList<String> extraNameList;//ÒòÎª¹ıÂË»òÎ±×Ö¶Î¶øĞèÒª¶îÍâÈ¡³öµÄ×Ö¶ÎÃû
-	protected ArrayList<String> allNameList;//Êµ±íµÄËùÓĞ×Ö¶Î
+	protected ArrayList<String> extraNameList;//å› ä¸ºè¿‡æ»¤æˆ–ä¼ªå­—æ®µè€Œéœ€è¦é¢å¤–å–å‡ºçš„å­—æ®µå
+	protected ArrayList<String> allNameList;//å®è¡¨çš„æ‰€æœ‰å­—æ®µ
 	
-	protected String []deriveNames;//ÓÉderiveÌí¼ÓµÄ
+	protected String []deriveNames;//ç”±deriveæ·»åŠ çš„
 	protected Expression []deriveExps;
 	
 	public void addColName(String name) {
@@ -71,7 +71,7 @@ public class Pseudo extends IPseudo {
 			boolean isBFile = pd.isBFile();
 			if (!isBFile && op instanceof Select && op.getFunction() != null) {
 				Expression exp = ((Select)op).getFilterExpression();
-				boolean flag = true;//true±íÊ¾¶¼ÊÇ±¾±íµÄ×Ö¶Î¡£ ÓÃÓÚnews¡¢new¡¢derive
+				boolean flag = true;//trueè¡¨ç¤ºéƒ½æ˜¯æœ¬è¡¨çš„å­—æ®µã€‚ ç”¨äºnewsã€newã€derive
 				for (String name : tempList) {
 					if (!isColumn(name)) {
 						flag = false;
@@ -96,15 +96,15 @@ public class Pseudo extends IPseudo {
 				}
 				
 			} else if (!isBFile && op instanceof Switch && ((Switch) op).isIsect()) {
-				//°Ñswitch@i×ª»»ÎªF:K
-				//×ª»»Ìõ¼ş£ºµ¥×Ö¶Î¡¢Á¬½Ó×Ö¶Î´æÔÚÇÒÊÇÖ÷¼ü¡¢code´æÔÚÖ÷¼ü¡¢codeÃ»ÓĞË÷Òı±í
+				//æŠŠswitch@iè½¬æ¢ä¸ºF:K
+				//è½¬æ¢æ¡ä»¶ï¼šå•å­—æ®µã€è¿æ¥å­—æ®µå­˜åœ¨ä¸”æ˜¯ä¸»é”®ã€codeå­˜åœ¨ä¸»é”®ã€codeæ²¡æœ‰ç´¢å¼•è¡¨
 				String names[] = ((Switch) op).getFkNames();
 				Sequence codes[] = ((Switch) op).getCodes();
 				
-				//¼ì²éÊÇ·ñÓĞË÷Òı»òÖ÷¼ü
+				//æ£€æŸ¥æ˜¯å¦æœ‰ç´¢å¼•æˆ–ä¸»é”®
 				boolean flag = true;
 				while (true) {
-					if (1 != names.length) break;//²»ÊÇµ¥×Ö¶Î
+					if (1 != names.length) break;//ä¸æ˜¯å•å­—æ®µ
 					String keyName;
 					if (((Switch) op).getExps()[0] == null) {
 						keyName = codes[0].dataStruct().getPrimary()[0];
@@ -116,16 +116,16 @@ public class Pseudo extends IPseudo {
 					if (obj instanceof BaseRecord) {
 						DataStruct ds = ((BaseRecord)obj).dataStruct();
 						if (-1 == ds.getFieldIndex(keyName)) {
-							//codeÀï²»´æÔÚ¸Ã×Ö¶Î
+							//codeé‡Œä¸å­˜åœ¨è¯¥å­—æ®µ
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(keyName + mm.getMessage("ds.fieldNotExist"));
 						}
 						int []fields = ds.getPKIndex();
 						if (fields == null) {
-							break;//Ö÷¼ü²»´æÔÚ
+							break;//ä¸»é”®ä¸å­˜åœ¨
 						} else {
 							if (! ds.getPrimary()[0].equals(keyName)) {
-								break;//¸Ã×Ö¶Î²»ÊÇcodeµÄÖ÷¼ü
+								break;//è¯¥å­—æ®µä¸æ˜¯codeçš„ä¸»é”®
 							}
 						}
 					} else {
@@ -135,7 +135,7 @@ public class Pseudo extends IPseudo {
 					
 					IndexTable it = codes[0].getIndexTable();
 					if (it != null) {
-						break;//ÓĞË÷Òı±íÁËÒ²ÎŞ·¨×ª»»
+						break;//æœ‰ç´¢å¼•è¡¨äº†ä¹Ÿæ— æ³•è½¬æ¢
 					}
 					
 					flag = false;
@@ -155,7 +155,7 @@ public class Pseudo extends IPseudo {
 				}
 				
 				if (flag) {
-					//²»ÄÜÌáÈ¡ÎªF:T
+					//ä¸èƒ½æå–ä¸ºF:T
 					for (String name : tempList) {
 						addColName(name);
 					}
@@ -171,12 +171,12 @@ public class Pseudo extends IPseudo {
 		this.ctx = ctx;
 	}
 	
-	//ÓÃÓÚnews¡¢new¡¢derive
+	//ç”¨äºnewsã€newã€derive
 	protected void setFetchInfo(ICursor cursor, Expression []exps, String []names) {
 		if (this.exps != null) return;
 		
 		if (exps == null && extraNameList.size() == 0) {
-			//Èç¹ûÃ»ÓĞÖ¸¶¨È¡³ö×Ö¶Î£¬ÔòÖÇÄÜ×éÖ¯
+			//å¦‚æœæ²¡æœ‰æŒ‡å®šå–å‡ºå­—æ®µï¼Œåˆ™æ™ºèƒ½ç»„ç»‡
 			names = cursor.getDataStruct().getFieldNames();
 			for (String name : names) {
 				if (!extraNameList.contains(name)) {
@@ -194,9 +194,9 @@ public class Pseudo extends IPseudo {
 			this.exps = exps;
 			this.names = names;
 		} else {
-			//Èç¹ûÖ¸¶¨ÁËÈ¡³ö×Ö¶Î£¬Ò²Òª°Ñ¶îÍâÓÃµ½µÄ×Ö¶Î¼ÓÉÏ
-			//¼ì²éextraNameListÀïÊÇ·ñ°üº¬expsÀïµÄ×Ö¶Î
-			//Èç¹ûÓĞ£¬¾ÍÈ¥µô
+			//å¦‚æœæŒ‡å®šäº†å–å‡ºå­—æ®µï¼Œä¹Ÿè¦æŠŠé¢å¤–ç”¨åˆ°çš„å­—æ®µåŠ ä¸Š
+			//æ£€æŸ¥extraNameListé‡Œæ˜¯å¦åŒ…å«expsé‡Œçš„å­—æ®µ
+			//å¦‚æœæœ‰ï¼Œå°±å»æ‰
 			ArrayList<String> tempList = new ArrayList<String>();
 			for (String name : extraNameList) {
 				if (!tempList.contains(name)) {
@@ -241,7 +241,7 @@ public class Pseudo extends IPseudo {
 			tempNameList.toArray(this.names);
 		}
 		
-//		//Èç¹ûÓĞderive³öÀ´µÄexps¡¢names
+//		//å¦‚æœæœ‰deriveå‡ºæ¥çš„expsã€names
 //		if (deriveExps != null) {
 //			int oldSize = this.exps.length;
 //			int newSize = deriveExps.length + oldSize;
@@ -357,7 +357,7 @@ public class Pseudo extends IPseudo {
 		return cache;
 	}
 	
-	// ÅĞ¶ÏÊÇ·ñÅäÖÃÁËÖ¸¶¨Ãû³ÆµÄÍâ¼ü
+	// åˆ¤æ–­æ˜¯å¦é…ç½®äº†æŒ‡å®šåç§°çš„å¤–é”®
 	public boolean hasForeignKey(String fkName) {
 		PseudoColumn column = pd.findColumnByName(fkName);
 		if (column != null && column.getDim() != null)
@@ -366,12 +366,12 @@ public class Pseudo extends IPseudo {
 			return false;
 	}
 	
-	// È¡Ğé±íÖ÷¼ü
+	// å–è™šè¡¨ä¸»é”®
 	public String[] getPrimaryKey() {
 		return getPd().getAllSortedColNames();
 	}
 	
-	//¸ù¾İ×Ö¶ÎÃûÕÒÎ¬ÁĞ
+	//æ ¹æ®å­—æ®µåæ‰¾ç»´åˆ—
 	public PseudoColumn getFieldSwitchColumnByName(String fieldName) {
 		List<PseudoColumn> columns = pd.getColumns();
 		if (columns == null) {
@@ -388,7 +388,7 @@ public class Pseudo extends IPseudo {
 		return null;
 	}
 	
-	// È¡×Ö¶ÎÖ¸ÏòµÄColumn
+	// å–å­—æ®µæŒ‡å‘çš„Column
 	public PseudoColumn getFieldSwitchColumn(String fieldName) {
 		List<PseudoColumn> columns = pd.getColumns();
 		if (columns == null) {
@@ -436,7 +436,7 @@ public class Pseudo extends IPseudo {
 			return list;
 	}
 	
-	// È¡×Ö¶Î×öswitchÖ¸ÏòµÄĞé±í£¬Èç¹ûÃ»×öÔò·µ»Ø¿Õ
+	// å–å­—æ®µåšswitchæŒ‡å‘çš„è™šè¡¨ï¼Œå¦‚æœæ²¡åšåˆ™è¿”å›ç©º
 	public Pseudo getFieldSwitchTable(String fieldName) {
 		List<PseudoColumn> columns = pd.getColumns();
 		if (columns == null) {
@@ -459,11 +459,11 @@ public class Pseudo extends IPseudo {
 	}
 	
 	/**
-	 * Ìí¼ÓÍâ¼ü
-	 * @param fkName	Íâ¼üÃû
-	 * @param fieldNames Íâ¼ü×Ö¶Î
-	 * @param code	Íâ±í
-	 * @param clone ·µ»ØÒ»¸öĞÂĞé±í
+	 * æ·»åŠ å¤–é”®
+	 * @param fkName	å¤–é”®å
+	 * @param fieldNames å¤–é”®å­—æ®µ
+	 * @param code	å¤–è¡¨
+	 * @param clone è¿”å›ä¸€ä¸ªæ–°è™šè¡¨
 	 * @return
 	 */
 	public Pseudo addForeignKeys(String fkName, String []fieldNames, Object code, String[] codeKeys, boolean clone) {
@@ -483,7 +483,7 @@ public class Pseudo extends IPseudo {
 	}
 
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ´æÔÚÕâ¸öÍâ¼ü
+	 * åˆ¤æ–­æ˜¯å¦å­˜åœ¨è¿™ä¸ªå¤–é”®
 	 * @param fkName
 	 * @param fieldNames
 	 * @param code

@@ -7,7 +7,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 把位值序列转成数序列
+ * 鎶婁綅鍊煎簭鍒楄浆鎴愭暟搴忓垪
  * A.bits(), A.bits(n)
  * @author RunQian
  *

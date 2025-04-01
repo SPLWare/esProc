@@ -12,20 +12,20 @@ public class ColCell implements IColCell {
 	private static final long serialVersionUID = 0x02010012;
 	private final static byte version = (byte) 1;
 
-	// ¿ÉÊÓÊôĞÔÈ¡Öµ
-	public final static byte VISIBLE_ALWAYS = 0; // ×ÜÊÇ¿É¼û
-	public final static byte VISIBLE_ALWAYSNOT = 1; // ×ÜÊÇ²»¿É¼û
-	public final static byte VISIBLE_FIRSTPAGE = 2; // Ê×Ò³¿É¼û
-	public final static byte VISIBLE_FIRSTPAGENOT = 3; // Ê×Ò³²»¿É¼û
+	// å¯è§†å±æ€§å–å€¼
+	public final static byte VISIBLE_ALWAYS = 0; // æ€»æ˜¯å¯è§
+	public final static byte VISIBLE_ALWAYSNOT = 1; // æ€»æ˜¯ä¸å¯è§
+	public final static byte VISIBLE_FIRSTPAGE = 2; // é¦–é¡µå¯è§
+	public final static byte VISIBLE_FIRSTPAGENOT = 3; // é¦–é¡µä¸å¯è§
 
 	private int col;
 	private float width = 150.0f;
-	private int level; // ²ã
+	private int level; // å±‚
 
-	private byte visible; // ¿ÉÊÓÊôĞÔ
-	private boolean isBreakPage; // ÁĞºóÊÇ·ñ·ÖÒ³
+	private byte visible; // å¯è§†å±æ€§
+	private boolean isBreakPage; // åˆ—åæ˜¯å¦åˆ†é¡µ
 
-	// ´æÅÌÊ±Ê¹ÓÃ
+	// å­˜ç›˜æ—¶ä½¿ç”¨
 	public ColCell() {
 	}
 
@@ -34,7 +34,7 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * ·µ»ØÁĞºÅ
+	 * è¿”å›åˆ—å·
 	 * @return int
 	 */
 	public int getCol() {
@@ -42,7 +42,7 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * ÉèÖÃÁĞºÅ
+	 * è®¾ç½®åˆ—å·
 	 * @param col int
 	 */
 	public void setCol(int col) {
@@ -50,7 +50,7 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¿í
+	 * è®¾ç½®åˆ—å®½
 	 * @param w float
 	 */
 	public void setWidth(float w) {
@@ -58,7 +58,7 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * ·µ»ØÁĞ¿í
+	 * è¿”å›åˆ—å®½
 	 * @return float
 	 */
 	public float getWidth() {
@@ -66,7 +66,7 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * ·µ»Ø²ãºÅ
+	 * è¿”å›å±‚å·
 	 * @return int
 	 */
 	public int getLevel() {
@@ -74,7 +74,7 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * ÉèÖÃ²ãºÅ
+	 * è®¾ç½®å±‚å·
 	 * @param level int
 	 */
 	public void setLevel(int level) {
@@ -82,39 +82,39 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * ·µÁĞĞĞÊÇ·ñ¿É¼û
-	 * @return byte È¡Öµ VISIBLE_ALWAYS¡¢VISIBLE_ALWAYSNOT¡¢VISIBLE_FIRSTPAGE¡¢VISIBLE_FIRSTPAGENOT
+	 * è¿”åˆ—è¡Œæ˜¯å¦å¯è§
+	 * @return byte å–å€¼ VISIBLE_ALWAYSã€VISIBLE_ALWAYSNOTã€VISIBLE_FIRSTPAGEã€VISIBLE_FIRSTPAGENOT
 	 */
 	public byte getVisible(){
 		return visible;
 	}
 
 	/**
-	 * ÉèÖÃÁĞÊÇ·ñ¿É¼û
-	 * @param b byte È¡Öµ VISIBLE_ALWAYS¡¢VISIBLE_ALWAYSNOT¡¢VISIBLE_FIRSTPAGE¡¢VISIBLE_FIRSTPAGENOT
+	 * è®¾ç½®åˆ—æ˜¯å¦å¯è§
+	 * @param b byte å–å€¼ VISIBLE_ALWAYSã€VISIBLE_ALWAYSNOTã€VISIBLE_FIRSTPAGEã€VISIBLE_FIRSTPAGENOT
 	 */
 	public void setVisible(byte b){
 		visible = b;
 	}
 
 	/**
-	 * @return ·µ»ØÁĞºóÊÇ·ñ·ÖÒ³
+	 * @return è¿”å›åˆ—åæ˜¯å¦åˆ†é¡µ
 	 */
 	public boolean isBreakPage(){
 		return isBreakPage;
 	}
 
 	/**
-	 * ÉèÖÃÁĞºóÊÇ·ñ·ÖÒ³
-	 * @param b ÎªtrueÔòÁĞºó·ÖÒ³£¬·ñÔò²»·ÖÒ³
+	 * è®¾ç½®åˆ—åæ˜¯å¦åˆ†é¡µ
+	 * @param b ä¸ºtrueåˆ™åˆ—ååˆ†é¡µï¼Œå¦åˆ™ä¸åˆ†é¡µ
 	 */
 	public void setBreakPage(boolean b){
 		isBreakPage = b;
 	}
 
 	/**
-	 * Éî¶È¿ËÂ¡
-	 * @return ¿ËÂ¡³öµÄ¶ÔÏó
+	 * æ·±åº¦å…‹éš†
+	 * @return å…‹éš†å‡ºçš„å¯¹è±¡
 	 */
 	public Object deepClone(){
 		ColCell cell = new ColCell(col);
@@ -127,8 +127,8 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
-	 * @param out ObjectOutput Êä³öÁ÷
+	 * å†™å†…å®¹åˆ°æµ
+	 * @param out ObjectOutput è¾“å‡ºæµ
 	 * @throws IOException
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
@@ -143,8 +143,8 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-	 * @param in ObjectInput ÊäÈëÁ÷
+	 * ä»æµä¸­è¯»å†…å®¹
+	 * @param in ObjectInput è¾“å…¥æµ
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
@@ -160,9 +160,9 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
+	 * å†™å†…å®¹åˆ°æµ
 	 * @throws IOException
-	 * @return Êä³öÁ÷
+	 * @return è¾“å‡ºæµ
 	 */
 	public byte[] serialize() throws IOException{
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -176,7 +176,7 @@ public class ColCell implements IColCell {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
+	 * ä»æµä¸­è¯»å†…å®¹
 	 * @param buf byte[]
 	 * @throws IOException
 	 * @throws ClassNotFoundException

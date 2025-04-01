@@ -3,7 +3,7 @@ package com.scudata.common;
 import java.io.*;
 
 /**
- * ¾ØÕó
+ * çŸ©é˜µ
  */
 public class Matrix
 	implements Externalizable {
@@ -333,10 +333,10 @@ public class Matrix
 		this.colSize -= count;
 	}
 
-	/*************************ÒÔÏÂ¼Ì³Ğ×ÔExternalizable************************/
+	/*************************ä»¥ä¸‹ç»§æ‰¿è‡ªExternalizable************************/
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
-	 *@param out Êä³öÁ÷
+	 * å†™å†…å®¹åˆ°æµ
+	 *@param out è¾“å‡ºæµ
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		out.writeByte( (byte)1);
@@ -353,8 +353,8 @@ public class Matrix
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-	 *@param in ÊäÈëÁ÷
+	 * ä»æµä¸­è¯»å†…å®¹
+	 *@param in è¾“å…¥æµ
 	 */
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte version = in.readByte();
@@ -372,8 +372,8 @@ public class Matrix
 	}
 
 	/**
-	 * µ÷ÕûĞĞµÄÎ»ÖÃ
-	 * @param rowIndex int[] µ÷ÕûºóµÄĞĞÔÚÔ´¾ØÕóÖĞµÄĞĞºÅ
+	 * è°ƒæ•´è¡Œçš„ä½ç½®
+	 * @param rowIndex int[] è°ƒæ•´åçš„è¡Œåœ¨æºçŸ©é˜µä¸­çš„è¡Œå·
 	 */
 	public void changeRowOrder(int []rowSeqs) {
 		Object []tmp = new Object[rowSize];
@@ -386,8 +386,8 @@ public class Matrix
 	}
 
 	/**
-	 * É¾³ı¶àĞĞ£¬ĞĞºÅ´ÓĞ¡µ½´óÓĞĞò
-	 * @param rowSeqs int[] ĞĞºÅÊı×é£¬´ÓĞ¡µ½´óÓĞĞò
+	 * åˆ é™¤å¤šè¡Œï¼Œè¡Œå·ä»å°åˆ°å¤§æœ‰åº
+	 * @param rowSeqs int[] è¡Œå·æ•°ç»„ï¼Œä»å°åˆ°å¤§æœ‰åº
 	 */
 	public void deleteRows(int []rowSeqs) {
 		if (rowSeqs == null || rowSeqs.length == 0) return;
@@ -407,7 +407,7 @@ public class Matrix
 			copyCount += curCount;
 		}
 
-		// ¸´ÖÆÊ£ÏÂµÄ
+		// å¤åˆ¶å‰©ä¸‹çš„
 		System.arraycopy(data, prev, newData, copyCount, this.rowSize - prev);
 
 		this.data = newData;
@@ -415,8 +415,8 @@ public class Matrix
 	}
 
 	/**
-	 * Ìí¼Ó¶àĞĞ£¬ĞĞºÅ´ÓĞ¡µ½´óÓĞĞò
-	 * @param rowSeqs int[] ĞĞºÅÊı×é£¬´ÓĞ¡µ½´óÓĞĞò
+	 * æ·»åŠ å¤šè¡Œï¼Œè¡Œå·ä»å°åˆ°å¤§æœ‰åº
+	 * @param rowSeqs int[] è¡Œå·æ•°ç»„ï¼Œä»å°åˆ°å¤§æœ‰åº
 	 */
 	public void insertRows(int []rowSeqs) {
 		if (rowSeqs == null || rowSeqs.length == 0) return;
@@ -440,7 +440,7 @@ public class Matrix
 			copyCount++;
 		}
 
-		// ¸´ÖÆÊ£ÏÂµÄ
+		// å¤åˆ¶å‰©ä¸‹çš„
 		System.arraycopy(data, prev, newData, copyCount, this.rowSize - prev);
 
 		this.data = newData;
@@ -448,11 +448,11 @@ public class Matrix
 	}
 
 	/**
-	 * ½»»»Á½¸öÇøÓòµÄÎ»ÖÃ£¬[startRow1, endRow1]ÔÚ[startRow2, endRow2]µÄÇ°Ãæ
-	 * @param startRow1 int ÇøÓò1µÄÆğÊ¼ĞĞ
-	 * @param endRow1 int ÇøÓò1µÄ½áÊøĞĞ
-	 * @param startRow2 int ÇøÓò2µÄÆğÊ¼ĞĞ
-	 * @param endRow2 int ÇøÓò2µÄ½áÊøĞĞ
+	 * äº¤æ¢ä¸¤ä¸ªåŒºåŸŸçš„ä½ç½®ï¼Œ[startRow1, endRow1]åœ¨[startRow2, endRow2]çš„å‰é¢
+	 * @param startRow1 int åŒºåŸŸ1çš„èµ·å§‹è¡Œ
+	 * @param endRow1 int åŒºåŸŸ1çš„ç»“æŸè¡Œ
+	 * @param startRow2 int åŒºåŸŸ2çš„èµ·å§‹è¡Œ
+	 * @param endRow2 int åŒºåŸŸ2çš„ç»“æŸè¡Œ
 	 */
 	public void exchangeArea(int startRow1, int endRow1, int startRow2, int endRow2) {
 		int totalLen = endRow2 - startRow1 + 1;
@@ -469,30 +469,30 @@ public class Matrix
 	}
 
 	/**
-	 * ÒÆ¶¯Ä³Ò»ÇøÓòµ½Ö¸¶¨Î»ÖÃ
-	 * @param start int ÆğÊ¼ĞĞ
-	 * @param end int ½áÊøĞĞ
-	 * @param targetRow int Ä¿±êÎ»ÖÃ
+	 * ç§»åŠ¨æŸä¸€åŒºåŸŸåˆ°æŒ‡å®šä½ç½®
+	 * @param start int èµ·å§‹è¡Œ
+	 * @param end int ç»“æŸè¡Œ
+	 * @param targetRow int ç›®æ ‡ä½ç½®
 	 */
 	public void moveRows(int start, int end, int targetRow) {
 		int count = end - start + 1;
 		Object [][]rows = new Object[count][];
 		System.arraycopy(data, start, rows, 0, count);
 
-		if (start > targetRow) { // ÉÏÒÆ
+		if (start > targetRow) { // ä¸Šç§»
 			System.arraycopy(data, targetRow, data, targetRow + count, start - targetRow);
 			System.arraycopy(rows, 0, data, targetRow, count);
-		} else { // ÏÂÒÆ
+		} else { // ä¸‹ç§»
 			System.arraycopy(data, end + 1, data, start, targetRow - end - 1);
 			System.arraycopy(rows, 0, data, targetRow - count, count);
 		}
 	}
 
 	/**
-	 * Ìæ»»Ö¸¶¨Çø¶ÎµÄĞĞ
-	 * @param start int ÆğÊ¼ĞĞ
-	 * @param end int ½áÊøĞĞ
-	 * @param rows Object[][] ÒªÌí¼ÓµÄĞĞÊı×é
+	 * æ›¿æ¢æŒ‡å®šåŒºæ®µçš„è¡Œ
+	 * @param start int èµ·å§‹è¡Œ
+	 * @param end int ç»“æŸè¡Œ
+	 * @param rows Object[][] è¦æ·»åŠ çš„è¡Œæ•°ç»„
 	 */
 	public void replace(int start, int end, Object [][]rows) {
 		if (rows == null || rows.length == 0) {
@@ -514,7 +514,7 @@ public class Matrix
 	}
 
 	/**
-	 * ½»»»c1¡¢c2Á½ÁĞµÄÎ»ÖÃ
+	 * äº¤æ¢c1ã€c2ä¸¤åˆ—çš„ä½ç½®
 	 * @param c1 int
 	 * @param c2 int
 	 */

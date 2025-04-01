@@ -9,7 +9,7 @@ import com.scudata.cellset.graph.config.*;
 import com.scudata.chart.Consts;
 
 /**
- * Í¼ĞÎ»æÖÆÊ±£¬ËùÓĞÊôĞÔ¼ÆËã£¬»òÕßÀ©Õ¹ºóµÄÍ¼ĞÎ²ÎÊı¶ÔÏó
+ * å›¾å½¢ç»˜åˆ¶æ—¶ï¼Œæ‰€æœ‰å±æ€§è®¡ç®—ï¼Œæˆ–è€…æ‰©å±•åçš„å›¾å½¢å‚æ•°å¯¹è±¡
  * @author Joancy
  *
  */
@@ -22,107 +22,107 @@ public class GraphParam {
 	public GraphFontView GFV_YTITLE;
 	public GraphFontView GFV_YLABEL;
 
-	public Color graphBackColor = new Color(255, 255, 255); /* Í¼Ïó±³¾°ÑÕÉ« */
-	public Color coorColor = new Color(0, 0, 0); /* ×ø±êÖáÑÕÉ« */
-	public Color gridColor = new Color(0, 0, 0); /* Íø¸ñÑÕÉ« */
+	public Color graphBackColor = new Color(255, 255, 255); /* å›¾è±¡èƒŒæ™¯é¢œè‰² */
+	public Color coorColor = new Color(0, 0, 0); /* åæ ‡è½´é¢œè‰² */
+	public Color gridColor = new Color(0, 0, 0); /* ç½‘æ ¼é¢œè‰² */
 	public byte imageFormat = 0;
-	public Vector catNames; /* Àà±ğÃû³Æ */
-	public Vector serNames; /* ĞòÁĞÃû³Æ */
-	public Vector serNames2; /* ĞòÁĞ2Ãû³Æ */
-	public int catNum; // ·ÖÀàµÄcatNames.size(),³ÌĞòÖĞ´óÁ¿ÓÃµ½¸ÃÖµ,¸É´à¸ø¸öµØ·½´æ×Å
+	public Vector catNames; /* ç±»åˆ«åç§° */
+	public Vector serNames; /* åºåˆ—åç§° */
+	public Vector serNames2; /* åºåˆ—2åç§° */
+	public int catNum; // åˆ†ç±»çš„catNames.size(),ç¨‹åºä¸­å¤§é‡ç”¨åˆ°è¯¥å€¼,å¹²è„†ç»™ä¸ªåœ°æ–¹å­˜ç€
 	public int serNum;
 	public int serNum2;
-	public double maxValue = 0.0; /* ×î´óÖµ */
-	public double minValue = 0.0; /* ×îĞ¡Öµ */
-	public double interval = 0.0; /* Í³¼ÆÖµ¼ä¸ô */
-	public double maxValue2 = 0; /* ×î´óÖµ */
-	public double minValue2 = 0; /* ×îĞ¡Öµ */
-	public double interval2 = 0.0; /* Í³¼ÆÖµ¼ä¸ô */
-	public int minTicknum = 1; /* ×îĞ¡ÖµÖá±ê¶ÈÊı */
-	public int minTicknum2 = 1; /* ×îĞ¡ÖµÖá±ê¶ÈÊı */
+	public double maxValue = 0.0; /* æœ€å¤§å€¼ */
+	public double minValue = 0.0; /* æœ€å°å€¼ */
+	public double interval = 0.0; /* ç»Ÿè®¡å€¼é—´éš” */
+	public double maxValue2 = 0; /* æœ€å¤§å€¼ */
+	public double minValue2 = 0; /* æœ€å°å€¼ */
+	public double interval2 = 0.0; /* ç»Ÿè®¡å€¼é—´éš” */
+	public int minTicknum = 1; /* æœ€å°å€¼è½´æ ‡åº¦æ•° */
+	public int minTicknum2 = 1; /* æœ€å°å€¼è½´æ ‡åº¦æ•° */
 	public int graphXInterval = 0;
 	public byte timeScale = 0;
 	public String timeFormat = null;
-	public double scaleMark = 1; /* Öµ×ø±ê±ÈÀı±ê×¢ */
-	public boolean drawLineDot = true; /* ÊÇ·ñ±ê×¢Ö±ÏßÍ¼µÄ¾ØĞÎ·½¿ò */
-	public boolean isOverlapOrigin = false; /* Ô­µãÖØºÏ */
-	public boolean drawLineTrend = false; /* ÊÇ·ñ»­Ö±ÏßÍ¼µÄÇ°ºóÇ÷ÊÆ */
-	private byte lineThick = 1; /* ÕÛÏßÍ¼µÄ´ÖÏ¸¶È */
+	public double scaleMark = 1; /* å€¼åæ ‡æ¯”ä¾‹æ ‡æ³¨ */
+	public boolean drawLineDot = true; /* æ˜¯å¦æ ‡æ³¨ç›´çº¿å›¾çš„çŸ©å½¢æ–¹æ¡† */
+	public boolean isOverlapOrigin = false; /* åŸç‚¹é‡åˆ */
+	public boolean drawLineTrend = false; /* æ˜¯å¦ç”»ç›´çº¿å›¾çš„å‰åè¶‹åŠ¿ */
+	private byte lineThick = 1; /* æŠ˜çº¿å›¾çš„ç²—ç»†åº¦ */
 
-	public boolean cutPie = true; /* ÊÇ·ñÇĞ¸î±ıÍ¼µÄÒ»¿é³öÀ´ */
-	public boolean isMeterColorEnd = true; /* ÒÇ±íÅÌ¿Ì¶ÈÎ»ÓÚÑÕÉ«Ä©¶Ë */
+	public boolean cutPie = true; /* æ˜¯å¦åˆ‡å‰²é¥¼å›¾çš„ä¸€å—å‡ºæ¥ */
+	public boolean isMeterColorEnd = true; /* ä»ªè¡¨ç›˜åˆ»åº¦ä½äºé¢œè‰²æœ«ç«¯ */
 
-	public int graphMargin = -1; /* Í³¼ÆÍ¼Óë±êÌâ»òÕßÍ¼ÑùµÄ±ß¿ò£¬Ö÷ÒªÓÃÓÚ±ê×¢Öµ±êÇ©µÄÊ±ºòÁô³öÎ»ÖÃ,-1±íÊ¾Ã»ÓĞÉèÖÃ±ß¾à */
-	public double barDistance = 0.0; /* ÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à */
-	public int gridLineLocation = Consts.GRID_VALUE; /* Íø¸ñÏßÎ»ÖÃ */
-	public int gridLineStyle; /* Íø¸ñÏß·ç¸ñ */
-	public int dispValueType = 0; // ÊÇ·ñÔÚÖùĞÎÍ¼¶¥²¿ÏÔÊ¾Öµ±êÊ¶
-	public int dispValueType2 = 0; // ÊÇ·ñÔÚÖùĞÎÍ¼¶¥²¿ÏÔÊ¾Öµ±êÊ¶
-	public boolean graphTransparent = false; /* Á¢ÌåÍ¼ÏñÊÇ·ñÍ¸Ã÷ */
+	public int graphMargin = -1; /* ç»Ÿè®¡å›¾ä¸æ ‡é¢˜æˆ–è€…å›¾æ ·çš„è¾¹æ¡†ï¼Œä¸»è¦ç”¨äºæ ‡æ³¨å€¼æ ‡ç­¾çš„æ—¶å€™ç•™å‡ºä½ç½®,-1è¡¨ç¤ºæ²¡æœ‰è®¾ç½®è¾¹è· */
+	public double barDistance = 0.0; /* æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è· */
+	public int gridLineLocation = Consts.GRID_VALUE; /* ç½‘æ ¼çº¿ä½ç½® */
+	public int gridLineStyle; /* ç½‘æ ¼çº¿é£æ ¼ */
+	public int dispValueType = 0; // æ˜¯å¦åœ¨æŸ±å½¢å›¾é¡¶éƒ¨æ˜¾ç¤ºå€¼æ ‡è¯†
+	public int dispValueType2 = 0; // æ˜¯å¦åœ¨æŸ±å½¢å›¾é¡¶éƒ¨æ˜¾ç¤ºå€¼æ ‡è¯†
+	public boolean graphTransparent = false; /* ç«‹ä½“å›¾åƒæ˜¯å¦é€æ˜ */
 
-	public String dataMarkFormat = ""; // Í¼ÖĞÊı¾İÖµ±êÊ¶µÄ¸ñÊ½
-	public String dataMarkFormat2 = ""; // Í¼ÖĞÊı¾İÖµ±êÊ¶µÄ¸ñÊ½2
-	public boolean dispValueOntop = false; // ÊÇ·ñÔÚÖùĞÎÍ¼¶¥²¿ÏÔÊ¾Öµ±êÊ¶
-	public boolean dispValueOntop2 = false; // ÊÇ·ñÔÚÖùĞÎÍ¼¶¥²¿ÏÔÊ¾Öµ±êÊ¶
-	public boolean dispStackSumValue = false; // ÊÇ·ñÔÚ¶ÑÕ»Í¼¶¥²¿ÏÔÊ¾Í³¼ÆÖµ
-	public boolean dispIntersectValue = true; /* ÏÔÊ¾ÖØµşµÄÊıÖµ */
-	public boolean gradientColor = true; /* ÑÕÉ«½¥±ä */
-	public double maxPositive = 0.0; /* ×î´óÖµ */
-	public double minNegative = 0.0; /* ×îĞ¡Öµ */
+	public String dataMarkFormat = ""; // å›¾ä¸­æ•°æ®å€¼æ ‡è¯†çš„æ ¼å¼
+	public String dataMarkFormat2 = ""; // å›¾ä¸­æ•°æ®å€¼æ ‡è¯†çš„æ ¼å¼2
+	public boolean dispValueOntop = false; // æ˜¯å¦åœ¨æŸ±å½¢å›¾é¡¶éƒ¨æ˜¾ç¤ºå€¼æ ‡è¯†
+	public boolean dispValueOntop2 = false; // æ˜¯å¦åœ¨æŸ±å½¢å›¾é¡¶éƒ¨æ˜¾ç¤ºå€¼æ ‡è¯†
+	public boolean dispStackSumValue = false; // æ˜¯å¦åœ¨å †æ ˆå›¾é¡¶éƒ¨æ˜¾ç¤ºç»Ÿè®¡å€¼
+	public boolean dispIntersectValue = true; /* æ˜¾ç¤ºé‡å çš„æ•°å€¼ */
+	public boolean gradientColor = true; /* é¢œè‰²æ¸å˜ */
+	public double maxPositive = 0.0; /* æœ€å¤§å€¼ */
+	public double minNegative = 0.0; /* æœ€å°å€¼ */
 
-	public int leftMargin = 10; // ×ó±ß¾à ³£Á¿,½«À´¿ÉÒÔÀ©³äÎªÊôĞÔ
-	public int rightMargin = 10; /* ÓÒ±ß¾à */
-	public int topMargin = 10; /* ÉÏ±ß¾à */
-	public int bottomMargin = 10; /* ÏÂ±ß¾à */
-	public int tickLen = 4; /* ¿Ì¶È³¤¶È */
-	public int coorWidth = 100; /* 3DÖá¿í¶ÈÕ¼ĞòÁĞ¿í¶ÈµÄ°Ù·Ö±È */
-	public double categorySpan = 190; /* Àà±ğ¼äµÄ¼ä¸ôÕ¼ĞòÁĞ¿í¶ÈµÄ°Ù·Ö±È */
-	public int seriesSpan = 100; /* ĞòÁĞ¼äµÄ¼ä¸ôÕ¼ĞòÁĞÉî¶ÈµÄ°Ù·Ö±È */
-	public int pieRotation = 50; /* ×İÖáÕ¼ºáÖáµÄ³¤¶È°Ù·Ö±È */
-	public int pieHeight = 70; /* ±ıĞÍÍ¼µÄ¸ß¶ÈÕ¼°ë¾¶µÄ°Ù·Ö±È<=100 */
-	public boolean isDrawTable = false,isDataCenter=false; /* »æÖÆÊı¾İ±í */
-	public int meterRainbowEdge = 16; /* ÒÇ±íÅÌ×ÅÉ«ÇøÕ¼°ë¾¶±ÈÖµ£¬·¶Î§0~100 */
-	public int meter3DEdge = 8; /* 3DÒÇ±íÅÌ±ß¿òÕ¼°ë¾¶±ÈÖµ£¬·¶Î§0~100 */
-	public int pieLine = 8; /* ±ıÍ¼Á¬½ÓÏßÕ¼°ë¾¶±ÈÖµ£¬·¶Î§0~100 */
+	public int leftMargin = 10; // å·¦è¾¹è· å¸¸é‡,å°†æ¥å¯ä»¥æ‰©å……ä¸ºå±æ€§
+	public int rightMargin = 10; /* å³è¾¹è· */
+	public int topMargin = 10; /* ä¸Šè¾¹è· */
+	public int bottomMargin = 10; /* ä¸‹è¾¹è· */
+	public int tickLen = 4; /* åˆ»åº¦é•¿åº¦ */
+	public int coorWidth = 100; /* 3Dè½´å®½åº¦å åºåˆ—å®½åº¦çš„ç™¾åˆ†æ¯” */
+	public double categorySpan = 190; /* ç±»åˆ«é—´çš„é—´éš”å åºåˆ—å®½åº¦çš„ç™¾åˆ†æ¯” */
+	public int seriesSpan = 100; /* åºåˆ—é—´çš„é—´éš”å åºåˆ—æ·±åº¦çš„ç™¾åˆ†æ¯” */
+	public int pieRotation = 50; /* çºµè½´å æ¨ªè½´çš„é•¿åº¦ç™¾åˆ†æ¯” */
+	public int pieHeight = 70; /* é¥¼å‹å›¾çš„é«˜åº¦å åŠå¾„çš„ç™¾åˆ†æ¯”<=100 */
+	public boolean isDrawTable = false,isDataCenter=false; /* ç»˜åˆ¶æ•°æ®è¡¨ */
+	public int meterRainbowEdge = 16; /* ä»ªè¡¨ç›˜ç€è‰²åŒºå åŠå¾„æ¯”å€¼ï¼ŒèŒƒå›´0~100 */
+	public int meter3DEdge = 8; /* 3Dä»ªè¡¨ç›˜è¾¹æ¡†å åŠå¾„æ¯”å€¼ï¼ŒèŒƒå›´0~100 */
+	public int pieLine = 8; /* é¥¼å›¾è¿æ¥çº¿å åŠå¾„æ¯”å€¼ï¼ŒèŒƒå›´0~100 */
 
-	// **********************´Ë±ê×¢ÒÔÉÏµÄÊôĞÔ¾ùĞèÒª´ÓExtGraphProperty³õÊ¼»¯¹ıÀ´,ÒÔÏÂÎª»­Í¼¹ı³ÌÖĞÓÃµ½µÄÖĞ¼ä±äÁ¿
-	public Rectangle2D.Double graphRect, gRect1, gRect2; /* ×ø±êÇøÓò */
-	public double coorScale = 1.0; /* ÉÏÊöMarkÎªAutoÊ±,¼ÆËãÊµ¼ÊËõ·Å±ÈÀıÇÒ·Åµ½Õâ¸ö±äÁ¿ */
-	public double coorScale2 = 1.0; /* Öµ×ø±ê±ÈÀı */
-	public Vector coorValue = new Vector(); /* ÖµÊı¾İ,Èç¹ûÊÇÊ±¼äĞòÁĞÍ¼£¬ÔòÎªxÖáÊ±¼ä¿Ì¶ÈÖµ */
-	public Vector coorValue2 = new Vector(); /* ÖµÊı¾İ,Èç¹ûÊÇÊ±¼äĞòÁĞÍ¼£¬ÔòÎªxÖáÊ±¼ä¿Ì¶ÈÖµ */
-	public int tickNum = 10; /* ÖµÖá±ê¶ÈÊı */
-	public int tickNum2 = 10; /* ÖµÖá±ê¶ÈÊı */
-	public double valueBaseLine = 0; /* ÖµÖá»ùÏß */
-	public double baseValue = 0; /* Èç¹ûÒÔ×îĞ¡Öµ×÷Îª»­Í¼µÄ»ùÏß£¬Ôò¸ÃÖµÓÃÓÚ´æ´¢×îĞ¡Öµ */
-	public double baseValue2 = 0; /* Èç¹ûÒÔ×îĞ¡Öµ×÷Îª»­Í¼µÄ»ùÏß£¬Ôò¸ÃÖµÓÃÓÚ´æ´¢×îĞ¡Öµ */
-	public int graphWidth = 640; /* Í¼Ïó¿í¶È */
-	public int graphHeight = 480; /* Í¼Ïó¸ß¶È */
-	public int legendBoxWidth = 0; /* Í¼Àı¿í¶È */
-	public int legendBoxHeight = 0; /* Í¼Àı¸ß¶È */
+	// **********************æ­¤æ ‡æ³¨ä»¥ä¸Šçš„å±æ€§å‡éœ€è¦ä»ExtGraphPropertyåˆå§‹åŒ–è¿‡æ¥,ä»¥ä¸‹ä¸ºç”»å›¾è¿‡ç¨‹ä¸­ç”¨åˆ°çš„ä¸­é—´å˜é‡
+	public Rectangle2D.Double graphRect, gRect1, gRect2; /* åæ ‡åŒºåŸŸ */
+	public double coorScale = 1.0; /* ä¸Šè¿°Markä¸ºAutoæ—¶,è®¡ç®—å®é™…ç¼©æ”¾æ¯”ä¾‹ä¸”æ”¾åˆ°è¿™ä¸ªå˜é‡ */
+	public double coorScale2 = 1.0; /* å€¼åæ ‡æ¯”ä¾‹ */
+	public Vector coorValue = new Vector(); /* å€¼æ•°æ®,å¦‚æœæ˜¯æ—¶é—´åºåˆ—å›¾ï¼Œåˆ™ä¸ºxè½´æ—¶é—´åˆ»åº¦å€¼ */
+	public Vector coorValue2 = new Vector(); /* å€¼æ•°æ®,å¦‚æœæ˜¯æ—¶é—´åºåˆ—å›¾ï¼Œåˆ™ä¸ºxè½´æ—¶é—´åˆ»åº¦å€¼ */
+	public int tickNum = 10; /* å€¼è½´æ ‡åº¦æ•° */
+	public int tickNum2 = 10; /* å€¼è½´æ ‡åº¦æ•° */
+	public double valueBaseLine = 0; /* å€¼è½´åŸºçº¿ */
+	public double baseValue = 0; /* å¦‚æœä»¥æœ€å°å€¼ä½œä¸ºç”»å›¾çš„åŸºçº¿ï¼Œåˆ™è¯¥å€¼ç”¨äºå­˜å‚¨æœ€å°å€¼ */
+	public double baseValue2 = 0; /* å¦‚æœä»¥æœ€å°å€¼ä½œä¸ºç”»å›¾çš„åŸºçº¿ï¼Œåˆ™è¯¥å€¼ç”¨äºå­˜å‚¨æœ€å°å€¼ */
+	public int graphWidth = 640; /* å›¾è±¡å®½åº¦ */
+	public int graphHeight = 480; /* å›¾è±¡é«˜åº¦ */
+	public int legendBoxWidth = 0; /* å›¾ä¾‹å®½åº¦ */
+	public int legendBoxHeight = 0; /* å›¾ä¾‹é«˜åº¦ */
 
-	public boolean isMultiSeries = false; /* ÊÇ·ñÓĞ¶à¸öÏµÁĞÖµ */
+	public boolean isMultiSeries = false; /* æ˜¯å¦æœ‰å¤šä¸ªç³»åˆ—å€¼ */
 	public Date stateBegin = java.sql.Timestamp.valueOf("2999-01-01 00:00:00");
 	public Date stateEnd = java.sql.Timestamp.valueOf("1900-01-01 00:00:00");
 
-	public int topInset = 0; // Í¼ÏóÉÏ±ß¾à
-	public int bottomInset = 0; /* Í¼ÏóÏÂ±ß¾à */
-	public int leftInset = 0; /* Í¼Ïó×ó±ß¾à */
-	public int rightInset = 0; /* Í¼ÏóÓÒ±ß¾à */
-	public int statusBarHeight = 10; /* ×´Ì¬Í¼ÌõÌõ¸ß¶È */
+	public int topInset = 0; // å›¾è±¡ä¸Šè¾¹è·
+	public int bottomInset = 0; /* å›¾è±¡ä¸‹è¾¹è· */
+	public int leftInset = 0; /* å›¾è±¡å·¦è¾¹è· */
+	public int rightInset = 0; /* å›¾è±¡å³è¾¹è· */
+	public int statusBarHeight = 10; /* çŠ¶æ€å›¾æ¡æ¡é«˜åº¦ */
 
-	//´Ë±ê×¢ÒÔÏÂÎªÃ»ÓĞ±à¼­µÄÊôĞÔ,½«À´¿ÉÄÜÀ©³äÎªÊôĞÔ
-	public Color lineColor = Color.lightGray; /* ÂÖ¹ùÏßÑÕÉ« */
+	//æ­¤æ ‡æ³¨ä»¥ä¸‹ä¸ºæ²¡æœ‰ç¼–è¾‘çš„å±æ€§,å°†æ¥å¯èƒ½æ‰©å……ä¸ºå±æ€§
+	public Color lineColor = Color.lightGray; /* è½®éƒ­çº¿é¢œè‰² */
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼±³¾°É«
+	 * è®¾ç½®ç»Ÿè®¡å›¾èƒŒæ™¯è‰²
 	 * 
 	 * @param rgb
-	 *            Í³¼ÆÍ¼±³¾°É«
+	 *            ç»Ÿè®¡å›¾èƒŒæ™¯è‰²
 	 */
 
 	public void setBackColor(int rgb) {
-		// Í¸Ã÷
+		// é€æ˜
 		if (rgb == 16777215 && imageFormat != IGraphProperty.IMAGE_JPG) {
 			graphBackColor = null;
 		} else {
@@ -131,31 +131,31 @@ public class GraphParam {
 	}
 
 	/**
-	 * ÉèÖÃÕÛÏßÍ¼µÄ´Ö¶È
-	 * @param thick ´Ö¶È
+	 * è®¾ç½®æŠ˜çº¿å›¾çš„ç²—åº¦
+	 * @param thick ç²—åº¦
 	 */
 	public void setLineThick(byte thick) {
 		this.lineThick = thick;
 	}
 
 	/**
-	 * È¥Ö±Ïß´Ö¶È
-	 * @return ´Ö¶ÈÖµ
+	 * å»ç›´çº¿ç²—åº¦
+	 * @return ç²—åº¦å€¼
 	 */
 	public float getLineThick() {
 		return getLineThick(lineThick);
 	}
 
 	/**
-	 * ½«Ïß´Ö×ª»»ÎªbyteÀàĞÍ
-	 * @return byteÀàĞÍµÄ´Ö¶ÈÖµ
+	 * å°†çº¿ç²—è½¬æ¢ä¸ºbyteç±»å‹
+	 * @return byteç±»å‹çš„ç²—åº¦å€¼
 	 */
 	public byte getLineThickByte() {
 		return lineThick;
 	}
 
 	/**
-	 * ½«±¨±íÖĞ¶¨ÒåµÄthickDefine×ª»»ÎªÊµ¼Ê»­Í¼Ê±µÄÏß´Ö¶È
+	 * å°†æŠ¥è¡¨ä¸­å®šä¹‰çš„thickDefineè½¬æ¢ä¸ºå®é™…ç”»å›¾æ—¶çš„çº¿ç²—åº¦
 	 * 
 	 * @param thickDefine
 	 *            byte
@@ -176,9 +176,9 @@ public class GraphParam {
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼µÄ¿í¸ß
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
+	 * è®¾ç½®ç»Ÿè®¡å›¾çš„å®½é«˜
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
 	 */
 	public void setGraphWH(int w, int h) {
 		if (w > 0) {
@@ -190,14 +190,14 @@ public class GraphParam {
 	}
 
 	/**
-	 * ½«¶ÁÊı×ª»»ÎªÖĞÎÄ´óĞ´¶Á·¨
-	 * @param dd Êı¾İ
-	 * @return ÖĞÎÄ¶ÁÊı
+	 * å°†è¯»æ•°è½¬æ¢ä¸ºä¸­æ–‡å¤§å†™è¯»æ³•
+	 * @param dd æ•°æ®
+	 * @return ä¸­æ–‡è¯»æ•°
 	 */
 	public static String xToChinese(double dd) {
 		try {
-			String s = "ÁãÒ¼·¡ÈşËÁÎéÂ½Æâ°Æ¾Á";
-			String s1 = "Ê°°ÛÇªÍòÊ°°ÛÇªÒÚÊ°°ÛÇªÍò";
+			String s = "é›¶å£¹è´°åè‚†ä¼é™†æŸ’æŒç–";
+			String s1 = "æ‹¾ä½°ä»Ÿä¸‡æ‹¾ä½°ä»Ÿäº¿æ‹¾ä½°ä»Ÿä¸‡";
 			String m;
 			int j;
 			StringBuffer k = new StringBuffer();
@@ -205,11 +205,11 @@ public class GraphParam {
 			for (j = m.length(); j >= 1; j--) {
 				char n = s.charAt(Integer.parseInt(m.substring(m.length() - j,
 						m.length() - j + 1)));
-				if (n == 'Áã' && k.charAt(k.length() - 1) == 'Áã') {
+				if (n == 'é›¶' && k.charAt(k.length() - 1) == 'é›¶') {
 					continue;
 				}
 				k.append(n);
-				if (n == 'Áã') {
+				if (n == 'é›¶') {
 					continue;
 				}
 				int u = j - 2;
@@ -217,16 +217,16 @@ public class GraphParam {
 					k.append(s1.charAt(u));
 				}
 				if (u > 3 && u < 7) {
-					k.append('Íò');
+					k.append('ä¸‡');
 				}
 				if (u > 7) {
-					k.append('ÒÚ');
+					k.append('äº¿');
 				}
 			}
-			if (k.length() > 0 && k.charAt(k.length() - 1) == 'Áã') {
+			if (k.length() > 0 && k.charAt(k.length() - 1) == 'é›¶') {
 				k.deleteCharAt(k.length() - 1);
 			}
-			if (k.length() > 0 && k.charAt(0) == 'Ò¼') {
+			if (k.length() > 0 && k.charAt(0) == 'å£¹') {
 				k.deleteCharAt(0);
 			}
 			return k.toString();

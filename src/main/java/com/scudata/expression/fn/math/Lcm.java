@@ -12,13 +12,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÇóĞòÁĞ³ÉÔ±µÄ×îĞ¡¹«±¶Êı,·ÇÊıÖµ³ÉÔ±±»ºöÂÔ£¬ÊıÖµ³ÉÔ±±»×Ô¶¯È¡Õû£¬ÈôÓĞĞ¡ÓÚµÈÓÚ0µÄ³ÉÔ±·µ»Ø´íÎóÖµ0
+ * æ±‚åºåˆ—æˆå‘˜çš„æœ€å°å…¬å€æ•°,éæ•°å€¼æˆå‘˜è¢«å¿½ç•¥ï¼Œæ•°å€¼æˆå‘˜è¢«è‡ªåŠ¨å–æ•´ï¼Œè‹¥æœ‰å°äºç­‰äº0çš„æˆå‘˜è¿”å›é”™è¯¯å€¼0
  * @author yanjing
  *
  */
 public class Lcm extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -56,10 +56,10 @@ public class Lcm extends Function {
 		return new Long(lcm(nums));
 	}
 	
-	/**×îĞ¡¹«±¶ÊıËã·¨ÃèÊö£º
-	 * Áî[a1,a2,..,an] ±íÊ¾a1,a2,..,anµÄ×îĞ¡¹«±¶Êı£¬(a1,a2,..,an)±íÊ¾a1,a2,..,anµÄ×î´ó¹«Ô¼Êı
-	 * MÎªa1,a2,..,anµÄ³Ë»ı
-	 * Ôò[a1,a2,..,an]=M/(M/a1,M/a2,..,M/an)
+	/**æœ€å°å…¬å€æ•°ç®—æ³•æè¿°ï¼š
+	 * ä»¤[a1,a2,..,an] è¡¨ç¤ºa1,a2,..,ançš„æœ€å°å…¬å€æ•°ï¼Œ(a1,a2,..,an)è¡¨ç¤ºa1,a2,..,ançš„æœ€å¤§å…¬çº¦æ•°
+	 * Mä¸ºa1,a2,..,ançš„ä¹˜ç§¯
+	 * åˆ™[a1,a2,..,an]=M/(M/a1,M/a2,..,M/an)
 	 * @return
 	 */
 	private long lcm(Number[] num){
@@ -70,7 +70,7 @@ public class Lcm extends Function {
 			M*=Variant.longValue(num[i]);
 			if(M<=0) return 0;
 		}
-		Number[] num1=new Number[k];//ÎªÁËÉ¾³ıÎª¿ÕµÄÊı×é³ÉÔ±£¬Ë³±ãÔìM/a1,M/a2,..,M/anÊı×é
+		Number[] num1=new Number[k];//ä¸ºäº†åˆ é™¤ä¸ºç©ºçš„æ•°ç»„æˆå‘˜ï¼Œé¡ºä¾¿é€ M/a1,M/a2,..,M/anæ•°ç»„
 		for(int i=0;i<k;i++){
 			num1[i]=new Long(M/Variant.longValue(num[i]));
 		}

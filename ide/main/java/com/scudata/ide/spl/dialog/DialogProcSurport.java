@@ -24,26 +24,26 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ¼¯ËãÆ÷¼¼ÊõÖ§³Ö½çÃæ
+ * é›†ç®—å™¨æŠ€æœ¯æ”¯æŒç•Œé¢
  * 
  */
 public class DialogProcSurport extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¼¯ËãÆ÷ÓïÑÔ×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨è¯­è¨€èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeSplMessage.get();
 	/**
-	 * ¹Ø±Õ°´Å¥
+	 * å…³é—­æŒ‰é’®
 	 */
 	private JButton jBClose = new JButton();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogProcSurport() {
-		super(GV.appFrame, "¼¼ÊõÖ§³Ö", true);
+		super(GV.appFrame, "æŠ€æœ¯æ”¯æŒ", true);
 		init();
 		setSize(GC.LANGUAGE == GC.ASIAN_CHINESE ? 425 : 450, 340);
 		GM.setDialogDefaultButton(this, jBClose, jBClose);
@@ -51,7 +51,7 @@ public class DialogProcSurport extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
 		setTitle(mm.getMessage("dialogprocsurport.title"));
@@ -59,7 +59,7 @@ public class DialogProcSurport extends JDialog {
 	}
 
 	/**
-	 * ¹Ø±Õ´°¿Ú
+	 * å…³é—­çª—å£
 	 */
 	private void closeWindow() {
 		GM.setWindowDimension(this);
@@ -67,7 +67,7 @@ public class DialogProcSurport extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 */
 	private void init() {
 		final String QQ = "800025723";
@@ -77,7 +77,7 @@ public class DialogProcSurport extends JDialog {
 		final String LABEL_COPIED = TEL + "  ("
 				+ mm.getMessage("dialogprocsurport.copied") + ")";
 		jBClose.setMnemonic('C');
-		jBClose.setText("¹Ø±Õ(C)");
+		jBClose.setText("å…³é—­(C)");
 		jBClose.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {

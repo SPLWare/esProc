@@ -9,13 +9,13 @@ import com.scudata.resources.EngineMessage;
 
 
 /**
- * °Ñ²ÎÊı±ä³É¶ş½øÖÆĞòÁĞ
+ * æŠŠå‚æ•°å˜æˆäºŒè¿›åˆ¶åºåˆ—
  * @author yanjing
  *
  */
 public class Bin extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

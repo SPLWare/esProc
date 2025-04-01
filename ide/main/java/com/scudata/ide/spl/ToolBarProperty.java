@@ -23,37 +23,37 @@ import com.scudata.ide.spl.control.SplControl;
 import com.scudata.ide.spl.control.SplEditor;
 
 /**
- * ÊôĞÔ¹¤¾ßÀ¸
+ * å±æ€§å·¥å…·æ 
  *
  */
 public class ToolBarProperty extends ToolBarPropertyBase {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ToolBarProperty() {
 		super();
 	}
 
 	/**
-	 * ÉèÖÃ±à¼­¿òµÄÎÄ±¾
+	 * è®¾ç½®ç¼–è¾‘æ¡†çš„æ–‡æœ¬
 	 */
 	public void setTextEditorText(String newText) {
 		setTextEditorText(newText, false);
 	}
 
 	/**
-	 * ÉèÖÃ±à¼­¿òµÄÎÄ±¾
+	 * è®¾ç½®ç¼–è¾‘æ¡†çš„æ–‡æœ¬
 	 * 
 	 * @param newText
-	 *            ĞÂÎÄ±¾
+	 *            æ–°æ–‡æœ¬
 	 * @param isRefresh
-	 *            ÊÇ·ñË¢ĞÂ
+	 *            æ˜¯å¦åˆ·æ–°
 	 */
 	public void setTextEditorText(String newText, boolean isRefresh) {
 		if (!isRefresh && !GV.isCellEditing) {
-			return; // µ±Ç°ÕıÔÚ±à¼­
+			return; // å½“å‰æ­£åœ¨ç¼–è¾‘
 		}
 		try {
 			preventAction = true;
@@ -75,8 +75,8 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 			try {
 				textEditor.setText(newText);
 			} catch (Exception e) {
-				// µÚÈı·½ÎÄ±¾¿ò¿Ø¼ş»á´òÓ¡Òì³££¬µ«ÊÇÏÔÊ¾²»»á³öÏÖ´íÎó¡£
-				// ÏÈ°ÑÒì³£ĞÅÏ¢ÆÁ±ÎÁË¡£
+				// ç¬¬ä¸‰æ–¹æ–‡æœ¬æ¡†æ§ä»¶ä¼šæ‰“å°å¼‚å¸¸ï¼Œä½†æ˜¯æ˜¾ç¤ºä¸ä¼šå‡ºç°é”™è¯¯ã€‚
+				// å…ˆæŠŠå¼‚å¸¸ä¿¡æ¯å±è”½äº†ã€‚
 			}
 			try {
 				textEditor.checkFont();
@@ -91,7 +91,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	public void init() {
 		super.init();
@@ -124,7 +124,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñ±à¼­¼àÌıÆ÷
+	 * è®¾ç½®ç½‘æ ¼ç¼–è¾‘ç›‘å¬å™¨
 	 * 
 	 * @return
 	 */
@@ -136,10 +136,10 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * Ë¢ĞÂCellÊôĞÔµ½¹¤¾ßÀ¸
+	 * åˆ·æ–°Cellå±æ€§åˆ°å·¥å…·æ 
 	 * 
 	 * @param selectState
-	 *            byte ÔİÊ±Ã»ÓÃ
+	 *            byte æš‚æ—¶æ²¡ç”¨
 	 * @param values
 	 *            IByteMap
 	 */
@@ -185,9 +185,9 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * µ±ÊäÈëcellExpÊ±,Í¨Öª¸Ä±ä
+	 * å½“è¾“å…¥cellExpæ—¶,é€šçŸ¥æ”¹å˜
 	 * 
-	 * @return ÎŞ
+	 * @return æ— 
 	 */
 	public void textEdited(KeyEvent e) {
 		if (preventAction) {
@@ -207,7 +207,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * Ìá½»±à¼­
+	 * æäº¤ç¼–è¾‘
 	 */
 	public void submitEditor(String newText, byte forward) {
 		SplControl control = GVSpl.splEditor.getComponent();
@@ -224,7 +224,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * Ñ¡ÔñÁË±à¼­¿ò
+	 * é€‰æ‹©äº†ç¼–è¾‘æ¡†
 	 */
 	public void editorSelected() {
 		if (GVSpl.splEditor == null)
@@ -239,10 +239,10 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * Ôö¼ÓÎÄ±¾
+	 * å¢åŠ æ–‡æœ¬
 	 * 
 	 * @param text
-	 *            ÎÄ±¾
+	 *            æ–‡æœ¬
 	 */
 	public void addText(String text) {
 		if (!this.isEnabled()) {
@@ -253,21 +253,21 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * È¡ÉÏÏÂÎÄ
+	 * å–ä¸Šä¸‹æ–‡
 	 */
 	public Context getContext() {
 		return GMSpl.prepareParentContext();
 	}
 
 	/**
-	 * ÉèÖÃ¹¤¾ßÀ¸Õ¹¿ª
+	 * è®¾ç½®å·¥å…·æ å±•å¼€
 	 */
 	protected void setToolBarExpand() {
 		((SPL) GV.appFrame).setToolBarExpand();
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°¸ñ
+	 * è®¾ç½®å½“å‰æ ¼
 	 */
 	protected void setActiveCell(int row, int col) {
 		SplEditor editor = GVSpl.splEditor;
@@ -298,7 +298,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * È¡µ±Ç°¸ñÃû³Æ
+	 * å–å½“å‰æ ¼åç§°
 	 */
 	protected String getActiveCellId() {
 		SplControl control = GVSpl.splEditor.getComponent();
@@ -309,7 +309,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * È¡×î´óµÄ¸ñ×Ó×ø±ê
+	 * å–æœ€å¤§çš„æ ¼å­åæ ‡
 	 */
 	protected CellLocation getMaxCellLocation() {
 		SplControl control = GVSpl.splEditor.getComponent();
@@ -318,7 +318,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * °´ÏÂTAB¼ü
+	 * æŒ‰ä¸‹TABé”®
 	 */
 	public void tabPressed() {
 		SplControl control = GVSpl.splEditor.getComponent();
@@ -333,7 +333,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	}
 
 	/**
-	 * ±à¼­È¡ÏûÁË
+	 * ç¼–è¾‘å–æ¶ˆäº†
 	 */
 	public void editCancel() {
 		SplControl control = GVSpl.splEditor.getComponent();

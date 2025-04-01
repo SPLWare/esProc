@@ -15,19 +15,19 @@ import com.scudata.thread.ThreadPool;
 import com.scudata.util.HashUtil;
 
 /**
- * ÓÃÓÚÖ´ĞĞgroupsµÄÈÎÎñÍ¬²½´ÓÓÎ±ê¶ÁÈ¡Êı¾İ²¢¼ÆËãhash
+ * ç”¨äºæ‰§è¡Œgroupsçš„ä»»åŠ¡åŒæ­¥ä»æ¸¸æ ‡è¯»å–æ•°æ®å¹¶è®¡ç®—hash
  * @author LW
  *
  */
 public class GroupsSyncReader {
 	private CursorReadJob readers[];
 	private int tcount;
-	private IntArray curTimes;//¼ÇÂ¼µ±Ç°¿é±»È¡ÁË¶àÉÙ´Î
-	private ObjectArray datas;//ÒªÈ¡µÄÊı¾İ
+	private IntArray curTimes;//è®°å½•å½“å‰å—è¢«å–äº†å¤šå°‘æ¬¡
+	private ObjectArray datas;//è¦å–çš„æ•°æ®
 	private ThreadPool threadPool;
 	private boolean close;
 	
-	//È¡ÊıÏß³Ì´ÓÓÎ±êÀïÈ¡µ½µÄÊı¾İ£¬ÏÈ»º´æµ½Õâ¸ö¶ÓÁĞ
+	//å–æ•°çº¿ç¨‹ä»æ¸¸æ ‡é‡Œå–åˆ°çš„æ•°æ®ï¼Œå…ˆç¼“å­˜åˆ°è¿™ä¸ªé˜Ÿåˆ—
 	private Queue<Object[]> readyDatas = new LinkedList<Object[]>();
 	
 	public GroupsSyncReader(ICursor[] cursors, Expression[] exps, HashUtil hashUtil, Context ctx) {
@@ -51,7 +51,7 @@ public class GroupsSyncReader {
 		this.threadPool = threadPool;
 	}
 	
-	//µÈ´ıÏß³ÌÍê³ÉÈ¡Êı¡£ ÔËĞĞµ½ÕâÀïËµÃ÷·Ö×é±ÈÈ¡Êı¿ì
+	//ç­‰å¾…çº¿ç¨‹å®Œæˆå–æ•°ã€‚ è¿è¡Œåˆ°è¿™é‡Œè¯´æ˜åˆ†ç»„æ¯”å–æ•°å¿«
 	private void waitReadData() {
 		if (close) {
 			return;
@@ -75,13 +75,13 @@ public class GroupsSyncReader {
 		}
 	}
 	
-	//°Ñ»º´æ¶ÓÁĞÀïµÄÊı¾İËÍµ½datasÀï
+	//æŠŠç¼“å­˜é˜Ÿåˆ—é‡Œçš„æ•°æ®é€åˆ°datasé‡Œ
 	private void loadData() {
 		if (close) {
 			return;
 		}
 		
-		//Èç¹û»º´æ¶ÓÁĞÀïÃ»ÓĞÊı¾İ
+		//å¦‚æœç¼“å­˜é˜Ÿåˆ—é‡Œæ²¡æœ‰æ•°æ®
 		if (readyDatas.size() == 0) {
 			waitReadData();
 			if (readyDatas.size() == 0) {
@@ -91,7 +91,7 @@ public class GroupsSyncReader {
 			}
 		}
 		
-		//°ÑreadyDatasµÄËùÓĞÊı¾İËÍµ½datasÀï
+		//æŠŠreadyDatasçš„æ‰€æœ‰æ•°æ®é€åˆ°datasé‡Œ
 		synchronized (readyDatas) {
 			int size = readyDatas.size();
 			if (size > 0) {
@@ -105,9 +105,9 @@ public class GroupsSyncReader {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»¿éÊı¾İ
-	 * @param index ¿éºÅ
-	 * @return Êı¾İ¸ñÊ½:[¶ÁÈ¡µÄÊı¾İ, ·Ö×éÁĞÊı¾İ, hashÁĞÊı¾İ]
+	 * è¯»å–ä¸€å—æ•°æ®
+	 * @param index å—å·
+	 * @return æ•°æ®æ ¼å¼:[è¯»å–çš„æ•°æ®, åˆ†ç»„åˆ—æ•°æ®, hashåˆ—æ•°æ®]
 	 */
 	public synchronized Object[] getData(int index) {
 		if (close && index > datas.size()) {
@@ -121,15 +121,15 @@ public class GroupsSyncReader {
 			}
 		}
 
-		Object[] data = (Object[]) datas.get(index);//¸ù¾İ¿éºÅÈ¡Êı
-		int[] curTimesData = curTimes.getDatas();//¶ÔÓ¦¿éºÅµÄ¼ÆÊıÆ÷++
+		Object[] data = (Object[]) datas.get(index);//æ ¹æ®å—å·å–æ•°
+		int[] curTimesData = curTimes.getDatas();//å¯¹åº”å—å·çš„è®¡æ•°å™¨++
 		curTimesData[index]++;
 		
-		//Èç¹ûÕâÒ»¿é±»ËùÓĞÍâ²¿Ïß³Ì¶¼È¡¹ıÁË
+		//å¦‚æœè¿™ä¸€å—è¢«æ‰€æœ‰å¤–éƒ¨çº¿ç¨‹éƒ½å–è¿‡äº†
 		if (curTimesData[index] == tcount) {
-			datas.set(index, null);//Çå³ı
+			datas.set(index, null);//æ¸…é™¤
 			
-			//´Ó»º´æÈ¡Ò»¿éÊı¾İ
+			//ä»ç¼“å­˜å–ä¸€å—æ•°æ®
 			synchronized (readyDatas) {
 				if (readyDatas.size() > 0) {
 					datas.add(readyDatas.poll());
@@ -146,23 +146,23 @@ public class GroupsSyncReader {
 }
 
 class CursorReadJob extends Job {
-	protected ICursor cursor; // ÒªÈ¡ÊıµÄÓÎ±ê
-	protected int fetchCount; // Ã¿´Î¶ÁÈ¡µÄÊı¾İÁ¿
+	protected ICursor cursor; // è¦å–æ•°çš„æ¸¸æ ‡
+	protected int fetchCount; // æ¯æ¬¡è¯»å–çš„æ•°æ®é‡
 	protected boolean isClosed;
 	
-	protected Expression[] exps;// ¼ÆËãhashµÄÁĞ
+	protected Expression[] exps;// è®¡ç®—hashçš„åˆ—
 	protected int keyCount;
 	protected Context ctx;
 	protected HashUtil hashUtil;
-	protected int []hashCodes; // ÓÃÓÚ±£´æÃ¿¸ö·Ö×é×Ö¶ÎµÄ¹şÏ£Öµ
+	protected int []hashCodes; // ç”¨äºä¿å­˜æ¯ä¸ªåˆ†ç»„å­—æ®µçš„å“ˆå¸Œå€¼
 	
 	protected Queue<Object[]> readyDatas;
 	protected int maxCacheSize;
 	/**
-	 * ´´½¨´ÓÓÎ±êÈ¡ÊıµÄÈÎÎñ£¬Ê¹ÓÃgetTableµÃµ½È¡Êı½á¹û
-	 * @param threadPool Ïß³Ì³Ø
-	 * @param cursor ÓÎ±ê
-	 * @param fetchCount Ã¿´Î¶ÁÈ¡µÄÊı¾İÁ¿
+	 * åˆ›å»ºä»æ¸¸æ ‡å–æ•°çš„ä»»åŠ¡ï¼Œä½¿ç”¨getTableå¾—åˆ°å–æ•°ç»“æœ
+	 * @param threadPool çº¿ç¨‹æ± 
+	 * @param cursor æ¸¸æ ‡
+	 * @param fetchCount æ¯æ¬¡è¯»å–çš„æ•°æ®é‡
 	 */
 	public CursorReadJob(ICursor cursor, int fetchCount, Expression[] exps, 
 			HashUtil hashUtil, Context ctx, int maxCacheSize, Queue<Object[]> readyDatas) {
@@ -180,7 +180,7 @@ class CursorReadJob extends Job {
 	}
 
 	/**
-	 * ±»Ïß³Ì³ØÀïµÄÏß³Ìµ÷ÓÃ£¬´ÓÓÎ±ê¶ÁÈ¡Êı¾İ
+	 * è¢«çº¿ç¨‹æ± é‡Œçš„çº¿ç¨‹è°ƒç”¨ï¼Œä»æ¸¸æ ‡è¯»å–æ•°æ®
 	 */
 	public void run() {
 		HashUtil hashUtil = this.hashUtil;
@@ -237,7 +237,7 @@ class CursorReadJob extends Job {
 			}
 			
 			while (readyDatas.size() > maxCacheSize) {
-				//Ö»ÓĞµ±È¡Êı±È·Ö×é¿ìÊ±»áÅÜ½øÀ´
+				//åªæœ‰å½“å–æ•°æ¯”åˆ†ç»„å¿«æ—¶ä¼šè·‘è¿›æ¥
 				try {
 					Thread.sleep(5);
 				} catch (InterruptedException e) {

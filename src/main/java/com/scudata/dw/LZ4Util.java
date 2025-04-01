@@ -5,7 +5,7 @@ import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4FastDecompressor;
 
 /**
- * LZ4Ñ¹Ëõ½âÑ¹¹¤¾ßÀà
+ * LZ4å‹ç¼©è§£å‹å·¥å…·ç±»
  * @author runqian
  *
  */
@@ -16,10 +16,10 @@ public class LZ4Util {
 		}
 	};
 	
-	//Ñ¹Ëõ
+	//å‹ç¼©
 	private LZ4Compressor compressor = LZ4Factory.fastestInstance().fastCompressor();
 	
-	//½âÑ¹
+	//è§£å‹
 	private LZ4FastDecompressor decompressor = LZ4Factory.fastestInstance().fastDecompressor();
 	
 	private int count;
@@ -32,7 +32,7 @@ public class LZ4Util {
 	}
 	
 	/**
-	 * ·µ»ØÑ¹ËõºóµÄ³¤¶È
+	 * è¿”å›å‹ç¼©åçš„é•¿åº¦
 	 * @return
 	 */
 	public int getCount() {
@@ -40,7 +40,7 @@ public class LZ4Util {
 	}
 	
 	/**
-	 * ·µ»ØÑ¹ËõºóµÄ×Ö½ÚÊı×é£¬×Ö½ÚÊı×é³¤¶È¿ÉÄÜ´óÓÚÊµ¼Ê³¤¶È£¬ĞèÒªµ÷ÓÃgetCountÈ¡µÄÊµ¼Ê³¤¶È
+	 * è¿”å›å‹ç¼©åçš„å­—èŠ‚æ•°ç»„ï¼Œå­—èŠ‚æ•°ç»„é•¿åº¦å¯èƒ½å¤§äºå®é™…é•¿åº¦ï¼Œéœ€è¦è°ƒç”¨getCountå–çš„å®é™…é•¿åº¦
 	 * @param bytes
 	 * @return
 	 */
@@ -53,7 +53,7 @@ public class LZ4Util {
 	}
 	
 	/**
-	 * ½âÑ¹£¬srcCountÎª½âÑ¹ºó³¤¶È
+	 * è§£å‹ï¼ŒsrcCountä¸ºè§£å‹åé•¿åº¦
 	 * @param bytes
 	 * @param buffer
 	 * @param srcCount

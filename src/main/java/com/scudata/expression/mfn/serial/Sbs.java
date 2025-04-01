@@ -8,8 +8,8 @@ import com.scudata.expression.SerialFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡ÅÅºÅµÄ³¤¶È
- * k.sbs(a:b,¡­)
+ * å–æ’å·çš„é•¿åº¦
+ * k.sbs(a:b,â€¦)
  * @author RunQian
  *
  */

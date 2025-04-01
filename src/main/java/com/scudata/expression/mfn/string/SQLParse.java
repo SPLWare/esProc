@@ -8,7 +8,7 @@ import com.scudata.expression.StringFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ²ğ·ÖSQLÓï¾äµÄ¸÷¸ö²¿·Ö¹¹³ÉĞòÁĞ·µ»Ø
+ * æ‹†åˆ†SQLè¯­å¥çš„å„ä¸ªéƒ¨åˆ†æ„æˆåºåˆ—è¿”å›
  * sql.sqlparse() sql.sqlparse(part)
  * @author RunQian
  *

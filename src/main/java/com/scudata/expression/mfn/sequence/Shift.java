@@ -8,7 +8,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 移除序列指定区间的元素，用后面的元素填充
+ * 绉婚櫎搴忓垪鎸囧畾鍖洪棿鐨勫厓绱狅紝鐢ㄥ悗闈㈢殑鍏冪礌濉厖
  * A.shift(i,s)
  * @author RunQian
  *

@@ -7,7 +7,7 @@ import javax.swing.UIManager;
 import com.scudata.ide.vdb.config.ConfigOptions;
 
 /**
- * 界面样式
+ * 鐣岄潰鏍峰紡
  * 
  * @author wunan
  *

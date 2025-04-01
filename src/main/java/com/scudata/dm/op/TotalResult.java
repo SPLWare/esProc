@@ -9,13 +9,13 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
 
 /**
- * ÓÃÓÚ¶ÔÍÆËÍÀ´µÄÊı¾İÖ´ĞĞ»ã×ÜÔËËã
+ * ç”¨äºå¯¹æ¨é€æ¥çš„æ•°æ®æ‰§è¡Œæ±‡æ€»è¿ç®—
  * @author RunQian
  *
  */
 public class TotalResult implements IResult {
-	private Expression []calcExps; // »ã×Ü±í´ïÊ½Êı×é
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
+	private Expression []calcExps; // æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
 	private IGroupsResult groupsResult;
 	
 	public TotalResult(Expression[] calcExps, Context ctx, IGroupsResult groupsResult) {
@@ -29,14 +29,14 @@ public class TotalResult implements IResult {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊøÊ±µ÷ÓÃ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®æ¨é€ç»“æŸæ—¶è°ƒç”¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void finish(Context ctx) {
 	}
 		
 	 /**
-	  * Êı¾İÍÆËÍ½áÊø£¬È¡×îÖÕµÄ¼ÆËã½á¹û
+	  * æ•°æ®æ¨é€ç»“æŸï¼Œå–æœ€ç»ˆçš„è®¡ç®—ç»“æœ
 	  * @return
 	  */
 	public Object result() {
@@ -60,9 +60,9 @@ public class TotalResult implements IResult {
 	}
 	
 	/**
-	 * ´¦ÀíÍÆËÍ¹ıÀ´µÄÊı¾İ£¬ÀÛ»ıµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¨é€è¿‡æ¥çš„æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æœä¸Š
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void push(Sequence table, Context ctx) {
 		if (table == null || table.length() == 0) return;
@@ -70,8 +70,8 @@ public class TotalResult implements IResult {
 	}
 
 	/**
-	 * ´¦ÀíÍÆËÍ¹ıÀ´µÄÓÎ±êÊı¾İ£¬ÀÛ»ıµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param cursor ÓÎ±êÊı¾İ
+	 * å¤„ç†æ¨é€è¿‡æ¥çš„æ¸¸æ ‡æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æœä¸Š
+	 * @param cursor æ¸¸æ ‡æ•°æ®
 	 */
 	public void push(ICursor cursor) {
 		groupsResult.push(cursor);

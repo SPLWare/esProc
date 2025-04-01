@@ -11,46 +11,46 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
 
 /**
- * ¼¯ÎÄ¼şÓÎ±ê
+ * é›†æ–‡ä»¶æ¸¸æ ‡
  * @author
  *
  */
 public class BFileCursor extends ICursor {
-	private FileObject fileObject; // ÎÄ¼ş¶ÔÏó
-	private String []fields; // Ñ¡³ö×Ö¶Î
+	private FileObject fileObject; // æ–‡ä»¶å¯¹è±¡
+	private String []fields; // é€‰å‡ºå­—æ®µ
 	
-	// ÓÃÓÚ¶àÏß³ÌÔËËã
-	private int segSeq; // ·Ö¶ÎºÅ
-	private int segCount; // ×Ü¶ÎÊı
+	// ç”¨äºå¤šçº¿ç¨‹è¿ç®—
+	private int segSeq; // åˆ†æ®µå·
+	private int segCount; // æ€»æ®µæ•°
 	
-	private String opt; // Ñ¡Ïî
-	private int fileBufSize = Env.FILE_BUFSIZE; // ¶ÁÎïÀíÎÄ¼şÊ±µÄ»º³åÇø´óĞ¡
-	private BFileReader reader; // ¼¯ÎÄ¼ş¶ÁÈ¡Æ÷
-	private boolean isDeleteFile; // ÓÎ±ê¹Ø±ÕºóÉ¾³ıÔ´ÎÄ¼ş£¬ÓÃÓÚ¼ÆËã¹ı³ÌÖĞ²úÉúµÄÁÙÊ±¼¯ÎÄ¼ş
+	private String opt; // é€‰é¡¹
+	private int fileBufSize = Env.FILE_BUFSIZE; // è¯»ç‰©ç†æ–‡ä»¶æ—¶çš„ç¼“å†²åŒºå¤§å°
+	private BFileReader reader; // é›†æ–‡ä»¶è¯»å–å™¨
+	private boolean isDeleteFile; // æ¸¸æ ‡å…³é—­ååˆ é™¤æºæ–‡ä»¶ï¼Œç”¨äºè®¡ç®—è¿‡ç¨‹ä¸­äº§ç”Ÿçš„ä¸´æ—¶é›†æ–‡ä»¶
 
-	// ¶Ô·Ö¶Î×ö»»Ëã£¬»»Ëã³ÉÎïÀíÎÄ¼şµÄÆğÊ¼Î»ÖÃºÍ½áÊøÎ»ÖÃ£¬»á×öÆşÍ·È¥Î²´¦Àí
+	// å¯¹åˆ†æ®µåšæ¢ç®—ï¼Œæ¢ç®—æˆç‰©ç†æ–‡ä»¶çš„èµ·å§‹ä½ç½®å’Œç»“æŸä½ç½®ï¼Œä¼šåšæå¤´å»å°¾å¤„ç†
 	private long startPos = -1;
 	private long endPos;
 	
 	/**
-	 * ´´½¨¼¯ÎÄ¼şÓÎ±ê
-	 * @param fileObject ÎÄ¼ş¶ÔÏó
-	 * @param fields Ñ¡³ö×Ö¶Î
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åˆ›å»ºé›†æ–‡ä»¶æ¸¸æ ‡
+	 * @param fileObject æ–‡ä»¶å¯¹è±¡
+	 * @param fields é€‰å‡ºå­—æ®µ
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public BFileCursor(FileObject fileObject, String []fields, String opt, Context ctx) {
 		this(fileObject, fields, 1, 1, opt, ctx);
 	}
 
 	/**
-	 * ´´½¨¼¯ÎÄ¼şÓÎ±ê
-	 * @param fileObject ÎÄ¼ş¶ÔÏó
-	 * @param fields Ñ¡³ö×Ö¶Î
-	 * @param segSeq µ±Ç°ÓÎ±êÒª¶ÁµÄ¶Î£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param segCount ·Ö¶ÎÊı
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åˆ›å»ºé›†æ–‡ä»¶æ¸¸æ ‡
+	 * @param fileObject æ–‡ä»¶å¯¹è±¡
+	 * @param fields é€‰å‡ºå­—æ®µ
+	 * @param segSeq å½“å‰æ¸¸æ ‡è¦è¯»çš„æ®µï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param segCount åˆ†æ®µæ•°
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public BFileCursor(FileObject fileObject, String []fields, 
 			int segSeq, int segCount, String opt, Context ctx) {
@@ -71,9 +71,9 @@ public class BFileCursor extends ICursor {
 	}
 
 	/**
-	 * ÉèÖÃ¶ÁÎÄ¼şµÄÆğÊ¼Î»ÖÃºÍ½áÊøÎ»ÖÃ
-	 * @param startPos ÆğÊ¼Î»ÖÃ£¬»á×öÆşÍ·È¥Î²´¦Àí
-	 * @param endPos ½áÊøÎ»ÖÃ
+	 * è®¾ç½®è¯»æ–‡ä»¶çš„èµ·å§‹ä½ç½®å’Œç»“æŸä½ç½®
+	 * @param startPos èµ·å§‹ä½ç½®ï¼Œä¼šåšæå¤´å»å°¾å¤„ç†
+	 * @param endPos ç»“æŸä½ç½®
 	 */
 	public void setPosRange(long startPos, long endPos) {
 		this.startPos = startPos;
@@ -81,7 +81,7 @@ public class BFileCursor extends ICursor {
 	}
 	
 	/**
-	 * ÉèÖÃ¶ÁÎÄ¼ş»º³åÇø´óĞ¡
+	 * è®¾ç½®è¯»æ–‡ä»¶ç¼“å†²åŒºå¤§å°
 	 * @param size
 	 */
 	public void setFileBufferSize(int size) {
@@ -89,8 +89,8 @@ public class BFileCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -123,9 +123,9 @@ public class BFileCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (n < 1 || reader == null) {
@@ -153,7 +153,7 @@ public class BFileCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -181,8 +181,8 @@ public class BFileCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

@@ -11,23 +11,23 @@ import com.scudata.expression.fn.CharFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * aes(input, key, iv; charset) AES¼ÓÃÜ/½âÃÜ
- * parament input	ÊäÈë£¬blob»òÕßString
- * parament key		ÃÜÂë£¬ÓëÊäÈëÍ³Ò»
- * parament iv		³õÊ¼»¯±äÁ¿£¬ÓëÊäÈëÍ³Ò»
- * parament charset	×Ö·û±àÂë£¬Èç¹ûinput/key/ivÎª×Ö·û´®Ê±Ê¹ÓÃ£¬Ä¬ÈÏÎªutf8
- * Ñ¡Ïî@d	½âÃÜ£¬Ä¬ÈÏÖ´ĞĞ¼ÓÃÜ
- * Ñ¡Ïî@c	CBC(Cipher Block Chaining)Ä£Ê½£¬Ä¬ÈÏÊ¹ÓÃECB(Electronic Codebook)Ä£Ê½	
- * Ñ¡Ïî@n	Ìî³äÄ£Ê½NoPadding£¬È±Ê¡PKCS5Padding
- * ·µ»Ø£¬inputÎª×Ö·û´®Ê±·µ»Ø×Ö·û´®£¬Îª¶ş½øÖÆÊı×éÊ±·µ»Ø¶ş½øÖÆÊı×é
+ * aes(input, key, iv; charset) AESåŠ å¯†/è§£å¯†
+ * parament input	è¾“å…¥ï¼Œblobæˆ–è€…String
+ * parament key		å¯†ç ï¼Œä¸è¾“å…¥ç»Ÿä¸€
+ * parament iv		åˆå§‹åŒ–å˜é‡ï¼Œä¸è¾“å…¥ç»Ÿä¸€
+ * parament charset	å­—ç¬¦ç¼–ç ï¼Œå¦‚æœinput/key/ivä¸ºå­—ç¬¦ä¸²æ—¶ä½¿ç”¨ï¼Œé»˜è®¤ä¸ºutf8
+ * é€‰é¡¹@d	è§£å¯†ï¼Œé»˜è®¤æ‰§è¡ŒåŠ å¯†
+ * é€‰é¡¹@c	CBC(Cipher Block Chaining)æ¨¡å¼ï¼Œé»˜è®¤ä½¿ç”¨ECB(Electronic Codebook)æ¨¡å¼	
+ * é€‰é¡¹@n	å¡«å……æ¨¡å¼NoPaddingï¼Œç¼ºçœPKCS5Padding
+ * è¿”å›ï¼Œinputä¸ºå­—ç¬¦ä¸²æ—¶è¿”å›å­—ç¬¦ä¸²ï¼Œä¸ºäºŒè¿›åˆ¶æ•°ç»„æ—¶è¿”å›äºŒè¿›åˆ¶æ•°ç»„
  * @author bd
  *
  */
 public class AESEncrypt extends CharFunction {	
-    // AESÃÜÔ¿Ëã·¨
+    // AESå¯†é’¥ç®—æ³•
     private static final String KEY_ALGORITHM = "AES";
  
-    // ¼ÓÃÜ/½âÃÜËã·¨/¹¤×÷Ä£Ê½/Ìî³ä·½Ê½
+    // åŠ å¯†/è§£å¯†ç®—æ³•/å·¥ä½œæ¨¡å¼/å¡«å……æ–¹å¼
     private static final String CIPHER_ALGORITHM_E = "AES/ECB/PKCS5Padding";
     private static final String CIPHER_ALGORITHM_C = "AES/CBC/PKCS5Padding";
     private static final String CIPHER_ALGORITHM_EN = "AES/ECB/NoPadding";
@@ -52,7 +52,7 @@ public class AESEncrypt extends CharFunction {
 					params = new Object[1];
 					params[0] = obj;
 				}
-				//aes(...;charset)µÄÇé¿ö
+				//aes(...;charset)çš„æƒ…å†µ
 				if (objs[1] instanceof String) {
 					charset = (String) objs[1];
 				}

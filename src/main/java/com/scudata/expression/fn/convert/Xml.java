@@ -11,13 +11,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.XMLUtil;
 
 /**
- * xml(x,s) µ±xÎªxml´®Ê±£¬½âÎöÎªĞò±í·µ»Ø£»µ±xÎªĞò±íÊ±½âÎöÎªxml´®·µ»Ø¡£
+ * xml(x,s) å½“xä¸ºxmlä¸²æ—¶ï¼Œè§£æä¸ºåºè¡¨è¿”å›ï¼›å½“xä¸ºåºè¡¨æ—¶è§£æä¸ºxmlä¸²è¿”å›ã€‚
  * @author runqian
  *
  */
 public class Xml extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

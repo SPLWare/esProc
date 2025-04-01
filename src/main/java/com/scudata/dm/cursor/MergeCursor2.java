@@ -6,32 +6,32 @@ import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
 /**
- * ´¿½á¹¹µÄÁ½¸öÓÎ±ê×öÓĞĞò¹é²¢ÔËËãĞÎ³ÉµÄÓÎ±ê
- * ´ËÀàÊÇ¶ÔMergeCursorµÄÓÅ»¯£¬µ±¹é²¢µÄÓÎ±êÎªÁ½¸öÊ±ÓÃ´ËÀà´¦Àí
- * [cs1,cs2].mergex(xi,¡­)
+ * çº¯ç»“æ„çš„ä¸¤ä¸ªæ¸¸æ ‡åšæœ‰åºå½’å¹¶è¿ç®—å½¢æˆçš„æ¸¸æ ‡
+ * æ­¤ç±»æ˜¯å¯¹MergeCursorçš„ä¼˜åŒ–ï¼Œå½“å½’å¹¶çš„æ¸¸æ ‡ä¸ºä¸¤ä¸ªæ—¶ç”¨æ­¤ç±»å¤„ç†
+ * [cs1,cs2].mergex(xi,â€¦)
  * @author RunQian
  *
  */
 public class MergeCursor2 extends ICursor {
-	private ICursor cs1; // ÓÎ±êÄÚÊı¾İÒÑ¾­°´¹é²¢×Ö¶ÎÉıĞòÅÅĞò
-	private ICursor cs2; // ÓÎ±êÄÚÊı¾İÒÑ¾­°´¹é²¢×Ö¶ÎÉıĞòÅÅĞò
-	private int []fields; // ¶à×Ö¶Î¹é²¢×Ö¶Î
-	private int field = -1; // µ¥×Ö¶Î¹é²¢Ê±Ê¹ÓÃ
+	private ICursor cs1; // æ¸¸æ ‡å†…æ•°æ®å·²ç»æŒ‰å½’å¹¶å­—æ®µå‡åºæ’åº
+	private ICursor cs2; // æ¸¸æ ‡å†…æ•°æ®å·²ç»æŒ‰å½’å¹¶å­—æ®µå‡åºæ’åº
+	private int []fields; // å¤šå­—æ®µå½’å¹¶å­—æ®µ
+	private int field = -1; // å•å­—æ®µå½’å¹¶æ—¶ä½¿ç”¨
 	
-	private Sequence data1; // µÚÒ»¸öÓÎ±êµÄ»º´æÊı¾İ
-	private Sequence data2; // µÚ¶ş¸öÓÎ±êµÄ»º´æÊı¾İ
-	private int cur1 = -1; // µÚÒ»¸öÓÎ±êµ±Ç°»º´æ±éÀúµÄĞòºÅ£¬-1±íÊ¾»¹Ã»ÓĞÈ¡Êı£¬0±íÊ¾È¡ÊıÍê±Ï
-	private int cur2 = -1; // µÚ¶ş¸öÓÎ±êµ±Ç°»º´æ±éÀúµÄĞòºÅ£¬-1±íÊ¾»¹Ã»ÓĞÈ¡Êı£¬0±íÊ¾È¡ÊıÍê±Ï
+	private Sequence data1; // ç¬¬ä¸€ä¸ªæ¸¸æ ‡çš„ç¼“å­˜æ•°æ®
+	private Sequence data2; // ç¬¬äºŒä¸ªæ¸¸æ ‡çš„ç¼“å­˜æ•°æ®
+	private int cur1 = -1; // ç¬¬ä¸€ä¸ªæ¸¸æ ‡å½“å‰ç¼“å­˜éå†çš„åºå·ï¼Œ-1è¡¨ç¤ºè¿˜æ²¡æœ‰å–æ•°ï¼Œ0è¡¨ç¤ºå–æ•°å®Œæ¯•
+	private int cur2 = -1; // ç¬¬äºŒä¸ªæ¸¸æ ‡å½“å‰ç¼“å­˜éå†çš„åºå·ï¼Œ-1è¡¨ç¤ºè¿˜æ²¡æœ‰å–æ•°ï¼Œ0è¡¨ç¤ºå–æ•°å®Œæ¯•
 	
-	private boolean isNullMin = true; // nullÊÇ·ñµ±×îĞ¡Öµ
+	private boolean isNullMin = true; // nullæ˜¯å¦å½“æœ€å°å€¼
 	
 	/**
-	 * ¹¹½¨Á½¸öÓÎ±êµÄ¹é²¢ÓÎ±ê
-	 * @param cs1 µÚÒ»¸öÓÎ±ê
-	 * @param cs2 µÚ¶ş¸öÓÎ±ê
-	 * @param fields ¹é²¢×Ö¶ÎĞòºÅÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºä¸¤ä¸ªæ¸¸æ ‡çš„å½’å¹¶æ¸¸æ ‡
+	 * @param cs1 ç¬¬ä¸€ä¸ªæ¸¸æ ‡
+	 * @param cs2 ç¬¬äºŒä¸ªæ¸¸æ ‡
+	 * @param fields å½’å¹¶å­—æ®µåºå·æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public MergeCursor2(ICursor cs1, ICursor cs2, int []fields, String opt, Context ctx) {
 		this.cs1 = cs1;
@@ -57,8 +57,8 @@ public class MergeCursor2 extends ICursor {
 		return cs2;
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			cs1.resetContext(ctx);
@@ -723,9 +723,9 @@ public class MergeCursor2 extends ICursor {
 	}
 	
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (n < 1) return 0;
@@ -739,7 +739,7 @@ public class MergeCursor2 extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -752,8 +752,8 @@ public class MergeCursor2 extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();
@@ -768,24 +768,24 @@ public class MergeCursor2 extends ICursor {
 	}
 
 	/**
-	 * È¡ÅÅĞò×Ö¶ÎĞòºÅ
-	 * @return ×Ö¶ÎĞòºÅÊı×é
+	 * å–æ’åºå­—æ®µåºå·
+	 * @return å­—æ®µåºå·æ•°ç»„
 	 */
 	public int[] getFields() {
 		return fields;
 	}
 
 	/**
-	 * È¡ÅÅĞò×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * å–æ’åºå­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getSortFields() {
 		return cs1.getSortFields();
 	}
 	
 	/**
-	 * È¡·Ö¶ÎÓÎ±êµÄÆğÊ¼Öµ£¬Èç¹ûÓĞ·Ö¶Î×Ö¶ÎÔò·µ»Ø·Ö¶Î×Ö¶ÎµÄÖµ£¬Ã»ÓĞÔò·µ»ØÎ¬×Ö¶ÎµÄÖµ
-	 * @return ·Ö¶ÎÓÎ±êÊ×Ìõ¼ÇÂ¼µÄ·Ö¶Î×Ö¶ÎµÄÖµ£¬Èç¹ûµ±Ç°¶ÎÊıÎª0Ôò·µ»Ønull
+	 * å–åˆ†æ®µæ¸¸æ ‡çš„èµ·å§‹å€¼ï¼Œå¦‚æœæœ‰åˆ†æ®µå­—æ®µåˆ™è¿”å›åˆ†æ®µå­—æ®µçš„å€¼ï¼Œæ²¡æœ‰åˆ™è¿”å›ç»´å­—æ®µçš„å€¼
+	 * @return åˆ†æ®µæ¸¸æ ‡é¦–æ¡è®°å½•çš„åˆ†æ®µå­—æ®µçš„å€¼ï¼Œå¦‚æœå½“å‰æ®µæ•°ä¸º0åˆ™è¿”å›null
 	 */
 	public Object[] getSegmentStartValues(String option) {
 		return cs1.getSegmentStartValues(option);

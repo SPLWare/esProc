@@ -5,7 +5,7 @@ import java.util.Locale;
 import com.scudata.common.MessageManager;
 
 /**
- * 应用相关的资源类
+ * 搴旂敤鐩稿叧鐨勮祫婧愮被
  *
  */
 public class AppMessage {

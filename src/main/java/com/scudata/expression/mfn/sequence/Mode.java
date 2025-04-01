@@ -8,7 +8,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 取序列中出现次数最多的成员
+ * 鍙栧簭鍒椾腑鍑虹幇娆℃暟鏈�澶氱殑鎴愬憳
  * A.mode()
  * @author RunQian
  *

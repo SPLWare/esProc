@@ -32,7 +32,7 @@ import com.scudata.parallel.UnitContext;
 import com.scudata.server.http.HttpContext;
 
 /**
- * HTTP·şÎñÆ÷µÄ¼òµ¥ÅäÖÃ´°¿Ú
+ * HTTPæœåŠ¡å™¨çš„ç®€å•é…ç½®çª—å£
  * 
  * @author Joancy
  *
@@ -50,7 +50,7 @@ public class DialogInputPort extends JDialog {
 	JComboBox<String> cbHosts = new JComboBox<String>();
 	JSpinner jSPort = new JSpinner();
 
-	JLabel labelMaxLinks = new JLabel("×î´óÁ¬½ÓÊı");
+	JLabel labelMaxLinks = new JLabel("æœ€å¤§è¿æ¥æ•°");
 	JSpinner jSMaxLinks = new JSpinner();
 	JCheckBox cbAutoStart = new JCheckBox(IdeCommonMessage.get().getMessage(
 			"dialogodbcconfig.autostart"));
@@ -61,12 +61,12 @@ public class DialogInputPort extends JDialog {
 	JFrame parent;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param parent
-	 *            ¸¸´°Ìå
+	 *            çˆ¶çª—ä½“
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 */
 	public DialogInputPort(JFrame parent, String title) {
 		super(parent, title, true);
@@ -88,14 +88,14 @@ public class DialogInputPort extends JDialog {
 		lbHost.setText(IdeCommonMessage.get().getMessage(
 				"dialogjdbcconfig.host"));
 		labelMaxLinks.setText(IdeCommonMessage.get().getMessage(
-				"dialogoptions.maxlinks")); // ×î´óÁ¬½ÓÊı
-		jLabel1.setText(mm.getMessage("dialoginputport.inputport")); // ¶Ë¿Ú
+				"dialogoptions.maxlinks")); // æœ€å¤§è¿æ¥æ•°
+		jLabel1.setText(mm.getMessage("dialoginputport.inputport")); // ç«¯å£
 	}
 
 	/**
-	 * »ñÈ¡´°¿Ú¶¯×÷Ñ¡Ïî
+	 * è·å–çª—å£åŠ¨ä½œé€‰é¡¹
 	 * 
-	 * @return Ñ¡Ïî
+	 * @return é€‰é¡¹
 	 */
 	public int getOption() {
 		return m_option;
@@ -139,14 +139,14 @@ public class DialogInputPort extends JDialog {
 		flowLayout1.setAlignment(FlowLayout.RIGHT);
 		jPanel1.setLayout(flowLayout1);
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogInputPort_jBOK_actionAdapter(this));
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogInputPort_jBCancel_actionAdapter(
 				this));
 		jPanel2.setLayout(gridBagLayout1);
-		jLabel1.setText("¶Ë¿Ú");
+		jLabel1.setText("ç«¯å£");
 		this.addWindowListener(new DialogInputPort_this_windowAdapter(this));
 		this.getContentPane().add(jPanel1, BorderLayout.SOUTH);
 		jPanel1.add(jBOK, null);

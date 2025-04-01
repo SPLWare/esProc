@@ -12,7 +12,7 @@ import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 用主键值找到组表的记录
+ * 鐢ㄤ富閿�兼壘鍒扮粍琛ㄧ殑璁板綍
  * T.find(k;x:C,..)
  * @author RunQian
  *

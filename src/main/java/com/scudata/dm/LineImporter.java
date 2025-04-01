@@ -18,62 +18,62 @@ import com.scudata.util.FloatingDecimal;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃÓÚ°ÑÎÄ±¾ÎÄ¼ş¶Á³ÉĞò±í
+ * ç”¨äºæŠŠæ–‡æœ¬æ–‡ä»¶è¯»æˆåºè¡¨
  * @author RunQian
  *
  */
 public final class LineImporter implements ILineInput {
-	private static final int BOM_SIZE = 4; // BOMÍ·×î´óµÄ´óĞ¡
-	private static final int PARSEMODE_DEFAULT = 0; // ¶ÔÁĞ½øĞĞÀàĞÍ×ª»»£¬Èç¹û×ª²»µ½Ö¸¶¨µÄÀàĞÍÔò³¢ÊÔ×ª³ÉÆäËüÀàĞÍ
-	private static final int PARSEMODE_DELETE = 1; // ¶ÔÁĞ½øĞĞÀàĞÍ×ª»»£¬Èç¹û×ª²»µ½Ö¸¶¨µÄÀàĞÍÔòÉ¾³ıĞĞ
-	private static final int PARSEMODE_EXCEPTION = 2; // ¶ÔÁĞ½øĞĞÀàĞÍ×ª»»£¬Èç¹û×ª²»µ½Ö¸¶¨µÄÀàĞÍÔòÅ×Òì³£
-	private static final int PARSEMODE_MULTI_STRING = 3; // ²»×öÀàĞÍ½âÎö£¬·µ»Ø¶à×Ö¶Î×Ö·û´®
-	private static final int PARSEMODE_SINGLE_STRING = 4; // ²»×öÁĞ²ğ·Ö£¬Ã¿ĞĞ·µ»Ø³É×Ö·û´®
+	private static final int BOM_SIZE = 4; // BOMå¤´æœ€å¤§çš„å¤§å°
+	private static final int PARSEMODE_DEFAULT = 0; // å¯¹åˆ—è¿›è¡Œç±»å‹è½¬æ¢ï¼Œå¦‚æœè½¬ä¸åˆ°æŒ‡å®šçš„ç±»å‹åˆ™å°è¯•è½¬æˆå…¶å®ƒç±»å‹
+	private static final int PARSEMODE_DELETE = 1; // å¯¹åˆ—è¿›è¡Œç±»å‹è½¬æ¢ï¼Œå¦‚æœè½¬ä¸åˆ°æŒ‡å®šçš„ç±»å‹åˆ™åˆ é™¤è¡Œ
+	private static final int PARSEMODE_EXCEPTION = 2; // å¯¹åˆ—è¿›è¡Œç±»å‹è½¬æ¢ï¼Œå¦‚æœè½¬ä¸åˆ°æŒ‡å®šçš„ç±»å‹åˆ™æŠ›å¼‚å¸¸
+	private static final int PARSEMODE_MULTI_STRING = 3; // ä¸åšç±»å‹è§£æï¼Œè¿”å›å¤šå­—æ®µå­—ç¬¦ä¸²
+	private static final int PARSEMODE_SINGLE_STRING = 4; // ä¸åšåˆ—æ‹†åˆ†ï¼Œæ¯è¡Œè¿”å›æˆå­—ç¬¦ä¸²
 	
 	private static final byte CR = (byte)'\r';
 	private static final byte LF = (byte)'\n';
-	private static final byte CONTINUECHAR = '\\'; // ĞøĞĞ·û
+	private static final byte CONTINUECHAR = '\\'; // ç»­è¡Œç¬¦
 	
-	private InputStream is; // ÊäÈëÁ÷
-	private byte[] buffer; // Ã¿´Î¶ÁÈëµÄ×Ö½Ú»º´æ
-	private int index; // ÏÂÒ»ĞĞÔÚbufferÖĞµÄË÷Òı
-	private int count; // ¶ÁÈëbufferµÄÊµ¼Ê×Ö½ÚÊıÄ¿
-	private long position; // ¶ÁÈë¹â±êÔÚÁ÷ÖĞµÄÎ»ÖÃ
-	private boolean isEof = false; // ÊÇ·ñÒÑ¾­ÎÄ¼ş½áÊø
+	private InputStream is; // è¾“å…¥æµ
+	private byte[] buffer; // æ¯æ¬¡è¯»å…¥çš„å­—èŠ‚ç¼“å­˜
+	private int index; // ä¸‹ä¸€è¡Œåœ¨bufferä¸­çš„ç´¢å¼•
+	private int count; // è¯»å…¥bufferçš„å®é™…å­—èŠ‚æ•°ç›®
+	private long position; // è¯»å…¥å…‰æ ‡åœ¨æµä¸­çš„ä½ç½®
+	private boolean isEof = false; // æ˜¯å¦å·²ç»æ–‡ä»¶ç»“æŸ
 
-	private String charset; // ×Ö·û¼¯
-	private byte colSeparator; // ÁĞ¼ä¸ô
-	private byte []colSeparators; // ¶à×Ö·ûÁĞ¼ä¸ô£¬Èç¹û²»Îª¿ÕÔòºöÂÔcolSeparator
+	private String charset; // å­—ç¬¦é›†
+	private byte colSeparator; // åˆ—é—´éš”
+	private byte []colSeparators; // å¤šå­—ç¬¦åˆ—é—´éš”ï¼Œå¦‚æœä¸ä¸ºç©ºåˆ™å¿½ç•¥colSeparator
 	
-	private int []colLens; // ×Ö¶ÎµÄ´óĞ¡£¬ÓÃÓÚ¹Ì¶¨³¤¶ÈµÄÎÄ¼ş£¬ÁĞ¼äÃ»ÓĞ·Ö¸ô·û
-	private byte []colTypes; // ÁĞÀàĞÍ
-	private DateFormatX []fmts; // ÈÕÆÚÊ±¼äµÄ¸ñÊ½
-	private int []serialByteLens; // ÅÅºÅ×Ö¶ÎµÄ³¤¶È
-	private int []selIndex; // ÁĞÊÇ·ñÑ¡³ö£¬Ğ¡ÓÚ0²»Ñ¡³ö
+	private int []colLens; // å­—æ®µçš„å¤§å°ï¼Œç”¨äºå›ºå®šé•¿åº¦çš„æ–‡ä»¶ï¼Œåˆ—é—´æ²¡æœ‰åˆ†éš”ç¬¦
+	private byte []colTypes; // åˆ—ç±»å‹
+	private DateFormatX []fmts; // æ—¥æœŸæ—¶é—´çš„æ ¼å¼
+	private int []serialByteLens; // æ’å·å­—æ®µçš„é•¿åº¦
+	private int []selIndex; // åˆ—æ˜¯å¦é€‰å‡ºï¼Œå°äº0ä¸é€‰å‡º
 
-	private int parseMode = PARSEMODE_DEFAULT; // ½âÎöÖµµÄÄ£Ê½
-	private char escapeChar = '\\'; // ×ªÒå·û£¬@oÑ¡ÏîÊ±Ê¹ÓÃexcel±ê×¼£¬×ªÒå·ûÎª"£¬²¢ÇÒÕÒĞĞÎ²Ê±ºöÂÔÒıºÅÄÚµÄ»»ĞĞ·û
-	private boolean isQuote = false; // °şÀëÊı¾İÏîÁ½¶ËÒıºÅ£¬°üÀ¨±êÌâ£¬´¦Àí×ªÒå
-	private boolean isSingleQuote = false; // °şÀëÊı¾İÏîÁ½¶Ëµ¥ÒıºÅ£¬°üÀ¨±êÌâ£¬´¦Àí×ªÒå
-	private boolean doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-	private boolean doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-	private boolean doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
-	private boolean isTrim = true; // ÊÇ·ñÈ¡³öÁ½±ßµÄ¿Õ°×
-	private boolean isContinueLine = false; // ÊÇ·ñÓĞĞøĞĞ
-	private boolean checkColCount = false; // ÓÃÓÚÁĞÊı³¬¹ıµÄĞĞÉ¾³ıÑ¡Ïî£¬ÒÔµÚÒ»ĞĞÎª×¼
-	private boolean checkValueType = false; // Êı¾İÀàĞÍºÍ¸ñÊ½ÊÇ·ñÆ¥Åä
+	private int parseMode = PARSEMODE_DEFAULT; // è§£æå€¼çš„æ¨¡å¼
+	private char escapeChar = '\\'; // è½¬ä¹‰ç¬¦ï¼Œ@oé€‰é¡¹æ—¶ä½¿ç”¨excelæ ‡å‡†ï¼Œè½¬ä¹‰ç¬¦ä¸º"ï¼Œå¹¶ä¸”æ‰¾è¡Œå°¾æ—¶å¿½ç•¥å¼•å·å†…çš„æ¢è¡Œç¬¦
+	private boolean isQuote = false; // å‰¥ç¦»æ•°æ®é¡¹ä¸¤ç«¯å¼•å·ï¼ŒåŒ…æ‹¬æ ‡é¢˜ï¼Œå¤„ç†è½¬ä¹‰
+	private boolean isSingleQuote = false; // å‰¥ç¦»æ•°æ®é¡¹ä¸¤ç«¯å•å¼•å·ï¼ŒåŒ…æ‹¬æ ‡é¢˜ï¼Œå¤„ç†è½¬ä¹‰
+	private boolean doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+	private boolean doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+	private boolean doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
+	private boolean isTrim = true; // æ˜¯å¦å–å‡ºä¸¤è¾¹çš„ç©ºç™½
+	private boolean isContinueLine = false; // æ˜¯å¦æœ‰ç»­è¡Œ
+	private boolean checkColCount = false; // ç”¨äºåˆ—æ•°è¶…è¿‡çš„è¡Œåˆ é™¤é€‰é¡¹ï¼Œä»¥ç¬¬ä¸€è¡Œä¸ºå‡†
+	private boolean checkValueType = false; // æ•°æ®ç±»å‹å’Œæ ¼å¼æ˜¯å¦åŒ¹é…
 	
-	private boolean isStringMode = false; // ÊÇ·ñÏÈ°ÑĞĞ¶Á³ÉStringÔÙ·ÖÁĞ£¬·ÀÖ¹ÓĞµÄ±àÂëµÄºº×ÖµÄµÚ¶ş¸ö×Ö½ÚµÄÖµµÈÓÚÁĞ·Ö¸ô·û
+	private boolean isStringMode = false; // æ˜¯å¦å…ˆæŠŠè¡Œè¯»æˆStringå†åˆ†åˆ—ï¼Œé˜²æ­¢æœ‰çš„ç¼–ç çš„æ±‰å­—çš„ç¬¬äºŒä¸ªå­—èŠ‚çš„å€¼ç­‰äºåˆ—åˆ†éš”ç¬¦
 	
 	/**
-	 * ÓÃÓÚ±íÊ¾Ã¿ĞĞÊı¾İ¶ÔÓ¦µÄ×Ö½ÚÊı×é
+	 * ç”¨äºè¡¨ç¤ºæ¯è¡Œæ•°æ®å¯¹åº”çš„å­—èŠ‚æ•°ç»„
 	 * @author RunQian
 	 *
 	 */
 	private class LineBytes {
-		private byte[] buffer; // »º³åÇø
-		private int i; // ĞĞ¿ªÊ¼Î»ÖÃ£¬°üº¬
-		private int count; // ĞĞ×Ö½ÚÊı
+		private byte[] buffer; // ç¼“å†²åŒº
+		private int i; // è¡Œå¼€å§‹ä½ç½®ï¼ŒåŒ…å«
+		private int count; // è¡Œå­—èŠ‚æ•°
 		
 		public LineBytes(byte[] buffer, int i, int count) {
 			this.buffer = buffer;
@@ -83,47 +83,47 @@ public final class LineImporter implements ILineInput {
 	}
 	
 	/**
-	 * ¹¹½¨°ÑÎÄ±¾ÎÄ¼ş¶Á³ÉĞĞÁĞÊı¾İ¶ÔÏó
-	 * @param is ÊäÈëÁ÷
-	 * @param charset ×Ö·û¼¯
-	 * @param colSeparator ÁĞ·Ö¸ô·û
-	 * @param opt Ñ¡Ïî
-	 * 		@s	²»²ğ·Ö×Ö¶Î£¬¶Á³Éµ¥×Ö¶Î´®¹¹³ÉµÄĞò±í£¬ºöÂÔ²ÎÊı
-	 * 		@q	°şÀëÊı¾İÏîÁ½¶ËÒıºÅ£¬°üÀ¨±êÌâ£¬´¦Àí×ªÒå£»ÖĞ¼äµÄÒıºÅ²»¹Ü
-	 * 		@a	°Ñµ¥ÒıºÅÒ²×÷ÎªÒıºÅ´¦Àí£¬È±Ê¡²»´¦Àí
-	 * 		@o	Ê¹ÓÃExcel±ê×¼×ªÒå£¬´®ÖĞË«¸öÒıºÅ±íÊ¾Ò»¸öÒıºÅ£¬ÆäËü×Ö·û²»×ªÒå
-	 * 		@p	½âÎöÊ±´¦ÀíÀ¨ºÅºÍÒıºÅÆ¥Åä£¬À¨ºÅÄÚ·Ö¸ô·û²»Ëã£¬ÒıºÅÍâ×ªÒåÒ²´¦Àí
-	 * 		@f	²»×öÈÎºÎ½âÎö£¬¼òµ¥ÓÃ·Ö¸ô·û²ğ³É´®
-	 * 		@l	ÔÊĞíĞøĞĞ£¨ĞĞÎ²ÊÇ×ªÒå×Ö·û\£©
-	 * 		@k	±£ÁôÊı¾İÏîÁ½¶ËµÄ¿Õ°×·û£¬È±Ê¡½«×Ô¶¯×ötrim
-	 * 		@e	FiÔÚ´®ÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
-	 * 		@d	ĞĞÄÚÓĞÊı¾İ²»Æ¥ÅäÀàĞÍºÍ¸ñÊ½Ê±É¾³ı¸ÃĞĞ£¬°üÀ¨ÒıºÅÆ¥ÅäºÍÀ¨ºÅÆ¥Åä
-	 * 		@n	ÁĞÊı²»Æ¥ÅäËã×÷´íÎó£¬ºöÂÔ´ËĞĞ
-	 * 		@v	@d@nÊ±³ö´íÊ±Å×³öÎ¥Àı£¬ÖĞ¶Ï³ÌĞò£¬Êä³ö³ö´íĞĞµÄÄÚÈİ
+	 * æ„å»ºæŠŠæ–‡æœ¬æ–‡ä»¶è¯»æˆè¡Œåˆ—æ•°æ®å¯¹è±¡
+	 * @param is è¾“å…¥æµ
+	 * @param charset å­—ç¬¦é›†
+	 * @param colSeparator åˆ—åˆ†éš”ç¬¦
+	 * @param opt é€‰é¡¹
+	 * 		@s	ä¸æ‹†åˆ†å­—æ®µï¼Œè¯»æˆå•å­—æ®µä¸²æ„æˆçš„åºè¡¨ï¼Œå¿½ç•¥å‚æ•°
+	 * 		@q	å‰¥ç¦»æ•°æ®é¡¹ä¸¤ç«¯å¼•å·ï¼ŒåŒ…æ‹¬æ ‡é¢˜ï¼Œå¤„ç†è½¬ä¹‰ï¼›ä¸­é—´çš„å¼•å·ä¸ç®¡
+	 * 		@a	æŠŠå•å¼•å·ä¹Ÿä½œä¸ºå¼•å·å¤„ç†ï¼Œç¼ºçœä¸å¤„ç†
+	 * 		@o	ä½¿ç”¨Excelæ ‡å‡†è½¬ä¹‰ï¼Œä¸²ä¸­åŒä¸ªå¼•å·è¡¨ç¤ºä¸€ä¸ªå¼•å·ï¼Œå…¶å®ƒå­—ç¬¦ä¸è½¬ä¹‰
+	 * 		@p	è§£ææ—¶å¤„ç†æ‹¬å·å’Œå¼•å·åŒ¹é…ï¼Œæ‹¬å·å†…åˆ†éš”ç¬¦ä¸ç®—ï¼Œå¼•å·å¤–è½¬ä¹‰ä¹Ÿå¤„ç†
+	 * 		@f	ä¸åšä»»ä½•è§£æï¼Œç®€å•ç”¨åˆ†éš”ç¬¦æ‹†æˆä¸²
+	 * 		@l	å…è®¸ç»­è¡Œï¼ˆè¡Œå°¾æ˜¯è½¬ä¹‰å­—ç¬¦\ï¼‰
+	 * 		@k	ä¿ç•™æ•°æ®é¡¹ä¸¤ç«¯çš„ç©ºç™½ç¬¦ï¼Œç¼ºçœå°†è‡ªåŠ¨åštrim
+	 * 		@e	Fiåœ¨ä¸²ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
+	 * 		@d	è¡Œå†…æœ‰æ•°æ®ä¸åŒ¹é…ç±»å‹å’Œæ ¼å¼æ—¶åˆ é™¤è¯¥è¡Œï¼ŒåŒ…æ‹¬å¼•å·åŒ¹é…å’Œæ‹¬å·åŒ¹é…
+	 * 		@n	åˆ—æ•°ä¸åŒ¹é…ç®—ä½œé”™è¯¯ï¼Œå¿½ç•¥æ­¤è¡Œ
+	 * 		@v	@d@næ—¶å‡ºé”™æ—¶æŠ›å‡ºè¿ä¾‹ï¼Œä¸­æ–­ç¨‹åºï¼Œè¾“å‡ºå‡ºé”™è¡Œçš„å†…å®¹
 	 */
 	public LineImporter(InputStream is, String charset, byte[] colSeparator, String opt) {
 		this(is, charset, colSeparator, opt, Env.FILE_BUFSIZE);
 	}
 
 	/**
-	 * ¹¹½¨°ÑÎÄ±¾ÎÄ¼ş¶Á³ÉĞĞÁĞÊı¾İ¶ÔÏó
-	 * @param is ÊäÈëÁ÷
-	 * @param charset ×Ö·û¼¯
-	 * @param colSeparator ÁĞ·Ö¸ô·û
-	 * @param opt Ñ¡Ïî
-	 * 		@s	²»²ğ·Ö×Ö¶Î£¬¶Á³Éµ¥×Ö¶Î´®¹¹³ÉµÄĞò±í£¬ºöÂÔ²ÎÊı
-	 * 		@q	°şÀëÊı¾İÏîÁ½¶ËÒıºÅ£¬°üÀ¨±êÌâ£¬´¦Àí×ªÒå£»ÖĞ¼äµÄÒıºÅ²»¹Ü
-	 * 		@a	°Ñµ¥ÒıºÅÒ²×÷ÎªÒıºÅ´¦Àí£¬È±Ê¡²»´¦Àí
-	 * 		@o	Ê¹ÓÃExcel±ê×¼×ªÒå£¬´®ÖĞË«¸öÒıºÅ±íÊ¾Ò»¸öÒıºÅ£¬ÆäËü×Ö·û²»×ªÒå
-	 * 		@p	½âÎöÊ±´¦ÀíÀ¨ºÅºÍÒıºÅÆ¥Åä£¬À¨ºÅÄÚ·Ö¸ô·û²»Ëã£¬ÒıºÅÍâ×ªÒåÒ²´¦Àí
-	 * 		@f	²»×öÈÎºÎ½âÎö£¬¼òµ¥ÓÃ·Ö¸ô·û²ğ³É´®
-	 * 		@l	ÔÊĞíĞøĞĞ£¨ĞĞÎ²ÊÇ×ªÒå×Ö·û\£©
-	 * 		@k	±£ÁôÊı¾İÏîÁ½¶ËµÄ¿Õ°×·û£¬È±Ê¡½«×Ô¶¯×ötrim
-	 * 		@e	FiÔÚ´®ÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
-	 * 		@d	ĞĞÄÚÓĞÊı¾İ²»Æ¥ÅäÀàĞÍºÍ¸ñÊ½Ê±É¾³ı¸ÃĞĞ£¬°üÀ¨ÒıºÅÆ¥ÅäºÍÀ¨ºÅÆ¥Åä
-	 * 		@n	ÁĞÊı²»Æ¥ÅäËã×÷´íÎó£¬ºöÂÔ´ËĞĞ
-	 * 		@v	@d@nÊ±³ö´íÊ±Å×³öÎ¥Àı£¬ÖĞ¶Ï³ÌĞò£¬Êä³ö³ö´íĞĞµÄÄÚÈİ
-	 * @param bufSize ¶Á»º³åÇø´óĞ¡
+	 * æ„å»ºæŠŠæ–‡æœ¬æ–‡ä»¶è¯»æˆè¡Œåˆ—æ•°æ®å¯¹è±¡
+	 * @param is è¾“å…¥æµ
+	 * @param charset å­—ç¬¦é›†
+	 * @param colSeparator åˆ—åˆ†éš”ç¬¦
+	 * @param opt é€‰é¡¹
+	 * 		@s	ä¸æ‹†åˆ†å­—æ®µï¼Œè¯»æˆå•å­—æ®µä¸²æ„æˆçš„åºè¡¨ï¼Œå¿½ç•¥å‚æ•°
+	 * 		@q	å‰¥ç¦»æ•°æ®é¡¹ä¸¤ç«¯å¼•å·ï¼ŒåŒ…æ‹¬æ ‡é¢˜ï¼Œå¤„ç†è½¬ä¹‰ï¼›ä¸­é—´çš„å¼•å·ä¸ç®¡
+	 * 		@a	æŠŠå•å¼•å·ä¹Ÿä½œä¸ºå¼•å·å¤„ç†ï¼Œç¼ºçœä¸å¤„ç†
+	 * 		@o	ä½¿ç”¨Excelæ ‡å‡†è½¬ä¹‰ï¼Œä¸²ä¸­åŒä¸ªå¼•å·è¡¨ç¤ºä¸€ä¸ªå¼•å·ï¼Œå…¶å®ƒå­—ç¬¦ä¸è½¬ä¹‰
+	 * 		@p	è§£ææ—¶å¤„ç†æ‹¬å·å’Œå¼•å·åŒ¹é…ï¼Œæ‹¬å·å†…åˆ†éš”ç¬¦ä¸ç®—ï¼Œå¼•å·å¤–è½¬ä¹‰ä¹Ÿå¤„ç†
+	 * 		@f	ä¸åšä»»ä½•è§£æï¼Œç®€å•ç”¨åˆ†éš”ç¬¦æ‹†æˆä¸²
+	 * 		@l	å…è®¸ç»­è¡Œï¼ˆè¡Œå°¾æ˜¯è½¬ä¹‰å­—ç¬¦\ï¼‰
+	 * 		@k	ä¿ç•™æ•°æ®é¡¹ä¸¤ç«¯çš„ç©ºç™½ç¬¦ï¼Œç¼ºçœå°†è‡ªåŠ¨åštrim
+	 * 		@e	Fiåœ¨ä¸²ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
+	 * 		@d	è¡Œå†…æœ‰æ•°æ®ä¸åŒ¹é…ç±»å‹å’Œæ ¼å¼æ—¶åˆ é™¤è¯¥è¡Œï¼ŒåŒ…æ‹¬å¼•å·åŒ¹é…å’Œæ‹¬å·åŒ¹é…
+	 * 		@n	åˆ—æ•°ä¸åŒ¹é…ç®—ä½œé”™è¯¯ï¼Œå¿½ç•¥æ­¤è¡Œ
+	 * 		@v	@d@næ—¶å‡ºé”™æ—¶æŠ›å‡ºè¿ä¾‹ï¼Œä¸­æ–­ç¨‹åºï¼Œè¾“å‡ºå‡ºé”™è¡Œçš„å†…å®¹
+	 * @param bufSize è¯»ç¼“å†²åŒºå¤§å°
 	 */
 	public LineImporter(InputStream is, String charset, byte[] colSeparator, String opt, int bufSize) {
 		if (colSeparator.length == 1) {
@@ -138,10 +138,10 @@ public final class LineImporter implements ILineInput {
 
 		if (opt != null) {
 			if (opt.indexOf('s') != -1) {
-				// ²»²ğ·Ö×Ö¶Î£¬¶Á³Éµ¥×Ö¶Î´®¹¹³ÉµÄĞò±í
+				// ä¸æ‹†åˆ†å­—æ®µï¼Œè¯»æˆå•å­—æ®µä¸²æ„æˆçš„åºè¡¨
 				parseMode = PARSEMODE_SINGLE_STRING;
 			} else if (opt.indexOf('f') != -1) {
-				// ²»×öÀàĞÍ½âÎö£¬¼òµ¥ÓÃ·Ö¸ô·û²ğ³É´®
+				// ä¸åšç±»å‹è§£æï¼Œç®€å•ç”¨åˆ†éš”ç¬¦æ‹†æˆä¸²
 				parseMode = PARSEMODE_MULTI_STRING;
 			} else {
 				if (opt.indexOf('d') != -1) {
@@ -160,45 +160,45 @@ public final class LineImporter implements ILineInput {
 			}
 			
 			if (opt.indexOf('q') != -1) {
-				// °şÀëÊı¾İÏîÁ½¶ËÒıºÅ£¬°üÀ¨±êÌâ£¬´¦Àí×ªÒå£¬´¦ÀíÀ¨ºÅÆ¥Åä
+				// å‰¥ç¦»æ•°æ®é¡¹ä¸¤ç«¯å¼•å·ï¼ŒåŒ…æ‹¬æ ‡é¢˜ï¼Œå¤„ç†è½¬ä¹‰ï¼Œå¤„ç†æ‹¬å·åŒ¹é…
 				isQuote = true;
 				doQuoteMatch = true;
 			}
 			
 			if (opt.indexOf('a') != -1) {
-				// °şÀëÊı¾İÏîÁ½¶Ëµ¥ÒıºÅ£¬°üÀ¨±êÌâ£¬´¦Àí×ªÒå£¬´¦ÀíÀ¨ºÅÆ¥Åä
+				// å‰¥ç¦»æ•°æ®é¡¹ä¸¤ç«¯å•å¼•å·ï¼ŒåŒ…æ‹¬æ ‡é¢˜ï¼Œå¤„ç†è½¬ä¹‰ï¼Œå¤„ç†æ‹¬å·åŒ¹é…
 				isSingleQuote = true;
 				doSingleQuoteMatch = true;
 			}
 			
 			if (opt.indexOf('o') != -1) {
-				// Ê¹ÓÃExcel±ê×¼×ªÒå£¬´®ÖĞË«¸öÒıºÅ±íÊ¾Ò»¸öÒıºÅ£¬ÆäËü×Ö·û²»×ªÒå£¬´¦ÀíÀ¨ºÅÆ¥Åä
+				// ä½¿ç”¨Excelæ ‡å‡†è½¬ä¹‰ï¼Œä¸²ä¸­åŒä¸ªå¼•å·è¡¨ç¤ºä¸€ä¸ªå¼•å·ï¼Œå…¶å®ƒå­—ç¬¦ä¸è½¬ä¹‰ï¼Œå¤„ç†æ‹¬å·åŒ¹é…
 				escapeChar = '"';
 				doQuoteMatch = true;
 			}
 			
-			// ½âÎöÊ±´¦ÀíÀ¨ºÅºÍÒıºÅ£¨º¬µ¥ÒıºÅ£©Æ¥Åä
+			// è§£ææ—¶å¤„ç†æ‹¬å·å’Œå¼•å·ï¼ˆå«å•å¼•å·ï¼‰åŒ¹é…
 			if (opt.indexOf('p') != -1) {
 				doQuoteMatch = true;
 				//doSingleQuoteMatch = true;
 				doBracketsMatch = true;
 			}
 			
-			// ÔÊĞíĞøĞĞ£¨ĞĞÎ²ÊÇ×ªÒå·û\£©
+			// å…è®¸ç»­è¡Œï¼ˆè¡Œå°¾æ˜¯è½¬ä¹‰ç¬¦\ï¼‰
 			if (opt.indexOf('l') != -1) isContinueLine = true;
 			
-			// ±£ÁôÊı¾İÏîÁ½¶ËµÄ¿Õ°×·û£¬È±Ê¡½«×Ô¶¯×ötrim
+			// ä¿ç•™æ•°æ®é¡¹ä¸¤ç«¯çš„ç©ºç™½ç¬¦ï¼Œç¼ºçœå°†è‡ªåŠ¨åštrim
 			if (opt.indexOf('k') != -1) isTrim = false;
 			
 			if (colSeparators == null && opt.indexOf('r') != -1) isStringMode = true;
 		}
 		
-		// Ìø¹ıBOMÍ·
+		// è·³è¿‡BOMå¤´
 		init();
 	}
 
 	/**
-	 * ¸´ÖÆÖ¸¶¨LineImporterµÄÊôĞÔ
+	 * å¤åˆ¶æŒ‡å®šLineImporterçš„å±æ€§
 	 * @param other
 	 */
 	public void copyProperty(LineImporter other) {
@@ -225,7 +225,7 @@ public final class LineImporter implements ILineInput {
 	}
 	
 	private void init() {
-		// ¼ì²éÊÇ·ñÓĞBOMÍ·
+		// æ£€æŸ¥æ˜¯å¦æœ‰BOMå¤´
 		try {
 			count = is.read(buffer);
 			position = count;
@@ -252,21 +252,21 @@ public final class LineImporter implements ILineInput {
 				return;
 			}
 			
-			// UTF-16ºÍUTF-32ÁĞ·Ö¸î¸¸ºÍ»Ø³µ»áÕ¼ÓÃ¶à¸ö×Ö½Ú£¬Ä¿Ç°Ã»ÓĞ´¦Àí
+			// UTF-16å’ŒUTF-32åˆ—åˆ†å‰²çˆ¶å’Œå›è½¦ä¼šå ç”¨å¤šä¸ªå­—èŠ‚ï¼Œç›®å‰æ²¡æœ‰å¤„ç†
 		} catch (IOException e) {
 			throw new RQException(e);
 		}
 	}
 	
 	/**
-	 * È¡×ªÒå·û
+	 * å–è½¬ä¹‰ç¬¦
 	 * @return char
 	 */
 	public char getEscapeChar() {
 		return escapeChar;
 	}
 	
-	// ¶ÁÈëÎÄ¼şÄÚÈİµ½»º³åÇø
+	// è¯»å…¥æ–‡ä»¶å†…å®¹åˆ°ç¼“å†²åŒº
 	private int readBuffer() throws IOException {
 		if (!isEof) {
 			do {
@@ -287,14 +287,14 @@ public final class LineImporter implements ILineInput {
 	}
 
 	/**
-	 * È¡µ±Ç°µÄ¶ÁÈëÎ»ÖÃ
+	 * å–å½“å‰çš„è¯»å…¥ä½ç½®
 	 * @return
 	 */
 	public long getCurrentPosition() {
 		return position - count + index;
 	}
 
-	// Ìø¹ıÊäÈëÁ÷Ö¸¶¨×Ö½Ú
+	// è·³è¿‡è¾“å…¥æµæŒ‡å®šå­—èŠ‚
 	static private long skip(InputStream is, long count) throws IOException {
 		long old = count;
 		while (count > 0) {
@@ -308,8 +308,8 @@ public final class LineImporter implements ILineInput {
 	}
 
 	/**
-	 * Ìøµ½Ö¸¶¨Î»ÖÃ£¬ÓÃÓÚ¶àÏß³Ì¶ÁÈ¡Êı¾İ£¬»á×öÆşÍ·È¥Î²´¦Àí
-	 * @param pos Î»ÖÃ
+	 * è·³åˆ°æŒ‡å®šä½ç½®ï¼Œç”¨äºå¤šçº¿ç¨‹è¯»å–æ•°æ®ï¼Œä¼šåšæå¤´å»å°¾å¤„ç†
+	 * @param pos ä½ç½®
 	 * @throws IOException
 	 */
 	public void seek(long pos) throws IOException {
@@ -319,7 +319,7 @@ public final class LineImporter implements ILineInput {
 			if (dif < count) {
 				index = count - (int)dif;
 				skipLine();
-			} else { // Ö»ÄÜÍùÇ°seek
+			} else { // åªèƒ½å¾€å‰seek
 				throw new RuntimeException();
 			}
 		} else {
@@ -331,9 +331,9 @@ public final class LineImporter implements ILineInput {
 	}
 
 	/**
-	 * ÉèÖÃ×Ö¶ÎÀàĞÍ
-	 * @param types ÀàĞÍÊı×é
-	 * @param strFmts ¸ñÊ½Êı×é£¬ÓÃÓÚÈÕÆÚÊ±¼ä
+	 * è®¾ç½®å­—æ®µç±»å‹
+	 * @param types ç±»å‹æ•°ç»„
+	 * @param strFmts æ ¼å¼æ•°ç»„ï¼Œç”¨äºæ—¥æœŸæ—¶é—´
 	 */
 	public void setColTypes(byte []types, String []strFmts) {
 		int count = types.length;
@@ -367,7 +367,7 @@ public final class LineImporter implements ILineInput {
 	}
 
 	/**
-	 * ÉèÖÃ×Ö¶ÎµÄ´óĞ¡£¬ÓÃÓÚ¹Ì¶¨³¤¶ÈµÄÎÄ¼ş£¬ÁĞ¼äÃ»ÓĞ·Ö¸ô·û
+	 * è®¾ç½®å­—æ®µçš„å¤§å°ï¼Œç”¨äºå›ºå®šé•¿åº¦çš„æ–‡ä»¶ï¼Œåˆ—é—´æ²¡æœ‰åˆ†éš”ç¬¦
 	 * @param fieldLens
 	 */
 	public void setColLens(int[] colLens) {
@@ -375,35 +375,35 @@ public final class LineImporter implements ILineInput {
 	}
 
 	/**
-	 * È¡×Ö¶ÎÀàĞÍ
-	 * @return ÀàĞÍÊı×é
+	 * å–å­—æ®µç±»å‹
+	 * @return ç±»å‹æ•°ç»„
 	 */
 	public byte[] getColTypes() {
 		return colTypes;
 	}
 
 	/**
-	 * ÉèÖÃÑ¡È¡µÄÁĞ
-	 * @param index ÁĞË÷Òı×é³ÉµÄÊı×é£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * è®¾ç½®é€‰å–çš„åˆ—
+	 * @param index åˆ—ç´¢å¼•ç»„æˆçš„æ•°ç»„ï¼Œä»0å¼€å§‹è®¡æ•°
 	 */
 	public void setColSelectIndex(int []index) {
 		this.selIndex = index;
 	}
 
 	/**
-	 * È¡Ñ¡³öµÄÁĞĞòºÅ×é³ÉµÄÊı×é£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å–é€‰å‡ºçš„åˆ—åºå·ç»„æˆçš„æ•°ç»„ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public int[] getColSelectIndex() {
 		return selIndex;
 	}
 	
-	// ¶Á³öÏÂÒ»ĞĞÊı¾İËùÕ¼µÄ×Ö½Ú
+	// è¯»å‡ºä¸‹ä¸€è¡Œæ•°æ®æ‰€å çš„å­—èŠ‚
 	private LineBytes readLineBytes() throws IOException {
-		// ÊÇ·ñÌø¹ıÒıºÅÄÚµÄ»Ø³µ
+		// æ˜¯å¦è·³è¿‡å¼•å·å†…çš„å›è½¦
 		boolean skipQuoteEnter = escapeChar == '"';
 		byte[] buffer = this.buffer;
-		byte []prevBuffer = null; // ÉÏ´ÎÊ£ÓàµÄ×Ö½Ú
+		byte []prevBuffer = null; // ä¸Šæ¬¡å‰©ä½™çš„å­—èŠ‚
 		LineBytes line = null;
 		
 		int count = this.count;
@@ -413,7 +413,7 @@ public final class LineImporter implements ILineInput {
 		Next:
 		while (true) {
 			if (index >= count) {
-				// µ±Ç°»º´æµÄÊı¾İÒÑ¾­±éÀúÍê£¬±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+				// å½“å‰ç¼“å­˜çš„æ•°æ®å·²ç»éå†å®Œï¼Œä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 				int curCount = count - start;
 				if (curCount > 0) {
 					if (prevBuffer == null) {
@@ -428,9 +428,9 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 
-				// ¶ÁÈëºóÃæµÄ×Ö½Ú
+				// è¯»å…¥åé¢çš„å­—èŠ‚
 				if (readBuffer() <= 0) {
-					if (prevBuffer != null) { // ×îºóÒ»ĞĞ
+					if (prevBuffer != null) { // æœ€åä¸€è¡Œ
 						return new LineBytes(prevBuffer, 0, prevBuffer.length);
 					} else {
 						return null;
@@ -443,11 +443,11 @@ public final class LineImporter implements ILineInput {
 			}
 			
 			if (buffer[index] == LF) {
-				// ÕÒµ½ĞĞ½áÊø·û£¬Ë÷ÒıÌøµ½»»ĞĞºó
+				// æ‰¾åˆ°è¡Œç»“æŸç¬¦ï¼Œç´¢å¼•è·³åˆ°æ¢è¡Œå
 				this.index = index + 1;
 				
 				if (index > start) {
-					// ¼ì²éLFÇ°ÊÇ·ñÊÇCR
+					// æ£€æŸ¥LFå‰æ˜¯å¦æ˜¯CR
 					if (buffer[index - 1] == CR) {
 						index--;
 					}
@@ -466,26 +466,26 @@ public final class LineImporter implements ILineInput {
 					}
 				} else {
 					if (prevBuffer != null) {
-						// ¼ì²é»á³µÇ°ÊÇ·ñÊÇ»»ĞĞ·û
+						// æ£€æŸ¥ä¼šè½¦å‰æ˜¯å¦æ˜¯æ¢è¡Œç¬¦
 						int prevLen = prevBuffer.length;
-						if (prevBuffer[prevLen - 1] == CR) { // \rÔÚÉÏÒ»´Î¶Á³öµÄ»º³åÇøÖĞ£¬indexµÈÓÚ0
+						if (prevBuffer[prevLen - 1] == CR) { // \råœ¨ä¸Šä¸€æ¬¡è¯»å‡ºçš„ç¼“å†²åŒºä¸­ï¼Œindexç­‰äº0
 							line = new LineBytes(prevBuffer, 0, prevLen -1);
 						} else {
 							line = new LineBytes(prevBuffer, 0, prevLen);
 						}
 					} else {
-						// ´ËĞĞÄÚÈİÎª¿Õ£¬Ö»ÓĞ»Ø³µ
+						// æ­¤è¡Œå†…å®¹ä¸ºç©ºï¼Œåªæœ‰å›è½¦
 						line = new LineBytes(buffer, start, 0);
 					}
 				}
 				
 				return line;
 			} else if (skipQuoteEnter && buffer[index] == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬Ìøµ½ÓÒÒıºÅµÄÏÂÒ»¸ö×Ö·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œè·³åˆ°å³å¼•å·çš„ä¸‹ä¸€ä¸ªå­—ç¬¦
 				++index;
 				while (true) {
 					if (index == count) {
-						// ±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+						// ä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 						int curCount = count - start;
 						if (prevBuffer == null) {
 							prevBuffer = new byte[curCount];
@@ -498,7 +498,7 @@ public final class LineImporter implements ILineInput {
 							prevBuffer = temp;
 						}
 
-						// ¶ÁÈëºóÃæµÄ×Ö½Ú
+						// è¯»å…¥åé¢çš„å­—èŠ‚
 						if (readBuffer() <= 0) {
 							return new LineBytes(prevBuffer, 0, prevBuffer.length);
 						} else {
@@ -512,14 +512,14 @@ public final class LineImporter implements ILineInput {
 						++index;
 						if (index < count) {
 							if (buffer[index] != '"') {
-								// ÕÒµ½ÒıºÅÆ¥Åä
+								// æ‰¾åˆ°å¼•å·åŒ¹é…
 								continue Next;
 							} else {
-								// Á¬ĞøÁ½¸öË«ÒıºÅÊÇ¶ÔÒıºÅ×ªÒå
+								// è¿ç»­ä¸¤ä¸ªåŒå¼•å·æ˜¯å¯¹å¼•å·è½¬ä¹‰
 								++index;
 							}
 						} else {
-							// ±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+							// ä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 							int curCount = count - start;
 							if (prevBuffer == null) {
 								prevBuffer = new byte[curCount];
@@ -532,18 +532,18 @@ public final class LineImporter implements ILineInput {
 								prevBuffer = temp;
 							}
 	
-							// ¶ÁÈëºóÃæµÄ×Ö½Ú
+							// è¯»å…¥åé¢çš„å­—èŠ‚
 							if (readBuffer() <= 0) {
 								return new LineBytes(prevBuffer, 0, prevBuffer.length);
 							} else {
 								count = this.count;
 								start = 0;
 								if (buffer[0] != '"') {
-									// ÕÒµ½ÒıºÅÆ¥Åä
+									// æ‰¾åˆ°å¼•å·åŒ¹é…
 									index = 0;
 									continue Next;
 								} else {
-									// Á¬ĞøÁ½¸öË«ÒıºÅÊÇ¶ÔÒıºÅ×ªÒå
+									// è¿ç»­ä¸¤ä¸ªåŒå¼•å·æ˜¯å¯¹å¼•å·è½¬ä¹‰
 									index = 1;
 								}
 							}
@@ -553,11 +553,11 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (isContinueLine && buffer[index] == CONTINUECHAR) {
-				// Èç¹ûÔÊĞíĞøĞĞ£¬¼ì²éµ±Ç°×Ö·ûÊÇ·ñÊÇ¡®\¡¯
+				// å¦‚æœå…è®¸ç»­è¡Œï¼Œæ£€æŸ¥å½“å‰å­—ç¬¦æ˜¯å¦æ˜¯â€˜\â€™
 				++index;
 				if (index < count) {
 					if (buffer[index] == LF) { // \n
-						// ±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+						// ä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 						int curCount = index - start - 1;
 						if (prevBuffer == null) {
 							prevBuffer = new byte[curCount];
@@ -572,7 +572,7 @@ public final class LineImporter implements ILineInput {
 						
 						start = ++index;
 					} else if (buffer[index] == CR) { // \r\n
-						// ±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+						// ä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 						int curCount = index - start - 1;
 						if (prevBuffer == null) {
 							prevBuffer = new byte[curCount];
@@ -585,10 +585,10 @@ public final class LineImporter implements ILineInput {
 							prevBuffer = temp;
 						}
 						
-						// CRºóÃæ¸ú×ÅLF£¬Ìøµ½LF
+						// CRåé¢è·Ÿç€LFï¼Œè·³åˆ°LF
 						++index;
 						if (index == count) {
-							// \nÔÚÏÂÒ»¸ö»º³åÇø
+							// \nåœ¨ä¸‹ä¸€ä¸ªç¼“å†²åŒº
 							if (readBuffer() <= 0) {
 								return new LineBytes(prevBuffer, 0, prevBuffer.length);
 							} else {
@@ -602,7 +602,7 @@ public final class LineImporter implements ILineInput {
 						start = index;
 					}
 				} else {
-					// ±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+					// ä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 					int curCount = index - start - 1;
 					if (curCount > 0) {
 						if (prevBuffer == null) {
@@ -635,7 +635,7 @@ public final class LineImporter implements ILineInput {
 							index = 0;
 							start = 0;
 							
-							// °ÑĞøĞĞ·û¼ÓÈëµ½Ö®Ç°µÄ»º³åÇø
+							// æŠŠç»­è¡Œç¬¦åŠ å…¥åˆ°ä¹‹å‰çš„ç¼“å†²åŒº
 							if (prevBuffer == null) {
 								prevBuffer = new byte[]{CONTINUECHAR};
 							} else {
@@ -654,12 +654,12 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 	
-	// °ÑÏÂÒ»ĞĞÊı¾İ¶Á³É×Ö·û´®
+	// æŠŠä¸‹ä¸€è¡Œæ•°æ®è¯»æˆå­—ç¬¦ä¸²
 	private String readLineString() throws IOException {
-		// ÊÇ·ñÌø¹ıÒıºÅÄÚµÄ»Ø³µ
+		// æ˜¯å¦è·³è¿‡å¼•å·å†…çš„å›è½¦
 		boolean skipQuoteEnter = escapeChar == '"';
 		byte[] buffer = this.buffer;
-		byte []prevBuffer = null; // ÉÏ´ÎÊ£ÓàµÄ×Ö½Ú
+		byte []prevBuffer = null; // ä¸Šæ¬¡å‰©ä½™çš„å­—èŠ‚
 		int count = this.count;
 		int index = this.index;
 		int start = index;
@@ -667,7 +667,7 @@ public final class LineImporter implements ILineInput {
 		Next:
 		while (true) {
 			if (index >= count) {
-				// µ±Ç°»º´æµÄÊı¾İÒÑ¾­±éÀúÍê£¬±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+				// å½“å‰ç¼“å­˜çš„æ•°æ®å·²ç»éå†å®Œï¼Œä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 				int curCount = count - start;
 				if (curCount > 0) {
 					if (prevBuffer == null) {
@@ -682,9 +682,9 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 
-				// ¶ÁÈëºóÃæµÄ×Ö½Ú
+				// è¯»å…¥åé¢çš„å­—èŠ‚
 				if (readBuffer() <= 0) {
-					if (prevBuffer != null) { // ×îºóÒ»ĞĞ
+					if (prevBuffer != null) { // æœ€åä¸€è¡Œ
 						return new String(prevBuffer, 0, prevBuffer.length, charset);
 					} else {
 						return null;
@@ -697,11 +697,11 @@ public final class LineImporter implements ILineInput {
 			}
 			
 			if (buffer[index] == LF) {
-				// ÕÒµ½ĞĞ½áÊø·û£¬Ë÷ÒıÌøµ½»»ĞĞºó
+				// æ‰¾åˆ°è¡Œç»“æŸç¬¦ï¼Œç´¢å¼•è·³åˆ°æ¢è¡Œå
 				this.index = index + 1;
 				
 				if (index > start) {
-					// ¼ì²éLFÇ°ÊÇ·ñÊÇCR
+					// æ£€æŸ¥LFå‰æ˜¯å¦æ˜¯CR
 					if (buffer[index - 1] == CR) {
 						index--;
 					}
@@ -720,24 +720,24 @@ public final class LineImporter implements ILineInput {
 					}
 				} else {
 					if (prevBuffer != null) {
-						// ¼ì²é»á³µÇ°ÊÇ·ñÊÇ»»ĞĞ·û
+						// æ£€æŸ¥ä¼šè½¦å‰æ˜¯å¦æ˜¯æ¢è¡Œç¬¦
 						int prevLen = prevBuffer.length;
-						if (prevBuffer[prevLen - 1] == CR) { // \rÔÚÉÏÒ»´Î¶Á³öµÄ»º³åÇøÖĞ£¬indexµÈÓÚ0
+						if (prevBuffer[prevLen - 1] == CR) { // \råœ¨ä¸Šä¸€æ¬¡è¯»å‡ºçš„ç¼“å†²åŒºä¸­ï¼Œindexç­‰äº0
 							return new String(prevBuffer, 0, prevLen -1, charset);
 						} else {
 							return new String(prevBuffer, 0, prevLen, charset);
 						}
 					} else {
-						// ´ËĞĞÄÚÈİÎª¿Õ£¬Ö»ÓĞ»Ø³µ
+						// æ­¤è¡Œå†…å®¹ä¸ºç©ºï¼Œåªæœ‰å›è½¦
 						return new String(buffer, start, 0, charset);
 					}
 				}
 			} else if (skipQuoteEnter && buffer[index] == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬Ìøµ½ÓÒÒıºÅµÄÏÂÒ»¸ö×Ö·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œè·³åˆ°å³å¼•å·çš„ä¸‹ä¸€ä¸ªå­—ç¬¦
 				++index;
 				while (true) {
 					if (index == count) {
-						// ±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+						// ä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 						int curCount = count - start;
 						if (prevBuffer == null) {
 							prevBuffer = new byte[curCount];
@@ -750,7 +750,7 @@ public final class LineImporter implements ILineInput {
 							prevBuffer = temp;
 						}
 
-						// ¶ÁÈëºóÃæµÄ×Ö½Ú
+						// è¯»å…¥åé¢çš„å­—èŠ‚
 						if (readBuffer() <= 0) {
 							return new String(prevBuffer, 0, prevBuffer.length, charset);
 						} else {
@@ -764,14 +764,14 @@ public final class LineImporter implements ILineInput {
 						++index;
 						if (index < count) {
 							if (buffer[index] != '"') {
-								// ÕÒµ½ÒıºÅÆ¥Åä
+								// æ‰¾åˆ°å¼•å·åŒ¹é…
 								continue Next;
 							} else {
-								// Á¬ĞøÁ½¸öË«ÒıºÅÊÇ¶ÔÒıºÅ×ªÒå
+								// è¿ç»­ä¸¤ä¸ªåŒå¼•å·æ˜¯å¯¹å¼•å·è½¬ä¹‰
 								++index;
 							}
 						} else {
-							// ±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+							// ä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 							int curCount = count - start;
 							if (prevBuffer == null) {
 								prevBuffer = new byte[curCount];
@@ -784,18 +784,18 @@ public final class LineImporter implements ILineInput {
 								prevBuffer = temp;
 							}
 	
-							// ¶ÁÈëºóÃæµÄ×Ö½Ú
+							// è¯»å…¥åé¢çš„å­—èŠ‚
 							if (readBuffer() <= 0) {
 								return new String(prevBuffer, 0, prevBuffer.length, charset);
 							} else {
 								count = this.count;
 								start = 0;
 								if (buffer[0] != '"') {
-									// ÕÒµ½ÒıºÅÆ¥Åä
+									// æ‰¾åˆ°å¼•å·åŒ¹é…
 									index = 0;
 									continue Next;
 								} else {
-									// Á¬ĞøÁ½¸öË«ÒıºÅÊÇ¶ÔÒıºÅ×ªÒå
+									// è¿ç»­ä¸¤ä¸ªåŒå¼•å·æ˜¯å¯¹å¼•å·è½¬ä¹‰
 									index = 1;
 								}
 							}
@@ -805,11 +805,11 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (isContinueLine && buffer[index] == CONTINUECHAR) {
-				// Èç¹ûÔÊĞíĞøĞĞ£¬¼ì²éµ±Ç°×Ö·ûÊÇ·ñÊÇ¡®\¡¯
+				// å¦‚æœå…è®¸ç»­è¡Œï¼Œæ£€æŸ¥å½“å‰å­—ç¬¦æ˜¯å¦æ˜¯â€˜\â€™
 				++index;
 				if (index < count) {
 					if (buffer[index] == LF) { // \n
-						// ±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+						// ä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 						int curCount = index - start - 1;
 						if (prevBuffer == null) {
 							prevBuffer = new byte[curCount];
@@ -824,7 +824,7 @@ public final class LineImporter implements ILineInput {
 						
 						start = ++index;
 					} else if (buffer[index] == CR) { // \r\n
-						// ±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+						// ä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 						int curCount = index - start - 1;
 						if (prevBuffer == null) {
 							prevBuffer = new byte[curCount];
@@ -837,10 +837,10 @@ public final class LineImporter implements ILineInput {
 							prevBuffer = temp;
 						}
 						
-						// CRºóÃæ¸ú×ÅLF£¬Ìøµ½LF
+						// CRåé¢è·Ÿç€LFï¼Œè·³åˆ°LF
 						++index;
 						if (index == count) {
-							// \nÔÚÏÂÒ»¸ö»º³åÇø
+							// \nåœ¨ä¸‹ä¸€ä¸ªç¼“å†²åŒº
 							if (readBuffer() <= 0) {
 								return new String(prevBuffer, 0, prevBuffer.length, charset);
 							} else {
@@ -854,7 +854,7 @@ public final class LineImporter implements ILineInput {
 						start = index;
 					}
 				} else {
-					// ±£´æµ±Ç°Êı¾İµ½prevBufferÖĞ
+					// ä¿å­˜å½“å‰æ•°æ®åˆ°prevBufferä¸­
 					int curCount = index - start - 1;
 					if (curCount > 0) {
 						if (prevBuffer == null) {
@@ -887,7 +887,7 @@ public final class LineImporter implements ILineInput {
 							index = 0;
 							start = 0;
 							
-							// °ÑĞøĞĞ·û¼ÓÈëµ½Ö®Ç°µÄ»º³åÇø
+							// æŠŠç»­è¡Œç¬¦åŠ å…¥åˆ°ä¹‹å‰çš„ç¼“å†²åŒº
 							if (prevBuffer == null) {
 								prevBuffer = new byte[]{CONTINUECHAR};
 							} else {
@@ -906,7 +906,7 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 
-	// Ã¿ĞĞÊı¾İ¶Á³ÉÒ»¸ö×Ö·û´®
+	// æ¯è¡Œæ•°æ®è¯»æˆä¸€ä¸ªå­—ç¬¦ä¸²
 	private String readLineString(LineBytes line) throws IOException {
 		byte[] buffer = line.buffer;
 		int count = line.count;
@@ -928,7 +928,7 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 	
-	// ¸ù¾İ×Ö¶ÎÀàĞÍ°Ñ²ğ·ÖĞĞµÄÁĞ£¬²¢×ª³É¶ÔÏó
+	// æ ¹æ®å­—æ®µç±»å‹æŠŠæ‹†åˆ†è¡Œçš„åˆ—ï¼Œå¹¶è½¬æˆå¯¹è±¡
 	private Object[] readLine(LineBytes line, byte []colTypes) throws IOException {
 		if (colSeparators != null) {
 			return readLine2(line, colTypes);
@@ -948,18 +948,18 @@ public final class LineImporter implements ILineInput {
 		byte colSeparator = this.colSeparator;
 		int []selIndex = this.selIndex;
 		char escapeChar = this.escapeChar;
-		boolean doQuoteMatch = this.doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-		boolean doBracketsMatch = this.doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
+		boolean doQuoteMatch = this.doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+		boolean doBracketsMatch = this.doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
 		
 		int colIndex = 0;
 		int start = index;
-		int BracketsLevel = 0; // À¨ºÅµÄ²ãÊı£¬ÓĞpÑ¡ÏîÊ±ÈÏÎªÀ¨ºÅ×ÜÊÇÆ¥Åä³öÏÖµÄ
+		int BracketsLevel = 0; // æ‹¬å·çš„å±‚æ•°ï¼Œæœ‰pé€‰é¡¹æ—¶è®¤ä¸ºæ‹¬å·æ€»æ˜¯åŒ¹é…å‡ºç°çš„
 		
 		while (index < end && colIndex < colCount) {
 			byte c = buffer[index];
 			if (BracketsLevel == 0 && c == colSeparator) {
-				// ÁĞ½áÊø
+				// åˆ—ç»“æŸ
 				if (selIndex == null || selIndex[colIndex] != -1) {
 					values[colIndex] = parse(buffer, start, index, colIndex);
 				}
@@ -967,7 +967,7 @@ public final class LineImporter implements ILineInput {
 				colIndex++;
 				start = ++index;
 			} else if (doQuoteMatch && c == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '"') {
 						index++;
@@ -979,7 +979,7 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doSingleQuoteMatch && c == '\'') {
-				// ÕÒµ¥ÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å•å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '\'') {
 						index++;
@@ -1008,8 +1008,8 @@ public final class LineImporter implements ILineInput {
 		return values;
 	}
 	
-	// ¶à×Ö·ûÁĞ·Ö¸ô·û
-	// ¸ù¾İ×Ö¶ÎÀàĞÍ°Ñ²ğ·ÖĞĞµÄÁĞ£¬²¢×ª³É¶ÔÏó
+	// å¤šå­—ç¬¦åˆ—åˆ†éš”ç¬¦
+	// æ ¹æ®å­—æ®µç±»å‹æŠŠæ‹†åˆ†è¡Œçš„åˆ—ï¼Œå¹¶è½¬æˆå¯¹è±¡
 	private Object[] readLine2(LineBytes line, byte []colTypes) throws IOException {
 		int colCount = colTypes.length;
 		Object []values = new Object[colCount];
@@ -1026,17 +1026,17 @@ public final class LineImporter implements ILineInput {
 		int sepLen = colSeparators.length;
 		int []selIndex = this.selIndex;
 		char escapeChar = this.escapeChar;
-		boolean doQuoteMatch = this.doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-		boolean doBracketsMatch = this.doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
+		boolean doQuoteMatch = this.doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+		boolean doBracketsMatch = this.doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
 		
 		int colIndex = 0;
 		int start = index;
-		int BracketsLevel = 0; // À¨ºÅµÄ²ãÊı£¬ÓĞpÑ¡ÏîÊ±ÈÏÎªÀ¨ºÅ×ÜÊÇÆ¥Åä³öÏÖµÄ
+		int BracketsLevel = 0; // æ‹¬å·çš„å±‚æ•°ï¼Œæœ‰pé€‰é¡¹æ—¶è®¤ä¸ºæ‹¬å·æ€»æ˜¯åŒ¹é…å‡ºç°çš„
 		
 		while (index < end && colIndex < colCount) {
 			if (BracketsLevel == 0 && isColSeparators(buffer, index, end, colSeparators, sepLen)) {
-				// ÁĞ½áÊø
+				// åˆ—ç»“æŸ
 				if (selIndex == null || selIndex[colIndex] != -1) {
 					values[colIndex] = parse(buffer, start, index, colIndex);
 				}
@@ -1049,7 +1049,7 @@ public final class LineImporter implements ILineInput {
 
 			byte c = buffer[index];
 			if (doQuoteMatch && c == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '"') {
 						index++;
@@ -1061,7 +1061,7 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doSingleQuoteMatch && c == '\'') {
-				// ÕÒµ¥ÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å•å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '\'') {
 						index++;
@@ -1090,8 +1090,8 @@ public final class LineImporter implements ILineInput {
 		return values;
 	}
 	
-	// ¶ÁÊı¾İÊ±»á×öÊı¾İÀàĞÍ¡¢ÁĞÊıÆ¥Åä¡¢À¨ºÅÆ¥ÅäµÈ¼ì²é
-	// ¸ù¾İ×Ö¶ÎÀàĞÍ°Ñ²ğ·ÖĞĞµÄÁĞ£¬²¢×ª³É¶ÔÏó
+	// è¯»æ•°æ®æ—¶ä¼šåšæ•°æ®ç±»å‹ã€åˆ—æ•°åŒ¹é…ã€æ‹¬å·åŒ¹é…ç­‰æ£€æŸ¥
+	// æ ¹æ®å­—æ®µç±»å‹æŠŠæ‹†åˆ†è¡Œçš„åˆ—ï¼Œå¹¶è½¬æˆå¯¹è±¡
 	private Object[] readLineOnCheck(LineBytes line, byte []colTypes) throws IOException {
 		if (colSeparators != null) {
 			return readLineOnCheck2(line, colTypes);
@@ -1111,20 +1111,20 @@ public final class LineImporter implements ILineInput {
 		byte colSeparator = this.colSeparator;
 		int []selIndex = this.selIndex;
 		char escapeChar = this.escapeChar;
-		boolean doQuoteMatch = this.doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-		boolean doBracketsMatch = this.doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
+		boolean doQuoteMatch = this.doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+		boolean doBracketsMatch = this.doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
 		boolean checkValueType = this.checkValueType;
 		
 		int colIndex = 0;
 		int start = index;
-		int BracketsLevel = 0; // À¨ºÅµÄ²ãÊı£¬ÓĞpÑ¡ÏîÊ±ÈÏÎªÀ¨ºÅ×ÜÊÇÆ¥Åä³öÏÖµÄ
+		int BracketsLevel = 0; // æ‹¬å·çš„å±‚æ•°ï¼Œæœ‰pé€‰é¡¹æ—¶è®¤ä¸ºæ‹¬å·æ€»æ˜¯åŒ¹é…å‡ºç°çš„
 		
 		Next:
 		while (index < end && colIndex < colCount) {
 			byte c = buffer[index];
 			if (BracketsLevel == 0 && c == colSeparator) {
-				// ÁĞ½áÊø
+				// åˆ—ç»“æŸ
 				if (selIndex == null || selIndex[colIndex] != -1) {
 					if (checkValueType) {
 						if (!parse(buffer, start, index, colIndex, values)) {
@@ -1138,7 +1138,7 @@ public final class LineImporter implements ILineInput {
 				colIndex++;
 				start = ++index;
 			} else if (doQuoteMatch && c == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '"') {
 						index++;
@@ -1150,10 +1150,10 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 				
-				// Ã»ÕÒµ½Æ¥ÅäµÄÒıºÅ·µ»Ø¿Õ
+				// æ²¡æ‰¾åˆ°åŒ¹é…çš„å¼•å·è¿”å›ç©º
 				return null;
 			} else if (doSingleQuoteMatch && c == '\'') {
-				// ÕÒµ¥ÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å•å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '\'') {
 						index++;
@@ -1163,7 +1163,7 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 				
-				// Ã»ÕÒµ½Æ¥ÅäµÄµ¥ÒıºÅ·µ»Ø¿Õ
+				// æ²¡æ‰¾åˆ°åŒ¹é…çš„å•å¼•å·è¿”å›ç©º
 				return null;
 			} else if (doBracketsMatch) {
 				if (c == '(' || c == '[' || c == '{') {
@@ -1179,7 +1179,7 @@ public final class LineImporter implements ILineInput {
 		}
 		
 		if (BracketsLevel != 0) {
-			// ÓĞ²»Æ¥ÅäµÄÀ¨ºÅ
+			// æœ‰ä¸åŒ¹é…çš„æ‹¬å·
 			return null;
 		}
 		
@@ -1202,8 +1202,8 @@ public final class LineImporter implements ILineInput {
 		return values;
 	}
 
-	// ¶à×Ö·ûÁĞ·Ö¸ô·û
-	// ¸ù¾İ×Ö¶ÎÀàĞÍ°Ñ²ğ·ÖĞĞµÄÁĞ£¬²¢×ª³É¶ÔÏó
+	// å¤šå­—ç¬¦åˆ—åˆ†éš”ç¬¦
+	// æ ¹æ®å­—æ®µç±»å‹æŠŠæ‹†åˆ†è¡Œçš„åˆ—ï¼Œå¹¶è½¬æˆå¯¹è±¡
 	private Object[] readLineOnCheck2(LineBytes line, byte []colTypes) throws IOException {
 		int count = line.count;
 		if (count < 1) {
@@ -1220,19 +1220,19 @@ public final class LineImporter implements ILineInput {
 		int sepLen = colSeparators.length;
 		int []selIndex = this.selIndex;
 		char escapeChar = this.escapeChar;
-		boolean doQuoteMatch = this.doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-		boolean doBracketsMatch = this.doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
+		boolean doQuoteMatch = this.doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+		boolean doBracketsMatch = this.doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
 		boolean checkValueType = this.checkValueType;
 		
 		int colIndex = 0;
 		int start = index;
-		int BracketsLevel = 0; // À¨ºÅµÄ²ãÊı£¬ÓĞpÑ¡ÏîÊ±ÈÏÎªÀ¨ºÅ×ÜÊÇÆ¥Åä³öÏÖµÄ
+		int BracketsLevel = 0; // æ‹¬å·çš„å±‚æ•°ï¼Œæœ‰pé€‰é¡¹æ—¶è®¤ä¸ºæ‹¬å·æ€»æ˜¯åŒ¹é…å‡ºç°çš„
 		
 		Next:
 		while (index < end && colIndex < colCount) {
-			if (BracketsLevel == 0 && isColSeparators(buffer, index, end, colSeparators, sepLen)) { // ÁĞ½áÊø
-				// ÁĞ½áÊø
+			if (BracketsLevel == 0 && isColSeparators(buffer, index, end, colSeparators, sepLen)) { // åˆ—ç»“æŸ
+				// åˆ—ç»“æŸ
 				if (selIndex == null || selIndex[colIndex] != -1) {
 					if (checkValueType) {
 						if (!parse(buffer, start, index, colIndex, values)) {
@@ -1251,7 +1251,7 @@ public final class LineImporter implements ILineInput {
 			
 			byte c = buffer[index];
 			if (doQuoteMatch && c == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '"') {
 						index++;
@@ -1263,10 +1263,10 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 				
-				// Ã»ÕÒµ½Æ¥ÅäµÄÒıºÅ·µ»Ø¿Õ
+				// æ²¡æ‰¾åˆ°åŒ¹é…çš„å¼•å·è¿”å›ç©º
 				return null;
 			} else if (doSingleQuoteMatch && c == '\'') {
-				// ÕÒµ¥ÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å•å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '\'') {
 						index++;
@@ -1276,7 +1276,7 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 				
-				// Ã»ÕÒµ½Æ¥ÅäµÄµ¥ÒıºÅ·µ»Ø¿Õ
+				// æ²¡æ‰¾åˆ°åŒ¹é…çš„å•å¼•å·è¿”å›ç©º
 				return null;
 			} else if (doBracketsMatch) {
 				if (c == '(' || c == '[' || c == '{') {
@@ -1292,7 +1292,7 @@ public final class LineImporter implements ILineInput {
 		}
 		
 		if (BracketsLevel != 0) {
-			// ÓĞ²»Æ¥ÅäµÄÀ¨ºÅ
+			// æœ‰ä¸åŒ¹é…çš„æ‹¬å·
 			return null;
 		}
 		
@@ -1333,18 +1333,18 @@ public final class LineImporter implements ILineInput {
 		byte colSeparator = this.colSeparator;
 		char escapeChar = this.escapeChar;
 		boolean isTrim = this.isTrim;
-		boolean doQuoteMatch = this.doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-		boolean doBracketsMatch = this.doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
+		boolean doQuoteMatch = this.doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+		boolean doBracketsMatch = this.doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
 		
 		ArrayList<Object> list = new ArrayList<Object>();
-		int BracketsLevel = 0; // À¨ºÅµÄ²ãÊı£¬ÓĞpÑ¡ÏîÊ±ÈÏÎªÀ¨ºÅ×ÜÊÇÆ¥Åä³öÏÖµÄ
-		int start = index; // ÁĞµÄÆğÊ¼Î»ÖÃ
+		int BracketsLevel = 0; // æ‹¬å·çš„å±‚æ•°ï¼Œæœ‰pé€‰é¡¹æ—¶è®¤ä¸ºæ‹¬å·æ€»æ˜¯åŒ¹é…å‡ºç°çš„
+		int start = index; // åˆ—çš„èµ·å§‹ä½ç½®
 		
 		while (index < end) {
 			byte c = buffer[index];
 			if (BracketsLevel == 0 && c == colSeparator) {
-				// ÁĞ½áÊø
+				// åˆ—ç»“æŸ
 				int len = index - start;
 				if (len > 0) {
 					String str = new String(buffer, start, len, charset);
@@ -1359,7 +1359,7 @@ public final class LineImporter implements ILineInput {
 				
 				start = ++index;
 			} else if (doQuoteMatch && c == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '"') {
 						index++;
@@ -1371,7 +1371,7 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doSingleQuoteMatch && c == '\'') {
-				// ÕÒµ¥ÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å•å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '\'') {
 						index++;
@@ -1422,7 +1422,7 @@ public final class LineImporter implements ILineInput {
 		return true;
 	}
 	
-	// ¶à×Ö·ûÁĞ·Ö¸ô·û
+	// å¤šå­—ç¬¦åˆ—åˆ†éš”ç¬¦
 	private Object[] readLine2(LineBytes line) throws IOException {
 		int count = line.count;
 		if (count < 1) {
@@ -1438,17 +1438,17 @@ public final class LineImporter implements ILineInput {
 		int sepLen = colSeparators.length;
 		char escapeChar = this.escapeChar;
 		boolean isTrim = this.isTrim;
-		boolean doQuoteMatch = this.doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-		boolean doBracketsMatch = this.doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
+		boolean doQuoteMatch = this.doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+		boolean doBracketsMatch = this.doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
 		
 		ArrayList<Object> list = new ArrayList<Object>();
 		int start = index;
-		int BracketsLevel = 0; // À¨ºÅµÄ²ãÊı£¬ÓĞpÑ¡ÏîÊ±ÈÏÎªÀ¨ºÅ×ÜÊÇÆ¥Åä³öÏÖµÄ
+		int BracketsLevel = 0; // æ‹¬å·çš„å±‚æ•°ï¼Œæœ‰pé€‰é¡¹æ—¶è®¤ä¸ºæ‹¬å·æ€»æ˜¯åŒ¹é…å‡ºç°çš„
 		
 		while (index < end) {
 			if (BracketsLevel == 0 && isColSeparators(buffer, index, end, colSeparators, sepLen)) {
-				// ÁĞ½áÊø
+				// åˆ—ç»“æŸ
 				int len = index - start;
 				if (len > 0) {
 					String str = new String(buffer, start, len, charset);
@@ -1468,7 +1468,7 @@ public final class LineImporter implements ILineInput {
 
 			byte c = buffer[index];
 			if (doQuoteMatch && c == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '"') {
 						index++;
@@ -1480,7 +1480,7 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doSingleQuoteMatch && c == '\'') {
-				// ÕÒµ¥ÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å•å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '\'') {
 						index++;
@@ -1518,8 +1518,8 @@ public final class LineImporter implements ILineInput {
 	}
 	
 	/**
-	 * ¶ÁÈëÊ×ĞĞ
-	 * @return ÁĞÖµ×é³ÉµÄÊı×é
+	 * è¯»å…¥é¦–è¡Œ
+	 * @return åˆ—å€¼ç»„æˆçš„æ•°ç»„
 	 * @throws IOException
 	 */
 	public Object[] readFirstLine() throws IOException {
@@ -1553,7 +1553,7 @@ public final class LineImporter implements ILineInput {
 	}
 	
 	/**
-	 * ·µ»ØÏÂÒ»ĞĞ£¬Èç¹û½áÊøÁËÔò·µ»Ønull
+	 * è¿”å›ä¸‹ä¸€è¡Œï¼Œå¦‚æœç»“æŸäº†åˆ™è¿”å›null
 	 * @return Object[]
 	 * @throws IOException
 	 */
@@ -1637,7 +1637,7 @@ public final class LineImporter implements ILineInput {
 				}
 			}
 		} else {
-			// PARSEMODE_DEFAULT¡¢PARSEMODE_MULTI_STRING¡¢PARSEMODE_SINGLE_STRING
+			// PARSEMODE_DEFAULTã€PARSEMODE_MULTI_STRINGã€PARSEMODE_SINGLE_STRING
 			LineBytes line = readLineBytes();
 			if (line == null) {
 				return null;
@@ -1652,12 +1652,12 @@ public final class LineImporter implements ILineInput {
 	}
 
 	/**
-	 * Ìø¹ıÏÂÒ»ĞĞ£¬Èç¹û½áÊøÁËÔò·µ»Øfalse£¬·ñÔò·µ»Øtrue
+	 * è·³è¿‡ä¸‹ä¸€è¡Œï¼Œå¦‚æœç»“æŸäº†åˆ™è¿”å›falseï¼Œå¦åˆ™è¿”å›true
 	 * @return boolean
 	 * @throws IOException
 	 */
 	public boolean skipLine() throws IOException {
-		// ÊÇ·ñÌø¹ıÒıºÅÄÚµÄ»Ø³µ
+		// æ˜¯å¦è·³è¿‡å¼•å·å†…çš„å›è½¦
 		boolean skipQuoteEnter = escapeChar == '"';
 		byte[] buffer = this.buffer;
 		int count = this.count;
@@ -1667,7 +1667,7 @@ public final class LineImporter implements ILineInput {
 		Next:
 		while (true) {
 			if (index >= count) {
-				// ¶ÁÈëºóÃæµÄ×Ö½Ú
+				// è¯»å…¥åé¢çš„å­—èŠ‚
 				if (readBuffer() <= 0) {
 					return sign;
 				} else {
@@ -1681,11 +1681,11 @@ public final class LineImporter implements ILineInput {
 				this.index = index + 1;
 				return true;
 			} else if (skipQuoteEnter && buffer[index] == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬Ìøµ½ÓÒÒıºÅµÄÏÂÒ»¸ö×Ö·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œè·³åˆ°å³å¼•å·çš„ä¸‹ä¸€ä¸ªå­—ç¬¦
 				++index;
 				while (true) {
 					if (index == count) {
-						// ¶ÁÈëºóÃæµÄ×Ö½Ú
+						// è¯»å…¥åé¢çš„å­—èŠ‚
 						if (readBuffer() <= 0) {
 							return true;
 						} else {
@@ -1698,24 +1698,24 @@ public final class LineImporter implements ILineInput {
 						++index;
 						if (index < count) {
 							if (buffer[index] != '"') {
-								// ÕÒµ½ÒıºÅÆ¥Åä
+								// æ‰¾åˆ°å¼•å·åŒ¹é…
 								continue Next;
 							} else {
-								// Á¬ĞøÁ½¸öË«ÒıºÅÊÇ¶ÔÒıºÅ×ªÒå
+								// è¿ç»­ä¸¤ä¸ªåŒå¼•å·æ˜¯å¯¹å¼•å·è½¬ä¹‰
 								++index;
 							}
 						} else {
-							// ¶ÁÈëºóÃæµÄ×Ö½Ú
+							// è¯»å…¥åé¢çš„å­—èŠ‚
 							if (readBuffer() <= 0) {
 								return true;
 							} else {
 								count = this.count;
 								if (buffer[0] != '"') {
-									// ÕÒµ½ÒıºÅÆ¥Åä
+									// æ‰¾åˆ°å¼•å·åŒ¹é…
 									index = 0;
 									continue Next;
 								} else {
-									// Á¬ĞøÁ½¸öË«ÒıºÅÊÇ¶ÔÒıºÅ×ªÒå
+									// è¿ç»­ä¸¤ä¸ªåŒå¼•å·æ˜¯å¯¹å¼•å·è½¬ä¹‰
 									index = 1;
 								}
 							}
@@ -1725,16 +1725,16 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (isContinueLine && buffer[index] == CONTINUECHAR) {
-				// Èç¹ûÔÊĞíĞøĞĞ£¬¼ì²éµ±Ç°×Ö·ûÊÇ·ñÊÇ¡®\¡¯
+				// å¦‚æœå…è®¸ç»­è¡Œï¼Œæ£€æŸ¥å½“å‰å­—ç¬¦æ˜¯å¦æ˜¯â€˜\â€™
 				++index;
 				if (index < count) {
 					if (buffer[index] == LF) { // \n
 						++index;
 					} else if (buffer[index] == CR) { // \r\n
-						// CRºóÃæ¸ú×ÅLF£¬Ìøµ½LF
+						// CRåé¢è·Ÿç€LFï¼Œè·³åˆ°LF
 						++index;
 						if (index == count) {
-							// \nÔÚÏÂÒ»¸ö»º³åÇø
+							// \nåœ¨ä¸‹ä¸€ä¸ªç¼“å†²åŒº
 							if (readBuffer() <= 0) {
 								return true;
 							} else {
@@ -1765,17 +1765,17 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 
-	// ·µ»ØÏÂÒ»ĞĞµÄÆğÊ¼Î»ÖÃ£¬½áÊø·µ»Ø-1
+	// è¿”å›ä¸‹ä¸€è¡Œçš„èµ·å§‹ä½ç½®ï¼Œç»“æŸè¿”å›-1
 	public static int readLine(char []buffer, int index, char colSeparator, ArrayList<String> line) {
 		int start = index;
 		int count = buffer.length;
 		while (index < count) {
-			if (buffer[index] == colSeparator) { // ÁĞ½áÊø
+			if (buffer[index] == colSeparator) { // åˆ—ç»“æŸ
 				line.add(new String(buffer, start, index - start));
 				index++;
 				start = index;
 			} else if (buffer[index] == LineImporter.LF) { // \n
-				// \r\n »ò \nÁ½ÖÖ»»ĞĞ·û¶¼Òª¼æÈİ
+				// \r\n æˆ– \nä¸¤ç§æ¢è¡Œç¬¦éƒ½è¦å…¼å®¹
 				if (index > start) {
 					if (buffer[index - 1] == LineImporter.CR) {
 						line.add(new String(buffer, start, index - start - 1));
@@ -1796,22 +1796,22 @@ public final class LineImporter implements ILineInput {
 
 		if (count > start) {
 			line.add(new String(buffer, start, count - start));
-		} else if (line.size() > 0) { // ×îºóÒ»¸ö×Ö¶Î¿Õ
+		} else if (line.size() > 0) { // æœ€åä¸€ä¸ªå­—æ®µç©º
 			line.add(null);
-		} // ¿ÕĞĞ
+		} // ç©ºè¡Œ
 
 		return -1;
 	}
 
 	/**
-	 * ¹Ø±ÕÊäÈë
+	 * å…³é—­è¾“å…¥
 	 * @throws IOException
 	 */
 	public void close() throws IOException {
 		is.close();
 	}
 	
-	// ÅĞ¶Ï×Ö·û´®ÊÇ·ñÊÇ±íÊ¾nullµÄ±êÊ¶·û
+	// åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦æ˜¯è¡¨ç¤ºnullçš„æ ‡è¯†ç¬¦
 	private static boolean isNull(String str) {
 		String []nulls = Env.getNullStrings();
 		if (nulls != null) {
@@ -1825,13 +1825,13 @@ public final class LineImporter implements ILineInput {
 		return false;
 	}
 	
-	// °Ñ×Ö·û´®½âÎö³É¶ÔÏó
+	// æŠŠå­—ç¬¦ä¸²è§£ææˆå¯¹è±¡
 	private Object parse(String str) {
 		int len = str.length();
 		if (len > 1) {
 			char c = str.charAt(0);
 			if ((isQuote && c == '"') || (isSingleQuote && c == '\'')) {
-				// ÔÚ½áÎ²ÊÇ·ñÓĞÒıºÅ
+				// åœ¨ç»“å°¾æ˜¯å¦æœ‰å¼•å·
 				if (str.charAt(len - 1) == c) {
 					return Escape.remove(str.substring(1, len - 1), escapeChar);
 				} else {
@@ -1851,7 +1851,7 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 	
-	// °Ñ×Ö½ÚÊı×é½âÎö³É¶ÔÏó
+	// æŠŠå­—èŠ‚æ•°ç»„è§£ææˆå¯¹è±¡
 	private Object parse(byte []bytes, int start, int end, int col) throws UnsupportedEncodingException {
 		if (isTrim) {
 			while (start < end && Character.isWhitespace(bytes[start])) {
@@ -1870,7 +1870,7 @@ public final class LineImporter implements ILineInput {
 		byte []types = this.colTypes;
 		byte c = bytes[start];
 		if ((isQuote && c == '"') || (isSingleQuote && c == '\'')) {
-			// ÔÚ½áÎ²ÊÇ·ñÓĞÒıºÅ
+			// åœ¨ç»“å°¾æ˜¯å¦æœ‰å¼•å·
 			if (bytes[end - 1] == c) {
 				start++;
 				end--;
@@ -1888,7 +1888,7 @@ public final class LineImporter implements ILineInput {
 				return new String(bytes, start, end - start, charset);
 			}
 		} else if (parseMode == PARSEMODE_MULTI_STRING) {
-			// Ö±½Ó·µ»Ø´®
+			// ç›´æ¥è¿”å›ä¸²
 			String str = new String(bytes, start, end - start, charset);
 			if (isNull(str)) {
 				return null;
@@ -2049,7 +2049,7 @@ public final class LineImporter implements ILineInput {
 		byte []types = this.colTypes;
 		char c = str.charAt(start);
 		if ((isQuote && c == '"') || (isSingleQuote && c == '\'')) {
-			// ÔÚ½áÎ²ÊÇ·ñÓĞÒıºÅ
+			// åœ¨ç»“å°¾æ˜¯å¦æœ‰å¼•å·
 			if (str.charAt(end - 1) == c) {
 				start++;
 				end--;
@@ -2066,7 +2066,7 @@ public final class LineImporter implements ILineInput {
 				return str;
 			}
 		} else if (parseMode == PARSEMODE_MULTI_STRING) {
-			// Ö±½Ó·µ»Ø´®
+			// ç›´æ¥è¿”å›ä¸²
 			if (isNull(str)) {
 				return null;
 			} else {
@@ -2162,7 +2162,7 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 	
-	// °Ñ×Ö½ÚÊı×é½âÎö³É¶ÔÏó£¬Èç¹ûÀàĞÍ²»·ûÔò·µ»Øfalse
+	// æŠŠå­—èŠ‚æ•°ç»„è§£ææˆå¯¹è±¡ï¼Œå¦‚æœç±»å‹ä¸ç¬¦åˆ™è¿”å›false
 	private boolean parse(String str, int col, Object []outValue) throws UnsupportedEncodingException {
 		int start = 0, end = str.length();
 		
@@ -2183,7 +2183,7 @@ public final class LineImporter implements ILineInput {
 		byte []types = this.colTypes;
 		char c = str.charAt(start);
 		if ((isQuote && c == '"') || (isSingleQuote && c == '\'')) {
-			// ÔÚ½áÎ²ÊÇ·ñÓĞÒıºÅ
+			// åœ¨ç»“å°¾æ˜¯å¦æœ‰å¼•å·
 			if (str.charAt(end - 1) == c) {
 				start++;
 				end--;
@@ -2204,7 +2204,7 @@ public final class LineImporter implements ILineInput {
 				return true;
 			}
 		} else if (parseMode == PARSEMODE_MULTI_STRING) {
-			// Ö±½Ó·µ»Ø´®
+			// ç›´æ¥è¿”å›ä¸²
 			if (isNull(str)) {
 				outValue[col] = null;
 				return true;
@@ -2321,7 +2321,7 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 	
-	// °Ñ×Ö½ÚÊı×é½âÎö³É¶ÔÏó£¬Èç¹ûÀàĞÍ²»·ûÔò·µ»Øfalse
+	// æŠŠå­—èŠ‚æ•°ç»„è§£ææˆå¯¹è±¡ï¼Œå¦‚æœç±»å‹ä¸ç¬¦åˆ™è¿”å›false
 	private boolean parse(byte []bytes, int start, int end, int col, Object []outValue) throws UnsupportedEncodingException {
 		if (isTrim) {
 			while (start < end && bytes[start] == ' ') {
@@ -2340,7 +2340,7 @@ public final class LineImporter implements ILineInput {
 		byte []types = this.colTypes;
 		byte c = bytes[start];
 		if ((isQuote && c == '"') || (isSingleQuote && c == '\'')) {
-			// ÔÚ½áÎ²ÊÇ·ñÓĞÒıºÅ
+			// åœ¨ç»“å°¾æ˜¯å¦æœ‰å¼•å·
 			if (bytes[end - 1] == c) {
 				start++;
 				end--;
@@ -2362,7 +2362,7 @@ public final class LineImporter implements ILineInput {
 				return true;
 			}
 		} else if (parseMode == PARSEMODE_MULTI_STRING) {
-			// Ö±½Ó·µ»Ø´®
+			// ç›´æ¥è¿”å›ä¸²
 			String str = new String(bytes, start, end - start, charset);
 			if (isNull(str)) {
 				outValue[col] = null;
@@ -2527,7 +2527,7 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 	
-	// ½âÎöÕûÊıÖµ£¬²»ÊÇÕûÊıÖµÔò·µ»Ø¿Õ
+	// è§£ææ•´æ•°å€¼ï¼Œä¸æ˜¯æ•´æ•°å€¼åˆ™è¿”å›ç©º
 	private static Integer parseInt(byte []bytes, int i, int e) {
 		int result = 0;
 		boolean negative = false;
@@ -2580,7 +2580,7 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 	
-	// ½âÎöLongÖµ£¬²»ÊÇLongÖµÔò·µ»Ø¿Õ
+	// è§£æLongå€¼ï¼Œä¸æ˜¯Longå€¼åˆ™è¿”å›ç©º
 	private static Long parseLong(byte []bytes, int i, int e) {
 		// 1L
 		if (e - i > 1 && bytes[e - 1] == 'L') e--;
@@ -2636,7 +2636,7 @@ public final class LineImporter implements ILineInput {
 		}
 	}
 
-	// ½âÎöLongÖµ£¬²»ÊÇLongÖµÔò·µ»Ø¿Õ
+	// è§£æLongå€¼ï¼Œä¸æ˜¯Longå€¼åˆ™è¿”å›ç©º
 	private static Long parseLong(byte []bytes, int i, int e, int radix) {
 		long result = 0;
 		boolean negative = false;
@@ -2720,7 +2720,7 @@ public final class LineImporter implements ILineInput {
 		return null;
 	}
 
-	// ½âÎö²¼¶ûÖµ£¬²»ÊÇ²¼¶ûÖµÔò·µ»Ø¿Õ
+	// è§£æå¸ƒå°”å€¼ï¼Œä¸æ˜¯å¸ƒå°”å€¼åˆ™è¿”å›ç©º
 	private static Boolean parseBoolean(byte []bytes, int i, int e) {
 		int count = e - i;
 		if (count == 4) {
@@ -2746,20 +2746,20 @@ public final class LineImporter implements ILineInput {
 		byte colSeparator = this.colSeparator;
 		int []selIndex = this.selIndex;
 		char escapeChar = this.escapeChar;
-		boolean doQuoteMatch = this.doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-		boolean doBracketsMatch = this.doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
+		boolean doQuoteMatch = this.doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+		boolean doBracketsMatch = this.doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
 		boolean checkValueType = this.checkValueType;
 		
 		int colIndex = 0;
 		int index = 0, start = 0;
-		int BracketsLevel = 0; // À¨ºÅµÄ²ãÊı£¬ÓĞpÑ¡ÏîÊ±ÈÏÎªÀ¨ºÅ×ÜÊÇÆ¥Åä³öÏÖµÄ
+		int BracketsLevel = 0; // æ‹¬å·çš„å±‚æ•°ï¼Œæœ‰pé€‰é¡¹æ—¶è®¤ä¸ºæ‹¬å·æ€»æ˜¯åŒ¹é…å‡ºç°çš„
 		
 		Next:
 		while (index < count && colIndex < colCount) {
 			char c = line.charAt(index);
 			if (BracketsLevel == 0 && c == colSeparator) {
-				// ÁĞ½áÊø
+				// åˆ—ç»“æŸ
 				if (selIndex == null || selIndex[colIndex] != -1) {
 					String str = line.substring(start, index);
 					if (checkValueType) {
@@ -2774,7 +2774,7 @@ public final class LineImporter implements ILineInput {
 				colIndex++;
 				start = ++index;
 			} else if (doQuoteMatch && c == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < count; ++index) {
 					if (line.charAt(index) == '"') {
 						index++;
@@ -2786,10 +2786,10 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 				
-				// Ã»ÕÒµ½Æ¥ÅäµÄÒıºÅ·µ»Ø¿Õ
+				// æ²¡æ‰¾åˆ°åŒ¹é…çš„å¼•å·è¿”å›ç©º
 				return null;
 			} else if (doSingleQuoteMatch && c == '\'') {
-				// ÕÒµ¥ÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å•å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < count; ++index) {
 					if (line.charAt(index) == '\'') {
 						index++;
@@ -2799,12 +2799,12 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 				
-				// Ã»ÕÒµ½Æ¥ÅäµÄµ¥ÒıºÅ·µ»Ø¿Õ
+				// æ²¡æ‰¾åˆ°åŒ¹é…çš„å•å¼•å·è¿”å›ç©º
 				return null;
 			} else if (doBracketsMatch) {
-				if (c == '(' || c == '[' || c == '{' || c == '<' || c == '£¨' || c == '¡¾' || c == '¡¶') {
+				if (c == '(' || c == '[' || c == '{' || c == '<' || c == 'ï¼ˆ' || c == 'ã€' || c == 'ã€Š') {
 					BracketsLevel++;
-				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}' || c == '>' || c == '£©' || c == '¡¿' || c == '¡·')) {
+				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}' || c == '>' || c == 'ï¼‰' || c == 'ã€‘' || c == 'ã€‹')) {
 					BracketsLevel--;
 				}
 				
@@ -2815,7 +2815,7 @@ public final class LineImporter implements ILineInput {
 		}
 		
 		if (BracketsLevel != 0) {
-			// ÓĞ²»Æ¥ÅäµÄÀ¨ºÅ
+			// æœ‰ä¸åŒ¹é…çš„æ‹¬å·
 			return null;
 		}
 		
@@ -2850,18 +2850,18 @@ public final class LineImporter implements ILineInput {
 		byte colSeparator = this.colSeparator;
 		int []selIndex = this.selIndex;
 		char escapeChar = this.escapeChar;
-		boolean doQuoteMatch = this.doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-		boolean doBracketsMatch = this.doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
+		boolean doQuoteMatch = this.doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+		boolean doBracketsMatch = this.doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
 		
 		int colIndex = 0;
 		int index = 0, start = 0;
-		int BracketsLevel = 0; // À¨ºÅµÄ²ãÊı£¬ÓĞpÑ¡ÏîÊ±ÈÏÎªÀ¨ºÅ×ÜÊÇÆ¥Åä³öÏÖµÄ
+		int BracketsLevel = 0; // æ‹¬å·çš„å±‚æ•°ï¼Œæœ‰pé€‰é¡¹æ—¶è®¤ä¸ºæ‹¬å·æ€»æ˜¯åŒ¹é…å‡ºç°çš„
 		
 		while (index < count && colIndex < colCount) {
 			char c = line.charAt(index);
 			if (BracketsLevel == 0 && c == colSeparator) {
-				// ÁĞ½áÊø
+				// åˆ—ç»“æŸ
 				if (selIndex == null || selIndex[colIndex] != -1) {
 					String str = line.substring(start, index);
 					values[colIndex] = parse(str, colIndex);
@@ -2870,7 +2870,7 @@ public final class LineImporter implements ILineInput {
 				colIndex++;
 				start = ++index;
 			} else if (doQuoteMatch && c == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < count; ++index) {
 					if (line.charAt(index) == '"') {
 						index++;
@@ -2882,7 +2882,7 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doSingleQuoteMatch && c == '\'') {
-				// ÕÒµ¥ÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å•å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < count; ++index) {
 					if (line.charAt(index) == '\'') {
 						index++;
@@ -2892,9 +2892,9 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doBracketsMatch) {
-				if (c == '(' || c == '[' || c == '{' || c == '<' || c == '£¨' || c == '¡¾' || c == '¡¶') {
+				if (c == '(' || c == '[' || c == '{' || c == '<' || c == 'ï¼ˆ' || c == 'ã€' || c == 'ã€Š') {
 					BracketsLevel++;
-				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}' || c == '>' || c == '£©' || c == '¡¿' || c == '¡·')) {
+				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}' || c == '>' || c == 'ï¼‰' || c == 'ã€‘' || c == 'ã€‹')) {
 					BracketsLevel--;
 				}
 				
@@ -2921,18 +2921,18 @@ public final class LineImporter implements ILineInput {
 		byte colSeparator = this.colSeparator;
 		char escapeChar = this.escapeChar;
 		boolean isTrim = this.isTrim;
-		boolean doQuoteMatch = this.doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-		boolean doBracketsMatch = this.doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
+		boolean doQuoteMatch = this.doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+		boolean doBracketsMatch = this.doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
 		
 		ArrayList<Object> list = new ArrayList<Object>();
-		int BracketsLevel = 0; // À¨ºÅµÄ²ãÊı£¬ÓĞpÑ¡ÏîÊ±ÈÏÎªÀ¨ºÅ×ÜÊÇÆ¥Åä³öÏÖµÄ
+		int BracketsLevel = 0; // æ‹¬å·çš„å±‚æ•°ï¼Œæœ‰pé€‰é¡¹æ—¶è®¤ä¸ºæ‹¬å·æ€»æ˜¯åŒ¹é…å‡ºç°çš„
 		int index = 0, start = 0;
 		
 		while (index < count) {
 			char c = line.charAt(index);
 			if (BracketsLevel == 0 && c == colSeparator) {
-				// ÁĞ½áÊø
+				// åˆ—ç»“æŸ
 				if (index > start) {
 					String str = line.substring(start, index);
 					if (isTrim) {
@@ -2946,7 +2946,7 @@ public final class LineImporter implements ILineInput {
 				
 				start = ++index;
 			} else if (doQuoteMatch && c == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < count; ++index) {
 					if (line.charAt(index) == '"') {
 						index++;
@@ -2958,7 +2958,7 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doSingleQuoteMatch && c == '\'') {
-				// ÕÒµ¥ÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å•å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < count; ++index) {
 					if (line.charAt(index) == '\'') {
 						index++;
@@ -2968,9 +2968,9 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doBracketsMatch) {
-				if (c == '(' || c == '[' || c == '{' || c == '<' || c == '£¨' || c == '¡¾' || c == '¡¶') {
+				if (c == '(' || c == '[' || c == '{' || c == '<' || c == 'ï¼ˆ' || c == 'ã€' || c == 'ã€Š') {
 					BracketsLevel++;
-				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}' || c == '>' || c == '£©' || c == '¡¿' || c == '¡·')) {
+				} else if (BracketsLevel > 0 && (c == ')' || c == ']' || c == '}' || c == '>' || c == 'ï¼‰' || c == 'ã€‘' || c == 'ã€‹')) {
 					BracketsLevel--;
 				}
 				
@@ -2994,7 +2994,7 @@ public final class LineImporter implements ILineInput {
 		return list.toArray();
 	}
 	
-	// ¸ù¾İ×Ö¶ÎÀàĞÍ°Ñ²ğ·ÖĞĞµÄÁĞ£¬²¢×ª³É¶ÔÏó
+	// æ ¹æ®å­—æ®µç±»å‹æŠŠæ‹†åˆ†è¡Œçš„åˆ—ï¼Œå¹¶è½¬æˆå¯¹è±¡
 	public Object[] readLine(byte[] bytes) throws IOException {
 		LineBytes line = new LineBytes(bytes, 0, bytes.length);
 		byte []colTypes = this.colTypes;
@@ -3017,18 +3017,18 @@ public final class LineImporter implements ILineInput {
 		byte colSeparator = this.colSeparator;
 		int []selIndex = this.selIndex;
 		char escapeChar = this.escapeChar;
-		boolean doQuoteMatch = this.doQuoteMatch; // ÊÇ·ñ×öÒıºÅÆ¥Åä
-		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // ÊÇ·ñ×öµ¥ÒıºÅÆ¥Åä
-		boolean doBracketsMatch = this.doBracketsMatch; // ÊÇ·ñ×öÀ¨ºÅÆ¥Åä£¨°üÀ¨Ô²À¨ºÅ¡¢ÖĞÀ¨ºÅ¡¢»¨À¨ºÅ£©
+		boolean doQuoteMatch = this.doQuoteMatch; // æ˜¯å¦åšå¼•å·åŒ¹é…
+		boolean doSingleQuoteMatch = this.doSingleQuoteMatch; // æ˜¯å¦åšå•å¼•å·åŒ¹é…
+		boolean doBracketsMatch = this.doBracketsMatch; // æ˜¯å¦åšæ‹¬å·åŒ¹é…ï¼ˆåŒ…æ‹¬åœ†æ‹¬å·ã€ä¸­æ‹¬å·ã€èŠ±æ‹¬å·ï¼‰
 		
 		int colIndex = 0;
 		int start = index;
-		int BracketsLevel = 0; // À¨ºÅµÄ²ãÊı£¬ÓĞpÑ¡ÏîÊ±ÈÏÎªÀ¨ºÅ×ÜÊÇÆ¥Åä³öÏÖµÄ
+		int BracketsLevel = 0; // æ‹¬å·çš„å±‚æ•°ï¼Œæœ‰pé€‰é¡¹æ—¶è®¤ä¸ºæ‹¬å·æ€»æ˜¯åŒ¹é…å‡ºç°çš„
 		
 		while (index < end && colIndex < colCount) {
 			byte c = buffer[index];
 			if (BracketsLevel == 0 && c == colSeparator) {
-				// ÁĞ½áÊø
+				// åˆ—ç»“æŸ
 				if (selIndex == null || selIndex[colIndex] != -1) {
 					values[colIndex] = parse(buffer, start, index, colIndex);
 				}
@@ -3036,7 +3036,7 @@ public final class LineImporter implements ILineInput {
 				colIndex++;
 				start = ++index;
 			} else if (doQuoteMatch && c == '"') {
-				// ÕÒÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '"') {
 						index++;
@@ -3048,7 +3048,7 @@ public final class LineImporter implements ILineInput {
 					}
 				}
 			} else if (doSingleQuoteMatch && c == '\'') {
-				// ÕÒµ¥ÒıºÅÆ¥Åä£¬ºöÂÔÒıºÅÄÚµÄÁĞ·Ö¸ô·û
+				// æ‰¾å•å¼•å·åŒ¹é…ï¼Œå¿½ç•¥å¼•å·å†…çš„åˆ—åˆ†éš”ç¬¦
 				for (++index; index < end; ++index) {
 					if (buffer[index] == '\'') {
 						index++;

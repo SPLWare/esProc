@@ -1,7 +1,7 @@
 package com.scudata.ide.spl.etl;
 
 /**
- * ÔªËØĞÅÏ¢Àà
+ * å…ƒç´ ä¿¡æ¯ç±»
  * 
  * @author Joancy
  *
@@ -14,8 +14,8 @@ public class ElementInfo {
 	transient ObjectElement instance = null;
 	
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param name Ãû³Æ
+	 * æ„é€ å‡½æ•°
+	 * @param name åç§°
 	 */
 	public ElementInfo(String name) {
 		this.name = name;
@@ -25,10 +25,10 @@ public class ElementInfo {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param name Ãû³Æ
-	 * @param title ±êÌâ
-	 * @param elementClass ¶ÔÓ¦Class
+	 * æ„é€ å‡½æ•°
+	 * @param name åç§°
+	 * @param title æ ‡é¢˜
+	 * @param elementClass å¯¹åº”Class
 	 */
 	public ElementInfo(String name, String title, Class elementClass) {
 		this.name = name;
@@ -37,24 +37,24 @@ public class ElementInfo {
 	}
 
 	/**
-	 * º¯ÊıµÄ¸¸ÀàĞÍ
-	 * @return ÀàĞÍ
+	 * å‡½æ•°çš„çˆ¶ç±»å‹
+	 * @return ç±»å‹
 	 */
 	public byte getParentType(){
 		return getInstance().getParentType();
 	}
 	
 	/**
-	 * º¯ÊıµÄÊµÌåÃû³Æ
-	 * @return º¯ÊıÃû³Æ
+	 * å‡½æ•°çš„å®ä½“åç§°
+	 * @return å‡½æ•°åç§°
 	 */
 	public String getFuncName(){
 		return getInstance().getFuncName();
 	}
 
 	/**
-	 * µÃµ½Ò»¸öµ±Ç°ĞÅÏ¢µÄÎ¨Ò»¶ÔÏóÔªËØÊµÀı
-	 * @return ÊµÀı
+	 * å¾—åˆ°ä¸€ä¸ªå½“å‰ä¿¡æ¯çš„å”¯ä¸€å¯¹è±¡å…ƒç´ å®ä¾‹
+	 * @return å®ä¾‹
 	 */
 	public ObjectElement getInstance(){
 		if(instance==null){
@@ -64,8 +64,8 @@ public class ElementInfo {
 	}
 	
 	/**
-	 * ĞÂ½¨Ò»¸öÔªËØÊµÀı
-	 * @return ÊµÀı
+	 * æ–°å»ºä¸€ä¸ªå…ƒç´ å®ä¾‹
+	 * @return å®ä¾‹
 	 */
 	public ObjectElement newInstance() {
 		try {
@@ -79,23 +79,23 @@ public class ElementInfo {
 	}
 
 	/**
-	 * »ñÈ¡Ãû³Æ
-	 * @return Ãû³Æ
+	 * è·å–åç§°
+	 * @return åç§°
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * »ñÈ¡±êÌâ
-	 * @return ±êÌâ
+	 * è·å–æ ‡é¢˜
+	 * @return æ ‡é¢˜
 	 */
 	public String getTitle() {
 		return title;
 	}
 
 	/**
-	 * »ñÈ¡ÔªËØµÄÀàClass
+	 * è·å–å…ƒç´ çš„ç±»Class
 	 * @return Class
 	 */
 	public Class getElementClass() {

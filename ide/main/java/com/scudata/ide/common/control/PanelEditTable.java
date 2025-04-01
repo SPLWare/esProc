@@ -30,44 +30,44 @@ import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.util.Variant;
 
 /**
- * ³£Ğò±í±à¼­Ãæ°å
+ * å¸¸åºè¡¨ç¼–è¾‘é¢æ¿
  */
 public class PanelEditTable extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ³£¹æÒ³
+	 * å¸¸è§„é¡µ
 	 */
 	private final byte TAB_NORMAL = 0;
 	/**
-	 * Êı¾İÒ³
+	 * æ•°æ®é¡µ
 	 */
 	private final byte TAB_DATA = 1;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
-	/** ĞòºÅÁĞ */
+	/** åºå·åˆ— */
 	private final byte COL_INDEX = 0;
-	/** Ãû³ÆÁĞ */
+	/** åç§°åˆ— */
 	private final byte COL_NAME = 1;
-	/** Ö÷¼üÁĞ */
+	/** ä¸»é”®åˆ— */
 	private final byte COL_PK = 2;
 
-	/** ĞòºÅÁĞ±êÌâ */
+	/** åºå·åˆ—æ ‡é¢˜ */
 	private final String STR_INDEX = mm.getMessage("paneledittable.index");
 
 	/**
-	 * ³£¹æ±í¶ÔÏó¡£ĞòºÅ,Ãû³Æ,Ö÷¼ü
+	 * å¸¸è§„è¡¨å¯¹è±¡ã€‚åºå·,åç§°,ä¸»é”®
 	 */
 	private JTableEx tableNormal = new JTableEx(
 			mm.getMessage("paneledittable.tablenormal")) {
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * Ë«»÷ÁĞÃû¸ñ£¬µ¯³öÎÄ±¾±à¼­¶Ô»°¿ò
+		 * åŒå‡»åˆ—åæ ¼ï¼Œå¼¹å‡ºæ–‡æœ¬ç¼–è¾‘å¯¹è¯æ¡†
 		 */
 		public void doubleClicked(int xpos, int ypos, int row, int col,
 				MouseEvent e) {
@@ -79,7 +79,7 @@ public class PanelEditTable extends JPanel {
 		}
 
 		/**
-		 * Ìá½»ÁĞÃûÊ±£¬±í½á¹¹±ä»¯
+		 * æäº¤åˆ—åæ—¶ï¼Œè¡¨ç»“æ„å˜åŒ–
 		 */
 		public void setValueAt(Object aValue, int row, int column) {
 			if (!isItemDataChanged(row, column, aValue)) {
@@ -108,39 +108,39 @@ public class PanelEditTable extends JPanel {
 	};
 
 	/**
-	 * JTabbedPane¶ÔÏó
+	 * JTabbedPaneå¯¹è±¡
 	 */
 	private JTabbedPane jTabMain = new JTabbedPane();
 
 	/**
-	 * Êı¾İ±í¶ÔÏó
+	 * æ•°æ®è¡¨å¯¹è±¡
 	 */
 	private JTableEx tableData;
 	/**
-	 * ÊÇ·ñ×èÖ¹±ä»¯
+	 * æ˜¯å¦é˜»æ­¢å˜åŒ–
 	 */
 	private boolean preventChange = false;
 
 	/**
-	 * ³£Á¿¶ÔÏó
+	 * å¸¸é‡å¯¹è±¡
 	 */
 	private Param param;
 
 	/**
-	 * ³£Ğò±í¶ÔÏó
+	 * å¸¸åºè¡¨å¯¹è±¡
 	 */
 	private Table table;
 	
 	/**
-	 * ·ò×é¼ş
+	 * å¤«ç»„ä»¶
 	 */
 	private Component parent;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param param
-	 *            ³£Á¿¶ÔÏó
+	 *            å¸¸é‡å¯¹è±¡
 	 */
 	public PanelEditTable(Component parent, Param param) {
 		try {
@@ -158,7 +158,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * »ñÈ¡³£Á¿¶ÔÏó
+	 * è·å–å¸¸é‡å¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -169,12 +169,12 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ĞŞ¸ÄÁĞÃû
+	 * ä¿®æ”¹åˆ—å
 	 * 
 	 * @param newName
-	 *            ĞÂÁĞÃû
+	 *            æ–°åˆ—å
 	 * @param oldName
-	 *            ¾ÉÁĞÃû
+	 *            æ—§åˆ—å
 	 * @return
 	 */
 	private boolean alterTable(String newName, String oldName) {
@@ -182,14 +182,14 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ĞŞ¸ÄÁĞÃû
+	 * ä¿®æ”¹åˆ—å
 	 * 
 	 * @param newName
-	 *            ĞÂÁĞÃû
+	 *            æ–°åˆ—å
 	 * @param oldName
-	 *            ¾ÉÁĞÃû
+	 *            æ—§åˆ—å
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @return
 	 */
 	private boolean alterTable(String newName, String oldName, int row) {
@@ -275,7 +275,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -285,7 +285,7 @@ public class PanelEditTable extends JPanel {
 		panelNormal.add(new JScrollPane(tableNormal),
 				GM.getGBC(0, 0, true, true));
 
-		jTabMain.add(panelNormal, mm.getMessage("paneledittable.normal")); // ³£¹æ
+		jTabMain.add(panelNormal, mm.getMessage("paneledittable.normal")); // å¸¸è§„
 
 		tableData = new JTableEx() {
 			private static final long serialVersionUID = 1L;
@@ -326,7 +326,7 @@ public class PanelEditTable extends JPanel {
 		tableData.setClickCountToStart(1);
 
 		jTabMain.add(new JScrollPane(tableData),
-				mm.getMessage("paneledittable.data")); // Êı¾İ
+				mm.getMessage("paneledittable.data")); // æ•°æ®
 		initTable(tableNormal);
 		tableNormal.setColumnCheckBox(COL_PK);
 		tableNormal.getColumn(COL_PK).setMaxWidth(80);
@@ -338,7 +338,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯³£Á¿±í
+	 * åˆå§‹åŒ–å¸¸é‡è¡¨
 	 */
 	private void initConstTable() {
 		if (table == null) {
@@ -348,19 +348,19 @@ public class PanelEditTable extends JPanel {
 		if (ds == null) {
 			return;
 		}
-		// ÉèÖÃÆÕÍ¨×Ö¶Î
+		// è®¾ç½®æ™®é€šå­—æ®µ
 		initNormalTable(ds.getFieldNames(), ds.getPrimary());
-		// ³£ÅÅÁĞÊı¾İ
+		// å¸¸æ’åˆ—æ•°æ®
 		resetTableData();
 	}
 
 	/**
-	 * ³õÊ¼»¯×Ö¶ÎºÍÖ÷¼ü
+	 * åˆå§‹åŒ–å­—æ®µå’Œä¸»é”®
 	 * 
 	 * @param normalNames
-	 *            ×Ö¶ÎÃû
+	 *            å­—æ®µå
 	 * @param primarys
-	 *            Ö÷¼üÃû
+	 *            ä¸»é”®å
 	 */
 	private void initNormalTable(String[] normalNames, String[] primarys) {
 		if (normalNames == null) {
@@ -382,7 +382,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ÕıÔÚ±à¼­µÄJTable¶ÔÏó
+	 * è·å–å½“å‰æ­£åœ¨ç¼–è¾‘çš„JTableå¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -397,7 +397,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ¼ì²éÊı¾İ
+	 * æ£€æŸ¥æ•°æ®
 	 * 
 	 * @return
 	 */
@@ -416,7 +416,7 @@ public class PanelEditTable extends JPanel {
 					GM.messageDialog(
 							parent,
 							mm.getMessage("paneledittable.emptyname",
-									String.valueOf(i + 1))); // µÚ£º{0}ĞĞ×Ö¶ÎÃûÎª¿Õ¡£
+									String.valueOf(i + 1))); // ç¬¬ï¼š{0}è¡Œå­—æ®µåä¸ºç©ºã€‚
 					return false;
 				}
 				if (keys.contains(key)) {
@@ -424,15 +424,15 @@ public class PanelEditTable extends JPanel {
 					GM.messageDialog(
 							parent,
 							mm.getMessage("paneledittable.existname",
-									String.valueOf(i + 1))); // µÚ£º{0}ĞĞ×Ö¶ÎÃûÖØ¸´¡£
+									String.valueOf(i + 1))); // ç¬¬ï¼š{0}è¡Œå­—æ®µåé‡å¤ã€‚
 					return false;
 				}
 				keys.add(key);
 			}
 		} else {
 			int option = GM.optionDialog(parent,
-					mm.getMessage("paneledittable.norow"), // ±í½á¹¹ÖÁÉÙµÃÓĞÒ»¸ö×Ö¶Î£¬ÊÇ·ñÔö¼ÓÈ±Ê¡×Ö¶Î£¿
-					mm.getMessage("public.prompt"), // ÌáÊ¾
+					mm.getMessage("paneledittable.norow"), // è¡¨ç»“æ„è‡³å°‘å¾—æœ‰ä¸€ä¸ªå­—æ®µï¼Œæ˜¯å¦å¢åŠ ç¼ºçœå­—æ®µï¼Ÿ
+					mm.getMessage("public.prompt"), // æç¤º
 					JOptionPane.OK_CANCEL_OPTION);
 			switch (option) {
 			case JOptionPane.OK_OPTION:
@@ -449,7 +449,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * »ñÈ¡Ö÷¼ü
+	 * è·å–ä¸»é”®
 	 * 
 	 * @return
 	 */
@@ -469,7 +469,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ĞĞÉÏÒÆ
+	 * è¡Œä¸Šç§»
 	 */
 	public void rowUp() {
 		JTableEx editingTable = getEditingTable();
@@ -485,7 +485,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ĞĞÏÂÒÆ
+	 * è¡Œä¸‹ç§»
 	 */
 	public void rowDown() {
 		JTableEx editingTable = getEditingTable();
@@ -500,7 +500,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * Ôö¼ÓĞĞ
+	 * å¢åŠ è¡Œ
 	 */
 	public void addRow() {
 		JTableEx editingTable = getEditingTable();
@@ -540,7 +540,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ²åÈëĞĞ
+	 * æ’å…¥è¡Œ
 	 */
 	public void insertRow() {
 		JTableEx editingTable = getEditingTable();
@@ -604,8 +604,8 @@ public class PanelEditTable extends JPanel {
 		if (editingTable.equals(tableNormal)) {
 			if (tableNormal.getRowCount() == 1) {
 				GM.messageDialog(parent,
-						mm.getMessage("paneledittable.atleastonerow")); // ±í½á¹¹ÖÁÉÙµÃÓĞÒ»¸ö×Ö¶Î¡£
-				// Êı¾İ½á¹¹µÄ×Ö¶ÎÊıÄ¿²»ÄÜÎª0
+						mm.getMessage("paneledittable.atleastonerow")); // è¡¨ç»“æ„è‡³å°‘å¾—æœ‰ä¸€ä¸ªå­—æ®µã€‚
+				// æ•°æ®ç»“æ„çš„å­—æ®µæ•°ç›®ä¸èƒ½ä¸º0
 				return;
 			}
 
@@ -631,7 +631,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯JTable¿Ø¼ş
+	 * åˆå§‹åŒ–JTableæ§ä»¶
 	 * 
 	 * @param table
 	 */
@@ -644,7 +644,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ±í½á¹¹·¢Éú±ä»¯
+	 * è¡¨ç»“æ„å‘ç”Ÿå˜åŒ–
 	 */
 	private void tableStructChanged() {
 		if (preventChange) {
@@ -654,7 +654,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ÖØÖÃ±íÊı¾İ
+	 * é‡ç½®è¡¨æ•°æ®
 	 */
 	private void resetTableData() {
 		tableData.data.setRowCount(0);
@@ -707,7 +707,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * ÖØÖÃÊı¾İ±íµÄ±à¼­·ç¸ñ
+	 * é‡ç½®æ•°æ®è¡¨çš„ç¼–è¾‘é£æ ¼
 	 */
 	private void resetTableDataStyle() {
 		if (table == null) {
@@ -725,7 +725,7 @@ public class PanelEditTable extends JPanel {
 	}
 
 	/**
-	 * Ñ¡ÔñµÄTAB·¢Éú¸Ä±ä
+	 * é€‰æ‹©çš„TABå‘ç”Ÿæ”¹å˜
 	 * 
 	 * @param e
 	 */

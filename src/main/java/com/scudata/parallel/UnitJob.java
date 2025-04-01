@@ -3,7 +3,7 @@ package com.scudata.parallel;
 import com.scudata.thread.Job;
 
 /**
- * ÓÃÓÚ¶àÏß³Ì¸ø½Úµã»ú·¢ËÍÈÎÎñ
+ * ç”¨äºå¤šçº¿ç¨‹ç»™èŠ‚ç‚¹æœºå‘é€ä»»åŠ¡
  * @author WangXiaoJun
  *
  */

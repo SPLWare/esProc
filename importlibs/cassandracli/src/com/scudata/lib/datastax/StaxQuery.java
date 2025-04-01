@@ -31,7 +31,7 @@ public class StaxQuery  extends Function {
 			if (option == null) option = "";
 	
 	//		stax_query(staxClient, cql, [value1], [value2], ...)
-	//		stax_cursor(staxClient, cql, [value1], [value2], ...)	//暂时不提供预解析
+	//		stax_cursor(staxClient, cql, [value1], [value2], ...)	//鏆傛椂涓嶆彁渚涢瑙ｆ瀽
 	//		stax_close(staxClient)
 			StaxClientImpl stax = null;
 			String cql = null;

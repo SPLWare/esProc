@@ -9,7 +9,7 @@ import com.scudata.chart.edit.ParamInfo;
 import com.scudata.ide.common.*;
 
 /**
- * ²ÎÊıĞòÁĞÖµµÄ±í¸ñ±à¼­Æ÷
+ * å‚æ•°åºåˆ—å€¼çš„è¡¨æ ¼ç¼–è¾‘å™¨
  * 
  * @author Joancy
  *
@@ -27,8 +27,8 @@ public class SeriesEditor extends DefaultCellEditor {
 	public static ImageIcon enabledIcon = GM.getImageIcon( GC.IMAGES_PATH + "m_pmtredo.gif" );
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
 	 */
 	public SeriesEditor( Dialog owner ) {
 		super( new JCheckBox() );
@@ -50,7 +50,7 @@ public class SeriesEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * ÊµÏÖ±à¼­Æ÷µÄ³éÏó·½·¨
+	 * å®ç°ç¼–è¾‘å™¨çš„æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellEditorComponent( JTable table, Object value,
 												  boolean isSelected, int row, int column ) {
@@ -74,7 +74,7 @@ public class SeriesEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­Öµ
+	 * è·å–ç¼–è¾‘å€¼
 	 * @return null
 	 */
 	public Object getCellEditorValue() {
@@ -82,7 +82,7 @@ public class SeriesEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * Í£Ö¹±à¼­
+	 * åœæ­¢ç¼–è¾‘
 	 */
 	public boolean stopCellEditing() {
 		return super.stopCellEditing();

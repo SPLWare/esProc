@@ -85,7 +85,7 @@ public class PartitionManager {
 //				}
 				break;
 			case Request.PARTITION_UPLOAD_CTX:
-				//upload ×é±í
+				//upload ç»„è¡¨
 				dstPath = (String) req.getAttr(Request.UPLOAD_DstPath);
 				long lastModified3 = ((Number) req.getAttr(Request.UPLOAD_LastModified)).longValue();
 				Long fileSize = (Long) req.getAttr(Request.UPLOAD_FileSize);
@@ -113,11 +113,11 @@ public class PartitionManager {
 	}
 
 /**
- * ÁĞ³öµ±Ç°»úÆ÷ÉÏÂ·¾¶pathÏÂµÄÎÄ¼şĞÅÏ¢£¬Ö»ÄÜÊÇÏà¶ÔÓÚÖ÷Â·¾¶µÄÏà¶ÔÂ·¾¶
- * @param path ¾ø¶ÔÂ·¾¶    »òÕß    Ïà¶ÔÓÚÖ÷Â·¾¶µÄÏà¶ÔÂ·¾¶,  path²»ÄÜÎª¿Õ
- * @param isListSrc Í¬²½Ê±£¬ÏÈÁĞ³öÔ´»úÆ÷µÄÎÄ¼ş£»È»ºóÁĞ³öÄ¿µÄ»úµÄÎÄ¼ş£¬Á½Ïà±È½Ï£¬È¥µôÄ¿µÄ»úµÄÈßÓàÎÄ¼ş
- * ËùÒÔÁĞÎÄ¼şÊ±£¬ ¶ÔÓÚÔ´»úÆ÷£¬¸ø³öµÄÂ·¾¶Ã»ÓĞÊ±£¬ĞèÒª±¨´í¡£¶ø¶ÔÓÚÄ¿µÄ»ú£¬¸ø³öµÄÂ·¾¶Ã»ÓĞÎÄ¼şÊ±£¬·µ»Ø¿Õ¡£
- * @return ÎÄ¼şĞÅÏ¢ÁĞ±í
+ * åˆ—å‡ºå½“å‰æœºå™¨ä¸Šè·¯å¾„pathä¸‹çš„æ–‡ä»¶ä¿¡æ¯ï¼Œåªèƒ½æ˜¯ç›¸å¯¹äºä¸»è·¯å¾„çš„ç›¸å¯¹è·¯å¾„
+ * @param path ç»å¯¹è·¯å¾„    æˆ–è€…    ç›¸å¯¹äºä¸»è·¯å¾„çš„ç›¸å¯¹è·¯å¾„,  pathä¸èƒ½ä¸ºç©º
+ * @param isListSrc åŒæ­¥æ—¶ï¼Œå…ˆåˆ—å‡ºæºæœºå™¨çš„æ–‡ä»¶ï¼›ç„¶ååˆ—å‡ºç›®çš„æœºçš„æ–‡ä»¶ï¼Œä¸¤ç›¸æ¯”è¾ƒï¼Œå»æ‰ç›®çš„æœºçš„å†—ä½™æ–‡ä»¶
+ * æ‰€ä»¥åˆ—æ–‡ä»¶æ—¶ï¼Œ å¯¹äºæºæœºå™¨ï¼Œç»™å‡ºçš„è·¯å¾„æ²¡æœ‰æ—¶ï¼Œéœ€è¦æŠ¥é”™ã€‚è€Œå¯¹äºç›®çš„æœºï¼Œç»™å‡ºçš„è·¯å¾„æ²¡æœ‰æ–‡ä»¶æ—¶ï¼Œè¿”å›ç©ºã€‚
+ * @return æ–‡ä»¶ä¿¡æ¯åˆ—è¡¨
  */
 	public static List<FileInfo> listPathFiles(String path, boolean isListSrc) {
 		if( path==null ){
@@ -175,10 +175,10 @@ public class PartitionManager {
 	}
 
 	/**
-	 * ÁĞ³öroot¸ùÂ·¾¶ÏÂ£¬Ïà¶ÔÓÚrootµÄrelativePathÏÂµÄËùÓĞÎÄ¼şĞÅÏ¢
-	 * @param root ¾ø¶ÔÂ·¾¶µÄrootÂ·¾¶
-	 * @param relativePath Ïà¶ÔÓÚrootµÄÏà¶ÔÂ·¾¶
-	 * @return ÎÄ¼şĞÅÏ¢ÁĞ±í
+	 * åˆ—å‡ºrootæ ¹è·¯å¾„ä¸‹ï¼Œç›¸å¯¹äºrootçš„relativePathä¸‹çš„æ‰€æœ‰æ–‡ä»¶ä¿¡æ¯
+	 * @param root ç»å¯¹è·¯å¾„çš„rootè·¯å¾„
+	 * @param relativePath ç›¸å¯¹äºrootçš„ç›¸å¯¹è·¯å¾„
+	 * @return æ–‡ä»¶ä¿¡æ¯åˆ—è¡¨
 	 */
 	private static List<FileInfo> listRelativePathFiles(String root, String relativePath) {
 		ArrayList<FileInfo> fileInfos = new ArrayList<FileInfo>();
@@ -225,7 +225,7 @@ public class PartitionManager {
 	private static boolean deleteFile(File file) {
 		return deleteFile(file,null);
 	}
-	//¸Ğ¾õoptionÃ»ÓĞÒâÒå£¬ÎÄ¼ş±»Ëø¶¨Ê±£¬ Ç¿ÖÆyÒ²Ã»·¨É¾³ı
+	//æ„Ÿè§‰optionæ²¡æœ‰æ„ä¹‰ï¼Œæ–‡ä»¶è¢«é”å®šæ—¶ï¼Œ å¼ºåˆ¶yä¹Ÿæ²¡æ³•åˆ é™¤
 	private static boolean deleteFile(File file, String option) {
 		if (!file.isDirectory()){
 			boolean b = file.delete();
@@ -272,10 +272,10 @@ public class PartitionManager {
 	}
 
 	/**
-	 * ½«Ïà¶ÔÓÚÖ÷Â·¾¶µÄÎÄ¼şÃû£¬»òÕßÒÑ¾­ÊÇ¾ø¶ÔÂ·¾¶µÄÎÄ¼şÃû
-	 * ×ª»»Îª±¾µØ¾ø¶ÔÂ·¾¶
-	 * @param relativeOrAbsolute Ïà¶Ô»ò¾ø¶ÔµÄÂ·¾¶Ãû
-	 * @return ¾ø¶ÔÂ·¾¶Ãû
+	 * å°†ç›¸å¯¹äºä¸»è·¯å¾„çš„æ–‡ä»¶åï¼Œæˆ–è€…å·²ç»æ˜¯ç»å¯¹è·¯å¾„çš„æ–‡ä»¶å
+	 * è½¬æ¢ä¸ºæœ¬åœ°ç»å¯¹è·¯å¾„
+	 * @param relativeOrAbsolute ç›¸å¯¹æˆ–ç»å¯¹çš„è·¯å¾„å
+	 * @return ç»å¯¹è·¯å¾„å
 	 */
 	public static String getAbsolutePath(String relativeOrAbsolute){
 		File f = new File(relativeOrAbsolute);
@@ -292,7 +292,7 @@ public class PartitionManager {
 		if(!f.exists()){
 			return true;
 		}
-		return isY;//ÎÄ¼ş´æÔÚÊ±£¬Ê¹ÓÃyÑ¡ÏîÇ¿ÖÆmove
+		return isY;//æ–‡ä»¶å­˜åœ¨æ—¶ï¼Œä½¿ç”¨yé€‰é¡¹å¼ºåˆ¶move
 	}
 	
 	private static boolean isNeedUpdate( String dstPath,long lastModified){
@@ -324,13 +324,13 @@ public class PartitionManager {
 				outBuff.write(data);
 				data = (byte[])sd.read();
 			}
-			// Ë¢ĞÂ´Ë»º³åµÄÊä³öÁ÷
+			// åˆ·æ–°æ­¤ç¼“å†²çš„è¾“å‡ºæµ
 			outBuff.flush();
 		} finally {
-			// ¹Ø±ÕÁ÷
+			// å…³é—­æµ
 			if (outBuff != null)
 				outBuff.close();
-			uploadFile.setLastModified(lastModified);//Í¬²½ÉÏÔØÎÄ¼şµÄĞŞ¸ÄÊ±¼ä
+			uploadFile.setLastModified(lastModified);//åŒæ­¥ä¸Šè½½æ–‡ä»¶çš„ä¿®æ”¹æ—¶é—´
 		}
 		Logger.debug("Receive file:"+f.getAbsolutePath()+" OK.");
 
@@ -342,8 +342,8 @@ public class PartitionManager {
 	 * @param sd
 	 * @param lastModified
 	 * @param blockLinkInfo
-	 * @param fileSize Ô¶³Ì·¢ËÍ¹ıÀ´µÄÎÄ¼ş´óĞ¡
-	 * @param hasExtFile ÓĞ²¹ÎÄ¼ş
+	 * @param fileSize è¿œç¨‹å‘é€è¿‡æ¥çš„æ–‡ä»¶å¤§å°
+	 * @param hasExtFile æœ‰è¡¥æ–‡ä»¶
 	 * @throws Exception
 	 */
 	private static void upload_CTX(String dstPath, SocketData sd, Long lastModified, long[] blockLinkInfo, 
@@ -359,7 +359,7 @@ public class PartitionManager {
 
 		long uploadFileSize = uploadFile.length();
 		if (fileSize < uploadFileSize) {
-			//Èç¹û½Úµã»ú±¾µØÎÄ¼ş¸ü´ó£¬»òÕß¸üĞÂ
+			//å¦‚æœèŠ‚ç‚¹æœºæœ¬åœ°æ–‡ä»¶æ›´å¤§ï¼Œæˆ–è€…æ›´æ–°
 			uploadFileSize = 0;
 		}
 		
@@ -375,13 +375,13 @@ public class PartitionManager {
 					raf.write(data);
 					data = (byte[])sd.read();
 				}
-				// Ë¢ĞÂ´Ë»º³åµÄÊä³öÁ÷
+				// åˆ·æ–°æ­¤ç¼“å†²çš„è¾“å‡ºæµ
 				raf.getChannel().force(false);
 			} finally {
-				// ¹Ø±ÕÁ÷
+				// å…³é—­æµ
 				if (raf != null)
 					raf.close();
-				uploadFile.setLastModified(lastModified);//Í¬²½ÉÏÔØÎÄ¼şµÄĞŞ¸ÄÊ±¼ä
+				uploadFile.setLastModified(lastModified);//åŒæ­¥ä¸Šè½½æ–‡ä»¶çš„ä¿®æ”¹æ—¶é—´
 			}
 			
 			if (hasExtFile) {
@@ -395,13 +395,13 @@ public class PartitionManager {
 						raf.write(data);
 						data = (byte[])sd.read();
 					}
-					// Ë¢ĞÂ´Ë»º³åµÄÊä³öÁ÷
+					// åˆ·æ–°æ­¤ç¼“å†²çš„è¾“å‡ºæµ
 					raf.getChannel().force(false);
 				} finally {
-					// ¹Ø±ÕÁ÷
+					// å…³é—­æµ
 					if (raf != null)
 						raf.close();
-					uploadFile.setLastModified(extFileLastModified);//Í¬²½ÉÏÔØÎÄ¼şµÄĞŞ¸ÄÊ±¼ä
+					uploadFile.setLastModified(extFileLastModified);//åŒæ­¥ä¸Šè½½æ–‡ä»¶çš„ä¿®æ”¹æ—¶é—´
 				}
 				Logger.debug("Receive file:"+uploadFile.getAbsolutePath()+" OK.");
 			} else {
@@ -452,14 +452,14 @@ public class PartitionManager {
 				}
 				type = (String)sd.read();
 			}
-			// Ë¢ĞÂ´Ë»º³åµÄÊä³öÁ÷
+			// åˆ·æ–°æ­¤ç¼“å†²çš„è¾“å‡ºæµ
 			raf.getChannel().force(false);
 		} finally {
-			// ¹Ø±ÕÁ÷
+			// å…³é—­æµ
 			if (raf != null)
 				raf.close();
 			table.close();
-			uploadFile.setLastModified(lastModified);//Í¬²½ÉÏÔØÎÄ¼şµÄĞŞ¸ÄÊ±¼ä
+			uploadFile.setLastModified(lastModified);//åŒæ­¥ä¸Šè½½æ–‡ä»¶çš„ä¿®æ”¹æ—¶é—´
 		}
 		
 		if (hasExtFile) {
@@ -473,13 +473,13 @@ public class PartitionManager {
 					raf.write(data);
 					data = (byte[])sd.read();
 				}
-				// Ë¢ĞÂ´Ë»º³åµÄÊä³öÁ÷
+				// åˆ·æ–°æ­¤ç¼“å†²çš„è¾“å‡ºæµ
 				raf.getChannel().force(false);
 			} finally {
-				// ¹Ø±ÕÁ÷
+				// å…³é—­æµ
 				if (raf != null)
 					raf.close();
-				uploadFile.setLastModified(extFileLastModified);//Í¬²½ÉÏÔØÎÄ¼şµÄĞŞ¸ÄÊ±¼ä
+				uploadFile.setLastModified(extFileLastModified);//åŒæ­¥ä¸Šè½½æ–‡ä»¶çš„ä¿®æ”¹æ—¶é—´
 			}
 			Logger.debug("Receive file:"+uploadFile.getAbsolutePath()+" OK.");
 		} else {
@@ -506,7 +506,7 @@ public class PartitionManager {
 		long indexPos1 = 0, indexPos2 = 0, index1EndPos = 0;
 		long uploadFileSize = uploadFile.length();
 		if (uploadFileSize > 0) {
-			//Èç¹ûÎÄ¼ş´æÔÚ
+			//å¦‚æœæ–‡ä»¶å­˜åœ¨
 			FileInputStream fis = new FileInputStream(uploadFile);
 			byte[] header = RemoteFileProxyManager.read(fis, 1024);
 			BufferReader reader = new BufferReader(null, header, 39, 1024);
@@ -523,7 +523,7 @@ public class PartitionManager {
 		if (blockLinkInfo[0] != indexPos1 
 				|| blockLinkInfo[1] != indexPos2
 				|| blockLinkInfo[2] != index1EndPos
-				|| fileSize < uploadFileSize//Èç¹û·Ö»úµÄÎÄ¼ş¸ü´ó£¬»òÕß¸üĞÂ
+				|| fileSize < uploadFileSize//å¦‚æœåˆ†æœºçš„æ–‡ä»¶æ›´å¤§ï¼Œæˆ–è€…æ›´æ–°
 				|| 0 == uploadFileSize) {
 			sd.write(new Integer(0));
 			
@@ -536,22 +536,22 @@ public class PartitionManager {
 					outBuff.write(data);
 					data = (byte[])sd.read();
 				}
-				// Ë¢ĞÂ´Ë»º³åµÄÊä³öÁ÷
+				// åˆ·æ–°æ­¤ç¼“å†²çš„è¾“å‡ºæµ
 				outBuff.flush();
 			} finally {
-				// ¹Ø±ÕÁ÷
+				// å…³é—­æµ
 				if (outBuff != null)
 					outBuff.close();
-				uploadFile.setLastModified(lastModified);//Í¬²½ÉÏÔØÎÄ¼şµÄĞŞ¸ÄÊ±¼ä
+				uploadFile.setLastModified(lastModified);//åŒæ­¥ä¸Šè½½æ–‡ä»¶çš„ä¿®æ”¹æ—¶é—´
 			}
 		} else {
-			//Ö»Í¬²½ÔöÁ¿²¿·Ö
+			//åªåŒæ­¥å¢é‡éƒ¨åˆ†
 			sd.write(new Integer(1));
 			RandomAccessFile raf = new RandomAccessFile(uploadFile, "rw");
 			raf.setLength(fileSize);
 			
 			try {
-				byte []header = (byte[])sd.read();//Ôİ´æÒ»ÏÂheader£¬×îºóĞ´Èë
+				byte []header = (byte[])sd.read();//æš‚å­˜ä¸€ä¸‹headerï¼Œæœ€åå†™å…¥
 				
 				raf.seek(indexPos2);
 				byte []data = (byte[])sd.read();
@@ -563,13 +563,13 @@ public class PartitionManager {
 				raf.seek(0);
 				raf.write(header);
 				
-				// Ë¢ĞÂ´Ë»º³åµÄÊä³öÁ÷
+				// åˆ·æ–°æ­¤ç¼“å†²çš„è¾“å‡ºæµ
 				raf.getChannel().force(false);
 			} finally {
-				// ¹Ø±ÕÁ÷
+				// å…³é—­æµ
 				if (raf != null)
 					raf.close();
-				uploadFile.setLastModified(lastModified);//Í¬²½ÉÏÔØÎÄ¼şµÄĞŞ¸ÄÊ±¼ä
+				uploadFile.setLastModified(lastModified);//åŒæ­¥ä¸Šè½½æ–‡ä»¶çš„ä¿®æ”¹æ—¶é—´
 			}
 		}
 		Logger.debug("Receive file:" + uploadFile.getAbsolutePath()+" OK.");

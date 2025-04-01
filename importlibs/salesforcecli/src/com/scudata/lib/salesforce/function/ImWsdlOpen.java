@@ -12,8 +12,8 @@ public class ImWsdlOpen extends ImFunction {
     
       
     public Object doQuery(Object[] objs){
-    	String username = null; 	//Salesforce账号中的用户�?
-    	String password = null;     //密码，这个密码有点特殊，�?要在密码后面加入安全标记&O667v4Qs5LLKGDZ6eGfyvP0D
+    	String username = null; 	//Salesforce璐﹀彿涓殑鐢ㄦ埛鍚?
+    	String password = null;     //瀵嗙爜锛岃繖涓瘑鐮佹湁鐐圭壒娈婏紝闇?瑕佸湪瀵嗙爜鍚庨潰鍔犲叆瀹夊叏鏍囪&O667v4Qs5LLKGDZ6eGfyvP0D
 		if (objs==null || objs.length<2){
 			throw new RQException("WSDL open function.missingParam ");
 		}

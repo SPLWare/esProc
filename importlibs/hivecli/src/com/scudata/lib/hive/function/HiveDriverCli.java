@@ -24,11 +24,11 @@ public class HiveDriverCli implements IResource{
 		ctx.addResource(this);		
 	}
 
-	// ¹Ø±ÕÁ¬½ÓÊÍ·Å×ÊÔ´
+	// å…³é—­è¿æ¥é‡Šæ”¾èµ„æº
 	public void close() {
 		hiveBase.driver.close();
 	}
-	// ³õÊ¼»¯Hive
+	// åˆå§‹åŒ–Hive
 	private void init(String hdfsUrl, String thriftUrl, String dbName, String hdfsName, String opt)  {
 		try {
 			Matcher m[] = new Matcher[1];
@@ -71,7 +71,7 @@ public class HiveDriverCli implements IResource{
 
 			if (opt!=null){
 				if (opt.equals("p")){
-					conf.setBoolean("hive.query.results.cache.enabled", false); //ÆôÓÃÊ±²éÑ¯part·ÖÇø±íÒì³£
+					conf.setBoolean("hive.query.results.cache.enabled", false); //å¯ç”¨æ—¶æŸ¥è¯¢partåˆ†åŒºè¡¨å¼‚å¸¸
 				}else if(opt.equals("a")){					
 					conf.setBoolean("hive.support.concurrency", true);
 					conf.setBoolean("hive.enforce.bucketing", true);
@@ -117,20 +117,20 @@ public class HiveDriverCli implements IResource{
 			//System.out.println("OK NewDriver = " + driver);
 			hiveBase = new HiveBase(driver);
 
-			//ÉèÖÃhiveMetaStore·şÎñµÄµØÖ·
+			//è®¾ç½®hiveMetaStoreæœåŠ¡çš„åœ°å€
 	        //this.hiveMetaStoreClient = new HiveMetaStoreClient(conf);
-	        //µ±Ç°°æ±¾2.3.4Óë¼¯Èº3.0°æ±¾²»¼æÈİ£¬¼ÓÈë´ËÉèÖÃ
+	        //å½“å‰ç‰ˆæœ¬2.3.4ä¸é›†ç¾¤3.0ç‰ˆæœ¬ä¸å…¼å®¹ï¼ŒåŠ å…¥æ­¤è®¾ç½®
 	        //this.hiveMetaStoreClient.setMetaConf("hive.metastore.client.capability.check","false");
 			
-//			// ÓÉÊı¾İ¿âµÄÃû³Æ»ñÈ¡Êı¾İ¿âµÄ¶ÔÏó(Ò»Ğ©»ù±¾ĞÅÏ¢)
+//			// ç”±æ•°æ®åº“çš„åç§°è·å–æ•°æ®åº“çš„å¯¹è±¡(ä¸€äº›åŸºæœ¬ä¿¡æ¯)
 //			Database database= this.hiveMetaStoreClient.getDatabase(dbName);
-//			// ¸ù¾İÊı¾İ¿âÃû³Æ»ñÈ¡ËùÓĞµÄ±íÃû
+//			// æ ¹æ®æ•°æ®åº“åç§°è·å–æ‰€æœ‰çš„è¡¨å
 //			List<String> tablesList = this.hiveMetaStoreClient.getAllTables(dbName);
-//			// ÓÉ±íÃûºÍÊı¾İ¿âÃû³Æ»ñÈ¡table¶ÔÏó(ÄÜ»ñÈ¡ÁĞ¡¢±íĞÅÏ¢)
+//			// ç”±è¡¨åå’Œæ•°æ®åº“åç§°è·å–tableå¯¹è±¡(èƒ½è·å–åˆ—ã€è¡¨ä¿¡æ¯)
 //			Table table= this.hiveMetaStoreClient.getTable(dbName,"emp");
-//			// »ñÈ¡ËùÓĞµÄÁĞ¶ÔÏó
+//			// è·å–æ‰€æœ‰çš„åˆ—å¯¹è±¡
 //			List<FieldSchema> fieldSchemaList= table.getSd().getCols();
-//			// ¹Ø±Õµ±Ç°Á¬½Ó
+//			// å…³é—­å½“å‰è¿æ¥
 //			this.hiveMetaStoreClient.close();
 			
 		} catch (Exception e) {

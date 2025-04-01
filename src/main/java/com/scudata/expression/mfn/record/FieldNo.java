@@ -7,7 +7,7 @@ import com.scudata.expression.RecordFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡¼ÇÂ¼Ö¸¶¨×Ö¶ÎµÄĞòºÅ»ò×Ö¶ÎÊıÁ¿
+ * å–è®°å½•æŒ‡å®šå­—æ®µçš„åºå·æˆ–å­—æ®µæ•°é‡
  * r.fno(F) r.fno()
  * @author RunQian
  *

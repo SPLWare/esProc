@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.scudata.common.Logger;
 
 /**
- * ´úÀí½Ó¿Ú³éÏóÀà
+ * ä»£ç†æ¥å£æŠ½è±¡ç±»
  * 
  * @author Joancy
  *
@@ -18,9 +18,9 @@ public abstract class IProxy
 	long lastAccessTime = -1;
 	
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param parent ¸¸´úÀí
-	 * @param id Î¨Ò»±àºÅ
+	 * æ„é€ å‡½æ•°
+	 * @param parent çˆ¶ä»£ç†
+	 * @param id å”¯ä¸€ç¼–å·
 	 */
 	public IProxy(IProxy parent, int id){
 		this.parent = parent;
@@ -28,7 +28,7 @@ public abstract class IProxy
 	}
 	
 	/**
-	 * Ë¢ĞÂ´úÀíµÄ·ÃÎÊÊ±¼ä
+	 * åˆ·æ–°ä»£ç†çš„è®¿é—®æ—¶é—´
 	 */
 	public void access() {
 		lastAccessTime = System.currentTimeMillis();
@@ -38,17 +38,17 @@ public abstract class IProxy
 	}
 
 	/**
-	 * ÖØÖÃ´úÀíµÄ·ÃÎÊÊ±¼ä
+	 * é‡ç½®ä»£ç†çš„è®¿é—®æ—¶é—´
 	 */
 	public void resetAccess() {
 		lastAccessTime = -1;
 	}
 	
 	/**
-	 * Ïú»Ù´úÀí¶ÔÏó
+	 * é”€æ¯ä»£ç†å¯¹è±¡
 	 */
 	public synchronized void destroy(){
-//		ÏÈ¹Ø×Ó´úÀí
+//		å…ˆå…³å­ä»£ç†
 		if(subProxies!=null){
 			for(int i=0;i<subProxies.size();i++){
 				IProxy p = subProxies.get(i);
@@ -56,17 +56,17 @@ public abstract class IProxy
 			}
 			subProxies.clear();
 		}
-//		ÔÙ¹Ø×Ô¼º
+//		å†å…³è‡ªå·±
 		close();
-//		´Ó¸¸´úÀíÒÆ³ı×Ô¼º
+//		ä»çˆ¶ä»£ç†ç§»é™¤è‡ªå·±
 		if(parent!=null){
 			parent.removeProxy(this);
 		}
 	}
 	
 	/**
-	 * ×·¼ÓÒ»¸ö×Ó´úÀí
-	 * @param proxy ×Ó´úÀí¶ÔÏó
+	 * è¿½åŠ ä¸€ä¸ªå­ä»£ç†
+	 * @param proxy å­ä»£ç†å¯¹è±¡
 	 */
 	public synchronized void addProxy(IProxy proxy){
 		if(subProxies==null){
@@ -76,8 +76,8 @@ public abstract class IProxy
 	}
 	
 	/**
-	 * ÒÆ³ı×Ó´úÀí
-	 * @param proxy ×Ó´úÀí¶ÔÏó
+	 * ç§»é™¤å­ä»£ç†
+	 * @param proxy å­ä»£ç†å¯¹è±¡
 	 */
 	public synchronized void removeProxy(IProxy proxy){
 		if(subProxies!=null){
@@ -86,9 +86,9 @@ public abstract class IProxy
 	}
 
 	/**
-	 * ¸ù¾İ±àºÅ»ñÈ¡×Ó´úÀí
-	 * @param id ±àºÅ
-	 * @return ×Ó´úÀí¶ÔÏó
+	 * æ ¹æ®ç¼–å·è·å–å­ä»£ç†
+	 * @param id ç¼–å·
+	 * @return å­ä»£ç†å¯¹è±¡
 	 */
 	public synchronized IProxy getProxy(int id){
 		if(subProxies==null){
@@ -104,9 +104,9 @@ public abstract class IProxy
 	}
 
 	/**
-	 * ¼ì²éµ±Ç°´úÀíÊÇ·ñ·ÃÎÊ³¬Ê±
-	 * @param timeOut ³¬Ê±Ê±¼ä
-	 * @return ³¬Ê±ºóÏú»Ù¶ÔÏó£¬·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ£€æŸ¥å½“å‰ä»£ç†æ˜¯å¦è®¿é—®è¶…æ—¶
+	 * @param timeOut è¶…æ—¶æ—¶é—´
+	 * @return è¶…æ—¶åé”€æ¯å¯¹è±¡ï¼Œè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean checkTimeOut(int timeOut) {
 		if(subProxies!=null){
@@ -115,15 +115,15 @@ public abstract class IProxy
 					IProxy sub = subProxies.get(i);
 					sub.checkTimeOut(timeOut);
 				}catch(Exception x) {
-					//³¬Ê±²»ÔÙÉèÖÃÍ¬²½£¬±ÜÃâ´ÓÉÏÍùÏÂ£¬Ò»Â·ËøÏÂÀ´£»¶øÖ±½Ó¹Ø´úÀí¶ÔÏóÊ±£¬»á´ÓÏÂÍùÉÏËøÉÏÈ¥£¬¿ÉÄÜËÀËø
-					//ÕâÀï²»Í¬²½¶ÔÏóºó£¬¿ÉÄÜ´úÀí¶ÔÏóÒÑ¾­±»¹Øµô£¬get»áÔ½½ç£¬¶ÔÓÚÔ½½çµÄ¶ÔÏó£¬Ö±½ÓºöÂÔ¾Í¿ÉÒÔÁË xq 2023Äê12ÔÂ11ÈÕ
+					//è¶…æ—¶ä¸å†è®¾ç½®åŒæ­¥ï¼Œé¿å…ä»ä¸Šå¾€ä¸‹ï¼Œä¸€è·¯é”ä¸‹æ¥ï¼›è€Œç›´æ¥å…³ä»£ç†å¯¹è±¡æ—¶ï¼Œä¼šä»ä¸‹å¾€ä¸Šé”ä¸Šå»ï¼Œå¯èƒ½æ­»é”
+					//è¿™é‡Œä¸åŒæ­¥å¯¹è±¡åï¼Œå¯èƒ½ä»£ç†å¯¹è±¡å·²ç»è¢«å…³æ‰ï¼Œgetä¼šè¶Šç•Œï¼Œå¯¹äºè¶Šç•Œçš„å¯¹è±¡ï¼Œç›´æ¥å¿½ç•¥å°±å¯ä»¥äº† xq 2023å¹´12æœˆ11æ—¥
 				}
 			}
 		}
 		if (lastAccessTime < 0) {
-			return false; // »¹Ã»¼ÆËãµÄÈÎÎñ²»ÄÜ¼ì²é¹ıÆÚ
+			return false; // è¿˜æ²¡è®¡ç®—çš„ä»»åŠ¡ä¸èƒ½æ£€æŸ¥è¿‡æœŸ
 		}
-		// »»Ëã³ÉÃë£¬timeOutµ¥Î»ÎªÃë
+		// æ¢ç®—æˆç§’ï¼ŒtimeOutå•ä½ä¸ºç§’
 		long unvisit = (System.currentTimeMillis() - lastAccessTime) / 1000;
 		if (unvisit > timeOut) {
 			Logger.debug(this + " is timeout.");
@@ -134,24 +134,24 @@ public abstract class IProxy
 	}
 	
 	/**
-	 * »ñÈ¡´úÀí±àºÅ
-	 * @return ±àºÅ
+	 * è·å–ä»£ç†ç¼–å·
+	 * @return ç¼–å·
 	 */
 	public int getId(){
 		return id;
 	}
 	
 	/**
-	 * »ñÈ¡¸¸´úÀí
-	 * @return ¸¸´úÀí¶ÔÏó
+	 * è·å–çˆ¶ä»£ç†
+	 * @return çˆ¶ä»£ç†å¯¹è±¡
 	 */
 	public IProxy getParent(){
 		return parent;
 	}
 	
 	/**
-	 * »ñÈ¡×Ó´úÀíµÄ×Ü¸öÊı
-	 * @return ×Ó´úÀí¼ÆÊı
+	 * è·å–å­ä»£ç†çš„æ€»ä¸ªæ•°
+	 * @return å­ä»£ç†è®¡æ•°
 	 */
 	public synchronized int size(){
 		if(subProxies==null) return 0;
@@ -159,12 +159,12 @@ public abstract class IProxy
 	}
 	
 	/**
-	 * ¹Ø±Õµ±Ç°´úÀí£¬ÊÍ·Å×ÊÔ´
+	 * å…³é—­å½“å‰ä»£ç†ï¼Œé‡Šæ”¾èµ„æº
 	 */
 	public abstract void close();
 	
 	/**
-	 * »ñÈ¡´úÀíÄÚÈİÃèÊöĞÅÏ¢
+	 * è·å–ä»£ç†å†…å®¹æè¿°ä¿¡æ¯
 	 */
 	public abstract String toString();
 }

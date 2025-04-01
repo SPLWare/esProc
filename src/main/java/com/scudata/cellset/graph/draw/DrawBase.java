@@ -22,8 +22,8 @@ import com.scudata.common.*;
 import com.scudata.common.control.*;
 import com.scudata.util.*;
 /**
- * ËùÓĞ»æÍ¼ÀàµÄ³éÏó»ù´¡Àà
- * ·â×°ÁËÍ¼ĞÎµÄ¹«¹²ÊôĞÔÒÔ¼°Ò»Ğ©¹«¹²»­Í¼º¯Êı
+ * æ‰€æœ‰ç»˜å›¾ç±»çš„æŠ½è±¡åŸºç¡€ç±»
+ * å°è£…äº†å›¾å½¢çš„å…¬å…±å±æ€§ä»¥åŠä¸€äº›å…¬å…±ç”»å›¾å‡½æ•°
  * @author Joancy
  *
  */
@@ -32,15 +32,15 @@ public abstract class DrawBase implements IGraph {
 	public Graphics2D g;
 	public GraphParam gp;
 	public Palette palette;
-	public int VALUE_RADIUS = 2; // Ö±ÏßÍ¼»­Öµ±êÊ¶µÄĞ¡¾ØĞÎ»òÔ²È¦µÄ°ë¾¶
+	public int VALUE_RADIUS = 2; // ç›´çº¿å›¾ç”»å€¼æ ‡è¯†çš„å°çŸ©å½¢æˆ–åœ†åœˆçš„åŠå¾„
 	public int SHADE_SPAN = 4;
-	public Rectangle TR = new Rectangle(); // Text Rectangle ÎÄ±¾Êä³öÊ±µÄ¾ØĞÎ¿í¸ß£¬x,yÎŞÒâÒå
+	public Rectangle TR = new Rectangle(); // Text Rectangle æ–‡æœ¬è¾“å‡ºæ—¶çš„çŸ©å½¢å®½é«˜ï¼Œx,yæ— æ„ä¹‰
 	public ArrayList<ValueLabel> labelList = new ArrayList<ValueLabel>();
 	public ArrayList<ValuePoint> pointList = new ArrayList<ValuePoint>();
 
 	private boolean disableLink = true;
-	private transient Point2D.Double vShift, hShift;// ×İÖáÒòÎªÍ¸Ã÷»òÕß3DÆ½Ì¨Ê±£¬ÒòÎªÎ»ÖÃ²»Í¬µÄx,yÏòÆ«ÒÆÁ¿£¬×İÏò×ÜÊÇ¼õÈ¥Æ«ÒÆ£»ºáÏò×ÜÊÇ¼ÓÉÏÆ«ÒÆ
-	// ±êÌâ¼ÓÉÏ¶ÔÆëÊôĞÔºó£¬ĞèÒªÏÈ±£Áô³ö¿Õ¼ä£¬×îºó¸ù¾İgp.gRect2À´»æÖÆ¶ÔÆë
+	private transient Point2D.Double vShift, hShift;// çºµè½´å› ä¸ºé€æ˜æˆ–è€…3Då¹³å°æ—¶ï¼Œå› ä¸ºä½ç½®ä¸åŒçš„x,yå‘åç§»é‡ï¼Œçºµå‘æ€»æ˜¯å‡å»åç§»ï¼›æ¨ªå‘æ€»æ˜¯åŠ ä¸Šåç§»
+	// æ ‡é¢˜åŠ ä¸Šå¯¹é½å±æ€§åï¼Œéœ€è¦å…ˆä¿ç•™å‡ºç©ºé—´ï¼Œæœ€åæ ¹æ®gp.gRect2æ¥ç»˜åˆ¶å¯¹é½
 	private ValueLabel vlTitle, vlYTitle1, vlYTitle2, vlXTitle;
 
 	protected boolean isSVG() {
@@ -59,8 +59,8 @@ public abstract class DrawBase implements IGraph {
 		return new Point2D.Double(x, y);
 	}
 /**
- * ÉèÖÃ½ûÖ¹³¬Á´½Ó
- * @param b ½ûÖ¹³¬Á´½Ó
+ * è®¾ç½®ç¦æ­¢è¶…é“¾æ¥
+ * @param b ç¦æ­¢è¶…é“¾æ¥
  */
 	public void setDisableLink(boolean b) {
 		disableLink = b;
@@ -71,8 +71,8 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »æÍ¼ÖĞµÄÎÄ±¾ÊÕ¼¯µ½»º³åºó£¬×îºó¼¯ÖĞ»æÖÆ
-	 * ·ÀÖ¹ÎÄ±¾±»¸²¸Ç
+	 * ç»˜å›¾ä¸­çš„æ–‡æœ¬æ”¶é›†åˆ°ç¼“å†²åï¼Œæœ€åé›†ä¸­ç»˜åˆ¶
+	 * é˜²æ­¢æ–‡æœ¬è¢«è¦†ç›–
 	 */
 	public void outLabels() {
 		double x, y;
@@ -103,7 +103,7 @@ public abstract class DrawBase implements IGraph {
 			text = vlTitle.text;
 			direction = (byte) buf[1];
 			gp.GFV_TITLE.outText(x, y, text, direction);
-			vlTitle = null;//ÕâÀïÒªÇåµô£¬ÏÂÍ¬¡£Ô­ÒòÎª£ºË«ÖáÍ¼Ê±£¬»æÖÆÁ½±é£¬Î»ÖÃÉÔÓĞÆ«ÒÆ£¬Ôì³É¼Ó´Ö¡£
+			vlTitle = null;//è¿™é‡Œè¦æ¸…æ‰ï¼Œä¸‹åŒã€‚åŸå› ä¸ºï¼šåŒè½´å›¾æ—¶ï¼Œç»˜åˆ¶ä¸¤éï¼Œä½ç½®ç¨æœ‰åç§»ï¼Œé€ æˆåŠ ç²—ã€‚
 		}
 
 		if (vlXTitle != null) {
@@ -185,13 +185,13 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ÀàËÆÓÚÎÄ±¾£¬Êı¾İµãÒ²ÔÚ»æÖÆ¹ı³ÌÖĞÖÃÓÚ»º´æ
-	 * ÓÃ¸Ã·½·¨¼¯ÖĞ»æÖÆÊı¾İµã
+	 * ç±»ä¼¼äºæ–‡æœ¬ï¼Œæ•°æ®ç‚¹ä¹Ÿåœ¨ç»˜åˆ¶è¿‡ç¨‹ä¸­ç½®äºç¼“å­˜
+	 * ç”¨è¯¥æ–¹æ³•é›†ä¸­ç»˜åˆ¶æ•°æ®ç‚¹
 	 */
 	public void outPoints() {
 		int bs = Consts.LINE_SOLID;
 		float bw = 1;
-		boolean drawShade = false;// ÕÛÏßÍ¼»æÖÆÊ±£¬²»ÔÙ»­µãµÄÒõÓ°£¬·ñÔòºó»æÖÆµÄÒõÓ°»á¸Ç×¡ÏÈ»­µÄÖ±Ïß
+		boolean drawShade = false;// æŠ˜çº¿å›¾ç»˜åˆ¶æ—¶ï¼Œä¸å†ç”»ç‚¹çš„é˜´å½±ï¼Œå¦åˆ™åç»˜åˆ¶çš„é˜´å½±ä¼šç›–ä½å…ˆç”»çš„ç›´çº¿
 		float transparent = getTransparent();
 
 		for (int i = 0; i < pointList.size(); i++) {
@@ -221,26 +221,26 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ÉèÖÃ»æÍ¼µÄÍ¼ĞÎÉè±¸
-	 * @param g Í¼ĞÎÉè±¸
+	 * è®¾ç½®ç»˜å›¾çš„å›¾å½¢è®¾å¤‡
+	 * @param g å›¾å½¢è®¾å¤‡
 	 */
 	public void setGraphics2D(Graphics2D g) {
 		this.g = g;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼µÄ´óĞ¡
-	 * @param w Í¼ĞÎ¿í¶È
-	 * @param h Í¼ĞÎ¸ß¶È
+	 * è®¾ç½®ç»Ÿè®¡å›¾çš„å¤§å°
+	 * @param w å›¾å½¢å®½åº¦
+	 * @param h å›¾å½¢é«˜åº¦
 	 */
 	public void setGraphWH(int w, int h) { 
 		gp.setGraphWH(w, h);
 	}
 
 	/**
-	 * ¸ù¾İÀ©Õ¹Í¼ĞÎÊôĞÔµÄÉèÖÃ£¬²úÉú»æÍ¼µÄºó´úÊµÀı
-	 * @param egp À©Õ¹Í¼ĞÎÊôĞÔ
-	 * @return ºó´ú»æÍ¼ÊµÀı
+	 * æ ¹æ®æ‰©å±•å›¾å½¢å±æ€§çš„è®¾ç½®ï¼Œäº§ç”Ÿç»˜å›¾çš„åä»£å®ä¾‹
+	 * @param egp æ‰©å±•å›¾å½¢å±æ€§
+	 * @return åä»£ç»˜å›¾å®ä¾‹
 	 */
 	public static Object getInstance(ExtGraphProperty egp) {
 		DrawBase graph = null;
@@ -319,13 +319,13 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ¸ù¾İÊôĞÔÊÇ·ñÊ¹ÓÃ½¥±äÉ«£¬½«ÑÕÉ«c×ª»»ÎªÌî³äÑÕÉ«Àà
-	 * @param c ÑÕÉ«
-	 * @return Ìî³äÑÕÉ«ChartColor¶ÔÏó
+	 * æ ¹æ®å±æ€§æ˜¯å¦ä½¿ç”¨æ¸å˜è‰²ï¼Œå°†é¢œè‰²cè½¬æ¢ä¸ºå¡«å……é¢œè‰²ç±»
+	 * @param c é¢œè‰²
+	 * @return å¡«å……é¢œè‰²ChartColorå¯¹è±¡
 	 */
 	public ChartColor getChartColor(Color c) {
 		ChartColor cc = new ChartColor(c);
-		if (egp.isGradientColor()) {// Èç¹ûÊÇ½¥±äÉ«£¬ÉèÖÃÎªChartColorµÄìÅÄ£Ê½
+		if (egp.isGradientColor()) {// å¦‚æœæ˜¯æ¸å˜è‰²ï¼Œè®¾ç½®ä¸ºChartColorçš„ç‚«æ¨¡å¼
 			cc.setColor1(c);
 			cc.setColor2(c);
 			cc.setGradient(true);
@@ -336,16 +336,16 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »ñÈ¡µ÷É«°åÖĞµÄµÚindexĞòºÅÑÕÉ«Öµ
-	 * @param index ĞòºÅ
-	 * @return ÑÕÉ«Öµ
+	 * è·å–è°ƒè‰²æ¿ä¸­çš„ç¬¬indexåºå·é¢œè‰²å€¼
+	 * @param index åºå·
+	 * @return é¢œè‰²å€¼
 	 */
 	public Color getColor(int index) {
 		return new Color(palette.getColor(index));
 	}
 
 	/**
-	 * È¡µ±Ç°Í¼ĞÎµÄÍ¸Ã÷¶È
+	 * å–å½“å‰å›¾å½¢çš„é€æ˜åº¦
 	 * @return
 	 */
 	public float getTransparent() {
@@ -355,15 +355,15 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * Í³¼ÆÍ¼¸ù¾İgpÊôĞÔ½øĞĞ»æÍ¼£¬½«À©Õ¹Í¼ĞÎÊôĞÔegp×ª»»Îª
-	 * »æÍ¼µÄÊôĞÔ
-	 * @param egp À©Õ¹Í¼ĞÎÊôĞÔ
+	 * ç»Ÿè®¡å›¾æ ¹æ®gpå±æ€§è¿›è¡Œç»˜å›¾ï¼Œå°†æ‰©å±•å›¾å½¢å±æ€§egpè½¬æ¢ä¸º
+	 * ç»˜å›¾çš„å±æ€§
+	 * @param egp æ‰©å±•å›¾å½¢å±æ€§
 	 */
 	public void transProperty(ExtGraphProperty egp) {
 		this.egp = egp;
 		this.gp = new GraphParam();
 		palette = egp.getPlatte();
-		gp.catNames = egp.getCategoryNames(); // ×ª»»×ÖÌåµÄÊ±ºòÒªÓÃµ½catNames,µÃÏÈ×ª»»
+		gp.catNames = egp.getCategoryNames(); // è½¬æ¢å­—ä½“çš„æ—¶å€™è¦ç”¨åˆ°catNames,å¾—å…ˆè½¬æ¢
 		gp.serNames = egp.getSeriesNames(egp.categories);
 		gp.catNum = gp.catNames.size();
 		gp.serNum = gp.serNames.size();
@@ -395,7 +395,7 @@ public abstract class DrawBase implements IGraph {
 		gf = fonts.getYLabelFont();
 		gp.GFV_YLABEL = getGraphFontView(gf, text, GraphFontView.FONT_YLABEL);
 
-		gp.imageFormat = egp.getImageFormat(); // ÔÚÉèÖÃÈçÏÂ±³¾°É«Ö®Ç°ÒªÇóÏÈÉèÖÃ¸ñÊ½ÊôĞÔ,Í¸Ã÷É«¸úÍ¼ĞÎ¸ñÊ½ÓĞ¹ØÏµ
+		gp.imageFormat = egp.getImageFormat(); // åœ¨è®¾ç½®å¦‚ä¸‹èƒŒæ™¯è‰²ä¹‹å‰è¦æ±‚å…ˆè®¾ç½®æ ¼å¼å±æ€§,é€æ˜è‰²è·Ÿå›¾å½¢æ ¼å¼æœ‰å…³ç³»
 		gp.setBackColor(egp.getGraphBackColor());
 		gp.dataMarkFormat = egp.getDisplayDataFormat1();
 		gp.dataMarkFormat2 = egp.getDisplayDataFormat2();
@@ -510,9 +510,9 @@ public abstract class DrawBase implements IGraph {
 	}
 	
 	/**
-	 * »ñÈ¡µ±Ç°Í¼ĞÎÊÇ·ñ¶à¸öÏµÁĞ»æÖÆ£¬ÓÉÓÚË«ÖáÍ¼·ÖÎª×óÖáÏµÁĞºÍÓÒÖáÏµÁĞ£¬
-	 * Ë«ÖáÍ¼Ê±Îª¶àÏµÁĞÍ¼ĞÎ
-	 * @return ÊÇ¶àÏµÁĞÍ¼ĞÎ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è·å–å½“å‰å›¾å½¢æ˜¯å¦å¤šä¸ªç³»åˆ—ç»˜åˆ¶ï¼Œç”±äºåŒè½´å›¾åˆ†ä¸ºå·¦è½´ç³»åˆ—å’Œå³è½´ç³»åˆ—ï¼Œ
+	 * åŒè½´å›¾æ—¶ä¸ºå¤šç³»åˆ—å›¾å½¢
+	 * @return æ˜¯å¤šç³»åˆ—å›¾å½¢è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isMultiSeries(){
 		if(egp.is2YGraph()){
@@ -526,10 +526,10 @@ public abstract class DrawBase implements IGraph {
 		return (type == GraphTypes.GT_PIE || type == GraphTypes.GT_PIE3DOBJ || !isMultiSeries());
 	}
 
-	// ÊÇ·ñ»­Ô²ĞÎÍ¼Àı
+	// æ˜¯å¦ç”»åœ†å½¢å›¾ä¾‹
 	protected boolean isCircleLegend() {
 		byte type = egp.getType();
-		// Ë«ÖáÁ½ÏßÍ¼ĞÎÊ±£¬Í¼ÀıÈÔÈ»µÃÓĞ·½£¬ÓĞÔ²£¬Çø·Ö×óÓÒÖá
+		// åŒè½´ä¸¤çº¿å›¾å½¢æ—¶ï¼Œå›¾ä¾‹ä»ç„¶å¾—æœ‰æ–¹ï¼Œæœ‰åœ†ï¼ŒåŒºåˆ†å·¦å³è½´
 		boolean isCircle = ( type == GraphTypes.GT_LINE || type == GraphTypes.GT_SCATTER || type == GraphTypes.GT_DOT3D);
 		return isCircle;
 	}
@@ -551,7 +551,7 @@ public abstract class DrawBase implements IGraph {
 		int xx, yy, ww, hh = fontHeight;
 
 		if (isCircleLegend()
-				|| (egp.is2YGraph() && gp.isMultiSeries && seriesNo >= series1Count)) { // µÚ¶şÖáµÄÏµÁĞ
+				|| (egp.is2YGraph() && gp.isMultiSeries && seriesNo >= series1Count)) { // ç¬¬äºŒè½´çš„ç³»åˆ—
 			g.setStroke(new BasicStroke(0.00001f));
 			yy = y - nFontHeight;
 			setPaint(x, yy, fontHeight, fontHeight, seriesNo, verticalPillar);
@@ -575,7 +575,7 @@ public abstract class DrawBase implements IGraph {
 
 		}
 
-		// ³¬Á¬½Ó´¦Àí
+		// è¶…è¿æ¥å¤„ç†
 		int x1 = x;
 		int y1 = y-nFontHeight;
 //		String coordx = x + "," + (y - nFontHeight) + ",";
@@ -583,15 +583,15 @@ public abstract class DrawBase implements IGraph {
 		if (isGongZi) {
 			stmp = stmp.substring(stmp.indexOf(".") + 1);
 		}
-		if (fontHeight != nFontHeight) { // Ö»ÒªÓĞÕÛĞĞ,ÔòĞèÒªÖØ¶¨Î»Y
+		if (fontHeight != nFontHeight) { // åªè¦æœ‰æŠ˜è¡Œ,åˆ™éœ€è¦é‡å®šä½Y
 			y = y - nFontHeight + fontHeight;
 		}
 
-		// ·½Î»¶¨Î»:Í¼Àı¶¨ÒåÎªÓÒ²àÎÄ×Ö,×İÏò¾ÓÖĞ,ÖĞĞÄµãÍùÉÏÅ²°ë¸öÍ¼Àı¸ñ×Ó¸ß¶È
+		// æ–¹ä½å®šä½:å›¾ä¾‹å®šä¹‰ä¸ºå³ä¾§æ–‡å­—,çºµå‘å±…ä¸­,ä¸­å¿ƒç‚¹å¾€ä¸ŠæŒªåŠä¸ªå›¾ä¾‹æ ¼å­é«˜åº¦
 		y -= hh / 2;
 
-		int wrapWidth = textWidth + 2; //ÕÛĞĞËã·¨ÒªÈ¥µôÁ½¸ö¿ÉÄÜÊÇ±ßÏßµÄµã£¬ÎÒÕâ²»ÓÃÈ¥£¬¶à¸øÁ½µã
-		// ÕÛĞĞËã·¨¼õµôÁËwrapInchingWidth,ÕâÀï²»ÓÃ¼õ£¬µÃ²¹»ØÀ´
+		int wrapWidth = textWidth + 2; //æŠ˜è¡Œç®—æ³•è¦å»æ‰ä¸¤ä¸ªå¯èƒ½æ˜¯è¾¹çº¿çš„ç‚¹ï¼Œæˆ‘è¿™ä¸ç”¨å»ï¼Œå¤šç»™ä¸¤ç‚¹
+		// æŠ˜è¡Œç®—æ³•å‡æ‰äº†wrapInchingWidth,è¿™é‡Œä¸ç”¨å‡ï¼Œå¾—è¡¥å›æ¥
 
 		ArrayList al = UtilsBase.wrapString(stmp,
 				g.getFontMetrics(gp.GFV_LEGEND.font), wrapWidth);
@@ -639,8 +639,8 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »æÖÆÍ¼ĞÎµÄÍ¼Àı£¬²¢½«Í¼Àı²úÉúµÄ³¬Á´½ÓĞ´Èë³¬Á´»º´æhtmlBuffer
-	 * @param htmlBuffer ³¬Á´½Ó»º´æ¶ÔÏó
+	 * ç»˜åˆ¶å›¾å½¢çš„å›¾ä¾‹ï¼Œå¹¶å°†å›¾ä¾‹äº§ç”Ÿçš„è¶…é“¾æ¥å†™å…¥è¶…é“¾ç¼“å­˜htmlBuffer
+	 * @param htmlBuffer è¶…é“¾æ¥ç¼“å­˜å¯¹è±¡
 	 */
 	public void drawLegend(StringBuffer htmlBuffer) {
 		if (egp.getLegendLocation() == IGraphProperty.LEGEND_NONE) {
@@ -660,13 +660,13 @@ public abstract class DrawBase implements IGraph {
 		boolean isGongZi = egp.getType() == GraphTypes.GT_GONGZI;
 
 		boolean verticalPillar = !egp.isBarGraph(this);
-		/* ÕÒ³ö×î´óÍ¼Àı¿í¶È */
+		/* æ‰¾å‡ºæœ€å¤§å›¾ä¾‹å®½åº¦ */
 		if (isLegendOnCategory()) {
 			int cc = gp.catNames.size();
 			for (int i = 0; i < cc; i++) {
 				Object o = gp.catNames.get(i);
 				String tmp = Variant.toString(o);
-				if (!StringUtils.isValidString(tmp)) { // ÓĞÎŞÁÄÈËÊ¿½ö¸øÒ»¿Õ´®£¬´ËÊ±ÈÔÈ»Òª±£Ö¤Ò»¸ö×Ö·ûµÄ¿í¸ß
+				if (!StringUtils.isValidString(tmp)) { // æœ‰æ— èŠäººå£«ä»…ç»™ä¸€ç©ºä¸²ï¼Œæ­¤æ—¶ä»ç„¶è¦ä¿è¯ä¸€ä¸ªå­—ç¬¦çš„å®½é«˜
 					tmp = "A";
 				}
 				TR = getLegendTextRect(tmp);
@@ -698,7 +698,7 @@ public abstract class DrawBase implements IGraph {
 			if (egp.is2YGraph() || egp.isNormalStacked()) {
 				if(gp.serNames2!=null){
 					int ss2 = gp.serNames2.size();
-					for (int i = 0; i < ss2; i++) { // 2ÖáµÄµÚ2×éÏµÁĞ
+					for (int i = 0; i < ss2; i++) { // 2è½´çš„ç¬¬2ç»„ç³»åˆ—
 						Object o = gp.serNames2.get(i);
 						TR = getLegendTextRect(Variant.toString(o));
 						intTmp = TR.width;
@@ -711,13 +711,13 @@ public abstract class DrawBase implements IGraph {
 			}
 		}
 
-		/* Í¼Àı¸öÊı */
+		/* å›¾ä¾‹ä¸ªæ•° */
 		int size = 0;
 		if (isLegendOnCategory()) {
 			size = gp.catNames.size();
 		} else {
 			if (egp.is2YGraph() || (egp.isNormalStacked() && gp.serNames2!=null)) {
-				size = gp.serNames.size() + gp.serNames2.size(); // ¼ÓÉÏÁËµÚ¶ş×éÏµÁĞ
+				size = gp.serNames.size() + gp.serNames2.size(); // åŠ ä¸Šäº†ç¬¬äºŒç»„ç³»åˆ—
 			} else {
 				size = gp.serNames.size();
 			}
@@ -726,7 +726,7 @@ public abstract class DrawBase implements IGraph {
 		int series1Count = gp.serNames.size();
 		int seriesNo;
 
-		/* Èç¹ûÍ¼ÀıÎ»ÓÚÉÏ·½»òÏÂ·½ */
+		/* å¦‚æœå›¾ä¾‹ä½äºä¸Šæ–¹æˆ–ä¸‹æ–¹ */
 		nFontHeight = maxHeight;
 		fontHeight = gp.GFV_LEGEND.getTextSize("ABC").height;
 
@@ -760,7 +760,7 @@ public abstract class DrawBase implements IGraph {
 			borderheight = nFontHeight * row + (row + 1) * egp.getLegendVerticalGap();
 
 			drawRect(borderx, bordery, borderwidth, borderheight,
-					egp.getAxisColor(IGraphProperty.AXIS_LEGEND)); // ÏµÁĞÍâÎ§¾ØĞÎ¿ò
+					egp.getAxisColor(IGraphProperty.AXIS_LEGEND)); // ç³»åˆ—å¤–å›´çŸ©å½¢æ¡†
 
 			gp.legendBoxWidth = borderwidth;
 			gp.legendBoxHeight = borderheight;
@@ -787,7 +787,7 @@ public abstract class DrawBase implements IGraph {
 					if (isLegendOnCategory()) {
 						o = gp.catNames.get(seriesNo);
 					} else {
-						if (seriesNo >= series1Count) { // µÚ¶şÖáµÄÏµÁĞ
+						if (seriesNo >= series1Count) { // ç¬¬äºŒè½´çš„ç³»åˆ—
 							o = gp.serNames2.get(seriesNo - series1Count);
 						} else {
 							o = gp.serNames.get(seriesNo);
@@ -808,7 +808,7 @@ public abstract class DrawBase implements IGraph {
 			} else {
 				gp.bottomInset += (row + 1) * egp.getLegendVerticalGap() + row * nFontHeight + egp.getLegendVerticalGap();
 			}
-		} else { /* Èç¹ûÍ¼ÀıÎ»ÓÚ×ó±ß»òÓÒ±ß */
+		} else { /* å¦‚æœå›¾ä¾‹ä½äºå·¦è¾¹æˆ–å³è¾¹ */
 			legendWidth = fontHeight + 3 * egp.getLegendHorizonGap() + maxWidth;
 			legendHeight = nFontHeight + 2 * egp.getLegendVerticalGap();
 			totalHeight = gp.graphHeight - gp.topMargin - gp.bottomMargin;
@@ -869,7 +869,7 @@ public abstract class DrawBase implements IGraph {
 					if (isLegendOnCategory()) {
 						o = gp.catNames.get(seriesNo);
 					} else {
-						if (seriesNo >= series1Count) { // µÚ¶şÖáÏµÁĞ
+						if (seriesNo >= series1Count) { // ç¬¬äºŒè½´ç³»åˆ—
 							o = gp.serNames2.get(seriesNo - series1Count);
 						} else {
 							o = gp.serNames.get(seriesNo);
@@ -893,13 +893,13 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨²ÎÊıÉèÖÃµ±Ç°Ìî³äÄ£Ê½
-	 * @param x ºá×ø±êx
-	 * @param y ×İ×ø±êy
-	 * @param w Ìî³ä¿í¶È
-	 * @param h Ìî³ä¸ß¶È
-	 * @param c Ìî³äÑÕÉ«
-	 * @param verticalPillar ÊÇ·ñÊúÏòÔ²Öù
+	 * æŒ‰ç…§æŒ‡å®šå‚æ•°è®¾ç½®å½“å‰å¡«å……æ¨¡å¼
+	 * @param x æ¨ªåæ ‡x
+	 * @param y çºµåæ ‡y
+	 * @param w å¡«å……å®½åº¦
+	 * @param h å¡«å……é«˜åº¦
+	 * @param c å¡«å……é¢œè‰²
+	 * @param verticalPillar æ˜¯å¦ç«–å‘åœ†æŸ±
 	 */
 	public void setPaint(double x, double y, double w, double h, Color c,
 			boolean verticalPillar) {
@@ -907,13 +907,13 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨²ÎÊıÉèÖÃµ±Ç°Ìî³äÄ£Ê½
-	 * @param x ºá×ø±êx
-	 * @param y ×İ×ø±êy
-	 * @param w Ìî³ä¿í¶È
-	 * @param h Ìî³ä¸ß¶È
-	 * @param pIndex ÑÕÉ«ĞòºÅ
-	 * @param verticalPillar ÊÇ·ñÊúÏòÔ²Öù
+	 * æŒ‰ç…§æŒ‡å®šå‚æ•°è®¾ç½®å½“å‰å¡«å……æ¨¡å¼
+	 * @param x æ¨ªåæ ‡x
+	 * @param y çºµåæ ‡y
+	 * @param w å¡«å……å®½åº¦
+	 * @param h å¡«å……é«˜åº¦
+	 * @param pIndex é¢œè‰²åºå·
+	 * @param verticalPillar æ˜¯å¦ç«–å‘åœ†æŸ±
 	 */
 	public void setPaint(double x, double y, double w, double h, int pIndex,
 			boolean verticalPillar) {
@@ -930,10 +930,10 @@ public abstract class DrawBase implements IGraph {
 			Color dd = c;
 
 			int cValue = c.getRGB();
-			if (cValue < -13410000) { // ºÚÉ«
+			if (cValue < -13410000) { // é»‘è‰²
 				cc = Color.lightGray;
 				dd = c;
-			} else if (cValue < -8355712) { // Èç¹ûÊÇÉîÉ«±³¾°
+			} else if (cValue < -8355712) { // å¦‚æœæ˜¯æ·±è‰²èƒŒæ™¯
 				cc = c.brighter();
 				dd = cc.darker().darker();
 			} else {
@@ -941,7 +941,7 @@ public abstract class DrawBase implements IGraph {
 				dd = cc.darker().darker().darker();
 			}
 
-			if (verticalPillar) { // ×İÏòÖù×Ó
+			if (verticalPillar) { // çºµå‘æŸ±å­
 				paint = new GradientPaint((float)x, (float)y, cc, (float)(x + w), (float)y, dd);
 			} else {
 				paint = new GradientPaint((float)x, (float)y, cc, (float)x, (float)(y + h), dd);
@@ -994,7 +994,7 @@ public abstract class DrawBase implements IGraph {
 			return null;
 		}
 		if (StringUtils.isValidString(link)) {
-			// ¸Ä³ÉÏÈÌæ»»ºó¼ÆËã£¬Í¬Ê±°É°Ñcategoryµ±×÷²ÎÊı
+			// æ”¹æˆå…ˆæ›¿æ¢åè®¡ç®—ï¼ŒåŒæ—¶å§æŠŠcategoryå½“ä½œå‚æ•°
 			if (StringUtils.isValidString(legendValue)) {
 				link = replaceAll(link, "@legend", legendValue.toString());
 			}
@@ -1042,16 +1042,16 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ»­Á¢·½ÌåµÄÂÖÀªÏß
-	 * @param x ºá×ø±êx
-	 * @param y ×İ×ø±êy
-	 * @param w Öù×Ó¿í¶È
-	 * @param h Öù×Ó¸ß¶È
-	 * @param z Öù×Ó½øÉî
+	 * åœ¨æŒ‡å®šä½ç½®ç”»ç«‹æ–¹ä½“çš„è½®å»“çº¿
+	 * @param x æ¨ªåæ ‡x
+	 * @param y çºµåæ ‡y
+	 * @param w æŸ±å­å®½åº¦
+	 * @param h æŸ±å­é«˜åº¦
+	 * @param z æŸ±å­è¿›æ·±
 	 */
 	public void drawRectCubeLine(int x, int y, int w, int h, int z) {
 		g.setColor(gp.coorColor);
-		int hx, hy; // Á¢·½Ìå¿´²»µ½µÄÄÇ¸öµãµÄ×ø±ê
+		int hx, hy; // ç«‹æ–¹ä½“çœ‹ä¸åˆ°çš„é‚£ä¸ªç‚¹çš„åæ ‡
 		hx = x + z;
 		hy = y + h - z;
 
@@ -1062,12 +1062,12 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * Ö¸¶¨Î»ÖÃ´¦»­Ò»¸ö¾ØĞÎ£¬cÎªnullÊ±µ±Í¸Ã÷´¦Àí£¬²»»æÖÆ
-	 * @param x ºá×ø±êx
-	 * @param y ×İ×ø±êy
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
-	 * @param c ±ß¿òÑÕÉ«
+	 * æŒ‡å®šä½ç½®å¤„ç”»ä¸€ä¸ªçŸ©å½¢ï¼Œcä¸ºnullæ—¶å½“é€æ˜å¤„ç†ï¼Œä¸ç»˜åˆ¶
+	 * @param x æ¨ªåæ ‡x
+	 * @param y çºµåæ ‡y
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
+	 * @param c è¾¹æ¡†é¢œè‰²
 	 */
 	public void drawRect(double x, double y, double w, double h, Color c) {
 		if (c == null) {
@@ -1078,13 +1078,13 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨µÄÁ½¸öµã¼ä»æÖÆÖ±Ïß
-	 * µ÷ÓÃ¸Ãº¯ÊıÖ®Ç°±ØĞëÏÈµ÷ÓÃ Utils.setStroke(); È·±£µ±Ç°µÄÏßÓĞÕıÈ·µÄÌî³ä·½°¸
-	 * @param x1 µã1ºá×ø±ê
-	 * @param y1 µã1×İ×ø±ê
-	 * @param x2 µã2ºá×ø±ê
-	 * @param y2 µã2×İ×ø±ê
-	 * @param c ÑÕÉ«£¬nullÊ±²»»æÖÆ
+	 * åœ¨æŒ‡å®šçš„ä¸¤ä¸ªç‚¹é—´ç»˜åˆ¶ç›´çº¿
+	 * è°ƒç”¨è¯¥å‡½æ•°ä¹‹å‰å¿…é¡»å…ˆè°ƒç”¨ Utils.setStroke(); ç¡®ä¿å½“å‰çš„çº¿æœ‰æ­£ç¡®çš„å¡«å……æ–¹æ¡ˆ
+	 * @param x1 ç‚¹1æ¨ªåæ ‡
+	 * @param y1 ç‚¹1çºµåæ ‡
+	 * @param x2 ç‚¹2æ¨ªåæ ‡
+	 * @param y2 ç‚¹2çºµåæ ‡
+	 * @param c é¢œè‰²ï¼Œnullæ—¶ä¸ç»˜åˆ¶
 	 */
 	public void drawLine(double x1, double y1, double x2, double y2, Color c) {
 		if (c == null) {
@@ -1095,14 +1095,14 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨µÄÁ½¸öµã¼ä»æÖÆÒ»¶Î»¡
-	 * @param x ºá×ø±ê
-	 * @param y ×İ×ø±ê
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
-	 * @param startAngle ÆğÊ¼½Ç¶È
-	 * @param arcAngle »¡µÄ½Ç¶È³¤
-	 * @param c ÑÕÉ«£¬nullÊ±²»»æÖÆ
+	 * åœ¨æŒ‡å®šçš„ä¸¤ä¸ªç‚¹é—´ç»˜åˆ¶ä¸€æ®µå¼§
+	 * @param x æ¨ªåæ ‡
+	 * @param y çºµåæ ‡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
+	 * @param startAngle èµ·å§‹è§’åº¦
+	 * @param arcAngle å¼§çš„è§’åº¦é•¿
+	 * @param c é¢œè‰²ï¼Œnullæ—¶ä¸ç»˜åˆ¶
 	 */
 	public void drawArc(int x, int y, int w, int h, int startAngle,
 			int arcAngle, Color c) {
@@ -1114,9 +1114,9 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨ÑÕÉ«»æÖÆĞÎ×´s
-	 * @param s ĞÎ×´¶ÔÏó
-	 * @param c ÑÕÉ«£¬nullÊ±²»»æÖÆ
+	 * æŒ‰ç…§æŒ‡å®šé¢œè‰²ç»˜åˆ¶å½¢çŠ¶s
+	 * @param s å½¢çŠ¶å¯¹è±¡
+	 * @param c é¢œè‰²ï¼Œnullæ—¶ä¸ç»˜åˆ¶
 	 */
 	public void drawShape(Shape s, Color c) {
 		if (c == null) {
@@ -1127,11 +1127,11 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨Î»ÖÃ»æÖÆ¶à±ßĞÎ
-	 * @param x µãµÄx×ø±êÊıÖµ
-	 * @param y µãµÄy×ø±êÊıÖµ
-	 * @param n µãµÄ¸öÊı
-	 * @param c ÑÕÉ«£¬nullÊ±²»»æÖÆ
+	 * æŒ‰ç…§æŒ‡å®šä½ç½®ç»˜åˆ¶å¤šè¾¹å½¢
+	 * @param x ç‚¹çš„xåæ ‡æ•°å€¼
+	 * @param y ç‚¹çš„yåæ ‡æ•°å€¼
+	 * @param n ç‚¹çš„ä¸ªæ•°
+	 * @param c é¢œè‰²ï¼Œnullæ—¶ä¸ç»˜åˆ¶
 	 */
 	public void drawPolygon(double[] x, double[] y, int n, Color c) {
 		if (c == null) {
@@ -1152,12 +1152,12 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨Î»ÖÃ»æÖÆÍÖÔ²
-	 * @param x x×ø±ê
-	 * @param y y×ø±ê
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
-	 * @param c ÑÕÉ«£¬nullÊ±²»»æÖÆ
+	 * æŒ‰ç…§æŒ‡å®šä½ç½®ç»˜åˆ¶æ¤­åœ†
+	 * @param x xåæ ‡
+	 * @param y yåæ ‡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
+	 * @param c é¢œè‰²ï¼Œnullæ—¶ä¸ç»˜åˆ¶
 	 */
 	public void drawOval(int x, int y, int w, int h, Color c) {
 		if (c == null) {
@@ -1168,11 +1168,11 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ¸ù¾İÍ¼ĞÎÊôĞÔÅäÖÃÔÚÖ¸¶¨Î»ÖÃÌî³äÍÖÔ²
-	 * @param x x×ø±ê
-	 * @param y y×ø±ê
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
+	 * æ ¹æ®å›¾å½¢å±æ€§é…ç½®åœ¨æŒ‡å®šä½ç½®å¡«å……æ¤­åœ†
+	 * @param x xåæ ‡
+	 * @param y yåæ ‡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
 	 */
 	public void fillOval(int x, int y, int w, int h) {
 		if (egp.isDrawShade()) {
@@ -1187,11 +1187,11 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ¸ù¾İÍ¼ĞÎÊôĞÔÅäÖÃÔÚÖ¸¶¨Î»ÖÃÌî³ä¾ØĞÎ
-	 * @param x x×ø±ê
-	 * @param y y×ø±ê
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
+	 * æ ¹æ®å›¾å½¢å±æ€§é…ç½®åœ¨æŒ‡å®šä½ç½®å¡«å……çŸ©å½¢
+	 * @param x xåæ ‡
+	 * @param y yåæ ‡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
 	 */
 	public void fillRect(double x, double y, double w, double h) {
 		Color bc = null;
@@ -1204,17 +1204,17 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ´ÓÖĞĞÄµã cx,cy°´c1µ½c2µÄÑÕÉ«»·×´·¢É¢Ìİ¶ÈÌî³äĞÎ×´s Ä¿Ç°½öÖ§³Öcx£¬cyÔÚĞÎ×´sÄÚµÄÌî³ä
+	 * ä»ä¸­å¿ƒç‚¹ cx,cyæŒ‰c1åˆ°c2çš„é¢œè‰²ç¯çŠ¶å‘æ•£æ¢¯åº¦å¡«å……å½¢çŠ¶s ç›®å‰ä»…æ”¯æŒcxï¼Œcyåœ¨å½¢çŠ¶så†…çš„å¡«å……
 	 * @param s
-	 *            Shape ĞÎ×´¶ÔÏó
+	 *            Shape å½¢çŠ¶å¯¹è±¡
 	 * @param c1
-	 *            Color ÑÕÉ«1
+	 *            Color é¢œè‰²1
 	 * @param c2
-	 *            Color ÑÕÉ«2
+	 *            Color é¢œè‰²2
 	 * @param cx
-	 *            int ÖĞĞÄµãx
+	 *            int ä¸­å¿ƒç‚¹x
 	 * @param cy 
-	 *            int ÖĞĞÄµãy
+	 *            int ä¸­å¿ƒç‚¹y
 	 */
 	public void fillDotGradientShape(Shape s, Color c1, Color c2, double cx, double cy) {
 		Rectangle sBounds = s.getBounds();
@@ -1247,26 +1247,26 @@ public abstract class DrawBase implements IGraph {
 
 
 	/**
-	 * ¸ù¾İÖ¸¶¨²ÎÊı»æÖÆÒ»¸ö³¤·½Ìå
+	 * æ ¹æ®æŒ‡å®šå‚æ•°ç»˜åˆ¶ä¸€ä¸ªé•¿æ–¹ä½“
 	 * 
 	 * @param x
-	 *            int ÕıÃæ¾ØĞÎx ÕıÃæ¾ØĞÎy ¸ù¾İhµÄÕı¸º£¬ºÍ»ùÏßÀ´¼ÆËãµÃ³ö
+	 *            int æ­£é¢çŸ©å½¢x æ­£é¢çŸ©å½¢y æ ¹æ®hçš„æ­£è´Ÿï¼Œå’ŒåŸºçº¿æ¥è®¡ç®—å¾—å‡º
 	 * @param w
-	 *            int ÕıÃæ¾ØĞÎw
+	 *            int æ­£é¢çŸ©å½¢w
 	 * @param h
-	 *            int ÕıÃæ¾ØĞÎh
+	 *            int æ­£é¢çŸ©å½¢h
 	 * @param z
-	 *            int Á¢·½µÄzÉî¶È
+	 *            int ç«‹æ–¹çš„zæ·±åº¦
 	 * @param dz
-	 *            int Á¢·½µÄzÏòÎ»ÒÆ
+	 *            int ç«‹æ–¹çš„zå‘ä½ç§»
 	 * @param colorIndex
-	 *            int ÑÕÉ«ĞòºÅ
+	 *            int é¢œè‰²åºå·
 	 * @param sb
-	 *            StringBuffer Éú³É³¬Á¬½ÓµÄ»º³å
+	 *            StringBuffer ç”Ÿæˆè¶…è¿æ¥çš„ç¼“å†²
 	 * @param cat
-	 *            Object µ±Ç°·ÖÀàÖµ
+	 *            Object å½“å‰åˆ†ç±»å€¼
 	 * @param egs
-	 *            ExtGraphSery ÏµÁĞ
+	 *            ExtGraphSery ç³»åˆ—
 	 */
 	public void drawRectCube(double x, double w, double h, double z, double dz,
 			int colorIndex, StringBuffer sb, Object cat, ExtGraphSery egs) {
@@ -1294,21 +1294,21 @@ public abstract class DrawBase implements IGraph {
 
 	}
 
-	protected Rectangle2D.Double rightTop, rightBottom, leftTop, leftBottom; // ËÄÖÜÏàÓ¦ÒÑ¾­Õ¼ÓÃÁËµÄÎ»ÖÃ
+	protected Rectangle2D.Double rightTop, rightBottom, leftTop, leftBottom; // å››å‘¨ç›¸åº”å·²ç»å ç”¨äº†çš„ä½ç½®
 
 	/**
-	 * »­Ô²ĞÎÍâµÄÊıÖµ£¬¸ù¾İ½Ç¶Èµ÷ÕûTextµÄ×ø±ê¡£À×´ïÍ¼ÒÔ¼°±ıÍ¼ÓÃµ½
+	 * ç”»åœ†å½¢å¤–çš„æ•°å€¼ï¼Œæ ¹æ®è§’åº¦è°ƒæ•´Textçš„åæ ‡ã€‚é›·è¾¾å›¾ä»¥åŠé¥¼å›¾ç”¨åˆ°
 	 * 
 	 * @param gfv
-	 *            GraphFontView ×ÖÌå¶¨ÒåÊÓÍ¼
+	 *            GraphFontView å­—ä½“å®šä¹‰è§†å›¾
 	 * @param text
-	 *            String ÎÄ±¾Öµ
+	 *            String æ–‡æœ¬å€¼
 	 * @param angle
-	 *            double µ±Ç°ÊıÖµËù´¦Ô²ÉÏµÄ½Ç¶ÈÎ»ÖÃ
+	 *            double å½“å‰æ•°å€¼æ‰€å¤„åœ†ä¸Šçš„è§’åº¦ä½ç½®
 	 * @param x
-	 *            int ÎÄ±¾µÄx
+	 *            int æ–‡æœ¬çš„x
 	 * @param y
-	 *            int ÎÄ±¾µÄy
+	 *            int æ–‡æœ¬çš„y
 	 */
 	public void drawOutCircleText(GraphFontView gfv, String text, double angle,
 			double x, double y) {
@@ -1325,18 +1325,18 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »­Ô²ĞÎÄÚµÄÊıÖµ£¬¸ù¾İ½Ç¶Èµ÷ÕûTextµÄ×ø±ê¡£À×´ïÍ¼ÒÔ¼°±ıÍ¼ÓÃµ½
+	 * ç”»åœ†å½¢å†…çš„æ•°å€¼ï¼Œæ ¹æ®è§’åº¦è°ƒæ•´Textçš„åæ ‡ã€‚é›·è¾¾å›¾ä»¥åŠé¥¼å›¾ç”¨åˆ°
 	 * 
 	 * @param gfv
-	 *            GraphFontView ×ÖÌå¶¨ÒåÊÓÍ¼
+	 *            GraphFontView å­—ä½“å®šä¹‰è§†å›¾
 	 * @param text
-	 *            String ÎÄ±¾Öµ
+	 *            String æ–‡æœ¬å€¼
 	 * @param angle
-	 *            double µ±Ç°ÊıÖµËù´¦Ô²ÉÏµÄ½Ç¶ÈÎ»ÖÃ
+	 *            double å½“å‰æ•°å€¼æ‰€å¤„åœ†ä¸Šçš„è§’åº¦ä½ç½®
 	 * @param x
-	 *            int ÎÄ±¾µÄx
+	 *            int æ–‡æœ¬çš„x
 	 * @param y
-	 *            int ÎÄ±¾µÄy
+	 *            int æ–‡æœ¬çš„y
 	 */
 	public void drawInnerCircleText(GraphFontView gfv, String text,
 			double angle, double x, double y) {
@@ -1407,7 +1407,7 @@ public abstract class DrawBase implements IGraph {
 		boolean isTop = !(tmpAngle > 180 && tmpAngle < 360);
 		if (drawExtend) {
 			double x1 = x, y1 = y;
-			if (isLeft && isTop) { // ×óÉÏ - ×ó±ß //
+			if (isLeft && isTop) { // å·¦ä¸Š - å·¦è¾¹ //
 				if (leftTop == null) {
 					leftTop = new Rectangle2D.Double(gp.gRect2.x, gp.gRect2.y, 0, 0);
 				}
@@ -1418,7 +1418,7 @@ public abstract class DrawBase implements IGraph {
 				Utils.drawLine(g,x1, y1, x1, y);
 				Utils.drawLine(g,x1, y, x, y);
 				y += h / 2;
-			} else if (isLeft && !isTop) { // ×óÏÂ £­ ÏÂ±ß
+			} else if (isLeft && !isTop) { // å·¦ä¸‹ ï¼ ä¸‹è¾¹
 				if (leftBottom == null) {
 					leftBottom = new Rectangle2D.Double(gp.gRect2.x, gp.gRect2.y
 							+ gp.gRect2.height, 0, 0);
@@ -1429,7 +1429,7 @@ public abstract class DrawBase implements IGraph {
 				Utils.drawLine(g,x1, y1, x1, y);
 				Utils.drawLine(g,x1, y, x, y);
 				w /= 2;
-			} else if (!isLeft && isTop) { // ÓÒÉÏ £­ ÉÏ±ß
+			} else if (!isLeft && isTop) { // å³ä¸Š ï¼ ä¸Šè¾¹
 				if (rightTop == null) {
 					rightTop = new Rectangle2D.Double(gp.gRect2.x + gp.gRect2.width,
 							gp.gRect2.y, 0, 0);
@@ -1442,7 +1442,7 @@ public abstract class DrawBase implements IGraph {
 				Utils.drawLine(g,x1, y1, x1, y);
 				Utils.drawLine(g,x1, y, x, y);
 				x -= w / 2;
-			} else { // ÓÒÏÂ £­ ÓÒ±ß
+			} else { // å³ä¸‹ ï¼ å³è¾¹
 				if (rightBottom == null) {
 					rightBottom = new Rectangle2D.Double(gp.gRect2.x + gp.gRect2.width,
 							gp.gRect2.y + gp.gRect2.height, 0, 0);
@@ -1461,7 +1461,7 @@ public abstract class DrawBase implements IGraph {
 		} else {
 			byte direction = angleToPosition(gfv, angle);
 
-			if (!(this instanceof DrawRadar)) {// À×´ïÍ¼Ê±£¬²»Ê¹ÓÃÑÓ³¤Ïß
+			if (!(this instanceof DrawRadar)) {// é›·è¾¾å›¾æ—¶ï¼Œä¸ä½¿ç”¨å»¶é•¿çº¿
 				int shiftX = 10;
 				double x1 = x, y1 = y, x2 = x, y2 = y;
 				if (direction == GraphFontView.TEXT_ON_LEFT) {
@@ -1494,11 +1494,11 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ¸ù¾İ²ÎÊı»æÖÆÎÄ±¾
-	 * @param text ÎÄ±¾
-	 * @param x ºá×ø±ê
-	 * @param y ×İ×ø±ê
-	 * @param gf ×ÖÌå¶¨Òå
+	 * æ ¹æ®å‚æ•°ç»˜åˆ¶æ–‡æœ¬
+	 * @param text æ–‡æœ¬
+	 * @param x æ¨ªåæ ‡
+	 * @param y çºµåæ ‡
+	 * @param gf å­—ä½“å®šä¹‰
 	 */
 	public void drawText(String text, int x, int y, GraphFont gf) {
 		if (!StringUtils.isValidString(text)) {
@@ -1508,9 +1508,9 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »­×İÏòÍø¸ñÏß
-	 * @param delx Íø¸ñÏßÖ®¼äµÄ¿í¶È
-	 * @param ci Íø¸ñÏßĞòºÅ
+	 * ç”»çºµå‘ç½‘æ ¼çº¿
+	 * @param delx ç½‘æ ¼çº¿ä¹‹é—´çš„å®½åº¦
+	 * @param ci ç½‘æ ¼çº¿åºå·
 	 */
 	public void drawGridLineV(double delx, int ci) {
 		if (ci == 0 || ci == gp.tickNum
@@ -1532,16 +1532,16 @@ public abstract class DrawBase implements IGraph {
 				gp.gRect2.y + 1);
 		g.setStroke(new BasicStroke(0.00001f));
 		Utils.drawLine(g,
-				// Ğ±±ßÏßÌ«¶Ì£¬Ö»ÓÃÖ±Ïß
+				// æ–œè¾¹çº¿å¤ªçŸ­ï¼Œåªç”¨ç›´çº¿
 				gp.gRect1.x + ci * delx,
 				gp.gRect1.y + gp.gRect1.height,
 				gp.gRect2.x + ci * delx, gp.gRect2.y + gp.gRect2.height);
 	}
 
 	/**
-	 * »­ºáÏòÍø¸ñÏß
-	 * @param dely Íø¸ñÏßÖ®¼äµÄ¸ß¶È
-	 * @param ci Íø¸ñÏßĞòºÅ
+	 * ç”»æ¨ªå‘ç½‘æ ¼çº¿
+	 * @param dely ç½‘æ ¼çº¿ä¹‹é—´çš„é«˜åº¦
+	 * @param ci ç½‘æ ¼çº¿åºå·
 	 */
 	public void drawGridLine(double dely, int ci) {
 		Color c = egp.getAxisColor(IGraphProperty.AXIS_LEFT);
@@ -1549,10 +1549,10 @@ public abstract class DrawBase implements IGraph {
 		if (c != null) {
 			Utils.setStroke(g, c, Consts.LINE_SOLID, 1.0f);
 			drawLine(gp.gRect1.x - vShift.x - gp.tickLen, tmpi, gp.gRect1.x
-					- vShift.x, tmpi, c); // Y×ø±êÖáµÄĞ¡¶ÌÏß
+					- vShift.x, tmpi, c); // Yåæ ‡è½´çš„å°çŸ­çº¿
 		}
 
-		// ÓÉÓÚÍø¸ñÏß¶¥Ïß¸úÍâ±ß¿òÖØºÏ£¬Ä¿Ç°ÊÇÍâ±ß¿òÑÕÉ«ÓÅÏÈ£»
+		// ç”±äºç½‘æ ¼çº¿é¡¶çº¿è·Ÿå¤–è¾¹æ¡†é‡åˆï¼Œç›®å‰æ˜¯å¤–è¾¹æ¡†é¢œè‰²ä¼˜å…ˆï¼›
 		if (ci == 0 || ci == gp.tickNum
 				|| gp.gridLineStyle == IGraphProperty.LINE_NONE) {
 			return;
@@ -1570,8 +1570,8 @@ public abstract class DrawBase implements IGraph {
 				* dely, gp.gRect2.x + gp.gRect2.width - 1, gp.gRect2.y
 				+ gp.gRect2.height - ci * dely);
 
-		if (c != null) {// Èç¹û×İÖá²»ÎªÍ¸Ã÷É«Ê±£¬ĞèÒª»æÖÆĞ±±ßÍø¸ñ
-			// Ğ±±ßÏßÌ«¶Ì£¬Ö»ÓÃÖ±Ïß ;
+		if (c != null) {// å¦‚æœçºµè½´ä¸ä¸ºé€æ˜è‰²æ—¶ï¼Œéœ€è¦ç»˜åˆ¶æ–œè¾¹ç½‘æ ¼
+			// æ–œè¾¹çº¿å¤ªçŸ­ï¼Œåªç”¨ç›´çº¿ ;
 			Utils.drawLine(g,gp.gRect1.x, gp.gRect1.y + gp.gRect1.height - ci
 					* dely, gp.gRect2.x,
 					gp.gRect2.y + gp.gRect2.height - ci * dely);
@@ -1580,8 +1580,8 @@ public abstract class DrawBase implements IGraph {
 
 	
 	/**
-	 * »­×İÏò·ÖÀàÍø¸ñÏß
-	 * @param catX ·ÖÀàµÄºá×ø±ê
+	 * ç”»çºµå‘åˆ†ç±»ç½‘æ ¼çº¿
+	 * @param catX åˆ†ç±»çš„æ¨ªåæ ‡
 	 */
 	public void drawGridLineCategoryV(double catX) {
 		if (gp.gridLineStyle == IGraphProperty.LINE_NONE) {
@@ -1602,8 +1602,8 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »­ºáÏò·ÖÀàÍø¸ñÏß
-	 * @param catY ·ÖÀàµÄ×İ×ø±ê
+	 * ç”»æ¨ªå‘åˆ†ç±»ç½‘æ ¼çº¿
+	 * @param catY åˆ†ç±»çš„çºµåæ ‡
 	 */
 	public void drawGridLineCategory(double catY) {
 		if (gp.gridLineStyle == IGraphProperty.LINE_NONE) {
@@ -1623,7 +1623,7 @@ public abstract class DrawBase implements IGraph {
 	}
 	
 	/**
-	 * ÈÃ³ö±ıÍ¼µÄÍâÎ§¿Õ¼ä
+	 * è®©å‡ºé¥¼å›¾çš„å¤–å›´ç©ºé—´
 	 */
 	public void keepGraphSpace() {
 		boolean isPie = (this instanceof DrawPie)
@@ -1649,12 +1649,12 @@ public abstract class DrawBase implements IGraph {
 					String fmt;
 					String text = "";
 					ExtGraphSery egs = (ExtGraphSery) sers.get(n);
-					// ÏÔÊ¾ÊıÖµ±êÊ¾
+					// æ˜¾ç¤ºæ•°å€¼æ ‡ç¤º
 					switch (gp.dispValueType) {
-					case 1: // ²»ÏÔÊ¾
+					case 1: // ä¸æ˜¾ç¤º
 						text = "";
 						break;
-					case 2: // ÏÔÊ¾ÊıÖµ
+					case 2: // æ˜¾ç¤ºæ•°å€¼
 						if (StringUtils.isValidString(gp.dataMarkFormat)) {
 							fmt = gp.dataMarkFormat;
 						} else {
@@ -1662,7 +1662,7 @@ public abstract class DrawBase implements IGraph {
 						}
 						text = getFormattedValue(egs.getValue(), fmt);
 						break;
-					default: // ÏÔÊ¾°Ù·Ö±È
+					default: // æ˜¾ç¤ºç™¾åˆ†æ¯”
 						if (StringUtils.isValidString(gp.dataMarkFormat)) {
 							fmt = gp.dataMarkFormat;
 						} else {
@@ -1697,7 +1697,7 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »­Í³¼ÆÍ¼±êÌâ 
+	 * ç”»ç»Ÿè®¡å›¾æ ‡é¢˜ 
 	 */
 	public void drawTitle() {
 		if (!StringUtils.isValidString(gp.GFV_TITLE.text)) {
@@ -1713,7 +1713,7 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »­Æ½ÃæÍ¼ĞÎÇøÓòµÄ¾ØĞÎ
+	 * ç”»å¹³é¢å›¾å½¢åŒºåŸŸçš„çŸ©å½¢
 	 */
 	public void drawGraphRect() {
 		if (gp.graphBackColor != null) {
@@ -1736,7 +1736,7 @@ public abstract class DrawBase implements IGraph {
 		}
 
 		double vx = 0, vy = 0, hx = 0, hy = 0;
-		// ×İÖáµÄxºÍyÆ«ÒÆÒÔ¼°ºáÖáµÄ
+		// çºµè½´çš„xå’Œyåç§»ä»¥åŠæ¨ªè½´çš„
 
 		g.setStroke(new BasicStroke(1f));
 		Color c;
@@ -1840,10 +1840,10 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »­×ø±êÖá±êÌâ
+	 * ç”»åæ ‡è½´æ ‡é¢˜
 	 */
 	public void drawLabel() {
-		/* »­XÖá±êÌâ */
+		/* ç”»Xè½´æ ‡é¢˜ */
 		String label = getLeftText();
 
 		int x = 0;
@@ -1855,7 +1855,7 @@ public abstract class DrawBase implements IGraph {
 			gp.bottomInset += TR.height + 2;
 		}
 
-		/* »­YÖá±êÌâ */
+		/* ç”»Yè½´æ ‡é¢˜ */
 		if (egp.isBarGraph(this)) {
 			label = gp.GFV_XTITLE.text;
 		} else {
@@ -1863,16 +1863,16 @@ public abstract class DrawBase implements IGraph {
 		}
 
 		if (StringUtils.isValidString(label)) {
-			// Y1Öá±êÌâ
+			// Y1è½´æ ‡é¢˜
 			TR = gp.GFV_YTITLE.getTextSize(label);
 			x = gp.leftInset;
 
-			// »æÖÆÊı¾İ±íÊ±£¬Êı¾İ±íµÄÎ»ÖÃ»áÇÖÕ¼×İÖáÎ»ÖÃ£¬Å²µ½ºóÃæÈ¥»­
+			// ç»˜åˆ¶æ•°æ®è¡¨æ—¶ï¼Œæ•°æ®è¡¨çš„ä½ç½®ä¼šä¾µå çºµè½´ä½ç½®ï¼ŒæŒªåˆ°åé¢å»ç”»
 			vlYTitle1 = new ValueLabel(label, new Point2D.Double(x, 0), null);
 			gp.leftInset += TR.width + 4;
 		}
 
-		if (egp.is2YGraph() && StringUtils.isValidString(gp.GFV_YTITLE.text2)) { // Y2Öá±êÌâ
+		if (egp.is2YGraph() && StringUtils.isValidString(gp.GFV_YTITLE.text2)) { // Y2è½´æ ‡é¢˜
 			TR = gp.GFV_YTITLE.getTextSize(gp.GFV_YTITLE.text2);
 			x = gp.graphWidth - gp.rightInset;
 
@@ -1884,14 +1884,14 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ»­Ò»¸öÊı¾İµã
-	 * @param pt µãµÄ×ø±ê
-	 * @param shape µãµÄĞÎ×´
-	 * @param radius °ë¾¶
-	 * @param borderStyle ±ß¿ò·ç¸ñ
-	 * @param borderWeight ±ß¿ò´Ö¶È
-	 * @param backColor ±³¾°É«
-	 * @param foreColor ±ß¿òÑÕÉ«
+	 * åœ¨æŒ‡å®šä½ç½®ç”»ä¸€ä¸ªæ•°æ®ç‚¹
+	 * @param pt ç‚¹çš„åæ ‡
+	 * @param shape ç‚¹çš„å½¢çŠ¶
+	 * @param radius åŠå¾„
+	 * @param borderStyle è¾¹æ¡†é£æ ¼
+	 * @param borderWeight è¾¹æ¡†ç²—åº¦
+	 * @param backColor èƒŒæ™¯è‰²
+	 * @param foreColor è¾¹æ¡†é¢œè‰²
 	 */
 	public void drawPoint(Point2D.Double pt, int shape, double radius, int borderStyle,
 			float borderWeight, Color backColor, Color foreColor) {
@@ -1905,21 +1905,21 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨¾ØĞÎÇøÓò²úÉú³¬Á´½ÓÄÚÈİ£¬²¢Ğ´Èë»º³åsb
-	 * @param x1 ºá×ø±ê
-	 * @param y1 ×İ×ø±ê
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
-	 * @param sb html»º³å
-	 * @param category ·ÖÀàÖµ
-	 * @param egs ÏµÁĞÖµ
+	 * åœ¨æŒ‡å®šçŸ©å½¢åŒºåŸŸäº§ç”Ÿè¶…é“¾æ¥å†…å®¹ï¼Œå¹¶å†™å…¥ç¼“å†²sb
+	 * @param x1 æ¨ªåæ ‡
+	 * @param y1 çºµåæ ‡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
+	 * @param sb htmlç¼“å†²
+	 * @param category åˆ†ç±»å€¼
+	 * @param egs ç³»åˆ—å€¼
 	 */
 	public void htmlLink(double x1, double y1, double w, double h, StringBuffer sb,
 			Object category, ExtGraphSery egs) {
 		if (disableLink() || sb==null) {
 			return;
 		}
-		// ³¬Á¬½Ó´¦Àí
+		// è¶…è¿æ¥å¤„ç†
 		int minimum = 10;
 		if (w < minimum) {
 			w = minimum;
@@ -1945,18 +1945,18 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨ÇøÓò²úÉú³¬Á´½ÓÄÚÈİ£¬²¢Ğ´Èë»º³åsb£¬·½·¨·ÏÆú
-	 * @param x1 ºá×ø±ê
-	 * @param y1 ×İ×ø±ê
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
-	 * @param sb html»º³å
-	 * @param category ·ÖÀàÖµ
-	 * @param egs ÏµÁĞÖµ
+	 * åœ¨æŒ‡å®šåŒºåŸŸäº§ç”Ÿè¶…é“¾æ¥å†…å®¹ï¼Œå¹¶å†™å…¥ç¼“å†²sbï¼Œæ–¹æ³•åºŸå¼ƒ
+	 * @param x1 æ¨ªåæ ‡
+	 * @param y1 çºµåæ ‡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
+	 * @param sb htmlç¼“å†²
+	 * @param category åˆ†ç±»å€¼
+	 * @param egs ç³»åˆ—å€¼
 	 */
 	public void htmlLink2(double x1, double y1, double w, double h, StringBuffer sb,
 			Object category, ExtGraphSery egs) {
-		// ³¬Á¬½Ó´¦Àí
+		// è¶…è¿æ¥å¤„ç†
 		if (disableLink() || sb==null) {
 			return;
 		}
@@ -1985,12 +1985,12 @@ public abstract class DrawBase implements IGraph {
 	private boolean debuglink = true;
 
 	/**
-	 * Éú³ÉÒ»¶Î»·ĞÎ×´µÄ³¬Á´½Ó£¬²¢½«ÄÚÈİĞ´Èë»º³åsb
-	 * @param ddd ÍâÎ§»¡
-	 * @param sb html»º³å
-	 * @param category ·ÖÀàÖµ
-	 * @param egs ÏµÁĞÖµ
-	 * @param ddd2 ÄÚÎ§»¡
+	 * ç”Ÿæˆä¸€æ®µç¯å½¢çŠ¶çš„è¶…é“¾æ¥ï¼Œå¹¶å°†å†…å®¹å†™å…¥ç¼“å†²sb
+	 * @param ddd å¤–å›´å¼§
+	 * @param sb htmlç¼“å†²
+	 * @param category åˆ†ç±»å€¼
+	 * @param egs ç³»åˆ—å€¼
+	 * @param ddd2 å†…å›´å¼§
 	 */
 	public void htmlLink(Arc2D.Double ddd, StringBuffer sb, Object category,
 			ExtGraphSery egs, Arc2D.Double ddd2) {
@@ -2043,7 +2043,7 @@ public abstract class DrawBase implements IGraph {
 		coords.append("," + (int) ddd.getEndPoint().getX());
 		coords.append(seperator + (int) ddd.getEndPoint().getY());
 
-		if (ddd2 != null) { // Ğ¡»·×ø±êµÃ·´¹ıÀ´
+		if (ddd2 != null) { // å°ç¯åæ ‡å¾—åè¿‡æ¥
 			coords.append("," + (int) ddd2.getEndPoint().getX());
 			coords.append(seperator + (int) ddd2.getEndPoint().getY());
 
@@ -2061,7 +2061,7 @@ public abstract class DrawBase implements IGraph {
 			coords.append(seperator + (int) ddd2.getStartPoint().getY());
 		}
 
-		// ±ıÍ¼µÄhtmllinkÊı¾İ²»ÔÙÊ¹ÓÃ¸ñÊ½»¯£¬ÒòÎª±ıÍ¼±¾ÉíÏÔÊ¾Êı¾İÎª°Ù·Ö±ÈÊ±£¬linkµÄÊı¾İÎªÔ­Öµ£¬²»ÄÜÊ¹ÓÃ¶¨ÒåµÄ¸ñÊ½
+		// é¥¼å›¾çš„htmllinkæ•°æ®ä¸å†ä½¿ç”¨æ ¼å¼åŒ–ï¼Œå› ä¸ºé¥¼å›¾æœ¬èº«æ˜¾ç¤ºæ•°æ®ä¸ºç™¾åˆ†æ¯”æ—¶ï¼Œlinkçš„æ•°æ®ä¸ºåŸå€¼ï¼Œä¸èƒ½ä½¿ç”¨å®šä¹‰çš„æ ¼å¼
 		String dispVal = null;
 		if (!egs.isNull()) {
 			double scaledVal = getScaledValue(egs.getValue(), true);
@@ -2076,7 +2076,7 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * È¡ÕÛÏßstroke
+	 * å–æŠ˜çº¿stroke
 	 * @return stroke
 	 */
 	public Stroke getLineStroke() {
@@ -2084,9 +2084,9 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ¸ù¾İ¶¨Òå²úÉúÖ±Ïßstroke
-	 * @param style ÏßĞÍ
-	 * @param thick ´Ö¶È
+	 * æ ¹æ®å®šä¹‰äº§ç”Ÿç›´çº¿stroke
+	 * @param style çº¿å‹
+	 * @param thick ç²—åº¦
 	 * @return stroke
 	 */
 	public BasicStroke getLineStroke(int style, float thick) {
@@ -2101,8 +2101,8 @@ public abstract class DrawBase implements IGraph {
 			dashes = new float[] { 2, 2, 6, 2 };
 			break;
 		case IGraphProperty.LINE_2DOT_DASH:
-			dashes = new float[] { 2, 2, 2, 2, 6, 2 }; // Ò»½ÚµÄ¶¨Òå
-														// Êµ2,¿Õ2,Êµ2,¿Õ2,Êµ6,¿Õ2
+			dashes = new float[] { 2, 2, 2, 2, 6, 2 }; // ä¸€èŠ‚çš„å®šä¹‰
+														// å®2,ç©º2,å®2,ç©º2,å®6,ç©º2
 			break;
 		case IGraphProperty.LINE_LONG_DASH:
 			dashes = new float[] { 5 };
@@ -2118,11 +2118,11 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ÓÉÓÚ¾¯½äÏß×ø±êÎªÕûÌå¼ÆËãµÄ£¬¶ø×ø±ê±êÇ©ÔòÊÇÓÃ¼ä¸ô³ËÒÔ¿Õ¾àÀÛËãµÄ£¬ËùÒÔ²¿·ÖÖµÓĞÀÛ»ıÎó²î
-	 * ¸Ãº¯Êı½â¾öµ±¾¯½äÖµ°üº¬ÔÚ×ø±ê±êÇ©ÖĞÊ±£¬ÓÉ×ÓÀàÖØĞÂ°´ÕÕ¿Õ¾àÀÛËã¸²¸Ç¸Ã·½·¨ÒÔ±£Ö¤Á½ÕßµÄ×ø±êÒ»ÖÂ
+	 * ç”±äºè­¦æˆ’çº¿åæ ‡ä¸ºæ•´ä½“è®¡ç®—çš„ï¼Œè€Œåæ ‡æ ‡ç­¾åˆ™æ˜¯ç”¨é—´éš”ä¹˜ä»¥ç©ºè·ç´¯ç®—çš„ï¼Œæ‰€ä»¥éƒ¨åˆ†å€¼æœ‰ç´¯ç§¯è¯¯å·®
+	 * è¯¥å‡½æ•°è§£å†³å½“è­¦æˆ’å€¼åŒ…å«åœ¨åæ ‡æ ‡ç­¾ä¸­æ—¶ï¼Œç”±å­ç±»é‡æ–°æŒ‰ç…§ç©ºè·ç´¯ç®—è¦†ç›–è¯¥æ–¹æ³•ä»¥ä¿è¯ä¸¤è€…çš„åæ ‡ä¸€è‡´
 	 * 
 	 * @param alarmVal
-	 *            double ¾¯½äÖµ
+	 *            double è­¦æˆ’å€¼
 	 * @return Point null
 	 */
 	public Point2D.Double getCoorPoint(double alarmVal) {
@@ -2130,7 +2130,7 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »æÖÆ¾¯½äÏß
+	 * ç»˜åˆ¶è­¦æˆ’çº¿
 	 */
 	public void drawWarnLine() {
 		ArrayList warnLines = egp.getAlarmLines();
@@ -2185,7 +2185,7 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »æÖÆºáÏò×ø±êÖáµÄ¾¯½äÏß
+	 * ç»˜åˆ¶æ¨ªå‘åæ ‡è½´çš„è­¦æˆ’çº¿
 	 */
 	public void drawWarnLineH() {
 		ArrayList warnLines = egp.getAlarmLines();
@@ -2236,11 +2236,11 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ½«×ÖÌåµÄ¸÷ÀàÊôĞÔ·â×°µ½×ÖÌåÊÓÍ¼£¬·½±ã»æÍ¼²ÎÊı´«µİ
-	 * @param gf ×ÖÌå¶¨Òå
-	 * @param text ÎÄ×Ö
-	 * @param fontType ×ÖÌåÀàĞÍ
-	 * @return ×ÖÌåÊÓÍ¼
+	 * å°†å­—ä½“çš„å„ç±»å±æ€§å°è£…åˆ°å­—ä½“è§†å›¾ï¼Œæ–¹ä¾¿ç»˜å›¾å‚æ•°ä¼ é€’
+	 * @param gf å­—ä½“å®šä¹‰
+	 * @param text æ–‡å­—
+	 * @param fontType å­—ä½“ç±»å‹
+	 * @return å­—ä½“è§†å›¾
 	 */
 	public GraphFontView getGraphFontView(GraphFont gf, String text,
 			int fontType) {
@@ -2363,14 +2363,14 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ´´½¨×İ×ø±êµÄÖµ±êÇ©,Èç¹ûÊÇÊ±¼äĞòÁĞÍ¼£¬Ôò´´½¨xÖáµÄÊ±¼ä¿Ì¶ÈÖµ
+	 * åˆ›å»ºçºµåæ ‡çš„å€¼æ ‡ç­¾,å¦‚æœæ˜¯æ—¶é—´åºåˆ—å›¾ï¼Œåˆ™åˆ›å»ºxè½´çš„æ—¶é—´åˆ»åº¦å€¼
 	 */
 	public void createCoorValue() {
 		boolean isUserValue = egp.isUserSetYEndValue1();
 		createCoorValue(!isUserValue);
 	}
 
-	// ¶Ñ»ıÍ¼µÄ×î´óÖµÈÔÈ»Ã»·¨ÉèÖÃ£¬ÒòÎªÓĞÕıÓĞ¸º£¬´Ë´¦µ÷ÕûÎªºÏÀí×î´óÖµ
+	// å †ç§¯å›¾çš„æœ€å¤§å€¼ä»ç„¶æ²¡æ³•è®¾ç½®ï¼Œå› ä¸ºæœ‰æ­£æœ‰è´Ÿï¼Œæ­¤å¤„è°ƒæ•´ä¸ºåˆç†æœ€å¤§å€¼
 	private double getAutoInterval(double max) {
 		if (max > 50) {
 			return (10 * gp.coorScale);
@@ -2381,8 +2381,8 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ²úÉú×ø±ê¿Ì¶ÈÖµ
-	 * @param adjustMaxValue µ÷Õû¿Ì¶È×î´óÖµÎªÈ¡ÕûÖµ
+	 * äº§ç”Ÿåæ ‡åˆ»åº¦å€¼
+	 * @param adjustMaxValue è°ƒæ•´åˆ»åº¦æœ€å¤§å€¼ä¸ºå–æ•´å€¼
 	 */
 	public void createCoorValue(boolean adjustMaxValue) {
 		if (!egp.isStackedGraph(this)) {
@@ -2434,7 +2434,7 @@ public abstract class DrawBase implements IGraph {
 			if (gp.interval == 0.0) {
 				gp.interval = getAutoInterval(gp.maxValue);
 			}
-			double veryMin = 0.000001;// ÓÉÓÃ»§Éè¶¨µÄ¼ä¸ôÖµÈÔÈ»Ã»·¨Õû³ı£¬µ«ºÜ½Ó½üÊ±£¬²»ÔÙµ÷Õû
+			double veryMin = 0.000001;// ç”±ç”¨æˆ·è®¾å®šçš„é—´éš”å€¼ä»ç„¶æ²¡æ³•æ•´é™¤ï¼Œä½†å¾ˆæ¥è¿‘æ—¶ï¼Œä¸å†è°ƒæ•´
 			if (gp.maxValue % (gp.interval / gp.coorScale) > veryMin
 					&& adjustMaxValue) {
 				gp.maxValue = gp.maxValue - gp.maxValue
@@ -2589,30 +2589,30 @@ public abstract class DrawBase implements IGraph {
 					gp.GFV_YTITLE.text = gp.GFV_YTITLE.text + "("
 							+ gp.xToChinese(gp.coorScale) + ")";
 				} else {
-					gp.GFV_YTITLE.text = gp.GFV_YTITLE.text + "(±ÈÀı£º1:"
+					gp.GFV_YTITLE.text = gp.GFV_YTITLE.text + "(æ¯”ä¾‹ï¼š1:"
 							+ gp.coorScale + ")";
 				}
 			} else if (gp.scaleMark != IGraphProperty.UNIT_ORIGIN) {
 				if (gp.scaleMark == IGraphProperty.UNIT_THOUSAND) {
-					gp.GFV_YTITLE.text += "(Ç§)";
+					gp.GFV_YTITLE.text += "(åƒ)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_10THOUSAND) {
-					gp.GFV_YTITLE.text += "(Íò)";
+					gp.GFV_YTITLE.text += "(ä¸‡)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_MILLION) {
-					gp.GFV_YTITLE.text += "(°ÙÍò)";
+					gp.GFV_YTITLE.text += "(ç™¾ä¸‡)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_10MILLION) {
-					gp.GFV_YTITLE.text += "(Ç§Íò)";
+					gp.GFV_YTITLE.text += "(åƒä¸‡)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_100MILLION) {
-					gp.GFV_YTITLE.text += "(ÒÚ)";
+					gp.GFV_YTITLE.text += "(äº¿)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_BILLION) {
-					gp.GFV_YTITLE.text += "(Ê®ÒÚ)";
+					gp.GFV_YTITLE.text += "(åäº¿)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_001) {
-					gp.GFV_YTITLE.text += "(°Ù·ÖÖ®Ò»)";
+					gp.GFV_YTITLE.text += "(ç™¾åˆ†ä¹‹ä¸€)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_0001) {
-					gp.GFV_YTITLE.text += "(Ç§·ÖÖ®Ò»)";
+					gp.GFV_YTITLE.text += "(åƒåˆ†ä¹‹ä¸€)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_00001) {
-					gp.GFV_YTITLE.text += "(Íò·ÖÖ®Ò»)";
+					gp.GFV_YTITLE.text += "(ä¸‡åˆ†ä¹‹ä¸€)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_0000001) {
-					gp.GFV_YTITLE.text += "(°ÙÍò·ÖÖ®Ò»)";
+					gp.GFV_YTITLE.text += "(ç™¾ä¸‡åˆ†ä¹‹ä¸€)";
 				}
 			}
 		} else { // English
@@ -2819,30 +2819,30 @@ public abstract class DrawBase implements IGraph {
 					gp.GFV_YTITLE.text2 = gp.GFV_YTITLE.text2 + "("
 							+ gp.xToChinese(gp.coorScale2) + ")";
 				} else {
-					gp.GFV_YTITLE.text2 = gp.GFV_YTITLE.text2 + "(±ÈÀı£º1:"
+					gp.GFV_YTITLE.text2 = gp.GFV_YTITLE.text2 + "(æ¯”ä¾‹ï¼š1:"
 							+ gp.coorScale2 + ")";
 				}
 			} else if (gp.scaleMark != IGraphProperty.UNIT_ORIGIN) {
 				if (gp.scaleMark == IGraphProperty.UNIT_THOUSAND) {
-					gp.GFV_YTITLE.text2 += "(Ç§)";
+					gp.GFV_YTITLE.text2 += "(åƒ)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_10THOUSAND) {
-					gp.GFV_YTITLE.text2 += "(Íò)";
+					gp.GFV_YTITLE.text2 += "(ä¸‡)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_MILLION) {
-					gp.GFV_YTITLE.text2 += "(°ÙÍò)";
+					gp.GFV_YTITLE.text2 += "(ç™¾ä¸‡)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_10MILLION) {
-					gp.GFV_YTITLE.text2 += "(Ç§Íò)";
+					gp.GFV_YTITLE.text2 += "(åƒä¸‡)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_BILLION) {
-					gp.GFV_YTITLE.text2 += "(ÒÚ)";
+					gp.GFV_YTITLE.text2 += "(äº¿)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_100MILLION) {
-					gp.GFV_YTITLE.text2 += "(Ê®ÒÚ)";
+					gp.GFV_YTITLE.text2 += "(åäº¿)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_001) {
-					gp.GFV_YTITLE.text2 += "(°Ù·ÖÖ®Ò»)";
+					gp.GFV_YTITLE.text2 += "(ç™¾åˆ†ä¹‹ä¸€)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_0001) {
-					gp.GFV_YTITLE.text2 += "(Ç§·ÖÖ®Ò»)";
+					gp.GFV_YTITLE.text2 += "(åƒåˆ†ä¹‹ä¸€)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_00001) {
-					gp.GFV_YTITLE.text2 += "(Íò·ÖÖ®Ò»)";
+					gp.GFV_YTITLE.text2 += "(ä¸‡åˆ†ä¹‹ä¸€)";
 				} else if (gp.scaleMark == IGraphProperty.UNIT_0000001) {
-					gp.GFV_YTITLE.text2 += "(°ÙÍò·ÖÖ®Ò»)";
+					gp.GFV_YTITLE.text2 += "(ç™¾ä¸‡åˆ†ä¹‹ä¸€)";
 				}
 			}
 		} else { // English
@@ -2871,8 +2871,8 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »æÖÆÊı¾İ±í
-	 * Ä¿Ç°Ö»¿¼ÂÇÔÚÖù×´Í¼µÄÏÂ·½»­Êı¾İ±í
+	 * ç»˜åˆ¶æ•°æ®è¡¨
+	 * ç›®å‰åªè€ƒè™‘åœ¨æŸ±çŠ¶å›¾çš„ä¸‹æ–¹ç”»æ•°æ®è¡¨
 	 */
 	public void drawDataTable() {
 		float axisWidth = gp.graphWidth - gp.leftInset - gp.rightInset;
@@ -2954,7 +2954,7 @@ public abstract class DrawBase implements IGraph {
 			yy = y;
 		}
 		for (int i = 0; i < al.size(); i++) {
-			if (i > 0 && yy + lineH > y + h) { // µÚÒ»ĞĞ×ÜÊÇ»æÖÆ£¬ÆäÓàĞĞÈç¹ûÔÚ¿òÍâ²»»­£¬·ñÔòÕÚ¸Ç±ğµÄ¸ñ×ÓÎÄ×Ö
+			if (i > 0 && yy + lineH > y + h) { // ç¬¬ä¸€è¡Œæ€»æ˜¯ç»˜åˆ¶ï¼Œå…¶ä½™è¡Œå¦‚æœåœ¨æ¡†å¤–ä¸ç”»ï¼Œå¦åˆ™é®ç›–åˆ«çš„æ ¼å­æ–‡å­—
 				break;
 			}
 
@@ -2976,7 +2976,7 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * µ÷Õû×ø±êËõ½øÎ»ÖÃ
+	 * è°ƒæ•´åæ ‡ç¼©è¿›ä½ç½®
 	 * */
 	public void adjustCoorInset() {
 		int maxValW = 0;
@@ -3024,7 +3024,7 @@ public abstract class DrawBase implements IGraph {
 			gp.bottomInset += maxValH + 4;
 		} else {
 			gp.leftInset += maxValW + 4;
-			if (!gp.isDrawTable) {// Ä¿Ç°µÄÊı¾İ±í½öÖ§³ÖÔÚXÖáÉÏ»æÖÆ
+			if (!gp.isDrawTable) {// ç›®å‰çš„æ•°æ®è¡¨ä»…æ”¯æŒåœ¨Xè½´ä¸Šç»˜åˆ¶
 				gp.bottomInset += maxCatH + 4;
 			}
 
@@ -3053,14 +3053,14 @@ public abstract class DrawBase implements IGraph {
 				gp.rightInset += maxValW + 4;
 			}
 
-			if (gp.isDrawTable) {// Ä¿Ç°µÄÊı¾İ±í½öÖ§³ÖÔÚXÖáÉÏ»æÖÆ
+			if (gp.isDrawTable) {// ç›®å‰çš„æ•°æ®è¡¨ä»…æ”¯æŒåœ¨Xè½´ä¸Šç»˜åˆ¶
 				drawDataTable();
 			}
 		}
 	}
 
 	/**
-	 * ³õÊ¼»¯Í³¼ÆÍ¼±ß¾à
+	 * åˆå§‹åŒ–ç»Ÿè®¡å›¾è¾¹è·
 	 */
 	public void initGraphInset() {
 		gp.leftInset = gp.leftMargin;
@@ -3070,13 +3070,13 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * Ö¸¶¨¸ñÊ½À´¸ñÊ½»¯Êı¾İ
+	 * æŒ‡å®šæ ¼å¼æ¥æ ¼å¼åŒ–æ•°æ®
 	 * 
 	 * @param value
-	 *            double Òª¸ñÊ½»¯µÄÊıÖµ
+	 *            double è¦æ ¼å¼åŒ–çš„æ•°å€¼
 	 * @param fmt
-	 *            String ¸ñÊ½
-	 * @return String ¸ñÊ½»¯ºóµÄ´®
+	 *            String æ ¼å¼
+	 * @return String æ ¼å¼åŒ–åçš„ä¸²
 	 */
 	public String getFormattedValue(double value, String fmt) {
 		double tmp = value;
@@ -3091,20 +3091,20 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * Ê¹ÓÃÅäÖÃµÄ¸ñÊ½À´¸ñÊ½»¯ÊıÖµ
+	 * ä½¿ç”¨é…ç½®çš„æ ¼å¼æ¥æ ¼å¼åŒ–æ•°å€¼
 	 * @param value
-	 *            double£¬Òª¸ñÊ½»¯µÄÊıÖµ
-	 * @return String£¬¸ñÊ½»¯ÍêºóµÄ´®
+	 *            doubleï¼Œè¦æ ¼å¼åŒ–çš„æ•°å€¼
+	 * @return Stringï¼Œæ ¼å¼åŒ–å®Œåçš„ä¸²
 	 */
 	public String getFormattedValue(double value) {
 		return getFormattedValue(value, gp.dataMarkFormat);
 	}
 
 	/**
-	 * ½«Ô­Öµ¸ù¾İµ¥Î»Ëã³ö±ÈÀıÖµ
-	 * @param orginalVal Ô­Ê¼ÊıÖµ
-	 * @param isFirstAxis ÊÇ·ñµÚÒ»ÖáÊıÖµ
-	 * @return ±ÈÀı»¯ºóµÄÊıÖµ
+	 * å°†åŸå€¼æ ¹æ®å•ä½ç®—å‡ºæ¯”ä¾‹å€¼
+	 * @param orginalVal åŸå§‹æ•°å€¼
+	 * @param isFirstAxis æ˜¯å¦ç¬¬ä¸€è½´æ•°å€¼
+	 * @return æ¯”ä¾‹åŒ–åçš„æ•°å€¼
 	 */
 	public double getScaledValue(double orginalVal, boolean isFirstAxis) {
 		double scaledVal;
@@ -3118,20 +3118,20 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »ñÈ¡ÏµÁĞ¶¨ÒåµÄtipÏÔÊ¾Öµ
-	 * @param egs ÏµÁĞ
-	 * @return ÏÔÊ¾Öµ
+	 * è·å–ç³»åˆ—å®šä¹‰çš„tipæ˜¾ç¤ºå€¼
+	 * @param egs ç³»åˆ—
+	 * @return æ˜¾ç¤ºå€¼
 	 */
 	public String getDispValue(ExtGraphSery egs) {
 		return getDispValue(null, egs, 0);
 	}
 
 	/**
-	 * »ñÈ¡·ÖÀàÒÔ¼°ÏµÁĞµÄ³¬Á´½ÓtipÏÔÊ¾Öµ
-	 * @param egc ·ÖÀà
-	 * @param egs ÏµÁĞ
-	 * @param serNum ÏµÁĞ¸öÊı
-	 * @return ¸ñÊ½´®ÏÔÊ¾Öµ
+	 * è·å–åˆ†ç±»ä»¥åŠç³»åˆ—çš„è¶…é“¾æ¥tipæ˜¾ç¤ºå€¼
+	 * @param egc åˆ†ç±»
+	 * @param egs ç³»åˆ—
+	 * @param serNum ç³»åˆ—ä¸ªæ•°
+	 * @return æ ¼å¼ä¸²æ˜¾ç¤ºå€¼
 	 */
 	public String getDispValue(ExtGraphCategory egc, ExtGraphSery egs,
 			int serNum) {
@@ -3148,20 +3148,20 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »ñÈ¡ÏµÁĞ¶¨ÒåµÄtipÏÔÊ¾Öµ£¬Ë«ÖáÍ¼µÚ2ÖáÓÃ
-	 * @param egs ÏµÁĞ
-	 * @return ÏÔÊ¾Öµ
+	 * è·å–ç³»åˆ—å®šä¹‰çš„tipæ˜¾ç¤ºå€¼ï¼ŒåŒè½´å›¾ç¬¬2è½´ç”¨
+	 * @param egs ç³»åˆ—
+	 * @return æ˜¾ç¤ºå€¼
 	 */
 	public String getDispValue2(ExtGraphSery egs) {
 		return getDispValue2(null, egs, 0);
 	}
 
 	/**
-	 * »ñÈ¡·ÖÀàÒÔ¼°ÏµÁĞµÄ³¬Á´½ÓtipÏÔÊ¾Öµ£¬Ë«ÖáÍ¼µÚ2ÖáÊı¾İÓÃ
-	 * @param egc ·ÖÀà
-	 * @param egs ÏµÁĞ
-	 * @param serNum ÏµÁĞ¸öÊı
-	 * @return ¸ñÊ½´®ÏÔÊ¾Öµ
+	 * è·å–åˆ†ç±»ä»¥åŠç³»åˆ—çš„è¶…é“¾æ¥tipæ˜¾ç¤ºå€¼ï¼ŒåŒè½´å›¾ç¬¬2è½´æ•°æ®ç”¨
+	 * @param egc åˆ†ç±»
+	 * @param egs ç³»åˆ—
+	 * @param serNum ç³»åˆ—ä¸ªæ•°
+	 * @return æ ¼å¼ä¸²æ˜¾ç¤ºå€¼
 	 */
 	public String getDispValue2(ExtGraphCategory egc, ExtGraphSery egs,
 			int serNum) {
@@ -3186,11 +3186,11 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ¸ù¾İÅäÖÃ½«ÏÔÊ¾ÖµÏÔÊ¾Îªtitle»¹ÊÇvalueµÄ¸ñÊ½»¯Öµ
-	 * @param value Ô­Ê¼ÊıÖµ
-	 * @param title È±Ê¡ÏÔÊ¾±êÌâ
-	 * @param fmt ¸ñÊ½
-	 * @return string ¸ñÊ½´®ÏÔÊ¾Öµ
+	 * æ ¹æ®é…ç½®å°†æ˜¾ç¤ºå€¼æ˜¾ç¤ºä¸ºtitleè¿˜æ˜¯valueçš„æ ¼å¼åŒ–å€¼
+	 * @param value åŸå§‹æ•°å€¼
+	 * @param title ç¼ºçœæ˜¾ç¤ºæ ‡é¢˜
+	 * @param fmt æ ¼å¼
+	 * @return string æ ¼å¼ä¸²æ˜¾ç¤ºå€¼
 	 */
 	public String getDispValue(double value, String title) {
 		if (gp.dispValueType == IGraphProperty.DISPDATA_TITLE) {
@@ -3201,19 +3201,19 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »æÖÆÁ½µã¼äµÄÖ±Ïß
-	 * @param b ÆğÊ¼µã
-	 * @param e ½áÊøµã
+	 * ç»˜åˆ¶ä¸¤ç‚¹é—´çš„ç›´çº¿
+	 * @param b èµ·å§‹ç‚¹
+	 * @param e ç»“æŸç‚¹
 	 */
 	public void drawLine(Point2D.Double b, Point2D.Double e) {
 		drawLine(b, e, egp.isDrawShade());
 	}
 
 	/**
-	 * »æÖÆÁ½µã¼äµÄÖ±Ïß
-	 * @param b ÆğÊ¼µã
-	 * @param e ½áÊøµã
-	 * @param drawShade ÊÇ·ñ»æÖÆÒõÓ°
+	 * ç»˜åˆ¶ä¸¤ç‚¹é—´çš„ç›´çº¿
+	 * @param b èµ·å§‹ç‚¹
+	 * @param e ç»“æŸç‚¹
+	 * @param drawShade æ˜¯å¦ç»˜åˆ¶é˜´å½±
 	 */
 	public void drawLine(Point2D.Double b, Point2D.Double e, boolean drawShade) {
 		if (b == null || e == null) {
@@ -3236,8 +3236,8 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * µ±Ç°»·¾³ÊÇ·ñÎªÖĞÎÄ»·¾³
-	 * @return Èç¹ûÊÇ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å½“å‰ç¯å¢ƒæ˜¯å¦ä¸ºä¸­æ–‡ç¯å¢ƒ
+	 * @return å¦‚æœæ˜¯è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isChinese() {
 		return (Locale.getDefault().equals(Locale.CHINA)
@@ -3246,11 +3246,11 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »ñÈ¡·ÖÀàºÍÏµÁĞµÄÏÔÊ¾Ãû
-	 * @param egc ·ÖÀà
-	 * @param egs ÏµÁĞ
-	 * @param serNum ÏµÀà¸öÊı
-	 * @return ÏÔÊ¾Ãû
+	 * è·å–åˆ†ç±»å’Œç³»åˆ—çš„æ˜¾ç¤ºå
+	 * @param egc åˆ†ç±»
+	 * @param egs ç³»åˆ—
+	 * @param serNum ç³»ç±»ä¸ªæ•°
+	 * @return æ˜¾ç¤ºå
 	 */
 	public static String getDispName(ExtGraphCategory egc, ExtGraphSery egs,
 			int serNum) {
@@ -3261,9 +3261,9 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * ¼ÆËãÊı¾İ±íµÄ¸ß¶È
-	 * @param cs Êı¾İ±íµÄÍø¸ñ¶ÔÏó
-	 * @return ¸ß¶È
+	 * è®¡ç®—æ•°æ®è¡¨çš„é«˜åº¦
+	 * @param cs æ•°æ®è¡¨çš„ç½‘æ ¼å¯¹è±¡
+	 * @return é«˜åº¦
 	 */
 	public float getDataTableHeight(CellSet cs) {
 		int rows = cs.getRowCount();
@@ -3276,9 +3276,9 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	/**
-	 * »ñÈ¡²¼¾ÖºÃĞĞ¸ß£¬ÁĞ¿íºóµÄµÄÊı¾İ±íÍø¸ñ
-	 * @param axisLen ÖáµÄ³¤¶È
-	 * @return Êı¾İ±íÍø¸ñ
+	 * è·å–å¸ƒå±€å¥½è¡Œé«˜ï¼Œåˆ—å®½åçš„çš„æ•°æ®è¡¨ç½‘æ ¼
+	 * @param axisLen è½´çš„é•¿åº¦
+	 * @return æ•°æ®è¡¨ç½‘æ ¼
 	 */
 	public CellSet getDataTable(double axisLen) {
 		int rows = gp.serNum + 1;
@@ -3339,7 +3339,7 @@ public abstract class DrawBase implements IGraph {
 				}
 			}
 		}
-		// Êı¾İ±íµÄ·ÖÀàÒÔ¼°ÏµÁĞÃû³Æ²ÉÓÃ xÖá±êÇ©×ÖÌå£¬×Ô¶¯³Å´óĞĞ¸ß
+		// æ•°æ®è¡¨çš„åˆ†ç±»ä»¥åŠç³»åˆ—åç§°é‡‡ç”¨ xè½´æ ‡ç­¾å­—ä½“ï¼Œè‡ªåŠ¨æ’‘å¤§è¡Œé«˜
 		for (int r = 1; r <= rows; r++) {
 			IRowCell rc = cs.getRowCell(r);
 			float rowH = rc.getHeight();

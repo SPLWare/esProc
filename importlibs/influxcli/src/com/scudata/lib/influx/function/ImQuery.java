@@ -7,7 +7,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Table;
 import com.scudata.expression.Node;
 
-// sql²éÑ¯
+// sqlæŸ¥è¯¢
 public class ImQuery extends ImFunction {
 	private InfluxDBUtil m_influxDB;
 	

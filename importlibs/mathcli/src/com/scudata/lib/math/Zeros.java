@@ -10,7 +10,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È«0¾ØÕóº¯Êızeros(n1,n2,...)
+ * å…¨0çŸ©é˜µå‡½æ•°zeros(n1,n2,...)
  * @author bd
  */
 public class Zeros extends Function {
@@ -39,7 +39,7 @@ public class Zeros extends Function {
 						throw new RQException("zeros" + mm.getMessage("function.invalidParam"));
 					}
 					else {
-						// µ¥ÖµĞòÁĞ
+						// å•å€¼åºåˆ—
 						o = nseq.get(1);
 						nseq = new Sequence(2);
 						nseq.add(o);

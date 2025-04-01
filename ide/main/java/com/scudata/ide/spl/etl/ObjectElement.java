@@ -15,7 +15,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.ide.common.GC;
 
 /**
- * ¸¨Öúº¯ÊıµÄ¶ÔÏóÔªËØ»ùÀà
+ * è¾…åŠ©å‡½æ•°çš„å¯¹è±¡å…ƒç´ åŸºç±»
  * 
  * cellName.funcName(args...)
  * @author Joancy
@@ -26,20 +26,20 @@ public abstract class ObjectElement implements IFuncObject{
 	public static String SNULL = "_NULL_";
 	
 	String elementName;
-	String cellName = null;//¸ñ×ÓÃû×Ö£¬ ¶ÔÓ¦ÓÚº¯ÊıµÄÊµÀı¸ñ×Ó
+	String cellName = null;//æ ¼å­åå­—ï¼Œ å¯¹åº”äºå‡½æ•°çš„å®ä¾‹æ ¼å­
 
-	public abstract byte getReturnType();//º¯Êı·µ»ØÀàĞÍ
-	public abstract String getFuncName();//º¯ÊıÊéĞ´Ãû³Æ
-	public abstract String getFuncBody();//º¯ÊıÌå±í´ïÊ½
-	public abstract String optionString();//º¯ÊıÑ¡Ïî
-	public void checkEmpty(){};//ÊôĞÔ±ØÌîÏî¿ÕÖµ¼ì²é
+	public abstract byte getReturnType();//å‡½æ•°è¿”å›ç±»å‹
+	public abstract String getFuncName();//å‡½æ•°ä¹¦å†™åç§°
+	public abstract String getFuncBody();//å‡½æ•°ä½“è¡¨è¾¾å¼
+	public abstract String optionString();//å‡½æ•°é€‰é¡¹
+	public void checkEmpty(){};//å±æ€§å¿…å¡«é¡¹ç©ºå€¼æ£€æŸ¥
 	
-	public abstract ParamInfoList getParamInfoList();//²ÎÊıÁĞ±í
-	public abstract boolean setFuncBody(String funcBody);//º¯ÊıÌå
+	public abstract ParamInfoList getParamInfoList();//å‚æ•°åˆ—è¡¨
+	public abstract boolean setFuncBody(String funcBody);//å‡½æ•°ä½“
 	
 	/**
-	 * ÉèÖÃº¯ÊıµÄÑ¡Ïî
-	 * @param options Ñ¡Ïî
+	 * è®¾ç½®å‡½æ•°çš„é€‰é¡¹
+	 * @param options é€‰é¡¹
 	 */
 	public void setOptions(String options){
 		if(options==null){
@@ -54,7 +54,7 @@ public abstract class ObjectElement implements IFuncObject{
 			String fieldName = pi.getName();
 			try {
 				Field  fieldOption = getClass().getField(fieldName);
-//				0ºÍ1Ñ¡ÏîµÄÊôĞÔÃûÎª¶ÔÓ¦µÄÓ¢ÎÄ
+//				0å’Œ1é€‰é¡¹çš„å±æ€§åä¸ºå¯¹åº”çš„è‹±æ–‡
 				if(fieldName.equals("zero")){
 					fieldName = "0";
 				}else if(fieldName.equals("one")){
@@ -70,8 +70,8 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * ½«º¯Êı¶¨Òå×ª»»Îª±í´ïÊ½ÀàĞÍ´®
-	 * @return ±í´ïÊ½´®
+	 * å°†å‡½æ•°å®šä¹‰è½¬æ¢ä¸ºè¡¨è¾¾å¼ç±»å‹ä¸²
+	 * @return è¡¨è¾¾å¼ä¸²
 	 */
 	public String toExpressionString() {
 		StringBuffer sb = new StringBuffer();
@@ -96,36 +96,36 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * ÉèÖÃÔªËØÃû³Æ
+	 * è®¾ç½®å…ƒç´ åç§°
 	 * 
-	 * ÔªËØÃû×Ö²»Í¬ÓÚº¯ÊıÃûfuncName£¬ funcName¿ÉÒÔ²»Î¨Ò»£» µ«ÊÇÔªËØÃû×Ö±ØĞëÎ¨Ò»
-	 * ÓÃÓÚ½â¾öÍ¬Ãûº¯ÊıÎÊÌâ£» ±ÈÈç£¬ db.query(sql, arg)  db.query(A,sql,arg);
-	 * ´Ë´¦dbÎªcellName£¬ queryÎªfuncName£¬²»ĞèÒª¶¨Òå£»¶øelementNameÔò¿ÉÄÜÎª  SQLQuery£¬ SequenceQuery£¬ÓÃÓÚÇø·Ö²»Í¬µÄº¯ÊıÌå
-	 * @param eleName ÔªËØÃû³Æ
+	 * å…ƒç´ åå­—ä¸åŒäºå‡½æ•°åfuncNameï¼Œ funcNameå¯ä»¥ä¸å”¯ä¸€ï¼› ä½†æ˜¯å…ƒç´ åå­—å¿…é¡»å”¯ä¸€
+	 * ç”¨äºè§£å†³åŒåå‡½æ•°é—®é¢˜ï¼› æ¯”å¦‚ï¼Œ db.query(sql, arg)  db.query(A,sql,arg);
+	 * æ­¤å¤„dbä¸ºcellNameï¼Œ queryä¸ºfuncNameï¼Œä¸éœ€è¦å®šä¹‰ï¼›è€ŒelementNameåˆ™å¯èƒ½ä¸º  SQLQueryï¼Œ SequenceQueryï¼Œç”¨äºåŒºåˆ†ä¸åŒçš„å‡½æ•°ä½“
+	 * @param eleName å…ƒç´ åç§°
 	 */
 	public void setElementName(String eleName){
 		this.elementName = eleName;
 	}
 	/**
-	 * »ñÈ¡ÔªËØÃû³Æ
-	 * @return Ãû³Æ
+	 * è·å–å…ƒç´ åç§°
+	 * @return åç§°
 	 */
 	public String getElementName(){
 		return elementName;
 	}
 	
 	/**
-	 * »ñÈ¡º¯ÊıµÄÃèÊöĞÅÏ¢
-	 * ¸ÃĞÅÏ¢´æ´¢ÔÚ×ÊÔ´ÎÄ¼ş£¬ÏÔÊ¾ÔÚ±à¼­´°¿Ú
-	 * @return ÃèÊöĞÅÏ¢
+	 * è·å–å‡½æ•°çš„æè¿°ä¿¡æ¯
+	 * è¯¥ä¿¡æ¯å­˜å‚¨åœ¨èµ„æºæ–‡ä»¶ï¼Œæ˜¾ç¤ºåœ¨ç¼–è¾‘çª—å£
+	 * @return æè¿°ä¿¡æ¯
 	 */
 	public String getFuncDesc(){
 		return mm.getMessage(elementName+".desc");
 	}
 	
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ°ïÖúÁ´½Ó
-	 * @return Á´½ÓµØÖ·
+	 * è·å–è¯¥å‡½æ•°çš„å¸®åŠ©é“¾æ¥
+	 * @return é“¾æ¥åœ°å€
 	 */
 	public String getHelpUrl(){
 		String url = mm.getMessage(elementName+".url");
@@ -140,14 +140,14 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÃû³Æ
-	 * @param cellName Ãû³Æ
+	 * è®¾ç½®å•å…ƒæ ¼åç§°
+	 * @param cellName åç§°
 	 */
 	public void setCellName(String cellName){
 		this.cellName = cellName;
 	}
 	/**
-	 * »ñÈ¡µ¥Ôª¸ñÃû³Æ
+	 * è·å–å•å…ƒæ ¼åç§°
 	 * @return
 	 */
 	public String getCellName(){
@@ -155,8 +155,8 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * ÉèÖÃ²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @param paramInfos ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è®¾ç½®å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @param paramInfos å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public void setParamInfoList(ArrayList<ParamInfo> paramInfos){
 		Sequence params = new Sequence();
@@ -187,7 +187,7 @@ public abstract class ObjectElement implements IFuncObject{
 					f.set(elementObject, new Float(p.floatValue()));
 				} else if (className.endsWith("double")) {
 					f.set(elementObject, new java.lang.Double(p.doubleValue()));
-				} else if (className.endsWith(".color")) {// ¼ÓÉÏµã¾Í²»»á°Ñchartcolorµ±³ÉcolorÁË
+				} else if (className.endsWith(".color")) {// åŠ ä¸Šç‚¹å°±ä¸ä¼šæŠŠchartcolorå½“æˆcoloräº†
 					f.set(elementObject, p.colorValue(0));
 				} else if (className.endsWith("string")) {
 					f.set(elementObject, p.stringValue());
@@ -210,10 +210,10 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 
 	/**
-	 * ½«²ÎÊıÖµÁĞ±íargs¸ù¾İ·Ö¸ô·ûseperatorÆ´³É±í´ïÊ½´®
-	 * @param args ²ÎÊıÖµÁĞ±í
-	 * @param seperator ·Ö¸ô·û
-	 * @return ±í´ïÊ½´®
+	 * å°†å‚æ•°å€¼åˆ—è¡¨argsæ ¹æ®åˆ†éš”ç¬¦seperatoræ‹¼æˆè¡¨è¾¾å¼ä¸²
+	 * @param args å‚æ•°å€¼åˆ—è¡¨
+	 * @param seperator åˆ†éš”ç¬¦
+	 * @return è¡¨è¾¾å¼ä¸²
 	 */
 	public static String getStringListExp(ArrayList<String> args,String seperator){
 		if(args==null || args.isEmpty()){
@@ -230,10 +230,10 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * getStringListExpº¯ÊıµÄÄæ²Ù×÷
-	 * @param args ±í´ïÊ½´®
-	 * @param seperator ·Ö¸ô·û
-	 * @return ²ÎÊıÖµÁĞ±í
+	 * getStringListExpå‡½æ•°çš„é€†æ“ä½œ
+	 * @param args è¡¨è¾¾å¼ä¸²
+	 * @param seperator åˆ†éš”ç¬¦
+	 * @return å‚æ•°å€¼åˆ—è¡¨
 	 */
 	public static ArrayList<String> getStringList(String args,String seperator){
 		if(!isValidString(args)){
@@ -248,8 +248,8 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * »ñÈ¡±í´ïÊ½Æ´´®µÄÑ¡Ïî±íÊ¾
-	 * @return Ñ¡Ïî±íÊ¾
+	 * è·å–è¡¨è¾¾å¼æ‹¼ä¸²çš„é€‰é¡¹è¡¨ç¤º
+	 * @return é€‰é¡¹è¡¨ç¤º
 	 */
 	public String getOptions(){
 		String options = optionString();
@@ -261,9 +261,9 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * ½«²ÎÊıÖµparamValue°´ÕÕ²ÎÊı±íÊ¾¹æÔòÆ´ÎªSPL±í´ïÊ½´®
-	 * @param paramValue ²ÎÊıÖµ
-	 * @return SPL±í´ïÊ½´®
+	 * å°†å‚æ•°å€¼paramValueæŒ‰ç…§å‚æ•°è¡¨ç¤ºè§„åˆ™æ‹¼ä¸ºSPLè¡¨è¾¾å¼ä¸²
+	 * @param paramValue å‚æ•°å€¼
+	 * @return SPLè¡¨è¾¾å¼ä¸²
 	 */
 	public static String getParamExp(String paramValue){
 		if(paramValue==null){
@@ -275,9 +275,9 @@ public abstract class ObjectElement implements IFuncObject{
 		return Escape.addEscAndQuote(paramValue);
 	}
 	/**
-	 * getParamExpµÄÄæ²Ù×÷
-	 * @param paramValue SPL±í´ïÊ½´®
-	 * @return ²ÎÊıÖµµÄÄÚ´æ±íÊ¾ 
+	 * getParamExpçš„é€†æ“ä½œ
+	 * @param paramValue SPLè¡¨è¾¾å¼ä¸²
+	 * @return å‚æ•°å€¼çš„å†…å­˜è¡¨ç¤º 
 	 */
 	public static String getParam(String paramValue){
 		if(!isValidString(paramValue)){
@@ -290,9 +290,9 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * ½«²ÎÊıÖµparamValue°´ÕÕ±í´ïÊ½±íÊ¾¹æÔòÆ´ÎªSPL±í´ïÊ½´®
-	 * @param paramValue ²ÎÊıÖµ
-	 * @return SPL±í´ïÊ½´®
+	 * å°†å‚æ•°å€¼paramValueæŒ‰ç…§è¡¨è¾¾å¼è¡¨ç¤ºè§„åˆ™æ‹¼ä¸ºSPLè¡¨è¾¾å¼ä¸²
+	 * @param paramValue å‚æ•°å€¼
+	 * @return SPLè¡¨è¾¾å¼ä¸²
 	 */
 	public static String getExpressionExp(String paramValue){
 		if(!isValidString(paramValue)){
@@ -305,9 +305,9 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * getExpressionExpµÄÄæ²Ù×÷
-	 * @param paramValue SPL±í´ïÊ½´®
-	 * @return ²ÎÊıÖµµÄÄÚ´æ±íÊ¾ 
+	 * getExpressionExpçš„é€†æ“ä½œ
+	 * @param paramValue SPLè¡¨è¾¾å¼ä¸²
+	 * @return å‚æ•°å€¼çš„å†…å­˜è¡¨ç¤º 
 	 */
 	public static String getExpression(String paramValue){
 		if(!isValidString(paramValue)){
@@ -317,16 +317,16 @@ public abstract class ObjectElement implements IFuncObject{
 		int idx = 0;
 		int len = exp.length();
 		int tmp = Sentence.scanIdentifier( exp, idx );
-		if( tmp < len - 1 ) {//±êÊ¶·û±È³¤¶È¶ÌÊ±£¬ÔòÊÇ±í´ïÊ½
+		if( tmp < len - 1 ) {//æ ‡è¯†ç¬¦æ¯”é•¿åº¦çŸ­æ—¶ï¼Œåˆ™æ˜¯è¡¨è¾¾å¼
 			return "="+paramValue;
 		}
 		return paramValue;
 	}
 	
 	/**
-	 * ½«²ÎÊıÖµparamValue°´ÕÕÊıÖµ±íÊ¾¹æÔòÆ´ÎªSPL±í´ïÊ½´®
-	 * @param paramValue ²ÎÊıÖµ
-	 * @return SPL±í´ïÊ½´®
+	 * å°†å‚æ•°å€¼paramValueæŒ‰ç…§æ•°å€¼è¡¨ç¤ºè§„åˆ™æ‹¼ä¸ºSPLè¡¨è¾¾å¼ä¸²
+	 * @param paramValue å‚æ•°å€¼
+	 * @return SPLè¡¨è¾¾å¼ä¸²
 	 */
 	public static String getNumberExp(String paramValue){
 		if(!isValidString(paramValue)){
@@ -339,9 +339,9 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * getNumberExpµÄÄæ²Ù×÷
-	 * @param paramValue SPL±í´ïÊ½´®
-	 * @return ÄÚ´æ²ÎÊıÖµ
+	 * getNumberExpçš„é€†æ“ä½œ
+	 * @param paramValue SPLè¡¨è¾¾å¼ä¸²
+	 * @return å†…å­˜å‚æ•°å€¼
 	 */
 	public static String getNumber(String paramValue){
 		if(!isValidString(paramValue)){
@@ -349,18 +349,18 @@ public abstract class ObjectElement implements IFuncObject{
 		}
 		try{
 			Double d = Double.valueOf(paramValue);
-			//Èç¹ûÊÇÊıÖµ£¬Ö±½Ó·µ»Øµ±Ç°±í´ïÊ½
+			//å¦‚æœæ˜¯æ•°å€¼ï¼Œç›´æ¥è¿”å›å½“å‰è¡¨è¾¾å¼
 			return paramValue;
 		}catch(Exception x){
-			//·ñÔòµ±±í´ïÊ½
+			//å¦åˆ™å½“è¡¨è¾¾å¼
 			return "="+paramValue;
 		}
 	}
 
 	/**
-	 * ½«²ÎÊıÖµfields°´ÕÕ±í´ïÊ½±íÊ¾¹æÔòÆ´ÎªSPL±í´ïÊ½´®
-	 * @param fields ×Ö¶Î¶¨ÒåÁĞ±í
-	 * @return SPL±í´ïÊ½´®
+	 * å°†å‚æ•°å€¼fieldsæŒ‰ç…§è¡¨è¾¾å¼è¡¨ç¤ºè§„åˆ™æ‹¼ä¸ºSPLè¡¨è¾¾å¼ä¸²
+	 * @param fields å­—æ®µå®šä¹‰åˆ—è¡¨
+	 * @return SPLè¡¨è¾¾å¼ä¸²
 	 */
 	public static String getFieldDefineExp(ArrayList<FieldDefine> fields){
 		if(fields==null || fields.isEmpty()){
@@ -387,10 +387,10 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * getFieldDefineExpµÄÄæ²Ù×÷
-	 * ·´Ïò×Ö¶Î¶¨Òå£¬´Ó´®Éú³É×Ö¶Î¶¨ÒåÁĞ±í
-	 * @param fields SPL±í´ïÊ½´®
-	 * @return ×Ö¶Î¶¨ÒåÁĞ±í
+	 * getFieldDefineExpçš„é€†æ“ä½œ
+	 * åå‘å­—æ®µå®šä¹‰ï¼Œä»ä¸²ç”Ÿæˆå­—æ®µå®šä¹‰åˆ—è¡¨
+	 * @param fields SPLè¡¨è¾¾å¼ä¸²
+	 * @return å­—æ®µå®šä¹‰åˆ—è¡¨
 	 */
 	public static ArrayList<FieldDefine> getFieldDefine(String fields){
 		if(!isValidString(fields)){
@@ -415,10 +415,10 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * ½«²ÎÊıÖµfields°´ÕÕ±í´ïÊ½±íÊ¾¹æÔò2Æ´ÎªSPL±í´ïÊ½´®
-	 * ´ÓFieldDefine¶ÔÏóÉú³É¹æÔò2£ºÃ»ÓĞ×Ö¶ÎÃûÊ±£¬È±Ê¡Ê¹ÓÃ±í´ïÊ½±¾Éí  A:A
-	 * @param fields ×Ö¶Î¶¨ÒåÁĞ±í
-	 * @return SPL±í´ïÊ½´®
+	 * å°†å‚æ•°å€¼fieldsæŒ‰ç…§è¡¨è¾¾å¼è¡¨ç¤ºè§„åˆ™2æ‹¼ä¸ºSPLè¡¨è¾¾å¼ä¸²
+	 * ä»FieldDefineå¯¹è±¡ç”Ÿæˆè§„åˆ™2ï¼šæ²¡æœ‰å­—æ®µåæ—¶ï¼Œç¼ºçœä½¿ç”¨è¡¨è¾¾å¼æœ¬èº«  A:A
+	 * @param fields å­—æ®µå®šä¹‰åˆ—è¡¨
+	 * @return SPLè¡¨è¾¾å¼ä¸²
 	 */
 	public static String getFieldDefineExp2(ArrayList<FieldDefine> fields){
 		if(fields==null || fields.isEmpty()){
@@ -443,10 +443,10 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 
 	/**
-	 * getFieldDefineExp2µÄÄæ²Ù×÷
-	 * ·´Ïò×Ö¶Î¶¨Òå£¬´Ó´®Éú³É×Ö¶Î¶¨ÒåÁĞ±í
-	 * @param fields SPL±í´ïÊ½´®
-	 * @return ×Ö¶Î¶¨ÒåÁĞ±í
+	 * getFieldDefineExp2çš„é€†æ“ä½œ
+	 * åå‘å­—æ®µå®šä¹‰ï¼Œä»ä¸²ç”Ÿæˆå­—æ®µå®šä¹‰åˆ—è¡¨
+	 * @param fields SPLè¡¨è¾¾å¼ä¸²
+	 * @return å­—æ®µå®šä¹‰åˆ—è¡¨
 	 */
 	public static ArrayList<FieldDefine> getFieldDefine2(String fields){
 		if(!StringUtils.isValidString(fields)){
@@ -470,9 +470,9 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * ÅĞ¶Ï²ÎÊıÖµÊÇ·ñÎª±í´ïÊ½Ğ´·¨
-	 * @param paramValue ²ÎÊıÖµ
-	 * @return ±í´ïÊ½Ğ´·¨Ê±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­å‚æ•°å€¼æ˜¯å¦ä¸ºè¡¨è¾¾å¼å†™æ³•
+	 * @param paramValue å‚æ•°å€¼
+	 * @return è¡¨è¾¾å¼å†™æ³•æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isExpression(String paramValue){
 		if(paramValue==null){
@@ -482,10 +482,10 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * º¯Êı²ÎÊıÊ¡ÂÔÖĞ¼äÊ±£¬»áÔì³ÉÁ¬ĞøµÄ·Ö¸ô·û£¬±ÈÈç¡°A;;B¡±, ´ËÊ±µÚ2½Ú£¬ÓÃTokenizer»áÌø¹ı£¬
-	 * ÎªÁË±ÜÃâÕâÀàÇé¿ö£¬´Ë´¦½«ÕâĞ©·Ö¸ô·ûÖĞ¼ä²åÉÏ NULL ³£Á¿
-	 * @param param ²ÎÊıÖµ
-	 * @return Ğ£ÕıºóµÄ²ÎÊıÖµ
+	 * å‡½æ•°å‚æ•°çœç•¥ä¸­é—´æ—¶ï¼Œä¼šé€ æˆè¿ç»­çš„åˆ†éš”ç¬¦ï¼Œæ¯”å¦‚â€œA;;Bâ€, æ­¤æ—¶ç¬¬2èŠ‚ï¼Œç”¨Tokenizerä¼šè·³è¿‡ï¼Œ
+	 * ä¸ºäº†é¿å…è¿™ç±»æƒ…å†µï¼Œæ­¤å¤„å°†è¿™äº›åˆ†éš”ç¬¦ä¸­é—´æ’ä¸Š NULL å¸¸é‡
+	 * @param param å‚æ•°å€¼
+	 * @return æ ¡æ­£åçš„å‚æ•°å€¼
 	 */
 	private static String verifyParam(String param){
 		if(param.startsWith(";")){
@@ -500,7 +500,7 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * ´¦Àí×Ö´®Ê±£¬Ê¹ÓÃÁËNULL×Ö·û´®×ö
+	 * å¤„ç†å­—ä¸²æ—¶ï¼Œä½¿ç”¨äº†NULLå­—ç¬¦ä¸²åš
 	 * @param str
 	 * @return
 	 */
@@ -512,10 +512,10 @@ public abstract class ObjectElement implements IFuncObject{
 	}
 	
 	/**
-	 * ±í´ïÊ½´®½âÎöÎªº¯Êı¶ÔÏó
-	 * @param exp ±í´ïÊ½
-	 * @param oes ËùÓĞ±à¼­ºÃµÄµ¥Ôª¸ñ¸ú¶ÔÏóµÄÓ³Éä±í
-	 * @return ¶ÔÏóÔªËØ
+	 * è¡¨è¾¾å¼ä¸²è§£æä¸ºå‡½æ•°å¯¹è±¡
+	 * @param exp è¡¨è¾¾å¼
+	 * @param oes æ‰€æœ‰ç¼–è¾‘å¥½çš„å•å…ƒæ ¼è·Ÿå¯¹è±¡çš„æ˜ å°„è¡¨
+	 * @return å¯¹è±¡å…ƒç´ 
 	 */
 	public static ObjectElement parseString(String exp, HashMap<String, ObjectElement> oes){
 		if(!isValidString(exp)){
@@ -533,14 +533,14 @@ public abstract class ObjectElement implements IFuncObject{
 		int iTmp = Sentence.scanParenthesis(exp, index);
 		if (iTmp < 0) {
 			return null;
-		} else if(iTmp<(exp.length()-1)){//²»Ö§³Ö¶à¼¶º¯ÊıÁ¬Ğ´ A1.import().sort()
+		} else if(iTmp<(exp.length()-1)){//ä¸æ”¯æŒå¤šçº§å‡½æ•°è¿å†™ A1.import().sort()
 			return null;
 		}
 
-		String celName = null;//±äÁ¿£¬¸ñ×ÓÃû A1
-		String funName = null;//º¯ÊıÃû create
-		String options = null;//Ñ¡Ïî o
-		String funBody = null;//º¯ÊıÌå arg1
+		String celName = null;//å˜é‡ï¼Œæ ¼å­å A1
+		String funName = null;//å‡½æ•°å create
+		String options = null;//é€‰é¡¹ o
+		String funBody = null;//å‡½æ•°ä½“ arg1
 
 		String tmp = exp.substring(1,index);
 		int dot1 = tmp.indexOf(".");

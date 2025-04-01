@@ -9,92 +9,92 @@ public interface INormalCell
 	extends ICloneable, Externalizable, IRecord {
 
 	/**
-	 * È¡µÃµ¥Ôª¸ñµÄĞĞºÅ
+	 * å–å¾—å•å…ƒæ ¼çš„è¡Œå·
 	 * @return int
 	 */
 	public int getRow();
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñµÄĞĞºÅ
+	 * è®¾ç½®å•å…ƒæ ¼çš„è¡Œå·
 	 * @param r int
 	 */
 	public void setRow(int r);
 
 	/**
-	 * È¡µÃµ¥Ôª¸ñµÄÁĞºÅ
+	 * å–å¾—å•å…ƒæ ¼çš„åˆ—å·
 	 * @return int
 	 */
 	public int getCol();
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñµÄÁĞºÅ
+	 * è®¾ç½®å•å…ƒæ ¼çš„åˆ—å·
 	 * @param c int
 	 */
 	public void setCol(int c);
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñ±êÊ¶
+	 * è¿”å›å•å…ƒæ ¼æ ‡è¯†
 	 * @return String
 	 */
 	public String getCellId();
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñËùÊôµÄÍø¸ñ
+	 * è¿”å›å•å…ƒæ ¼æ‰€å±çš„ç½‘æ ¼
 	 * @return ICellSet
 	 */
 	public ICellSet getCellSet();
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñËùÊôµÄÍø¸ñ
+	 * è®¾ç½®å•å…ƒæ ¼æ‰€å±çš„ç½‘æ ¼
 	 * @param cs ICellSet
 	 */
 	public void setCellSet(ICellSet cs);
 
 	/**
-	 * @return String ·µ»Øµ¥Ôª¸ñ±í´ïÊ½
+	 * @return String è¿”å›å•å…ƒæ ¼è¡¨è¾¾å¼
 	 */
 	public String getExpString();
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñ±í´ïÊ½
+	 * è®¾ç½®å•å…ƒæ ¼è¡¨è¾¾å¼
 	 * @param exp String
 	 */
 	public void setExpString(String exp);
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñµÄ±í´ïÊ½
+	 * è¿”å›å•å…ƒæ ¼çš„è¡¨è¾¾å¼
 	 * @return Expression
 	 */
 	//public Expression getExpression();
 
 	/**
-	 * ¼ÆËãµ¥Ôª¸ñ±í´ïÊ½µÄ·µ»ØÖµÀàĞÍ
+	 * è®¡ç®—å•å…ƒæ ¼è¡¨è¾¾å¼çš„è¿”å›å€¼ç±»å‹
 	 * @param ctx Context
 	 * @return byte
 	 */
 	public byte calcExpValueType(Context ctx);
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñÖµ£¬Ã»ÓĞ¼ÆËãÔò·µ»Ø¿Õ
+	 * è¿”å›å•å…ƒæ ¼å€¼ï¼Œæ²¡æœ‰è®¡ç®—åˆ™è¿”å›ç©º
 	 * @return Object
 	 */
 	public Object getValue();
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñÖµ£¬Ã»ÓĞ¼ÆËãÔò¼ÆËãËü
+	 * è¿”å›å•å…ƒæ ¼å€¼ï¼Œæ²¡æœ‰è®¡ç®—åˆ™è®¡ç®—å®ƒ
 	 * @param doCalc boolean
 	 * @return Object
 	 */
 	public Object getValue(boolean doCalc);
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÖµ
+	 * è®¾ç½®å•å…ƒæ ¼å€¼
 	 * @param value Object
 	 */
 	public void setValue(Object value);
 	
 	/**
-	 * Çå³ıµ¥Ôª¸ñÖµºÍ¼ÆËã±í´ïÊ½
+	 * æ¸…é™¤å•å…ƒæ ¼å€¼å’Œè®¡ç®—è¡¨è¾¾å¼
 	 */
 	public void clear();
 }

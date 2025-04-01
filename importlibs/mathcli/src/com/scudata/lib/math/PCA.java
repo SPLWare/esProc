@@ -20,8 +20,8 @@ import com.scudata.resources.EngineMessage;
 
 public class PCA extends Function {
 	/**
-	 * pca(A,F)ºÍpca(A,n), nÊ¡ÂÔÎªAµÄÁĞÊı£¬·µ»ØµÄÖ÷³É·ÖÏµÊı¾ØÕóÎŞ·¨½µÎ¬£¬µ«¿ÉÒÔÓÃÀ´¼ÆËãÖ÷³É·ÖµÃ·Ö
-	 * @param ctx	ÉÏÏÂÎÄ
+	 * pca(A,F)å’Œpca(A,n), nçœç•¥ä¸ºAçš„åˆ—æ•°ï¼Œè¿”å›çš„ä¸»æˆåˆ†ç³»æ•°çŸ©é˜µæ— æ³•é™ç»´ï¼Œä½†å¯ä»¥ç”¨æ¥è®¡ç®—ä¸»æˆåˆ†å¾—åˆ†
+	 * @param ctx	ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Object calculate (Context ctx) {
@@ -32,7 +32,7 @@ public class PCA extends Function {
 		Object o1 = null;
 		Object o2 = null;
 		if (param.isLeaf()) {
-			// Ö»ÓĞÒ»¸ö²ÎÊı£¬pca(A), n»á×Ô¶¯ÉèÖÃÎªAµÄÁĞÊı
+			// åªæœ‰ä¸€ä¸ªå‚æ•°ï¼Œpca(A), nä¼šè‡ªåŠ¨è®¾ç½®ä¸ºAçš„åˆ—æ•°
 			o1 = param.getLeafExpression().calculate(ctx);
 		} else if (param.getSubSize() != 2) {
 			MessageManager mm = EngineMessage.get();
@@ -55,13 +55,13 @@ public class PCA extends Function {
 					b = ((Number) o2).intValue();
 				}
 				if (option != null && option.contains("r")) {
-					// Ö±½Ó¶ÔA½µÎ¬£¬ÏÈ±£Áô£¬Ò»°ãÓÃ²»µ½
+					// ç›´æ¥å¯¹Aé™ç»´ï¼Œå…ˆä¿ç•™ï¼Œä¸€èˆ¬ç”¨ä¸åˆ°
 					FitResult fr = fit(A, b);
 					Matrix result = transformj(fr, A);
 					return result.toSequence(option, true);
 				}
 				else {
-					// ·µ»Øfit½á¹û£¬½á¹û´¦ÀíÎªĞòÁĞ£¬ÓÉ3¸ö³ÉÔ±×é³É£¬µÚ1¸öÎª¾ùÖµĞòÁĞmu£¬µÚ2¸öÎªÇ±·üÖĞµÄÖ÷³É·Ö·½²îlatent£¬µÚ3¸öÎªÖ÷³É·ÖÏµÊı¾ØÕócoeff¡£¿ÉÒÔÓÃÀ´×÷ÎªµÚ¶ş¸ö²ÎÊıÖ´ĞĞpca(A,X)
+					// è¿”å›fitç»“æœï¼Œç»“æœå¤„ç†ä¸ºåºåˆ—ï¼Œç”±3ä¸ªæˆå‘˜ç»„æˆï¼Œç¬¬1ä¸ªä¸ºå‡å€¼åºåˆ—muï¼Œç¬¬2ä¸ªä¸ºæ½œä¼ä¸­çš„ä¸»æˆåˆ†æ–¹å·®latentï¼Œç¬¬3ä¸ªä¸ºä¸»æˆåˆ†ç³»æ•°çŸ©é˜µcoeffã€‚å¯ä»¥ç”¨æ¥ä½œä¸ºç¬¬äºŒä¸ªå‚æ•°æ‰§è¡Œpca(A,X)
 					FitResult fr = fit(A, b);
 					Sequence result = new Sequence(3);
 					result.add(fr.mu.toSequence());
@@ -95,14 +95,14 @@ public class PCA extends Function {
 	}
     
 	/**
-	 * »ñÈ¡Ğ­·½²î¾ØÕó
+	 * è·å–åæ–¹å·®çŸ©é˜µ
 	 * @param matrix
 	 * @return
 	 */
     private Matrix getVarianceMatrix(Matrix matrix) {
         int rows = matrix.getRows();
         int cols = matrix.getCols();
-        double[][] result = new double[cols][cols];// Ğ­·½²î¾ØÕó
+        double[][] result = new double[cols][cols];// åæ–¹å·®çŸ©é˜µ
         for (int c = 0; c < cols; c++) {
             for (int c2 = 0; c2 < cols; c2++) {
                 double temp = 0;
@@ -116,7 +116,7 @@ public class PCA extends Function {
     }
 
     /**
-     * »ñÈ¡Ö÷³É·Ö·ÖÎö¾ØÕó
+     * è·å–ä¸»æˆåˆ†åˆ†æçŸ©é˜µ
      * @param primaryArray
      * @param eigenvalue
      * @param eigenVectors
@@ -135,12 +135,12 @@ public class PCA extends Function {
     }
     /*
     private Matrix getPrincipalComponent(double[] eigenvalueArray, Matrix eigenVectors, int n_components) {
-        //edited by bd, 2021.4.9, È¥³ıejmlµÄÊ¹ÓÃ£¬Õâ¸ö°ü±ØĞëÓÃjdk1.8±È½ÏÂé·³
+        //edited by bd, 2021.4.9, å»é™¤ejmlçš„ä½¿ç”¨ï¼Œè¿™ä¸ªåŒ…å¿…é¡»ç”¨jdk1.8æ¯”è¾ƒéº»çƒ¦
         Matrix X = eigenVectors.transpose();
         double[][] tEigenVectors = X.getArray();
-        Map<Integer, double[]> principalMap = new HashMap<Integer, double[]>();// key=Ö÷³É·ÖÌØÕ÷Öµ£¬value=¸ÃÌØÕ÷Öµ¶ÔÓ¦µÄÌØÕ÷ÏòÁ¿
+        Map<Integer, double[]> principalMap = new HashMap<Integer, double[]>();// key=ä¸»æˆåˆ†ç‰¹å¾å€¼ï¼Œvalue=è¯¥ç‰¹å¾å€¼å¯¹åº”çš„ç‰¹å¾å‘é‡
         TreeMap<Double, double[]> eigenMap = new TreeMap<Double, double[]>(
-                Collections.reverseOrder());// key=ÌØÕ÷Öµ£¬value=¶ÔÓ¦µÄÌØÕ÷ÏòÁ¿£»³õÊ¼»¯Îª·­×ªÅÅĞò£¬Ê¹map°´keyÖµ½µĞòÅÅÁĞ
+                Collections.reverseOrder());// key=ç‰¹å¾å€¼ï¼Œvalue=å¯¹åº”çš„ç‰¹å¾å‘é‡ï¼›åˆå§‹åŒ–ä¸ºç¿»è½¬æ’åºï¼Œä½¿mapæŒ‰keyå€¼é™åºæ’åˆ—
 
         for (int i = 0; i < tEigenVectors.length; i++) {
             double[] value = new double[tEigenVectors[0].length];
@@ -148,8 +148,8 @@ public class PCA extends Function {
             eigenMap.put(eigenvalueArray[i], value);
         }
 
-        // Ñ¡³öÇ°¼¸¸öÖ÷³É·Ö
-        List<Double> plist = new ArrayList<Double>();// Ö÷³É·ÖÌØÕ÷Öµ
+        // é€‰å‡ºå‰å‡ ä¸ªä¸»æˆåˆ†
+        List<Double> plist = new ArrayList<Double>();// ä¸»æˆåˆ†ç‰¹å¾å€¼
         int now_component = 0;
         for (double key : eigenMap.keySet()) {
             if (now_component < n_components) {
@@ -162,14 +162,14 @@ public class PCA extends Function {
             }
         }
 
-        // ÍùÖ÷³É·ÖmapÀïÊäÈëÊı¾İ
+        // å¾€ä¸»æˆåˆ†mapé‡Œè¾“å…¥æ•°æ®
         for (int i = 0; i < plist.size(); i++) {
             if (eigenMap.containsKey(plist.get(i))) {
                 principalMap.put(i, eigenMap.get(plist.get(i)));
             }
         }
 
-        // °ÑmapÀïµÄÖµ´æµ½¶şÎ¬Êı×éÀï
+        // æŠŠmapé‡Œçš„å€¼å­˜åˆ°äºŒç»´æ•°ç»„é‡Œ
         double[][] principalArray = new double[principalMap.size()][];
         Iterator<Map.Entry<Integer, double[]>> it = principalMap.entrySet()
                 .iterator();
@@ -181,22 +181,22 @@ public class PCA extends Function {
     }
     */
     
-    // ÑµÁ··½·¨
+    // è®­ç»ƒæ–¹æ³•
     protected FitResult fit(Matrix inputData, int n_components) {
-    	// È¡Ã¿ÁĞ¾ùÖµ£¬×öÖĞĞÄ»¯´¦Àí£¬Ê¹µÃÃ¿ÁĞ¾ùÖµÎª0
+    	// å–æ¯åˆ—å‡å€¼ï¼Œåšä¸­å¿ƒåŒ–å¤„ç†ï¼Œä½¿å¾—æ¯åˆ—å‡å€¼ä¸º0
         Vector averageVector = inputData.getAverage();
         Matrix averageArray = inputData.changeAverageToZero(averageVector);
         System.out.println(averageArray.toSequence(option, true).toString());
-        // ¼ÆËãĞ­·½²î¾ØÕóX(XT)
+        // è®¡ç®—åæ–¹å·®çŸ©é˜µX(XT)
         Matrix varMatrix = averageArray.covm();
         System.out.println(varMatrix.toSequence(option, true).toString());
-        // Ğ­·½²î¾ØÕóµÄÌØÕ÷Öµ·Ö½â
+        // åæ–¹å·®çŸ©é˜µçš„ç‰¹å¾å€¼åˆ†è§£
         RealMatrix m = new Array2DRowRealMatrix(varMatrix.getArray());
         EigenDecomposition evd = new EigenDecomposition(m);
         double[] ev = evd.getRealEigenvalues();
         double[][] V = evd.getV().getData();
         
-        //edited by bd, 2021.12.29, ²âÊÔ·¢ÏÖmath3µÄÌØÕ÷Öµ·Ö½â²¢²»ÄÜ±£Ö¤evÓĞĞò£¬ËùÒÔ»¹ÊÇÓ¦¸ÃÅÅ¸öĞò
+        //edited by bd, 2021.12.29, æµ‹è¯•å‘ç°math3çš„ç‰¹å¾å€¼åˆ†è§£å¹¶ä¸èƒ½ä¿è¯evæœ‰åºï¼Œæ‰€ä»¥è¿˜æ˜¯åº”è¯¥æ’ä¸ªåº
         Sequence evSeq = (new Vector(ev)).toSequence();
         Sequence sortP = evSeq.psort("z");
         Sequence vSeq = (Sequence) new Matrix(V).toSequence(option, true);
@@ -209,7 +209,7 @@ public class PCA extends Function {
         Matrix principalArray = getPrincipalComponent(new Matrix(vSeq), n_components);
         System.out.println(principalArray.toSequence(option, true).toString());
         
-        //edited by bd, 2021.12.29, ½«ÌØÕ÷Öµ·Ö½âÊ±£¬µÃµ½µÄÌØÕ÷ÏòÁ¿¾ØÕó·ûºÅÓëmatlabÍ³Ò»
+        //edited by bd, 2021.12.29, å°†ç‰¹å¾å€¼åˆ†è§£æ—¶ï¼Œå¾—åˆ°çš„ç‰¹å¾å‘é‡çŸ©é˜µç¬¦å·ä¸matlabç»Ÿä¸€
         dealV(principalArray); 
         System.out.println(principalArray.toSequence(option, true).toString());
 
@@ -218,7 +218,7 @@ public class PCA extends Function {
     }
     
     private void dealV(Matrix V) {
-    	//Ä¿Ç°·¢ÏÖmatlabÖĞÌØÕ÷ÖµÏòÁ¿µÄ¹æÂÉÊÇÊ¹ÏòÁ¿ÖĞ¾ø¶ÔÖµ×î´óµÄÎªÕıÊı£¬Ã»ÕÒµ½ÎÄµµ³ÂÊö£¬²âÊÔÁËÊ®¼¸¸ö¾ØÕóµÄeig(vpa(A))µÄ½á¹ûÊÇÕâÑù
+    	//ç›®å‰å‘ç°matlabä¸­ç‰¹å¾å€¼å‘é‡çš„è§„å¾‹æ˜¯ä½¿å‘é‡ä¸­ç»å¯¹å€¼æœ€å¤§çš„ä¸ºæ­£æ•°ï¼Œæ²¡æ‰¾åˆ°æ–‡æ¡£é™ˆè¿°ï¼Œæµ‹è¯•äº†åå‡ ä¸ªçŸ©é˜µçš„eig(vpa(A))çš„ç»“æœæ˜¯è¿™æ ·
     	double[][] vs = V.getArray();
     	int cols = V.getCols();
     	for (int i = 0, len = vs.length; i < len; i++) {
@@ -239,9 +239,9 @@ public class PCA extends Function {
     	}
     }
     
-//    ×ª»»·½·¨
+//    è½¬æ¢æ–¹æ³•
     /**
-     * ×ª»»·½·¨
+     * è½¬æ¢æ–¹æ³•
      * @param principalDouble
      * @param averageObject
      * @param testinput
@@ -253,9 +253,9 @@ public class PCA extends Function {
         return resultMatrix;
     }
 
-    //    ¼¯ËãÆ÷Ê¹ÓÃ×ª»»·½·¨
+    //    é›†ç®—å™¨ä½¿ç”¨è½¬æ¢æ–¹æ³•
     /**
-     * ¸ù¾İÑµÁ·½á¹û×ª»»
+     * æ ¹æ®è®­ç»ƒç»“æœè½¬æ¢
      * @param fr
      * @param testinput
      * @return
@@ -314,10 +314,10 @@ public class PCA extends Function {
     
     
 
- // ÑµÁ··½·¨
+ // è®­ç»ƒæ–¹æ³•
      /**
-      * ÑµÁ··½·¨
-      * @param inputData	ÑµÁ·Êı¾İ
+      * è®­ç»ƒæ–¹æ³•
+      * @param inputData	è®­ç»ƒæ•°æ®
       * @param n_components
       * @return
       */
@@ -343,7 +343,7 @@ public class PCA extends Function {
      
 
     /**
-     * »ñÈ¡Ö÷³É·Ö·ÖÎö¾ØÕó
+     * è·å–ä¸»æˆåˆ†åˆ†æçŸ©é˜µ
      * @param primaryArray
      * @param eigenvalue
      * @param eigenVectors
@@ -354,14 +354,14 @@ public class PCA extends Function {
                                                    Matrix eigenvalue, Matrix eigenVectors, int n_components) {
         SimpleMatrix X = new SimpleMatrix(eigenVectors.getArray()).transpose();
         double[][] tEigenVectors = getArray(X);
-//        Matrix A = new Matrix(eigenVectors);// ¶¨ÒåÒ»¸öÌØÕ÷ÏòÁ¿¾ØÕó
-//        double[][] tEigenVectors = A.transpose().getArray();// ÌØÕ÷ÏòÁ¿×ªÖÃ
-        Map<Integer, double[]> principalMap = new HashMap<Integer, double[]>();// key=Ö÷³É·ÖÌØÕ÷Öµ£¬value=¸ÃÌØÕ÷Öµ¶ÔÓ¦µÄÌØÕ÷ÏòÁ¿
+//        Matrix A = new Matrix(eigenVectors);// å®šä¹‰ä¸€ä¸ªç‰¹å¾å‘é‡çŸ©é˜µ
+//        double[][] tEigenVectors = A.transpose().getArray();// ç‰¹å¾å‘é‡è½¬ç½®
+        Map<Integer, double[]> principalMap = new HashMap<Integer, double[]>();// key=ä¸»æˆåˆ†ç‰¹å¾å€¼ï¼Œvalue=è¯¥ç‰¹å¾å€¼å¯¹åº”çš„ç‰¹å¾å‘é‡
         TreeMap<Double, double[]> eigenMap = new TreeMap<Double, double[]>(
-                Collections.reverseOrder());// key=ÌØÕ÷Öµ£¬value=¶ÔÓ¦µÄÌØÕ÷ÏòÁ¿£»³õÊ¼»¯Îª·­×ªÅÅĞò£¬Ê¹map°´keyÖµ½µĞòÅÅÁĞ
-        //double total = 0;// ´æ´¢ÌØÕ÷Öµ×ÜºÍ
+                Collections.reverseOrder());// key=ç‰¹å¾å€¼ï¼Œvalue=å¯¹åº”çš„ç‰¹å¾å‘é‡ï¼›åˆå§‹åŒ–ä¸ºç¿»è½¬æ’åºï¼Œä½¿mapæŒ‰keyå€¼é™åºæ’åˆ—
+        //double total = 0;// å­˜å‚¨ç‰¹å¾å€¼æ€»å’Œ
         int index = 0, n = eigenvalue.getRows();
-        double[] eigenvalueArray = new double[n];// °ÑÌØÕ÷Öµ¾ØÕó¶Ô½ÇÏßÉÏµÄÔªËØ·Åµ½Êı×éeigenvalueArrayÀï
+        double[] eigenvalueArray = new double[n];// æŠŠç‰¹å¾å€¼çŸ©é˜µå¯¹è§’çº¿ä¸Šçš„å…ƒç´ æ”¾åˆ°æ•°ç»„eigenvalueArrayé‡Œ
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i == j)
@@ -376,14 +376,14 @@ public class PCA extends Function {
             eigenMap.put(eigenvalueArray[i], value);
         }
 
-        // ÇóÌØÕ÷×ÜºÍ
+        // æ±‚ç‰¹å¾æ€»å’Œ
         //for (int i = 0; i < n; i++) {
         //    total += eigenvalueArray[i];
         //}
-        // Ñ¡³öÇ°¼¸¸öÖ÷³É·Ö
+        // é€‰å‡ºå‰å‡ ä¸ªä¸»æˆåˆ†
         //double temp = 0;
-        //int principalComponentNum = 0;// Ö÷³É·ÖÊı
-        List<Double> plist = new ArrayList<Double>();// Ö÷³É·ÖÌØÕ÷Öµ
+        //int principalComponentNum = 0;// ä¸»æˆåˆ†æ•°
+        List<Double> plist = new ArrayList<Double>();// ä¸»æˆåˆ†ç‰¹å¾å€¼
         int now_component = 0;
         for (double key : eigenMap.keySet()) {
             if (now_component < n_components) {
@@ -396,14 +396,14 @@ public class PCA extends Function {
             }
         }
 
-        // ÍùÖ÷³É·ÖmapÀïÊäÈëÊı¾İ
+        // å¾€ä¸»æˆåˆ†mapé‡Œè¾“å…¥æ•°æ®
         for (int i = 0; i < plist.size(); i++) {
             if (eigenMap.containsKey(plist.get(i))) {
                 principalMap.put(i, eigenMap.get(plist.get(i)));
             }
         }
 
-        // °ÑmapÀïµÄÖµ´æµ½¶şÎ¬Êı×éÀï
+        // æŠŠmapé‡Œçš„å€¼å­˜åˆ°äºŒç»´æ•°ç»„é‡Œ
         double[][] principalArray = new double[principalMap.size()][];
         Iterator<Map.Entry<Integer, double[]>> it = principalMap.entrySet()
                 .iterator();
@@ -415,8 +415,8 @@ public class PCA extends Function {
     }
 
     /**
-     * »ñÈ¡ÌØÕ÷ÏòÁ¿¾ØÕó
-     * @param matrix	Ô´¾ØÕó
+     * è·å–ç‰¹å¾å‘é‡çŸ©é˜µ
+     * @param matrix	æºçŸ©é˜µ
      * @return
      */
     private Matrix getEigenVectorMatrix2(Matrix matrix) {
@@ -441,8 +441,8 @@ public class PCA extends Function {
     }
     
     /**
-     * »ñÈ¡ÌØÕ÷ÖµÏòÁ¿
-     * @param matrix	Ô´¾ØÕó
+     * è·å–ç‰¹å¾å€¼å‘é‡
+     * @param matrix	æºçŸ©é˜µ
      * @return
      */
     private Vector getEigenvalueMatrix2(Matrix matrix) {
@@ -451,7 +451,7 @@ public class PCA extends Function {
         Object[] bb =  U.getEigenvalues().toArray();
         Vector cc = ejmloneObToVector(bb);
 //        Arrays.sort(cc);
-//        // ÓÉÌØÕ÷Öµ×é³ÉµÄ¶Ô½Ç¾ØÕó,eig()»ñÈ¡ÌØÕ÷Öµ
+//        // ç”±ç‰¹å¾å€¼ç»„æˆçš„å¯¹è§’çŸ©é˜µ,eig()è·å–ç‰¹å¾å€¼
         double[] result = new double[cc.len()];
         for (int i =0, iSize = cc.len(); i<iSize;i++){
             result[i] = cc.get(result.length-1-i);
@@ -475,8 +475,8 @@ public class PCA extends Function {
     }
 	
 	/**
-	 * ³õÊ¼»¯¾ØÕó
-	 * @param value	¶şÎ¬Êı×é±íÊ¾µÄ¾ØÕóÖµ
+	 * åˆå§‹åŒ–çŸ©é˜µ
+	 * @param value	äºŒç»´æ•°ç»„è¡¨ç¤ºçš„çŸ©é˜µå€¼
 	 */
 	protected double[][] getArray(SimpleMatrix smatrix) {
 		int rows = smatrix.numRows();
@@ -492,7 +492,7 @@ public class PCA extends Function {
     /**
      * 
      * @param eigenvalueMatrix	
-     * @param eigenVectorMatrix	ÌØÕ÷ÏòÁ¿¾ØÕó
+     * @param eigenVectorMatrix	ç‰¹å¾å‘é‡çŸ©é˜µ
      * @return
      */
     private List<Matrix> merge(Vector eigenvalueMatrix, Matrix eigenVectorMatrix) {

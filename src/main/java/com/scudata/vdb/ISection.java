@@ -22,26 +22,26 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.EnvUtil;
 
 /**
- * Êı¾İ¿â½Ú»ùÀà
+ * æ•°æ®åº“èŠ‚åŸºç±»
  * @author WangXiaoJun
  *
  */
 abstract class ISection {
 	static protected int SIGN_ARCHIVE = 0x01;
-	static protected int SIGN_ARCHIVE_FILE  = 0x02; // ¹éµµÂ·¾¶ÓòÓĞÍ¬Ãû±íµ¥
-	static protected int SIGN_KEY_SECTION  = 0x80; // ÊÇ·ñ¼ü½Ú
+	static protected int SIGN_ARCHIVE_FILE  = 0x02; // å½’æ¡£è·¯å¾„åŸŸæœ‰åŒåè¡¨å•
+	static protected int SIGN_KEY_SECTION  = 0x80; // æ˜¯å¦é”®èŠ‚
 	
 	public ISection() {
 	}
 	
 	/**
-	 * È¡½Ú¶ÔÓ¦µÄÂ·¾¶¶ÔÏó
+	 * å–èŠ‚å¯¹åº”çš„è·¯å¾„å¯¹è±¡
 	 * @return
 	 */
 	abstract public IDir getDir();
 	
 	/**
-	 * È¡½ÚµÄÏÔÊ¾Öµ
+	 * å–èŠ‚çš„æ˜¾ç¤ºå€¼
 	 * @return String
 	 */
 	public String toString() {
@@ -55,7 +55,7 @@ abstract class ISection {
 	}
 	
 	/**
-	 * È¡½ÚµÄ¸¸½Ú
+	 * å–èŠ‚çš„çˆ¶èŠ‚
 	 * @return ISection
 	 */
 	public ISection getParent() {
@@ -68,21 +68,21 @@ abstract class ISection {
 	}
 	
 	/**
-	 * È¡½ÚµÄÖµ
-	 * @return ½ÚÖµ
+	 * å–èŠ‚çš„å€¼
+	 * @return èŠ‚å€¼
 	 */
 	public Object getValue() {
 		IDir dir = getDir();
 		if (dir != null) {
 			return dir.getValue();
 		} else {
-			// ¸ù½Ú
+			// æ ¹èŠ‚
 			return null;
 		}
 	}
 	
 	/**
-	 * È¡½Ú¶ÔÓ¦µÄ×Ö¶ÎÃû
+	 * å–èŠ‚å¯¹åº”çš„å­—æ®µå
 	 * @return String
 	 */
 	public String getName() {
@@ -90,14 +90,14 @@ abstract class ISection {
 		if (dir != null) {
 			return dir.getName();
 		} else {
-			// ¸ù½Ú
+			// æ ¹èŠ‚
 			return null;
 		}
 	}
 	
 	/**
-	 * È¡½ÚµÄÂ·¾¶
-	 * @param opt a£º·µ»ØÍêÕûµÄÂ·¾¶£¬Ä¬ÈÏ·µ»Øµ±Ç°½ÚµÄ£¬f£º·µ»Ø½ÚÃû
+	 * å–èŠ‚çš„è·¯å¾„
+	 * @param opt aï¼šè¿”å›å®Œæ•´çš„è·¯å¾„ï¼Œé»˜è®¤è¿”å›å½“å‰èŠ‚çš„ï¼Œfï¼šè¿”å›èŠ‚å
 	 * @return Object
 	 */
 	public Object path(String opt) {
@@ -132,22 +132,22 @@ abstract class ISection {
 	}
 	
 	/**
-	 * ·µ»Ø´Ë½ÚÊÇ·ñÓĞ±íµ¥
+	 * è¿”å›æ­¤èŠ‚æ˜¯å¦æœ‰è¡¨å•
 	 * @return
 	 */
 	abstract public boolean isFile();
 	
 	/**
-	 * ·µ»Ø´Ë½ÚÊÇ·ñÊÇÂ·¾¶£¬¼´ÊÇ·ñÓĞ×Ó
+	 * è¿”å›æ­¤èŠ‚æ˜¯å¦æ˜¯è·¯å¾„ï¼Œå³æ˜¯å¦æœ‰å­
 	 * @return
 	 */
 	abstract public boolean isDir();
 	
 	/**
-	 * È¡×Ó½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param paths ×ÓÂ·¾¶ÖµĞòÁĞ
-	 * @return ×Ó½Ú
+	 * å–å­èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param paths å­è·¯å¾„å€¼åºåˆ—
+	 * @return å­èŠ‚
 	 */
 	public ISection getSub(VDB vdb, Sequence paths) {
 		ISection sub = this;
@@ -160,52 +160,52 @@ abstract class ISection {
 	}
 	
 	/**
-	 * È¡×Ó½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param path ×ÓÂ·¾¶Öµ
-	 * @return ×Ó½Ú
+	 * å–å­èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param path å­è·¯å¾„å€¼
+	 * @return å­èŠ‚
 	 */
 	abstract public ISection getSub(VDB vdb, Object path);
 	
 	/**
-	 * È¡×Ó½ÚÓÃÀ´×öÒÆ¶¯²Ù×÷
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param path ×ÓÂ·¾¶Öµ
-	 * @return ×Ó½Ú
+	 * å–å­èŠ‚ç”¨æ¥åšç§»åŠ¨æ“ä½œ
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param path å­è·¯å¾„å€¼
+	 * @return å­èŠ‚
 	 */
 	abstract public ISection getSubForMove(VDB vdb, Object path);
 	
 	/**
-	 * È¡×Ó½ÚÓÃÀ´×öÒÆ¶¯²Ù×÷
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param paths ×ÓÂ·¾¶ÖµĞòÁĞ
-	 * @return ×Ó½Ú
+	 * å–å­èŠ‚ç”¨æ¥åšç§»åŠ¨æ“ä½œ
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param paths å­è·¯å¾„å€¼åºåˆ—
+	 * @return å­èŠ‚
 	 */
 	abstract public ISection getSubForMove(VDB vdb, Sequence paths);
 	
 	/**
-	 * ÁĞ³öµ±Ç°½ÚÏÂËùÓĞµÄ×ÓÎÄ¼ş½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param opt d£ºÁĞ³ö×ÓÄ¿Â¼½Ú£¬w£º²»Çø·ÖÎÄ¼şºÍÄ¿Â¼È«²¿ÁĞ³ö£¬l£ºËø¶¨µ±Ç°½Ú
-	 * @return ×Ó½ÚĞòÁĞ
+	 * åˆ—å‡ºå½“å‰èŠ‚ä¸‹æ‰€æœ‰çš„å­æ–‡ä»¶èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param opt dï¼šåˆ—å‡ºå­ç›®å½•èŠ‚ï¼Œwï¼šä¸åŒºåˆ†æ–‡ä»¶å’Œç›®å½•å…¨éƒ¨åˆ—å‡ºï¼Œlï¼šé”å®šå½“å‰èŠ‚
+	 * @return å­èŠ‚åºåˆ—
 	 */
 	abstract public Sequence list(VDB vdb, String opt);
 
 	/**
-	 * ¶ÁÈ¡µ±Ç°½ÚµÄ±íµ¥
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param opt l£ºËø¶¨µ±Ç°½Ú
-	 * @return ±íµ¥Êı¾İ
+	 * è¯»å–å½“å‰èŠ‚çš„è¡¨å•
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param opt lï¼šé”å®šå½“å‰èŠ‚
+	 * @return è¡¨å•æ•°æ®
 	 * @throws IOException
 	 */
 	abstract public Object load(VDB vdb, String opt) throws IOException ;
 	
 	/**
-	 * ¶ÁÈ¡×Ó½ÚµÄ±íµ¥
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param path ×Ó½ÚÂ·¾¶
-	 * @param opt l£ºËø¶¨µ±Ç°½Ú
-	 * @return ±íµ¥Êı¾İ
+	 * è¯»å–å­èŠ‚çš„è¡¨å•
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param path å­èŠ‚è·¯å¾„
+	 * @param opt lï¼šé”å®šå½“å‰èŠ‚
+	 * @return è¡¨å•æ•°æ®
 	 * @throws IOException
 	 */
 	public Object load(VDB vdb, Object path, String opt) throws IOException {
@@ -505,7 +505,7 @@ abstract class ISection {
 		return table.length() > 0 ? table : null;
 	}
 	
-	// È¡±í´ïÊ½ÓÃµ½µÄvdbµÄ½ÚÃû
+	// å–è¡¨è¾¾å¼ç”¨åˆ°çš„vdbçš„èŠ‚å
 	private static String[] getUsedFields(Expression exp, Context ctx) {
 		ArrayList<String> fieldList = new ArrayList<String>();
 		getUsedFields(exp.getHome(), ctx, fieldList);
@@ -559,16 +559,16 @@ abstract class ISection {
 	}
 
 	/**
-	 * ¶ÁÈ¡½ÚÏÂÂú×ãÌõ¼şµÄ±íµ¥
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param dirNames ½ÚÃûÊı×é£¬Ê¡ÂÔÔò½á¹û¼¯²»Éú³É´Ë×Ö¶Î
-	 * @param dirValues ½ÚÖµÊı×é£¬Ê¡ÂÔÔò¶Ô´Ë½Ú²»ÌáÌõ¼ş
-	 * @param valueSigns true£º¶ÔÄ¿Â¼ÌáÌõ¼ş£¬´ËÊ±Èç¹û´«ÈëµÄÄ¿Â¼ÖµÊÇnull£¬Ôò»áÑ¡ÖµÊÇnullµÄÄ¿Â¼£¬false£ºÊ¡ÂÔÄ¿Â¼Öµ£¬¼´²»¶Ô´ËÄ¿Â¼ÌáÌõ¼ş
-	 * @param fields µ¥¾İÖĞµÄ×Ö¶ÎÃûÊı×é
-	 * @param exp ÆäËü¹ıÂË±í´ïÊ½
-	 * @param isRecursion true£ºµİ¹éÈ¥ÕÒ×ÓÂ·¾¶£¬È±Ê¡½«¶Áµ½²ÎÊıËùÉæ¼°²ã¼´Í£Ö¹
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ½á¹û¼¯ÅÅÁĞ
+	 * è¯»å–èŠ‚ä¸‹æ»¡è¶³æ¡ä»¶çš„è¡¨å•
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param dirNames èŠ‚åæ•°ç»„ï¼Œçœç•¥åˆ™ç»“æœé›†ä¸ç”Ÿæˆæ­¤å­—æ®µ
+	 * @param dirValues èŠ‚å€¼æ•°ç»„ï¼Œçœç•¥åˆ™å¯¹æ­¤èŠ‚ä¸ææ¡ä»¶
+	 * @param valueSigns trueï¼šå¯¹ç›®å½•ææ¡ä»¶ï¼Œæ­¤æ—¶å¦‚æœä¼ å…¥çš„ç›®å½•å€¼æ˜¯nullï¼Œåˆ™ä¼šé€‰å€¼æ˜¯nullçš„ç›®å½•ï¼Œfalseï¼šçœç•¥ç›®å½•å€¼ï¼Œå³ä¸å¯¹æ­¤ç›®å½•ææ¡ä»¶
+	 * @param fields å•æ®ä¸­çš„å­—æ®µåæ•°ç»„
+	 * @param exp å…¶å®ƒè¿‡æ»¤è¡¨è¾¾å¼
+	 * @param isRecursion trueï¼šé€’å½’å»æ‰¾å­è·¯å¾„ï¼Œç¼ºçœå°†è¯»åˆ°å‚æ•°æ‰€æ¶‰åŠå±‚å³åœæ­¢
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return ç»“æœé›†æ’åˆ—
 	 * @throws IOException
 	 */
 	public Sequence retrieve(VDB vdb, String []dirNames, Object []dirValues, boolean []valueSigns, 
@@ -582,170 +582,170 @@ abstract class ISection {
 	abstract protected void retrieve(VDB vdb, Filter filter, boolean isRecursion, Sequence out) throws IOException;
 	
 	/**
-	 * Ëø¶¨µ±Ç°½ÚÓÃÀ´Ğ´ÈëÊı¾İ
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @return 0£º³É¹¦
+	 * é”å®šå½“å‰èŠ‚ç”¨æ¥å†™å…¥æ•°æ®
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	abstract public int lockForWrite(VDB vdb);
 	
 	/**
-	 * ½âËøµ±Ç°½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
+	 * è§£é”å½“å‰èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
 	 */
 	abstract public void unlock(VDB vdb);
 	
 	/**
-	 * »Ø¹öµ±Ç°ÊÂÎñËù×öµÄĞŞ¸Ä
-	 * @param library Êı¾İ¿â¶ÔÏó
+	 * å›æ»šå½“å‰äº‹åŠ¡æ‰€åšçš„ä¿®æ”¹
+	 * @param library æ•°æ®åº“å¯¹è±¡
 	 */
 	abstract public void rollBack(Library library);
 	
 	/**
-	 * ±£´æÖµµ½µ±Ç°±íµ¥ÖĞ
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param value Öµ£¬Í¨³£ÊÇÅÅÁĞ
+	 * ä¿å­˜å€¼åˆ°å½“å‰è¡¨å•ä¸­
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param value å€¼ï¼Œé€šå¸¸æ˜¯æ’åˆ—
 	 * @return
 	 */
 	abstract public int save(VDB vdb, Object value);
 
 	/**
-	 * ±£´æÖµµ½×Ó±íµ¥ÖĞ
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param value Öµ£¬Í¨³£ÊÇÅÅÁĞ
-	 * @param path ×Ó½ÚÖµ»ò×Ó½ÚÖµĞòÁĞ
-	 * @param name ×Ó½ÚÃû»ò×Ó½ÚÃûĞòÁĞ
-	 * @return 0£º³É¹¦
+	 * ä¿å­˜å€¼åˆ°å­è¡¨å•ä¸­
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param value å€¼ï¼Œé€šå¸¸æ˜¯æ’åˆ—
+	 * @param path å­èŠ‚å€¼æˆ–å­èŠ‚å€¼åºåˆ—
+	 * @param name å­èŠ‚åæˆ–å­èŠ‚ååºåˆ—
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	abstract public int save(VDB vdb, Object value, Object path, Object name);
 	
 	/**
-	 * ´´½¨×ÓÂ·¾¶
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param path ×Ó½ÚÖµ»ò×Ó½ÚÖµĞòÁĞ
-	 * @param name ×Ó½ÚÃû»ò×Ó½ÚÃûĞòÁĞ
-	 * @return 0£º³É¹¦
+	 * åˆ›å»ºå­è·¯å¾„
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param path å­èŠ‚å€¼æˆ–å­èŠ‚å€¼åºåˆ—
+	 * @param name å­èŠ‚åæˆ–å­èŠ‚ååºåˆ—
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	abstract public int makeDir(VDB vdb, Object path, Object name);
 	
 	/**
-	 * ´´½¨¼ü¿â½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param key ¼ü¿âÃû³Æ
-	 * @param len ¹şÏ£³¤¶È
-	 * @return 0£º³É¹¦
+	 * åˆ›å»ºé”®åº“èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param key é”®åº“åç§°
+	 * @param len å“ˆå¸Œé•¿åº¦
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	abstract public int createSubKeyDir(VDB vdb, Object key, int len);
 	
 	/**
-	 * ±£´æ¸½¼ş£¬Í¨³£ÊÇÍ¼Æ¬
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param oldValues ÉÏÒ»´Îµ÷ÓÃ´Îº¯ÊıµÄ·µ»ØÖµ
-	 * @param newValues ĞŞ¸ÄºóµÄÖµ
-	 * @param name ½ÚÃû
-	 * @return ÖµĞòÁĞ£¬ÓÃÓÚÏÂÒ»´Îµ÷ÓÃ´Ëº¯Êı
+	 * ä¿å­˜é™„ä»¶ï¼Œé€šå¸¸æ˜¯å›¾ç‰‡
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param oldValues ä¸Šä¸€æ¬¡è°ƒç”¨æ¬¡å‡½æ•°çš„è¿”å›å€¼
+	 * @param newValues ä¿®æ”¹åçš„å€¼
+	 * @param name èŠ‚å
+	 * @return å€¼åºåˆ—ï¼Œç”¨äºä¸‹ä¸€æ¬¡è°ƒç”¨æ­¤å‡½æ•°
 	 */
 	abstract public Sequence saveBlob(VDB vdb, Sequence oldValues, Sequence newValues, String name);
 
 	/**
-	 * ¸üĞÂÖ¸¶¨±íµ¥ÀïµÄ×Ö¶ÎÖµ
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param dirNames Â·¾¶ÃûÊı×é
-	 * @param dirValues Â·¾¶ÖµÊı×é
-	 * @param valueSigns true£º¶ÔÄ¿Â¼ÌáÌõ¼ş£¬´ËÊ±Èç¹û´«ÈëµÄÄ¿Â¼ÖµÊÇnull£¬Ôò»áÑ¡ÖµÊÇnullµÄÄ¿Â¼£¬false£ºÊ¡ÂÔÄ¿Â¼Öµ£¬¼´²»¶Ô´ËÄ¿Â¼ÌáÌõ¼ş
-	 * @param fvals ±íµ¥ÀïÒªĞŞ¸ÄµÄ×Ö¶ÎÖµÊı×é
-	 * @param fields ±íµ¥ÀïÒªĞŞ¸ÄµÄ×Ö¶ÎÃûÊı×é
-	 * @param exp Ìõ¼ş±í´ïÊ½
-	 * @param isRecursion true£º¹éÈ¥ÕÒ×ÓÂ·¾¶£¬È±Ê¡½«¶Áµ½²ÎÊıËùÉæ¼°²ã¼´Í£Ö¹
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return 0£º³É¹¦
+	 * æ›´æ–°æŒ‡å®šè¡¨å•é‡Œçš„å­—æ®µå€¼
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param dirNames è·¯å¾„åæ•°ç»„
+	 * @param dirValues è·¯å¾„å€¼æ•°ç»„
+	 * @param valueSigns trueï¼šå¯¹ç›®å½•ææ¡ä»¶ï¼Œæ­¤æ—¶å¦‚æœä¼ å…¥çš„ç›®å½•å€¼æ˜¯nullï¼Œåˆ™ä¼šé€‰å€¼æ˜¯nullçš„ç›®å½•ï¼Œfalseï¼šçœç•¥ç›®å½•å€¼ï¼Œå³ä¸å¯¹æ­¤ç›®å½•ææ¡ä»¶
+	 * @param fvals è¡¨å•é‡Œè¦ä¿®æ”¹çš„å­—æ®µå€¼æ•°ç»„
+	 * @param fields è¡¨å•é‡Œè¦ä¿®æ”¹çš„å­—æ®µåæ•°ç»„
+	 * @param exp æ¡ä»¶è¡¨è¾¾å¼
+	 * @param isRecursion trueï¼šå½’å»æ‰¾å­è·¯å¾„ï¼Œç¼ºçœå°†è¯»åˆ°å‚æ•°æ‰€æ¶‰åŠå±‚å³åœæ­¢
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	abstract public int update(VDB vdb, String []dirNames, Object []dirValues, boolean []valueSigns, 
 			Object []fvals, String []fields, Expression exp, boolean isRecursion, Context ctx);
 		
 	/**
-	 * É¾³ıµ±Ç°½Ú
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @return 0£º³É¹¦
+	 * åˆ é™¤å½“å‰èŠ‚
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	abstract public int delete(VDB vdb);
 	
 	/**
-	 * ÓÃÓÚÊı¾İ¿âµÄÎ¬»¤£¬Ö´ĞĞ´Ë²Ù×÷Ê±Ó¦¸ÃÍ£Ö¹·şÎñ
-	 * Èç¹û´Ë½ÚµãÎª¿ÕÔòÉ¾³ı£¬·ñÔòÉ¾³ı´Ë½ÚµãÏÂµÄ¿Õ×Ó½Úµã
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @return true£ºÓĞ¿ÕÄ¿Â¼±»É¾³ı£¬false£ºÃ»ÓĞ
+	 * ç”¨äºæ•°æ®åº“çš„ç»´æŠ¤ï¼Œæ‰§è¡Œæ­¤æ“ä½œæ—¶åº”è¯¥åœæ­¢æœåŠ¡
+	 * å¦‚æœæ­¤èŠ‚ç‚¹ä¸ºç©ºåˆ™åˆ é™¤ï¼Œå¦åˆ™åˆ é™¤æ­¤èŠ‚ç‚¹ä¸‹çš„ç©ºå­èŠ‚ç‚¹
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @return trueï¼šæœ‰ç©ºç›®å½•è¢«åˆ é™¤ï¼Œfalseï¼šæ²¡æœ‰
 	 */
 	abstract public boolean deleteNullSection(VDB vdb);
 	
 	/**
-	 * ÒÆ¶¯µ±Ç°½Úµ½Ö¸¶¨Ä¿Â¼ÏÂ
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param dest Ä¿±êÂ·¾¶
-	 * @param value ĞÂ½ÚÖµ£¬Ê¡ÂÔÓÃÔ­À´µÄ½ÚÖµ
-	 * @return 0£º³É¹¦
+	 * ç§»åŠ¨å½“å‰èŠ‚åˆ°æŒ‡å®šç›®å½•ä¸‹
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param dest ç›®æ ‡è·¯å¾„
+	 * @param value æ–°èŠ‚å€¼ï¼Œçœç•¥ç”¨åŸæ¥çš„èŠ‚å€¼
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	abstract public int move(VDB vdb, Section dest, Object value);
 		
 	/**
-	 * É¾³ı³¬Ê±µÄ²»»áÔÙ±»ÒıÓÃµ½µÄÇøÎ»
-	 * @param library Êı¾İ¿â¶ÔÏó
-	 * @param outerSeq Íâ´æºÅ
-	 * @param txSeq ÄÚ´æºÅ
+	 * åˆ é™¤è¶…æ—¶çš„ä¸ä¼šå†è¢«å¼•ç”¨åˆ°çš„åŒºä½
+	 * @param library æ•°æ®åº“å¯¹è±¡
+	 * @param outerSeq å¤–å­˜å·
+	 * @param txSeq å†…å­˜å·
 	 */
 	abstract public void deleteOutdatedZone(Library library, int outerSeq, long txSeq);
 	
 	/**
-	 * Ìá½»ÊÂÎñ
-	 * @param library Êı¾İ¿â¶ÔÏó
-	 * @param outerSeq Íâ´æºÅ
-	 * @param innerSeq ÄÚ´æºÅ
+	 * æäº¤äº‹åŠ¡
+	 * @param library æ•°æ®åº“å¯¹è±¡
+	 * @param outerSeq å¤–å­˜å·
+	 * @param innerSeq å†…å­˜å·
 	 * @throws IOException
 	 */
 	abstract public void commit(Library library, int outerSeq, long innerSeq) throws IOException;
 	
 	/**
-	 * È¡µ±Ç°½ÚµÄÌá½»Ê±¼ä
-	 * @return Ê±¼äÖµ
+	 * å–å½“å‰èŠ‚çš„æäº¤æ—¶é—´
+	 * @return æ—¶é—´å€¼
 	 */
 	abstract public long getCommitTime();
 	
 	/**
-	 * ÖØÃüÃû½ÚÃû
-	 * @param vdb Êı¾İ¿â¶ÔÏó
-	 * @param path ×Ó½ÚÖµ»ò×Ó½ÚÖµĞòÁĞ
-	 * @param name ×Ó½ÚÃû»ò×Ó½ÚÃûĞòÁĞ
-	 * @return 0£º³É¹¦
+	 * é‡å‘½åèŠ‚å
+	 * @param vdb æ•°æ®åº“å¯¹è±¡
+	 * @param path å­èŠ‚å€¼æˆ–å­èŠ‚å€¼åºåˆ—
+	 * @param name å­èŠ‚åæˆ–å­èŠ‚ååºåˆ—
+	 * @return 0ï¼šæˆåŠŸ
 	 */
 	abstract public int rename(VDB vdb, Object path, String name);
 	
 	/**
-	 * É¨ÃèÒÑ¾­µÄÎïÀí¿é£¬ÓÃÓÚ´æ´¢·ÖÅä
-	 * @param library Êı¾İ¿â¶ÔÏó
-	 * @param manager ¿é¹ÜÀíÆ÷
+	 * æ‰«æå·²ç»çš„ç‰©ç†å—ï¼Œç”¨äºå­˜å‚¨åˆ†é…
+	 * @param library æ•°æ®åº“å¯¹è±¡
+	 * @param manager å—ç®¡ç†å™¨
 	 * @throws IOException
 	 */
 	abstract public void scanUsedBlocks(Library library, BlockManager manager) throws IOException;
 	
 	/**
-	 * ÊÍ·Å»º´æµÄ½Ú¶ÔÏó£¬ÓÃÓÚÊÍ·ÅÄÚ´æ
+	 * é‡Šæ”¾ç¼“å­˜çš„èŠ‚å¯¹è±¡ï¼Œç”¨äºé‡Šæ”¾å†…å­˜
 	 */
 	abstract public void releaseSubSection();
 	
 	/**
-	 * ÕûÀíÊı¾İ¿âÊı¾İµ½ĞÂ¿â
-	 * @param srcLib Ô´¿â
-	 * @param destLib Ä¿±ê¿â
-	 * @param destHeader Ä¿±ê¿âÊ×¿é
+	 * æ•´ç†æ•°æ®åº“æ•°æ®åˆ°æ–°åº“
+	 * @param srcLib æºåº“
+	 * @param destLib ç›®æ ‡åº“
+	 * @param destHeader ç›®æ ‡åº“é¦–å—
 	 * @throws IOException
 	 */
 	abstract public void reset(Library srcLib, Library destLib, int destHeader) throws IOException;
 	
 	/**
-	 * ¶ÁÈë½Ú¶ÔÏó
-	 * @param library Ô´¿â
-	 * @param header ½ÚÊ×¿éÎ»ÖÃ
-	 * @param dir Â·¾¶
-	 * @return ½Ú¶ÔÏó
+	 * è¯»å…¥èŠ‚å¯¹è±¡
+	 * @param library æºåº“
+	 * @param header èŠ‚é¦–å—ä½ç½®
+	 * @param dir è·¯å¾„
+	 * @return èŠ‚å¯¹è±¡
 	 */
 	public static ISection read(Library library, int header, Dir dir) {
 		try {

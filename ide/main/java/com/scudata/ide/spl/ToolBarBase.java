@@ -6,14 +6,14 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 
 /**
- * »ù´¡¹¤¾ßÀ¸£¨ÎŞÒ³Ãæ´ò¿ª£©
+ * åŸºç¡€å·¥å…·æ ï¼ˆæ— é¡µé¢æ‰“å¼€ï¼‰
  *
  */
 public class ToolBarBase extends AppToolBar {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ToolBarBase() {
 		super();
@@ -23,13 +23,13 @@ public class ToolBarBase extends AppToolBar {
 	}
 
 	/**
-	 * ÉèÖÃ¹¤¾ßÀ¸ÊÇ·ñ¿ÉÓÃ
+	 * è®¾ç½®å·¥å…·æ æ˜¯å¦å¯ç”¨
 	 */
 	public void setBarEnabled(boolean enabled) {
 	}
 
 	/**
-	 * Ö´ĞĞÃüÁî
+	 * æ‰§è¡Œå‘½ä»¤
 	 */
 	public void executeCmd(short cmdId) {
 		try {

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 /**
- * ×Ö¶Î¶¨Òå±à¼­Æ÷
+ * å­—æ®µå®šä¹‰ç¼–è¾‘å™¨
  * 
  * @author Joancy
  *
@@ -22,9 +22,9 @@ public class FieldDefineEditor extends DefaultCellEditor {
 	int defineType;
 	
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
-	 * @param defineType ¶¨ÒåÀàĞÍ
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
+	 * @param defineType å®šä¹‰ç±»å‹
 	 */
 	public FieldDefineEditor(Dialog owner,int defineType) {
 		super(new JCheckBox());
@@ -68,7 +68,7 @@ public class FieldDefineEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸ÀàµÄ³éÏó·½·¨
+	 * å®ç°çˆ¶ç±»çš„æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int column) {
@@ -84,14 +84,14 @@ public class FieldDefineEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­Öµ
+	 * è·å–ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
 		return editingVal;
 	}
 
 	/**
-	 * Í£Ö¹µ±Ç°±à¼­
+	 * åœæ­¢å½“å‰ç¼–è¾‘
 	 */
 	public boolean stopCellEditing() {
 		return super.stopCellEditing();

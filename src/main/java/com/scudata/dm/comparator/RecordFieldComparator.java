@@ -5,12 +5,12 @@ import java.util.Comparator;
 import com.scudata.dm.BaseRecord;
 
 /**
- * 按照记录指定字段进行比较的比较器
+ * 鎸夌収璁板綍鎸囧畾瀛楁杩涜姣旇緝鐨勬瘮杈冨櫒
  * @author WangXiaoJun
  *
  */
 public class RecordFieldComparator implements Comparator<Object> {
-	private int []fieldIndex; // 记录字段序号
+	private int []fieldIndex; // 璁板綍瀛楁搴忓彿
 	
 	public RecordFieldComparator(int[] fieldIndex) {
 		this.fieldIndex = fieldIndex;

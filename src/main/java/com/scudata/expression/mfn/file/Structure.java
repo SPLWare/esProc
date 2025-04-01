@@ -30,7 +30,7 @@ import com.scudata.parallel.ClusterPhyTable;
 import com.scudata.resources.EngineMessage;
 
 /**
- * »ñµÃ×é±íÎÄ¼şµÄ½á¹¹
+ * è·å¾—ç»„è¡¨æ–‡ä»¶çš„ç»“æ„
  * f.structure()
  * @author LiWei
  *
@@ -48,7 +48,7 @@ public class Structure extends FileFunction {
 	
 	public Object calculate(Context ctx) {
 		if (file.isRemoteFile()) {
-			// Ô¶³ÌÎÄ¼ş
+			// è¿œç¨‹æ–‡ä»¶
 			String host = file.getIP();
 			int port = file.getPort();
 			String fileName = file.getFileName();
@@ -61,7 +61,7 @@ public class Structure extends FileFunction {
 			table.close();
 			return seq;
 		} else {
-			// ±¾µØÎÄ¼ş
+			// æœ¬åœ°æ–‡ä»¶
 			boolean hasI = false;
 			boolean hasC = false;
 			if (option != null) {
@@ -104,7 +104,7 @@ public class Structure extends FileFunction {
 	}
 	
 	/**
-	 * »ñµÃtableµÄ½á¹¹£¬±£´æµ½outÀï
+	 * è·å¾—tableçš„ç»“æ„ï¼Œä¿å­˜åˆ°outé‡Œ
 	 * @param table
 	 */
 	public static Record getTableStruct(PhyTable table, String option) {
@@ -148,7 +148,7 @@ public class Structure extends FileFunction {
 	}
 	
 	/**
-	 * »ñµÃtableµÄÁĞµÄ½á¹¹
+	 * è·å¾—tableçš„åˆ—çš„ç»“æ„
 	 * @param table
 	 * @param option 
 	 * @return
@@ -206,7 +206,7 @@ public class Structure extends FileFunction {
 	}
 	
 	/**
-	 * »ñµÃtableµÄË÷ÒıµÄ½á¹¹
+	 * è·å¾—tableçš„ç´¢å¼•çš„ç»“æ„
 	 * @param table
 	 * @return
 	 */
@@ -228,7 +228,7 @@ public class Structure extends FileFunction {
 	}
 	
 	/**
-	 * »ñµÃtableµÄÔ¤·Ö×éµÄ½á¹¹
+	 * è·å¾—tableçš„é¢„åˆ†ç»„çš„ç»“æ„
 	 * @param table
 	 * @return
 	 */
@@ -249,14 +249,14 @@ public class Structure extends FileFunction {
 				srcCuboid = new Cuboid(file, null);
 				Record rec = new Record(new DataStruct(CUBOID_FIELD_NAMES));
 				rec.setNormalFieldValue(0, cuboid);
-				rec.setNormalFieldValue(1, new Sequence(srcCuboid.getExps()));//·Ö×é±í´ïÊ½
+				rec.setNormalFieldValue(1, new Sequence(srcCuboid.getExps()));//åˆ†ç»„è¡¨è¾¾å¼
 				
 				/**
-				 * ×éÖ¯»ã×Ü±í´ïÊ½
+				 * ç»„ç»‡æ±‡æ€»è¡¨è¾¾å¼
 				 */
 				Sequence aggr = new Sequence();
-				String[] newExps = srcCuboid.getNewExps();//»ã×Ü±í´ïÊ½
-				String[] names = srcCuboid.getBaseTable().getAllColNames();//ÕâÀïµÄºó°ë²¿·ÖÊÇ»ã×Ü±í´ïÊ½µÄname
+				String[] newExps = srcCuboid.getNewExps();//æ±‡æ€»è¡¨è¾¾å¼
+				String[] names = srcCuboid.getBaseTable().getAllColNames();//è¿™é‡Œçš„ååŠéƒ¨åˆ†æ˜¯æ±‡æ€»è¡¨è¾¾å¼çš„name
 				int len = newExps.length;
 				int start = names.length - len;
 				for (int i = 0; i < len; i++) {
@@ -282,14 +282,14 @@ public class Structure extends FileFunction {
 		try {
 			srcCuboid = new Cuboid(file, null);
 			rec = new Record(new DataStruct(CUBOID_FIELD_NAMES2));
-			rec.setNormalFieldValue(0, new Sequence(srcCuboid.getExps()));//·Ö×é±í´ïÊ½
+			rec.setNormalFieldValue(0, new Sequence(srcCuboid.getExps()));//åˆ†ç»„è¡¨è¾¾å¼
 			
 			/**
-			 * ×éÖ¯»ã×Ü±í´ïÊ½
+			 * ç»„ç»‡æ±‡æ€»è¡¨è¾¾å¼
 			 */
 			Sequence aggr = new Sequence();
-			String[] newExps = srcCuboid.getNewExps();//»ã×Ü±í´ïÊ½
-			String[] names = srcCuboid.getBaseTable().getAllColNames();//ÕâÀïµÄºó°ë²¿·ÖÊÇ»ã×Ü±í´ïÊ½µÄname
+			String[] newExps = srcCuboid.getNewExps();//æ±‡æ€»è¡¨è¾¾å¼
+			String[] names = srcCuboid.getBaseTable().getAllColNames();//è¿™é‡Œçš„ååŠéƒ¨åˆ†æ˜¯æ±‡æ€»è¡¨è¾¾å¼çš„name
 			int len = newExps.length;
 			int start = names.length - len;
 			for (int i = 0; i < len; i++) {
@@ -308,7 +308,7 @@ public class Structure extends FileFunction {
 		return rec;
 	}
 	
-	//Í³¼Æ×é±íµÄ·Ö¶ÎĞÅÏ¢
+	//ç»Ÿè®¡ç»„è¡¨çš„åˆ†æ®µä¿¡æ¯
 	private Sequence getTableBlockInfo(ColPhyTable table) {
 		String[] keys = table.getAllKeyColNames();
 		if (keys == null) return null;
@@ -377,7 +377,7 @@ public class Structure extends FileFunction {
 		return result;
 	}
 	
-	//Í³¼Æ×é±í¸÷ÁĞµÄĞÅÏ¢
+	//ç»Ÿè®¡ç»„è¡¨å„åˆ—çš„ä¿¡æ¯
 	private static int getTableRowInfo(ColumnMetaData column) {
 		BlockLink blockLink = column.getDataBlockLink();
 		return blockLink.getBlockCount();

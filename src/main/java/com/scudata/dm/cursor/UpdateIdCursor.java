@@ -4,23 +4,23 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 
 /**
- * °ÑÓÎ±êÊı¾İ°´ÕÕ×é±í¸üĞÂ±íµÄ¹æÔòÈ¥ÖØ
+ * æŠŠæ¸¸æ ‡æ•°æ®æŒ‰ç…§ç»„è¡¨æ›´æ–°è¡¨çš„è§„åˆ™å»é‡
  * @author WangXiaoJun
  *
  */
 public class UpdateIdCursor extends ICursor {
-	private ICursor cs; // ¸üĞÂÊı¾İÓÎ±ê
-	private int []keys; // Ö÷¼ü×Ö¶Î
-	private int deleteField; // É¾³ı±êÊ¶×Ö¶Î£¬Èç¹ûÃ»ÓĞÉ¾³ı±êÊ¶×Ö¶ÎÔòÎª-1
+	private ICursor cs; // æ›´æ–°æ•°æ®æ¸¸æ ‡
+	private int []keys; // ä¸»é”®å­—æ®µ
+	private int deleteField; // åˆ é™¤æ ‡è¯†å­—æ®µï¼Œå¦‚æœæ²¡æœ‰åˆ é™¤æ ‡è¯†å­—æ®µåˆ™ä¸º-1
 	
-	private Sequence data; // ÓÎ±ê»º´æµÄÊı¾İ
-	private int cur; // ÓÎ±êµ±Ç°¼ÇÂ¼ÔÚ»º´æÊı¾İÖĞµÄË÷Òı
+	private Sequence data; // æ¸¸æ ‡ç¼“å­˜çš„æ•°æ®
+	private int cur; // æ¸¸æ ‡å½“å‰è®°å½•åœ¨ç¼“å­˜æ•°æ®ä¸­çš„ç´¢å¼•
 	
 	/**
-	 * ¹¹½¨¸üĞÂÈ¥ÖØÓÎ±ê
-	 * @param cs ¸üĞÂÊı¾İÓÎ±ê
-	 * @param keys Ö÷¼ü×Ö¶Î
-	 * @param deleteField É¾³ı±êÊ¶×Ö¶Î£¬Èç¹ûÃ»ÓĞÉ¾³ı±êÊ¶×Ö¶ÎÔòÎª-1
+	 * æ„å»ºæ›´æ–°å»é‡æ¸¸æ ‡
+	 * @param cs æ›´æ–°æ•°æ®æ¸¸æ ‡
+	 * @param keys ä¸»é”®å­—æ®µ
+	 * @param deleteField åˆ é™¤æ ‡è¯†å­—æ®µï¼Œå¦‚æœæ²¡æœ‰åˆ é™¤æ ‡è¯†å­—æ®µåˆ™ä¸º-1
 	 */
 	public UpdateIdCursor(ICursor cs, int []keys, int deleteField) {
 		this.cs = cs;
@@ -72,13 +72,13 @@ public class UpdateIdCursor extends ICursor {
 				}
 			}
 		} else {
-			// ÓĞÉ¾³ı±êÖ¾µÄ¸üĞÂ
+			// æœ‰åˆ é™¤æ ‡å¿—çš„æ›´æ–°
 			for (int i = cur + 1; i <= len; ++i) {
 				BaseRecord r = (BaseRecord)seq.getMem(i);
 				if (!prev.isEquals(r, keys)) {
 					result.add(prev);
 				} else {
-					// ·µ»ØfalseÔòÇå³ıµ±Ç°¼ÇÂ¼
+					// è¿”å›falseåˆ™æ¸…é™¤å½“å‰è®°å½•
 					if (!UpdateMergeCursor.merge(prev, r, deleteField)) {
 						i++;
 						if (i <= len) {
@@ -103,7 +103,7 @@ public class UpdateIdCursor extends ICursor {
 				if (!prev.isEquals(r, keys)) {
 					result.add(prev);
 				} else {
-					// ·µ»ØfalseÔòÇå³ıµ±Ç°¼ÇÂ¼
+					// è¿”å›falseåˆ™æ¸…é™¤å½“å‰è®°å½•
 					if (!UpdateMergeCursor.merge(prev, r, deleteField)) {
 						cur++;
 						if (cur > data.length()) {
@@ -127,7 +127,7 @@ public class UpdateIdCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();

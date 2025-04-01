@@ -9,7 +9,7 @@ import java.nio.channels.OverlappingFileLockException;
 import com.scudata.common.RQException;
 
 /**
- * ¿ÉÒÔ¸Ä±äÊä³öÎ»ÖÃµÄÊä³öÁ÷
+ * å¯ä»¥æ”¹å˜è¾“å‡ºä½ç½®çš„è¾“å‡ºæµ
  * @author WangXiaoJun
  *
  */
@@ -18,7 +18,7 @@ public class FileRandomOutputStream extends RandomOutputStream {
 	private FileChannel channel;
 	
 	/**
-	 * ÓÉRandomAccessFile´´½¨¿ÉÒÔ¸Ä±äÊä³öÎ»ÖÃµÄÊä³öÁ÷
+	 * ç”±RandomAccessFileåˆ›å»ºå¯ä»¥æ”¹å˜è¾“å‡ºä½ç½®çš„è¾“å‡ºæµ
 	 * @param file RandomAccessFile
 	 */
 	public FileRandomOutputStream(RandomAccessFile file) {
@@ -26,7 +26,7 @@ public class FileRandomOutputStream extends RandomOutputStream {
 	}
 	
 	/**
-	 * È¡ÎÄ¼ş¹ÜµÀ
+	 * å–æ–‡ä»¶ç®¡é“
 	 * @return FileChannel
 	 */
 	public FileChannel getChannel() {
@@ -38,8 +38,8 @@ public class FileRandomOutputStream extends RandomOutputStream {
 	}
 	
 	/**
-	 * È¡ÊäÈëÁ÷
-	 * @param pos ÎÄ¼şÎ»ÖÃ
+	 * å–è¾“å…¥æµ
+	 * @param pos æ–‡ä»¶ä½ç½®
 	 */
 	public InputStream getInputStream(long pos) throws IOException {
 		FileChannel channel = getChannel();
@@ -48,14 +48,14 @@ public class FileRandomOutputStream extends RandomOutputStream {
 	}
 	
 	/**
-	 * Ëø¶¨ÎÄ¼ş£¬·ÀÖ¹±»ÁíÒ»¸öÏß³ÌĞŞ¸Ä
+	 * é”å®šæ–‡ä»¶ï¼Œé˜²æ­¢è¢«å¦ä¸€ä¸ªçº¿ç¨‹ä¿®æ”¹
 	 */
 	public boolean tryLock() throws IOException {
 		return getChannel().tryLock() != null;
 	}
 	
 	/**
-	 * Ëø¶¨ÎÄ¼ş£¬·ÀÖ¹±»ÁíÒ»¸öÏß³ÌĞŞ¸Ä
+	 * é”å®šæ–‡ä»¶ï¼Œé˜²æ­¢è¢«å¦ä¸€ä¸ªçº¿ç¨‹ä¿®æ”¹
 	 */
 	public boolean lock() throws IOException {
 		FileChannel channel = getChannel();
@@ -75,49 +75,49 @@ public class FileRandomOutputStream extends RandomOutputStream {
 	}
 	
 	/**
-	 * ÉèÖÃÏÂÒ»²½µÄÊä³öÎ»ÖÃ
-	 * @param newPosition Î»ÖÃ
+	 * è®¾ç½®ä¸‹ä¸€æ­¥çš„è¾“å‡ºä½ç½®
+	 * @param newPosition ä½ç½®
 	 */
 	public void position(long newPosition) throws IOException{
 		file.seek(newPosition);
 	}
 	
 	/**
-	 * ·µ»Øµ±Ç°µÄÊä³öÎ»ÖÃ
-	 * @return long Î»ÖÃ
+	 * è¿”å›å½“å‰çš„è¾“å‡ºä½ç½®
+	 * @return long ä½ç½®
 	 */
 	public long position() throws IOException {
 		return file.getFilePointer();
 	}
 	
 	/**
-	 * Ğ´ÈëÒ»¸ö×Ö½Ú
-	 * @param b ×Ö½ÚÖµ
+	 * å†™å…¥ä¸€ä¸ªå­—èŠ‚
+	 * @param b å­—èŠ‚å€¼
 	 */
 	public void write(int b) throws IOException {
 		file.write(b);
 	}
 
 	/**
-	 * Ğ´ÈëÒ»¸ö×Ö½ÚÊı×é
-	 * @param b ×Ö½ÚÊı×é
+	 * å†™å…¥ä¸€ä¸ªå­—èŠ‚æ•°ç»„
+	 * @param b å­—èŠ‚æ•°ç»„
 	 */
 	public void write(byte b[]) throws IOException {
 		file.write(b);
 	}
 	
 	/**
-	 * Ğ´ÈëÒ»¸ö×Ö½ÚÊı×é
-	 * @param b ×Ö½ÚÊı×é
-	 * @param off ÆğÊ¼Î»ÖÃ
-	 * @param len ³¤¶È
+	 * å†™å…¥ä¸€ä¸ªå­—èŠ‚æ•°ç»„
+	 * @param b å­—èŠ‚æ•°ç»„
+	 * @param off èµ·å§‹ä½ç½®
+	 * @param len é•¿åº¦
 	 */
 	public void write(byte b[], int off, int len) throws IOException {
 		file.write(b, off, len);
 	}
 
 	/**
-	 * ¹Ø±ÕÊä³öÁ÷
+	 * å…³é—­è¾“å‡ºæµ
 	 */
 	public void close() throws IOException {
 		file.close();

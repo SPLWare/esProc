@@ -17,7 +17,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃĞòºÅµÄ·½Ê½ÒıÓÃ¼ÇÂ¼µÄ×Ö¶Î
+ * ç”¨åºå·çš„æ–¹å¼å¼•ç”¨è®°å½•çš„å­—æ®µ
  * #1 r.#1 A.#1
  * @author WangXiaoJun
  *
@@ -26,7 +26,7 @@ public class FieldId extends Node {
 	private Object src;
 	private int index;
 
-	private Node left; // µã²Ù×÷·ûµÄ×ó²à½Úµã	
+	private Node left; // ç‚¹æ“ä½œç¬¦çš„å·¦ä¾§èŠ‚ç‚¹	
 
 	public FieldId(String id) {
 		index = KeyWord.getFiledId(id) - 1;
@@ -37,7 +37,7 @@ public class FieldId extends Node {
 	}
 	
 	/**
-	 * È¡½ÚµãµÄ×ó²à½Úµã£¬Ã»ÓĞ·µ»Ø¿Õ
+	 * å–èŠ‚ç‚¹çš„å·¦ä¾§èŠ‚ç‚¹ï¼Œæ²¡æœ‰è¿”å›ç©º
 	 * @return Node
 	 */
 	public Node getLeft() {
@@ -45,8 +45,8 @@ public class FieldId extends Node {
 	}
 
 	/**
-	 * ÉèÖÃ½ÚµãµÄ×ó²à½Úµã
-	 * @param node ½Úµã
+	 * è®¾ç½®èŠ‚ç‚¹çš„å·¦ä¾§èŠ‚ç‚¹
+	 * @param node èŠ‚ç‚¹
 	 */
 	public void setLeft(Node node) {
 		left = node;
@@ -61,7 +61,7 @@ public class FieldId extends Node {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		src = null;
@@ -94,10 +94,10 @@ public class FieldId extends Node {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -105,9 +105,9 @@ public class FieldId extends Node {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -124,8 +124,8 @@ public class FieldId extends Node {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -177,7 +177,7 @@ public class FieldId extends Node {
 					if (n > 0) {
 						cur = sequence.getMem(n);
 						if (cur instanceof Sequence) {
-							// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+							// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 							if (((Sequence)cur).length() > 0) {
 								cur = ((Sequence)cur).getMem(1);
 							} else {
@@ -221,7 +221,7 @@ public class FieldId extends Node {
 					if (n > 0) {
 						cur = sequence.getMem(n);
 						if (cur instanceof Sequence) {
-							// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+							// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 							if (((Sequence)cur).length() > 0) {
 								cur = ((Sequence)cur).getMem(1);
 							} else {
@@ -255,7 +255,7 @@ public class FieldId extends Node {
 		}
 	}
 	
-	// '=' ¶Ô×Ö¶Î½øĞĞ¸³Öµ
+	// '=' å¯¹å­—æ®µè¿›è¡Œèµ‹å€¼
 	public Object assign(Object value, Context ctx) {
 		if (src == null) { // #1
 			ComputeStack stack = ctx.getComputeStack();
@@ -266,7 +266,7 @@ public class FieldId extends Node {
 			} else if (obj == null) {
 				return value;
 			} else if (obj instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (((Sequence)obj).length() == 0) {
 					return value;
 				}
@@ -292,7 +292,7 @@ public class FieldId extends Node {
 				} else if (obj == null) {
 					return value;
 				} else if (obj instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					if (((Sequence)obj).length() == 0) {
 						return value;
 					}
@@ -319,7 +319,7 @@ public class FieldId extends Node {
 		}
 	}
 	
-	// '+=' ¶Ô×Ö¶Î½øĞĞ¸³Öµ
+	// '+=' å¯¹å­—æ®µè¿›è¡Œèµ‹å€¼
 	public Object addAssign(Object value, Context ctx) {
 		if (src == null) { // #1
 			ComputeStack stack = ctx.getComputeStack();
@@ -332,7 +332,7 @@ public class FieldId extends Node {
 			} else if (obj == null) {
 				return value;
 			} else if (obj instanceof Sequence) {
-				// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+				// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 				if (((Sequence)obj).length() == 0) {
 					return value;
 				}
@@ -362,7 +362,7 @@ public class FieldId extends Node {
 				} else if (obj == null) {
 					return value;
 				} else if (obj instanceof Sequence) {
-					// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+					// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 					if (((Sequence)obj).length() == 0) {
 						return value;
 					}
@@ -539,8 +539,8 @@ public class FieldId extends Node {
 	}
 	
 	/**
-	 * ·µ»Ø½ÚµãÊÇ·ñµ¥µ÷µİÔöµÄ
-	 * @return true£ºÊÇµ¥µ÷µİÔöµÄ£¬false£º²»ÊÇ
+	 * è¿”å›èŠ‚ç‚¹æ˜¯å¦å•è°ƒé€’å¢çš„
+	 * @return trueï¼šæ˜¯å•è°ƒé€’å¢çš„ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isMonotone() {
 		return true;

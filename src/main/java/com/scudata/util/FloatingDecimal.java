@@ -2,8 +2,8 @@
 package com.scudata.util;
 
 /**
- * ¶ÔjavaµÄFloatingDecimal×öÁËĞŞ¸Ä£¬¸ñÊ½´íÎóÊÇ·µ»Ønull²»ÔÙÅ×³öÒì³£¡£
- * ¶ÔÓÚ´óÊı¾İÁ¿µÄÀàĞÍ½âÎöÅ×³öÒì³£Ó°ÏìĞÔÄÜ¡£
+ * å¯¹javaçš„FloatingDecimalåšäº†ä¿®æ”¹ï¼Œæ ¼å¼é”™è¯¯æ˜¯è¿”å›nullä¸å†æŠ›å‡ºå¼‚å¸¸ã€‚
+ * å¯¹äºå¤§æ•°æ®é‡çš„ç±»å‹è§£ææŠ›å‡ºå¼‚å¸¸å½±å“æ€§èƒ½ã€‚
  */
 public class FloatingDecimal {
 	boolean isExceptional;

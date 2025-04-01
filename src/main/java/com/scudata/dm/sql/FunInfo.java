@@ -1,13 +1,13 @@
 package com.scudata.dm.sql;
 
 /**
- * ±ê×¼º¯ÊıĞÅÏ¢(±ê×¼º¯ÊıÃû+²ÎÊı¸öÊıÎ¨Ò»)
+ * æ ‡å‡†å‡½æ•°ä¿¡æ¯(æ ‡å‡†å‡½æ•°å+å‚æ•°ä¸ªæ•°å”¯ä¸€)
  * @author RunQian
  *
  */
 public class FunInfo implements Comparable<FunInfo> {
-	private String name; // ±ê×¼º¯ÊıÃû
-	private int pcount; // ²ÎÊı¸öÊı£¬-1±íÊ¾²»¶¨²ÎÊı¸öÊı
+	private String name; // æ ‡å‡†å‡½æ•°å
+	private int pcount; // å‚æ•°ä¸ªæ•°ï¼Œ-1è¡¨ç¤ºä¸å®šå‚æ•°ä¸ªæ•°
 
 	public FunInfo() {
 	}
@@ -45,7 +45,7 @@ public class FunInfo implements Comparable<FunInfo> {
 		}
 	}
 
-	// ÓÃ×÷mapµÄkey
+	// ç”¨ä½œmapçš„key
 	public int compareTo(FunInfo o) {
 		FunInfo funInfo = (FunInfo)o;
 		int cmp = name.compareToIgnoreCase(funInfo.name);

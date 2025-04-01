@@ -4,30 +4,30 @@ import java.util.EmptyStackException;
 import java.util.Vector;
 
 /**
- * ÏŞÖÆ´óĞ¡µÄ¶ÑÕ»
+ * é™åˆ¶å¤§å°çš„å †æ ˆ
  */
 public final class LimitedStack {
 
 	/**
-	 * ³ÉÔ±ÉÏÏŞ
+	 * æˆå‘˜ä¸Šé™
 	 */
 	private int maxSize = Integer.MAX_VALUE;
 	/**
-	 * ¶ÑÕ»
+	 * å †æ ˆ
 	 */
 	private Vector<Object> stack = new Vector<Object>();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public LimitedStack() {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param maxSize
-	 *            ¶ÑÕ»×î´ó³¤¶È
+	 *            å †æ ˆæœ€å¤§é•¿åº¦
 	 */
 	public LimitedStack(int maxSize) {
 		if (maxSize <= 0) {
@@ -37,7 +37,7 @@ public final class LimitedStack {
 	}
 
 	/**
-	 * ÉèÖÃ¶ÑÕ»×î´ó³¤¶È£¬²¢Çå³ı³¬³ö³¤¶ÈµÄÕ»µ×Êı¾İ
+	 * è®¾ç½®å †æ ˆæœ€å¤§é•¿åº¦ï¼Œå¹¶æ¸…é™¤è¶…å‡ºé•¿åº¦çš„æ ˆåº•æ•°æ®
 	 */
 	public void setMaxSize(int maxSize) {
 		if (maxSize <= 0) {
@@ -50,24 +50,24 @@ public final class LimitedStack {
 	}
 
 	/**
-	 * È¡¶ÑÕ»×î´ó³¤¶È
+	 * å–å †æ ˆæœ€å¤§é•¿åº¦
 	 */
 	public int getMaxSize() {
 		return maxSize;
 	}
 
 	/**
-	 * È¡¶ÑÕ»ÖĞÔªËØ¸öÊı
+	 * å–å †æ ˆä¸­å…ƒç´ ä¸ªæ•°
 	 */
 	public int size() {
 		return stack.size();
 	}
 
 	/**
-	 * ÔªËØ½øÈëÕ»¶¥
+	 * å…ƒç´ è¿›å…¥æ ˆé¡¶
 	 * 
 	 * @param item
-	 *            ½øÕ»µÄÔªËØ
+	 *            è¿›æ ˆçš„å…ƒç´ 
 	 */
 
 	public Object push(Object item) {
@@ -79,9 +79,9 @@ public final class LimitedStack {
 	}
 
 	/**
-	 * Õ»¶¥ÔªËØ³öÕ»
+	 * æ ˆé¡¶å…ƒç´ å‡ºæ ˆ
 	 * 
-	 * @return ³öÕ»µÄÔªËØ
+	 * @return å‡ºæ ˆçš„å…ƒç´ 
 	 */
 	public Object pop() {
 		Object obj = peek();
@@ -90,9 +90,9 @@ public final class LimitedStack {
 	}
 
 	/**
-	 * È¡Õ»¶¥ÔªËØ
+	 * å–æ ˆé¡¶å…ƒç´ 
 	 * 
-	 * @return Õ»¶¥ÔªËØ
+	 * @return æ ˆé¡¶å…ƒç´ 
 	 */
 	public Object peek() {
 		int len = size();
@@ -103,28 +103,28 @@ public final class LimitedStack {
 	}
 
 	/**
-	 * Çå¿ÕÕ»
+	 * æ¸…ç©ºæ ˆ
 	 */
 	public void clear() {
 		stack.clear();
 	}
 
 	/**
-	 * ¼ì²éÊÇ·ñ¿ÕÕ»
+	 * æ£€æŸ¥æ˜¯å¦ç©ºæ ˆ
 	 */
 	public boolean empty() {
 		return size() == 0;
 	}
 
 	/**
-	 * ¼ì²éÕ»ÊÇ·ñÂú
+	 * æ£€æŸ¥æ ˆæ˜¯å¦æ»¡
 	 */
 	public boolean isFull() {
 		return size() == maxSize;
 	}
 
 	/**
-	 * ×ª×Ö·û´®
+	 * è½¬å­—ç¬¦ä¸²
 	 */
 	public String toString() {
 		int len = size();

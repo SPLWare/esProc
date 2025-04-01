@@ -5,7 +5,7 @@ import java.util.*;
 import java.math.*;
 
 /**
- * 用于把字节流读成对象，可以支持读取不同版本程序保存的数据
+ * 鐢ㄤ簬鎶婂瓧鑺傛祦璇绘垚瀵硅薄锛屽彲浠ユ敮鎸佽鍙栦笉鍚岀増鏈▼搴忎繚瀛樼殑鏁版嵁
  * @author RunQian
  *
  */
@@ -260,7 +260,7 @@ public class ByteArrayInputRecord {
 		}
 	}
 
-	// 不要随便用这个方法，用这个方法无法获取非数据非字符串对象，由于无法判断对象具体类名称，所以只读出byte[]
+	// 涓嶈闅忎究鐢ㄨ繖涓柟娉曪紝鐢ㄨ繖涓柟娉曟棤娉曡幏鍙栭潪鏁版嵁闈炲瓧绗︿覆瀵硅薄锛岀敱浜庢棤娉曞垽鏂璞″叿浣撶被鍚嶇О锛屾墍浠ュ彧璇诲嚭byte[]
 	public Object readObject(boolean test) throws IOException, ClassNotFoundException {
 		int b = readByte();
 		switch (b) {
@@ -272,7 +272,7 @@ public class ByteArrayInputRecord {
 			try {
 				rec = (IRecord) Class.forName(className).newInstance();
 			} catch (Exception e) {
-				// 包路径由com.raqsoft修改为了com.scudata，旧包保存的对象可能用到了IRecord的派生类
+				// 鍖呰矾寰勭敱com.raqsoft淇敼涓轰簡com.scudata锛屾棫鍖呬繚瀛樼殑瀵硅薄鍙兘鐢ㄥ埌浜咺Record鐨勬淳鐢熺被
 				if (className.startsWith("com.raqsoft.")) {
 					try {
 						className = "com.scudata." + className.substring(12);
@@ -570,7 +570,7 @@ public class ByteArrayInputRecord {
 		}
 	}
 
-	// 不要随便用这个方法，用这个方法无法获取非数据非字符串对象，由于无法判断对象具体类名称，所以只读出byte[]
+	// 涓嶈闅忎究鐢ㄨ繖涓柟娉曪紝鐢ㄨ繖涓柟娉曟棤娉曡幏鍙栭潪鏁版嵁闈炲瓧绗︿覆瀵硅薄锛岀敱浜庢棤娉曞垽鏂璞″叿浣撶被鍚嶇О锛屾墍浠ュ彧璇诲嚭byte[]
 	public Object readObject2(boolean test) throws IOException, ClassNotFoundException, EOFException {
 		if (in.available() > 0) {
 			int b = readByte();

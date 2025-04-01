@@ -13,8 +13,8 @@ import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Îª×é±í´´½¨Ë÷Òý
- * T.index(I:h,w;C,¡­;F,¡­;x)
+ * ä¸ºç»„è¡¨åˆ›å»ºç´¢å¼•
+ * T.index(I:h,w;C,â€¦;F,â€¦;x)
  * @author RunQian
  *
  */

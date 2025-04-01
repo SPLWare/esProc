@@ -3,54 +3,54 @@ package com.scudata.cellset.graph.draw;
 import com.scudata.chart.Consts;
 
 /**
- * À©Õ¹Í¼ĞÎÏµÁĞÊôĞÔ¶¨Òå
+ * æ‰©å±•å›¾å½¢ç³»åˆ—å±æ€§å®šä¹‰
  * @author Joancy
  *
  */
 public class ExtGraphSery implements Comparable{
-  /** ÏµÁĞÃû³Æ  */
+  /** ç³»åˆ—åç§°  */
   private String name;
 
-  /** ÏµÁĞ±í´ïÊ½  */
+  /** ç³»åˆ—è¡¨è¾¾å¼  */
   private Number value = null;
 
-  /** ÏµÁĞTip  */
+  /** ç³»åˆ—Tip  */
   private String tips = null;
   
   private byte axis = Consts.AXIS_LEFT;//Left
   /**
-   * ÉèÖÃÏµÁĞÃû³Æ
-   * param  name ÏµÁĞÃû³Æ
+   * è®¾ç½®ç³»åˆ—åç§°
+   * param  name ç³»åˆ—åç§°
    */
   public void setName(String name) {
 	this.name = name;
   }
 
   /**
-   * ÉèÖÃÏµÁĞÖµ
-   * @param  value ÏµÁĞÖµ
+   * è®¾ç½®ç³»åˆ—å€¼
+   * @param  value ç³»åˆ—å€¼
    */
   public void setValue(Number value) {
 	this.value = value;
   }
 
   /**
-   * »ñµÃÏµÁĞÃû³Æ
-   * @return  String ÏµÁĞÃû³Æ
+   * è·å¾—ç³»åˆ—åç§°
+   * @return  String ç³»åˆ—åç§°
    */
   public String getName() {
 	return name;
   }
 
   /**
-   * »ñµÃÏµÁĞÖµ
-   * @return  Object ÏµÁĞÖµ
+   * è·å¾—ç³»åˆ—å€¼
+   * @return  Object ç³»åˆ—å€¼
    */
   public double getValue() {
 	if (value == null) {
 	  return 0;
 	}
-	//Èç¹ûîĞÍ²»Ò»ÖÂ£¬±ÈÈçfloat×ª³Édouble£¬Ö±½Ó×ª»»»áÔì³É¾«¶È²»¹»£¬»á·¢Éú´æ´¢ÖµÎó²î£¬ËùÒÔ´Ë´¦£¬ÓÃ×Ö·û´®¹ı¶ÉÒ»ÏÂ
+	//å¦‚æœé¡å‹ä¸ä¸€è‡´ï¼Œæ¯”å¦‚floatè½¬æˆdoubleï¼Œç›´æ¥è½¬æ¢ä¼šé€ æˆç²¾åº¦ä¸å¤Ÿï¼Œä¼šå‘ç”Ÿå­˜å‚¨å€¼è¯¯å·®ï¼Œæ‰€ä»¥æ­¤å¤„ï¼Œç”¨å­—ç¬¦ä¸²è¿‡æ¸¡ä¸€ä¸‹
 	if(value instanceof Float){
 		double d = Double.parseDouble(""+value);
 		return d;
@@ -59,39 +59,39 @@ public class ExtGraphSery implements Comparable{
   }
 
   /**
-   * »ñÈ¡ÏµÁĞÖµ
-   * @return Öµ
+   * è·å–ç³»åˆ—å€¼
+   * @return å€¼
    */
   public Number getValueObject() {
 	return value;
   }
 
   /**
-   * ÅĞ¶ÏÊÇ·ñÎª¿ÕÖµ
-   * @return ¿ÕÖµ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+   * åˆ¤æ–­æ˜¯å¦ä¸ºç©ºå€¼
+   * @return ç©ºå€¼è¿”å›trueï¼Œå¦åˆ™è¿”å›false
    */
   public boolean isNull() {
 	return value == null;
   }
 
   /**
-   * È¡Éú³É³¬Á´½ÓµÄtip
-   * @return tip´®
+   * å–ç”Ÿæˆè¶…é“¾æ¥çš„tip
+   * @return tipä¸²
    */
   public String getTips(){
 	return tips;
   }
   
   /**
-   * ÉèÖÃÉú³É³¬Á´½ÓµÄtip´®
-   * @param tip ´®Öµ
+   * è®¾ç½®ç”Ÿæˆè¶…é“¾æ¥çš„tipä¸²
+   * @param tip ä¸²å€¼
    */
   public void setTips( String tip ){
 	tips = tip;
   }
   
   /**
-   * È¡µ±Ç°ÏµÁĞ¶ÔÓ¦µÄÖá£¬Ë«ÖáÍ¼Ê±½«ÏµÁĞ»­µ½¶ÔÓ¦µÄÖá£¬·ÖÎª×óÓÒÖá
+   * å–å½“å‰ç³»åˆ—å¯¹åº”çš„è½´ï¼ŒåŒè½´å›¾æ—¶å°†ç³»åˆ—ç”»åˆ°å¯¹åº”çš„è½´ï¼Œåˆ†ä¸ºå·¦å³è½´
    * @return
    */
   public byte getAxis(){
@@ -101,7 +101,7 @@ public class ExtGraphSery implements Comparable{
 	this.axis = axis;
   }
   /**
-   * ÊµÏÖ±È½Ï½Ó¿Ú
+   * å®ç°æ¯”è¾ƒæ¥å£
    */
   public int compareTo(Object o) {
 	ExtGraphSery other = (ExtGraphSery)o;

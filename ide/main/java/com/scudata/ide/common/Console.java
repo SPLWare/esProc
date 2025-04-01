@@ -22,11 +22,11 @@ import com.scudata.common.LimitedQueue;
  *
  */
 public class Console {
-	private int MAX_LENGTH = 500000; // ³¬¹ıÉÏÏŞÊ±£¬É¾µôÇ°Ò»°ë
+	private int MAX_LENGTH = 500000; // è¶…è¿‡ä¸Šé™æ—¶ï¼Œåˆ æ‰å‰ä¸€åŠ
 	private JTextArea jta = null;
 	private PrintStream ps;
 	private Object rowLock = new Object();
-	// »º³åÇøµÄĞĞÊı
+	// ç¼“å†²åŒºçš„è¡Œæ•°
 	private LimitedQueue rowBuffers = new LimitedQueue(10000);
 	private ArrayList<InputStreamFlusher> flushers = new ArrayList<InputStreamFlusher>();
 
@@ -77,7 +77,7 @@ public class Console {
 					}
 					rowBuffers.clear();
 					rowBuffers.setUnChanged();
-					// ¶ÔUIµÄ²Ù×÷ÒªÔÚSwing°²È«Ïß³ÌÖĞ
+					// å¯¹UIçš„æ“ä½œè¦åœ¨Swingå®‰å…¨çº¿ç¨‹ä¸­
 					SwingUtilities.invokeLater(new Runnable() {
 						public void run() {
 							try {
@@ -91,7 +91,7 @@ public class Console {
 										text = text.substring(MAX_LENGTH / 2);
 										jta.setText(text);
 									}
-									// Ã»ÓĞÑ¡ÔñÊ±²Å½«¹â±êÉèÖÃµ½×îºó
+									// æ²¡æœ‰é€‰æ‹©æ—¶æ‰å°†å…‰æ ‡è®¾ç½®åˆ°æœ€å
 									if (!isTextSelected()) {
 										jta.setCaretPosition(text.length());
 									}
@@ -118,7 +118,7 @@ public class Console {
 
 	public void clearCaseSelection() {
 		if (isTextSelected()) {
-			// É¾³ıÑ¡ÖĞµÄÎÄ±¾
+			// åˆ é™¤é€‰ä¸­çš„æ–‡æœ¬
 			jta.replaceSelection("");
 		} else {
 			clear();

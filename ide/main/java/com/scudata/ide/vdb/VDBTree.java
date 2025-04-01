@@ -134,7 +134,7 @@ public abstract class VDBTree extends JTree{
 		}
 		com.scudata.ide.vdb.VDB fr = com.scudata.ide.vdb.VDB.getInstance();
 		if(fr==null){
-//			vdbTree³õÊ¼»¯ÔÚÇ°Ãæ£¬Æô¶¯Ê±£¬fr»¹ÊÇnull
+//			vdbTreeåˆå§‹åŒ–åœ¨å‰é¢ï¼Œå¯åŠ¨æ—¶ï¼Œfrè¿˜æ˜¯null
 			return;
 		}
 		MenuVDB menu = fr.getMenuVDB();
@@ -242,7 +242,7 @@ public abstract class VDBTree extends JTree{
 			cc = (ConnectionConfig) node.getUserObject();
 		}
 		if(cc.isEditChanged()){
-			int option = JOptionPane.showConfirmDialog(GV.appFrame, "[ "+cc.getName()+" ]µÄÊı¾İÃ»ÓĞÌá½»£¬ĞèÒªÌá½»Âğ£¿", "Êı¾İ±£´æ", JOptionPane.YES_NO_CANCEL_OPTION);
+			int option = JOptionPane.showConfirmDialog(GV.appFrame, "[ "+cc.getName()+" ]çš„æ•°æ®æ²¡æœ‰æäº¤ï¼Œéœ€è¦æäº¤å—ï¼Ÿ", "æ•°æ®ä¿å­˜", JOptionPane.YES_NO_CANCEL_OPTION);
 			switch (option) {
 			case JOptionPane.YES_OPTION:
 				try{
@@ -277,7 +277,7 @@ public abstract class VDBTree extends JTree{
 		ConnectionConfig cc = (ConnectionConfig) node.getUserObject();
 		if (cc.isConnected()) {
 			int option = JOptionPane.showConfirmDialog(com.scudata.ide.vdb.VDB.getInstance(),
-					"µ±Ç°Êı¾İ¿âÎª´ò¿ª×´Ì¬£¬±à¼­Ç°ĞèÒª¹Ø±ÕËü£¬È·ÈÏ¹Ø±ÕÂğ£¿", "È·ÈÏ¹Ø±Õ",
+					"å½“å‰æ•°æ®åº“ä¸ºæ‰“å¼€çŠ¶æ€ï¼Œç¼–è¾‘å‰éœ€è¦å…³é—­å®ƒï¼Œç¡®è®¤å…³é—­å—ï¼Ÿ", "ç¡®è®¤å…³é—­",
 					JOptionPane.OK_CANCEL_OPTION);
 			switch (option) {
 			case JOptionPane.OK_OPTION:
@@ -324,7 +324,7 @@ public abstract class VDBTree extends JTree{
 			return;
 		}
 		int option = JOptionPane.showConfirmDialog(com.scudata.ide.vdb.VDB.getInstance(),
-				"È·ÊµÒªÉ¾³ıÁ¬½Ó¡¾" + node.getTitle() + "¡¿Âğ£¿", "È·ÈÏÉ¾³ı",
+				"ç¡®å®è¦åˆ é™¤è¿æ¥ã€" + node.getTitle() + "ã€‘å—ï¼Ÿ", "ç¡®è®¤åˆ é™¤",
 				JOptionPane.OK_CANCEL_OPTION);
 		if (option != JOptionPane.OK_OPTION) {
 			return;
@@ -354,7 +354,7 @@ public abstract class VDBTree extends JTree{
 			return;
 		Object obj= currentNode.getUserObject();
 		if(!(obj instanceof VS)){
-			JOptionPane.showMessageDialog(com.scudata.ide.vdb.VDB.getInstance(), "¸ù½Úµã²»ÄÜÉ¾³ı¡£");
+			JOptionPane.showMessageDialog(com.scudata.ide.vdb.VDB.getInstance(), "æ ¹èŠ‚ç‚¹ä¸èƒ½åˆ é™¤ã€‚");
 			return;
 		}
 		VS vs = (VS)obj;
@@ -470,16 +470,16 @@ public abstract class VDBTree extends JTree{
 		// root.setExpanded(true);
 		// loadSubNode(root);
 		// nodeStructureChanged(root);
-		// if (isInit) { // ¼ÓÔØÉÏ´ÎÊ÷ĞÎÀ©Õ¹½á¹¹
+		// if (isInit) { // åŠ è½½ä¸Šæ¬¡æ ‘å½¢æ‰©å±•ç»“æ„
 		// isInit = false;
 		// try {
 		// String sExpand = ConfigOptions.sFileTreeExpand;
-		// if (!StringUtils.isValidString(sExpand)) { // µÚÒ»´Î´ò¿ª
+		// if (!StringUtils.isValidString(sExpand)) { // ç¬¬ä¸€æ¬¡æ‰“å¼€
 		// this.collapsePath(new TreePath(root.getPath()));
 		// loadSubNode(root);
 		// return;
 		// }
-		// if (NOT_EXPAND.equals(sExpand)) { // ¸ù½ÚµãÃ»Õ¹¿ª
+		// if (NOT_EXPAND.equals(sExpand)) { // æ ¹èŠ‚ç‚¹æ²¡å±•å¼€
 		// this.collapsePath(new TreePath(root.getPath()));
 		// root.setExpanded(false);
 		// return;
@@ -565,19 +565,19 @@ public abstract class VDBTree extends JTree{
 		String imgPath = null;
 		switch (action) {
 		// case OPEN_FILE:
-		// title = Lang.getText("filetree.open"); // ´ò¿ª
+		// title = Lang.getText("filetree.open"); // æ‰“å¼€
 		// imgPath = "m_open.gif";
 		// break;
 		// case OPEN_DIR:
-		// title = Lang.getText("filetree.opendir"); // ´ò¿ªÄ¿Â¼
+		// title = Lang.getText("filetree.opendir"); // æ‰“å¼€ç›®å½•
 		// imgPath = "m_load.gif";
 		// break;
 		// case OPEN_FILE_DIR:
-		// title = Lang.getText("filetree.openfiledir"); // ´ò¿ªÎÄ¼şËùÔÚÄ¿Â¼
+		// title = Lang.getText("filetree.openfiledir"); // æ‰“å¼€æ–‡ä»¶æ‰€åœ¨ç›®å½•
 		// imgPath = "m_load.gif";
 		// break;
 		// case REFRESH:
-		// title = Lang.getText("filetree.refresh"); // Ë¢ĞÂ
+		// title = Lang.getText("filetree.refresh"); // åˆ·æ–°
 		// imgPath = "m_refresh.gif";
 		// break;
 		// default:

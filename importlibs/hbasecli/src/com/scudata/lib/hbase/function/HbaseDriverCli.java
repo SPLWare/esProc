@@ -29,7 +29,7 @@ import com.scudata.dm.IResource;
 import com.scudata.dm.cursor.ICursor;
 /*
  *  String rootDir="hdfs://ip/user/hbase";
-    String zkServer="192.168.0.76";//¼¯ÈºÄÚÍøIP
+    String zkServer="192.168.0.76";//é›†ç¾¤å†…ç½‘IP
     String port="2181";
  */
 public class HbaseDriverCli implements IResource{
@@ -69,7 +69,7 @@ public class HbaseDriverCli implements IResource{
             Logger.error(e.getMessage());
         }        
     }
-	// ¹Ø±ÕÁ¬½ÓÊÍ·Å×ÊÔ´
+	// å…³é—­è¿æ¥é‡Šæ”¾èµ„æº
 	public void close() {
 		try {
 			if (m_scanner!=null){
@@ -90,7 +90,7 @@ public class HbaseDriverCli implements IResource{
 		}
 	}
 	
-    //´´½¨±í
+    //åˆ›å»ºè¡¨
 	public boolean createTable(String tableName, String[] colFamily) {
         try {
         	Admin admin = m_conn.getAdmin();
@@ -112,7 +112,7 @@ public class HbaseDriverCli implements IResource{
         return true;
     }
     
-    //²åÈëÊı¾İ
+    //æ’å…¥æ•°æ®
     public void saveData(String tableName,List<Put> puts){        
         try {
             Table table =m_conn.getTable(TableName.valueOf(tableName));
@@ -123,7 +123,7 @@ public class HbaseDriverCli implements IResource{
         }
     }
     
-    //µÃµ½Êı¾İ
+    //å¾—åˆ°æ•°æ®
     public Result getData(String tableName,String rowkey){
         try {
         	Table table =m_conn.getTable(TableName.valueOf(tableName));
@@ -136,14 +136,14 @@ public class HbaseDriverCli implements IResource{
         return null;        
     }     
         
-    //È«±íÉ¨Ãè
+    //å…¨è¡¨æ‰«æ
     public void hbaseScan(String tableName){
         
-        Scan scan=new Scan();//É¨ÃèÆ÷
-        scan.setCaching(1000);//»º´æ1000ÌõÊı¾İ,Ò»´Î¶ÁÈ¡1000Ìõ
+        Scan scan=new Scan();//æ‰«æå™¨
+        scan.setCaching(1000);//ç¼“å­˜1000æ¡æ•°æ®,ä¸€æ¬¡è¯»å–1000æ¡
         try {
             Table table =m_conn.getTable(TableName.valueOf(tableName));
-            ResultScanner scanner=table.getScanner(scan);//·µ»Øµü´úÆ÷
+            ResultScanner scanner=table.getScanner(scan);//è¿”å›è¿­ä»£å™¨
             for(Result res:scanner){
                 ImUtils.format(res);
             }
@@ -161,7 +161,7 @@ public class HbaseDriverCli implements IResource{
             	 throw new RQException("hbaseScan table: "+tbInfo.m_tableName+" is existed");
              }
 
-             m_scanner = m_table.getScanner(scan);//·µ»Øµü´úÆ÷
+             m_scanner = m_table.getScanner(scan);//è¿”å›è¿­ä»£å™¨
              if (m_scanner==null){
             	 throw new RQException("hbaseScan table: "+tbInfo.m_tableName+" resultScanner is null");
              }

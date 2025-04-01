@@ -17,7 +17,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 
 /**
- * ·Ö»úµÄ·ÃÎÊ¿Í»§¶Ë
+ * åˆ†æœºçš„è®¿é—®å®¢æˆ·ç«¯
  * @author Joancy
  *
  */
@@ -28,17 +28,17 @@ public class UnitClient implements Serializable {
 	int port = 0;
 
 	boolean isDispatchUC = false;
-	// È¡Ïû³¤
+	// å–æ¶ˆé•¿
 	transient SocketData socketData = null;
 	/**
-	 * Á¬½Ó³¬Ê±Ê±³¤£¬µ¥Î»ms
+	 * è¿æ¥è¶…æ—¶æ—¶é•¿ï¼Œå•ä½ms
 	 */
 	private int connectTimeout = 5000;
 
 	/**
-	 * ¸ù¾İµØÖ·ºÍ¶Ë¿Ú¹¹ÔìÒ»¸ö·Ö»ú¿Í»§¶Ë
-	 * @param host Ö÷»úIP
-	 * @param port ¶Ë¿ÚºÅ
+	 * æ ¹æ®åœ°å€å’Œç«¯å£æ„é€ ä¸€ä¸ªåˆ†æœºå®¢æˆ·ç«¯
+	 * @param host ä¸»æœºIP
+	 * @param port ç«¯å£å·
 	 */
 	public UnitClient(String host, int port) {
 		this.host = host;
@@ -46,8 +46,8 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * ¸ù¾İÖ÷»úÃèÊö´®(ĞÎÈç£º  host:ip)¹¹Ôì·Ö»ú¿Í»§¶Ë
-	 * @param add Ö÷»úÃèÊö´®
+	 * æ ¹æ®ä¸»æœºæè¿°ä¸²(å½¢å¦‚ï¼š  host:ip)æ„é€ åˆ†æœºå®¢æˆ·ç«¯
+	 * @param add ä¸»æœºæè¿°ä¸²
 	 */
 	public UnitClient(String add) {
 		if (add != null) {
@@ -60,41 +60,41 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * ÉèÖÃ·Ö»úÎª¿ÉÖØ·ÖÅäµÄ¿Í»§¶Ë
-	 * ×¢Òâ£ºÖ»ÓĞÍ¨¹ıgetClient»òÕßgetRandomClient·½·¨»ñÈ¡µÄUC²ÅÔÊĞíÎªtrue£¬
-	 * Îªtrue±íÊ¾¸ÃucÊÇÔÚ¶ÓÁĞÀïÃæÎ¬³ÖÉú²úÏû·ÑÕßÄ£ĞÍ£¬·ÖÅäÊ±¼õÉÙ¶ÓÁĞ£¬¼ÆËãÍê³ÉÔÙÊÍ·Åµ½¶ÓÁĞ¡£
+	 * è®¾ç½®åˆ†æœºä¸ºå¯é‡åˆ†é…çš„å®¢æˆ·ç«¯
+	 * æ³¨æ„ï¼šåªæœ‰é€šè¿‡getClientæˆ–è€…getRandomClientæ–¹æ³•è·å–çš„UCæ‰å…è®¸ä¸ºtrueï¼Œ
+	 * ä¸ºtrueè¡¨ç¤ºè¯¥ucæ˜¯åœ¨é˜Ÿåˆ—é‡Œé¢ç»´æŒç”Ÿäº§æ¶ˆè´¹è€…æ¨¡å‹ï¼Œåˆ†é…æ—¶å‡å°‘é˜Ÿåˆ—ï¼Œè®¡ç®—å®Œæˆå†é‡Šæ”¾åˆ°é˜Ÿåˆ—ã€‚
 	 */
 	public void setDispatchable() {
 		isDispatchUC = true;
 	}
 
 	/**
-	 * ÅĞ¶Ï·Ö»úÊÇ·ñ¿ÉÖØ·ÖÅä×÷Òµ
-	 * @return ÔÊĞí·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­åˆ†æœºæ˜¯å¦å¯é‡åˆ†é…ä½œä¸š
+	 * @return å…è®¸è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isDispatchable() {
 		return isDispatchUC;
 	}
 
 	/**
-	 * »ñÈ¡Ö÷»úIP
-	 * @return IP´®
+	 * è·å–ä¸»æœºIP
+	 * @return IPä¸²
 	 */
 	public String getHost() {
 		return host;
 	}
 
 	/**
-	 * »ñÈ¡Ö÷»ú¶Ë¿ÚºÅ
-	 * @return ¶Ë¿ÚºÅ
+	 * è·å–ä¸»æœºç«¯å£å·
+	 * @return ç«¯å£å·
 	 */
 	public int getPort() {
 		return port;
 	}
 
 	/**
-	 * ¿ËÂ¡Ò»¸ö·Ö»ú¿Í»§¶Ë
-	 * @return ¿ËÂ¡ºóµÄ·Ö»ú¿Í»§¶Ë
+	 * å…‹éš†ä¸€ä¸ªåˆ†æœºå®¢æˆ·ç«¯
+	 * @return å…‹éš†åçš„åˆ†æœºå®¢æˆ·ç«¯
 	 */
 	public UnitClient clone() {
 		UnitClient uc = new UnitClient(host, port);
@@ -102,18 +102,18 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * ÅĞ¶ÏÁ½¸ö·Ö»ú¿Í»§¶ËÊÇ·ñÏàµÈ
-	 * @param nodeHost ÁíÒ»¸ö·Ö»úIP
-	 * @param nodePort ÁíÒ»¸ö·Ö»ú¶Ë¿ÚºÅ
-	 * @return ÏàÍ¬Ê±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­ä¸¤ä¸ªåˆ†æœºå®¢æˆ·ç«¯æ˜¯å¦ç›¸ç­‰
+	 * @param nodeHost å¦ä¸€ä¸ªåˆ†æœºIP
+	 * @param nodePort å¦ä¸€ä¸ªåˆ†æœºç«¯å£å·
+	 * @return ç›¸åŒæ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean equals(String nodeHost, int nodePort) {
 		return host.equalsIgnoreCase(nodeHost) && port == nodePort;
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°·Ö»úÊÇ·ñÒÑ¾­Æô¶¯£¬¿É·ÃÎÊ
-	 * @return ¿É·ÃÎÊ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­å½“å‰åˆ†æœºæ˜¯å¦å·²ç»å¯åŠ¨ï¼Œå¯è®¿é—®
+	 * @return å¯è®¿é—®è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isReachable() {
 		try {
@@ -127,19 +127,19 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * ¼ì²éµ±Ç°·Ö»úÊÇ·ñ´æ»î
-	 * @return ´æ»îÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ£€æŸ¥å½“å‰åˆ†æœºæ˜¯å¦å­˜æ´»
+	 * @return å­˜æ´»æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isAlive() {
 		return isAlive(null);
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°·Ö»úÊÇ·ñÎ»ÓÚ±¾»ú
-	 * @return ÊÇ±¾µØ»ú·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­å½“å‰åˆ†æœºæ˜¯å¦ä½äºæœ¬æœº
+	 * @return æ˜¯æœ¬åœ°æœºè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isEqualToLocal() {
-		// callxÖ§³Ö :, ""Ğ´·¨´ú±íÊ¹ÓÃ±¾µØÏß³Ì
+		// callxæ”¯æŒ :, ""å†™æ³•ä»£è¡¨ä½¿ç”¨æœ¬åœ°çº¿ç¨‹
 		if (host == null)
 			return true;
 
@@ -149,9 +149,9 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * ÅĞ¶Ï·Ö»úÊÇ·ñ´æ»î£¬Èç¹ûÒì³££¬½«Òì³£Ô­ÒòĞ´ÈëÔ­Òò»º³åreason
-	 * @param reason Ô­Òò»º³å
-	 * @return ´æ»îÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­åˆ†æœºæ˜¯å¦å­˜æ´»ï¼Œå¦‚æœå¼‚å¸¸ï¼Œå°†å¼‚å¸¸åŸå› å†™å…¥åŸå› ç¼“å†²reason
+	 * @param reason åŸå› ç¼“å†²
+	 * @return å­˜æ´»æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isAlive(StringBuffer reason) {
 		if (isEqualToLocal()) {
@@ -184,8 +184,8 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * Á¬½Óµ½·Ö»ú
-	 * @throws Exception Á¬½Ó³ö´íÊ±Å×³öÒì³£
+	 * è¿æ¥åˆ°åˆ†æœº
+	 * @throws Exception è¿æ¥å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void connect() throws Exception {
 		if (!isEqualToLocal()) {
@@ -194,33 +194,33 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * ÅĞ¶ÏÊÇ·ñÒÑ¾­Á¬½Óµ½·Ö»ú
-	 * @return Á¬½ÓºÃºó·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­æ˜¯å¦å·²ç»è¿æ¥åˆ°åˆ†æœº
+	 * @return è¿æ¥å¥½åè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isConnected() {
-		return !isClosed() || isEqualToLocal();// ±¾»úÏß³ÌÒ²ËãÁª»ú×´Ì¬
+		return !isClosed() || isEqualToLocal();// æœ¬æœºçº¿ç¨‹ä¹Ÿç®—è”æœºçŠ¶æ€
 	}
 
 	/**
-	 * Íù·Ö»úĞ´³öÒ»¸ö¶ÔÏó
-	 * @param obj Êı¾İ¶ÔÏó
-	 * @throws Exception Ğ´³ö´íÊ±Å×³öÒì³£
+	 * å¾€åˆ†æœºå†™å‡ºä¸€ä¸ªå¯¹è±¡
+	 * @param obj æ•°æ®å¯¹è±¡
+	 * @throws Exception å†™å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void write(Object obj) throws Exception {
 		socketData.write(obj);
 	}
 
 	/**
-	 * ´Ó·Ö»ú¶ÁÈëÒ»¸ö¶ÔÏó
-	 * @return ¶ÔÏóÊı¾İ
-	 * @throws Exception ¶Á³ö´íÊ±Å×³öÒì³£
+	 * ä»åˆ†æœºè¯»å…¥ä¸€ä¸ªå¯¹è±¡
+	 * @return å¯¹è±¡æ•°æ®
+	 * @throws Exception è¯»å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public Object read() throws Exception {
 		return socketData.read();
 	}
 	
 	/**
-	 * ÉèÖÃÁ¬½Ó³¬Ê±Ê±³¤£¬µ¥Î»ºÁÃë
+	 * è®¾ç½®è¿æ¥è¶…æ—¶æ—¶é•¿ï¼Œå•ä½æ¯«ç§’
 	 * @param timeout
 	 */
 	public void setConnectTimeout(int timeout){
@@ -228,9 +228,9 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * ´´½¨Ò»¸öĞÂµÄÍ¨Ñ¶Ì×½Ó×Ö
-	 * @return Í¨Ñ¶Ì×½Ó×Ö
-	 * @throws Exception ³ö´íÊ±Å×³öÒì³£
+	 * åˆ›å»ºä¸€ä¸ªæ–°çš„é€šè®¯å¥—æ¥å­—
+	 * @return é€šè®¯å¥—æ¥å­—
+	 * @throws Exception å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public SocketData newSocketData() throws Exception {
 		Socket s = new Socket();
@@ -242,9 +242,9 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * È¡Ïûµ±Ç°ÈÎÎñ
-	 * @param taskId ÈÎÎñ±àºÅ
-	 * @param reason È¡ÏûÔ­Òò
+	 * å–æ¶ˆå½“å‰ä»»åŠ¡
+	 * @param taskId ä»»åŠ¡ç¼–å·
+	 * @param reason å–æ¶ˆåŸå› 
 	 */
 	public void cancel(Integer taskId, String reason) {
 		Request req = new Request(Request.DFX_CANCEL);
@@ -258,7 +258,7 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * Í£Ö¹·şÎñÆ÷
+	 * åœæ­¢æœåŠ¡å™¨
 	 */
 	public void shutDown() {
 		Request req = new Request(Request.SERVER_SHUTDOWN);
@@ -269,8 +269,8 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * ÁĞ³öµ±Ç°·Ö»úµÄ×î´ó×÷ÒµÊı
-	 * @return ×î´ó×÷ÒµÊı
+	 * åˆ—å‡ºå½“å‰åˆ†æœºçš„æœ€å¤§ä½œä¸šæ•°
+	 * @return æœ€å¤§ä½œä¸šæ•°
 	 */
 	public int getUnitMaxNum() {
 		if (isEqualToLocal()) {
@@ -286,9 +286,9 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * »ñÈ¡·Ö»úÉÏÈÎÎñJµÄÄÚ´æÇøºÅ
-	 * @param J ÈÎÎñÃû³Æ
-	 * @return ÄÚ´æÇøºÅ
+	 * è·å–åˆ†æœºä¸Šä»»åŠ¡Jçš„å†…å­˜åŒºå·
+	 * @param J ä»»åŠ¡åç§°
+	 * @return å†…å­˜åŒºå·
 	 */
 	public Integer getAreaNo(String J) {
 		Request req = new Request(Request.SERVER_GETAREANO);
@@ -380,9 +380,9 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * »ñÈ¡ÈÎÎñ¿Õ¼äºÅÔÚ·Ö»úÉÏµÄreduce½á¹û
-	 * @param spaceId ÈÎÎñ¿Õ¼äºÅ
-	 * @return reduceºóµÄ¼ÆËã½á¹û
+	 * è·å–ä»»åŠ¡ç©ºé—´å·åœ¨åˆ†æœºä¸Šçš„reduceç»“æœ
+	 * @param spaceId ä»»åŠ¡ç©ºé—´å·
+	 * @return reduceåçš„è®¡ç®—ç»“æœ
 	 * @throws Exception
 	 */
 	public Object getReduceResult(String spaceId) throws Exception {
@@ -396,7 +396,7 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * ÄÜ·ñ½ÓÊÜÈÎÎñ£¬±£³ÖÁ¬½ÓÊ±£¬²ÅÄÜµ÷ÓÃ connect(); canAcceptTask(); close();
+	 * èƒ½å¦æ¥å—ä»»åŠ¡ï¼Œä¿æŒè¿æ¥æ—¶ï¼Œæ‰èƒ½è°ƒç”¨ connect(); canAcceptTask(); close();
 	 * 
 	 * @param count
 	 *            Integer
@@ -441,7 +441,7 @@ public class UnitClient implements Serializable {
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨·Ö»úÉÏÕıÔÚÔËĞĞµÄÈÎÎñÊıÄ¿
+	 * è·å–æŒ‡å®šåˆ†æœºä¸Šæ­£åœ¨è¿è¡Œçš„ä»»åŠ¡æ•°ç›®
 	 * 
 	 * @return
 	 */
@@ -559,14 +559,14 @@ public class UnitClient implements Serializable {
 			return false;
 		}
 		UnitClient otherUc = (UnitClient) other;
-		if (otherUc.getHost() == null) {// ¶¼ÊÇ±¾»úÊ±
+		if (otherUc.getHost() == null) {// éƒ½æ˜¯æœ¬æœºæ—¶
 			return (host == null);
 		}
 		return otherUc.getHost().equalsIgnoreCase(host)
 				&& otherUc.getPort() == port;
 	}
 
-	// JDBCº¯Êı½Ó¿Ú²¿·Ö
+	// JDBCå‡½æ•°æ¥å£éƒ¨åˆ†
 	public int JDBCConnect() throws Exception {
 		Request req = new Request(Request.JDBC_CONNECT);
 //		req.setAttr(Request.CONNECT_spaceID, spaceId);
@@ -717,7 +717,7 @@ public class UnitClient implements Serializable {
 
 	public static String getHostPath(String host) {
 		String path = host.replaceAll("::", ".");
-		path = path.replaceAll(":", ".");// ½«ipv6µÄÃ°ºÅ»»³Éµã
+		path = path.replaceAll(":", ".");// å°†ipv6çš„å†’å·æ¢æˆç‚¹
 		return path;
 	}
 

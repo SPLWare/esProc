@@ -11,7 +11,7 @@ import com.scudata.ide.spl.GCSpl;
 import com.scudata.ide.spl.GVSpl;
 
 /**
- * Íø¸ñ¿Ø¼ş
+ * ç½‘æ ¼æ§ä»¶
  *
  */
 public class EditControl extends SplControl {
@@ -19,12 +19,12 @@ public class EditControl extends SplControl {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Íø¸ñÊÇ·ñ¿ÉÒÔ±à¼­
+	 * ç½‘æ ¼æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	private boolean editable = true;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 *
 	 * @param rows int
 	 * @param cols int
@@ -34,9 +34,9 @@ public class EditControl extends SplControl {
 	}
 
 	/**
-	 * Éú³É½Ç²¿Ãæ°å
+	 * ç”Ÿæˆè§’éƒ¨é¢æ¿
 	 *
-	 * @return ½Ç²¿Ãæ°å
+	 * @return è§’éƒ¨é¢æ¿
 	 */
 	JPanel createCorner() {
 		JPanel panel = new CornerPanel(this, editable);
@@ -47,9 +47,9 @@ public class EditControl extends SplControl {
 	}
 
 	/**
-	 * Éú³ÉÁĞÊ×¸ñÃæ°å
+	 * ç”Ÿæˆåˆ—é¦–æ ¼é¢æ¿
 	 *
-	 * @return ÁĞÊ×¸ñÃæ°å
+	 * @return åˆ—é¦–æ ¼é¢æ¿
 	 */
 	JPanel createColHeaderView() {
 		headerPanel = new ColHeaderPanel(this, editable);
@@ -62,9 +62,9 @@ public class EditControl extends SplControl {
 	}
 
 	/**
-	 * Éú³ÉĞĞÊ×¸ñÃæ°å
+	 * ç”Ÿæˆè¡Œé¦–æ ¼é¢æ¿
 	 *
-	 * @return ĞĞÊ×¸ñÃæ°å
+	 * @return è¡Œé¦–æ ¼é¢æ¿
 	 */
 	JPanel createRowHeaderView() {
 		JPanel panel = new RowHeaderPanel(this, editable);
@@ -79,9 +79,9 @@ public class EditControl extends SplControl {
 	protected ContentPanel contentPanel;
 
 	/**
-	 * Éú³ÉÄÚÈİÃæ°å
+	 * ç”Ÿæˆå†…å®¹é¢æ¿
 	 *
-	 * @return ÄÚÈİÃæ°å
+	 * @return å†…å®¹é¢æ¿
 	 */
 	ContentPanel createContentView() {
 		contentPanel = newContentPanel(cellSet);
@@ -132,7 +132,7 @@ public class EditControl extends SplControl {
 			int percent = (int) (scale * 100);
 			int wr = e.getWheelRotation();
 			int newPercent;
-			if (wr < 0) { // ¹öÂÖÏòÉÏ£¬·Å´ó
+			if (wr < 0) { // æ»šè½®å‘ä¸Šï¼Œæ”¾å¤§
 				newPercent = GCSpl.DEFAULT_SCALES[GCSpl.DEFAULT_SCALES.length - 1];
 				for (int i = 0; i < GCSpl.DEFAULT_SCALES.length; i++) {
 					if (percent < GCSpl.DEFAULT_SCALES[i] - 7) {
@@ -140,7 +140,7 @@ public class EditControl extends SplControl {
 						break;
 					}
 				}
-			} else { // ËõĞ¡
+			} else { // ç¼©å°
 				newPercent = GCSpl.DEFAULT_SCALES[0];
 				for (int i = GCSpl.DEFAULT_SCALES.length - 1; i >= 0; i--) {
 					if (percent > GCSpl.DEFAULT_SCALES[i] + 7) {
@@ -159,7 +159,7 @@ public class EditControl extends SplControl {
 	}
 
 	/**
-	 * ´´½¨SPLÍø¸ñÃæ°å
+	 * åˆ›å»ºSPLç½‘æ ¼é¢æ¿
 	 * @param cellSet
 	 * @return ContentPanel
 	 */
@@ -169,7 +169,7 @@ public class EditControl extends SplControl {
 	}
 
 	/**
-	 * Ìá½»ÎÄ±¾±à¼­
+	 * æäº¤æ–‡æœ¬ç¼–è¾‘
 	 */
 	public void acceptText() {
 		this.contentView.submitEditor();

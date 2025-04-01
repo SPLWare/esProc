@@ -10,8 +10,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ´´½¨Êı¾İ¿â²éÑ¯ÓÎ±ê
- * db.cursor(sql,¡­)
+ * åˆ›å»ºæ•°æ®åº“æŸ¥è¯¢æ¸¸æ ‡
+ * db.cursor(sql,â€¦)
  * @author RunQian
  *
  */
@@ -26,7 +26,7 @@ public class CreateCursor extends DBFunction {
 		String strSql;
 		Object []sqlParams = null;
 		byte []types = null;
-		if (type == IParam.Normal) { // Ã»ÓĞ²ÎÊı
+		if (type == IParam.Normal) { // æ²¡æœ‰å‚æ•°
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (!(obj instanceof String)) {
 				MessageManager mm = EngineMessage.get();
@@ -55,7 +55,7 @@ public class CreateCursor extends DBFunction {
 				IParam sub = param.getSub(i + 1);
 				if (sub == null) continue;
 
-				if (sub.isLeaf()) { // Ö»ÓĞ²ÎÊıÃ»ÓĞÖ¸¶¨ÀàĞÍ
+				if (sub.isLeaf()) { // åªæœ‰å‚æ•°æ²¡æœ‰æŒ‡å®šç±»å‹
 					sqlParams[i] = sub.getLeafExpression().calculate(ctx);
 				} else {
 					IParam subi0 = sub.getSub(0);

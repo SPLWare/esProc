@@ -14,7 +14,7 @@ import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 
 /**
- * ÁĞ´æ»ù±íµÄÓÎ±êÀà(ÄæĞò)
+ * åˆ—å­˜åŸºè¡¨çš„æ¸¸æ ‡ç±»(é€†åº)
  * @author LW
  *
  */
@@ -180,8 +180,8 @@ public class RvsCursor extends ICursor {
 		this.cache = null;
 		
 		while (curBlock > 0) {
-			int []nextRows = new int[colCount]; // Ã¿¸öbufReadersÏÂÒ»ÌõÒª¶Áµ½µÄĞĞ£¬Èç¹û»¹Ã»µ½µ±Ç°Òª¶ÁµÄĞĞÔòÌøµ½
-			Object []fvalues = new Object[colCount]; // µ±Ç°ĞĞÌõ¼ş×Ö¶ÎµÄÖµ
+			int []nextRows = new int[colCount]; // æ¯ä¸ªbufReadersä¸‹ä¸€æ¡è¦è¯»åˆ°çš„è¡Œï¼Œå¦‚æœè¿˜æ²¡åˆ°å½“å‰è¦è¯»çš„è¡Œåˆ™è·³åˆ°
+			Object []fvalues = new Object[colCount]; // å½“å‰è¡Œæ¡ä»¶å­—æ®µçš„å€¼
 
 			for (int f = 0; f < colCount; ++f) {
 				bufReaders[f] = null;
@@ -226,7 +226,7 @@ public class RvsCursor extends ICursor {
 				
 				Next:
 					for (int i = 0; i < recordCount; ++i) {
-						// °´¼ÇÂ¼ÊıÑ­»·£¬Èç¹ûÁĞµÄBufferReaderÃ»ÓĞ²úÉúÔò²úÉú²¢Ìøµ½µ±Ç°Òª¶ÁµÄĞĞ
+						// æŒ‰è®°å½•æ•°å¾ªç¯ï¼Œå¦‚æœåˆ—çš„BufferReaderæ²¡æœ‰äº§ç”Ÿåˆ™äº§ç”Ÿå¹¶è·³åˆ°å½“å‰è¦è¯»çš„è¡Œ
 						for (f = 0; f < filterCount; ++f) {
 							if (bufReaders[f] == null) 
 							{

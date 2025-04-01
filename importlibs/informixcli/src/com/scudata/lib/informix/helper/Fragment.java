@@ -3,7 +3,7 @@ package com.scudata.lib.informix.helper;
 import java.util.ArrayList;
 import java.util.List;
 
-//·ÖÆ¬¹æÔò
+//åˆ†ç‰‡è§„åˆ™
 enum RULE_TYPE{
 	RULE_UNKNOW,
 	RULE_ROBIN, 	//R
@@ -18,20 +18,20 @@ public class Fragment
 	private String	m_tableName;
 	private String	m_fieldName;
 	private String	m_fieldType;
-	private List<String>	m_comparison; //±È½Ï·ûºÅ£¬ÓÃ","·Ö¸ô,Ç°>Ğ¡ºó¸ñÊ½´æ·Å[>;<]
+	private List<String>	m_comparison; //æ¯”è¾ƒç¬¦å·ï¼Œç”¨","åˆ†éš”,å‰>å°åæ ¼å¼å­˜æ”¾[>;<]
 	private Object	m_minValue;
 	private Object	m_maxValue;
 	private int		m_nFieldType;
-	private char	m_nRuleType;  //·ÖÆ¬¹æÔò
+	private char	m_nRuleType;  //åˆ†ç‰‡è§„åˆ™
 	private List<Object> m_list;
-	private int		m_interval;  //¼ä¸ôÖµ
-	private int		m_segment[]; //²éÑ¯Ê±Ê¹ÓÃµÄ·ÖÆ¬ÆğÊ¼·¶Î§
+	private int		m_interval;  //é—´éš”å€¼
+	private int		m_segment[]; //æŸ¥è¯¢æ—¶ä½¿ç”¨çš„åˆ†ç‰‡èµ·å§‹èŒƒå›´
 	private ORDER_TYPE m_orderby = ORDER_TYPE.ORDER_NORMAL;
 	
 	public enum ORDER_TYPE{
-		ORDER_NORMAL, 			//¶ÔsqlË³Ğò²»µ÷Õû£¬±£³ÖÔ­Ñù
-		ORDER_NO,     			//²»ÒªÇóÓĞĞò£¬¿É¼Ódb²ÎÊıPDQ
-		ORDER_FORCE   			//ÒªÇóÓĞĞò
+		ORDER_NORMAL, 			//å¯¹sqlé¡ºåºä¸è°ƒæ•´ï¼Œä¿æŒåŸæ ·
+		ORDER_NO,     			//ä¸è¦æ±‚æœ‰åºï¼Œå¯åŠ dbå‚æ•°PDQ
+		ORDER_FORCE   			//è¦æ±‚æœ‰åº
 	}
 	
 	public Fragment(){
@@ -41,12 +41,12 @@ public class Fragment
 		m_list = new ArrayList<Object>();
 		m_comparison = new ArrayList<String>();
 	}
-	// 1. tableName,·ÖÆ¬±í
+	// 1. tableName,åˆ†ç‰‡è¡¨
 	public void setTableName(String tableName)				
 	{
 		m_tableName = tableName;
 	}
-	//·ÖÆ¬±í
+	//åˆ†ç‰‡è¡¨
 	public String getTableName()				
 	{
 		return m_tableName;
@@ -74,7 +74,7 @@ public class Fragment
 		return m_minValue;
 	}
 	
-	// 4. FieldName, ·ÖÆ¬×Ö¶Î
+	// 4. FieldName, åˆ†ç‰‡å­—æ®µ
 	public void setFieldName(String fieldName)				
 	{
 		m_fieldName = fieldName;
@@ -90,7 +90,7 @@ public class Fragment
 		m_fieldType = fieldType;
 	}
 	
-	//·ÖÆ¬×Ö¶ÎÊı¾İÀàĞÍ, ²Î¼ûjava.sql.Types
+	//åˆ†ç‰‡å­—æ®µæ•°æ®ç±»å‹, å‚è§java.sql.Types
 	public String getFieldTypeStr()					
 	{
 		return m_fieldType;
@@ -100,7 +100,7 @@ public class Fragment
 	{
 		m_nFieldType = fieldType;
 	}
-	//·ÖÆ¬×Ö¶ÎÊı¾İÀàĞÍ, ²Î¼ûjava.sql.Types
+	//åˆ†ç‰‡å­—æ®µæ•°æ®ç±»å‹, å‚è§java.sql.Types
 	public int getFieldType()						
 	{
 		return m_nFieldType;
@@ -130,7 +130,7 @@ public class Fragment
 		
 		m_list.set(index, val);
 	}
-	//·ÖÆ¬Êı
+	//åˆ†ç‰‡æ•°
 	public int getPartitionCount()					
 	{
 		return m_list.size();
@@ -206,7 +206,7 @@ public class Fragment
 	{
 		return m_comparison.size();
 	}
-	//±È½Ï·û
+	//æ¯”è¾ƒç¬¦
 	public String getComparison(int index)	
 	{
 		if (index>=m_comparison.size()) return null;

@@ -17,10 +17,10 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
- * �����α��Ӧ�����
- * joinx(csi:Fi,xj,..;��)
- * ��������α�csi�Ľ����ʹ�ù鲢�����㣬�������α꣬xj����ȫʡ����ʹ����������. ��xj����û������ʹ��xj��ֵ���ӡ�
- * ֧�ֶ�·�α꣬��ʱ����·����ͬ��csiҲ�����������
+ * 连接游标对应的序表
+ * joinx(csi:Fi,xj,..;…)
+ * 针对有序游标csi的结果集使用归并法计算，返回新游标，xj参数全省略则使用主键连接. 有xj参数没主键则使用xj的值连接。
+ * 支持多路游标，此时必须路数相同。csi也可以是序表。
  * @author runqian
  *
  */
@@ -31,7 +31,7 @@ public class Joinx extends Function {
 	}
 	
 	/**
-	 * ������ʽ����Ч�ԣ���Ч���׳��쳣
+	 * 检查表达式的有效性，无效则抛出异常
 	 */
 	public void checkValidity() {
 		if (param == null) {

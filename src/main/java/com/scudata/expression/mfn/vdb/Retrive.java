@@ -10,8 +10,8 @@ import com.scudata.expression.VSFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸ù¾İÌõ¼ş¼ìË÷Êı¾İ
- * h.retrieve(F:v,¡­;F¡¯,¡­;w¡¯)
+ * æ ¹æ®æ¡ä»¶æ£€ç´¢æ•°æ®
+ * h.retrieve(F:v,â€¦;Fâ€™,â€¦;wâ€™)
  * @author RunQian
  *
  */
@@ -79,7 +79,7 @@ public class Retrive extends VSFunction {
 			for (int i = 0; i < size; ++i) {
 				if (exps[i] != null) {
 					dirValues[i] = exps[i].calculate(ctx);
-					valueSigns[i] = true; // Ã»ÓĞÊ¡ÂÔÄ¿Â¼Öµ²ÎÊı
+					valueSigns[i] = true; // æ²¡æœ‰çœç•¥ç›®å½•å€¼å‚æ•°
 				}
 			}
 		}

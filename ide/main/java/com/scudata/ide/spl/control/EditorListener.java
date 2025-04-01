@@ -6,137 +6,137 @@ import java.util.Vector;
 import com.scudata.common.Area;
 
 /**
- * ±à¼­¿Ø¼şÓëÍø¸ñ±à¼­Æ÷Ö®¼ä´«µİÏûÏ¢µÄ½Ó¿Ú
+ * ç¼–è¾‘æ§ä»¶ä¸ç½‘æ ¼ç¼–è¾‘å™¨ä¹‹é—´ä¼ é€’æ¶ˆæ¯çš„æ¥å£
  */
 public interface EditorListener {
 	/**
-	 * Êó±êÓÒ»÷£¬·¢ËÍÓÒ¼üÏûÏ¢£¬Ìá¹©¿ì½İ²Ëµ¥µÄµÄÎ»ÖÃ
+	 * é¼ æ ‡å³å‡»ï¼Œå‘é€å³é”®æ¶ˆæ¯ï¼Œæä¾›å¿«æ·èœå•çš„çš„ä½ç½®
 	 * 
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 * @param clickPlace
-	 *            Êó±êÓÒ»÷µÄÎ»ÖÃ£¬GCÖĞ¶¨ÒåµÄ³£Á¿
+	 *            é¼ æ ‡å³å‡»çš„ä½ç½®ï¼ŒGCä¸­å®šä¹‰çš„å¸¸é‡
 	 */
 	public void rightClicked(MouseEvent e, int clickPlace);
 
 	/**
-	 * Êó±êË«»÷
+	 * é¼ æ ‡åŒå‡»
 	 * 
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void doubleClicked(MouseEvent e);
 
 	/**
-	 * ÇøÓòÑ¡ÖĞÊÂ¼ş
+	 * åŒºåŸŸé€‰ä¸­äº‹ä»¶
 	 * 
 	 * @param vectRegion
-	 *            Ñ¡ÖĞµÄÇøÓòÏòÁ¿£¬ÄÚ²¿Êı¾İÎª±í¸ñÇøÓòCellRegion(½Ó¿ÚÖ§³Ö¶àÑ¡£¬ÄÚ²¿ÉĞÃ»ÊµÏÖ)
+	 *            é€‰ä¸­çš„åŒºåŸŸå‘é‡ï¼Œå†…éƒ¨æ•°æ®ä¸ºè¡¨æ ¼åŒºåŸŸCellRegion(æ¥å£æ”¯æŒå¤šé€‰ï¼Œå†…éƒ¨å°šæ²¡å®ç°)
 	 * @param selectedRows
-	 *            Ñ¡ÖĞµÄĞĞ±àºÅ
+	 *            é€‰ä¸­çš„è¡Œç¼–å·
 	 * @param selectedColumns
-	 *            Ñ¡ÖĞµÄÁĞ±àºÅ
+	 *            é€‰ä¸­çš„åˆ—ç¼–å·
 	 * @param selectedAll
-	 *            ÊÇ·ñÑ¡ÔñÁËÕû¸öÍø¸ñ
+	 *            æ˜¯å¦é€‰æ‹©äº†æ•´ä¸ªç½‘æ ¼
 	 */
 	public void regionsSelect(Vector<Object> vectRegion,
 			Vector<Integer> selectedRows, Vector<Integer> selectedColumns,
 			boolean selectedAll, boolean keyEvent);
 
 	/**
-	 * ÁĞ¿í±ä¶¯ÏûÏ¢
+	 * åˆ—å®½å˜åŠ¨æ¶ˆæ¯
 	 * 
 	 * @param vectColumn
-	 *            ±ä¶¯µÄÁĞÏòÁ¿£¬ÄÚ²¿Êı¾İÎªÁĞºÅInteger
+	 *            å˜åŠ¨çš„åˆ—å‘é‡ï¼Œå†…éƒ¨æ•°æ®ä¸ºåˆ—å·Integer
 	 * @param nWidth
-	 *            ±ä¶¯µÄ¿í¶È
-	 * @return ture ÏûÏ¢ÒÑ±»´¦Àí£¬false ÏûÏ¢Î´±»´¦Àí
+	 *            å˜åŠ¨çš„å®½åº¦
+	 * @return ture æ¶ˆæ¯å·²è¢«å¤„ç†ï¼Œfalse æ¶ˆæ¯æœªè¢«å¤„ç†
 	 */
 	public boolean columnWidthChange(Vector<Integer> vectColumn, float nWidth);
 
 	/**
-	 * ĞĞ¸ß±ä¶¯ÏûÏ¢
+	 * è¡Œé«˜å˜åŠ¨æ¶ˆæ¯
 	 * 
 	 * @param vectRow
-	 *            ±ä¶¯µÄĞĞÏòÁ¿£¬ÄÚ²¿Êı¾İÎªĞĞºÅInteger
+	 *            å˜åŠ¨çš„è¡Œå‘é‡ï¼Œå†…éƒ¨æ•°æ®ä¸ºè¡Œå·Integer
 	 * @param nHeight
-	 *            ±ä¶¯µÄ¸ß¶È
-	 * @return ture ÏûÏ¢ÒÑ±»´¦Àí£¬false ÏûÏ¢Î´±»´¦Àí
+	 *            å˜åŠ¨çš„é«˜åº¦
+	 * @return ture æ¶ˆæ¯å·²è¢«å¤„ç†ï¼Œfalse æ¶ˆæ¯æœªè¢«å¤„ç†
 	 */
 	public boolean rowHeightChange(Vector<Integer> vectRow, float nHeight);
 
 	/**
-	 * ÇøÓòÕ³ÌûÏûÏ¢
+	 * åŒºåŸŸç²˜å¸–æ¶ˆæ¯
 	 * 
 	 * @param area
-	 *            Õ³ÌùµÄ±í¸ñÇøÓò
+	 *            ç²˜è´´çš„è¡¨æ ¼åŒºåŸŸ
 	 * @param nRowPos
-	 *            Õ³ÌùµÄĞĞÎ»ÖÃ
+	 *            ç²˜è´´çš„è¡Œä½ç½®
 	 * @param nColumnPos
-	 *            Õ³ÌùµÄÁĞÎ»ÖÃ
-	 * @return ture ÏûÏ¢ÒÑ±»´¦Àí£¬false ÏûÏ¢Î´±»´¦Àí
+	 *            ç²˜è´´çš„åˆ—ä½ç½®
+	 * @return ture æ¶ˆæ¯å·²è¢«å¤„ç†ï¼Œfalse æ¶ˆæ¯æœªè¢«å¤„ç†
 	 */
 	public boolean cellRegionPaste(Area area, int nRowPos, int nColumnPos);
 
 	/**
-	 * ÇøÓòÀ©Õ¹ÏûÏ¢£¨ÉĞÃ»ÊµÏÖ£©
+	 * åŒºåŸŸæ‰©å±•æ¶ˆæ¯ï¼ˆå°šæ²¡å®ç°ï¼‰
 	 * 
 	 * @param area
-	 *            À©Õ¹µÄ±í¸ñÇøÓò
+	 *            æ‰©å±•çš„è¡¨æ ¼åŒºåŸŸ
 	 * @param nColumnExpand
-	 *            ÁĞÀ©Õ¹Êı(Õı£¬ÏòÓÒÀ©Õ¹£»¸º£¬Ïò×óÀ©Õ¹£»0£¬²»À©Õ¹)
+	 *            åˆ—æ‰©å±•æ•°(æ­£ï¼Œå‘å³æ‰©å±•ï¼›è´Ÿï¼Œå‘å·¦æ‰©å±•ï¼›0ï¼Œä¸æ‰©å±•)
 	 * @param nRowExpand
-	 *            ĞĞÀ©Õ¹Êı(Õı£¬ÏòÏÂÀ©Õ¹£»¸º£¬ÏòÉÏÀ©Õ¹£»0£¬²»À©Õ¹)
-	 * @return ture ÏûÏ¢ÒÑ±»´¦Àí£¬false ÏûÏ¢Î´±»´¦Àí
+	 *            è¡Œæ‰©å±•æ•°(æ­£ï¼Œå‘ä¸‹æ‰©å±•ï¼›è´Ÿï¼Œå‘ä¸Šæ‰©å±•ï¼›0ï¼Œä¸æ‰©å±•)
+	 * @return ture æ¶ˆæ¯å·²è¢«å¤„ç†ï¼Œfalse æ¶ˆæ¯æœªè¢«å¤„ç†
 	 */
 	public boolean cellRegionExpand(Area area, int nColumnExpand, int nRowExpand);
 
 	/**
-	 * ÇøÓòËõ¼õÏûÏ¢£¨ÉĞÃ»ÊµÏÖ£©
+	 * åŒºåŸŸç¼©å‡æ¶ˆæ¯ï¼ˆå°šæ²¡å®ç°ï¼‰
 	 * 
 	 * @param area
-	 *            Ëõ¼õµÄ±í¸ñÇøÓò
+	 *            ç¼©å‡çš„è¡¨æ ¼åŒºåŸŸ
 	 * @param nRowShrink
-	 *            ĞĞËõ¼õÊı£¨Õı£¬ËõÈ¥µÄĞĞÊı£»0£¬²»Ëõ¼õ£©
+	 *            è¡Œç¼©å‡æ•°ï¼ˆæ­£ï¼Œç¼©å»çš„è¡Œæ•°ï¼›0ï¼Œä¸ç¼©å‡ï¼‰
 	 * @param nColumnShrink
-	 *            ÁĞËõ¼õÊı£¨Õı£¬ËõÈ¥µÄÁĞÊı£»0£¬²»Ëõ¼õ£©
-	 * @return ture ÏûÏ¢ÒÑ±»´¦Àí£¬false ÏûÏ¢Î´±»´¦Àí
+	 *            åˆ—ç¼©å‡æ•°ï¼ˆæ­£ï¼Œç¼©å»çš„åˆ—æ•°ï¼›0ï¼Œä¸ç¼©å‡ï¼‰
+	 * @return ture æ¶ˆæ¯å·²è¢«å¤„ç†ï¼Œfalse æ¶ˆæ¯æœªè¢«å¤„ç†
 	 */
 	public boolean cellRegionShrink(Area area, int nColumnShrink, int nRowShrink);
 
 	/**
-	 * ±í¸ñÎÄ±¾±à¼­ÏûÏ¢
+	 * è¡¨æ ¼æ–‡æœ¬ç¼–è¾‘æ¶ˆæ¯
 	 * 
 	 * @param row
-	 *            ±à¼­µÄĞĞºÅ
+	 *            ç¼–è¾‘çš„è¡Œå·
 	 * @param col
-	 *            ±à¼­µÄÁĞºÅ
+	 *            ç¼–è¾‘çš„åˆ—å·
 	 * @param strText
-	 *            ±à¼­ºóµÄÎÄ±¾
-	 * @return ture ÏûÏ¢ÒÑ±»´¦Àí£¬false ÏûÏ¢Î´±»´¦Àí
+	 *            ç¼–è¾‘åçš„æ–‡æœ¬
+	 * @return ture æ¶ˆæ¯å·²è¢«å¤„ç†ï¼Œfalse æ¶ˆæ¯æœªè¢«å¤„ç†
 	 */
 	public boolean cellTextInput(int row, int col, String strText);
 
 	/**
-	 * ·¢ËÍ±à¼­Æ÷ÕıÔÚÂ¼ÈëµÄÎÄ±¾
+	 * å‘é€ç¼–è¾‘å™¨æ­£åœ¨å½•å…¥çš„æ–‡æœ¬
 	 * 
 	 * @param text
-	 *            ÕıÔÚÂ¼ÈëµÄÎÄ±¾
+	 *            æ­£åœ¨å½•å…¥çš„æ–‡æœ¬
 	 */
 	public void editorInputing(String text);
 
 	/**
-	 * Êó±êÒÆ¶¯
+	 * é¼ æ ‡ç§»åŠ¨
 	 * 
 	 * @param row
-	 *            ĞĞ
+	 *            è¡Œ
 	 * @param col
-	 *            ÁĞ
+	 *            åˆ—
 	 */
 	public void mouseMove(int row, int col);
 
 	/**
-	 * ¹ö¶¯ÌõÒÆ¶¯
+	 * æ»šåŠ¨æ¡ç§»åŠ¨
 	 */
 	public void scrollBarMoved();
 

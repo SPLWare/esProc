@@ -22,7 +22,7 @@ public class ImCursor extends ICursor {
 	private ClientSession m_session;
 	private String[] m_cols;
 	private Table m_bufTable;
-	private long cursorId = 1; //ÈôÎª0£¬ÔòÎŞÊı¾İÁË¡£
+	private long cursorId = 1; //è‹¥ä¸º0ï¼Œåˆ™æ— æ•°æ®äº†ã€‚
 	
 	public ImCursor(MongoDatabase db, ClientSession session, String[] cmd, Table buf, Context ctx) {
 		m_cmd = cmd;
@@ -44,21 +44,21 @@ public class ImCursor extends ICursor {
 		}
 		long fetchSize = n;
 		long count = 0;
-		//1¡£ÓĞ»º´æÇé¿ö
+		//1ã€‚æœ‰ç¼“å­˜æƒ…å†µ
 		if (m_bufTable!=null){
-			if (m_bufTable.length()>fetchSize){ //1.1¡£ÓĞ×ã¹»»º´æ
+			if (m_bufTable.length()>fetchSize){ //1.1ã€‚æœ‰è¶³å¤Ÿç¼“å­˜
 				for(int i=(int)fetchSize; i>0; i--){
 					m_bufTable.delete(i);
 				}
 				return fetchSize;
-			}else{			//1.2. »º´æÊı²»×ã	
+			}else{			//1.2. ç¼“å­˜æ•°ä¸è¶³	
 				fetchSize -= m_bufTable.length();
 				count=m_bufTable.length();
 				m_bufTable.clear();		
 				m_bufTable = null;				
 			}
 		}
-		//2.²éÑ¯ĞÂÊı¾İ
+		//2.æŸ¥è¯¢æ–°æ•°æ®
 		int cur = 0;
 		String cmd = null;
 		while (m_cmd[0]!=null && fetchSize>0 && cursorId>0) {
@@ -71,7 +71,7 @@ public class ImCursor extends ICursor {
 		return count;
 	}
 	
-	//»¹²»Çå³şgetMore¹Ø±Õcursor·½·¨£¬¶ø²»ÊÇ¶Ï¿ªÁ¬½Ó.
+	//è¿˜ä¸æ¸…æ¥šgetMoreå…³é—­cursoræ–¹æ³•ï¼Œè€Œä¸æ˜¯æ–­å¼€è¿æ¥.
 	public synchronized void close() {
 		m_cols = null;
 		m_db = null;
@@ -96,10 +96,10 @@ public class ImCursor extends ICursor {
 			}
 		}
 		
-		//1¡£ÓĞ»º´æÇé¿ö
+		//1ã€‚æœ‰ç¼“å­˜æƒ…å†µ
 		if (m_bufTable!=null){
 			vTbl = new Table(m_bufTable.dataStruct());
-			if (m_bufTable.length()>n){ //1.1¡£ÓĞ×ã¹»»º´æ
+			if (m_bufTable.length()>n){ //1.1ã€‚æœ‰è¶³å¤Ÿç¼“å­˜
 				for(int i=0; i<n; i++){
 					vTbl.add(m_bufTable.get(i+1));					
 				}
@@ -107,7 +107,7 @@ public class ImCursor extends ICursor {
 					m_bufTable.delete(i);
 				}
 				return vTbl;
-			}else{			//1.2. »º´æÊı²»×ã	
+			}else{			//1.2. ç¼“å­˜æ•°ä¸è¶³	
 				n -= m_bufTable.length();
 				vTbl.addAll(m_bufTable);
 				m_bufTable.clear();		
@@ -115,7 +115,7 @@ public class ImCursor extends ICursor {
 			}
 		}
 		
-		//2. ²éÑ¯ĞÂÊı¾İ¡£
+		//2. æŸ¥è¯¢æ–°æ•°æ®ã€‚
 		int bufSize = 0;
 		while (m_cmd[0]!=null && n > 0 && cursorId>0) {
 			Table buf = workCommand(m_db, m_session, m_cmd[0]);
@@ -147,22 +147,22 @@ public class ImCursor extends ICursor {
 		return vTbl;
 	}
 	
-	//Ğò±íÓëĞò±íºÏ²¢£¬×Ö¶Î²»Ò»ÖÂÊ±×Ö¶ÎÊı¾İ¶ÔÆë
-	//½«bufTblºÏ²¢µ½vTblsÖĞ,ÏÈ½«Á½±í½á¹¹µ÷ÕûÎªÒ»ÖÂ£¬ÔÙ¹ıÂËÊı¾İ¡£
+	//åºè¡¨ä¸åºè¡¨åˆå¹¶ï¼Œå­—æ®µä¸ä¸€è‡´æ—¶å­—æ®µæ•°æ®å¯¹é½
+	//å°†bufTblåˆå¹¶åˆ°vTblsä¸­,å…ˆå°†ä¸¤è¡¨ç»“æ„è°ƒæ•´ä¸ºä¸€è‡´ï¼Œå†è¿‡æ»¤æ•°æ®ã€‚
 	private boolean mergeTable(Table[] vTbls, Table bufTbl, int n) {
 		boolean bBreak = false;
 		Table vTbl = vTbls[0];
-		//A.ÏàÍ¬½á¹¹ºÏ²¢ 
+		//A.ç›¸åŒç»“æ„åˆå¹¶ 
 		if (Arrays.equals(vTbl.dataStruct().getFieldNames(), bufTbl.dataStruct().getFieldNames())){
 			;//skip
-		//B.°üÀ¨½á¹¹ºÏ²¢ (vTbl>bufTbl)£¬Ö»´¦ÀíbufTblÊı¾İ
+		//B.åŒ…æ‹¬ç»“æ„åˆå¹¶ (vTbl>bufTbl)ï¼Œåªå¤„ç†bufTblæ•°æ®
 		}else if(isColumnContain(vTbl.dataStruct().getFieldNames(), bufTbl.dataStruct().getFieldNames())){
 			Table tmpTable = new Table(vTbl.dataStruct());
 			modifyTableData(tmpTable, bufTbl);
 			bufTbl = new Table(vTbl.dataStruct());
 			bufTbl.addAll(tmpTable);
 			tmpTable.clear();
-		//C. ²»Í¬½á¹¹ºÏ²¢
+		//C. ä¸åŒç»“æ„åˆå¹¶
 		}else{ 
 			String[] newCols = mergeColumns(vTbl.dataStruct().getFieldNames(), 
 											bufTbl.dataStruct().getFieldNames());
@@ -186,7 +186,7 @@ public class ImCursor extends ICursor {
 			tmpTable.clear();
 		}
 		
-		if (bufTbl.length()>n){ //2.1 ÓĞ×ã¹»»º´æ
+		if (bufTbl.length()>n){ //2.1 æœ‰è¶³å¤Ÿç¼“å­˜
 			for(int i=0; i<n; i++){
 				BaseRecord r = bufTbl.getRecord(i+1);
 				vTbl.newLast(r.getFieldValues());
@@ -194,12 +194,12 @@ public class ImCursor extends ICursor {
 			for(int i=n; i>0; i--){
 				bufTbl.delete(i);
 			}
-			//2.2 Ê£Óà´æÈë»º³å.
+			//2.2 å‰©ä½™å­˜å…¥ç¼“å†².
 			m_bufTable = new Table(bufTbl.dataStruct());
 			m_bufTable.addAll(bufTbl);
 			//return vTbl;
 			bBreak = true;
-		}else{			//2.3  »º´æÊı²»×ã	
+		}else{			//2.3  ç¼“å­˜æ•°ä¸è¶³	
 			vTbl.addAll(bufTbl);
 			n -= bufTbl.length();
 			bufTbl.clear();				
@@ -213,7 +213,7 @@ public class ImCursor extends ICursor {
 		close();
 	}
 	
-	//¸ü¸Ä±í½á¹¹½»£¬½«¾É±íÊı¾İÌî³äµ½ĞÂµ½ÖĞ¡£
+	//æ›´æ”¹è¡¨ç»“æ„äº¤ï¼Œå°†æ—§è¡¨æ•°æ®å¡«å……åˆ°æ–°åˆ°ä¸­ã€‚
 	private void modifyTableData(Table newTbl, Table oldTbl)
 	{
 		Object[] subLine = null;
@@ -309,7 +309,7 @@ public class ImCursor extends ICursor {
 					continue;
 				}
 				Object o = ((List<?>)val).get(0);
-				// List<Document>½á¹¹
+				// List<Document>ç»“æ„
 				if (o instanceof Document){
 					Table subNode = null;
 					BaseRecord subRec = null;
@@ -326,7 +326,7 @@ public class ImCursor extends ICursor {
 						}
 					}
 					line[idx++] = subNode;
-				}else{ // List<Object>½á¹¹
+				}else{ // List<Object>ç»“æ„
 					Object[] objs = list.toArray(new Object[list.size()]);
 					for(int i=0;i<objs.length; i++ ){
 						if (objs[i] instanceof ObjectId){
@@ -349,7 +349,7 @@ public class ImCursor extends ICursor {
 		return rcd;
 	}
 	
-	//doc¶ÔÓ¦µÄ¼ÇÂ¼Êı
+	//docå¯¹åº”çš„è®°å½•æ•°
 	private int getDocumentCount(Document doc){
 		int idx = 0;
 		Object val = null;
@@ -371,7 +371,7 @@ public class ImCursor extends ICursor {
 		return idx;
 	}
 	
-	//°´Êı×éÔ­Ë³ĞòÈ¥ÖØºÏ²¢Êı×é
+	//æŒ‰æ•°ç»„åŸé¡ºåºå»é‡åˆå¹¶æ•°ç»„
 	private static String[] mergeColumns(String[] oldArr, String[] newArr){
         Map<String, Integer> map = new LinkedHashMap<String, Integer>();
        
@@ -388,7 +388,7 @@ public class ImCursor extends ICursor {
         return ss;
     }
 	
-	//²ÎÊıoldDsÊÇ·ñ°üº¬newDs
+	//å‚æ•°oldDsæ˜¯å¦åŒ…å«newDs
 	private static boolean isColumnContain(String[] oldArr, String[] newArr){
 		boolean bRet = true;
 		if (oldArr.length<newArr.length){
@@ -405,20 +405,20 @@ public class ImCursor extends ICursor {
 		return bRet;
 	}
 	
-	//Ğò±íÓë¼ÇÂ¼ºÏ²¢£¬×Ö¶Î²»Ò»ÖÂÊ±×Ö¶ÎÊı¾İ¶ÔÆë
+	//åºè¡¨ä¸è®°å½•åˆå¹¶ï¼Œå­—æ®µä¸ä¸€è‡´æ—¶å­—æ®µæ•°æ®å¯¹é½
 	private static Table doRecord(Table subNode, BaseRecord subRec) {
 		Table ret = null;
-		// 1.½á¹¹ÏàÍ¬¡£
+		// 1.ç»“æ„ç›¸åŒã€‚
 		if (subNode.dataStruct().isCompatible(subRec.dataStruct())){
 			subNode.newLast(subRec.getFieldValues());	
 			ret = subNode;			
-		//2. ½á¹¹°üÀ¨¹ØÏµ, Ö±½Ó×·¼ÓÊı¾İ²¢×Ö¶Î¶ÔÆë
+		//2. ç»“æ„åŒ…æ‹¬å…³ç³», ç›´æ¥è¿½åŠ æ•°æ®å¹¶å­—æ®µå¯¹é½
 		}else if(isColumnContain(subNode.dataStruct().getFieldNames(), 
 				subRec.dataStruct().getFieldNames())){
 			// newData
 			appendRecord(subNode, subRec);
 			ret = subNode;		
-		}else{//3. ½á¹¹²»Í¬Ê±£¬ÖØ¹¹Ğò±í
+		}else{//3. ç»“æ„ä¸åŒæ—¶ï¼Œé‡æ„åºè¡¨
 			String[] newCols = mergeColumns(subNode.dataStruct().getFieldNames(), 
 									 subRec.dataStruct().getFieldNames());
 			Table newTable = new Table(newCols);
@@ -448,7 +448,7 @@ public class ImCursor extends ICursor {
 		return ret;
 	}
 	
-	//±í½á¹¹°üÀ¨¼ÇÂ¼½á¹¹Çé¿öÏÂ£¬½«¼ÇÂ¼×·¼Óµ½±íÖĞ£¬
+	//è¡¨ç»“æ„åŒ…æ‹¬è®°å½•ç»“æ„æƒ…å†µä¸‹ï¼Œå°†è®°å½•è¿½åŠ åˆ°è¡¨ä¸­ï¼Œ
 	private static void appendRecord(Table vTbl, BaseRecord subRec){
 		Object[] subLine = null;
 		String[] fullCols = vTbl.dataStruct().getFieldNames();

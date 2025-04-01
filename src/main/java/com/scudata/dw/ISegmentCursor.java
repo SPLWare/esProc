@@ -3,7 +3,7 @@ package com.scudata.dw;
 import com.scudata.dm.Sequence;
 
 /**
- * �α�ķֶνӿ�
+ * 游标的分段接口
  * @author runqian
  *
  */

@@ -6,27 +6,27 @@ import java.io.OutputStream;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃÓÚµ¼³öÅÅÁĞµ½ÎÄ±¾ÎÄ¼ş
+ * ç”¨äºå¯¼å‡ºæ’åˆ—åˆ°æ–‡æœ¬æ–‡ä»¶
  * @author WangXiaoJun
  *
  */
 public class LineExporter implements ILineOutput {
-	private OutputStream os; // Êä³öÁ÷
-	private final String charset; // ×Ö·û¼¯
-	private final byte []colSeparator; // ÁĞ·Ö¸ô·û
-	private final byte []lineSeparator; // ĞĞ·Ö¸ô·û
-	private boolean isAppend; // ÊÇ·ñ×·¼ÓĞ´
+	private OutputStream os; // è¾“å‡ºæµ
+	private final String charset; // å­—ç¬¦é›†
+	private final byte []colSeparator; // åˆ—åˆ†éš”ç¬¦
+	private final byte []lineSeparator; // è¡Œåˆ†éš”ç¬¦
+	private boolean isAppend; // æ˜¯å¦è¿½åŠ å†™
 	
 	private char escapeChar = '\\';
-	private boolean isQuote = false; // ×Ö·û´®ÊÇ·ñ¼ÓÒıºÅ
+	private boolean isQuote = false; // å­—ç¬¦ä¸²æ˜¯å¦åŠ å¼•å·
 
 	/**
-	 * ¹¹Ôì°´ĞĞÊä³ö¶ÔÏó
-	 * @param os Êä³öÁ÷
-	 * @param charset ×Ö·û¼¯
-	 * @param colSeparator ÁĞ·Ö¸ô·û
-	 * @param lineSeparator ĞĞ·Ö¸ô·û
-	 * @param isAppend ÊÇ·ñ×·¼ÓĞ´
+	 * æ„é€ æŒ‰è¡Œè¾“å‡ºå¯¹è±¡
+	 * @param os è¾“å‡ºæµ
+	 * @param charset å­—ç¬¦é›†
+	 * @param colSeparator åˆ—åˆ†éš”ç¬¦
+	 * @param lineSeparator è¡Œåˆ†éš”ç¬¦
+	 * @param isAppend æ˜¯å¦è¿½åŠ å†™
 	 */
 	public LineExporter(OutputStream os, String charset, byte []colSeparator, byte []lineSeparator, boolean isAppend) {
 		this.os = os;
@@ -37,7 +37,7 @@ public class LineExporter implements ILineOutput {
 	}
 	
 	/**
-	 * ÉèÖÃ×Ö·û´®ÊÇ·ñ¼ÓÒıºÅ
+	 * è®¾ç½®å­—ç¬¦ä¸²æ˜¯å¦åŠ å¼•å·
 	 * @param b
 	 */
 	public void setQuote(boolean b) {
@@ -45,15 +45,15 @@ public class LineExporter implements ILineOutput {
 	}
 	
 	/**
-	 * ÉèÖÃ×ªÒå·û
-	 * @param c ×ªÒå·û
+	 * è®¾ç½®è½¬ä¹‰ç¬¦
+	 * @param c è½¬ä¹‰ç¬¦
 	 */
 	public void setEscapeChar(char c) {
 		escapeChar = c;
 	}
 	
 	/**
-	 * È¡×ªÒå·û
+	 * å–è½¬ä¹‰ç¬¦
 	 * @return char
 	 */
 	public char getEscapeChar() {
@@ -61,7 +61,7 @@ public class LineExporter implements ILineOutput {
 	}
 
 	/**
-	 * ¹Ø±ÕÊä³ö
+	 * å…³é—­è¾“å‡º
 	 * @throws IOException
 	 */
 	public void close() throws IOException {
@@ -69,8 +69,8 @@ public class LineExporter implements ILineOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»ĞĞÊı¾İ
-	 * @param items ÁĞÖµ×é³ÉµÄÊı×é
+	 * å†™å‡ºä¸€è¡Œæ•°æ®
+	 * @param items åˆ—å€¼ç»„æˆçš„æ•°ç»„
 	 * @throws IOException
 	 */
 	public void writeLine(Object []items) throws IOException {

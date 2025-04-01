@@ -29,7 +29,7 @@ import com.scudata.util.EnvUtil;
 import com.scudata.util.Variant;
 
 /**
- * ¹şÏ£Ë÷Òı
+ * å“ˆå¸Œç´¢å¼•
  * @author runqian
  *
  */
@@ -37,24 +37,24 @@ public class TableHashIndex implements ITableIndex {
 
 	private static final int BUFFER_SIZE = 1024;
 	private static final int POSITION_SIZE = 5;
-	private static final long MAX_DIRECT_POS_SIZE = 1000000000;//ÔÊĞí½¨Á¢Ö±½ÓµØÖ·µÄ×î´óÌõÊı
+	private static final long MAX_DIRECT_POS_SIZE = 1000000000;//å…è®¸å»ºç«‹ç›´æ¥åœ°å€çš„æœ€å¤§æ¡æ•°
 	public static final int MAX_SEC_RECORD_COUNT = 100000;//max count of index2
 	
-	private long recordCount = 0; // Ô´¼ÇÂ¼Êı
-	private long index1RecordCount = 0; // Ë÷Òı1¼ÇÂ¼Êı
-	private long index1EndPos = 0; // Ë÷Òı1½¨Á¢Ê±Ô´ÎÄ¼ş¼ÇÂ¼½áÊøÎ»ÖÃ
-	private String []ifields; // Ë÷Òı×Ö¶ÎÃû×Ö
+	private long recordCount = 0; // æºè®°å½•æ•°
+	private long index1RecordCount = 0; // ç´¢å¼•1è®°å½•æ•°
+	private long index1EndPos = 0; // ç´¢å¼•1å»ºç«‹æ—¶æºæ–‡ä»¶è®°å½•ç»“æŸä½ç½®
+	private String []ifields; // ç´¢å¼•å­—æ®µåå­—
 	
 	private String name;
 	private PhyTable srcTable;
 	private FileObject indexFile;
-	private long hashPos;//hash±íµÄµØÖ·
-	private int capacity;//¹şÏ£size
-	private int h;//hash ÃÜ¶È
-	private int positionCount;//µØÖ·¸öÊı£¨¸½±íÊ±²ÅÊÇ2£©
+	private long hashPos;//hashè¡¨çš„åœ°å€
+	private int capacity;//å“ˆå¸Œsize
+	private int h;//hash å¯†åº¦
+	private int positionCount;//åœ°å€ä¸ªæ•°ï¼ˆé™„è¡¨æ—¶æ‰æ˜¯2ï¼‰
 	private Expression filter;
 	
-	private boolean isDirectPos;//ÊÇÖ±½ÓµØÖ·£¨ÌØÊâÇé¿öÓÃ£¬±ÈÈçÎŞ³åÍ»Ê±£©
+	private boolean isDirectPos;//æ˜¯ç›´æ¥åœ°å€ï¼ˆç‰¹æ®Šæƒ…å†µç”¨ï¼Œæ¯”å¦‚æ— å†²çªæ—¶ï¼‰
 	private long baseOffset;
 	private byte [][]cache;
 	private transient int maxRecordLen = 0;
@@ -98,7 +98,7 @@ public class TableHashIndex implements ITableIndex {
 	}	
 
 	/**
-	 * ÓÃÓÚ½¨Á¢Ë÷ÒıÊ±È¡Êı¡¢Î±ºÅºÍhashÖµ£¬²»°üº¬²¹Çø
+	 * ç”¨äºå»ºç«‹ç´¢å¼•æ—¶å–æ•°ã€ä¼ªå·å’Œhashå€¼ï¼Œä¸åŒ…å«è¡¥åŒº
 	 * @author runqian
 	 *
 	 */
@@ -120,8 +120,8 @@ public class TableHashIndex implements ITableIndex {
 		private Sequence cache;
 		private boolean isClosed = false;
 		
-		private long curNum = 0;//È«¾Ö¼ÇÂ¼ºÅ
-		private int capacity;//¹şÏ£size
+		private long curNum = 0;//å…¨å±€è®°å½•å·
+		private int capacity;//å“ˆå¸Œsize
 
 		public CHashCursor(PhyTable table, String []fields, Context ctx, Expression filter, int capacity) {
 			this.table = (ColPhyTable) table;
@@ -140,7 +140,7 @@ public class TableHashIndex implements ITableIndex {
 				fields = table.getColNames();
 			}
 			
-			//ÓĞÌõ¼ş±í´ïÊ½Ê±ÒªÈ¡³öËùÓĞ
+			//æœ‰æ¡ä»¶è¡¨è¾¾å¼æ—¶è¦å–å‡ºæ‰€æœ‰
 			if (filter != null) {
 				columns = table.getColumns();
 			} else {
@@ -467,11 +467,11 @@ public class TableHashIndex implements ITableIndex {
 		private int curBlock = 0;
 		private Sequence cache;
 		private boolean isClosed = false;
-		private boolean isPrimaryTable; // ÊÇ·ñÖ÷±í
+		private boolean isPrimaryTable; // æ˜¯å¦ä¸»è¡¨
 		
-		private int capacity;//¹şÏ£size
+		private int capacity;//å“ˆå¸Œsize
 		
-		private RHashCursor parentCursor;//Ö÷±íÓÎ±ê
+		private RHashCursor parentCursor;//ä¸»è¡¨æ¸¸æ ‡
 		private Record curPkey;
 		private long pseq;
 
@@ -489,7 +489,7 @@ public class TableHashIndex implements ITableIndex {
 			init();
 		}
 		
-		//filterÀïµÄ×Ö¶ÎÒª¶Á³öÀ´
+		//filteré‡Œçš„å­—æ®µè¦è¯»å‡ºæ¥
 		private void parseFilter(Node node) {
 			if (node == null) return;
 			if (node instanceof UnknownSymbol) {
@@ -563,7 +563,7 @@ public class TableHashIndex implements ITableIndex {
 			 while (pseq != this.pseq) {
 				Sequence pkeyData = parentCursor.fetch(1);
 				if (pkeyData == null) {
-					//Ö÷±íÈ¡µ½×îºóÁË£¬¸½±íÀï²»Ó¦¸Ã»¹ÓĞÊı¾İ£¬Å×Òì³£
+					//ä¸»è¡¨å–åˆ°æœ€åäº†ï¼Œé™„è¡¨é‡Œä¸åº”è¯¥è¿˜æœ‰æ•°æ®ï¼ŒæŠ›å¼‚å¸¸
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("index " + mm.getMessage("grouptable.invalidData"));
 				}
@@ -626,8 +626,8 @@ public class TableHashIndex implements ITableIndex {
 			
 			ObjectReader rowDataReader = this.rowDataReader;
 			long pos;
-			long seq;//Î±ºÅ
-			long pseq = 0;//µ¼ÁĞÎ±ºÅ
+			long seq;//ä¼ªå·
+			long pseq = 0;//å¯¼åˆ—ä¼ªå·
 			boolean isPrimaryTable = this.isPrimaryTable;
 			int startIndex;
 			if (isPrimaryTable) {
@@ -664,7 +664,7 @@ public class TableHashIndex implements ITableIndex {
 							pos = calcPosition(rowReader, rowDataReader);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//µ¼ÁĞ
+								pseq = rowDataReader.readLong();//å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f])
@@ -707,7 +707,7 @@ public class TableHashIndex implements ITableIndex {
 								pos = calcPosition(rowReader, rowDataReader);
 								seq = rowDataReader.readLong();
 								if (!isPrimaryTable) {
-									pseq = rowDataReader.readLong();//Ìø¹ıµ¼ÁĞ
+									pseq = rowDataReader.readLong();//è·³è¿‡å¯¼åˆ—
 								}
 								for (int f = startIndex; f < allCount; ++f) {
 									if (needRead[f])
@@ -765,7 +765,7 @@ public class TableHashIndex implements ITableIndex {
 							pos = calcPosition(rowReader, rowDataReader);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//µ¼ÁĞ
+								pseq = rowDataReader.readLong();//å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f])
@@ -798,7 +798,7 @@ public class TableHashIndex implements ITableIndex {
 							pos = calcPosition(rowReader, rowDataReader);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//Ìø¹ıµ¼ÁĞ
+								pseq = rowDataReader.readLong();//è·³è¿‡å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f])
@@ -829,7 +829,7 @@ public class TableHashIndex implements ITableIndex {
 							pos = calcPosition(rowReader, rowDataReader);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//µ¼ÁĞ
+								pseq = rowDataReader.readLong();//å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f])
@@ -905,7 +905,7 @@ public class TableHashIndex implements ITableIndex {
 					for (int i = 0; i < recordCount; ++i) {
 						rowDataReader.readLong();
 						if (!isPrimaryTable) {
-							rowDataReader.readLong();//µ¼ÁĞ
+							rowDataReader.readLong();//å¯¼åˆ—
 						}
 						for (int f = 0; f < allCount; ++f) {
 							rowDataReader.readObject();
@@ -954,10 +954,10 @@ public class TableHashIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ÓÃÓÚ´´½¨
-	 * @param table Ô­±í
-	 * @param indexName Ë÷ÒıÃû³Æ
-	 * @param h ¹şÏ£ÃÜ¶È
+	 * ç”¨äºåˆ›å»º
+	 * @param table åŸè¡¨
+	 * @param indexName ç´¢å¼•åç§°
+	 * @param h å“ˆå¸Œå¯†åº¦
 	 */
 	public TableHashIndex(PhyTable table, String indexName, int h) {
 		this(table, indexName);
@@ -1072,17 +1072,17 @@ public class TableHashIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ´´½¨Ë÷Òı
-	 * @param fields Ë÷Òı×Ö¶Î
-	 * @param opt °üº¬'a'Ê±±íÊ¾×·¼Ó
-	 * @param ctx ÉÏÏÂÎÄ
-	 * @param filter ¹ıÂË
+	 * åˆ›å»ºç´¢å¼•
+	 * @param fields ç´¢å¼•å­—æ®µ
+	 * @param opt åŒ…å«'a'æ—¶è¡¨ç¤ºè¿½åŠ 
+	 * @param ctx ä¸Šä¸‹æ–‡
+	 * @param filter è¿‡æ»¤
 	 */
 	public void create(String []fields, String opt, Context ctx, Expression filter) {
 		int icount = fields.length;
-		boolean isAppend = false;//×·¼Ó»¹ÊÇĞÂ½¨
-		boolean isAdd = true;//ÊÇ·ñĞèÒªÌí¼ÓË÷Òıµ½table
-		boolean isReset = false;//ÖØ½¨
+		boolean isAppend = false;//è¿½åŠ è¿˜æ˜¯æ–°å»º
+		boolean isAdd = true;//æ˜¯å¦éœ€è¦æ·»åŠ ç´¢å¼•åˆ°table
+		boolean isReset = false;//é‡å»º
 		
 		if (indexFile.size() > 0) {
 			if ((opt == null) ||(opt != null && opt.indexOf('a') == -1)) {
@@ -1091,11 +1091,11 @@ public class TableHashIndex implements ITableIndex {
 			}
 		}
 		
-		//¼ì²éÊÇ·ñ¿ÉÒÔ´æÖ±½ÓµØÖ·
+		//æ£€æŸ¥æ˜¯å¦å¯ä»¥å­˜ç›´æ¥åœ°å€
 		boolean isDirctPos = false;
 		long baseOffset = 0;
 		long capacity = 0;
-		boolean isPrimaryKey = false;//ÊÇ·ñ¶ÔÖ÷¼ü½¨Á¢Ë÷Òı
+		boolean isPrimaryKey = false;//æ˜¯å¦å¯¹ä¸»é”®å»ºç«‹ç´¢å¼•
 		String[] keyNames = srcTable.getAllSortedColNames();
 		if (srcTable.hasPrimaryKey 
 				&& keyNames != null 
@@ -1136,8 +1136,8 @@ public class TableHashIndex implements ITableIndex {
 				throw new RQException(e.getMessage(), e);
 			}
 			len = ((Number)max).longValue() - ((Number)min).longValue() + 1;
-			if (len > MAX_DIRECT_POS_SIZE) break;//Ì«´óÁË²»ĞĞ
-			if (len != srcTable.getTotalRecordCount()) break;//step²»µÈÓÚ1
+			if (len > MAX_DIRECT_POS_SIZE) break;//å¤ªå¤§äº†ä¸è¡Œ
+			if (len != srcTable.getTotalRecordCount()) break;//stepä¸ç­‰äº1
 			isDirctPos = true;
 			baseOffset = ((Number)min).longValue();
 			capacity = len + 1;
@@ -1196,7 +1196,7 @@ public class TableHashIndex implements ITableIndex {
 					ICursor cursor = new MergesCursor(cursors, exps, ctx);				
 					createIndexTable(cursor, indexFile, true);
 				}
-				srcTable.getTableMetaDataIndex(indexFile, null, false);//×·¼ÓºóÒªÇå³ıcache
+				srcTable.getTableMetaDataIndex(indexFile, null, false);//è¿½åŠ åè¦æ¸…é™¤cache
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
 			} finally {
@@ -1244,14 +1244,14 @@ public class TableHashIndex implements ITableIndex {
 				ICursor []cursors = new ICursor[size];
 				cursorList.toArray(cursors);
 				Expression []exps = new Expression[2];
-				exps[0] = new Expression(ctx, "#" + (icount + 2));//hash ×Ö¶Î
-				exps[1] = new Expression(ctx, "#" + (icount + 1));//Î±ºÅ×Ö¶Î
+				exps[0] = new Expression(ctx, "#" + (icount + 2));//hash å­—æ®µ
+				exps[1] = new Expression(ctx, "#" + (icount + 1));//ä¼ªå·å­—æ®µ
 				
 				ICursor cursor = new MergesCursor(cursors, exps, ctx);
 				createIndexTable(cursor, tmpFile, false);
 			}
 			
-			srcTable.getTableMetaDataIndex(indexFile, null, false);//×·¼ÓºóÒªÇå³ıcache
+			srcTable.getTableMetaDataIndex(indexFile, null, false);//è¿½åŠ åè¦æ¸…é™¤cache
 			if (needDelete) {
 				indexFile.delete();
 				tmpFile.move(indexFile.getFileName(), null);
@@ -1271,9 +1271,9 @@ public class TableHashIndex implements ITableIndex {
 	}
 
 	/**
-	 * ´´½¨Ö±½Ó´æµØÖ·µÄË÷Òı
-	 * @param capacity	×ÜÌõÊı
-	 * @param baseOffset	ÆğÊ¼¼ÇÂ¼µÄkeyÖµ
+	 * åˆ›å»ºç›´æ¥å­˜åœ°å€çš„ç´¢å¼•
+	 * @param capacity	æ€»æ¡æ•°
+	 * @param baseOffset	èµ·å§‹è®°å½•çš„keyå€¼
 	 * @param cursor
 	 * @param indexFile
 	 * @param isAppends
@@ -1293,7 +1293,7 @@ public class TableHashIndex implements ITableIndex {
 				writeHeader(writer);
 				hashPos = writer.position();
 				writer.position(0);
-				writeHeader(writer);//Ğ´hashPos
+				writeHeader(writer);//å†™hashPos
 				
 				writer.flush();
 			}
@@ -1350,7 +1350,7 @@ public class TableHashIndex implements ITableIndex {
 				writeHeader(writer);
 				hashPos = writer.position();
 				writer.position(0);
-				writeHeader(writer);//Ğ´hashPos
+				writeHeader(writer);//å†™hashPos
 				
 				writer.flush();
 				indexFile.setFileSize(hashPos + capacity * POSITION_SIZE);
@@ -1380,13 +1380,13 @@ public class TableHashIndex implements ITableIndex {
 					for (int f = 0; f <= icount; ++f) {
 						writer.writeObject(r.getNormalFieldValue(f));
 					}
-					//ĞĞ´æÊ±£¬Òª°ÑµØÖ·Ò²¶¼Ğ´ÏÂÀ´
+					//è¡Œå­˜æ—¶ï¼Œè¦æŠŠåœ°å€ä¹Ÿéƒ½å†™ä¸‹æ¥
 					for (int j = 1; j <= posCount; ++j) {
 						writer.writeObject(r.getNormalFieldValue(icount + j + 1));
 					}
 				}
 				endPos = writer.position();
-				//ÊÇ·ñ±ØÒª£¿ 
+				//æ˜¯å¦å¿…è¦ï¼Ÿ 
 				writer.flush();
 
 				table = cursor.fetchGroup(ifs);
@@ -1406,7 +1406,7 @@ public class TableHashIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ´ÓpositionÎ»ÖÃ¶ÁÈ¡ÒÑ¾­´æÔÚµÄ¼ÇÂ¼µ½tableÀï
+	 * ä»positionä½ç½®è¯»å–å·²ç»å­˜åœ¨çš„è®°å½•åˆ°tableé‡Œ
 	 * @param indexFile
 	 * @param position
 	 * @param table
@@ -1433,7 +1433,7 @@ public class TableHashIndex implements ITableIndex {
 			for (int f = 0; f <= icount; ++f) {
 				r.setNormalFieldValue(f, reader.readObject());
 			}
-			//ĞĞ´æÊ±£¬Òª°ÑµØÖ·Ò²¶¼Ğ´ÏÂÀ´
+			//è¡Œå­˜æ—¶ï¼Œè¦æŠŠåœ°å€ä¹Ÿéƒ½å†™ä¸‹æ¥
 			for (int j = 1; j <= posCount; ++j) {
 				r.setNormalFieldValue(icount + j + 1, reader.readObject());
 			}
@@ -1474,8 +1474,8 @@ public class TableHashIndex implements ITableIndex {
 				ifields[i] = fields[i];
 			}
 
-			int baseCount = 100000;//Ã¿´ÎÈ¡³öÀ´µÄÌõÊı
-			boolean flag = false;//ÊÇ·ñµ÷Õû¹ıÁÙÊ±ÎÄ¼ş´óĞ¡
+			int baseCount = 100000;//æ¯æ¬¡å–å‡ºæ¥çš„æ¡æ•°
+			boolean flag = false;//æ˜¯å¦è°ƒæ•´è¿‡ä¸´æ—¶æ–‡ä»¶å¤§å°
 			
 			ArrayList <ICursor>cursorList = new ArrayList<ICursor>();
 			Table table;
@@ -1563,8 +1563,8 @@ public class TableHashIndex implements ITableIndex {
 				ifields[i] = fields[i];
 			}
 			
-			int baseCount = 100000;//Ã¿´ÎÈ¡³öÀ´µÄÌõÊı
-			boolean flag = false;//ÊÇ·ñµ÷Õû¹ıÁÙÊ±ÎÄ¼ş´óĞ¡
+			int baseCount = 100000;//æ¯æ¬¡å–å‡ºæ¥çš„æ¡æ•°
+			boolean flag = false;//æ˜¯å¦è°ƒæ•´è¿‡ä¸´æ—¶æ–‡ä»¶å¤§å°
 			
 			ArrayList <ICursor>cursorList = new ArrayList<ICursor>();
 			Table table;
@@ -1620,11 +1620,11 @@ public class TableHashIndex implements ITableIndex {
 	}
 	
 	/**
-	 * °´¶à¸öÖµ²éÑ¯
-	 * @param vals ²éÑ¯µÄkeyÖµ
+	 * æŒ‰å¤šä¸ªå€¼æŸ¥è¯¢
+	 * @param vals æŸ¥è¯¢çš„keyå€¼
 	 * @param opt
 	 * @param ctx
-	 * @return ¼ÇÂ¼ºÅ»ò¼ÇÂ¼µØÖ·
+	 * @return è®°å½•å·æˆ–è®°å½•åœ°å€
 	 */
 	public LongArray select(Object []vals, String opt, Context ctx) {
 		if (indexFile == null || vals == null || indexFile.size() == 0) {
@@ -1634,7 +1634,7 @@ public class TableHashIndex implements ITableIndex {
 		Arrays.sort(vals);
 		int len = vals.length;
 		LongArray posArray = new LongArray(len * 2);
-		boolean hasModify = srcTable.getModifyRecords() != null;//ÊÇ·ñÓĞ²¹Çø
+		boolean hasModify = srcTable.getModifyRecords() != null;//æ˜¯å¦æœ‰è¡¥åŒº
 		if (isDirectPos) {
 			if (cache != null) {
 				//index@3
@@ -1781,7 +1781,7 @@ public class TableHashIndex implements ITableIndex {
 	}
 
 	/**
-	 * °´±í´ïÊ½²éÑ¯
+	 * æŒ‰è¡¨è¾¾å¼æŸ¥è¯¢
 	 */
 	public LongArray select(Expression exp, String opt, Context ctx) {
 		if (indexFile == null || indexFile.size() == 0) {

@@ -7,19 +7,19 @@ import com.scudata.dm.Table;
 import com.scudata.util.Variant;
 
 /**
- * ÓĞĞò¼ÇÂ¼Á´±í,ÓÃÓÚA.groups@h(...)
+ * æœ‰åºè®°å½•é“¾è¡¨,ç”¨äºA.groups@h(...)
  * @author RunQian
  *
  */
 class SortedGroupsLink {
 	/**
-	 * Á´±íµÄ½Úµã
+	 * é“¾è¡¨çš„èŠ‚ç‚¹
 	 * @author RunQian
 	 *
 	 */
 	static class Node {
-		private BaseRecord r; // ¼ÇÂ¼
-		private Node next; // ÏÂÒ»¸ö½Úµã
+		private BaseRecord r; // è®°å½•
+		private Node next; // ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
 		
 		public Node() {
 		}
@@ -45,13 +45,13 @@ class SortedGroupsLink {
 		}
 	}
 	
-	private Node first; // Ê×½Úµã
-	private Node prevNode; // ÉÏÒ»´ÎÕÒµ½µÄÄÇ¸ö½Úµã
-	private int len = 0; // ³¤¶È
+	private Node first; // é¦–èŠ‚ç‚¹
+	private Node prevNode; // ä¸Šä¸€æ¬¡æ‰¾åˆ°çš„é‚£ä¸ªèŠ‚ç‚¹
+	private int len = 0; // é•¿åº¦
 	
 	
 	/**
-	 * È¡³öÁ´±íÀïµÄ¼ÇÂ¼·µ»Ø³ÉĞò±í
+	 * å–å‡ºé“¾è¡¨é‡Œçš„è®°å½•è¿”å›æˆåºè¡¨
 	 * @param ds
 	 * @return
 	 */
@@ -66,8 +66,8 @@ class SortedGroupsLink {
 	}
 	
 	/**
-	 * ¸ù¾İ¶à×Ö¶ÎÖ÷¼üÖµÕÒµ½Á´±íµÄ½Úµã£¬ÕÒ²»µ½ÔòÔÚÏàÓ¦µÄÎ»ÖÃĞÂ½¨Ò»¸ö½Úµã·µ»Ø£¬ÍâÃæ»á¸³Öµ¼ÇÂ¼
-	 * @param values Ö÷¼üÖµÊı×é
+	 * æ ¹æ®å¤šå­—æ®µä¸»é”®å€¼æ‰¾åˆ°é“¾è¡¨çš„èŠ‚ç‚¹ï¼Œæ‰¾ä¸åˆ°åˆ™åœ¨ç›¸åº”çš„ä½ç½®æ–°å»ºä¸€ä¸ªèŠ‚ç‚¹è¿”å›ï¼Œå¤–é¢ä¼šèµ‹å€¼è®°å½•
+	 * @param values ä¸»é”®å€¼æ•°ç»„
 	 * @return
 	 */
 	public Node put(Object []values) {
@@ -79,7 +79,7 @@ class SortedGroupsLink {
 		Node prev = null;
 		Node cur = prevNode;
 		
-		// ´ÓÉÏ´Î²åÈëµÄÖµ¿ªÊ¼±È½ÏÈç¹ûĞ¡ÓÚÉÏ´Î²åÈëµÄÖµÔò´ÓÍ·¿ªÊ¼ÕÒ
+		// ä»ä¸Šæ¬¡æ’å…¥çš„å€¼å¼€å§‹æ¯”è¾ƒå¦‚æœå°äºä¸Šæ¬¡æ’å…¥çš„å€¼åˆ™ä»å¤´å¼€å§‹æ‰¾
 		while (true) {
 			int cmp = cur.cmp(values);
 			if (cmp < 0) {
@@ -112,7 +112,7 @@ class SortedGroupsLink {
 			}
 		}
 		
-		// ĞÂ²åÈëµÄÖµ±ÈÉÏ´Î²åÈëµÄÖµĞ¡Ôò´ÓÍ·¿ªÊ¼²éÕÒ
+		// æ–°æ’å…¥çš„å€¼æ¯”ä¸Šæ¬¡æ’å…¥çš„å€¼å°åˆ™ä»å¤´å¼€å§‹æŸ¥æ‰¾
 		prev = null;
 		cur = first;
 		while (true) {
@@ -141,8 +141,8 @@ class SortedGroupsLink {
 	}
 	
 	/**
-	 * ¸ù¾İµ¥×Ö¶ÎÖ÷¼üÖµÕÒµ½Á´±íµÄ½Úµã£¬ÕÒ²»µ½ÔòÔÚÏàÓ¦µÄÎ»ÖÃĞÂ½¨Ò»¸ö½Úµã·µ»Ø£¬ÍâÃæ»á¸³Öµ¼ÇÂ¼
-	 * @param value Ö÷¼üÖµ
+	 * æ ¹æ®å•å­—æ®µä¸»é”®å€¼æ‰¾åˆ°é“¾è¡¨çš„èŠ‚ç‚¹ï¼Œæ‰¾ä¸åˆ°åˆ™åœ¨ç›¸åº”çš„ä½ç½®æ–°å»ºä¸€ä¸ªèŠ‚ç‚¹è¿”å›ï¼Œå¤–é¢ä¼šèµ‹å€¼è®°å½•
+	 * @param value ä¸»é”®å€¼
 	 * @return
 	 */
 	public Node put(Object value) {
@@ -154,7 +154,7 @@ class SortedGroupsLink {
 		Node prev = null;
 		Node cur = prevNode;
 		
-		// ´ÓÉÏ´Î²åÈëµÄÖµ¿ªÊ¼±È½ÏÈç¹ûĞ¡ÓÚÉÏ´Î²åÈëµÄÖµÔò´ÓÍ·¿ªÊ¼ÕÒ
+		// ä»ä¸Šæ¬¡æ’å…¥çš„å€¼å¼€å§‹æ¯”è¾ƒå¦‚æœå°äºä¸Šæ¬¡æ’å…¥çš„å€¼åˆ™ä»å¤´å¼€å§‹æ‰¾
 		while (true) {
 			int cmp = cur.cmp(value);
 			if (cmp < 0) {
@@ -187,7 +187,7 @@ class SortedGroupsLink {
 			}
 		}
 		
-		// ĞÂ²åÈëµÄÖµ±ÈÉÏ´Î²åÈëµÄÖµĞ¡Ôò´ÓÍ·¿ªÊ¼²éÕÒ
+		// æ–°æ’å…¥çš„å€¼æ¯”ä¸Šæ¬¡æ’å…¥çš„å€¼å°åˆ™ä»å¤´å¼€å§‹æŸ¥æ‰¾
 		prev = null;
 		cur = first;
 		while (true) {

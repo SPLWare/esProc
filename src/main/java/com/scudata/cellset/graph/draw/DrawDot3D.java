@@ -10,23 +10,23 @@ import com.scudata.chart.ChartColor;
 import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 /**
- * ÈıÎ¬µãÍ¼ÊµÏÖ
+ * ä¸‰ç»´ç‚¹å›¾å®ç°
  * @author Joancy
  *
  */
 
 public class DrawDot3D extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
 		GraphParam gp = db.gp;
@@ -100,10 +100,10 @@ public class DrawDot3D extends DrawBase {
 		gp.gRect2.y =  (gp.gRect1.y - coorWidth);
 		gp.gRect2.height = gp.gRect1.height;
 
-		/* »­×ø±êÖá */
+		/* ç”»åæ ‡è½´ */
 		db.drawGraphRect();
 		Point2D.Double p;
-		/* »­YÖá */
+		/* ç”»Yè½´ */
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLine(dely, i);
 
@@ -112,13 +112,13 @@ public class DrawDot3D extends DrawBase {
 
 			p = db.getVTickPoint(i*dely);
 			gp.GFV_YLABEL.outText(p.x-gp.tickLen, p.y, scoory);
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine =  (gp.gRect1.y + gp.gRect1.height - i
 						* dely);
 			}
 		}
-		// »­¾¯½äÏß
+		// ç”»è­¦æˆ’çº¿
 		db.drawWarnLine();
 		if (gp.graphTransparent) {
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
@@ -128,7 +128,7 @@ public class DrawDot3D extends DrawBase {
 		int cc = cats.size();
 		Color c;
 		
-//		»­x±êÇ©ÒÔ¼°×ø±êÏß
+//		ç”»xæ ‡ç­¾ä»¥åŠåæ ‡çº¿
 		for (int i = 0; i < cc; i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 			double delx = (i + 1) * categorySpan + i * seriesWidth + seriesWidth / 2.0;
@@ -146,7 +146,7 @@ public class DrawDot3D extends DrawBase {
 				c = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
 				Utils.setStroke(g, c, Consts.LINE_SOLID, 1.0f);
 				db.drawLine(p.x,p.y,p.x,p.y+gp.tickLen,c);
-				// »­±³¾°ĞéÏß
+				// ç”»èƒŒæ™¯è™šçº¿
 				db.drawGridLineCategoryV(gp.gRect2.x + delx);
 			}
 			String value = egc.getNameString();
@@ -154,14 +154,14 @@ public class DrawDot3D extends DrawBase {
 			
 		}
 		
-		/* »­¸ºÊıµã */
+		/* ç”»è´Ÿæ•°ç‚¹ */
 		 drawDot(cc,cats,categorySpan,seriesWidth,
 					g,gp, coorWidth, dely, seriesSpan,
 					seriesDeep, db, labelList,false,htmlLink);		
 		
-//		¸ºÊıµÄÊı¾İÏÈÊä³ö£¬Èç¹ûÏÂÊöÆ½Ãæ²»Í¸Ã÷£¬¾ÍÓ¦¸Ç×¡¸ºÊıµÄÖù¶¥Öµ
+//		è´Ÿæ•°çš„æ•°æ®å…ˆè¾“å‡ºï¼Œå¦‚æœä¸‹è¿°å¹³é¢ä¸é€æ˜ï¼Œå°±åº”ç›–ä½è´Ÿæ•°çš„æŸ±é¡¶å€¼
 		db.outLabels();
-		// »æÖÆ»ùÏßÍ¸Ã÷Æ½Ãæ£¬
+		// ç»˜åˆ¶åŸºçº¿é€æ˜å¹³é¢ï¼Œ
 		if (gp.valueBaseLine != gp.gRect1.y + gp.gRect1.height) {
 			double xx[] = { gp.gRect1.x,  (gp.gRect1.x + coorWidth),
 					 (gp.gRect1.x + gp.gRect1.width + coorWidth),
@@ -172,7 +172,7 @@ public class DrawDot3D extends DrawBase {
 			Shape poly = Utils.newPolygon2D(xx, yy);
 
 			Color ccc = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
-			if (ccc == null) {// Èç¹ûµ×±ßÎªÍ¸Ã÷É«Ê±£¬Ê¹ÓÃÈ±Ê¡»Ò
+			if (ccc == null) {// å¦‚æœåº•è¾¹ä¸ºé€æ˜è‰²æ—¶ï¼Œä½¿ç”¨ç¼ºçœç°
 				ccc = Color.lightGray;
 			}
 			float trans = 1.0f;
@@ -183,7 +183,7 @@ public class DrawDot3D extends DrawBase {
 			Utils.fill(g, poly, trans, ccc);
 		}
 
-		/* »­ÕıÊıµã */
+		/* ç”»æ­£æ•°ç‚¹ */
 		 drawDot(cc,cats,categorySpan,seriesWidth,
 					g,gp, coorWidth, dely, seriesSpan,
 					seriesDeep, db, labelList,true,htmlLink);		
@@ -193,7 +193,7 @@ public class DrawDot3D extends DrawBase {
 					1.00F));
 		}
 		db.outLabels();
-		/* »­Ò»ÏÂ»ùÏß */
+		/* ç”»ä¸€ä¸‹åŸºçº¿ */
 		if (gp.valueBaseLine != gp.gRect1.y + gp.gRect1.height) {
 			db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x
 					+ gp.gRect1.width, gp.valueBaseLine,
@@ -208,7 +208,7 @@ public class DrawDot3D extends DrawBase {
 	private static void drawDot(int cc,ArrayList cats,double categorySpan,double seriesWidth,
 			Graphics2D g,GraphParam gp,double coorWidth,double dely,double seriesSpan,
 			double seriesDeep,DrawBase db,ArrayList<ValueLabel> labelList,boolean drawPositive,StringBuffer htmlLink){
-		/* »­ÕıÊıÊıÖù×Ó */
+		/* ç”»æ­£æ•°æ•°æŸ±å­ */
 		for (int i = 0; i < cc; i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 			boolean vis = (i % (gp.graphXInterval + 1) == 0);
@@ -256,7 +256,7 @@ public class DrawDot3D extends DrawBase {
 				}
 
 				
-				// ×îºóÊä³öÎÄ×Ö£¬·ñÔò»á±»Í¼ĞÎ¸²¸Ç
+				// æœ€åè¾“å‡ºæ–‡å­—ï¼Œå¦åˆ™ä¼šè¢«å›¾å½¢è¦†ç›–
 				if (gp.dispValueOntop && !egs.isNull() && vis) {
 					String sval = db.getDispValue(egc,egs,gp.serNum);
 					double x = lb + br +  seriesWidth / 2;// - TR.width / 2;

@@ -1,7 +1,7 @@
 package com.scudata.util;
 
 /**
- * ÊôĞÔ£¬ÓÃÓÚ±íÊ¾×Ô¶¨Òåº¯Êı
+ * å±æ€§ï¼Œç”¨äºè¡¨ç¤ºè‡ªå®šä¹‰å‡½æ•°
  * @author WangXiaoJun
  *
  */

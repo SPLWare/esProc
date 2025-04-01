@@ -15,7 +15,7 @@ import com.scudata.dm.sql.SQLUtil;
 
 //dyna_query(fp, sql; p1,...)
 public class ImQuery extends ImFunction {
-	private int m_nCheckSize = 100; //获取字段时所需要的最大记录数
+	private int m_nCheckSize = 100; //鑾峰彇瀛楁鏃舵墍闇�瑕佺殑鏈�澶ц褰曟暟
 	
 	public Object doExec(Object[] objs){		
 		try {
@@ -26,7 +26,7 @@ public class ImQuery extends ImFunction {
 				Sequence seq = (Sequence)objs[0];				
 				Sequence ssql = (Sequence)SQLUtil.parse(objs[1].toString(), null);
 				
-				// Sql参数个数
+				// Sql鍙傛暟涓暟
 				int nCnt = getSqlParamSize(ssql);
 				Object[] os = new Object[nCnt+1];
 				os[0] = objs[1];

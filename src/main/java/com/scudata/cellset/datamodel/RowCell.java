@@ -12,20 +12,20 @@ public class RowCell implements IRowCell {
 	private static final long serialVersionUID = 0x02010015;
 	private final static byte version = (byte) 1;
 
-	// ¿ÉÊÓÊôĞÔÈ¡Öµ
-	public final static byte VISIBLE_ALWAYS = 0; // ×ÜÊÇ¿É¼û
-	public final static byte VISIBLE_ALWAYSNOT = 1; // ×ÜÊÇ²»¿É¼û
-	public final static byte VISIBLE_FIRSTPAGE = 2; // Ê×Ò³¿É¼û
-	public final static byte VISIBLE_FIRSTPAGENOT = 3; // Ê×Ò³²»¿É¼û
+	// å¯è§†å±æ€§å–å€¼
+	public final static byte VISIBLE_ALWAYS = 0; // æ€»æ˜¯å¯è§
+	public final static byte VISIBLE_ALWAYSNOT = 1; // æ€»æ˜¯ä¸å¯è§
+	public final static byte VISIBLE_FIRSTPAGE = 2; // é¦–é¡µå¯è§
+	public final static byte VISIBLE_FIRSTPAGENOT = 3; // é¦–é¡µä¸å¯è§
 
 	private int row;
 	private float height = 25.0f;
 	private int level;
 
-	private byte visible; // ¿ÉÊÓÊôĞÔ
-	private boolean isBreakPage; // ĞĞºóÊÇ·ñ·ÖÒ³
+	private byte visible; // å¯è§†å±æ€§
+	private boolean isBreakPage; // è¡Œåæ˜¯å¦åˆ†é¡µ
 
-	// ´æÅÌÊ±Ê¹ÓÃ
+	// å­˜ç›˜æ—¶ä½¿ç”¨
 	public RowCell() {
 	}
 
@@ -34,7 +34,7 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * ·µ»ØĞĞºÅ
+	 * è¿”å›è¡Œå·
 	 * @return int
 	 */
 	public int getRow() {
@@ -42,7 +42,7 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * ÉèÖÃĞĞºÅ
+	 * è®¾ç½®è¡Œå·
 	 * @param row int
 	 */
 	public void setRow(int row) {
@@ -50,7 +50,7 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * ÉèÖÃĞĞ¸ß
+	 * è®¾ç½®è¡Œé«˜
 	 * @param h float
 	 */
 	public void setHeight(float h) {
@@ -58,7 +58,7 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * ·µ»ØĞĞ¸ß
+	 * è¿”å›è¡Œé«˜
 	 * @return float
 	 */
 	public float getHeight() {
@@ -66,7 +66,7 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * ·µ»Ø²ãºÅ
+	 * è¿”å›å±‚å·
 	 * @return int
 	 */
 	public int getLevel() {
@@ -74,7 +74,7 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * ÉèÖÃ²ãºÅ
+	 * è®¾ç½®å±‚å·
 	 * @param level int
 	 */
 	public void setLevel(int level) {
@@ -82,39 +82,39 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * ·µ»ØĞĞÊÇ·ñ¿É¼û
-	 * @return byte È¡Öµ VISIBLE_ALWAYS¡¢VISIBLE_ALWAYSNOT¡¢VISIBLE_FIRSTPAGE¡¢VISIBLE_FIRSTPAGENOT
+	 * è¿”å›è¡Œæ˜¯å¦å¯è§
+	 * @return byte å–å€¼ VISIBLE_ALWAYSã€VISIBLE_ALWAYSNOTã€VISIBLE_FIRSTPAGEã€VISIBLE_FIRSTPAGENOT
 	 */
 	public byte getVisible(){
 		return visible;
 	}
 
 	/**
-	 * ÉèÖÃĞĞÊÇ·ñ¿É¼û
-	 * @param b byte È¡Öµ VISIBLE_ALWAYS¡¢VISIBLE_ALWAYSNOT¡¢VISIBLE_FIRSTPAGE¡¢VISIBLE_FIRSTPAGENOT
+	 * è®¾ç½®è¡Œæ˜¯å¦å¯è§
+	 * @param b byte å–å€¼ VISIBLE_ALWAYSã€VISIBLE_ALWAYSNOTã€VISIBLE_FIRSTPAGEã€VISIBLE_FIRSTPAGENOT
 	 */
 	public void setVisible(byte b){
 		visible = b;
 	}
 
 	/**
-	 * @return ·µ»ØĞĞºóÊÇ·ñ·ÖÒ³
+	 * @return è¿”å›è¡Œåæ˜¯å¦åˆ†é¡µ
 	 */
 	public boolean isBreakPage(){
 		return isBreakPage;
 	}
 
 	/**
-	 * ÉèÖÃĞĞºóÊÇ·ñ·ÖÒ³
-	 * @param b ÎªtrueÔòĞĞºó·ÖÒ³£¬·ñÔò²»·ÖÒ³
+	 * è®¾ç½®è¡Œåæ˜¯å¦åˆ†é¡µ
+	 * @param b ä¸ºtrueåˆ™è¡Œååˆ†é¡µï¼Œå¦åˆ™ä¸åˆ†é¡µ
 	 */
 	public void setBreakPage(boolean b){
 		isBreakPage = b;
 	}
 
 	/**
-	 * Éî¶È¿ËÂ¡
-	 * @return ¿ËÂ¡³öµÄ¶ÔÏó
+	 * æ·±åº¦å…‹éš†
+	 * @return å…‹éš†å‡ºçš„å¯¹è±¡
 	 */
 	public Object deepClone(){
 		RowCell cell = new RowCell(row);
@@ -127,8 +127,8 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
-	 * @param out ObjectOutput Êä³öÁ÷
+	 * å†™å†…å®¹åˆ°æµ
+	 * @param out ObjectOutput è¾“å‡ºæµ
 	 * @throws IOException
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
@@ -143,8 +143,8 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-	 * @param in ObjectInput ÊäÈëÁ÷
+	 * ä»æµä¸­è¯»å†…å®¹
+	 * @param in ObjectInput è¾“å…¥æµ
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
@@ -160,9 +160,9 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
+	 * å†™å†…å®¹åˆ°æµ
 	 * @throws IOException
-	 * @return Êä³öÁ÷
+	 * @return è¾“å‡ºæµ
 	 */
 	public byte[] serialize() throws IOException{
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -176,7 +176,7 @@ public class RowCell implements IRowCell {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
+	 * ä»æµä¸­è¯»å†…å®¹
 	 * @param buf byte[]
 	 * @throws IOException
 	 * @throws ClassNotFoundException

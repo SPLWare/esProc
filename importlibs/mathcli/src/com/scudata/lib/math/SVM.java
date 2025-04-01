@@ -27,13 +27,13 @@ public class SVM extends Function {
             throw new RQException("svm" + mm.getMessage("function.invalidParam"));
         } else {
 
-            //Èç¹ûÊäÈëÈı¸ö²ÎÊı£¬ÔòÑµÁ·
+            //å¦‚æœè¾“å…¥ä¸‰ä¸ªå‚æ•°ï¼Œåˆ™è®­ç»ƒ
             if (param.getSubSize() == 3) {
-                // train²ÎÊıÓÉ3¸ö³ÉÔ±×é³É£¬µÚ1¸öÎª¶şÎ¬Êı×é£¬µÚ2¸öÎªÒ»Î¬Êı×é£¬µÚ3¸öÎª²ÎÊıµÄÒ»Î¬Êı×é
+                // trainå‚æ•°ç”±3ä¸ªæˆå‘˜ç»„æˆï¼Œç¬¬1ä¸ªä¸ºäºŒç»´æ•°ç»„ï¼Œç¬¬2ä¸ªä¸ºä¸€ç»´æ•°ç»„ï¼Œç¬¬3ä¸ªä¸ºå‚æ•°çš„ä¸€ç»´æ•°ç»„
                 IParam sub1 = param.getSub(0);
                 IParam sub2 = param.getSub(1);
                 IParam sub3 = param.getSub(2);
-                //Èı¸ö²ÎÊıÈÎÒ»Îª¿Õ¶¼ÎŞĞ§
+                //ä¸‰ä¸ªå‚æ•°ä»»ä¸€ä¸ºç©ºéƒ½æ— æ•ˆ
                 if (sub1 == null || sub2 == null || sub3 == null) {
                     MessageManager mm = EngineMessage.get();
                     throw new RQException("svm" + mm.getMessage("function.invalidParam"));
@@ -42,22 +42,22 @@ public class SVM extends Function {
                 Object o2 = sub2.getLeafExpression().calculate(ctx);
                 Object o3 = sub3.getLeafExpression().calculate(ctx);
 
-                //Èı¸ö²ÎÊı±ØĞëÍ¬Ê±Âú×ã²Å¿ÉÒÔ¼ÆËã£¬·µ»ØÑµÁ·µÄ½á¹û£¬ÒÑÔÚ´úÂëÖĞ´¦ÀíÎªĞòÁĞÀàĞÍ
+                //ä¸‰ä¸ªå‚æ•°å¿…é¡»åŒæ—¶æ»¡è¶³æ‰å¯ä»¥è®¡ç®—ï¼Œè¿”å›è®­ç»ƒçš„ç»“æœï¼Œå·²åœ¨ä»£ç ä¸­å¤„ç†ä¸ºåºåˆ—ç±»å‹
                 if (o1 instanceof Sequence && o2 instanceof Sequence && o3 instanceof Sequence) {
                     Matrix x = new Matrix((Sequence) o1);
                     double[][] X = x.getArray();
                     double[] Y = SeqToDouble1((Sequence) o2);
                     double[] param = SeqToDouble1((Sequence) o3);
 
-                    Sequence instanceData = train(X, Y, param);//·µ»ØÄ£ĞÍµÄÊı¾İ
-                    return instanceData; //·µ»ØĞòÁĞÀàĞÍµÄ½á¹û
+                    Sequence instanceData = train(X, Y, param);//è¿”å›æ¨¡å‹çš„æ•°æ®
+                    return instanceData; //è¿”å›åºåˆ—ç±»å‹çš„ç»“æœ
                 } else {
                     MessageManager mm = EngineMessage.get();
                     throw new RQException("svm" + mm.getMessage("function.invalidParam"));
                 }
             }
 
-            //Èç¹ûÊäÈë4¸ö²ÎÊı£¬ÑµÁ·ÓëÔ¤²âÖ±½ÓÁ¬½Ó
+            //å¦‚æœè¾“å…¥4ä¸ªå‚æ•°ï¼Œè®­ç»ƒä¸é¢„æµ‹ç›´æ¥è¿æ¥
             else if (param.getSubSize() == 4) {
                 IParam sub1 = param.getSub(0);
                 IParam sub2 = param.getSub(1);
@@ -77,10 +77,10 @@ public class SVM extends Function {
                     double[][] X = x.getArray();
 //                    double[][] X = SeqToDouble2((Sequence) o1);
                     double[] Y = SeqToDouble1((Sequence) o2);
-                    double[] param = SeqToDouble1((Sequence) o3); //ÒÔÉÏÑµÁ·ĞèÒªÊı¾İ
+                    double[] param = SeqToDouble1((Sequence) o3); //ä»¥ä¸Šè®­ç»ƒéœ€è¦æ•°æ®
 
                     Matrix xPre = new Matrix((Sequence) o4);
-                    double[][] XPre = xPre.getArray();//Ô¤²âÊı¾İ
+                    double[][] XPre = xPre.getArray();//é¢„æµ‹æ•°æ®
 //                    double[][] XPre = SeqToDouble2((Sequence) o4);
 
                     Sequence instanceData = train(X, Y, param);
@@ -92,7 +92,7 @@ public class SVM extends Function {
                 }
             }
 
-            //ÒÑÓĞÑµÁ·½á¹ûÊı¾İµÄÇé¿ö£¬´ËÊ±Á½¸ö²ÎÊı£¬Ò»¸öÊÇÑµÁ·½á¹û£¬Ò»¸öÊÇĞèÔ¤²âÊı¾İ£¬¿ÉÖ±½ÓÔ¤²â
+            //å·²æœ‰è®­ç»ƒç»“æœæ•°æ®çš„æƒ…å†µï¼Œæ­¤æ—¶ä¸¤ä¸ªå‚æ•°ï¼Œä¸€ä¸ªæ˜¯è®­ç»ƒç»“æœï¼Œä¸€ä¸ªæ˜¯éœ€é¢„æµ‹æ•°æ®ï¼Œå¯ç›´æ¥é¢„æµ‹
             else if (param.getSubSize() == 2) {
                 IParam sub1 = param.getSub(0);
                 IParam sub2 = param.getSub(1);
@@ -103,12 +103,12 @@ public class SVM extends Function {
                 Object o1 = sub1.getLeafExpression().calculate(ctx);
                 Object o2 = sub2.getLeafExpression().calculate(ctx);
                 if (o1 instanceof Sequence && o2 instanceof Sequence) {
-                    //´ËÊ±µÄo1ÊÇÒÑÓĞµÄÑµÁ·½á¹ûÊı¾İ£¬o2ÊÇĞèÔ¤²âÊı¾İ
+                    //æ­¤æ—¶çš„o1æ˜¯å·²æœ‰çš„è®­ç»ƒç»“æœæ•°æ®ï¼Œo2æ˜¯éœ€é¢„æµ‹æ•°æ®
                     Sequence insData = (Sequence) o1;
 
                     Matrix xPre = new Matrix((Sequence) o2);
-                    double[][] XPre = xPre.getArray();//Ô¤²âÊı¾İ
-//                    double[][] XPre = SeqToDouble2((Sequence) o2);//Ô¤²âÊı¾İ
+                    double[][] XPre = xPre.getArray();//é¢„æµ‹æ•°æ®
+//                    double[][] XPre = SeqToDouble2((Sequence) o2);//é¢„æµ‹æ•°æ®
                     Sequence result = predict(insData,XPre);
                     return result;
                 }
@@ -121,7 +121,7 @@ public class SVM extends Function {
         throw new RQException("svm" + mm.getMessage("function.invalidParam"));
     }
 
-    //double[]×ªÎªsequence£¬ÓÃÓÚÔ¤²âÊ±½á¹û×ª»»³ÉĞòÁĞÀàĞÍ
+    //double[]è½¬ä¸ºsequenceï¼Œç”¨äºé¢„æµ‹æ—¶ç»“æœè½¬æ¢æˆåºåˆ—ç±»å‹
     protected static Sequence dou1toSequence(double[] doubles) {
         int len = doubles.length;
         Sequence seq = new Sequence(len);
@@ -131,7 +131,7 @@ public class SVM extends Function {
         return seq;
     }
 
-    //Sequence×ªdouble[]£¬ÑµÁ·Ê±Êı¾İYÓë²ÎÊı×ª»»
+    //Sequenceè½¬double[]ï¼Œè®­ç»ƒæ—¶æ•°æ®Yä¸å‚æ•°è½¬æ¢
     protected static double[] SeqToDouble1(Sequence s){
 //        int len = s.length();
 //        double[] result = new double[len];
@@ -153,7 +153,7 @@ public class SVM extends Function {
         return result;
     }
 
-    //double[][]×ªSequence£¬ÎªÁËÑéÖ¤calculateµÄsequence×ªdoubleµÄÇ°²¿×ª»»
+    //double[][]è½¬Sequenceï¼Œä¸ºäº†éªŒè¯calculateçš„sequenceè½¬doubleçš„å‰éƒ¨è½¬æ¢
     protected static Sequence dou2ToSequence(double[][] d){
         Sequence result = new Sequence();
         for (int i=0,iLen = d.length;i<iLen;i++){
@@ -167,7 +167,7 @@ public class SVM extends Function {
         return result;
     }
 
-    //Sequence×ªdouble[][],ÑµÁ·Ê±Êı¾İX×ª»»£¬²½ÖèÉÙµÄÖ±½ÓÌí¼ÓÔÚcalculateÀïÃæ£¬ºóÃæÑµÁ··µ»ØÊµÀıÊı¾İÒ²ÓÃµ½
+    //Sequenceè½¬double[][],è®­ç»ƒæ—¶æ•°æ®Xè½¬æ¢ï¼Œæ­¥éª¤å°‘çš„ç›´æ¥æ·»åŠ åœ¨calculateé‡Œé¢ï¼Œåé¢è®­ç»ƒè¿”å›å®ä¾‹æ•°æ®ä¹Ÿç”¨åˆ°
     protected static double[][] SeqToDouble2(Sequence s) {
         Matrix a = new Matrix(s);
         double[][] result = a.getArray();
@@ -175,7 +175,7 @@ public class SVM extends Function {
     }
 
 
-    //int[]×ªSequence,ÑµÁ·ÊµÀı½á¹û·µ»ØÎªĞòÁĞÊ±Ê¹ÓÃ
+    //int[]è½¬Sequence,è®­ç»ƒå®ä¾‹ç»“æœè¿”å›ä¸ºåºåˆ—æ—¶ä½¿ç”¨
     protected static Sequence int1ToSequence(int[] intDatas){
         if(intDatas == null){
             return null;
@@ -188,7 +188,7 @@ public class SVM extends Function {
         return seq;
     }
 
-    //Sequence×ªint[]£¬predictÊ±×ª»»Ê¹ÓÃ
+    //Sequenceè½¬int[]ï¼Œpredictæ—¶è½¬æ¢ä½¿ç”¨
     protected static int[] SequenceToInt1(Sequence s){
         if(s == null){
             return null;
@@ -207,7 +207,7 @@ public class SVM extends Function {
         return result;
     }
 
-    //svm_node[][]×ªSequence
+    //svm_node[][]è½¬Sequence
     protected static Sequence svmNode2ToSeq(svm_node[][] sNodes){
 //        double[][][] svmNode= new double[sNodes.length][sNodes[0].length][2];
 ////        svmNode[0][0][0] =sNodes[0][0].index;
@@ -229,7 +229,7 @@ public class SVM extends Function {
         return result;
     }
 
-    //Sequence×ªsvm_node[][]
+    //Sequenceè½¬svm_node[][]
     protected static svm_node[][] SeqToSvmNode2(Sequence s) {
         Matrix a = new Matrix(s);
         double[][] result = a.getArray();
@@ -239,12 +239,12 @@ public class SVM extends Function {
 
 
     private static svm_node[][] dataProcess(double[][] X){
-        //ÊäÈëÊı¾İ×ª»»³Élibsvm½ÓÊÕµÄ¸ñÊ½£¬YÖ±½Óµ±×÷±êÇ©ÓÃ¾ÍĞĞ£¬¸ñÊ½·ûºÏ
-        int indexLength = X.length;//ĞĞ
-        int valueLength = X[0].length;//ÁĞ
-        //°Ñdouble[][]ÀàĞÍµÄX×ª»»³ÉlibsvmĞèÒªµÄsvm_node[]
-        ArrayList<svm_node[]> nodeSet = new ArrayList<svm_node[]>();//´´½¨ĞÂsvm_node[]
-//        ÑµÁ·¼¯µÄÏòÁ¿±í
+        //è¾“å…¥æ•°æ®è½¬æ¢æˆlibsvmæ¥æ”¶çš„æ ¼å¼ï¼ŒYç›´æ¥å½“ä½œæ ‡ç­¾ç”¨å°±è¡Œï¼Œæ ¼å¼ç¬¦åˆ
+        int indexLength = X.length;//è¡Œ
+        int valueLength = X[0].length;//åˆ—
+        //æŠŠdouble[][]ç±»å‹çš„Xè½¬æ¢æˆlibsvméœ€è¦çš„svm_node[]
+        ArrayList<svm_node[]> nodeSet = new ArrayList<svm_node[]>();//åˆ›å»ºæ–°svm_node[]
+//        è®­ç»ƒé›†çš„å‘é‡è¡¨
         for(int i=0;i<indexLength;i++){
             svm_node[] vector = new svm_node[valueLength];
             double[] datasForRows = X[i];
@@ -258,7 +258,7 @@ public class SVM extends Function {
             nodeSet.add(vector);
         }
 
-//        ½«nodeSet×ª»»Îªsvm_node[][]
+//        å°†nodeSetè½¬æ¢ä¸ºsvm_node[][]
         svm_node[][] nodeDatas  = new svm_node[indexLength][valueLength];
         for(int i=0;i<indexLength;i++){
             for(int j=0;j<valueLength;j++){
@@ -271,17 +271,17 @@ public class SVM extends Function {
     }
 
 
-    //ÎÊÌâ¶¨Òå
+    //é—®é¢˜å®šä¹‰
 //    public svm_problem problemSet(double[][] X,double[] Y){
 //        svm_problem problem = new svm_problem();
 //        svm_node[][] XDatas = dataProcess(X);
-//        problem.l = XDatas.length; //ÏòÁ¿¸öÊı
-//        problem.x = XDatas; //ÑµÁ·¼¯ÏòÁ¿±í
-//        problem.y = Y; //¶ÔÓ¦µÄlabelÊı×é
+//        problem.l = XDatas.length; //å‘é‡ä¸ªæ•°
+//        problem.x = XDatas; //è®­ç»ƒé›†å‘é‡è¡¨
+//        problem.y = Y; //å¯¹åº”çš„labelæ•°ç»„
 //        return problem;
 //    }
 
-    //²ÎÊı¶¨Òå
+    //å‚æ•°å®šä¹‰
 //    private svm_parameter paramSet(int svm_type_set, int kernel_type_set,
 //                                  int degree_set, double cache_size_set,
 //                                  double eps_set, double C_set, double gamma_set,
@@ -290,21 +290,21 @@ public class SVM extends Function {
 ////                                  int[] weight_label_set, double[] weight_set,
 //                                  int shrinking_set, int probability_set) {
 //        svm_parameter params = new svm_parameter();
-//        params.svm_type = svm_type_set;//¿ÉÑ¡·ÖÀàÄ£ĞÍ
-//        params.kernel_type = kernel_type_set;//ºËº¯Êı£¬¿ÉÑ¡5ÖÖ£¬Ä¬ÈÏrbf¸ßË¹ºË
-//        params.degree = degree_set;//ÉèÖÃ¶àÏîÊ½ºËµÄ¼¶Êı£¬poly£¬Ä¬ÈÏ3
-//        params.cache_size = cache_size_set;//ÄÚ´æÉèÖÃ
-//        params.eps = eps_set;//Îó²î¾«¶È,ÖÕÖ¹×¼ÔòÖĞµÄ¿ÉÈİÈÌÆ«²î£¬Ä¬ÈÏÖµÎª0.001
-//        params.C = C_set;//ÕıÔò»¯²ÎÊı£¬C-SVC¡¢¦Å-SVR¡¢nu-SVRÖĞ´Ó³Í·£ÏµÊıC£¬Ä¬ÈÏÖµÎª1£¨ÊÇl2ÕıÔò»¯£©
-//        params.gamma = gamma_set;//ºËº¯ÊıÖĞgammaÖµ£¬Ä¬ÈÏÌØÕ÷Êı·ÖÖ®Ò»£¬poly/rbf/sigmoidµÄºËÏµÊı
-//        params.coef0 = coef0_set;//ºËº¯ÊıÖĞµÄcoef0£¬Ä¬ÈÏ0£¬poly/sigmoid
-//        params.nu = nu_set;//C-SVC¡¢one-class-SVMÓënu-SVRÖĞ²ÎÊın£¬Ä¬ÈÏÖµ0.5
-//        params.p = p_set;//¦Å-SVR
-//        params.nr_weight = nr_weight_set;//¶Ô¸÷ÀàÑù±¾µÄ³Í·£ÏµÊıC¼ÓÈ¨£¬Ä¬ÈÏÖµÎª1£¬C_SVC
+//        params.svm_type = svm_type_set;//å¯é€‰åˆ†ç±»æ¨¡å‹
+//        params.kernel_type = kernel_type_set;//æ ¸å‡½æ•°ï¼Œå¯é€‰5ç§ï¼Œé»˜è®¤rbfé«˜æ–¯æ ¸
+//        params.degree = degree_set;//è®¾ç½®å¤šé¡¹å¼æ ¸çš„çº§æ•°ï¼Œpolyï¼Œé»˜è®¤3
+//        params.cache_size = cache_size_set;//å†…å­˜è®¾ç½®
+//        params.eps = eps_set;//è¯¯å·®ç²¾åº¦,ç»ˆæ­¢å‡†åˆ™ä¸­çš„å¯å®¹å¿åå·®ï¼Œé»˜è®¤å€¼ä¸º0.001
+//        params.C = C_set;//æ­£åˆ™åŒ–å‚æ•°ï¼ŒC-SVCã€Îµ-SVRã€nu-SVRä¸­ä»æƒ©ç½šç³»æ•°Cï¼Œé»˜è®¤å€¼ä¸º1ï¼ˆæ˜¯l2æ­£åˆ™åŒ–ï¼‰
+//        params.gamma = gamma_set;//æ ¸å‡½æ•°ä¸­gammaå€¼ï¼Œé»˜è®¤ç‰¹å¾æ•°åˆ†ä¹‹ä¸€ï¼Œpoly/rbf/sigmoidçš„æ ¸ç³»æ•°
+//        params.coef0 = coef0_set;//æ ¸å‡½æ•°ä¸­çš„coef0ï¼Œé»˜è®¤0ï¼Œpoly/sigmoid
+//        params.nu = nu_set;//C-SVCã€one-class-SVMä¸nu-SVRä¸­å‚æ•°nï¼Œé»˜è®¤å€¼0.5
+//        params.p = p_set;//Îµ-SVR
+//        params.nr_weight = nr_weight_set;//å¯¹å„ç±»æ ·æœ¬çš„æƒ©ç½šç³»æ•°CåŠ æƒï¼Œé»˜è®¤å€¼ä¸º1ï¼ŒC_SVC
 ////        params.weight_label = weight_label_set;//C_SVC
 ////        params.weight = weight_set;//C_SVC
-//        params.shrinking = shrinking_set;//ÊÇ·ñÊ¹ÓÃÊÕËõÆô·¢Ê½£¬²¼¶ûÖµ£¬Ä¬ÈÏÖµ0
-//        params.probability = probability_set;//ÊÇ·ñ¼ÆËãSVC»òSVRµÄ¸ÅÂÊ¹À¼Æ£¬²¼¶ûÖµ£¬¿ÉÑ¡Öµ0»ò1£¬Ä¬ÈÏ0
+//        params.shrinking = shrinking_set;//æ˜¯å¦ä½¿ç”¨æ”¶ç¼©å¯å‘å¼ï¼Œå¸ƒå°”å€¼ï¼Œé»˜è®¤å€¼0
+//        params.probability = probability_set;//æ˜¯å¦è®¡ç®—SVCæˆ–SVRçš„æ¦‚ç‡ä¼°è®¡ï¼Œå¸ƒå°”å€¼ï¼Œå¯é€‰å€¼0æˆ–1ï¼Œé»˜è®¤0
 //        return params;
 //    }
 
@@ -313,11 +313,11 @@ public class SVM extends Function {
     private Sequence train(double[][] X, double[] Y, double[] param){
         svm_problem problem = new svm_problem();
         svm_node[][] XDatas = dataProcess(X);
-        problem.l = XDatas.length; //ÏòÁ¿¸öÊı
-        problem.x = XDatas; //ÑµÁ·¼¯ÏòÁ¿±í
-        problem.y = Y; //¶ÔÓ¦µÄlabelÊı×é
+        problem.l = XDatas.length; //å‘é‡ä¸ªæ•°
+        problem.x = XDatas; //è®­ç»ƒé›†å‘é‡è¡¨
+        problem.y = Y; //å¯¹åº”çš„labelæ•°ç»„
 
-        svm_parameter params =new svm_parameter();//²ÎÊıËµÃ÷ÔÚÇ°Ãæ²ÎÊı¶¨ÒåÀïÃæ
+        svm_parameter params =new svm_parameter();//å‚æ•°è¯´æ˜åœ¨å‰é¢å‚æ•°å®šä¹‰é‡Œé¢
         params.svm_type = (int) param[0];
         params.kernel_type = (int)param[1];
         params.degree = (int)param[2];
@@ -332,7 +332,7 @@ public class SVM extends Function {
         params.shrinking = (int) param[11];
         params.probability = (int) param[12];
 
-        //²¹³äµÄweight_labelºÍweight
+        //è¡¥å……çš„weight_labelå’Œweight
         HashMap<Double, Integer> labelCount = new HashMap<Double, Integer>();
         for (double label : problem.y) {
             Integer num = labelCount.get(label);
@@ -343,23 +343,23 @@ public class SVM extends Function {
         int weight_label_index=0;
         for (double label:labelCount.keySet()){
             params.weight_label[weight_label_index] =(int) label;
-            // Æ½¾ùÈ¨ÖØ
+            // å¹³å‡æƒé‡
 //            params.weight[weight_label_index] = 1.0/labelCount.keySet().size();
-            // ¸ù¾İÊıÁ¿Õ¼±ÈÈ¨ÖØ
+            // æ ¹æ®æ•°é‡å æ¯”æƒé‡
             params.weight[weight_label_index] = labelCount.get(label)*1.0/problem.y.length;
             weight_label_index +=1;
         }
 
 
 
-        libsvm.svm.svm_check_parameter(problem,params); //¼ìÑé²ÎÊıÉè¶¨
+        libsvm.svm.svm_check_parameter(problem,params); //æ£€éªŒå‚æ•°è®¾å®š
 
-        svm_model model = libsvm.svm.svm_train(problem,params); //ÑµÁ·µÃµ½Ä£ĞÍ,×ª»»ÎªÊµÀıÊı¾İÊä³ö
-        double[][] modelSVM_coef = model.sv_coef; //Ö§³ÖÏòÁ¿¶ÔÓ¦µÄÈ¨ÖØ
-        int[] modelSVM_label = model.label;//±êÇ©¸öÊı
+        svm_model model = libsvm.svm.svm_train(problem,params); //è®­ç»ƒå¾—åˆ°æ¨¡å‹,è½¬æ¢ä¸ºå®ä¾‹æ•°æ®è¾“å‡º
+        double[][] modelSVM_coef = model.sv_coef; //æ”¯æŒå‘é‡å¯¹åº”çš„æƒé‡
+        int[] modelSVM_label = model.label;//æ ‡ç­¾ä¸ªæ•°
         int modelSVM_nr_class = model.nr_class;
         int modelSVM_l = model.l;
-        int[] modelSVM_nSV = model.nSV; //Ã¿ÀàÖ§³ÖÏòÁ¿µÄ¸öÊı
+        int[] modelSVM_nSV = model.nSV; //æ¯ç±»æ”¯æŒå‘é‡çš„ä¸ªæ•°
         double[] modelSVM_rho = model.rho;
         svm_node[][] modelSVM_SV = model.SV;
 
@@ -374,7 +374,7 @@ public class SVM extends Function {
         instanceData.add(svmNode2ToSeq(modelSVM_SV));//7
         instanceData.add(dou1toSequence(param));//8
 
-        //È¨ÖØ²ÎÊıµÄÊä³öÃ»ÓĞÎ»ÖÃ·Å£¬´æÔÚÊµÀıÊı¾İÖĞ£¬¶ÔÓÃ»§Õ¹Ê¾µÄ²¿·ÖÒ²Ôö¼ÓÁË9ºÍ10Á½ĞĞ
+        //æƒé‡å‚æ•°çš„è¾“å‡ºæ²¡æœ‰ä½ç½®æ”¾ï¼Œå­˜åœ¨å®ä¾‹æ•°æ®ä¸­ï¼Œå¯¹ç”¨æˆ·å±•ç¤ºçš„éƒ¨åˆ†ä¹Ÿå¢åŠ äº†9å’Œ10ä¸¤è¡Œ
         instanceData.add(int1ToSequence(params.weight_label));
         instanceData.add(dou1toSequence(params.weight));
 
@@ -382,7 +382,7 @@ public class SVM extends Function {
         return instanceData;
     }
 
-    //Ô¤²â
+    //é¢„æµ‹
 //    private double[] predict(double[][] XPre,svm_model model){
 //        svm_node[][] XPreDatas = dataProcess(XPre);
 //        double[] results = new double[XPreDatas.length];
@@ -394,7 +394,7 @@ public class SVM extends Function {
 //    }
 
     private Sequence predict(Sequence instanceData,double[][] XPre){
-        //ÊµÀıÖØ×é
+        //å®ä¾‹é‡ç»„
         svm_model reorgModel = new svm_model();
         svm_parameter preParam = new svm_parameter();
         try {
@@ -407,7 +407,7 @@ public class SVM extends Function {
             reorgModel.nSV = SequenceToInt1((Sequence) instanceData.get(5));
             reorgModel.rho = SeqToDouble1((Sequence) instanceData.get(6));
             reorgModel.SV = SeqToSvmNode2((Sequence) instanceData.get(7));
-            preParam.weight_label = SequenceToInt1((Sequence) instanceData.get(9));//È¨ÖØ²ÎÊı´ÓÊµÀıÊı¾İÖĞ¶ÁÈ¡
+            preParam.weight_label = SequenceToInt1((Sequence) instanceData.get(9));//æƒé‡å‚æ•°ä»å®ä¾‹æ•°æ®ä¸­è¯»å–
             preParam.weight = SeqToDouble1((Sequence) instanceData.get(10));
         }catch (Exception e){
             MessageManager mm = EngineMessage.get();
@@ -415,7 +415,7 @@ public class SVM extends Function {
         };
 
 
-        //Ä£ĞÍÊµÀıÖĞĞè·µ»Ø²ÎÊıÊôĞÔ£¬²ÎÊı°üº¬13Ïî
+        //æ¨¡å‹å®ä¾‹ä¸­éœ€è¿”å›å‚æ•°å±æ€§ï¼Œå‚æ•°åŒ…å«13é¡¹
         double[] preParams = SeqToDouble1((Sequence) instanceData.get(8));
 
         preParam.svm_type = (int) preParams[0];
@@ -498,49 +498,49 @@ public class SVM extends Function {
 //        }
 //
 //        double[][] testDataX = readCSV("wineTestX.csv",998,11);
-//        double[][] testDataY1 = readCSV("wineTestY.csv",998,1);//ÓÃÀ´¼ÆËãÎó²îÑéÖ¤º¯ÊıµÄ
+//        double[][] testDataY1 = readCSV("wineTestY.csv",998,1);//ç”¨æ¥è®¡ç®—è¯¯å·®éªŒè¯å‡½æ•°çš„
 //        double[] testDataY = new double[998];
 //        for(int i=0;i<testDataY1.length;i++){
 //            testDataY[i] = testDataY1[i][0];
 //        }
 ////        double[] param = new double[]{3,0,3,100,0.00001,1.9,0,0,0.5,0.1,1,1,1};
-//        //²ÎÊı¹ı¶à£¬×÷ÎªÒ»¸öÊı×éÊäÈë£¬È»ºóÔÚtrainÀïÃæÒÀ´Î¶ÁÈ¡£¬µ«ÊÇ²ÎÊıÓĞÀàĞÍÏŞÖÆ£¬Ä¿Ç°Ê¹ÓÃÁËÇ¿ÖÆ×ª»»
+//        //å‚æ•°è¿‡å¤šï¼Œä½œä¸ºä¸€ä¸ªæ•°ç»„è¾“å…¥ï¼Œç„¶ååœ¨trainé‡Œé¢ä¾æ¬¡è¯»å–ï¼Œä½†æ˜¯å‚æ•°æœ‰ç±»å‹é™åˆ¶ï¼Œç›®å‰ä½¿ç”¨äº†å¼ºåˆ¶è½¬æ¢
 //        double[] param = new double[]{1,2,3,100,0.00001,1,0.25,0,0.5,0.1,7,1,1};
 //        svm svmModel = new svm();
 //        Sequence trainModel =svmModel.train(trainDataX,trainDataY,param);
 //        Sequence preResult = svmModel.predict(trainModel,testDataX);
 //
-//        //¾ù·½¸ùÎó²îrmse
-//        double[] preResultDouble = SeqToDouble1(preResult);//½á¹û×ª¸ñÊ½
+//        //å‡æ–¹æ ¹è¯¯å·®rmse
+//        double[] preResultDouble = SeqToDouble1(preResult);//ç»“æœè½¬æ ¼å¼
 //        double square = 0;
 //        for(int i=0;i< testDataY.length;i++){
-//            square += Math.pow((preResultDouble[i]-testDataY[i]),2); //Æ½·½ºÍ
+//            square += Math.pow((preResultDouble[i]-testDataY[i]),2); //å¹³æ–¹å’Œ
 //        }
 //        double rmse = Math.sqrt(square/ testDataY.length);
-//        int a=1;//debugÓÃ
+//        int a=1;//debugç”¨
 
 
-        //»Ø¹é²âÊÔ
+        //å›å½’æµ‹è¯•
 //        double[][] trainDataX = new double[][]{{17.6,17.7,17.7,17.7},{17.7,17.7,17.7,17.8},
 //                {17.7,17.7,17.8,17.8}, {17.7,17.8,17.8,17.9},{17.8,17.8,17.9,18},
 //                {17.8,17.9,18,18.1},{17.9,18,18.1,18.2}, {18,18.1,18.2,18.4},
 //                {18.1,18.2,18.4,18.6},{18.2,18.4,18.6,18.7},{18.4,18.6,18.7,18.9},
 //                {18.6,18.7,18.9,19.1}};
 //        double[] trainDataY = new double[]{17.8,17.8,17.9,18,18.1,18.2,18.4,18.6,18.7,18.9,19.1,19.3};
-//        //²ÎÊı¹ı¶à£¬×÷ÎªÒ»¸öÊı×éÊäÈë£¬È»ºóÔÚtrainÀïÃæÒÀ´Î¶ÁÈ¡£¬µ«ÊÇ²ÎÊıÓĞÀàĞÍÏŞÖÆ£¬Ä¿Ç°Ê¹ÓÃÁËÇ¿ÖÆ×ª»»
+//        //å‚æ•°è¿‡å¤šï¼Œä½œä¸ºä¸€ä¸ªæ•°ç»„è¾“å…¥ï¼Œç„¶ååœ¨trainé‡Œé¢ä¾æ¬¡è¯»å–ï¼Œä½†æ˜¯å‚æ•°æœ‰ç±»å‹é™åˆ¶ï¼Œç›®å‰ä½¿ç”¨äº†å¼ºåˆ¶è½¬æ¢
 //        double[] param = new double[]{1,2,3,100,0.00001,1,0.25,0,0.5,0.1,0,1,1};
 //
 //        double[][] predictDataX = new double[][]{{18.7,18.9,19.1,19.3},{18.9,19.1,19.3,19.6},
 //                {19.1,19.3,19.6,19.9},{19.3,19.6,19.9,20.2},{19.6,19.9,20.2,20.6},
 //                {19.9,20.2,20.6,21}, {20.2,20.6,21,21.5}};
-//        double[] predictDataY = new double[]{19.6,19.9,20.2,20.6,21,21.5,22};//ÓÃÀ´¼ÆËãÎó²îÑéÖ¤º¯ÊıµÄ
+//        double[] predictDataY = new double[]{19.6,19.9,20.2,20.6,21,21.5,22};//ç”¨æ¥è®¡ç®—è¯¯å·®éªŒè¯å‡½æ•°çš„
 //
 //        svm svmModel = new svm();
 //        Sequence trainModel =svmModel.train(trainDataX,trainDataY,param);
 //        Sequence preResult = svmModel.predict(trainModel,predictDataX);
 
 
-        //¶à·ÖÀà²âÊÔ
+        //å¤šåˆ†ç±»æµ‹è¯•
         double[][] trainDataX = new double[][]{{7.0, 0.27, 0.36, 20.7, 0.045, 45.0, 170.0, 1.001, 3.0, 0.45, 8.8},
                 {8.1, 0.27, 0.41, 1.45, 0.033, 11.0, 63.0, 0.9908, 2.99, 0.56, 12.0},
                 {6.6, 0.16, 0.4, 1.5, 0.044, 48.0, 143.0, 0.9912, 3.54, 0.52, 12.4},
@@ -556,7 +556,7 @@ public class SVM extends Function {
                 {7.1,0.32,0.32,11.0,0.038,16.0,66.0,0.9937,3.24,0.4,11.5},
                 {9.1,0.27,0.45,10.6,0.035,28.0,124.0,0.997,3.2,0.46,10.4}};
         double[] trainDataY = new double[]{6,5,7,8,4,3,6,5,8,7,4,4,3,9};
-        //²ÎÊı¹ı¶à£¬×÷ÎªÒ»¸öÊı×éÊäÈë£¬È»ºóÔÚtrainÀïÃæÒÀ´Î¶ÁÈ¡£¬µ«ÊÇ²ÎÊıÓĞÀàĞÍÏŞÖÆ£¬Ä¿Ç°Ê¹ÓÃÁËÇ¿ÖÆ×ª»»
+        //å‚æ•°è¿‡å¤šï¼Œä½œä¸ºä¸€ä¸ªæ•°ç»„è¾“å…¥ï¼Œç„¶ååœ¨trainé‡Œé¢ä¾æ¬¡è¯»å–ï¼Œä½†æ˜¯å‚æ•°æœ‰ç±»å‹é™åˆ¶ï¼Œç›®å‰ä½¿ç”¨äº†å¼ºåˆ¶è½¬æ¢
         double[] param = new double[]{1,2,3,100,0.00001,1,0.25,0,0.5,0.1,7,1,1};
 
         double[][] predictDataX = new double[][]{{7.0,0.34,0.1,3.5,0.044,17.0,63.0,0.9937,3.01,0.39,9.2},
@@ -573,7 +573,7 @@ public class SVM extends Function {
                 {7.7,0.31,0.36,4.3,0.026,15.0,87.0,0.99152,3.11,0.48,12.0},
                 {5.6,0.185,0.19,7.1,0.048,36.0,110.0,0.99438,3.26,0.41,9.5},
                 {5.6,0.185,0.19,7.1,0.048,36.0,110.0,0.99438,3.26,0.41,9.5}};
-//        double[] predictDataY = new double[]{19.6,19.9,20.2,20.6,21,21.5,22};//ÓÃÀ´¼ÆËãÎó²îÑéÖ¤º¯ÊıµÄ
+//        double[] predictDataY = new double[]{19.6,19.9,20.2,20.6,21,21.5,22};//ç”¨æ¥è®¡ç®—è¯¯å·®éªŒè¯å‡½æ•°çš„
 
         SVM svmModel = new SVM();
         Sequence trainModel =svmModel.train(trainDataX,trainDataY,param);
@@ -596,7 +596,7 @@ public class SVM extends Function {
 //        Sequence preResult = svmModel.predict(trainModel,testDataX);
 //        int a=1;
 
-        //²âÊÔint[]ÓëSequence×ª»»
+        //æµ‹è¯•int[]ä¸Sequenceè½¬æ¢
 //        int[] teste = new int[]{1,2,3,4,5,6};
 //        Sequence testf = int1ToSequence(teste);
 //        int[] testg = SequenceToInt1(testf);
@@ -607,22 +607,22 @@ public class SVM extends Function {
 //        Sequence preResult = svmModel.predict(trainModel,predictDataX1);
 
 
-        //²âÊÔdoubleÓëSequenceµÄ×ª»»
-//        Sequence testa = dou1toSequence(param); //double[] ×ª Sequence
-//        double[] testb = SeqToDouble1(testa);//Sequence ÔÙ×ª double[]
+        //æµ‹è¯•doubleä¸Sequenceçš„è½¬æ¢
+//        Sequence testa = dou1toSequence(param); //double[] è½¬ Sequence
+//        double[] testb = SeqToDouble1(testa);//Sequence å†è½¬ double[]
 //
-//        Sequence testc = dou2ToSequence(trainDataX); //double[][]ÏÈ×ªÎªSequence
+//        Sequence testc = dou2ToSequence(trainDataX); //double[][]å…ˆè½¬ä¸ºSequence
 //        Matrix testd = new Matrix(testc);
 //        double[][] testD = testd.getArray();
-//        double[][] testd = SeqToDouble2(testc); //SequenceÔÙ×ªdouble[][]
+//        double[][] testd = SeqToDouble2(testc); //Sequenceå†è½¬double[][]
 //
 //        svmAddParam svmModel = new svmAddParam();
 //        Sequence trainModel =svmModel.train(trainDataX,trainDataY,param);
 //        Sequence preResult = svmModel.predict(trainModel,predictDataX);
 
 
-        //¼ìÑé½á¹ûÊ±ÓÃ
-        //Æ½¾ù¾ø¶ÔÎó²îMAE
+        //æ£€éªŒç»“æœæ—¶ç”¨
+        //å¹³å‡ç»å¯¹è¯¯å·®MAE
 //        double err = 0;
 //        for(int i=0;i<predictDataY.length;i++){
 //            err += Math.abs(preResult[i]-predictDataY[i]);

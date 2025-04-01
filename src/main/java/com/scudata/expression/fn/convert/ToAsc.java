@@ -13,14 +13,14 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡×Ö·û´®ÖĞÖ¸¶¨Î»ÖÃ×Ö·ûµÄunicodeÖµ¡£
- * asc( string{, nPos} ) È¡×Ö·û´®stringÖ¸¶¨Î»ÖÃnPosµÄ×Ö·ûunicodeÖµ£¬Èç¹ûÊÇascii×Ö·ûÔò·µ»ØasciiÂë¡£
+ * å–å­—ç¬¦ä¸²ä¸­æŒ‡å®šä½ç½®å­—ç¬¦çš„unicodeå€¼ã€‚
+ * asc( string{, nPos} ) å–å­—ç¬¦ä¸²stringæŒ‡å®šä½ç½®nPosçš„å­—ç¬¦unicodeå€¼ï¼Œå¦‚æœæ˜¯asciiå­—ç¬¦åˆ™è¿”å›asciiç ã€‚
  * @author runqian
  *
  */
 public class ToAsc extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -79,8 +79,8 @@ public class ToAsc extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {

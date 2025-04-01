@@ -40,7 +40,7 @@ import com.scudata.server.odbc.OdbcContext;
 import com.scudata.server.odbc.OdbcContext.User;
 
 /**
- * ODBC·şÎñÆ÷ÉèÖÃ½çÃæ
+ * ODBCæœåŠ¡å™¨è®¾ç½®ç•Œé¢
  * 
  * @author Joancy
  *
@@ -64,19 +64,19 @@ public class DialogOdbcConfig extends JDialog {
 			mm.getMessage("dialogodbcconfig.autostart"));
 
 	private JLabel labelTimeOut = new JLabel(
-			mm.getMessage("dialogunitconfig.temptimeout")); // ÁÙÊ±ÎÄ¼ş¹ıÆÚÊ±¼ä(Ğ¡Ê±)
+			mm.getMessage("dialogunitconfig.temptimeout")); // ä¸´æ—¶æ–‡ä»¶è¿‡æœŸæ—¶é—´(å°æ—¶)
 	private JSpinner jsTimeOut = new JSpinner(new SpinnerNumberModel(12, 0,
 			Integer.MAX_VALUE, 1));
 	private JLabel labelConTimeOut = new JLabel(
-			mm.getMessage("dialogjdbcconfig.contimeout")); // Á¬½Ó¹ıÆÚÊ±¼ä(Ğ¡Ê±)
+			mm.getMessage("dialogjdbcconfig.contimeout")); // è¿æ¥è¿‡æœŸæ—¶é—´(å°æ—¶)
 	private JSpinner jsConTimeOut = new JSpinner(new SpinnerNumberModel(12, 0,
 			Integer.MAX_VALUE, 1));
 	private JLabel labelInterval = new JLabel(
-			mm.getMessage("dialogunitconfig.checkinterval")); // ¼ì²é¹ıÆÚ¼ä¸ô(Ãë)
+			mm.getMessage("dialogunitconfig.checkinterval")); // æ£€æŸ¥è¿‡æœŸé—´éš”(ç§’)
 	private JSpinner jSInterval = new JSpinner(new SpinnerNumberModel(0, 0,
 			Integer.MAX_VALUE, 1));
 	private JLabel labelConMax = new JLabel(
-			mm.getMessage("dialogjdbcconfig.conmax")); // ×î´óÁ¬½ÓÊı
+			mm.getMessage("dialogjdbcconfig.conmax")); // æœ€å¤§è¿æ¥æ•°
 	private JSpinner jsConMax = new JSpinner(new SpinnerNumberModel(0, 0,
 			Integer.MAX_VALUE, 1));
 	private JLabel labelLog = new JLabel(
@@ -84,7 +84,7 @@ public class DialogOdbcConfig extends JDialog {
 
 	private final int COL_INDEX = 0;
 	private final int COL_PATH = 1;
-	private final String TITLE_INDEX = mm.getMessage("dialogunitconfig.index"); // ĞòºÅ
+	private final String TITLE_INDEX = mm.getMessage("dialogunitconfig.index"); // åºå·
 	private final String TITLE_PATH = mm.getMessage("dialogunitconfig.path");
 	private JLabel labelUser = new JLabel(
 			mm.getMessage("dialogjdbcconfig.userlist"));
@@ -103,12 +103,12 @@ public class DialogOdbcConfig extends JDialog {
 	JFrame parent;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param parent
-	 *            ¸¸´°Ìå
+	 *            çˆ¶çª—ä½“
 	 * @param title
-	 *            ´°¿Ú±êÌâ
+	 *            çª—å£æ ‡é¢˜
 	 */
 	public DialogOdbcConfig(JFrame parent, String title) {
 		super(parent, title, true);
@@ -125,9 +125,9 @@ public class DialogOdbcConfig extends JDialog {
 	}
 
 	/**
-	 * »ñÈ¡´°¿ÚµÄ¶¯×÷Ñ¡Ïî
+	 * è·å–çª—å£çš„åŠ¨ä½œé€‰é¡¹
 	 * 
-	 * @return Ñ¡Ïî
+	 * @return é€‰é¡¹
 	 */
 	public int getOption() {
 		return m_option;
@@ -205,12 +205,12 @@ public class DialogOdbcConfig extends JDialog {
 	}
 
 	/**
-	 * ½Úµã»úÎÄ¼şÄ¬ÈÏÎªconfigÄ¿Â¼ÏÂ£»ÏÈÕÒÀàÂ·¾¶£¬È»ºóÕÒstart.homeÏÂµÄ¾ø¶ÔÂ·¾¶
+	 * èŠ‚ç‚¹æœºæ–‡ä»¶é»˜è®¤ä¸ºconfigç›®å½•ä¸‹ï¼›å…ˆæ‰¾ç±»è·¯å¾„ï¼Œç„¶åæ‰¾start.homeä¸‹çš„ç»å¯¹è·¯å¾„
 	 * 
 	 * @param relativePath
-	 *            String Ïà¶ÔÂ·¾¶
+	 *            String ç›¸å¯¹è·¯å¾„
 	 * @throws Exception
-	 *             ÎÄ¼şÊäÈëÁ÷
+	 *             æ–‡ä»¶è¾“å…¥æµ
 	 * @return InputStream
 	 */
 	private InputStream getUnitInputStream(String relativePath)
@@ -272,7 +272,7 @@ public class DialogOdbcConfig extends JDialog {
 	}
 
 	void resetLangText() {
-		// Ñ¡Ïî
+		// é€‰é¡¹
 		jBOK.setText(mm.getMessage("button.ok"));
 		jBCancel.setText(mm.getMessage("button.cancel"));
 	}
@@ -281,11 +281,11 @@ public class DialogOdbcConfig extends JDialog {
 		// Button
 		jPanelButton.setLayout(new VFlowLayout());
 		jBOK.setActionCommand("");
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogOdbcConfig_jBOK_actionAdapter(this));
 		jBOK.setMnemonic('O');
 		jBCancel.setActionCommand("");
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogOdbcConfig_jBCancel_actionAdapter(
 				this));
 		jBCancel.setMnemonic('C');

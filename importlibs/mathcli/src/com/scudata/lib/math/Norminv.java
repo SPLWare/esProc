@@ -11,7 +11,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÕıÌ¬ÄæÀÛ»ı·Ö²¼º¯Êı
+ * æ­£æ€é€†ç´¯ç§¯åˆ†å¸ƒå‡½æ•°
  * @author bd
  */
 public class Norminv extends Function {

@@ -5,7 +5,7 @@ import java.util.Locale;
 import com.scudata.common.MessageManager;
 
 /**
- * 并行相关代码的资源类
+ * 骞惰鐩稿叧浠ｇ爜鐨勮祫婧愮被
  * @author Joancy
  *
  */

@@ -22,20 +22,20 @@ import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
 public class TimeAxis extends ObjectElement implements IAxis{
-	// ÖáÃû³Æ
+	// è½´åç§°
 	public String name;
-	// ×Ô¶¯¼ÆËã×î´óĞ¡ÖµµÄ·¶Î§
+	// è‡ªåŠ¨è®¡ç®—æœ€å¤§å°å€¼çš„èŒƒå›´
 	public boolean autoCalcValueRange = true;
-	// ±£Áô¹ì¼£
+	// ä¿ç•™è½¨è¿¹
 	public boolean keepTrack = true;
 
-	// ÆğÊ¼Ê±¼ä£¬ Ê±¼ä¿ÉÒÔÎªÈÕÆÚ£¬ÊıÖµ
+	// èµ·å§‹æ—¶é—´ï¼Œ æ—¶é—´å¯ä»¥ä¸ºæ—¥æœŸï¼Œæ•°å€¼
 	public Object beginTime = 0;
-	// ½áÊøÊ±¼ä
+	// ç»“æŸæ—¶é—´
 	public Object endTime = 10;
 
 
-	// Í¼Æ¬×óÏÂ½ÇÏÔÊ¾±ê×¢
+	// å›¾ç‰‡å·¦ä¸‹è§’æ˜¾ç¤ºæ ‡æ³¨
 	public boolean displayMark = true;
 	public String textFont = "Dialog";
 	public int textStyle = new Integer(0);
@@ -47,7 +47,7 @@ public class TimeAxis extends ObjectElement implements IAxis{
 	public String format = null;
 	
 	private transient double t_maxDate=0, t_minDate=Long.MAX_VALUE;
-	private transient boolean isDateType = false;//µ±Ç°Ê±¼äÖáµÄÊı¾İÊÇ·ñÈÕÆÚÀàĞÍ£¬²»Í¬ÀàĞÍÊ¹ÓÃ²»Í¬µÄformat
+	private transient boolean isDateType = false;//å½“å‰æ—¶é—´è½´çš„æ•°æ®æ˜¯å¦æ—¥æœŸç±»å‹ï¼Œä¸åŒç±»å‹ä½¿ç”¨ä¸åŒçš„format
 	public TimeAxis() {
 	}
 
@@ -92,7 +92,7 @@ public class TimeAxis extends ObjectElement implements IAxis{
 			t_maxDate = Math.max(begin, end);
 			t_minDate = Math.min(begin, end);
 		}
-//ÓĞÊ±¼äÖáÊ±£¬ĞèÒªÊÂÏÈ½«Ïà¹ØÊı¾İÍ¼ÔªµÄÊı¾İ°´Ê±¼äÅÅĞò
+//æœ‰æ—¶é—´è½´æ—¶ï¼Œéœ€è¦äº‹å…ˆå°†ç›¸å…³æ•°æ®å›¾å…ƒçš„æ•°æ®æŒ‰æ—¶é—´æ’åº
 		for(DataElement de:dataElements){
 			Sequence posIndex = de.dataTime.psort(null);
 			de.dataTime = de.dataTime.get( posIndex );

@@ -18,9 +18,9 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * µ÷ÓÃÏµÍ³ÃüÁî£¬Ö´ĞĞÍê±Ïºó·µ»Ø¡£ÀıÈç´ò¿ªbatºÍexeÎÄ¼ş¡£
+ * è°ƒç”¨ç³»ç»Ÿå‘½ä»¤ï¼Œæ‰§è¡Œå®Œæ¯•åè¿”å›ã€‚ä¾‹å¦‚æ‰“å¼€batå’Œexeæ–‡ä»¶ã€‚
  * system(cmd) system(cmd1, cmd2, ...)
- * Ä¿Ç°Ö»ÄÜÖ´ĞĞÒ»ÌõcmdÃüÁî¡£Èç¹ûÏëÖ´ĞĞ¶àÌõcmdÃüÁî£¬Ôò°Ñ¶àÌõcmdÃüÁîĞ´ÈëbatÎÄ¼şÖĞ, Í¨¹ıcmdÃüÁîµ÷ÓÃbatÎÄ¼ş¡£
+ * ç›®å‰åªèƒ½æ‰§è¡Œä¸€æ¡cmdå‘½ä»¤ã€‚å¦‚æœæƒ³æ‰§è¡Œå¤šæ¡cmdå‘½ä»¤ï¼Œåˆ™æŠŠå¤šæ¡cmdå‘½ä»¤å†™å…¥batæ–‡ä»¶ä¸­, é€šè¿‡cmdå‘½ä»¤è°ƒç”¨batæ–‡ä»¶ã€‚
  * @author runqian
  *
  */
@@ -56,7 +56,7 @@ public class SystemExec extends Function {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

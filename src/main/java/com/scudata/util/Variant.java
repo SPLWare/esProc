@@ -23,7 +23,7 @@ import com.scudata.dm.SerialBytes;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¹¤¾ßÀà£¬Ìá¹©¶ÔÏó¡¢×Ö·û´®Ö®¼äÏà»¥ÀàĞÍ£¬¶ÔÏó±È½Ï£¬ÊıÑ§ÔËËã£¬ÈÕÆÚÔËËãµÈ
+ * å·¥å…·ç±»ï¼Œæä¾›å¯¹è±¡ã€å­—ç¬¦ä¸²ä¹‹é—´ç›¸äº’ç±»å‹ï¼Œå¯¹è±¡æ¯”è¾ƒï¼Œæ•°å­¦è¿ç®—ï¼Œæ—¥æœŸè¿ç®—ç­‰
  * @author RunQian
  *
  */
@@ -32,17 +32,17 @@ public class Variant {
 	public static final int Divide_Scale = 16;
 	public static final int Divide_Round = BigDecimal.ROUND_HALF_UP;
 
-	// ÄÚ´æÖĞ¿ÉÄÜ´æÔÚµÄÊıÖµĞÍÊı¾İÀàĞÍ
+	// å†…å­˜ä¸­å¯èƒ½å­˜åœ¨çš„æ•°å€¼å‹æ•°æ®ç±»å‹
 	public static final int DT_INT = 1; // Integer
 	public static final int DT_LONG = 2; // Long
 	public static final int DT_DOUBLE = 3; // Double
 	public static final int DT_DECIMAL = 4; // BigDecimal
 
-	// Ã¿ÔÂµÄÌìÊı
+	// æ¯æœˆçš„å¤©æ•°
 	private static final int []DAYS = new int[] {31,28,31,30,31,30,31,31,30,31,30,31};
 	private static final int []LEEPYEARDAYS = new int[] {31,29,31,30,31,30,31,31,30,31,30,31};
 	
-	static final long BASEDATE; // 1992ÄêÖ®Ç°ÓĞµÄÈÕÆÚ²»ÄÜ±»86400000Õû³ı
+	static final long BASEDATE; // 1992å¹´ä¹‹å‰æœ‰çš„æ—¥æœŸä¸èƒ½è¢«86400000æ•´é™¤
 	static {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2000, java.util.Calendar.JANUARY, 1, 0, 0, 0);
@@ -51,27 +51,27 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»Ø¶ÔÏóÊÇ·ñÎªÕæ£¬¶ÔÏó²»Îª¿ÕÇÒ²»ÊÇfalseÔòÎªÕæ
-	 * @param o ¶ÔÏó
-	 * @return true£º¶ÔÏóÎªÕæ£¬false£º¶ÔÏóÎª¼Ù
+	 * è¿”å›å¯¹è±¡æ˜¯å¦ä¸ºçœŸï¼Œå¯¹è±¡ä¸ä¸ºç©ºä¸”ä¸æ˜¯falseåˆ™ä¸ºçœŸ
+	 * @param o å¯¹è±¡
+	 * @return trueï¼šå¯¹è±¡ä¸ºçœŸï¼Œfalseï¼šå¯¹è±¡ä¸ºå‡
 	 */
 	public static boolean isTrue(Object o) {
 		return o != null && (!(o instanceof Boolean) || ((Boolean)o).booleanValue());
 	}
 
 	/**
-	 * ·µ»Ø¶ÔÏóÊÇ·ñÎª¼Ù£¬¶ÔÏóÎª¿Õ»òÕßÎªfalseÔòÎª¼Ù
-	 * @param o ¶ÔÏó
-	 * @return true£º¶ÔÏóÎª¼Ù£¬false£º¶ÔÏóÎªÕæ
+	 * è¿”å›å¯¹è±¡æ˜¯å¦ä¸ºå‡ï¼Œå¯¹è±¡ä¸ºç©ºæˆ–è€…ä¸ºfalseåˆ™ä¸ºå‡
+	 * @param o å¯¹è±¡
+	 * @return trueï¼šå¯¹è±¡ä¸ºå‡ï¼Œfalseï¼šå¯¹è±¡ä¸ºçœŸ
 	 */
 	public static boolean isFalse(Object o) {
 		return o == null || ((o instanceof Boolean) && !((Boolean)o).booleanValue());
 	}
 
 	/**
-	 * ¼ÆËãÖ¸¶¨ÈÕÆÚÏà¸ôÖ¸¶¨ÌìÊıµÄÈÕÆÚ
-	 * @param date ÈÕÆÚ
-	 * @param n ÌìÊı
+	 * è®¡ç®—æŒ‡å®šæ—¥æœŸç›¸éš”æŒ‡å®šå¤©æ•°çš„æ—¥æœŸ
+	 * @param date æ—¥æœŸ
+	 * @param n å¤©æ•°
 	 * @return Date
 	 */
 	public static Date add(Date date, int n) {
@@ -85,9 +85,9 @@ public class Variant {
 	}
 	
 	/**
-	 * ·µ»Øo1ºÍo2µÄºÍ
-	 * @param o1 Object Number»òString
-	 * @param o2 Object Number»òString
+	 * è¿”å›o1å’Œo2çš„å’Œ
+	 * @param o1 Object Numberæˆ–String
+	 * @param o2 Object Numberæˆ–String
 	 * @return Object
 	 */
 	public static Object add(Object o1, Object o2) {
@@ -138,7 +138,7 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»ØÁ½¸öÊıµÄºÍ
+	 * è¿”å›ä¸¤ä¸ªæ•°çš„å’Œ
 	 * @param n1
 	 * @param n2
 	 * @return
@@ -146,7 +146,7 @@ public class Variant {
 	public static Number addNum(Number n1, Number n2) {
 		int type = getMaxNumberType(n1, n2);
 		switch (type) {
-		case DT_INT: // ÎªÁË·ÀÖ¹Òç³ö×ª³Élong¼ÆËã
+		case DT_INT: // ä¸ºäº†é˜²æ­¢æº¢å‡ºè½¬æˆlongè®¡ç®—
 			//return new Integer(n1.intValue() + n2.intValue());
 		case DT_LONG:
 			return new Long(n1.longValue() + n2.longValue());
@@ -160,7 +160,7 @@ public class Variant {
 	}
 
 	/**
-	 * °Ñ¶ÔÏóÖµ¼Ó1
+	 * æŠŠå¯¹è±¡å€¼åŠ 1
 	 * @param o1 Object
 	 * @return Object
 	 */
@@ -168,7 +168,7 @@ public class Variant {
 		if (o1 == null) return new Integer(1);
 		int type = getNumberType(o1);
 		switch (type) {
-		case DT_INT: // ÎªÁË·ÀÖ¹Òç³ö×ª³Élong¼ÆËã
+		case DT_INT: // ä¸ºäº†é˜²æ­¢æº¢å‡ºè½¬æˆlongè®¡ç®—
 			//return new Integer(((Number)o1).intValue() + 1);
 		case DT_LONG:
 			return new Long(((Number)o1).longValue() + 1);
@@ -182,7 +182,7 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»Øo1 - o2
+	 * è¿”å›o1 - o2
 	 * @param o1 Object Number
 	 * @param o2 Object Number
 	 * @return Object
@@ -230,7 +230,7 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»Ø¶ÔÏóµÄÆ½·½
+	 * è¿”å›å¯¹è±¡çš„å¹³æ–¹
 	 * @param obj Object
 	 * @return Object
 	 */
@@ -257,7 +257,7 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»Øo1 * o2
+	 * è¿”å›o1 * o2
 	 * @param o1 Object
 	 * @param o2 Object
 	 * @return Object
@@ -267,7 +267,7 @@ public class Variant {
 			if (o2 instanceof Number) {
 				int type = getMaxNumberType(o1, o2);
 				switch (type) {
-				case DT_INT: // ÎªÁË·ÀÖ¹Òç³ö×ª³Élong¼ÆËã
+				case DT_INT: // ä¸ºäº†é˜²æ­¢æº¢å‡ºè½¬æˆlongè®¡ç®—
 				case DT_LONG:
 					return new Long(((Number)o1).longValue() * ((Number)o2).longValue());
 				case DT_DOUBLE:
@@ -299,9 +299,9 @@ public class Variant {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊıµÄÈ¡Óà
-	 * @param o1 ×óÖµ
-	 * @param o2 ÓÒÖµ
+	 * è®¡ç®—ä¸¤ä¸ªæ•°çš„å–ä½™
+	 * @param o1 å·¦å€¼
+	 * @param o2 å³å€¼
 	 * @return Object
 	 */
 	public static Object mod(Object o1, Object o2) {
@@ -327,9 +327,9 @@ public class Variant {
 	}
 	
 	/**
-	 * ¼ÆËãÁ½¸öÊıµÄÈ¡Óà
-	 * @param n1 ×óÖµ
-	 * @param n2 ÓÒÖµ
+	 * è®¡ç®—ä¸¤ä¸ªæ•°çš„å–ä½™
+	 * @param n1 å·¦å€¼
+	 * @param n2 å³å€¼
 	 * @return Number
 	 */
 	public static Number mod(Number n1, Number n2) {
@@ -347,9 +347,9 @@ public class Variant {
 	}
 	
 	/**
-	 * ÓÃÓÚremainderº¯Êı£¬¶ÔÁ½¸öÊı×öÈ¡ÓàÔËËã
-	 * @param o1 ×óÃæÊıÖµ
-	 * @param o2 ÓÒÃæÊıÖµ
+	 * ç”¨äºremainderå‡½æ•°ï¼Œå¯¹ä¸¤ä¸ªæ•°åšå–ä½™è¿ç®—
+	 * @param o1 å·¦é¢æ•°å€¼
+	 * @param o2 å³é¢æ•°å€¼
 	 * @return Number
 	 */
 	public static Number remainder(Object o1, Object o2) {
@@ -369,10 +369,10 @@ public class Variant {
 					}
 				} else {
 					if (left >= 0) {
-						int x = left %(right * 2); // µÃµ½ÕıÊı
+						int x = left %(right * 2); // å¾—åˆ°æ­£æ•°
 						return x < -right ? x : x + right * 2;
 					} else {
-						int x = left %(right * 2); // µÃµ½¸ºÊı
+						int x = left %(right * 2); // å¾—åˆ°è´Ÿæ•°
 						return x < right ? x - right * 2 : x;
 					}
 				}
@@ -388,10 +388,10 @@ public class Variant {
 					}
 				} else {
 					if (left >= 0) {
-						long x = left %(right * 2); // µÃµ½ÕıÊı
+						long x = left %(right * 2); // å¾—åˆ°æ­£æ•°
 						return x < -right ? x : x + right * 2;
 					} else {
-						long x = left %(right * 2); // µÃµ½¸ºÊı
+						long x = left %(right * 2); // å¾—åˆ°è´Ÿæ•°
 						return x < right ? x - right * 2 : x;
 					}
 				}
@@ -407,10 +407,10 @@ public class Variant {
 					}
 				} else {
 					if (left >= 0) {
-						double x = left %(right * 2); // µÃµ½ÕıÊı
+						double x = left %(right * 2); // å¾—åˆ°æ­£æ•°
 						return x > -right || isRoughlyEquals(x, -right) ? x + right * 2 : x;
 					} else {
-						double x = left %(right * 2); // µÃµ½¸ºÊı
+						double x = left %(right * 2); // å¾—åˆ°è´Ÿæ•°
 						return x < right && !isRoughlyEquals(x, right) ? x - right * 2 : x;
 					}
 				}
@@ -422,21 +422,21 @@ public class Variant {
 							  getDataType(o2) + mm.getMessage("Variant2.illMod"));
 	}
 
-	// ÅĞ¶ÏÁ½¸ö¸¡µãÊıÊÇ·ñ´ó¸ÅÏàµÈ
+	// åˆ¤æ–­ä¸¤ä¸ªæµ®ç‚¹æ•°æ˜¯å¦å¤§æ¦‚ç›¸ç­‰
 	private static boolean isRoughlyEquals(double d1, double d2) {
 		d1 -= d2;
 		return d1 > -0.0000001 && d1 < 0.0000001;
 	}
 
 	/**
-	 * ·µ»Øo1 / o2
+	 * è¿”å›o1 / o2
 	 * @param o1 Object Number
 	 * @param o2 Object Number
 	 * @return Object
 	 */
 	public static Object divide(Object o1, Object o2) {
 		if (o1 instanceof Number && o2 instanceof Number) {
-			// ±»³ıÊı²»Í¬½á¹û²»Í¬
+			// è¢«é™¤æ•°ä¸åŒç»“æœä¸åŒ
 			//if (((Number)o2).doubleValue() == 0) {
 			//	return INFINITY;
 			//}
@@ -477,10 +477,10 @@ public class Variant {
 	}
 
 	/**
-	 * ÇóÆ½¾ùÖµ
-	 * @param sum ºÍ
-	 * @param count ÊıÁ¿
-	 * @return Æ½¾ùÖµ
+	 * æ±‚å¹³å‡å€¼
+	 * @param sum å’Œ
+	 * @param count æ•°é‡
+	 * @return å¹³å‡å€¼
 	 */
 	public static Object avg(Object sum, int count) {
 		if (sum instanceof BigDecimal) {
@@ -499,9 +499,9 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»ØÁ½¸öÊıµÄÕû³ı
-	 * @param o1 ×óÖµ
-	 * @param o2 ÓÒÖµ
+	 * è¿”å›ä¸¤ä¸ªæ•°çš„æ•´é™¤
+	 * @param o1 å·¦å€¼
+	 * @param o2 å³å€¼
 	 * @return Number
 	 */
 	public static Number intDivide(Object o1, Object o2) {
@@ -526,9 +526,9 @@ public class Variant {
 	}
 	
 	/**
-	 * ·µ»ØÁ½¸öÊıµÄÕû³ıÖµ
-	 * @param n1 ×óÖµ
-	 * @param n2 ÓÒÖµ
+	 * è¿”å›ä¸¤ä¸ªæ•°çš„æ•´é™¤å€¼
+	 * @param n1 å·¦å€¼
+	 * @param n2 å³å€¼
 	 * @return Number
 	 */
 	public static Number intDivide(Number n1, Number n2) {
@@ -545,7 +545,7 @@ public class Variant {
 	}
 
 	/**
-	 * ÇóoµÄ¾ø¶ÔÖµ
+	 * æ±‚oçš„ç»å¯¹å€¼
 	 * @param o Object
 	 * @return Object
 	 */
@@ -591,20 +591,20 @@ public class Variant {
 	}
 
 	/**
-	 * ±È½ÏÁ½¸ö¶ÔÏóµÄ´óĞ¡£¬²»ÄÜ±È½ÏÊ±Å×³öÒì³££¬null×îĞ¡
-	 * @param o1 ×ó¶ÔÏó
-	 * @param o2 ÓÒ¶ÔÏó
-	 * @return 1£º×ó¶ÔÏó´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒ¶ÔÏó´ó
+	 * æ¯”è¾ƒä¸¤ä¸ªå¯¹è±¡çš„å¤§å°ï¼Œä¸èƒ½æ¯”è¾ƒæ—¶æŠ›å‡ºå¼‚å¸¸ï¼Œnullæœ€å°
+	 * @param o1 å·¦å¯¹è±¡
+	 * @param o2 å³å¯¹è±¡
+	 * @return 1ï¼šå·¦å¯¹è±¡å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³å¯¹è±¡å¤§
 	 */
 	public static int compare(Object o1, Object o2) {
 		return compare(o1, o2, true);
 	}
 
 	/**
-	 * ±È½ÏÁ½¸öÊı×éÔªËØµÄ´óĞ¡£¬Êı×éÔªËØÊıĞëÏàÍ¬£¬null×îĞ¡
-	 * @param o1 ×óÊı×é
-	 * @param o2 ÓÒÊı×é
-	 * @return 1£º×ó¶ÔÏó´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒ¶ÔÏó´ó
+	 * æ¯”è¾ƒä¸¤ä¸ªæ•°ç»„å…ƒç´ çš„å¤§å°ï¼Œæ•°ç»„å…ƒç´ æ•°é¡»ç›¸åŒï¼Œnullæœ€å°
+	 * @param o1 å·¦æ•°ç»„
+	 * @param o2 å³æ•°ç»„
+	 * @return 1ï¼šå·¦å¯¹è±¡å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³å¯¹è±¡å¤§
 	 */
 	public static int compareArrays(Object []o1, Object []o2) {
 		for (int i = 0, len = o1.length; i < len; ++i) {
@@ -616,10 +616,10 @@ public class Variant {
 	}
 	
 	/**
-	 * ±È½ÏÁ½¸öÊı×éÔªËØµÄ´óĞ¡£¬Êı×éÔªËØÊıĞëÏàÍ¬£¬nullµ±×î´ó´¦Àí
-	 * @param o1 ×óÊı×é
-	 * @param o2 ÓÒÊı×é
-	 * @return 1£º×óÊı×é´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒÊı×é´ó
+	 * æ¯”è¾ƒä¸¤ä¸ªæ•°ç»„å…ƒç´ çš„å¤§å°ï¼Œæ•°ç»„å…ƒç´ æ•°é¡»ç›¸åŒï¼Œnullå½“æœ€å¤§å¤„ç†
+	 * @param o1 å·¦æ•°ç»„
+	 * @param o2 å³æ•°ç»„
+	 * @return 1ï¼šå·¦æ•°ç»„å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³æ•°ç»„å¤§
 	 */
 	public static int compareArrays_0(Object []o1, Object []o2) {
 		for (int i = 0, len = o1.length; i < len; ++i) {
@@ -633,11 +633,11 @@ public class Variant {
 	}
 	
 	/**
-	 * ±È½ÏÁ½¸öÊı×éÔªËØµÄ´óĞ¡£¬nullµ±×î´ó´¦Àí
-	 * @param o1 ×óÊı×é
-	 * @param o2 ÓÒÊı×é
-	 * @param len ³¤¶È
-	 * @return 1£º×óÊı×é´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒÊı×é´ó
+	 * æ¯”è¾ƒä¸¤ä¸ªæ•°ç»„å…ƒç´ çš„å¤§å°ï¼Œnullå½“æœ€å¤§å¤„ç†
+	 * @param o1 å·¦æ•°ç»„
+	 * @param o2 å³æ•°ç»„
+	 * @param len é•¿åº¦
+	 * @return 1ï¼šå·¦æ•°ç»„å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³æ•°ç»„å¤§
 	 */
 	public static int compareArrays_0(Object []o1, Object []o2, int len) {
 		for (int i = 0; i < len; ++i) {
@@ -651,12 +651,12 @@ public class Variant {
 	}
 	
 	/**
-	 * ±È½ÏÁ½¸öÊı×éÔªËØµÄ´óĞ¡£¬nullµ±×î´ó´¦Àí
-	 * @param o1 ×óÊı×é
-	 * @param o2 ÓÒÊı×é
-	 * @param len ³¤¶È
-	 * @param  locCmp ×Ö·û´®±¾µØÓïÑÔ±È½ÏÆ÷
-	 * @return 1£º×óÊı×é´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒÊı×é´ó
+	 * æ¯”è¾ƒä¸¤ä¸ªæ•°ç»„å…ƒç´ çš„å¤§å°ï¼Œnullå½“æœ€å¤§å¤„ç†
+	 * @param o1 å·¦æ•°ç»„
+	 * @param o2 å³æ•°ç»„
+	 * @param len é•¿åº¦
+	 * @param  locCmp å­—ç¬¦ä¸²æœ¬åœ°è¯­è¨€æ¯”è¾ƒå™¨
+	 * @return 1ï¼šå·¦æ•°ç»„å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³æ•°ç»„å¤§
 	 */
 	public static int compareArrays_0(Object []o1, Object []o2, int len, Comparator<Object> locCmp) {
 		for (int i = 0; i < len; ++i) {
@@ -670,12 +670,12 @@ public class Variant {
 	}
 	
 	/**
-	 * ±È½ÏÁ½¸öÊı×éÔªËØµÄ´óĞ¡£¬null×îĞ¡
-	 * @param o1 ×óÊı×é
-	 * @param o2 ÓÒÊı×é
-	 * @param len ³¤¶È
-	 * @param  locCmp ×Ö·û´®±¾µØÓïÑÔ±È½ÏÆ÷
-	 * @return 1£º×óÊı×é´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒÊı×é´ó
+	 * æ¯”è¾ƒä¸¤ä¸ªæ•°ç»„å…ƒç´ çš„å¤§å°ï¼Œnullæœ€å°
+	 * @param o1 å·¦æ•°ç»„
+	 * @param o2 å³æ•°ç»„
+	 * @param len é•¿åº¦
+	 * @param  locCmp å­—ç¬¦ä¸²æœ¬åœ°è¯­è¨€æ¯”è¾ƒå™¨
+	 * @return 1ï¼šå·¦æ•°ç»„å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³æ•°ç»„å¤§
 	 */
 	public static int compareArrays(Object []o1, Object []o2, int len, Comparator<Object> locCmp) {
 		for (int i = 0; i < len; ++i) {
@@ -689,11 +689,11 @@ public class Variant {
 	}
 
 	/**
-	 * ±È½ÏÁ½¸öÊı×éÔªËØµÄ´óĞ¡£¬null×îĞ¡
-	 * @param o1 ×óÊı×é
-	 * @param o2 ÓÒÊı×é
-	 * @param len ³¤¶È
-	 * @return 1£º×óÊı×é´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒÊı×é´ó
+	 * æ¯”è¾ƒä¸¤ä¸ªæ•°ç»„å…ƒç´ çš„å¤§å°ï¼Œnullæœ€å°
+	 * @param o1 å·¦æ•°ç»„
+	 * @param o2 å³æ•°ç»„
+	 * @param len é•¿åº¦
+	 * @return 1ï¼šå·¦æ•°ç»„å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³æ•°ç»„å¤§
 	 */
 	public static int compareArrays(Object []o1, Object []o2, int len) {
 		for (int i = 0; i < len; ++i) {
@@ -705,11 +705,11 @@ public class Variant {
 	}
 
 	/**
-	 * ±È½ÏÁ½¶ÔÏóµÄ´óĞ¡£¬null×îĞ¡
-	 * @param o1 ×ó¶ÔÏó
-	 * @param o2 ÓÒ¶ÔÏó
-	 * @param throwExcept true£º²»ÄÜ±È½ÏÊ±Å×³öÒì³££¬false£º²»ÄÜ±È½ÏÊ±·µ»Ø-1£¬ÓÃÓÚ²éÕÒ
-	 * @return int 1£º×ó¶ÔÏó´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒ¶ÔÏó´ó
+	 * æ¯”è¾ƒä¸¤å¯¹è±¡çš„å¤§å°ï¼Œnullæœ€å°
+	 * @param o1 å·¦å¯¹è±¡
+	 * @param o2 å³å¯¹è±¡
+	 * @param throwExcept trueï¼šä¸èƒ½æ¯”è¾ƒæ—¶æŠ›å‡ºå¼‚å¸¸ï¼Œfalseï¼šä¸èƒ½æ¯”è¾ƒæ—¶è¿”å›-1ï¼Œç”¨äºæŸ¥æ‰¾
+	 * @return int 1ï¼šå·¦å¯¹è±¡å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³å¯¹è±¡å¤§
 	 */
 	public static int compare(Object o1, Object o2, boolean throwExcept) {
 		if (o1 == o2)return 0;
@@ -756,7 +756,7 @@ public class Variant {
 			return ((Sequence)o1).compareTo((Sequence)o2);
 		}
 
-		// ÎªÁË±£Ö¤group¡¢id¡¢joinµÈÄÜÕı³£¹¤×÷£¬µ«´óĞ¡Ã»ÒâÒå
+		// ä¸ºäº†ä¿è¯groupã€idã€joinç­‰èƒ½æ­£å¸¸å·¥ä½œï¼Œä½†å¤§å°æ²¡æ„ä¹‰
 		if (o1 instanceof BaseRecord && o2 instanceof BaseRecord) {
 			return ((BaseRecord)o1).compareTo((BaseRecord)o2);
 		}
@@ -782,10 +782,10 @@ public class Variant {
 	}
 
 	/**
-	 * ±È½ÏÁ½¸ö¶ÔÏóµÄ´óĞ¡£¬²»ÄÜ±È½ÏÊ±Å×³öÒì³££¬nullµ±×î´ó´¦Àí
-	 * @param o1 ×ó¶ÔÏó
-	 * @param o2 ÓÒ¶ÔÏó
-	 * @return 1£º×ó¶ÔÏó´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒ¶ÔÏó´ó
+	 * æ¯”è¾ƒä¸¤ä¸ªå¯¹è±¡çš„å¤§å°ï¼Œä¸èƒ½æ¯”è¾ƒæ—¶æŠ›å‡ºå¼‚å¸¸ï¼Œnullå½“æœ€å¤§å¤„ç†
+	 * @param o1 å·¦å¯¹è±¡
+	 * @param o2 å³å¯¹è±¡
+	 * @return 1ï¼šå·¦å¯¹è±¡å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³å¯¹è±¡å¤§
 	 */
 	public static int compare_0(Object o1, Object o2) {
 		if (o1 == o2) return 0;
@@ -832,7 +832,7 @@ public class Variant {
 			return ((Sequence)o1).compareTo((Sequence)o2);
 		}
 		
-		// ÎªÁË±£Ö¤group¡¢id¡¢joinµÈÄÜÕı³£¹¤×÷£¬µ«´óĞ¡Ã»ÒâÒå
+		// ä¸ºäº†ä¿è¯groupã€idã€joinç­‰èƒ½æ­£å¸¸å·¥ä½œï¼Œä½†å¤§å°æ²¡æ„ä¹‰
 		if (o1 instanceof BaseRecord && o2 instanceof BaseRecord) {
 			int h1 = o1.hashCode();
 			int h2 = o2.hashCode();
@@ -875,12 +875,12 @@ public class Variant {
 	}
 	
 	/**
-	 * ±È½ÏÁ½¶ÔÏóµÄ´óĞ¡£¬null×îĞ¡
-	 * @param o1 ×ó¶ÔÏó
-	 * @param o2 ÓÒ¶ÔÏó
-	 * @param  locCmp ×Ö·û´®±¾µØÓïÑÔ±È½ÏÆ÷
-	 * @param throwExcept true£º²»ÄÜ±È½ÏÊ±Å×³öÒì³££¬false£º²»ÄÜ±È½ÏÊ±·µ»Ø-1£¬ÓÃÓÚ²éÕÒ
-	 * @return int 1£º×ó¶ÔÏó´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒ¶ÔÏó´ó
+	 * æ¯”è¾ƒä¸¤å¯¹è±¡çš„å¤§å°ï¼Œnullæœ€å°
+	 * @param o1 å·¦å¯¹è±¡
+	 * @param o2 å³å¯¹è±¡
+	 * @param  locCmp å­—ç¬¦ä¸²æœ¬åœ°è¯­è¨€æ¯”è¾ƒå™¨
+	 * @param throwExcept trueï¼šä¸èƒ½æ¯”è¾ƒæ—¶æŠ›å‡ºå¼‚å¸¸ï¼Œfalseï¼šä¸èƒ½æ¯”è¾ƒæ—¶è¿”å›-1ï¼Œç”¨äºæŸ¥æ‰¾
+	 * @return int 1ï¼šå·¦å¯¹è±¡å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³å¯¹è±¡å¤§
 	 */
 	public static int compare(Object o1, Object o2, Comparator<Object> locCmp, boolean throwExcept) {
 		if (o1 == o2)return 0;
@@ -926,7 +926,7 @@ public class Variant {
 			return ((Sequence)o1).compareTo((Sequence)o2, locCmp);
 		}
 		
-		// ÎªÁË±£Ö¤group¡¢id¡¢joinµÈÄÜÕı³£¹¤×÷£¬µ«´óĞ¡Ã»ÒâÒå
+		// ä¸ºäº†ä¿è¯groupã€idã€joinç­‰èƒ½æ­£å¸¸å·¥ä½œï¼Œä½†å¤§å°æ²¡æ„ä¹‰
 		if (o1 instanceof BaseRecord && o2 instanceof BaseRecord) {
 			return ((BaseRecord)o1).compareTo((BaseRecord)o2);
 		}
@@ -949,11 +949,11 @@ public class Variant {
 	}
 
 	/**
-	 * ±È½ÏÁ½¶ÔÏóµÄ´óĞ¡£¬²»ÄÜ±È½ÏÊ±Å×³öÒì³££¬nullµ±×î´ó´¦Àí
-	 * @param o1 ×ó¶ÔÏó
-	 * @param o2 ÓÒ¶ÔÏó
-	 * @param  locCmp ×Ö·û´®±¾µØÓïÑÔ±È½ÏÆ÷
-	 * @return int 1£º×ó¶ÔÏó´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒ¶ÔÏó´ó
+	 * æ¯”è¾ƒä¸¤å¯¹è±¡çš„å¤§å°ï¼Œä¸èƒ½æ¯”è¾ƒæ—¶æŠ›å‡ºå¼‚å¸¸ï¼Œnullå½“æœ€å¤§å¤„ç†
+	 * @param o1 å·¦å¯¹è±¡
+	 * @param o2 å³å¯¹è±¡
+	 * @param  locCmp å­—ç¬¦ä¸²æœ¬åœ°è¯­è¨€æ¯”è¾ƒå™¨
+	 * @return int 1ï¼šå·¦å¯¹è±¡å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³å¯¹è±¡å¤§
 	 */
 	public static int compare_0(Object o1, Object o2, Comparator<Object> locCmp) {
 		if (o1 == o2) return 0;
@@ -999,7 +999,7 @@ public class Variant {
 			return ((Sequence)o1).compareTo((Sequence)o2, locCmp);
 		}
 		
-		// ÎªÁË±£Ö¤group¡¢id¡¢joinµÈÄÜÕı³£¹¤×÷£¬µ«´óĞ¡Ã»ÒâÒå
+		// ä¸ºäº†ä¿è¯groupã€idã€joinç­‰èƒ½æ­£å¸¸å·¥ä½œï¼Œä½†å¤§å°æ²¡æ„ä¹‰
 		if (o1 instanceof BaseRecord && o2 instanceof BaseRecord) {
 			int h1 = o1.hashCode();
 			int h2 = o2.hashCode();
@@ -1026,7 +1026,7 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»ØÁ½¶ÔÏóÊÇ·ñÏàµÈ
+	 * è¿”å›ä¸¤å¯¹è±¡æ˜¯å¦ç›¸ç­‰
 	 * @param o1 Object
 	 * @param o2 Object
 	 * @return boolean
@@ -1045,7 +1045,7 @@ public class Variant {
 				return Double.compare(((Number)o1).doubleValue(),
 									  ((Number)o2).doubleValue()) == 0;
 			case DT_DECIMAL:
-				// ²»ÄÜÊ¹ÓÃequals£¬ÒòÎªscale¿ÉÄÜ²»Í¬
+				// ä¸èƒ½ä½¿ç”¨equalsï¼Œå› ä¸ºscaleå¯èƒ½ä¸åŒ
 				return toBigDecimal((Number)o1).compareTo(toBigDecimal((Number)o2)) == 0;
 			default:
 				throw new RQException();
@@ -1068,7 +1068,7 @@ public class Variant {
 			return ((Sequence)o1).isEquals((Sequence)o2);
 		}
 
-		// ĞòÁĞºÍÊıµÄ±È½ÏÔÚcmpº¯ÊıÀïÖ§³Ö£¬ĞòÁĞ»¯Ê±[0,0]ºÍ0²»ÄÜÈÏÎªÏàµÈ
+		// åºåˆ—å’Œæ•°çš„æ¯”è¾ƒåœ¨cmpå‡½æ•°é‡Œæ”¯æŒï¼Œåºåˆ—åŒ–æ—¶[0,0]å’Œ0ä¸èƒ½è®¤ä¸ºç›¸ç­‰
 		/*if (o1 instanceof Sequence) {
 			if (o2 instanceof Sequence) {
 				return ((Sequence)o1).isEquals((Sequence)o2);
@@ -1094,9 +1094,9 @@ public class Variant {
 	}
 
 	/**
-	 * È¥µôĞ¡ÊıÎ»£¬¸ù¾İĞ¡Êı´óĞ¡½ø1»òÉáÆú
-	 * @param o ´øĞ¡ÊıµÄÊı
-	 * @return Ã»ÓĞĞ¡ÊıµÄÊı
+	 * å»æ‰å°æ•°ä½ï¼Œæ ¹æ®å°æ•°å¤§å°è¿›1æˆ–èˆå¼ƒ
+	 * @param o å¸¦å°æ•°çš„æ•°
+	 * @return æ²¡æœ‰å°æ•°çš„æ•°
 	 */
 	public static Object round(Object o) {
 		if (o instanceof BigDecimal) {
@@ -1119,10 +1119,10 @@ public class Variant {
 	}
 
 	/**
-	 * ±£ÁôÖ¸¶¨Î»ÊıµÄĞ¡Êı
-	 * @param o Êı
-	 * @param scale Ğ¡ÊıÎ»Êı
-	 * @return Êı
+	 * ä¿ç•™æŒ‡å®šä½æ•°çš„å°æ•°
+	 * @param o æ•°
+	 * @param scale å°æ•°ä½æ•°
+	 * @return æ•°
 	 */
 	public static Object round(Object o, int scale) {
 		if (o instanceof BigDecimal) {
@@ -1156,7 +1156,7 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»Ø¸ºÖµ
+	 * è¿”å›è´Ÿå€¼
 	 * @param o Object Number
 	 * @return Object
 	 */
@@ -1184,7 +1184,7 @@ public class Variant {
 	}
 	
 	/**
-	 * ·µ»Ø¸ºÖµ
+	 * è¿”å›è´Ÿå€¼
 	 * @param o Number
 	 * @return Number
 	 */
@@ -1205,7 +1205,7 @@ public class Variant {
 	}
 
 	/**
-	 * ¶Ô×Ö·û´®Çó¸º
+	 * å¯¹å­—ç¬¦ä¸²æ±‚è´Ÿ
 	 * @param str
 	 * @return
 	 */
@@ -1225,7 +1225,7 @@ public class Variant {
 	}
 
 	/**
-	 * ¶Ô×Ö·û´®Çó¸º
+	 * å¯¹å­—ç¬¦ä¸²æ±‚è´Ÿ
 	 * @param str
 	 * @return
 	 */
@@ -1271,20 +1271,20 @@ public class Variant {
 		return type1 > type2 ? type1 : type2;
 	}
 
-	// ½«Êı×ª³ÉBigDecimal
+	// å°†æ•°è½¬æˆBigDecimal
 	private static BigDecimal toBigDecimal(Number o) {
 		if (o instanceof BigDecimal) {
 			return (BigDecimal)o;
 		} else if (o instanceof BigInteger) {
 			return new BigDecimal((BigInteger)o);
-		} else if (o instanceof Long) { // ×ª³Édouble¿ÉÄÜ¶ª¾«¶È
+		} else if (o instanceof Long) { // è½¬æˆdoubleå¯èƒ½ä¸¢ç²¾åº¦
 			return new BigDecimal(((Long)o).longValue());
 		} else {
 			return new BigDecimal(o.doubleValue());
 		}
 	}
 	
-	// ½«Êı×ª³ÉBigInteger
+	// å°†æ•°è½¬æˆBigInteger
 	public static BigInteger toBigInteger(Number o) {
 		if (o instanceof BigDecimal) {
 			return ((BigDecimal)o).toBigInteger();
@@ -1296,7 +1296,7 @@ public class Variant {
 	}
 
 	/**
-	 * ×ª»»oÎªStringÀàĞÍ
+	 * è½¬æ¢oä¸ºStringç±»å‹
 	 * @param o Object
 	 * @return String
 	 */
@@ -1319,8 +1319,8 @@ public class Variant {
 	}
 
 	/**
-	 * °Ñ¶ÔÏó±ä³Éµ¼³öÎÄ±¾Ê±¶ÔÓ¦µÄ´®
-	 * @param o ¶ÔÏó
+	 * æŠŠå¯¹è±¡å˜æˆå¯¼å‡ºæ–‡æœ¬æ—¶å¯¹åº”çš„ä¸²
+	 * @param o å¯¹è±¡
 	 * @return String
 	 */
 	public static String toExportString(Object o) {
@@ -1344,9 +1344,9 @@ public class Variant {
 	}
 	
 	/**
-	 * °Ñ¶ÔÏó±ä³Éµ¼³öÎÄ±¾Ê±¶ÔÓ¦µÄ´®£¬×Ö·û´®¼ÓÒıºÅ
-	 * @param o ¶ÔÏó
-	 * @param escapeChar ×ªÒå·û
+	 * æŠŠå¯¹è±¡å˜æˆå¯¼å‡ºæ–‡æœ¬æ—¶å¯¹åº”çš„ä¸²ï¼Œå­—ç¬¦ä¸²åŠ å¼•å·
+	 * @param o å¯¹è±¡
+	 * @param escapeChar è½¬ä¹‰ç¬¦
 	 * @return String
 	 */
 	public static String toExportString(Object o, char escapeChar) {
@@ -1376,7 +1376,7 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»Ø¶ÔÏóÊÇ·ñ¿ÉÒÔ×ªÎªÎÄ±¾
+	 * è¿”å›å¯¹è±¡æ˜¯å¦å¯ä»¥è½¬ä¸ºæ–‡æœ¬
 	 * @param obj Object
 	 * @return boolean
 	 */
@@ -1387,9 +1387,9 @@ public class Variant {
 	}
 
 	/**
-	 * ½«o°´Ò»¶¨µÄ¸ñÊ½×ª»»Îª×Ö·û´®
+	 * å°†oæŒ‰ä¸€å®šçš„æ ¼å¼è½¬æ¢ä¸ºå­—ç¬¦ä¸²
 	 * @param o Object
-	 * @param format ×ª»»¸ñÊ½
+	 * @param format è½¬æ¢æ ¼å¼
 	 * @return String
 	 */
 	public static String format(Object o, String format) {
@@ -1434,10 +1434,10 @@ public class Variant {
 	}
 
 	/**
-	 * ½«o°´Ò»¶¨µÄ¸ñÊ½×ª»»Îª×Ö·û´®
+	 * å°†oæŒ‰ä¸€å®šçš„æ ¼å¼è½¬æ¢ä¸ºå­—ç¬¦ä¸²
 	 * @param o Object
-	 * @param format ×ª»»¸ñÊ½
-	 * @param locale ÇøÓò
+	 * @param format è½¬æ¢æ ¼å¼
+	 * @param locale åŒºåŸŸ
 	 * @return String
 	 */
 	public static String format(Object o, String format, String locale) {
@@ -1468,7 +1468,7 @@ public class Variant {
 	}
 
 	/**
-	 *  ÒÔ long ĞÎÊ½·µ»Øo¶ÔÓ¦µÄÕûÊıÖµµÄÊıÖµ
+	 *  ä»¥ long å½¢å¼è¿”å›oå¯¹åº”çš„æ•´æ•°å€¼çš„æ•°å€¼
 	 * @param o Object
 	 * @return long
 	 */
@@ -1481,7 +1481,7 @@ public class Variant {
 	}
 
 	/**
-	 *  ÒÔ double ĞÎÊ½·µ»Øo¶ÔÓ¦µÄÊıÖµ
+	 *  ä»¥ double å½¢å¼è¿”å›oå¯¹åº”çš„æ•°å€¼
 	 * @param o Object
 	 * @return double
 	 */
@@ -1494,7 +1494,7 @@ public class Variant {
 	}
 
 	/**
-	 * ½«o×ª»»ÎªBigDecimal
+	 * å°†oè½¬æ¢ä¸ºBigDecimal
 	 * @param o Object
 	 * @return BigDecimal
 	 */
@@ -1503,7 +1503,7 @@ public class Variant {
 			return (BigDecimal) o;
 		} else if (o instanceof BigInteger) {
 			return new BigDecimal( (BigInteger) o);
-		} else if (o instanceof Long) { // ×ª³Édouble¿ÉÄÜ¶ª¾«¶È
+		} else if (o instanceof Long) { // è½¬æˆdoubleå¯èƒ½ä¸¢ç²¾åº¦
 			return new BigDecimal(((Long)o).longValue());
 		} else if (o instanceof Number) {
 			return new BigDecimal(((Number)o).doubleValue());
@@ -1514,9 +1514,9 @@ public class Variant {
 	}
 
 	/**
-	 * È¥¶ÔÏóµÄÀàĞÍ
-	 * @param obj ¶ÔÏó
-	 * @return byte ¶¨ÒåÔÚTypesÀï
+	 * å»å¯¹è±¡çš„ç±»å‹
+	 * @param obj å¯¹è±¡
+	 * @return byte å®šä¹‰åœ¨Typesé‡Œ
 	 */
 	public static byte getObjectType(Object obj) {
 		if (obj instanceof String) {
@@ -1543,9 +1543,9 @@ public class Variant {
 	}
 
 	/**
-	 * °Ñ¶ÔÏó×ª³ÉÖ¸¶¨µÄÀàĞÍ
-	 * @param val ¶ÔÏó
-	 * @param type ÀàĞÍ£¬¶¨ÒåÔÚTypesÀï
+	 * æŠŠå¯¹è±¡è½¬æˆæŒ‡å®šçš„ç±»å‹
+	 * @param val å¯¹è±¡
+	 * @param type ç±»å‹ï¼Œå®šä¹‰åœ¨Typesé‡Œ
 	 * @return
 	 */
 	public static Object convert(Object val, byte type) {
@@ -1626,7 +1626,7 @@ public class Variant {
 	}
 
 	/**
-	 * ½«±í´ïÊ½×ª»»ÎªÏàÓ¦µÄÖµ
+	 * å°†è¡¨è¾¾å¼è½¬æ¢ä¸ºç›¸åº”çš„å€¼
 	 * @param text String
 	 * @return Object
 	 */
@@ -1635,9 +1635,9 @@ public class Variant {
 	}
 
 	/**
-	 * ½«±í´ïÊ½×ª»»ÎªÏàÓ¦µÄÖµ£¬×¢Òâ£¬¶ÔÓÚ×Ö·û´®£¬ÆäÖĞµÄ¿Õ¸ñ²»ÄÜtrimµô
-	 * @param text String ´ı×ª»»µÄ×Ö·û´®
-	 * @param removeEscAndQuote boolean ÊÇ·ñÉ¾³ı×ªÒå·ûºÍÒıºÅ
+	 * å°†è¡¨è¾¾å¼è½¬æ¢ä¸ºç›¸åº”çš„å€¼ï¼Œæ³¨æ„ï¼Œå¯¹äºå­—ç¬¦ä¸²ï¼Œå…¶ä¸­çš„ç©ºæ ¼ä¸èƒ½trimæ‰
+	 * @param text String å¾…è½¬æ¢çš„å­—ç¬¦ä¸²
+	 * @param removeEscAndQuote boolean æ˜¯å¦åˆ é™¤è½¬ä¹‰ç¬¦å’Œå¼•å·
 	 * @return Object
 	 */
 	public static Object parse(String text, boolean removeEscAndQuote) {
@@ -1707,8 +1707,8 @@ public class Variant {
 	}
 	
 	/**
-	 * ½âÎö´®ÎªÖµ£¬²»×ötrimºÍÈ¥ÒıºÅ
-	 * @param s ´®
+	 * è§£æä¸²ä¸ºå€¼ï¼Œä¸åštrimå’Œå»å¼•å·
+	 * @param s ä¸²
 	 * @return Object
 	 */
 	public static Object parseDirect(String s) {
@@ -1767,11 +1767,11 @@ public class Variant {
 	}
 	
 	/**
-	 * °Ñ×Ö·û´®½âÎö³ÉÖ¸¶¨ÀàĞÍµÄ¶ÔÏó
-	 * @param text ×Ö·û´®
-	 * @param types Ã¿ÁĞµÄÀàĞÍ×é³ÉµÄÊı×é£¬²ÎÕÕTypes
-	 * @param col ÁĞºÅ
-	 * @return ½âÎöºóµÄ¶ÔÏó
+	 * æŠŠå­—ç¬¦ä¸²è§£ææˆæŒ‡å®šç±»å‹çš„å¯¹è±¡
+	 * @param text å­—ç¬¦ä¸²
+	 * @param types æ¯åˆ—çš„ç±»å‹ç»„æˆçš„æ•°ç»„ï¼Œå‚ç…§Types
+	 * @param col åˆ—å·
+	 * @return è§£æåçš„å¯¹è±¡
 	 */
 	public static Object parse(String text, byte []types, int col) {
 		if (text == null) {
@@ -1901,9 +1901,9 @@ public class Variant {
 	}
 
 	/**
-	 * ÓÃÓÚµ¥Ôª¸ñ£¨excel£©µÄ×Ö·û´®½âÎö
-	 * @param text ×Ö·û´®
-	 * @return Object ½âÎöºóµÄÖµ
+	 * ç”¨äºå•å…ƒæ ¼ï¼ˆexcelï¼‰çš„å­—ç¬¦ä¸²è§£æ
+	 * @param text å­—ç¬¦ä¸²
+	 * @return Object è§£æåçš„å€¼
 	 */
 	public static Object parseCellValue(String text) {
 		if (text == null || text.length() == 0) {
@@ -1965,7 +1965,7 @@ public class Variant {
 		return parseCellDate(text);
 	}
 
-	// ÓÃÓÚµ¥Ôª¸ñ£¨excel£©µÄÈÕÆÚ½âÎö
+	// ç”¨äºå•å…ƒæ ¼ï¼ˆexcelï¼‰çš„æ—¥æœŸè§£æ
 	private static Object parseCellDate(String text) {
 		DateFormatFactory dff = DateFormatFactory.get();
 		Date date = dff.getDateTimeFormatX().parse(text);
@@ -2022,7 +2022,7 @@ public class Variant {
 	}
 
 	/**
-	 * ½«×Ö·û´®×ª³ÉÊıÖµ£¬Èç¹û²»ÄÜ×ª»»Ôò·µ»Ø¿Õ¡££¨int£¬long£¬double£©
+	 * å°†å­—ç¬¦ä¸²è½¬æˆæ•°å€¼ï¼Œå¦‚æœä¸èƒ½è½¬æ¢åˆ™è¿”å›ç©ºã€‚ï¼ˆintï¼Œlongï¼Œdoubleï¼‰
 	 * @param s String
 	 * @return Number
 	 */
@@ -2081,7 +2081,7 @@ public class Variant {
 	}
 	
 	/**
-	 * ½«Ê±¼ä×ªÎªÏàÓ¦µÄÊ±¼äÖµ
+	 * å°†æ—¶é—´è½¬ä¸ºç›¸åº”çš„æ—¶é—´å€¼
 	 * @param text String
 	 * @return Object
 	 */
@@ -2099,8 +2099,8 @@ public class Variant {
 	}
 
 	/**
-	 * È¡¶ÔÏóµÄÀàĞÍÃû£¬ÓÃÓÚÌáÊ¾ĞÅÏ¢
-	 * @param o ¶ÔÏó
+	 * å–å¯¹è±¡çš„ç±»å‹åï¼Œç”¨äºæç¤ºä¿¡æ¯
+	 * @param o å¯¹è±¡
 	 * @return String
 	 */
 	public static String getDataType(Object o) {
@@ -2125,10 +2125,10 @@ public class Variant {
 	}
 
 	/**
-	 * ÓÃÓÚµ¥Ôª¸ñ£¨excel£©µÄ×Ö·û´®½âÎö
-	 * @param text ×Ö·û´®
-	 * @param type ÀàĞÍ£¬¶¨ÒåÔÚTypesÀï
-	 * @return Object ½âÎöºóµÄÖµ
+	 * ç”¨äºå•å…ƒæ ¼ï¼ˆexcelï¼‰çš„å­—ç¬¦ä¸²è§£æ
+	 * @param text å­—ç¬¦ä¸²
+	 * @param type ç±»å‹ï¼Œå®šä¹‰åœ¨Typesé‡Œ
+	 * @return Object è§£æåçš„å€¼
 	 */
 	public static Object parseCellValue(String text, byte type) {
 		if (type == Types.DT_DEFAULT) return parseCellValue(text);
@@ -2391,9 +2391,9 @@ public class Variant {
 	}
 
 	/**
-	 * ½âÎöÖ¸¶¨½øÖÆµÄ³¤ÕûÊı
-	 * @param s ³¤ÕûÊı×Ö·û´®
-	 * @param radix ½øÖÆ
+	 * è§£ææŒ‡å®šè¿›åˆ¶çš„é•¿æ•´æ•°
+	 * @param s é•¿æ•´æ•°å­—ç¬¦ä¸²
+	 * @param radix è¿›åˆ¶
 	 * @return Long
 	 */
 	public static Long parseLong(String s, int radix) {
@@ -2453,10 +2453,10 @@ public class Variant {
 	}
 	
 	/**
-	 * ½âÎöÖ¸¶¨½øÖÆµÄ³¤ÕûÊı
-	 * @param s ³¤ÕûÊı×Ö·û´®
-	 * @param radix ½øÖÆ
-	 * @return longÈç¹û¸ñÊ½²»¶ÔÔòÅ×³öNumberFormatExceptionÒì³£
+	 * è§£ææŒ‡å®šè¿›åˆ¶çš„é•¿æ•´æ•°
+	 * @param s é•¿æ•´æ•°å­—ç¬¦ä¸²
+	 * @param radix è¿›åˆ¶
+	 * @return longå¦‚æœæ ¼å¼ä¸å¯¹åˆ™æŠ›å‡ºNumberFormatExceptionå¼‚å¸¸
 	 */
 	public static long parseLongValue(String s, int radix) {
 		int len = s.length();
@@ -2515,9 +2515,9 @@ public class Variant {
 	}
 	
 	/**
-	 * ¼ÆËãÖ¸¶¨ÈÕÆÚÏà¸ôÖ¸¶¨ÌìÊıµÄÈÕÆÚ
-	 * @param date ÈÕÆÚ
-	 * @param n ÌìÊı
+	 * è®¡ç®—æŒ‡å®šæ—¥æœŸç›¸éš”æŒ‡å®šå¤©æ•°çš„æ—¥æœŸ
+	 * @param date æ—¥æœŸ
+	 * @param n å¤©æ•°
 	 * @return Date
 	 */
 	public static Date dayElapse(Calendar calendar, Date date, int n) {
@@ -2529,12 +2529,12 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»ØÖ¸¶¨ÈÕÆÚ¼ä¸ôÖ¸¶¨Ê±¼äºóµÄÈÕÆÚ
-	 * @param date ÈÕÆÚ
-	 * @param diff ¼ä¸ô³¤¶È
-	 * @param opt Ñ¡Ïî£¬y£º¼ä¸ôµ¥Î»ÎªÄê£¬q£º¼ä¸ôµ¥Î»Îª¼¾£¬m£º¼ä¸ôµ¥Î»ÎªÔÂ£¬s£º¼ä¸ôµ¥Î»ÎªÃë£¬ms£º¼ä¸ôµ¥Î»ÎªºÁÃë
-	 * e£º²»µ÷ÕûÔÂµ×£¬È±Ê¡½«°ÑÔÂµ÷Õû³ÉÔÂµ×£¬Óë@yqmÅäºÏ
-	 * @return ÈÕÆÚ
+	 * è¿”å›æŒ‡å®šæ—¥æœŸé—´éš”æŒ‡å®šæ—¶é—´åçš„æ—¥æœŸ
+	 * @param date æ—¥æœŸ
+	 * @param diff é—´éš”é•¿åº¦
+	 * @param opt é€‰é¡¹ï¼Œyï¼šé—´éš”å•ä½ä¸ºå¹´ï¼Œqï¼šé—´éš”å•ä½ä¸ºå­£ï¼Œmï¼šé—´éš”å•ä½ä¸ºæœˆï¼Œsï¼šé—´éš”å•ä½ä¸ºç§’ï¼Œmsï¼šé—´éš”å•ä½ä¸ºæ¯«ç§’
+	 * eï¼šä¸è°ƒæ•´æœˆåº•ï¼Œç¼ºçœå°†æŠŠæœˆè°ƒæ•´æˆæœˆåº•ï¼Œä¸@yqmé…åˆ
+	 * @return æ—¥æœŸ
 	 */
 	public static Date elapse(Date date, int diff, String opt) {
 		Calendar c = Calendar.getInstance();
@@ -2549,7 +2549,7 @@ public class Variant {
 				c.add(Calendar.YEAR, diff);
 				c.set(Calendar.DATE, c.getActualMaximum(Calendar.DATE));
 			}
-		} else if (opt.indexOf('q') != -1) { // ¼¾
+		} else if (opt.indexOf('q') != -1) { // å­£
 			if (opt.indexOf('e') != -1 || c.get(Calendar.DATE) != c.getActualMaximum(Calendar.DATE)) {
 				c.add(Calendar.MONTH, diff * 3);
 			} else {
@@ -2733,10 +2733,10 @@ public class Variant {
 	}
 	
 	/**
-	 * ·µ»ØÖ¸¶¨ÈÕÆÚ¼ä¸ôÖ¸¶¨Ê±¼äºóµÄÈÕÆÚ
-	 * @param date date@o¼ÆËã³öÀ´µÄÈÕÆÚ
-	 * @param diff ¼ä¸ô³¤¶È
-	 * @param opt Ñ¡Ïî£¬y£º¼ä¸ôµ¥Î»ÎªÄê£¬q£º¼ä¸ôµ¥Î»Îª¼¾£¬m£º¼ä¸ôµ¥Î»ÎªÔÂ£¬e£º²»µ÷ÕûÔÂµ×£¬È±Ê¡½«°ÑÔÂµ÷Õû³ÉÔÂµ×£¬Óë@yqmÅäºÏ
+	 * è¿”å›æŒ‡å®šæ—¥æœŸé—´éš”æŒ‡å®šæ—¶é—´åçš„æ—¥æœŸ
+	 * @param date date@oè®¡ç®—å‡ºæ¥çš„æ—¥æœŸ
+	 * @param diff é—´éš”é•¿åº¦
+	 * @param opt é€‰é¡¹ï¼Œyï¼šé—´éš”å•ä½ä¸ºå¹´ï¼Œqï¼šé—´éš”å•ä½ä¸ºå­£ï¼Œmï¼šé—´éš”å•ä½ä¸ºæœˆï¼Œeï¼šä¸è°ƒæ•´æœˆåº•ï¼Œç¼ºçœå°†æŠŠæœˆè°ƒæ•´æˆæœˆåº•ï¼Œä¸@yqmé…åˆ
 	 * @return int
 	 */
 	public static int elapse(int date, int diff, String opt) {
@@ -2748,7 +2748,7 @@ public class Variant {
 			return dayElapse(date, diff);
 		} else if (opt.indexOf('y') != -1) {
 			return yearElapse(date, diff, opt.indexOf('e') == -1);
-		} else if (opt.indexOf('q') != -1) { // ¼¾
+		} else if (opt.indexOf('q') != -1) { // å­£
 			return monthElapse(date, diff * 3, opt.indexOf('e') == -1);
 		} else if (opt.indexOf('m') != -1) {
 			return monthElapse(date, diff, opt.indexOf('e') == -1);
@@ -2809,7 +2809,7 @@ public class Variant {
 		return day / 7;
 	}
 	
-	// ÖÜÈÕÊıÁ¿£¬°´×ó¿ªÓÒ±ÕÇø¼ä¼Æ
+	// å‘¨æ—¥æ•°é‡ï¼ŒæŒ‰å·¦å¼€å³é—­åŒºé—´è®¡
 	private static long weekInterval_7(Date date1, Date date2) {
 		long day = dayInterval(date1, date2);
 		if (day < 0) {
@@ -2821,7 +2821,7 @@ public class Variant {
 		
 		int week = DateFactory.get().week((Date)date1);
 		if (week != Calendar.SUNDAY) {
-			// µ÷Õûµ½ÖÜÈÕ
+			// è°ƒæ•´åˆ°å‘¨æ—¥
 			int n = Calendar.SATURDAY - week + 1;
 			day -= n;
 			if (day >= 0) {
@@ -2834,7 +2834,7 @@ public class Variant {
 		}
 	}
 	
-	// ÖÜÒ»ÊıÁ¿£¬°´×ó¿ªÓÒ±ÕÇø¼ä¼Æ
+	// å‘¨ä¸€æ•°é‡ï¼ŒæŒ‰å·¦å¼€å³é—­åŒºé—´è®¡
 	private static long weekInterval_1(Date date1, Date date2) {
 		long day = dayInterval(date1, date2);
 		if (day < 0) {
@@ -2846,7 +2846,7 @@ public class Variant {
 		
 		int week = DateFactory.get().week((Date)date1);
 		if (week != Calendar.MONDAY) {
-			// µ÷Õûµ½ÖÜÒ»
+			// è°ƒæ•´åˆ°å‘¨ä¸€
 			int n = week == Calendar.SUNDAY ? 1 : Calendar.SATURDAY - week + 2;
 			day -= n;
 			if (day >= 0) {
@@ -2860,20 +2860,20 @@ public class Variant {
 	}
 	
 	/**
-	 * ·µ»ØÁ½¸öÈÕÆÚ¼ä¸ô¶àÉÙÌì
+	 * è¿”å›ä¸¤ä¸ªæ—¥æœŸé—´éš”å¤šå°‘å¤©
 	 * @param date1 Date
 	 * @param date2 Date
-	 * @return long ÌìÊı
+	 * @return long å¤©æ•°
 	 */
 	public static long dayInterval(Date date1, Date date2) {
 		return (date2.getTime() - BASEDATE) / 86400000 - (date1.getTime() - BASEDATE) / 86400000;
 	}
 	
 	/**
-	 * ·µ»ØÁ½¸öÈÕÆÚ¼ä¸ô¶àÉÙÌì
+	 * è¿”å›ä¸¤ä¸ªæ—¥æœŸé—´éš”å¤šå°‘å¤©
 	 * @param date1 Date
 	 * @param date2 Date
-	 * @return long ÌìÊı
+	 * @return long å¤©æ•°
 	 */
 	public static long dayInterval(long date1, long date2) {
 		return (date2 - BASEDATE) / 86400000 - (date1 - BASEDATE) / 86400000;
@@ -3021,36 +3021,36 @@ public class Variant {
 	}
 	
 	/**
-	 * ·µ»ØÁ½¸öÈÕÆÚ¼ä¸ô¶àÉÙÃë
+	 * è¿”å›ä¸¤ä¸ªæ—¥æœŸé—´éš”å¤šå°‘ç§’
 	 * @param date1 Date
 	 * @param date2 Date
-	 * @return long ÃëÊı
+	 * @return long ç§’æ•°
 	 */
 	public static long secondInterval(Date date1, Date date2) {
 		return (date2.getTime() - date1.getTime()) / 1000;
 	}
 
 	/**
-	 * ·µ»ØÁ½¸öÈÕÆÚ¼ä¸ô¶àÉÙºÁÃë
+	 * è¿”å›ä¸¤ä¸ªæ—¥æœŸé—´éš”å¤šå°‘æ¯«ç§’
 	 * @param date1 Date
 	 * @param date2 Date
-	 * @return long ºÁÃëÊı
+	 * @return long æ¯«ç§’æ•°
 	 */
 	private static long millisecondInterval(Date date1, Date date2) {
 		return date2.getTime() - date1.getTime();
 	}
 
 	/**
-	 * ·µ»ØÁ½¸öÈÕÆÚµÄ²î£¬ºóÃæµÄ¼õÇ°ÃæµÄ
+	 * è¿”å›ä¸¤ä¸ªæ—¥æœŸçš„å·®ï¼Œåé¢çš„å‡å‰é¢çš„
 	 * @param date1 Date
 	 * @param date2 Date
-	 * @param opt String y£ºÄê£¬q£º¼¾£¬m£ºÔÂ£¬s£ºÃë£¬ms£ººÁÃë
+	 * @param opt String yï¼šå¹´ï¼Œqï¼šå­£ï¼Œmï¼šæœˆï¼Œsï¼šç§’ï¼Œmsï¼šæ¯«ç§’
 	 * @return long
 	 */
 	public static long interval(Date date1, Date date2, String opt) {
 		if (opt == null) {
 			return dayInterval(date1, date2);
-		} else if (opt.indexOf("ymd") != -1) { // ·µ»Ø³ÉĞÎÈçyymmddµÄÕûÊı
+		} else if (opt.indexOf("ymd") != -1) { // è¿”å›æˆå½¢å¦‚yymmddçš„æ•´æ•°
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date1);
 			int y1 = calendar.get(Calendar.YEAR);
@@ -3083,7 +3083,7 @@ public class Variant {
 					dayDiff = 0;
 				} else {
 					//dayDiff = maxDay1 - d1 + d2;
-					// ÉèÖÃÈÕÆÚÎªÇ°Ò»¸öÔÂµÄd1Ìì
+					// è®¾ç½®æ—¥æœŸä¸ºå‰ä¸€ä¸ªæœˆçš„d1å¤©
 					calendar.set(Calendar.MONTH, m2 - 2);
 					calendar.set(Calendar.DATE, d1);
 					dayDiff = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) - d1;
@@ -3105,7 +3105,7 @@ public class Variant {
 			}
 			
 			return yearDiff * 10000 + monthDiff * 100 + dayDiff;
-		} else if (opt.indexOf("ym") != -1) { // ·µ»Ø³ÉĞÎÈçyymmµÄÕûÊı
+		} else if (opt.indexOf("ym") != -1) { // è¿”å›æˆå½¢å¦‚yymmçš„æ•´æ•°
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date1);
 			int y1 = calendar.get(Calendar.YEAR);
@@ -3138,7 +3138,7 @@ public class Variant {
 			}
 			
 			return yearDiff * 100 + monthDiff;
-		} else if (opt.indexOf("yd") != -1) { // ·µ»Ø³ÉĞÎÈçydddµÄÕûÊı
+		} else if (opt.indexOf("yd") != -1) { // è¿”å›æˆå½¢å¦‚ydddçš„æ•´æ•°
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date1);
 			int y1 = calendar.get(Calendar.YEAR);
@@ -3168,7 +3168,7 @@ public class Variant {
 					} else if (d2 < d1) {
 						return dayInterval(date1, date2);
 					} else if (d2 == d1) {
-						return 1000; // ÕıºÃ1Äê
+						return 1000; // æ­£å¥½1å¹´
 					} else {
 						return 1000 + d2 - d1;
 					}
@@ -3211,7 +3211,7 @@ public class Variant {
 			
 			date1 = calendar.getTime();
 			return yearDiff * 1000 + dayInterval(date1, date2);
-		} else if (opt.indexOf("md") != -1) { // ·µ»Ø³ÉĞÎÈçmmddµÄÕûÊı
+		} else if (opt.indexOf("md") != -1) { // è¿”å›æˆå½¢å¦‚mmddçš„æ•´æ•°
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date1);
 			int y1 = calendar.get(Calendar.YEAR);
@@ -3244,7 +3244,7 @@ public class Variant {
 					dayDiff = 0;
 				} else {
 					//dayDiff = maxDay1 - d1 + d2;
-					// ÉèÖÃÈÕÆÚÎªÇ°Ò»¸öÔÂµÄd1Ìì
+					// è®¾ç½®æ—¥æœŸä¸ºå‰ä¸€ä¸ªæœˆçš„d1å¤©
 					calendar.set(Calendar.MONTH, m2 - 2);
 					calendar.set(Calendar.DATE, d1);
 					dayDiff = calendar.getActualMaximum(Calendar.DAY_OF_MONTH) - d1;
@@ -3260,21 +3260,21 @@ public class Variant {
 			
 			monthDiff += (m2 - m1) + (y2 - y1) * 12;			
 			return monthDiff * 100 + dayDiff;
-		} else if (opt.indexOf("ms") != -1) { // ºÁÃë
+		} else if (opt.indexOf("ms") != -1) { // æ¯«ç§’
 			return millisecondInterval(date1, date2);
-		} else if (opt.indexOf('y') != -1) { // Äê
+		} else if (opt.indexOf('y') != -1) { // å¹´
 			return yearInterval(date1, date2);
-		} else if (opt.indexOf('q') != -1) { // ¼¾
+		} else if (opt.indexOf('q') != -1) { // å­£
 			return quaterInterval(date1, date2);
-		} else if (opt.indexOf('m') != -1) { // ÔÂ
+		} else if (opt.indexOf('m') != -1) { // æœˆ
 			return monthInterval(date1, date2);
-		} else if (opt.indexOf('s') != -1) { // Ãë
+		} else if (opt.indexOf('s') != -1) { // ç§’
 			return secondInterval(date1, date2);
-		} else if (opt.indexOf('w') != -1) { // ÖÜ
+		} else if (opt.indexOf('w') != -1) { // å‘¨
 			return weekInterval(date1, date2);
-		} else if (opt.indexOf('7') != -1) { // ÖÜ
+		} else if (opt.indexOf('7') != -1) { // å‘¨
 			return weekInterval_7(date1, date2);
-		} else if (opt.indexOf('1') != -1) { // ÖÜ
+		} else if (opt.indexOf('1') != -1) { // å‘¨
 			return weekInterval_1(date1, date2);
 		} else {
 			return dayInterval(date1, date2);
@@ -3282,26 +3282,26 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»ØÁ½¸öÈÕÆÚµÄ²î£¬ºóÃæµÄ¼õÇ°ÃæµÄ
-	 * @param date1 date@o¼ÆËã³öÀ´µÄÈÕÆÚ
-	 * @param date2 date@o¼ÆËã³öÀ´µÄÈÕÆÚ
-	 * @param opt String y£ºÄê£¬q£º¼¾£¬m£ºÔÂ£¬s£ºÃë£¬ms£ººÁÃë
+	 * è¿”å›ä¸¤ä¸ªæ—¥æœŸçš„å·®ï¼Œåé¢çš„å‡å‰é¢çš„
+	 * @param date1 date@oè®¡ç®—å‡ºæ¥çš„æ—¥æœŸ
+	 * @param date2 date@oè®¡ç®—å‡ºæ¥çš„æ—¥æœŸ
+	 * @param opt String yï¼šå¹´ï¼Œqï¼šå­£ï¼Œmï¼šæœˆï¼Œsï¼šç§’ï¼Œmsï¼šæ¯«ç§’
 	 * @return long
 	 */
 	public static long interval(int date1, int date2, String opt) {
 		if (opt == null) {
 			return innerDayInterval(date1, date2);
-		} else if (opt.indexOf('y') != -1) { // Äê
+		} else if (opt.indexOf('y') != -1) { // å¹´
 			return innerYearInterval(date1, date2);
-		} else if (opt.indexOf('q') != -1) { // ¼¾
+		} else if (opt.indexOf('q') != -1) { // å­£
 			return innerQuaterInterval(date1, date2);
-		} else if (opt.indexOf('m') != -1) { // ÔÂ
+		} else if (opt.indexOf('m') != -1) { // æœˆ
 			return innerMonthInterval(date1, date2);
-		} else if (opt.indexOf('w') != -1) { // ÖÜ
+		} else if (opt.indexOf('w') != -1) { // å‘¨
 			return weekInterval(DateFactory.toDate(date1), DateFactory.toDate(date2));
-		} else if (opt.indexOf('7') != -1) { // ÖÜ
+		} else if (opt.indexOf('7') != -1) { // å‘¨
 			return weekInterval_7(DateFactory.toDate(date1), DateFactory.toDate(date2));
-		} else if (opt.indexOf('1') != -1) { // ÖÜ
+		} else if (opt.indexOf('1') != -1) { // å‘¨
 			return weekInterval_1(DateFactory.toDate(date1), DateFactory.toDate(date2));
 		} else {
 			return innerDayInterval(date1, date2);
@@ -3309,10 +3309,10 @@ public class Variant {
 	}
 	
 	/**
-	 * ·µ»ØÁ½¸öÈÕÆÚµÄ¾«È·²î£¬ºóÃæµÄ¼õÇ°ÃæµÄ
-	 * @param date1 date@o¼ÆËã³öÀ´µÄÈÕÆÚ
-	 * @param date2 date@o¼ÆËã³öÀ´µÄÈÕÆÚ
-	 * @param opt String y£ºÄê£¬q£º¼¾£¬m£ºÔÂ£¬s£ºÃë£¬ms£ººÁÃë
+	 * è¿”å›ä¸¤ä¸ªæ—¥æœŸçš„ç²¾ç¡®å·®ï¼Œåé¢çš„å‡å‰é¢çš„
+	 * @param date1 date@oè®¡ç®—å‡ºæ¥çš„æ—¥æœŸ
+	 * @param date2 date@oè®¡ç®—å‡ºæ¥çš„æ—¥æœŸ
+	 * @param opt String yï¼šå¹´ï¼Œqï¼šå­£ï¼Œmï¼šæœˆï¼Œsï¼šç§’ï¼Œmsï¼šæ¯«ç§’
 	 * @return long
 	 */
 	public static double realInterval(int date1, int date2, String opt) {
@@ -3320,13 +3320,13 @@ public class Variant {
 		
 		if (opt == null) {
 			return dayDiff;
-		} else if (opt.indexOf('y') != -1) { // Äê
+		} else if (opt.indexOf('y') != -1) { // å¹´
 			return dayDiff / 365;
-		} else if (opt.indexOf('q') != -1) { // ¼¾
+		} else if (opt.indexOf('q') != -1) { // å­£
 			return dayDiff / 90;
-		} else if (opt.indexOf('m') != -1) { // ÔÂ
+		} else if (opt.indexOf('m') != -1) { // æœˆ
 			return dayDiff / 30;
-		} else if (opt.indexOf('w') != -1) { // ÖÜ
+		} else if (opt.indexOf('w') != -1) { // å‘¨
 			return dayDiff / 7;
 		} else {
 			return dayDiff;
@@ -3334,31 +3334,31 @@ public class Variant {
 	}
 	
 	/**
-	 * ·µ»ØÁ½¸öÈÕÆÚµÄ¾«È·²î£¬ºóÃæµÄ¼õÇ°ÃæµÄ
+	 * è¿”å›ä¸¤ä¸ªæ—¥æœŸçš„ç²¾ç¡®å·®ï¼Œåé¢çš„å‡å‰é¢çš„
 	 * @param date1 Date
 	 * @param date2 Date
-	 * @param opt String y£ºÄê£¬q£º¼¾£¬m£ºÔÂ£¬s£ºÃë£¬ms£ººÁÃë
+	 * @param opt String yï¼šå¹´ï¼Œqï¼šå­£ï¼Œmï¼šæœˆï¼Œsï¼šç§’ï¼Œmsï¼šæ¯«ç§’
 	 * @return long
 	 */
 	public static double realInterval(Date date1, Date date2, String opt) {
 		if (opt == null) {
 			double msDiff = millisecondInterval(date1, date2);
 			return msDiff / 86400000;
-		} else if (opt.indexOf("ms") != -1) { // ºÁÃë
+		} else if (opt.indexOf("ms") != -1) { // æ¯«ç§’
 			return millisecondInterval(date1, date2);
-		} else if (opt.indexOf('y') != -1) { // Äê
+		} else if (opt.indexOf('y') != -1) { // å¹´
 			double dayDiff = dayInterval(date1, date2);
 			return dayDiff / 365;
-		} else if (opt.indexOf('q') != -1) { // ¼¾
+		} else if (opt.indexOf('q') != -1) { // å­£
 			double dayDiff = dayInterval(date1, date2);
 			return dayDiff / 90;
-		} else if (opt.indexOf('m') != -1) { // ÔÂ
+		} else if (opt.indexOf('m') != -1) { // æœˆ
 			double dayDiff = dayInterval(date1, date2);
 			return dayDiff / 30;
-		} else if (opt.indexOf('s') != -1) { // Ãë
+		} else if (opt.indexOf('s') != -1) { // ç§’
 			double msDiff = millisecondInterval(date1, date2);
 			return msDiff / 1000;
-		} else if (opt.indexOf('w') != -1) { // ÖÜ
+		} else if (opt.indexOf('w') != -1) { // å‘¨
 			double dayDiff = dayInterval(date1, date2);
 			return dayDiff / 7;
 		} else {
@@ -3368,10 +3368,10 @@ public class Variant {
 	}
 
 	/**
-	 * ·µ»ØÁ½¸öÊ±¼äÊÇ·ñÏàµÈ£¬Ä¬ÈÏ±È½Ïµ½Ìì
+	 * è¿”å›ä¸¤ä¸ªæ—¶é—´æ˜¯å¦ç›¸ç­‰ï¼Œé»˜è®¤æ¯”è¾ƒåˆ°å¤©
 	 * @param date1 Date
 	 * @param date2 Date
-	 * @param opt String y£ºÄê£¬q£º¼¾£¬m£ºÔÂ£¬t£ºÑ®£¬w£ºÖÜ
+	 * @param opt String yï¼šå¹´ï¼Œqï¼šå­£ï¼Œmï¼šæœˆï¼Œtï¼šæ—¬ï¼Œwï¼šå‘¨
 	 * @return boolean
 	 */
 	public static boolean isEquals(Date date1, Date date2, String opt) {
@@ -3380,9 +3380,9 @@ public class Variant {
 
 		if (opt == null) {
 			return df.month(date1) == df.month(date2) && df.day(date1) == df.day(date2);
-		} else if (opt.indexOf('y') != -1) { // Äê
+		} else if (opt.indexOf('y') != -1) { // å¹´
 			return true;
-		} else if (opt.indexOf('q') != -1) { // ¼¾
+		} else if (opt.indexOf('q') != -1) { // å­£
 			int m1 = df.month(date1);
 			int m2 = df.month(date2);
 			if (m1 <= 3) {
@@ -3394,9 +3394,9 @@ public class Variant {
 			} else {
 				return m2 > 9;
 			}
-		} else if (opt.indexOf('m') != -1) { // ÔÂ
+		} else if (opt.indexOf('m') != -1) { // æœˆ
 			return df.month(date1) == df.month(date2);
-		} else if (opt.indexOf('t') != -1) { // Ñ®
+		} else if (opt.indexOf('t') != -1) { // æ—¬
 			if (df.month(date1) != df.month(date2)) return false;
 			int d1 = df.day(date1);
 			int d2 = df.day(date2);
@@ -3409,7 +3409,7 @@ public class Variant {
 			} else {
 				return d2 > 20;
 			}
-		} else if (opt.indexOf('w') != -1) { // ÖÜ
+		} else if (opt.indexOf('w') != -1) { // å‘¨
 			int dayDiff = (int)dayInterval(date1, date2);
 			if (dayDiff == 0) {
 				return true;
@@ -3418,7 +3418,7 @@ public class Variant {
 			}
 
 			if (opt.indexOf('1') == -1) {
-				// ÖÜÈÕÊÇÖÜµÄµÚÒ»Ìì
+				// å‘¨æ—¥æ˜¯å‘¨çš„ç¬¬ä¸€å¤©
 				int week2 = df.week(date1) + dayDiff;
 				return week2 >= Calendar.SUNDAY && week2 <= Calendar.SATURDAY;
 			} else {
@@ -3436,7 +3436,7 @@ public class Variant {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊıµÄ°´Î»Óë
+	 * è®¡ç®—ä¸¤ä¸ªæ•°çš„æŒ‰ä½ä¸
 	 * @param n1 Number
 	 * @param n2 Number
 	 * @return Number

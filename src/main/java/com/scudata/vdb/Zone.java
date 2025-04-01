@@ -6,14 +6,14 @@ import com.scudata.dm.ObjectReader;
 import com.scudata.dm.ObjectWriter;
 
 /**
- * ÇøÎ»»ùÀà
+ * åŒºä½åŸºç±»
  * @author RunQian
  *
  */
 class Zone {
-	protected int outerSeq; // Íâ´æºÅ£¬Ã¿´ÎÆô¶¯Êı¾İ¿â¼Ó1
-	protected long innerSeq; // ÄÚ´æºÅ£¬¸ù¾İÊÂÎñ¼Ó1
-	protected int block; // ÇøÎ»¶ÔÓ¦µÄÊı¾İÕ¼ÓÃµÄÎïÀí¿éÊ×¿é
+	protected int outerSeq; // å¤–å­˜å·ï¼Œæ¯æ¬¡å¯åŠ¨æ•°æ®åº“åŠ 1
+	protected long innerSeq; // å†…å­˜å·ï¼Œæ ¹æ®äº‹åŠ¡åŠ 1
+	protected int block; // åŒºä½å¯¹åº”çš„æ•°æ®å ç”¨çš„ç‰©ç†å—é¦–å—
 	
 	public Zone() {
 	}
@@ -51,10 +51,10 @@ class Zone {
 		writer.writeInt(block);
 	}
 	
-	// ÅĞ¶ÏvdbµÄÊÂÎñÆô¶¯ºÅÊÇ·ñºÍ´ËÇøÎ»Æ¥Åä
+	// åˆ¤æ–­vdbçš„äº‹åŠ¡å¯åŠ¨å·æ˜¯å¦å’Œæ­¤åŒºä½åŒ¹é…
 	public boolean match(VDB vdb, boolean isLockVDB) {
 		if (outerSeq == 0) {
-			// ÇøÎ»ÉĞÎ´Ìá½»£¬·µ»ØÊÇ·ñÊÇ´ËvdbËø¶¨µÄÕâ¸ö½Ú
+			// åŒºä½å°šæœªæäº¤ï¼Œè¿”å›æ˜¯å¦æ˜¯æ­¤vdbé”å®šçš„è¿™ä¸ªèŠ‚
 			return isLockVDB;
 		}
 		

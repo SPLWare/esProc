@@ -3,17 +3,17 @@ package com.scudata.dm;
 import java.util.NoSuchElementException;
 
 /**
- * ¼ÆËã¶ÑÕ»
+ * è®¡ç®—å †æ ˆ
  * @author WangXiaoJun
  *
  */
 public class ComputeStack {
-	private LinkEntry<IComputeItem> stackHead; // ÕıÔÚ¼ÆËãÖĞµÄĞòÁĞ¡¢¼ÇÂ¼µÈ×é³É¶ÑÕ»
-	private LinkEntry<Current> argHead; // evalº¯ÊıÓÃµ½µÄ²ÎÊı¶ÑÕ»
+	private LinkEntry<IComputeItem> stackHead; // æ­£åœ¨è®¡ç®—ä¸­çš„åºåˆ—ã€è®°å½•ç­‰ç»„æˆå †æ ˆ
+	private LinkEntry<Current> argHead; // evalå‡½æ•°ç”¨åˆ°çš„å‚æ•°å †æ ˆ
 	
 	/**
-	 * °Ñ²ÎÊıÑ¹Õ»
-	 * @param value Sequence ?²ÎÊıµÄÖµ
+	 * æŠŠå‚æ•°å‹æ ˆ
+	 * @param value Sequence ?å‚æ•°çš„å€¼
 	 */
 	public void pushArg(Sequence value) {
 		if (value != null) {
@@ -24,7 +24,7 @@ public class ComputeStack {
 	}
 
 	/**
-	 * °Ñ²ÎÊı³öÕ»
+	 * æŠŠå‚æ•°å‡ºæ ˆ
 	 */
 	public void popArg() {
 		if (argHead != null) {
@@ -35,7 +35,7 @@ public class ComputeStack {
 	}
 
 	/**
-	 * È¡²ÎÊı"arg"µÄÖµ
+	 * å–å‚æ•°"arg"çš„å€¼
 	 * @return BaseSequence.Current
 	 */
 	public Current getArg() {
@@ -47,14 +47,14 @@ public class ComputeStack {
 	}
 
 	/**
-	 * ½«¶ÔÏóÑ¹Õ»£¬A.(...), r.(...)
+	 * å°†å¯¹è±¡å‹æ ˆï¼ŒA.(...), r.(...)
 	 * @param obj IComputeItem
 	 */
 	public void push(IComputeItem obj) {
 		stackHead = new LinkEntry<IComputeItem>(obj, stackHead);
 	}
 
-	// È¡ĞòÁĞµÄµ±Ç°ÔªËØÖµ
+	// å–åºåˆ—çš„å½“å‰å…ƒç´ å€¼
 	public Object getCurrentValue(Sequence seq) {
 		for (LinkEntry<IComputeItem> entry = stackHead; entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
@@ -81,7 +81,7 @@ public class ComputeStack {
 		return null;
 	}
 
-	// ·µ»ØĞòÁĞµÄµ±Ç°Ë÷Òı
+	// è¿”å›åºåˆ—çš„å½“å‰ç´¢å¼•
 	public int getCurrentIndex(Sequence seq) {
 		for (LinkEntry<IComputeItem> entry = stackHead; entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
@@ -94,7 +94,7 @@ public class ComputeStack {
 	}
 
 	/**
-	 * ½«Õ»¶¥µÄ¶ÔÏó³öÕ»
+	 * å°†æ ˆé¡¶çš„å¯¹è±¡å‡ºæ ˆ
 	 */
 	public void pop() {
 		if (stackHead != null) {
@@ -106,7 +106,7 @@ public class ComputeStack {
 	}
 
 	/**
-	 * È¡Õ»¶¥µÄ¶ÔÏó
+	 * å–æ ˆé¡¶çš„å¯¹è±¡
 	 * @return IComputeItem
 	 */
 	public IComputeItem getTopObject() {
@@ -118,7 +118,7 @@ public class ComputeStack {
 	}
 
 	/**
-	 * È¡×î¶¥¶ËµÄĞòÁĞ
+	 * å–æœ€é¡¶ç«¯çš„åºåˆ—
 	 * @return Sequence
 	 */
 	public Sequence getTopSequence() {
@@ -129,12 +129,12 @@ public class ComputeStack {
 			}
 		}
 		
-		// ²»»áÖ´ĞĞµ½ÕâÀï
+		// ä¸ä¼šæ‰§è¡Œåˆ°è¿™é‡Œ
 		throw new NoSuchElementException();
 	}
 	
 	/**
-	 * È¡×î¶¥¶ËµÄĞòÁĞ¼ÆËã¶ÔÏó
+	 * å–æœ€é¡¶ç«¯çš„åºåˆ—è®¡ç®—å¯¹è±¡
 	 * @return Sequence
 	 */
 	public Current getTopCurrent() {
@@ -145,12 +145,12 @@ public class ComputeStack {
 			}
 		}
 		
-		// ²»»áÖ´ĞĞµ½ÕâÀï
+		// ä¸ä¼šæ‰§è¡Œåˆ°è¿™é‡Œ
 		throw new NoSuchElementException();
 	}
 	
 	/**
-	 * ÅĞ¶Ï¶ÔÏóÊÇ·ñÔÚÕ»ÖĞ
+	 * åˆ¤æ–­å¯¹è±¡æ˜¯å¦åœ¨æ ˆä¸­
 	 * @param obj IComputeItem
 	 * @return boolean
 	 */
@@ -165,7 +165,7 @@ public class ComputeStack {
 	}
 
 	/**
-	 * ·µ»Ø¶ÑÕ»ÊÇ·ñ¿Õ
+	 * è¿”å›å †æ ˆæ˜¯å¦ç©º
 	 * @return boolean
 	 */
 	public boolean isStackEmpty() {
@@ -177,14 +177,14 @@ public class ComputeStack {
 	}
 
 	/**
-	 * Çå¿Õ¼ÆËã¶ÑÕ»
+	 * æ¸…ç©ºè®¡ç®—å †æ ˆ
 	 */
 	public void clearStackList() {
 		stackHead = null;
 	}
 
 	/**
-	 * Çå¿Õarg¶ÑÕ»
+	 * æ¸…ç©ºargå †æ ˆ
 	 */
 	public void clearArgStackList() {
 		argHead = null;

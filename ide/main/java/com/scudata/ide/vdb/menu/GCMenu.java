@@ -2,47 +2,47 @@ package com.scudata.ide.vdb.menu;
 
 public class GCMenu {
 //	1
-	public static final String CONNECTION = "connection"; // Á¬½Ó(C)
+	public static final String CONNECTION = "connection"; // è¿æ¥(C)
 
-	public static final String CONN_NEW = "conn.new";//ĞÂ½¨
-	public static final String CONN_OPEN = "conn.open"; // ´ò¿ª
-	public static final String CONN_SAVE = "conn.save"; // ±£´æ
-	public static final String CONN_CLOSE = "conn.close"; // ¹Ø±Õ
-	public static final String CONN_CONFIG = "conn.config"; // ÅäÖÃ
-	public static final String CONN_DELETE = "conn.delete"; // É¾³ı
-	public static final String CONN_ACHEIVE = "conn.acheive"; // ¹éµµ
-	public static final String CONN_PURGE = "conn.purge"; // ÕûÀí
+	public static final String CONN_NEW = "conn.new";//æ–°å»º
+	public static final String CONN_OPEN = "conn.open"; // æ‰“å¼€
+	public static final String CONN_SAVE = "conn.save"; // ä¿å­˜
+	public static final String CONN_CLOSE = "conn.close"; // å…³é—­
+	public static final String CONN_CONFIG = "conn.config"; // é…ç½®
+	public static final String CONN_DELETE = "conn.delete"; // åˆ é™¤
+	public static final String CONN_ACHEIVE = "conn.acheive"; // å½’æ¡£
+	public static final String CONN_PURGE = "conn.purge"; // æ•´ç†
 	
 	public static final String CONN_EXIT = "conn.exit";
 
 	public static final short iCONNECTION = 0;
-	public static final short iCONN_NEW = 5; // ĞÂ½¨
-	public static final short iCONN_OPEN = 10; // ´ò¿ªÁ¬½Ó
-	public static final short iCONN_SAVE = 15; // ±£´æ
-	public static final short iCONN_CLOSE = 20; // ¹Ø±ÕÁ¬½Ó
+	public static final short iCONN_NEW = 5; // æ–°å»º
+	public static final short iCONN_OPEN = 10; // æ‰“å¼€è¿æ¥
+	public static final short iCONN_SAVE = 15; // ä¿å­˜
+	public static final short iCONN_CLOSE = 20; // å…³é—­è¿æ¥
 	public static final short iCONN_CONFIG = 30;
 	public static final short iCONN_DELETE = 40;
 	public static final short iCONN_ACHEIVE = 50;
 	public static final short iCONN_PURGE = 60; 
 	
-	public static final short iCONN_EXIT = 99;// ÍË³ö(X)
+	public static final short iCONN_EXIT = 99;// é€€å‡º(X)
 
 //2
-	public static final String NODE = "node"; // ½Úµã(N)
-	public static final String NODE_COPY = "node.copy"; // ¸´ÖÆ
-	public static final String NODE_PASTE = "node.paste"; //Õ³Ìù
-	public static final String NODE_DELETE = "node.delete"; // É¾³ı
-	public static final String NODE_CREATE = "node.create"; //´´½¨
+	public static final String NODE = "node"; // èŠ‚ç‚¹(N)
+	public static final String NODE_COPY = "node.copy"; // å¤åˆ¶
+	public static final String NODE_PASTE = "node.paste"; //ç²˜è´´
+	public static final String NODE_DELETE = "node.delete"; // åˆ é™¤
+	public static final String NODE_CREATE = "node.create"; //åˆ›å»º
 	
-	public static final short iNODE = 200;//½Úµã
+	public static final short iNODE = 200;//èŠ‚ç‚¹
 	public static final short iNODE_COPY = 210; // 
 	public static final short iNODE_PASTE = 220; 
 	public static final short iNODE_DELETE = 230; 
 	public static final short iNODE_CREATE = 240; 
 	
 //3
-	public static final String DATA = "data"; // Êı¾İ(D)
-	public static final String DATA_SAVE = "data.save"; // Êı¾İ(D)
+	public static final String DATA = "data"; // æ•°æ®(D)
+	public static final String DATA_SAVE = "data.save"; // æ•°æ®(D)
 	public static final String DATA_COPY = "data.copy";
 	public static final String DATA_PASTE = "data.paste";
 	public static final String DATA_IMPORT = "data.import";
@@ -55,17 +55,17 @@ public class GCMenu {
 //	public static final short iDATA_SAVE = 310; 
 
 //4
-	public static final String TOOLS = "tools"; // ¹¤¾ß(T)
+	public static final String TOOLS = "tools"; // å·¥å…·(T)
 	public static final String TOOLS_BINBROWSER = "tools.binbrowser";
 	public static final String TOOLS_OPTION = "tools.option";
 	
 	public static final short iTOOLS = 400;
-	public static final short iTOOLS_BINBROWSER = 440; // ¼¯ÎÄ¼şä¯ÀÀÆ÷
-	public static final short iTOOLS_OPTION = 450; // Ñ¡Ïî(O)
+	public static final short iTOOLS_BINBROWSER = 440; // é›†æ–‡ä»¶æµè§ˆå™¨
+	public static final short iTOOLS_OPTION = 450; // é€‰é¡¹(O)
 	
 
 //5
-	public static final String WINDOW = "window"; // ´°¿Ú(W)
+	public static final String WINDOW = "window"; // çª—å£(W)
 	protected static final String CASCADE = "window.cascade";
 	protected static final String TILE_HORIZONTAL = "window.tilehorizontal";
 	protected static final String TILE_VERTICAL = "window.tilevertical";
@@ -78,7 +78,7 @@ public class GCMenu {
 	public static final short iLAYER = 514;
 	
 	
-		// ¿Õ°×Í¼±êÃû³Æ
+		// ç©ºç™½å›¾æ ‡åç§°
 	public final static String BLANK_ICON = "blank";
 	public final static String PRE_MENU = "menu.";
 

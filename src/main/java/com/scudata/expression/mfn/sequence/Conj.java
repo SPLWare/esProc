@@ -13,23 +13,23 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼ÆËãĞòÁĞ³ÉÔ±µÄºÍÁĞ
- * A.conj() A.conj(x)£¬AÊÇĞòÁĞµÄĞòÁĞ
+ * è®¡ç®—åºåˆ—æˆå‘˜çš„å’Œåˆ—
+ * A.conj() A.conj(x)ï¼ŒAæ˜¯åºåˆ—çš„åºåˆ—
  * @author RunQian
  *
  */
 public class Conj extends SequenceFunction {
 	/**
-	 * ÉèÖÃº¯Êı²ÎÊı
-	 * @param cs Íø¸ñ¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param param º¯Êı²ÎÊı×Ö·û´®
+	 * è®¾ç½®å‡½æ•°å‚æ•°
+	 * @param cs ç½‘æ ¼å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param param å‡½æ•°å‚æ•°å­—ç¬¦ä¸²
 	 */
 	public void setParameter(ICellSet cs, Context ctx, String param) {
 		strParam = param;
 		this.cs = cs;
 		
-		// A.conj(x,¡­)°Ñ²ÎÊıµ±³ÉÒ»¸öÕûÌå´´½¨³É¶ººÅ±í´ïÊ½
+		// A.conj(x,â€¦)æŠŠå‚æ•°å½“æˆä¸€ä¸ªæ•´ä½“åˆ›å»ºæˆé€—å·è¡¨è¾¾å¼
 		this.param = ParamParser.newLeafParam(param, cs, ctx);
 		if (next != null) {
 			next.setParameter(cs, ctx, param);

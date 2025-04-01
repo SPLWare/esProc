@@ -8,11 +8,11 @@ import com.scudata.common.Sentence;
 import com.scudata.resources.ParseMessage;
 
 public final class Tokenizer {
-	public static final char KEYWORD = 0; // ±£Áô×Ö
-	public static final char IDENT = 1; // ±í¡¢×Ö¶Î¡¢±ğÃû¡¢º¯Êı
-	public static final char NUMBER = 2; // Êı×Ö³£Á¿
-	public static final char STRING = 3; // ×Ö·û´®³£Á¿
-	public static final char OPERATOR = 4; // ÔËËã·û+-*/=<>&|^%!
+	public static final char KEYWORD = 0; // ä¿ç•™å­—
+	public static final char IDENT = 1; // è¡¨ã€å­—æ®µã€åˆ«åã€å‡½æ•°
+	public static final char NUMBER = 2; // æ•°å­—å¸¸é‡
+	public static final char STRING = 3; // å­—ç¬¦ä¸²å¸¸é‡
+	public static final char OPERATOR = 4; // è¿ç®—ç¬¦+-*/=<>&|^%!
 
 	public static final char LPAREN = '(';
 	public static final char RPAREN = ')';
@@ -23,23 +23,23 @@ public final class Tokenizer {
 	public static final char PARAMMARK = '?';
 
 	public static final char LEVELMARK = '#';
-	public static final char TABLEMARK = '@'; // F@S¡¢@var
+	public static final char TABLEMARK = '@'; // F@Sã€@var
 	//public static final char LOCATORMARK = '~'; // F~W
 
-	public static final char OUTERFUNCTION = '$'; // $func(...) ÀàĞÍ¶ÔÓ¦IDENT£¿
+	public static final char OUTERFUNCTION = '$'; // $func(...) ç±»å‹å¯¹åº”IDENTï¼Ÿ
 
-	private static final String OPSTRING = "+-*/=<>&|^%!~"; // ~°´Î»È¡·´
+	private static final String OPSTRING = "+-*/=<>&|^%!~"; // ~æŒ‰ä½å–å
 	private final static String[] GATHERS = {"AVG", "COUNT", "MAX", "MIN", "SUM", "COUNTIF", "FIRST", "LAST"};
-	//private final static String[] ´°¿Úº¯Êı = {"AVG", "COUNT", "MAX", "MIN", "SUM", "RANK", "DENSE_RANK", "ROW_NUMBER"};
+	//private final static String[] çª—å£å‡½æ•° = {"AVG", "COUNT", "MAX", "MIN", "SUM", "RANK", "DENSE_RANK", "ROW_NUMBER"};
 
 	//private final static String[] OPERATORS = {
 	//	"+","-","*","/","=","<","<=","<>","!=",">",">=","%","^","||"
 	//};
 
 	public static final String COL_AS = " "; // " AS "
-	public static final String TABLE_AS = " "; // oracle±íµÄ±ğÃû²»ÄÜ¼Óas
+	public static final String TABLE_AS = " "; // oracleè¡¨çš„åˆ«åä¸èƒ½åŠ as
 
-	// Ñ¡³öÁĞ±í´ïÊ½ÖĞ¿ÉÒÔÓÃµÄ¹Ø¼ü×Ö£¬ÓÃÓÚÅĞ¶ÏÑ¡³öÁĞ×îºóµÄ±êÊ¶·ûÊÇ·ñÊÇ±ğÃû
+	// é€‰å‡ºåˆ—è¡¨è¾¾å¼ä¸­å¯ä»¥ç”¨çš„å…³é”®å­—ï¼Œç”¨äºåˆ¤æ–­é€‰å‡ºåˆ—æœ€åçš„æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯åˆ«å
 	private final static String[] OPKEYWORDS = {"AND", "OR", "LIKE", "NOT"};
 
 	// "BETWEEN","ROWS","CASE","INNER","END","ONLY", "OUTER",
@@ -67,12 +67,12 @@ public final class Tokenizer {
 		"WHEN","WHERE","WITH"
 	};
 
-	// ²éÕÒºÏ²¢¹Ø¼ü×Ö
+	// æŸ¥æ‰¾åˆå¹¶å…³é”®å­—
 	public static int scanMergeKeyWord(Token []tokens, int start, final int next) {
 		for(int i = start; i < next; ++i) {
 			if(tokens[i].isMergeKeyWord()) {
 				return i;
-			} else if (tokens[i].getType() == LPAREN) { // Ìø¹ı()
+			} else if (tokens[i].getType() == LPAREN) { // è·³è¿‡()
 				i = scanParen(tokens, i, next);
 			}
 		}
@@ -80,7 +80,7 @@ public final class Tokenizer {
 		return -1;
 	}
 
-	// ÔÚÖ¸¶¨·¶Î§ÄÚËÑË÷Ö¸¶¨µÄ¹Ø¼ü×Ö£¬ĞèÒª´óĞ´
+	// åœ¨æŒ‡å®šèŒƒå›´å†…æœç´¢æŒ‡å®šçš„å…³é”®å­—ï¼Œéœ€è¦å¤§å†™
 	public static int scanByDataKeyWord(Token []tokens, int start, final int next) {
 		for(int i = start; i < next; ++i) {
 			Token token = tokens[i];
@@ -90,7 +90,7 @@ public final class Tokenizer {
 				} else if (token.equals("FROM") || token.equals("HAVING") || token.equals("ORDER")) {
 					return -1;
 				}
-			} else if (tokens[i].getType() == LPAREN) { // Ìø¹ı()
+			} else if (tokens[i].getType() == LPAREN) { // è·³è¿‡()
 				i = scanParen(tokens, i, next);
 			}
 		}
@@ -98,14 +98,14 @@ public final class Tokenizer {
 		return -1;
 	}
 
-	// ÔÚÖ¸¶¨·¶Î§ÄÚËÑË÷Ö¸¶¨µÄ¹Ø¼ü×Ö£¬ĞèÒª´óĞ´
+	// åœ¨æŒ‡å®šèŒƒå›´å†…æœç´¢æŒ‡å®šçš„å…³é”®å­—ï¼Œéœ€è¦å¤§å†™
 	public static int scanKeyWord(String key, Token []tokens, int start, final int next) {
 		for(int i = start; i < next; ++i) {
 			if(tokens[i].isKeyWord(key)) {
 				return i;
-			} else if (tokens[i].getType() == LPAREN) { // Ìø¹ı()
+			} else if (tokens[i].getType() == LPAREN) { // è·³è¿‡()
 				i = scanParen(tokens, i, next);
-			} else if (tokens[i].getType() == LBRACE) { // Ìø¹ı{}
+			} else if (tokens[i].getType() == LBRACE) { // è·³è¿‡{}
 				i = scanBrace(tokens, i, next);
 			}
 		}
@@ -117,7 +117,7 @@ public final class Tokenizer {
 		for(int i = next - 1; i >= start; --i) {
 			if(tokens[i].isKeyWord(key)) {
 				return i;
-			} else if (tokens[i].getType() == RPAREN) { // Ìø¹ı()
+			} else if (tokens[i].getType() == RPAREN) { // è·³è¿‡()
 				i = lastScanParen(tokens, start, i);
 			}
 		}
@@ -129,7 +129,7 @@ public final class Tokenizer {
 		int keyCount = keys.length;
 		for(int i = start; i < next; ++i) {
 			Token token = tokens[i];
-			if (token.getType() == LPAREN) { // Ìø¹ı()
+			if (token.getType() == LPAREN) { // è·³è¿‡()
 				i = scanParen(tokens, i, next);
 			} else if (token.getType() == KEYWORD) {
 				for (int k = 0; k < keyCount; ++k) {
@@ -141,13 +141,13 @@ public final class Tokenizer {
 		return -1;
 	}
 
-	// ÔÚÖ¸¶¨·¶Î§ÄÚËÑË÷¶ººÅ
+	// åœ¨æŒ‡å®šèŒƒå›´å†…æœç´¢é€—å·
 	public static int scanComma(Token []tokens, int start, final int next) {
 		for(int i = start; i < next; ++i) {
 			char type = tokens[i].getType();
 			if(type == COMMA) {
 				return i;
-			} else if(type == LPAREN) { // Ìø¹ı()
+			} else if(type == LPAREN) { // è·³è¿‡()
 				i = scanParen(tokens, i, next);
 			}
 		}
@@ -155,7 +155,7 @@ public final class Tokenizer {
 		return -1;
 	}
 
-	// ËÑË÷()£¬ÆğÊ¼Î»ÖÃÊÇ×óÀ¨ºÅ
+	// æœç´¢()ï¼Œèµ·å§‹ä½ç½®æ˜¯å·¦æ‹¬å·
 	public static int scanParen(Token []tokens, int start, final int next) {
 		int deep = 0;
 		for (int i = start + 1; i < next; ++i) {
@@ -171,7 +171,7 @@ public final class Tokenizer {
 		throw new RQException("(,)" + mm.getMessage("mark.notMatch"));
 	}
 
-	// endÎªÓÒÀ¨ºÅ
+	// endä¸ºå³æ‹¬å·
 	public static int lastScanParen(Token []tokens, int start, int end) {
 		int deep = 0;
 		for(int i = end - 1; i >= start; --i) {
@@ -219,22 +219,22 @@ public final class Tokenizer {
 	}
 
 	public static boolean isIdentifierStart(char ch) {
-		// sqlserverÁÙÊ±±í²»»á³öÏÖ#£¿
+		// sqlserverä¸´æ—¶è¡¨ä¸ä¼šå‡ºç°#ï¼Ÿ
 		return Character.isJavaIdentifierStart(ch); //  || ch == '#'
 	}
 
 	public static boolean isIdentifierPart(char ch) {
-		// sqlserverÁÙÊ±±í²»»á³öÏÖ#£¿
+		// sqlserverä¸´æ—¶è¡¨ä¸ä¼šå‡ºç°#ï¼Ÿ
 		return Character.isJavaIdentifierPart(ch); //  || ch == '#'
 	}
 
-	// ½âÎösql£¬Ë«ÒıºÅÄÚµÄÎª±êÊ¶·û
+	// è§£æsqlï¼ŒåŒå¼•å·å†…çš„ä¸ºæ ‡è¯†ç¬¦
 	public static Token[] parse(String command) {
 		int curIndex = 0;
 		//command = command.replaceAll("\"", " ").replaceAll("\r\n", " ").replaceAll("\r", " ").replaceAll("\n", " ");
 		command = command.trim();
 		
-		//xingjl 20201211, ÒÔ where 1=2½áÊøÊ±£¬È¥µôwhere£¬ÓÃtop 1·µ»Ø1Ìõ£¬Õë¶ÔÓÀºé¡¢·«Èí¼¯³É¼¯ËãÆ÷
+		//xingjl 20201211, ä»¥ where 1=2ç»“æŸæ—¶ï¼Œå»æ‰whereï¼Œç”¨top 1è¿”å›1æ¡ï¼Œé’ˆå¯¹æ°¸æ´ªã€å¸†è½¯é›†æˆé›†ç®—å™¨
 		String upp = command.toUpperCase();
 		int selectPos = upp.indexOf("SELECT ");
 		int topPos = upp.indexOf(" TOP ");
@@ -268,13 +268,13 @@ public final class Tokenizer {
 				Token token = new Token(ch, id, curIndex, id);
 				tokenList.add(token);
 				curIndex = next;
-			} else if (ch == OUTERFUNCTION) { // $£¬ÀàĞÍÓÃIDENT£¿
+			} else if (ch == OUTERFUNCTION) { // $ï¼Œç±»å‹ç”¨IDENTï¼Ÿ
 				int next = scanId(command, curIndex + 1);
 				String id = command.substring(curIndex, next);
 				Token token = new Token(IDENT, id, curIndex, id);
 				tokenList.add(token);
 				curIndex = next;
-			} else if (isIdentifierStart(ch)) { // ±êÊ¶·û¡¢×Ö¶Î¡¢±í
+			} else if (isIdentifierStart(ch)) { // æ ‡è¯†ç¬¦ã€å­—æ®µã€è¡¨
 				int next = scanId(command, curIndex + 1);
 				String id = command.substring(curIndex, next);
 				String upId = id.toUpperCase();
@@ -287,14 +287,14 @@ public final class Tokenizer {
 				}
 
 				curIndex = next;
-			} else if (Character.isDigit(ch)) { // Êı×Ö
+			} else if (Character.isDigit(ch)) { // æ•°å­—
 				int next = scanNumber(command, curIndex + 1);
 				String id = command.substring(curIndex, next);
 				Token token = new Token(NUMBER, id, curIndex, id);
 				tokenList.add(token);
 
 				curIndex = next;
-			} else if (ch == DOT) { // .²Ù×÷·û»òÊı×Ö
+			} else if (ch == DOT) { // .æ“ä½œç¬¦æˆ–æ•°å­—
 				int next = scanNumber(command, curIndex);
 				String id = command.substring(curIndex, next);
 				if (next > curIndex + 1) {
@@ -306,7 +306,7 @@ public final class Tokenizer {
 				}
 
 				curIndex = next;
-			} else if (ch == '\'') { // ×Ö·û´®
+			} else if (ch == '\'') { // å­—ç¬¦ä¸²
 				int next = scanString(command, curIndex + 1);
 				if (next < 0) {
 					MessageManager mm = ParseMessage.get();
@@ -318,14 +318,14 @@ public final class Tokenizer {
 				tokenList.add(token);
 
 				curIndex = next;
-			} else if (ch == '"') { // ±íÃû»ò×Ö¶Î
+			} else if (ch == '"') { // è¡¨åæˆ–å­—æ®µ
 				int next = scanId(command, curIndex);
 				String id = command.substring(curIndex, next);
 				Token token = new Token(IDENT, id, curIndex, id);
 				tokenList.add(token);
 
 				curIndex = next;
-			} else if (ch == PARAMMARK) { // ? ?1 ?2 ...²ÎÊı
+			} else if (ch == PARAMMARK) { // ? ?1 ?2 ...å‚æ•°
 				int numIndex = curIndex + 1;
 				int next = scanNumber(command, numIndex);
 				if (next > numIndex) { // ?n
@@ -347,7 +347,7 @@ public final class Tokenizer {
 				Token token = new Token(ch, "?" + paramSeq, curIndex, "?" + paramSeq);
 				tokenList.add(token);
 				curIndex = next;
-			} else if (OPSTRING.indexOf(ch) != -1) { // ÔËËã·û
+			} else if (OPSTRING.indexOf(ch) != -1) { // è¿ç®—ç¬¦
 				String id = command.substring(curIndex, curIndex + 1);
 				Token token = new Token(OPERATOR, id, curIndex, id);
 				tokenList.add(token);
@@ -385,7 +385,7 @@ public final class Tokenizer {
 			char ch = command.charAt(curIndex);
 			if (Character.isWhitespace(ch)) {
 				curIndex++;
-			} else if (Character.isJavaIdentifierStart(ch)) { // ±êÊ¶·û¡¢×Ö¶Î¡¢±í
+			} else if (Character.isJavaIdentifierStart(ch)) { // æ ‡è¯†ç¬¦ã€å­—æ®µã€è¡¨
 				int next = scanId(command, curIndex + 1);
 				String id = command.substring(curIndex, next).toUpperCase();
 				if (id.equals("SELECT") || id.equals("WITH") || id.equals("CREATE") || id.equals("DROP")) {
@@ -393,9 +393,9 @@ public final class Tokenizer {
 				}
 
 				curIndex = next;
-			} else if (Character.isDigit(ch)) { // Êı×Ö
+			} else if (Character.isDigit(ch)) { // æ•°å­—
 				curIndex = scanNumber(command, curIndex + 1);
-			} else if (ch == '\'') { // ×Ö·û´®
+			} else if (ch == '\'') { // å­—ç¬¦ä¸²
 				int next = scanString(command, curIndex + 1);
 				if (next < 0) {
 					MessageManager mm = ParseMessage.get();
@@ -403,7 +403,7 @@ public final class Tokenizer {
 				}
 
 				curIndex = next;
-			} else if (ch == '"') { // ±íÃû»ò×Ö¶Î
+			} else if (ch == '"') { // è¡¨åæˆ–å­—æ®µ
 				int next = scanIdString(command, curIndex + 1);
 				if (next < 0) {
 					MessageManager mm = ParseMessage.get();
@@ -467,7 +467,7 @@ public final class Tokenizer {
 		return start;
 	}
 
-	// ²éÕÒ'ss'£¬Èç¹û×Ö·û´®Àïº¬ÓĞµ¥ÒıºÅÔòÓÃÁ½¸öÁ¬Ò»¿éµÄµ¥ÒıºÅ±íÊ¾ 'dd''ff'
+	// æŸ¥æ‰¾'ss'ï¼Œå¦‚æœå­—ç¬¦ä¸²é‡Œå«æœ‰å•å¼•å·åˆ™ç”¨ä¸¤ä¸ªè¿ä¸€å—çš„å•å¼•å·è¡¨ç¤º 'dd''ff'
 	public static int scanString(String command, int start) {
 		int len = command.length();
 		for (; start < len; ++start) {
@@ -497,11 +497,11 @@ public final class Tokenizer {
 	}
 
 	/**
-	 * °Ñ×Ö·ûsÌæ»»³É×Ö·û´®r£¬ºöÂÔµ¥ÒıºÅºÍË«ÒıºÅÀ¨ÆğÀ´µÄÄÚÈİ
-	 * @param str String Ô´´®
-	 * @param s char ×Ö·û ?
-	 * @param r String Ìæ»»³ÉµÄ´®
-	 * @param ignoreQuote boolean true£ººöÂÔÒıºÅ£¬Ìæ»»ÒıºÅÄÚµÄ×Ö´®
+	 * æŠŠå­—ç¬¦sæ›¿æ¢æˆå­—ç¬¦ä¸²rï¼Œå¿½ç•¥å•å¼•å·å’ŒåŒå¼•å·æ‹¬èµ·æ¥çš„å†…å®¹
+	 * @param str String æºä¸²
+	 * @param s char å­—ç¬¦ ?
+	 * @param r String æ›¿æ¢æˆçš„ä¸²
+	 * @param ignoreQuote boolean trueï¼šå¿½ç•¥å¼•å·ï¼Œæ›¿æ¢å¼•å·å†…çš„å­—ä¸²
 	 * @return String
 	 */
 	public static String replace(String str, char s, String r, boolean ignoreQuote) {
@@ -510,7 +510,7 @@ public final class Tokenizer {
 
 		for (int i = 0; i < len; ++i) {
 			char ch = str.charAt(i);
-			if (!ignoreQuote && (ch == '\'' || ch == '\"')) { // ×Ö·û´®
+			if (!ignoreQuote && (ch == '\'' || ch == '\"')) { // å­—ç¬¦ä¸²
 				int pos = Sentence.scanQuotation(str, i);
 				if (pos == -1) {
 					sb.append(str.substring(i));
@@ -530,12 +530,12 @@ public final class Tokenizer {
 	}
 
 	/**
-	 * Ìæ»»×Ö·û´®ÖĞµÄ±íÃûtableName³Éexp£¬ºöÂÔ´óĞ¡Ğ´£¬ºöÂÔµ¥ÒıºÅÀ¨ÆğÀ´µÄÄÚÈİ£¬s¿ÉÄÜ±»Ë«ÒıºÅÀ¨ÆğÀ´
-	 * ÀıÈç tableNam.field1Ìæ»»³Ét2.fk.field1£¬tableNameºó¸ú×Å.²Ù×÷·û
-	 * @param str String Ô´´®
-	 * @param tableName String ĞèÒªÌæ»»µÄ×Ö´®
-	 * @param exp String Ìæ»»³ÉµÄ´®
-	 * @return String ·µ»ØÌæ»»ºóµÄ´®
+	 * æ›¿æ¢å­—ç¬¦ä¸²ä¸­çš„è¡¨åtableNameæˆexpï¼Œå¿½ç•¥å¤§å°å†™ï¼Œå¿½ç•¥å•å¼•å·æ‹¬èµ·æ¥çš„å†…å®¹ï¼Œså¯èƒ½è¢«åŒå¼•å·æ‹¬èµ·æ¥
+	 * ä¾‹å¦‚ tableNam.field1æ›¿æ¢æˆt2.fk.field1ï¼ŒtableNameåè·Ÿç€.æ“ä½œç¬¦
+	 * @param str String æºä¸²
+	 * @param tableName String éœ€è¦æ›¿æ¢çš„å­—ä¸²
+	 * @param exp String æ›¿æ¢æˆçš„ä¸²
+	 * @return String è¿”å›æ›¿æ¢åçš„ä¸²
 	 */
 	public static String replaceTable(String str, String tableName, String exp) {
 		int len = str.length();
@@ -546,7 +546,7 @@ public final class Tokenizer {
 			throw new RQException(mm.getMessage("config.error"));
 		}
 
-		// tableNameºó¸ú×Å²Ù×÷·û.µÄ²ÅÌæ»»£¿
+		// tableNameåè·Ÿç€æ“ä½œç¬¦.çš„æ‰æ›¿æ¢ï¼Ÿ
 
 		for (int i = 0; i < len; ) {
 			if (i + subLen >= len) {
@@ -565,7 +565,7 @@ public final class Tokenizer {
 				}
 
 				i = next;
-			} else if (ch == '\'') { // ×Ö·û´®
+			} else if (ch == '\'') { // å­—ç¬¦ä¸²
 				int pos = Sentence.scanQuotation(str, i);
 				if (pos == -1) {
 					sb.append(str.substring(i));
@@ -578,7 +578,7 @@ public final class Tokenizer {
 				sb.append(ch);
 				i++;
 
-				// Ìø¹ıºóÃæµÄ×Ö¶Î£¬×Ö¶ÎÃû¿ÉÄÜºÍ±íÃûÖØÁË£¿
+				// è·³è¿‡åé¢çš„å­—æ®µï¼Œå­—æ®µåå¯èƒ½å’Œè¡¨åé‡äº†ï¼Ÿ
 				ch = str.charAt(i);
 				if (isIdentifierStart(ch) || ch == '"') {
 					int next = scanId(str, i);
@@ -606,7 +606,7 @@ public final class Tokenizer {
 			}
 
 			char ch = str.charAt(i);
-			if (!ignoreQuote && (ch == '\'' || ch == '\"')) { // ×Ö·û´®
+			if (!ignoreQuote && (ch == '\'' || ch == '\"')) { // å­—ç¬¦ä¸²
 				int pos = Sentence.scanQuotation(str, i);
 				if (pos == -1) {
 					sb.append(str.substring(i));
@@ -631,7 +631,7 @@ public final class Tokenizer {
 		return (ch.length() == 1 && OPSTRING.indexOf(ch) != -1);
 	}
 	
-	// ËÑË÷{}£¬ÆğÊ¼Î»ÖÃÊÇ×ó´óÀ¨ºÅ
+	// æœç´¢{}ï¼Œèµ·å§‹ä½ç½®æ˜¯å·¦å¤§æ‹¬å·
 	public static int scanBrace(Token []tokens, int start, final int next) {
 		int deep = 0;
 		for (int i = start + 1; i < next; ++i) {
@@ -647,7 +647,7 @@ public final class Tokenizer {
 		throw new RQException("{,}" + mm.getMessage("mark.notMatch"));
 	}	
 	
-	// ËÑË÷caseµÄend£¬ÆğÊ¼Î»ÖÃÊÇcase
+	// æœç´¢caseçš„endï¼Œèµ·å§‹ä½ç½®æ˜¯case
 	public static int scanCaseEnd(Token []tokens, int start, final int next) {
 		int deep = 0;
 		for (int i = start + 1; i < next; ++i) {
@@ -659,10 +659,10 @@ public final class Tokenizer {
 			}
 		}
 
-		throw new RQException("CASEÓï¾äÈ±ÉÙEND¹Ø¼ü×Ö");
+		throw new RQException("CASEè¯­å¥ç¼ºå°‘ENDå…³é”®å­—");
 	}	
 		
-	// ËÑË÷caseµÄwhen£¬ÆğÊ¼Î»ÖÃwhen
+	// æœç´¢caseçš„whenï¼Œèµ·å§‹ä½ç½®when
 	public static int scanCaseWhen(Token []tokens, int start, final int next) {
 		int deep = 0;
 		for (int i = start + 1; i < next; ++i) {
@@ -673,14 +673,14 @@ public final class Tokenizer {
 			} else if (tokens[i].isKeyWord("WHEN")) {
 				if (deep == 0) return i;
 			} else if (deep < 0) {
-				throw new RQException("CASEÓï¾äÖĞÓĞ¶àÓàµÄEND¹Ø¼ü×Ö");
+				throw new RQException("CASEè¯­å¥ä¸­æœ‰å¤šä½™çš„ENDå…³é”®å­—");
 			}
 		}		
 			
 		return -1;
 	}
 			
-	// ËÑË÷caseµÄthen£¬ÆğÊ¼Î»ÖÃÊÇwhen
+	// æœç´¢caseçš„thenï¼Œèµ·å§‹ä½ç½®æ˜¯when
 	public static int scanCaseThen(Token []tokens, int start, final int next) {
 		int deep = 0;
 		for (int i = start + 1; i < next; ++i) {
@@ -691,14 +691,14 @@ public final class Tokenizer {
 			} else if (tokens[i].isKeyWord("THEN")) {
 				if (deep == 0) return i;
 			} else if (deep < 0) {
-				throw new RQException("CASEÓï¾äÖĞÓĞ¶àÓàµÄEND¹Ø¼ü×Ö");
+				throw new RQException("CASEè¯­å¥ä¸­æœ‰å¤šä½™çš„ENDå…³é”®å­—");
 			}
 		}
 
-		throw new RQException("CASEÓï¾äÈ±ÉÙTHEN¹Ø¼ü×Ö");
+		throw new RQException("CASEè¯­å¥ç¼ºå°‘THENå…³é”®å­—");
 	}		
 			
-	// ËÑË÷caseµÄelse£¬ÆğÊ¼Î»ÖÃÊÇcase
+	// æœç´¢caseçš„elseï¼Œèµ·å§‹ä½ç½®æ˜¯case
 	public static int scanCaseElse(Token []tokens, int start, final int next) {
 		int deep = 0;
 		for (int i = start + 1; i < next; ++i) {
@@ -709,7 +709,7 @@ public final class Tokenizer {
 			} else if (tokens[i].isKeyWord("ELSE")) {
 				if (deep == 0) return i;
 			} else if (deep < 0) {
-				throw new RQException("CASEÓï¾äÖĞÓĞ¶àÓàµÄEND¹Ø¼ü×Ö");
+				throw new RQException("CASEè¯­å¥ä¸­æœ‰å¤šä½™çš„ENDå…³é”®å­—");
 			}
 		}
 		

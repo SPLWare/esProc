@@ -22,21 +22,21 @@ import com.scudata.expression.fn.CharFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * rsa(input, m:e; charset) RSA¼ÓÃÜ/½âÃÜ
- * parament input	ÊäÈë£¬blob»òÕßString
- * parament modulus	Ä££¬×Ö·û´®»òÕß´óÕûÊı£»Ã»ÓĞeÊ±Îª×Ö·û´®»òÕß¶ş½øÖÆÊı×é
- * parament e		Ö¸Êı£¬×Ö·û´®»òÕß´óÕûÊı
- * parament charset	×Ö·û±àÂë£¬Èç¹ûinputÎª×Ö·û´®Ê±Ê¹ÓÃ£¬Ä¬ÈÏÎªutf8
- * Ñ¡Ïî@d	½âÃÜ£¬Ä¬ÈÏÖ´ĞĞ¼ÓÃÜ
- * ·µ»Ø£¬inputÎª×Ö·û´®Ê±·µ»Ø×Ö·û´®£¬Îª¶ş½øÖÆÊı×éÊ±·µ»Ø¶ş½øÖÆÊı×é
+ * rsa(input, m:e; charset) RSAåŠ å¯†/è§£å¯†
+ * parament input	è¾“å…¥ï¼Œblobæˆ–è€…String
+ * parament modulus	æ¨¡ï¼Œå­—ç¬¦ä¸²æˆ–è€…å¤§æ•´æ•°ï¼›æ²¡æœ‰eæ—¶ä¸ºå­—ç¬¦ä¸²æˆ–è€…äºŒè¿›åˆ¶æ•°ç»„
+ * parament e		æŒ‡æ•°ï¼Œå­—ç¬¦ä¸²æˆ–è€…å¤§æ•´æ•°
+ * parament charset	å­—ç¬¦ç¼–ç ï¼Œå¦‚æœinputä¸ºå­—ç¬¦ä¸²æ—¶ä½¿ç”¨ï¼Œé»˜è®¤ä¸ºutf8
+ * é€‰é¡¹@d	è§£å¯†ï¼Œé»˜è®¤æ‰§è¡ŒåŠ å¯†
+ * è¿”å›ï¼Œinputä¸ºå­—ç¬¦ä¸²æ—¶è¿”å›å­—ç¬¦ä¸²ï¼Œä¸ºäºŒè¿›åˆ¶æ•°ç»„æ—¶è¿”å›äºŒè¿›åˆ¶æ•°ç»„
  * @author bd
  *
  */
 public class RSAEncrypt extends CharFunction {	
-    // AESÃÜÔ¿Ëã·¨
+    // AESå¯†é’¥ç®—æ³•
     private static final String KEY_ALGORITHM = "RSA";
  
-    // Éú³ÉÃÜÔ¿
+    // ç”Ÿæˆå¯†é’¥
     public static KeyPair generateKeyPair(int n) throws Exception {
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
         keyGen.initialize(n, new SecureRandom());
@@ -83,14 +83,14 @@ public class RSAEncrypt extends CharFunction {
 					Logger.info("rsa@k(n): " + mm.getMessage("encrypt.keylen", 512));
 					n = 512;
 				}
-				//@k Ñ¡ÏîÉú³ÉÃÜÔ¿¶Ô
+				//@k é€‰é¡¹ç”Ÿæˆå¯†é’¥å¯¹
 				KeyPair kp = RSAEncrypt.generateKeyPair(n);
 				RSAPublicKey pubKey = (RSAPublicKey) kp.getPublic();
 				RSAPrivateKey priKey = (RSAPrivateKey)kp.getPrivate();
 				Sequence result = null;
 				if (modulus) {
 					result = new Sequence(3);
-					// Éú³É modulus/exponentÄ£Ê½ÃÜÔ¿
+					// ç”Ÿæˆ modulus/exponentæ¨¡å¼å¯†é’¥
 					if (blob) {
 						result.add(pubKey.getModulus().toByteArray());
 						result.add(pubKey.getPublicExponent().toByteArray());
@@ -124,7 +124,7 @@ public class RSAEncrypt extends CharFunction {
 					params = new Object[1];
 					params[0] = obj;
 				}
-				//aes(...;charset)µÄÇé¿ö
+				//aes(...;charset)çš„æƒ…å†µ
 				if (objs[1] instanceof String) {
 					charset = (String) objs[1];
 				}
@@ -162,7 +162,7 @@ public class RSAEncrypt extends CharFunction {
 				bigE = RSAEncrypt.getBigInteger(objE);
 			}
 			else {
-				// Ö»ÓĞm
+				// åªæœ‰m
 				mb = DESEncrypt.encode(objM, charset);
 			}
 			Cipher ci = Cipher.getInstance(RSAEncrypt.KEY_ALGORITHM);

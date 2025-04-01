@@ -161,17 +161,17 @@ public class ImSqlUtil {
        
         // tableName
         String tbl = cls.tableName(insert);
-        //·µ»ØÁĞ
+        //è¿”å›åˆ—
         String[] cols=cls.columns(insert);
         
-        //·µ»Ø²ÎÊı
+        //è¿”å›å‚æ•°
         List<String> list=cls.params(insert);
-        //System.out.println(Arrays.toString(cols)+" ÁĞÊıÁ¿ "+cols.length+" ²ÎÊıÊıÁ¿ "+list.size());
+        //System.out.println(Arrays.toString(cols)+" åˆ—æ•°é‡ "+cols.length+" å‚æ•°æ•°é‡ "+list.size());
 
         int i=0;
         String sql = "insert into "+tbl+" value {";
         if (cols==null){
-//			colums°´×Ö·ûÅÅĞòÁË£¬ÓëÖµ¶ÔÓ¦²»ÉÏ        	
+//			columsæŒ‰å­—ç¬¦æ’åºäº†ï¼Œä¸å€¼å¯¹åº”ä¸ä¸Š        	
 //        	ExecuteStatementResult rst = ImUtils.executeStatementRequest(client, "select * from "+tbl, null);
 //        	if(rst.getSdkHttpMetadata().getHttpStatusCode()==200){
 //        		List<Map<String, AttributeValue>> ls = rst.getItems();
@@ -209,11 +209,11 @@ public class ImSqlUtil {
     
     
     public static void main(String[] args) {
-    	//Ğ´Ò»¸ö²âÊÔsql
+    	//å†™ä¸€ä¸ªæµ‹è¯•sql
     	String sql="insert  into   test (col1, col2 , col3, \n col4,col5,col6,col7,col8) " +
-                "values('',123,'²âÊÔ(²ÊÉ«',123,'',dateformat(sdfsdf,'erter',\n test(test(111,test('222')))),'²âÊÔ2\n²ÊÉ«',now('test',1123))";
+                "values('',123,'æµ‹è¯•(å½©è‰²',123,'',dateformat(sdfsdf,'erter',\n test(test(111,test('222')))),'æµ‹è¯•2\nå½©è‰²',now('test',1123))";
     	sql="insert  into test" +
-                "values('',123,'²âÊÔ(²ÊÉ«',123,'',dateformat(sdfsdf,'erter',\n test(test(111,test('222')))),'²âÊÔ2\n²ÊÉ«',now('test',1123))";
+                "values('',123,'æµ‹è¯•(å½©è‰²',123,'',dateformat(sdfsdf,'erter',\n test(test(111,test('222')))),'æµ‹è¯•2\nå½©è‰²',now('test',1123))";
     	convertSqlJson(sql);
     }
 }

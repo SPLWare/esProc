@@ -168,11 +168,11 @@ public class ImTableInfo {
 				if (typeName.indexOf("lvarchar") >= 0){
 					column.colType = "lvarchar";
 					column.nType = ImColumn.DATA_TYPE.TYPE_LVARCHAR;
-					nRet += 3; //±êÊ¶³¤¶È
+					nRet += 3; //æ ‡è¯†é•¿åº¦
 				}else if (typeName.indexOf("varchar") >= 0){
 					column.colType = "varchar";
 					column.nType = ImColumn.DATA_TYPE.TYPE_VARCHAR;
-					nRet += 1; //±êÊ¶³¤¶È
+					nRet += 1; //æ ‡è¯†é•¿åº¦
 				}else if (typeName.indexOf("nchar") >= 0){
 					column.colType = "nchar";
 					column.nType = ImColumn.DATA_TYPE.TYPE_NCHAR;
@@ -207,7 +207,7 @@ public class ImTableInfo {
 			} else if (typeName.indexOf("int8") >= 0) {
 				column.colType = "int8";
 				column.nType = ImColumn.DATA_TYPE.TYPE_INT8;
-				nRet = 10; //ÀíÂÛÓ¦¸ÃÊÇ8×Ö½Ú£¬µ«Êµ¼ÊÕ¼10¸ö×Ö½Ú´óÐ¡
+				nRet = 10; //ç†è®ºåº”è¯¥æ˜¯8å­—èŠ‚ï¼Œä½†å®žé™…å 10ä¸ªå­—èŠ‚å¤§å°
 			} else  {
 				System.out.println("typeName = " + typeName + " not knowned");
 			}
@@ -273,11 +273,11 @@ public class ImTableInfo {
 				if (typeName.indexOf("lvarchar") >= 0){
 					column.colType = "lvarchar";
 					column.nType = ImColumn.DATA_TYPE.TYPE_LVARCHAR;
-					nRet += 3; //±êÊ¶³¤¶È
+					nRet += 3; //æ ‡è¯†é•¿åº¦
 				}else if (typeName.indexOf("varchar") >= 0){
 					column.colType = "varchar";
 					column.nType = ImColumn.DATA_TYPE.TYPE_VARCHAR;
-					nRet += 1; //±êÊ¶³¤¶È
+					nRet += 1; //æ ‡è¯†é•¿åº¦
 				}else if (typeName.indexOf("nchar") >= 0){
 					column.colType = "nchar";
 					column.nType = ImColumn.DATA_TYPE.TYPE_NCHAR;
@@ -308,7 +308,7 @@ public class ImTableInfo {
 			} else if (typeName.indexOf("int8") >= 0) {
 				column.colType = "int8";
 				column.nType = ImColumn.DATA_TYPE.TYPE_INT8;
-				nRet = 10; //ÀíÂÛÓ¦¸ÃÊÇ8×Ö½Ú£¬µ«Êµ¼ÊÕ¼10¸ö×Ö½Ú´óÐ¡
+				nRet = 10; //ç†è®ºåº”è¯¥æ˜¯8å­—èŠ‚ï¼Œä½†å®žé™…å 10ä¸ªå­—èŠ‚å¤§å°
 			}else if (typeName.indexOf("integer") >= 0 ||
 					  typeName.indexOf("int") >= 0) {
 				column.nType = ImColumn.DATA_TYPE.TYPE_INTEGER;

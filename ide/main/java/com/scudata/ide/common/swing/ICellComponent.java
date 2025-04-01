@@ -3,29 +3,29 @@ package com.scudata.ide.common.swing;
 import java.awt.Component;
 
 /**
- * JTableµ¥Ôª¸ñ×é¼ş½Ó¿Ú
+ * JTableå•å…ƒæ ¼ç»„ä»¶æ¥å£
  *
  */
 public interface ICellComponent {
 	/**
-	 * È¡µ¥Ôª¸ñ×é¼ş
+	 * å–å•å…ƒæ ¼ç»„ä»¶
 	 * 
 	 * @param value
-	 *            ¸ñÖµ
+	 *            æ ¼å€¼
 	 * @return
 	 */
 	public Component getCellComponent(Object value);
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÊÇ·ñ¿É±à¼­
+	 * è®¾ç½®å•å…ƒæ ¼æ˜¯å¦å¯ç¼–è¾‘
 	 * 
 	 * @param editable
-	 *            µ¥Ôª¸ñÊÇ·ñ¿É±à¼­
+	 *            å•å…ƒæ ¼æ˜¯å¦å¯ç¼–è¾‘
 	 */
 	public void setCellEditable(boolean editable);
 
 	/**
-	 * È¡×Ö·û´®Öµ
+	 * å–å­—ç¬¦ä¸²å€¼
 	 * 
 	 * @return
 	 */

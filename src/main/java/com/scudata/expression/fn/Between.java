@@ -17,7 +17,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÅĞ¶ÏÖµÊÇ·ñÔÚ¸ø¶¨Çø¼äÄÚ
+ * åˆ¤æ–­å€¼æ˜¯å¦åœ¨ç»™å®šåŒºé—´å†…
  * between(x,a:b)
  * @author RunQian
  *
@@ -28,7 +28,7 @@ public class Between extends Function {
 	private Expression endExp;
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -108,8 +108,8 @@ public class Between extends Function {
 	
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -126,7 +126,7 @@ public class Between extends Function {
 		IArray array = exp.calculateAll(ctx);
 		IArray startArray = startExp.calculateAll(ctx);
 		
-		// Óë×óÖµÊı×é½øĞĞ±È½Ï
+		// ä¸å·¦å€¼æ•°ç»„è¿›è¡Œæ¯”è¾ƒ
 		BoolArray result = array.calcRelation(startArray, leftRelation);
 		IArray endArray = endExp.calculateAll(ctx, result, true);
 		
@@ -153,10 +153,10 @@ public class Between extends Function {
 	}
 
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -174,7 +174,7 @@ public class Between extends Function {
 		IArray array = exp.calculateAll(ctx, result, true);
 		IArray startArray = startExp.calculateAll(ctx, result, true);
 		
-		// Óë×óÖµÊı×é½øĞĞ±È½Ï
+		// ä¸å·¦å€¼æ•°ç»„è¿›è¡Œæ¯”è¾ƒ
 		array.calcRelations(startArray, leftRelation, result, true);
 		IArray endArray = endExp.calculateAll(ctx, result, true);
 		
@@ -201,9 +201,9 @@ public class Between extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -219,7 +219,7 @@ public class Between extends Function {
 		IArray array = exp.calculateAll(ctx, result, true);
 		IArray startArray = startExp.calculateAll(ctx, result, true);
 		
-		// Óë×óÖµÊı×é½øĞĞ±È½Ï
+		// ä¸å·¦å€¼æ•°ç»„è¿›è¡Œæ¯”è¾ƒ
 		array.calcRelations(startArray, leftRelation, result, true);
 		IArray endArray = endExp.calculateAll(ctx, result, true);
 		array.calcRelations(endArray, rightRelation, result, true);
@@ -227,9 +227,9 @@ public class Between extends Function {
 	}
 	
 	/**
-	 * ÅĞ¶Ï¸ø¶¨µÄÖµÓò·¶Î§ÊÇ·ñÂú×ãµ±Ç°Ìõ¼ş±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @return È¡Öµ²ÎÕÕRelation. -1£ºÖµÓò·¶Î§ÄÚÃ»ÓĞÂú×ãÌõ¼şµÄÖµ£¬0£ºÖµÓò·¶Î§ÄÚÓĞÂú×ãÌõ¼şµÄÖµ£¬1£ºÖµÓò·¶Î§µÄÖµ¶¼Âú×ãÌõ¼ş
+	 * åˆ¤æ–­ç»™å®šçš„å€¼åŸŸèŒƒå›´æ˜¯å¦æ»¡è¶³å½“å‰æ¡ä»¶è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @return å–å€¼å‚ç…§Relation. -1ï¼šå€¼åŸŸèŒƒå›´å†…æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ0ï¼šå€¼åŸŸèŒƒå›´å†…æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ1ï¼šå€¼åŸŸèŒƒå›´çš„å€¼éƒ½æ»¡è¶³æ¡ä»¶
 	 */
 	public int isValueRangeMatch(Context ctx) {
 		IArray array = exp.calculateRange(ctx);

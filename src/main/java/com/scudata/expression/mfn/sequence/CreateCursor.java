@@ -29,8 +29,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
- * °ÑĞòÁĞ×ª³ÉÓÎ±ê»ò¶àÂ·ÓÎ±ê
- * A.cursor(k:n) A.cursor@m(n) A.cursor@m(mcs,K:K¡®,...)
+ * æŠŠåºåˆ—è½¬æˆæ¸¸æ ‡æˆ–å¤šè·¯æ¸¸æ ‡
+ * A.cursor(k:n) A.cursor@m(n) A.cursor@m(mcs,K:Kâ€˜,...)
  * @author RunQian
  *
  */
@@ -112,22 +112,22 @@ public class CreateCursor extends SequenceFunction {
 		}
 	}
 		
-	// ÓÉÄÚ±í´´½¨ÓÎ±ê£¬²ÎÊıÍ¬ÓÉ×é±í´´½¨ÓÎ±êÏàÍ¬
+	// ç”±å†…è¡¨åˆ›å»ºæ¸¸æ ‡ï¼Œå‚æ•°åŒç”±ç»„è¡¨åˆ›å»ºæ¸¸æ ‡ç›¸åŒ
 	private static ICursor createCursor(MemoryTable table, IParam param, String opt, Context ctx) {
 		boolean isMultiThread = opt != null && opt.indexOf('m') != -1;
 		if (param == null && !isMultiThread) {
 			return table.cursor();
 		}
 		
-		IParam fieldParam = null; // Ñ¡³ö×Ö¶Î²ÎÊı
-		Expression filter = null; // ¹ıÂËÌõ¼ş
+		IParam fieldParam = null; // é€‰å‡ºå­—æ®µå‚æ•°
+		Expression filter = null; // è¿‡æ»¤æ¡ä»¶
 		
-		// ×ö¹ØÁªµÄ×Ö¶ÎºÍ¹ØÁªµÄÎ¬±í
+		// åšå…³è”çš„å­—æ®µå’Œå…³è”çš„ç»´è¡¨
 		String []fkNames = null;
 		Sequence []codes = null;
 		String []opts = null;
 		
-		IMultipath mcs = null; // Í¬²½·Ö¶ÎÓÎ±ê
+		IMultipath mcs = null; // åŒæ­¥åˆ†æ®µæ¸¸æ ‡
 		int segSeq = 0;
 		int segCount = 0;
 		if (isMultiThread) {
@@ -197,7 +197,7 @@ public class CreateCursor extends SequenceFunction {
 					if (obj instanceof MultipathCursors) {
 						mcs = (MultipathCursors)obj;
 					} else if (obj instanceof ICursor) {
-						// cursor@mÈç¹û½á¹û¼¯Îª¿Õ»òÕßÂú×ãÌõ¼şµÄ¿éĞ¡ÓÚ2¿ÉÄÜ²»»á·µ»Ø¶àÂ·ÓÎ±ê
+						// cursor@må¦‚æœç»“æœé›†ä¸ºç©ºæˆ–è€…æ»¡è¶³æ¡ä»¶çš„å—å°äº2å¯èƒ½ä¸ä¼šè¿”å›å¤šè·¯æ¸¸æ ‡
 						isMultiThread = false;
 					} else {
 						if (!isMultiThread) {
@@ -501,7 +501,7 @@ public class CreateCursor extends SequenceFunction {
 		return CursorUtil.cursor(seq, pathCount, opt, ctx);
 	}
 	
-	// ÓÉÄÚ´æĞòÁĞ´´½¨ÓÎ±ê
+	// ç”±å†…å­˜åºåˆ—åˆ›å»ºæ¸¸æ ‡
 	private static ICursor createCursor(Sequence seq, IParam param, String opt, Context ctx) {
 		if (param == null) {
 			return seq.cursor();

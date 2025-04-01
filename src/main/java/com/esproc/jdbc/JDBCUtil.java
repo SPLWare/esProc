@@ -104,13 +104,13 @@ public class JDBCUtil {
 	 * Execute JDBC statement
 	 * 
 	 * @param sql
-	 *            Óï¾ä
+	 *            è¯­å¥
 	 * @param parameters
-	 *            ²ÎÊıÁĞ±í
+	 *            å‚æ•°åˆ—è¡¨
 	 * @param ctx
-	 *            ÉÏÏÂÎÄ
+	 *            ä¸Šä¸‹æ–‡
 	 * @param logInfo
-	 *            ÊÇ·ñÊä³öÈÕÖ¾
+	 *            æ˜¯å¦è¾“å‡ºæ—¥å¿—
 	 * @return Object
 	 * @throws Exception
 	 */
@@ -167,7 +167,7 @@ public class JDBCUtil {
 			}
 		} else if (AppUtil.isSQL(sql) && JDBCUtil.isCompatiblesql) {
 			return AppUtil.executeSql(sql, (ArrayList<Object>) parameters, ctx);
-		} else { // ²»Ö§³ÖÖ±½ÓĞ´splÎÄ¼şÁË
+		} else { // ä¸æ”¯æŒç›´æ¥å†™splæ–‡ä»¶äº†
 			String[] nameParam = getSplNameParam(sql);
 			String splName = nameParam[0];
 			String params = nameParam[1];
@@ -181,11 +181,11 @@ public class JDBCUtil {
 			arg = prepareArg((ArrayList<Object>) parameters);
 		}
 
-		if (isGrid) { // Íø¸ñ±í´ïÊ½
+		if (isGrid) { // ç½‘æ ¼è¡¨è¾¾å¼
 			Object val = AppUtil.execute(sql, arg, ctx);
 			return val;
 		}
-		boolean isOldCall = false; // ?²ÎÊıµÄcallÓï¾ä
+		boolean isOldCall = false; // ?å‚æ•°çš„callè¯­å¥
 		if (sql.startsWith("jdbccall")) {
 			int i1 = sql.indexOf("(");
 			int i2 = sql.indexOf(")");
@@ -226,10 +226,10 @@ public class JDBCUtil {
 	 * @param ctx
 	 *            The Context object
 	 * @param gateway
-	 *            Íø¹Ø
+	 *            ç½‘å…³
 	 * @return The result of execution
 	 * @throws SQLException
-	 *             ,RetryExceptionÊ±½«°´ÎŞÍø¹Ø·½Ê½Ö´ĞĞ
+	 *             ,RetryExceptionæ—¶å°†æŒ‰æ— ç½‘å…³æ–¹å¼æ‰§è¡Œ
 	 */
 	public static Object executeGateway(String sql,
 			ArrayList<Object> parameters, Context ctx, String gateway)
@@ -244,7 +244,7 @@ public class JDBCUtil {
 		// FileObject fo = new FileObject(gateway, "s", ctx);
 		PgmCellSet cellSet;
 		try {
-			// Ö§³ÖÎŞºó×ºÊ±°´Ë³Ğò²éÕÒ
+			// æ”¯æŒæ— åç¼€æ—¶æŒ‰é¡ºåºæŸ¥æ‰¾
 			cellSet = AppUtil.readCellSet(gateway);
 			// InputStream in = fo.getInputStream();
 			// if (in == null) {
@@ -261,18 +261,18 @@ public class JDBCUtil {
 		Context csCtx = cellSet.getContext();
 		ParamList list = cellSet.getParamList();
 		if (list != null) {
-			// È¡³öËùÓĞ±äÁ¿£¬³£Á¿²»ÉèÖÃ
+			// å–å‡ºæ‰€æœ‰å˜é‡ï¼Œå¸¸é‡ä¸è®¾ç½®
 			ParamList varList = new ParamList();
 			list.getAllVarParams(varList);
 			boolean isDynamicParam = cellSet.isDynamicParam();
 			int paramCount = varList.count();
 			int argCount = args.length();
 			if (paramCount > 0) {
-				if (isDynamicParam) { // ¶¯Ì¬²ÎÊıÊ±
-					if (paramCount == 1) { // Ö»ÓĞÒ»¸ö²ÎÊı
-						if (argCount == 0) { // Ã»ÓĞ²ÎÊı
+				if (isDynamicParam) { // åŠ¨æ€å‚æ•°æ—¶
+					if (paramCount == 1) { // åªæœ‰ä¸€ä¸ªå‚æ•°
+						if (argCount == 0) { // æ²¡æœ‰å‚æ•°
 							csCtx.setParamValue(varList.get(0).getName(), sql);
-						} else { // Æ´³É[spl,[p1,p2,...]]
+						} else { // æ‹¼æˆ[spl,[p1,p2,...]]
 							Sequence dynamicParam = new Sequence();
 							dynamicParam.add(sql);
 							dynamicParam.add(args);
@@ -295,7 +295,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * È¥³ısqlÍâµÄ¿Õ°×ºÍ´óÀ¨ºÅ
+	 * å»é™¤sqlå¤–çš„ç©ºç™½å’Œå¤§æ‹¬å·
 	 * 
 	 * @param sql
 	 * @return
@@ -404,7 +404,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * ÊÇ·ñcalls splÓï¾ä
+	 * æ˜¯å¦calls splè¯­å¥
 	 * 
 	 * @param sql
 	 * @return boolean
@@ -418,7 +418,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * È¡callsÓï¾äµÄsplÃû³ÆºÍ²ÎÊı
+	 * å–callsè¯­å¥çš„splåç§°å’Œå‚æ•°
 	 * 
 	 * @param sql
 	 * @param parameters
@@ -431,12 +431,12 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * È¡callsÓï¾äµÄsplÃû³ÆºÍ²ÎÊı
+	 * å–callsè¯­å¥çš„splåç§°å’Œå‚æ•°
 	 * 
 	 * @param sql
 	 * @param parameters
 	 * @param isExecute
-	 *            ÊÇ·ñÖ´ĞĞÊ±µ÷ÓÃµÄ£¬²»ÊÇÖ´ĞĞÊ±²»´¦Àí²ÎÊı
+	 *            æ˜¯å¦æ‰§è¡Œæ—¶è°ƒç”¨çš„ï¼Œä¸æ˜¯æ‰§è¡Œæ—¶ä¸å¤„ç†å‚æ•°
 	 * @return
 	 * @throws SQLException
 	 */
@@ -455,9 +455,9 @@ public class JDBCUtil {
 
 			params = sql.substring(left + 1, sql.length() - 1).trim();
 			if (isExecute) {
-				// ´¦Àí·Ç?µÄ²ÎÊı
+				// å¤„ç†é?çš„å‚æ•°
 				if (parameters.isEmpty()) {
-					// Ã»ÓĞ´«µİ²ÎÊıÊ±£¬Æ´³ÉÒ»¸ö³ÉÔ±µÄĞòÁĞ
+					// æ²¡æœ‰ä¼ é€’å‚æ•°æ—¶ï¼Œæ‹¼æˆä¸€ä¸ªæˆå‘˜çš„åºåˆ—
 					StringBuffer totalParams = new StringBuffer();
 					ArgumentTokenizer at = new ArgumentTokenizer(params, ',');
 					while (at.hasNext()) {
@@ -501,7 +501,7 @@ public class JDBCUtil {
 							for (int i = 0; i < len; i++) {
 								if (repParams.length() > 0)
 									repParams.append(",");
-								// ·Ç?µÄ²ÎÊıÓ¦¸ÃÖØ¸´N±é
+								// é?çš„å‚æ•°åº”è¯¥é‡å¤Né
 								if (param == null) {
 									repParams.append("");
 								} else {
@@ -525,7 +525,7 @@ public class JDBCUtil {
 		String splName = name;
 		if (splName != null) {
 			splName = splName.trim();
-			// ½Å±¾
+			// è„šæœ¬
 			if (splName.startsWith("\"") && splName.endsWith("\"")) {
 				splName = splName.substring(1, splName.length() - 2);
 				splName = splName.trim();
@@ -535,7 +535,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * È¡callÓï¾äµÄsplxÃû³ÆºÍ²ÎÊı
+	 * å–callè¯­å¥çš„splxåç§°å’Œå‚æ•°
 	 * 
 	 * @param sql
 	 * @return
@@ -560,7 +560,7 @@ public class JDBCUtil {
 		String splName = name;
 		if (splName != null) {
 			splName = splName.trim();
-			// ½Å±¾
+			// è„šæœ¬
 			if (splName.startsWith("\"") && splName.endsWith("\"")) {
 				splName = splName.substring(1, splName.length() - 2);
 				splName = splName.trim();
@@ -570,7 +570,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * È¡SPLÓï¾äµÄsplxÃû³ÆºÍ²ÎÊı
+	 * å–SPLè¯­å¥çš„splxåç§°å’Œå‚æ•°
 	 * 
 	 * @param sql
 	 * @return
@@ -606,7 +606,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * ´Ócall,calls,splÈıÖÖÓï¾äÖĞ»ñÈ¡SPLÎÄ¼şÃû
+	 * ä»call,calls,splä¸‰ç§è¯­å¥ä¸­è·å–SPLæ–‡ä»¶å
 	 * 
 	 * @param sql
 	 * @return String[]
@@ -654,7 +654,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * ×¼±¸calls²ÎÊı
+	 * å‡†å¤‡callså‚æ•°
 	 * 
 	 * @param parameters
 	 * @return Sequence
@@ -707,7 +707,7 @@ public class JDBCUtil {
 			}
 			int dataStart = 1;
 			if (fields == null) {
-				fields = new String[colCount]; // Êı¾İ½á¹¹»á×Ô¶¯Éú³É×Ö¶ÎÃû
+				fields = new String[colCount]; // æ•°æ®ç»“æ„ä¼šè‡ªåŠ¨ç”Ÿæˆå­—æ®µå
 				dataStart = 0;
 			}
 			ds = new DataStruct(fields);
@@ -786,7 +786,7 @@ public class JDBCUtil {
 	// }
 
 	/**
-	 * È¡SPLÎÄ¼şµÄ²ÎÊı£¬¸ù¾İ²ÎÊıÃûÉèÖÃcall(s)µÄ²ÎÊıÊ±µ÷ÓÃ
+	 * å–SPLæ–‡ä»¶çš„å‚æ•°ï¼Œæ ¹æ®å‚æ•°åè®¾ç½®call(s)çš„å‚æ•°æ—¶è°ƒç”¨
 	 * 
 	 * @param procedureNamePattern
 	 * @return Table
@@ -811,7 +811,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * È¡SPLÎÄ¼şÃû
+	 * å–SPLæ–‡ä»¶å
 	 * 
 	 * @param procedureNamePattern
 	 * @return Table
@@ -832,7 +832,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * È¡SPLÎÄ¼şºÍ²ÎÊı£¬ÓÃÓÚÔªÊı¾İ
+	 * å–SPLæ–‡ä»¶å’Œå‚æ•°ï¼Œç”¨äºå…ƒæ•°æ®
 	 * 
 	 * @param procedureNamePattern
 	 * @return Table
@@ -854,7 +854,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * È¡SPLÎÄ¼şÃûºÍ²ÎÊıÓ³Éä
+	 * å–SPLæ–‡ä»¶åå’Œå‚æ•°æ˜ å°„
 	 * 
 	 * @param procedureNamePattern
 	 * @param columnNamePattern
@@ -1052,7 +1052,7 @@ public class JDBCUtil {
 	 * @param fileExts
 	 *            File extensions
 	 * @param matchAll
-	 *            ÊÇ·ñĞèÒªÆ¥ÅäÈ«Â·¾¶¡£FALSEÊ±¿ÉÒÔ½öÆ¥ÅäÎÄ¼şÃû¡£
+	 *            æ˜¯å¦éœ€è¦åŒ¹é…å…¨è·¯å¾„ã€‚FALSEæ—¶å¯ä»¥ä»…åŒ¹é…æ–‡ä»¶åã€‚
 	 * @return files map
 	 */
 	public static Map<String, String> getFiles(String filter,
@@ -1082,7 +1082,7 @@ public class JDBCUtil {
 	 * @param fileExts
 	 *            File extensions
 	 * @param matchAll
-	 *            ÊÇ·ñĞèÒªÆ¥ÅäÈ«Â·¾¶¡£FALSEÊ±¿ÉÒÔ½öÆ¥ÅäÎÄ¼şÃû¡£
+	 *            æ˜¯å¦éœ€è¦åŒ¹é…å…¨è·¯å¾„ã€‚FALSEæ—¶å¯ä»¥ä»…åŒ¹é…æ–‡ä»¶åã€‚
 	 */
 	private static void getDirFiles(int rootLen, File pfile,
 			Map<String, String> map, Pattern pattern, List<String> fileExts,
@@ -1103,15 +1103,15 @@ public class JDBCUtil {
 					if (fileName.toLowerCase().endsWith(fileExt)) {
 						if (pattern != null) {
 							boolean find;
-							if (matchAll) { // Æ¥ÅäÈ«Â·¾¶
+							if (matchAll) { // åŒ¹é…å…¨è·¯å¾„
 								fileName = getSubPath(rootLen, pfile);
 								find = matchPattern(pattern, pfile, fileName,
 										fileExt);
 							} else {
-								// Æ¥ÅäÎÄ¼şÃû
+								// åŒ¹é…æ–‡ä»¶å
 								find = matchPattern(pattern, pfile, fileName,
 										fileExt);
-								// Æ¥ÅäÈ«Â·¾¶
+								// åŒ¹é…å…¨è·¯å¾„
 								if (!find) {
 									fileName = getSubPath(rootLen, pfile);
 									find = matchPattern(pattern, pfile,
@@ -1138,33 +1138,33 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * ÕıÔòÆ¥Åä
+	 * æ­£åˆ™åŒ¹é…
 	 * 
 	 * @param pattern
 	 *            Pattern
 	 * @param file
-	 *            ÎÄ¼ş
+	 *            æ–‡ä»¶
 	 * @param fileName
-	 *            ÎÄ¼şÃû
+	 *            æ–‡ä»¶å
 	 * @param fileExt
-	 *            ÎÄ¼şºó×º
-	 * @return ÊÇ·ñÆ¥Åä
+	 *            æ–‡ä»¶åç¼€
+	 * @return æ˜¯å¦åŒ¹é…
 	 */
 	private static boolean matchPattern(Pattern pattern, File file,
 			String fileName, String fileExt) {
 		Matcher m;
 		boolean find = false;
-		// Ö±½ÓÆ¥ÅäÕıÔò±í´ïÊ½
+		// ç›´æ¥åŒ¹é…æ­£åˆ™è¡¨è¾¾å¼
 		m = pattern.matcher(fileName);
 		find = m.matches();
 		if (!find) {
-			// pattern¿ÉÄÜÃ»¼Óºó×º£¬fileNameÈ¥µôºó×ººóÕıÔòÆ¥Åä
+			// patternå¯èƒ½æ²¡åŠ åç¼€ï¼ŒfileNameå»æ‰åç¼€åæ­£åˆ™åŒ¹é…
 			fileName = fileName.substring(0,
 					fileName.length() - fileExt.length());
 			m = pattern.matcher(fileName);
 			find = m.matches();
 		}
-		if (!find) { // ÓÃÎÄ¼şÂ·¾¶Æ¥Åä
+		if (!find) { // ç”¨æ–‡ä»¶è·¯å¾„åŒ¹é…
 			String sPattern = pattern.toString();
 			if (!sPattern.toLowerCase().endsWith(fileExt)) {
 				sPattern += fileExt;
@@ -1269,7 +1269,7 @@ public class JDBCUtil {
 	 * 
 	 * @param obj
 	 * @param fetchSize
-	 *            ²»ĞèÒªÉèÖÃ¿ÉÒÔ´«null
+	 *            ä¸éœ€è¦è®¾ç½®å¯ä»¥ä¼ null
 	 * @return ResultSet
 	 * @throws SQLException
 	 */
@@ -1284,7 +1284,7 @@ public class JDBCUtil {
 	 * @param obj
 	 * @param colName
 	 * @param fetchSize
-	 *            ²»ĞèÒªÉèÖÃ¿ÉÒÔ´«null
+	 *            ä¸éœ€è¦è®¾ç½®å¯ä»¥ä¼ null
 	 * @return ResultSet
 	 * @throws SQLException
 	 */
@@ -1366,7 +1366,7 @@ public class JDBCUtil {
 							BaseRecord r = (BaseRecord) seq.get(i);
 							for (int j = 0; j < fields.length; j++) {
 								Object o = null;
-								try { // Òì¹¹Êı¾İ
+								try { // å¼‚æ„æ•°æ®
 									o = r.getFieldValue(fields[j]);
 								} catch (Exception ex) {
 								}
@@ -1728,7 +1728,7 @@ public class JDBCUtil {
 		StringBuffer buf = new StringBuffer();
 		Reader is = null;
 		try {
-			is = x.getCharacterStream();// µÃµ½Á÷
+			is = x.getCharacterStream();// å¾—åˆ°æµ
 			BufferedReader br = new BufferedReader(is);
 			String s = br.readLine();
 			while (s != null) {
@@ -1771,14 +1771,14 @@ public class JDBCUtil {
 		if (sql == null)
 			return;
 		if (sql.length() > MAX_SPL_LENGTH) {
-			// Óï¾ä³¬³ö³¤¶ÈÏŞÖÆ£¨{0}£©¡£
+			// è¯­å¥è¶…å‡ºé•¿åº¦é™åˆ¶ï¼ˆ{0}ï¼‰ã€‚
 			throw new SQLException(JDBCMessage.get().getMessage("error.maxlen",
 					MAX_SPL_LENGTH));
 		}
 	}
 
 	/**
-	 * ÓÃÓÚÊı×é²ÎÊıÊä³öµ½ÈÕÖ¾
+	 * ç”¨äºæ•°ç»„å‚æ•°è¾“å‡ºåˆ°æ—¥å¿—
 	 * 
 	 * @param objs
 	 * @return
@@ -1798,7 +1798,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * ÓÃÓÚÊı×é²ÎÊıÊä³öµ½ÈÕÖ¾
+	 * ç”¨äºæ•°ç»„å‚æ•°è¾“å‡ºåˆ°æ—¥å¿—
 	 * 
 	 * @param ints
 	 * @return

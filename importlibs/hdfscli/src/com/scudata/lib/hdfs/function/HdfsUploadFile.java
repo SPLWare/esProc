@@ -4,8 +4,8 @@ import com.scudata.common.RQException;
 import com.scudata.common.Logger;
 /*** @author 
  * hdfs_upload(hd, localFile, remoteFile/remotePath)
- * remotePathÊ±£¬Â·¾¶±ØĞë´æÔÚ.
- * Ñ¡Ïîd,ÒªÇóÔ´ÓëÄ¿±ê¶¼ÊÇÎÄ¼ş¼Ğ
+ * remotePathæ—¶ï¼Œè·¯å¾„å¿…é¡»å­˜åœ¨.
+ * é€‰é¡¹d,è¦æ±‚æºä¸ç›®æ ‡éƒ½æ˜¯æ–‡ä»¶å¤¹
  */
 public class HdfsUploadFile extends HdfsFunction {
 	public Object doQuery( Object[] objs){

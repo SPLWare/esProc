@@ -10,18 +10,18 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¾ÛºÏº¯ÊıMedianÀà
+ * èšåˆå‡½æ•°Medianç±»
  * 
- * @author ÓÚÖ¾»ª
+ * @author äºå¿—å
  *
  */
 public class Median extends Gather  {
-	int	parK = 0;	// Ñ¡ÔñÄÄ¸ö·Ö¶Î¡£ÈôÎª0±í´ïÊ½¸ÃÖµÎª¿Õ
-	int	parN = 0;	// ·Ö¶àÉÙ¶Î£¬ÈôÎª0±íÊ¾¸ÃÖµÎª¿Õ¡£
-	private Expression exp;	// ¼ÆËã±í´ïÊ½
+	int	parK = 0;	// é€‰æ‹©å“ªä¸ªåˆ†æ®µã€‚è‹¥ä¸º0è¡¨è¾¾å¼è¯¥å€¼ä¸ºç©º
+	int	parN = 0;	// åˆ†å¤šå°‘æ®µï¼Œè‹¥ä¸º0è¡¨ç¤ºè¯¥å€¼ä¸ºç©ºã€‚
+	private Expression exp;	// è®¡ç®—è¡¨è¾¾å¼
 	
 	/**
-	 * ¸ù¾İmedian(k:n, exp)·Ö±ğ½âÎök¡¢n¡¢exp
+	 * æ ¹æ®median(k:n, exp)åˆ†åˆ«è§£ækã€nã€exp
 	 */
 	public void prepare(Context ctx) {
 		if (param == null || param.getSubSize() != 2) {
@@ -33,7 +33,7 @@ public class Median extends Gather  {
 		IParam sub1 = param.getSub(1);
 		exp = sub1.getLeafExpression();
 		
-		// median k¡¢n²ÎÊıÔÊĞí¾ùÎª¿Õ£¬´ËÊ±È¡ÖĞÖµ¡£
+		// median kã€nå‚æ•°å…è®¸å‡ä¸ºç©ºï¼Œæ­¤æ—¶å–ä¸­å€¼ã€‚
 		if (null == sub0) {
 			parK	= 1;
 			parN	= 2;
@@ -79,12 +79,12 @@ public class Median extends Gather  {
 	}
 
 	/**
-	 * °ÑÒ»Ìõ¼ÇÂ¼Ìí¼Óµ½meidanÖĞ¼äÊı¾İ»ò°ÑÆäËüÁÙÊ±Êı¾İÕûºÏµ½median¡£
-	 * 		±»ÕûºÏÊı¾İ°üÀ¨ĞòÁĞÊı¾İºÍ·ÇĞòÁĞÊı¾İ¡£
-	 * 		ĞòÁĞÊı¾İĞèÒª°ÑĞòÁĞ²ğ·Öºó£¬ºÏ²¢¡££¨Èô²ğ·ÖºóµÄÊı¾İ»¹°üº¬ĞòÁĞ£¬²»×ö½øÒ»²½²ğ·Ö£©
-	 * 		·ÇĞòÁĞÊı¾İÖ±½ÓºÏ²¢¡£
-	 * @param	oldValue	ÒÔÇ°µÄÖĞ¼äÊı¾İ
-	 * @param	ctx	ÉÏÏÂÎÄ±äÁ¿£¬Ìá¹©¼ÆËãÖĞ¼äÊı¾İµÄÉÏÏÂÎÄ
+	 * æŠŠä¸€æ¡è®°å½•æ·»åŠ åˆ°meidanä¸­é—´æ•°æ®æˆ–æŠŠå…¶å®ƒä¸´æ—¶æ•°æ®æ•´åˆåˆ°medianã€‚
+	 * 		è¢«æ•´åˆæ•°æ®åŒ…æ‹¬åºåˆ—æ•°æ®å’Œéåºåˆ—æ•°æ®ã€‚
+	 * 		åºåˆ—æ•°æ®éœ€è¦æŠŠåºåˆ—æ‹†åˆ†åï¼Œåˆå¹¶ã€‚ï¼ˆè‹¥æ‹†åˆ†åçš„æ•°æ®è¿˜åŒ…å«åºåˆ—ï¼Œä¸åšè¿›ä¸€æ­¥æ‹†åˆ†ï¼‰
+	 * 		éåºåˆ—æ•°æ®ç›´æ¥åˆå¹¶ã€‚
+	 * @param	oldValue	ä»¥å‰çš„ä¸­é—´æ•°æ®
+	 * @param	ctx	ä¸Šä¸‹æ–‡å˜é‡ï¼Œæä¾›è®¡ç®—ä¸­é—´æ•°æ®çš„ä¸Šä¸‹æ–‡
 	 */
 	public Object gather(Object oldValue, Context ctx) {
 		Object val = exp.calculate(ctx);
@@ -112,7 +112,7 @@ public class Median extends Gather  {
 	}
 
 	/**
-	 * °Ñ¼ÆËãºóµÄÊı¾İºÏ²¢ÎªÄÚ´æµÄÖĞ¼äÊı¾İ
+	 * æŠŠè®¡ç®—åçš„æ•°æ®åˆå¹¶ä¸ºå†…å­˜çš„ä¸­é—´æ•°æ®
 	 * 		
 	 */
 	public Object gather(Context ctx) {
@@ -128,8 +128,8 @@ public class Median extends Gather  {
 	}
 
 	/**
-	 * ¸ù¾İmedianÄÚµÄ²ÎÊı£¬»¹Ô­±í´ïÊ½×Ö·û´®¡£
-	 * @param	q	»¹Ô­Ê±£¬¶ÔÓ¦µÄÅÅĞòÁĞ¡£
+	 * æ ¹æ®medianå†…çš„å‚æ•°ï¼Œè¿˜åŸè¡¨è¾¾å¼å­—ç¬¦ä¸²ã€‚
+	 * @param	q	è¿˜åŸæ—¶ï¼Œå¯¹åº”çš„æ’åºåˆ—ã€‚
 	 */
 	public Expression getRegatherExpression(int q) {
 		String str = "median("+parK+":"+parN+",#"+ + q + ")";
@@ -143,14 +143,14 @@ public class Median extends Gather  {
 	}
 
 	/**
-	 * ÊÇ·ñĞèÒª×îºóµÄÍ³¼Æ²Ù×÷
+	 * æ˜¯å¦éœ€è¦æœ€åçš„ç»Ÿè®¡æ“ä½œ
 	 */
 	public boolean needFinish() {
 		return true;
 	}
 	
 	/**
-	 * Í³¼ÆÁÙÊ±ÖĞ¼äÊı¾İ£¬Éú³É×îÖÕ½á¹û¡£
+	 * ç»Ÿè®¡ä¸´æ—¶ä¸­é—´æ•°æ®ï¼Œç”Ÿæˆæœ€ç»ˆç»“æœã€‚
 	 */
 	public Object finish(Object val) {
 		if (val == null || !(val instanceof Sequence)) {

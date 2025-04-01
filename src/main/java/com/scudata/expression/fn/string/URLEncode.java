@@ -12,7 +12,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ½«URL´®±àÂë´¦Àí
+ * å°†URLä¸²ç¼–ç å¤„ç†
  * @author runqian
  *
  */
@@ -21,7 +21,7 @@ public class URLEncode extends Function {
 	private Expression exp2;
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

@@ -8,11 +8,11 @@ import com.scudata.parallel.UnitClient;
 import com.scudata.resources.ParallelMessage;
 
 /**
- * ÄÚ´æÇø¼ÓÔØÆ÷
- * hosts(;j)	È¡³ö±¾·Ö»úÉÏÈÎÎñjµÄÄÚ´æÇøºÅ£¬j¿ÉÊ¡ÂÔ
- * hosts(i;j)	ÉèÖÃ±¾·Ö»úÉÏÈÎÎñjµÄÄÚ´æÇøºÅ£¬i=0±íÊ¾Çå³ıÈÎÎñjµÄÄÚ´æÇøºÅ
- * hosts(n,hs;j)	ÔÚhsÖĞÕÒ³öhosts(;j)·µ»ØÖµÎª1,¡­,nµÄ¿ÉÓÃ·Ö»úĞòÁĞ¡£ÓĞÈ±Ê§ÕßÔòÔÚhosts()Îª¿ÕµÄ·Ö»úÓÃÏàÓ¦È±Ê§ÖµÖ´ĞĞ³õÊ¼»¯(init.dfx)£¬ÕÒ²»µ½×ã¹»¶à·Ö»ú·µ»Ø¿Õ
- * n==0Ê±·µ»Ø¿ÉÓÃ·Ö»ú£¬²»¿ÉÓÃ·Ö»úµÄÎ»ÖÃÌî³Énull
+ * å†…å­˜åŒºåŠ è½½å™¨
+ * hosts(;j)	å–å‡ºæœ¬åˆ†æœºä¸Šä»»åŠ¡jçš„å†…å­˜åŒºå·ï¼Œjå¯çœç•¥
+ * hosts(i;j)	è®¾ç½®æœ¬åˆ†æœºä¸Šä»»åŠ¡jçš„å†…å­˜åŒºå·ï¼Œi=0è¡¨ç¤ºæ¸…é™¤ä»»åŠ¡jçš„å†…å­˜åŒºå·
+ * hosts(n,hs;j)	åœ¨hsä¸­æ‰¾å‡ºhosts(;j)è¿”å›å€¼ä¸º1,â€¦,nçš„å¯ç”¨åˆ†æœºåºåˆ—ã€‚æœ‰ç¼ºå¤±è€…åˆ™åœ¨hosts()ä¸ºç©ºçš„åˆ†æœºç”¨ç›¸åº”ç¼ºå¤±å€¼æ‰§è¡Œåˆå§‹åŒ–(init.dfx)ï¼Œæ‰¾ä¸åˆ°è¶³å¤Ÿå¤šåˆ†æœºè¿”å›ç©º
+ * n==0æ—¶è¿”å›å¯ç”¨åˆ†æœºï¼Œä¸å¯ç”¨åˆ†æœºçš„ä½ç½®å¡«æˆnull
  * 
  * @author Joancy
  */
@@ -24,20 +24,20 @@ public class ZoneLoader {
 	private Machines hs = null;
 	
 
-	// ÒÑ¾­ÕÒµ½ÁË¼ÓÔØÇøµÄ»úÆ÷£¬ĞèÒªÖ´ĞĞdfx¼ÓÔØµÄ»úÆ÷²»ÄÜ°üº¬ÒÑ¾­ÕÒµ½¼ÓÔØÇøµÄ»úÆ÷£¬µ«ÊÇÖØ¸´Ö¸¶¨Í¬Ò»ip¶Ë¿ÚµÄ»úÆ÷È·ÒªËãÊÇ²»Í¬µÄ»úÆ÷¡£
+	// å·²ç»æ‰¾åˆ°äº†åŠ è½½åŒºçš„æœºå™¨ï¼Œéœ€è¦æ‰§è¡ŒdfxåŠ è½½çš„æœºå™¨ä¸èƒ½åŒ…å«å·²ç»æ‰¾åˆ°åŠ è½½åŒºçš„æœºå™¨ï¼Œä½†æ˜¯é‡å¤æŒ‡å®šåŒä¸€ipç«¯å£çš„æœºå™¨ç¡®è¦ç®—æ˜¯ä¸åŒçš„æœºå™¨ã€‚
 	private transient ArrayList<UnitClient> dispatchedNodes = new ArrayList<UnitClient>();
 	static MessageManager mm = ParallelMessage.get();
 
 	/**
-	 * ¹¹ÔìÒ»¸öÄÚ´æÇø¼ÓÔØÆ÷
+	 * æ„é€ ä¸€ä¸ªå†…å­˜åŒºåŠ è½½å™¨
 	 */
 	public ZoneLoader() {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊı
-	 * @param i ÉèÖÃÈÎÎñjµÄÄÚ´æÇøºÅ£¬i=0±íÊ¾Çå³ıÈÎÎñjµÄÄÚ´æÇøºÅ
-	 * @param j ÈÎÎñÃû£¬Ê¡ÂÔÓÃnull
+	 * è®¾ç½®å‚æ•°
+	 * @param i è®¾ç½®ä»»åŠ¡jçš„å†…å­˜åŒºå·ï¼Œi=0è¡¨ç¤ºæ¸…é™¤ä»»åŠ¡jçš„å†…å­˜åŒºå·
+	 * @param j ä»»åŠ¡åï¼Œçœç•¥ç”¨null
 	 */
 	public void setArgs(Integer i, String j) {
 		this.I = i;
@@ -45,10 +45,10 @@ public class ZoneLoader {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊı
-	 * @param n n==0Ê±·µ»Ø¿ÉÓÃ·Ö»ú£¬²»¿ÉÓÃ·Ö»úµÄÎ»ÖÃÌî³Énull
-	 * @param hs ·Ö»ú×é
-	 * @param j  ÈÎÎñÃû
+	 * è®¾ç½®å‚æ•°
+	 * @param n n==0æ—¶è¿”å›å¯ç”¨åˆ†æœºï¼Œä¸å¯ç”¨åˆ†æœºçš„ä½ç½®å¡«æˆnull
+	 * @param hs åˆ†æœºç»„
+	 * @param j  ä»»åŠ¡å
 	 */
 	public void setArgs(Integer n, Machines hs, String j) {
 		if(n!=null && n>0){
@@ -59,9 +59,9 @@ public class ZoneLoader {
 	}
 	
 	/**
-	 * Á¬½ÓÖ¸¶¨µÄ·Ö»ú¿Í»§¶Ë
-	 * @param nodes ·Ö»ú¿Í»§¶ËÁĞ±í
-	 * @throws Exception Á¬½Ó³ö´íÅ×³öÒì³£
+	 * è¿æ¥æŒ‡å®šçš„åˆ†æœºå®¢æˆ·ç«¯
+	 * @param nodes åˆ†æœºå®¢æˆ·ç«¯åˆ—è¡¨
+	 * @throws Exception è¿æ¥å‡ºé”™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public static void connectNodes(ArrayList<UnitClient> nodes)
 			throws Exception {
@@ -72,8 +72,8 @@ public class ZoneLoader {
 	}
 
 	/**
-	 * ¹Øµô·Ö»ú¿Í»§¶ËµÄÁ¬½Ó
-	 * @param nodes ·Ö»ú¿Í»§¶ËÁĞ±í
+	 * å…³æ‰åˆ†æœºå®¢æˆ·ç«¯çš„è¿æ¥
+	 * @param nodes åˆ†æœºå®¢æˆ·ç«¯åˆ—è¡¨
 	 */
 	public static void closeNodes(ArrayList<UnitClient> nodes) {
 		for (int i = 0; i < nodes.size(); i++) {
@@ -83,10 +83,10 @@ public class ZoneLoader {
 	}
 	
 	/**
-	 * ´ÓÖ¸¶¨µÄ·Ö»úÃû³ÆÖĞÕÒ³öÆô¶¯ÁËµÄ»úÆ÷
-	 * @param deadAsNull Ã»ÓĞÆô¶¯µÄ·Ö»úÊ¹ÓÃnull¶ÔÏó¼ÓÈë
-	 * @return ·Ö»ú¿Í»§¶ËÁĞ±í
-	 * @throws Exception ÁĞ³ö¹ı³Ì³ö´íÅ×³öÒì³£
+	 * ä»æŒ‡å®šçš„åˆ†æœºåç§°ä¸­æ‰¾å‡ºå¯åŠ¨äº†çš„æœºå™¨
+	 * @param deadAsNull æ²¡æœ‰å¯åŠ¨çš„åˆ†æœºä½¿ç”¨nullå¯¹è±¡åŠ å…¥
+	 * @return åˆ†æœºå®¢æˆ·ç«¯åˆ—è¡¨
+	 * @throws Exception åˆ—å‡ºè¿‡ç¨‹å‡ºé”™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public ArrayList<UnitClient> listLiveClients( boolean deadAsNull) throws Exception {
 		ArrayList<UnitClient> liveNodes = new ArrayList<UnitClient>();
@@ -103,15 +103,15 @@ public class ZoneLoader {
 	}
 	
 	/**
-	 * ³É¹¦·µ»ØÓëzone¶ÔÓ¦µÄ·Ö»úĞòÁĞ£¬·ñÔò·µ»Ønull
-	 * @return ·Ö»úĞòÁĞ
+	 * æˆåŠŸè¿”å›ä¸zoneå¯¹åº”çš„åˆ†æœºåºåˆ—ï¼Œå¦åˆ™è¿”å›null
+	 * @return åˆ†æœºåºåˆ—
 	 */
 	public Object execute() {
 		if(hs!=null){
 			return getMachines();
 		}
 		if(I==null){
-//			È¡³ö±¾·Ö»úÉÏÈÎÎñjµÄÄÚ´æÇøºÅ£¬j¿ÉÊ¡ÂÔ
+//			å–å‡ºæœ¬åˆ†æœºä¸Šä»»åŠ¡jçš„å†…å­˜åŒºå·ï¼Œjå¯çœç•¥
 			return Env.getAreaNo(J);
 		}
 		Env.setAreaNo( J, I );
@@ -122,7 +122,7 @@ public class ZoneLoader {
 		ArrayList<UnitClient> liveNodes = null;
 		try {
 			Sequence nodes = new Sequence();
-//			n=0£¬·µ»ØËùÓĞ»î¶¯µÄ·Ö»ú,²»»î¶¯µÄ·Ö»úÓÃnullÕ¼Î»
+//			n=0ï¼Œè¿”å›æ‰€æœ‰æ´»åŠ¨çš„åˆ†æœº,ä¸æ´»åŠ¨çš„åˆ†æœºç”¨nullå ä½
 			if( N==0 ){
 				ArrayList<UnitClient> stateNodes = listLiveClients(true);
 				for(UnitClient uc:stateNodes){
@@ -142,7 +142,7 @@ public class ZoneLoader {
 				return null;
 			}
 			
-			// ¶ÔÓÚ·ÖÇøµÄ¾ùºâ²»¸ù¾İ»úÆ÷±¾ÉíµÄÖ´ĞĞdfxµÄÈÎÎñÀ´¾ùºâ£¬¶øÊÇ¸ù¾İµ±Ç°ÈÎÎñ£¬Æ½¾ù·ÖÅäµ½»î¶¯µÄ·Ö»úÉÏ
+			// å¯¹äºåˆ†åŒºçš„å‡è¡¡ä¸æ ¹æ®æœºå™¨æœ¬èº«çš„æ‰§è¡Œdfxçš„ä»»åŠ¡æ¥å‡è¡¡ï¼Œè€Œæ˜¯æ ¹æ®å½“å‰ä»»åŠ¡ï¼Œå¹³å‡åˆ†é…åˆ°æ´»åŠ¨çš„åˆ†æœºä¸Š
 			connectNodes(liveNodes);
 			
 			ArrayList<Integer> areaNos = new ArrayList<Integer>();
@@ -152,7 +152,7 @@ public class ZoneLoader {
 				areaNos.add( areaNo );
 			}
 			
-//				ÏÈ°´ÄÚ´æÇøË³Ğò£¬½«ÒÑ¾­¼ÓÔØ¹ıµÄ·Ö»úÕÒ³öÀ´
+//				å…ˆæŒ‰å†…å­˜åŒºé¡ºåºï¼Œå°†å·²ç»åŠ è½½è¿‡çš„åˆ†æœºæ‰¾å‡ºæ¥
 			boolean lackZone = false;
 			for (int i = 1; i <= N; i++) {
 				Integer zone = i;
@@ -168,7 +168,7 @@ public class ZoneLoader {
 					dispatchedNodes.add(uc);
 				}
 			}
-//				ÔÙ²¹ÉÏÖĞ¼äÇøºÅÈ±Ê§µÄ·Ö»ú£¬Ö®ËùÒÔÒªµÈÉÏÃæ²½ÖèÍê³É£¬ÊÇÒª½«ÒÑ¾­Ê¹ÓÃµÄ·Ö»úÌŞ³ı
+//				å†è¡¥ä¸Šä¸­é—´åŒºå·ç¼ºå¤±çš„åˆ†æœºï¼Œä¹‹æ‰€ä»¥è¦ç­‰ä¸Šé¢æ­¥éª¤å®Œæˆï¼Œæ˜¯è¦å°†å·²ç»ä½¿ç”¨çš„åˆ†æœºå‰”é™¤
 			if(lackZone){
 				for (int i = 1; i <= N; i++) {
 					UnitClient uc = (UnitClient)nodes.get(i);

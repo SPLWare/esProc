@@ -10,7 +10,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 
-// °Ñds½øÖÆÊı×Ö´®×ª»»³Édd½øÖÆÊı×Ö´®
+// æŠŠdsè¿›åˆ¶æ•°å­—ä¸²è½¬æ¢æˆddè¿›åˆ¶æ•°å­—ä¸²
 // digits(x:ds,dd)
 public class Digits extends Function {
 	private final static char[] digits = {
@@ -43,7 +43,7 @@ public class Digits extends Function {
 	}
     
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

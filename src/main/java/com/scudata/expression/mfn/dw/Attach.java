@@ -12,8 +12,8 @@ import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡×é±í¸½±í»òÕßÎª×é±íÔö¼Ó¸½±í
- * T.attach(T¡¯,C¡­)
+ * å–ç»„è¡¨é™„è¡¨æˆ–è€…ä¸ºç»„è¡¨å¢åŠ é™„è¡¨
+ * T.attach(Tâ€™,Câ€¦)
  * @author RunQian
  *
  */
@@ -40,7 +40,7 @@ public class Attach extends PhyTableFunction {
 			throw new RQException("attach" + mm.getMessage("function.invalidParam"));
 		}
 		
-		//ÓĞÊ±¼ä¼üÊ±²»ÄÜ½¨Á¢¸½±í
+		//æœ‰æ—¶é—´é”®æ—¶ä¸èƒ½å»ºç«‹é™„è¡¨
 		if (table instanceof ColPhyTable && ((ColPhyTable)table).getGroupTable().hasTimeKey()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("attach" + mm.getMessage("function.invalidParam"));

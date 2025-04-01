@@ -23,44 +23,44 @@ import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * IDEÓÒÏÂ½ÇµÄ¶à±êÇ©Ò³Ãæ°å¡£ÓĞ±äÁ¿¡¢±í´ïÊ½µÈ±êÇ©Ò³
+ * IDEå³ä¸‹è§’çš„å¤šæ ‡ç­¾é¡µé¢æ¿ã€‚æœ‰å˜é‡ã€è¡¨è¾¾å¼ç­‰æ ‡ç­¾é¡µ
  *
  */
 public abstract class JTabbedParam extends JTabbedPane {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * Íø¸ñ±äÁ¿
+	 * ç½‘æ ¼å˜é‡
 	 */
 	private final String STR_CS_VAR = mm.getMessage("jtabbedparam.csvar");
 
 	/**
-	 * ÈÎÎñ¿Õ¼ä±äÁ¿
+	 * ä»»åŠ¡ç©ºé—´å˜é‡
 	 */
 	private final String STR_SPACE_VAR = mm.getMessage("jtabbedparam.spacevar");
 
 	/**
-	 * È«¾Ö±äÁ¿
+	 * å…¨å±€å˜é‡
 	 */
 	private final String STR_GB_VAR = mm.getMessage("jtabbedparam.globalvar");
 
 	/**
-	 * ²é¿´±í´ïÊ½
+	 * æŸ¥çœ‹è¡¨è¾¾å¼
 	 */
 	private final String STR_WATCH = mm.getMessage("jtabbedparam.watch");
 
 	/**
-	 * Êı¾İÔ´
+	 * æ•°æ®æº
 	 */
 	private final String STR_DB = mm.getMessage("jtabbedparam.db");
 
 	/**
-	 * Êä³ö
+	 * è¾“å‡º
 	 */
 	private final String STR_CONSOLE = IdeSplMessage.get().getMessage(
 			"dfx.tabconsole");
@@ -77,7 +77,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 			"public.refresh"));
 
 	/**
-	 * ±äÁ¿±í¿Ø¼ş
+	 * å˜é‡è¡¨æ§ä»¶
 	 */
 	private TableVar tableCsVar = new TableVar() {
 		private static final long serialVersionUID = 1L;
@@ -88,7 +88,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 	};
 
 	/**
-	 * ÈÎÎñ¿Õ¼ä±äÁ¿±í¿Ø¼ş
+	 * ä»»åŠ¡ç©ºé—´å˜é‡è¡¨æ§ä»¶
 	 */
 	private JTableJobSpace tableSpaceVar = new JTableJobSpace() {
 		private static final long serialVersionUID = 1L;
@@ -99,7 +99,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 	};
 
 	/**
-	 * È«¾Ö±äÁ¿±í¿Ø¼ş
+	 * å…¨å±€å˜é‡è¡¨æ§ä»¶
 	 */
 	private TableVar tableGbVar = new TableVar() {
 		private static final long serialVersionUID = 1L;
@@ -110,16 +110,16 @@ public abstract class JTabbedParam extends JTabbedPane {
 	};
 
 	/**
-	 * Ñ¡Ôñ×Ö¶ÎÃæ°å
+	 * é€‰æ‹©å­—æ®µé¢æ¿
 	 */
 	private PanelSelectField psf = new PanelSelectField();
 	/**
-	 * Êı¾İÃæ°å
+	 * æ•°æ®é¢æ¿
 	 */
 	private PanelConsole panelConsole;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public JTabbedParam() {
 		try {
@@ -131,7 +131,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 	}
 
 	/**
-	 * ÖØÖÃ»·¾³
+	 * é‡ç½®ç¯å¢ƒ
 	 */
 	public void resetEnv() {
 		boolean allClosed = true;
@@ -159,7 +159,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 	}
 
 	/**
-	 * È¡Êä³öÃæ°å
+	 * å–è¾“å‡ºé¢æ¿
 	 * 
 	 * @return
 	 */
@@ -168,7 +168,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 	}
 
 	/**
-	 * ÉèÖÃÊä³öÃæ°åÊÇ·ñ¿ÉÊÓ
+	 * è®¾ç½®è¾“å‡ºé¢æ¿æ˜¯å¦å¯è§†
 	 * 
 	 * @param isVisible
 	 */
@@ -192,7 +192,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 	}
 
 	/**
-	 * ÏÔÊ¾Êä³öÒ³
+	 * æ˜¾ç¤ºè¾“å‡ºé¡µ
 	 */
 	public void showConsoleTab() {
 		int index = getTabIndex(STR_CONSOLE);
@@ -201,10 +201,10 @@ public abstract class JTabbedParam extends JTabbedPane {
 	}
 
 	/**
-	 * È¡Ö¸¶¨Ãû³Æ±êÇ©µÄĞòºÅ
+	 * å–æŒ‡å®šåç§°æ ‡ç­¾çš„åºå·
 	 * 
 	 * @param tabName
-	 *            ±êÇ©Ãû³Æ
+	 *            æ ‡ç­¾åç§°
 	 * @return
 	 */
 	private int getTabIndex(String tabName) {
@@ -218,7 +218,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 	}
 
 	/**
-	 * Ñ¡Ôñ±äÁ¿
+	 * é€‰æ‹©å˜é‡
 	 * 
 	 * @param val
 	 * @param varName
@@ -232,9 +232,9 @@ public abstract class JTabbedParam extends JTabbedPane {
 	public abstract ParamList getEnvParamList();
 
 	/**
-	 * ÖØÖÃ²ÎÊıÁĞ±í
+	 * é‡ç½®å‚æ•°åˆ—è¡¨
 	 * 
-	 * @param pl ²ÎÊıÁĞ±í
+	 * @param pl å‚æ•°åˆ—è¡¨
 	 */
 	public void resetParamList(ParamList paramList,
 			HashMap<String, Param[]> hm, ParamList envParamList) {

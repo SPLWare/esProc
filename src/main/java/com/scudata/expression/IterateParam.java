@@ -5,7 +5,7 @@ import com.scudata.dm.Param;
 import com.scudata.util.Variant;
 
 /**
- * ~~µü´ú±äÁ¿
+ * ~~è¿­ä»£å˜é‡
  * @author RunQian
  *
  */

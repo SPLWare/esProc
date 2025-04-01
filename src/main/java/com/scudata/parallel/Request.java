@@ -6,40 +6,40 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * ÇëÇóÃüÁî
- * ÃüÁî·ÖÎªnÀà,ÃüÁîÎªÈ«²¿´óĞ´£¬Ç°×ºÎªÀàĞÍ£¬ºó×ºÎªÃüÁî±êÊ¶ ÃüÁî²ÎÊıÓĞÃüÁî±êÊ¶×öÇ°×º£¬ºó×ºÎªÊ××ÖÄ¸´óĞ´µÄ²ÎÊı±êÊ¶
+ * è¯·æ±‚å‘½ä»¤
+ * å‘½ä»¤åˆ†ä¸ºnç±»,å‘½ä»¤ä¸ºå…¨éƒ¨å¤§å†™ï¼Œå‰ç¼€ä¸ºç±»å‹ï¼Œåç¼€ä¸ºå‘½ä»¤æ ‡è¯† å‘½ä»¤å‚æ•°æœ‰å‘½ä»¤æ ‡è¯†åšå‰ç¼€ï¼Œåç¼€ä¸ºé¦–å­—æ¯å¤§å†™çš„å‚æ•°æ ‡è¯†
  */
 public class Request implements Serializable {
 	private static final long serialVersionUID = 559160970976632495L;
 
-	// ÃüÁîÀàĞÍ¶¨Òå
-	public static final int TYPE_SERVER = 0; // ·şÎñÆ÷Ïà¹ØÃüÁî
-	public static final int TYPE_DFX = 10000; // Ö´ĞĞdfx
-	public static final int TYPE_CURSOR = 20000; // ÓÎ±ê·şÎñ
-	public static final int TYPE_FILE = 30000; // Ô¶³ÌÎÄ¼ş·şÎñ
-	public static final int TYPE_PARTITION = 40000; // Ô¶³Ì·ÖÇøÎÄ¼ş·şÎñ
-	public static final int TYPE_ZONE = 50000; // ÄÚ´æ¼ÓÔØÇø·şÎñ
-	public static final int TYPE_UNITCOMMAND = 60000; // Íõµ÷ÓÃµÄUnitCommand
-	public static final int TYPE_JDBC = 70000; // JDBC½Ó¿Ú
+	// å‘½ä»¤ç±»å‹å®šä¹‰
+	public static final int TYPE_SERVER = 0; // æœåŠ¡å™¨ç›¸å…³å‘½ä»¤
+	public static final int TYPE_DFX = 10000; // æ‰§è¡Œdfx
+	public static final int TYPE_CURSOR = 20000; // æ¸¸æ ‡æœåŠ¡
+	public static final int TYPE_FILE = 30000; // è¿œç¨‹æ–‡ä»¶æœåŠ¡
+	public static final int TYPE_PARTITION = 40000; // è¿œç¨‹åˆ†åŒºæ–‡ä»¶æœåŠ¡
+	public static final int TYPE_ZONE = 50000; // å†…å­˜åŠ è½½åŒºæœåŠ¡
+	public static final int TYPE_UNITCOMMAND = 60000; // ç‹è°ƒç”¨çš„UnitCommand
+	public static final int TYPE_JDBC = 70000; // JDBCæ¥å£
 
-	// ·şÎñÆ÷Ïà¹ØÃüÁî
-	public static final int SERVER_SHUTDOWN = 1 + TYPE_SERVER; // Í£Ö¹·şÎñÆ÷
-	public static final int SERVER_LISTTASK = 2 + TYPE_SERVER; // ÁĞ³öÈÎÎñÁĞ±í,Ó¦´ğTable
-	public static final int SERVER_CANACCEPTTASK = 3 + TYPE_SERVER; // Ì½²â·Ö»úÄÜ·ñ½ÓÊÜÈÎÎñ£¬Ó¦´ğboolean
-	public static final int SERVER_GETTASKNUMS = 4 + TYPE_SERVER; // »ñÈ¡ÊÊºÏ×÷ÒµÊıºÍµ±Ç°×÷ÒµÊı£¬Ó¦´ğint[2]
-	public static final String CANACCEPTTASK_DispatchedCount = "Dispatched count";// ÒÑ¾­ÔÚÖ÷½Ğ»úÆ÷ÉÏ·ÖÅäÁËµÄÈÎÎñÊı£¬ºóÌ¨µÄ×îÓÅ²¢ĞĞÊı±ØĞë´óÓÚÒÑ¾­·ÖÅäµÄ
+	// æœåŠ¡å™¨ç›¸å…³å‘½ä»¤
+	public static final int SERVER_SHUTDOWN = 1 + TYPE_SERVER; // åœæ­¢æœåŠ¡å™¨
+	public static final int SERVER_LISTTASK = 2 + TYPE_SERVER; // åˆ—å‡ºä»»åŠ¡åˆ—è¡¨,åº”ç­”Table
+	public static final int SERVER_CANACCEPTTASK = 3 + TYPE_SERVER; // æ¢æµ‹åˆ†æœºèƒ½å¦æ¥å—ä»»åŠ¡ï¼Œåº”ç­”boolean
+	public static final int SERVER_GETTASKNUMS = 4 + TYPE_SERVER; // è·å–é€‚åˆä½œä¸šæ•°å’Œå½“å‰ä½œä¸šæ•°ï¼Œåº”ç­”int[2]
+	public static final String CANACCEPTTASK_DispatchedCount = "Dispatched count";// å·²ç»åœ¨ä¸»å«æœºå™¨ä¸Šåˆ†é…äº†çš„ä»»åŠ¡æ•°ï¼Œåå°çš„æœ€ä¼˜å¹¶è¡Œæ•°å¿…é¡»å¤§äºå·²ç»åˆ†é…çš„
 
-	public static final int SERVER_LISTPARAM = 5 + TYPE_SERVER; // ÁĞ³öÈÎÎñ»úµÄÈ«¾Ö±äÁ¿±í,Ó¦´ğHashMap:
+	public static final int SERVER_LISTPARAM = 5 + TYPE_SERVER; // åˆ—å‡ºä»»åŠ¡æœºçš„å…¨å±€å˜é‡è¡¨,åº”ç­”HashMap:
 																// String
 																// spaceId-
 																// Param[]
-	public static final int SERVER_GETCONCURRENTCOUNT = 6 + TYPE_SERVER; // ÁĞ³öÈÎÎñ»úµÄÈÎÎñÊıÄ¿,Ó¦´ğInteger
+	public static final int SERVER_GETCONCURRENTCOUNT = 6 + TYPE_SERVER; // åˆ—å‡ºä»»åŠ¡æœºçš„ä»»åŠ¡æ•°ç›®,åº”ç­”Integer
 
-	// Çå³ı·şÎñÆ÷¶ËµÄÀ¬»ø´úÀíÆ÷(ÓÃ»§Ã»ÓĞÕı³£¹Ø±ÕµÄ´úÀí»òÕßÍøÂç¶ÏµôºóµÄ´úÀí)
-	public static final int SERVER_CLOSESPACE = 10 + TYPE_SERVER; // ¹Ø±Õ·Ö»úµÄ±äÁ¿¿Õ¼ä
+	// æ¸…é™¤æœåŠ¡å™¨ç«¯çš„åƒåœ¾ä»£ç†å™¨(ç”¨æˆ·æ²¡æœ‰æ­£å¸¸å…³é—­çš„ä»£ç†æˆ–è€…ç½‘ç»œæ–­æ‰åçš„ä»£ç†)
+	public static final int SERVER_CLOSESPACE = 10 + TYPE_SERVER; // å…³é—­åˆ†æœºçš„å˜é‡ç©ºé—´
 	public static final String CLOSESPACE_SpaceId = "Space id";
 
-	public static final int SERVER_FETCHDIMS = 20 + TYPE_SERVER; // ´Ó·Ö»ú»ñÈ¡Î¬±í,Ó¦´ğ
+	public static final int SERVER_FETCHDIMS = 20 + TYPE_SERVER; // ä»åˆ†æœºè·å–ç»´è¡¨,åº”ç­”
 																	// Sequence
 	public static final String FETCHDIMS_SpaceId = "Space id";// String
 	public static final String FETCHDIMS_DimVarName = "Dim var name";// String
@@ -47,28 +47,28 @@ public class Request implements Serializable {
 	public static final String FETCHDIMS_NewExps = "New exps";// String[]
 	public static final String FETCHDIMS_NewNames = "New names";// String[]
 
-	public static final int SERVER_FETCHCLUSTERTABLE = 21 + TYPE_SERVER; // ´Ó·Ö»ú»ñÈ¡¼¯Èº±í,Ó¦´ğ
+	public static final int SERVER_FETCHCLUSTERTABLE = 21 + TYPE_SERVER; // ä»åˆ†æœºè·å–é›†ç¾¤è¡¨,åº”ç­”
 																			// Sequence
 	public static final String FETCHCLUSTERTABLE_SpaceId = "Space id";// String
 	public static final String FETCHCLUSTERTABLE_TableName = "Table name";// String
-	public static final String FETCHCLUSTERTABLE_Seqs = "Seqs";// int[],±íµÄ¼ÇÂ¼ĞòºÅ
+	public static final String FETCHCLUSTERTABLE_Seqs = "Seqs";// int[],è¡¨çš„è®°å½•åºå·
 	public static final String FETCHCLUSTERTABLE_KeySequence = "Key sequence";// Sequence
 	public static final String FETCHCLUSTERTABLE_NewExps = "New exps";// String[]
 	public static final String FETCHCLUSTERTABLE_NewNames = "New names";// String[]
 	public static final String FETCHCLUSTERTABLE_Filter = "Filter";// String
 
-	public static final int SERVER_GETTABLEMEMBERS = 22 + TYPE_SERVER; // »ñÈ¡·Ö»úÉÏÄÚ´æ±íµÄ³ÉÔ±¸öÊı,Ó¦´ğ
+	public static final int SERVER_GETTABLEMEMBERS = 22 + TYPE_SERVER; // è·å–åˆ†æœºä¸Šå†…å­˜è¡¨çš„æˆå‘˜ä¸ªæ•°,åº”ç­”
 																		// int
 	public static final String GETTABLEMEMBERS_SpaceId = "Space id";// String
 	public static final String GETTABLEMEMBERS_TableName = "Table name";// String
 
-	public static final int SERVER_GETUNITS_MAXNUM = 50 + TYPE_SERVER; // ÁĞ³öµ±Ç°·Ö»úµÄ×î´ó×÷ÒµÊı
+	public static final int SERVER_GETUNITS_MAXNUM = 50 + TYPE_SERVER; // åˆ—å‡ºå½“å‰åˆ†æœºçš„æœ€å¤§ä½œä¸šæ•°
 
-	public static final int SERVER_GETAREANO = 54 + TYPE_SERVER; // »ñÈ¡·Ö»úµÄÄÚ´æÇøºÅ
+	public static final int SERVER_GETAREANO = 54 + TYPE_SERVER; // è·å–åˆ†æœºçš„å†…å­˜åŒºå·
 	public static final String GETAREANO_TaskName = "Task name";// String
 
-	// DFXÏà¹Ø
-	public static final int DFX_TASK = 1 + TYPE_DFX; // ´´½¨Ò»¸ödfxÈÎÎñ£¬Ó¦´ğInteger£¬ÈÎÎñºÅ
+	// DFXç›¸å…³
+	public static final int DFX_TASK = 1 + TYPE_DFX; // åˆ›å»ºä¸€ä¸ªdfxä»»åŠ¡ï¼Œåº”ç­”Integerï¼Œä»»åŠ¡å·
 	public static final String TASK_DfxName = "Dfx name";
 	public static final String TASK_ArgList = "Arg list";
 	public static final String TASK_SpaceId = "Space id";
@@ -78,84 +78,84 @@ public class Request implements Serializable {
 	public static final String TASK_AccumulateLocation = "AccumulateLocation";
 	public static final String TASK_CurrentLocation = "CurrentLocation";
 
-	public static final int DFX_CALCULATE = 2 + TYPE_DFX; // ¼ÆËãÒ»¸öÈÎÎñ£¬Ó¦´ğObject£¬ÈÎÎñµÄÖ´ĞĞ½á¹û
+	public static final int DFX_CALCULATE = 2 + TYPE_DFX; // è®¡ç®—ä¸€ä¸ªä»»åŠ¡ï¼Œåº”ç­”Objectï¼Œä»»åŠ¡çš„æ‰§è¡Œç»“æœ
 	public static final String CALCULATE_TaskId = "Task id";
 
-	public static final int DFX_CANCEL = 3 + TYPE_DFX; // È¡ÏûÒ»¸öÕıÔÚÖ´ĞĞµÄdfxÎÄ¼ş£¬Ó¦´ğboolean£¬È¡ÏûÊÇ·ñ³É¹¦
+	public static final int DFX_CANCEL = 3 + TYPE_DFX; // å–æ¶ˆä¸€ä¸ªæ­£åœ¨æ‰§è¡Œçš„dfxæ–‡ä»¶ï¼Œåº”ç­”booleanï¼Œå–æ¶ˆæ˜¯å¦æˆåŠŸ
 	public static final String CANCEL_TaskId = "Task id";
 	public static final String CANCEL_Reason = "Task reason";
 
-	public static final int DFX_GET_REDUCE = 4 + TYPE_DFX; // »ñÈ¡ÈÎÎñÔÚ·Ö»úÉÏµÄreduce½á¹û£¬Ó¦´ğObject
+	public static final int DFX_GET_REDUCE = 4 + TYPE_DFX; // è·å–ä»»åŠ¡åœ¨åˆ†æœºä¸Šçš„reduceç»“æœï¼Œåº”ç­”Object
 	public static final String GET_REDUCE_SpaceId = "Space id";
 
-	// ÓÎ±ê·şÎñ
-	public static final int CURSOR_METHOD = 1 + TYPE_CURSOR;// Ö´ĞĞÓÎ±êµÄÒ»¸ö´úÀí·½·¨£¬Ó¦´ğ:Object·½·¨µÄ·µ»ØÖµ
+	// æ¸¸æ ‡æœåŠ¡
+	public static final int CURSOR_METHOD = 1 + TYPE_CURSOR;// æ‰§è¡Œæ¸¸æ ‡çš„ä¸€ä¸ªä»£ç†æ–¹æ³•ï¼Œåº”ç­”:Objectæ–¹æ³•çš„è¿”å›å€¼
 	public static final String METHOD_TaskId = "Task id";
 	public static final String METHOD_ProxyId = "Proxy id";
 	public static final String METHOD_MethodName = "Method name";
 	public static final String METHOD_ArgValues = "Arg values";
 
-	// Ô¶³ÌÎÄ¼ş·şÎñ
-	public static final int FILE_GETPROPERTY = 1 + TYPE_FILE; // »ñÈ¡ÎÄ¼şµÄÏà¹ØÊôĞÔ£¬Ó¦´ğ£ºHashMapÎÄ¼şµÄÏàÓ¦ÊôĞÔ
+	// è¿œç¨‹æ–‡ä»¶æœåŠ¡
+	public static final int FILE_GETPROPERTY = 1 + TYPE_FILE; // è·å–æ–‡ä»¶çš„ç›¸å…³å±æ€§ï¼Œåº”ç­”ï¼šHashMapæ–‡ä»¶çš„ç›¸åº”å±æ€§
 	public static final String GETPROPERTY_FileName = "File name";
 	public static final String GETPROPERTY_Opt = "Options";
 
-	public static final int FILE_DELETE = 2 + TYPE_FILE; // É¾³ıÖ¸¶¨ÎÄ¼ş£¬Ó¦´ğ£ºboolean
+	public static final int FILE_DELETE = 2 + TYPE_FILE; // åˆ é™¤æŒ‡å®šæ–‡ä»¶ï¼Œåº”ç­”ï¼šboolean
 	public static final String DELETE_FileName = "File name";
 
-	public static final int FILE_OPEN = 3 + TYPE_FILE; // ´ò¿ªÔ¶³ÌÎÄ¼ş£¬Ó¦´ğ£ºint ÎÄ¼ş¾ä±ú
+	public static final int FILE_OPEN = 3 + TYPE_FILE; // æ‰“å¼€è¿œç¨‹æ–‡ä»¶ï¼Œåº”ç­”ï¼šint æ–‡ä»¶å¥æŸ„
 	public static final String OPEN_Partition = "Partition";
 	public static final String OPEN_FileName = "File name";
 	public static final String OPEN_Opt = "Opt";
 	public static final String OPEN_IsAppend = "Is append";
 
-	public static final int FILE_READ = 4 + TYPE_FILE; // ¶ÁÈ¡ÎÄ¼şµÄÒ»¿éÊı¾İ£¬Ó¦´ğ£ºbyte[]
+	public static final int FILE_READ = 4 + TYPE_FILE; // è¯»å–æ–‡ä»¶çš„ä¸€å—æ•°æ®ï¼Œåº”ç­”ï¼šbyte[]
 	public static final String READ_Handle = "handle";
 	public static final String READ_BufferSize = "Buffer size";
 
-	public static final int FILE_CLOSE = 5 + TYPE_FILE; // ¹Ø±ÕÎÄ¼ş¾ä±ú£¬Ó¦´ğ£ºboolean
+	public static final int FILE_CLOSE = 5 + TYPE_FILE; // å…³é—­æ–‡ä»¶å¥æŸ„ï¼Œåº”ç­”ï¼šboolean
 	public static final String CLOSE_Handle = "handle";
 
-	public static final int FILE_WRITE = 6 + TYPE_FILE; // Ğ´ÎÄ¼şµÄÒ»¿éÊı¾İ£¬Ó¦´ğ£ºÎŞ
+	public static final int FILE_WRITE = 6 + TYPE_FILE; // å†™æ–‡ä»¶çš„ä¸€å—æ•°æ®ï¼Œåº”ç­”ï¼šæ— 
 	public static final String WRITE_Handle = "handle";
 	public static final String WRITE_Bytes = "bytes";
 
-	public static final int FILE_POSITION = 7 + TYPE_FILE; // »ñÈ¡Ëæ»úÊä³öÎÄ¼şµÄµ±Ç°Î»ÖÃ£¬Ó¦´ğ£ºlong£¬Î»ÖÃ
+	public static final int FILE_POSITION = 7 + TYPE_FILE; // è·å–éšæœºè¾“å‡ºæ–‡ä»¶çš„å½“å‰ä½ç½®ï¼Œåº”ç­”ï¼šlongï¼Œä½ç½®
 	public static final String POSITION_Handle = "handle";
 
-	public static final int FILE_SETPOSITION = 8 + TYPE_FILE; // ÉèÖÃËæ»úÊä³öÎÄ¼şµÄµ±Ç°Î»ÖÃ£¬Ó¦´ğ£ºÎŞ
+	public static final int FILE_SETPOSITION = 8 + TYPE_FILE; // è®¾ç½®éšæœºè¾“å‡ºæ–‡ä»¶çš„å½“å‰ä½ç½®ï¼Œåº”ç­”ï¼šæ— 
 	public static final String SETPOSITION_Handle = "handle";
 	public static final String SETPOSITION_Position = "position";
 
-	public static final int FILE_TRYLOCK = 9 + TYPE_FILE; // ³¢ÊÔËø¶¨ÎÄ¼ş£¬Ó¦´ğ£º²¼¶ûÖµ
+	public static final int FILE_TRYLOCK = 9 + TYPE_FILE; // å°è¯•é”å®šæ–‡ä»¶ï¼Œåº”ç­”ï¼šå¸ƒå°”å€¼
 	public static final String TRYLOCK_Handle = "handle";
 
-	public static final int FILE_FROM_HANDLE = 10 + TYPE_FILE; // ´ÓÔ¶³ÌÊä³öÁ÷´ò¿ªµÄÎÄ¼şÖĞ£¬´ò¿ªÊäÈëÁ÷
+	public static final int FILE_FROM_HANDLE = 10 + TYPE_FILE; // ä»è¿œç¨‹è¾“å‡ºæµæ‰“å¼€çš„æ–‡ä»¶ä¸­ï¼Œæ‰“å¼€è¾“å…¥æµ
 	public static final String FROM_Handle = "From handle";
 	public static final String FROM_Pos = "From position";
 
-	public static final int FILE_LOCK = 11 + TYPE_FILE; // Ëø¶¨ÎÄ¼ş£¬Ó¦´ğ£º²¼¶ûÖµ
+	public static final int FILE_LOCK = 11 + TYPE_FILE; // é”å®šæ–‡ä»¶ï¼Œåº”ç­”ï¼šå¸ƒå°”å€¼
 	public static final String LOCK_Handle = "handle";
 
-	public static final int FILE_DIRECTREAD = 100 + TYPE_FILE; // Ö±½Ó¿ìËÙ¶ÁÈ¡ÎÄ¼ş
+	public static final int FILE_DIRECTREAD = 100 + TYPE_FILE; // ç›´æ¥å¿«é€Ÿè¯»å–æ–‡ä»¶
 	public static final String DIRECTREAD_FileName = "fileName";
 	public static final String DIRECTREAD_Partition = "partition";
 
-	// Ô¶³Ì·ÖÇøÎÄ¼ş·şÎñ
-	public static final int PARTITION_LISTFILES = 2 + TYPE_PARTITION; // ÁĞ³ö·Ö»úµÄÎÄ¼şĞÅÏ¢£¬Ó¦´ğList<FileInfo>,·ûºÏÌõ¼şµÄÎÄ¼şÁĞ±í
+	// è¿œç¨‹åˆ†åŒºæ–‡ä»¶æœåŠ¡
+	public static final int PARTITION_LISTFILES = 2 + TYPE_PARTITION; // åˆ—å‡ºåˆ†æœºçš„æ–‡ä»¶ä¿¡æ¯ï¼Œåº”ç­”List<FileInfo>,ç¬¦åˆæ¡ä»¶çš„æ–‡ä»¶åˆ—è¡¨
 	public static final String LISTFILES_Path = "path";
 
-	public static final int PARTITION_DELETE = 3 + TYPE_PARTITION; // É¾³ı·Ö»úµÄÎÄ¼ş
-	// public static final String DELETE_FileName = "FILE NAME";//ÒÔ¼°ÓĞÍ¬Ãû¶¨Òå
+	public static final int PARTITION_DELETE = 3 + TYPE_PARTITION; // åˆ é™¤åˆ†æœºçš„æ–‡ä»¶
+	// public static final String DELETE_FileName = "FILE NAME";//ä»¥åŠæœ‰åŒåå®šä¹‰
 	public static final String DELETE_Option = "Option";
 
-	public static final int PARTITION_UPLOAD = 8 + TYPE_PARTITION; // Íù·Ö»úÉÏ´«Ò»¸öÎÄ¼ş
+	public static final int PARTITION_UPLOAD = 8 + TYPE_PARTITION; // å¾€åˆ†æœºä¸Šä¼ ä¸€ä¸ªæ–‡ä»¶
 	public static final String UPLOAD_DstPath = "Dest path";
 	public static final String UPLOAD_LastModified = "Last Modified";
-	public static final String UPLOAD_IsMove = "Is move";// Èç¹ûÊÇÒÆ¶¯Ä£Ê½£¬Ôò²»±È½ÏLastModified
-	public static final String UPLOAD_IsY = "Is y";// IsY×´Ì¬Ê±£¬Ç¿ÖÆ¸²¸Ç£¬·ñÔò±¨´í
+	public static final String UPLOAD_IsMove = "Is move";// å¦‚æœæ˜¯ç§»åŠ¨æ¨¡å¼ï¼Œåˆ™ä¸æ¯”è¾ƒLastModified
+	public static final String UPLOAD_IsY = "Is y";// IsYçŠ¶æ€æ—¶ï¼Œå¼ºåˆ¶è¦†ç›–ï¼Œå¦åˆ™æŠ¥é”™
 
-	public static final int PARTITION_SYNCTO = 11 + TYPE_PARTITION; // ½«±¾µØÂ·¾¶pÏÂµÄÎÄ¼şÍ¬²½µ½·Ö»ú×émachines
+	public static final int PARTITION_SYNCTO = 11 + TYPE_PARTITION; // å°†æœ¬åœ°è·¯å¾„pä¸‹çš„æ–‡ä»¶åŒæ­¥åˆ°åˆ†æœºç»„machines
 	public static final String SYNC_Machines = "Machines";
 	public static final String SYNC_Path = "Path";
 
@@ -167,33 +167,33 @@ public class Request implements Serializable {
 	public static final String MOVEFILE_Option = "Option";
 
 	public static final int PARTITION_UPLOAD_DFX = 20 + TYPE_PARTITION;
-	// ¸ÃÃüÁîÉÏ´«Ò»¸öÎÄ¼şµ½·Ö»úµÄÖ÷Â·¾¶Env.getMainPath()ÏÂ£¬¸ú·ÖÇøÎŞ¹Ø£¬µ«ÊÇÒ²ÊÇ¸ú·ÖÇøÒ»ÑùµÄÉÏ´«ÎÄ¼ş£¬²ÎÊı²»Ò»ÖÂ£¬·ÅÔÚ·ÖÇø¹ÜÀíÀïÃæ
-	// ¸ÃÃüÁîµÄÉÏ´«¶¯×÷»ù±¾µÈÍ¬ÓÚPARTITION_UPLOAD
-	public static final String UPLOAD_DFX_RelativePath = "Relative Path";// ÉÏ´«µ½Ä¿µÄ»úµÄ¸ÃÂ·¾¶ÏÂ£¬Ö±½ÓÏà¶ÔÓÚÖ÷Â·¾¶Ê±£¬¸Ã²ÎÊıÎª¿Õ
+	// è¯¥å‘½ä»¤ä¸Šä¼ ä¸€ä¸ªæ–‡ä»¶åˆ°åˆ†æœºçš„ä¸»è·¯å¾„Env.getMainPath()ä¸‹ï¼Œè·Ÿåˆ†åŒºæ— å…³ï¼Œä½†æ˜¯ä¹Ÿæ˜¯è·Ÿåˆ†åŒºä¸€æ ·çš„ä¸Šä¼ æ–‡ä»¶ï¼Œå‚æ•°ä¸ä¸€è‡´ï¼Œæ”¾åœ¨åˆ†åŒºç®¡ç†é‡Œé¢
+	// è¯¥å‘½ä»¤çš„ä¸Šä¼ åŠ¨ä½œåŸºæœ¬ç­‰åŒäºPARTITION_UPLOAD
+	public static final String UPLOAD_DFX_RelativePath = "Relative Path";// ä¸Šä¼ åˆ°ç›®çš„æœºçš„è¯¥è·¯å¾„ä¸‹ï¼Œç›´æ¥ç›¸å¯¹äºä¸»è·¯å¾„æ—¶ï¼Œè¯¥å‚æ•°ä¸ºç©º
 	public static final String UPLOAD_DFX_LastModified = UPLOAD_LastModified;
 
 	public static final int PARTITION_UPLOAD_CTX = 30 + TYPE_PARTITION;
-	// ¸ÃÃüÁîÉÏ´«Ò»¸ö×é±í¡¢Ë÷ÒıÎÄ¼şµ½·Ö»úµÄÖ÷Â·¾¶£»ÉÏ´«ÖĞ½øĞĞÓÅ»¯£¬Ö»Í¬²½ÔöÁ¿ºÍĞŞ¸ÄµÄ²¿·Ö
+	// è¯¥å‘½ä»¤ä¸Šä¼ ä¸€ä¸ªç»„è¡¨ã€ç´¢å¼•æ–‡ä»¶åˆ°åˆ†æœºçš„ä¸»è·¯å¾„ï¼›ä¸Šä¼ ä¸­è¿›è¡Œä¼˜åŒ–ï¼ŒåªåŒæ­¥å¢é‡å’Œä¿®æ”¹çš„éƒ¨åˆ†
 	public static final String UPLOAD_FileSize = "File size";
 	public static final String UPLOAD_FileType = "File_type";
 	public static final String UPLOAD_BlockLinkInfo = "Block link info";
 	public static final String UPLOAD_HasExtFile = "Has Ext File";
 	public static final String UPLOAD_ExtFileLastModified = "Ext File Last Modified";
 
-	// ÄÚ´æ¼ÓÔØÇø·şÎñ
-	public static final int ZONE_INITDFX = 2 + TYPE_ZONE; // ÔÚ·Ö»úÉÏÖ´ĞĞÒ»¸ö¼ÓÔØÄÚ´æÇøµÄdfx³ÌĞò,·µ»Øboolean£¬Ö´ĞĞÊÇ·ñÍê³É
+	// å†…å­˜åŠ è½½åŒºæœåŠ¡
+	public static final int ZONE_INITDFX = 2 + TYPE_ZONE; // åœ¨åˆ†æœºä¸Šæ‰§è¡Œä¸€ä¸ªåŠ è½½å†…å­˜åŒºçš„dfxç¨‹åº,è¿”å›booleanï¼Œæ‰§è¡Œæ˜¯å¦å®Œæˆ
 	public static final String EXECDFX_ArgList = "Arg list";
 	public static final String EXECDFX_SpaceId = "Space id";
 
-	// ÍõµÄUnitCommand
-	public static final int UNITCOMMAND_EXE = 1 + TYPE_UNITCOMMAND; // UnitCommandÏà¹ØÃüÁî
+	// ç‹çš„UnitCommand
+	public static final int UNITCOMMAND_EXE = 1 + TYPE_UNITCOMMAND; // UnitCommandç›¸å…³å‘½ä»¤
 	public static final String EXE_Object = "Command Object";
 
-	// JDBC½Ó¿Ú
-	public static final int JDBC_CONNECT = 1 + TYPE_JDBC; // »ñÈ¡Á¬½ÓºÅ£¬²úÉúÁ¬½Ó´úÀí£¬·µ»ØÖµ£ºÕûÊı£¬Á¬½ÓºÅ
+	// JDBCæ¥å£
+	public static final int JDBC_CONNECT = 1 + TYPE_JDBC; // è·å–è¿æ¥å·ï¼Œäº§ç”Ÿè¿æ¥ä»£ç†ï¼Œè¿”å›å€¼ï¼šæ•´æ•°ï¼Œè¿æ¥å·
 //	public static final String CONNECT_spaceID = "connect spaceId";// spaceId
 
-	public static final int JDBC_PREPARE = 2 + TYPE_JDBC; // prepareStatement,·µ»ØÖµ£ºÕûÊı£¬statementºÅ
+	public static final int JDBC_PREPARE = 2 + TYPE_JDBC; // prepareStatement,è¿”å›å€¼ï¼šæ•´æ•°ï¼Œstatementå·
 	public static final String PREPARE_connID = "prepare connId";// connId
 	public static final String PREPARE_CMD = "prepare cmd";// JDBC cmds
 	public static final String PREPARE_Args = "prepare args";// Object[]
@@ -202,40 +202,40 @@ public class Request implements Serializable {
 	public static final String PREPARE_ENV_SQLFIRST = "sqlfirst";
 	public static final String PREPARE_ENV_GATEWAY = "gateway";
 
-	public static final int JDBC_EXECUTE = 3 + TYPE_JDBC; // Ö´ĞĞdfx,·µ»ØÖµ£ºÕûÊı×é£¬½á¹û¼¯ºÅ
+	public static final int JDBC_EXECUTE = 3 + TYPE_JDBC; // æ‰§è¡Œdfx,è¿”å›å€¼ï¼šæ•´æ•°ç»„ï¼Œç»“æœé›†å·
 	public static final String EXECUTE_connID = "execute connId";// connId
 	public static final String EXECUTE_stateID = "execute stateId";// stateId
 
-	public static final int JDBC_CANCEL = 4 + TYPE_JDBC; // È¡ÏûÖ´ĞĞdfx,·µ»ØÖµ£ºÎŞ
+	public static final int JDBC_CANCEL = 4 + TYPE_JDBC; // å–æ¶ˆæ‰§è¡Œdfx,è¿”å›å€¼ï¼šæ— 
 	public static final String CANCEL_connID = EXECUTE_connID;// connId
 	public static final String CANCEL_stateID = EXECUTE_stateID;// stateId
 
 	public static final String JDBC_ISPLUS = "isplus";
 
-	public static final int JDBC_GETTABLES = 5 + TYPE_JDBC; // ¶ÁÈ¡±íĞÅÏ¢
+	public static final int JDBC_GETTABLES = 5 + TYPE_JDBC; // è¯»å–è¡¨ä¿¡æ¯
 	public static final String GETTABLES_connID = "getTables connId";// connId
 	public static final String GETTABLES_tableNamePattern = "tableNamePattern";
 
-	public static final int JDBC_GETCOLUMNS = 6 + TYPE_JDBC; // ¶ÁÈ¡×Ö¶ÎĞÅÏ¢
+	public static final int JDBC_GETCOLUMNS = 6 + TYPE_JDBC; // è¯»å–å­—æ®µä¿¡æ¯
 	public static final String GETCOLUMNS_connID = "getTableColumns connId";// connId
 	public static final String GETCOLUMNS_tableNamePattern = "tableNamePattern";
 	public static final String GETCOLUMNS_columnNamePattern = "columnNamePattern";
 
-	public static final int JDBC_GETPROCEDURES = 7 + TYPE_JDBC; // ¶ÁÈ¡SPLXÎÄ¼şĞÅÏ¢
+	public static final int JDBC_GETPROCEDURES = 7 + TYPE_JDBC; // è¯»å–SPLXæ–‡ä»¶ä¿¡æ¯
 	public static final String GETPROC_connID = "getProcedures connId";// connId
 	public static final String GETPROC_procedureNamePattern = "procedureNamePattern";
 
-	public static final int JDBC_GETPROCECOLUMNS = 8 + TYPE_JDBC; // ¶ÁÈ¡SPLXÎÄ¼şµÄ²ÎÊıĞÅÏ¢
+	public static final int JDBC_GETPROCECOLUMNS = 8 + TYPE_JDBC; // è¯»å–SPLXæ–‡ä»¶çš„å‚æ•°ä¿¡æ¯
 	public static final String GETPROCCOLUMNS_connID = "getProcedureColumns connId";// connId
 	public static final String GETPROCCOLUMNS_procedureNamePattern = "procedureNamePattern";
 	public static final String GETPROCCOLUMNS_columnNamePattern = "procedureColumnNamePattern";
 
-	public static final int JDBC_GETSPLPARAMS = 9 + TYPE_JDBC; // ¶ÁÈ¡SPLXÎÄ¼şµÄ²ÎÊıĞÅÏ¢
+	public static final int JDBC_GETSPLPARAMS = 9 + TYPE_JDBC; // è¯»å–SPLXæ–‡ä»¶çš„å‚æ•°ä¿¡æ¯
 	public static final String GETSPLPARAMS_connID = "getProcedureColumns connId";// connId
 	public static final String GETSPLPARAMS_splPath = "splPath";
 
-	public static final int JDBC_CLOSESTATEMENT = 11 + TYPE_JDBC; // ¹Ø±ÕStatement
-	public static final int JDBC_CLOSECONNECTION = 12 + TYPE_JDBC; // ¹Ø±ÕConnection
+	public static final int JDBC_CLOSESTATEMENT = 11 + TYPE_JDBC; // å…³é—­Statement
+	public static final int JDBC_CLOSECONNECTION = 12 + TYPE_JDBC; // å…³é—­Connection
 	public static final String CLOSE_connID = EXECUTE_connID;// connId
 	public static final String CLOSE_stateID = EXECUTE_stateID;// stateId
 
@@ -243,15 +243,15 @@ public class Request implements Serializable {
 	private Map attrs = new HashMap();
 
 	/**
-	 * ´´½¨Ò»¸öÇëÇó
-	 * @param action ÇëÇóÃüÁî
+	 * åˆ›å»ºä¸€ä¸ªè¯·æ±‚
+	 * @param action è¯·æ±‚å‘½ä»¤
 	 */
 	public Request(int action) {
 		this.action = action;
 	}
 
 	/**
-	 * ÇëÇóÊÇ·ñ¶ÌÁ¬½Ó
+	 * è¯·æ±‚æ˜¯å¦çŸ­è¿æ¥
 	 * @return true
 	 */
 	public boolean isShortConnectCmd() {
@@ -259,8 +259,8 @@ public class Request implements Serializable {
 	}
 
 	/**
-	 * ¸ù¾İµ±Ç°µÄÇëÇó±àºÅ£¬È¡³öÇëÇóÀàĞÍ
-	 * @return ÇëÇóÀàĞÍ
+	 * æ ¹æ®å½“å‰çš„è¯·æ±‚ç¼–å·ï¼Œå–å‡ºè¯·æ±‚ç±»å‹
+	 * @return è¯·æ±‚ç±»å‹
 	 */
 	public int getActionType() {
 		if (action > TYPE_JDBC) {
@@ -288,42 +288,42 @@ public class Request implements Serializable {
 	}
 
 	/**
-	 * È¡ÇëÇóÃüÁî
-	 * @return ÃüÁî±àºÅ
+	 * å–è¯·æ±‚å‘½ä»¤
+	 * @return å‘½ä»¤ç¼–å·
 	 */
 	public int getAction() {
 		return action;
 	}
 
 	/**
-	 * ÉèÖÃÇëÇóÃüÁî
-	 * @param action ÃüÁî±àºÅ
+	 * è®¾ç½®è¯·æ±‚å‘½ä»¤
+	 * @param action å‘½ä»¤ç¼–å·
 	 */
 	public void setAction(int action) {
 		this.action = action;
 	}
 
 	/**
-	 * È¡ÇëÇóµÄÊôĞÔ±í
-	 * @return ÊôĞÔ±í
+	 * å–è¯·æ±‚çš„å±æ€§è¡¨
+	 * @return å±æ€§è¡¨
 	 */
 	public Map getAttrs() {
 		return attrs;
 	}
 
 	/**
-	 * È¡ÇëÇóµÄÊôĞÔÖµ
-	 * @param attr ÊôĞÔ
-	 * @return ÊôĞÔÖµ
+	 * å–è¯·æ±‚çš„å±æ€§å€¼
+	 * @param attr å±æ€§
+	 * @return å±æ€§å€¼
 	 */
 	public Object getAttr(String attr) {
 		return attrs.get(attr);
 	}
 
 	/**
-	 * ÉèÖÃÊôĞÔµÄÖµ
-	 * @param attr ÊôĞÔ
-	 * @param value ÊôĞÔÖµ
+	 * è®¾ç½®å±æ€§çš„å€¼
+	 * @param attr å±æ€§
+	 * @param value å±æ€§å€¼
 	 */
 	public void setAttr(String attr, Object value) {
 		attrs.put(attr, value);
@@ -346,7 +346,7 @@ public class Request implements Serializable {
 	}
 
 	/**
-	 * ÊµÏÖtoStringÃèÊöĞÅÏ¢
+	 * å®ç°toStringæè¿°ä¿¡æ¯
 	 */
 	public String toString() {
 		return "Request action:" + action + getAttrString();

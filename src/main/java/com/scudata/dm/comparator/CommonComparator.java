@@ -16,14 +16,14 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * nullµ±×ö×îĞ¡´¦ÀíµÄ±È½ÏÆ÷
+ * nullå½“åšæœ€å°å¤„ç†çš„æ¯”è¾ƒå™¨
  * @author WangXiaoJun
  *
  */
 public class CommonComparator implements Comparator<Object>, ICloneable {
-	private final Collator collator; // ÓïÑÔ±È½ÏÆ÷£¬ÓÃÓÚ×Ö·û´®±È½Ï
-	private final boolean isAsc; // ÊÇ·ñÉıĞòÅÅĞò
-	private final boolean isNullLast; // null·Å×îºó
+	private final Collator collator; // è¯­è¨€æ¯”è¾ƒå™¨ï¼Œç”¨äºå­—ç¬¦ä¸²æ¯”è¾ƒ
+	private final boolean isAsc; // æ˜¯å¦å‡åºæ’åº
+	private final boolean isNullLast; // nullæ”¾æœ€å
 	
 	public CommonComparator(Collator collator, boolean isAsc, boolean isNullLast) {
 		this.collator = collator;
@@ -139,7 +139,7 @@ public class CommonComparator implements Comparator<Object>, ICloneable {
 				}
 			}
 		} else if (o1 instanceof BaseRecord && o2 instanceof BaseRecord) {
-			// ÎªÁË±£Ö¤group¡¢id¡¢joinµÈÄÜÕı³£¹¤×÷£¬µ«´óĞ¡Ã»ÒâÒå
+			// ä¸ºäº†ä¿è¯groupã€idã€joinç­‰èƒ½æ­£å¸¸å·¥ä½œï¼Œä½†å¤§å°æ²¡æ„ä¹‰
 			if (isAsc) {
 				return ((BaseRecord)o1).compareTo((BaseRecord)o2);
 			} else {

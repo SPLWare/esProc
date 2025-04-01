@@ -15,7 +15,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÁÐ³öÂú×ãÍ¨Åä·ûÂ·¾¶µÄÎÄ¼þÃû¡£ directory(path)
+ * åˆ—å‡ºæ»¡è¶³é€šé…ç¬¦è·¯å¾„çš„æ–‡ä»¶åã€‚ directory(path)
  * @author runqian
  *
  */
@@ -26,7 +26,7 @@ public class Directory extends Function {
 	}
 
 	public Object calculate(Context ctx) {
-		// pathÊ¡ÂÔÊ±·µ»ØµÄ[µ±Ç°Ö÷Ä¿Â¼,µ±Ç°ÁÙÊ±Ä¿Â¼]
+		// pathçœç•¥æ—¶è¿”å›žçš„[å½“å‰ä¸»ç›®å½•,å½“å‰ä¸´æ—¶ç›®å½•]
 		if (param == null) {
 			Sequence seq = new Sequence(2);
 			seq.add(Env.getMainPath());
@@ -69,7 +69,7 @@ public class Directory extends Function {
 				throw new RQException("directory" + mm.getMessage("function.invalidParam"));
 			}
 			
-//			xq ÐÞ¸ÄpartitionÎªInteger 2017Äê2ÔÂ14ÈÕ
+//			xq ä¿®æ”¹partitionä¸ºInteger 2017å¹´2æœˆ14æ—¥
 			Integer p = -1;
 			if(partition instanceof Number){
 				p = ((Number)partition).intValue();
@@ -104,7 +104,7 @@ public class Directory extends Function {
 			file = file.getParentFile();
 
 			if (!ignoreCase) {
-				// ¸ù¾Ý²Ù×÷ÏµÍ³Ãû×ÖÀ´È·¶¨ÊÇ²»ÊÇÇø·Ö´óÐ¡Ð´
+				// æ ¹æ®æ“ä½œç³»ç»Ÿåå­—æ¥ç¡®å®šæ˜¯ä¸æ˜¯åŒºåˆ†å¤§å°å†™
 				String os = System.getProperty("os.name").toLowerCase();
 				if (os.indexOf("windows") > -1) {
 					ignoreCase = true;

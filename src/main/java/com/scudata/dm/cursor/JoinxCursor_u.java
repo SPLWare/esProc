@@ -13,30 +13,30 @@ import com.scudata.util.CursorUtil;
 import com.scudata.util.HashUtil;
 
 /**
- * ÓÃÓÚÓÎ±êÓëÆäËüÄÚ´æÅÅÁĞ×öÁ¬½Ó
- * joinx@u(csi:Fi,xj,..;P:Fi,xj,..;¡­)
+ * ç”¨äºæ¸¸æ ‡ä¸å…¶å®ƒå†…å­˜æ’åˆ—åšè¿æ¥
+ * joinx@u(csi:Fi,xj,..;P:Fi,xj,..;â€¦)
  * @author RunQian
  *
  */
 public class JoinxCursor_u extends ICursor {
-	private ICursor cursor; // ÓÎ±ê
-	private Expression[] exps; // ¹ØÁª±í´ïÊ½
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹
+	private ICursor cursor; // æ¸¸æ ‡
+	private Expression[] exps; // å…³è”è¡¨è¾¾å¼
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„
 	private int type = 0; // 0:JOIN, 1:LEFTJOIN, 2:FULLJOIN
-	private boolean isEnd = false; // ÊÇ·ñÈ¡Êı½áÊø
+	private boolean isEnd = false; // æ˜¯å¦å–æ•°ç»“æŸ
 
-	private HashUtil hashUtil = new HashUtil(); // ¹şÏ£±í¹¤¾ß£¬ÓÃÓÚ¼ÆËã¹şÏ£Öµ
-	private ListBase1 [][]hashGroups; // ÄÚ´æÅÅÁĞ°´¹ØÁª×Ö¶Î×öµÄ¹şÏ£·Ö×é
+	private HashUtil hashUtil = new HashUtil(); // å“ˆå¸Œè¡¨å·¥å…·ï¼Œç”¨äºè®¡ç®—å“ˆå¸Œå€¼
+	private ListBase1 [][]hashGroups; // å†…å­˜æ’åˆ—æŒ‰å…³è”å­—æ®µåšçš„å“ˆå¸Œåˆ†ç»„
 	
-	private Table result; // ½á¹û¼¯Ğò±í
+	private Table result; // ç»“æœé›†åºè¡¨
 	
 	/**
-	 * ´´½¨¹ØÁªÓÎ±ê
-	 * @param objs Êı¾İÔ´Êı×é£¬Ê×¸öÎªÓÎ±ê£¬ÆäËüµÄÎªÅÅÁĞ
-	 * @param exps ¹ØÁª±í´ïÊ½Êı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åˆ›å»ºå…³è”æ¸¸æ ‡
+	 * @param objs æ•°æ®æºæ•°ç»„ï¼Œé¦–ä¸ªä¸ºæ¸¸æ ‡ï¼Œå…¶å®ƒçš„ä¸ºæ’åˆ—
+	 * @param exps å…³è”è¡¨è¾¾å¼æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public JoinxCursor_u(Object []objs, Expression[][] exps, String []names, String opt, Context ctx) {
 		this.cursor = (ICursor)objs[0];
@@ -113,8 +113,8 @@ public class JoinxCursor_u extends ICursor {
 		}
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			cursor.resetContext(ctx);
@@ -124,8 +124,8 @@ public class JoinxCursor_u extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -215,9 +215,9 @@ public class JoinxCursor_u extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (isEnd || n < 1) return 0;
@@ -315,7 +315,7 @@ public class JoinxCursor_u extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -325,8 +325,8 @@ public class JoinxCursor_u extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

@@ -34,17 +34,17 @@ import com.scudata.resources.EngineMessage;
 //import org.jdom.Attribute;
 
 /**
- * ÓÃÓÚ°ÑÅÅÁĞ×ª³ÉXML¸ñÊ½´®»òÕß°ÑXML¸ñÊ½´®¶Á³ÉÅÅÁĞ
+ * ç”¨äºæŠŠæ’åˆ—è½¬æˆXMLæ ¼å¼ä¸²æˆ–è€…æŠŠXMLæ ¼å¼ä¸²è¯»æˆæ’åˆ—
  * @author RunQian
  *
  */
 final public class XMLUtil {
-	private static final String ID_Table = "xml"; // ±íÄ¬ÈÏµÄ±êÇ©Ãû
-	private static final String ID_Row = "row"; // ¼ÇÂ¼Ä¬ÈÏµÄ±êÇ©Ãû
+	private static final String ID_Table = "xml"; // è¡¨é»˜è®¤çš„æ ‡ç­¾å
+	private static final String ID_Row = "row"; // è®°å½•é»˜è®¤çš„æ ‡ç­¾å
 
 	private static AttributesImpl attr = new AttributesImpl();
 
-	// ×Ö·û´®×ª»»£¬Èç¹ûobj±¾ÉíÊÇ×Ö·û´®Ôò¼ÓÉÏË«ÒıºÅ
+	// å­—ç¬¦ä¸²è½¬æ¢ï¼Œå¦‚æœobjæœ¬èº«æ˜¯å­—ç¬¦ä¸²åˆ™åŠ ä¸ŠåŒå¼•å·
 	private static String toTextNodeString(Object obj) {
 		if (obj == null) {
 			return ""; //"null";
@@ -68,7 +68,7 @@ final public class XMLUtil {
 		}
 	}
 	
-	// ÅĞ¶ÏÊÇ·ñ´ø¶ººÅ·Ö¸îµÄÊı×Ö£¬±ÈÈç£º1,234.56
+	// åˆ¤æ–­æ˜¯å¦å¸¦é€—å·åˆ†å‰²çš„æ•°å­—ï¼Œæ¯”å¦‚ï¼š1,234.56
 	private static String convertNumber(String text) {
 		if (text == null || text.length() == 0) {
 			return null;
@@ -77,7 +77,7 @@ final public class XMLUtil {
 		int len = text.length();
 		char []chars = new char[len];
 		int index = 0;
-		boolean hasComma = false; // È¥µô¶ººÅ
+		boolean hasComma = false; // å»æ‰é€—å·
 		
 		for (int i = 0; i < len; ++i) {
 			char c = text.charAt(i);
@@ -100,12 +100,12 @@ final public class XMLUtil {
 	}
 	
 	/**
-	 * ½âÎöÎÄ±¾´®µÄÖµ
-	 * @param text ÎÄ±¾´®
+	 * è§£ææ–‡æœ¬ä¸²çš„å€¼
+	 * @param text æ–‡æœ¬ä¸²
 	 * @return
 	 */
 	public static Object parseText(String text) {
-		// ½âÎö´ø¶ººÅµÄÊı×Ö´®£¬±ÈÈç£º7,531.04
+		// è§£æå¸¦é€—å·çš„æ•°å­—ä¸²ï¼Œæ¯”å¦‚ï¼š7,531.04
 		String strNum = convertNumber(text);
 		if (strNum != null) {
 			Object value = Variant.parse(strNum, true);
@@ -118,12 +118,12 @@ final public class XMLUtil {
 	}
 	
 	/**
-	 * °ÑXML¸ñÊ½´®¶Á³É¶à²ã¼ÇÂ¼»òĞò±í
-	 * <>ÄÚµÄ±êÊ¶×÷Îª×Ö¶ÎÃû£¬ÖØ¸´µÄÍ¬Ãû±êÊ¶Éú³ÉÎªĞò±í
-	 * ½«ĞÎÈç<K F=v F=v ¡­>D</K>µÄXML´®½âÎöÎªÒÔK,F,¡­Îª×Ö¶ÎµÄ¼ÇÂ¼£¬
-	 * KÈ¡ÖµÎªD£¬DÊÇ¶à²ãXMLÄÚÈİÊ±½âÎöÎªÅÅÁĞ£¬<K ¡­./K>Ê±D½âÎöÎªnull£¬<K¡­></K>Ê±D½âÎöÎª¿Õ´®
-	 * @param src XML´®
-	 * @param levels ²ã±êÊ¶£¬¶à²ãÓÃ/·Ö¸ô
+	 * æŠŠXMLæ ¼å¼ä¸²è¯»æˆå¤šå±‚è®°å½•æˆ–åºè¡¨
+	 * <>å†…çš„æ ‡è¯†ä½œä¸ºå­—æ®µåï¼Œé‡å¤çš„åŒåæ ‡è¯†ç”Ÿæˆä¸ºåºè¡¨
+	 * å°†å½¢å¦‚<K F=v F=v â€¦>D</K>çš„XMLä¸²è§£æä¸ºä»¥K,F,â€¦ä¸ºå­—æ®µçš„è®°å½•ï¼Œ
+	 * Kå–å€¼ä¸ºDï¼ŒDæ˜¯å¤šå±‚XMLå†…å®¹æ—¶è§£æä¸ºæ’åˆ—ï¼Œ<K â€¦./K>æ—¶Dè§£æä¸ºnullï¼Œ<Kâ€¦></K>æ—¶Dè§£æä¸ºç©ºä¸²
+	 * @param src XMLä¸²
+	 * @param levels å±‚æ ‡è¯†ï¼Œå¤šå±‚ç”¨/åˆ†éš”
 	 * @return
 	 */
 	public static Object parseXml(String src, String levels) {
@@ -131,13 +131,13 @@ final public class XMLUtil {
 	}
 	
 	/**
-	 * °ÑXML¸ñÊ½´®¶Á³É¶à²ã¼ÇÂ¼»òĞò±í
-	 * <>ÄÚµÄ±êÊ¶×÷Îª×Ö¶ÎÃû£¬ÖØ¸´µÄÍ¬Ãû±êÊ¶Éú³ÉÎªĞò±í
-	 * ½«ĞÎÈç<K F=v F=v ¡­>D</K>µÄXML´®½âÎöÎªÒÔK,F,¡­Îª×Ö¶ÎµÄ¼ÇÂ¼£¬
-	 * KÈ¡ÖµÎªD£¬DÊÇ¶à²ãXMLÄÚÈİÊ±½âÎöÎªÅÅÁĞ£¬<K ¡­./K>Ê±D½âÎöÎªnull£¬<K¡­></K>Ê±D½âÎöÎª¿Õ´®
-	 * @param src XML´®
-	 * @param levels ²ã±êÊ¶£¬¶à²ãÓÃ/·Ö¸ô
-	 * @param opt Ñ¡Ïî£¬s£º¶ÁÈ¡ÊôĞÔÖµ
+	 * æŠŠXMLæ ¼å¼ä¸²è¯»æˆå¤šå±‚è®°å½•æˆ–åºè¡¨
+	 * <>å†…çš„æ ‡è¯†ä½œä¸ºå­—æ®µåï¼Œé‡å¤çš„åŒåæ ‡è¯†ç”Ÿæˆä¸ºåºè¡¨
+	 * å°†å½¢å¦‚<K F=v F=v â€¦>D</K>çš„XMLä¸²è§£æä¸ºä»¥K,F,â€¦ä¸ºå­—æ®µçš„è®°å½•ï¼Œ
+	 * Kå–å€¼ä¸ºDï¼ŒDæ˜¯å¤šå±‚XMLå†…å®¹æ—¶è§£æä¸ºæ’åˆ—ï¼Œ<K â€¦./K>æ—¶Dè§£æä¸ºnullï¼Œ<Kâ€¦></K>æ—¶Dè§£æä¸ºç©ºä¸²
+	 * @param src XMLä¸²
+	 * @param levels å±‚æ ‡è¯†ï¼Œå¤šå±‚ç”¨/åˆ†éš”
+	 * @param opt é€‰é¡¹ï¼Œsï¼šè¯»å–å±æ€§å€¼
 	 * @return
 	 */
 	public static Object parseXml(String src, String levels, String opt) {
@@ -159,10 +159,10 @@ final public class XMLUtil {
 	}
 
 	/**
-	 * °ÑÅÅÁĞ±ä³ÉXML¸ñÊ½´®
-	 * @param sequence ÅÅÁĞ
-	 * @param charset ×Ö·û¼¯
-	 * @param levels ²ã±êÊ¶£¬¸ñÊ½Îª"TableName/RecordName"£¬¶à²ãÓÃ/·Ö¸ô£¬Èç¹ûÊ¡ÂÔÔòÓÃ"xml/row"
+	 * æŠŠæ’åˆ—å˜æˆXMLæ ¼å¼ä¸²
+	 * @param sequence æ’åˆ—
+	 * @param charset å­—ç¬¦é›†
+	 * @param levels å±‚æ ‡è¯†ï¼Œæ ¼å¼ä¸º"TableName/RecordName"ï¼Œå¤šå±‚ç”¨/åˆ†éš”ï¼Œå¦‚æœçœç•¥åˆ™ç”¨"xml/row"
 	 * @return
 	 */
 	public static String toXml(Sequence sequence, String charset, String levels) {
@@ -228,10 +228,10 @@ final public class XMLUtil {
 	}
 	
 	/**
-	 * °Ñ¼ÇÂ¼±ä³ÉXML¸ñÊ½´®
-	 * @param r ¼ÇÂ¼
-	 * @param charset ×Ö·û¼¯
-	 * @param levels ²ã±êÊ¶£¬¶à²ãÓÃ/·Ö¸ô
+	 * æŠŠè®°å½•å˜æˆXMLæ ¼å¼ä¸²
+	 * @param r è®°å½•
+	 * @param charset å­—ç¬¦é›†
+	 * @param levels å±‚æ ‡è¯†ï¼Œå¤šå±‚ç”¨/åˆ†éš”
 	 * @return
 	 */
 	public static String toXml(BaseRecord r, String charset, String levels) {
@@ -272,7 +272,7 @@ final public class XMLUtil {
 	}
 	
 	private static void appendTab(TransformerHandler handler, int level) throws SAXException {
-		// ²»ĞèÒª¶ÔÆë£¿
+		// ä¸éœ€è¦å¯¹é½ï¼Ÿ
 		/*if (false) {
 			StringBuffer sb = new StringBuffer(ENTER);
 			for (int i = 0; i < level; i++) {

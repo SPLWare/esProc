@@ -7,7 +7,7 @@ import com.scudata.common.*;
 import com.scudata.expression.*;
 
 /**
- * Í¼ÔªĞÅÏ¢µÇ¼ÇÀà£¬Í¨¹ıµÇ¼ÇºóµÄÍ¼Ôª»á×Ô¶¯ÁĞ³öµ½±à¼­½çÃæµÄÏÂÀ­ÁĞ±íÀïÃæ
+ * å›¾å…ƒä¿¡æ¯ç™»è®°ç±»ï¼Œé€šè¿‡ç™»è®°åçš„å›¾å…ƒä¼šè‡ªåŠ¨åˆ—å‡ºåˆ°ç¼–è¾‘ç•Œé¢çš„ä¸‹æ‹‰åˆ—è¡¨é‡Œé¢
  * @author Joancy
  *
  */
@@ -19,16 +19,16 @@ public class ElementInfo {
 	private ArrayList chartParams;
 
 	/**
-	 * È±Ê¡¹¹Ôìº¯Êı
+	 * ç¼ºçœæ„é€ å‡½æ•°
 	 */
 	public ElementInfo() {
 	}
 
 	/**
-	 * ¸ù¾İÖ¸¶¨Öµ¹¹ÔìÍ¼ÔªĞÅÏ¢
-	 * @param name Ãû³Æ
-	 * @param title ±êÌâ
-	 * @param elementClass Í¼ÔªµÄÊµÏÖÀà
+	 * æ ¹æ®æŒ‡å®šå€¼æ„é€ å›¾å…ƒä¿¡æ¯
+	 * @param name åç§°
+	 * @param title æ ‡é¢˜
+	 * @param elementClass å›¾å…ƒçš„å®ç°ç±»
 	 */
 	public ElementInfo(String name, String title, Class elementClass) {
 		this.name = name;
@@ -48,8 +48,8 @@ public class ElementInfo {
 	}
 
 	/**
-	 * ÊµÀı»¯Ò»¸öÍ¼Ôª
-	 * @return ·µ»Ø»ùÀàÍ¼Ôª¶ÔÏó
+	 * å®ä¾‹åŒ–ä¸€ä¸ªå›¾å…ƒ
+	 * @return è¿”å›åŸºç±»å›¾å…ƒå¯¹è±¡
 	 */
 	public ObjectElement getInstance() {
 		try {
@@ -61,8 +61,8 @@ public class ElementInfo {
 	}
 
 	/**
-	 * ´ÓplotStringÄÚÈİ¶ÁÈ¡±à¼­ĞÅÏ¢
-	 * @param plotString plot¸ñÊ½µÄÎÄ±¾´®
+	 * ä»plotStringå†…å®¹è¯»å–ç¼–è¾‘ä¿¡æ¯
+	 * @param plotString plotæ ¼å¼çš„æ–‡æœ¬ä¸²
 	 */
 	public void setPlotString(String plotString) {
 		int len = plotString.length();
@@ -82,9 +82,9 @@ public class ElementInfo {
 	}
 
 	/**
-	 * ½«±à¼­ÎÄ±¾ËùÔÚµÄ²ÎÊıÁĞ±íÄÚÈİ×ª»»Îªplot¸ñÊ½ÎÄ±¾´®
-	 * @param pil ±à¼­ºÃ²ÎÊıµÄ²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return plot¸ñÊ½ÎÄ±¾´®
+	 * å°†ç¼–è¾‘æ–‡æœ¬æ‰€åœ¨çš„å‚æ•°åˆ—è¡¨å†…å®¹è½¬æ¢ä¸ºplotæ ¼å¼æ–‡æœ¬ä¸²
+	 * @param pil ç¼–è¾‘å¥½å‚æ•°çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return plotæ ¼å¼æ–‡æœ¬ä¸²
 	 */
 	public String toPlotString(ParamInfoList pil) {
 		StringBuffer sb = new StringBuffer("plot(");
@@ -138,8 +138,8 @@ public class ElementInfo {
 	}
 
 	/**
-	 * ½«Í¼ÔªµÄ²ÎÊıÄÚÈİ×ªÎª±à¼­ÓÃµÄ²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ±à¼­ÓÃ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * å°†å›¾å…ƒçš„å‚æ•°å†…å®¹è½¬ä¸ºç¼–è¾‘ç”¨çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return ç¼–è¾‘ç”¨å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = listParamInfoList();
@@ -149,7 +149,7 @@ public class ElementInfo {
 		for (int i = 0; i < chartSize; i++) {
 			ChartParam cp = (ChartParam) chartParams.get(i);
 			ParamInfo pi = paramInfos.getParamInfoByName(cp.getName());
-			if (pi == null) {// ±»·ÏÆúÁËµÄ²ÎÊı
+			if (pi == null) {// è¢«åºŸå¼ƒäº†çš„å‚æ•°
 				continue;
 			}
 			pi.setChartParam(cp);
@@ -158,24 +158,24 @@ public class ElementInfo {
 	}
 
 	/**
-	 * »ñÈ¡Í¼ÔªÃû³Æ
-	 * @return Ãû³Æ
+	 * è·å–å›¾å…ƒåç§°
+	 * @return åç§°
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * »ñÈ¡Í¼Ôª±êÌâ
-	 * @return ±êÌâ
+	 * è·å–å›¾å…ƒæ ‡é¢˜
+	 * @return æ ‡é¢˜
 	 */
 	public String getTitle() {
 		return title;
 	}
 
 	/**
-	 * »ñÈ¡Í¼ÔªµÄÊµÏÖÀà
-	 * @return Í¼ÔªÀà
+	 * è·å–å›¾å…ƒçš„å®ç°ç±»
+	 * @return å›¾å…ƒç±»
 	 */
 	public Class getElementClass() {
 		return elementClass;

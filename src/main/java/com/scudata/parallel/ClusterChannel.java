@@ -16,13 +16,13 @@ import com.scudata.expression.Function;
 import com.scudata.expression.FunctionLib;
 
 /**
- * ¼¯Èº¹ÜµÀ
+ * é›†ç¾¤ç®¡é“
  * @author RunQian
  *
  */
 public class ClusterChannel extends Channel {
 	private Cluster cluster;
-	private int []channelProxyIds; // ¶ÔÓ¦µÄ½Úµã»ú¹ÜµÀ´úÀí±êÊ¶
+	private int []channelProxyIds; // å¯¹åº”çš„èŠ‚ç‚¹æœºç®¡é“ä»£ç†æ ‡è¯†
 	
 	public ClusterChannel(ClusterChannel channel, Context ctx) {
 		super(ctx);
@@ -127,9 +127,9 @@ public class ClusterChannel extends Channel {
 	}
 	
 	/**
-	 * ¸ø¼¯Èº¹ÜµÀ¸½¼ÓÔËËã
-	 * @param op ÔËËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ç»™é›†ç¾¤ç®¡é“é™„åŠ è¿ç®—
+	 * @param op è¿ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public Operable addOperation(Operation op, Context ctx) {
 		super.addOperation(op, ctx);
@@ -165,9 +165,9 @@ public class ClusterChannel extends Channel {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÎª¹ÜµÀ¸½¼ÓÔËËã
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œä¸ºç®¡é“é™„åŠ è¿ç®—
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeAddOperation(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -193,8 +193,8 @@ public class ClusterChannel extends Channel {
 	}
 
 	/**
-	 * ±£Áô¹ÜµÀµ±Ç°Êı¾İ×öÎª½á¹û¼¯
-	 * @return µ±Ç°¼¯Èº¹ÜµÀ
+	 * ä¿ç•™ç®¡é“å½“å‰æ•°æ®åšä¸ºç»“æœé›†
+	 * @return å½“å‰é›†ç¾¤ç®¡é“
 	 */
 	public Channel fetch() {
 		super.fetch();
@@ -220,9 +220,9 @@ public class ClusterChannel extends Channel {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞ±£Áô¹ÜµÀµ±Ç°Êı¾İ×öÎª½á¹û¼¯
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œä¿ç•™ç®¡é“å½“å‰æ•°æ®åšä¸ºç»“æœé›†
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeFetch(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -242,13 +242,13 @@ public class ClusterChannel extends Channel {
 	}
 	
 	/**
-	 * Îª¼¯Èº¹ÜµÀÌí¼Ó·Ö×é½á¹û¼¯º¯Êı
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @return µ±Ç°¼¯Èº¹ÜµÀ
+	 * ä¸ºé›†ç¾¤ç®¡é“æ·»åŠ åˆ†ç»„ç»“æœé›†å‡½æ•°
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @return å½“å‰é›†ç¾¤ç®¡é“
 	 */
 	public Channel groups(Expression[] exps, String[] names,
 			   Expression[] calcExps, String[] calcNames, String opt) {
@@ -305,9 +305,9 @@ public class ClusterChannel extends Channel {
 	}
 	
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÎª¹ÜµÀÌí¼Ó·Ö×éÔËËã
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œä¸ºç®¡é“æ·»åŠ åˆ†ç»„è¿ç®—
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeGroups(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -352,14 +352,14 @@ public class ClusterChannel extends Channel {
 	}
 
 	/**
-	 * Îª¼¯Èº¹ÜµÀÌí¼ÓÍâ´æ·Ö×é½á¹û¼¯º¯Êı
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names	·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param calcNames	»ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param capacity ÄÚ´æÄÜ¹»´æ·ÅµÄ·Ö×é½á¹ûµÄÊıÁ¿
-	 * @return µ±Ç°¼¯Èº¹ÜµÀ
+	 * ä¸ºé›†ç¾¤ç®¡é“æ·»åŠ å¤–å­˜åˆ†ç»„ç»“æœé›†å‡½æ•°
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names	åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames	æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param capacity å†…å­˜èƒ½å¤Ÿå­˜æ”¾çš„åˆ†ç»„ç»“æœçš„æ•°é‡
+	 * @return å½“å‰é›†ç¾¤ç®¡é“
 	 */
 	public Channel groupx(Expression[] exps, String[] names,
 			   Expression[] calcExps, String[] calcNames, String opt, int capacity) {
@@ -417,9 +417,9 @@ public class ClusterChannel extends Channel {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÎª¹ÜµÀÌí¼ÓÍâ´æ·Ö×éÔËËã
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œä¸ºç®¡é“æ·»åŠ å¤–å­˜åˆ†ç»„è¿ç®—
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeGroupx(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -465,11 +465,11 @@ public class ClusterChannel extends Channel {
 	}
 	
 	/**
-	 * Îª¼¯Èº¹ÜµÀÌí¼ÓÍâ´æÅÅĞò½á¹û¼¯º¯Êı
-	 * @param exps ÅÅĞò±í´ïÊ½Êı×é
-	 * @param capacity ÄÚ´æÖĞÄÜ¹»±£´æµÄ¼ÇÂ¼Êı£¬Èç¹ûÃ»ÓĞÉèÖÃÔò×Ô¶¯¹ÀËãÒ»¸ö
-	 * @param opt Ñ¡Ïî
-	 * @return µ±Ç°¼¯Èº¹ÜµÀ
+	 * ä¸ºé›†ç¾¤ç®¡é“æ·»åŠ å¤–å­˜æ’åºç»“æœé›†å‡½æ•°
+	 * @param exps æ’åºè¡¨è¾¾å¼æ•°ç»„
+	 * @param capacity å†…å­˜ä¸­èƒ½å¤Ÿä¿å­˜çš„è®°å½•æ•°ï¼Œå¦‚æœæ²¡æœ‰è®¾ç½®åˆ™è‡ªåŠ¨ä¼°ç®—ä¸€ä¸ª
+	 * @param opt é€‰é¡¹
+	 * @return å½“å‰é›†ç¾¤ç®¡é“
 	 */
 	public Channel sortx(Expression[] exps, int capacity, String opt) {
 		super.sortx(exps, capacity, opt);
@@ -506,9 +506,9 @@ public class ClusterChannel extends Channel {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÎª¹ÜµÀÌí¼ÓÍâ´æÅÅĞòÔËËã
-	 * @param attributes ÊôĞÔ
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œä¸ºç®¡é“æ·»åŠ å¤–å­˜æ’åºè¿ç®—
+	 * @param attributes å±æ€§
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeSortx(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
@@ -539,7 +539,7 @@ public class ClusterChannel extends Channel {
 	}
 	
 	/**
-	 * ·µ»Ø¼¯Èº¹ÜµÀµÄ¼ÆËã½á¹û
+	 * è¿”å›é›†ç¾¤ç®¡é“çš„è®¡ç®—ç»“æœ
 	 * @return Object
 	 */
 	public Object result() {
@@ -562,7 +562,7 @@ public class ClusterChannel extends Channel {
  				results[i] = response.checkResult();
  				
  				if (results[i] instanceof Integer) {
- 					// ÓÎ±ê´úÀíid
+ 					// æ¸¸æ ‡ä»£ç†id
  					int id = ((Integer)results[i]).intValue();
  					results[i] = new RemoteCursor(cluster.getHost(i), cluster.getPort(i), id);
  				}
@@ -575,8 +575,8 @@ public class ClusterChannel extends Channel {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÈ¡¹ÜµÀµÄ¼ÆËã½á¹û
-	 * @return Response ¸øÖ÷»úµÄ»ØÓ¦
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œå–ç®¡é“çš„è®¡ç®—ç»“æœ
+	 * @return Response ç»™ä¸»æœºçš„å›åº”
 	 */
 	public static Response executeResult(HashMap<String, Object> attributes) {
 		String jobSpaceID = (String)attributes.get("jobSpaceId");

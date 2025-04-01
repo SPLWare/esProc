@@ -3,14 +3,14 @@ package com.scudata.dm;
 import java.util.LinkedList;
 
 /**
- * ÓÃÓÚ¶Ô°´¿é¶ÁÈëµÄÊäÈëÁ÷×ö´®ĞĞ¹ÜÀí
+ * ç”¨äºå¯¹æŒ‰å—è¯»å…¥çš„è¾“å…¥æµåšä¸²è¡Œç®¡ç†
  * @author WangXiaoJun
  *
  */
 public final class InputStreamManager extends Thread {
 	private static InputStreamManager manager;
 	
-	// ÔÚµÈ´ı¶ÁÈ¡Êı¾İµÄÊäÈëÁ÷
+	// åœ¨ç­‰å¾…è¯»å–æ•°æ®çš„è¾“å…¥æµ
 	private LinkedList <BlockInputStream>bisList = new LinkedList<BlockInputStream>();
 
 	private InputStreamManager(ThreadGroup group) {
@@ -18,7 +18,7 @@ public final class InputStreamManager extends Thread {
 	}
 
 	/**
-	 * È¡ÊäÈëÁ÷¹ÜÀí¶ÔÏó
+	 * å–è¾“å…¥æµç®¡ç†å¯¹è±¡
 	 * @return InputStreamManager
 	 */
 	public synchronized static InputStreamManager getInstance() {
@@ -42,7 +42,7 @@ public final class InputStreamManager extends Thread {
 	}
 
 	/**
-	 * °ÑÊäÈëÁ÷¼ÓÈë¶ÓÁĞÖĞ¶ÁÈ¡Ò»¿éÊı¾İ
+	 * æŠŠè¾“å…¥æµåŠ å…¥é˜Ÿåˆ—ä¸­è¯»å–ä¸€å—æ•°æ®
 	 * @param is
 	 */
 	public void read(BlockInputStream is) {
@@ -53,21 +53,21 @@ public final class InputStreamManager extends Thread {
 	}
 
 	/**
-	 * ¶ÁÊı¾İº¯Êı
+	 * è¯»æ•°æ®å‡½æ•°
 	 */
 	public void run() {
 		while (true) {
 			synchronized(bisList) {
 				if (bisList.size() == 0) {
 					try {
-						// µÈ´ıÊäÈëÁ÷µ÷ÓÃread
+						// ç­‰å¾…è¾“å…¥æµè°ƒç”¨read
 						bisList.wait();
 					} catch (InterruptedException e) {
 					}
 				}
 			}
 
-			// Ñ­»·ÊäÈëÁ÷¶ÓÁĞ£¬Ö±µ½ËùÓĞµÄÊäÈëÁ÷¶¼¶ÁÈ¡ÍêÊı¾İ
+			// å¾ªç¯è¾“å…¥æµé˜Ÿåˆ—ï¼Œç›´åˆ°æ‰€æœ‰çš„è¾“å…¥æµéƒ½è¯»å–å®Œæ•°æ®
 			while (true) {
 				BlockInputStream bis;
 				synchronized(bisList) {

@@ -17,7 +17,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ±È½ÏÁ½¸öÖµµÄ´óĞ¡£¬×óÖµ´ó·µ»Ø1£¬ÏàµÈ·µ»Ø0£¬×óÖµĞ¡·µ»Ø-1
+ * æ¯”è¾ƒä¸¤ä¸ªå€¼çš„å¤§å°ï¼Œå·¦å€¼å¤§è¿”å›1ï¼Œç›¸ç­‰è¿”å›0ï¼Œå·¦å€¼å°è¿”å›-1
  * cmp(x,y) cmp(A,B) cmp(A) cmp(A;B)
  * @author RunQian
  *
@@ -27,7 +27,7 @@ public class Compare extends Function {
 	private Expression exp2;
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -60,7 +60,7 @@ public class Compare extends Function {
 			}
 		} else if (result1 instanceof Sequence) {
 			if (param.getType() == IParam.Semicolon) {
-				// cmp(A;B) A¿ÉÒÔÊÇ×Ó±íµÄ¼ÇÂ¼£¬Ö÷¼üÊı¶àÓÚB
+				// cmp(A;B) Aå¯ä»¥æ˜¯å­è¡¨çš„è®°å½•ï¼Œä¸»é”®æ•°å¤šäºB
 				Sequence a = (Sequence)result1;
 				if (result2 instanceof Sequence) {
 					Sequence b = (Sequence)result2;
@@ -105,8 +105,8 @@ public class Compare extends Function {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {

@@ -10,16 +10,16 @@ import com.scudata.dm.ObjectWriter;
 import com.scudata.util.HashUtil;
 
 /**
- * Ê×¿é
+ * é¦–å—
  * @author RunQian
  *
  */
 class HeaderBlock {	
-	private int []otherBlocks; // ³ıµÚÒ»¿éÍâÕ¼ÓÃµÄÆäËüÎïÀí¿é£¬¿ÉÄÜÎªnull
-	private byte sign; // ±£ÁôÎ»
-	private long commitTime; // Ìá½»Ê±¼ä
+	private int []otherBlocks; // é™¤ç¬¬ä¸€å—å¤–å ç”¨çš„å…¶å®ƒç‰©ç†å—ï¼Œå¯èƒ½ä¸ºnull
+	private byte sign; // ä¿ç•™ä½
+	private long commitTime; // æäº¤æ—¶é—´
 	
-	private ArrayList<Zone> fileZones; // ÎÄ¼şÇøÎ»ÁĞ±í
+	private ArrayList<Zone> fileZones; // æ–‡ä»¶åŒºä½åˆ—è¡¨
 	private ArrayList<Dir> subDirs;
 	
 	public HeaderBlock() {
@@ -94,7 +94,7 @@ class HeaderBlock {
 		return bos.toByteArray();
 	}
 	
-	// ×ª³É×Ö½ÚÊı×é£¬ÓÃÓÚÌá½»µ½ÎÄ¼ş
+	// è½¬æˆå­—èŠ‚æ•°ç»„ï¼Œç”¨äºæäº¤åˆ°æ–‡ä»¶
 	public void commit(Library library, int header, int outerSeq, long innerSeq) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(Library.BLOCKSIZE);
 		ObjectWriter writer = new ObjectWriter(bos);
@@ -135,7 +135,7 @@ class HeaderBlock {
 		otherBlocks = library.writeHeaderBlock(header, otherBlocks, bytes);
 	}
 	
-	// È¡×ÓÄ¿Â¼
+	// å–å­ç›®å½•
 	public synchronized Dir getSubDir(Object path) {
 		if (subDirs == null) return null;
 		
@@ -146,7 +146,7 @@ class HeaderBlock {
 		return null;
 	}
 	
-	// È¡ËùÓĞµÄ×ÓÄ¿Â¼
+	// å–æ‰€æœ‰çš„å­ç›®å½•
 	public synchronized Dir[] getSubDirs() {
 		if (subDirs == null || subDirs.size() == 0) {
 			return null;
@@ -178,7 +178,7 @@ class HeaderBlock {
 		if (subDirs == null) {
 			subDirs = new ArrayList<Dir>();
 		} else {
-			// ¿ÉÄÜ´æÔÚÕâ¸ö×ÓÂ·¾¶£¬µ«±»É¾³ı»òÕßÒÆ×ßÁË
+			// å¯èƒ½å­˜åœ¨è¿™ä¸ªå­è·¯å¾„ï¼Œä½†è¢«åˆ é™¤æˆ–è€…ç§»èµ°äº†
 			for (Dir dir : subDirs) {
 				if (dir.isEqualValue(path)) {
 					dir.addZone(Dir.S_NORMAL);
@@ -196,7 +196,7 @@ class HeaderBlock {
 		if (fileZones == null) {
 			fileZones = new ArrayList<Zone>();
 		} else {
-			// Èç¹ûÒÑ¾­ÓĞÒ»¸ö»¹Ã»Ìá½»µÄÇøÎ»Ôò¸²¸Ç
+			// å¦‚æœå·²ç»æœ‰ä¸€ä¸ªè¿˜æ²¡æäº¤çš„åŒºä½åˆ™è¦†ç›–
 			int size = fileZones.size();
 			if (size > 0) {
 				Zone zone = fileZones.get(size - 1);
@@ -211,7 +211,7 @@ class HeaderBlock {
 		fileZones.add(new Zone(block));
 	}
 	
-	// È¡ÏàÓ¦µÄÎÄ¼şÇøÎ»
+	// å–ç›¸åº”çš„æ–‡ä»¶åŒºä½
 	public synchronized Zone getFileZone(VDB vdb, boolean isLockVDB) {
 		ArrayList<Zone> fileZones = this.fileZones;
 		if (fileZones == null) return null;
@@ -255,9 +255,9 @@ class HeaderBlock {
 		}
 	}
 	
-	// É¾³ı±ÈÊÂÎñºÅtxSeqÔçµÄ¶àÓàµÄÇøÎ»
+	// åˆ é™¤æ¯”äº‹åŠ¡å·txSeqæ—©çš„å¤šä½™çš„åŒºä½
 	synchronized public void deleteOutdatedZone(Library library, int outerSeq, long txSeq) {
-		// ×îÉÙ±£ÁôÒ»¸öÒÑÌá½»µÄÇøÎ»£¿
+		// æœ€å°‘ä¿ç•™ä¸€ä¸ªå·²æäº¤çš„åŒºä½ï¼Ÿ
 		ArrayList<Zone> fileZones = this.fileZones;
 		if (fileZones != null && fileZones.size() > 1) {
 			int last = fileZones.size() - 1;
@@ -287,7 +287,7 @@ class HeaderBlock {
 		}
 	}
 	
-	// Æô¶¯Êı¾İ¿âºóµÄ×¼±¸¹¤×÷£¬É¾³ı¾ÉÇøÎ»£¬È¡±»Õ¼ÓÃµÄÎïÀí¿é
+	// å¯åŠ¨æ•°æ®åº“åçš„å‡†å¤‡å·¥ä½œï¼Œåˆ é™¤æ—§åŒºä½ï¼Œå–è¢«å ç”¨çš„ç‰©ç†å—
 	public void scanUsedBlocks(Library library, BlockManager manager) throws IOException {
 		if (otherBlocks != null) {
 			manager.setBlocksUsed(otherBlocks);
@@ -343,7 +343,7 @@ class HeaderBlock {
 		return subDirs != null;
 	}
 	
-	// ·µ»Ø½ÚµãÊÇ·ñÊÇ¿Õ½Úµã£¬Ã»ÓĞµ¥¾İºÍ×ÓÄ¿Â¼
+	// è¿”å›èŠ‚ç‚¹æ˜¯å¦æ˜¯ç©ºèŠ‚ç‚¹ï¼Œæ²¡æœ‰å•æ®å’Œå­ç›®å½•
 	public synchronized boolean isNullSection() {
 		if (fileZones != null && fileZones.size() > 0) {
 			return false;
@@ -372,7 +372,7 @@ class HeaderBlock {
 	}
 	
 	public void moveSubDir(Dir dir, ISection section) {
-		// Ã»½áÊøµÄÊÂÎñ¿ÉÄÜ»¹»á·ÃÎÊµ½´Ë½Ú£¬À¬»ø»ØÊÕµÄÊ±ºòÅĞ¶ÏÊÇ·ñ±»move£¬±»moveµÄ²»»ØÊÕ
+		// æ²¡ç»“æŸçš„äº‹åŠ¡å¯èƒ½è¿˜ä¼šè®¿é—®åˆ°æ­¤èŠ‚ï¼Œåƒåœ¾å›æ”¶çš„æ—¶å€™åˆ¤æ–­æ˜¯å¦è¢«moveï¼Œè¢«moveçš„ä¸å›æ”¶
 		//dir.getLastZone().releaseSection();
 		dir.addZone(Dir.S_MOVE);
 	}
@@ -393,7 +393,7 @@ class HeaderBlock {
 		return (sign & ISection.SIGN_KEY_SECTION) != 0;
 	}
 
-	// È¡¼ü¿âÄ³¸öÂ·¾¶µÄhashÖµ¶ÔÓ¦Dir
+	// å–é”®åº“æŸä¸ªè·¯å¾„çš„hashå€¼å¯¹åº”Dir
 	public Dir getSubKeyDir(Object path) {
 		int len = subDirs.size();
 		int hash = HashUtil.hashCode(path, len);

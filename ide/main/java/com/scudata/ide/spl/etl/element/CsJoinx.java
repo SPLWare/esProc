@@ -11,8 +11,8 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ CS.joinx()
- * º¯ÊıÃûÇ°×ºCs±íÊ¾ÓÎ±ê
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ CS.joinx()
+ * å‡½æ•°åå‰ç¼€Csè¡¨ç¤ºæ¸¸æ ‡
  * 
  * @author Joancy
  *
@@ -20,21 +20,21 @@ import com.scudata.ide.spl.etl.ParamInfoList;
 public class CsJoinx extends ObjectElement {
 	public ArrayList<String> foreignKeys;
 	
-	public String joinFile;//Á¬½ÓµÄ¼¯ÎÄ¼ş»òÕß×é±íÎÄ¼ş
+	public String joinFile;//è¿æ¥çš„é›†æ–‡ä»¶æˆ–è€…ç»„è¡¨æ–‡ä»¶
 	
-	public ArrayList<String> joinKeys;//joinFileµÄÖ÷¼ü£¬±ØĞë¸úforeignKeysÒ»Ò»¶ÔÓ¦
-	public ArrayList<FieldDefine> attachFields;//Á¬½Óºó¸½¼ÓÔÚµ±Ç°AºóµÄ±í´ïÊ½ÒÔ¼°Êä³ö×Ö¶ÎÃû£¬²»Ê¹ÓÃFieldDefineµÄµÚÈıÁĞ
-	public String bufferN="1024";//»º´æÇøĞĞÊı
+	public ArrayList<String> joinKeys;//joinFileçš„ä¸»é”®ï¼Œå¿…é¡»è·ŸforeignKeysä¸€ä¸€å¯¹åº”
+	public ArrayList<FieldDefine> attachFields;//è¿æ¥åé™„åŠ åœ¨å½“å‰Aåçš„è¡¨è¾¾å¼ä»¥åŠè¾“å‡ºå­—æ®µåï¼Œä¸ä½¿ç”¨FieldDefineçš„ç¬¬ä¸‰åˆ—
+	public String bufferN="1024";//ç¼“å­˜åŒºè¡Œæ•°
 	
 	public boolean i;
 	public boolean d;
 	public boolean q;
 	public boolean c;
 	public boolean u;
-//	public boolean o;//ÏÈ²»ÊµÏÖoÑ¡Ïî
+//	public boolean o;//å…ˆä¸å®ç°oé€‰é¡¹
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -57,8 +57,8 @@ public class CsJoinx extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
@@ -67,7 +67,7 @@ public class CsJoinx extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
 	public byte getReturnType() {
@@ -75,7 +75,7 @@ public class CsJoinx extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄÑ¡Ïî´®
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„é€‰é¡¹ä¸²
 	 */
 	public String optionString(){
 		StringBuffer options = new StringBuffer();
@@ -98,15 +98,15 @@ public class CsJoinx extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÃû
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°å
 	 */
 	public String getFuncName() {
 		return "joinx";
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÌå
-	 * ¸úsetFuncBodyÊÇÄæº¯Êı£¬È»ºó±í´ïÊ½µÄ¸³ÖµÒ²×ÜÊÇ»¥ÄæµÄ
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°ä½“
+	 * è·ŸsetFuncBodyæ˜¯é€†å‡½æ•°ï¼Œç„¶åè¡¨è¾¾å¼çš„èµ‹å€¼ä¹Ÿæ€»æ˜¯äº’é€†çš„
 	 */
 	public String getFuncBody() {
 		StringBuffer sb = new StringBuffer();
@@ -128,8 +128,8 @@ public class CsJoinx extends ObjectElement {
 	}
 
 	/**
-	 * ÉèÖÃº¯ÊıÌå
-	 * @param funcBody º¯ÊıÌå
+	 * è®¾ç½®å‡½æ•°ä½“
+	 * @param funcBody å‡½æ•°ä½“
 	 */
 	public boolean setFuncBody(String funcBody) {
 		StringTokenizer fenhao = new StringTokenizer(funcBody,";");

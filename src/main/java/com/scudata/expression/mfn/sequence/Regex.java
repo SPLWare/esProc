@@ -17,15 +17,15 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ¶ÔĞòÁĞ×öÄ£Ê½Æ¥Åä£¬Èç¹ûÓĞ²ğ³öÏîÔò½øĞĞ²ğ·Ö·µ»Ø³ÉĞò±í
+ * å¯¹åºåˆ—åšæ¨¡å¼åŒ¹é…ï¼Œå¦‚æœæœ‰æ‹†å‡ºé¡¹åˆ™è¿›è¡Œæ‹†åˆ†è¿”å›æˆåºè¡¨
  * A.regex(rs,F)
- * A.regex(rs,F;Fi,¡­)
+ * A.regex(rs,F;Fi,â€¦)
  * @author RunQian
  *
  */
 public class Regex extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

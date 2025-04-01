@@ -7,12 +7,12 @@ import com.scudata.common.RQException;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓÃÓÚĞòºÅ¼üµÄË÷Òı£¬Íâ¼üÖµÊÇ¼ÇÂ¼ÔÚÎ¬±íÖĞµÄĞòºÅ
+ * ç”¨äºåºå·é”®çš„ç´¢å¼•ï¼Œå¤–é”®å€¼æ˜¯è®°å½•åœ¨ç»´è¡¨ä¸­çš„åºå·
  * @author RunQian
  *
  */
 public class SeqIndexTable extends IndexTable {
-	private Sequence code; // Î¬±í
+	private Sequence code; // ç»´è¡¨
 	private int len;
 	
 	public SeqIndexTable(Sequence code) {
@@ -21,9 +21,9 @@ public class SeqIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * ¹¹½¨ÅÅºÅË÷Òı
-	 * @param code Î¬±í
-	 * @param field ĞòºÅ×Ö¶ÎµÄË÷Òı
+	 * æ„å»ºæ’å·ç´¢å¼•
+	 * @param code ç»´è¡¨
+	 * @param field åºå·å­—æ®µçš„ç´¢å¼•
 	 */
 	public SeqIndexTable(Sequence code, int field) {
 		int len = code.length();

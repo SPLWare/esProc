@@ -8,8 +8,8 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 计算序列成员的异或列
- * A.xunion() A.xunion(x)，A是序列的序列
+ * 璁＄畻搴忓垪鎴愬憳鐨勫紓鎴栧垪
+ * A.xunion() A.xunion(x)锛孉鏄簭鍒楃殑搴忓垪
  * @author RunQian
  *
  */

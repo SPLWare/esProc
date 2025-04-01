@@ -11,23 +11,23 @@ import com.scudata.chart.Utils;
 import com.scudata.common.*;
 import com.scudata.resources.EngineMessage;
 /**
- * ±ıÍ¼ÊµÏÖ
+ * é¥¼å›¾å®ç°
  * @author Joancy
  *
  */
 
 public class DrawPie extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
 		GraphParam gp = db.gp;
@@ -108,17 +108,17 @@ public class DrawPie extends DrawBase {
 		double orgy = gp.graphRect.y + dely + (gp.graphRect.height - dely) / 2;
 		boolean cut = gp.serNum == 1 && egp.isCutPie();
 
-		/* ¿ªÊ¼Ñ­»·»­±ı */
+		/* å¼€å§‹å¾ªç¯ç”»é¥¼ */
 		for (int j = 0; j < gp.serNum; j++) {
 			String serName = (String) gp.serNames.get(j);
 			double totAmount = 0.0;
 			double totAngle = 0;
-			/* Ëã³öµ±Ç°ĞòÁĞµÄ°ë¾¶ */
+			/* ç®—å‡ºå½“å‰åºåˆ—çš„åŠå¾„ */
 			double radx = (gp.serNum - j) * radiusx;
 			double rady = (gp.serNum - j) * radiusy;
 			w = 2 * radx;
 			h = 2 * rady;
-			// ³¬Á´½ÓÊ±ĞèÒªµÃµ½ÏÂÒ»ÏµÁĞµÄ°ë¾¶¾ØĞÎ£¬ÒÔÈ·¶¨»·×´Á´½Ó×ø±ê
+			// è¶…é“¾æ¥æ—¶éœ€è¦å¾—åˆ°ä¸‹ä¸€ç³»åˆ—çš„åŠå¾„çŸ©å½¢ï¼Œä»¥ç¡®å®šç¯çŠ¶é“¾æ¥åæ ‡
 			double rxx = (gp.serNum - j - 1) * radiusx;
 			double ryy = (gp.serNum - j - 1) * radiusy;
 			double xx, yy;
@@ -126,16 +126,16 @@ public class DrawPie extends DrawBase {
 			double hh = 2 * ryy;
 
 			double max = 0;
-			double maxi = -1, maxX = 0, maxY = 0; // ×î´ó¿é±ıµÄ×ø±ê
+			double maxi = -1, maxX = 0, maxY = 0; // æœ€å¤§å—é¥¼çš„åæ ‡
 			ExtGraphCategory maxEgc = null;
 			ExtGraphSery maxEgs = null;
 
 
-			double maxAngle = 0; // ×î´ó¿éËù´¦µÄ±ıÍ¼½Ç¶È
+			double maxAngle = 0; // æœ€å¤§å—æ‰€å¤„çš„é¥¼å›¾è§’åº¦
 
 			double movex = 0;
 			double movey = 0;
-			/* ÏÈËã³ö×ÜºÍ */
+			/* å…ˆç®—å‡ºæ€»å’Œ */
 			ArrayList cats = egp.categories;
 			int cc = cats.size();
 			for (int i = 0; i < cc; i++) {
@@ -153,7 +153,7 @@ public class DrawPie extends DrawBase {
 				continue;
 			}
 
-			/* ÖğÏî»­ÉÈĞÎ,ÏÈ»­ÒõÓ° */
+			/* é€é¡¹ç”»æ‰‡å½¢,å…ˆç”»é˜´å½± */
 			totAngle = 0;
 			double cumulativeAmount = 0.0;
 			if (egp.isDrawShade()) {
@@ -167,7 +167,7 @@ public class DrawPie extends DrawBase {
 					angle = 360.0 * amount / totAmount;
 					if (i == gp.catNum - 1) {
 						angle = 360 - totAngle;
-						/* Èç¹ûµ±Ç°ÉÈÇø±»ÇĞ³ö£¬ÔòÔ²ĞÄ×÷Ò»Î»ÒÆ£¬ÑØ¶Ô½ÇÏß */
+						/* å¦‚æœå½“å‰æ‰‡åŒºè¢«åˆ‡å‡ºï¼Œåˆ™åœ†å¿ƒä½œä¸€ä½ç§»ï¼Œæ²¿å¯¹è§’çº¿ */
 					}
 					if (cut && maxi == i) {
 						movex =  (20 * Math.cos(Math.toRadians(totAngle
@@ -190,7 +190,7 @@ public class DrawPie extends DrawBase {
 				}
 			}
 
-			/* ÖğÏî»­ÉÈĞÎ */
+			/* é€é¡¹ç”»æ‰‡å½¢ */
 			totAngle = 0;
 			cumulativeAmount = 0.0;
 			for (int i = 0; i < cc; i++) {
@@ -204,7 +204,7 @@ public class DrawPie extends DrawBase {
 				angle = 360.0 * amount / totAmount;
 				if (i == gp.catNum - 1) {
 					angle = 360 - totAngle;
-					/* Èç¹ûµ±Ç°ÉÈÇø±»ÇĞ³ö£¬ÔòÔ²ĞÄ×÷Ò»Î»ÒÆ£¬ÑØ¶Ô½ÇÏß */
+					/* å¦‚æœå½“å‰æ‰‡åŒºè¢«åˆ‡å‡ºï¼Œåˆ™åœ†å¿ƒä½œä¸€ä½ç§»ï¼Œæ²¿å¯¹è§’çº¿ */
 				}
 				if (cut && maxi == i) {
 					movex =  (20 * Math.cos(Math.toRadians(totAngle
@@ -248,7 +248,7 @@ public class DrawPie extends DrawBase {
 				totAngle += angle;
 			}
 
-			// Êä³öÎÄ×Ö
+			// è¾“å‡ºæ–‡å­—
 			totAngle = 0;
 			for (int i = 0; i < cc; i++) {
 				ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
@@ -261,7 +261,7 @@ public class DrawPie extends DrawBase {
 				angle = 360.0 * amount / totAmount;
 				if (i == gp.catNum - 1) {
 					angle = 360 - totAngle;
-					/* Èç¹ûµ±Ç°ÉÈÇø±»ÇĞ³ö£¬ÔòÔ²ĞÄ×÷Ò»Î»ÒÆ£¬ÑØ¶Ô½ÇÏß */
+					/* å¦‚æœå½“å‰æ‰‡åŒºè¢«åˆ‡å‡ºï¼Œåˆ™åœ†å¿ƒä½œä¸€ä½ç§»ï¼Œæ²¿å¯¹è§’çº¿ */
 				}
 				if (cut && maxi == i) {
 					movex =  (20 * Math.cos(Math.toRadians(totAngle
@@ -273,7 +273,7 @@ public class DrawPie extends DrawBase {
 					movey = 0;
 				}
 
-				if (gp.serNum == 1) { // »­°Ù·Ö±È±êÊ¶
+				if (gp.serNum == 1) { // ç”»ç™¾åˆ†æ¯”æ ‡è¯†
 					double tAngle = Math.toRadians(totAngle + angle / 2);
 					double x1 = orgx
 							+  Math.round((radx) * Math.cos(tAngle))
@@ -299,14 +299,14 @@ public class DrawPie extends DrawBase {
 
 					String fmt;
 					String text = "";
-					// ÏÔÊ¾ÊıÖµ±êÊ¾
+					// æ˜¾ç¤ºæ•°å€¼æ ‡ç¤º
 					double tmpAngle = totAngle + angle / 2;
 					db.g.setStroke(new BasicStroke());
 					switch (gp.dispValueType) {
-					case GraphProperty.DISPDATA_NONE: // ²»ÏÔÊ¾
+					case GraphProperty.DISPDATA_NONE: // ä¸æ˜¾ç¤º
 						text = "";
 						break;
-					case GraphProperty.DISPDATA_VALUE: // ÏÔÊ¾ÊıÖµ
+					case GraphProperty.DISPDATA_VALUE: // æ˜¾ç¤ºæ•°å€¼
 					case GraphProperty.DISPDATA_NAME_VALUE:
 						if (StringUtils.isValidString(gp.dataMarkFormat)) {
 							fmt = gp.dataMarkFormat;
@@ -320,12 +320,12 @@ public class DrawPie extends DrawBase {
 							text = getDispName(egc,egs,gp.serNum)+","+text;
 						}						
 						break;
-					case GraphProperty.DISPDATA_TITLE: // ±êÌâ
+					case GraphProperty.DISPDATA_TITLE: // æ ‡é¢˜
 						db.drawLine(x1, y1, x2, y2,
 								egp.getAxisColor(GraphProperty.AXIS_PIEJOIN));
 						text = egs.getTips();
 						break;
-					default: // ÏÔÊ¾°Ù·Ö±È
+					default: // æ˜¾ç¤ºç™¾åˆ†æ¯”
 						db.drawLine(x1, y1, x2, y2,
 								egp.getAxisColor(GraphProperty.AXIS_PIEJOIN));
 						if (i != maxi) {
@@ -359,7 +359,7 @@ public class DrawPie extends DrawBase {
 				totAngle += angle;
 			}
 
-			if (gp.serNum > 1) { // »­ĞòÁĞ±êÊ¶
+			if (gp.serNum > 1) { // ç”»åºåˆ—æ ‡è¯†
 				int angle = Math.round(360 / gp.serNum) * j;
 				double tAngle = Math.toRadians(angle);
 				g.setColor(gp.coorColor);

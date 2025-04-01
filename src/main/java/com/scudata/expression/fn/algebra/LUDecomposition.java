@@ -3,19 +3,19 @@ package com.scudata.expression.fn.algebra;
 import com.scudata.common.RQException;
 
 /**
- * ¾ØÕóµÄÈı½Ç·Ö½â´¦Àí
+ * çŸ©é˜µçš„ä¸‰è§’åˆ†è§£å¤„ç†
  * @author bd
  */
 public class LUDecomposition {
-	// ½ô´ÕÈı½Ç¾ØÕó
+	// ç´§å‡‘ä¸‰è§’çŸ©é˜µ
 	private double[][] LU;
-	// ÖÃ»»ÏòÁ¿
+	// ç½®æ¢å‘é‡
 	private int[] piv;
 	
 	private int rows, cols, pivsign; 
 
 	/**
-	 * ½«¾ØÕóÖ´ĞĞÈı½Ç·Ö½â·¨
+	 * å°†çŸ©é˜µæ‰§è¡Œä¸‰è§’åˆ†è§£æ³•
 	 */
 	protected LUDecomposition(Matrix A) {
 		this.LU = A.getArrayCopy();
@@ -29,28 +29,28 @@ public class LUDecomposition {
 		double[] LUrow;
 		double[] LUcol = new double[rows];
 
-		// Íâ²ãÑ­»·£¬´ÓÊ×ÁĞ¿ªÊ¼¼ÆËãLU¾ØÕó
+		// å¤–å±‚å¾ªç¯ï¼Œä»é¦–åˆ—å¼€å§‹è®¡ç®—LUçŸ©é˜µ
 		for (int c = 0; c < cols; c++) {
-			// ¼ÇÂ¼±¾ÁĞµÄÔ­Öµ
+			// è®°å½•æœ¬åˆ—çš„åŸå€¼
 			for (int r = 0; r < rows; r++) {
 				LUcol[r] = LU[r][c];
 			}
-			// ×¼±¸Çó½âµ±Ç°Î»ÖÃµÄÖµ£¬
-			// ×óÏÂ£¬r>c, a(r,c)=l(r,1)*u(1,c)+l(r,2)*u(2,c)...+l(r,c)*u(c,c)
-			// ÆäËü£¬r<c, a(r,c)=l(r,1)*u(1,c)+...+l(r,r-1)*u(r-1,c)...+u(r,c)
+			// å‡†å¤‡æ±‚è§£å½“å‰ä½ç½®çš„å€¼ï¼Œ
+			// å·¦ä¸‹ï¼Œr>c, a(r,c)=l(r,1)*u(1,c)+l(r,2)*u(2,c)...+l(r,c)*u(c,c)
+			// å…¶å®ƒï¼Œr<c, a(r,c)=l(r,1)*u(1,c)+...+l(r,r-1)*u(r-1,c)...+u(r,c)
 			for (int r = 0; r < rows; r++) {
 				LUrow = LU[r];
-				// Ç°Ãæ²¿·ÖµÄ²ÎÊı£¬Éæ¼°Ö®Ç°ÁĞºÍÖ®Ç°ĞĞ£¬LU¾ØÕóÖĞµÄ¶ÔÓ¦ÖµÓ¦¸ÃÒÑ¾­¼ÆËã¹ıÁË
+				// å‰é¢éƒ¨åˆ†çš„å‚æ•°ï¼Œæ¶‰åŠä¹‹å‰åˆ—å’Œä¹‹å‰è¡Œï¼ŒLUçŸ©é˜µä¸­çš„å¯¹åº”å€¼åº”è¯¥å·²ç»è®¡ç®—è¿‡äº†
 				int kmax = Math.min(r, c);
 				double s = 0d;
 				for (int k = 0; k < kmax; k++) {
 					s += LUrow[k] * LUcol[k];
 				}
-				// °Ñµ±Ç°Î»ÖÃµÄÇ°ÖÃ²ÎÊı¶¼¼õÈ¥
-				// Ê£ÏÂµÄ£¬×óÏÂ=l(r,c)*u(c,c)£¬ÆäËü²¿·Ö¾ÍÊÇu(r,c)ÁË
+				// æŠŠå½“å‰ä½ç½®çš„å‰ç½®å‚æ•°éƒ½å‡å»
+				// å‰©ä¸‹çš„ï¼Œå·¦ä¸‹=l(r,c)*u(c,c)ï¼Œå…¶å®ƒéƒ¨åˆ†å°±æ˜¯u(r,c)äº†
 				LUrow[c] = LUcol[r] -= s;
 			}
-			// ²éÕÒÊÇ·ñĞèÒªpivot×ªÖÃ¾ØÕó
+			// æŸ¥æ‰¾æ˜¯å¦éœ€è¦pivotè½¬ç½®çŸ©é˜µ
 			int p = c;
 			for (int r = c + 1; r < rows; r++) {
 				if (Math.abs(LUcol[r]) > Math.abs(LUcol[p])) {
@@ -68,7 +68,7 @@ public class LUDecomposition {
 				piv[c] = k;
 				pivsign = -pivsign;
 			}
-			// ´¦Àí×óÏÂÈı½Ç¼ÆËã£¬´ËÊ±±¾Î»ÖÃ¼ÆËãÒÑ¾­Íê³ÉÁË£¬Ö»ĞèĞŞ¸ÄLU¾ØÕó¾ÍĞĞ£¬LURowºÍLUCol²»ÓÃ¹ÜÁË
+			// å¤„ç†å·¦ä¸‹ä¸‰è§’è®¡ç®—ï¼Œæ­¤æ—¶æœ¬ä½ç½®è®¡ç®—å·²ç»å®Œæˆäº†ï¼Œåªéœ€ä¿®æ”¹LUçŸ©é˜µå°±è¡Œï¼ŒLURowå’ŒLUColä¸ç”¨ç®¡äº†
 			if (c < rows & LU[c][c] != 0d) {
 				for (int r = c + 1; r < rows; r++) {
 					LU[r][c] /= LU[c][c];
@@ -78,8 +78,8 @@ public class LUDecomposition {
 	}
 
 	/**
-	 * ÓÃ¾ØÕóµÄÈı½Ç·Ö½â·¨Çó½âA*X = B
-	 * @param B		¾ØÕó²ÎÊıB
+	 * ç”¨çŸ©é˜µçš„ä¸‰è§’åˆ†è§£æ³•æ±‚è§£A*X = B
+	 * @param B		çŸ©é˜µå‚æ•°B
 	 * @return
 	 */
 	protected Matrix solve(Matrix B) {
@@ -87,17 +87,17 @@ public class LUDecomposition {
 			throw new RQException("Matrix row dimensions must agree.");
 		}
 		if (!isNonsingular()) {
-			//ÆæÒì¾ØÕó£¬·½³ÌÓĞÎŞÇî¶à½â»òÎŞ½â
+			//å¥‡å¼‚çŸ©é˜µï¼Œæ–¹ç¨‹æœ‰æ— ç©·å¤šè§£æˆ–æ— è§£
 			throw new RQException("Matrix is singular.");
 		}
 
-		//Ö´ĞĞÈı½Ç·Ö½âºó£¬·½³Ì±äÎªL*U*X = B£¬¼´L*(U*X) = B
-		//L*Y=B, ÏÈ¼ÆËãB¼´U*X
+		//æ‰§è¡Œä¸‰è§’åˆ†è§£åï¼Œæ–¹ç¨‹å˜ä¸ºL*U*X = Bï¼Œå³L*(U*X) = B
+		//L*Y=B, å…ˆè®¡ç®—Bå³U*X
 	    int nx = B.getCols();
 		Matrix Xmat = B.getMatrix(piv, 0, nx - 1);
 		double[][] X = Xmat.getArray();
 
-		// Çó½â L*Y = B(piv,:)
+		// æ±‚è§£ L*Y = B(piv,:)
 		for (int k = 0; k < this.cols; k++) {
 			for (int i = k + 1; i < this.cols; i++) {
 				for (int j = 0; j < nx; j++) {
@@ -105,7 +105,7 @@ public class LUDecomposition {
 				}
 			}
 		}
-		// Çó½â U*X = Y;
+		// æ±‚è§£ U*X = Y;
 		for (int k = this.cols - 1; k >= 0; k--) {
 			for (int j = 0; j < nx; j++) {
 				X[k][j] /= LU[k][k];
@@ -120,9 +120,9 @@ public class LUDecomposition {
 	}
 
 	/**
-	 * ÇóĞĞÁĞÊ½£¬·Ç·½ÕóÅ×Òì³£
-	 * @return		AµÄĞĞÁĞÊ½det(A)
-	 * @exception	Òì³£
+	 * æ±‚è¡Œåˆ—å¼ï¼Œéæ–¹é˜µæŠ›å¼‚å¸¸
+	 * @return		Açš„è¡Œåˆ—å¼det(A)
+	 * @exception	å¼‚å¸¸
 	 */
 	protected double det() {
 		if (this.rows != this.cols) {
@@ -143,9 +143,9 @@ public class LUDecomposition {
 	}
 	
 	/**
-	 * ¸ù¾İ½ô´ÕÈı½Ç·Ö½â¾ØÕóÅĞ¶ÏÊÇ·ñ·ÇÆæÒì¾ØÕó£¬Èç¹ûÆäÖĞÎŞ0£¬ÔòÒ»¶¨ÊÇ·ÇÆæÒì¾ØÕó
-	 * @param LU	½ô´ÕÈı½Ç·Ö½â¾ØÕó
-	 * @return		ÊÇ·ñ·ÇÆæÒì¾ØÕó£¬ÆæÒì¾ØÕó·µ»Øfalse
+	 * æ ¹æ®ç´§å‡‘ä¸‰è§’åˆ†è§£çŸ©é˜µåˆ¤æ–­æ˜¯å¦éå¥‡å¼‚çŸ©é˜µï¼Œå¦‚æœå…¶ä¸­æ— 0ï¼Œåˆ™ä¸€å®šæ˜¯éå¥‡å¼‚çŸ©é˜µ
+	 * @param LU	ç´§å‡‘ä¸‰è§’åˆ†è§£çŸ©é˜µ
+	 * @return		æ˜¯å¦éå¥‡å¼‚çŸ©é˜µï¼Œå¥‡å¼‚çŸ©é˜µè¿”å›false
 	 */
 	private boolean isNonsingular() {
 		for (int c = 0; c < this.cols; c++) {

@@ -18,21 +18,21 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼ÓbindÔËËã
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ bindè¿ç®—
  * @author WangXiaoJun
  *
  */
 public class ForeignJoin extends Operation {
-	private Expression []dimExps; // ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	private String []aliasNames; // ±ğÃû
-	private Expression [][]newExps; // È¡³öµÄ´úÂë±íµÄ×Ö¶Î±í´ïÊ½Êı×é
-	private String [][]newNames; // È¡³öµÄ´úÂë±íµÄ×Ö¶ÎÃûÊı×é
-	private String opt; // Ñ¡Ïî
+	private Expression []dimExps; // å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String []aliasNames; // åˆ«å
+	private Expression [][]newExps; // å–å‡ºçš„ä»£ç è¡¨çš„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private String [][]newNames; // å–å‡ºçš„ä»£ç è¡¨çš„å­—æ®µåæ•°ç»„
+	private String opt; // é€‰é¡¹
 	
-	private DataStruct oldDs; // Ô´±íÊı¾İ½á¹¹
-	private DataStruct newDs; // ½á¹û¼¯Êı¾İ½á¹¹
-	private int [][]tgtIndexs; // newExps×Ö¶ÎÔÚ½á¹û¼¯µÄÎ»ÖÃ
-	private boolean isIsect; // ½»Á¬½Ó£¬Ä¬ÈÏÎª×óÁ¬½Ó
+	private DataStruct oldDs; // æºè¡¨æ•°æ®ç»“æ„
+	private DataStruct newDs; // ç»“æœé›†æ•°æ®ç»“æ„
+	private int [][]tgtIndexs; // newExpså­—æ®µåœ¨ç»“æœé›†çš„ä½ç½®
+	private boolean isIsect; // äº¤è¿æ¥ï¼Œé»˜è®¤ä¸ºå·¦è¿æ¥
 	
 	public ForeignJoin(Expression[] dimExps, String []aliasNames, Expression[][] newExps, String[][] newNames, String opt) {
 		this(null, dimExps, aliasNames, newExps, newNames, opt);
@@ -75,17 +75,17 @@ public class ForeignJoin extends Operation {
 	}
 	
 	/**
-	 * È¡²Ù×÷ÊÇ·ñ»á¼õÉÙÔªËØÊı£¬±ÈÈç¹ıÂËº¯Êı»á¼õÉÙ¼ÇÂ¼
-	 * ´Ëº¯ÊıÓÃÓÚÓÎ±êµÄ¾«È·È¡Êı£¬Èç¹û¸½¼ÓµÄ²Ù×÷²»»áÊ¹¼ÇÂ¼Êı¼õÉÙÔòÖ»Ğè°´´«ÈëµÄÊıÁ¿È¡Êı¼´¿É
-	 * @return true£º»á£¬false£º²»»á
+	 * å–æ“ä½œæ˜¯å¦ä¼šå‡å°‘å…ƒç´ æ•°ï¼Œæ¯”å¦‚è¿‡æ»¤å‡½æ•°ä¼šå‡å°‘è®°å½•
+	 * æ­¤å‡½æ•°ç”¨äºæ¸¸æ ‡çš„ç²¾ç¡®å–æ•°ï¼Œå¦‚æœé™„åŠ çš„æ“ä½œä¸ä¼šä½¿è®°å½•æ•°å‡å°‘åˆ™åªéœ€æŒ‰ä¼ å…¥çš„æ•°é‡å–æ•°å³å¯
+	 * @return trueï¼šä¼šï¼Œfalseï¼šä¸ä¼š
 	 */
 	public boolean isDecrease() {
 		return isIsect;
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -122,7 +122,7 @@ public class ForeignJoin extends Operation {
 			tgtIndexs[i] = tmp;
 			
 			for (int f = 0; f < curLen; ++f) {
-				// Èç¹ûĞÂ¼ÓµÄ×Ö¶ÎÔÚÔ´±íÖĞÒÑ´æÔÚÔò¸ÄĞ´ÏÖÓĞ×Ö¶Î
+				// å¦‚æœæ–°åŠ çš„å­—æ®µåœ¨æºè¡¨ä¸­å·²å­˜åœ¨åˆ™æ”¹å†™ç°æœ‰å­—æ®µ
 				int index = oldDs.getFieldIndex(curNames[f]);
 				if (index == -1) {
 					tmp[f] = seq.length();
@@ -142,9 +142,9 @@ public class ForeignJoin extends Operation {
 	}
 	
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {
@@ -162,7 +162,7 @@ public class ForeignJoin extends Operation {
 		Table result = new Table(newDs, len);
 		ComputeStack stack = ctx.getComputeStack();
 		
-		// ÔÊĞíºóÃæCÒıÓÃÇ°ÃæµÄF£¬¿ÉÒÔÒ»´ÎĞÔjoin¶à²ã
+		// å…è®¸åé¢Cå¼•ç”¨å‰é¢çš„Fï¼Œå¯ä»¥ä¸€æ¬¡æ€§joinå¤šå±‚
 		for (int i = 1; i <= len; ++i) {
 			BaseRecord old = (BaseRecord)data.getMem(i);
 			result.newLast(old.getFieldValues());
@@ -255,7 +255,7 @@ public class ForeignJoin extends Operation {
 			signs[i] = true;
 		}
 		
-		// ÔÊĞíºóÃæCÒıÓÃÇ°ÃæµÄF£¬¿ÉÒÔÒ»´ÎĞÔjoin¶à²ã
+		// å…è®¸åé¢Cå¼•ç”¨å‰é¢çš„Fï¼Œå¯ä»¥ä¸€æ¬¡æ€§joinå¤šå±‚
 		for (int i = 1; i <= len; ++i) {
 			BaseRecord old = (BaseRecord)data.getMem(i);
 			result.newLast(old.getFieldValues());

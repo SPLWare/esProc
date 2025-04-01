@@ -5,34 +5,34 @@ import java.awt.geom.Point2D;
 import com.scudata.chart.element.*;
 
 /**
- * ¹¹ÔìÒ»¸öÓÃÓÚ»æÍ¼µÄÂß¼­Ö±½Ç×ø±êÏµ
+ * æ„é€ ä¸€ä¸ªç”¨äºç»˜å›¾çš„é€»è¾‘ç›´è§’åæ ‡ç³»
  * 
  * @author Joancy
  *
  */
 public class CartesianCoor implements ICoor {
-	// ¹¹³É×ø±êÏµµÄÁ½¸ù¿Ì¶ÈÖá£¬ÓÉÓÚÖá±¾Éí¶¨ÒåºáÖá»¹ÊÇ×İÖá£¬ËùÒÔ×ø±êÏµÖĞ²»ÃüÃûºáÖá×İÖá£¬Ö»Òª×éºÏµÄÁ½¸öÖá·Ö±ğÓĞºáÖá×İÖá¼´¿É
+	// æ„æˆåæ ‡ç³»çš„ä¸¤æ ¹åˆ»åº¦è½´ï¼Œç”±äºè½´æœ¬èº«å®šä¹‰æ¨ªè½´è¿˜æ˜¯çºµè½´ï¼Œæ‰€ä»¥åæ ‡ç³»ä¸­ä¸å‘½åæ¨ªè½´çºµè½´ï¼Œåªè¦ç»„åˆçš„ä¸¤ä¸ªè½´åˆ†åˆ«æœ‰æ¨ªè½´çºµè½´å³å¯
 	TickAxis a1, a2;
 
 	/**
-	 * ÉèÖÃµÚÒ»¸ù¿Ì¶ÈÖá
-	 * @param axis	¿Ì¶ÈÖá
+	 * è®¾ç½®ç¬¬ä¸€æ ¹åˆ»åº¦è½´
+	 * @param axis	åˆ»åº¦è½´
 	 */
 	public void setAxis1(TickAxis axis) {
 		this.a1 = axis;
 	}
 
 	/**
-	 * »ñÈ¡µÚÒ»¸ù¿Ì¶ÈÖá
-	 * @return ¿Ì¶ÈÖá1
+	 * è·å–ç¬¬ä¸€æ ¹åˆ»åº¦è½´
+	 * @return åˆ»åº¦è½´1
 	 */
 	public TickAxis getAxis1() {
 		return a1;
 	}
 
 	/**
-	 * »ñÈ¡xÖá£¬Ò²¼´ºáÖá
-	 * @return ×ø±êÏµµÄxÖá
+	 * è·å–xè½´ï¼Œä¹Ÿå³æ¨ªè½´
+	 * @return åæ ‡ç³»çš„xè½´
 	 */
 	public TickAxis getXAxis() {
 		if (a1.getLocation() == Consts.AXIS_LOC_H) {
@@ -42,24 +42,24 @@ public class CartesianCoor implements ICoor {
 	}
 
 	/**
-	 * ÉèÖÃµÚ¶ş¸ù¿Ì¶ÈÖá
-	 * @param axis	¿Ì¶ÈÖá
+	 * è®¾ç½®ç¬¬äºŒæ ¹åˆ»åº¦è½´
+	 * @param axis	åˆ»åº¦è½´
 	 */
 	public void setAxis2(TickAxis axis) {
 		this.a2 = axis;
 	}
 
 	/**
-	 * »ñÈ¡µÚ¶ş¸ù¿Ì¶ÈÖá
-	 * @return ¿Ì¶ÈÖá2
+	 * è·å–ç¬¬äºŒæ ¹åˆ»åº¦è½´
+	 * @return åˆ»åº¦è½´2
 	 */
 	public TickAxis getAxis2() {
 		return a2;
 	}
 
 	/**
-	 * »ñÈ¡yÖá£¬Ò²¼´×İÖá
-	 * @return ×ø±êÏµµÄyÖá
+	 * è·å–yè½´ï¼Œä¹Ÿå³çºµè½´
+	 * @return åæ ‡ç³»çš„yè½´
 	 */
 	public TickAxis getYAxis() {
 		if (a1.getLocation() == Consts.AXIS_LOC_V) {
@@ -69,10 +69,10 @@ public class CartesianCoor implements ICoor {
 	}
 
 	/**
-	 * ¼ÆËãÏà¶ÔÓ¦Á½¸ùÖáµÄÂß¼­ÖµµÄÎïÀí×ø±ê
-	 * @param val1	¶ÔÓ¦1ÖáµÄÂß¼­Öµ
-	 * @param val2	¶ÔÓ¦2ÖáµÄÂß¼­Öµ
-	 * @return Point2D ¾«¶ÈÎªdoubleµÄÎïÀí×ø±ê
+	 * è®¡ç®—ç›¸å¯¹åº”ä¸¤æ ¹è½´çš„é€»è¾‘å€¼çš„ç‰©ç†åæ ‡
+	 * @param val1	å¯¹åº”1è½´çš„é€»è¾‘å€¼
+	 * @param val2	å¯¹åº”2è½´çš„é€»è¾‘å€¼
+	 * @return Point2D ç²¾åº¦ä¸ºdoubleçš„ç‰©ç†åæ ‡
 	 */
 	public Point2D getNumericPoint(Object val1, Object val2) {
 		double i1 = a1.getValueLen(val1);
@@ -98,7 +98,7 @@ public class CartesianCoor implements ICoor {
 	  };
 
 	/**
-	 * 3dÆ«ÒÆ×ø±êÁ¿,Èç¹ûÓĞÃ¶¾ÙÖá£¬ÔòÈ¡Ã¶¾ÙÖáµÄthickRate£¬·ñÔòÈ¡axis1µÄ¸ÃÖµ£»
+	 * 3dåç§»åæ ‡é‡,å¦‚æœæœ‰æšä¸¾è½´ï¼Œåˆ™å–æšä¸¾è½´çš„thickRateï¼Œå¦åˆ™å–axis1çš„è¯¥å€¼ï¼›
 	 * 
 	 * @return int 
 	 */
@@ -131,9 +131,9 @@ public class CartesianCoor implements ICoor {
 	}
 
 	/**
-	 * »ñÈ¡×ø±êÏµÖĞµÄÊıÖµÖá£¬¸Ã·½·¨Í¨³£ÓÃÓÚÃ¶¾ÙÖá¸úÊıÖµÖá×éºÏµÄ×ø±êÏµÊ±£¬Èç¹ûÁ½¸ùÖá¶¼ÊÇÊıÖµÖá£¬ÔòÖ»·µ»Ø1Öá¡£
+	 * è·å–åæ ‡ç³»ä¸­çš„æ•°å€¼è½´ï¼Œè¯¥æ–¹æ³•é€šå¸¸ç”¨äºæšä¸¾è½´è·Ÿæ•°å€¼è½´ç»„åˆçš„åæ ‡ç³»æ—¶ï¼Œå¦‚æœä¸¤æ ¹è½´éƒ½æ˜¯æ•°å€¼è½´ï¼Œåˆ™åªè¿”å›1è½´ã€‚
 	 * 
-	 * @return ÊıÖµÖá
+	 * @return æ•°å€¼è½´
 	 */
 	public NumericAxis getNumericAxis() {
 		TickAxis axis = getAxis(this, NumericAxis.class);
@@ -143,9 +143,9 @@ public class CartesianCoor implements ICoor {
 	}
 
 	/**
-	 * »ñÈ¡×ø±êÏµÖĞµÄÃ¶¾ÙÖá£¬ÓÃ·¨Í¬getNumericAxis
+	 * è·å–åæ ‡ç³»ä¸­çš„æšä¸¾è½´ï¼Œç”¨æ³•åŒgetNumericAxis
 	 * 
-	 * @return Ã¶¾ÙÖá
+	 * @return æšä¸¾è½´
 	 */
 	public EnumAxis getEnumAxis() {
 		TickAxis axis = getAxis(this, EnumAxis.class);
@@ -155,15 +155,15 @@ public class CartesianCoor implements ICoor {
 	}
 
 	/**
-	 * Éú³É×ø±êÏµµÄÃèÊöĞÅÏ¢£¬Í¨³£ÓÃÓÚµ÷ÊÔ¡£
+	 * ç”Ÿæˆåæ ‡ç³»çš„æè¿°ä¿¡æ¯ï¼Œé€šå¸¸ç”¨äºè°ƒè¯•ã€‚
 	 */
 	public String toString() {
 		return "CartesianCoor Axis1:" + a1.getName() + " Axis2:" + a2.getName();
 	}
 
 	/**
-	 * ÅĞ¶ÏÁ½¸ö×ø±êÏµÊÇ·ñÏàµÈ
-	 * @return ÏàµÈÊ±·µ»Øtrue£¬·ñÔòfalse
+	 * åˆ¤æ–­ä¸¤ä¸ªåæ ‡ç³»æ˜¯å¦ç›¸ç­‰
+	 * @return ç›¸ç­‰æ—¶è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean equals(Object obj) {
 		if (obj == this)
@@ -176,21 +176,21 @@ public class CartesianCoor implements ICoor {
 	}
 
 	/**
-	 * ÊÇ·ñÎª¼«×ø±êÏµ
+	 * æ˜¯å¦ä¸ºæåæ ‡ç³»
 	 */
 	public boolean isPolarCoor() {
 		return false;
 	}
 
 	/**
-	 * ÊÇ·ñÎªÖ±½Ç×ø±êÏµ
+	 * æ˜¯å¦ä¸ºç›´è§’åæ ‡ç³»
 	 */
 	public boolean isCartesianCoor() {
 		return true;
 	}
 
 	/**
-	 * ÊÇ·ñÎª°üº¬Ã¶¾ÙÖáµÄ×ø±êÏµ
+	 * æ˜¯å¦ä¸ºåŒ…å«æšä¸¾è½´çš„åæ ‡ç³»
 	 */
 	public boolean isEnumBased() {
 		TickAxis ta = getAxis1();

@@ -7,8 +7,8 @@ import com.scudata.chart.*;
 import com.scudata.chart.edit.*;
 import com.scudata.common.*;
 /**
- * µãÍ¼Ôª
- * µãÍ¼ÔªÍ¨³£¿ÉÒÔ±íÏÖÆøÅİÍ¼
+ * ç‚¹å›¾å…ƒ
+ * ç‚¹å›¾å…ƒé€šå¸¸å¯ä»¥è¡¨ç°æ°”æ³¡å›¾
  * @author Joancy
  *
  */
@@ -18,34 +18,34 @@ public class Dot extends DataElement {
 	public Para lineWeight = new Para(new Float(1));
 	public Para lineColor = new Para(Consts.LEGEND_P_LINECOLOR);
 
-	public Para markerStyle = new Para(new Integer(Consts.PT_CIRCLE),Consts.LEGEND_P_MARKERSTYLE); // µãµÄĞÎ×´
-	public Para markerColor = new Para(Consts.LEGEND_P_FILLCOLOR); // µãµÄÌî³äÑÕÉ«£¬±ß¿òÑÕÉ«ÓÃlineColor
+	public Para markerStyle = new Para(new Integer(Consts.PT_CIRCLE),Consts.LEGEND_P_MARKERSTYLE); // ç‚¹çš„å½¢çŠ¶
+	public Para markerColor = new Para(Consts.LEGEND_P_FILLCOLOR); // ç‚¹çš„å¡«å……é¢œè‰²ï¼Œè¾¹æ¡†é¢œè‰²ç”¨lineColor
 
-	// radius1»ò2Îª0Ê±£¬Ïß»òµãµÄ´Ö¶È»ò°ë¾¶,¸Ã°ë¾¶È±Ê¡0ÖµµÄÒâÒåÎª£¬×Ô¶¯¸úËælineWeightµ÷Õû£¬
-	// µ÷Õû¹ıºóµÄÖµ²»ÄÜĞ¡ÓÚ2£¬Ò²¼´×ÜÓĞ°ë¾¶£¬²»ÄÜ³öÏÖ°ë¾¶Îª0µÄÇé¿ö£¬²»»­µãĞèÒªÉèÖÃµãµÄĞÎ×´Îª¿Õ£¬²»ÄÜÉèÖÃ¸Ã°ë¾¶Îª0
+	// radius1æˆ–2ä¸º0æ—¶ï¼Œçº¿æˆ–ç‚¹çš„ç²—åº¦æˆ–åŠå¾„,è¯¥åŠå¾„ç¼ºçœ0å€¼çš„æ„ä¹‰ä¸ºï¼Œè‡ªåŠ¨è·ŸéšlineWeightè°ƒæ•´ï¼Œ
+	// è°ƒæ•´è¿‡åçš„å€¼ä¸èƒ½å°äº2ï¼Œä¹Ÿå³æ€»æœ‰åŠå¾„ï¼Œä¸èƒ½å‡ºç°åŠå¾„ä¸º0çš„æƒ…å†µï¼Œä¸ç”»ç‚¹éœ€è¦è®¾ç½®ç‚¹çš„å½¢çŠ¶ä¸ºç©ºï¼Œä¸èƒ½è®¾ç½®è¯¥åŠå¾„ä¸º0
 	public Para markerWeight = new Para(0);
 
-	public Para radius1 = new Para(0);// µãÔÚ1ÖáµÄÒµÎñ°ë¾¶,ÖµÎªÖá¼ÆËã³¤¶È
-	public Para radius2 = new Para(0);// µãÔÚ2ÖáµÄÒµÎñ°ë¾¶,ÖµÎªÖá¼ÆËã³¤¶È
+	public Para radius1 = new Para(0);// ç‚¹åœ¨1è½´çš„ä¸šåŠ¡åŠå¾„,å€¼ä¸ºè½´è®¡ç®—é•¿åº¦
+	public Para radius2 = new Para(0);// ç‚¹åœ¨2è½´çš„ä¸šåŠ¡åŠå¾„,å€¼ä¸ºè½´è®¡ç®—é•¿åº¦
 
-	// ±êÊ¾ÎÄ×Ö
+	// æ ‡ç¤ºæ–‡å­—
 	public Para text = new Para(null);
-	public Para textFont = new Para();//"ËÎÌå"
+	public Para textFont = new Para();//"å®‹ä½“"
 	public Para textStyle = new Para(new Integer(0));
 	public Para textSize = new Para(new Integer(12));
 	public Para textColor = new Para(Color.black);
 
-	// Í¸Ã÷¶È
+	// é€æ˜åº¦
 	public float transparent = 1f;
 
-	// ÎÄ×ÖÖØµşÏÔÊ¾
+	// æ–‡å­—é‡å æ˜¾ç¤º
 	public boolean textOverlapping = true;
 
-	// ÊÇ·ñÓĞÒõÓ°
+	// æ˜¯å¦æœ‰é˜´å½±
 	public boolean shadow = false;
 
 	/**
-	 * È±Ê¡²ÎÊıµÄ¹¹Ôìº¯Êı
+	 * ç¼ºçœå‚æ•°çš„æ„é€ å‡½æ•°
 	 */
 	public Dot() {
 	}
@@ -55,8 +55,8 @@ public class Dot extends DataElement {
 	}
 
 	/**
-	 * »ñÈ¡µãÍ¼ÔªµÄ±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç‚¹å›¾å…ƒçš„ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -89,7 +89,7 @@ public class Dot extends DataElement {
 		paramInfos.add(group, new ParamInfo("textSize", Consts.INPUT_FONTSIZE));
 		paramInfos.add(group, new ParamInfo("textColor", Consts.INPUT_COLOR));
 
-		// group = "Á´½Ó";
+		// group = "é“¾æ¥";
 		// paramInfos.add(group,new ParamInfo("tip"));
 		// paramInfos.add(group,new ParamInfo("url"));
 		// paramInfos.add(group,new ParamInfo("target"));
@@ -99,7 +99,7 @@ public class Dot extends DataElement {
 	}
 
 	/**
-	 * »æÖÆ±³¾°²ã
+	 * ç»˜åˆ¶èƒŒæ™¯å±‚
 	 */
 	public void drawBack() {
 		if (!isVisible() || !shadow) {
@@ -109,7 +109,7 @@ public class Dot extends DataElement {
 	}
 
 	/**
-	 * »æÖÆÖĞ¼ä²ã
+	 * ç»˜åˆ¶ä¸­é—´å±‚
 	 */
 	public void draw() {
 		if (!isVisible()) {
@@ -119,7 +119,7 @@ public class Dot extends DataElement {
 	}
 
 	/**
-	 * »æÖÆÇ°¾°²ã
+	 * ç»˜åˆ¶å‰æ™¯å±‚
 	 */
 	public void drawFore() {
 		if (!isVisible()) {
@@ -129,7 +129,7 @@ public class Dot extends DataElement {
 	}
 
 	private void drawStep(int step) {
-		// Êı¾İµã
+		// æ•°æ®ç‚¹
 		int size = pointSize();
 		for (int i = 1; i <= size; i++) {
 			try {
@@ -140,7 +140,7 @@ public class Dot extends DataElement {
 					addLink(shape, htmlLink.stringValue(i), title,linkTarget.stringValue(i));
 				}
 			} catch (RuntimeException re) {
-				// µã²»·Ö»ùÓÚÃ¶¾ÙÖáµÄ·ÖÀàÀ´»æÍ¼£¬µ±ÓĞ²»ÔÚÃ¶¾ÙÖáÖĞ¶¨ÒåµÄ·ÖÀà»òÕßÏµÁĞÊ±£¬¶ªÆú¸Ãµã
+				// ç‚¹ä¸åˆ†åŸºäºæšä¸¾è½´çš„åˆ†ç±»æ¥ç»˜å›¾ï¼Œå½“æœ‰ä¸åœ¨æšä¸¾è½´ä¸­å®šä¹‰çš„åˆ†ç±»æˆ–è€…ç³»åˆ—æ—¶ï¼Œä¸¢å¼ƒè¯¥ç‚¹
 				if (re.getMessage().startsWith(NOT_IN_DEFINE)) {
 					continue;
 				}
@@ -150,10 +150,10 @@ public class Dot extends DataElement {
 	}
 
 	/*
-	 * »­µãÍ¼ÔªµÄÒ»¸öÊı¾İµã
-	 * Òª»æÖÆµãp£¬ Ö±½Ç×ø±êÏµÊ±p¿ÉÒÔÎª¡¾ÊıÖµ×ø±ê¡¿£¬»òÕß¡¾ÆÁÄ»×ø±ê¡¿£»
-	 * ¼«×ø±êÏµÊ±£¬Ö»ÄÜÊÇ¡¾ÊıÖµ×ø±ê¡¿£¬Ò²¼´¡¾¼«×ø±ê¡¿
-	 * ×¢Òâ£¬ÎïÀí×ø±êÏµÊ±£¬ÊıÖµ×ø±êÒÑ¾­µÈÓÚ ÆÁÄ»×ø±ê¡£
+	 * ç”»ç‚¹å›¾å…ƒçš„ä¸€ä¸ªæ•°æ®ç‚¹
+	 * è¦ç»˜åˆ¶ç‚¹pï¼Œ ç›´è§’åæ ‡ç³»æ—¶på¯ä»¥ä¸ºã€æ•°å€¼åæ ‡ã€‘ï¼Œæˆ–è€…ã€å±å¹•åæ ‡ã€‘ï¼›
+	 * æåæ ‡ç³»æ—¶ï¼Œåªèƒ½æ˜¯ã€æ•°å€¼åæ ‡ã€‘ï¼Œä¹Ÿå³ã€æåæ ‡ã€‘
+	 * æ³¨æ„ï¼Œç‰©ç†åæ ‡ç³»æ—¶ï¼Œæ•°å€¼åæ ‡å·²ç»ç­‰äº å±å¹•åæ ‡ã€‚
 	 */
 	protected Shape drawADot(int index, Point2D p, int step) {
 		return drawADot(index,p, step, false);
@@ -162,7 +162,7 @@ public class Dot extends DataElement {
 	 * @param index
 	 * @param p
 	 * @param step
-	 * @param isScreenPoint£¬¸ÃÊôĞÔÖ»¶ÔÖ±½Ç×ø±êÏµ¹ÜÓÃ£¬¼«×ø±êÊ±£¬pÖ»ÄÜÊÇ ¼«µã×ø±ê
+	 * @param isScreenPointï¼Œè¯¥å±æ€§åªå¯¹ç›´è§’åæ ‡ç³»ç®¡ç”¨ï¼Œæåæ ‡æ—¶ï¼Œpåªèƒ½æ˜¯ æç‚¹åæ ‡
 	 * @return
 	 */
 	protected Shape drawADot(int index, Point2D p, int step,boolean isScreenPoint) {
@@ -218,7 +218,7 @@ public class Dot extends DataElement {
 					}
 					double x = p.getX();
 					double y = p.getY();
-					// Êı¾İµãÉÏµÄ±êÊ¾ÎÄ×Ö
+					// æ•°æ®ç‚¹ä¸Šçš„æ ‡ç¤ºæ–‡å­—
 					x = p.getX();
 					if (radiusy > 0) {
 						y = p.getY() - radiusy;
@@ -235,7 +235,7 @@ public class Dot extends DataElement {
 					break;
 				}
 		} else {
-			// ¼«×ø±êÏµ
+			// æåæ ‡ç³»
 			PolarCoor pc = (PolarCoor) coor;
 			TickAxis ia = pc.getPolarAxis();
 			double radiusR, radiusA, val;
@@ -287,16 +287,16 @@ public class Dot extends DataElement {
 	}
 
 	/**
-	 * Í¼ÔªÊÇ·ñ¶¨ÒåÁË½¥±äÑÕÉ«
-	 * @return Èç¹ûÓĞ½¥±äÉ«·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å›¾å…ƒæ˜¯å¦å®šä¹‰äº†æ¸å˜é¢œè‰²
+	 * @return å¦‚æœæœ‰æ¸å˜è‰²è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean hasGradientColor() {
 		return markerColor.hasGradientColor();
 	}
 	
 	/**
-	 * µ±Ç°ÊôĞÔÖµ¿ËÂ¡µ½µãÍ¼Ôªd
-	 * @param d µãÍ¼ÔªÊµÀı
+	 * å½“å‰å±æ€§å€¼å…‹éš†åˆ°ç‚¹å›¾å…ƒd
+	 * @param d ç‚¹å›¾å…ƒå®ä¾‹
 	 */
 	public void clone(Dot d){
 		super.clone(d);
@@ -319,8 +319,8 @@ public class Dot extends DataElement {
 	}
 	
 	/**
-	 * ¿ËÂ¡Ò»¸öµãÍ¼Ôª
-	 * @return ¿ËÂ¡ºóµÄµãÍ¼Ôª
+	 * å…‹éš†ä¸€ä¸ªç‚¹å›¾å…ƒ
+	 * @return å…‹éš†åçš„ç‚¹å›¾å…ƒ
 	 */
 	public Object deepClone() {
 		Dot d = new Dot();

@@ -9,8 +9,8 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡ĞòÁĞÖĞÂú×ãÖ¸¶¨Ìõ¼şµÄÔªËØµÄĞòºÅ
- * A.pselect(x) A.pselect(xk:yk,¡­)
+ * å–åºåˆ—ä¸­æ»¡è¶³æŒ‡å®šæ¡ä»¶çš„å…ƒç´ çš„åºå·
+ * A.pselect(x) A.pselect(xk:yk,â€¦)
  * @author RunQian
  *
  */

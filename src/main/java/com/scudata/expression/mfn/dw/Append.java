@@ -18,7 +18,7 @@ import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 追加游标数据到组表中
+ * 杩藉姞娓告爣鏁版嵁鍒扮粍琛ㄤ腑
  * T.append(cs)
  * @author RunQian
  *

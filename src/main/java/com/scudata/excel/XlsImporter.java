@@ -58,15 +58,15 @@ public class XlsImporter implements IExcelTool {
 			wb = new HSSFWorkbook(fis);
 			sheet = wb.getSheetAt(0);
 			dataFormat = wb.createDataFormat();
-			// ¼ÆËãÊ±¿ÉÄÜ³ö´í£¬ÏÈÈ¥µô
+			// è®¡ç®—æ—¶å¯èƒ½å‡ºé”™ï¼Œå…ˆå»æ‰
 			// formulaEvaluate();
-		} catch (EncryptedDocumentException e) { // xls¸ñÊ½
+		} catch (EncryptedDocumentException e) { // xlsæ ¼å¼
 			if (pwd == null) {
-				// ExcelÎÄ¼şÊÇ¼ÓÃÜÎÄ¼ş£¬ÇëÊäÈëÃÜÂë¡£
+				// Excelæ–‡ä»¶æ˜¯åŠ å¯†æ–‡ä»¶ï¼Œè¯·è¾“å…¥å¯†ç ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsximporter.xlsnopwd"), e);
 			} else {
-				// ExcelÎÄ¼şµÄÃÜÂë²»ÕıÈ·¡£
+				// Excelæ–‡ä»¶çš„å¯†ç ä¸æ­£ç¡®ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsximporter.xlsinvalidpwd"), e);
 			}
@@ -170,10 +170,10 @@ public class XlsImporter implements IExcelTool {
 	}
 
 	/**
-	 * ¼ÆËã¹«Ê½¸ñ
+	 * è®¡ç®—å…¬å¼æ ¼
 	 */
 	private void formulaEvaluate() {
-		if (evaluator != null) // Ö»¼ÆËãÒ»´Î
+		if (evaluator != null) // åªè®¡ç®—ä¸€æ¬¡
 			return;
 		evaluator = wb.getCreationHelper().createFormulaEvaluator();
 		if (evaluator != null) {

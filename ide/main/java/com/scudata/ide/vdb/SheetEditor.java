@@ -62,7 +62,7 @@ public class SheetEditor extends JInternalFrame implements ISheet{
 	}
 
 	public boolean close() {
-		// ÏÈÍ£Ö¹ËùÓĞ±à¼­Æ÷µÄ±à¼­
+		// å…ˆåœæ­¢æ‰€æœ‰ç¼–è¾‘å™¨çš„ç¼–è¾‘
 		if(node.getType()==VDBTreeNode.TYPE_SEQUENCE){
 			sequence.tableValue.acceptText();
 		}
@@ -116,7 +116,7 @@ class Listener extends InternalFrameAdapter {
 	}
 
 	public void internalFrameActivated(InternalFrameEvent e) {
-		// ÓÃÏß³ÌÆô¶¯ÒÔµÈ´ı±ğµÄ´°¿Ú³¹µ×¹Ø±Õ²Å¼¤»î¸Ã´°¿Ú
+		// ç”¨çº¿ç¨‹å¯åŠ¨ä»¥ç­‰å¾…åˆ«çš„çª—å£å½»åº•å…³é—­æ‰æ¿€æ´»è¯¥çª—å£
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				MenuVDB menu = VDB.getInstance().getMenuVDB();

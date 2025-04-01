@@ -4,14 +4,14 @@ import com.scudata.common.MessageManager;
 import com.scudata.resources.ParallelMessage;
 
 /**
- * ·Ö»ú¹ÜÀíÆ÷
+ * åˆ†æœºç®¡ç†å™¨
  * 
  * @author Joancy
  *
  */
 public class HostManager {
 	private static HostManager instance = null;
-	// ±¾µØÏß³ÌÖ´ĞĞÊ±£¬host²»»á±»¸³Öµ¡£ÔÚ·Ö»úÖĞÆô¶¯²Å»áÓĞhost
+	// æœ¬åœ°çº¿ç¨‹æ‰§è¡Œæ—¶ï¼Œhostä¸ä¼šè¢«èµ‹å€¼ã€‚åœ¨åˆ†æœºä¸­å¯åŠ¨æ‰ä¼šæœ‰host
 	String host = null;
 	int port;
 	
@@ -24,8 +24,8 @@ public class HostManager {
 	}
 
 	/**
-	 * ·Ö»ú¹ÜÀíÆ÷µÄÎ¨Ò»ÊµÀı
-	 * @return ·Ö»ú¹ÜÀíÆ÷
+	 * åˆ†æœºç®¡ç†å™¨çš„å”¯ä¸€å®ä¾‹
+	 * @return åˆ†æœºç®¡ç†å™¨
 	 */
 	public static HostManager instance() {
 		if (instance == null) {
@@ -35,16 +35,16 @@ public class HostManager {
 	}
 
 	/**
-	 * »ñÈ¡·Ö»úµÄip
-	 * @return ipµØÖ·
+	 * è·å–åˆ†æœºçš„ip
+	 * @return ipåœ°å€
 	 */
 	public String getHost() {
 		return host;
 	}
 
 	/**
-	 * ÉèÖÃ·Ö»úIP
-	 * @param ip ipµØÖ·
+	 * è®¾ç½®åˆ†æœºIP
+	 * @param ip ipåœ°å€
 	 */
 	public void setHost(String ip) {
 		host = ip;
@@ -52,16 +52,16 @@ public class HostManager {
 	}
 
 	/**
-	 * »ñÈ¡·Ö»ú¶Ë¿ÚºÅ
-	 * @return ¶Ë¿ÚºÅ
+	 * è·å–åˆ†æœºç«¯å£å·
+	 * @return ç«¯å£å·
 	 */
 	public int getPort() {
 		return port;
 	}
 
 	/**
-	 * ÉèÖÃ·Ö»úµÄ¶Ë¿ÚºÅ
-	 * @param p ¶Ë¿ÚºÅ
+	 * è®¾ç½®åˆ†æœºçš„ç«¯å£å·
+	 * @param p ç«¯å£å·
 	 */
 	public void setPort(int p) {
 		port = p;
@@ -69,7 +69,7 @@ public class HostManager {
 	}
 
 	/**
-	 * »ñÈ¡·Ö»ú×î´ó×÷ÒµÊı
+	 * è·å–åˆ†æœºæœ€å¤§ä½œä¸šæ•°
 	 * @return
 	 */
 	public int getMaxTaskNum() {
@@ -77,15 +77,15 @@ public class HostManager {
 	}
 
 	/**
-	 * ÉèÖÃ×î´ó×÷ÒµÊıÄ¿
-	 * @param num ×÷ÒµÊıÄ¿
+	 * è®¾ç½®æœ€å¤§ä½œä¸šæ•°ç›®
+	 * @param num ä½œä¸šæ•°ç›®
 	 */
 	public void setMaxTaskNum(int num) {
 		maxTaskNum = num;
 	}
 
 	/**
-	 * ·Ö»úÊÊºÏ×÷ÒµÊı
+	 * åˆ†æœºé€‚åˆä½œä¸šæ•°
 	 * @return
 	 */
 	public int getPreferredTaskNum() {
@@ -93,23 +93,23 @@ public class HostManager {
 	}
 
 	/**
-	 * ÉèÖÃ·Ö»úµÄÊÊºÏ×÷ÒµÊı
-	 * @param num ÊÊºÏ×÷ÒµÊı
+	 * è®¾ç½®åˆ†æœºçš„é€‚åˆä½œä¸šæ•°
+	 * @param num é€‚åˆä½œä¸šæ•°
 	 */
 	public void setPreferredTaskNum(int num) {
 		preferredTaskNum = num;
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°²¢·¢µÄÈÎÎñ¸öÊı
-	 * @return µ±Ç°²¢·¢ÈÎÎñÊıÄ¿
+	 * è·å–å½“å‰å¹¶å‘çš„ä»»åŠ¡ä¸ªæ•°
+	 * @return å½“å‰å¹¶å‘ä»»åŠ¡æ•°ç›®
 	 */
 	public int getCurrentTasks() {
 		return PerfMonitor.getConcurrentTasks();
 	}
 
 	/**
-	 * ÊµÏÖtoStringÃèÊöĞÅÏ¢
+	 * å®ç°toStringæè¿°ä¿¡æ¯
 	 */
 	public String toString() {
 		if (host == null) {
@@ -119,8 +119,8 @@ public class HostManager {
 	}
 
 	/**
-	 * ÊÇ·ñwindowsÏµÍ³
-	 * @return windows·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦windowsç³»ç»Ÿ
+	 * @return windowsè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isWindows() {
 		String osName = System.getProperty("os.name");

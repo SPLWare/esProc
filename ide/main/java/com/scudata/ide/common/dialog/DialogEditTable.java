@@ -17,61 +17,61 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * Ğò±í±à¼­¶Ô»°¿ò
+ * åºè¡¨ç¼–è¾‘å¯¹è¯æ¡†
  *
  */
 public class DialogEditTable extends JDialog {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Ğò±í±à¼­Ãæ°å
+	 * åºè¡¨ç¼–è¾‘é¢æ¿
 	 */
 	private PanelEditTable panelTable;
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * Ôö¼Ó°´Å¥
+	 * å¢åŠ æŒ‰é’®
 	 */
 	private JButton jBAdd = new JButton();
 	/**
-	 * É¾³ı°´Å¥
+	 * åˆ é™¤æŒ‰é’®
 	 */
 	private JButton jBDel = new JButton();
 	/**
-	 * ²åÈë°´Å¥
+	 * æ’å…¥æŒ‰é’®
 	 */
 	private JButton jBInsert = new JButton();
 	/**
-	 * ÉÏÒÆ°´Å¥
+	 * ä¸Šç§»æŒ‰é’®
 	 */
 	private JButton jBUp = new JButton();
 	/**
-	 * ÏÂÒÆ°´Å¥
+	 * ä¸‹ç§»æŒ‰é’®
 	 */
 	private JButton jBDown = new JButton();
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param param
-	 *            ±äÁ¿¶ÔÏó
+	 *            å˜é‡å¯¹è±¡
 	 */
 	public DialogEditTable(JDialog parent, Param param) {
-		super(parent, "Ğò±í±à¼­", true);
+		super(parent, "åºè¡¨ç¼–è¾‘", true);
 		try {
 			panelTable = new PanelEditTable(this, param);
 			initUI();
@@ -84,10 +84,10 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetText() {
-		setTitle(mm.getMessage("dialogedittable.title")); // ĞòÁĞ±à¼­
+		setTitle(mm.getMessage("dialogedittable.title")); // åºåˆ—ç¼–è¾‘
 		jBOK.setText(mm.getMessage("button.ok"));
 		jBCancel.setText(mm.getMessage("button.cancel"));
 		jBAdd.setText(mm.getMessage("button.add"));
@@ -98,7 +98,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -107,7 +107,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * È¡±äÁ¿
+	 * å–å˜é‡
 	 * 
 	 * @return
 	 */
@@ -116,7 +116,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -126,28 +126,28 @@ public class DialogEditTable extends JDialog {
 		VFlowLayout vFlowLayout1 = new VFlowLayout();
 		jPanel2.setLayout(vFlowLayout1);
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogEditTable_jBOK_actionAdapter(this));
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogEditTable_jBCancel_actionAdapter(
 				this));
 		jBAdd.setMnemonic('A');
-		jBAdd.setText("Ôö¼Ó(A)");
+		jBAdd.setText("å¢åŠ (A)");
 		jBAdd.addActionListener(new DialogEditTable_jBAdd_actionAdapter(this));
 		jBDel.setMnemonic('D');
-		jBDel.setText("É¾³ı(D)");
+		jBDel.setText("åˆ é™¤(D)");
 		jBDel.addActionListener(new DialogEditTable_jBDel_actionAdapter(this));
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new DialogEditTable_this_windowAdapter(this));
 		jBUp.setMnemonic('U');
-		jBUp.setText("ÉÏÒÆ(U)");
+		jBUp.setText("ä¸Šç§»(U)");
 		jBUp.addActionListener(new DialogEditTable_jBUp_actionAdapter(this));
 		jBDown.setMnemonic('W');
-		jBDown.setText("ÏÂÒÆ(W)");
+		jBDown.setText("ä¸‹ç§»(W)");
 		jBDown.addActionListener(new DialogEditTable_jBDown_actionAdapter(this));
 		jBInsert.setMnemonic('I');
-		jBInsert.setText("²åÈë(I)");
+		jBInsert.setText("æ’å…¥(I)");
 		jBInsert.addActionListener(new DialogEditTable_jBInsert_actionAdapter(
 				this));
 		this.getContentPane().add(panelTable, BorderLayout.CENTER);
@@ -163,7 +163,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -177,7 +177,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -187,7 +187,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * Ôö¼Ó°´Å¥ÊÂ¼ş
+	 * å¢åŠ æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -196,7 +196,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * É¾³ı°´Å¥ÊÂ¼ş
+	 * åˆ é™¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -205,7 +205,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -215,7 +215,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * ÉÏÒÆ°´Å¥ÊÂ¼ş
+	 * ä¸Šç§»æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -224,7 +224,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * ÏÂÒÆ°´Å¥ÊÂ¼ş
+	 * ä¸‹ç§»æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -233,7 +233,7 @@ public class DialogEditTable extends JDialog {
 	}
 
 	/**
-	 * ²åÈë°´Å¥ÊÂ¼ş
+	 * æ’å…¥æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */

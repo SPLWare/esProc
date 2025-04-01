@@ -15,7 +15,7 @@ import com.scudata.dm.SerialBytes;
 import com.scudata.dm.Table;
 
 public class DataBlockType {
-	private static final double AlignThreshold = 0.8;//µ±80%µÄÊı¾İÊÇ×î³¤ÀàĞÍÊ±£¬Ôò¶¼´æÎª³¤ÀàĞÍ£¬²»ÔÙ¼ÇÂ¼´æ´¢ÀàĞÍ
+	private static final double AlignThreshold = 0.8;//å½“80%çš„æ•°æ®æ˜¯æœ€é•¿ç±»å‹æ—¶ï¼Œåˆ™éƒ½å­˜ä¸ºé•¿ç±»å‹ï¼Œä¸å†è®°å½•å­˜å‚¨ç±»å‹
 
 	private static final int TYPE_LENGTH_8 = 0x01;
 	private static final int TYPE_LENGTH_16 = 0x02;
@@ -46,7 +46,7 @@ public class DataBlockType {
 	public static final int DECIMAL = 0x45;
 	public static final int SERIALBYTES = 0x46;
 	public static final int STRING = 0x50;
-	public static final int STRING_ASSIC = 0x51;//¶¼ÊÇÓÉASSIC×Ö·û×é³ÉµÄ×Ö·û´®£¬ÇÒ³¤¶ÈĞ¡ÓÚ128
+	public static final int STRING_ASSIC = 0x51;//éƒ½æ˜¯ç”±ASSICå­—ç¬¦ç»„æˆçš„å­—ç¬¦ä¸²ï¼Œä¸”é•¿åº¦å°äº128
 	
 	public static final int CONST = 0x60;
 	
@@ -57,14 +57,14 @@ public class DataBlockType {
 	public static final int DICT_PUBLIC = 0;
 	public static final int DICT_PRIVATE = 1;
 	public static final int DICT_PRIVATE_CONST = 2;
-	public static final int INC_BLOCK = 3; //µİÔö¿é
+	public static final int INC_BLOCK = 3; //é€’å¢å—
 	
 	public static final int MAX_DICT_NUMBER = 127;
 	
-	private int type;//¿éÊı¾İÀàĞÍ£¨º¬³¤¶ÈĞÅÏ¢£©
+	private int type;//å—æ•°æ®ç±»å‹ï¼ˆå«é•¿åº¦ä¿¡æ¯ï¼‰
 	private boolean hasNull;
 	private Sequence dict;
-	private int dataType;//Êı¾İÀàĞÍ (×ÖµäÁĞ£¬ObjectÁĞÊ±Ê¹ÓÃ)
+	private int dataType;//æ•°æ®ç±»å‹ (å­—å…¸åˆ—ï¼ŒObjectåˆ—æ—¶ä½¿ç”¨)
 	
 	public DataBlockType(int type, boolean hasNull) {
 		this.setType(type);
@@ -84,11 +84,11 @@ public class DataBlockType {
 	}
 
 	/**
-	 * ¼ÆËãdata¿éµÄÊı¾İÀàĞÍ£¬¾«È·µ½³¤¶È
-	 * @param data Êı¾İĞòÁĞ
-	 * @param col ÁĞºÅ
-	 * @param start ¿ªÊ¼Î»ÖÃ
-	 * @param end ½áÊøÎ»ÖÃ
+	 * è®¡ç®—dataå—çš„æ•°æ®ç±»å‹ï¼Œç²¾ç¡®åˆ°é•¿åº¦
+	 * @param data æ•°æ®åºåˆ—
+	 * @param col åˆ—å·
+	 * @param start å¼€å§‹ä½ç½®
+	 * @param end ç»“æŸä½ç½®
 	 * @return 
 	 */
 	public static DataBlockType getDataBlockType(Sequence data, int col, int start, int end) {
@@ -100,7 +100,7 @@ public class DataBlockType {
 		}
 		
 		if (obj == null) {
-			//Õû¸ö¿é¶¼ÊÇnull
+			//æ•´ä¸ªå—éƒ½æ˜¯null
 			seq = new Sequence();
 			seq.add(null);
 			//return new DataBlockType(DICT, seq);
@@ -133,7 +133,7 @@ public class DataBlockType {
 		}
 		
 		if (type.type == INT8 || type.type == LONG8 || type.type == INC_BLOCK) {
-			return type;//³¤¶È8Ê±£¬»òÕßÊÇµİÔö¿éÊ±²»ÓÃ¼ì²é×Öµä
+			return type;//é•¿åº¦8æ—¶ï¼Œæˆ–è€…æ˜¯é€’å¢å—æ—¶ä¸ç”¨æ£€æŸ¥å­—å…¸
 		}
 		
 		DataBlockType dictType = checkDict(seq, start, end);
@@ -147,11 +147,11 @@ public class DataBlockType {
 	}
 	
 	/**
-	 * ¼ÆËãĞòÁĞµÄÊı¾İÀàĞÍ£¬¾«È·µ½³¤¶È
-	 * @param seq Êı¾İĞòÁĞ
-	 * @param col ÁĞºÅ
-	 * @param start ¿ªÊ¼Î»ÖÃ
-	 * @param end ½áÊøÎ»ÖÃ
+	 * è®¡ç®—åºåˆ—çš„æ•°æ®ç±»å‹ï¼Œç²¾ç¡®åˆ°é•¿åº¦
+	 * @param seq æ•°æ®åºåˆ—
+	 * @param col åˆ—å·
+	 * @param start å¼€å§‹ä½ç½®
+	 * @param end ç»“æŸä½ç½®
 	 * @return 
 	 */
 	public static int getSequenceDataType(Sequence seq, int start, int end) {
@@ -253,7 +253,7 @@ public class DataBlockType {
 		boolean hasNull = false;
 		boolean increasing = true;
 		
-		//¼ì²éÊÇ·ñµİÔö
+		//æ£€æŸ¥æ˜¯å¦é€’å¢
 		if (end - start > 16) {
 			Object obj1 = data.get(start);
 			Object obj2 = data.get(start + 1);
@@ -314,7 +314,7 @@ public class DataBlockType {
 			return new DataBlockType(INT32, hasNull);
 		} else {
 			/**
-			 * Èç¹û×î³¤µÄÀàĞÍÕ¼´ó¶àÊı
+			 * å¦‚æœæœ€é•¿çš„ç±»å‹å å¤§å¤šæ•°
 			 */
 			double sum = end - start + 1;
 			if ((maxTypeLengthCount/ sum) >= AlignThreshold) {
@@ -322,7 +322,7 @@ public class DataBlockType {
 			}
 		}
 		
-		//Ä¬ÈÏ·µ»ØINT»ìºÏÀàĞÍ
+		//é»˜è®¤è¿”å›INTæ··åˆç±»å‹
 		return new DataBlockType(INT, hasNull);
 	}
 	
@@ -333,7 +333,7 @@ public class DataBlockType {
 		boolean hasNull = false;
 		boolean Increasing = true;
 		
-		//¼ì²éÊÇ·ñµİÔö
+		//æ£€æŸ¥æ˜¯å¦é€’å¢
 		if (end - start > 16) {
 			Object obj1 = data.get(start);
 			Object obj2 = data.get(start + 1);
@@ -399,7 +399,7 @@ public class DataBlockType {
 			return new DataBlockType(LONG64, hasNull);
 		} else {
 			/**
-			 * Èç¹û×î³¤µÄÀàĞÍÕ¼´ó¶àÊı
+			 * å¦‚æœæœ€é•¿çš„ç±»å‹å å¤§å¤šæ•°
 			 */
 			double sum = end - start + 1;
 			if ((maxTypeLengthCount/ sum) >= AlignThreshold) {
@@ -407,7 +407,7 @@ public class DataBlockType {
 			}
 		}
 		
-		//Ä¬ÈÏ·µ»ØLONG»ìºÏÀàĞÍ
+		//é»˜è®¤è¿”å›LONGæ··åˆç±»å‹
 		return new DataBlockType(LONG, hasNull);
 	}
 	
@@ -438,7 +438,7 @@ public class DataBlockType {
 			return new DataBlockType(DOUBLE64, hasNull);
 		} else {
 			/**
-			 * Èç¹ûDOUBLE64Õ¼´ó¶àÊı
+			 * å¦‚æœDOUBLE64å å¤§å¤šæ•°
 			 */
 			double sum = end - start + 1;
 			if ((typeLengthCount / sum) >= AlignThreshold) {
@@ -446,7 +446,7 @@ public class DataBlockType {
 			}
 		}
 		
-		//Ä¬ÈÏ·µ»ØDOUBLE»ìºÏÀàĞÍ
+		//é»˜è®¤è¿”å›DOUBLEæ··åˆç±»å‹
 		return new DataBlockType(DOUBLE, hasNull);
 	}
 	
@@ -676,7 +676,7 @@ public class DataBlockType {
 	}
 	
 	/**
-	 * °Ñ×ÖµäĞòÁĞ×ª»»³ÉÊı×é £¨»ù´¡ÀàĞÍÊ±£¬½á¹ûÊı×éÎ»ÖÃ0·ÅµÄÊÇnull¶ÔÏóµÄÎ»ÖÃ£© 
+	 * æŠŠå­—å…¸åºåˆ—è½¬æ¢æˆæ•°ç»„ ï¼ˆåŸºç¡€ç±»å‹æ—¶ï¼Œç»“æœæ•°ç»„ä½ç½®0æ”¾çš„æ˜¯nullå¯¹è±¡çš„ä½ç½®ï¼‰ 
 	 * @param dict
 	 * @param dataType
 	 * @return 
@@ -763,7 +763,7 @@ public class DataBlockType {
 	
 
 	/**
-	 * ¼ì²éÊÇ·ñÊÇdouble32
+	 * æ£€æŸ¥æ˜¯å¦æ˜¯double32
 	 * @param data
 	 * @param start
 	 * @param end
@@ -789,7 +789,7 @@ public class DataBlockType {
 //	}
 	
 	/**
-	 * ¼ì²éÊÇ·ñÊÇdouble64
+	 * æ£€æŸ¥æ˜¯å¦æ˜¯double64
 	 * @param data
 	 * @param start
 	 * @param end
@@ -809,7 +809,7 @@ public class DataBlockType {
 	}
 	
 	/**
-	 * ¼ì²éÊÇ·ñÊÇlong64
+	 * æ£€æŸ¥æ˜¯å¦æ˜¯long64
 	 * @param data
 	 * @param start
 	 * @param end
@@ -829,7 +829,7 @@ public class DataBlockType {
 	}
 	
 	/**
-	 * ¼ì²éÊÇ·ñÊÇint16»òint32
+	 * æ£€æŸ¥æ˜¯å¦æ˜¯int16æˆ–int32
 	 * @param data
 	 * @param start
 	 * @param end

@@ -10,8 +10,8 @@ import com.scudata.expression.TableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸´ÖÆ¸ø¶¨µÄÅÅÁĞµÄ×Ö¶ÎÖµµ½µ±Ç°Ğò±í
- * T.paste(Ai:Fi,¡­;k)
+ * å¤åˆ¶ç»™å®šçš„æ’åˆ—çš„å­—æ®µå€¼åˆ°å½“å‰åºè¡¨
+ * T.paste(Ai:Fi,â€¦;k)
  * @author RunQian
  *
  */

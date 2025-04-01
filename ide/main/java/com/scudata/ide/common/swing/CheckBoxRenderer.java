@@ -11,7 +11,7 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 
 /**
- * JTableµ¥Ôª¸ñ¸´Ñ¡¿òäÖÈ¾Æ÷
+ * JTableå•å…ƒæ ¼å¤é€‰æ¡†æ¸²æŸ“å™¨
  *
  */
 public class CheckBoxRenderer extends JCheckBox implements TableCellRenderer {
@@ -19,14 +19,14 @@ public class CheckBoxRenderer extends JCheckBox implements TableCellRenderer {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public CheckBoxRenderer() {
 		setHorizontalAlignment(JLabel.CENTER);
 	}
 
 	/**
-	 * ·µ»Ø±à¼­¿Ø¼ş
+	 * è¿”å›ç¼–è¾‘æ§ä»¶
 	 */
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {

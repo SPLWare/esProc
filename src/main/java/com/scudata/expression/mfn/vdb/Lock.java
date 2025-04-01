@@ -7,7 +7,7 @@ import com.scudata.expression.VSFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 锁住指定路径
+ * 閿佷綇鎸囧畾璺緞
  * h.lock(p)
  * @author RunQian
  *

@@ -1,31 +1,31 @@
 package com.scudata.dm;
 
 /**
- * longÊı×é
+ * longæ•°ç»„
  * @author WangXiaoJun
  *
  */
 public class LongArray {
-	private long []datas; // ÔªËØÖµÊı×é
-	private int size; // ÔªËØÊı
+	private long []datas; // å…ƒç´ å€¼æ•°ç»„
+	private int size; // å…ƒç´ æ•°
 
 	/**
-	 * ¹¹½¨longÊı×é
+	 * æ„å»ºlongæ•°ç»„
 	 */
 	public LongArray() {
 		this(8);
 	}
 
 	/**
-	 * ¹¹½¨longÊı×é
-	 * @param capacity ³õÊ¼ÈİÁ¿
+	 * æ„å»ºlongæ•°ç»„
+	 * @param capacity åˆå§‹å®¹é‡
 	 */
 	public LongArray(int capacity) {
 		datas = new long[capacity];
 	}
 
 	/**
-	 * È¡ÔªËØÊı
+	 * å–å…ƒç´ æ•°
 	 * @return
 	 */
 	public int size() {
@@ -33,7 +33,7 @@ public class LongArray {
 	}
 
 	/**
-	 * ·µ»ØÔªËØÖµ×é³ÉµÄÊı×é
+	 * è¿”å›å…ƒç´ å€¼ç»„æˆçš„æ•°ç»„
 	 * @return
 	 */
 	public long[] toArray() {
@@ -47,8 +47,8 @@ public class LongArray {
 	}
 
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃµÄlongÖµ
-	 * @param index Î»ÖÃ£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å–æŒ‡å®šä½ç½®çš„longå€¼
+	 * @param index ä½ç½®ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return long
 	 */
 	public long get(int index) {
@@ -56,7 +56,7 @@ public class LongArray {
 	}
 
 	/**
-	 * Ìí¼ÓÒ»¸ölongÖµµ½Êı×éÖĞ
+	 * æ·»åŠ ä¸€ä¸ªlongå€¼åˆ°æ•°ç»„ä¸­
 	 * @param value
 	 */
 	public void add(long value) {
@@ -65,8 +65,8 @@ public class LongArray {
 	}
 
 	/**
-	 * È·±£ÈİÁ¿²»Ğ¡ÓÚÖ¸¶¨´óĞ¡
-	 * @param mincap ÈİÁ¿
+	 * ç¡®ä¿å®¹é‡ä¸å°äºæŒ‡å®šå¤§å°
+	 * @param mincap å®¹é‡
 	 */
 	public void ensureCapacity(int mincap) {
 		if(mincap > datas.length) {

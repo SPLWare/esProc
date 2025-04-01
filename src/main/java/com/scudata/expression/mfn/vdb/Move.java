@@ -8,7 +8,7 @@ import com.scudata.expression.VSFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 删除目录或者把目录移动到另一个目录下
+ * 鍒犻櫎鐩綍鎴栬�呮妸鐩綍绉诲姩鍒板彟涓�涓洰褰曚笅
  * h.move(ps,pd:F)
  * @author RunQian
  *

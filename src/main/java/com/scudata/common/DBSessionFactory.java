@@ -15,18 +15,18 @@ public class DBSessionFactory implements ISessionFactory {
 		this.url = cfg.getUrl();
 		if (cfg.getInfo() != null)
 				  this.info.putAll(cfg.getInfo());
-				//editd by bdl, 2013.11.21, PropertiesÖĞ²»ÄÜ¼ÓÈë¿Õvalue
+				//editd by bdl, 2013.11.21, Propertiesä¸­ä¸èƒ½åŠ å…¥ç©ºvalue
 				if (cfg.getUser() != null)
 				  this.info.put("user", cfg.getUser());
 				if (cfg.getPassword() != null)
 				  this.info.put("password", cfg.getPassword());
 
-		// getTables getColumnsµÈÏÔÊ¾remarks
+		// getTables getColumnsç­‰æ˜¾ç¤ºremarks
 		if (cfg.getDBType() == DBTypes.ORACLE)
 			this.info.put("remarksReporting", "true"); // oracle
 
 		String driverClass = cfg.getDriver();
-		if( driverClass != null && driverClass.trim().length() > 0 ) {   //20240801 sjrÌí¼Ó´ËÌõ¼ş£¬PL/javaÖĞ²»ĞèÒªÉèÖÃÇı¶¯Àà
+		if( driverClass != null && driverClass.trim().length() > 0 ) {   //20240801 sjræ·»åŠ æ­¤æ¡ä»¶ï¼ŒPL/javaä¸­ä¸éœ€è¦è®¾ç½®é©±åŠ¨ç±»
 			try {
 				Driver d = (Driver) Class.forName(driverClass).newInstance();
 				DriverManager.registerDriver(d);
@@ -39,7 +39,7 @@ public class DBSessionFactory implements ISessionFactory {
 	}
 
 	public DBSession getSession() throws Exception {
-		// edited by bdl, 2008.11.18£¬ConnectionÈ«²¿ÉèÎª²»×Ô¶¯Ìá½»¡£
+		// edited by bdl, 2008.11.18ï¼ŒConnectionå…¨éƒ¨è®¾ä¸ºä¸è‡ªåŠ¨æäº¤ã€‚
 		//Connection con = DriverManager.getConnection(url, info);
 		Driver d = DriverManager.getDriver(url);
 		Connection con = d.connect(url, info);

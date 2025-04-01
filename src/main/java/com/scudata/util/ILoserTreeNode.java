@@ -1,19 +1,19 @@
 package com.scudata.util;
 
 /**
- * ÓÃÓÚÓĞĞòÊı¾İµÄ¶àÂ·¹é²¢ÔËËã£¬Ã¿Ò»Â·ÊÇÒ»¸ö½Úµã
+ * ç”¨äºæœ‰åºæ•°æ®çš„å¤šè·¯å½’å¹¶è¿ç®—ï¼Œæ¯ä¸€è·¯æ˜¯ä¸€ä¸ªèŠ‚ç‚¹
  * @author RunQian
  *
  */
 public interface ILoserTreeNode extends Comparable<ILoserTreeNode> {
 	/**
-	 * µ¯³öµ±Ç°¹é²¢Â·µÄµ±Ç°ÔªËØ
-	 * @return ÔªËØÖµ
+	 * å¼¹å‡ºå½“å‰å½’å¹¶è·¯çš„å½“å‰å…ƒç´ 
+	 * @return å…ƒç´ å€¼
 	 */
 	Object popCurrent();
 	
 	/**
-	 * ·µ»Øµ±Ç°¹é²¢Â·ÊÇ·ñ»¹ÓĞÔªËØ
+	 * è¿”å›å½“å‰å½’å¹¶è·¯æ˜¯å¦è¿˜æœ‰å…ƒç´ 
 	 * @return
 	 */
 	boolean hasNext();

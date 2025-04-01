@@ -55,7 +55,7 @@ public class IfxConn extends DBObject implements IResource {
 		initFrag(fragmentFile);
 	}
 
-	public Fragment getFragment(String tableName) // È¡·ÖÆ¬ĞÅÏ¢
+	public Fragment getFragment(String tableName) // å–åˆ†ç‰‡ä¿¡æ¯
 	{
 		if (tableName == null) return null;
 
@@ -76,7 +76,7 @@ public class IfxConn extends DBObject implements IResource {
 		return retFrag;
 	}
 
-	public Fragment takeFragment(String tableName) // ´ÓÊı¾İ¿âÌáÈ¡·ÖÆ¬ĞÅÏ¢
+	public Fragment takeFragment(String tableName) // ä»æ•°æ®åº“æå–åˆ†ç‰‡ä¿¡æ¯
 	{
 		String table = "'"+tableName+"'";
 		Map<String, Fragment> map = ImSQLParser.parseFragInfo(m_connect.conn, table);
@@ -119,7 +119,7 @@ public class IfxConn extends DBObject implements IResource {
 		}
 	}
 
-	public void saveFrag(OutputStream out) // ±£´æ·ÖÆ¬ĞÅÏ¢
+	public void saveFrag(OutputStream out) // ä¿å­˜åˆ†ç‰‡ä¿¡æ¯
 	{
 		try {
 			String s = "<Fragments>\n";
@@ -297,17 +297,17 @@ public class IfxConn extends DBObject implements IResource {
 	}
 	
 	public void listNodes(Node node) {  
-        // ½ÚµãÊÇÊ²Ã´ÀàĞÍµÄ½Úµã  
-        if (node.getNodeType() == Node.ELEMENT_NODE) {// ÅĞ¶ÏÊÇ·ñÊÇÔªËØ½Úµã  
+        // èŠ‚ç‚¹æ˜¯ä»€ä¹ˆç±»å‹çš„èŠ‚ç‚¹  
+        if (node.getNodeType() == Node.ELEMENT_NODE) {// åˆ¤æ–­æ˜¯å¦æ˜¯å…ƒç´ èŠ‚ç‚¹  
             Element element = (Element) node;  
-            //ÅĞ¶Ï´ËÔªËØ½ÚµãÊÇ·ñÓĞÊôĞÔ  
+            //åˆ¤æ–­æ­¤å…ƒç´ èŠ‚ç‚¹æ˜¯å¦æœ‰å±æ€§  
             if(element.hasAttributes()){  
-                //»ñÈ¡ÊôĞÔ½ÚµãµÄ¼¯ºÏ  
+                //è·å–å±æ€§èŠ‚ç‚¹çš„é›†åˆ  
                 NamedNodeMap namenm =   element.getAttributes();//Node  
                 Fragment frag = new Fragment();
-                //±éÀúÊôĞÔ½ÚµãµÄ¼¯ºÏ  
+                //éå†å±æ€§èŠ‚ç‚¹çš„é›†åˆ  
                 for(int k=0;k<namenm.getLength();k++){
-                    //»ñÈ¡¾ßÌåµÄÄ³¸öÊôĞÔ½Úµã  
+                    //è·å–å…·ä½“çš„æŸä¸ªå±æ€§èŠ‚ç‚¹  
                     Attr attr = (Attr) namenm.item(k);  
                     //System.out.println("name:::"+attr.getNodeName()+" value::"  
                     //                 +attr.getNodeValue()+"  type::"+attr.getNodeType());  
@@ -333,15 +333,15 @@ public class IfxConn extends DBObject implements IResource {
                 String table = frag.getTableName();
                 m_mapFrag.put(table, frag);
             }  
-            //»ñÈ¡ÔªËØ½ÚµãµÄËùÓĞº¢×Ó½Úµã  
+            //è·å–å…ƒç´ èŠ‚ç‚¹çš„æ‰€æœ‰å­©å­èŠ‚ç‚¹  
             NodeList listnode = element.getChildNodes();  
-            //±éÀú  
+            //éå†  
             for (int j = 0; j < listnode.getLength(); j++) {  
-                //µÃµ½Ä³¸ö¾ßÌåµÄ½Úµã¶ÔÏó  
+                //å¾—åˆ°æŸä¸ªå…·ä½“çš„èŠ‚ç‚¹å¯¹è±¡  
                 Node nd = listnode.item(j);  
                 //System.out.println("name::" + nd.getNodeName() + "  value:::"  
                 //       + nd.getNodeValue() + "  type:::" + nd.getNodeType());  
-                //ÖØĞÂµ÷ÓÃ±éÀú½ÚµãµÄ²Ù×÷µÄ·½·¨  
+                //é‡æ–°è°ƒç”¨éå†èŠ‚ç‚¹çš„æ“ä½œçš„æ–¹æ³•  
                 listNodes(nd);  
             }  
         }  

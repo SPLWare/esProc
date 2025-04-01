@@ -19,9 +19,9 @@ import com.scudata.parallel.PartitionUtil;
 import com.scudata.resources.EngineMessage;
 
 /**
- * file(fn:cs) file(fn:cs,h)ÓÉÎÄ¼şÃûºÍ×Ö·û¼¯´´½¨ÎÄ¼ş
- * file(fn:z) file(fn:z,h) ÓÉÎÄ¼şÃû¡¢·ÖÇøºÍ½Úµã»úÁĞ±í´´½¨¼¯ÈºÎÄ¼ş»òÔ¶³ÌÎÄ¼ş
- * file(fn:z,f) ÓÉÎÄ¼şÃûºÍ¼¯ÈºÎÄ¼ş´´½¨Í¬·Ö²¼µÄ¼¯ÈºÎÄ¼ş
+ * file(fn:cs) file(fn:cs,h)ç”±æ–‡ä»¶åå’Œå­—ç¬¦é›†åˆ›å»ºæ–‡ä»¶
+ * file(fn:z) file(fn:z,h) ç”±æ–‡ä»¶åã€åˆ†åŒºå’ŒèŠ‚ç‚¹æœºåˆ—è¡¨åˆ›å»ºé›†ç¾¤æ–‡ä»¶æˆ–è¿œç¨‹æ–‡ä»¶
+ * file(fn:z,f) ç”±æ–‡ä»¶åå’Œé›†ç¾¤æ–‡ä»¶åˆ›å»ºåŒåˆ†å¸ƒçš„é›†ç¾¤æ–‡ä»¶
  * @author runqian
  *
  */
@@ -164,7 +164,7 @@ public class CreateFile extends Function {
 				fo = PartitionUtil.locate(mc, pathName, part);
 				fo.setCharset(cs);
 				fo.setOption(option);
-				fo.setContext(ctx);//xq add£¬ ¼ÇÂ¼µ±Ç°µÄÉÏÏÂÎÄ£¬ÀïÃæÒªÊ¹ÓÃspaceID
+				fo.setContext(ctx);//xq addï¼Œ è®°å½•å½“å‰çš„ä¸Šä¸‹æ–‡ï¼Œé‡Œé¢è¦ä½¿ç”¨spaceID
 			}
 		} else {
 			if (option == null || option.indexOf('t') == -1) {

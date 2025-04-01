@@ -17,18 +17,18 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.EnvUtil;
 
 /**
- * ÓÃÓÚ¶ÔÍÆËÍÀ´µÄÊı¾İÖ´ĞĞÍâ´æÅÅĞòÔËËã
+ * ç”¨äºå¯¹æ¨é€æ¥çš„æ•°æ®æ‰§è¡Œå¤–å­˜æ’åºè¿ç®—
  * @author RunQian
  *
  */
 public class SortxResult implements IResult {
-	private Expression[] exps; // ÅÅĞò×Ö¶Î±í´ïÊ½Êı×é
-	private int []orders; // ÓÃÀ´±íÃ÷Ã¿¸ö×Ö¶ÎµÄÉı½µĞò
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
-	private int capacity; // ÄÚ´æÄÜ¹»´æ·ÅµÄ¼ÇÂ¼Êı
-	private String opt; // Ñ¡Ïî
+	private Expression[] exps; // æ’åºå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private int []orders; // ç”¨æ¥è¡¨æ˜æ¯ä¸ªå­—æ®µçš„å‡é™åº
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
+	private int capacity; // å†…å­˜èƒ½å¤Ÿå­˜æ”¾çš„è®°å½•æ•°
+	private String opt; // é€‰é¡¹
 
-	private Sequence data = new Sequence(); // »º´æµÄÊı¾İ
+	private Sequence data = new Sequence(); // ç¼“å­˜çš„æ•°æ®
 	private ArrayList<ICursor> cursorList = new ArrayList<ICursor>();
 	
 	public SortxResult(Expression[] exps, Context ctx, int capacity, String opt) {
@@ -45,9 +45,9 @@ public class SortxResult implements IResult {
 	}
 	
 	/**
-	 * ´¦ÀíÍÆËÍ¹ıÀ´µÄÊı¾İ£¬ÀÛ»ıµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¨é€è¿‡æ¥çš„æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æœä¸Š
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void push(Sequence table, Context ctx) {
 		if (capacity < 1) {
@@ -82,14 +82,14 @@ public class SortxResult implements IResult {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊøÊ±µ÷ÓÃ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®æ¨é€ç»“æŸæ—¶è°ƒç”¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void finish(Context ctx) {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊø£¬È¡×îÖÕµÄ¼ÆËã½á¹û
+	 * æ•°æ®æ¨é€ç»“æŸï¼Œå–æœ€ç»ˆçš„è®¡ç®—ç»“æœ
 	 * @return
 	 */
 	public Object result() {

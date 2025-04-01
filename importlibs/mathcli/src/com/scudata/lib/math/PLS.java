@@ -18,8 +18,8 @@ import com.scudata.resources.EngineMessage;
 
 public class PLS extends Function {
 	/**
-	 * pls(A,F)ºÍpls(A,T,n)
-	 * @param ctx	ÉÏÏÂÎÄ
+	 * pls(A,F)å’Œpls(A,T,n)
+	 * @param ctx	ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Object calculate (Context ctx) {
@@ -31,7 +31,7 @@ public class PLS extends Function {
 			throw new RQException("pls" + mm.getMessage("function.invalidParam"));
 		} else {
 			if (param.getSubSize() == 3) {
-				// ·µ»Øfit½á¹ûcoefĞòÁĞ£¬½á¹û´¦ÀíÎªĞòÁĞ£¬²ÎÊıÓÉ3¸ö³ÉÔ±×é³É£¬Ç°2¸öÎª¶şÎ¬ĞòÁĞ£¬µÚ3¸öÎªÖ÷³É·ÖÊı
+				// è¿”å›fitç»“æœcoefåºåˆ—ï¼Œç»“æœå¤„ç†ä¸ºåºåˆ—ï¼Œå‚æ•°ç”±3ä¸ªæˆå‘˜ç»„æˆï¼Œå‰2ä¸ªä¸ºäºŒç»´åºåˆ—ï¼Œç¬¬3ä¸ªä¸ºä¸»æˆåˆ†æ•°
 				IParam sub1 = param.getSub(0);
 				IParam sub2 = param.getSub(1);
 				IParam sub3 = param.getSub(2);
@@ -80,7 +80,7 @@ public class PLS extends Function {
 						components = ncomp;
 					}
 					String v = ifv? "v" : null;
-			    	// Ö§³ÖY¶àÁĞ£¬·µ»ØÖµ¸ÄÎªMatrix
+			    	// æ”¯æŒYå¤šåˆ—ï¼Œè¿”å›å€¼æ”¹ä¸ºMatrix
 					Matrix coef = fit(A, T, components);
 					return coef.toSequence(v, true);
 				}
@@ -90,7 +90,7 @@ public class PLS extends Function {
 				}
 			}
 			else if (param.getSubSize() == 2) {
-				// ·µ»ØÄâºÏ½á¹û£¬½á¹ûÎª¾ØÕó×ª»»ÎªµÄ¶şÎ¬ĞòÁĞ£¬²ÎÊıÓÉ2¸ö³ÉÔ±×é³É£¬µÚ1¸öÎª¶şÎ¬ĞòÁĞ£¬µÚ2¸öÎªfit»ñµÃcoefĞòÁĞ
+				// è¿”å›æ‹Ÿåˆç»“æœï¼Œç»“æœä¸ºçŸ©é˜µè½¬æ¢ä¸ºçš„äºŒç»´åºåˆ—ï¼Œå‚æ•°ç”±2ä¸ªæˆå‘˜ç»„æˆï¼Œç¬¬1ä¸ªä¸ºäºŒç»´åºåˆ—ï¼Œç¬¬2ä¸ªä¸ºfitè·å¾—coefåºåˆ—
 				IParam sub1 = param.getSub(0);
 				IParam sub2 = param.getSub(1);
 				if (sub1 == null || sub2 == null) {
@@ -106,25 +106,25 @@ public class PLS extends Function {
 						Object v1 = s1.get(1);
 						Matrix A = new Matrix(s1);
 						Object v2 = s2.get(1);
-						// Èç¹ûAÎªµ¥ÁĞÏòÁ¿Ê±£¬×Ô¶¯×ªÖÃ
+						// å¦‚æœAä¸ºå•åˆ—å‘é‡æ—¶ï¼Œè‡ªåŠ¨è½¬ç½®
 						if (A.getCols() == 1) {
 							A = A.transpose();
 						}
 						
 						if (v2 instanceof Sequence) {
-							// Ö§³Ö¶àÁĞ£¬Èç¹û½¨Ä£Ê±YÎª¶àÁĞ£¬·µ»Ø½á¹û¾ÍÊÇ¾ØÕó
+							// æ”¯æŒå¤šåˆ—ï¼Œå¦‚æœå»ºæ¨¡æ—¶Yä¸ºå¤šåˆ—ï¼Œè¿”å›ç»“æœå°±æ˜¯çŸ©é˜µ
 							Matrix coef = new Matrix(s2);
 							Matrix result = predictY(A, coef);
 							return result.toSequence(option, true);
 						}
 						else {
-							// ½¨Ä£Ê±YÎªÏòÁ¿£¬·µ»ØÖµ¸ù¾İAÎªÏòÁ¿»òµ¥Öµ
+							// å»ºæ¨¡æ—¶Yä¸ºå‘é‡ï¼Œè¿”å›å€¼æ ¹æ®Aä¸ºå‘é‡æˆ–å•å€¼
 							Vector coef = new Vector(s2);
 							Matrix result = predictY(A, coef);
 							option = option == null ? "v" : option+"v";
 							Object res = result.toSequence(option, true);
 							if (v1 instanceof Sequence) {
-								// pls(A,T)ÖĞAÊÇ¾ØÕó
+								// pls(A,T)ä¸­Aæ˜¯çŸ©é˜µ
 								if (! (res instanceof Sequence)) {
 									Sequence seq = new Sequence(1);
 									seq.add(res);
@@ -133,7 +133,7 @@ public class PLS extends Function {
 								return res;
 							}
 							else {
-								// pls(A,T)ÖĞAÊÇÏòÁ¿£¬µ¥ÁĞÊ±·µ»Øµ¥Öµ
+								// pls(A,T)ä¸­Aæ˜¯å‘é‡ï¼Œå•åˆ—æ—¶è¿”å›å•å€¼
 								if (res instanceof Sequence) {
 									return ((Sequence) res).get(1);
 								}
@@ -160,40 +160,40 @@ public class PLS extends Function {
 	}
 	
 	/**
-	 * PLSÑµÁ·
+	 * PLSè®­ç»ƒ
 	 * @param X_input
 	 * @param Y_input
 	 * @param components
 	 * @return
 	 */
     public Matrix fit(Matrix X_input, Matrix Y_input, int components){
-    	// Ö§³ÖY¶àÁĞ£¬·µ»ØÖµ¸ÄÎªMatrix, ÏÈ×öX_inputºÍY_inputµÄÖĞĞÄ»¯£¬µÃµ½XºÍY£¬Ã¿ÁĞ¾ùÖµÎª0
+    	// æ”¯æŒYå¤šåˆ—ï¼Œè¿”å›å€¼æ”¹ä¸ºMatrix, å…ˆåšX_inputå’ŒY_inputçš„ä¸­å¿ƒåŒ–ï¼Œå¾—åˆ°Xå’ŒYï¼Œæ¯åˆ—å‡å€¼ä¸º0
     	Matrix X = X_input.changeAverageToZero();
     	Matrix Y = Y_input.changeAverageToZero();
         Matrix x_weights_store = new Matrix(new double[X_input.getCols()][components]);
-        Matrix S = X.transpose().times(Y);//At*Y, C*Yc¾ØÕó
+        Matrix S = X.transpose().times(Y);//At*Y, C*YcçŸ©é˜µ
         Matrix Si = S;
         Matrix T = new Matrix(new double[X_input.getRows()][components]);
         Matrix P = new Matrix(new double[X_input.getCols()][components]);
         for (int k=0; k<components; k++) {
             List<double[][]> svd_result = svd_cross_product(Si);
             double[][] U = svd_result.get(0);
-            // XµÄÍ¶Ó°Öá
+            // Xçš„æŠ•å½±è½´
             Matrix w = new Matrix(U);
-            // XµÄµÃ·Ö
+            // Xçš„å¾—åˆ†
             Matrix t = X.times(w);
 
-            // XµÄ»Ø¹éÏµÊı£¬ÔØºÉ
+            // Xçš„å›å½’ç³»æ•°ï¼Œè½½è·
             Matrix p = ((X.transpose()).times(t)).divide(t.transpose().times(t).get(0, 0));
 
-            //´æ´¢weights£¬scores£¬loadings
+            //å­˜å‚¨weightsï¼Œscoresï¼Œloadings
             ravel(x_weights_store, w, k);
             ravel(T, t, k);
             ravel(P, p, k);
             Matrix P2 = new Matrix(new double[X_input.getCols()][k+1]);
             ravel2(P2, P, k);
         	Si = S.minus(P2.times((P2.transpose().times(P2).inverse())).times(P2.transpose()).times(S));
-        	// Èç¹ûµÃµ½µÄSiÈ«Îª0£¬ËµÃ÷ÄâºÏÎŞÎó²îÁË£¬ÎŞ·¨Ö´ĞĞ¸ü¸ßÎ¬µÄÄâºÏ
+        	// å¦‚æœå¾—åˆ°çš„Siå…¨ä¸º0ï¼Œè¯´æ˜æ‹Ÿåˆæ— è¯¯å·®äº†ï¼Œæ— æ³•æ‰§è¡Œæ›´é«˜ç»´çš„æ‹Ÿåˆ
         	boolean zero = true;
         	for (int r = 0, rlen = Si.getRows(); r < rlen; r++) {
         		for (int c = 0, clen = Si.getCols(); c < clen; c++) {
@@ -205,7 +205,7 @@ public class PLS extends Function {
         		}
         	}
         	if (zero) {
-            	// Ê¹ÓÃµ±Ç°Ö÷³É·ÖÊı
+            	// ä½¿ç”¨å½“å‰ä¸»æˆåˆ†æ•°
             	components = k+1;
             	Matrix x_weights_store0 = x_weights_store;
                 x_weights_store = new Matrix(new double[X_input.getCols()][components]);
@@ -221,7 +221,7 @@ public class PLS extends Function {
         Matrix x_rotations_matrix =x_weights_store.times(pinv2_matrix);
         Matrix coef_ = x_rotations_matrix.times(Y);
         
-    	// Ö§³ÖY¶àÁĞ£¬·µ»ØÖµ¸ÄÎªMatrix
+    	// æ”¯æŒYå¤šåˆ—ï¼Œè¿”å›å€¼æ”¹ä¸ºMatrix
         double[][] coef_array = coef_.getArray();
         double[] b = compute_b(X_input, coef_, Y_input);
         double[][] coef = new double[coef_array.length+1][b.length];
@@ -235,7 +235,7 @@ public class PLS extends Function {
     }
 
     /**
-     * Ô¤²âY, ÄâºÏÊ±YÎªÏòÁ¿
+     * é¢„æµ‹Y, æ‹Ÿåˆæ—¶Yä¸ºå‘é‡
      * @param X_input
      * @param coef
      * @return
@@ -259,13 +259,13 @@ public class PLS extends Function {
     }
 
     /**
-     * Ô¤²âY£¬ÄâºÏÊ±YÎª¾ØÕó
+     * é¢„æµ‹Yï¼Œæ‹Ÿåˆæ—¶Yä¸ºçŸ©é˜µ
      * @param X_input
      * @param coef
      * @return
      */
     public Matrix predictY(Matrix X_input, Matrix coef){
-    	// Ö§³ÖY¶àÁĞ£¬coef²»Ò»¶¨ÊÇÏòÁ¿£¬ºÍÉÏÃæµÄ·½·¨Çø·Ö¿ª
+    	// æ”¯æŒYå¤šåˆ—ï¼Œcoefä¸ä¸€å®šæ˜¯å‘é‡ï¼Œå’Œä¸Šé¢çš„æ–¹æ³•åŒºåˆ†å¼€
         double[][] b = new double[X_input.getRows()][coef.getCols()];
         double[][] coef_other = new double[coef.getRows()-1][coef.getCols()];
         for (int j= 0, jSize = coef.getCols();j < jSize;j++){
@@ -292,8 +292,8 @@ public class PLS extends Function {
      * @return
      */
     private double[] compute_b(Matrix X_input, Matrix coef_matrix, Matrix Y_input){
-        double[][] X1 = X_input.getArray().clone();//¸´ÖÆ
-        double[][] X2 = X_input.changeAverageToZero().getArray();//¼õ¾ùÖµ
+        double[][] X1 = X_input.getArray().clone();//å¤åˆ¶
+        double[][] X2 = X_input.changeAverageToZero().getArray();//å‡å‡å€¼
 
         Matrix X1_matrix = new Matrix(X1);
         Matrix X2_matrix = new Matrix(X2);
@@ -377,7 +377,7 @@ public class PLS extends Function {
     }
 
     private List<double[][]> svd_cross_product(Matrix x){
-        SVDecomposition svd = new SVDecomposition(x);//ÆæÒìÖµ·Ö½â
+        SVDecomposition svd = new SVDecomposition(x);//å¥‡å¼‚å€¼åˆ†è§£
         Matrix u = svd.getU();
         double[][] U = u.getArray();
         //double[][] U = chooseU(u.getArray(), x.getRows(), x.getCols());

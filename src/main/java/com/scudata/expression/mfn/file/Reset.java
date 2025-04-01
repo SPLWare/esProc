@@ -16,8 +16,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÕûÀí×é±íÊı¾İ»òÕß¸´ÖÆ×é±íÊı¾İµ½ĞÂ×é±í
- * f.reset(f¡¯) f.reset(f¡¯,x;cs)
+ * æ•´ç†ç»„è¡¨æ•°æ®æˆ–è€…å¤åˆ¶ç»„è¡¨æ•°æ®åˆ°æ–°ç»„è¡¨
+ * f.reset(fâ€™) f.reset(fâ€™,x;cs)
  * @author RunQian
  *
  */

@@ -24,7 +24,7 @@ import com.scudata.dw.PhyTableGroup;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
-//ÓÃÓÚ¶¨ÒåĞé±íµÄÊôĞÔ
+//ç”¨äºå®šä¹‰è™šè¡¨çš„å±æ€§
 public class PseudoDefination implements Cloneable, ICloneable {
 	public static final String PD_FILE = "file";
 	public static final String PD_ZONE = "zone";
@@ -34,23 +34,23 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	public static final String PD_VAR = "var";
 	public static final String PD_UPDATE = "update";
 	
-	private Object file;//ÎÄ¼şÃû»ò¶à¸öÎÄ¼şÃûµÄĞòÁĞ
-	private Sequence zone;//×é±í·ÖÇøºÅÁĞ±í
-	private String date;//·ÖÁĞ×Ö¶Î
-	private String user;//ÕÊ»§×Ö¶Î
-	private String var;//Ğò±í/ÄÚ±í/¼¯ÈºÄÚ±í±äÁ¿Ãû
-	private List<PseudoColumn> columns;//²¿·ÖÌØÊâ×Ö¶Î¶¨Òå
+	private Object file;//æ–‡ä»¶åæˆ–å¤šä¸ªæ–‡ä»¶åçš„åºåˆ—
+	private Sequence zone;//ç»„è¡¨åˆ†åŒºå·åˆ—è¡¨
+	private String date;//åˆ†åˆ—å­—æ®µ
+	private String user;//å¸æˆ·å­—æ®µ
+	private String var;//åºè¡¨/å†…è¡¨/é›†ç¾¤å†…è¡¨å˜é‡å
+	private List<PseudoColumn> columns;//éƒ¨åˆ†ç‰¹æ®Šå­—æ®µå®šä¹‰
 	
-	private List<IPhyTable> tables;//´æËùÓĞÎÄ¼şµÄtable¶ÔÏó
-	private PhyTableGroup tableGroup;//×éÎÄ¼ş±í¶ÔÏó
-	private List<Object> maxValues;//´æÃ¿¸ötableµÄ×î´óÖµ
-	private List<Object> minValues;//´æÃ¿¸ötableµÄ×îĞ¡Öµ
-	private Sequence memoryTable;//ÄÚ´æĞé±íµÄĞò±í¶ÔÏó
+	private List<IPhyTable> tables;//å­˜æ‰€æœ‰æ–‡ä»¶çš„tableå¯¹è±¡
+	private PhyTableGroup tableGroup;//ç»„æ–‡ä»¶è¡¨å¯¹è±¡
+	private List<Object> maxValues;//å­˜æ¯ä¸ªtableçš„æœ€å¤§å€¼
+	private List<Object> minValues;//å­˜æ¯ä¸ªtableçš„æœ€å°å€¼
+	private Sequence memoryTable;//å†…å­˜è™šè¡¨çš„åºè¡¨å¯¹è±¡
 	
-	private FileObject fileObject;//¼¯ÎÄ¼ş¶ÔÏó
-	private DataStruct ds;//¼¯ÎÄ¼ş½á¹¹
+	private FileObject fileObject;//é›†æ–‡ä»¶å¯¹è±¡
+	private DataStruct ds;//é›†æ–‡ä»¶ç»“æ„
 	private boolean isBFile = false;
-	private String[] sortedFields;//ÅÅĞò×Ö¶Î
+	private String[] sortedFields;//æ’åºå­—æ®µ
 	private Expression updateExp;
 	
 	public PseudoDefination() {
@@ -85,7 +85,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 			sortedFields = getAllSortedColNames();
 		}
 		
-		//Èç¹û´æÔÚdate£¬Ôò¼ÆËãmax¡¢min
+		//å¦‚æœå­˜åœ¨dateï¼Œåˆ™è®¡ç®—maxã€min
 		if (date != null) {
 			
 		}
@@ -204,8 +204,8 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	}
 	
 	/**
-	 * ¸ù¾İ×Ö¶ÎÃû²éÕÒÎ±ÁĞ
-	 * @param pname ×Ö¶ÎÃû
+	 * æ ¹æ®å­—æ®µåæŸ¥æ‰¾ä¼ªåˆ—
+	 * @param pname å­—æ®µå
 	 * @return
 	 */
 	public PseudoColumn findColumnByName(String name) {
@@ -222,8 +222,8 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	}
 	
 	/**
-	 * ¸ù¾İÎ±×Ö¶ÎÃû²éÕÒÎ±ÁĞ
-	 * @param pname Î±×Ö¶ÎÃû£¬Ò²¿ÉÄÜÊÇ¶şÖµbitsÀïÃæµÄ×Ö¶ÎÃû
+	 * æ ¹æ®ä¼ªå­—æ®µåæŸ¥æ‰¾ä¼ªåˆ—
+	 * @param pname ä¼ªå­—æ®µåï¼Œä¹Ÿå¯èƒ½æ˜¯äºŒå€¼bitsé‡Œé¢çš„å­—æ®µå
 	 * @return
 	 */
 	public PseudoColumn findColumnByPseudoName(String pname) {
@@ -249,7 +249,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	}
 
 	/**
-	 * µÃµ½ÎÄ¼şfnµÄ×é±í¶ÔÏó
+	 * å¾—åˆ°æ–‡ä»¶fnçš„ç»„è¡¨å¯¹è±¡
 	 * @param fn
 	 * @param partitions
 	 * @param ctx
@@ -281,7 +281,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	}
 	
 	/**
-	 * µÃµ½ÎÄ¼ş»òÎÄ¼ş×éµÄ×é±í¶ÔÏó
+	 * å¾—åˆ°æ–‡ä»¶æˆ–æ–‡ä»¶ç»„çš„ç»„è¡¨å¯¹è±¡
 	 * @param ctx
 	 */
 	private void parseFileToTable(Context ctx) {
@@ -304,7 +304,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		
 		if (date != null) {
 			String dateName = date;
-			//²»ÔÊĞíÕâÀïÊÇÎ±×Ö¶Î
+			//ä¸å…è®¸è¿™é‡Œæ˜¯ä¼ªå­—æ®µ
 //			PseudoColumn dateCol = findColumnByPseudoName(date);
 //			if (dateCol != null && dateCol.getExp() != null) {
 //				dateName = dateCol.getName();
@@ -326,7 +326,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	}
 
 	/**
-	 * ·µ»Ø×éÎÄ¼ş±í¶ÔÏó¡£²»´æÔÚ¾Í·µ»Ønull
+	 * è¿”å›ç»„æ–‡ä»¶è¡¨å¯¹è±¡ã€‚ä¸å­˜åœ¨å°±è¿”å›null
 	 * @return
 	 */
 	public PhyTableGroup getTableMetaDataGroup() {
@@ -387,7 +387,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	}
 	
 	/**
-	 * ÅĞ¶ÏfieldsÊÇ·ñÊÇĞé±íµÄÓĞĞò×Ö¶Î
+	 * åˆ¤æ–­fieldsæ˜¯å¦æ˜¯è™šè¡¨çš„æœ‰åºå­—æ®µ
 	 * @param fields
 	 * @return
 	 */
@@ -413,7 +413,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	}
 	
 	/**
-	 * ¼ì²éÊÇ·ñÊÇ¼¯ÎÄ¼ş
+	 * æ£€æŸ¥æ˜¯å¦æ˜¯é›†æ–‡ä»¶
 	 * @return
 	 */
 	private boolean checkBFile(Context ctx) {

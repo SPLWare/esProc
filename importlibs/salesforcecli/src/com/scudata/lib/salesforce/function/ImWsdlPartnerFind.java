@@ -16,15 +16,15 @@ import com.sforce.ws.bind.XmlObject;
 
 public class ImWsdlPartnerFind {
 	private PartnerConnection m_conn = null;
-	private Map<String, List<String>> m_ls = new HashMap<String, List<String>>(); //记录表及其字欿
+	private Map<String, List<String>> m_ls = new HashMap<String, List<String>>(); //璁板綍琛ㄥ強鍏跺瓧娆�
 	
 	public ImWsdlPartnerFind(PartnerConnection c) {
 		m_conn = c;
 	}
 
-	/*****功能：执行查譿*****
-	 * 1、返回returning给定的字欿
-	 * 2、若Table无对应的字段则返回Id,但Id可能重复.
+	/*****鍔熻兘锛氭墽琛屾煡璀�*****
+	 * 1銆佽繑鍥瀝eturning缁欏畾鐨勫瓧娆�
+	 * 2銆佽嫢Table鏃犲搴旂殑瀛楁鍒欒繑鍥濱d,浣咺d鍙兘閲嶅.
 	 * 3.
 	 * 
 	 * */
@@ -34,15 +34,15 @@ public class ImWsdlPartnerFind {
 			ImWsdlCommon.doReturning(soqlQuery, m_ls);
 			SearchResult ret = m_conn.search(soqlQuery);
 			SearchRecord[] rds=ret.getSearchRecords();
-			List<Table> ls = new ArrayList<Table>();		//记录要返回的多个Table		
-			List<String> keys = new ArrayList<String>();	//字段
-			List<Object> vals = new ArrayList<Object>();	//字段便, 注意：若用map则与keys顺序可能不对帿
+			List<Table> ls = new ArrayList<Table>();		//璁板綍瑕佽繑鍥炵殑澶氫釜Table		
+			List<String> keys = new ArrayList<String>();	//瀛楁
+			List<Object> vals = new ArrayList<Object>();	//瀛楁渚�, 娉ㄦ剰锛氳嫢鐢╩ap鍒欎笌keys椤哄簭鍙兘涓嶅甯�
 			
 			String lastKey = "";
 			String sKey = "";
 			Table subTable = null;
 			boolean bTable= false;
-			List<String> lls = null; //要返回的字段
+			List<String> lls = null; //瑕佽繑鍥炵殑瀛楁
 			
 			for (SearchRecord s: rds){
 				SObject o = s.getRecord();
@@ -64,7 +64,7 @@ public class ImWsdlPartnerFind {
 							lls = ImWsdlCommon.getListCols(m_ls, lastKey);
 						}
 					}else{
-						// 记录值，并过滤掉不显示的字段
+						// 璁板綍鍊硷紝骞惰繃婊ゆ帀涓嶆樉绀虹殑瀛楁
 						if (lls!=null && lls.size()>0){
 							if (lls.contains(sKey)){
 								if (!keys.contains(sKey) ){
@@ -72,7 +72,7 @@ public class ImWsdlPartnerFind {
 								}
 							}
 						}else{
-							// 返回记录值可能存在字段相同的.
+							// 杩斿洖璁板綍鍊煎彲鑳藉瓨鍦ㄥ瓧娈电浉鍚岀殑.
 							if (!keys.contains(sKey) ){
 								vals.add(xo.getValue());
 							}
@@ -84,7 +84,7 @@ public class ImWsdlPartnerFind {
 					
 					//System.out.println(xo.getName().getLocalPart()+": "+xo.getValue());
 				}
-				if (bTable){	//绑定表字欿
+				if (bTable){	//缁戝畾琛ㄥ瓧娆�
 					String[] cols = null;					
 					if (lls!=null && lls.size()>0){
 						cols = lls.toArray(new String[0]);

@@ -13,8 +13,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÕûÀí¸´×é±íÊı¾İ»òÕß¸´ÖÆ×é±íÊı¾İµ½ÁíÒ»¸ö¸´×é±í
- * f.reset(f¡¯:b;cs) f.reset(f¡¯:b,x;cs)
+ * æ•´ç†å¤ç»„è¡¨æ•°æ®æˆ–è€…å¤åˆ¶ç»„è¡¨æ•°æ®åˆ°å¦ä¸€ä¸ªå¤ç»„è¡¨
+ * f.reset(fâ€™:b;cs) f.reset(fâ€™:b,x;cs)
  * @author RunQian
  *
  */
@@ -24,8 +24,8 @@ public class FileGroupReset extends FileGroupFunction {
 			return fg.resetGroupTable(option, null, null, ctx);
 		}
 
-		Object obj = null; // ĞÂÎÄ¼şÃû¡¢ĞÂÎÄ¼ş¶ÔÏó»òÕßĞÂÎÄ¼ş×é
-		String distribute = null; // ·Ö²¼±í´ïÊ½
+		Object obj = null; // æ–°æ–‡ä»¶åã€æ–°æ–‡ä»¶å¯¹è±¡æˆ–è€…æ–°æ–‡ä»¶ç»„
+		String distribute = null; // åˆ†å¸ƒè¡¨è¾¾å¼
 		Integer blockSize = null;
 		
 		ICursor cs = null;

@@ -32,19 +32,19 @@ import com.scudata.util.CellSetUtil;
 import com.scudata.util.DatabaseUtil;
 
 /**
- * Ã¿Ò»¸ö×÷ÒµµÄ¹ÜÀí
+ * æ¯ä¸€ä¸ªä½œä¸šçš„ç®¡ç†
  * 
- * Ã¿¸ö×÷Òµ£¨Ò²³ÆÎªÈÎÎñ£©²úÉúµÄÓÎ±ê¶¼¼ÇÂ¼ÔÚÈÎÎñÉÏ£¬ÓÎ±ê²úÉúºó£¬¿ªÊ¼¼ÆÊ±³¬Ê± 
- * ÓÎ±êµÄÃ¿Ò»´Î·ÃÎÊ¹ı³Ì£¬¶¼²»¼Æ³¬Ê±¡£Ò²¼´Ò»´Îfetch¹ı³ÌÈç¹û¿ÉÄÜ³¬¹ıÊ±¼ä£¬ÊÇ²»¼ÆÊ±µÄ£»
- * ÓÎ±ê·ÃÎÊ¹ıºó£¬ÖØĞÂ¿ªÊ¼¼ÆÊ±£» Èç¹ûÒ»¸öÈÎÎñ²úÉúÁË¶à¸öÓÎ±êºó£¬´ËÊ±ÒÑ¾­¿ªÊ¼¼ÆÊ±£¬
- * Èç¹ûdfxÔÚ°¤¸ö´®ĞĞÕûÀíÍ·¼¸¸öÓÎ±ê£¬ÅÅÔÚºóÃæµÄÓÎ±êÈÔÈ»¿ÉÄÜ³¬Ê± ÈÎÎñ
+ * æ¯ä¸ªä½œä¸šï¼ˆä¹Ÿç§°ä¸ºä»»åŠ¡ï¼‰äº§ç”Ÿçš„æ¸¸æ ‡éƒ½è®°å½•åœ¨ä»»åŠ¡ä¸Šï¼Œæ¸¸æ ‡äº§ç”Ÿåï¼Œå¼€å§‹è®¡æ—¶è¶…æ—¶ 
+ * æ¸¸æ ‡çš„æ¯ä¸€æ¬¡è®¿é—®è¿‡ç¨‹ï¼Œéƒ½ä¸è®¡è¶…æ—¶ã€‚ä¹Ÿå³ä¸€æ¬¡fetchè¿‡ç¨‹å¦‚æœå¯èƒ½è¶…è¿‡æ—¶é—´ï¼Œæ˜¯ä¸è®¡æ—¶çš„ï¼›
+ * æ¸¸æ ‡è®¿é—®è¿‡åï¼Œé‡æ–°å¼€å§‹è®¡æ—¶ï¼› å¦‚æœä¸€ä¸ªä»»åŠ¡äº§ç”Ÿäº†å¤šä¸ªæ¸¸æ ‡åï¼Œæ­¤æ—¶å·²ç»å¼€å§‹è®¡æ—¶ï¼Œ
+ * å¦‚æœdfxåœ¨æŒ¨ä¸ªä¸²è¡Œæ•´ç†å¤´å‡ ä¸ªæ¸¸æ ‡ï¼Œæ’åœ¨åé¢çš„æ¸¸æ ‡ä»ç„¶å¯èƒ½è¶…æ—¶ ä»»åŠ¡
  * 
  * @author Joancy
  *
  */
 public class Task extends Job implements IResource, ITask {
 	Object dfxName;
-	boolean isDfxFile = false;//¼Ç×¡µ±Ç°dfxµÄÀ´Ô´£¬Èç¹ûÊÇ´ÓÎÄ¼şÀ´£¬ÔòÊ¹ÓÃ»º´æ
+	boolean isDfxFile = false;//è®°ä½å½“å‰dfxçš„æ¥æºï¼Œå¦‚æœæ˜¯ä»æ–‡ä»¶æ¥ï¼Œåˆ™ä½¿ç”¨ç¼“å­˜
 	ArrayList args;
 	String spaceId;
 	boolean isProcessCaller = false;
@@ -52,9 +52,9 @@ public class Task extends Job implements IResource, ITask {
 	CellLocation accumulateLocation;
 	CellLocation currentLocation;
 
-	// ·Ö½ø³Ì¶Ë¿ÚºÅ£¬¿ÉÖØËã×÷ÒµÊ±£¬Ö÷¿Ø»úÖ±½Ó½«×÷Òµ²¼ÖÃµ½·Ö»úµÄ¾ßÌå·Ö½ø³Ì
+	// åˆ†è¿›ç¨‹ç«¯å£å·ï¼Œå¯é‡ç®—ä½œä¸šæ—¶ï¼Œä¸»æ§æœºç›´æ¥å°†ä½œä¸šå¸ƒç½®åˆ°åˆ†æœºçš„å…·ä½“åˆ†è¿›ç¨‹
 //	int subPort = 0;
-	int processTaskId = 0;// Ö÷½ø³ÌµÄÈÎÎñ±àºÅ
+	int processTaskId = 0;// ä¸»è¿›ç¨‹çš„ä»»åŠ¡ç¼–å·
 
 	int taskId = -1;
 	long callTime = -1;
@@ -66,17 +66,17 @@ public class Task extends Job implements IResource, ITask {
 	transient Response res = null;
 
 	private long lastAccessTime = -1;
-	private static List connectedDsNames = null;// Èç¹ûÊÇIDE¶ËÖ´ĞĞ£¬ÓÉIDEÉèÖÃ¸Ã±äÁ¿£»·ñÔò´ÓUnitContextÖĞConfigBeanÖĞÈ¡
+	private static List connectedDsNames = null;// å¦‚æœæ˜¯IDEç«¯æ‰§è¡Œï¼Œç”±IDEè®¾ç½®è¯¥å˜é‡ï¼›å¦åˆ™ä»UnitContextä¸­ConfigBeanä¸­å–
 	private String cancelCause = null;
 	transient Context context;
 	MessageManager mm = ParallelMessage.get();
 
 	/**
-	 * ¹¹ÔìÒ»¸öÈÎÎñ
-	 * @param dfxName ÒªÖ´ĞĞµÄdfx
-	 * @param argList ¶ÔÓ¦µÄ²ÎÊı
-	 * @param taskId ÈÎÎñºÅ
-	 * @param spaceId ¿Õ¼äºÅ
+	 * æ„é€ ä¸€ä¸ªä»»åŠ¡
+	 * @param dfxName è¦æ‰§è¡Œçš„dfx
+	 * @param argList å¯¹åº”çš„å‚æ•°
+	 * @param taskId ä»»åŠ¡å·
+	 * @param spaceId ç©ºé—´å·
 	 */
 	public Task(Object dfxName, List argList, int taskId, String spaceId) {
 		this.dfxName = dfxName;
@@ -88,13 +88,13 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * ¹¹ÔìÒ»¸öÈÎÎñ
-	 * @param dfxName ÒªÖ´ĞĞµÄdfx
-	 * @param argList ²ÎÊıÁĞ±í
-	 * @param taskId ÈÎÎñºÅ
-	 * @param spaceId ¿Õ¼äºÅ
-	 * @param isProcessCaller ÊÇ·ñÖ÷½ø³Ì
-	 * @param reduce reduce±í´ïÊ½
+	 * æ„é€ ä¸€ä¸ªä»»åŠ¡
+	 * @param dfxName è¦æ‰§è¡Œçš„dfx
+	 * @param argList å‚æ•°åˆ—è¡¨
+	 * @param taskId ä»»åŠ¡å·
+	 * @param spaceId ç©ºé—´å·
+	 * @param isProcessCaller æ˜¯å¦ä¸»è¿›ç¨‹
+	 * @param reduce reduceè¡¨è¾¾å¼
 	 */
 	public Task(Object dfxName, List argList, int taskId, String spaceId,
 			boolean isProcessCaller, Object reduce,CellLocation accumulateLocation,
@@ -108,7 +108,7 @@ public class Task extends Job implements IResource, ITask {
 
 
 	/**
-	 * ÉèÖÃÖ÷½ø³ÌµÄÈÎÎñºÅ
+	 * è®¾ç½®ä¸»è¿›ç¨‹çš„ä»»åŠ¡å·
 	 * @param id
 	 */
 	public void setProcessTaskId(int id) {
@@ -116,29 +116,29 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * ÉèÖÃÒÑ¾­Á¬½ÓºóµÄÊı¾İÔ´Ãû³Æ 
-	 * @param dsNames Êı¾İÔ´Ãû³ÆÁĞ±í
+	 * è®¾ç½®å·²ç»è¿æ¥åçš„æ•°æ®æºåç§° 
+	 * @param dsNames æ•°æ®æºåç§°åˆ—è¡¨
 	 */
 	public static void setConnectedDsNames(List dsNames) {
 		connectedDsNames = dsNames;
 	}
 
 	/**
-	 * ÈÎÎñ´úÀíµÄ·ÃÎÊË¢ĞÂ
+	 * ä»»åŠ¡ä»£ç†çš„è®¿é—®åˆ·æ–°
 	 */
 	public void access() {
 		lastAccessTime = System.currentTimeMillis();
 	}
 
 	/**
-	 * ÖØÖÃ´úÀíµÄ·ÃÎÊË¢ĞÂ
+	 * é‡ç½®ä»£ç†çš„è®¿é—®åˆ·æ–°
 	 */
 	public void resetAccess() {
 		lastAccessTime = -1;
 	}
 
 	/**
-	 * Ïú»Ùµ±Ç°¶ÔÏó
+	 * é”€æ¯å½“å‰å¯¹è±¡
 	 */
 	public void destroy() {
 		if (rcpm != null) {
@@ -150,15 +150,15 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * ¼ÆËãÇ°¼ÆÊ±´ò¿¨
+	 * è®¡ç®—å‰è®¡æ—¶æ‰“å¡
 	 */
 	private void beforeExecute() {
 		callTime = System.currentTimeMillis();
 	}
 
 	/**
-	 * È¡ÓÎ±ê¹ÜÀíÆ÷
-	 * @return ÓÎ±ê´úÀí¹ÜÀíÆ÷
+	 * å–æ¸¸æ ‡ç®¡ç†å™¨
+	 * @return æ¸¸æ ‡ä»£ç†ç®¡ç†å™¨
 	 */
 	public RemoteCursorProxyManager getCursorManager() {
 		if (rcpm == null) {
@@ -168,17 +168,17 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°×÷ÒµÊÇ·ñÔËĞĞ×´Ì¬
-	 * @return ÊÇÔËĞĞ×´Ì¬·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­å½“å‰ä½œä¸šæ˜¯å¦è¿è¡ŒçŠ¶æ€
+	 * @return æ˜¯è¿è¡ŒçŠ¶æ€è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isRunning() {
 		return tasker != null;
 	}
 
 	/**
-	 * ½«¼ÆËã½á¹û×ª»»ÎªÓÎ±ê·ÃÎÊ¶ÔÏó
-	 * @param result ¼ÆËã½á¹û
-	 * @return ÓÎ±ê½Ó¿Ú
+	 * å°†è®¡ç®—ç»“æœè½¬æ¢ä¸ºæ¸¸æ ‡è®¿é—®å¯¹è±¡
+	 * @param result è®¡ç®—ç»“æœ
+	 * @return æ¸¸æ ‡æ¥å£
 	 */
 	public static ICursor toCursor(Object result) {
 		if (result instanceof Sequence) {
@@ -211,9 +211,9 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * ¸Ã·½·¨ÓÃÓÚODBC·şÎñÆ÷Ö´ĞĞdfx£¬ĞèÒª¼ì²éIntergration
-	 * @return ¼ÆËã½á¹ûµÄÓÎ±ê×é
-	 * @throws Exception ¼ÆËã³ö´íÊ±Å×³öÒì³£
+	 * è¯¥æ–¹æ³•ç”¨äºODBCæœåŠ¡å™¨æ‰§è¡Œdfxï¼Œéœ€è¦æ£€æŸ¥Intergration
+	 * @return è®¡ç®—ç»“æœçš„æ¸¸æ ‡ç»„
+	 * @throws Exception è®¡ç®—å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public ICursor[] executeOdbc() throws Exception {
 		Object obj = doExecute(true);
@@ -239,8 +239,8 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * Ö´ĞĞ¼ÆËã
-	 * @return ¼ÆËãÍê³ÉºóµÄÏìÓ¦
+	 * æ‰§è¡Œè®¡ç®—
+	 * @return è®¡ç®—å®Œæˆåçš„å“åº”
 	 */
 	public Response execute() {
 		Object obj = doExecute(false);
@@ -253,8 +253,8 @@ public class Task extends Job implements IResource, ITask {
 		return res;
 	}
 
-	// µ±È¡ÏûÊÇ´ÓDatastoreÀ´Ê±£¬·µ»ØÆÕÍ¨Òì³£¡£Ä¿Ç°µÄCanceledExceptionÊÇ²»ĞèÒªÖĞ¶Ï±ğÈËµÄ¡£
-	// µ«ÊÇDataStore·¢³öµÄÈ¡Ïû£¬ĞèÒªÖĞ¶Ï±ğÈË¡£
+	// å½“å–æ¶ˆæ˜¯ä»Datastoreæ¥æ—¶ï¼Œè¿”å›æ™®é€šå¼‚å¸¸ã€‚ç›®å‰çš„CanceledExceptionæ˜¯ä¸éœ€è¦ä¸­æ–­åˆ«äººçš„ã€‚
+	// ä½†æ˜¯DataStoreå‘å‡ºçš„å–æ¶ˆï¼Œéœ€è¦ä¸­æ–­åˆ«äººã€‚
 	private Exception getCancelException() {
 		if (cancelCause != null) {
 			MessageManager mm = ParallelMessage.get();
@@ -268,9 +268,9 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * ×¼±¸¼ÆËãÇ°µÄÉÏÏÂÎÄ»·¾³ 
-	 * µ±Ç°»·¾³¿ÉÄÜ²úÉú×Ô¶¯Á¬½Ó£¬×¢ÒâÒıÓÃºó£¬±ØĞëÅä¶Ôµ÷ÓÃDatabaseUtil.closeAutoDbs
-	 * @return ¼ÆËãÉÏÏÂÎÄ
+	 * å‡†å¤‡è®¡ç®—å‰çš„ä¸Šä¸‹æ–‡ç¯å¢ƒ 
+	 * å½“å‰ç¯å¢ƒå¯èƒ½äº§ç”Ÿè‡ªåŠ¨è¿æ¥ï¼Œæ³¨æ„å¼•ç”¨åï¼Œå¿…é¡»é…å¯¹è°ƒç”¨DatabaseUtil.closeAutoDbs
+	 * @return è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	
 	public static Context prepareEnv() throws Exception{
@@ -311,7 +311,7 @@ public class Task extends Job implements IResource, ITask {
 		}
 
 		if (ParallelCaller.isScript(dfxName)) {
-			// Óï¾äÖĞµÄ²ÎÊı£¬¹Ì¶¨ÒÔ"arg"¿ªÍ·
+			// è¯­å¥ä¸­çš„å‚æ•°ï¼Œå›ºå®šä»¥"arg"å¼€å¤´
 			if (argsVal != null && argsVal.length > 0) {
 				for (int i = 0; i < argsVal.length; i++) {
 					context.setParamValue("arg" + (i + 1), argsVal[i]);
@@ -389,7 +389,7 @@ public class Task extends Job implements IResource, ITask {
 			}
 			return result;
 		} catch (Throwable x) {
-			// Ö÷½ø³ÌµÄ´íÎóĞÅÏ¢²»´òÓ¡£¬ÒÑ¾­ÔÚ×Ó½ø³Ì´òÓ¡¹ıÁË
+			// ä¸»è¿›ç¨‹çš„é”™è¯¯ä¿¡æ¯ä¸æ‰“å°ï¼Œå·²ç»åœ¨å­è¿›ç¨‹æ‰“å°è¿‡äº†
 			if (!isProcessCaller) {
 				Logger.debug(this, x);
 			}
@@ -433,7 +433,7 @@ public class Task extends Job implements IResource, ITask {
 				tasker = null;
 			}
 
-			if (rcpm == null) { // ¼ÆËã½á¹ûÓĞÓÎ±êÊ±£¬ÒªµÈ´ıÓÎ±ê¶¼¹Ø±ÕÊ±£¬²ÅÉ¾³ıÈÎÎñ
+			if (rcpm == null) { // è®¡ç®—ç»“æœæœ‰æ¸¸æ ‡æ—¶ï¼Œè¦ç­‰å¾…æ¸¸æ ‡éƒ½å…³é—­æ—¶ï¼Œæ‰åˆ é™¤ä»»åŠ¡
 				TaskManager.delTask(taskId);
 			}
 			access();
@@ -441,17 +441,17 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * È¡Ïûµ±Ç°×÷Òµ
-	 * @return È¡Ïû½á¹ûµÄÏìÓ¦
+	 * å–æ¶ˆå½“å‰ä½œä¸š
+	 * @return å–æ¶ˆç»“æœçš„å“åº”
 	 */
 	public Response cancel() {
 		return cancel(null);
 	}
 
 	/**
-	 * È¡Ïûµ±Ç°×÷Òµ
-	 * @param reason ½«È¡ÏûĞÅÏ¢Ğ´ÈëÔ­Òò
-	 * @return È¡Ïû½á¹ûµÄÏìÓ¦
+	 * å–æ¶ˆå½“å‰ä½œä¸š
+	 * @param reason å°†å–æ¶ˆä¿¡æ¯å†™å…¥åŸå› 
+	 * @return å–æ¶ˆç»“æœçš„å“åº”
 	 */
 	public Response cancel(String reason) {
 		cancelCause = reason;
@@ -477,56 +477,56 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * »ñÈ¡dfxÃû³Æ
-	 * @return Ãû³Æ
+	 * è·å–dfxåç§°
+	 * @return åç§°
 	 */
 	public String getDfxName() {
 		return ParallelCaller.dfxDelegate(dfxName);
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıÁĞ±í
-	 * @return ²ÎÊıÁĞ±í
+	 * è·å–å‚æ•°åˆ—è¡¨
+	 * @return å‚æ•°åˆ—è¡¨
 	 */
 	public List getArgList() {
 		return args;
 	}
 
 	/**
-	 * »ñÈ¡ÈÎÎñ±àºÅ
-	 * @return ÈÎÎñ±àºÅ
+	 * è·å–ä»»åŠ¡ç¼–å·
+	 * @return ä»»åŠ¡ç¼–å·
 	 */
 	public int getTaskID() {
 		return taskId;
 	}
 
 	/**
-	 * È¡ÈÎÎñ¿ªÊ¼¼ÆËãµÄÊ±¿Ì
-	 * @return ÈÎÎñ¿ªÊ¼Ê±¿Ì(È±Ê¡-1)
+	 * å–ä»»åŠ¡å¼€å§‹è®¡ç®—çš„æ—¶åˆ»
+	 * @return ä»»åŠ¡å¼€å§‹æ—¶åˆ»(ç¼ºçœ-1)
 	 */
 	public long getCallTime() {
 		return callTime;
 	}
 
 	/**
-	 * ÉèÖÃÈÎÎñ¿ªÊ¼¼ÆËãµÄÊ±¿Ì
-	 * @param callTime Ê±¿Ì
+	 * è®¾ç½®ä»»åŠ¡å¼€å§‹è®¡ç®—çš„æ—¶åˆ»
+	 * @param callTime æ—¶åˆ»
 	 */
 	public void setCallTime(long callTime) {
 		this.callTime = callTime;
 	}
 
 	/**
-	 * È¡ÈÎÎñ¼ÆËãÍê³ÉºóµÄÊ±¿Ì
-	 * @return ÈÎÎñÍê³ÉÊ±¿Ì(È±Ê¡-1)
+	 * å–ä»»åŠ¡è®¡ç®—å®Œæˆåçš„æ—¶åˆ»
+	 * @return ä»»åŠ¡å®Œæˆæ—¶åˆ»(ç¼ºçœ-1)
 	 */
 	public long getFinishTime() {
 		return finishTime;
 	}
 
 	/**
-	 * ÉèÖÃÈÎÎñ¼ÆËãÍê³ÉÊ±µÄÊ±¿Ì
-	 * @param finishTime Íê³ÉÊ±¿Ì
+	 * è®¾ç½®ä»»åŠ¡è®¡ç®—å®Œæˆæ—¶çš„æ—¶åˆ»
+	 * @param finishTime å®Œæˆæ—¶åˆ»
 	 */
 	public void setFinishTime(long finishTime) {
 		this.finishTime = finishTime;
@@ -550,13 +550,13 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * ¼ì²é´úÀí¶ÔÏóµÄ·ÃÎÊ³¬Ê±
+	 * æ£€æŸ¥ä»£ç†å¯¹è±¡çš„è®¿é—®è¶…æ—¶
 	 */
 	public boolean checkTimeOut(int timeOut) {
 		if (lastAccessTime < 0) {
-			return false; // »¹Ã»¼ÆËãµÄÈÎÎñ²»ÄÜ¼ì²é¹ıÆÚ
+			return false; // è¿˜æ²¡è®¡ç®—çš„ä»»åŠ¡ä¸èƒ½æ£€æŸ¥è¿‡æœŸ
 		}
-		// »»Ëã³ÉÃë£¬timeOutµ¥Î»ÎªÃë
+		// æ¢ç®—æˆç§’ï¼ŒtimeOutå•ä½ä¸ºç§’
 		long unvisit = (System.currentTimeMillis() - lastAccessTime) / 1000;
 		if (unvisit > timeOut) {
 			Logger.info(this + " is timeout.");
@@ -567,7 +567,7 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * ÈÎÎñ¶ÔÏóµÄtoStringÊµÏÖ
+	 * ä»»åŠ¡å¯¹è±¡çš„toStringå®ç°
 	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -586,12 +586,12 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * ¿ªÊ¼ÔËĞĞ
+	 * å¼€å§‹è¿è¡Œ
 	 */
 	public void run() {
 		long l1 = System.currentTimeMillis();
-//		×÷Òµµ÷¶ÈÓĞÁ½¸ö²ã¼¶£¬ProcessCaller½Óµ½Ò»¶Ñ×÷Òµºó£¬ÔÙÖğ¸ö×ª»¯Îª±¾»úµ¥¸ö×÷ÒµÏß³Ì
-//		Á½¸ö²ã¼¶¶¼»á×ßÕâ¸örun·½·¨£¬µÚÒ»²ãµÄProcessCallerµÄÏûÏ¢ºöÂÔ
+//		ä½œä¸šè°ƒåº¦æœ‰ä¸¤ä¸ªå±‚çº§ï¼ŒProcessCalleræ¥åˆ°ä¸€å †ä½œä¸šåï¼Œå†é€ä¸ªè½¬åŒ–ä¸ºæœ¬æœºå•ä¸ªä½œä¸šçº¿ç¨‹
+//		ä¸¤ä¸ªå±‚çº§éƒ½ä¼šèµ°è¿™ä¸ªrunæ–¹æ³•ï¼Œç¬¬ä¸€å±‚çš„ProcessCallerçš„æ¶ˆæ¯å¿½ç•¥
 		if (!(isProcessCaller && args.size()<2)) {
 			Logger.debug(mm.getMessage("Task.taskBegin", this));
 		}
@@ -605,8 +605,8 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°ÈÎÎñÊÇ·ñÖ÷½ø³ÌÈÎÎñ£¬Ä¿Ç°ÔİÊ±È¡ÏûÁË·Ö½ø³Ì£¬µ«ÊÇ³ÌĞòÂß¼­ÈÔÈ»ÊÇÖ÷½ø³Ì½Óµ½×÷Òµ£¬ÔÙÒÀ´Î·Ö¸ø·Ö½ø³Ì£¨´ËÊ±µÄ·Ö½ø³ÌÈÔÈ»ÊÇ×Ô¼º£©
-	 * Òò´ËÔÚ¼à¿Ø¹ÜÀíÊ±£¬ĞèÒªÂËµôÖ÷½ø³ÌÈÎÎñ£¬ÒòÎª´ËÊ±Ö÷½ø³ÌµÄ×÷Òµ¸ú·Ö½ø³ÌÊÇÒ»ÑùµÄ×÷Òµ¡£
+	 * åˆ¤æ–­å½“å‰ä»»åŠ¡æ˜¯å¦ä¸»è¿›ç¨‹ä»»åŠ¡ï¼Œç›®å‰æš‚æ—¶å–æ¶ˆäº†åˆ†è¿›ç¨‹ï¼Œä½†æ˜¯ç¨‹åºé€»è¾‘ä»ç„¶æ˜¯ä¸»è¿›ç¨‹æ¥åˆ°ä½œä¸šï¼Œå†ä¾æ¬¡åˆ†ç»™åˆ†è¿›ç¨‹ï¼ˆæ­¤æ—¶çš„åˆ†è¿›ç¨‹ä»ç„¶æ˜¯è‡ªå·±ï¼‰
+	 * å› æ­¤åœ¨ç›‘æ§ç®¡ç†æ—¶ï¼Œéœ€è¦æ»¤æ‰ä¸»è¿›ç¨‹ä»»åŠ¡ï¼Œå› ä¸ºæ­¤æ—¶ä¸»è¿›ç¨‹çš„ä½œä¸šè·Ÿåˆ†è¿›ç¨‹æ˜¯ä¸€æ ·çš„ä½œä¸šã€‚
 	 * @return
 	 */
 	public boolean isProcessCaller() {
@@ -621,8 +621,8 @@ public class Task extends Job implements IResource, ITask {
 		this.currentLocation = currentLoc;
 	}
 	/**
-	 * »ñÈ¡¼ÆËãÍê³ÉµÄÏìÓ¦
-	 * @return ÏìÓ¦¶ÔÏó
+	 * è·å–è®¡ç®—å®Œæˆçš„å“åº”
+	 * @return å“åº”å¯¹è±¡
 	 */
 	public Response getResponse() {
 		return res;
@@ -631,7 +631,7 @@ public class Task extends Job implements IResource, ITask {
 	boolean isClosed = false;
 
 	/**
-	 * ¹Ø±Õµ±Ç°×÷Òµ£¬ÊÍ·ÅÏà¹Ø×ÊÔ´
+	 * å…³é—­å½“å‰ä½œä¸šï¼Œé‡Šæ”¾ç›¸å…³èµ„æº
 	 */
 	public void close() {
 		if (!isClosed) {

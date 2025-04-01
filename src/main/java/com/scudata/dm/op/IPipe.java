@@ -4,20 +4,20 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 
 /**
- * ¹ÜµÀ½Ó¿Ú
+ * ç®¡é“æ¥å£
  * @author RunQian
  *
  */
 public interface IPipe {
 	/**
-	 * Íù¹ÜµÀÍÆËÍÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¾€ç®¡é“æ¨é€æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	void push(Sequence seq, Context ctx);
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊø
+	 * æ•°æ®æ¨é€ç»“æŸ
 	 * @param ctx
 	 */
 	void finish(Context ctx);

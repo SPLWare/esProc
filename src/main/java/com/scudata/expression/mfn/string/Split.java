@@ -9,7 +9,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ½«×Ö·û´®ÒÔÖ¸¶¨·Ö¸ô·û²ğ³ÉĞòÁĞ£¬Ã»ÓĞÖ¸¶¨·Ö¸ô·ûÔò²ğ³Éµ¥×Ö·û×é³ÉµÄĞòÁĞ
+ * å°†å­—ç¬¦ä¸²ä»¥æŒ‡å®šåˆ†éš”ç¬¦æ‹†æˆåºåˆ—ï¼Œæ²¡æœ‰æŒ‡å®šåˆ†éš”ç¬¦åˆ™æ‹†æˆå•å­—ç¬¦ç»„æˆçš„åºåˆ—
  * s.split(d)
  * @author RunQian
  *
@@ -36,7 +36,7 @@ public class Split extends StringFunction {
 	public static Sequence split(String srcStr, int []lens, String opt) {
 		boolean bData = false, bTrim = false;
 		if (opt != null) {
-			if (opt.indexOf('p') != -1) bData = true; // ×Ô¶¯Ê¶±ğ³É³£Êı
+			if (opt.indexOf('p') != -1) bData = true; // è‡ªåŠ¨è¯†åˆ«æˆå¸¸æ•°
 			if (opt.indexOf('t') != -1) bTrim = true;
 		}
 		

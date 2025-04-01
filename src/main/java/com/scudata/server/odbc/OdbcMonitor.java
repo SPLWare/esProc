@@ -5,8 +5,8 @@ import com.scudata.dm.*;
 import com.scudata.server.ConnectionProxyManager;
 
 /**
- * ODBC¼àÊÓÆ÷
- * ½«³¬Ê±(System.currentTimeMillis()-proxy.lastAccessTime()>service.getTimeout)µÄ¶ÔÏó¹Ø±Õ²¢É¾³ı
+ * ODBCç›‘è§†å™¨
+ * å°†è¶…æ—¶(System.currentTimeMillis()-proxy.lastAccessTime()>service.getTimeout)çš„å¯¹è±¡å…³é—­å¹¶åˆ é™¤
  * @author Joancy
  *
  */
@@ -14,31 +14,31 @@ public class OdbcMonitor extends Thread {
 	volatile boolean stop = false;
 
 	/**
-	 * ´´½¨ODBC¼àÊÓÆ÷
+	 * åˆ›å»ºODBCç›‘è§†å™¨
 	 */
 	public OdbcMonitor(){
 		this.setName(toString());
 	}
 	
 	/**
-	 * ÊµÏÖtoString½Ó¿Ú
+	 * å®ç°toStringæ¥å£
 	 */
 	public String toString(){
 		return "OdbcMonitor";
 	}
 
 	/**
-	 * Í£Ö¹¼àÊÓÏß³Ì
+	 * åœæ­¢ç›‘è§†çº¿ç¨‹
 	 */
 	public void stopThread() {
 		stop = true;
 	}
 
 	/**
-	 * ÔËĞĞ¼àÊÓÏß³Ì
+	 * è¿è¡Œç›‘è§†çº¿ç¨‹
 	 */
 	public void run() {
-		// timeOutÎª0Ê±£¬²»¼ì²é³¬Ê±
+		// timeOutä¸º0æ—¶ï¼Œä¸æ£€æŸ¥è¶…æ—¶
 		int interval = 0;
 		int conTimeOut = 0;
 		try{
@@ -56,7 +56,7 @@ public class OdbcMonitor extends Thread {
 		if (interval == 0 || conTimeOut == 0) {
 			return;
 		}
-		//³¬Ê±µÄµ¥Î»¸ÄÎªĞ¡Ê±£¬ÏÈ»¯³ÉÃëÎªµ¥Î» xq 2016Äê12ÔÂ22ÈÕ
+		//è¶…æ—¶çš„å•ä½æ”¹ä¸ºå°æ—¶ï¼Œå…ˆåŒ–æˆç§’ä¸ºå•ä½ xq 2016å¹´12æœˆ22æ—¥
 		conTimeOut = conTimeOut * 3600;
 		while (!stop) {
 			try {

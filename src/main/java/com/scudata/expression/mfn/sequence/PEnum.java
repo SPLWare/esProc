@@ -7,14 +7,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡ÖµÔÚÃ¶¾Ù·Ö×éÖĞÊôÓÚÄÄÒ»×é
+ * å–å€¼åœ¨æšä¸¾åˆ†ç»„ä¸­å±äºå“ªä¸€ç»„
  * E.penum(y)
  * @author RunQian
  *
  */
 public class PEnum extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

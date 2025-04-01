@@ -15,19 +15,19 @@ import com.scudata.expression.IParam;
 import com.scudata.util.Variant;
 
 /**
- * ³ÌĞòÍøµ¥Ôª¸ñ¶ÔÏó
+ * ç¨‹åºç½‘å•å…ƒæ ¼å¯¹è±¡
  * @author WangXiaoJun
  *
  */
 public class PgmNormalCell extends NormalCell {
 	private static final long serialVersionUID = 0x02010014;
 
-	transient protected SoftReference<Expression> expRef; // WeakReference±í´ïÊ½ÈíÒıÓÃ£¬ÎªÁË»º´æ±í´ïÊ½
-	transient private int sign = TYPE_BLANK_CELL; // µ¥Ôª¸ñÀàĞÍ
-	transient private Command command; // Èç¹û´Ëµ¥Ôª¸ñÎªÓï¾äÔò¶ÔÓ¦ÏàÓ¦µÄÓï¾ä£¬·ñÔòÎª¿Õ
+	transient protected SoftReference<Expression> expRef; // WeakReferenceè¡¨è¾¾å¼è½¯å¼•ç”¨ï¼Œä¸ºäº†ç¼“å­˜è¡¨è¾¾å¼
+	transient private int sign = TYPE_BLANK_CELL; // å•å…ƒæ ¼ç±»å‹
+	transient private Command command; // å¦‚æœæ­¤å•å…ƒæ ¼ä¸ºè¯­å¥åˆ™å¯¹åº”ç›¸åº”çš„è¯­å¥ï¼Œå¦åˆ™ä¸ºç©º
 	transient private boolean containMacro = false;;
 
-	// ´æÅÌÊ±Ê¹ÓÃ
+	// å­˜ç›˜æ—¶ä½¿ç”¨
 	public PgmNormalCell() {
 	}
 
@@ -41,8 +41,8 @@ public class PgmNormalCell extends NormalCell {
 
 	public void reset() {
 		if ((sign & TYPE_CONST_CELL) != 0) {
-			// ³£ÊıÖµ¿ÉÄÜ±»ĞŞ¸ÄÁË
-			if (expStr.startsWith(KeyWord.CONSTSTRINGPREFIX)) { // ×Ö·û´®³£Êı'
+			// å¸¸æ•°å€¼å¯èƒ½è¢«ä¿®æ”¹äº†
+			if (expStr.startsWith(KeyWord.CONSTSTRINGPREFIX)) { // å­—ç¬¦ä¸²å¸¸æ•°'
 				value = expStr.substring(1);
 			} else {
 				value = Variant.parse(expStr, false);
@@ -55,7 +55,7 @@ public class PgmNormalCell extends NormalCell {
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñ±í´ïÊ½
+	 * è®¾ç½®å•å…ƒæ ¼è¡¨è¾¾å¼
 	 * @param exp String
 	 */
 	public void setExpString(String exp) {
@@ -69,25 +69,25 @@ public class PgmNormalCell extends NormalCell {
 		command = null;
 
 		if (exp != null && exp.length() > 0) {
-			if (exp.startsWith("==")) { // ¼ÆËã¿é
+			if (exp.startsWith("==")) { // è®¡ç®—å—
 				sign = TYPE_CALCULABLE_BLOCK;
 				containMacro = Expression.containMacro(exp);
-			} else if (exp.startsWith("=")) { // ¼ÆËã¸ñ
+			} else if (exp.startsWith("=")) { // è®¡ç®—æ ¼
 				sign = TYPE_CALCULABLE_CELL;
 				containMacro = Expression.containMacro(exp);
-			} else if (exp.startsWith(">>")) { // Ö´ĞĞ¿é
+			} else if (exp.startsWith(">>")) { // æ‰§è¡Œå—
 				sign = TYPE_EXECUTABLE_BLOCK;
 				containMacro = Expression.containMacro(exp);
-			} else if (exp.startsWith(">")) { // Ö´ĞĞ¸ñ
+			} else if (exp.startsWith(">")) { // æ‰§è¡Œæ ¼
 				sign = TYPE_EXECUTABLE_CELL;
 				containMacro = Expression.containMacro(exp);
-			} else if (exp.startsWith("//")) { // ×¢ÊÍ¿é
+			} else if (exp.startsWith("//")) { // æ³¨é‡Šå—
 				sign = TYPE_NOTE_BLOCK;
 				//value = exp.substring(2);
-			} else if (exp.startsWith("/")) { // ×¢ÊÍ¸ñ
+			} else if (exp.startsWith("/")) { // æ³¨é‡Šæ ¼
 				sign = TYPE_NOTE_CELL;
 				//value = exp.substring(1);
-			} else if (Command.isCommand(exp)) { // Óï¾ä¸ñ
+			} else if (Command.isCommand(exp)) { // è¯­å¥æ ¼
 				sign = TYPE_COMMAND_CELL;
 				containMacro = Expression.containMacro(exp);
 			} else {
@@ -100,14 +100,14 @@ public class PgmNormalCell extends NormalCell {
 	}
 
 	public static Object parseConstValue(String str) {
-		if (str.startsWith(KeyWord.CONSTSTRINGPREFIX)) { // ×Ö·û´®³£Êı'
+		if (str.startsWith(KeyWord.CONSTSTRINGPREFIX)) { // å­—ç¬¦ä¸²å¸¸æ•°'
 			return str.substring(1);
 		} else {
 			return Variant.parse(str, false);
 		}
 	}
 	
-	// Ô¤´¦Àí$(c)
+	// é¢„å¤„ç†$(c)
 	public String getMacroReplaceString() {
 		String exp = expStr;
 		if (exp == null) return null;
@@ -140,7 +140,7 @@ public class PgmNormalCell extends NormalCell {
 	}
 
 	/**
-	 * ¼ÆËã´Ëµ¥Ôª¸ñ
+	 * è®¡ç®—æ­¤å•å…ƒæ ¼
 	 */
 	public void calculate(){
 		Context ctx = cs.getContext();
@@ -155,7 +155,7 @@ public class PgmNormalCell extends NormalCell {
 				}
 			}
 
-			//value = null; // ÏÈÊÍ·ÅÖ®Ç°µÄÖµ£¬ÓÃÓÚÑ­»·ÌåÄÚÊÍ·ÅÄÚ´æ
+			//value = null; // å…ˆé‡Šæ”¾ä¹‹å‰çš„å€¼ï¼Œç”¨äºå¾ªç¯ä½“å†…é‡Šæ”¾å†…å­˜
 			value = exp.calculate(ctx);
 		} else if ((sign & TYPE_CALCULABLE_BLOCK) != 0) { // ==
 			Expression exp;
@@ -168,7 +168,7 @@ public class PgmNormalCell extends NormalCell {
 				}
 			}
 
-			//value = null; // ÏÈÊÍ·ÅÖ®Ç°µÄÖµ£¬ÓÃÓÚÑ­»·ÌåÄÚÊÍ·ÅÄÚ´æ
+			//value = null; // å…ˆé‡Šæ”¾ä¹‹å‰çš„å€¼ï¼Œç”¨äºå¾ªç¯ä½“å†…é‡Šæ”¾å†…å­˜
 			value = exp.calculate(ctx);
 		} else if ((sign & TYPE_EXECUTABLE_CELL) != 0) { // >
 			Expression exp;
@@ -216,9 +216,9 @@ public class PgmNormalCell extends NormalCell {
 			for (int c = startCol; c <= colCount; ++c) {
 				PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
 				if (cell == null || cell.isNoteCell()) {
-					// Ìø¹ı×¢ÊÍ¸ñ
+					// è·³è¿‡æ³¨é‡Šæ ¼
 				} else if (cell.isNoteBlock()) {
-					// Ìø¹ı×¢ÊÍ¿é
+					// è·³è¿‡æ³¨é‡Šå—
 					r = pcs.getCodeBlockEndRow(r, c);
 					break;
 				} else {
@@ -277,7 +277,7 @@ public class PgmNormalCell extends NormalCell {
 	}
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñËù¶ÔÓ¦µÄÓï¾ä¶ÔÏó
+	 * è¿”å›å•å…ƒæ ¼æ‰€å¯¹åº”çš„è¯­å¥å¯¹è±¡
 	 * @return Command
 	 */
 	public Command getCommand() {
@@ -293,7 +293,7 @@ public class PgmNormalCell extends NormalCell {
 	}
 
 	/**
-	 * ·µ»ØÊÇ·ñÓï¾ä¸ñ
+	 * è¿”å›æ˜¯å¦è¯­å¥æ ¼
 	 * @return boolean
 	 */
 	public boolean isCommandCell() {
@@ -301,14 +301,14 @@ public class PgmNormalCell extends NormalCell {
 	}
 
 	/**
-	 * ·µ»ØÊÇ·ñ½á¹û¸ñ
+	 * è¿”å›æ˜¯å¦ç»“æœæ ¼
 	 * @return boolean
 	 */
 	public boolean isResultCell() {
 		return isCommandCell() && Command.isResultCommand(expStr);
 	}
 
-	// ·µ»Øµ¥Ôª¸ñÊÇ·ñĞèÒª¼ÆËã
+	// è¿”å›å•å…ƒæ ¼æ˜¯å¦éœ€è¦è®¡ç®—
 	public boolean needCalculate() {
 		int tmp = TYPE_CALCULABLE_CELL | TYPE_CALCULABLE_BLOCK |
 			TYPE_EXECUTABLE_CELL | TYPE_EXECUTABLE_BLOCK | TYPE_COMMAND_CELL;
@@ -316,25 +316,25 @@ public class PgmNormalCell extends NormalCell {
 	}
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñÊÇ·ñÊÇ¿Õ°×¸ñ£¬¼´Ã»ÓĞ±í´ïÊ½
+	 * è¿”å›å•å…ƒæ ¼æ˜¯å¦æ˜¯ç©ºç™½æ ¼ï¼Œå³æ²¡æœ‰è¡¨è¾¾å¼
 	 * @return boolean
 	 */
 	public boolean isBlankCell() {
 		return (sign & TYPE_BLANK_CELL) != 0;
 	}
 
-	// ±í´ïÊ½ÀïÊÇ·ñ°üº¬ºêÌæ»»s
+	// è¡¨è¾¾å¼é‡Œæ˜¯å¦åŒ…å«å®æ›¿æ¢s
 	private boolean containMacro() {
 		return containMacro;
 	}
 	
-	// ·µ»Øµ¥Ôª¸ñÊÇ·ñÊÇ³£Êı¸ñ
+	// è¿”å›å•å…ƒæ ¼æ˜¯å¦æ˜¯å¸¸æ•°æ ¼
 	public boolean isConstCell() {
 		return (sign & TYPE_CONST_CELL) != 0;
 	}
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñÊÇ·ñÊÇ×¢ÊÍ¸ñ
+	 * è¿”å›å•å…ƒæ ¼æ˜¯å¦æ˜¯æ³¨é‡Šæ ¼
 	 * @return boolean
 	 */
 	public boolean isNoteCell() {
@@ -342,24 +342,24 @@ public class PgmNormalCell extends NormalCell {
 	}
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñÊÇ·ñÊÇ×¢ÊÍ¿é
+	 * è¿”å›å•å…ƒæ ¼æ˜¯å¦æ˜¯æ³¨é‡Šå—
 	 * @return boolean
 	 */
 	public boolean isNoteBlock() {
 		return (sign & TYPE_NOTE_BLOCK) != 0;
 	}
 
-	// ·µ»ØÊÇ·ñÊÇ¼ÆËã¿é
+	// è¿”å›æ˜¯å¦æ˜¯è®¡ç®—å—
 	public boolean isCalculableBlock() {
 		return (sign & TYPE_CALCULABLE_BLOCK) != 0;
 	}
 
-	// ·µ»ØÊÇ·ñÊÇ¼ÆËã¸ñ
+	// è¿”å›æ˜¯å¦æ˜¯è®¡ç®—æ ¼
 	public boolean isCalculableCell() {
 		return (sign & TYPE_CALCULABLE_CELL) != 0;
 	}
 
-	// ·µ»ØÊÇ·ñÊÇÖ´ĞĞ¿é
+	// è¿”å›æ˜¯å¦æ˜¯æ‰§è¡Œå—
 	public boolean isExecutableBlock() {
 		return (sign & TYPE_EXECUTABLE_BLOCK) != 0;
 	}
@@ -431,7 +431,7 @@ public class PgmNormalCell extends NormalCell {
 	}
 	
 	/**
-	 * È¡µ±Ç°µ¥Ôª¸ñÒıÓÃµ½µÄµ¥Ôª¸ñ
+	 * å–å½“å‰å•å…ƒæ ¼å¼•ç”¨åˆ°çš„å•å…ƒæ ¼
 	 * @param resultList
 	 */
 	public void getUsedCells(List<INormalCell> resultList) {
@@ -467,7 +467,7 @@ public class PgmNormalCell extends NormalCell {
 	}
 	
 	/**
-	 * Çå³ıµ¥Ôª¸ñÖµºÍ¼ÆËã±í´ïÊ½
+	 * æ¸…é™¤å•å…ƒæ ¼å€¼å’Œè®¡ç®—è¡¨è¾¾å¼
 	 */
 	public void clear() {
 		value = null;

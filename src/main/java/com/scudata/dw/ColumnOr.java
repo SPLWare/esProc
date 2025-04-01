@@ -71,7 +71,7 @@ public class ColumnOr extends IFilter {
 		}
 	}
 	
-	// 是否是多字段or
+	// 鏄惁鏄瀛楁or
 	public boolean isMultiFieldOr() {
 		return true;
 	}
@@ -79,7 +79,7 @@ public class ColumnOr extends IFilter {
 	public IArray calculateAll(Context ctx) {
 		if (i == 0) {
 			or.signArray = (BoolArray) filter.calculateAll(ctx);
-			return new BoolArray(true, or.signArray.size());//此时必须返回全true
+			return new BoolArray(true, or.signArray.size());//姝ゆ椂蹇呴』杩斿洖鍏╰rue
 		} else {
 			BoolArray signArray = or.signArray;
 			int size = signArray.size();
@@ -97,7 +97,7 @@ public class ColumnOr extends IFilter {
 				if (lastCol) {
 					return or.signArray;
 				} else {
-					return new BoolArray(true, or.signArray.size());//此时必须返回全true
+					return new BoolArray(true, or.signArray.size());//姝ゆ椂蹇呴』杩斿洖鍏╰rue
 				}
 			} else {
 				return signArray;
@@ -106,7 +106,7 @@ public class ColumnOr extends IFilter {
 	}
 	
 	public IArray calculateAnd(Context ctx, IArray leftResult) {
-		return calculateAll(ctx);//ColumnsOr时，不是与的关系
+		return calculateAll(ctx);//ColumnsOr鏃讹紝涓嶆槸涓庣殑鍏崇郴
 	}
 	
 	public int isValueRangeMatch(Context ctx) {

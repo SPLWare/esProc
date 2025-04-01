@@ -106,10 +106,10 @@ public class WebHdfs extends Function {
     public static void  downLoadFromUrl(String urlStr,String file) throws IOException{
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        //ÉèÖÃ³¬Ê±¼äÎª3Ãë
+        //è®¾ç½®è¶…æ—¶é—´ä¸º3ç§’
         conn.setConnectTimeout(3*1000);
         conn.setRequestMethod("GET");
-        //·ÀÖ¹ÆÁ±Î³ÌĞò×¥È¡¶ø·µ»Ø403´íÎó
+        //é˜²æ­¢å±è”½ç¨‹åºæŠ“å–è€Œè¿”å›403é”™è¯¯
         conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
         conn.setRequestProperty("lfwywxqyh_token","lfwywxqyh_token");
         String ct = "application/octet-stream";
@@ -122,12 +122,12 @@ public class WebHdfs extends Function {
         } 
         conn.setRequestProperty("Content-Type",ct);
 
-        //µÃµ½ÊäÈëÁ÷
+        //å¾—åˆ°è¾“å…¥æµ
         InputStream inputStream = conn.getInputStream();
-        //»ñÈ¡×Ô¼ºÊı×é
+        //è·å–è‡ªå·±æ•°ç»„
         byte[] getData = readInputStream(inputStream);
 
-        //ÎÄ¼ş±£´æÎ»ÖÃ
+        //æ–‡ä»¶ä¿å­˜ä½ç½®
         File f = new File(file);
         if(!f.getParentFile().exists()){
         	f.getParentFile().mkdir();
@@ -151,17 +151,17 @@ public class WebHdfs extends Function {
     public static byte[]  downLoadFromUrl(String urlStr) throws IOException{
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        //ÉèÖÃ³¬Ê±¼äÎª3Ãë
+        //è®¾ç½®è¶…æ—¶é—´ä¸º3ç§’
         conn.setConnectTimeout(3*1000);
         conn.setRequestMethod("GET");
-        //·ÀÖ¹ÆÁ±Î³ÌĞò×¥È¡¶ø·µ»Ø403´íÎó
+        //é˜²æ­¢å±è”½ç¨‹åºæŠ“å–è€Œè¿”å›403é”™è¯¯
         conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
         conn.setRequestProperty("lfwywxqyh_token","lfwywxqyh_token");
         conn.setRequestProperty("Content-Type","application/octet-stream");
 
-        //µÃµ½ÊäÈëÁ÷
+        //å¾—åˆ°è¾“å…¥æµ
         InputStream inputStream = conn.getInputStream();
-        //»ñÈ¡×Ô¼ºÊı×é
+        //è·å–è‡ªå·±æ•°ç»„
         byte[] getData = readInputStream(inputStream);
 
         if(inputStream!=null){
@@ -174,7 +174,7 @@ public class WebHdfs extends Function {
     }
 
     /**
-     * ´ÓÊäÈëÁ÷ÖĞ»ñÈ¡×Ö½ÚÊı×é
+     * ä»è¾“å…¥æµä¸­è·å–å­—èŠ‚æ•°ç»„
      * @param inputStream
      * @return
      * @throws IOException
@@ -191,22 +191,22 @@ public class WebHdfs extends Function {
     }
     
     /**
-     * ÏòÖ¸¶¨URL·¢ËÍGET·½·¨µÄÇëÇó
+     * å‘æŒ‡å®šURLå‘é€GETæ–¹æ³•çš„è¯·æ±‚
      * 
      * @param url
-     *            ·¢ËÍÇëÇóµÄURL
+     *            å‘é€è¯·æ±‚çš„URL
      * @param param
-     *            ÇëÇó²ÎÊı£¬ÇëÇó²ÎÊıÓ¦¸ÃÊÇ name1=value1&name2=value2 µÄĞÎÊ½¡£
-     * @return URL Ëù´ú±íÔ¶³Ì×ÊÔ´µÄÏìÓ¦½á¹û
+     *            è¯·æ±‚å‚æ•°ï¼Œè¯·æ±‚å‚æ•°åº”è¯¥æ˜¯ name1=value1&name2=value2 çš„å½¢å¼ã€‚
+     * @return URL æ‰€ä»£è¡¨è¿œç¨‹èµ„æºçš„å“åº”ç»“æœ
      */
     public static String stringResult(String url, String method) {
         String result = "";
         BufferedReader in = null;
         try {
         	URL realUrl = new URL(url);
-            // ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
+            // æ‰“å¼€å’ŒURLä¹‹é—´çš„è¿æ¥
         	HttpURLConnection connection = (HttpURLConnection)(realUrl.openConnection());
-            // ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôĞÔ
+            // è®¾ç½®é€šç”¨çš„è¯·æ±‚å±æ€§
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent",
@@ -214,9 +214,9 @@ public class WebHdfs extends Function {
             connection.setRequestProperty("Content-Type", "text/plain");
             
             connection.setRequestMethod(method);
-            // ½¨Á¢Êµ¼ÊµÄÁ¬½Ó
+            // å»ºç«‹å®é™…çš„è¿æ¥
             connection.connect();
-            // ¶¨Òå BufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
+            // å®šä¹‰ BufferedReaderè¾“å…¥æµæ¥è¯»å–URLçš„å“åº”
             in = new BufferedReader(new InputStreamReader(
                     connection.getInputStream()));
             String line;
@@ -224,10 +224,10 @@ public class WebHdfs extends Function {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("·¢ËÍGETÇëÇó³öÏÖÒì³££¡" + e);
+            System.out.println("å‘é€GETè¯·æ±‚å‡ºç°å¼‚å¸¸ï¼" + e);
             Logger.error(e.getMessage());
         }
-        // Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊäÈëÁ÷
+        // ä½¿ç”¨finallyå—æ¥å…³é—­è¾“å…¥æµ
         finally {
             try {
                 if (in != null) {

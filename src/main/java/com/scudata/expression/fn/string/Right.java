@@ -12,7 +12,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * right(s,n) »ñµÃ×Ö·û´®sÓÒ±ß³¤¶ÈÎªnµÄ×Ó´®¡£µ±n<0Ê±£¬nµÄÊıÖµÎªstring´®µÄ³¤¶È¼ÓnÖµ¡£
+ * right(s,n) è·å¾—å­—ç¬¦ä¸²så³è¾¹é•¿åº¦ä¸ºnçš„å­ä¸²ã€‚å½“n<0æ—¶ï¼Œnçš„æ•°å€¼ä¸ºstringä¸²çš„é•¿åº¦åŠ nå€¼ã€‚
  * @author runqian
  *
  */
@@ -21,7 +21,7 @@ public class Right extends Function {
 	private Expression exp2;
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -62,8 +62,8 @@ public class Right extends Function {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -167,10 +167,10 @@ public class Right extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

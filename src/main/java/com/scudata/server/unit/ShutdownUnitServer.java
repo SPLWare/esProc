@@ -9,7 +9,7 @@ import com.scudata.parallel.UnitClient;
 import com.scudata.parallel.UnitContext;
 
 /**
- * Í¨¹ıÃüÁîÔ¶³Ì¹Ø±Õ·şÎñÆ÷
+ * é€šè¿‡å‘½ä»¤è¿œç¨‹å…³é—­æœåŠ¡å™¨
  * 
  * @author Joancy
  *
@@ -21,8 +21,8 @@ public class ShutdownUnitServer {
 	}
 
 	/**
-	 * ´ÓÅäÖÃÎÊ¶ÁÈ¡ËùÓĞ·Ö»úĞÅÏ¢£¬È»ºó¹Ø±ÕËùÓĞ·Ö»ú
-	 * @return ÕıÈ·¹Ø»ú·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * ä»é…ç½®é—®è¯»å–æ‰€æœ‰åˆ†æœºä¿¡æ¯ï¼Œç„¶åå…³é—­æ‰€æœ‰åˆ†æœº
+	 * @return æ­£ç¡®å…³æœºè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 * @throws Exception
 	 */
 	public static boolean autoClose() throws Exception{
@@ -49,10 +49,10 @@ public class ShutdownUnitServer {
 	}
 
 	/**
-	 * ¹Ø±ÕÖ¸¶¨µÄ·şÎñÆ÷
-	 * @param host ·şÎñÆ÷IP
-	 * @param port ¶Ë¿ÚºÅ
-	 * @return ³É¹¦¹Ø»ú·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å…³é—­æŒ‡å®šçš„æœåŠ¡å™¨
+	 * @param host æœåŠ¡å™¨IP
+	 * @param port ç«¯å£å·
+	 * @return æˆåŠŸå…³æœºè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean close(String host, int port){
 		if(!StringUtils.isValidString(host)){
@@ -85,7 +85,7 @@ public class ShutdownUnitServer {
 			for (int i = 0; i < args.length; i++) {
 				arg = args[i].toLowerCase();
 				// System.err.println("arg "+i+"="+arg);
-				if (arg.equals("com.scudata.server.unit.shutdownunitserver")) { // ÓÃbat´ò¿ªµÄÎÄ¼ş£¬ÀàÃû±¾Éí»áÊÇ²ÎÊı
+				if (arg.equals("com.scudata.server.unit.shutdownunitserver")) { // ç”¨batæ‰“å¼€çš„æ–‡ä»¶ï¼Œç±»åæœ¬èº«ä¼šæ˜¯å‚æ•°
 					continue;
 				}
 

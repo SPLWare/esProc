@@ -7,42 +7,42 @@ import java.awt.Graphics;
 import javax.swing.Icon;
 
 /**
- * ÑÕÉ«Í¼±ê
+ * é¢œè‰²å›¾æ ‡
  *
  */
 public class ColorIcon implements Icon {
 	/**
-	 * ÑÕÉ«
+	 * é¢œè‰²
 	 */
 	private Object color;
 	/**
-	 * ¿íºÍ¸ß
+	 * å®½å’Œé«˜
 	 */
 	private final int w = 37, h = 15;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ColorIcon() {
 		this(Color.gray, 0, 0);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param color
-	 *            ÑÕÉ«
+	 *            é¢œè‰²
 	 * @param w
-	 *            ¿í
+	 *            å®½
 	 * @param h
-	 *            ¸ß
+	 *            é«˜
 	 */
 	public ColorIcon(Color color, int w, int h) {
 		this.color = color;
 	}
 
 	/**
-	 * Ìî³äÍ¸Ã÷É«
+	 * å¡«å……é€æ˜è‰²
 	 * 
 	 * @param g
 	 * @param w
@@ -72,7 +72,7 @@ public class ColorIcon implements Icon {
 	}
 
 	/**
-	 * »­Í¼±ê
+	 * ç”»å›¾æ ‡
 	 */
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		if (color instanceof String) {
@@ -82,7 +82,7 @@ public class ColorIcon implements Icon {
 			g.drawString((String) color, 2, 14);
 		} else {
 			g.translate(x, y);
-			Color cc = null;// µ±colorÎªnullÊ±£¬±íÊ¾Í¸Ã÷É«
+			Color cc = null;// å½“colorä¸ºnullæ—¶ï¼Œè¡¨ç¤ºé€æ˜è‰²
 			if (color instanceof Color) {
 				cc = (Color) color;
 			} else if (color instanceof Integer) {
@@ -103,7 +103,7 @@ public class ColorIcon implements Icon {
 	}
 
 	/**
-	 * È¡ÑÕÉ«
+	 * å–é¢œè‰²
 	 * 
 	 * @return
 	 */
@@ -115,7 +115,7 @@ public class ColorIcon implements Icon {
 	}
 
 	/**
-	 * ÉèÖÃÑÕÉ«
+	 * è®¾ç½®é¢œè‰²
 	 * 
 	 * @param color
 	 */
@@ -124,14 +124,14 @@ public class ColorIcon implements Icon {
 	}
 
 	/**
-	 * È¡¿í
+	 * å–å®½
 	 */
 	public int getIconWidth() {
 		return w;
 	}
 
 	/**
-	 * È¡¸ß
+	 * å–é«˜
 	 */
 	public int getIconHeight() {
 		return h;

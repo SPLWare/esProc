@@ -15,10 +15,10 @@ import com.scudata.util.Variant;
 /**
  * 
  * @author yanjing
- * Fmirr(values,finance_rate,reinvest_rate)  ·µ»ØÄ³Ò»Á¬ĞøÆÚ¼äÄÚÏÖ½ğÁ÷µÄĞŞÕıÄÚ²¿ÊÕÒæÂÊ
- * @param valuesÎªÒ»¸öÊı×é¡£ÕâĞ©ÊıÖµ´ú±í×Å¸÷ÆÚµÄÒ»ÏµÁĞÖ§³ö£¨¸ºÖµ£©¼°ÊÕÈë£¨ÕıÖµ£©
- * @param Finance_rate ÎªÏÖ½ğÁ÷ÖĞÊ¹ÓÃµÄ×Ê½ğÖ§¸¶µÄÀûÂÊ¡£
- * @param Reinvest_rate Îª½«ÏÖ½ğÁ÷ÔÙÍ¶×ÊµÄÊÕÒæÂÊ
+ * Fmirr(values,finance_rate,reinvest_rate)  è¿”å›æŸä¸€è¿ç»­æœŸé—´å†…ç°é‡‘æµçš„ä¿®æ­£å†…éƒ¨æ”¶ç›Šç‡
+ * @param valuesä¸ºä¸€ä¸ªæ•°ç»„ã€‚è¿™äº›æ•°å€¼ä»£è¡¨ç€å„æœŸçš„ä¸€ç³»åˆ—æ”¯å‡ºï¼ˆè´Ÿå€¼ï¼‰åŠæ”¶å…¥ï¼ˆæ­£å€¼ï¼‰
+ * @param Finance_rate ä¸ºç°é‡‘æµä¸­ä½¿ç”¨çš„èµ„é‡‘æ”¯ä»˜çš„åˆ©ç‡ã€‚
+ * @param Reinvest_rate ä¸ºå°†ç°é‡‘æµå†æŠ•èµ„çš„æ”¶ç›Šç‡
  * 
  */
 public class Mirr extends Function {

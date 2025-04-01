@@ -11,60 +11,60 @@ import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.ide.common.EditListener;
 
 /**
- * Ö»¶ÁµÄÎÄ±¾¿ò
+ * åªè¯»çš„æ–‡æœ¬æ¡†
  *
  */
 public class JTextFieldReadOnly extends JTextField {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public JTextFieldReadOnly() {
 		this(0);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param columns
-	 *            ÁĞÊı
+	 *            åˆ—æ•°
 	 */
 	public JTextFieldReadOnly(int columns) {
 		this(new String(), columns);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param s
-	 *            ×Ö·û´®
+	 *            å­—ç¬¦ä¸²
 	 */
 	public JTextFieldReadOnly(String s) {
 		this(s, 0);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param s
-	 *            ×Ö·û´®
+	 *            å­—ç¬¦ä¸²
 	 * @param columns
-	 *            ÁĞÊı
+	 *            åˆ—æ•°
 	 */
 	public JTextFieldReadOnly(String s, int columns) {
 		this(s, columns, null);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param s
-	 *            ×Ö·û´®
+	 *            å­—ç¬¦ä¸²
 	 * @param columns
-	 *            ÁĞÊı
+	 *            åˆ—æ•°
 	 * @param el
-	 *            ¼àÌıÆ÷£¬²»ÎªnullÊ±¿ÉÒÔ±à¼­
+	 *            ç›‘å¬å™¨ï¼Œä¸ä¸ºnullæ—¶å¯ä»¥ç¼–è¾‘
 	 */
 	public JTextFieldReadOnly(String s, int columns, final EditListener el) {
 		super(s, columns);
@@ -81,7 +81,7 @@ public class JTextFieldReadOnly extends JTextField {
 					if (e != null) {
 						Object src = e.getSource();
 						if (src instanceof JTextField) {
-							// ²»¿ÉeditableµÄTextFieldÈÔÈ»ÄÜ½ÓÊÕµ½°´¼üÊÂ¼ş
+							// ä¸å¯editableçš„TextFieldä»ç„¶èƒ½æ¥æ”¶åˆ°æŒ‰é”®äº‹ä»¶
 							JTextField txt = (JTextField) src;
 							if (!txt.isEditable())
 								return;

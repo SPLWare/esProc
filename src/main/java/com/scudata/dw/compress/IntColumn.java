@@ -11,12 +11,12 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.HashUtil;
 
 public class IntColumn extends Column {
-	// ÓÃ×îĞ¡Öµ±íÊ¾null
+	// ç”¨æœ€å°å€¼è¡¨ç¤ºnull
 	private static final int NULL = Integer.MIN_VALUE;
 	
-	// Êı¾İ°´¿é´æ´¢£¬Ã¿¿é´æ·ÅColumn.BLOCK_RECORD_COUNTÌõ¼ÇÂ¼
+	// æ•°æ®æŒ‰å—å­˜å‚¨ï¼Œæ¯å—å­˜æ”¾Column.BLOCK_RECORD_COUNTæ¡è®°å½•
 	private ArrayList<int[]> blockList = new ArrayList<int[]>(1024);
-	private int lastRecordCount = Column.BLOCK_RECORD_COUNT; // ×îºóÒ»¿éµÄ¼ÇÂ¼Êı
+	private int lastRecordCount = Column.BLOCK_RECORD_COUNT; // æœ€åä¸€å—çš„è®°å½•æ•°
 	
 	public void addData(Object data) {
 		int value;
@@ -25,7 +25,7 @@ public class IntColumn extends Column {
 		} else if (data == null) {
 			value = NULL;
 		} else {
-			// Å×Òì³£
+			// æŠ›å¼‚å¸¸
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("ds.colTypeDif"));
 		}
@@ -41,9 +41,9 @@ public class IntColumn extends Column {
 		}
 	}
 	
-	// È¡µÚrowĞĞµÄÊı¾İ
+	// å–ç¬¬rowè¡Œçš„æ•°æ®
 	public Object getData(int row) {
-		// rowĞĞºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
+		// rowè¡Œå·ï¼Œä»1å¼€å§‹è®¡æ•°
 		row--;
 		int []block = blockList.get(row / Column.BLOCK_RECORD_COUNT);
 		int value = block[row % Column.BLOCK_RECORD_COUNT];
@@ -55,9 +55,9 @@ public class IntColumn extends Column {
 		}
 	}
 	
-	// È¡µÚrowĞĞµÄÊı¾İ
+	// å–ç¬¬rowè¡Œçš„æ•°æ®
 	public int getValue(int row) {
-		// rowĞĞºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
+		// rowè¡Œå·ï¼Œä»1å¼€å§‹è®¡æ•°
 		row--;
 		int []block = blockList.get(row / Column.BLOCK_RECORD_COUNT);
 		int value = block[row % Column.BLOCK_RECORD_COUNT];

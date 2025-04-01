@@ -17,7 +17,7 @@ import com.sforce.soap.enterprise.sobject.SObject;
 
 public class ImWsdlCommon {
 	/* 
-	 * 解析A.b字段数据，对应成拆分的参数subs
+	 * 瑙ｆ瀽A.b瀛楁鏁版嵁锛屽搴旀垚鎷嗗垎鐨勫弬鏁皊ubs
 	 * */
 	public static Object getSubRecord(Map<String, Method> mmap, String[] subs, SObject res) {
 		Object ret = null;
@@ -40,16 +40,16 @@ public class ImWsdlCommon {
 		return ret;
 	}
 	
-	//根据类实现返回getXXX()的方汿.
+	//鏍规嵁绫诲疄鐜拌繑鍥瀏etXXX()鐨勬柟姹�.
 	public static void doMapMethod(Map<String, Method> mmap, SObject sobj) {
 		try {
 			mmap.clear();
 			Class<?> catClass = Class.forName(sobj.getClass().getName());
 			if (catClass==null) return;
 			
-	        // 获得这个类的懿有方汿
+	        // 鑾峰緱杩欎釜绫荤殑鎳挎湁鏂规笨
 	        Method[] methods = catClass.getMethods();
-	        // 循环查找想要的方汿
+	        // 寰幆鏌ユ壘鎯宠鐨勬柟姹�
 	        String key = null;
 	        for(Method method : methods) {
 	        	if (method.getName().startsWith("get")) {
@@ -62,14 +62,14 @@ public class ImWsdlCommon {
 		}
 	}
 	
-	//解析记录类的数据，存为Table
+	//瑙ｆ瀽璁板綍绫荤殑鏁版嵁锛屽瓨涓篢able
 	public static Table getSubRecordOfClass(Object sobj) {
 		Table ret = null;
 		try {
 			Class<?> catClass = Class.forName(sobj.getClass().getName());
-	        // 获得这个类的懿有方汿
+	        // 鑾峰緱杩欎釜绫荤殑鎳挎湁鏂规笨
 	        Method[] methods = catClass.getMethods();
-	        // 循环查找想要的方汿
+	        // 寰幆鏌ユ壘鎯宠鐨勬柟姹�
 	        List<String> ks = new ArrayList<String>();
 	        List<Object> vs = new ArrayList<Object>();
 
@@ -94,14 +94,14 @@ public class ImWsdlCommon {
 	}
 	
 	/**
-	 * @功能ﺿ 解析 find下returning中N个Table返回值字欿
-	 * 若Table无返回㿼，则不记录.
+	 * @鍔熻兘锖� 瑙ｆ瀽 find涓媟eturning涓璑涓猅able杩斿洖鍊煎瓧娆�
+	 * 鑻able鏃犺繑鍥炪考锛屽垯涓嶈褰�.
 	 * @param sql 
-	 * 		查询的sql语句
-	 * 测试参数：String sql = "FIND {United Oil*} IN ALL FIELDS  RETURNING Account, Contact( name,email ),Goods, 
+	 * 		鏌ヨ鐨剆ql璇彞
+	 * 娴嬭瘯鍙傛暟锛歋tring sql = "FIND {United Oil*} IN ALL FIELDS  RETURNING Account, Contact( name,email ),Goods, 
 	 *						Opportunity( name  , StageName )";
 	 * @param map
-	 * 		用于记录表及其字欿
+	 * 		鐢ㄤ簬璁板綍琛ㄥ強鍏跺瓧娆�
 	 *******************/
 	public static void doReturning(String sql, Map<String, List<String>> map){
 		 if( sql==null ||sql.isEmpty())return;
@@ -134,7 +134,7 @@ public class ImWsdlCommon {
 						 vals.add(s);
 					 }
 				 }else{
-					 //形如format(AA) aa格式憿 format(current(AA)) aa格式
+					 //褰㈠format(AA) aa鏍煎紡鎲� format(current(AA)) aa鏍煎紡
 					 String reg = "\\(([\\w\\(\\)]+)\\)\\s+(\\w+)"; 
 					 Matcher m = Pattern.compile(reg).matcher(s);
 					 if (m.find()) {
@@ -165,7 +165,7 @@ public class ImWsdlCommon {
 		 }
 	 }
 	
-	//根据表名称查找对应的字段列表
+	//鏍规嵁琛ㄥ悕绉版煡鎵惧搴旂殑瀛楁鍒楄〃
 	public static List<String> getListCols( Map<String, List<String>> map, String key){
 		 List<String> ret = new ArrayList<String>();
 		 for(String k:map.keySet()){
@@ -177,7 +177,7 @@ public class ImWsdlCommon {
 		 return ret;
 	 }
 	
-	//根据表名称查找对应的字段数组
+	//鏍规嵁琛ㄥ悕绉版煡鎵惧搴旂殑瀛楁鏁扮粍
 	public static String[] getArrayCols( Map<String, List<String>> map, String key){
 		 String[] ret = null;
 		 for(String k:map.keySet()){
@@ -189,7 +189,7 @@ public class ImWsdlCommon {
 		 return ret;
 	 }
 	
-	//根据对象实例获取对象名称
+	//鏍规嵁瀵硅薄瀹炰緥鑾峰彇瀵硅薄鍚嶇О
 	public static String getClassName(SObject so){
 		if (so==null) return null;
 		
@@ -199,21 +199,21 @@ public class ImWsdlCommon {
 		return sName;
 	}
 	
-	//解析sql获取表名(包括子表)及其字段
+	//瑙ｆ瀽sql鑾峰彇琛ㄥ悕(鍖呮嫭瀛愯〃)鍙婂叾瀛楁
 	public static Map<String, List<String>> doSubTableInfo(String sql){
 		Map<String, List<String>> ret = new HashMap<String, List<String>>();	
 		Object result = SQLUtil.parse(sql, null);
 		if (result instanceof Sequence) {
 			Sequence seq = (Sequence)result;
-			String field = seq.get(1).toString();	//字段
-			//字段中的空格处理
+			String field = seq.get(1).toString();	//瀛楁
+			//瀛楁涓殑绌烘牸澶勭悊
 			field = field.replaceAll(" +", " ");
 			field = field.replaceAll("\\( ", "\\(");
 			String sField = field.toLowerCase();
 			String[] colArray = null;
 			List<String> colList = null;
 			String tableName = null;
-			String kCols = "";						//主表字段
+			String kCols = "";						//涓昏〃瀛楁
 			int nOff = 0;
 			do{
 				int nStart = sField.indexOf("(select ");
@@ -242,7 +242,7 @@ public class ImWsdlCommon {
 					break;
 				}
 				
-				if (nStart<nEnd && nEnd>-1){ //判断是否有子sql
+				if (nStart<nEnd && nEnd>-1){ //鍒ゆ柇鏄惁鏈夊瓙sql
 					String cols = field.substring(nStart+7, nEnd);
 					cols = cols.replaceAll(" +", "");
 					colArray = cols.split(",");

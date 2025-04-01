@@ -9,7 +9,7 @@ import com.scudata.chart.*;
 import com.scudata.ide.common.swing.*;
 
 /**
- * Ö±Ïß¼ıÍ·ÏÂÀ­ÁĞ±í
+ * ç›´çº¿ç®­å¤´ä¸‹æ‹‰åˆ—è¡¨
  * 
  * @author Joancy
  *
@@ -18,10 +18,10 @@ public class ArrowComboBox extends JComboBox<Object> {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹½¨Ò»¸öÏÂÀ­ÁĞ±í
-	 * @param isSimpleArrow ÊÇ·ñ½ö±à¼­¼òµ¥¼ıÍ·
-	 * ¼òµ¥¼ıÍ·Ê±½ö×óÓÒÎŞÈıÖÖ£¬¼òµ¥ÀàĞÍÓÃÓÚÕÛÏßÍ¼µÄÖ¸Ïò
-	 * ·ñÔòÓĞ¶àÖÖ¼ıÍ·ÀàĞÍ
+	 * æ„å»ºä¸€ä¸ªä¸‹æ‹‰åˆ—è¡¨
+	 * @param isSimpleArrow æ˜¯å¦ä»…ç¼–è¾‘ç®€å•ç®­å¤´
+	 * ç®€å•ç®­å¤´æ—¶ä»…å·¦å³æ— ä¸‰ç§ï¼Œç®€å•ç±»å‹ç”¨äºæŠ˜çº¿å›¾çš„æŒ‡å‘
+	 * å¦åˆ™æœ‰å¤šç§ç®­å¤´ç±»å‹
 	 */
 	public ArrowComboBox(boolean isSimpleArrow) {
 		Object[] vals;
@@ -51,8 +51,8 @@ public class ArrowComboBox extends JComboBox<Object> {
 	}
 
 	/**
-	 * »ñÈ¡ÏÂÀ­Öµ
-	 * @return ¼ıÍ·µÄÕûÊıÖµ
+	 * è·å–ä¸‹æ‹‰å€¼
+	 * @return ç®­å¤´çš„æ•´æ•°å€¼
 	 */
 	public int getValue() {
 		return ( ( Integer ) getEditor().getItem() ).intValue();
@@ -126,7 +126,7 @@ class ArrowRender extends JLabel implements ListCellRenderer, TableCellRenderer 
 	}
 
 	/**
-	 * ÊµÏÖ¸¸Àà³éÏó·½·¨
+	 * å®ç°çˆ¶ç±»æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
 		setText( " " );
@@ -149,7 +149,7 @@ class ArrowRender extends JLabel implements ListCellRenderer, TableCellRenderer 
 }
 
 /**
- * ¼ıÍ·Í¼±ê»æÖÆÀà
+ * ç®­å¤´å›¾æ ‡ç»˜åˆ¶ç±»
  * 
  * @author Joancy
  *
@@ -174,7 +174,7 @@ class ArrowIcon implements Icon {
 			int x2 = x+width-15;
 			int y2 = y1;
 			g.drawLine( x1, y1, x2, y2 );
-			if(type==Consts.LINE_ARROW_L){//×ó¼ıÍ·Ê±£¬¸ø¶¨×ó¶Ëµã
+			if(type==Consts.LINE_ARROW_L){//å·¦ç®­å¤´æ—¶ï¼Œç»™å®šå·¦ç«¯ç‚¹
 				Utils.drawLineArrow( ( Graphics2D ) g, x1, y1, 0, type );
 				return;
 			}

@@ -6,9 +6,9 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.server.unit.UnitServer;
 
 /**
- * Ô¶³ÌÓÎ±ê´úÀí
- * ½ûÖ¹Ê¹ÓÃ»º³åÒ»ÐÐÀ´¶ÁÈ¡Êý¾Ý½á¹¹£¬µ±ÓÎ±ê¼ÇÂ¼Îª¿ÕÊ±£¬²ÉÓÃrow»º³å¶ÁÁËÒ»ÐÐºó£¬»á×Ô¶¯closeµô¸ÃÓÎ±ê
- * È»ºóÔì³ÉºóÐøÓÎ±ê²Ù×÷³ö´í£¨ÓÎ±ê±»¹ØÁË£¬¾ÍÃ»ÁË£©
+ * è¿œç¨‹æ¸¸æ ‡ä»£ç†
+ * ç¦æ­¢ä½¿ç”¨ç¼“å†²ä¸€è¡Œæ¥è¯»å–æ•°æ®ç»“æž„ï¼Œå½“æ¸¸æ ‡è®°å½•ä¸ºç©ºæ—¶ï¼Œé‡‡ç”¨rowç¼“å†²è¯»äº†ä¸€è¡ŒåŽï¼Œä¼šè‡ªåŠ¨closeæŽ‰è¯¥æ¸¸æ ‡
+ * ç„¶åŽé€ æˆåŽç»­æ¸¸æ ‡æ“ä½œå‡ºé”™ï¼ˆæ¸¸æ ‡è¢«å…³äº†ï¼Œå°±æ²¡äº†ï¼‰
  * @author Joancy
  *
  */
@@ -20,18 +20,18 @@ public class RemoteCursorProxy extends ICursor {
 	private long lastAccessTime = -1;
 	
 	/**
-	 * ¹¹ÔìÔ¶³ÌÓÎ±ê´úÀí
-	 * @param cs ÓÎ±ê
+	 * æž„é€ è¿œç¨‹æ¸¸æ ‡ä»£ç†
+	 * @param cs æ¸¸æ ‡
 	 */
 	public RemoteCursorProxy(ICursor cs) {
 		this(null,cs,-1);
 	}
 	
 	/**
-	 * ¹¹ÔìÔ¶³ÌÓÎ±ê´úÀí
-	 * @param rcpm Ô¶³ÌÓÎ±ê´úÀí¹ÜÀíÆ÷
-	 * @param cs ÓÎ±ê¶ÔÏó
-	 * @param id ´úÀí±àºÅ
+	 * æž„é€ è¿œç¨‹æ¸¸æ ‡ä»£ç†
+	 * @param rcpm è¿œç¨‹æ¸¸æ ‡ä»£ç†ç®¡ç†å™¨
+	 * @param cs æ¸¸æ ‡å¯¹è±¡
+	 * @param id ä»£ç†ç¼–å·
 	 */
 	public RemoteCursorProxy(RemoteCursorProxyManager rcpm, ICursor cs, int id) {
 		if(rcpm==null){
@@ -59,14 +59,14 @@ public class RemoteCursorProxy extends ICursor {
 	}
 
 	/**
-	 * Ïú»Ùµ±Ç°¶ÔÏó
+	 * é”€æ¯å½“å‰å¯¹è±¡
 	 */
 	public void destroy() {
 		cs.close();
 	}
 
 	/**
-	 * ¹Ø±ÕÊ±½«µ±Ç°´úÀí´ÓÈÎÎñÖÐµÄ´úÀíÁÐ±íÖÐÉ¾³ý
+	 * å…³é—­æ—¶å°†å½“å‰ä»£ç†ä»Žä»»åŠ¡ä¸­çš„ä»£ç†åˆ—è¡¨ä¸­åˆ é™¤
 	 */
 	public synchronized void close() {
 		destroy();
@@ -80,14 +80,14 @@ public class RemoteCursorProxy extends ICursor {
 	}
 
 	/**
-	 * ÊµÏÖtoStringÎÄ±¾ÃèÊö
+	 * å®žçŽ°toStringæ–‡æœ¬æè¿°
 	 */
 	public String toString() {
 		return "RemoteCursorProxy :" + proxyId;
 	}
 	
 	/**
-	 * È¡Êý¾Ý½á¹¹
+	 * å–æ•°æ®ç»“æž„
 	 */
 	public DataStruct getDataStruct() {
 		if(dataStruct!=null) return dataStruct;
@@ -101,12 +101,12 @@ public class RemoteCursorProxy extends ICursor {
 	}
 
 	/**
-	 * ³¬Ê±¼ì²é
-	 * @param timeOut ³¬Ê±µÄÊ±¼ä
-	 * @return Èç¹û³¬Ê±ÔòÏú»Ù¶ÔÏó£¬·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è¶…æ—¶æ£€æŸ¥
+	 * @param timeOut è¶…æ—¶çš„æ—¶é—´
+	 * @return å¦‚æžœè¶…æ—¶åˆ™é”€æ¯å¯¹è±¡ï¼Œè¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalse
 	 */
 	public boolean checkTimeOut(int timeOut) {
-		// »»Ëã³ÉÃë£¬timeOutµ¥Î»ÎªÃë
+		// æ¢ç®—æˆç§’ï¼ŒtimeOutå•ä½ä¸ºç§’
 		if ((System.currentTimeMillis() - lastAccessTime) / 1000 > timeOut) {
 			Logger.info(this + " is timeout.");
 			destroy();

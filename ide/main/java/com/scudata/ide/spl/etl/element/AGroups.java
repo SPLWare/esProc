@@ -11,15 +11,15 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ A.groups()
- * º¯ÊıÃûÇ°×ºA±íÊ¾Ğò±í
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ A.groups()
+ * å‡½æ•°åå‰ç¼€Aè¡¨ç¤ºåºè¡¨
  * 
  * @author Joancy
  *
  */
 public class AGroups extends ObjectElement {
-	public ArrayList<FieldDefine> groupExps;//·Ö×é±í´ïÊ½
-	public ArrayList<FieldDefine> aggregateExps;//¾ÛºÏ±í´ïÊ½
+	public ArrayList<FieldDefine> groupExps;//åˆ†ç»„è¡¨è¾¾å¼
+	public ArrayList<FieldDefine> aggregateExps;//èšåˆè¡¨è¾¾å¼
 	
 	public boolean o;
 	public boolean n;
@@ -30,7 +30,7 @@ public class AGroups extends ObjectElement {
 	public boolean h;
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -52,17 +52,17 @@ public class AGroups extends ObjectElement {
 
 
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
-	 * @return Ç°×ºA¿ªÍ·µÄº¯Êı£¬¾ù·µ»ØEtlConsts.TYPE_SEQUENCE
+	 * @return å‰ç¼€Aå¼€å¤´çš„å‡½æ•°ï¼Œå‡è¿”å›EtlConsts.TYPE_SEQUENCE
 	 */
 	public byte getParentType() {
 		return EtlConsts.TYPE_SEQUENCE;
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_SEQUENCE
 	 */
 	public byte getReturnType() {
@@ -70,23 +70,23 @@ public class AGroups extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄÑ¡Ïî´®
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„é€‰é¡¹ä¸²
 	 */
 	public String optionString(){
 		StringBuffer options = new StringBuffer();
 		if(o){
 			options.append("o");
 		}
-		if(n && !o){//o n»¥³â
+		if(n && !o){//o näº’æ–¥
 			options.append("n");
 		}
-		if(u && !(o || n)){//Óëo,n»¥³â
+		if(u && !(o || n)){//ä¸o,näº’æ–¥
 			options.append("u");
 		}
 		if(i){
 			options.append("i");
 		}
-		if(m && !(o || i)){//Óëo,i»¥³â
+		if(m && !(o || i)){//ä¸o,iäº’æ–¥
 			options.append("m");
 		}
 		if(zero){
@@ -99,15 +99,15 @@ public class AGroups extends ObjectElement {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÃû
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°å
 	 */
 	public String getFuncName() {
 		return "groups";
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÌå
-	 * ¸úsetFuncBodyÊÇÄæº¯Êı£¬È»ºó±í´ïÊ½µÄ¸³ÖµÒ²×ÜÊÇ»¥ÄæµÄ
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°ä½“
+	 * è·ŸsetFuncBodyæ˜¯é€†å‡½æ•°ï¼Œç„¶åè¡¨è¾¾å¼çš„èµ‹å€¼ä¹Ÿæ€»æ˜¯äº’é€†çš„
 	 */
 	public String getFuncBody() {
 		StringBuffer sb = new StringBuffer();
@@ -121,8 +121,8 @@ public class AGroups extends ObjectElement {
 	}
 
 	/**
-	 * ÉèÖÃº¯ÊıÌå
-	 * @param funcBody º¯ÊıÌå
+	 * è®¾ç½®å‡½æ•°ä½“
+	 * @param funcBody å‡½æ•°ä½“
 	 */
 	public boolean setFuncBody(String funcBody) {
 		StringTokenizer st = new StringTokenizer(funcBody,";");

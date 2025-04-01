@@ -10,28 +10,28 @@ import com.scudata.util.Variant;
 
 
 /**
- * »ùÓÚ¹Ì¶¨ÀûÂÊºÍµÈ¶î±¾Ï¢µÄ´û¿îÄ£Ê½,·µ»Ø¸ø¶¨ÆÚÊıµÄ³¥»¹¶î»ò±¾½ğ»òÀûÏ¢¡£
+ * åŸºäºå›ºå®šåˆ©ç‡å’Œç­‰é¢æœ¬æ¯çš„è´·æ¬¾æ¨¡å¼,è¿”å›ç»™å®šæœŸæ•°çš„å¿è¿˜é¢æˆ–æœ¬é‡‘æˆ–åˆ©æ¯ã€‚
  * @author yanjing
  * 
- * Fpmt@t(rate,nper,pv,fv)	pmt	  Ëã±¾Ï¢
-	@i(rate,nper:per,pv,fv)	ipmt  ËãÀûÏ¢
-	@p(rate,nper:per,pv,fv)	ppmt  Ëã±¾½ğ
+ * Fpmt@t(rate,nper,pv,fv)	pmt	  ç®—æœ¬æ¯
+	@i(rate,nper:per,pv,fv)	ipmt  ç®—åˆ©æ¯
+	@p(rate,nper:per,pv,fv)	ppmt  ç®—æœ¬é‡‘
 
- * @param Rate ÎªÃ¿ÆÚµÄÀûÂÊ, ÆäÊıÖµÔÚÕû¸öÄê½ğÆÚ¼ä±£³Ö²»±ä¡£
- * @param per	Òª¼ÆËã±¾½ğ»òÀûÏ¢µÄÆÚÊı
- * @param Nper Îª×Ü¸¶¿îÆÚÊı¡£
- * @param Pv ÎªÏÖÖµ,Ïàµ±ÓÚ´û¿î±¾½ğ¡£
- * @param Fv ÎªÎ´À´Öµ£¬¼´×îºóÒ»ÆÚ»¹¿îºóÊ£ÓàµÄ´û¿î¶î¡£
+ * @param Rate ä¸ºæ¯æœŸçš„åˆ©ç‡, å…¶æ•°å€¼åœ¨æ•´ä¸ªå¹´é‡‘æœŸé—´ä¿æŒä¸å˜ã€‚
+ * @param per	è¦è®¡ç®—æœ¬é‡‘æˆ–åˆ©æ¯çš„æœŸæ•°
+ * @param Nper ä¸ºæ€»ä»˜æ¬¾æœŸæ•°ã€‚
+ * @param Pv ä¸ºç°å€¼,ç›¸å½“äºè´·æ¬¾æœ¬é‡‘ã€‚
+ * @param Fv ä¸ºæœªæ¥å€¼ï¼Œå³æœ€åä¸€æœŸè¿˜æ¬¾åå‰©ä½™çš„è´·æ¬¾é¢ã€‚
  * @return
  * 
- * Èç¹ûtype=0:
+ * å¦‚æœtype=0:
  * 		pmt=-(pv*(1+rate)^nper+fv)*rate/((1+rate)^nper-1)
  * 		pmt@p=-(pv+fv)*(1+rate)^(per-1)*rate/((1+rate)^nper-1)
  * 		pmt@i=-(pv*((1+rate)^nper-(1+rate)^(per-1))-fv*((1+rate)^(per-1)-1))*rate/((1+rate)^nper-1)
 
- * Èç¹ûtype=1:
+ * å¦‚æœtype=1:
  * 		pmt=-(pv(1+rate)^(nper-1)+fv)/((1+rate)^(nper-1)+[(1+rate)^(nper-1) - 1]/rate)
- * 		pmt@i=-(A(1+¦Â)^(n-2)-(A(1+¦Â)^(m-1)+fv)*((1+¦Â)^(n-1)-1)/((1+¦Â)^m-1))*¦Â
+ * 		pmt@i=-(A(1+Î²)^(n-2)-(A(1+Î²)^(m-1)+fv)*((1+Î²)^(n-1)-1)/((1+Î²)^m-1))*Î²
  * 		pmt@p=-(pv*rate(1+rate)^(m-1)+fv*rate)(1+rate)^(n-1)/((1+rate)^m-1)+pv*rate(1+rate)^(n-2)
 
  */

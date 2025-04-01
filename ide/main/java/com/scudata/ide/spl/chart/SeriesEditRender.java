@@ -10,7 +10,7 @@ import com.scudata.ide.common.swing.*;
 import com.scudata.ide.spl.resources.*;
 
 /**
- * ²ÎÊıĞòÁĞÖµµÄ±í¸ñäÖÈ¾Æ÷
+ * å‚æ•°åºåˆ—å€¼çš„è¡¨æ ¼æ¸²æŸ“å™¨
  * 
  * @author Joancy
  *
@@ -23,15 +23,15 @@ public class SeriesEditRender extends JLabel implements TableCellRenderer {
 	private static final long serialVersionUID = -4706869567924036200L;
 
 	/**
-	 * È±Ê¡ÖµµÄ¹¹Ôìº¯Êı
+	 * ç¼ºçœå€¼çš„æ„é€ å‡½æ•°
 	 */
 	public SeriesEditRender() {
 		setHorizontalAlignment(JLabel.CENTER);
-		this.setToolTipText( ChartMessage.get().getMessage( "tips.toseriesedit" ) );  //"¼ÓÈëµ½ĞòÁĞÂ¼Èë±í±à¼­" );
+		this.setToolTipText( ChartMessage.get().getMessage( "tips.toseriesedit" ) );  //"åŠ å…¥åˆ°åºåˆ—å½•å…¥è¡¨ç¼–è¾‘" );
 	}
 
 	/**
-	 * ÊµÏÖ¸¸Àà³éÏó·½·¨
+	 * å®ç°çˆ¶ç±»æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
 		setBorder( BorderFactory.createEmptyBorder() );

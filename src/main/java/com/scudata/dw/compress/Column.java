@@ -5,21 +5,21 @@ import java.io.IOException;
 import com.scudata.dw.BufferReader;
 
 /**
- * ÄÚ´æÁĞ
- * Ê¹ÓÃ»ù´¡ÀàĞÍ´æÒ»ÁĞÊı¾İ
+ * å†…å­˜åˆ—
+ * ä½¿ç”¨åŸºç¡€ç±»å‹å­˜ä¸€åˆ—æ•°æ®
  * @author runqian
  *
  */
 public abstract class Column implements Cloneable {
-	public static final int BLOCK_RECORD_COUNT = 8192; // Ã¿¿é¼ÇÂ¼Êı
+	public static final int BLOCK_RECORD_COUNT = 8192; // æ¯å—è®°å½•æ•°
 	/**
-	 * ×·¼ÓÒ»ĞĞµÄÊı¾İ
+	 * è¿½åŠ ä¸€è¡Œçš„æ•°æ®
 	 * @param data
 	 */
 	abstract public void addData(Object data);
 	
 	/**
-	 * È¡µÚrowĞĞµÄÊı¾İ
+	 * å–ç¬¬rowè¡Œçš„æ•°æ®
 	 * @param row
 	 * @return
 	 */
@@ -28,7 +28,7 @@ public abstract class Column implements Cloneable {
 	abstract public Column clone();
 	
 	/**
-	 * ´Óbr¶¼Ò»¸ö¶ÔÏó£¬×·¼Óµ½ÁĞ
+	 * ä»bréƒ½ä¸€ä¸ªå¯¹è±¡ï¼Œè¿½åŠ åˆ°åˆ—
 	 * @param br
 	 * @throws IOException
 	 */

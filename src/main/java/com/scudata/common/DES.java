@@ -584,7 +584,7 @@ public class DES {
 	public static void main(String[] args) throws Exception
 	{
 		DES des = new DES("1234567890");
-		String s = "abcdefghÖÐ¹úÈËÃñ½â·Å¾ü";
+		String s = "abcdefghä¸­å›½äººæ°‘è§£æ”¾å†›";
 		//for( int i = 0; i < 10; i++ )
 		//	s += s;
 		byte[] bs = s.getBytes("utf-8");
@@ -603,7 +603,7 @@ public class DES {
 
 		//System.out.println(new Date());
 		//for (int i=0; i<100000; i++) {
-		//	bs = des.encrypt(bs, 400);//°ü³¤¶È£¬8µÄ±¶Êý
+		//	bs = des.encrypt(bs, 400);//åŒ…é•¿åº¦ï¼Œ8çš„å€æ•°
 		//	bs = des.decrypt(bs, 400);
 		//}
 		//System.out.println(new Date());

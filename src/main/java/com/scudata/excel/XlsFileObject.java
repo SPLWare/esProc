@@ -306,11 +306,11 @@ public abstract class XlsFileObject extends Table implements IResource {
 			pos2 = new CellLocation(Math.max(row1, row2), Math.max(col1, col2));
 		} else {
 			if (content == null) {
-				// a:±íÊ¾²»ÏŞÖÆ£¬È¡µ½sheetµÄ×îºó
+				// a:è¡¨ç¤ºä¸é™åˆ¶ï¼Œå–åˆ°sheetçš„æœ€å
 				pos2 = new CellLocation(sx.sheetInfo.getRowCount(),
 						sx.sheetInfo.getColCount());
 			} else {
-				// a:±íÊ¾²»ÏŞÖÆ£¬½«contentÈ«²¿ÉèÖÃ£¬»òÕßÉèÖÃµ½ĞĞÁĞÉÏÏŞ
+				// a:è¡¨ç¤ºä¸é™åˆ¶ï¼Œå°†contentå…¨éƒ¨è®¾ç½®ï¼Œæˆ–è€…è®¾ç½®åˆ°è¡Œåˆ—ä¸Šé™
 				pos2 = new CellLocation(sx.getMaxRowCount(),
 						sx.getMaxColCount());
 			}
@@ -376,7 +376,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 	}
 
 	/**
-	 * °ÑxoÖĞÃûÎªsµÄsheetÒÆ¶¯µ½xo¡¯£¬ÃüÃûÎªs¡¯£» xo¡¯Ê¡ÂÔ£¬±íÊ¾sheet¸ÄÃû£¬s¡¯Ò²Ê¡ÂÔ±íÊ¾É¾³ı£» xo¡¯Î´Ê¡ÂÔ£¬s¡¯Ê¡ÂÔ±íÊ¾ÓÃsµÄÔ­Ãû
+	 * æŠŠxoä¸­åä¸ºsçš„sheetç§»åŠ¨åˆ°xoâ€™ï¼Œå‘½åä¸ºsâ€™ï¼› xoâ€™çœç•¥ï¼Œè¡¨ç¤ºsheetæ”¹åï¼Œsâ€™ä¹Ÿçœç•¥è¡¨ç¤ºåˆ é™¤ï¼› xoâ€™æœªçœç•¥ï¼Œsâ€™çœç•¥è¡¨ç¤ºç”¨sçš„åŸå
 	 * 
 	 * @param s
 	 * @param s1
@@ -387,29 +387,29 @@ public abstract class XlsFileObject extends Table implements IResource {
 			throws Exception {
 		FileXls fileXls = (FileXls) this;
 		if (xo1 == null) {
-			if (s1 == null) { // É¾³ı
+			if (s1 == null) { // åˆ é™¤
 				int sheetIndex = fileXls.wb.getSheetIndex(s);
 				fileXls.wb.removeSheetAt(sheetIndex);
 				removeSheet(s);
 			} else {
-				if (isCopy) {// ¹¤×÷²¾ÄÚ¸´ÖÆ
+				if (isCopy) {// å·¥ä½œç°¿å†…å¤åˆ¶
 					fileXls.cloneSheet(s, s1);
-				} else { // ¸ÄÃû
+				} else { // æ”¹å
 					rename(s, s1);
 				}
 			}
 		} else {
-			// °ÑxoÖĞÃûÎªsµÄsheetÒÆ¶¯»ò¸´ÖÆµ½xo¡¯
+			// æŠŠxoä¸­åä¸ºsçš„sheetç§»åŠ¨æˆ–å¤åˆ¶åˆ°xoâ€™
 			FileXls fileXls1 = ((FileXls) xo1);
 			String toSheetName = StringUtils.isValidString(s1) ? s1 : s;
-			// ´´½¨¹¤×÷±í£¬Èç¹ûÒÑ¾­´æÔÚÔòÉ¾³ı
+			// åˆ›å»ºå·¥ä½œè¡¨ï¼Œå¦‚æœå·²ç»å­˜åœ¨åˆ™åˆ é™¤
 			xo1.getSheetObject(toSheetName, true, true);
 			int fromSheetIndex = fileXls.wb.getSheetIndex(s);
 			int toSheetIndex = fileXls1.wb.getSheetIndex(toSheetName);
 			copySheet(fileXls.wb, fileXls.wb.getSheetAt(fromSheetIndex),
 					fileXls1.wb, fileXls1.wb.getSheetAt(toSheetIndex),
 					moveStyleMap);
-			// ÒÆ¶¯Ê±É¾³ıÔ­sheet
+			// ç§»åŠ¨æ—¶åˆ é™¤åŸsheet
 			if (!isCopy) {
 				int sheetIndex = fileXls.wb.getSheetIndex(s);
 				fileXls.wb.removeSheetAt(sheetIndex);
@@ -419,29 +419,29 @@ public abstract class XlsFileObject extends Table implements IResource {
 	}
 
 	/**
-	 * ±ÜÃâÉú³ÉÖØ¸´µÄÑùÊ½£¬Í¬Ò»¹¤×÷²¾µÄÃ¿´Îxlsmove¶¼Ê¹ÓÃÍ¬Ò»¸öÑùÊ½±í£¬·ñÔò»áÔì³Éxlsx×ªxlsÊ±ÓĞµÄÑùÊ½Ã»¸´ÖÆ¹ıÀ´
+	 * é¿å…ç”Ÿæˆé‡å¤çš„æ ·å¼ï¼ŒåŒä¸€å·¥ä½œç°¿çš„æ¯æ¬¡xlsmoveéƒ½ä½¿ç”¨åŒä¸€ä¸ªæ ·å¼è¡¨ï¼Œå¦åˆ™ä¼šé€ æˆxlsxè½¬xlsæ—¶æœ‰çš„æ ·å¼æ²¡å¤åˆ¶è¿‡æ¥
 	 */
 	private Map<Integer, CellStyle> moveStyleMap = new HashMap<Integer, CellStyle>();
 
 	/**
-	 * ¸´ÖÆsheetµ½ÁíÒ»¸öexcel¹¤×÷²¾
+	 * å¤åˆ¶sheetåˆ°å¦ä¸€ä¸ªexcelå·¥ä½œç°¿
 	 * 
 	 * @param fromWorkbook
 	 * @param fromSheet
 	 * @param toWorkbook
 	 * @param toSheet
 	 * @param styleMap
-	 *            ±ÜÃâÉú³ÉÖØ¸´µÄÑùÊ½£¬Ã¿¸öxo³ÖÓĞÒ»¸ö
+	 *            é¿å…ç”Ÿæˆé‡å¤çš„æ ·å¼ï¼Œæ¯ä¸ªxoæŒæœ‰ä¸€ä¸ª
 	 */
 	private void copySheet(Workbook fromWorkbook, Sheet fromSheet,
 			Workbook toWorkbook, Sheet toSheet, Map<Integer, CellStyle> styleMap) {
 		boolean fromXlsx = fromSheet instanceof XSSFSheet;
 		boolean toXlsx = toSheet instanceof XSSFSheet;
 		boolean isSameFileType = fromXlsx == toXlsx;
-		// ¹«Ê½¼ÆËã
+		// å…¬å¼è®¡ç®—
 		toSheet.setForceFormulaRecalculation(fromSheet
 				.getForceFormulaRecalculation());
-		// Ìõ¼ş±í´ïÊ½
+		// æ¡ä»¶è¡¨è¾¾å¼
 		SheetConditionalFormatting scf = fromSheet
 				.getSheetConditionalFormatting();
 		SheetConditionalFormatting toSheetConditionFormat = toSheet
@@ -450,7 +450,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 			toSheetConditionFormat.addConditionalFormatting(scf
 					.getConditionalFormattingAt(i));
 		}
-		// ¶³½áĞĞÁĞĞÅÏ¢
+		// å†»ç»“è¡Œåˆ—ä¿¡æ¯
 		PaneInformation paneInformation = fromSheet.getPaneInformation();
 		if (Objects.nonNull(paneInformation)) {
 			toSheet.createFreezePane(
@@ -459,20 +459,20 @@ public abstract class XlsFileObject extends Table implements IResource {
 					paneInformation.getHorizontalSplitTopRow(),
 					paneInformation.getVerticalSplitLeftColumn());
 		}
-		// ºÏ²¢µ¥Ôª¸ñ
+		// åˆå¹¶å•å…ƒæ ¼
 		int numMergedRegions = fromSheet.getNumMergedRegions();
 		for (int i = 0; i < numMergedRegions; i++) {
 			CellRangeAddress mergedRegion = fromSheet.getMergedRegion(i);
 			toSheet.addMergedRegion(mergedRegion.copy());
 		}
-		// Ôö¼ÓÁĞ¿í
+		// å¢åŠ åˆ—å®½
 		int physicalNumberOfCells = fromSheet.getRow(0)
 				.getPhysicalNumberOfCells();
 		for (int i = 0; i < physicalNumberOfCells; i++) {
 			toSheet.setColumnWidth(i, 256 * 20);
 		}
 
-		// ÉèÖÃĞĞ
+		// è®¾ç½®è¡Œ
 		int maxColumnNum = 0;
 		for (int i = fromSheet.getFirstRowNum(), lastRow = fromSheet
 				.getLastRowNum(); i <= lastRow; i++) {
@@ -481,40 +481,40 @@ public abstract class XlsFileObject extends Table implements IResource {
 			if (fromRow == null) {
 				continue;
 			}
-			// ĞĞ¸ß
+			// è¡Œé«˜
 			toRow.setHeight(fromRow.getHeight());
-			// ĞĞÒş²Ø
+			// è¡Œéšè—
 			toRow.setZeroHeight(fromRow.getZeroHeight());
-			// ĞĞºÅ
+			// è¡Œå·
 			toRow.setRowNum(fromRow.getRowNum());
-			// ĞĞ¸ñÊ½
+			// è¡Œæ ¼å¼
 			CellStyle fromRowStyle = fromRow.getRowStyle();
 			CellStyle toRowStyle = cloneCellStyle(fromWorkbook, fromRowStyle,
 					toWorkbook, styleMap, isSameFileType);
 			if (toRowStyle != null)
 				toRow.setRowStyle(toRowStyle);
 
-			// »ñÈ¡µ±Ç°ĞĞ×î´óÁĞÊı
+			// è·å–å½“å‰è¡Œæœ€å¤§åˆ—æ•°
 			int jn = fromRow.getFirstCellNum() < 0 ? 0 : fromRow
 					.getFirstCellNum();
 			int lastCol = fromRow.getLastCellNum();
 			if (lastCol > maxColumnNum) {
 				maxColumnNum = lastCol;
 			}
-			// ÉèÖÃ¸ñ
+			// è®¾ç½®æ ¼
 			for (int j = jn; j <= lastCol; j++) {
 				Cell fromCell = fromRow.getCell(j);
 				Cell toCell = toRow.createCell(j);
 				if (fromCell == null) {
 					continue;
 				}
-				// ÉèÖÃµ¥Ôª¸ñÑùÊ½
+				// è®¾ç½®å•å…ƒæ ¼æ ·å¼
 				CellStyle fromCellStyle = fromCell.getCellStyle();
 				CellStyle toCellStyle = cloneCellStyle(fromWorkbook,
 						fromCellStyle, toWorkbook, styleMap, isSameFileType);
 				if (toCellStyle != null)
 					toCell.setCellStyle(toCellStyle);
-				// ÉèÖÃ¸ñÖµ
+				// è®¾ç½®æ ¼å€¼
 				switch (fromCell.getCellType()) {
 				case NUMERIC:
 					if (DateUtil.isCellDateFormatted(fromCell)) {
@@ -545,11 +545,11 @@ public abstract class XlsFileObject extends Table implements IResource {
 			}
 		}
 
-		// ÉèÖÃÁĞ
+		// è®¾ç½®åˆ—
 		for (int i = 0; i <= maxColumnNum; i++) {
-			// ÉèÖÃÁĞ¿í
+			// è®¾ç½®åˆ—å®½
 			toSheet.setColumnWidth(i, fromSheet.getColumnWidth(i));
-			// ÁĞÒş²Ø
+			// åˆ—éšè—
 			toSheet.setColumnHidden(i, fromSheet.isColumnHidden(i));
 
 			if (fromSheet.isColumnBroken(i))
@@ -558,18 +558,18 @@ public abstract class XlsFileObject extends Table implements IResource {
 	}
 
 	/**
-	 * ¿ËÂ¡ÑùÊ½
+	 * å…‹éš†æ ·å¼
 	 * 
 	 * @param fromWorkbook
-	 *            Ô´¹¤×÷²¾
+	 *            æºå·¥ä½œç°¿
 	 * @param fromStyle
-	 *            Ô´ÑùÊ½
+	 *            æºæ ·å¼
 	 * @param toWorkbook
-	 *            Ä¿±ê¹¤×÷²¾
+	 *            ç›®æ ‡å·¥ä½œç°¿
 	 * @param styleMap
-	 *            ´æ´¢ÏàÍ¬ÑùÊ½·ÀÖ¹¶à´Î´´½¨
+	 *            å­˜å‚¨ç›¸åŒæ ·å¼é˜²æ­¢å¤šæ¬¡åˆ›å»º
 	 * @param isSameFileType
-	 *            ¹¤×÷²¾ÊÇ·ñÏàÍ¬¸ñÊ½£¨XLS,XLSX£©
+	 *            å·¥ä½œç°¿æ˜¯å¦ç›¸åŒæ ¼å¼ï¼ˆXLS,XLSXï¼‰
 	 * @return
 	 */
 	private CellStyle cloneCellStyle(Workbook fromWorkbook,
@@ -585,7 +585,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 			if (isSameFileType) {
 				toStyle.cloneStyleFrom(fromStyle);
 			} else {
-				// poi²»Ö§³ÖxlsxºÍxlsÖ®¼äµÄ¸´ÖÆ£¬ĞèÒª×Ô¼ºÊµÏÖ
+				// poiä¸æ”¯æŒxlsxå’Œxlsä¹‹é—´çš„å¤åˆ¶ï¼Œéœ€è¦è‡ªå·±å®ç°
 				copyCellStyle(fromWorkbook, fromStyle, toWorkbook, toStyle);
 			}
 			styleMap.put(stHashCode, toStyle);
@@ -594,7 +594,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 	}
 
 	/**
-	 * XLSºÍXLSXÖ®¼ä²»Ö§³ÖcloneStyle£¬ĞèÒª×Ô¼º¸´ÖÆ
+	 * XLSå’ŒXLSXä¹‹é—´ä¸æ”¯æŒcloneStyleï¼Œéœ€è¦è‡ªå·±å¤åˆ¶
 	 * 
 	 * @param fromWorkbook
 	 * @param fromStyle
@@ -603,11 +603,11 @@ public abstract class XlsFileObject extends Table implements IResource {
 	 */
 	private void copyCellStyle(Workbook fromWorkbook, CellStyle fromStyle,
 			Workbook toWorkbook, CellStyle toStyle) {
-		// Ë®Æ½´¹Ö±¶ÔÆë·½Ê½
+		// æ°´å¹³å‚ç›´å¯¹é½æ–¹å¼
 		toStyle.setAlignment(fromStyle.getAlignment());
 		toStyle.setVerticalAlignment(fromStyle.getVerticalAlignment());
 
-		// ±ß¿òºÍ±ß¿òÑÕÉ«
+		// è¾¹æ¡†å’Œè¾¹æ¡†é¢œè‰²
 		toStyle.setBorderBottom(fromStyle.getBorderBottom());
 		toStyle.setBorderLeft(fromStyle.getBorderLeft());
 		toStyle.setBorderRight(fromStyle.getBorderRight());
@@ -617,7 +617,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 		toStyle.setRightBorderColor(fromStyle.getRightBorderColor());
 		toStyle.setLeftBorderColor(fromStyle.getLeftBorderColor());
 
-		// ±³¾°ºÍÇ°¾°
+		// èƒŒæ™¯å’Œå‰æ™¯
 		toStyle.setFillBackgroundColor(fromStyle.getFillBackgroundColor());
 		toStyle.setFillForegroundColor(fromStyle.getFillForegroundColor());
 
@@ -637,16 +637,16 @@ public abstract class XlsFileObject extends Table implements IResource {
 		}
 
 		toStyle.setHidden(fromStyle.getHidden());
-		toStyle.setIndention(fromStyle.getIndention());// Ê×ĞĞËõ½ø
+		toStyle.setIndention(fromStyle.getIndention());// é¦–è¡Œç¼©è¿›
 		toStyle.setLocked(fromStyle.getLocked());
 		toStyle.setQuotePrefixed(fromStyle.getQuotePrefixed());
-		toStyle.setRotation(fromStyle.getRotation());// Ğı×ª
+		toStyle.setRotation(fromStyle.getRotation());// æ—‹è½¬
 		toStyle.setWrapText(fromStyle.getWrapText());
 		toStyle.setShrinkToFit(fromStyle.getShrinkToFit());
 	}
 
 	/**
-	 * ¸´ÖÆ×ÖÌå£¬¿çXLS,XLSXÎŞ·¨clone×ÖÌå
+	 * å¤åˆ¶å­—ä½“ï¼Œè·¨XLS,XLSXæ— æ³•cloneå­—ä½“
 	 * 
 	 * @param workbook
 	 * @param fromFont

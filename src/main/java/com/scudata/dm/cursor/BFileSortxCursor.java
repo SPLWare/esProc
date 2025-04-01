@@ -11,8 +11,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.dw.BufferReader;
 
 /**
- * ÎÄ¼şÅÅĞò½á¹ûµÄÓÎ±ê
- * ÓÃÓÚf.sortx
+ * æ–‡ä»¶æ’åºç»“æœçš„æ¸¸æ ‡
+ * ç”¨äºf.sortx
  * @author LW
  *
  */
@@ -24,7 +24,7 @@ public class BFileSortxCursor extends ICursor {
 	private LineImporter importer;
 	
 	/**
-	 * ¼¯ÎÄ¼şsortx½á¹ûÓÎ±ê
+	 * é›†æ–‡ä»¶sortxç»“æœæ¸¸æ ‡
 	 * @param cursor
 	 * @param bytesIndex
 	 * @param fileDataStruct
@@ -34,7 +34,7 @@ public class BFileSortxCursor extends ICursor {
 	}
 
 	/**
-	 * ÎÄ±¾ÎÄ¼şsortx½á¹ûÓÎ±ê
+	 * æ–‡æœ¬æ–‡ä»¶sortxç»“æœæ¸¸æ ‡
 	 * @param cursor
 	 * @param bytesIndex
 	 * @param fileDataStruct

@@ -11,14 +11,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ĞŞ¸ÄĞòÁĞµÄ³ÉÔ±»òÕßĞò±íµÄ×Ö¶ÎÖµ
- * A.modify(k,x) T.modify(k,xi:Fi,¡­) T.modify(k:A,xi:Fi,¡­)
+ * ä¿®æ”¹åºåˆ—çš„æˆå‘˜æˆ–è€…åºè¡¨çš„å­—æ®µå€¼
+ * A.modify(k,x) T.modify(k,xi:Fi,â€¦) T.modify(k:A,xi:Fi,â€¦)
  * @author RunQian
  *
  */
 public class Modify extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

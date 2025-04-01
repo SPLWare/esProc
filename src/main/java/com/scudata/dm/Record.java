@@ -17,7 +17,7 @@ import com.scudata.util.Variant;
 
 
 /**
- * ¼ÇÂ¼¶ÔÏóÀà£¬×Ö¶ÎË÷Òı´Ó0¿ªÊ¼¼ÆÊı
+ * è®°å½•å¯¹è±¡ç±»ï¼Œå­—æ®µç´¢å¼•ä»0å¼€å§‹è®¡æ•°
  * @author WangXiaoJun
  *
  */
@@ -27,12 +27,12 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	protected DataStruct ds;
 	protected Object []values;
 
-	// ĞòÁĞ»¯Ê±Ê¹ÓÃ
+	// åºåˆ—åŒ–æ—¶ä½¿ç”¨
 	public Record() {}
 
 	/**
-	 * ¹¹½¨ĞÂ¼ÇÂ¼
-	 * @param ds DataStruct ¼ÇÂ¼µÄ½á¹¹
+	 * æ„å»ºæ–°è®°å½•
+	 * @param ds DataStruct è®°å½•çš„ç»“æ„
 	 */
 	public Record(DataStruct ds) {
 		this.ds = ds;
@@ -40,9 +40,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ¹¹½¨ĞÂ¼ÇÂ¼
-	 * @param ds DataStruct ¼ÇÂ¼µÄ½á¹¹
-	 * @param initVals Object[] ³õÊ¼Öµ
+	 * æ„å»ºæ–°è®°å½•
+	 * @param ds DataStruct è®°å½•çš„ç»“æ„
+	 * @param initVals Object[] åˆå§‹å€¼
 	 */
 	public Record(DataStruct ds, Object []initVals) {
 		this.ds = ds;
@@ -50,7 +50,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 		System.arraycopy(initVals, 0, values, 0, initVals.length);
 	}
 	
-	/*ÒÔÏÂ½Ó¿Ú¼Ì³Ğ×ÔIComputeItem£¬ÓÃÓÚ¼ÆËã*/
+	/*ä»¥ä¸‹æ¥å£ç»§æ‰¿è‡ªIComputeItemï¼Œç”¨äºè®¡ç®—*/
 	public Object getCurrent() {
 		return this;
 	}
@@ -69,10 +69,10 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 		
 	public void popStack() {
 	}
-	/*ÒÔÉÏ½Ó¿Ú¼Ì³Ğ×ÔIComputeItem£¬ÓÃÓÚ¼ÆËã*/
+	/*ä»¥ä¸Šæ¥å£ç»§æ‰¿è‡ªIComputeItemï¼Œç”¨äºè®¡ç®—*/
 	
 	/**
-	 * ·µ»Ø¼ÇÂ¼µÄ½á¹¹
+	 * è¿”å›è®°å½•çš„ç»“æ„
 	 * @return DataStruct
 	 */
 	public DataStruct dataStruct() {
@@ -80,7 +80,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃ¼ÇÂ¼µÄÊı¾İ½á¹¹
+	 * è®¾ç½®è®°å½•çš„æ•°æ®ç»“æ„
 	 * @param ds
 	 */
 	public void setDataStruct(DataStruct ds) {
@@ -88,7 +88,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÖ÷¼üÔÚ½á¹¹ÖĞµÄË÷Òı£¬Ã»ÓĞ¶¨ÒåÖ÷¼üÔò·µ»Ø¿Õ
+	 * è¿”å›ä¸»é”®åœ¨ç»“æ„ä¸­çš„ç´¢å¼•ï¼Œæ²¡æœ‰å®šä¹‰ä¸»é”®åˆ™è¿”å›ç©º
 	 * @return int[]
 	 */
 	public int[] getPKIndex() {
@@ -96,8 +96,8 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * °Ñ¼ÇÂ¼ĞòÁĞ»¯³É×Ö½ÚÊı×é
-	 * @return ×Ö½ÚÊı×é
+	 * æŠŠè®°å½•åºåˆ—åŒ–æˆå­—èŠ‚æ•°ç»„
+	 * @return å­—èŠ‚æ•°ç»„
 	 */
 	public byte[] serialize() throws IOException{
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -114,8 +114,8 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ÓÉ×Ö½ÚÊı×éÌî³ä¼ÇÂ¼
-	 * @param buf ×Ö½ÚÊı×é
+	 * ç”±å­—èŠ‚æ•°ç»„å¡«å……è®°å½•
+	 * @param buf å­—èŠ‚æ•°ç»„
 	 */
 	public void fillRecord(byte[] buf) throws IOException, ClassNotFoundException {
 		ByteArrayInputRecord in = new ByteArrayInputRecord(buf);
@@ -134,19 +134,19 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeByte(1); // °æ±¾ºÅ
+		out.writeByte(1); // ç‰ˆæœ¬å·
 		out.writeObject(ds);
 		out.writeObject(values);
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		in.readByte(); // °æ±¾ºÅ
+		in.readByte(); // ç‰ˆæœ¬å·
 		ds = (DataStruct) in.readObject();
 		values = (Object[]) in.readObject();
 	}
 
 	/**
-	 * ·µ»Ø×Ö¶ÎµÄÊıÄ¿
+	 * è¿”å›å­—æ®µçš„æ•°ç›®
 	 * @return int
 	 */
 	public int getFieldCount() {
@@ -154,7 +154,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»Ø¼ÇÂ¼ËùÓĞ×Ö¶ÎÃû
+	 * è¿”å›è®°å½•æ‰€æœ‰å­—æ®µå
 	 * @return String[]
 	 */
 	public String[] getFieldNames() {
@@ -162,9 +162,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ĞŞ¸Ä¼ÇÂ¼µÄÊı¾İ½á¹¹
-	 * @param newDs ĞÂ½á¹¹
-	 * @param newValues ĞÂ×Ö¶ÎÖµ
+	 * ä¿®æ”¹è®°å½•çš„æ•°æ®ç»“æ„
+	 * @param newDs æ–°ç»“æ„
+	 * @param newValues æ–°å­—æ®µå€¼
 	 */
 	void alter(DataStruct newDs, Object []newValues) {
 		int newCount = newValues.length;
@@ -177,7 +177,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»Ø×Ö¶ÎµÄË÷Òı£¬Î±×Ö¶Î´Ó·ÇÎ±×Ö¶ÎµÄÊıÄ¿¿ªÊ¼¼ÆÊı£¬Èç¹û×Ö¶Î²»´æÔÚÔò·µ»Ø-1
+	 * è¿”å›å­—æ®µçš„ç´¢å¼•ï¼Œä¼ªå­—æ®µä»éä¼ªå­—æ®µçš„æ•°ç›®å¼€å§‹è®¡æ•°ï¼Œå¦‚æœå­—æ®µä¸å­˜åœ¨åˆ™è¿”å›-1
 	 * @param name String
 	 * @return int
 	 */
@@ -186,7 +186,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØËùÓĞ×Ö¶ÎµÄÖµ
+	 * è¿”å›æ‰€æœ‰å­—æ®µçš„å€¼
 	 * @return Object[]
 	 */
 	public Object []getFieldValues() {
@@ -194,8 +194,8 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÄ³Ò»×Ö¶ÎµÄÖµ
-	 * @param index int ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * è¿”å›æŸä¸€å­—æ®µçš„å€¼
+	 * @param index int å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return Object
 	 */
 	public Object getFieldValue(int index) {
@@ -215,10 +215,10 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 		}
 	}
 	
-	// ×Ö¶Î²»´æÔÚÊ±·µ»Ø¿Õ
+	// å­—æ®µä¸å­˜åœ¨æ—¶è¿”å›ç©º
 	/**
-	 * È¡×Ö¶ÎÖµ£¬×Ö¶Î²»´æÔÚ·µ»Ø¿Õ£¬´Ë·½·¨ÎªÁËÖ§³Ö½á¹¹²»´¿µÄÅÅÁĞ
-	 * @param index ×Ö¶ÎĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å–å­—æ®µå€¼ï¼Œå­—æ®µä¸å­˜åœ¨è¿”å›ç©ºï¼Œæ­¤æ–¹æ³•ä¸ºäº†æ”¯æŒç»“æ„ä¸çº¯çš„æ’åˆ—
+	 * @param index å­—æ®µåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public Object getFieldValue2(int index) {
@@ -237,8 +237,8 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * È¡×Ö¶ÎÖµ£¬²»×ö±ß½ç¼ì²é
-	 * @param index ×Ö¶ÎĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å–å­—æ®µå€¼ï¼Œä¸åšè¾¹ç•Œæ£€æŸ¥
+	 * @param index å­—æ®µåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public Object getNormalFieldValue(int index) {
@@ -246,26 +246,26 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * È¡×Ö¶ÎÖµ£¬²»×ö±ß½ç¼ì²é
-	 * @param index ×Ö¶ÎĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param out ÓÃÓÚ´æ·Å½á¹û£¬ÈİÁ¿×ã¹»²»ÔÚ×öÈİÁ¿ÅĞ¶Ï
+	 * å–å­—æ®µå€¼ï¼Œä¸åšè¾¹ç•Œæ£€æŸ¥
+	 * @param index å­—æ®µåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param out ç”¨äºå­˜æ”¾ç»“æœï¼Œå®¹é‡è¶³å¤Ÿä¸åœ¨åšå®¹é‡åˆ¤æ–­
 	 */
 	public void getNormalFieldValue(int index, IArray out) {
 		out.push(values[index]);
 	}
 
 	/**
-	 * ÉèÖÃ×Ö¶ÎÖµ£¬²»×ö±ß½ç¼ì²é
-	 * @param index ×Ö¶ÎĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param val ×Ö¶ÎÖµ
+	 * è®¾ç½®å­—æ®µå€¼ï¼Œä¸åšè¾¹ç•Œæ£€æŸ¥
+	 * @param index å­—æ®µåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param val å­—æ®µå€¼
 	 */
 	public void setNormalFieldValue(int index, Object val) {
 		values[index] = val;
 	}
 
 	/**
-	 * ·µ»ØÄ³Ò»×Ö¶ÎµÄÖµ
-	 * @param name String ×Ö¶ÎÃû
+	 * è¿”å›æŸä¸€å­—æ®µçš„å€¼
+	 * @param name String å­—æ®µå
 	 * @return Object
 	 */
 	public Object getFieldValue(String name) {
@@ -279,9 +279,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃÄ³Ò»×Ö¶ÎµÄÖµ£¬Ö»ÄÜÊÇ·ÇÎ±×Ö¶Î
-	 * @param index int  ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param val Object ×Ö¶ÎĞÂÖµ
+	 * è®¾ç½®æŸä¸€å­—æ®µçš„å€¼ï¼Œåªèƒ½æ˜¯éä¼ªå­—æ®µ
+	 * @param index int  å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param val Object å­—æ®µæ–°å€¼
 	 */
 	public void set(int index, Object val) {
 		if (index < 0) {
@@ -301,7 +301,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃ×Ö¶ÎÖµ£¬Èç¹û×Ö¶Î²»´æÔÚ²»×öÈÎºÎ´¦Àí
+	 * è®¾ç½®å­—æ®µå€¼ï¼Œå¦‚æœå­—æ®µä¸å­˜åœ¨ä¸åšä»»ä½•å¤„ç†
 	 * @param index
 	 * @param val
 	 */
@@ -317,9 +317,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃÄ³Ò»×Ö¶ÎµÄÖµ£¬Ö»ÄÜÊÇ·ÇÎ±×Ö¶Î
-	 * @param name String ×Ö¶ÎÃû
-	 * @param val Object  ×Ö¶ÎĞÂÖµ
+	 * è®¾ç½®æŸä¸€å­—æ®µçš„å€¼ï¼Œåªèƒ½æ˜¯éä¼ªå­—æ®µ
+	 * @param name String å­—æ®µå
+	 * @param val Object  å­—æ®µæ–°å€¼
 	 */
 	public void set(String name, Object val) {
 		int index = dataStruct().getFieldIndex(name);
@@ -332,7 +332,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * °´×Ö¶ÎÖµ±È½ÏÁ½Ìõ¼ÇÂ¼µÄ´óĞ¡
+	 * æŒ‰å­—æ®µå€¼æ¯”è¾ƒä¸¤æ¡è®°å½•çš„å¤§å°
 	 * @param r BaseRecord
 	 * @return int
 	 */
@@ -359,9 +359,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ±È½ÏÖ¸¶¨×Ö¶ÎµÄÖµ
-	 * @param fields int[] ×Ö¶ÎË÷Òı
-	 * @param fvalues Object[] ×Ö¶ÎÖµ
+	 * æ¯”è¾ƒæŒ‡å®šå­—æ®µçš„å€¼
+	 * @param fields int[] å­—æ®µç´¢å¼•
+	 * @param fvalues Object[] å­—æ®µå€¼
 	 * @return int
 	 */
 	public int compare(int []fields, Object []fvalues) {
@@ -375,7 +375,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * °´×Ö¶ÎÖµ±È½ÏÁ½Ìõ¼ÇÂ¼ÊÇ·ñÏàµÈ£¬¼ÇÂ¼µÄÊı¾İ½á¹¹±ØĞëÏàÍ¬£¿
+	 * æŒ‰å­—æ®µå€¼æ¯”è¾ƒä¸¤æ¡è®°å½•æ˜¯å¦ç›¸ç­‰ï¼Œè®°å½•çš„æ•°æ®ç»“æ„å¿…é¡»ç›¸åŒï¼Ÿ
 	 * @param r BaseRecord
 	 * @return boolean
 	 */
@@ -394,9 +394,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ÅĞ¶ÏÁ½¼ÇÂ¼µÄÖ¸¶¨×Ö¶ÎÊÇ·ñÏàµÈ
-	 * @param r BaseRecord Òª±È½ÏµÄ×Ö¶Î
-	 * @param index int[] ×Ö¶ÎË÷Òı
+	 * åˆ¤æ–­ä¸¤è®°å½•çš„æŒ‡å®šå­—æ®µæ˜¯å¦ç›¸ç­‰
+	 * @param r BaseRecord è¦æ¯”è¾ƒçš„å­—æ®µ
+	 * @param index int[] å­—æ®µç´¢å¼•
 	 * @return boolean
 	 */
 	public boolean isEquals(BaseRecord r, int []index) {
@@ -408,9 +408,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ½«rµÄ¿ÉÎÄ±¾»¯×Ö¶Î×ª³É×Ö´®
-	 * @param opt String t£ºÓÃ'\t'·Ö¸ô×Ö¶Î£¬È±Ê¡ÓÃ¶ººÅ£¬q£º´®³ÉÔ±½ÓÈëÊ±¼ÓÉÏÒıºÅ£¬È±Ê¡²»»á´¦Àí£¬
-	 * f£º½ö×ª»»rµÄ×Ö¶ÎÃû¶ø·Ç×Ö¶ÎÖµ
+	 * å°†rçš„å¯æ–‡æœ¬åŒ–å­—æ®µè½¬æˆå­—ä¸²
+	 * @param opt String tï¼šç”¨'\t'åˆ†éš”å­—æ®µï¼Œç¼ºçœç”¨é€—å·ï¼Œqï¼šä¸²æˆå‘˜æ¥å…¥æ—¶åŠ ä¸Šå¼•å·ï¼Œç¼ºçœä¸ä¼šå¤„ç†ï¼Œ
+	 * fï¼šä»…è½¬æ¢rçš„å­—æ®µåè€Œéå­—æ®µå€¼
 	 * @return String
 	 */
 	public String toString(String opt) {
@@ -463,7 +463,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ÓÅ»¯Ê±Ê¹ÓÃ£¬ÅĞ¶ÏÏàÁÚµÄ¼ÇÂ¼µÄÊı¾İ½á¹¹ÊÇ·ñÏàÍ¬
+	 * ä¼˜åŒ–æ—¶ä½¿ç”¨ï¼Œåˆ¤æ–­ç›¸é‚»çš„è®°å½•çš„æ•°æ®ç»“æ„æ˜¯å¦ç›¸åŒ
 	 * @param cur
 	 * @return
 	 */
@@ -472,10 +472,10 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ĞŞ¸Ä¼ÇÂ¼µÄ×Ö¶ÎÖµ
-	 * @param exps Öµ±í´ïÊ½Êı×é
-	 * @param fields ×Ö¶ÎÃûÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ä¿®æ”¹è®°å½•çš„å­—æ®µå€¼
+	 * @param exps å€¼è¡¨è¾¾å¼æ•°ç»„
+	 * @param fields å­—æ®µåæ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void modify(Expression[] exps, String[] fields, Context ctx) {
 		ComputeStack stack = ctx.getComputeStack();
@@ -496,8 +496,8 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * Õë¶Ô¼ÇÂ¼¼ÆËã±í´ïÊ½
-	 * @param exps Expression[] ¼ÆËã±í´ïÊ½
+	 * é’ˆå¯¹è®°å½•è®¡ç®—è¡¨è¾¾å¼
+	 * @param exps Expression[] è®¡ç®—è¡¨è¾¾å¼
 	 * @param ctx Context
 	 * @return Sequence
 	 */
@@ -518,9 +518,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ¼ÆËã±í´ïÊ½
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * è®¡ç®—è¡¨è¾¾å¼
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 */
 	public void run(Expression exp, Context ctx) {
 		if (exp == null) return;
@@ -535,9 +535,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * Õë¶Ô¼ÇÂ¼¼ÆËã±í´ïÊ½²¢½øĞĞ¸³Öµ
-	 * @param assignExps Expression[] ¸³Öµ±í´ïÊ½
-	 * @param exps Expression[] Öµ±í´ïÊ½
+	 * é’ˆå¯¹è®°å½•è®¡ç®—è¡¨è¾¾å¼å¹¶è¿›è¡Œèµ‹å€¼
+	 * @param assignExps Expression[] èµ‹å€¼è¡¨è¾¾å¼
+	 * @param exps Expression[] å€¼è¡¨è¾¾å¼
 	 * @param ctx Context
 	 */
 	public void run(Expression[] assignExps, Expression[] exps, Context ctx) {
@@ -567,7 +567,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * °Ñ¼ÇÂ¼rµÄ¸÷×Ö¶ÎµÄÖµÒÀ´ÎÉè¸ø´Ë¼ÇÂ¼£¬¼ÇÂ¼×Ö¶ÎĞèÏàÍ¬
+	 * æŠŠè®°å½•rçš„å„å­—æ®µçš„å€¼ä¾æ¬¡è®¾ç»™æ­¤è®°å½•ï¼Œè®°å½•å­—æ®µéœ€ç›¸åŒ
 	 * @param r BaseRecord
 	 */
 	public void set(BaseRecord r) {
@@ -576,7 +576,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ´Ó×Ö¶Îindex¿ªÊ¼°Ñ¼ÇÂ¼rµÄ¸÷×Ö¶ÎµÄÖµÉè¸ø´Ë¼ÇÂ¼
+	 * ä»å­—æ®µindexå¼€å§‹æŠŠè®°å½•rçš„å„å­—æ®µçš„å€¼è®¾ç»™æ­¤è®°å½•
 	 * @param index int
 	 * @param r BaseRecord
 	 */
@@ -586,31 +586,31 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ´Ó×Ö¶Îindex¿ªÊ¼°ÑobjsµÄÔªËØÒÀ´ÎÉè¸ø¼ÇÂ¼
-	 * @param index ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param objs ×Ö¶ÎÖµÊı×é
+	 * ä»å­—æ®µindexå¼€å§‹æŠŠobjsçš„å…ƒç´ ä¾æ¬¡è®¾ç»™è®°å½•
+	 * @param index å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param objs å­—æ®µå€¼æ•°ç»„
 	 */
 	public void setStart(int index, Object []objs) {
 		System.arraycopy(objs, 0, values, index, objs.length);
 	}
 
 	/**
-	 * ´Ó×Ö¶Îindex¿ªÊ¼°ÑobjsµÄÔªËØÒÀ´ÎÉè¸ø¼ÇÂ¼
-	 * @param index ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param objs ×Ö¶ÎÖµÊı×é
-	 * @param len ¸³ÖµµÄ×Ö¶ÎÊı
+	 * ä»å­—æ®µindexå¼€å§‹æŠŠobjsçš„å…ƒç´ ä¾æ¬¡è®¾ç»™è®°å½•
+	 * @param index å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param objs å­—æ®µå€¼æ•°ç»„
+	 * @param len èµ‹å€¼çš„å­—æ®µæ•°
 	 */
 	public void setStart(int index, Object []objs, int len) {
 		System.arraycopy(objs, 0, values, index, len);
 	}
 
 	/**
-	 * ·µ»Ø¼ÇÂ¼µÄÖµr.v()
-	 * @return Èç¹ûÉèÖÃÁËÖ÷¼üÔò·µ»ØÖ÷¼üÖµ£¬·ñÔò·µ»ØËùÓĞ×Ö¶Î¹¹³ÉµÄĞòÁĞ
+	 * è¿”å›è®°å½•çš„å€¼r.v()
+	 * @return å¦‚æœè®¾ç½®äº†ä¸»é”®åˆ™è¿”å›ä¸»é”®å€¼ï¼Œå¦åˆ™è¿”å›æ‰€æœ‰å­—æ®µæ„æˆçš„åºåˆ—
 	 */
 	public Object value() {
-		// Èç¹ûÍâ¼üÓĞ»·»áµ¼ÖÂËÀÑ­»·£¿
-		// Ö¸Òı×Ö¶Î¸ÄÎªÈ¡Ö÷¼ü£¿
+		// å¦‚æœå¤–é”®æœ‰ç¯ä¼šå¯¼è‡´æ­»å¾ªç¯ï¼Ÿ
+		// æŒ‡å¼•å­—æ®µæ”¹ä¸ºå–ä¸»é”®ï¼Ÿ
 		int []pkIndex = ds.getPKIndex();
 		if (pkIndex == null) {
 			Object []values = this.values;
@@ -659,7 +659,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ·µ»Ø¼ÇÂ¼µÄÖ÷¼ü»ò¶àÖ÷¼ü¹¹³ÉµÄĞòÁĞ£¬Ã»ÓĞÖ÷¼üÊ±·µ»Ø¿Õ
+	 * è¿”å›è®°å½•çš„ä¸»é”®æˆ–å¤šä¸»é”®æ„æˆçš„åºåˆ—ï¼Œæ²¡æœ‰ä¸»é”®æ—¶è¿”å›ç©º
 	 * @return Object
 	 */
 	public Object key() {
@@ -696,7 +696,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ·µ»Ø¼ÇÂ¼µÄÖ÷¼ü»ò¶àÖ÷¼ü¹¹³ÉµÄĞòÁĞ£¬Ã»ÓĞÖ÷¼üÅ×Òì³£
+	 * è¿”å›è®°å½•çš„ä¸»é”®æˆ–å¤šä¸»é”®æ„æˆçš„åºåˆ—ï¼Œæ²¡æœ‰ä¸»é”®æŠ›å¼‚å¸¸
 	 * @return Object
 	 */
 	public Object getPKValue() {
@@ -735,9 +735,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * °Ñ¼ÇÂ¼rµÄ×Ö¶ÎÖµ¸³¸ø´Ë¼ÇÂ¼
+	 * æŠŠè®°å½•rçš„å­—æ®µå€¼èµ‹ç»™æ­¤è®°å½•
 	 * @param sr BaseRecord
-	 * @param isName boolean ÊÇ·ñ°´×Ö¶ÎÃû½øĞĞ¸´ÖÆ
+	 * @param isName boolean æ˜¯å¦æŒ‰å­—æ®µåè¿›è¡Œå¤åˆ¶
 	 */
 	public void paste(BaseRecord sr, boolean isName) {
 		if (sr == null) return;
@@ -760,7 +760,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * °ÑĞòÁĞµÄÔªËØÒÀ´Î¸³¸ø´Ë¼ÇÂ¼
+	 * æŠŠåºåˆ—çš„å…ƒç´ ä¾æ¬¡èµ‹ç»™æ­¤è®°å½•
 	 * @param series Sequence
 	 */
 	public void paste(Sequence series) {
@@ -775,9 +775,9 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * °ÑĞòÁĞµÄÔªËØÒÀ´Î¸³¸ø´Ë¼ÇÂ¼
+	 * æŠŠåºåˆ—çš„å…ƒç´ ä¾æ¬¡èµ‹ç»™æ­¤è®°å½•
 	 * @param series Sequence
-	 * @param start int ĞòÁĞµÄÆğÊ¼Î»ÖÃ
+	 * @param start int åºåˆ—çš„èµ·å§‹ä½ç½®
 	 */
 	public void paste(Sequence series, int start) {
 		Object values[] = this.values;
@@ -790,8 +790,8 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ¼ì²é×Ö¶ÎÊÇ·ñÓĞÒıÓÃ¶ÔÏó
-	 * @return boolean true£ºÓĞÒıÓÃ¶ÔÏó£¬false£ºÃ»ÓĞÒıÓÃ¶ÔÏó
+	 * æ£€æŸ¥å­—æ®µæ˜¯å¦æœ‰å¼•ç”¨å¯¹è±¡
+	 * @return boolean trueï¼šæœ‰å¼•ç”¨å¯¹è±¡ï¼Œfalseï¼šæ²¡æœ‰å¼•ç”¨å¯¹è±¡
 	 */
 	public boolean checkReference() {
 		Object []values = this.values;
@@ -808,11 +808,11 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ¶Ô¼ÇÂ¼µÄÍâ¼ü×öµİ¹é²éÑ¯
-	 * @param field Íâ¼ü×Ö¶ÎÃû
-	 * @param p Ö¸ÏòµÄ×îÖÕ¼ÇÂ¼
-	 * @param maxLevel ±éÀú×î´óµÄ²ã´Î
-	 * @return ÒıÓÃ¼ÇÂ¼¹¹³ÉµÄĞòÁĞ
+	 * å¯¹è®°å½•çš„å¤–é”®åšé€’å½’æŸ¥è¯¢
+	 * @param field å¤–é”®å­—æ®µå
+	 * @param p æŒ‡å‘çš„æœ€ç»ˆè®°å½•
+	 * @param maxLevel éå†æœ€å¤§çš„å±‚æ¬¡
+	 * @return å¼•ç”¨è®°å½•æ„æˆçš„åºåˆ—
 	 */
 	public Sequence prior(String field, BaseRecord p, int maxLevel) {
 		int f = ds.getFieldIndex(field);
@@ -825,11 +825,11 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ¶Ô¼ÇÂ¼µÄÍâ¼ü×öµİ¹é²éÑ¯
-	 * @param f Íâ¼ü×Ö¶ÎĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param p Ö¸ÏòµÄ×îÖÕ¼ÇÂ¼
-	 * @param maxLevel ±éÀú×î´óµÄ²ã´Î
-	 * @return ÒıÓÃ¼ÇÂ¼¹¹³ÉµÄĞòÁĞ
+	 * å¯¹è®°å½•çš„å¤–é”®åšé€’å½’æŸ¥è¯¢
+	 * @param f å¤–é”®å­—æ®µåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param p æŒ‡å‘çš„æœ€ç»ˆè®°å½•
+	 * @param maxLevel éå†æœ€å¤§çš„å±‚æ¬¡
+	 * @return å¼•ç”¨è®°å½•æ„æˆçš„åºåˆ—
 	 */
 	public Sequence prior(int f, BaseRecord p, int maxLevel) {
 		if (this == p) {
@@ -874,15 +874,15 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ·µ»Ø¼ÇÂ¼ÊÇ·ñÓĞÊ±¼ä¼ü
-	 * @return true£ºÓĞÊ±¼ä¼ü
+	 * è¿”å›è®°å½•æ˜¯å¦æœ‰æ—¶é—´é”®
+	 * @return trueï¼šæœ‰æ—¶é—´é”®
 	 */
 	public boolean hasTimeKey() {
 		return ds.getTimeKeyCount() > 0;
 	}
 	
 	/**
-	 * °Ñµ±Ç°¼ÇÂ¼×ª³ÉRecordĞÍµÄ¼ÇÂ¼£¬Èç¹û±¾ÊÂÊÇRecordĞÍÔòÖ±½Ó·µ»Ø
+	 * æŠŠå½“å‰è®°å½•è½¬æˆRecordå‹çš„è®°å½•ï¼Œå¦‚æœæœ¬äº‹æ˜¯Recordå‹åˆ™ç›´æ¥è¿”å›
 	 * @return Record
 	 */
 	public Record toRecord() {

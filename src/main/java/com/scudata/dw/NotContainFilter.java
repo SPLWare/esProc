@@ -7,8 +7,8 @@ import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.Variant;
 
 /**
- * ²»°üº¬¹ýÂËÆ÷Àà
- * ÓëContainFilterµÄÂß¼­Ïà·´£¬ÓÃÓÚÅÐ¶ÏÒ»¸ö¶ÔÏóÊÇ·ñ²»°üº¬ÔÚ¸ø¶¨µÄÐòÁÐÀï
+ * ä¸åŒ…å«è¿‡æ»¤å™¨ç±»
+ * ä¸ŽContainFilterçš„é€»è¾‘ç›¸åï¼Œç”¨äºŽåˆ¤æ–­ä¸€ä¸ªå¯¹è±¡æ˜¯å¦ä¸åŒ…å«åœ¨ç»™å®šçš„åºåˆ—é‡Œ
  * @author runqian
  *
  */
@@ -37,7 +37,7 @@ public class NotContainFilter extends IFilter {
 		Object []values = this.values;
 		int len = values.length;
 		if (len > ContainFilter.BINARYSEARCH_COUNT) {
-			// ¶þ·Ö·¨²éÕÒ
+			// äºŒåˆ†æ³•æŸ¥æ‰¾
 			int low = 0;
 			int high = len - 1;
 

@@ -17,25 +17,25 @@ import java.util.Calendar;
 /**
  * @author yanjing
  * 
- * Fprice(settlement,maturity;rate,yld,redemption) ·µ»Ø¶¨ÆÚ¸¶Ï¢µÄÃæÖµ £¤100 µÄÓĞ¼ÛÖ¤È¯µÄ¼Û¸ñ
- * Fprice@d(settlement,maturity;discount,0,redemption) ·µ»ØÕÛ¼Û·¢ĞĞµÄÃæÖµ £¤100 µÄÓĞ¼ÛÖ¤È¯µÄ¼Û¸ñ
- * Fprice@m(settlement,maturity,issue;rate,yld) ·µ»Øµ½ÆÚ¸¶Ï¢µÄÃæÖµ £¤100 µÄÓĞ¼ÛÖ¤È¯µÄ¼Û¸ñ
- *   ÎŞ£¬°´ÄêÖ§¸¶£¬frequency = 1£»
- *   @2 °´°ëÄêÆÚÖ§¸¶£¬frequency = 2£»
- *   @4 °´¼¾Ö§¸¶£¬frequency = 4
+ * Fprice(settlement,maturity;rate,yld,redemption) è¿”å›å®šæœŸä»˜æ¯çš„é¢å€¼ ï¿¥100 çš„æœ‰ä»·è¯åˆ¸çš„ä»·æ ¼
+ * Fprice@d(settlement,maturity;discount,0,redemption) è¿”å›æŠ˜ä»·å‘è¡Œçš„é¢å€¼ ï¿¥100 çš„æœ‰ä»·è¯åˆ¸çš„ä»·æ ¼
+ * Fprice@m(settlement,maturity,issue;rate,yld) è¿”å›åˆ°æœŸä»˜æ¯çš„é¢å€¼ ï¿¥100 çš„æœ‰ä»·è¯åˆ¸çš„ä»·æ ¼
+ *   æ— ï¼ŒæŒ‰å¹´æ”¯ä»˜ï¼Œfrequency = 1ï¼›
+ *   @2 æŒ‰åŠå¹´æœŸæ”¯ä»˜ï¼Œfrequency = 2ï¼›
+ *   @4 æŒ‰å­£æ”¯ä»˜ï¼Œfrequency = 4
  *   
  * 	 @e 30/360, 
- * 	 @1 Êµ¼ÊÌìÊı/ÄêÊµ¼ÊÌìÊı£¬
- * 	 @0 Êµ¼ÊÌìÊı/360£¬ 
- * 	 @5 Êµ¼ÊÌìÊı/365£¬
- * 	 È±Ê¡Îª30/360* 
- * @param settlement Ö¤È¯µÄ½áËãÈÕ
- * @param maturity  Ö¤È¯µÄµ½ÆÚÈÕ
- * @param Rate ÎªÓĞ¼ÛÖ¤È¯µÄÀûÂÊ¡£
- * @param Yld ÎªÓĞ¼ÛÖ¤È¯µÄÄêÊÕÒæÂÊ¡£
- * @param discount ÎªÓĞ¼ÛÖ¤È¯µÄÌùÏÖÂÊ
- * @param issue ·¢ĞĞÈÕ
- * @param Redemption ÎªÃæÖµ £¤100 µÄÓĞ¼ÛÖ¤È¯µÄÇå³¥¼ÛÖµ¡£
+ * 	 @1 å®é™…å¤©æ•°/å¹´å®é™…å¤©æ•°ï¼Œ
+ * 	 @0 å®é™…å¤©æ•°/360ï¼Œ 
+ * 	 @5 å®é™…å¤©æ•°/365ï¼Œ
+ * 	 ç¼ºçœä¸º30/360* 
+ * @param settlement è¯åˆ¸çš„ç»“ç®—æ—¥
+ * @param maturity  è¯åˆ¸çš„åˆ°æœŸæ—¥
+ * @param Rate ä¸ºæœ‰ä»·è¯åˆ¸çš„åˆ©ç‡ã€‚
+ * @param Yld ä¸ºæœ‰ä»·è¯åˆ¸çš„å¹´æ”¶ç›Šç‡ã€‚
+ * @param discount ä¸ºæœ‰ä»·è¯åˆ¸çš„è´´ç°ç‡
+ * @param issue å‘è¡Œæ—¥
+ * @param Redemption ä¸ºé¢å€¼ ï¿¥100 çš„æœ‰ä»·è¯åˆ¸çš„æ¸…å¿ä»·å€¼ã€‚
  */
 public class Price extends Function {
                                                                                                                             
@@ -67,17 +67,17 @@ public class Price extends Function {
 	}
 	
 	/**
-	 * price(settlement,maturity,rate,yld,redemption,frequency,basis) ·µ»Ø¶¨ÆÚ¸¶Ï¢µÄÃæÖµ £¤100 µÄÓĞ¼ÛÖ¤È¯µÄ¼Û¸ñ
+	 * price(settlement,maturity,rate,yld,redemption,frequency,basis) è¿”å›å®šæœŸä»˜æ¯çš„é¢å€¼ ï¿¥100 çš„æœ‰ä»·è¯åˆ¸çš„ä»·æ ¼
 	 * 
 	 * 
-	 * @param settlement Ö¤È¯µÄ½áËãÈÕ
-	 * @param maturity  Ö¤È¯µÄµ½ÆÚÈÕ
-	 * @param Rate ÎªÓĞ¼ÛÖ¤È¯µÄÀûÂÊ¡£
-	 * @param Yld ÎªÓĞ¼ÛÖ¤È¯µÄÄêÊÕÒæÂÊ¡£
-	 * @param Redemption ÎªÃæÖµ £¤100 µÄÓĞ¼ÛÖ¤È¯µÄÇå³¥¼ÛÖµ¡£
-	 * @param frequency ÎªÄê¸¶Ï¢´ÎÊı£¬Èç¹û°´ÄêÖ§¸¶£¬frequency = 1£»°´°ëÄêÆÚÖ§¸¶£¬frequency = 2£»
-	 *                               °´¼¾Ö§¸¶£¬frequency = 4
-	 * @param basis ÈÕ¼ÆÊı»ù×¼ÀàĞÍ,0/4 30/360, 1 Êµ¼ÊÌìÊı/ÄêÊµ¼ÊÌìÊı£¬2 Êµ¼ÊÌìÊı/360£¬ 3 Êµ¼ÊÌìÊı/365£¬È±Ê¡Îª0
+	 * @param settlement è¯åˆ¸çš„ç»“ç®—æ—¥
+	 * @param maturity  è¯åˆ¸çš„åˆ°æœŸæ—¥
+	 * @param Rate ä¸ºæœ‰ä»·è¯åˆ¸çš„åˆ©ç‡ã€‚
+	 * @param Yld ä¸ºæœ‰ä»·è¯åˆ¸çš„å¹´æ”¶ç›Šç‡ã€‚
+	 * @param Redemption ä¸ºé¢å€¼ ï¿¥100 çš„æœ‰ä»·è¯åˆ¸çš„æ¸…å¿ä»·å€¼ã€‚
+	 * @param frequency ä¸ºå¹´ä»˜æ¯æ¬¡æ•°ï¼Œå¦‚æœæŒ‰å¹´æ”¯ä»˜ï¼Œfrequency = 1ï¼›æŒ‰åŠå¹´æœŸæ”¯ä»˜ï¼Œfrequency = 2ï¼›
+	 *                               æŒ‰å­£æ”¯ä»˜ï¼Œfrequency = 4
+	 * @param basis æ—¥è®¡æ•°åŸºå‡†ç±»å‹,0/4 30/360, 1 å®é™…å¤©æ•°/å¹´å®é™…å¤©æ•°ï¼Œ2 å®é™…å¤©æ•°/360ï¼Œ 3 å®é™…å¤©æ•°/365ï¼Œç¼ºçœä¸º0
 	 * 
 	 * @return
 	 */
@@ -126,16 +126,16 @@ public class Price extends Function {
 		else if(option!=null && option.indexOf("e")>=0) basis=4;
 		else basis=0;
 		
-		double m=interval(settlement, maturity,basis, 'm');//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄÔÂÊı
-		int z=12/frequency;//Ã¿¸ö¸¶Ï¢ÆÚµÄÔÂÊı
-		int n=new Double(Math.ceil(m/z)).intValue();//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄ¸¶Ï¢´ÎÊı
+		double m=interval(settlement, maturity,basis, 'm');//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„æœˆæ•°
+		int z=12/frequency;//æ¯ä¸ªä»˜æ¯æœŸçš„æœˆæ•°
+		int n=new Double(Math.ceil(m/z)).intValue();//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„ä»˜æ¯æ¬¡æ•°
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(maturity);
 		calendar.add(Calendar.MONTH, -n*z);
-		Date end=new Date();//ÏÂÒ»¸ö¸¶Ï¢ÈÕ
+		Date end=new Date();//ä¸‹ä¸€ä¸ªä»˜æ¯æ—¥
 		end.setTime(calendar.getTimeInMillis());
-		Date start=new Date();//ÉÏÒ»¸ö¸¶Ï¢ÈÕ
+		Date start=new Date();//ä¸Šä¸€ä¸ªä»˜æ¯æ—¥
 		if(Variant.compare(settlement, end)==1){
 			start.setTime(end.getTime());
 			calendar.add(Calendar.MONTH, z);
@@ -198,7 +198,7 @@ public class Price extends Function {
 		else if(option!=null && option.indexOf("e")>=0) basis=4;
 		else basis=0;
 		
-		long m=Variant.interval(settlement, maturity, "m");//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄÔÂÊı
+		long m=Variant.interval(settlement, maturity, "m");//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„æœˆæ•°
 		long B=360;
 		long DSM;
 		
@@ -215,14 +215,14 @@ public class Price extends Function {
 		return new Double(redemption-discount*redemption*DSM/B);
 	}
 	/**
-	 * ·µ»Øµ½ÆÚ¸¶Ï¢µÄÃæÖµ £¤100 µÄÓĞ¼ÛÖ¤È¯µÄ¼Û¸ñ
+	 * è¿”å›åˆ°æœŸä»˜æ¯çš„é¢å€¼ ï¿¥100 çš„æœ‰ä»·è¯åˆ¸çš„ä»·æ ¼
 	 * price@m(settlement,maturity,issue,rate,yld,basis)
-	 * @param settlement Ö¤È¯µÄ½áËãÈÕ
-	 * @param maturity  Ö¤È¯µÄµ½ÆÚÈÕ
-	 * @param issue ·¢ĞĞÈÕ
-	 * @param Rate ÎªÓĞ¼ÛÖ¤È¯µÄÀûÂÊ¡£
-	 * @param Yld ÎªÓĞ¼ÛÖ¤È¯µÄÄêÊÕÒæÂÊ¡£
-	 * @param basis ÈÕ¼ÆÊı»ù×¼ÀàĞÍ,0/4 30/360, 1 Êµ¼ÊÌìÊı/ÄêÊµ¼ÊÌìÊı£¬2 Êµ¼ÊÌìÊı/360£¬ 3 Êµ¼ÊÌìÊı/365£¬È±Ê¡Îª0
+	 * @param settlement è¯åˆ¸çš„ç»“ç®—æ—¥
+	 * @param maturity  è¯åˆ¸çš„åˆ°æœŸæ—¥
+	 * @param issue å‘è¡Œæ—¥
+	 * @param Rate ä¸ºæœ‰ä»·è¯åˆ¸çš„åˆ©ç‡ã€‚
+	 * @param Yld ä¸ºæœ‰ä»·è¯åˆ¸çš„å¹´æ”¶ç›Šç‡ã€‚
+	 * @param basis æ—¥è®¡æ•°åŸºå‡†ç±»å‹,0/4 30/360, 1 å®é™…å¤©æ•°/å¹´å®é™…å¤©æ•°ï¼Œ2 å®é™…å¤©æ•°/360ï¼Œ 3 å®é™…å¤©æ•°/365ï¼Œç¼ºçœä¸º0
 	 
 	 * @return
 	 */
@@ -266,7 +266,7 @@ public class Price extends Function {
 		else if(option!=null && option.indexOf("e")>=0) basis=4;
 		else basis=0;
 		
-		long m=Variant.interval(settlement, maturity, "m");//½áËãÈÕºÍµ½ÆÚÈÕÖ®¼äµÄÔÂÊı
+		long m=Variant.interval(settlement, maturity, "m");//ç»“ç®—æ—¥å’Œåˆ°æœŸæ—¥ä¹‹é—´çš„æœˆæ•°
 		long B=360;
 		long DSM;
 		
@@ -308,10 +308,10 @@ public class Price extends Function {
 		int y2=calendar.get(Calendar.YEAR);
 		int d2=calendar.get(Calendar.DAY_OF_MONTH);
 		if(mark=='d'){
-			if(basis==0 || basis==4){  //Ã¿ÔÂ°´30ÌìËã
+			if(basis==0 || basis==4){  //æ¯æœˆæŒ‰30å¤©ç®—
 				
 				return ((y2-y1)*12+m2-m1)*30+d2-d1;
-			}else{  //°´Êµ¼ÊÌìÊıËã
+			}else{  //æŒ‰å®é™…å¤©æ•°ç®—
 				long day = 24 * 3600 * 1000;
 				long interval = date2.getTime() / day - date1.getTime() / day;
 				return interval;

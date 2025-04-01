@@ -6,7 +6,7 @@ import com.scudata.expression.FileFunction;
 import com.scudata.parallel.ClusterFile;
 
 /**
- * 打开组表
+ * 鎵撳紑缁勮〃
  * f.open()
  * @author RunQian
  *
@@ -14,7 +14,7 @@ import com.scudata.parallel.ClusterFile;
 public class Open extends FileFunction {
 	public Object calculate(Context ctx) {
 		if (file.isRemoteFile()) {
-			// 远程文件
+			// 杩滅▼鏂囦欢
 			String host = file.getIP();
 			int port = file.getPort();
 			String fileName = file.getFileName();

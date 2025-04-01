@@ -11,13 +11,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.JSONUtil;
 
 /**
- * json(x) µ±xÊÇjson¸ñÊ½´®Ê±£¬½«x½âÎö³ÉĞò±í·µ»Ø£»µ±xÊÇ¼ÇÂ¼»òĞòÁĞÊ±£¬½âÎö³Éjson¸ñÊ½´®·µ»Ø¡£
+ * json(x) å½“xæ˜¯jsonæ ¼å¼ä¸²æ—¶ï¼Œå°†xè§£ææˆåºè¡¨è¿”å›ï¼›å½“xæ˜¯è®°å½•æˆ–åºåˆ—æ—¶ï¼Œè§£ææˆjsonæ ¼å¼ä¸²è¿”å›ã€‚
  * @author runqian
  *
  */
 public class Json extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

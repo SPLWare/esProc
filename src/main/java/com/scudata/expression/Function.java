@@ -11,24 +11,24 @@ import com.scudata.dm.ParamList;
 import com.scudata.resources.EngineMessage;
 
 /**
- * º¯Êı½Úµã»ùÀà
+ * å‡½æ•°èŠ‚ç‚¹åŸºç±»
  * @author WangXiaoJun
  *
  */
 public abstract class Function extends Node {
-	protected String functionName; // º¯ÊıÃû
-	protected String option; // Ñ¡Ïî
-	protected String strParam; // º¯Êı²ÎÊı×Ö·û´®£¬ÓÃÓÚ¼¯Èºº¯Êı°Ñ²ÎÊı×Ö·û´®´«µ½½Úµã»ú
-	protected IParam param; // º¯Êı²ÎÊı
+	protected String functionName; // å‡½æ•°å
+	protected String option; // é€‰é¡¹
+	protected String strParam; // å‡½æ•°å‚æ•°å­—ç¬¦ä¸²ï¼Œç”¨äºé›†ç¾¤å‡½æ•°æŠŠå‚æ•°å­—ç¬¦ä¸²ä¼ åˆ°èŠ‚ç‚¹æœº
+	protected IParam param; // å‡½æ•°å‚æ•°
 
-	protected ICellSet cs = null; // Íø¸ñ¶ÔÏó
+	protected ICellSet cs = null; // ç½‘æ ¼å¯¹è±¡
 	protected static final int Default_Size = 4;
 
 	/**
-	 * ÉèÖÃº¯Êı²ÎÊı
-	 * @param cs Íø¸ñ¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param param º¯Êı²ÎÊı×Ö·û´®
+	 * è®¾ç½®å‡½æ•°å‚æ•°
+	 * @param cs ç½‘æ ¼å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param param å‡½æ•°å‚æ•°å­—ç¬¦ä¸²
 	 */
 	public void setParameter(ICellSet cs, Context ctx, String param) {
 		strParam = param;
@@ -37,7 +37,7 @@ public abstract class Function extends Node {
 	}
 
 	/**
-	 * È¡º¯Êı²ÎÊı×Ö·û´®
+	 * å–å‡½æ•°å‚æ•°å­—ç¬¦ä¸²
 	 * @return
 	 */
 	public String getParamString() {
@@ -45,7 +45,7 @@ public abstract class Function extends Node {
 	}
 	
 	/**
-	 * È¡º¯ÊıÃû
+	 * å–å‡½æ•°å
 	 * @return String
 	 */
 	public String getFunctionName() {
@@ -53,15 +53,15 @@ public abstract class Function extends Node {
 	}
 	
 	 /**
-	  * ÉèÖÃº¯ÊıÃû
-	  * @param name º¯ÊıÃû
+	  * è®¾ç½®å‡½æ•°å
+	  * @param name å‡½æ•°å
 	  */
 	public void setFunctionName(String name) {
 		this.functionName = name;
 	}
 	
 	/**
-	 * ·µ»Øº¯Êı²ÎÊı
+	 * è¿”å›å‡½æ•°å‚æ•°
 	 * @return IParam
 	 */
 	public IParam getParam() {
@@ -69,23 +69,23 @@ public abstract class Function extends Node {
 	}
 
 	/**
-	 * ÉèÖÃº¯Êı²ÎÊı
-	 * @param param ²ÎÊı
+	 * è®¾ç½®å‡½æ•°å‚æ•°
+	 * @param param å‚æ•°
 	 */
 	public void setParam(IParam param) {
 		this.param = param;
 	}
 
 	/**
-	 * ÉèÖÃº¯ÊıÑ¡Ïî
-	 * @param opt Ñ¡Ïî
+	 * è®¾ç½®å‡½æ•°é€‰é¡¹
+	 * @param opt é€‰é¡¹
 	 */
 	public void setOption(String opt) {
 		option = opt;
 	}
 
 	/**
-	 * È¡º¯ÊıÑ¡Ïî
+	 * å–å‡½æ•°é€‰é¡¹
 	 * @return String
 	 */
 	public String getOption() {
@@ -93,9 +93,9 @@ public abstract class Function extends Node {
 	}
 
 	/**
-	 * ·µ»ØÊÇ·ñ°üº¬Ö¸¶¨²ÎÊı
-	 * @param name ²ÎÊıÃû
-	 * @return boolean true£º°üº¬£¬false£º²»°üº¬
+	 * è¿”å›æ˜¯å¦åŒ…å«æŒ‡å®šå‚æ•°
+	 * @param name å‚æ•°å
+	 * @return boolean trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	protected boolean containParam(String name) {
 		if (param != null) {
@@ -106,9 +106,9 @@ public abstract class Function extends Node {
 	}
 
 	/**
-	 * ²éÕÒ±í´ïÊ½ÖĞÓÃµ½²ÎÊı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param resultList Êä³öÖµ£¬ÓÃµ½µÄ²ÎÊı»áÌí¼Óµ½ÕâÀïÃæ
+	 * æŸ¥æ‰¾è¡¨è¾¾å¼ä¸­ç”¨åˆ°å‚æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param resultList è¾“å‡ºå€¼ï¼Œç”¨åˆ°çš„å‚æ•°ä¼šæ·»åŠ åˆ°è¿™é‡Œé¢
 	 */
 	protected void getUsedParams(Context ctx, ParamList resultList) {
 		if (param != null) {
@@ -123,7 +123,7 @@ public abstract class Function extends Node {
 	}
 	
 	/**
-	 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+	 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 	 */
 	public void reset() {
 		if (param != null) {
@@ -138,19 +138,19 @@ public abstract class Function extends Node {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		boolean opt = true;
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			opt = param.optimize(ctx);
 		}
 
-		// Èç¹ûº¯Êı²ÎÊıÊÇ³£Á¿Ôò¼ÆËã³öº¯ÊıÖµ
-		// Èç¹ûÅÉÉúº¯Êı²»Ïë±»ÓÅ»¯³É³£Á¿ĞèÒªÖØÔØ´Ë·½·¨
+		// å¦‚æœå‡½æ•°å‚æ•°æ˜¯å¸¸é‡åˆ™è®¡ç®—å‡ºå‡½æ•°å€¼
+		// å¦‚æœæ´¾ç”Ÿå‡½æ•°ä¸æƒ³è¢«ä¼˜åŒ–æˆå¸¸é‡éœ€è¦é‡è½½æ­¤æ–¹æ³•
 		if (opt) {
 			return new Constant(calculate(ctx));
 		} else {
@@ -191,8 +191,8 @@ public abstract class Function extends Node {
 	}
 	
 	/**
-	 * È¡µÃÒ»¸öº¯ÊıºÍÆä²ÎÊıµÄÍêÕû×Ö·û´®
-	 * @return	×Ö·û´®
+	 * å–å¾—ä¸€ä¸ªå‡½æ•°å’Œå…¶å‚æ•°çš„å®Œæ•´å­—ç¬¦ä¸²
+	 * @return	å­—ç¬¦ä¸²
 	 */
 	public String getFunctionString() {
 		String strRes = this.getFunctionName();
@@ -208,16 +208,16 @@ public abstract class Function extends Node {
 	}
 
 	/**
-	 * ÅĞ¶Ï½ÚµãÊÇ·ñÊÇÖ¸¶¨º¯Êı
-	 * @param name º¯ÊıÃû
-	 * @return true£ºÊÇÖ¸¶¨º¯Êı£¬false£º²»ÊÇ
+	 * åˆ¤æ–­èŠ‚ç‚¹æ˜¯å¦æ˜¯æŒ‡å®šå‡½æ•°
+	 * @param name å‡½æ•°å
+	 * @return trueï¼šæ˜¯æŒ‡å®šå‡½æ•°ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isFunction(String name) {
 		return name.equals(functionName);
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+	 * åˆ¤æ–­æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 	 * @return
 	 */
 	public boolean canCalculateAll() {

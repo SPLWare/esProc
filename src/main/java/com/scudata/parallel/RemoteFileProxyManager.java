@@ -8,7 +8,7 @@ import com.scudata.dm.*;
 import com.scudata.server.unit.UnitServer;
 
 /**
- * Ô¶³ÌÎÄ¼ş´úÀí¹ÜÀíÆ÷
+ * è¿œç¨‹æ–‡ä»¶ä»£ç†ç®¡ç†å™¨
  * 
  * @author Joancy
  *
@@ -17,7 +17,7 @@ public class RemoteFileProxyManager {
 	static ArrayList<RemoteFileProxy> proxys = new ArrayList<RemoteFileProxy>();
 
 	/**
-	 * »ñÈ¡ÎÄ¼ş´úÀíÁĞ±í
+	 * è·å–æ–‡ä»¶ä»£ç†åˆ—è¡¨
 	 * @return
 	 */
 	public static ArrayList<RemoteFileProxy> getFileProxys(){
@@ -25,10 +25,10 @@ public class RemoteFileProxyManager {
 	}
 	
 	/**
-	 * Ö´ĞĞ´úÀí·ÃÎÊÇëÇó
-	 * @param req ÇëÇó
-	 * @param sd Í¨Ñ¶Ì×½Ó×Ö
-	 * @return ÏìÓ¦
+	 * æ‰§è¡Œä»£ç†è®¿é—®è¯·æ±‚
+	 * @param req è¯·æ±‚
+	 * @param sd é€šè®¯å¥—æ¥å­—
+	 * @return å“åº”
 	 */
 	public static Response execute(Request req, SocketData sd) {
 		Response res = new Response();
@@ -44,7 +44,7 @@ public class RemoteFileProxyManager {
 				partition = (Integer) req.getAttr(Request.OPEN_Partition);
 //				lf = new LocalFile(fileName, "s", partition);
 				id = UnitServer.nextId();
-				String opt = (String) req.getAttr(Request.OPEN_Opt);//´Ë´¦ĞèÒª¸úFILE_GETPROPERTYÍ¬²½
+				String opt = (String) req.getAttr(Request.OPEN_Opt);//æ­¤å¤„éœ€è¦è·ŸFILE_GETPROPERTYåŒæ­¥
 				if(opt!=null){
 					opt = opt.toLowerCase();
 					if(opt.indexOf('t')>=0){
@@ -66,11 +66,11 @@ public class RemoteFileProxyManager {
 				break;
 			case Request.FILE_GETPROPERTY:
 				fileName = (String) req.getAttr(Request.GETPROPERTY_FileName);
-				String op = (String) req.getAttr(Request.OPEN_Opt);//´Ë´¦ĞèÒª¸úFILE_OPENÍ¬²½£¬Ñ¡Ïî»á¸ü¸Ä¸¸Â·¾¶£¬ÒÔÔì³ÉÎÄ¼şÎ»ÖÃµÄ²»Í¬
+				String op = (String) req.getAttr(Request.OPEN_Opt);//æ­¤å¤„éœ€è¦è·ŸFILE_OPENåŒæ­¥ï¼Œé€‰é¡¹ä¼šæ›´æ”¹çˆ¶è·¯å¾„ï¼Œä»¥é€ æˆæ–‡ä»¶ä½ç½®çš„ä¸åŒ
 				if(op!=null){
 					op = op.toLowerCase();
 					if(op.indexOf('t')>=0){
-//						  optº¬tÊ±¸¸Ä¿Â¼ÎªEnv.getTempPath()£¬partition²»Æğ×÷ÓÃ
+//						  optå«tæ—¶çˆ¶ç›®å½•ä¸ºEnv.getTempPath()ï¼Œpartitionä¸èµ·ä½œç”¨
 						fileName = new File(Env.getTempPath(),fileName).getPath();
 					}
 				}
@@ -164,11 +164,11 @@ public class RemoteFileProxyManager {
 	}
 
 	/**
-	 * ´ÓÊäÈëÁ÷is¶ÁÈ¡size×Ö½ÚµÄÊı¾İ
-	 * @param is ÊäÈëÁ÷
-	 * @param size ×Ö½ÚÊı
-	 * @return ×Ö½ÚÊı¾İ
-	 * @throws Exception ¶ÁÈ¡Ê§°ÜÅ×³öÒì³£
+	 * ä»è¾“å…¥æµisè¯»å–sizeå­—èŠ‚çš„æ•°æ®
+	 * @param is è¾“å…¥æµ
+	 * @param size å­—èŠ‚æ•°
+	 * @return å­—èŠ‚æ•°æ®
+	 * @throws Exception è¯»å–å¤±è´¥æŠ›å‡ºå¼‚å¸¸
 	 */
 	public static byte[] read(InputStream is, int size) throws Exception {
 		byte[] buf = new byte[size];
@@ -187,16 +187,16 @@ public class RemoteFileProxyManager {
 	}
 
 	/**
-	 * Ôö¼ÓÒ»¸öÎÄ¼ş´úÀí¶ÔÏó
-	 * @param rfp ÎÄ¼ş´úÀí
+	 * å¢åŠ ä¸€ä¸ªæ–‡ä»¶ä»£ç†å¯¹è±¡
+	 * @param rfp æ–‡ä»¶ä»£ç†
 	 */
 	public static synchronized void addProxy(RemoteFileProxy rfp) {
 		proxys.add(rfp);
 	}
 
 	/**
-	 * É¾³ıÖ¸¶¨µÄ´úÀí
-	 * @param proxyID ÒªÉ¾³ıµÄ´úÀí±àºÅ
+	 * åˆ é™¤æŒ‡å®šçš„ä»£ç†
+	 * @param proxyID è¦åˆ é™¤çš„ä»£ç†ç¼–å·
 	 */
 	public static synchronized void delProxy(int proxyID) {
 		for (int i = 0; i < proxys.size(); i++) {
@@ -209,10 +209,10 @@ public class RemoteFileProxyManager {
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨±àºÅproxyIdµÄ´úÀí¶ÔÏó
-	 * @param proxyId ±àºÅ
-	 * @return ´úÀí¶ÔÏó
-	 * @throws Exception Ã»ÕÒµ½Ê±Å×³öÒì³£
+	 * è·å–æŒ‡å®šç¼–å·proxyIdçš„ä»£ç†å¯¹è±¡
+	 * @param proxyId ç¼–å·
+	 * @return ä»£ç†å¯¹è±¡
+	 * @throws Exception æ²¡æ‰¾åˆ°æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public static synchronized RemoteFileProxy getProxy(int proxyId)
 			throws Exception {
@@ -226,10 +226,10 @@ public class RemoteFileProxyManager {
 	}
 
 	/**
-	 * ¼ì²é´úÀí³¬Ê±
+	 * æ£€æŸ¥ä»£ç†è¶…æ—¶
 	 */
 	public static synchronized void checkTimeOut(int proxyTimeOut) {
-		// »»Ëã³ÉÃë£¬timeOutµ¥Î»ÎªÃë
+		// æ¢ç®—æˆç§’ï¼ŒtimeOutå•ä½ä¸ºç§’
 		for (int i = proxys.size() - 1; i >= 0; i--) {
 			RemoteFileProxy rft = proxys.get(i);
 			if (rft.checkTimeOut(proxyTimeOut)) {

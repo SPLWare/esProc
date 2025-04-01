@@ -26,38 +26,38 @@ import com.scudata.expression.operator.DotOperator;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸½±íÓÎ±êÀà
- * ¸½±íÈ¡ÊıÊ±¿ÉÄÜ»áÓÃµ½»ù±íµÄ×Ö¶Î
+ * é™„è¡¨æ¸¸æ ‡ç±»
+ * é™„è¡¨å–æ•°æ—¶å¯èƒ½ä¼šç”¨åˆ°åŸºè¡¨çš„å­—æ®µ
  * @author runqian
  *
  */
 public class JoinTableCursor extends IDWCursor{
-	ColPhyTable table;//±¾±í
-	private int seqs[][];//Ã¿¸ö±íÀïÈ¡³ö×Ö¶ÎµÄÎ»ÖÃ
+	ColPhyTable table;//æœ¬è¡¨
+	private int seqs[][];//æ¯ä¸ªè¡¨é‡Œå–å‡ºå­—æ®µçš„ä½ç½®
 	
-	private TableCursor tableCursor[];//È¡ÊıÓÎ±ê£¨°üº¬»ù±í£¬¸½±íµÄ£©
+	private TableCursor tableCursor[];//å–æ•°æ¸¸æ ‡ï¼ˆåŒ…å«åŸºè¡¨ï¼Œé™„è¡¨çš„ï¼‰
 
-	private RecordValSearcher []recSearchers;//²éÕÒ»ù±íÀïÆ¥ÅäµÄ¼ÇÂ¼
+	private RecordValSearcher []recSearchers;//æŸ¥æ‰¾åŸºè¡¨é‡ŒåŒ¹é…çš„è®°å½•
 	private DataStruct ds;
-	private String []sortedFields;//ÓĞĞò×Ö¶Î
+	private String []sortedFields;//æœ‰åºå­—æ®µ
 	
-	private int startBlock; // °üº¬
-	private int endBlock; // ²»°üº¬
+	private int startBlock; // åŒ…å«
+	private int endBlock; // ä¸åŒ…å«
 	private int curBlock = 0;
 	private Sequence cache;
 	
-	// Í¬²½·Ö¶ÎÊ±ĞèÒª²¹ÉÏÏÂÒ»¶ÎµÚÒ»¿éÀïÊôÓÚ±¾¶ÎµÄ²¿·Ö
+	// åŒæ­¥åˆ†æ®µæ—¶éœ€è¦è¡¥ä¸Šä¸‹ä¸€æ®µç¬¬ä¸€å—é‡Œå±äºæœ¬æ®µçš„éƒ¨åˆ†
 	private Sequence appendData;
 	private int appendIndex = 1;
 	
 	private boolean isClosed = false;
 	private boolean isSegment = false;
-	private boolean isFirstSkip = true;//ÊÇ·ñÊÇµÚÒ»´ÎSkip
+	private boolean isFirstSkip = true;//æ˜¯å¦æ˜¯ç¬¬ä¸€æ¬¡Skip
 	private boolean hasFilter = false;
 	
-	private Expression []exps;//±í´ïÊ½×Ö¶Î
+	private Expression []exps;//è¡¨è¾¾å¼å­—æ®µ
 	private Record calcRec; 
-	private int seqs2[][];//ĞèÒªÈ¡³öÀ´½øĞĞ±í´ïÊ½¼ÆËãµÄ×Ö¶Î
+	private int seqs2[][];//éœ€è¦å–å‡ºæ¥è¿›è¡Œè¡¨è¾¾å¼è®¡ç®—çš„å­—æ®µ
 	
 	public JoinTableCursor(DataStruct ds) {
 		this.ds = ds;
@@ -80,7 +80,7 @@ public class JoinTableCursor extends IDWCursor{
 	}
 
 	/**
-	 * ·µ»ØÒ»¸ö¸½±íÓÎ±ê
+	 * è¿”å›ä¸€ä¸ªé™„è¡¨æ¸¸æ ‡
 	 * @param table
 	 * @return
 	 */
@@ -89,9 +89,9 @@ public class JoinTableCursor extends IDWCursor{
 	}
 	
 	/**
-	 * ·µ»Ø¸½±íÓÎ±ê
-	 * @param table ¸½±í
-	 * @param fields È¡³ö×Ö¶Î
+	 * è¿”å›é™„è¡¨æ¸¸æ ‡
+	 * @param table é™„è¡¨
+	 * @param fields å–å‡ºå­—æ®µ
 	 * @return
 	 */
 	public static ICursor createAnnexCursor(ColPhyTable table, String []fields) {
@@ -99,13 +99,13 @@ public class JoinTableCursor extends IDWCursor{
 	}
 	
 	/**
-	 * ¸½±íÓÎ±ê
-	 * @param table ¸½±í
-	 * @param fields È¡³ö×Ö¶Î
-	 * @param exp	¹ıÂË±í´ïÊ½
-	 * @param fkNames switch¹ıÂË×Ö¶ÎÃû
-	 * @param codes switch¹ıÂËµÄĞòÁĞ
-	 * @param ctx ÉÏÏÂÎÄ
+	 * é™„è¡¨æ¸¸æ ‡
+	 * @param table é™„è¡¨
+	 * @param fields å–å‡ºå­—æ®µ
+	 * @param exp	è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames switchè¿‡æ»¤å­—æ®µå
+	 * @param codes switchè¿‡æ»¤çš„åºåˆ—
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public static ICursor createAnnexCursor(ColPhyTable table, String []fields, 
@@ -115,13 +115,13 @@ public class JoinTableCursor extends IDWCursor{
 	
 	/**
 	 * 
-	 * @param table ¸½±í
-	 * @param exps È¡³ö±í´ïÊ½
-	 * @param names È¡³ö±ğÃû
-	 * @param exp	¹ıÂË±í´ïÊ½
-	 * @param fkNames switch¹ıÂË×Ö¶ÎÃû
-	 * @param codes switch¹ıÂËµÄĞòÁĞ
-	 * @param ctx ÉÏÏÂÎÄ
+	 * @param table é™„è¡¨
+	 * @param exps å–å‡ºè¡¨è¾¾å¼
+	 * @param names å–å‡ºåˆ«å
+	 * @param exp	è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param fkNames switchè¿‡æ»¤å­—æ®µå
+	 * @param codes switchè¿‡æ»¤çš„åºåˆ—
+	 * @param ctx ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public static ICursor createAnnexCursor(ColPhyTable table, Expression []exps, String []names, 
@@ -144,7 +144,7 @@ public class JoinTableCursor extends IDWCursor{
 		}
 		
 		if (fields == null && exps != null) {
-			//Èç¹ûfields²»´æÔÚ£¬ÇÒ±í´ïÊ½exps´æÔÚ£¬ÔòÈÏÎªexpsÊÇÈ¡³ö
+			//å¦‚æœfieldsä¸å­˜åœ¨ï¼Œä¸”è¡¨è¾¾å¼expså­˜åœ¨ï¼Œåˆ™è®¤ä¸ºexpsæ˜¯å–å‡º
 			int colCount = exps.length;
 			fields = new String[colCount];
 			int cnt = 0;
@@ -177,7 +177,7 @@ public class JoinTableCursor extends IDWCursor{
 		IFilter [][]findFilterArrays = new IFilter[count][];
 		New newOp = null;
 		
-		//ÌáÈ¡±í´ïÊ½µÄfilter
+		//æå–è¡¨è¾¾å¼çš„filter
 		if (exp != null) {
 			for (ColPhyTable t : tableList) {
 				Object obj = Cursor.parseFilter(t, exp, ctx);
@@ -210,7 +210,7 @@ public class JoinTableCursor extends IDWCursor{
 			Collections.sort(filterList);
 		}
 		
-		//´¦ÀíK:T
+		//å¤„ç†K:T
 		ArrayList<FindFilter> findFilterList = null;
 		boolean hasModify = table.getModifyRecords() != null || ptable.getModifyRecords() != null;
 		if (!hasModify && fkNames != null) {
@@ -248,7 +248,7 @@ public class JoinTableCursor extends IDWCursor{
 			}
 		}
 	
-		// ¼ì²é±í´ïÊ½ÀïÊÇ·ñÒıÓÃÁËÃ»ÓĞÑ¡³öµÄ×Ö¶Î£¬Èç¹ûÒıÓÃÁËÔò¼ÓÈëµ½Ñ¡³ö×Ö¶ÎÀï
+		// æ£€æŸ¥è¡¨è¾¾å¼é‡Œæ˜¯å¦å¼•ç”¨äº†æ²¡æœ‰é€‰å‡ºçš„å­—æ®µï¼Œå¦‚æœå¼•ç”¨äº†åˆ™åŠ å…¥åˆ°é€‰å‡ºå­—æ®µé‡Œ
 		if (exp != null) {
 			ArrayList<String> nameList = new ArrayList<String>();
 			exp.getUsedFields(ctx, nameList);
@@ -295,11 +295,11 @@ public class JoinTableCursor extends IDWCursor{
 			}
 		}
 		
-		//Èç¹ûÑ¡³ö×Ö¶ÎÎªnullÊ±£¬Ñ¡³öÄ¬ÈÏ
+		//å¦‚æœé€‰å‡ºå­—æ®µä¸ºnullæ—¶ï¼Œé€‰å‡ºé»˜è®¤
 		if (fields == null) {
 			String []pColNames = ptable.getSortedColNames();
 			String []colNames = table.getColNames();
-			//ËùÓĞ×Ö¶Î  + Ö÷±íËùÓĞ×Ö¶Î
+			//æ‰€æœ‰å­—æ®µ  + ä¸»è¡¨æ‰€æœ‰å­—æ®µ
 			ArrayList<String> list = new ArrayList<String>();
 			for (String name : pColNames) {
 				list.add(name);
@@ -314,7 +314,7 @@ public class JoinTableCursor extends IDWCursor{
 			list.toArray(fields);	
 		}
 		
-		//´¦Àí×Ö¶Î±í´ïÊ½
+		//å¤„ç†å­—æ®µè¡¨è¾¾å¼
 		DataStruct expsDs = null;
 		ArrayList<String> expsList = null;
 		if (exps != null) {
@@ -347,7 +347,7 @@ public class JoinTableCursor extends IDWCursor{
 			}
 		}
 		
-		//¼ì²éÑ¡³ö×Ö¶ÎÊÇ·ñ¶¼´æÔÚ
+		//æ£€æŸ¥é€‰å‡ºå­—æ®µæ˜¯å¦éƒ½å­˜åœ¨
 		for (String f : fields) {
 			if (f == null) continue;
 			if (-1 == table.getDataStruct().getFieldIndex(f))
@@ -362,14 +362,14 @@ public class JoinTableCursor extends IDWCursor{
 			}
 		}
 		
-		//½ÓÏÂÀ´°ÑfieldsListºÍfilterList²ğ·Öµ½¸÷¸ö±í
+		//æ¥ä¸‹æ¥æŠŠfieldsListå’ŒfilterListæ‹†åˆ†åˆ°å„ä¸ªè¡¨
 		int tableCount = 0;
 		int []tableId = new int[count];
 		boolean hasFilter = false;
 		
 		for (int i = 0; i < count; ++i) {
 			PhyTable tb = tableList.get(i);
-			String []colNames = tb.getColNames();//ÕâÀïÖ»ÄÜÒª×Ó±í×Ô¼ºµÄ×Ö¶Î
+			String []colNames = tb.getColNames();//è¿™é‡Œåªèƒ½è¦å­è¡¨è‡ªå·±çš„å­—æ®µ
 			ArrayList<String> tempFieldsList = new ArrayList<String>();
 			ArrayList<IFilter> tempFilterList = new ArrayList<IFilter>();
 			ArrayList<IFilter> tempFindFilterList = new ArrayList<IFilter>();
@@ -395,7 +395,7 @@ public class JoinTableCursor extends IDWCursor{
 			
 			int size = tempFieldsList.size();
 			if (size > 0) {
-				//Èç¹ûÕâ¸ö±íÀïÓĞ×Ö¶ÎÒªÈ¡
+				//å¦‚æœè¿™ä¸ªè¡¨é‡Œæœ‰å­—æ®µè¦å–
 				tableFields = new String[size];
 				tempFieldsList.toArray(tableFields);
 				fieldArrays[tableCount] = tableFields;
@@ -404,7 +404,7 @@ public class JoinTableCursor extends IDWCursor{
 			
 			size = tempFilterList.size();
 			if (size > 0) {
-				//Èç¹ûÕâ¸ö±íÀïÓĞfilterÒª¹ıÂË
+				//å¦‚æœè¿™ä¸ªè¡¨é‡Œæœ‰filterè¦è¿‡æ»¤
 				tableFilter = new IFilter[size];
 				tempFilterList.toArray(tableFilter);
 				filterArrays[i] = tableFilter;
@@ -413,7 +413,7 @@ public class JoinTableCursor extends IDWCursor{
 			
 			size = tempFindFilterList.size();
 			if (size > 0) {
-				//Èç¹ûÕâ¸ö±íÀïÓĞfilterÒª¹ıÂË
+				//å¦‚æœè¿™ä¸ªè¡¨é‡Œæœ‰filterè¦è¿‡æ»¤
 				tableFilter = new IFilter[size];
 				tempFindFilterList.toArray(tableFilter);
 				findFilterArrays[i] = tableFilter;
@@ -426,10 +426,10 @@ public class JoinTableCursor extends IDWCursor{
 		
 		if (tableCount == 1) {
 			if (tableId[0] != 0) {
-				//ÒªÈ¡µÄÊı¾İÔÚÇÒ½öÔÚ×Ó±í£¬·µ»Øµ¥±íCursor
+				//è¦å–çš„æ•°æ®åœ¨ä¸”ä»…åœ¨å­è¡¨ï¼Œè¿”å›å•è¡¨Cursor
 				return null;
 			} else {
-				//ÒªÈ¡µÄÊı¾İ¶¼ÔÚ»ù±í£¬ÈÔÒª¸ú×Ó±íÍ¬²½
+				//è¦å–çš„æ•°æ®éƒ½åœ¨åŸºè¡¨ï¼Œä»è¦è·Ÿå­è¡¨åŒæ­¥
 				tableCount++;
 			}
 		}
@@ -442,7 +442,7 @@ public class JoinTableCursor extends IDWCursor{
 		int seqs2[][] = new int[tableCount][];
 		int c = 0;
 		
-		//Èç¹ûÒª¸ÄÎª¶à±í¼Ì³Ğ£¬ĞèÒªĞŞ¸ÄÕâÀï!!
+		//å¦‚æœè¦æ”¹ä¸ºå¤šè¡¨ç»§æ‰¿ï¼Œéœ€è¦ä¿®æ”¹è¿™é‡Œ!!
 		for (int i = 0; i < tableCount; ++i) {
 			String []fieldArray = fieldArrays[i];
 			if (fieldArray != null) {
@@ -461,7 +461,7 @@ public class JoinTableCursor extends IDWCursor{
 				}
 				c++;
 			} else {
-				//Èç¹û¶Ô×Ó±íÈ¡ÊıÊ±£¬×Ö¶Î¶¼ÔÚÖ÷±í£¬ÔòÎª×Ó±íÌí¼ÓÒ»¸öÈ¡Êı×Ö¶Î£¬±ãÓÚÈ¡Êı
+				//å¦‚æœå¯¹å­è¡¨å–æ•°æ—¶ï¼Œå­—æ®µéƒ½åœ¨ä¸»è¡¨ï¼Œåˆ™ä¸ºå­è¡¨æ·»åŠ ä¸€ä¸ªå–æ•°å­—æ®µï¼Œä¾¿äºå–æ•°
 				fieldArray = table.getColNames();
 				int size = fieldArray.length;
 				fieldArray = new String[]{fieldArray[size - 1]};
@@ -471,8 +471,8 @@ public class JoinTableCursor extends IDWCursor{
 			}
 		}
 		
-		//ÉèÖÃseqsºÍtableCursor[]¸øjtc
-		//node²»µÈÓÚnull,Ò²Òª¸øjtc
+		//è®¾ç½®seqså’ŒtableCursor[]ç»™jtc
+		//nodeä¸ç­‰äºnull,ä¹Ÿè¦ç»™jtc
 		cs.endBlock = tableList.get(0).getDataBlockCount();
 		cs.setSeqs(seqs);
 		cs.setTableCursor(tableCursor);
@@ -480,7 +480,7 @@ public class JoinTableCursor extends IDWCursor{
 			Select select = new Select(exp, null);
 			cs.addOperation(select, ctx);
 			
-			//µ±Ìõ¼şÀïµÄ×Ö¶Î±»¸ÄÃûÊ±
+			//å½“æ¡ä»¶é‡Œçš„å­—æ®µè¢«æ”¹åæ—¶
 			if (names != null) {
 				int nameLen = names.length;
 				Expression []newExps = new Expression[nameLen];
@@ -492,7 +492,7 @@ public class JoinTableCursor extends IDWCursor{
 			}
 		}
 		
-		//ÓĞ²¹ÇøÊ±²»ÔÚÓÎ±êÀï´¦ÀíK:T
+		//æœ‰è¡¥åŒºæ—¶ä¸åœ¨æ¸¸æ ‡é‡Œå¤„ç†K:T
 		if (!hasModify && fkNames != null) {
 			Switch op = new Switch(fkNames, codes, null, "i");
 			cs.addOperation(op, ctx);
@@ -520,7 +520,7 @@ public class JoinTableCursor extends IDWCursor{
 		
 		ds = cs.ds;
 		if (table.hasPrimaryKey()) {
-			// Èç¹û¸½±íÓĞÖ÷¼ü²¢ÇÒÖ÷¼ü±»Ñ¡³öÔò¸øÊı¾İ½á¹¹ÉèÉÏÖ÷¼ü
+			// å¦‚æœé™„è¡¨æœ‰ä¸»é”®å¹¶ä¸”ä¸»é”®è¢«é€‰å‡ºåˆ™ç»™æ•°æ®ç»“æ„è®¾ä¸Šä¸»é”®
 			String []keys = table.getAllSortedColNames();
 			ArrayList<String> pkeyList = new ArrayList<String>();
 			ArrayList<String> sortedFieldList = new ArrayList<String>();
@@ -538,7 +538,7 @@ public class JoinTableCursor extends IDWCursor{
 			}
 			
 			if (sign) {
-				//ÓĞÖ÷¼ü
+				//æœ‰ä¸»é”®
 				int size = pkeyList.size();
 				String[] pkeys = new String[size];
 				pkeyList.toArray(pkeys);
@@ -546,7 +546,7 @@ public class JoinTableCursor extends IDWCursor{
 			}
 			int size = sortedFieldList.size();
 			if (size > 0) {
-				//ÓĞĞò×Ö¶Î
+				//æœ‰åºå­—æ®µ
 				cs.sortedFields = new String[size];
 				sortedFieldList.toArray(cs.sortedFields);
 			}
@@ -574,7 +574,7 @@ public class JoinTableCursor extends IDWCursor{
 	}
 	
 	/**
-	 * ÉèÖÃ·Ö¶ÎĞÅÏ¢
+	 * è®¾ç½®åˆ†æ®µä¿¡æ¯
 	 */
 	public void setSegment(int startBlock, int endBlock) {
 		isSegment = true;
@@ -592,14 +592,14 @@ public class JoinTableCursor extends IDWCursor{
 	}
 
 	/**
-	 * Í¬²½·Ö¶ÎÊ±ĞèÒª²¹ÉÏÏÂÒ»¶ÎµÚÒ»¿éÀïÊôÓÚ±¾¶ÎµÄ²¿·Ö
+	 * åŒæ­¥åˆ†æ®µæ—¶éœ€è¦è¡¥ä¸Šä¸‹ä¸€æ®µç¬¬ä¸€å—é‡Œå±äºæœ¬æ®µçš„éƒ¨åˆ†
 	 */
 	public void setAppendData(Sequence seq) {
 		this.appendData = seq;
 	}
 	
 	protected Sequence get(int n) {
-		// ĞŞ¸ÄÁËÍ¬²½·Ö¶Î£¬Í¬²½·Ö¶ÎÊ±Èç¹û·Ö¶ÎµãÊÇÔÚ¿éÖĞÄ³Ìõ¼ÇÂ¼£¬ÔòÊ¹ÓÃappendData´æ·Å×îºóÒ»¿éĞèÒªÌí¼ÓµÄ¼ÇÂ¼
+		// ä¿®æ”¹äº†åŒæ­¥åˆ†æ®µï¼ŒåŒæ­¥åˆ†æ®µæ—¶å¦‚æœåˆ†æ®µç‚¹æ˜¯åœ¨å—ä¸­æŸæ¡è®°å½•ï¼Œåˆ™ä½¿ç”¨appendDataå­˜æ”¾æœ€åä¸€å—éœ€è¦æ·»åŠ çš„è®°å½•
 		isFirstSkip = false;
 		Sequence seq = getData(n);
 		if (appendData == null) {
@@ -710,7 +710,7 @@ public class JoinTableCursor extends IDWCursor{
 		while (curBlock < endBlock) {
 			curBlock++;
 
-			//±éÀúËùÓĞ±íTableCursor,Ã¿´ÎÈ¡Ò»¿é
+			//éå†æ‰€æœ‰è¡¨TableCursor,æ¯æ¬¡å–ä¸€å—
 			boolean skip = false;
 			for (int c = 0; c < tableCount; ++c) {
 				if (skip) {
@@ -727,7 +727,7 @@ public class JoinTableCursor extends IDWCursor{
 			if (skip) {
 				continue;
 			}
-			//recordCountÊÇ¸Ã¿éÄÜ¹»È¡³öµÄ¼ÇÂ¼Êı,Ò²¾ÍÊÇ×îºóÒ»¸ö±íÀï¶Á³öÀ´µÄ¼ÇÂ¼Êı
+			//recordCountæ˜¯è¯¥å—èƒ½å¤Ÿå–å‡ºçš„è®°å½•æ•°,ä¹Ÿå°±æ˜¯æœ€åä¸€ä¸ªè¡¨é‡Œè¯»å‡ºæ¥çš„è®°å½•æ•°
 			RecordValSearcher primarySearcher = recSearchers[0];
 			RecordValSearcher subSearcher = recSearchers[tableCount - 1];
 			int recordCount = subSearcher.getRecordCount();
@@ -785,7 +785,7 @@ public class JoinTableCursor extends IDWCursor{
 					mems.add(r);
 				}
 			} else {
-				//ÓĞFilterÊ±£¬ÓĞ¿ÉÄÜ»áÔÚÖ÷±íÀïÃ»ÓĞ¶ÔÓ¦µÄ
+				//æœ‰Filteræ—¶ï¼Œæœ‰å¯èƒ½ä¼šåœ¨ä¸»è¡¨é‡Œæ²¡æœ‰å¯¹åº”çš„
 				for (int i = 0; i < recordCount; ++i) {
 					Record r = new Record(ds);
 					long recNum = subSearcher.getRecNum();
@@ -948,7 +948,7 @@ public class JoinTableCursor extends IDWCursor{
 	}
 	
 	protected Sequence getStartBlockData(int n) {
-		// Ö»È¡µÚÒ»¿éµÄ¼ÇÂ¼£¬Èç¹ûµÚÒ»¿éÃ»ÓĞÂú×ãÌõ¼şµÄ¾Í·µ»Ø
+		// åªå–ç¬¬ä¸€å—çš„è®°å½•ï¼Œå¦‚æœç¬¬ä¸€å—æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å°±è¿”å›
 		int startBlock = this.startBlock;
 		int endBlock = this.endBlock;
 		try {

@@ -15,28 +15,28 @@ import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.ide.spl.control.ControlUtils;
 
 /**
- * Ö§³ÖÏÂ»®ÏßµÄ±êÇ©¿Ø¼ş
+ * æ”¯æŒä¸‹åˆ’çº¿çš„æ ‡ç­¾æ§ä»¶
  *
  */
 public class JLabelUnderLine extends JLabel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ÏÂ»®ÏßÑÕÉ«
+	 * ä¸‹åˆ’çº¿é¢œè‰²
 	 */
 	private Color underLineColor = Color.BLUE;
 
 	/**
-	 * Öµ
+	 * å€¼
 	 */
 	Object value = null;
 	/**
-	 * ÏÔÊ¾´®
+	 * æ˜¾ç¤ºä¸²
 	 */
 	String dispText = null;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public JLabelUnderLine() {
 		super("");
@@ -45,10 +45,10 @@ public class JLabelUnderLine extends JLabel {
 	}
 
 	/**
-	 * ÉèÖÃÖµ
+	 * è®¾ç½®å€¼
 	 * 
 	 * @param value
-	 *            Öµ
+	 *            å€¼
 	 */
 	public void setValue(Object value) {
 		this.value = value;
@@ -59,7 +59,7 @@ public class JLabelUnderLine extends JLabel {
 	}
 
 	/**
-	 * È¡ÏÂ»®ÏßÑÕÉ«
+	 * å–ä¸‹åˆ’çº¿é¢œè‰²
 	 * 
 	 * @return
 	 */
@@ -68,7 +68,7 @@ public class JLabelUnderLine extends JLabel {
 	}
 
 	/**
-	 * ÉèÖÃÏÂ»®ÏßÑÕÉ«
+	 * è®¾ç½®ä¸‹åˆ’çº¿é¢œè‰²
 	 * 
 	 * @param pUnderLineColor
 	 */
@@ -77,15 +77,15 @@ public class JLabelUnderLine extends JLabel {
 	}
 
 	/**
-	 * »æÖÆ
+	 * ç»˜åˆ¶
 	 */
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g); // »æÖÆ³ıÁËÎÄ±¾ºÍÏÂ»®ÏßÒÔÍâµÄ
+		super.paintComponent(g); // ç»˜åˆ¶é™¤äº†æ–‡æœ¬å’Œä¸‹åˆ’çº¿ä»¥å¤–çš„
 		int width = getWidth();
 		if (width <= 0)
 			return;
 		ControlUtils.setGraphicsRenderingHints(g);
-		// »æÖÆÏÂ»®ÏßÊ¹ÓÃµÄ
+		// ç»˜åˆ¶ä¸‹åˆ’çº¿ä½¿ç”¨çš„
 		float underLineSize = 0.75f;
 		((Graphics2D) g).setStroke(new BasicStroke(underLineSize));
 		boolean underLine = value != null && value instanceof String;

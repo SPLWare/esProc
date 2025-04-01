@@ -8,13 +8,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * norm(A)£¬¾ØÕó»òÕßÏòÁ¿µÄ¹éÒ»»¯normalize´¦Àí
+ * norm(A)ï¼ŒçŸ©é˜µæˆ–è€…å‘é‡çš„å½’ä¸€åŒ–normalizeå¤„ç†
  * @author bd
  *
  */
 public class Normalize extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -33,7 +33,7 @@ public class Normalize extends Function {
 			throw new RQException("norm" + mm.getMessage("function.paramTypeError"));
 		}
 		boolean norm = option == null || option.indexOf('0')<0;
-		//edited by bd, 2021.12.21, ĞŞ¸ÄËã·¨£¬Ìí¼Ó@sÑ¡ÏîÖ§³Ö±ê×¼¹éÒ»£¬´ËÊ±¾ùÖµ0£¬±ê×¼²îÎª1
+		//edited by bd, 2021.12.21, ä¿®æ”¹ç®—æ³•ï¼Œæ·»åŠ @sé€‰é¡¹æ”¯æŒæ ‡å‡†å½’ä¸€ï¼Œæ­¤æ—¶å‡å€¼0ï¼Œæ ‡å‡†å·®ä¸º1
 		boolean std = option != null && option.indexOf('s')>-1;
 		Matrix A = normalize((Sequence) result1, norm, std);
 		return A.toSequence(option, true);
@@ -41,7 +41,7 @@ public class Normalize extends Function {
 	
 	protected Matrix normalize(Sequence result, boolean norm, boolean std) {
 		Matrix A = new Matrix(result);
-		// ´¦ÀíÏòÁ¿Îªµ¥ĞĞ¾ØÕó
+		// å¤„ç†å‘é‡ä¸ºå•è¡ŒçŸ©é˜µ
 		Object o1 = result.get(1);
 		if (! (o1 instanceof Sequence)) {
 			A = A.transpose(); 

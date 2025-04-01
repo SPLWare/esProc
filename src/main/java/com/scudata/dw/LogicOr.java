@@ -5,7 +5,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.operator.Or;
 
 /**
- * »ò¼ÆËã¹ýÂËÆ÷Àà
+ * æˆ–è®¡ç®—è¿‡æ»¤å™¨ç±»
  * @author runqian
  *
  */

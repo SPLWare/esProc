@@ -6,7 +6,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.MemberFunction;
 
 /**
- * 多层递归展开
+ * 澶氬眰閫掑綊灞曞紑
  * x.nodes@r(Fi,...)
  * @author RunQian
  *
@@ -23,7 +23,7 @@ public class Nodes extends MemberFunction {
 	}
 	
 	/**
-	 * 释放节点引用的点操作符左侧的对象
+	 * 閲婃斁鑺傜偣寮曠敤鐨勭偣鎿嶄綔绗﹀乏渚х殑瀵硅薄
 	 */
 	public void releaseDotLeftObject() {
 		src = null;

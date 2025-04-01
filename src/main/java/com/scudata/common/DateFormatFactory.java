@@ -18,48 +18,48 @@ public class DateFormatFactory {
 	}
 
 	/**
-	 * »ñÈ¡Ê±¼ä¸ñÊ½
-	 * @return String Ê±¼ä¸ñÊ½Éè¶¨
+	 * è·å–æ—¶é—´æ ¼å¼
+	 * @return String æ—¶é—´æ ¼å¼è®¾å®š
 	 */
 	public static String getDefaultTimeFormat() {
 		return timeFormat;
 	}
 
 	/**
-	 * ÉèÖÃÊ±¼ä¸ñÊ½
-	 * @param format String Ê±¼ä¸ñÊ½Éè¶¨
+	 * è®¾ç½®æ—¶é—´æ ¼å¼
+	 * @param format String æ—¶é—´æ ¼å¼è®¾å®š
 	 */
 	public static void setDefaultTimeFormat(String format) {
 		timeFormat = format;
 	}
 
 	/**
-	 * »ñÈ¡ÈÕÆÚ¸ñÊ½
-	 * @return String ÈÕÆÚ¸ñÊ½Éè¶¨
+	 * è·å–æ—¥æœŸæ ¼å¼
+	 * @return String æ—¥æœŸæ ¼å¼è®¾å®š
 	 */
 	public static String getDefaultDateFormat() {
 		return dateFormat;
 	}
 
 	/**
-	 * ÉèÖÃÈÕÆÚ¸ñÊ½
-	 * @param format String ÈÕÆÚ¸ñÊ½Éè¶¨
+	 * è®¾ç½®æ—¥æœŸæ ¼å¼
+	 * @param format String æ—¥æœŸæ ¼å¼è®¾å®š
 	 */
 	public static void setDefaultDateFormat(String format) {
 		dateFormat = format;
 	}
 
 	/**
-	 * »ñÈ¡ÈÕÆÚÊ±¼ä¸ñÊ½
-	 * @return String ÈÕÆÚÊ±¼ä¸ñÊ½Éè¶¨
+	 * è·å–æ—¥æœŸæ—¶é—´æ ¼å¼
+	 * @return String æ—¥æœŸæ—¶é—´æ ¼å¼è®¾å®š
 	 */
 	public static String getDefaultDateTimeFormat() {
 		return dateTimeFormat;
 	}
 
 	/**
-	 * ÉèÖÃÈÕÆÚÊ±¼ä¸ñÊ½
-	 * @param format String ÈÕÆÚÊ±¼ä¸ñÊ½Éè¶¨
+	 * è®¾ç½®æ—¥æœŸæ—¶é—´æ ¼å¼
+	 * @param format String æ—¥æœŸæ—¶é—´æ ¼å¼è®¾å®š
 	 */
 	public static void setDefaultDateTimeFormat(String format) {
 		dateTimeFormat = format;
@@ -69,7 +69,7 @@ public class DateFormatFactory {
 	private HashMap<String, DateFormatX> xmap = new HashMap<String, DateFormatX>();
 
 	/**
-	 * È¡Ö¸¶¨¸ñÊ½´®µÄ¸ñÊ½¶ÔÏó
+	 * å–æŒ‡å®šæ ¼å¼ä¸²çš„æ ¼å¼å¯¹è±¡
 	 */
 	public DateFormat getFormat(String fmt) {
 		DateFormat df = map.get(fmt);
@@ -99,28 +99,28 @@ public class DateFormatFactory {
 	}
 	
 	/**
-	 * È¡ÏµÍ³Éè¶¨µÄÈÕÆÚ¸ñÊ½´®¶ÔÓ¦µÄ¸ñÊ½¶ÔÏó
+	 * å–ç³»ç»Ÿè®¾å®šçš„æ—¥æœŸæ ¼å¼ä¸²å¯¹åº”çš„æ ¼å¼å¯¹è±¡
 	 */
 	public DateFormat getDateFormat() {
 		return getFormat(dateFormat);
 	}
 
 	/**
-	 * È¡ÏµÍ³Éè¶¨µÄÊ±¼ä¸ñÊ½´®¶ÔÓ¦µÄ¸ñÊ½¶ÔÏó
+	 * å–ç³»ç»Ÿè®¾å®šçš„æ—¶é—´æ ¼å¼ä¸²å¯¹åº”çš„æ ¼å¼å¯¹è±¡
 	 */
 	public DateFormat getTimeFormat() {
 		return getFormat(timeFormat);
 	}
 
 	/**
-	 * È¡ÏµÍ³Éè¶¨µÄÈÕÆÚÊ±¼ä¸ñÊ½´®¶ÔÓ¦µÄ¸ñÊ½¶ÔÏó
+	 * å–ç³»ç»Ÿè®¾å®šçš„æ—¥æœŸæ—¶é—´æ ¼å¼ä¸²å¯¹åº”çš„æ ¼å¼å¯¹è±¡
 	 */
 	public DateFormat getDateTimeFormat() {
 		return getFormat(dateTimeFormat);
 	}
 
 	/**
-	 * È¡Ö¸¶¨¸ñÊ½´®µÄ¸ñÊ½¶ÔÏó
+	 * å–æŒ‡å®šæ ¼å¼ä¸²çš„æ ¼å¼å¯¹è±¡
 	 */
 	public DateFormatX getFormatX(String fmt) {
 		DateFormatX df = xmap.get(fmt);
@@ -134,28 +134,28 @@ public class DateFormatFactory {
 	}
 
 	/**
-	 * È¡ÏµÍ³Éè¶¨µÄÈÕÆÚ¸ñÊ½´®¶ÔÓ¦µÄ¸ñÊ½¶ÔÏó
+	 * å–ç³»ç»Ÿè®¾å®šçš„æ—¥æœŸæ ¼å¼ä¸²å¯¹åº”çš„æ ¼å¼å¯¹è±¡
 	 */
 	public DateFormatX getDateFormatX() {
 		return getFormatX(dateFormat);
 	}
 	
 	/**
-	 * È¡ÏµÍ³Éè¶¨µÄÊ±¼ä¸ñÊ½´®¶ÔÓ¦µÄ¸ñÊ½¶ÔÏó
+	 * å–ç³»ç»Ÿè®¾å®šçš„æ—¶é—´æ ¼å¼ä¸²å¯¹åº”çš„æ ¼å¼å¯¹è±¡
 	 */
 	public DateFormatX getTimeFormatX() {
 		return getFormatX(timeFormat);
 	}
 
 	/**
-	 * È¡ÏµÍ³Éè¶¨µÄÈÕÆÚÊ±¼ä¸ñÊ½´®¶ÔÓ¦µÄ¸ñÊ½¶ÔÏó
+	 * å–ç³»ç»Ÿè®¾å®šçš„æ—¥æœŸæ—¶é—´æ ¼å¼ä¸²å¯¹åº”çš„æ ¼å¼å¯¹è±¡
 	 */
 	public DateFormatX getDateTimeFormatX() {
 		return getFormatX(dateTimeFormat);
 	}
 	
 	/**
-	 * È¡Ö¸¶¨¸ñÊ½´®µÄ¸ñÊ½¶ÔÏó
+	 * å–æŒ‡å®šæ ¼å¼ä¸²çš„æ ¼å¼å¯¹è±¡
 	 */
 	public static DateFormatX newFormatX(String fmt) {
 		DateFormatX df = new DateFormatX(fmt);
@@ -164,7 +164,7 @@ public class DateFormatFactory {
 	}
 
 	/**
-	 * ĞÂ²úÉúÒ»¸öÏµÍ³Éè¶¨µÄÈÕÆÚ¸ñÊ½´®¶ÔÓ¦µÄ¸ñÊ½¶ÔÏó
+	 * æ–°äº§ç”Ÿä¸€ä¸ªç³»ç»Ÿè®¾å®šçš„æ—¥æœŸæ ¼å¼ä¸²å¯¹åº”çš„æ ¼å¼å¯¹è±¡
 	 * @return
 	 */
 	public static DateFormatX newDateFormatX() {
@@ -172,7 +172,7 @@ public class DateFormatFactory {
 	}
 
 	/**
-	 * ĞÂ²úÉúÒ»¸öÏµÍ³Éè¶¨µÄÈÕÆÚÊ±¼ä¸ñÊ½´®¶ÔÓ¦µÄ¸ñÊ½¶ÔÏó
+	 * æ–°äº§ç”Ÿä¸€ä¸ªç³»ç»Ÿè®¾å®šçš„æ—¥æœŸæ—¶é—´æ ¼å¼ä¸²å¯¹åº”çš„æ ¼å¼å¯¹è±¡
 	 * @return
 	 */
 	public static DateFormatX newDateTimeFormatX() {
@@ -180,7 +180,7 @@ public class DateFormatFactory {
 	}
 	
 	/**
-	 * ĞÂ²úÉúÒ»¸öÏµÍ³Éè¶¨µÄÊ±¼ä¸ñÊ½´®¶ÔÓ¦µÄ¸ñÊ½¶ÔÏó
+	 * æ–°äº§ç”Ÿä¸€ä¸ªç³»ç»Ÿè®¾å®šçš„æ—¶é—´æ ¼å¼ä¸²å¯¹åº”çš„æ ¼å¼å¯¹è±¡
 	 */
 	public static DateFormatX newTimeFormatX() {
 		return newFormatX(timeFormat);

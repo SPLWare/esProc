@@ -8,7 +8,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÁÈ¡ÎÄ¼şÄÚÈİ³É×Ö·û´®»òÕß×Ö½ÚÊı×é
+ * è¯»å–æ–‡ä»¶å†…å®¹æˆå­—ç¬¦ä¸²æˆ–è€…å­—èŠ‚æ•°ç»„
  * f.read() f.read(b:e)
  * @author RunQian
  *

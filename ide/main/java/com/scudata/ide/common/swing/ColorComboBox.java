@@ -32,22 +32,22 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
- * ÑÕÉ«±à¼­ÏÂÀ­ÁĞ±í¿Ø¼ş
+ * é¢œè‰²ç¼–è¾‘ä¸‹æ‹‰åˆ—è¡¨æ§ä»¶
  */
 public class ColorComboBox extends JComboBox<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ±à¼­±í´ïÊ½
+	 * æ˜¯å¦å¯ä»¥ç¼–è¾‘è¡¨è¾¾å¼
 	 */
 	private boolean canEditExp = false;
 	/**
-	 * Í¸Ã÷É«
+	 * é€æ˜è‰²
 	 */
 	public static Integer transparentColor = new Integer(0xffffff);
 
 	/**
-	 * È±Ê¡µÄÑÕÉ«ÁĞ±í
+	 * ç¼ºçœçš„é¢œè‰²åˆ—è¡¨
 	 */
 	final static Integer[] defColors = new Integer[] {
 			new Integer(Color.black.getRGB()),
@@ -61,14 +61,14 @@ public class ColorComboBox extends JComboBox<Integer> {
 			new Integer(Color.white.getRGB()), transparentColor };
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ColorComboBox() {
 		this(true);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param palette
 	 */
@@ -84,7 +84,7 @@ public class ColorComboBox extends JComboBox<Integer> {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 * 
 	 * @param withTransparentColor
 	 */
@@ -100,7 +100,7 @@ public class ColorComboBox extends JComboBox<Integer> {
 
 	/**
 	 * @param withTransparentColor
-	 *            boolean ÊÇ·ñÓĞ Í¸Ã÷É« ÏÂÀ­ÑÕÉ«
+	 *            boolean æ˜¯å¦æœ‰ é€æ˜è‰² ä¸‹æ‹‰é¢œè‰²
 	 */
 	public ColorComboBox(boolean withTransparentColor) {
 		super(defColors);
@@ -108,10 +108,10 @@ public class ColorComboBox extends JComboBox<Integer> {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ°üº¬Í¸Ã÷É«
+	 * è®¾ç½®æ˜¯å¦åŒ…å«é€æ˜è‰²
 	 * 
 	 * @param withTransparentColor
-	 *            trueÊ±°üº¬Í¸Ã÷É«
+	 *            trueæ—¶åŒ…å«é€æ˜è‰²
 	 */
 	public void setWithTransparentColor(boolean withTransparentColor) {
 		if (withTransparentColor) {
@@ -129,7 +129,7 @@ public class ColorComboBox extends JComboBox<Integer> {
 	}
 
 	/**
-	 * È¡ÑÕÉ«µÄintÖµ
+	 * å–é¢œè‰²çš„intå€¼
 	 * 
 	 * @return
 	 */
@@ -138,7 +138,7 @@ public class ColorComboBox extends JComboBox<Integer> {
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ±à¼­±í´ïÊ½
+	 * æ˜¯å¦å¯ä»¥ç¼–è¾‘è¡¨è¾¾å¼
 	 * 
 	 * @return
 	 */
@@ -147,53 +147,53 @@ public class ColorComboBox extends JComboBox<Integer> {
 	}
 
 	/**
-	 * ÉèÖÃ¿ÉÒÔ±à¼­±í´ïÊ½
+	 * è®¾ç½®å¯ä»¥ç¼–è¾‘è¡¨è¾¾å¼
 	 */
 	public void setAllowEditExp() {
 		canEditExp = true;
 	}
 
 	/**
-	 * ÏÂÀ­¿òµÄµ¥Ôª¸ñÑÕÉ«±à¼­Æ÷
+	 * ä¸‹æ‹‰æ¡†çš„å•å…ƒæ ¼é¢œè‰²ç¼–è¾‘å™¨
 	 *
 	 */
 	class ColorComboBoxEditor extends BasicComboBoxEditor implements
 			FocusListener {
 		/**
-		 * ÑÕÉ«ÏÂÀ­¿ò
+		 * é¢œè‰²ä¸‹æ‹‰æ¡†
 		 */
 		ColorComboBox parentContainer = null;
 		/**
-		 * ÑÕÉ«Í¼±ê
+		 * é¢œè‰²å›¾æ ‡
 		 */
 		ColorIcon editorIcon = new ColorIcon();
 		/**
-		 * ±à¼­±êÇ©
+		 * ç¼–è¾‘æ ‡ç­¾
 		 */
 		JLabel editorLabel = new JLabel(editorIcon);
 		/**
-		 * ±ß¿ò
+		 * è¾¹æ¡†
 		 */
 		Border lowerBorder, etchedBorder;
 		/**
-		 * ±à¼­µÄÑÕÉ«
+		 * ç¼–è¾‘çš„é¢œè‰²
 		 */
 		Object color;
 		/**
-		 * ¶Ô»°¿ò
+		 * å¯¹è¯æ¡†
 		 */
 		Dialog dialog = null;
 		/**
-		 * ÑÕÉ«±í´ïÊ½¡¢ÖµºÍHEXÖµ
+		 * é¢œè‰²è¡¨è¾¾å¼ã€å€¼å’ŒHEXå€¼
 		 */
 		JTextField colorExpField, colorValueDec, colorValueHex;
 		/**
-		 * ÑÕÉ«Ñ¡ÔñÆ÷
+		 * é¢œè‰²é€‰æ‹©å™¨
 		 */
 		JColorChooser colorChooser = new JColorChooser();
 
 		/**
-		 * ¹¹Ôìº¯Êı
+		 * æ„é€ å‡½æ•°
 		 * 
 		 * @param p
 		 */
@@ -273,21 +273,21 @@ public class ColorComboBox extends JComboBox<Integer> {
 		}
 
 		/**
-		 * È¡±à¼­¿Ø¼ş
+		 * å–ç¼–è¾‘æ§ä»¶
 		 */
 		public Component getEditorComponent() {
 			return editorLabel;
 		}
 
 		/**
-		 * È¡ÑÕÉ«
+		 * å–é¢œè‰²
 		 */
 		public Object getItem() {
 			return color;
 		}
 
 		/**
-		 * ÉèÖÃÏîÄ¿
+		 * è®¾ç½®é¡¹ç›®
 		 */
 		public void setItem(Object itemToSet) {
 			editorLabel.setText("");
@@ -296,7 +296,7 @@ public class ColorComboBox extends JComboBox<Integer> {
 		}
 
 		/**
-		 * ÉèÖÃÑÕÉ«
+		 * è®¾ç½®é¢œè‰²
 		 * 
 		 * @param itemToSet
 		 */
@@ -320,18 +320,18 @@ public class ColorComboBox extends JComboBox<Integer> {
 }
 
 /**
- * JListµ¥Ôª¸ñäÖÈ¾Æ÷
+ * JListå•å…ƒæ ¼æ¸²æŸ“å™¨
  *
  */
 class ColorRendererer extends JLabel implements ListCellRenderer {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ÑÕÉ«Í¼±ê
+	 * é¢œè‰²å›¾æ ‡
 	 */
 	private ColorIcon icon = new ColorIcon();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ColorRendererer() {
 		setOpaque(true);
@@ -342,7 +342,7 @@ class ColorRendererer extends JLabel implements ListCellRenderer {
 	}
 
 	/**
-	 * ·µ»ØÏÔÊ¾µÄ×é¼ş
+	 * è¿”å›æ˜¾ç¤ºçš„ç»„ä»¶
 	 */
 	public Component getListCellRendererComponent(JList list, Object value,
 			int index, boolean isSelected, boolean cellHasFocus) {

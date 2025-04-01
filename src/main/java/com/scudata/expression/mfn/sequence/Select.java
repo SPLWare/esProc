@@ -8,8 +8,8 @@ import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.SequenceFunction;
 
 /**
- * È¡ĞòÁĞÖĞÂú×ãÖ¸¶¨Ìõ¼şµÄÔªËØÉú³ÉĞÂµÄĞòÁĞ
- * A.select(x) A.select(xk:yk,¡­)
+ * å–åºåˆ—ä¸­æ»¡è¶³æŒ‡å®šæ¡ä»¶çš„å…ƒç´ ç”Ÿæˆæ–°çš„åºåˆ—
+ * A.select(x) A.select(xk:yk,â€¦)
  * @author RunQian
  *
  */

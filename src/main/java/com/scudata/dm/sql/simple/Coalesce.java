@@ -11,7 +11,7 @@ public class Coalesce implements IFunction
 		{
 			if(params[i].isEmpty())
 			{
-				throw new RQException("Coalesce函数参数不能为空");
+				throw new RQException("Coalesce鍑芥暟鍙傛暟涓嶈兘涓虹┖");
 			}
 			if(i > 0)
 			{

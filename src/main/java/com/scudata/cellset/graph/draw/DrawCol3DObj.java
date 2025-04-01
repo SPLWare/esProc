@@ -9,23 +9,23 @@ import com.scudata.cellset.graph.*;
 import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 /**
- * ÈıÎ¬Á¢ÌåÖùÍ¼ÊµÏÖ
+ * ä¸‰ç»´ç«‹ä½“æŸ±å›¾å®ç°
  * @author Joancy
  *
  */
 
 public class DrawCol3DObj extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
 		GraphParam gp = db.gp;
@@ -97,9 +97,9 @@ public class DrawCol3DObj extends DrawBase {
 		gp.gRect2.width -= coorWidth;
 		gp.gRect2.height -= coorWidth;
 
-		/* »­×ø±êÖá */
+		/* ç”»åæ ‡è½´ */
 		db.drawGraphRect();
-		/* »­YÖá */
+		/* ç”»Yè½´ */
 		Point2D.Double p;
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLine(dely, i);
@@ -107,17 +107,17 @@ public class DrawCol3DObj extends DrawBase {
 			String scoory = db.getFormattedValue(coory.doubleValue());
 			p = db.getVTickPoint(i*dely);
 			gp.GFV_YLABEL.outText(p.x-gp.tickLen, p.y, scoory);
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine =  (gp.gRect1.y + gp.gRect1.height - i
 						* dely);
 			}
 		}
 
-		// »­¾¯½äÏß
+		// ç”»è­¦æˆ’çº¿
 		db.drawWarnLine();
 		
-		/* ÏÈ»­¸ºÊıÖù×Ó */
+		/* å…ˆç”»è´Ÿæ•°æŸ±å­ */
 		if (gp.graphTransparent) {
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
 					0.60F));
@@ -136,7 +136,7 @@ public class DrawCol3DObj extends DrawBase {
 				c = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
 				Utils.setStroke(g, c, Consts.LINE_SOLID, 1.0f);
 				db.drawLine(p.x, p.y,p.x, p.y + gp.tickLen,c);
-				// »­±³¾°ĞéÏß
+				// ç”»èƒŒæ™¯è™šçº¿
 				db.drawGridLineCategoryV(gp.gRect2.x + delx);
 			}
 
@@ -166,7 +166,7 @@ public class DrawCol3DObj extends DrawBase {
 				}
 				db.drawRectCube(lb, seriesWidth, len, coorWidth, 0,
 						cIndex, htmlLink, egc.getNameString(), egs);
-				if (gp.dispValueOntop && !egs.isNull() && vis) { // Öù¶¥ÏÔÊ¾ÊıÖµ
+				if (gp.dispValueOntop && !egs.isNull() && vis) { // æŸ±é¡¶æ˜¾ç¤ºæ•°å€¼
 					String sval = db.getDispValue(egc,egs,gp.serNum);
 					x = lb + seriesWidth / 2; // - TR.width / 2;
 					y = gp.valueBaseLine - len;
@@ -188,7 +188,7 @@ public class DrawCol3DObj extends DrawBase {
 			}
 		}
 		
-		// »æÖÆ»ùÏßÍ¸Ã÷Æ½Ãæ£¬
+		// ç»˜åˆ¶åŸºçº¿é€æ˜å¹³é¢ï¼Œ
 		if (gp.valueBaseLine != gp.gRect1.y + gp.gRect1.height) {
 			double xx[] = { gp.gRect1.x, gp.gRect1.x + coorWidth,
 					gp.gRect1.x + gp.gRect1.width + coorWidth,
@@ -199,7 +199,7 @@ public class DrawCol3DObj extends DrawBase {
 			Shape poly = Utils.newPolygon2D(xx, yy);
 
 			Color ccc = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
-			if (ccc == null) {// Èç¹ûµ×±ßÎªÍ¸Ã÷É«Ê±£¬Ê¹ÓÃÈ±Ê¡»Ò
+			if (ccc == null) {// å¦‚æœåº•è¾¹ä¸ºé€æ˜è‰²æ—¶ï¼Œä½¿ç”¨ç¼ºçœç°
 				ccc = Color.lightGray;
 			}
 			float trans = 1.0f;
@@ -210,7 +210,7 @@ public class DrawCol3DObj extends DrawBase {
 			Utils.fill(g, poly, trans, ccc);
 		}
 		
-//ÔÙ»­ÕıÊıÖù×Ó
+//å†ç”»æ­£æ•°æŸ±å­
 		for (int i = 0; i < cc; i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 			boolean vis = i % (gp.graphXInterval + 1) == 0;
@@ -239,7 +239,7 @@ public class DrawCol3DObj extends DrawBase {
 				}
 				db.drawRectCube(lb, seriesWidth, len, coorWidth, 0,
 						cIndex, htmlLink, egc.getNameString(), egs);
-				if (gp.dispValueOntop && !egs.isNull() && vis) { // Öù¶¥ÏÔÊ¾ÊıÖµ
+				if (gp.dispValueOntop && !egs.isNull() && vis) { // æŸ±é¡¶æ˜¾ç¤ºæ•°å€¼
 					String sval = db.getDispValue(egc,egs,gp.serNum);
 					x = lb + seriesWidth / 2; // - TR.width / 2;
 					y = gp.valueBaseLine - len;
@@ -268,7 +268,7 @@ public class DrawCol3DObj extends DrawBase {
 		}
 		db.outLabels();
 		
-		/* µ±»ùÏß¸úµ××ù²»ÖØºÏÊ±£¬²ÅĞèÒª»æÖÆ */
+		/* å½“åŸºçº¿è·Ÿåº•åº§ä¸é‡åˆæ—¶ï¼Œæ‰éœ€è¦ç»˜åˆ¶ */
 		if (gp.valueBaseLine != gp.gRect1.y + gp.gRect1.height) {
 			db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x
 					+ gp.gRect1.width, gp.valueBaseLine,

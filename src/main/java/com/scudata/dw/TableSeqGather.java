@@ -1,7 +1,7 @@
 package com.scudata.dw;
 
 
-//Ö»ÊÇ·µ»ØËÍ½øÀ´µÄ¼ÇÂ¼ºÅ
+//åªæ˜¯è¿”å›é€è¿›æ¥çš„è®°å½•å·
 public class TableSeqGather extends TableGather {
 	public TableSeqGather() {}
 	

@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 import java.util.*;
 
 /**
- * ÏûÏ¢ÎÄ±¾¹ÜÀíÆ÷
+ * æ¶ˆæ¯æ–‡æœ¬ç®¡ç†å™¨
  */
 public class MessageManager {
 	private static List<ClassLoader> clList = new ArrayList<ClassLoader>(8); 
@@ -12,7 +12,7 @@ public class MessageManager {
 		clList.add(MessageManager.class.getClassLoader());
 	}
 	
-	/** Ôö¼Ó²éÕÒ×ÊÔ´µÄÀàÂ·¾¶ */
+	/** å¢åŠ æŸ¥æ‰¾èµ„æºçš„ç±»è·¯å¾„ */
 	public static synchronized void addClassLoader(ClassLoader cl) {
 		for(ClassLoader tmp : clList) {
 			if(cl==tmp) return;
@@ -51,15 +51,15 @@ public class MessageManager {
 	}
 
 	/**
-	 * ´Ó×ÊÔ´ÊøÖĞ°´¼üÖµÈ¡ÏûÏ¢ÎÄ±¾´®
+	 * ä»èµ„æºæŸä¸­æŒ‰é”®å€¼å–æ¶ˆæ¯æ–‡æœ¬ä¸²
 	 *
 	 * @param key
-	 *            ¼üÖµ
+	 *            é”®å€¼
 	 */
 	public String getMessage(String key) {
 		if (key == null)
 			throw new IllegalArgumentException("key may not be a null value");
-		String msg = key;// null; ¸Ä³ÉÕÒ²»µ½¶¨Òå·µ»ØKey±¾Éí£¬ÕâÑùÓ¢ÎÄ¿ÉÒÔ²»ÓÃ¶¨Òå×ÊÔ´£¬»òÕßÈ±Ê¡¾ÍÓÃKey£¬xq
+		String msg = key;// null; æ”¹æˆæ‰¾ä¸åˆ°å®šä¹‰è¿”å›Keyæœ¬èº«ï¼Œè¿™æ ·è‹±æ–‡å¯ä»¥ä¸ç”¨å®šä¹‰èµ„æºï¼Œæˆ–è€…ç¼ºçœå°±ç”¨Keyï¼Œxq
 							// 2014.9.25
 		try {
 			msg = bundle.getString(key);
@@ -69,12 +69,12 @@ public class MessageManager {
 	}
 
 	/**
-	 * ´Ó×ÊÔ´ÊøÖĞ°´¼üÖµÈ¡ÏûÏ¢ÎÄ¼ş´®£¬²¢ÓÃÖ¸¶¨µÄ²ÎÊı½øĞĞ¸ñÊ½»¯
+	 * ä»èµ„æºæŸä¸­æŒ‰é”®å€¼å–æ¶ˆæ¯æ–‡ä»¶ä¸²ï¼Œå¹¶ç”¨æŒ‡å®šçš„å‚æ•°è¿›è¡Œæ ¼å¼åŒ–
 	 *
 	 * @param key
-	 *            ¼üÖµ
+	 *            é”®å€¼
 	 * @param args
-	 *            ²ÎÊı
+	 *            å‚æ•°
 	 */
 	public String getMessage(String key, Object[] args) {
 		String value = getMessage(key);
@@ -97,60 +97,60 @@ public class MessageManager {
 	}
 
 	/**
-	 * ´Ó×ÊÔ´ÊøÖĞ°´¼üÖµÈ¡ÏûÏ¢ÎÄ¼ş´®£¬²¢ÓÃÖ¸¶¨µÄ²ÎÊı½øĞĞ¸ñÊ½»¯
+	 * ä»èµ„æºæŸä¸­æŒ‰é”®å€¼å–æ¶ˆæ¯æ–‡ä»¶ä¸²ï¼Œå¹¶ç”¨æŒ‡å®šçš„å‚æ•°è¿›è¡Œæ ¼å¼åŒ–
 	 *
 	 * @param key
-	 *            ¼üÖµ
+	 *            é”®å€¼
 	 * @param args1
-	 *            µÚÒ»¸ö²ÎÊı
+	 *            ç¬¬ä¸€ä¸ªå‚æ•°
 	 */
 	public String getMessage(String key, Object arg1) {
 		return getMessage(key, new Object[] { arg1 });
 	}
 
 	/**
-	 * ´Ó×ÊÔ´ÊøÖĞ°´¼üÖµÈ¡ÏûÏ¢ÎÄ¼ş´®£¬²¢ÓÃÖ¸¶¨µÄ²ÎÊı½øĞĞ¸ñÊ½»¯
+	 * ä»èµ„æºæŸä¸­æŒ‰é”®å€¼å–æ¶ˆæ¯æ–‡ä»¶ä¸²ï¼Œå¹¶ç”¨æŒ‡å®šçš„å‚æ•°è¿›è¡Œæ ¼å¼åŒ–
 	 *
 	 * @param key
-	 *            ¼üÖµ
+	 *            é”®å€¼
 	 * @param args1
-	 *            µÚÒ»¸ö²ÎÊı
+	 *            ç¬¬ä¸€ä¸ªå‚æ•°
 	 * @param args2
-	 *            µÚ¶ş¸ö²ÎÊı
+	 *            ç¬¬äºŒä¸ªå‚æ•°
 	 */
 	public String getMessage(String key, Object arg1, Object arg2) {
 		return getMessage(key, new Object[] { arg1, arg2 });
 	}
 
 	/**
-	 * ´Ó×ÊÔ´ÊøÖĞ°´¼üÖµÈ¡ÏûÏ¢ÎÄ¼ş´®£¬²¢ÓÃÖ¸¶¨µÄ²ÎÊı½øĞĞ¸ñÊ½»¯
+	 * ä»èµ„æºæŸä¸­æŒ‰é”®å€¼å–æ¶ˆæ¯æ–‡ä»¶ä¸²ï¼Œå¹¶ç”¨æŒ‡å®šçš„å‚æ•°è¿›è¡Œæ ¼å¼åŒ–
 	 *
 	 * @param key
-	 *            ¼üÖµ
+	 *            é”®å€¼
 	 * @param args1
-	 *            µÚÒ»¸ö²ÎÊı
+	 *            ç¬¬ä¸€ä¸ªå‚æ•°
 	 * @param args2
-	 *            µÚ¶ş¸ö²ÎÊı
+	 *            ç¬¬äºŒä¸ªå‚æ•°
 	 * @param args3
-	 *            µÚÈı¸ö²ÎÊı
+	 *            ç¬¬ä¸‰ä¸ªå‚æ•°
 	 */
 	public String getMessage(String key, Object arg1, Object arg2, Object arg3) {
 		return getMessage(key, new Object[] { arg1, arg2, arg3 });
 	}
 
 	/**
-	 * ´Ó×ÊÔ´ÊøÖĞ°´¼üÖµÈ¡ÏûÏ¢ÎÄ¼ş´®£¬²¢ÓÃÖ¸¶¨µÄ²ÎÊı½øĞĞ¸ñÊ½»¯
+	 * ä»èµ„æºæŸä¸­æŒ‰é”®å€¼å–æ¶ˆæ¯æ–‡ä»¶ä¸²ï¼Œå¹¶ç”¨æŒ‡å®šçš„å‚æ•°è¿›è¡Œæ ¼å¼åŒ–
 	 *
 	 * @param key
-	 *            ¼üÖµ
+	 *            é”®å€¼
 	 * @param args1
-	 *            µÚÒ»¸ö²ÎÊı
+	 *            ç¬¬ä¸€ä¸ªå‚æ•°
 	 * @param args2
-	 *            µÚ¶ş¸ö²ÎÊı
+	 *            ç¬¬äºŒä¸ªå‚æ•°
 	 * @param args3
-	 *            µÚÈı¸ö²ÎÊı
+	 *            ç¬¬ä¸‰ä¸ªå‚æ•°
 	 * @param args4
-	 *            µÚËÄ¸ö²ÎÊı
+	 *            ç¬¬å››ä¸ªå‚æ•°
 	 */
 	public String getMessage(String key, Object arg1, Object arg2, Object arg3,
 			Object arg4) {
@@ -158,20 +158,20 @@ public class MessageManager {
 	}
 
 	/**
-	 * ´Ó×ÊÔ´ÊøÖĞ°´¼üÖµÈ¡ÏûÏ¢ÎÄ¼ş´®£¬²¢ÓÃÖ¸¶¨µÄ²ÎÊı½øĞĞ¸ñÊ½»¯
+	 * ä»èµ„æºæŸä¸­æŒ‰é”®å€¼å–æ¶ˆæ¯æ–‡ä»¶ä¸²ï¼Œå¹¶ç”¨æŒ‡å®šçš„å‚æ•°è¿›è¡Œæ ¼å¼åŒ–
 	 *
 	 * @param key
-	 *            ¼üÖµ
+	 *            é”®å€¼
 	 * @param args1
-	 *            µÚÒ»¸ö²ÎÊı
+	 *            ç¬¬ä¸€ä¸ªå‚æ•°
 	 * @param args2
-	 *            µÚ¶ş¸ö²ÎÊı
+	 *            ç¬¬äºŒä¸ªå‚æ•°
 	 * @param args3
-	 *            µÚÈı¸ö²ÎÊı
+	 *            ç¬¬ä¸‰ä¸ªå‚æ•°
 	 * @param args4
-	 *            µÚËÄ¸ö²ÎÊı
+	 *            ç¬¬å››ä¸ªå‚æ•°
 	 * @param args5
-	 *            µÚÎå¸ö²ÎÊı
+	 *            ç¬¬äº”ä¸ªå‚æ•°
 	 */
 	public String getMessage(String key, Object arg1, Object arg2, Object arg3,
 			Object arg4, Object arg5) {
@@ -179,22 +179,22 @@ public class MessageManager {
 	}
 
 	/**
-	 * ´Ó×ÊÔ´ÊøÖĞ°´¼üÖµÈ¡ÏûÏ¢ÎÄ¼ş´®£¬²¢ÓÃÖ¸¶¨µÄ²ÎÊı½øĞĞ¸ñÊ½»¯
+	 * ä»èµ„æºæŸä¸­æŒ‰é”®å€¼å–æ¶ˆæ¯æ–‡ä»¶ä¸²ï¼Œå¹¶ç”¨æŒ‡å®šçš„å‚æ•°è¿›è¡Œæ ¼å¼åŒ–
 	 *
 	 * @param key
-	 *            ¼üÖµ
+	 *            é”®å€¼
 	 * @param args1
-	 *            µÚÒ»¸ö²ÎÊı
+	 *            ç¬¬ä¸€ä¸ªå‚æ•°
 	 * @param args2
-	 *            µÚ¶ş¸ö²ÎÊı
+	 *            ç¬¬äºŒä¸ªå‚æ•°
 	 * @param args3
-	 *            µÚÈı¸ö²ÎÊı
+	 *            ç¬¬ä¸‰ä¸ªå‚æ•°
 	 * @param args4
-	 *            µÚËÄ¸ö²ÎÊı
+	 *            ç¬¬å››ä¸ªå‚æ•°
 	 * @param args5
-	 *            µÚÎå¸ö²ÎÊı
+	 *            ç¬¬äº”ä¸ªå‚æ•°
 	 * @param args6
-	 *            µÚÁù¸ö²ÎÊı
+	 *            ç¬¬å…­ä¸ªå‚æ•°
 	 */
 	public String getMessage(String key, Object arg1, Object arg2, Object arg3,
 			Object arg4, Object arg5, Object arg6) {
@@ -205,7 +205,7 @@ public class MessageManager {
 	private static Hashtable mgrs = new Hashtable();
 
 	/**
-	 * IDEÖĞ¼ì²éÊÚÈ¨¿ÉÄÜ»áÇĞ»»ÓïÑÔ£¬´ËÊ±Ó¦¸ÃÇå¿ÕÒÑ¾­Éú³ÉµÄManager£¬·ñÔòÓïÑÔ×ÊÔ´»¹ÊÇÓÃµÄÇĞ»»Ç°µÄ
+	 * IDEä¸­æ£€æŸ¥æˆæƒå¯èƒ½ä¼šåˆ‡æ¢è¯­è¨€ï¼Œæ­¤æ—¶åº”è¯¥æ¸…ç©ºå·²ç»ç”Ÿæˆçš„Managerï¼Œå¦åˆ™è¯­è¨€èµ„æºè¿˜æ˜¯ç”¨çš„åˆ‡æ¢å‰çš„
 	 * wunan 2020/7/9
 	 */
 	public synchronized static void clearManagers() {
@@ -213,10 +213,10 @@ public class MessageManager {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÎÄ¼şµÄÏûÏ¢ÎÄ±¾¹ÜÀíÆ÷
+	 * å–æŒ‡å®šæ–‡ä»¶çš„æ¶ˆæ¯æ–‡æœ¬ç®¡ç†å™¨
 	 *
 	 * @param fileName
-	 *            ÎÄ¼şÃû
+	 *            æ–‡ä»¶å
 	 */
 	public synchronized static MessageManager getManager(String fileName) {
 		MessageManager mgr = (MessageManager) mgrs.get(fileName);
@@ -228,22 +228,22 @@ public class MessageManager {
 	}
 
 	/**
-	 * È¡Ö¸¶¨×ÊÔ´ÊøµÄÏûÏ¢ÎÄ±¾¹ÜÀíÆ÷
+	 * å–æŒ‡å®šèµ„æºæŸçš„æ¶ˆæ¯æ–‡æœ¬ç®¡ç†å™¨
 	 *
 	 * @param bundle
-	 *            ×ÊÔ´Êø
+	 *            èµ„æºæŸ
 	 */
 	public synchronized static MessageManager getManager(ResourceBundle bundle) {
 		return new MessageManager(bundle);
 	}
 
 	/**
-	 * È¡Ö¸¶¨°üÖ¸¶¨ÇøÓòµÄÏûÏ¢ÎÄ±¾¹ÜÀíÆ÷
+	 * å–æŒ‡å®šåŒ…æŒ‡å®šåŒºåŸŸçš„æ¶ˆæ¯æ–‡æœ¬ç®¡ç†å™¨
 	 *
 	 * @param fileName
-	 *            ÎÄ¼şÃû
+	 *            æ–‡ä»¶å
 	 * @param loc
-	 *            ÇøÓò
+	 *            åŒºåŸŸ
 	 */
 	public synchronized static MessageManager getManager(String fileName,
 			Locale loc) {

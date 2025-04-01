@@ -14,8 +14,8 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * µ÷ÓÃ°üÖĞÀàµÄ¾²Ì¬º¯Êı
- * invoke(p.c.f,ai,¡­) µ÷ÓÃ°üpÖĞÀàcµÄ¾²Ì¬º¯Êıf£¬p¿ÉÊ¡ÂÔ¡£
+ * è°ƒç”¨åŒ…ä¸­ç±»çš„é™æ€å‡½æ•°
+ * invoke(p.c.f,ai,â€¦) è°ƒç”¨åŒ…pä¸­ç±»cçš„é™æ€å‡½æ•°fï¼Œpå¯çœç•¥ã€‚
  * @author runqian
  *
  */
@@ -29,7 +29,7 @@ public class Invoke extends Function {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -120,7 +120,7 @@ public class Invoke extends Function {
 		return null;
 	}
 	
-	// °ÑSequence×ª³ÉObjectÊı×é
+	// æŠŠSequenceè½¬æˆObjectæ•°ç»„
 	private static Object toJavaObject(Object obj) {
 		if (!(obj instanceof Sequence)) {
 			return obj;
@@ -136,7 +136,7 @@ public class Invoke extends Function {
 		return result;
 	}
 	
-	// °ÑObjectÊı×é×ª³ÉSequence
+	// æŠŠObjectæ•°ç»„è½¬æˆSequence
 	private static Object toDMObject(Object obj) {
 		if (!(obj instanceof Object[])) {
 			return obj;

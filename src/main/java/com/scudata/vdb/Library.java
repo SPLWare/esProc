@@ -22,63 +22,63 @@ import com.scudata.util.Variant;
 
 
 /**
- * ÎïÀíÊı¾İ¿â£¬²ÉÓÃÀàÎÄ¼şÏµÍ³½á¹¹£¬ÓÉÒ»²ã²ãµÄÄ¿Â¼ºÍ±íµ¥¹¹³É
+ * ç‰©ç†æ•°æ®åº“ï¼Œé‡‡ç”¨ç±»æ–‡ä»¶ç³»ç»Ÿç»“æ„ï¼Œç”±ä¸€å±‚å±‚çš„ç›®å½•å’Œè¡¨å•æ„æˆ
  * @author RunQian
  *
  */
 public class Library {
-	public static final long MAXWAITTIME = 8000; // ËøµÄ×î´óµÈ´ıÊ±¼ä£¬µ¥Î»ºÁÃë
+	public static final long MAXWAITTIME = 8000; // é”çš„æœ€å¤§ç­‰å¾…æ—¶é—´ï¼Œå•ä½æ¯«ç§’
 	
-	// ÎïÀí¿â·Ö³ÉÔ¼¶¨´óĞ¡µÄÇø¿é£¬¿Õ¼ä·ÖÅäÒÔÇø¿éÎªµ¥Î»Ôö³¤
+	// ç‰©ç†åº“åˆ†æˆçº¦å®šå¤§å°çš„åŒºå—ï¼Œç©ºé—´åˆ†é…ä»¥åŒºå—ä¸ºå•ä½å¢é•¿
 	public static final int BLOCKSIZE = 1024;
-	public static final int ENLARGE_BLOCKCOUNT = 1024 * 8; // ÎÄ¼şÌ«Ğ¡Ê±Ã¿´ÎÔö¼ÓµÄ¿éÊı
+	public static final int ENLARGE_BLOCKCOUNT = 1024 * 8; // æ–‡ä»¶å¤ªå°æ—¶æ¯æ¬¡å¢åŠ çš„å—æ•°
 	
-	// ºóÌ¨ĞÔÄÜÓÅ»¯Ïß³ÌµÄË¯ÃßÊ±¼ä
-	private static final long SLEEPTIME = 5 * 60 * 1000; // 5·ÖÖÓ
+	// åå°æ€§èƒ½ä¼˜åŒ–çº¿ç¨‹çš„ç¡çœ æ—¶é—´
+	private static final long SLEEPTIME = 5 * 60 * 1000; // 5åˆ†é’Ÿ
 	
-	// É¨ÃèÎïÀí¿éÊ¹ÓÃÇé¿öµÄ¼ä¸ôÊ±¼ä
-	private static final long SCANFILEINTERVAL = 60 * 60 * 1000; // 1Ğ¡Ê±
+	// æ‰«æç‰©ç†å—ä½¿ç”¨æƒ…å†µçš„é—´éš”æ—¶é—´
+	private static final long SCANFILEINTERVAL = 60 * 60 * 1000; // 1å°æ—¶
 	
-	// ´æ·ÅÆô¶¯µÄLibrary£¬´´½¨vdbÊ±ÏÈµ½ÕâÀï²éÕÒÊı¾İ¿âÊÇ·ñÒÑ¾­Æô¶¯
+	// å­˜æ”¾å¯åŠ¨çš„Libraryï¼Œåˆ›å»ºvdbæ—¶å…ˆåˆ°è¿™é‡ŒæŸ¥æ‰¾æ•°æ®åº“æ˜¯å¦å·²ç»å¯åŠ¨
 	private static ParamList libList = new ParamList();
 	
-	// ÎÄ¼şÍ·ĞÅÏ¢
-	private long createTime; // ´´½¨Ê±¼ä
-	private long startTime; // Æô¶¯Ê±¼ä
-	private long stopTime; // Í£Ö¹Ê±¼ä
-	private int rootHeaderBlock = 1; // ¸ùÊ×¿éÎ»ÖÃ
+	// æ–‡ä»¶å¤´ä¿¡æ¯
+	private long createTime; // åˆ›å»ºæ—¶é—´
+	private long startTime; // å¯åŠ¨æ—¶é—´
+	private long stopTime; // åœæ­¢æ—¶é—´
+	private int rootHeaderBlock = 1; // æ ¹é¦–å—ä½ç½®
 	
-	// ÓÉÍâ´æºÅºÍÄÚ´æºÅÁ½¸ö×éºÏÆğÀ´È·¶¨ÊÂÎñÒ»ÖÂĞÔ
-	private int outerTxSeq = 1; // Íâ´æºÅ£¬Ã¿´ÎÆô¶¯Êı¾İ¿â¼Ó1
-	private transient long innerTxSeq = 0; // ÄÚ´æÌá½»ºÅ£¬´®ĞĞÌá½»£¬ÊÂÎñºÅ¼Ó1
-	private transient long loadTxSeq = 0; // ¶ÁÊÂÎñºÅ£¬Èç¹ûµ±Ç°Ã»ÓĞÌá½»ÈÎÎñÔòµÈÓÚinnerTxSeq£¬·ñÔòµÈÓÚinnerTxSeq-1
+	// ç”±å¤–å­˜å·å’Œå†…å­˜å·ä¸¤ä¸ªç»„åˆèµ·æ¥ç¡®å®šäº‹åŠ¡ä¸€è‡´æ€§
+	private int outerTxSeq = 1; // å¤–å­˜å·ï¼Œæ¯æ¬¡å¯åŠ¨æ•°æ®åº“åŠ 1
+	private transient long innerTxSeq = 0; // å†…å­˜æäº¤å·ï¼Œä¸²è¡Œæäº¤ï¼Œäº‹åŠ¡å·åŠ 1
+	private transient long loadTxSeq = 0; // è¯»äº‹åŠ¡å·ï¼Œå¦‚æœå½“å‰æ²¡æœ‰æäº¤ä»»åŠ¡åˆ™ç­‰äºinnerTxSeqï¼Œå¦åˆ™ç­‰äºinnerTxSeq-1
 	
-	private String pathName; // ¶ÔÓ¦µÄÎïÀíÎÄ¼şÂ·¾¶Ãû
-	private RandomAccessFile file; // ÎïÀíÎÄ¼ş
+	private String pathName; // å¯¹åº”çš„ç‰©ç†æ–‡ä»¶è·¯å¾„å
+	private RandomAccessFile file; // ç‰©ç†æ–‡ä»¶
 	private FileChannel channel;
-	private boolean isStarted = false; // ÊÇ·ñÒÑÆô¶¯
+	private boolean isStarted = false; // æ˜¯å¦å·²å¯åŠ¨
 	
-	private BlockManager blockManager; // ¿Õ¿é¹ÜÀíÆ÷
-	private LinkedList<VDB> vdbList = new LinkedList<VDB>(); // »î¶¯µÄÁ´½Ó
-	private ISection rootSection; // ¸ù½Ú
+	private BlockManager blockManager; // ç©ºå—ç®¡ç†å™¨
+	private LinkedList<VDB> vdbList = new LinkedList<VDB>(); // æ´»åŠ¨çš„é“¾æ¥
+	private ISection rootSection; // æ ¹èŠ‚
 	
-	// ×î½üÓÃ»§µÇÂ¼Ê±¼ä
+	// æœ€è¿‘ç”¨æˆ·ç™»å½•æ—¶é—´
 	private volatile long lastConnectTime = System.currentTimeMillis();
-	private OptimizeThread optThread; // ĞÔÄÜÓÅ»¯Ïß³Ì
+	private OptimizeThread optThread; // æ€§èƒ½ä¼˜åŒ–çº¿ç¨‹
 	
-	// ĞÔÄÜÓÅ»¯Ïß³Ì£¬ÓÃÓÚÊÍ·ÅÄÚ´æºÍ É¨ÃèÎïÀí¿éÊ¹ÓÃÇé¿ö
+	// æ€§èƒ½ä¼˜åŒ–çº¿ç¨‹ï¼Œç”¨äºé‡Šæ”¾å†…å­˜å’Œ æ‰«æç‰©ç†å—ä½¿ç”¨æƒ…å†µ
 	private class OptimizeThread extends Thread {
-		private long scanTime = 0; // ÉÏ´ÎÎïÀí¿éÉ¨ÃèÊ±¼ä
-		private volatile boolean userOn; // É¨ÃèÎÄ¼ş¹ı³ÌÖĞÊÇ·ğÓĞĞÂÓÃ»§µÇÂ¼
-		private BlockManager manager = null; // ÎïÀí¿é¹ÜÀíÆ÷
+		private long scanTime = 0; // ä¸Šæ¬¡ç‰©ç†å—æ‰«ææ—¶é—´
+		private volatile boolean userOn; // æ‰«ææ–‡ä»¶è¿‡ç¨‹ä¸­æ˜¯ä½›æœ‰æ–°ç”¨æˆ·ç™»å½•
+		private BlockManager manager = null; // ç‰©ç†å—ç®¡ç†å™¨
 		
 		/**
-		 * ÓĞĞÂÁ¬½ÓµÇÂ¼
+		 * æœ‰æ–°è¿æ¥ç™»å½•
 		 */
 		public void setUserOn() {
 			userOn = true;
 			if (manager != null) {
-				// Í£Ö¹É¨ÃèÎïÀí¿é
+				// åœæ­¢æ‰«æç‰©ç†å—
 				manager.stop();
 			}
 		}
@@ -97,9 +97,9 @@ public class Library {
 		
 		private void doWork() throws IOException {
 			synchronized(vdbList) {
-				// Èç¹ûÃ»ÓĞÁ¬½ÓÔòÖ´ĞĞÇåÀíÌõ¼şÅĞ¶Ï
+				// å¦‚æœæ²¡æœ‰è¿æ¥åˆ™æ‰§è¡Œæ¸…ç†æ¡ä»¶åˆ¤æ–­
 				if (vdbList.size() == 0) {
-					// ÊÍ·ÅÄÚ´æÖĞµÄ½Úµã
+					// é‡Šæ”¾å†…å­˜ä¸­çš„èŠ‚ç‚¹
 					rootSection.releaseSubSection();
 					userOn = false;
 					
@@ -117,10 +117,10 @@ public class Library {
 			
 			synchronized(vdbList) {
 				if (vdbList.size() == 0) {
-					// ÊÍ·ÅÄÚ´æÖĞµÄ½Úµã
+					// é‡Šæ”¾å†…å­˜ä¸­çš„èŠ‚ç‚¹
 					rootSection.releaseSubSection();
 					
-					// É¨ÃèÆÚ¼äÃ»ÓĞĞÂµÄÁ¬½ÓÔòÉ¨Ãè³É¹¦Íê³É
+					// æ‰«ææœŸé—´æ²¡æœ‰æ–°çš„è¿æ¥åˆ™æ‰«ææˆåŠŸå®Œæˆ
 					if (!userOn) {
 						scanTime = System.currentTimeMillis();
 						blockManager = manager;
@@ -133,14 +133,14 @@ public class Library {
 	}
 	
 	/**
-	 * ¹¹½¨ÎïÀíÊı¾İ¿â
+	 * æ„å»ºç‰©ç†æ•°æ®åº“
 	 * @param pathName
 	 */
 	public Library(String pathName) {
 		this.pathName = pathName;
 	}
 	
-	// ¼¯ËãÆ÷ºÍ±¨±íÅäÖÃµÄÂ·¾¶¿ÉÄÜĞ±¸Ü¡¢·´Ğ±¸Ü»ìÂÒÁË£¬È¥µôĞ±¸Ü
+	// é›†ç®—å™¨å’ŒæŠ¥è¡¨é…ç½®çš„è·¯å¾„å¯èƒ½æ–œæ ã€åæ–œæ æ··ä¹±äº†ï¼Œå»æ‰æ–œæ 
 	private static String getParamName(String path) {
 		String paramName = path.replace('\\', '/');
 		return paramName.toLowerCase();
@@ -154,7 +154,7 @@ public class Library {
 			if (p != null) {
 				library = (Library)p.getValue();
 			} else {
-				System.out.println("Æô¶¯Êı¾İ¿â£º" + pathName);
+				System.out.println("å¯åŠ¨æ•°æ®åº“ï¼š" + pathName);
 				library = new Library(pathName);
 				library.start();
 				libList.add(new Param(paramName, Param.VAR, library));
@@ -173,8 +173,8 @@ public class Library {
 	}
 	
 	/**
-	 * À©´óÎïÀíÎÄ¼şµ½Ö¸¶¨´óĞ¡
-	 * @param size ´óĞ¡
+	 * æ‰©å¤§ç‰©ç†æ–‡ä»¶åˆ°æŒ‡å®šå¤§å°
+	 * @param size å¤§å°
 	 */
 	void enlargeFile(long size) {
 		try {
@@ -194,7 +194,7 @@ public class Library {
 		return blockManager.applyHeaderBlock();
 	}
 	
-	// »ØÊÕÖ¸¶¨ÎïÀí¿é
+	// å›æ”¶æŒ‡å®šç‰©ç†å—
 	void recycleBlock(int block) {
 		blockManager.recycleBlock(block);
 	}
@@ -203,7 +203,7 @@ public class Library {
 		blockManager.recycleBlocks(blocks);
 	}
 
-	// »ØÊÕÊı¾İ¿é
+	// å›æ”¶æ•°æ®å—
 	void recycleData(int block) {
 		try {
 			int []blocks = readOtherBlocks(block);
@@ -218,8 +218,8 @@ public class Library {
 	}
 
 	/**
-	 * Æô¶¯Êı¾İ¿â
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * å¯åŠ¨æ•°æ®åº“
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public synchronized boolean start() {
 		if (file != null) {
@@ -295,7 +295,7 @@ public class Library {
 		isStarted = false;
 		rootSection = null;
 		
-		// °Ñµ±Ç°¿â´Ó¿âÁĞ±íÖĞÉ¾³ı
+		// æŠŠå½“å‰åº“ä»åº“åˆ—è¡¨ä¸­åˆ é™¤
 		synchronized(libList) {
 			for (int i = 0; i < libList.count(); ++i) {
 				Param param = libList.get(i);
@@ -306,7 +306,7 @@ public class Library {
 			}
 		}
 		
-		// µÈ´ıÕıÔÚÌá½»µÄÈÎÎñÍê³É
+		// ç­‰å¾…æ­£åœ¨æäº¤çš„ä»»åŠ¡å®Œæˆ
 		synchronized(file) {
 			try {
 				writeDBHeader(file);
@@ -316,7 +316,7 @@ public class Library {
 			}
 		}
 		
-		// ±£´æÁÙÊ±ĞÅÏ¢
+		// ä¿å­˜ä¸´æ—¶ä¿¡æ¯
 		if (sign) {
 			writeTempFile();
 		}
@@ -329,25 +329,25 @@ public class Library {
 	}
 	
 	/**
-	 * ¹Ø±ÕÊı¾İ¿â
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * å…³é—­æ•°æ®åº“
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public synchronized boolean stop() {
 		return stop(true);
 	}
 
-	// °ÑÊı¾İ¿â×´Ì¬Ğ´µ½ÁÙÊ±ÎÄ¼ş£¬ÎªÁËÓÅ»¯ÏÂ´ÎµÄÆô¶¯ËÙ¶È£¬Èç¹ûÃ»ÓĞĞ´ÁÙÊ±ÎÄ¼şÔòÆô¶¯µÄÊ±ºòĞèÒªÉ¨ÃèÎïÀí¿é
+	// æŠŠæ•°æ®åº“çŠ¶æ€å†™åˆ°ä¸´æ—¶æ–‡ä»¶ï¼Œä¸ºäº†ä¼˜åŒ–ä¸‹æ¬¡çš„å¯åŠ¨é€Ÿåº¦ï¼Œå¦‚æœæ²¡æœ‰å†™ä¸´æ—¶æ–‡ä»¶åˆ™å¯åŠ¨çš„æ—¶å€™éœ€è¦æ‰«æç‰©ç†å—
 	private void writeTempFile() {
 		RandomAccessFile tempFile = null;
 		try {
 			tempFile = new RandomAccessFile(pathName + ".tmp", "rw");
 			tempFile.seek(0);
-			tempFile.writeInt(0); // ±êÖ¾£¬³É¹¦ºóÔÙ¸Ä³É1
+			tempFile.writeInt(0); // æ ‡å¿—ï¼ŒæˆåŠŸåå†æ”¹æˆ1
 			tempFile.writeLong(stopTime);
 			blockManager.writeTempFile(tempFile);
 			
 			tempFile.seek(0);
-			tempFile.writeInt(1); // ±êÖ¾£¬³É¹¦ºóÔÙ¸Ä³É1
+			tempFile.writeInt(1); // æ ‡å¿—ï¼ŒæˆåŠŸåå†æ”¹æˆ1
 		} catch (IOException e) {
 		} finally {
 			try {
@@ -360,19 +360,19 @@ public class Library {
 	}
 	
 	/**
-	 * È¡Êı¾İ¿âÊÇ·ñÒÑÆô¶¯
-	 * @return true£ºÒÑÆô¶¯£¬false£ºÎ´Æô¶¯
+	 * å–æ•°æ®åº“æ˜¯å¦å·²å¯åŠ¨
+	 * @return trueï¼šå·²å¯åŠ¨ï¼Œfalseï¼šæœªå¯åŠ¨
 	 */
 	public synchronized boolean isStarted() {
 		return isStarted;
 	}
 	
-	// È¡¶ÁÈ¡ÊÂÎñºÅ£¬Ö»ÓĞÇøÎ»µÄÊÂÎñºÅĞ¡ÓÚµÈÓÚ´ËºÅµÄ²Å¿ÉÓÃ
+	// å–è¯»å–äº‹åŠ¡å·ï¼Œåªæœ‰åŒºä½çš„äº‹åŠ¡å·å°äºç­‰äºæ­¤å·çš„æ‰å¯ç”¨
 	synchronized long getLoadTxSeq() {
 		return loadTxSeq;
 	}
 
-	// Ìá½»Íê³ÉºóÔö¼ÓÌá½»ºÅºÍÊÂÎñºÅ
+	// æäº¤å®Œæˆåå¢åŠ æäº¤å·å’Œäº‹åŠ¡å·
 	synchronized void addTxSeq() {
 		loadTxSeq = ++innerTxSeq;
 	}
@@ -381,17 +381,17 @@ public class Library {
 		return innerTxSeq + 1;
 	}
 	
-	// È¡Íâ´æºÅ
+	// å–å¤–å­˜å·
 	int getOuterTxSeq() {
 		return outerTxSeq;
 	}
 	
-	// È¡¸ù½Úµã
+	// å–æ ¹èŠ‚ç‚¹
 	ISection getRootSection() {
 		return rootSection;
 	}
 
-	// Ğ´ÎÄ¼şÍ·
+	// å†™æ–‡ä»¶å¤´
 	private void writeDBHeader(RandomAccessFile file) throws IOException {
 		file.seek(0);
 		byte []signs = new byte[]{'r', 'q', 'v', 'd', 'b'};
@@ -404,18 +404,18 @@ public class Library {
 		stopTime = System.currentTimeMillis();
 		file.writeLong(stopTime);
 		
-		// ±£´æµ½Ó²ÅÌ
+		// ä¿å­˜åˆ°ç¡¬ç›˜
 		channel.force(false);
 	}
 	
-	// ¶ÁÎÄ¼şÍ·
+	// è¯»æ–‡ä»¶å¤´
 	private void readDBHeader(RandomAccessFile file)  throws IOException {
 		file.seek(0);
 		if (file.read() != 'r' || file.read() != 'q' || file.read() != 'v' || 
 				file.read() != 'd' || file.read() != 'b') {
 			file.close();
 			file = null;
-			throw new RQException("·Ç·¨µÄÊı¾İ¿âÎÄ¼ş");
+			throw new RQException("éæ³•çš„æ•°æ®åº“æ–‡ä»¶");
 		}
 		
 		createTime = file.readLong();
@@ -426,12 +426,12 @@ public class Library {
 	}
 	
 	/**
-	 * ´´½¨Ò»¸öÁ¬½Ó
+	 * åˆ›å»ºä¸€ä¸ªè¿æ¥
 	 * @return VDB
 	 */
 	public VDB createVDB() {
 		if (!isStarted()) {
-			throw new RQException("Êı¾İ¿âÉĞÎ´Æô¶¯");
+			throw new RQException("æ•°æ®åº“å°šæœªå¯åŠ¨");
 		}
 		
 		VDB vdb = new VDB(this);
@@ -445,7 +445,7 @@ public class Library {
 	}
 	
 	/**
-	 * Á¬½Ó¹Ø±Õ£¬É¾³ıÁ¬½Ó
+	 * è¿æ¥å…³é—­ï¼Œåˆ é™¤è¿æ¥
 	 * @param vdb
 	 */
 	void deleteVDB(VDB vdb) {
@@ -455,14 +455,14 @@ public class Library {
 		}
 	}
 
-	// °ÑĞŞ¸ÄÌá½»µ½Êı¾İ¿â
+	// æŠŠä¿®æ”¹æäº¤åˆ°æ•°æ®åº“
 	int commit(VDB vdb) {
 		ArrayList<ISection> modifySections = vdb.getModifySections();
 		if (modifySections.size() == 0) {
 			return VDB.S_SUCCESS;
 		}
 		
-		// É¾³ı±ÈÊÂÎñºÅtxSeqÔçµÄ¶àÓàµÄÇøÎ»
+		// åˆ é™¤æ¯”äº‹åŠ¡å·txSeqæ—©çš„å¤šä½™çš„åŒºä½
 		long txSeq = getEarliestTxSeq();
 		int outerSeq = getOuterTxSeq();
 		
@@ -477,10 +477,10 @@ public class Library {
 					section.commit(this, outerSeq, innerSeq);
 				}
 				
-				// Ìá½»Íê³Éºó¸üĞÂ¶ÁÊÂÎñºÅ
+				// æäº¤å®Œæˆåæ›´æ–°è¯»äº‹åŠ¡å·
 				addTxSeq();
 
-				// ±£´æµ½Ó²ÅÌ
+				// ä¿å­˜åˆ°ç¡¬ç›˜
 				channel.force(false);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -492,7 +492,7 @@ public class Library {
 	}
 
 	/**
-	 * »Ø¹öÁ¬½ÓËù×öµÄĞŞ¸Ä
+	 * å›æ»šè¿æ¥æ‰€åšçš„ä¿®æ”¹
 	 * @param vdb
 	 */
 	void rollback(VDB vdb) {
@@ -507,14 +507,14 @@ public class Library {
 	}
 	
 	private int getBlockCount(int dataLen) {
-		// ¼ÆËã´æÖ¸¶¨³¤¶ÈµÄÊı¾İĞèÒª¶àÉÙÎïÀí¿é£¬Ê×¿éÍ·ĞèÒªĞ´£º³ıÊ×¿éÍâµÄÆäËüÎïÀí¿éÊı¡¢ÎïÀí¿éºÅ...
+		// è®¡ç®—å­˜æŒ‡å®šé•¿åº¦çš„æ•°æ®éœ€è¦å¤šå°‘ç‰©ç†å—ï¼Œé¦–å—å¤´éœ€è¦å†™ï¼šé™¤é¦–å—å¤–çš„å…¶å®ƒç‰©ç†å—æ•°ã€ç‰©ç†å—å·...
 		// count + block1,...
 		int count = dataLen / (BLOCKSIZE - 4);
 		int mod = dataLen % (BLOCKSIZE - 4);
 		return mod != 0 ? count + 1 : count;
 	}
 	
-	// block´Ó0¿ªÊ¼¼ÆÊı
+	// blockä»0å¼€å§‹è®¡æ•°
 	private long getBlockPos(int block) {
 		return (long)BLOCKSIZE * block;
 	}
@@ -522,7 +522,7 @@ public class Library {
 	private static byte[] toByteArray(Object data) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(BLOCKSIZE);
 		ObjectWriter writer = new ObjectWriter(bos);
-		writer.writeByte(0); // °æ±¾
+		writer.writeByte(0); // ç‰ˆæœ¬
 		
 		if (data instanceof Record) {
 			Sequence seq = new Sequence(1);
@@ -536,9 +536,9 @@ public class Library {
 		return bos.toByteArray();
 	}
 	
-	// °ÑÊı¾İĞ´µ½Ö¸¶¨ÎïÀí¿é
+	// æŠŠæ•°æ®å†™åˆ°æŒ‡å®šç‰©ç†å—
 	private void writeBlocks(int []blocks, byte []data) throws IOException {
-		// ³ıÊ×¿éÍâµÄÆäËüÎïÀí¿éÊın+ÎïÀí¿éºÅ1,...,ÎïÀí¿éºÅn
+		// é™¤é¦–å—å¤–çš„å…¶å®ƒç‰©ç†å—æ•°n+ç‰©ç†å—å·1,...,ç‰©ç†å—å·n
 		int count = blocks.length;
 		int headerSize = count * 4;
 		RandomAccessFile file = this.file;
@@ -547,7 +547,7 @@ public class Library {
 			file.seek(getBlockPos(blocks[0]));
 			file.writeInt(count - 1);
 			
-			// Í·´óĞ¡¿ÉÄÜ³¬¹ıÒ»¿é
+			// å¤´å¤§å°å¯èƒ½è¶…è¿‡ä¸€å—
 			int b = 0;
 			int pos = headerSize;
 			
@@ -582,7 +582,7 @@ public class Library {
 						file.write(data, index, BLOCKSIZE);
 						index += BLOCKSIZE;
 					} else {
-						// ×îºóÒ»¿é
+						// æœ€åä¸€å—
 						file.write(data, index, len - index);
 					}
 				}
@@ -590,8 +590,8 @@ public class Library {
 		}
 	}
 	
-	// ¶ÁÊı¾İÕ¼ÓÃµÄÎïÀí¿éÄÚÈİ£¬¿ÉÄÜÕ¼ÓÃ¶àÎïÀí¿é
-	// ³ıÊ×¿éÍâµÄÆäËüÎïÀí¿éÊın+ÎïÀí¿éºÅ1,...,ÎïÀí¿éºÅn
+	// è¯»æ•°æ®å ç”¨çš„ç‰©ç†å—å†…å®¹ï¼Œå¯èƒ½å ç”¨å¤šç‰©ç†å—
+	// é™¤é¦–å—å¤–çš„å…¶å®ƒç‰©ç†å—æ•°n+ç‰©ç†å—å·1,...,ç‰©ç†å—å·n
 	byte[] readBlocks(int block) throws IOException {
 		RandomAccessFile file = this.file;
 		synchronized(file) {
@@ -640,7 +640,7 @@ public class Library {
 		}
 	}
 		
-	// ¶ÁÂß¼­¿éÕ¼ÓÃµÄÆäËüÎïÀí¿é
+	// è¯»é€»è¾‘å—å ç”¨çš„å…¶å®ƒç‰©ç†å—
 	int[] readOtherBlocks(int block) throws IOException {
 		RandomAccessFile file = this.file;
 		synchronized(file) {
@@ -670,7 +670,7 @@ public class Library {
 		}
 	}
 	
-	// ·µ»ØÊ×¿éºÅ
+	// è¿”å›é¦–å—å·
 	int writeDataBlock(int pos, Object data) {
 		try {
 			byte []bytes = toByteArray(data);
@@ -680,7 +680,7 @@ public class Library {
 		}
 	}
 	
-	// °ÑÊı¾İĞ´µ½Ö¸¶¨ÎïÀí¿é
+	// æŠŠæ•°æ®å†™åˆ°æŒ‡å®šç‰©ç†å—
 	int writeDataBlock(int pos, byte []bytes) throws IOException {
 		int blockCount = getBlockCount(bytes.length);
 		int []blocks = blockManager.applyDataBlocks(pos, blockCount);
@@ -688,7 +688,7 @@ public class Library {
 		return blocks[0];
 	}
 	
-	// ¶ÁÊı¾İ¿é
+	// è¯»æ•°æ®å—
 	Object readDataBlock(int block) throws IOException {
 		byte[] bytes = readBlocks(block);
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
@@ -699,7 +699,7 @@ public class Library {
 			reader.readInt32();
 		}
 		
-		reader.readByte(); // °æ±¾
+		reader.readByte(); // ç‰ˆæœ¬
 		Object data = reader.readObject();
 		reader.close();
 		return data;
@@ -751,7 +751,7 @@ public class Library {
 		}
 	}
 	
-	// È¡ËùÓĞvdbÖĞ×îÔçµÄÊÂÎñºÅ£¬ÓÃÓÚÇåÀí²»»áÔÙ±»·ÃÎÊµÄÇøÎ»
+	// å–æ‰€æœ‰vdbä¸­æœ€æ—©çš„äº‹åŠ¡å·ï¼Œç”¨äºæ¸…ç†ä¸ä¼šå†è¢«è®¿é—®çš„åŒºä½
 	long getEarliestTxSeq() {
 		long seq = getLoadTxSeq();
 		VDB []vdbs;
@@ -771,9 +771,9 @@ public class Library {
 	}
 	
 	/**
-	 * ´´½¨¼ü¿â£¬¼ü¿â»á²ÉÓÃ¹şÏ£·¨²éÕÒ½Ú
-	 * @param keys ¼ü¿âÃû
-	 * @param lens ¹şÏ£ÈİÁ¿Êı×é
+	 * åˆ›å»ºé”®åº“ï¼Œé”®åº“ä¼šé‡‡ç”¨å“ˆå¸Œæ³•æŸ¥æ‰¾èŠ‚
+	 * @param keys é”®åº“å
+	 * @param lens å“ˆå¸Œå®¹é‡æ•°ç»„
 	 */
 	public int createKeyLibrary(Object []keys, int []lens) {
 		int count = keys.length;
@@ -806,12 +806,12 @@ public class Library {
 	}
 	
 	/**
-	 * ÕûÀíÊı¾İ¿âÊı¾İµ½Ä¿±êÎÄ¼ş
-	 * @param destFileName Ä¿±êÎÄ¼şÂ·¾¶Ãû
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * æ•´ç†æ•°æ®åº“æ•°æ®åˆ°ç›®æ ‡æ–‡ä»¶
+	 * @param destFileName ç›®æ ‡æ–‡ä»¶è·¯å¾„å
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public boolean reset(String destFileName) {
-		// ´´½¨Ò»¸öVDB£¬×èÖ¹OptimizeThread¹¤×÷
+		// åˆ›å»ºä¸€ä¸ªVDBï¼Œé˜»æ­¢OptimizeThreadå·¥ä½œ
 		VDB vdb = createVDB();
 		Library dest = new Library(destFileName);
 		

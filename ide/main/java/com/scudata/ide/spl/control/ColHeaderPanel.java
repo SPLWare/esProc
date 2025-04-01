@@ -13,25 +13,25 @@ import com.scudata.ide.common.GC;
 import com.scudata.ide.spl.GCSpl;
 
 /**
- * ÁĞ±íÍ·Ãæ°å
+ * åˆ—è¡¨å¤´é¢æ¿
  *
  */
 public class ColHeaderPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	/** Íø¸ñ¿Ø¼ş */
+	/** ç½‘æ ¼æ§ä»¶ */
 	protected SplControl control;
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ±à¼­
+	 * æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	protected boolean editable = true;
 	/**
-	 * Íø¸ñ½âÎöÆ÷
+	 * ç½‘æ ¼è§£æå™¨
 	 */
 	protected CellSetParser parser;
 
 	/**
-	 * ÁĞ±íÍ·Ãæ°å¹¹Ôìº¯Êı
+	 * åˆ—è¡¨å¤´é¢æ¿æ„é€ å‡½æ•°
 	 * 
 	 * @param control
 	 */
@@ -40,9 +40,9 @@ public class ColHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * ÁĞ±íÍ·Ãæ°å¹¹Ôìº¯Êı
+	 * åˆ—è¡¨å¤´é¢æ¿æ„é€ å‡½æ•°
 	 * 
-	 * @param control ±à¼­¿Ø¼ş
+	 * @param control ç¼–è¾‘æ§ä»¶
 	 */
 	public ColHeaderPanel(SplControl control, boolean editable) {
 		this.control = control;
@@ -55,7 +55,7 @@ public class ColHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯×ø±ê
+	 * åˆå§‹åŒ–åæ ‡
 	 */
 	protected void initCoords() {
 		int cols = control.cellSet.getColCount() + 1;
@@ -79,9 +79,9 @@ public class ColHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * »æÖÆÁĞ±íÍ·
+	 * ç»˜åˆ¶åˆ—è¡¨å¤´
 	 * 
-	 * @param g Ãæ°åÖĞµÄÍ¼ĞÎ¶ÔÏó
+	 * @param g é¢æ¿ä¸­çš„å›¾å½¢å¯¹è±¡
 	 */
 	public void paintComponent(Graphics g) {
 		ControlUtils.setGraphicsRenderingHints(g);
@@ -147,7 +147,7 @@ public class ColHeaderPanel extends JPanel {
 	}
 
 	/**
-	 * È¡Ãæ°å³ß´ç´óĞ¡
+	 * å–é¢æ¿å°ºå¯¸å¤§å°
 	 */
 	public Dimension getPreferredSize() {
 		int width = 0;

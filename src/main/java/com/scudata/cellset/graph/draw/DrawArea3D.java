@@ -10,25 +10,25 @@ import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 
 /**
- * ÈıÎ¬Ãæ»ıÍ¼µÄÊµÏÖ
+ * ä¸‰ç»´é¢ç§¯å›¾çš„å®ç°
  * @author Joancy
  *
  */
 public class DrawArea3D extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
-		//ÉÙ¸Ä¶¯´úÂë£¬Í¬ÃûÒı³öÒªÓÃµ½µÄÊµÀı
+		//å°‘æ”¹åŠ¨ä»£ç ï¼ŒåŒåå¼•å‡ºè¦ç”¨åˆ°çš„å®ä¾‹
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
@@ -92,7 +92,7 @@ public class DrawArea3D extends DrawBase {
 
 		db.drawGraphRect();
 		Point2D.Double p;
-		/* »­YÖá */
+		/* ç”»Yè½´ */
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLine(dely, i);
 
@@ -101,20 +101,20 @@ public class DrawArea3D extends DrawBase {
 			p = db.getVTickPoint(i*dely);
 			gp.GFV_YLABEL.outText(p.x-gp.tickLen, p.y, scoory);
 
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine = gp.gRect1.y + gp.gRect1.height - i
 						* dely;
 			}
 		}
-		// »­¾¯½äÏß
+		// ç”»è­¦æˆ’çº¿
 		db.drawWarnLine();
 		if (gp.graphTransparent) {
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
 					0.60F));
 		}
 
-		/* »­XÖá */
+		/* ç”»Xè½´ */
 		prePoints1 = new Point2D.Double[gp.serNum];
 		prePoints2 = new Point2D.Double[gp.serNum];
 		ArrayList cats = egp.categories;
@@ -131,7 +131,7 @@ public class DrawArea3D extends DrawBase {
 				c = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
 				Utils.setStroke(g, c, Consts.LINE_SOLID, 1.0f);
 				db.drawLine(p.x, p.y,p.x, p.y + gp.tickLen,c);
-				// »­±³¾°ĞéÏß
+				// ç”»èƒŒæ™¯è™šçº¿
 				db.drawGridLineCategoryV(gp.gRect2.x + delx);
 			}
 
@@ -172,7 +172,7 @@ public class DrawArea3D extends DrawBase {
 								egp.getAxisColor(GraphProperty.AXIS_COLBORDER));
 					}
 				}
-				// »­´ø×Ó
+				// ç”»å¸¦å­
 				if (i > 0 && prePoints1[j] != null && pt1 != null) {
 					double ptx1[] = { prePoints1[j].x, prePoints2[j].x, pt2.x,
 							pt1.x };
@@ -189,7 +189,7 @@ public class DrawArea3D extends DrawBase {
 					}
 					if (seriesWidth > 3) {
 						Utils.drawPolygon(g,ptx1, pty1);
-						// »­ÇøÓò
+						// ç”»åŒºåŸŸ
 					}
 					double ptx2[] = { prePoints1[j].x, prePoints1[j].x, pt1.x,
 							pt1.x };
@@ -211,7 +211,7 @@ public class DrawArea3D extends DrawBase {
 					}
 				}
 
-				// Êä³öÎÄ×Ö
+				// è¾“å‡ºæ–‡å­—
 				if (gp.dispValueOntop && !egs.isNull() && vis) {
 					String sval = db.getDispValue(egc,egs,gp.serNum);
 					x = pt1.x;
@@ -250,7 +250,7 @@ public class DrawArea3D extends DrawBase {
 
 				prePoints1[j] = pt1;
 				prePoints2[j] = pt2;
-				// »­×îºóÒ»Ìõ´¹Ö±µÄ´ø×Ó
+				// ç”»æœ€åä¸€æ¡å‚ç›´çš„å¸¦å­
 				if (len >= 0 && i == gp.catNum - 1) {
 					double ptx1[] = { prePoints1[j].x, prePoints1[j].x,
 							prePoints2[j].x, prePoints2[j].x };
@@ -273,10 +273,10 @@ public class DrawArea3D extends DrawBase {
 			}
 		}
 
-		// ×îºóÊä³öÖµ±êÇ©£¬ÎÄ×ÖÖÃ¶¥
+		// æœ€åè¾“å‡ºå€¼æ ‡ç­¾ï¼Œæ–‡å­—ç½®é¡¶
 		db.outLabels();
 
-		/* ÖØ»­Ò»ÏÂ»ùÏß */
+		/* é‡ç”»ä¸€ä¸‹åŸºçº¿ */
 		db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x + gp.gRect1.width,
 				gp.valueBaseLine, egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 		db.drawLine(gp.gRect1.x + gp.gRect1.width, gp.valueBaseLine,

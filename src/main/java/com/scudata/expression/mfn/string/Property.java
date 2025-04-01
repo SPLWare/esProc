@@ -13,7 +13,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * 读出指定属性或者把所有属性读成以{"name", "value"}为结构的序表
+ * 璇诲嚭鎸囧畾灞炴�ф垨鑰呮妸鎵�鏈夊睘鎬ц鎴愪互{"name", "value"}涓虹粨鏋勭殑搴忚〃
  * xs.property(n,v) xs.property()
  * @author RunQian
  *

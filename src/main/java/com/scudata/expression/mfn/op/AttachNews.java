@@ -19,8 +19,8 @@ import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼Ó´´½¨ºÏ²¢ĞÂĞò±íÔËËã
- * op.news(X;xi:Fi,¡­) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ åˆ›å»ºåˆå¹¶æ–°åºè¡¨è¿ç®—
+ * op.news(X;xi:Fi,â€¦) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */

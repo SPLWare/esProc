@@ -14,11 +14,11 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.lib.math.prec.Consts;
 
 /**
- * Éú³ÉÈ±Ê§ÖµÖ¸Ê¾ÁÐMissing Indicator
+ * ç”Ÿæˆç¼ºå¤±å€¼æŒ‡ç¤ºåˆ—Missing Indicator
  * @author bd
- * Ô­ÐÍD.mi(V,freq,P,i), D.mi(V,P,i,rePrep), Seq.mi(freq), Seq.mi(P, i, rePrep)
+ * åŽŸåž‹D.mi(V,freq,P,i), D.mi(V,P,i,rePrep), Seq.mi(freq), Seq.mi(P, i, rePrep)
  * A.mi()/P.mi(cn); A.mi@r(rec), P.mi@r(cn, rec)
- * ¿¼²ìÊý¾Ý¼¯DµÄ±äÁ¿V£¬²¢Ìí¼ÓÖ¸Ê¾ÁÐIndicator /
+ * è€ƒå¯Ÿæ•°æ®é›†Dçš„å˜é‡Vï¼Œå¹¶æ·»åŠ æŒ‡ç¤ºåˆ—Indicator /
  */
 public class Mi extends SequenceFunction {
 
@@ -136,11 +136,11 @@ public class Mi extends SequenceFunction {
 	}
 	
 	/**
-	 * ¿¼²ìÊý¾Ý¼¯ÖÐÄ³ÁÐÊý¾Ý£¬²¢Ìí¼ÓÖ¸Ê¾ÁÐIndicator£¬Ver2
-	 * Èç¹ûVÖÐ´æÔÚnull£¬ÔòÌí¼ÓMI_FNAMEÁÐ£¬¶ÔÓÚ¿ÕÖµ¸ÃÁÐ¸³ÖµÎª1£¬·ñÔòÎª0
-	 * @param Vs	±äÁ¿Öµ
-	 * @param freq	¿ÕÖµÆµ¶È
-	 * @return 		Éú³ÉµÄMI×Ö¶Î£¬²»Éú³É·µ»Ønull
+	 * è€ƒå¯Ÿæ•°æ®é›†ä¸­æŸåˆ—æ•°æ®ï¼Œå¹¶æ·»åŠ æŒ‡ç¤ºåˆ—Indicatorï¼ŒVer2
+	 * å¦‚æžœVä¸­å­˜åœ¨nullï¼Œåˆ™æ·»åŠ MI_FNAMEåˆ—ï¼Œå¯¹äºŽç©ºå€¼è¯¥åˆ—èµ‹å€¼ä¸º1ï¼Œå¦åˆ™ä¸º0
+	 * @param Vs	å˜é‡å€¼
+	 * @param freq	ç©ºå€¼é¢‘åº¦
+	 * @return 		ç”Ÿæˆçš„MIå­—æ®µï¼Œä¸ç”Ÿæˆè¿”å›žnull
 	 */
 	protected static Sequence mi(Sequence Vs, double freq){
 		if ( freq >= Prep.MISSING_MIN && freq <= Prep.MISSING_MAX) {

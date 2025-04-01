@@ -5,21 +5,21 @@ import com.scudata.thread.Job;
 import com.scudata.thread.ThreadPool;
 
 /**
- * ÓÃÓÚ¶àÏß³Ì´ÓÓÎ±ê¶ÁÈ¡Êı¾İµÄÈÎÎñ£¬½á¹û±»È¡×ßºó´ËÈÎÎñ»á±»¼ÓÈëµ½Ïß³Ì³ØÖĞ£¬¼ÌĞøÈ¡Êı¾İ
+ * ç”¨äºå¤šçº¿ç¨‹ä»æ¸¸æ ‡è¯»å–æ•°æ®çš„ä»»åŠ¡ï¼Œç»“æœè¢«å–èµ°åæ­¤ä»»åŠ¡ä¼šè¢«åŠ å…¥åˆ°çº¿ç¨‹æ± ä¸­ï¼Œç»§ç»­å–æ•°æ®
  * @author WangXiaoJun
  *
  */
 class CursorReader extends Job {
-	private ThreadPool threadPool; // Ïß³Ì³Ø
-	private ICursor cursor; // ÒªÈ¡ÊıµÄÓÎ±ê
-	private int fetchCount; // Ã¿´Î¶ÁÈ¡µÄÊı¾İÁ¿
-	private Sequence table; // ¶ÁÈ¡µÄÊı¾İ
+	private ThreadPool threadPool; // çº¿ç¨‹æ± 
+	private ICursor cursor; // è¦å–æ•°çš„æ¸¸æ ‡
+	private int fetchCount; // æ¯æ¬¡è¯»å–çš„æ•°æ®é‡
+	private Sequence table; // è¯»å–çš„æ•°æ®
 
 	/**
-	 * ´´½¨´ÓÓÎ±êÈ¡ÊıµÄÈÎÎñ£¬Ê¹ÓÃgetTableµÃµ½È¡Êı½á¹û
-	 * @param threadPool Ïß³Ì³Ø
-	 * @param cursor ÓÎ±ê
-	 * @param fetchCount Ã¿´Î¶ÁÈ¡µÄÊı¾İÁ¿
+	 * åˆ›å»ºä»æ¸¸æ ‡å–æ•°çš„ä»»åŠ¡ï¼Œä½¿ç”¨getTableå¾—åˆ°å–æ•°ç»“æœ
+	 * @param threadPool çº¿ç¨‹æ± 
+	 * @param cursor æ¸¸æ ‡
+	 * @param fetchCount æ¯æ¬¡è¯»å–çš„æ•°æ®é‡
 	 */
 	public CursorReader(ThreadPool threadPool, ICursor cursor, int fetchCount) {
 		this.threadPool = threadPool;
@@ -29,7 +29,7 @@ class CursorReader extends Job {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Êı¾İ£¬´Ë·½·¨»áÌá½»ÈÎÎñµ½Ïß³Ì³Ø¼ÌĞø¶ÁÊı
+	 * è¯»å–æ•°æ®ï¼Œæ­¤æ–¹æ³•ä¼šæäº¤ä»»åŠ¡åˆ°çº¿ç¨‹æ± ç»§ç»­è¯»æ•°
 	 * @return
 	 */
 	public Sequence getTable() {
@@ -76,7 +76,7 @@ class CursorReader extends Job {
 	}
 
 	/**
-	 * ¶ÁÈ¡»º´æµÄÊı¾İ£¬½áÊø¶ÁÈ¡£¬²»ÔÙÌá½»ÈÎÎñµ½Ïß³Ì³Ø
+	 * è¯»å–ç¼“å­˜çš„æ•°æ®ï¼Œç»“æŸè¯»å–ï¼Œä¸å†æäº¤ä»»åŠ¡åˆ°çº¿ç¨‹æ± 
 	 * @return
 	 */
 	public Sequence getCatch() {
@@ -91,7 +91,7 @@ class CursorReader extends Job {
 	}
 
 	/**
-	 * ±»Ïß³Ì³ØÀïµÄÏß³Ìµ÷ÓÃ£¬´ÓÓÎ±ê¶ÁÈ¡Êı¾İ
+	 * è¢«çº¿ç¨‹æ± é‡Œçš„çº¿ç¨‹è°ƒç”¨ï¼Œä»æ¸¸æ ‡è¯»å–æ•°æ®
 	 */
 	public void run() {
 		if (fetchCount < ICursor.MAXSIZE) {

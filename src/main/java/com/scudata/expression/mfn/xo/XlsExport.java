@@ -19,15 +19,15 @@ import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
 /**
- * xo.xlsexport(A,x:Fi,..;s) ÏòsheetÖĞĞ´ÈëĞòÁĞ£¬s²»´æÔÚÔòĞÂ¼Ó£¬xoÒÔ@w´ò¿ªÊ±A¿ÉÊÇÓÎ±ê
+ * xo.xlsexport(A,x:Fi,..;s) å‘sheetä¸­å†™å…¥åºåˆ—ï¼Œsä¸å­˜åœ¨åˆ™æ–°åŠ ï¼Œxoä»¥@wæ‰“å¼€æ—¶Aå¯æ˜¯æ¸¸æ ‡
  * 
- * @a sÒÑ´æÔÚÊ±ÑÓÓÃ¸ñÊ½×·¼ÓĞ´£¬È±Ê¡½«¸²¸ÇĞ´
- * @t ÓĞ±êÌâ£¬Ò³ÉÏÓĞÄÚÈİÊ±ÈÏÎª×îºóÒ»¸öÓĞÄÚÈİµÄĞĞÊÇ±êÌâ
+ * @a så·²å­˜åœ¨æ—¶å»¶ç”¨æ ¼å¼è¿½åŠ å†™ï¼Œç¼ºçœå°†è¦†ç›–å†™
+ * @t æœ‰æ ‡é¢˜ï¼Œé¡µä¸Šæœ‰å†…å®¹æ—¶è®¤ä¸ºæœ€åä¸€ä¸ªæœ‰å†…å®¹çš„è¡Œæ˜¯æ ‡é¢˜
  */
 public class XlsExport extends XOFunction {
 
 	/**
-	 * ¼ÆËã
+	 * è®¡ç®—
 	 */
 	public Object calculate(Context ctx) {
 		if (param == null) {
@@ -139,13 +139,13 @@ public class XlsExport extends XOFunction {
 
 		if (!isW) {
 			if (isP) {
-				// Ñ¡Ïî@{0}Ö»ÄÜºÍÑ¡Ïî@wÍ¬Ê±Ê¹ÓÃ¡£
+				// é€‰é¡¹@{0}åªèƒ½å’Œé€‰é¡¹@wåŒæ—¶ä½¿ç”¨ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsimport.pnnotw", "p"));
 			}
 		}
 
-		// ¼ì²ésheetÃû³Æ
+		// æ£€æŸ¥sheetåç§°
 		ExcelUtils.checkSheetName(s);
 
 		int startRow, maxRowCount;
@@ -179,7 +179,7 @@ public class XlsExport extends XOFunction {
 		ICursor cursor = null;
 		boolean isStr = false;
 		if (isW) {
-			if (src != null && src instanceof String) { // ÊÇÓÉ\n\tÆ´³ÉµÄ´®
+			if (src != null && src instanceof String) { // æ˜¯ç”±\n\tæ‹¼æˆçš„ä¸²
 				src = com.scudata.expression.mfn.file.XlsExport
 						.parseSequence((String) src);
 				isStr = true;
@@ -190,7 +190,7 @@ public class XlsExport extends XOFunction {
 		}
 		if (src instanceof Sequence) {
 			seq = (Sequence) src;
-			if (!isStr) {// ´®²»´¦Àí
+			if (!isStr) {// ä¸²ä¸å¤„ç†
 				if (isP) {
 					seq = ExcelUtils.transpose(seq);
 					src = seq;
@@ -226,16 +226,16 @@ public class XlsExport extends XOFunction {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
 	 * 
 	 * @param ctx
-	 *            ¼ÆËãÉÏÏÂÎÄ
+	 *            è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @param Node
-	 *            ÓÅ»¯ºóµÄ½Úµã
+	 *            ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 

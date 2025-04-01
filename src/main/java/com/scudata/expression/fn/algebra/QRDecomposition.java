@@ -1,29 +1,29 @@
 package com.scudata.expression.fn.algebra;
 
 /**
- * ¾ØÕóµÄÕı½»Èı½Ç·Ö½â´¦Àí
+ * çŸ©é˜µçš„æ­£äº¤ä¸‰è§’åˆ†è§£å¤„ç†
  * @author bd
  */
 public class QRDecomposition {
-	// QR·Ö½â¾ØÕó£¬rows*colsµÄ¾ØÕó¿ÉÒÔ·Ö½âÎªÕı½»¾ØÕóQºÍÉÏÈı½Ç¾ØÕóRÏà³Ë£¬rows>=cols
-	// 		ÆäÖĞQÎªcols*colsµÄÕı½»¾ØÕó£¬¼´Q^T*Q=Q*Q^T=I
-	//		RÎªrows*colsµÄÉÏÈı½Ç¾ØÕó£¬ÓÒÉÏÓĞÖµ£¬×óÏÂ¼°ÏÂ·½¶¼ÊÇ0
+	// QRåˆ†è§£çŸ©é˜µï¼Œrows*colsçš„çŸ©é˜µå¯ä»¥åˆ†è§£ä¸ºæ­£äº¤çŸ©é˜µQå’Œä¸Šä¸‰è§’çŸ©é˜µRç›¸ä¹˜ï¼Œrows>=cols
+	// 		å…¶ä¸­Qä¸ºcols*colsçš„æ­£äº¤çŸ©é˜µï¼Œå³Q^T*Q=Q*Q^T=I
+	//		Rä¸ºrows*colsçš„ä¸Šä¸‰è§’çŸ©é˜µï¼Œå³ä¸Šæœ‰å€¼ï¼Œå·¦ä¸‹åŠä¸‹æ–¹éƒ½æ˜¯0
 	private double[][] QR;
 	private int rows, cols;
 	//
 	private double[] Rdiag;
 	
 	protected QRDecomposition(Matrix A) {
-		// QR·Ö½â³õÊ¼»¯.
+		// QRåˆ†è§£åˆå§‹åŒ–.
 		this.QR = A.getArrayCopy();
 		this.rows = A.getRows();
 		this.cols = A.getCols();
 		this.Rdiag = new double[this.cols];
 
-		// Ñ­»·¸÷ÁĞ
+		// å¾ªç¯å„åˆ—
 		for (int k = 0; k < this.cols; k++) {
 			double nrm = 0d;
-			// ¼ÆËã±¾ÁĞ
+			// è®¡ç®—æœ¬åˆ—
 			for (int r = k; r < this.rows; r++) {
 				nrm = Math.hypot(nrm, QR[r][k]);
 			}
@@ -54,8 +54,8 @@ public class QRDecomposition {
 	}
 	
 	/**
-	 * Ê¹ÓÃQR·Ö½âÅĞ¶Ï¾ØÕóÊÇ·ñÂúÖÈ
-	 * @return	ÊÇ·ñÂúÖÈ
+	 * ä½¿ç”¨QRåˆ†è§£åˆ¤æ–­çŸ©é˜µæ˜¯å¦æ»¡ç§©
+	 * @return	æ˜¯å¦æ»¡ç§©
 	 */
 	protected boolean isFullRank() {
 		for (int c = 0; c < this.cols; c++) {
@@ -67,10 +67,10 @@ public class QRDecomposition {
 	}
 
 	/**
-	 * ×îĞ¡¶ş³Ë·¨½â A*X = B
-	 * @param B		¾ØÕó²ÎÊıB
+	 * æœ€å°äºŒä¹˜æ³•è§£ A*X = B
+	 * @param B		çŸ©é˜µå‚æ•°B
 	 * @return		X that minimizes the two norm of Q*R*X-B.
-	 * @exception	Òì³£
+	 * @exception	å¼‚å¸¸
 	 */
 	protected Matrix solve(Matrix B) {
 		if (B.getRows() != this.rows) {

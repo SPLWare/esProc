@@ -5,7 +5,7 @@ import java.util.Comparator;
 import com.scudata.common.ICloneable;
 
 /**
- * ½µĞòÅÅĞò±È½ÏÆ÷
+ * é™åºæ’åºæ¯”è¾ƒå™¨
  * @author WangXiaoJun
  *
  */

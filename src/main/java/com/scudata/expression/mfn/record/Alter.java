@@ -12,8 +12,8 @@ import com.scudata.expression.RecordFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸ü¸ÄĞò±íµÄÊı¾İ½á¹¹
- * r.alter(Fi,¡­;F¡¯i,¡­)
+ * æ›´æ”¹åºè¡¨çš„æ•°æ®ç»“æ„
+ * r.alter(Fi,â€¦;Fâ€™i,â€¦)
  * @author RunQian
  *
  */
@@ -27,7 +27,7 @@ public class Alter extends RecordFunction {
 		DataStruct ds = srcRecord.dataStruct();
 		String []oldFields = ds.getFieldNames();
 		int oldCount = oldFields.length;
-		int []state = new int[oldCount]; // -1±íÊ¾É¾³ı¡¢1±íÊ¾Ñ¡³ö
+		int []state = new int[oldCount]; // -1è¡¨ç¤ºåˆ é™¤ã€1è¡¨ç¤ºé€‰å‡º
 		ArrayList<String> newFieldList = new ArrayList<String>(oldCount);
 		
 		IParam oldParam;
@@ -126,7 +126,7 @@ public class Alter extends RecordFunction {
 		for (int i = 0; i < newCount; ++i) {
 			int f = ds.getFieldIndex(newFields[i]);
 			if (f != -1) {
-				// ×Ö¶Î¿ÉÄÜÒÔ#i±íÊ¾
+				// å­—æ®µå¯èƒ½ä»¥#iè¡¨ç¤º
 				newFields[i] = ds.getFieldName(f);
 				newValues[i] = srcRecord.getNormalFieldValue(f);
 			}

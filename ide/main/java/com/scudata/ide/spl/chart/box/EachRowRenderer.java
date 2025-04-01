@@ -9,7 +9,7 @@ import com.scudata.chart.*;
 import com.scudata.ide.common.swing.*;
 
 /**
- *ÊôĞÔ¿òµ¥ÔªäÖÈ¾Æ÷
+ *å±æ€§æ¡†å•å…ƒæ¸²æŸ“å™¨
  */
 public class EachRowRenderer implements TableCellRenderer {
 	int editTypeCol;
@@ -41,8 +41,8 @@ public class EachRowRenderer implements TableCellRenderer {
 	private TableCellRenderer inputBarTypeRender,inputCharSetRender,inputRecErrorRender;
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param editTypeCol ±à¼­ÀàĞÍËùÔÚÁĞ
+	 * æ„é€ å‡½æ•°
+	 * @param editTypeCol ç¼–è¾‘ç±»å‹æ‰€åœ¨åˆ—
 	 */
 	public EachRowRenderer( int editTypeCol ) {
 		this.editTypeCol = editTypeCol;
@@ -51,7 +51,7 @@ public class EachRowRenderer implements TableCellRenderer {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸Àà³éÏó·½·¨
+	 * å®ç°çˆ¶ç±»æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
 		render = selectRenderer( table, row, editTypeCol );
@@ -59,11 +59,11 @@ public class EachRowRenderer implements TableCellRenderer {
 	}
 
 	/**
-	 * Ñ¡Ôñ¸ñ×ÓäÖÈ¾Æ÷
-	 * @param tbl ±¾Ìå±í
-	 * @param row ĞĞºÅ
-	 * @param editTypeColumn ±à¼­ÀàĞÍËùÔÚÁĞºÅ
-	 * @return ¸ñ×ÓäÖÈ¾Æ÷
+	 * é€‰æ‹©æ ¼å­æ¸²æŸ“å™¨
+	 * @param tbl æœ¬ä½“è¡¨
+	 * @param row è¡Œå·
+	 * @param editTypeColumn ç¼–è¾‘ç±»å‹æ‰€åœ¨åˆ—å·
+	 * @return æ ¼å­æ¸²æŸ“å™¨
 	 */
 	public TableCellRenderer selectRenderer( JTable tbl, int row, int editTypeColumn ) {
 		int editType = ( ( Integer ) tbl.getModel().getValueAt( row, editTypeColumn ) ).intValue();
@@ -71,9 +71,9 @@ public class EachRowRenderer implements TableCellRenderer {
 	}
 
 	/**
-	 * ¸ù¾İ±à¼­ÀàĞÍeditType·µ»Ø¶ÔÓ¦¸ñ×ÓäÖÈ¾Æ÷
-	 * @param editType ±à¼­ÀàĞÍ
-	 * @return ¶ÔÓ¦¸ñ×ÓäÖÈ¾Æ÷
+	 * æ ¹æ®ç¼–è¾‘ç±»å‹editTypeè¿”å›å¯¹åº”æ ¼å­æ¸²æŸ“å™¨
+	 * @param editType ç¼–è¾‘ç±»å‹
+	 * @return å¯¹åº”æ ¼å­æ¸²æŸ“å™¨
 	 */
 	public TableCellRenderer selectRenderer( int editType ) {
 		TableCellRenderer render1 = null;

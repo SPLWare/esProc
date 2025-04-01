@@ -4,14 +4,14 @@ import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
 /**
- * Ä¿Â¼¹ıÂËÆ÷
+ * ç›®å½•è¿‡æ»¤å™¨
  * @author RunQian
  *
  */
 class DirFilter {
 	private Object rightValue;
-	private Sequence values; // ĞòÁĞ±íÊ¾´ÓÊô¹ØÏµ
-	private boolean valueSign; // true£º¶ÔÄ¿Â¼ÌáÌõ¼ş£¬´ËÊ±Èç¹û´«ÈëµÄÄ¿Â¼ÖµÊÇnull£¬Ôò»áÑ¡ÖµÊÇnullµÄÄ¿Â¼£¬false£ºÊ¡ÂÔÄ¿Â¼Öµ£¬¼´²»¶Ô´ËÄ¿Â¼ÌáÌõ¼ş
+	private Sequence values; // åºåˆ—è¡¨ç¤ºä»å±å…³ç³»
+	private boolean valueSign; // trueï¼šå¯¹ç›®å½•ææ¡ä»¶ï¼Œæ­¤æ—¶å¦‚æœä¼ å…¥çš„ç›®å½•å€¼æ˜¯nullï¼Œåˆ™ä¼šé€‰å€¼æ˜¯nullçš„ç›®å½•ï¼Œfalseï¼šçœç•¥ç›®å½•å€¼ï¼Œå³ä¸å¯¹æ­¤ç›®å½•ææ¡ä»¶
 
 	public DirFilter(Object rightValue, boolean valueSign) {
 		this.rightValue = rightValue;

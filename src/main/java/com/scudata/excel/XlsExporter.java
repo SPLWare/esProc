@@ -499,11 +499,11 @@ public class XlsExporter implements IExcelTool {
 			return;
 		try {
 			int lastRow = sheet.getLastRowNum();
-			if (lastRow < 0) { // Ã»ÓÐÐÐ
+			if (lastRow < 0) { // æ²¡æœ‰è¡Œ
 				return;
 			}
-			// ÕÒµ½ÓÐÄÚÈÝµÄ×îºóÒ»ÐÐ¡£Èç¹û@t´ËÐÐ×÷Îª±êÌâÐÐ
-			// Èç¹ûÃ»ÓÐ@t£ººóÃæ»¹ÓÐ¿ÕÐÐ£¬Ê¹ÓÃ¿ÕÐÐÑùÊ½£¬·ñÔòÊ¹ÓÃ´ËÐÐÑùÊ½
+			// æ‰¾åˆ°æœ‰å†…å®¹çš„æœ€åŽä¸€è¡Œã€‚å¦‚æžœ@tæ­¤è¡Œä½œä¸ºæ ‡é¢˜è¡Œ
+			// å¦‚æžœæ²¡æœ‰@tï¼šåŽé¢è¿˜æœ‰ç©ºè¡Œï¼Œä½¿ç”¨ç©ºè¡Œæ ·å¼ï¼Œå¦åˆ™ä½¿ç”¨æ­¤è¡Œæ ·å¼
 			int lastContentRow = -1;
 			HSSFRow hr;
 			int colCount = 0;
@@ -518,34 +518,34 @@ public class XlsExporter implements IExcelTool {
 					break;
 				}
 			}
-			// È·¶¨±êÌâÐÐºÍÊý¾ÝÐÐ
-			if (hasTitle) { // ÓÐ±êÌâ
-				if (lastContentRow == -1) { // Ã»ÓÐÕÒµ½ÓÐÄÚÈÝÐÐ
+			// ç¡®å®šæ ‡é¢˜è¡Œå’Œæ•°æ®è¡Œ
+			if (hasTitle) { // æœ‰æ ‡é¢˜
+				if (lastContentRow == -1) { // æ²¡æœ‰æ‰¾åˆ°æœ‰å†…å®¹è¡Œ
 					lastContentRow = 0;
 				}
-				currRow = lastContentRow; // ¸²¸Ç±êÌâÐÐ
-				dataStyle = getRowStyle(lastContentRow + 1); // Êý¾ÝÐÐÊÇÏÂÒ»ÐÐ
+				currRow = lastContentRow; // è¦†ç›–æ ‡é¢˜è¡Œ
+				dataStyle = getRowStyle(lastContentRow + 1); // æ•°æ®è¡Œæ˜¯ä¸‹ä¸€è¡Œ
 			} else {
-				if (lastContentRow == -1) { // Ã»ÓÐÕÒµ½ÓÐÄÚÈÝÐÐ
+				if (lastContentRow == -1) { // æ²¡æœ‰æ‰¾åˆ°æœ‰å†…å®¹è¡Œ
 					currRow = 0;
 				} else {
-					currRow = lastContentRow + 1; // ×îºóÒ»¸öÓÐÄÚÈÝÐÐµÄµÄÏÂÒ»ÐÐ¿ªÊ¼Ð´
+					currRow = lastContentRow + 1; // æœ€åŽä¸€ä¸ªæœ‰å†…å®¹è¡Œçš„çš„ä¸‹ä¸€è¡Œå¼€å§‹å†™
 				}
-				if (lastContentRow < lastRow) { // Èç¹ûÓÐÄÚÈÝÐÐºóÃæ»¹ÓÐÐÐ£¬ÓÃÏÂÒ»¸ö¿ÕÐÐ¸ñÊ½×÷ÎªÊý¾ÝÐÐ¸ñÊ½
+				if (lastContentRow < lastRow) { // å¦‚æžœæœ‰å†…å®¹è¡ŒåŽé¢è¿˜æœ‰è¡Œï¼Œç”¨ä¸‹ä¸€ä¸ªç©ºè¡Œæ ¼å¼ä½œä¸ºæ•°æ®è¡Œæ ¼å¼
 					dataStyle = getRowStyle(lastContentRow + 1);
 				} else {
-					dataStyle = getRowStyle(lastContentRow); // ÈÏÎª×îºóÒ»¸öÓÐÄÚÈÝÐÐµÄÊÇÊý¾ÝÐÐ
+					dataStyle = getRowStyle(lastContentRow); // è®¤ä¸ºæœ€åŽä¸€ä¸ªæœ‰å†…å®¹è¡Œçš„æ˜¯æ•°æ®è¡Œ
 				}
 			}
 
-			maxWriteCount -= currRow + 1; // ´ÓcurrRow¿ªÊ¼£¬¿ÉÐ´µÄ×î´óÐÐÊý
+			maxWriteCount -= currRow + 1; // ä»ŽcurrRowå¼€å§‹ï¼Œå¯å†™çš„æœ€å¤§è¡Œæ•°
 
 			colStyles = new HSSFCellStyle[colCount];
 			for (int c = 0; c < colCount; c++) {
 				colStyles[c] = sheet.getColumnStyle(c);
 			}
 
-		} catch (Exception e) { // ¶Á²»µ½¾ÍËãÁË£¬±£Ö¤µ¼³öÕý³££¬°Ñ´íÎóÐÅÏ¢´ò³öÀ´
+		} catch (Exception e) { // è¯»ä¸åˆ°å°±ç®—äº†ï¼Œä¿è¯å¯¼å‡ºæ­£å¸¸ï¼ŒæŠŠé”™è¯¯ä¿¡æ¯æ‰“å‡ºæ¥
 			Logger.error(e);
 		}
 	}
@@ -555,7 +555,7 @@ public class XlsExporter implements IExcelTool {
 			return;
 		try {
 			int lastRow = sheet.getLastRowNum();
-			if (lastRow < 0) { // Ã»ÓÐÐÐ
+			if (lastRow < 0) { // æ²¡æœ‰è¡Œ
 				return;
 			}
 			HSSFRow hr;
@@ -568,7 +568,7 @@ public class XlsExporter implements IExcelTool {
 				int lastCol = hr.getLastCellNum();
 				colCount = Math.max(lastCol, colCount);
 				for (int c = 0; c <= lastCol; c++) {
-					// Çå¿Õµ¥Ôª¸ñ
+					// æ¸…ç©ºå•å…ƒæ ¼
 					cell = hr.getCell(c);
 					if (cell != null) {
 						cell.setBlank();
@@ -579,21 +579,21 @@ public class XlsExporter implements IExcelTool {
 				}
 			}
 			currRow = 0;
-			// È·¶¨±êÌâÐÐºÍÊý¾ÝÐÐ
+			// ç¡®å®šæ ‡é¢˜è¡Œå’Œæ•°æ®è¡Œ
 			if (hasTitle) {
-				dataStyle = getRowStyle(1); // Êý¾ÝÐÐÊÇÏÂÒ»ÐÐ
+				dataStyle = getRowStyle(1); // æ•°æ®è¡Œæ˜¯ä¸‹ä¸€è¡Œ
 			} else {
 				dataStyle = getRowStyle(0);
 			}
 
-			maxWriteCount -= currRow + 1; // ´ÓcurrRow¿ªÊ¼£¬¿ÉÐ´µÄ×î´óÐÐÊý
+			maxWriteCount -= currRow + 1; // ä»ŽcurrRowå¼€å§‹ï¼Œå¯å†™çš„æœ€å¤§è¡Œæ•°
 
 			colStyles = new HSSFCellStyle[colCount];
 			for (int c = 0; c < colCount; c++) {
 				colStyles[c] = sheet.getColumnStyle(c);
 			}
 
-		} catch (Exception e) { // ¶Á²»µ½¾ÍËãÁË£¬±£Ö¤µ¼³öÕý³££¬°Ñ´íÎóÐÅÏ¢´ò³öÀ´
+		} catch (Exception e) { // è¯»ä¸åˆ°å°±ç®—äº†ï¼Œä¿è¯å¯¼å‡ºæ­£å¸¸ï¼ŒæŠŠé”™è¯¯ä¿¡æ¯æ‰“å‡ºæ¥
 			Logger.error(e);
 		}
 	}

@@ -20,14 +20,14 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼¯Èº¹¤¾ßÀà
+ * é›†ç¾¤å·¥å…·ç±»
  * @author RunQian
  *
  */
 final class ClusterUtil {
 	/**
-	 * ÔÚ½Úµã»ú´´½¨¼ÆËãÉÏÏÂÎÄ
-	 * @param js ÈÎÎñ¿Õ¼ä
+	 * åœ¨èŠ‚ç‚¹æœºåˆ›å»ºè®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param js ä»»åŠ¡ç©ºé—´
 	 * @return Context
 	 */
 	public static Context createContext(JobSpace js) {
@@ -37,9 +37,9 @@ final class ClusterUtil {
 	}
 	
 	/**
-	 * ÔÚ½Úµã»ú´´½¨¼ÆËãÉÏÏÂÎÄ
-	 * @param js ÈÎÎñ¿Õ¼ä
-	 * @param attributes  Ö÷»ú´«À´µÄ²ÎÊı
+	 * åœ¨èŠ‚ç‚¹æœºåˆ›å»ºè®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param js ä»»åŠ¡ç©ºé—´
+	 * @param attributes  ä¸»æœºä¼ æ¥çš„å‚æ•°
 	 * @return Context
 	 */
 	public static Context createContext(JobSpace js, HashMap<String, Object> attributes) {
@@ -50,7 +50,7 @@ final class ClusterUtil {
 		Context ctx = new Context();
 		ctx.setJobSpace(js);
 		
-		// È¡³ö²ÎÊı´´½¨³É±äÁ¿¼ÓÈëµ½ÉÏÏÂÎÄÖĞ
+		// å–å‡ºå‚æ•°åˆ›å»ºæˆå˜é‡åŠ å…¥åˆ°ä¸Šä¸‹æ–‡ä¸­
 		String []paramNames = (String [])attributes.get("paramNames");
 		if (paramNames != null) {
 			Object []paramValues = (Object [])attributes.get("paramValues");
@@ -63,9 +63,9 @@ final class ClusterUtil {
 		return ctx;
 	}
 	
-	// ÅĞ¶Ï¼¯ÈºÄÚ±íÊÇ·ñÖ»ĞèÒªÈ¡µ±Ç°½Úµã»úÉÏµÄÊı¾İ
+	// åˆ¤æ–­é›†ç¾¤å†…è¡¨æ˜¯å¦åªéœ€è¦å–å½“å‰èŠ‚ç‚¹æœºä¸Šçš„æ•°æ®
 	private static boolean isCurrentOnly(ClusterMemoryTable cmt, String func, String opt) {
-		// Èç¹ûÊÇ·Ö²¼ÄÚ±í²¢ÇÒÃ»ÓĞcÑ¡ÏîÔòÊ¹ÓÃËùÓĞ·Ö»úµÄÊı¾İ
+		// å¦‚æœæ˜¯åˆ†å¸ƒå†…è¡¨å¹¶ä¸”æ²¡æœ‰cé€‰é¡¹åˆ™ä½¿ç”¨æ‰€æœ‰åˆ†æœºçš„æ•°æ®
 		if (cmt.isDistributed()) {
 			if (opt == null || opt.indexOf('c') == -1) {
 				return false;
@@ -80,11 +80,11 @@ final class ClusterUtil {
 	}
 	
 	/**
-	 * ÔÚ½Úµã»ú´´½¨¼ÆËãÉÏÏÂÎÄ£¬¼¯ÈºÄÚ±í±ä³ÉÏàÓ¦unit¶ÔÓ¦µÄÄÚ±í
-	 * @param js ÈÎÎñ¿Õ¼ä
-	 * @param attributes Ö÷»ú´«À´µÄ²ÎÊı
-	 * @param func µ÷ÓÃ´Ë·½·¨µÄº¯ÊıÃû
-	 * @param opt Ñ¡Ïî
+	 * åœ¨èŠ‚ç‚¹æœºåˆ›å»ºè®¡ç®—ä¸Šä¸‹æ–‡ï¼Œé›†ç¾¤å†…è¡¨å˜æˆç›¸åº”unitå¯¹åº”çš„å†…è¡¨
+	 * @param js ä»»åŠ¡ç©ºé—´
+	 * @param attributes ä¸»æœºä¼ æ¥çš„å‚æ•°
+	 * @param func è°ƒç”¨æ­¤æ–¹æ³•çš„å‡½æ•°å
+	 * @param opt é€‰é¡¹
 	 * @return Context
 	 */
 	public static Context createContext(JobSpace js, HashMap<String, Object> attributes, String func, String opt) {
@@ -95,7 +95,7 @@ final class ClusterUtil {
 		Context ctx = new Context();
 		ctx.setJobSpace(js);
 		
-		// È¡³ö²ÎÊı´´½¨³É±äÁ¿¼ÓÈëµ½ÉÏÏÂÎÄÖĞ
+		// å–å‡ºå‚æ•°åˆ›å»ºæˆå˜é‡åŠ å…¥åˆ°ä¸Šä¸‹æ–‡ä¸­
 		String []paramNames = (String [])attributes.get("paramNames");
 		if (paramNames != null) {
 			Object []paramValues = (Object [])attributes.get("paramValues");
@@ -105,7 +105,7 @@ final class ClusterUtil {
 				if (val instanceof ClusterMemoryTable) {
 					ClusterMemoryTable cmt = (ClusterMemoryTable)val;
 					if (isCurrentOnly(cmt, func, opt)) {
-						// ¸´Ğ´ÄÚ±í»òÕßÓĞcÑ¡ÏîÊ±Ö»È¡µ±Ç°½Úµã»úÉÏ¶ÔÓ¦µÄ²¿·Ö
+						// å¤å†™å†…è¡¨æˆ–è€…æœ‰cé€‰é¡¹æ—¶åªå–å½“å‰èŠ‚ç‚¹æœºä¸Šå¯¹åº”çš„éƒ¨åˆ†
 						int id = cmt.getCurrentClusterProxyId();
 						ResourceManager rm = js.getResourceManager();
 						TableProxy table = (TableProxy)rm.getProxy(id);
@@ -126,10 +126,10 @@ final class ClusterUtil {
 	}
 	
 	/**
-	 * °Ñ±í´ïÊ½ÖĞÒıÓÃµ½µÄ²ÎÊıºÍÍø¸ñÉèÖÃµ½ÃüÁîÖĞ´«¸ø½Úµã»ú
-	 * @param command ÃüÁî
-	 * @param exp ±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æŠŠè¡¨è¾¾å¼ä¸­å¼•ç”¨åˆ°çš„å‚æ•°å’Œç½‘æ ¼è®¾ç½®åˆ°å‘½ä»¤ä¸­ä¼ ç»™èŠ‚ç‚¹æœº
+	 * @param command å‘½ä»¤
+	 * @param exp è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public static void setParams(UnitCommand command, Expression exp, Context ctx) {
 		if (exp != null) {
@@ -142,10 +142,10 @@ final class ClusterUtil {
 	}
 	
 	/**
-	 * °Ñ±í´ïÊ½Êı×éÖĞÒıÓÃµ½µÄ²ÎÊıºÍÍø¸ñÉèÖÃµ½ÃüÁîÖĞ´«¸ø½Úµã»ú
-	 * @param command ÃüÁî
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æŠŠè¡¨è¾¾å¼æ•°ç»„ä¸­å¼•ç”¨åˆ°çš„å‚æ•°å’Œç½‘æ ¼è®¾ç½®åˆ°å‘½ä»¤ä¸­ä¼ ç»™èŠ‚ç‚¹æœº
+	 * @param command å‘½ä»¤
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public static void setParams(UnitCommand command, Expression []exps, Context ctx) {
 		if (exps != null) {
@@ -161,10 +161,10 @@ final class ClusterUtil {
 	}
 	
 	/**
-	 * °Ñº¯ÊıÖĞÒıÓÃµ½µÄ²ÎÊıºÍÍø¸ñÉèÖÃµ½ÃüÁîÖĞ´«¸ø½Úµã»ú
-	 * @param command ÃüÁî
-	 * @param function º¯Êı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æŠŠå‡½æ•°ä¸­å¼•ç”¨åˆ°çš„å‚æ•°å’Œç½‘æ ¼è®¾ç½®åˆ°å‘½ä»¤ä¸­ä¼ ç»™èŠ‚ç‚¹æœº
+	 * @param command å‘½ä»¤
+	 * @param function å‡½æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public static void setParams(UnitCommand command, Function function, Context ctx) {
 		IParam param = function.getParam();
@@ -204,12 +204,12 @@ final class ClusterUtil {
 	}
 	
 	/**
-	 * ÁĞ³ö½Úµã»úÉÏÓĞÄÄĞ©·Ö±íÎÄ¼ş
-	 * @param host ½Úµã»úµÄIPµØÖ·
-	 * @param port ½Úµã»úµÄ¶Ë¿Ú
-	 * @param fileName ÎÄ¼şÂ·¾¶Ãû
-	 * @param parts Òª²éÕÒµÄ·Ö±í
-	 * @return ½Úµã»úÉÏ°üº¬µÄ·Ö±í
+	 * åˆ—å‡ºèŠ‚ç‚¹æœºä¸Šæœ‰å“ªäº›åˆ†è¡¨æ–‡ä»¶
+	 * @param host èŠ‚ç‚¹æœºçš„IPåœ°å€
+	 * @param port èŠ‚ç‚¹æœºçš„ç«¯å£
+	 * @param fileName æ–‡ä»¶è·¯å¾„å
+	 * @param parts è¦æŸ¥æ‰¾çš„åˆ†è¡¨
+	 * @return èŠ‚ç‚¹æœºä¸ŠåŒ…å«çš„åˆ†è¡¨
 	 */
 	public static int[] listFileParts(String host, int port, String fileName, int []parts) {
 		UnitClient client = new UnitClient(host, port);
@@ -225,7 +225,7 @@ final class ClusterUtil {
 	}
 
 	/**
-	 * ½Úµã»úÉÏÖ´ĞĞÁĞ³ö½Úµã»úÉÏÓĞÄÄĞ©·Ö±íÎÄ¼şÃüÁî
+	 * èŠ‚ç‚¹æœºä¸Šæ‰§è¡Œåˆ—å‡ºèŠ‚ç‚¹æœºä¸Šæœ‰å“ªäº›åˆ†è¡¨æ–‡ä»¶å‘½ä»¤
 	 * @param attributes
 	 * @return
 	 */

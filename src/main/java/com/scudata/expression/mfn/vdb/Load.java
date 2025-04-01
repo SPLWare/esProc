@@ -7,7 +7,7 @@ import com.scudata.expression.VSFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÁÖ¸¶¨Â·¾¶µÄ±íµ¥µÄÊı¾İ
+ * è¯»æŒ‡å®šè·¯å¾„çš„è¡¨å•çš„æ•°æ®
  * h.load(p)
  * @author RunQian
  *

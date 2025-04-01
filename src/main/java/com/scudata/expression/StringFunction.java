@@ -1,13 +1,13 @@
 package com.scudata.expression;
 
 /**
- * ×Ö·û´®³ÉÔ±º¯Êı»ùÀà
+ * å­—ç¬¦ä¸²æˆå‘˜å‡½æ•°åŸºç±»
  * S.f()
  * @author RunQian
  *
  */
 public abstract class StringFunction extends MemberFunction {
-	protected String srcStr; // Ô´´®
+	protected String srcStr; // æºä¸²
 	
 	public boolean isLeftTypeMatch(Object obj) {
 		return obj instanceof String;
@@ -18,7 +18,7 @@ public abstract class StringFunction extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		srcStr = null;

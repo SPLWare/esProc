@@ -8,22 +8,22 @@ import com.scudata.chart.*;
 import com.scudata.chart.edit.*;
 
 /**
- * ±ıÍ¼
+ * é¥¼å›¾
  * 
  * @author Joancy
  *
  */
 public class GraphPie extends GraphBase {
-	/** ±ıÍ¼ÖĞÊÇ·ñ·ÖÀë³öÒ»ÉÈÏÔÊ¾ */
+	/** é¥¼å›¾ä¸­æ˜¯å¦åˆ†ç¦»å‡ºä¸€æ‰‡æ˜¾ç¤º */
 	public boolean pieSpacing = true;
-	public int pieRotation = 50; /* ×İÖáÕ¼ºáÖáµÄ³¤¶È°Ù·Ö±È */
-	public int pieHeight = 70; /* ±ıĞÍÍ¼µÄ¸ß¶ÈÕ¼°ë¾¶µÄ°Ù·Ö±È<=100 */
+	public int pieRotation = 50; /* çºµè½´å æ¨ªè½´çš„é•¿åº¦ç™¾åˆ†æ¯” */
+	public int pieHeight = 70; /* é¥¼å‹å›¾çš„é«˜åº¦å åŠå¾„çš„ç™¾åˆ†æ¯”<=100 */
 	
 	public byte pieType = GraphTypes.GT_PIE; 
 	public Color pieJoinLineColor = Color.lightGray;
 
 	/**
-	 * È±Ê¡²ÎÊı¹¹Ôìº¯Êı
+	 * ç¼ºçœå‚æ•°æ„é€ å‡½æ•°
 	 */
 	public GraphPie() {
 	}
@@ -40,8 +40,8 @@ public class GraphPie extends GraphBase {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();

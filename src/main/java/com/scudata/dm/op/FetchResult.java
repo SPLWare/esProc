@@ -5,7 +5,7 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
 
 /**
- * ÓÃÓÚ±£³Ö¹ÜµÀµ±Ç°Êı¾İ×÷Îª½á¹û¼¯
+ * ç”¨äºä¿æŒç®¡é“å½“å‰æ•°æ®ä½œä¸ºç»“æœé›†
  * @author RunQian
  *
  */
@@ -22,9 +22,9 @@ public class FetchResult implements IResult {
 	}
 	
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public void push(Sequence table, Context ctx) {
@@ -36,19 +36,19 @@ public class FetchResult implements IResult {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊøÊ±µ÷ÓÃ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®æ¨é€ç»“æŸæ—¶è°ƒç”¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void finish(Context ctx) {
-		// ¶àÂ·¹ÜµÀÊ±¶ÔÓ¦Í¬Ò»¸öFilePipe£¬»á¶à´Îµ÷ÓÃ
+		// å¤šè·¯ç®¡é“æ—¶å¯¹åº”åŒä¸€ä¸ªFilePipeï¼Œä¼šå¤šæ¬¡è°ƒç”¨
 		//if (filePipe != null) {
 		//	filePipe.close();
 		//}
 	}
 	
 	 /**
-	  * Êı¾İÍÆËÍ½áÊø£¬È¡×îÖÕµÄ¼ÆËã½á¹û
-	  * @return ½á¹û
+	  * æ•°æ®æ¨é€ç»“æŸï¼Œå–æœ€ç»ˆçš„è®¡ç®—ç»“æœ
+	  * @return ç»“æœ
 	  */
 	public Object result() {
 		if (filePipe != null) {
@@ -65,9 +65,9 @@ public class FetchResult implements IResult {
 	}
 	
 	/**
-	 * ¼¯Èº¹ÜµÀ×îºóĞèÒª°Ñ¸÷½Úµã»úµÄ·µ»Ø½á¹ûÔÙºÏ²¢Ò»ÏÂ
-	 * @param results Ã¿¸ö½Úµã»úµÄ¼ÆËã½á¹û
-	 * @return ºÏ²¢ºóµÄ½á¹û
+	 * é›†ç¾¤ç®¡é“æœ€åéœ€è¦æŠŠå„èŠ‚ç‚¹æœºçš„è¿”å›ç»“æœå†åˆå¹¶ä¸€ä¸‹
+	 * @param results æ¯ä¸ªèŠ‚ç‚¹æœºçš„è®¡ç®—ç»“æœ
+	 * @return åˆå¹¶åçš„ç»“æœ
 	 */
 	public Object combineResult(Object []results) {
 		int count = results.length;

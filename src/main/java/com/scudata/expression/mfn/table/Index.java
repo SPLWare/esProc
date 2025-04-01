@@ -10,7 +10,7 @@ import com.scudata.expression.TableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 给序表按主键创建内存索引，返回源序表
+ * 缁欏簭琛ㄦ寜涓婚敭鍒涘缓鍐呭瓨绱㈠紩锛岃繑鍥炴簮搴忚〃
  * T.index(n)
  * @author RunQian
  *

@@ -11,21 +11,21 @@ import com.scudata.util.Variant;
 
 
 /**
- * »ùÓÚ¹Ì¶¨ÀûÂÊºÍÃ¿ÆÚµÈ¶îÍ¶×ÊÄ£Ê½,·µ»ØÒ»±ÊÍ¶×ÊµÄÎ´À´Öµ/ÏÖÖµ¡£
+ * åŸºäºå›ºå®šåˆ©ç‡å’Œæ¯æœŸç­‰é¢æŠ•èµ„æ¨¡å¼,è¿”å›ä¸€ç¬”æŠ•èµ„çš„æœªæ¥å€¼/ç°å€¼ã€‚
  * @author yanjing
  * 
 
- * Fnper@t(rate,pmt,pv,fv)   µÈ¶î±¾Ï¢Ê±£¬¼ÆËã»¹¿îÆÚÊı
- * @param Rate ÎªÃ¿ÆÚµÄÀûÂÊ, ÆäÊıÖµÔÚÕû¸öÄê½ğÆÚ¼ä±£³Ö²»±ä¡£
- * @param pmt  Ã¿ÆÚµÄ»¹¿î¶î£¬²»ÄÜÊ¡ÂÔ¡£
- * @param Pv ÎªÏÖÖµ,Ïàµ±ÓÚ´û¿î±¾½ğ¡£
- * @param Fv ÎªÎ´À´Öµ£¬¼´×îºóÒ»ÆÚ»¹¿îºóÊ£ÓàµÄ´û¿î¶î¡£
+ * Fnper@t(rate,pmt,pv,fv)   ç­‰é¢æœ¬æ¯æ—¶ï¼Œè®¡ç®—è¿˜æ¬¾æœŸæ•°
+ * @param Rate ä¸ºæ¯æœŸçš„åˆ©ç‡, å…¶æ•°å€¼åœ¨æ•´ä¸ªå¹´é‡‘æœŸé—´ä¿æŒä¸å˜ã€‚
+ * @param pmt  æ¯æœŸçš„è¿˜æ¬¾é¢ï¼Œä¸èƒ½çœç•¥ã€‚
+ * @param Pv ä¸ºç°å€¼,ç›¸å½“äºè´·æ¬¾æœ¬é‡‘ã€‚
+ * @param Fv ä¸ºæœªæ¥å€¼ï¼Œå³æœ€åä¸€æœŸè¿˜æ¬¾åå‰©ä½™çš„è´·æ¬¾é¢ã€‚
 
  * @return
  * 
- * Èç¹ûtype=0:
+ * å¦‚æœtype=0:
  *  	Fnper=log(1+rate) (-fv*rate+pmt)/(pmt+pv*rate)
- * Èç¹ûtype=1:  @t
+ * å¦‚æœtype=1:  @t
  * 		Fnper@t=log(1+rate) (-fv*rate+pmt)/(pmt+pv*rate/(1+rate))
  */
 public class Nper extends Function {
@@ -68,9 +68,9 @@ public class Nper extends Function {
 			pv=Variant.doubleValue(result[2]);
 		}
 		if(result[3]!=null) fv=Variant.doubleValue(result[3]);
-		if(option==null || option.indexOf("t")<0){  //type=0 ÆÚÄ©»¹¿î
+		if(option==null || option.indexOf("t")<0){  //type=0 æœŸæœ«è¿˜æ¬¾
 			return new Double(Math.log((-fv*rate+pmt)/(pmt+pv*rate))/Math.log(1.0+rate));
-		}else{   //type=1  ÆÚ³õ»¹¿î
+		}else{   //type=1  æœŸåˆè¿˜æ¬¾
 			return new Double(Math.log((pmt-fv*rate)/(pmt+pv*rate/(1.0+rate)))/Math.log(1.0+rate));
 		}
 	}

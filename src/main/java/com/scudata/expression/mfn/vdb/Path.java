@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.VSFunction;
 
 /**
- * ·µ»Øµ±Ç°Â·¾¶µÄ½ÚÖµ
+ * è¿”å›å½“å‰è·¯å¾„çš„èŠ‚å€¼
  * h.path()
  * @author RunQian
  *

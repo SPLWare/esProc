@@ -18,7 +18,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ĞòÁĞÔªËØÒıÓÃ
+ * åºåˆ—å…ƒç´ å¼•ç”¨
  * A(2)  A([2,4])
  * @author WangXiaoJun
  *
@@ -32,7 +32,7 @@ public class ElementRef extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (left == null) {
@@ -43,7 +43,7 @@ public class ElementRef extends Function {
 		left.checkValidity();
 		if (param != null && param.isLeaf()) {
 			exp = param.getLeafExpression();
-		} // ÕâÊ±ÏÈ²»Å×³öÒì³££¬ÏÈ¼ÆËãleftÔÙ¼ì²é²ÎÊı£¬ÕâÑùÈç¹ûleft·Ç·¨¿ÉÒÔ×¼È·±¨´í
+		} // è¿™æ—¶å…ˆä¸æŠ›å‡ºå¼‚å¸¸ï¼Œå…ˆè®¡ç®—leftå†æ£€æŸ¥å‚æ•°ï¼Œè¿™æ ·å¦‚æœleftéæ³•å¯ä»¥å‡†ç¡®æŠ¥é”™
 	}
 
 	public void setLeft(Node node) {
@@ -75,7 +75,7 @@ public class ElementRef extends Function {
 	}
 	
 	/**
-	 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+	 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 	 */
 	public void reset() {
 		left.reset();
@@ -119,10 +119,10 @@ public class ElementRef extends Function {
 	}
 	
 	/**
-	 * ¶ÔĞòÁĞÔªËØ¸³Öµ
-	 * @param ĞÂÖµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ĞÂÖµ
+	 * å¯¹åºåˆ—å…ƒç´ èµ‹å€¼
+	 * @param æ–°å€¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æ–°å€¼
 	 */
 	public Object assign(Object value, Context ctx) {
 		Object result1 = left.calculate(ctx);
@@ -140,7 +140,7 @@ public class ElementRef extends Function {
 		int len = srcSeries.length();
 		Object pval = exp.calculate(ctx);
 
-		// Ô½½ç±¨´í£¬²»×Ô¶¯²¹
+		// è¶Šç•ŒæŠ¥é”™ï¼Œä¸è‡ªåŠ¨è¡¥
 		if (pval instanceof Number) {
 			int index = ((Number)pval).intValue();
 			if (index > len) {
@@ -201,10 +201,10 @@ public class ElementRef extends Function {
 	}
 	
 	/**
-	 * ¶ÔĞòÁĞÔªËØ×ö+=ÔËËã
-	 * @param Öµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ĞÂÖµ
+	 * å¯¹åºåˆ—å…ƒç´ åš+=è¿ç®—
+	 * @param å€¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æ–°å€¼
 	 */
 	public Object addAssign(Object value, Context ctx) {
 		Object result1 = left.calculate(ctx);
@@ -222,7 +222,7 @@ public class ElementRef extends Function {
 		int len = srcSeries.length();
 		Object pval = exp.calculate(ctx);
 
-		// Ô½½ç±¨´í£¬²»×Ô¶¯²¹
+		// è¶Šç•ŒæŠ¥é”™ï¼Œä¸è‡ªåŠ¨è¡¥
 		if (pval instanceof Number) {
 			int index = ((Number)pval).intValue();
 			if (index > len) {
@@ -350,8 +350,8 @@ public class ElementRef extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -436,10 +436,10 @@ public class ElementRef extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -447,9 +447,9 @@ public class ElementRef extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
@@ -508,9 +508,9 @@ public class ElementRef extends Function {
 	}
 
 	/**
-	 * ÅĞ¶Ï¸ø¶¨µÄÖµÓò·¶Î§ÊÇ·ñÂú×ãµ±Ç°Ìõ¼ş±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @return È¡Öµ²ÎÕÕRelation. -1£ºÖµÓò·¶Î§ÄÚÃ»ÓĞÂú×ãÌõ¼şµÄÖµ£¬0£ºÖµÓò·¶Î§ÄÚÓĞÂú×ãÌõ¼şµÄÖµ£¬1£ºÖµÓò·¶Î§µÄÖµ¶¼Âú×ãÌõ¼ş
+	 * åˆ¤æ–­ç»™å®šçš„å€¼åŸŸèŒƒå›´æ˜¯å¦æ»¡è¶³å½“å‰æ¡ä»¶è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @return å–å€¼å‚ç…§Relation. -1ï¼šå€¼åŸŸèŒƒå›´å†…æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ0ï¼šå€¼åŸŸèŒƒå›´å†…æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ1ï¼šå€¼åŸŸèŒƒå›´çš„å€¼éƒ½æ»¡è¶³æ¡ä»¶
 	 */
 	public int isValueRangeMatch(Context ctx) {
 		IArray sequenceArray = left.calculateRange(ctx);

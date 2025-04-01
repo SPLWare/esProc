@@ -16,14 +16,14 @@ import com.scudata.expression.mfn.dw.New;
 import com.scudata.parallel.ClusterPhyTable;
 
 public class PseudoNew extends Pseudo {
-	private Object ptable;//²ÎÊıcs/A£¬Ò²¿ÉÄÜÊÇÒ»¸öĞé±í
+	private Object ptable;//å‚æ•°cs/Aï¼Œä¹Ÿå¯èƒ½æ˜¯ä¸€ä¸ªè™šè¡¨
 	String option;
 	private String[] csNames;
 	
 	/**
-	 * ¸ù¾İ¶¨Òåpd¹¹ÔìÒ»¸öPseudoNew¶ÔÏó
-	 * @param pd ¶¨Òå
-	 * @param ptable newµÄ²ÎÊı£¬¿ÉÄÜÊÇĞé±í¡¢ĞòÁĞ¡¢ÓÎ±ê
+	 * æ ¹æ®å®šä¹‰pdæ„é€ ä¸€ä¸ªPseudoNewå¯¹è±¡
+	 * @param pd å®šä¹‰
+	 * @param ptable newçš„å‚æ•°ï¼Œå¯èƒ½æ˜¯è™šè¡¨ã€åºåˆ—ã€æ¸¸æ ‡
 	 * @param option
 	 */
 	public PseudoNew(PseudoDefination pd, Object ptable, String option) {
@@ -96,7 +96,7 @@ public class PseudoNew extends Pseudo {
 	}
 
 	/**
-	 * µÃµ½table.new(cursor)µÄÓÎ±ê
+	 * å¾—åˆ°table.new(cursor)çš„æ¸¸æ ‡
 	 * @param table
 	 * @param cursor
 	 * @param fkNames
@@ -122,10 +122,10 @@ public class PseudoNew extends Pseudo {
 	}
 	
 	/**
-	 * ·µ»ØT.new(cs)µÄÓÎ±ê
+	 * è¿”å›T.new(cs)çš„æ¸¸æ ‡
 	 */
 	public ICursor cursor(Expression[] exps, String[] names) {
-		//È¡µÃctx
+		//å–å¾—ctx
 		if (ctx == null) {
 			if (ptable instanceof IPseudo) {
 				ctx = ((IPseudo)ptable).getContext();
@@ -134,18 +134,18 @@ public class PseudoNew extends Pseudo {
 			}
 		}
 		
-		//°Ñ¿ÉÄÜµÄÈ¡³ö×Ö¶ÎÌí¼Óµ½Ğé±íTÀï
+		//æŠŠå¯èƒ½çš„å–å‡ºå­—æ®µæ·»åŠ åˆ°è™šè¡¨Té‡Œ
 		if (exps != null) {
 			for (Expression exp : exps) {
 				addColName(exp.getIdentifierName());
 			}
 		}
 		
-		//µÃµ½Ğé±íTµÄÊµÌå±í
+		//å¾—åˆ°è™šè¡¨Tçš„å®ä½“è¡¨
 		List<IPhyTable> tables = getPd().getTables();
 		int tsize = tables.size();
 		
-		//¸ù¾İptableµÃµ½cs£¨¿ÉÄÜ¶ÔÓ¦¶à¸ö£©
+		//æ ¹æ®ptableå¾—åˆ°csï¼ˆå¯èƒ½å¯¹åº”å¤šä¸ªï¼‰
 		ICursor cursors[] = new ICursor[tsize];
 		if (ptable instanceof PseudoBFile) {
 			cursors = ((PseudoBFile)ptable).getCursors();
@@ -157,12 +157,12 @@ public class PseudoNew extends Pseudo {
 			cursors[0] = new MemoryCursor((Sequence) ptable);
 		}
 		
-		//ÉèÖÃÈ¡³ö×Ö¶Î
+		//è®¾ç½®å–å‡ºå­—æ®µ
 		setFetchInfo(cursors[0], exps, names);
 		exps = this.exps;
 		names = this.names;
 		
-		//×éÖ¯F:K²ÎÊı
+		//ç»„ç»‡F:Kå‚æ•°
 		String []fkNames = null;
 		Sequence []codes = null;
 		String []opts = null;

@@ -4,30 +4,30 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * °´¹Ì¶¨¿é´óĞ¡¶ÁÈ¡Êı¾İµÄÊäÈëÁ÷
+ * æŒ‰å›ºå®šå—å¤§å°è¯»å–æ•°æ®çš„è¾“å…¥æµ
  * @author WangXiaoJun
  *
  */
 public class BlockInputStream extends InputStream {
 	protected InputStream is;
-	protected byte []buffer; // »º³åÇø
-	protected volatile int count; // »º³åÇøÊµ¼Ê¶ÁÈëµÄ×Ö½ÚÊı
+	protected byte []buffer; // ç¼“å†²åŒº
+	protected volatile int count; // ç¼“å†²åŒºå®é™…è¯»å…¥çš„å­—èŠ‚æ•°
 
 	protected IOException e;
 	protected boolean isClosed;
 
 	/**
-	 * ¹¹½¨°´¿é¶ÁÈëµÄÊäÈëÁ÷
-	 * @param is ÊäÈëÁ÷
+	 * æ„å»ºæŒ‰å—è¯»å…¥çš„è¾“å…¥æµ
+	 * @param is è¾“å…¥æµ
 	 */
 	public BlockInputStream(InputStream is) {
 		this(is, Env.getFileBufSize());
 	}
 
 	/**
-	 * ¹¹½¨°´¿é¶ÁÈëµÄÊäÈëÁ÷
-	 * @param is ÊäÈëÁ÷
-	 * @param bufSize ¶ÁÈëµÄ¿é´óĞ¡
+	 * æ„å»ºæŒ‰å—è¯»å…¥çš„è¾“å…¥æµ
+	 * @param is è¾“å…¥æµ
+	 * @param bufSize è¯»å…¥çš„å—å¤§å°
 	 */
 	public BlockInputStream(InputStream is, int bufSize) {
 		this.is = is;
@@ -37,7 +37,7 @@ public class BlockInputStream extends InputStream {
 		InputStreamManager.getInstance().read(this);
 	}
 
-	// ¶ÁÈëÊı¾İµ½»º³åÇø
+	// è¯»å…¥æ•°æ®åˆ°ç¼“å†²åŒº
 	void fillBuffers() {
 		synchronized(is) {
 			if (!isClosed) {
@@ -61,14 +61,14 @@ public class BlockInputStream extends InputStream {
 	}
 
 	/**
-	 * ²»Ö§³Ö´Ë·½·¨£¬Ö»ÄÜ°´¹Ì¶¨¿é¶Á
+	 * ä¸æ”¯æŒæ­¤æ–¹æ³•ï¼Œåªèƒ½æŒ‰å›ºå®šå—è¯»
 	 */
 	public int read() throws IOException {
 		throw new IOException("read not supported");
 	}
 
 	/**
-	 * bµÄ³¤¶È±ØĞëºÍ»º³åÇø³¤¶ÈÏàÍ¬
+	 * bçš„é•¿åº¦å¿…é¡»å’Œç¼“å†²åŒºé•¿åº¦ç›¸åŒ
 	 * @param b byte[]
 	 * @throws IOException
 	 * @return int
@@ -78,7 +78,7 @@ public class BlockInputStream extends InputStream {
 	}
 
 	/**
-	 * len±ØĞëºÍ»º³åÇø³¤¶ÈÏàÍ¬
+	 * lenå¿…é¡»å’Œç¼“å†²åŒºé•¿åº¦ç›¸åŒ
 	 * @param b byte[]
 	 * @param off int
 	 * @param len int
@@ -128,9 +128,9 @@ public class BlockInputStream extends InputStream {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨×Ö½Ú
-	 * @param n ×Ö½ÚÊı
-	 * @return long Êµ¼ÊÌø¹ıµÄ×Ö½ÚÊı
+	 * è·³è¿‡æŒ‡å®šå­—èŠ‚
+	 * @param n å­—èŠ‚æ•°
+	 * @return long å®é™…è·³è¿‡çš„å­—èŠ‚æ•°
 	 */
 	public long skip(long n) throws IOException {
 		if (n < 1) return -1;
@@ -166,7 +166,7 @@ public class BlockInputStream extends InputStream {
 	}
 
 	/**
-	 * ·µ»Ø»º³åÇø»¹ÓĞ¶àÉÙ¿ÉÓÃ£¬²»ÊÇÕû¸öÊäÈëÁ÷»¹ÓĞ¶àÉÙ¿ÉÓÃ
+	 * è¿”å›ç¼“å†²åŒºè¿˜æœ‰å¤šå°‘å¯ç”¨ï¼Œä¸æ˜¯æ•´ä¸ªè¾“å…¥æµè¿˜æœ‰å¤šå°‘å¯ç”¨
 	 * @return int
 	 */
 	public int available() throws IOException {
@@ -184,7 +184,7 @@ public class BlockInputStream extends InputStream {
 	}
 
 	/**
-	 * ¹Ø±ÕÊäÈëÁ÷
+	 * å…³é—­è¾“å…¥æµ
 	 */
 	public void close() throws IOException {
 		synchronized(is) {

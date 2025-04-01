@@ -13,10 +13,10 @@ import com.scudata.util.HashUtil;
 import com.scudata.util.Variant;
 
 /**
- * ÅÅºÅ£¬ÓÉ×î³¤8¸ö×Ö½Ú¹¹³ÉµÄÕûÊı£¬ÓÃÓÚ±íÊ¾¼üÖµ£¬¿É±È½Ï£¬²»ÄÜÔËËã
- * µÚÒ»¸ö×Ö½Ú±£´æÔÚvalue1µÄ×î¸ß×Ö½ÚÉÏ
+ * æ’å·ï¼Œç”±æœ€é•¿8ä¸ªå­—èŠ‚æ„æˆçš„æ•´æ•°ï¼Œç”¨äºè¡¨ç¤ºé”®å€¼ï¼Œå¯æ¯”è¾ƒï¼Œä¸èƒ½è¿ç®—
+ * ç¬¬ä¸€ä¸ªå­—èŠ‚ä¿å­˜åœ¨value1çš„æœ€é«˜å­—èŠ‚ä¸Š
  * value1					value2
- * b1 b2 b3 b4 b5 b6 b7 b8	b9 b10 b11 b12¿Ú¿Ú¿Ú¿Ú
+ * b1 b2 b3 b4 b5 b6 b7 b8	b9 b10 b11 b12å£å£å£å£
  *
  * @author WangXiaoJun
  */
@@ -37,7 +37,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	private long value2;
 	//private int len;
 	
-	// ÓÃÓÚĞòÁĞ»¯
+	// ç”¨äºåºåˆ—åŒ–
 	public SerialBytes() {
 	}
 	
@@ -59,9 +59,9 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 	
 	/**
-	 * ¹¹½¨ÅÅºÅ¶ÔÏó
-	 * @param num Êı
-	 * @param len ×Ö½ÚÊı£¬·¶Î§ÊÇ[1,16]
+	 * æ„å»ºæ’å·å¯¹è±¡
+	 * @param num æ•°
+	 * @param len å­—èŠ‚æ•°ï¼ŒèŒƒå›´æ˜¯[1,16]
 	 */
 	public SerialBytes(Number num, int len) {
 		if (len > 16) {
@@ -80,7 +80,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 				throw new RQException(mm.getMessage("serialbytes.biLenMismatch"));
 			}
 			
-			// Èç¹ûÊµ¼Ê×Ö½ÚÊıÉÙÓÚ¸ø¶¨µÄ×Ö½ÚÊıÔòÓÃ0²¹×ã
+			// å¦‚æœå®é™…å­—èŠ‚æ•°å°‘äºç»™å®šçš„å­—èŠ‚æ•°åˆ™ç”¨0è¡¥è¶³
 			int index = len - blen;
 			for (byte b : bytes) {
 				++index;
@@ -94,16 +94,16 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 	
 	/**
-	 * ¹¹½¨ÅÅºÅ¶ÔÏó
-	 * @param vals ÊıÊı×é
-	 * @param lens Ã¿¸öÊıµÄ×Ö½ÚÊıÊı×é£¬×Ü×Ö½ÚÊı²»ÄÜ³¬¹ı16
+	 * æ„å»ºæ’å·å¯¹è±¡
+	 * @param vals æ•°æ•°ç»„
+	 * @param lens æ¯ä¸ªæ•°çš„å­—èŠ‚æ•°æ•°ç»„ï¼Œæ€»å­—èŠ‚æ•°ä¸èƒ½è¶…è¿‡16
 	 */
 	public SerialBytes(Number []vals, int []lens) {
 		int len = 0;
 		for (int i = 0; i < vals.length; ++i) {
 			int curLen = lens[i];
 			if (curLen <= 8) {
-				// Èç¹û³¤¶ÈĞ¡ÓÚ8Ôò°Ñ¸ßÎ»ÖÃ0£¬ÓÉµÍÀàĞÍ×ª¹ıÀ´µÄÊı¿ÉÄÜÊÇ¸ºÖµ
+				// å¦‚æœé•¿åº¦å°äº8åˆ™æŠŠé«˜ä½ç½®0ï¼Œç”±ä½ç±»å‹è½¬è¿‡æ¥çš„æ•°å¯èƒ½æ˜¯è´Ÿå€¼
 				long curVal = vals[i].longValue() & (LONGSIGN >>> 8 - curLen);
 				
 				if (len < 8) {
@@ -132,7 +132,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 					throw new RQException(mm.getMessage("serialbytes.biLenMismatch"));
 				}
 				
-				// Èç¹ûÊµ¼Ê×Ö½ÚÊıÉÙÓÚ¸ø¶¨µÄ×Ö½ÚÊıÔòÓÃ0²¹×ã
+				// å¦‚æœå®é™…å­—èŠ‚æ•°å°‘äºç»™å®šçš„å­—èŠ‚æ•°åˆ™ç”¨0è¡¥è¶³
 				len += curLen - blen;
 				
 				for (byte b : bytes) {
@@ -153,7 +153,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 	
 	/**
-	 * ·µ»ØÅÅºÅµÄ³¤¶È
+	 * è¿”å›æ’å·çš„é•¿åº¦
 	 * @return int
 	 */
 	public int length() {
@@ -161,7 +161,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 	
 	/**
-	 * ·µ»ØÅÅºÅµÄ¹şÏ£Öµ
+	 * è¿”å›æ’å·çš„å“ˆå¸Œå€¼
 	 * @return int
 	 */
     public int hashCode() {
@@ -169,7 +169,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
     }
 	
     /**
-     * ×ª³É×Ö·û´®£¬ÓÃÓÚÏÔÊ¾
+     * è½¬æˆå­—ç¬¦ä¸²ï¼Œç”¨äºæ˜¾ç¤º
 	 * @return String
      */
 	public String toString() {
@@ -190,8 +190,8 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 	
 	/**
-	 * °ÑÅÅºÅ×ª³É×Ö½ÚÊı×é£¬ÓÃÓÚ´æ´¢
-	 * @return ×Ö½ÚÊı×é
+	 * æŠŠæ’å·è½¬æˆå­—èŠ‚æ•°ç»„ï¼Œç”¨äºå­˜å‚¨
+	 * @return å­—èŠ‚æ•°ç»„
 	 */
 	public byte[] toByteArray() {
 		byte []bytes = new byte[16];
@@ -208,8 +208,8 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 	
 	/**
-	 * È¡ÅÅºÅÖ¸¶¨×Ö½ÚµÄÖµ
-	 * @param q ×Ö½ÚºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * å–æ’å·æŒ‡å®šå­—èŠ‚çš„å€¼
+	 * @param q å­—èŠ‚å·ï¼Œä»1å¼€å§‹è®¡æ•°
 	 * @return long
 	 */
 	public long getByte(int q) {
@@ -224,9 +224,9 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 	
 	/**
-	 * È¡ÅÅºÅÖ¸¶¨×Ö½ÚÇø¼äµÄÖµ
-	 * @param start ÆğÊ¼×Ö½ÚºÅ£¬´Ó1¿ªÊ¼¼ÆÊı£¨°üº¬£©
-	 * @param end ½áÊø×Ö½ÚºÅ£¬´Ó1¿ªÊ¼¼ÆÊı£¨°üº¬£©
+	 * å–æ’å·æŒ‡å®šå­—èŠ‚åŒºé—´çš„å€¼
+	 * @param start èµ·å§‹å­—èŠ‚å·ï¼Œä»1å¼€å§‹è®¡æ•°ï¼ˆåŒ…å«ï¼‰
+	 * @param end ç»“æŸå­—èŠ‚å·ï¼Œä»1å¼€å§‹è®¡æ•°ï¼ˆåŒ…å«ï¼‰
 	 * @return long
 	 */
 	public long getBytes(int start, int end) {
@@ -248,12 +248,12 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 	
 	/**
-	 * ±È½ÏÁ½¸öÅÅºÅµÄ´óĞ¡
-	 * @param value1 ÅÅºÅ1µÄÖµ1
-	 * @param value2 ÅÅºÅ1µÄÖµ2
-	 * @param otherValue1 ÁíÒ»¸öÅÅºÅµÄÖµ1
-	 * @param otherValue2 ÁíÒ»¸öÅÅºÅµÄÖµ2
-	 * @return 1£ºÅÅºÅ1´ó£¬0£ºÒ»ÑùµÄ£¬-1£ºÅÅºÅ2´ó
+	 * æ¯”è¾ƒä¸¤ä¸ªæ’å·çš„å¤§å°
+	 * @param value1 æ’å·1çš„å€¼1
+	 * @param value2 æ’å·1çš„å€¼2
+	 * @param otherValue1 å¦ä¸€ä¸ªæ’å·çš„å€¼1
+	 * @param otherValue2 å¦ä¸€ä¸ªæ’å·çš„å€¼2
+	 * @return 1ï¼šæ’å·1å¤§ï¼Œ0ï¼šä¸€æ ·çš„ï¼Œ-1ï¼šæ’å·2å¤§
 	 */
 	public static int compare(long value1, long value2, long otherValue1, long otherValue2) {
 		if (value1 == otherValue1) {
@@ -286,7 +286,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 	
 	/**
-	 * ±È½ÏÁ½¸öÅÅºÅµÄ´óĞ¡£¬ÓÃÓÚÅÅĞò
+	 * æ¯”è¾ƒä¸¤ä¸ªæ’å·çš„å¤§å°ï¼Œç”¨äºæ’åº
 	 * @param o
 	 * @return int
 	 */
@@ -311,7 +311,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 
 	/**
-	 * ÅĞ¶ÏÁ½¸öÅÅºÅÊÇ·ñÏàµÈ
+	 * åˆ¤æ–­ä¸¤ä¸ªæ’å·æ˜¯å¦ç›¸ç­‰
 	 * @param other
 	 * @return
 	 */

@@ -20,25 +20,25 @@ import org.apache.http.util.EntityUtils;
 
 import com.scudata.common.RQException;
 
-//Ïò·şÎñÆ÷¶ËµÄurlÉÏÔØÎÄ¼ş
+//å‘æœåŠ¡å™¨ç«¯çš„urlä¸Šè½½æ–‡ä»¶
 public class HttpUpload {
 	
-	//ÉÏÔØÎÄ¼şµÄurl
+	//ä¸Šè½½æ–‡ä»¶çš„url
 	private String url;
 	
-	//ÉÏÔØÊ±Òª´«ËÍµÄ²ÎÊı
+	//ä¸Šè½½æ—¶è¦ä¼ é€çš„å‚æ•°
 	private Hashtable<String,String> params;
 	
-	//ÉÏÔØµÄÎÄ¼ş²ÎÊıÃû
+	//ä¸Šè½½çš„æ–‡ä»¶å‚æ•°å
 	private ArrayList<String> fileArgs;
 	
-	//ÉÏÔØµÄÎÄ¼şÂ·¾¶
+	//ä¸Šè½½çš„æ–‡ä»¶è·¯å¾„
 	private ArrayList<String> filePaths;
 	
-	//ÉÏÔØµÄÎÄ¼ş×Ö½Ú
+	//ä¸Šè½½çš„æ–‡ä»¶å­—èŠ‚
 	private ArrayList<byte[]> fileBytes;
 	
-	//ÉÏÔØºó·µ»Ø½á¹ûÄÚÈİµÄ±àÂë
+	//ä¸Šè½½åè¿”å›ç»“æœå†…å®¹çš„ç¼–ç 
 	private String resultEncoding = "UTF-8";  
 	
 	public HttpUpload( String url ) {
@@ -50,7 +50,7 @@ public class HttpUpload {
 	}
 	
 	/**
-	 * ÉèÖÃ·µ»ØÄÚÈİµÄ±àÂë
+	 * è®¾ç½®è¿”å›å†…å®¹çš„ç¼–ç 
 	 * @param encoding
 	 */
 	public void setResultEncoding( String encoding ) {
@@ -58,7 +58,7 @@ public class HttpUpload {
 	}
 	
 	/**
-	 * Ìí¼ÓÒ»¸ö²ÎÊı
+	 * æ·»åŠ ä¸€ä¸ªå‚æ•°
 	 * @param paramName
 	 * @param paramValue
 	 */
@@ -67,9 +67,9 @@ public class HttpUpload {
 	}
 	
 	/**
-	 * Ìí¼ÓÒ»¸öÉÏÔØÎÄ¼ş
-	 * @param fileArg    ÎÄ¼ş²ÎÊıÃû
-	 * @param filePath   ÎÄ¼şÂ·¾¶
+	 * æ·»åŠ ä¸€ä¸ªä¸Šè½½æ–‡ä»¶
+	 * @param fileArg    æ–‡ä»¶å‚æ•°å
+	 * @param filePath   æ–‡ä»¶è·¯å¾„
 	 */
 	public void addFile( String fileArg, String filePath ) {
 		fileArgs.add( fileArg );
@@ -78,9 +78,9 @@ public class HttpUpload {
 	}
 	
 	/**
-	 * Ìí¼ÓÒ»¸öÉÏÔØÎÄ¼ş
-	 * @param fileArg   ÎÄ¼ş²ÎÊıÃû
-	 * @param b         ÎÄ¼ş×Ö½Ú
+	 * æ·»åŠ ä¸€ä¸ªä¸Šè½½æ–‡ä»¶
+	 * @param fileArg   æ–‡ä»¶å‚æ•°å
+	 * @param b         æ–‡ä»¶å­—èŠ‚
 	 */
 	public void addFile( String fileArg, byte[] b ) {
 		fileArgs.add( fileArg );
@@ -89,8 +89,8 @@ public class HttpUpload {
 	}
 	
 	/**
-	 * ÊµÏÖÎÄ¼şÉÏÔØ
-	 * @return    ·µ»ØÉÏÔØ½á¹û
+	 * å®ç°æ–‡ä»¶ä¸Šè½½
+	 * @return    è¿”å›ä¸Šè½½ç»“æœ
 	 * @throws Throwable
 	 */
 	public String upload() {
@@ -101,8 +101,8 @@ public class HttpUpload {
 			httpClient = HttpClientBuilder.create().build();
 			httpPost = new HttpPost( url );
 			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-			builder.setCharset( Charset.forName( "UTF-8" ) );//ÉèÖÃÇëÇóµÄ±àÂë¸ñÊ½
-			builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//ÉèÖÃä¯ÀÀÆ÷¼æÈİÄ£Ê½
+			builder.setCharset( Charset.forName( "UTF-8" ) );//è®¾ç½®è¯·æ±‚çš„ç¼–ç æ ¼å¼
+			builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//è®¾ç½®æµè§ˆå™¨å…¼å®¹æ¨¡å¼
 			for( int i = 0; i < fileArgs.size(); i++ ) {
 				byte[] b = fileBytes.get( i );
 				if( b == null ) {
@@ -115,10 +115,10 @@ public class HttpUpload {
 			Enumeration<String> em = params.keys();
 			while( em.hasMoreElements() ) {
 				String arg = em.nextElement();
-				builder.addPart( arg, new StringBody( params.get( arg ), ContentType.create( HTTP.PLAIN_TEXT_TYPE, HTTP.UTF_8) ) );//ÉèÖÃÇëÇó²ÎÊı
+				builder.addPart( arg, new StringBody( params.get( arg ), ContentType.create( HTTP.PLAIN_TEXT_TYPE, HTTP.UTF_8) ) );//è®¾ç½®è¯·æ±‚å‚æ•°
 			}
-			HttpEntity entity = builder.build();// Éú³É HTTP POST ÊµÌå  	
-			httpPost.setEntity( entity ); //ÉèÖÃÇëÇóÊµÌå
+			HttpEntity entity = builder.build();// ç”Ÿæˆ HTTP POST å®ä½“  	
+			httpPost.setEntity( entity ); //è®¾ç½®è¯·æ±‚å®ä½“
 			HttpResponse response = httpClient.execute(httpPost);
 			if( null != response && response.getStatusLine().getStatusCode() == 200) {
 				HttpEntity resEntity = response.getEntity();

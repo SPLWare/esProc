@@ -16,34 +16,34 @@ import com.scudata.util.LoserTreeNode_CS1;
 import com.scudata.util.Variant;
 
 /**
- * ´¿½á¹¹µÄ¶à¸öÓÎ±ê×öÓĞĞò¹é²¢ÔËËãĞÎ³ÉµÄÓÎ±ê
- * CS.mergex(xi,¡­)
+ * çº¯ç»“æ„çš„å¤šä¸ªæ¸¸æ ‡åšæœ‰åºå½’å¹¶è¿ç®—å½¢æˆçš„æ¸¸æ ‡
+ * CS.mergex(xi,â€¦)
  * @author RunQian
  *
  */
 public class MergeCursor extends ICursor {
-	private ICursor []cursors; // ÓÎ±êÄÚÊı¾İÒÑ¾­°´¹é²¢×Ö¶ÎÉıĞòÅÅĞò
-	private int []fields; // ¹é²¢×Ö¶Î
-	private boolean isNullMin = true; // nullÊÇ·ñµ±×îĞ¡Öµ
+	private ICursor []cursors; // æ¸¸æ ‡å†…æ•°æ®å·²ç»æŒ‰å½’å¹¶å­—æ®µå‡åºæ’åº
+	private int []fields; // å½’å¹¶å­—æ®µ
+	private boolean isNullMin = true; // nullæ˜¯å¦å½“æœ€å°å€¼
 	
-	private LoserTree loserTree; // Ã¿Ò»Â·ÓÎ±ê×öÎªÊ÷µÄ½Úµã°´¹é²¢×Ö¶ÎÖµ¹¹³É°ÜÕßÊ÷
+	private LoserTree loserTree; // æ¯ä¸€è·¯æ¸¸æ ‡åšä¸ºæ ‘çš„èŠ‚ç‚¹æŒ‰å½’å¹¶å­—æ®µå€¼æ„æˆè´¥è€…æ ‘
 	
-	// Ò»ÏÂÊôĞÔÓÃÓÚÓÎ±êºó´ø·Ö×éµÄ´¦Àí
-	private Sequence []tables;	// Êı¾İ»º³åÇø£¬ÓÃÓÚ»º³å¸÷¸öÓÎ±ê
-	private int []seqs;	// µ±Ç°´¦ÀíµÄÊı¾İÔÚ¸÷×Ô»º³åÇøµÄË÷Òı
-	private int groupFieldCount; // ·Ö×é×Ö¶ÎÊı
-	private Sequence resultCache; // »º´æ½á¹û
-	private boolean isEnd = false; // ÊÇ·ñÈ¡ÊıÍê±Ï
-	private boolean isGroupOne; // Ã¿×éÊÇ·ñÖ»È¡Ò»Ìõ
+	// ä¸€ä¸‹å±æ€§ç”¨äºæ¸¸æ ‡åå¸¦åˆ†ç»„çš„å¤„ç†
+	private Sequence []tables;	// æ•°æ®ç¼“å†²åŒºï¼Œç”¨äºç¼“å†²å„ä¸ªæ¸¸æ ‡
+	private int []seqs;	// å½“å‰å¤„ç†çš„æ•°æ®åœ¨å„è‡ªç¼“å†²åŒºçš„ç´¢å¼•
+	private int groupFieldCount; // åˆ†ç»„å­—æ®µæ•°
+	private Sequence resultCache; // ç¼“å­˜ç»“æœ
+	private boolean isEnd = false; // æ˜¯å¦å–æ•°å®Œæ¯•
+	private boolean isGroupOne; // æ¯ç»„æ˜¯å¦åªå–ä¸€æ¡
 	
-	private boolean doGroupOpt = false; // ÊÇ·ñ¶ÔºóĞøµÄ·Ö×éÔËËã×öÓÅ»¯
+	private boolean doGroupOpt = false; // æ˜¯å¦å¯¹åç»­çš„åˆ†ç»„è¿ç®—åšä¼˜åŒ–
 	
 	/**
-	 * ¹¹½¨ÓĞĞ§¹é²¢ÓÎ±ê
-	 * @param cursors ÓÎ±êÊı×é
-	 * @param fields ¹ØÁª×Ö¶ÎË÷Òı
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºæœ‰æ•ˆå½’å¹¶æ¸¸æ ‡
+	 * @param cursors æ¸¸æ ‡æ•°ç»„
+	 * @param fields å…³è”å­—æ®µç´¢å¼•
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public MergeCursor(ICursor []cursors, int []fields, String opt, Context ctx) {
 		this.cursors = cursors;
@@ -67,28 +67,28 @@ public class MergeCursor extends ICursor {
 	}
 	
 	/**
-	 * È¡·Ö¶ÎÓÎ±êµÄÆğÊ¼Öµ£¬Èç¹ûÓĞ·Ö¶Î×Ö¶ÎÔò·µ»Ø·Ö¶Î×Ö¶ÎµÄÖµ£¬Ã»ÓĞÔò·µ»ØÎ¬×Ö¶ÎµÄÖµ
-	 * @return ·Ö¶ÎÓÎ±êÊ×Ìõ¼ÇÂ¼µÄ·Ö¶Î×Ö¶ÎµÄÖµ£¬Èç¹ûµ±Ç°¶ÎÊıÎª0Ôò·µ»Ønull
+	 * å–åˆ†æ®µæ¸¸æ ‡çš„èµ·å§‹å€¼ï¼Œå¦‚æœæœ‰åˆ†æ®µå­—æ®µåˆ™è¿”å›åˆ†æ®µå­—æ®µçš„å€¼ï¼Œæ²¡æœ‰åˆ™è¿”å›ç»´å­—æ®µçš„å€¼
+	 * @return åˆ†æ®µæ¸¸æ ‡é¦–æ¡è®°å½•çš„åˆ†æ®µå­—æ®µçš„å€¼ï¼Œå¦‚æœå½“å‰æ®µæ•°ä¸º0åˆ™è¿”å›null
 	 */
 	public Object[] getSegmentStartValues(String option) {
 		return cursors[0].getSegmentStartValues(option);
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression []exps, String opt, Context ctx) {
-		// Èç¹ûÒÑ¾­¸½¼ÓÁËÔËËãÔò²»½øĞĞÓÅ»¯
+		// å¦‚æœå·²ç»é™„åŠ äº†è¿ç®—åˆ™ä¸è¿›è¡Œä¼˜åŒ–
 		if (!doGroupOpt || (opList != null && opList.size() > 0)) {
 			return super.group(function, exps, opt, ctx);
 		}
 		
-		// Èç¹û·Ö×é×Ö¶ÎÊÇ¹é²¢×Ö¶ÎµÄÇ°°ë²¿·ÖÔò°Ñ·Ö×é¹é²¢Í¬Ê±´¦Àí
+		// å¦‚æœåˆ†ç»„å­—æ®µæ˜¯å½’å¹¶å­—æ®µçš„å‰åŠéƒ¨åˆ†åˆ™æŠŠåˆ†ç»„å½’å¹¶åŒæ—¶å¤„ç†
 		int groupFieldCount = exps.length;
 		if (groupFieldCount <= fields.length) {
 			DataStruct ds = cursors[0].dataStruct;
@@ -118,8 +118,8 @@ public class MergeCursor extends ICursor {
 		}
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			for (ICursor cursor : cursors) {
@@ -130,7 +130,7 @@ public class MergeCursor extends ICursor {
 		}
 	}
 	/**
-	 * Ìî³ä¸÷¸öÓÎ±êµÄ»º³åÇø£¬Èô»º³åÇøÄÚÓĞÊı¾İÔòÖ±½Ó·µ»Ø¡£
+	 * å¡«å……å„ä¸ªæ¸¸æ ‡çš„ç¼“å†²åŒºï¼Œè‹¥ç¼“å†²åŒºå†…æœ‰æ•°æ®åˆ™ç›´æ¥è¿”å›ã€‚
 	 */
 	private void init() {
 		if (groupFieldCount < 1) {
@@ -242,7 +242,7 @@ public class MergeCursor extends ICursor {
 		}
 	}
 	
-	// µİ¹é¶ÁÈ¡ºÍÊ×Â·µÄ·Ö×éÖµÏàÍ¬µÄ×é£¬¼°·Ö×éÖµ¸üĞ¡µÄ×é
+	// é€’å½’è¯»å–å’Œé¦–è·¯çš„åˆ†ç»„å€¼ç›¸åŒçš„ç»„ï¼ŒåŠåˆ†ç»„å€¼æ›´å°çš„ç»„
 	private void fetchGroups(int path, Sequence group) {
 		int nextPath = path + 1;
 		if (group == null) {
@@ -266,7 +266,7 @@ public class MergeCursor extends ICursor {
 			BaseRecord r1 = (BaseRecord)group.getMem(1);
 			BaseRecord r2 = (BaseRecord)tables[path].getMem(seqs[path]);
 			
-			// ±È½Ï·Ö×é×Ö¶ÎÖµÊÇ·ñÏàµÈ
+			// æ¯”è¾ƒåˆ†ç»„å­—æ®µå€¼æ˜¯å¦ç›¸ç­‰
 			int cmp = r2.compare(r1, fields);
 			if (cmp == 0) {
 				getGroupData(path, group);
@@ -322,8 +322,8 @@ public class MergeCursor extends ICursor {
 	}
 	
 	/**
-	 * Ä£ºıÈ¡¼ÇÂ¼£¬·µ»ØµÄ¼ÇÂ¼Êı¿ÉÒÔ²»Óë¸ø¶¨µÄÊıÁ¿ÏàÍ¬
-	 * @param n ÒªÈ¡µÄ¼ÇÂ¼Êı
+	 * æ¨¡ç³Šå–è®°å½•ï¼Œè¿”å›çš„è®°å½•æ•°å¯ä»¥ä¸ä¸ç»™å®šçš„æ•°é‡ç›¸åŒ
+	 * @param n è¦å–çš„è®°å½•æ•°
 	 * @return Sequence
 	 */
 	protected Sequence fuzzyGet(int n) {
@@ -355,7 +355,7 @@ public class MergeCursor extends ICursor {
 				table = new Sequence(n);
 			}
 
-			// Ñ­»·È¡Êı¡£Ìî³ä»º³åÇø£¨Ñ­»·¹ı³ÌÖĞ¶Ô¸÷Â·ÓÎ±êµÄÈ¡Êı½á¹û×öÅÅĞò¹é²¢£©
+			// å¾ªç¯å–æ•°ã€‚å¡«å……ç¼“å†²åŒºï¼ˆå¾ªç¯è¿‡ç¨‹ä¸­å¯¹å„è·¯æ¸¸æ ‡çš„å–æ•°ç»“æœåšæ’åºå½’å¹¶ï¼‰
 			for (int i = 0; i < n && loserTree.hasNext(); ++i) {
 				table.add(loserTree.pop());
 			}
@@ -373,8 +373,8 @@ public class MergeCursor extends ICursor {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -435,7 +435,7 @@ public class MergeCursor extends ICursor {
 	}
 
 	/**
-	 * ÖØÔØ»ùÀà·½·¨£¬´¦Àí´ø·Ö×éÊ±»ñÈ¡µÄ¼ÇÂ¼Êı£¬È¡Ì«¶à×éÈİÒ×µ¼ÖÂÄÚ´æÒç³ö
+	 * é‡è½½åŸºç±»æ–¹æ³•ï¼Œå¤„ç†å¸¦åˆ†ç»„æ—¶è·å–çš„è®°å½•æ•°ï¼Œå–å¤ªå¤šç»„å®¹æ˜“å¯¼è‡´å†…å­˜æº¢å‡º
 	 * @return Sequence
 	 */
 	public Sequence fetch() {
@@ -473,8 +473,8 @@ public class MergeCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÔØ»ùÀà·½·¨£¬´¦Àí´ø·Ö×éÊ±»ñÈ¡µÄ¼ÇÂ¼Êı£¬È¡Ì«¶à×éÈİÒ×µ¼ÖÂÄÚ´æÒç³ö
-	 * @param n ½á¹ûÊıÁ¿£¬¿ÉÒÔ²»¾«È·
+	 * é‡è½½åŸºç±»æ–¹æ³•ï¼Œå¤„ç†å¸¦åˆ†ç»„æ—¶è·å–çš„è®°å½•æ•°ï¼Œå–å¤ªå¤šç»„å®¹æ˜“å¯¼è‡´å†…å­˜æº¢å‡º
+	 * @param n ç»“æœæ•°é‡ï¼Œå¯ä»¥ä¸ç²¾ç¡®
 	 * @return Sequence
 	 */
 	public Sequence fuzzyFetch(int n) {
@@ -539,13 +539,13 @@ public class MergeCursor extends ICursor {
 	}
 	
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (n == MAXSKIPSIZE && groupFieldCount < 1 && loserTree == null && !isEnd) {
-			// Ìø¹ıËùÓĞ²»Êµ¼Ê×ö¹é²¢
+			// è·³è¿‡æ‰€æœ‰ä¸å®é™…åšå½’å¹¶
 			long count = 0;
 			for (ICursor cs : cursors) {
 				if (cs != null) {
@@ -608,7 +608,7 @@ public class MergeCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -626,8 +626,8 @@ public class MergeCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();
@@ -645,8 +645,8 @@ public class MergeCursor extends ICursor {
 	}
 	
 	/**
-	 * È¡ÅÅĞò×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * å–æ’åºå­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getSortFields() {
 		return cursors[0].getSortFields();

@@ -8,8 +8,8 @@ import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.PhyTableFunction;
 
 /**
- * ĞŞ¸Ä×é±íµÄ×Ö¶ÎÃû
- * T.rename(F:F¡¯,¡­)
+ * ä¿®æ”¹ç»„è¡¨çš„å­—æ®µå
+ * T.rename(F:Fâ€™,â€¦)
  * @author RunQian
  *
  */

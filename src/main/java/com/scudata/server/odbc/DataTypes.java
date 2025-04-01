@@ -12,8 +12,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 
 /**
- * Êı¾İÀàĞÍµÄ¶¨Òå
- * ÒÔ¼°¸úodbc dll¶ÔÓ¦Ô¼¶¨¸ñÊ½µÄ¶ÁĞ´Êı¾İµÄ·½·¨
+ * æ•°æ®ç±»å‹çš„å®šä¹‰
+ * ä»¥åŠè·Ÿodbc dllå¯¹åº”çº¦å®šæ ¼å¼çš„è¯»å†™æ•°æ®çš„æ–¹æ³•
  * 
  * @author Joancy
  *
@@ -34,9 +34,9 @@ public class DataTypes {
 	public static final byte TYPE_UNSUPPORT = (byte)126;//
 	
 	/**
-	 * ÍùÊä³öÁ÷Ğ´Ò»¸ö×Ö½Ú
-	 * @param out Êä³öÁ÷
-	 * @param size ×Ö½Ú
+	 * å¾€è¾“å‡ºæµå†™ä¸€ä¸ªå­—èŠ‚
+	 * @param out è¾“å‡ºæµ
+	 * @param size å­—èŠ‚
 	 * @throws Exception
 	 */
 	public static void writeByte(OutputStream out, byte size) throws Exception {
@@ -44,9 +44,9 @@ public class DataTypes {
 		out.write(size);
 	}
 	/**
-	 * ´ÓÊäÈëÁ÷¶ÁÈ¡Ò»¸ö×Ö½Ú
-	 * @param in ÊäÈëÁ÷
-	 * @return Ò»¸ö×Ö½ÚÊı¾İ
+	 * ä»è¾“å…¥æµè¯»å–ä¸€ä¸ªå­—èŠ‚
+	 * @param in è¾“å…¥æµ
+	 * @return ä¸€ä¸ªå­—èŠ‚æ•°æ®
 	 * @throws IOException
 	 */
 	public static byte readByte(InputStream in) throws IOException {
@@ -58,11 +58,11 @@ public class DataTypes {
 	}
 
 	/**
-	 * ÍùÊä³öÁ÷Ğ´Ò»¸öÕûÊı
-	 * outÎªnullÊ±ÓÃÓÚ¼ìÑéÊı¾İÊÇ·ñ¶¼Ö§³Ö£¬¶ÔÓÚ²»Ö§³ÖµÄÊı¾İ£¬
-	 * ÒªÌáÇ°Ğ£Ñé£»·ñÔòĞ´ÁË³É¹¦±êÖ¾ºó£¬ÔÙÅ×Òì³££¬¾ÍÂÒÌ×ÁË¡£
-	 * @param out Êä³öÁ÷
-	 * @param size 32Î»ÕûÊı
+	 * å¾€è¾“å‡ºæµå†™ä¸€ä¸ªæ•´æ•°
+	 * outä¸ºnullæ—¶ç”¨äºæ£€éªŒæ•°æ®æ˜¯å¦éƒ½æ”¯æŒï¼Œå¯¹äºä¸æ”¯æŒçš„æ•°æ®ï¼Œ
+	 * è¦æå‰æ ¡éªŒï¼›å¦åˆ™å†™äº†æˆåŠŸæ ‡å¿—åï¼Œå†æŠ›å¼‚å¸¸ï¼Œå°±ä¹±å¥—äº†ã€‚
+	 * @param out è¾“å‡ºæµ
+	 * @param size 32ä½æ•´æ•°
 	 * @throws Exception
 	 */
 	public static void writeInt(OutputStream out, int size) throws Exception {
@@ -73,9 +73,9 @@ public class DataTypes {
 		out.write(size);
 	}
 	/**
-	 * ´ÓÊäÈëÁ÷¶ÁÈ¡Ò»¸ö32Î»µÄÕûÊı
-	 * @param in ÊäÈëÁ÷
-	 * @return ÕûÊı
+	 * ä»è¾“å…¥æµè¯»å–ä¸€ä¸ª32ä½çš„æ•´æ•°
+	 * @param in è¾“å…¥æµ
+	 * @return æ•´æ•°
 	 * @throws IOException
 	 */
 	public static int readInt(InputStream in) throws IOException {
@@ -90,9 +90,9 @@ public class DataTypes {
 	}
 	
 	/**
-	 * Ğ´³öÒ»¸ö²¼¶ûÖµ
-	 * @param out Êä³öÁ÷
-	 * @param b ²¼¶ûÖµ
+	 * å†™å‡ºä¸€ä¸ªå¸ƒå°”å€¼
+	 * @param out è¾“å‡ºæµ
+	 * @param b å¸ƒå°”å€¼
 	 * @throws Exception
 	 */
 	public static void writeBool(OutputStream out, boolean b) throws Exception {
@@ -105,9 +105,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * ¶ÁÈëÒ»¸ö²¼¶ûÖµ
-	 * @param in ÊäÈëÁ÷
-	 * @return ²¼¶ûÖµ
+	 * è¯»å…¥ä¸€ä¸ªå¸ƒå°”å€¼
+	 * @param in è¾“å…¥æµ
+	 * @return å¸ƒå°”å€¼
 	 * @throws IOException
 	 */
 	public static boolean readBool(InputStream in) throws IOException {
@@ -116,9 +116,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸ö×Ö·û´®
-	 * @param is ÊäÈëÁ÷
-	 * @return ×Ö·û´®
+	 * è¯»å–ä¸€ä¸ªå­—ç¬¦ä¸²
+	 * @param is è¾“å…¥æµ
+	 * @return å­—ç¬¦ä¸²
 	 * @throws IOException
 	 */
 	public static String readString(InputStream is) throws IOException {
@@ -132,9 +132,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö×Ö·û´®
-	 * @param out Êä³öÁ÷
-	 * @param str ×Ö·û´®
+	 * å†™å‡ºä¸€ä¸ªå­—ç¬¦ä¸²
+	 * @param out è¾“å‡ºæµ
+	 * @param str å­—ç¬¦ä¸²
 	 * @throws Exception
 	 */
 	public static void writeString(OutputStream out, String str) throws Exception {
@@ -153,9 +153,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö64Î»µÄ³¤ÕûÊı
-	 * @param out Êä³öÁ÷
-	 * @param size ³¤ÕûÊı
+	 * å†™å‡ºä¸€ä¸ª64ä½çš„é•¿æ•´æ•°
+	 * @param out è¾“å‡ºæµ
+	 * @param size é•¿æ•´æ•°
 	 * @throws Exception
 	 */
 	public static void writeLong(OutputStream out, long size) throws Exception {
@@ -171,9 +171,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸ö64Î»µÄ³¤ÕûÊı
-	 * @param in ÊäÈëÁ÷
-	 * @return 64Î»³¤ÕûÊı
+	 * è¯»å–ä¸€ä¸ª64ä½çš„é•¿æ•´æ•°
+	 * @param in è¾“å…¥æµ
+	 * @return 64ä½é•¿æ•´æ•°
 	 * @throws IOException
 	 */
 	public static long readLong(InputStream in) throws IOException {
@@ -194,9 +194,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö¸¡µãÊı
-	 * @param out Êä³öÁ÷
-	 * @param d ¸¡µãÊµÊı
+	 * å†™å‡ºä¸€ä¸ªæµ®ç‚¹æ•°
+	 * @param out è¾“å‡ºæµ
+	 * @param d æµ®ç‚¹å®æ•°
 	 * @throws Exception
 	 */
 	public static void writeFloat(OutputStream out, double d) throws Exception {
@@ -206,9 +206,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸ö¸¡µãÊı
-	 * @param in ÊäÈëÁ÷
-	 * @return double¾«¶ÈµÄ¸¡µãÊı
+	 * è¯»å–ä¸€ä¸ªæµ®ç‚¹æ•°
+	 * @param in è¾“å…¥æµ
+	 * @return doubleç²¾åº¦çš„æµ®ç‚¹æ•°
 	 * @throws IOException
 	 */
 	public static Double readFloat(InputStream in) throws IOException {
@@ -217,9 +217,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * Ñ§³öÒ»¸ö´óÊıÖµ
-	 * @param out Êä³öÁ÷
-	 * @param dec ´óÊıÖµ
+	 * å­¦å‡ºä¸€ä¸ªå¤§æ•°å€¼
+	 * @param out è¾“å‡ºæµ
+	 * @param dec å¤§æ•°å€¼
 	 * @throws Exception
 	 */
 	public static void writeDecimal(OutputStream out, BigDecimal dec) throws Exception {
@@ -229,9 +229,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸ö´óÊıÖµ
-	 * @param in ÊäÈëÁ÷
-	 * @return ´óÊıÖµ
+	 * è¯»å–ä¸€ä¸ªå¤§æ•°å€¼
+	 * @param in è¾“å…¥æµ
+	 * @return å¤§æ•°å€¼
 	 * @throws IOException
 	 */
 	public static BigDecimal readDecimal(InputStream in) throws IOException {
@@ -240,9 +240,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸öÈÕÆÚÖµ
-	 * @param out Êä³öÁ÷
-	 * @param d ÈÕÆÚÖµ
+	 * å†™å‡ºä¸€ä¸ªæ—¥æœŸå€¼
+	 * @param out è¾“å‡ºæµ
+	 * @param d æ—¥æœŸå€¼
 	 * @throws Exception
 	 */
 	public static void writeDate(OutputStream out, java.sql.Date d) throws Exception {
@@ -252,9 +252,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸öÈÕÆÚÖµ
-	 * @param in ÊäÈëÁ÷
-	 * @return ÈÕÆÚÖµ
+	 * è¯»å–ä¸€ä¸ªæ—¥æœŸå€¼
+	 * @param in è¾“å…¥æµ
+	 * @return æ—¥æœŸå€¼
 	 * @throws IOException
 	 */
 	public static java.sql.Date readDate(InputStream in) throws IOException {
@@ -263,9 +263,9 @@ public class DataTypes {
 	}
 	
 	/**
-	 * Ğ´³öÒ»¸öÊ±¼äÖµ
-	 * @param out Êä³öÁ÷
-	 * @param t Ê±¼äÖµ
+	 * å†™å‡ºä¸€ä¸ªæ—¶é—´å€¼
+	 * @param out è¾“å‡ºæµ
+	 * @param t æ—¶é—´å€¼
 	 * @throws Exception
 	 */
 	public static void writeTime(OutputStream out, java.sql.Time t) throws Exception {
@@ -275,9 +275,9 @@ public class DataTypes {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»¸öÊÇ¼æÖ°
-	 * @param in ÊäÈëÁ÷
-	 * @return Ê±¼äÖµ
+	 * è¯»å–ä¸€ä¸ªæ˜¯å…¼èŒ
+	 * @param in è¾“å…¥æµ
+	 * @return æ—¶é—´å€¼
 	 * @throws IOException
 	 */
 	public static java.sql.Time readTime(InputStream in) throws IOException {
@@ -286,9 +286,9 @@ public class DataTypes {
 	}
 	
 	/**
-	 * Ğ´³öÒ»¸öÈÕÆÚÊ±¼äÖµ
-	 * @param out Êä³öÁ÷
-	 * @param date ÈÕÆÚÊ±¼ä
+	 * å†™å‡ºä¸€ä¸ªæ—¥æœŸæ—¶é—´å€¼
+	 * @param out è¾“å‡ºæµ
+	 * @param date æ—¥æœŸæ—¶é—´
 	 */
 	public static void writeDateTime(OutputStream out, java.util.Date date) throws Exception {
 		if(out==null) return;
@@ -297,9 +297,9 @@ public class DataTypes {
 	}
 	
 	/**
-	 * ¶ÁÈëÒ»¸öÈÕÆÚÊ±¼äÖµ
-	 * @param in ÊäÈëÁ÷
-	 * @return ÈÕÆÚÊ±¼äÖµ
+	 * è¯»å…¥ä¸€ä¸ªæ—¥æœŸæ—¶é—´å€¼
+	 * @param in è¾“å…¥æµ
+	 * @return æ—¥æœŸæ—¶é—´å€¼
 	 * @throws IOException
 	 */
 	public static java.util.Date readDateTime(InputStream in) throws IOException {
@@ -308,9 +308,9 @@ public class DataTypes {
 	}
 	
 	/**
-	 * Ğ´³öÒ»¸öbyteÊı×é
-	 * @param out Êä³öÁ÷
-	 * @param bytes byteÊı×é
+	 * å†™å‡ºä¸€ä¸ªbyteæ•°ç»„
+	 * @param out è¾“å‡ºæµ
+	 * @param bytes byteæ•°ç»„
 	 * @throws Exception
 	 */
 	public static void writeBinary(OutputStream out, byte[] bytes) throws Exception {
@@ -321,9 +321,9 @@ public class DataTypes {
 	}
 
 	/**
-	 * ¶ÁÈëÒ»¸öbyteÊı×é
-	 * @param in ÊäÈëÁ÷
-	 * @return byteÊı×é
+	 * è¯»å…¥ä¸€ä¸ªbyteæ•°ç»„
+	 * @param in è¾“å…¥æµ
+	 * @return byteæ•°ç»„
 	 * @throws IOException
 	 */
 	public static byte[] readBinary(InputStream in) throws IOException {
@@ -442,9 +442,9 @@ public class DataTypes {
 	}
 	
 	/**
-	 * Ğ´³öÒ»ĞĞÊı¾İ
-	 * @param out Êä³öÁ÷
-	 * @param row Ò»ĞĞÊı¾İ
+	 * å†™å‡ºä¸€è¡Œæ•°æ®
+	 * @param out è¾“å‡ºæµ
+	 * @param row ä¸€è¡Œæ•°æ®
 	 * @throws Exception
 	 */
 	public static void writeRowData(OutputStream out, Object[] row) throws Exception{
@@ -460,9 +460,9 @@ public class DataTypes {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»ĞĞÊı¾İ
-	 * @param is ÊäÈëÁ÷
-	 * @return Ò»ĞĞÊı¾İ
+	 * è¯»å–ä¸€è¡Œæ•°æ®
+	 * @param is è¾“å…¥æµ
+	 * @return ä¸€è¡Œæ•°æ®
 	 * @throws Exception
 	 */
 	public static Object[] readRowData(InputStream is) throws Exception{
@@ -477,7 +477,7 @@ public class DataTypes {
 		return data;
 	}
 	/**
-	 * Ğ´¶şÎ¬±í
+	 * å†™äºŒç»´è¡¨
 	 * @param out
 	 * @param table
 	 * @throws Exception
@@ -497,8 +497,8 @@ public class DataTypes {
 	}
 	
 	/**
-	 * ÏÈ¼ì²éÒ»±éÊÇ·ñÓĞ²»Ö§³ÖµÄÊı¾İ£¬ÓĞÔòÅ×Òì³££¬±ÜÃâĞ´³ö³É¹¦±êÖ¾ºó£¬
-	 * ÓÖ³öÒì³££¬ÕâÃ´¸Ä£¬ĞÔÄÜÓĞÓ°Ïì£¬Ïàµ±ÓÚ±éÀúÁËÁ½±éÊı¾İ
+	 * å…ˆæ£€æŸ¥ä¸€éæ˜¯å¦æœ‰ä¸æ”¯æŒçš„æ•°æ®ï¼Œæœ‰åˆ™æŠ›å¼‚å¸¸ï¼Œé¿å…å†™å‡ºæˆåŠŸæ ‡å¿—åï¼Œ
+	 * åˆå‡ºå¼‚å¸¸ï¼Œè¿™ä¹ˆæ”¹ï¼Œæ€§èƒ½æœ‰å½±å“ï¼Œç›¸å½“äºéå†äº†ä¸¤éæ•°æ®
 	 * @param table
 	 * @throws Exception
 	 */
@@ -507,9 +507,9 @@ public class DataTypes {
 	}
 	
 	/**
-	 * Ğ´³öÒ»¸öĞò±í
-	 * @param out Êä³öÁ÷
-	 * @param table Ğò±í
+	 * å†™å‡ºä¸€ä¸ªåºè¡¨
+	 * @param out è¾“å‡ºæµ
+	 * @param table åºè¡¨
 	 * @throws Exception
 	 */
 	public static void writeTable(OutputStream out, Sequence table) throws Exception{
@@ -528,16 +528,16 @@ public class DataTypes {
 					rowData = new Object[]{rowObj};
 				}
 				writeRowData(out, rowData);
-//				Èç¹ûÊÇ¼ì²éÊı¾İÀàĞÍ£¬Ôò½ö¼ì²éµÚÒ»ĞĞ£¬¼ÙÉèºóĞøµÄÊı¾İ¶¼ÊÇÏàÍ¬ÀàĞÍ£¬ÎªÁËĞÔÄÜ
+//				å¦‚æœæ˜¯æ£€æŸ¥æ•°æ®ç±»å‹ï¼Œåˆ™ä»…æ£€æŸ¥ç¬¬ä¸€è¡Œï¼Œå‡è®¾åç»­çš„æ•°æ®éƒ½æ˜¯ç›¸åŒç±»å‹ï¼Œä¸ºäº†æ€§èƒ½
 				if(out==null) break;
 			}
 		}
 	}
 
 	/**
-	 * ¶ÁÈëÒ»¸ö¶şÎ¬±í
-	 * @param is ÊäÈëÁ÷
-	 * @return ¶şÎ¬±íÊı¾İ
+	 * è¯»å…¥ä¸€ä¸ªäºŒç»´è¡¨
+	 * @param is è¾“å…¥æµ
+	 * @return äºŒç»´è¡¨æ•°æ®
 	 * @throws Exception
 	 */
 	public static Object[][] readTable(InputStream is) throws Exception{
@@ -565,20 +565,20 @@ public class DataTypes {
 	}
 	
 	/**
-	 * Ğ´³öÒ»¸öĞò±í£¬°üº¬Êı¾İ½á¹¹ºÍÊı¾İ
-	 * @param os Êä³öÁ÷
-	 * @param table Ğò±í¶ÔÏó
+	 * å†™å‡ºä¸€ä¸ªåºè¡¨ï¼ŒåŒ…å«æ•°æ®ç»“æ„å’Œæ•°æ®
+	 * @param os è¾“å‡ºæµ
+	 * @param table åºè¡¨å¯¹è±¡
 	 * @throws Exception
 	 */
 	public static void writeDatastructAndData(OutputStream os, Table table) throws Exception{
 		String[] columns = table.dataStruct().getFieldNames();
-		// ÏÈĞ´×Ö¶ÎÃû³Æ
+		// å…ˆå†™å­—æ®µåç§°
 		int size = columns.length;
 		writeInt(os, size);
 		for (int i = 0; i < size; i++) {
 			writeString(os, columns[i]);
 		}
-		// ÔÙĞ´Êı¾İÄÚÈİ
+		// å†å†™æ•°æ®å†…å®¹
 		writeTable(os, table);
 	}
 	

@@ -14,7 +14,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * periods(s,e,i) »ñÈ¡´Ósµ½e£¨°üÀ¨¶Ëµã£©Ã¿¼ä¸ôiµÄÈÕÆÚÊ±¼äÖµ¹¹³ÉµÄĞòÁĞ¡£
+ * periods(s,e,i) è·å–ä»såˆ°eï¼ˆåŒ…æ‹¬ç«¯ç‚¹ï¼‰æ¯é—´éš”içš„æ—¥æœŸæ—¶é—´å€¼æ„æˆçš„åºåˆ—ã€‚
  * @author runqian
  *
  */
@@ -25,7 +25,7 @@ public class Period extends Function {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -83,32 +83,32 @@ public class Period extends Function {
 		}
 
 		if (option == null || (option.indexOf('o') == -1 && option.indexOf('t') == -1)) {
-			return periodA((Date) start, (Date) end, dist, option); // µ÷Õû
+			return periodA((Date) start, (Date) end, dist, option); // è°ƒæ•´
 		} else {
-			return periodO((Date) start, (Date) end, dist, option); // ²»µ÷Õû£¬Ñ®µ÷Õû
+			return periodO((Date) start, (Date) end, dist, option); // ä¸è°ƒæ•´ï¼Œæ—¬è°ƒæ•´
 		}
 	}
 
 	private Sequence periodO(Date start, Date end, int distance, String opt) {
 		int field;
-		if (opt == null) { // ÈÕ
+		if (opt == null) { // æ—¥
 			field = Calendar.DATE;
-		} else if (opt.indexOf('y') != -1) { // Äê
+		} else if (opt.indexOf('y') != -1) { // å¹´
 			field = Calendar.YEAR;
-		} else if (opt.indexOf('q') != -1) { // ¼¾
+		} else if (opt.indexOf('q') != -1) { // å­£
 			field = Calendar.MONTH;
 			distance *= 3;
-		} else if (opt.indexOf('m') != -1) { // ÔÂ
+		} else if (opt.indexOf('m') != -1) { // æœˆ
 			field = Calendar.MONTH;
-		} else if (opt.indexOf('t') != -1) { // Ñ®
+		} else if (opt.indexOf('t') != -1) { // æ—¬
 			field = -1;
-		} else if (opt.indexOf('s') != -1) { // Ãë
+		} else if (opt.indexOf('s') != -1) { // ç§’
 			field = Calendar.SECOND;
-		} else { // ÈÕ
+		} else { // æ—¥
 			field = Calendar.DATE;
 		}
 
-		int endSign = 0; // 0£ºÒª×îºó£¬1£º×îºóÕıºÃÊÇÆÚÂúÔòÒª×îºó£¬-1£º²»Òª×îºó
+		int endSign = 0; // 0ï¼šè¦æœ€åï¼Œ1ï¼šæœ€åæ­£å¥½æ˜¯æœŸæ»¡åˆ™è¦æœ€åï¼Œ-1ï¼šä¸è¦æœ€å
 		if (opt != null) {
 			if (opt.indexOf('x') != -1) {
 				if (opt.indexOf('e') == -1) {
@@ -129,12 +129,12 @@ public class Period extends Function {
 				throw new RQException("period" + mm.getMessage("function.invalidParam"));
 			}
 
-			if (field == -1) { // Ñ®
+			if (field == -1) { // æ—¬
 				Date prev = start;
 				gc.setTime(start);
 				int day = gc.get(Calendar.DATE);
 
-				// ĞŞ¸ÄdayÎªÑ®µÄµÚÒ»Ìì
+				// ä¿®æ”¹dayä¸ºæ—¬çš„ç¬¬ä¸€å¤©
 				if (day < 11) {
 					day = 1;
 				} else if (day < 21) {
@@ -211,12 +211,12 @@ public class Period extends Function {
 				throw new RQException("period" + mm.getMessage("function.invalidParam"));
 			}
 
-			if (field == -1) { // Ñ®
+			if (field == -1) { // æ—¬
 				Date prev = start;
 				gc.setTime(start);
 				int day = gc.get(Calendar.DATE);
 
-				// ĞŞ¸ÄdayÎªÑ®µÄµÚÒ»Ìì
+				// ä¿®æ”¹dayä¸ºæ—¬çš„ç¬¬ä¸€å¤©
 				if (day < 11) {
 					day = 1;
 				} else if (day < 21) {
@@ -281,7 +281,7 @@ public class Period extends Function {
 	}
 
 	private Sequence periodA(Date start, Date end, int distance, String opt) {
-		int endSign = 0; // 0£ºÒª×îºó£¬1£º×îºóÕıºÃÊÇÆÚÂúÔòÒª×îºó£¬-1£º²»Òª×îºó
+		int endSign = 0; // 0ï¼šè¦æœ€åï¼Œ1ï¼šæœ€åæ­£å¥½æ˜¯æœŸæ»¡åˆ™è¦æœ€åï¼Œ-1ï¼šä¸è¦æœ€å
 		if (opt != null) {
 			if (opt.indexOf('x') != -1) {
 				if (opt.indexOf('e') == -1) {
@@ -296,14 +296,14 @@ public class Period extends Function {
 		gc.setTime(start);
 
 		int field;
-		if (opt == null) { // ÈÕ
+		if (opt == null) { // æ—¥
 			field = Calendar.DATE;
 
 			gc.set(Calendar.HOUR_OF_DAY, 0);
 			gc.set(Calendar.MINUTE, 0);
 			gc.set(Calendar.SECOND, 0);
 			gc.set(Calendar.MILLISECOND, 0);
-		} else if (opt.indexOf('y') != -1) { // Äê
+		} else if (opt.indexOf('y') != -1) { // å¹´
 			field = Calendar.YEAR;
 
 			gc.set(Calendar.DATE, 1);
@@ -312,7 +312,7 @@ public class Period extends Function {
 			gc.set(Calendar.MINUTE, 0);
 			gc.set(Calendar.SECOND, 0);
 			gc.set(Calendar.MILLISECOND, 0);
-		} else if (opt.indexOf('q') != -1) { // ¼¾
+		} else if (opt.indexOf('q') != -1) { // å­£
 			field = Calendar.MONTH;
 			distance *= 3;
 
@@ -333,7 +333,7 @@ public class Period extends Function {
 			gc.set(Calendar.MINUTE, 0);
 			gc.set(Calendar.SECOND, 0);
 			gc.set(Calendar.MILLISECOND, 0);
-		} else if (opt.indexOf('m') != -1) { // ÔÂ
+		} else if (opt.indexOf('m') != -1) { // æœˆ
 			field = Calendar.MONTH;
 
 			gc.set(Calendar.DATE, 1);
@@ -341,10 +341,10 @@ public class Period extends Function {
 			gc.set(Calendar.MINUTE, 0);
 			gc.set(Calendar.SECOND, 0);
 			gc.set(Calendar.MILLISECOND, 0);
-		} else if (opt.indexOf('s') != -1) { // Ãë
+		} else if (opt.indexOf('s') != -1) { // ç§’
 			field = Calendar.SECOND;
 			gc.set(Calendar.MILLISECOND, 0);
-		} else { // ÈÕ
+		} else { // æ—¥
 			field = Calendar.DATE;
 
 			gc.set(Calendar.HOUR_OF_DAY, 0);

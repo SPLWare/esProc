@@ -13,7 +13,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * º¯Êı½öÓÃÓÚJDBCµ÷ÓÃ jdbccall(spl,¡­)¡£ÎÄ¼şÃûÎŞºó×ºÊ±£¬°´splx,spl,dfxË³Ğò²éÕÒ¡£Ôö¼ÓÁË@rÑ¡Ïî£¬·µ»ØµÚÒ»¸ö½á¹û¼¯
+ * å‡½æ•°ä»…ç”¨äºJDBCè°ƒç”¨ jdbccall(spl,â€¦)ã€‚æ–‡ä»¶åæ— åç¼€æ—¶ï¼ŒæŒ‰splx,spl,dfxé¡ºåºæŸ¥æ‰¾ã€‚å¢åŠ äº†@ré€‰é¡¹ï¼Œè¿”å›ç¬¬ä¸€ä¸ªç»“æœé›†
  */
 public class JDBCCall extends Function {
 	public Node optimize(Context ctx) {
@@ -22,7 +22,7 @@ public class JDBCCall extends Function {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -45,7 +45,7 @@ public class JDBCCall extends Function {
 				throw new RQException("jdbccall"
 						+ mm.getMessage("function.paramTypeError"));
 			}
-			// Ö§³ÖÎŞºó×ºÊ±°´Ë³Ğò²éÕÒÍø¸ñÎÄ¼ş
+			// æ”¯æŒæ— åç¼€æ—¶æŒ‰é¡ºåºæŸ¥æ‰¾ç½‘æ ¼æ–‡ä»¶
 			try {
 				pcs = AppUtil.readCellSet((String) strObj);
 			} catch (Exception e) {
@@ -66,7 +66,7 @@ public class JDBCCall extends Function {
 						+ mm.getMessage("function.paramTypeError"));
 			}
 
-			// Ö§³ÖÎŞºó×ºÊ±°´Ë³Ğò²éÕÒÍø¸ñÎÄ¼ş
+			// æ”¯æŒæ— åç¼€æ—¶æŒ‰é¡ºåºæŸ¥æ‰¾ç½‘æ ¼æ–‡ä»¶
 			try {
 				pcs = AppUtil.readCellSet((String) strObj);
 			} catch (Exception e) {

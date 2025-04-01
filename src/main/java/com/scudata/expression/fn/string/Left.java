@@ -12,7 +12,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * left(string,n) »ñµÃÔ´×Ö·û´®string×ó±ßµÄ×Ó´®£¬Æä³¤¶ÈÎªn¡£µ±n<0Ê±£¬nµÄÊýÖµÎªstring´®µÄ³¤¶È¼ÓnÖµ¡£
+ * left(string,n) èŽ·å¾—æºå­—ç¬¦ä¸²stringå·¦è¾¹çš„å­ä¸²ï¼Œå…¶é•¿åº¦ä¸ºnã€‚å½“n<0æ—¶ï¼Œnçš„æ•°å€¼ä¸ºstringä¸²çš„é•¿åº¦åŠ nå€¼ã€‚
  * @author runqian
  *
  */
@@ -21,7 +21,7 @@ public class Left extends Function {
 	private Expression exp2;
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓÐÐ§ÐÔ£¬ÎÞÐ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -62,8 +62,8 @@ public class Left extends Function {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓÐÐÐµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏÐÐÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æžœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -167,10 +167,10 @@ public class Left extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖÐÈ¡ÖµÎªsignµÄÐÐ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ÐÐ±êÊ¶Êý×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -316,8 +316,8 @@ public class Left extends Function {
 	}
 	
 	/**
-	 * ·µ»Ø½ÚµãÊÇ·ñµ¥µ÷µÝÔöµÄ
-	 * @return true£ºÊÇµ¥µ÷µÝÔöµÄ£¬false£º²»ÊÇ
+	 * è¿”å›žèŠ‚ç‚¹æ˜¯å¦å•è°ƒé€’å¢žçš„
+	 * @return trueï¼šæ˜¯å•è°ƒé€’å¢žçš„ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isMonotone() {
 		return exp1.isMonotone();

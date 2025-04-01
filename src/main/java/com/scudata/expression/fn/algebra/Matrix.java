@@ -10,9 +10,9 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 
 /**
- * ¾ØÕó»ù±¾Àà£¬Ìá¹©¾ØÕóµÄ¸÷Àà¼ÆËã
- * ¼¯ËãÆ÷ÖĞµÄ¾ØÕóÊ¹ÓÃÊıÁĞµÄĞòÁĞ±íÊ¾£¬Ò»°ã²»¼ì²é
- * added by bd, 2021.1.15, ÓÃÕâ¸öÀà¼æÈİÏòÁ¿
+ * çŸ©é˜µåŸºæœ¬ç±»ï¼Œæä¾›çŸ©é˜µçš„å„ç±»è®¡ç®—
+ * é›†ç®—å™¨ä¸­çš„çŸ©é˜µä½¿ç”¨æ•°åˆ—çš„åºåˆ—è¡¨ç¤ºï¼Œä¸€èˆ¬ä¸æ£€æŸ¥
+ * added by bd, 2021.1.15, ç”¨è¿™ä¸ªç±»å…¼å®¹å‘é‡
  * @author bidalong
  *
  */
@@ -20,7 +20,7 @@ public class Matrix {
 
 	private double[][] A;
 	private int rows, cols;
-	//added by bd, 2021.1.15, ÊÇ·ñÊÇÏòÁ¿£¬ÏòÁ¿»á´æ´¢Îªµ¥ĞĞ»òµ¥ÁĞ¾ØÕó
+	//added by bd, 2021.1.15, æ˜¯å¦æ˜¯å‘é‡ï¼Œå‘é‡ä¼šå­˜å‚¨ä¸ºå•è¡Œæˆ–å•åˆ—çŸ©é˜µ
 	private boolean ifVector = false;
 	
 	public Matrix(int rs, int cs) {
@@ -30,8 +30,8 @@ public class Matrix {
 	}
 	
 	/**
-	 * ³õÊ¼»¯¾ØÕó
-	 * @param value	¶şÎ¬Êı×é±íÊ¾µÄ¾ØÕóÖµ
+	 * åˆå§‹åŒ–çŸ©é˜µ
+	 * @param value	äºŒç»´æ•°ç»„è¡¨ç¤ºçš„çŸ©é˜µå€¼
 	 */
 	/*
 	protected Matrix(SimpleMatrix smatrix) {
@@ -47,16 +47,16 @@ public class Matrix {
 	*/
 	
 	/**
-	 * ³õÊ¼»¯Ò»¸ö¾ØÕó£¬Èç¹ûmatrixÖĞĞòÁĞ³¤¶È²»µÈ£¬½«°´×î´ó³¤¶ÈÉèÖÃÁĞÊı£¬ÆäËü²¹0
-	 * Èç¹ûmatrixÖĞ²»ÎªĞòÁĞ£¬°´µ¥ÁĞ´¦Àí
+	 * åˆå§‹åŒ–ä¸€ä¸ªçŸ©é˜µï¼Œå¦‚æœmatrixä¸­åºåˆ—é•¿åº¦ä¸ç­‰ï¼Œå°†æŒ‰æœ€å¤§é•¿åº¦è®¾ç½®åˆ—æ•°ï¼Œå…¶å®ƒè¡¥0
+	 * å¦‚æœmatrixä¸­ä¸ä¸ºåºåˆ—ï¼ŒæŒ‰å•åˆ—å¤„ç†
 	 * @param matrix
 	 */
 	public Matrix(Sequence matrix) {
 		int rows = matrix == null ? 0 : matrix.length();
 		if (rows > 0) {
 			if (matrix instanceof Table) {
-				//added by bd, 2021.1.22, Ìí¼Ó¶ÔĞò±íµÄÖ§³Ö
-				// ¶şÎ¬Êı×é, Ğò±í
+				//added by bd, 2021.1.22, æ·»åŠ å¯¹åºè¡¨çš„æ”¯æŒ
+				// äºŒç»´æ•°ç»„, åºè¡¨
 				Table tab = (Table) matrix;
 				this.cols = tab.dataStruct().getFieldCount();
 				this.rows = rows;
@@ -78,9 +78,9 @@ public class Matrix {
 					}
 				}
 				if (cols == 0) {
-					// µ¥Ò»ĞòÁĞ£¬ÊÓÎªÒ»ĞĞÊı¾İ£¬
-					// edited by bd, 2021.1.15, Ö»ÓĞÕâÖÖÇé¿ö»á±»ÊÓÎªÏòÁ¿£¬×İÏòÁ¿²»»á×Ô¶¯ÈÏÖª
-					// edited by bd, 2021.2.25, ÏòÁ¿¸ÄÎªÄ¬ÈÏ×İÏòÁ¿£¬ÕâÑù¶¨Òå¼òµ¥Ò»Ğ©£¬ºáÏòÁ¿ÓÃ[[1,2,3]]ÕâÑù
+					// å•ä¸€åºåˆ—ï¼Œè§†ä¸ºä¸€è¡Œæ•°æ®ï¼Œ
+					// edited by bd, 2021.1.15, åªæœ‰è¿™ç§æƒ…å†µä¼šè¢«è§†ä¸ºå‘é‡ï¼Œçºµå‘é‡ä¸ä¼šè‡ªåŠ¨è®¤çŸ¥
+					// edited by bd, 2021.2.25, å‘é‡æ”¹ä¸ºé»˜è®¤çºµå‘é‡ï¼Œè¿™æ ·å®šä¹‰ç®€å•ä¸€äº›ï¼Œæ¨ªå‘é‡ç”¨[[1,2,3]]è¿™æ ·
 					cols = 1;
 					this.ifVector = false;
 					this.A = new double[rows][1];
@@ -116,7 +116,7 @@ public class Matrix {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»¸öÒ»Î¬ĞòÁĞÎªdoubleÊı×é£¬·ÇÊıÖµĞÍÈ«°´0¼Æ
+	 * è¯»å–ä¸€ä¸ªä¸€ç»´åºåˆ—ä¸ºdoubleæ•°ç»„ï¼Œéæ•°å€¼å‹å…¨æŒ‰0è®¡
 	 * @param seq
 	 * @return
 	 */
@@ -136,7 +136,7 @@ public class Matrix {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»¸öÒ»Î¬ĞòÁĞÎªdoubleÊı×é£¬·ÇÊıÖµĞÍÈ«°´0¼Æ
+	 * è¯»å–ä¸€ä¸ªä¸€ç»´åºåˆ—ä¸ºdoubleæ•°ç»„ï¼Œéæ•°å€¼å‹å…¨æŒ‰0è®¡
 	 * @param seq
 	 * @return
 	 */
@@ -151,7 +151,7 @@ public class Matrix {
 	}
 	
 	/*
-	 * ½«Ò»¸öObject×ª»»Îªdouble·µ»Ø
+	 * å°†ä¸€ä¸ªObjectè½¬æ¢ä¸ºdoubleè¿”å›
 	 */
 	private static double getNumber(Object obj) {
 		double d = 0;
@@ -173,7 +173,7 @@ public class Matrix {
 	}
 	
 	/**
-	 * ¶ÔÓÚÏòÁ¿£¬»ñÈ¡ÏòÁ¿Êı¾İ, added by bd, 2021.1.15
+	 * å¯¹äºå‘é‡ï¼Œè·å–å‘é‡æ•°æ®, added by bd, 2021.1.15
 	 * @return
 	 */
 	protected double[] getVector() {
@@ -193,9 +193,9 @@ public class Matrix {
 	}
 	
 	/**
-	 * ³õÊ¼»¯Ò»¸öÏòÁ¿¾ØÕó
-	 * @param vector		Éú³ÉÏòÁ¿µÄĞòÁĞ
-	 * @param vertical	ÊÇ·ñ×İÏòÁ¿£¬falseÊ±ÎªºáÏòÁ¿
+	 * åˆå§‹åŒ–ä¸€ä¸ªå‘é‡çŸ©é˜µ
+	 * @param vector		ç”Ÿæˆå‘é‡çš„åºåˆ—
+	 * @param vertical	æ˜¯å¦çºµå‘é‡ï¼Œfalseæ—¶ä¸ºæ¨ªå‘é‡
 	 */
 	protected Matrix(double[] vector, boolean vertical) {
 		int size = vector == null ? 0 : vector.length;
@@ -217,9 +217,9 @@ public class Matrix {
 	}
 	
 	/**
-	 * ³õÊ¼»¯Ò»¸öÏòÁ¿¾ØÕó
-	 * @param vector		Éú³ÉÏòÁ¿µÄĞòÁĞ
-	 * @param vertical	ÊÇ·ñ×İÏòÁ¿£¬falseÊ±ÎªºáÏòÁ¿
+	 * åˆå§‹åŒ–ä¸€ä¸ªå‘é‡çŸ©é˜µ
+	 * @param vector		ç”Ÿæˆå‘é‡çš„åºåˆ—
+	 * @param vertical	æ˜¯å¦çºµå‘é‡ï¼Œfalseæ—¶ä¸ºæ¨ªå‘é‡
 	 */
 	protected Matrix(Sequence vector, boolean vertical) {
 		int size = vector == null ? 0 : vector.length();
@@ -249,10 +249,10 @@ public class Matrix {
 	}
 
 	/**
-	 * ³õÊ¼»¯Ò»¸öÏòÁ¿¾ØÕó
-	 * @param A		¶şÎ¬Êı×é
-	 * @param rows	ĞĞÊı£¬Ó¦¸Ã¶ÔÓ¦A
-	 * @param cols		ÁĞÊı£¬Ó¦¸Ã¶ÔÓ¦A
+	 * åˆå§‹åŒ–ä¸€ä¸ªå‘é‡çŸ©é˜µ
+	 * @param A		äºŒç»´æ•°ç»„
+	 * @param rows	è¡Œæ•°ï¼Œåº”è¯¥å¯¹åº”A
+	 * @param cols		åˆ—æ•°ï¼Œåº”è¯¥å¯¹åº”A
 	 */
 	public Matrix(double[][] A) {
 		this.A = A;
@@ -269,10 +269,10 @@ public class Matrix {
 	}
 
 	/**
-	 * ³õÊ¼»¯Ò»¸öÏòÁ¿¾ØÕó
-	 * @param A		¶şÎ¬Êı×é
-	 * @param rows	ĞĞÊı£¬Ó¦¸Ã¶ÔÓ¦A
-	 * @param cols		ÁĞÊı£¬Ó¦¸Ã¶ÔÓ¦A
+	 * åˆå§‹åŒ–ä¸€ä¸ªå‘é‡çŸ©é˜µ
+	 * @param A		äºŒç»´æ•°ç»„
+	 * @param rows	è¡Œæ•°ï¼Œåº”è¯¥å¯¹åº”A
+	 * @param cols		åˆ—æ•°ï¼Œåº”è¯¥å¯¹åº”A
 	 */
 	public Matrix(double[][] A, int rows, int cols) {
 		this.A = A;
@@ -281,9 +281,9 @@ public class Matrix {
 	}
 	
 	/**
-	 * ½«¾ØÕó×ªÎªĞòÁĞ£¬ÌØ±ğµÄ£¬Ö»ÓĞÒ»¸ö³ÉÔ±Ê±Ö±½Ó·µ»ØÊı¾İ
-	 * Îª±ÜÃâdoubleÔËËãÊ±Ôì³ÉµÄÎó²î£¬×öËÄÉáÎåÈë´¦Àí
-	 * added by bd 2021.1.22, Ìí¼Ó²ÎÊıÔÊĞí·µ»ØÎªÎŞÁĞÃûĞò±í
+	 * å°†çŸ©é˜µè½¬ä¸ºåºåˆ—ï¼Œç‰¹åˆ«çš„ï¼Œåªæœ‰ä¸€ä¸ªæˆå‘˜æ—¶ç›´æ¥è¿”å›æ•°æ®
+	 * ä¸ºé¿å…doubleè¿ç®—æ—¶é€ æˆçš„è¯¯å·®ï¼Œåšå››èˆäº”å…¥å¤„ç†
+	 * added by bd 2021.1.22, æ·»åŠ å‚æ•°å…è®¸è¿”å›ä¸ºæ— åˆ—ååºè¡¨
 	 * @return
 	 */
 	public Object toSequence(String option, boolean real) {
@@ -309,7 +309,7 @@ public class Matrix {
 	        return tbl;
 		}
 		if (this.rows == 1 && this.cols == 1) {
-			// Èç¹ûÖ»ÓĞÒ»¸ö³ÉÔ±£¬Ö±½Ó·µ»Ø
+			// å¦‚æœåªæœ‰ä¸€ä¸ªæˆå‘˜ï¼Œç›´æ¥è¿”å›
 			return this.A[0][0];
 		}
 		/*
@@ -326,7 +326,7 @@ public class Matrix {
 		double scale = Math.pow(10, pow);
 		*/
 		if (ifv && this.rows == 1) {
-			//edited by bd, 2021.2.25, µ±½á¹ûÖ»ÓĞÒ»ÁĞ£¬ÇÒ¼ÆËãÊıÖĞ°üº¬ÏòÁ¿Ê±£¬·µ»ØÊıÁĞ
+			//edited by bd, 2021.2.25, å½“ç»“æœåªæœ‰ä¸€åˆ—ï¼Œä¸”è®¡ç®—æ•°ä¸­åŒ…å«å‘é‡æ—¶ï¼Œè¿”å›æ•°åˆ—
 			Sequence sub = new Sequence(this.cols);
 			for (int c = 0; c < this.cols; c++) {
 				double d = getValue(0, c, real);
@@ -335,7 +335,7 @@ public class Matrix {
 			return sub;
 		}
 		else if (ifv && this.cols == 1) {
-			//added by bd, 2021.2.25, µ±½á¹ûÖ»ÓĞÒ»ÁĞ£¬ÇÒ¼ÆËãÊıÖĞ°üº¬ÏòÁ¿Ê±£¬·µ»ØÊıÁĞ
+			//added by bd, 2021.2.25, å½“ç»“æœåªæœ‰ä¸€åˆ—ï¼Œä¸”è®¡ç®—æ•°ä¸­åŒ…å«å‘é‡æ—¶ï¼Œè¿”å›æ•°åˆ—
 			Sequence sub = new Sequence(this.rows);
 			for (int r = 0; r < this.rows; r++) {
 				double d = getValue(r, 0, real);
@@ -356,7 +356,7 @@ public class Matrix {
 	}
 	
 	/*
-	 * ĞŞ¸Ä¾ØÕóÖĞÄ³¸öÖµ£¬added by bd, 2021.4.8
+	 * ä¿®æ”¹çŸ©é˜µä¸­æŸä¸ªå€¼ï¼Œadded by bd, 2021.4.8
 	 */
 	public void set(int r, int c, double v) {
 		this.A[r][c] = v;
@@ -367,7 +367,7 @@ public class Matrix {
 	private double getValue(int r, int c, boolean real) {
 		double d = this.A[r][c];
 		if (!real) {
-			// added by bd, 2022.5.1, Èç¹û¾ø¶ÔÖµÌ«Ğ¡£¬Ôò±£ÁôÔ­Öµ
+			// added by bd, 2022.5.1, å¦‚æœç»å¯¹å€¼å¤ªå°ï¼Œåˆ™ä¿ç•™åŸå€¼
 			double abs = Math.abs(d);
 			double scale1 = Matrix.scale;
 			if (abs < range) {
@@ -388,39 +388,39 @@ public class Matrix {
 	}
 
 	/**
-	 * »ñÈ¡ĞĞÊı
-	 * @return	¾ØÕóĞĞÊı
+	 * è·å–è¡Œæ•°
+	 * @return	çŸ©é˜µè¡Œæ•°
 	 */
 	public int getRows() {
 		return this.rows;
 	}
 
 	/**
-	 * »ñÈ¡ÁĞÊı
-	 * @return	¾ØÕóÁĞÊı
+	 * è·å–åˆ—æ•°
+	 * @return	çŸ©é˜µåˆ—æ•°
 	 */
 	public int getCols() {
 		return this.cols;
 	}
 
 	/**
-	 * »ñÈ¡¶şÎ¬Êı×é
-	 * @return	¾ØÕóµÄ¶şÎ¬Êı×é
+	 * è·å–äºŒç»´æ•°ç»„
+	 * @return	çŸ©é˜µçš„äºŒç»´æ•°ç»„
 	 */
 	public double[][] getArray() {
 		return this.A;
 	}
 	
 	/**
-	 * Çóµ±Ç°¾ØÕóµÄĞ­·½²î¾ØÕó
+	 * æ±‚å½“å‰çŸ©é˜µçš„åæ–¹å·®çŸ©é˜µ
 	 * @return
 	 */
 	public Matrix covm() {
 		Matrix X = new Matrix(this.cols, this.cols);
 		double[][] xs = X.getArray();
-		// ¸÷¸öÎ¬¶ÈÊı×é£¬ÓÃA×ªÖÃ
+		// å„ä¸ªç»´åº¦æ•°ç»„ï¼Œç”¨Aè½¬ç½®
 		double[][] dims = this.transpose().getArray();
-		// ¸÷¸öÎ¬¶ÈµÄ¾ùÖµ
+		// å„ä¸ªç»´åº¦çš„å‡å€¼
 		double[] dimv = new double[this.cols];
 		for (int i = 0; i < this.cols; i++) {
 			double[] dim = dims[i];
@@ -433,11 +433,11 @@ public class Matrix {
 		for (int i = 0; i < this.cols; i++) {
 			for (int j = 0; j < this.cols; j++) {
 				if (i > j) {
-					// ÒÑ¾­¼ÆËã¹ıµÄ
+					// å·²ç»è®¡ç®—è¿‡çš„
 					xs[i][j] = xs[j][i];
 				}
 				else if (i == j) {
-					// ¶Ô½ÇÏßÉÏµÄĞ­·½²î
+					// å¯¹è§’çº¿ä¸Šçš„åæ–¹å·®
 					double cov = 0;
 					for (int k = 0; k < this.rows; k++) {
 						cov += Math.pow(this.A[k][i] - dimv[i], 2);
@@ -445,7 +445,7 @@ public class Matrix {
 					xs[i][j] = cov/(this.rows - 1);
 				}
 				else {
-					// ÓÒÉÏÈı½ÇµÄĞ­·½²î
+					// å³ä¸Šä¸‰è§’çš„åæ–¹å·®
 					double cov = 0;
 					for (int k = 0; k < this.rows; k++) {
 						cov += (this.A[k][i] - dimv[i]) * (this.A[k][j] - dimv[j]);
@@ -458,7 +458,7 @@ public class Matrix {
 	}
 	
 	/**
-	 * ÓÃ¾ØÕóÊı¾İÀ´Éú³ÉÒ»¸öĞò±í
+	 * ç”¨çŸ©é˜µæ•°æ®æ¥ç”Ÿæˆä¸€ä¸ªåºè¡¨
 	 * @return
 	 */
 	protected Table toTable() {
@@ -477,12 +477,12 @@ public class Matrix {
 	}
 
 	/**
-	 * »ñÈ¡×Ó¾ØÕó
-	 * @param r		ĞèÈ¡³öµÄ¸÷ĞĞºÅ
-	 * @param j0	ÆğÊ¼ÁĞºÃ
-	 * @param j1	½áÊøÁĞºÅ
-	 * @return		Ö¸¶¨Î»ÖÃµÄ×Ó¾ØÕó
-	 * @exception	Òì³£
+	 * è·å–å­çŸ©é˜µ
+	 * @param r		éœ€å–å‡ºçš„å„è¡Œå·
+	 * @param j0	èµ·å§‹åˆ—å¥½
+	 * @param j1	ç»“æŸåˆ—å·
+	 * @return		æŒ‡å®šä½ç½®çš„å­çŸ©é˜µ
+	 * @exception	å¼‚å¸¸
 	 */
 	protected Matrix getMatrix(int[] r, int j0, int j1) {
 		Matrix X = new Matrix(r.length, j1 - j0 + 1);
@@ -500,13 +500,13 @@ public class Matrix {
 	}
 
 	/**
-	 * »ñÈ¡×Ó¾ØÕó
-	 * @param r0	ÆğÊ¼ĞĞºÅ£¬´Ó0¿ªÊ¼
-	 * @param r1	½áÊøĞĞºÅ£¬°üÀ¨ÔÚ×Ó¾ØÕóÖĞ
-	 * @param c0	ÆğÊ¼ÁĞºÅ£¬´Ó0¿ªÊ¼
-	 * @param c1	½áÊøÁĞºÅ£¬°üÀ¨ÔÚ×Ó¾ØÕóÖĞ
-	 * @return		´Óµ±Ç°¾ØÕóÖĞ½ØÈ¡×Ó¾ØÕó
-	 * @exception	ĞĞÁĞ³¬ÏŞ´íÎó
+	 * è·å–å­çŸ©é˜µ
+	 * @param r0	èµ·å§‹è¡Œå·ï¼Œä»0å¼€å§‹
+	 * @param r1	ç»“æŸè¡Œå·ï¼ŒåŒ…æ‹¬åœ¨å­çŸ©é˜µä¸­
+	 * @param c0	èµ·å§‹åˆ—å·ï¼Œä»0å¼€å§‹
+	 * @param c1	ç»“æŸåˆ—å·ï¼ŒåŒ…æ‹¬åœ¨å­çŸ©é˜µä¸­
+	 * @return		ä»å½“å‰çŸ©é˜µä¸­æˆªå–å­çŸ©é˜µ
+	 * @exception	è¡Œåˆ—è¶…é™é”™è¯¯
 	 */
 	public Matrix getMatrix(int r0, int r1, int c0, int c1) {
 		Matrix X = new Matrix(r1 - r0 + 1, c1 - c0 + 1);
@@ -524,10 +524,10 @@ public class Matrix {
 	}
 	
 	/**
-	 * ´Ó¾ØÕóÖĞ»ñÈ¡Ö¸¶¨ĞĞÁĞµÄÊı£¬·µ»Ødouble
-	 * @param matrix	¾ØÕó£¬Ê¹ÓÃÊıÁĞµÄĞòÁĞ±íÊ¾
-	 * @param r			ĞĞºÅ£¬´Ó0¿ªÊ¼
-	 * @param c			ÁĞºÅ£¬´Ó0¿ªÊ¼
+	 * ä»çŸ©é˜µä¸­è·å–æŒ‡å®šè¡Œåˆ—çš„æ•°ï¼Œè¿”å›double
+	 * @param matrix	çŸ©é˜µï¼Œä½¿ç”¨æ•°åˆ—çš„åºåˆ—è¡¨ç¤º
+	 * @param r			è¡Œå·ï¼Œä»0å¼€å§‹
+	 * @param c			åˆ—å·ï¼Œä»0å¼€å§‹
 	 * @return
 	 */
 	protected static double get(Sequence matrix, int r, int c) {
@@ -545,10 +545,10 @@ public class Matrix {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¾ØÕó£¬²»ÊÇ¾ØÕó·µ»Ønull£¬ÊÇ¾ØÕó·µ»ØĞĞÁĞÊı¹¹³ÉµÄÊı×é
-	 * @param matrix	¾ØÕó
-	 * @param ifNumerical	ÊÇ·ñÅĞ¶Ï³ÉÔ±ÎªÊıÖµ
-	 * @return	ÊÇ·ñ¾ØÕó
+	 * åˆ¤æ–­æ˜¯å¦çŸ©é˜µï¼Œä¸æ˜¯çŸ©é˜µè¿”å›nullï¼Œæ˜¯çŸ©é˜µè¿”å›è¡Œåˆ—æ•°æ„æˆçš„æ•°ç»„
+	 * @param matrix	çŸ©é˜µ
+	 * @param ifNumerical	æ˜¯å¦åˆ¤æ–­æˆå‘˜ä¸ºæ•°å€¼
+	 * @return	æ˜¯å¦çŸ©é˜µ
 	 */
 	protected static int[] ifMatrix(Sequence matrix, boolean ifNumerical) {
 		int rows = matrix == null ? 0 : matrix.length();
@@ -584,18 +584,18 @@ public class Matrix {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¾ØÕó£¬²»ÊÇ¾ØÕó·µ»Ønull£¬ÊÇ¾ØÕó·µ»ØĞĞÁĞÊı¹¹³ÉµÄÊı×é
-	 * @return	±¾ÊµÀıÊÇ·ñ¾ØÕó
+	 * åˆ¤æ–­æ˜¯å¦çŸ©é˜µï¼Œä¸æ˜¯çŸ©é˜µè¿”å›nullï¼Œæ˜¯çŸ©é˜µè¿”å›è¡Œåˆ—æ•°æ„æˆçš„æ•°ç»„
+	 * @return	æœ¬å®ä¾‹æ˜¯å¦çŸ©é˜µ
 	 */
 	protected boolean ifMatrix() {
 		return this.A != null;
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ·½Õó£¬ÊÇ·½Õó·µ»Ø·½ÕóµÄĞĞÁĞÊı(ÏàµÈ)
-	 * @param matrix	¾ØÕó
-	 * @param ifNumerical	ÊÇ·ñÅĞ¶Ï³ÉÔ±ÎªÊıÖµ
-	 * @return	ÊÇ·ñ·½Õó
+	 * åˆ¤æ–­æ˜¯å¦æ–¹é˜µï¼Œæ˜¯æ–¹é˜µè¿”å›æ–¹é˜µçš„è¡Œåˆ—æ•°(ç›¸ç­‰)
+	 * @param matrix	çŸ©é˜µ
+	 * @param ifNumerical	æ˜¯å¦åˆ¤æ–­æˆå‘˜ä¸ºæ•°å€¼
+	 * @return	æ˜¯å¦æ–¹é˜µ
 	 */
 	protected static int ifSquare(Sequence matrix, boolean ifNumerical) {
 		int rows = matrix == null ? 0 : matrix.length();
@@ -626,7 +626,7 @@ public class Matrix {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ·½Õó
+	 * åˆ¤æ–­æ˜¯å¦æ–¹é˜µ
 	 * @return
 	 */
 	protected boolean ifSquare() {
@@ -634,7 +634,7 @@ public class Matrix {
 	}
 
 	/**
-	 * ×ªÖÃ
+	 * è½¬ç½®
 	 * @return
 	 */
 	public Matrix transpose(){
@@ -648,7 +648,7 @@ public class Matrix {
 	}
 
 	/**
-	 * ×ªÖÃ£¬Èç¹ûmatrix²»Âú£¬ÔòÔÚ·µ»ØµÄĞòÁĞÖĞÓÃnull²¹Æë
+	 * è½¬ç½®ï¼Œå¦‚æœmatrixä¸æ»¡ï¼Œåˆ™åœ¨è¿”å›çš„åºåˆ—ä¸­ç”¨nullè¡¥é½
 	 * @param matrix
 	 * @return
 	 */
@@ -694,9 +694,9 @@ public class Matrix {
 	}
 
 	/**
-	 * »ñÈ¡¾ØÕóÖĞÖ¸¶¨Î»ÖÃµÄÊı£¬²»×ö³¬ÏŞÅĞ¶Ï
-	 * @param i		ĞĞºÅ
-	 * @param j		ÁĞºÅ
+	 * è·å–çŸ©é˜µä¸­æŒ‡å®šä½ç½®çš„æ•°ï¼Œä¸åšè¶…é™åˆ¤æ–­
+	 * @param i		è¡Œå·
+	 * @param j		åˆ—å·
 	 * @return
 	 */
 	public double get(int r, int c) {
@@ -704,7 +704,7 @@ public class Matrix {
 	}
 
 	/**
-	 * ¼ì²éÁ½¸ö¾ØÕóµÄĞĞÊıÁĞÊıÊÇ·ñÏàµÈ£¬ºÜ¶à¾ØÕóÔËËã¶¼ĞèÒª¶ÔÓ¦²ÅÄÜÖ´ĞĞ
+	 * æ£€æŸ¥ä¸¤ä¸ªçŸ©é˜µçš„è¡Œæ•°åˆ—æ•°æ˜¯å¦ç›¸ç­‰ï¼Œå¾ˆå¤šçŸ©é˜µè¿ç®—éƒ½éœ€è¦å¯¹åº”æ‰èƒ½æ‰§è¡Œ
 	 * @param B
 	 */
 	private void checkMatrixSize(Matrix B) {
@@ -714,9 +714,9 @@ public class Matrix {
 	}
 
 	/**
-	 * ¾ØÕóÏà¼Ó£¬C=A+B
-	 * @param B		ÓÃÀ´Ö´ĞĞ¼Ó·¨µÄ¾ØÕó
-	 * @return		¾ØÕóÏà¼ÓµÄ½á¹û
+	 * çŸ©é˜µç›¸åŠ ï¼ŒC=A+B
+	 * @param B		ç”¨æ¥æ‰§è¡ŒåŠ æ³•çš„çŸ©é˜µ
+	 * @return		çŸ©é˜µç›¸åŠ çš„ç»“æœ
 	 */
 	public Matrix plus(Matrix B) {
 		checkMatrixSize(B);
@@ -731,7 +731,7 @@ public class Matrix {
 
 
 	/**
-	 * ¾ØÕóÖĞÃ¿¸ö³ÉÔ±¼ÆËãÆ½·½
+	 * çŸ©é˜µä¸­æ¯ä¸ªæˆå‘˜è®¡ç®—å¹³æ–¹
 	 * @return		
 	 */
 	public Matrix elementSquare() {
@@ -745,7 +745,7 @@ public class Matrix {
 	}
 
 	/**
-	 * ¾ØÕóÖĞÃ¿¸ö³ÉÔ±µÄ×ÜºÍ
+	 * çŸ©é˜µä¸­æ¯ä¸ªæˆå‘˜çš„æ€»å’Œ
 	 * @return		
 	 */
 	public double elementSum() {
@@ -759,7 +759,7 @@ public class Matrix {
 	}
 
 	/**
-	 * ÓÃÀ´¼ÆËãÏòÁ¿µÄÄÚ»ı
+	 * ç”¨æ¥è®¡ç®—å‘é‡çš„å†…ç§¯
 	 * @return		
 	 */
 	public double dot(Matrix B) {
@@ -773,9 +773,9 @@ public class Matrix {
 	}
 	
 	/**
-	 * ¾ØÕóÏà¼Ó£¬½á¹û¼ÇÂ¼ÔÚ±¾¾ØÕóÖĞ£¬A = A + B
-	 * @param B		ÓÃÀ´Ö´ĞĞ¼Ó·¨µÄ¾ØÕó
-	 * @return		¾ØÕóÏà¼ÓµÄ½á¹û
+	 * çŸ©é˜µç›¸åŠ ï¼Œç»“æœè®°å½•åœ¨æœ¬çŸ©é˜µä¸­ï¼ŒA = A + B
+	 * @param B		ç”¨æ¥æ‰§è¡ŒåŠ æ³•çš„çŸ©é˜µ
+	 * @return		çŸ©é˜µç›¸åŠ çš„ç»“æœ
 	 */
 
 	protected Matrix plusUp(Matrix B) {
@@ -789,9 +789,9 @@ public class Matrix {
 	}
 
 	/**
-	 * ¾ØÕóÏà¼Ó£¬C=A-B
-	 * @param B		ÓÃÀ´Ö´ĞĞ¼õ·¨µÄ¾ØÕó
-	 * @return		¾ØÕóÏà¼õµÄ½á¹û
+	 * çŸ©é˜µç›¸åŠ ï¼ŒC=A-B
+	 * @param B		ç”¨æ¥æ‰§è¡Œå‡æ³•çš„çŸ©é˜µ
+	 * @return		çŸ©é˜µç›¸å‡çš„ç»“æœ
 	 */
 	public Matrix minus(Matrix B) {
 		checkMatrixSize(B);
@@ -805,8 +805,8 @@ public class Matrix {
 	}
 
 	/**
-	 * ¾ØÕó¼ÓÊµÊı£¬C=A+d
-	 * @param d		ÓÃÀ´Ö´ĞĞ¼Ó·¨µÄÊµÊı
+	 * çŸ©é˜µåŠ å®æ•°ï¼ŒC=A+d
+	 * @param d		ç”¨æ¥æ‰§è¡ŒåŠ æ³•çš„å®æ•°
 	 * @return		
 	 */
 	public Matrix plus(double d) {
@@ -820,8 +820,8 @@ public class Matrix {
 	}
 
 	/**
-	 * ¾ØÕó¼õÊµÊı£¬C=A-d
-	 * @param d		ÓÃÀ´Ö´ĞĞ¼õ·¨µÄÊµÊı
+	 * çŸ©é˜µå‡å®æ•°ï¼ŒC=A-d
+	 * @param d		ç”¨æ¥æ‰§è¡Œå‡æ³•çš„å®æ•°
 	 * @return		
 	 */
 	protected Matrix minus(double d) {
@@ -835,8 +835,8 @@ public class Matrix {
 	}
 
 	/**
-	 * ¾ØÕó³ËÊµÊı£¬C=A*d
-	 * @param d		ÓÃÀ´Ö´ĞĞ¼Ó·¨µÄÊµÊı
+	 * çŸ©é˜µä¹˜å®æ•°ï¼ŒC=A*d
+	 * @param d		ç”¨æ¥æ‰§è¡ŒåŠ æ³•çš„å®æ•°
 	 * @return		
 	 */
 	protected Matrix times(double d) {
@@ -850,9 +850,9 @@ public class Matrix {
 	}
 
 	/**
-	 * ¾ØÕóÏà¼õ£¬½á¹û¼ÇÂ¼ÔÚ±¾¾ØÕóÖĞ£¬A=A-B
-	 * @param B		ÓÃÀ´Ö´ĞĞ¼õ·¨µÄ¾ØÕó
-	 * @return		¾ØÕóÏà¼õµÄ½á¹û
+	 * çŸ©é˜µç›¸å‡ï¼Œç»“æœè®°å½•åœ¨æœ¬çŸ©é˜µä¸­ï¼ŒA=A-B
+	 * @param B		ç”¨æ¥æ‰§è¡Œå‡æ³•çš„çŸ©é˜µ
+	 * @return		çŸ©é˜µç›¸å‡çš„ç»“æœ
 	 */
 	protected Matrix minusEquals(Matrix B) {
 		checkMatrixSize(B);
@@ -865,10 +865,10 @@ public class Matrix {
 	}
 
 	/**
-	 * ¾ØÕóÏà³Ë
-	 * @param B		ÓÃÀ´Ïà³ËµÄ¾ØÕó
-	 * @return		¾ØÕóÏà³ËµÄ½á¹û¾ØÕó
-	 * @exception	Òì³£
+	 * çŸ©é˜µç›¸ä¹˜
+	 * @param B		ç”¨æ¥ç›¸ä¹˜çš„çŸ©é˜µ
+	 * @return		çŸ©é˜µç›¸ä¹˜çš„ç»“æœçŸ©é˜µ
+	 * @exception	å¼‚å¸¸
 	 */
 	public Matrix times(Matrix B) {
 		if (B.rows != this.cols) {
@@ -893,10 +893,10 @@ public class Matrix {
 	}
 
 	/**
-	 * ¾ØÕó³ıÒÔ³£Êı
-	 * @param d		³ıÊı
-	 * @return		½á¹û¾ØÕó
-	 * @exception	Òì³£
+	 * çŸ©é˜µé™¤ä»¥å¸¸æ•°
+	 * @param d		é™¤æ•°
+	 * @return		ç»“æœçŸ©é˜µ
+	 * @exception	å¼‚å¸¸
 	 */
 	public Matrix divide(double d) {
 		Matrix X = new Matrix(this.rows, this.cols);
@@ -909,10 +909,10 @@ public class Matrix {
 	}
 
 	/**
-	 * Éú³Éµ¥Î»¾ØÕó
-	 * @param rows		ĞĞÊı
-	 * @param cols		ÁĞÊı
-	 * @return			·µ»Ørows*cols¾ØÕó£¬¶Ô½ÇÏßÉÏÎª1£¬ÆäËüÎª0
+	 * ç”Ÿæˆå•ä½çŸ©é˜µ
+	 * @param rows		è¡Œæ•°
+	 * @param cols		åˆ—æ•°
+	 * @return			è¿”å›rows*colsçŸ©é˜µï¼Œå¯¹è§’çº¿ä¸Šä¸º1ï¼Œå…¶å®ƒä¸º0
 	 */
 	protected static Matrix identity(int rows, int cols) {
 		Matrix X = new Matrix(rows, cols);
@@ -925,22 +925,22 @@ public class Matrix {
 	}
 
 	/**
-	 * Éú³Éµ¥Î»·½Õó
-	 * @param size		ĞĞÊı
-	 * @return			·µ»Øsize*sizeµÄ¾ØÕó£¬¶Ô½ÇÏßÉÏÎª1£¬ÆäÓàÎª0
+	 * ç”Ÿæˆå•ä½æ–¹é˜µ
+	 * @param size		è¡Œæ•°
+	 * @return			è¿”å›size*sizeçš„çŸ©é˜µï¼Œå¯¹è§’çº¿ä¸Šä¸º1ï¼Œå…¶ä½™ä¸º0
 	 */
 	protected static Matrix identity(int size) {
 		return identity(size, size);
 	}
 
 	/**
-	 * Çó½âA*X = B
-	 * @param		¾ØÕó²ÎÊıB
-	 * @return		·½ÕóÖ±½ÓÇó½â£¬ÆäËüÇé¿ö·µ»Ø×îĞ¡¶ş³Ë·¨½â
+	 * æ±‚è§£A*X = B
+	 * @param		çŸ©é˜µå‚æ•°B
+	 * @return		æ–¹é˜µç›´æ¥æ±‚è§£ï¼Œå…¶å®ƒæƒ…å†µè¿”å›æœ€å°äºŒä¹˜æ³•è§£
 	 */
 
 	public Matrix solve(Matrix B) {
-		//edited by bd, 2020.3.10, ¾ØÕóÔËËãÖĞµÄÎÊÌâÖ»Êä³ö´íÎóĞÅÏ¢£¬²»ÖĞ¶Ï£¬·µ»Ønull
+		//edited by bd, 2020.3.10, çŸ©é˜µè¿ç®—ä¸­çš„é—®é¢˜åªè¾“å‡ºé”™è¯¯ä¿¡æ¯ï¼Œä¸ä¸­æ–­ï¼Œè¿”å›null
 		Matrix result = null;
 		try {
 			result = (this.rows == this.cols ?
@@ -954,8 +954,8 @@ public class Matrix {
 	}
 
 	/**
-	 * ¸´ÖÆ¶şÎ¬Êı×éA
-	 * @return	¸´ÖÆµÄ¶şÎ¬Êı×é
+	 * å¤åˆ¶äºŒç»´æ•°ç»„A
+	 * @return	å¤åˆ¶çš„äºŒç»´æ•°ç»„
 	 */
 	public double[][] getArrayCopy() {
 		double[][] X = new double[this.rows][this.cols];
@@ -968,7 +968,7 @@ public class Matrix {
 	}
 	
 	/**
-	 * ÇóÄæ¾ØÕó»òÕßÎ±Äæ¾ØÕó
+	 * æ±‚é€†çŸ©é˜µæˆ–è€…ä¼ªé€†çŸ©é˜µ
 	 * @return
 	 */
 	public Matrix inverse() {
@@ -976,7 +976,7 @@ public class Matrix {
 	}
 	
 	/**
-	 * ÇóÎ±Äæ¾ØÕó
+	 * æ±‚ä¼ªé€†çŸ©é˜µ
 	 * @return
 	 */
 	public Matrix pseudoinverse() {
@@ -986,7 +986,7 @@ public class Matrix {
     	//Matrix pinv = new Matrix(sm);
     	//return pinv;
 		
-		// Èç¹ûÁĞÂúÖÈ£¬Ö±½ÓÓÃQR·Ö½â£¬·ñÔò×ªÖÃºóÇóÎ±Äæ¾ØÕóÔÙ×ªÖÃ»ØÀ´
+		// å¦‚æœåˆ—æ»¡ç§©ï¼Œç›´æ¥ç”¨QRåˆ†è§£ï¼Œå¦åˆ™è½¬ç½®åæ±‚ä¼ªé€†çŸ©é˜µå†è½¬ç½®å›æ¥
 		if (this.rows >= this.cols) {
 			return (new QRDecomposition(this)).solve(identity(this.rows));
 		}
@@ -997,7 +997,7 @@ public class Matrix {
 	}
     
     /**
-     * ´´½¨SimpleMatrix
+     * åˆ›å»ºSimpleMatrix
      * @return
      */
     public RealMatrix realMatrix() {
@@ -1005,11 +1005,11 @@ public class Matrix {
     }
 	   
 	/**
-	 * ·½ÕóÇóĞĞÁĞÊ½Öµ
-	 * @return	ĞĞÁĞÊ½Öµ
+	 * æ–¹é˜µæ±‚è¡Œåˆ—å¼å€¼
+	 * @return	è¡Œåˆ—å¼å€¼
 	 */
 	public double det() {
-		//edited by bd, 2020.3.10, ¾ØÕóÔËËãÖĞµÄÎÊÌâÖ»Êä³ö´íÎóĞÅÏ¢£¬²»ÖĞ¶Ï£¬·µ»Ønull
+		//edited by bd, 2020.3.10, çŸ©é˜µè¿ç®—ä¸­çš„é—®é¢˜åªè¾“å‡ºé”™è¯¯ä¿¡æ¯ï¼Œä¸ä¸­æ–­ï¼Œè¿”å›null
 		if (this.rows != this.cols) {
 			//throw new IllegalArgumentException("Matrix must be square.");
 			Logger.warn("Matrix must be square.");
@@ -1063,20 +1063,20 @@ public class Matrix {
 	}
 
 	/**
-	 * ·µ»Ø¾ØÕóµÄÖÈ£¬ÓÃÆæÒìÖµ·Ö½â´¦Àí
-	 * @return	¾ØÕóµÄÖÈ
+	 * è¿”å›çŸ©é˜µçš„ç§©ï¼Œç”¨å¥‡å¼‚å€¼åˆ†è§£å¤„ç†
+	 * @return	çŸ©é˜µçš„ç§©
 	 */
 	public int rank() {
 	      return new SVDecomposition(this).rank();
 	}
 	
 	/**
-	 * ¼ÆËãºÍÁíÒ»¸ö¾ØÕóµÄ±ê×¼²î£¬AÓëB±ØĞëÍ¬Î¬
-	 * @param B		ÁíÒ»¾ØÕó
-	 * @return		±ê×¼·½²î
+	 * è®¡ç®—å’Œå¦ä¸€ä¸ªçŸ©é˜µçš„æ ‡å‡†å·®ï¼ŒAä¸Bå¿…é¡»åŒç»´
+	 * @param B		å¦ä¸€çŸ©é˜µ
+	 * @return		æ ‡å‡†æ–¹å·®
 	 */
 	public double mse(Matrix B) {
-		//edited by bd, 2020.3.10, ¾ØÕóÔËËãÖĞµÄÎÊÌâÖ»Êä³ö´íÎóĞÅÏ¢£¬²»ÖĞ¶Ï£¬·µ»Ønull
+		//edited by bd, 2020.3.10, çŸ©é˜µè¿ç®—ä¸­çš„é—®é¢˜åªè¾“å‡ºé”™è¯¯ä¿¡æ¯ï¼Œä¸ä¸­æ–­ï¼Œè¿”å›null
 		try {
 			Matrix X = this.minus(B);
 			double result = 0;
@@ -1094,12 +1094,12 @@ public class Matrix {
 	}
 	
 	/**
-	 * ¼ÆËãºÍÁíÒ»¸ö¾ØÕóµÄ¾ø¶ÔÎó²î£¬AÓëB±ØĞëÍ¬Î¬
-	 * @param B		ÁíÒ»¾ØÕó
-	 * @return		¾ø¶ÔÎó²î
+	 * è®¡ç®—å’Œå¦ä¸€ä¸ªçŸ©é˜µçš„ç»å¯¹è¯¯å·®ï¼ŒAä¸Bå¿…é¡»åŒç»´
+	 * @param B		å¦ä¸€çŸ©é˜µ
+	 * @return		ç»å¯¹è¯¯å·®
 	 */
 	public double mae(Matrix B) {
-		//edited by bd, 2020.3.10, ¾ØÕóÔËËãÖĞµÄÎÊÌâÖ»Êä³ö´íÎóĞÅÏ¢£¬²»ÖĞ¶Ï£¬·µ»Ønull
+		//edited by bd, 2020.3.10, çŸ©é˜µè¿ç®—ä¸­çš„é—®é¢˜åªè¾“å‡ºé”™è¯¯ä¿¡æ¯ï¼Œä¸ä¸­æ–­ï¼Œè¿”å›null
 		try {
 			Matrix X = this.minus(B);
 			double result = 0;
@@ -1117,7 +1117,7 @@ public class Matrix {
 	}
 	
 	/**
-	 * ÊÇ·ñÊÇÏòÁ¿£¬ÏòÁ¿´æ´¢Îªµ¥ĞĞ»òµ¥ÁĞ¾ØÕó
+	 * æ˜¯å¦æ˜¯å‘é‡ï¼Œå‘é‡å­˜å‚¨ä¸ºå•è¡Œæˆ–å•åˆ—çŸ©é˜µ
 	 * @return
 	 */
 	public boolean ifVector() {
@@ -1125,8 +1125,8 @@ public class Matrix {
 	}
 
 	/**
-	 * Éú³ÉĞÂ¾ØÕó£¬Ê¹µÃĞÂ¾ØÕóÃ¿Ò»ÁĞµÄ¾ùÖµÎª0
-	 * @param matrix	Ô´¾ØÕó
+	 * ç”Ÿæˆæ–°çŸ©é˜µï¼Œä½¿å¾—æ–°çŸ©é˜µæ¯ä¸€åˆ—çš„å‡å€¼ä¸º0
+	 * @param matrix	æºçŸ©é˜µ
 	 * @return
 	 */
     public Matrix changeAverageToZero() {
@@ -1148,8 +1148,8 @@ public class Matrix {
     }
 
 	/**
-	 * Éú³ÉĞÂ¾ØÕó£¬Ê¹µÃĞÂ¾ØÕóÃ¿Ò»ÁĞµÄ¾ùÖµÎª0
-	 * @param matrix	Ô´¾ØÕó
+	 * ç”Ÿæˆæ–°çŸ©é˜µï¼Œä½¿å¾—æ–°çŸ©é˜µæ¯ä¸€åˆ—çš„å‡å€¼ä¸º0
+	 * @param matrix	æºçŸ©é˜µ
 	 * @return
 	 */
     public Matrix changeAverageToZero(Vector averageV) {
@@ -1164,12 +1164,12 @@ public class Matrix {
     }
     
     /**
-     * »ñÈ¡Ã¿ÁĞµÄ¾ùÖµÏòÁ¿
+     * è·å–æ¯åˆ—çš„å‡å€¼å‘é‡
      * @param primary	
      * @return
      */
     public Vector getAverage() {
-        // ¾ùÖµÖĞĞÄ»¯ºóµÄ¾ØÕó
+        // å‡å€¼ä¸­å¿ƒåŒ–åçš„çŸ©é˜µ
         double[] sum = new double[this.cols];
         double[] average = new double[this.cols];
         for (int c = 0; c < this.cols; c++) {

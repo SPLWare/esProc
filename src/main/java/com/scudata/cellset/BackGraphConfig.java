@@ -30,7 +30,7 @@ import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 
 /**
- * ±³¾°Í¼ÅäÖÃ
+ * èƒŒæ™¯å›¾é…ç½®
  * 
  * @author Joancy
  *
@@ -39,34 +39,34 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		IRecord {
 	private static final long serialVersionUID = 1L;
 
-	/** ±³¾°Í¼ÅäÖÃÀàĞÍ£ºURL */
+	/** èƒŒæ™¯å›¾é…ç½®ç±»å‹ï¼šURL */
 	public final static byte TYPE_URL = (byte) 0;
-	/** ±³¾°Í¼ÅäÖÃÀàĞÍ£º±í´ïÊ½ */
+	/** èƒŒæ™¯å›¾é…ç½®ç±»å‹ï¼šè¡¨è¾¾å¼ */
 	public final static byte TYPE_EXP = (byte) 1;
 
-	/** ±³¾°Í¼ÏÔÊ¾·½Ê½£ºÏÔÊ¾ */
+	/** èƒŒæ™¯å›¾æ˜¾ç¤ºæ–¹å¼ï¼šæ˜¾ç¤º */
 	public final static byte DISP_NONE = (byte) 10;
-	/** ±³¾°Í¼ÏÔÊ¾·½Ê½£ºÃ¿Ò³ÏÔÊ¾ */
+	/** èƒŒæ™¯å›¾æ˜¾ç¤ºæ–¹å¼ï¼šæ¯é¡µæ˜¾ç¤º */
 	public final static byte DISP_PER_PAGE = (byte) 11;
 
-	public static final byte SOURCE_NONE = 0; // ÎŞ
-	public static final byte SOURCE_PICTURE = 1; // Í¼Æ¬
-	public static final byte SOURCE_TEXT = 2; // ÎÄ×Ö,Ë®Ó¡±³¾°Í¼
+	public static final byte SOURCE_NONE = 0; // æ— 
+	public static final byte SOURCE_PICTURE = 1; // å›¾ç‰‡
+	public static final byte SOURCE_TEXT = 2; // æ–‡å­—,æ°´å°èƒŒæ™¯å›¾
 
-	public static final byte MODE_NONE = 0; // È±Ê¡
-	public static final byte MODE_FILL = 1; // Ìî³ä
-	public static final byte MODE_TILE = 2; // Æ½ÆÌ
+	public static final byte MODE_NONE = 0; // ç¼ºçœ
+	public static final byte MODE_FILL = 1; // å¡«å……
+	public static final byte MODE_TILE = 2; // å¹³é“º
 
-	public static final byte TEXT_NORMAL = 0; // Õı³£
-	public static final byte TEXT_TILT = 1; // ÇãĞ±
+	public static final byte TEXT_NORMAL = 0; // æ­£å¸¸
+	public static final byte TEXT_TILT = 1; // å€¾æ–œ
 
 	private byte type = TYPE_URL;
 	private String value;
 	private byte disp = DISP_PER_PAGE;
 
-	// Éú³ÉÍ¼Æ¬µÄ·½Ê½
+	// ç”Ÿæˆå›¾ç‰‡çš„æ–¹å¼
 	private byte imgSource = SOURCE_PICTURE;
-	// ²¼¾Ö
+	// å¸ƒå±€
 	private byte mode = MODE_NONE;
 	private String fontName = "Dialog";
 	private int fontSize = 12;
@@ -80,20 +80,20 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	private transient String waterMark = null;
 
 	/**
-	 * È±Ê¡¹¹Ôìº¯Êı
+	 * ç¼ºçœæ„é€ å‡½æ•°
 	 */
 	public BackGraphConfig() {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 *
 	 * @param type
-	 *            Ö¸¶¨ÅäÖÃÀàĞÍ£¬¿ÉÈ¡ÖµÎªTYPE_URL¡¢TYPE_EXP
+	 *            æŒ‡å®šé…ç½®ç±»å‹ï¼Œå¯å–å€¼ä¸ºTYPE_URLã€TYPE_EXP
 	 * @param value
-	 *            ²ÎÊıtypeÎªTYPE_URLÊ±´Ë²ÎÊı±íÊ¾URL£¬ ÎªTYPE_EXPÊ±´Ë²ÎÊı±íÊ¾±í´ïÊ½´®
+	 *            å‚æ•°typeä¸ºTYPE_URLæ—¶æ­¤å‚æ•°è¡¨ç¤ºURLï¼Œ ä¸ºTYPE_EXPæ—¶æ­¤å‚æ•°è¡¨ç¤ºè¡¨è¾¾å¼ä¸²
 	 * @param dispMode
-	 *            ÏÔÊ¾Ä£Ê½£¬¿ÉÈ¡ÖµÎªDISP_DEFAULT¡¢DISP_PER_PAGE
+	 *            æ˜¾ç¤ºæ¨¡å¼ï¼Œå¯å–å€¼ä¸ºDISP_DEFAULTã€DISP_PER_PAGE
 	 */
 	public BackGraphConfig(byte type, String value, byte dispMode) {
 		this.type = type;
@@ -102,7 +102,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ÉèÖÃ±³¾°Í¼Æ¬ÀàĞÍ TYPE_URL£¬TYPE_EXP
+	 * è®¾ç½®èƒŒæ™¯å›¾ç‰‡ç±»å‹ TYPE_URLï¼ŒTYPE_EXP
 	 * 
 	 * @param type
 	 *            byte
@@ -112,7 +112,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * »ñµÃ±³¾°Í¼Æ¬ÀàĞÍ
+	 * è·å¾—èƒŒæ™¯å›¾ç‰‡ç±»å‹
 	 * 
 	 * @return byte
 	 */
@@ -121,7 +121,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ÉèÖÃULR»ò±í´ïÊ½´®£¬²ÎÊıtypeÎªTYPE_URLÊ±´Ë²ÎÊı±íÊ¾URL£¬ÎªTYPE_EXPÊ±´Ë²ÎÊı±íÊ¾±í´ïÊ½´®
+	 * è®¾ç½®ULRæˆ–è¡¨è¾¾å¼ä¸²ï¼Œå‚æ•°typeä¸ºTYPE_URLæ—¶æ­¤å‚æ•°è¡¨ç¤ºURLï¼Œä¸ºTYPE_EXPæ—¶æ­¤å‚æ•°è¡¨ç¤ºè¡¨è¾¾å¼ä¸²
 	 * 
 	 * @param urlOrClassName
 	 *            String
@@ -132,7 +132,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * È¡µÃULR»ò±í´ïÊ½´®
+	 * å–å¾—ULRæˆ–è¡¨è¾¾å¼ä¸²
 	 * 
 	 * @return String
 	 */
@@ -141,7 +141,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ÉèÖÃÏÔÊ¾Ä£Ê½ DISP_DEFAULT£¬DISP_PER_PAGE
+	 * è®¾ç½®æ˜¾ç¤ºæ¨¡å¼ DISP_DEFAULTï¼ŒDISP_PER_PAGE
 	 * 
 	 * @param dispMode
 	 *            byte
@@ -151,7 +151,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * È¡µÃÏÔÊ¾·½Ê½
+	 * å–å¾—æ˜¾ç¤ºæ–¹å¼
 	 * 
 	 * @return byte
 	 */
@@ -160,7 +160,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * È¡±³¾°Í¼
+	 * å–èƒŒæ™¯å›¾
 	 */
 	public byte[] getImageBytes() {
 		return this.imageBytes;
@@ -186,7 +186,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 
 
 	/**
-	 * ¸ù¾İ¿í¸ß£¬°´ÕÕ±³¾°Í¼ÅäÖÃ£¬Éú³É±³¾°Í¼
+	 * æ ¹æ®å®½é«˜ï¼ŒæŒ‰ç…§èƒŒæ™¯å›¾é…ç½®ï¼Œç”ŸæˆèƒŒæ™¯å›¾
 	 * 
 	 * @param w
 	 * @param h
@@ -197,22 +197,22 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	private int imageWidth = -1, imageHeight = -1;
-	private int lastW = -1, lastH = -1; // ÕâÊÇÉè¼Æ³ß´ç£¬Ã»ÓĞscaleµÄ
+	private int lastW = -1, lastH = -1; // è¿™æ˜¯è®¾è®¡å°ºå¯¸ï¼Œæ²¡æœ‰scaleçš„
 	private Image lastImage = null;
 
 	/**
-	 * ¸Ã·½·¨ÓÃÓÚÖ±½Ó½«±³¾°Í¼ÍùgÊä³ö£¬´Ó¶øÎÄ±¾»æÖÆÇåÎú
-	 * @param g µ¼³öPDF»òÕß´òÓ¡µÄÍ¼ĞÎÉè±¸
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
-	 * @param scale »æÖÆ±ÈÀı
+	 * è¯¥æ–¹æ³•ç”¨äºç›´æ¥å°†èƒŒæ™¯å›¾å¾€gè¾“å‡ºï¼Œä»è€Œæ–‡æœ¬ç»˜åˆ¶æ¸…æ™°
+	 * @param g å¯¼å‡ºPDFæˆ–è€…æ‰“å°çš„å›¾å½¢è®¾å¤‡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
+	 * @param scale ç»˜åˆ¶æ¯”ä¾‹
 	 */
 	public void drawImage(Graphics g, int w, int h, float scale) {
 		drawImage(g, w, h, scale, 0, 0, w, h);
 	}
 
 	/**
-	 * Ôö¼ÓÁË»æÖÆÇøÓòx1,y1,x2,y2
+	 * å¢åŠ äº†ç»˜åˆ¶åŒºåŸŸx1,y1,x2,y2
 	 * @param g
 	 * @param w
 	 * @param h
@@ -231,12 +231,12 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			int y1, int x2, int y2, int dx, int dy) {
 		switch (imgSource) {
 		case SOURCE_PICTURE:
-			// ½«ImageIcon¸ÄÎªBufferedImage£¬²¢»º´æµ÷ÕûºÃ³ß´çµÄImage
-			// Í¼Æ¬³ß´ç·¢Éú±ä»¯Ê±£¬ÖØĞÂ»ñÈ¡Í¼Æ¬
+			// å°†ImageIconæ”¹ä¸ºBufferedImageï¼Œå¹¶ç¼“å­˜è°ƒæ•´å¥½å°ºå¯¸çš„Image
+			// å›¾ç‰‡å°ºå¯¸å‘ç”Ÿå˜åŒ–æ—¶ï¼Œé‡æ–°è·å–å›¾ç‰‡
 			boolean graphChanged = lastImage == null || w != lastW
 					|| h != lastH;
 			int iw,
-			ih;// Í¼Æ¬³ß´ç
+			ih;// å›¾ç‰‡å°ºå¯¸
 			Image image;
 			
 			if (graphChanged) {
@@ -268,12 +268,12 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 				iw = imageWidth;
 				ih = imageHeight;
 			}
-			// ÓÃsetClipÌæ´úcutImageÀ´¼õÉÙ»æÖÆÊ±¼ä wunan 2022-09-22
+			// ç”¨setClipæ›¿ä»£cutImageæ¥å‡å°‘ç»˜åˆ¶æ—¶é—´ wunan 2022-09-22
 			Shape oldClip = g.getClip();
 			switch (mode) {
 			case MODE_NONE:
 				try {
-					g.setClip(x1, y1, x2 - x1, y2 - y1); // Í¼Æ¬²»ÄÜ³¬³ö»æÖÆ·¶Î§
+					g.setClip(x1, y1, x2 - x1, y2 - y1); // å›¾ç‰‡ä¸èƒ½è¶…å‡ºç»˜åˆ¶èŒƒå›´
 					g.drawImage(image, dx, dy, iw, ih, null);
 				}catch(Exception x) {
 				}finally {
@@ -282,10 +282,10 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 				break;
 			case MODE_FILL:
 				try {
-					g.setClip(x1, y1, x2 - x1, y2 - y1); // Í¼Æ¬²»ÄÜ³¬³ö»æÖÆ·¶Î§
+					g.setClip(x1, y1, x2 - x1, y2 - y1); // å›¾ç‰‡ä¸èƒ½è¶…å‡ºç»˜åˆ¶èŒƒå›´
 					g.drawImage(image, dx, dy, w, h, null);
-				}catch(Exception x) {//²»Ã÷Ô­Òò£¬PDF²å¼şÖĞ´òÓ¡Ô¤ÀÀ´ø±³¾°Í¼Ê±£¬Í¬ÑùµÄÍ¼ĞÎ½öÔÚ²å¼ş»æÖÆÊ±±¨´í£¬Ç°¶ËÄÜÔÚ±ğµÄÏß³Ì³öÍ¼
-//				´Ë´¦ºöÂÔµô»æÖÆ´íÎóÒì³£
+				}catch(Exception x) {//ä¸æ˜åŸå› ï¼ŒPDFæ’ä»¶ä¸­æ‰“å°é¢„è§ˆå¸¦èƒŒæ™¯å›¾æ—¶ï¼ŒåŒæ ·çš„å›¾å½¢ä»…åœ¨æ’ä»¶ç»˜åˆ¶æ—¶æŠ¥é”™ï¼Œå‰ç«¯èƒ½åœ¨åˆ«çš„çº¿ç¨‹å‡ºå›¾
+//				æ­¤å¤„å¿½ç•¥æ‰ç»˜åˆ¶é”™è¯¯å¼‚å¸¸
 				}finally {
 					g.setClip(oldClip);
 				}
@@ -294,13 +294,13 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 				try {
 					int x = dx, y = dy;
 					while (x < x2) {
-						if (x + iw <= x1) { // Ã»ÓĞµ½»æÖÆ·¶Î§
+						if (x + iw <= x1) { // æ²¡æœ‰åˆ°ç»˜åˆ¶èŒƒå›´
 							x += iw;
 							continue;
 						}
 						y = dy;
 						while (y < y2) {
-							if (y + ih <= y1) { // Ã»ÓĞµ½»æÖÆ·¶Î§
+							if (y + ih <= y1) { // æ²¡æœ‰åˆ°ç»˜åˆ¶èŒƒå›´
 								y += ih;
 								continue;
 							}
@@ -323,10 +323,10 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		case SOURCE_TEXT:
 			if (!StringUtils.isValidString(waterMark))
 				return;
-			// ÒÉÄÑÔÓÖ¢£º²»ÖªµÀµÄÔ­Òò£¬ÉèÖÃÁËsetComposite·½·¨»áµ¼ÖÂ
-			// 1£º´òÓ¡ÄÚÈİÈ±Ê§
-			// 2£ºitextÃ»ÓĞÊµÏÖ£¬µ¼³öPDFÊ±£¬Ã»ÓĞ²»Í¸Ã÷×´Ì¬
-			// ½â¾ö°ì·¨£º½«Í¸Ã÷¶ÈÉèÎª100£¬Ò²¼´²»Í¸Ã÷£¬´ËÊ±²»µ÷ÓÃsetComposite£¬Í¬Ê±ÉèÖÃ×ÖÌåÑÕÉ«ÎªÇ³É«
+			// ç–‘éš¾æ‚ç—‡ï¼šä¸çŸ¥é“çš„åŸå› ï¼Œè®¾ç½®äº†setCompositeæ–¹æ³•ä¼šå¯¼è‡´
+			// 1ï¼šæ‰“å°å†…å®¹ç¼ºå¤±
+			// 2ï¼šitextæ²¡æœ‰å®ç°ï¼Œå¯¼å‡ºPDFæ—¶ï¼Œæ²¡æœ‰ä¸é€æ˜çŠ¶æ€
+			// è§£å†³åŠæ³•ï¼šå°†é€æ˜åº¦è®¾ä¸º100ï¼Œä¹Ÿå³ä¸é€æ˜ï¼Œæ­¤æ—¶ä¸è°ƒç”¨setCompositeï¼ŒåŒæ—¶è®¾ç½®å­—ä½“é¢œè‰²ä¸ºæµ…è‰²
 
 			Composite old = setTransparent((Graphics2D) g,
 					textTransparency / 100f);
@@ -368,11 +368,11 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ½«µ±Ç°±³¾°Í¼¼ÆËãÎªÍ¼Æ¬¶ÔÏó
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
-	 * @param scale »æÖÆ±ÈÀı
-	 * @return Í¼Ïñ¶ÔÏó
+	 * å°†å½“å‰èƒŒæ™¯å›¾è®¡ç®—ä¸ºå›¾ç‰‡å¯¹è±¡
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
+	 * @param scale ç»˜åˆ¶æ¯”ä¾‹
+	 * @return å›¾åƒå¯¹è±¡
 	 */
 	public Image getBackImage(int w, int h, float scale) {
 		if (imgSource == SOURCE_NONE) {
@@ -395,9 +395,9 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ÉèÖÃ±³¾°Í¼Êı¾İ£¬Ò»°ãÓÃÓÚÍ¼Æ¬ĞèÒª²»¶ÏË¢ĞÂ£¬¶øÓÖÃ»±ØÒªÃ¿´Î¶¼ÖØ»­Ê±
-	 * ÓÃÓÚÌá¸ß½çÃæ»æÖÆĞÔÄÜ
-	 * @param b Í¼ÏñÊı¾İ
+	 * è®¾ç½®èƒŒæ™¯å›¾æ•°æ®ï¼Œä¸€èˆ¬ç”¨äºå›¾ç‰‡éœ€è¦ä¸æ–­åˆ·æ–°ï¼Œè€Œåˆæ²¡å¿…è¦æ¯æ¬¡éƒ½é‡ç”»æ—¶
+	 * ç”¨äºæé«˜ç•Œé¢ç»˜åˆ¶æ€§èƒ½
+	 * @param b å›¾åƒæ•°æ®
 	 */
 	public void setImageBytes(byte[] b) {
 		this.imageBytes = b;
@@ -405,16 +405,16 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * »ñÈ¡¼ÆËã¹ıºóµÄË®Ó¡ÎÄ×Ö
-	 * @return Ë®Ó¡ÎÄ×Ö
+	 * è·å–è®¡ç®—è¿‡åçš„æ°´å°æ–‡å­—
+	 * @return æ°´å°æ–‡å­—
 	 */
 	public String getWaterMark() {
 		return waterMark;
 	}
 
 	/**
-	 * ÉèÖÃ¼ÆËãºóµÄË®Ó¡ÎÄ×Ö£¬ÓÃÓÚÌá¸ß»æÍ¼ĞÔÄÜ
-	 * @param wm Ë®Ó¡ÎÄ×Ö
+	 * è®¾ç½®è®¡ç®—åçš„æ°´å°æ–‡å­—ï¼Œç”¨äºæé«˜ç»˜å›¾æ€§èƒ½
+	 * @param wm æ°´å°æ–‡å­—
 	 */
 	public void setWaterMark(String wm) {
 		this.waterMark = wm;
@@ -422,125 +422,125 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * »ñÈ¡Ë®Ó¡»òÕß±³¾°Í¼µÄÌî³äÑùÊ½
-	 * ÈıÖÖ·½Ê½£¬×óÉÏ½Ç£¬ À­ÉìÌî³ä£¬Æ½ÆÌ
-	 * ÖµÎª£º BackGraphConfig.MODE_???
-	 * @return Ìî³äÑùÊ½
+	 * è·å–æ°´å°æˆ–è€…èƒŒæ™¯å›¾çš„å¡«å……æ ·å¼
+	 * ä¸‰ç§æ–¹å¼ï¼Œå·¦ä¸Šè§’ï¼Œ æ‹‰ä¼¸å¡«å……ï¼Œå¹³é“º
+	 * å€¼ä¸ºï¼š BackGraphConfig.MODE_???
+	 * @return å¡«å……æ ·å¼
 	 */
 	public byte getMode() {
 		return mode;
 	}
 
 	/**
-	 * ÉèÖÃÌî³äÑùÊ½
-	 * @param m ÑùÊ½
+	 * è®¾ç½®å¡«å……æ ·å¼
+	 * @param m æ ·å¼
 	 */
 	public void setMode(byte m) {
 		mode = m;
 	}
 
 	/**
-	 * »ñÈ¡Ë®Ó¡ÎÄ±¾Æ½ÆÌÊ±µÄÎÄ±¾¼ä¸ô
-	 * @return ¼ä¸ôÖµ
+	 * è·å–æ°´å°æ–‡æœ¬å¹³é“ºæ—¶çš„æ–‡æœ¬é—´éš”
+	 * @return é—´éš”å€¼
 	 */
 	public int getTextGap() {
 		return textGap;
 	}
 
 	/**
-	 * ÉèÖÃË®Ó¡ÎÄ±¾µÄÆ½ÆÌÊ±µÄÎÄ±¾¼ä¸ô
-	 * @param g ¼ä¸ôÖµ
+	 * è®¾ç½®æ°´å°æ–‡æœ¬çš„å¹³é“ºæ—¶çš„æ–‡æœ¬é—´éš”
+	 * @param g é—´éš”å€¼
 	 */
 	public void setTextGap(int g) {
 		textGap = g;
 	}
 
 	/**
-	 * ÉèÖÃË®Ó¡ÎÄ±¾µÄÍ¸Ã÷¶È£¬ÖµÎª0µ½100
-	 * @param tran Í¸Ã÷Öµ
+	 * è®¾ç½®æ°´å°æ–‡æœ¬çš„é€æ˜åº¦ï¼Œå€¼ä¸º0åˆ°100
+	 * @param tran é€æ˜å€¼
 	 */
 	public void setTransparency(int tran) {
 		textTransparency = tran;
 	}
 
 	/**
-	 * »ñÈ¡Ë®Ó¡ÎÄ±¾µÄÍ¸Ã÷¶È
-	 * @return Í¸Ã÷Öµ
+	 * è·å–æ°´å°æ–‡æœ¬çš„é€æ˜åº¦
+	 * @return é€æ˜å€¼
 	 */
 	public int getTransparency() {
 		return textTransparency;
 	}
 
 	/**
-	 * »ñÈ¡±³¾°Í¼µÄÉú³ÉÀ´Ô´
-	 * ÓĞÁ½ÖÖÀ´Ô´£¬ÓÃÍ¼ĞÎÉú³É£¬ÒÔ¼°Ë®Ó¡ÎÄ×ÖÉú³É
-	 * ÖµÎª£º BackGraphConfig.SOURCE_???
-	 * @return À´Ô´ÑùÊ½
+	 * è·å–èƒŒæ™¯å›¾çš„ç”Ÿæˆæ¥æº
+	 * æœ‰ä¸¤ç§æ¥æºï¼Œç”¨å›¾å½¢ç”Ÿæˆï¼Œä»¥åŠæ°´å°æ–‡å­—ç”Ÿæˆ
+	 * å€¼ä¸ºï¼š BackGraphConfig.SOURCE_???
+	 * @return æ¥æºæ ·å¼
 	 */
 	public byte getImageSource() {
 		return imgSource;
 	}
 
 	/**
-	 * ÉèÖÃ±³¾°Í¼µÄÀ´Ô´ÑùÊ½
-	 * @param src ÑùÊ½Öµ
+	 * è®¾ç½®èƒŒæ™¯å›¾çš„æ¥æºæ ·å¼
+	 * @param src æ ·å¼å€¼
 	 */
 	public void setImageSource(byte src) {
 		imgSource = src;
 	}
 
 	/**
-	 * »ñÈ¡Ë®Ó¡ÎÄ×ÖµÄ×ÖÌåÃû³Æ
-	 * @return ×ÖÌåÃû
+	 * è·å–æ°´å°æ–‡å­—çš„å­—ä½“åç§°
+	 * @return å­—ä½“å
 	 */
 	public String getFontName() {
 		return fontName;
 	}
 
 	/**
-	 * ÉèÖÃË®Ó¡ÎÄ×ÖµÄ×ÖÌåÃû
-	 * @param fn ×ÖÌåÃû
+	 * è®¾ç½®æ°´å°æ–‡å­—çš„å­—ä½“å
+	 * @param fn å­—ä½“å
 	 */
 	public void setFontName(String fn) {
 		fontName = fn;
 	}
 
 	/**
-	 * »ñÈ¡Ë®Ó¡ÎÄ×ÖµÄ×ÖºÅ
-	 * @return ×ÖºÅ
+	 * è·å–æ°´å°æ–‡å­—çš„å­—å·
+	 * @return å­—å·
 	 */
 	public int getFontSize() {
 		return fontSize;
 	}
 
 	/**
-	 * ÉèÖÃË®Ó¡ÎÄ×ÖµÄ×ÖºÅ
-	 * @param size ×ÖºÅ
+	 * è®¾ç½®æ°´å°æ–‡å­—çš„å­—å·
+	 * @param size å­—å·
 	 */
 	public void setFontSize(int size) {
 		fontSize = size;
 	}
 
 	/**
-	 * »ñÈ¡Ë®Ó¡ÎÄ×ÖµÄÑÕÉ«Öµ
-	 * @return ÑÕÉ«Öµ
+	 * è·å–æ°´å°æ–‡å­—çš„é¢œè‰²å€¼
+	 * @return é¢œè‰²å€¼
 	 */
 	public int getTextColor() {
 		return textColor;
 	}
 
 	/**
-	 * ÉèÖÃË®Ó¡ÎÄ×ÖµÄÑÕÉ«
-	 * @param c ÑÕÉ«Öµ
+	 * è®¾ç½®æ°´å°æ–‡å­—çš„é¢œè‰²
+	 * @param c é¢œè‰²å€¼
 	 */
 	public void setTextColor(int c) {
 		textColor = c;
 	}
 
 	/**
-	 * ĞòÁĞ»¯Êä³ö±¾Àà
+	 * åºåˆ—åŒ–è¾“å‡ºæœ¬ç±»
 	 * 
-	 * @param out ¶ÔÏóÊä³öÁ÷
+	 * @param out å¯¹è±¡è¾“å‡ºæµ
 	 * @throws IOException
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
@@ -549,7 +549,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		out.writeObject(value);
 		out.writeByte(disp);
 		out.writeObject(imageBytes);
-		// °æ±¾2£¬ Ôö¼Ó²¼¾ÖÄ£Ê½
+		// ç‰ˆæœ¬2ï¼Œ å¢åŠ å¸ƒå±€æ¨¡å¼
 		out.writeByte(imgSource);
 		out.writeByte(mode);
 		out.writeObject(fontName);
@@ -560,9 +560,9 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ĞòÁĞ»¯ÊäÈë±¾Àà
+	 * åºåˆ—åŒ–è¾“å…¥æœ¬ç±»
 	 * 
-	 * @param in ¶ÔÏóÊäÈëÁ÷
+	 * @param in å¯¹è±¡è¾“å…¥æµ
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
@@ -587,7 +587,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ĞòÁĞ»¯Êä³ö±¾Àà
+	 * åºåˆ—åŒ–è¾“å‡ºæœ¬ç±»
 	 * 
 	 * @throws IOException
 	 */
@@ -610,7 +610,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ĞòÁĞ»¯ÊäÈë±¾Àà
+	 * åºåˆ—åŒ–è¾“å…¥æœ¬ç±»
 	 * 
 	 * @param in
 	 *            byte[]input
@@ -638,7 +638,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ¿ËÂ¡±¾Àà
+	 * å…‹éš†æœ¬ç±»
 	 * 
 	 * @return Object
 	 */
@@ -661,10 +661,10 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÍ¸Ã÷¶È
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param transparent Í¸Ã÷Í¼£¬·¶Î§0µ½100£¬ 100Ê±²»Í¸Ã÷£¬0ÎªÈ«Í¸Ã÷
-	 * @return ¾ÉµÄComposite£¬ÓÃÓÚµ÷ÓÃ¸Ã·½·¨ºóµÄ»Ö¸´
+	 * è®¾ç½®å›¾å½¢é€æ˜åº¦
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param transparent é€æ˜å›¾ï¼ŒèŒƒå›´0åˆ°100ï¼Œ 100æ—¶ä¸é€æ˜ï¼Œ0ä¸ºå…¨é€æ˜
+	 * @return æ—§çš„Compositeï¼Œç”¨äºè°ƒç”¨è¯¥æ–¹æ³•åçš„æ¢å¤
 	 */
 	public static Composite setTransparent(Graphics2D g, float transparent) {
 		if (transparent >= 1) {
@@ -679,11 +679,11 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ±¾»æÖÆµÄÕ¼ÓÃ¿Õ¼ä
-	 * @param textFont ÎÄ×Ö×ÖÌå
-	 * @param textSize ÎÄ×Ö´óĞ¡
-	 * @param text ÎÄ±¾Öµ
-	 * @return ¿í¸ßÃèÊöµÄÎÄ±¾¿Õ¼ä
+	 * è·å–æ–‡æœ¬ç»˜åˆ¶çš„å ç”¨ç©ºé—´
+	 * @param textFont æ–‡å­—å­—ä½“
+	 * @param textSize æ–‡å­—å¤§å°
+	 * @param text æ–‡æœ¬å€¼
+	 * @return å®½é«˜æè¿°çš„æ–‡æœ¬ç©ºé—´
 	 */
 	public static Rectangle getTextRect(String textFont, int textSize,
 			String text) {
@@ -697,11 +697,11 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ¹¹Ôì×ÖÌå¶ÔÏó
-	 * @param fontName ×ÖÌåÃû³Æ
-	 * @param fontStyle ÎÄ±¾·ç¸ñ
-	 * @param fontSize ×ÖºÅ
-	 * @return ×ÖÌå¶ÔÏó
+	 * æ„é€ å­—ä½“å¯¹è±¡
+	 * @param fontName å­—ä½“åç§°
+	 * @param fontStyle æ–‡æœ¬é£æ ¼
+	 * @param fontSize å­—å·
+	 * @return å­—ä½“å¯¹è±¡
 	 */
 	public synchronized static Font getFont(String fontName, int fontStyle,
 			int fontSize) {
@@ -714,11 +714,11 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ±¾µÄË®Æ½Õı³£Êä³öÊ±µÄ¿Õ¼ä
-	 * @param text ÎÄ±¾Öµ
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param font ×Ö
-	 * @return Õ¼ÓÃ¿Õ¼ä
+	 * è·å–æ–‡æœ¬çš„æ°´å¹³æ­£å¸¸è¾“å‡ºæ—¶çš„ç©ºé—´
+	 * @param text æ–‡æœ¬å€¼
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param font å­—
+	 * @return å ç”¨ç©ºé—´
 	 */
 	public static Rectangle getHorizonArea(String text, java.awt.Graphics g,
 			Font font) {
@@ -732,12 +732,12 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ±¾Ğı×ªÊä³öºóµÄÕ¼ÓÃ¿Õ¼ä
-	 * @param text ÎÄ±¾
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param font ×ÖÌå
-	 * @return Õ¼ÓÃ¿Õ¼ä
+	 * è·å–æ–‡æœ¬æ—‹è½¬è¾“å‡ºåçš„å ç”¨ç©ºé—´
+	 * @param text æ–‡æœ¬
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param font å­—ä½“
+	 * @return å ç”¨ç©ºé—´
 	 */
 	public static Rectangle getRotationArea(String text, java.awt.Graphics g,
 			int angle, Font font) {
@@ -763,12 +763,12 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * ×Ô¶¯¸ù¾İĞı×ª½Ç¶È£¬µ÷ÓÃÏà¹Ø·½·¨¼ÆËãÎÄ±¾µÄÕ¼ÓÃ¿Õ¼ä
-	 * @param text ÎÄ±¾
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param font ×ÖÌå
-	 * @return Õ¼ÓÃ¿Õ¼ä
+	 * è‡ªåŠ¨æ ¹æ®æ—‹è½¬è§’åº¦ï¼Œè°ƒç”¨ç›¸å…³æ–¹æ³•è®¡ç®—æ–‡æœ¬çš„å ç”¨ç©ºé—´
+	 * @param text æ–‡æœ¬
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param font å­—ä½“
+	 * @return å ç”¨ç©ºé—´
 	 */
 	public static Rectangle getTextSize(String text, java.awt.Graphics g,
 			int angle, Font font) {
@@ -791,18 +791,18 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 
 	/**
-	 * isImageÊ±£¬Òª±ä»»Îª×óÉÏ½Ç£¬ ÎÄ±¾Ê±±ä»»Îª×óÏÂ½Ç£»ÒòÎªgÔÚ×óÏÂ½Ç»æÖÆÎÄ±¾£¬ ×óÉÏ½Ç»æÖÆÍ¼ĞÎ¡£
+	 * isImageæ—¶ï¼Œè¦å˜æ¢ä¸ºå·¦ä¸Šè§’ï¼Œ æ–‡æœ¬æ—¶å˜æ¢ä¸ºå·¦ä¸‹è§’ï¼›å› ä¸ºgåœ¨å·¦ä¸‹è§’ç»˜åˆ¶æ–‡æœ¬ï¼Œ å·¦ä¸Šè§’ç»˜åˆ¶å›¾å½¢ã€‚
 	 * @param posDesc
 	 * @return
 	 */
 	public static Point getRealDrawPoint(Rectangle posDesc) {
 		Rectangle rect = posDesc;
-		// »æÍ¼ÖĞĞÄµã
+		// ç»˜å›¾ä¸­å¿ƒç‚¹
 		int xloc = rect.x;
 		int yloc = rect.y;
 
 		yloc += rect.height / 2;
-		// Ëù¸ø²Î¿¼µãÔÚÖĞ¼ä£¬ĞèÒªÇóµ½×óÏÂ½Çx×ø±ê
+		// æ‰€ç»™å‚è€ƒç‚¹åœ¨ä¸­é—´ï¼Œéœ€è¦æ±‚åˆ°å·¦ä¸‹è§’xåæ ‡
 		xloc -= rect.width / 2;
 		return new Point(xloc, yloc);
 	}
@@ -818,14 +818,14 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	// }
 
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ´¦Êä³öÎÄ±¾
-	 * @param txt ÎÄ±¾
-	 * @param dx ºá×ø±ê
-	 * @param dy ×İ×ø±ê
-	 * @param font ×ÖÌå
-	 * @param c ÑÕÉ«
-	 * @param angle Ğı×ª½Ç¶È
-	 * @param g Í¼ĞÎÉè±¸
+	 * åœ¨æŒ‡å®šä½ç½®å¤„è¾“å‡ºæ–‡æœ¬
+	 * @param txt æ–‡æœ¬
+	 * @param dx æ¨ªåæ ‡
+	 * @param dy çºµåæ ‡
+	 * @param font å­—ä½“
+	 * @param c é¢œè‰²
+	 * @param angle æ—‹è½¬è§’åº¦
+	 * @param g å›¾å½¢è®¾å¤‡
 	 */
 	public static void drawText(String txt, double dx, double dy, Font font,
 			Color c, int angle, Graphics2D g) {
@@ -835,7 +835,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		int x = (int) dx;
 		int y = (int) dy;
 
-		// ÎÄ×Ö²»ÖØµş
+		// æ–‡å­—ä¸é‡å 
 		Rectangle rect = getTextSize(txt, g, angle, font);
 		rect.x = x;
 		rect.y = y;
@@ -850,7 +850,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_OFF);
 
-		// ·ÇÊúÅÅÎÄ×Ö
+		// éç«–æ’æ–‡å­—
 		if (angle != 0) {
 			AffineTransform at = g.getTransform();
 			Rectangle rect2 = getTextSize(txt, g, 0, font);

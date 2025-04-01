@@ -3,8 +3,8 @@ package com.scudata.ide.spl.etl.element;
 import com.scudata.ide.spl.etl.EtlConsts;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ CS.rename()
- * º¯ÊıÃûÇ°×ºCs±íÊ¾ÓÎ±ê
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ CS.rename()
+ * å‡½æ•°åå‰ç¼€Csè¡¨ç¤ºæ¸¸æ ‡
  * 
  * @author Joancy
  *
@@ -12,8 +12,8 @@ import com.scudata.ide.spl.etl.EtlConsts;
 public class CsRename extends ARename {
 	
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
@@ -22,7 +22,7 @@ public class CsRename extends ARename {
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
 	public byte getReturnType() {

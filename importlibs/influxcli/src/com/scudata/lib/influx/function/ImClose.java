@@ -6,7 +6,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
-// 关闭连接.
+// 鍏抽棴杩炴帴.
 public class ImClose extends ImFunction {
 	public Node optimize(Context ctx) {
 		return this;

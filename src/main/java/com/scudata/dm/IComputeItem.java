@@ -1,45 +1,45 @@
 package com.scudata.dm;
 
-// ¼ÆËãÕë¶ÔµÄ¶ÔÏó£¬¿ÉÎªĞòÁĞ»ò¼ÇÂ¼
+// è®¡ç®—é’ˆå¯¹çš„å¯¹è±¡ï¼Œå¯ä¸ºåºåˆ—æˆ–è®°å½•
 /**
- * ³ÉÔ±º¯ÊıÓÃÓÚ°Ñ×ó²à¶ÔÏóÑ¹Õ»
- * A.f()ÔÚ¼ÆËãÇ°Ó¦¸ÃÓÉAÉú³ÉÒ»¸öIComputeItem£¬È»ºó°ÑIComputeItem¶ÔÏóÑ¹ÈëContext.ComputeStackÖĞ
+ * æˆå‘˜å‡½æ•°ç”¨äºæŠŠå·¦ä¾§å¯¹è±¡å‹æ ˆ
+ * A.f()åœ¨è®¡ç®—å‰åº”è¯¥ç”±Aç”Ÿæˆä¸€ä¸ªIComputeItemï¼Œç„¶åæŠŠIComputeItemå¯¹è±¡å‹å…¥Context.ComputeStackä¸­
  * @author WangXiaoJun
  *
  */
 public interface IComputeItem {
 	/**
-	 * È¡µ±Ç°Ñ­»·µÄÔªËØ
+	 * å–å½“å‰å¾ªç¯çš„å…ƒç´ 
 	 * @return Object
 	 */
 	Object getCurrent();
 	
 	/**
-	 * È¡µ±Ç°Ñ­»·ĞòºÅ
-	 * @return ĞòºÅ£¬ĞòÁĞµÄÔªËØ´Ó1¿ªÊ¼¼ÆÊı
+	 * å–å½“å‰å¾ªç¯åºå·
+	 * @return åºå·ï¼Œåºåˆ—çš„å…ƒç´ ä»1å¼€å§‹è®¡æ•°
 	 */
 	int getCurrentIndex();
 	
 	/**
-	 * È¡µ±Ç°µÄÑ­»·ĞòÁĞ
+	 * å–å½“å‰çš„å¾ªç¯åºåˆ—
 	 * @return
 	 */
 	Sequence getCurrentSequence();
 	
 	/**
-	 * ¼ÆËãÍê³É£¬°ÑÑ¹Õ»µÄ¶ÔÏó³öÕ»
+	 * è®¡ç®—å®Œæˆï¼ŒæŠŠå‹æ ˆçš„å¯¹è±¡å‡ºæ ˆ
 	 */
 	void popStack();
 	
 	/**
-	 * ÅĞ¶Ï¶ÔÏóÊÇ·ñ»¹ÔÚ¶ÑÕ»ÖĞ
-	 * @param stack ¶ÑÕ»
-	 * @return true£ºÔÚ¶ÑÕ»ÖĞ£¬false£º²»ÔÚ¶ÑÕ»ÖĞ
+	 * åˆ¤æ–­å¯¹è±¡æ˜¯å¦è¿˜åœ¨å †æ ˆä¸­
+	 * @param stack å †æ ˆ
+	 * @return trueï¼šåœ¨å †æ ˆä¸­ï¼Œfalseï¼šä¸åœ¨å †æ ˆä¸­
 	 */
 	boolean isInStack(ComputeStack stack);
 	
 	/**
-	 * È¡µ±Ç°¼ÇÂ¼µÄ×Ö¶ÎÖµ
+	 * å–å½“å‰è®°å½•çš„å­—æ®µå€¼
 	 * @param field
 	 * @return
 	 */

@@ -8,7 +8,7 @@ import java.awt.FontMetrics;
 import java.lang.Character;
 
 /**
- * ÎªÁË²»ÒıÓÃÉÏ²ãÀà£¬¸ÃÀàÈ«ÅÌ¸´ÖÆStringUtils2£¬¹©DrawBase»­Êı¾İ±íÊ¹ÓÃ
+ * ä¸ºäº†ä¸å¼•ç”¨ä¸Šå±‚ç±»ï¼Œè¯¥ç±»å…¨ç›˜å¤åˆ¶StringUtils2ï¼Œä¾›DrawBaseç”»æ•°æ®è¡¨ä½¿ç”¨
  * @author Joancy
  *
  */
@@ -17,9 +17,9 @@ public class DrawStringUtils2 {
 			'8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
 	/**
-	 * ÅĞ¶ÏsÊÇ·ñÎª¿Õ´®
-	 * @param s ×Ö·û´®
-	 * @return Èç¹ûÊÇ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­sæ˜¯å¦ä¸ºç©ºä¸²
+	 * @param s å­—ç¬¦ä¸²
+	 * @return å¦‚æœæ˜¯è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public final static boolean isSpaceString(String s) {
 		if (s == null) {
@@ -35,12 +35,12 @@ public class DrawStringUtils2 {
 	}
 
 	/**
-	 * ½«Ò»¸ö³¤ÕûÊıÖĞµÄÖ¸¶¨×Ö½ÚÊı×ª»¯³É16½øÖÆ´®
+	 * å°†ä¸€ä¸ªé•¿æ•´æ•°ä¸­çš„æŒ‡å®šå­—èŠ‚æ•°è½¬åŒ–æˆ16è¿›åˆ¶ä¸²
 	 * 
 	 * @param l
-	 *            ³¤ÕûÊı
+	 *            é•¿æ•´æ•°
 	 * @param byteNum
-	 *            ³¤ÕûÊıÖĞµÄµÍ×Ö½ÚÊı(¼´´ÓÓÒÍù×óµÄ×Ö½Ú¸öÊı)
+	 *            é•¿æ•´æ•°ä¸­çš„ä½å­—èŠ‚æ•°(å³ä»å³å¾€å·¦çš„å­—èŠ‚ä¸ªæ•°)
 	 */
 	public final static String toHexString(long l, int byteNum) {
 		StringBuffer sb = new StringBuffer(16);
@@ -49,14 +49,14 @@ public class DrawStringUtils2 {
 	}
 
 	/**
-	 * ½«Ò»¸ö³¤ÕûÊıÖĞµÄÖ¸¶¨×Ö½ÚÊı×ª»¯³É16½øÖÆ´®£¬²¢Ôö¼Óµ½×Ö·û´®»º³åÇøÖĞ
+	 * å°†ä¸€ä¸ªé•¿æ•´æ•°ä¸­çš„æŒ‡å®šå­—èŠ‚æ•°è½¬åŒ–æˆ16è¿›åˆ¶ä¸²ï¼Œå¹¶å¢åŠ åˆ°å­—ç¬¦ä¸²ç¼“å†²åŒºä¸­
 	 * 
 	 * @param sb
-	 *            ×Ö·û´®»º³åÇø
+	 *            å­—ç¬¦ä¸²ç¼“å†²åŒº
 	 * @param l
-	 *            ³¤ÕûÊı
+	 *            é•¿æ•´æ•°
 	 * @param byteNum
-	 *            ³¤ÕûÊıÖĞµÄµÍ×Ö½ÚÊı(¼´´ÓÓÒÍù×óµÄ×Ö½Ú¸öÊı)
+	 *            é•¿æ•´æ•°ä¸­çš„ä½å­—èŠ‚æ•°(å³ä»å³å¾€å·¦çš„å­—èŠ‚ä¸ªæ•°)
 	 */
 	public final static void appendHexString(StringBuffer sb, long l,
 			int byteNum) {
@@ -67,13 +67,13 @@ public class DrawStringUtils2 {
 	}
 
 	/**
-	 * ½«×Ö·û´®ÖĞunicode×Ö·û×ª»»Îª&#92;uxxxxĞÎÊ½£¬²¢¶Ô'\\','\t','\n','\r','\f'½øĞĞ
-	 * ´¦Àí£¬»¹¶ÔspecialCharsÖĞÈÎºÎ×Ö·û¼ÓÇ°µ¼\
+	 * å°†å­—ç¬¦ä¸²ä¸­unicodeå­—ç¬¦è½¬æ¢ä¸º&#92;uxxxxå½¢å¼ï¼Œå¹¶å¯¹'\\','\t','\n','\r','\f'è¿›è¡Œ
+	 * å¤„ç†ï¼Œè¿˜å¯¹specialCharsä¸­ä»»ä½•å­—ç¬¦åŠ å‰å¯¼\
 	 * 
-	 * @params s ĞèÒª´¦ÀíµÄ×Ö·û´®
-	 * @params sb ×·¼Ó´¦Àí½á¹ûµÄ»º³åÇø
-	 * @params specialChars ĞèÒª¼ÓÇ°µ¼\µÄÌØ±ğ×Ö·û´®
-	 * @return Èôsb!=nullÔò·µ»Øsb£¬·ñÔò·µ»Ø×·¼ÓÁË´¦Àí½á¹ûµÄĞÂStringBuffer
+	 * @params s éœ€è¦å¤„ç†çš„å­—ç¬¦ä¸²
+	 * @params sb è¿½åŠ å¤„ç†ç»“æœçš„ç¼“å†²åŒº
+	 * @params specialChars éœ€è¦åŠ å‰å¯¼\çš„ç‰¹åˆ«å­—ç¬¦ä¸²
+	 * @return è‹¥sb!=nullåˆ™è¿”å›sbï¼Œå¦åˆ™è¿”å›è¿½åŠ äº†å¤„ç†ç»“æœçš„æ–°StringBuffer
 	 */
 	public final static StringBuffer deunicode(String s, StringBuffer sb,
 			String specialChars) {
@@ -131,11 +131,11 @@ public class DrawStringUtils2 {
 	}
 
 	/**
-	 * ²»ÓÃ¿¼ÂÇ²å¿Õ¸ñ£¬½«¸ø¶¨ÎÄ±¾°´ÕÕ¿í¶Èw½Ø¶ÏÎª¶àĞĞÎÄ±¾
-	 * @param text ÎÄ±¾´®
-	 * @param fm ×ÖÌåĞÅÏ¢
-	 * @param w ¿í¶È
-	 * @return ½Ø¶ÏºóµÄ¶àĞĞÎÄ±¾
+	 * ä¸ç”¨è€ƒè™‘æ’ç©ºæ ¼ï¼Œå°†ç»™å®šæ–‡æœ¬æŒ‰ç…§å®½åº¦wæˆªæ–­ä¸ºå¤šè¡Œæ–‡æœ¬
+	 * @param text æ–‡æœ¬ä¸²
+	 * @param fm å­—ä½“ä¿¡æ¯
+	 * @param w å®½åº¦
+	 * @return æˆªæ–­åçš„å¤šè¡Œæ–‡æœ¬
 	 */
 	public static ArrayList<String> wrapString2(String text, FontMetrics fm, float w) {
 		ArrayList<String> al = wrapString(text, fm, w, false);
@@ -146,13 +146,13 @@ public class DrawStringUtils2 {
 	}
 
 	/**
-	 * ¸ù¾İÖ¸¶¨²ÎÊı½«ÎÄ±¾½Ø¶ÏÎª¶àĞĞÎÄ±¾
-	 * @param text ÎÄ±¾
-	 * @param fm ×ÖÌå
-	 * @param w ¿í¶È
-	 * @param wrapChar ÄÜ·ñ½Ø¶Ïµ¥´Ê
-	 * @param align ¶ÔÆë·½Ê½
-	 * @return ½Ø¶ÏºóµÄ¶àĞĞÎÄ±¾
+	 * æ ¹æ®æŒ‡å®šå‚æ•°å°†æ–‡æœ¬æˆªæ–­ä¸ºå¤šè¡Œæ–‡æœ¬
+	 * @param text æ–‡æœ¬
+	 * @param fm å­—ä½“
+	 * @param w å®½åº¦
+	 * @param wrapChar èƒ½å¦æˆªæ–­å•è¯
+	 * @param align å¯¹é½æ–¹å¼
+	 * @return æˆªæ–­åçš„å¤šè¡Œæ–‡æœ¬
 	 */
 	public static ArrayList<String> wrapString(String text, FontMetrics fm, float w,
 			boolean wrapChar, byte align) {
@@ -176,10 +176,10 @@ public class DrawStringUtils2 {
 
 
 	/**
-	 * ½«¶àĞĞ·ÖÎÄ°´ÕÕ¿í¶È·ÖÉ¢¶ÔÆë
-	 * @param al ¶àĞĞÎÄ±¾
-	 * @param fm ×ÖÌåĞÅÏ¢
-	 * @param w ¿í¶È
+	 * å°†å¤šè¡Œåˆ†æ–‡æŒ‰ç…§å®½åº¦åˆ†æ•£å¯¹é½
+	 * @param al å¤šè¡Œæ–‡æœ¬
+	 * @param fm å­—ä½“ä¿¡æ¯
+	 * @param w å®½åº¦
 	 */
 	public static void scatter(ArrayList al, FontMetrics fm, float w) {
 		String line = rightTrim(String.valueOf((String) al.get(al.size() - 1)));
@@ -188,23 +188,23 @@ public class DrawStringUtils2 {
 	}
 	
 	/**
-	 * ½«Ò»ĞĞÎÄ±¾·ÖÉ¢¶ÔÆë
-	 * @param src Ô´ÎÄ±¾´®
-	 * @param fm ×ÖÌåĞÅÏ¢
-	 * @param w ¿í¶È
-	 * @return ÓÃ¿Õ¸ñ·ÖÉ¢¶ÔÆëÁ½¶ËºóµÄ×Ö·û´®
+	 * å°†ä¸€è¡Œæ–‡æœ¬åˆ†æ•£å¯¹é½
+	 * @param src æºæ–‡æœ¬ä¸²
+	 * @param fm å­—ä½“ä¿¡æ¯
+	 * @param w å®½åº¦
+	 * @return ç”¨ç©ºæ ¼åˆ†æ•£å¯¹é½ä¸¤ç«¯åçš„å­—ç¬¦ä¸²
 	 */
 	public static String scatterLine(String src, FontMetrics fm, float w) {
 		String line = src;
 		if (fm.stringWidth(line) >= w) return src;
-			String leftSpace = ""; // ¼ÇÂ¼¿ªÍ·µÄ¿Õ¸ñ¸öÊı
+			String leftSpace = ""; // è®°å½•å¼€å¤´çš„ç©ºæ ¼ä¸ªæ•°
 			while (line.indexOf(" ") == 0) {
 				line = line.substring(1, line.length());
 				leftSpace += " ";
 			}
 
-			int numLongspace = 0; // ×Ö·û´®·Ö¼¸¶Î
-			int widthChars = 0; // ×Ö·ûµÄ×Ü¿í¶È
+			int numLongspace = 0; // å­—ç¬¦ä¸²åˆ†å‡ æ®µ
+			int widthChars = 0; // å­—ç¬¦çš„æ€»å®½åº¦
 			StringBuffer sb = new StringBuffer();
 			StringBuffer sbchars = new StringBuffer();
 			char[] cline = line.toCharArray();
@@ -257,18 +257,18 @@ public class DrawStringUtils2 {
 	}
 
 /**
- * ÍùÔ´´®ÖĞÌî³ä¿Õ¸ñ
- * @param src Ô´×Ö·û´®
- * @param fm ×ÖÌåĞÅÏ¢
- * @param w ¿í¶È
- * @return ´¦ÀíºóµÄ×Ö·û´®
+ * å¾€æºä¸²ä¸­å¡«å……ç©ºæ ¼
+ * @param src æºå­—ç¬¦ä¸²
+ * @param fm å­—ä½“ä¿¡æ¯
+ * @param w å®½åº¦
+ * @return å¤„ç†åçš„å­—ç¬¦ä¸²
  */
 	public static String fitSpaces(String src, FontMetrics fm, float w) {
 		String line = rightTrim(src);
 		if (fm.stringWidth(line) >= w)
 			return src;
 		String myLine = String.valueOf(line);
-		int scount = 0; // ĞèÒª²åÈëµÄ¿Õ¸ñÊı
+		int scount = 0; // éœ€è¦æ’å…¥çš„ç©ºæ ¼æ•°
 		while (true) {
 			myLine += " ";
 			if (fm.stringWidth(myLine) > w) {
@@ -285,8 +285,8 @@ public class DrawStringUtils2 {
 			sb.append(cline[c]);
 		}
 		int index = 0;
-		boolean flag = false; // ·Ç¿Õ¸ñ¿ªÊ¼µÄ±êÖ¾
-		boolean haspace = false; // ÕûĞĞÖĞÊÇ·ñ´æÔÚ¿Õ¸ñ
+		boolean flag = false; // éç©ºæ ¼å¼€å§‹çš„æ ‡å¿—
+		boolean haspace = false; // æ•´è¡Œä¸­æ˜¯å¦å­˜åœ¨ç©ºæ ¼
 		while (true) {
 			char c = sb.charAt(index);
 			if (!Character.isSpaceChar(c)) {
@@ -294,39 +294,39 @@ public class DrawStringUtils2 {
 			}
 			if (flag && index < sb.length() - 1) {
 				char c1 = sb.charAt(index + 1);
-				// ¿Õ¸ñºÍ·Ç¿Õ¸ñ´¦Ìí¼Ó¿Õ¸ñ
+				// ç©ºæ ¼å’Œéç©ºæ ¼å¤„æ·»åŠ ç©ºæ ¼
 				if (Character.isSpaceChar(c) && !Character.isSpaceChar(c1)) {
 					haspace = true;
 					sb.insert(index, ' ');
-					index++; // ÌîÈë¿Õ¸ñ±àºÅÇ°½øÒ»¸ö
+					index++; // å¡«å…¥ç©ºæ ¼ç¼–å·å‰è¿›ä¸€ä¸ª
 					scount--;
 					if (scount == 0) {
-						break; // ¿Õ¸ñÌîÍêÁËÍË³ö
+						break; // ç©ºæ ¼å¡«å®Œäº†é€€å‡º
 					}
 				}
 			}
 			index++;
 			if (index > sb.length() - 1) {
 				if (!flag) {
-					break; // ×Ö·û´®ÖĞ²»´æÔÚ·Ç¿Õ¸ñÍË³ö
+					break; // å­—ç¬¦ä¸²ä¸­ä¸å­˜åœ¨éç©ºæ ¼é€€å‡º
 				}
 				if (!haspace) {
-					break; // ×Ö·û´®ÖĞ¼äÖĞ²»´æÔÚ¿Õ¸ñÍË³ö
+					break; // å­—ç¬¦ä¸²ä¸­é—´ä¸­ä¸å­˜åœ¨ç©ºæ ¼é€€å‡º
 				}
-				index = 0; // ×Ö·ûµ½½áÎ²ºó¹éÁãÖØĞÂ¼ÆÊı
+				index = 0; // å­—ç¬¦åˆ°ç»“å°¾åå½’é›¶é‡æ–°è®¡æ•°
 			}
 		}
 		return sb.toString();
 	}
 
 	/**
-	 * »ñµÃ×Ô¶¯»»ĞĞºóËùĞÎ³ÉµÄÎÄ±¾ĞĞ¼¯ºÏ 
+	 * è·å¾—è‡ªåŠ¨æ¢è¡Œåæ‰€å½¢æˆçš„æ–‡æœ¬è¡Œé›†åˆ 
 	 */
 	public static ArrayList wrapString(String text, FontMetrics fm, float w) {
 		return wrapString(text, fm, w, false);
 	}
 
-	/** »ñµÃ×Ô¶¯»»ĞĞºóËùĞÎ³ÉµÄÎÄ±¾ĞĞ¼¯ºÏ */
+	/** è·å¾—è‡ªåŠ¨æ¢è¡Œåæ‰€å½¢æˆçš„æ–‡æœ¬è¡Œé›†åˆ */
 	public static ArrayList<String> wrapString(String text, FontMetrics fm, float w,
 			boolean wrapChar) {
 		ArrayList<String> al = new ArrayList<String>();
@@ -334,7 +334,7 @@ public class DrawStringUtils2 {
 		text = replace(text, "\\r", "\r");
 		text = replace(text, "\r\n", "\n");
 		text = replace(text, "\r", "\n");
-		// ÔÚÕâÀïÊ¹ÓÃArgumenttokenizerÖĞĞÂµÄ¹¹½¨·½·¨
+		// åœ¨è¿™é‡Œä½¿ç”¨Argumenttokenizerä¸­æ–°çš„æ„å»ºæ–¹æ³•
 		ArgumentTokenizer at = new ArgumentTokenizer(text, '\n', true, true,
 				true, true);
 		while (at.hasNext()) {
@@ -359,20 +359,20 @@ public class DrawStringUtils2 {
 	}
 
 	private static int cutLine(String s, char c, boolean wrapChar) {
-		// Èç¹ûµ±Ç°ÕÛĞĞ³¤¶ÈlenÒÑÖª£¬ÄÇ¾Í²»È¥¼ÆËã£¬·ñÔò¼ÆËãµ±Ç°ÕÛĞĞÊ±Ê×ĞĞ×Ö·ûÊı
+		// å¦‚æœå½“å‰æŠ˜è¡Œé•¿åº¦lenå·²çŸ¥ï¼Œé‚£å°±ä¸å»è®¡ç®—ï¼Œå¦åˆ™è®¡ç®—å½“å‰æŠ˜è¡Œæ—¶é¦–è¡Œå­—ç¬¦æ•°
 		int len = s.length() - 1;
 		if (wrapChar) {
 			return len;
 		}
 
-		// Èç¹ûÎ²×Ö·ûcÒÑÖª£¬ÄÇ¾Í²»ÓÃÈ¥¼ÆËã£¬·ñÔò¼ÆËãÎ²×Ö·û
+		// å¦‚æœå°¾å­—ç¬¦cå·²çŸ¥ï¼Œé‚£å°±ä¸ç”¨å»è®¡ç®—ï¼Œå¦åˆ™è®¡ç®—å°¾å­—ç¬¦
 		if (c == 0) {
 			c = s.charAt(len);
 		}
 		boolean canBeHead = canBeHead(c);
 		boolean isEnglishChar = isEnglishChar(c);
 		if (!canBeHead && isEnglishChar) {
-			// ÓÉÓÚÁ¬ĞøµÄÓ¢ÎÄ×Ö·ûĞèÒªÊÓÎªÒ»¸öµ¥´Ê¹²Í¬»»ĞĞ£¬ËùÒÔĞèÒªÅĞ¶ÏÊÇ·ñ±¾ĞĞÈ«²¿ÎªÁ¬ĞøÓ¢ÎÄ×Ö·û
+			// ç”±äºè¿ç»­çš„è‹±æ–‡å­—ç¬¦éœ€è¦è§†ä¸ºä¸€ä¸ªå•è¯å…±åŒæ¢è¡Œï¼Œæ‰€ä»¥éœ€è¦åˆ¤æ–­æ˜¯å¦æœ¬è¡Œå…¨éƒ¨ä¸ºè¿ç»­è‹±æ–‡å­—ç¬¦
 			int seek = len - 1;
 			int loc = 0;
 			boolean hasHead = canBeHead(c);
@@ -383,14 +383,14 @@ public class DrawStringUtils2 {
 					letterbreak = true;
 					if (!hasHead) {
 						if (canBeHead(seekChar)) {
-							// Èç¹û±¾ĞĞÖĞ³öÏÖ·Ç±ÜÊ××Ö·û£¨ÅÅ³ıÊ××Ö£©£¬ÄÇÃ´Éè¶¨ÓĞÊ××ÖÎªtrue
+							// å¦‚æœæœ¬è¡Œä¸­å‡ºç°éé¿é¦–å­—ç¬¦ï¼ˆæ’é™¤é¦–å­—ï¼‰ï¼Œé‚£ä¹ˆè®¾å®šæœ‰é¦–å­—ä¸ºtrue
 							hasHead = true;
 						}
 						seek--;
 					} else {
-						// Èç¹û±¾ĞĞÖĞ³öÏÖ·ÇÓ¢ÎÄ×Ö·û£¬ÄÇÃ´ÅĞ¶Ï¸Ã×Ö·ûÊÇ·ñÊÇ±ÜÎ²×Ö·û
+						// å¦‚æœæœ¬è¡Œä¸­å‡ºç°éè‹±æ–‡å­—ç¬¦ï¼Œé‚£ä¹ˆåˆ¤æ–­è¯¥å­—ç¬¦æ˜¯å¦æ˜¯é¿å°¾å­—ç¬¦
 						if (canBeFoot(seekChar)) {
-							// Èç¹ûÊÇ·Ç±ÜÎ²×Ö·û£¬ÄÇÃ´´ÓÕâ¸ö×Ö·ûºóÕÛĞĞ¼´¿É
+							// å¦‚æœæ˜¯éé¿å°¾å­—ç¬¦ï¼Œé‚£ä¹ˆä»è¿™ä¸ªå­—ç¬¦åæŠ˜è¡Œå³å¯
 							loc = seek + 1;
 						} else {
 							if (canBeHead(seekChar)) {
@@ -402,7 +402,7 @@ public class DrawStringUtils2 {
 						}
 					}
 				} else if (letterbreak) {
-					// Èç¹û³öÏÖ±ÜÎ²×Ö·ûÖ®ºó£¬ÓÖÕÒµ½Ó¢ÎÄ×Ö·û£¬ÄÇÃ´´Ó¸ÃÓ¢ÎÄ×Ö·ûºó¶Ï¿ª¾ÍºÃ
+					// å¦‚æœå‡ºç°é¿å°¾å­—ç¬¦ä¹‹åï¼Œåˆæ‰¾åˆ°è‹±æ–‡å­—ç¬¦ï¼Œé‚£ä¹ˆä»è¯¥è‹±æ–‡å­—ç¬¦åæ–­å¼€å°±å¥½
 					loc = seek + 1;
 				} else {
 					if (canBeHead(seekChar)) {
@@ -414,62 +414,62 @@ public class DrawStringUtils2 {
 				}
 			}
 			if (loc > 0) {
-				// Èç¹û±¾ĞĞÖĞÓĞ·ÇÓ¢ÎÄ×Ö·û
+				// å¦‚æœæœ¬è¡Œä¸­æœ‰éè‹±æ–‡å­—ç¬¦
 				return loc;
 			} else {
-				// Èç¹û±¾ĞĞÖĞÈ«¶¼ÊÇÓ¢ÎÄ×Ö·û»òÕßÊÇÁ¬ĞøµÄ±ÜÎ²×Ö·û£¬ÄÇÃ´Õı³£ÇĞ·Ö
+				// å¦‚æœæœ¬è¡Œä¸­å…¨éƒ½æ˜¯è‹±æ–‡å­—ç¬¦æˆ–è€…æ˜¯è¿ç»­çš„é¿å°¾å­—ç¬¦ï¼Œé‚£ä¹ˆæ­£å¸¸åˆ‡åˆ†
 				return len;
 			}
 		} else if (!canBeHead) {
-			// cÊÇ±ÜÊ××Ö·û
+			// cæ˜¯é¿é¦–å­—ç¬¦
 			int seek = len - 1;
 			int loc = 0;
 			boolean hasHead = false;
-			// ÕÒµ½µÚÒ»¸ö·Ç±ÜÊ××Ö·û
+			// æ‰¾åˆ°ç¬¬ä¸€ä¸ªéé¿é¦–å­—ç¬¦
 			while (seek >= 0 && loc == 0) {
 				char seekChar = s.charAt(seek);
 				if (!hasHead) {
 					if (canBeHead(seekChar)) {
-						// Èç¹û±¾ĞĞÖĞ³öÏÖ·Ç±ÜÊ××Ö·û£¨ÅÅ³ıÊ××Ö£©£¬ÄÇÃ´Éè¶¨ÓĞÊ××ÖÎªtrue
+						// å¦‚æœæœ¬è¡Œä¸­å‡ºç°éé¿é¦–å­—ç¬¦ï¼ˆæ’é™¤é¦–å­—ï¼‰ï¼Œé‚£ä¹ˆè®¾å®šæœ‰é¦–å­—ä¸ºtrue
 						hasHead = true;
 					}
 					seek--;
 				} else {
 					if (isEnglishChar(seekChar)) {
-						// ¶ÔÓÚÓ¢Êı×Ö·û£¬ÏòÇ°²éÑ¯µ½µÚÒ»¸ö·ÇÁ¬ĞøÓ¢Êı×Ö·ûÎªÖ¹
+						// å¯¹äºè‹±æ•°å­—ç¬¦ï¼Œå‘å‰æŸ¥è¯¢åˆ°ç¬¬ä¸€ä¸ªéè¿ç»­è‹±æ•°å­—ç¬¦ä¸ºæ­¢
 						int eseek = seek;
 						boolean eng = true;
 						while (eng && seek > 0) {
 							seek--;
 							eng = isEnglishChar(s.charAt(seek));
 						}
-						// added by bdl, 2011.8.12, Èç¹û´Óµ±Ç°×Ö·ûÖ±µ½µÚÒ»¸ö¶¼ÊÇÁ¬ĞøµÄÓ¢ÎÄ×Ö·û£¬
-						// ÄÇÃ´´Ó×îºóÒ»¸öÓ¢Êı×Ö·ûÇ°¶ÏĞĞ
+						// added by bdl, 2011.8.12, å¦‚æœä»å½“å‰å­—ç¬¦ç›´åˆ°ç¬¬ä¸€ä¸ªéƒ½æ˜¯è¿ç»­çš„è‹±æ–‡å­—ç¬¦ï¼Œ
+						// é‚£ä¹ˆä»æœ€åä¸€ä¸ªè‹±æ•°å­—ç¬¦å‰æ–­è¡Œ
 						if (seek == 0) {
 							loc = eseek + 1;
 						}
 					}
-					// Èç¹ûÒÑ¾­ÓĞÊ××Ö£¬ÄÇÃ´ÅĞ¶ÏÊÇ·ñÒª±ÜÎ²
+					// å¦‚æœå·²ç»æœ‰é¦–å­—ï¼Œé‚£ä¹ˆåˆ¤æ–­æ˜¯å¦è¦é¿å°¾
 					else if (canBeFoot(seekChar)) {
-						// Èç¹û²»±ÜÎ²£¬ÄÇÃ´ÔÚ¸Ã×Ö·ûºó¶ÏĞĞ¼´¿É
+						// å¦‚æœä¸é¿å°¾ï¼Œé‚£ä¹ˆåœ¨è¯¥å­—ç¬¦åæ–­è¡Œå³å¯
 						loc = seek + 1;
 					} else {
-						// ĞèÒª±ÜÎ²
+						// éœ€è¦é¿å°¾
 						seek--;
 					}
 				}
 			}
 			if (loc > 0) {
-				// Èç¹û±¾ĞĞÖĞ¿ÉÕı³£¶ÏĞĞ
+				// å¦‚æœæœ¬è¡Œä¸­å¯æ­£å¸¸æ–­è¡Œ
 				return loc;
 			} else {
-				// Èç¹û±¾ĞĞÖĞÈ«¶¼ÊÇ±ÜÊ×»òÕßÊÇÁ¬ĞøµÄ±ÜÎ²×Ö·û£¬ÄÇÃ´Õı³£ÇĞ·Ö
+				// å¦‚æœæœ¬è¡Œä¸­å…¨éƒ½æ˜¯é¿é¦–æˆ–è€…æ˜¯è¿ç»­çš„é¿å°¾å­—ç¬¦ï¼Œé‚£ä¹ˆæ­£å¸¸åˆ‡åˆ†
 				return len;
 			}
 		}
-		// È»ºóÔÙÅĞ¶ÏcÊÇ·ñÊÇÓ¢ÎÄ×Ö·û
+		// ç„¶åå†åˆ¤æ–­cæ˜¯å¦æ˜¯è‹±æ–‡å­—ç¬¦
 		else if (isEnglishChar) {
-			// ÓÉÓÚÁ¬ĞøµÄÓ¢ÎÄ×Ö·ûĞèÒªÊÓÎªÒ»¸öµ¥´Ê¹²Í¬»»ĞĞ£¬ËùÒÔĞèÒªÅĞ¶ÏÊÇ·ñ±¾ĞĞÈ«²¿ÎªÁ¬ĞøÓ¢ÎÄ×Ö·û
+			// ç”±äºè¿ç»­çš„è‹±æ–‡å­—ç¬¦éœ€è¦è§†ä¸ºä¸€ä¸ªå•è¯å…±åŒæ¢è¡Œï¼Œæ‰€ä»¥éœ€è¦åˆ¤æ–­æ˜¯å¦æœ¬è¡Œå…¨éƒ¨ä¸ºè¿ç»­è‹±æ–‡å­—ç¬¦
 			int seek = len - 1;
 			int loc = 0;
 			boolean hasHead = canBeHead(c);
@@ -477,7 +477,7 @@ public class DrawStringUtils2 {
 			while (seek >= 0 && loc == 0) {
 				char seekChar = s.charAt(seek);
 				if (!isEnglishChar(seekChar)) {
-					// edited by bdl, 20111.5.17, ÕÛĞĞÊ±Ê×ÏÈÅĞ¶Ïµ±Ç°Ê××Ö·ûÊÇ·ñ±ÜÊ×
+					// edited by bdl, 20111.5.17, æŠ˜è¡Œæ—¶é¦–å…ˆåˆ¤æ–­å½“å‰é¦–å­—ç¬¦æ˜¯å¦é¿é¦–
 					letterbreak = true;
 					if (!hasHead) {
 						if (canBeHead(seekChar)) {
@@ -485,9 +485,9 @@ public class DrawStringUtils2 {
 						}
 						seek--;
 					}
-					// Èç¹û±¾ĞĞÖĞ³öÏÖ·ÇÓ¢ÎÄ×Ö·û£¬ÄÇÃ´ÅĞ¶Ï¸Ã×Ö·ûÊÇ·ñÊÇ±ÜÎ²×Ö·û
+					// å¦‚æœæœ¬è¡Œä¸­å‡ºç°éè‹±æ–‡å­—ç¬¦ï¼Œé‚£ä¹ˆåˆ¤æ–­è¯¥å­—ç¬¦æ˜¯å¦æ˜¯é¿å°¾å­—ç¬¦
 					else if (canBeFoot(seekChar)) {
-						// Èç¹ûÊÇ·Ç±ÜÎ²×Ö·û£¬ÄÇÃ´´ÓÕâ¸ö×Ö·ûºóÕÛĞĞ¼´¿É
+						// å¦‚æœæ˜¯éé¿å°¾å­—ç¬¦ï¼Œé‚£ä¹ˆä»è¿™ä¸ªå­—ç¬¦åæŠ˜è¡Œå³å¯
 						loc = seek + 1;
 					} else {
 						if (canBeHead(seekChar)) {
@@ -498,7 +498,7 @@ public class DrawStringUtils2 {
 						seek--;
 					}
 				} else if (letterbreak) {
-					// Èç¹û³öÏÖ±ÜÎ²×Ö·ûÖ®ºó£¬ÓÖÕÒµ½Ó¢ÎÄ×Ö·û£¬ÄÇÃ´´Ó¸ÃÓ¢ÎÄ×Ö·ûºó¶Ï¿ª¾ÍºÃ
+					// å¦‚æœå‡ºç°é¿å°¾å­—ç¬¦ä¹‹åï¼Œåˆæ‰¾åˆ°è‹±æ–‡å­—ç¬¦ï¼Œé‚£ä¹ˆä»è¯¥è‹±æ–‡å­—ç¬¦åæ–­å¼€å°±å¥½
 					loc = seek + 1;
 				} else {
 					if (canBeHead(seekChar)) {
@@ -510,19 +510,19 @@ public class DrawStringUtils2 {
 				}
 			}
 			if (loc > 0) {
-				// Èç¹û±¾ĞĞÖĞÓĞ·ÇÓ¢ÎÄ×Ö·û
+				// å¦‚æœæœ¬è¡Œä¸­æœ‰éè‹±æ–‡å­—ç¬¦
 				return loc;
 			} else {
-				// Èç¹û±¾ĞĞÖĞÈ«¶¼ÊÇÓ¢ÎÄ×Ö·û»òÕßÊÇÁ¬ĞøµÄ±ÜÎ²×Ö·û£¬ÄÇÃ´Õı³£ÇĞ·Ö
+				// å¦‚æœæœ¬è¡Œä¸­å…¨éƒ½æ˜¯è‹±æ–‡å­—ç¬¦æˆ–è€…æ˜¯è¿ç»­çš„é¿å°¾å­—ç¬¦ï¼Œé‚£ä¹ˆæ­£å¸¸åˆ‡åˆ†
 				return len;
 			}
 		}
 		return seekCanBeFoot(s.substring(0, len), len);
 	}
 
-	//½«×Ö·û´®s´Ó×îºóÃæÒ»¸ö¿ÉÖÃÓÚ±¾ĞĞĞĞÄ©µÄ×Ö·ûµÄºóÃæ¶Ï¿ª£¬·µ»Ø¶Ï¿ªºó±¾ĞĞ×Ö·ûÊı
+	//å°†å­—ç¬¦ä¸²sä»æœ€åé¢ä¸€ä¸ªå¯ç½®äºæœ¬è¡Œè¡Œæœ«çš„å­—ç¬¦çš„åé¢æ–­å¼€ï¼Œè¿”å›æ–­å¼€åæœ¬è¡Œå­—ç¬¦æ•°
 	private static int seekCanBeFoot(String s, int len) {
-		// Èç¹ûµ±Ç°ÕÛĞĞ³¤¶ÈlenÒÑÖª£¬ÄÇ¾Í²»È¥¼ÆËã£¬·ñÔò¼ÆËãµ±Ç°ÕÛĞĞÊ±Ê×ĞĞ×Ö·ûÊı
+		// å¦‚æœå½“å‰æŠ˜è¡Œé•¿åº¦lenå·²çŸ¥ï¼Œé‚£å°±ä¸å»è®¡ç®—ï¼Œå¦åˆ™è®¡ç®—å½“å‰æŠ˜è¡Œæ—¶é¦–è¡Œå­—ç¬¦æ•°
 		if (len == -1) {
 			len = s.length();
 		}
@@ -543,36 +543,36 @@ public class DrawStringUtils2 {
 		if (loc > 0) {
 			return loc;
 		}
-		// Èç¹ûsÖĞËùÓĞ×Ö·û¶¼ÊÇ±ÜÎ²×Ö·û£¬ÄÇÃ´ÕûĞĞ±£Áô
+		// å¦‚æœsä¸­æ‰€æœ‰å­—ç¬¦éƒ½æ˜¯é¿å°¾å­—ç¬¦ï¼Œé‚£ä¹ˆæ•´è¡Œä¿ç•™
 		return len;
 	}
 
-	//ÅĞ¶ÏÄ³×Ö·ûÍ¨³£Çé¿öÏÂÊÇ·ñÄÜ×÷ÎªĞĞÎ²
+	//åˆ¤æ–­æŸå­—ç¬¦é€šå¸¸æƒ…å†µä¸‹æ˜¯å¦èƒ½ä½œä¸ºè¡Œå°¾
 	private static boolean canBeFoot(char c) {
-		// ¶ÏĞĞµÄÊ±ºò£¬Ó¦¸Ã¿¼ÂÇµÄ±ÜÎ²×Ö·û
-		String cannotFoot = "([{¡¤¡®¡°¡´¡¶¡¸¡º¡¾¡²¡¼£¨£®£Û£û¡ê£¤";
+		// æ–­è¡Œçš„æ—¶å€™ï¼Œåº”è¯¥è€ƒè™‘çš„é¿å°¾å­—ç¬¦
+		String cannotFoot = "([{Â·â€˜â€œã€ˆã€Šã€Œã€ã€ã€”ã€–ï¼ˆï¼ï¼»ï½›ï¿¡ï¿¥";
 		return cannotFoot.indexOf(c) < 0;
 	}
 
-	//ÅĞ¶ÏÄ³×Ö·ûÍ¨³£Çé¿öÏÂÊÇ·ñÄÜ×÷ÎªĞĞÊ×
+	//åˆ¤æ–­æŸå­—ç¬¦é€šå¸¸æƒ…å†µä¸‹æ˜¯å¦èƒ½ä½œä¸ºè¡Œé¦–
 	private static boolean canBeHead(char c) {
-		// ¶ÏĞĞµÄÊ±ºò£¬Ó¦¸Ã¿¼ÂÇµÄ±ÜÊ××Ö·û, edited by bdl, 2011.5.17£¬Ìí¼Ó°Ù·ÖºÅ±ÜÊ×
-		String cannotHead = "%£¥!),.:;?]}¡§¡¤¡¦¡¥¨D¡¬¡¯¡±¡­¡Ã¡¢¡£¡¨¡©¡µ¡·¡¹¡»¡¿¡³¡½£¡£¢£§£©£¬£®£º£»£¿£İ£à£ü£ı¡«¡é";
+		// æ–­è¡Œçš„æ—¶å€™ï¼Œåº”è¯¥è€ƒè™‘çš„é¿é¦–å­—ç¬¦, edited by bdl, 2011.5.17ï¼Œæ·»åŠ ç™¾åˆ†å·é¿é¦–
+		String cannotHead = "%ï¼…!),.:;?]}Â¨Â·Ë‡Ë‰â€•â€–â€™â€â€¦âˆ¶ã€ã€‚ã€ƒã€…ã€‰ã€‹ã€ã€ã€‘ã€•ã€—ï¼ï¼‚ï¼‡ï¼‰ï¼Œï¼ï¼šï¼›ï¼Ÿï¼½ï½€ï½œï½ï½ï¿ ";
 		return cannotHead.indexOf(c) < 0;
 	}
 
 	private static boolean isEnglishChar(char c) {
-		//ÔÚ×ÖÄ¸Êı×ÖÅĞ¶¨ÖĞ£¬Ìí¼ÓĞ¡Êıµã
+		//åœ¨å­—æ¯æ•°å­—åˆ¤å®šä¸­ï¼Œæ·»åŠ å°æ•°ç‚¹
 		return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-				|| (c >= '0' && c <= '9') || c == '.' || c == '£®' || c == '%' || c == '£¥');
+				|| (c >= '0' && c <= '9') || c == '.' || c == 'ï¼' || c == '%' || c == 'ï¼…');
 	}
 
 	/**
-	 * ½«&#92;uxxxx×ª»»Îªunicode×Ö·û£¬²¢¶Ô'\\','\t','\n','\r','\f'½øĞĞ´¦Àí
+	 * å°†&#92;uxxxxè½¬æ¢ä¸ºunicodeå­—ç¬¦ï¼Œå¹¶å¯¹'\\','\t','\n','\r','\f'è¿›è¡Œå¤„ç†
 	 * 
-	 * @params s ĞèÒª´¦ÀíµÄ×Ö·û´®
-	 * @params sb ×·¼Ó´¦Àí½á¹ûµÄ»º³åÇø
-	 * @return Èôsb!=nullÔò·µ»Øsb£¬·ñÔò·µ»Ø×·¼ÓÁË´¦Àí½á¹ûµÄĞÂStringBuffer
+	 * @params s éœ€è¦å¤„ç†çš„å­—ç¬¦ä¸²
+	 * @params sb è¿½åŠ å¤„ç†ç»“æœçš„ç¼“å†²åŒº
+	 * @return è‹¥sb!=nullåˆ™è¿”å›sbï¼Œå¦åˆ™è¿”å›è¿½åŠ äº†å¤„ç†ç»“æœçš„æ–°StringBuffer
 	 */
 	public final static StringBuffer unicode(String s, StringBuffer sb) {
 		int len = s.length();
@@ -623,7 +623,7 @@ public class DrawStringUtils2 {
 						value = (value << 4) + 10 + ch - 'A';
 						break;
 					default:
-						throw new IllegalArgumentException("²»ºÏ·¨µÄ\\uxxxx±àÂë");
+						throw new IllegalArgumentException("ä¸åˆæ³•çš„\\uxxxxç¼–ç ");
 					} // switch(ch)
 				} // for(int j)
 				sb.append((char) value);
@@ -649,18 +649,18 @@ public class DrawStringUtils2 {
 	}
 
 	/**
-	 * ½«×Ö·û´®×ª»»Îªunicode´®
-	 * @param s Ô´´®
-	 * @return unicode´®
+	 * å°†å­—ç¬¦ä¸²è½¬æ¢ä¸ºunicodeä¸²
+	 * @param s æºä¸²
+	 * @return unicodeä¸²
 	 */
 	public final static String unicode(String s) {
 		return unicode(s, null).toString();
 	}
 
 	/**
-	 * ½«×Ö·û´®×ª»»Îªunicode´®
-	 * @param theString Ô´´®
-	 * @return unicode´®
+	 * å°†å­—ç¬¦ä¸²è½¬æ¢ä¸ºunicodeä¸²
+	 * @param theString æºä¸²
+	 * @return unicodeä¸²
 	 */
 	public final static String unicode2String(String theString) {
 		char aChar;
@@ -718,13 +718,13 @@ public class DrawStringUtils2 {
 		return outBuffer.toString();
 	}
 
-	final static char[] c1Digit = { 'Áã', 'Ò¼', '·¡', 'Èş', 'ËÁ', 'Îé', 'Â½', 'Æâ',
-			'°Æ', '¾Á' };
-	final static char[] c2Digit = { 'Áã', 'Ò»', '¶ş', 'Èı', 'ËÄ', 'Îå', 'Áù', 'Æß',
-			'°Ë', '¾Å' };
-	final static char[] c1Unit = { 'Ê°', '°Û', 'Çª' };
-	final static char[] c2Unit = { 'Ê®', '°Ù', 'Ç§' };
-	final static String[] chinaUnit = { "Íò", "ÒÚ", "ÒÚÍò" };
+	final static char[] c1Digit = { 'é›¶', 'å£¹', 'è´°', 'å', 'è‚†', 'ä¼', 'é™†', 'æŸ’',
+			'æŒ', 'ç–' };
+	final static char[] c2Digit = { 'é›¶', 'ä¸€', 'äºŒ', 'ä¸‰', 'å››', 'äº”', 'å…­', 'ä¸ƒ',
+			'å…«', 'ä¹' };
+	final static char[] c1Unit = { 'æ‹¾', 'ä½°', 'ä»Ÿ' };
+	final static char[] c2Unit = { 'å', 'ç™¾', 'åƒ' };
+	final static String[] chinaUnit = { "ä¸‡", "äº¿", "äº¿ä¸‡" };
 
 	private final static StringBuffer toRMB2(long l, char[] cDigit, char[] cUnit) {
 		long ml = l;
@@ -734,7 +734,7 @@ public class DrawStringUtils2 {
 		while (l > 0) {
 			if (bit == 4) {
 				if (unit > 2) {
-					throw new IllegalArgumentException("´óĞ´²»Ö§³Ö´óÓÚÒ»ÍòÍòÒÚµÄÊı");
+					throw new IllegalArgumentException("å¤§å†™ä¸æ”¯æŒå¤§äºä¸€ä¸‡ä¸‡äº¿çš„æ•°");
 				}
 
 				if (sf) {
@@ -764,13 +764,13 @@ public class DrawStringUtils2 {
 				if (bit != 0) {
 					sb.append(cUnit[bit - 1]);
 				}
-				//Ğ¡ÓÚ100²¢ÇÒcUnitÎªÊ®cDigitÎªÒ»Ê±£¬Ò»²»¼ÓÈë
+				//å°äº100å¹¶ä¸”cUnitä¸ºåcDigitä¸ºä¸€æ—¶ï¼Œä¸€ä¸åŠ å…¥
 				if (bit == 1 && d == 1 && ml < 100) {
 				} else {
 					sb.append(cDigit[d]);
 				}
 			} else {
-				if (sf) { // Êı¾İÎ²²¿µÄ0ºöÂÔ
+				if (sf) { // æ•°æ®å°¾éƒ¨çš„0å¿½ç•¥
 					hasZero = true;
 				}
 			}
@@ -782,54 +782,54 @@ public class DrawStringUtils2 {
 	}
 
 	/**
-	 * ½«¸¡µãÊı¸ñÊ½³ÉÈËÃñ±Ò´óĞ´·½Ê½
+	 * å°†æµ®ç‚¹æ•°æ ¼å¼æˆäººæ°‘å¸å¤§å†™æ–¹å¼
 	 * 
 	 * @param money
-	 *            ¸¡µãÊı
-	 * @return ¸ñÊ½»¯µÄ×Ö·û´®
+	 *            æµ®ç‚¹æ•°
+	 * @return æ ¼å¼åŒ–çš„å­—ç¬¦ä¸²
 	 * @exception IllegalArgumentException
-	 *                µ±money<0»òmoney>=Ò»ÍòÍòÒÚÊ±
+	 *                å½“money<0æˆ–money>=ä¸€ä¸‡ä¸‡äº¿æ—¶
 	 */
 	public final static String toRMB(double money) {
 		char[] cDigit = c1Digit, cUnit = c1Unit;
 		StringBuffer sb = new StringBuffer(64);
 		if (money < 0) {
-			sb.append("¸º");
+			sb.append("è´Ÿ");
 			money = -money;
 		}
-		long yuan = (long) money; // Ôª
+		long yuan = (long) money; // å…ƒ
 
 		if (yuan == 0) {
-			sb.append("Áã");
+			sb.append("é›¶");
 		} else {
 			sb.append(toRMB2(yuan, cDigit, cUnit));
 		}
-		sb.append('Ôª');
+		sb.append('å…ƒ');
 
 		int jaoFeng = (int) ((money + 0.001 - (long) money) * 100) % 100;
 		int jao = jaoFeng / 10;
 		int feng = jaoFeng % 10;
 		if (jao > 0) {
 			sb.append(cDigit[jao]);
-			sb.append('½Ç');
+			sb.append('è§’');
 		}
 		if (feng > 0) {
 			if (jao == 0) {
-				sb.append('Áã');
+				sb.append('é›¶');
 			}
 			sb.append(cDigit[feng]);
-			sb.append('·Ö');
+			sb.append('åˆ†');
 		} else {
-			sb.append('Õû');
+			sb.append('æ•´');
 		}
 		return sb.toString();
 	}
 
 	/**
-	 * ½«¶ÁÊı×ª»»ÎªÖĞÎÄĞ´·¨
-	 * @param l ÊıÖµ
-	 * @param abbreviate ËõĞ´
-	 * @param uppercase ´óĞ´
+	 * å°†è¯»æ•°è½¬æ¢ä¸ºä¸­æ–‡å†™æ³•
+	 * @param l æ•°å€¼
+	 * @param abbreviate ç¼©å†™
+	 * @param uppercase å¤§å†™
 	 * @return
 	 */
 	public final static String toChinese(long l, boolean abbreviate,
@@ -837,9 +837,9 @@ public class DrawStringUtils2 {
 
 		String fu = "";
 		if (l == 0) {
-			return "Áã";
+			return "é›¶";
 		} else if (l < 0) {
-			fu = "¸º";
+			fu = "è´Ÿ";
 			l = -l;
 		}
 		char[] cDigit = uppercase ? c1Digit : c2Digit;
@@ -888,7 +888,7 @@ public class DrawStringUtils2 {
 					return false;
 				}
 			} else if (ch == '\\' && pos2 < len2 && fmt.charAt(pos2) == '*') {
-				// \* ±íÊ¾´ËÎ»ÖÃĞèÒª×Ö·û'*'£¬¶ø²»ÊÇÍ¨Åä·û*
+				// \* è¡¨ç¤ºæ­¤ä½ç½®éœ€è¦å­—ç¬¦'*'ï¼Œè€Œä¸æ˜¯é€šé…ç¬¦*
 				if (pos1 == len1 || value.charAt(pos1) != '*') {
 					return false;
 				}
@@ -913,29 +913,29 @@ public class DrawStringUtils2 {
 	}
 
 	/**
-	 * ÅĞ¶Ï×Ö·û´®ÊÇ·ñ¾ßÓĞÖ¸¶¨µÄ¸ñÊ½
+	 * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦å…·æœ‰æŒ‡å®šçš„æ ¼å¼
 	 * 
 	 * @param value
-	 *            ×Ö·û´®
+	 *            å­—ç¬¦ä¸²
 	 * @param fmt
-	 *            ¸ñÊ½´®(*±íÊ¾0¸ö»ò¶à¸ö×Ö·û£¬?±íÊ¾µ¥¸ö×Ö·û)
+	 *            æ ¼å¼ä¸²(*è¡¨ç¤º0ä¸ªæˆ–å¤šä¸ªå­—ç¬¦ï¼Œ?è¡¨ç¤ºå•ä¸ªå­—ç¬¦)
 	 * @param ifcase
-	 *            ÊÇ·ñ´óĞ¡Ğ´
-	 * @return Èôvalue»òfmtÎªnullÊ±·µ»Øfalse£¬Èô²»Æ¥ÅäÊ±Ò²·µ»Øfalse£¬·ñÔò·µ»Øtrue
+	 *            æ˜¯å¦å¤§å°å†™
+	 * @return è‹¥valueæˆ–fmtä¸ºnullæ—¶è¿”å›falseï¼Œè‹¥ä¸åŒ¹é…æ—¶ä¹Ÿè¿”å›falseï¼Œå¦åˆ™è¿”å›true
 	 */
 	public final static boolean matches(String value, String fmt, boolean ifcase) {
 		return matches(value, 0, fmt, 0, ifcase);
 	}
 
 	private final static String[] provinces = { null, null, null, null, null,
-			null, null, null, null, null, null, "±±¾©", "Ìì½ò", "ºÓ±±", "É½Î÷", "ÄÚÃÉ¹Å",
-			null, null, null, null, null, "ÁÉÄş", "¼ªÁÖ", "ºÚÁú½­", null, null, null,
-			null, null, null, null, "ÉÏº£", "½­ËÕ", "Õã½­", "°²Î¢", "¸£½¨", "½­Î÷", "É½¶«",
-			null, null, null, "ºÓÄÏ", "ºş±±", "ºşÄÏ", "¹ã¶«", "¹ãÎ÷", "º£ÄÏ", null, null,
-			null, "ÖØÇì", "ËÄ´¨", "¹óÖİ", "ÔÆÄÏ", "Î÷²Ø", null, null, null, null, null,
-			null, "ÉÂÎ÷", "¸ÊËà", "Çàº£", "ÄşÏÄ", "ĞÂ½®", null, null, null, null, null,
-			"Ì¨Íå", null, null, null, null, null, null, null, null, null, "Ïã¸Û",
-			"°ÄÃÅ", null, null, null, null, null, null, null, null, "¹úÍâ" };
+			null, null, null, null, null, null, "åŒ—äº¬", "å¤©æ´¥", "æ²³åŒ—", "å±±è¥¿", "å†…è’™å¤",
+			null, null, null, null, null, "è¾½å®", "å‰æ—", "é»‘é¾™æ±Ÿ", null, null, null,
+			null, null, null, null, "ä¸Šæµ·", "æ±Ÿè‹", "æµ™æ±Ÿ", "å®‰å¾®", "ç¦å»º", "æ±Ÿè¥¿", "å±±ä¸œ",
+			null, null, null, "æ²³å—", "æ¹–åŒ—", "æ¹–å—", "å¹¿ä¸œ", "å¹¿è¥¿", "æµ·å—", null, null,
+			null, "é‡åº†", "å››å·", "è´µå·", "äº‘å—", "è¥¿è—", null, null, null, null, null,
+			null, "é™•è¥¿", "ç”˜è‚ƒ", "é’æµ·", "å®å¤", "æ–°ç–†", null, null, null, null, null,
+			"å°æ¹¾", null, null, null, null, null, null, null, null, null, "é¦™æ¸¯",
+			"æ¾³é—¨", null, null, null, null, null, null, null, null, "å›½å¤–" };
 
 	private final static int[] wi = { 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10,
 			5, 8, 4, 2, 1 };
@@ -943,7 +943,7 @@ public class DrawStringUtils2 {
 			'5', '4', '3', '2' };
 
 	/**
-	 * ¸ù¾İGB11643-1999<<¹«ÃñÉí·İºÅÂë>>¼°GB11643-1989<<Éç»á±£ÕÏºÅÂë>>¹æ¶¨¼ì²éÉí·İÖ¤ºÅÊÇ·ñ·ûºÏ¹æ·¶
+	 * æ ¹æ®GB11643-1999<<å…¬æ°‘èº«ä»½å·ç >>åŠGB11643-1989<<ç¤¾ä¼šä¿éšœå·ç >>è§„å®šæ£€æŸ¥èº«ä»½è¯å·æ˜¯å¦ç¬¦åˆè§„èŒƒ
 	 */
 	public final static boolean identify(String ident) {
 		if (ident == null) {
@@ -962,13 +962,13 @@ public class DrawStringUtils2 {
 			}
 		}
 
-		// ¼ì²é»§¿ÚËùÔÚÏØµÄĞĞÕşÇø´úÂë GB/T2260
+		// æ£€æŸ¥æˆ·å£æ‰€åœ¨å¿çš„è¡Œæ”¿åŒºä»£ç  GB/T2260
 		int p = (ident.charAt(0) - '0') * 10 + (ident.charAt(1) - '0');
 		if (p >= provinces.length || provinces[p] == null) {
 			return false;
 		}
 
-		// ¼ì²é³öÉúÄêÔÂÈÕ GB/T7408
+		// æ£€æŸ¥å‡ºç”Ÿå¹´æœˆæ—¥ GB/T7408
 		int year = 0, month = 0, day = 0;
 		if (len == 15) {
 			year = 1900 + (ident.charAt(6) - '0') * 10
@@ -984,7 +984,7 @@ public class DrawStringUtils2 {
 		}
 		if (month == 2) {
 			if ((year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0))) {
-				// ÈòÄê2ÔÂ29ÈÕ
+				// é—°å¹´2æœˆ29æ—¥
 				if (day > 29) {
 					return false;
 				}
@@ -1005,7 +1005,7 @@ public class DrawStringUtils2 {
 			return false;
 		}
 
-		// ¼ì²éĞ£ÑéÂë
+		// æ£€æŸ¥æ ¡éªŒç 
 		if (len == 18) {
 			int[] w = wi;
 			int mod = 0;
@@ -1020,11 +1020,11 @@ public class DrawStringUtils2 {
 		return true;
 	}
 /**
- * È«Ìæ»»×Ö·û´®
- * @param src Ô´´®
- * @param findString ²éÕÒ´®
- * @param replaceString Ìæ»»´®
- * @return Ìæ»»Íê³ÉºóµÄ´®
+ * å…¨æ›¿æ¢å­—ç¬¦ä¸²
+ * @param src æºä¸²
+ * @param findString æŸ¥æ‰¾ä¸²
+ * @param replaceString æ›¿æ¢ä¸²
+ * @return æ›¿æ¢å®Œæˆåçš„ä¸²
  */
 	public static String replace(String src, String findString,
 			String replaceString) {
@@ -1090,11 +1090,11 @@ public class DrawStringUtils2 {
 	}
 
 	/**
-	 * ½«Êı×Ö×ª»»ÎªExcelµÄÁĞ±êÇ©
+	 * å°†æ•°å­—è½¬æ¢ä¸ºExcelçš„åˆ—æ ‡ç­¾
 	 * 
 	 * @param index
-	 *            int,Òª×ª»»µÄÊı×Ö,´Ó1¿ªÊ¼,¼´1ÁĞÎªA
-	 * @return String,×ª»»ºóµÄÁĞ±êÇ©,×¢ÒâExcel±êÇ©²»ÊÇ26½øÖÆ,26½øÖÆµÄZºóÓ¦¸ÃÎªBA;µ«Excel±êÇ©ZºóÎªAA
+	 *            int,è¦è½¬æ¢çš„æ•°å­—,ä»1å¼€å§‹,å³1åˆ—ä¸ºA
+	 * @return String,è½¬æ¢åçš„åˆ—æ ‡ç­¾,æ³¨æ„Excelæ ‡ç­¾ä¸æ˜¯26è¿›åˆ¶,26è¿›åˆ¶çš„Zååº”è¯¥ä¸ºBA;ä½†Excelæ ‡ç­¾Zåä¸ºAA
 	 */
 	public static String toExcelLabel(int index) {
 		return toExcel(index - 1);
@@ -1102,9 +1102,9 @@ public class DrawStringUtils2 {
 
 
 	/**
-	 * È¥µô×Ö·û´®ÖĞµÄ¿Õ°××Ö·û
-	 * @param s Ô´´®
-	 * @return È¥µô¿Õ¸ñµÄ´®
+	 * å»æ‰å­—ç¬¦ä¸²ä¸­çš„ç©ºç™½å­—ç¬¦
+	 * @param s æºä¸²
+	 * @return å»æ‰ç©ºæ ¼çš„ä¸²
 	 */
 	public static String trimWhitespace(String s) {
 		if (s == null) {
@@ -1122,18 +1122,18 @@ public class DrawStringUtils2 {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°×ÖÌåµÄÎÄ±¾¸ß¶È
-	 * @param fm ×ÖÌåĞÅÏ¢
-	 * @return ÎÄ±¾¸ß¶È
+	 * è·å–å½“å‰å­—ä½“çš„æ–‡æœ¬é«˜åº¦
+	 * @param fm å­—ä½“ä¿¡æ¯
+	 * @return æ–‡æœ¬é«˜åº¦
 	 */
 	public static int getTextRowHeight(FontMetrics fm) {
-		int tmpH = (int) Math.ceil(fm.getFont().getSize() * 1.28); // ÎÄ×ÖµÄĞĞ¸ß¹ÀËã¸ß¶È
-		int textH = fm.getHeight(); // ÎÄ×ÖÇøÓò¸ß¶È
+		int tmpH = (int) Math.ceil(fm.getFont().getSize() * 1.28); // æ–‡å­—çš„è¡Œé«˜ä¼°ç®—é«˜åº¦
+		int textH = fm.getHeight(); // æ–‡å­—åŒºåŸŸé«˜åº¦
 		if (tmpH < textH) {
 			return textH;
 		}
 		int dh = tmpH - textH;
-		if (dh % 2 == 0) { // ÎªÁË±£Ö¤ÎÄ×ÖÇøÓò¸ß¶È×ÜÊÇ¾ÓÖĞÓÚĞĞ¸ß£¬±£Ö¤dh×ÜÊÇÎªÅ¼Êı
+		if (dh % 2 == 0) { // ä¸ºäº†ä¿è¯æ–‡å­—åŒºåŸŸé«˜åº¦æ€»æ˜¯å±…ä¸­äºè¡Œé«˜ï¼Œä¿è¯dhæ€»æ˜¯ä¸ºå¶æ•°
 			return tmpH;
 		}
 		return tmpH + 1;

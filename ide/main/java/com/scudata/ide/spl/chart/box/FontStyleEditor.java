@@ -9,7 +9,7 @@ import com.scudata.chart.*;
 import com.scudata.ide.spl.resources.*;
 
 /**
- * ×ÖÌåÑùÊ½±à¼­Æ÷
+ * å­—ä½“æ ·å¼ç¼–è¾‘å™¨
  * 
  * @author Joancy
  *
@@ -26,8 +26,8 @@ public class FontStyleEditor extends DefaultCellEditor {
 	private FontStyleIcon icon = new FontStyleIcon();
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
 	 */
 	public FontStyleEditor( Dialog owner ) {
 		super( new JCheckBox() );
@@ -55,7 +55,7 @@ public class FontStyleEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸Àà³éÏó·½·¨
+	 * å®ç°çˆ¶ç±»æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellEditorComponent( JTable table, Object value,
 												  boolean isSelected, int row, int column ) {
@@ -71,14 +71,14 @@ public class FontStyleEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­Öµ
+	 * è·å–ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
 		return editingVal;
 	}
 
 	/**
-	 * Í£Ö¹±à¼­
+	 * åœæ­¢ç¼–è¾‘
 	 */
 	public boolean stopCellEditing() {
 		return super.stopCellEditing();
@@ -133,7 +133,7 @@ class FontStyleIcon implements Icon {
 
 	public void paintIcon( Component c, Graphics g, int x, int y ) {
 		g.setColor( Color.black );
-		String exam = ChartMessage.get().getMessage( "label.example" );    //Ê¾Àı
+		String exam = ChartMessage.get().getMessage( "label.example" );    //ç¤ºä¾‹
 		if( Utils.isVertical( style ) ) {
 			Utils.drawText( (Graphics2D)g, exam, x + 15, y, Utils.getFont( "Dialog", style, 10 ), Color.black, style, 0, Consts.LOCATION_CT );
 		}

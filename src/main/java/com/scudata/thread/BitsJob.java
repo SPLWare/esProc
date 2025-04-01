@@ -3,16 +3,16 @@ package com.scudata.thread;
 import com.scudata.dm.Sequence;
 
 /**
- * ÓÃÓÚÖ´ĞĞA.deriveµÄÈÎÎñ
+ * ç”¨äºæ‰§è¡ŒA.deriveçš„ä»»åŠ¡
  * @author RunQian
  *
  */
 class BitsJob extends Job {
-	private Sequence src; // Ô´ĞòÁĞ
-	private int start; // ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	private int end; // ½áÊøÎ»ÖÃ£¬²»°üÀ¨	
-	private String opt; // Ñ¡Ïî
-	private Sequence result; // ½á¹û¼¯
+	private Sequence src; // æºåºåˆ—
+	private int start; // èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	private int end; // ç»“æŸä½ç½®ï¼Œä¸åŒ…æ‹¬	
+	private String opt; // é€‰é¡¹
+	private Sequence result; // ç»“æœé›†
 	
 	public BitsJob(Sequence src, int start, int end, String opt) {
 		this.src = src;

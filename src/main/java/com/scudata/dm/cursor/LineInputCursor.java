@@ -11,22 +11,22 @@ import com.scudata.dm.Table;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃ°´ĞĞ¶ÁÊı¾İ½Ó¿Ú¹¹½¨ÓÎ±ê
- * ´ËÀàÊÇÎªÁË¸øÓÃ»§Ìá¹©ÓÉ×Ô¶¨Òå¶ÁÊı·½·¨´´½¨ÓÎ±ê
+ * ç”¨æŒ‰è¡Œè¯»æ•°æ®æ¥å£æ„å»ºæ¸¸æ ‡
+ * æ­¤ç±»æ˜¯ä¸ºäº†ç»™ç”¨æˆ·æä¾›ç”±è‡ªå®šä¹‰è¯»æ•°æ–¹æ³•åˆ›å»ºæ¸¸æ ‡
  * ILineInput.cursor()
  * @author RunQian
  *
  */
 public class LineInputCursor extends ICursor {
-	private ILineInput importer; // °´ĞĞ¶ÁÊı¾İ½á¹¹
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹
-	private boolean isTitle = false; // µÚÒ»ĞĞÊÇ·ñÊÇ±êÌâ
-	private boolean isSingleField = false; // ÊÇ·ñ·µ»Øµ¥ÁĞ×é³ÉµÄĞòÁĞ
+	private ILineInput importer; // æŒ‰è¡Œè¯»æ•°æ®ç»“æ„
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„
+	private boolean isTitle = false; // ç¬¬ä¸€è¡Œæ˜¯å¦æ˜¯æ ‡é¢˜
+	private boolean isSingleField = false; // æ˜¯å¦è¿”å›å•åˆ—ç»„æˆçš„åºåˆ—
 	
 	/**
-	 * ¹¹½¨°´ĞĞ¶ÁÊı¾İÓÎ±ê
-	 * @param lineInput °´ĞĞ¶ÁÊı¾İ½Ó¿Ú
-	 * @param opt Ñ¡Ïî
+	 * æ„å»ºæŒ‰è¡Œè¯»æ•°æ®æ¸¸æ ‡
+	 * @param lineInput æŒ‰è¡Œè¯»æ•°æ®æ¥å£
+	 * @param opt é€‰é¡¹
 	 */
 	public LineInputCursor(ILineInput lineInput, String opt) {
 		this.importer = lineInput;
@@ -111,8 +111,8 @@ public class LineInputCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -127,9 +127,9 @@ public class LineInputCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		ILineInput importer = this.importer;
@@ -165,7 +165,7 @@ public class LineInputCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();

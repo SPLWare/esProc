@@ -11,8 +11,8 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ f.export()
- * º¯ÊıÃûÇ°×ºF±íÊ¾ÎÄ¼ş¶ÔÏó
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ f.export()
+ * å‡½æ•°åå‰ç¼€Fè¡¨ç¤ºæ–‡ä»¶å¯¹è±¡
  * 
  * @author Joancy
  *
@@ -33,7 +33,7 @@ public class FExport extends ObjectElement {
 	public boolean o;
 
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -57,8 +57,8 @@ public class FExport extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
 	 * @return EtlConsts.TYPE_FILE
 	 */
@@ -67,7 +67,7 @@ public class FExport extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_EMPTY
 	 */
 	public byte getReturnType() {
@@ -75,7 +75,7 @@ public class FExport extends ObjectElement {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄÑ¡Ïî´®
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„é€‰é¡¹ä¸²
 	 */
 	public String optionString(){
 		StringBuffer options = new StringBuffer();
@@ -99,7 +99,7 @@ public class FExport extends ObjectElement {
 		}
 		if(q){
 			options.append("q");
-			if(o){//o´ÓÊôÓÚq
+			if(o){//oä»å±äºq
 				options.append("o");
 			}
 		}
@@ -107,15 +107,15 @@ public class FExport extends ObjectElement {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÃû
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°å
 	 */
 	public String getFuncName() {
 		return "export";
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÌå
-	 * ¸úsetFuncBodyÊÇÄæº¯Êı£¬È»ºó±í´ïÊ½µÄ¸³ÖµÒ²×ÜÊÇ»¥ÄæµÄ
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°ä½“
+	 * è·ŸsetFuncBodyæ˜¯é€†å‡½æ•°ï¼Œç„¶åè¡¨è¾¾å¼çš„èµ‹å€¼ä¹Ÿæ€»æ˜¯äº’é€†çš„
 	 */
 	public String getFuncBody() {
 		StringBuffer sb = new StringBuffer();
@@ -136,8 +136,8 @@ public class FExport extends ObjectElement {
 	}
 	
 	/**
-	 * ÉèÖÃº¯ÊıÌå
-	 * @param funcBody º¯ÊıÌå
+	 * è®¾ç½®å‡½æ•°ä½“
+	 * @param funcBody å‡½æ•°ä½“
 	 */
 	public boolean setFuncBody(String funcBody) {
 		StringTokenizer st = new StringTokenizer(funcBody,";");

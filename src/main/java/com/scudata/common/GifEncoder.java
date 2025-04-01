@@ -45,7 +45,7 @@ public class GifEncoder extends GifImageEncoder
 {
 
 	private boolean interlace = false;
-	private int transparentRGB = -13347208;  //¶ÔÓ¦ÓÚnew Color(0x12345678) --ARGBÀàĞÍ
+	private int transparentRGB = -13347208;  //å¯¹åº”äºnew Color(0x12345678) --ARGBç±»å‹
 
 	/// Constructor from Image.
 	// @param img The image to encode.
@@ -56,7 +56,7 @@ public class GifEncoder extends GifImageEncoder
 		this.transparentRGB = transparentRGB;
 	}
 
-	//ÔÚARGBÄ£ĞÍÏÂÊ¹ÓÃ0x12345678×öÍ¸Ã÷É«
+	//åœ¨ARGBæ¨¡å‹ä¸‹ä½¿ç”¨0x12345678åšé€æ˜è‰²
 	public GifEncoder( Image img, OutputStream out ) throws IOException {
 		this(img, out, -13347208);
 	}
@@ -648,7 +648,7 @@ class GifEncoderHashitem
 class IntHashtable implements Serializable,Cloneable
 {
 	/*
-	 * ÓÃÓÚkeyµÄÃ¶¾Ù
+	 * ç”¨äºkeyçš„æšä¸¾
 	 */
 	public static class Enumerator {
 		IntHashtable ih;
@@ -700,7 +700,7 @@ class IntHashtable implements Serializable,Cloneable
 	}
 
 	/*
-	 * ÓÃÓÚvalueµÄÃ¶¾Ù
+	 * ç”¨äºvalueçš„æšä¸¾
 	 */
 	class ValueEnumerator implements Enumeration {
 		int index = 0;
@@ -741,19 +741,19 @@ class IntHashtable implements Serializable,Cloneable
 		}
 	}
 
-	//hash±íÊı¾İ
+	//hashè¡¨æ•°æ®
 	private int[] keys;
 	private Object[] objs;
 
-	//hash±íÖĞÈë¿Ú×ÜÊı
+	//hashè¡¨ä¸­å…¥å£æ€»æ•°
 	private int count;
 
 	/*
-	 * ÓÃÖ¸¶¨³õÊ¼ÈİÁ¿ºÍ×°ÌîÒò×Ó¹¹ÔìÒ»¸ö¿ÕµÄhashtable
-	 * @param initialCapacity ³õÊ¼ÈİÁ¿£¬¼´³õÊ¼Í°(bucket)Êı
-	 * @param loadFactor 0.0Óë1.0Ö®¼äµÄÒ»¸öÊı£¬ÓÃÓÚ¶¨Òåµ±´Ë¹ıÏŞÖÆÊ±hash±íÖØĞÂ
-	 * ¡¡¡¡¡¡¡¡¡¡¡¡hashµ½Ò»¸ö¸ü´óµÄhash±í(¶ÔÓÚ±¾¹şÏ£±í²»Æğ×÷ÓÃ)
-	 * @exception IllegalArgumentException ¼ÙÈç³õÊ¼ÈİÁ¿Ğ¡ÓÚ0
+	 * ç”¨æŒ‡å®šåˆå§‹å®¹é‡å’Œè£…å¡«å› å­æ„é€ ä¸€ä¸ªç©ºçš„hashtable
+	 * @param initialCapacity åˆå§‹å®¹é‡ï¼Œå³åˆå§‹æ¡¶(bucket)æ•°
+	 * @param loadFactor 0.0ä¸1.0ä¹‹é—´çš„ä¸€ä¸ªæ•°ï¼Œç”¨äºå®šä¹‰å½“æ­¤è¿‡é™åˆ¶æ—¶hashè¡¨é‡æ–°
+	 * ã€€ã€€ã€€ã€€ã€€ã€€hashåˆ°ä¸€ä¸ªæ›´å¤§çš„hashè¡¨(å¯¹äºæœ¬å“ˆå¸Œè¡¨ä¸èµ·ä½œç”¨)
+	 * @exception IllegalArgumentException å‡å¦‚åˆå§‹å®¹é‡å°äº0
 	 */
 	public IntHashtable( int initialCapacity, float loadFactor ) {
 		if ( initialCapacity < 0 )
@@ -763,36 +763,36 @@ class IntHashtable implements Serializable,Cloneable
 	}
 
 	/*
-	 * ÓÃÖ¸¶¨µÄ³õÊ¼ÈİÁ¿¹¹ÔìÒ»¸ö¿Õhash±í
-	 * @param initialCapacity ³õÊ¼ÈİÁ¿
+	 * ç”¨æŒ‡å®šçš„åˆå§‹å®¹é‡æ„é€ ä¸€ä¸ªç©ºhashè¡¨
+	 * @param initialCapacity åˆå§‹å®¹é‡
 	 */
 	public IntHashtable( int initialCapacity ) {
 		this( initialCapacity, 0.75f );
 	}
 
 	/*
-	 * ¹¹ÔìÒ»¸ö¿Õhash±í
+	 * æ„é€ ä¸€ä¸ªç©ºhashè¡¨
 	 */
 	public IntHashtable() {
 		this( 11, 0.75f );
 	}
 
 	/*
-	 * ·µ»Øhash±íÖĞÔªËØ¸öÊı
+	 * è¿”å›hashè¡¨ä¸­å…ƒç´ ä¸ªæ•°
 	 */
 	public int size() {
 		return count;
 	}
 
 	/*
-	 * ¼ì²éhash±íÊÇ·ñÎª¿Õ
+	 * æ£€æŸ¥hashè¡¨æ˜¯å¦ä¸ºç©º
 	 */
 	public boolean isEmpty() {
 		return count == 0;
 	}
 
 	/*
-	 * È¡µÃhash±íÖĞkeyµÄÑ­»·Æ÷(iterator)
+	 * å–å¾—hashè¡¨ä¸­keyçš„å¾ªç¯å™¨(iterator)
 	 * @see IntHashtable#valueIterator
 	 */
 	public Iterator keyIterator() {
@@ -800,7 +800,7 @@ class IntHashtable implements Serializable,Cloneable
 	}
 
 	/*
-	 * È¡µÃhash±íÖĞvalueµÄÑ­»·Æ÷(iterator)
+	 * å–å¾—hashè¡¨ä¸­valueçš„å¾ªç¯å™¨(iterator)
 	 * @see IntHashtable#keyIterator
 	 */
 	public java.util.Iterator valueIterator() {
@@ -808,7 +808,7 @@ class IntHashtable implements Serializable,Cloneable
 	}
 
 	/*
-	 * È¡µÃhash±íÖĞkeyµÄÃ¶¾ÙÆ÷(enumeration)
+	 * å–å¾—hashè¡¨ä¸­keyçš„æšä¸¾å™¨(enumeration)
 	 * @see IntHashtable#elements
 	 */
 	public Enumerator keys() {
@@ -816,7 +816,7 @@ class IntHashtable implements Serializable,Cloneable
 	}
 
 	/*
-	 * È¡µÃhash±íÖĞvalueµÄÃ¶¾ÙÆ÷(enumeration)
+	 * å–å¾—hashè¡¨ä¸­valueçš„æšä¸¾å™¨(enumeration)
 	 * @see IntHashtable#keys
 	 */
 	public Enumeration elements() {
@@ -824,8 +824,8 @@ class IntHashtable implements Serializable,Cloneable
 	}
 
 	/*
-	 * ¼ì²éhash±íÖĞÊÇ·ñÓĞÖ¸¶¨value
-	 * @param value ĞèÒª²éÕÒµÄvalue
+	 * æ£€æŸ¥hashè¡¨ä¸­æ˜¯å¦æœ‰æŒ‡å®švalue
+	 * @param value éœ€è¦æŸ¥æ‰¾çš„value
 	 * @see IntHashtable#containsKey
 	 */
 	public boolean contains( Object value ) {
@@ -846,8 +846,8 @@ class IntHashtable implements Serializable,Cloneable
 	}
 
 	/*
-	 * ¼ì²éhash±íÖĞÊÇ·ñÓĞÖ¸¶¨µÄkey
-	 * @param key Òª²éÕÒµÄkey
+	 * æ£€æŸ¥hashè¡¨ä¸­æ˜¯å¦æœ‰æŒ‡å®šçš„key
+	 * @param key è¦æŸ¥æ‰¾çš„key
 	 * @see IntHashtable#contains
 	 */
 	public boolean containsKey( int key ) {
@@ -860,8 +860,8 @@ class IntHashtable implements Serializable,Cloneable
 	}
 
 	/*
-	 * È¡hash±íÖĞÓëÖ¸¶¨key¶ÔÓ¦µÄvalue
-	 * @param key Ö¸¶¨µÄkey
+	 * å–hashè¡¨ä¸­ä¸æŒ‡å®škeyå¯¹åº”çš„value
+	 * @param key æŒ‡å®šçš„key
 	 * @see IntHashtable#put
 	 */
 	public Object get( int key ) {
@@ -875,9 +875,9 @@ class IntHashtable implements Serializable,Cloneable
 
 
 	/*
-	 * °ÑÖ¸¶¨µÄkeyÓëÖ¸¶¨µÄvalue·ÅÈëhash±í
-	 * @param key Ö¸¶¨µÄkey
-	 * @param value Ö¸¶¨µÄvalue£¬ÈôÎªnull£¬ÔòÉ¾³ıÔ­ÓĞµÄkey
+	 * æŠŠæŒ‡å®šçš„keyä¸æŒ‡å®šçš„valueæ”¾å…¥hashè¡¨
+	 * @param key æŒ‡å®šçš„key
+	 * @param value æŒ‡å®šçš„valueï¼Œè‹¥ä¸ºnullï¼Œåˆ™åˆ é™¤åŸæœ‰çš„key
 	 * @see IntHashtable#get
 	 */
 	public Object put( int key, Object value ) {
@@ -909,9 +909,9 @@ class IntHashtable implements Serializable,Cloneable
 	}
 
 	/*
-	 * ÒÆ×ß¶ÔÓ¦ÓÚÖ¸¶¨keyµÄÔªËØ£¬ÈôÖ¸¶¨µÄkey²»´æÔÚ£¬ÔòÖ±½Ó·µ»Ø
-	 * @param key Ö¸¶¨µÄkey
-	 * @return Ö¸¶¨key¶ÔÓ¦µÄvalue£¬Èôkey²»´æÔÚ£¬Ôò·µ»Ønull
+	 * ç§»èµ°å¯¹åº”äºæŒ‡å®škeyçš„å…ƒç´ ï¼Œè‹¥æŒ‡å®šçš„keyä¸å­˜åœ¨ï¼Œåˆ™ç›´æ¥è¿”å›
+	 * @param key æŒ‡å®šçš„key
+	 * @return æŒ‡å®škeyå¯¹åº”çš„valueï¼Œè‹¥keyä¸å­˜åœ¨ï¼Œåˆ™è¿”å›null
 	 */
 	public Object remove( int key ) {
 		int[] keys = this.keys;
@@ -941,7 +941,7 @@ class IntHashtable implements Serializable,Cloneable
 
 
 	/*
-	 * Çå¿Õhash±í
+	 * æ¸…ç©ºhashè¡¨
 	 */
 	public void clear() {
 		Object[] objs = this.objs;
@@ -951,7 +951,7 @@ class IntHashtable implements Serializable,Cloneable
 	}
 
 	/*
-	 * ¿ËÂ¡hash±í
+	 * å…‹éš†hashè¡¨
 	 */
 	public Object clone() {
 		try {

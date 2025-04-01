@@ -6,9 +6,9 @@ import com.scudata.ide.common.swing.JComboBoxEx;
 import com.scudata.ide.spl.GVSpl;
 
 /**
- * ÏÈÊµÏÖÁË²¿·Ö¸úETLÏà¹ØµÄº¯Êı¸¨Öú±à¼­
- * ¸ÃÀà¶¨Òå¸¨Öú±à¼­»·¾³ÖĞÓÃµ½µÄ³£Á¿¶¨Òå
- * ÒÔ¼°²¿·Ö¹¤¾ßº¯Êı
+ * å…ˆå®ç°äº†éƒ¨åˆ†è·ŸETLç›¸å…³çš„å‡½æ•°è¾…åŠ©ç¼–è¾‘
+ * è¯¥ç±»å®šä¹‰è¾…åŠ©ç¼–è¾‘ç¯å¢ƒä¸­ç”¨åˆ°çš„å¸¸é‡å®šä¹‰
+ * ä»¥åŠéƒ¨åˆ†å·¥å…·å‡½æ•°
  * 
  * @author Joancy
  *
@@ -19,37 +19,37 @@ public class EtlConsts {
 	public final static byte TYPE_FILE = 2;
 	public final static byte TYPE_SEQUENCE = 3;
 	public final static byte TYPE_CURSOR = 4;
-	public final static byte TYPE_CTX = 5;//×é±í
-	public final static byte TYPE_XLS = 6;//XLS¶ÔÏó
+	public final static byte TYPE_CTX = 5;//ç»„è¡¨
+	public final static byte TYPE_XLS = 6;//XLSå¯¹è±¡
 	public final static byte TYPE_STRING = 7;
 
-	// º¯Êı²ÎÊıÏà¹ØÊôĞÔ
+	// å‡½æ•°å‚æ•°ç›¸å…³å±æ€§
 	public final static int INPUT_SEPERATOR = 1002;
-	public final static int INPUT_SEPERATOR2 = 1003;//¿ÉÒÔÑ¡Ôñ¿ÕµÄ·Ö¸ô·û£¬´ú±íÉ¾³ı¸ÃÏî
+	public final static int INPUT_SEPERATOR2 = 1003;//å¯ä»¥é€‰æ‹©ç©ºçš„åˆ†éš”ç¬¦ï¼Œä»£è¡¨åˆ é™¤è¯¥é¡¹
 	public final static int INPUT_STRINGLIST = 1004;
-	public final static int INPUT_ISOLATIONLEVEL = 1005;//ÊÂÎñ¹ÂÁ¢¼¶±ğ
-	public final static int INPUT_DB = 1006;//ÏÂÀ­Êı¾İÔ´Ãû³Æ
-	public final static int INPUT_ONLYPROPERTY = 1007;//½öÄÜÊäÈë×Ö´®ÊôĞÔ£¬²»ÄÜÊäÈë±í´ïÊ½
+	public final static int INPUT_ISOLATIONLEVEL = 1005;//äº‹åŠ¡å­¤ç«‹çº§åˆ«
+	public final static int INPUT_DB = 1006;//ä¸‹æ‹‰æ•°æ®æºåç§°
+	public final static int INPUT_ONLYPROPERTY = 1007;//ä»…èƒ½è¾“å…¥å­—ä¸²å±æ€§ï¼Œä¸èƒ½è¾“å…¥è¡¨è¾¾å¼
 	
-	public final static int INPUT_CELLA = 1011;//ĞòÁĞÀàĞÍµÄ¸ñ×ÓÏÂÀ­ÁĞ±í A
-	public final static int INPUT_CELLAORCS = 1012;//ĞòÁĞºÍÓÎ±êµÄ¸ñ×ÓÏÂÀ­ÁĞ±í A  or  Cursor
-	public final static int INPUT_CELLFILE = 1013;//ÎÄ¼ş¶ÔÏó ÏÂÀ­ÁĞ±í File
-	public final static int INPUT_CELLCURSOR = 1014;//ÏÂÀ­ÁĞ±í Cursor
+	public final static int INPUT_CELLA = 1011;//åºåˆ—ç±»å‹çš„æ ¼å­ä¸‹æ‹‰åˆ—è¡¨ A
+	public final static int INPUT_CELLAORCS = 1012;//åºåˆ—å’Œæ¸¸æ ‡çš„æ ¼å­ä¸‹æ‹‰åˆ—è¡¨ A  or  Cursor
+	public final static int INPUT_CELLFILE = 1013;//æ–‡ä»¶å¯¹è±¡ ä¸‹æ‹‰åˆ—è¡¨ File
+	public final static int INPUT_CELLCURSOR = 1014;//ä¸‹æ‹‰åˆ—è¡¨ Cursor
 	public final static int INPUT_CELLBCTX = 1015;//BTX and CTX
 	public final static int INPUT_CELLXLS = 1016;//XLS
 	
-	public final static int INPUT_FIELDDEFINE_NORMAL = 1021;//×Ö¶ÎÃû£¬ÀàĞÍ(ÏÂÀ­),format
-	public final static int INPUT_FIELDDEFINE_EXP_FIELD = 1022;//±í´ïÊ½£¬×Ö¶ÎÃû
-	public final static int INPUT_FIELDDEFINE_FIELD_EXP = 1023;//×Ö¶ÎÃû£¬±í´ïÊ½
-	public final static int INPUT_FIELDDEFINE_RENAME_FIELD = 1024;//Ô­ÁĞÃû£¬ĞÂÁĞÃû
+	public final static int INPUT_FIELDDEFINE_NORMAL = 1021;//å­—æ®µåï¼Œç±»å‹(ä¸‹æ‹‰),format
+	public final static int INPUT_FIELDDEFINE_EXP_FIELD = 1022;//è¡¨è¾¾å¼ï¼Œå­—æ®µå
+	public final static int INPUT_FIELDDEFINE_FIELD_EXP = 1023;//å­—æ®µåï¼Œè¡¨è¾¾å¼
+	public final static int INPUT_FIELDDEFINE_RENAME_FIELD = 1024;//åŸåˆ—åï¼Œæ–°åˆ—å
 	
-	public final static int INPUT_FIELDDEFINE_FIELD_DIM = 1030;//×Ö¶ÎÃû,Î¬(Checkbox)
+	public final static int INPUT_FIELDDEFINE_FIELD_DIM = 1030;//å­—æ®µå,ç»´(Checkbox)
 
 
 	/**
-	 * ²ÎÊıÖµÊÇÁĞ±í»òÕß¸´ÔÓµÄ¶àÏîÊ±£¬ĞèÒª½ûÖ¹±í´ïÊ½±à¼­
-	 * @param type ±à¼­ÀàĞÍ
-	 * @return ĞèÒª½ûÖ¹±í´ïÊ½ÁĞÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å‚æ•°å€¼æ˜¯åˆ—è¡¨æˆ–è€…å¤æ‚çš„å¤šé¡¹æ—¶ï¼Œéœ€è¦ç¦æ­¢è¡¨è¾¾å¼ç¼–è¾‘
+	 * @param type ç¼–è¾‘ç±»å‹
+	 * @return éœ€è¦ç¦æ­¢è¡¨è¾¾å¼åˆ—æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isDisableExpEditType(int type){
 		if(type==INPUT_STRINGLIST){
@@ -78,9 +78,9 @@ public class EtlConsts {
 	}
 	
 	/**
-	 * »ñÈ¡Êı¾İÀ´Ô´typeµÄÃèÊöĞÅÏ¢
-	 * @param type Êı¾İÀ´Ô´ÀàĞÍ
-	 * @return ÎÄ±¾ÃèÊöĞÅÏ¢
+	 * è·å–æ•°æ®æ¥æºtypeçš„æè¿°ä¿¡æ¯
+	 * @param type æ•°æ®æ¥æºç±»å‹
+	 * @return æ–‡æœ¬æè¿°ä¿¡æ¯
 	 */
 	public static String getTypeDesc(byte type){
 		switch(type){
@@ -101,8 +101,8 @@ public class EtlConsts {
 	}
 
 	/**
-	 * »ñÈ¡Êı¾İ¿âµÄ¸ôÀë¼¶±ğÏÂÀ­ÁĞ±í
-	 * @return ÏÂÀ­ÁĞ±í
+	 * è·å–æ•°æ®åº“çš„éš”ç¦»çº§åˆ«ä¸‹æ‹‰åˆ—è¡¨
+	 * @return ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getIsolationLevelBox(){
 		Vector<String> scodes = new Vector<String>(),sdisps = new Vector<String>();
@@ -125,8 +125,8 @@ public class EtlConsts {
 	}
 	
 	/**
-	 * »ñÈ¡µ±Ç°»·¾³ÏÂµÄËùÓĞ¶¨ÒåµÄÊı¾İ¿âµÄÃû³ÆÏÂÀ­ÁĞ±í
-	 * @return ÏÂÀ­ÁĞ±í
+	 * è·å–å½“å‰ç¯å¢ƒä¸‹çš„æ‰€æœ‰å®šä¹‰çš„æ•°æ®åº“çš„åç§°ä¸‹æ‹‰åˆ—è¡¨
+	 * @return ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getDBBox(){
 		Vector<String> dbNames = GVSpl.dsModel.listNames();
@@ -137,9 +137,9 @@ public class EtlConsts {
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ±¾Êı¾İÔ´Ê±£¬·Ö¸ô·ûÀàĞÍµÄÏÂÀ­ÁĞ±í
-	 * @param allowEmpty ÊÇ·ñÌí¼ÓÒ»¸ö¿ÕÖµÊ¹µÃÓÃ»§¿ÉÒÔÑ¡Ôñ¿Õ±íÊ¾Ã»Ñ¡ÈÎºÎÖµ
-	 * @return ÏÂÀ­ÁĞ±í
+	 * è·å–æ–‡æœ¬æ•°æ®æºæ—¶ï¼Œåˆ†éš”ç¬¦ç±»å‹çš„ä¸‹æ‹‰åˆ—è¡¨
+	 * @param allowEmpty æ˜¯å¦æ·»åŠ ä¸€ä¸ªç©ºå€¼ä½¿å¾—ç”¨æˆ·å¯ä»¥é€‰æ‹©ç©ºè¡¨ç¤ºæ²¡é€‰ä»»ä½•å€¼
+	 * @return ä¸‹æ‹‰åˆ—è¡¨
 	 */
 	public static JComboBoxEx getSeperatorComboBox(boolean allowEmpty) {
 		String msg = "SPACE";
@@ -150,7 +150,7 @@ public class EtlConsts {
 			scodes.add("");
 			sdisps.add("");
 		}
-		// ·Ö¸ô·û
+		// åˆ†éš”ç¬¦
 		scodes.add("\t");
 		scodes.add(",");
 		scodes.add(" ");

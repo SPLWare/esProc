@@ -72,29 +72,29 @@ import com.scudata.util.MinHeap;
 import com.scudata.util.Variant;
 
 /**
- * ĞòÁĞÀà£¬ÔªËØĞòºÅ´Ó1¿ªÊ¼¼ÆÊı
+ * åºåˆ—ç±»ï¼Œå…ƒç´ åºå·ä»1å¼€å§‹è®¡æ•°
  * @author WangXiaoJun
  *
  */
 public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	private static final long serialVersionUID = 0x02010003;
-	protected IArray mems; // ĞòÁĞ³ÉÔ±
+	protected IArray mems; // åºåˆ—æˆå‘˜
 
-	private static final char SEPARATOR = ','; // toStringÊ±ĞòÁĞÔªËØ·Ö¸ô·û
+	private static final char SEPARATOR = ','; // toStringæ—¶åºåˆ—å…ƒç´ åˆ†éš”ç¬¦
 	private static final char STARTSYMBOL = '[';
 	private static final char ENDSYMBOL = ']';
-	private static final int SORT_HASH_LEN = 700; // µ±³¤¶ÈĞ¡ÓÚ´ÎÊıÖµÊÇid¡¢groupÓÃÅÅĞòÀ´×ö£¬·ñÔòÓÃhash
+	private static final int SORT_HASH_LEN = 700; // å½“é•¿åº¦å°äºæ¬¡æ•°å€¼æ˜¯idã€groupç”¨æ’åºæ¥åšï¼Œå¦åˆ™ç”¨hash
 
 	/**
-	 * ´´½¨Ò»¸ö¿ÕĞòÁĞ
+	 * åˆ›å»ºä¸€ä¸ªç©ºåºåˆ—
 	 */
 	public Sequence() {
 		mems = new ObjectArray(8);
 	}
 
 	/**
-	 * ´´½¨Ò»¸ö¿ÕĞòÁĞ
-	 * @param createArray ÊÇ·ñ²úÉúIArray
+	 * åˆ›å»ºä¸€ä¸ªç©ºåºåˆ—
+	 * @param createArray æ˜¯å¦äº§ç”ŸIArray
 	 */
 	protected Sequence(boolean createArray) {
 		if (createArray) {
@@ -103,16 +103,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ´´½¨Ò»¸öÖ¸¶¨ÈİÁ¿µÄĞòÁĞ
-	 * @param initialCapacity int ÈİÁ¿
+	 * åˆ›å»ºä¸€ä¸ªæŒ‡å®šå®¹é‡çš„åºåˆ—
+	 * @param initialCapacity int å®¹é‡
 	 */
 	public Sequence(int initialCapacity) {
 		mems = new ObjectArray(initialCapacity);
 	}
 
 	/**
-	 * ´´½¨Ò»¸öÓÉÖ¸¶¨³ÉÔ±¹¹³ÉµÄĞòÁĞ
-	 * @param v ³ÉÔ±Êı×é
+	 * åˆ›å»ºä¸€ä¸ªç”±æŒ‡å®šæˆå‘˜æ„æˆçš„åºåˆ—
+	 * @param v æˆå‘˜æ•°ç»„
 	 */
 	public Sequence(Object[] v) {
 		if (v == null) {
@@ -123,7 +123,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¸´ÖÆÒ»¸öĞòÁĞ£¬ĞÂĞòÁĞÓµÓĞ×Ô¼ºµÄ³ÉÔ±
+	 * å¤åˆ¶ä¸€ä¸ªåºåˆ—ï¼Œæ–°åºåˆ—æ‹¥æœ‰è‡ªå·±çš„æˆå‘˜
 	 * @param seq Sequence
 	 */
 	public Sequence(Sequence seq) {
@@ -143,9 +143,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¹¹ÔìÒ»¸öÊıÁĞÇø¼ä£¬Èç¹ûstart´óÓÚendÔò¹¹ÔìÒ»¸öµİ¼õµÄÊıÁĞÇø¼ä
-	 * @param start int ÆğÊ¼Öµ
-	 * @param end int ½áÊøÖµ
+	 * æ„é€ ä¸€ä¸ªæ•°åˆ—åŒºé—´ï¼Œå¦‚æœstartå¤§äºendåˆ™æ„é€ ä¸€ä¸ªé€’å‡çš„æ•°åˆ—åŒºé—´
+	 * @param start int èµ·å§‹å€¼
+	 * @param end int ç»“æŸå€¼
 	 */
 	public Sequence(int start, int end) {
 		if (start < end) {
@@ -164,9 +164,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ÓÃÖ¸¶¨Çø¼äµÄÖµ¹¹½¨ĞòÁĞ
-	 * @param start ÆğÊ¼Öµ£¬°üº¬
-	 * @param end ½áÊøÖµ£¬°üº¬
+	 * ç”¨æŒ‡å®šåŒºé—´çš„å€¼æ„å»ºåºåˆ—
+	 * @param start èµ·å§‹å€¼ï¼ŒåŒ…å«
+	 * @param end ç»“æŸå€¼ï¼ŒåŒ…å«
 	 */
 	public Sequence(long start, long end) {
 		if (start < end) {
@@ -197,7 +197,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * È¡ĞòÁĞµÄ³ÉÔ±ÁĞ±í£¬ÓÃÓÚ±éÀúĞÔÄÜÓÅ»¯
+	 * å–åºåˆ—çš„æˆå‘˜åˆ—è¡¨ï¼Œç”¨äºéå†æ€§èƒ½ä¼˜åŒ–
 	 * @return
 	 */
 	public IArray getMems() {
@@ -205,7 +205,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡ĞòÁĞµ±Ç°³ÉÔ±×é³ÉµÄÊı×é£¬ÓÃÓÚ~µÄ¼ÆËã
+	 * å–åºåˆ—å½“å‰æˆå‘˜ç»„æˆçš„æ•°ç»„ï¼Œç”¨äº~çš„è®¡ç®—
 	 * @return
 	 */
 	public IArray getCurrentMems() {
@@ -213,8 +213,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ÉèÖÃĞòÁĞµÄ³ÉÔ±Êı×é
-	 * @param mems ³ÉÔ±Êı×é
+	 * è®¾ç½®åºåˆ—çš„æˆå‘˜æ•°ç»„
+	 * @param mems æˆå‘˜æ•°ç»„
 	 */
 	public void setMems(IArray mems) {
 		this.mems = mems;
@@ -222,7 +222,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞµÄ¹şÏ£Öµ
+	 * è¿”å›åºåˆ—çš„å“ˆå¸Œå€¼
 	 */
 	public int hashCode() {
 		IArray mems = getMems();
@@ -240,15 +240,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * Ê¹ĞòÁĞµÄÈİÁ¿²»Ğ¡ÓÚminCapacity
-	 * @param minCapacity ×îĞ¡ÈİÁ¿
+	 * ä½¿åºåˆ—çš„å®¹é‡ä¸å°äºminCapacity
+	 * @param minCapacity æœ€å°å®¹é‡
 	 */
 	public void ensureCapacity(int minCapacity) {
 		getMems().ensureCapacity(minCapacity);
 	}
 
 	/**
-	 * ·µ»ØÔªËØÊ×´Î³öÏÖµÄÎ»ÖÃ£¬Èç¹û²»´æÔÚÔò·µ»Ø0
+	 * è¿”å›å…ƒç´ é¦–æ¬¡å‡ºç°çš„ä½ç½®ï¼Œå¦‚æœä¸å­˜åœ¨åˆ™è¿”å›0
 	 * @param obj Object
 	 * @return int
 	 */
@@ -257,7 +257,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÔªËØ×îºó³öÏÖµÄÎ»ÖÃ£¬Èç¹û²»´æÔÚÔò·µ»Ø0
+	 * è¿”å›å…ƒç´ æœ€åå‡ºç°çš„ä½ç½®ï¼Œå¦‚æœä¸å­˜åœ¨åˆ™è¿”å›0
 	 * @param obj Object
 	 * @return int
 	 */
@@ -266,7 +266,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ĞòÁĞµÄ³ÉÔ±Ö»ÄÜÊÇÆÕÍ¨µÄÊı¾İ£¬²»ÄÜ°üº¬¼ÇÂ¼
+	 * åºåˆ—çš„æˆå‘˜åªèƒ½æ˜¯æ™®é€šçš„æ•°æ®ï¼Œä¸èƒ½åŒ…å«è®°å½•
 	 * @throws IOException
 	 * @return byte[]
 	 */
@@ -284,7 +284,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ĞòÁĞµÄ³ÉÔ±Ö»ÄÜÊÇÆÕÍ¨µÄÊı¾İ£¬²»ÄÜ°üº¬¼ÇÂ¼
+	 * åºåˆ—çš„æˆå‘˜åªèƒ½æ˜¯æ™®é€šçš„æ•°æ®ï¼Œä¸èƒ½åŒ…å«è®°å½•
 	 * @param buf byte[]
 	 * @throws IOException
 	 * @throws ClassNotFoundException
@@ -301,12 +301,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeByte(1); // °æ±¾ºÅ
+		out.writeByte(1); // ç‰ˆæœ¬å·
 		out.writeObject(getMems());
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		in.readByte(); // °æ±¾ºÅ
+		in.readByte(); // ç‰ˆæœ¬å·
 		Object obj = in.readObject();
 		if (obj instanceof IArray) {
 			mems = (IArray)obj;
@@ -317,29 +317,29 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * É¾³ıËùÓĞµÄ³ÉÔ±£¬²¢ÇÒµ÷ÕûÈİÁ¿
+	 * åˆ é™¤æ‰€æœ‰çš„æˆå‘˜ï¼Œå¹¶ä¸”è°ƒæ•´å®¹é‡
 	 */
 	public void reset() {
 		getMems().clear();
 	}
 
 	/**
-	 * É¾³ıËùÓĞµÄ³ÉÔ±
+	 * åˆ é™¤æ‰€æœ‰çš„æˆå‘˜
 	 */
 	public void clear() {
 		getMems().clear();
 	}
 
 	/**
-	 * µ÷ÕûĞòÁĞµÄÈİÁ¿£¬Ê¹ÆäÓëÔªËØÊıÏàµÈ
+	 * è°ƒæ•´åºåˆ—çš„å®¹é‡ï¼Œä½¿å…¶ä¸å…ƒç´ æ•°ç›¸ç­‰
 	 */
 	public void trimToSize() {
 		getMems().trimToSize();
 	}
 
 	/**
-	 * ×ªÖÃ
-	 * @param c int ÁĞÊı
+	 * è½¬ç½®
+	 * @param c int åˆ—æ•°
 	 * @return Sequence
 	 */
 	public Sequence transpose(int c) {
@@ -369,7 +369,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞÔªËØ¸öÊı
+	 * è¿”å›åºåˆ—å…ƒç´ ä¸ªæ•°
 	 * @return int
 	 */
 	public int length() {
@@ -377,7 +377,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * È¡ĞòÁĞ·Ç¿ÕÔªËØ¸öÊı
+	 * å–åºåˆ—éç©ºå…ƒç´ ä¸ªæ•°
 	 * @param opt String
 	 * @return int
 	 */
@@ -386,9 +386,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * Ã¿¸ôinterval¾àÀëÈ¡seqsÖ¸¶¨µÄÔªËØ
-	 * @param interval int ¼ä¸ô
-	 * @param seqs int[] ÔªËØË÷Òı
+	 * æ¯éš”intervalè·ç¦»å–seqsæŒ‡å®šçš„å…ƒç´ 
+	 * @param interval int é—´éš”
+	 * @param seqs int[] å…ƒç´ ç´¢å¼•
 	 * @return Sequence
 	 */
 	public Sequence step(int interval, int[] seqs) {
@@ -399,7 +399,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		int count = seqs.length;
 		for (int i = 0; i < count; ++i) {
-			// ²»ÔÙ¼ì²éÊÇ·ñ±Èinterval´óÁË£¬ÕâÑù¿ÉÒÔÌø¹ıÇ°ÃæµÄ
+			// ä¸å†æ£€æŸ¥æ˜¯å¦æ¯”intervalå¤§äº†ï¼Œè¿™æ ·å¯ä»¥è·³è¿‡å‰é¢çš„
 			if (seqs[i] < 1) { // || seqs[i] > interval
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(seqs[i] + mm.getMessage("engine.indexOutofBound"));
@@ -428,9 +428,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * È¡ĞòÁĞÊ¹±í´ïÊ½ÎªÕæµÄÔªËØ¸öÊı
-	 * @param exp ±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–åºåˆ—ä½¿è¡¨è¾¾å¼ä¸ºçœŸçš„å…ƒç´ ä¸ªæ•°
+	 * @param exp è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public int count(Expression exp, Context ctx) {
@@ -461,15 +461,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØËùÓĞµÄÔªËØ
-	 * @return ÔªËØÖµ×é³ÉµÄÊı×é
+	 * è¿”å›æ‰€æœ‰çš„å…ƒç´ 
+	 * @return å…ƒç´ å€¼ç»„æˆçš„æ•°ç»„
 	 */
 	public Object[] toArray() {
 		return getMems().toArray();
 	}
 
 	/**
-	 * °ÑÔªËØÒÀ´Î¸³¸øa£¬²¢·µ»Øa
+	 * æŠŠå…ƒç´ ä¾æ¬¡èµ‹ç»™aï¼Œå¹¶è¿”å›a
 	 * @param a Object[]
 	 * @return Object[]
 	 */
@@ -479,8 +479,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * È¡µÃÄ³Ò»ÔªËØ
-	 * @param seq int ´Ó1¿ªÊ¼¼ÆÊı
+	 * å–å¾—æŸä¸€å…ƒç´ 
+	 * @param seq int ä»1å¼€å§‹è®¡æ•°
 	 * @return Object
 	 */
 	public Object get(int seq) {
@@ -493,8 +493,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡µÃÄ³Ò»ÔªËØ£¬²»×ö¼ì²éĞòºÅºÏ·¨ĞÔ
-	 * @param seq int ´Ó1¿ªÊ¼¼ÆÊı
+	 * å–å¾—æŸä¸€å…ƒç´ ï¼Œä¸åšæ£€æŸ¥åºå·åˆæ³•æ€§
+	 * @param seq int ä»1å¼€å§‹è®¡æ•°
 	 * @return Object
 	 */
 	public Object getMem(int seq) {
@@ -502,8 +502,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * È¡ĞòÁĞÑ­»·µÄµ±Ç°ÔªËØ
-	 * @param seq int ´Ó1¿ªÊ¼¼ÆÊı
+	 * å–åºåˆ—å¾ªç¯çš„å½“å‰å…ƒç´ 
+	 * @param seq int ä»1å¼€å§‹è®¡æ•°
 	 * @return Object
 	 */
 	public Object getCurrent(int seq) {
@@ -511,18 +511,18 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡Ä³Ò»Çø¶Î
-	 * @param start int ÆğÊ¼Î»ÖÃ£¨°üÀ¨£©
-	 * @param end int ½áÊøÎ»ÖÃ£¨²»°üÀ¨£©
-	 * @return Sequence ½á¹ûĞòÁĞ
+	 * å–æŸä¸€åŒºæ®µ
+	 * @param start int èµ·å§‹ä½ç½®ï¼ˆåŒ…æ‹¬ï¼‰
+	 * @param end int ç»“æŸä½ç½®ï¼ˆä¸åŒ…æ‹¬ï¼‰
+	 * @return Sequence ç»“æœåºåˆ—
 	 */
 	public Sequence get(int start, int end) {
 		return new Sequence(getMems().get(start, end));
 	}
 	
 	/**
-	 * ·µ»Ø¶à¸öÔªËØ
-	 * @param seq Sequence ÔªËØÎ»ÖÃ¹¹³ÉµÄÊıÁĞ£¬ÔªËØÖµ²»´óÓÚĞòÁĞµÄ³¤¶È
+	 * è¿”å›å¤šä¸ªå…ƒç´ 
+	 * @param seq Sequence å…ƒç´ ä½ç½®æ„æˆçš„æ•°åˆ—ï¼Œå…ƒç´ å€¼ä¸å¤§äºåºåˆ—çš„é•¿åº¦
 	 * @return Sequence
 	 */
 	public Sequence get(Sequence seq) {
@@ -536,9 +536,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ÊÇ·ñ°üº¬Ä³Ò»ÔªËØ
-	 * @param obj Object ÔªËØÖµ
-	 * @param isSorted boolean£ºĞòÁĞÓĞĞò£¬½«²ÉÓÃ¶ş·Ö²éÕÒ
+	 * æ˜¯å¦åŒ…å«æŸä¸€å…ƒç´ 
+	 * @param obj Object å…ƒç´ å€¼
+	 * @param isSorted booleanï¼šåºåˆ—æœ‰åºï¼Œå°†é‡‡ç”¨äºŒåˆ†æŸ¥æ‰¾
 	 * @return boolean
 	 */
 	public boolean contains(Object obj, boolean isSorted) {
@@ -549,16 +549,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 	/**
-	 * ÅĞ¶ÏÊı×éµÄÔªËØÊÇ·ñÔÚµ±Ç°Êı×éÖĞ
-	 * @param isSorted µ±Ç°Êı×éÊÇ·ñÓĞĞò
-	 * @param array Êı×é
-	 * @param result ÓÃÓÚ´æ·Å½á¹û£¬Ö»ÕÒÈ¡ÖµÎªtrueµÄ
+	 * åˆ¤æ–­æ•°ç»„çš„å…ƒç´ æ˜¯å¦åœ¨å½“å‰æ•°ç»„ä¸­
+	 * @param isSorted å½“å‰æ•°ç»„æ˜¯å¦æœ‰åº
+	 * @param array æ•°ç»„
+	 * @param result ç”¨äºå­˜æ”¾ç»“æœï¼Œåªæ‰¾å–å€¼ä¸ºtrueçš„
 	 */
 	public void contains(boolean isSorted, IArray array, BoolArray result) {
 		getMems().contains(isSorted, array, result);
 	}
 
-	// ·µ»ØÊÇ·ñÊÇÊıÁĞÇø¼äs
+	// è¿”å›æ˜¯å¦æ˜¯æ•°åˆ—åŒºé—´s
 	private boolean isIntInterval() {
 		IArray mems = getMems();
 		int size = mems.size();
@@ -582,7 +582,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int prev = ((Number)obj2).intValue();
 		int dif = prev - ((Number)obj1).intValue();
 
-		if (dif == 1) { // µİÔö
+		if (dif == 1) { // é€’å¢
 			for (int i = 3; i <= size; ++i) {
 				Object obj = mems.get(i);
 				if (!(obj instanceof Number)) {
@@ -594,7 +594,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					return false;
 				}
 			}
-		} else if (dif == -1) { // µİ¼õ
+		} else if (dif == -1) { // é€’å‡
 			for (int i = 3; i <= size; ++i) {
 				Object obj = mems.get(i);
 				if (!(obj instanceof Number)) {
@@ -606,7 +606,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					return false;
 				}
 			}
-		} else if (dif == 0) { // Çø¼äÄÚÖ»ÓĞÒ»¸öÊı
+		} else if (dif == 0) { // åŒºé—´å†…åªæœ‰ä¸€ä¸ªæ•°
 			if (size != 2) {
 				return false;
 			}
@@ -617,7 +617,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return true;
 	}
 
-	// ·µ»ØĞòÁĞÊÇ·ñÊÇnÖÃ»»
+	// è¿”å›åºåˆ—æ˜¯å¦æ˜¯nç½®æ¢
 	private boolean isPermutation(int n) {
 		IArray mems = getMems();
 		int len = mems.size();
@@ -630,7 +630,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return false;
 			}
 
-			// Ë÷Òı²»ÔÚ[1£¬n]·¶Î§ÄÚ£¬»ò´æÔÚÖØ¸´µÄÔªËØ
+			// ç´¢å¼•ä¸åœ¨[1ï¼Œn]èŒƒå›´å†…ï¼Œæˆ–å­˜åœ¨é‡å¤çš„å…ƒç´ 
 			int tmp = ( (Number) obj).intValue();
 			if (tmp < 1 || tmp > n || sign[tmp]) {
 				return false;
@@ -643,7 +643,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞÊÇ·ñº¬ÓĞ¼ÇÂ¼
+	 * è¿”å›åºåˆ—æ˜¯å¦å«æœ‰è®°å½•
 	 * @return boolean
 	 */
 	public boolean hasRecord() {
@@ -651,23 +651,23 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°ĞòÁĞÊÇ·ñÊÇÅÅÁĞ
-	 * @return boolean true£ºÊÇÅÅÁĞ£¬false£º·ÇÅÅÁĞ
+	 * è¿”å›å½“å‰åºåˆ—æ˜¯å¦æ˜¯æ’åˆ—
+	 * @return boolean trueï¼šæ˜¯æ’åˆ—ï¼Œfalseï¼šéæ’åˆ—
 	 */
 	public boolean isPmt() {
 		return getMems().isPmt(false);
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°ĞòÁĞÊÇ·ñÊÇ´¿ÅÅÁĞ
-	 * @return boolean true£ºÊÇ´¿ÅÅÁĞ£¨½á¹¹ÏàÍ¬£©
+	 * è¿”å›å½“å‰åºåˆ—æ˜¯å¦æ˜¯çº¯æ’åˆ—
+	 * @return boolean trueï¼šæ˜¯çº¯æ’åˆ—ï¼ˆç»“æ„ç›¸åŒï¼‰
 	 */
 	public boolean isPurePmt() {
 		return getMems().isPmt(true);
 	}
 
 	/**
-	 * ·µ»ØÎ»ÊıÁĞµÄÄæĞòÁĞ£¬·µ»Ø³¤¶ÈÎªnµÄÎ»ÊıÁĞ
+	 * è¿”å›ä½æ•°åˆ—çš„é€†åºåˆ—ï¼Œè¿”å›é•¿åº¦ä¸ºnçš„ä½æ•°åˆ—
 	 * @param n int
 	 * @return Sequence
 	 */
@@ -703,9 +703,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¸ù¾İÎ»ÖÃĞòÁĞ·­×ªÔ´ĞòÁĞ
-	 * @param seq Sequence Î»ÖÃĞòÁĞ
-	 * @param opt String o£º¸Ä±äÔ´ĞòÁĞ
+	 * æ ¹æ®ä½ç½®åºåˆ—ç¿»è½¬æºåºåˆ—
+	 * @param seq Sequence ä½ç½®åºåˆ—
+	 * @param opt String oï¼šæ”¹å˜æºåºåˆ—
 	 * @return Sequence
 	 */
 	public Sequence inv(Sequence seq, String opt) {
@@ -746,7 +746,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÅĞ¶ÏseqÊÇ·ñÊÇµ±Ç°ĞòÁĞµÄÖÃ»»ÁĞ
+	 * åˆ¤æ–­seqæ˜¯å¦æ˜¯å½“å‰åºåˆ—çš„ç½®æ¢åˆ—
 	 * @param seq Sequence
 	 * @return boolean
 	 */
@@ -769,13 +769,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			Object obj = mems2.get(t);
 			for (int s = 1; s <= size; ++s) {
 				if (!founds[s] && Variant.isEquals(mems.get(s), obj)) {
-					// ÕÒµ½ºóÌøµ½Íâ²ãÑ­»·¼ÌĞøÕÒ
+					// æ‰¾åˆ°åè·³åˆ°å¤–å±‚å¾ªç¯ç»§ç»­æ‰¾
 					founds[s] = true;
 					continue nextCand;
 				}
 			}
 			
-			// Ã»ÓĞÕÒµ½·µ»Øfalse
+			// æ²¡æœ‰æ‰¾åˆ°è¿”å›false
 			return false;
 		}
 		
@@ -783,7 +783,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞµÄ·´×ªĞòÁĞ
+	 * è¿”å›åºåˆ—çš„åè½¬åºåˆ—
 	 * @return Sequence
 	 */
 	public Sequence rvs() {
@@ -791,8 +791,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÊ¹´ËĞòÁĞµÄ²úÉúÁĞÎªµİÔöÁĞµÄnÖÃ»»
-	 * @param opt String z£º½µĞò
+	 * è¿”å›ä½¿æ­¤åºåˆ—çš„äº§ç”Ÿåˆ—ä¸ºé€’å¢åˆ—çš„nç½®æ¢
+	 * @param opt String zï¼šé™åº
 	 * @return Sequence
 	 */
 	public Sequence psort(String opt) {
@@ -821,7 +821,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			comparator = new BaseComparator();
 		}
 		
-		// ½øĞĞÅÅĞò
+		// è¿›è¡Œæ’åº
 		MultithreadUtil.sort(infos, 1, len, new PSortComparator(comparator));
 		Sequence result = new Sequence(size);
 		IArray resultMems = result.getMems();
@@ -834,9 +834,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÊ¹´ËĞòÁĞ°´±í´ïÊ½¼ÆËã½á¹ûµÄ²úÉúÁĞÎªµİÔöÁĞµÄnÖÃ»»
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param opt String z£º½µĞò
+	 * è¿”å›ä½¿æ­¤åºåˆ—æŒ‰è¡¨è¾¾å¼è®¡ç®—ç»“æœçš„äº§ç”Ÿåˆ—ä¸ºé€’å¢åˆ—çš„nç½®æ¢
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param opt String zï¼šé™åº
 	 * @param ctx Context
 	 * @return Sequence
 	 */
@@ -845,9 +845,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÊ¹´ËĞòÁĞµÄ²úÉúÁĞÎªµİÔöÁĞµÄnÖÃ»»
-	 * @param exps Expression[] ±í´ïÊ½Êı×é
-	 * @param opt String z£º½µĞò
+	 * è¿”å›ä½¿æ­¤åºåˆ—çš„äº§ç”Ÿåˆ—ä¸ºé€’å¢åˆ—çš„nç½®æ¢
+	 * @param exps Expression[] è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt String zï¼šé™åº
 	 * @param ctx Context
 	 * @return Sequence
 	 */
@@ -912,9 +912,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °´ÕÕ¶à±í´ïÊ½ºÍ¶àË³ĞòÅÅĞò, ·µ»ØnÖÃ»»
-	 * @param exps Expression[] ±í´ïÊ½Êı×é
-	 * @param orders int[] Ë³ĞòÊı×é, 1ÉıĞò, -1½µĞò, 0Ô­Ğò
+	 * æŒ‰ç…§å¤šè¡¨è¾¾å¼å’Œå¤šé¡ºåºæ’åº, è¿”å›nç½®æ¢
+	 * @param exps Expression[] è¡¨è¾¾å¼æ•°ç»„
+	 * @param orders int[] é¡ºåºæ•°ç»„, 1å‡åº, -1é™åº, 0åŸåº
 	 * @param opt String
 	 * @param ctx Context
 	 * @return Sequence
@@ -973,8 +973,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÓÉ´ËĞòÁĞÔªËØ¹¹³ÉµÄµİÔöÁĞ
-	 * @param opt z£º½µĞò£¬o£º¸Ä±äÔ­ĞòÁĞ
+	 * è¿”å›ç”±æ­¤åºåˆ—å…ƒç´ æ„æˆçš„é€’å¢åˆ—
+	 * @param opt zï¼šé™åºï¼Œoï¼šæ”¹å˜åŸåºåˆ—
 	 * @return Sequence
 	 */
 	public Sequence sort(String opt) {
@@ -1042,9 +1042,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÓÉ´ËĞòÁĞÔªËØ¹¹³ÉµÄµİÔöÁĞ
-	 * @param loc String ÓïÑÔ
-	 * @param opt z£º½µĞò£¬o£º¸Ä±äÔ­ĞòÁĞ
+	 * è¿”å›ç”±æ­¤åºåˆ—å…ƒç´ æ„æˆçš„é€’å¢åˆ—
+	 * @param loc String è¯­è¨€
+	 * @param opt zï¼šé™åºï¼Œoï¼šæ”¹å˜åŸåºåˆ—
 	 * @return Sequence
 	 */
 	public Sequence sort(String loc, String opt) {
@@ -1171,7 +1171,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			IArray mems = result.getMems();
 			boolean []signs = new boolean[len + 1];
 			
-			// ÔªËØÎ»ÖÃÔÚ±ä¶¯£¬ĞèÒªÖØĞÂ¼ÆËã±í´ïÊ½Öµ
+			// å…ƒç´ ä½ç½®åœ¨å˜åŠ¨ï¼Œéœ€è¦é‡æ–°è®¡ç®—è¡¨è¾¾å¼å€¼
 			for (int c = 0; c <= f; ++c) {
 				valMems[c] = result.calc(exps[c], ctx).getMems();
 			}
@@ -1203,10 +1203,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¸ù¾İÔªËØÔÚÔ´ĞòÁĞÖĞµÄÎ»ÖÃ·µ»Øµ±Ç°ĞòÁĞµÄÔªËØ¡£
-	 * @param sequences Ô´ĞòÁĞÊı×é
-	 * @param vals ´ı²éÕÒµÄÔªËØÊı×é
-	 * @param opt a£º·µ»ØËùÓĞÂú×ãÌõ¼şµÄÔªËØ£¬b£ºÔ´ĞòÁĞÓĞĞò
+	 * æ ¹æ®å…ƒç´ åœ¨æºåºåˆ—ä¸­çš„ä½ç½®è¿”å›å½“å‰åºåˆ—çš„å…ƒç´ ã€‚
+	 * @param sequences æºåºåˆ—æ•°ç»„
+	 * @param vals å¾…æŸ¥æ‰¾çš„å…ƒç´ æ•°ç»„
+	 * @param opt aï¼šè¿”å›æ‰€æœ‰æ»¡è¶³æ¡ä»¶çš„å…ƒç´ ï¼Œbï¼šæºåºåˆ—æœ‰åº
 	 * @return
 	 */
 	public Object lookup(Sequence[] sequences, Object[] vals, String opt) {
@@ -1273,9 +1273,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °ÑÁ½¸öĞòÁĞÁ¬½ÓÆğÀ´
-	 * @param seq ÁíÒ»¸öĞòÁĞ
-	 * @param resultCapacity ½á¹û¼¯ÈİÁ¿
+	 * æŠŠä¸¤ä¸ªåºåˆ—è¿æ¥èµ·æ¥
+	 * @param seq å¦ä¸€ä¸ªåºåˆ—
+	 * @param resultCapacity ç»“æœé›†å®¹é‡
 	 * @return
 	 */
 	public Sequence conj(Sequence seq, int resultCapacity) {
@@ -1297,9 +1297,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØÁ½¸öĞòÁĞµÄºÍÁĞ(Á¬ÁĞ)+
+	 * è¿”å›ä¸¤ä¸ªåºåˆ—çš„å’Œåˆ—(è¿åˆ—)+
 	 * @param seq Sequence
-	 * @param bMerge boolean true: ±íÃ÷Á½ĞòÁĞÍ¬Ğò£¬ÓÃ¹é²¢Ëã·¨ÊµÏÖ
+	 * @param bMerge boolean true: è¡¨æ˜ä¸¤åºåˆ—åŒåºï¼Œç”¨å½’å¹¶ç®—æ³•å®ç°
 	 * @return Sequence
 	 */
 	public Sequence conj(Sequence seq, boolean bMerge) {
@@ -1318,7 +1318,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			result = new Sequence(len + len2);
 			IArray resultMems = result.getMems();
 	
-			// ¹é²¢Á½¸öĞòÁĞ
+			// å½’å¹¶ä¸¤ä¸ªåºåˆ—
 			int s = 1, t = 1;
 			while (s <= len && t <= len2) {
 				Object obj = mems.get(s);
@@ -1332,7 +1332,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 
-			// ½«Ê£ÓàµÄÔªËØÌí¼Óµ½ĞòÁĞÖĞ
+			// å°†å‰©ä½™çš„å…ƒç´ æ·»åŠ åˆ°åºåˆ—ä¸­
 			while (s <= len) {
 				resultMems.add(mems.get(s));
 				s++;
@@ -1360,9 +1360,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÁ½¸öĞòÁĞµÄ²îÁĞ-
+	 * è¿”å›ä¸¤ä¸ªåºåˆ—çš„å·®åˆ—-
 	 * @param seq Sequence
-	 * @param bMerge boolean true: ±íÃ÷Á½ĞòÁĞÍ¬Ğò£¬ÓÃ¹é²¢Ëã·¨ÊµÏÖ
+	 * @param bMerge boolean true: è¡¨æ˜ä¸¤åºåˆ—åŒåºï¼Œç”¨å½’å¹¶ç®—æ³•å®ç°
 	 * @return Sequence
 	 */
 	public Sequence diff(Sequence seq, boolean bMerge) {
@@ -1381,7 +1381,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Sequence result = new Sequence(len);
 		IArray resultMems = result.getMems();
 
-		// ¹é²¢·¨²åÈë
+		// å½’å¹¶æ³•æ’å…¥
 		int s = 1, t = 1;
 		while (s <= len && t <= len2) {
 			Object obj = mems.get(s);
@@ -1397,7 +1397,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		// Ê£ÓàµÄÔªËØ¶¼Ã»ÔÚseqÖĞ
+		// å‰©ä½™çš„å…ƒç´ éƒ½æ²¡åœ¨seqä¸­
 		while (s <= len) {
 			resultMems.add(mems.get(s));
 			s++;
@@ -1407,9 +1407,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÁ½¸öĞòÁĞµÄ½»ÁĞ
+	 * è¿”å›ä¸¤ä¸ªåºåˆ—çš„äº¤åˆ—
 	 * @param seq Sequence
-	 * @param bMerge boolean true: ±íÃ÷Á½ĞòÁĞÍ¬Ğò£¬ÓÃ¹é²¢Ëã·¨ÊµÏÖ
+	 * @param bMerge boolean true: è¡¨æ˜ä¸¤åºåˆ—åŒåºï¼Œç”¨å½’å¹¶ç®—æ³•å®ç°
 	 * @return Sequence
 	 */
 	public Sequence isect(Sequence seq, boolean bMerge) {
@@ -1428,7 +1428,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Sequence result = new Sequence(len > len2 ? len2 : len);
 		IArray resultMems = result.getMems();
 
-		// ¹é²¢·¨²åÈë
+		// å½’å¹¶æ³•æ’å…¥
 		int s = 1, t = 1;
 		while (s <= len && t <= len2) {
 			Object obj = mems.get(s);
@@ -1448,9 +1448,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÁ½¸öĞòÁĞµÄ²¢ÁĞ
+	 * è¿”å›ä¸¤ä¸ªåºåˆ—çš„å¹¶åˆ—
 	 * @param seq Sequence
-	 * @param bMerge boolean true: ±íÃ÷Á½ĞòÁĞÍ¬Ğò£¬ÓÃ¹é²¢Ëã·¨ÊµÏÖ
+	 * @param bMerge boolean true: è¡¨æ˜ä¸¤åºåˆ—åŒåºï¼Œç”¨å½’å¹¶ç®—æ³•å®ç°
 	 * @return Sequence
 	 */
 	public Sequence union(Sequence seq, boolean bMerge) {
@@ -1469,7 +1469,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Sequence result = new Sequence(len + len2);
 		IArray resultMems = result.getMems();
 
-		// ¹é²¢·¨²åÈë
+		// å½’å¹¶æ³•æ’å…¥
 		int s = 1, t = 1;
 		while (s <= len && t <= len2) {
 			Object obj = mems.get(s);
@@ -1488,7 +1488,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		// ½«Ê£ÓàµÄÔªËØÌí¼Óµ½ĞòÁĞÖĞ
+		// å°†å‰©ä½™çš„å…ƒç´ æ·»åŠ åˆ°åºåˆ—ä¸­
 		while (s <= len) {
 			resultMems.add(mems.get(s));
 			s++;
@@ -1550,7 +1550,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				resultList.addAll(list2);
 				resultList.addAll(list1);
 			} else {
-				// ¹é²¢Á½¸öĞòÁĞ
+				// å½’å¹¶ä¸¤ä¸ªåºåˆ—
 				int s1 = 1, s2 = 1;
 				while (s1 <= len1 && s2 <= len2) {
 					Object obj1 = list1.get(s1);
@@ -1571,7 +1571,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				}
 
-				// ½«Ê£ÓàµÄÔªËØÌí¼Óµ½ĞòÁĞÖĞ
+				// å°†å‰©ä½™çš„å…ƒç´ æ·»åŠ åˆ°åºåˆ—ä¸­
 				for (; s1 <= len1; ++s1) {
 					resultList.add(list1.get(s1));
 				}
@@ -1583,10 +1583,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 			return result;
 		} else {
-			// °ÜÕßÊ÷ÓÅ»¯£¿
-			Object []itemVals = new Object[count]; // ĞòÁĞµÄµ±Ç°ÔªËØ
-			int []items = new int[count]; // ĞòÁĞµÄµ±Ç°ÔªËØ´ÓĞ¡µ½´óµÄË÷Òı
-			int []index = new int[count]; // ĞòÁĞµÄµ±Ç°Î»ÖÃ
+			// è´¥è€…æ ‘ä¼˜åŒ–ï¼Ÿ
+			Object []itemVals = new Object[count]; // åºåˆ—çš„å½“å‰å…ƒç´ 
+			int []items = new int[count]; // åºåˆ—çš„å½“å‰å…ƒç´ ä»å°åˆ°å¤§çš„ç´¢å¼•
+			int []index = new int[count]; // åºåˆ—çš„å½“å‰ä½ç½®
 
 			Next:
 			for (int i = 0; i < count; ++i) {
@@ -1702,7 +1702,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				resultList.addAll(list2);
 				resultList.addAll(list1);
 			} else {
-				// ¹é²¢Á½¸öĞòÁĞ
+				// å½’å¹¶ä¸¤ä¸ªåºåˆ—
 				int s1 = 1, s2 = 1;
 				while (s1 <= len1 && s2 <= len2) {
 					Object obj1 = valueList1.get(s1);
@@ -1723,7 +1723,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				}
 
-				// ½«Ê£ÓàµÄÔªËØÌí¼Óµ½ĞòÁĞÖĞ
+				// å°†å‰©ä½™çš„å…ƒç´ æ·»åŠ åˆ°åºåˆ—ä¸­
 				for (; s1 <= len1; ++s1) {
 					resultList.add(list1.get(s1));
 				}
@@ -1735,10 +1735,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 			return result;
 		} else {
-			// °ÜÕßÊ÷ÓÅ»¯£¿
-			Object []itemVals = new Object[count]; // ĞòÁĞµÄµ±Ç°ÔªËØ
-			int []items = new int[count]; // ĞòÁĞµÄµ±Ç°ÔªËØ´ÓĞ¡µ½´óµÄË÷Òı
-			int []index = new int[count]; // ĞòÁĞµÄµ±Ç°Î»ÖÃ
+			// è´¥è€…æ ‘ä¼˜åŒ–ï¼Ÿ
+			Object []itemVals = new Object[count]; // åºåˆ—çš„å½“å‰å…ƒç´ 
+			int []items = new int[count]; // åºåˆ—çš„å½“å‰å…ƒç´ ä»å°åˆ°å¤§çš„ç´¢å¼•
+			int []index = new int[count]; // åºåˆ—çš„å½“å‰ä½ç½®
 
 			Next:
 			for (int i = 0; i < count; ++i) {
@@ -1866,7 +1866,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return result;
 			}
 
-			// ¹é²¢Á½¸öĞòÁĞ
+			// å½’å¹¶ä¸¤ä¸ªåºåˆ—
 			sequences[1].calc(1, exps, ctx, values2);
 			int s1 = 1, s2 = 1;
 			while (true) {
@@ -1897,7 +1897,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 
-			// ½«Ê£ÓàµÄÔªËØÌí¼Óµ½ĞòÁĞÖĞ
+			// å°†å‰©ä½™çš„å…ƒç´ æ·»åŠ åˆ°åºåˆ—ä¸­
 			for (; s1 <= len1; ++s1) {
 				resultList.add(list1.get(s1));
 			}
@@ -1908,10 +1908,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			
 			return result;
 		} else {
-			// °ÜÕßÊ÷ÓÅ»¯£¿
-			Object [][]itemVals = new Object[count][]; // ĞòÁĞµÄµ±Ç°ÔªËØ
-			int []items = new int[count]; // ĞòÁĞµÄµ±Ç°ÔªËØ´ÓĞ¡µ½´óµÄË÷Òı
-			int []index = new int[count]; // ĞòÁĞµÄµ±Ç°Î»ÖÃ
+			// è´¥è€…æ ‘ä¼˜åŒ–ï¼Ÿ
+			Object [][]itemVals = new Object[count][]; // åºåˆ—çš„å½“å‰å…ƒç´ 
+			int []items = new int[count]; // åºåˆ—çš„å½“å‰å…ƒç´ ä»å°åˆ°å¤§çš„ç´¢å¼•
+			int []index = new int[count]; // åºåˆ—çš„å½“å‰ä½ç½®
 
 			Next:
 			for (int i = 0; i < count; ++i) {
@@ -1978,7 +1978,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
-	// ¸ù¾İÖµĞòÁĞÀ´ºÏ²¢Ô´ĞòÁĞ£¬ÖµĞòÁĞÓĞĞò
+	// æ ¹æ®å€¼åºåˆ—æ¥åˆå¹¶æºåºåˆ—ï¼Œå€¼åºåˆ—æœ‰åº
 	private static Sequence mergeUnion(Sequence[] sources, Sequence[] values) {
 		int count = values.length;
 		int leaveCount = count;
@@ -2053,7 +2053,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return result;
 	}
 	
-	// ¸ù¾İÖµĞòÁĞÀ´ºÏ²¢Ô´ĞòÁĞ£¬ÖµĞòÁĞÓĞĞò
+	// æ ¹æ®å€¼åºåˆ—æ¥åˆå¹¶æºåºåˆ—ï¼Œå€¼åºåˆ—æœ‰åº
 	private static Sequence mergeXor(Sequence[] sources, Sequence[] values) {
 		int count = values.length;
 		int leaveCount = count;
@@ -2131,7 +2131,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return result;
 	}
 
-	// ¸ù¾İÖµĞòÁĞÀ´ºÏ²¢Ô´ĞòÁĞ£¬ÖµĞòÁĞÓĞĞò
+	// æ ¹æ®å€¼åºåˆ—æ¥åˆå¹¶æºåºåˆ—ï¼Œå€¼åºåˆ—æœ‰åº
 	private static Sequence mergeIsect(Sequence[] sources, Sequence[] values) {
 		int count = values.length;
 		int[] len = new int[count];
@@ -2185,7 +2185,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return result;
 	}
 
-	// ¸ù¾İÖµĞòÁĞÀ´ºÏ²¢Ô´ĞòÁĞ£¬ÖµĞòÁĞÓĞĞò
+	// æ ¹æ®å€¼åºåˆ—æ¥åˆå¹¶æºåºåˆ—ï¼Œå€¼åºåˆ—æœ‰åº
 	private static Sequence mergeDiff(Sequence[] sources, Sequence[] values) {
 		int count = values.length;
 		int[] len = new int[count];
@@ -2230,9 +2230,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ºÏ²¢ĞòÁĞµÄÔªËØ£¬ĞòÁĞÔªËØÎªĞòÁĞ£¬ÇÒ°´±í´ïÊ½ÓĞĞò
-	 * @param exps Expression[] ±í´ïÊ½£¬Èç¹û¿ÕÔò°´ÕÕĞòÁĞÔªËØÖµ»òÖ÷¼üºÏ²¢
-	 * @param opt String u£ºÇó²¢£¬i£ºÇó½»£¬d£ºÇó²î£¬Ä¬ÈÏÎªÁ´½Ó
+	 * åˆå¹¶åºåˆ—çš„å…ƒç´ ï¼Œåºåˆ—å…ƒç´ ä¸ºåºåˆ—ï¼Œä¸”æŒ‰è¡¨è¾¾å¼æœ‰åº
+	 * @param exps Expression[] è¡¨è¾¾å¼ï¼Œå¦‚æœç©ºåˆ™æŒ‰ç…§åºåˆ—å…ƒç´ å€¼æˆ–ä¸»é”®åˆå¹¶
+	 * @param opt String uï¼šæ±‚å¹¶ï¼Œiï¼šæ±‚äº¤ï¼Œdï¼šæ±‚å·®ï¼Œé»˜è®¤ä¸ºé“¾æ¥
 	 * @param ctx Context
 	 * @return Sequence
 	 */
@@ -2357,7 +2357,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ±È½ÏÁ½ĞòÁĞÊÇ·ñÏàµÈ
+	 * æ¯”è¾ƒä¸¤åºåˆ—æ˜¯å¦ç›¸ç­‰
 	 * @param seq Sequence
 	 * @return boolean
 	 */
@@ -2385,9 +2385,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ±È½ÏÁ½ĞòÁĞµÄ´óĞ¡
+	 * æ¯”è¾ƒä¸¤åºåˆ—çš„å¤§å°
 	 * @param seq Sequence
-	 * @return 1£ºµ±Ç°ĞòÁĞ´ó£¬0£ºÁ½¸öĞòÁĞÏàµÈ£¬-1£ºµ±Ç°ĞòÁĞĞ¡
+	 * @return 1ï¼šå½“å‰åºåˆ—å¤§ï¼Œ0ï¼šä¸¤ä¸ªåºåˆ—ç›¸ç­‰ï¼Œ-1ï¼šå½“å‰åºåˆ—å°
 	 */
 	public int compareTo(Sequence other) {
 		if (other == this) {
@@ -2400,10 +2400,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ±È½ÏÁ½ĞòÁĞµÄ´óĞ¡
-	 * @param seq ÁíÒ»¸öĞòÁĞ
-	 * @param len ±È½ÏµÄ³ÉÔ±ÊıÁ¿
-	 * @return 1£ºµ±Ç°ĞòÁĞ´ó£¬0£ºÁ½¸öĞòÁĞÏàµÈ£¬-1£ºµ±Ç°ĞòÁĞĞ¡
+	 * æ¯”è¾ƒä¸¤åºåˆ—çš„å¤§å°
+	 * @param seq å¦ä¸€ä¸ªåºåˆ—
+	 * @param len æ¯”è¾ƒçš„æˆå‘˜æ•°é‡
+	 * @return 1ï¼šå½“å‰åºåˆ—å¤§ï¼Œ0ï¼šä¸¤ä¸ªåºåˆ—ç›¸ç­‰ï¼Œ-1ï¼šå½“å‰åºåˆ—å°
 	 */
 	public int compareTo(Sequence seq, int len) {
 		if (seq == this) {
@@ -2418,17 +2418,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int result = mems.compareTo(i, mems2, i);
 			if (result != 0) {
 				return result;
-			} // ÏàµÈ±È½ÏÏÂÒ»¸ö
+			} // ç›¸ç­‰æ¯”è¾ƒä¸‹ä¸€ä¸ª
 		}
 
 		return 0;
 	}
 	
 	/**
-	 * ÓÃÖ¸¶¨±È½ÏÆ÷±È½ÏÁ½¸öĞòÁĞµÄ´óĞ¡
-	 * @param seq Óëµ±Ç°ĞòÁĞ½øĞĞ±È½ÏµÄĞòÁĞ
-	 * @param comparator ±È½ÏÆ÷
-	 * @return 1£ºµ±Ç°ĞòÁĞ´ó£¬0£ºÁ½¸öĞòÁĞÏàµÈ£¬-1£ºµ±Ç°ĞòÁĞĞ¡
+	 * ç”¨æŒ‡å®šæ¯”è¾ƒå™¨æ¯”è¾ƒä¸¤ä¸ªåºåˆ—çš„å¤§å°
+	 * @param seq ä¸å½“å‰åºåˆ—è¿›è¡Œæ¯”è¾ƒçš„åºåˆ—
+	 * @param comparator æ¯”è¾ƒå™¨
+	 * @return 1ï¼šå½“å‰åºåˆ—å¤§ï¼Œ0ï¼šä¸¤ä¸ªåºåˆ—ç›¸ç­‰ï¼Œ-1ï¼šå½“å‰åºåˆ—å°
 	 */
 	public int compareTo(Sequence seq, Comparator<Object> comparator) {
 		if (seq == this) {
@@ -2447,16 +2447,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int result = Variant.compare(mems.get(i), mems2.get(i), comparator, true);
 			if (result != 0) {
 				return result;
-			} // ÏàµÈ±È½ÏÏÂÒ»¸ö
+			} // ç›¸ç­‰æ¯”è¾ƒä¸‹ä¸€ä¸ª
 		}
 
 		return len == len2 ? 0 : (len > len2 ? 1 : -1);
 	}
 	
 	/**
-	 * ±È½ÏÁ½ĞòÁĞµÄ´óĞ¡£¬nullµ±×î´óÖµ´¦Àí
+	 * æ¯”è¾ƒä¸¤åºåˆ—çš„å¤§å°ï¼Œnullå½“æœ€å¤§å€¼å¤„ç†
 	 * @param seq
-	 * @return 1£ºµ±Ç°ĞòÁĞ´ó£¬0£ºÁ½¸öĞòÁĞÏàµÈ£¬-1£ºµ±Ç°ĞòÁĞĞ¡
+	 * @return 1ï¼šå½“å‰åºåˆ—å¤§ï¼Œ0ï¼šä¸¤ä¸ªåºåˆ—ç›¸ç­‰ï¼Œ-1ï¼šå½“å‰åºåˆ—å°
 	 */
 	public int nullMaxCompare(Sequence seq) {
 		if (seq == this) {
@@ -2475,17 +2475,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int result = Variant.compare_0(mems.get(i), seq.getMem(i));
 			if (result != 0) {
 				return result;
-			} // ÏàµÈ±È½ÏÏÂÒ»¸ö
+			} // ç›¸ç­‰æ¯”è¾ƒä¸‹ä¸€ä¸ª
 		}
 
 		return len == len2 ? 0 : (len > len2 ? 1 : -1);
 	}
 	
 	/**
-	 * ÓÃÖ¸¶¨±È½ÏÆ÷±È½ÏÁ½¸öĞòÁĞµÄ´óĞ¡£¬nullµ±×î´óÖµ´¦Àí
-	 * @param seq Óëµ±Ç°ĞòÁĞ½øĞĞ±È½ÏµÄĞòÁĞ
-	 * @param comparator ±È½ÏÆ÷
-	 * @return 1£ºµ±Ç°ĞòÁĞ´ó£¬0£ºÁ½¸öĞòÁĞÏàµÈ£¬-1£ºµ±Ç°ĞòÁĞĞ¡
+	 * ç”¨æŒ‡å®šæ¯”è¾ƒå™¨æ¯”è¾ƒä¸¤ä¸ªåºåˆ—çš„å¤§å°ï¼Œnullå½“æœ€å¤§å€¼å¤„ç†
+	 * @param seq ä¸å½“å‰åºåˆ—è¿›è¡Œæ¯”è¾ƒçš„åºåˆ—
+	 * @param comparator æ¯”è¾ƒå™¨
+	 * @return 1ï¼šå½“å‰åºåˆ—å¤§ï¼Œ0ï¼šä¸¤ä¸ªåºåˆ—ç›¸ç­‰ï¼Œ-1ï¼šå½“å‰åºåˆ—å°
 	 */
 	public int nullMaxCompare(Sequence seq, Comparator<Object> comparator) {
 		if (seq == this) {
@@ -2504,15 +2504,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int result = Variant.compare_0(mems.get(i), seq.getMem(i), comparator);
 			if (result != 0) {
 				return result;
-			} // ÏàµÈ±È½ÏÏÂÒ»¸ö
+			} // ç›¸ç­‰æ¯”è¾ƒä¸‹ä¸€ä¸ª
 		}
 
 		return len == len2 ? 0 : (len > len2 ? 1 : -1);
 	}
 
 	/**
-	 * °Ñµ±Ç°ĞòÁĞÓë³ÉÔ±ÖµÎª0µÄÍ¬µÈ³¤¶ÈĞòÁĞ½øĞĞ±È½Ï
-	 * @return 1£º´óÓÚ£¬0£ºµÈÓÚ£¬-1£ºĞ¡ÓÚ
+	 * æŠŠå½“å‰åºåˆ—ä¸æˆå‘˜å€¼ä¸º0çš„åŒç­‰é•¿åº¦åºåˆ—è¿›è¡Œæ¯”è¾ƒ
+	 * @return 1ï¼šå¤§äºï¼Œ0ï¼šç­‰äºï¼Œ-1ï¼šå°äº
 	 */
 	public int compare0() {
 		IArray mems = getMems();
@@ -2526,15 +2526,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int result = Variant.compare(mems.get(i), zero, true);
 			if (result != 0) {
 				return result;
-			} // ÏàµÈ±È½ÏÏÂÒ»¸ö
+			} // ç›¸ç­‰æ¯”è¾ƒä¸‹ä¸€ä¸ª
 		}
 		
 		return 0;
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞµÄ³ÉÔ±Óë
-	 * @return true£º³ÉÔ±¶¼ÊÇÕæ£¬false£º´æÔÚ³ÉÔ±È¡ÖµÎª¼Ù
+	 * è¿”å›åºåˆ—çš„æˆå‘˜ä¸
+	 * @return trueï¼šæˆå‘˜éƒ½æ˜¯çœŸï¼Œfalseï¼šå­˜åœ¨æˆå‘˜å–å€¼ä¸ºå‡
 	 */
 	public boolean cand() {
 		IArray mems = getMems();
@@ -2548,10 +2548,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * Õë¶ÔĞòÁĞ¼ÆËã±í´ïÊ½£¬·µ»Ø¼ÆËã½á¹ûµÄÓë
-	 * @param exp ±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return true£º±í´ïÊ½¼ÆËã½á¹û¶¼ÊÇÕæ£¬false£º´æÔÚ±í´ïÊ½¼ÆËã½á¹ûÎª¼Ù
+	 * é’ˆå¯¹åºåˆ—è®¡ç®—è¡¨è¾¾å¼ï¼Œè¿”å›è®¡ç®—ç»“æœçš„ä¸
+	 * @param exp è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return trueï¼šè¡¨è¾¾å¼è®¡ç®—ç»“æœéƒ½æ˜¯çœŸï¼Œfalseï¼šå­˜åœ¨è¡¨è¾¾å¼è®¡ç®—ç»“æœä¸ºå‡
 	 */
 	public boolean cand(Expression exp, Context ctx) {
 		IArray mems = getMems();
@@ -2605,7 +2605,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØµÚÒ»¸ö²»ÎªnullµÄÔªËØ
+	 * è¿”å›ç¬¬ä¸€ä¸ªä¸ä¸ºnullçš„å…ƒç´ 
 	 * @return Object
 	 */
 	public Object ifn() {
@@ -2621,7 +2621,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØµÚÒ»¸ö²»Îªnull²¢ÇÒ²»ÊÇ""µÄÔªËØ
+	 * è¿”å›ç¬¬ä¸€ä¸ªä¸ä¸ºnullå¹¶ä¸”ä¸æ˜¯""çš„å…ƒç´ 
 	 * @return Object
 	 */
 	public Object nvl() {
@@ -2638,9 +2638,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØµÚÒ»¸ö²»ÎªnullµÄ±í´ïÊ½·µ»ØÖµ
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * è¿”å›ç¬¬ä¸€ä¸ªä¸ä¸ºnullçš„è¡¨è¾¾å¼è¿”å›å€¼
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return Sequence
 	 */
 	public Object ifn(Expression exp, Context ctx) {
@@ -2669,9 +2669,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØµÚÒ»¸ö²»ÎªnullµÄ±í´ïÊ½·µ»ØÖµ
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * è¿”å›ç¬¬ä¸€ä¸ªä¸ä¸ºnullçš„è¡¨è¾¾å¼è¿”å›å€¼
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return Sequence
 	 */
 	public Object nvl(Expression exp, Context ctx) {
@@ -2700,8 +2700,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞµÄ·ÇÖØ¸´ÔªËØÊı£¬²»°üº¬null
-	 * @param opt o£ºĞòÁĞÓĞĞò
+	 * è¿”å›åºåˆ—çš„éé‡å¤å…ƒç´ æ•°ï¼Œä¸åŒ…å«null
+	 * @param opt oï¼šåºåˆ—æœ‰åº
 	 * @return
 	 */
 	public int icount(String opt) {
@@ -2754,8 +2754,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØÈ¥µôÖØ¸´µÄÔªËØºóµÄĞòÁĞ
-	 * @param opt String o£ºÖ»ºÍÏàÁÚµÄ¶Ô±È£¬u£º½á¹û¼¯²»ÅÅĞò£¬h£ºÏÈÅÅĞòÔÙÓÃ@o¼ÆËã
+	 * è¿”å›å»æ‰é‡å¤çš„å…ƒç´ åçš„åºåˆ—
+	 * @param opt String oï¼šåªå’Œç›¸é‚»çš„å¯¹æ¯”ï¼Œuï¼šç»“æœé›†ä¸æ’åºï¼Œhï¼šå…ˆæ’åºå†ç”¨@oè®¡ç®—
 	 * @return Sequence
 	 */
 	public Sequence id(String opt) {
@@ -2809,7 +2809,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞÖĞ³öÏÖ´ÎÊı×î¶àµÄ³ÉÔ±
+	 * è¿”å›åºåˆ—ä¸­å‡ºç°æ¬¡æ•°æœ€å¤šçš„æˆå‘˜
 	 * @return
 	 */
 	public Object mode() {
@@ -2845,7 +2845,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØĞòÁĞÔªËØµÄºÍ
+	 * è¿”å›åºåˆ—å…ƒç´ çš„å’Œ
 	 * @return Object
 	 */
 	public Object sum() {
@@ -2853,7 +2853,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞÔªËØµÄÆ½·½ºÍ
+	 * è¿”å›åºåˆ—å…ƒç´ çš„å¹³æ–¹å’Œ
 	 * @return Object
 	 */
 	public Object sum2() {
@@ -2871,7 +2871,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÔªËØÓëÆ½¾ùÖµÖ®¼äµÄ²îÖµµÄÆ½·½ºÍµÄÆ½¾ùÖµ
+	 * è¿”å›å…ƒç´ ä¸å¹³å‡å€¼ä¹‹é—´çš„å·®å€¼çš„å¹³æ–¹å’Œçš„å¹³å‡å€¼
 	 * @return Object
 	 */
 	public Object variance() {
@@ -2912,7 +2912,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÔªËØµÄÀÛ»ı¹¹³ÉµÄĞòÁĞ
+	 * è¿”å›å…ƒç´ çš„ç´¯ç§¯æ„æˆçš„åºåˆ—
 	 * @return Sequence
 	 */
 	public Sequence cumulate() {
@@ -2931,7 +2931,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÔªËØµÄÕ¼±È¹¹³ÉµÄĞòÁĞ
+	 * è¿”å›å…ƒç´ çš„å æ¯”æ„æˆçš„åºåˆ—
 	 * @return Sequence
 	 */
 	public Sequence proportion() {
@@ -2949,7 +2949,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÆ½¾ùÖµ£¬ÔªËØÀàĞÍ±ØĞëÎªÊıÖµ£¬¿ÕÖµ²»½øĞĞ¼ÆÊı
+	 * è¿”å›å¹³å‡å€¼ï¼Œå…ƒç´ ç±»å‹å¿…é¡»ä¸ºæ•°å€¼ï¼Œç©ºå€¼ä¸è¿›è¡Œè®¡æ•°
 	 * @return Object
 	 */
 	public Object average() {
@@ -2957,7 +2957,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»Ø×îĞ¡Öµ£¬ºöÂÔ¿ÕÖµ
+	 * è¿”å›æœ€å°å€¼ï¼Œå¿½ç•¥ç©ºå€¼
 	 * @return Object
 	 */
 	public Object min() {
@@ -2965,8 +2965,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»Ø×îĞ¡Öµ£¬ºöÂÔ¿ÕÖµ
-	 * @param opt 0£º°üº¬null
+	 * è¿”å›æœ€å°å€¼ï¼Œå¿½ç•¥ç©ºå€¼
+	 * @param opt 0ï¼šåŒ…å«null
 	 * @return Object
 	 */
 	public Object min(String opt) {
@@ -2992,7 +2992,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»Ø×î´óÖµ
+	 * è¿”å›æœ€å¤§å€¼
 	 * @return Object
 	 */
 	public Object max() {
@@ -3000,8 +3000,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»Ø×îĞ¡µÄcount¸öÔªËØ
-	 * @param count ÊıÁ¿
+	 * è¿”å›æœ€å°çš„countä¸ªå…ƒç´ 
+	 * @param count æ•°é‡
 	 * @return
 	 */
 	public Sequence min(int count) {
@@ -3023,8 +3023,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»Ø×î´óµÄcount¸öÔªËØ
-	 * @param count ÊıÁ¿
+	 * è¿”å›æœ€å¤§çš„countä¸ªå…ƒç´ 
+	 * @param count æ•°é‡
 	 * @return
 	 */
 	public Sequence max(int count) {
@@ -3042,7 +3042,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return sequence.sort("zo");
 	}
 	
-	// ·µ»ØÊ¹±í´ïÊ½Êı×éµÄ·µ»ØÖµ×îĞ¡£¨»ò×î´ó£©µÄÈ«²¿ÔªËØµÄÎ»ÖÃ
+	// è¿”å›ä½¿è¡¨è¾¾å¼æ•°ç»„çš„è¿”å›å€¼æœ€å°ï¼ˆæˆ–æœ€å¤§ï¼‰çš„å…¨éƒ¨å…ƒç´ çš„ä½ç½®
 	private IntArrayList top1Index(Expression []exps, boolean isMin, Context ctx) {
 		int end = length();
 		int fcount = exps.length;
@@ -3069,7 +3069,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						Object obj = exps[f].calculate(ctx);
 						int result = Variant.compare(obj, prevValues[f], true);
 						if (result < 0) {
-							// ·¢ÏÖĞÂµÄ×îĞ¡Öµ
+							// å‘ç°æ–°çš„æœ€å°å€¼
 							prevValues[f] = obj;
 							for (++f; f < fcount; ++f) {
 								prevValues[f] = exps[f].calculate(ctx);
@@ -3083,7 +3083,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						}
 					}
 					
-					// ËùÓĞ×Ö¶Î¶¼¸úÇ°ÃæµÄ×îĞ¡ÖµÏàµÈ
+					// æ‰€æœ‰å­—æ®µéƒ½è·Ÿå‰é¢çš„æœ€å°å€¼ç›¸ç­‰
 					list.addInt(i);
 				}
 			} else {
@@ -3094,7 +3094,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						Object obj = exps[f].calculate(ctx);
 						int result = Variant.compare(obj, prevValues[f], true);
 						if (result > 0) {
-							// ·¢ÏÖĞÂµÄ×î´óÖµ
+							// å‘ç°æ–°çš„æœ€å¤§å€¼
 							prevValues[f] = obj;
 							for (++f; f < fcount; ++f) {
 								prevValues[f] = exps[f].calculate(ctx);
@@ -3108,7 +3108,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						}
 					}
 					
-					// ËùÓĞ×Ö¶Î¶¼¸úÇ°ÃæµÄ×îĞ¡ÖµÏàµÈ
+					// æ‰€æœ‰å­—æ®µéƒ½è·Ÿå‰é¢çš„æœ€å°å€¼ç›¸ç­‰
 					list.addInt(i);
 				}
 			}
@@ -3169,12 +3169,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¶ÔĞòÁĞ°´±í´ïÊ½×öÅÅÃû£¬È¡Ç°countÃûµÄÎ»ÖÃ
-	 * @param count ÊıÁ¿
-	 * @param exp ¼ÆËã±í´ïÊ½
-	 * @param opt 1£º·µ»ØÎ»ÖÃ£¬Ä¬ÈÏ·µ»ØÎ»ÖÃĞòÁĞ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Î»ÖÃ»òÎ»ÖÃĞòÁĞ
+	 * å¯¹åºåˆ—æŒ‰è¡¨è¾¾å¼åšæ’åï¼Œå–å‰countåçš„ä½ç½®
+	 * @param count æ•°é‡
+	 * @param exp è®¡ç®—è¡¨è¾¾å¼
+	 * @param opt 1ï¼šè¿”å›ä½ç½®ï¼Œé»˜è®¤è¿”å›ä½ç½®åºåˆ—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return ä½ç½®æˆ–ä½ç½®åºåˆ—
 	 */
 	public Object ptop(int count, Expression exp, String opt, Context ctx) {
 		if (count == 0) {
@@ -3193,12 +3193,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡expsÇ°¼¸Î»µÄ¼ÇÂ¼»òÎ»ÖÃ
-	 * @param count ÊıÁ¿
-	 * @param exps ±í´ïÊ½Êı×é£¬ÓÃÓÚ±È½Ï´óĞ¡
-	 * @param opt Ñ¡Ïî
+	 * å–expså‰å‡ ä½çš„è®°å½•æˆ–ä½ç½®
+	 * @param count æ•°é‡
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„ï¼Œç”¨äºæ¯”è¾ƒå¤§å°
+	 * @param opt é€‰é¡¹
 	 * @param ctx
-	 * @param getPos true£ºÈ¡Î»ÖÃ£¬false£ºÈ¡¼ÇÂ¼
+	 * @param getPos trueï¼šå–ä½ç½®ï¼Œfalseï¼šå–è®°å½•
 	 * @return
 	 */
 	public Object top(int count, Expression []exps, String opt, Context ctx, boolean getPos) {
@@ -3207,7 +3207,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return null;
 		}
 		
-		// È¡ËùÓĞ×îĞ¡»ò×î´óµÄ
+		// å–æ‰€æœ‰æœ€å°æˆ–æœ€å¤§çš„
 		if ((count == 1 || count == -1) && (opt == null || opt.indexOf('1') == -1)) {
 			IntArrayList indexList = top1Index(exps, count == 1, ctx);
 			int size = indexList.size() - 1;
@@ -3284,11 +3284,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡count¸öexp·µ»ØÖµµÄ×îĞ¡Öµ
-	 * @param count ÊıÁ¿
-	 * @param exp ¼ÆËã±í´ïÊ½
-	 * @param opt Ñ¡Ïî 1£ºµ±countÎªÕı¸º1Ê±£¬Ö»È¡Ò»¸ö£¬Ä¬ÈÏÈ¡ËùÓĞÏàÍ¬µÄ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–countä¸ªexpè¿”å›å€¼çš„æœ€å°å€¼
+	 * @param count æ•°é‡
+	 * @param exp è®¡ç®—è¡¨è¾¾å¼
+	 * @param opt é€‰é¡¹ 1ï¼šå½“countä¸ºæ­£è´Ÿ1æ—¶ï¼Œåªå–ä¸€ä¸ªï¼Œé»˜è®¤å–æ‰€æœ‰ç›¸åŒçš„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Object
 	 */
 	public Object top(int count, Expression exp, String opt, Context ctx) {
@@ -3323,12 +3323,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡count¸öÊ¹exp·µ»ØÖµ×îĞ¡µÄÔªËØµÄgetExp·µ»ØÖµ
-	 * @param count ÊıÁ¿
-	 * @param exp ±È½Ï±í´ïÊ½
-	 * @param getExp ·µ»ØÖµ±í´ïÊ½
-	 * @param opt Ñ¡Ïî 1£ºµ±countÎªÕı¸º1Ê±£¬Ö»È¡Ò»¸ö£¬Ä¬ÈÏÈ¡ËùÓĞÏàÍ¬µÄ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–countä¸ªä½¿expè¿”å›å€¼æœ€å°çš„å…ƒç´ çš„getExpè¿”å›å€¼
+	 * @param count æ•°é‡
+	 * @param exp æ¯”è¾ƒè¡¨è¾¾å¼
+	 * @param getExp è¿”å›å€¼è¡¨è¾¾å¼
+	 * @param opt é€‰é¡¹ 1ï¼šå½“countä¸ºæ­£è´Ÿ1æ—¶ï¼Œåªå–ä¸€ä¸ªï¼Œé»˜è®¤å–æ‰€æœ‰ç›¸åŒçš„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Object
 	 */
 	public Object top(int count, Expression exp, Expression getExp, String opt, Context ctx) {
@@ -3360,7 +3360,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
-	// 0Î»ÖÃ²»ÓÃ
+	// 0ä½ç½®ä¸ç”¨
 	private IntArrayList pmin(int count, Comparator<Object> comparator) {
 		IArray mems = getMems();
 		int size = mems.size();
@@ -3372,7 +3372,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int p = 1;
 			for (; p <= size; ++p) {
 				minValue = mems.get(p);
-				if (minValue != null) { // ºöÂÔ¿ÕÖµ
+				if (minValue != null) { // å¿½ç•¥ç©ºå€¼
 					break;
 				}
 			}
@@ -3411,10 +3411,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÓÉÊ¹Ö¸¶¨±í´ïÊ½Öµ×îĞ¡µÄcount¸öÔªËØ¹¹³ÉµÄĞòÁĞ
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param count ÊıÁ¿
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
+	 * è¿”å›ç”±ä½¿æŒ‡å®šè¡¨è¾¾å¼å€¼æœ€å°çš„countä¸ªå…ƒç´ æ„æˆçš„åºåˆ—
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param count æ•°é‡
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence minp(Expression exp, int count, Context ctx) {
@@ -3435,10 +3435,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÓÉÊ¹Ö¸¶¨±í´ïÊ½Öµ×î´óµÄcount¸öÔªËØ¹¹³ÉµÄĞòÁĞ
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param count ÊıÁ¿
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
+	 * è¿”å›ç”±ä½¿æŒ‡å®šè¡¨è¾¾å¼å€¼æœ€å¤§çš„countä¸ªå…ƒç´ æ„æˆçš„åºåˆ—
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param count æ•°é‡
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence maxp(Expression exp, int count, Context ctx) {
@@ -3459,9 +3459,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØobjÔÚĞòÁĞÖĞµÄÅÅÃû
+	 * è¿”å›objåœ¨åºåˆ—ä¸­çš„æ’å
 	 * @param obj Object
-	 * @param opt String z£ºµ¹ÊıÅÅÃû£¬i£ºÖØ¸´µÄËãÒ»¸ö£¬s£ºÍ³¼ÆÑ§ÅÅÃû£¬·µ»ØDouble
+	 * @param opt String zï¼šå€’æ•°æ’åï¼Œiï¼šé‡å¤çš„ç®—ä¸€ä¸ªï¼Œsï¼šç»Ÿè®¡å­¦æ’åï¼Œè¿”å›Double
 	 * @return Number
 	 */
 	public Number rank(Object obj, String opt) {
@@ -3554,8 +3554,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÃ¿¸öÔªËØµÄÅÅÃû
-	 * @param opt String z£ºµ¹ÊıÅÅÃû£¬i£ºÖØ¸´µÄËãÒ»¸ö
+	 * è¿”å›æ¯ä¸ªå…ƒç´ çš„æ’å
+	 * @param opt String zï¼šå€’æ•°æ’åï¼Œiï¼šé‡å¤çš„ç®—ä¸€ä¸ª
 	 * @return Sequence
 	 */
 	public Sequence ranks(String opt) {
@@ -3581,7 +3581,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			comparator = new DescComparator(comparator);
 		}
 
-		// ½øĞĞÅÅĞò
+		// è¿›è¡Œæ’åº
 		MultithreadUtil.sort(infos, 1, len, new PSortComparator(comparator));
 
 		Number[] places = new Number[size];
@@ -3655,24 +3655,24 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¼ÆËãĞòÁĞÄ³Ò»¶ÎµÄmedianÖµ
-	 * µ÷ÓÃ¸Ãº¯ÊıÊ±£¬¸ÃĞòÁĞÒÑ¾­ÅÅĞò¡£
-	 * ¸Ãº¯Êı²»»á±»ÓÃ»§Ö±½Óµ÷ÓÃ£¬¸Ã²ÎÊıºÏ·¨ĞÔÓÉµ÷ÓÃÕß±£Ö¤¡£
-	 * @param start	·Ö¶Î¿ªÊ¼Î»ÖÃ(°üº¬ÔÚ·Ö¶ÎÖĞ)
-	 * @param end	·Ö¶Î½áÊøÎ»ÖÃ(°üº¬ÔÚ·Ö¶ÎÖĞ)
-	 * @param	k	·µ»ØµÚk¶ÎµÄµÚÒ»¸öÊı¾İ¡£
-	 * 				kµÈÓÚ0Ê±£¬·µ»ØËùÓĞ¶ÎÍ·Êı¾İµÄĞòÁĞ¡£
-	 * 				kĞ¡ÓÚµÈÓÚn
-	 * @param	n	±¾·Ö×éÊı¾İ·Ö³É¶àÉÙ¶Î
-	 * 				nµÈÓÚ0ÔòÈ¡ÖĞÖµ¡£
-	 * 				n´óÓÚ2£¬±íÊ¾°Ñ±¾×éÊı¾İ·Ö³Én¶Î¡£
-	 * 				n²»µÈÓÚ1
-	 * @return	·µ»ØmedianµÄ½á¹û
+	 * è®¡ç®—åºåˆ—æŸä¸€æ®µçš„medianå€¼
+	 * è°ƒç”¨è¯¥å‡½æ•°æ—¶ï¼Œè¯¥åºåˆ—å·²ç»æ’åºã€‚
+	 * è¯¥å‡½æ•°ä¸ä¼šè¢«ç”¨æˆ·ç›´æ¥è°ƒç”¨ï¼Œè¯¥å‚æ•°åˆæ³•æ€§ç”±è°ƒç”¨è€…ä¿è¯ã€‚
+	 * @param start	åˆ†æ®µå¼€å§‹ä½ç½®(åŒ…å«åœ¨åˆ†æ®µä¸­)
+	 * @param end	åˆ†æ®µç»“æŸä½ç½®(åŒ…å«åœ¨åˆ†æ®µä¸­)
+	 * @param	k	è¿”å›ç¬¬kæ®µçš„ç¬¬ä¸€ä¸ªæ•°æ®ã€‚
+	 * 				kç­‰äº0æ—¶ï¼Œè¿”å›æ‰€æœ‰æ®µå¤´æ•°æ®çš„åºåˆ—ã€‚
+	 * 				kå°äºç­‰äºn
+	 * @param	n	æœ¬åˆ†ç»„æ•°æ®åˆ†æˆå¤šå°‘æ®µ
+	 * 				nç­‰äº0åˆ™å–ä¸­å€¼ã€‚
+	 * 				nå¤§äº2ï¼Œè¡¨ç¤ºæŠŠæœ¬ç»„æ•°æ®åˆ†æˆnæ®µã€‚
+	 * 				nä¸ç­‰äº1
+	 * @return	è¿”å›mediançš„ç»“æœ
 	 */
 	public Object median(int start, int end, int k, int n) {
 		Sequence resSeq = null;
 		
-		// ³õÊ¼»¯ÉèÖÃ
+		// åˆå§‹åŒ–è®¾ç½®
 		if (2 <= n && 0 == k)
 			resSeq = new Sequence();
 		else if (0 == n && 0 == k) {
@@ -3682,7 +3682,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		int len = end - start + 1;
 		try {
-			if (null == resSeq) {	// ·µ»ØÖĞÖµ
+			if (null == resSeq) {	// è¿”å›ä¸­å€¼
 				if (start+(len*k)/n-1 >= length()) {
 					return get(length());
 				} else if ((len*k)%n != 0)
@@ -3692,7 +3692,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							get(start + len*k/n)),
 							2);
 				}
-			} else {	// ĞèÒª·µ»ØĞòÁĞµÄÇé¿ö
+			} else {	// éœ€è¦è¿”å›åºåˆ—çš„æƒ…å†µ
 				for (int i = 1; i < n; i++) {
 					if (start+(len*i)/n-1 >= length()) {
 						resSeq.add(get(length()));
@@ -3715,8 +3715,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÓÉĞòÁĞµÄÔªËØ¹¹³ÉµÄºÍÁĞ
-	 * @param opt String 'm': ±íÃ÷ÔªËØÍ¬Ğò£¬ÓÃ¹é²¢Ëã·¨ÊµÏÖ
+	 * è¿”å›ç”±åºåˆ—çš„å…ƒç´ æ„æˆçš„å’Œåˆ—
+	 * @param opt String 'm': è¡¨æ˜å…ƒç´ åŒåºï¼Œç”¨å½’å¹¶ç®—æ³•å®ç°
 	 * @return Sequence
 	 */
 	public Sequence conj(String opt) {
@@ -3728,7 +3728,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		if (opt != null) {
 			if (opt.indexOf('m') != -1) {
-				// ÀûÓÃ¹é²¢·¨ºÏ²¢ÔªËØĞòÁĞ
+				// åˆ©ç”¨å½’å¹¶æ³•åˆå¹¶å…ƒç´ åºåˆ—
 				Object obj = mems.get(1);
 				Sequence sequence;
 				if (obj instanceof Sequence) {
@@ -3792,7 +3792,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		// ¼ÆËãĞÂĞòÁĞÒ»¹²ÓĞ¶àÉÙÔªËØ
+		// è®¡ç®—æ–°åºåˆ—ä¸€å…±æœ‰å¤šå°‘å…ƒç´ 
 		int total = 0;
 		boolean hasSeq = false;
 		for (int i = 1; i <= size; ++i) {
@@ -3825,7 +3825,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return result;
 	}
 	
-	// µİ¹éºÏ²¢×Ö¶ÎÖµ
+	// é€’å½’åˆå¹¶å­—æ®µå€¼
 	public Sequence fieldValues_r(String field) {
 		IArray mems = getMems();
 		int size = mems.size();
@@ -3863,7 +3863,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return result;
 	}
 	
-	// µİ¹éºÏ²¢×Ö¶ÎÖµ
+	// é€’å½’åˆå¹¶å­—æ®µå€¼
 	public Sequence fieldValues_r(int col) {
 		IArray mems = getMems();
 		int size = mems.size();
@@ -3892,9 +3892,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÖ¸¶¨±í´ïÊ½¼ÆËã½á¹ûµÄºÍÁĞ
-	 * @param exp ±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿”å›æŒ‡å®šè¡¨è¾¾å¼è®¡ç®—ç»“æœçš„å’Œåˆ—
+	 * @param exp è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public Sequence conj(Expression exp, Context ctx) {
@@ -3936,8 +3936,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØÓÉĞòÁĞµÄÔªËØ¹¹³ÉµÄ²îÁĞ
-	 * @param opt String 'm': ±íÃ÷ÔªËØÍ¬Ğò£¬ÓÃ¹é²¢Ëã·¨ÊµÏÖ
+	 * è¿”å›ç”±åºåˆ—çš„å…ƒç´ æ„æˆçš„å·®åˆ—
+	 * @param opt String 'm': è¡¨æ˜å…ƒç´ åŒåºï¼Œç”¨å½’å¹¶ç®—æ³•å®ç°
 	 * @return Sequence
 	 */
 	public Sequence diff(String opt) {
@@ -4006,8 +4006,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÓÉĞòÁĞµÄÔªËØ¹¹³ÉµÄ½»ÁĞ
-	 * @param opt String 'm': ±íÃ÷ÔªËØÍ¬Ğò£¬ÓÃ¹é²¢Ëã·¨ÊµÏÖ
+	 * è¿”å›ç”±åºåˆ—çš„å…ƒç´ æ„æˆçš„äº¤åˆ—
+	 * @param opt String 'm': è¡¨æ˜å…ƒç´ åŒåºï¼Œç”¨å½’å¹¶ç®—æ³•å®ç°
 	 * @return Sequence
 	 */
 	public Sequence isect(String opt) {
@@ -4046,10 +4046,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¶ÔĞòÁĞ³ÉÔ±°´Ö¸¶¨±í´ïÊ½×ö½»¼¯£¨ĞòÁĞµÄ³ÉÔ±Í¨³£ÊÇÅÅÁĞ£©
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ½»¼¯
+	 * å¯¹åºåˆ—æˆå‘˜æŒ‰æŒ‡å®šè¡¨è¾¾å¼åšäº¤é›†ï¼ˆåºåˆ—çš„æˆå‘˜é€šå¸¸æ˜¯æ’åˆ—ï¼‰
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return äº¤é›†
 	 */
 	public Sequence isect(Expression []exps, Context ctx) {
 		IArray mems = getMems();
@@ -4086,8 +4086,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÓÉĞòÁĞµÄÔªËØ¹¹³ÉµÄ²¢ÁĞ
-	 * @param opt String 'm': ±íÃ÷ÔªËØÍ¬Ğò£¬ÓÃ¹é²¢Ëã·¨ÊµÏÖ
+	 * è¿”å›ç”±åºåˆ—çš„å…ƒç´ æ„æˆçš„å¹¶åˆ—
+	 * @param opt String 'm': è¡¨æ˜å…ƒç´ åŒåºï¼Œç”¨å½’å¹¶ç®—æ³•å®ç°
 	 * @return Sequence
 	 */
 	public Sequence union(String opt) {
@@ -4188,7 +4188,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÓÉĞòÁĞµÄÔªËØÒì»òµÄ½»ÁĞ
+	 * è¿”å›ç”±åºåˆ—çš„å…ƒç´ å¼‚æˆ–çš„äº¤åˆ—
 	 * @return Sequence
 	 */
 	public Sequence xor() {
@@ -4224,10 +4224,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØĞòÁĞµÄ¼ÆËãÁĞ
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param opt String m£º²¢ĞĞ¼ÆËã£¬z£º´ÓºóÍùÇ°Ëã
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * è¿”å›åºåˆ—çš„è®¡ç®—åˆ—
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param opt String mï¼šå¹¶è¡Œè®¡ç®—ï¼Œzï¼šä»åå¾€å‰ç®—
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return Sequence
 	 */
 	public Sequence calc(Expression exp, String opt, Context ctx) {
@@ -4270,9 +4270,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØĞòÁĞµÄ¼ÆËãÁĞ
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * è¿”å›åºåˆ—çš„è®¡ç®—åˆ—
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return Sequence
 	 */
 	public Sequence calc(Expression exp, Context ctx) {
@@ -4345,9 +4345,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * Õë¶ÔÖ¸¶¨ÔªËØ¼ÆËã±í´ïÊ½£¬·µ»Ø¼ÆËã½á¹û
-	 * @param index int ÔªËØË÷Òı
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
+	 * é’ˆå¯¹æŒ‡å®šå…ƒç´ è®¡ç®—è¡¨è¾¾å¼ï¼Œè¿”å›è®¡ç®—ç»“æœ
+	 * @param index int å…ƒç´ ç´¢å¼•
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
 	 * @param ctx Context
 	 * @return Object
 	 */
@@ -4377,11 +4377,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * Õë¶ÔĞòÁĞµÄÖ¸¶¨ÔªËØ¼ÆËã±í´ïÊ½·µ»Ø¼ÆËã½á¹û
-	 * @param index ÔªËØĞòºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param outValues ¼ÆËã½á¹ûÊı×é
+	 * é’ˆå¯¹åºåˆ—çš„æŒ‡å®šå…ƒç´ è®¡ç®—è¡¨è¾¾å¼è¿”å›è®¡ç®—ç»“æœ
+	 * @param index å…ƒç´ åºå·ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param outValues è®¡ç®—ç»“æœæ•°ç»„
 	 */
 	public void calc(int index, Expression []exps, Context ctx, Object []outValues) {
 		ComputeStack stack = ctx.getComputeStack();
@@ -4399,10 +4399,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * Õë¶ÔÖ¸¶¨µÄ¶àÔªËØ¼ÆËã±í´ïÊ½£¬·µ»Ø¼ÆËã½á¹û¹¹³ÉµÄĞòÁĞ
-	 * @param seq Sequence ÔªËØÎ»ÖÃ¹¹³ÉµÄĞòÁĞ
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
+	 * é’ˆå¯¹æŒ‡å®šçš„å¤šå…ƒç´ è®¡ç®—è¡¨è¾¾å¼ï¼Œè¿”å›è®¡ç®—ç»“æœæ„æˆçš„åºåˆ—
+	 * @param seq Sequence å…ƒç´ ä½ç½®æ„æˆçš„åºåˆ—
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public Sequence calc(Sequence seq, Expression exp, Context ctx) {
@@ -4439,13 +4439,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * Õë¶ÔĞòÁĞ×öµü´úÔËËã£¬µü´ú¹ı³ÌÖĞcÎªÕæÔòÌáÇ°½áÊø£¨²»°üº¬ÎªÕæµÄÔªËØ£©
-	 * @param exp µü´ú±í´ïÊ½
-	 * @param initVal ³õÊ¼Öµ
-	 * @param c Ìõ¼ş±í´ïÊ½
-	 * @param opt a£º·µ»ØËùÓĞµü´úÖµ£¬Ä¬ÈÏ·µ»Ø×îºóÒ»¸öµü´úÖµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return µü´ú½á¹û
+	 * é’ˆå¯¹åºåˆ—åšè¿­ä»£è¿ç®—ï¼Œè¿­ä»£è¿‡ç¨‹ä¸­cä¸ºçœŸåˆ™æå‰ç»“æŸï¼ˆä¸åŒ…å«ä¸ºçœŸçš„å…ƒç´ ï¼‰
+	 * @param exp è¿­ä»£è¡¨è¾¾å¼
+	 * @param initVal åˆå§‹å€¼
+	 * @param c æ¡ä»¶è¡¨è¾¾å¼
+	 * @param opt aï¼šè¿”å›æ‰€æœ‰è¿­ä»£å€¼ï¼Œé»˜è®¤è¿”å›æœ€åä¸€ä¸ªè¿­ä»£å€¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return è¿­ä»£ç»“æœ
 	 */
 	public Object iterate(Expression exp, Object initVal, Expression c, String opt, Context ctx) {
 		Param param = ctx.getIterateParam();
@@ -4537,9 +4537,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¼ÆËã±í´ïÊ½²¢·µ»Ø×Ô¼º
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * è®¡ç®—è¡¨è¾¾å¼å¹¶è¿”å›è‡ªå·±
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 */
 	public void run(Expression exp, Context ctx) {
 		if (exp == null) {
@@ -4570,9 +4570,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * Ñ­»·ĞòÁĞÔªËØ£¬¼ÆËã±í´ïÊ½²¢½øĞĞ¸³Öµ
-	 * @param assignExps Expression[] ¸³Öµ±í´ïÊ½
-	 * @param exps Expression[] Öµ±í´ïÊ½
+	 * å¾ªç¯åºåˆ—å…ƒç´ ï¼Œè®¡ç®—è¡¨è¾¾å¼å¹¶è¿›è¡Œèµ‹å€¼
+	 * @param assignExps Expression[] èµ‹å€¼è¡¨è¾¾å¼
+	 * @param exps Expression[] å€¼è¡¨è¾¾å¼
 	 * @param ctx Context
 	 */
 	public void run(Expression[] assignExps, Expression[] exps, Context ctx) {
@@ -4619,10 +4619,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØobjÔÚĞòÁĞÖĞµÄÎ»ÖÃ£¬Ä¬ÈÏ·µ»ØµÚÒ»¸ö
-	 * @param obj Object Ä³Ò»ÔªËØ»òÁ¬ĞøµÄÔªËØ×é³ÉµÄĞòÁĞ
-	 * @param opt String ²éÕÒ±êÖ¾£¬a£ºËùÓĞÂú×ãÌõ¼şÕß£¬z£º´ÓºóÃæÍùÇ°ÕÒ£¬bÍ¬Ğò¹é²¢·¨²éÕÒ£¬s£ºÕÒ²»µ½Ê±·µ»Ø¿É²åÈëÎ»ÖÃµÄÏà·´Êı
-	 * @return ÊıÁĞ£º´øÓĞaÑ¡Ïî£¬ÕûÊı£º²»´øaÑ¡Ïî
+	 * è¿”å›objåœ¨åºåˆ—ä¸­çš„ä½ç½®ï¼Œé»˜è®¤è¿”å›ç¬¬ä¸€ä¸ª
+	 * @param obj Object æŸä¸€å…ƒç´ æˆ–è¿ç»­çš„å…ƒç´ ç»„æˆçš„åºåˆ—
+	 * @param opt String æŸ¥æ‰¾æ ‡å¿—ï¼Œaï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œzï¼šä»åé¢å¾€å‰æ‰¾ï¼ŒbåŒåºå½’å¹¶æ³•æŸ¥æ‰¾ï¼Œsï¼šæ‰¾ä¸åˆ°æ—¶è¿”å›å¯æ’å…¥ä½ç½®çš„ç›¸åæ•°
+	 * @return æ•°åˆ—ï¼šå¸¦æœ‰aé€‰é¡¹ï¼Œæ•´æ•°ï¼šä¸å¸¦aé€‰é¡¹
 	 */
 	public Object pos(Object obj, String opt) {
 		if (obj instanceof Sequence && (opt == null || opt.indexOf('p') == -1)) {
@@ -4674,11 +4674,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØobjÔÚĞòÁĞÖĞµÄÎ»ÖÃ
-	 * @param obj Object  Ä³Ò»ÔªËØ»òÁ¬ĞøµÄÔªËØ×é³ÉµÄĞòÁĞ
-	 * @param startPos int ÆğÊ¼²éÕÒÎ»ÖÃ
-	 * @param opt String  ²éÕÒ±êÖ¾£¬a£ºËùÓĞÂú×ãÌõ¼şÕß£¬z£º´ÓºóÃæÍùÇ°ÕÒ
-	 * @return ÊıÁĞ£º´øÓĞaÑ¡Ïî£¬ÕûÊı£º²»´øaÑ¡Ïî
+	 * è¿”å›objåœ¨åºåˆ—ä¸­çš„ä½ç½®
+	 * @param obj Object  æŸä¸€å…ƒç´ æˆ–è¿ç»­çš„å…ƒç´ ç»„æˆçš„åºåˆ—
+	 * @param startPos int èµ·å§‹æŸ¥æ‰¾ä½ç½®
+	 * @param opt String  æŸ¥æ‰¾æ ‡å¿—ï¼Œaï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œzï¼šä»åé¢å¾€å‰æ‰¾
+	 * @return æ•°åˆ—ï¼šå¸¦æœ‰aé€‰é¡¹ï¼Œæ•´æ•°ï¼šä¸å¸¦aé€‰é¡¹
 	 */
 	public Object pos(Object obj, int startPos, String opt) {
 		int end = length();
@@ -4722,9 +4722,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØÔªËØËùÔÚµÄÇø¼ä£¬Ğ¡ÓÚA(1)·µ»Ø0£¬´óÓÚµÈÓÚA(1)Ğ¡ÓÚA(2)·µ»Ø1£¬ÒÔ´ËÀàÍÆ 
+	 * è¿”å›å…ƒç´ æ‰€åœ¨çš„åŒºé—´ï¼Œå°äºA(1)è¿”å›0ï¼Œå¤§äºç­‰äºA(1)å°äºA(2)è¿”å›1ï¼Œä»¥æ­¤ç±»æ¨ 
 	 * @param obj
-	 * @param opt r£ºÊ¹ÓÃ×ó¿ªÓÒ±ÕÇø¼ä£¬Ä¬ÈÏ×ó±ÕÓÒ¿ªµÄÇø¼ä
+	 * @param opt rï¼šä½¿ç”¨å·¦å¼€å³é—­åŒºé—´ï¼Œé»˜è®¤å·¦é—­å³å¼€çš„åŒºé—´
 	 * @return
 	 */
 	public int pseg(Object obj, String opt) {
@@ -4741,11 +4741,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØĞòÁĞµÄ¼ÆËãÁĞµÄ×îĞ¡ÖµµÄË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı£¬Ä¬ÈÏ·µ»ØµÚÒ»¸ö
-	 * @param exp Expression ¼ÆËã±í´ïÊ½£¬¿ÕÔò±íÊ¾±¾ĞòÁĞ
-	 * @param opt String      a£ºËùÓĞÂú×ãÌõ¼şÕß£¬-£º´ÓºóÃæÍùÇ°ÕÒ
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
-	 * @return ÊıÁĞ£º´øÓĞaÑ¡Ïî£¬ÕûÊı£º²»´øaÑ¡Ïî
+	 * è¿”å›åºåˆ—çš„è®¡ç®—åˆ—çš„æœ€å°å€¼çš„ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œé»˜è®¤è¿”å›ç¬¬ä¸€ä¸ª
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼ï¼Œç©ºåˆ™è¡¨ç¤ºæœ¬åºåˆ—
+	 * @param opt String      aï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œ-ï¼šä»åé¢å¾€å‰æ‰¾
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
+	 * @return æ•°åˆ—ï¼šå¸¦æœ‰aé€‰é¡¹ï¼Œæ•´æ•°ï¼šä¸å¸¦aé€‰é¡¹
 	 */
 	public Object pmin(Expression exp, String opt, Context ctx) {
 		int size = length();
@@ -4762,12 +4762,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞµÄ¼ÆËãÁĞµÄ×îĞ¡ÖµµÄË÷Òı
-	 * @param exp Expression ¼ÆËã±í´ïÊ½£¬¿ÕÔò±íÊ¾±¾ĞòÁĞ
-	 * @param pos int ÆğÊ¼²éÕÒÎ»ÖÃ
-	 * @param opt String a£ºËùÓĞÂú×ãÌõ¼şÕß£¬-£º´ÓºóÃæÍùÇ°ÕÒ
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
-	 * @return ÊıÁĞ£º´øÓĞaÑ¡Ïî£¬ÕûÊı£º²»´øaÑ¡Ïî
+	 * è¿”å›åºåˆ—çš„è®¡ç®—åˆ—çš„æœ€å°å€¼çš„ç´¢å¼•
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼ï¼Œç©ºåˆ™è¡¨ç¤ºæœ¬åºåˆ—
+	 * @param pos int èµ·å§‹æŸ¥æ‰¾ä½ç½®
+	 * @param opt String aï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œ-ï¼šä»åé¢å¾€å‰æ‰¾
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
+	 * @return æ•°åˆ—ï¼šå¸¦æœ‰aé€‰é¡¹ï¼Œæ•´æ•°ï¼šä¸å¸¦aé€‰é¡¹
 	 */
 	public Object pmin(Expression exp, int pos, String opt, Context ctx) {
 		int len = length();
@@ -4810,11 +4810,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞµÄ¼ÆËãÁĞµÄ×î´óÖµµÄË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı£¬Ä¬ÈÏ·µ»ØµÚÒ»¸ö
-	 * @param exp Expression ¼ÆËã±í´ïÊ½£¬¿ÕÔò±íÊ¾±¾ĞòÁĞ
-	 * @param opt String      a£ºËùÓĞÂú×ãÌõ¼şÕß£¬-£º´ÓºóÃæÍùÇ°ÕÒ
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
-	 * @return ÊıÁĞ£º´øÓĞaÑ¡Ïî£¬ÕûÊı£º²»´øaÑ¡Ïî
+	 * è¿”å›åºåˆ—çš„è®¡ç®—åˆ—çš„æœ€å¤§å€¼çš„ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œé»˜è®¤è¿”å›ç¬¬ä¸€ä¸ª
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼ï¼Œç©ºåˆ™è¡¨ç¤ºæœ¬åºåˆ—
+	 * @param opt String      aï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œ-ï¼šä»åé¢å¾€å‰æ‰¾
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
+	 * @return æ•°åˆ—ï¼šå¸¦æœ‰aé€‰é¡¹ï¼Œæ•´æ•°ï¼šä¸å¸¦aé€‰é¡¹
 	 */
 	public Object pmax(Expression exp, String opt, Context ctx) {
 		int size = length();
@@ -4831,12 +4831,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØĞòÁĞµÄ¼ÆËãÁĞµÄ×îĞ¡ÖµµÄË÷Òı
-	 * @param exp Expression ¼ÆËã±í´ïÊ½£¬¿ÕÔò±íÊ¾±¾ĞòÁĞ
-	 * @param pos int ÆğÊ¼²éÕÒÎ»ÖÃ
-	 * @param opt String a£ºËùÓĞÂú×ãÌõ¼şÕß£¬-£º´ÓºóÃæÍùÇ°ÕÒ
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
-	 * @return ÊıÁĞ£º´øÓĞaÑ¡Ïî£¬ÕûÊı£º²»´øaÑ¡Ïî
+	 * è¿”å›åºåˆ—çš„è®¡ç®—åˆ—çš„æœ€å°å€¼çš„ç´¢å¼•
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼ï¼Œç©ºåˆ™è¡¨ç¤ºæœ¬åºåˆ—
+	 * @param pos int èµ·å§‹æŸ¥æ‰¾ä½ç½®
+	 * @param opt String aï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œ-ï¼šä»åé¢å¾€å‰æ‰¾
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
+	 * @return æ•°åˆ—ï¼šå¸¦æœ‰aé€‰é¡¹ï¼Œæ•´æ•°ï¼šä¸å¸¦aé€‰é¡¹
 	 */
 	public Object pmax(Expression exp, int pos, String opt, Context ctx) {
 		int len = length();
@@ -4873,7 +4873,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				stack.pop();
 			}
 
-			// end-len¿ÉÒÔ²»ÓÃÌí¼Ó
+			// end-lenå¯ä»¥ä¸ç”¨æ·»åŠ 
 		}
 
 		return sequence.pmax(opt, start, end);
@@ -4896,7 +4896,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				int i = start;
 				for (; i <= end; ++i) {
 					minValue = mems.get(i);
-					if (minValue != null) { // ºöÂÔ¿ÕÖµ
+					if (minValue != null) { // å¿½ç•¥ç©ºå€¼
 						indexList.addInt(i);
 						break;
 					}
@@ -4912,7 +4912,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							indexList.addInt(i);
 						} else if (result == 0) {
 							indexList.addInt(i);
-						} // ´óÓÚ²»×öÈÎºÎ´¦Àí
+						} // å¤§äºä¸åšä»»ä½•å¤„ç†
 					}
 				}
 			} else {
@@ -4928,7 +4928,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						indexList.addInt(i);
 					} else if (result == 0) {
 						indexList.addInt(i);
-					} // ´óÓÚ²»×öÈÎºÎ´¦Àí
+					} // å¤§äºä¸åšä»»ä½•å¤„ç†
 				}
 			}
 
@@ -4953,7 +4953,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				int i = start;
 				for (; i <= end; ++i) {
 					minValue = mems.get(i);
-					if (minValue != null) { // ºöÂÔ¿ÕÖµ
+					if (minValue != null) { // å¿½ç•¥ç©ºå€¼
 						minPos = i;
 						break;
 					}
@@ -5018,11 +5018,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				indexList.addInt(i);
 			} else if (result == 0) {
 				indexList.addInt(i);
-			} // ´óÓÚ²»×öÈÎºÎ´¦Àí
+			} // å¤§äºä¸åšä»»ä½•å¤„ç†
 		}
 
 		if (maxValue == null) {
-			indexList.clear(); // ºöÂÔ¿ÕÖµ
+			indexList.clear(); // å¿½ç•¥ç©ºå€¼
 		}
 		
 		int resultSize = indexList.size();
@@ -5051,11 +5051,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÂú×ãÌõ¼şµÄÔªËØµÄË÷Òı
-	 * @param exp Expression ¼ÆËã½á¹ûÎªÕæ¼Ù¡¢ÕûĞÎ¡¢ĞòÁĞ»òÖµ
-	 * @param opt String a£ºËùÓĞÂú×ãÌõ¼şÕß£¬z£º´ÓºóÃæÍùÇ°ÕÒ£¬b£º¶ş·Ö·¨²éÕÒ£¬s£ºÕÒ²»µ½Ê±·µ»Ø¿É²åÈëÎ»ÖÃµÄÏà·´Êı
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
-	 * @return ÊıÁĞ£º´øÓĞaÑ¡Ïî£¬ÕûÊı£º²»´øaÑ¡Ïî
+	 * è¿”å›æ»¡è¶³æ¡ä»¶çš„å…ƒç´ çš„ç´¢å¼•
+	 * @param exp Expression è®¡ç®—ç»“æœä¸ºçœŸå‡ã€æ•´å½¢ã€åºåˆ—æˆ–å€¼
+	 * @param opt String aï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œzï¼šä»åé¢å¾€å‰æ‰¾ï¼Œbï¼šäºŒåˆ†æ³•æŸ¥æ‰¾ï¼Œsï¼šæ‰¾ä¸åˆ°æ—¶è¿”å›å¯æ’å…¥ä½ç½®çš„ç›¸åæ•°
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
+	 * @return æ•°åˆ—ï¼šå¸¦æœ‰aé€‰é¡¹ï¼Œæ•´æ•°ï¼šä¸å¸¦aé€‰é¡¹
 	 */
 	public Object pselect(Expression exp, String opt, Context ctx) {
 		boolean isAll = false, isFirst = true, isZero = false, isNull = true, isSorted = false, isInsertPos = false;
@@ -5126,10 +5126,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 
-			// ±í´ïÊ½µÄ·µ»ØÖµÎªÕûĞÎÇÒÓĞĞò
+			// è¡¨è¾¾å¼çš„è¿”å›å€¼ä¸ºæ•´å½¢ä¸”æœ‰åº
 			result = pselect0(exp, isAll, isFirst, isInsertPos, 1, size, ctx);
 		} else {
-			// ±í´ïÊ½µÄ·µ»ØÀàĞÍÎª²¼¶ûĞÍ
+			// è¡¨è¾¾å¼çš„è¿”å›ç±»å‹ä¸ºå¸ƒå°”å‹
 			result = pselectb(exp, isAll, isFirst, 1, size, ctx);
 		}
 
@@ -5145,12 +5145,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÂú×ãÌõ¼şµÄÔªËØµÄË÷Òı
-	 * @param exp Expression ¼ÆËã½á¹ûÎªÕæ¼Ù¡¢ÕûĞÎ¡¢ĞòÁĞ»òÖµ
-	 * @param pos int    ÆğÊ¼²éÕÒÎ»ÖÃ
-	 * @param opt String a£ºËùÓĞÂú×ãÌõ¼şÕß£¬z£º´ÓºóÃæÍùÇ°ÕÒ£¬b¶ş·Ö·¨²éÕÒ
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
-	 * @return ÊıÁĞ£º´øÓĞaÑ¡Ïî£¬ÕûÊı£º²»´øaÑ¡Ïî
+	 * è¿”å›æ»¡è¶³æ¡ä»¶çš„å…ƒç´ çš„ç´¢å¼•
+	 * @param exp Expression è®¡ç®—ç»“æœä¸ºçœŸå‡ã€æ•´å½¢ã€åºåˆ—æˆ–å€¼
+	 * @param pos int    èµ·å§‹æŸ¥æ‰¾ä½ç½®
+	 * @param opt String aï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œzï¼šä»åé¢å¾€å‰æ‰¾ï¼ŒbäºŒåˆ†æ³•æŸ¥æ‰¾
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
+	 * @return æ•°åˆ—ï¼šå¸¦æœ‰aé€‰é¡¹ï¼Œæ•´æ•°ï¼šä¸å¸¦aé€‰é¡¹
 	 */
 	public Object pselect(Expression exp, int pos, String opt, Context ctx) {
 		int len = length();
@@ -5200,10 +5200,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		Object result;
 		if (isSorted) {
-			// ±í´ïÊ½µÄ·µ»ØÖµÎªÕûĞÎÇÒÓĞĞò
+			// è¡¨è¾¾å¼çš„è¿”å›å€¼ä¸ºæ•´å½¢ä¸”æœ‰åº
 			result = pselect0(exp, isAll, isFirst, isInsertPos, start, end, ctx);
 		} else {
-			// ±í´ïÊ½µÄ·µ»ØÀàĞÍÎª²¼¶ûĞÍ
+			// è¡¨è¾¾å¼çš„è¿”å›ç±»å‹ä¸ºå¸ƒå°”å‹
 			result = pselectb(exp, isAll, isFirst, start, end, ctx);
 		}
 
@@ -5219,13 +5219,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÊ¹Á½×é±í´ïÊ½ÖµÏàµÈµÄÔªËØµÄÎ»ÖÃ
-	 * @param fltExps Expression[] Ìõ¼ş±í´ïÊ½
-	 * @param vals Object[] Öµ
-	 * @param pos int ÆğÊ¼²éÕÒÎ»ÖÃ
-	 * @param opt String a£ºËùÓĞÂú×ãÌõ¼şÕß£¬z£º´ÓºóÃæÍùÇ°ÕÒ£¬b£º¶ş·Ö·¨²éÕÒ
+	 * è¿”å›ä½¿ä¸¤ç»„è¡¨è¾¾å¼å€¼ç›¸ç­‰çš„å…ƒç´ çš„ä½ç½®
+	 * @param fltExps Expression[] æ¡ä»¶è¡¨è¾¾å¼
+	 * @param vals Object[] å€¼
+	 * @param pos int èµ·å§‹æŸ¥æ‰¾ä½ç½®
+	 * @param opt String aï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œzï¼šä»åé¢å¾€å‰æ‰¾ï¼Œbï¼šäºŒåˆ†æ³•æŸ¥æ‰¾
 	 * @param ctx Context
-	 * @return ÊıÁĞ£º´øÓĞaÑ¡Ïî£¬ÕûÊı£º²»´øaÑ¡Ïî
+	 * @return æ•°åˆ—ï¼šå¸¦æœ‰aé€‰é¡¹ï¼Œæ•´æ•°ï¼šä¸å¸¦aé€‰é¡¹
 	 */
 	public Object pselect(Expression[] fltExps, Object[] vals,
 						  int pos, String opt, Context ctx) {
@@ -5267,12 +5267,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÊ¹Á½×é±í´ïÊ½ÖµÏàµÈµÄÔªËØµÄÎ»ÖÃ
-	 * @param fltExps Expression[] Ìõ¼ş±í´ïÊ½
-	 * @param vals Object[] Öµ±í´ïÊ½
-	 * @param opt String a£ºËùÓĞÂú×ãÌõ¼şÕß£¬-£º´ÓºóÃæÍùÇ°ÕÒ£¬b£º¶ş·Ö·¨²éÕÒ£¬s£ºÕÒ²»µ½Ê±·µ»Ø¿É²åÈëÎ»ÖÃµÄÏà·´Êı
+	 * è¿”å›ä½¿ä¸¤ç»„è¡¨è¾¾å¼å€¼ç›¸ç­‰çš„å…ƒç´ çš„ä½ç½®
+	 * @param fltExps Expression[] æ¡ä»¶è¡¨è¾¾å¼
+	 * @param vals Object[] å€¼è¡¨è¾¾å¼
+	 * @param opt String aï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œ-ï¼šä»åé¢å¾€å‰æ‰¾ï¼Œbï¼šäºŒåˆ†æ³•æŸ¥æ‰¾ï¼Œsï¼šæ‰¾ä¸åˆ°æ—¶è¿”å›å¯æ’å…¥ä½ç½®çš„ç›¸åæ•°
 	 * @param ctx Context
-	 * @return ÊıÁĞ£º´øÓĞaÑ¡Ïî£¬ÕûÊı£º²»´øaÑ¡Ïî
+	 * @return æ•°åˆ—ï¼šå¸¦æœ‰aé€‰é¡¹ï¼Œæ•´æ•°ï¼šä¸å¸¦aé€‰é¡¹
 	 */
 	public Object pselect(Expression[] fltExps, Object[] vals, String opt, Context ctx) {
 		if (fltExps == null || fltExps.length == 0) {
@@ -5331,7 +5331,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		stack.push(current);
 
 		try {
-			if (isSorted) { // ÓĞĞò
+			if (isSorted) { // æœ‰åº
 				int low = start, high = end;
 				int pos = -1;
 
@@ -5371,7 +5371,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				int first = 0;
 				int last = 0;
 
-				// ÕÒµ½µÚÒ»¸öÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// æ‰¾åˆ°ç¬¬ä¸€ä¸ªä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				if (bAll || !bLast) {
 					first = pos;
 					Next:while (first > start) {
@@ -5387,7 +5387,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				}
 
-				// ÕÒµ½×îºóÒ»¸öÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// æ‰¾åˆ°æœ€åä¸€ä¸ªä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				if (bAll || bLast) {
 					last = pos;
 					Next:while (last < end) {
@@ -5424,7 +5424,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						return first;
 					}
 				}
-			} else { // ÎŞĞò
+			} else { // æ— åº
 				Sequence result = bAll ? new Sequence() : null;
 				if (bLast) {
 					Next:
@@ -5473,7 +5473,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 	
-	// ĞòÁĞ°´expÓĞĞò£¬¶ş·Ö²éÕÒÊ¹expµÄ¼ÆËãÖµÎªvalµÄÔªËØµÄÎ»ÖÃ£¬ÕÒ²»µ½·µ»Ø²åÈëÎ»ÖÃ
+	// åºåˆ—æŒ‰expæœ‰åºï¼ŒäºŒåˆ†æŸ¥æ‰¾ä½¿expçš„è®¡ç®—å€¼ä¸ºvalçš„å…ƒç´ çš„ä½ç½®ï¼Œæ‰¾ä¸åˆ°è¿”å›æ’å…¥ä½ç½®
 	private int pselectb(Node exp, Object val, boolean bLast, int start, int end, Context ctx) {
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current(this);
@@ -5517,7 +5517,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 
 			if (bLast) {
-				// ÕÒµ½×îºóÒ»¸öÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// æ‰¾åˆ°æœ€åä¸€ä¸ªä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				for (++pos; pos <= high; ++pos) {
 					current.setCurrent(pos);
 					Object flt = exp.calculate(ctx);
@@ -5528,7 +5528,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				
 				return pos - 1;
 			} else {
-				// ÕÒµ½µÚÒ»¸öÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// æ‰¾åˆ°ç¬¬ä¸€ä¸ªä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				for (--pos; pos >= low; --pos) {
 					current.setCurrent(pos);
 					Object flt = exp.calculate(ctx);
@@ -5544,7 +5544,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
-	// ·µ»ØÊ¹±í´ïÊ½ÎªtrueµÄÔªËØµÄË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı£¬Ä¬ÈÏ·µ»ØµÚÒ»¸ö
+	// è¿”å›ä½¿è¡¨è¾¾å¼ä¸ºtrueçš„å…ƒç´ çš„ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œé»˜è®¤è¿”å›ç¬¬ä¸€ä¸ª
 	private Object pselectb(Expression exp, boolean isAll, boolean isFirst, 
 			int start, int end, Context ctx) {
 		Sequence result = isAll ? new Sequence() : null;
@@ -5589,8 +5589,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
-	// ¼Ù¶¨ĞòÁĞµÄ¼ÆËãÁĞÓĞĞò£¬·µ»ØÊ¹±í´ïÊ½µÄ·µ»ØÖµÎª0µÄÔªËØµÄË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı£¬Ä¬ÈÏ·µ»ØµÚÒ»¸ö
-	// opt a£ºËùÓĞÂú×ãÌõ¼şÕß£¬z£º´ÓºóÃæÍùÇ°ÕÒ
+	// å‡å®šåºåˆ—çš„è®¡ç®—åˆ—æœ‰åºï¼Œè¿”å›ä½¿è¡¨è¾¾å¼çš„è¿”å›å€¼ä¸º0çš„å…ƒç´ çš„ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œé»˜è®¤è¿”å›ç¬¬ä¸€ä¸ª
+	// opt aï¼šæ‰€æœ‰æ»¡è¶³æ¡ä»¶è€…ï¼Œzï¼šä»åé¢å¾€å‰æ‰¾
 	private Object pselect0(Expression exp, boolean isAll, boolean isFirst, 
 			boolean isInsertPos, int start, int end, Context ctx) {
 		int first = 0;
@@ -5601,7 +5601,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		stack.push(current);
 
 		try {
-			// È¡³öµÚÒ»¸öºÍ×îºóÒ»¸öÔªËØ¼ÆËã±í´ïÊ½£¬ÅĞ¶¨ÉıĞò»¹ÊÇ½µĞò
+			// å–å‡ºç¬¬ä¸€ä¸ªå’Œæœ€åä¸€ä¸ªå…ƒç´ è®¡ç®—è¡¨è¾¾å¼ï¼Œåˆ¤å®šå‡åºè¿˜æ˜¯é™åº
 			current.setCurrent(start);
 			Object objFirst = exp.calculate(ctx);
 
@@ -5616,7 +5616,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			double valFirst = ((Number)objFirst).doubleValue();
 			double valLast = ((Number)objLast).doubleValue();
 
-			// Èç¹û×îĞ¡Öµ´óÓÚ0»ò×Å×î´óÖµĞ¡ÓÚÓÚ0ÔòÃ»ÓĞÂú×ãÌõ¼şµÄÔªËØ
+			// å¦‚æœæœ€å°å€¼å¤§äº0æˆ–ç€æœ€å¤§å€¼å°äºäº0åˆ™æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å…ƒç´ 
 			if (valFirst > 0) {
 				if (isAll) {
 					return new Sequence(0);
@@ -5635,11 +5635,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 
-			if (valFirst == valLast) { // ¶¼µÈÓÚ0
+			if (valFirst == valLast) { // éƒ½ç­‰äº0
 				first = start;
 				last = end;
 			} else {
-				// ¶ş·Ö²éÕÒÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// äºŒåˆ†æŸ¥æ‰¾ä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				int low = start, high = end;
 				int pos = -1;
 
@@ -5673,7 +5673,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				}
 
-				// ÕÒµ½µÚÒ»¸öÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// æ‰¾åˆ°ç¬¬ä¸€ä¸ªä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				if (isAll || isFirst) {
 					first = pos;
 					while (first > start) {
@@ -5692,7 +5692,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				}
 
-				// ÕÒµ½×îºóÒ»¸öÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// æ‰¾åˆ°æœ€åä¸€ä¸ªä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				if (isAll || !isFirst) {
 					last = pos;
 					while (last < end) {
@@ -5739,10 +5739,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÓÉÊ¹±í´ïÊ½expÖµ×îĞ¡µÄÔªËØ¹¹³ÉµÄĞòÁĞ£¬Ä¬ÈÏ·µ»ØµÚÒ»¸ö
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param opt String a£º·µ»ØËùÓĞ£¬z£º·µ»Ø×îºóÒ»¸ö£¬x£º·µ»Ø²î¼¯
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
+	 * è¿”å›ç”±ä½¿è¡¨è¾¾å¼expå€¼æœ€å°çš„å…ƒç´ æ„æˆçš„åºåˆ—ï¼Œé»˜è®¤è¿”å›ç¬¬ä¸€ä¸ª
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param opt String aï¼šè¿”å›æ‰€æœ‰ï¼Œzï¼šè¿”å›æœ€åä¸€ä¸ªï¼Œxï¼šè¿”å›å·®é›†
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public Object minp(Expression exp, String opt, Context ctx) {
@@ -5753,8 +5753,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		boolean bAll = false, bLast = false, ignoreNull = true;
 		if (opt != null) {
-			if (opt.indexOf('a') != -1) bAll = true; // Ñ¡ÔñËùÓĞµÄ
-			if (opt.indexOf('z') != -1) bLast = true; // ´Óºó¿ªÊ¼
+			if (opt.indexOf('a') != -1) bAll = true; // é€‰æ‹©æ‰€æœ‰çš„
+			if (opt.indexOf('z') != -1) bLast = true; // ä»åå¼€å§‹
 			if (opt.indexOf('0') != -1) ignoreNull = false;
 		}
 
@@ -5767,7 +5767,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int resultSize = indexArray.size();
 		
 		if (resultSize == 0) {
-			// È«ÊÇnull
+			// å…¨æ˜¯null
 			if (bAll) {
 				return new Sequence();
 			} else {
@@ -5787,10 +5787,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÓÉÊ¹Ö¸¶¨±í´ïÊ½Öµ×î´óµÄÔªËØ¹¹³ÉµÄĞòÁĞ£¬Ä¬ÈÏ·µ»ØµÚÒ»¸ö
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param opt String a£º·µ»ØËùÓĞ£¬z£º·µ»Ø×îºóÒ»¸ö£¬x£º·µ»Ø²î¼¯
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
+	 * è¿”å›ç”±ä½¿æŒ‡å®šè¡¨è¾¾å¼å€¼æœ€å¤§çš„å…ƒç´ æ„æˆçš„åºåˆ—ï¼Œé»˜è®¤è¿”å›ç¬¬ä¸€ä¸ª
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param opt String aï¼šè¿”å›æ‰€æœ‰ï¼Œzï¼šè¿”å›æœ€åä¸€ä¸ªï¼Œxï¼šè¿”å›å·®é›†
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public Object maxp(Expression exp, String opt, Context ctx) {
@@ -5801,8 +5801,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		boolean bAll = false, bLast = false;
 		if (opt != null) {
-			if (opt.indexOf('a') != -1)bAll = true; // Ñ¡ÔñËùÓĞµÄ
-			if (opt.indexOf('z') != -1)bLast = true; // ´Óºó¿ªÊ¼
+			if (opt.indexOf('a') != -1)bAll = true; // é€‰æ‹©æ‰€æœ‰çš„
+			if (opt.indexOf('z') != -1)bLast = true; // ä»åå¼€å§‹
 		}
 
 		if (len == 0) {
@@ -5812,18 +5812,18 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Sequence values = calc(exp, ctx);
 		IArray valMems = values.getMems();
 		
-		// È¡³ö×î´óÖµµÄË÷Òı
+		// å–å‡ºæœ€å¤§å€¼çš„ç´¢å¼•
 		Object maxValue = null;
 		int i= 1;
 		for (; i <= len; ++i) {
 			maxValue = valMems.get(i);
-			if (maxValue != null) { // ºöÂÔ¿ÕÖµ
+			if (maxValue != null) { // å¿½ç•¥ç©ºå€¼
 				break;
 			}
 		}
 		
 		if (i > len) {
-			// È«ÊÇnull
+			// å…¨æ˜¯null
 			if (bAll) {
 				return new Sequence();
 			} else {
@@ -5844,7 +5844,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					indexList.addInt(i);
 				} else if (result == 0) {
 					indexList.addInt(i);
-				} // ´óÓÚ²»×öÈÎºÎ´¦Àí
+				} // å¤§äºä¸åšä»»ä½•å¤„ç†
 			}
 			
 			int count = indexList.size();
@@ -5852,11 +5852,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			Sequence result = new Sequence(count);
 			IArray resultMems = result.getMems();
 			
-			if (bLast) { // ºóĞòÑ¡³öindexÖĞÖ¸¶¨µÄÔªËØ
+			if (bLast) { // ååºé€‰å‡ºindexä¸­æŒ‡å®šçš„å…ƒç´ 
 				for (i = count - 1; i >= 0; --i) {
 					resultMems.add(mems.get(indexList.getInt(i)));
 				}
-			} else { // Ë³ĞòÑ¡³öindexÖĞÖ¸¶¨µÄÔªËØ
+			} else { // é¡ºåºé€‰å‡ºindexä¸­æŒ‡å®šçš„å…ƒç´ 
 				for (i = 0; i < count; ++i) {
 					resultMems.add(mems.get(indexList.getInt(i)));
 				}
@@ -5874,7 +5874,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						q = i;
 					} else if (result == 0) {
 						q = i;
-					} // ´óÓÚ²»×öÈÎºÎ´¦Àí
+					} // å¤§äºä¸åšä»»ä½•å¤„ç†
 				}
 			} else {
 				for (++i; i <= len; ++i) {
@@ -5907,11 +5907,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÂú×ãÌõ¼şµÄÔªËØµÄË÷Òı
-	 * @param exp Expression ¼ÆËã½á¹ûÎªÕæ¼Ù¡¢ÕûĞÎ¡¢ĞòÁĞ»òÖµ
-	 * @param opt String 1£º·µ»ØµÚÒ»¸ö£¬z£º´Óºó²éÕÒ£¬ bÊ¹ÓÃ¶ş·Ö·¨²éÕÒ£¬o£ºĞŞ¸ÄĞòÁĞ±¾Éí£¬t£º½á¹û¼¯Îª¿ÕÊ±·µ»Ø¿ÕĞò±í£¬
-	 * c£ºÕÒµ½µÚÒ»¸ö²»Âú×ãÌõ¼şµÄÍ£Ö¹£¬r£ºÕÒµ½µÚÒ»¸öÂú×ãÌõ¼şµÄÈ¡µ½×îºó
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * è¿”å›æ»¡è¶³æ¡ä»¶çš„å…ƒç´ çš„ç´¢å¼•
+	 * @param exp Expression è®¡ç®—ç»“æœä¸ºçœŸå‡ã€æ•´å½¢ã€åºåˆ—æˆ–å€¼
+	 * @param opt String 1ï¼šè¿”å›ç¬¬ä¸€ä¸ªï¼Œzï¼šä»åæŸ¥æ‰¾ï¼Œ bä½¿ç”¨äºŒåˆ†æ³•æŸ¥æ‰¾ï¼Œoï¼šä¿®æ”¹åºåˆ—æœ¬èº«ï¼Œtï¼šç»“æœé›†ä¸ºç©ºæ—¶è¿”å›ç©ºåºè¡¨ï¼Œ
+	 * cï¼šæ‰¾åˆ°ç¬¬ä¸€ä¸ªä¸æ»¡è¶³æ¡ä»¶çš„åœæ­¢ï¼Œrï¼šæ‰¾åˆ°ç¬¬ä¸€ä¸ªæ»¡è¶³æ¡ä»¶çš„å–åˆ°æœ€å
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return Sequence
 	 */
 	public Object select(Expression exp, String opt, Context ctx) {
@@ -5940,7 +5940,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		if (exp == null) { // Ñ¡³öËùÓĞ
+		if (exp == null) { // é€‰å‡ºæ‰€æœ‰
 			if (isForward) {
 				if (isOrg) {
 					return this;
@@ -5957,7 +5957,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		if (isBool) { // ·µ»ØÊ¹±í´ïÊ½ÎªÕæµÄÔªËØ
+		if (isBool) { // è¿”å›ä½¿è¡¨è¾¾å¼ä¸ºçœŸçš„å…ƒç´ 
 			return selectb(exp, opt, ctx);
 		}
 
@@ -5970,7 +5970,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		Regions regions = binarySelect(exp.getHome(), ds, ctx);
 		if (regions == null) {
-			// ·µ»ØÊ¹±í´ïÊ½ÖµÎª0µÄÔªËØ
+			// è¿”å›ä½¿è¡¨è¾¾å¼å€¼ä¸º0çš„å…ƒç´ 
 			return select0(exp, opt, ctx);
 		} else {
 			ArrayList<Region> list = regions.getRegionList();
@@ -6000,9 +6000,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
-	// Èç¹ûds²»¿ÕÅĞ¶ÏnodeÊÇ·ñÊÇdsµÄ×Ö¶Î£¬·ñÔòÅĞ¶ÏnodeÊÇ·ñÊÇ~
+	// å¦‚æœdsä¸ç©ºåˆ¤æ–­nodeæ˜¯å¦æ˜¯dsçš„å­—æ®µï¼Œå¦åˆ™åˆ¤æ–­nodeæ˜¯å¦æ˜¯~
 	private boolean isField(DataStruct ds, Node node) {
-		// [f1,f2]¶à×Ö¶ÎÓĞĞò
+		// [f1,f2]å¤šå­—æ®µæœ‰åº
 		if (node instanceof ValueList) {
 			if (ds != null) {
 				ValueList valueList = (ValueList)node;
@@ -6049,7 +6049,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 	
-	// ÓĞĞò²éÕÒ
+	// æœ‰åºæŸ¥æ‰¾
 	protected Regions binarySelect(Node node, DataStruct ds, Context ctx) {
 		try {
 			Node fieldNode;
@@ -6162,8 +6162,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 	
-	// ·µ»ØÊ¹±í´ïÊ½expÎªtrueµÄÔªËØ¹¹³ÉµÄĞòÁĞ£¬Ä¬ÈÏ·µ»ØËùÓĞ
-	// opt 1£º·µ»ØµÚÒ»¸ö£¬z£º·µ»Ø×îºóÒ»¸ö£¬c£ºÕÒµ½µÚÒ»¸ö²»Âú×ãÌõ¼şµÄÍ£Ö¹£¬r£ºÕÒµ½µÚÒ»¸öÂú×ãÌõ¼şµÄÈ¡µ½×îºó
+	// è¿”å›ä½¿è¡¨è¾¾å¼expä¸ºtrueçš„å…ƒç´ æ„æˆçš„åºåˆ—ï¼Œé»˜è®¤è¿”å›æ‰€æœ‰
+	// opt 1ï¼šè¿”å›ç¬¬ä¸€ä¸ªï¼Œzï¼šè¿”å›æœ€åä¸€ä¸ªï¼Œcï¼šæ‰¾åˆ°ç¬¬ä¸€ä¸ªä¸æ»¡è¶³æ¡ä»¶çš„åœæ­¢ï¼Œrï¼šæ‰¾åˆ°ç¬¬ä¸€ä¸ªæ»¡è¶³æ¡ä»¶çš„å–åˆ°æœ€å
 	private Object selectb(Expression exp, String opt, Context ctx) {
 		boolean bOne = false, bLast = false, isOrg = false, returnTable = false, continuous = false, rc = false;
 		if (opt != null) {
@@ -6204,7 +6204,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					Object obj = exp.calculate(ctx);
 					if (Variant.isTrue(obj)) {
 						if (rc) {
-							// ÕÒµ½µÚÒ»ÌõÂú×ãÌõ¼şµÄÈ¡µ½×îºó
+							// æ‰¾åˆ°ç¬¬ä¸€æ¡æ»¡è¶³æ¡ä»¶çš„å–åˆ°æœ€å
 							resultArray.add(mems, i);
 							for (++i; i <= len; ++i) {
 								resultArray.add(mems, i);
@@ -6221,7 +6221,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							resultArray.add(mems, i);
 						}
 					} else if (continuous) {
-						// Ö»ÕÒÇ°ÃæÁ¬ĞøÂú×ãÌõ¼şµÄ
+						// åªæ‰¾å‰é¢è¿ç»­æ»¡è¶³æ¡ä»¶çš„
 						break;
 					}
 				}
@@ -6231,7 +6231,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					Object obj = exp.calculate(ctx);
 					if (Variant.isTrue(obj)) {
 						if (rc) {
-							// ´ÓºóÃæÕÒµ½µÚÒ»ÌõÂú×ãÌõ¼şµÄÈ¡µ½µÚÒ»¸ö
+							// ä»åé¢æ‰¾åˆ°ç¬¬ä¸€æ¡æ»¡è¶³æ¡ä»¶çš„å–åˆ°ç¬¬ä¸€ä¸ª
 							resultArray.add(mems, i);
 							for (--i; i > 0; --i) {
 								resultArray.add(mems, i);
@@ -6248,7 +6248,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							resultArray.add(mems, i);
 						}
 					} else if (continuous) {
-						// Ö»ÕÒºóÃæÁ¬ĞøÂú×ãÌõ¼şµÄ
+						// åªæ‰¾åé¢è¿ç»­æ»¡è¶³æ¡ä»¶çš„
 						break;
 					}
 				}
@@ -6283,8 +6283,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
-	// ¼Ù¶¨ĞòÁĞµÄ¼ÆËãÁĞÓĞĞò£¬·µ»ØÊ¹±í´ïÊ½µÄ·µ»ØÖµÎª0µÄÔªËØ¹¹³ÉµÄĞòÁĞ
-	// opt 1£ºÑ¡³öÒ»¸ö£¬z£º´ÓºóÃæÍùÇ°ÕÒ
+	// å‡å®šåºåˆ—çš„è®¡ç®—åˆ—æœ‰åºï¼Œè¿”å›ä½¿è¡¨è¾¾å¼çš„è¿”å›å€¼ä¸º0çš„å…ƒç´ æ„æˆçš„åºåˆ—
+	// opt 1ï¼šé€‰å‡ºä¸€ä¸ªï¼Œzï¼šä»åé¢å¾€å‰æ‰¾
 	private Object select0(Expression exp, String opt, Context ctx) {
 		boolean bOne = false, bLast = false, isOrg = false, returnTable = false;
 		if (opt != null) {
@@ -6303,7 +6303,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		stack.push(current);
 
 		try {
-			// È¡³öµÚÒ»¸öºÍ×îºóÒ»¸öÔªËØ¼ÆËã±í´ïÊ½£¬ÅĞ¶¨ÉıĞò»¹ÊÇ½µĞò
+			// å–å‡ºç¬¬ä¸€ä¸ªå’Œæœ€åä¸€ä¸ªå…ƒç´ è®¡ç®—è¡¨è¾¾å¼ï¼Œåˆ¤å®šå‡åºè¿˜æ˜¯é™åº
 			current.setCurrent(1);
 			Object objFirst = exp.calculate(ctx);
 
@@ -6318,7 +6318,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			double valFirst = ((Number)objFirst).doubleValue();
 			double valLast = ((Number)objLast).doubleValue();
 
-			// Èç¹û×îĞ¡Öµ´óÓÚ0»ò×Å×î´óÖµĞ¡ÓÚÓÚ0ÔòÃ»ÓĞÂú×ãÌõ¼şµÄÔªËØ
+			// å¦‚æœæœ€å°å€¼å¤§äº0æˆ–ç€æœ€å¤§å€¼å°äºäº0åˆ™æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å…ƒç´ 
 			if (valFirst > 0 || valLast < 0) {
 				if (isOrg) {
 					this.mems = new ObjectArray(0);
@@ -6337,11 +6337,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 
-			if (valFirst == valLast) { // ¶¼µÈÓÚ0
+			if (valFirst == valLast) { // éƒ½ç­‰äº0
 				first = 1;
 				last = size;
 			} else {
-				// ¶ş·Ö²éÕÒÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// äºŒåˆ†æŸ¥æ‰¾ä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				int low = 1, high = size;
 				int pos = -1;
 
@@ -6383,7 +6383,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				}
 
-				// ÕÒµ½µÚÒ»¸öÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// æ‰¾åˆ°ç¬¬ä¸€ä¸ªä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				if (!bOne || !bLast) {
 					first = pos;
 					while (first > 1) {
@@ -6402,7 +6402,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				}
 
-				// ÕÒµ½×îºóÒ»¸öÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// æ‰¾åˆ°æœ€åä¸€ä¸ªä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				if (!bOne || bLast) {
 					last = pos;
 					while (last < size) {
@@ -6457,10 +6457,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÊ¹Á½×é±í´ïÊ½ÖµÏàµÈµÄÔªËØ
-	 * @param fltExps Expression[] Ìõ¼ş±í´ïÊ½
-	 * @param vals Object[] Öµ
-	 * @param opt String 1£º·µ»ØµÚÒ»¸ö£¬z£º´Óºó²éÕÒ£¬x£º·µ»Ø²î¼¯£¬bÊ¹ÓÃ¶ş·Ö·¨²éÕÒ
+	 * è¿”å›ä½¿ä¸¤ç»„è¡¨è¾¾å¼å€¼ç›¸ç­‰çš„å…ƒç´ 
+	 * @param fltExps Expression[] æ¡ä»¶è¡¨è¾¾å¼
+	 * @param vals Object[] å€¼
+	 * @param opt String 1ï¼šè¿”å›ç¬¬ä¸€ä¸ªï¼Œzï¼šä»åæŸ¥æ‰¾ï¼Œxï¼šè¿”å›å·®é›†ï¼Œbä½¿ç”¨äºŒåˆ†æ³•æŸ¥æ‰¾
 	 * @param ctx Context
 	 * @return Object
 	 */
@@ -6514,7 +6514,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		stack.push(current);
 
 		try {
-			if (isSorted) { // ÓĞĞò
+			if (isSorted) { // æœ‰åº
 				int low = 1, high = end;
 				int pos = -1;
 
@@ -6562,7 +6562,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				int first = 0;
 				int last = 0;
 
-				// ÕÒµ½µÚÒ»¸öÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// æ‰¾åˆ°ç¬¬ä¸€ä¸ªä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				if (!bOne || !bLast) {
 					first = pos;
 					Next:
@@ -6579,7 +6579,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				}
 
-				// ÕÒµ½×îºóÒ»¸öÊ¹exp·µ»Ø0µÄÔªËØµÄË÷Òı
+				// æ‰¾åˆ°æœ€åä¸€ä¸ªä½¿expè¿”å›0çš„å…ƒç´ çš„ç´¢å¼•
 				if (!bOne || bLast) {
 					last = pos;
 					Next:
@@ -6635,7 +6635,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						}
 					}
 				}
-			} else { // ÎŞĞò
+			} else { // æ— åº
 				Sequence result = bOne ? null : new Sequence();
 				IArray mems = getMems();
 				
@@ -6648,7 +6648,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							Object flt = fltExps[c].calculate(ctx);
 							if (!Variant.isEquals(flt, vals[c])) {
 								if (continuous) {
-									// Ö»ÕÒºóÃæÁ¬ĞøÂú×ãÌõ¼şµÄ
+									// åªæ‰¾åé¢è¿ç»­æ»¡è¶³æ¡ä»¶çš„
 									break Next;
 								} else {
 									continue Next;
@@ -6657,7 +6657,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						}
 
 						if (rc) {
-							// ´ÓºóÃæÕÒµ½µÚÒ»ÌõÂú×ãÌõ¼şµÄÈ¡µ½µÚÒ»¸ö
+							// ä»åé¢æ‰¾åˆ°ç¬¬ä¸€æ¡æ»¡è¶³æ¡ä»¶çš„å–åˆ°ç¬¬ä¸€ä¸ª
 							result.add(mems.get(i));
 							for (--i; i > 0; --i) {
 								result.add(mems.get(i));
@@ -6682,7 +6682,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							Object flt = fltExps[c].calculate(ctx);
 							if (!Variant.isEquals(flt, vals[c])) {
 								if (continuous) {
-									// Ö»ÕÒÇ°ÃæÁ¬ĞøÂú×ãÌõ¼şµÄ
+									// åªæ‰¾å‰é¢è¿ç»­æ»¡è¶³æ¡ä»¶çš„
 									break Next;
 								} else {
 									continue Next;
@@ -6691,7 +6691,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						}
 
 						if (rc) {
-							// ÕÒµ½µÚÒ»ÌõÂú×ãÌõ¼şµÄÈ¡µ½×îºó
+							// æ‰¾åˆ°ç¬¬ä¸€æ¡æ»¡è¶³æ¡ä»¶çš„å–åˆ°æœ€å
 							result.add(mems.get(i));
 							for (++i; i <= end; ++i) {
 								result.add(mems.get(i));
@@ -6741,11 +6741,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»Ø´ËĞòÁĞµÄnÖÃ»»£¬Ê¹µÃnÖÃ»»µÄ¼ÆËãÁĞÎªµİÔöÁĞ
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param loc String ÓïÑÔ
-	 * @param opt String z: ½µĞò£¬o£º¸Ä±äÔ­ĞòÁĞ
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * è¿”å›æ­¤åºåˆ—çš„nç½®æ¢ï¼Œä½¿å¾—nç½®æ¢çš„è®¡ç®—åˆ—ä¸ºé€’å¢åˆ—
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param loc String è¯­è¨€
+	 * @param opt String z: é™åºï¼Œoï¼šæ”¹å˜åŸåºåˆ—
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return Sequence
 	 */
 	public Sequence sort(Expression exp, String loc, String opt, Context ctx) {
@@ -6822,11 +6822,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»Ø´ËĞòÁĞµÄnÖÃ»»£¬Ê¹µÃnÖÃ»»µÄ¼ÆËãÁĞÎªµİÔöÁĞ
-	 * @param exps Expression[] ¼ÆËã±í´ïÊ½
-	 * @param loc String ÓïÑÔ
-	 * @param opt String z: ½µĞò£¬o£º¸Ä±äÔ­ĞòÁĞ
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * è¿”å›æ­¤åºåˆ—çš„nç½®æ¢ï¼Œä½¿å¾—nç½®æ¢çš„è®¡ç®—åˆ—ä¸ºé€’å¢åˆ—
+	 * @param exps Expression[] è®¡ç®—è¡¨è¾¾å¼
+	 * @param loc String è¯­è¨€
+	 * @param opt String z: é™åºï¼Œoï¼šæ”¹å˜åŸåºåˆ—
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return Sequence
 	 */
 	public Sequence sort(Expression []exps, String loc, String opt, Context ctx) {
@@ -6913,12 +6913,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °´ÕÕ¼ÇÂ¼×Ö¶Î½øĞĞÅÅĞò£¨Ê¡ÄÚ´æ£©
-	 * @param exps ¼ÆËã±í´ïÊ½
-	 * @param loc ÓïÑÔ
-	 * @param opt z: ½µĞò£¬o£º¸Ä±äÔ­ĞòÁĞ
-	 * @param findex ×Ö¶ÎË÷Òı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * æŒ‰ç…§è®°å½•å­—æ®µè¿›è¡Œæ’åºï¼ˆçœå†…å­˜ï¼‰
+	 * @param exps è®¡ç®—è¡¨è¾¾å¼
+	 * @param loc è¯­è¨€
+	 * @param opt z: é™åºï¼Œoï¼šæ”¹å˜åŸåºåˆ—
+	 * @param findex å­—æ®µç´¢å¼•
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return
 	 */
 	public Sequence sort(Expression []exps, String loc, String opt, int[] findex, Context ctx) {
@@ -6964,11 +6964,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * °´ÕÕ¶à±í´ïÊ½ºÍ¶àË³ĞòÅÅĞò
-	 * @param exps Expression[] ±í´ïÊ½Êı×é
-	 * @param orders int[] Ë³ĞòÊı×é, 1ÉıĞò, -1½µĞò, 0Ô­Ğò
-	 * @param loc String ÓïÑÔ
-	 * @param opt String o£º¸Ä±äÔ­ĞòÁĞ
+	 * æŒ‰ç…§å¤šè¡¨è¾¾å¼å’Œå¤šé¡ºåºæ’åº
+	 * @param exps Expression[] è¡¨è¾¾å¼æ•°ç»„
+	 * @param orders int[] é¡ºåºæ•°ç»„, 1å‡åº, -1é™åº, 0åŸåº
+	 * @param loc String è¯­è¨€
+	 * @param opt String oï¼šæ”¹å˜åŸåºåˆ—
 	 * @param ctx Context
 	 * @return Sequence
 	 */
@@ -7048,38 +7048,38 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * È¡ÖĞÎ»Êıº¯Êı
-	 * ÏÈ´ÓĞ¡µ½´óÅÅĞò£¬È»ºó°Ñ¼ÇÂ¼·Ö³ÉseqCount¶Î£¬È¡µÚindex¶ÎµÄµÚÒ»¸ö¼ÇÂ¼Öµ
+	 * å–ä¸­ä½æ•°å‡½æ•°
+	 * å…ˆä»å°åˆ°å¤§æ’åºï¼Œç„¶åæŠŠè®°å½•åˆ†æˆseqCountæ®µï¼Œå–ç¬¬indexæ®µçš„ç¬¬ä¸€ä¸ªè®°å½•å€¼
 	 * 
-	 * @param	seqCount	·Ö¶ÎµÄÊıÄ¿
-	 * 				·Ö¶ÎÊıÄ¿Îª0£¬È¡ÖĞÎ»Êı¡£·Ö¶ÎÊıÄ¿Îª1È¡µÚÒ»¸öÊı
-	 * @param	index		Ë÷ÒıÎ»ÖÃ, ÒÔ1ÆğÊ¼µÄ·Ö¶ÎË÷Òı
-	 * 				Ë÷ÒıÎ»ÖÃ±ØĞë´óÓÚµÈÓÚ1£¬Ğ¡ÓÚµÈÓÚseqCount¡£
-	 * 				µ±Ë÷ÒıÎ»ÖÃµÈÓÚ0Ê±£¬±íÊ¾¸ÃÖµÎªÄ¬ÈÏÖµ£¬½á¹û·µ»ØĞòÁĞ
-	 * @return	Ë÷Òıµ½µÄÖµ
+	 * @param	seqCount	åˆ†æ®µçš„æ•°ç›®
+	 * 				åˆ†æ®µæ•°ç›®ä¸º0ï¼Œå–ä¸­ä½æ•°ã€‚åˆ†æ®µæ•°ç›®ä¸º1å–ç¬¬ä¸€ä¸ªæ•°
+	 * @param	index		ç´¢å¼•ä½ç½®, ä»¥1èµ·å§‹çš„åˆ†æ®µç´¢å¼•
+	 * 				ç´¢å¼•ä½ç½®å¿…é¡»å¤§äºç­‰äº1ï¼Œå°äºç­‰äºseqCountã€‚
+	 * 				å½“ç´¢å¼•ä½ç½®ç­‰äº0æ—¶ï¼Œè¡¨ç¤ºè¯¥å€¼ä¸ºé»˜è®¤å€¼ï¼Œç»“æœè¿”å›åºåˆ—
+	 * @return	ç´¢å¼•åˆ°çš„å€¼
 	 */
 	public Object median(int index, int seqCount) {
-		// ĞòÁĞÎª¿ÕµÄÇé¿ö
+		// åºåˆ—ä¸ºç©ºçš„æƒ…å†µ
 		if (length() == 0)
 			return null;
 		if (0 == index && 0 == seqCount) {
 			index = 1;
 			seqCount = 2;
 		}
-		// ²ÎÊıĞ£Ñé
+		// å‚æ•°æ ¡éªŒ
 		if (0 > index || index > seqCount || seqCount < 2) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("median" + mm.getMessage("function.invalidParam"));
 		}
 		
-		// ÅÅĞò
+		// æ’åº
 		Sequence seq = sort(null);
 		return seq.median(1, length(), index, seqCount);
 
 	}
 	
 	/**
-	 *  Ìí¼ÓÒ»¸öÔªËØµ½ĞòÁĞµÄÎ²¶Ë£¬²»²úÉúĞÂĞòÁĞ
+	 *  æ·»åŠ ä¸€ä¸ªå…ƒç´ åˆ°åºåˆ—çš„å°¾ç«¯ï¼Œä¸äº§ç”Ÿæ–°åºåˆ—
 	 * @param val Object
 	 */
 	public void add(Object val) {
@@ -7087,7 +7087,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °Ñ¸ø¶¨ĞòÁĞÖĞµÄËùÓĞÔªËØÌí¼Óµ½µ±Ç°ĞòÁĞÎ²¶Ë£¬²»²úÉúĞÂĞòÁĞ
+	 * æŠŠç»™å®šåºåˆ—ä¸­çš„æ‰€æœ‰å…ƒç´ æ·»åŠ åˆ°å½“å‰åºåˆ—å°¾ç«¯ï¼Œä¸äº§ç”Ÿæ–°åºåˆ—
 	 * @param sequence Sequence
 	 */
 	public void addAll(Sequence sequence) {
@@ -7097,17 +7097,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * °Ñ¸ø¶¨ĞòÁĞÖĞµÄÖ¸¶¨Î»ÖÃ¿ªÊ¼µÄÔªËØÌí¼Óµ½µ±Ç°ĞòÁĞÎ²¶Ë£¬²»²úÉúĞÂĞòÁĞ
+	 * æŠŠç»™å®šåºåˆ—ä¸­çš„æŒ‡å®šä½ç½®å¼€å§‹çš„å…ƒç´ æ·»åŠ åˆ°å½“å‰åºåˆ—å°¾ç«¯ï¼Œä¸äº§ç”Ÿæ–°åºåˆ—
 	 * @param sequence
-	 * @param index ¸ø¶¨ĞòÁĞµÄÆğÊ¼ÔªËØÎ»ÖÃ
-	 * @param count ÒªÌí¼ÓµÄÔªËØµÄÊıÁ¿
+	 * @param index ç»™å®šåºåˆ—çš„èµ·å§‹å…ƒç´ ä½ç½®
+	 * @param count è¦æ·»åŠ çš„å…ƒç´ çš„æ•°é‡
 	 */
 	public void append(Sequence sequence, int index, int count) {
 		getMems().addAll(sequence.getMems(), index, count);
 	}
 
 	/**
-	 * °Ñ¶àÔªËØÌí¼Óµ½ĞòÁĞÎ²¶Ë£¬²»²úÉúĞÂĞòÁĞ
+	 * æŠŠå¤šå…ƒç´ æ·»åŠ åˆ°åºåˆ—å°¾ç«¯ï¼Œä¸äº§ç”Ÿæ–°åºåˆ—
 	 * @param objs Object[]
 	 */
 	public void addAll(Object []objs) {
@@ -7117,7 +7117,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ºÏ²¢Á½¸öĞòÁĞµÄÊı¾İ£¬Èç¹ûĞòÁĞ¼æÈİÔò·µ»ØÔ­ĞòÁĞ·ñÔò·µ»ØĞÂĞòÁĞ
+	 * åˆå¹¶ä¸¤ä¸ªåºåˆ—çš„æ•°æ®ï¼Œå¦‚æœåºåˆ—å…¼å®¹åˆ™è¿”å›åŸåºåˆ—å¦åˆ™è¿”å›æ–°åºåˆ—
 	 * @param seq
 	 * @return Sequence
 	 */
@@ -7127,13 +7127,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * É¾³ıÄ³Ò»ÔªËØ
-	 * @param index Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param opt n£º·µ»ØÉ¾³ıµÄÔªËØ£¬Ä¬ÈÏ·µ»Øµ±Ç°ĞòÁĞ
-	 * @return Èç¹ûÓĞnÑ¡ÏîÔò·µ»ØÉ¾³ıµÄÔªËØ£¬·ñÔò·µ»Øµ±Ç°ĞòÁĞ
+	 * åˆ é™¤æŸä¸€å…ƒç´ 
+	 * @param index ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param opt nï¼šè¿”å›åˆ é™¤çš„å…ƒç´ ï¼Œé»˜è®¤è¿”å›å½“å‰åºåˆ—
+	 * @return å¦‚æœæœ‰né€‰é¡¹åˆ™è¿”å›åˆ é™¤çš„å…ƒç´ ï¼Œå¦åˆ™è¿”å›å½“å‰åºåˆ—
 	 */
 	public Object delete(int index, String opt) {
-		// Ô½½ç²»ÔÙ±¨´í
+		// è¶Šç•Œä¸å†æŠ¥é”™
 		int oldLen = length();
 		if (index > 0 && index <= oldLen) {
 			if (opt == null || opt.indexOf('n') == -1) {
@@ -7170,12 +7170,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * É¾³ıÄ³Ò»ÔªËØ
-	 * @param index int Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @return ·µ»Ø±»É¾³ıµÄÔªËØ
+	 * åˆ é™¤æŸä¸€å…ƒç´ 
+	 * @param index int ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @return è¿”å›è¢«åˆ é™¤çš„å…ƒç´ 
 	 */
 	public void delete(int index) {
-		// Ô½½ç²»ÔÙ±¨´í
+		// è¶Šç•Œä¸å†æŠ¥é”™
 		int oldLen = length();
 		if (index > 0 && index <= oldLen) {
 			getMems().remove(index);
@@ -7188,9 +7188,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * É¾³ıÖ¸¶¨Çø¼äÄÚµÄÔªËØ
-	 * @param from int ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param to int ½áÊøÎ»ÖÃ£¬°üº¬
+	 * åˆ é™¤æŒ‡å®šåŒºé—´å†…çš„å…ƒç´ 
+	 * @param from int èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param to int ç»“æŸä½ç½®ï¼ŒåŒ…å«
 	 */
 	public void delete(int from, int to) {
 		if (from < 1 || to < from || to > length()) {
@@ -7202,8 +7202,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °ÑË÷ÒıĞòÁĞ°´´ÓĞ¡µ½´óÅÅĞò×ª³ÉË÷ÒıÊı×é
-	 * @param totalCount Ô´ĞòÁĞµÄ³ÉÔ±Êı£¬ÓÃÓÚË÷ÒıÊÇ¸ºÊıÊ±±íÊ¾´ÓºóÊı
+	 * æŠŠç´¢å¼•åºåˆ—æŒ‰ä»å°åˆ°å¤§æ’åºè½¬æˆç´¢å¼•æ•°ç»„
+	 * @param totalCount æºåºåˆ—çš„æˆå‘˜æ•°ï¼Œç”¨äºç´¢å¼•æ˜¯è´Ÿæ•°æ—¶è¡¨ç¤ºä»åæ•°
 	 * @return int[]
 	 */
 	public int[] toIndexArray(int totalCount) {
@@ -7228,7 +7228,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		// ¶ÔË÷Òı½øĞĞÅÅĞò
+		// å¯¹ç´¢å¼•è¿›è¡Œæ’åº
 		Arrays.sort(values, 0, count);
 		int repeatCount = 0;
 		for (int i = 1; i < count; ++i) {
@@ -7259,9 +7259,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * °´Î»ÖÃÉ¾³ı¶à¸öÔªËØ
-	 * @param sequence Sequence ÔªËØË÷Òı»òÔªËØ¹¹³ÉµÄĞòÁĞ
-	 * @param opt String n ·µ»Ø±»É¾µÄÔªËØ¹¹³ÉµÄĞòÁĞ
+	 * æŒ‰ä½ç½®åˆ é™¤å¤šä¸ªå…ƒç´ 
+	 * @param sequence Sequence å…ƒç´ ç´¢å¼•æˆ–å…ƒç´ æ„æˆçš„åºåˆ—
+	 * @param opt String n è¿”å›è¢«åˆ çš„å…ƒç´ æ„æˆçš„åºåˆ—
 	 */
 	public Sequence delete(Sequence sequence, String opt) {
 		if (sequence == null || sequence.length() == 0) {
@@ -7352,8 +7352,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * É¾³ı×Ö¶ÎÖµÎª¿ÕµÄ¼ÇÂ¼
-	 * @param f ×Ö¶ÎĞòºÅ
+	 * åˆ é™¤å­—æ®µå€¼ä¸ºç©ºçš„è®°å½•
+	 * @param f å­—æ®µåºå·
 	 */
 	public void deleteNullFieldRecord(int f) {
 		IArray mems = getMems();
@@ -7385,16 +7385,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * É¾³ı×Ö¶ÎÖµÎª¿ÕµÄ¼ÇÂ¼
-	 * @param f ×Ö¶ÎĞòºÅ
+	 * åˆ é™¤å­—æ®µå€¼ä¸ºç©ºçš„è®°å½•
+	 * @param f å­—æ®µåºå·
 	 */
 	public void deleteNullFieldRecord(String fieldName) {
 		IArray mems = getMems();
 		int len = mems.size();
 		int nullCount = 0;
 		
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
-		BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
+		BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 		for (int i = 1; i <= len; ++i) {
 			Object obj = mems.get(i);
@@ -7448,14 +7448,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 	
-	// Table¼Ì³ĞÁË´Ë·½·¨£¬ÓÃÓÚÔöÉ¾ÔªËØÊ±ÖØĞÂ´´½¨Ë÷Òı
+	// Tableç»§æ‰¿äº†æ­¤æ–¹æ³•ï¼Œç”¨äºå¢åˆ å…ƒç´ æ—¶é‡æ–°åˆ›å»ºç´¢å¼•
 	public void rebuildIndexTable() {
 	}
 
 	/**
-	 * ±£ÁôÖ¸¶¨Çø¼äÄÚµÄÊı¾İ
-	 * @param start int ÆğÊ¼Î»ÖÃ£¨°üº¬£©
-	 * @param end int ½áÊøÎ»ÖÃ£¨°üº¬£©
+	 * ä¿ç•™æŒ‡å®šåŒºé—´å†…çš„æ•°æ®
+	 * @param start int èµ·å§‹ä½ç½®ï¼ˆåŒ…å«ï¼‰
+	 * @param end int ç»“æŸä½ç½®ï¼ˆåŒ…å«ï¼‰
 	 */
 	public void reserve(int start, int end) {
 		int size = length();
@@ -7484,9 +7484,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °ÑÖ¸¶¨Çø¼äÔªËØ·ÖÀë³öÀ´
-	 * @param from int ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param to int ½áÊøÎ»ÖÃ£¬°üº¬
+	 * æŠŠæŒ‡å®šåŒºé—´å…ƒç´ åˆ†ç¦»å‡ºæ¥
+	 * @param from int èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param to int ç»“æŸä½ç½®ï¼ŒåŒ…å«
 	 * @return Sequence
 	 */
 	public Sequence split(int from, int to) {
@@ -7499,18 +7499,18 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °ÑĞòÁĞ´ÓÖ¸¶¨Î»ÖÃ²ğ³ÉÁ½¸öĞòÁĞ
-	 * @param pos Î»ÖÃ£¬°üº¬
-	 * @return ·µ»Øºó°ë²¿·ÖÔªËØ¹¹³ÉµÄĞòÁĞ
+	 * æŠŠåºåˆ—ä»æŒ‡å®šä½ç½®æ‹†æˆä¸¤ä¸ªåºåˆ—
+	 * @param pos ä½ç½®ï¼ŒåŒ…å«
+	 * @return è¿”å›ååŠéƒ¨åˆ†å…ƒç´ æ„æˆçš„åºåˆ—
 	 */
 	public Sequence split(int pos) {
 		return new Sequence(getMems().split(pos));
 	}
 	
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ²åÈëÒ»¸ö»ò¶à¸öÔªËØ
-	 * @param pos int    Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param val Object ĞèÒªÌí¼ÓµÄÔªËØ»ò¶à¸öÔªËØ¹¹³ÉµÄĞòÁĞ
+	 * åœ¨æŒ‡å®šä½ç½®æ’å…¥ä¸€ä¸ªæˆ–å¤šä¸ªå…ƒç´ 
+	 * @param pos int    ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param val Object éœ€è¦æ·»åŠ çš„å…ƒç´ æˆ–å¤šä¸ªå…ƒç´ æ„æˆçš„åºåˆ—
 	 */
 	public void insert(int pos, Object val) {
 		IArray mems = getMems();
@@ -7537,7 +7537,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ÓĞĞò²åÈë£¬Èç¹ûÔªËØÒÑ´æÔÚÔò²»²åÈë
+	 * æœ‰åºæ’å…¥ï¼Œå¦‚æœå…ƒç´ å·²å­˜åœ¨åˆ™ä¸æ’å…¥
 	 * @param val
 	 */
 	public void sortedInsert(Object val) {
@@ -7560,10 +7560,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ĞŞ¸Ä´Ópos¿ªÊ¼µÄÒ»¸ö»ò¶à¸öÔªËØ
-	 * @param pos int Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param val Object Ò»¸ö»ò¶à¸öÔªËØ
-	 * @param opt String n ·µ»Ø±»ĞŞ¸ÄµÄÔªËØ¹¹³ÉµÄĞòÁĞ
+	 * ä¿®æ”¹ä»poså¼€å§‹çš„ä¸€ä¸ªæˆ–å¤šä¸ªå…ƒç´ 
+	 * @param pos int ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param val Object ä¸€ä¸ªæˆ–å¤šä¸ªå…ƒç´ 
+	 * @param opt String n è¿”å›è¢«ä¿®æ”¹çš„å…ƒç´ æ„æˆçš„åºåˆ—
 	 */
 	public Object modify(int pos, Object val, String opt) {
 		IArray mems = getMems();
@@ -7621,8 +7621,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * µ±Ç°ĞòÁĞÎªÊıÁĞ£¬·µ»Ø³ÉÕûÊıÊı×é
-	 * @return ÕûÊıÊı×é
+	 * å½“å‰åºåˆ—ä¸ºæ•°åˆ—ï¼Œè¿”å›æˆæ•´æ•°æ•°ç»„
+	 * @return æ•´æ•°æ•°ç»„
 	 */
 	public int[] toIntArray() {
 		IArray mems = getMems();
@@ -7642,7 +7642,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ĞŞ¸ÄĞòÁĞÔªËØµÄÖµ£¬Ô½Î»×Ô¶¯²¹
+	 * ä¿®æ”¹åºåˆ—å…ƒç´ çš„å€¼ï¼Œè¶Šä½è‡ªåŠ¨è¡¥
 	 * @param pos int
 	 * @param obj Object
 	 */
@@ -7661,10 +7661,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ½»»»Á½¸öÊı¾İÇø¼äÖ¸¶¨µÄĞòÁĞÇø¼äµÄÔªËØ£¬²úÉúĞÂĞòÁĞ
-	 * @param iseq1 Sequence Êı¾İÇø¼ä1
-	 * @param iseq2 Sequence Êı¾İÇø¼ä2
-	 * @return Sequence ·µ»ØĞÂĞòÁĞ
+	 * äº¤æ¢ä¸¤ä¸ªæ•°æ®åŒºé—´æŒ‡å®šçš„åºåˆ—åŒºé—´çš„å…ƒç´ ï¼Œäº§ç”Ÿæ–°åºåˆ—
+	 * @param iseq1 Sequence æ•°æ®åŒºé—´1
+	 * @param iseq2 Sequence æ•°æ®åŒºé—´2
+	 * @return Sequence è¿”å›æ–°åºåˆ—
 	 */
 	public Sequence swap(Sequence iseq1, Sequence iseq2) {
 		if (iseq1 == null || iseq2 == null) {
@@ -7709,7 +7709,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException(mm.getMessage("engine.indexOutofBound"));
 		}
 
-		// Èç¹ûÇø¼ä[s1:e1]ÔÚÇø¼ä[s2:e2]ºóÃæÔò½»»»ËüÃÇ
+		// å¦‚æœåŒºé—´[s1:e1]åœ¨åŒºé—´[s2:e2]åé¢åˆ™äº¤æ¢å®ƒä»¬
 		if (s1 > s2) {
 			int temp = s1;
 			s1 = s2;
@@ -7728,27 +7728,27 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Sequence result = new Sequence(total);
 		IArray resultMems = result.getMems();
 
-		// ¿½±´Çø¼ä1Ö®Ç°µÄ
+		// æ‹·è´åŒºé—´1ä¹‹å‰çš„
 		for (int i = 1; i < s1; ++i) {
 			resultMems.add(mems.get(i));
 		}
 
-		// ¿½±´Çø¼ä2µÄ
+		// æ‹·è´åŒºé—´2çš„
 		for (int i = s2; i <= e2; ++i) {
 			resultMems.add(mems.get(i));
 		}
 
-		// ¿½±´Çø¼ä1ºÍÇø¼ä2Ö®¼äµÄ
+		// æ‹·è´åŒºé—´1å’ŒåŒºé—´2ä¹‹é—´çš„
 		for (int i = e1 + 1; i < s2; ++i) {
 			resultMems.add(mems.get(i));
 		}
 
-		// ¿½±´Çø¼ä1µÄ
+		// æ‹·è´åŒºé—´1çš„
 		for (int i = s1; i <= e1; ++i) {
 			resultMems.add(mems.get(i));
 		}
 
-		// ¿½±´Çø¼ä2Ö®ºóµÄ
+		// æ‹·è´åŒºé—´2ä¹‹åçš„
 		for (int i = e2 + 1; i <= total; ++i) {
 			resultMems.add(mems.get(i));
 		}
@@ -7757,10 +7757,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ²¹Æëµ½n¸ö£¬Èç¹û´øÑ¡ÏîmÔò²¹Æëµ½nµÄ±¶Êı£¬Èç¹ûÔ´ĞòÁĞ³¤¶È´óÓÚnÔò·µ»ØÔ´ĞòÁĞ
-	 * @param val Object ĞèÒª²¹µÄÔªËØ»òÔªËØ¹¹³ÉµÄĞòÁĞ
-	 * @param n Integer ²¹ÆëºóµÄ³¤¶Èºó³¤¶ÈµÄ±¶Êı
-	 * @param opt String m£º²¹Æëµ½nµÄ±¶Êı£¬l£ºÔÚ×ó±ß²¹
+	 * è¡¥é½åˆ°nä¸ªï¼Œå¦‚æœå¸¦é€‰é¡¹måˆ™è¡¥é½åˆ°nçš„å€æ•°ï¼Œå¦‚æœæºåºåˆ—é•¿åº¦å¤§äºnåˆ™è¿”å›æºåºåˆ—
+	 * @param val Object éœ€è¦è¡¥çš„å…ƒç´ æˆ–å…ƒç´ æ„æˆçš„åºåˆ—
+	 * @param n Integer è¡¥é½åçš„é•¿åº¦åé•¿åº¦çš„å€æ•°
+	 * @param opt String mï¼šè¡¥é½åˆ°nçš„å€æ•°ï¼Œlï¼šåœ¨å·¦è¾¹è¡¥
 	 * @return Sequence
 	 */
 	public Sequence pad(Object val, int n, String opt) {
@@ -7814,7 +7814,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return result;
 			} else if (count == 1) {
 				val = seq.getMem(1);
-			} // ÔªËØ¿ÕÊ±Ìí¼Ó¿ÕĞòÁĞ£¿
+			} // å…ƒç´ ç©ºæ—¶æ·»åŠ ç©ºåºåˆ—ï¼Ÿ
 		}
 
 		if (opt == null || opt.indexOf('l') == -1) {
@@ -7834,10 +7834,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ÓÃÓÚÉú³É½á¹û¼¯×Ö¶ÎÃû³Æ£¬Èç¹ûÊ¡ÂÔÁËnameÔò¸ù¾İ±í´ïÊ½À´Éú³É
-	 * @param exps ¼ÆËã±í´ïÊ½Êı×é
-	 * @param names ×Ö¶ÎÃûÊı×é£¬Èç¹ûÊ¡ÂÔÁË×Ö¶ÎÃûÔò¸ù¾İ±í´ïÊ½À´Éú³É
-	 * @param funcName º¯ÊıÃû£¬ÓÃÓÚÅ×³öÒì³£ĞÅÏ¢
+	 * ç”¨äºç”Ÿæˆç»“æœé›†å­—æ®µåç§°ï¼Œå¦‚æœçœç•¥äº†nameåˆ™æ ¹æ®è¡¨è¾¾å¼æ¥ç”Ÿæˆ
+	 * @param exps è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param names å­—æ®µåæ•°ç»„ï¼Œå¦‚æœçœç•¥äº†å­—æ®µååˆ™æ ¹æ®è¡¨è¾¾å¼æ¥ç”Ÿæˆ
+	 * @param funcName å‡½æ•°åï¼Œç”¨äºæŠ›å‡ºå¼‚å¸¸ä¿¡æ¯
 	 */
 	public void getNewFieldNames(Expression[] exps, String[] names, String funcName) {
 		int colCount = exps.length;
@@ -7860,9 +7860,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÎªÔ´ÅÅÁĞÌí¼ÓÁĞ
-	 * @param names String[] ÁĞÃû
-	 * @param exps Expression[] ÁĞ±í´ïÊ½
+	 * ä¸ºæºæ’åˆ—æ·»åŠ åˆ—
+	 * @param names String[] åˆ—å
+	 * @param exps Expression[] åˆ—è¡¨è¾¾å¼
 	 * @param ctx Context
 	 */
 	public Table newTable(String[] names, Expression[] exps, Context ctx) {
@@ -7870,10 +7870,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÎªÔ´ÅÅÁĞÌí¼ÓÁĞ
-	 * @param names String[] ÁĞÃû
-	 * @param exps Expression[] ÁĞ±í´ïÊ½
-	 * @param opt String m£º¶àÏß³ÌÔËËã£¬i£º±í´ïÊ½¼ÆËã½á¹ûÎªnullÊÇ²»Éú³É¸ÃÌõ¼ÇÂ¼
+	 * ä¸ºæºæ’åˆ—æ·»åŠ åˆ—
+	 * @param names String[] åˆ—å
+	 * @param exps Expression[] åˆ—è¡¨è¾¾å¼
+	 * @param opt String mï¼šå¤šçº¿ç¨‹è¿ç®—ï¼Œiï¼šè¡¨è¾¾å¼è®¡ç®—ç»“æœä¸ºnullæ˜¯ä¸ç”Ÿæˆè¯¥æ¡è®°å½•
 	 * @param ctx Context
 	 */
 	public Table newTable(String[] names, Expression[] exps, String opt, Context ctx) {
@@ -7899,12 +7899,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ÓÉĞòÁĞ´´½¨³öÒ»¸öĞÂĞò±í
-	 * @param ds ĞÂĞò±íµÄÊı¾İ½á¹¹
-	 * @param exps ĞÂĞò±íµÄ×Ö¶Î¼ÆËã±í´ïÊ½Êı×é
-	 * @param opt i£ºÓĞ±í´ïÊ½¼ÆËã½á¹ûÎª¿ÕÊ±²»Éú³É¸ÃĞĞ¼ÇÂ¼£¬z£º´ÓºóÍùÇ°Ëã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ĞÂ²úÉúµÄĞò±í
+	 * ç”±åºåˆ—åˆ›å»ºå‡ºä¸€ä¸ªæ–°åºè¡¨
+	 * @param ds æ–°åºè¡¨çš„æ•°æ®ç»“æ„
+	 * @param exps æ–°åºè¡¨çš„å­—æ®µè®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt iï¼šæœ‰è¡¨è¾¾å¼è®¡ç®—ç»“æœä¸ºç©ºæ—¶ä¸ç”Ÿæˆè¯¥è¡Œè®°å½•ï¼Œzï¼šä»åå¾€å‰ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æ–°äº§ç”Ÿçš„åºè¡¨
 	 */
 	public Table newTable(DataStruct ds, Expression[] exps, String opt, Context ctx) {
 		int len = length();
@@ -7939,7 +7939,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							if (obj != null) {
 								r.setNormalFieldValue(c, obj);
 							} else {
-								// ¼ÆËã±í´ïÊ½¿ÉÄÜÒÀÀµÓÚĞÂ²úÉúµÄ¼ÇÂ¼£¬ËùÒÔÒªÏÈ²úÉú¼ÇÂ¼£¬²»Âú×ãÌõ¼şÔÙÉ¾³ı¼ÇÂ¼
+								// è®¡ç®—è¡¨è¾¾å¼å¯èƒ½ä¾èµ–äºæ–°äº§ç”Ÿçš„è®°å½•ï¼Œæ‰€ä»¥è¦å…ˆäº§ç”Ÿè®°å½•ï¼Œä¸æ»¡è¶³æ¡ä»¶å†åˆ é™¤è®°å½•
 								resultMems.remove(i);
 								continue Next;
 							}
@@ -7968,7 +7968,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						if (obj != null) {
 							r.setNormalFieldValue(c, obj);
 						} else {
-							// ¼ÆËã±í´ïÊ½¿ÉÄÜÒÀÀµÓÚĞÂ²úÉúµÄ¼ÇÂ¼£¬ËùÒÔÒªÏÈ²úÉú¼ÇÂ¼£¬²»Âú×ãÌõ¼şÔÙÉ¾³ı¼ÇÂ¼
+							// è®¡ç®—è¡¨è¾¾å¼å¯èƒ½ä¾èµ–äºæ–°äº§ç”Ÿçš„è®°å½•ï¼Œæ‰€ä»¥è¦å…ˆäº§ç”Ÿè®°å½•ï¼Œä¸æ»¡è¶³æ¡ä»¶å†åˆ é™¤è®°å½•
 							resultMems.remove(q);
 							continue Next;
 						}
@@ -7997,10 +7997,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¼ÆËãĞòÁĞµÄĞòÁĞºÏ²¢Éú³ÉĞÂĞòÁĞ
-	 * @param gexp ·µ»ØÖµÎªĞòÁĞµÄ±í´ïÊ½
-	 * @param exp ½á¹û¼¯±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è®¡ç®—åºåˆ—çš„åºåˆ—åˆå¹¶ç”Ÿæˆæ–°åºåˆ—
+	 * @param gexp è¿”å›å€¼ä¸ºåºåˆ—çš„è¡¨è¾¾å¼
+	 * @param exp ç»“æœé›†è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence newSequences(Expression gexp, Expression exp, Context ctx) {
@@ -8054,13 +8054,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¼ÆËãÅÅÁĞµÄ×Ö¶ÎÖµºÏ²¢Éú³ÉĞÂĞò±í
-	 * @param gexp ·µ»ØÖµÎªĞòÁĞµÄ±í´ïÊ½
-	 * @param exps ½á¹û¼¯±í´ïÊ½Êı×é
-	 * @param ds ½á¹û¼¯Êı¾İ½á¹¹
-	 * @param opt 1£ºgexpÎª¿ÕÊ±Éú³ÉÒ»Ìõ¼ÇÂ¼£¬Ä¬ÈÏ²»Éú³É
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Ğò±í
+	 * è®¡ç®—æ’åˆ—çš„å­—æ®µå€¼åˆå¹¶ç”Ÿæˆæ–°åºè¡¨
+	 * @param gexp è¿”å›å€¼ä¸ºåºåˆ—çš„è¡¨è¾¾å¼
+	 * @param exps ç»“æœé›†è¡¨è¾¾å¼æ•°ç»„
+	 * @param ds ç»“æœé›†æ•°æ®ç»“æ„
+	 * @param opt 1ï¼šgexpä¸ºç©ºæ—¶ç”Ÿæˆä¸€æ¡è®°å½•ï¼Œé»˜è®¤ä¸ç”Ÿæˆ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åºè¡¨
 	 */
 	public Table newTables(Expression gexp, Expression[] exps, DataStruct ds, String opt, Context ctx) {
 		int len = length();
@@ -8072,7 +8072,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		boolean isLeft = opt != null && opt.indexOf('1') != -1;
 		Sequence ns = null;
 		if (isLeft) {
-			// Èç¹ûÊÇ×óÁ¬½ÓÔòÕÒ³ö±í´ïÊ½ÖĞÒıÓÃXµÄ×Ö¶Î£¬Éú³ÉÒ»Ìõ¿ÕÖµµÄ¼ÇÂ¼ÔÚXÈ¡ÖµÎªnullÊ±°ÑÕâÌõ¼ÇÂ¼Ñ¹Õ»
+			// å¦‚æœæ˜¯å·¦è¿æ¥åˆ™æ‰¾å‡ºè¡¨è¾¾å¼ä¸­å¼•ç”¨Xçš„å­—æ®µï¼Œç”Ÿæˆä¸€æ¡ç©ºå€¼çš„è®°å½•åœ¨Xå–å€¼ä¸ºnullæ—¶æŠŠè¿™æ¡è®°å½•å‹æ ˆ
 			ArrayList<String> fieldList = new ArrayList<String>();
 			for (Expression exp : exps) {
 				exp.getUsedFields(ctx, fieldList);
@@ -8103,7 +8103,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 		
-		// ÏÈ°ÑĞÂ²úÉúµÄĞò±íÑ¹Õ»£¬·ÀÖ¹ÒıÓÃ²»µ½Ô´Ğò±í
+		// å…ˆæŠŠæ–°äº§ç”Ÿçš„åºè¡¨å‹æ ˆï¼Œé˜²æ­¢å¼•ç”¨ä¸åˆ°æºåºè¡¨
 		ComputeStack stack = ctx.getComputeStack();
 		Current resultCurrent = new Current(result);
 		Current current = new Current(this);
@@ -8180,13 +8180,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¼ÆËãÅÅÁĞµÄ×Ö¶ÎÖµºÏ²¢Éú³ÉĞÂĞò±í
-	 * @param gexp ·µ»ØÖµÎªĞòÁĞµÄ±í´ïÊ½
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param exps ½á¹û¼¯±í´ïÊ½Êı×é
-	 * @param opt 1£ºgexpÎª¿ÕÊ±Éú³ÉÒ»Ìõ¼ÇÂ¼£¬Ä¬ÈÏ²»Éú³É
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Ğò±í
+	 * è®¡ç®—æ’åˆ—çš„å­—æ®µå€¼åˆå¹¶ç”Ÿæˆæ–°åºè¡¨
+	 * @param gexp è¿”å›å€¼ä¸ºåºåˆ—çš„è¡¨è¾¾å¼
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param exps ç»“æœé›†è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt 1ï¼šgexpä¸ºç©ºæ—¶ç”Ÿæˆä¸€æ¡è®°å½•ï¼Œé»˜è®¤ä¸ç”Ÿæˆ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åºè¡¨
 	 */
 	public Table newTables(Expression gexp, String[] names, Expression[] exps, String opt, Context ctx) {
 		if (names == null) {
@@ -8201,7 +8201,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("news" + mm.getMessage("function.invalidParam"));
 		}
 
-		// gexpÖĞ¿ÉÄÜ°üº¬¸³Öµ±í´ïÊ½£¬ÏÈÖ´ĞĞ»áÓ°ÏìºóĞøÖ´ĞĞµÄ½á¹û
+		// gexpä¸­å¯èƒ½åŒ…å«èµ‹å€¼è¡¨è¾¾å¼ï¼Œå…ˆæ‰§è¡Œä¼šå½±å“åç»­æ‰§è¡Œçš„ç»“æœ
 		/*if (length() > 0) {
 			Object val = calc(1, gexp, ctx);
 			Sequence seq;
@@ -8240,8 +8240,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °ÑĞòÁĞµÄĞòÁĞ×ª³ÉĞò±í£¬µÚÒ»¸ö³ÉÔ±Îª×Ö¶ÎÃû¹¹³ÉµÄĞòÁĞ
-	 * @return Ğò±í
+	 * æŠŠåºåˆ—çš„åºåˆ—è½¬æˆåºè¡¨ï¼Œç¬¬ä¸€ä¸ªæˆå‘˜ä¸ºå­—æ®µåæ„æˆçš„åºåˆ—
+	 * @return åºè¡¨
 	 */
 	public Table toTable() {
 		IArray mems = getMems();
@@ -8288,8 +8288,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¸´ÖÆ¼ÇÂ¼²úÉúĞÂĞò±í
-	 * @param opt o£º²»¸´ÖÆ¼ÇÂ¼
+	 * å¤åˆ¶è®°å½•äº§ç”Ÿæ–°åºè¡¨
+	 * @param opt oï¼šä¸å¤åˆ¶è®°å½•
 	 * @return
 	 */
 	public Table derive(String opt) {
@@ -8301,7 +8301,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return null;
 			}
 			
-			// ÒÔµÚÒ»Ìõ¼ÇÂ¼µÄ½á¹¹Îª×¼
+			// ä»¥ç¬¬ä¸€æ¡è®°å½•çš„ç»“æ„ä¸ºå‡†
 			Object val = mems.get(1);
 			if (val instanceof BaseRecord) {
 				ds = ((BaseRecord)val).dataStruct();
@@ -8311,7 +8311,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("engine.needPurePmt"));
 			} else {
-				// ¸´ÖÆÊı¾İ½á¹¹£¬·ÀÖ¹ĞŞ¸ÄĞÂ±íÊı¾İ½á¹¹ÊÇÓ°ÏìÔ´½á¹¹
+				// å¤åˆ¶æ•°æ®ç»“æ„ï¼Œé˜²æ­¢ä¿®æ”¹æ–°è¡¨æ•°æ®ç»“æ„æ˜¯å½±å“æºç»“æ„
 				ds = ds.dup();
 			}
 			
@@ -8326,7 +8326,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return newTable(ds, exps, null, ctx);
 		}
 
-		// ¸´ÖÆÊı¾İ½á¹¹£¬·ÀÖ¹ĞŞ¸ÄĞÂ±íÊı¾İ½á¹¹ÊÇÓ°ÏìÔ´½á¹¹
+		// å¤åˆ¶æ•°æ®ç»“æ„ï¼Œé˜²æ­¢ä¿®æ”¹æ–°è¡¨æ•°æ®ç»“æ„æ˜¯å½±å“æºç»“æ„
 		ds = ds.dup();
 		Table table = new Table(ds, len);
 		if (opt == null || opt.indexOf('o') == -1) {
@@ -8348,11 +8348,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * °ÑÔ´±íÖĞµÄÖ¸Òı×Ö¶ÎÕ¹¿ª
-	 * @param newDs ½á¹û¼¯Êı¾İ½á¹¹
-	 * @param exps ×·¼ÓµÄ×Ö¶ÎÖµ±í´ïÊ½
-	 * @param opt  Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æŠŠæºè¡¨ä¸­çš„æŒ‡å¼•å­—æ®µå±•å¼€
+	 * @param newDs ç»“æœé›†æ•°æ®ç»“æ„
+	 * @param exps è¿½åŠ çš„å­—æ®µå€¼è¡¨è¾¾å¼
+	 * @param opt  é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Table derive(DataStruct newDs, Expression []exps, String opt, Context ctx) {
@@ -8361,7 +8361,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int colCount = exps.length;
 		int oldColCount = newDs.getFieldCount() - colCount;
 
-		// ºÏ²¢×Ö¶Î
+		// åˆå¹¶å­—æ®µ
 		Table table = new Table(newDs, len);
 		IArray resultMems = table.getMems();
 
@@ -8381,7 +8381,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					newCurrent.setCurrent(i);
 					current.setCurrent(i);
 
-					// ¼ÆËãĞÂ×Ö¶Î
+					// è®¡ç®—æ–°å­—æ®µ
 					for (int c = 0; c < colCount; ++c) {
 						r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
 					}
@@ -8396,13 +8396,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					newCurrent.setCurrent(q);
 					current.setCurrent(i);
 
-					// ¼ÆËãĞÂ×Ö¶Î
+					// è®¡ç®—æ–°å­—æ®µ
 					for (int c = 0; c < colCount; ++c) {
 						Object obj = exps[c].calculate(ctx);
 						if (obj != null) {
 							r.setNormalFieldValue(c + oldColCount, obj);
 						} else {
-							resultMems.remove(q); // ¼ÆËãexps¿ÉÄÜÒÀÀµÓÚĞÂ²úÉúµÄ¼ÇÂ¼
+							resultMems.remove(q); // è®¡ç®—expså¯èƒ½ä¾èµ–äºæ–°äº§ç”Ÿçš„è®°å½•
 							continue Next;
 						}
 					}
@@ -8419,10 +8419,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÎªÔ´ÅÅÁĞÌí¼ÓÁĞ
-	 * @param names String[] ĞèÒªÌí¼ÓµÄÁĞ
-	 * @param exps Expression[] ĞèÒªÌí¼ÓµÄÁĞµÄ±í´ïÊ½
-	 * @param opt String m£º¶àÏß³ÌÔËËã£¬i£º±í´ïÊ½¼ÆËã½á¹ûÎªnullÊÇ²»Éú³É¸ÃÌõ¼ÇÂ¼£¬z£º´ÓºóÍùÇ°Ëã
+	 * ä¸ºæºæ’åˆ—æ·»åŠ åˆ—
+	 * @param names String[] éœ€è¦æ·»åŠ çš„åˆ—
+	 * @param exps Expression[] éœ€è¦æ·»åŠ çš„åˆ—çš„è¡¨è¾¾å¼
+	 * @param opt String mï¼šå¤šçº¿ç¨‹è¿ç®—ï¼Œiï¼šè¡¨è¾¾å¼è®¡ç®—ç»“æœä¸ºnullæ˜¯ä¸ç”Ÿæˆè¯¥æ¡è®°å½•ï¼Œzï¼šä»åå¾€å‰ç®—
 	 * @param ctx Context
 	 */
 	public Table derive(String []names, Expression []exps, String opt, Context ctx) {
@@ -8446,7 +8446,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return null;
 			}
 			
-			// ÒÔµÚÒ»Ìõ¼ÇÂ¼µÄ½á¹¹Îª×¼
+			// ä»¥ç¬¬ä¸€æ¡è®°å½•çš„ç»“æ„ä¸ºå‡†
 			Object val = mems.get(1);
 			if (val instanceof BaseRecord) {
 				ds = ((BaseRecord)val).dataStruct();
@@ -8491,13 +8491,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		String []oldNames = ds.getFieldNames();
 		int oldColCount = oldNames.length;
 
-		// ºÏ²¢×Ö¶Î
+		// åˆå¹¶å­—æ®µ
 		int newColCount = oldColCount + colCount;
 		String []totalNames = new String[newColCount];
 		System.arraycopy(oldNames, 0, totalNames, 0, oldColCount);
 		System.arraycopy(names, 0, totalNames, oldColCount, colCount);
 
-		// ¸øËùÓĞ¼ÇÂ¼Ôö¼Ó×Ö¶Î£¬ÒÔ±ãºó¼ÆËãµÄ¼ÇÂ¼¿ÉÒÔÒıÓÃÇ°Ãæ¼ÇÂ¼µÄ×Ö¶Î
+		// ç»™æ‰€æœ‰è®°å½•å¢åŠ å­—æ®µï¼Œä»¥ä¾¿åè®¡ç®—çš„è®°å½•å¯ä»¥å¼•ç”¨å‰é¢è®°å½•çš„å­—æ®µ
 		DataStruct newDs = ds.create(totalNames);
 		Table table = new Table(newDs, len);
 		IArray resultMems = table.getMems();
@@ -8524,7 +8524,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							if (obj != null) {
 								r.setNormalFieldValue(c + oldColCount, obj);
 							} else {
-								resultMems.remove(i); // ¼ÆËãexps¿ÉÄÜÒÀÀµÓÚĞÂ²úÉúµÄ¼ÇÂ¼
+								resultMems.remove(i); // è®¡ç®—expså¯èƒ½ä¾èµ–äºæ–°äº§ç”Ÿçš„è®°å½•
 								continue Next;
 							}
 						}
@@ -8539,7 +8539,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						newCurrent.setCurrent(i);
 						current.setCurrent(i);
 
-						// ¼ÆËãĞÂ×Ö¶Î
+						// è®¡ç®—æ–°å­—æ®µ
 						for (int c = 0; c < colCount; ++c) {
 							r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
 						}
@@ -8555,13 +8555,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					newCurrent.setCurrent(q);
 					current.setCurrent(i);
 
-					// ¼ÆËãĞÂ×Ö¶Î
+					// è®¡ç®—æ–°å­—æ®µ
 					for (int c = 0; c < colCount; ++c) {
 						Object obj = exps[c].calculate(ctx);
 						if (obj != null) {
 							r.setNormalFieldValue(c + oldColCount, obj);
 						} else {
-							resultMems.remove(q); // ¼ÆËãexps¿ÉÄÜÒÀÀµÓÚĞÂ²úÉúµÄ¼ÇÂ¼
+							resultMems.remove(q); // è®¡ç®—expså¯èƒ½ä¾èµ–äºæ–°äº§ç”Ÿçš„è®°å½•
 							continue Next;
 						}
 					}
@@ -8577,7 +8577,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					newCurrent.setCurrent(i);
 					current.setCurrent(i);
 
-					// ¼ÆËãĞÂ×Ö¶Î
+					// è®¡ç®—æ–°å­—æ®µ
 					for (int c = 0; c < colCount; ++c) {
 						r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
 					}
@@ -8592,12 +8592,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * °ÑÔ´±íÖĞµÄÖ¸Òı×Ö¶ÎÕ¹¿ª
-	 * @param names ×·¼ÓµÄ×Ö¶ÎÃû
-	 * @param exps ×·¼ÓµÄ×Ö¶ÎÖµ±í´ïÊ½
+	 * æŠŠæºè¡¨ä¸­çš„æŒ‡å¼•å­—æ®µå±•å¼€
+	 * @param names è¿½åŠ çš„å­—æ®µå
+	 * @param exps è¿½åŠ çš„å­—æ®µå€¼è¡¨è¾¾å¼
 	 * @param opt 
 	 * @param ctx
-	 * @param level ²ãÊı£¬È±Ê¡2
+	 * @param level å±‚æ•°ï¼Œç¼ºçœ2
 	 * @return
 	 */
 	public Table derive(String []names, Expression []exps, String opt, Context ctx, int level) {
@@ -8654,7 +8654,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return newTable(totalNames, totalExps, opt, ctx);
 	}
 	
-	// µİ¹éÈ¡µÃËùÓĞµÄÆÕÍ¨×Ö¶ÎÃûºÍÒıÓÃ±í´ïÊ½
+	// é€’å½’å–å¾—æ‰€æœ‰çš„æ™®é€šå­—æ®µåå’Œå¼•ç”¨è¡¨è¾¾å¼
 	private static void getField(BaseRecord r, String prevField, String prevFieldName, int curLevel, int totalLevel, 
 			Context ctx, ArrayList<String> nameList, ArrayList<Expression> expList) {
 		String []srcFieldNames = r.getFieldNames();
@@ -8689,12 +8689,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØobjÊôÓÚÄÄ¸ö·Ö×é
+	 * è¿”å›objå±äºå“ªä¸ªåˆ†ç»„
 	 * @param obj Object
-	 * @param opt String r£º¿ÉÄÜÖØ¸´µÄ·Ö×é
+	 * @param opt String rï¼šå¯èƒ½é‡å¤çš„åˆ†ç»„
 	 * @param ctx Context
 	 * @param cs ICellSet
-	 * @return Object ¶ÔÏóËùÊôµÄµÄ·Ö×éĞòºÅ»ò¶à·Ö×éĞòºÅ¹¹³ÉµÄĞòÁĞ
+	 * @return Object å¯¹è±¡æ‰€å±çš„çš„åˆ†ç»„åºå·æˆ–å¤šåˆ†ç»„åºå·æ„æˆçš„åºåˆ—
 	 */
 	public Object penum(Object obj, String opt, Context ctx, ICellSet cs) {
 		int len = length();
@@ -8719,7 +8719,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 				String temp = (String)idgVal;
 				if (temp == null || temp.length() == 0) {
-					if (i != len) { // ×îºóÒ»×é±í´ïÊ½¿É¿Õ
+					if (i != len) { // æœ€åä¸€ç»„è¡¨è¾¾å¼å¯ç©º
 						MessageManager mm = EngineMessage.get();
 						throw new RQException(mm.getMessage("engine.enumFilterNull"));
 					}
@@ -8744,7 +8744,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 		} finally {
-			stack.pop(); // ĞòÁĞ³öÕ»
+			stack.pop(); // åºåˆ—å‡ºæ ˆ
 		}
 
 		if (isRepeat) {
@@ -8775,10 +8775,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °´Ö¸¶¨Ã¶¾ÙÅÅÁĞ¶ÔĞòÁĞ½øĞĞ·Ö×é
-	 * @param filters Sequence Ã¶¾Ù±í´ïÊ½ĞòÁĞ
-	 * @param argExp Expression ·Ö×éÌõ¼şÓÃµ½µÄ²ÎÊı
-	 * @param opt String n£ºÃ»ÓĞ¶ÔÓ¦µÄ·ÅÔÚÆäËü×é£¬r£º¿ÉÄÜÖØ¸´µÄÃ¶¾Ù£¬È±Ê¡ÈÏÎªÃ¶¾Ù²»ÖØ¸´£¬p£º·µ»ØÎ»ÖÃ
+	 * æŒ‰æŒ‡å®šæšä¸¾æ’åˆ—å¯¹åºåˆ—è¿›è¡Œåˆ†ç»„
+	 * @param filters Sequence æšä¸¾è¡¨è¾¾å¼åºåˆ—
+	 * @param argExp Expression åˆ†ç»„æ¡ä»¶ç”¨åˆ°çš„å‚æ•°
+	 * @param opt String nï¼šæ²¡æœ‰å¯¹åº”çš„æ”¾åœ¨å…¶å®ƒç»„ï¼Œrï¼šå¯èƒ½é‡å¤çš„æšä¸¾ï¼Œç¼ºçœè®¤ä¸ºæšä¸¾ä¸é‡å¤ï¼Œpï¼šè¿”å›ä½ç½®
 	 * @param ctx Context
 	 * @param cs ICellSet
 	 * @return Sequence
@@ -8797,7 +8797,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('n') != -1)isNull = true;
 		}
 
-		// ¼ÆËã·Ö×éÌõ¼şua
+		// è®¡ç®—åˆ†ç»„æ¡ä»¶ua
 		IArray filterMems = filters.getMems();
 		int fsize = filterMems.size();
 		Expression[] enumFilter = new Expression[fsize + 2];
@@ -8810,7 +8810,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 			String temp = (String)idgVal;
 			if (temp == null || temp.length() == 0) {
-				if (i != fsize) { // ×îºóÒ»×é±í´ïÊ½¿É¿Õ
+				if (i != fsize) { // æœ€åä¸€ç»„è¡¨è¾¾å¼å¯ç©º
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(mm.getMessage("engine.enumFilterNull"));
 				}
@@ -8834,20 +8834,20 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			Sequence arg = new Sequence(1);
 			arg.add(null);
 
-			Sequence[] groups = new Sequence[fsize + 1]; // ·Ö×éºó¼ÍÂ¼
+			Sequence[] groups = new Sequence[fsize + 1]; // åˆ†ç»„åçºªå½•
 			for (int i = 1; i <= fsize; ++i) {
 				groups[i] = new Sequence();
 				result.add(groups[i]);
 			}
 
-			if (enumFilter[fsize] == null) { // ×îºóÒ»×éÊÇÆäËü·Ö×é
-				for (int i = 1; i <= selLen; ++i) { // Òª½øĞĞ·Ö×éµÄĞòÁĞµÄÔªËØ
+			if (enumFilter[fsize] == null) { // æœ€åä¸€ç»„æ˜¯å…¶å®ƒåˆ†ç»„
+				for (int i = 1; i <= selLen; ++i) { // è¦è¿›è¡Œåˆ†ç»„çš„åºåˆ—çš„å…ƒç´ 
 					current.setCurrent(i);
 					arg.set(1, argExp.calculate(ctx));
 					stack.pushArg(arg);
 					try {
 						boolean bAdd = false;
-						for (int s = 1; s < fsize; ++s) { // ·Ö×éÌõ¼ş
+						for (int s = 1; s < fsize; ++s) { // åˆ†ç»„æ¡ä»¶
 							Object value = enumFilter[s].calculate(ctx);
 							if (Variant.isTrue(value)) {
 								if (!bPos) {
@@ -8872,16 +8872,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						}
 
 					} finally {
-						stack.popArg(); // ²ÎÊı³öÕ»
+						stack.popArg(); // å‚æ•°å‡ºæ ˆ
 					}
 				}
 			} else {
-				for (int i = 1; i <= selLen; ++i) { // Òª½øĞĞ·Ö×éµÄĞòÁĞµÄÔªËØ
+				for (int i = 1; i <= selLen; ++i) { // è¦è¿›è¡Œåˆ†ç»„çš„åºåˆ—çš„å…ƒç´ 
 					current.setCurrent(i);
 					arg.set(1, argExp.calculate(ctx));
 					stack.pushArg(arg);
 					try {
-						for (int s = 1; s <= fsize; ++s) { // ·Ö×éÌõ¼ş
+						for (int s = 1; s <= fsize; ++s) { // åˆ†ç»„æ¡ä»¶
 							Object value = enumFilter[s].calculate(ctx);
 							if (Variant.isTrue(value)) {
 								if (!bPos) {
@@ -8895,22 +8895,22 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							}
 						}
 					} finally {
-						stack.popArg(); // ²ÎÊı³öÕ»
+						stack.popArg(); // å‚æ•°å‡ºæ ˆ
 					}
 				}
 			}
 		} finally {
-			stack.pop(); // ĞòÁĞ³öÕ»
+			stack.pop(); // åºåˆ—å‡ºæ ˆ
 		}
 
 		return result;
 	}
 
 	/**
-	 * °´ÕÕÖ¸¶¨ĞòÁĞ½øĞĞ¶ÔÆë
-	 * @param exp Expression ±È¶Ô±í´ïÊ½
-	 * @param target Sequence Ô´ĞòÁĞ
-	 * @param opt String selectµÄÑ¡Ïî
+	 * æŒ‰ç…§æŒ‡å®šåºåˆ—è¿›è¡Œå¯¹é½
+	 * @param exp Expression æ¯”å¯¹è¡¨è¾¾å¼
+	 * @param target Sequence æºåºåˆ—
+	 * @param opt String selectçš„é€‰é¡¹
 	 * @param ctx Context
 	 * @return Sequence
 	 */
@@ -9045,7 +9045,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 			return result;
-		} else { // Ö»Ñ¡ÔñµÚÒ»¸öÂú×ãÌõ¼şµÄÔªËØ
+		} else { // åªé€‰æ‹©ç¬¬ä¸€ä¸ªæ»¡è¶³æ¡ä»¶çš„å…ƒç´ 
 			Object[] retVals = new Object[tgtSize];
 			for (int i = 1; i <= valSize; ++i) {
 				Object val = valMems.get(i);
@@ -9070,10 +9070,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °´ÕÕn¶ÔĞòÁĞ½øĞĞ¶ÔÆë
-	 * @param exp Expression ±È¶Ô±í´ïÊ½
-	 * @param n ÊıÁ¿
-	 * @param opt String selectµÄÑ¡Ïî
+	 * æŒ‰ç…§nå¯¹åºåˆ—è¿›è¡Œå¯¹é½
+	 * @param exp Expression æ¯”å¯¹è¡¨è¾¾å¼
+	 * @param n æ•°é‡
+	 * @param opt String selectçš„é€‰é¡¹
 	 * @param ctx Context
 	 * @return Sequence
 	 */
@@ -9101,7 +9101,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				resultVals[i] = new Sequence(4);
 			}
 
-			if (isRepeat) { // expµÄ·µ»ØÖµÎªÎ»ÖÃĞòÁĞ
+			if (isRepeat) { // expçš„è¿”å›å€¼ä¸ºä½ç½®åºåˆ—
 				for (int i = 1; i <= valSize; ++i) {
 					Object val = valMems.get(i);
 					if (val == null) {
@@ -9145,7 +9145,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 			
 			return new Sequence(resultVals);
-		} else { // Ö»Ñ¡ÔñµÚÒ»¸öÂú×ãÌõ¼şµÄÔªËØ
+		} else { // åªé€‰æ‹©ç¬¬ä¸€ä¸ªæ»¡è¶³æ¡ä»¶çš„å…ƒç´ 
 			Object[] resultVals = new Object[n];
 			for (int i = 1; i <= valSize; ++i) {
 				Object val = valMems.get(i);
@@ -9171,8 +9171,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¶ÔĞòÁĞ½øĞĞÅÅĞò·Ö×é
-	 * @param opt String o£ºÖ»ºÍÏàÁÚµÄ¶Ô±È£¬1: Ö»·µ»ØÃ¿×éµÄµÚÒ»Ìõ, u£º½á¹û¼¯²»ÅÅĞò£¬h£ºÏÈÅÅĞòÔÙÓÃ@o¼ÆËã
+	 * å¯¹åºåˆ—è¿›è¡Œæ’åºåˆ†ç»„
+	 * @param opt String oï¼šåªå’Œç›¸é‚»çš„å¯¹æ¯”ï¼Œ1: åªè¿”å›æ¯ç»„çš„ç¬¬ä¸€æ¡, uï¼šç»“æœé›†ä¸æ’åºï¼Œhï¼šå…ˆæ’åºå†ç”¨@oè®¡ç®—
 	 * @return Sequence
 	 */
 	public Sequence group(String opt) {
@@ -9214,7 +9214,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return new Sequence(0);
 		}
 
-		Sequence result = new Sequence(size / 4); // ·Ö×éºóĞòÁĞ
+		Sequence result = new Sequence(size / 4); // åˆ†ç»„ååºåˆ—
 		IArray resultMems = result.getMems();
 		Object prev = mems.get(1);
 
@@ -9229,7 +9229,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					if (Variant.isEquals(prev, cur)) {
 						group.add(cur);
 					} else {
-						// ĞÂ×é
+						// æ–°ç»„
 						prev = cur;
 						group = new Sequence(7);
 						group.add(cur);
@@ -9242,7 +9242,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					Object cur = mems.get(i);
 
 					if (!Variant.isEquals(prev, cur)) {
-						// ĞÂ×é
+						// æ–°ç»„
 						prev = cur;
 						resultMems.add(cur);
 					}
@@ -9259,7 +9259,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					if (Variant.isEquals(prev, cur)) {
 						group.add(ObjectCache.getInteger(i));
 					} else {
-						// ĞÂ×é
+						// æ–°ç»„
 						prev = cur;
 						group = new Sequence(7);
 						group.add(ObjectCache.getInteger(i));
@@ -9272,7 +9272,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					Object cur = mems.get(i);
 
 					if (!Variant.isEquals(prev, cur)) {
-						// ĞÂ×é
+						// æ–°ç»„
 						prev = cur;
 						resultMems.add(ObjectCache.getInteger(i));
 					}
@@ -9284,16 +9284,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¸ù¾İexp¶ÔĞòÁĞ½øĞĞÅÅĞò·Ö×é
-	 * @param exp Expression ·Ö×é¼ÆËã±í´ïÊ½
-	 * @param opt String o£ºÖ»ºÍÏàÁÚµÄ¶Ô±È£¬n£ºÈ¡ÖµÎª·Ö×éĞòºÅ£¬1: Ö»·µ»ØÃ¿×éµÄµÚÒ»Ìõ, u£º½á¹û¼¯²»ÅÅĞò£¬i£º²¼¶û±í´ïÊ½£¬h£ºÏÈÅÅĞòÔÙÓÃ@o¼ÆËã
-	 * p£º·µ»Ø×éÔ±Î»ÖÃ£¬1: Ö»·µ»ØÃ¿×éµÄµÚÒ»Ìõ, z£º½µĞò
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * æ ¹æ®expå¯¹åºåˆ—è¿›è¡Œæ’åºåˆ†ç»„
+	 * @param exp Expression åˆ†ç»„è®¡ç®—è¡¨è¾¾å¼
+	 * @param opt String oï¼šåªå’Œç›¸é‚»çš„å¯¹æ¯”ï¼Œnï¼šå–å€¼ä¸ºåˆ†ç»„åºå·ï¼Œ1: åªè¿”å›æ¯ç»„çš„ç¬¬ä¸€æ¡, uï¼šç»“æœé›†ä¸æ’åºï¼Œiï¼šå¸ƒå°”è¡¨è¾¾å¼ï¼Œhï¼šå…ˆæ’åºå†ç”¨@oè®¡ç®—
+	 * pï¼šè¿”å›ç»„å‘˜ä½ç½®ï¼Œ1: åªè¿”å›æ¯ç»„çš„ç¬¬ä¸€æ¡, zï¼šé™åº
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return Sequence
 	 */
 	public Sequence group(Expression exp, String opt, Context ctx) {
 		if (opt == null) {
-			// #%3¶ÔÓÚ°üº¬#µÄ±í´ïÊ½£¬ÏÈÅÅĞòÔÙÔÚ·Ö×éÀï¼ÆËã±í´ïÊ½#»áËã´í£¬²»ÔÙÓÅ»¯ÁË
+			// #%3å¯¹äºåŒ…å«#çš„è¡¨è¾¾å¼ï¼Œå…ˆæ’åºå†åœ¨åˆ†ç»„é‡Œè®¡ç®—è¡¨è¾¾å¼#ä¼šç®—é”™ï¼Œä¸å†ä¼˜åŒ–äº†
 			//if (length() > SORT_HASH_LEN) {
 				return CursorUtil.hashGroup(this, new Expression[]{exp}, opt, ctx);
 			//} else {
@@ -9322,7 +9322,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return new Sequence(0);
 		}
 
-		Sequence result = new Sequence(size / 4); // ·Ö×éºóĞòÁĞ
+		Sequence result = new Sequence(size / 4); // åˆ†ç»„ååºåˆ—
 		IArray resultMems = result.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
@@ -9336,14 +9336,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					group.add(mems.get(1));
 					resultMems.add(group);
 					
-					// ÓÃµÚÒ»Ìõ¼ÇÂ¼¼ÆËãÒ»ÏÂ±í´ïÊ½£¬·ÀÖ¹±í´ïÊ½xÖĞÓĞ¸³ÖµÔËËãÓ°Ïì¼ÆËã½á¹û
+					// ç”¨ç¬¬ä¸€æ¡è®°å½•è®¡ç®—ä¸€ä¸‹è¡¨è¾¾å¼ï¼Œé˜²æ­¢è¡¨è¾¾å¼xä¸­æœ‰èµ‹å€¼è¿ç®—å½±å“è®¡ç®—ç»“æœ
 					current.setCurrent(1);
 					exp.calculate(ctx);
 					
 					for (int i = 2; i <= size; ++i) {
 						current.setCurrent(i);
 						if (Variant.isTrue(exp.calculate(ctx))) {
-							// ĞÂ×é
+							// æ–°ç»„
 							group = new Sequence(7);
 							group.add(mems.get(i));
 							resultMems.add(group);
@@ -9354,14 +9354,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				} else {
 					resultMems.add(mems.get(1));
 					
-					// ÓÃµÚÒ»Ìõ¼ÇÂ¼¼ÆËãÒ»ÏÂ±í´ïÊ½£¬·ÀÖ¹±í´ïÊ½xÖĞÓĞ¸³ÖµÔËËãÓ°Ïì¼ÆËã½á¹û
+					// ç”¨ç¬¬ä¸€æ¡è®°å½•è®¡ç®—ä¸€ä¸‹è¡¨è¾¾å¼ï¼Œé˜²æ­¢è¡¨è¾¾å¼xä¸­æœ‰èµ‹å€¼è¿ç®—å½±å“è®¡ç®—ç»“æœ
 					current.setCurrent(1);
 					exp.calculate(ctx);
 					
 					for (int i = 2; i <= size; ++i) {
 						current.setCurrent(i);
 						if (Variant.isTrue(exp.calculate(ctx))) {
-							// ĞÂ×é
+							// æ–°ç»„
 							resultMems.add(mems.get(i));
 						}
 					}
@@ -9372,14 +9372,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					group.add(ObjectCache.getInteger(1));
 					resultMems.add(group);
 					
-					// ÓÃµÚÒ»Ìõ¼ÇÂ¼¼ÆËãÒ»ÏÂ±í´ïÊ½£¬·ÀÖ¹±í´ïÊ½xÖĞÓĞ¸³ÖµÔËËãÓ°Ïì¼ÆËã½á¹û
+					// ç”¨ç¬¬ä¸€æ¡è®°å½•è®¡ç®—ä¸€ä¸‹è¡¨è¾¾å¼ï¼Œé˜²æ­¢è¡¨è¾¾å¼xä¸­æœ‰èµ‹å€¼è¿ç®—å½±å“è®¡ç®—ç»“æœ
 					current.setCurrent(1);
 					exp.calculate(ctx);
 					
 					for (int i = 2; i <= size; ++i) {
 						current.setCurrent(i);
 						if (Variant.isTrue(exp.calculate(ctx))) {
-							// ĞÂ×é
+							// æ–°ç»„
 							group = new Sequence(7);
 							group.add(ObjectCache.getInteger(i));
 							resultMems.add(group);
@@ -9390,14 +9390,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				} else {
 					resultMems.add(ObjectCache.getInteger(1));
 					
-					// ÓÃµÚÒ»Ìõ¼ÇÂ¼¼ÆËãÒ»ÏÂ±í´ïÊ½£¬·ÀÖ¹±í´ïÊ½xÖĞÓĞ¸³ÖµÔËËãÓ°Ïì¼ÆËã½á¹û
+					// ç”¨ç¬¬ä¸€æ¡è®°å½•è®¡ç®—ä¸€ä¸‹è¡¨è¾¾å¼ï¼Œé˜²æ­¢è¡¨è¾¾å¼xä¸­æœ‰èµ‹å€¼è¿ç®—å½±å“è®¡ç®—ç»“æœ
 					current.setCurrent(1);
 					exp.calculate(ctx);
 					
 					for (int i = 2; i <= size; ++i) {
 						current.setCurrent(i);
 						if (Variant.isTrue(exp.calculate(ctx))) {
-							// ĞÂ×é
+							// æ–°ç»„
 							resultMems.add(ObjectCache.getInteger(i));
 						}
 					}
@@ -9419,7 +9419,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		Object prevValue;
 		Object curValue;
-		Sequence result = new Sequence(size / 4); // ·Ö×éºóĞòÁĞ
+		Sequence result = new Sequence(size / 4); // åˆ†ç»„ååºåˆ—
 		IArray resultMems = result.getMems();
 		boolean reserveNull = opt == null || opt.indexOf('0') == -1;
 
@@ -9447,7 +9447,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						if (Variant.isEquals(prevValue, curValue)) {
 							group.add(mems.get(i));
 						} else {
-							// ĞÂ×é
+							// æ–°ç»„
 							prevValue = curValue;
 							group = new Sequence(7);
 							group.add(mems.get(i));
@@ -9467,7 +9467,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						curValue = exp.calculate(ctx);
 
 						if (!Variant.isEquals(prevValue, curValue)) {
-							// ĞÂ×é
+							// æ–°ç»„
 							prevValue = curValue;
 							if (reserveNull || prevValue != null) {
 								resultMems.add(mems.get(i));
@@ -9491,7 +9491,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						if (Variant.isEquals(prevValue, curValue)) {
 							group.add(ObjectCache.getInteger(i));
 						} else {
-							// ĞÂ×é
+							// æ–°ç»„
 							prevValue = curValue;
 							group = new Sequence(7);
 							group.add(ObjectCache.getInteger(i));
@@ -9511,7 +9511,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						curValue = exp.calculate(ctx);
 
 						if (!Variant.isEquals(prevValue, curValue)) {
-							// ĞÂ×é
+							// æ–°ç»„
 							prevValue = curValue;
 							if (reserveNull || prevValue != null) {
 								resultMems.add(ObjectCache.getInteger(i));
@@ -9528,7 +9528,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	private Sequence group_o(Expression []exps, String opt, Context ctx) {
-		// ÓĞĞò·Ö×é
+		// æœ‰åºåˆ†ç»„
 		int keyCount = exps.length;
 		IArray mems = getMems();
 		int size = mems.size();
@@ -9538,7 +9538,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		Object []prevValues = new Object[keyCount];
 		Object []curValues = new Object[keyCount];
-		Sequence result = new Sequence(size / 4); // ·Ö×éºóĞòÁĞ
+		Sequence result = new Sequence(size / 4); // åˆ†ç»„ååºåˆ—
 		IArray resultMems = result.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
@@ -9566,7 +9566,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						if (Variant.compareArrays(prevValues, curValues) == 0) {
 							group.add(mems.get(i));
 						} else {
-							// ĞÂ×é
+							// æ–°ç»„
 							Object []tmp = prevValues;
 							prevValues = curValues;
 							curValues = tmp;
@@ -9585,7 +9585,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						}
 
 						if (Variant.compareArrays(prevValues, curValues) != 0) {
-							// ĞÂ×é
+							// æ–°ç»„
 							Object []tmp = prevValues;
 							prevValues = curValues;
 							curValues = tmp;
@@ -9610,7 +9610,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						if (Variant.compareArrays(prevValues, curValues) == 0) {
 							group.add(ObjectCache.getInteger(i));
 						} else {
-							// ĞÂ×é
+							// æ–°ç»„
 							Object []tmp = prevValues;
 							prevValues = curValues;
 							curValues = tmp;
@@ -9629,7 +9629,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						}
 
 						if (Variant.compareArrays(prevValues, curValues) != 0) {
-							// ĞÂ×é
+							// æ–°ç»„
 							Object []tmp = prevValues;
 							prevValues = curValues;
 							curValues = tmp;
@@ -9654,7 +9654,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return new Sequence(0);
 		}
 
-		Sequence result = new Sequence(size / 4); // ·Ö×éºóĞòÁĞ
+		Sequence result = new Sequence(size / 4); // åˆ†ç»„ååºåˆ—
 		IArray resultMems = result.getMems();
 		int len = 0;
 
@@ -9681,7 +9681,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 						len = index;
 					} else if (index < 1) {
-						// Åöµ½Ğ¡ÓÚ1µÄ·Å¹ı²»ÒªÁË£¬²»ÔÙ±¨´í£¬²»·Öµ½ÈÎºÎÒ»×éÀï
+						// ç¢°åˆ°å°äº1çš„æ”¾è¿‡ä¸è¦äº†ï¼Œä¸å†æŠ¥é”™ï¼Œä¸åˆ†åˆ°ä»»ä½•ä¸€ç»„é‡Œ
 						continue;
 						//MessageManager mm = EngineMessage.get();
 						//throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
@@ -9714,7 +9714,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 						len = index;
 					} else if (index < 1) {
-						// Åöµ½Ğ¡ÓÚ1µÄ·Å¹ı²»ÒªÁË£¬²»ÔÙ±¨´í£¬²»·Öµ½ÈÎºÎÒ»×éÀï
+						// ç¢°åˆ°å°äº1çš„æ”¾è¿‡ä¸è¦äº†ï¼Œä¸å†æŠ¥é”™ï¼Œä¸åˆ†åˆ°ä»»ä½•ä¸€ç»„é‡Œ
 						continue;
 					}
 
@@ -9741,7 +9741,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return new Sequence(0);
 		}
 
-		Sequence result = new Sequence(size / 4); // ·Ö×éºóĞòÁĞ
+		Sequence result = new Sequence(size / 4); // åˆ†ç»„ååºåˆ—
 		IArray resultMems = result.getMems();
 		int len = 0;
 
@@ -9762,7 +9762,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 					len = index;
 				} else if (index < 1) {
-					// Åöµ½Ğ¡ÓÚ1µÄ·Å¹ı²»ÒªÁË£¬²»ÔÙ±¨´í£¬²»·Öµ½ÈÎºÎÒ»×éÀï
+					// ç¢°åˆ°å°äº1çš„æ”¾è¿‡ä¸è¦äº†ï¼Œä¸å†æŠ¥é”™ï¼Œä¸åˆ†åˆ°ä»»ä½•ä¸€ç»„é‡Œ
 					continue;
 					//MessageManager mm = EngineMessage.get();
 					//throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
@@ -9794,7 +9794,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 					len = index;
 				} else if (index < 1) {
-					// Åöµ½Ğ¡ÓÚ1µÄ·Å¹ı²»ÒªÁË£¬²»ÔÙ±¨´í£¬²»·Öµ½ÈÎºÎÒ»×éÀï
+					// ç¢°åˆ°å°äº1çš„æ”¾è¿‡ä¸è¦äº†ï¼Œä¸å†æŠ¥é”™ï¼Œä¸åˆ†åˆ°ä»»ä½•ä¸€ç»„é‡Œ
 					continue;
 					//MessageManager mm = EngineMessage.get();
 					//throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
@@ -9814,10 +9814,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¸ù¾İ¶à±í´ïÊ½¶ÔĞòÁĞ½øĞĞÅÅĞò·Ö×é
-	 * @param exps Expression[] ·Ö×é¼ÆËã±í´ïÊ½
-	 * @param opt String o£ºÖ»ºÍÏàÁÚµÄ¶Ô±È£¬1: Ö»·µ»ØÃ¿×éµÄµÚÒ»Ìõ, u£º½á¹û¼¯²»ÅÅĞò£¬h£ºÏÈÅÅĞòÔÙÓÃ@o¼ÆËã
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * æ ¹æ®å¤šè¡¨è¾¾å¼å¯¹åºåˆ—è¿›è¡Œæ’åºåˆ†ç»„
+	 * @param exps Expression[] åˆ†ç»„è®¡ç®—è¡¨è¾¾å¼
+	 * @param opt String oï¼šåªå’Œç›¸é‚»çš„å¯¹æ¯”ï¼Œ1: åªè¿”å›æ¯ç»„çš„ç¬¬ä¸€æ¡, uï¼šç»“æœé›†ä¸æ’åºï¼Œhï¼šå…ˆæ’åºå†ç”¨@oè®¡ç®—
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return Sequence
 	 */
 	public Sequence group(Expression[] exps, String opt, Context ctx) {
@@ -9846,12 +9846,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·Ö×éÍ³¼Æ£¬·µ»Ø×éÖµºÍ»ã×ÜÖµ¹¹³ÉµÄĞò±í
-	 * @param exps Expression[] ·Ö×é±í´ïÊ½
-	 * @param names String[] ·Ö×é×Ö¶ÎÔÚ½á¹ûĞò±íÖĞµÄ×Ö¶ÎÃû
-	 * @param calcExps Expression[] »ã×Ü±í´ïÊ½£¬Óï·¨~.f£¨£©
-	 * @param calcNames String[] »ã×Ü×Ö¶ÎÔÚ½á¹ûĞò±íÖĞµÄ×Ö¶ÎÃû
-	 * @param opt String o£ºÖ»ºÍÏàÁÚµÄ¶Ô±È£¬n£º·Ö×é±í´ïÊ½È¡ÖµÎª×éºÅ£¬u£º½á¹û¼¯²»ÅÅĞò£¬b£º½á¹û¼¯È¥µô·Ö×é×Ö¶Î
+	 * åˆ†ç»„ç»Ÿè®¡ï¼Œè¿”å›ç»„å€¼å’Œæ±‡æ€»å€¼æ„æˆçš„åºè¡¨
+	 * @param exps Expression[] åˆ†ç»„è¡¨è¾¾å¼
+	 * @param names String[] åˆ†ç»„å­—æ®µåœ¨ç»“æœåºè¡¨ä¸­çš„å­—æ®µå
+	 * @param calcExps Expression[] æ±‡æ€»è¡¨è¾¾å¼ï¼Œè¯­æ³•~.fï¼ˆï¼‰
+	 * @param calcNames String[] æ±‡æ€»å­—æ®µåœ¨ç»“æœåºè¡¨ä¸­çš„å­—æ®µå
+	 * @param opt String oï¼šåªå’Œç›¸é‚»çš„å¯¹æ¯”ï¼Œnï¼šåˆ†ç»„è¡¨è¾¾å¼å–å€¼ä¸ºç»„å·ï¼Œuï¼šç»“æœé›†ä¸æ’åºï¼Œbï¼šç»“æœé›†å»æ‰åˆ†ç»„å­—æ®µ
 	 * @param ctx Context
 	 * @return Table
 	 */
@@ -9904,7 +9904,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		Sequence groups = group(exps, opt, ctx);
 		
-		// ½á¹û¼¯²»´ø·Ö×é×Ö¶Î
+		// ç»“æœé›†ä¸å¸¦åˆ†ç»„å­—æ®µ
 		if (opt != null && opt.indexOf('b') != -1) {
 			return groups.newTable(calcNames, calcExps, ctx);
 		}
@@ -9931,7 +9931,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Current current = new Current(keyGroups);
 		stack.push(current);
 
-		// ¼ÆËã·Ö×é×Ö¶ÎÖµ
+		// è®¡ç®—åˆ†ç»„å­—æ®µå€¼
 		try {
 			for (int i = 1; i <= len; ++i) {
 				BaseRecord r = result.newLast();
@@ -9947,7 +9947,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		current = new Current(groups);
 		stack.push(current);
 
-		// ¼ÆËã¾ÛºÏ×Ö¶ÎÖµ
+		// è®¡ç®—èšåˆå­—æ®µå€¼
 		try {
 			for (int i = 1; i <= len; ++i) {
 				BaseRecord r = (BaseRecord)result.getMem(i);
@@ -10006,8 +10006,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·Ö×éÔËËã½áÊøºóµ÷ÓÃ£¬ÓÃÓÚÉèÖÃavgÕâÀàÔËËãµÄÖµ
-	 * @param gathers »ã×Ü±í´ïÊ½
+	 * åˆ†ç»„è¿ç®—ç»“æŸåè°ƒç”¨ï¼Œç”¨äºè®¾ç½®avgè¿™ç±»è¿ç®—çš„å€¼
+	 * @param gathers æ±‡æ€»è¡¨è¾¾å¼
 	 */
 	public void finishGather(Node[]gathers) {
 		if (gathers == null || length() == 0) return;
@@ -10041,8 +10041,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¶àÏß³Ì·Ö×éÔËËãµÚÒ»´Î»ã×Ü½áÊøºóµ÷ÓÃ
-	 * @param gathers »ã×Ü±í´ïÊ½
+	 * å¤šçº¿ç¨‹åˆ†ç»„è¿ç®—ç¬¬ä¸€æ¬¡æ±‡æ€»ç»“æŸåè°ƒç”¨
+	 * @param gathers æ±‡æ€»è¡¨è¾¾å¼
 	 */
 	public void finishGather1(Node[]gathers) {
 		if (gathers == null || length() == 0) return;
@@ -10090,8 +10090,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡Ê×Ìõ¼ÇÂ¼µÄÊı¾İ½á¹¹£¬Èç¹ûµÚÒ»¸öÔªËØ²»ÊÇ¼ÇÂ¼Ôò·µ»Ønull
-	 * @return ¼ÇÂ¼µÄÊı¾İ½á¹¹
+	 * å–é¦–æ¡è®°å½•çš„æ•°æ®ç»“æ„ï¼Œå¦‚æœç¬¬ä¸€ä¸ªå…ƒç´ ä¸æ˜¯è®°å½•åˆ™è¿”å›null
+	 * @return è®°å½•çš„æ•°æ®ç»“æ„
 	 */
 	public DataStruct getFirstRecordDataStruct() {
 		if (length() > 0) {
@@ -10105,19 +10105,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¶ÔÅÅÁĞ×öĞĞ×ªÁĞ×ª»»²¢»ã×Ü
-	 * @param gexps ·Ö×é±í´ïÊ½Êı×é
-	 * @param gnames ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param fexp ·ÖÀà×Ö¶Î
-	 * @param vexp È¡Öµ×Ö¶ÎµÄ»ã×Ü±í´ïÊ½
-	 * @param nexps ·ÖÀàÖµ
-	 * @param nameObjects ½á¹û¼¯×Ö¶ÎÃû
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Ğò±í
+	 * å¯¹æ’åˆ—åšè¡Œè½¬åˆ—è½¬æ¢å¹¶æ±‡æ€»
+	 * @param gexps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param gnames åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param fexp åˆ†ç±»å­—æ®µ
+	 * @param vexp å–å€¼å­—æ®µçš„æ±‡æ€»è¡¨è¾¾å¼
+	 * @param nexps åˆ†ç±»å€¼
+	 * @param nameObjects ç»“æœé›†å­—æ®µå
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åºè¡¨
 	 */
 	public Table pivotGather(Expression[] gexps, String []gnames, Expression fexp, Expression vexp, 
 			Expression []nexps, Object []nameObjects, Context ctx) {
-		int nullIndex = -1; // Ê¡ÂÔÁËNiÔòµ±³ÉÆäËü·Ö×é
+		int nullIndex = -1; // çœç•¥äº†Niåˆ™å½“æˆå…¶å®ƒåˆ†ç»„
 		Object []vals;
 		String []names;
 		if (nexps == null) {
@@ -10237,7 +10237,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 		} else {
-			// ´´½¨Ò»¸öÁÙÊ±Ğò±íÓÃÓÚ¼ÆËãÃ¿Ò»Ìõ¼ÇÂ¼µÄÃ¿¸ö»ã×Ü×Ö¶ÎµÄ»ã×ÜÖµ
+			// åˆ›å»ºä¸€ä¸ªä¸´æ—¶åºè¡¨ç”¨äºè®¡ç®—æ¯ä¸€æ¡è®°å½•çš„æ¯ä¸ªæ±‡æ€»å­—æ®µçš„æ±‡æ€»å€¼
 			Sequence tmp = new Sequence(1);
 			tmp.add(null);
 			IArray array = tmp.getMems();
@@ -10262,15 +10262,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¶ÔÅÅÁĞ×öĞĞ×ªÁĞ×ª»»
-	 * @param gexps ·Ö×é±í´ïÊ½Êı×é
-	 * @param gnames ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param fexp ·ÖÀà×Ö¶Î
-	 * @param vexp È¡Öµ×Ö¶Î
-	 * @param nexps ·ÖÀàÖµ
-	 * @param nameObjects ½á¹û¼¯×Ö¶ÎÃû
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Ğò±í
+	 * å¯¹æ’åˆ—åšè¡Œè½¬åˆ—è½¬æ¢
+	 * @param gexps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param gnames åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param fexp åˆ†ç±»å­—æ®µ
+	 * @param vexp å–å€¼å­—æ®µ
+	 * @param nexps åˆ†ç±»å€¼
+	 * @param nameObjects ç»“æœé›†å­—æ®µå
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åºè¡¨
 	 */
 	public Table pivot(Expression[] gexps, String []gnames, Expression fexp, Expression vexp, 
 			Expression []nexps, Object []nameObjects, String opt, Context ctx) {
@@ -10367,15 +10367,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¶ÔÅÅÁĞ×öÁĞ×ªĞĞ×ª»»
-	 * @param gexps ·Ö×é±í´ïÊ½Êı×é
-	 * @param gnames ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param fname ½á¹û¼¯·ÖÀà×Ö¶ÎÃû
-	 * @param vname ½á¹û¼¯Öµ×Ö¶ÎÃû
-	 * @param nexps ·ÖÀàÖµ±í´ïÊ½
-	 * @param nameObjects ½á¹û¼¯·ÖÀàÖµ±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Ğò±í
+	 * å¯¹æ’åˆ—åšåˆ—è½¬è¡Œè½¬æ¢
+	 * @param gexps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param gnames åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param fname ç»“æœé›†åˆ†ç±»å­—æ®µå
+	 * @param vname ç»“æœé›†å€¼å­—æ®µå
+	 * @param nexps åˆ†ç±»å€¼è¡¨è¾¾å¼
+	 * @param nameObjects ç»“æœé›†åˆ†ç±»å€¼è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åºè¡¨
 	 */
 	public Table unpivot(Expression[] gexps, String []gnames, String fname, String vname, 
 			Expression []nexps, Object []nameObjects, Context ctx) {
@@ -10468,11 +10468,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¶ÔÅÅÁĞ×öÁĞ×ªĞĞ£¨¶à¸öÖµÁĞ£©
-	 * @param gexps ·Ö×é±í´ïÊ½Êı×é
-	 * @param gnames ·Ö×éÃûÊı×é
-	 * @param vexps Öµ±í´ïÊ½Êı×é
-	 * @param newNames ½á¹û¼¯Öµ×Ö¶ÎÃû
+	 * å¯¹æ’åˆ—åšåˆ—è½¬è¡Œï¼ˆå¤šä¸ªå€¼åˆ—ï¼‰
+	 * @param gexps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param gnames åˆ†ç»„åæ•°ç»„
+	 * @param vexps å€¼è¡¨è¾¾å¼æ•°ç»„
+	 * @param newNames ç»“æœé›†å€¼å­—æ®µå
 	 * @param ctx
 	 * @return
 	 */
@@ -10507,7 +10507,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			table = newTable(names, exps, ctx);
 			ds = table.dataStruct();
 		} else {
-			boolean isOrder = true; // ·Ö×é×Ö¶ÎºÍÖµ×Ö¶ÎÊÇ·ñÊÇ°´Ë³Ğò³öÏÖµÄ
+			boolean isOrder = true; // åˆ†ç»„å­—æ®µå’Œå€¼å­—æ®µæ˜¯å¦æ˜¯æŒ‰é¡ºåºå‡ºç°çš„
 			for (int i = 0; i < gcount; ++i) {
 				if (gexps[i].getFieldIndex(ds) != i) {
 					isOrder = false;
@@ -10590,7 +10590,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 		
-		// ×Ö¶ÎË³Ğò×öÁËµ÷Õûºó£¬ÒıÓÃµÄ±í´ïÊ½ĞèÒª¸Ä±ä
+		// å­—æ®µé¡ºåºåšäº†è°ƒæ•´åï¼Œå¼•ç”¨çš„è¡¨è¾¾å¼éœ€è¦æ”¹å˜
 		Expression []gexps2 = new Expression[gcount];
 		for (int i = 1; i <= gcount; ++i) {
 			gexps2[i - 1] = new Expression(ctx, "#" + i);
@@ -10639,11 +10639,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¶ÔÅÅÁĞ×öĞĞ×ªÁĞ£¨¶à¸öÖµÁĞ£©
-	 * @param gexps ·Ö×é±í´ïÊ½Êı×é
-	 * @param gnames ·Ö×éÃûÊı×é
-	 * @param vexps Öµ±í´ïÊ½Êı×é
-	 * @param newNames ½á¹û¼¯Öµ×Ö¶ÎÃû
+	 * å¯¹æ’åˆ—åšè¡Œè½¬åˆ—ï¼ˆå¤šä¸ªå€¼åˆ—ï¼‰
+	 * @param gexps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param gnames åˆ†ç»„åæ•°ç»„
+	 * @param vexps å€¼è¡¨è¾¾å¼æ•°ç»„
+	 * @param newNames ç»“æœé›†å€¼å­—æ®µå
 	 * @param ctx
 	 * @return
 	 */
@@ -10675,7 +10675,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			System.arraycopy(vexps, 0, exps, gcount, vcount);
 			table = newTable(null, exps, ctx);
 		} else {
-			boolean isOrder = true; // ·Ö×é×Ö¶ÎºÍÖµ×Ö¶ÎÊÇ·ñÊÇ°´Ë³Ğò³öÏÖµÄ
+			boolean isOrder = true; // åˆ†ç»„å­—æ®µå’Œå€¼å­—æ®µæ˜¯å¦æ˜¯æŒ‰é¡ºåºå‡ºç°çš„
 			for (int i = 0; i < gcount; ++i) {
 				if (gexps[i].getFieldIndex(ds) != i) {
 					isOrder = false;
@@ -10771,10 +10771,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¶ÔĞòÁĞµÄĞòÁĞ×öÁĞ×ªĞĞ£¨¶à¸öÖµÁĞ£©
-	 * @param gexp ·Ö×é±í´ïÊ½
-	 * @param vexp Öµ±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¹åºåˆ—çš„åºåˆ—åšåˆ—è½¬è¡Œï¼ˆå¤šä¸ªå€¼åˆ—ï¼‰
+	 * @param gexp åˆ†ç»„è¡¨è¾¾å¼
+	 * @param vexp å€¼è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence groupc(Expression gexp, Expression vexp, Context ctx) {
@@ -10856,11 +10856,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¶ÔĞòÁĞµÄĞòÁĞ×öĞĞ×ªÁĞ
-	 * @param gexp ×é±í´ïÊ½
-	 * @param vexp ÖµĞòÁĞ±í´ïÊ½
-	 * @param k ×ªÖÃºóµÄÖµ¿í¶È
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¹åºåˆ—çš„åºåˆ—åšè¡Œè½¬åˆ—
+	 * @param gexp ç»„è¡¨è¾¾å¼
+	 * @param vexp å€¼åºåˆ—è¡¨è¾¾å¼
+	 * @param k è½¬ç½®åçš„å€¼å®½åº¦
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence ungroupc(Expression gexp, Expression vexp, int k, Context ctx) {
@@ -10937,13 +10937,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡·Ö×é¼ÆËã¶ÔÏó
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–åˆ†ç»„è®¡ç®—å¯¹è±¡
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IGroupsResult
 	 */
 	public IGroupsResult getGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
@@ -10953,14 +10953,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·Ö×éÍ³¼Æ
-	 * @param exps Expression[] ·Ö×é±í´ïÊ½
-	 * @param names String[] ·Ö×é×Ö¶ÎÔÚ½á¹ûĞò±íÖĞµÄ×Ö¶ÎÃû
-	 * @param calcExps Expression[] »ã×Ü±í´ïÊ½
-	 * @param calcNames String[] »ã×Ü×Ö¶ÎÔÚ½á¹ûĞò±íÖĞµÄ×Ö¶ÎÃû
-	 * @param opt String o£ºÖ»ºÍÏàÁÚµÄ¶Ô±È£¬n£º·Ö×é±í´ïÊ½È¡ÖµÎª×éºÅ£¬u£º½á¹û¼¯²»ÅÅĞò£¬h£ºÏÈÅÅĞòÔÙÓÃ@o¼ÆËã
+	 * åˆ†ç»„ç»Ÿè®¡
+	 * @param exps Expression[] åˆ†ç»„è¡¨è¾¾å¼
+	 * @param names String[] åˆ†ç»„å­—æ®µåœ¨ç»“æœåºè¡¨ä¸­çš„å­—æ®µå
+	 * @param calcExps Expression[] æ±‡æ€»è¡¨è¾¾å¼
+	 * @param calcNames String[] æ±‡æ€»å­—æ®µåœ¨ç»“æœåºè¡¨ä¸­çš„å­—æ®µå
+	 * @param opt String oï¼šåªå’Œç›¸é‚»çš„å¯¹æ¯”ï¼Œnï¼šåˆ†ç»„è¡¨è¾¾å¼å–å€¼ä¸ºç»„å·ï¼Œuï¼šç»“æœé›†ä¸æ’åºï¼Œhï¼šå…ˆæ’åºå†ç”¨@oè®¡ç®—
 	 * @param ctx Context
-	 * @param hashCapacity hash¿Õ¼ä³¤¶È
+	 * @param hashCapacity hashç©ºé—´é•¿åº¦
 	 * @return Table
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps,
@@ -10972,12 +10972,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·Ö×éÍ³¼Æ
-	 * @param exps Expression[] ·Ö×é±í´ïÊ½
-	 * @param names String[] ·Ö×é×Ö¶ÎÔÚ½á¹ûĞò±íÖĞµÄ×Ö¶ÎÃû
-	 * @param calcExps Expression[] »ã×Ü±í´ïÊ½
-	 * @param calcNames String[] »ã×Ü×Ö¶ÎÔÚ½á¹ûĞò±íÖĞµÄ×Ö¶ÎÃû
-	 * @param opt String o£ºÖ»ºÍÏàÁÚµÄ¶Ô±È£¬n£º·Ö×é±í´ïÊ½È¡ÖµÎª×éºÅ£¬u£º½á¹û¼¯²»ÅÅĞò£¬h£ºÏÈÅÅĞòÔÙÓÃ@o¼ÆËã
+	 * åˆ†ç»„ç»Ÿè®¡
+	 * @param exps Expression[] åˆ†ç»„è¡¨è¾¾å¼
+	 * @param names String[] åˆ†ç»„å­—æ®µåœ¨ç»“æœåºè¡¨ä¸­çš„å­—æ®µå
+	 * @param calcExps Expression[] æ±‡æ€»è¡¨è¾¾å¼
+	 * @param calcNames String[] æ±‡æ€»å­—æ®µåœ¨ç»“æœåºè¡¨ä¸­çš„å­—æ®µå
+	 * @param opt String oï¼šåªå’Œç›¸é‚»çš„å¯¹æ¯”ï¼Œnï¼šåˆ†ç»„è¡¨è¾¾å¼å–å€¼ä¸ºç»„å·ï¼Œuï¼šç»“æœé›†ä¸æ’åºï¼Œhï¼šå…ˆæ’åºå†ç”¨@oè®¡ç®—
 	 * @param ctx Context
 	 * @return Table
 	 */
@@ -11017,7 +11017,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return CursorUtil.groups_m(this, exps, names, calcExps, calcNames, opt, ctx);
 		}
 		
-		// #%3¶ÔÓÚ°üº¬#µÄ±í´ïÊ½£¬ÏÈÅÅĞòÔÙÔÚ·Ö×éÀï¼ÆËã±í´ïÊ½#»áËã´í£¬²»ÔÙÓÅ»¯ÁË
+		// #%3å¯¹äºåŒ…å«#çš„è¡¨è¾¾å¼ï¼Œå…ˆæ’åºå†åœ¨åˆ†ç»„é‡Œè®¡ç®—è¡¨è¾¾å¼#ä¼šç®—é”™ï¼Œä¸å†ä¼˜åŒ–äº†
 		//if (opt == null && len <= SORT_HASH_LEN && exps != null) {
 			//int keyCount = exps.length;
 			//int []orders = new int[keyCount];
@@ -11038,9 +11038,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÎªÌî±¨±íÉú³ÉĞòÁĞ£¬·µ»ØÒÔDi,...ÎªÁĞµÄĞò±í£¬A.group(D1).(~.group(D2).(¡­(~.id(Di))))
+	 * ä¸ºå¡«æŠ¥è¡¨ç”Ÿæˆåºåˆ—ï¼Œè¿”å›ä»¥Di,...ä¸ºåˆ—çš„åºè¡¨ï¼ŒA.group(D1).(~.group(D2).(â€¦(~.id(Di))))
 	 * @param gexps
-	 * @param opt o£º¼Ù¶¨ÒÑÓĞĞò
+	 * @param opt oï¼šå‡å®šå·²æœ‰åº
 	 * @param ctx
 	 * @return
 	 */
@@ -11055,7 +11055,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		if (opt == null || opt.indexOf('o') == -1) {
-			// ¶ÔËùÓĞÎ¬ÅÅĞò£¬ºóĞøÓÃgroup@o¼ÆËã
+			// å¯¹æ‰€æœ‰ç»´æ’åºï¼Œåç»­ç”¨group@oè®¡ç®—
 			table.sortFields(colIndex);
 		}
 		
@@ -11078,7 +11078,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			curGroup = curGroup.group_o(fexp, "o", ctx);
 			r.setNormalFieldValue(1, curGroup.calc(fexp, ctx));
 			
-			// Éú³ÉÈçÏÂµÄ±í´ïÊ½½øĞĞ¼ÆËã
+			// ç”Ÿæˆå¦‚ä¸‹çš„è¡¨è¾¾å¼è¿›è¡Œè®¡ç®—
 			//curGroup = curGroup.(~.group@o(#3))		curGroup.(~.(#3))
 			//curGroup = curGroup.(~.(~.group@o(#4)))	curGroup.(~.(~.(#4)))			
 			for (int f = 3; f <= fcount; ++f) {
@@ -11103,9 +11103,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	//-------------------------------------join start-----------------------------------------------
 
 	/**
-	 * ²æ³ËĞòÁĞ
-	 * @param sequences ´ı²æ³ËµÄĞòÁĞÊı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
+	 * å‰ä¹˜åºåˆ—
+	 * @param sequences å¾…å‰ä¹˜çš„åºåˆ—æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
 	 * @return Table
 	 */
 	public static Table cross(Sequence[] sequences, String[] names) {
@@ -11114,7 +11114,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("cross" + mm.getMessage("function.invalidParam"));
 		}
 
-		// ¼ÆËãÔ´ĞòÁĞjoinºó²úÉúµÄ¼ÇÂ¼ÊıÄ¿
+		// è®¡ç®—æºåºåˆ—joinåäº§ç”Ÿçš„è®°å½•æ•°ç›®
 		int newLen = 1;
 		int count = sequences.length;
 		for (int i = 0; i < count; ++i) {
@@ -11124,15 +11124,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		// ²úÉúËùÓĞµÄ¼ÇÂ¼
+		// äº§ç”Ÿæ‰€æœ‰çš„è®°å½•
 		Table table = new Table(names, newLen);
 		BaseRecord[] rs = new BaseRecord[newLen];
 		for (int i = 0; i < newLen; ++i) {
 			rs[i] = table.newLast();
 		}
 
-		// ·Ö±ğ¶ÔÃ¿Ò»Ìõ¼ÇÂ¼µÄÃ¿¸ö×Ö¶Î¸³Öµ
-		int repeat = 1; // µ±Ç°×Ö¶ÎÖØ¸´µÄÊıÄ¿
+		// åˆ†åˆ«å¯¹æ¯ä¸€æ¡è®°å½•çš„æ¯ä¸ªå­—æ®µèµ‹å€¼
+		int repeat = 1; // å½“å‰å­—æ®µé‡å¤çš„æ•°ç›®
 		for (int field = count - 1; field >= 0; --field) {
 			IArray subMems = sequences[field].getMems();
 			int subCount = subMems.size();
@@ -11154,13 +11154,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ²æ³ËËùÓĞµÄĞòÁĞ£¬ºóÃæ×Ö¶ÎµÄ¼ÆËãÒÀÀµÓÚÇ°Ãæ×Ö¶ÎµÄÖµ
-	 * @param sequences Ô´ĞòÁĞÊı×é
-	 * @param fltExps ¹ıÂË±í´ïÊ½Êı×é
-	 * @param fltOpts selectº¯ÊıµÄÑ¡Ïî
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî£¬1£º×óÁ¬½Ó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å‰ä¹˜æ‰€æœ‰çš„åºåˆ—ï¼Œåé¢å­—æ®µçš„è®¡ç®—ä¾èµ–äºå‰é¢å­—æ®µçš„å€¼
+	 * @param sequences æºåºåˆ—æ•°ç»„
+	 * @param fltExps è¿‡æ»¤è¡¨è¾¾å¼æ•°ç»„
+	 * @param fltOpts selectå‡½æ•°çš„é€‰é¡¹
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œ1ï¼šå·¦è¿æ¥
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Table
 	 */
 	static public Table xjoin(Sequence[] sequences, Expression[] fltExps,
@@ -11213,7 +11213,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Table tmp = new Table(result.dataStruct(), 1);
 		boolean isLeft = opt != null && opt.indexOf('1') != -1;
 		
-		// ´´½¨Ò»Ìõµ±Ç°¼ÇÂ¼£¬ºóÃæ×Ö¶ÎµÄ¼ÆËã¿ÉÒÔÒıÓÃÇ°Ãæ×Ö¶ÎµÄÖµ
+		// åˆ›å»ºä¸€æ¡å½“å‰è®°å½•ï¼Œåé¢å­—æ®µçš„è®¡ç®—å¯ä»¥å¼•ç”¨å‰é¢å­—æ®µçš„å€¼
 		BaseRecord newCur = tmp.newLast();
 		ComputeStack stack = ctx.getComputeStack();
 		stack.push(newCur);
@@ -11279,10 +11279,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * °´Î»ÖÃ°ÑÖ¸¶¨ĞòÁĞÁ¬½ÓÆğÀ´
-	 * @param sequences ĞòÁĞÊı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî£¬1£º×óÁ¬½Ó£¬f£ºÈ«Á¬½Ó
+	 * æŒ‰ä½ç½®æŠŠæŒ‡å®šåºåˆ—è¿æ¥èµ·æ¥
+	 * @param sequences åºåˆ—æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œ1ï¼šå·¦è¿æ¥ï¼Œfï¼šå…¨è¿æ¥
 	 * @return
 	 */
 	static public Table pjoin(Sequence[] sequences, String[] names, String opt) {
@@ -11314,7 +11314,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('f') != -1)bUnion = true;
 		}
 
-		// "1f"²»ÄÜÍ¬Ê±ÉèÖÃ
+		// "1f"ä¸èƒ½åŒæ—¶è®¾ç½®
 		if (bUnion && bFirst) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(opt + mm.getMessage("engine.optConflict"));
@@ -11343,13 +11343,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		} else {
 			int totalLen = srcLen[0];
 			if (bUnion) {
-				for (int c = 1; c < count; ++c) { // ×î´ó³¤¶È
+				for (int c = 1; c < count; ++c) { // æœ€å¤§é•¿åº¦
 					if (totalLen < srcLen[c]) {
 						totalLen = srcLen[c];
 					}
 				}
 			} else {
-				for (int c = 1; c < count; ++c) { // ×îĞ¡³¤¶È
+				for (int c = 1; c < count; ++c) { // æœ€å°é•¿åº¦
 					if (totalLen > srcLen[c]) {
 						totalLen = srcLen[c];
 					}
@@ -11371,11 +11371,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¶ÔÖ¸¶¨ĞòÁĞ×öÁ¬½Ó
-	 * @param sequences ĞòÁĞÊı×é
-	 * @param exps ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî£¬1£º×óÁ¬½Ó£¬f£ºÈ«Á¬½Ó£¬m£ºÊı¾İ°´¹ØÁª×Ö¶ÎÓĞĞò²ÉÓÃ¹é²¢·¨×öÁ¬½Ó
+	 * å¯¹æŒ‡å®šåºåˆ—åšè¿æ¥
+	 * @param sequences åºåˆ—æ•°ç»„
+	 * @param exps å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œ1ï¼šå·¦è¿æ¥ï¼Œfï¼šå…¨è¿æ¥ï¼Œmï¼šæ•°æ®æŒ‰å…³è”å­—æ®µæœ‰åºé‡‡ç”¨å½’å¹¶æ³•åšè¿æ¥
 	 * @param ctx
 	 * @return
 	 */
@@ -11394,7 +11394,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (opt != null) {
 			if (opt.indexOf('1') != -1) {
 				type = 1;
-				if (opt.indexOf('f') != -1) { // "1f"²»ÄÜÍ¬Ê±ÉèÖÃ
+				if (opt.indexOf('f') != -1) { // "1f"ä¸èƒ½åŒæ—¶è®¾ç½®
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(opt + mm.getMessage("engine.optConflict"));
 				}
@@ -11411,8 +11411,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»Ø´¿ÅÅÁĞÄ³Ò»×Ö¶ÎÖµ¹¹³ÉµÄĞòÁĞ
-	 * @param field int ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * è¿”å›çº¯æ’åˆ—æŸä¸€å­—æ®µå€¼æ„æˆçš„åºåˆ—
+	 * @param field int å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return Sequence
 	 */
 	public Sequence fieldValues(int field) {
@@ -11434,8 +11434,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÄ³Ò»×Ö¶ÎµÄÖµ¹¹³ÉµÄĞòÁĞ
-	 * @param fieldName String ×Ö¶ÎÃû£¬¿ÉÒÔÊÇ¶à²ãÖ¸Òı×Ö¶ÎÖ¸ÒıËùÖ¸Ïò¼ÇÂ¼µÄ×Ö¶ÎÃû
+	 * è¿”å›æŸä¸€å­—æ®µçš„å€¼æ„æˆçš„åºåˆ—
+	 * @param fieldName String å­—æ®µåï¼Œå¯ä»¥æ˜¯å¤šå±‚æŒ‡å¼•å­—æ®µæŒ‡å¼•æ‰€æŒ‡å‘è®°å½•çš„å­—æ®µå
 	 * @return Sequence
 	 */
 	public Sequence fieldValues(String fieldName) {
@@ -11444,8 +11444,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Sequence result = new Sequence(size);
 		IArray resultMems = result.getMems();
 
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
-		BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
+		BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 		int i = 1;
 		while (i <= size) {
@@ -11499,7 +11499,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return result;
 	}
 	
-	// Ñ¡³öÖ¸¶¨µÄ¶àÁĞ´´½¨ĞÂĞò±í
+	// é€‰å‡ºæŒ‡å®šçš„å¤šåˆ—åˆ›å»ºæ–°åºè¡¨
 	public Table fieldsValues(int []cols) {
 		IArray mems = getMems();
 		int size = length();
@@ -11515,7 +11515,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			fieldNames[i] = ds.getFieldName(cols[i]);
 		}
 		
-		// ÓÃ×Ö¶ÎÃûÉú³ÉĞÂÅÅÁĞ
+		// ç”¨å­—æ®µåç”Ÿæˆæ–°æ’åˆ—
 		Table retTable = new Table(fieldNames, size);
 		for (int i = 1; i <= size; ++i) {
 			Object obj = mems.get(i);
@@ -11534,17 +11534,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return retTable;
 	}
 	
-	// Ñ¡³öÖ¸¶¨µÄ¶àÁĞ´´½¨ĞÂĞò±í
+	// é€‰å‡ºæŒ‡å®šçš„å¤šåˆ—åˆ›å»ºæ–°åºè¡¨
 	public Table fieldsValues(String[] fieldNames) {
 		IArray mems = getMems();
 		int size = length();
 
-		// ÓÃ×Ö¶ÎÃûÉú³ÉĞÂÅÅÁĞ
+		// ç”¨å­—æ®µåç”Ÿæˆæ–°æ’åˆ—
 		Table retTable = new Table(fieldNames, size);
 
 		int fcount = fieldNames.length;
-		BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
-		int[] cols = new int[fcount]; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
+		BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
+		int[] cols = new int[fcount]; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
 
 		for (int i = 1; i <= size; ++i) {
 			BaseRecord newRecord = retTable.newLast();
@@ -11584,9 +11584,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * È¡Ö¸¶¨×Ö¶Î¹¹³ÉĞÂĞò±í
-	 * @param fieldNames ×Ö¶ÎÃûÊı×é
-	 * @param opt e£º×Ö¶ÎÔÚÔ´Ğò±íÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
+	 * å–æŒ‡å®šå­—æ®µæ„æˆæ–°åºè¡¨
+	 * @param fieldNames å­—æ®µåæ•°ç»„
+	 * @param opt eï¼šå­—æ®µåœ¨æºåºè¡¨ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
 	 * @return
 	 */
 	public Table fieldsValues(String[] fieldNames, String opt) {
@@ -11625,19 +11625,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ĞŞ¸ÄÅÅÁĞËùÓĞ¼ÇÂ¼Ö¸¶¨×Ö¶ÎµÄ×Ö¶ÎÖµ
-	 * @param exps Öµ±í´ïÊ½Êı×é
-	 * @param fields ×Ö¶ÎÃûÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ä¿®æ”¹æ’åˆ—æ‰€æœ‰è®°å½•æŒ‡å®šå­—æ®µçš„å­—æ®µå€¼
+	 * @param exps å€¼è¡¨è¾¾å¼æ•°ç»„
+	 * @param fields å­—æ®µåæ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void modifyFields(Expression []exps, String []fields, Context ctx) {
 		IArray mems = getMems();
 		int size = mems.size();
 		int fcount = exps.length;
-		BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
-		int[] cols = new int[fcount]; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
+		BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
+		int[] cols = new int[fcount]; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
 		
-		// °ÑÅÅÁĞÑ¹Õ»£¬ÔÊĞí±í´ïÊ½ÒıÓÃµ±Ç°¼ÇÂ¼µÄ×Ö¶Î
+		// æŠŠæ’åˆ—å‹æ ˆï¼Œå…è®¸è¡¨è¾¾å¼å¼•ç”¨å½“å‰è®°å½•çš„å­—æ®µ
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current(this);
 		stack.push(current);
@@ -11699,9 +11699,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ÒÔ·Ö¸ô·ûsepÁ¬½ÓĞòÁĞ³ÉÔ±³ÉÎª×Ö·û´®
-	 * @param sep String ·Ö¸ô·û
-	 * @param opt String c£ºÓÃ¶ººÅÁ¬½Ó£¬q£º´®³ÉÔ±½ÓÈëÊ±¼ÓÉÏÒıºÅ£¬i£º¼Óµ¥ÒıºÅ
+	 * ä»¥åˆ†éš”ç¬¦sepè¿æ¥åºåˆ—æˆå‘˜æˆä¸ºå­—ç¬¦ä¸²
+	 * @param sep String åˆ†éš”ç¬¦
+	 * @param opt String cï¼šç”¨é€—å·è¿æ¥ï¼Œqï¼šä¸²æˆå‘˜æ¥å…¥æ—¶åŠ ä¸Šå¼•å·ï¼Œiï¼šåŠ å•å¼•å·
 	 * @return String
 	 */
 	public String toString(String sep, String opt) {
@@ -11778,7 +11778,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ½«ĞòÁĞ×ªÎª×Ö·û´®
+	 * å°†åºåˆ—è½¬ä¸ºå­—ç¬¦ä¸²
 	 * @return String
 	 */
 	public String toExportString() {
@@ -11800,10 +11800,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ½«×Ö´®srcÒÔ·Ö¸ô·ûsep²ğ³ÉĞòÁĞ·µ»Ø
-	 * @param src String Ô´×Ö·û´®
-	 * @param sep String ·Ö¸ô·û
-	 * @param opt String p£º×Ô¶¯Ê¶±ğ³É³£Êı£¬1£ºÕÒµ½µÚÒ»¸öseqÍ£Ö¹£¬¼´²ğ³ÉÁ½¶Î£¬b£º²»´¦ÀíÒıºÅºÍÀ¨ºÅÆ¥Åä
+	 * å°†å­—ä¸²srcä»¥åˆ†éš”ç¬¦sepæ‹†æˆåºåˆ—è¿”å›
+	 * @param src String æºå­—ç¬¦ä¸²
+	 * @param sep String åˆ†éš”ç¬¦
+	 * @param opt String pï¼šè‡ªåŠ¨è¯†åˆ«æˆå¸¸æ•°ï¼Œ1ï¼šæ‰¾åˆ°ç¬¬ä¸€ä¸ªseqåœæ­¢ï¼Œå³æ‹†æˆä¸¤æ®µï¼Œbï¼šä¸å¤„ç†å¼•å·å’Œæ‹¬å·åŒ¹é…
 	 * @return Sequence
 	 */
 	public static Sequence toSequence(String src, String sep, String opt) {
@@ -11813,14 +11813,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		boolean bFirst = false, bMatch = true, bData = false, bTrim = false, bRegex = false, bEnter = false, bLast = false, gopt = false;
 		if (opt != null) {
-			if (opt.indexOf('p') != -1) bData = true; // ×Ô¶¯Ê¶±ğ³É³£Êı
+			if (opt.indexOf('p') != -1) bData = true; // è‡ªåŠ¨è¯†åˆ«æˆå¸¸æ•°
 			if (opt.indexOf('1') != -1) {
-				bFirst = true; // ·Ö³É2¶Î
+				bFirst = true; // åˆ†æˆ2æ®µ
 			} else if (opt.indexOf('z') != -1) {
-				bLast = true; // ´Óºó·Ö³É2¶Î
+				bLast = true; // ä»ååˆ†æˆ2æ®µ
 			}
 
-			if (opt.indexOf('b') != -1) bMatch = false; // ²»´¦ÀíÒıºÅºÍÀ¨ºÅÆ¥Åä
+			if (opt.indexOf('b') != -1) bMatch = false; // ä¸å¤„ç†å¼•å·å’Œæ‹¬å·åŒ¹é…
 			if (opt.indexOf('t') != -1) bTrim = true;
 			if (opt.indexOf('c') != -1) sep = ",";
 			if (opt.indexOf('r') != -1) bRegex = true;
@@ -11828,7 +11828,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('g') != -1) gopt = true;
 		}
 
-		// ÓÃÕıÔò±í´ïÊ½²ğ·Ö
+		// ç”¨æ­£åˆ™è¡¨è¾¾å¼æ‹†åˆ†
 		if (bRegex) {
 			String []strs = src.split(sep);
 			Sequence seq = new Sequence(strs.length);
@@ -11853,7 +11853,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			
 			return seq;
 		} else if (bEnter) {
-			//É¾µôÄ©Î²µÄ¿ÕĞĞ
+			//åˆ æ‰æœ«å°¾çš„ç©ºè¡Œ
 			int srcLen = src.length();
 			int end = srcLen - 1;
 			for (; end >= 0; --end) {
@@ -11882,25 +11882,25 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					case '\'':
 						match = Sentence.scanQuotation(src, i);
 						i = (match == -1) ? srcLen : match + 1;
-						continue; // Ìø¹ıÒıºÅÄÚµÄÄÚÈİ
+						continue; // è·³è¿‡å¼•å·å†…çš„å†…å®¹
 					case '(':
 						match = Sentence.scanParenthesis(src, i);
 						i = (match == -1) ? srcLen : match + 1;
-						continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
+						continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
 					case '[':
 						match = Sentence.scanBracket(src, i);
 						i = (match == -1) ? srcLen : match + 1;
-						continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
+						continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
 					case '{':
 						match = Sentence.scanBrace(src, i);
 						i = (match == -1) ? srcLen : match + 1;
-						continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
-					case '£¨':
-					case '¡¾':
-					case '¡¶':
+						continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
+					case 'ï¼ˆ':
+					case 'ã€':
+					case 'ã€Š':
 						match = Sentence.scanChineseBracket(src, i);
 						i = (match == -1) ? srcLen : match + 1;
-						continue; // Ìø¹ıÖĞÎÄÀ©ºÅÄÚµÄÄÚÈİ
+						continue; // è·³è¿‡ä¸­æ–‡æ‰©å·å†…çš„å†…å®¹
 					case '<':
 						if (gopt) {
 							match = Sentence.scanChineseBracket(src, i);
@@ -12000,7 +12000,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 								break;
 							} else {
 								i++;
-								continue; // Ìø¹ıÒıºÅÄÚµÄÄÚÈİ
+								continue; // è·³è¿‡å¼•å·å†…çš„å†…å®¹
 							}
 						case '(':
 							i = Sentence.scanParenthesis(src, i);
@@ -12008,7 +12008,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 								break;
 							} else {
 								i++;
-								continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
+								continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
 							}
 						case '[':
 							i = Sentence.scanBracket(src, i);
@@ -12016,7 +12016,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 								break;
 							} else {
 								i++;
-								continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
+								continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
 							}
 						case '{':
 							i = Sentence.scanBrace(src, i);
@@ -12024,17 +12024,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 								break;
 							} else {
 								i++;
-								continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
+								continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
 							}
-						case '£¨':
-						case '¡¾':
-						case '¡¶':
+						case 'ï¼ˆ':
+						case 'ã€':
+						case 'ã€Š':
 							i = Sentence.scanChineseBracket(src, i);
 							if (i == -1) {
 								break;
 							} else {
 								i++;
-								continue; // Ìø¹ıÖĞÎÄÀ©ºÅÄÚµÄÄÚÈİ
+								continue; // è·³è¿‡ä¸­æ–‡æ‰©å·å†…çš„å†…å®¹
 							}
 						case '<':
 							if (gopt) {
@@ -12043,7 +12043,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 									break;
 								} else {
 									i++;
-									continue; // Ìø¹ıÖĞÎÄÀ©ºÅÄÚµÄÄÚÈİ
+									continue; // è·³è¿‡ä¸­æ–‡æ‰©å·å†…çš„å†…å®¹
 								}
 							} else {
 								i++;
@@ -12125,7 +12125,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int sepLen = sep.length();
 
 		if (bLast) {
-			// ÕÒµ½×îºóÒ»¸ö·Ö¸î·û²ğ³ÉÁ½¶Î
+			// æ‰¾åˆ°æœ€åä¸€ä¸ªåˆ†å‰²ç¬¦æ‹†æˆä¸¤æ®µ
 			int index;
 			if (bMatch) {
 				index = Sentence.lastIndexOf(src, sep);
@@ -12164,25 +12164,25 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				case '\'':
 					match = Sentence.scanQuotation(src, i);
 					i = (match == -1) ? srcLen : match + 1;
-					continue; // Ìø¹ıÒıºÅÄÚµÄÄÚÈİ
+					continue; // è·³è¿‡å¼•å·å†…çš„å†…å®¹
 				case '(':
 					match = Sentence.scanParenthesis(src, i);
 					i = (match == -1) ? srcLen : match + 1;
-					continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
+					continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
 				case '[':
 					match = Sentence.scanBracket(src, i);
 					i = (match == -1) ? srcLen : match + 1;
-					continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
+					continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
 				case '{':
 					match = Sentence.scanBrace(src, i);
 					i = (match == -1) ? srcLen : match + 1;
-					continue; // Ìø¹ıÀ©ºÅÄÚµÄÄÚÈİ
-				case '£¨':
-				case '¡¾':
-				case '¡¶':
+					continue; // è·³è¿‡æ‰©å·å†…çš„å†…å®¹
+				case 'ï¼ˆ':
+				case 'ã€':
+				case 'ã€Š':
 					match = Sentence.scanChineseBracket(src, i);
 					i = (match == -1) ? srcLen : match + 1;
-					continue; // Ìø¹ıÖĞÎÄÀ©ºÅÄÚµÄÄÚÈİ
+					continue; // è·³è¿‡ä¸­æ–‡æ‰©å·å†…çš„å†…å®¹
 				case '<':
 					if (gopt) {
 						match = Sentence.scanChineseBracket(src, i);
@@ -12288,7 +12288,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÅÅÁĞµÄÊı¾İ½á¹¹£¬Èç¹û²»ÊÇ´¿ÅÅÁĞ·µ»Ø¿Õ
+	 * è¿”å›æ’åˆ—çš„æ•°æ®ç»“æ„ï¼Œå¦‚æœä¸æ˜¯çº¯æ’åˆ—è¿”å›ç©º
 	 * @return DataStruct
 	 */
 	public DataStruct dataStruct() {
@@ -12299,7 +12299,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * µÚÒ»Ìõ¼ÇÂ¼µÄÊı¾İ½á¹¹²úÉúÒ»¸ö¿ÕĞò±í
+	 * ç¬¬ä¸€æ¡è®°å½•çš„æ•°æ®ç»“æ„äº§ç”Ÿä¸€ä¸ªç©ºåºè¡¨
 	 * @return Table
 	 */
 	public Table create() {
@@ -12314,10 +12314,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¸ù¾İÖ÷¼ü²éÕÒ¼ÇÂ¼Î»ÖÃ
-	 * @param key Object Ö÷¼üÖµ»òÖ÷¼üÖµ¹¹³ÉµÄĞòÁĞ
-	 * @param isSorted boolean ÅÅÁĞÊÇ·ñ°´Ö÷¼üÓĞĞò
-	 * @return int ·µ»ØË÷Òı »ò -insertpos
+	 * æ ¹æ®ä¸»é”®æŸ¥æ‰¾è®°å½•ä½ç½®
+	 * @param key Object ä¸»é”®å€¼æˆ–ä¸»é”®å€¼æ„æˆçš„åºåˆ—
+	 * @param isSorted boolean æ’åˆ—æ˜¯å¦æŒ‰ä¸»é”®æœ‰åº
+	 * @return int è¿”å›ç´¢å¼• æˆ– -insertpos
 	 */
 	public int pfindByKey(Object key, boolean isSorted) {
 		if (!isSorted) {
@@ -12344,7 +12344,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			ds = ((BaseRecord)startVal).dataStruct();
 		}
 		
-		// ÅĞ¶ÏÊÇ·ñÊÇ´ø¸üĞÂ¼üµÄÎ¬±í
+		// åˆ¤æ–­æ˜¯å¦æ˜¯å¸¦æ›´æ–°é”®çš„ç»´è¡¨
 		if (ds != null && ds.getTimeKeyCount() > 0) {
 			int []baseKeyIndex = ds.getBaseKeyIndex();
 			int timeKeyIndex = ds.getTimeKeyIndex();
@@ -12376,7 +12376,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 			
 			if (isSorted) {
-				// ÓĞĞò£¬ÓÃ¶ş·Ö·¨²éÕÒ
+				// æœ‰åºï¼Œç”¨äºŒåˆ†æ³•æŸ¥æ‰¾
 				int index = -1;
 				int low = 1, high = len;
 				while (low <= high) {
@@ -12396,7 +12396,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				if (index == -1) {
 					return -low;
 				} else if (timeKeyValue == null) {
-					// Ã»ÓĞÖ¸¶¨Ê±¼ä¸üĞÂ×Ö¶Î¼üÊ±È¡×îĞÂµÄ
+					// æ²¡æœ‰æŒ‡å®šæ—¶é—´æ›´æ–°å­—æ®µé”®æ—¶å–æœ€æ–°çš„
 					for (++index; index <= len; ++index) {
 						BaseRecord r = (BaseRecord)mems.get(index);
 						if (r.compare(baseKeyIndex, baseKeyValues) != 0) {
@@ -12406,7 +12406,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					
 					return index - 1;
 				} else {
-					// Ö¸¶¨Ê±¼ä¸üĞÂ×Ö¶Î¼üÊ±È¡Ç°Ãæ×î½üµÄ
+					// æŒ‡å®šæ—¶é—´æ›´æ–°å­—æ®µé”®æ—¶å–å‰é¢æœ€è¿‘çš„
 					BaseRecord r = (BaseRecord)mems.get(index);
 					int cmp = Variant.compare(r.getNormalFieldValue(timeKeyIndex), timeKeyValue, true);
 					if (cmp == 0) {
@@ -12441,8 +12441,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 				}
 			} else {
-				int prevIndex = 0; // ÉÏÒ»ÌõÂú×ãÌõ¼şµÄ¼ÇÂ¼µÄË÷Òı
-				Object prevTimeValue = null; // ÉÏÒ»ÌõÂú×ãÌõ¼şµÄ¼ÇÂ¼µÄÊ±¼ä¼üµÄÖµ£¬È¡×î½üµÄÊ±¼äµÄ
+				int prevIndex = 0; // ä¸Šä¸€æ¡æ»¡è¶³æ¡ä»¶çš„è®°å½•çš„ç´¢å¼•
+				Object prevTimeValue = null; // ä¸Šä¸€æ¡æ»¡è¶³æ¡ä»¶çš„è®°å½•çš„æ—¶é—´é”®çš„å€¼ï¼Œå–æœ€è¿‘çš„æ—¶é—´çš„
 				
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
@@ -12472,7 +12472,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		} else {			
 			if (key instanceof Sequence) {
-				// key¿ÉÒÔÊÇ×Ó±íµÄ¼ÇÂ¼£¬Ö÷¼üÊı¶àÓÚB
+				// keyå¯ä»¥æ˜¯å­è¡¨çš„è®°å½•ï¼Œä¸»é”®æ•°å¤šäºB
 				Sequence seq = (Sequence)key;
 				int klen = seq.length();
 				if (klen == 0) {
@@ -12536,10 +12536,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÅÅÁĞ°´Ö¸¶¨×Ö¶ÎÓĞĞò£¬ÓÃ¶ş·Ö·¨²éÕÒ×Ö¶ÎµÈÓÚÖ¸¶¨ÖµµÄ¼ÇÂ¼
-	 * @param fvals ÖµÊı×é
-	 * @param findex ×Ö¶ÎÊı×é
-	 * @return Î»ÖÃ£¬ÕÒ²»µ½·µ»Ø¸ºµÄ²åÈëÎ»ÖÃ
+	 * æ’åˆ—æŒ‰æŒ‡å®šå­—æ®µæœ‰åºï¼Œç”¨äºŒåˆ†æ³•æŸ¥æ‰¾å­—æ®µç­‰äºæŒ‡å®šå€¼çš„è®°å½•
+	 * @param fvals å€¼æ•°ç»„
+	 * @param findex å­—æ®µæ•°ç»„
+	 * @return ä½ç½®ï¼Œæ‰¾ä¸åˆ°è¿”å›è´Ÿçš„æ’å…¥ä½ç½®
 	 */
 	public int pfindByFields(Object []fvals, int []findex) {
 		IArray mems = getMems();
@@ -12569,9 +12569,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»ØÃû×Ö×Ö¶ÎµÄÖµµÈÓÚkeyµÄ¼ÇÂ¼£¬²»´æÔÚÔò·µ»Ø¿Õ
-	 * @param key Object ´ı²éÕÒµÄÃû×Ö×Ö¶ÎµÄÖµ
-	 * @param isSorted boolean ÅÅÁĞÊÇ·ñ°´Ãû×Ö×Ö¶ÎÓĞĞò
+	 * è¿”å›åå­—å­—æ®µçš„å€¼ç­‰äºkeyçš„è®°å½•ï¼Œä¸å­˜åœ¨åˆ™è¿”å›ç©º
+	 * @param key Object å¾…æŸ¥æ‰¾çš„åå­—å­—æ®µçš„å€¼
+	 * @param isSorted boolean æ’åˆ—æ˜¯å¦æŒ‰åå­—å­—æ®µæœ‰åº
 	 * @return Object
 	 */
 	public Object findByKey(Object key, boolean isSorted) {
@@ -12585,7 +12585,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return index > 0 ? getMem(index) : null;
 			} else {
 				if (key instanceof Sequence) {
-					// key¿ÉÒÔÊÇ×Ó±íµÄ¼ÇÂ¼£¬Ö÷¼üÊı¶àÓÚB
+					// keyå¯ä»¥æ˜¯å­è¡¨çš„è®°å½•ï¼Œä¸»é”®æ•°å¤šäºB
 					Sequence seq = (Sequence)key;
 					int klen = seq.length();
 					if (klen == 0 || length() == 0) {
@@ -12629,10 +12629,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ¸ù¾İ×Ö¶ÎÖµ²éÕÒÄ³Ìõ¼ÇÂ¼
-	 * @param keyIndex int[] Ö÷¼üË÷Òı
-	 * @param values Object[] Ö÷¼üÖµ
-	 * @param isSorted boolean ÅÅÁĞÊÇ·ñ°´Ö÷¼üÓĞĞò
+	 * æ ¹æ®å­—æ®µå€¼æŸ¥æ‰¾æŸæ¡è®°å½•
+	 * @param keyIndex int[] ä¸»é”®ç´¢å¼•
+	 * @param values Object[] ä¸»é”®å€¼
+	 * @param isSorted boolean æ’åˆ—æ˜¯å¦æŒ‰ä¸»é”®æœ‰åº
 	 * @return BaseRecord
 	 */
 	public BaseRecord select(int[] keyIndex, Object[] values, boolean isSorted) {
@@ -12673,7 +12673,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ·µ»Ø¼ÇÂ¼µÄÖ÷¼ü»òÖ÷¼üĞòÁĞ¹¹³ÉµÄĞòÁĞ
+	 * è¿”å›è®°å½•çš„ä¸»é”®æˆ–ä¸»é”®åºåˆ—æ„æˆçš„åºåˆ—
 	 * @return Object
 	 */
 	public Sequence getPKeyValues() {
@@ -12696,12 +12696,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 	/**
 	 * 
-	 * @param function º¯Êı
-	 * @param fkNames	Íâ¼ü×Ö¶Î
-	 * @param timeNames Ê±¼ä×Ö¶Î
-	 * @param codes ´úÂë±í
-	 * @param exps ´úÂë±íÖ÷¼ü
-	 * @param timeExps Ê±¼äÖ÷¼ü
+	 * @param function å‡½æ•°
+	 * @param fkNames	å¤–é”®å­—æ®µ
+	 * @param timeNames æ—¶é—´å­—æ®µ
+	 * @param codes ä»£ç è¡¨
+	 * @param exps ä»£ç è¡¨ä¸»é”®
+	 * @param timeExps æ—¶é—´ä¸»é”®
 	 * @param opt
 	 * @param ctx
 	 * @return
@@ -12741,10 +12741,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	
 	
 	/**
-	 * ¶Ô±í¼ÇÂ¼×÷switch±ä»»
-	 * @param fkName Íâ¼ü×Ö¶Î
-	 * @param code Sequence ´úÂë±í£¬Ö÷¼üÎ¨Ò»
-	 * @param exp Expression ´úÂë±íÖ÷¼ü
+	 * å¯¹è¡¨è®°å½•ä½œswitchå˜æ¢
+	 * @param fkName å¤–é”®å­—æ®µ
+	 * @param code Sequence ä»£ç è¡¨ï¼Œä¸»é”®å”¯ä¸€
+	 * @param exp Expression ä»£ç è¡¨ä¸»é”®
 	 * @param opt String
 	 * @param ctx Context
 	 */
@@ -12759,8 +12759,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return;
 		}
 
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
-		BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
+		BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
 			Object obj = mems.get(i);
@@ -12788,14 +12788,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¼ÆËãA.join(C:.,T:K,x:F,¡­;¡­;¡­)
-	 * @param exps ×ó²à±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes ÓÒ²à¹ØÁª±íÊı×é
-	 * @param dataExps ÓÒ²à±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param newExps ÓÒ²à±íÒıÓÃ×Ö¶Î±í´ïÊ½Êı×é
-	 * @param newNames ÓÒ²à±íÒıÓÃ×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è®¡ç®—A.join(C:.,T:K,x:F,â€¦;â€¦;â€¦)
+	 * @param exps å·¦ä¾§è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes å³ä¾§å…³è”è¡¨æ•°ç»„
+	 * @param dataExps å³ä¾§è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param newExps å³ä¾§è¡¨å¼•ç”¨å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param newNames å³ä¾§è¡¨å¼•ç”¨å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public Sequence Join(Expression[][] exps, Sequence[] codes,
@@ -12827,37 +12827,37 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * È¡Ğò±íµÄË÷Òı±í£¬Èç¹û²»´æÔÚÔò·µ»Ø¿Õ
-	 * @return Ğò±íµÄË÷Òı±í
+	 * å–åºè¡¨çš„ç´¢å¼•è¡¨ï¼Œå¦‚æœä¸å­˜åœ¨åˆ™è¿”å›ç©º
+	 * @return åºè¡¨çš„ç´¢å¼•è¡¨
 	 */
 	public IndexTable getIndexTable() {
 		return null;
 	}
 
 	/**
-	 * È¡Ğò±íµÄË÷Òı±í£¬Èç¹û²»´æÔÚÔò·µ»Ø¿Õ
-	 * @param exp Ë÷Òı×Ö¶Î±í´ïÊ½£¬Ò»°ãÎªÖ÷¼ü×Ö¶Î
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Ğò±íµÄË÷Òı±í
+	 * å–åºè¡¨çš„ç´¢å¼•è¡¨ï¼Œå¦‚æœä¸å­˜åœ¨åˆ™è¿”å›ç©º
+	 * @param exp ç´¢å¼•å­—æ®µè¡¨è¾¾å¼ï¼Œä¸€èˆ¬ä¸ºä¸»é”®å­—æ®µ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åºè¡¨çš„ç´¢å¼•è¡¨
 	 */
 	public IndexTable getIndexTable(Expression exp, Context ctx) {
 		return null;
 	}
 	
 	/**
-	 * È¡Ğò±íµÄË÷Òı±í£¬Èç¹û²»´æÔÚÔò·µ»Ø¿Õ
-	 * @param exps Ë÷Òı×Ö¶Î±í´ïÊ½Êı×é£¬Ò»°ãÎª¶à×Ö¶ÎÖ÷¼ü
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Ğò±íµÄË÷Òı±í
+	 * å–åºè¡¨çš„ç´¢å¼•è¡¨ï¼Œå¦‚æœä¸å­˜åœ¨åˆ™è¿”å›ç©º
+	 * @param exps ç´¢å¼•å­—æ®µè¡¨è¾¾å¼æ•°ç»„ï¼Œä¸€èˆ¬ä¸ºå¤šå­—æ®µä¸»é”®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åºè¡¨çš„ç´¢å¼•è¡¨
 	 */
 	public IndexTable getIndexTable(Expression []exps, Context ctx) {
 		return null;
 	}
 
 	/**
-	 * Á½¸öĞòÁĞµÄ³ÉÔ±°´Î»ÖÃÏà¼Ó£¬·µ»ØºÍĞòÁĞ
-	 * @param sequence ĞòÁĞ
-	 * @return ºÍĞòÁĞ
+	 * ä¸¤ä¸ªåºåˆ—çš„æˆå‘˜æŒ‰ä½ç½®ç›¸åŠ ï¼Œè¿”å›å’Œåºåˆ—
+	 * @param sequence åºåˆ—
+	 * @return å’Œåºåˆ—
 	 */
 	public Sequence memberAdd(Sequence sequence) {
 		if (length() != sequence.length()) {
@@ -12870,9 +12870,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * Á½¸öĞòÁĞµÄ³ÉÔ±°´Î»ÖÃÏà¼õ£¬·µ»Ø²îĞòÁĞ
-	 * @param sequence ĞòÁĞ
-	 * @return ²îĞòÁĞ
+	 * ä¸¤ä¸ªåºåˆ—çš„æˆå‘˜æŒ‰ä½ç½®ç›¸å‡ï¼Œè¿”å›å·®åºåˆ—
+	 * @param sequence åºåˆ—
+	 * @return å·®åºåˆ—
 	 */
 	public Sequence memberSubtract(Sequence sequence) {
 		if (length() != sequence.length()) {
@@ -12885,9 +12885,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * Á½¸öĞòÁĞµÄ³ÉÔ±°´Î»ÖÃÏà³Ë£¬·µ»Ø»ıĞòÁĞ
-	 * @param sequence ĞòÁĞ
-	 * @return »ıĞòÁĞ
+	 * ä¸¤ä¸ªåºåˆ—çš„æˆå‘˜æŒ‰ä½ç½®ç›¸ä¹˜ï¼Œè¿”å›ç§¯åºåˆ—
+	 * @param sequence åºåˆ—
+	 * @return ç§¯åºåˆ—
 	 */
 	public Sequence memberMultiply(Sequence sequence) {
 		if (length() != sequence.length()) {
@@ -12900,9 +12900,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * Á½¸öĞòÁĞµÄ³ÉÔ±°´Î»ÖÃÏà³ı£¬·µ»ØÉÌĞòÁĞ
-	 * @param sequence ĞòÁĞ
-	 * @return ÉÌĞòÁĞ
+	 * ä¸¤ä¸ªåºåˆ—çš„æˆå‘˜æŒ‰ä½ç½®ç›¸é™¤ï¼Œè¿”å›å•†åºåˆ—
+	 * @param sequence åºåˆ—
+	 * @return å•†åºåˆ—
 	 */
 	public Sequence memberDivide(Sequence sequence) {
 		if (length() != sequence.length()) {
@@ -12915,9 +12915,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * Á½¸öĞòÁĞµÄ³ÉÔ±°´Î»ÖÃÕû³ı£¬·µ»ØÉÌĞòÁĞ
-	 * @param sequence ĞòÁĞ
-	 * @return ÉÌĞòÁĞ
+	 * ä¸¤ä¸ªåºåˆ—çš„æˆå‘˜æŒ‰ä½ç½®æ•´é™¤ï¼Œè¿”å›å•†åºåˆ—
+	 * @param sequence åºåˆ—
+	 * @return å•†åºåˆ—
 	 */
 	public Sequence memberIntDivide(Sequence sequence) {
 		if (length() != sequence.length()) {
@@ -12930,9 +12930,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * Á½¸öĞòÁĞµÄ³ÉÔ±°´Î»ÖÃÈ¡Óà£¬·µ»ØÓàÊıĞòÁĞ
-	 * @param sequence ĞòÁĞ
-	 * @return ÓàÊıĞòÁĞ
+	 * ä¸¤ä¸ªåºåˆ—çš„æˆå‘˜æŒ‰ä½ç½®å–ä½™ï¼Œè¿”å›ä½™æ•°åºåˆ—
+	 * @param sequence åºåˆ—
+	 * @return ä½™æ•°åºåˆ—
 	 */
 	public Sequence memberMod(Sequence sequence) {
 		if (length() != sequence.length()) {
@@ -12945,8 +12945,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÓÃÓÚ¼ÆËãA*k£¬A|¡­|A£¬¹²k¸ö£¬kÊÇÕıÕûÊı
-	 * @param k ÊıÁ¿
+	 * ç”¨äºè®¡ç®—A*kï¼ŒA|â€¦|Aï¼Œå…±kä¸ªï¼Œkæ˜¯æ­£æ•´æ•°
+	 * @param k æ•°é‡
 	 * @return
 	 */
 	public Sequence multiply(int k) {
@@ -12962,8 +12962,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ÅĞ¶ÏÖ¸¶¨Î»ÖÃµÄÔªËØÊÇ·ñÊÇTrue
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * åˆ¤æ–­æŒ‡å®šä½ç½®çš„å…ƒç´ æ˜¯å¦æ˜¯True
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public boolean isTrue(int index) {
@@ -12972,9 +12972,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 	
 	/**
-	 * ·µ»ØÅÅÁĞÊÇ·ñ°üº¬Ö¸¶¨×Ö¶Î
-	 * @param fieldName ×Ö¶ÎÃû
-	 * @return true£º°üº¬£¬false£º²»°üº¬
+	 * è¿”å›æ’åˆ—æ˜¯å¦åŒ…å«æŒ‡å®šå­—æ®µ
+	 * @param fieldName å­—æ®µå
+	 * @return trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	public boolean containField(String fieldName) {
 		Object obj = ifn();
@@ -12987,8 +12987,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨×Ö¶ÎµÄÖµÊı×é
-	 * @param fieldName ×Ö¶ÎÃû
+	 * å–æŒ‡å®šå­—æ®µçš„å€¼æ•°ç»„
+	 * @param fieldName å­—æ®µå
 	 * @return IArray
 	 */
 	public IArray getFieldValueArray(String fieldName) {
@@ -12998,7 +12998,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return new ObjectArray(0);
 		}
 		
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
 		Object obj;
 		BaseRecord r = null;
 		DataStruct prevDs = null;
@@ -13018,7 +13018,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				prevDs = r.dataStruct();
 				result = r.createFieldValueArray(col, size);
 				
-				// iÒÑ¾­¼Ó¹ı1ÁË£¬ËùÒÔ´Ó2¿ªÊ¼
+				// iå·²ç»åŠ è¿‡1äº†ï¼Œæ‰€ä»¥ä»2å¼€å§‹
 				for (int n = 2; n < i; ++n) {
 					result.pushNull();
 				}
@@ -13032,7 +13032,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		if (result == null) {
-			// ³ÉÔ±È«²¿Îª¿Õ
+			// æˆå‘˜å…¨éƒ¨ä¸ºç©º
 			Object []datas = new Object[size + 1];
 			result = new ObjectArray(datas, size);
 			return result;
@@ -13064,8 +13064,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨×Ö¶ÎµÄÖµÊı×é
-	 * @param field ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å–æŒ‡å®šå­—æ®µçš„å€¼æ•°ç»„
+	 * @param field å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return IArray
 	 */
 	public IArray getFieldValueArray(int field) {
@@ -13084,7 +13084,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (r != null) {
 				result = r.createFieldValueArray(field, size);
 				
-				// iÒÑ¾­¼Ó¹ı1ÁË£¬ËùÒÔ´Ó2¿ªÊ¼
+				// iå·²ç»åŠ è¿‡1äº†ï¼Œæ‰€ä»¥ä»2å¼€å§‹
 				for (int n = 2; n < i; ++n) {
 					result.pushNull();
 				}
@@ -13095,7 +13095,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		if (result == null) {
-			// ³ÉÔ±È«²¿Îª¿Õ
+			// æˆå‘˜å…¨éƒ¨ä¸ºç©º
 			Object []datas = new Object[size + 1];
 			result = new ObjectArray(datas, size);
 			return result;
@@ -13114,9 +13114,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨×Ö¶ÎµÄÖµÊı×é
-	 * @param posArray Î»ÖÃÊı×é
-	 * @param fieldName ×Ö¶ÎÃû
+	 * å–æŒ‡å®šå­—æ®µçš„å€¼æ•°ç»„
+	 * @param posArray ä½ç½®æ•°ç»„
+	 * @param fieldName å­—æ®µå
 	 * @return IArray
 	 */
 	public IArray getFieldValueArray(IArray posArray, String fieldName) {
@@ -13126,7 +13126,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		IArray mems = getMems();
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
 		Object obj;
 		BaseRecord r = null;
 		DataStruct prevDs = null;
@@ -13147,7 +13147,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				prevDs = r.dataStruct();
 				result = r.createFieldValueArray(col, len);
 				
-				// iÒÑ¾­¼Ó¹ı1ÁË£¬ËùÒÔ´Ó2¿ªÊ¼
+				// iå·²ç»åŠ è¿‡1äº†ï¼Œæ‰€ä»¥ä»2å¼€å§‹
 				for (int n = 2; n < i; ++n) {
 					result.pushNull();
 				}
@@ -13161,7 +13161,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		if (result == null) {
-			// ³ÉÔ±È«²¿Îª¿Õ
+			// æˆå‘˜å…¨éƒ¨ä¸ºç©º
 			Object []datas = new Object[len + 1];
 			result = new ObjectArray(datas, len);
 			return result;
@@ -13194,9 +13194,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨×Ö¶ÎµÄÖµÊı×é
-	 * @param posArray Î»ÖÃÊı×é
-	 * @param field ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å–æŒ‡å®šå­—æ®µçš„å€¼æ•°ç»„
+	 * @param posArray ä½ç½®æ•°ç»„
+	 * @param field å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return IArray
 	 */
 	public IArray getFieldValueArray(IArray posArray, int field) {
@@ -13216,7 +13216,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (r != null) {
 				result = r.createFieldValueArray(field, len);
 				
-				// iÒÑ¾­¼Ó¹ı1ÁË£¬ËùÒÔ´Ó2¿ªÊ¼
+				// iå·²ç»åŠ è¿‡1äº†ï¼Œæ‰€ä»¥ä»2å¼€å§‹
 				for (int n = 2; n < i; ++n) {
 					result.pushNull();
 				}
@@ -13227,7 +13227,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		if (result == null) {
-			// ³ÉÔ±È«²¿Îª¿Õ
+			// æˆå‘˜å…¨éƒ¨ä¸ºç©º
 			Object []datas = new Object[len + 1];
 			result = new ObjectArray(datas, len);
 			return result;
@@ -13247,9 +13247,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ĞĞÁĞµÄÖµ
-	 * @param row ĞĞºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param field ÁĞºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å–æŒ‡å®šè¡Œåˆ—çš„å€¼
+	 * @param row è¡Œå·ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param field åˆ—å·ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public Object getFieldValue2(int row, int field) {
@@ -13259,7 +13259,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		} else if (obj == null) {
 			return null;
 		} else if (obj instanceof Sequence) {
-			// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+			// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 			if (((Sequence)obj).length() == 0) {
 				return null;
 			}
@@ -13277,8 +13277,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡³ÉÔ±×é³ÉµÄÊı×é
-	 * @param indexArray ³ÉÔ±Ë÷ÒıÊı×é
+	 * å–æˆå‘˜ç»„æˆçš„æ•°ç»„
+	 * @param indexArray æˆå‘˜ç´¢å¼•æ•°ç»„
 	 * @return IArray
 	 */
 	public IArray getMemberArray(int []indexArray) {
@@ -13286,8 +13286,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * È¡³ÉÔ±×é³ÉµÄÊı×é
-	 * @param indexArray ³ÉÔ±Ë÷ÒıÊı×é
+	 * å–æˆå‘˜ç»„æˆçš„æ•°ç»„
+	 * @param indexArray æˆå‘˜ç´¢å¼•æ•°ç»„
 	 * @return IArray
 	 */
 	public IArray getMemberArray(NumberArray indexArray) {
@@ -13295,7 +13295,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ´´½¨Ò»¸öË÷Òı±í·µ»Ø£¬ĞòÁĞ²»±£´æ´´½¨µÄË÷Òı±í
+	 * åˆ›å»ºä¸€ä¸ªç´¢å¼•è¡¨è¿”å›ï¼Œåºåˆ—ä¸ä¿å­˜åˆ›å»ºçš„ç´¢å¼•è¡¨
 	 * @return IndexTable
 	 */
 	public IndexTable newIndexTable() {
@@ -13303,8 +13303,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ´´½¨Ò»¸öË÷Òı±í·µ»Ø£¬ĞòÁĞ²»±£´æ´´½¨µÄË÷Òı±í
-	 * @param capacity Ë÷Òı±íÈİÁ¿
+	 * åˆ›å»ºä¸€ä¸ªç´¢å¼•è¡¨è¿”å›ï¼Œåºåˆ—ä¸ä¿å­˜åˆ›å»ºçš„ç´¢å¼•è¡¨
+	 * @param capacity ç´¢å¼•è¡¨å®¹é‡
 	 * @return IndexTable
 	 */
 	public IndexTable newIndexTable(int capacity) {
@@ -13332,9 +13332,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
-	 * ´´½¨Ò»¸öË÷Òı±í·µ»Ø£¬ĞòÁĞ²»±£´æ´´½¨µÄË÷Òı±í
-	 * @param exp Ö÷¼ü±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åˆ›å»ºä¸€ä¸ªç´¢å¼•è¡¨è¿”å›ï¼Œåºåˆ—ä¸ä¿å­˜åˆ›å»ºçš„ç´¢å¼•è¡¨
+	 * @param exp ä¸»é”®è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IndexTable
 	 */
 	public IndexTable newIndexTable(Expression exp, Context ctx) {
@@ -13342,10 +13342,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ´´½¨Ò»¸öË÷Òı±í·µ»Ø£¬ĞòÁĞ²»±£´æ´´½¨µÄË÷Òı±í
-	 * @param exp Ö÷¼ü±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity Ë÷Òı±íÈİÁ¿
+	 * åˆ›å»ºä¸€ä¸ªç´¢å¼•è¡¨è¿”å›ï¼Œåºåˆ—ä¸ä¿å­˜åˆ›å»ºçš„ç´¢å¼•è¡¨
+	 * @param exp ä¸»é”®è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity ç´¢å¼•è¡¨å®¹é‡
 	 * @return IndexTable
 	 */
 	public IndexTable newIndexTable(Expression exp, Context ctx, int capacity) {
@@ -13359,10 +13359,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÓÃÖ¸¶¨×Ö¶Î´´½¨Ò»¸öË÷Òı±í·µ»Ø£¬ĞòÁĞ²»±£´æ´´½¨µÄË÷Òı±í
-	 * @param fields ×Ö¶ÎĞòºÅ
-	 * @param capacity Ë÷Òı±íÈİÁ¿
-	 * @param opt m£º²¢ĞĞ´´½¨£¬n£º»ù±¾¼üÊÇĞòºÅ
+	 * ç”¨æŒ‡å®šå­—æ®µåˆ›å»ºä¸€ä¸ªç´¢å¼•è¡¨è¿”å›ï¼Œåºåˆ—ä¸ä¿å­˜åˆ›å»ºçš„ç´¢å¼•è¡¨
+	 * @param fields å­—æ®µåºå·
+	 * @param capacity ç´¢å¼•è¡¨å®¹é‡
+	 * @param opt mï¼šå¹¶è¡Œåˆ›å»ºï¼Œnï¼šåŸºæœ¬é”®æ˜¯åºå·
 	 * @return IndexTable
 	 */
 	public IndexTable newIndexTable(int []fields, int capacity, String opt) {		
@@ -13390,9 +13390,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÓÃ¶à×Ö¶Î´´½¨Ò»¸öË÷Òı±í·µ»Ø£¬ĞòÁĞ²»±£´æ´´½¨µÄË÷Òı±í
-	 * @param exps ×Ö¶Î±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ç”¨å¤šå­—æ®µåˆ›å»ºä¸€ä¸ªç´¢å¼•è¡¨è¿”å›ï¼Œåºåˆ—ä¸ä¿å­˜åˆ›å»ºçš„ç´¢å¼•è¡¨
+	 * @param exps å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IndexTable
 	 */
 	public IndexTable newIndexTable(Expression []exps, Context ctx) {
@@ -13400,10 +13400,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÓÃ¶à×Ö¶Î´´½¨Ò»¸öË÷Òı±í·µ»Ø£¬ĞòÁĞ²»±£´æ´´½¨µÄË÷Òı±í
-	 * @param exps ×Ö¶Î±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity ÈİÁ¿
+	 * ç”¨å¤šå­—æ®µåˆ›å»ºä¸€ä¸ªç´¢å¼•è¡¨è¿”å›ï¼Œåºåˆ—ä¸ä¿å­˜åˆ›å»ºçš„ç´¢å¼•è¡¨
+	 * @param exps å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity å®¹é‡
 	 * @return IndexTable
 	 */
 	public IndexTable newIndexTable(Expression []exps, Context ctx, int capacity) {
@@ -13434,9 +13434,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ´´½¨ÓĞĞò¹é²¢Ë÷Òı
-	 * @param exps ×Ö¶Î±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åˆ›å»ºæœ‰åºå½’å¹¶ç´¢å¼•
+	 * @param exps å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IndexTable
 	 */
 	public IndexTable newMergeIndexTable(Expression []exps, Context ctx) {
@@ -13444,7 +13444,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¹¹½¨ÄÚ´æÓÎ±ê
+	 * æ„å»ºå†…å­˜æ¸¸æ ‡
 	 * @return
 	 */
 	public ICursor cursor() {
@@ -13452,9 +13452,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * °´Ö¸¶¨Çø¼ä¹¹½¨ÄÚ´æÓÎ±ê
-	 * @param start ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param end ½áÊøÎ»ÖÃ£¬²»°üº¬
+	 * æŒ‰æŒ‡å®šåŒºé—´æ„å»ºå†…å­˜æ¸¸æ ‡
+	 * @param start èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param end ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
 	 * @return
 	 */
 	public ICursor cursor(int start, int end) {
@@ -13462,8 +13462,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * °ÑÎ»ÖµĞòÁĞ×ª³ÉlongÖµĞòÁĞ
-	 * @param opt m£º²¢ĞĞ¼ÆËã
+	 * æŠŠä½å€¼åºåˆ—è½¬æˆlongå€¼åºåˆ—
+	 * @param opt mï¼šå¹¶è¡Œè®¡ç®—
 	 * @return Sequence
 	 */
 	public Sequence bits(String opt) {
@@ -13533,10 +13533,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * °ÑÎ»ÖµĞòÁĞ×ª³ÉlongÖµĞòÁĞ
-	 * @param start ÆğÊ¼Î»ÖÃ£¨°üº¬£©
-	 * @param end ½áÊøÎ»ÖÃ£¨²»°üº¬£©
-	 * @param opt m£º²¢ĞĞ¼ÆËã£¬n£º³ÉÔ±È¡ÖµÎªÕæ¼Ù
+	 * æŠŠä½å€¼åºåˆ—è½¬æˆlongå€¼åºåˆ—
+	 * @param start èµ·å§‹ä½ç½®ï¼ˆåŒ…å«ï¼‰
+	 * @param end ç»“æŸä½ç½®ï¼ˆä¸åŒ…å«ï¼‰
+	 * @param opt mï¼šå¹¶è¡Œè®¡ç®—ï¼Œnï¼šæˆå‘˜å–å€¼ä¸ºçœŸå‡
 	 * @return Sequence
 	 */
 	public Sequence bits(int start, int end, String opt) {
@@ -13598,9 +13598,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÖ¸¶¨Î»µÄÖµÊÇ²»ÊÇ1
-	 * @param n Î»ºÅ
-	 * @param opt b£º·µ»ØÕæ¼Ù£¬true£ºÊÇ1£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æŒ‡å®šä½çš„å€¼æ˜¯ä¸æ˜¯1
+	 * @param n ä½å·
+	 * @param opt bï¼šè¿”å›çœŸå‡ï¼Œtrueï¼šæ˜¯1ï¼Œfalseï¼šä¸æ˜¯
 	 * @return Object
 	 */
 	public Object bits(int n, String opt) {
@@ -13630,26 +13630,26 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ·µ»ØĞòÁĞ³ÉÔ±°´Î»Òì»òÖµµÄ¶ş½øÖÆ±íÊ¾Ê±1µÄ¸öÊıºÍ
-	 * @param seq Òì»òĞòÁĞ
-	 * @return 1µÄ¸öÊıºÍ
+	 * è¿”å›åºåˆ—æˆå‘˜æŒ‰ä½å¼‚æˆ–å€¼çš„äºŒè¿›åˆ¶è¡¨ç¤ºæ—¶1çš„ä¸ªæ•°å’Œ
+	 * @param seq å¼‚æˆ–åºåˆ—
+	 * @return 1çš„ä¸ªæ•°å’Œ
 	 */
 	public int bit1(Sequence seq) {
 		return getMems().bit1(seq.getMems());
 	}
 	
 	/**
-	 * ¶ÔÅÅÁĞ×öÖ÷¼üÊ½¹ØÁ¬
-	 * @param srcKeyExps ¹ØÁ¬¼ü±í´ïÊ½
-	 * @param srcNewExps Ñ¡³ö×Ö¶Î±í´ïÊ½Êı×é£¬¿ÕÔòÑ¡³öËùÓĞ
-	 * @param srcNewNames Ñ¡³ö×Ö¶ÎÃûÊı×é
-	 * @param sequences ¹ØÁ¬±íÊı×é
-	 * @param options ¹ØÁ¬Ñ¡ÏîÊı×é
-	 * @param keyExps ¹ØÁ¬±íµÄ¼ü±í´ïÊ½Êı×é
-	 * @param newExps ¹ØÁ¬±íµÄÑ¡³ö×Ö¶Î±í´ïÊ½Êı×é
-	 * @param newNames ¹ØÁ¬±íµÄ Ñ¡³ö×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî£¬o£º±í°´¹ØÁª×Ö¶ÎÓĞĞò£¬f£ºfull join
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¹æ’åˆ—åšä¸»é”®å¼å…³è¿
+	 * @param srcKeyExps å…³è¿é”®è¡¨è¾¾å¼
+	 * @param srcNewExps é€‰å‡ºå­—æ®µè¡¨è¾¾å¼æ•°ç»„ï¼Œç©ºåˆ™é€‰å‡ºæ‰€æœ‰
+	 * @param srcNewNames é€‰å‡ºå­—æ®µåæ•°ç»„
+	 * @param sequences å…³è¿è¡¨æ•°ç»„
+	 * @param options å…³è¿é€‰é¡¹æ•°ç»„
+	 * @param keyExps å…³è¿è¡¨çš„é”®è¡¨è¾¾å¼æ•°ç»„
+	 * @param newExps å…³è¿è¡¨çš„é€‰å‡ºå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param newNames å…³è¿è¡¨çš„ é€‰å‡ºå­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œoï¼šè¡¨æŒ‰å…³è”å­—æ®µæœ‰åºï¼Œfï¼šfull join
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public Sequence pjoin(Expression []srcKeyExps, Expression []srcNewExps, String []srcNewNames, 
@@ -13684,16 +13684,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	
 	
 	/**
-	 * Çø¼ä¹é²¢Á¬½Ó
-	 * @param exp ¹ØÁ¬¼ü±í´ïÊ½
-	 * @param seq ¹ØÁ¬±í
-	 * @param keyExp ¹ØÁ¬±íµÄ¼ü±í´ïÊ½
-	 * @param from Çø¼ä·¶Î§ÆğÊ¼
-	 * @param newExps ĞÂ×Ö¶Î±í´ïÊ½
-	 * @param newNames ĞÂ×Ö¶ÎÃû³Æ
-	 * @param to Çø¼ä·¶Î§½áÊø
-	 * @param opt Ñ¡Ïî£¬r£ºÖØ¸´Æ¥Åä£¬ÓÒ±ßÒÑ¾­Æ¥Åä¹ıµÄÈÔÈ»¼ÌĞøÆ¥Åä£»g£º×ó±ß²»³åÖØ¸´
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * åŒºé—´å½’å¹¶è¿æ¥
+	 * @param exp å…³è¿é”®è¡¨è¾¾å¼
+	 * @param seq å…³è¿è¡¨
+	 * @param keyExp å…³è¿è¡¨çš„é”®è¡¨è¾¾å¼
+	 * @param from åŒºé—´èŒƒå›´èµ·å§‹
+	 * @param newExps æ–°å­—æ®µè¡¨è¾¾å¼
+	 * @param newNames æ–°å­—æ®µåç§°
+	 * @param to åŒºé—´èŒƒå›´ç»“æŸ
+	 * @param opt é€‰é¡¹ï¼Œrï¼šé‡å¤åŒ¹é…ï¼Œå³è¾¹å·²ç»åŒ¹é…è¿‡çš„ä»ç„¶ç»§ç»­åŒ¹é…ï¼›gï¼šå·¦è¾¹ä¸å†²é‡å¤
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence mjoin(Expression exp, Sequence seq, Expression keyExp, 
@@ -13826,14 +13826,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¹¹½¨ÄÚ´æÓÎ±ê£¬ÓÃÓÚºÍ¸´×é±í»ìºÏ¼ÆËã
-	 * @param exps Ñ¡³ö×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names Ñ¡³ö×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂËÌõ¼ş
-	 * @param fkNames Íâ¼ü×Ö¶Î
-	 * @param codes Î¬±í
-	 * @param opts ¹ØÁ¬Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºå†…å­˜æ¸¸æ ‡ï¼Œç”¨äºå’Œå¤ç»„è¡¨æ··åˆè®¡ç®—
+	 * @param exps é€‰å‡ºå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names é€‰å‡ºå­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤æ¡ä»¶
+	 * @param fkNames å¤–é”®å­—æ®µ
+	 * @param codes ç»´è¡¨
+	 * @param opts å…³è¿é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return ICursor
 	 */
 	public ICursor cursor(Expression []exps, String []names, Expression filter, 
@@ -13842,16 +13842,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¹¹½¨ÄÚ´æÓÎ±ê£¬ÓÃÓÚºÍ¸´×é±í»ìºÏ¼ÆËã
-	 * @param start ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param end ½áÊøÎ»ÖÃ£¬²»°üº¬
-	 * @param exps Ñ¡³ö×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names Ñ¡³ö×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂËÌõ¼ş
-	 * @param fkNames Íâ¼ü×Ö¶Î
-	 * @param codes Î¬±í
-	 * @param opts ¹ØÁ¬Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºå†…å­˜æ¸¸æ ‡ï¼Œç”¨äºå’Œå¤ç»„è¡¨æ··åˆè®¡ç®—
+	 * @param start èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param end ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
+	 * @param exps é€‰å‡ºå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names é€‰å‡ºå­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤æ¡ä»¶
+	 * @param fkNames å¤–é”®å­—æ®µ
+	 * @param codes ç»´è¡¨
+	 * @param opts å…³è¿é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return ICursor
 	 */
 	public ICursor cursor(int start, int end, Expression []exps, String []names, Expression filter, 
@@ -13901,16 +13901,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * ¹¹½¨ÄÚ´æÓÎ±ê£¬ÓÃÓÚºÍ¸´×é±í»ìºÏ¼ÆËã
-	 * @param syncCursor Í¬²½·Ö¶ÎÓÎ±ê
-	 * @param sortedFields ÅÅĞò×Ö¶Î
-	 * @param exps Ñ¡³ö×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names Ñ¡³ö×Ö¶ÎÃûÊı×é
-	 * @param filter ¹ıÂËÌõ¼ş
-	 * @param fkNames Íâ¼ü×Ö¶Î
-	 * @param codes Î¬±í
-	 * @param opts ¹ØÁ¬Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºå†…å­˜æ¸¸æ ‡ï¼Œç”¨äºå’Œå¤ç»„è¡¨æ··åˆè®¡ç®—
+	 * @param syncCursor åŒæ­¥åˆ†æ®µæ¸¸æ ‡
+	 * @param sortedFields æ’åºå­—æ®µ
+	 * @param exps é€‰å‡ºå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names é€‰å‡ºå­—æ®µåæ•°ç»„
+	 * @param filter è¿‡æ»¤æ¡ä»¶
+	 * @param fkNames å¤–é”®å­—æ®µ
+	 * @param codes ç»´è¡¨
+	 * @param opts å…³è¿é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return ICursor
 	 */
 	public MultipathCursors cursor(MultipathCursors syncCursor, String []sortedFields, 
@@ -13945,7 +13945,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		if (opt != null && opt.indexOf('k') != -1) {
-			// ÓĞkÑ¡ÏîÊ±ÒÔÊ×¼ü×öÎªÍ¬²½·Ö¶Î×Ö¶Î
+			// æœ‰ké€‰é¡¹æ—¶ä»¥é¦–é”®åšä¸ºåŒæ­¥åˆ†æ®µå­—æ®µ
 			fcount = 1;
 		} else {
 			if (sortedFields.length < fcount) {

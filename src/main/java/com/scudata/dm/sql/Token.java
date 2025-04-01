@@ -1,7 +1,7 @@
 package com.scudata.dm.sql;
 
 /**
- * SQLсО╬Д╥ж╢й╨С╣ц╣╫╣д╢й╩Руъ╥Ш╨е
+ * SQLХ╞╜Е▐╔Е┬├Х╞█Е░▌Е╬≈Е┬╟Г └Х╞█Ф┬√Х─┘Г╛╕Е▐╥
  * @author RunQian
  *
  */
@@ -52,8 +52,8 @@ public final class Token {
 		return id.equals(str);
 	}
 
-	// еп╤о╠М╢Ой╫╫з╣Цйг╥Я©иртспср╫з╣Ц
-	// ╡ывВ╥Ш╩Р╡ывВ╥Ш╧ь╪Эвж©иртспср╠М╢Ой╫
+	// Е┬╓Ф√╜Х║╗Х╬╬Е╪▐Х┼┌Г┌╧Ф≤╞Е░╕Е▐╞Д╩╔Ф°┴Е▐ЁХ┼┌Г┌╧
+	// Ф⌠█Д╫°Г╛╕Ф┬√Ф⌠█Д╫°Г╛╕Е┘ЁИ■╝Е╜≈Е▐╞Д╩╔Ф°┴Е▐ЁХ║╗Х╬╬Е╪▐
 	public boolean canHaveRightExp() {
 		if (type == Tokenizer.OPERATOR || type == Tokenizer.DOT) { //type == Tokenizer.TABLEMARK || LEVELMARK
 			return true;

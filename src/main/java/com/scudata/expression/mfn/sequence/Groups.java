@@ -17,14 +17,14 @@ import com.scudata.expression.fn.algebra.Var;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ²ÉÓÃÀÛ¼Æ·½Ê½¶ÔÅÅÁĞ½øĞĞ·Ö×é¾ÛºÏ
- * A.groups(x:F¡­;y:G¡­)
+ * é‡‡ç”¨ç´¯è®¡æ–¹å¼å¯¹æ’åˆ—è¿›è¡Œåˆ†ç»„èšåˆ
+ * A.groups(x:Fâ€¦;y:Gâ€¦)
  * @author RunQian
  *
  */
 public class Groups extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -34,18 +34,18 @@ public class Groups extends SequenceFunction {
 	}
 
 	public Object calculate(Context ctx) {
-		ArrayList<Object> gathers = new ArrayList<Object>(); // Í³¼Æ¾ÛºÏº¯Êı
-		ArrayList<Integer> poss = new ArrayList<Integer>(); // ·Ö×é±í´ïÊ½£¬¶ÔÓ¦¾ÛºÏº¯ÊıÁĞ±íµÄµÚ¼¸¸ö¾ÛºÏº¯Êı
+		ArrayList<Object> gathers = new ArrayList<Object>(); // ç»Ÿè®¡èšåˆå‡½æ•°
+		ArrayList<Integer> poss = new ArrayList<Integer>(); // åˆ†ç»„è¡¨è¾¾å¼ï¼Œå¯¹åº”èšåˆå‡½æ•°åˆ—è¡¨çš„ç¬¬å‡ ä¸ªèšåˆå‡½æ•°
 		
-		Expression[] exps; // ·Ö×é±í´ïÊ½Êı×é
-		String[] names = null; // ·Ö×é±í´ïÊ½µÄĞÂÃû×Ö
-		Expression[] calcExps = null; // ¾ÛºÏ±í´ïÊ½Êı×é
-		String[] calcNames = null; // ¾ÛºÏ×Ö¶ÎµÄÃû×Ö
+		Expression[] exps; // åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+		String[] names = null; // åˆ†ç»„è¡¨è¾¾å¼çš„æ–°åå­—
+		Expression[] calcExps = null; // èšåˆè¡¨è¾¾å¼æ•°ç»„
+		String[] calcNames = null; // èšåˆå­—æ®µçš„åå­—
 		int hashCapacity = -1;	
 		
-		//	°ÑgroupsµÄ²ÎÊı·Ö½â³É ·Ö×é±í´ïÊ½¡¢·Ö×é±í´ïÊ½µÄÃû×Ö¡¢Í³¼Æ±í´ïÊ½¡¢Í³¼Æ±í´ïÊ½µÄÃû×Ö
+		//	æŠŠgroupsçš„å‚æ•°åˆ†è§£æˆ åˆ†ç»„è¡¨è¾¾å¼ã€åˆ†ç»„è¡¨è¾¾å¼çš„åå­—ã€ç»Ÿè®¡è¡¨è¾¾å¼ã€ç»Ÿè®¡è¡¨è¾¾å¼çš„åå­—
 		char type = param.getType();
-		if (type == IParam.Normal) { // Ö»ÓĞÒ»¸ö²ÎÊı
+		if (type == IParam.Normal) { // åªæœ‰ä¸€ä¸ªå‚æ•°
 			exps = new Expression[]{param.getLeafExpression()};
 		} else if (type == IParam.Colon) { // :
 			if (param.getSubSize() != 2) {
@@ -103,11 +103,11 @@ public class Groups extends SequenceFunction {
 			}
 		}
 		
-		// ·Ö×é±í´ïÊ½³¤¶ÈºÍ¾ÛºÏ±í´ïÊ½³¤¶È
+		// åˆ†ç»„è¡¨è¾¾å¼é•¿åº¦å’Œèšåˆè¡¨è¾¾å¼é•¿åº¦
 		int elen = exps == null ? 0 : exps.length;
 		int clen = calcExps == null ? 0 : calcExps.length;
 		
-		// ½âÎö±í´ïÊ½ÖĞµÄ¾ÛºÏº¯Êı
+		// è§£æè¡¨è¾¾å¼ä¸­çš„èšåˆå‡½æ•°
 		for (int i = 0; i < clen; i++) {
 			int size = gathers.size();
 			gathers.addAll(Expression.getSpecFunc(calcExps[i], Gather.class));
@@ -151,7 +151,7 @@ public class Groups extends SequenceFunction {
 			poss.add(gathers.size());
 		}
 		
-		// Éú³ÉÖĞ¼ä¾ÛºÏ±í´ïÊ½
+		// ç”Ÿæˆä¸­é—´èšåˆè¡¨è¾¾å¼
 		Expression[] tempExps = new Expression[gathers.size()];
 		for (int i = 0; i < tempExps.length; i++) {
 			Object obj = gathers.get(i);
@@ -163,13 +163,13 @@ public class Groups extends SequenceFunction {
 			}
 		}
 		
-		// new ÓÎ±êµÄ±í´ïÊ½
+		// new æ¸¸æ ‡çš„è¡¨è¾¾å¼
 		Expression[] senExps = new Expression[elen+clen];
-		String strExp = null;	// ÀÏ±í´ïÊ½×Ö·û´®¡£
-		int index = 0;	// ÀÏ±í´ïÊ½µÄË÷Òı
+		String strExp = null;	// è€è¡¨è¾¾å¼å­—ç¬¦ä¸²ã€‚
+		int index = 0;	// è€è¡¨è¾¾å¼çš„ç´¢å¼•
 		
-		// ¸ù¾İÀÏ±í´ïÊ½£¬×ª»»ÎªĞÂµÄnewµÄÍ³¼ÆÁĞ±í´ïÊ½
-		boolean exCal	= false;	// ÅĞ¶ÏÊÇ·ñ²ğ·Ö¾ÛºÏ±í´ïÊ½
+		// æ ¹æ®è€è¡¨è¾¾å¼ï¼Œè½¬æ¢ä¸ºæ–°çš„newçš„ç»Ÿè®¡åˆ—è¡¨è¾¾å¼
+		boolean exCal	= false;	// åˆ¤æ–­æ˜¯å¦æ‹†åˆ†èšåˆè¡¨è¾¾å¼
 		if (calcExps != null) {
 			strExp = calcExps[index].toString();
 		}
@@ -188,23 +188,23 @@ public class Groups extends SequenceFunction {
 			}
 		}
 		
-		// @b£º½á¹û¼¯È¥µô·Ö×é×Ö¶Î
+		// @bï¼šç»“æœé›†å»æ‰åˆ†ç»„å­—æ®µ
 		boolean bopt = option != null && option.indexOf('b') != -1;
-		String[] senNames	= null;	// Í³Ò»µÄÁĞÃû
-		String[] tempNames	= calcNames;	// ÁÙÊ±±íÁĞÃû
+		String[] senNames	= null;	// ç»Ÿä¸€çš„åˆ—å
+		String[] tempNames	= calcNames;	// ä¸´æ—¶è¡¨åˆ—å
 		if (exCal) {
-			tempNames = null;	// ÈôĞèÒªÓÃnew¶ş´ÎÕûÀí£¬ÁÙÊ±±íÁĞÃûÎª¿Õ
-			// ÌîĞ´·Ö×é±í´ïÊ½
+			tempNames = null;	// è‹¥éœ€è¦ç”¨newäºŒæ¬¡æ•´ç†ï¼Œä¸´æ—¶è¡¨åˆ—åä¸ºç©º
+			// å¡«å†™åˆ†ç»„è¡¨è¾¾å¼
 			for (int i = 1; i <= elen; i++) {
 				String funStr = "#" + i;
 				senExps[i-1] = new Expression(cs, ctx, funStr);
 			}
 			
-			if (senExps.length > 0)	{// ×îºóÒ»¸ö±í´ïÊ½µÄÉú³É
+			if (senExps.length > 0)	{// æœ€åä¸€ä¸ªè¡¨è¾¾å¼çš„ç”Ÿæˆ
 				senExps[index+elen] = new Expression(cs, ctx, strExp);
 			}
 			
-			// Éú³ÉÍ³Ò»µÄÁĞÃû
+			// ç”Ÿæˆç»Ÿä¸€çš„åˆ—å
 			senNames = new String[elen + calcNames.length];
 			for (int i = 0; i < elen; i++) {
 				senNames[i] = names[i];

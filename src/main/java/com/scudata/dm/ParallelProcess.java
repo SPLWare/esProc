@@ -16,21 +16,21 @@ import com.scudata.thread.ThreadPool;
 import com.scudata.util.CellSetUtil;
 
 /**
- * ²¢·¢½ø³Ì
- * ¶ÔÓ¦ÓÚcallx²»´øHµÄÇéĞÎ£¬ÔÚ±¾»ú½ø³ÌÉÏ£¬Ä£ÄâÏß³ÌÖ´ĞĞÈÎÎñ
- * ·Ö»ú½Óµ½µÄpCallerÒ²ÊÇ¸ÃÀàÖ´ĞĞ£¬pCaller¿ÉÒÔÒ»´Î´¦ÀíÒ»¸ö»òÕß¶à¸ö²ÎÊı
+ * å¹¶å‘è¿›ç¨‹
+ * å¯¹åº”äºcallxä¸å¸¦Hçš„æƒ…å½¢ï¼Œåœ¨æœ¬æœºè¿›ç¨‹ä¸Šï¼Œæ¨¡æ‹Ÿçº¿ç¨‹æ‰§è¡Œä»»åŠ¡
+ * åˆ†æœºæ¥åˆ°çš„pCallerä¹Ÿæ˜¯è¯¥ç±»æ‰§è¡Œï¼ŒpCallerå¯ä»¥ä¸€æ¬¡å¤„ç†ä¸€ä¸ªæˆ–è€…å¤šä¸ªå‚æ•°
  * @author Joancy
  *
  */
 public class ParallelProcess implements IResource{
-	public static String ONE_OPTION = "1Ñ¡Ïî¼ÆËãÒÑÍê³É¡£";
+	public static String ONE_OPTION = "1é€‰é¡¹è®¡ç®—å·²å®Œæˆã€‚";
 	
-	Object dfx;// dfx¿ÉÒÔÊÇ1£ºdfxÎÄ¼şÃû×Ö£»2£ºÒ»¶Î´úÂë£»3£ºÒ»¸öPgmCellSet¶ÔÏó
-	// host¿ÉÒÔ Ê¡ÂÔ£¬Ê¡ÂÔÊ±£¬´Ó±¾»ú¶àÏß³ÌÖ´ĞĞ
+	Object dfx;// dfxå¯ä»¥æ˜¯1ï¼šdfxæ–‡ä»¶åå­—ï¼›2ï¼šä¸€æ®µä»£ç ï¼›3ï¼šä¸€ä¸ªPgmCellSetå¯¹è±¡
+	// hostå¯ä»¥ çœç•¥ï¼Œçœç•¥æ—¶ï¼Œä»æœ¬æœºå¤šçº¿ç¨‹æ‰§è¡Œ
 	String spaceId = null;
-	Object reduce=null;// reduce ¿ÉÒÔÊÇÒ»¸ö´®ÎÄ¼şÃû£¬»òÕßÒ»¸öPgmCellSet
-	CellLocation accumulateLocation=null;//Èç¹û²ÎÊıÎ»ÖÃÎªnullÊ±£¬ ÔòÊ¹ÓÃµÚ1¸ö²ÎÊıµ±ÀÛ¼ÆÖµ
-	CellLocation currentLocation=null;// Èç¹û²ÎÊıÎ»ÖÃÎªnullÊ±£¬ ÔòÊ¹ÓÃµÚ2¸ö²ÎÊıµ±µ±Ç°Öµ
+	Object reduce=null;// reduce å¯ä»¥æ˜¯ä¸€ä¸ªä¸²æ–‡ä»¶åï¼Œæˆ–è€…ä¸€ä¸ªPgmCellSet
+	CellLocation accumulateLocation=null;//å¦‚æœå‚æ•°ä½ç½®ä¸ºnullæ—¶ï¼Œ åˆ™ä½¿ç”¨ç¬¬1ä¸ªå‚æ•°å½“ç´¯è®¡å€¼
+	CellLocation currentLocation=null;// å¦‚æœå‚æ•°ä½ç½®ä¸ºnullæ—¶ï¼Œ åˆ™ä½¿ç”¨ç¬¬2ä¸ªå‚æ•°å½“å½“å‰å€¼
 
 	
 	ArrayList<Caller> callers = new ArrayList<Caller>();
@@ -41,24 +41,24 @@ public class ParallelProcess implements IResource{
 
 	HostManager hostManager = HostManager.instance();
 	
-//	Èİ´íËã·¨Ê±£¬¸Ã¶ÓÁĞ»á²úÉúucµÄÊÊºÏ×÷ÒµÊı¸ö¸±±¾£¬µ«²»»á³õÊ¼¾ÍÁ¬½Ó£¬ÓÃµ½ËüÊ±²Å»áÕæÕıÁ¬½Ó
-//	±ÈÈçÁ½¸öuc£¬ Ò»¸öÊÊºÏ×÷Òµ3£¬Ò»¸öÊÊºÏ×÷Òµ4£¬Ôò»á²úÉú¶ÓÁĞ³¤¶ÈÎª7µÄ·Ö»ú¸±±¾
+//	å®¹é”™ç®—æ³•æ—¶ï¼Œè¯¥é˜Ÿåˆ—ä¼šäº§ç”Ÿucçš„é€‚åˆä½œä¸šæ•°ä¸ªå‰¯æœ¬ï¼Œä½†ä¸ä¼šåˆå§‹å°±è¿æ¥ï¼Œç”¨åˆ°å®ƒæ—¶æ‰ä¼šçœŸæ­£è¿æ¥
+//	æ¯”å¦‚ä¸¤ä¸ªucï¼Œ ä¸€ä¸ªé€‚åˆä½œä¸š3ï¼Œä¸€ä¸ªé€‚åˆä½œä¸š4ï¼Œåˆ™ä¼šäº§ç”Ÿé˜Ÿåˆ—é•¿åº¦ä¸º7çš„åˆ†æœºå‰¯æœ¬
 	LinkedList<UnitClient> ucList = null;
 	
 	transient volatile boolean isCanceled = false;
 	String TERMINATE = "Terminated by user.";
 	
-	//Ö÷½ø³ÌµÄÈÎÎñId
+	//ä¸»è¿›ç¨‹çš„ä»»åŠ¡Id
 	private int processTaskId = 0;
 	static MessageManager mm = ParallelMessage.get();
 	static Map<String,Object> reduceResults = Collections.synchronizedMap(new HashMap<String,Object>());
 	
 	/**
-	 * Ö¸¶¨¼ÆËã¶ÔÏóµÄ¹¹Ôìº¯Êı
-	 * @param dfx ±»¼ÆËãµÄ¶ÔÏó£¬  dfx¿ÉÒÔÊÇ
-	 * 1£ºdfxÎÄ¼şÃû×Ö£»
-	 * 2£ºÒ»¶ÎSPL´úÂë£»
-	 * 3£ºÒ»¸öPgmCellSet¶ÔÏó
+	 * æŒ‡å®šè®¡ç®—å¯¹è±¡çš„æ„é€ å‡½æ•°
+	 * @param dfx è¢«è®¡ç®—çš„å¯¹è±¡ï¼Œ  dfxå¯ä»¥æ˜¯
+	 * 1ï¼šdfxæ–‡ä»¶åå­—ï¼›
+	 * 2ï¼šä¸€æ®µSPLä»£ç ï¼›
+	 * 3ï¼šä¸€ä¸ªPgmCellSetå¯¹è±¡
 	 */
 	public ParallelProcess(Object dfx) {
 		if (dfx instanceof String || dfx instanceof PgmCellSet) {
@@ -71,15 +71,15 @@ public class ParallelProcess implements IResource{
 		TERMINATE = mm.getMessage("ParallelProcess.terminate");
 	}
 	/**
-	 * ÉèÖÃµ±Ç°½ø³ÌµÄÈÎÎñºÅ
-	 * @param pTaskId ÈÎÎñºÅ
+	 * è®¾ç½®å½“å‰è¿›ç¨‹çš„ä»»åŠ¡å·
+	 * @param pTaskId ä»»åŠ¡å·
 	 */
 	public void setProcessTaskId(int pTaskId){
 		this.processTaskId = pTaskId;
 	}
 	
 	/**
-	 * ÊµÏÖtoString·½·¨£¬·½±ãÏÔÊ¾µ±Ç°½ø³ÌµÄ²ÎÊıÄÚÈİ
+	 * å®ç°toStringæ–¹æ³•ï¼Œæ–¹ä¾¿æ˜¾ç¤ºå½“å‰è¿›ç¨‹çš„å‚æ•°å†…å®¹
 	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -132,9 +132,9 @@ public class ParallelProcess implements IResource{
 	}
 	
 	/**
-	 * ½«²ÎÊıÁĞ±íµÄ¶à¸ö²ÎÊı×ª»¯Îª¿É¶Á´®
-	 * @param argList ²ÎÊıÁĞ±í
-	 * @return ×ª»¯µÄ´®
+	 * å°†å‚æ•°åˆ—è¡¨çš„å¤šä¸ªå‚æ•°è½¬åŒ–ä¸ºå¯è¯»ä¸²
+	 * @param argList å‚æ•°åˆ—è¡¨
+	 * @return è½¬åŒ–çš„ä¸²
 	 */
 	public static String args2String(List argList) {
 		StringBuffer sb = new StringBuffer();
@@ -153,16 +153,16 @@ public class ParallelProcess implements IResource{
 	}
 
 	/**
-	 * ÉèÖÃÈÎÎñ¿Õ¼äºÅ
-	 * @param id ÈÎÎñ¿Õ¼ä
+	 * è®¾ç½®ä»»åŠ¡ç©ºé—´å·
+	 * @param id ä»»åŠ¡ç©ºé—´
 	 */
 	public void setJobSpaceId(String id) {
 		this.spaceId = id;
 	}
 	
 	/**
-	 * ÉèÖÃÈÎÎñÖ´ĞĞÍêµÄreduce±í´ïÊ½
-	 * @param reduce reduce±í´ïÊ½»òÕßreduceÍø¸ñ¶ÔÏó
+	 * è®¾ç½®ä»»åŠ¡æ‰§è¡Œå®Œçš„reduceè¡¨è¾¾å¼
+	 * @param reduce reduceè¡¨è¾¾å¼æˆ–è€…reduceç½‘æ ¼å¯¹è±¡
 	 */
 	public void setReduce(Object reduce){
 		if(reduce==null){
@@ -180,10 +180,10 @@ public class ParallelProcess implements IResource{
 	}
 	
 	/**
-	 * ÉèÖÃÍø¸ñreduce¶ÔÏó
-	 * @param reduce Íø¸ñ¼ÆËãreduce¶ÔÏó
-	 * @param accumulateLocation ÀÛ¼ÆÖµÎ»ÖÃ
-	 * @param currentLocation    µ±Ç°ÖµÎ»ÖÃ
+	 * è®¾ç½®ç½‘æ ¼reduceå¯¹è±¡
+	 * @param reduce ç½‘æ ¼è®¡ç®—reduceå¯¹è±¡
+	 * @param accumulateLocation ç´¯è®¡å€¼ä½ç½®
+	 * @param currentLocation    å½“å‰å€¼ä½ç½®
 	 */
 	public void setReduce(Object reduce,CellLocation accumulateLocation, CellLocation currentLocation){
 		setReduce(reduce);
@@ -192,10 +192,10 @@ public class ParallelProcess implements IResource{
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°µÄdfxargÊÇÒ»¸öÎÄ¼şÃû»¹ÊÇÒ»´®´úÂë
+	 * åˆ¤æ–­å½“å‰çš„dfxargæ˜¯ä¸€ä¸ªæ–‡ä»¶åè¿˜æ˜¯ä¸€ä¸²ä»£ç 
 	 * 
-	 * @param dfxarg dfx¶ÔÏó
-	 * @return Èç¹ûÊÇÒ»¶Î½Å±¾£¬·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * @param dfxarg dfxå¯¹è±¡
+	 * @return å¦‚æœæ˜¯ä¸€æ®µè„šæœ¬ï¼Œè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isScript(Object dfxarg) {
 		if (!(dfxarg instanceof String))
@@ -203,20 +203,20 @@ public class ParallelProcess implements IResource{
 		String dfx = (String) dfxarg;
 		boolean b = dfx.indexOf('\t') > 0 || dfx.indexOf('\n') > 0;
 		if (b)
-			return true;// ¶àĞĞ´úÂë¿Ï¶¨ÊÇ½Å±¾
-		b = dfx.toLowerCase().startsWith("return ");// Ö»ÓĞÒ»ĞĞ´úÂëÊ±£¬Ğ´ÁË·µ»ØµÄÒ²ÊÇ½Å±¾
+			return true;// å¤šè¡Œä»£ç è‚¯å®šæ˜¯è„šæœ¬
+		b = dfx.toLowerCase().startsWith("return ");// åªæœ‰ä¸€è¡Œä»£ç æ—¶ï¼Œå†™äº†è¿”å›çš„ä¹Ÿæ˜¯è„šæœ¬
 		if (b)
 			return true;
 		String lowDfx = dfx.toLowerCase();
 		b = lowDfx.endsWith(".dfx") || lowDfx.endsWith(".splx") || lowDfx.endsWith(".spl");
-		return !b;// ĞÎÈç 123 ´®µ±½Å±¾´¦Àí
+		return !b;// å½¢å¦‚ 123 ä¸²å½“è„šæœ¬å¤„ç†
 	}
 
 	/**
-	 * »ñÈ¡dfx¶ÔÏóµÄËõĞ´±íÊ¾£¬ÓÃÓÚ´ò³öÌáÊ¾»òÕßµ÷ÊÔĞÅÏ¢
-	 * µ±dfxÊÇÒ»´®´úÂëÊ±£¬ÌáÊ¾ĞÅÏ¢Ö»ÏÔÊ¾Í·Ê®¸ö×ÖÄ¸³¤¶È
-	 * @param dfx ¼ÆËã¶ÔÏó
-	 * @return ËõĞ´±íÊ¾»ò¶ÔÏóÃèÊö´®
+	 * è·å–dfxå¯¹è±¡çš„ç¼©å†™è¡¨ç¤ºï¼Œç”¨äºæ‰“å‡ºæç¤ºæˆ–è€…è°ƒè¯•ä¿¡æ¯
+	 * å½“dfxæ˜¯ä¸€ä¸²ä»£ç æ—¶ï¼Œæç¤ºä¿¡æ¯åªæ˜¾ç¤ºå¤´åä¸ªå­—æ¯é•¿åº¦
+	 * @param dfx è®¡ç®—å¯¹è±¡
+	 * @return ç¼©å†™è¡¨ç¤ºæˆ–å¯¹è±¡æè¿°ä¸²
 	 */
 	public static String dfxDelegate(Object dfx) {
 		boolean isScript = isScript(dfx);
@@ -234,7 +234,7 @@ public class ParallelProcess implements IResource{
 	}
 
 	/**
-	 * ÉèÖÃ¼ÆËã¶ÔÏó
+	 * è®¾ç½®è®¡ç®—å¯¹è±¡
 	 * @param dfx
 	 */
 	public void setDfx(Object dfx) {
@@ -242,10 +242,10 @@ public class ParallelProcess implements IResource{
 	}
 
 	/**
-	 * Ôö¼ÓÒ»¸ö×Ó×÷Òµ
-	 * @param argList ×Ó×÷ÒµµÄÖ´ĞĞ²ÎÊı
-	 * @throws RQException ÓÉÓÚ²ÎÊıĞèÒª±»ĞòÁĞ»¯ºó·¢ËÍµ½±ğµÄ·Ö»úÈ¥Ö´ĞĞ£¬
-	 * ËùÒÔÃ»ÊµÏÖĞòÁĞ»¯½Ó¿ÚµÄ²ÎÊı»áÅ×³öÒì³£
+	 * å¢åŠ ä¸€ä¸ªå­ä½œä¸š
+	 * @param argList å­ä½œä¸šçš„æ‰§è¡Œå‚æ•°
+	 * @throws RQException ç”±äºå‚æ•°éœ€è¦è¢«åºåˆ—åŒ–åå‘é€åˆ°åˆ«çš„åˆ†æœºå»æ‰§è¡Œï¼Œ
+	 * æ‰€ä»¥æ²¡å®ç°åºåˆ—åŒ–æ¥å£çš„å‚æ•°ä¼šæŠ›å‡ºå¼‚å¸¸
 	 */
 	public void addCall(List<Object> argList) throws RQException {
 		for (Object obj : argList) {
@@ -277,8 +277,8 @@ public class ParallelProcess implements IResource{
 	}
 
 	/**
-	 * È¡ÏûÖ´ĞĞµ±Ç°×÷Òµ
-	 * @param reason È¡Ïû×÷ÒµµÄÔ­Òò
+	 * å–æ¶ˆæ‰§è¡Œå½“å‰ä½œä¸š
+	 * @param reason å–æ¶ˆä½œä¸šçš„åŸå› 
 	 */
 	public void cancel(String reason){
 		isCanceled = true;
@@ -312,24 +312,24 @@ public class ParallelProcess implements IResource{
 	void checkCallerSize() {
 		int size = callers.size();
 		if (size == 0) {
-//		Ã»ÓĞ²ÎÊıÒ²ÄÜµ÷ÓÃcallx£¬ÓÃÓÚ½ö½öĞèÒªÖ´ĞĞ·Ö»úµÄÒ»¸ödfx£¬µ«²»ĞèÒª²ÎÊıµÄÇéĞÎ¡£
+//		æ²¡æœ‰å‚æ•°ä¹Ÿèƒ½è°ƒç”¨callxï¼Œç”¨äºä»…ä»…éœ€è¦æ‰§è¡Œåˆ†æœºçš„ä¸€ä¸ªdfxï¼Œä½†ä¸éœ€è¦å‚æ•°çš„æƒ…å½¢ã€‚
 			Caller caller = new Caller(new ArrayList());
 			callers.add(caller);
 		}
 	}
 	
 	/**
-	 * »ñÈ¡µ±Ç°×÷ÒµÏÂµÄÏß³ÌÊıÄ¿£¬ÓÃÓÚµ÷ÊÔ
-	 * @return Ïß³Ì¼ÆÊı
+	 * è·å–å½“å‰ä½œä¸šä¸‹çš„çº¿ç¨‹æ•°ç›®ï¼Œç”¨äºè°ƒè¯•
+	 * @return çº¿ç¨‹è®¡æ•°
 	 */
 	public static int threadCount() {
 		return threadCount(false);
 	}
 	
 	/**
-	 * »ñÈ¡Ïß³ÌÊıÄ¿
-	 * @param showName ½«µ±Ç°Ïß³ÌµÄÃû×ÖÍ¬Ê±´òÓ¡µ½¿ØÖÆÌ¨£¬ÓÃÒÔµ÷ÊÔ
-	 * @return Ïß³Ì¼ÆÊı
+	 * è·å–çº¿ç¨‹æ•°ç›®
+	 * @param showName å°†å½“å‰çº¿ç¨‹çš„åå­—åŒæ—¶æ‰“å°åˆ°æ§åˆ¶å°ï¼Œç”¨ä»¥è°ƒè¯•
+	 * @return çº¿ç¨‹è®¡æ•°
 	 */
 	public static int threadCount(boolean showName) {
 		Map<Thread, StackTraceElement[]> map = Thread.getAllStackTraces();
@@ -343,8 +343,8 @@ public class ParallelProcess implements IResource{
 	}
 	
 	/**
-	 * Ö´ĞĞµ±Ç°×÷Òµ
-	 * @return ¼ÆËã½á¹û
+	 * æ‰§è¡Œå½“å‰ä½œä¸š
+	 * @return è®¡ç®—ç»“æœ
 	 */
 	public Object execute(){
 		checkCallerSize();
@@ -359,9 +359,9 @@ public class ParallelProcess implements IResource{
 					result.add(null);
 				}
 				Caller caller = callers.get(i);
-//				Ã¿¸ö·Ö½ø³ÌµÄUCÖ»ÓĞÒ»¸ö£¬ÇÒÊÇ¹²ÏíµÄ£¬ËùÒÔÃ¿¸ö·Ö½ø³ÌÖ´ĞĞµÄ×÷ÒµÖ»ÄÜÊÇÒ»¸ö£¬Ò²¾ÍÊÇ´Ë´¦±£Ö¤ÁË·Ö½ø³ÌµÄ´®ĞĞ×÷Òµ
+//				æ¯ä¸ªåˆ†è¿›ç¨‹çš„UCåªæœ‰ä¸€ä¸ªï¼Œä¸”æ˜¯å…±äº«çš„ï¼Œæ‰€ä»¥æ¯ä¸ªåˆ†è¿›ç¨‹æ‰§è¡Œçš„ä½œä¸šåªèƒ½æ˜¯ä¸€ä¸ªï¼Œä¹Ÿå°±æ˜¯æ­¤å¤„ä¿è¯äº†åˆ†è¿›ç¨‹çš„ä¸²è¡Œä½œä¸š
 //				UnitClient uc = getClient();
-				caller.setUnitClient( null );//È«²¿Îª±¾»úÏß³ÌÖ´ĞĞ
+				caller.setUnitClient( null );//å…¨éƒ¨ä¸ºæœ¬æœºçº¿ç¨‹æ‰§è¡Œ
 				pool.submit(caller);
 			}
 			joinCallers();
@@ -382,19 +382,19 @@ public class ParallelProcess implements IResource{
 	}
 	
 	/**
-	 * reduce¶¯×÷·ÖÁ½ÖÖ£¬Ò»ÖÖÖ±½Ó±í´ïÊ½¼ÆËã
-	 * ÁíÒ»ÖÖÊ¹ÓÃÍø¸ñÉèÖÃ²ÎÊıÀ´¼ÆËã
-	 * @return Èç¹ûÊÇ±í´ïÊ½¼ÆËãµÄreduce·µ»Øtrue
+	 * reduceåŠ¨ä½œåˆ†ä¸¤ç§ï¼Œä¸€ç§ç›´æ¥è¡¨è¾¾å¼è®¡ç®—
+	 * å¦ä¸€ç§ä½¿ç”¨ç½‘æ ¼è®¾ç½®å‚æ•°æ¥è®¡ç®—
+	 * @return å¦‚æœæ˜¯è¡¨è¾¾å¼è®¡ç®—çš„reduceè¿”å›true
 	 */
 	boolean isExpReduce(){
 		return (reduce instanceof String);
 	}
 	
 	/**
-	 * Ö÷»úÔÚËùÓĞ×÷Òµ¶¼¼ÆËãÍê³Éºó£¬¸ù¾İSPACEIDÀ´»ñÈ¡·Ö»úÉÏµÄreduceµÄ×îÖÕ½á¹û
-	 * ½á¹ûÈ¡Íêºó£¬Í¬Ê±Çå¿Õ·Ö»úµÄ½á¹û»º´æ¡£
-	 * @param SPACEID ÈÎÎñµÄ¿Õ¼äID
-	 * @return ÈÎÎñÔÚÄ³·Ö»úÉÏµÄreduce½á¹û
+	 * ä¸»æœºåœ¨æ‰€æœ‰ä½œä¸šéƒ½è®¡ç®—å®Œæˆåï¼Œæ ¹æ®SPACEIDæ¥è·å–åˆ†æœºä¸Šçš„reduceçš„æœ€ç»ˆç»“æœ
+	 * ç»“æœå–å®Œåï¼ŒåŒæ—¶æ¸…ç©ºåˆ†æœºçš„ç»“æœç¼“å­˜ã€‚
+	 * @param SPACEID ä»»åŠ¡çš„ç©ºé—´ID
+	 * @return ä»»åŠ¡åœ¨æŸåˆ†æœºä¸Šçš„reduceç»“æœ
 	 */
 	public static Object getReduceResult(String SPACEID){
 		Object val = reduceResults.get(SPACEID);
@@ -404,7 +404,7 @@ public class ParallelProcess implements IResource{
 	
 	Object getResult(){
 		if( needReduce() ){
-//			reduceµÄµ¥²½¼ÆËã½á¹û²»ÔÚ×÷ÒµÖĞ·µ»Ø£¬¶øÊÇ¼ÇÔÚreduceResultsÖĞ£¬µ¥²½×÷ÒµÖ±½Ó·µ»Øtrue¸æËßÖ÷»úreduceµÄ½á¹û¼ÆËãÍê³É
+//			reduceçš„å•æ­¥è®¡ç®—ç»“æœä¸åœ¨ä½œä¸šä¸­è¿”å›ï¼Œè€Œæ˜¯è®°åœ¨reduceResultsä¸­ï¼Œå•æ­¥ä½œä¸šç›´æ¥è¿”å›trueå‘Šè¯‰ä¸»æœºreduceçš„ç»“æœè®¡ç®—å®Œæˆ
 			return true;
 		}else{
 			return result;
@@ -416,7 +416,7 @@ public class ParallelProcess implements IResource{
 
 		PgmCellSet pcs = (PgmCellSet)reduce;
 		pcs.setContext(context);
-		if(accumulateLocation==null){//Ã»ÓĞÎ»ÖÃĞÅÏ¢Ê±£¬ÔòÊ¹ÓÃ²ÎÊıÎ»ÖÃ
+		if(accumulateLocation==null){//æ²¡æœ‰ä½ç½®ä¿¡æ¯æ—¶ï¼Œåˆ™ä½¿ç”¨å‚æ•°ä½ç½®
 			CellSetUtil.putArgValue(pcs, new Object[]{prevValue,curValue});
 		}else{
 			int row = accumulateLocation.getRow();
@@ -452,11 +452,11 @@ public class ParallelProcess implements IResource{
 		}
 	}
 
-	// µ±Ä³·Ö´íÎóÊ±´ò¶ÏÆäËüµÄ
+	// å½“æŸåˆ†é”™è¯¯æ—¶æ‰“æ–­å…¶å®ƒçš„
 	void interruptAll(Caller master,Throwable x) {
 		isCanceled = true;
 		if (interrupt) {
-			return; // ºóĞøÏß³ÌÓĞ´íÊ±£¬Ò»µ©´ò¶Ï¹ı£¬ºóĞøÏß³Ì´íÎó¶¼ºöÂÔ
+			return; // åç»­çº¿ç¨‹æœ‰é”™æ—¶ï¼Œä¸€æ—¦æ‰“æ–­è¿‡ï¼Œåç»­çº¿ç¨‹é”™è¯¯éƒ½å¿½ç•¥
 		}
 		interrupt = true;
 		interruptException = x;
@@ -464,8 +464,8 @@ public class ParallelProcess implements IResource{
 		
 		int size = callers.size();
 		
-//Dispatchable ExecuteÊ±£¬Ã¿¸ö·Ö»úÖ»»áÓĞÒ»¸ö×÷Òµ£¬´ËÊ±ËäÈ»Ò²ÓĞ´ò¶Ï£¬µ«ÆäÊµ¾ÍÊÇ´ò¶Ï×Ô¼º
-//²»ÓÃÖ´ĞĞºóÃæ´ò¶ÏÆäËûcallerµÄ´úÂë		
+//Dispatchable Executeæ—¶ï¼Œæ¯ä¸ªåˆ†æœºåªä¼šæœ‰ä¸€ä¸ªä½œä¸šï¼Œæ­¤æ—¶è™½ç„¶ä¹Ÿæœ‰æ‰“æ–­ï¼Œä½†å…¶å®å°±æ˜¯æ‰“æ–­è‡ªå·±
+//ä¸ç”¨æ‰§è¡Œåé¢æ‰“æ–­å…¶ä»–callerçš„ä»£ç 		
 		if(size==1){
 			return;
 		}
@@ -484,7 +484,7 @@ public class ParallelProcess implements IResource{
 			boolean isAllFinished = false;
 			for (int i = 0; i < size; i++) {
 				Caller caller = callers.get(i);
-//				·¢ÆğÕß×ÔÉíµÄ´úÂëÒªµÈ´ı¼ÌĞø£¬ËùÒÔ´Ë´¦µÄ·¢ÆğCallerÒªÌø¹ı
+//				å‘èµ·è€…è‡ªèº«çš„ä»£ç è¦ç­‰å¾…ç»§ç»­ï¼Œæ‰€ä»¥æ­¤å¤„çš„å‘èµ·Callerè¦è·³è¿‡
 				if(caller!=master){
 					if(caller.isRunning()){
 						isAllFinished = false;
@@ -500,18 +500,18 @@ public class ParallelProcess implements IResource{
 	}
 
 /**
- * ×·¼ÓÒ»¸ö·Ö¿Í»§¶Ëuc£¬·ÅÈëµ½¶ÓÁĞµÄuc£¬µÃÓĞdispatchable±êÖ¾
- * @param uc ·Ö»ú¿Í»§¶Ë
+ * è¿½åŠ ä¸€ä¸ªåˆ†å®¢æˆ·ç«¯ucï¼Œæ”¾å…¥åˆ°é˜Ÿåˆ—çš„ucï¼Œå¾—æœ‰dispatchableæ ‡å¿—
+ * @param uc åˆ†æœºå®¢æˆ·ç«¯
  */
 	public void appendClient(UnitClient uc){
 		appendClient(uc,true);
 	}
 	
 	/**
-	 * ×·¼ÓÒ»¸ö¼ÆËãµÄ·Ö»ú¿Í»§¶Ë£¬
-	 * ĞèÒªÈİ´íµÄ¿Í»§¶Ë£¬Ïàµ±ÓÚÁíÒ»¸öuc±¸·İ£¬Ò²ÓĞ¸ù¾İÊÊºÏ×÷ÒµÊıÀ©Õ¹µÄuc£¬ĞèÒª¿ËÂ¡³öÀ´
-	 * @param uc ¿Í»§¶Ë
-	 * @param needClone ÊÇ·ñĞèÒª¿ËÂ¡¿Í»§¶Ë
+	 * è¿½åŠ ä¸€ä¸ªè®¡ç®—çš„åˆ†æœºå®¢æˆ·ç«¯ï¼Œ
+	 * éœ€è¦å®¹é”™çš„å®¢æˆ·ç«¯ï¼Œç›¸å½“äºå¦ä¸€ä¸ªucå¤‡ä»½ï¼Œä¹Ÿæœ‰æ ¹æ®é€‚åˆä½œä¸šæ•°æ‰©å±•çš„ucï¼Œéœ€è¦å…‹éš†å‡ºæ¥
+	 * @param uc å®¢æˆ·ç«¯
+	 * @param needClone æ˜¯å¦éœ€è¦å…‹éš†å®¢æˆ·ç«¯
 	 */
 	public void appendClient(UnitClient uc,boolean needClone){
 		UnitClient ucClone = uc;
@@ -523,19 +523,19 @@ public class ParallelProcess implements IResource{
 			ucClone.setDispatchable();
 			ucList.add(ucClone);
 		}catch(Exception x){
-//		ÓÉÓÚsocketÊÜµ½»úÆ÷×ÊÔ´ÏŞÖÆ£¬ËùÒÔ¼´Ê¹ÊÇÒÑ¾­Á¬½ÓÉÏµÄnode£¬Ò²ÈÔÈ»¿ÉÄÜ½¨Á¢ĞÂÁ¬½Ó³ö´í
+//		ç”±äºsocketå—åˆ°æœºå™¨èµ„æºé™åˆ¶ï¼Œæ‰€ä»¥å³ä½¿æ˜¯å·²ç»è¿æ¥ä¸Šçš„nodeï¼Œä¹Ÿä»ç„¶å¯èƒ½å»ºç«‹æ–°è¿æ¥å‡ºé”™
 		}
 	}
 	
 	/**
-	 * ×÷Òµ¼ÆËãÍê³Éºó£¬ÊÍ·Å¿Í»§¶Ë
-	 * @param uc ¿Í»§¶Ë
+	 * ä½œä¸šè®¡ç®—å®Œæˆåï¼Œé‡Šæ”¾å®¢æˆ·ç«¯
+	 * @param uc å®¢æˆ·ç«¯
 	 */
 	public void releaseClient(UnitClient uc) {
 		if(uc==null || ucList==null){
 			return;
 		}
-//		Èç¹û²»ÊÇ´Ó¶ÓÁĞÀïÃæ»ñÈ¡µ½µÄUC£¬ÊÍ·ÅÊ±²»¼ÓÈëµ½¶ÓÁĞ
+//		å¦‚æœä¸æ˜¯ä»é˜Ÿåˆ—é‡Œé¢è·å–åˆ°çš„UCï¼Œé‡Šæ”¾æ—¶ä¸åŠ å…¥åˆ°é˜Ÿåˆ—
 		if(!uc.isDispatchable()){
 			return;
 		}
@@ -546,14 +546,14 @@ public class ParallelProcess implements IResource{
 	}
 	
 	/**
-	 * ¿Í»§¶Ë¶ÓÁĞÀïÃæ»ñÈ¡Ò»¸ö¿ÉÒÔ¼ÆËãµÄ¶ÔÏóÊµÀı
-	 * getClient·½·¨±ØĞëÓëreleaseClient³É¶ÔÊ¹ÓÃ
-	 * @return Èç¹ûÓĞ¿ÕÏĞuc¶ÔÏó£¬Ôò·µ»ØËü£¬·ñÔò»áµÈ´ıuc±»ÊÍ·Å
+	 * å®¢æˆ·ç«¯é˜Ÿåˆ—é‡Œé¢è·å–ä¸€ä¸ªå¯ä»¥è®¡ç®—çš„å¯¹è±¡å®ä¾‹
+	 * getClientæ–¹æ³•å¿…é¡»ä¸releaseClientæˆå¯¹ä½¿ç”¨
+	 * @return å¦‚æœæœ‰ç©ºé—²ucå¯¹è±¡ï¼Œåˆ™è¿”å›å®ƒï¼Œå¦åˆ™ä¼šç­‰å¾…ucè¢«é‡Šæ”¾
 	 */
 	public UnitClient getClient(){
-//		Ã»ÓĞĞ´host²ÎÊıÊ±£¬Ö±½ÓÔÚ±¾µØ¶àÏß³ÌÖ´ĞĞ¡£Ö±½Ó·µ»Ønull¿Í»§¶Ë
+//		æ²¡æœ‰å†™hostå‚æ•°æ—¶ï¼Œç›´æ¥åœ¨æœ¬åœ°å¤šçº¿ç¨‹æ‰§è¡Œã€‚ç›´æ¥è¿”å›nullå®¢æˆ·ç«¯
 		if(ucList==null){
-			if(hostManager.getHost()==null){//Èç¹û²»ÊÇÔÚ·Ö»úÖĞÖ´ĞĞÊ±£¬¶¼ÊÇ±¾µØÏß³Ì
+			if(hostManager.getHost()==null){//å¦‚æœä¸æ˜¯åœ¨åˆ†æœºä¸­æ‰§è¡Œæ—¶ï¼Œéƒ½æ˜¯æœ¬åœ°çº¿ç¨‹
 				return null;
 			}
 		}
@@ -577,7 +577,7 @@ public class ParallelProcess implements IResource{
 		List<?> argList;
 		UnitClient uc = null;
 		Integer taskId = null;
-		private boolean isOneOption = false;//Èç¹ûÊÇ1Ñ¡Ïî£¬Ôòµ±Ç°×÷Òµ¼ÆËãÍê³Éºó£¬¾ÍÁ¢¿ÌÖĞ¶ÏÆäËûµÄ×÷Òµ
+		private boolean isOneOption = false;//å¦‚æœæ˜¯1é€‰é¡¹ï¼Œåˆ™å½“å‰ä½œä¸šè®¡ç®—å®Œæˆåï¼Œå°±ç«‹åˆ»ä¸­æ–­å…¶ä»–çš„ä½œä¸š
 		
 		transient boolean isRunning = false;
 		public Caller(List<?> argList) {
@@ -600,7 +600,7 @@ public class ParallelProcess implements IResource{
 		public void setUnitClient(UnitClient uc) throws Exception {
 			this.uc = uc;
 			if (canRunOnLocal()) {
-				// Èç¹û¿ÉÒÔ±¾µØÖ´ĞĞÊ±£¬²»ĞèÒª´Ó·Ö»ú»ñÈ¡ÈÎÎñºÅ£¬Ò²²»½¨Á¢¸ú·Ö»úµÄ³£Á¬½Ó
+				// å¦‚æœå¯ä»¥æœ¬åœ°æ‰§è¡Œæ—¶ï¼Œä¸éœ€è¦ä»åˆ†æœºè·å–ä»»åŠ¡å·ï¼Œä¹Ÿä¸å»ºç«‹è·Ÿåˆ†æœºçš„å¸¸è¿æ¥
 				taskId = UnitServer.nextId();
 				return;
 			}
@@ -633,7 +633,7 @@ public class ParallelProcess implements IResource{
 			return true;
 		}
 
-		public void breakOff() { // ÍøÂç¶Ï¿ªÊ±£¬¹Ø±ÕÏà¹ØÍ¨ĞÅÁ÷
+		public void breakOff() { // ç½‘ç»œæ–­å¼€æ—¶ï¼Œå…³é—­ç›¸å…³é€šä¿¡æµ
 			try {
 				uc.close();
 			} catch (Exception x) {
@@ -642,7 +642,7 @@ public class ParallelProcess implements IResource{
 
 		String getErrorDesc(String errMsg) {
 			MessageManager mm = EngineMessage.get();
-//			ÓÉÓÚerrMsgÔÚºóĞø¶ÑÕ»»á´ò³öÀ´£¬¸ÄÎªÔÚmessage×ÊÔ´ÖĞºöÂÔerrMsgÏûÏ¢¡£Ò²¼´ÈçÏÂ²ÎÊıerrMsg´«½øÈ¥£¬µ«ÎŞĞ§
+//			ç”±äºerrMsgåœ¨åç»­å †æ ˆä¼šæ‰“å‡ºæ¥ï¼Œæ”¹ä¸ºåœ¨messageèµ„æºä¸­å¿½ç•¥errMsgæ¶ˆæ¯ã€‚ä¹Ÿå³å¦‚ä¸‹å‚æ•°errMsgä¼ è¿›å»ï¼Œä½†æ— æ•ˆ
 			return mm.getMessage("callx.error", dfxDelegate(dfx),
 					errMsg + "\r\n", this);
 		}
@@ -651,8 +651,8 @@ public class ParallelProcess implements IResource{
 			try {
 				Request req = new Request(Request.DFX_CALCULATE);
 				req.setAttr(Request.CALCULATE_TaskId, taskId);
-				// ·Ö»úÈç¹û¶ÏÍøÊ±£¬Ëµ²»¶¨»á×èÈûÔÚÄÄ£¬ËùÒÔÒªÊ±¿Ì±£³ÖoisÒÔ¼°oos£»ÒÔ±ã¼à¿ØÏß³ÌÅĞ¶Ï³ö¶ÏÍøÊ±£¬¿ÉÒÔÇ¿ĞĞ
-				// ¹Ø±Õ¶ÁĞ´Á÷¡£
+				// åˆ†æœºå¦‚æœæ–­ç½‘æ—¶ï¼Œè¯´ä¸å®šä¼šé˜»å¡åœ¨å“ªï¼Œæ‰€ä»¥è¦æ—¶åˆ»ä¿æŒoisä»¥åŠoosï¼›ä»¥ä¾¿ç›‘æ§çº¿ç¨‹åˆ¤æ–­å‡ºæ–­ç½‘æ—¶ï¼Œå¯ä»¥å¼ºè¡Œ
+				// å…³é—­è¯»å†™æµã€‚
 				Response res = uc.send(req);
 
 				if (res.getException() != null) {
@@ -660,13 +660,13 @@ public class ParallelProcess implements IResource{
 					if (ex instanceof RetryException) {
 							throw ex;
 					}
-//					È¡Ïû²Ù×÷Ò²¿ÉÒÔÄÜÊÇ´ÓDataStoreconsole·¢À´µÄ£¬´ËÊ±ÈÔÈ»ĞèÒªÖĞ¶Ï±ğÈË¡£
+//					å–æ¶ˆæ“ä½œä¹Ÿå¯ä»¥èƒ½æ˜¯ä»DataStoreconsoleå‘æ¥çš„ï¼Œæ­¤æ—¶ä»ç„¶éœ€è¦ä¸­æ–­åˆ«äººã€‚
 					if (ex instanceof CanceledException) {
-						// ÒÑ¾­ÊÇ±»±ğÈËÈ¡ÏûµÄÈÎÎñ£¬²»ĞèÒªÔÙµ÷ÓÃinterruptAll
+						// å·²ç»æ˜¯è¢«åˆ«äººå–æ¶ˆçš„ä»»åŠ¡ï¼Œä¸éœ€è¦å†è°ƒç”¨interruptAll
 					} else {
 						throw ex;
 					}
-				} else if (res.getError() != null) { // Ò»°ãÎªÄÚ´æÒç³ö´íÎó
+				} else if (res.getError() != null) { // ä¸€èˆ¬ä¸ºå†…å­˜æº¢å‡ºé”™è¯¯
 					Error err = res.getError();
 					throw err;
 				} else {
@@ -699,7 +699,7 @@ public class ParallelProcess implements IResource{
 		}
 		
 		/**
-		 * ³ÌĞòÍø²»ÄÜ²¢·¢£¬ËùÒÔÃ¿¸öÊµÀıÒ»¸ö¿ËÂ¡
+		 * ç¨‹åºç½‘ä¸èƒ½å¹¶å‘ï¼Œæ‰€ä»¥æ¯ä¸ªå®ä¾‹ä¸€ä¸ªå…‹éš†
 		 */
 		private Object getDfxObject(){
 			Object dfxObj = dfx;
@@ -733,11 +733,11 @@ public class ParallelProcess implements IResource{
 					}
 					
 					if (ex instanceof CanceledException) {
-//						 ÒÑ¾­ÊÇ±»±ğÈËÈ¡ÏûµÄÈÎÎñ£¬²»ĞèÒªÔÙµ÷ÓÃinterruptAll
+//						 å·²ç»æ˜¯è¢«åˆ«äººå–æ¶ˆçš„ä»»åŠ¡ï¼Œä¸éœ€è¦å†è°ƒç”¨interruptAll
 					} else {
 						throw ex;
 					}
-				} else if (res.getError() != null) { // Ò»°ãÎªÄÚ´æÒç³ö´íÎó
+				} else if (res.getError() != null) { // ä¸€èˆ¬ä¸ºå†…å­˜æº¢å‡ºé”™è¯¯
 					Error err = res.getError();
 					throw err;
 				} else {
@@ -755,7 +755,7 @@ public class ParallelProcess implements IResource{
 			if (uc == null) {
 				return true;
 			}
-			// Èç¹û·Ö»úµÄhostºÍIP¸úIDEÉèÖÃµÄ»·¾³±äÁ¿ÖĞµÄ±¾µØµØÖ·ÏàÍ¬£¬ÔòÒ²ÊÇ±¾µØÏß³ÌÖ´ĞĞ 2013.10.22
+			// å¦‚æœåˆ†æœºçš„hostå’ŒIPè·ŸIDEè®¾ç½®çš„ç¯å¢ƒå˜é‡ä¸­çš„æœ¬åœ°åœ°å€ç›¸åŒï¼Œåˆ™ä¹Ÿæ˜¯æœ¬åœ°çº¿ç¨‹æ‰§è¡Œ 2013.10.22
 			return uc.isEqualToLocal();
 		}
 
@@ -767,7 +767,7 @@ public class ParallelProcess implements IResource{
 				boolean cancel = isCanceled;
 				if( !cancel ){
 					long l1 = System.currentTimeMillis();
-					Logger.debug( mm.getMessage("Task.taskBegin",this));//this+" ¿ªÊ¼¼ÆËã¡£");
+					Logger.debug( mm.getMessage("Task.taskBegin",this));//this+" å¼€å§‹è®¡ç®—ã€‚");
 					if (canRunOnLocal()) {
 						runOnLocal();
 					}else{
@@ -776,7 +776,7 @@ public class ParallelProcess implements IResource{
 					long l2 = System.currentTimeMillis();
 					DecimalFormat df = new DecimalFormat("###,###");
 					long lastTime = l2 - l1;
-					Logger.debug(mm.getMessage("Task.taskEnd",this,df.format(lastTime)));//this+" ¼ÆËãÍê³É£¬ºÄÊ±£º"+df.format(lastTime)+ " ºÁÃë¡£ ");
+					Logger.debug(mm.getMessage("Task.taskEnd",this,df.format(lastTime)));//this+" è®¡ç®—å®Œæˆï¼Œè€—æ—¶ï¼š"+df.format(lastTime)+ " æ¯«ç§’ã€‚ ");
 				}else{
 					Logger.info(mm.getMessage("ParallelProcess.cancelfor",this,TERMINATE));
 				}
@@ -806,10 +806,10 @@ public class ParallelProcess implements IResource{
 			sb.append("  ");
 			sb.append( getArgDesc()+" " );
 //			MessageManager pm = ParallelMessage.get();
-//			if(canRunOnLocal() || UnitServer.instance==null ){//¿Í»§»úÉÏ»òÕßÖ÷½ø³ÌÊ±
-//				sb.append(pm.getMessage("Task.taskid",taskId));//" ÈÎÎñºÅ=[ "+ taskId+" ]"
+//			if(canRunOnLocal() || UnitServer.instance==null ){//å®¢æˆ·æœºä¸Šæˆ–è€…ä¸»è¿›ç¨‹æ—¶
+//				sb.append(pm.getMessage("Task.taskid",taskId));//" ä»»åŠ¡å·=[ "+ taskId+" ]"
 //			}else{
-//				sb.append(pm.getMessage("Task.taskid2",taskId));//" ×ÓÈÎÎñºÅ=[ "+ taskId+" ]"
+//				sb.append(pm.getMessage("Task.taskid2",taskId));//" å­ä»»åŠ¡å·=[ "+ taskId+" ]"
 //			}
 			return sb.toString();
 		}

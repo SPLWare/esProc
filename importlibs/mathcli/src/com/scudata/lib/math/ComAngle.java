@@ -8,10 +8,10 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- *ÏàÎ»½Çangle
- *¸´ÊıÊı×ézµÄÃ¿¸öÔªËØ·µ»ØÇø¼ä[-pi£¬pi]ÖĞµÄÏàÎ»½Ç£»theta ÖĞµÄ½Ç¶È±íÊ¾Îª z = abs(z).*exp(i*theta)¡£
- *¼òµ¥Àí½â£ºÉè¸´ÊıÎªA+Bi£¬ÄÇÃ´ÏàÎ»¾ÍÊÇarctan(B/A)¡£
- *Èç¹û z = x + iy µÄÔªËØÊÇ·Ç¸ºÊµÊı£¬Ôò angle ·µ»Ø 0¡£Èç¹û z µÄÔªËØÊÇ¸ºÊµÊı£¬Ôò angle ·µ»Ø ¦Ğ¡£
+ *ç›¸ä½è§’angle
+ *å¤æ•°æ•°ç»„zçš„æ¯ä¸ªå…ƒç´ è¿”å›åŒºé—´[-piï¼Œpi]ä¸­çš„ç›¸ä½è§’ï¼›theta ä¸­çš„è§’åº¦è¡¨ç¤ºä¸º z = abs(z).*exp(i*theta)ã€‚
+ *ç®€å•ç†è§£ï¼šè®¾å¤æ•°ä¸ºA+Biï¼Œé‚£ä¹ˆç›¸ä½å°±æ˜¯arctan(B/A)ã€‚
+ *å¦‚æœ z = x + iy çš„å…ƒç´ æ˜¯éè´Ÿå®æ•°ï¼Œåˆ™ angle è¿”å› 0ã€‚å¦‚æœ z çš„å…ƒç´ æ˜¯è´Ÿå®æ•°ï¼Œåˆ™ angle è¿”å› Ï€ã€‚
  */
 
 public class ComAngle extends SequenceFunction {

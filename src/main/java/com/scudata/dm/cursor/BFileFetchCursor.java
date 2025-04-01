@@ -20,8 +20,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ¶ÁÈ¡¼¯ÎÄ¼ş(°ÑÃ¿Ìõ¼ÇÂ¼µÄ¶ÁÎª×Ö½ÚÊı×é)
- * ÓÃÓÚ¼¯ÎÄ¼şÅÅĞò
+ * è¯»å–é›†æ–‡ä»¶(æŠŠæ¯æ¡è®°å½•çš„è¯»ä¸ºå­—èŠ‚æ•°ç»„)
+ * ç”¨äºé›†æ–‡ä»¶æ’åº
  * @author LW
  *
  */
@@ -32,14 +32,14 @@ public class BFileFetchCursor extends ICursor {
 	private ObjectReader in;
 	
 	private LineImporter importer;
-	private String []selFields; // Ñ¡³ö×Ö¶ÎÃûÊı×é
-	private byte []types; // ×Ö¶ÎÀàĞÍ
-//	private String []fmts; // ×Ö¶ÎÖµ¸ñÊ½£¬ÓÃÓÚÈÕÆÚÊ±¼ä
-	private int []selIndex; // Ñ¡³ö×Ö¶ÎÔÚÔ´½á¹¹ÖĞµÄĞòºÅ
-	private String opt; // Ñ¡Ïî
-	private byte [] colSeparator; // ÁĞ·Ö¸î·û
-	private boolean isTitle; // ÎÄ¼şÊÇ·ñÓĞ±êÌâ£¬Èç¹ûÓĞ½«×÷Îª½á¹¹Ãû
-	private boolean isSingleField; // ÊÇ·ñ·µ»Øµ¥ÁĞ×é³ÉµÄĞòÁĞ
+	private String []selFields; // é€‰å‡ºå­—æ®µåæ•°ç»„
+	private byte []types; // å­—æ®µç±»å‹
+//	private String []fmts; // å­—æ®µå€¼æ ¼å¼ï¼Œç”¨äºæ—¥æœŸæ—¶é—´
+	private int []selIndex; // é€‰å‡ºå­—æ®µåœ¨æºç»“æ„ä¸­çš„åºå·
+	private String opt; // é€‰é¡¹
+	private byte [] colSeparator; // åˆ—åˆ†å‰²ç¬¦
+	private boolean isTitle; // æ–‡ä»¶æ˜¯å¦æœ‰æ ‡é¢˜ï¼Œå¦‚æœæœ‰å°†ä½œä¸ºç»“æ„å
+	private boolean isSingleField; // æ˜¯å¦è¿”å›å•åˆ—ç»„æˆçš„åºåˆ—
 	
 	private int []fields;
 	private int bytesIndex;
@@ -82,7 +82,7 @@ public class BFileFetchCursor extends ICursor {
 		}
 	}
 	
-	//ÎÄ±¾ÎÄ¼ş
+	//æ–‡æœ¬æ–‡ä»¶
 	public BFileFetchCursor(FileObject fileObject, String []fields, byte []types, String s, String opt, Context ctx) {
 		this.types = types;
 		this.opt = opt;
@@ -140,7 +140,7 @@ public class BFileFetchCursor extends ICursor {
 			importer = new LineImporter(in, charset, colSeparator, opt);
 			
 			if (isTitle) {
-				// µÚÒ»ĞĞÊÇ±êÌâ
+				// ç¬¬ä¸€è¡Œæ˜¯æ ‡é¢˜
 				Object []line = importer.readFirstLine();
 				if (line == null) {
 					return null;
@@ -261,7 +261,7 @@ public class BFileFetchCursor extends ICursor {
 			this.in.seek(importer.getCurrentPosition());
 			return importer;
 		} catch (Exception e) {
-			// importer²úÉú¹ı³ÌÖĞ¿ÉÄÜ³öÒì³£
+			// importeräº§ç”Ÿè¿‡ç¨‹ä¸­å¯èƒ½å‡ºå¼‚å¸¸
 			if (in != null && importer == null) {
 				try {
 					in.close();
@@ -362,7 +362,7 @@ public class BFileFetchCursor extends ICursor {
 					bytes = new byte[length - 1];
 					in.read(bytes);
 				} else {
-					//²»ÊÇ×îºóÒ»ĞĞÊ±ÒªÌø¹ı»»ĞĞ
+					//ä¸æ˜¯æœ€åä¸€è¡Œæ—¶è¦è·³è¿‡æ¢è¡Œ
 					bytes = new byte[length - 2];
 					in.read(bytes);
 					in.read();

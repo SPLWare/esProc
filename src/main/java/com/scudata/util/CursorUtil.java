@@ -53,7 +53,7 @@ import com.scudata.thread.ThreadPool;
 
 public final class CursorUtil {
 	/**
-	 * È¡ÓÎ±êµÄÊı¾İ½á¹¹
+	 * å–æ¸¸æ ‡çš„æ•°æ®ç»“æ„
 	 * @param cs
 	 * @return
 	 */
@@ -71,14 +71,14 @@ public final class CursorUtil {
 	}
 
 	/**
-	 * ¶ÔĞòÁĞ½øĞĞ²¢ĞĞ·Ö×é
-	 * @param src ĞòÁĞ
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¹åºåˆ—è¿›è¡Œå¹¶è¡Œåˆ†ç»„
+	 * @param src åºåˆ—
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @returns
 	 */
 	public static Table groups_m(Sequence src, Expression[] exps, String[] names,
@@ -97,12 +97,12 @@ public final class CursorUtil {
 		int singleCount = len / threadCount;
 		int keyCount = exps == null ? 0 : exps.length;
 		
-		// Éú³É·Ö×éÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆåˆ†ç»„ä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		ThreadPool pool = ThreadPool.instance();
 		GroupsJob []jobs = new GroupsJob[threadCount];
 		
 		int start = 1;
-		int end; // ²»°üÀ¨
+		int end; // ä¸åŒ…æ‹¬
 		for (int i = 0; i < threadCount; ++i) {
 			if (i + 1 == threadCount) {
 				end = len + 1;
@@ -120,7 +120,7 @@ public final class CursorUtil {
 			start = end;
 		}
 		
-		// µÈ´ı·Ö×éÈÎÎñÖ´ĞĞÍê±Ï£¬²¢°Ñ½á¹ûÌí¼Óµ½Ò»¸öĞò±í
+		// ç­‰å¾…åˆ†ç»„ä»»åŠ¡æ‰§è¡Œå®Œæ¯•ï¼Œå¹¶æŠŠç»“æœæ·»åŠ åˆ°ä¸€ä¸ªåºè¡¨
 		Table result = null;
 		IGroupsResult groupsResult = null;
 		
@@ -139,7 +139,7 @@ public final class CursorUtil {
 			return result;
 		}
 		
-		// Éú³É¶ş´Î·Ö×é·Ö×é±í´ïÊ½
+		// ç”ŸæˆäºŒæ¬¡åˆ†ç»„åˆ†ç»„è¡¨è¾¾å¼
 		Expression []keyExps = null;
 		if (keyCount > 0) {
 			keyExps = new Expression[keyCount];
@@ -148,7 +148,7 @@ public final class CursorUtil {
 			}
 		}
 
-		// Éú³É¶ş´Î·Ö×é»ã×Ü±í´ïÊ½£¬avg¿ÉÄÜ±»·Ö³Ésum¡¢countÁ½ÁĞ½øĞĞ¼ÆËã
+		// ç”ŸæˆäºŒæ¬¡åˆ†ç»„æ±‡æ€»è¡¨è¾¾å¼ï¼Œavgå¯èƒ½è¢«åˆ†æˆsumã€countä¸¤åˆ—è¿›è¡Œè®¡ç®—
 		Expression []valExps = groupsResult.getRegatherExpressions();
 		DataStruct tempDs = groupsResult.getRegatherDataStruct();
 		int tempFieldCount = tempDs.getFieldCount();
@@ -171,7 +171,7 @@ public final class CursorUtil {
 			}
 		}
 		
-		// ½øĞĞ¶ş´Î·Ö×é
+		// è¿›è¡ŒäºŒæ¬¡åˆ†ç»„
 		result = result.groups(keyExps, names, valExps, calcNames, opt, ctx);
 		Expression []newExps = groupsResult.getResultExpressions();
 		if (newExps != null) {
@@ -181,15 +181,15 @@ public final class CursorUtil {
 		}
 	}
 	/**
-	 * ¶ÔĞòÁĞ½øĞĞ²¢ĞĞ·Ö×é
-	 * @param src ĞòÁĞ
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param hashCapacity ¹şÏ£±íÈİÁ¿
+	 * å¯¹åºåˆ—è¿›è¡Œå¹¶è¡Œåˆ†ç»„
+	 * @param src åºåˆ—
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param hashCapacity å“ˆå¸Œè¡¨å®¹é‡
 	 * @returns
 	 */
 	public static Table groups_z(Sequence src, Expression[] exps, String[] names, Expression[] calcExps,
@@ -198,7 +198,7 @@ public final class CursorUtil {
 		HashUtil hashUtil = new HashUtil(capacity);
 		capacity = hashUtil.getCapacity();
 		
-		// Éú³É·Ö×éÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆåˆ†ç»„ä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		int parallelNum = Env.getParallelNum();
 		ThreadPool pool = ThreadPool.newInstance(parallelNum);
 		GroupsJob2 []jobs = new GroupsJob2[parallelNum];
@@ -218,7 +218,7 @@ public final class CursorUtil {
 				pool.submit(jobs[i]);
 			}
 			
-			// µÈ´ı·Ö×éÈÎÎñÖ´ĞĞÍê±Ï£¬²¢°Ñ½á¹ûÌí¼Óµ½Ò»¸öĞò±í
+			// ç­‰å¾…åˆ†ç»„ä»»åŠ¡æ‰§è¡Œå®Œæ¯•ï¼Œå¹¶æŠŠç»“æœæ·»åŠ åˆ°ä¸€ä¸ªåºè¡¨
 			for (int i = 0; i < parallelNum; ++i) {
 				jobs[i].join();
 				
@@ -247,16 +247,16 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * Éè¶¨×î´ó·Ö×éÊı£¬µ±·Ö×éÊı´ïµ½Õâ¸öÖµÔòÍ£Ö¹·Ö×é
-	 * @param cursor ÓÎ±ê
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
+	 * è®¾å®šæœ€å¤§åˆ†ç»„æ•°ï¼Œå½“åˆ†ç»„æ•°è¾¾åˆ°è¿™ä¸ªå€¼åˆ™åœæ­¢åˆ†ç»„
+	 * @param cursor æ¸¸æ ‡
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
 	 * @param maxGroupCount
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ·Ö×é½á¹û
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åˆ†ç»„ç»“æœ
 	 */
 	public static Table fuzzyGroups(ICursor cursor, Expression[] exps, String[] names, 
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int maxGroupCount) {
@@ -363,12 +363,12 @@ public final class CursorUtil {
 	}
 
 	/**
-	 * ¶ÔĞòÁĞ½øĞĞ¹şÏ£·Ö×é
-	 * @param src ĞòÁĞ
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ·Ö×é½á¹û
+	 * å¯¹åºåˆ—è¿›è¡Œå“ˆå¸Œåˆ†ç»„
+	 * @param src åºåˆ—
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åˆ†ç»„ç»“æœ
 	 */
 	public static Sequence hashGroup(Sequence src, Expression[] exps, String opt, Context ctx) {
 		if (src == null || src.length() == 0) {
@@ -527,11 +527,11 @@ public final class CursorUtil {
 	}
 
 	/**
-	 * ¶ÔĞòÁĞ½øĞĞ¹şÏ£·Ö×é
-	 * @param src ĞòÁĞ
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ·Ö×é½á¹û
+	 * å¯¹åºåˆ—è¿›è¡Œå“ˆå¸Œåˆ†ç»„
+	 * @param src åºåˆ—
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åˆ†ç»„ç»“æœ
 	 */
 	public static Sequence hashGroup(Sequence src, String opt) {
 		if (src == null || src.length() == 0) return new Sequence(0);
@@ -599,11 +599,11 @@ public final class CursorUtil {
 	}
 
 	/**
-	 * ¶ÔĞòÁĞ½øĞĞ¹şÏ£È¥ÖØ
-	 * @param src ĞòÁĞ
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ·Ö×é½á¹û
+	 * å¯¹åºåˆ—è¿›è¡Œå“ˆå¸Œå»é‡
+	 * @param src åºåˆ—
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åˆ†ç»„ç»“æœ
 	 */
 	public static Sequence hashId(Sequence src, String opt) {
 		int len = src.length();
@@ -670,15 +670,15 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ¶ÔÓĞĞòÁĞ±íÊı×é×ö¹é²¢Á¬½Ó
-	 * @param groups ÁĞ±íÊı×é
-	 * @param keyCount ¹ØÁª×Ö¶ÎÊı
-	 * @param type Á¬½ÓÀàĞÍ£¬0£ºjoin£¬1£ºleft join£¬2£ºfull join
+	 * å¯¹æœ‰åºåˆ—è¡¨æ•°ç»„åšå½’å¹¶è¿æ¥
+	 * @param groups åˆ—è¡¨æ•°ç»„
+	 * @param keyCount å…³è”å­—æ®µæ•°
+	 * @param type è¿æ¥ç±»å‹ï¼Œ0ï¼šjoinï¼Œ1ï¼šleft joinï¼Œ2ï¼šfull join
 	 * @param out
 	 */
 	public static void join_m(ListBase1 []groups, int fcount, int type, Table out) {
 		int srcCount = groups.length;
-		int []ranks = new int[srcCount]; // µ±Ç°ÔªËØµÄÅÅÃû£¬0¡¢1¡¢-1
+		int []ranks = new int[srcCount]; // å½“å‰å…ƒç´ çš„æ’åï¼Œ0ã€1ã€-1
 		int []curIndex = new int[srcCount];
 		for (int i = 0; i < srcCount; ++i) {
 			curIndex[i] = 1;
@@ -686,8 +686,8 @@ public final class CursorUtil {
 
 		Next:
 		while (true) {
-			boolean has = false; // ÊÇ·ñÓĞµÄ±í»¹Ã»±éÀúÍê
-			boolean equals = true; // ÊÇ·ñ¶¼ÓĞÄÜ¹ØÁªÉÏµÄ¼ÇÂ¼
+			boolean has = false; // æ˜¯å¦æœ‰çš„è¡¨è¿˜æ²¡éå†å®Œ
+			boolean equals = true; // æ˜¯å¦éƒ½æœ‰èƒ½å…³è”ä¸Šçš„è®°å½•
 			for (int i = 0; i < srcCount; ++i) {
 				ListBase1 group = groups[i];
 				if (group != null && group.size() >= curIndex[i]) {
@@ -695,13 +695,13 @@ public final class CursorUtil {
 					ranks[i] = 0;
 					Object []curValues = (Object[])group.get(curIndex[i]);
 					
-					// ÓëÇ°ÃæµÄÁ¬½Ó×Ö¶ÎµÄÖµ×îĞ¡µÄ±í½øĞĞ±È½Ï£¬
+					// ä¸å‰é¢çš„è¿æ¥å­—æ®µçš„å€¼æœ€å°çš„è¡¨è¿›è¡Œæ¯”è¾ƒï¼Œ
 					for (int j = 0; j < i; ++j) {
 						if (ranks[j] == 0) {
 							Object [] prevValues = (Object[])groups[j].get(curIndex[j]);
 							int cmp = Variant.compareArrays(curValues, prevValues, fcount);
 							
-							// Èç¹ûºóÃæ·¢ÏÖ¸üĞ¡µÄÖµÔòĞŞ¸ÄÅÅÃû
+							// å¦‚æœåé¢å‘ç°æ›´å°çš„å€¼åˆ™ä¿®æ”¹æ’å
 							if (cmp < 0) {
 								equals = false;
 								ranks[j] = 1;
@@ -719,7 +719,7 @@ public final class CursorUtil {
 						}
 					}
 				} else {
-					// µ±Ç°±íÊı¾İÒÑ¾­±éÀúÍê
+					// å½“å‰è¡¨æ•°æ®å·²ç»éå†å®Œ
 					if (type == 0 || (type == 1 && i == 0)) { // join
 						break Next;
 					}
@@ -732,7 +732,7 @@ public final class CursorUtil {
 			if (!has) {
 				break;
 			} else if ((!equals && type == 0) || (ranks[0] != 0 && type == 1)) {
-				// Èç¹û´æÔÚ¹ØÁª²»ÉÏµÄ±í£¬²¢ÇÒÊÇÄÚÁ¬½Ó»òÕßÊÇ×óÁ¬½Ó¶øµÚÒ»¸ö±íµÄÖµÓÖ²»ÊÇ×îĞ¡£¬ÔòÌø¹ıÅÅÃûÎª0µÄ¼ÇÂ¼
+				// å¦‚æœå­˜åœ¨å…³è”ä¸ä¸Šçš„è¡¨ï¼Œå¹¶ä¸”æ˜¯å†…è¿æ¥æˆ–è€…æ˜¯å·¦è¿æ¥è€Œç¬¬ä¸€ä¸ªè¡¨çš„å€¼åˆä¸æ˜¯æœ€å°ï¼Œåˆ™è·³è¿‡æ’åä¸º0çš„è®°å½•
 				for (int i = 0; i < srcCount; ++i) {
 					if (ranks[i] == 0) {
 						ListBase1 group = groups[i];
@@ -750,7 +750,7 @@ public final class CursorUtil {
 					}
 				}
 			} else {
-				// Éú³É¹ØÁª¼ÇÂ¼
+				// ç”Ÿæˆå…³è”è®°å½•
 				int start = -1;
 				for (int i = 0; i < srcCount; ++i) {
 					if (ranks[i] == 0) {
@@ -804,13 +804,13 @@ public final class CursorUtil {
 	}
 
 	/**
-	 * Ô´Êı¾İ°´¹ØÁª×Ö¶ÎÓĞĞò£¬×ö¹é²¢Á¬½Ó
-	 * @param srcs ĞòÁĞÊı×é
-	 * @param exps ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param type Á¬½ÓÀàĞÍ£¬0£ºjoin£¬1£ºleft join£¬2£ºfull join
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
-	 * @return Table ¹ØÁª½á¹û
+	 * æºæ•°æ®æŒ‰å…³è”å­—æ®µæœ‰åºï¼Œåšå½’å¹¶è¿æ¥
+	 * @param srcs åºåˆ—æ•°ç»„
+	 * @param exps å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param type è¿æ¥ç±»å‹ï¼Œ0ï¼šjoinï¼Œ1ï¼šleft joinï¼Œ2ï¼šfull join
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return Table å…³è”ç»“æœ
 	 */
 	public static Table mergeJoin(Sequence[] srcs, Expression[][] exps,
 								  String[] names, int type, Context ctx) {
@@ -831,7 +831,7 @@ public final class CursorUtil {
 			stack.push(current);
 
 			try {
-				// Ëã³ö¹ØÁª×Ö¶ÎÖµ£¬Ô´¼ÇÂ¼·ÅÔÚÊı×é×îºóµÄÎ»ÖÃ
+				// ç®—å‡ºå…³è”å­—æ®µå€¼ï¼Œæºè®°å½•æ”¾åœ¨æ•°ç»„æœ€åçš„ä½ç½®
 				for (int i = 1; i <= len; ++i) {
 					Object []keys = new Object[count];
 					keys[keyCount] = src.getMem(i);
@@ -857,13 +857,13 @@ public final class CursorUtil {
 	}
 
 	/**
-	 * ¼ÆËã¹şÏ£Öµ£¬ÀûÓÃ¹şÏ£Öµ½øĞĞjoin
-	 * @param srcs ĞòÁĞÊı×é
-	 * @param exps ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param type Á¬½ÓÀàĞÍ£¬0£ºjoin£¬1£ºleft join£¬2£ºfull join
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
-	 * @return Table ¹ØÁª½á¹û
+	 * è®¡ç®—å“ˆå¸Œå€¼ï¼Œåˆ©ç”¨å“ˆå¸Œå€¼è¿›è¡Œjoin
+	 * @param srcs åºåˆ—æ•°ç»„
+	 * @param exps å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param type è¿æ¥ç±»å‹ï¼Œ0ï¼šjoinï¼Œ1ï¼šleft joinï¼Œ2ï¼šfull join
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return Table å…³è”ç»“æœ
 	 */
 	public static Table hashJoin(Sequence[] srcs, Expression[][] exps,
 								 String[] names, int type, Context ctx) {
@@ -876,7 +876,7 @@ public final class CursorUtil {
 		ListBase1 [][]hashGroups = new ListBase1[hashUtil.getCapacity()][];
 		ComputeStack stack = ctx.getComputeStack();
 
-		// ¶ÔÃ¿¸öĞòÁĞ°´ÕÕ¹ØÁª×Ö¶Î½øĞĞ¹şÏ£·Ö×é
+		// å¯¹æ¯ä¸ªåºåˆ—æŒ‰ç…§å…³è”å­—æ®µè¿›è¡Œå“ˆå¸Œåˆ†ç»„
 		for (int s = 0; s < srcCount; ++s) {
 			Sequence src = srcs[s];
 			Expression []srcExps = exps[s];
@@ -908,7 +908,7 @@ public final class CursorUtil {
 						groups[s] = new ListBase1(INIT_GROUPSIZE);
 						groups[s].add(keys);
 					} else {
-						// ¹şÏ£ÖµÏàÍ¬µÄÔªËØ°´ÕÕ¹ØÁª×Ö¶ÎÓĞĞò±£´æ
+						// å“ˆå¸Œå€¼ç›¸åŒçš„å…ƒç´ æŒ‰ç…§å…³è”å­—æ®µæœ‰åºä¿å­˜
 						int index = HashUtil.bsearch_a(groups[s], keys, keyCount);
 						if (index < 1) {
 							groups[s].add(-index, keys);
@@ -924,7 +924,7 @@ public final class CursorUtil {
 
 		Table out = new Table(names);
 		for (int i = 0, len = hashGroups.length; i < len; ++i) {
-			// ¶ÔÃ¿¸ö¹şÏ£µã×öÓĞĞò¹é²¢Á¬½Ó
+			// å¯¹æ¯ä¸ªå“ˆå¸Œç‚¹åšæœ‰åºå½’å¹¶è¿æ¥
 			if (hashGroups[i] != null) {
 				join_m(hashGroups[i], keyCount, type, out);
 				hashGroups[i] = null;
@@ -935,13 +935,13 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ¹ØÁª×Ö¶ÎÊı²»ÏàÍ¬µÄÁ¬½Ó
-	 * @param srcs ĞòÁĞÊı×é
-	 * @param exps ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param type Á¬½ÓÀàĞÍ£¬0£ºjoin£¬1£ºleft join£¬2£ºfull join
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
-	 * @return Table ¹ØÁª½á¹û
+	 * å…³è”å­—æ®µæ•°ä¸ç›¸åŒçš„è¿æ¥
+	 * @param srcs åºåˆ—æ•°ç»„
+	 * @param exps å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param type è¿æ¥ç±»å‹ï¼Œ0ï¼šjoinï¼Œ1ï¼šleft joinï¼Œ2ï¼šfull join
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return Table å…³è”ç»“æœ
 	 */
 	public static Table mixJoin(Sequence[] srcs, Expression[][] exps,
 			 String[] names, int type, Context ctx) {
@@ -956,7 +956,7 @@ public final class CursorUtil {
 			}
 		}
 		
-		// ÕÒ³öÇ°Ãæ¹ØÁª×Ö¶ÎÊıÏàÍ¬µÄ±í
+		// æ‰¾å‡ºå‰é¢å…³è”å­—æ®µæ•°ç›¸åŒçš„è¡¨
 		int next = 2;
 		for (; next < tcount; ++next) {
 			Expression []tmp = exps[next];
@@ -986,7 +986,7 @@ public final class CursorUtil {
 			}
 		}
 		
-		// ¶Ô¹ØÁª×Ö¶ÎÏàÍ¬µÄ±í×ö¹şÏ£Á¬½Ó
+		// å¯¹å…³è”å­—æ®µç›¸åŒçš„è¡¨åšå“ˆå¸Œè¿æ¥
 		Table prevResult = hashJoin(tmpSeqs, tmpExps, tmpNames, type, ctx);
 		
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
@@ -994,7 +994,7 @@ public final class CursorUtil {
 		ComputeStack stack = ctx.getComputeStack();
 		
 		for (; next < tcount; ++next) {
-			// ÕÒ³öµ±Ç°±íÓëµÚÒ»¸ö±íµÄ¹ØÁª×Ö¶Î
+			// æ‰¾å‡ºå½“å‰è¡¨ä¸ç¬¬ä¸€ä¸ªè¡¨çš„å…³è”å­—æ®µ
 			prevExps = exps[next];
 			prevLen = prevExps.length;
 			seqList.clear();;
@@ -1020,7 +1020,7 @@ public final class CursorUtil {
 			stack.push(current);
 			
 			try {
-				// ¶ÔµÚÒ»¸ö±í×ö¹şÏ£·Ö×é
+				// å¯¹ç¬¬ä¸€ä¸ªè¡¨åšå“ˆå¸Œåˆ†ç»„
 				for (int i = 1, len = value.length(); i <= len; ++i) {
 					Object []keys = new Object[count];
 					keys[keyCount] = prevResult.getMem(i);
@@ -1057,7 +1057,7 @@ public final class CursorUtil {
 			stack.push(current);
 			
 			try {
-				// ¶Ôµ±Ç°±í×ö¹şÏ£·Ö×é
+				// å¯¹å½“å‰è¡¨åšå“ˆå¸Œåˆ†ç»„
 				for (int i = 1, len = value.length(); i <= len; ++i) {
 					Object []keys = new Object[count];
 					keys[keyCount] = value.getMem(i);
@@ -1089,7 +1089,7 @@ public final class CursorUtil {
 				stack.pop();
 			}
 			
-			// ¶ÔÃ¿¸ö¹şÏ£µã×öÓĞĞò¹é²¢Á¬½Ó
+			// å¯¹æ¯ä¸ªå“ˆå¸Œç‚¹åšæœ‰åºå½’å¹¶è¿æ¥
 			Table out = new Table(new String[2]);
 			for (int i = 0, len = hashGroups.length; i < len; ++i) {
 				if (hashGroups[i] != null) {
@@ -1098,7 +1098,7 @@ public final class CursorUtil {
 				}
 			}
 			
-			// Õ¹¿ª¹ØÁª½á¹û
+			// å±•å¼€å…³è”ç»“æœ
 			String []curNames = new String[next + 1];
 			System.arraycopy(names, 0, curNames, 0, next + 1);
 			int len = out.length();
@@ -1115,12 +1115,12 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ×ö¶ÔµÚÒ»¸öÅÅÁĞ×öÁ¬½Ó¹ıÂË
-	 * @param srcs ÅÅÁĞÊı×é
-	 * @param exps ¹ØÁª±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî£¬m£ºÓĞĞò£¬²ÉÓÃ¹é²¢·¨×öÁ¬½Ó£¬i£º½ö±£ÁôÅÅÁĞ1ÖĞÄÜ¹ØÁªÉÏµÄ¼ÇÂ¼£¬d£º½ö±£ÁôÅÅÁĞ1ÖĞ¹ØÁª²»ÉÏµÄ¼ÇÂ¼
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Sequence ÅÅÁĞ1¹ıÂËºóµÄ¼ÇÂ¼×é³ÉµÄĞòÁĞ
+	 * åšå¯¹ç¬¬ä¸€ä¸ªæ’åˆ—åšè¿æ¥è¿‡æ»¤
+	 * @param srcs æ’åˆ—æ•°ç»„
+	 * @param exps å…³è”è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œmï¼šæœ‰åºï¼Œé‡‡ç”¨å½’å¹¶æ³•åšè¿æ¥ï¼Œiï¼šä»…ä¿ç•™æ’åˆ—1ä¸­èƒ½å…³è”ä¸Šçš„è®°å½•ï¼Œdï¼šä»…ä¿ç•™æ’åˆ—1ä¸­å…³è”ä¸ä¸Šçš„è®°å½•
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return Sequence æ’åˆ—1è¿‡æ»¤åçš„è®°å½•ç»„æˆçš„åºåˆ—
 	 */
 	public static Sequence filterJoin(Sequence[] srcs, Expression[][] exps, String opt, Context ctx) {
 		if (opt.indexOf('m') != -1) {
@@ -1143,7 +1143,7 @@ public final class CursorUtil {
 				return new Sequence();
 			}
 			
-			// ÕÒ³ö¹ØÁª±í´ïÊ½£¬ºöÂÔnull
+			// æ‰¾å‡ºå…³è”è¡¨è¾¾å¼ï¼Œå¿½ç•¥null
 			ArrayList<Expression> expList0 = new ArrayList<Expression>();
 			ArrayList<Expression> expList = new ArrayList<Expression>();
 			Expression []curExps = exps[s];
@@ -1161,7 +1161,7 @@ public final class CursorUtil {
 			expList.toArray(curExps);
 			Sequence result = new Sequence(seq.length());
 			
-			// ¸ù¾İµ±Ç°Ñ­»·µÄ±í¼ÆËã±í´ïÊ½µÄÖµ²¢Éú³É¹şÏ£¼¯ºÏ
+			// æ ¹æ®å½“å‰å¾ªç¯çš„è¡¨è®¡ç®—è¡¨è¾¾å¼çš„å€¼å¹¶ç”Ÿæˆå“ˆå¸Œé›†åˆ
 			Sequence curSeq = srcs[s];
 			Current current = new Current(curSeq);
 			stack.push(current);
@@ -1183,7 +1183,7 @@ public final class CursorUtil {
 				stack.pop();
 			}
 			
-			// Ñ­»·µÚÒ»¸öĞòÁĞµ½Ç°ÃæµÄ¹şÏ£¼¯ºÏÕÒÆ¥Åä
+			// å¾ªç¯ç¬¬ä¸€ä¸ªåºåˆ—åˆ°å‰é¢çš„å“ˆå¸Œé›†åˆæ‰¾åŒ¹é…
 			len = seq.length();
 			Object []keys = new Object[keyCount];
 			current = new Current(seq);
@@ -1224,13 +1224,13 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ÓÎ±ê¶Ô¹ØÁª×Ö¶ÎÓĞĞò£¬×öÓĞĞò¹é²¢Á¬½Ó
-	 * @param cursors ÓÎ±êÊı×é
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param exps ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ
-	 * @return ICursor ½á¹û¼¯ÓÎ±ê
+	 * æ¸¸æ ‡å¯¹å…³è”å­—æ®µæœ‰åºï¼Œåšæœ‰åºå½’å¹¶è¿æ¥
+	 * @param cursors æ¸¸æ ‡æ•°ç»„
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param exps å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return ICursor ç»“æœé›†æ¸¸æ ‡
 	 */
 	public static ICursor joinx(ICursor []cursors, String []names, Expression [][]exps, String opt, Context ctx) {
 		boolean isPJoin = false, isIsect = false, isDiff = false, isXJoin = false;
@@ -1247,8 +1247,8 @@ public final class CursorUtil {
 		}
 		
 		int count = cursors.length;
-		boolean isCluster = true; // ÊÇ·ñÓĞ¼¯ÈºÓÎ±ê
-		boolean isMultipath = false; // ÊÇ·ñÊÇ¶àÂ·ÓÎ±êÁ¬½Ó
+		boolean isCluster = true; // æ˜¯å¦æœ‰é›†ç¾¤æ¸¸æ ‡
+		boolean isMultipath = false; // æ˜¯å¦æ˜¯å¤šè·¯æ¸¸æ ‡è¿æ¥
 		int pathCount = 1;
 		
 		for (int i = 0; i < count; ++i) {
@@ -1273,7 +1273,7 @@ public final class CursorUtil {
 			System.arraycopy(cursors, 0, tmp, 0, count);
 			return ClusterCursor.joinx(tmp, exps, names, opt, ctx);
 		} else if (isMultipath && pathCount > 1) {
-			// ¶àÂ·ÓÎ±ê»á×öÍ¬²½·Ö¶Î£¬Ö»ÒªÃ¿¸ö±íµÄÏàÓ¦Â·×öÁ¬½Ó¼´¿É
+			// å¤šè·¯æ¸¸æ ‡ä¼šåšåŒæ­¥åˆ†æ®µï¼Œåªè¦æ¯ä¸ªè¡¨çš„ç›¸åº”è·¯åšè¿æ¥å³å¯
 			ICursor []result = new ICursor[pathCount];
 			ICursor [][]multiCursors = new ICursor[count][];
 			for (int i = 0; i < count; ++i) {
@@ -1321,7 +1321,7 @@ public final class CursorUtil {
 				}
 			}
 			
-			// Ã¿Ò»Â·µÄ¹ØÁª½á¹ûÔÙ×é³É¶àÂ·ÓÎ±ê
+			// æ¯ä¸€è·¯çš„å…³è”ç»“æœå†ç»„æˆå¤šè·¯æ¸¸æ ‡
 			return new MultipathCursors(result, ctx);
 		} else if (isPJoin) {
 			return new PJoinCursor(cursors, names);
@@ -1329,7 +1329,7 @@ public final class CursorUtil {
 			return new MergeFilterCursor(cursors, exps, opt, ctx);
 		} else {
 			if (count == 2 && exps[0].length == 1) {
-				// ¶Ô¹ØÁª×Ö¶Î¸öÊıÎª1µÄÁ½±íÁ¬½Ó×öÓÅ»¯
+				// å¯¹å…³è”å­—æ®µä¸ªæ•°ä¸º1çš„ä¸¤è¡¨è¿æ¥åšä¼˜åŒ–
 				if (isXJoin) {
 					return new JoinmCursor(cursors[0], exps[0][0], cursors[1], exps[1][0], names, opt, ctx);
 				} else {
@@ -1351,7 +1351,7 @@ public final class CursorUtil {
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current(seq);
 		
-		//±éÀú´¦ÀíÃ¿¸öf/T
+		//éå†å¤„ç†æ¯ä¸ªf/T
 		int len = seq.length();
 		int fileCount =  fileTable.length;
 		Sequence []seqs = new Sequence[fileCount];
@@ -1385,7 +1385,7 @@ public final class CursorUtil {
 					reader = new BFileReader((FileObject) fileOrTable);
 				}
 				
-				//»ñµÃÒªÁ¬½ÓµÄ±í´ïÊ½Öµ
+				//è·å¾—è¦è¿æ¥çš„è¡¨è¾¾å¼å€¼
 				stack.push(current);
 				try {
 					for (int j = 1; j <= len; ++j) {
@@ -1404,7 +1404,7 @@ public final class CursorUtil {
 					stack.pop();
 				}
 				
-				//´Óf/TÀï»ñµÃ¶ÔÓ¦Öµ
+				//ä»f/Té‡Œè·å¾—å¯¹åº”å€¼
 				Sequence valueSeq = null;
 				if (hasC && i == 0) {}
 				else pkSeq.sort("o");
@@ -1451,13 +1451,13 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ¶ÔÅÅÁĞ×ö¹şÏ£¹ØÁª
-	 * @param data Ğò±í
-	 * @param fkName Íâ¼ü×Ö¶ÎÃû
-	 * @param code Î¬±í
-	 * @param exp Î¬±íÖ÷¼ü±í´ïÊ½
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¹æ’åˆ—åšå“ˆå¸Œå…³è”
+	 * @param data åºè¡¨
+	 * @param fkName å¤–é”®å­—æ®µå
+	 * @param code ç»´è¡¨
+	 * @param exp ç»´è¡¨ä¸»é”®è¡¨è¾¾å¼
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public static void hashSwitch(Sequence data, String fkName, Sequence code,
 								  Expression exp, String opt, Context ctx) {
@@ -1468,19 +1468,19 @@ public final class CursorUtil {
 		boolean isIsect = false, isDiff = false, isLeft = false;
 		if (opt != null) {
 			if (opt.indexOf('i') != -1) {
-				// ÄÚÁ¬½Ó
+				// å†…è¿æ¥
 				isIsect = true;
 			} else if (opt.indexOf('d') != -1) {
-				// ×ö²î
+				// åšå·®
 				isDiff = true;
 			} else if (opt.indexOf('1') != -1) {
-				// ×óÁ¬½Ó£¬ÕÒ²»µ½F¶ÔÓ¦ÖµÊ±£¬°´²ÎÊıÊı¾İ½á¹¹Éú³É¿ÕÖµ£¨³ıÖ÷¼üÍâ£©¼ÇÂ¼¶ÔÓ¦
+				// å·¦è¿æ¥ï¼Œæ‰¾ä¸åˆ°Få¯¹åº”å€¼æ—¶ï¼ŒæŒ‰å‚æ•°æ•°æ®ç»“æ„ç”Ÿæˆç©ºå€¼ï¼ˆé™¤ä¸»é”®å¤–ï¼‰è®°å½•å¯¹åº”
 				isLeft = true;
 			}
 		}
 		
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
-		BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
+		BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 		if (exp == null || !(exp.getHome() instanceof CurrentSeq)) { // #
 			IndexTable indexTable = code.getIndexTable(exp, ctx);
@@ -1503,7 +1503,7 @@ public final class CursorUtil {
 							prevRecord = cur;							
 						}
 						
-						// ÕÒ²»µ½Ê±±£ÁôÔ´Öµ
+						// æ‰¾ä¸åˆ°æ—¶ä¿ç•™æºå€¼
 						Object key = cur.getNormalFieldValue(col);
 						if (indexTable.find(key) != null) {
 							cur.setNormalFieldValue(col, null);
@@ -1589,7 +1589,7 @@ public final class CursorUtil {
 				}
 			}
 		} else {
-			// Èç¹ûÎ¬±íµÄÖ÷¼ü±í´ïÊ½ÊÇ#£¬ÄÇÃ´Íâ¼üµÄÖµÊµ¼ÊÉÏ¶ÔÓ¦Î¬±í¼ÇÂ¼µÄĞòºÅ£¬Ö±½ÓÓÃĞòºÅÈ¡³öÎ¬±íµÄ¼ÇÂ¼
+			// å¦‚æœç»´è¡¨çš„ä¸»é”®è¡¨è¾¾å¼æ˜¯#ï¼Œé‚£ä¹ˆå¤–é”®çš„å€¼å®é™…ä¸Šå¯¹åº”ç»´è¡¨è®°å½•çš„åºå·ï¼Œç›´æ¥ç”¨åºå·å–å‡ºç»´è¡¨çš„è®°å½•
 			int codeLen = code.length();
 			for (int i = 1, len = data.length(); i <= len; ++i) {
 				Object obj = data.getMem(i);
@@ -1609,7 +1609,7 @@ public final class CursorUtil {
 					if (val instanceof Number) {
 						int seq = ((Number)val).intValue();
 						if (isDiff) {
-							// ÕÒ²»µ½Ê±±£ÁôÔ´Öµ
+							// æ‰¾ä¸åˆ°æ—¶ä¿ç•™æºå€¼
 							if (seq > 0 && seq <= codeLen) {
 								cur.setNormalFieldValue(col, null);
 							}
@@ -1634,9 +1634,9 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ÔÚÄÚ´æ³ä×ãµÄÇé¿ö¾¡¿ÉÄÜ´óµÄÈ¡Êı£¬ÓÃÓÚÍâ´æÅÅĞòÊ±È·¶¨Ã¿´ÎÈ¡¶àÉÙ¼ÇÂ¼
-	 * @param cursor ÓÎ±ê
-	 * @return ÅÅÁĞ
+	 * åœ¨å†…å­˜å……è¶³çš„æƒ…å†µå°½å¯èƒ½å¤§çš„å–æ•°ï¼Œç”¨äºå¤–å­˜æ’åºæ—¶ç¡®å®šæ¯æ¬¡å–å¤šå°‘è®°å½•
+	 * @param cursor æ¸¸æ ‡
+	 * @return æ’åˆ—
 	 */
 	public static Sequence tryFetch(ICursor cursor) {
 		Runtime rt = Runtime.getRuntime();
@@ -1657,7 +1657,7 @@ public final class CursorUtil {
 		}
 		
 		obj = null;
-		long size = seq.length() * fcount * 48; // ¹ÀËãµ±Ç°Êı¾İÕ¼ÓÃµÄÄÚ´æ´óĞ¡
+		long size = seq.length() * fcount * 48; // ä¼°ç®—å½“å‰æ•°æ®å ç”¨çš„å†…å­˜å¤§å°
 		if (size < usedMemory) {
 			size = usedMemory;
 		}
@@ -1675,13 +1675,13 @@ public final class CursorUtil {
 	}
 
 	/**
-	 * ¶ÔÓÎ±ê½øĞĞÍâ´æÅÅĞò
-	 * @param cursor ÓÎ±ê
-	 * @param exps ÅÅĞò×Ö¶Î±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity ÄÚ´æÖĞÄÜ¹»±£´æµÄ¼ÇÂ¼Êı£¬Èç¹ûÃ»ÓĞÉèÖÃÔò×Ô¶¯¹ÀËãÒ»¸ö
-	 * @param opt Ñ¡Ïî 0£ºnullÅÅ×îºó
-	 * @return ÅÅºÃĞòµÄÓÎ±ê
+	 * å¯¹æ¸¸æ ‡è¿›è¡Œå¤–å­˜æ’åº
+	 * @param cursor æ¸¸æ ‡
+	 * @param exps æ’åºå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity å†…å­˜ä¸­èƒ½å¤Ÿä¿å­˜çš„è®°å½•æ•°ï¼Œå¦‚æœæ²¡æœ‰è®¾ç½®åˆ™è‡ªåŠ¨ä¼°ç®—ä¸€ä¸ª
+	 * @param opt é€‰é¡¹ 0ï¼šnullæ’æœ€å
+	 * @return æ’å¥½åºçš„æ¸¸æ ‡
 	 */
 	public static ICursor sortx(ICursor cursor, Expression[] exps, Context ctx, int capacity, String opt) {
 		int fcount = exps.length;
@@ -1689,8 +1689,8 @@ public final class CursorUtil {
 		
 		Sequence table;
 		if (capacity <= 1) {
-			// ¾¡¿ÉÄÜµÄ¶àÈ¡Êı¾İ£¬ÕâÑù¿ÉÒÔ¼õÉÙÁÙÊ±ÎÄ¼şµÄÊıÁ¿
-			// Ö®ºóÃ¿´ÎÈ¡ÊıµÄÊıÁ¿¶¼ÓÃÕâ¸öÊı
+			// å°½å¯èƒ½çš„å¤šå–æ•°æ®ï¼Œè¿™æ ·å¯ä»¥å‡å°‘ä¸´æ—¶æ–‡ä»¶çš„æ•°é‡
+			// ä¹‹åæ¯æ¬¡å–æ•°çš„æ•°é‡éƒ½ç”¨è¿™ä¸ªæ•°
 			table = tryFetch(cursor);
 			if (table != null) {
 				capacity = table.length();
@@ -1704,8 +1704,8 @@ public final class CursorUtil {
 		Expression[] tempExps = exps.clone();
 		
 		while (table != null && table.length() > 0) {
-			// ×Ö¶Î±í´ïÊ½×öÔËËãÊ±ÎªÁËĞÔÄÜÓÅ»¯»á±£Áô¼ÇÂ¼µÄÖ¸Õë
-			// ÎªÁËÔÚÏÂ´ÎÈ¡ÊıÇ°ÄÜ¹»ÊÍ·ÅÇ°Ò»´ÎµÄÊı¾İ£¬ÏÈ¸´ÖÆÏÂ±í´ïÊ½£¬ÅÅºÃĞòºóÔÙÊÍ·Å±í´ïÊ½
+			// å­—æ®µè¡¨è¾¾å¼åšè¿ç®—æ—¶ä¸ºäº†æ€§èƒ½ä¼˜åŒ–ä¼šä¿ç•™è®°å½•çš„æŒ‡é’ˆ
+			// ä¸ºäº†åœ¨ä¸‹æ¬¡å–æ•°å‰èƒ½å¤Ÿé‡Šæ”¾å‰ä¸€æ¬¡çš„æ•°æ®ï¼Œå…ˆå¤åˆ¶ä¸‹è¡¨è¾¾å¼ï¼Œæ’å¥½åºåå†é‡Šæ”¾è¡¨è¾¾å¼
 			for (int i = 0, len = tempExps.length; i < len; i++) {
 				tempExps[i] = exps[i].newExpression(ctx);
 			}
@@ -1717,23 +1717,23 @@ public final class CursorUtil {
 				sequence = table.sort(tempExps, null, opt, ctx);
 			}
 
-			// ÊÇ·ñÔ´±íºÍ±í´ïÊ½
+			// æ˜¯å¦æºè¡¨å’Œè¡¨è¾¾å¼
 			table = null;
 			for (int i = 0, len = tempExps.length; i < len; i++) {
 				tempExps[i] = null;
 			}
 			
-			// ´´½¨ÁÙÊ±ÎÄ¼ş
+			// åˆ›å»ºä¸´æ—¶æ–‡ä»¶
 			FileObject fo = FileObject.createTempFileObject();
 			Logger.info(msg + fo.getFileName());
 			
-			// °ÑÅÅºÃĞòµÄÅÅÁĞĞ´³öÁÙÊ±¼¯ÎÄ¼ş
+			// æŠŠæ’å¥½åºçš„æ’åˆ—å†™å‡ºä¸´æ—¶é›†æ–‡ä»¶
 			fo.exportSeries(sequence, "b", null);
 			sequence = null;
 			BFileCursor bfc = new BFileCursor(fo, null, "x", ctx);
 			cursorList.add(bfc);
 
-			// ¼ÌĞøÈ¡Êı¾İ
+			// ç»§ç»­å–æ•°æ®
 			table = cursor.fetch(capacity);
 		}
 
@@ -1744,7 +1744,7 @@ public final class CursorUtil {
 		} else if (size == 1) {
 			return (ICursor)cursorList.get(0);
 		} else {
-			// ¶ÔÁÙÊ±ÎÄ¼ş×ö¹é²¢
+			// å¯¹ä¸´æ—¶æ–‡ä»¶åšå½’å¹¶
 			int bufSize = Env.getMergeFileBufSize(size);
 			for (int i = 0; i < size; ++i) {
 				BFileCursor bfc = (BFileCursor)cursorList.get(i);
@@ -1763,13 +1763,13 @@ public final class CursorUtil {
 	}
 
 	/**
-	 * Íâ´æÅÅĞò£¬ÅÅĞò×Ö¶ÎÖµÏàÍ¬µÄ¼ÇÂ¼×éÖµÏàÍ¬ÇÒÍ¬Ğò¡£
-	 * ×éÖµÏàÍ¬µÄ¼ÇÂ¼±£´æµ½Ò»¸öÁÙÊ±ÎÄ¼ş£¬È»ºóÃ¿¸öÁÙÊ±ÎÄ¼şµ¥¶ÀÅÅĞò
-	 * @param cursor ÓÎ±ê
-	 * @param exps ÅÅĞò±í´ïÊ½
-	 * @param gexp ×é±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param opt Ñ¡Ïî
+	 * å¤–å­˜æ’åºï¼Œæ’åºå­—æ®µå€¼ç›¸åŒçš„è®°å½•ç»„å€¼ç›¸åŒä¸”åŒåºã€‚
+	 * ç»„å€¼ç›¸åŒçš„è®°å½•ä¿å­˜åˆ°ä¸€ä¸ªä¸´æ—¶æ–‡ä»¶ï¼Œç„¶åæ¯ä¸ªä¸´æ—¶æ–‡ä»¶å•ç‹¬æ’åº
+	 * @param cursor æ¸¸æ ‡
+	 * @param exps æ’åºè¡¨è¾¾å¼
+	 * @param gexp ç»„è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param opt é€‰é¡¹
 	 * @return
 	 */
 	public static ICursor sortx(ICursor cursor, Expression[] exps, Expression gexp, Context ctx, String opt) {
@@ -1785,14 +1785,14 @@ public final class CursorUtil {
 			throw new RQException(mm.getMessage("engine.needPurePmt"));
 		}
 		
-		// ×éÖµ£º¼¯ÎÄ¼şÓ³Éä±í£¬Ã¿Ò»¸ö×éÖµ¶ÔÓ¦Ò»¸ö¼¯ÎÄ¼ş
+		// ç»„å€¼ï¼šé›†æ–‡ä»¶æ˜ å°„è¡¨ï¼Œæ¯ä¸€ä¸ªç»„å€¼å¯¹åº”ä¸€ä¸ªé›†æ–‡ä»¶
 		TreeMap<Object, BFileWriter> map = new TreeMap<Object, BFileWriter>();
 		MessageManager mm = EngineMessage.get();
 		String msg = mm.getMessage("engine.createTmpFile");
 		
 		try {
 			while (true) {
-				// ¶ÔÅÅÁĞ°´×é±í´ïÊ½·Ö×é
+				// å¯¹æ’åˆ—æŒ‰ç»„è¡¨è¾¾å¼åˆ†ç»„
 				Sequence groups = seq.group(gexp, null, ctx);
 				int gcount = groups.length();
 				
@@ -1800,7 +1800,7 @@ public final class CursorUtil {
 					Sequence group = (Sequence)groups.getMem(i);
 					Object gval = group.calc(1, gexp, ctx);
 					
-					// °´×éÖµÕÒµ½ÏàÓ¦µÄ¼¯ÎÄ¼ş²¢Ğ´³ö
+					// æŒ‰ç»„å€¼æ‰¾åˆ°ç›¸åº”çš„é›†æ–‡ä»¶å¹¶å†™å‡º
 					BFileWriter writer = map.get(gval);
 					if (writer == null) {
 						FileObject fo = FileObject.createTempFileObject();
@@ -1813,7 +1813,7 @@ public final class CursorUtil {
 					writer.write(group);
 				}
 				
-				// ÊÍ·ÅÒıÓÃ£¬ÕâÑù¿ÉÒÔ±»À¬»ø»ØÊÕ
+				// é‡Šæ”¾å¼•ç”¨ï¼Œè¿™æ ·å¯ä»¥è¢«åƒåœ¾å›æ”¶
 				seq = null;
 				groups = null;
 				
@@ -1840,7 +1840,7 @@ public final class CursorUtil {
 		Collection<BFileWriter> writers = map.values();
 		Iterator<BFileWriter> itr = writers.iterator();
 		
-		// Ğ´Íê³É£¬¹Ø±Õ¼¯ÎÄ¼ş
+		// å†™å®Œæˆï¼Œå…³é—­é›†æ–‡ä»¶
 		while (itr.hasNext()) {
 			BFileWriter writer = itr.next();
 			writer.close();
@@ -1851,15 +1851,15 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ÓÃ¹şÏ£·¨¼ÆËãÁ½¸öĞòÁĞµÄ²î¼¯
-	 * @param seq1 ĞòÁĞ
-	 * @param seq2 ĞòÁĞ
-	 * @return ²î¼¯ĞòÁĞ
+	 * ç”¨å“ˆå¸Œæ³•è®¡ç®—ä¸¤ä¸ªåºåˆ—çš„å·®é›†
+	 * @param seq1 åºåˆ—
+	 * @param seq2 åºåˆ—
+	 * @return å·®é›†åºåˆ—
 	 */
 	public static Sequence diff(Sequence seq1, Sequence seq2) {
 		int len2 = seq2.length();
 		
-		// °ÑĞòÁĞ2½¨³É¹şÏ£±í
+		// æŠŠåºåˆ—2å»ºæˆå“ˆå¸Œè¡¨
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
 		HashUtil hashUtil = new HashUtil((int)(len2 * 1.2));
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
@@ -1883,7 +1883,7 @@ public final class CursorUtil {
 		int len1 = seq1.length();
 		Sequence result = new Sequence(len1);
 		
-		// ±éÀúĞòÁĞ1µÄÔªËØ£¬È»ºó¸ù¾İ¹şÏ£Öµµ½ĞòÁĞ2µÄ¹şÏ£±íÖĞ²éÕÒÊÇ·ñÓĞÏàÍ¬µÄÔªËØ
+		// éå†åºåˆ—1çš„å…ƒç´ ï¼Œç„¶åæ ¹æ®å“ˆå¸Œå€¼åˆ°åºåˆ—2çš„å“ˆå¸Œè¡¨ä¸­æŸ¥æ‰¾æ˜¯å¦æœ‰ç›¸åŒçš„å…ƒç´ 
 		for (int i = 1; i <= len1; ++i) {
 			Object val = seq1.getMem(i);
 			int hash = hashUtil.hashCode(val);
@@ -1903,12 +1903,12 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ÓÃ¹şÏ£·¨¼ÆËãÁ½¸öÅÅÁĞ¶ÔÖ¸¶¨±í´ïÊ½µÄ²î¼¯
-	 * @param seq1 ĞòÁĞ
-	 * @param seq2 ĞòÁĞ
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ²î¼¯ĞòÁĞ
+	 * ç”¨å“ˆå¸Œæ³•è®¡ç®—ä¸¤ä¸ªæ’åˆ—å¯¹æŒ‡å®šè¡¨è¾¾å¼çš„å·®é›†
+	 * @param seq1 åºåˆ—
+	 * @param seq2 åºåˆ—
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å·®é›†åºåˆ—
 	 */
 	public static Sequence diff(Sequence seq1, Sequence seq2, Expression []exps, Context ctx) {
 		if (exps == null) {
@@ -1918,7 +1918,7 @@ public final class CursorUtil {
 		int keyCount = exps.length;
 		int len2 = seq2.length();
 		
-		// °ÑĞòÁĞ2°´Ö¸¶¨±í´ïÊ½µÄ¼ÆËã½á¹û½¨³É¹şÏ£±í
+		// æŠŠåºåˆ—2æŒ‰æŒ‡å®šè¡¨è¾¾å¼çš„è®¡ç®—ç»“æœå»ºæˆå“ˆå¸Œè¡¨
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
 		HashUtil hashUtil = new HashUtil((int)(len2 * 1.2));
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
@@ -1959,7 +1959,7 @@ public final class CursorUtil {
 		stack.push(current);
 
 		try {
-			// ±éÀúĞòÁĞ1£¬È»ºó¸ù¾İ±í´ïÊ½¼ÆËã½á¹ûµÄ¹şÏ£Öµµ½ĞòÁĞ2µÄ¹şÏ£±íÖĞ²éÕÒÊÇ·ñÓĞÏàÍ¬µÄÔªËØ
+			// éå†åºåˆ—1ï¼Œç„¶åæ ¹æ®è¡¨è¾¾å¼è®¡ç®—ç»“æœçš„å“ˆå¸Œå€¼åˆ°åºåˆ—2çš„å“ˆå¸Œè¡¨ä¸­æŸ¥æ‰¾æ˜¯å¦æœ‰ç›¸åŒçš„å…ƒç´ 
 			for (int i = 1; i <= len1; ++i) {
 				Object []keys = new Object[keyCount];
 				current.setCurrent(i);
@@ -1987,16 +1987,16 @@ public final class CursorUtil {
 	}
 
 	/**
-	 * ÓÃ¹şÏ£·¨¼ÆËãÁ½¸öĞòÁĞµÄ²¢¼¯
-	 * @param seq1 ĞòÁĞ
-	 * @param seq2 ĞòÁĞ
-	 * @return ²¢¼¯ĞòÁĞ
+	 * ç”¨å“ˆå¸Œæ³•è®¡ç®—ä¸¤ä¸ªåºåˆ—çš„å¹¶é›†
+	 * @param seq1 åºåˆ—
+	 * @param seq2 åºåˆ—
+	 * @return å¹¶é›†åºåˆ—
 	 */
 	public static Sequence union(Sequence seq1, Sequence seq2) {
 		IArray mems1 = seq1.getMems();
 		int len1 = mems1.size();
 		
-		// °ÑĞòÁĞ2½¨³É¹şÏ£±í
+		// æŠŠåºåˆ—2å»ºæˆå“ˆå¸Œè¡¨
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
 		HashUtil hashUtil = new HashUtil((int)(len1 * 1.2));
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
@@ -2022,7 +2022,7 @@ public final class CursorUtil {
 		Sequence result = new Sequence(len1 + len2);
 		result.addAll(seq1);
 		
-		// ±éÀúĞòÁĞ1µÄÔªËØ£¬È»ºó¸ù¾İ¹şÏ£Öµµ½ĞòÁĞ2µÄ¹şÏ£±íÖĞ²éÕÒÊÇ·ñÓĞÏàÍ¬µÄÔªËØ
+		// éå†åºåˆ—1çš„å…ƒç´ ï¼Œç„¶åæ ¹æ®å“ˆå¸Œå€¼åˆ°åºåˆ—2çš„å“ˆå¸Œè¡¨ä¸­æŸ¥æ‰¾æ˜¯å¦æœ‰ç›¸åŒçš„å…ƒç´ 
 		for (int i = 1; i <= len2; ++i) {
 			Object val = mems2.get(i);
 			int hash = hashUtil.hashCode(val);
@@ -2042,12 +2042,12 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ÓÃ¹şÏ£·¨¼ÆËãÁ½¸öÅÅÁĞ¶ÔÖ¸¶¨±í´ïÊ½µÄ²¢¼¯
-	 * @param seq1 ĞòÁĞ
-	 * @param seq2 ĞòÁĞ
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ²¢¼¯ĞòÁĞ
+	 * ç”¨å“ˆå¸Œæ³•è®¡ç®—ä¸¤ä¸ªæ’åˆ—å¯¹æŒ‡å®šè¡¨è¾¾å¼çš„å¹¶é›†
+	 * @param seq1 åºåˆ—
+	 * @param seq2 åºåˆ—
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å¹¶é›†åºåˆ—
 	 */
 	public static Sequence union(Sequence seq1, Sequence seq2, Expression []exps, Context ctx) {
 		if (exps == null) {
@@ -2058,7 +2058,7 @@ public final class CursorUtil {
 		IArray mems1 = seq1.getMems();
 		int len1 = mems1.size();
 		
-		// °ÑĞòÁĞ2°´Ö¸¶¨±í´ïÊ½µÄ¼ÆËã½á¹û½¨³É¹şÏ£±í
+		// æŠŠåºåˆ—2æŒ‰æŒ‡å®šè¡¨è¾¾å¼çš„è®¡ç®—ç»“æœå»ºæˆå“ˆå¸Œè¡¨
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
 		HashUtil hashUtil = new HashUtil((int)(len1 * 1.2));
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
@@ -2101,7 +2101,7 @@ public final class CursorUtil {
 		stack.push(current);
 
 		try {
-			// ±éÀúĞòÁĞ1£¬È»ºó¸ù¾İ±í´ïÊ½¼ÆËã½á¹ûµÄ¹şÏ£Öµµ½ĞòÁĞ2µÄ¹şÏ£±íÖĞ²éÕÒÊÇ·ñÓĞÏàÍ¬µÄÔªËØ
+			// éå†åºåˆ—1ï¼Œç„¶åæ ¹æ®è¡¨è¾¾å¼è®¡ç®—ç»“æœçš„å“ˆå¸Œå€¼åˆ°åºåˆ—2çš„å“ˆå¸Œè¡¨ä¸­æŸ¥æ‰¾æ˜¯å¦æœ‰ç›¸åŒçš„å…ƒç´ 
 			for (int i = 1; i <= len2; ++i) {
 				Object []keys = new Object[keyCount];
 				current.setCurrent(i);
@@ -2129,10 +2129,10 @@ public final class CursorUtil {
 	}
 
 	/**
-	 * ÓÃ¹şÏ£·¨¼ÆËãÁ½¸öĞòÁĞµÄ½»¼¯
-	 * @param seq1 ĞòÁĞ
-	 * @param seq2 ĞòÁĞ
-	 * @return ½»¼¯ĞòÁĞ
+	 * ç”¨å“ˆå¸Œæ³•è®¡ç®—ä¸¤ä¸ªåºåˆ—çš„äº¤é›†
+	 * @param seq1 åºåˆ—
+	 * @param seq2 åºåˆ—
+	 * @return äº¤é›†åºåˆ—
 	 */
 	public static Sequence isect(Sequence seq1, Sequence seq2) {
 		IArray mems1 = seq1.getMems();
@@ -2155,7 +2155,7 @@ public final class CursorUtil {
 			return result;
 		}
 		
-		// °ÑĞòÁĞ2½¨³É¹şÏ£±í
+		// æŠŠåºåˆ—2å»ºæˆå“ˆå¸Œè¡¨
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
 		HashUtil hashUtil = new HashUtil((int)(len2 * 1.2));
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
@@ -2178,7 +2178,7 @@ public final class CursorUtil {
 		
 		Sequence result = new Sequence(len1);
 		
-		// ±éÀúĞòÁĞ1µÄÔªËØ£¬È»ºó¸ù¾İ¹şÏ£Öµµ½ĞòÁĞ2µÄ¹şÏ£±íÖĞ²éÕÒÊÇ·ñÓĞÏàÍ¬µÄÔªËØ
+		// éå†åºåˆ—1çš„å…ƒç´ ï¼Œç„¶åæ ¹æ®å“ˆå¸Œå€¼åˆ°åºåˆ—2çš„å“ˆå¸Œè¡¨ä¸­æŸ¥æ‰¾æ˜¯å¦æœ‰ç›¸åŒçš„å…ƒç´ 
 		for (int i = 1; i <= len1; ++i) {
 			Object val = mems1.get(i);
 			int hash = hashUtil.hashCode(val);
@@ -2195,12 +2195,12 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ÓÃ¹şÏ£·¨¼ÆËãÁ½¸öÅÅÁĞ¶ÔÖ¸¶¨±í´ïÊ½µÄ½»¼¯
-	 * @param seq1 ĞòÁĞ
-	 * @param seq2 ĞòÁĞ
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ½»¼¯ĞòÁĞ
+	 * ç”¨å“ˆå¸Œæ³•è®¡ç®—ä¸¤ä¸ªæ’åˆ—å¯¹æŒ‡å®šè¡¨è¾¾å¼çš„äº¤é›†
+	 * @param seq1 åºåˆ—
+	 * @param seq2 åºåˆ—
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return äº¤é›†åºåˆ—
 	 */
 	public static Sequence isect(Sequence seq1, Sequence seq2, Expression []exps, Context ctx) {
 		if (exps == null) {
@@ -2211,7 +2211,7 @@ public final class CursorUtil {
 		IArray mems2 = seq2.getMems();
 		int len2 = mems2.size();
 		
-		// °ÑĞòÁĞ2°´Ö¸¶¨±í´ïÊ½µÄ¼ÆËã½á¹û½¨³É¹şÏ£±í
+		// æŠŠåºåˆ—2æŒ‰æŒ‡å®šè¡¨è¾¾å¼çš„è®¡ç®—ç»“æœå»ºæˆå“ˆå¸Œè¡¨
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
 		HashUtil hashUtil = new HashUtil((int)(len2 * 1.2));
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
@@ -2253,7 +2253,7 @@ public final class CursorUtil {
 		stack.push(current);
 
 		try {
-			// ±éÀúĞòÁĞ1£¬È»ºó¸ù¾İ±í´ïÊ½¼ÆËã½á¹ûµÄ¹şÏ£Öµµ½ĞòÁĞ2µÄ¹şÏ£±íÖĞ²éÕÒÊÇ·ñÓĞÏàÍ¬µÄÔªËØ
+			// éå†åºåˆ—1ï¼Œç„¶åæ ¹æ®è¡¨è¾¾å¼è®¡ç®—ç»“æœçš„å“ˆå¸Œå€¼åˆ°åºåˆ—2çš„å“ˆå¸Œè¡¨ä¸­æŸ¥æ‰¾æ˜¯å¦æœ‰ç›¸åŒçš„å…ƒç´ 
 			for (int i = 1; i <= len1; ++i) {
 				Object []keys = new Object[keyCount];
 				current.setCurrent(i);
@@ -2278,16 +2278,16 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * È¡count¸öÊ¹exp·µ»ØÖµ×îĞ¡µÄÔªËØµÄgetExp·µ»ØÖµ
-	 * @param cursor ÓÎ±ê
-	 * @param count ÊıÁ¿
-	 * @param exp ±È½Ï±í´ïÊ½
-	 * @param getExp ·µ»ØÖµ±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–countä¸ªä½¿expè¿”å›å€¼æœ€å°çš„å…ƒç´ çš„getExpè¿”å›å€¼
+	 * @param cursor æ¸¸æ ‡
+	 * @param count æ•°é‡
+	 * @param exp æ¯”è¾ƒè¡¨è¾¾å¼
+	 * @param getExp è¿”å›å€¼è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Object
 	 */
 	public static Object top(ICursor cursor, int count, Expression exp, Expression getExp, Context ctx) {
-		// Ê¹ÓÃ¶ÑÈ¡Ç°¼¸Ãû
+		// ä½¿ç”¨å †å–å‰å‡ å
 		ArrayComparator comparator = new ArrayComparator(1);
 		MinHeap heap = new MinHeap(count, comparator);
 		
@@ -2302,7 +2302,7 @@ public final class CursorUtil {
 				src = src.conj(null);
 			}
 			
-			// ¼ÆËãÅÅÃû×Ö¶ÎÖµ£¬²¢Ìí¼Óµ½Ğ¡¶¥¶ÑÖĞ
+			// è®¡ç®—æ’åå­—æ®µå€¼ï¼Œå¹¶æ·»åŠ åˆ°å°é¡¶å †ä¸­
 			Sequence v = src.calc(exp, ctx);
 			for (int i = 1, len = src.length(); i <= len; ++i) {
 				Object []vals = new Object[2];
@@ -2312,7 +2312,7 @@ public final class CursorUtil {
 			}
 		}
 		
-		// ¶Ô½á¹û¼¯×öÅÅĞò
+		// å¯¹ç»“æœé›†åšæ’åº
 		Object []objs = heap.toArray();
 		Arrays.sort(objs, comparator);
 		
@@ -2327,10 +2327,10 @@ public final class CursorUtil {
 	}
 		
 	/**
-	 * ·µ»ØÁ½¸öĞòÁĞµÄÒì»òÖµ£¬¼´²»Í¬µÄÔªËØ×é³ÉµÄĞòÁĞ
-	 * @param seq1 ĞòÁĞ
-	 * @param seq2 ĞòÁĞ
-	 * @return Òì»òĞòÁĞ
+	 * è¿”å›ä¸¤ä¸ªåºåˆ—çš„å¼‚æˆ–å€¼ï¼Œå³ä¸åŒçš„å…ƒç´ ç»„æˆçš„åºåˆ—
+	 * @param seq1 åºåˆ—
+	 * @param seq2 åºåˆ—
+	 * @return å¼‚æˆ–åºåˆ—
 	 */
 	public static Sequence xor(Sequence seq1, Sequence seq2) {
 		Sequence s1 = diff(seq1, seq2);
@@ -2340,12 +2340,12 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ·µ»ØÁ½¸öĞòÁĞµÄÒì»òÖµ£¬¼´²»Í¬µÄÔªËØ×é³ÉµÄĞòÁĞ
-	 * @param seq1 ĞòÁĞ
-	 * @param seq2 ĞòÁĞ
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Òì»òĞòÁĞ
+	 * è¿”å›ä¸¤ä¸ªåºåˆ—çš„å¼‚æˆ–å€¼ï¼Œå³ä¸åŒçš„å…ƒç´ ç»„æˆçš„åºåˆ—
+	 * @param seq1 åºåˆ—
+	 * @param seq2 åºåˆ—
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å¼‚æˆ–åºåˆ—
 	 */
 	public static Sequence xor(Sequence seq1, Sequence seq2, Expression []exps, Context ctx) {
 		Sequence s1 = diff(seq1, seq2, exps, ctx);
@@ -2355,22 +2355,22 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ÏÈ°´gexp¶ÔÊı¾İ½øĞĞ·Ö×é£¬Í¬×éµÄ»ã×ÜÒ»ÏÂĞ´µ½Ò»¸öÁÙÊ±ÎÄ¼ş£¬×îºóÔÙ¶ÔÃ¿¸öÁÙÊ±ÎÄ¼ş½øĞĞ¶ş´Î»ã×Ü
-	 * ·Ö×é×Ö¶ÎÏàÍ¬µÄ¼ÇÂ¼gexpÒ²ÒªÏàÍ¬£¬gexpÊÇ·Ö×é×Ö¶ÎµÄ´ó·Ö×é
-	 * @param cursor ÓÎ±ê
-	 * @param gexp ´ó·Ö×é±í´ïÊ½
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names	·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param calcNames	»ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ·Ö×é½á¹ûÓÎ±ê
+	 * å…ˆæŒ‰gexpå¯¹æ•°æ®è¿›è¡Œåˆ†ç»„ï¼ŒåŒç»„çš„æ±‡æ€»ä¸€ä¸‹å†™åˆ°ä¸€ä¸ªä¸´æ—¶æ–‡ä»¶ï¼Œæœ€åå†å¯¹æ¯ä¸ªä¸´æ—¶æ–‡ä»¶è¿›è¡ŒäºŒæ¬¡æ±‡æ€»
+	 * åˆ†ç»„å­—æ®µç›¸åŒçš„è®°å½•gexpä¹Ÿè¦ç›¸åŒï¼Œgexpæ˜¯åˆ†ç»„å­—æ®µçš„å¤§åˆ†ç»„
+	 * @param cursor æ¸¸æ ‡
+	 * @param gexp å¤§åˆ†ç»„è¡¨è¾¾å¼
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names	åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames	æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åˆ†ç»„ç»“æœæ¸¸æ ‡
 	 */
 	public static ICursor groupx_g(ICursor cursor, Expression gexp, Expression[] exps, String []names,
 			   Expression[] calcExps, String []calcNames, String opt, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
-			//  ¶àÂ·ÓÎ±ê²ÉÓÃ¶àÏß³Ì·Ö×é
+			//  å¤šè·¯æ¸¸æ ‡é‡‡ç”¨å¤šçº¿ç¨‹åˆ†ç»„
 			return groupx_g((MultipathCursors)cursor, gexp, exps, names, calcExps, calcNames, ctx);
 		}
 		
@@ -2381,24 +2381,24 @@ public final class CursorUtil {
 		DataStruct ds = cursor.getDataStruct();
 		
 		try {
-			// ±éÀúÓÎ±êÊı¾İ
+			// éå†æ¸¸æ ‡æ•°æ®
 			while (true) {
 				Sequence seq = cursor.fetch(fetchCount);
 				if (seq == null || seq.length() == 0) {
 					break;
 				}
 				
-				// °´´ó·Ö×é±í´ïÊ½¶ÔÊı¾İ½øĞĞ·Ö×é
+				// æŒ‰å¤§åˆ†ç»„è¡¨è¾¾å¼å¯¹æ•°æ®è¿›è¡Œåˆ†ç»„
 				Sequence groups = seq.group(gexp, null, ctx);
 				int gcount = groups.length();
 				for (int i = 1; i <= gcount; ++i) {
-					// ¶ÔÃ¿¸ö´ó·Ö×é½øĞĞÊ×´Î»ã×Ü
+					// å¯¹æ¯ä¸ªå¤§åˆ†ç»„è¿›è¡Œé¦–æ¬¡æ±‡æ€»
 					Sequence group = (Sequence)groups.getMem(i);
 					IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, null, ctx);
 					gresult.push(group, ctx);
 					Table result = gresult.getTempResult();
 					
-					// ÕÒµ½µ±Ç°´ó·Ö×é¶ÔÓ¦µÄÁÙÊ±ÎÄ¼ş²¢°ÑÊ×´Î»ã×Ü½á¹û×·¼Óµ½ÁÙÊ±ÎÄ¼şÖĞ
+					// æ‰¾åˆ°å½“å‰å¤§åˆ†ç»„å¯¹åº”çš„ä¸´æ—¶æ–‡ä»¶å¹¶æŠŠé¦–æ¬¡æ±‡æ€»ç»“æœè¿½åŠ åˆ°ä¸´æ—¶æ–‡ä»¶ä¸­
 					Object gval = group.calc(1, gexp, ctx);
 					BFileWriter writer = map.get(gval);
 					if (writer == null) {
@@ -2413,7 +2413,7 @@ public final class CursorUtil {
 				}
 			}
 		} catch (IOException e) {
-			// ÓĞÒì³£·¢ÉúÊ±¹Ø±Õ²¢É¾³ıÁÙÊ±ÎÄ¼ş
+			// æœ‰å¼‚å¸¸å‘ç”Ÿæ—¶å…³é—­å¹¶åˆ é™¤ä¸´æ—¶æ–‡ä»¶
 			Collection<BFileWriter> writers = map.values();
 			Iterator<BFileWriter> itr = writers.iterator();
 			while (itr.hasNext()) {
@@ -2430,7 +2430,7 @@ public final class CursorUtil {
 			return null;
 		}
 		
-		// Ğ´Íê³É£¬¹Ø±Õ¼¯ÎÄ¼ş		
+		// å†™å®Œæˆï¼Œå…³é—­é›†æ–‡ä»¶		
 		FileObject []files = new FileObject[size];
 		int index = 0;
 		Collection<BFileWriter> writers = map.values();
@@ -2441,7 +2441,7 @@ public final class CursorUtil {
 			files[index++] = writer.getFile();
 		}
 		
-		// Éú³ÉÒ»¸ö°´Ã¿¸öÁÙÊ±ÎÄ¼ş½øĞĞ·Ö×éµÄÓÎ±ê
+		// ç”Ÿæˆä¸€ä¸ªæŒ‰æ¯ä¸ªä¸´æ—¶æ–‡ä»¶è¿›è¡Œåˆ†ç»„çš„æ¸¸æ ‡
 		return new GroupxnCursor(files, exps, names, calcExps, calcNames, ctx);
 	}
 	
@@ -2452,7 +2452,7 @@ public final class CursorUtil {
 		int cursorCount = cursors.length;
 		TreeMap<Object, BFileWriter> map = new TreeMap<Object, BFileWriter>();
 		
-		// Éú³É·Ö×éÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆåˆ†ç»„ä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		ThreadPool pool = ThreadPool.newInstance(cursorCount);
 		Exception exception = null;
 
@@ -2469,7 +2469,7 @@ public final class CursorUtil {
 				pool.submit(jobs[i]);
 			}
 	
-			// µÈ´ı·Ö×éÈÎÎñÖ´ĞĞÍê±Ï
+			// ç­‰å¾…åˆ†ç»„ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 			for (int i = 0; i < cursorCount; ++i) {
 				try {
 					jobs[i].join();
@@ -2481,7 +2481,7 @@ public final class CursorUtil {
 			pool.shutdown();
 		}
 		
-		// ÓĞÒì³£·¢ÉúÊ±¹Ø±Õ²¢É¾³ıÁÙÊ±ÎÄ¼ş
+		// æœ‰å¼‚å¸¸å‘ç”Ÿæ—¶å…³é—­å¹¶åˆ é™¤ä¸´æ—¶æ–‡ä»¶
 		if (exception != null) {
 			Collection<BFileWriter> writers = map.values();
 			Iterator<BFileWriter> itr = writers.iterator();
@@ -2503,7 +2503,7 @@ public final class CursorUtil {
 			return null;
 		}
 		
-		// Ğ´Íê³É£¬¹Ø±Õ¼¯ÎÄ¼ş		
+		// å†™å®Œæˆï¼Œå…³é—­é›†æ–‡ä»¶		
 		FileObject []files = new FileObject[size];
 		int index = 0;
 		Collection<BFileWriter> writers = map.values();
@@ -2514,20 +2514,20 @@ public final class CursorUtil {
 			files[index++] = writer.getFile();
 		}
 		
-		// Éú³ÉÒ»¸ö°´Ã¿¸öÁÙÊ±ÎÄ¼ş½øĞĞ·Ö×éµÄÓÎ±ê
+		// ç”Ÿæˆä¸€ä¸ªæŒ‰æ¯ä¸ªä¸´æ—¶æ–‡ä»¶è¿›è¡Œåˆ†ç»„çš„æ¸¸æ ‡
 		return new GroupxnCursor(files, exps, names, calcExps, calcNames, ctx);
 	}
 
 	/**
-	 * ÅÅÁĞµÄµÚÒ»¸ö×Ö¶ÎÎªÊı£¬°´ÕÕ#1 / capacity + 1·Ö³ÉÈô¸É×é
-	 * @param seq ÅÅÁĞ
-	 * @param capacity ÈİÁ¿
-	 * @return ×éĞòÁĞ
+	 * æ’åˆ—çš„ç¬¬ä¸€ä¸ªå­—æ®µä¸ºæ•°ï¼ŒæŒ‰ç…§#1 / capacity + 1åˆ†æˆè‹¥å¹²ç»„
+	 * @param seq æ’åˆ—
+	 * @param capacity å®¹é‡
+	 * @return ç»„åºåˆ—
 	 */
 	public static Sequence group_n(Sequence seq, int capacity) {
 		IArray mems = seq.getMems();
 		int size = mems.size();
-		Sequence result = new Sequence(size / 4); // ·Ö×éºóĞòÁĞ
+		Sequence result = new Sequence(size / 4); // åˆ†ç»„ååºåˆ—
 		IArray resultMems = result.getMems();
 		int len = 0;
 		BaseRecord r;
@@ -2562,20 +2562,20 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ·Ö×é×Ö¶ÎÖµÎª×éĞòºÅ£¬°Ñ·Ö×é×Ö¶Î°´capacity½øĞĞ¹şÏ££¬¹şÏ£ÖµÏàÍ¬µÄĞ´µ½Í¬Ò»¸öÁÙÊ±ÎÄ¼ş£¬×îºóÔÙ¶ÔÃ¿¸öÁÙÊ±ÎÄ¼ş½øĞĞ¶ş´Î»ã×Ü
-	 * @param cursor ÓÎ±ê
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names	·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param calcNames	»ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity ÄÚ´æÄÜ¹»´æ·ÅµÄ·Ö×é½á¹ûµÄÊıÁ¿
-	 * @return ·Ö×é½á¹ûÓÎ±ê
+	 * åˆ†ç»„å­—æ®µå€¼ä¸ºç»„åºå·ï¼ŒæŠŠåˆ†ç»„å­—æ®µæŒ‰capacityè¿›è¡Œå“ˆå¸Œï¼Œå“ˆå¸Œå€¼ç›¸åŒçš„å†™åˆ°åŒä¸€ä¸ªä¸´æ—¶æ–‡ä»¶ï¼Œæœ€åå†å¯¹æ¯ä¸ªä¸´æ—¶æ–‡ä»¶è¿›è¡ŒäºŒæ¬¡æ±‡æ€»
+	 * @param cursor æ¸¸æ ‡
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names	åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames	æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity å†…å­˜èƒ½å¤Ÿå­˜æ”¾çš„åˆ†ç»„ç»“æœçš„æ•°é‡
+	 * @return åˆ†ç»„ç»“æœæ¸¸æ ‡
 	 */
 	public static ICursor groupx_n(ICursor cursor, Expression[] exps, String []names,
 			   Expression[] calcExps, String []calcNames, Context ctx, int capacity) {
 		if (cursor instanceof MultipathCursors) {
-			//  ¶àÂ·ÓÎ±ê²ÉÓÃ¶àÏß³Ì·Ö×é
+			//  å¤šè·¯æ¸¸æ ‡é‡‡ç”¨å¤šçº¿ç¨‹åˆ†ç»„
 			return groupx_n((MultipathCursors)cursor, exps, names, calcExps, calcNames, ctx, capacity);
 		}
 		
@@ -2586,19 +2586,19 @@ public final class CursorUtil {
 		DataStruct ds = cursor.getDataStruct();
 		
 		try {
-			// ±éÀúÓÎ±êÊı¾İ
+			// éå†æ¸¸æ ‡æ•°æ®
 			while (true) {
 				Sequence seq = cursor.fetch(fetchCount);
 				if (seq == null || seq.length() == 0) {
 					break;
 				}
 				
-				// ¶Ôµ±Ç°Êı¾İ½øĞĞÊ×´Î»ã×Ü
+				// å¯¹å½“å‰æ•°æ®è¿›è¡Œé¦–æ¬¡æ±‡æ€»
 				IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, ds, null, ctx);
 				gresult.push(seq, ctx);
 				seq = gresult.getTempResult();
 				
-				// Ëã³öÃ¿¸öÁÙÊ±ÎÄ¼şÓ¦¸Ã´æ·ÅµÄ·Ö×é
+				// ç®—å‡ºæ¯ä¸ªä¸´æ—¶æ–‡ä»¶åº”è¯¥å­˜æ”¾çš„åˆ†ç»„
 				Sequence groups = group_n(seq, capacity);
 				int gcount = groups.length();
 				for (int i = 1; i <= gcount; ++i) {
@@ -2607,7 +2607,7 @@ public final class CursorUtil {
 						continue;
 					}
 					
-					// °ÑÊ×´Î·Ö×é½á¹ûĞ´µ½ÏàÓ¦µÄÁÙÊ±ÎÄ¼ş
+					// æŠŠé¦–æ¬¡åˆ†ç»„ç»“æœå†™åˆ°ç›¸åº”çš„ä¸´æ—¶æ–‡ä»¶
 					Integer gval = new Integer(i);
 					BFileWriter writer = map.get(gval);
 					if (writer == null) {
@@ -2623,7 +2623,7 @@ public final class CursorUtil {
 				}
 			}
 		} catch (IOException e) {
-			// ÓĞÒì³£·¢ÉúÊ±¹Ø±Õ²¢É¾³ıÁÙÊ±ÎÄ¼ş
+			// æœ‰å¼‚å¸¸å‘ç”Ÿæ—¶å…³é—­å¹¶åˆ é™¤ä¸´æ—¶æ–‡ä»¶
 			Collection<BFileWriter> writers = map.values();
 			Iterator<BFileWriter> itr = writers.iterator();
 			while (itr.hasNext()) {
@@ -2640,7 +2640,7 @@ public final class CursorUtil {
 			return null;
 		}
 		
-		// Ğ´Íê³É£¬¹Ø±Õ¼¯ÎÄ¼ş		
+		// å†™å®Œæˆï¼Œå…³é—­é›†æ–‡ä»¶		
 		FileObject []files = new FileObject[size];
 		int index = 0;
 		Collection<BFileWriter> writers = map.values();
@@ -2651,7 +2651,7 @@ public final class CursorUtil {
 			files[index++] = writer.getFile();
 		}
 		
-		// Éú³ÉÒ»¸ö°´Ã¿¸öÁÙÊ±ÎÄ¼ş½øĞĞ·Ö×éµÄÓÎ±ê
+		// ç”Ÿæˆä¸€ä¸ªæŒ‰æ¯ä¸ªä¸´æ—¶æ–‡ä»¶è¿›è¡Œåˆ†ç»„çš„æ¸¸æ ‡
 		return new GroupxnCursor(files, exps, names, calcExps, calcNames, ctx);
 	}
 
@@ -2662,7 +2662,7 @@ public final class CursorUtil {
 		TreeMap<Object, BFileWriter> map = new TreeMap<Object, BFileWriter>();
 		int fetchCount = capacity / cursorCount;
 		
-		// Éú³É·Ö×éÈÎÎñ²¢Ìá½»¸øÏß³Ì³Ø
+		// ç”Ÿæˆåˆ†ç»„ä»»åŠ¡å¹¶æäº¤ç»™çº¿ç¨‹æ± 
 		ThreadPool pool = ThreadPool.newInstance(cursorCount);
 		Exception exception = null;
 
@@ -2678,7 +2678,7 @@ public final class CursorUtil {
 				pool.submit(jobs[i]);
 			}
 	
-			// µÈ´ı·Ö×éÈÎÎñÖ´ĞĞÍê±Ï
+			// ç­‰å¾…åˆ†ç»„ä»»åŠ¡æ‰§è¡Œå®Œæ¯•
 			for (int i = 0; i < cursorCount; ++i) {
 				try {
 					jobs[i].join();
@@ -2690,7 +2690,7 @@ public final class CursorUtil {
 			pool.shutdown();
 		}
 		
-		// ÓĞÒì³£·¢ÉúÊ±¹Ø±Õ²¢É¾³ıÁÙÊ±ÎÄ¼ş
+		// æœ‰å¼‚å¸¸å‘ç”Ÿæ—¶å…³é—­å¹¶åˆ é™¤ä¸´æ—¶æ–‡ä»¶
 		if (exception != null) {
 			Collection<BFileWriter> writers = map.values();
 			Iterator<BFileWriter> itr = writers.iterator();
@@ -2712,7 +2712,7 @@ public final class CursorUtil {
 			return null;
 		}
 		
-		// Ğ´Íê³É£¬¹Ø±Õ¼¯ÎÄ¼ş		
+		// å†™å®Œæˆï¼Œå…³é—­é›†æ–‡ä»¶		
 		FileObject []files = new FileObject[size];
 		int index = 0;
 		Collection<BFileWriter> writers = map.values();
@@ -2723,13 +2723,13 @@ public final class CursorUtil {
 			files[index++] = writer.getFile();
 		}
 		
-		// Éú³ÉÒ»¸ö°´Ã¿¸öÁÙÊ±ÎÄ¼ş½øĞĞ·Ö×éµÄÓÎ±ê
+		// ç”Ÿæˆä¸€ä¸ªæŒ‰æ¯ä¸ªä¸´æ—¶æ–‡ä»¶è¿›è¡Œåˆ†ç»„çš„æ¸¸æ ‡
 		return new GroupxnCursor(files, exps, names, calcExps, calcNames, ctx);
 	}
 	
 	/**
-	 * È¡ÓÎ±ê¶ÔÓ¦µÄ×é±í£¬Èç¹ûÈ¡²»µ½Ôò·µ»Ø¿Õ
-	 * @param cs ÓÎ±ê
+	 * å–æ¸¸æ ‡å¯¹åº”çš„ç»„è¡¨ï¼Œå¦‚æœå–ä¸åˆ°åˆ™è¿”å›ç©º
+	 * @param cs æ¸¸æ ‡
 	 * @return TableMetaData
 	 */
 	public static PhyTable getTableMetaData(ICursor cs) {
@@ -2748,15 +2748,15 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * ¶ÔÓÎ±ê°´Ö¸¶¨±í´ïÊ½×ö¹é²¢Éú³ÉĞÂÓÎ±ê
-	 * @param cursors ÓÎ±êÊı×é
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî£¬
+	 * å¯¹æ¸¸æ ‡æŒ‰æŒ‡å®šè¡¨è¾¾å¼åšå½’å¹¶ç”Ÿæˆæ–°æ¸¸æ ‡
+	 * @param cursors æ¸¸æ ‡æ•°ç»„
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œ
 	 * @param ctx
 	 * @return
 	 */
 	public static ICursor merge(ICursor []cursors, Expression []exps, String opt, Context ctx) {
-		// Èç¹ûÊÇ×öÁ¬ÔËËã²¢ÇÒ¹é²¢±í´ïÊ½ÊÇ×Ö¶ÎµÄ»°½øĞĞÓÅ»¯
+		// å¦‚æœæ˜¯åšè¿è¿ç®—å¹¶ä¸”å½’å¹¶è¡¨è¾¾å¼æ˜¯å­—æ®µçš„è¯è¿›è¡Œä¼˜åŒ–
 		DataStruct ds = null;
 		if (opt == null || (opt.indexOf('u') == -1 && opt.indexOf('i') == -1 && opt.indexOf('d') == -1 && opt.indexOf('x') == -1)) {
 			ds = CursorUtil.getDataStruct(cursors[0]);
@@ -2813,10 +2813,10 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * °ÑÅÅÁĞ×ª³ÉÓÎ±ê
-	 * @param data ÅÅÁĞ
-	 * @param pathCount ÓÎ±êµÄÂ·Êı
-	 * @param opt p£º¼Ù¶¨¶ÔµÚÒ»×Ö¶ÎÓĞĞò£¬·Ö¶ÎÊ±²»»á½«µÚÒ»×Ö¶ÎÏàÍ¬¼ÇÂ¼·Öµ½Á½¶Î
+	 * æŠŠæ’åˆ—è½¬æˆæ¸¸æ ‡
+	 * @param data æ’åˆ—
+	 * @param pathCount æ¸¸æ ‡çš„è·¯æ•°
+	 * @param opt pï¼šå‡å®šå¯¹ç¬¬ä¸€å­—æ®µæœ‰åºï¼Œåˆ†æ®µæ—¶ä¸ä¼šå°†ç¬¬ä¸€å­—æ®µç›¸åŒè®°å½•åˆ†åˆ°ä¸¤æ®µ
 	 * @param ctx
 	 * @return ICursor
 	 */
@@ -2847,7 +2847,7 @@ public final class CursorUtil {
 				}
 				
 				if (psign) {
-					// ·Ö¶ÎÊ±²»»á½«µÚÒ»×Ö¶ÎÏàÍ¬¼ÇÂ¼·Öµ½Á½¶Î
+					// åˆ†æ®µæ—¶ä¸ä¼šå°†ç¬¬ä¸€å­—æ®µç›¸åŒè®°å½•åˆ†åˆ°ä¸¤æ®µ
 					BaseRecord record = (BaseRecord)data.get(end - 1);
 					Object value = record.getNormalFieldValue(0);
 					int next = end;
@@ -2873,11 +2873,11 @@ public final class CursorUtil {
 	}
 	
 	/**
-	 * °ÑÅÅÁĞ×ª³É¶àÂ·ÓÎ±ê£¬È¡³öÖ¸¶¨µÄÂ·
-	 * @param data ÅÅÁĞ
-	 * @param path ÒªÈ¡µÄÂ·
-	 * @param pathCount ÓÎ±êµÄÂ·Êı
-	 * @param opt p£º¼Ù¶¨¶ÔµÚÒ»×Ö¶ÎÓĞĞò£¬·Ö¶ÎÊ±²»»á½«µÚÒ»×Ö¶ÎÏàÍ¬¼ÇÂ¼·Öµ½Á½¶Î
+	 * æŠŠæ’åˆ—è½¬æˆå¤šè·¯æ¸¸æ ‡ï¼Œå–å‡ºæŒ‡å®šçš„è·¯
+	 * @param data æ’åˆ—
+	 * @param path è¦å–çš„è·¯
+	 * @param pathCount æ¸¸æ ‡çš„è·¯æ•°
+	 * @param opt pï¼šå‡å®šå¯¹ç¬¬ä¸€å­—æ®µæœ‰åºï¼Œåˆ†æ®µæ—¶ä¸ä¼šå°†ç¬¬ä¸€å­—æ®µç›¸åŒè®°å½•åˆ†åˆ°ä¸¤æ®µ
 	 * @param ctx
 	 * @return ICursor
 	 */
@@ -2921,7 +2921,7 @@ public final class CursorUtil {
 					break;
 				}
 				
-				// ·Ö¶ÎÊ±²»»á½«µÚÒ»×Ö¶ÎÏàÍ¬¼ÇÂ¼·Öµ½Á½¶Î
+				// åˆ†æ®µæ—¶ä¸ä¼šå°†ç¬¬ä¸€å­—æ®µç›¸åŒè®°å½•åˆ†åˆ°ä¸¤æ®µ
 				BaseRecord record = (BaseRecord)data.get(end - 1);
 				Object value = record.getNormalFieldValue(0);
 				int next = end;

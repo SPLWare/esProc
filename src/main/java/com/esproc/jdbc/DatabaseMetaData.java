@@ -1554,7 +1554,7 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	}
 
 	/**
-	 * ÓĞµÄ¹¤¾ß°Ña.btxµ±×÷schema=a, table=btx¡£±¾·½·¨ÓÃÓÚÖ§³ÖÕâÖÖĞ´·¨¡£
+	 * æœ‰çš„å·¥å…·æŠŠa.btxå½“ä½œschema=a, table=btxã€‚æœ¬æ–¹æ³•ç”¨äºæ”¯æŒè¿™ç§å†™æ³•ã€‚
 	 * 
 	 * @param schemaPattern
 	 * @param tableNamePattern

@@ -13,7 +13,7 @@ import com.scudata.util.Variant;
 
 public abstract class BaseRecord implements IComputeItem, Externalizable, IRecord, Comparable<BaseRecord> {
 	
-	/*ÒÔÏÂ½Ó¿Ú¼Ì³Ğ×ÔIComputeItem£¬ÓÃÓÚ¼ÆËã*/
+	/*ä»¥ä¸‹æ¥å£ç»§æ‰¿è‡ªIComputeItemï¼Œç”¨äºè®¡ç®—*/
 	public Object getCurrent() {
 		return this;
 	}
@@ -32,12 +32,12 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 		
 	public void popStack() {
 	}
-	/*ÒÔÉÏ½Ó¿Ú¼Ì³Ğ×ÔIComputeItem£¬ÓÃÓÚ¼ÆËã*/
+	/*ä»¥ä¸Šæ¥å£ç»§æ‰¿è‡ªIComputeItemï¼Œç”¨äºè®¡ç®—*/
 
 	/**
-	 * Õë¶Ô¼ÇÂ¼¼ÆËã±í´ïÊ½
-	 * @param exp Expression ¼ÆËã±í´ïÊ½
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ»·¾³
+	 * é’ˆå¯¹è®°å½•è®¡ç®—è¡¨è¾¾å¼
+	 * @param exp Expression è®¡ç®—è¡¨è¾¾å¼
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ç¯å¢ƒ
 	 * @return Object
 	 */
 	public Object calc(Expression exp, Context ctx) {
@@ -55,8 +55,8 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 
 	/**
-	 * ¼ÇÂ¼±È½ÏÓÃhashÖµ£¬ÏàÍ¬ÔÙÓÃr.v()
-	 * @param r ¼ÇÂ¼
+	 * è®°å½•æ¯”è¾ƒç”¨hashå€¼ï¼Œç›¸åŒå†ç”¨r.v()
+	 * @param r è®°å½•
 	 */
 	public int compareTo(BaseRecord r) {
 		if (r == this) {
@@ -103,17 +103,17 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 
 	/**
-	 * ±È½Ï¼ÇÂ¼Ö¸¶¨×Ö¶ÎµÄÖµ
-	 * @param fields ×Ö¶ÎË÷ÒıÊı×é
-	 * @param fvalues ×Ö¶ÎÖµÊı×é
-	 * @return 1£ºµ±Ç°¼ÇÂ¼´ó£¬0£ºÏàµÈ£¬-1£ºµ±Ç°¼ÇÂ¼Ğ¡
+	 * æ¯”è¾ƒè®°å½•æŒ‡å®šå­—æ®µçš„å€¼
+	 * @param fields å­—æ®µç´¢å¼•æ•°ç»„
+	 * @param fvalues å­—æ®µå€¼æ•°ç»„
+	 * @return 1ï¼šå½“å‰è®°å½•å¤§ï¼Œ0ï¼šç›¸ç­‰ï¼Œ-1ï¼šå½“å‰è®°å½•å°
 	 */
 	public abstract int compare(int []fields, Object []fvalues);
 	
 	/**
-	 * °´Ö¸¶¨×Ö¶Î±È½Ï´óĞ¡£¬¼ÇÂ¼µÄÊı¾İ½á¹¹±ØĞëÏàÍ¬£¿
+	 * æŒ‰æŒ‡å®šå­—æ®µæ¯”è¾ƒå¤§å°ï¼Œè®°å½•çš„æ•°æ®ç»“æ„å¿…é¡»ç›¸åŒï¼Ÿ
 	 * @param r BaseRecord
-	 * @param fields int[] ×Ö¶ÎË÷Òı
+	 * @param fields int[] å­—æ®µç´¢å¼•
 	 * @return int
 	 */
 	public int compare(BaseRecord r, int []fields) {
@@ -134,9 +134,9 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 	
 	/**
-	 * °´Ö¸¶¨×Ö¶Î±È½Ï´óĞ¡£¬¼ÇÂ¼µÄÊı¾İ½á¹¹±ØĞëÏàÍ¬£¿
+	 * æŒ‰æŒ‡å®šå­—æ®µæ¯”è¾ƒå¤§å°ï¼Œè®°å½•çš„æ•°æ®ç»“æ„å¿…é¡»ç›¸åŒï¼Ÿ
 	 * @param r BaseRecord
-	 * @param field ×Ö¶ÎË÷Òı
+	 * @param field å­—æ®µç´¢å¼•
 	 * @return int
 	 */
 	public int compare(BaseRecord r, int field) {
@@ -144,97 +144,97 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 
 	/**
-	 * °´×Ö¶ÎÖµ±È½ÏÁ½Ìõ¼ÇÂ¼µÄ´óĞ¡£¬¼ÇÂ¼µÄÊı¾İ½á¹¹±ØĞëÏàÍ¬
-	 * @param r ¼ÇÂ¼
-	 * @return 1£ºµ±Ç°¼ÇÂ¼´ó£¬0£ºÏàµÈ£¬-1£ºµ±Ç°¼ÇÂ¼Ğ¡
+	 * æŒ‰å­—æ®µå€¼æ¯”è¾ƒä¸¤æ¡è®°å½•çš„å¤§å°ï¼Œè®°å½•çš„æ•°æ®ç»“æ„å¿…é¡»ç›¸åŒ
+	 * @param r è®°å½•
+	 * @return 1ï¼šå½“å‰è®°å½•å¤§ï¼Œ0ï¼šç›¸ç­‰ï¼Œ-1ï¼šå½“å‰è®°å½•å°
 	 */
 	public abstract int compare(BaseRecord r);
 	
 	/**
-	 * °Ñ¼ÇÂ¼µÄÖ¸¶¨×Ö¶ÎÓëÖ¸¶¨Êı×éµÄÔªËØÏà±È½Ï
-	 * @param field ×Ö¶ÎË÷Òı
-	 * @param values ×Ö¶ÎÖµÊı×é
-	 * @param index ×Ö¶ÎÖµÊı×éµÄË÷Òı
-	 * @return 1£ºµ±Ç°¼ÇÂ¼´ó£¬0£ºÏàµÈ£¬-1£ºµ±Ç°¼ÇÂ¼Ğ¡
+	 * æŠŠè®°å½•çš„æŒ‡å®šå­—æ®µä¸æŒ‡å®šæ•°ç»„çš„å…ƒç´ ç›¸æ¯”è¾ƒ
+	 * @param field å­—æ®µç´¢å¼•
+	 * @param values å­—æ®µå€¼æ•°ç»„
+	 * @param index å­—æ®µå€¼æ•°ç»„çš„ç´¢å¼•
+	 * @return 1ï¼šå½“å‰è®°å½•å¤§ï¼Œ0ï¼šç›¸ç­‰ï¼Œ-1ï¼šå½“å‰è®°å½•å°
 	 */
 	public int compare(int field, IArray values, int index) {
 		return Variant.compare(getFieldValue(field), values.get(index), true);
 	}
 	
 	/**
-	 * ·µ»Ø¼ÇÂ¼µÄ½á¹¹
+	 * è¿”å›è®°å½•çš„ç»“æ„
 	 * @return DataStruct
 	 */
 	public abstract DataStruct dataStruct();
 	
 	/**
-	 * ·µ»Ø×Ö¶ÎµÄÊıÄ¿
-	 * @return ×Ö¶ÎÊı
+	 * è¿”å›å­—æ®µçš„æ•°ç›®
+	 * @return å­—æ®µæ•°
 	 */
 	public abstract int getFieldCount();
 	
 	/**
-	 * ·µ»Ø×Ö¶ÎµÄË÷Òı£¬Î±×Ö¶Î´Ó·ÇÎ±×Ö¶ÎµÄÊıÄ¿¿ªÊ¼¼ÆÊı£¬Èç¹û×Ö¶Î²»´æÔÚÔò·µ»Ø-1
-	 * @param name ×Ö¶ÎÃû
-	 * @return ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * è¿”å›å­—æ®µçš„ç´¢å¼•ï¼Œä¼ªå­—æ®µä»éä¼ªå­—æ®µçš„æ•°ç›®å¼€å§‹è®¡æ•°ï¼Œå¦‚æœå­—æ®µä¸å­˜åœ¨åˆ™è¿”å›-1
+	 * @param name å­—æ®µå
+	 * @return å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
 	 */
 	public int getFieldIndex(String name) {
 		return dataStruct().getFieldIndex(name);
 	}
 
 	/**
-	 * ·µ»Ø¼ÇÂ¼ËùÓĞ×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * è¿”å›è®°å½•æ‰€æœ‰å­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getFieldNames() {
 		return dataStruct().getFieldNames();
 	}
 
 	/**
-	 * ·µ»ØÄ³Ò»×Ö¶ÎµÄÖµ
-	 * @param index ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * è¿”å›æŸä¸€å­—æ®µçš„å€¼
+	 * @param index å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return Object
 	 */
 	public abstract Object getFieldValue(int index);
 
 	/**
-	 * ·µ»ØÄ³Ò»×Ö¶ÎµÄÖµ
-	 * @param name ×Ö¶ÎÃû
+	 * è¿”å›æŸä¸€å­—æ®µçš„å€¼
+	 * @param name å­—æ®µå
 	 * @return Object
 	 */
 	public abstract Object getFieldValue(String name);
 	
 	/**
-	 * È¡×Ö¶ÎÖµ£¬×Ö¶Î²»´æÔÚ·µ»Ø¿Õ£¬´Ë·½·¨ÎªÁËÖ§³Ö½á¹¹²»´¿µÄÅÅÁĞ
-	 * @param index ×Ö¶ÎĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å–å­—æ®µå€¼ï¼Œå­—æ®µä¸å­˜åœ¨è¿”å›ç©ºï¼Œæ­¤æ–¹æ³•ä¸ºäº†æ”¯æŒç»“æ„ä¸çº¯çš„æ’åˆ—
+	 * @param index å­—æ®µåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return Object
 	 */
 	public abstract Object getFieldValue2(int index);
 
 	/**
-	 * ·µ»ØËùÓĞ×Ö¶ÎµÄÖµ
-	 * @return ×Ö¶ÎÖµÊı×é
+	 * è¿”å›æ‰€æœ‰å­—æ®µçš„å€¼
+	 * @return å­—æ®µå€¼æ•°ç»„
 	 */
 	public abstract Object[] getFieldValues();
 	
 	/**
-	 * È¡×Ö¶ÎÖµ£¬²»×ö±ß½ç¼ì²é
-	 * @param index ×Ö¶ÎĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å–å­—æ®µå€¼ï¼Œä¸åšè¾¹ç•Œæ£€æŸ¥
+	 * @param index å­—æ®µåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return Object
 	 */
 	public abstract Object getNormalFieldValue(int index);
 	
 	/**
-	 * È¡×Ö¶ÎÖµ£¬²»×ö±ß½ç¼ì²é
-	 * @param index ×Ö¶ÎĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param out ÓÃÓÚ´æ·Å½á¹û£¬ÈİÁ¿×ã¹»²»ÔÚ×öÈİÁ¿ÅĞ¶Ï
+	 * å–å­—æ®µå€¼ï¼Œä¸åšè¾¹ç•Œæ£€æŸ¥
+	 * @param index å­—æ®µåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param out ç”¨äºå­˜æ”¾ç»“æœï¼Œå®¹é‡è¶³å¤Ÿä¸åœ¨åšå®¹é‡åˆ¤æ–­
 	 */
 	public abstract void getNormalFieldValue(int index, IArray out);
 	
 	/**
-	 * ´´½¨Ö¸¶¨×Ö¶ÎµÄÊı×é
-	 * @param f ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param len Êı×é³¤¶È
+	 * åˆ›å»ºæŒ‡å®šå­—æ®µçš„æ•°ç»„
+	 * @param f å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param len æ•°ç»„é•¿åº¦
 	 * @return IArray
 	 */
 	public IArray createFieldValueArray(int f, int len) {
@@ -242,15 +242,15 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 	
 	/**
-	 * ·µ»ØÖ÷¼üÔÚ½á¹¹ÖĞµÄË÷Òı£¬Ã»ÓĞ¶¨ÒåÖ÷¼üÔò·µ»Ø¿Õ
-	 * @return Ö÷¼üË÷ÒıÊı×é
+	 * è¿”å›ä¸»é”®åœ¨ç»“æ„ä¸­çš„ç´¢å¼•ï¼Œæ²¡æœ‰å®šä¹‰ä¸»é”®åˆ™è¿”å›ç©º
+	 * @return ä¸»é”®ç´¢å¼•æ•°ç»„
 	 */
 	public int[] getPKIndex() {
 		return dataStruct().getPKIndex();
 	}
 	
 	/**
-	 * ·µ»Ø¼ÇÂ¼µÄÖ÷¼ü»ò¶àÖ÷¼ü¹¹³ÉµÄĞòÁĞ£¬Ã»ÓĞÖ÷¼üÅ×Òì³£
+	 * è¿”å›è®°å½•çš„ä¸»é”®æˆ–å¤šä¸»é”®æ„æˆçš„åºåˆ—ï¼Œæ²¡æœ‰ä¸»é”®æŠ›å¼‚å¸¸
 	 * @return Object
 	 */
 	public Object getPKValue() {
@@ -289,12 +289,12 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 	
 	/**
-	 * ·µ»Ø¼ÇÂ¼µÄÖµr.v()
-	 * @return Èç¹ûÉèÖÃÁËÖ÷¼üÔò·µ»ØÖ÷¼üÖµ£¬·ñÔò·µ»ØËùÓĞ×Ö¶Î¹¹³ÉµÄĞòÁĞ
+	 * è¿”å›è®°å½•çš„å€¼r.v()
+	 * @return å¦‚æœè®¾ç½®äº†ä¸»é”®åˆ™è¿”å›ä¸»é”®å€¼ï¼Œå¦åˆ™è¿”å›æ‰€æœ‰å­—æ®µæ„æˆçš„åºåˆ—
 	 */
 	public Object value() {
-		// Èç¹ûÍâ¼üÓĞ»·»áµ¼ÖÂËÀÑ­»·£¿
-		// Ö¸Òı×Ö¶Î¸ÄÎªÈ¡Ö÷¼ü£¿
+		// å¦‚æœå¤–é”®æœ‰ç¯ä¼šå¯¼è‡´æ­»å¾ªç¯ï¼Ÿ
+		// æŒ‡å¼•å­—æ®µæ”¹ä¸ºå–ä¸»é”®ï¼Ÿ
 		DataStruct ds = dataStruct();
 		int []pkIndex = ds.getPKIndex();
 		if (pkIndex == null) {
@@ -345,30 +345,30 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 	
 	/**
-	 * ·µ»Ø¼ÇÂ¼ÊÇ·ñÓĞÊ±¼ä¼ü
-	 * @return true£ºÓĞÊ±¼ä¼ü
+	 * è¿”å›è®°å½•æ˜¯å¦æœ‰æ—¶é—´é”®
+	 * @return trueï¼šæœ‰æ—¶é—´é”®
 	 */
 	public boolean hasTimeKey() {
 		return dataStruct().getTimeKeyCount() > 0;
 	}
 
 	/**
-	 * °´×Ö¶ÎÖµ±È½ÏÁ½Ìõ¼ÇÂ¼ÊÇ·ñÏàµÈ£¬¼ÇÂ¼µÄÊı¾İ½á¹¹±ØĞëÏàÍ¬£¿
-	 * @param r Òª±È½ÏµÄ¼ÇÂ¼
-	 * @return boolean true£ºÏàµÈ
+	 * æŒ‰å­—æ®µå€¼æ¯”è¾ƒä¸¤æ¡è®°å½•æ˜¯å¦ç›¸ç­‰ï¼Œè®°å½•çš„æ•°æ®ç»“æ„å¿…é¡»ç›¸åŒï¼Ÿ
+	 * @param r è¦æ¯”è¾ƒçš„è®°å½•
+	 * @return boolean trueï¼šç›¸ç­‰
 	 */
 	public abstract boolean isEquals(BaseRecord r);
 	
 	/**
-	 * ÅĞ¶ÏÁ½¼ÇÂ¼µÄÖ¸¶¨×Ö¶ÎÊÇ·ñÏàµÈ
-	 * @param r Òª±È½ÏµÄ¼ÇÂ¼
-	 * @param index ×Ö¶ÎË÷Òı
-	 * @return boolean true£ºÏàµÈ
+	 * åˆ¤æ–­ä¸¤è®°å½•çš„æŒ‡å®šå­—æ®µæ˜¯å¦ç›¸ç­‰
+	 * @param r è¦æ¯”è¾ƒçš„è®°å½•
+	 * @param index å­—æ®µç´¢å¼•
+	 * @return boolean trueï¼šç›¸ç­‰
 	 */
 	public abstract boolean isEquals(BaseRecord r, int []index);
 	
 	/**
-	 * ÓÅ»¯Ê±Ê¹ÓÃ£¬ÅĞ¶ÏÏàÁÚµÄ¼ÇÂ¼µÄÊı¾İ½á¹¹ÊÇ·ñÏàÍ¬
+	 * ä¼˜åŒ–æ—¶ä½¿ç”¨ï¼Œåˆ¤æ–­ç›¸é‚»çš„è®°å½•çš„æ•°æ®ç»“æ„æ˜¯å¦ç›¸åŒ
 	 * @param cur
 	 * @return
 	 */
@@ -377,7 +377,7 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 
 	/**
-	 * ·µ»Ø¼ÇÂ¼µÄÖ÷¼ü»ò¶àÖ÷¼ü¹¹³ÉµÄĞòÁĞ£¬Ã»ÓĞÖ÷¼üÊ±·µ»Ø¿Õ
+	 * è¿”å›è®°å½•çš„ä¸»é”®æˆ–å¤šä¸»é”®æ„æˆçš„åºåˆ—ï¼Œæ²¡æœ‰ä¸»é”®æ—¶è¿”å›ç©º
 	 * @return Object
 	 */
 	public Object key() {
@@ -415,39 +415,39 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 
 	/**
-	 * ĞŞ¸Ä¼ÇÂ¼µÄ×Ö¶ÎÖµ
-	 * @param exps Öµ±í´ïÊ½Êı×é
-	 * @param fields ×Ö¶ÎÃûÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ä¿®æ”¹è®°å½•çš„å­—æ®µå€¼
+	 * @param exps å€¼è¡¨è¾¾å¼æ•°ç»„
+	 * @param fields å­—æ®µåæ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public abstract void modify(Expression[] exps, String[] fields, Context ctx);
 	
 	/**
-	 * °ÑÔ´¼ÇÂ¼µÄ×Ö¶ÎÖµ¸³¸øµ±Ç°¼ÇÂ¼
-	 * @param sr Ô´¼ÇÂ¼
-	 * @param isName ÊÇ·ñ°´×Ö¶ÎÃû½øĞĞ¸´ÖÆ
+	 * æŠŠæºè®°å½•çš„å­—æ®µå€¼èµ‹ç»™å½“å‰è®°å½•
+	 * @param sr æºè®°å½•
+	 * @param isName æ˜¯å¦æŒ‰å­—æ®µåè¿›è¡Œå¤åˆ¶
 	 */
 	public abstract void paste(BaseRecord sr, boolean isName);
 	
 	/**
-	 * °ÑĞòÁĞµÄÔªËØÒÀ´Î¸³¸øµ±Ç°¼ÇÂ¼
-	 * @param sequence ÖµĞòÁĞ
+	 * æŠŠåºåˆ—çš„å…ƒç´ ä¾æ¬¡èµ‹ç»™å½“å‰è®°å½•
+	 * @param sequence å€¼åºåˆ—
 	 */
 	public abstract void paste(Sequence sequence);
 	
 	/**
-	 * °ÑĞòÁĞµÄÔªËØÒÀ´Î¸³¸øµ±Ç°¼ÇÂ¼
-	 * @param sequence ÖµĞòÁĞ
-	 * @param start ĞòÁĞµÄÆğÊ¼Î»ÖÃ
+	 * æŠŠåºåˆ—çš„å…ƒç´ ä¾æ¬¡èµ‹ç»™å½“å‰è®°å½•
+	 * @param sequence å€¼åºåˆ—
+	 * @param start åºåˆ—çš„èµ·å§‹ä½ç½®
 	 */
 	public abstract void paste(Sequence sequence, int start);
 	
 	/**
-	 * ¶Ô¼ÇÂ¼µÄÍâ¼ü×öµİ¹é²éÑ¯
-	 * @param field Íâ¼ü×Ö¶ÎÃû
-	 * @param p Ö¸ÏòµÄ×îÖÕ¼ÇÂ¼
-	 * @param maxLevel ±éÀú×î´óµÄ²ã´Î
-	 * @return ÒıÓÃ¼ÇÂ¼¹¹³ÉµÄĞòÁĞ
+	 * å¯¹è®°å½•çš„å¤–é”®åšé€’å½’æŸ¥è¯¢
+	 * @param field å¤–é”®å­—æ®µå
+	 * @param p æŒ‡å‘çš„æœ€ç»ˆè®°å½•
+	 * @param maxLevel éå†æœ€å¤§çš„å±‚æ¬¡
+	 * @return å¼•ç”¨è®°å½•æ„æˆçš„åºåˆ—
 	 */
 	public Sequence prior(String field, BaseRecord p, int maxLevel) {
 		int f = getFieldIndex(field);
@@ -460,11 +460,11 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 	
 	/**
-	 * ¶Ô¼ÇÂ¼µÄÍâ¼ü×öµİ¹é²éÑ¯
-	 * @param f Íâ¼ü×Ö¶ÎĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param p Ö¸ÏòµÄ×îÖÕ¼ÇÂ¼
-	 * @param maxLevel ±éÀú×î´óµÄ²ã´Î
-	 * @return ÒıÓÃ¼ÇÂ¼¹¹³ÉµÄĞòÁĞ
+	 * å¯¹è®°å½•çš„å¤–é”®åšé€’å½’æŸ¥è¯¢
+	 * @param f å¤–é”®å­—æ®µåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param p æŒ‡å‘çš„æœ€ç»ˆè®°å½•
+	 * @param maxLevel éå†æœ€å¤§çš„å±‚æ¬¡
+	 * @return å¼•ç”¨è®°å½•æ„æˆçš„åºåˆ—
 	 */
 	public Sequence prior(int f, BaseRecord p, int maxLevel) {
 		if (this == p) {
@@ -509,9 +509,9 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 	
 	/**
-	 * ¼ÆËã±í´ïÊ½
-	 * @param exp ¼ÆËã±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è®¡ç®—è¡¨è¾¾å¼
+	 * @param exp è®¡ç®—è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void run(Expression exp, Context ctx) {
 		if (exp == null) {
@@ -528,10 +528,10 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 
 	/**
-	 * Õë¶Ô¼ÇÂ¼¼ÆËã±í´ïÊ½²¢½øĞĞ¸³Öµ
-	 * @param assignExps ¸³Öµ±í´ïÊ½Êı×é
-	 * @param exps Öµ±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é’ˆå¯¹è®°å½•è®¡ç®—è¡¨è¾¾å¼å¹¶è¿›è¡Œèµ‹å€¼
+	 * @param assignExps èµ‹å€¼è¡¨è¾¾å¼æ•°ç»„
+	 * @param exps å€¼è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void run(Expression[] assignExps, Expression[] exps, Context ctx) {
 		if (exps == null || exps.length == 0) return;
@@ -560,71 +560,71 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	}
 
 	/**
-	 * ÉèÖÃÖ¸¶¨×Ö¶ÎµÄÖµ
-	 * @param index ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param val ×Ö¶ÎĞÂÖµ
+	 * è®¾ç½®æŒ‡å®šå­—æ®µçš„å€¼
+	 * @param index å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param val å­—æ®µæ–°å€¼
 	 */
 	public abstract void set(int index, Object val);
 
 	/**
-	 * ÉèÖÃÖ¸¶¨×Ö¶ÎµÄÖµ
-	 * @param name ×Ö¶ÎÃû
-	 * @param val ×Ö¶ÎĞÂÖµ
+	 * è®¾ç½®æŒ‡å®šå­—æ®µçš„å€¼
+	 * @param name å­—æ®µå
+	 * @param val å­—æ®µæ–°å€¼
 	 */
 	public abstract void set(String name, Object val);
 
 	/**
-	 * °ÑÖ¸¶¨¼ÇÂ¼¸÷×Ö¶ÎµÄÖµÒÀ´ÎÉè¸øµ±Ç°¼ÇÂ¼£¬¼ÇÂ¼×Ö¶ÎÊıĞèÏàÍ¬
-	 * @param r ¼ÇÂ¼
+	 * æŠŠæŒ‡å®šè®°å½•å„å­—æ®µçš„å€¼ä¾æ¬¡è®¾ç»™å½“å‰è®°å½•ï¼Œè®°å½•å­—æ®µæ•°éœ€ç›¸åŒ
+	 * @param r è®°å½•
 	 */
 	public abstract void set(BaseRecord r);
 	
 	/**
-	 * ÉèÖÃ×Ö¶ÎÖµ£¬²»×ö±ß½ç¼ì²é
-	 * @param index ×Ö¶ÎĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param val ×Ö¶ÎÖµ
+	 * è®¾ç½®å­—æ®µå€¼ï¼Œä¸åšè¾¹ç•Œæ£€æŸ¥
+	 * @param index å­—æ®µåºå·ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param val å­—æ®µå€¼
 	 */
 	public abstract void setNormalFieldValue(int index, Object val);
 	
 	/**
-	 * ÉèÖÃ×Ö¶ÎÖµ£¬Èç¹û×Ö¶Î²»´æÔÚ²»×öÈÎºÎ´¦Àí
-	 * @param index ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı£¬Èç¹û³¬½çÔò²»×öÈÎºÎ´¦Àí
-	 * @param val ×Ö¶ÎĞÂÖµ
+	 * è®¾ç½®å­—æ®µå€¼ï¼Œå¦‚æœå­—æ®µä¸å­˜åœ¨ä¸åšä»»ä½•å¤„ç†
+	 * @param index å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°ï¼Œå¦‚æœè¶…ç•Œåˆ™ä¸åšä»»ä½•å¤„ç†
+	 * @param val å­—æ®µæ–°å€¼
 	 */
 	public abstract void set2(int index, Object val);
 	
 	/**
-	 * °ÑÊı×éµÄÖµ´ÓÖ¸¶¨×Ö¶Î¿ªÊ¼ÒÀ´ÎÉè¸øµ±Ç°¼ÇÂ¼
-	 * @param index ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param objs ×Ö¶ÎÖµÊı×é
+	 * æŠŠæ•°ç»„çš„å€¼ä»æŒ‡å®šå­—æ®µå¼€å§‹ä¾æ¬¡è®¾ç»™å½“å‰è®°å½•
+	 * @param index å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param objs å­—æ®µå€¼æ•°ç»„
 	 */
 	public abstract void setStart(int index, Object []objs);
 	
 	/**
-	 * °ÑÊı×éµÄÖµ´ÓÖ¸¶¨×Ö¶Î¿ªÊ¼ÒÀ´ÎÉè¸øµ±Ç°¼ÇÂ¼
-	 * @param index ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param objs ×Ö¶ÎÖµÊı×é
-	 * @param len ¸³ÖµµÄ×Ö¶ÎÊı
+	 * æŠŠæ•°ç»„çš„å€¼ä»æŒ‡å®šå­—æ®µå¼€å§‹ä¾æ¬¡è®¾ç»™å½“å‰è®°å½•
+	 * @param index å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param objs å­—æ®µå€¼æ•°ç»„
+	 * @param len èµ‹å€¼çš„å­—æ®µæ•°
 	 */
 	public abstract void setStart(int index, Object []objs, int len);
 	
 	/**
-	 * °Ñ¼ÇÂ¼µÄÖµ´ÓÖ¸¶¨×Ö¶Î¿ªÊ¼ÒÀ´ÎÉè¸øµ±Ç°¼ÇÂ¼
-	 * @param index ×Ö¶ÎË÷Òı£¬´Ó0¿ªÊ¼¼ÆÊı
-	 * @param r ¼ÇÂ¼
+	 * æŠŠè®°å½•çš„å€¼ä»æŒ‡å®šå­—æ®µå¼€å§‹ä¾æ¬¡è®¾ç»™å½“å‰è®°å½•
+	 * @param index å­—æ®µç´¢å¼•ï¼Œä»0å¼€å§‹è®¡æ•°
+	 * @param r è®°å½•
 	 */
 	public abstract void setStart(int index, BaseRecord r);
 	
 	/**
-	 * ½«µ±Ç°¼ÇÂ¼µÄ¿ÉÎÄ±¾»¯×Ö¶Î×ª³É×Ö´®
-	 * @param opt t£ºÓÃ'\t'·Ö¸ô×Ö¶Î£¬È±Ê¡ÓÃ¶ººÅ£¬q£º´®³ÉÔ±½ÓÈëÊ±¼ÓÉÏÒıºÅ£¬È±Ê¡²»»á´¦Àí£¬
-	 * f£º½ö×ª»»rµÄ×Ö¶ÎÃû¶ø·Ç×Ö¶ÎÖµ
+	 * å°†å½“å‰è®°å½•çš„å¯æ–‡æœ¬åŒ–å­—æ®µè½¬æˆå­—ä¸²
+	 * @param opt tï¼šç”¨'\t'åˆ†éš”å­—æ®µï¼Œç¼ºçœç”¨é€—å·ï¼Œqï¼šä¸²æˆå‘˜æ¥å…¥æ—¶åŠ ä¸Šå¼•å·ï¼Œç¼ºçœä¸ä¼šå¤„ç†ï¼Œ
+	 * fï¼šä»…è½¬æ¢rçš„å­—æ®µåè€Œéå­—æ®µå€¼
 	 * @return String
 	 */
 	public abstract String toString(String opt);
 	
 	/**
-	 * °Ñµ±Ç°¼ÇÂ¼×ª³ÉRecordĞÍµÄ¼ÇÂ¼£¬Èç¹û±¾ÊÂÊÇRecordĞÍÔòÖ±½Ó·µ»Ø
+	 * æŠŠå½“å‰è®°å½•è½¬æˆRecordå‹çš„è®°å½•ï¼Œå¦‚æœæœ¬äº‹æ˜¯Recordå‹åˆ™ç›´æ¥è¿”å›
 	 * @return Record
 	 */
 	public abstract Record toRecord();

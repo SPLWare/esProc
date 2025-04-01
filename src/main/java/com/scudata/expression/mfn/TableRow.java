@@ -9,7 +9,7 @@ import com.scudata.parallel.ClusterMemoryTable;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸ù¾İÖ÷¼üÖµµ½±íÖĞ²éÕÒ¼ÇÂ¼
+ * æ ¹æ®ä¸»é”®å€¼åˆ°è¡¨ä¸­æŸ¥æ‰¾è®°å½•
  * k.row(T)
  * @author RunQian
  *
@@ -18,7 +18,7 @@ public class TableRow extends MemberFunction {
 	protected Object src;
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -36,7 +36,7 @@ public class TableRow extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		src = null;

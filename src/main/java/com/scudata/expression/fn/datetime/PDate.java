@@ -16,13 +16,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * pdate(dateExp) »ñµÃÖ¸¶¨ÈÕÆÚdateExpËùÔÚĞÇÆÚ/ÔÂ/¼¾¶ÈµÄ×îÔçµÄÒ»ÌìºÍ×îºóµÄÒ»Ìì
+ * pdate(dateExp) è·å¾—æŒ‡å®šæ—¥æœŸdateExpæ‰€åœ¨æ˜ŸæœŸ/æœˆ/å­£åº¦çš„æœ€æ—©çš„ä¸€å¤©å’Œæœ€åçš„ä¸€å¤©
  * @author runqian
  *
  */
 public class PDate extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -131,8 +131,8 @@ public class PDate extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {

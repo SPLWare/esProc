@@ -21,8 +21,8 @@ import org.mozilla.universalchardet.UniversalDetector;
 /***************************************
  * 
  * chardetect@v(p)
- * ²ÎÊıp£¬·ÖÎª×Ö·û´®£¬¶ş½øÖÆÖµ£»URL£»ÎÄ¼şĞÍ
- * ·µ»ØÖµ£ºµ¥¸ö±àÂëÖµÊ±ÎªString, ·ñÔòÎªĞòÁĞ
+ * å‚æ•°pï¼Œåˆ†ä¸ºå­—ç¬¦ä¸²ï¼ŒäºŒè¿›åˆ¶å€¼ï¼›URLï¼›æ–‡ä»¶å‹
+ * è¿”å›å€¼ï¼šå•ä¸ªç¼–ç å€¼æ—¶ä¸ºString, å¦åˆ™ä¸ºåºåˆ—
  * 
  * */
 
@@ -114,7 +114,7 @@ public class CharDetect extends CharFunction {
 		}
 		String fullFile = null;
 		
-		// 1. ÓÃ»§ÉèÖÃµÄmain
+		// 1. ç”¨æˆ·è®¾ç½®çš„main
 		String path = Env.getMainPath();
 		if (path!=null){
 			fullFile = path+File.separatorChar+sfile;
@@ -124,14 +124,14 @@ public class CharDetect extends CharFunction {
 			}
 		}
 		
-		// 2. ÏµÍ³×Ô´øµÄmain
+		// 2. ç³»ç»Ÿè‡ªå¸¦çš„main
 		path = System.getProperty("start.home");
 		fullFile = path+File.separatorChar+"main"+File.separatorChar+sfile;
 		file = new File(fullFile);
 		if (file.exists()){	
 			return getFileCharset(file);
 		}
-		// 3. ÏµÍ³×Ô´øµÄdemo
+		// 3. ç³»ç»Ÿè‡ªå¸¦çš„demo
 		fullFile = path+File.separatorChar+"demo"+File.separatorChar+sfile;
 		file = new File(fullFile);
 		if (file.exists()){	
@@ -190,7 +190,7 @@ public class CharDetect extends CharFunction {
 		return null;
 	}
 	
-	// Í¨¹ıUrl»ñÈ¡Ö÷»úÃû£¬port, warehouse
+	// é€šè¿‡Urlè·å–ä¸»æœºåï¼Œport, warehouse
 	private boolean isMatch(String strUrl, String regExp)
 	{
 		if (strUrl==null || strUrl.isEmpty()){

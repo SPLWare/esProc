@@ -11,9 +11,9 @@ import com.scudata.resources.EngineMessage;
 
 
 /**
- * ÔÚ¾ØÕóÖĞ²éÕÒÔªËØÎ»ÖÃ
- * mfind(A)£¬²éÕÒAÖĞ·Ç¿ÕÊıÖµµÄÎ»ÖÃ£¬´Ó1¿ªÊ¼£¬ÏÈÁĞºóĞĞ
- * mfind(A, n)£¬²éÕÒAÖĞÇ°n¸ö·Ç¿ÕÊıÖµµÄµÄÎ»ÖÃ£¬´Ó1¿ªÊ¼£¬ÏÈÁĞºóĞĞ
+ * åœ¨çŸ©é˜µä¸­æŸ¥æ‰¾å…ƒç´ ä½ç½®
+ * mfind(A)ï¼ŒæŸ¥æ‰¾Aä¸­éç©ºæ•°å€¼çš„ä½ç½®ï¼Œä»1å¼€å§‹ï¼Œå…ˆåˆ—åè¡Œ
+ * mfind(A, n)ï¼ŒæŸ¥æ‰¾Aä¸­å‰nä¸ªéç©ºæ•°å€¼çš„çš„ä½ç½®ï¼Œä»1å¼€å§‹ï¼Œå…ˆåˆ—åè¡Œ
  * @author bd
  *
  */
@@ -26,7 +26,7 @@ public class MFind extends Function {
 			Object oa = null;
 			Object o2 = null;
 			if (param.isLeaf()) {
-				// Ö»ÓĞÒ»¸ö²ÎÊı£¬mfind(A), ²éÕÒ·ÇÁã³ÉÔ±
+				// åªæœ‰ä¸€ä¸ªå‚æ•°ï¼Œmfind(A), æŸ¥æ‰¾éé›¶æˆå‘˜
 				oa = param.getLeafExpression().calculate(ctx);
 			}
 			else if (param.getSubSize() != 2) {

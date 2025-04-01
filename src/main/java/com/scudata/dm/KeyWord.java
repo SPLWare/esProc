@@ -1,29 +1,29 @@
 package com.scudata.dm;
 
 /**
- * ¶¨ÒåÁËÏîÄ¿ÓÃµ½µÄÔËËã·ûºÍ±êÊ¶·û
+ * å®šä¹‰äº†é¡¹ç›®ç”¨åˆ°çš„è¿ç®—ç¬¦å’Œæ ‡è¯†ç¬¦
  * @author WangXiaoJun
  *
  */
 public final class KeyWord {
-	public static final String SUBCODEBLOCK = "??"; // ¼ÆËãÒÔµ±Ç°¸ñÎªÖ÷¸ñµÄ´úÂë¿é
-	public static final String ARGPREFIX = "?"; // ²ÎÊıÇ°×º£¬evalº¯ÊıµÄ±í´ïÊ½¿ÉÒÔÓÃ?1¡¢?2ÕâÖÖĞÎÊ½ÒıÓÃ²ÎÊı
-	public static final char OPTION = '@'; // º¯ÊıÑ¡Ïî·Ö¸ô·û
+	public static final String SUBCODEBLOCK = "??"; // è®¡ç®—ä»¥å½“å‰æ ¼ä¸ºä¸»æ ¼çš„ä»£ç å—
+	public static final String ARGPREFIX = "?"; // å‚æ•°å‰ç¼€ï¼Œevalå‡½æ•°çš„è¡¨è¾¾å¼å¯ä»¥ç”¨?1ã€?2è¿™ç§å½¢å¼å¼•ç”¨å‚æ•°
+	public static final char OPTION = '@'; // å‡½æ•°é€‰é¡¹åˆ†éš”ç¬¦
 
-	public static final String CURRENTELEMENT = "~"; // ĞòÁĞµ±Ç°ÔªËØ±êÊ¶·û
-	public static final String CURRENTSEQ = "#"; // ĞòÁĞµÄµ±Ç°Ñ­»·ĞòºÅ
-	public static final String ITERATEPARAM = "~~"; // µü´ú²ÎÊı£¬ÓÃÓÚiterateº¯ÊıÖĞÒıÓÃµü´úÖµ
-	public static final String FIELDIDPREFIX = "#"; // ÓÃĞòºÅÒıÓÃ×Ö¶Î#1, #2...
-	public static final String CURRENTCELL = "@"; // µ±Ç°¸ñ
-	public static final String CURRENTCELLSEQ = "#@"; // µ±Ç°¸ñÑ­»·ĞòºÅ
+	public static final String CURRENTELEMENT = "~"; // åºåˆ—å½“å‰å…ƒç´ æ ‡è¯†ç¬¦
+	public static final String CURRENTSEQ = "#"; // åºåˆ—çš„å½“å‰å¾ªç¯åºå·
+	public static final String ITERATEPARAM = "~~"; // è¿­ä»£å‚æ•°ï¼Œç”¨äºiterateå‡½æ•°ä¸­å¼•ç”¨è¿­ä»£å€¼
+	public static final String FIELDIDPREFIX = "#"; // ç”¨åºå·å¼•ç”¨å­—æ®µ#1, #2...
+	public static final String CURRENTCELL = "@"; // å½“å‰æ ¼
+	public static final String CURRENTCELLSEQ = "#@"; // å½“å‰æ ¼å¾ªç¯åºå·
 
-	public static final char CELLPREFIX = '#'; // #A1 #C µ¥Ôª¸ñÇ°×º
-	public static final String CONSTSTRINGPREFIX = "'"; // ³£Á¿×Ö·û´®Ç°×º
+	public static final char CELLPREFIX = '#'; // #A1 #C å•å…ƒæ ¼å‰ç¼€
+	public static final String CONSTSTRINGPREFIX = "'"; // å¸¸é‡å­—ç¬¦ä¸²å‰ç¼€
 
 	/**
-	 * ÅĞ¶ÏÖ¸¶¨×Ö·ûÊÇ·ñÊÇ¿Õ°×»òÕßÔËËã·ûµÈ·ûºÅ
-	 * @param c ×Ö·û
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æŒ‡å®šå­—ç¬¦æ˜¯å¦æ˜¯ç©ºç™½æˆ–è€…è¿ç®—ç¬¦ç­‰ç¬¦å·
+	 * @param c å­—ç¬¦
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isSymbol(char c) {
 		return (Character.isWhitespace(c) ||
@@ -35,63 +35,63 @@ public final class KeyWord {
 	}
 
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇ×Ó´úÂë¿é±êÊ¶·û
-	 * @param id ±êÊ¶·û
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯å­ä»£ç å—æ ‡è¯†ç¬¦
+	 * @param id æ ‡è¯†ç¬¦
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isSubCodeBlock(String id) {
 		return SUBCODEBLOCK.equals(id);
 	}
 	
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇĞòÁĞµÄµ±Ç°ÔªËØ
-	 * @param id ±êÊ¶
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯åºåˆ—çš„å½“å‰å…ƒç´ 
+	 * @param id æ ‡è¯†
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isCurrentElement(String id) {
 		return CURRENTELEMENT.equals(id);
 	}
 	
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇĞòÁĞµÄµ±Ç°Ñ­»·ĞòºÅ
-	 * @param id ±êÊ¶
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯åºåˆ—çš„å½“å‰å¾ªç¯åºå·
+	 * @param id æ ‡è¯†
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isCurrentSeq(String id) {
 		return CURRENTSEQ.equals(id);
 	}
 	
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇµ±Ç°¸ñ
-	 * @param id ±êÊ¶
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯å½“å‰æ ¼
+	 * @param id æ ‡è¯†
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isCurrentCell(String id) {
 		return CURRENTCELL.equals(id);
 	}
 	
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇµ±Ç°¸ñÑ­»·ĞòºÅ
-	 * @param id ±êÊ¶
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯å½“å‰æ ¼å¾ªç¯åºå·
+	 * @param id æ ‡è¯†
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isCurrentCellSeq(String id) {
 		return CURRENTCELLSEQ.equals(id);
 	}
 	
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇµü´ú±äÁ¿
-	 * @param id ±êÊ¶
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯è¿­ä»£å˜é‡
+	 * @param id æ ‡è¯†
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isIterateParam(String id) {
 		return ITERATEPARAM.equals(id);
 	}
 
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇ×Ö¶ÎµÄĞòºÅ·¨ÒıÓÃ
-	 * @param id ±êÊ¶
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯å­—æ®µçš„åºå·æ³•å¼•ç”¨
+	 * @param id æ ‡è¯†
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isFieldId(String id) {
 		if (id == null || id.length() < 2 || !id.startsWith(FIELDIDPREFIX)) {
@@ -109,9 +109,9 @@ public final class KeyWord {
 	}
 	
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇµ±Ç°ĞòÁĞ³ÉÔ±ÒıÓÃ£¨~n£©
-	 * @param id ±êÊ¶
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯å½“å‰åºåˆ—æˆå‘˜å¼•ç”¨ï¼ˆ~nï¼‰
+	 * @param id æ ‡è¯†
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isElementId(String id) {
 		if (id == null || id.length() < 2 || !id.startsWith(CURRENTELEMENT)) {
@@ -129,18 +129,18 @@ public final class KeyWord {
 	}
 
 	/**
-	 * È¡×Ö¶ÎµÄĞòºÅ£¬idÊÇĞÎÈç#1ÕâÑùµÄ×Ö·û´®
-	 * @param id ×Ö¶ÎµÄ#n±íÊ¾µÄ´®
-	 * @return ×Ö¶ÎĞòºÅ
+	 * å–å­—æ®µçš„åºå·ï¼Œidæ˜¯å½¢å¦‚#1è¿™æ ·çš„å­—ç¬¦ä¸²
+	 * @param id å­—æ®µçš„#nè¡¨ç¤ºçš„ä¸²
+	 * @return å­—æ®µåºå·
 	 */
 	public static int getFiledId(String id) {
 		return Integer.parseInt(id.substring(FIELDIDPREFIX.length()));
 	}
 
 	/**
-	 * ÅĞ¶Ï±êÊ¶·ûÊÇ·ñÊÇ²ÎÊı£¬²ÎÊı¿ÉÒÔÓÃ?ÒıÓÃ£¬Ò²¿ÉÒÔÓÃ?1¡¢?2ÕâÖÖÖ¸¶¨ÒıÓÃµÚ¼¸¸ö²ÎÊı
-	 * @param id ±êÊ¶·û
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯å‚æ•°ï¼Œå‚æ•°å¯ä»¥ç”¨?å¼•ç”¨ï¼Œä¹Ÿå¯ä»¥ç”¨?1ã€?2è¿™ç§æŒ‡å®šå¼•ç”¨ç¬¬å‡ ä¸ªå‚æ•°
+	 * @param id æ ‡è¯†ç¬¦
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isArg(String id) {
 		if (id == null || !id.startsWith(ARGPREFIX)) {
@@ -158,10 +158,10 @@ public final class KeyWord {
 	}
 	
 	/**
-	 * É¨Ãè±êÊ¶·û£¬·µ»Ø½áÊøÎ»ÖÃ
-	 * @param expStr ±í´ïÊ½×Ö·û´®
-	 * @param start ÆğÊ¼É¨ÃèÎ»ÖÃ£¨°üº¬£©
-	 * @return int ±êÊ¶·ûµÄ½áÊøÎ»ÖÃ£¨²»°üº¬£©
+	 * æ‰«ææ ‡è¯†ç¬¦ï¼Œè¿”å›ç»“æŸä½ç½®
+	 * @param expStr è¡¨è¾¾å¼å­—ç¬¦ä¸²
+	 * @param start èµ·å§‹æ‰«æä½ç½®ï¼ˆåŒ…å«ï¼‰
+	 * @return int æ ‡è¯†ç¬¦çš„ç»“æŸä½ç½®ï¼ˆä¸åŒ…å«ï¼‰
 	 */
 	public static int scanId(String expStr, int start) {
 		int len = expStr.length();
@@ -175,9 +175,9 @@ public final class KeyWord {
 	}
 
 	/**
-	 * °Ñ×Ö·û´®ÖĞµÄº¯ÊıÑ¡Ïî·Ö²ğ³öÀ´£¬Ô´Êı×é´æ·Å²ğ³ıÑ¡ÏîºóµÄ´®£¬Ñ¡Ïî×öÎª·µ»ØÖµ·µ»Ø
-	 * @param strs ×Ö·û´®Êı×é
-	 * @return Ñ¡ÏîÊı×é
+	 * æŠŠå­—ç¬¦ä¸²ä¸­çš„å‡½æ•°é€‰é¡¹åˆ†æ‹†å‡ºæ¥ï¼Œæºæ•°ç»„å­˜æ”¾æ‹†é™¤é€‰é¡¹åçš„ä¸²ï¼Œé€‰é¡¹åšä¸ºè¿”å›å€¼è¿”å›
+	 * @param strs å­—ç¬¦ä¸²æ•°ç»„
+	 * @return é€‰é¡¹æ•°ç»„
 	 */
 	public static String[] parseStringOptions(String []strs) {
 		int size = strs.length;

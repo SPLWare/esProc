@@ -19,22 +19,22 @@ import com.scudata.expression.operator.DotOperator;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓÃÓÚÊµÏÖ×Ö¶Î±í´ïÊ½µÄf()
+ * ç”¨äºå®ç°å­—æ®µè¡¨è¾¾å¼çš„f()
  * @author runqian
  *
  */
 public class TableGather {
-	private ICursor cs;//Ô´ÓÎ±ê
-	private int calcType;//¼ÆËãÀàĞÍ
+	private ICursor cs;//æºæ¸¸æ ‡
+	private int calcType;//è®¡ç®—ç±»å‹
 	private Sequence data;
 	private PhyTable table;
-	private ComTableRecord curRecord;//µ±Ç°¼ÇÂ¼
-	private int cur;//ĞòºÅ
-	private int len;//µ±Ç°¸öÊı
-	private long recSeq;//µ±Ç°Î±ºÅ
+	private ComTableRecord curRecord;//å½“å‰è®°å½•
+	private int cur;//åºå·
+	private int len;//å½“å‰ä¸ªæ•°
+	private long recSeq;//å½“å‰ä¼ªå·
 	private Sequence temp;
 	private static String []funName = {"field","sum","count","max","min","avg","top","iterate"};
-	private String []subNames;//×Ó×Ö¶ÎÃû
+	private String []subNames;//å­å­—æ®µå
 	
 	private boolean isRow;
 	
@@ -44,7 +44,7 @@ public class TableGather {
 	public TableGather(PhyTable baseTable,Expression exp, Context ctx) {
 		Node home = exp.getHome();
 		if (!(home instanceof DotOperator) && !(home instanceof Moves)) {
-			return;//Ä¿Ç°Ö»½âÎöT.C / T.f(C) / T{}
+			return;//ç›®å‰åªè§£æT.C / T.f(C) / T{}
 		}
 		
 		Object obj = home.getLeft();
@@ -147,7 +147,7 @@ public class TableGather {
 		}
 		ComTableRecord r = (ComTableRecord) data.getMem(cur);
 		
-		//ÕÒµ½µÚÒ»¸öÏàÍ¬µÄ
+		//æ‰¾åˆ°ç¬¬ä¸€ä¸ªç›¸åŒçš„
 		while (seq != recSeq) {
 			cur++;
 			if (cur > len) {
@@ -158,7 +158,7 @@ public class TableGather {
 			recSeq = r.getRecordSeq();
 		}
 		
-		//È¡³öËùÓĞÏàÍ¬µÄ
+		//å–å‡ºæ‰€æœ‰ç›¸åŒçš„
 		Sequence temp = this.temp;
 		temp.clear();
 		while (seq == recSeq) {
@@ -175,11 +175,11 @@ public class TableGather {
 			recSeq = r.getRecordSeq();
 		}
 		
-		//Ö¸Ïò
+		//æŒ‡å‘
 		this.cur = cur;
 		this.recSeq = recSeq;
 		
-		//¼ÆËã
+		//è®¡ç®—
 		Object result = null;
 		switch (calcType) {
 		case 0 : 

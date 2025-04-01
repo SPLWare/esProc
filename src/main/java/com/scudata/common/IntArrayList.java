@@ -31,7 +31,7 @@ public class IntArrayList extends AbstractList<Integer> implements Serializable 
 		return _size;
 	}
 
-	// ÖØÉè³ÉÔ±Êı
+	// é‡è®¾æˆå‘˜æ•°
 	public void setSize(int size) {
 		this._size = size;
 	}
@@ -43,7 +43,7 @@ public class IntArrayList extends AbstractList<Integer> implements Serializable 
 	}
 
 	public int getInt(int index) {
-		// ÓĞÉÏ²ã¸ºÔğË÷ÒıµÄÓĞĞ§ĞÔ
+		// æœ‰ä¸Šå±‚è´Ÿè´£ç´¢å¼•çš„æœ‰æ•ˆæ€§
 		//checkRange(index);
 		return _data[index];
 	}
@@ -212,11 +212,11 @@ public class IntArrayList extends AbstractList<Integer> implements Serializable 
 	}
 	
 	/**
-	 * ¶ş·Ö·¨²éÕÒÔªËØ£¬ÔªËØÓĞĞò
-	 * @param key ´ı²éÕÒµÄÔªËØÖµ
-	 * @param low ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	 * @param high ½áÊøÎ»ÖÃ£¬°üÀ¨
-	 * @return ·µ»ØÔªËØÎ»ÖÃ£¬»ò-insert position - 1
+	 * äºŒåˆ†æ³•æŸ¥æ‰¾å…ƒç´ ï¼Œå…ƒç´ æœ‰åº
+	 * @param key å¾…æŸ¥æ‰¾çš„å…ƒç´ å€¼
+	 * @param low èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	 * @param high ç»“æŸä½ç½®ï¼ŒåŒ…æ‹¬
+	 * @return è¿”å›å…ƒç´ ä½ç½®ï¼Œæˆ–-insert position - 1
 	 */
 	public int binarySearch(int key, int low, int high) {
 		while (low <= high) {

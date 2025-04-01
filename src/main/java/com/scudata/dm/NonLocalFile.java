@@ -3,7 +3,7 @@ package com.scudata.dm;
 import java.io.File;
 
 /**
- * ·Ç±¾µØFileÀàµÄ×ÓÀà£¬°ÑÔ¶³ÌÎÄ¼şÓ³ÉäÎª±¾µØFileÀà
+ * éæœ¬åœ°Fileç±»çš„å­ç±»ï¼ŒæŠŠè¿œç¨‹æ–‡ä»¶æ˜ å°„ä¸ºæœ¬åœ°Fileç±»
  * @author LW
  *
  */

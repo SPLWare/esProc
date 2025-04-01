@@ -4,8 +4,8 @@ import com.scudata.dm.Context;
 import com.scudata.expression.DBFunction;
 
 /**
- * 根据选项设置连接的事务孤立级别并返回原级别（对应的选项字符），无选项用JDBC缺省
- * db.isolate() 选项@ncurs分别对应none,commit,uncommit,repeatable,serializable
+ * 鏍规嵁閫夐」璁剧疆杩炴帴鐨勪簨鍔″绔嬬骇鍒苟杩斿洖鍘熺骇鍒紙瀵瑰簲鐨勯�夐」瀛楃锛夛紝鏃犻�夐」鐢↗DBC缂虹渷
+ * db.isolate() 閫夐」@ncurs鍒嗗埆瀵瑰簲none,commit,uncommit,repeatable,serializable
  * @author RunQian
  *
  */

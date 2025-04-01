@@ -5,26 +5,26 @@ import com.scudata.dm.*;
 import com.scudata.util.*;
 
 /**
- * º¯ÊıµÄ²ÎÊıÃû¸úÖµ¶Ô
+ * å‡½æ•°çš„å‚æ•°åè·Ÿå€¼å¯¹
  * 
- * valueÎª×Ö·û´®µÄÊ±ºò£¬A1±íÊ¾ÊäÈë´®£¬=A1±íÊ¾ÊäÈë±í´ïÊ½ 
- * ´æ´¢ÔÚplot×Ö·û´®º¯ÊıÊ±£¬·Ö±ğÎª£º "A1"£¬ A1
+ * valueä¸ºå­—ç¬¦ä¸²çš„æ—¶å€™ï¼ŒA1è¡¨ç¤ºè¾“å…¥ä¸²ï¼Œ=A1è¡¨ç¤ºè¾“å…¥è¡¨è¾¾å¼ 
+ * å­˜å‚¨åœ¨plotå­—ç¬¦ä¸²å‡½æ•°æ—¶ï¼Œåˆ†åˆ«ä¸ºï¼š "A1"ï¼Œ A1
  */
 public class FuncParam {
-	// ²ÎÊıÃû³Æ£¬¸Ã²ÎÊıÃû³ÆÖ±½ÓÎª±à¼­ÔªµÄÊôĞÔÃû³Æ
+	// å‚æ•°åç§°ï¼Œè¯¥å‚æ•°åç§°ç›´æ¥ä¸ºç¼–è¾‘å…ƒçš„å±æ€§åç§°
 	protected String name;
 	protected Object value;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public FuncParam() {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param name ²ÎÊıÃû
-	 * @param value ²ÎÊıÖµ
+	 * æ„é€ å‡½æ•°
+	 * @param name å‚æ•°å
+	 * @param value å‚æ•°å€¼
 	 */
 	public FuncParam(String name, Object value) {
 		this.name = name;
@@ -32,45 +32,45 @@ public class FuncParam {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıÃû³Æ
-	 * @param name Ãû³Æ
+	 * è®¾ç½®å‚æ•°åç§°
+	 * @param name åç§°
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıÃû
-	 * @return Ãû³Æ
+	 * è·å–å‚æ•°å
+	 * @return åç§°
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıÖµ
-	 * @param value ²ÎÊıÖµ
+	 * è®¾ç½®å‚æ•°å€¼
+	 * @param value å‚æ•°å€¼
 	 */
 	public void setValue(Object value) {
 		this.value = value;
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıÖµ
-	 * @return ²ÎÊıÖµ
+	 * è·å–å‚æ•°å€¼
+	 * @return å‚æ•°å€¼
 	 */
 	public Object getValue() {
 		return value;
 	}
 
 	/**
-	 * ÉèÖÃ±í´ïÊ½ÖĞµÄ±à¼­´®£¬×ª»»Îª¶ÔÓ¦µÄ²ÎÊıÖµ
-	 * @param editString ±à¼­´®
+	 * è®¾ç½®è¡¨è¾¾å¼ä¸­çš„ç¼–è¾‘ä¸²ï¼Œè½¬æ¢ä¸ºå¯¹åº”çš„å‚æ•°å€¼
+	 * @param editString ç¼–è¾‘ä¸²
 	 */
 	public void setEditString(String editString) {
 		String tmp = editString;
 
-		boolean removeEscape = !tmp.startsWith("["); // Èç¹ûÊÇĞòÁĞ£¬Ôò½âÎöÊ±²»ÄÜÈ¥ÒıºÅ
+		boolean removeEscape = !tmp.startsWith("["); // å¦‚æœæ˜¯åºåˆ—ï¼Œåˆ™è§£ææ—¶ä¸èƒ½å»å¼•å·
 		value = Variant.parse(tmp, removeEscape);
 		if (value instanceof String && Variant.isEquals(tmp, value)) {
 			value = "=" + value;
@@ -106,8 +106,8 @@ public class FuncParam {
 	}
 
 	/**
-	 * ½«²ÎÊıÖµ×ª»»Îª±à¼­´®
-	 * @param defValue£¬È±Ê¡Öµ£¬²ÎÊıÖµÎªÈ±Ê¡ÖµÊ±²»ĞèÒª×ª»»³öÈ¥
+	 * å°†å‚æ•°å€¼è½¬æ¢ä¸ºç¼–è¾‘ä¸²
+	 * @param defValueï¼Œç¼ºçœå€¼ï¼Œå‚æ•°å€¼ä¸ºç¼ºçœå€¼æ—¶ä¸éœ€è¦è½¬æ¢å‡ºå»
 	 * @return
 	 */
 	public String toEditString(Object defValue) {
@@ -134,7 +134,7 @@ public class FuncParam {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸ÀàµÄtoString½Ó¿Ú
+	 * å®ç°çˆ¶ç±»çš„toStringæ¥å£
 	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();

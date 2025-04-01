@@ -9,37 +9,37 @@ import javax.swing.JPanel;
 import com.scudata.ide.spl.GCSpl;
 
 /**
- * ½ÇÂäÃæ°å
+ * è§’è½é¢æ¿
  *
  */
 public class CornerPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Íø¸ñ¿Ø¼ş
+	 * ç½‘æ ¼æ§ä»¶
 	 */
 	private SplControl control;
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ±à¼­
+	 * æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	private boolean editable = true;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param control
-	 *            Íø¸ñ¿Ø¼ş
+	 *            ç½‘æ ¼æ§ä»¶
 	 */
 	public CornerPanel(SplControl control) {
 		this(control, true);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param control
-	 *            Íø¸ñ¿Ø¼ş
+	 *            ç½‘æ ¼æ§ä»¶
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public CornerPanel(SplControl control, boolean editable) {
 		this.control = control;
@@ -50,7 +50,7 @@ public class CornerPanel extends JPanel {
 	}
 
 	/**
-	 * »æÖÆÃæ°å
+	 * ç»˜åˆ¶é¢æ¿
 	 */
 	public void paint(Graphics g) {
 		int w = RowHeaderPanel.getW(control);

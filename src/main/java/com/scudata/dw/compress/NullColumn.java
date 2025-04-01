@@ -12,7 +12,7 @@ public class NullColumn extends Column {
 
 	}
 	
-	// 取第row行的数据
+	// 鍙栫row琛岀殑鏁版嵁
 	public Object getData(int row) {
 		return null;
 	}

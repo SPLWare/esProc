@@ -15,13 +15,13 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * date(datetimeExp) ´ÓdatetimeExpÖĞÈ¡³öÈÕÆÚ²¿·ÖµÄÊı¾İ
+ * date(datetimeExp) ä»datetimeExpä¸­å–å‡ºæ—¥æœŸéƒ¨åˆ†çš„æ•°æ®
  * @author runqian
  *
  */
 public class ToDate extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -81,7 +81,7 @@ public class ToDate extends Function {
 						//throw new RQException("date" + e.getMessage());
 					}
 				} else if (result1 instanceof Number && result2 instanceof Number) {
-					// date(ym,d)	ymÊÇ6Î»ÊıÊÇ½âÊÍÎªÄêÔÂ
+					// date(ym,d)	ymæ˜¯6ä½æ•°æ˜¯è§£é‡Šä¸ºå¹´æœˆ
 					int ym = ((Number)result1).intValue();
 					if (ym < 1) {
 						MessageManager mm = EngineMessage.get();

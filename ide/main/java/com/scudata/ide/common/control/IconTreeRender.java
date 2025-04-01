@@ -6,7 +6,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
- * ÏÔÊ¾Í¼±êµÄÊ÷½áµãµÄÏÔÊ¾Àà
+ * æ˜¾ç¤ºå›¾æ ‡çš„æ ‘ç»“ç‚¹çš„æ˜¾ç¤ºç±»
  *
  */
 public class IconTreeRender extends DefaultTreeCellRenderer {
@@ -14,13 +14,13 @@ public class IconTreeRender extends DefaultTreeCellRenderer {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public IconTreeRender() {
 	}
 
 	/**
-	 * ÊµÏÖº¯Êı£¬ÔÚDefaultTreeCellRendererµÄ»ù´¡ÉÏ¼ÓÉÏÍ¼±ê
+	 * å®ç°å‡½æ•°ï¼Œåœ¨DefaultTreeCellRendererçš„åŸºç¡€ä¸ŠåŠ ä¸Šå›¾æ ‡
 	 */
 	public Component getTreeCellRendererComponent(JTree tree, Object value,
 			boolean sel, boolean expanded, boolean leaf, int row,

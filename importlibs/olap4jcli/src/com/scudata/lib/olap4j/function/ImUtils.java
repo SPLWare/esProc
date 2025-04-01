@@ -32,37 +32,37 @@ public class ImUtils {
 	 *            PrintStream which to send output to
 	 */
 
-	// ÊÇ·ñºÏ·¨µÄsqlÓï¾ä.
+	// æ˜¯å¦åˆæ³•çš„sqlè¯­å¥.
 	public static boolean isLegalSql(String strSql) {
-		String span = strSql.toUpperCase();// ²âÊÔÓÃsqlÓï¾ä
+		String span = strSql.toUpperCase();// æµ‹è¯•ç”¨sqlè¯­å¥
 		System.out.println(span);
-		String column = "(\\w+\\s*(\\w+\\s*){0,1})";// Ò»ÁĞµÄÕıÔò±í´ïÊ½ Æ¥ÅäÈç product p
-		String columns = column + "(,\\s*" + column + ")*"; // ¶àÁĞÕıÔò±í´ïÊ½ Æ¥ÅäÈç
+		String column = "(\\w+\\s*(\\w+\\s*){0,1})";// ä¸€åˆ—çš„æ­£åˆ™è¡¨è¾¾å¼ åŒ¹é…å¦‚ product p
+		String columns = column + "(,\\s*" + column + ")*"; // å¤šåˆ—æ­£åˆ™è¡¨è¾¾å¼ åŒ¹é…å¦‚
 															// product
 															// p,category
 															// c,warehouse w
-		// Ò»ÁĞµÄÕıÔò±í´ïÊ½Æ¥ÅäÈça.product p
+		// ä¸€åˆ—çš„æ­£åˆ™è¡¨è¾¾å¼åŒ¹é…å¦‚a.product p
 		String ownerenable = "((\\w+\\.){0,1}\\w+\\s*(\\w+\\s*){0,1})";
-		// ¶àÁĞÕıÔò±í´ïÊ½Æ¥ÅäÈça.product p,a.category c,b.warehouse w
+		// å¤šåˆ—æ­£åˆ™è¡¨è¾¾å¼åŒ¹é…å¦‚a.product p,a.category c,b.warehouse w
 		String ownerenables = ownerenable + "(,\\s*" + ownerenable + ")*";
 		String from = "FROM\\s+" + columns;
-		// Ìõ¼şµÄÕıÔò±í´ïÊ½Æ¥ÅäÈça=b»òa is b..
+		// æ¡ä»¶çš„æ­£åˆ™è¡¨è¾¾å¼åŒ¹é…å¦‚a=bæˆ–a is b..
 		String condition = "(\\w+\\.){0,1}\\w+\\s*(=|LIKE|IS)\\s*'?(\\w+\\.){0,1}[\\w%]+'?";
-		// ¶à¸öÌõ¼şÆ¥ÅäÈça=b and c like 'r%' or d is null
+		// å¤šä¸ªæ¡ä»¶åŒ¹é…å¦‚a=b and c like 'r%' or d is null
 		String conditions = condition + "(\\s+(AND|OR)\\s*" + condition + "\\s*)*";
 		String where = "(WHERE\\s+" + conditions + "){0,1}";
-		String pattern = "SELECT\\s+(\\*|" + ownerenables + "\\s+" + from + ")\\s+" + where + "\\s*"; // Æ¥Åä×îÖÕsqlµÄÕıÔò±í´ïÊ½
-		// System.out.println(pattern);// Êä³öÕıÔò±í´ïÊ½
+		String pattern = "SELECT\\s+(\\*|" + ownerenables + "\\s+" + from + ")\\s+" + where + "\\s*"; // åŒ¹é…æœ€ç»ˆsqlçš„æ­£åˆ™è¡¨è¾¾å¼
+		// System.out.println(pattern);// è¾“å‡ºæ­£åˆ™è¡¨è¾¾å¼
 
-		boolean bRet = span.matches(pattern);// ÊÇ·ñ±ÈÅä
+		boolean bRet = span.matches(pattern);// æ˜¯å¦æ¯”é…
 		return bRet;
 	}
 
-	// Í¨¹ıUrl»ñÈ¡Ö÷»úÃû£¬port, warehouse
+	// é€šè¿‡Urlè·å–ä¸»æœºåï¼Œport, warehouse
 	public static boolean isMatch(String strUrl, String regExp, Matcher[] retMatch) {
-		// 1.Í¨¹ıUrl»ñÈ¡Ö÷»úÃû£¬port, warehouse
+		// 1.é€šè¿‡Urlè·å–ä¸»æœºåï¼Œport, warehouse
 		// String regex="hdfs:\\/\\/(.*?):(\\d+)(\\/.*)";
-		// 2.Í¨¹ıUrl»ñÈ¡Ö÷»úÃû£¬port
+		// 2.é€šè¿‡Urlè·å–ä¸»æœºåï¼Œport
 		// String regex="hdfs:\\/\\/(.*?):(\\d+)";
 		if (strUrl == null || strUrl.isEmpty()) {
 			return false;
@@ -78,7 +78,7 @@ public class ImUtils {
 		return retMatch[0].find();
 	}
 
-	// Êä³ö½á¹û
+	// è¾“å‡ºç»“æœ
 	public static void doPrint(List<Object> result) {
 		for (Object row : result) {
 			System.out.println(row.toString());
@@ -240,7 +240,7 @@ public class ImUtils {
 						Matcher m = p.matcher(name.toLowerCase());
 						boolean bMatch = false;
 						if (m.find()) {
-							if (m.groupCount() == 2) { // Ë÷ÒıÒÔ1¿ªÊ¼
+							if (m.groupCount() == 2) { // ç´¢å¼•ä»¥1å¼€å§‹
 								colNames.add(m.group(2));
 								bMatch = true;
 							}

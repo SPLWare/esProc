@@ -8,8 +8,8 @@ import com.scudata.expression.TableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÉèÖÃĞò±íµÄÖ÷¼ü
- * T.keys(Ki,¡­)
+ * è®¾ç½®åºè¡¨çš„ä¸»é”®
+ * T.keys(Ki,â€¦)
  * @author RunQian
  *
  */

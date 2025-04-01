@@ -9,8 +9,8 @@ import com.scudata.expression.StringFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡×Ö·û´®Ö¸¶¨Î»ÖÃµÄ×Ö·û×é³ÉĞÂ×Ö·û´®
- * s.sbs(a:b,¡­)
+ * å–å­—ç¬¦ä¸²æŒ‡å®šä½ç½®çš„å­—ç¬¦ç»„æˆæ–°å­—ç¬¦ä¸²
+ * s.sbs(a:b,â€¦)
  * @author RunQian
  *
  */

@@ -3,8 +3,8 @@ package com.scudata.ide.spl.etl.element;
 import com.scudata.ide.spl.etl.EtlConsts;
 import com.scudata.ide.spl.etl.ParamInfoList;
 /**
- * ¸¨Öúº¯Êı±à¼­ CS.new()
- * º¯ÊıÃûÇ°×ºCs±íÊ¾ÓÎ±ê
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ CS.new()
+ * å‡½æ•°åå‰ç¼€Csè¡¨ç¤ºæ¸¸æ ‡
  * 
  * @author Joancy
  *
@@ -12,8 +12,8 @@ import com.scudata.ide.spl.etl.ParamInfoList;
 public class CsNew extends ANew {
 
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
@@ -22,7 +22,7 @@ public class CsNew extends ANew {
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
 	public byte getReturnType() {
@@ -30,12 +30,12 @@ public class CsNew extends ANew {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = super.getParamInfoList();
 		
-//		ÓÎ±êÃ»ÓĞmÑ¡Ïî
+//		æ¸¸æ ‡æ²¡æœ‰mé€‰é¡¹
 		String group = "options";
 		paramInfos.delete(group, "m");
 
@@ -43,7 +43,7 @@ public class CsNew extends ANew {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄÑ¡Ïî´®
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„é€‰é¡¹ä¸²
 	 */
 	public String optionString(){
 		StringBuffer options = new StringBuffer();

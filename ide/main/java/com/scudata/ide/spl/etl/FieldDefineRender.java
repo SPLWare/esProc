@@ -10,7 +10,7 @@ import com.scudata.ide.common.swing.*;
 import com.scudata.ide.spl.etl.element.FImport;
 
 /**
- * ×Ö¶Î¶¨ÒåµÄµ¥Ôª¸ñäÖÈ¾Æ÷
+ * å­—æ®µå®šä¹‰çš„å•å…ƒæ ¼æ¸²æŸ“å™¨
  * 
  * @author Joancy
  *
@@ -20,7 +20,7 @@ public class FieldDefineRender extends JLabel implements TableCellRenderer {
 	private FieldDefineIcon icon = new FieldDefineIcon();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public FieldDefineRender() {
 		setOpaque(true);
@@ -29,7 +29,7 @@ public class FieldDefineRender extends JLabel implements TableCellRenderer {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸ÀàµÄ³éÏó·½·¨
+	 * å®ç°çˆ¶ç±»çš„æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {

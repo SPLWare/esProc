@@ -6,7 +6,7 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.util.Variant;
 
 /**
- * 按照记录主键进行比较的比较器
+ * 鎸夌収璁板綍涓婚敭杩涜姣旇緝鐨勬瘮杈冨櫒
  * @author WangXiaoJun
  *
  */

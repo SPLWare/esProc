@@ -7,7 +7,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Relation;
 
 /**
- * ÓÃÓÚÌø¿éµÄfilter£¬ÔÚpjoinÊ±ÓÃµ½
+ * ç”¨äºè·³å—çš„filterï¼Œåœ¨pjoinæ—¶ç”¨åˆ°
  * @author LW
  *
  */

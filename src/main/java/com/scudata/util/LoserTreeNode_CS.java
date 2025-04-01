@@ -5,18 +5,18 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 
 /**
- * ¹é²¢×Ö¶ÎÊıÁ¿Îª¶à¸öµÄÓÎ±ê½Úµã
+ * å½’å¹¶å­—æ®µæ•°é‡ä¸ºå¤šä¸ªçš„æ¸¸æ ‡èŠ‚ç‚¹
  * @author RunQian
  *
  */
 public class LoserTreeNode_CS implements ILoserTreeNode {
 	private ICursor cs;
 	private int []fields;
-	private boolean isNullMin = true; // nullÊÇ·ñµ±×îĞ¡Öµ
+	private boolean isNullMin = true; // nullæ˜¯å¦å½“æœ€å°å€¼
 	
-	private Sequence data; // »º´æµÄÊı¾İ
-	private int seq; // -1±íÊ¾Êı¾İÒÑÈ¡Íê
-	private Object []values; // µ±Ç°¼ÇÂ¼¶ÔÓ¦µÄÖµ£¬ÓÃÓÚ±È½Ï
+	private Sequence data; // ç¼“å­˜çš„æ•°æ®
+	private int seq; // -1è¡¨ç¤ºæ•°æ®å·²å–å®Œ
+	private Object []values; // å½“å‰è®°å½•å¯¹åº”çš„å€¼ï¼Œç”¨äºæ¯”è¾ƒ
 	
 	public LoserTreeNode_CS(ICursor cs, int []fields, boolean isNullMin) {
 		this.fields = fields;

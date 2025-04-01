@@ -11,7 +11,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 递归查询在外键中引用到指定记录的数据
+ * 閫掑綊鏌ヨ鍦ㄥ閿腑寮曠敤鍒版寚瀹氳褰曠殑鏁版嵁
  * P.nodes(F,r,n)
  * @author RunQian
  *

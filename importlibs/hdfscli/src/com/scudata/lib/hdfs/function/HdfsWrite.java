@@ -144,7 +144,7 @@ public class HdfsWrite extends FileFunction {
 //            	 long size = fileSystem.getFileStatus(path).getLen();
 //            	 fsDataOutputStream = fileSystem.append(path, (int)size);
 //             }else{
-//	            //输出流对象，将数据输出到HDFS文件系统
+//	            //杈撳嚭娴佸璞★紝灏嗘暟鎹緭鍑哄埌HDFS鏂囦欢绯荤粺
 //	            fsDataOutputStream = fileSystem.create(new Path(hdfsFile));
 //             }
 //             

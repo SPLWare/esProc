@@ -6,8 +6,8 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ f.cursor()
- * º¯ÊıÃûÇ°×ºF±íÊ¾ÎÄ¼ş¶ÔÏó
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ f.cursor()
+ * å‡½æ•°åå‰ç¼€Fè¡¨ç¤ºæ–‡ä»¶å¯¹è±¡
  * 
  * @author Joancy
  *
@@ -16,7 +16,7 @@ public class FCursor extends FImport {
 	public boolean x;
 
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = super.getParamInfoList();
@@ -29,7 +29,7 @@ public class FCursor extends FImport {
 	}
 	
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_CURSOR
 	 */
 	public byte getReturnType() {
@@ -37,14 +37,14 @@ public class FCursor extends FImport {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÃû
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°å
 	 */
 	public String getFuncName(){
 		return "cursor";
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄÑ¡Ïî´®
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„é€‰é¡¹ä¸²
 	 */
 	public String optionString(){
 		StringBuffer options = new StringBuffer();

@@ -5,7 +5,7 @@ import java.util.Comparator;
 import com.scudata.common.ICloneable;
 
 /**
- * PSortItem¶ÔÏó±È½ÏÆ÷£¬ÓÃÓÚ·µ»ØÎ»ÖÃµÄÅÅĞò
+ * PSortItemå¯¹è±¡æ¯”è¾ƒå™¨ï¼Œç”¨äºè¿”å›ä½ç½®çš„æ’åº
  * @author WangXiaoJun
  *
  */
@@ -13,8 +13,8 @@ public class PSortComparator implements Comparator<Object>, ICloneable {
 	private Comparator<Object> comparator;
 
 	/**
-	 * ÓÃÖ¸¶¨±È½ÏÆğ½øĞĞÅÅĞò
-	 * @param comparator Comparator ²»¿ÉÎª¿Õ
+	 * ç”¨æŒ‡å®šæ¯”è¾ƒèµ·è¿›è¡Œæ’åº
+	 * @param comparator Comparator ä¸å¯ä¸ºç©º
 	 */
 	public PSortComparator(Comparator<Object> comparator) {
 		this.comparator = comparator;

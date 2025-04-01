@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.DBFunction;
 
 /**
- * Ìá½»Êı¾İ¿â¸üĞÂ
+ * æäº¤æ•°æ®åº“æ›´æ–°
  * db.commit()
  * @author RunQian
  *

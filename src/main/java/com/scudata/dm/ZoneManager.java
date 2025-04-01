@@ -8,7 +8,7 @@ import com.scudata.parallel.Response;
 import com.scudata.server.unit.UnitServer;
 
 /**
- * 内存加载区管理器
+ * 鍐呭瓨鍔犺浇鍖虹鐞嗗櫒
  * @author Joancy
  *
  */

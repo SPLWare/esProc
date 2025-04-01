@@ -9,22 +9,22 @@ import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 
 /**
- * À×´ïÍ¼ÊµÏÖ
+ * é›·è¾¾å›¾å®ç°
  * @author Joancy
  *
  */
 public class DrawRadar extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
 		GraphParam gp = db.gp;
@@ -68,7 +68,7 @@ public class DrawRadar extends DrawBase {
 
 		Color backColor = gp.graphBackColor;
 		Color foreColor = egp.getAxisColor(GraphProperty.AXIS_TOP);
-		int style = Consts.LINE_NONE;//draw2DPie»­µÄÊÇ±ıÍ¼£¬»­±ß¿òÊ±»á°üº¬Ô²ĞÄµ½°ë¾¶µÄ±ß£¬ÕâÀï²»»æÖÆ±ß¿ò
+		int style = Consts.LINE_NONE;//draw2DPieç”»çš„æ˜¯é¥¼å›¾ï¼Œç”»è¾¹æ¡†æ—¶ä¼šåŒ…å«åœ†å¿ƒåˆ°åŠå¾„çš„è¾¹ï¼Œè¿™é‡Œä¸ç»˜åˆ¶è¾¹æ¡†
 		float weight = (float)thick;
 		Rectangle2D ellipseBounds = new Rectangle2D.Double(cx - r,cy - r, 2*r, 2*r);
 		double startAngle =0,extentAngle = 360;
@@ -79,7 +79,7 @@ public class DrawRadar extends DrawBase {
 		g.setStroke(new BasicStroke(weight));
 		db.drawShape(a2dd, foreColor);
 
-		/* ×ø±êÖá */
+		/* åæ ‡è½´ */
 		tmpInt = gp.catNum;
 		double deltaAngle = 360 * 1.0f / tmpInt;
 		ArrayList cats = egp.categories;
@@ -98,7 +98,7 @@ public class DrawRadar extends DrawBase {
 			db.drawOutCircleText(gp.GFV_XLABEL, cat, angle,  x2,  y2);
 		}
 
-		/* ¿Ì¶È,Íø¸ñÏß */
+		/* åˆ»åº¦,ç½‘æ ¼çº¿ */
 		double deltaR, dr;
 		deltaR = r / gp.tickNum;
 
@@ -125,7 +125,7 @@ public class DrawRadar extends DrawBase {
 			gp.GFV_YLABEL.outText( x,  y, scoory);
 		}
 
-		//ÖµÊä³ö
+		//å€¼è¾“å‡º
 		Point2D.Double prePoints[] = new Point2D.Double[gp.serNum];
 		Point2D.Double lastPoint[] = new Point2D.Double[gp.serNum];
 		Point2D.Double startPoints[] = new Point2D.Double[gp.serNum];

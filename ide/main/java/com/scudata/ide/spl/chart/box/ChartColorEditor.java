@@ -10,7 +10,7 @@ import com.scudata.dm.*;
 import com.scudata.ide.common.swing.*;
 
 /**
- * Ìî³äÑÕÉ«±à¼­Æ÷
+ * å¡«å……é¢œè‰²ç¼–è¾‘å™¨
  * 
  * @author Joancy
  *
@@ -24,8 +24,8 @@ public class ChartColorEditor extends DefaultCellEditor {
 	private ChartColorIcon icon = new ChartColorIcon();
 
 	/**
-	 * ¹¹½¨Ò»¸öÌî³äÑÕÉ«±à¼­Æ÷
-	 * @param owner ¸¸´°¿Ú
+	 * æ„å»ºä¸€ä¸ªå¡«å……é¢œè‰²ç¼–è¾‘å™¨
+	 * @param owner çˆ¶çª—å£
 	 */
 	public ChartColorEditor(Dialog owner) {
 		super(new JCheckBox());
@@ -55,7 +55,7 @@ public class ChartColorEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸ÀàµÄ³éÏó·½·¨
+	 * å®ç°çˆ¶ç±»çš„æŠ½è±¡æ–¹æ³•
 	 */
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int column) {
@@ -78,14 +78,14 @@ public class ChartColorEditor extends DefaultCellEditor {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­Öµ
+	 * è·å–ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
 		return editingVal;
 	}
 
 	/**
-	 * Í£Ö¹±à¼­
+	 * åœæ­¢ç¼–è¾‘
 	 */
 	public boolean stopCellEditing() {
 		return super.stopCellEditing();
@@ -97,7 +97,7 @@ public class ChartColorEditor extends DefaultCellEditor {
 }
 
 /**
- * Ìî³äÑÕÉ«äÖÈ¾Àà
+ * å¡«å……é¢œè‰²æ¸²æŸ“ç±»
  * 
  * @author Joancy
  *
@@ -147,7 +147,7 @@ class ChartColorRender extends JLabel implements TableCellRenderer {
 }
 
 /**
- * Ìî³äÑÕÉ«ÏÂÀ­Í¼±êÀà
+ * å¡«å……é¢œè‰²ä¸‹æ‹‰å›¾æ ‡ç±»
  * 
  * @author Joancy
  *

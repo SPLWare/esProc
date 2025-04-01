@@ -9,25 +9,25 @@ import com.scudata.cellset.graph.*;
 import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 /**
- * Ë«ÖáÕÛÏßÍ¼µÄÊµÏÖ
+ * åŒè½´æŠ˜çº¿å›¾çš„å®ç°
  * @author Joancy
  *
  */
 public class Draw2Y2Line extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
-		//ÉÙ¸Ä¶¯´úÂë£¬Í¬ÃûÒı³öÒªÓÃµ½µÄÊµÀı
+		//å°‘æ”¹åŠ¨ä»£ç ï¼ŒåŒåå¼•å‡ºè¦ç”¨åˆ°çš„å®ä¾‹
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
@@ -86,7 +86,7 @@ public class Draw2Y2Line extends DrawBase {
 		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
 		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
 
-		/* »­×ø±êÖá */
+		/* ç”»åæ ‡è½´ */
 		db.drawGraphRect();
 		g.setStroke(new BasicStroke(0.00001f));
 
@@ -99,17 +99,17 @@ public class Draw2Y2Line extends DrawBase {
 			y = gp.gRect1.y + gp.gRect1.height - i * dely;
 														
 			gp.GFV_YLABEL.outText(x, y, scoory);
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine = gp.gRect1.y + gp.gRect1.height - i
 						* dely;
 			}
 		}
 
-		// »­¾¯½äÏß,Ë«ÖáÍ¼Ö»¾¯½ä×ó±ßµÄÖá
+		// ç”»è­¦æˆ’çº¿,åŒè½´å›¾åªè­¦æˆ’å·¦è¾¹çš„è½´
 		db.drawWarnLine();
 
-		/* »­XÖá */
+		/* ç”»Xè½´ */
 		beginPoint = new Point2D.Double[gp.serNum];
 		lastPoint = new Point2D.Double[gp.serNum];
 		ArrayList cats = egp.categories;
@@ -118,7 +118,7 @@ public class Draw2Y2Line extends DrawBase {
 		for (int i = 0; i < cc; i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 			double posx = DrawLine.getPosX(gp,i,cc,categorySpan,seriesWidth);
-			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//Öù¶¥ÊÇ·ñÏÔÊ¾Öµ¸ú»­Table·Ö¿ª
+			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//æŸ±é¡¶æ˜¯å¦æ˜¾ç¤ºå€¼è·Ÿç”»Tableåˆ†å¼€
 			boolean vis = valvis && !gp.isDrawTable;
 			if (vis) {
 				c = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
@@ -126,7 +126,7 @@ public class Draw2Y2Line extends DrawBase {
 				db.drawLine(posx, gp.gRect1.y + gp.gRect1.height,
 						    posx, gp.gRect1.y + gp.gRect1.height
 								+ gp.tickLen,c);
-				// »­±³¾°ĞéÏß
+				// ç”»èƒŒæ™¯è™šçº¿
 				db.drawGridLineCategoryV(posx);
 			}
 
@@ -152,7 +152,7 @@ public class Draw2Y2Line extends DrawBase {
 					endPoint = new Point2D.Double(posx, gp.valueBaseLine - len);
 				}
 
-				// ÏÔÊ¾Öµ±êÊ¾
+				// æ˜¾ç¤ºå€¼æ ‡ç¤º
 				if (gp.dispValueOntop && !egs.isNull() && valvis) {
 					String sval = db.getDispValue(egc,egs,gp.serNum);
 					x = endPoint.x;
@@ -168,7 +168,7 @@ public class Draw2Y2Line extends DrawBase {
 				}
 
 				boolean vis2 = (i % (gp.graphXInterval + 1) == 0);
-				if (!egs.isNull() && gp.drawLineDot && vis2) { // ÏßÌõÉÏµÄĞ¡·½¿é
+				if (!egs.isNull() && gp.drawLineDot && vis2) { // çº¿æ¡ä¸Šçš„å°æ–¹å—
 					Color backColor;
 					double xx, yy, ww, hh;
 					xx = endPoint.x - VALUE_RADIUS;
@@ -200,7 +200,7 @@ public class Draw2Y2Line extends DrawBase {
 			}
 		}
 
-		/* »­»ùÏß */
+		/* ç”»åŸºçº¿ */
 		db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x + gp.gRect1.width,
 				gp.valueBaseLine, egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 
@@ -210,10 +210,10 @@ public class Draw2Y2Line extends DrawBase {
 	}
 	
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb£¬»­Ë«ÖáÖùÏßÍ¼µÄÕÛÏß²¿·Ö£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param seriesCount Ë«ÖáÍ¼µÄÏµÁĞ²ğÎª×óÖáºÍÓÒÖá£¬´ËÎª×óÖáµÄÏµÁĞ¸öÊı
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbï¼Œç”»åŒè½´æŸ±çº¿å›¾çš„æŠ˜çº¿éƒ¨åˆ†ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param seriesCount åŒè½´å›¾çš„ç³»åˆ—æ‹†ä¸ºå·¦è½´å’Œå³è½´ï¼Œæ­¤ä¸ºå·¦è½´çš„ç³»åˆ—ä¸ªæ•°
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawY2Line(DrawBase db, int series1Count,
 			StringBuffer htmlLink) {
@@ -258,13 +258,13 @@ public class Draw2Y2Line extends DrawBase {
 		db.gp.gRect1 = (Rectangle2D.Double)db.gp.graphRect.clone();
 		db.gp.gRect2 = (Rectangle2D.Double)db.gp.graphRect.clone();
 
-		double tmpi; // ÁÙÊ±´æ´¢Öµ£¬ÓÃÓÚ¼õÉÙÖØ¸´¼ÆËãµÄÖµ
+		double tmpi; // ä¸´æ—¶å­˜å‚¨å€¼ï¼Œç”¨äºå‡å°‘é‡å¤è®¡ç®—çš„å€¼
 		for (int i = 0; i <= db.gp.tickNum2; i++) {
 			tmpi =  (db.gp.gRect1.y + db.gp.gRect1.height - i * dely);
 			db.g.setStroke(new BasicStroke(1f));
 			db.drawLine(db.gp.gRect1.x + db.gp.gRect1.width - db.gp.tickLen,
 					tmpi, db.gp.gRect1.x + db.gp.gRect1.width, tmpi,
-					db.egp.getAxisColor(GraphProperty.AXIS_RIGHT)); // Y2×ø±êÖáµÄĞ¡¶ÌÏß
+					db.egp.getAxisColor(GraphProperty.AXIS_RIGHT)); // Y2åæ ‡è½´çš„å°çŸ­çº¿
 
 			Number coory = (Number) db.gp.coorValue2.get(i);
 			String scoory = db.getFormattedValue(coory.doubleValue(),
@@ -273,14 +273,14 @@ public class Draw2Y2Line extends DrawBase {
 			y =  (db.gp.gRect1.y + db.gp.gRect1.height - i * dely);// db.TR.height
 																		// / 2
 			db.gp.GFV_YLABEL.outText(x, y, scoory, GraphFontView.TEXT_ON_RIGHT);
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == db.gp.baseValue2 + db.gp.minValue2) {
 				db.gp.valueBaseLine =  (db.gp.gRect1.y
 						+ db.gp.gRect1.height - i * dely);
 			}
 		}
 
-		/* »­ÊıÖµÏßÌõ */
+		/* ç”»æ•°å€¼çº¿æ¡ */
 		db.g.setStroke(new BasicStroke(0.00001f));
 
 		beginPoint = new Point2D.Double[db.gp.serNames2.size()];
@@ -308,7 +308,7 @@ public class Draw2Y2Line extends DrawBase {
 				}
 
 				boolean valvis = i % (db.gp.graphXInterval + 1) == 0;
-				// ÏÔÊ¾Öµ±êÊ¾
+				// æ˜¾ç¤ºå€¼æ ‡ç¤º
 				if (db.gp.dispValueOntop2 && !egs.isNull() && valvis) {
 					String sval = db.getDispValue2(egc,egs,db.gp.serNum);
 					x = endPoint.x;
@@ -320,7 +320,7 @@ public class Draw2Y2Line extends DrawBase {
 				}
 
 				boolean vis2 = (i % (db.gp.graphXInterval + 1) == 0);
-				if (!egs.isNull() && db.gp.drawLineDot && vis2) { // ÏßÌõÉÏµÄĞ¡È¦È¦
+				if (!egs.isNull() && db.gp.drawLineDot && vis2) { // çº¿æ¡ä¸Šçš„å°åœˆåœˆ
 					Color backColor;
 					double xx, yy, ww, hh;
 					xx = endPoint.x - VALUE_RADIUS;

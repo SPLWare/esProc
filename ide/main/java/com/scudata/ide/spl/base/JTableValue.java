@@ -91,7 +91,7 @@ import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÖµÃæ°å
+ * å€¼é¢æ¿
  *
  */
 public class JTableValue extends JTableEx {
@@ -99,110 +99,110 @@ public class JTableValue extends JTableEx {
 
 	private PanelValue panelValue;
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	private static MessageManager mm = IdeSplMessage.get();
 	/**
-	 * ĞòºÅÁĞÃû
+	 * åºå·åˆ—å
 	 */
 	private final String TITLE_INDEX = mm.getMessage("public.index");
 	/**
-	 * ³ÉÔ±ÁĞÃû
+	 * æˆå‘˜åˆ—å
 	 */
 	private final String TITLE_SERIES = mm.getMessage("jtablevalue.menber");
 
 	/**
-	 * µÚÒ»ÁĞ
+	 * ç¬¬ä¸€åˆ—
 	 */
 	private final int COL_FIRST = 0;
 
-	/** È±Ê¡ */
+	/** ç¼ºçœ */
 	private final byte TYPE_DEFAULT = 0;
-	/** Ğò±í */
+	/** åºè¡¨ */
 	private final byte TYPE_TABLE = 1;
-	/** ĞòÁĞ */
+	/** åºåˆ— */
 	private final byte TYPE_SERIES = 2;
-	/** ¼ÇÂ¼ */
+	/** è®°å½• */
 	private final byte TYPE_RECORD = 3;
-	/** ´¿ÅÅÁĞ */
+	/** çº¯æ’åˆ— */
 	private final byte TYPE_PMT = 4;
-	/** ÅÅÁĞ£¬ÔİÊ±ÆúÓÃ£¬°´ÕÕÆÕÍ¨ĞòÁĞ½øĞĞÏÔÊ¾ */
+	/** æ’åˆ—ï¼Œæš‚æ—¶å¼ƒç”¨ï¼ŒæŒ‰ç…§æ™®é€šåºåˆ—è¿›è¡Œæ˜¾ç¤º */
 	private final byte TYPE_SERIESPMT = 5;
-	/** DBInfo¶ÔÏó */
+	/** DBInfoå¯¹è±¡ */
 	private final byte TYPE_DB = 6;
-	/** FileObject¶ÔÏó */
+	/** FileObjectå¯¹è±¡ */
 	private final byte TYPE_FILE = 7;
 
 	/**
-	 * ÖµÀàĞÍ
+	 * å€¼ç±»å‹
 	 */
 	private byte m_type = TYPE_DEFAULT;
 
 	/**
-	 * ÖµºÍÔ­Ê¼Öµ
+	 * å€¼å’ŒåŸå§‹å€¼
 	 */
 	private Object value, originalValue;
 
 	/**
-	 * »­²¼£¬ÔÚ»­Í¼Ê±ÓÃµ½
+	 * ç”»å¸ƒï¼Œåœ¨ç”»å›¾æ—¶ç”¨åˆ°
 	 */
 	private Canvas canvas;
 
 	/**
-	 * ÊÇ·ñ¿É±à¼­
+	 * æ˜¯å¦å¯ç¼–è¾‘
 	 */
 	private boolean editable;
 
 	/**
-	 * ÓÃÓÚÊı¾İ×êÈ¡ºÍ·µ»ØµÄ¶ÑÕ»
+	 * ç”¨äºæ•°æ®é’»å–å’Œè¿”å›çš„å †æ ˆ
 	 */
 	private Stack<Object> undo = new Stack<Object>();
 	private Stack<Object> redo = new Stack<Object>();
 
 	/**
-	 * ÊÇ·ñ¹Ì¶¨ÏÔÊ¾Ä³¸öµ¥Ôª¸ñÖµ£¬²»Ëæ×Å¹â±ê±ä»¯
+	 * æ˜¯å¦å›ºå®šæ˜¾ç¤ºæŸä¸ªå•å…ƒæ ¼å€¼ï¼Œä¸éšç€å…‰æ ‡å˜åŒ–
 	 */
 	private boolean isLocked = false;
 	/**
-	 * ÓÃÀ´Çø·ÖÊÇ·ñÒòÎª¼ÆËãÄ£Ê½ËøµÄ¡£ÏÖÔÚÈ¡ÏûÁË¼ÆËã¸ñÊ½£¬ÔİÊ±Ã»ÓÃÁË
+	 * ç”¨æ¥åŒºåˆ†æ˜¯å¦å› ä¸ºè®¡ç®—æ¨¡å¼é”çš„ã€‚ç°åœ¨å–æ¶ˆäº†è®¡ç®—æ ¼å¼ï¼Œæš‚æ—¶æ²¡ç”¨äº†
 	 */
 	private boolean isLocked1 = false;
 
 	/**
-	 * µ¥Ôª¸ñÃû³Æ
+	 * å•å…ƒæ ¼åç§°
 	 */
 	private String cellId;
-	/** ¸´ÖÆÖµ */
+	/** å¤åˆ¶å€¼ */
 	public static final short iCOPY = 11;
-	/** ¸´ÖÆÁĞÃû */
+	/** å¤åˆ¶åˆ—å */
 	public static final short iCOPY_COLNAMES = 12;
-	/** Õ³Ìù */
+	/** ç²˜è´´ */
 	private final short iPASTE = 13;
-	/** ÉèÖÃÁĞ¸ñÊ½ */
+	/** è®¾ç½®åˆ—æ ¼å¼ */
 	private final short iFORMAT = 17;
 
 	/**
-	 * ĞĞÊı
+	 * è¡Œæ•°
 	 */
 	private int rowCount = 0;
 
 	/**
-	 * ±à¼­¼àÌıÆ÷
+	 * ç¼–è¾‘ç›‘å¬å™¨
 	 */
 	private EditListener editListener = null;
 
 	/**
-	 * Ñ¡ÔñµÄĞĞºÅ
+	 * é€‰æ‹©çš„è¡Œå·
 	 */
 	private IntArrayList selectedRows = new IntArrayList();
 
 	/**
-	 * Ö®Ç°Ñ¡ÔñµÄĞĞºÅ
+	 * ä¹‹å‰é€‰æ‹©çš„è¡Œå·
 	 */
 	private int lastRow = -1;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public JTableValue(PanelValue panelValue) {
 		this.panelValue = panelValue;
@@ -330,7 +330,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃ±à¼­¼àÌıÆ÷
+	 * è®¾ç½®ç¼–è¾‘ç›‘å¬å™¨
 	 * 
 	 * @param el
 	 */
@@ -339,7 +339,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡Ã¿Ò³ÏÔÊ¾µÄĞĞÊı
+	 * å–æ¯é¡µæ˜¾ç¤ºçš„è¡Œæ•°
 	 * 
 	 * @return
 	 */
@@ -349,7 +349,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Ñ¡ÔñÁËĞĞ
+	 * é€‰æ‹©äº†è¡Œ
 	 * 
 	 * @param e
 	 * @param row
@@ -382,18 +382,18 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Ôö¼ÓÊó±ê¹öÂÖ¼àÌı
+	 * å¢åŠ é¼ æ ‡æ»šè½®ç›‘å¬
 	 * 
 	 * @param com
 	 */
 	public void addMWListener(JComponent com) {
 		com.addMouseWheelListener(new MouseWheelListener() {
 			public void mouseWheelMoved(MouseWheelEvent e) {
-				if (e.isControlDown()) { // Ëõ·Å
+				if (e.isControlDown()) { // ç¼©æ”¾
 					int percent = (int) (scale * 100);
 					int wr = e.getWheelRotation();
 					int newPercent;
-					if (wr < 0) { // ¹öÂÖÏòÉÏ£¬·Å´ó
+					if (wr < 0) { // æ»šè½®å‘ä¸Šï¼Œæ”¾å¤§
 						newPercent = GCSpl.DEFAULT_SCALES[GCSpl.DEFAULT_SCALES.length - 1];
 						for (int i = 0; i < GCSpl.DEFAULT_SCALES.length; i++) {
 							if (percent < GCSpl.DEFAULT_SCALES[i] - 7) {
@@ -401,7 +401,7 @@ public class JTableValue extends JTableEx {
 								break;
 							}
 						}
-					} else { // ËõĞ¡
+					} else { // ç¼©å°
 						newPercent = GCSpl.DEFAULT_SCALES[0];
 						for (int i = GCSpl.DEFAULT_SCALES.length - 1; i >= 0; i--) {
 							if (percent > GCSpl.DEFAULT_SCALES[i] + 7) {
@@ -433,14 +433,14 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Êó±êË«»÷Ê±×êÈ¡Êı¾İ
+	 * é¼ æ ‡åŒå‡»æ—¶é’»å–æ•°æ®
 	 */
 	public void doubleClicked(int xpos, int ypos, int row, int col, MouseEvent e) {
 		drillValue(row, col);
 	}
 
 	/**
-	 * Êó±êÓÒ¼ü²Ëµ¥
+	 * é¼ æ ‡å³é”®èœå•
 	 */
 	public void rightClicked(int xpos, int ypos, final int row, final int col,
 			MouseEvent e) {
@@ -451,14 +451,14 @@ public class JTableValue extends JTableEx {
 				|| m_type == TYPE_SERIESPMT) {
 			if ((hasIndexCol && selectedCol > 0)
 					|| (!hasIndexCol && selectedCol > -1)) {
-				mItem = new JMenuItem(mm.getMessage("jtablevalue.editformat")); // ÁĞ¸ñÊ½±à¼­
+				mItem = new JMenuItem(mm.getMessage("jtablevalue.editformat")); // åˆ—æ ¼å¼ç¼–è¾‘
 				mItem.setIcon(GM.getMenuImageIcon("blank"));
 				mItem.setName(String.valueOf(iFORMAT));
 				mItem.addActionListener(popAction);
 				pm.add(mItem);
 			}
 		}
-		mItem = new JMenuItem(LABEL_COPY_COLUMN); // ¸´ÖÆÁĞÃû
+		mItem = new JMenuItem(LABEL_COPY_COLUMN); // å¤åˆ¶åˆ—å
 		mItem.setIcon(GM.getMenuImageIcon("blank"));
 		mItem.setName(String.valueOf(iCOPY_COLNAMES));
 		mItem.addActionListener(popAction);
@@ -491,18 +491,18 @@ public class JTableValue extends JTableEx {
 
 	}
 
-	/** ¸´ÖÆÁĞÃû */
+	/** å¤åˆ¶åˆ—å */
 	public static final String LABEL_COPY_COLUMN = mm
 			.getMessage("jtablevalue.copycolnames");
-	/** ²é¿´³¤ÎÄ±¾ */
+	/** æŸ¥çœ‹é•¿æ–‡æœ¬ */
 	public static final String LABEL_VIEW_TEXT = mm
 			.getMessage("dialogtexteditor.title1");
 
-	/** Ëõ·Å */
+	/** ç¼©æ”¾ */
 	public static final String LABEL_ZOOM = mm.getMessage("jtablevalue.zoom");
 
 	/**
-	 * ÓÒ¼ü²Ëµ¥ÊÂ¼ş¼àÌı
+	 * å³é”®èœå•äº‹ä»¶ç›‘å¬
 	 */
 	private ActionListener popAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -526,7 +526,7 @@ public class JTableValue extends JTableEx {
 	};
 
 	/**
-	 * ÁĞ¸ñÊ½±à¼­
+	 * åˆ—æ ¼å¼ç¼–è¾‘
 	 */
 	private void colFormat() {
 		int col = getSelectedColumn();
@@ -552,12 +552,12 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¸ñÊ½
+	 * è®¾ç½®åˆ—æ ¼å¼
 	 * 
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param format
-	 *            ¸ñÊ½
+	 *            æ ¼å¼
 	 */
 	private void setColFormat(int col, String format) {
 		TableColumn tc = getColumn(col);
@@ -567,14 +567,14 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Ë¢ĞÂ
+	 * åˆ·æ–°
 	 */
 	public void refresh() {
 		forceSetValue(value);
 	}
 
 	/**
-	 * ÖµÊÇ·ñnull
+	 * å€¼æ˜¯å¦null
 	 * 
 	 * @return
 	 */
@@ -583,10 +583,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ¼ÆËãÄ£Ê½Ëø
+	 * è®¾ç½®æ˜¯å¦è®¡ç®—æ¨¡å¼é”
 	 * 
 	 * @param locked1
-	 *            ÊÇ·ñ¼ÆËãÄ£Ê½Ëø
+	 *            æ˜¯å¦è®¡ç®—æ¨¡å¼é”
 	 */
 	public void setLocked1(boolean locked1) {
 		this.isLocked1 = locked1;
@@ -594,7 +594,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÊÇ·ñ¼ÆËãÄ£Ê½Ëø
+	 * æ˜¯å¦è®¡ç®—æ¨¡å¼é”
 	 * 
 	 * @return
 	 */
@@ -603,10 +603,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñËø¶¨µ¥Ôª¸ñ
+	 * è®¾ç½®æ˜¯å¦é”å®šå•å…ƒæ ¼
 	 * 
 	 * @param locked
-	 *            ÊÇ·ñËø¶¨µ¥Ôª¸ñ
+	 *            æ˜¯å¦é”å®šå•å…ƒæ ¼
 	 */
 	public void setLocked(boolean locked) {
 		this.isLocked = locked;
@@ -614,7 +614,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡ÊÇ·ñËø¶¨µ¥Ôª¸ñ
+	 * å–æ˜¯å¦é”å®šå•å…ƒæ ¼
 	 * 
 	 * @return
 	 */
@@ -623,10 +623,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÓÎ±êÈ¡Êı
+	 * æ¸¸æ ‡å–æ•°
 	 * 
 	 * @param dispRows
-	 *            ÏÔÊ¾ĞĞÊı
+	 *            æ˜¾ç¤ºè¡Œæ•°
 	 */
 	public void cursorFetch(int dispRows) {
 		if (originalValue == null || !(originalValue instanceof ICursor)
@@ -634,7 +634,7 @@ public class JTableValue extends JTableEx {
 			return;
 		}
 		ICursor cursor = (ICursor) originalValue;
-		Sequence data = cursor.peek(dispRows); // ²»Êµ¼Ê´ÓÓÎ±êÈ¡Êı
+		Sequence data = cursor.peek(dispRows); // ä¸å®é™…ä»æ¸¸æ ‡å–æ•°
 
 		redo.clear();
 		undo.push(getUndoObject());
@@ -643,7 +643,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Êó±ê°´¼üÊÂ¼ş
+	 * é¼ æ ‡æŒ‰é”®äº‹ä»¶
 	 */
 	public void mousePressed(MouseEvent e) {
 		refreshValueButton();
@@ -662,14 +662,14 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Ë¢ĞÂ°´Å¥×´Ì¬
+	 * åˆ·æ–°æŒ‰é’®çŠ¶æ€
 	 */
 	private void refreshValueButton() {
 		panelValue.valueBar.refresh();
 	}
 
 	/**
-	 * ÖØÖÃÑ¡Ôñ×´Ì¬
+	 * é‡ç½®é€‰æ‹©çŠ¶æ€
 	 */
 	private void resetSelection() {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -696,22 +696,22 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÖØÖÃÊı¾İ
+	 * é‡ç½®æ•°æ®
 	 * 
 	 * @param index
-	 *            ¿ªÊ¼ĞĞºÅ
+	 *            å¼€å§‹è¡Œå·
 	 */
 	public void resetData(int index) {
 		resetData(index, false);
 	}
 
 	/**
-	 * ÖØÖÃÊı¾İ
+	 * é‡ç½®æ•°æ®
 	 * 
 	 * @param index
-	 *            ¿ªÊ¼ĞĞºÅ
+	 *            å¼€å§‹è¡Œå·
 	 * @param isFirst
-	 *            ÊÇ·ñµÚÒ»´ÎÉèÖÃÖµ
+	 *            æ˜¯å¦ç¬¬ä¸€æ¬¡è®¾ç½®å€¼
 	 */
 	public void resetData(int index, boolean isFirst) {
 		if (index <= 0)
@@ -751,43 +751,43 @@ public class JTableValue extends JTableEx {
 	private final int DISP_ROWS = 50;
 
 	/**
-	 * Ïß³ÌÊµÀı
+	 * çº¿ç¨‹å®ä¾‹
 	 */
 	private ResetDataThread resetThread = null;
 
 	/**
-	 * ÉèÖÃĞòÁĞ(ÅÅÁĞ)Êı¾İµÄÏß³Ì
+	 * è®¾ç½®åºåˆ—(æ’åˆ—)æ•°æ®çš„çº¿ç¨‹
 	 *
 	 */
 	class ResetDataThread extends Thread {
 		/**
-		 * ĞòÁĞ¶ÔÏó
+		 * åºåˆ—å¯¹è±¡
 		 */
 		Sequence seq;
 		/**
-		 * ¿ªÊ¼ĞĞ
+		 * å¼€å§‹è¡Œ
 		 */
 		int index;
 		/**
-		 * Êı¾İÀàĞÍ
+		 * æ•°æ®ç±»å‹
 		 */
 		byte dataType;
 		/**
-		 * ÊÇ·ñÍ£Ö¹ÁË£¬ÊÇ·ñÍê³ÉÁË
+		 * æ˜¯å¦åœæ­¢äº†ï¼Œæ˜¯å¦å®Œæˆäº†
 		 */
 		boolean isStoped = false, isFinished = false;
 
 		boolean isFirst = false;
 
 		/**
-		 * ¹¹Ôìº¯Êı
+		 * æ„é€ å‡½æ•°
 		 * 
 		 * @param s
-		 *            ĞòÁĞ
+		 *            åºåˆ—
 		 * @param index
-		 *            ¿ªÊ¼ĞĞ
+		 *            å¼€å§‹è¡Œ
 		 * @param dataType
-		 *            ÀàĞÍ
+		 *            ç±»å‹
 		 */
 		ResetDataThread(Sequence s, int index, byte dataType) {
 			this.seq = s;
@@ -800,7 +800,7 @@ public class JTableValue extends JTableEx {
 		}
 
 		/**
-		 * Ö´ĞĞ
+		 * æ‰§è¡Œ
 		 */
 		public void run() {
 			try {
@@ -860,7 +860,7 @@ public class JTableValue extends JTableEx {
 						}
 					}
 				}
-				if (isFirst) { // ×ÔÊÊÓ¦ÁĞ¿í
+				if (isFirst) { // è‡ªé€‚åº”åˆ—å®½
 					FontMetrics fm = getFontMetrics(getScaleFont());
 					int cc = getColumnCount();
 					int rc = getRowCount();
@@ -893,7 +893,7 @@ public class JTableValue extends JTableEx {
 		}
 
 		/**
-		 * Í£Ö¹Ïß³Ì
+		 * åœæ­¢çº¿ç¨‹
 		 */
 		void stopThread() {
 			seq = null;
@@ -901,7 +901,7 @@ public class JTableValue extends JTableEx {
 		}
 
 		/**
-		 * ÊÇ·ñÒÑ¾­Íê³É
+		 * æ˜¯å¦å·²ç»å®Œæˆ
 		 * 
 		 * @return
 		 */
@@ -915,14 +915,14 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃ¼ÇÂ¼µ½±í¸ñµÄÒ»ĞĞ
+	 * è®¾ç½®è®°å½•åˆ°è¡¨æ ¼çš„ä¸€è¡Œ
 	 * 
 	 * @param record
 	 * @param r
 	 * @param isSeq
 	 * @param index
 	 * @param isDup
-	 *            ÊÇ·ñÓĞÖØ¸´ÁĞÃû
+	 *            æ˜¯å¦æœ‰é‡å¤åˆ—å
 	 */
 	private void setRecordRow(BaseRecord record, int r, boolean isSeq,
 			int index, boolean isDup) {
@@ -943,14 +943,14 @@ public class JTableValue extends JTableEx {
 			DataStruct ds = record.dataStruct();
 			String[] colNames = ds.getFieldNames();
 			if (colNames != null) {
-				if (isDup) { // Ö§³ÖÏÔÊ¾ÖØ¸´ÁĞÃûµÄÅÅÁĞ
+				if (isDup) { // æ”¯æŒæ˜¾ç¤ºé‡å¤åˆ—åçš„æ’åˆ—
 					HashMap<String, Integer> map = new HashMap<String, Integer>();
 					Object val;
 					for (int j = 0; j < colNames.length; j++) {
 						try {
 							val = record.getFieldValue(j);
 						} catch (Throwable e) {
-							// È¡²»µ½µÄÏÔÊ¾¿Õ
+							// å–ä¸åˆ°çš„æ˜¾ç¤ºç©º
 							val = null;
 						}
 						Integer colIndex = map.get(colNames[j]);
@@ -972,7 +972,7 @@ public class JTableValue extends JTableEx {
 						try {
 							val = record.getFieldValue(colNames[j]);
 						} catch (Throwable e) {
-							// È¡²»µ½µÄÏÔÊ¾¿Õ
+							// å–ä¸åˆ°çš„æ˜¾ç¤ºç©º
 							val = null;
 						}
 						int col = getColumnIndex(colNames[j], isSeq ? 1 : 0);
@@ -986,12 +986,12 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ¸ù¾İÁĞÃûÈ¡ÁĞĞòºÅ
+	 * æ ¹æ®åˆ—åå–åˆ—åºå·
 	 * 
 	 * @param colName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param startIndex
-	 *            ¿ªÊ¼ÁĞ
+	 *            å¼€å§‹åˆ—
 	 * @return
 	 */
 	private int getColumnIndex(String colName, int startIndex) {
@@ -999,14 +999,14 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ¸ù¾İÁĞÃûÈ¡ÁĞĞòºÅ
+	 * æ ¹æ®åˆ—åå–åˆ—åºå·
 	 * 
 	 * @param colName
-	 *            ÁĞÃû
+	 *            åˆ—å
 	 * @param startIndex
-	 *            ¿ªÊ¼ÁĞ
+	 *            å¼€å§‹åˆ—
 	 * @param colIndex
-	 *            ÖØ¸´ÁĞÃûµÄ´ÎÊı
+	 *            é‡å¤åˆ—åçš„æ¬¡æ•°
 	 * @return
 	 */
 	private int getColumnIndex(String colName, int startIndex, int colIndex) {
@@ -1025,7 +1025,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÊÇ·ñÓĞÖØ¸´ÁĞÃû
+	 * æ˜¯å¦æœ‰é‡å¤åˆ—å
 	 * 
 	 * @return
 	 */
@@ -1044,7 +1044,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * µ¥Ôª¸ñÊÇ·ñ¿ÉÒÔ±à¼­
+	 * å•å…ƒæ ¼æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public boolean isCellEditable(int row, int column) {
 		switch (m_type) {
@@ -1070,7 +1070,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÇåÀí
+	 * æ¸…ç†
 	 */
 	public void clear() {
 		undo.clear();
@@ -1081,7 +1081,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÃû³Æ
+	 * è®¾ç½®å•å…ƒæ ¼åç§°
 	 * 
 	 * @param id
 	 */
@@ -1093,7 +1093,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñÃû³Æ
+	 * å–å•å…ƒæ ¼åç§°
 	 * 
 	 * @return
 	 */
@@ -1102,20 +1102,20 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÖµ
+	 * è®¾ç½®å•å…ƒæ ¼å€¼
 	 * 
 	 * @param value
-	 *            µ¥Ôª¸ñÖµ
+	 *            å•å…ƒæ ¼å€¼
 	 */
 	public void setValue(Object value) {
 		setValue(value, false);
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÖµ£¬±È½ÏÈç¹ûÍ¬Ò»¸öµ¥Ôª¸ñÍ¬Ñù¸ñÖµ£¬¾Í²»ÖØ¸´ÉèÖÃÁË
+	 * è®¾ç½®å•å…ƒæ ¼å€¼ï¼Œæ¯”è¾ƒå¦‚æœåŒä¸€ä¸ªå•å…ƒæ ¼åŒæ ·æ ¼å€¼ï¼Œå°±ä¸é‡å¤è®¾ç½®äº†
 	 * 
 	 * @param value
-	 *            µ¥Ôª¸ñÖµ
+	 *            å•å…ƒæ ¼å€¼
 	 */
 	public void setValue(Object value, String cellId) {
 		if (cellId != null && cellId.equals(getCellId())) {
@@ -1127,31 +1127,31 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Á¢¼´ÉèÖÃµ¥Ôª¸ñÖµ£¬²»¿¼ÂÇËø¶¨×´Ì¬
+	 * ç«‹å³è®¾ç½®å•å…ƒæ ¼å€¼ï¼Œä¸è€ƒè™‘é”å®šçŠ¶æ€
 	 * 
 	 * @param value
-	 *            µ¥Ôª¸ñÖµ
+	 *            å•å…ƒæ ¼å€¼
 	 * @param id
-	 *            µ¥Ôª¸ñÃû³Æ
+	 *            å•å…ƒæ ¼åç§°
 	 */
 	public void setValue1(Object value, String id) {
 		setValue1(value, id, false);
 	}
 
 	/**
-	 * Á¢¼´ÉèÖÃµ¥Ôª¸ñÖµ£¬²»¿¼ÂÇËø¶¨×´Ì¬
+	 * ç«‹å³è®¾ç½®å•å…ƒæ ¼å€¼ï¼Œä¸è€ƒè™‘é”å®šçŠ¶æ€
 	 * 
 	 * @param value
-	 *            µ¥Ôª¸ñÖµ
+	 *            å•å…ƒæ ¼å€¼
 	 * @param id
-	 *            µ¥Ôª¸ñÃû³Æ
+	 *            å•å…ƒæ ¼åç§°
 	 * @param isRefresh
-	 *            ÊÇ·ñË¢ĞÂ
+	 *            æ˜¯å¦åˆ·æ–°
 	 */
 	public void setValue1(Object value, String id, boolean isRefresh) {
 		if (id != null && id.equals(getCellId())) {
 			if (value == originalValue) {
-				if (isRefresh) { // Ë¢ĞÂ´¥·¢µÄÉèÖÃ
+				if (isRefresh) { // åˆ·æ–°è§¦å‘çš„è®¾ç½®
 					return;
 				}
 			}
@@ -1162,26 +1162,26 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÖµ
+	 * è®¾ç½®å•å…ƒæ ¼å€¼
 	 * 
 	 * @param value
-	 *            µ¥Ôª¸ñÖµ
+	 *            å•å…ƒæ ¼å€¼
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public void setValue(Object value, boolean editable) {
 		setValue(value, editable, false);
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÖµ
+	 * è®¾ç½®å•å…ƒæ ¼å€¼
 	 * 
 	 * @param value
-	 *            µ¥Ôª¸ñÖµ
+	 *            å•å…ƒæ ¼å€¼
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 * @param forceSetValue
-	 *            ÊÇ·ñÎŞÊÓËø¶¨×´Ì¬£¬Ç¿ĞĞÉèÖÃ¸ñÖµ
+	 *            æ˜¯å¦æ— è§†é”å®šçŠ¶æ€ï¼Œå¼ºè¡Œè®¾ç½®æ ¼å€¼
 	 */
 	private synchronized void setValue(Object value, boolean editable,
 			final boolean forceSetValue) {
@@ -1190,16 +1190,16 @@ public class JTableValue extends JTableEx {
 
 	/**
 	 * 
-	 * ÉèÖÃµ¥Ôª¸ñÖµ
+	 * è®¾ç½®å•å…ƒæ ¼å€¼
 	 * 
 	 * @param value
-	 *            µ¥Ôª¸ñÖµ
+	 *            å•å…ƒæ ¼å€¼
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 * @param forceSetValue
-	 *            ÊÇ·ñÎŞÊÓËø¶¨×´Ì¬£¬Ç¿ĞĞÉèÖÃ¸ñÖµ
+	 *            æ˜¯å¦æ— è§†é”å®šçŠ¶æ€ï¼Œå¼ºè¡Œè®¾ç½®æ ¼å€¼
 	 * @param dispStartRow
-	 *            ÏÔÊ¾¿ªÊ¼ĞĞ
+	 *            æ˜¾ç¤ºå¼€å§‹è¡Œ
 	 */
 	private synchronized void setValue(Object value, boolean editable,
 			final boolean forceSetValue, UndoObject uo) {
@@ -1238,7 +1238,7 @@ public class JTableValue extends JTableEx {
 		}
 		boolean isCursor = false;
 		if (originalValue != null && originalValue instanceof ICursor) {
-			if (!(originalValue instanceof IMultipath)) // ²»Ö§³Ö¶àÂ·ÓÎ±ê
+			if (!(originalValue instanceof IMultipath)) // ä¸æ”¯æŒå¤šè·¯æ¸¸æ ‡
 				isCursor = true;
 		}
 		panelValue.setCursorValue(isCursor);
@@ -1251,7 +1251,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡Ô­Ê¼Öµ
+	 * å–åŸå§‹å€¼
 	 * 
 	 * @return
 	 */
@@ -1260,17 +1260,17 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÏÔÊ¾µÄÆğÊ¼ĞĞ
+	 * æ˜¾ç¤ºçš„èµ·å§‹è¡Œ
 	 */
 	private int dispStartIndex = 1;
 
 	/**
-	 * ÖØÉè¸ñÖµ
+	 * é‡è®¾æ ¼å€¼
 	 * 
 	 * @param forceSetValue
-	 *            Ç¿ĞĞÉèÖÃ¸ñÖµ
+	 *            å¼ºè¡Œè®¾ç½®æ ¼å€¼
 	 * @param aValue
-	 *            Öµ
+	 *            å€¼
 	 */
 	private synchronized void resetValue(boolean resetUndo, Object aValue,
 			int dispStartIndex) {
@@ -1281,10 +1281,10 @@ public class JTableValue extends JTableEx {
 				redo.clear();
 			}
 			refreshValueButton();
-			// null¸ñ×ÓÏÔÊ¾³É(null)£¬Ö»ÓĞÃ»´ò¿ªÒ³ÃæÊ±²Å²»ÏÔÊ¾
+			// nullæ ¼å­æ˜¾ç¤ºæˆ(null)ï¼Œåªæœ‰æ²¡æ‰“å¼€é¡µé¢æ—¶æ‰ä¸æ˜¾ç¤º
 			if (GV.appSheet == null) {
 				if (aValue == null) {
-					// ²»ÊÇnullµÄ»áÔÚresetDataÇ°¹Ø±Õ
+					// ä¸æ˜¯nullçš„ä¼šåœ¨resetDataå‰å…³é—­
 					if (resetThread != null) {
 						resetThread.stopThread();
 						try {
@@ -1340,7 +1340,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ³õÊ¼»¯±í¸ñ¿Ø¼ş
+	 * åˆå§‹åŒ–è¡¨æ ¼æ§ä»¶
 	 */
 	private void initJTable() {
 		removeAllRows();
@@ -1350,10 +1350,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡ÖµµÄÀàĞÍ
+	 * å–å€¼çš„ç±»å‹
 	 * 
 	 * @param value
-	 *            Öµ
+	 *            å€¼
 	 * @return
 	 */
 	private byte getValueType(Object value) {
@@ -1365,7 +1365,7 @@ public class JTableValue extends JTableEx {
 				setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 				return TYPE_PMT;
 			}
-			// ÅÅÁĞ£¨·Ç´¿ÅÅÁĞ£©°´ÕÕÆÕÍ¨ĞòÁĞ½øĞĞÏÔÊ¾
+			// æ’åˆ—ï¼ˆéçº¯æ’åˆ—ï¼‰æŒ‰ç…§æ™®é€šåºåˆ—è¿›è¡Œæ˜¾ç¤º
 			// else if (((Sequence) value).isPmt()) {
 			// setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			// return TYPE_SERIESPMT;
@@ -1388,10 +1388,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ³õÊ¼»¯Ğò±í
+	 * åˆå§‹åŒ–åºè¡¨
 	 * 
 	 * @param table
-	 *            Ğò±í
+	 *            åºè¡¨
 	 * @return
 	 */
 	private int initTable(Table table) {
@@ -1402,10 +1402,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ³õÊ¼»¯´¿ÅÅÁĞ
+	 * åˆå§‹åŒ–çº¯æ’åˆ—
 	 * 
 	 * @param pmt
-	 *            ´¿ÅÅÁĞ
+	 *            çº¯æ’åˆ—
 	 * @return
 	 */
 	private int initPmt(Sequence pmt) {
@@ -1416,7 +1416,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ³õÊ¼»¯ÅÅÁĞ
+	 * åˆå§‹åŒ–æ’åˆ—
 	 * 
 	 * @param pmt
 	 * @return
@@ -1429,7 +1429,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡µÚÒ»¸öÊı¾İ½á¹¹¡£ÕâÀï²»ÄÜÓÃifn£¬ÒªÕÒµ½µÚÒ»¸öÓĞ½á¹¹µÄ¼ÇÂ¼
+	 * å–ç¬¬ä¸€ä¸ªæ•°æ®ç»“æ„ã€‚è¿™é‡Œä¸èƒ½ç”¨ifnï¼Œè¦æ‰¾åˆ°ç¬¬ä¸€ä¸ªæœ‰ç»“æ„çš„è®°å½•
 	 * 
 	 * @return
 	 */
@@ -1448,7 +1448,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ³õÊ¼»¯ĞòÁĞ
+	 * åˆå§‹åŒ–åºåˆ—
 	 * 
 	 * @param series
 	 * @return
@@ -1472,10 +1472,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ³õÊ¼»¯¼ÇÂ¼
+	 * åˆå§‹åŒ–è®°å½•
 	 * 
 	 * @param record
-	 *            ¼ÇÂ¼
+	 *            è®°å½•
 	 * @return
 	 */
 	private int initRecord(BaseRecord record) {
@@ -1491,12 +1491,12 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÊÇ·ñÖ÷¼ü
+	 * æ˜¯å¦ä¸»é”®
 	 * 
 	 * @param primaries
-	 *            Ö÷¼üÊı×é
+	 *            ä¸»é”®æ•°ç»„
 	 * @param colName
-	 *            ×Ö¶ÎÃû
+	 *            å­—æ®µå
 	 * @return
 	 */
 	private boolean isPrimary(String[] primaries, String colName) {
@@ -1512,12 +1512,12 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃ±à¼­·ç¸ñ
+	 * è®¾ç½®ç¼–è¾‘é£æ ¼
 	 * 
 	 * @param ds
-	 *            Êı¾İ½á¹¹
+	 *            æ•°æ®ç»“æ„
 	 * @param hasIndex
-	 *            ÊÇ·ñÓĞĞòºÅÁĞ
+	 *            æ˜¯å¦æœ‰åºå·åˆ—
 	 */
 	private void setEditStyle(DataStruct ds, boolean hasIndex) {
 		if (ds == null)
@@ -1535,7 +1535,7 @@ public class JTableValue extends JTableEx {
 			} else {
 				tc = getColumn(i);
 			}
-			// Ö÷¼ü²»ÄÜ±à¼­
+			// ä¸»é”®ä¸èƒ½ç¼–è¾‘
 			boolean isPrimary = isPrimary(primaries, cols[i]);
 			boolean editable = !isPrimary;
 			tc.setCellEditor(getAllPurposeEditor(editable));
@@ -1549,7 +1549,7 @@ public class JTableValue extends JTableEx {
 		}
 	}
 
-	private final int MAX_COL_WIDTH = 300; // ÁĞÄÚÈİ±È½Ï³¤Ê±£¬×î´óÏÔÊ¾µÄ¿í¶È
+	private final int MAX_COL_WIDTH = 300; // åˆ—å†…å®¹æ¯”è¾ƒé•¿æ—¶ï¼Œæœ€å¤§æ˜¾ç¤ºçš„å®½åº¦
 	private final int WIDTH_GAP = 8;
 
 	private float scale = 1.0f;
@@ -1569,7 +1569,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Ñ¡ÏîĞŞ¸ÄÁË×ÖÌå¡¢×ÖºÅ»òÕßĞĞ¸ß
+	 * é€‰é¡¹ä¿®æ”¹äº†å­—ä½“ã€å­—å·æˆ–è€…è¡Œé«˜
 	 */
 	public void refreshOptions() {
 		setScale(scale);
@@ -1608,14 +1608,14 @@ public class JTableValue extends JTableEx {
 	private boolean hasIndexCol;
 
 	/**
-	 * ÉèÖÃ±í¸ñµÄÁĞ
+	 * è®¾ç½®è¡¨æ ¼çš„åˆ—
 	 * 
 	 * @param ds
-	 *            Êı¾İ½á¹¹
+	 *            æ•°æ®ç»“æ„
 	 * @param len
-	 *            Êı¾İ³¤¶È£¬ÓÃÓÚ¼ÆËãĞòºÅÁĞ¿í¶È
+	 *            æ•°æ®é•¿åº¦ï¼Œç”¨äºè®¡ç®—åºå·åˆ—å®½åº¦
 	 * @param hasIndexCol
-	 *            ÊÇ·ñÓĞĞòºÅÁĞ
+	 *            æ˜¯å¦æœ‰åºå·åˆ—
 	 */
 	private synchronized void setTableColumns(DataStruct ds, int len,
 			boolean hasIndexCol) {
@@ -1645,7 +1645,7 @@ public class JTableValue extends JTableEx {
 				INDEX_WIDTH = 0;
 			}
 
-			// ¸ù¾İ±êÌâ³¤¶ÈÉèÖÃÁĞ¿í
+			// æ ¹æ®æ ‡é¢˜é•¿åº¦è®¾ç½®åˆ—å®½
 			int[] pkIndex = ds.getPKIndex();
 			final int IMAGE_WIDTH = 35;
 			final int startCol = hasIndexCol ? 1 : 0;
@@ -1666,7 +1666,7 @@ public class JTableValue extends JTableEx {
 				totalColWidth += getOriginColWidth(i);
 			}
 			int width = getParent().getWidth();
-			if (totalColWidth < width && cc > 0) { // Èç¹ûËùÓĞÁĞÏÔÊ¾µÄÏÂ£¬½«Ê£Óà¿í¶ÈÆ½¾ù·ÖÅäµ½¸÷ÁĞ
+			if (totalColWidth < width && cc > 0) { // å¦‚æœæ‰€æœ‰åˆ—æ˜¾ç¤ºçš„ä¸‹ï¼Œå°†å‰©ä½™å®½åº¦å¹³å‡åˆ†é…åˆ°å„åˆ—
 				int aveWidth;
 				width -= totalColWidth;
 				if (cc > 1 && hasIndexCol) {
@@ -1692,7 +1692,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¿í
+	 * è®¾ç½®åˆ—å®½
 	 * 
 	 * @param tc
 	 * @param colWidth
@@ -1702,7 +1702,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃÁĞ¿í
+	 * è®¾ç½®åˆ—å®½
 	 * 
 	 * @param tc
 	 * @param colWidth
@@ -1721,7 +1721,7 @@ public class JTableValue extends JTableEx {
 	private Map<Integer, Integer> originColWidthMap = new HashMap<Integer, Integer>();
 
 	/**
-	 * Ëõ·Å¶Ô»°¿ò
+	 * ç¼©æ”¾å¯¹è¯æ¡†
 	 */
 	public void dialogZoom() {
 		DialogZoom dz = new DialogZoom();
@@ -1735,7 +1735,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Ö÷¼üÁĞµÄäÖÈ¾Æ÷
+	 * ä¸»é”®åˆ—çš„æ¸²æŸ“å™¨
 	 */
 	class PKRenderer extends DefaultTableCellRenderer {
 		private static final long serialVersionUID = 1L;
@@ -1765,12 +1765,12 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÁĞÊÇ·ñÖ÷¼ü
+	 * åˆ—æ˜¯å¦ä¸»é”®
 	 * 
 	 * @param pkIndex
-	 *            Ö÷¼üĞòºÅ
+	 *            ä¸»é”®åºå·
 	 * @param index
-	 *            ÁĞĞòºÅ
+	 *            åˆ—åºå·
 	 * @return
 	 */
 	private boolean isPK(int[] pkIndex, int index) {
@@ -1784,7 +1784,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡ĞòºÅÁĞ¿í
+	 * å–åºå·åˆ—å®½
 	 * 
 	 * @param len
 	 * @return
@@ -1800,7 +1800,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ×ÜÊÇÊä³öÒì³£µ«ÊÇ²»Ó°ÏìÏÔÊ¾£¬ÌØÊâ´¦ÀíÒ»ÏÂ
+	 * æ€»æ˜¯è¾“å‡ºå¼‚å¸¸ä½†æ˜¯ä¸å½±å“æ˜¾ç¤ºï¼Œç‰¹æ®Šå¤„ç†ä¸€ä¸‹
 	 */
 	private void setColumnModel() {
 		this.setColumnModel(new DefaultTableColumnModel() {
@@ -1817,21 +1817,21 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * DBInfo¶ÔÏó¶ÔÓ¦µÄĞò±í
+	 * DBInfoå¯¹è±¡å¯¹åº”çš„åºè¡¨
 	 */
 	private Table dbTable = null;
 
 	/**
-	 * ³õÊ¼»¯DBInfo¶ÔÏó
+	 * åˆå§‹åŒ–DBInfoå¯¹è±¡
 	 * 
 	 * @param db
-	 *            DBInfo¶ÔÏó
+	 *            DBInfoå¯¹è±¡
 	 * @return
 	 */
 	private int initDB(DBObject db) {
 		dbTable = GMSpl.getDBTable(db);
-		addColumn(GCSpl.TITLE_NAME); // Ãû³Æ
-		addColumn(GCSpl.TITLE_PROP); // ÊôĞÔ
+		addColumn(GCSpl.TITLE_NAME); // åç§°
+		addColumn(GCSpl.TITLE_PROP); // å±æ€§
 		for (int i = 0; i < this.getColumnCount(); i++) {
 			setColumnEditable(i, false);
 		}
@@ -1843,10 +1843,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃDBInfo¶ÔÏóµ½±í¸ñ
+	 * è®¾ç½®DBInfoå¯¹è±¡åˆ°è¡¨æ ¼
 	 * 
 	 * @param db
-	 *            DBInfo¶ÔÏó
+	 *            DBInfoå¯¹è±¡
 	 */
 	// private void initDBTable(DBObject db) {
 	// DBInfo info = db.getDbSession().getInfo();
@@ -1873,10 +1873,10 @@ public class JTableValue extends JTableEx {
 	// }
 
 	/**
-	 * ³õÊ¼»¯FileObject¶ÔÏó
+	 * åˆå§‹åŒ–FileObjectå¯¹è±¡
 	 * 
 	 * @param file
-	 *            FileObject¶ÔÏó
+	 *            FileObjectå¯¹è±¡
 	 * @return
 	 */
 	private int initFile(FileObject file) {
@@ -1885,10 +1885,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ³õÊ¼»¯ÆÕÍ¨Öµ
+	 * åˆå§‹åŒ–æ™®é€šå€¼
 	 * 
 	 * @param value
-	 *            ÆÕÍ¨Öµ
+	 *            æ™®é€šå€¼
 	 * @return
 	 */
 	private int initDefault(Object value) {
@@ -1897,7 +1897,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ³õÊ¼»¯µ¥¶ÀµÄÖµ
+	 * åˆå§‹åŒ–å•ç‹¬çš„å€¼
 	 * 
 	 * @param value
 	 * @return
@@ -1914,7 +1914,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡¶àÀàĞÍÖµµÄ±à¼­Æ÷
+	 * å–å¤šç±»å‹å€¼çš„ç¼–è¾‘å™¨
 	 * 
 	 * @return
 	 */
@@ -1923,10 +1923,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡¶àÀàĞÍÖµµÄ±à¼­Æ÷
+	 * å–å¤šç±»å‹å€¼çš„ç¼–è¾‘å™¨
 	 * 
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 * @return
 	 */
 	public AllPurposeEditor getAllPurposeEditor(boolean editable) {
@@ -1940,7 +1940,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÏÔÊ¾¸ñÖµ
+	 * æ˜¾ç¤ºæ ¼å€¼
 	 */
 	public void dispCellValue() {
 		int r = getSelectedRow();
@@ -1949,12 +1949,12 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ×êÈ¡³ÉÔ±Öµ
+	 * é’»å–æˆå‘˜å€¼
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 */
 	private void drillValue(int row, int col) {
 		if (editable) {
@@ -1976,7 +1976,7 @@ public class JTableValue extends JTableEx {
 			if (temp instanceof BaseRecord) {
 				BaseRecord r = (BaseRecord) temp;
 				if (r.dataStruct() != null && s.dataStruct() != null
-						&& !r.dataStruct().isCompatible(s.dataStruct())) { // Òì¹¹ÅÅÁĞ
+						&& !r.dataStruct().isCompatible(s.dataStruct())) { // å¼‚æ„æ’åˆ—
 					newValue = temp;
 				} else if ((TYPE_SERIES == m_type || TYPE_SERIESPMT == m_type)) {
 					newValue = temp;
@@ -1992,7 +1992,7 @@ public class JTableValue extends JTableEx {
 				return;
 			}
 		}
-		if (newValue == value) { // ×êÈ¡µÄÔªËØÊÇ±¾ÉíÊ±
+		if (newValue == value) { // é’»å–çš„å…ƒç´ æ˜¯æœ¬èº«æ—¶
 			return;
 		}
 		redo.clear();
@@ -2002,7 +2002,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Ç¿ĞĞÉèÖÃÖµ£¬²»¿¼ÂÇËøµÄ×´Ì¬
+	 * å¼ºè¡Œè®¾ç½®å€¼ï¼Œä¸è€ƒè™‘é”çš„çŠ¶æ€
 	 * 
 	 * @param newValue
 	 */
@@ -2011,7 +2011,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ³·»Ø
+	 * æ˜¯å¦å¯ä»¥æ’¤å›
 	 * 
 	 * @return
 	 */
@@ -2020,7 +2020,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔÖØ×ö
+	 * æ˜¯å¦å¯ä»¥é‡åš
 	 * 
 	 * @return
 	 */
@@ -2029,7 +2029,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ³·»Ø
+	 * æ’¤å›
 	 */
 	public void undo() {
 		UndoObject uo = getUndoObject();
@@ -2040,7 +2040,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÖØ×ö
+	 * é‡åš
 	 */
 	public void redo() {
 		UndoObject uo = getUndoObject();
@@ -2072,7 +2072,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ¿ÉÒÔ»æÖÆÍ³¼ÆÍ¼
+	 * å¯ä»¥ç»˜åˆ¶ç»Ÿè®¡å›¾
 	 * 
 	 * @return
 	 */
@@ -2096,7 +2096,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÊÇ·ñ¿ÉÒÔÏÔÊ¾³¤ÎÄ±¾
+	 * æ˜¯å¦å¯ä»¥æ˜¾ç¤ºé•¿æ–‡æœ¬
 	 * 
 	 * @return
 	 */
@@ -2111,7 +2111,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡¸´ÖÆÊı¾İµÄÆğÊ¼ÁĞ
+	 * å–å¤åˆ¶æ•°æ®çš„èµ·å§‹åˆ—
 	 * 
 	 * @return
 	 */
@@ -2127,13 +2127,13 @@ public class JTableValue extends JTableEx {
 		}
 		int startCol = 0;
 		if (isSeq) {
-			startCol = 1; // ĞòºÅ
+			startCol = 1; // åºå·
 		}
 		return startCol;
 	}
 
 	/**
-	 * ¸´ÖÆÁĞ±êÌâ
+	 * å¤åˆ¶åˆ—æ ‡é¢˜
 	 */
 	public void copyColumnNames() {
 		StringBuffer buf = new StringBuffer();
@@ -2146,7 +2146,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ¸´ÖÆÊı¾İ
+	 * å¤åˆ¶æ•°æ®
 	 * 
 	 * @return
 	 */
@@ -2155,10 +2155,10 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ¸´ÖÆÊı¾İ
+	 * å¤åˆ¶æ•°æ®
 	 * 
 	 * @param copyTitle
-	 *            ÊÇ·ñ¸´ÖÆ±êÌâ
+	 *            æ˜¯å¦å¤åˆ¶æ ‡é¢˜
 	 * @return
 	 */
 	public boolean copyValue(boolean copyTitle) {
@@ -2281,7 +2281,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * Õ³ÌùÊı¾İ
+	 * ç²˜è´´æ•°æ®
 	 */
 	public void pasteValue() {
 		if (!editable) {
@@ -2309,7 +2309,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * »æÖÆÍ¼ĞÎ
+	 * ç»˜åˆ¶å›¾å½¢
 	 */
 	public void drawChart() {
 		if (!canDrawChart())
@@ -2332,7 +2332,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ²é¿´³¤ÎÄ±¾
+	 * æŸ¥çœ‹é•¿æ–‡æœ¬
 	 */
 	public void showText() {
 		int row = getSelectedRow();
@@ -2353,14 +2353,14 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * ÉèÖÃ¸ñ×Ó»òÊı¾İ¾ØÕóµ½±í¸ñ
+	 * è®¾ç½®æ ¼å­æˆ–æ•°æ®çŸ©é˜µåˆ°è¡¨æ ¼
 	 * 
 	 * @param matrix
-	 *            Êı¾İ¾ØÕó
+	 *            æ•°æ®çŸ©é˜µ
 	 * @param row
-	 *            ÆğÊ¼ĞĞ
+	 *            èµ·å§‹è¡Œ
 	 * @param col
-	 *            ÆğÊ¼ÁĞ
+	 *            èµ·å§‹åˆ—
 	 */
 	private void setMatrix2Table(Matrix matrix, int row, int col) {
 		int rowCount = matrix.getRowSize();
@@ -2392,7 +2392,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñÖµ
+	 * å–å•å…ƒæ ¼å€¼
 	 */
 	public Object getValueAt(int row, int col) {
 		try {
@@ -2403,7 +2403,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
-	 * È¡³ß´ç´óĞ¡
+	 * å–å°ºå¯¸å¤§å°
 	 */
 	public Dimension getPreferredSize() {
 		try {

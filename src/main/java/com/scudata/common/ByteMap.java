@@ -6,29 +6,29 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 /**
- *	ByteMap --- Ê¹ÓÃbyte×÷ÎªkeyµÄÇáÁ¿¼¶Map
- *	´Ë¹şÏ£±íÊÇÓÃÊı×éÍê³ÉµÄ£¬ËüÖ÷Òª»ùÓÚÒÔÏÂ¼¸¸öÄ¿µÄ£º
- *		(1)½ÚÊ¡ÄÚ´æ
- *		(2)Êı¾İ²»ÊÇÌ«¶à
- *		(3)put,get,keysµÈ²Ù×÷Ô¶¶àÓÚremove²Ù×÷
- *	×¢Òâ£º
- *		(1)remove²Ù×÷µÄ³É±¾±È½Ï¸ß
- *		(2)ÔÚÊ¹ÓÃÏÂ±êÑ­»·¹ı³ÌÖĞ£¬¶Ô±¾Àà¶ÔÏó½øĞĞput¡¢remove¡¢clearµÈĞŞ¸ÄĞÔ²Ù×÷Ê±Êı¾İÎ»ÖÃ±ä»¯Çé¿öÀàËÆÓÚArrayList
+ *	ByteMap --- ä½¿ç”¨byteä½œä¸ºkeyçš„è½»é‡çº§Map
+ *	æ­¤å“ˆå¸Œè¡¨æ˜¯ç”¨æ•°ç»„å®Œæˆçš„ï¼Œå®ƒä¸»è¦åŸºäºä»¥ä¸‹å‡ ä¸ªç›®çš„ï¼š
+ *		(1)èŠ‚çœå†…å­˜
+ *		(2)æ•°æ®ä¸æ˜¯å¤ªå¤š
+ *		(3)put,get,keysç­‰æ“ä½œè¿œå¤šäºremoveæ“ä½œ
+ *	æ³¨æ„ï¼š
+ *		(1)removeæ“ä½œçš„æˆæœ¬æ¯”è¾ƒé«˜
+ *		(2)åœ¨ä½¿ç”¨ä¸‹æ ‡å¾ªç¯è¿‡ç¨‹ä¸­ï¼Œå¯¹æœ¬ç±»å¯¹è±¡è¿›è¡Œputã€removeã€clearç­‰ä¿®æ”¹æ€§æ“ä½œæ—¶æ•°æ®ä½ç½®å˜åŒ–æƒ…å†µç±»ä¼¼äºArrayList
  */
 public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	private static final long serialVersionUID = 1l;
 
-	//hash±íÊı¾İ
+	//hashè¡¨æ•°æ®
 	private transient byte[] keys;
 	private transient Object[] objs;
 
-	//hash±íÖĞÈë¿Ú×ÜÊı
+	//hashè¡¨ä¸­å…¥å£æ€»æ•°
 	private transient short count;
 
 	/*
-	 * ÓÃÖ¸¶¨³õÊ¼ÈİÁ¿¹¹ÔìÒ»¸ö¿ÕµÄMap
-	 * @param initialCapacity ³õÊ¼ÈİÁ¿
-	 * @exception IllegalArgumentException ¼ÙÈç³õÊ¼ÈİÁ¿Ğ¡ÓÚ0
+	 * ç”¨æŒ‡å®šåˆå§‹å®¹é‡æ„é€ ä¸€ä¸ªç©ºçš„Map
+	 * @param initialCapacity åˆå§‹å®¹é‡
+	 * @exception IllegalArgumentException å‡å¦‚åˆå§‹å®¹é‡å°äº0
 	 */
 	public ByteMap(short initialCapacity) {
 		if (initialCapacity < 0) {
@@ -39,15 +39,15 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * ¹¹ÔìÒ»¸ö¿ÕMap£¬³õÊ¼ÈİÁ¿Îª11
+	 * æ„é€ ä¸€ä¸ªç©ºMapï¼Œåˆå§‹å®¹é‡ä¸º11
 	 */
 	public ByteMap() {
 		this( (short) 11);
 	}
 
 	/**
-	 * È·±£ÈİÁ¿ÖÁÉÙµÈÓÚÖ¸¶¨Öµ
-	 * @param minCapacity Ö¸¶¨µÄ×îĞ¡ÈİÁ¿
+	 * ç¡®ä¿å®¹é‡è‡³å°‘ç­‰äºæŒ‡å®šå€¼
+	 * @param minCapacity æŒ‡å®šçš„æœ€å°å®¹é‡
 	 */
 	public void ensureCapacity(int minCapacity) {
 		if (minCapacity > keys.length) {
@@ -61,21 +61,21 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * ·µ»ØÔªËØ¸öÊı
+	 * è¿”å›å…ƒç´ ä¸ªæ•°
 	 */
 	public short size() {
 		return count;
 	}
 
 	/*
-	 * ¼ì²éÊÇ·ñÎª¿Õ
+	 * æ£€æŸ¥æ˜¯å¦ä¸ºç©º
 	 */
 	public boolean isEmpty() {
 		return count == 0;
 	}
 
 	/**
-	 * ½«ÈİÁ¿Ëõ¼õµ½Êµ¼Ê´óĞ¡
+	 * å°†å®¹é‡ç¼©å‡åˆ°å®é™…å¤§å°
 	 */
 	public void trimToSize() {
 		if (count < keys.length) {
@@ -89,8 +89,8 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * ¼ì²éMapÖĞÊÇ·ñÓĞÖ¸¶¨value
-	 * @param value ĞèÒª²éÕÒµÄvalue
+	 * æ£€æŸ¥Mapä¸­æ˜¯å¦æœ‰æŒ‡å®švalue
+	 * @param value éœ€è¦æŸ¥æ‰¾çš„value
 	 * @see ByteMap#containsKey
 	 */
 	public boolean contains(Object value) {
@@ -106,8 +106,8 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * ¼ì²éMapÖĞÊÇ·ñÓĞÖ¸¶¨µÄkey
-	 * @param key Òª²éÕÒµÄkey
+	 * æ£€æŸ¥Mapä¸­æ˜¯å¦æœ‰æŒ‡å®šçš„key
+	 * @param key è¦æŸ¥æ‰¾çš„key
 	 * @see ByteMap#contains
 	 */
 	public boolean containsKey(byte key) {
@@ -121,8 +121,8 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * È¡MapÖĞÓëÖ¸¶¨key¶ÔÓ¦µÄvalue
-	 * @param key Ö¸¶¨µÄkey
+	 * å–Mapä¸­ä¸æŒ‡å®škeyå¯¹åº”çš„value
+	 * @param key æŒ‡å®šçš„key
 	 * @see ByteMap#put
 	 */
 	public Object get(byte key) {
@@ -136,9 +136,9 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * °ÑÖ¸¶¨µÄkeyÓëÖ¸¶¨µÄvalue·ÅÈëMap
-	 * @param key Ö¸¶¨µÄkey
-	 * @param value Ö¸¶¨µÄvalue
+	 * æŠŠæŒ‡å®šçš„keyä¸æŒ‡å®šçš„valueæ”¾å…¥Map
+	 * @param key æŒ‡å®šçš„key
+	 * @param value æŒ‡å®šçš„value
 	 * @see ByteMap#get
 	 */
 	public Object put(byte key, Object value) {
@@ -167,8 +167,8 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ¼ÓÈëÁíÒ»¸öByteMapÖĞµÄËùÓĞÏî£¬ÈôÓë±¾ByteMapÖĞkeyÓĞÖØ¸´Ôò¸²¸Ç
-	 * @param bam ÁíÒ»¸öByteMap
+	 * åŠ å…¥å¦ä¸€ä¸ªByteMapä¸­çš„æ‰€æœ‰é¡¹ï¼Œè‹¥ä¸æœ¬ByteMapä¸­keyæœ‰é‡å¤åˆ™è¦†ç›–
+	 * @param bam å¦ä¸€ä¸ªByteMap
 	 */
 	public void putAll(IByteMap bm) {
 		ensureCapacity(count + bm.size());
@@ -178,9 +178,9 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * ÒÆ×ß¶ÔÓ¦ÓÚÖ¸¶¨keyµÄÔªËØ£¬ÈôÖ¸¶¨µÄkey²»´æÔÚ£¬ÔòÖ±½Ó·µ»Ø
-	 * @param key Ö¸¶¨µÄkey
-	 * @return Ö¸¶¨key¶ÔÓ¦µÄvalue£¬Èôkey²»´æÔÚ£¬Ôò·µ»Ønull
+	 * ç§»èµ°å¯¹åº”äºæŒ‡å®škeyçš„å…ƒç´ ï¼Œè‹¥æŒ‡å®šçš„keyä¸å­˜åœ¨ï¼Œåˆ™ç›´æ¥è¿”å›
+	 * @param key æŒ‡å®šçš„key
+	 * @return æŒ‡å®škeyå¯¹åº”çš„valueï¼Œè‹¥keyä¸å­˜åœ¨ï¼Œåˆ™è¿”å›null
 	 */
 	public Object remove(byte key) {
 		byte[] keys = this.keys;
@@ -193,9 +193,9 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ½«Ö¸¶¨µÄkeyÓëvalue×·¼Óµ½±¾ByteMapÖĞ£¬×¢Òâ´Ë·½·¨²»¸²¸ÇÏàÍ¬keyµÄÏî
-	 * @param key Ö¸¶¨µÄkey
-	 * @param value Ö¸¶¨µÄvalue
+	 * å°†æŒ‡å®šçš„keyä¸valueè¿½åŠ åˆ°æœ¬ByteMapä¸­ï¼Œæ³¨æ„æ­¤æ–¹æ³•ä¸è¦†ç›–ç›¸åŒkeyçš„é¡¹
+	 * @param key æŒ‡å®šçš„key
+	 * @param value æŒ‡å®šçš„value
 	 */
 	public void add(byte key, Object value) {
 		byte[] keys = this.keys;
@@ -213,8 +213,8 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ½«ÁíÒ»¸öByteMapÖĞµÄÏî×·¼Óµ½±¾ByteMapÖĞ;×¢Òâ´Ë·½·¨²»¸²¸ÇÏàÍ¬keyµÄÏî
-	 * @param bm ÁíÒ»¸öByteMap
+	 * å°†å¦ä¸€ä¸ªByteMapä¸­çš„é¡¹è¿½åŠ åˆ°æœ¬ByteMapä¸­;æ³¨æ„æ­¤æ–¹æ³•ä¸è¦†ç›–ç›¸åŒkeyçš„é¡¹
+	 * @param bm å¦ä¸€ä¸ªByteMap
 	 */
 	public void addAll(IByteMap bm) {
 		ensureCapacity(count + bm.size());
@@ -224,9 +224,9 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * °´ÕÕÎ»ÖÃÉ¾³ıÏî
-	 * @param index Î»ÖÃ
-	 * @return ·µ»ØÖ¸¶¨Î»ÖÃµÄvalue
+	 * æŒ‰ç…§ä½ç½®åˆ é™¤é¡¹
+	 * @param index ä½ç½®
+	 * @return è¿”å›æŒ‡å®šä½ç½®çš„value
 	 */
 	public Object removeEntry(int index) {
 		byte[] keys = this.keys;
@@ -240,24 +240,24 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * °´ÕÕÎ»ÖÃÈ¡µÃ¶ÔÓ¦µÄkey
-	 * @param index Î»ÖÃ
+	 * æŒ‰ç…§ä½ç½®å–å¾—å¯¹åº”çš„key
+	 * @param index ä½ç½®
 	 */
 	public byte getKey(int index) {
 		return keys[index];
 	}
 
 	/*
-	 * °´ÕÕÎ»ÖÃÈ¡µÃ¶ÔÓ¦µÄvalue
-	 * @param index Î»ÖÃ
+	 * æŒ‰ç…§ä½ç½®å–å¾—å¯¹åº”çš„value
+	 * @param index ä½ç½®
 	 */
 	public Object getValue(int index) {
 		return objs[index];
 	}
 
 	/*
-	 * È¡MapÖĞÓëÖ¸¶¨key¶ÔÓ¦µÄindex,Èç¹ûÕÒ²»µ½Ö¸¶¨µÄkeyÔò·µ»Ø-1
-	 * @param key Ö¸¶¨µÄkey
+	 * å–Mapä¸­ä¸æŒ‡å®škeyå¯¹åº”çš„index,å¦‚æœæ‰¾ä¸åˆ°æŒ‡å®šçš„keyåˆ™è¿”å›-1
+	 * @param key æŒ‡å®šçš„key
 	 */
 	public int getIndex(byte key){
 		byte[] keys = this.keys;
@@ -270,8 +270,8 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * °ÑÖ¸¶¨µÄindex¶ÔÓ¦µÄvalue·ÅÈëMap
-	 * @param index Ö¸¶¨µÄindex
+	 * æŠŠæŒ‡å®šçš„indexå¯¹åº”çš„valueæ”¾å…¥Map
+	 * @param index æŒ‡å®šçš„index
 	 * @see ByteMap#setValue
 	 */
 	public void setValue(int index,Object value){
@@ -279,17 +279,17 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * Çå³ı¼üÖØ¸´µÄÏî£¬Ö»±£Áô×îºóÒ»¸ö
+	 * æ¸…é™¤é”®é‡å¤çš„é¡¹ï¼Œåªä¿ç•™æœ€åä¸€ä¸ª
 	 */
 	public void purgeDupKeys() {
 		byte[] keys = this.keys;
 		Object[] objs = this.objs;
 		short oldCount = this.count, newCount = oldCount;
-		int x = oldCount - 2;  //µ±Ç°´æ´¢Î»ÖÃ
+		int x = oldCount - 2;  //å½“å‰å­˜å‚¨ä½ç½®
 		for( int i = x; i >= 0; i -- ) {
 			int j = oldCount - 1;
 			for( ; j > x; j -- ) {
-				if ( keys[i] == keys[j] ) { //¼üÖØ¸´Ê±
+				if ( keys[i] == keys[j] ) { //é”®é‡å¤æ—¶
 					newCount --;
 					break;
 				}
@@ -309,15 +309,15 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * Çå³ıÖµÎªnullµÄÏî
+	 * æ¸…é™¤å€¼ä¸ºnullçš„é¡¹
 	 */
 	public void purgeNullValues(){
 		byte[] keys = this.keys;
 		Object[] objs = this.objs;
 		short oldCount = this.count, newCount = oldCount;
-		int x = oldCount - 1;   //µ±Ç°´æ´¢Î»ÖÃ
+		int x = oldCount - 1;   //å½“å‰å­˜å‚¨ä½ç½®
 		for( int i = x; i >= 0; i -- ) {
-			if ( objs[i] == null ) { //ÖµÎªnullÊ±
+			if ( objs[i] == null ) { //å€¼ä¸ºnullæ—¶
 				newCount --;
 			} else  {
 				if ( x != i ) {
@@ -336,7 +336,7 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * Çå¿ÕMap
+	 * æ¸…ç©ºMap
 	 */
 	public void clear() {
 		count = 0;
@@ -346,7 +346,7 @@ public class ByteMap implements IByteMap, ICloneable, Externalizable, IRecord {
 	}
 
 	/*
-	 * Éî¶È¿ËÂ¡Map
+	 * æ·±åº¦å…‹éš†Map
 	 */
 	public Object deepClone() {
 		short count = this.count;

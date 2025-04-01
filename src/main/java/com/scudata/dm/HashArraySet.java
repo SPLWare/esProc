@@ -4,12 +4,12 @@ import com.scudata.util.HashUtil;
 import com.scudata.util.Variant;
 
 /**
- * ÓÉ¶à×Ö¶ÎÖ÷¼ü´´½¨µÄ¹şÏ£±í£¬ÓÃÓÚ×ö¹şÏ£²éÕÒ
+ * ç”±å¤šå­—æ®µä¸»é”®åˆ›å»ºçš„å“ˆå¸Œè¡¨ï¼Œç”¨äºåšå“ˆå¸ŒæŸ¥æ‰¾
  * @author WangXiaoJun
  *
  */
 public class HashArraySet {
-	// ÓÃÓÚ´æ·Å¹şÏ£±íÀïµÄÔªËØ£¬¹şÏ£ÖµÏàÍ¬µÄÔªËØÓÃÁ´±í´æ´¢
+	// ç”¨äºå­˜æ”¾å“ˆå¸Œè¡¨é‡Œçš„å…ƒç´ ï¼Œå“ˆå¸Œå€¼ç›¸åŒçš„å…ƒç´ ç”¨é“¾è¡¨å­˜å‚¨
 	private static class Entry {
 		Object []keys;
 		Entry next;
@@ -20,11 +20,11 @@ public class HashArraySet {
 		}
 	}
 	
-	protected HashUtil hashUtil; // ÓÃÓÚ¼ÆËã¹şÏ£Öµ
-	protected Entry[] entries; // °´hashÖµ·Ö×é
+	protected HashUtil hashUtil; // ç”¨äºè®¡ç®—å“ˆå¸Œå€¼
+	protected Entry[] entries; // æŒ‰hashå€¼åˆ†ç»„
 	
 	/**
-	 * ¹¹½¨¹şÏ£Êı×é¼¯ºÏ
+	 * æ„å»ºå“ˆå¸Œæ•°ç»„é›†åˆ
 	 */
 	public HashArraySet() {
 		hashUtil = new HashUtil();
@@ -32,8 +32,8 @@ public class HashArraySet {
 	}
 	
 	/**
-	 * ¹¹½¨¹şÏ£Êı×é¼¯ºÏ
-	 * @param capacity ¹şÏ£±íÈİÁ¿
+	 * æ„å»ºå“ˆå¸Œæ•°ç»„é›†åˆ
+	 * @param capacity å“ˆå¸Œè¡¨å®¹é‡
 	 */
 	public HashArraySet(int capacity) {
 		hashUtil = new HashUtil(capacity);
@@ -41,9 +41,9 @@ public class HashArraySet {
 	}
 	
 	/**
-	 * °ÑÊı×é¼ÓÈëµ½¼¯ºÏ£¬Èç¹û¼¯ºÏÖĞÒÑ¾­ÓĞÊı×é¸ú²ÎÊıÖ¸¶¨µÄÊı×éÖµÏàÍ¬Ôò²»Ö´ĞĞÈÎºÎ²Ù×÷
-	 * @param keys ÖµÊı×é
-	 * @return boolean Èç¹û¼¯ºÏÖĞÒÑ°üº¬Ö¸¶¨Êı×éÔò·µ»Øfalse£¬·ñÔò·µ»Øtrue
+	 * æŠŠæ•°ç»„åŠ å…¥åˆ°é›†åˆï¼Œå¦‚æœé›†åˆä¸­å·²ç»æœ‰æ•°ç»„è·Ÿå‚æ•°æŒ‡å®šçš„æ•°ç»„å€¼ç›¸åŒåˆ™ä¸æ‰§è¡Œä»»ä½•æ“ä½œ
+	 * @param keys å€¼æ•°ç»„
+	 * @return boolean å¦‚æœé›†åˆä¸­å·²åŒ…å«æŒ‡å®šæ•°ç»„åˆ™è¿”å›falseï¼Œå¦åˆ™è¿”å›true
 	 */
 	public boolean put(Object []keys) {
 		int keyCount = keys.length;
@@ -59,9 +59,9 @@ public class HashArraySet {
 	}
 	
 	/**
-	 * ·µ»Ø¼¯ºÏÖĞÊÇ·ñ°üº¬Ö¸¶¨Êı×é
-	 * @param keys ÖµÊı×é
-	 * @return boolean true£º°üº¬£¬false£º²»°üº¬
+	 * è¿”å›é›†åˆä¸­æ˜¯å¦åŒ…å«æŒ‡å®šæ•°ç»„
+	 * @param keys å€¼æ•°ç»„
+	 * @return boolean trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	public boolean contains(Object []keys) {
 		int count = keys.length;

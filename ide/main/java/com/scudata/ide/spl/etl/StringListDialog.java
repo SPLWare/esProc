@@ -21,7 +21,7 @@ import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * Ê¹ÓÃ¶Ô»°¿ò±à¼­·Ö¸ô·û·Ö¸ôµÄ×Ö·û´®
+ * ä½¿ç”¨å¯¹è¯æ¡†ç¼–è¾‘åˆ†éš”ç¬¦åˆ†éš”çš„å­—ç¬¦ä¸²
  * 
  * @author Joancy
  *
@@ -40,7 +40,7 @@ public class StringListDialog extends JDialog {
 	private final byte COL_NAME = 1;
 
 	JTableEx tableFields = new JTableEx(
-			mm.getMessage("StringListDialog.tablefields"));// "ĞòºÅ,Öµ");
+			mm.getMessage("StringListDialog.tablefields"));// "åºå·,å€¼");
 	JPanel jPanel1 = new JPanel();
 	JButton jBAdd = new JButton();
 	JButton jBDel = new JButton();
@@ -48,10 +48,10 @@ public class StringListDialog extends JDialog {
 	private int m_option = JOptionPane.CANCEL_OPTION;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸´°¿Ú
+	 *            çˆ¶çª—å£
 	 */
 	public StringListDialog(Dialog owner) {
 		super(owner);
@@ -77,19 +77,19 @@ public class StringListDialog extends JDialog {
 	}
 
 	/**
-	 * »ñÈ¡´°¿Ú·µ»ØÑ¡Ïî
+	 * è·å–çª—å£è¿”å›é€‰é¡¹
 	 * 
-	 * @return Ñ¡Ïî
+	 * @return é€‰é¡¹
 	 */
 	public int getOption() {
 		return m_option;
 	}
 
 	/**
-	 * ÉèÖÃ×Ö´®ÁĞ±í
+	 * è®¾ç½®å­—ä¸²åˆ—è¡¨
 	 * 
 	 * @param list
-	 *            ×Ö·û´®ÁĞ±í
+	 *            å­—ç¬¦ä¸²åˆ—è¡¨
 	 */
 	public void setList(ArrayList<String> list) {
 		if (list == null) {
@@ -103,9 +103,9 @@ public class StringListDialog extends JDialog {
 	}
 
 	/**
-	 * »ñÈ¡×Ö·û´®ÁĞ±í
+	 * è·å–å­—ç¬¦ä¸²åˆ—è¡¨
 	 * 
-	 * @return ×Ö·û´®ÁĞ±í
+	 * @return å­—ç¬¦ä¸²åˆ—è¡¨
 	 */
 	public ArrayList<String> getList() {
 		tableFields.acceptText();
@@ -130,7 +130,7 @@ public class StringListDialog extends JDialog {
 		setModal(true);
 		jPanel2.setLayout(vFlowLayout1);
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tableFields.acceptText();
@@ -139,7 +139,7 @@ public class StringListDialog extends JDialog {
 			}
 		});
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -163,9 +163,9 @@ public class StringListDialog extends JDialog {
 		});
 		jScrollPane1.getViewport().add(tableFields);
 		jBAdd.setMnemonic('A');
-		jBAdd.setText("Ôö¼Ó(A)");
+		jBAdd.setText("å¢åŠ (A)");
 		jBDel.setMnemonic('D');
-		jBDel.setText("É¾³ı(D)");
+		jBDel.setText("åˆ é™¤(D)");
 		jPanel2.add(jBOK, null);
 		jPanel2.add(jBCancel, null);
 		jPanel2.add(jPanel1, null);

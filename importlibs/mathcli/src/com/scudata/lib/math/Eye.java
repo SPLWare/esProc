@@ -10,7 +10,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶Ô½Ç¶şÎ¬µ¥Î»¾ØÕóº¯Êıeye(n1,n2)
+ * å¯¹è§’äºŒç»´å•ä½çŸ©é˜µå‡½æ•°eye(n1,n2)
  * @author bd
  */
 public class Eye extends Function {
@@ -38,7 +38,7 @@ public class Eye extends Function {
 						throw new RQException("eye" + mm.getMessage("function.invalidParam"));
 					}
 					else {
-						// µ¥ÖµĞòÁĞ
+						// å•å€¼åºåˆ—
 						o = seq.get(1);
 						if (o instanceof Number) {
 							int n = ((Number) o).intValue();

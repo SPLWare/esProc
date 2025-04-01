@@ -9,14 +9,14 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
 
 /**
- * ÇåÀíÒì³£Öµ²ÎÊı¼ÇÂ¼
+ * æ¸…ç†å¼‚å¸¸å€¼å‚æ•°è®°å½•
  * @author bd
  */
 public class SmRec implements Externalizable {
 	private static final long serialVersionUID = -8790897480565951496L;
 	private Sequence X;
 	private Sequence X1;
-	// Æ½»¬»¯¶ÔÓ¦Ä¿±êÖµµÄ¼ÇÂ¼£¬¶Ô¶şÖµ¶øÑÔËüÆäÊµ¾ÍÊÇ1
+	// å¹³æ»‘åŒ–å¯¹åº”ç›®æ ‡å€¼çš„è®°å½•ï¼Œå¯¹äºŒå€¼è€Œè¨€å®ƒå…¶å®å°±æ˜¯1
 	private int tv = 1;
 
 	public SmRec() {
@@ -48,7 +48,7 @@ public class SmRec implements Externalizable {
 	
 	/****************************************************/
 	/**
-	 * ´æ´¢Ê±Éú³ÉĞòÁĞ
+	 * å­˜å‚¨æ—¶ç”Ÿæˆåºåˆ—
 	 * @return
 	 */
 	public Sequence toSeq() {
@@ -60,7 +60,7 @@ public class SmRec implements Externalizable {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ê±¸ù¾İSequence³õÊ¼»¯²ÎÊı
+	 * è¯»å–æ—¶æ ¹æ®Sequenceåˆå§‹åŒ–å‚æ•°
 	 */
 	public SmRec init(Sequence seq) {
 		int size = seq == null ? 0 : seq.length();
@@ -83,7 +83,7 @@ public class SmRec implements Externalizable {
 		return this;
 	}
 
-	/************************* ÒÔÏÂÊµÏÖExternalizable ************************/
+	/************************* ä»¥ä¸‹å®ç°Externalizable ************************/
 	private byte version = (byte) 2;
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		byte ver = in.readByte();

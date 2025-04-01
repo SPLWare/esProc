@@ -9,29 +9,29 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
 
 /**
- * ÓÃÓÚÍâ´æ·Ö×écs.groupx@n()ºÍcs.groupx@g()µÄ¶ş´Î·Ö×é
- * groupxÓĞ@nºÍ@gÑ¡ÏîÊ±£¬Í¬Ò»×éµÄÖĞ¼äÊı¾İ»á´æ·Åµ½Í¬Ò»¸öÁÙÊ±ÎÄ¼ş£¬ËùÒÔÖ»Ğè¶ÔÃ¿¸öÁÙÊ±ÎÄ¼şµ¥¶À×öÏÂ¶ş´Î·Ö×é¾ÍÄÜµÃµ½×îÖÕµÄ·Ö×é½á¹û
+ * ç”¨äºå¤–å­˜åˆ†ç»„cs.groupx@n()å’Œcs.groupx@g()çš„äºŒæ¬¡åˆ†ç»„
+ * groupxæœ‰@nå’Œ@gé€‰é¡¹æ—¶ï¼ŒåŒä¸€ç»„çš„ä¸­é—´æ•°æ®ä¼šå­˜æ”¾åˆ°åŒä¸€ä¸ªä¸´æ—¶æ–‡ä»¶ï¼Œæ‰€ä»¥åªéœ€å¯¹æ¯ä¸ªä¸´æ—¶æ–‡ä»¶å•ç‹¬åšä¸‹äºŒæ¬¡åˆ†ç»„å°±èƒ½å¾—åˆ°æœ€ç»ˆçš„åˆ†ç»„ç»“æœ
  * @author RunQian
  *
  */
 public class GroupxnCursor extends ICursor {
-	private FileObject []files; // Ê×´Î·Ö×é²úÉúµÄÁÙÊ±¼¯ÎÄ¼ş
-	private int fileIndex = -1; // µ±Ç°Òª¶ÁµÄÁÙÊ±ÎÄ¼şË÷Òı
-	private Expression[] exps; // ·Ö×é±í´ïÊ½Êı×é
-	private String[] names; // ·Ö×é×Ö¶ÎÃûÊı×é
-	private Expression[] calcExps; // »ã×Ü±í´ïÊ½Êı×é
-	private String[] calcNames; // »ã×Ü×Ö¶ÎÃûÊı×é
+	private FileObject []files; // é¦–æ¬¡åˆ†ç»„äº§ç”Ÿçš„ä¸´æ—¶é›†æ–‡ä»¶
+	private int fileIndex = -1; // å½“å‰è¦è¯»çš„ä¸´æ—¶æ–‡ä»¶ç´¢å¼•
+	private Expression[] exps; // åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	private String[] names; // åˆ†ç»„å­—æ®µåæ•°ç»„
+	private Expression[] calcExps; // æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	private String[] calcNames; // æ±‡æ€»å­—æ®µåæ•°ç»„
 	
-	private MemoryCursor cursor; // ÄÚ´æÓÎ±ê£¬ÓÃÓÚ±£´æµ±Ç°ÁÙÊ±ÎÄ¼şµÄ¶ş´Î·Ö×é½á¹û
+	private MemoryCursor cursor; // å†…å­˜æ¸¸æ ‡ï¼Œç”¨äºä¿å­˜å½“å‰ä¸´æ—¶æ–‡ä»¶çš„äºŒæ¬¡åˆ†ç»„ç»“æœ
 	
 	/**
-	 * ¹¹½¨Íâ´æ·Ö×éµÄ¶ş´Î»ã×ÜÓÎ±ê
-	 * @param files Ê×´Î·Ö×é²úÉúµÄÁÙÊ±¼¯ÎÄ¼şÊı×é
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºå¤–å­˜åˆ†ç»„çš„äºŒæ¬¡æ±‡æ€»æ¸¸æ ‡
+	 * @param files é¦–æ¬¡åˆ†ç»„äº§ç”Ÿçš„ä¸´æ—¶é›†æ–‡ä»¶æ•°ç»„
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public GroupxnCursor(FileObject []files, Expression[] exps, String[] names, 
 			Expression[] calcExps, String[] calcNames, Context ctx) {
@@ -52,7 +52,7 @@ public class GroupxnCursor extends ICursor {
 		ds.setPrimary(names);
 		setDataStruct(ds);
 		
-		// È¡¶ş´Î¾ÛºÏĞèÒªÓÃµÄ±í´ïÊ½
+		// å–äºŒæ¬¡èšåˆéœ€è¦ç”¨çš„è¡¨è¾¾å¼
 		Node[] gathers = Sequence.prepareGatherMethods(calcExps, ctx);
 		Expression []keyExps = new Expression[keyCount];
 		for (int i = 0, q = 1; i < keyCount; ++i, ++q) {
@@ -68,15 +68,15 @@ public class GroupxnCursor extends ICursor {
 		this.calcExps = valExps;
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		this.ctx = ctx;
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -125,9 +125,9 @@ public class GroupxnCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (files == null || n < 1) return 0;
@@ -161,7 +161,7 @@ public class GroupxnCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();

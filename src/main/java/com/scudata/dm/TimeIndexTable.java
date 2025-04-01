@@ -10,24 +10,24 @@ import com.scudata.util.HashUtil;
 import com.scudata.util.Variant;
 
 /**
- * ´øÓĞÊ±¼ä¼ü×Ö¶ÎµÄ¹şÏ£±í£¬Ö÷¼üµÄ×îºóÒ»¸ö×Ö¶ÎÎªÊ±¼ä¼ü£¬Ê±¼ä¼ü²»ÊÇÓÃÏàµÈ½øĞĞ±È½Ï£¬¶øÊÇÈ¡Ç°Ãæ×î½üµÄ
+ * å¸¦æœ‰æ—¶é—´é”®å­—æ®µçš„å“ˆå¸Œè¡¨ï¼Œä¸»é”®çš„æœ€åä¸€ä¸ªå­—æ®µä¸ºæ—¶é—´é”®ï¼Œæ—¶é—´é”®ä¸æ˜¯ç”¨ç›¸ç­‰è¿›è¡Œæ¯”è¾ƒï¼Œè€Œæ˜¯å–å‰é¢æœ€è¿‘çš„
  * @author WangXiaoJun
  *
  */
 public class TimeIndexTable extends IndexTable {
-	private Sequence code; // Ô´±í£¬¹şÏ£±í´æ·ÅµÄÊÇÔªËØµÄÎ»ÖÃ£¬ĞèÒª¸ù¾İÎ»ÖÃµ½Ô´±íÈ¡ÔªËØ
-	private HashUtil hashUtil; // ÓÃÓÚ¼ÆËã¹şÏ£Öµ
+	private Sequence code; // æºè¡¨ï¼Œå“ˆå¸Œè¡¨å­˜æ”¾çš„æ˜¯å…ƒç´ çš„ä½ç½®ï¼Œéœ€è¦æ ¹æ®ä½ç½®åˆ°æºè¡¨å–å…ƒç´ 
+	private HashUtil hashUtil; // ç”¨äºè®¡ç®—å“ˆå¸Œå€¼
 	
-	// °´³ıÁËÊ±¼ä¼üÖ®ÍâµÄÆäËü¼üµÄhashÖµ·Ö×é£¬¹şÏ£ÖµÏàÍ¬µÄ°´ËùÓĞ½¨½øĞĞÅÅĞò
-	// ÁĞ±íÖĞµÄÖµÎªÊı×é£¬´æ·ÅµÄÊÇ£º¼üÖµ+Ê±¼ä¼üÖµ+¼ÇÂ¼ĞòºÅ
+	// æŒ‰é™¤äº†æ—¶é—´é”®ä¹‹å¤–çš„å…¶å®ƒé”®çš„hashå€¼åˆ†ç»„ï¼Œå“ˆå¸Œå€¼ç›¸åŒçš„æŒ‰æ‰€æœ‰å»ºè¿›è¡Œæ’åº
+	// åˆ—è¡¨ä¸­çš„å€¼ä¸ºæ•°ç»„ï¼Œå­˜æ”¾çš„æ˜¯ï¼šé”®å€¼+æ—¶é—´é”®å€¼+è®°å½•åºå·
 	private ListBase1[] entries;
 	private int totalKeyCount;
 	
 	/**
-	 * ¹¹½¨¹şÏ£±í
-	 * @param code Sequence Î¬±í
-	 * @param fields int[] Ö÷¼ü×Ö¶ÎË÷Òı£¬×îºóÒ»¸ö×Ö¶ÎÎªÊ±¼ä¼ü
-	 * @param capacity ¹şÏ£±íÈİÁ¿
+	 * æ„å»ºå“ˆå¸Œè¡¨
+	 * @param code Sequence ç»´è¡¨
+	 * @param fields int[] ä¸»é”®å­—æ®µç´¢å¼•ï¼Œæœ€åä¸€ä¸ªå­—æ®µä¸ºæ—¶é—´é”®
+	 * @param capacity å“ˆå¸Œè¡¨å®¹é‡
 	 */
 	public TimeIndexTable(Sequence code, int []fields, int capacity) {
 		HashUtil hashUtil = new HashUtil(capacity);
@@ -75,7 +75,7 @@ public class TimeIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * È¡¹şÏ£±íÈİÁ¿
+	 * å–å“ˆå¸Œè¡¨å®¹é‡
 	 * @return
 	 */
 	public int getCapacity() {
@@ -83,7 +83,7 @@ public class TimeIndexTable extends IndexTable {
 	}
 	
 	public Object find(Object key) {
-		// ²éÕÒÊ±Ã»Ìá¹©Ê±¼ä×Ö¶Î£¬È¡×îĞÂµÄ
+		// æŸ¥æ‰¾æ—¶æ²¡æä¾›æ—¶é—´å­—æ®µï¼Œå–æœ€æ–°çš„
 		int hash = hashUtil.hashCode(key);
 		ListBase1 table = entries[hash];
 		if (table == null) {
@@ -109,8 +109,8 @@ public class TimeIndexTable extends IndexTable {
 	}
 
 	/**
-	 * ÓÉ¼ü²éÕÒÔªËØ£¬ÕÒ²»µ½·µ»Ø¿Õ
-	 * @param keys ¼üÖµÊı×é
+	 * ç”±é”®æŸ¥æ‰¾å…ƒç´ ï¼Œæ‰¾ä¸åˆ°è¿”å›ç©º
+	 * @param keys é”®å€¼æ•°ç»„
 	 */
 	public Object find(Object []keys) {
 		int count = keys.length;
@@ -128,7 +128,7 @@ public class TimeIndexTable extends IndexTable {
 			} else {
 				index = -index - 1;
 				if (index > 0) {
-					// Èç¹ûÊ±¼ä¼üÃ»ÓĞÏàµÈµÄ£¬¶øÈ¡Ç°Ãæ×î½üµÄ
+					// å¦‚æœæ—¶é—´é”®æ²¡æœ‰ç›¸ç­‰çš„ï¼Œè€Œå–å‰é¢æœ€è¿‘çš„
 					Object []r = (Object[])table.get(index);
 					if (Variant.compareArrays(r, keys, count - 1) == 0) {
 						return code.getMem((Integer)r[count]);
@@ -138,7 +138,7 @@ public class TimeIndexTable extends IndexTable {
 				return null; // key not found
 			}
 		} else {
-			// ²éÕÒÊ±Ã»Ìá¹©Ê±¼ä×Ö¶Î£¬È¡×îĞÂµÄ
+			// æŸ¥æ‰¾æ—¶æ²¡æä¾›æ—¶é—´å­—æ®µï¼Œå–æœ€æ–°çš„
 			int hash = hashUtil.hashCode(keys, count);
 			ListBase1 table = entries[hash];
 			if (table == null) {
@@ -165,10 +165,10 @@ public class TimeIndexTable extends IndexTable {
 	}
 
 	/**
-	 * ÓÉË÷Òı½øĞĞ¹ıÂËÉú³ÉĞò±í²¢´´½¨ĞÂË÷Òı
-	 * @param exp ¹ıÂË±í´ïÊ½
+	 * ç”±ç´¢å¼•è¿›è¡Œè¿‡æ»¤ç”Ÿæˆåºè¡¨å¹¶åˆ›å»ºæ–°ç´¢å¼•
+	 * @param exp è¿‡æ»¤è¡¨è¾¾å¼
 	 * @param ctx
-	 * @return Table Âú×ãÌõ¼şµÄ¼ÇÂ¼¹¹³ÉµÄĞÂĞò±í
+	 * @return Table æ»¡è¶³æ¡ä»¶çš„è®°å½•æ„æˆçš„æ–°åºè¡¨
 	 */
 	public Table select(Expression exp, Context ctx) {
 		Sequence code = this.code;
@@ -220,7 +220,7 @@ public class TimeIndexTable extends IndexTable {
 	}
 	
 	public int findPos(Object key) {
-		// ²éÕÒÊ±Ã»Ìá¹©Ê±¼ä×Ö¶Î£¬È¡×îĞÂµÄ
+		// æŸ¥æ‰¾æ—¶æ²¡æä¾›æ—¶é—´å­—æ®µï¼Œå–æœ€æ–°çš„
 		int hash = hashUtil.hashCode(key);
 		ListBase1 table = entries[hash];
 		if (table == null) {
@@ -261,7 +261,7 @@ public class TimeIndexTable extends IndexTable {
 			} else {
 				index = -index - 1;
 				if (index > 0) {
-					// Èç¹ûÊ±¼ä¼üÃ»ÓĞÏàµÈµÄ£¬¶øÈ¡Ç°Ãæ×î½üµÄ
+					// å¦‚æœæ—¶é—´é”®æ²¡æœ‰ç›¸ç­‰çš„ï¼Œè€Œå–å‰é¢æœ€è¿‘çš„
 					Object []r = (Object[])table.get(index);
 					if (Variant.compareArrays(r, keys, count - 1) == 0) {
 						return (Integer)r[count];
@@ -271,7 +271,7 @@ public class TimeIndexTable extends IndexTable {
 				return 0; // key not found
 			}
 		} else {
-			// ²éÕÒÊ±Ã»Ìá¹©Ê±¼ä×Ö¶Î£¬È¡×îĞÂµÄ
+			// æŸ¥æ‰¾æ—¶æ²¡æä¾›æ—¶é—´å­—æ®µï¼Œå–æœ€æ–°çš„
 			int hash = hashUtil.hashCode(keys, count);
 			ListBase1 table = entries[hash];
 			if (table == null) {

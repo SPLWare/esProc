@@ -18,7 +18,7 @@ import com.scudata.common.StringUtils;
 import com.scudata.ide.common.GM;
 
 /**
- * ¹¤¾ßÌõµÄ»ùÀà
+ * å·¥å…·æ¡çš„åŸºç±»
  *
  */
 public class ToolbarGradient extends JToolBar {
@@ -26,24 +26,24 @@ public class ToolbarGradient extends JToolBar {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ToolbarGradient() {
 		super();
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param name
-	 *            ¹¤¾ßÌõµÄÃû³Æ
+	 *            å·¥å…·æ¡çš„åç§°
 	 */
 	public ToolbarGradient(String name) {
 		super(name);
 	}
 
 	/**
-	 * Ë¢ĞÂ¿Ø¼ş
+	 * åˆ·æ–°æ§ä»¶
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -63,7 +63,7 @@ public class ToolbarGradient extends JToolBar {
 	}
 
 	/**
-	 * ´´½¨°´Å¥
+	 * åˆ›å»ºæŒ‰é’®
 	 * 
 	 * @param cmdId
 	 * @param menuId

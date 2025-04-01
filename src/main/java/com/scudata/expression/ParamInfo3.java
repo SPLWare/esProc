@@ -5,7 +5,7 @@ import com.scudata.common.RQException;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓÃÓÚ½âÎöĞÎÈçe1:f1:c1, e2:f2:c2...µÄ²ÎÊı
+ * ç”¨äºè§£æå½¢å¦‚e1:f1:c1, e2:f2:c2...çš„å‚æ•°
  * @author RunQian
  *
  */
@@ -14,29 +14,29 @@ public class ParamInfo3 {
 	private Expression []exps2;
 	private Expression []exps3;
 
-	// has1 µÚÒ»¸ö²ÎÊıÊÇ·ñ±ØĞë´æÔÚ£¬ has2 µÚ¶ş¸ö²ÎÊıÊÇ·ñ±ØĞë´æÔÚ
+	// has1 ç¬¬ä¸€ä¸ªå‚æ•°æ˜¯å¦å¿…é¡»å­˜åœ¨ï¼Œ has2 ç¬¬äºŒä¸ªå‚æ•°æ˜¯å¦å¿…é¡»å­˜åœ¨
 	private ParamInfo3(Expression []exps1, Expression []exps2, Expression []exps3) {
 		this.exps1 = exps1;
 		this.exps2 = exps2;
 		this.exps3 = exps3;
 	}
 
-	// ·µ»ØµÚÒ»ÁĞµÄËùÓĞ±í´ïÊ½
+	// è¿”å›ç¬¬ä¸€åˆ—çš„æ‰€æœ‰è¡¨è¾¾å¼
 	public Expression[] getExpressions1() {
 		return exps1;
 	}
 
-	// ·µ»ØµÚ¶şÁĞµÄËùÓĞ±í´ïÊ½
+	// è¿”å›ç¬¬äºŒåˆ—çš„æ‰€æœ‰è¡¨è¾¾å¼
 	public Expression[] getExpressions2() {
 		return exps2;
 	}
 
-	// ·µ»ØµÚÈıÁĞµÄËùÓĞ±í´ïÊ½
+	// è¿”å›ç¬¬ä¸‰åˆ—çš„æ‰€æœ‰è¡¨è¾¾å¼
 	public Expression[] getExpressions3() {
 		return exps3;
 	}
 
-	// ·µ»ØµÚÒ»ÁĞµÄËùÓĞ±í´ïÊ½×Ö·û´®
+	// è¿”å›ç¬¬ä¸€åˆ—çš„æ‰€æœ‰è¡¨è¾¾å¼å­—ç¬¦ä¸²
 	public String[] getExpressionStrs1() {
 		Expression []exps = this.exps1;
 		int size = exps.length;
@@ -50,7 +50,7 @@ public class ParamInfo3 {
 		return strs;
 	}
 
-	// ·µ»ØµÚ¶şÁĞµÄËùÓĞ±í´ïÊ½×Ö·û´®
+	// è¿”å›ç¬¬äºŒåˆ—çš„æ‰€æœ‰è¡¨è¾¾å¼å­—ç¬¦ä¸²
 	public String[] getExpressionStrs2() {
 		Expression []exps = this.exps2;
 		int size = exps.length;
@@ -64,7 +64,7 @@ public class ParamInfo3 {
 		return strs;
 	}
 
-	// ·µ»ØµÚÈıÁĞµÄËùÓĞ±í´ïÊ½×Ö·û´®
+	// è¿”å›ç¬¬ä¸‰åˆ—çš„æ‰€æœ‰è¡¨è¾¾å¼å­—ç¬¦ä¸²
 	public String[] getExpressionStrs3() {
 		Expression []exps = this.exps3;
 		int size = exps.length;

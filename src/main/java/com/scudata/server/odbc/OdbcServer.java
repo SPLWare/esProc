@@ -18,7 +18,7 @@ import com.scudata.server.IServer;
 import com.scudata.server.StartUnitListener;
 
 /**
- * odbc·şÎñÆ÷£¬ÊµÏÖ¶Ôodbc½Ó¿ÚµÄ·şÎñ
+ * odbcæœåŠ¡å™¨ï¼Œå®ç°å¯¹odbcæ¥å£çš„æœåŠ¡
  * 
  * @author Joancy
  *
@@ -39,14 +39,14 @@ public class OdbcServer implements IServer {
 	private RaqsoftConfig rc = null;
 	
 	/**
-	 * ÉèÖÃÈóÇ¬ÅäÖÃ
+	 * è®¾ç½®æ¶¦ä¹¾é…ç½®
 	 */
 	public void setRaqsoftConfig(RaqsoftConfig rc){
 		this.rc = rc;
 	}
 
 	/**
-	 * »ñÈ¡ÈóÇ¬ÅäÖÃÎÄ¼ş¶ÔÏó
+	 * è·å–æ¶¦ä¹¾é…ç½®æ–‡ä»¶å¯¹è±¡
 	 */
 	public RaqsoftConfig getRaqsoftConfig(){
 		return rc;
@@ -57,8 +57,8 @@ public class OdbcServer implements IServer {
 	}
 
 	/**
-	 * Í¨¹ı¾²Ì¬·½·¨»ñÈ¡Î¨Ò»·şÎñÆ÷ÊµÀı
-	 * @return odbc·şÎñÆ÷ÊµÀı
+	 * é€šè¿‡é™æ€æ–¹æ³•è·å–å”¯ä¸€æœåŠ¡å™¨å®ä¾‹
+	 * @return odbcæœåŠ¡å™¨å®ä¾‹
 	 * @throws Exception
 	 */
 	public static OdbcServer getInstance() throws Exception {
@@ -69,21 +69,21 @@ public class OdbcServer implements IServer {
 	}
 
 	/**
-	 * ÖÕÖ¹·şÎñ
+	 * ç»ˆæ­¢æœåŠ¡
 	 */
 	public void terminate() {
 		shutDown();
 	}
 
 	/**
-	 * Í£Ö¹·şÎñÆ÷
+	 * åœæ­¢æœåŠ¡å™¨
 	 */
 	public void shutDown() {
 		stop = true;
 	}
 
 	/**
-	 * ·µ»Ø·şÎñÆ÷ÊÇ·ñÔÚÔËĞĞ×´Ì¬
+	 * è¿”å›æœåŠ¡å™¨æ˜¯å¦åœ¨è¿è¡ŒçŠ¶æ€
 	 */
 	public synchronized boolean isRunning() {
 		return isAlive();
@@ -97,16 +97,16 @@ public class OdbcServer implements IServer {
 	}
 
 	/**
-	 * ¼ì²é·şÎñÆ÷ÊÇ·ñ»î¶¯µÄ
-	 * @return »î¶¯·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ£€æŸ¥æœåŠ¡å™¨æ˜¯å¦æ´»åŠ¨çš„
+	 * @return æ´»åŠ¨è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isAlive() {
 		return !stop;
 	}
 
 	/**
-	 * ·şÎñÆ÷IDºÅ¼ÆÊı
-	 * @return Î¨Ò»ºÅ
+	 * æœåŠ¡å™¨IDå·è®¡æ•°
+	 * @return å”¯ä¸€å·
 	 */
 	public static int nextId() {
 		synchronized (idLock) {
@@ -120,16 +120,16 @@ public class OdbcServer implements IServer {
 	}
 
 	/**
-	 * »ñÈ¡odbcÉÏÏÂÎÄ
-	 * @return odbcÉÏÏÂÎÄ
+	 * è·å–odbcä¸Šä¸‹æ–‡
+	 * @return odbcä¸Šä¸‹æ–‡
 	 */
 	public OdbcContext getContext() {
 		return ctx;
 	}
 
 	/**
-	 * »ñÈ¡·şÎñÆ÷HomeÂ·¾¶
-	 * @return homeÂ·¾¶
+	 * è·å–æœåŠ¡å™¨Homeè·¯å¾„
+	 * @return homeè·¯å¾„
 	 */
 	public static String getHome() {
 		String home = System.getProperty("start.home");
@@ -137,7 +137,7 @@ public class OdbcServer implements IServer {
 	}
 
 	/**
-	 * ÔËĞĞ·şÎñÆ÷
+	 * è¿è¡ŒæœåŠ¡å™¨
 	 */
 	public void run() {
 		ServerSocket ss = null;
@@ -145,7 +145,7 @@ public class OdbcServer implements IServer {
 		Logger.info(ParallelMessage.get().getMessage("OdbcServer.run1"));
 		Logger.info(ParallelMessage.get().getMessage("UnitServer.run2", getHome()));
 		try {
-//			ÏÈ¼ì²éÏÂÅäÖÃÎÄ¼şÊÇ·ñ´æÔÚ
+//			å…ˆæ£€æŸ¥ä¸‹é…ç½®æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 			InputStream is = UnitContext.getUnitInputStream(OdbcContext.ODBC_CONFIG_FILE);
 			is.close();
 			ctx = new OdbcContext();
@@ -197,7 +197,7 @@ public class OdbcServer implements IServer {
 					ow.setSocket(s);
 					ow.start();
 				} catch (InterruptedIOException e) {
-					// ³¬Ê±ºó£¬²úÉúÖĞ¶ÏÒì³£
+					// è¶…æ—¶åï¼Œäº§ç”Ÿä¸­æ–­å¼‚å¸¸
 				}
 			}
 			Thread[] threads = new Thread[workers.activeCount()];
@@ -230,14 +230,14 @@ public class OdbcServer implements IServer {
 	}
 	
 	/**
-	 * ÉèÖÃ·şÎñÆ÷ÕìÌıÀà
+	 * è®¾ç½®æœåŠ¡å™¨ä¾¦å¬ç±»
 	 */
 	public void setStartUnitListener(StartUnitListener listen) {
 		listener = listen;
 	}
 
 	/**
-	 * »ñÈ¡·şÎñÆ÷IP¼°¶Ë¿Ú
+	 * è·å–æœåŠ¡å™¨IPåŠç«¯å£
 	 */
 	public String getHost() {
 		return ctx.toString();

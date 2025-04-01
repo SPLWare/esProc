@@ -13,18 +13,18 @@ import java.io.*;
 import javax.swing.*;
 
 /**
- * ÕûÌåÍ³¼ÆÍ¼µÄ¼ÆËãÊµÏÖ
- * ÕûÌåÍ³¼ÆÍ¼Ïà¶ÔÓÚÍ¼Ôª²»Í¬£¬ÕûÌåÍ³¼ÆÍ¼°´ÕÕ³£¼ûÍ³¼ÆÍ¼ÅäÖÃºÃËùÓĞÊôĞÔ£¬Ä¬ÈÏ×ø±êÏµ
- * Í¼ÔªÏàµ±ÓÚ»ıÄ¾£¬¿ÉÒÔÓÃ²»Í¬Í¼ÔªÒÔ¼°ÖÜ×éºÏ³ö¸÷ÖÖÀàËÆÕûÌåÍ³¼ÆÍ¼
+ * æ•´ä½“ç»Ÿè®¡å›¾çš„è®¡ç®—å®ç°
+ * æ•´ä½“ç»Ÿè®¡å›¾ç›¸å¯¹äºå›¾å…ƒä¸åŒï¼Œæ•´ä½“ç»Ÿè®¡å›¾æŒ‰ç…§å¸¸è§ç»Ÿè®¡å›¾é…ç½®å¥½æ‰€æœ‰å±æ€§ï¼Œé»˜è®¤åæ ‡ç³»
+ * å›¾å…ƒç›¸å½“äºç§¯æœ¨ï¼Œå¯ä»¥ç”¨ä¸åŒå›¾å…ƒä»¥åŠå‘¨ç»„åˆå‡ºå„ç§ç±»ä¼¼æ•´ä½“ç»Ÿè®¡å›¾
  * @author Joancy
  *
  */
 public class StatisticGraph {
 
 	/**
-	 * ½«¹²ÓĞÊôĞÔ×ª»»Îª»æÍ¼Ç°µÄÀ©Õ¹Í¼ĞÎÊôĞÔ
-	 * @param prop ¹²ÓĞÊôĞÔ
-	 * @return À©Õ¹Í¼ĞÎÊôĞÔ
+	 * å°†å…±æœ‰å±æ€§è½¬æ¢ä¸ºç»˜å›¾å‰çš„æ‰©å±•å›¾å½¢å±æ€§
+	 * @param prop å…±æœ‰å±æ€§
+	 * @return æ‰©å±•å›¾å½¢å±æ€§
 	 */
 	public static ExtGraphProperty calc1(PublicProperty prop) {
 		ExtGraphProperty catMap = new ExtGraphProperty(prop);
@@ -49,7 +49,7 @@ public class StatisticGraph {
 		catMap.setLink(prop.getLink());
 		catMap.setLinkTarget(prop.getLinkTarget());
 
-		/** Í³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû */
+		/** ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå */
 		Palette pltt = Palette.getDefaultPalette();
 		str = prop.getColorConfig();
 		if (StringUtils.isValidString(str)) {
@@ -60,7 +60,7 @@ public class StatisticGraph {
 		}
 		catMap.setPalette(pltt);
 
-		/** Í³¼ÆÖµÆğÊ¼Öµ */
+		/** ç»Ÿè®¡å€¼èµ·å§‹å€¼ */
 		str = prop.getYStartValue();
 		if (StringUtils.isValidString(str)) {
 			ArgumentTokenizer st = new ArgumentTokenizer(str, ';');
@@ -72,7 +72,7 @@ public class StatisticGraph {
 			}
 		}
 
-		/** Í³¼ÆÖµ½áÊøÖµ */
+		/** ç»Ÿè®¡å€¼ç»“æŸå€¼ */
 		str = prop.getYEndValue();
 		if (StringUtils.isValidString(str)) {
 			ArgumentTokenizer st = new ArgumentTokenizer(str, ';');
@@ -83,7 +83,7 @@ public class StatisticGraph {
 				catMap.setYEndValue2(Double.parseDouble(st.nextToken()));
 			}
 		}
-		/** Í³¼ÆÖµ±êÇ©¼ä¸ô */
+		/** ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš” */
 		str = prop.getYInterval();
 		if (StringUtils.isValidString(str)) {
 			ArgumentTokenizer st = new ArgumentTokenizer(str, ';');
@@ -95,7 +95,7 @@ public class StatisticGraph {
 			}
 		}
 
-		/** Í³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı */
+		/** ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•° */
 		catMap.setYMinMarks(prop.getYMinMarks());
 		catMap.setTitleMargin(prop.getTitleMargin());
 		catMap.setXInterval(prop.getXInterval());
@@ -103,10 +103,10 @@ public class StatisticGraph {
 	}
 
 	/**
-	 * ½«»º³åÍ¼Ïñ°´ÕÕÖ¸¶¨¸ñÊ½×ªÎªÍ¼ÏñÊı¾İ
-	 * @param bi »º³åÍ¼Ïñ
-	 * @param imageFmt Í¼Æ¬¸ñÊ½
-	 * @return Í¼ÏñÊı¾İ
+	 * å°†ç¼“å†²å›¾åƒæŒ‰ç…§æŒ‡å®šæ ¼å¼è½¬ä¸ºå›¾åƒæ•°æ®
+	 * @param bi ç¼“å†²å›¾åƒ
+	 * @param imageFmt å›¾ç‰‡æ ¼å¼
+	 * @return å›¾åƒæ•°æ®
 	 * @throws Exception
 	 */
 	public static byte[] getImageBytes(BufferedImage bi, byte imageFmt)
@@ -133,7 +133,7 @@ public class StatisticGraph {
 		InputStream fis = null;
 		try {
 			File file = new File(picFile);
-			if (file.exists()) { // ¾ø¶ÔÂ·¾¶±íÊ¾µÄÎÄ¼ş
+			if (file.exists()) { // ç»å¯¹è·¯å¾„è¡¨ç¤ºçš„æ–‡ä»¶
 				fis = new FileInputStream(picFile);
 			} else {
 				String paths[] = Env.getPaths();
@@ -160,11 +160,11 @@ public class StatisticGraph {
 	}
 
 	/**
-	 * Ö´ĞĞ±³¾°Í¼»æÖÆ
-	 * @param g Í¼ĞÎÉè±¸
-	 * @param egp À©Õ¹Í¼ĞÎÊôĞÔ
-	 * @param w ¿í¶È
-	 * @param h ¸ß¶È
+	 * æ‰§è¡ŒèƒŒæ™¯å›¾ç»˜åˆ¶
+	 * @param g å›¾å½¢è®¾å¤‡
+	 * @param egp æ‰©å±•å›¾å½¢å±æ€§
+	 * @param w å®½åº¦
+	 * @param h é«˜åº¦
 	 */
 	public static void drawBackGraph(Graphics2D g, ExtGraphProperty egp,
 			int w, int h) {

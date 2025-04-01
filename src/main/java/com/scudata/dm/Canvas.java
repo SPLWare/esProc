@@ -6,7 +6,7 @@ import com.scudata.chart.*;
 import com.scudata.common.*;
 
 /**
- * »­²¼Àà
+ * ç”»å¸ƒç±»
  * 
  * @author Joancy
  *
@@ -18,23 +18,23 @@ public class Canvas implements ICloneable, Externalizable, IRecord {
   private transient String htmlLinks=null;
   
   /**
-   * ¹¹ÔìÒ»¸öÈ±Ê¡»­²¼
+   * æ„é€ ä¸€ä¸ªç¼ºçœç”»å¸ƒ
    */
   public Canvas() {
   }
 
   /**
-   * »ñÈ¡Í¼»­ÀïÃæµÄhtml³¬Á´½Ó
-   * @return ³¬Á´½Ó
+   * è·å–å›¾ç”»é‡Œé¢çš„htmlè¶…é“¾æ¥
+   * @return è¶…é“¾æ¥
    */
   public String getHtmlLinks(){
-	  //±ØĞëÏÈµ÷ÓÃ¼ÆËãÍ¼ĞÎ£¬ÒòÎªÒª»ñÈ¡ÏàÓ¦µÄw£¬h£¬ËùÒÔÃ»¼ÆËã¹ıÊ±Òª±¨´í¡£
+	  //å¿…é¡»å…ˆè°ƒç”¨è®¡ç®—å›¾å½¢ï¼Œå› ä¸ºè¦è·å–ç›¸åº”çš„wï¼Œhï¼Œæ‰€ä»¥æ²¡è®¡ç®—è¿‡æ—¶è¦æŠ¥é”™ã€‚
 	  if( htmlLinks==null) throw new RQException("You should call G.draw(w,h) before call G.hlink().");
 	  return htmlLinks;
   }
   
   /**
-   * ÉèÖÃ»­²¼Ãû³Æ
+   * è®¾ç½®ç”»å¸ƒåç§°
    * @param name
    */
   public void setName(String name) {
@@ -42,7 +42,7 @@ public class Canvas implements ICloneable, Externalizable, IRecord {
   }
 
   /**
-   * È¡»­²¼Ãû³Æ
+   * å–ç”»å¸ƒåç§°
    * @return
    */
   public String getName() {
@@ -50,31 +50,31 @@ public class Canvas implements ICloneable, Externalizable, IRecord {
   }
 
   /**
-   * Ôö¼ÓÒ»¸öÍ¼Ôª
-   * @param elem  Í¼ÔªµÄĞòÁĞ±íÊ¾
+   * å¢åŠ ä¸€ä¸ªå›¾å…ƒ
+   * @param elem  å›¾å…ƒçš„åºåˆ—è¡¨ç¤º
    */
   public void addChartElement(Sequence elem) {
 	chartElements.add(elem);
   }
 
   /**
-   * »ñÈ¡ËùÓĞÍ¼Ôª
-   * @return Í¼ÔªĞòÁĞ±íÊ¾µÄĞòÁĞ
+   * è·å–æ‰€æœ‰å›¾å…ƒ
+   * @return å›¾å…ƒåºåˆ—è¡¨ç¤ºçš„åºåˆ—
    */
   public Sequence getChartElements(){
     return chartElements;
   }
 
   /**
-   * ÉèÖÃËùÓĞÍ¼ÔªĞòÁĞ
-   * @param elements Í¼ÔªĞòÁĞ
+   * è®¾ç½®æ‰€æœ‰å›¾å…ƒåºåˆ—
+   * @param elements å›¾å…ƒåºåˆ—
    */
   public void setChartElements(Sequence elements){
     chartElements=elements;
   }
 
   /**
-   * Çå³ıÍ¼Ôª
+   * æ¸…é™¤å›¾å…ƒ
    */
   public void clear() {
 	chartElements.clear();
@@ -84,52 +84,52 @@ public class Canvas implements ICloneable, Externalizable, IRecord {
 	Engine e = new Engine(this.getChartElements());
 	byte[] bytes = e.calcImageBytes(w, h, fmt);
 	htmlLinks = e.getHtmlLinks();
-	if( htmlLinks==null ) htmlLinks="";//null±íÊ¾Ã»ÓĞ¼ÆËã£¬¿Õ±íÊ¾¼ÆËãÁË£¬µ«ÊÇÃ»ÓĞ¶¨Òå³¬Á´½Ó
+	if( htmlLinks==null ) htmlLinks="";//nullè¡¨ç¤ºæ²¡æœ‰è®¡ç®—ï¼Œç©ºè¡¨ç¤ºè®¡ç®—äº†ï¼Œä½†æ˜¯æ²¡æœ‰å®šä¹‰è¶…é“¾æ¥
 	return bytes;
   }
 
   /**
-   * ½«»­²¼Éú³Ésvg¸ñÊ½Êı¾İ
-   * @param w ¿í¶È
-   * @param h ¸ß¶È
-   * @return svgÍ¼ĞÎ×Ö½ÚÊı¾İ
+   * å°†ç”»å¸ƒç”Ÿæˆsvgæ ¼å¼æ•°æ®
+   * @param w å®½åº¦
+   * @param h é«˜åº¦
+   * @return svgå›¾å½¢å­—èŠ‚æ•°æ®
    */
   public byte[] toSVG(int w, int h) { //Utf-8
 	return getImageBytes(w, h, Consts.IMAGE_SVG);
   }
 
   /**
-   * ½«»­²¼Éú³Éjpg¸ñÊ½Êı¾İ
-   * @param w ¿í¶È
-   * @param h ¸ß¶È
-   * @return jpgÍ¼ĞÎ×Ö½ÚÊı¾İ
+   * å°†ç”»å¸ƒç”Ÿæˆjpgæ ¼å¼æ•°æ®
+   * @param w å®½åº¦
+   * @param h é«˜åº¦
+   * @return jpgå›¾å½¢å­—èŠ‚æ•°æ®
    */
   public byte[] toJpg(int w, int h) {
 	return getImageBytes(w, h, Consts.IMAGE_JPG);
   }
 
   /**
-   * ½«»­²¼Éú³Épng¸ñÊ½Êı¾İ
-   * @param w ¿í¶È
-   * @param h ¸ß¶È
-   * @return pngÍ¼ĞÎ×Ö½ÚÊı¾İ
+   * å°†ç”»å¸ƒç”Ÿæˆpngæ ¼å¼æ•°æ®
+   * @param w å®½åº¦
+   * @param h é«˜åº¦
+   * @return pngå›¾å½¢å­—èŠ‚æ•°æ®
    */
   public byte[] toPng(int w, int h) {
 	return getImageBytes(w, h, Consts.IMAGE_PNG);
   }
 
   /**
-   * ½«»­²¼Éú³Égif¸ñÊ½Êı¾İ
-   * @param w ¿í¶È
-   * @param h ¸ß¶È
-   * @return gifÍ¼ĞÎ×Ö½ÚÊı¾İ
+   * å°†ç”»å¸ƒç”Ÿæˆgifæ ¼å¼æ•°æ®
+   * @param w å®½åº¦
+   * @param h é«˜åº¦
+   * @return gifå›¾å½¢å­—èŠ‚æ•°æ®
    */
   public byte[] toGif(int w, int h) {
 	return getImageBytes(w, h, Consts.IMAGE_GIF);
   }
 
   /**
-   * ÊµÏÖtoStringµÄÎÄ±¾ÃèÊö
+   * å®ç°toStringçš„æ–‡æœ¬æè¿°
    */
   public String toString(){
 	  StringBuffer sb = new StringBuffer();
@@ -139,8 +139,8 @@ public class Canvas implements ICloneable, Externalizable, IRecord {
   }
   
   /**
-   * ¿ËÂ¡»­²¼¶ÔÏó
-   * @return ¿ËÂ¡µÄ»­²¼
+   * å…‹éš†ç”»å¸ƒå¯¹è±¡
+   * @return å…‹éš†çš„ç”»å¸ƒ
    */
   public Object deepClone(){
 	  Canvas canvas = new Canvas();
@@ -149,8 +149,8 @@ public class Canvas implements ICloneable, Externalizable, IRecord {
   }
 
   /**
-   * Ğ´ÄÚÈİµ½Á÷
-   * @param out ObjectOutput Êä³öÁ÷
+   * å†™å†…å®¹åˆ°æµ
+   * @param out ObjectOutput è¾“å‡ºæµ
    * @throws IOException
    */
   public void writeExternal(ObjectOutput out) throws IOException {
@@ -159,8 +159,8 @@ public class Canvas implements ICloneable, Externalizable, IRecord {
   }
 
   /**
-   * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-   * @param in ObjectInput ÊäÈëÁ÷
+   * ä»æµä¸­è¯»å†…å®¹
+   * @param in ObjectInput è¾“å…¥æµ
    * @throws IOException
    * @throws ClassNotFoundException
    */
@@ -170,7 +170,7 @@ public class Canvas implements ICloneable, Externalizable, IRecord {
   }
 
   /**
-   * ÊµÏÖIRecord½Ó¿Ú
+   * å®ç°IRecordæ¥å£
    */
   public byte[] serialize() throws IOException{
 	  ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -179,7 +179,7 @@ public class Canvas implements ICloneable, Externalizable, IRecord {
   }
 
   /**
-   * ÊµÏÖIRecord½Ó¿Ú
+   * å®ç°IRecordæ¥å£
    */
   public void fillRecord(byte[] buf) throws IOException, ClassNotFoundException {
 	  ByteArrayInputRecord in = new ByteArrayInputRecord(buf);

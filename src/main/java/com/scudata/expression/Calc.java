@@ -11,7 +11,7 @@ import com.scudata.dm.op.Operable;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Ñ­»·ĞòÁĞÖ´ĞĞ±í´ïÊ½£¬·µ»ØÔËËã½á¹û
+ * å¾ªç¯åºåˆ—æ‰§è¡Œè¡¨è¾¾å¼ï¼Œè¿”å›è¿ç®—ç»“æœ
  * A.(x)
  * @author WangXiaoJun
  *
@@ -20,16 +20,16 @@ public class Calc extends MemberFunction {
 	private Object srcObj;
 	
 	/**
-	 * ÉèÖÃº¯Êı²ÎÊı
-	 * @param cs Íø¸ñ¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param param º¯Êı²ÎÊı×Ö·û´®
+	 * è®¾ç½®å‡½æ•°å‚æ•°
+	 * @param cs ç½‘æ ¼å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param param å‡½æ•°å‚æ•°å­—ç¬¦ä¸²
 	 */
 	public void setParameter(ICellSet cs, Context ctx, String param) {
 		strParam = param;
 		this.cs = cs;
 		
-		// A.(x,¡­)°Ñ²ÎÊıµ±³ÉÒ»¸öÕûÌå´´½¨³É¶ººÅ±í´ïÊ½
+		// A.(x,â€¦)æŠŠå‚æ•°å½“æˆä¸€ä¸ªæ•´ä½“åˆ›å»ºæˆé€—å·è¡¨è¾¾å¼
 		this.param = ParamParser.newLeafParam(param, cs, ctx);
 		//this.param = ParamParser.parse(param, cs, ctx);
 	}
@@ -43,15 +43,15 @@ public class Calc extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		srcObj = null;
 	}
 	
 	/**
-	 * ÅĞ¶Ïµ±Ç°½ÚµãÊÇ·ñÊÇĞòÁĞº¯Êı
-	 * Èç¹ûµã²Ù×÷·ûµÄÓÒ²à½ÚµãÊÇĞòÁĞº¯Êı£¬×ó²à½Úµã¼ÆËã³öÊı£¬ÔòĞèÒª°ÑÊı×ª³ÉÊıÁĞ
+	 * åˆ¤æ–­å½“å‰èŠ‚ç‚¹æ˜¯å¦æ˜¯åºåˆ—å‡½æ•°
+	 * å¦‚æœç‚¹æ“ä½œç¬¦çš„å³ä¾§èŠ‚ç‚¹æ˜¯åºåˆ—å‡½æ•°ï¼Œå·¦ä¾§èŠ‚ç‚¹è®¡ç®—å‡ºæ•°ï¼Œåˆ™éœ€è¦æŠŠæ•°è½¬æˆæ•°åˆ—
 	 * @return
 	 */
 	public boolean isSequenceFunction() {

@@ -9,7 +9,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ·µ»ØĞò±íÖ¸¶¨×Ö¶Î»òËùÓĞ×Ö¶ÎµÄ×Ö¶ÎÃû
+ * è¿”å›åºè¡¨æŒ‡å®šå­—æ®µæˆ–æ‰€æœ‰å­—æ®µçš„å­—æ®µå
  * T.fname(i) T.fname()
  * @author RunQian
  *
@@ -31,7 +31,7 @@ public class FieldName extends SequenceFunction {
 				throw new RQException("fname" + mm.getMessage("function.paramTypeError"));
 			}
 
-			// ×Ö¶Î´Ó0¿ªÊ¼¼ÆÊı
+			// å­—æ®µä»0å¼€å§‹è®¡æ•°
 			int findex = ((Number)indexObj).intValue() - 1;
 			if (findex < 0) {
 				MessageManager mm = EngineMessage.get();

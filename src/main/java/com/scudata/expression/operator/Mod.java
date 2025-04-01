@@ -11,8 +11,8 @@ import com.scudata.util.CursorUtil;
 import com.scudata.util.Variant;
 
 /**
- * ÔËËã·û£º%
- * È¡Óà»òĞòÁĞÒì»ò
+ * è¿ç®—ç¬¦ï¼š%
+ * å–ä½™æˆ–åºåˆ—å¼‚æˆ–
  * @author RunQian
  *
  */
@@ -22,7 +22,7 @@ public class Mod extends Operator {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (left == null) {
@@ -41,7 +41,7 @@ public class Mod extends Operator {
 		Object o1 = left.calculate(ctx);
 		Object o2 = right.calculate(ctx);
 
-		//Èç¹ûÓĞĞòÁĞ£¬ÔòÊÇ¼ÆËãĞòÁĞÒì»òÁĞ
+		//å¦‚æœæœ‰åºåˆ—ï¼Œåˆ™æ˜¯è®¡ç®—åºåˆ—å¼‚æˆ–åˆ—
 		if (o1 instanceof Sequence) {
 			if (o2 instanceof Sequence) {
 				return CursorUtil.xor((Sequence)o1, (Sequence)o2);
@@ -70,8 +70,8 @@ public class Mod extends Operator {
 
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -81,10 +81,10 @@ public class Mod extends Operator {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -94,8 +94,8 @@ public class Mod extends Operator {
 	}
 	
 	/**
-	 * ¼ÆËã±í´ïÊ½µÄÈ¡Öµ·¶Î§
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—è¡¨è¾¾å¼çš„å–å€¼èŒƒå›´
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return
 	 */
 	public IArray calculateRange(Context ctx) {

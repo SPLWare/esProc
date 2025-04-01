@@ -38,23 +38,23 @@ import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÈÎÎñ¿Õ¼ä±í¿Ø¼ş
+ * ä»»åŠ¡ç©ºé—´è¡¨æ§ä»¶
  */
 public abstract class JTableJobSpace extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ÊÇ·ñ×èÖ¹±ä»¯
+	 * æ˜¯å¦é˜»æ­¢å˜åŒ–
 	 */
 	private boolean preventChange = false;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public JTableJobSpace() {
 		super(new BorderLayout());
@@ -63,7 +63,7 @@ public abstract class JTableJobSpace extends JPanel {
 	}
 
 	/**
-	 * Ñ¡ÔñÁË²ÎÊı
+	 * é€‰æ‹©äº†å‚æ•°
 	 * 
 	 * @param val
 	 * @param varName
@@ -80,7 +80,7 @@ public abstract class JTableJobSpace extends JPanel {
 	private HashMap<String, Param[]> paramMap;
 
 	/**
-	 * ÖØÖÃÈÎÎñ¿Õ¼ä
+	 * é‡ç½®ä»»åŠ¡ç©ºé—´
 	 */
 	public synchronized void setJobSpaces(HashMap<String, Param[]> paramMap) {
 		this.paramMap = paramMap;
@@ -123,13 +123,13 @@ public abstract class JTableJobSpace extends JPanel {
 	}
 
 	/**
-	 * Ôö¼ÓÈÎÎñ¿Õ¼äµ½±í¸ñĞĞ
+	 * å¢åŠ ä»»åŠ¡ç©ºé—´åˆ°è¡¨æ ¼è¡Œ
 	 * 
 	 * @param id
 	 * @param params
 	 * @param dispRows
-	 *            ÏÔÊ¾ĞĞÊı
-	 * @return ÊÇ·ñ¼ÌĞøÔö¼Ó
+	 *            æ˜¾ç¤ºè¡Œæ•°
+	 * @return æ˜¯å¦ç»§ç»­å¢åŠ 
 	 */
 	private boolean addJobSpaceRow(String id, Param[] params, int dispRows) {
 		for (int j = 0; j < params.length; j++) {
@@ -145,7 +145,7 @@ public abstract class JTableJobSpace extends JPanel {
 	}
 
 	/**
-	 * È¡ÈÎÎñ¿Õ¼äÃû
+	 * å–ä»»åŠ¡ç©ºé—´å
 	 * 
 	 * @param row
 	 * @return
@@ -156,7 +156,7 @@ public abstract class JTableJobSpace extends JPanel {
 	}
 
 	/**
-	 * È¡±äÁ¿Ãû
+	 * å–å˜é‡å
 	 * 
 	 * @param row
 	 * @return
@@ -167,7 +167,7 @@ public abstract class JTableJobSpace extends JPanel {
 	}
 
 	/**
-	 * È¡ÏÔÊ¾ĞĞ
+	 * å–æ˜¾ç¤ºè¡Œ
 	 * 
 	 * @return
 	 */
@@ -179,7 +179,7 @@ public abstract class JTableJobSpace extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		JScrollPane jSPTable = new JScrollPane(tableVar);
@@ -240,22 +240,22 @@ public abstract class JTableJobSpace extends JPanel {
 		tableVar.setColumnVisible(tableVar.getColumnName(COL_SPACE), false);
 	}
 
-	/** ĞòºÅÁĞ */
+	/** åºå·åˆ— */
 	private final byte COL_INDEX = 0;
-	/** ÈÎÎñ¿Õ¼äID */
+	/** ä»»åŠ¡ç©ºé—´ID */
 	private final byte COL_SPACE = 1;
-	/** ²ÎÊıÃû */
+	/** å‚æ•°å */
 	private final byte COL_NAME = 2;
-	/** ²ÎÊıÖµ */
+	/** å‚æ•°å€¼ */
 	private final byte COL_VALUE = 3;
-	/** ²ÎÊı¶ÔÏó£¬Òş²ØÁĞ */
+	/** å‚æ•°å¯¹è±¡ï¼Œéšè—åˆ— */
 	private final byte COL_VAR = 4;
 
-	/** ²ÎÊı¶ÔÏóÁĞ±êÇ©£¬Òş²ØÁĞ */
+	/** å‚æ•°å¯¹è±¡åˆ—æ ‡ç­¾ï¼Œéšè—åˆ— */
 	private final String TITLE_VAR = "TITLE_VAR";
 
 	/**
-	 * ²ÎÊı±í¿Ø¼ş¡£ ĞòºÅ,¿Õ¼äÃû,±äÁ¿Ãû,±äÁ¿Öµ,TITLE_VAR
+	 * å‚æ•°è¡¨æ§ä»¶ã€‚ åºå·,ç©ºé—´å,å˜é‡å,å˜é‡å€¼,TITLE_VAR
 	 */
 	private JTableEx tableVar = new JTableEx(
 			mm.getMessage("jtablejobspace.tablenames") + "," + TITLE_VAR) {
@@ -329,7 +329,7 @@ public abstract class JTableJobSpace extends JPanel {
 	private static final int DEFAULT_ROW_COUNT = 100;
 
 	/**
-	 * ÏÔÊ¾µÄ×î´óĞĞÊıÃæ°å
+	 * æ˜¾ç¤ºçš„æœ€å¤§è¡Œæ•°é¢æ¿
 	 */
 	private JSpinner jSDispRows = new JSpinner(new SpinnerNumberModel(
 			DEFAULT_ROW_COUNT, 1, Integer.MAX_VALUE, 1));

@@ -108,7 +108,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	protected Map<String, Object> jobVars = null;
 
 	/**
-	 * Á¬½Ó³ÖÓĞµÄ¸¸Context
+	 * è¿æ¥æŒæœ‰çš„çˆ¶Context
 	 */
 	private Context parentCtx = new Context();
 
@@ -153,7 +153,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * ÊÇ·ñ×Ô¶¯Á¬½ÓµÄÊı¾İÔ´
+	 * æ˜¯å¦è‡ªåŠ¨è¿æ¥çš„æ•°æ®æº
 	 * 
 	 * @param dbName
 	 * @param dbSession
@@ -169,7 +169,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	private void initContext(Context ctx, Map<String, Object> jobVars) {
 		ctx.setJobSpace(getJobSpace());
 		if (jobSpace != null && jobVars != null) {
-			// ÉÏÃæ¼ì²é¹ıÍ¬ÃûÁË£¬²»»áÓ°ÏìÕı³£Íø¸ñ²ÎÊı
+			// ä¸Šé¢æ£€æŸ¥è¿‡åŒåäº†ï¼Œä¸ä¼šå½±å“æ­£å¸¸ç½‘æ ¼å‚æ•°
 			Iterator<String> it = jobVars.keySet().iterator();
 			while (it.hasNext()) {
 				String paramName = it.next();
@@ -562,7 +562,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 				}
 			}
 		} else {
-			// ´´½¨ÉÏÏÂÎÄ¸ø²éÑ¯ÁĞÃûÊ¹ÓÃ£¬²»ÊÇÓÃÓÚSPL¼ÆËãµÄContext
+			// åˆ›å»ºä¸Šä¸‹æ–‡ç»™æŸ¥è¯¢åˆ—åä½¿ç”¨ï¼Œä¸æ˜¯ç”¨äºSPLè®¡ç®—çš„Context
 			t = JDBCUtil.getColumns(tableNamePattern, columnNamePattern,
 					parentCtx);
 		}
@@ -746,7 +746,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * ¹Ø±Õ½Úµã»úÁ¬½Ó
+	 * å…³é—­èŠ‚ç‚¹æœºè¿æ¥
 	 */
 	private void closeUnitClient() {
 		if (unitClient != null) {

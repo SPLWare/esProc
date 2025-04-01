@@ -15,9 +15,9 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * xjoinx(csi:Fi,xi;��)
- * ���α�csi�Ľ�������������������������Fi��Ϊ�ֶε��α꣬ÿ��Fi����ԭ�α�csi��һ����Ա����˹����У�
- * ���˳�csi����������xi�ĳ�Ա��csi����Ϊ�ɻ�ת�ĵ�·�α꣬csiҲ�����������
+ * xjoinx(csi:Fi,xi;…)
+ * 将游标csi的结果集无条件叉乘起来，产生以Fi…为字段的游标，每个Fi引用原游标csi的一个成员。叉乘过程中，
+ * 过滤出csi中满足条件xi的成员。csi必须为可回转的单路游标，csi也可以是序表。
  * @author runqian
  *
  */
@@ -28,7 +28,7 @@ public class XJoinx extends Function {
 	}
 	
 	/**
-	 * ������ʽ����Ч�ԣ���Ч���׳��쳣
+	 * 检查表达式的有效性，无效则抛出异常
 	 */
 	public void checkValidity() {
 		if (param == null) {

@@ -10,13 +10,13 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * º¯Êıf.xlswrite(xo,p)¡£°ÑExcel¶ÔÏóĞ´ÈëÎÄ¼ş£¬xo²»ÄÜÒÔ@r@w·½Ê½´ò¿ª
+ * å‡½æ•°f.xlswrite(xo,p)ã€‚æŠŠExcelå¯¹è±¡å†™å…¥æ–‡ä»¶ï¼Œxoä¸èƒ½ä»¥@r@wæ–¹å¼æ‰“å¼€
  *
  */
 public class XlsWrite extends FileFunction {
 
 	/**
-	 * ¼ÆËã
+	 * è®¡ç®—
 	 */
 	public Object calculate(Context ctx) {
 		if (param == null) {
@@ -79,13 +79,13 @@ public class XlsWrite extends FileFunction {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 

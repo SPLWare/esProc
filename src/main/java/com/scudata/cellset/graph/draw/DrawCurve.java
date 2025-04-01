@@ -11,7 +11,7 @@ import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 
 /**
- * ÇúÏßÍ¼ÊµÏÖ
+ * æ›²çº¿å›¾å®ç°
  * 
  * @author Joancy
  *
@@ -19,19 +19,19 @@ import com.scudata.chart.Utils;
 
 public class DrawCurve extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
 	 * 
 	 * @param db
-	 *            ³éÏóµÄ»æÍ¼»ùÀà
+	 *            æŠ½è±¡çš„ç»˜å›¾åŸºç±»
 	 * @param htmlLink
-	 *            ³¬Á´½Ó»º´æ
+	 *            è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db, StringBuffer htmlLink) {
 		GraphParam gp = db.gp;
@@ -99,9 +99,9 @@ public class DrawCurve extends DrawBase {
 		gp.gRect2.width -= coorWidth;
 		gp.gRect2.height -= coorWidth;
 
-		/* »­×ø±êÖá */
+		/* ç”»åæ ‡è½´ */
 		db.drawGraphRect();
-		/* »­YÖá */
+		/* ç”»Yè½´ */
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLine(dely, i);
 			Number coory = (Number) gp.coorValue.get(i);
@@ -110,15 +110,15 @@ public class DrawCurve extends DrawBase {
 			x = gp.gRect1.x - gp.tickLen;
 			y =  (gp.gRect1.y + gp.gRect1.height - i * dely);
 			gp.GFV_YLABEL.outText(x, y, scoory);
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine =  (gp.gRect1.y + gp.gRect1.height - i
 						* dely);
 			}
 		}
-		// »­¾¯½äÏß
+		// ç”»è­¦æˆ’çº¿
 		db.drawWarnLine();
-		/* »­XÖá */
+		/* ç”»Xè½´ */
 		beginPoint = new Point2D.Double[gp.serNum];
 		beginVal = new double[gp.serNum];
 		catPoints = new ArrayList[gp.serNum];
@@ -134,14 +134,14 @@ public class DrawCurve extends DrawBase {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 			double posx = DrawLine.getPosX(gp, i, cc, categorySpan, seriesWidth);
 
-			boolean valvis = (i % (gp.graphXInterval + 1) == 0);// Öù¶¥ÊÇ·ñÏÔÊ¾Öµ¸ú»­Table·Ö¿ª
+			boolean valvis = (i % (gp.graphXInterval + 1) == 0);// æŸ±é¡¶æ˜¯å¦æ˜¾ç¤ºå€¼è·Ÿç”»Tableåˆ†å¼€
 			boolean vis = valvis && !gp.isDrawTable;
 			if (vis) {
 				c = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
 				Utils.setStroke(g, c, Consts.LINE_SOLID, 1.0f);
 				db.drawLine(posx, gp.gRect1.y + gp.gRect1.height, posx,
 						gp.gRect1.y + gp.gRect1.height + gp.tickLen, c);
-				// »­±³¾°ĞéÏß
+				// ç”»èƒŒæ™¯è™šçº¿
 				db.drawGridLineCategoryV(posx);
 			}
 
@@ -166,7 +166,7 @@ public class DrawCurve extends DrawBase {
 					endPoint = new Point2D.Double(posx, gp.valueBaseLine - len);
 				}
 
-				// Êä³öÎÄ×Ö
+				// è¾“å‡ºæ–‡å­—
 				if (gp.dispValueOntop && !egs.isNull() && valvis) {
 					String sval = db.getDispValue(egc, egs, gp.serNum); // getFormattedValue(val);
 					x = endPoint.x;
@@ -199,7 +199,7 @@ public class DrawCurve extends DrawBase {
 					pointList.add(vp);
 					db.htmlLink(xx, yy, ww, hh, htmlLink, egc.getNameString(),
 							egs);
-				} // ÏßÌõÉÏµÄĞ¡·½¿é
+				} // çº¿æ¡ä¸Šçš„å°æ–¹å—
 				if (i > 0) {
 					g.setColor(db.getColor(j));
 					DrawLine.drawVTrendLine(db, beginPoint[j], endPoint, val
@@ -302,7 +302,7 @@ public class DrawCurve extends DrawBase {
 
 		db.outPoints();
 		db.outLabels();
-		/* ÖØ»­Ò»ÏÂ»ùÏß */
+		/* é‡ç”»ä¸€ä¸‹åŸºçº¿ */
 		g.setStroke(new BasicStroke());
 		db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x
 				+ gp.gRect1.width, gp.valueBaseLine,
@@ -314,13 +314,13 @@ public class DrawCurve extends DrawBase {
 	}
 
 	/**
-	 * À­¸ñÀÊÈÕ²åÖµËã·¨
+	 * æ‹‰æ ¼æœ—æ—¥æ’å€¼ç®—æ³•
 	 * 
 	 * @param points
-	 *            ArrayList£¬ËùÓĞµã
+	 *            ArrayListï¼Œæ‰€æœ‰ç‚¹
 	 * @param deltaX
-	 *            int£¬ ²åÖµµÄX
-	 * @return int£¬²åÖµÀÊÈÕºóµÄY
+	 *            intï¼Œ æ’å€¼çš„X
+	 * @return intï¼Œæ’å€¼æœ—æ—¥åçš„Y
 	 */
 	private static double Lagrange(ArrayList<Point2D.Double> points, double deltaX) {
 		double sum = 0;
@@ -479,7 +479,7 @@ public class DrawCurve extends DrawBase {
 		return Math.abs(d);
 	}
 
-	// Èı´ÎÑùÌõº¯Êı²åÖµ
+	// ä¸‰æ¬¡æ ·æ¡å‡½æ•°æ’å€¼
 	private static double sample(double[] x, double[] y, double tx) {
 		int n = x.length, m;
 		double dy[], ddy[], t[], z[], dz[], ddz[];

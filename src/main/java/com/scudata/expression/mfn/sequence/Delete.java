@@ -8,14 +8,14 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * É¾³ıĞòÁĞÖĞÖ¸¶¨Î»ÖÃ£¨¶à¸öÔòÊÇÎ»ÖÃĞòÁĞ£©µÄÔªËØ
+ * åˆ é™¤åºåˆ—ä¸­æŒ‡å®šä½ç½®ï¼ˆå¤šä¸ªåˆ™æ˜¯ä½ç½®åºåˆ—ï¼‰çš„å…ƒç´ 
  * A.delete(k) A.delete(p)
  * @author RunQian
  *
  */
 public class Delete extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

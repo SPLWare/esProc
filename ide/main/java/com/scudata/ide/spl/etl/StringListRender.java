@@ -8,7 +8,7 @@ import javax.swing.table.*;
 import com.scudata.ide.common.swing.*;
 
 /**
- * ·Ö¸ô·û·Ö¸ôµÄ×Ö·û´®äÖÈ¾Æ÷
+ * åˆ†éš”ç¬¦åˆ†éš”çš„å­—ç¬¦ä¸²æ¸²æŸ“å™¨
  * 
  * @author Joancy
  *
@@ -18,7 +18,7 @@ public class StringListRender extends JLabel implements TableCellRenderer {
 	private StringListIcon icon = new StringListIcon();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public StringListRender() {
 		setOpaque(true);
@@ -27,7 +27,7 @@ public class StringListRender extends JLabel implements TableCellRenderer {
 	}
 
 	/**
-	 * ÊµÏÖ¸¸ÀàµÄ³éÏó·½·¨£¬·µ»ØäÖÈ¾¿Ø¼ş
+	 * å®ç°çˆ¶ç±»çš„æŠ½è±¡æ–¹æ³•ï¼Œè¿”å›æ¸²æŸ“æ§ä»¶
 	 */
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {

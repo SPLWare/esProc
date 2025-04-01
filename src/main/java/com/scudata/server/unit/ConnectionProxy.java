@@ -11,9 +11,9 @@ import com.scudata.server.IProxy;
 import com.scudata.util.DatabaseUtil;
 
 /**
- * Á¬½Ó´úÀí¶ÔÏó
- * Ò»¸öÁ¬½Ó¶ÔÓ¦Ò»¸öspaceId£¬statementÖ®¼ä¹²ÏíspaceIdµÄÈÎÎñ±äÁ¿
- * statement¹Ø±ÕÊ±£¬½öÊÍ·Å×ÊÔ´£»connection¹Ø±ÕÊ±£¬²Å¹Ø±Õspace 2024Äê9ÔÂ11ÈÕ
+ * è¿æ¥ä»£ç†å¯¹è±¡
+ * ä¸€ä¸ªè¿æ¥å¯¹åº”ä¸€ä¸ªspaceIdï¼Œstatementä¹‹é—´å…±äº«spaceIdçš„ä»»åŠ¡å˜é‡
+ * statementå…³é—­æ—¶ï¼Œä»…é‡Šæ”¾èµ„æºï¼›connectionå…³é—­æ—¶ï¼Œæ‰å…³é—­space 2024å¹´9æœˆ11æ—¥
  * @author Joancy
  *
  */
@@ -24,10 +24,10 @@ public class ConnectionProxy extends IProxy
 	boolean closed = false;
 
 	/**
-	 * ´´½¨Ò»¸öÁ¬½Ó´úÀí
-	 * @param cpm Á¬½Ó´úÀí¹ÜÀíÆ÷
-	 * @param id ´úÀí±àºÅ
-	 * @param spaceId ¿Õ¼ä±àºÅ
+	 * åˆ›å»ºä¸€ä¸ªè¿æ¥ä»£ç†
+	 * @param cpm è¿æ¥ä»£ç†ç®¡ç†å™¨
+	 * @param id ä»£ç†ç¼–å·
+	 * @param spaceId ç©ºé—´ç¼–å·
 	 */
 	public ConnectionProxy(ConnectionProxyManager cpm, int id){
 		super(cpm, id);
@@ -51,9 +51,9 @@ public class ConnectionProxy extends IProxy
 		return spaceId;
 	}
 	/**
-	 * ¸ù¾İid»ñÈ¡Statement´úÀíÆ÷
-	 * @param id ´úÀí±àºÅ
-	 * @return Statement´úÀíÆ÷
+	 * æ ¹æ®idè·å–Statementä»£ç†å™¨
+	 * @param id ä»£ç†ç¼–å·
+	 * @return Statementä»£ç†å™¨
 	 * @throws Exception
 	 */
 	public StatementProxy getStatementProxy(int id) throws Exception{
@@ -65,23 +65,23 @@ public class ConnectionProxy extends IProxy
 	}
 	
 	/**
-	 * »ñÈ¡¼ÆËã»·¾³ÉÏÏÂÎÄ
-	 * @return »·¾³ÉÏÏÂÎÄ
+	 * è·å–è®¡ç®—ç¯å¢ƒä¸Šä¸‹æ–‡
+	 * @return ç¯å¢ƒä¸Šä¸‹æ–‡
 	 */
 	public Context getContext(){
 		return context;
 	}
 	
 	/**
-	 * ÅĞ¶ÏÁ¬½ÓÊÇ·ñÒÑ¹Ø±Õ
-	 * @return ¹Ø±Õ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­è¿æ¥æ˜¯å¦å·²å…³é—­
+	 * @return å…³é—­è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isClosed(){
 		return closed;
 	}
 	
 	/**
-	 * ¹Øµôµ±Ç°Á¬½Ó´úÀíÆ÷
+	 * å…³æ‰å½“å‰è¿æ¥ä»£ç†å™¨
 	 */
 	public void close() {
 		JobSpaceManager.closeSpace(spaceId);
@@ -91,7 +91,7 @@ public class ConnectionProxy extends IProxy
 	}
 
 	/**
-	 * ÊµÏÖtoString½Ó¿Ú
+	 * å®ç°toStringæ¥å£
 	 */
 	public String toString() {
 		return "Connection "+getId();

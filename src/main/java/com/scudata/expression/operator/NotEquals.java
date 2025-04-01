@@ -10,7 +10,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÔËËã·û£º!=
+ * è¿ç®—ç¬¦ï¼š!=
  * @author RunQian
  *
  */
@@ -20,7 +20,7 @@ public class NotEquals extends Relation {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (left == null) {
@@ -44,25 +44,25 @@ public class NotEquals extends Relation {
 	}
 
 	/**
-	 * È¡×óÖµºÍÓÒÖµµÄ±È½Ï¹ØÏµ
-	 * @return ¶¨ÒåÔÚRelationÖĞµÄ³£Á¿
+	 * å–å·¦å€¼å’Œå³å€¼çš„æ¯”è¾ƒå…³ç³»
+	 * @return å®šä¹‰åœ¨Relationä¸­çš„å¸¸é‡
 	 */
 	public int getRelation() {
 		return NOT_EQUAL;
 	}
 	
 	/**
-	 * »¥»»×óÓÒÖµµÄÎ»ÖÃ£¬È¡ÓÒÖµºÍ×óÖµµÄ±È½Ï¹ØÏµ
-	 * @return ¶¨ÒåÔÚRelationÖĞµÄ³£Á¿
+	 * äº’æ¢å·¦å³å€¼çš„ä½ç½®ï¼Œå–å³å€¼å’Œå·¦å€¼çš„æ¯”è¾ƒå…³ç³»
+	 * @return å®šä¹‰åœ¨Relationä¸­çš„å¸¸é‡
 	 */
 	public int getInverseRelation() {
 		return NOT_EQUAL;
 	}
 
 	/**
-	 * ÅĞ¶Ï¸ø¶¨µÄÖµÓò·¶Î§ÊÇ·ñÂú×ãµ±Ç°Ìõ¼ş±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @return È¡Öµ²ÎÕÕRelation. -1£ºÖµÓò·¶Î§ÄÚÃ»ÓĞÂú×ãÌõ¼şµÄÖµ£¬0£ºÖµÓò·¶Î§ÄÚÓĞÂú×ãÌõ¼şµÄÖµ£¬1£ºÖµÓò·¶Î§µÄÖµ¶¼Âú×ãÌõ¼ş
+	 * åˆ¤æ–­ç»™å®šçš„å€¼åŸŸèŒƒå›´æ˜¯å¦æ»¡è¶³å½“å‰æ¡ä»¶è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @return å–å€¼å‚ç…§Relation. -1ï¼šå€¼åŸŸèŒƒå›´å†…æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ0ï¼šå€¼åŸŸèŒƒå›´å†…æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ1ï¼šå€¼åŸŸèŒƒå›´çš„å€¼éƒ½æ»¡è¶³æ¡ä»¶
 	 */
 	public int isValueRangeMatch(Context ctx) {
 		IArray leftArray = left.calculateRange(ctx);
@@ -98,7 +98,7 @@ public class NotEquals extends Relation {
 				return ALLMATCH;
 			}
 		} else {
-			// ÎŞ·¨°´¿éÅĞ¶ÏµÄÊ±ºòÔòÖğÌõÅĞ¶Ï
+			// æ— æ³•æŒ‰å—åˆ¤æ–­çš„æ—¶å€™åˆ™é€æ¡åˆ¤æ–­
 			return PARTICALMATCH;
 		}
 	}

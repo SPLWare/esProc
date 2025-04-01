@@ -3,8 +3,8 @@ package com.scudata.dm;
 import java.util.ArrayList;
 
 /**
- * ÇøÓòÁĞ±í£¬ÓÃÓë¶ÔÇøÓò×ö²¢²Ù×÷»òÕß½»²Ù×÷
- * ¶ÔĞòÁĞ×ö¹ıÂËÊ±»á°Ñ¹ıÂËÌõ¼ş°´andºÍor²ğ·Ö£¬Ëã³öÀ´µÄ¶à¸öÇøÓòÁĞ±íÔÙ½øĞĞºÏ²¢
+ * åŒºåŸŸåˆ—è¡¨ï¼Œç”¨ä¸å¯¹åŒºåŸŸåšå¹¶æ“ä½œæˆ–è€…äº¤æ“ä½œ
+ * å¯¹åºåˆ—åšè¿‡æ»¤æ—¶ä¼šæŠŠè¿‡æ»¤æ¡ä»¶æŒ‰andå’Œoræ‹†åˆ†ï¼Œç®—å‡ºæ¥çš„å¤šä¸ªåŒºåŸŸåˆ—è¡¨å†è¿›è¡Œåˆå¹¶
  * @author WangXiaoJun
  *
  */
@@ -23,7 +23,7 @@ public class Regions {
 	}
 	
 	/**
-	 * °´Ë³Ğò¼ÓÈëÇøÓò£¬ÇøÓòÓĞĞòÇÒ²»ÖØµş
+	 * æŒ‰é¡ºåºåŠ å…¥åŒºåŸŸï¼ŒåŒºåŸŸæœ‰åºä¸”ä¸é‡å 
 	 * @param region
 	 */
 	public void addRegion(Region region) {
@@ -31,9 +31,9 @@ public class Regions {
 	}
 	
 	/**
-	 * ¸úÁíÒ»¸öÇøÓòÁĞ±í×ö½»²Ù×÷
-	 * @param other ÇøÓòÁĞ±í
-	 * @return Á½¸öÇøÓòÁĞ±íµÄ½»
+	 * è·Ÿå¦ä¸€ä¸ªåŒºåŸŸåˆ—è¡¨åšäº¤æ“ä½œ
+	 * @param other åŒºåŸŸåˆ—è¡¨
+	 * @return ä¸¤ä¸ªåŒºåŸŸåˆ—è¡¨çš„äº¤
 	 */
 	public Regions and(Regions other) {
 		Regions regions = new Regions();
@@ -73,9 +73,9 @@ public class Regions {
 	}
 	
 	/**
-	 * ¸úÁíÒ»¸öÇøÓòÁĞ±í×ö²¢²Ù×÷
-	 * @param other ÇøÓòÁĞ±í
-	 * @return Á½¸öÇøÓòÁĞ±íµÄ²¢
+	 * è·Ÿå¦ä¸€ä¸ªåŒºåŸŸåˆ—è¡¨åšå¹¶æ“ä½œ
+	 * @param other åŒºåŸŸåˆ—è¡¨
+	 * @return ä¸¤ä¸ªåŒºåŸŸåˆ—è¡¨çš„å¹¶
 	 */
 	public Regions or(Regions other) {
 		Regions regions = new Regions();

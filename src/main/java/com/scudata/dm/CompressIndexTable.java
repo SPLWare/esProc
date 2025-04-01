@@ -16,7 +16,7 @@ public class CompressIndexTable extends IndexTable {
 	//private Object keys[];
 	private int size;
 	private boolean isInteger;
-	private boolean isOrder;//findexÀïµÄË³Ğò¾ÍÊÇÔ­Ğò
+	private boolean isOrder;//findexé‡Œçš„é¡ºåºå°±æ˜¯åŸåº
 	
 	private int []hashCol;
 	protected HashUtil hashUtil;
@@ -28,7 +28,7 @@ public class CompressIndexTable extends IndexTable {
 		//keys = new Object[1];
 		size = mems.size();
 
-		//ÅĞ¶ÏÊÇ·ñfindexÀïµÄË³ĞòÊÇ·ñ¾ÍÊÇ×ÔÈ»Ë³Ğò
+		//åˆ¤æ–­æ˜¯å¦findexé‡Œçš„é¡ºåºæ˜¯å¦å°±æ˜¯è‡ªç„¶é¡ºåº
 		isOrder = true;
 		fcount = findex.length;
 		for (int f = 0; f < fcount; ++f) {
@@ -38,7 +38,7 @@ public class CompressIndexTable extends IndexTable {
 			}
 		}
 		
-		//ÅĞ¶ÏÊÇ·ñ¶¼ÊÇintÁĞ
+		//åˆ¤æ–­æ˜¯å¦éƒ½æ˜¯intåˆ—
 		isInteger = true;
 		for (int f = 0; f < fcount; ++f) {
 			Column col = columns[findex[f]];
@@ -106,7 +106,7 @@ public class CompressIndexTable extends IndexTable {
 			if (val == null) return 0;
 			int right = ((Integer)val);
 
-			//ÕâÊÇ¶ÔÁ¬Ğø×ÔÈ»ÊıÊ±µÄÓÅ»¯
+			//è¿™æ˜¯å¯¹è¿ç»­è‡ªç„¶æ•°æ—¶çš„ä¼˜åŒ–
 //			int target = right - firstVal + 1;
 //			if(target > 0 && target <= high) {
 //				int left = intCol.getValue(target);

@@ -12,14 +12,14 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * È¡ÅÅÁĞÖ¸¶¨×Ö¶ÎµÄÖµ»òÉèÖÃÖ¸¶¨×Ö¶ÎµÄÖµ
+ * å–æ’åˆ—æŒ‡å®šå­—æ®µçš„å€¼æˆ–è®¾ç½®æŒ‡å®šå­—æ®µçš„å€¼
  * A.field(F) A.field(F, v)
  * @author RunQian
  *
  */
 public class FieldValue extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -28,19 +28,19 @@ public class FieldValue extends SequenceFunction {
 		}
 	}
 	
-	// '+=' ¸³ÖµÔËËã
+	// '+=' èµ‹å€¼è¿ç®—
 	public Object addAssign(Object value, Context ctx) {
 		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (obj instanceof Number) {
 				int findex = ((Number)obj).intValue();
 				if (findex > 0) {
-					// ×Ö¶Î´Ó0¿ªÊ¼¼ÆÊı
+					// å­—æ®µä»0å¼€å§‹è®¡æ•°
 					findex--;
 				} else if (findex == 0) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("0" + mm.getMessage("ds.fieldNotExist"));
-				} // Ğ¡ÓÚ0´ÓºóÊı
+				} // å°äº0ä»åæ•°
 				
 				Sequence src = this.srcSequence;
 				int size = src.length();
@@ -92,11 +92,11 @@ public class FieldValue extends SequenceFunction {
 			if (obj instanceof Number) {
 				int findex = ((Number)obj).intValue();
 				if (findex > 0) {
-					// ×Ö¶Î´Ó0¿ªÊ¼¼ÆÊı
+					// å­—æ®µä»0å¼€å§‹è®¡æ•°
 					findex--;
 				} else if (findex == 0) {
 					return null;
-				} // Ğ¡ÓÚ0´ÓºóÊı
+				} // å°äº0ä»åæ•°
 				
 				if (option == null || option.indexOf('r') == -1) {
 					return getFieldValues(srcSequence, findex);
@@ -131,11 +131,11 @@ public class FieldValue extends SequenceFunction {
 			if (obj instanceof Number) {
 				int findex = ((Number)obj).intValue();
 				if (findex > 0) {
-					// ×Ö¶Î´Ó0¿ªÊ¼¼ÆÊı
+					// å­—æ®µä»0å¼€å§‹è®¡æ•°
 					findex--;
 				} else if (findex == 0) {
 					return null;
-				} // Ğ¡ÓÚ0´ÓºóÊı
+				} // å°äº0ä»åæ•°
 				
 				if (value instanceof Sequence) {
 					setFieldValues(srcSequence, findex, (Sequence)value);
@@ -206,8 +206,8 @@ public class FieldValue extends SequenceFunction {
 		int size = src.length();
 		Sequence result = new Sequence(size);
 
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
-		BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
+		BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 		int i = 1;
 		while (i <= size) {
@@ -262,8 +262,8 @@ public class FieldValue extends SequenceFunction {
 	public static void setFieldValues(Sequence src, String fieldName, Object val) {
 		int size = src.length();
 
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
-		BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
+		BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 		int i = 1;
 		while (i <= size) {
@@ -311,8 +311,8 @@ public class FieldValue extends SequenceFunction {
 			throw new RQException("field: " + mm.getMessage("engine.memCountNotMatch"));
 		}
 
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
-		BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
+		BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 		int i = 1;
 		while (i <= len) {

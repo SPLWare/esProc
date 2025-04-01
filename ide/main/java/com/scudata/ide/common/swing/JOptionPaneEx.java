@@ -16,14 +16,14 @@ public class JOptionPaneEx extends JOptionPane {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public JOptionPaneEx() {
 		super();
 	}
 
 	/**
-	 * »ñÈ¡¸¸´°¿Ú
+	 * è·å–çˆ¶çª—å£
 	 * 
 	 * @param parentComponent
 	 * @return

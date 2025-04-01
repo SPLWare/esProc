@@ -11,9 +11,9 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.common.MessageManager;
 
 /**
- * Ã¶¾ÙÖµ×ª»»
+ * æšä¸¾å€¼è½¬æ¢
  * @author bd
- * Ô­ĞÍA.setenum()	P.setenum(cn), A.setenum@r(rec), P.setenum(cn, rec)
+ * åŸå‹A.setenum()	P.setenum(cn), A.setenum@r(rec), P.setenum(cn, rec)
  */
 public class EnumToInt extends SequenceFunction{
 	public Object calculate(Context ctx) {
@@ -155,7 +155,7 @@ public class EnumToInt extends SequenceFunction{
 	}
 	
 	/**
-	 * ½«Ã¶¾ÙÖµ×ª»»ÎªÕûÊı
+	 * å°†æšä¸¾å€¼è½¬æ¢ä¸ºæ•´æ•°
 	 * @param x
 	 * @param avg
 	 * @param sd
@@ -167,7 +167,7 @@ public class EnumToInt extends SequenceFunction{
 	}
 	
 	/**
-	 * ½«Ã¶¾ÙÖµ×ª»»ÎªÕûÊı
+	 * å°†æšä¸¾å€¼è½¬æ¢ä¸ºæ•´æ•°
 	 * @param x
 	 * @param avg
 	 * @param sd

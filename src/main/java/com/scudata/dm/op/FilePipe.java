@@ -13,7 +13,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÎÄ¼ş¹ÜµÀ£¬ÓÃÓÚ°Ñ½ÓÊÕµ½µÄÊı¾İ±£´æµ½¿É·Ö¶Î¼¯ÎÄ¼şÖĞ
+ * æ–‡ä»¶ç®¡é“ï¼Œç”¨äºæŠŠæ¥æ”¶åˆ°çš„æ•°æ®ä¿å­˜åˆ°å¯åˆ†æ®µé›†æ–‡ä»¶ä¸­
  * @author RunQian
  *
  */
@@ -27,9 +27,9 @@ public class FilePipe implements IPipe, IResource {
 	}
 	
 	/**
-	 * Íù¹ÜµÀÍÆËÍÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¾€ç®¡é“æ¨é€æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public synchronized void push(Sequence seq, Context ctx) {
 		if (seq == null || seq.length() == 0) {
@@ -63,16 +63,16 @@ public class FilePipe implements IPipe, IResource {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊø
+	 * æ•°æ®æ¨é€ç»“æŸ
 	 * @param ctx
 	 */
 	public synchronized void finish(Context ctx) {
-		// ¶àÂ·¹ÜµÀÊ±¶ÔÓ¦Í¬Ò»¸öFilePipe£¬»á¶à´Îµ÷ÓÃ
+		// å¤šè·¯ç®¡é“æ—¶å¯¹åº”åŒä¸€ä¸ªFilePipeï¼Œä¼šå¤šæ¬¡è°ƒç”¨
 		//close();
 	}
 	
 	/**
-	 * ¹Ø±Õ¹ÜµÀ
+	 * å…³é—­ç®¡é“
 	 * @param ctx
 	 */
 	public void close() {

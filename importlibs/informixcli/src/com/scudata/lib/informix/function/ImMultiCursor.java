@@ -104,7 +104,7 @@ public class ImMultiCursor extends ICursor {
 	}
 
 	public void threadRead(Context ctx) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");// 设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");// 璁剧疆鏃ユ湡鏍煎紡
 		String sDate = df.format(new Date());
 		
 		m_tblInfo = new ImTableInfo();
@@ -113,7 +113,7 @@ public class ImMultiCursor extends ICursor {
 		m_sPipeName = m_tblInfo.m_tableName + "_" + sDate + "_" + m_nShellSerial++;
 		int nCursorNum = 2;
 		boolean bLocal = false;
-		// 1. 启动脚本程序
+		// 1. 鍚姩鑴氭湰绋嬪簭
 		if (!bLocal) {
 			//int nPdqNum = 0;			
 			// System.out.println("cmd before ..... ");

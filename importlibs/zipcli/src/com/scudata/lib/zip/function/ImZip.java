@@ -27,18 +27,18 @@ import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 
 	/***********************************
-	 ¡¡¡¡ 1¡¢zip(zipfile:encoding, password; path, files)
-		zipfileÎªzipÎÄ¼şÃû»òFileObject
-		encodingÎª×Ö·û±àÂë£¬Ê¡ÂÔÔòÎªutf-8
-		passwordÎªÃÜÂë,¿ÉÊ¡ÂÔ
-		pathÎªÎÄ¼şËùÔÚ¸ùÄ¿Â¼£¬Ê¡ÂÔ»òÎªnullÊ±ÎªzipfileËùÔÚÎÄ¼şÄ¿Â¼
-		filesÎª¿É°üº¬Í¨Åä·û*ºÍ?µÄÎÄ¼şÃû(/ºÍ\µÈÍ¬)»òÎÄ¼şÃûĞòÁĞ£¬Ò²¿ÉÒÔÊÇFileObject»òFileObjectĞòÁĞ
-		@u½âÑ¹: pathÎªÊä³öÂ·¾¶
-		@a×·¼Ó£º pathÎªÒªÑ¹ËõÎÄ¼şµÄÂ·¾¶
-		@dÉ¾³ı  pathÎªzipÎÄ¼şÖĞµÄÂ·¾¶
-		@n²»µİ¹é×ÓÄ¿Â¼
-		@fÁĞ³öÎÄ¼şÃû
-		@pÁĞ³öÄ¿Â¼Ãû
+	 ã€€ã€€ 1ã€zip(zipfile:encoding, password; path, files)
+		zipfileä¸ºzipæ–‡ä»¶åæˆ–FileObject
+		encodingä¸ºå­—ç¬¦ç¼–ç ï¼Œçœç•¥åˆ™ä¸ºutf-8
+		passwordä¸ºå¯†ç ,å¯çœç•¥
+		pathä¸ºæ–‡ä»¶æ‰€åœ¨æ ¹ç›®å½•ï¼Œçœç•¥æˆ–ä¸ºnullæ—¶ä¸ºzipfileæ‰€åœ¨æ–‡ä»¶ç›®å½•
+		filesä¸ºå¯åŒ…å«é€šé…ç¬¦*å’Œ?çš„æ–‡ä»¶å(/å’Œ\ç­‰åŒ)æˆ–æ–‡ä»¶ååºåˆ—ï¼Œä¹Ÿå¯ä»¥æ˜¯FileObjectæˆ–FileObjectåºåˆ—
+		@uè§£å‹: pathä¸ºè¾“å‡ºè·¯å¾„
+		@aè¿½åŠ ï¼š pathä¸ºè¦å‹ç¼©æ–‡ä»¶çš„è·¯å¾„
+		@dåˆ é™¤  pathä¸ºzipæ–‡ä»¶ä¸­çš„è·¯å¾„
+		@nä¸é€’å½’å­ç›®å½•
+		@fåˆ—å‡ºæ–‡ä»¶å
+		@påˆ—å‡ºç›®å½•å
 	 *************************************************/
 
 public class ImZip extends Function {
@@ -50,7 +50,7 @@ public class ImZip extends Function {
 	}
 
 	//zip(zipfile:encoding,password; path, files)
-	//½âÎö´«µİ²ÎÊı£¬´æÈëmap
+	//è§£æä¼ é€’å‚æ•°ï¼Œå­˜å…¥map
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
@@ -66,7 +66,7 @@ public class ImZip extends Function {
 			for(int i=0; i<nSize; i++){
 				ArrayList<Expression> ls = new ArrayList<Expression>();	
 				param.getSub(i).getAllLeafExpression(ls);
-				if(i==0){ //;Ç°²¿·Ö
+				if(i==0){ //;å‰éƒ¨åˆ†
 					map.put("zip", ls.get(0).calculate(ctx));
 					if (param.getSub(i).getType()==IParam.Comma){				
 						if(ls.size()==3){					
@@ -84,7 +84,7 @@ public class ImZip extends Function {
 					if (rootType==IParam.Comma){
 						map.put("pwd", param.getSub(i).getLeafExpression().calculate(ctx));
 					}else{
-						//;ºó²¿·Ö								
+						//;åéƒ¨åˆ†								
 						param.getSub(i).getAllLeafExpression(ls);	
 						if (param.getSub(i).getType()==IParam.Comma){
 							if (ls.get(0)!=null){
@@ -101,9 +101,9 @@ public class ImZip extends Function {
 		
 //		Iterator<String> it =map.keySet().iterator();
 //        while(it.hasNext()){
-//            //µÃµ½Ã¿Ò»¸ökey
+//            //å¾—åˆ°æ¯ä¸€ä¸ªkey
 //            String key = it.next();
-//            //Í¨¹ıkey»ñÈ¡¶ÔÓ¦µÄvalue
+//            //é€šè¿‡keyè·å–å¯¹åº”çš„value
 //            Object value = map.get(key);
 //            System.out.println("kv:: "+key+"=>"+value);
 //        }
@@ -111,7 +111,7 @@ public class ImZip extends Function {
 		return doZip(option, map);
 	}	
 	
-	//zip¹¦ÄÜÑ¡Ïî
+	//zipåŠŸèƒ½é€‰é¡¹
 	private Object doZip(String opt, Map<String, Object> map){
 		try {
 			String sfile, path=null, code=null,pwd=null;
@@ -142,31 +142,31 @@ public class ImZip extends Function {
 			m_parameters = ImZipUtil.setZipParam(m_zfile, code, pwd);
 			
 			if (opt!=null){
-				if (opt.indexOf("n")!=-1){ //@n²»µİ¹é×ÓÄ¿Â¼
+				if (opt.indexOf("n")!=-1){ //@nä¸é€’å½’å­ç›®å½•
 					m_bRecursive = false;
 				}
-				if (opt.indexOf("u")!=-1){ //@u½âÑ¹
+				if (opt.indexOf("u")!=-1){ //@uè§£å‹
 					if (path==null){
 						path = getZipParentPath();
 						path = ImUtils.replaceAllPathSeparator(path);
 					}
 					
 					return doUnzipFiles( path, map.get("files"));
-				}else if (opt.indexOf("a")!=-1){ //@a×·¼Ó
+				}else if (opt.indexOf("a")!=-1){ //@aè¿½åŠ 
 					if (path==null){
 						path = getZipParentPath();
 						path = ImUtils.replaceAllPathSeparator(path);
 					}					
 					return doZipFiles( path, map.get("files"));
-				}else if (opt.indexOf("d")!=-1){ //@dÉ¾³ı
+				}else if (opt.indexOf("d")!=-1){ //@dåˆ é™¤
 					return delZipFiles(path, map.get("files"));
-				}else if (opt.indexOf("f")!=-1){ //@fÁĞ³öÎÄ¼şÃû
+				}else if (opt.indexOf("f")!=-1){ //@fåˆ—å‡ºæ–‡ä»¶å
 					return getZipFileNames(path, map.get("files"));
-				}else if (opt.indexOf("p")!=-1){ //@pÁĞ³öÄ¿Â¼Ãû
+				}else if (opt.indexOf("p")!=-1){ //@påˆ—å‡ºç›®å½•å
 					return getZipDirs( path);
 				}
 			}
-			// È±Ê¡µ÷ÓÃ
+			// ç¼ºçœè°ƒç”¨
 			if (path==null){
 				path = getZipParentPath();
 				path = ImUtils.replaceAllPathSeparator(path);
@@ -179,12 +179,12 @@ public class ImZip extends Function {
 		return null;
 	}
 	
-	//»ñÈ¡zipfileËùÔÚÂ·¾¶
+	//è·å–zipfileæ‰€åœ¨è·¯å¾„
 	private String getZipParentPath() throws Exception{
 		return m_zfile.getFile().getParentFile().getCanonicalPath();
 	}
 	
-	//»ñÈ¡zipÄ¿Â¼
+	//è·å–zipç›®å½•
 	private Object getZipDirs( String path){
 		Table tbl = null;
 		try {				
@@ -204,7 +204,7 @@ public class ImZip extends Function {
 		return tbl;
 	}
 	
-	//»ñÈ¡zipÎÄ¼şÁĞ±í
+	//è·å–zipæ–‡ä»¶åˆ—è¡¨
 	private Object getZipFileNames( String path, Object fobjs){
 		try {	
 			String[] filter = null;
@@ -228,7 +228,7 @@ public class ImZip extends Function {
 		return null;
 	}
 	
-	//¹ıÂË²ÎÊı´¦Àí
+	//è¿‡æ»¤å‚æ•°å¤„ç†
 	private String[] doFileFilter(Object fObjs){		
 		String fname = "";
 		List<String> files=new ArrayList<String>();
@@ -266,13 +266,13 @@ public class ImZip extends Function {
 	}
 	
 	/**
-	 * »ñÈ¡Ñ¹ËõÎÄ¼ş»òÎÄ¼ş¼Ğ
-	 * ½«ÎÄ¼ş¼Ğ»òÎÄ¼şÆ´³É´ø¾ø¶ÔÂ·¾¶
-	 * ´¦ÀíÌØÊâ×Ö·û*,?
-	 * path£ºÑ¹ËõÎÄ¼şËùÔÚµÄÂ·¾¶
-	 * fobjs£ºÒª´¦ÀíµÄÎÄ¼ş»òÎÄ¼ş±í´ïÊ½
-	 * rFile: ·µ»ØµÄÎÄ¼şÁĞ±í
-	 * rDir£º ·µ»ØµÄÎÄ¼şÄ¿Â¼
+	 * è·å–å‹ç¼©æ–‡ä»¶æˆ–æ–‡ä»¶å¤¹
+	 * å°†æ–‡ä»¶å¤¹æˆ–æ–‡ä»¶æ‹¼æˆå¸¦ç»å¯¹è·¯å¾„
+	 * å¤„ç†ç‰¹æ®Šå­—ç¬¦*,?
+	 * pathï¼šå‹ç¼©æ–‡ä»¶æ‰€åœ¨çš„è·¯å¾„
+	 * fobjsï¼šè¦å¤„ç†çš„æ–‡ä»¶æˆ–æ–‡ä»¶è¡¨è¾¾å¼
+	 * rFile: è¿”å›çš„æ–‡ä»¶åˆ—è¡¨
+	 * rDirï¼š è¿”å›çš„æ–‡ä»¶ç›®å½•
 	 * ***/
 	
 	private void getFileList(String path, Object fobjs,ArrayList<File> rFile,ArrayList<File> rDir){
@@ -300,9 +300,9 @@ public class ImZip extends Function {
 	}
 	
 	/**
-	 * ½âÑ¹ÎÄ¼ş´¦Àí
-	 * path½âÑ¹Êä³öÎÄ¼şµÄÂ·¾¶£¬ÈôÎª¿ÕÔòÓëzfileÂ·¾¶ËùÔÚµÄÂ·¾¶Ò»ÖÂ£¬ÈôÊÇÏà¶ÔÂ·¾¶£¬Ôòpath×·¼Óµ½zfileÂ·¾¶.
-	 * fobjsÎªÒª½âÑ¹µÄÎÄ¼ş(ÁĞ±í)
+	 * è§£å‹æ–‡ä»¶å¤„ç†
+	 * pathè§£å‹è¾“å‡ºæ–‡ä»¶çš„è·¯å¾„ï¼Œè‹¥ä¸ºç©ºåˆ™ä¸zfileè·¯å¾„æ‰€åœ¨çš„è·¯å¾„ä¸€è‡´ï¼Œè‹¥æ˜¯ç›¸å¯¹è·¯å¾„ï¼Œåˆ™pathè¿½åŠ åˆ°zfileè·¯å¾„.
+	 * fobjsä¸ºè¦è§£å‹çš„æ–‡ä»¶(åˆ—è¡¨)
 	 *
 	 * ***********************************************/
 	private Object doUnzipFiles(String path, Object fobjs) throws Exception{
@@ -324,29 +324,29 @@ public class ImZip extends Function {
 		}else{
 			ArrayList<String> lfile = new ArrayList<String>();
 			ArrayList<String> ldir = new ArrayList<String>();
-			ArrayList<String> lpat = new ArrayList<String>(); //ÌØÊâ×Ö·û
+			ArrayList<String> lpat = new ArrayList<String>(); //ç‰¹æ®Šå­—ç¬¦
 			ArrayList<File> ls = new ArrayList<File>();
 
 			ImUtils.getZipFilterList(m_zfile, null, fobjs, lfile, ldir, lpat);
 		
-			//2.1 ½âÑ¹Õı³£ÎÄ¼ş			
+			//2.1 è§£å‹æ­£å¸¸æ–‡ä»¶			
 			if (lfile.size()>0){
 				fs = ImZipUtil.unzip(m_zfile, lfile, path);
 				ls.addAll(Arrays.asList(fs));
 			}
 			
-			//2.2 ½âÑ¹ÎÄ¼ş¼Ğ			
+			//2.2 è§£å‹æ–‡ä»¶å¤¹			
 			if (ldir.size()>0){
 				fs = ImZipUtil.unzipDir(m_zfile, ldir, path);
 				ls.addAll(Arrays.asList(fs));
 			}
-			//2.3 ½âÑ¹ÌØÊâ×Ö·ûÎÄ¼ş¡£
+			//2.3 è§£å‹ç‰¹æ®Šå­—ç¬¦æ–‡ä»¶ã€‚
 			if (lpat.size()>0){
 				fs = ImZipUtil.unzipFilter(m_zfile, lpat, path);
 				ls.addAll(Arrays.asList(fs));
 			}
 			
-			//2.4È¥ÖØ´¦Àí:
+			//2.4å»é‡å¤„ç†:
 			HashSet<File> h = new HashSet<File>(ls);   
 		    ls.clear();   
 		    ls.addAll(h);   
@@ -361,9 +361,9 @@ public class ImZip extends Function {
 	}
 	
 	/**********************************************
-	 * Ñ¹ËõÎÄ¼ş´¦Àí£¬Ò²°üÀ¨×·¼ÓÎÄ¼ş
-	 * pathÒªÑ¹ËõÎÄ¼şµÄÂ·¾¶£¬ÈôÎª¿ÕÔòÓëzfileÂ·¾¶ËùÔÚµÄÂ·¾¶Ò»ÖÂ.
-	 * fobjsÎªÒªÑ¹ËõµÄÎÄ¼ş(ÁĞ±í)
+	 * å‹ç¼©æ–‡ä»¶å¤„ç†ï¼Œä¹ŸåŒ…æ‹¬è¿½åŠ æ–‡ä»¶
+	 * pathè¦å‹ç¼©æ–‡ä»¶çš„è·¯å¾„ï¼Œè‹¥ä¸ºç©ºåˆ™ä¸zfileè·¯å¾„æ‰€åœ¨çš„è·¯å¾„ä¸€è‡´.
+	 * fobjsä¸ºè¦å‹ç¼©çš„æ–‡ä»¶(åˆ—è¡¨)
 	 * 
 	 * ***********************************************/
 	private Object doZipFiles( String path, Object fobjs) throws Exception{
@@ -401,36 +401,36 @@ public class ImZip extends Function {
 		return true;
 	}
 	/**
-	 * É¾³ıÑ¹ËõÎÄ¼ş´¦Àí£¬Ò²°üÀ¨ÎÄ¼ş»òÄ¿Â¼
-	 * path: zipÎÄ¼şÖĞÒªÉ¾³ıÎÄ¼şµÄÂ·¾¶£¬´Ó¸ùÂ·¾¶¿ªÊ¼µÄÎÄ¼ş¼Ğ.
-	 * fobjs: ÎªÒªÑ¹ËõµÄÎÄ¼ş(ÁĞ±í)
+	 * åˆ é™¤å‹ç¼©æ–‡ä»¶å¤„ç†ï¼Œä¹ŸåŒ…æ‹¬æ–‡ä»¶æˆ–ç›®å½•
+	 * path: zipæ–‡ä»¶ä¸­è¦åˆ é™¤æ–‡ä»¶çš„è·¯å¾„ï¼Œä»æ ¹è·¯å¾„å¼€å§‹çš„æ–‡ä»¶å¤¹.
+	 * fobjs: ä¸ºè¦å‹ç¼©çš„æ–‡ä»¶(åˆ—è¡¨)
 	 * ***********************************************/
 	private Object delZipFiles(String path, Object fobjs){
 		boolean bRet = false;
 		try {
-			//A. É¾³ıÄ¿Â¼
+			//A. åˆ é™¤ç›®å½•
 			if (fobjs==null || fobjs.toString().isEmpty() || fobjs.toString().equals("*")){
 				if (path!=null){
 					ImZipUtil.removeDirFromZipArchive(m_zfile, path);
 				}
 			}else if( path==null || (path!=null &&(path.equals(".") || path.equals("./") || path.equals(".\\") 
-					|| path.equals("\\") || path.equals("/"))) ){ //B. É¾³ıÎÄ¼ş(Çø·Ö´øÌØÊâ×Ö·ûÓë·ÇÌØÊâ×Ö·ûÇé¿ö)£º
+					|| path.equals("\\") || path.equals("/"))) ){ //B. åˆ é™¤æ–‡ä»¶(åŒºåˆ†å¸¦ç‰¹æ®Šå­—ç¬¦ä¸éç‰¹æ®Šå­—ç¬¦æƒ…å†µ)ï¼š
 				ArrayList<String> lfile = new ArrayList<String>();
 				ArrayList<String> ldir = new ArrayList<String>();
-				ArrayList<String> lpat = new ArrayList<String>(); //ÌØÊâ×Ö·û
+				ArrayList<String> lpat = new ArrayList<String>(); //ç‰¹æ®Šå­—ç¬¦
 				ImUtils.getZipFilterList(m_zfile, null, fobjs, lfile, ldir, lpat);
 				int i = 0;
-				//2.1 É¾³ıÕı³£ÎÄ¼ş
+				//2.1 åˆ é™¤æ­£å¸¸æ–‡ä»¶
 				if (lfile.size()>0){
 					ImZipUtil.removeFilesFromZipArchive(m_zfile, (List<String>)lfile);
 				}
-				//2.1 É¾³ıÄ¿Â¼
+				//2.1 åˆ é™¤ç›®å½•
 				if (ldir.size()>0){
 					for(String dir:ldir){
 						ImZipUtil.removeDirFromZipArchive(m_zfile, dir);
 					}
 				}
-				//2.2 É¾³ıÌØÊâ×Ö·ûÎÄ¼ş¡£
+				//2.2 åˆ é™¤ç‰¹æ®Šå­—ç¬¦æ–‡ä»¶ã€‚
 				for(i = 0; i<lpat.size(); i++){
 					if (path==null){
 						ImZipUtil.removePathFilePatternFromZip(m_zfile, lpat.get(i));
@@ -438,14 +438,14 @@ public class ImZip extends Function {
 						ImZipUtil.removeFilePatternFromPathZip(m_zfile, path, lpat.get(i));
 					}
 				}
-			}else{ //C É¾³ıÄ¿Â¼ÓëÎÄ¼ş
+			}else{ //C åˆ é™¤ç›®å½•ä¸æ–‡ä»¶
 				ArrayList<String> lfile = new ArrayList<String>();
 				ArrayList<String> ldir = new ArrayList<String>();
-				ArrayList<String> lpat = new ArrayList<String>(); //ÌØÊâ×Ö·û
+				ArrayList<String> lpat = new ArrayList<String>(); //ç‰¹æ®Šå­—ç¬¦
 				ImUtils.getZipFilterList(m_zfile, path, fobjs, lfile, ldir, lpat);
 				int i = 0;
-				//2.1 É¾³ıÕı³£ÎÄ¼ş
-				if (lfile.size()>0){ //fileÓëpathºÏ²¢ºóÔÙÉ¾³ı.
+				//2.1 åˆ é™¤æ­£å¸¸æ–‡ä»¶
+				if (lfile.size()>0){ //fileä¸pathåˆå¹¶åå†åˆ é™¤.
 					String file="";
 					ArrayList<String> ls = new ArrayList<String>();
 					for(String f:lfile){
@@ -460,13 +460,13 @@ public class ImZip extends Function {
 					ImZipUtil.removeFilesFromZipArchive(m_zfile, ls);
 				}
 				
-				//2.1 É¾³ıÄ¿Â¼
+				//2.1 åˆ é™¤ç›®å½•
 				if (ldir.size()>0){
 					for(String dir:ldir){
 						ImZipUtil.removeDirFromZipArchive(m_zfile, dir);
 					}
 				}
-				//2.2 É¾³ıÌØÊâ×Ö·ûÎÄ¼ş¡£
+				//2.2 åˆ é™¤ç‰¹æ®Šå­—ç¬¦æ–‡ä»¶ã€‚
 				for(i = 0; i<lpat.size(); i++){
 					ImZipUtil.removeFilePatternFromPathZip(m_zfile, path, lpat.get(i));
 				}				

@@ -451,7 +451,7 @@ public class StringUtils2 {
 	 * @return
 	 */
 	private static boolean canBeFoot(char c) {
-		String cannotFoot = "([{¡¤¡®¡°¡´¡¶¡¸¡º¡¾¡²¡¼£¨£®£Û£û¡ê£¤";
+		String cannotFoot = "([{Â·â€˜â€œã€ˆã€Šã€Œã€ã€ã€”ã€–ï¼ˆï¼ï¼»ï½›ï¿¡ï¿¥";
 		return cannotFoot.indexOf(c) < 0;
 	}
 
@@ -462,7 +462,7 @@ public class StringUtils2 {
 	 * @return
 	 */
 	private static boolean canBeHead(char c) {
-		String cannotHead = "%£¥!),.:;?]}¡§¡¤¡¦¡¥¨D¡¬¡¯¡±¡­¡Ã¡¢¡£¡¨¡©¡µ¡·¡¹¡»¡¿¡³¡½£¡£¢£§£©£¬£®£º£»£¿£İ£à£ü£ı¡«¡é";
+		String cannotHead = "%ï¼…!),.:;?]}Â¨Â·Ë‡Ë‰â€•â€–â€™â€â€¦âˆ¶ã€ã€‚ã€ƒã€…ã€‰ã€‹ã€ã€ã€‘ã€•ã€—ï¼ï¼‚ï¼‡ï¼‰ï¼Œï¼ï¼šï¼›ï¼Ÿï¼½ï½€ï½œï½ï½ï¿ ";
 		return cannotHead.indexOf(c) < 0;
 	}
 

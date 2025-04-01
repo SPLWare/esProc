@@ -16,7 +16,7 @@ public class UnknownNodeFilter extends IFilter {
 	private Param param;
 	private Context ctx;
 	private boolean needSelect;
-	protected List<String> otherNames;//±ğÃûÁĞ
+	protected List<String> otherNames;//åˆ«ååˆ—
 	
 	public UnknownNodeFilter(ColPhyTable table, Node node, Context ctx) {
 		this.node = node;
@@ -32,11 +32,11 @@ public class UnknownNodeFilter extends IFilter {
 	}
 	
 	/**
-	 * ¹¹ÔìÆ÷
-	 * @param table ×é±í
-	 * @param node ¹ıÂË±í´ïÊ½µÄ½Úµã
-	 * @param exps ±ğÃû¶ÔÓ¦µÄ±í´ïÊ½Êı×é
-	 * @param names ±ğÃû
+	 * æ„é€ å™¨
+	 * @param table ç»„è¡¨
+	 * @param node è¿‡æ»¤è¡¨è¾¾å¼çš„èŠ‚ç‚¹
+	 * @param exps åˆ«åå¯¹åº”çš„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ«å
 	 * @param ctx
 	 */
 	public UnknownNodeFilter(ColPhyTable table, Node node, Expression[] exps, String[] names, Context ctx) {
@@ -48,10 +48,10 @@ public class UnknownNodeFilter extends IFilter {
 	
 	/**
 	 * 
-	 * @param table ×é±í
-	 * @param exp ¹ıÂË±í´ïÊ½
-	 * @param exps ±ğÃû¶ÔÓ¦µÄ±í´ïÊ½Êı×é
-	 * @param names ±ğÃû
+	 * @param table ç»„è¡¨
+	 * @param exp è¿‡æ»¤è¡¨è¾¾å¼
+	 * @param exps åˆ«åå¯¹åº”çš„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ«å
 	 * @param ctx
 	 */
 	public UnknownNodeFilter(ColPhyTable table, Expression exp, Expression[] exps, String[] names, Context ctx) {
@@ -92,12 +92,12 @@ public class UnknownNodeFilter extends IFilter {
 						columns.add(col);
 					}
 				} else if (names != null) {
-					//¼ì²é±ğÃû
+					//æ£€æŸ¥åˆ«å
 					int idx = containName(names, name);
 					if (idx != -1) {
-						//Èç¹ûÊ¹ÓÃÁË±ğÃû
+						//å¦‚æœä½¿ç”¨äº†åˆ«å
 						otherNames.add(name);
-						//±ğÃûÁĞÀï¿ÉÄÜÓĞ¶à¸öÆäËüÁĞ
+						//åˆ«ååˆ—é‡Œå¯èƒ½æœ‰å¤šä¸ªå…¶å®ƒåˆ—
 						List<String> tempList = new ArrayList<String>();
 						exps[idx].getUsedFields(ctx, tempList);
 						for (String str : tempList) {

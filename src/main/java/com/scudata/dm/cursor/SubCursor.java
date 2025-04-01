@@ -4,19 +4,19 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 
 /**
- * ×ÓÓÎ±ê£¬ÓÃÓÚ´Ó¸ø¶¨ÓÎ±êÖĞÈ¡Ö¸¶¨×ÜÊıÁ¿
+ * å­æ¸¸æ ‡ï¼Œç”¨äºä»ç»™å®šæ¸¸æ ‡ä¸­å–æŒ‡å®šæ€»æ•°é‡
  * @author RunQian
  *
  */
 public class SubCursor extends ICursor {
-	private ICursor cursor; // Ô´ÓÎ±ê
-	private int count; // ÒÑÈ¡¼ÇÂ¼Êı
-	private int total; // ĞèÒªÈ¡µÄ×Ü¼ÇÂ¼Êı
+	private ICursor cursor; // æºæ¸¸æ ‡
+	private int count; // å·²å–è®°å½•æ•°
+	private int total; // éœ€è¦å–çš„æ€»è®°å½•æ•°
 	
 	/**
-	 * ´´½¨×ÓÓÎ±ê
-	 * @param cursor Ô´ÓÎ±ê
-	 * @param total ÒªÈ¡µÄÊı¾İµÄ×ÜÊıÁ¿
+	 * åˆ›å»ºå­æ¸¸æ ‡
+	 * @param cursor æºæ¸¸æ ‡
+	 * @param total è¦å–çš„æ•°æ®çš„æ€»æ•°é‡
 	 */
 	public SubCursor(ICursor cursor, int total) {
 		this.cursor = cursor;
@@ -24,8 +24,8 @@ public class SubCursor extends ICursor {
 		setDataStruct(cursor.getDataStruct());
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			cursor.resetContext(ctx);
@@ -34,8 +34,8 @@ public class SubCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -55,9 +55,9 @@ public class SubCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (cursor == null || n < 1) return 0;
@@ -73,7 +73,7 @@ public class SubCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();

@@ -31,27 +31,27 @@ import com.scudata.common.control.CellBorderBase;
 import com.scudata.util.Variant;
 
 /**
- * Í¼ĞÎÍ¼Ôª»ùÀà
- * ¶¨ÒåÍ¼ĞÎµÄÍ¨ÓÃÊôĞÔ
+ * å›¾å½¢å›¾å…ƒåŸºç±»
+ * å®šä¹‰å›¾å½¢çš„é€šç”¨å±æ€§
  * @author Joancy
  *
  */
 public class GraphBase extends ObjectElement{
-	// ·ÖÀàºÍÏµÁĞµÄÖµ£¬¸ñÊ½[v1,v2,...,vn]»òv
+	// åˆ†ç±»å’Œç³»åˆ—çš„å€¼ï¼Œæ ¼å¼[v1,v2,...,vn]æˆ–v
 	public Sequence categories = null;
-	// ÊıÖµĞòÁĞ£¬¸ñÊ½[w1,w2,...,wn]»òw
+	// æ•°å€¼åºåˆ—ï¼Œæ ¼å¼[w1,w2,...,wn]æˆ–w
 	public Sequence values = null;
 
-	/** ÍâÎ§±ß¿ò */
+	/** å¤–å›´è¾¹æ¡† */
 	public int borderStyle = IStyle.LINE_SOLID;
 	public float borderWidth = 0.75f;
 	public Color borderColor = Color.lightGray;
 	public boolean borderShadow = false;
 
-	/** Í¼ĞÎ±êÌâ */
+	/** å›¾å½¢æ ‡é¢˜ */
 	public String graphTitle;
 	public String graphTitleFont;
-//³ÉÆ·Í¼ĞÎ´Ó±¨±í4ÒÆÖ²¹ıÀ´µÄ£¬²»Ö§³ÖËùÓĞ·ç¸ñ£¬ËùÒÔ²ğ·Ö³ö·ç¸ñÎªÈçÏÂÁ½¸ö
+//æˆå“å›¾å½¢ä»æŠ¥è¡¨4ç§»æ¤è¿‡æ¥çš„ï¼Œä¸æ”¯æŒæ‰€æœ‰é£æ ¼ï¼Œæ‰€ä»¥æ‹†åˆ†å‡ºé£æ ¼ä¸ºå¦‚ä¸‹ä¸¤ä¸ª
 	public boolean graphTitleBold = false;
 	public boolean graphTitleVertical = false;
 	public int graphTitleSize = 16;
@@ -59,7 +59,7 @@ public class GraphBase extends ObjectElement{
 	public int graphTitleAngle = 0;
 	public int graphTitleMargin = 5;
 
-	/** Êı¾İ±êÊ¶ */
+	/** æ•°æ®æ ‡è¯† */
 	public String dataFont;// = "Dialog";
 	public boolean dataBold = false;
 	public boolean dataVertical = false;
@@ -70,7 +70,7 @@ public class GraphBase extends ObjectElement{
 	public int displayData2 = IGraphProperty.DISPDATA_NONE;
 	public String displayDataFormat;
 
-	/** Í¼Àı */
+	/** å›¾ä¾‹ */
 	public byte legendLocation = IGraphProperty.LEGEND_RIGHT;
 	public int legendVerticalGap = 4;
 	public int legendHorizonGap = 4;
@@ -82,23 +82,23 @@ public class GraphBase extends ObjectElement{
 	public Color legendColor = Color.black;
 	public int legendAngle;
 
-	// ÆäËû
-	/** Í¼ĞÎÊÇ·ñÍ¸Ã÷ */
+	// å…¶ä»–
+	/** å›¾å½¢æ˜¯å¦é€æ˜ */
 	public boolean graphTransparent = false;
-	/** ÊÇ·ñ½¥±äÉ«,×¢Òâ¸ÃÊôĞÔÓëraisedBorderÊÇ»¥³âµÄ */
+	/** æ˜¯å¦æ¸å˜è‰²,æ³¨æ„è¯¥å±æ€§ä¸raisedBorderæ˜¯äº’æ–¥çš„ */
 	public boolean gradientColor = true;
 	
-	/** ÓÃÇ°NÌõÊı¾İ»­Í¼ */
+	/** ç”¨å‰Næ¡æ•°æ®ç”»å›¾ */
 	public int topData;
-	/** ÏàÁÚÊıÖµ»ò±êÇ©ÖØµşÊ±ÊÇ·ñÏÔÊ¾ºóÒ»ÊıÖµ»ò±êÇ© */
+	/** ç›¸é‚»æ•°å€¼æˆ–æ ‡ç­¾é‡å æ—¶æ˜¯å¦æ˜¾ç¤ºåä¸€æ•°å€¼æˆ–æ ‡ç­¾ */
 	public boolean showOverlapText = true;
-	/** »­²¼±³¾°ÑÕÉ« */
+	/** ç”»å¸ƒèƒŒæ™¯é¢œè‰² */
 	public Color canvasColor = Color.white;
 	public Color legendBorderColor = Color.darkGray;
 
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -179,24 +179,24 @@ public class GraphBase extends ObjectElement{
 	}
 
 	/**
-	 * Í¼ĞÎÊÇ·ñ¿É¼û
-	 * @return ¿É¼ûÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å›¾å½¢æ˜¯å¦å¯è§
+	 * @return å¯è§æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isVisible() {
 		return true;
 	}
 
 	/**
-	 * Í¼ÔªµÄÖØ»­Ç°ÊıÖµ³õÊ¼»¯£¬ÓÉÓÚ³õÊ¼»¯ÖµÔÚÍ¼Ôª»æÖÆÖĞÓĞÏÈºóÒıÓÃ£¬
-	 * ËùÒÔÒªÏÈ³õÊ¼»¯£¬ÔÙ¿ªÊ¼»­Í¼ 
+	 * å›¾å…ƒçš„é‡ç”»å‰æ•°å€¼åˆå§‹åŒ–ï¼Œç”±äºåˆå§‹åŒ–å€¼åœ¨å›¾å…ƒç»˜åˆ¶ä¸­æœ‰å…ˆåå¼•ç”¨ï¼Œ
+	 * æ‰€ä»¥è¦å…ˆåˆå§‹åŒ–ï¼Œå†å¼€å§‹ç”»å›¾ 
 	 */
 	public void beforeDraw() {
 	} 
 
 	/**
-	 * »æÖÆ±³¾°²ã
-	 * ×¢ÒâÔÚ±³¾°²ãÓ¦»æÖÆËùÓĞµÄÌî³äÉ«£¬ÒõÓ°µÈ£¬ÒÔ·À¸²¸ÇºóĞøµÄ²ã¡£
-	 * ¸Ã²ã²»ÄÜ»æÏß¼°ÎÄ×Ö 
+	 * ç»˜åˆ¶èƒŒæ™¯å±‚
+	 * æ³¨æ„åœ¨èƒŒæ™¯å±‚åº”ç»˜åˆ¶æ‰€æœ‰çš„å¡«å……è‰²ï¼Œé˜´å½±ç­‰ï¼Œä»¥é˜²è¦†ç›–åç»­çš„å±‚ã€‚
+	 * è¯¥å±‚ä¸èƒ½ç»˜çº¿åŠæ–‡å­— 
 	 */
 	public void drawBack() {
 	} 
@@ -230,7 +230,7 @@ public class GraphBase extends ObjectElement{
 			return null;
 	}
 
-	// ×ÓÍ¼ĞÎ¸ù¾İ×Ô¼ºµÄÊôĞÔ£¬¹¹½¨PublicProperty¶ÔÏó·µ»Ø¸øGraphElement.
+	// å­å›¾å½¢æ ¹æ®è‡ªå·±çš„å±æ€§ï¼Œæ„å»ºPublicPropertyå¯¹è±¡è¿”å›ç»™GraphElement.
 	protected PublicProperty getPublicProperty() {
 		PublicProperty pp = new PublicProperty();
 		pp.setBorder((byte) borderStyle, borderWidth, borderColor,
@@ -266,7 +266,7 @@ public class GraphBase extends ObjectElement{
 		return false;
 	}
 	
-//	×óÖáÎª1£¬ ÓÒÖáÎª2
+//	å·¦è½´ä¸º1ï¼Œ å³è½´ä¸º2
 	protected byte getSeriesAxis(String serName){
 		return Consts.AXIS_LEFT;
 	}
@@ -329,7 +329,7 @@ public class GraphBase extends ObjectElement{
 					String serName = Variant.toString( serNames.get(s));
 					egs.setName( serName );
 					int index = Utils.indexOf(categories, catName, serName);
-					if (index == 0) { // Ä³¸ö·ÖÀàºÍÏµÁĞµÄÊıÖµÈ±ÉÙ
+					if (index == 0) { // æŸä¸ªåˆ†ç±»å’Œç³»åˆ—çš„æ•°å€¼ç¼ºå°‘
 						continue;
 					}
 					egs.setValue( (Number)values.get(index));
@@ -346,7 +346,7 @@ public class GraphBase extends ObjectElement{
 	}
 
 	/**
-	 * »æÖÆÖĞ¼ä²ã
+	 * ç»˜åˆ¶ä¸­é—´å±‚
 	 */
 	public void draw() {
 		PublicProperty pp = getPublicProperty();
@@ -365,7 +365,7 @@ public class GraphBase extends ObjectElement{
 		Graphics2D g = e.getGraphics();
 		int w = e.getW();
 		int h = e.getH();
-		if (i != 16777215) { // Èç¹û²»ÊÇÍ¸Ã÷É«Ôò»­µ×°æÉ«
+		if (i != 16777215) { // å¦‚æœä¸æ˜¯é€æ˜è‰²åˆ™ç”»åº•ç‰ˆè‰²
 			if (pp.getBorderShadow()) {
 				g.setBackground( Color.LIGHT_GRAY );
 				g.clearRect(dShadow, dShadow, w , h);
@@ -408,14 +408,14 @@ public class GraphBase extends ObjectElement{
 	}
 
 	/**
-	 * »æÖÆÇ°¾°²ã
-	 * Ç°¾°²ã»æÖÆÍ¼ĞÎµÄ±ßÏß£¬ÒÔ¼°ÎÄ×Ö 
+	 * ç»˜åˆ¶å‰æ™¯å±‚
+	 * å‰æ™¯å±‚ç»˜åˆ¶å›¾å½¢çš„è¾¹çº¿ï¼Œä»¥åŠæ–‡å­— 
 	 */
 	public void drawFore() {
 	} 
 
 	/**
-	 * »æÖÆÍ¼ĞÎÇ°µÄÊı¾İ»·¾³×¼±¸
+	 * ç»˜åˆ¶å›¾å½¢å‰çš„æ•°æ®ç¯å¢ƒå‡†å¤‡
 	 */
 	public void prepare() {
 		Utils.setParamsEngine(this);
@@ -424,23 +424,23 @@ public class GraphBase extends ObjectElement{
 	protected transient Engine e;
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÒıÇæ
-	 * @param e Í¼ĞÎÒıÇæ
+	 * è®¾ç½®å›¾å½¢å¼•æ“
+	 * @param e å›¾å½¢å¼•æ“
 	 */
 	public void setEngine(Engine e) {
 		this.e = e;
 	}
 
 	/**
-	 * »ñÈ¡Í¼ĞÎÒıÇæ
-	 * @return Í¼ĞÎÒıÇæ
+	 * è·å–å›¾å½¢å¼•æ“
+	 * @return å›¾å½¢å¼•æ“
 	 */
 	public Engine getEngine() {
 		return e;
 	}
 
 	/**
-	 * »ñÈ¡³¬Á´½ÓÇøÓòĞÎ×´
+	 * è·å–è¶…é“¾æ¥åŒºåŸŸå½¢çŠ¶
 	 * @return null
 	 */
 	public ArrayList<Shape> getShapes() {
@@ -448,7 +448,7 @@ public class GraphBase extends ObjectElement{
 	}
 
 	/**
-	 * »ñÈ¡³¬Á´½Ó
+	 * è·å–è¶…é“¾æ¥
 	 * @return null
 	 */
 	public ArrayList<String> getLinks() {

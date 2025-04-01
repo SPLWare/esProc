@@ -3,7 +3,7 @@ package com.scudata.vdb;
 import java.io.IOException;
 
 /**
- * 目录区位
+ * 鐩綍鍖轰綅
  * @author RunQian
  *
  */
@@ -18,7 +18,7 @@ class DirZone extends Zone {
 			if (block > 0) {
 				section = ISection.read(library, block, dir);
 			} else {
-				 // 新生成的子目录，尚未提交
+				 // 鏂扮敓鎴愮殑瀛愮洰褰曪紝灏氭湭鎻愪氦
 				section = new Section(dir);
 			}
 		}
@@ -50,7 +50,7 @@ class DirZone extends Zone {
 		section = null;
 	}
 	
-	// 可能被删了或者移走了
+	// 鍙兘琚垹浜嗘垨鑰呯Щ璧颁簡
 	public boolean valid() {
 		return block >= Dir.S_NORMAL;
 	}
@@ -58,7 +58,7 @@ class DirZone extends Zone {
 	public void reset(int state) {
 		section = null;
 		if (state != Dir.S_NORMAL) {
-			block = state; // 小于Dir.S_NORMAL表示删除
+			block = state; // 灏忎簬Dir.S_NORMAL琛ㄧず鍒犻櫎
 		} else {
 			if (block < Dir.S_NORMAL) {
 				block = Dir.S_NORMAL;
@@ -66,7 +66,7 @@ class DirZone extends Zone {
 		}
 	}
 	
-	// 为新产生的子路径申请首块
+	// 涓烘柊浜х敓鐨勫瓙璺緞鐢宠棣栧潡
 	public void applySubHeader(Library library, int outerSeq, long innerSeq, Dir dir) throws IOException {
 		setTxSeq(outerSeq, innerSeq);
 		

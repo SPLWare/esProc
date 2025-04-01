@@ -13,14 +13,14 @@ import java.awt.*;
 import java.awt.geom.*;
 
 /**
- * Í¼ÀıÍ¼Ôª
+ * å›¾ä¾‹å›¾å…ƒ
  * @author Joancy
  *
  */
 public class Legend extends LinkElement implements IMapAxis{
-	// ÖáÃû³Æ
+	// è½´åç§°
 	public String name;
-	// ÎïÀí×ø±ê,Ğ¡ÓÚ1±íÊ¾±ÈÀı£¬´óÓÚ1±íÊ¾ÏñËØ
+	// ç‰©ç†åæ ‡,å°äº1è¡¨ç¤ºæ¯”ä¾‹ï¼Œå¤§äº1è¡¨ç¤ºåƒç´ 
 	public double x = 0.82;
 	public double y = 0.2;
 	public double width = 0;
@@ -35,22 +35,22 @@ public class Legend extends LinkElement implements IMapAxis{
 	public int borderWeight = 1;
 	public Color borderColor = Color.black;
 
-	// Í¼ÀıÎÄ×Ö
+	// å›¾ä¾‹æ–‡å­—
 	public Para legendText=new Para();
 
-	// ÎÄ×Ö×ÖÌå
-	public String textFont;// = "ËÎÌå";
+	// æ–‡å­—å­—ä½“
+	public String textFont;// = "å®‹ä½“";
 
-	// ÎÄ×ÖÑÕÉ«
+	// æ–‡å­—é¢œè‰²
 	public Color textColor = Color.black;
 
-	// ÎÄ×Ö×ÖĞÍ
+	// æ–‡å­—å­—å‹
 	public int textStyle;
 
-	// ÎÄ×Ö×ÖºÅ
+	// æ–‡å­—å­—å·
 	public int textSize = 12;
 
-	// Í¼ÀıµÄÁĞÊı
+	// å›¾ä¾‹çš„åˆ—æ•°
 	public int columns = 1;
 
 	public Para legendType = new Para(new Integer(Consts.LEGEND_RECT));
@@ -65,31 +65,31 @@ public class Legend extends LinkElement implements IMapAxis{
 
 
 	/**
-	 * »æÍ¼Ç°×¼±¸
-	 * µ±Ç°ºöÂÔ
+	 * ç»˜å›¾å‰å‡†å¤‡
+	 * å½“å‰å¿½ç•¥
 	 */
 	public void beforeDraw() {
 	}
 
 	/**
-	 * »ñÈ¡Í¼ÀıµÄÎÄ±¾ĞòÁĞ
-	 * ÔÊĞíÍ¼ÀıÎÄ×ÖÈ±Ê¡²»ÉèÖÃ£¬´ËÊ±´Óµ±Ç°Í¼ÔªÖĞÕÒ³öÍ¼Àı£¬ÓÉÒıÇæ×Ô¶¯ÉèÖÃ
-	 * @return Í¼ÀıµÄÎÄ±¾ĞòÁĞ
+	 * è·å–å›¾ä¾‹çš„æ–‡æœ¬åºåˆ—
+	 * å…è®¸å›¾ä¾‹æ–‡å­—ç¼ºçœä¸è®¾ç½®ï¼Œæ­¤æ—¶ä»å½“å‰å›¾å…ƒä¸­æ‰¾å‡ºå›¾ä¾‹ï¼Œç”±å¼•æ“è‡ªåŠ¨è®¾ç½®
+	 * @return å›¾ä¾‹çš„æ–‡æœ¬åºåˆ—
 	 */
 	public Sequence getLegendText(){
 		return legendText.sequenceValue();
 	}
 	
 	/**
-	 * ÉèÖÃÍ¼ÀıµÄÎÄ±¾
-	 * @param seq ÎÄ±¾ĞòÁĞ
+	 * è®¾ç½®å›¾ä¾‹çš„æ–‡æœ¬
+	 * @param seq æ–‡æœ¬åºåˆ—
 	 */
 	public void setLegendText(Sequence seq){
 		this.legendText.setValue(seq);
 	}
 	
 	/**
-	 * »æÖÆ±³¾°²ã
+	 * ç»˜åˆ¶èƒŒæ™¯å±‚
 	 */
 	public void drawBack() {
 		if (!isVisible()) {
@@ -116,7 +116,7 @@ public class Legend extends LinkElement implements IMapAxis{
 	}
 
 	/**
-	 * »æÖÆÖĞ¼ä²ã
+	 * ç»˜åˆ¶ä¸­é—´å±‚
 	 */
 	public void draw() {
 		if (!isVisible()) {
@@ -236,7 +236,7 @@ public class Legend extends LinkElement implements IMapAxis{
 	}
 
 	/**
-	 * »æÖÆÇ°¾°²ã£¬Í¼Àı»æÖÆ²¼¾Ö£º (×ó±ß¿ò+GAP+ÎÄ×Ö+Í¼Àı+GAP) = columnWidth
+	 * ç»˜åˆ¶å‰æ™¯å±‚ï¼Œå›¾ä¾‹ç»˜åˆ¶å¸ƒå±€ï¼š (å·¦è¾¹æ¡†+GAP+æ–‡å­—+å›¾ä¾‹+GAP) = columnWidth
 	 */
 	public void drawFore() {
 		drawLegend(true);
@@ -261,7 +261,7 @@ public class Legend extends LinkElement implements IMapAxis{
 		Font font = Utils.getFont(textFont, textStyle, textSize);
 		Graphics2D g = e.getGraphics();
 		FontMetrics fm = g.getFontMetrics(font);
-		char aChar = '¹ú';
+		char aChar = 'å›½';
 		int textHeight = fm.getHeight();
 		int aCharWidth = fm.charWidth(aChar);
 		double textWidth = columnWidth - 2 * edgeIndent - iconWidth;
@@ -278,7 +278,7 @@ public class Legend extends LinkElement implements IMapAxis{
 				String text = legendText(index);
 				double xx = px + columnWidth * c;
 				ArrayList wrapText;
-				if (textWidth < aCharWidth) { // Áô¸øÎÄ×ÖµÄ¿í¶È²»¹»Ò»¸ö×Ö·ûÊ±£¬²»»­ÎÄ×Ö
+				if (textWidth < aCharWidth) { // ç•™ç»™æ–‡å­—çš„å®½åº¦ä¸å¤Ÿä¸€ä¸ªå­—ç¬¦æ—¶ï¼Œä¸ç”»æ–‡å­—
 					wrapText = new ArrayList();
 				} else {
 					wrapText = StringUtils.wrapString(text, fm,
@@ -299,16 +299,16 @@ public class Legend extends LinkElement implements IMapAxis{
 	}
 
 	/**
-	 * »ñÈ¡ÒıÇæ
-	 * @return »æÍ¼ÒıÇæ
+	 * è·å–å¼•æ“
+	 * @return ç»˜å›¾å¼•æ“
 	 */
 	public Engine getEngine() {
 		return e;
 	}
 
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ParamInfoList ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return ParamInfoList å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -343,7 +343,7 @@ public class Legend extends LinkElement implements IMapAxis{
 		paramInfos.add(group, new ParamInfo("textSize", Consts.INPUT_FONTSIZE));
 		paramInfos.add(group, new ParamInfo("textColor", Consts.INPUT_COLOR));
 
-		group = "Legend";// ¸úÍ¼ÀıÍ¼ÔªÍ³Ò»ÃüÃûÎª´óĞ´¿ªÍ·£¬×ÊÔ´ÎÄ¼şÎª´óĞ¡Ğ´Ãô¸Ğ
+		group = "Legend";// è·Ÿå›¾ä¾‹å›¾å…ƒç»Ÿä¸€å‘½åä¸ºå¤§å†™å¼€å¤´ï¼Œèµ„æºæ–‡ä»¶ä¸ºå¤§å°å†™æ•æ„Ÿ
 		paramInfos.add(group, new ParamInfo("legendType",
 				Consts.INPUT_LEGENDICON));
 		paramInfos.add(group, new ParamInfo("legendLineStyle",
@@ -362,16 +362,16 @@ public class Legend extends LinkElement implements IMapAxis{
 	}
 
 	/**
-	 * Í¼ÀıÊÇ·ñ¿É¼û
-	 * @return boolean ¿É¼û·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å›¾ä¾‹æ˜¯å¦å¯è§
+	 * @return boolean å¯è§è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isVisible() {
 		return visible;
 	}
 
 	/**
-	 * ÉèÖÃ»æÍ¼ÒıÇæ
-	 * @param e »æÍ¼ÒıÇæ
+	 * è®¾ç½®ç»˜å›¾å¼•æ“
+	 * @param e ç»˜å›¾å¼•æ“
 	 */
 	public void setEngine(Engine e) {
 		this.e = e;
@@ -379,19 +379,19 @@ public class Legend extends LinkElement implements IMapAxis{
 	}
 
 	/**
-	 * ·µ»ØÍ¼ÀıÃû³Æ
+	 * è¿”å›å›¾ä¾‹åç§°
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * »ñÈ¡Âß¼­ÖµvalÔÚÓ³ÉäÊôĞÔmapPropertyÉÏµÄÓ³ÉäÊôĞÔÖµ
-	 * @param val Âß¼­Êı¾İÖµ
-	 * @param mapProperty Ó³ÉäÊôĞÔ£¬Ä¿Ç°½öÖ§³ÖÈıÖÖÊôĞÔ£º
-	 * Consts.LEGEND_P_FILLCOLOR: Ìî³äÑÕÉ«
-	 * Consts.LEGEND_P_LINECOLOR: ±ß¿ò»òÕßÕÛÏßÑÕÉ«
-	 * Consts.LEGEND_P_MARKERSTYLE: µã·ç¸ñ
+	 * è·å–é€»è¾‘å€¼valåœ¨æ˜ å°„å±æ€§mapPropertyä¸Šçš„æ˜ å°„å±æ€§å€¼
+	 * @param val é€»è¾‘æ•°æ®å€¼
+	 * @param mapProperty æ˜ å°„å±æ€§ï¼Œç›®å‰ä»…æ”¯æŒä¸‰ç§å±æ€§ï¼š
+	 * Consts.LEGEND_P_FILLCOLOR: å¡«å……é¢œè‰²
+	 * Consts.LEGEND_P_LINECOLOR: è¾¹æ¡†æˆ–è€…æŠ˜çº¿é¢œè‰²
+	 * Consts.LEGEND_P_MARKERSTYLE: ç‚¹é£æ ¼
 	 */
 	public Object getMapValue(Object val, byte mapProperty) {
 		if(legendText==null){

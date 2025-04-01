@@ -13,9 +13,9 @@ import com.scudata.util.Variant;
 class HashPrimaryJoin {
 	private static class PrimaryJoinNode {
 		private Object []keyValues;
-		private Object [][]newValues; // Ã¿¸ö±íµÄÑ¡³ö×Ö¶Î
+		private Object [][]newValues; // æ¯ä¸ªè¡¨çš„é€‰å‡ºå­—æ®µ
 		private PrimaryJoinNode next;
-		private boolean isMatch = false; // ÊÇ·ñÓë×ó²àÆ¥ÅäÉÏÁË£¬ÓÃÓÚfull join
+		private boolean isMatch = false; // æ˜¯å¦ä¸å·¦ä¾§åŒ¹é…ä¸Šäº†ï¼Œç”¨äºfull join
 		
 		public PrimaryJoinNode(Object []keyValues, Object []curNewValues, int tableCount, int tableSeq, PrimaryJoinNode next) {
 			this.keyValues = keyValues;
@@ -40,10 +40,10 @@ class HashPrimaryJoin {
 	private HashUtil hashUtil;
 	private PrimaryJoinNode []hashTable;
 	private int tableCount;
-	private int srcRefCount; // ½á¹û¼¯ÖĞÒıÓÃ×ó²à±íµÄ×Ö¶ÎÊı
-	private DataStruct resultDs; // ½á¹û¼¯Êı¾İ½á¹¹
-	private int []newSeqs; // new×Ö¶ÎÔÚ½á¹û¼¯Êı¾İ½á¹¹ÖĞµÄĞòºÅ
-	private int []keySeqs; // ¹ØÁª×Ö¶ÎÔÚ½á¹û¼¯Êı¾İ½á¹¹ÖĞµÄĞòºÅ
+	private int srcRefCount; // ç»“æœé›†ä¸­å¼•ç”¨å·¦ä¾§è¡¨çš„å­—æ®µæ•°
+	private DataStruct resultDs; // ç»“æœé›†æ•°æ®ç»“æ„
+	private int []newSeqs; // newå­—æ®µåœ¨ç»“æœé›†æ•°æ®ç»“æ„ä¸­çš„åºå·
+	private int []keySeqs; // å…³è”å­—æ®µåœ¨ç»“æœé›†æ•°æ®ç»“æ„ä¸­çš„åºå·
 	
 	public HashPrimaryJoin(Sequence srcSequence, Expression []srcKeyExps, Expression []srcNewExps, String []srcNewNames, 
 			Sequence []sequences, String []options, Expression [][]keyExps, 
@@ -170,7 +170,7 @@ class HashPrimaryJoin {
 			int newCount = newExps.length;
 			for (Expression exp : newExps) {
 				if (exp.getHome() instanceof Gather) {
-					// Èç¹ûÊÇ»ã×ÜÔò¸øÓÎ±ê¸½¼ÓÉÏ·Ö×é»ã×ÜÔËËã
+					// å¦‚æœæ˜¯æ±‡æ€»åˆ™ç»™æ¸¸æ ‡é™„åŠ ä¸Šåˆ†ç»„æ±‡æ€»è¿ç®—
 					sequence = sequence.groups(keyExps, null, newExps, null, null, ctx);
 					
 					int q = 1;
@@ -301,7 +301,7 @@ class HashPrimaryJoin {
 		int srcRefCount = this.srcRefCount;
 		DataStruct resultDs = this.resultDs;
 		
-		// ¹ØÁªÀàĞÍ£¬0:ÄÚÁ¬½Ó, 1:×óÁ¬½Ó, 2£º²îÔËËã£¬±£ÁôÆ¥Åä²»ÉÏµÄ
+		// å…³è”ç±»å‹ï¼Œ0:å†…è¿æ¥, 1:å·¦è¿æ¥, 2ï¼šå·®è¿ç®—ï¼Œä¿ç•™åŒ¹é…ä¸ä¸Šçš„
 		int []joinTypes = new int[tableCount];
 		for (int t = 0; t < tableCount; ++t) {
 			String option = options[t];

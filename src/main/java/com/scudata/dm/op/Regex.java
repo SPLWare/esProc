@@ -16,16 +16,16 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÓÎ±ê»ò¹ÜµÀ¸½¼ÓµÄÄ£Ê½Æ¥ÅäÔËËã´¦ÀíÀà
- * op.regex(rs,F) opÊÇÓÎ±ê»ò¹ÜµÀ
+ * æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ çš„æ¨¡å¼åŒ¹é…è¿ç®—å¤„ç†ç±»
+ * op.regex(rs,F) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“
  * @author RunQian
  *
  */
 public class Regex extends Operation {
-	private Pattern pattern; // Ä£Ê½
-	private String []names; // ×Ö¶ÎÃûÊı×é
-	private Expression exp; // ĞèÒª×öÆ¥ÅäµÄ×Ö¶Î£¬È±Ê¡ÓÃ~
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹£¬µÈÓÚ¿ÕÊ±·µ»ØÔ´¼ÇÂ¼
+	private Pattern pattern; // æ¨¡å¼
+	private String []names; // å­—æ®µåæ•°ç»„
+	private Expression exp; // éœ€è¦åšåŒ¹é…çš„å­—æ®µï¼Œç¼ºçœç”¨~
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„ï¼Œç­‰äºç©ºæ—¶è¿”å›æºè®°å½•
 	private String opt;
 	private boolean doParse;
 
@@ -46,8 +46,8 @@ public class Regex extends Operation {
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -56,9 +56,9 @@ public class Regex extends Operation {
 	}
 
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

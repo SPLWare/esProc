@@ -16,8 +16,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 
 /**
- * D.mvp()	¿¼²ìÊı¾İ¼¯DÖĞµÄ¡°MI_xxx¡±µÄÁĞ£¬Ã¿10ÁĞÓÃ¶ş½øÖÆ¼ÆÊıÕûºÏÎª1ÁĞ£¬²»×ãÔò¾¡Á¿¾ù·Ö /
- * A.mvp(T)/P.mvp(cns, T); @bnie Ñ¡ÏîÖ¸Ã÷Ä¿±êÀàĞÍ£¬¸÷Ñ¡ÏîÏà³â£¬ÓÅÏÈ¼¶°´ÕÕ¶şÖµ/ÊıÖµ/ÕûÊı/Ã¶¾Ù£¬ÎŞÑ¡Ïî×Ô¶¯´¦Àí
+ * D.mvp()	è€ƒå¯Ÿæ•°æ®é›†Dä¸­çš„â€œMI_xxxâ€çš„åˆ—ï¼Œæ¯10åˆ—ç”¨äºŒè¿›åˆ¶è®¡æ•°æ•´åˆä¸º1åˆ—ï¼Œä¸è¶³åˆ™å°½é‡å‡åˆ† /
+ * A.mvp(T)/P.mvp(cns, T); @bnie é€‰é¡¹æŒ‡æ˜ç›®æ ‡ç±»å‹ï¼Œå„é€‰é¡¹ç›¸æ–¥ï¼Œä¼˜å…ˆçº§æŒ‰ç…§äºŒå€¼/æ•°å€¼/æ•´æ•°/æšä¸¾ï¼Œæ— é€‰é¡¹è‡ªåŠ¨å¤„ç†
  * A.mvp@r(rec)/P.mvp@r(cns, rec)
  * @author bd
  */
@@ -72,23 +72,23 @@ public class Mvp extends SequenceFunction {
 					all = true;
 				}
 				if (!(o1 instanceof Sequence)) {
-					// µ¥ÁĞ
+					// å•åˆ—
 					Sequence seq = new Sequence(1);
 					seq.add(o1);
 					o1 = seq;
 				}
 				if (!(o1 instanceof Sequence)) {
-					// µ¥ÁĞ
+					// å•åˆ—
 					Sequence seq = new Sequence(1);
 					seq.add(o1);
 					o1 = seq;
 				}
 				if (all) {
-					// Ä¬ÈÏÁĞ
+					// é»˜è®¤åˆ—
 					cns = r1.getFieldNames();
 					clen = cns.length;
 					if (!ifall) {
-						// É¸Ñ¡³öËùĞèÁĞ
+						// ç­›é€‰å‡ºæ‰€éœ€åˆ—
 						ArrayList<Integer> loc = Prep.filter(cns, "MI_", true);
 						String[] cnso = cns;
 						clen = loc.size();
@@ -127,7 +127,7 @@ public class Mvp extends SequenceFunction {
 				seqs = Prep.getFields(srcSequence, cols);
 				int len = seqs.size();
 				if (len < 2) {
-					// µ¥ÁĞ£¬²»ÓÃ¼ÆËãÁË
+					// å•åˆ—ï¼Œä¸ç”¨è®¡ç®—äº†
 					ArrayList<String> vns = new ArrayList<String>();
 					vns.add("MVP1");
 					Table tab = Prep.toTab(vns, seqs);
@@ -153,7 +153,7 @@ public class Mvp extends SequenceFunction {
 					seqs = Prep.seqToSeqs(srcSequence);
 				}
 				else {
-					// Ö»ÓĞÒ»ÁĞ£¬Ö±½Ó·µ»Ø
+					// åªæœ‰ä¸€åˆ—ï¼Œç›´æ¥è¿”å›
 					ArrayList<String> vns = new ArrayList<String>();
 					vns.add("MVP1");
 					seqs = new ArrayList<Sequence>();
@@ -187,7 +187,7 @@ public class Mvp extends SequenceFunction {
 				}
 			}
 			if (srcSequence instanceof Table || srcSequence.isPmt()) {
-				// srcSequence ÒªÇóÊÇÅÅÁĞ»òĞò±í
+				// srcSequence è¦æ±‚æ˜¯æ’åˆ—æˆ–åºè¡¨
 				boolean all = false;
 				if (param == null ) {
 					MessageManager mm = EngineMessage.get();
@@ -223,18 +223,18 @@ public class Mvp extends SequenceFunction {
 					throw new RQException("mvp" + mm.getMessage("function.paramTypeError"));
 				}
 				if (!(o1 instanceof Sequence)) {
-					// µ¥ÁĞ
+					// å•åˆ—
 					Sequence seq = new Sequence(1);
 					seq.add(o1);
 					o1 = seq;
 				}
 				if (all) {
-					// Ä¬ÈÏÁĞ
+					// é»˜è®¤åˆ—
 					seqs = Prep.pseqToSeqs(srcSequence);
 					cns = r1.getFieldNames();
 					clen = cns.length;
 					if (!ifall) {
-						// É¸Ñ¡³öËùĞèÁĞ
+						// ç­›é€‰å‡ºæ‰€éœ€åˆ—
 						ArrayList<Integer> loc = Prep.filter(cns, "MI_", true);
 						String[] cnso = cns;
 						clen = loc.size();
@@ -272,10 +272,10 @@ public class Mvp extends SequenceFunction {
 					seqs = Prep.getFields(srcSequence, cols);
 				}
 				/*
-				 * Õı³£×ßÁ÷³Ì¾ÍÊÇÁË
+				 * æ­£å¸¸èµ°æµç¨‹å°±æ˜¯äº†
 				int len = seqs.size();
 				if (len < 2) {
-					// µ¥ÁĞ£¬²»ÓÃ¼ÆËãÁË
+					// å•åˆ—ï¼Œä¸ç”¨è®¡ç®—äº†
 					ArrayList<String> vns = new ArrayList<String>();
 					vns.add("MVP1");
 					Table tab = Prep.toTab(vns, seqs);
@@ -303,11 +303,11 @@ public class Mvp extends SequenceFunction {
 					seqs = Prep.seqToSeqs(srcSequence);
 				}
 				else {
-					// Ö»ÓĞÒ»ÁĞ£¬Ö±½Ó·µ»Ø
+					// åªæœ‰ä¸€åˆ—ï¼Œç›´æ¥è¿”å›
 					seqs = new ArrayList<Sequence>();
 					seqs.add(srcSequence);
 					/*
-					 * Õı³£×ßÁ÷³Ì¾ÍÊÇÁË
+					 * æ­£å¸¸èµ°æµç¨‹å°±æ˜¯äº†
 					ArrayList<String> vns = new ArrayList<String>();
 					vns.add("MVP1");
 					Table tab = Prep.toTab(vns, seqs);
@@ -341,7 +341,7 @@ public class Mvp extends SequenceFunction {
 			byte tType, ArrayList<String> ncn, ArrayList<Sequence> ncv) {
 		int size = seqs.size();
 		if (size < 1) {
-			//Ã»ÓĞMI£¬·µ»Ø
+			//æ²¡æœ‰MIï¼Œè¿”å›
 			return null;
 		}
 		
@@ -376,10 +376,10 @@ public class Mvp extends SequenceFunction {
 				mul = mul * 2;
 			}
 			VarSrcInfo mvpVsi = new VarSrcInfo(mvpN, Consts.F_ENUM);
-			// MVPµÄÍ³¼ÆĞÅÏ¢Ôİ²»ÊÕ¼¯£¬vsi²»×ö³õÊ¼»¯ÁË
-			//ÀÛ¼ÓÍê±Ï£¬µÃµ½µÄmvp×Ö¶Î×÷ÎªÃ¶¾ÙÀàĞÍ¼ÌĞø´¦Àí
+			// MVPçš„ç»Ÿè®¡ä¿¡æ¯æš‚ä¸æ”¶é›†ï¼Œvsiä¸åšåˆå§‹åŒ–äº†
+			//ç´¯åŠ å®Œæ¯•ï¼Œå¾—åˆ°çš„mvpå­—æ®µä½œä¸ºæšä¸¾ç±»å‹ç»§ç»­å¤„ç†
 			VarRec vr = new VarRec(false, false, mvpVsi);
-			//mvp×Ö¶Î²»»á´æÔÚ¿ÕÖµ£¬freqÎª0
+			//mvpå­—æ®µä¸ä¼šå­˜åœ¨ç©ºå€¼ï¼Œfreqä¸º0
 			Prep.dealEnum(curMvp, mvpN, 0d, vr, Consts.F_ENUM, tvs, tType, mvpVsi, ncv, ncn);
 			//dealEnum(curMvp, mvpN, pr, 0d, vr, Consts.F_ENUM,
 			//		ResultCol.CL_OTHERS, (byte) 0, srcCns, mvpVsi);
@@ -392,7 +392,7 @@ public class Mvp extends SequenceFunction {
 	}
 	
 	/**
-	 * ½«cvsÖĞµÄÊıÖµ³ÉÔ±£¬³Ëmultiple±¶ºó£¬¼Óµ½res³ÉÔ±ÖĞ£¬¸Ä±äres£¬MVP×¨ÓÃ£¬Òò´Ë×î´óÖµÎª1023£¬È«ÓÃint¾ÍºÃ
+	 * å°†cvsä¸­çš„æ•°å€¼æˆå‘˜ï¼Œä¹˜multipleå€åï¼ŒåŠ åˆ°resæˆå‘˜ä¸­ï¼Œæ”¹å˜resï¼ŒMVPä¸“ç”¨ï¼Œå› æ­¤æœ€å¤§å€¼ä¸º1023ï¼Œå…¨ç”¨intå°±å¥½
 	 * @param res
 	 * @param cvs
 	 * @param multiple

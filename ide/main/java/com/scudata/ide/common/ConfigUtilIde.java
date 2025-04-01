@@ -158,7 +158,7 @@ public class ConfigUtilIde {
 	/**
 	 * Load the configuration file by IDE
 	 * 
-	 * @param setLogLevel ÊÇ·ñÉèÖÃÈÕÖ¾¼¶±ğ
+	 * @param setLogLevel æ˜¯å¦è®¾ç½®æ—¥å¿—çº§åˆ«
 	 * @return
 	 * @throws IOException
 	 */
@@ -170,8 +170,8 @@ public class ConfigUtilIde {
 	/**
 	 * Load the configuration file
 	 * 
-	 * @param home        Ö÷Ä¿Â¼
-	 * @param setLogLevel ÊÇ·ñÉèÖÃÈÕÖ¾¼¶±ğ
+	 * @param home        ä¸»ç›®å½•
+	 * @param setLogLevel æ˜¯å¦è®¾ç½®æ—¥å¿—çº§åˆ«
 	 * @return
 	 * @throws IOException
 	 */
@@ -195,7 +195,7 @@ public class ConfigUtilIde {
 	/**
 	 * Load the configuration file
 	 * 
-	 * @param is ÎÄ¼şÊäÈëÁ÷
+	 * @param is æ–‡ä»¶è¾“å…¥æµ
 	 * @return
 	 */
 	public static RaqsoftConfig loadConfig(InputStream is) {
@@ -205,8 +205,8 @@ public class ConfigUtilIde {
 	/**
 	 * Load the configuration file
 	 * 
-	 * @param is          ÎÄ¼şÊäÈëÁ÷
-	 * @param setLogLevel ÊÇ·ñÉèÖÃÈÕÖ¾¼¶±ğ
+	 * @param is          æ–‡ä»¶è¾“å…¥æµ
+	 * @param setLogLevel æ˜¯å¦è®¾ç½®æ—¥å¿—çº§åˆ«
 	 * @return
 	 */
 	public static RaqsoftConfig loadConfig(InputStream is, boolean setLogLevel) {
@@ -231,7 +231,7 @@ public class ConfigUtilIde {
 	/**
 	 * Set the configuration options
 	 * 
-	 * @param config ¼¯ËãÆ÷ÅäÖÃ¶ÔÏó
+	 * @param config é›†ç®—å™¨é…ç½®å¯¹è±¡
 	 */
 	public static void setConfigOptions(RaqsoftConfig config) {
 		try {

@@ -1,166 +1,166 @@
 package com.scudata.cellset.graph.config;
 
 /**
- * ¶¨ÒåÍ³¼ÆÍ¼ÀàĞÍ³£Á¿
+ * å®šä¹‰ç»Ÿè®¡å›¾ç±»å‹å¸¸é‡
  */
 public class GraphTypes {
 	/**
-	 * ÇøÓòÍ¼
+	 * åŒºåŸŸå›¾
 	 */
 	public static final byte GT_AREA = ( byte ) 1;
 
 	/**
-	 * ÌõĞÎÍ¼
+	 * æ¡å½¢å›¾
 	 */
 	public static final byte GT_BAR = ( byte ) 2;
 
 	/**
-	 * ÈıÎ¬ÌõĞÎÍ¼
+	 * ä¸‰ç»´æ¡å½¢å›¾
 	 */
 	public static final byte GT_BAR3D = ( byte ) 3;
 
 	/**
-	 * ÈıÎ¬´Ø×´ÌõĞÎÍ¼
+	 * ä¸‰ç»´ç°‡çŠ¶æ¡å½¢å›¾
 	 */
 	public static final byte GT_BAR3DOBJ = ( byte ) 4;
 
 	/**
-	 * ¶Ñ»ıÌõĞÎÍ¼
+	 * å †ç§¯æ¡å½¢å›¾
 	 */
 	public static final byte GT_BARSTACKED = ( byte ) 5;
 
 	/**
-	 * ÈıÎ¬¶Ñ»ıÌõĞÎÍ¼
+	 * ä¸‰ç»´å †ç§¯æ¡å½¢å›¾
 	 */
 	public static final byte GT_BARSTACKED3DOBJ = ( byte ) 6;
 
 	/**
-	 * ÖùĞÎÍ¼
+	 * æŸ±å½¢å›¾
 	 */
 	public static final byte GT_COL = ( byte ) 7;
 
 	/**
-	 * ÈıÎ¬ÖùĞÎÍ¼
+	 * ä¸‰ç»´æŸ±å½¢å›¾
 	 */
 	public static final byte GT_COL3D = ( byte ) 8;
 
 	/**
-	 * ÈıÎ¬´Ø×´ÖùĞÎÍ¼
+	 * ä¸‰ç»´ç°‡çŠ¶æŸ±å½¢å›¾
 	 */
 	public static final byte GT_COL3DOBJ = ( byte ) 9;
 
 	/**
-	 * ¶Ñ»ıÖùĞÎÍ¼
+	 * å †ç§¯æŸ±å½¢å›¾
 	 */
 	public static final byte GT_COLSTACKED = ( byte ) 10;
 
 	/**
-	 * ÈıÎ¬¶Ñ»ıÖùĞÎÍ¼
+	 * ä¸‰ç»´å †ç§¯æŸ±å½¢å›¾
 	 */
 	public static final byte GT_COLSTACKED3DOBJ = ( byte ) 11;
 
 	/**
-	 * ÕÛÏßÍ¼
+	 * æŠ˜çº¿å›¾
 	 */
 	public static final byte GT_LINE = ( byte ) 12;
 
 	/**
-	 * ±ıĞÍÍ¼
+	 * é¥¼å‹å›¾
 	 */
 	public static final byte GT_PIE = ( byte ) 13;
 
 	/**
-	 * É¢ÁĞÍ¼
+	 * æ•£åˆ—å›¾
 	 */
 	public static final byte GT_SCATTER = ( byte ) 14;
 
 	/**
-	 * ÈıÎ¬ÇøÓòÍ¼
+	 * ä¸‰ç»´åŒºåŸŸå›¾
 	 */
 	public static final byte GT_AREA3D = ( byte ) 15;
 
 	/**
-	 * ÈıÎ¬ÕÛÏßÍ¼
+	 * ä¸‰ç»´æŠ˜çº¿å›¾
 	 */
 	public static final byte GT_LINE3DOBJ = ( byte ) 16;
 
 	/**
-	 * ÈıÎ¬±ıĞÍÍ¼
+	 * ä¸‰ç»´é¥¼å‹å›¾
 	 */
 	public static final byte GT_PIE3DOBJ = ( byte ) 17;
 
 	/**
-	 * Ê±Ğò×´Ì¬Í¼
+	 * æ—¶åºçŠ¶æ€å›¾
 	 */
 	public static final byte GT_TIMESTATE = ( byte ) 18;
 
 	/**
-	 * Ê±¼ä×ßÊÆÍ¼
+	 * æ—¶é—´èµ°åŠ¿å›¾
 	 */
 	public static final byte GT_TIMETREND = ( byte ) 19;
 
 	/**
-	 * Ë«ÖáÖùÏßÍ¼
+	 * åŒè½´æŸ±çº¿å›¾
 	 */
 	public static final byte GT_2YCOLLINE = ( byte ) 21;
 
 	/**
-	 * Ë«ÖáÕÛÏßÍ¼
+	 * åŒè½´æŠ˜çº¿å›¾
 	 */
 	public static final byte GT_2Y2LINE = ( byte ) 20;
 
 	/**
-	 * À×´ïÍ¼
+	 * é›·è¾¾å›¾
 	 */
 	public static final byte GT_RADAR = ( byte ) 22;
 
 	/**
-	 * ¸ÊÌØÍ¼
+	 * ç”˜ç‰¹å›¾
 	 */
 	public static final byte GT_GANTT = ( byte ) 23;
 
 	/**
-	 * ÒÇ±íÅÌ
+	 * ä»ªè¡¨ç›˜
 	 */
 	public static final byte GT_METER = ( byte ) 24;
 
 	/**
-	 * Àï³Ì±®
+	 * é‡Œç¨‹ç¢‘
 	 */
 	public static final byte GT_MILEPOST = ( byte ) 25;
 
 	/**
-	 * È«¾àÍ¼
+	 * å…¨è·å›¾
 	 */
 	public static final byte GT_RANGE = ( byte ) 26;
 
 	/**
-	 * ¹¤×ÖÍ¼
+	 * å·¥å­—å›¾
 	 */
 	public static final byte GT_GONGZI = ( byte ) 27;
 
 	/**
-	 * 3DÒÇ±íÅÌ
+	 * 3Dä»ªè¡¨ç›˜
 	 */
 	public static final byte GT_METER3D = ( byte ) 28;
 
 	/**
-	 * ÇúÏßÍ¼
+	 * æ›²çº¿å›¾
 	 */
 	public static final byte GT_CURVE = ( byte ) 29;
 	
 	/**
-	 * Ë«Öá¶Ñ»ıÖùÏßÍ¼
+	 * åŒè½´å †ç§¯æŸ±çº¿å›¾
 	 */
 	public static final byte GT_2YCOLSTACKEDLINE = ( byte ) 30;
 	
 	/**
-	 * ÈıÎ¬µãÍ¼£¬ÆøÅİÍ¼
+	 * ä¸‰ç»´ç‚¹å›¾ï¼Œæ°”æ³¡å›¾
 	 */
 	public static final byte GT_DOT3D = ( byte ) 31;
 	
 	/**
-	 * ×Ô¶¨ÒåÍ³¼ÆÍ¼
+	 * è‡ªå®šä¹‰ç»Ÿè®¡å›¾
 	 */
 //	public static final byte GT_CUSTOM = ( byte )0xFF;
 }

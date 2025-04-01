@@ -39,53 +39,53 @@ import com.scudata.ide.common.swing.JComboBoxEx;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * Êı¾İÔ´¶Ô»°¿ò
+ * æ•°æ®æºå¯¹è¯æ¡†
  *
  */
 public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 	/**
-	 * Êı¾İÔ´ÁĞ±í¶ÔÏó
+	 * æ•°æ®æºåˆ—è¡¨å¯¹è±¡
 	 */
 	private DataSourceList jListDS;
 
 	/**
-	 * ĞÂ½¨°´Å¥
+	 * æ–°å»ºæŒ‰é’®
 	 */
 	private JButton jBNew = new JButton();
 
 	/**
-	 * É¾³ı°´Å¥
+	 * åˆ é™¤æŒ‰é’®
 	 */
 	private JButton jBDelete = new JButton();
 
 	/**
-	 * Á¬½Ó°´Å¥
+	 * è¿æ¥æŒ‰é’®
 	 */
 	private JButton jBConnect = new JButton();
 
 	/**
-	 * ¶Ï¿ªÁ¬½Ó°´Å¥
+	 * æ–­å¼€è¿æ¥æŒ‰é’®
 	 */
 	private JButton jBDisconnect = new JButton();
 
 	/**
-	 * ¹Ø±Õ°´Å¥
+	 * å…³é—­æŒ‰é’®
 	 */
 	private JButton jBClose = new JButton();
 
 	/**
-	 * ±à¼­°´Å¥
+	 * ç¼–è¾‘æŒ‰é’®
 	 */
 	private JButton jBEdit = new JButton();
 
 	private JLabel labelEncryptyLevel = new JLabel(
-			mm.getMessage("dialogdatasource.encryptlevel")); // ¼ÓÃÜ¼¶±ğ 2018.05.31
+			mm.getMessage("dialogdatasource.encryptlevel")); // åŠ å¯†çº§åˆ« 2018.05.31
 																// ryz
 	private JComboBoxEx jCBEncryptLevel = new JComboBoxEx();
 
@@ -94,14 +94,14 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	private JTextField jTFPwdClass = new JTextField();
 
 	private final String LABEL_ENCRYPT_NONE = mm
-			.getMessage("dialogdatasource.encryptnone"); // Ã÷ÎÄ
+			.getMessage("dialogdatasource.encryptnone"); // æ˜æ–‡
 	private final String LABEL_ENCRYPT_PASSWORD = mm
-			.getMessage("dialogdatasource.encryptpwd"); // ÃÜÂë¼ÓÃÜ
+			.getMessage("dialogdatasource.encryptpwd"); // å¯†ç åŠ å¯†
 	private final String LABEL_ENCRYPT_URL_USER_PWD = mm
-			.getMessage("dialogdatasource.encrypturluserpwd"); // URL¡¢ÓÃ»§ÃûºÍÃÜÂë¼ÓÃÜ
+			.getMessage("dialogdatasource.encrypturluserpwd"); // URLã€ç”¨æˆ·åå’Œå¯†ç åŠ å¯†
 
 	/**
-	 * Êı¾İÔ´ÁĞ±í¶ÔÏó
+	 * æ•°æ®æºåˆ—è¡¨å¯¹è±¡
 	 */
 	private static DataSourceListModel dsModel;
 
@@ -121,7 +121,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
 		this.setTitle(mm.getMessage("dialogdatasource.title"));
@@ -135,7 +135,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * Server±»Ñ¡ÖĞ
+	 * Serverè¢«é€‰ä¸­
 	 * 
 	 * @param serverName
 	 */
@@ -144,39 +144,39 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
 	private void initUI() throws Exception {
 		JPanel panel1 = new JPanel(new BorderLayout());
 		jBNew.setMnemonic('N');
-		jBNew.setText("ĞÂ½¨(N)");
+		jBNew.setText("æ–°å»º(N)");
 		jBNew.addActionListener(new DialogDataSource_jBNew_actionAdapter(this));
 		jBDelete.setMnemonic('D');
-		jBDelete.setText("É¾³ı(D)");
+		jBDelete.setText("åˆ é™¤(D)");
 		jBDelete.addActionListener(new DialogDataSource_jBDelete_actionAdapter(
 				this));
 		JPanel jPanel1 = new JPanel(new VFlowLayout());
 		jBConnect.setMnemonic('O');
-		jBConnect.setText("Á¬½Ó(O)");
+		jBConnect.setText("è¿æ¥(O)");
 		jBConnect
 				.addActionListener(new DialogDataSource_jBConnect_actionAdapter(
 						this));
 		jBDisconnect.setMnemonic('K');
-		jBDisconnect.setText("¶Ï¿ª(K)");
+		jBDisconnect.setText("æ–­å¼€(K)");
 		jBDisconnect
 				.addActionListener(new DialogDataSource_jBDisconnect_actionAdapter(
 						this));
 		JLabel jLabel1 = new JLabel();
 		jLabel1.setText(" ");
 		jBClose.setMnemonic('C');
-		jBClose.setText("¹Ø±Õ(C)");
+		jBClose.setText("å…³é—­(C)");
 		jBClose.addActionListener(new DialogDataSource_jBClose_actionAdapter(
 				this));
 		jBEdit.setVerifyInputWhenFocusTarget(true);
 		jBEdit.setMnemonic('E');
-		jBEdit.setText("±à¼­(E)");
+		jBEdit.setText("ç¼–è¾‘(E)");
 		jBEdit.addActionListener(new DialogDataSource_jBEdit_actionAdapter(this));
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new DialogDataSource_this_windowAdapter(this));
@@ -233,7 +233,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * ĞÂ½¨Êı¾İÔ´ÊÂ¼ş
+	 * æ–°å»ºæ•°æ®æºäº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -266,7 +266,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 
 		int index = jListDS.getSelectedIndex();
 		int size = dsModel.getSize();
-		// ÅĞ¶ÏÊÇ·ñÖØÃû
+		// åˆ¤æ–­æ˜¯å¦é‡å
 		if (dsModel.existDSName(ds.getName())) {
 			GM.messageDialog(
 					this,
@@ -286,7 +286,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * É¾³ıÊı¾İÔ´ÊÂ¼ş
+	 * åˆ é™¤æ•°æ®æºäº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -330,7 +330,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * Á¬½ÓÊı¾İÔ´ÊÂ¼ş
+	 * è¿æ¥æ•°æ®æºäº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -355,7 +355,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * ¶Ï¿ªÁ¬½ÓÊÂ¼ş
+	 * æ–­å¼€è¿æ¥äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -386,7 +386,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * ¹Ø±Õ°´Å¥ÊÂ¼ş
+	 * å…³é—­æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -395,7 +395,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * ±à¼­°´Å¥ÊÂ¼ş
+	 * ç¼–è¾‘æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -437,12 +437,12 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * ÊÇ·ñ±¾µØÊı¾İÔ´
+	 * æ˜¯å¦æœ¬åœ°æ•°æ®æº
 	 * 
 	 * @param ds
-	 *            Êı¾İÔ´¶ÔÏó
+	 *            æ•°æ®æºå¯¹è±¡
 	 * @param showMessage
-	 *            ÊÇ·ñÏÔÊ¾Òì³£ĞÅÏ¢
+	 *            æ˜¯å¦æ˜¾ç¤ºå¼‚å¸¸ä¿¡æ¯
 	 * @return
 	 */
 	public static boolean isLocalDataSource(Component parent, DataSource ds, boolean showMessage) {
@@ -471,7 +471,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * ¹Ø±Õ´°¿ÚÊÂ¼ş
+	 * å…³é—­çª—å£äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -503,7 +503,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		// pwdClassChanged = StringUtils.isValidString(oldPwdClass);
 		// }
 		// }
-		// Èç¹û¼ÓÃÜËã·¨»»ÁË£¬ÏÈÒªÓÃÖ®Ç°µÄËã·¨½âÃÜ
+		// å¦‚æœåŠ å¯†ç®—æ³•æ¢äº†ï¼Œå…ˆè¦ç”¨ä¹‹å‰çš„ç®—æ³•è§£å¯†
 		// if (pwdClassChanged) {
 		// decryptDataSource();
 		// }
@@ -517,7 +517,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 				} else {
 					GM.showException(this, e);
 				}
-				// if (pwdClassChanged) { // Èç¹ûĞÂ¼ÓÃÜ¹¤¾ß³ö´í£¬ÓÃÖ®Ç°µÄ¼ÓÃÜËã·¨ÖØĞÂ¼ÓÃÜ
+				// if (pwdClassChanged) { // å¦‚æœæ–°åŠ å¯†å·¥å…·å‡ºé”™ï¼Œç”¨ä¹‹å‰çš„åŠ å¯†ç®—æ³•é‡æ–°åŠ å¯†
 				// encryptDataSource();
 				// }
 				return false;
@@ -578,10 +578,10 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * ÊµÏÖ½Ó¿ÚIDataSourceEditor.init() -- ¸ù¾İÊı¾İÔ´ÅäÖÃ³õÊ¼»¯±à¼­Æ÷
+	 * å®ç°æ¥å£IDataSourceEditor.init() -- æ ¹æ®æ•°æ®æºé…ç½®åˆå§‹åŒ–ç¼–è¾‘å™¨
 	 * 
 	 * @param dsModel
-	 *            Êı¾İÔ´ÁĞ±í
+	 *            æ•°æ®æºåˆ—è¡¨
 	 */
 	public void init(DataSourceListModel dslm) {
 		try {
@@ -598,22 +598,22 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	}
 
 	/**
-	 * ÊµÏÖ½Ó¿ÚIDataSourceEditor.showEditor() -- ÏÔÊ¾Êı¾İÔ´±à¼­Æ÷
+	 * å®ç°æ¥å£IDataSourceEditor.showEditor() -- æ˜¾ç¤ºæ•°æ®æºç¼–è¾‘å™¨
 	 */
 	public void showEditor() {
 		this.setVisible(true);
 	}
 
 	/**
-	 * ÊµÏÖ½Ó¿ÚIDataSourceEditor.isCommitted() -- ÊÇ·ñÌá½»ĞŞ¸Ä
-	 * È·ÈÏĞŞ¸ÄÊ±²Å»áµ÷ÓÃgetDataSourceListModel()
+	 * å®ç°æ¥å£IDataSourceEditor.isCommitted() -- æ˜¯å¦æäº¤ä¿®æ”¹
+	 * ç¡®è®¤ä¿®æ”¹æ—¶æ‰ä¼šè°ƒç”¨getDataSourceListModel()
 	 */
 	public boolean isCommitted() {
 		return true;
 	}
 
 	/**
-	 * ÊµÏÖ½Ó¿ÚIDataSourceEditor.getDataSourceListModel() -- È¡±à¼­ºóµÄÊı¾İÔ´ÁĞ±í
+	 * å®ç°æ¥å£IDataSourceEditor.getDataSourceListModel() -- å–ç¼–è¾‘åçš„æ•°æ®æºåˆ—è¡¨
 	 */
 	public DataSourceListModel getDataSourceListModel() {
 		return dsModel;

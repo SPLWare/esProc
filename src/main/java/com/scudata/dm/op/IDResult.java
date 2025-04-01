@@ -18,22 +18,22 @@ import com.scudata.expression.fn.gather.ICount.ICountPositionSet;
 import com.scudata.util.HashUtil;
 
 /**
- * ÓÃÓÚ¶ÔÍÆËÍÀ´µÄÊı¾İÈ¡È¥ÖØºóµÄ×Ö¶ÎÖµ
+ * ç”¨äºå¯¹æ¨é€æ¥çš„æ•°æ®å–å»é‡åçš„å­—æ®µå€¼
  * @author RunQian
  *
  */
 public class IDResult implements IResult {
 	
-	private Expression[] exps; // È¥ÖØ×Ö¶Î±í´ïÊ½Êı×é
-	private int count; // ±£ÁôµÄ½á¹ûÊıÁ¿£¬Ê¡ÂÔ±£ÁôËùÓĞ
+	private Expression[] exps; // å»é‡å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private int count; // ä¿ç•™çš„ç»“æœæ•°é‡ï¼Œçœç•¥ä¿ç•™æ‰€æœ‰
 	private String opt;
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
 	
 	private boolean optB;
 	private boolean optN;
 	
-	private HashUtil hashUtil; // Ìá¹©¹şÏ£ÔËËãµÄ¹şÏ£Àà
-	private ListBase1 [][]allGroups; // ¹şÏ£±í
+	private HashUtil hashUtil; // æä¾›å“ˆå¸Œè¿ç®—çš„å“ˆå¸Œç±»
+	private ListBase1 [][]allGroups; // å“ˆå¸Œè¡¨
 	private Sequence []outs;
 	
 	private ICountBitSet bitSet;
@@ -81,7 +81,7 @@ public class IDResult implements IResult {
 	}
 
 	/**
-	 * È¡È¥ÖØºóµÄ½á¹û
+	 * å–å»é‡åçš„ç»“æœ
 	 * @return Sequence
 	 */
 	public Sequence getResultSequence() {
@@ -109,14 +109,14 @@ public class IDResult implements IResult {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊøÊ±µ÷ÓÃ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®æ¨é€ç»“æŸæ—¶è°ƒç”¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void finish(Context ctx) {
 	}
 	
 	/**
-	 * È¡È¥ÖØºóµÄ½á¹û
+	 * å–å»é‡åçš„ç»“æœ
 	 * @return Object
 	 */
 	public Object result() {
@@ -124,9 +124,9 @@ public class IDResult implements IResult {
 	}
 	
 	/**
-	 * ´¦ÀíÍÆËÍ¹ıÀ´µÄÊı¾İ£¬ÀÛ»ıµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¨é€è¿‡æ¥çš„æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æœä¸Š
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void push(Sequence table, Context ctx) {
 		if (table == null || table.length() == 0) return;
@@ -139,8 +139,8 @@ public class IDResult implements IResult {
 	}
 
 	/**
-	 * ´¦ÀíÍÆËÍ¹ıÀ´µÄÓÎ±êÊı¾İ£¬ÀÛ»ıµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param cursor ÓÎ±êÊı¾İ
+	 * å¤„ç†æ¨é€è¿‡æ¥çš„æ¸¸æ ‡æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æœä¸Š
+	 * @param cursor æ¸¸æ ‡æ•°æ®
 	 */
 	public void push(ICursor cursor) {
 		Context ctx = this.ctx;
@@ -313,7 +313,7 @@ public class IDResult implements IResult {
 		}
 	}
 	/**
-	 * ²»Ö§³Ö²¢ĞĞÔËËã
+	 * ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 	 */
 	public Object combineResult(Object []results) {
 		throw new RuntimeException();

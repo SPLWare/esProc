@@ -14,10 +14,10 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * substr(s1,s2) ÔÚ×Ö·û´®s1ÖĞ£¬´Ó×ó±ßµÚ1¸ö×Ö·û¿ªÊ¼²éÕÒ×Ö·û´®s2£¬ÕÒµ½ºó·µ»Øs2Î»ÖÃºóÃæµÄ´®¡£µ±s2ºóÃæÎŞ×Ö·û´®Ê±·µ»Ø¿Õ
- * @l	·µ»Øs2Ç°ÃæµÄ×Ö´®
- * @c	´óĞ¡Ğ´²»Ãô¸Ğ
- * @q	ÒıºÅÀïµÄ²»Ëã
+ * substr(s1,s2) åœ¨å­—ç¬¦ä¸²s1ä¸­ï¼Œä»å·¦è¾¹ç¬¬1ä¸ªå­—ç¬¦å¼€å§‹æŸ¥æ‰¾å­—ç¬¦ä¸²s2ï¼Œæ‰¾åˆ°åè¿”å›s2ä½ç½®åé¢çš„ä¸²ã€‚å½“s2åé¢æ— å­—ç¬¦ä¸²æ—¶è¿”å›ç©º
+ * @l	è¿”å›s2å‰é¢çš„å­—ä¸²
+ * @c	å¤§å°å†™ä¸æ•æ„Ÿ
+ * @q	å¼•å·é‡Œçš„ä¸ç®—
  * @author runqian
  *
  */
@@ -26,7 +26,7 @@ public class SubString extends Function {
 	private Expression exp2;
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -67,8 +67,8 @@ public class SubString extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -169,10 +169,10 @@ public class SubString extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

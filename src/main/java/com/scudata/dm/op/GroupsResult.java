@@ -22,46 +22,46 @@ import com.scudata.util.HashUtil;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃÓÚ¶ÔÍÆËÍÀ´µÄÊı¾İÖ´ĞĞ°´¶à×Ö¶Î½øĞĞÄÚ´æ·Ö×é»ã×ÜÔËËã
+ * ç”¨äºå¯¹æ¨é€æ¥çš„æ•°æ®æ‰§è¡ŒæŒ‰å¤šå­—æ®µè¿›è¡Œå†…å­˜åˆ†ç»„æ±‡æ€»è¿ç®—
  * @author RunQian
  *
  */
 public class GroupsResult extends IGroupsResult {
-	private Expression[] exps; // ·Ö×é±í´ïÊ½
-	private String []names; // ·Ö×é×Ö¶ÎÃû
-	private Expression []calcExps; // Í³¼Æ±í´ïÊ½
-	private String []calcNames; // Í³¼Æ×Ö¶ÎÃû
-	private String opt; // º¯ÊıÑ¡Ïî
-	private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
+	private Expression[] exps; // åˆ†ç»„è¡¨è¾¾å¼
+	private String []names; // åˆ†ç»„å­—æ®µå
+	private Expression []calcExps; // ç»Ÿè®¡è¡¨è¾¾å¼
+	private String []calcNames; // ç»Ÿè®¡å­—æ®µå
+	private String opt; // å‡½æ•°é€‰é¡¹
+	private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
 	
-	private HashUtil hashUtil; // Ìá¹©¹şÏ£ÔËËãµÄ¹şÏ£Àà
-	private ListBase1 []groups; // ¹şÏ£±í
-	private Node[] gathers = null; // Í³¼Æ±í´ïÊ½ÖĞµÄÍ³¼Æº¯Êı
+	private HashUtil hashUtil; // æä¾›å“ˆå¸Œè¿ç®—çš„å“ˆå¸Œç±»
+	private ListBase1 []groups; // å“ˆå¸Œè¡¨
+	private Node[] gathers = null; // ç»Ÿè®¡è¡¨è¾¾å¼ä¸­çš„ç»Ÿè®¡å‡½æ•°
 	
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹
-	private int keyCount; // ·Ö×é×Ö¶ÎÊı
-	private int valCount; // »ã×Ü×Ö¶ÎÊı
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„
+	private int keyCount; // åˆ†ç»„å­—æ®µæ•°
+	private int valCount; // æ±‡æ€»å­—æ®µæ•°
 	
-	private Table result; // ·Ö×é»ã×Ü½á¹û
-	private BaseRecord prevRecord; // ÉÏÒ»Ìõ½á¹û¼¯¼ÇÂ¼
+	private Table result; // åˆ†ç»„æ±‡æ€»ç»“æœ
+	private BaseRecord prevRecord; // ä¸Šä¸€æ¡ç»“æœé›†è®°å½•
 	
-	private SortedGroupsLink link; // ÓÃÓÚhÑ¡Ïî
+	private SortedGroupsLink link; // ç”¨äºhé€‰é¡¹
 	
 	private boolean oOpt;
 	private boolean iOpt;
 	private boolean nOpt;
 	private boolean hOpt;
-	public boolean XOpt;//Ê¹ÓÃ¶¯Ì¬±àÒëÓÅ»¯£¬Áô×÷½«À´Ê¹ÓÃ
+	public boolean XOpt;//ä½¿ç”¨åŠ¨æ€ç¼–è¯‘ä¼˜åŒ–ï¼Œç•™ä½œå°†æ¥ä½¿ç”¨
 	private boolean eOpt;
 
 	/**
-	 * ³õÊ¼»¯²ÎÊı
-	 * @param exps		·Ö×é±í´ïÊ½
-	 * @param names		·Ö×é±í´ïÊ½Ãû
-	 * @param calcExps	Í³¼Æ±í´ïÊ½
-	 * @param calcNames	Í³¼Æ±í´ïÊ½Ãû
-	 * @param opt		º¯ÊıÑ¡Ïî
-	 * @param ctx		ÉÏÏÂÎÄ±äÁ¿
+	 * åˆå§‹åŒ–å‚æ•°
+	 * @param exps		åˆ†ç»„è¡¨è¾¾å¼
+	 * @param names		åˆ†ç»„è¡¨è¾¾å¼å
+	 * @param calcExps	ç»Ÿè®¡è¡¨è¾¾å¼
+	 * @param calcNames	ç»Ÿè®¡è¡¨è¾¾å¼å
+	 * @param opt		å‡½æ•°é€‰é¡¹
+	 * @param ctx		ä¸Šä¸‹æ–‡å˜é‡
 	 */
 	public GroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
 			String[] calcNames, String opt, Context ctx) {
@@ -69,14 +69,14 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * ³õÊ¼»¯º¯Êı
-	 * @param exps		·Ö×é±í´ïÊ½
-	 * @param names		·Ö×é±í´ïÊ½Ãû
-	 * @param calcExps	Í³¼Æ±í´ïÊ½
-	 * @param calcNames	Í³¼Æ±í´ïÊ½Ãû
-	 * @param opt		º¯ÊıÑ¡Ïî
-	 * @param ctx		ÉÏÏÂÎÄ±äÁ¿
-	 * @param capacity	½á¹û¹şÏ£±í´óĞ¡
+	 * åˆå§‹åŒ–å‡½æ•°
+	 * @param exps		åˆ†ç»„è¡¨è¾¾å¼
+	 * @param names		åˆ†ç»„è¡¨è¾¾å¼å
+	 * @param calcExps	ç»Ÿè®¡è¡¨è¾¾å¼
+	 * @param calcNames	ç»Ÿè®¡è¡¨è¾¾å¼å
+	 * @param opt		å‡½æ•°é€‰é¡¹
+	 * @param ctx		ä¸Šä¸‹æ–‡å˜é‡
+	 * @param capacity	ç»“æœå“ˆå¸Œè¡¨å¤§å°
 	 */
 	public GroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
 			String[] calcNames, String opt, Context ctx, int capacity) {
@@ -87,19 +87,19 @@ public class GroupsResult extends IGroupsResult {
 		this.opt = opt;
 		this.ctx = ctx;
 		
-		// ¸ù¾İ±í´ïÊ½Ãû×Ö£¬Éú³É¸÷¸öÁĞµÄÃû×Ö¡£²¢¸ù¾İÁĞÃûÉú³É½á¹û±í½á¹¹
-		// Éú³É·Ö×é±í´ïÊ½¶ÔÓ¦µÄÁĞµÄÁĞÃû
+		// æ ¹æ®è¡¨è¾¾å¼åå­—ï¼Œç”Ÿæˆå„ä¸ªåˆ—çš„åå­—ã€‚å¹¶æ ¹æ®åˆ—åç”Ÿæˆç»“æœè¡¨ç»“æ„
+		// ç”Ÿæˆåˆ†ç»„è¡¨è¾¾å¼å¯¹åº”çš„åˆ—çš„åˆ—å
 		if (exps != null) {
 			keyCount = exps.length;
 		}
 
-		// Éú³ÉÍ³¼Æ±í´ïÊ½¶ÔÓ¦µÄÁĞµÄÁĞÃû, È¡µÃ¾ÛºÏº¯Êı
+		// ç”Ÿæˆç»Ÿè®¡è¡¨è¾¾å¼å¯¹åº”çš„åˆ—çš„åˆ—å, å–å¾—èšåˆå‡½æ•°
 		if (calcExps != null) {			
 			gathers = Sequence.prepareGatherMethods(this.calcExps, ctx);
 			valCount = gathers.length;
 		}
 
-		// ºÏ²¢·Ö×éÁĞÃûºÍÍ³¼ÆÁĞÃû£¬Éú³É½á¹û¼¯µÄÁĞÃû
+		// åˆå¹¶åˆ†ç»„åˆ—åå’Œç»Ÿè®¡åˆ—åï¼Œç”Ÿæˆç»“æœé›†çš„åˆ—å
 		String[] colNames = new String[keyCount + valCount];
 		if (names != null) {
 			System.arraycopy(names, 0, colNames, 0, keyCount);
@@ -109,11 +109,11 @@ public class GroupsResult extends IGroupsResult {
 			System.arraycopy(calcNames, 0, colNames, keyCount, valCount);
 		}
 
-		// Éú³É½á¹û¼¯Êı¾İ½á¹¹
+		// ç”Ÿæˆç»“æœé›†æ•°æ®ç»“æ„
 		ds = new DataStruct(colNames);
 		ds.setPrimary(names);
 
-		// ÉèÖÃº¯ÊıÑ¡Ïî¡£²¢¸ù¾İº¯ÊıÑ¡Ïî£¬ÅĞ¶ÏÊÇ·ñĞèÒª¹şÏ£±í
+		// è®¾ç½®å‡½æ•°é€‰é¡¹ã€‚å¹¶æ ¹æ®å‡½æ•°é€‰é¡¹ï¼Œåˆ¤æ–­æ˜¯å¦éœ€è¦å“ˆå¸Œè¡¨
 		if (opt != null) {
 			if (opt.indexOf('o') != -1) {
 				oOpt = true;
@@ -151,7 +151,7 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * È¡½á¹û¼¯Êı¾İ½á¹¹
+	 * å–ç»“æœé›†æ•°æ®ç»“æ„
 	 * @return DataStruct
 	 */
 	public DataStruct getResultDataStruct() {
@@ -159,32 +159,32 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * È¡·Ö×é±í´ïÊ½
-	 * @return ±í´ïÊ½Êı×é
+	 * å–åˆ†ç»„è¡¨è¾¾å¼
+	 * @return è¡¨è¾¾å¼æ•°ç»„
 	 */
 	public Expression[] getExps() {
 		return exps;
 	}
 
 	/**
-	 * È¡·Ö×é×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * å–åˆ†ç»„å­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getNames() {
 		return names;
 	}
 
 	/**
-	 * È¡»ã×Ü±í´ïÊ½
-	 * @return ±í´ïÊ½Êı×é
+	 * å–æ±‡æ€»è¡¨è¾¾å¼
+	 * @return è¡¨è¾¾å¼æ•°ç»„
 	 */
 	public Expression[] getCalcExps() {
 		return calcExps;
 	}
 
 	/**
-	 * È¡»ã×Ü×Ö¶ÎÃû
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * å–æ±‡æ€»å­—æ®µå
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getCalcNames() {
 		return calcNames;
@@ -203,7 +203,7 @@ public class GroupsResult extends IGroupsResult {
 	}
 
 	/**
-	 * È¡·Ö×é»ã×Ü½á¹û
+	 * å–åˆ†ç»„æ±‡æ€»ç»“æœ
 	 * @return Table
 	 */
 	public Table getResult() {
@@ -211,7 +211,7 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * È¡Ñ¡Ïî
+	 * å–é€‰é¡¹
 	 * @return
 	 */
 	public String getOption() {
@@ -219,15 +219,15 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * È¡ÊÇ·ñÊÇÓĞĞò·Ö×é
-	 * @return true£ºÊÇ£¬Êı¾İ°´·Ö×é×Ö¶ÎÓĞĞò£¬false£º²»ÊÇ
+	 * å–æ˜¯å¦æ˜¯æœ‰åºåˆ†ç»„
+	 * @return trueï¼šæ˜¯ï¼Œæ•°æ®æŒ‰åˆ†ç»„å­—æ®µæœ‰åºï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isSortedGroup() {
 		return oOpt;
 	}
 	
 	/**
-	 * È¡¶ş´Î»ã×Ü±í´ïÊ½£¬ÓÃÓÚ¶àÏß³Ì·Ö×é
+	 * å–äºŒæ¬¡æ±‡æ€»è¡¨è¾¾å¼ï¼Œç”¨äºå¤šçº¿ç¨‹åˆ†ç»„
 	 * @return
 	 */
 	public Expression[] getRegatherExpressions() {
@@ -246,7 +246,7 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * È¡¶ş´Î»ã×ÜÊı¾İ½á¹¹
+	 * å–äºŒæ¬¡æ±‡æ€»æ•°æ®ç»“æ„
 	 * @return DataStruct
 	 */
 	public DataStruct getRegatherDataStruct() {
@@ -254,7 +254,7 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * È¡¶ş´Î»ã×ÜºóÓÃÓÚ¼ÆËã×îÖÕ½á¹ûµÄ±í´ïÊ½£¬avg¿ÉÄÜ±»·Ö³Ésum¡¢countÁ½ÁĞ½øĞĞ¼ÆËã
+	 * å–äºŒæ¬¡æ±‡æ€»åç”¨äºè®¡ç®—æœ€ç»ˆç»“æœçš„è¡¨è¾¾å¼ï¼Œavgå¯èƒ½è¢«åˆ†æˆsumã€countä¸¤åˆ—è¿›è¡Œè®¡ç®—
 	 * @return
 	 */
 	public Expression[] getResultExpressions() {
@@ -262,7 +262,7 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * ²¢ĞĞÔËËãÊ±£¬È¡³öÃ¿¸öÏß³ÌµÄÖĞ¼ä¼ÆËã½á¹û£¬»¹ĞèÒª½øĞĞ¶ş´Î»ã×Ü
+	 * å¹¶è¡Œè¿ç®—æ—¶ï¼Œå–å‡ºæ¯ä¸ªçº¿ç¨‹çš„ä¸­é—´è®¡ç®—ç»“æœï¼Œè¿˜éœ€è¦è¿›è¡ŒäºŒæ¬¡æ±‡æ€»
 	 * @return Table
 	 */
 	public Table getTempResult() {
@@ -295,7 +295,7 @@ public class GroupsResult extends IGroupsResult {
 	}
 
 	/**
-	 * È¡·Ö×é»ã×Ü½á¹û
+	 * å–åˆ†ç»„æ±‡æ€»ç»“æœ
 	 * @return Table
 	 */
 	public Table getResultTable() {
@@ -358,14 +358,14 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊøÊ±µ÷ÓÃ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®æ¨é€ç»“æŸæ—¶è°ƒç”¨
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void finish(Context ctx) {
 	}
 	
 	 /**
-	  * Êı¾İÍÆËÍ½áÊø£¬È¡×îÖÕµÄ¼ÆËã½á¹û
+	  * æ•°æ®æ¨é€ç»“æŸï¼Œå–æœ€ç»ˆçš„è®¡ç®—ç»“æœ
 	  * @return
 	  */
 	public Object result() {
@@ -373,9 +373,9 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * ´¦ÀíÍÆËÍ¹ıÀ´µÄÊı¾İ£¬ÀÛ»ıµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¨é€è¿‡æ¥çš„æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æœä¸Š
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void push(Sequence table, Context ctx) {
 		if (table == null || table.length() == 0) return;
@@ -396,18 +396,18 @@ public class GroupsResult extends IGroupsResult {
 	}
 
 	/**
-	 * ´¦ÀíÍÆËÍ¹ıÀ´µÄÓÎ±êÊı¾İ£¬ÀÛ»ıµ½×îÖÕµÄ½á¹ûÉÏ
-	 * @param cursor ÓÎ±êÊı¾İ
+	 * å¤„ç†æ¨é€è¿‡æ¥çš„æ¸¸æ ‡æ•°æ®ï¼Œç´¯ç§¯åˆ°æœ€ç»ˆçš„ç»“æœä¸Š
+	 * @param cursor æ¸¸æ ‡æ•°æ®
 	 */
 	public void push(ICursor cursor) {
 		Context ctx = this.ctx;
 		if (hashUtil != null) {
 			while (true) {
-				// ´ÓÓÎ±êÖĞÈ¡µÃÒ»×éÊı¾İ¡£
+				// ä»æ¸¸æ ‡ä¸­å–å¾—ä¸€ç»„æ•°æ®ã€‚
 				Sequence src = cursor.fuzzyFetch(ICursor.FETCHCOUNT);
 				if (src == null || src.length() == 0) break;
 				
-				// °ÑÊı¾İÌí¼Óµ½·Ö×é½á¹ûÀà£¬²¢Ö´ĞĞÍ³¼Æº¯Êı¡£
+				// æŠŠæ•°æ®æ·»åŠ åˆ°åˆ†ç»„ç»“æœç±»ï¼Œå¹¶æ‰§è¡Œç»Ÿè®¡å‡½æ•°ã€‚
 				addGroups(src, ctx);
 			}
 		} else if (oOpt) {
@@ -449,19 +449,19 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * Ìí¼ÓÊı¾İ£¬Í¬Ê±¼ÆËã¸÷¸öÍ³¼Æº¯Êı
+	 * æ·»åŠ æ•°æ®ï¼ŒåŒæ—¶è®¡ç®—å„ä¸ªç»Ÿè®¡å‡½æ•°
 	 * 
-	 * @param table	±»Ìí¼ÓµÄÊı¾İ
+	 * @param table	è¢«æ·»åŠ çš„æ•°æ®
 	 */
 	private void addGroups(Sequence table, Context ctx) {
-		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize(); // ¹şÏ£±íµÄ´óĞ¡
-		HashUtil hashUtil = this.hashUtil; // ¹şÏ£¼ÆËãÀà
-		ListBase1 []groups = this.groups; // ¹şÏ£±í
+		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize(); // å“ˆå¸Œè¡¨çš„å¤§å°
+		HashUtil hashUtil = this.hashUtil; // å“ˆå¸Œè®¡ç®—ç±»
+		ListBase1 []groups = this.groups; // å“ˆå¸Œè¡¨
 		Expression[] exps = this.exps;
 		int keyCount = this.keyCount;
 		int valCount = null == gathers ? 0 : gathers.length;
 
-		Node []gathers = this.gathers; // Í³¼Æº¯ÊıÊı×é
+		Node []gathers = this.gathers; // ç»Ÿè®¡å‡½æ•°æ•°ç»„
 		Table result = this.result;
 		Object []keys = new Object[keyCount];
 		ComputeStack stack = ctx.getComputeStack();
@@ -471,7 +471,7 @@ public class GroupsResult extends IGroupsResult {
 		try {
 			for (int i = 1, len = table.length(); i <= len; ++i) {
 				current.setCurrent(i);
-				// ¸ù¾İ¼ÇÂ¼Éú³É¼üÖµ
+				// æ ¹æ®è®°å½•ç”Ÿæˆé”®å€¼
 				for (int k = 0; k < keyCount; ++k) {
 					keys[k] = exps[k].calculate(ctx);
 				}
@@ -635,7 +635,7 @@ public class GroupsResult extends IGroupsResult {
 	}
 
 	/**
-	 * ÉèÖÃ·Ö×éÊı£¬@nÑ¡ÏîÊ¹ÓÃ
+	 * è®¾ç½®åˆ†ç»„æ•°ï¼Œ@né€‰é¡¹ä½¿ç”¨
 	 * @param groupCount
 	 */
 	public void setGroupCount(int groupCount) {
@@ -663,7 +663,7 @@ public class GroupsResult extends IGroupsResult {
 
 				int index = ((Number)obj).intValue();
 				if (index < 1) {
-					// Åöµ½Ğ¡ÓÚ1µÄ·Å¹ı²»ÒªÁË£¬²»ÔÙ±¨´í£¬²»·Öµ½ÈÎºÎÒ»×éÀï
+					// ç¢°åˆ°å°äº1çš„æ”¾è¿‡ä¸è¦äº†ï¼Œä¸å†æŠ¥é”™ï¼Œä¸åˆ†åˆ°ä»»ä½•ä¸€ç»„é‡Œ
 					continue;
 				}
 				
@@ -729,9 +729,9 @@ public class GroupsResult extends IGroupsResult {
 	}
 	
 	/**
-	 * ¶àÂ·ÔËËãÊ±¶Ô°ÑËùÓĞÂ·µÄÔËËã½á¹ûºÏ²¢½øĞĞ¶ş´Î·Ö×é»ã×Ü£¬µÃµ½×îÖÕµÄ»ã×Ü½á¹û
-	 * @param results ËùÓĞÂ·µÄ·Ö×é½á¹û¹¹³ÉµÄÊı×é
-	 * @return ×îÖÕµÄ»ã×Ü½á¹û
+	 * å¤šè·¯è¿ç®—æ—¶å¯¹æŠŠæ‰€æœ‰è·¯çš„è¿ç®—ç»“æœåˆå¹¶è¿›è¡ŒäºŒæ¬¡åˆ†ç»„æ±‡æ€»ï¼Œå¾—åˆ°æœ€ç»ˆçš„æ±‡æ€»ç»“æœ
+	 * @param results æ‰€æœ‰è·¯çš„åˆ†ç»„ç»“æœæ„æˆçš„æ•°ç»„
+	 * @return æœ€ç»ˆçš„æ±‡æ€»ç»“æœ
 	 */
 	public Object combineResult(Object []results) {
 		int count = results.length;
@@ -742,7 +742,7 @@ public class GroupsResult extends IGroupsResult {
 			}
 		}
 		
-		// ¸÷Â·ÓÎ±ê°´·Ö×é×Ö¶Î²ğ·ÖµÄ
+		// å„è·¯æ¸¸æ ‡æŒ‰åˆ†ç»„å­—æ®µæ‹†åˆ†çš„
 		if (opt != null && opt.indexOf('o') != -1) {
 			return result.derive("o");
 		}

@@ -9,12 +9,12 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Á½¸ö¾ØÕó»òÕßÏòÁ¿Ïà³Ë
+ * ä¸¤ä¸ªçŸ©é˜µæˆ–è€…å‘é‡ç›¸ä¹˜
  * @author bd
  */
 public class Mul extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

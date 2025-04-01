@@ -4,29 +4,29 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
- * ODBC¹¤¾ßÀà
+ * ODBCå·¥å…·ç±»
  *
  */
 public final class ODBCUtil {
 	/**
-	 * Êı¾İÔ´Ãû³ÆÀàĞÍ
+	 * æ•°æ®æºåç§°ç±»å‹
 	 */
-	/** ÓÃ»§Êı¾İÔ´Ãû³Æ */
+	/** ç”¨æˆ·æ•°æ®æºåç§° */
 	public final static int USER_DSN = 0x00000001;
-	/** ÏµÍ³Êı¾İÔ´Ãû³Æ */
+	/** ç³»ç»Ÿæ•°æ®æºåç§° */
 	public final static int SYS_DSN = 0x00000002;
 
 	/**
-	 * ODBC×¢²áÂ·¾¶
+	 * ODBCæ³¨å†Œè·¯å¾„
 	 */
 	private final static String Rel_Reg_Path = "Software\\ODBC\\ODBC.INI\\ODBC Data Sources";
 
 	/**
-	 * ·µ»ØÊı¾İÔ´Ãû³ÆÁĞ±í
+	 * è¿”å›æ•°æ®æºåç§°åˆ—è¡¨
 	 * 
 	 * @param type
-	 *            Ö¸¶¨È¡ÓÃ»§Êı¾İÔ´Ãû³Æ»¹ÊÇÏµÍ³Êı¾İÔ´Ãû³Æ£¬»òÕßÈ«²¿(USER_DSN|SYS_DSN).
-	 * @return Êı¾İÔ´Ãû³ÆÁĞ±í
+	 *            æŒ‡å®šå–ç”¨æˆ·æ•°æ®æºåç§°è¿˜æ˜¯ç³»ç»Ÿæ•°æ®æºåç§°ï¼Œæˆ–è€…å…¨éƒ¨(USER_DSN|SYS_DSN).
+	 * @return æ•°æ®æºåç§°åˆ—è¡¨
 	 */
 	public static ArrayList<String> getDataSourcesName(int type) {
 		ArrayList<String> array = new ArrayList<String>();
@@ -56,12 +56,12 @@ public final class ODBCUtil {
 	}
 
 	/**
-	 * Ã¶¾ÙhKeyÏÂµÄÖµ
+	 * æšä¸¾hKeyä¸‹çš„å€¼
 	 * 
 	 * @param hKey
-	 *            ¼ü
+	 *            é”®
 	 * @param array
-	 *            ÈİÆ÷
+	 *            å®¹å™¨
 	 */
 	private static void enumValue(int hKey, ArrayList<String> array) {
 		int i = 0;
@@ -76,7 +76,7 @@ public final class ODBCUtil {
 }
 
 /**
- * Windows×¢²á¹¤¾ß
+ * Windowsæ³¨å†Œå·¥å…·
  *
  */
 final class WinRegisterUtil {
@@ -116,16 +116,16 @@ final class WinRegisterUtil {
 	public static final int ERROR_FAILED = -1;
 
 	/**
-	 * ¼üµÄ×î´ó³¤¶È
+	 * é”®çš„æœ€å¤§é•¿åº¦
 	 */
 	private static final Integer MAX_KEY_LENGHT = new Integer(100);
 	/**
-	 * Àà¶ÔÏó
+	 * ç±»å¯¹è±¡
 	 */
 	private static final Class theClass = getUtilClass();
 
 	/**
-	 * ·´ÉäÈ¡¹¤¾ßÀà¶ÔÏó
+	 * åå°„å–å·¥å…·ç±»å¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -138,14 +138,14 @@ final class WinRegisterUtil {
 	}
 
 	/**
-	 * ·´ÉäÖ´ĞĞWindowsRegOpenKey
+	 * åå°„æ‰§è¡ŒWindowsRegOpenKey
 	 * 
 	 * @param hKey
-	 *            ¸ú¼ü£¬ÁĞÔÚÀàÍ·£¬HKEY_CURRENT_USER
+	 *            è·Ÿé”®ï¼Œåˆ—åœ¨ç±»å¤´ï¼ŒHKEY_CURRENT_USER
 	 * @param subKey
-	 *            Ïà¶ÔhKeyµÄÂ·¾¶£¬ÀıÈç£º"Software\\ODBC"
+	 *            ç›¸å¯¹hKeyçš„è·¯å¾„ï¼Œä¾‹å¦‚ï¼š"Software\\ODBC"
 	 * @param securityMask
-	 *            ¶ÁĞ´È¨ÏŞ£¬ÁĞÔÚÀàÍ·£¬KEY_ALL_ACCESS
+	 *            è¯»å†™æƒé™ï¼Œåˆ—åœ¨ç±»å¤´ï¼ŒKEY_ALL_ACCESS
 	 * @return
 	 */
 	public static int[] windowsRegOpenKeyEx(int hKey, String subKey,
@@ -165,10 +165,10 @@ final class WinRegisterUtil {
 	}
 
 	/**
-	 * ¹Ø±Õ×¢²á±í
+	 * å…³é—­æ³¨å†Œè¡¨
 	 * 
 	 * @param hKey
-	 *            ¼ü
+	 *            é”®
 	 */
 	public static void windowsRegCloseKey(int hKey) {
 		try {
@@ -183,12 +183,12 @@ final class WinRegisterUtil {
 	}
 
 	/**
-	 * ·´ÉäÖ´ĞĞWindowsRegQueryValueEx
+	 * åå°„æ‰§è¡ŒWindowsRegQueryValueEx
 	 * 
 	 * @param hKey
-	 *            ¸¸¼üµÄ¾ä±ú
+	 *            çˆ¶é”®çš„å¥æŸ„
 	 * @param key
-	 *            ×Ó¼üµÄ×Ö·û´®£¬ÊÇÖĞÎÄÊ±È¡²»µ½
+	 *            å­é”®çš„å­—ç¬¦ä¸²ï¼Œæ˜¯ä¸­æ–‡æ—¶å–ä¸åˆ°
 	 * @return
 	 */
 	public static String windowsRegQueryValueEx(int hKey, String key) {
@@ -211,11 +211,11 @@ final class WinRegisterUtil {
 	}
 
 	/**
-	 * Ã¶¾ÙhKeyÏÂµÄÖµ
+	 * æšä¸¾hKeyä¸‹çš„å€¼
 	 * 
 	 * @param hKey
 	 * @param valueIndex
-	 *            ÖµĞòºÅ£¬´Ó0¿ªÊ¼¼ÆÊı
+	 *            å€¼åºå·ï¼Œä»0å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public static String windowsRegEnumValue(int hKey, int valueIndex) {
@@ -235,7 +235,7 @@ final class WinRegisterUtil {
 	}
 
 	/**
-	 * ×Ö·û´®×ªbyteÊı×é
+	 * å­—ç¬¦ä¸²è½¬byteæ•°ç»„
 	 * 
 	 * @param str
 	 * @return
@@ -250,7 +250,7 @@ final class WinRegisterUtil {
 	}
 
 	/**
-	 * byteÊı×é×ª×Ö·û´®
+	 * byteæ•°ç»„è½¬å­—ç¬¦ä¸²
 	 * 
 	 * @param array
 	 * @return

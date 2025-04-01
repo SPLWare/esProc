@@ -4,8 +4,8 @@ import com.scudata.dm.Context;
 import com.scudata.expression.SequenceFunction;
 
 /**
- * ¼ÆËãÂú×ã¸ø¶¨Ìõ¼şµÄÔªËØµÄ×î´óÖµ
- * A.maxif(Ai:xi,¡­)
+ * è®¡ç®—æ»¡è¶³ç»™å®šæ¡ä»¶çš„å…ƒç´ çš„æœ€å¤§å€¼
+ * A.maxif(Ai:xi,â€¦)
  * @author RunQian
  *
  */

@@ -8,8 +8,8 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Õë¶ÔĞòÁĞµÄ³ÉÔ±×öÂß¼­»òÔËËã
- * A.cor()¡¢A.cor(x)
+ * é’ˆå¯¹åºåˆ—çš„æˆå‘˜åšé€»è¾‘æˆ–è¿ç®—
+ * A.cor()ã€A.cor(x)
  * @author RunQian
  *
  */

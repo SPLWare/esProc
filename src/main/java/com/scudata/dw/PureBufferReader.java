@@ -17,19 +17,19 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
 
 /**
- * ĞÂ°æ±¾×é±íÊ±µÄ¶ÁÈ¡´¦ÀíÀà
+ * æ–°ç‰ˆæœ¬ç»„è¡¨æ—¶çš„è¯»å–å¤„ç†ç±»
  * @author LW
  *
  */
 public class PureBufferReader extends BufferReader {
-	private int blockType;//¿éÀàĞÍ
-	private int dataType;//Êı¾İÀàĞÍ£¨Ö»ÓĞ×Öµä¿éÀàĞÍÊ±²ÅÓĞÒâÒå£©
+	private int blockType;//å—ç±»å‹
+	private int dataType;//æ•°æ®ç±»å‹ï¼ˆåªæœ‰å­—å…¸å—ç±»å‹æ—¶æ‰æœ‰æ„ä¹‰ï¼‰
 	private Sequence dict;
 	private int[] pos;
-	private Object constValue;//  (µİÔö¿éÊ±ÊÇfirst value)
-	private int step;//µİÔö¿éstep
+	private Object constValue;//  (é€’å¢å—æ—¶æ˜¯first value)
+	private int step;//é€’å¢å—step
 	private boolean[] isNull;
-	private int dataIndex = 0;//ÓÃÓÚÎ¬»¤isNull
+	private int dataIndex = 0;//ç”¨äºç»´æŠ¤isNull
 	
 	public PureBufferReader(StructManager structManager, byte[] buffer, int recordCount, Sequence columnDict) {
 		super(structManager, buffer);
@@ -370,7 +370,7 @@ public class PureBufferReader extends BufferReader {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»¸ö¶ÔÏóµ½arrayµÄÖ¸¶¨Î»ÖÃ
+	 * è¯»å–ä¸€ä¸ªå¯¹è±¡åˆ°arrayçš„æŒ‡å®šä½ç½®
 	 * @param array
 	 * @param index
 	 * @return
@@ -538,7 +538,7 @@ public class PureBufferReader extends BufferReader {
 	}
 	
 	/**
-	 * ¸ù¾İ¿éÀàĞÍ»ñµÃÒ»¸öÊı×é
+	 * æ ¹æ®å—ç±»å‹è·å¾—ä¸€ä¸ªæ•°ç»„
 	 * @param count
 	 * @return
 	 */

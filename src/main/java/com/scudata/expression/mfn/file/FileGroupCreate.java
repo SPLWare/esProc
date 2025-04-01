@@ -10,8 +10,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ´´½¨¸´×é±í
- * f.create(C,¡­;x)
+ * åˆ›å»ºå¤ç»„è¡¨
+ * f.create(C,â€¦;x)
  * @author RunQian
  *
  */

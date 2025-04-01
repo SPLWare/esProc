@@ -5,37 +5,37 @@ import java.util.*;
 import com.scudata.util.*;
 
 /**
- * Í¼ĞÎ·ÖÀà¶¨ÒåÀ©Õ¹ÊôĞÔ
+ * å›¾å½¢åˆ†ç±»å®šä¹‰æ‰©å±•å±æ€§
  * 
  * @author Joancy
  *
  */
 public class ExtGraphCategory implements Comparable{
-  /** ·ÖÀà±í´ïÊ½ »òÕß Ê±Ğò×´Ì¬Í¼·ÖÀà±í´ïÊ½»ò¸ÊÌØÍ¼ºÍÀï³Ì±®Í¼µÄÏîÄ¿*/
+  /** åˆ†ç±»è¡¨è¾¾å¼ æˆ–è€… æ—¶åºçŠ¶æ€å›¾åˆ†ç±»è¡¨è¾¾å¼æˆ–ç”˜ç‰¹å›¾å’Œé‡Œç¨‹ç¢‘å›¾çš„é¡¹ç›®*/
   private Object name;
 
-  /**´Ë·ÖÀàÏÂµÄÏµÁĞ (ExtGraphSery»òÕß ExtGraphTimeStatus)*/
+  /**æ­¤åˆ†ç±»ä¸‹çš„ç³»åˆ— (ExtGraphSeryæˆ–è€… ExtGraphTimeStatus)*/
   private ArrayList series;
 
   /**
-   * »ñµÃÃû³Æ
-   * @return Object ·ÖÀàÃû³Æ
+   * è·å¾—åç§°
+   * @return Object åˆ†ç±»åç§°
    */
   public Object getName() {
 	return name;
   }
 
   /**
-   * È¡·ÖÀàÃû³ÆµÄ×Ö·û´®±íÊ¾·¨
-   * @return ×Ö·û´®Ãû³Æ
+   * å–åˆ†ç±»åç§°çš„å­—ç¬¦ä¸²è¡¨ç¤ºæ³•
+   * @return å­—ç¬¦ä¸²åç§°
    */
   public String getNameString(){
 	return Variant.toString(name);
   }
 
   /**
-   * »ã×Üµ±Ç°·ÖÀàÏÂµÄÏµÁĞÊıÖµ
-   * @return »ã×ÜÖµ
+   * æ±‡æ€»å½“å‰åˆ†ç±»ä¸‹çš„ç³»åˆ—æ•°å€¼
+   * @return æ±‡æ€»å€¼
    */
   public double getSumSeries() {
 	double d = 0;
@@ -46,9 +46,9 @@ public class ExtGraphCategory implements Comparable{
 	return d;
   }
   /**
-   * ½«¸Ã·ÖÀàÖĞËùÓĞ´óÓÚ0µÄÊıÖµ¼ÓÆğÀ´
-   * ¶Ñ»ıÍ¼»áÓÃµ½
-   * @return double ÕıÊı»ã×ÜÖµ
+   * å°†è¯¥åˆ†ç±»ä¸­æ‰€æœ‰å¤§äº0çš„æ•°å€¼åŠ èµ·æ¥
+   * å †ç§¯å›¾ä¼šç”¨åˆ°
+   * @return double æ­£æ•°æ±‡æ€»å€¼
    */
   public double getPositiveSumSeries() {
 	double d = 0;
@@ -64,8 +64,8 @@ public class ExtGraphCategory implements Comparable{
   }
 
   /**
-   * Í³¼ÆÏµÁĞÖµÎª¸ºµÄ»ã×ÜÖµ
-   * @return ¸ºÊı»ã×ÜÖµ
+   * ç»Ÿè®¡ç³»åˆ—å€¼ä¸ºè´Ÿçš„æ±‡æ€»å€¼
+   * @return è´Ÿæ•°æ±‡æ€»å€¼
    */
   public double getNegativeSumSeries() {
 	double d = 0;
@@ -81,9 +81,9 @@ public class ExtGraphCategory implements Comparable{
   }
 
   /**
-   * È¡ÏµÁĞ¶ÔÏó
-   * @param seriesName ÏµÁĞÃû³Æ
-   * @return ÏµÁĞ¶ÔÏó
+   * å–ç³»åˆ—å¯¹è±¡
+   * @param seriesName ç³»åˆ—åç§°
+   * @return ç³»åˆ—å¯¹è±¡
    */
   public ExtGraphSery getExtGraphSery( Object seriesName ){
 	ExtGraphSery egs;
@@ -99,34 +99,34 @@ public class ExtGraphCategory implements Comparable{
 	return egs;
   }
   /**
-   * »ñµÃ±¾·ÖÀàÏÂµÄÏµÁĞ
-   * @return ArrayList (ExtGraphSery»òÕß ExtGraphTimeStatus) ±¾·ÖÀàÏÂµÄÏµÁĞ
+   * è·å¾—æœ¬åˆ†ç±»ä¸‹çš„ç³»åˆ—
+   * @return ArrayList (ExtGraphSeryæˆ–è€… ExtGraphTimeStatus) æœ¬åˆ†ç±»ä¸‹çš„ç³»åˆ—
    */
   public ArrayList getSeries() {
 	return series;
   }
 
   /**
-   * ÉèÖÃÃû³Æ
-   * @param name ·ÖÀàÃû³Æ
+   * è®¾ç½®åç§°
+   * @param name åˆ†ç±»åç§°
    */
   public void setName(Object name) {
 	this.name = name;
   }
 
   /**
-   * »ñµÃ±¾·ÖÀàÏÂµÄÏµÁĞ
-   * @param series (ExtGraphSery»òÕß ExtGraphTimeStatus) ±¾·ÖÀàÏÂµÄÏµÁĞ
+   * è·å¾—æœ¬åˆ†ç±»ä¸‹çš„ç³»åˆ—
+   * @param series (ExtGraphSeryæˆ–è€… ExtGraphTimeStatus) æœ¬åˆ†ç±»ä¸‹çš„ç³»åˆ—
    */
   public void setSeries(ArrayList series) {
 	this.series = series;
   }
 
   /**
-   * ÊµÏÖ±È½Ïº¯Êı
-   * ¸ù¾İÏµÁĞµÄ»ã×ÜÖµ½øĞĞ±È½Ï
-   * @param o Object ·ÖÀà¶ÔÏó 
-   * @return int ±È½Ï½á¹û
+   * å®ç°æ¯”è¾ƒå‡½æ•°
+   * æ ¹æ®ç³»åˆ—çš„æ±‡æ€»å€¼è¿›è¡Œæ¯”è¾ƒ
+   * @param o Object åˆ†ç±»å¯¹è±¡ 
+   * @return int æ¯”è¾ƒç»“æœ
    */
   public int compareTo(Object o) {
 	ExtGraphCategory otherEgc = (ExtGraphCategory)o;

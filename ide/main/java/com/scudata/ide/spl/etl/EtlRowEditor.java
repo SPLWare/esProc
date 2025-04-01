@@ -8,7 +8,7 @@ import com.scudata.ide.common.swing.*;
 import com.scudata.ide.spl.chart.box.EachRowEditor;
 
 /**
- * ÊôĞÔ¿òµ¥Ôª±à¼­Æ÷
+ * å±æ€§æ¡†å•å…ƒç¼–è¾‘å™¨
  */
 public class EtlRowEditor extends EachRowEditor {
 	private TableCellEditor fieldDefineEditor;
@@ -19,18 +19,18 @@ public class EtlRowEditor extends EachRowEditor {
 	private TableCellEditor cellCtxEditor,dbEditor,cellXlsEditor;
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param table ±¾±í
-	 * @param editTypeCol ±à¼­ÀàĞÍÁĞ
-	 * @param owner ¸¸´°¿Ú
+	 * æ„é€ å‡½æ•°
+	 * @param table æœ¬è¡¨
+	 * @param editTypeCol ç¼–è¾‘ç±»å‹åˆ—
+	 * @param owner çˆ¶çª—å£
 	 */
 	public EtlRowEditor(JTableEx table, int editTypeCol, Dialog owner) {
 		super(table, editTypeCol, owner);
 	}
 
 	/**
-	 * ¸ù¾İ±à¼­ÀàĞÍÑ¡³ö¶ÔÓ¦±à¼­Æ÷
-	 * @param editType ±à¼­ÀàĞÍ
+	 * æ ¹æ®ç¼–è¾‘ç±»å‹é€‰å‡ºå¯¹åº”ç¼–è¾‘å™¨
+	 * @param editType ç¼–è¾‘ç±»å‹
 	 */
 	public TableCellEditor selectEditor(int editType) {
 		TableCellEditor editor1 = super.selectEditor(editType);
@@ -109,8 +109,8 @@ public class EtlRowEditor extends EachRowEditor {
 			break;
 		case EtlConsts.INPUT_CELLBCTX:
 			if (cellCtxEditor == null) {
-//				Ö»ÄÜÁıÍ³ÓÃEtlConsts.TYPE_FILE£¬ÒòÎªÃ»·¨·ÖÇå¾ßÌåÎÄ¼şÀàĞÍÊÇÉ¶£¬ÎÄ¼şÃûÒ²¿ÉÒÔÊÇ±äÁ¿£¬Ã»·¨´ÓÀ©Õ¹Ãû»ñÈ¡
-//				µÃÓÃ»§×Ô¼ºÇå³şÒªÑ¡µÄÎªBTX
+//				åªèƒ½ç¬¼ç»Ÿç”¨EtlConsts.TYPE_FILEï¼Œå› ä¸ºæ²¡æ³•åˆ†æ¸…å…·ä½“æ–‡ä»¶ç±»å‹æ˜¯å•¥ï¼Œæ–‡ä»¶åä¹Ÿå¯ä»¥æ˜¯å˜é‡ï¼Œæ²¡æ³•ä»æ‰©å±•åè·å–
+//				å¾—ç”¨æˆ·è‡ªå·±æ¸…æ¥šè¦é€‰çš„ä¸ºBTX
 				JComboBoxEx box = ((DialogFuncEdit)owner).getCellNameDropdownBox(
 						new byte[]{EtlConsts.TYPE_CTX,EtlConsts.TYPE_FILE});
 				cellCtxEditor = new JComboBoxExEditor(box);

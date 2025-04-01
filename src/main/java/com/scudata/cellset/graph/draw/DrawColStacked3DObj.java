@@ -11,23 +11,23 @@ import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 import com.scudata.common.*;
 /**
- * ÈıÎ¬¶Ñ»ıÁ¢ÌåÖùÍ¼ÊµÏÖ
+ * ä¸‰ç»´å †ç§¯ç«‹ä½“æŸ±å›¾å®ç°
  * @author Joancy
  *
  */
 
 public class DrawColStacked3DObj extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db, StringBuffer htmlLink) {
 		GraphParam gp = db.gp;
@@ -108,10 +108,10 @@ public class DrawColStacked3DObj extends DrawBase {
 		gp.gRect2.width -= coorWidth;
 		gp.gRect2.height -= coorWidth;
 
-		/* »­×ø±êÖá */
+		/* ç”»åæ ‡è½´ */
 		db.drawGraphRect();
 		Point2D.Double p;
-		/* »­YÖá */
+		/* ç”»Yè½´ */
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLine(dely, i);
 			Number coory = (Number) gp.coorValue.get(i);
@@ -119,7 +119,7 @@ public class DrawColStacked3DObj extends DrawBase {
 
 			p = db.getVTickPoint(i * dely);
 			gp.GFV_YLABEL.outText(p.x - gp.tickLen, p.y, scoory);
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine =  (gp.gRect1.y + gp.gRect1.height - i
 						* dely);
@@ -127,17 +127,17 @@ public class DrawColStacked3DObj extends DrawBase {
 		}
 
 		
-		/* ÏÈ»­¸ºµÄÖù×Ó */
+		/* å…ˆç”»è´Ÿçš„æŸ±å­ */
 		ArrayList<Desc3DRect> negativeRects = new ArrayList<Desc3DRect>();
 		ArrayList cats = egp.categories;
 		int cc = cats.size();
 		Color c;
 		
-//		Öù×ÓÓĞÕıºÍ¸º£¬ÏÈ»­±³¾°Íø¸ñÏß
+//		æŸ±å­æœ‰æ­£å’Œè´Ÿï¼Œå…ˆç”»èƒŒæ™¯ç½‘æ ¼çº¿
 		for (int i = 0; i < cc; i++) {
 			double delx = (i + 1) * categorySpan + i * seriesWidth
 					* serNum + seriesWidth * serNum / 2.0;
-			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//Öù¶¥ÊÇ·ñÏÔÊ¾Öµ¸ú»­Table·Ö¿ª
+			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//æŸ±é¡¶æ˜¯å¦æ˜¾ç¤ºå€¼è·Ÿç”»Tableåˆ†å¼€
 			boolean vis = valvis && !gp.isDrawTable;
 			p = db.getHTickPoint(delx);
 			if (vis) {
@@ -195,7 +195,7 @@ public class DrawColStacked3DObj extends DrawBase {
 			}
 		}
 
-		// »æÖÆ»ùÏßÍ¸Ã÷Æ½Ãæ£¬
+		// ç»˜åˆ¶åŸºçº¿é€æ˜å¹³é¢ï¼Œ
 		if (gp.valueBaseLine != gp.gRect1.y + gp.gRect1.height) {
 			double xx[] = { gp.gRect1.x, gp.gRect1.x + coorWidth,
 					gp.gRect1.x + gp.gRect1.width + coorWidth,
@@ -206,7 +206,7 @@ public class DrawColStacked3DObj extends DrawBase {
 			Shape poly = Utils.newPolygon2D(xx, yy);
 
 			Color ccc = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
-			if (ccc == null) {// Èç¹ûµ×±ßÎªÍ¸Ã÷É«Ê±£¬Ê¹ÓÃÈ±Ê¡»Ò
+			if (ccc == null) {// å¦‚æœåº•è¾¹ä¸ºé€æ˜è‰²æ—¶ï¼Œä½¿ç”¨ç¼ºçœç°
 				ccc = Color.lightGray;
 			}
 			float trans = 1.0f;
@@ -216,10 +216,10 @@ public class DrawColStacked3DObj extends DrawBase {
 			Utils.fill(g, poly, trans,ccc);
 		}
 
-		// »­¾¯½äÏß
+		// ç”»è­¦æˆ’çº¿
 		db.drawWarnLine();
 
-		/* »­ÕıÊıÖù×Ó */
+		/* ç”»æ­£æ•°æŸ±å­ */
 		for (int i = 0; i < cc; i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 			double delx = (i + 1) * categorySpan + i * seriesWidth
@@ -269,7 +269,7 @@ public class DrawColStacked3DObj extends DrawBase {
 		}
 
 		db.outLabels();
-		/* ÖØ»­Ò»ÏÂ»ùÏß */
+		/* é‡ç”»ä¸€ä¸‹åŸºçº¿ */
 		if (gp.valueBaseLine != gp.gRect1.y + gp.gRect1.height) {
 			db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x
 					+ gp.gRect1.width, gp.valueBaseLine,
@@ -344,7 +344,7 @@ public class DrawColStacked3DObj extends DrawBase {
 			ValueLabel vl = null;
 			double x = (lb + seriesWidth / 2);
 			if (len > 0) {
-				// ÉÏÃæÒÑ¾­Ìø¹ı
+				// ä¸Šé¢å·²ç»è·³è¿‡
 			} else {
 				String sval = null;
 				if (percentFmt != null) {
@@ -377,7 +377,7 @@ public class DrawColStacked3DObj extends DrawBase {
 					1.00F));
 		}
 
-		// ÔÚÖù¶¥ÏÔÊ¾ÊıÖµ
+		// åœ¨æŸ±é¡¶æ˜¾ç¤ºæ•°å€¼
 		if (gp.dispStackSumValue && vis) {
 			double val = db.getScaledValue(egc.getPositiveSumSeries(), true);
 			String sval;
@@ -463,7 +463,7 @@ public class DrawColStacked3DObj extends DrawBase {
 			double x = (lb + seriesWidth / 2);
 			if (len > 0) {
 				String sval = null;
-				if (percentFmt != null) {// ÖùÖĞÏÔÊ¾°Ù·Ö±È
+				if (percentFmt != null) {// æŸ±ä¸­æ˜¾ç¤ºç™¾åˆ†æ¯”
 					sval = db.getFormattedValue(
 							egs.getValue() / egc.getPositiveSumSeries(),
 							percentFmt);
@@ -484,7 +484,7 @@ public class DrawColStacked3DObj extends DrawBase {
 
 				positiveBase -= len;
 			} else {
-				// Ã»ÓĞ¸ºÊı
+				// æ²¡æœ‰è´Ÿæ•°
 			}
 			if (vl != null) {
 				labelList.add(vl);
@@ -495,7 +495,7 @@ public class DrawColStacked3DObj extends DrawBase {
 					1.00F));
 		}
 
-		// ÔÚÖù¶¥ÏÔÊ¾ÊıÖµ
+		// åœ¨æŸ±é¡¶æ˜¾ç¤ºæ•°å€¼
 		if (gp.dispStackSumValue && vis) {
 			double val = db.getScaledValue(egc.getPositiveSumSeries(), true);
 			String sval;

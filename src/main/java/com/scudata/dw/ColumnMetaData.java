@@ -10,27 +10,27 @@ import com.scudata.dm.ObjectWriter;
 import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
-// ×Ö¶ÎÔªÊı¾İ
+// å­—æ®µå…ƒæ•°æ®
 public class ColumnMetaData {
 	protected ComTable groupTable;
-	private String colName; // ÁĞÃû£¬ÒÔ#¿ªÍ·±íÊ¾Î¬£¬Ãû×ÖÖĞ°Ñ#È¥µô
-	private boolean isDim; // ÊÇ·ñÎ¬×Ö¶ÎµÄÒ»²¿·Ö£¬¼´ÅÅĞò×Ö¶Î
-	private boolean isKey; // ÊÇ·ñÊÇÖ÷¼üµÄÒ»²¿·Ö
+	private String colName; // åˆ—åï¼Œä»¥#å¼€å¤´è¡¨ç¤ºç»´ï¼Œåå­—ä¸­æŠŠ#å»æ‰
+	private boolean isDim; // æ˜¯å¦ç»´å­—æ®µçš„ä¸€éƒ¨åˆ†ï¼Œå³æ’åºå­—æ®µ
+	private boolean isKey; // æ˜¯å¦æ˜¯ä¸»é”®çš„ä¸€éƒ¨åˆ†
 	
-	// ÒÑ·ÏÆú
-	private int serialBytesLen = 0; // Èç¹û´óÓÚ0ÔòÎªÅÅºÅ¼ü
+	// å·²åºŸå¼ƒ
+	private int serialBytesLen = 0; // å¦‚æœå¤§äº0åˆ™ä¸ºæ’å·é”®
 	
-	private BlockLink dataBlockLink; // ÁĞ¿éÇø¿éÁ´
-	private BlockLink segmentBlockLink; // ·Ö¶ÎĞÅÏ¢Çø¿éÁ´£¬ÒÀ´Î¼ÇÂ¼Ã¿¸öÁĞ¿éµÄÎïÀíÎ»ÖÃ£¬Èç¹ûÊÇÎ¬×Ö¶ÎÔÙ¼Ç×Å×îĞ¡ÖµºÍ×î´óÖµ
+	private BlockLink dataBlockLink; // åˆ—å—åŒºå—é“¾
+	private BlockLink segmentBlockLink; // åˆ†æ®µä¿¡æ¯åŒºå—é“¾ï¼Œä¾æ¬¡è®°å½•æ¯ä¸ªåˆ—å—çš„ç‰©ç†ä½ç½®ï¼Œå¦‚æœæ˜¯ç»´å­—æ®µå†è®°ç€æœ€å°å€¼å’Œæœ€å¤§å€¼
 
 	private transient BlockLinkWriter colWriter;
 	private transient BlockLinkWriter segmentWriter;
 	private transient ObjectWriter objectWriter;
 	
-	private Sequence dict;//×Öµä°æ±¾4Ôö¼Ó
-	private Object dictArray;//×ÖµäµÄÊı×é¸ñÊ½
-	private boolean hasMaxMinValues;//°æ±¾4Ôö¼Ó
-	private int dataType = DataBlockType.EMPTY;//ÁĞÊı¾İÀàĞÍ °æ±¾5Ôö¼Ó
+	private Sequence dict;//å­—å…¸ç‰ˆæœ¬4å¢åŠ 
+	private Object dictArray;//å­—å…¸çš„æ•°ç»„æ ¼å¼
+	private boolean hasMaxMinValues;//ç‰ˆæœ¬4å¢åŠ 
+	private int dataType = DataBlockType.EMPTY;//åˆ—æ•°æ®ç±»å‹ ç‰ˆæœ¬5å¢åŠ 
 	
 	public ColumnMetaData() {	
 	}
@@ -63,11 +63,11 @@ public class ColumnMetaData {
 	}
 	
 	/**
-	 * ²úÉúÁĞ¶ÔÏó
-	 * @param table ËùÊôµÄ±í
-	 * @param name ÁĞÃû
-	 * @param isDim ÊÇ·ñÎ¬×Ö¶ÎµÄÒ»²¿·Ö£¬¼´ÅÅĞò×Ö¶Î
-	 * @param isKey ÊÇ·ñÊÇÖ÷¼üµÄÒ»²¿·Ö
+	 * äº§ç”Ÿåˆ—å¯¹è±¡
+	 * @param table æ‰€å±çš„è¡¨
+	 * @param name åˆ—å
+	 * @param isDim æ˜¯å¦ç»´å­—æ®µçš„ä¸€éƒ¨åˆ†ï¼Œå³æ’åºå­—æ®µ
+	 * @param isKey æ˜¯å¦æ˜¯ä¸»é”®çš„ä¸€éƒ¨åˆ†
 	 */
 	public ColumnMetaData(ColPhyTable table, String name, boolean isDim, boolean isKey) {
 		this(table);
@@ -109,7 +109,7 @@ public class ColumnMetaData {
 	}
 
 	/**
-	 * ·µ»Ø×Ö¶ÎÊÇ·ñÊÇÎ¬µÄÒ»²¿·Ö£¨¼´ÅÅĞò×Ö¶Î£©
+	 * è¿”å›å­—æ®µæ˜¯å¦æ˜¯ç»´çš„ä¸€éƒ¨åˆ†ï¼ˆå³æ’åºå­—æ®µï¼‰
 	 * @return
 	 */
 	public boolean isDim() {
@@ -117,7 +117,7 @@ public class ColumnMetaData {
 	}
 	
 	/**
-	 * ·µ»Ø×Ö¶ÎÊÇ·ñÊÇÖ÷¼üµÄÒ»²¿·Ö
+	 * è¿”å›å­—æ®µæ˜¯å¦æ˜¯ä¸»é”®çš„ä¸€éƒ¨åˆ†
 	 * @return
 	 */
 	public boolean isKey() {
@@ -177,9 +177,9 @@ public class ColumnMetaData {
 		dataBlockLink.writeExternal(writer);
 		segmentBlockLink.writeExternal(writer);
 		
-		writer.writeBoolean(isKey); // °æ±¾1Ôö¼Ó
+		writer.writeBoolean(isKey); // ç‰ˆæœ¬1å¢åŠ 
 		
-		// °æ±¾4Ôö¼Ó
+		// ç‰ˆæœ¬4å¢åŠ 
 		Sequence dict = this.dict;
 		if (dict != null && dict.length() == 0) {
 			dict = null;
@@ -188,7 +188,7 @@ public class ColumnMetaData {
 		writer.writeObject(dict);
 		writer.flush();
 		
-		// °æ±¾5Ôö¼Ó
+		// ç‰ˆæœ¬5å¢åŠ 
 		writer.writeInt(0);
 		writer.writeInt(dataType);
 	}
@@ -209,13 +209,13 @@ public class ColumnMetaData {
 		objectWriter = null;
 	}
 	
-	// ×·¼ÓÒ»¸öÁĞ¿é£¬Í¬Ê±ĞèÒªĞŞ¸Ä·Ö¶ÎĞÅÏ¢Çø¿éÁ´
+	// è¿½åŠ ä¸€ä¸ªåˆ—å—ï¼ŒåŒæ—¶éœ€è¦ä¿®æ”¹åˆ†æ®µä¿¡æ¯åŒºå—é“¾
 	public void appendColBlock(byte []bytes) throws IOException {
 		long pos = colWriter.writeDataBlock(bytes);
 		objectWriter.writeLong40(pos);
 	}
 	
-	// ×·¼ÓÒ»¸öÎ¬ÁĞ¿é£¬Í¬Ê±ĞèÒªĞŞ¸Ä·Ö¶ÎĞÅÏ¢Çø¿éÁ´
+	// è¿½åŠ ä¸€ä¸ªç»´åˆ—å—ï¼ŒåŒæ—¶éœ€è¦ä¿®æ”¹åˆ†æ®µä¿¡æ¯åŒºå—é“¾
 	public void appendColBlock(byte []bytes, Object minValue, Object maxValue, Object startValue) throws IOException {
 		long pos = colWriter.writeDataBlock(bytes);
 		objectWriter.writeLong40(pos);
@@ -289,7 +289,7 @@ public class ColumnMetaData {
 	}
 	
 	/**
-	 * È¡ÁĞ¿éÊı¾İÊä³ö
+	 * å–åˆ—å—æ•°æ®è¾“å‡º
 	 * @return
 	 */
 	public BufferWriter getColDataBufferWriter() {
@@ -297,7 +297,7 @@ public class ColumnMetaData {
 	}
 	
 	/**
-	 * °Ñµ±Ç°columnÀïµÄblockLinkĞÅÏ¢Ìî³äµ½infoÊı×éÀï
+	 * æŠŠå½“å‰columné‡Œçš„blockLinkä¿¡æ¯å¡«å……åˆ°infoæ•°ç»„é‡Œ
 	 * @param info
 	 */
 	public void getBlockLinkInfo(LongArray info) {
@@ -344,9 +344,9 @@ public class ColumnMetaData {
 	}
 	
 	/**
-	 * ¸ù¾İĞÂµÄÀàĞÍ×öµ÷Õû
+	 * æ ¹æ®æ–°çš„ç±»å‹åšè°ƒæ•´
 	 * @param dataType
-	 * @param checkDataPure ¼ì²éÀàĞÍÊÇ·ñ´¿
+	 * @param checkDataPure æ£€æŸ¥ç±»å‹æ˜¯å¦çº¯
 	 */
 	public void adjustDataType(int newType, boolean checkDataPure) {
 		if (checkDataPure) {
@@ -379,7 +379,7 @@ public class ColumnMetaData {
 		case DataBlockType.DATE:
 		case DataBlockType.DECIMAL:
 		case DataBlockType.STRING:
-			dataType = DataBlockType.OBJECT;//½µ¼¶Îª¶ÔÏóÀàĞÍ
+			dataType = DataBlockType.OBJECT;//é™çº§ä¸ºå¯¹è±¡ç±»å‹
 			break;
 		case DataBlockType.SEQUENCE:
 			if (newType != DataBlockType.TABLE)
@@ -387,7 +387,7 @@ public class ColumnMetaData {
 			break;
 		case DataBlockType.TABLE:
 			if (newType == DataBlockType.SEQUENCE)
-				dataType = DataBlockType.SEQUENCE;//½µ¼¶ÎªSEQUENCE
+				dataType = DataBlockType.SEQUENCE;//é™çº§ä¸ºSEQUENCE
 			else
 				dataType = DataBlockType.OBJECT;
 			break;
@@ -432,9 +432,9 @@ public class ColumnMetaData {
 	}
 
 	/**
-	 * ¼ì²é¸üĞÂµÄÊı¾İÀàĞÍÊÇ·ñ´¿
+	 * æ£€æŸ¥æ›´æ–°çš„æ•°æ®ç±»å‹æ˜¯å¦çº¯
 	 * @param newType
-	 * @return true: Êı¾İ´¿, false:Êı¾İ²»´¿
+	 * @return true: æ•°æ®çº¯, false:æ•°æ®ä¸çº¯
 	 */
 	private boolean checkDataPure(int newType) {
 		int curType = dataType;

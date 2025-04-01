@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.table.TableCellRenderer;
 
 /**
- * JTableµ¥Ôª¸ñÏÂÀ­¿òäÖÈ¾Æ÷
+ * JTableå•å…ƒæ ¼ä¸‹æ‹‰æ¡†æ¸²æŸ“å™¨
  *
  */
 public class JComboBoxExRenderer extends JTextField implements
@@ -17,15 +17,15 @@ public class JComboBoxExRenderer extends JTextField implements
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ÏÂÀ­¿ò¿Ø¼ş
+	 * ä¸‹æ‹‰æ¡†æ§ä»¶
 	 */
 	JComboBoxEx combo;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param combo
-	 *            ÏÂÀ­¿ò¿Ø¼ş
+	 *            ä¸‹æ‹‰æ¡†æ§ä»¶
 	 */
 	public JComboBoxExRenderer(JComboBoxEx combo) {
 		setHorizontalAlignment(JLabel.CENTER);
@@ -33,7 +33,7 @@ public class JComboBoxExRenderer extends JTextField implements
 	}
 
 	/**
-	 * È¡äÖÈ¾Æ÷¿Ø¼ş
+	 * å–æ¸²æŸ“å™¨æ§ä»¶
 	 */
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
@@ -56,7 +56,7 @@ public class JComboBoxExRenderer extends JTextField implements
 	}
 
 	/**
-	 * È¡ÏÂÀ­¿ò¿Ø¼ş
+	 * å–ä¸‹æ‹‰æ¡†æ§ä»¶
 	 */
 	public JComboBoxEx getJComboBoxEx() {
 		return combo;

@@ -1,7 +1,7 @@
 package com.scudata.chart.element;
 
 /**
- * �ýӿں���
+ * 该接口忽略
  * @author Joancy
   */
 public interface IMapAxis {

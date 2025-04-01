@@ -8,31 +8,31 @@ import com.scudata.expression.fn.algebra.Matrix;
 import java.util.HashMap;
 
 /**
- * ¸´Êı»ù´¡²Ù×÷£¬°üº¬
- * 1¡¢¹¹Ôì¸´ÊıÀà
- * 2¡¢double[][]×é³ÉComBase[]
- * 3¡¢double[]ºÍdouble[]×é³ÉComBase[]
- * 4¡¢SequenceºÍSequence×é³ÉComBase[]
- * 5¡¢ComBase[]·µ»Ø×Ö·û´®
- * 6¡¢ComBase×ªÎªSequence
- * 7¡¢double[][]×ªSequence
- * 8¡¢Sequence×ªdouble[][]
- * 9¡¢Sequence×ªdouble[]
- * 10¡¢double[]×ªSequence
- * 11¡¢Sequence×ªComBase[]
- * 12¡¢¸´Êı¾ø¶ÔÖµ¡¢ÏàÎ»½Ç¡¢¸´¹²éî¡¢´´½¨¸´Ö¸Êı¡¢»ñÈ¡Ğé²¿¡¢»ñÈ¡Êµ²¿¡¢¸´¹²éî¶Ô×é¡¢·ûºÅº¯Êı¡¢Æ½ÒÆÏàÎ»½Ç
+ * å¤æ•°åŸºç¡€æ“ä½œï¼ŒåŒ…å«
+ * 1ã€æ„é€ å¤æ•°ç±»
+ * 2ã€double[][]ç»„æˆComBase[]
+ * 3ã€double[]å’Œdouble[]ç»„æˆComBase[]
+ * 4ã€Sequenceå’ŒSequenceç»„æˆComBase[]
+ * 5ã€ComBase[]è¿”å›å­—ç¬¦ä¸²
+ * 6ã€ComBaseè½¬ä¸ºSequence
+ * 7ã€double[][]è½¬Sequence
+ * 8ã€Sequenceè½¬double[][]
+ * 9ã€Sequenceè½¬double[]
+ * 10ã€double[]è½¬Sequence
+ * 11ã€Sequenceè½¬ComBase[]
+ * 12ã€å¤æ•°ç»å¯¹å€¼ã€ç›¸ä½è§’ã€å¤å…±è½­ã€åˆ›å»ºå¤æŒ‡æ•°ã€è·å–è™šéƒ¨ã€è·å–å®éƒ¨ã€å¤å…±è½­å¯¹ç»„ã€ç¬¦å·å‡½æ•°ã€å¹³ç§»ç›¸ä½è§’
  */
 public class ComBase {
     protected double real = 0;
     protected double imaginary = 0;
 
-    //³õÊ¼»¯
+    //åˆå§‹åŒ–
     public ComBase(double r,double i){
         this.real =r;
         this.imaginary = i;
     }
 
-    //³õÊ¼»¯
+    //åˆå§‹åŒ–
     public ComBase(Object r,Object i){
         if(r instanceof Number){
             this.real = ((Number) r).doubleValue();
@@ -42,15 +42,15 @@ public class ComBase {
         }
     }
 
-    //double[][]×é³ÉComBase[]
+    //double[][]ç»„æˆComBase[]
     protected static ComBase[] createCom(double[][] data){
         ComBase[] complexData = new ComBase[data.length];
         ComBase co = null;
         for(int i=0;i< data.length;i++){
-            //Èç¹û´«ÈëµÄÊı×éÖĞÖ»ÓĞÒ»Î»Êı£¬ÔòÄ¬ÈÏ×÷ÎªÊµ²¿
+            //å¦‚æœä¼ å…¥çš„æ•°ç»„ä¸­åªæœ‰ä¸€ä½æ•°ï¼Œåˆ™é»˜è®¤ä½œä¸ºå®éƒ¨
             if(data[i].length<2){
                 co = new ComBase(data[i][0],0);
-            }//´óÓÚÁ½Î»Êı£¬¾¯¸æ²ÎÊı´íÎó
+            }//å¤§äºä¸¤ä½æ•°ï¼Œè­¦å‘Šå‚æ•°é”™è¯¯
             else if(data[i].length>2){
                 throw new RQException("The length of data should be less than or equal to 2");
 //                Logger.error("The length of data in toStr() should be less than or equal to 2");
@@ -64,20 +64,20 @@ public class ComBase {
         return complexData;
     }
 
-    //double[]ºÍdouble[]×é³ÉComBase[]£¬ÔİÎ´ÓÃµ½£¬ÏÈ±£Áô
+    //double[]å’Œdouble[]ç»„æˆComBase[]ï¼Œæš‚æœªç”¨åˆ°ï¼Œå…ˆä¿ç•™
     protected static ComBase[] createCom(double[] realPart, double[] imaginePart){
-        //Èç¹ûÓÃ»§´«ÈëÊµ²¿ÓëĞé²¿·Ö¿ª
+        //å¦‚æœç”¨æˆ·ä¼ å…¥å®éƒ¨ä¸è™šéƒ¨åˆ†å¼€
         int realLen =realPart.length;
         int imagineLen = imaginePart.length;
         ComBase[] complexData =null;
-        //Êµ²¿ÓëĞé²¿Í¬Ñù³¤¶È
+        //å®éƒ¨ä¸è™šéƒ¨åŒæ ·é•¿åº¦
         if(realLen == imagineLen){
             complexData = new ComBase[realLen];
             for(int i=0;i<realLen;i++){
                 complexData[i] = new ComBase(realPart[i],imaginePart[i]);
             }
         }
-        //Êµ²¿¶ÌÓÚĞé²¿
+        //å®éƒ¨çŸ­äºè™šéƒ¨
         else if(realLen < imagineLen){
             complexData = new ComBase[imagineLen];
             for(int i=0; i<realLen;i++){
@@ -88,7 +88,7 @@ public class ComBase {
             }
 
         }
-        //Êµ²¿³¤ÓÚĞé²¿
+        //å®éƒ¨é•¿äºè™šéƒ¨
         else{
             complexData =  new ComBase[realLen];
             for(int i=0;i<imagineLen;i++){
@@ -101,19 +101,19 @@ public class ComBase {
         return complexData;
     }
 
-    //SequenceºÍSequence×é³ÉComBase[]
+    //Sequenceå’ŒSequenceç»„æˆComBase[]
     protected static ComBase[] createCom(Sequence realPart, Sequence imaginePart){
         int realLen = realPart.length();
         int imagineLen = imaginePart.length();
         ComBase[] complexData = null;
-        //Êµ²¿ÓëĞé²¿Í¬Ñù³¤¶È
+        //å®éƒ¨ä¸è™šéƒ¨åŒæ ·é•¿åº¦
         if(realLen == imagineLen){
             complexData = new ComBase[realLen];
             for(int i=0;i<realLen;i++){
                 complexData[i] = new ComBase(realPart.get(i+1),imaginePart.get(i+1));
             }
         }
-        //Êµ²¿¶ÌÓÚĞé²¿
+        //å®éƒ¨çŸ­äºè™šéƒ¨
         else if(realLen < imagineLen){
             complexData = new ComBase[imagineLen];
             for(int i =0;i < realLen;i++){
@@ -123,7 +123,7 @@ public class ComBase {
                 complexData[i] = new ComBase(0,imaginePart.get(i+1));
             }
         }
-        //Êµ²¿³¤ÓÚĞé²¿
+        //å®éƒ¨é•¿äºè™šéƒ¨
         else{
             complexData = new ComBase[realLen];
             for(int i=0;i<imagineLen;i++){
@@ -136,10 +136,10 @@ public class ComBase {
         return complexData;
     }
 
-    //ComBase[]·µ»Ø×Ö·û´®
+    //ComBase[]è¿”å›å­—ç¬¦ä¸²
     private final static String I = "i";
     private final static String ADD = "+";
-    private final static String EMP = " "; //ĞéÊı²¿·ÖÎª¸ºÊ±Ğè¿Õ¸ñ
+    private final static String EMP = " "; //è™šæ•°éƒ¨åˆ†ä¸ºè´Ÿæ—¶éœ€ç©ºæ ¼
     protected String toStr(){
         if(this.imaginary == 0)
             return Double.toString(this.real);
@@ -169,7 +169,7 @@ public class ComBase {
     }
 
 
-    //ComBase×ªÎªSequence
+    //ComBaseè½¬ä¸ºSequence
     protected Sequence toSeq(){
         Sequence seq = new Sequence(2);
         seq.add(this.real);
@@ -177,7 +177,7 @@ public class ComBase {
         return seq;
     }
 
-    //ComBase[]×ªSequence
+    //ComBase[]è½¬Sequence
     protected static Sequence toSeq(ComBase[] com){
         Sequence result = new Sequence(com.length);
         for(int i=0,iLen = com.length;i<iLen;i++){
@@ -193,7 +193,7 @@ public class ComBase {
     }
 
 
-    //double[][]×ªSequence
+    //double[][]è½¬Sequence
     protected static Sequence toSeq(double[][] d){
         Sequence result = new Sequence();
         for (int i=0,iLen = d.length;i<iLen;i++){
@@ -207,7 +207,7 @@ public class ComBase {
         return result;
     }
 
-    //Sequence×ªdouble[][]
+    //Sequenceè½¬double[][]
     protected static double[][] toDbl2(Sequence s) {
         Matrix a = new Matrix(s);
         double[][] result = a.getArray();
@@ -215,7 +215,7 @@ public class ComBase {
     }
 
 
-    //Sequence×ªdouble[]
+    //Sequenceè½¬double[]
     protected static double[] toDbl(Sequence s){
         int len = s.length();
         double[] result = new double[len];
@@ -231,7 +231,7 @@ public class ComBase {
     }
 
 
-    //double[]×ªSequence
+    //double[]è½¬Sequence
     protected static Sequence toSeq(double[] doubles) {
         int len = doubles.length;
         Sequence seq = new Sequence(len);
@@ -242,7 +242,7 @@ public class ComBase {
     }
 
 
-    //Sequence×ªComBase[]
+    //Sequenceè½¬ComBase[]
     protected static ComBase[] toCom(Sequence s){
         Matrix a = new Matrix(s);
         if(a.getCols() == 1){
@@ -252,17 +252,17 @@ public class ComBase {
         return createCom(result);
     }
 
-    //¾ø¶ÔÖµ
+    //ç»å¯¹å€¼
     protected double comAbs(){
         return Math.sqrt(this.real *this.real +this.imaginary *this.imaginary);
     }
 
-    //ÏàÎ»½Ç
+    //ç›¸ä½è§’
     protected double comAngle(){
         return Math.atan2(this.imaginary,this.real);
     }
 
-    //¸´¹²éî
+    //å¤å…±è½­
     protected static ComBase[] comConj(ComBase[] cdata){
         ComBase[] conjResult = new ComBase[cdata.length];
         for(int i =0;i<cdata.length;i++){
@@ -277,7 +277,7 @@ public class ComBase {
         return conjResult;
     }
 
-    //´´½¨¸´Ö¸Êı
+    //åˆ›å»ºå¤æŒ‡æ•°
     protected static ComBase[] comExp(ComBase[] cdata){
         int len = cdata.length;
         ComBase[] expResult = new ComBase[len];
@@ -289,7 +289,7 @@ public class ComBase {
         return expResult;
     }
 
-    //»ñÈ¡Ğé²¿
+    //è·å–è™šéƒ¨
     protected static Sequence comGetImage(ComBase[] cdata){
         int len = cdata.length;
         double[] resultDouble = new double[len];
@@ -300,7 +300,7 @@ public class ComBase {
         return toSeq(resultDouble);
     }
 
-    //»ñÈ¡Êµ²¿
+    //è·å–å®éƒ¨
     protected static Sequence comGetReal(ComBase[] cdata){
         int len = cdata.length;
         double[] resultDouble = new double[len];
@@ -311,24 +311,24 @@ public class ComBase {
         return toSeq(resultDouble);
     }
 
-    //¸´¹²éî¶Ô×é
+    //å¤å…±è½­å¯¹ç»„
     protected static double[][] comPair(double[][] allConjData){
-        //²»ÄÜ·ÅÈëĞÂÊı×é£¬ĞèÒªÔÚÔ­ÓĞÊı×éÖĞÖØÅÅ,ËùÒÔ¸´ÖÆÒ»¸öÒ»ÑùµÄÊı×é
+        //ä¸èƒ½æ”¾å…¥æ–°æ•°ç»„ï¼Œéœ€è¦åœ¨åŸæœ‰æ•°ç»„ä¸­é‡æ’,æ‰€ä»¥å¤åˆ¶ä¸€ä¸ªä¸€æ ·çš„æ•°ç»„
         double[][] cplxpairResult = allConjData.clone();
         int len = cplxpairResult.length;
 
         for (int i=0;i<len-1;i++){
 
-            int index = i; //±ê¼ÇµÚÒ»¸öÎª´ı±È½ÏµÄÊı
+            int index = i; //æ ‡è®°ç¬¬ä¸€ä¸ªä¸ºå¾…æ¯”è¾ƒçš„æ•°
 
-            for(int j=i+1;j<len;j++) { //´ÓµÚi¸öºóÃæ±éÀúÓëµÚi¸ö±È½Ï´óĞ¡
+            for(int j=i+1;j<len;j++) { //ä»ç¬¬iä¸ªåé¢éå†ä¸ç¬¬iä¸ªæ¯”è¾ƒå¤§å°
 
-                double[] valueCompare = compareForCplxpair(cplxpairResult[index], cplxpairResult[j]); //±È½ÏÕÒµ½Ğ¡Öµ
-                if (valueCompare == cplxpairResult[j]) { //Èç¹ûjÎ»ÖÃµÄÖµĞ¡£¬¾Í½»»»µ½Ç°ÃæÈ¥
+                double[] valueCompare = compareForCplxpair(cplxpairResult[index], cplxpairResult[j]); //æ¯”è¾ƒæ‰¾åˆ°å°å€¼
+                if (valueCompare == cplxpairResult[j]) { //å¦‚æœjä½ç½®çš„å€¼å°ï¼Œå°±äº¤æ¢åˆ°å‰é¢å»
                     index = j;
                 }
             }
-            //ÕÒµ½×îĞ¡Öµºó£¬½«×îĞ¡µÄÖµ·Åµ½µÚÒ»µÄÎ»ÖÃ£¬½øĞĞÏÂÒ»±éÑ­»·
+            //æ‰¾åˆ°æœ€å°å€¼åï¼Œå°†æœ€å°çš„å€¼æ”¾åˆ°ç¬¬ä¸€çš„ä½ç½®ï¼Œè¿›è¡Œä¸‹ä¸€éå¾ªç¯
             double[] temp = cplxpairResult[index];
             cplxpairResult[index] = cplxpairResult[i];
             cplxpairResult[i] = temp;
@@ -337,19 +337,19 @@ public class ComBase {
     }
 
 
-    //¸´¹²éîÅÅĞòµÄ±È´óĞ¡
+    //å¤å…±è½­æ’åºçš„æ¯”å¤§å°
     protected static double[] compareForCplxpair(double[] a,double[] b) {
         double[] compareResult = new double[2];
-        //Êµ²¿Ò»ÖÂ,ÇÒ´óÓÚµÈÓÚ0
+        //å®éƒ¨ä¸€è‡´,ä¸”å¤§äºç­‰äº0
 //        if (a[0] == b[0] && a[0]>=0){
         if (a[0] == b[0]){
-            //{0,-6},{0,-7}µÄÇé¿ö»òÕß{5£¬9},{5,0}£¬Ğé²¿¾ø¶ÔÖµ´óµÄ·ÅÇ°Ãæ
+            //{0,-6},{0,-7}çš„æƒ…å†µæˆ–è€…{5ï¼Œ9},{5,0}ï¼Œè™šéƒ¨ç»å¯¹å€¼å¤§çš„æ”¾å‰é¢
             if (Math.abs(a[1]) > Math.abs(b[1])){
                 compareResult = a;
             }else{
                 compareResult= b;
             }
-            //{0,7},{0,-7}µÄÇé¿ö
+            //{0,7},{0,-7}çš„æƒ…å†µ
             if(Math.abs(a[1]) == Math.abs(b[1]) && a[1]<0){
                 compareResult = a;
             }else if (Math.abs(a[1]) == Math.abs(b[1]) && b[1]<0){
@@ -357,7 +357,7 @@ public class ComBase {
             }
         }
 
-        //Ğé²¿Ò»ÖÂ
+        //è™šéƒ¨ä¸€è‡´
         if(a[1] == b[1]){
             if (a[0] >= b[0]){
                 compareResult = b;
@@ -366,7 +366,7 @@ public class ComBase {
             }
         }
 
-        //ĞéÊµ¶¼²»Ò»ÖÂ
+        //è™šå®éƒ½ä¸ä¸€è‡´
         if(a[0] != b[0] && a[1] != b[1]){
             //{0,-7},{3,2}
             if(a[1] !=0 && b[1]!=0){
@@ -386,7 +386,7 @@ public class ComBase {
         return compareResult;
     }
 
-    //ÅĞ¶ÏÊäÈëÊı×éÊÇ·ñÎª³É¶ÔµÄ¸´¹²éî
+    //åˆ¤æ–­è¾“å…¥æ•°ç»„æ˜¯å¦ä¸ºæˆå¯¹çš„å¤å…±è½­
     protected static Boolean judgePair(double[][] d){
         ComBase[] combases = ComBase.createCom(d);
         HashMap<String,Integer> recordCount = new HashMap<String,Integer>();
@@ -424,7 +424,7 @@ public class ComBase {
     }
 
 
-    //·ûºÅº¯Êı
+    //ç¬¦å·å‡½æ•°
     protected static ComBase[] comSign(ComBase[] cdata){
         ComBase[] result = new ComBase[cdata.length];
         for(int i = 0;i<cdata.length;i++){
@@ -438,19 +438,19 @@ public class ComBase {
         return result;
     }
 
-    //Æ½ÒÆÏàÎ»½Ç
+    //å¹³ç§»ç›¸ä½è§’
     protected static Sequence comUnwrap(double[] angleResult){
         int len =angleResult.length;
         double[] unwrapResult = new double[len];
-        unwrapResult[0] = angleResult[0]; //µÚÒ»¸öÎ»ÖÃµÄ²»±ä
+        unwrapResult[0] = angleResult[0]; //ç¬¬ä¸€ä¸ªä½ç½®çš„ä¸å˜
         for(int i=1;i<len;i++){
-            double diff = Math.abs(angleResult[i]-angleResult[i-1]); //ºóÒ»¸öºÍÇ°Ò»¸ö²îÖµ
+            double diff = Math.abs(angleResult[i]-angleResult[i-1]); //åä¸€ä¸ªå’Œå‰ä¸€ä¸ªå·®å€¼
             if (diff<Math.PI){
-                unwrapResult[i] = angleResult[i];//²îÖµĞ¡ÓÚpiÊ±£¬²»±ä
+                unwrapResult[i] = angleResult[i];//å·®å€¼å°äºpiæ—¶ï¼Œä¸å˜
             }else{
-                double multiple = diff / (2*Math.PI); //È¡Õû
-                double remainder = diff % (2*Math.PI);  //È¡Óà
-                int move = (int) Math.floor(multiple); //ÒÆ¶¯µÄµ¥Î»ÊÇmultipleÏòÏÂÈ¡Õû
+                double multiple = diff / (2*Math.PI); //å–æ•´
+                double remainder = diff % (2*Math.PI);  //å–ä½™
+                int move = (int) Math.floor(multiple); //ç§»åŠ¨çš„å•ä½æ˜¯multipleå‘ä¸‹å–æ•´
                 if(remainder >Math.PI){
                     move++;
                 }
@@ -467,25 +467,25 @@ public class ComBase {
         return toSeq(unwrapResult);
     }
 
-    //¶şÎ¬Êı×éÆ½ÒÆÏàÎ»½Ç,Ìí¼ÓÎ¬¶ÈËµÃ÷µÄ²ÎÊıdim£¬Ìí¼ÓÌøÔ¾ãĞÖµtol£¬matlabÄ¬ÈÏÊÇpi£¬Ä¿Ç°¿ÉÓÃÈÎÒâÖµ
-    // dim = 1£¬°´ÁĞ;
-    // dim = 2£¬°´ĞĞ;
+    //äºŒç»´æ•°ç»„å¹³ç§»ç›¸ä½è§’,æ·»åŠ ç»´åº¦è¯´æ˜çš„å‚æ•°dimï¼Œæ·»åŠ è·³è·ƒé˜ˆå€¼tolï¼Œmatlabé»˜è®¤æ˜¯piï¼Œç›®å‰å¯ç”¨ä»»æ„å€¼
+    // dim = 1ï¼ŒæŒ‰åˆ—;
+    // dim = 2ï¼ŒæŒ‰è¡Œ;
     protected static Sequence comUnwrap(double[][] angleResultArr,double tol,int dim) {
         int row = angleResultArr.length;
         int col = angleResultArr[0].length;
         double[][] unwrapResult = new double[row][col];
 
         if(dim ==1){
-            unwrapResult[0] = angleResultArr[0]; //µÚÒ»ĞĞÎ»ÖÃµÄ²»±ä
-            for (int j = 0; j < col; j++) {//¶ÔÁĞ½øĞĞ¼ÆËã
+            unwrapResult[0] = angleResultArr[0]; //ç¬¬ä¸€è¡Œä½ç½®çš„ä¸å˜
+            for (int j = 0; j < col; j++) {//å¯¹åˆ—è¿›è¡Œè®¡ç®—
                 for (int i = 1; i < row; i++) {
                     double diff = Math.abs(angleResultArr[i][j] - unwrapResult[i - 1][j]);
                     if (diff < tol) {
                         unwrapResult[i][j] = angleResultArr[i][j];
                     } else {
-                        double multiple = diff / (2 * Math.PI); //È¡Õû
-                        double remainder = diff % (2 * Math.PI);  //È¡Óà
-                        int move = (int) Math.floor(multiple); //ÒÆ¶¯µÄµ¥Î»ÊÇmultipleÏòÏÂÈ¡Õû
+                        double multiple = diff / (2 * Math.PI); //å–æ•´
+                        double remainder = diff % (2 * Math.PI);  //å–ä½™
+                        int move = (int) Math.floor(multiple); //ç§»åŠ¨çš„å•ä½æ˜¯multipleå‘ä¸‹å–æ•´
                         if (remainder > Math.PI) {
                             move++;
                         }
@@ -498,7 +498,7 @@ public class ComBase {
                 }
             }
         }else if(dim ==2){
-            //µÚÒ»ÁĞÎ»ÖÃµÄ²»±ä
+            //ç¬¬ä¸€åˆ—ä½ç½®çš„ä¸å˜
             for (int i = 0;i<row;i++){
                 unwrapResult[i][0] = angleResultArr[i][0];
             }
@@ -508,9 +508,9 @@ public class ComBase {
                     if (diff < tol){
                         unwrapResult[i][j] = angleResultArr[i][j];
                     }else{
-                        double multiple = diff / (2 * Math.PI); //È¡Õû
-                        double remainder = diff % (2 * Math.PI);  //È¡Óà
-                        int move = (int) Math.floor(multiple); //ÒÆ¶¯µÄµ¥Î»ÊÇmultipleÏòÏÂÈ¡Õû
+                        double multiple = diff / (2 * Math.PI); //å–æ•´
+                        double remainder = diff % (2 * Math.PI);  //å–ä½™
+                        int move = (int) Math.floor(multiple); //ç§»åŠ¨çš„å•ä½æ˜¯multipleå‘ä¸‹å–æ•´
                         if (remainder > Math.PI) {
                             move++;
                         }

@@ -9,7 +9,7 @@ import com.scudata.chart.Consts;
 import com.scudata.common.StringUtils;
 
 /**
- * À©Õ¹Í¼ĞÎ·ÖÀà
+ * æ‰©å±•å›¾å½¢åˆ†ç±»
  * 
  * @author Joancy
  *
@@ -25,7 +25,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡ËùÓĞ·ÖÀàµÄÃû³Æ
+	 * å–æ‰€æœ‰åˆ†ç±»çš„åç§°
 	 * 
 	 * @return
 	 */
@@ -34,11 +34,11 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ½«Êı×é½á¹¹µÄ·ÖÀà×ª»»ÎªÁĞ±í¶ÔÏó
+	 * å°†æ•°ç»„ç»“æ„çš„åˆ†ç±»è½¬æ¢ä¸ºåˆ—è¡¨å¯¹è±¡
 	 * 
 	 * @param cats
-	 *            ·ÖÀà
-	 * @return ÁĞ±í
+	 *            åˆ†ç±»
+	 * @return åˆ—è¡¨
 	 */
 	public static ArrayList getArrayList(ExtGraphCategory[] cats) {
 		ArrayList list = new ArrayList();
@@ -49,22 +49,22 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÁĞ³öËùÓĞ·ÖÀàµÄÃû³Æ
+	 * åˆ—å‡ºæ‰€æœ‰åˆ†ç±»çš„åç§°
 	 * 
 	 * @param categories
-	 *            ·ÖÀà
-	 * @return Ãû³Æ
+	 *            åˆ†ç±»
+	 * @return åç§°
 	 */
 	public Vector listCategoryNames(ExtGraphCategory[] categories) {
 		return listCategoryNames(getArrayList(categories));
 	}
 
 	/**
-	 * ÁĞ³öËùÓĞ·ÖÀàµÄÃû³Æ
+	 * åˆ—å‡ºæ‰€æœ‰åˆ†ç±»çš„åç§°
 	 * 
 	 * @param categories
-	 *            ·ÖÀà
-	 * @return Ãû³Æ
+	 *            åˆ†ç±»
+	 * @return åç§°
 	 */
 	public Vector listCategoryNames(ArrayList categories) {
 		Vector v = new Vector();
@@ -73,17 +73,17 @@ public class ExtGraphProperty {
 		}
 		for (int i = 0; i < categories.size(); i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) categories.get(i);
-			v.add(egc.getName()); // Ç÷ÊÆÍ¼ÓÉÓÚÊä³öÊ±ÓĞ¸ñÊ½,ËùÒÔ¸ÃÖµÖ»ÄÜÊÇÔ­Ê¼¶ÔÏó,²»ÄÜÓÃ´®´®
+			v.add(egc.getName()); // è¶‹åŠ¿å›¾ç”±äºè¾“å‡ºæ—¶æœ‰æ ¼å¼,æ‰€ä»¥è¯¥å€¼åªèƒ½æ˜¯åŸå§‹å¯¹è±¡,ä¸èƒ½ç”¨ä¸²ä¸²
 		}
 		return v;
 	}
 
 	/**
-	 * ÁĞ³ö·ÖÀàÊôĞÔÖĞËùÓĞÏµÁĞµÄÃû×Ö
+	 * åˆ—å‡ºåˆ†ç±»å±æ€§ä¸­æ‰€æœ‰ç³»åˆ—çš„åå­—
 	 * 
 	 * @param cats
-	 *            ·ÖÀàÊôĞÔ(°üº¬ÏµÁĞ)
-	 * @return ÏµÁĞµÄÃû×Ö
+	 *            åˆ†ç±»å±æ€§(åŒ…å«ç³»åˆ—)
+	 * @return ç³»åˆ—çš„åå­—
 	 */
 	public Vector listSeriesNames(ExtGraphCategory[] cats) {
 		return listSeriesNames(getArrayList(cats));
@@ -94,11 +94,11 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÁĞ³ö·ÖÀàÊôĞÔÖĞËùÓĞÏµÁĞµÄÃû×Ö
+	 * åˆ—å‡ºåˆ†ç±»å±æ€§ä¸­æ‰€æœ‰ç³»åˆ—çš„åå­—
 	 * 
 	 * @param cats
-	 *            ·ÖÀàÊôĞÔ(°üº¬ÏµÁĞ)
-	 * @return ÏµÁĞµÄÃû×Ö
+	 *            åˆ†ç±»å±æ€§(åŒ…å«ç³»åˆ—)
+	 * @return ç³»åˆ—çš„åå­—
 	 */
 	public Vector listSeriesNames(ArrayList cats) {
 		Vector names = new Vector();
@@ -123,12 +123,12 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * µ±ĞèÒªÖ¸¶¨ÏµÁĞËùÔÚÖáÊ±£¬ÔÚ·ÖÀà¶ÔÏóÖĞÕÒµ½µÚÒ»¸öÍ¬ÃûµÄÏµÁĞ¶ÔÏó¼´¿É ¸Ãº¯ÊıÖ»ÄÜÔÚÖ¸¶¨ÏµÁĞÖáÖĞµ÷ÓÃ£¬·ñÔòµ±¸ÊÌØµÈÍ¼ĞÎÊ±£¬ÏµÁĞ¶ÔÏó²»ÊÇ
+	 * å½“éœ€è¦æŒ‡å®šç³»åˆ—æ‰€åœ¨è½´æ—¶ï¼Œåœ¨åˆ†ç±»å¯¹è±¡ä¸­æ‰¾åˆ°ç¬¬ä¸€ä¸ªåŒåçš„ç³»åˆ—å¯¹è±¡å³å¯ è¯¥å‡½æ•°åªèƒ½åœ¨æŒ‡å®šç³»åˆ—è½´ä¸­è°ƒç”¨ï¼Œå¦åˆ™å½“ç”˜ç‰¹ç­‰å›¾å½¢æ—¶ï¼Œç³»åˆ—å¯¹è±¡ä¸æ˜¯
 	 * ExtGraphSery
 	 * 
 	 * @param sname
-	 *            ÏµÁĞÃû×Ö
-	 * @return ÏµÁĞ¶ÔÏó
+	 *            ç³»åˆ—åå­—
+	 * @return ç³»åˆ—å¯¹è±¡
 	 */
 	public ExtGraphSery getEGS(String sname) {
 		ArrayList cats = categories;
@@ -156,11 +156,11 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * »ñÈ¡·ÖÀàÊôĞÔÖĞËùÓĞÏµÁĞµÄÃû×Ö,²»Í¬ÓÚlistSeriesNames,
-	 * ¸Ãº¯Êı¼æÈİ±¨±íÖĞÏµÁĞµÄ¸ñÊ½
+	 * è·å–åˆ†ç±»å±æ€§ä¸­æ‰€æœ‰ç³»åˆ—çš„åå­—,ä¸åŒäºlistSeriesNames,
+	 * è¯¥å‡½æ•°å…¼å®¹æŠ¥è¡¨ä¸­ç³»åˆ—çš„æ ¼å¼
 	 * @param cats
-	 *            ·ÖÀàÊôĞÔ(°üº¬ÏµÁĞ)
-	 * @return ÏµÁĞµÄÃû×Ö
+	 *            åˆ†ç±»å±æ€§(åŒ…å«ç³»åˆ—)
+	 * @return ç³»åˆ—çš„åå­—
 	 */
 	public Vector getSeriesNames(ArrayList cats) {
 		if (cats == null) {
@@ -173,9 +173,9 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param graph Í¼ĞÎÊôĞÔ½Ó¿Ú£¬¸ÃÖµÎªnullÊ±·½±ã±¨±íÖĞµÄ×ÓÀà´´½¨Ò»¸ö¿ÕµÄÊµÀı¡£
-	 * Õâ¸ö¿ÕÊµÀıÓÃÓÚOption¶ÔÏóµ÷ÓÃÆäÖĞµÄlistCategoryÒÔ¼°listSeries·½·¨£¬´Ó¶ø²»ĞèÒªµ÷ÕûÕâĞ©·½·¨µÄ¼Ì³ĞÖ´ĞĞË³Ğò
+	 * æ„é€ å‡½æ•°
+	 * @param graph å›¾å½¢å±æ€§æ¥å£ï¼Œè¯¥å€¼ä¸ºnullæ—¶æ–¹ä¾¿æŠ¥è¡¨ä¸­çš„å­ç±»åˆ›å»ºä¸€ä¸ªç©ºçš„å®ä¾‹ã€‚
+	 * è¿™ä¸ªç©ºå®ä¾‹ç”¨äºOptionå¯¹è±¡è°ƒç”¨å…¶ä¸­çš„listCategoryä»¥åŠlistSeriesæ–¹æ³•ï¼Œä»è€Œä¸éœ€è¦è°ƒæ•´è¿™äº›æ–¹æ³•çš„ç»§æ‰¿æ‰§è¡Œé¡ºåº
 	 */
 	public ExtGraphProperty(IGraphProperty graph) {
 		if( graph==null )return;
@@ -184,58 +184,58 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ²Î¼ûPublicPropertyÍ¬Ãû·½·¨
+	 * å‚è§PublicPropertyåŒåæ–¹æ³•
 	 */
 	public byte getCurveType() {
 		return prop.getCurveType();
 	}
 
 	/**
-	 * ±ıÍ¼Ê±ÊÇ·ñ½«×î´óÒ»¿é·ÖÀëÏÔÊ¾
-	 * @return ÊÇ·µ»Øtrue£¬·ñÔòfalse
+	 * é¥¼å›¾æ—¶æ˜¯å¦å°†æœ€å¤§ä¸€å—åˆ†ç¦»æ˜¾ç¤º
+	 * @return æ˜¯è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isCutPie() {
 		return prop.isPieSpacing();
 	}
 
 	/**
-	 * ²Î¼ûPublicPropertyÍ¬Ãû·½·¨
+	 * å‚è§PublicPropertyåŒåæ–¹æ³•
 	 */
 	public boolean isMeterColorEnd() {
 		return prop.isMeterColorEnd();
 	}
 
 	/**
-	 * ²Î¼ûPublicPropertyÍ¬Ãû·½·¨
+	 * å‚è§PublicPropertyåŒåæ–¹æ³•
 	 */
 	public boolean isMeterTick() {
 		return prop.isMeterTick();
 	}
 
 	/**
-	 * ²Î¼ûPublicPropertyÍ¬Ãû·½·¨
+	 * å‚è§PublicPropertyåŒåæ–¹æ³•
 	 */
 	public int getMeter3DEdge() {
 		return prop.getMeter3DEdge();
 	}
 
 	/**
-	 * ²Î¼ûPublicPropertyÍ¬Ãû·½·¨
+	 * å‚è§PublicPropertyåŒåæ–¹æ³•
 	 */
 	public int getMeterRainbowEdge() {
 		return prop.getMeterRainbowEdge();
 	}
 
 	/**
-	 * ²Î¼ûPublicPropertyÍ¬Ãû·½·¨
+	 * å‚è§PublicPropertyåŒåæ–¹æ³•
 	 */
 	public int getPieLine() {
 		return prop.getPieLine();
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°Í¼ĞÎÊÇ·ñË«ÖáÍ¼
-	 * @return Ë«ÖáÍ¼ĞÎ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­å½“å‰å›¾å½¢æ˜¯å¦åŒè½´å›¾
+	 * @return åŒè½´å›¾å½¢è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean is2YGraph() {
 		byte type = this.getType();
@@ -244,17 +244,17 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°Í¼ĞÎÊÇ·ñ½öÎªÆÕÍ¨µÄ¶Ñ»ıÍ¼£¬¶ø²»°üº¬Ë«ÖáµÄ¶Ñ»ı
-	 * @return ÆÕÍ¨¶Ñ»ıÍ¼·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­å½“å‰å›¾å½¢æ˜¯å¦ä»…ä¸ºæ™®é€šçš„å †ç§¯å›¾ï¼Œè€Œä¸åŒ…å«åŒè½´çš„å †ç§¯
+	 * @return æ™®é€šå †ç§¯å›¾è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isNormalStacked() {
 		return isNormalStacked(getType());
 	}
 
 	/**
-	 * ÅĞ¶ÏtypeÍ¼ĞÎÊÇ·ñ½öÎªÆÕÍ¨µÄ¶Ñ»ıÍ¼£¬¶ø²»°üº¬Ë«ÖáµÄ¶Ñ»ı
-	 * @param type Í¼ÀàĞÍ
-	 * @return ÆÕÍ¨¶Ñ»ıÍ¼·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­typeå›¾å½¢æ˜¯å¦ä»…ä¸ºæ™®é€šçš„å †ç§¯å›¾ï¼Œè€Œä¸åŒ…å«åŒè½´çš„å †ç§¯
+	 * @param type å›¾ç±»å‹
+	 * @return æ™®é€šå †ç§¯å›¾è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isNormalStacked(byte type) {
 		return type == GraphTypes.GT_BARSTACKED
@@ -264,9 +264,9 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°Í¼ĞÎinstanceÊÇ·ñÎª¶Ñ»ıÍ¼ĞÎ
-	 * @param instance Í¼ĞÎÊµÏÖµÄÊµÀı
-	 * @return ¶Ñ»ıÍ¼ĞÎÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­å½“å‰å›¾å½¢instanceæ˜¯å¦ä¸ºå †ç§¯å›¾å½¢
+	 * @param instance å›¾å½¢å®ç°çš„å®ä¾‹
+	 * @return å †ç§¯å›¾å½¢æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isStackedGraph(DrawBase instance) {
 		if (instance == null) {
@@ -284,9 +284,9 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°Í¼ĞÎinstanceÊÇ·ñÎªÌõĞÎÍ¼£¬¼´ºáÏòµÄÖùĞÎÍ¼
-	 * @param instance Í¼ĞÎÊµÏÖµÄÊµÀı
-	 * @return ÌõĞÎÍ¼Ê±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * åˆ¤æ–­å½“å‰å›¾å½¢instanceæ˜¯å¦ä¸ºæ¡å½¢å›¾ï¼Œå³æ¨ªå‘çš„æŸ±å½¢å›¾
+	 * @param instance å›¾å½¢å®ç°çš„å®ä¾‹
+	 * @return æ¡å½¢å›¾æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isBarGraph(DrawBase instance) {
 		if (instance == null) {
@@ -302,9 +302,9 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ¸ù¾İ·ÖÀàÃû³ÆcatName»ñÈ¡À©Õ¹Í¼ĞÎ·ÖÀà¶ÔÏó
-	 * @param catName ·ÖÀàµÄÃû³Æ
-	 * @return À©Õ¹Í¼ĞÎ·ÖÀà
+	 * æ ¹æ®åˆ†ç±»åç§°catNameè·å–æ‰©å±•å›¾å½¢åˆ†ç±»å¯¹è±¡
+	 * @param catName åˆ†ç±»çš„åç§°
+	 * @return æ‰©å±•å›¾å½¢åˆ†ç±»
 	 */
 	public ExtGraphCategory getExtGraphCategory(Object catName) {
 		for (int i = 0; i < categories.size(); i++) {
@@ -317,9 +317,9 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÊÇ·ñÕı³£Í³¼ÆÍ¼,¼´Ê±¼ä×ßÊÆÍ¼,¸ÊÌØÍ¼,Àï³Ì±®,Ê±¼ä×´Ì¬Í¼ÒÔÍâµÄËùÓĞÍ¼ĞÎ
+	 * æ˜¯å¦æ­£å¸¸ç»Ÿè®¡å›¾,å³æ—¶é—´èµ°åŠ¿å›¾,ç”˜ç‰¹å›¾,é‡Œç¨‹ç¢‘,æ—¶é—´çŠ¶æ€å›¾ä»¥å¤–çš„æ‰€æœ‰å›¾å½¢
 	 * 
-	 * @return boolean ³£¹æÍ¼ĞÎ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * @return boolean å¸¸è§„å›¾å½¢è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isNormalGraph(byte type) {
 		return (type != GraphTypes.GT_TIMETREND
@@ -332,7 +332,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÖØĞÂ°´ÕÕÊôĞÔÖµµÄÉèÖÃÀ´µ÷ÕûÏàÓ¦Êı¾İ
+	 * é‡æ–°æŒ‰ç…§å±æ€§å€¼çš„è®¾ç½®æ¥è°ƒæ•´ç›¸åº”æ•°æ®
 	 */
 	public void recalcProperty() {
 		discardNoNameData();
@@ -381,8 +381,8 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃ¸ù¾İÖá·Ö¸îÊı¾İ
-	 * @param set ÊÇ·ñÖá·Ö¸î
+	 * è®¾ç½®æ ¹æ®è½´åˆ†å‰²æ•°æ®
+	 * @param set æ˜¯å¦è½´åˆ†å‰²
 	 */
 	public void setSplitByAxis(boolean set) {
 		isSplitByAxis = set;
@@ -465,7 +465,7 @@ public class ExtGraphProperty {
 	private void discardNoNameData() {
 		if (categories == null || categories.size() == 0) {
 			throw new RuntimeException(
-					"Error£¡Graph does not define categories!");
+					"Errorï¼Graph does not define categories!");
 		}
 		for (int i = categories.size() - 1; i >= 0; i--) {
 			ExtGraphCategory egc = (ExtGraphCategory) categories.get(i);
@@ -480,7 +480,7 @@ public class ExtGraphProperty {
 				if (_instanceof(objSer, "ExtGraphSery")) {
 					ExtGraphSery egs = (ExtGraphSery) objSer;
 					if (!StringUtils.isValidString(egs.getName())
-							&& egs.isNull()) { // µ±ÇÒ½öµ±ÏµÁĞÃû³ÆºÍÖµ¶¼Îª¿ÕµÄÊ±ºò£¬ºöÂÔ¸ÃÏµÁĞ
+							&& egs.isNull()) { // å½“ä¸”ä»…å½“ç³»åˆ—åç§°å’Œå€¼éƒ½ä¸ºç©ºçš„æ—¶å€™ï¼Œå¿½ç•¥è¯¥ç³»åˆ—
 						series.remove(j);
 						continue;
 					}
@@ -490,10 +490,10 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ·â×°Ò»ÏÂÊµÀıÅĞ¶ÏµÄĞ´·¨£¬¼ò±ã´úÂëµÄÊéĞ´
-	 * @param ins ÊµÀı¶ÔÏó
-	 * @param className ÀàµÄÃû³Æ
-	 * @return Èç¹ûÊÇµ±Ç°ÀàµÄÊµÀıÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å°è£…ä¸€ä¸‹å®ä¾‹åˆ¤æ–­çš„å†™æ³•ï¼Œç®€ä¾¿ä»£ç çš„ä¹¦å†™
+	 * @param ins å®ä¾‹å¯¹è±¡
+	 * @param className ç±»çš„åç§°
+	 * @return å¦‚æœæ˜¯å½“å‰ç±»çš„å®ä¾‹åˆ™è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean _instanceof(Object ins, String className) {
 		return ins.getClass().getName().endsWith(className);
@@ -501,16 +501,16 @@ public class ExtGraphProperty {
 
 	private void extractTopNCat() {
 		int originCatNum = categories.size();
-		if (topN <= 0 || topN > (originCatNum - 2)) { // Èç¹ûOtherÖ»ÓĞÒ»¸ö·ÖÀàÉõÖÁÃ»ÓĞÊ±,Ã»ÓĞÒâÒå
+		if (topN <= 0 || topN > (originCatNum - 2)) { // å¦‚æœOtheråªæœ‰ä¸€ä¸ªåˆ†ç±»ç”šè‡³æ²¡æœ‰æ—¶,æ²¡æœ‰æ„ä¹‰
 			return;
 		}
 
-//		categoriesµÄ³ÉÔ±ExtGraphproperty°´ÕÕsumSeriesÏµÁĞºÍÊµÏÖÁËCompare·½·¨£¬¿ÉÒÔÊ¹ÓÃÈçÏÂsort
-//		µ«ÊÇÈ¡Ç°Èı£¬±ØĞëÏÈsortÎªÕıĞò£¬È»ºóÔÙ·´×ª£¬¹âreverse½ö½öÊÇ½«×ùÎ»·´Ò»ÏÂ
-//		xq 2025Äê1ÔÂ15ÈÕ
+//		categoriesçš„æˆå‘˜ExtGraphpropertyæŒ‰ç…§sumSeriesç³»åˆ—å’Œå®ç°äº†Compareæ–¹æ³•ï¼Œå¯ä»¥ä½¿ç”¨å¦‚ä¸‹sort
+//		ä½†æ˜¯å–å‰ä¸‰ï¼Œå¿…é¡»å…ˆsortä¸ºæ­£åºï¼Œç„¶åå†åè½¬ï¼Œå…‰reverseä»…ä»…æ˜¯å°†åº§ä½åä¸€ä¸‹
+//		xq 2025å¹´1æœˆ15æ—¥
 		Collections.sort(categories);
 		Collections.reverse(categories);
-//		com.scudata.ide.common.GM.sort(categories, false); // °´ÕÕÃ¿¸ö·ÖÀàµÄÏµÁĞºÍÅÅĞò,È¡Ç°TopN¸ö
+//		com.scudata.ide.common.GM.sort(categories, false); // æŒ‰ç…§æ¯ä¸ªåˆ†ç±»çš„ç³»åˆ—å’Œæ’åº,å–å‰TopNä¸ª
 
 		ArrayList dataCategory = new ArrayList();
 		for (int i = 0; i < topN; i++) {
@@ -522,7 +522,7 @@ public class ExtGraphProperty {
 		}
 		ExtGraphCategory otherCategoryData = new ExtGraphCategory();
 		if (DrawBase.isChinese()) {
-			otherCategoryData.setName("ÆäËû");
+			otherCategoryData.setName("å…¶ä»–");
 		} else {
 			otherCategoryData.setName("Other");
 		}
@@ -561,113 +561,113 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼ÀàĞÍ
+	 * å–ç»Ÿè®¡å›¾ç±»å‹
 	 * 
-	 * @return byte Í³¼ÆÍ¼ÀàĞÍ£¬ÓÉGraphTypesÖĞµÄ³£Á¿¶¨Òå
+	 * @return byte ç»Ÿè®¡å›¾ç±»å‹ï¼Œç”±GraphTypesä¸­çš„å¸¸é‡å®šä¹‰
 	 */
 	public byte getType() {
 		return graphType;
 	}
 
 	/**
-	 * ÊÇ·ñ¸ù¾İÏµÁĞ»­Í¼ÀıÊı¾İ
-	 * @return Èç¹ûÊÇÔò°´ÏµÁĞ»­£¬·ñÔò°´ÕÕ·ÖÀà»­
+	 * æ˜¯å¦æ ¹æ®ç³»åˆ—ç”»å›¾ä¾‹æ•°æ®
+	 * @return å¦‚æœæ˜¯åˆ™æŒ‰ç³»åˆ—ç”»ï¼Œå¦åˆ™æŒ‰ç…§åˆ†ç±»ç”»
 	 */
 	public boolean isLegendOnSery() {
 		return prop.getDrawLegendBySery();
 	}
 
 	/**
-	 * È¡×ø±êÖáÑÕÉ«
+	 * å–åæ ‡è½´é¢œè‰²
 	 * 
-	 * @return int ×ø±êÖáÑÕÉ«
+	 * @return int åæ ‡è½´é¢œè‰²
 	 */
 	public int getAxisColor() {
 		return prop.getAxisColor();
 	}
 
 	/**
-	 * È¡È«Í¼±³¾°ÑÕÉ«
+	 * å–å…¨å›¾èƒŒæ™¯é¢œè‰²
 	 * 
-	 * @return int¡¡È«Í¼±³¾°ÑÕÉ«
+	 * @return intã€€å…¨å›¾èƒŒæ™¯é¢œè‰²
 	 */
 	public int getCanvasColor() {
 		return prop.getCanvasColor();
 	}
 
 	/**
-	 * È¡Í¼ĞÎÇø±³¾°ÑÕÉ«
+	 * å–å›¾å½¢åŒºèƒŒæ™¯é¢œè‰²
 	 * 
-	 * @return int¡¡Í¼ĞÎÇø±³¾°ÑÕÉ«
+	 * @return intã€€å›¾å½¢åŒºèƒŒæ™¯é¢œè‰²
 	 */
 	public int getGraphBackColor() {
 		return prop.getGraphBackColor();
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼·ÖÀà¶¨Òå
+	 * å–ç»Ÿè®¡å›¾åˆ†ç±»å®šä¹‰
 	 * 
-	 * @return ArrayList (GraphCategory)¡¡Í³¼ÆÍ¼·ÖÀà¶¨Òå
+	 * @return ArrayList (GraphCategory)ã€€ç»Ÿè®¡å›¾åˆ†ç±»å®šä¹‰
 	 */
 	public ArrayList getCategories() {
 		return this.categories;
 	}
 
 	/**
-	 * È¡ºáÖá±êÌâ
+	 * å–æ¨ªè½´æ ‡é¢˜
 	 * 
-	 * @return String ºáÖá±êÌâ
+	 * @return String æ¨ªè½´æ ‡é¢˜
 	 */
 	public String getXTitle() {
 		return this.xTitle;
 	}
 
 	/**
-	 * È¡ºáÖá±êÌâµÄ¶ÔÆë·½Ê½
-	 * @return ¶ÔÆë·½Ê½
+	 * å–æ¨ªè½´æ ‡é¢˜çš„å¯¹é½æ–¹å¼
+	 * @return å¯¹é½æ–¹å¼
 	 */
 	public byte getXTitleAlign() {
 		return prop.getXTitleAlign();
 	}
 
 	/**
-	 * È¡×İÖá±êÌâ
+	 * å–çºµè½´æ ‡é¢˜
 	 * 
-	 * @return String ×İÖá±êÌâ
+	 * @return String çºµè½´æ ‡é¢˜
 	 */
 	public String getYTitle() {
 		return this.yTitle;
 	}
 
 	/**
-	 * È¡×İÖá±êÌâµÄ¶ÔÆë·½Ê½
-	 * @return ¶ÔÆë·½Ê½
+	 * å–çºµè½´æ ‡é¢˜çš„å¯¹é½æ–¹å¼
+	 * @return å¯¹é½æ–¹å¼
 	 */
 	public byte getYTitleAlign() {
 		return prop.getYTitleAlign();
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼±êÌâ
+	 * å–ç»Ÿè®¡å›¾æ ‡é¢˜
 	 * 
-	 * @return String¡¡Í³¼ÆÍ¼±êÌâ
+	 * @return Stringã€€ç»Ÿè®¡å›¾æ ‡é¢˜
 	 */
 	public String getGraphTitle() {
 		return this.graphTitle;
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼±êÌâµÄ¶ÔÆë·½Ê½
-	 * @return ¶ÔÆë·½Ê½
+	 * å–ç»Ÿè®¡å›¾æ ‡é¢˜çš„å¯¹é½æ–¹å¼
+	 * @return å¯¹é½æ–¹å¼
 	 */
 	public byte getGraphTitleAlign() {
 		return prop.getGraphTitleAlign();
 	}
 
 	/**
-	 * È¡Íø¸ñÏßÀàĞÍ
+	 * å–ç½‘æ ¼çº¿ç±»å‹
 	 * 
-	 * @return byte¡¡Íø¸ñÏßÀàĞÍ£¬ÖµÎªLINE_NONE, LINE_SOLID, LINE_LONG_DASH,
+	 * @return byteã€€ç½‘æ ¼çº¿ç±»å‹ï¼Œå€¼ä¸ºLINE_NONE, LINE_SOLID, LINE_LONG_DASH,
 	 *         LINE_SHORT_DASH, LINE_DOT_DASH, LINE_2DOT_DASH
 	 */
 	public byte getGridLineType() {
@@ -675,7 +675,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyµÄÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyçš„åŒåæ–¹æ³•
 	 * @return
 	 */
 	public byte getGridLocation() {
@@ -683,34 +683,34 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡Íø¸ñÏßÑÕÉ«
+	 * å–ç½‘æ ¼çº¿é¢œè‰²
 	 * 
-	 * @return int¡¡Íø¸ñÏßÑÕÉ«
+	 * @return intã€€ç½‘æ ¼çº¿é¢œè‰²
 	 */
 	public int getGridLineColor() {
 		return prop.getGridLineColor();
 	}
 
 	/**
-	 * È¡ÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à
+	 * å–æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è·
 	 * 
-	 * @return double¡¡ÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à
+	 * @return doubleã€€æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è·
 	 */
 	public double getBarDistance() {
 		return this.barDistance;
 	}
 
 	/**
-	 * È¡Í¼ĞÎ¸ñÊ½
+	 * å–å›¾å½¢æ ¼å¼
 	 * 
-	 * @return byte¡¡Í¼ĞÎ¸ñÊ½, ÖµÎªIMAGE_JPG, IMAGE_GIF, IMAGE_PNG
+	 * @return byteã€€å›¾å½¢æ ¼å¼, å€¼ä¸ºIMAGE_JPG, IMAGE_GIF, IMAGE_PNG
 	 */
 	public byte getImageFormat() {
 		return prop.getImageFormat();
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyµÄÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyçš„åŒåæ–¹æ³•
 	 * @return
 	 */
 	public boolean isGraphTransparent() {
@@ -718,7 +718,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyµÄÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyçš„åŒåæ–¹æ³•
 	 * @return
 	 */
 	public boolean isDrawDataTable() {
@@ -726,7 +726,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyµÄÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyçš„åŒåæ–¹æ³•
 	 * @return
 	 */
 	public boolean isDataCenter() {
@@ -734,7 +734,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡ÊÇ·ñ½¥±äÉ«
+	 * å–æ˜¯å¦æ¸å˜è‰²
 	 * 
 	 * @return boolean
 	 */
@@ -743,18 +743,18 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼×ÖÌå
+	 * å–ç»Ÿè®¡å›¾å­—ä½“
 	 * 
-	 * @return GraphFonts¡¡Í³¼ÆÍ¼×ÖÌå
+	 * @return GraphFontsã€€ç»Ÿè®¡å›¾å­—ä½“
 	 */
 	public GraphFonts getFonts() {
 		return prop.getFonts();
 	}
 
 	/**
-	 * È¡¾¯½äÏß¶¨Òå
+	 * å–è­¦æˆ’çº¿å®šä¹‰
 	 * 
-	 * @return ArrayList (ExtAlarmLine)¡¡¾¯½äÏß¶¨Òå
+	 * @return ArrayList (ExtAlarmLine)ã€€è­¦æˆ’çº¿å®šä¹‰
 	 */
 	public ArrayList getAlarmLines() {
 		if (alarms == null) {
@@ -782,9 +782,9 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡Í¼ÖĞÏÔÊ¾Êı¾İ¶¨Òå
+	 * å–å›¾ä¸­æ˜¾ç¤ºæ•°æ®å®šä¹‰
 	 * 
-	 * @return byte¡¡Í¼ÖĞÏÔÊ¾Êı¾İ¶¨Òå£¬ÖµÎªDISPDATA_NONE, DISPDATA_VALUE,
+	 * @return byteã€€å›¾ä¸­æ˜¾ç¤ºæ•°æ®å®šä¹‰ï¼Œå€¼ä¸ºDISPDATA_NONE, DISPDATA_VALUE,
 	 *         DISPDATA_PERCENTAGE
 	 */
 	public byte getDisplayData() {
@@ -795,7 +795,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyµÄÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyçš„åŒåæ–¹æ³•
 	 * @return
 	 */
 	public boolean isDispStackSumValue() {
@@ -803,53 +803,53 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡Í¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå
+	 * å–å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰
 	 * 
-	 * @return String¡¡Í¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå
+	 * @return Stringã€€å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰
 	 */
 	public String getDisplayDataFormat1() {
 		return this.dataFormat1;
 	}
 
 	/**
-	 * È¡¶şÖáÍ¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå
+	 * å–äºŒè½´å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰
 	 * 
-	 * @return String¡¡Í¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå
+	 * @return Stringã€€å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰
 	 */
 	public String getDisplayDataFormat2() {
 		return this.dataFormat2;
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼³¬Á´½Ó
+	 * å–ç»Ÿè®¡å›¾è¶…é“¾æ¥
 	 * 
-	 * @return String¡¡Í³¼ÆÍ¼³¬Á´½Ó
+	 * @return Stringã€€ç»Ÿè®¡å›¾è¶…é“¾æ¥
 	 */
 	public String getLink() {
 		return this.link;
 	}
 
 	/**
-	 * È¡Í¼ÀıµÄ³¬Á´½Ó
-	 * @return Á´½Ó´®
+	 * å–å›¾ä¾‹çš„è¶…é“¾æ¥
+	 * @return é“¾æ¥ä¸²
 	 */
 	public String getLegendLink() {
 		return prop.getLegendLink();
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼³¬Á´½ÓÄ¿±ê´°¿Ú
+	 * å–ç»Ÿè®¡å›¾è¶…é“¾æ¥ç›®æ ‡çª—å£
 	 * 
-	 * @return String¡¡Í³¼ÆÍ¼³¬Á´½ÓÄ¿±ê´°¿Ú
+	 * @return Stringã€€ç»Ÿè®¡å›¾è¶…é“¾æ¥ç›®æ ‡çª—å£
 	 */
 	public String getLinkTarget() {
 		return this.linkTarget;
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼µÄÍ¼ÀıÎ»ÖÃ
+	 * å–ç»Ÿè®¡å›¾çš„å›¾ä¾‹ä½ç½®
 	 * 
-	 * @return byte¡¡Í³¼ÆÍ¼µÄÍ¼ÀıÎ»ÖÃ£¬ÖµÎªLEGEND_LEFT, LEGEND_RIGHT, LEGEND_TOP,
+	 * @return byteã€€ç»Ÿè®¡å›¾çš„å›¾ä¾‹ä½ç½®ï¼Œå€¼ä¸ºLEGEND_LEFT, LEGEND_RIGHT, LEGEND_TOP,
 	 *         LEGEND_BOTTOM, LEGEND_NONE
 	 */
 	public byte getLegendLocation() {
@@ -857,7 +857,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyåŒåæ–¹æ³•
 	 * @return
 	 */
 	public int getLegendVerticalGap() {
@@ -865,7 +865,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyåŒåæ–¹æ³•
 	 * @return
 	 */
 	public int getLegendHorizonGap() {
@@ -873,69 +873,69 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡Í³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû
+	 * å–ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå
 	 * 
-	 * @return String¡¡Í³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû
+	 * @return Stringã€€ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå
 	 */
 	public Palette getPlatte() {
 		return this.palette;
 	}
 
 	/**
-	 * È¡Í³¼ÆÖµÆğÊ¼Öµ
+	 * å–ç»Ÿè®¡å€¼èµ·å§‹å€¼
 	 * 
-	 * @return String¡¡Í³¼ÆÖµÆğÊ¼Öµ
+	 * @return Stringã€€ç»Ÿè®¡å€¼èµ·å§‹å€¼
 	 */
 	public double getYStartValue1() {
 		return this.yStartValue1;
 	}
 
 	/**
-	 * È¡Ë«ÖáÍ¼µÚ¶şÖáµÄÆğÊ¼Öµ
-	 * @return Í³¼ÆÆğÊ¼Öµ
+	 * å–åŒè½´å›¾ç¬¬äºŒè½´çš„èµ·å§‹å€¼
+	 * @return ç»Ÿè®¡èµ·å§‹å€¼
 	 */
 	public double getYStartValue2() {
 		return this.yStartValue2;
 	}
 
 	/**
-	 * È¡Í³¼ÆÖµ½áÊøÖµ
+	 * å–ç»Ÿè®¡å€¼ç»“æŸå€¼
 	 * 
-	 * @return String¡¡Í³¼ÆÖµ½áÊøÖµ
+	 * @return Stringã€€ç»Ÿè®¡å€¼ç»“æŸå€¼
 	 */
 	public double getYEndValue1() {
 		return this.yEndValue1;
 	}
 
 	/**
-	 * È¡Ë«ÖáÍ¼µÚ¶şÖáµÄ½áÊøÖµ
-	 * @return ½áÊøÖµ
+	 * å–åŒè½´å›¾ç¬¬äºŒè½´çš„ç»“æŸå€¼
+	 * @return ç»“æŸå€¼
 	 */
 	public double getYEndValue2() {
 		return this.yEndValue2;
 	}
 
 	/**
-	 * È¡Í³¼ÆÖµ±êÇ©¼ä¸ô
+	 * å–ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš”
 	 * 
-	 * @return double¡¡Í³¼ÆÖµ±êÇ©¼ä¸ô
+	 * @return doubleã€€ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš”
 	 */
 	public double getYInterval1() {
 		return this.yInterval1;
 	}
 
 	/**
-	 * È¡Ë«ÖáÍ¼µÚ¶şÖáµÄ±êÇ©¼ä¸ô
-	 * @return ±êÇ©¼ä¸ô
+	 * å–åŒè½´å›¾ç¬¬äºŒè½´çš„æ ‡ç­¾é—´éš”
+	 * @return æ ‡ç­¾é—´éš”
 	 */
 	public double getYInterval2() {
 		return this.yInterval2;
 	}
 
 	/**
-	 * È¡Í³¼ÆÖµÊıÁ¿µ¥Î»
+	 * å–ç»Ÿè®¡å€¼æ•°é‡å•ä½
 	 * 
-	 * @return double¡¡Í³¼ÆÖµÊıÁ¿µ¥Î»£¬ÖµÎªUNIT_ORIGIN, UNIT_AUTO, UNIT_THOUSAND,
+	 * @return doubleã€€ç»Ÿè®¡å€¼æ•°é‡å•ä½ï¼Œå€¼ä¸ºUNIT_ORIGIN, UNIT_AUTO, UNIT_THOUSAND,
 	 *         UNIT_10THOUSAND, UNIT_MILLION, UNIT_10MILLION, UNIT_100MILLION,
 	 *         UNIT_BILLION, UNIT_001, UNIT_0001, UNIT_00001, UNIT_0000001
 	 */
@@ -944,25 +944,25 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡µÃÍ³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı
+	 * å–å¾—ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•°
 	 * 
-	 * @param int Í³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı
+	 * @param int ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•°
 	 */
 	public int getYMinMarks() {
 		return this.yMinMarks;
 	}
 
 	/**
-	 * È¡±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à
+	 * å–æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è·
 	 * 
-	 * @return double¡¡±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à
+	 * @return doubleã€€æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è·
 	 */
 	public double getTitleMargin() {
 		return this.titleMargin;
 	}
 
 	/**
-	 * È¡ÕÛÏßÍ¼ÊÇ·ñ±ê×¢Êı¾İµã
+	 * å–æŠ˜çº¿å›¾æ˜¯å¦æ ‡æ³¨æ•°æ®ç‚¹
 	 * 
 	 * @return boolean
 	 */
@@ -971,7 +971,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyåŒåæ–¹æ³•
 	 * @return
 	 */
 	public boolean isOverlapOrigin() {
@@ -979,7 +979,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡ÕÛÏßÍ¼ÊÇ·ñ»­Ç÷ÊÆÏß
+	 * å–æŠ˜çº¿å›¾æ˜¯å¦ç”»è¶‹åŠ¿çº¿
 	 * 
 	 * @return boolean
 	 */
@@ -988,7 +988,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÕÛÏßÍ¼ÊÇ·ñºöÂÔ¿ÕÖµ
+	 * æŠ˜çº¿å›¾æ˜¯å¦å¿½ç•¥ç©ºå€¼
 	 * 
 	 * @return boolean
 	 */
@@ -997,7 +997,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ×Ô¶¨ÒåÍ¼ĞÎÀàÃû
+	 * è‡ªå®šä¹‰å›¾å½¢ç±»å
 	 * 
 	 * @return String
 	 */
@@ -1006,7 +1006,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ×Ô¶¨ÒåÍ¼ĞÎ²ÎÊı
+	 * è‡ªå®šä¹‰å›¾å½¢å‚æ•°
 	 * 
 	 * @return String
 	 */
@@ -1015,7 +1015,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡ÕÛÏßÍ¼´ÖÏ¸¶È
+	 * å–æŠ˜çº¿å›¾ç²—ç»†åº¦
 	 * 
 	 * @return boolean
 	 */
@@ -1024,7 +1024,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyåŒåæ–¹æ³•
 	 * @return
 	 */
 	public byte getLineStyle() {
@@ -1032,7 +1032,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡ÏàÁÚÊıÖµ»ò±êÇ©ÖØµşÊ±ÊÇ·ñÏÔÊ¾ºóÒ»ÊıÖµ»ò±êÇ©
+	 * å–ç›¸é‚»æ•°å€¼æˆ–æ ‡ç­¾é‡å æ—¶æ˜¯å¦æ˜¾ç¤ºåä¸€æ•°å€¼æˆ–æ ‡ç­¾
 	 * 
 	 * @return boolean
 	 */
@@ -1041,36 +1041,36 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡·ÖÀàÖá±êÇ©¼ä¸ô
+	 * å–åˆ†ç±»è½´æ ‡ç­¾é—´éš”
 	 * 
-	 * @return double¡¡·ÖÀàÖá±êÇ©¼ä¸ô
+	 * @return doubleã€€åˆ†ç±»è½´æ ‡ç­¾é—´éš”
 	 */
 	public double getXInterval() {
 		return this.xInterval;
 	}
 
 	/**
-	 * È¡Ê±¼ä×ßÊÆÍ¼ºáÖá
+	 * å–æ—¶é—´èµ°åŠ¿å›¾æ¨ªè½´
 	 * 
-	 * @return ArrayList¡¡(ExtTimeTrendXValue) Ê±¼ä×ßÊÆÍ¼ºáÖá
+	 * @return ArrayListã€€(ExtTimeTrendXValue) æ—¶é—´èµ°åŠ¿å›¾æ¨ªè½´
 	 */
 	public ArrayList getTimeTrendXValues() {
 		return this.ttXValues;
 	}
 
 	/**
-	 * È¡Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È
+	 * å–æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦
 	 * 
-	 * @return int¡¡Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È
+	 * @return intã€€æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦
 	 */
 	public int getStatusBarWidth() {
 		return this.statusBarWidth;
 	}
 
 	/**
-	 * È¡Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼Ê±¼ä¿Ì¶ÈÀàĞÍ
+	 * å–æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾æ—¶é—´åˆ»åº¦ç±»å‹
 	 * 
-	 * @return byte¡¡Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼Ê±¼ä¿Ì¶ÈÀàĞÍ£¬ÖµÎªTIME_YEAR, TIME_MONTH, TIME_DAY,
+	 * @return byteã€€æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾æ—¶é—´åˆ»åº¦ç±»å‹ï¼Œå€¼ä¸ºTIME_YEAR, TIME_MONTH, TIME_DAY,
 	 *         TIME_HOUR, TIME_MINUTE, TIME_SECOND
 	 */
 	public byte getStatusTimeType() {
@@ -1081,104 +1081,104 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 *  ÓÃ»§ÊÇ·ñÉèÖÃÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 *  ç”¨æˆ·æ˜¯å¦è®¾ç½®æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è·
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetBarDistance() {
 		return ((userSetStatus & BAR_DISTANCE) == BAR_DISTANCE);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃÓÃÇ°NÌõÊı¾İ»­Í¼ 
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®ç”¨å‰Næ¡æ•°æ®ç”»å›¾ 
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetTopData() {
 		return ((userSetStatus & TOP_DATA_N) == TOP_DATA_N);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃÍ³¼ÆÖµÆğÊ¼Öµ
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®ç»Ÿè®¡å€¼èµ·å§‹å€¼
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetYStartValue1() {
 		return ((userSetStatus & Y_START_VALUE1) == Y_START_VALUE1);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃµÚ¶şÖáµÄÍ³¼ÆÖµÆğÊ¼Öµ
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®ç¬¬äºŒè½´çš„ç»Ÿè®¡å€¼èµ·å§‹å€¼
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetYStartValue2() {
 		return ((userSetStatus & Y_START_VALUE2) == Y_START_VALUE2);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃÍ³¼ÆÖµ½áÊøÖµ
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®ç»Ÿè®¡å€¼ç»“æŸå€¼
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetYEndValue1() {
 		return ((userSetStatus & Y_END_VALUE1) == Y_END_VALUE1);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃÁËµÚ¶şÖáÍ³¼ÆÖµ½áÊøÖµ
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®äº†ç¬¬äºŒè½´ç»Ÿè®¡å€¼ç»“æŸå€¼
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetYEndValue2() {
 		return ((userSetStatus & Y_END_VALUE2) == Y_END_VALUE2);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃÍ³¼ÆÖµ±êÇ©¼ä¸ô
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš”
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetYInterval1() {
 		return ((userSetStatus & Y_INTERVAL1) == Y_INTERVAL1);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃÁËµÚ¶şÖáÍ³¼ÆÖµ±êÇ©¼ä¸ô
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®äº†ç¬¬äºŒè½´ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš”
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetYInterval2() {
 		return ((userSetStatus & Y_INTERVAL2) == Y_INTERVAL2);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃÍ³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•°
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetYMinMarks() {
 		return ((userSetStatus & Y_MIN_MARK) == Y_MIN_MARK);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃ±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è·
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetTitleMargin() {
 		return ((userSetStatus & TITLE_MARGIN) == TITLE_MARGIN);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃ·ÖÀàÖá±êÇ©¼ä¸ô
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®åˆ†ç±»è½´æ ‡ç­¾é—´éš”
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetXInterval() {
 		return ((userSetStatus & X_INTERVAL) == X_INTERVAL);
 	}
 
 	/**
-	 * ÓÃ»§ÊÇ·ñÉèÖÃÊ±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È
-	 * @return ÉèÖÃÁËÊôĞÔ·µ»Øtrue£¬·ñÔòfalse
+	 * ç”¨æˆ·æ˜¯å¦è®¾ç½®æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦
+	 * @return è®¾ç½®äº†å±æ€§è¿”å›trueï¼Œå¦åˆ™false
 	 */
 	public boolean isUserSetStatusBarWidth() {
 		return ((userSetStatus & STATUS_BAR_WIDTH) == STATUS_BAR_WIDTH);
 	}
 
 	/**
-	 * ÊÇ·ñ»æÖÆÒõÓ°
-	 * @return »æÖÆÒõÓ°·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ˜¯å¦ç»˜åˆ¶é˜´å½±
+	 * @return ç»˜åˆ¶é˜´å½±è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isDrawShade() {
 		if (isStackedGraph(null)) {
@@ -1186,13 +1186,13 @@ public class ExtGraphProperty {
 		}
 		if (graphType == GraphTypes.GT_COL3D)
 			return false;
-		// Öù×ÓÔÚÆ½Ì¨ÖĞÑëÊ±Ò²²»»æÖÆÒõÓ°
-		// ¶Ñ»ıÍ¼»­ÒõÓ°ÓĞÖØµş£¬²»ºÃ»­
+		// æŸ±å­åœ¨å¹³å°ä¸­å¤®æ—¶ä¹Ÿä¸ç»˜åˆ¶é˜´å½±
+		// å †ç§¯å›¾ç”»é˜´å½±æœ‰é‡å ï¼Œä¸å¥½ç”»
 		return prop.isDrawShade();
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyåŒåæ–¹æ³•
 	 * @return
 	 */
 	public boolean isRaisedBorder() {
@@ -1200,7 +1200,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ²Î¿¼PublicPropertyÍ¬Ãû·½·¨
+	 * å‚è€ƒPublicPropertyåŒåæ–¹æ³•
 	 * @return
 	 */
 	public boolean getFlag(byte key) {
@@ -1208,26 +1208,26 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * È¡±³¾°Í¼ÅäÖÃ
-	 * @return ÅäÖÃ¶ÔÏó
+	 * å–èƒŒæ™¯å›¾é…ç½®
+	 * @return é…ç½®å¯¹è±¡
 	 */
 	public BackGraphConfig getBackGraphConfig() {
 		return bgc;
 	}
 
 	/**
-	 * ÉèÖÃ±³¾°Í¼ÅäÖÃ
-	 * @param bgc ÅäÖÃ¶ÔÏó
+	 * è®¾ç½®èƒŒæ™¯å›¾é…ç½®
+	 * @param bgc é…ç½®å¯¹è±¡
 	 */
 	public void setBackGraphConfig(BackGraphConfig bgc) {
 		this.bgc = bgc;
 	}
 
 	/**
-	 * Í¼ĞÎµÄ°æ±¾µ½ÁË7Ê±£¬ÔÊĞíÍ¼ĞÎ¾ØĞÎµÄ4±ß·Ö±ğÉèÖÃ²»Í¬µÄÑÕÉ« ´ËÊ±Ô­À´µÄAxisColorÔò×÷·Ï£¬Ë³ĞòÒÀ´ÎÎªÉÏÏÂ×óÓÒ AXIS_ID
-	 * ÎªGraphPropertyÖĞ¶¨ÒåµÄAXIS_¿ªÍ·µÄ³£Á¿
+	 * å›¾å½¢çš„ç‰ˆæœ¬åˆ°äº†7æ—¶ï¼Œå…è®¸å›¾å½¢çŸ©å½¢çš„4è¾¹åˆ†åˆ«è®¾ç½®ä¸åŒçš„é¢œè‰² æ­¤æ—¶åŸæ¥çš„AxisColoråˆ™ä½œåºŸï¼Œé¡ºåºä¾æ¬¡ä¸ºä¸Šä¸‹å·¦å³ AXIS_ID
+	 * ä¸ºGraphPropertyä¸­å®šä¹‰çš„AXIS_å¼€å¤´çš„å¸¸é‡
 	 * 
-	 * @return Color, Èç¹ûÎªNullÔò±íÊ¾ÎªÍ¸Ã÷É«
+	 * @return Color, å¦‚æœä¸ºNullåˆ™è¡¨ç¤ºä¸ºé€æ˜è‰²
 	 */
 	public Color getAxisColor(int AXIS_ID) {
 		int c = prop.getAxisColors()[AXIS_ID];
@@ -1239,89 +1239,89 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼ÀàĞÍ
+	 * è®¾ç½®ç»Ÿè®¡å›¾ç±»å‹
 	 * 
 	 * @param type
-	 *            Í³¼ÆÍ¼ÀàĞÍ£¬ÓÉGraphTypesÖĞµÄ³£Á¿¶¨Òå
+	 *            ç»Ÿè®¡å›¾ç±»å‹ï¼Œç”±GraphTypesä¸­çš„å¸¸é‡å®šä¹‰
 	 */
 	public void setType(byte type) {
 		graphType = type;
 	}
 
 	/**
-	 * ÉèÖÃ×ø±êÖáÑÕÉ«
+	 * è®¾ç½®åæ ‡è½´é¢œè‰²
 	 * 
 	 * @param color
-	 *            ×ø±êÖáÑÕÉ«
+	 *            åæ ‡è½´é¢œè‰²
 	 */
 	public void setAxisColor(int color) {
 		prop.setAxisColor(color);
 	}
 
 	/**
-	 * ÉèÖÃÈ«Í¼±³¾°ÑÕÉ«
+	 * è®¾ç½®å…¨å›¾èƒŒæ™¯é¢œè‰²
 	 * 
 	 * @param color
-	 *            ¡¡È«Í¼±³¾°ÑÕÉ«
+	 *            ã€€å…¨å›¾èƒŒæ™¯é¢œè‰²
 	 */
 	public void setCanvasColor(int color) {
 		prop.setCanvasColor(color);
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÇø±³¾°ÑÕÉ«
+	 * è®¾ç½®å›¾å½¢åŒºèƒŒæ™¯é¢œè‰²
 	 * 
 	 * @param color
-	 *            ¡¡Í¼ĞÎÇø±³¾°ÑÕÉ«
+	 *            ã€€å›¾å½¢åŒºèƒŒæ™¯é¢œè‰²
 	 */
 	public void setGraphBackColor(int color) {
 		prop.setGraphBackColor(color);
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼·ÖÀà
+	 * è®¾ç½®ç»Ÿè®¡å›¾åˆ†ç±»
 	 * 
 	 * @param categorys
-	 *            ¡¡(ExtGraphProperty ) Í³¼ÆÍ¼·ÖÀà
+	 *            ã€€(ExtGraphProperty ) ç»Ÿè®¡å›¾åˆ†ç±»
 	 */
 	public void setCategories(ArrayList categorys) {
 		this.categories = categorys;
 	}
 
 	/**
-	 * ÉèÖÃºáÖá±êÌâ
+	 * è®¾ç½®æ¨ªè½´æ ‡é¢˜
 	 * 
 	 * @param title
-	 *            ºáÖá±êÌâ
+	 *            æ¨ªè½´æ ‡é¢˜
 	 */
 	public void setXTitle(String title) {
 		this.xTitle = title;
 	}
 
 	/**
-	 * ÉèÖÃ×İÖá±êÌâ
+	 * è®¾ç½®çºµè½´æ ‡é¢˜
 	 * 
 	 * @param title
-	 *            ×İÖá±êÌâ
+	 *            çºµè½´æ ‡é¢˜
 	 */
 	public void setYTitle(String title) {
 		this.yTitle = title;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼±êÌâ
+	 * è®¾ç½®ç»Ÿè®¡å›¾æ ‡é¢˜
 	 * 
-	 * @return title¡¡Í³¼ÆÍ¼±êÌâ
+	 * @return titleã€€ç»Ÿè®¡å›¾æ ‡é¢˜
 	 */
 	public void setGraphTitle(String title) {
 		this.graphTitle = title;
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñÏßÀàĞÍ
+	 * è®¾ç½®ç½‘æ ¼çº¿ç±»å‹
 	 * 
 	 * @param type
-	 *            ¡¡Íø¸ñÏßÀàĞÍ£¬ÖµÎªLINE_NONE, LINE_SOLID, LINE_LONG_DASH,
+	 *            ã€€ç½‘æ ¼çº¿ç±»å‹ï¼Œå€¼ä¸ºLINE_NONE, LINE_SOLID, LINE_LONG_DASH,
 	 *            LINE_SHORT_DASH, LINE_DOT_DASH, LINE_2DOT_DASH
 	 */
 	public void setGridLineType(byte type) {
@@ -1329,20 +1329,20 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñÏßÑÕÉ«
+	 * è®¾ç½®ç½‘æ ¼çº¿é¢œè‰²
 	 * 
 	 * @param color
-	 *            ¡¡Íø¸ñÏßÑÕÉ«
+	 *            ã€€ç½‘æ ¼çº¿é¢œè‰²
 	 */
 	public void setGridLineColor(int color) {
 		prop.setGridLineColor(color);
 	}
 
 	/**
-	 * ÉèÖÃÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à
+	 * è®¾ç½®æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è·
 	 * 
 	 * @param distance
-	 *            ¡¡ÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à
+	 *            ã€€æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è·
 	 */
 	public void setBarDistance(double distance) {
 		userSetStatus |= BAR_DISTANCE;
@@ -1350,17 +1350,17 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎ¸ñÊ½
+	 * è®¾ç½®å›¾å½¢æ ¼å¼
 	 * 
 	 * @param format
-	 *            ¡¡Í¼ĞÎ¸ñÊ½, ÖµÎªIMAGE_JPG, IMAGE_GIF, IMAGE_PNG
+	 *            ã€€å›¾å½¢æ ¼å¼, å€¼ä¸ºIMAGE_JPG, IMAGE_GIF, IMAGE_PNG
 	 */
 	public void setImageFormat(byte format) {
 		prop.setImageFormat(format);
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÊÇ·ñÍ¸Ã÷
+	 * è®¾ç½®å›¾å½¢æ˜¯å¦é€æ˜
 	 * 
 	 * @param b
 	 */
@@ -1369,7 +1369,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ½¥±äÉ«
+	 * è®¾ç½®æ˜¯å¦æ¸å˜è‰²
 	 * 
 	 * @param b
 	 */
@@ -1378,10 +1378,10 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÓÃÇ°NÌõÊı¾İ»­Í¼
+	 * è®¾ç½®ç”¨å‰Næ¡æ•°æ®ç”»å›¾
 	 * 
 	 * @param n
-	 *            ¡¡Ç°NÌõÊı¾İ
+	 *            ã€€å‰Næ¡æ•°æ®
 	 */
 	public void setTopData(int n) {
 		userSetStatus |= TOP_DATA_N;
@@ -1389,20 +1389,20 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼×ÖÌå
+	 * è®¾ç½®ç»Ÿè®¡å›¾å­—ä½“
 	 * 
 	 * @param font
-	 *            ¡¡Í³¼ÆÍ¼×ÖÌå
+	 *            ã€€ç»Ÿè®¡å›¾å­—ä½“
 	 */
 	public void setFonts(GraphFonts font) {
 		prop.setFonts(font);
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ÖĞÏÔÊ¾Êı¾İ
+	 * è®¾ç½®å›¾ä¸­æ˜¾ç¤ºæ•°æ®
 	 * 
 	 * @param data
-	 *            ¡¡Í¼ÖĞÏÔÊ¾Êı¾İ£¬ÖµÎªDISPDATA_NONE, DISPDATA_VALUE, DISPDATA_PERCENTAGE
+	 *            ã€€å›¾ä¸­æ˜¾ç¤ºæ•°æ®ï¼Œå€¼ä¸ºDISPDATA_NONE, DISPDATA_VALUE, DISPDATA_PERCENTAGE
 	 */
 	public void setDisplayData(byte data) {
 		prop.setDisplayData(data);
@@ -1412,10 +1412,10 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½
+	 * è®¾ç½®å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼
 	 * 
 	 * @param format
-	 *            ¡¡Í¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½
+	 *            ã€€å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼
 	 */
 	public void setDisplayDataFormat1(String format) {
 		this.dataFormat1 = format;
@@ -1426,30 +1426,30 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼³¬Á´½Ó
+	 * è®¾ç½®ç»Ÿè®¡å›¾è¶…é“¾æ¥
 	 * 
 	 * @param link
-	 *            ¡¡Í³¼ÆÍ¼³¬Á´½Ó
+	 *            ã€€ç»Ÿè®¡å›¾è¶…é“¾æ¥
 	 */
 	public void setLink(String link) {
 		this.link = link;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼³¬Á´½ÓÄ¿±ê´°¿Ú
+	 * è®¾ç½®ç»Ÿè®¡å›¾è¶…é“¾æ¥ç›®æ ‡çª—å£
 	 * 
 	 * @param target
-	 *            ¡¡Í³¼ÆÍ¼³¬Á´½ÓÄ¿±ê´°¿Ú
+	 *            ã€€ç»Ÿè®¡å›¾è¶…é“¾æ¥ç›®æ ‡çª—å£
 	 */
 	public void setLinkTarget(String target) {
 		this.linkTarget = target;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼µÄÍ¼ÀıÎ»ÖÃ
+	 * è®¾ç½®ç»Ÿè®¡å›¾çš„å›¾ä¾‹ä½ç½®
 	 * 
 	 * @param location
-	 *            ¡¡Í³¼ÆÍ¼µÄÍ¼ÀıÎ»ÖÃ£¬ÖµÎªLEGEND_LEFT, LEGEND_RIGHT, LEGEND_TOP,
+	 *            ã€€ç»Ÿè®¡å›¾çš„å›¾ä¾‹ä½ç½®ï¼Œå€¼ä¸ºLEGEND_LEFT, LEGEND_RIGHT, LEGEND_TOP,
 	 *            LEGEND_BOTTOM, LEGEND_NONE
 	 */
 	public void setLegendLocation(byte location) {
@@ -1457,20 +1457,20 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû
+	 * è®¾ç½®ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå
 	 * 
 	 * @param config
-	 *            ¡¡Í³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû
+	 *            ã€€ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå
 	 */
 	public void setPalette(Palette palette) {
 		this.palette = palette;
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÖµÆğÊ¼Öµ
+	 * è®¾ç½®ç»Ÿè®¡å€¼èµ·å§‹å€¼
 	 * 
 	 * @param value
-	 *            ¡¡Í³¼ÆÖµÆğÊ¼Öµ
+	 *            ã€€ç»Ÿè®¡å€¼èµ·å§‹å€¼
 	 */
 	public void setYStartValue1(double value) {
 		userSetStatus |= Y_START_VALUE1;
@@ -1483,10 +1483,10 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÖµ½áÊøÖµ
+	 * è®¾ç½®ç»Ÿè®¡å€¼ç»“æŸå€¼
 	 * 
 	 * @param value
-	 *            ¡¡Í³¼ÆÖµ½áÊøÖµ
+	 *            ã€€ç»Ÿè®¡å€¼ç»“æŸå€¼
 	 */
 	public void setYEndValue1(double value) {
 		userSetStatus |= Y_END_VALUE1;
@@ -1499,10 +1499,10 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÖµ±êÇ©¼ä¸ô
+	 * è®¾ç½®ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš”
 	 * 
 	 * @param interval
-	 *            ¡¡Í³¼ÆÖµ±êÇ©¼ä¸ô
+	 *            ã€€ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš”
 	 */
 	public void setYInterval1(double interval) {
 		userSetStatus |= Y_INTERVAL1;
@@ -1515,10 +1515,10 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÖµÊıÁ¿µ¥Î»
+	 * è®¾ç½®ç»Ÿè®¡å€¼æ•°é‡å•ä½
 	 * 
 	 * @param unit
-	 *            ¡¡Í³¼ÆÖµÊıÁ¿µ¥Î»£¬ÖµÎªUNIT_ORIGIN, UNIT_AUTO, UNIT_THOUSAND,
+	 *            ã€€ç»Ÿè®¡å€¼æ•°é‡å•ä½ï¼Œå€¼ä¸ºUNIT_ORIGIN, UNIT_AUTO, UNIT_THOUSAND,
 	 *            UNIT_10THOUSAND, UNIT_MILLION, UNIT_10MILLION,
 	 *            UNIT_100MILLION, UNIT_BILLION, UNIT_001, UNIT_0001,
 	 *            UNIT_00001, UNIT_0000001
@@ -1528,10 +1528,10 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÍ³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı
+	 * è®¾ç½®ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•°
 	 * 
 	 * @param mark
-	 *            Í³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı
+	 *            ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•°
 	 */
 	public void setYMinMarks(int mark) {
 		userSetStatus |= Y_MIN_MARK;
@@ -1539,10 +1539,10 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃ±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à
+	 * è®¾ç½®æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è·
 	 * 
 	 * @param margin
-	 *            ¡¡±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à
+	 *            ã€€æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è·
 	 */
 	public void setTitleMargin(double margin) {
 		userSetStatus |= TITLE_MARGIN;
@@ -1550,7 +1550,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÕÛÏßÍ¼ÊÇ·ñ±ê×¢Êı¾İµã
+	 * è®¾ç½®æŠ˜çº¿å›¾æ˜¯å¦æ ‡æ³¨æ•°æ®ç‚¹
 	 * 
 	 * @param b
 	 */
@@ -1559,7 +1559,7 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÏàÁÚÊıÖµ»ò±êÇ©ÖØµşÊ±ÊÇ·ñÏÔÊ¾ºóÒ»ÊıÖµ»ò±êÇ©
+	 * è®¾ç½®ç›¸é‚»æ•°å€¼æˆ–æ ‡ç­¾é‡å æ—¶æ˜¯å¦æ˜¾ç¤ºåä¸€æ•°å€¼æˆ–æ ‡ç­¾
 	 * 
 	 * @param b
 	 */
@@ -1568,10 +1568,10 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃ·ÖÀàÖá±êÇ©¼ä¸ô
+	 * è®¾ç½®åˆ†ç±»è½´æ ‡ç­¾é—´éš”
 	 * 
 	 * @param interval
-	 *            ¡¡·ÖÀàÖá±êÇ©¼ä¸ô
+	 *            ã€€åˆ†ç±»è½´æ ‡ç­¾é—´éš”
 	 */
 	public void setXInterval(double interval) {
 		userSetStatus |= X_INTERVAL;
@@ -1579,20 +1579,20 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÊ±¼ä×ßÊÆÍ¼ºáÖá
+	 * è®¾ç½®æ—¶é—´èµ°åŠ¿å›¾æ¨ªè½´
 	 * 
 	 * @param value
-	 *            (TimeTrendXValue )¡¡Ê±¼ä×ßÊÆÍ¼ºáÖá
+	 *            (TimeTrendXValue )ã€€æ—¶é—´èµ°åŠ¿å›¾æ¨ªè½´
 	 */
 	public void setTimeTrendXValues(ArrayList value) {
 		this.ttXValues = value;
 	}
 
 	/**
-	 * ÉèÖÃÊ±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È
+	 * è®¾ç½®æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦
 	 * 
 	 * @param width
-	 *            Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È
+	 *            æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦
 	 */
 	public void setStatusBarWidth(int width) {
 		userSetStatus |= STATUS_BAR_WIDTH;
@@ -1600,10 +1600,10 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÉèÖÃÊ±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼Ê±¼ä¿Ì¶ÈÀàĞÍ
+	 * è®¾ç½®æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾æ—¶é—´åˆ»åº¦ç±»å‹
 	 * 
 	 * @param type
-	 *            Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼Ê±¼ä¿Ì¶ÈÀàĞÍ£¬È¡ÖµÎªTIME_YEAR, TIME_MONTH, TIME_DAY, TIME_HOUR,
+	 *            æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾æ—¶é—´åˆ»åº¦ç±»å‹ï¼Œå–å€¼ä¸ºTIME_YEAR, TIME_MONTH, TIME_DAY, TIME_HOUR,
 	 *            TIME_MINUTE, TIME_SECOND
 	 */
 	public void setStatusTimeType(byte type) {
@@ -1622,7 +1622,7 @@ public class ExtGraphProperty {
 				val = stackedVal;
 			}
 		}
-		if (is2YGraph()) {// Ë«ÖáÍ¼Ê±£¬½öÓĞ×óÖá¶Ñ»ı£¬ËùÒÔÖ»¼ÆËã·ÖÀà1
+		if (is2YGraph()) {// åŒè½´å›¾æ—¶ï¼Œä»…æœ‰å·¦è½´å †ç§¯ï¼Œæ‰€ä»¥åªè®¡ç®—åˆ†ç±»1
 			return val;
 		}
 		if (category2 != null) {
@@ -1662,33 +1662,33 @@ public class ExtGraphProperty {
 	}
 
 	/**
-	 * ÕÒ³ö·ÖÀà¶¨ÒåÖĞµÄ×î´óÖµ
-	 * @param cats ·ÖÀà
-	 * @return ×î´óÖµ
+	 * æ‰¾å‡ºåˆ†ç±»å®šä¹‰ä¸­çš„æœ€å¤§å€¼
+	 * @param cats åˆ†ç±»
+	 * @return æœ€å¤§å€¼
 	 */
 	public double getMaxValue(ArrayList cats) {
 		return getTerminalValue(true, cats);
 	}
 
 	/**
-	 * ÕÒ³ö·ÖÀà¶¨ÒåÖĞµÄ×îĞ¡Öµ
-	 * @param cats ·ÖÀà
-	 * @return ×îĞ¡Öµ
+	 * æ‰¾å‡ºåˆ†ç±»å®šä¹‰ä¸­çš„æœ€å°å€¼
+	 * @param cats åˆ†ç±»
+	 * @return æœ€å°å€¼
 	 */
 	public double getMinValue(ArrayList cats) {
 		return getTerminalValue(false, cats);
 	}
 
 	/**
-	 * ½«otherÉèÖÃÎªÆäËûÏµÁĞ
-	 * @param other ÏµÁĞÃû³Æ
+	 * å°†otherè®¾ç½®ä¸ºå…¶ä»–ç³»åˆ—
+	 * @param other ç³»åˆ—åç§°
 	 */
 	public void setOtherStackedSeries(String other) {
 		prop.setOtherStackedSeries(other);
 	}
 /**
- * »ñÈ¡ÆäËûÏµÁĞ
- * @return ÆäËû
+ * è·å–å…¶ä»–ç³»åˆ—
+ * @return å…¶ä»–
  */
 	public String getOtherStackedSeries() {
 		return prop.getOtherStackedSeries();
@@ -1748,92 +1748,92 @@ public class ExtGraphProperty {
 		}
 	}
 
-	/** ºáÖá±êÌâ */
+	/** æ¨ªè½´æ ‡é¢˜ */
 	private String xTitle;
 
-	/** ×İÖá±êÌâ */
+	/** çºµè½´æ ‡é¢˜ */
 	private String yTitle;
 
-	/** Í³¼ÆÍ¼±êÌâ */
+	/** ç»Ÿè®¡å›¾æ ‡é¢˜ */
 	private String graphTitle;
 
-	/** Íø¸ñÏßÀàĞÍ */
-	/** ÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à */
+	/** ç½‘æ ¼çº¿ç±»å‹ */
+	/** æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è· */
 	private double barDistance = 0.0;
 
-	/** ÓÃÇ°NÌõÊı¾İ»­Í¼ */
+	/** ç”¨å‰Næ¡æ•°æ®ç”»å›¾ */
 	private int topN = 0; //
 
-	/** ¾¯½äÏß¶¨Òå */
+	/** è­¦æˆ’çº¿å®šä¹‰ */
 	private ArrayList alarms = null;
 
-	/** Í³¼ÆÍ¼³¬Á´½Ó */
+	/** ç»Ÿè®¡å›¾è¶…é“¾æ¥ */
 	private String link;
 
-	/** Í³¼ÆÍ¼³¬Á´½ÓÄ¿±ê´°¿Ú */
+	/** ç»Ÿè®¡å›¾è¶…é“¾æ¥ç›®æ ‡çª—å£ */
 	private String linkTarget;
 
-	/** Í³¼ÆÍ¼µÄÅäÉ«·½°¸Ãû */
+	/** ç»Ÿè®¡å›¾çš„é…è‰²æ–¹æ¡ˆå */
 	private Palette palette;
 
-	/** ±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à */
+	/** æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è· */
 	private double titleMargin;
 
-	/** Ê±¼ä×ßÊÆÍ¼ºáÖáÈ¡Öµ */
+	/** æ—¶é—´èµ°åŠ¿å›¾æ¨ªè½´å–å€¼ */
 	private ArrayList ttXValues;
 
-	/** Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È */
+	/** æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦ */
 	private int statusBarWidth;
 
-	/** ÖùĞÎÍ¼»òÌõĞÎÍ¼¼ä¾à */
+	/** æŸ±å½¢å›¾æˆ–æ¡å½¢å›¾é—´è· */
 	private static final short BAR_DISTANCE = (short) 0x01;
 
-	/** ÓÃÇ°NÌõÊı¾İ»­Í¼ */
+	/** ç”¨å‰Næ¡æ•°æ®ç”»å›¾ */
 	private static final short TOP_DATA_N = (short) 0x02;
 
-	/** Í³¼ÆÖµÆğÊ¼Öµ */
+	/** ç»Ÿè®¡å€¼èµ·å§‹å€¼ */
 	private static final short Y_START_VALUE1 = (short) 0x04;
 	private static final short Y_START_VALUE2 = (short) 0x08;
 
-	/** Í³¼ÆÖµ½áÊøÖµ */
+	/** ç»Ÿè®¡å€¼ç»“æŸå€¼ */
 	private static final short Y_END_VALUE1 = (short) 0x10;
 	private static final short Y_END_VALUE2 = (short) 0x20;
 
-	/** Í³¼ÆÖµ±êÇ©¼ä¸ô */
+	/** ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš” */
 	private static final short Y_INTERVAL1 = (short) 0x40;
 	private static final short Y_INTERVAL2 = (short) 0x80;
 
-	/** Í³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı */
+	/** ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•° */
 	private static final short Y_MIN_MARK = (short) 0x100;
 
-	/** ±êÌâÓëÍ¼ĞÎÖ®¼äµÄ¼ä¾à */
+	/** æ ‡é¢˜ä¸å›¾å½¢ä¹‹é—´çš„é—´è· */
 	private static final short TITLE_MARGIN = (short) 0x200;
 
-	/** ·ÖÀàÖá±êÇ©¼ä¸ô */
+	/** åˆ†ç±»è½´æ ‡ç­¾é—´éš” */
 	private static final short X_INTERVAL = (short) 0x400;
 
-	/** Ê±Ğò×´Ì¬Í¼»ò¸ÊÌØÍ¼×´Ì¬Ìõ¿í¶È */
+	/** æ—¶åºçŠ¶æ€å›¾æˆ–ç”˜ç‰¹å›¾çŠ¶æ€æ¡å®½åº¦ */
 	private static final short STATUS_BAR_WIDTH = (short) 0x800;
 
-	private short userSetStatus = 0; // ÓÃ»§ÊÇ·ñÉèÖÃ¸ÃÊôĞÔ
+	private short userSetStatus = 0; // ç”¨æˆ·æ˜¯å¦è®¾ç½®è¯¥å±æ€§
 
 	private double yStartValue1 = 0;
-	/** Í³¼ÆÖµÆğÊ¼Öµ */
+	/** ç»Ÿè®¡å€¼èµ·å§‹å€¼ */
 	private double yStartValue2 = 0;
 	private double yEndValue1 = 0;
-	/** Í³¼ÆÖµ½áÊøÖµ */
+	/** ç»Ÿè®¡å€¼ç»“æŸå€¼ */
 	private double yEndValue2 = 0;
 	private double yInterval1 = 0;
-	/** Í³¼ÆÖµ±êÇ©¼ä¸ô */
+	/** ç»Ÿè®¡å€¼æ ‡ç­¾é—´éš” */
 	private double yInterval2 = 0;
 	private int yMinMarks = 0;
-	/** Í³¼ÆÖµ×îÉÙ¿Ì¶ÈÊı */
+	/** ç»Ÿè®¡å€¼æœ€å°‘åˆ»åº¦æ•° */
 	private double xInterval = 0;
-	/** ·ÖÀàÖá±êÇ©¼ä¸ô */
+	/** åˆ†ç±»è½´æ ‡ç­¾é—´éš” */
 	private String dataFormat1;
-	/** Í¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå */
+	/** å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰ */
 	private String dataFormat2;
-	/** Í¼ÖĞÏÔÊ¾Êı¾İ¸ñÊ½¶¨Òå */
+	/** å›¾ä¸­æ˜¾ç¤ºæ•°æ®æ ¼å¼å®šä¹‰ */
 	private byte graphType;
 	private IGraphProperty prop;
 }

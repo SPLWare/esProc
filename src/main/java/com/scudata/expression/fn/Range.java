@@ -13,17 +13,17 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ���ָ������εĶ�ͷ����һ��ͷ����ʱ��/����
+ * 获得指定间隔段的段头和下一段头日期时间/数据
  * range(s,e,k:n)
- * ��s,e֮��ȷֳ�n�ݣ����ص�k�κ͵�k+1�εĶ�ͷ�����ؽ��Ϊ�����У�����s,e���������;����������ݾ�ȷ�ȣ�
- * date�;�ȷ���죬datetime�;�ȷ���룬s,e����������������kʡ�Ե�ʱ�򷵻����еķֶ�ͷ�Լ����ݶε�ͷβ���ݣ�
- * �����ؽ��Ϊn+1���С�
+ * 将s,e之间等分成n份，返回第k段和第k+1段的段头，返回结果为二序列；根据s,e的数据类型决定返回数据精确度，
+ * date型精确到天，datetime型精确到秒，s,e还可以是整数。当k省略的时候返回所有的分段头以及数据段的头尾数据，
+ * 即返回结果为n+1序列。
  * @author runqian
  *
  */
 public class Range extends Function {
 	/**
-	 * ������ʽ����Ч�ԣ���Ч���׳��쳣
+	 * 检查表达式的有效性，无效则抛出异常
 	 */
 	public void checkValidity() {
 		if (param == null) {

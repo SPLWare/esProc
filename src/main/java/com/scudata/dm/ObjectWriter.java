@@ -10,15 +10,15 @@ import com.scudata.array.IArray;
 import com.scudata.common.RQException;
 
 /**
- * ÓÃÓÚÏòÊä³öÁ÷Ğ´³ö¶ÔÏó£¬¶ÔÓ¦µÄ¶ÁÎªObjectReader
- * ObjectWriterºÍObjectReaderµÄ·½·¨ÊÇÒ»Ò»¶ÔÓ¦µÄ£¬±ÈÈçwriteIntºÍreadInt¶ÔÓ¦£¬writeInt32ºÍreadInt32¶ÔÓ¦¡£
- * ¶ÁµÄÊ±ºòÒ»¶¨Òªµ÷ÓÃºÍĞ´µÄ·½·¨Ïà¶ÔÓ¦µÄ·½·¨£¬²»ÄÜĞ´µÄÊ±ºòÓÃwriteInt32¶ø¶ÁµÄÊ±ºòÓÃreadInt¡£
- * ´ËÊä³öÁ÷ÓĞ×Ô¼ºµÄĞ´»º³åÇø
+ * ç”¨äºå‘è¾“å‡ºæµå†™å‡ºå¯¹è±¡ï¼Œå¯¹åº”çš„è¯»ä¸ºObjectReader
+ * ObjectWriterå’ŒObjectReaderçš„æ–¹æ³•æ˜¯ä¸€ä¸€å¯¹åº”çš„ï¼Œæ¯”å¦‚writeIntå’ŒreadIntå¯¹åº”ï¼ŒwriteInt32å’ŒreadInt32å¯¹åº”ã€‚
+ * è¯»çš„æ—¶å€™ä¸€å®šè¦è°ƒç”¨å’Œå†™çš„æ–¹æ³•ç›¸å¯¹åº”çš„æ–¹æ³•ï¼Œä¸èƒ½å†™çš„æ—¶å€™ç”¨writeInt32è€Œè¯»çš„æ—¶å€™ç”¨readIntã€‚
+ * æ­¤è¾“å‡ºæµæœ‰è‡ªå·±çš„å†™ç¼“å†²åŒº
  * @author WangXiaoJun
  *
  */
 public class ObjectWriter extends OutputStream implements ObjectOutput {
-	// ÒÔÏÂ³£Á¿ÎªÊı¾İµÄÀàĞÍ±àÂë
+	// ä»¥ä¸‹å¸¸é‡ä¸ºæ•°æ®çš„ç±»å‹ç¼–ç 
 	static final int MARK0 = 0x00;
 	static final int NULL = 0x00;
 	static final int TRUE = 0x01;
@@ -28,10 +28,10 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	static final int DECIMAL0 = 0x05;
 
 	static final int MARK1 = 0x10;
-	static final int INT16 = 0x10; // 16bitÎŞ·ûºÅÕıÊı
+	static final int INT16 = 0x10; // 16bitæ— ç¬¦å·æ­£æ•°
 	static final int INT32 = 0x11; // Integer
-	static final int LONG16 = 0x12; // 16bitÎŞ·ûºÅÕıÊı
-	static final int LONG32 = 0x13; // 32bitÎŞ·ûºÅÕıÊı
+	static final int LONG16 = 0x12; // 16bitæ— ç¬¦å·æ­£æ•°
+	static final int LONG32 = 0x13; // 32bitæ— ç¬¦å·æ­£æ•°
 	static final int LONG64 = 0x14; // Long
 	static final int FLOAT16 = 0x15;
 	static final int FLOAT32 = 0x16;
@@ -43,36 +43,36 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	static final int SEQUENCE = 0x22;
 	static final int TABLE = 0x23;
 	static final int BLOB = 0x24;
-	static final int AVG = 0x25; // ·Ö×éÔËËãÖĞÇóÆ½¾ùÖµµÄÖĞ¼ä½á¹û
+	static final int AVG = 0x25; // åˆ†ç»„è¿ç®—ä¸­æ±‚å¹³å‡å€¼çš„ä¸­é—´ç»“æœ
 	static final int RECORD = 0x27;
 
 	static final int MARK3 = 0x30;
-	static final int DATE16 = 0x30; // 2000ÄêÖ®ºóµÄÈÕÆÚ
-	static final int DATE32 = 0x31; // 2000ÄêÖ®Ç°µÄÈÕÆÚ
+	static final int DATE16 = 0x30; // 2000å¹´ä¹‹åçš„æ—¥æœŸ
+	static final int DATE32 = 0x31; // 2000å¹´ä¹‹å‰çš„æ—¥æœŸ
 	static final int TIME16 = 0x32;
 	static final int TIME17 = 0x33;
 	static final int DATETIME32 = 0x34;
 	static final int DATETIME33 = 0x35;
 	static final int DATETIME64 = 0x36;
 	static final int TIME32 = 0x37;
-	static final int DATE24 = 0x38; // 2000ÄêÖ®ºóµÄÈÕÆÚ
-	static final int DATE64 = 0x39; // ³¬½ç±íÊ¾²»ÁË¶¼µÃÈÕÆÚÓÃ64Î»±£´æ
+	static final int DATE24 = 0x38; // 2000å¹´ä¹‹åçš„æ—¥æœŸ
+	static final int DATE64 = 0x39; // è¶…ç•Œè¡¨ç¤ºä¸äº†éƒ½å¾—æ—¥æœŸç”¨64ä½ä¿å­˜
 	
-	static final int SERIALBYTES = 0x40; // ÅÅºÅ
+	static final int SERIALBYTES = 0x40; // æ’å·
 	static final int REPEAT3 = 0x70;
 	static final int REPEAT11 = 0x78;
 	
-	static final int INT4 = 0x80; // 4bitÎŞ·ûºÅÕıÊı
-	static final int INT12 = 0x90; // 12bitÎŞ·ûºÅÕıÊı
-	static final int HEX4 = 0xA0; // ³¤¶ÈÎª1µÄÊ®Áù½øÖÆÊıÂë×Ö´®£¬×ÖÄ¸´óĞ´£¬Ò»°ãÓÃÓÚ±êÖ¾
-	static final int DIGIT4 = 0xB0; // ³¤¶ÈĞ¡ÓÚµÈÓÚ30µÄÊı×Ö´®
+	static final int INT4 = 0x80; // 4bitæ— ç¬¦å·æ­£æ•°
+	static final int INT12 = 0x90; // 12bitæ— ç¬¦å·æ­£æ•°
+	static final int HEX4 = 0xA0; // é•¿åº¦ä¸º1çš„åå…­è¿›åˆ¶æ•°ç å­—ä¸²ï¼Œå­—æ¯å¤§å†™ï¼Œä¸€èˆ¬ç”¨äºæ ‡å¿—
+	static final int DIGIT4 = 0xB0; // é•¿åº¦å°äºç­‰äº30çš„æ•°å­—ä¸²
 	static final int STRING4 = 0xC0;
 	static final int STRING5 = 0xD0;
 	static final int STRING4_ASSIC = 0xE0;//
 	static final int STRING5_ASSIC = 0xF0;
 
 
-	// ¿é¿ªÊ¼±êÖ¾£¬Á¬Ğø16¸ö0xFF
+	// å—å¼€å§‹æ ‡å¿—ï¼Œè¿ç»­16ä¸ª0xFF
 	public static final byte []BLOCKMARKS = {(byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
 		(byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
 		(byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF};
@@ -80,7 +80,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	private static final double MINFLOAT = 0.000001;
 	private static final int MAX_DIGIT_LEN = 30;
 
-	static final long BASEDATE; // 1992ÄêÖ®Ç°ÓĞµÄÈÕÆÚ²»ÄÜ±»86400000Õû³ı
+	static final long BASEDATE; // 1992å¹´ä¹‹å‰æœ‰çš„æ—¥æœŸä¸èƒ½è¢«86400000æ•´é™¤
 	static final long BASETIME;
 	static {
 		java.util.Calendar calendar = java.util.Calendar.getInstance();
@@ -92,13 +92,13 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 		BASEDATE = calendar.getTimeInMillis();
 	}
 
-	protected OutputStream out; // Êä³öÁ÷
-	protected byte []buf; // Ğ´»º³åÇø
-	protected int count = 0; // Ğ´»º³åÇøµ±Ç°×Ö½ÚÊı
+	protected OutputStream out; // è¾“å‡ºæµ
+	protected byte []buf; // å†™ç¼“å†²åŒº
+	protected int count = 0; // å†™ç¼“å†²åŒºå½“å‰å­—èŠ‚æ•°
 
 	/**
-	 * ¹¹½¨Ğ´¶ÔÏó
-	 * @param out Êä³öÁ÷
+	 * æ„å»ºå†™å¯¹è±¡
+	 * @param out è¾“å‡ºæµ
 	 */
 	public ObjectWriter(OutputStream out) {
 		this.out = out;
@@ -106,16 +106,16 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * ¹¹½¨Ğ´¶ÔÏó
-	 * @param out Êä³öÁ÷
-	 * @param bufSize »º³åÇø´óĞ¡
+	 * æ„å»ºå†™å¯¹è±¡
+	 * @param out è¾“å‡ºæµ
+	 * @param bufSize ç¼“å†²åŒºå¤§å°
 	 */
 	public ObjectWriter(OutputStream out, int bufSize) {
 		this.out = out;
 		buf = new byte[bufSize];
 	}
 	
-	// °Ñ»º´æĞ´µ½Êä³öÁ÷
+	// æŠŠç¼“å­˜å†™åˆ°è¾“å‡ºæµ
     private void flushBuffer() throws IOException {
         if (count > 0) {
 		    out.write(buf, 0, count);
@@ -124,7 +124,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
     }
 
     /**
-     * Ç¿ÖÆĞ´³ö»º´æµ½ÓÀ¾Ã´æ´¢
+     * å¼ºåˆ¶å†™å‡ºç¼“å­˜åˆ°æ°¸ä¹…å­˜å‚¨
  	 * @throws IOException
     */
 	public void flush() throws IOException {
@@ -133,7 +133,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * ¹Ø±ÕĞ´
+	 * å…³é—­å†™
 	 * @throws IOException
 	 */
 	public void close() throws IOException {
@@ -142,8 +142,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö×Ö½Ú
-	 * @param b ×Ö½ÚÖµ
+	 * å†™å‡ºä¸€ä¸ªå­—èŠ‚
+	 * @param b å­—èŠ‚å€¼
 	 * @throws IOException
 	 */
 	public void write(int b) throws IOException {
@@ -155,8 +155,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö×Ö½ÚÊı×é
-	 * @param b ×Ö½ÚÊı×é
+	 * å†™å‡ºä¸€ä¸ªå­—èŠ‚æ•°ç»„
+	 * @param b å­—èŠ‚æ•°ç»„
 	 * @throws IOException
 	 */
 	public void write(byte b[]) throws IOException {
@@ -164,10 +164,10 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö×Ö½ÚÊı×é
-	 * @param b ×Ö½ÚÊı×é
-	 * @param off ÆğÊ¼Î»ÖÃ
-	 * @param len ³¤¶È
+	 * å†™å‡ºä¸€ä¸ªå­—èŠ‚æ•°ç»„
+	 * @param b å­—èŠ‚æ•°ç»„
+	 * @param off èµ·å§‹ä½ç½®
+	 * @param len é•¿åº¦
 	 * @throws IOException
 	 */
 	public void write(byte b[], int off, int len) throws IOException {
@@ -185,8 +185,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö×Ö½Ú
-	 * @param v ×Ö½ÚÖµ
+	 * å†™å‡ºä¸€ä¸ªå­—èŠ‚
+	 * @param v å­—èŠ‚å€¼
 	 * @throws IOException
 	 */
 	public void writeByte(int v) throws IOException {
@@ -198,8 +198,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö²¼¶ûÖµ
-	 * @param v ²¼¶ûÖµ
+	 * å†™å‡ºä¸€ä¸ªå¸ƒå°”å€¼
+	 * @param v å¸ƒå°”å€¼
 	 * @throws IOException
 	 */
 	public void writeBoolean(boolean v) throws IOException {
@@ -211,8 +211,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö¶ÌÕûÊı
-	 * @param v ¶ÌÕûÊı
+	 * å†™å‡ºä¸€ä¸ªçŸ­æ•´æ•°
+	 * @param v çŸ­æ•´æ•°
 	 * @throws IOException
 	 */
 	public void writeShort(int v) throws IOException {
@@ -221,8 +221,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö×Ö·û
-	 * @param v ×Ö·û
+	 * å†™å‡ºä¸€ä¸ªå­—ç¬¦
+	 * @param v å­—ç¬¦
 	 * @throws IOException
 	 */
 	public void writeChar(int v) throws IOException {
@@ -231,8 +231,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö²¼¶ûÖµ
-	 * @param v ²¼¶ûÖµ
+	 * å†™å‡ºä¸€ä¸ªå¸ƒå°”å€¼
+	 * @param v å¸ƒå°”å€¼
 	 * @throws IOException
 	 */
 	public void writeFloat(float v) throws IOException {
@@ -240,8 +240,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * °Ñ×Ö·û´®µÄÃ¿¸ö×Ö·ûµ±byteÖµĞ´³ö
-	 * @param s ×Ö·û´®
+	 * æŠŠå­—ç¬¦ä¸²çš„æ¯ä¸ªå­—ç¬¦å½“byteå€¼å†™å‡º
+	 * @param s å­—ç¬¦ä¸²
 	 * @throws IOException
 	 */
 	public void writeBytes(String s) throws IOException {
@@ -251,8 +251,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * °Ñ×Ö·û´®µÄÃ¿¸ö×Ö·ûµ±charÖµĞ´³ö
-	 * @param s ×Ö·û´®
+	 * æŠŠå­—ç¬¦ä¸²çš„æ¯ä¸ªå­—ç¬¦å½“charå€¼å†™å‡º
+	 * @param s å­—ç¬¦ä¸²
 	 * @throws IOException
 	 */
 	public void writeChars(String s) throws IOException {
@@ -262,8 +262,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³ö×Ö·û´®µÄutf±àÂë
-	 * @param s ×Ö·û´®
+	 * å†™å‡ºå­—ç¬¦ä¸²çš„utfç¼–ç 
+	 * @param s å­—ç¬¦ä¸²
 	 * @throws IOException
 	 */
 	public void writeUTF(String str) throws IOException {
@@ -271,8 +271,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³ö×Ö½ÚÊı×é
-	 * @param v ×Ö½ÚÊı×é
+	 * å†™å‡ºå­—èŠ‚æ•°ç»„
+	 * @param v å­—èŠ‚æ•°ç»„
 	 * @throws IOException
 	 */
 	public void writeBytes(byte[] v) throws IOException {
@@ -286,8 +286,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³ö×Ö·û´®Êı×é
-	 * @param strs ×Ö·û´®Êı×é
+	 * å†™å‡ºå­—ç¬¦ä¸²æ•°ç»„
+	 * @param strs å­—ç¬¦ä¸²æ•°ç»„
 	 * @throws IOException
 	 */
 	public void writeStrings(String[] strs) throws IOException {
@@ -301,7 +301,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 		}
 	}
 
-	// ³¤¶ÈĞ¡ÓÚµÈÓÚ30µÄÊı×Ö´®
+	// é•¿åº¦å°äºç­‰äº30çš„æ•°å­—ä¸²
 	private boolean isDigit(char []charr, int len) {
 		if (len > MAX_DIGIT_LEN) return false;
 
@@ -312,7 +312,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 		return true;
 	}
 
-	// ³¤¶ÈĞ¡ÓÚµÈÓÚMAX_DIGIT_LENµÄÊı×Ö´®
+	// é•¿åº¦å°äºç­‰äºMAX_DIGIT_LENçš„æ•°å­—ä¸²
 	private void writeDigit(char []charr, int len) throws IOException {
 		byte []writeBuffer = this.buf;
 		if (writeBuffer.length - count < MAX_DIGIT_LEN) {
@@ -455,8 +455,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ödouble
-	 * @param d doubleÖµ
+	 * å†™å‡ºä¸€ä¸ªdouble
+	 * @param d doubleå€¼
 	 * @throws IOException
 	 */
 	public void writeDouble(double d) throws IOException {
@@ -492,8 +492,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö³¤ÕûÊı
-	 * @param v ³¤ÕûÊı
+	 * å†™å‡ºä¸€ä¸ªé•¿æ•´æ•°
+	 * @param v é•¿æ•´æ•°
 	 * @throws IOException
 	 */
 	public void writeLong(long v) throws IOException {
@@ -527,8 +527,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 	
 	/**
-	 * Ğ´³öÒ»¸ö4×Ö½ÚÕûÊı
-	 * @param n ÕûÊı
+	 * å†™å‡ºä¸€ä¸ª4å­—èŠ‚æ•´æ•°
+	 * @param n æ•´æ•°
 	 * @throws IOException
 	 */
 	public void writeInt32(int n) throws IOException {
@@ -539,8 +539,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö5×Ö½Ú³¤ÕûÊı
-	 * @param v ³¤ÕûÊı
+	 * å†™å‡ºä¸€ä¸ª5å­—èŠ‚é•¿æ•´æ•°
+	 * @param v é•¿æ•´æ•°
 	 * @throws IOException
 	 */
 	public void writeLong40(long v) throws IOException {
@@ -559,8 +559,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 	
 	/**
-	 * Ğ´³öÒ»¸ö8×Ö½Ú³¤ÕûÊı
-	 * @param v ³¤ÕûÊı
+	 * å†™å‡ºä¸€ä¸ª8å­—èŠ‚é•¿æ•´æ•°
+	 * @param v é•¿æ•´æ•°
 	 * @throws IOException
 	 */
 	public void writeLong64(long v) throws IOException {
@@ -582,8 +582,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸öÕûÊı
-	 * @param n ÕûÊı
+	 * å†™å‡ºä¸€ä¸ªæ•´æ•°
+	 * @param n æ•´æ•°
 	 * @throws IOException
 	 */
 	public void writeInt(int n) throws IOException {
@@ -646,7 +646,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	private void writeDate(java.sql.Date date) throws IOException {
 		long v = date.getTime();
 		if (v >= BASEDATE) {
-			// ¾«È·µ½Ìì
+			// ç²¾ç¡®åˆ°å¤©
 			int d = (int)((v - BASEDATE) / 86400000);
 			if (d > 0xFFFF) {
 				if (d > 0xFFFFFF) {
@@ -665,7 +665,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 				write(d & 0xFF);
 			}
 		} else {
-			// ¾«È·µ½Ãë
+			// ç²¾ç¡®åˆ°ç§’
 			long d = (BASEDATE - v) / 1000;
 			if (d > 0xFFFFFFFFL) {
 				//throw new RQException("Invalid date: " + date);
@@ -749,8 +749,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	/**
-	 * Ğ´³öÒ»¸ö¶ÔÏó
-	 * @param obj ¶ÔÏó
+	 * å†™å‡ºä¸€ä¸ªå¯¹è±¡
+	 * @param obj å¯¹è±¡
 	 * @throws IOException
 	 */
 	public void writeObject(Object obj) throws IOException {
@@ -797,7 +797,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 			if (len < 16) {
 				write(SERIALBYTES | len);
 			} else {
-				// 0±íÊ¾³¤¶È16
+				// 0è¡¨ç¤ºé•¿åº¦16
 				write(SERIALBYTES);
 			}
 			

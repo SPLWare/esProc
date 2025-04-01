@@ -22,7 +22,7 @@ import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * µ¼³ö×Ö¶ÎÊ±£¬¶¨Òå×Ö¶ÎÃû¸ú±í´ïÊ½µÄ¶Ô»°¿ò
+ * å¯¼å‡ºå­—æ®µæ—¶ï¼Œå®šä¹‰å­—æ®µåè·Ÿè¡¨è¾¾å¼çš„å¯¹è¯æ¡†
  * 
  * @author Joancy
  *
@@ -49,12 +49,12 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog {
 	private int m_option = JOptionPane.CANCEL_OPTION;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param owner
-	 *            ¸¸´°¿Ú
+	 *            çˆ¶çª—å£
 	 * @param defineType
-	 *            ¶¨Òå³£Á¿ÀàĞÍ
+	 *            å®šä¹‰å¸¸é‡ç±»å‹
 	 */
 	public ExportFieldsDialog(Dialog owner, int defineType) {
 		super(owner);
@@ -90,17 +90,17 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog {
 	}
 
 	/**
-	 * »ñÈ¡´°¿Ú·µ»ØµÄ¶¯×÷Ñ¡Ïî
+	 * è·å–çª—å£è¿”å›çš„åŠ¨ä½œé€‰é¡¹
 	 */
 	public int getOption() {
 		return m_option;
 	}
 
 	/**
-	 * ÉèÖÃ×Ö¶Î¶¨ÒåÁĞ±í
+	 * è®¾ç½®å­—æ®µå®šä¹‰åˆ—è¡¨
 	 * 
 	 * @param fields
-	 *            ×Ö¶Î¶¨ÒåÁĞ±í
+	 *            å­—æ®µå®šä¹‰åˆ—è¡¨
 	 */
 	public void setFieldDefines(ArrayList<FieldDefine> fields) {
 		if (fields == null) {
@@ -116,9 +116,9 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog {
 	}
 
 	/**
-	 * »ñÈ¡±à¼­ºÃµÄ×Ö¶Î¶¨ÒåÁĞ±í
+	 * è·å–ç¼–è¾‘å¥½çš„å­—æ®µå®šä¹‰åˆ—è¡¨
 	 * 
-	 * @return ×Ö¶Î¶¨ÒåÁĞ±í
+	 * @return å­—æ®µå®šä¹‰åˆ—è¡¨
 	 */
 	public ArrayList<FieldDefine> getFieldDefines() {
 		exportFields.acceptText();
@@ -150,7 +150,7 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog {
 		setModal(true);
 		jPanel2.setLayout(vFlowLayout1);
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exportFields.acceptText();
@@ -159,7 +159,7 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog {
 			}
 		});
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -183,9 +183,9 @@ public class ExportFieldsDialog extends JDialog implements IFieldDefineDialog {
 		});
 		jScrollPane1.getViewport().add(exportFields);
 		jBAdd.setMnemonic('A');
-		jBAdd.setText("Ôö¼Ó(A)");
+		jBAdd.setText("å¢åŠ (A)");
 		jBDel.setMnemonic('D');
-		jBDel.setText("É¾³ı(D)");
+		jBDel.setText("åˆ é™¤(D)");
 		jPanel2.add(jBOK, null);
 		jPanel2.add(jBCancel, null);
 		jPanel2.add(jPanel1, null);

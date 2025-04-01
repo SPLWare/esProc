@@ -184,7 +184,7 @@ public abstract class AppMenu extends JMenuBar {
 				liveMenu.addSeparator();
 			}
 			rmi = new JMenuItem(sheetTitle);
-			// »î¶¯²Ëµ¥µÄ²Ëµ¥Ãû×ÖÎª´°¿Ú±êÌâ£¬²»ÊÇ²Ëµ¥ÃüÁîĞòºÅ
+			// æ´»åŠ¨èœå•çš„èœå•åå­—ä¸ºçª—å£æ ‡é¢˜ï¼Œä¸æ˜¯èœå•å‘½ä»¤åºå·
 			rmi.setName(PRE_LIVE_MENU + sheetTitle);
 			rmi.addActionListener(action);
 			liveMenu.add(rmi);
@@ -798,7 +798,7 @@ public abstract class AppMenu extends JMenuBar {
 	}
 
 	/**
-	 * ²Ëµ¥Ö´ĞĞµÄ¼àÌıÆ÷
+	 * èœå•æ‰§è¡Œçš„ç›‘å¬å™¨
 	 */
 	protected ActionListener menuAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -815,7 +815,7 @@ public abstract class AppMenu extends JMenuBar {
 	};
 
 	/**
-	 * Ö´ĞĞ²Ëµ¥ÃüÁî
+	 * æ‰§è¡Œèœå•å‘½ä»¤
 	 */
 	public void executeCmd(short cmdId) {
 		try {
@@ -826,20 +826,20 @@ public abstract class AppMenu extends JMenuBar {
 	}
 
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	protected MessageManager mmSpl = IdeSplMessage.get();
 
 	/**
 	 * 
-	 * ĞÂ½¨¼¯ËãÆ÷²Ëµ¥Ïî
+	 * æ–°å»ºé›†ç®—å™¨èœå•é¡¹
 	 * 
 	 * @param cmdId
-	 *            ÔÚGCSplÖĞ¶¨ÒåµÄÃüÁî
+	 *            åœ¨GCSplä¸­å®šä¹‰çš„å‘½ä»¤
 	 * @param menuId
-	 *            ÔÚGCSplÖĞ¶¨ÒåµÄ²Ëµ¥Ãû
+	 *            åœ¨GCSplä¸­å®šä¹‰çš„èœå•å
 	 * @param isMain
-	 *            ÊÇ·ñ²Ëµ¥£¬true²Ëµ¥£¬false²Ëµ¥Ïî
+	 *            æ˜¯å¦èœå•ï¼Œtrueèœå•ï¼Œfalseèœå•é¡¹
 	 * @return
 	 */
 	protected JMenu getSplMenuItem(String menuId, char mneKey, boolean isMain) {
@@ -848,12 +848,12 @@ public abstract class AppMenu extends JMenuBar {
 	}
 
 	/**
-	 * ĞÂ½¨¼¯ËãÆ÷²Ëµ¥Ïî
+	 * æ–°å»ºé›†ç®—å™¨èœå•é¡¹
 	 * 
 	 * @param cmdId
-	 *            ÔÚGCSplÖĞ¶¨ÒåµÄÃüÁî
+	 *            åœ¨GCSplä¸­å®šä¹‰çš„å‘½ä»¤
 	 * @param menuId
-	 *            ÔÚGCSplÖĞ¶¨ÒåµÄ²Ëµ¥Ãû
+	 *            åœ¨GCSplä¸­å®šä¹‰çš„èœå•å
 	 * @param mneKey
 	 *            The Mnemonic
 	 * @param mask
@@ -868,12 +868,12 @@ public abstract class AppMenu extends JMenuBar {
 	}
 
 	/**
-	 * ĞÂ½¨¼¯ËãÆ÷²Ëµ¥Ïî
+	 * æ–°å»ºé›†ç®—å™¨èœå•é¡¹
 	 * 
 	 * @param cmdId
-	 *            ÔÚGCSplÖĞ¶¨ÒåµÄÃüÁî
+	 *            åœ¨GCSplä¸­å®šä¹‰çš„å‘½ä»¤
 	 * @param menuId
-	 *            ÔÚGCSplÖĞ¶¨ÒåµÄ²Ëµ¥Ãû
+	 *            åœ¨GCSplä¸­å®šä¹‰çš„èœå•å
 	 * @param mneKey
 	 *            The Mnemonic
 	 * @param mask
@@ -881,7 +881,7 @@ public abstract class AppMenu extends JMenuBar {
 	 *            key seems to be only available on Macintosh keyboards. It is
 	 *            used here instead of no accelerator key.
 	 * @param hasIcon
-	 *            ²Ëµ¥ÏîÊÇ·ñÓĞÍ¼±ê
+	 *            èœå•é¡¹æ˜¯å¦æœ‰å›¾æ ‡
 	 * @return
 	 */
 	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey,
@@ -894,12 +894,12 @@ public abstract class AppMenu extends JMenuBar {
 	}
 
 	/**
-	 * ĞÂ½¨¼¯ËãÆ÷²Ëµ¥Ïî
+	 * æ–°å»ºé›†ç®—å™¨èœå•é¡¹
 	 * 
 	 * @param cmdId
-	 *            ÔÚGCSplÖĞ¶¨ÒåµÄÃüÁî
+	 *            åœ¨GCSplä¸­å®šä¹‰çš„å‘½ä»¤
 	 * @param menuId
-	 *            ÔÚGCSplÖĞ¶¨ÒåµÄ²Ëµ¥Ãû
+	 *            åœ¨GCSplä¸­å®šä¹‰çš„èœå•å
 	 * @param mneKey
 	 *            The Mnemonic
 	 * @param mask
@@ -907,9 +907,9 @@ public abstract class AppMenu extends JMenuBar {
 	 *            key seems to be only available on Macintosh keyboards. It is
 	 *            used here instead of no accelerator key.
 	 * @param hasIcon
-	 *            ²Ëµ¥ÏîÊÇ·ñÓĞÍ¼±ê
+	 *            èœå•é¡¹æ˜¯å¦æœ‰å›¾æ ‡
 	 * @param menuText
-	 *            ²Ëµ¥ÏîÎÄ±¾
+	 *            èœå•é¡¹æ–‡æœ¬
 	 * @return
 	 */
 	protected JMenuItem newMenuItem(short cmdId, String menuId, char mneKey,
@@ -1116,20 +1116,20 @@ public abstract class AppMenu extends JMenuBar {
 	public abstract short[] getMenuItems();
 
 	/**
-	 * ¼ÓÔØ×Ô¶¨Òå²Ëµ¥£¬Ä¿Ç°Ö»ÓĞ°ïÖú²Ëµ¥
+	 * åŠ è½½è‡ªå®šä¹‰èœå•ï¼Œç›®å‰åªæœ‰å¸®åŠ©èœå•
 	 * 
-	 * @return ²Ëµ¥ÏîÁĞ±í
+	 * @return èœå•é¡¹åˆ—è¡¨
 	 */
 	protected List<Object> buildMenuFromConfig() {
 		return buildMenuFromConfig("menuconfig");
 	}
 
 	/**
-	 * ¼ÓÔØ×Ô¶¨Òå²Ëµ¥£¬Ä¿Ç°Ö»ÓĞ°ïÖú²Ëµ¥
+	 * åŠ è½½è‡ªå®šä¹‰èœå•ï¼Œç›®å‰åªæœ‰å¸®åŠ©èœå•
 	 * 
 	 * @param fileName
-	 *            ÎÄ¼şÃû
-	 * @return ²Ëµ¥ÏîÁĞ±í
+	 *            æ–‡ä»¶å
+	 * @return èœå•é¡¹åˆ—è¡¨
 	 */
 	protected List<Object> buildMenuFromConfig(String fileName) {
 		List<Object> helpMenus = new ArrayList<Object>();
@@ -1144,7 +1144,7 @@ public abstract class AppMenu extends JMenuBar {
 			for (int i = 0; i < list.getLength(); i++) {
 				Node el = (Node) list.item(i);
 				if (el.getNodeName().equalsIgnoreCase("help")) {
-					// Éú³É°ïÖú²Ëµ¥
+					// ç”Ÿæˆå¸®åŠ©èœå•
 					NodeList helpList = el.getChildNodes();
 					for (int j = 0; j < helpList.getLength(); j++) {
 						el = (Node) helpList.item(j);

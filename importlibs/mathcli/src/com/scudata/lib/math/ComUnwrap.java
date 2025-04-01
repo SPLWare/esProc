@@ -9,11 +9,11 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ƽ����λ��
- * Q = unwrap(P) չ������ P �еĻ�����λ�ǡ�ÿ��������λ��֮�����Ծ���ڻ���� �� ����ʱ��
- * unwrap �ͻ�ͨ������ ��2�� ����������ƽ����λ�ǣ�ֱ����ԾС�� �С�
- * ��� P �Ǿ���unwrap ���������㡣
- * ��� P �Ƕ�ά���飬unwrap ���Դ�С���� 1 �ĵ�һ��ά�Ƚ������㡣
+ * 平移相位角
+ * Q = unwrap(P) 展开向量 P 中的弧度相位角。每当连续相位角之间的跳跃大于或等于 π 弧度时，
+ * unwrap 就会通过增加 ±2π 的整数倍来平移相位角，直到跳跃小于 π。
+ * 如果 P 是矩阵，unwrap 将按列运算。
+ * 如果 P 是多维数组，unwrap 将对大小大于 1 的第一个维度进行运算。
  */
 public class ComUnwrap extends Function {
 

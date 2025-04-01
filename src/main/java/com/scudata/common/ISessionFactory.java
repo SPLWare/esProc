@@ -2,7 +2,7 @@ package com.scudata.common;
 
 public interface ISessionFactory {
 	/**
-	 * 取数据源连接
+	 * 鍙栨暟鎹簮杩炴帴
 	 */
 	public DBSession getSession() throws Exception;
 

@@ -37,74 +37,74 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JTableEx;
 
 /**
- * Ñ¡ÔñÃû³ÆµÄ±í¿Ø¼ş
+ * é€‰æ‹©åç§°çš„è¡¨æ§ä»¶
  */
 public class TableSelectName extends JScrollPane {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
-	/** Ãû³ÆÁĞ */
+	/** åç§°åˆ— */
 	public static final byte COL_NAME = 1;
-	/** Ñ¡³öÁĞ */
+	/** é€‰å‡ºåˆ— */
 	private static final byte COL_SELECT = 2;
 
-	/** ĞòºÅÁĞ±êÌâ */
+	/** åºå·åˆ—æ ‡é¢˜ */
 	private final String TITLE_INDEX = mm.getMessage("tableselectname.index");
-	/** Ãû³ÆÁĞ±êÌâ */
+	/** åç§°åˆ—æ ‡é¢˜ */
 	private final String TITLE_NAME = mm.getMessage("tableselectname.name");
-	/** Ñ¡³öÁĞ±êÌâ */
+	/** é€‰å‡ºåˆ—æ ‡é¢˜ */
 	private final String TITLE_SELECT = mm.getMessage("tableselectname.select");
 
 	/**
-	 * JTable¿Ø¼ş
+	 * JTableæ§ä»¶
 	 */
 	private JTableEx tableNames;
 
 	/**
-	 * ÊÇ·ñÈ«Ñ¡
+	 * æ˜¯å¦å…¨é€‰
 	 */
 	private boolean selectAll = false;
 
 	/**
-	 * ÒÑ¾­´æÔÚµÄÃû³Æ
+	 * å·²ç»å­˜åœ¨çš„åç§°
 	 */
 	private Vector<String> existNames;
 
 	/**
-	 * ÒÑ¾­´æÔÚµÄ×Ö¶ÎÃûÊÇ·ñÏÔÊ¾Îª²»Í¬ÑÕÉ«
+	 * å·²ç»å­˜åœ¨çš„å­—æ®µåæ˜¯å¦æ˜¾ç¤ºä¸ºä¸åŒé¢œè‰²
 	 */
 	private boolean existColor = true;
 
 	/**
-	 * ¹ıÂË×Ö·û´®
+	 * è¿‡æ»¤å­—ç¬¦ä¸²
 	 */
 	private String filter = null;
 
 	/**
-	 * ÊÇ·ñ×èÖ¹±ä»¯
+	 * æ˜¯å¦é˜»æ­¢å˜åŒ–
 	 */
 	private boolean preventChange = false;
 
 	/**
-	 * Ãû×ÖµÄÑ¡Ôñ×´Ì¬¼¯ºÏ
+	 * åå­—çš„é€‰æ‹©çŠ¶æ€é›†åˆ
 	 */
 	private Map<String, Boolean> nameSelected = new HashMap<String, Boolean>();
 
 	/**
-	 * ·ò×é¼ş
+	 * å¤«ç»„ä»¶
 	 */
 	private Component parent;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param dispName
-	 *            Ãû³ÆÁĞµÄ±êÌâ
+	 *            åç§°åˆ—çš„æ ‡é¢˜
 	 */
 	public TableSelectName(Component parent, String dispName) {
 		this.parent = parent;
@@ -160,7 +160,7 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ½«ÒÑ´æÔÚ×Ö¶ÎÏÔÊ¾Îª²»Í¬ÑÕÉ«
+	 * è®¾ç½®æ˜¯å¦å°†å·²å­˜åœ¨å­—æ®µæ˜¾ç¤ºä¸ºä¸åŒé¢œè‰²
 	 * 
 	 * @param existColor
 	 */
@@ -169,7 +169,7 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * È¡Ñ¡ÖĞµÄĞĞ
+	 * å–é€‰ä¸­çš„è¡Œ
 	 * 
 	 * @return
 	 */
@@ -178,49 +178,49 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * Ñ¡ÔñĞĞ±ä»¯¡£Íâ²¿¿ÉÒÔÖØĞ´
+	 * é€‰æ‹©è¡Œå˜åŒ–ã€‚å¤–éƒ¨å¯ä»¥é‡å†™
 	 * 
 	 * @param oldRow
-	 *            ¾ÉĞĞ
+	 *            æ—§è¡Œ
 	 * @param newRow
-	 *            ĞÂĞĞ
+	 *            æ–°è¡Œ
 	 */
 	public void rowChanged(int oldRow, int newRow) {
 	}
 
 	/**
-	 * Êó±êË«»÷¡£Íâ²¿¿ÉÒÔÖØĞ´
+	 * é¼ æ ‡åŒå‡»ã€‚å¤–éƒ¨å¯ä»¥é‡å†™
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 */
 	public void doubleClick(int row, int col) {
 	}
 
 	/**
-	 * ĞĞµÄÑ¡ÖĞ×´Ì¬±ä»¯¡£Íâ²¿¿ÉÒÔÖØĞ´
+	 * è¡Œçš„é€‰ä¸­çŠ¶æ€å˜åŒ–ã€‚å¤–éƒ¨å¯ä»¥é‡å†™
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param selected
-	 *            ÊÇ·ñÑ¡ÖĞ
+	 *            æ˜¯å¦é€‰ä¸­
 	 */
 	public void rowSelectedChanged(int row, boolean selected) {
 	}
 
 	/**
-	 * ¸Ä±äËùÓĞĞĞµÄÑ¡ÖĞ×´Ì¬¡£Íâ²¿¿ÉÒÔÖØĞ´
+	 * æ”¹å˜æ‰€æœ‰è¡Œçš„é€‰ä¸­çŠ¶æ€ã€‚å¤–éƒ¨å¯ä»¥é‡å†™
 	 * 
 	 * @param allSelected
-	 *            ÊÇ·ñÈ«Ñ¡
+	 *            æ˜¯å¦å…¨é€‰
 	 */
 	public void allRowsSelected(boolean allSelected) {
 	}
 
 	/**
-	 * È¡ËùÓĞµÄĞĞÊı
+	 * å–æ‰€æœ‰çš„è¡Œæ•°
 	 * 
 	 * @return
 	 */
@@ -229,12 +229,12 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * °´ĞĞÁĞ·µ»ØÖµ
+	 * æŒ‰è¡Œåˆ—è¿”å›å€¼
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public Object getValueAt(int row, int col) {
@@ -242,46 +242,46 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * ÉèÖÃ¹ıÂË×Ö·û´®
+	 * è®¾ç½®è¿‡æ»¤å­—ç¬¦ä¸²
 	 * 
 	 * @param filter
-	 *            ¹ıÂË×Ö·û´®
+	 *            è¿‡æ»¤å­—ç¬¦ä¸²
 	 */
 	public void setFilter(String filter) {
 		this.filter = filter;
 	}
 
 	/**
-	 * ÉèÖÃÃû³ÆÁĞ±í
+	 * è®¾ç½®åç§°åˆ—è¡¨
 	 * 
 	 * @param names
-	 *            Ãû³ÆÁĞ±í
+	 *            åç§°åˆ—è¡¨
 	 */
 	public synchronized void setNames(Vector<String> names) {
 		setNames(names, false, false);
 	}
 
 	/**
-	 * ÉèÖÃÃû³ÆÁĞ±í
+	 * è®¾ç½®åç§°åˆ—è¡¨
 	 * 
 	 * @param names
-	 *            Ãû³ÆÁĞ±í
+	 *            åç§°åˆ—è¡¨
 	 * @param reset
-	 *            ÊÇ·ñÖØÖÃÑ¡Ôñ×´Ì¬
+	 *            æ˜¯å¦é‡ç½®é€‰æ‹©çŠ¶æ€
 	 */
 	public synchronized void setNames(Vector<String> names, boolean reset) {
 		setNames(names, reset, false);
 	}
 
 	/**
-	 * ÉèÖÃÃû³ÆÁĞ±í
+	 * è®¾ç½®åç§°åˆ—è¡¨
 	 * 
 	 * @param names
-	 *            Ãû³ÆÁĞ±í
+	 *            åç§°åˆ—è¡¨
 	 * @param reset
-	 *            ÊÇ·ñÖØÖÃÑ¡Ôñ×´Ì¬
+	 *            æ˜¯å¦é‡ç½®é€‰æ‹©çŠ¶æ€
 	 * @param selectExist
-	 *            ÊÇ·ñÑ¡ÖĞÒÑ¾­´æÔÚµÄ×Ö¶Î
+	 *            æ˜¯å¦é€‰ä¸­å·²ç»å­˜åœ¨çš„å­—æ®µ
 	 */
 	public synchronized void setNames(Vector<String> names, boolean reset,
 			boolean selectExist) {
@@ -347,10 +347,10 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * È¡Ñ¡ÖĞµÄÃû×Ö
+	 * å–é€‰ä¸­çš„åå­—
 	 * 
 	 * @param tableName
-	 *            ±íÃû¡£ÓÃÓÚ×Ô¶¯Æ´ÉÏ¡°±í.×Ö¶Î¡±¡£Èç¹û±íÃûÊÇnullÔò²»¼Ó¡£
+	 *            è¡¨åã€‚ç”¨äºè‡ªåŠ¨æ‹¼ä¸Šâ€œè¡¨.å­—æ®µâ€ã€‚å¦‚æœè¡¨åæ˜¯nullåˆ™ä¸åŠ ã€‚
 	 * @return
 	 */
 	public String[] getSelectedNames(String tableName) {
@@ -358,12 +358,12 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * È¡Ñ¡ÖĞµÄÃû×Ö
+	 * å–é€‰ä¸­çš„åå­—
 	 * 
 	 * @param tableName
-	 *            ±íÃû¡£ÓÃÓÚ×Ô¶¯Æ´ÉÏ¡°±í.×Ö¶Î¡±¡£Èç¹û±íÃûÊÇnullÔò²»¼Ó¡£
+	 *            è¡¨åã€‚ç”¨äºè‡ªåŠ¨æ‹¼ä¸Šâ€œè¡¨.å­—æ®µâ€ã€‚å¦‚æœè¡¨åæ˜¯nullåˆ™ä¸åŠ ã€‚
 	 * @param opt
-	 *            Ñ¡Ïî
+	 *            é€‰é¡¹
 	 * @return
 	 */
 	public String[] getSelectedNames(String tableName, String opt) {
@@ -392,7 +392,7 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * È¡Ñ¡ÖĞµÄĞòºÅ
+	 * å–é€‰ä¸­çš„åºå·
 	 * 
 	 * @return
 	 */
@@ -412,11 +412,11 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * ĞĞÊÇ·ñ±»Ñ¡ÖĞÁË
+	 * è¡Œæ˜¯å¦è¢«é€‰ä¸­äº†
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
-	 * @return ·µ»ØĞĞÊÇ·ñ±»Ñ¡ÖĞ£¬trueÑ¡ÖĞ£¬falseÎ´Ñ¡ÖĞ
+	 *            è¡Œå·
+	 * @return è¿”å›è¡Œæ˜¯å¦è¢«é€‰ä¸­ï¼Œtrueé€‰ä¸­ï¼Œfalseæœªé€‰ä¸­
 	 */
 	public boolean isRowSelected(int row) {
 		Object s = tableNames.data.getValueAt(row, COL_SELECT);
@@ -424,12 +424,12 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * ÉèÖÃĞĞÊÇ·ñ±»Ñ¡Ôñ
+	 * è®¾ç½®è¡Œæ˜¯å¦è¢«é€‰æ‹©
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param selected
-	 *            ÊÇ·ñÑ¡ÖĞ
+	 *            æ˜¯å¦é€‰ä¸­
 	 */
 	public void setRowSelected(int row, boolean selected) {
 		tableNames.data.setValueAt(new Boolean(selected), row, COL_SELECT);
@@ -437,7 +437,7 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * ÉèÖÃÒÑ¾­´æÔÚµÄÃû×Ö
+	 * è®¾ç½®å·²ç»å­˜åœ¨çš„åå­—
 	 * 
 	 * @param existNames
 	 */
@@ -446,7 +446,7 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		this.getViewport().add(tableNames);
@@ -532,7 +532,7 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * ³õÊ¼»¯°´Å¥
+	 * åˆå§‹åŒ–æŒ‰é’®
 	 * 
 	 * @param b
 	 */
@@ -544,10 +544,10 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * È«Ñ¡»òÈ«²»Ñ¡
+	 * å…¨é€‰æˆ–å…¨ä¸é€‰
 	 * 
 	 * @param selected
-	 *            true±íÊ¾È«Ñ¡£¬falseÈ«²»Ñ¡
+	 *            trueè¡¨ç¤ºå…¨é€‰ï¼Œfalseå…¨ä¸é€‰
 	 */
 	public void selectAll(boolean selected) {
 		selectAll = selected;
@@ -562,7 +562,7 @@ public class TableSelectName extends JScrollPane {
 	}
 
 	/**
-	 * Ñ¡ÖĞ×´Ì¬±ä»¯ÁË
+	 * é€‰ä¸­çŠ¶æ€å˜åŒ–äº†
 	 */
 	protected void setDataChanged() {
 	}

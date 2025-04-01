@@ -6,20 +6,20 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.op.Operation;
 
 /**
- * ÓÃÄÚ´æĞòÁĞ¹¹½¨ÓÎ±ê
+ * ç”¨å†…å­˜åºåˆ—æ„å»ºæ¸¸æ ‡
  * A.cursor() A.cursor(k:n)
  * @author RunQian
  *
  */
 public class MemoryCursor extends ICursor {
-	private Sequence data; // ĞòÁĞ
-	private int startSeq; // ÆğÊ¼Î»ÖÃ£¬°üº¬
-	private int endSeq; // ½áÊøÎ»ÖÃ£¬°üº¬
-	private int next = 1; // ÏÂÒ»Ìõ¼ÇÂ¼µÄĞòºÅ
+	private Sequence data; // åºåˆ—
+	private int startSeq; // èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	private int endSeq; // ç»“æŸä½ç½®ï¼ŒåŒ…å«
+	private int next = 1; // ä¸‹ä¸€æ¡è®°å½•çš„åºå·
 	
 	/**
-	 * ¹¹½¨ÄÚ´æÓÎ±ê
-	 * @param seq Ô´ĞòÁĞ
+	 * æ„å»ºå†…å­˜æ¸¸æ ‡
+	 * @param seq æºåºåˆ—
 	 */
 	public MemoryCursor(Sequence seq) {
 		if (seq != null) {
@@ -35,10 +35,10 @@ public class MemoryCursor extends ICursor {
 	}
 
 	/**
-	 * °´Ö¸¶¨Çø¼ä¹¹½¨ÄÚ´æÓÎ±ê
-	 * @param seq Ô´ĞòÁĞ
-	 * @param start ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param end ½áÊøÎ»ÖÃ£¬²»°üº¬
+	 * æŒ‰æŒ‡å®šåŒºé—´æ„å»ºå†…å­˜æ¸¸æ ‡
+	 * @param seq æºåºåˆ—
+	 * @param start èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param end ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
 	 */
 	public MemoryCursor(Sequence seq, int start, int end) {
 		if (seq != null) {
@@ -62,8 +62,8 @@ public class MemoryCursor extends ICursor {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -87,7 +87,7 @@ public class MemoryCursor extends ICursor {
 				next = endSeq + 1;
 				//return data;
 				
-				// ÍâÃæ¿ÉÄÜ»áĞŞ¸Ädata£¬ËùÒÔĞèÒª²úÉúĞÂ¶ÔÏó
+				// å¤–é¢å¯èƒ½ä¼šä¿®æ”¹dataï¼Œæ‰€ä»¥éœ€è¦äº§ç”Ÿæ–°å¯¹è±¡
 				return new Sequence(data);
 			}
 			
@@ -102,9 +102,9 @@ public class MemoryCursor extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		int rest = endSeq - next + 1;
@@ -122,7 +122,7 @@ public class MemoryCursor extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -130,8 +130,8 @@ public class MemoryCursor extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();
@@ -145,7 +145,7 @@ public class MemoryCursor extends ICursor {
 	//}
 
 	/**
-	 * ·µ»ØÊ£ÓàµÄ¼ÇÂ¼²¢¹Ø±ÕÓÎ±ê
+	 * è¿”å›å‰©ä½™çš„è®°å½•å¹¶å…³é—­æ¸¸æ ‡
 	 * @return Sequence
 	 */
 	public Sequence fetch() {

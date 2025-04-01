@@ -5,7 +5,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 
 /**
- * ÓÎ±ê»ò¹ÜµÀµÄ¸½¼ÓµÄÍÆËÍµ±Ç°Êı¾İµ½Ö¸¶¨¹ÜµÀ¼ÆËã´¦ÀíÀà
+ * æ¸¸æ ‡æˆ–ç®¡é“çš„é™„åŠ çš„æ¨é€å½“å‰æ•°æ®åˆ°æŒ‡å®šç®¡é“è®¡ç®—å¤„ç†ç±»
  * cs.push(ch)
  * @author RunQian
  *
@@ -23,9 +23,9 @@ public class Push extends Operation {
 	}
 	
 	/**
-	 * Êı¾İÈ«²¿ÍÆËÍÍê³ÉÊ±µ÷ÓÃ£¬groupÔËËãĞèÒªÖªµÀÊı¾İ½áÊøÀ´È·ÈÏ×îºóÒ»×éµÄÊı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ¸½¼ÓµÄ²Ù×÷»º´æµÄÊı¾İ
+	 * æ•°æ®å…¨éƒ¨æ¨é€å®Œæˆæ—¶è°ƒç”¨ï¼Œgroupè¿ç®—éœ€è¦çŸ¥é“æ•°æ®ç»“æŸæ¥ç¡®è®¤æœ€åä¸€ç»„çš„æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return é™„åŠ çš„æ“ä½œç¼“å­˜çš„æ•°æ®
 	 */
 	public Sequence finish(Context ctx) {
 		channel.finish(ctx);
@@ -33,8 +33,8 @@ public class Push extends Operation {
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -42,9 +42,9 @@ public class Push extends Operation {
 	}
 	
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {

@@ -3,8 +3,8 @@ package com.scudata.cellset.graph.draw;
 import java.awt.*;
 import java.awt.geom.Point2D;
 /**
- * ÎÄ±¾±êÇ©µÄ·â×°Àà
- * »æÖÆÍ¼ĞÎÊ±£¬ÎÄ±¾ÖµĞèÒªÔÚ×îºóÍ³Ò»»æÖÆÒÔ·ÀÖ¹±»¸²¸Ç
+ * æ–‡æœ¬æ ‡ç­¾çš„å°è£…ç±»
+ * ç»˜åˆ¶å›¾å½¢æ—¶ï¼Œæ–‡æœ¬å€¼éœ€è¦åœ¨æœ€åç»Ÿä¸€ç»˜åˆ¶ä»¥é˜²æ­¢è¢«è¦†ç›–
  * @author Joancy
  *
  */
@@ -15,10 +15,10 @@ public class ValueLabel {
   public byte direction=GraphFontView.TEXT_ON_TOP;
 
   /**
-   * ¹¹ÔìÒ»¸öÎÄ±¾±êÇ©¶ÔÏó
-   * @param text ÎÄ±¾Öµ
-   * @param p ×ø±ê
-   * @param c ÑÕÉ«
+   * æ„é€ ä¸€ä¸ªæ–‡æœ¬æ ‡ç­¾å¯¹è±¡
+   * @param text æ–‡æœ¬å€¼
+   * @param p åæ ‡
+   * @param c é¢œè‰²
    */
   public ValueLabel(String text, Point2D.Double p, Color c) {
 	this.text = text;
@@ -27,11 +27,11 @@ public class ValueLabel {
   }
 
   /**
-   * ¹¹ÔìÒ»¸öÎÄ±¾±êÇ©¶ÔÏó
-   * @param text ÎÄ±¾Öµ
-   * @param p ×ø±ê
-   * @param c ÑÕÉ«
-   * @param textDirection ·½Î»
+   * æ„é€ ä¸€ä¸ªæ–‡æœ¬æ ‡ç­¾å¯¹è±¡
+   * @param text æ–‡æœ¬å€¼
+   * @param p åæ ‡
+   * @param c é¢œè‰²
+   * @param textDirection æ–¹ä½
    */
   public ValueLabel(String text, Point2D.Double p, Color c,byte textDirection) {
 	this.text = text;

@@ -5,7 +5,7 @@ import java.awt.*;
 import com.scudata.chart.ChartColor;
 
 /**
- * ·â×°ÈıÎ¬Á¢ÌåÖùµÄÊôĞÔ
+ * å°è£…ä¸‰ç»´ç«‹ä½“æŸ±çš„å±æ€§
  * @author Joancy
  *
  */

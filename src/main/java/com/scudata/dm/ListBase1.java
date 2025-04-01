@@ -11,7 +11,7 @@ import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.Variant;
 
 /**
- * Ë÷Òı´Ó1¿ªÊ¼¼ÆÊıµÄÁĞ±í
+ * ç´¢å¼•ä»1å¼€å§‹è®¡æ•°çš„åˆ—è¡¨
  * @author WangXiaoJun
  *
  */
@@ -22,8 +22,8 @@ public class ListBase1 implements Externalizable, IRecord {
 	protected int size;
 
 	/**
-	 * ¹¹½¨Ò»Ö¸¶¨³õÊ¼ÈİÁ¿µÄ¿Õlist.
-	 * @param initialCapacity ³õÊ¼ÈİÁ¿.
+	 * æ„å»ºä¸€æŒ‡å®šåˆå§‹å®¹é‡çš„ç©ºlist.
+	 * @param initialCapacity åˆå§‹å®¹é‡.
 	 */
 	public ListBase1(int initialCapacity) {
 		if (initialCapacity > 0) {
@@ -34,14 +34,14 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ¹¹½¨Ò»³õÊ¼ÈİÁ¿Îª10µÄ¿ÕÁĞ±í.
+	 * æ„å»ºä¸€åˆå§‹å®¹é‡ä¸º10çš„ç©ºåˆ—è¡¨.
 	 */
 	public ListBase1() {
 		this(10);
 	}
 
 	/**
-	 * ¹¹½¨Ò»Ö¸¶¨ÔªËØµÄÁĞ±í
+	 * æ„å»ºä¸€æŒ‡å®šå…ƒç´ çš„åˆ—è¡¨
 	 * @param v Object[]
 	 */
 	public ListBase1(Object []v) {
@@ -51,8 +51,8 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ¸´ÖÆ¶ÔÏó
-	 * @param src Ô´¶ÔÏó
+	 * å¤åˆ¶å¯¹è±¡
+	 * @param src æºå¯¹è±¡
 	 */
 	public ListBase1(ListBase1 src) {
 		size = src.size;
@@ -63,7 +63,7 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * µ÷ÕûÁĞ±íµÄÈİÁ¿£¬Ê¹ÆäÓëÔªËØÊıÏàµÈ
+	 * è°ƒæ•´åˆ—è¡¨çš„å®¹é‡ï¼Œä½¿å…¶ä¸å…ƒç´ æ•°ç›¸ç­‰
 	 */
 	public void trimToSize() {
 		int newLen = size + 1;
@@ -75,8 +75,8 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * Ê¹ÁĞ±íµÄÈİÁ¿²»Ğ¡ÓÚminCapacity
-	 * @param minCapacity ×îĞ¡ÈİÁ¿
+	 * ä½¿åˆ—è¡¨çš„å®¹é‡ä¸å°äºminCapacity
+	 * @param minCapacity æœ€å°å®¹é‡
 	 */
 	public void ensureCapacity(int minCapacity) {
 		int oldSize = elementData.length;
@@ -93,7 +93,7 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÁĞ±íµÄÔªËØÊıÄ¿
+	 * è¿”å›åˆ—è¡¨çš„å…ƒç´ æ•°ç›®
 	 * @return int
 	 */
 	public int size() {
@@ -101,7 +101,7 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÁĞ±íÊÇ·ñÎª¿Õ.
+	 * è¿”å›åˆ—è¡¨æ˜¯å¦ä¸ºç©º.
 	 * @return boolean
 	 */
 	public boolean isEmpty() {
@@ -109,9 +109,9 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÁĞ±íÖĞÊÇ·ñ°üº¬Ö¸¶¨ÔªËØ
-	 * @param elem Object ´ı²éÕÒµÄÔªËØ
-	 * @return boolean true£º°üº¬£¬false£º²»°üº¬
+	 * è¿”å›åˆ—è¡¨ä¸­æ˜¯å¦åŒ…å«æŒ‡å®šå…ƒç´ 
+	 * @param elem Object å¾…æŸ¥æ‰¾çš„å…ƒç´ 
+	 * @return boolean trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	public boolean contains(Object elem) {
 		for (int i = 1; i <= size; ++i) {
@@ -121,9 +121,9 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 	
 	/**
-	 * ·µ»ØÁĞ±íÖĞÊÇ·ñ°üº¬Ö¸¶¨ÔªËØ£¬Ê¹ÓÃµÈºÅ±È½Ï
+	 * è¿”å›åˆ—è¡¨ä¸­æ˜¯å¦åŒ…å«æŒ‡å®šå…ƒç´ ï¼Œä½¿ç”¨ç­‰å·æ¯”è¾ƒ
 	 * @param elem
-	 * @return boolean true£º°üº¬£¬false£º²»°üº¬
+	 * @return boolean trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	public boolean objectContains(Object elem) {
 		for (int i = 1; i <= size; ++i) {
@@ -133,10 +133,10 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÁĞ±íÖĞÊÇ·ñ°üº¬Ö¸¶¨ÔªËØ
-	 * @param elem Object ´ı²éÕÒµÄÔªËØ
-	 * @param comparator Comparator<Object> ±È½ÏÆ÷
-	 * @return boolean true£º°üº¬£¬false£º²»°üº¬
+	 * è¿”å›åˆ—è¡¨ä¸­æ˜¯å¦åŒ…å«æŒ‡å®šå…ƒç´ 
+	 * @param elem Object å¾…æŸ¥æ‰¾çš„å…ƒç´ 
+	 * @param comparator Comparator<Object> æ¯”è¾ƒå™¨
+	 * @return boolean trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	public boolean contains(Object elem, Comparator<Object> comparator) {
 		for (int i = 1; i <= size; ++i) {
@@ -146,7 +146,7 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ¶ÔlistµÄÔªËØ½øĞĞÅÅĞò
+	 * å¯¹listçš„å…ƒç´ è¿›è¡Œæ’åº
 	 * @param comparator Comparator<Object>
 	 */
 	public void sort(Comparator<Object> comparator) {
@@ -154,19 +154,19 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ¶ş·Ö·¨²éÕÒÖ¸¶¨ÔªËØ
+	 * äºŒåˆ†æ³•æŸ¥æ‰¾æŒ‡å®šå…ƒç´ 
 	 * @param elem Object
 	 * @param comparator Comparator<Object>
-	 * @return int ÔªËØµÄË÷Òı,Èç¹û²»´æÔÚ·µ»Ø¸ºµÄ²åÈëÎ»ÖÃ.
+	 * @return int å…ƒç´ çš„ç´¢å¼•,å¦‚æœä¸å­˜åœ¨è¿”å›è´Ÿçš„æ’å…¥ä½ç½®.
 	 */
 	public int binarySearch(Object elem, Comparator<Object> comparator) {
 		return binarySearch(elem, 1, size, comparator);
 	}
 
 	/**
-	 * ¶ş·Ö·¨²éÕÒÖ¸¶¨ÔªËØ
+	 * äºŒåˆ†æ³•æŸ¥æ‰¾æŒ‡å®šå…ƒç´ 
 	 * @param elem
-	 * @return int ÔªËØµÄË÷Òı,Èç¹û²»´æÔÚ·µ»Ø¸ºµÄ²åÈëÎ»ÖÃ.
+	 * @return int å…ƒç´ çš„ç´¢å¼•,å¦‚æœä¸å­˜åœ¨è¿”å›è´Ÿçš„æ’å…¥ä½ç½®.
 	 */
 	public int binarySearch(Object elem) {
 		Object[] elementData = this.elementData;
@@ -187,12 +187,12 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ¶ş·Ö·¨²éÕÒÖ¸¶¨ÔªËØ
+	 * äºŒåˆ†æ³•æŸ¥æ‰¾æŒ‡å®šå…ƒç´ 
 	 * @param elem Object
-	 * @param low int ÆğÊ¼Î»ÖÃ(°üº¬)
-	 * @param high int   ½áÊøÎ»ÖÃ(°üº¬)
+	 * @param low int èµ·å§‹ä½ç½®(åŒ…å«)
+	 * @param high int   ç»“æŸä½ç½®(åŒ…å«)
 	 * @param comparator Comparator<Object>
-	 * @return int ÔªËØµÄË÷Òı,Èç¹û²»´æÔÚ·µ»Ø¸ºµÄ²åÈëÎ»ÖÃ.
+	 * @return int å…ƒç´ çš„ç´¢å¼•,å¦‚æœä¸å­˜åœ¨è¿”å›è´Ÿçš„æ’å…¥ä½ç½®.
 	 */
 	public int binarySearch(Object elem, int low, int high, Comparator<Object> comparator) {
 		Object[] elementData = this.elementData;
@@ -212,11 +212,11 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÔªËØ³öÏÖµÄÎ»ÖÃ
+	 * è¿”å›å…ƒç´ å‡ºç°çš„ä½ç½®
 	 * @param elem Object
-	 * @param start int ÆğÊ¼Î»ÖÃ(°üº¬)
-	 * @param end int   ½áÊøÎ»ÖÃ(°üº¬)
-	 * @return int Èç¹ûÔªËØ²»´æÔÚ·µ»Ø-1
+	 * @param start int èµ·å§‹ä½ç½®(åŒ…å«)
+	 * @param end int   ç»“æŸä½ç½®(åŒ…å«)
+	 * @return int å¦‚æœå…ƒç´ ä¸å­˜åœ¨è¿”å›-1
 	 */
 	public int indexOf(Object elem, int start, int end) {
 		for (int i = start; i <= end; ++i) {
@@ -229,9 +229,9 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÔªËØÊ×´Î³öÏÖµÄÎ»ÖÃ
-	 * @param elem ´ı²éÕÒµÄÔªËØ
-	 * @return  Èç¹ûÔªËØ²»´æÔÚ·µ»Ø-1
+	 * è¿”å›å…ƒç´ é¦–æ¬¡å‡ºç°çš„ä½ç½®
+	 * @param elem å¾…æŸ¥æ‰¾çš„å…ƒç´ 
+	 * @return  å¦‚æœå…ƒç´ ä¸å­˜åœ¨è¿”å›-1
 	 */
 	public int firstIndexOf(Object elem) {
 		for (int i = 1; i <= size; ++i) {
@@ -244,10 +244,10 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÔªËØÊ×´Î³öÏÖµÄÎ»ÖÃ
+	 * è¿”å›å…ƒç´ é¦–æ¬¡å‡ºç°çš„ä½ç½®
 	 * @param elem Object
-	 * @param isSorted boolean ÁĞ±íÊÇ·ñÊÇÓĞĞòµÄ
-	 * @return int Èç¹ûÔªËØ²»´æÔÚ·µ»Ø-1
+	 * @param isSorted boolean åˆ—è¡¨æ˜¯å¦æ˜¯æœ‰åºçš„
+	 * @return int å¦‚æœå…ƒç´ ä¸å­˜åœ¨è¿”å›-1
 	 */
 	public int firstIndexOf(Object elem, boolean isSorted) {
 		if (isSorted) {
@@ -256,7 +256,7 @@ public class ListBase1 implements Externalizable, IRecord {
 				return -1;
 			}
 
-			// ÍùÇ°±È½Ï£¬ÕÒµ½µÚÒ»¸öÓëobjÏàÍ¬µÄÔªËØ
+			// å¾€å‰æ¯”è¾ƒï¼Œæ‰¾åˆ°ç¬¬ä¸€ä¸ªä¸objç›¸åŒçš„å…ƒç´ 
 			Object []elementData = this.elementData;
 			while (index > 1) {
 				if (Variant.isEquals(elem, elementData[index - 1])) {
@@ -279,9 +279,9 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÔªËØ×îºó³öÏÖµÄÎ»ÖÃ
+	 * è¿”å›å…ƒç´ æœ€åå‡ºç°çš„ä½ç½®
 	 * @param elem Object
-	 * @return Èç¹ûÔªËØ²»´æÔÚ·µ»Ø-1
+	 * @return å¦‚æœå…ƒç´ ä¸å­˜åœ¨è¿”å›-1
 	 */
 	public int lastIndexOf(Object elem) {
 		for (int i = size; i > 0; --i) {
@@ -294,11 +294,11 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØÔªËØ×îºó³öÏÖµÄÎ»ÖÃ
+	 * è¿”å›å…ƒç´ æœ€åå‡ºç°çš„ä½ç½®
 	 * @param elem Object
 	 * @param comparator Comparator<Object>
-	 * @param isSorted boolean listÊÇ·ñÊÇÓĞĞòµÄ
-	 * @return int Èç¹ûÔªËØ²»´æÔÚ·µ»Ø-1
+	 * @param isSorted boolean listæ˜¯å¦æ˜¯æœ‰åºçš„
+	 * @return int å¦‚æœå…ƒç´ ä¸å­˜åœ¨è¿”å›-1
 	 */
 	public int lastIndexOf(Object elem, Comparator<Object> comparator, boolean isSorted) {
 		if (isSorted) {
@@ -307,7 +307,7 @@ public class ListBase1 implements Externalizable, IRecord {
 				return -1;
 			}
 
-			// ÍùÇ°±È½Ï£¬ÕÒµ½µÚÒ»¸öÓëobjÏàÍ¬µÄÔªËØ
+			// å¾€å‰æ¯”è¾ƒï¼Œæ‰¾åˆ°ç¬¬ä¸€ä¸ªä¸objç›¸åŒçš„å…ƒç´ 
 			Object []elementData = this.elementData;
 			while (index < size) {
 				if (comparator.compare(elem, elementData[index + 1]) == 0) {
@@ -330,7 +330,7 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»ØlistµÄÔªËØ¹¹³ÉµÄÊı×é
+	 * è¿”å›listçš„å…ƒç´ æ„æˆçš„æ•°ç»„
 	 * @return Object[]
 	 */
 	public Object[] toArray() {
@@ -340,7 +340,7 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * °ÑÔªËØÒÀ´Î¸³¸øa£¬²¢·µ»Øa
+	 * æŠŠå…ƒç´ ä¾æ¬¡èµ‹ç»™aï¼Œå¹¶è¿”å›a
 	 * @param a Object[]
 	 * @return Object[]
 	 */
@@ -355,7 +355,7 @@ public class ListBase1 implements Externalizable, IRecord {
 
 	/**
 	 * Returns the element at the specified position in this list.
-	 * @param  index index of element to return. ´Ó1¿ªÊ¼¼ÆÊı
+	 * @param  index index of element to return. ä»1å¼€å§‹è®¡æ•°
 	 * @return the element at the specified position in this list.
 	 */
 	public Object get(int index) {
@@ -409,7 +409,7 @@ public class ListBase1 implements Externalizable, IRecord {
 		return oldValue;
 	}
 
-	// É¾³ı¶à¸öÔªËØ£¬ĞòºÅ´ÓĞ¡µ½´óÅÅĞò
+	// åˆ é™¤å¤šä¸ªå…ƒç´ ï¼Œåºå·ä»å°åˆ°å¤§æ’åº
 	public void remove(int []seqs) {
 		int delCount = 0;
 		for (int i = 0, len = seqs.length; i < len; ) {
@@ -485,7 +485,7 @@ public class ListBase1 implements Externalizable, IRecord {
 		size += numNew;
 	}
 	
-	// srcStartÔ´ÆğÊ¼Î»ÖÃ£¨°üÀ¨£©£¬srcEndÔ´½áÊøÎ»ÖÃ£¨²»°üÀ¨£©
+	// srcStartæºèµ·å§‹ä½ç½®ï¼ˆåŒ…æ‹¬ï¼‰ï¼ŒsrcEndæºç»“æŸä½ç½®ï¼ˆä¸åŒ…æ‹¬ï¼‰
 	public void addSection(ListBase1 src, int srcStart, int srcEnd) {
 		int numNew = srcEnd - srcStart;
 		ensureCapacity(size + numNew);  // Increments modCount
@@ -584,8 +584,8 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
-	 * @param out Êä³öÁ÷
+	 * å†™å†…å®¹åˆ°æµ
+	 * @param out è¾“å‡ºæµ
 	 * @throws IOException
 	 */
 	public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException {
@@ -600,13 +600,13 @@ public class ListBase1 implements Externalizable, IRecord {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-	 * @param in ÊäÈëÁ÷
+	 * ä»æµä¸­è¯»å†…å®¹
+	 * @param in è¾“å…¥æµ
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
 	public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException {
-		in.readByte(); // °æ±¾
+		in.readByte(); // ç‰ˆæœ¬
 		size = in.readInt();
 		int length = in.readInt();
 		Object elementData[] = new Object[length];

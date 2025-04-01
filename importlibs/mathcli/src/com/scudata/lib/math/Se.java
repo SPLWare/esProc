@@ -6,7 +6,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.dm.Context;
 
 /**
- * ±ê×¼Îó 
+ * æ ‡å‡†è¯¯ 
  * @author bd
  */
 public class Se extends SequenceFunction {

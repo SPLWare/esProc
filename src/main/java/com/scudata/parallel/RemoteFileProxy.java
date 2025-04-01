@@ -6,7 +6,7 @@ import com.scudata.common.*;
 import com.scudata.dm.*;
 
 /**
- * Ô¶³ÌÎÄ¼þ´úÀí
+ * è¿œç¨‹æ–‡ä»¶ä»£ç†
  * 
  * @author Joancy
  *
@@ -23,17 +23,17 @@ public class RemoteFileProxy {
 	private long readPosition = -1;
 	
 	/**
-	 * ´´½¨Ô¶³ÌÎÄ¼þ´úÀíÆ÷
-	 * @param fileName ÎÄ¼þÃû
-	 * @param partition ·ÖÇø±í
-	 * @param id ´úÀí±àºÅ
-	 * @param isAppend ÊÇ·ñ×·¼Ó
+	 * åˆ›å»ºè¿œç¨‹æ–‡ä»¶ä»£ç†å™¨
+	 * @param fileName æ–‡ä»¶å
+	 * @param partition åˆ†åŒºè¡¨
+	 * @param id ä»£ç†ç¼–å·
+	 * @param isAppend æ˜¯å¦è¿½åŠ 
 	 */
 	public RemoteFileProxy(String fileName, Integer partition,int id, Boolean isAppend) {
 		this.fileName = fileName;
 		this.partition = partition;
 		this.proxyId = id;
-		if(isAppend!=null){//Ð¡²¼¶ûÄÜµÈÓÚ´ó²¼¶û£¬ÖµÎªnullÊ±£¬ÈçºÎ×ª»»µÄ,nullÊ±£¬×ª»»³ö´í
+		if(isAppend!=null){//å°å¸ƒå°”èƒ½ç­‰äºŽå¤§å¸ƒå°”ï¼Œå€¼ä¸ºnullæ—¶ï¼Œå¦‚ä½•è½¬æ¢çš„,nullæ—¶ï¼Œè½¬æ¢å‡ºé”™
 			this.isAppend = isAppend;
 		}
 		access();
@@ -41,7 +41,7 @@ public class RemoteFileProxy {
 	
 
 	/**
-	 * ÊµÏÖtoStringÃèÊöÐÅÏ¢
+	 * å®žçŽ°toStringæè¿°ä¿¡æ¯
 	 */
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
@@ -49,7 +49,7 @@ public class RemoteFileProxy {
 		return sb.toString();
 	}
 	
-	 // µ±Ç°ÈÎÎñÖÐµÄ´úÀí±àºÅ
+	 // å½“å‰ä»»åŠ¡ä¸­çš„ä»£ç†ç¼–å·
 	int getProxyID() {
 		return proxyId;
 	}
@@ -65,10 +65,10 @@ public class RemoteFileProxy {
 	byte[] buf = null;
 	
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÊýÄ¿µÄ×Ö½ÚÊý¾Ý
-	 * @param bufSize ÊýÄ¿
-	 * @return ×Ö½ÚÊý¾Ý
-	 * @throws Exception ³ö´íÊ±Å×³öÒì³£
+	 * è¯»å–æŒ‡å®šæ•°ç›®çš„å­—èŠ‚æ•°æ®
+	 * @param bufSize æ•°ç›®
+	 * @return å­—èŠ‚æ•°æ®
+	 * @throws Exception å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public byte[] read(int bufSize) throws Exception {
 		if (buf == null) {
@@ -100,9 +100,9 @@ public class RemoteFileProxy {
 	}
 
 	/**
-	 * ÍùÔ¶³ÌÎÄ¼þÐ´³ö×Ö½ÚÊý¾Ý
-	 * @param bytes ×Ö½ÚÊý¾Ý
-	 * @throws Exception Ð´³ö´íÊ±Å×³öÒì³£
+	 * å¾€è¿œç¨‹æ–‡ä»¶å†™å‡ºå­—èŠ‚æ•°æ®
+	 * @param bytes å­—èŠ‚æ•°æ®
+	 * @throws Exception å†™å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void write(byte[] bytes) throws Exception {
 		RandomOutputStream os = getRandomOutputStream();
@@ -111,9 +111,9 @@ public class RemoteFileProxy {
 	}
 	
 	/**
-	 * ÉèÖÃ¶ÁÐ´ÎÄ¼þµÄÓÎ±êÎ»ÖÃ
-	 * @param posi Î»ÖÃÖµ
-	 * @throws IOException ÉèÖÃ³ö´íÅ×³öÒì³£
+	 * è®¾ç½®è¯»å†™æ–‡ä»¶çš„æ¸¸æ ‡ä½ç½®
+	 * @param posi ä½ç½®å€¼
+	 * @throws IOException è®¾ç½®å‡ºé”™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void setPosition(long posi) throws IOException{
 		RandomOutputStream os = getRandomOutputStream();
@@ -121,9 +121,9 @@ public class RemoteFileProxy {
 	}
 	
 	/**
-	 * È¡µ±Ç°¶ÁÐ´Î»ÖÃ
-	 * @return Î»ÖÃÖµ
-	 * @throws IOException ³ö´íÊ±Å×³öÒì³£
+	 * å–å½“å‰è¯»å†™ä½ç½®
+	 * @return ä½ç½®å€¼
+	 * @throws IOException å‡ºé”™æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public long position() throws IOException{
 		RandomOutputStream os = getRandomOutputStream();
@@ -159,25 +159,25 @@ public class RemoteFileProxy {
 	}
 
 	/**
-	 * ³¢ÊÔ¸øÎÄ¼þ¼ÓËø
-	 * @return ³É¹¦¼ÓËø·µ»Øtrue£¬·ñÔò·µ»Øfalse
-	 * @throws Exception ¼ÓËøÒì³£
+	 * å°è¯•ç»™æ–‡ä»¶åŠ é”
+	 * @return æˆåŠŸåŠ é”è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalse
+	 * @throws Exception åŠ é”å¼‚å¸¸
 	 */
 	public boolean tryLock() throws Exception{
 		return getRandomOutputStream().tryLock();
 	}
 
 	/**
-	 * Ëø¶¨µ±Ç°ÎÄ¼þ
-	 * @return Ëø³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
-	 * @throws Exception ¼ÓËø³ö´íÅ×³öÒì³£
+	 * é”å®šå½“å‰æ–‡ä»¶
+	 * @return é”æˆåŠŸè¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalse
+	 * @throws Exception åŠ é”å‡ºé”™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public boolean lock() throws Exception{
 		return getRandomOutputStream().lock();
 	}
 	
 	/**
-	 * ¹Ø±ÕÎÄ¼þ´úÀí
+	 * å…³é—­æ–‡ä»¶ä»£ç†
 	 */
 	public void close() {
 		destroy();
@@ -185,7 +185,7 @@ public class RemoteFileProxy {
 	}
 
 	/**
-	 * Ïú»Ù´úÀí¶ÔÏó
+	 * é”€æ¯ä»£ç†å¯¹è±¡
 	 */
 	public void destroy() {
 		if (is != null) {
@@ -203,12 +203,12 @@ public class RemoteFileProxy {
 	}
 
 	/**
-	 * ¼ì²é´úÀí¶ÔÏóµÄ³¬Ê±
-	 * @param timeOut ³¬Ê±µÄÊ±¼ä
-	 * @return ³¬Ê±ºóÏú»Ù¶ÔÏó²¢·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * æ£€æŸ¥ä»£ç†å¯¹è±¡çš„è¶…æ—¶
+	 * @param timeOut è¶…æ—¶çš„æ—¶é—´
+	 * @return è¶…æ—¶åŽé”€æ¯å¯¹è±¡å¹¶è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalse
 	 */
 	public boolean checkTimeOut(int timeOut) {
-		// »»Ëã³ÉÃë£¬timeOutµ¥Î»ÎªÃë
+		// æ¢ç®—æˆç§’ï¼ŒtimeOutå•ä½ä¸ºç§’
 		if ((System.currentTimeMillis() - lastAccessTime) / 1000 > timeOut) {
 			Logger.info(this + " is timeout.");
 			destroy();

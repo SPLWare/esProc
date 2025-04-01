@@ -18,21 +18,21 @@ import com.scudata.dm.SerialBytes;
 import com.scudata.dm.Table;
 
 /**
- * ÁĞ´æÊ±µÄ¶ÁÈ¡´¦ÀíÀà
+ * åˆ—å­˜æ—¶çš„è¯»å–å¤„ç†ç±»
  * @author runqian
  *
  */
 public class BufferReader {
 	protected StructManager structManager;
-	public byte[] buffer; // Ã¿´Î¶ÁÈëµÄ×Ö½Ú»º´æ
-	public int index; // ÏÂÒ»×Ö½ÚÔÚbufferÖĞµÄË÷Òı
-	public int count; // ¶ÁÈëbufferµÄÊµ¼Ê×Ö½ÚÊıÄ¿
+	public byte[] buffer; // æ¯æ¬¡è¯»å…¥çš„å­—èŠ‚ç¼“å­˜
+	public int index; // ä¸‹ä¸€å­—èŠ‚åœ¨bufferä¸­çš„ç´¢å¼•
+	public int count; // è¯»å…¥bufferçš„å®é™…å­—èŠ‚æ•°ç›®
 
 	private byte[] readBuffer = new byte[32];
 	protected char[] charBuffer = new char[128];
 	
-	public Object repeatValue;//Á¬ĞøÏàÍ¬µÄÖµ
-	public int repeatCount = 0;//Á¬ĞøÏàÍ¬µÄÖµµÄ¸öÊı
+	public Object repeatValue;//è¿ç»­ç›¸åŒçš„å€¼
+	public int repeatCount = 0;//è¿ç»­ç›¸åŒçš„å€¼çš„ä¸ªæ•°
 
 	protected static final String []HEXSTRINGS = new String[] {"0", "1", "2", "3", "4", "5", "6",
 		"7", "8", "9", "A", "B", "C", "D", "E", "F"};
@@ -59,7 +59,7 @@ public class BufferReader {
 		this.count = count;
 	}
 
-	// ·µ»Øµ±Ç°¶ÁÈ¡Î»ÖÃ
+	// è¿”å›å½“å‰è¯»å–ä½ç½®
 	public long position() {
 		return index;
 	}
@@ -195,7 +195,7 @@ public class BufferReader {
 		int b = read2();
 		if (b == BufferWriter.FLOAT16) {
 			int n = readUInt16();
-			int scale = n >>> 14; // ¸ßÁ½Î»´æĞ¡ÊıÎ»Êı
+			int scale = n >>> 14; // é«˜ä¸¤ä½å­˜å°æ•°ä½æ•°
 			n &= 0x3FFF;
 
 			if (scale == 0) {
@@ -209,7 +209,7 @@ public class BufferReader {
 			}
 		} else if (b == BufferWriter.FLOAT32) {
 			int n = readInt32();
-			int scale = n >>> 30; // ¸ßÁ½Î»´æĞ¡ÊıÎ»Êı
+			int scale = n >>> 30; // é«˜ä¸¤ä½å­˜å°æ•°ä½æ•°
 			n &= 0x3FFFFFFF;
 
 			if (scale == 0) {
@@ -449,7 +449,7 @@ public class BufferReader {
 			((data[index + 2] & 0xff) << 8) + (data[index + 3] & 0xff);
 	}
 	
-	// 5×Ö½Ú±íÊ¾long£¬µ¥ÎÄ¼ş´óĞ¡ÒªÇó²»³¬1T
+	// 5å­—èŠ‚è¡¨ç¤ºlongï¼Œå•æ–‡ä»¶å¤§å°è¦æ±‚ä¸è¶…1T
 	public long readLong40() throws IOException {
 		byte []data = this.buffer;
 		int index = this.index;
@@ -461,7 +461,7 @@ public class BufferReader {
 				(data[index + 4] & 0xff));
 	}
 	
-	// 6×Ö½Ú±íÊ¾long£¬µ¥ÎÄ¼ş´óĞ¡ÒªÇó²»³¬256T,½öÓÃÓÚÊı¾İÍÚ¾ò±í£¬ÎÄ¼ş¶¨Î»Êı¾İµÄ¶ÁÈ¡
+	// 6å­—èŠ‚è¡¨ç¤ºlongï¼Œå•æ–‡ä»¶å¤§å°è¦æ±‚ä¸è¶…256T,ä»…ç”¨äºæ•°æ®æŒ–æ˜è¡¨ï¼Œæ–‡ä»¶å®šä½æ•°æ®çš„è¯»å–
 	public long readLong48() throws IOException {
 		byte []data = this.buffer;
 		int index = this.index;
@@ -739,7 +739,7 @@ public class BufferReader {
 	}
 	
 	public Object readRepeat(int b) throws IOException {
-		// ·µ»ØÒ»¸öÖµ£¬ÖØ¸´Êı¼õÈ¥1
+		// è¿”å›ä¸€ä¸ªå€¼ï¼Œé‡å¤æ•°å‡å»1
 		int count;
 		if ((b & 0x08) == 0) {
 			count = (b & 0x07) + 1;
@@ -752,7 +752,7 @@ public class BufferReader {
 		return repeatValue;
 	}
 	
-	// ·µ»ØÖØ¸´Êı£¬0±íÊ¾½áÊø
+	// è¿”å›é‡å¤æ•°ï¼Œ0è¡¨ç¤ºç»“æŸ
 	public void skipObject() throws IOException {
 		if (repeatCount > 0) {
 			repeatCount--;
@@ -863,7 +863,7 @@ public class BufferReader {
 	}
 	
 	/**
-	 * ·µ»Øµ±Ç°¶Áµ½µÄ»º³åÇøµÄÎ»ÖÃ
+	 * è¿”å›å½“å‰è¯»åˆ°çš„ç¼“å†²åŒºçš„ä½ç½®
 	 * @return
 	 */
 	public int getCurPos() {
@@ -937,7 +937,7 @@ public class BufferReader {
 			return 0.0;
 		} else if (b == BufferWriter.FLOAT16) {
 			int n = readUInt16();
-			int scale = n >>> 14; // ¸ßÁ½Î»´æĞ¡ÊıÎ»Êı
+			int scale = n >>> 14; // é«˜ä¸¤ä½å­˜å°æ•°ä½æ•°
 			n &= 0x3FFF;
 
 			if (scale == 0) {
@@ -951,7 +951,7 @@ public class BufferReader {
 			}
 		} else if (b == BufferWriter.FLOAT32) {
 			int n = readInt32();
-			int scale = n >>> 30; // ¸ßÁ½Î»´æĞ¡ÊıÎ»Êı
+			int scale = n >>> 30; // é«˜ä¸¤ä½å­˜å°æ•°ä½æ•°
 			n &= 0x3FFFFFFF;
 
 			if (scale == 0) {
@@ -1222,7 +1222,7 @@ public class BufferReader {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ò»¸ö¶ÔÏóµ½arrayµÄÖ¸¶¨Î»ÖÃ
+	 * è¯»å–ä¸€ä¸ªå¯¹è±¡åˆ°arrayçš„æŒ‡å®šä½ç½®
 	 * @param array
 	 * @param index
 	 * @return
@@ -1238,7 +1238,7 @@ public class BufferReader {
 	}
 	
 	/**
-	 * ¸ù¾İ¿éÀàĞÍ»ñµÃÒ»¸öÊı×é
+	 * æ ¹æ®å—ç±»å‹è·å¾—ä¸€ä¸ªæ•°ç»„
 	 * @param count
 	 * @return
 	 */

@@ -3,7 +3,7 @@ package com.scudata.expression;
 import com.scudata.dm.FileObject;
 
 /**
- * 文件成员函数基类
+ * 鏂囦欢鎴愬憳鍑芥暟鍩虹被
  * file.f()
  * @author RunQian
  *
@@ -20,7 +20,7 @@ public abstract class FileFunction extends MemberFunction {
 	}
 	
 	/**
-	 * 释放节点引用的点操作符左侧的对象
+	 * 閲婃斁鑺傜偣寮曠敤鐨勭偣鎿嶄綔绗﹀乏渚х殑瀵硅薄
 	 */
 	public void releaseDotLeftObject() {
 		file = null;

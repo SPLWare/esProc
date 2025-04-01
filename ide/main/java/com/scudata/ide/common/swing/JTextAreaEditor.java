@@ -18,87 +18,87 @@ import javax.swing.event.ChangeEvent;
 import com.scudata.util.Variant;
 
 /**
- * JTableµ¥Ôª¸ñµÄÎÄ±¾±à¼­Æ÷
+ * JTableå•å…ƒæ ¼çš„æ–‡æœ¬ç¼–è¾‘å™¨
  *
  */
 public class JTextAreaEditor extends DefaultCellEditor implements MouseListener {
 	private static final long serialVersionUID = 1L;
 
-	/** ÆÕÍ¨ÎÄ±¾¿ò */
+	/** æ™®é€šæ–‡æœ¬æ¡† */
 	public static final int TYPE_TEXT_SIMPLE = 1;
-	/** ¶àĞĞÎÄ±¾¿ò */
+	/** å¤šè¡Œæ–‡æœ¬æ¡† */
 	public static final int TYPE_TEXT_WRAP = 2;
-	/** ×ÔÈ»Êı±à¼­¿ò */
+	/** è‡ªç„¶æ•°ç¼–è¾‘æ¡† */
 	public static final int TYPE_UNSIGNED_INTEGER = 3;
-	/** ÕûÊı±à¼­¿ò */
+	/** æ•´æ•°ç¼–è¾‘æ¡† */
 	public static final int TYPE_SIGNED_INTEGER = 4;
-	/** ÎŞ·ûºÅ¸¡µãÊı±à¼­¿ò */
+	/** æ— ç¬¦å·æµ®ç‚¹æ•°ç¼–è¾‘æ¡† */
 	public static final int TYPE_UNSIGNED_DOUBLE = 5;
-	/** ¸¡µãÊı±à¼­¿ò */
+	/** æµ®ç‚¹æ•°ç¼–è¾‘æ¡† */
 	public static final int TYPE_SIGNED_DOUBLE = 6;
-	/** Ö»¶ÁÎÄ±¾¿ò */
+	/** åªè¯»æ–‡æœ¬æ¡† */
 	public static final int TYPE_TEXT_READONLY = 7;
 
 	/**
-	 * ±à¼­ÀàĞÍ
+	 * ç¼–è¾‘ç±»å‹
 	 */
 	private int editorType;
 	/**
-	 * ¹ö¶¯Ãæ°å¿Ø¼ş
+	 * æ»šåŠ¨é¢æ¿æ§ä»¶
 	 */
 	private JScrollPane jsp;
 	/**
-	 * ±í¸ñ¿Ø¼ş
+	 * è¡¨æ ¼æ§ä»¶
 	 */
 	private JTableExListener parent;
 
 	/**
-	 * ÆÕÍ¨ÎÄ±¾¿ò¿Ø¼ş
+	 * æ™®é€šæ–‡æœ¬æ¡†æ§ä»¶
 	 */
 	private JTextField textSimple = null;
 
 	/**
-	 * ¶àĞĞÎÄ±¾¿ò¿Ø¼ş
+	 * å¤šè¡Œæ–‡æœ¬æ¡†æ§ä»¶
 	 */
 	private JTextPane textWrap = null;
 
 	/**
-	 * Spinner¿Ø¼şÖĞÊäÈëµÄÊıÖµ£¬Ä¿Ç°Ã»·¨»ñÈ¡µ½Ê§È¥½¹µã£¬È»ºó½ÓÊÜµ±Ç°±à¼­Öµ£¬¸ÄÓÃJTextField 2020Äê12ÔÂ30ÈÕ
+	 * Spinneræ§ä»¶ä¸­è¾“å…¥çš„æ•°å€¼ï¼Œç›®å‰æ²¡æ³•è·å–åˆ°å¤±å»ç„¦ç‚¹ï¼Œç„¶åæ¥å—å½“å‰ç¼–è¾‘å€¼ï¼Œæ”¹ç”¨JTextField 2020å¹´12æœˆ30æ—¥
 	 */
 	/**
-	 * ×ÔÈ»Êı±à¼­¿ò
+	 * è‡ªç„¶æ•°ç¼–è¾‘æ¡†
 	 */
 	private JTextField uInteger = null;
 	/**
-	 * ÕûÊı±à¼­¿ò
+	 * æ•´æ•°ç¼–è¾‘æ¡†
 	 */
 	private JTextField sInteger = null;
 	/**
-	 * ¸¡µãÊı±à¼­¿ò
+	 * æµ®ç‚¹æ•°ç¼–è¾‘æ¡†
 	 */
 	private JTextField sNumber = null;
 	/**
-	 * ±à¼­Öµ
+	 * ç¼–è¾‘å€¼
 	 */
 	private Object oldValue = null;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param parent
-	 *            ±í¸ñ¿Ø¼ş
+	 *            è¡¨æ ¼æ§ä»¶
 	 */
 	public JTextAreaEditor(JTableExListener parent) {
 		this(parent, TYPE_TEXT_SIMPLE);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param parent
-	 *            ±í¸ñ¿Ø¼ş
+	 *            è¡¨æ ¼æ§ä»¶
 	 * @param editorType
-	 *            ±à¼­¿òÀàĞÍ
+	 *            ç¼–è¾‘æ¡†ç±»å‹
 	 */
 	public JTextAreaEditor(final JTableExListener parent, int editorType) {
 		super(new JTextField(""));
@@ -110,7 +110,7 @@ public class JTextAreaEditor extends DefaultCellEditor implements MouseListener 
 				if (e != null) {
 					Object src = e.getSource();
 					if (src instanceof JTextField) {
-						// ²»¿ÉeditableµÄTextFieldÈÔÈ»ÄÜ½ÓÊÕµ½°´¼üÊÂ¼ş
+						// ä¸å¯editableçš„TextFieldä»ç„¶èƒ½æ¥æ”¶åˆ°æŒ‰é”®äº‹ä»¶
 						JTextField txt = (JTextField) src;
 						if (!txt.isEditable())
 							return;
@@ -167,10 +167,10 @@ public class JTextAreaEditor extends DefaultCellEditor implements MouseListener 
 	}
 
 	/**
-	 * ÉèÖÃÖµ
+	 * è®¾ç½®å€¼
 	 * 
 	 * @param value
-	 *            Öµ
+	 *            å€¼
 	 * @return
 	 */
 	public Component setValue(Object value) {
@@ -231,7 +231,7 @@ public class JTextAreaEditor extends DefaultCellEditor implements MouseListener 
 	}
 
 	/**
-	 * È¡±à¼­Öµ
+	 * å–ç¼–è¾‘å€¼
 	 */
 	public Object getCellEditorValue() {
 		Object value = null;
@@ -273,7 +273,7 @@ public class JTextAreaEditor extends DefaultCellEditor implements MouseListener 
 	}
 
 	/**
-	 * È¡µ¥Ôª¸ñ±à¼­¿Ø¼ş
+	 * å–å•å…ƒæ ¼ç¼–è¾‘æ§ä»¶
 	 */
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int column) {
@@ -281,7 +281,7 @@ public class JTextAreaEditor extends DefaultCellEditor implements MouseListener 
 	}
 
 	/**
-	 * Êó±êµã»÷ÊÂ¼ş
+	 * é¼ æ ‡ç‚¹å‡»äº‹ä»¶
 	 */
 	public void mouseClicked(MouseEvent e) {
 		JComponent editor = (JComponent) e.getSource();

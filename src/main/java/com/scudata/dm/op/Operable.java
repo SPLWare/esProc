@@ -7,25 +7,25 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 
 /**
- * ¿ÉÒÔ¸½¼ÓÔËËãµÄ½Ó¿Ú
+ * å¯ä»¥é™„åŠ è¿ç®—çš„æ¥å£
  * @author WangXiaoJun
  *
  */
 public abstract class Operable {
 	/**
-	 * ¸½¼ÓÔËËã
-	 * @param op ÔËËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ è¿ç®—
+	 * @param op è¿ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public abstract Operable addOperation(Operation op, Context ctx);
 	
 	/**
-	 * ¹ıÂË
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param fltExp ¹ıÂËÌõ¼ş
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿‡æ»¤
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param fltExp è¿‡æ»¤æ¡ä»¶
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable select(Function function, Expression fltExp, String opt, Context ctx) {
@@ -34,12 +34,12 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ¹ıÂË
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param fltExp ¹ıÂËÌõ¼ş
-	 * @param opt Ñ¡Ïî
-	 * @param pipe ÓÃÓÚ´¦Àí²»Âú×ãÌõ¼şµÄ³ÉÔ±
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿‡æ»¤
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param fltExp è¿‡æ»¤æ¡ä»¶
+	 * @param opt é€‰é¡¹
+	 * @param pipe ç”¨äºå¤„ç†ä¸æ»¡è¶³æ¡ä»¶çš„æˆå‘˜
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable select(Function function, Expression fltExp, String opt, IPipe pipe, Context ctx) {
@@ -48,13 +48,13 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ½øĞĞÁ¬½Ó¹ıÂË£¬±£ÁôÄÜ¹ØÁªÉÏµÄ
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿›è¡Œè¿æ¥è¿‡æ»¤ï¼Œä¿ç•™èƒ½å…³è”ä¸Šçš„
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable filterJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt, Context ctx) {
@@ -63,13 +63,13 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ½øĞĞÁ¬½Ó¹ıÂË£¬±£ÁôÄÜ¹ØÁª²»ÉÏµÄ
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿›è¡Œè¿æ¥è¿‡æ»¤ï¼Œä¿ç•™èƒ½å…³è”ä¸ä¸Šçš„
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable diffJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt, Context ctx) {
@@ -78,16 +78,16 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ×öÁ¬½Ó
-	 * @param function ¶ÔÓ¦µÄº¯Êı
+	 * åšè¿æ¥
+	 * @param function å¯¹åº”çš„å‡½æ•°
 	 * @param fname
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable join(Function function, String fname, Expression[][] exps, Sequence[] codes,
@@ -97,16 +97,16 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ÓëÔ¶³Ì±í×öÁ¬½Ó
-	 * @param function ¶ÔÓ¦µÄº¯Êı
+	 * ä¸è¿œç¨‹è¡¨åšè¿æ¥
+	 * @param function å¯¹åº”çš„å‡½æ•°
 	 * @param fname
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable joinRemote(Function function, String fname, Expression[][] exps, 
@@ -117,13 +117,13 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ×öÍâ¼üÊ½Á¬½Ó
+	 * åšå¤–é”®å¼è¿æ¥
 	 * @param function
-	 * @param dimExps Á¬½Ó±í´ïÊ½Êı×é
-	 * @param aliasNames Î¬±í¼ÇÂ¼±ğÃû
-	 * @param newExps ĞÂ²úÉú×Ö¶Î±í´ïÊ½Êı×é
-	 * @param newNames ĞÂ²úÉú×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî£¬i£º×ö½»Á¬½Ó
+	 * @param dimExps è¿æ¥è¡¨è¾¾å¼æ•°ç»„
+	 * @param aliasNames ç»´è¡¨è®°å½•åˆ«å
+	 * @param newExps æ–°äº§ç”Ÿå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param newNames æ–°äº§ç”Ÿå­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œiï¼šåšäº¤è¿æ¥
 	 * @param ctx
 	 * @return
 	 */
@@ -134,14 +134,14 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ÓÎ±ê°´Ö÷¼ü×öÓĞĞòÁ¬½Ó
+	 * æ¸¸æ ‡æŒ‰ä¸»é”®åšæœ‰åºè¿æ¥
 	 * @param function
-	 * @param srcKeyExps Á¬½Ó±í´ïÊ½Êı×é
+	 * @param srcKeyExps è¿æ¥è¡¨è¾¾å¼æ•°ç»„
 	 * @param srcNewExps
 	 * @param srcNewNames
-	 * @param cursors ¹ØÁªÓÎ±êÊı×é
-	 * @param options ¹ØÁªÑ¡Ïî
-	 * @param keyExps Á¬½Ó±í´ïÊ½Êı×é
+	 * @param cursors å…³è”æ¸¸æ ‡æ•°ç»„
+	 * @param options å…³è”é€‰é¡¹
+	 * @param keyExps è¿æ¥è¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
 	 * @param opt
@@ -151,7 +151,7 @@ public abstract class Operable {
 	public Operable pjoin(Function function, Expression []srcKeyExps, Expression []srcNewExps, String []srcNewNames, 
 			ICursor []cursors, String []options, Expression [][]keyExps, 
 			Expression [][]newExps, String [][]newNames, String opt, Context ctx) {
-		// ÉèÖÃÌø¿éĞÅÏ¢
+		// è®¾ç½®è·³å—ä¿¡æ¯
 		if (this instanceof ICursor) {
 			ICursor cs = (ICursor)this;
 			cs.setSkipBlock(srcKeyExps, cursors, options, keyExps, newExps, opt);
@@ -163,15 +163,15 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ÓëÓÎ±ê×öÓĞĞò¹é²¢Á¬½Ó
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param cursors Î¬±íÓÎ±êÊı×é
-	 * @param codeExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
+	 * ä¸æ¸¸æ ‡åšæœ‰åºå½’å¹¶è¿æ¥
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param cursors ç»´è¡¨æ¸¸æ ‡æ•°ç»„
+	 * @param codeExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable mergeJoinx(Function function, Expression[][] exps, 
@@ -181,13 +181,13 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * Ìí¼Ó¼ÆËãÁĞ
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps ¼ÆËã±í´ïÊ½Êı×é
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
+	 * æ·»åŠ è®¡ç®—åˆ—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
 	 * @param level
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable derive(Function function, Expression []exps, String []names, String opt, int level, Context ctx) {
@@ -196,12 +196,12 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ²úÉúĞÂĞò±í
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param newExps ¼ÆËã±í´ïÊ½Êı×é
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * äº§ç”Ÿæ–°åºè¡¨
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param newExps è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable newTable(Function function, Expression []newExps, String []names, String opt, Context ctx) {
@@ -210,11 +210,11 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression []exps, String opt, Context ctx) {
@@ -223,12 +223,12 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps Ç°°ë²¿·ÖÓĞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param sortExps ºó°ë²¿·ÖÎŞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å‰åŠéƒ¨åˆ†æœ‰åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param sortExps ååŠéƒ¨åˆ†æ— åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression []exps, Expression []sortExps, String opt, Context ctx) {
@@ -237,14 +237,14 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression[] exps, String []names, 
@@ -254,16 +254,16 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps Ç°°ë²¿·ÖÓĞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param sortExps ºó°ë²¿·ÖÎŞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param sortNames ×Ö¶ÎÃûÊı×é
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å‰åŠéƒ¨åˆ†æœ‰åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param sortExps ååŠéƒ¨åˆ†æ— åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param sortNames å­—æ®µåæ•°ç»„
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression[] exps, String []names, 
@@ -274,14 +274,14 @@ public abstract class Operable {
 	}
 	
 	/**
-	 * Á¬½Ó¼ÆËã
-	 * @param function ËùÊôµÄº¯Êı¶ÔÏó
-	 * @param fkNames Íâ¼ü×Ö¶ÎÃûÊı×é
-	 * @param timeFkNames Ê±¼äÍâ¼üÃûÊı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param exps Î¬±íÖ÷¼üÊı×é
-	 * @param timeExps Î¬±íµÄÊ±¼ä¸üĞÂ¼üÊı×é
-	 * @param opt Ñ¡Ïî
+	 * è¿æ¥è®¡ç®—
+	 * @param function æ‰€å±çš„å‡½æ•°å¯¹è±¡
+	 * @param fkNames å¤–é”®å­—æ®µåæ•°ç»„
+	 * @param timeFkNames æ—¶é—´å¤–é”®åæ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param exps ç»´è¡¨ä¸»é”®æ•°ç»„
+	 * @param timeExps ç»´è¡¨çš„æ—¶é—´æ›´æ–°é”®æ•°ç»„
+	 * @param opt é€‰é¡¹
 	 */
 	public Operable switchFk(Function function, String[] fkNames, String[] timeFkNames, Sequence[] codes, Expression[] exps, Expression[] timeExps, String opt, Context ctx) {
 		Switch op = new Switch(function, fkNames, timeFkNames, codes, exps, timeExps, opt);

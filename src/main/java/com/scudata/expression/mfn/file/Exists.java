@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.FileFunction;
 
 /**
- * 判断文件是否存在
+ * 鍒ゆ柇鏂囦欢鏄惁瀛樺湪
  * f.exists()
  * @author RunQian
  *

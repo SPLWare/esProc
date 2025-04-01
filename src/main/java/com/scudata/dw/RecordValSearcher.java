@@ -10,20 +10,20 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼ÇÂ¼Öµ²éÕÒÆ÷
+ * è®°å½•å€¼æŸ¥æ‰¾å™¨
  * @author runqian
  *
  */
 class RecordValSearcher {
 	private Cursor cs;
 	private String []fields;
-	private Sequence pkeyData;//È¡Êı»º´æÇø
-	private long recNUM;//µ±Ç°Î±ºÅ
-	private ComTableRecord curRecord;//µ±Ç°¼ÇÂ¼
-	private Record curModifyRecord;//µ±Ç°¼ÇÂ¼£¨²¹Çø£©
-	private int cur;//¿éÄÚĞòºÅ
-	private int len;//µ±Ç°¿é¸öÊı
-	private int []index;//×Ö¶ÎÈ¡³öÊ±¶ÔÓ¦µÄÎ»ÖÃ
+	private Sequence pkeyData;//å–æ•°ç¼“å­˜åŒº
+	private long recNUM;//å½“å‰ä¼ªå·
+	private ComTableRecord curRecord;//å½“å‰è®°å½•
+	private Record curModifyRecord;//å½“å‰è®°å½•ï¼ˆè¡¥åŒºï¼‰
+	private int cur;//å—å†…åºå·
+	private int len;//å½“å‰å—ä¸ªæ•°
+	private int []index;//å­—æ®µå–å‡ºæ—¶å¯¹åº”çš„ä½ç½®
 
 	private int indexSize;
 	private ArrayList<ModifyRecord> modifyRecords;
@@ -83,11 +83,11 @@ class RecordValSearcher {
 	}
 
 	/**
-	 * °´¼ÇÂ¼ºÅÈ¡³ökeyÖµ
-	 * ÓĞfilterÊ±ÓÃÕâ¸ö
-	 * @param recNum ¼ÇÂ¼ºÅ
-	 * @param r Êä³ö
-	 * @return true³É¹¦£¬falseÃ»ÕÒµ½
+	 * æŒ‰è®°å½•å·å–å‡ºkeyå€¼
+	 * æœ‰filteræ—¶ç”¨è¿™ä¸ª
+	 * @param recNum è®°å½•å·
+	 * @param r è¾“å‡º
+	 * @return trueæˆåŠŸï¼Œfalseæ²¡æ‰¾åˆ°
 	 */
 	public boolean getKeyVals(long recNum, Record r) {
 		ComTableRecord rec;
@@ -128,10 +128,10 @@ class RecordValSearcher {
 	}
 	
 	/**
-	 * °´¼ÇÂ¼ºÅÈ¡³ökeyÖµ
-	 * ÎŞfilterÊ±ÓÃÕâ¸ö£¬ÒòÎª×Ó±íµÄ¼ÇÂ¼¿Ï¶¨¿ÉÒÔÔÚÖ÷±íÕÒµ½
-	 * @param recNum ¼ÇÂ¼ºÅ
-	 * @param r Êä³ö
+	 * æŒ‰è®°å½•å·å–å‡ºkeyå€¼
+	 * æ— filteræ—¶ç”¨è¿™ä¸ªï¼Œå› ä¸ºå­è¡¨çš„è®°å½•è‚¯å®šå¯ä»¥åœ¨ä¸»è¡¨æ‰¾åˆ°
+	 * @param recNum è®°å½•å·
+	 * @param r è¾“å‡º
 	 */
 	public void getKeyValues(long recNum, Record r) {
 		ComTableRecord rec;		
@@ -141,7 +141,7 @@ class RecordValSearcher {
 			while (true) {
 				cur++;
 				if (cur > len) {
-					//Òì³£
+					//å¼‚å¸¸
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(r.toString(null) + mm.getMessage("grouptable.invalidData"));
 				}
@@ -165,10 +165,10 @@ class RecordValSearcher {
 	}
 
 	/**
-	 * È¡²¹Çø¼ÇÂ¼Öµ
-	 * @param recNum ¼ÇÂ¼ºÅ£¬Îª¸ºÖµÊ±±íÊ¾µÄÊÇÔÚ²¹ÇøµÄĞòºÅ
-	 * @param r Êä³ö
-	 * @param tableId Ä¿Ç°Ö»¿ÉÄÜÊÇ0
+	 * å–è¡¥åŒºè®°å½•å€¼
+	 * @param recNum è®°å½•å·ï¼Œä¸ºè´Ÿå€¼æ—¶è¡¨ç¤ºçš„æ˜¯åœ¨è¡¥åŒºçš„åºå·
+	 * @param r è¾“å‡º
+	 * @param tableId ç›®å‰åªå¯èƒ½æ˜¯0
 	 */
 	public void getMKeyValues(long recNum, Record r,int tableId) {
 		Record record = null;
@@ -214,8 +214,8 @@ class RecordValSearcher {
 	}
 	
 	/**
-	 * »ñµÃµ±Ç°¼ÇÂ¼Öµ
-	 * @param r Êä³ö
+	 * è·å¾—å½“å‰è®°å½•å€¼
+	 * @param r è¾“å‡º
 	 */
 	public void getRecordValue(Record r) {
 		ComTableRecord rec = curRecord;
@@ -231,8 +231,8 @@ class RecordValSearcher {
 	}
 	
 	/**
-	 * È¡µ±Ç°¼ÇÂ¼µÄ×Ö¶ÎÖµ
-	 * @param index ×Ö¶ÎÎ»ÖÃ
+	 * å–å½“å‰è®°å½•çš„å­—æ®µå€¼
+	 * @param index å­—æ®µä½ç½®
 	 * @return
 	 */
 	public Object getRecordValue(int index) {
@@ -240,8 +240,8 @@ class RecordValSearcher {
 	}
 	
 	/**
-	 * È¡µ±Ç°²¹¼ÇÂ¼µÄ×Ö¶ÎÖµ
-	 * @param index ×Ö¶ÎÎ»ÖÃ
+	 * å–å½“å‰è¡¥è®°å½•çš„å­—æ®µå€¼
+	 * @param index å­—æ®µä½ç½®
 	 * @return
 	 */
 	public Object getModifyRecordValue(int index) {

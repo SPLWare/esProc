@@ -9,8 +9,8 @@ import com.scudata.expression.RecordFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡¼ÇÂ¼µÄ¼üÖµ£¬¶à¼üÖµ·µ»Ø³ÉĞòÁĞ
- * r.key() r.key(Fi,¡­)
+ * å–è®°å½•çš„é”®å€¼ï¼Œå¤šé”®å€¼è¿”å›æˆåºåˆ—
+ * r.key() r.key(Fi,â€¦)
  * @author RunQian
  *
  */

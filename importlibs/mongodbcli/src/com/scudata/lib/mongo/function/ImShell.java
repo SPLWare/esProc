@@ -52,13 +52,13 @@ public class ImShell extends ImFunction {
 				return obj;
 			}
 			
-			//ÓÎ±êµÄÊµÏÖ
+			//æ¸¸æ ‡çš„å®ç°
 			BaseRecord rootNode = null;
 			if (option!=null && option.contains("d")){
 				if (option.contains("c")){
 					return doCursorData(db, session, docs);
 				}
-				//·ÇÓÎ±êµÄÊµÏÖ
+				//éæ¸¸æ ‡çš„å®ç°
 				Document cur = (Document)docs.get("cursor");				
 				if (cur==null){
 					rootNode = ImCursor.parse(docs);
@@ -82,7 +82,7 @@ public class ImShell extends ImFunction {
 		return obj;
 	}
 	
-	//½«µ±Ç°µÄÊı¾İ»º´æºó·ÅÈëĞò±íÖĞ
+	//å°†å½“å‰çš„æ•°æ®ç¼“å­˜åæ”¾å…¥åºè¡¨ä¸­
 	private Object doNormalData(MongoDatabase db, ClientSession session, Document cur) {
 		try{
 			Object obj = null;		
@@ -119,7 +119,7 @@ public class ImShell extends ImFunction {
 		return null;
 	}
 	
-	//½«µ±Ç°µÄÊı¾İ»º´æºó·ÅÈëÓÎ±êÖĞ
+	//å°†å½“å‰çš„æ•°æ®ç¼“å­˜åæ”¾å…¥æ¸¸æ ‡ä¸­
 	private Object doCursorData(MongoDatabase db, ClientSession session, Document docs) {
 		BaseRecord r = null;
 		Object obj = null;

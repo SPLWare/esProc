@@ -19,16 +19,16 @@ import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.Variant;
 
 /**
- * doubleÊı×é£¬´Ó1¿ªÊ¼¼ÆÊı
+ * doubleæ•°ç»„ï¼Œä»1å¼€å§‹è®¡æ•°
  * @author LW
  *
  */
 public class DoubleArray implements NumberArray {
 	private static final long serialVersionUID = 1L;
-	protected static final byte NULL_SIGN = 60; // ÓÃÓÚĞòÁĞ»¯Ê±±íÊ¾signsÊÇ·ñÎª¿Õ
+	protected static final byte NULL_SIGN = 60; // ç”¨äºåºåˆ—åŒ–æ—¶è¡¨ç¤ºsignsæ˜¯å¦ä¸ºç©º
 
-	private double []datas; // µÚ0¸öÔªËØ±íÊ¾ÊÇ·ñÊÇÁÙÊ±Êı×é
-	private boolean []signs; // ±íÊ¾ÏàÓ¦Î»ÖÃµÄÔªËØÊÇ·ñÊÇnull£¬ÓĞnull³ÉÔ±Ê±²Å²úÉú
+	private double []datas; // ç¬¬0ä¸ªå…ƒç´ è¡¨ç¤ºæ˜¯å¦æ˜¯ä¸´æ—¶æ•°ç»„
+	private boolean []signs; // è¡¨ç¤ºç›¸åº”ä½ç½®çš„å…ƒç´ æ˜¯å¦æ˜¯nullï¼Œæœ‰nullæˆå‘˜æ—¶æ‰äº§ç”Ÿ
 	private int size;
 	
 	public DoubleArray() {
@@ -46,10 +46,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ±È½ÏÖ¸¶¨ÊıºÍÖ¸¶¨¶ÔÏóµÄ´óĞ¡£¬null×îĞ¡
-	 * @param n1 ×óÖµ
-	 * @param o2 ÓÒÖµ
-	 * @return 1£º×óÖµ´ó£¬0£ºÍ¬Ñù´ó£¬-1£ºÓÒÖµ´ó
+	 * æ¯”è¾ƒæŒ‡å®šæ•°å’ŒæŒ‡å®šå¯¹è±¡çš„å¤§å°ï¼Œnullæœ€å°
+	 * @param n1 å·¦å€¼
+	 * @param o2 å³å€¼
+	 * @return 1ï¼šå·¦å€¼å¤§ï¼Œ0ï¼šåŒæ ·å¤§ï¼Œ-1ï¼šå³å€¼å¤§
 	 */
 	protected static int compare(double n1, Object o2) {
 		if (o2 instanceof BigDecimal) {
@@ -80,8 +80,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * È¡Êı×éµÄÀàĞÍ´®£¬ÓÃÓÚ´íÎóĞÅÏ¢ÌáÊ¾
-	 * @return ÀàĞÍ´®
+	 * å–æ•°ç»„çš„ç±»å‹ä¸²ï¼Œç”¨äºé”™è¯¯ä¿¡æ¯æç¤º
+	 * @return ç±»å‹ä¸²
 	 */
 	public String getDataType() {
 		MessageManager mm = EngineMessage.get();
@@ -89,7 +89,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¸´ÖÆÊı×é
+	 * å¤åˆ¶æ•°ç»„
 	 * @return
 	 */
 	public IArray dup() {
@@ -107,8 +107,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
-	 * @param out Êä³öÁ÷
+	 * å†™å†…å®¹åˆ°æµ
+	 * @param out è¾“å‡ºæµ
 	 * @throws IOException
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
@@ -135,8 +135,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-	 * @param in ÊäÈëÁ÷
+	 * ä»æµä¸­è¯»å†…å®¹
+	 * @param in è¾“å…¥æµ
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
@@ -204,7 +204,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ·µ»ØÒ»¸öÍ¬ÀàĞÍµÄÊı×é
+	 * è¿”å›ä¸€ä¸ªåŒç±»å‹çš„æ•°ç»„
 	 * @param count
 	 * @return
 	 */
@@ -213,8 +213,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ×·¼ÓÔªËØ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param o ÔªËØÖµ
+	 * è¿½åŠ å…ƒç´ ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param o å…ƒç´ å€¼
 	 */
 	public void add(Object o) {
 		if (o instanceof Double) {
@@ -235,8 +235,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ×·¼ÓÒ»×éÔªËØ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param array ÔªËØÊı×é
+	 * è¿½åŠ ä¸€ç»„å…ƒç´ ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param array å…ƒç´ æ•°ç»„
 	 */
 	public void addAll(IArray array) {
 		int size2 = array.size();
@@ -307,9 +307,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ×·¼ÓÒ»×éÔªËØ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param array ÔªËØÊı×é
-	 * @param count ÔªËØ¸öÊı
+	 * è¿½åŠ ä¸€ç»„å…ƒç´ ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param array å…ƒç´ æ•°ç»„
+	 * @param count å…ƒç´ ä¸ªæ•°
 	 */
 	public void addAll(IArray array, int count) {
 		if (count == 0) {
@@ -379,10 +379,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ×·¼ÓÒ»×éÔªËØ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param array ÔªËØÊı×é
-	 * @param index Òª¼ÓÈëµÄÊı¾İµÄÆğÊ¼Î»ÖÃ
-	 * @param count ÊıÁ¿
+	 * è¿½åŠ ä¸€ç»„å…ƒç´ ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param array å…ƒç´ æ•°ç»„
+	 * @param index è¦åŠ å…¥çš„æ•°æ®çš„èµ·å§‹ä½ç½®
+	 * @param count æ•°é‡
 	 */
 	public void addAll(IArray array, int index, int count) {
 		if (array instanceof DoubleArray) {
@@ -432,8 +432,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ×·¼ÓÒ»×éÔªËØ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param array ÔªËØÊı×é
+	 * è¿½åŠ ä¸€ç»„å…ƒç´ ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param array å…ƒç´ æ•°ç»„
 	 */
 	public void addAll(Object []array) {
 		for (Object obj : array) {
@@ -463,9 +463,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ²åÈëÔªËØ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param index ²åÈëÎ»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param o ÔªËØÖµ
+	 * æ’å…¥å…ƒç´ ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param index æ’å…¥ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param o å…ƒç´ å€¼
 	 */
 	public void insert(int index, Object o) {
 		if (o instanceof Double) {
@@ -501,10 +501,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ²åÈëÔªËØ
-	 * @param index ²åÈëÎ»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param o ÔªËØÖµ
-	 * @return ·µ»ØÔ´Êı×é
+	 * æ’å…¥å…ƒç´ 
+	 * @param index æ’å…¥ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param o å…ƒç´ å€¼
+	 * @return è¿”å›æºæ•°ç»„
 	 */
 	public void insertDouble(int index, double o) {
 		ensureCapacity(size + 1);
@@ -520,9 +520,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ²åÈëÒ»×éÔªËØ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param pos Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param array ÔªËØÊı×é
+	 * åœ¨æŒ‡å®šä½ç½®æ’å…¥ä¸€ç»„å…ƒç´ ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param pos ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param array å…ƒç´ æ•°ç»„
 	 */
 	public void insertAll(int pos, IArray array) {
 		if (array instanceof DoubleArray) {
@@ -560,9 +560,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ²åÈëÒ»×éÔªËØ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param pos Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param array ÔªËØÊı×é
+	 * åœ¨æŒ‡å®šä½ç½®æ’å…¥ä¸€ç»„å…ƒç´ ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param pos ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param array å…ƒç´ æ•°ç»„
 	 */
 	public void insertAll(int pos, Object []array) {
 		boolean containNull = false;
@@ -612,8 +612,8 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ×·¼ÓÔªËØ£¨²»¼ì²éÈİÁ¿£¬ÈÏÎªÓĞ×ã¹»¿Õ¼ä´æ·ÅÔªËØ£©£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param o ÔªËØÖµ
+	 * è¿½åŠ å…ƒç´ ï¼ˆä¸æ£€æŸ¥å®¹é‡ï¼Œè®¤ä¸ºæœ‰è¶³å¤Ÿç©ºé—´å­˜æ”¾å…ƒç´ ï¼‰ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param o å…ƒç´ å€¼
 	 */
 	public void push(Object o) {
 		if (o instanceof Double) {
@@ -632,9 +632,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * °ÑarrayÖĞµÄµÚindex¸öÔªËØÌí¼Óµ½µ±Ç°Êı×éÖĞ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param array Êı×é
-	 * @param index ÔªËØË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * æŠŠarrayä¸­çš„ç¬¬indexä¸ªå…ƒç´ æ·»åŠ åˆ°å½“å‰æ•°ç»„ä¸­ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param array æ•°ç»„
+	 * @param index å…ƒç´ ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 */
 	public void push(IArray array, int index) {
 		if (array instanceof DoubleArray) {
@@ -653,9 +653,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * °ÑarrayÖĞµÄµÚindex¸öÔªËØÌí¼Óµ½µ±Ç°Êı×éÖĞ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param array Êı×é
-	 * @param index ÔªËØË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * æŠŠarrayä¸­çš„ç¬¬indexä¸ªå…ƒç´ æ·»åŠ åˆ°å½“å‰æ•°ç»„ä¸­ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param array æ•°ç»„
+	 * @param index å…ƒç´ ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 */
 	public void add(IArray array, int index) {
 		if (array.isNull(index)) {
@@ -677,10 +677,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * °ÑarrayÖĞµÄµÚindex¸öÔªËØÉè¸øµ½µ±Ç°Êı×éµÄÖ¸¶¨ÔªËØ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param curIndex µ±Ç°Êı×éµÄÔªËØË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param array Êı×é
-	 * @param index ÔªËØË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * æŠŠarrayä¸­çš„ç¬¬indexä¸ªå…ƒç´ è®¾ç»™åˆ°å½“å‰æ•°ç»„çš„æŒ‡å®šå…ƒç´ ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param curIndex å½“å‰æ•°ç»„çš„å…ƒç´ ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param array æ•°ç»„
+	 * @param index å…ƒç´ ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 */
 	public void set(int curIndex, IArray array, int index) {
 		if (array.isNull(index)) {
@@ -697,8 +697,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ×·¼ÓÔªËØ
-	 * @param n Öµ
+	 * è¿½åŠ å…ƒç´ 
+	 * @param n å€¼
 	 */
 	public void addDouble(double n) {
 		ensureCapacity(size + 1);
@@ -706,7 +706,7 @@ public class DoubleArray implements NumberArray {
 	}
 		
 	/**
-	 * ×·¼Ó¿ÕÔªËØ
+	 * è¿½åŠ ç©ºå…ƒç´ 
 	 */
 	public void pushNull() {
 		if (signs == null) {
@@ -717,24 +717,24 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ×·¼ÓÔªËØ£¨²»¼ì²éÈİÁ¿£¬ÈÏÎªÓĞ×ã¹»¿Õ¼ä´æ·ÅÔªËØ£©
-	 * @param n Öµ
+	 * è¿½åŠ å…ƒç´ ï¼ˆä¸æ£€æŸ¥å®¹é‡ï¼Œè®¤ä¸ºæœ‰è¶³å¤Ÿç©ºé—´å­˜æ”¾å…ƒç´ ï¼‰
+	 * @param n å€¼
 	 */
 	public void push(double n) {
 		datas[++size] = n;
 	}
 	
 	/**
-	 * ×·¼ÓÔªËØ£¨²»¼ì²éÈİÁ¿£¬ÈÏÎªÓĞ×ã¹»¿Õ¼ä´æ·ÅÔªËØ£©
-	 * @param n Öµ
+	 * è¿½åŠ å…ƒç´ ï¼ˆä¸æ£€æŸ¥å®¹é‡ï¼Œè®¤ä¸ºæœ‰è¶³å¤Ÿç©ºé—´å­˜æ”¾å…ƒç´ ï¼‰
+	 * @param n å€¼
 	 */
 	public void pushDouble(double n) {
 		datas[++size] = n;
 	}
 	
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÔªËØ
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * å–æŒ‡å®šä½ç½®å…ƒç´ 
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public Object get(int index) {
@@ -746,35 +746,35 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÔªËØµÄÕûÊıÖµ
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @return ÕûÊıÖµ
+	 * å–æŒ‡å®šä½ç½®å…ƒç´ çš„æ•´æ•°å€¼
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @return æ•´æ•°å€¼
 	 */
 	public int getInt(int index) {
 		return (int)datas[index];
 	}
 
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÔªËØµÄ³¤ÕûÊıÖµ
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @return ³¤ÕûÊıÖµ
+	 * å–æŒ‡å®šä½ç½®å…ƒç´ çš„é•¿æ•´æ•°å€¼
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @return é•¿æ•´æ•°å€¼
 	 */
 	public long getLong(int index) {
 		return (long)datas[index];
 	}
 
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÔªËØµÄ¸¡µãÊıÖµ
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @return ¸¡µãÊıÖµ
+	 * å–æŒ‡å®šä½ç½®å…ƒç´ çš„æµ®ç‚¹æ•°å€¼
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @return æµ®ç‚¹æ•°å€¼
 	 */
 	public double getDouble(int index) {
 		return datas[index];
 	}
 	
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÔªËØ×é³ÉĞÂÊı×é
-	 * @param indexArray Î»ÖÃÊı×é
+	 * å–æŒ‡å®šä½ç½®å…ƒç´ ç»„æˆæ–°æ•°ç»„
+	 * @param indexArray ä½ç½®æ•°ç»„
 	 * @return IArray
 	 */
 	public IArray get(int []indexArray) {
@@ -801,11 +801,11 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÔªËØ×é³ÉĞÂÊı×é
-	 * @param indexArray Î»ÖÃÊı×é
-	 * @param start ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param end ½áÊøÎ»ÖÃ£¬°üº¬
-	 * @param doCheck true£ºÎ»ÖÃ¿ÉÄÜ°üº¬0£¬0µÄÎ»ÖÃÓÃnullÌî³ä£¬false£º²»»á°üº¬0
+	 * å–æŒ‡å®šä½ç½®å…ƒç´ ç»„æˆæ–°æ•°ç»„
+	 * @param indexArray ä½ç½®æ•°ç»„
+	 * @param start èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param end ç»“æŸä½ç½®ï¼ŒåŒ…å«
+	 * @param doCheck trueï¼šä½ç½®å¯èƒ½åŒ…å«0ï¼Œ0çš„ä½ç½®ç”¨nullå¡«å……ï¼Œfalseï¼šä¸ä¼šåŒ…å«0
 	 * @return IArray
 	 */
 	public IArray get(int []indexArray, int start, int end, boolean doCheck) {
@@ -861,8 +861,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÔªËØ×é³ÉĞÂÊı×é
-	 * @param IArray Î»ÖÃÊı×é
+	 * å–æŒ‡å®šä½ç½®å…ƒç´ ç»„æˆæ–°æ•°ç»„
+	 * @param IArray ä½ç½®æ•°ç»„
 	 * @return IArray
 	 */
 	public IArray get(IArray indexArray) {
@@ -890,9 +890,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * È¡Ä³Ò»Çø¶Î×é³ÉĞÂÊı×é
-	 * @param start ÆğÊ¼Î»ÖÃ£¨°üÀ¨£©
-	 * @param end ½áÊøÎ»ÖÃ£¨²»°üÀ¨£©
+	 * å–æŸä¸€åŒºæ®µç»„æˆæ–°æ•°ç»„
+	 * @param start èµ·å§‹ä½ç½®ï¼ˆåŒ…æ‹¬ï¼‰
+	 * @param end ç»“æŸä½ç½®ï¼ˆä¸åŒ…æ‹¬ï¼‰
 	 * @return IArray
 	 */
 	public IArray get(int start, int end) {
@@ -910,8 +910,8 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * Ê¹ÁĞ±íµÄÈİÁ¿²»Ğ¡ÓÚminCapacity
-	 * @param minCapacity ×îĞ¡ÈİÁ¿
+	 * ä½¿åˆ—è¡¨çš„å®¹é‡ä¸å°äºminCapacity
+	 * @param minCapacity æœ€å°å®¹é‡
 	 */
 	public void ensureCapacity(int minCapacity) {
 		int oldCapacity = datas.length;
@@ -922,7 +922,7 @@ public class DoubleArray implements NumberArray {
 			} else {
 				newCapacity = oldCapacity + (oldCapacity >> 1);
 				if (newCapacity < 0) {
-					// ³¬¹ıIntegerÉÏÏŞ
+					// è¶…è¿‡Integerä¸Šé™
 					newCapacity = oldCapacity + 0xfffffff;
 					if (newCapacity < 0) {
 						newCapacity = Integer.MAX_VALUE;
@@ -945,7 +945,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * µ÷ÕûÈİÁ¿£¬Ê¹ÆäÓëÔªËØÊıÏàµÈ
+	 * è°ƒæ•´å®¹é‡ï¼Œä½¿å…¶ä¸å…ƒç´ æ•°ç›¸ç­‰
 	 */
 	public void trimToSize() {
 		int newLen = size + 1;
@@ -963,8 +963,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÖ¸¶¨Î»ÖÃµÄÔªËØÊÇ·ñÊÇ¿Õ
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * åˆ¤æ–­æŒ‡å®šä½ç½®çš„å…ƒç´ æ˜¯å¦æ˜¯ç©º
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public boolean isNull(int index) {
@@ -972,7 +972,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÔªËØÊÇ·ñÊÇTrue
+	 * åˆ¤æ–­å…ƒç´ æ˜¯å¦æ˜¯True
 	 * @return BoolArray
 	 */
 	public BoolArray isTrue() {
@@ -996,7 +996,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÔªËØÊÇ·ñÊÇ¼Ù
+	 * åˆ¤æ–­å…ƒç´ æ˜¯å¦æ˜¯å‡
 	 * @return BoolArray
 	 */
 	public BoolArray isFalse() {
@@ -1017,43 +1017,43 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÖ¸¶¨Î»ÖÃµÄÔªËØÊÇ·ñÊÇTrue
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * åˆ¤æ–­æŒ‡å®šä½ç½®çš„å…ƒç´ æ˜¯å¦æ˜¯True
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public boolean isTrue(int index) {
-		// ·Ç¿ÕÔòÊÇtrue
+		// éç©ºåˆ™æ˜¯true
 		return signs == null || !signs[index];
 	}
 	
 	/**
-	 * ÅĞ¶ÏÖ¸¶¨Î»ÖÃµÄÔªËØÊÇ·ñÊÇFalse
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * åˆ¤æ–­æŒ‡å®šä½ç½®çš„å…ƒç´ æ˜¯å¦æ˜¯False
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public boolean isFalse(int index) {
-		// ¿ÕÔòÊÇfalse
+		// ç©ºåˆ™æ˜¯false
 		return signs != null && signs[index];
 	}
 
 	/**
-	 * ÊÇ·ñÊÇ¼ÆËã¹ı³ÌÖĞÁÙÊ±²úÉúµÄÊı×é£¬ÁÙÊ±²úÉúµÄ¿ÉÒÔ±»ĞŞ¸Ä£¬±ÈÈç f1+f2+f3£¬Ö»Ğè²úÉúÒ»¸öÊı×é´æ·Å½á¹û
-	 * @return true£ºÊÇÁÙÊ±²úÉúµÄÊı×é£¬false£º²»ÊÇÁÙÊ±²úÉúµÄÊı×é
+	 * æ˜¯å¦æ˜¯è®¡ç®—è¿‡ç¨‹ä¸­ä¸´æ—¶äº§ç”Ÿçš„æ•°ç»„ï¼Œä¸´æ—¶äº§ç”Ÿçš„å¯ä»¥è¢«ä¿®æ”¹ï¼Œæ¯”å¦‚ f1+f2+f3ï¼Œåªéœ€äº§ç”Ÿä¸€ä¸ªæ•°ç»„å­˜æ”¾ç»“æœ
+	 * @return trueï¼šæ˜¯ä¸´æ—¶äº§ç”Ÿçš„æ•°ç»„ï¼Œfalseï¼šä¸æ˜¯ä¸´æ—¶äº§ç”Ÿçš„æ•°ç»„
 	 */
 	public boolean isTemporary() {
 		return (int)datas[0] == 1;
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÊÇ¼ÆËã¹ı³ÌÖĞÁÙÊ±²úÉúµÄÊı×é
-	 * @param ifTemporary true£ºÊÇÁÙÊ±²úÉúµÄÊı×é£¬false£º²»ÊÇÁÙÊ±²úÉúµÄÊı×é
+	 * è®¾ç½®æ˜¯å¦æ˜¯è®¡ç®—è¿‡ç¨‹ä¸­ä¸´æ—¶äº§ç”Ÿçš„æ•°ç»„
+	 * @param ifTemporary trueï¼šæ˜¯ä¸´æ—¶äº§ç”Ÿçš„æ•°ç»„ï¼Œfalseï¼šä¸æ˜¯ä¸´æ—¶äº§ç”Ÿçš„æ•°ç»„
 	 */
 	public void setTemporary(boolean ifTemporary) {
 		datas[0] = ifTemporary ? 1 : 0;
 	}
 	
 	/**
-	 * É¾³ı×îºóÒ»¸öÔªËØ
+	 * åˆ é™¤æœ€åä¸€ä¸ªå…ƒç´ 
 	 */
 	public void removeLast() {
 		if (signs != null) {
@@ -1064,8 +1064,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * É¾³ıÖ¸¶¨Î»ÖÃµÄÔªËØ
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * åˆ é™¤æŒ‡å®šä½ç½®çš„å…ƒç´ 
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 */
 	public void remove(int index) {
 		System.arraycopy(datas, index + 1, datas, index, size - index);
@@ -1078,9 +1078,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * É¾³ıÖ¸¶¨Çø¼äÄÚµÄÔªËØ
-	 * @param from ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param to ½áÊøÎ»ÖÃ£¬°üº¬
+	 * åˆ é™¤æŒ‡å®šåŒºé—´å†…çš„å…ƒç´ 
+	 * @param from èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param to ç»“æŸä½ç½®ï¼ŒåŒ…å«
 	 */
 	public void removeRange(int fromIndex, int toIndex) {
 		System.arraycopy(datas, toIndex + 1, datas, fromIndex, size - toIndex);
@@ -1095,8 +1095,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * É¾³ıÖ¸¶¨Î»ÖÃµÄÔªËØ£¬ĞòºÅ´ÓĞ¡µ½´óÅÅĞò
-	 * @param seqs Ë÷ÒıÊı×é
+	 * åˆ é™¤æŒ‡å®šä½ç½®çš„å…ƒç´ ï¼Œåºå·ä»å°åˆ°å¤§æ’åº
+	 * @param seqs ç´¢å¼•æ•°ç»„
 	 */
 	public void remove(int []seqs) {
 		int delCount = 0;
@@ -1134,9 +1134,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ±£ÁôÖ¸¶¨Çø¼äÄÚµÄÊı¾İ
-	 * @param start ÆğÊ¼Î»ÖÃ£¨°üº¬£©
-	 * @param end ½áÊøÎ»ÖÃ£¨°üº¬£©
+	 * ä¿ç•™æŒ‡å®šåŒºé—´å†…çš„æ•°æ®
+	 * @param start èµ·å§‹ä½ç½®ï¼ˆåŒ…å«ï¼‰
+	 * @param end ç»“æŸä½ç½®ï¼ˆåŒ…å«ï¼‰
 	 */
 	public void reserve(int start, int end) {
 		int newSize = end - start + 1;
@@ -1156,8 +1156,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ·µ»ØÊı×éµÄ·Ç¿ÕÔªËØÊıÄ¿
-	 * @return ·Ç¿ÕÔªËØÊıÄ¿
+	 * è¿”å›æ•°ç»„çš„éç©ºå…ƒç´ æ•°ç›®
+	 * @return éç©ºå…ƒç´ æ•°ç›®
 	 */
 	public int count() {
 		boolean []signs = this.signs;
@@ -1177,8 +1177,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊı×éÊÇ·ñÓĞÈ¡ÖµÎªtrueµÄÔªËØ
-	 * @return true£ºÓĞ£¬false£ºÃ»ÓĞ
+	 * åˆ¤æ–­æ•°ç»„æ˜¯å¦æœ‰å–å€¼ä¸ºtrueçš„å…ƒç´ 
+	 * @return trueï¼šæœ‰ï¼Œfalseï¼šæ²¡æœ‰
 	 */
 	public boolean containTrue() {
 		int size = this.size;
@@ -1201,7 +1201,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ·µ»ØµÚÒ»¸ö²»Îª¿ÕµÄÔªËØ
+	 * è¿”å›ç¬¬ä¸€ä¸ªä¸ä¸ºç©ºçš„å…ƒç´ 
 	 * @return Object
 	 */
 	public Object ifn() {
@@ -1225,9 +1225,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ĞŞ¸ÄÊı×éÖ¸¶¨ÔªËØµÄÖµ£¬Èç¹ûÀàĞÍ²»¼æÈİÔòÅ×³öÒì³£
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param obj Öµ
+	 * ä¿®æ”¹æ•°ç»„æŒ‡å®šå…ƒç´ çš„å€¼ï¼Œå¦‚æœç±»å‹ä¸å…¼å®¹åˆ™æŠ›å‡ºå¼‚å¸¸
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param obj å€¼
 	 */
 	public void set(int index, Object obj) {
 		if (obj == null) {
@@ -1249,7 +1249,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * É¾³ıËùÓĞµÄÔªËØ
+	 * åˆ é™¤æ‰€æœ‰çš„å…ƒç´ 
 	 */
 	public void clear() {
 		signs = null;
@@ -1257,9 +1257,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¶ş·Ö·¨²éÕÒÖ¸¶¨ÔªËØ
+	 * äºŒåˆ†æ³•æŸ¥æ‰¾æŒ‡å®šå…ƒç´ 
 	 * @param elem
-	 * @return int ÔªËØµÄË÷Òı,Èç¹û²»´æÔÚ·µ»Ø¸ºµÄ²åÈëÎ»ÖÃ.
+	 * @return int å…ƒç´ çš„ç´¢å¼•,å¦‚æœä¸å­˜åœ¨è¿”å›è´Ÿçš„æ’å…¥ä½ç½®.
 	 */
 	public int binarySearch(Object elem) {
 		if (elem instanceof Number) {
@@ -1270,7 +1270,7 @@ public class DoubleArray implements NumberArray {
 			int low = 1, high = size;
 			
 			if (signs != null) {
-				// Ìø¹ınull
+				// è·³è¿‡null
 				while (low <= high) {
 					if (signs[low]) {
 						low++;
@@ -1297,7 +1297,7 @@ public class DoubleArray implements NumberArray {
 					int mid = (low + high) >> 1;
 					if (compare(datas[mid], elem) < 0) {
 						low = mid + 1;
-					} else { // ´óÓÚ0£¬²»»áÓĞÏàµÈµÄÇé¿ö
+					} else { // å¤§äº0ï¼Œä¸ä¼šæœ‰ç›¸ç­‰çš„æƒ…å†µ
 						high = mid - 1;
 					}
 				}
@@ -1318,11 +1318,11 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¶ş·Ö·¨²éÕÒÖ¸¶¨ÔªËØ
+	 * äºŒåˆ†æ³•æŸ¥æ‰¾æŒ‡å®šå…ƒç´ 
 	 * @param elem
-	 * @param start ÆğÊ¼²éÕÒÎ»ÖÃ£¨°üº¬£©
-	 * @param end ½áÊø²éÕÒÎ»ÖÃ£¨°üº¬£©
-	 * @return ÔªËØµÄË÷Òı,Èç¹û²»´æÔÚ·µ»Ø¸ºµÄ²åÈëÎ»ÖÃ.
+	 * @param start èµ·å§‹æŸ¥æ‰¾ä½ç½®ï¼ˆåŒ…å«ï¼‰
+	 * @param end ç»“æŸæŸ¥æ‰¾ä½ç½®ï¼ˆåŒ…å«ï¼‰
+	 * @return å…ƒç´ çš„ç´¢å¼•,å¦‚æœä¸å­˜åœ¨è¿”å›è´Ÿçš„æ’å…¥ä½ç½®.
 	 */
 	public int binarySearch(Object elem, int start, int end) {
 		if (elem instanceof Number) {
@@ -1333,7 +1333,7 @@ public class DoubleArray implements NumberArray {
 			int low = start, high = end;
 			
 			if (signs != null) {
-				// Ìø¹ınull
+				// è·³è¿‡null
 				while (low <= high) {
 					if (signs[low]) {
 						low++;
@@ -1360,7 +1360,7 @@ public class DoubleArray implements NumberArray {
 					int mid = (low + high) >> 1;
 					if (compare(datas[mid], elem) < 0) {
 						low = mid + 1;
-					} else { // ´óÓÚ0£¬²»»áÓĞÏàµÈµÄÇé¿ö
+					} else { // å¤§äº0ï¼Œä¸ä¼šæœ‰ç›¸ç­‰çš„æƒ…å†µ
 						high = mid - 1;
 					}
 				}
@@ -1386,7 +1386,7 @@ public class DoubleArray implements NumberArray {
 		int low = start, high = end;
 		
 		if (signs != null) {
-			// Ìø¹ınull
+			// è·³è¿‡null
 			while (low <= high) {
 				if (signs[low]) {
 					low++;
@@ -1417,7 +1417,7 @@ public class DoubleArray implements NumberArray {
 		int low = 1, high = size;
 		
 		if (signs != null) {
-			// Ìø¹ınull
+			// è·³è¿‡null
 			while (low <= high) {
 				if (signs[low]) {
 					low++;
@@ -1442,7 +1442,7 @@ public class DoubleArray implements NumberArray {
 		return -low; // key not found
 	}
 	
-	// Êı×é°´½µĞòÅÅĞò£¬½øĞĞ½µĞò¶ş·Ö²éÕÒ
+	// æ•°ç»„æŒ‰é™åºæ’åºï¼Œè¿›è¡Œé™åºäºŒåˆ†æŸ¥æ‰¾
 	private int descBinarySearch(double elem) {
 		double []datas = this.datas;
 		int low = 1, high = size;
@@ -1463,16 +1463,16 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ·µ»ØÁĞ±íÖĞÊÇ·ñ°üº¬Ö¸¶¨ÔªËØ
-	 * @param elem Object ´ı²éÕÒµÄÔªËØ
-	 * @return boolean true£º°üº¬£¬false£º²»°üº¬
+	 * è¿”å›åˆ—è¡¨ä¸­æ˜¯å¦åŒ…å«æŒ‡å®šå…ƒç´ 
+	 * @param elem Object å¾…æŸ¥æ‰¾çš„å…ƒç´ 
+	 * @return boolean trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	public boolean contains(Object elem) {
 		if (elem instanceof Number) {
 			Number number = (Number)elem;
 			double v = number.doubleValue();
 			
-			// È·¶¨Òª²éÕÒµÄÖµÊÇ·ñÊÇÕûÊı
+			// ç¡®å®šè¦æŸ¥æ‰¾çš„å€¼æ˜¯å¦æ˜¯æ•´æ•°
 			if (compare(v, number) != 0) {
 				return false;
 			}
@@ -1538,10 +1538,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊı×éµÄÔªËØÊÇ·ñÔÚµ±Ç°Êı×éÖĞ
-	 * @param isSorted µ±Ç°Êı×éÊÇ·ñÓĞĞò
-	 * @param array Êı×é
-	 * @param result ÓÃÓÚ´æ·Å½á¹û£¬Ö»ÕÒÈ¡ÖµÎªtrueµÄ
+	 * åˆ¤æ–­æ•°ç»„çš„å…ƒç´ æ˜¯å¦åœ¨å½“å‰æ•°ç»„ä¸­
+	 * @param isSorted å½“å‰æ•°ç»„æ˜¯å¦æœ‰åº
+	 * @param array æ•°ç»„
+	 * @param result ç”¨äºå­˜æ”¾ç»“æœï¼Œåªæ‰¾å–å€¼ä¸ºtrueçš„
 	 */
 	public void contains(boolean isSorted, IArray array, BoolArray result) {
 		int resultSize = result.size();
@@ -1590,26 +1590,26 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ·µ»ØÁĞ±íÖĞÊÇ·ñ°üº¬Ö¸¶¨ÔªËØ£¬Ê¹ÓÃµÈºÅ±È½Ï
+	 * è¿”å›åˆ—è¡¨ä¸­æ˜¯å¦åŒ…å«æŒ‡å®šå…ƒç´ ï¼Œä½¿ç”¨ç­‰å·æ¯”è¾ƒ
 	 * @param elem
-	 * @return boolean true£º°üº¬£¬false£º²»°üº¬
+	 * @return boolean trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	public boolean objectContains(Object elem) {
 		return false;
 	}
 	
 	/**
-	 * ·µ»ØÔªËØÔÚÊı×éÖĞÊ×´Î³öÏÖµÄÎ»ÖÃ
-	 * @param elem ´ı²éÕÒµÄÔªËØ
-	 * @param start ÆğÊ¼²éÕÒÎ»ÖÃ£¨°üº¬£©
-	 * @return Èç¹ûÔªËØ´æÔÚÔò·µ»ØÖµ´óÓÚ0£¬·ñÔò·µ»Ø0
+	 * è¿”å›å…ƒç´ åœ¨æ•°ç»„ä¸­é¦–æ¬¡å‡ºç°çš„ä½ç½®
+	 * @param elem å¾…æŸ¥æ‰¾çš„å…ƒç´ 
+	 * @param start èµ·å§‹æŸ¥æ‰¾ä½ç½®ï¼ˆåŒ…å«ï¼‰
+	 * @return å¦‚æœå…ƒç´ å­˜åœ¨åˆ™è¿”å›å€¼å¤§äº0ï¼Œå¦åˆ™è¿”å›0
 	 */
 	public int firstIndexOf(Object elem, int start) {
 		if (elem instanceof Number) {
 			Number number = (Number)elem;
 			double v = number.doubleValue();
 			
-			// È·¶¨Òª²éÕÒµÄÖµÊÇ·ñÊÇÕûÊı
+			// ç¡®å®šè¦æŸ¥æ‰¾çš„å€¼æ˜¯å¦æ˜¯æ•´æ•°
 			if (compare(v, number) != 0) {
 				return 0;
 			}
@@ -1674,17 +1674,17 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ·µ»ØÔªËØÔÚÊı×éÖĞ×îºó³öÏÖµÄÎ»ÖÃ
-	 * @param elem ´ı²éÕÒµÄÔªËØ
-	 * @param start ´ÓºóÃæ¿ªÊ¼²éÕÒµÄÎ»ÖÃ£¨°üº¬£©
-	 * @return Èç¹ûÔªËØ´æÔÚÔò·µ»ØÖµ´óÓÚ0£¬·ñÔò·µ»Ø0
+	 * è¿”å›å…ƒç´ åœ¨æ•°ç»„ä¸­æœ€åå‡ºç°çš„ä½ç½®
+	 * @param elem å¾…æŸ¥æ‰¾çš„å…ƒç´ 
+	 * @param start ä»åé¢å¼€å§‹æŸ¥æ‰¾çš„ä½ç½®ï¼ˆåŒ…å«ï¼‰
+	 * @return å¦‚æœå…ƒç´ å­˜åœ¨åˆ™è¿”å›å€¼å¤§äº0ï¼Œå¦åˆ™è¿”å›0
 	 */
 	public int lastIndexOf(Object elem, int start) {
 		if (elem instanceof Number) {
 			Number number = (Number)elem;
 			double v = number.doubleValue();
 			
-			// È·¶¨Òª²éÕÒµÄÖµÊÇ·ñÊÇÕûÊı
+			// ç¡®å®šè¦æŸ¥æ‰¾çš„å€¼æ˜¯å¦æ˜¯æ•´æ•°
 			if (compare(v, number) != 0) {
 				return 0;
 			}
@@ -1726,11 +1726,11 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ·µ»ØÔªËØÔÚÊı×éÖĞËùÓĞ³öÏÖµÄÎ»ÖÃ
-	 * @param elem ´ı²éÕÒµÄÔªËØ
-	 * @param start ÆğÊ¼²éÕÒÎ»ÖÃ£¨°üº¬£©
-	 * @param isSorted µ±Ç°Êı×éÊÇ·ñÓĞĞò
-	 * @param isFromHead true£º´ÓÍ·¿ªÊ¼±éÀú£¬false£º´ÓÎ²ÏòÇ°¿ªÊ¼±éÀú
+	 * è¿”å›å…ƒç´ åœ¨æ•°ç»„ä¸­æ‰€æœ‰å‡ºç°çš„ä½ç½®
+	 * @param elem å¾…æŸ¥æ‰¾çš„å…ƒç´ 
+	 * @param start èµ·å§‹æŸ¥æ‰¾ä½ç½®ï¼ˆåŒ…å«ï¼‰
+	 * @param isSorted å½“å‰æ•°ç»„æ˜¯å¦æœ‰åº
+	 * @param isFromHead trueï¼šä»å¤´å¼€å§‹éå†ï¼Œfalseï¼šä»å°¾å‘å‰å¼€å§‹éå†
 	 * @return IntArray
 	 */
 	public IntArray indexOfAll(Object elem, int start, boolean isSorted, boolean isFromHead) {
@@ -1794,13 +1794,13 @@ public class DoubleArray implements NumberArray {
 			double []datas = this.datas;
 			double v = number.doubleValue();
 			
-			// ÕÒµ½µÚÒ»¸ö
+			// æ‰¾åˆ°ç¬¬ä¸€ä¸ª
 			int first = index;
 			while (first > start && (signs == null || !signs[first - 1]) && datas[first - 1] == v) {
 				first--;
 			}
 			
-			// ÕÒµ½×îºóÒ»¸ö
+			// æ‰¾åˆ°æœ€åä¸€ä¸ª
 			int last = index;
 			while (last < end && (signs == null || !signs[last + 1]) && datas[last + 1] == v) {
 				last++;
@@ -1822,7 +1822,7 @@ public class DoubleArray implements NumberArray {
 			double []datas = this.datas;
 			double v = number.doubleValue();
 			
-			// È·¶¨Òª²éÕÒµÄÖµÊÇ·ñÊÇÕûÊı
+			// ç¡®å®šè¦æŸ¥æ‰¾çš„å€¼æ˜¯å¦æ˜¯æ•´æ•°
 			if (compare(v, number) != 0) {
 				return new IntArray(1);
 			}
@@ -1847,8 +1847,8 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¶ÔÊı×é³ÉÔ±Çó¾ø¶ÔÖµ
-	 * @return IArray ¾ø¶ÔÖµÊı×é
+	 * å¯¹æ•°ç»„æˆå‘˜æ±‚ç»å¯¹å€¼
+	 * @return IArray ç»å¯¹å€¼æ•°ç»„
 	 */
 	public IArray abs() {
 		int size = this.size;
@@ -1873,14 +1873,14 @@ public class DoubleArray implements NumberArray {
 		}
 		
 		if (signs == null) {
-			// Ã»ÓĞnull³ÉÔ±
+			// æ²¡æœ‰nullæˆå‘˜
 			for (int i = 1; i <= size; ++i) {
 				if (datas[i] <= 0.0D) {
 					datas[i] = 0.0D - datas[i];
 				}
 			}
 		} else {
-			// ĞèÒªÅĞ¶Ï³ÉÔ±ÊÇ·ñÊÇnull
+			// éœ€è¦åˆ¤æ–­æˆå‘˜æ˜¯å¦æ˜¯null
 			for (int i = 1; i <= size; ++i) {
 				if (!signs[i] && datas[i] <= 0.0D) {
 					datas[i] = 0.0D - datas[i];
@@ -1892,14 +1892,14 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¶ÔÊı×é³ÉÔ±Çó¸º
-	 * @return IArray ¸ºÖµÊı×é
+	 * å¯¹æ•°ç»„æˆå‘˜æ±‚è´Ÿ
+	 * @return IArray è´Ÿå€¼æ•°ç»„
 	 */
 	public IArray negate() {
 		int size = this.size;
 		double []datas = this.datas;
 		
-		// ²»ĞèÒªÅĞ¶Ï³ÉÔ±ÊÇ·ñÊÇnull
+		// ä¸éœ€è¦åˆ¤æ–­æˆå‘˜æ˜¯å¦æ˜¯null
 		if (isTemporary()) {
 			for (int i = 1; i <= size; ++i) {
 				datas[i] = -datas[i];
@@ -1925,15 +1925,15 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¶ÔÊı×é³ÉÔ±Çó·Ç
-	 * @return IArray ·ÇÖµÊı×é
+	 * å¯¹æ•°ç»„æˆå‘˜æ±‚é
+	 * @return IArray éå€¼æ•°ç»„
 	 */
 	public IArray not() {
 		boolean []signs = this.signs;
 		int size = this.size;
 		
 		if (signs == null) {
-			// Ã»ÓĞ¿ÕÔªËØÊ±È¡·Ç¶¼ÊÇfalse
+			// æ²¡æœ‰ç©ºå…ƒç´ æ—¶å–ééƒ½æ˜¯false
 			return new ConstArray(Boolean.FALSE, size);
 		} else {
 			boolean []newDatas = new boolean[size + 1];
@@ -1946,17 +1946,17 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ÅĞ¶ÏÊı×éµÄ³ÉÔ±ÊÇ·ñ¶¼ÊÇÊı£¨¿ÉÒÔ°üº¬null£©
-	 * @return true£º¶¼ÊÇÊı£¬false£ºº¬ÓĞ·ÇÊıµÄÖµ
+	 * åˆ¤æ–­æ•°ç»„çš„æˆå‘˜æ˜¯å¦éƒ½æ˜¯æ•°ï¼ˆå¯ä»¥åŒ…å«nullï¼‰
+	 * @return trueï¼šéƒ½æ˜¯æ•°ï¼Œfalseï¼šå«æœ‰éæ•°çš„å€¼
 	 */
 	public boolean isNumberArray() {
 		return true;
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄºÍ
-	 * @param array ÓÒ²àÊı×é
-	 * @return ºÍÊı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„å’Œ
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return å’Œæ•°ç»„
 	 */
 	public IArray memberAdd(IArray array) {
 		if (array instanceof IntArray) {
@@ -1981,12 +1981,12 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¼ÆËãÊı×éµÄ³ÉÔ±ÓëÖ¸¶¨³£ÊıµÄºÍ
-	 * @param value ³£Êı
-	 * @return ºÍÊı×é
+	 * è®¡ç®—æ•°ç»„çš„æˆå‘˜ä¸æŒ‡å®šå¸¸æ•°çš„å’Œ
+	 * @param value å¸¸æ•°
+	 * @return å’Œæ•°ç»„
 	 */
 	public IArray memberAdd(Object value) {
-		// Êı×ÖºÍ×Ö·û´®Ïà¼ÓÔò³¢ÊÔ°Ñ´®×ª³ÉÊı×Ö£¬×ª²»³ÉÔòµ±null´¦Àí
+		// æ•°å­—å’Œå­—ç¬¦ä¸²ç›¸åŠ åˆ™å°è¯•æŠŠä¸²è½¬æˆæ•°å­—ï¼Œè½¬ä¸æˆåˆ™å½“nullå¤„ç†
 		if (value instanceof String) {
 			value = Variant.parseNumber((String)value);
 		}
@@ -2278,9 +2278,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ²î
-	 * @param array ÓÒ²àÊı×é
-	 * @return ²îÊı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„å·®
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return å·®æ•°ç»„
 	 */
 	public IArray memberSubtract(IArray array) {
 		if (array instanceof DoubleArray) {
@@ -2651,9 +2651,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ»ı
-	 * @param array ÓÒ²àÊı×é
-	 * @return »ıÊı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„ç§¯
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return ç§¯æ•°ç»„
 	 */
 	public IArray memberMultiply(IArray array) {
 		if (array instanceof DoubleArray) {
@@ -2674,9 +2674,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÊı×éµÄ³ÉÔ±ÓëÖ¸¶¨³£ÊıµÄ»ı
-	 * @param value ³£Êı
-	 * @return »ıÊı×é
+	 * è®¡ç®—æ•°ç»„çš„æˆå‘˜ä¸æŒ‡å®šå¸¸æ•°çš„ç§¯
+	 * @param value å¸¸æ•°
+	 * @return ç§¯æ•°ç»„
 	 */
 	public IArray memberMultiply(Object value) {
 		int size = this.size;
@@ -2979,9 +2979,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ³ı
-	 * @param array ÓÒ²àÊı×é
-	 * @return ÉÌÊı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„é™¤
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return å•†æ•°ç»„
 	 */
 	public IArray memberDivide(IArray array) {
 		if (array instanceof IntArray) {
@@ -3395,9 +3395,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÊı³ÉÔ±Õû³ı»òĞòÁĞ³ÉÔ±²î¼¯
-	 * @param array ÓÒ²àÊı×é
-	 * @return Õû³ıÖµÊı×é»òĞòÁĞ²î¼¯Êı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„æ•°æˆå‘˜æ•´é™¤æˆ–åºåˆ—æˆå‘˜å·®é›†
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return æ•´é™¤å€¼æ•°ç»„æˆ–åºåˆ—å·®é›†æ•°ç»„
 	 */
 	public IArray memberIntDivide(IArray array) {
 		if (array instanceof IntArray) {
@@ -3493,7 +3493,7 @@ public class DoubleArray implements NumberArray {
 				resultSigns = s2;
 				for (int i = 1; i <= size; ++i) {
 					if (s1[i]) {
-						// ×óÓÒ²Ù×÷ÊıÓĞÒ»¸öÎª¿ÕÔòÖµÎª¿Õ
+						// å·¦å³æ“ä½œæ•°æœ‰ä¸€ä¸ªä¸ºç©ºåˆ™å€¼ä¸ºç©º
 						resultSigns[i] = true;
 					}
 				}
@@ -3692,9 +3692,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄÊı³ÉÔ±È¡Óà»òĞòÁĞ³ÉÔ±Òì»òÁĞ
-	 * @param array ÓÒ²àÊı×é
-	 * @return ÓàÊıÊı×é»òĞòÁĞÒì»òÁĞÊı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æ•°æˆå‘˜å–ä½™æˆ–åºåˆ—æˆå‘˜å¼‚æˆ–åˆ—
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return ä½™æ•°æ•°ç»„æˆ–åºåˆ—å¼‚æˆ–åˆ—æ•°ç»„
 	 */
 	public IArray memberMod(IArray array) {
 		if (array instanceof IntArray) {
@@ -3739,7 +3739,7 @@ public class DoubleArray implements NumberArray {
 				resultSigns = s1;
 				for (int i = 1; i <= size; ++i) {
 					if (s2[i]) {
-						// ×óÓÒ²Ù×÷ÊıÓĞÒ»¸öÎª¿ÕÔòÖµÎª¿Õ
+						// å·¦å³æ“ä½œæ•°æœ‰ä¸€ä¸ªä¸ºç©ºåˆ™å€¼ä¸ºç©º
 						resultSigns[i] = true;
 					}
 				}
@@ -3807,7 +3807,7 @@ public class DoubleArray implements NumberArray {
 				resultSigns = s1;
 				for (int i = 1; i <= size; ++i) {
 					if (s2[i]) {
-						// ×óÓÒ²Ù×÷ÊıÓĞÒ»¸öÎª¿ÕÔòÖµÎª¿Õ
+						// å·¦å³æ“ä½œæ•°æœ‰ä¸€ä¸ªä¸ºç©ºåˆ™å€¼ä¸ºç©º
 						resultSigns[i] = true;
 					}
 				}
@@ -3875,7 +3875,7 @@ public class DoubleArray implements NumberArray {
 				resultSigns = s1;
 				for (int i = 1; i <= size; ++i) {
 					if (s2[i]) {
-						// ×óÓÒ²Ù×÷ÊıÓĞÒ»¸öÎª¿ÕÔòÖµÎª¿Õ
+						// å·¦å³æ“ä½œæ•°æœ‰ä¸€ä¸ªä¸ºç©ºåˆ™å€¼ä¸ºç©º
 						resultSigns[i] = true;
 					}
 				}
@@ -3894,7 +3894,7 @@ public class DoubleArray implements NumberArray {
 				resultSigns = s2;
 				for (int i = 1; i <= size; ++i) {
 					if (s1[i]) {
-						// ×óÓÒ²Ù×÷ÊıÓĞÒ»¸öÎª¿ÕÔòÖµÎª¿Õ
+						// å·¦å³æ“ä½œæ•°æœ‰ä¸€ä¸ªä¸ºç©ºåˆ™å€¼ä¸ºç©º
 						resultSigns[i] = true;
 					}
 				}
@@ -4058,9 +4058,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * Á½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±½øĞĞ±È½Ï£¬·µ»Ø±È½Ï½á¹ûÊı×é
-	 * @param rightArray ÓÒ²àÊı×é
-	 * @return IntArray 1£º×ó²à´ó£¬0£ºÏàµÈ£¬-1£ºÓÒ²à´ó
+	 * ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜è¿›è¡Œæ¯”è¾ƒï¼Œè¿”å›æ¯”è¾ƒç»“æœæ•°ç»„
+	 * @param rightArray å³ä¾§æ•°ç»„
+	 * @return IntArray 1ï¼šå·¦ä¾§å¤§ï¼Œ0ï¼šç›¸ç­‰ï¼Œ-1ï¼šå³ä¾§å¤§
 	 */
 	public IntArray memberCompare(NumberArray rightArray) {
 		int size = this.size;
@@ -4130,10 +4130,10 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ¹ØÏµÔËËã
-	 * @param array ÓÒ²àÊı×é
-	 * @param relation ÔËËã¹ØÏµ£¬²ÎÕÕRelation£¨´óÓÚ¡¢Ğ¡ÓÚ¡¢µÈÓÚ¡¢...£©
-	 * @return ¹ØÏµÔËËã½á¹ûÊı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„å…³ç³»è¿ç®—
+	 * @param array å³ä¾§æ•°ç»„
+	 * @param relation è¿ç®—å…³ç³»ï¼Œå‚ç…§Relationï¼ˆå¤§äºã€å°äºã€ç­‰äºã€...ï¼‰
+	 * @return å…³ç³»è¿ç®—ç»“æœæ•°ç»„
 	 */
 	public BoolArray calcRelation(IArray array, int relation) {
 		if (array instanceof IntArray) {
@@ -4158,10 +4158,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ¹ØÏµÔËËã
-	 * @param array ÓÒ²àÊı×é
-	 * @param relation ÔËËã¹ØÏµ£¬²ÎÕÕRelation£¨´óÓÚ¡¢Ğ¡ÓÚ¡¢µÈÓÚ¡¢...£©
-	 * @return ¹ØÏµÔËËã½á¹ûÊı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„å…³ç³»è¿ç®—
+	 * @param array å³ä¾§æ•°ç»„
+	 * @param relation è¿ç®—å…³ç³»ï¼Œå‚ç…§Relationï¼ˆå¤§äºã€å°äºã€ç­‰äºã€...ï¼‰
+	 * @return å…³ç³»è¿ç®—ç»“æœæ•°ç»„
 	 */
 	public BoolArray calcRelation(Object value, int relation) {
 		if (value instanceof BigDecimal) {
@@ -4227,7 +4227,7 @@ public class DoubleArray implements NumberArray {
 		boolean []resultDatas = new boolean[size + 1];
 		
 		if (relation == Relation.EQUAL) {
-			// ÊÇ·ñµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				if (s2 == null) {
 					for (int i = 1; i <= size; ++i) {
@@ -4262,7 +4262,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.GREATER) {
-			// ÊÇ·ñ´óÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºåˆ¤æ–­
 			if (s1 == null) {
 				if (s2 == null) {
 					for (int i = 1; i <= size; ++i) {
@@ -4297,7 +4297,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.GREATER_EQUAL) {
-			// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				if (s2 == null) {
 					for (int i = 1; i <= size; ++i) {
@@ -4332,7 +4332,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.LESS) {
-			// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºåˆ¤æ–­
 			if (s1 == null) {
 				if (s2 == null) {
 					for (int i = 1; i <= size; ++i) {
@@ -4367,7 +4367,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.LESS_EQUAL) {
-			// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				if (s2 == null) {
 					for (int i = 1; i <= size; ++i) {
@@ -4402,7 +4402,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.NOT_EQUAL) {
-			// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				if (s2 == null) {
 					for (int i = 1; i <= size; ++i) {
@@ -4480,7 +4480,7 @@ public class DoubleArray implements NumberArray {
 		boolean []resultDatas = new boolean[size + 1];
 		
 		if (relation == Relation.EQUAL) {
-			// ÊÇ·ñµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = Double.compare(d1[i], value) == 0;
@@ -4495,7 +4495,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.GREATER) {
-			// ÊÇ·ñ´óÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = Double.compare(d1[i], value) > 0;
@@ -4510,7 +4510,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.GREATER_EQUAL) {
-			// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = Double.compare(d1[i], value) >= 0;
@@ -4525,7 +4525,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.LESS) {
-			// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = Double.compare(d1[i], value) < 0;
@@ -4540,7 +4540,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.LESS_EQUAL) {
-			// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = Double.compare(d1[i], value) <= 0;
@@ -4555,7 +4555,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.NOT_EQUAL) {
-			// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = Double.compare(d1[i], value) != 0;
@@ -4597,7 +4597,7 @@ public class DoubleArray implements NumberArray {
 		boolean []resultDatas = new boolean[size + 1];
 		
 		if (relation == Relation.EQUAL) {
-			// ÊÇ·ñµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = new BigDecimal(d1[i]).compareTo(value) == 0;
@@ -4612,7 +4612,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.GREATER) {
-			// ÊÇ·ñ´óÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = new BigDecimal(d1[i]).compareTo(value) > 0;
@@ -4627,7 +4627,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.GREATER_EQUAL) {
-			// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = new BigDecimal(d1[i]).compareTo(value) >= 0;
@@ -4642,7 +4642,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.LESS) {
-			// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = new BigDecimal(d1[i]).compareTo(value) < 0;
@@ -4657,7 +4657,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.LESS_EQUAL) {
-			// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = new BigDecimal(d1[i]).compareTo(value) <= 0;
@@ -4672,7 +4672,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.NOT_EQUAL) {
-			// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = new BigDecimal(d1[i]).compareTo(value) != 0;
@@ -4797,7 +4797,7 @@ public class DoubleArray implements NumberArray {
 		boolean []resultDatas = new boolean[size + 1];
 		
 		if (relation == Relation.EQUAL) {
-			// ÊÇ·ñµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = compare(d1[i], d2[i]) == 0;
@@ -4812,7 +4812,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.GREATER) {
-			// ÊÇ·ñ´óÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = compare(d1[i], d2[i]) > 0;
@@ -4827,7 +4827,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.GREATER_EQUAL) {
-			// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = compare(d1[i], d2[i]) >= 0;
@@ -4842,7 +4842,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.LESS) {
-			// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = compare(d1[i], d2[i]) < 0;
@@ -4857,7 +4857,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.LESS_EQUAL) {
-			// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+			// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = compare(d1[i], d2[i]) <= 0;
@@ -4872,7 +4872,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 		} else if (relation == Relation.NOT_EQUAL) {
-			// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+			// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 			if (s1 == null) {
 				for (int i = 1; i <= size; ++i) {
 					resultDatas[i] = compare(d1[i], d2[i]) != 0;
@@ -4914,9 +4914,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ±È½ÏÁ½¸öÊı×éµÄ´óĞ¡
-	 * @param array ÓÒ²àÊı×é
-	 * @return 1£ºµ±Ç°Êı×é´ó£¬0£ºÁ½¸öÊı×éÏàµÈ£¬-1£ºµ±Ç°Êı×éĞ¡
+	 * æ¯”è¾ƒä¸¤ä¸ªæ•°ç»„çš„å¤§å°
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return 1ï¼šå½“å‰æ•°ç»„å¤§ï¼Œ0ï¼šä¸¤ä¸ªæ•°ç»„ç›¸ç­‰ï¼Œ-1ï¼šå½“å‰æ•°ç»„å°
 	 */
 	public int compareTo(IArray array) {
 		int size1 = this.size;
@@ -5067,9 +5067,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¼ÆËãÊı×éµÄ2¸ö³ÉÔ±µÄ±È½ÏÖµ
-	 * @param index1 ³ÉÔ±1
-	 * @param index2 ³ÉÔ±2
+	 * è®¡ç®—æ•°ç»„çš„2ä¸ªæˆå‘˜çš„æ¯”è¾ƒå€¼
+	 * @param index1 æˆå‘˜1
+	 * @param index2 æˆå‘˜2
 	 * @return
 	 */
 	public int memberCompare(int index1, int index2) {
@@ -5085,9 +5085,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊı×éµÄÁ½¸ö³ÉÔ±ÊÇ·ñÏàµÈ
-	 * @param index1 ³ÉÔ±1
-	 * @param index2 ³ÉÔ±2
+	 * åˆ¤æ–­æ•°ç»„çš„ä¸¤ä¸ªæˆå‘˜æ˜¯å¦ç›¸ç­‰
+	 * @param index1 æˆå‘˜1
+	 * @param index2 æˆå‘˜2
 	 * @return
 	 */
 	public boolean isMemberEquals(int index1, int index2) {
@@ -5103,11 +5103,11 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÁ½¸öÊı×éµÄÖ¸¶¨ÔªËØÊÇ·ñÏàÍ¬
-	 * @param curIndex µ±Ç°Êı×éµÄÔªËØµÄË÷Òı
-	 * @param array Òª±È½ÏµÄÊı×é
-	 * @param index Òª±È½ÏµÄÊı×éµÄÔªËØµÄË÷Òı
-	 * @return true£ºÏàÍ¬£¬false£º²»ÏàÍ¬
+	 * åˆ¤æ–­ä¸¤ä¸ªæ•°ç»„çš„æŒ‡å®šå…ƒç´ æ˜¯å¦ç›¸åŒ
+	 * @param curIndex å½“å‰æ•°ç»„çš„å…ƒç´ çš„ç´¢å¼•
+	 * @param array è¦æ¯”è¾ƒçš„æ•°ç»„
+	 * @param index è¦æ¯”è¾ƒçš„æ•°ç»„çš„å…ƒç´ çš„ç´¢å¼•
+	 * @return trueï¼šç›¸åŒï¼Œfalseï¼šä¸ç›¸åŒ
 	 */
 	public boolean isEquals(int curIndex, IArray array, int index) {
 		if (isNull(curIndex)) {
@@ -5122,10 +5122,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊı×éµÄÖ¸¶¨ÔªËØÊÇ·ñÓë¸ø¶¨ÖµÏàµÈ
-	 * @param curIndex Êı×éÔªËØË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param value Öµ
-	 * @return true£ºÏàµÈ£¬false£º²»ÏàµÈ
+	 * åˆ¤æ–­æ•°ç»„çš„æŒ‡å®šå…ƒç´ æ˜¯å¦ä¸ç»™å®šå€¼ç›¸ç­‰
+	 * @param curIndex æ•°ç»„å…ƒç´ ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param value å€¼
+	 * @return trueï¼šç›¸ç­‰ï¼Œfalseï¼šä¸ç›¸ç­‰
 	 */
 	public boolean isEquals(int curIndex, Object value) {
 		if (signs == null || !signs[curIndex]) {
@@ -5136,11 +5136,11 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ÅĞ¶ÏÁ½¸öÊı×éµÄÖ¸¶¨ÔªËØµÄ´óĞ¡
-	 * @param curIndex µ±Ç°Êı×éµÄÔªËØµÄË÷Òı
-	 * @param array Òª±È½ÏµÄÊı×é
-	 * @param index Òª±È½ÏµÄÊı×éµÄÔªËØµÄË÷Òı
-	 * @return Ğ¡ÓÚ£ºĞ¡ÓÚ0£¬µÈÓÚ£º0£¬´óÓÚ£º´óÓÚ0
+	 * åˆ¤æ–­ä¸¤ä¸ªæ•°ç»„çš„æŒ‡å®šå…ƒç´ çš„å¤§å°
+	 * @param curIndex å½“å‰æ•°ç»„çš„å…ƒç´ çš„ç´¢å¼•
+	 * @param array è¦æ¯”è¾ƒçš„æ•°ç»„
+	 * @param index è¦æ¯”è¾ƒçš„æ•°ç»„çš„å…ƒç´ çš„ç´¢å¼•
+	 * @return å°äºï¼šå°äº0ï¼Œç­‰äºï¼š0ï¼Œå¤§äºï¼šå¤§äº0
 	 */
 	public int compareTo(int curIndex, IArray array, int index) {
 		if (isNull(curIndex)) {
@@ -5155,9 +5155,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ±È½ÏÊı×éµÄÖ¸¶¨ÔªËØÓë¸ø¶¨ÖµµÄ´óĞ¡
-	 * @param curIndex µ±Ç°Êı×éµÄÔªËØµÄË÷Òı
-	 * @param value Òª±È½ÏµÄÖµ
+	 * æ¯”è¾ƒæ•°ç»„çš„æŒ‡å®šå…ƒç´ ä¸ç»™å®šå€¼çš„å¤§å°
+	 * @param curIndex å½“å‰æ•°ç»„çš„å…ƒç´ çš„ç´¢å¼•
+	 * @param value è¦æ¯”è¾ƒçš„å€¼
 	 * @return
 	 */
 	public int compareTo(int curIndex, Object value) {
@@ -5171,10 +5171,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * °ÑarrayµÄÖ¸¶¨ÔªËØ¼Óµ½µ±Ç°Êı×éµÄÖ¸¶¨ÔªËØÉÏ
-	 * @param curIndex µ±Ç°Êı×éµÄÔªËØµÄË÷Òı
-	 * @param array ÒªÏà¼ÓµÄÊı×é
-	 * @param index ÒªÏà¼ÓµÄÊı×éµÄÔªËØµÄË÷Òı
+	 * æŠŠarrayçš„æŒ‡å®šå…ƒç´ åŠ åˆ°å½“å‰æ•°ç»„çš„æŒ‡å®šå…ƒç´ ä¸Š
+	 * @param curIndex å½“å‰æ•°ç»„çš„å…ƒç´ çš„ç´¢å¼•
+	 * @param array è¦ç›¸åŠ çš„æ•°ç»„
+	 * @param index è¦ç›¸åŠ çš„æ•°ç»„çš„å…ƒç´ çš„ç´¢å¼•
 	 * @return IArray
 	 */
 	public IArray memberAdd(int curIndex, IArray array, int index) {
@@ -5217,9 +5217,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨³ÉÔ±µÄ¹şÏ£Öµ
-	 * @param index ³ÉÔ±Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @return Ö¸¶¨³ÉÔ±µÄ¹şÏ£Öµ
+	 * å–æŒ‡å®šæˆå‘˜çš„å“ˆå¸Œå€¼
+	 * @param index æˆå‘˜ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @return æŒ‡å®šæˆå‘˜çš„å“ˆå¸Œå€¼
 	 */
 	public int hashCode(int index) {
 		if (signs == null || !signs[index]) {
@@ -5230,7 +5230,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * Çó³ÉÔ±ºÍ
+	 * æ±‚æˆå‘˜å’Œ
 	 * @return
 	 */
 	public Object sum() {
@@ -5259,7 +5259,7 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ÇóÆ½¾ùÖµ
+	 * æ±‚å¹³å‡å€¼
 	 * @return
 	 */
 	public Object average() {
@@ -5291,7 +5291,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * µÃµ½×î´óµÄ³ÉÔ±
+	 * å¾—åˆ°æœ€å¤§çš„æˆå‘˜
 	 * @return
 	 */
 	public Object max() {
@@ -5337,7 +5337,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * µÃµ½×îĞ¡µÄ³ÉÔ±
+	 * å¾—åˆ°æœ€å°çš„æˆå‘˜
 	 * @return
 	 */
 	public Object min() {
@@ -5383,11 +5383,11 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ¹ØÏµÔËËã£¬Ö»¼ÆËãresultÎªÕæµÄĞĞ
-	 * @param array ÓÒ²àÊı×é
-	 * @param relation ÔËËã¹ØÏµ£¬²ÎÕÕRelation£¨´óÓÚ¡¢Ğ¡ÓÚ¡¢µÈÓÚ¡¢...£©
-	 * @param result ×ó²à¼ÆËã½á¹û£¬µ±Ç°¹ØÏµÔËËã½á¹ûĞèÒªÓë×ó²à½á¹û×öÂß¼­&&»òÕß||ÔËËã
-	 * @param isAnd true£ºÓë×ó²à×ö && ÔËËã£¬false£ºÓë×ó²à×ö || ÔËËã
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„å…³ç³»è¿ç®—ï¼Œåªè®¡ç®—resultä¸ºçœŸçš„è¡Œ
+	 * @param array å³ä¾§æ•°ç»„
+	 * @param relation è¿ç®—å…³ç³»ï¼Œå‚ç…§Relationï¼ˆå¤§äºã€å°äºã€ç­‰äºã€...ï¼‰
+	 * @param result å·¦ä¾§è®¡ç®—ç»“æœï¼Œå½“å‰å…³ç³»è¿ç®—ç»“æœéœ€è¦ä¸å·¦ä¾§ç»“æœåšé€»è¾‘&&æˆ–è€…||è¿ç®—
+	 * @param isAnd trueï¼šä¸å·¦ä¾§åš && è¿ç®—ï¼Œfalseï¼šä¸å·¦ä¾§åš || è¿ç®—
 	 */
 	public void calcRelations(IArray array, int relation, BoolArray result, boolean isAnd) {
 		if (array instanceof IntArray) {
@@ -5408,11 +5408,11 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ¹ØÏµÔËËã£¬Ö»¼ÆËãresultÎªÕæµÄĞĞ
-	 * @param array ÓÒ²àÊı×é
-	 * @param relation ÔËËã¹ØÏµ£¬²ÎÕÕRelation£¨´óÓÚ¡¢Ğ¡ÓÚ¡¢µÈÓÚ¡¢...£©
-	 * @param result ×ó²à¼ÆËã½á¹û£¬µ±Ç°¹ØÏµÔËËã½á¹ûĞèÒªÓë×ó²à½á¹û×öÂß¼­&&»òÕß||ÔËËã
-	 * @param isAnd true£ºÓë×ó²à×ö && ÔËËã£¬false£ºÓë×ó²à×ö || ÔËËã
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„å…³ç³»è¿ç®—ï¼Œåªè®¡ç®—resultä¸ºçœŸçš„è¡Œ
+	 * @param array å³ä¾§æ•°ç»„
+	 * @param relation è¿ç®—å…³ç³»ï¼Œå‚ç…§Relationï¼ˆå¤§äºã€å°äºã€ç­‰äºã€...ï¼‰
+	 * @param result å·¦ä¾§è®¡ç®—ç»“æœï¼Œå½“å‰å…³ç³»è¿ç®—ç»“æœéœ€è¦ä¸å·¦ä¾§ç»“æœåšé€»è¾‘&&æˆ–è€…||è¿ç®—
+	 * @param isAnd trueï¼šä¸å·¦ä¾§åš && è¿ç®—ï¼Œfalseï¼šä¸å·¦ä¾§åš || è¿ç®—
 	 */
 	public void calcRelations(Object value, int relation, BoolArray result, boolean isAnd) {
 		if (value instanceof BigDecimal) {
@@ -5440,9 +5440,9 @@ public class DoubleArray implements NumberArray {
 		boolean []resultDatas = result.getDatas();
 		
 		if (isAnd) {
-			// Óë×ó²à½á¹ûÖ´ĞĞ&&ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ&&è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5471,7 +5471,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5500,7 +5500,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5529,7 +5529,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5558,7 +5558,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5587,7 +5587,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5619,9 +5619,9 @@ public class DoubleArray implements NumberArray {
 				throw new RuntimeException();
 			}
 		} else {
-			// Óë×ó²à½á¹ûÖ´ĞĞ||ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ||è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5650,7 +5650,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5679,7 +5679,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5708,7 +5708,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5737,7 +5737,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5766,7 +5766,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					if (s2 == null) {
 						for (int i = 1; i <= size; ++i) {
@@ -5807,9 +5807,9 @@ public class DoubleArray implements NumberArray {
 		boolean []resultDatas = result.getDatas();
 		
 		if (isAnd) {
-			// Óë×ó²à½á¹ûÖ´ĞĞ&&ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ&&è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && Double.compare(d1[i], value) != 0) {
@@ -5824,7 +5824,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && Double.compare(d1[i], value) <= 0) {
@@ -5839,7 +5839,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && Double.compare(d1[i], value) < 0) {
@@ -5854,7 +5854,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && Double.compare(d1[i], value) >= 0) {
@@ -5869,7 +5869,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && Double.compare(d1[i], value) > 0) {
@@ -5884,7 +5884,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && Double.compare(d1[i], value) == 0) {
@@ -5902,9 +5902,9 @@ public class DoubleArray implements NumberArray {
 				throw new RuntimeException();
 			}
 		} else {
-			// Óë×ó²à½á¹ûÖ´ĞĞ||ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ||è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && Double.compare(d1[i], value) == 0) {
@@ -5919,7 +5919,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && Double.compare(d1[i], value) > 0) {
@@ -5934,7 +5934,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && Double.compare(d1[i], value) >= 0) {
@@ -5949,7 +5949,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && Double.compare(d1[i], value) < 0) {
@@ -5964,7 +5964,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && Double.compare(d1[i], value) <= 0) {
@@ -5979,7 +5979,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && Double.compare(d1[i], value) != 0) {
@@ -6006,9 +6006,9 @@ public class DoubleArray implements NumberArray {
 		boolean []resultDatas = result.getDatas();
 		
 		if (isAnd) {
-			// Óë×ó²à½á¹ûÖ´ĞĞ&&ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ&&è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) != 0) {
@@ -6023,7 +6023,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) <= 0) {
@@ -6038,7 +6038,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) < 0) {
@@ -6053,7 +6053,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) >= 0) {
@@ -6068,7 +6068,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) > 0) {
@@ -6083,7 +6083,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) == 0) {
@@ -6101,9 +6101,9 @@ public class DoubleArray implements NumberArray {
 				throw new RuntimeException();
 			}
 		} else {
-			// Óë×ó²à½á¹ûÖ´ĞĞ||ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ||è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) == 0) {
@@ -6118,7 +6118,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) > 0) {
@@ -6133,7 +6133,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) >= 0) {
@@ -6148,7 +6148,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) < 0) {
@@ -6163,7 +6163,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) <= 0) {
@@ -6178,7 +6178,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && new BigDecimal(d1[i]).compareTo(value) != 0) {
@@ -6206,9 +6206,9 @@ public class DoubleArray implements NumberArray {
 		boolean []resultDatas = result.getDatas();
 		
 		if (isAnd) {
-			// Óë×ó²à½á¹ûÖ´ĞĞ&&ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ&&è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && compare(d1[i], d2[i]) != 0) {
@@ -6223,7 +6223,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && compare(d1[i], d2[i]) <= 0) {
@@ -6238,7 +6238,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && compare(d1[i], d2[i]) < 0) {
@@ -6253,7 +6253,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && compare(d1[i], d2[i]) >= 0) {
@@ -6268,7 +6268,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && compare(d1[i], d2[i]) > 0) {
@@ -6283,7 +6283,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (resultDatas[i] && compare(d1[i], d2[i]) == 0) {
@@ -6301,9 +6301,9 @@ public class DoubleArray implements NumberArray {
 				throw new RuntimeException();
 			}
 		} else {
-			// Óë×ó²à½á¹ûÖ´ĞĞ||ÔËËã
+			// ä¸å·¦ä¾§ç»“æœæ‰§è¡Œ||è¿ç®—
 			if (relation == Relation.EQUAL) {
-				// ÊÇ·ñµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && compare(d1[i], d2[i]) == 0) {
@@ -6319,7 +6319,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER) {
-				// ÊÇ·ñ´óÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && compare(d1[i], d2[i]) > 0) {
@@ -6334,7 +6334,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
-				// ÊÇ·ñ´óÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å¤§äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && compare(d1[i], d2[i]) >= 0) {
@@ -6349,7 +6349,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS) {
-				// ÊÇ·ñĞ¡ÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && compare(d1[i], d2[i]) < 0) {
@@ -6364,7 +6364,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
-				// ÊÇ·ñĞ¡ÓÚµÈÓÚÅĞ¶Ï
+				// æ˜¯å¦å°äºç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && compare(d1[i], d2[i]) <= 0) {
@@ -6379,7 +6379,7 @@ public class DoubleArray implements NumberArray {
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
-				// ÊÇ·ñ²»µÈÓÚÅĞ¶Ï
+				// æ˜¯å¦ä¸ç­‰äºåˆ¤æ–­
 				if (s1 == null) {
 					for (int i = 1; i <= size; ++i) {
 						if (!resultDatas[i] && compare(d1[i], d2[i]) != 0) {
@@ -6400,9 +6400,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ°´Î»Óë
-	 * @param array ÓÒ²àÊı×é
-	 * @return °´Î»Óë½á¹ûÊı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„æŒ‰ä½ä¸
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return æŒ‰ä½ä¸ç»“æœæ•°ç»„
 	 */
 	public IArray bitwiseAnd(IArray array) {
 		int size = this.size;
@@ -6466,9 +6466,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ°´Î»»ò
-	 * @param array ÓÒ²àÊı×é
-	 * @return °´Î»»ò½á¹ûÊı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„æŒ‰ä½æˆ–
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return æŒ‰ä½æˆ–ç»“æœæ•°ç»„
 	 */
 	public IArray bitwiseOr(IArray array) {
 		int size = this.size;
@@ -6532,9 +6532,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¼ÆËãÁ½¸öÊı×éµÄÏà¶ÔÓ¦µÄ³ÉÔ±µÄ°´Î»Òì»ò
-	 * @param array ÓÒ²àÊı×é
-	 * @return °´Î»Òì»ò½á¹ûÊı×é
+	 * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ç›¸å¯¹åº”çš„æˆå‘˜çš„æŒ‰ä½å¼‚æˆ–
+	 * @param array å³ä¾§æ•°ç»„
+	 * @return æŒ‰ä½å¼‚æˆ–ç»“æœæ•°ç»„
 	 */
 	public IArray bitwiseXOr(IArray array) {
 		int size = this.size;
@@ -6598,8 +6598,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¼ÆËãÊı×é³ÉÔ±µÄ°´Î»È¡·´
-	 * @return ³ÉÔ±°´Î»È¡·´½á¹ûÊı×é
+	 * è®¡ç®—æ•°ç»„æˆå‘˜çš„æŒ‰ä½å–å
+	 * @return æˆå‘˜æŒ‰ä½å–åç»“æœæ•°ç»„
 	 */
 	public IArray bitwiseNot() {
 		int size = this.size;
@@ -6630,8 +6630,8 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * È¡³ö±êÊ¶Êı×éÈ¡ÖµÎªÕæµÄĞĞ¶ÔÓ¦µÄÊı¾İ£¬×é³ÉĞÂÊı×é
-	 * @param signArray ±êÊ¶Êı×é
+	 * å–å‡ºæ ‡è¯†æ•°ç»„å–å€¼ä¸ºçœŸçš„è¡Œå¯¹åº”çš„æ•°æ®ï¼Œç»„æˆæ–°æ•°ç»„
+	 * @param signArray æ ‡è¯†æ•°ç»„
 	 * @return IArray
 	 */
 	public IArray select(IArray signArray) {
@@ -6687,10 +6687,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * È¡Ä³Ò»Çø¶Î±êÊ¶Êı×éÈ¡ÖµÎªÕæµÄĞĞ×é³ÉĞÂÊı×é
-	 * @param start ÆğÊ¼Î»ÖÃ£¨°üÀ¨£©
-	 * @param end ½áÊøÎ»ÖÃ£¨²»°üÀ¨£©
-	 * @param signArray ±êÊ¶Êı×é
+	 * å–æŸä¸€åŒºæ®µæ ‡è¯†æ•°ç»„å–å€¼ä¸ºçœŸçš„è¡Œç»„æˆæ–°æ•°ç»„
+	 * @param start èµ·å§‹ä½ç½®ï¼ˆåŒ…æ‹¬ï¼‰
+	 * @param end ç»“æŸä½ç½®ï¼ˆä¸åŒ…æ‹¬ï¼‰
+	 * @param signArray æ ‡è¯†æ•°ç»„
 	 * @return IArray
 	 */
 	public IArray select(int start, int end, IArray signArray) {
@@ -6745,8 +6745,8 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * °Ñ³ÉÔ±×ª³É¶ÔÏóÊı×é·µ»Ø
-	 * @return ¶ÔÏóÊı×é
+	 * æŠŠæˆå‘˜è½¬æˆå¯¹è±¡æ•°ç»„è¿”å›
+	 * @return å¯¹è±¡æ•°ç»„
 	 */
 	public Object[] toArray() {
 		int size = this.size;
@@ -6770,8 +6770,8 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * °Ñ³ÉÔ±Ìîµ½Ö¸¶¨µÄÊı×é
-	 * @param result ÓÃÓÚ´æ·Å³ÉÔ±µÄÊı×é
+	 * æŠŠæˆå‘˜å¡«åˆ°æŒ‡å®šçš„æ•°ç»„
+	 * @param result ç”¨äºå­˜æ”¾æˆå‘˜çš„æ•°ç»„
 	 */
 	public void toArray(Object []result) {
 		int size = this.size;
@@ -6792,9 +6792,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * °ÑÊı×é´ÓÖ¸¶¨Î»ÖÃ²ğ³ÉÁ½¸öÊı×é
-	 * @param pos Î»ÖÃ£¬°üº¬
-	 * @return ·µ»Øºó°ë²¿·ÖÔªËØ¹¹³ÉµÄÊı×é
+	 * æŠŠæ•°ç»„ä»æŒ‡å®šä½ç½®æ‹†æˆä¸¤ä¸ªæ•°ç»„
+	 * @param pos ä½ç½®ï¼ŒåŒ…å«
+	 * @return è¿”å›ååŠéƒ¨åˆ†å…ƒç´ æ„æˆçš„æ•°ç»„
 	 */
 	public IArray split(int pos) {
 		int size = this.size;
@@ -6819,9 +6819,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * °ÑÖ¸¶¨Çø¼äÔªËØ·ÖÀë³öÀ´×é³ÉĞÂÊı×é
-	 * @param from ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param to ½áÊøÎ»ÖÃ£¬°üº¬
+	 * æŠŠæŒ‡å®šåŒºé—´å…ƒç´ åˆ†ç¦»å‡ºæ¥ç»„æˆæ–°æ•°ç»„
+	 * @param from èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param to ç»“æŸä½ç½®ï¼ŒåŒ…å«
 	 * @return
 	 */
 	public IArray split(int from, int to) {
@@ -6847,7 +6847,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¶ÔÊı×éµÄÔªËØ½øĞĞÅÅĞò
+	 * å¯¹æ•°ç»„çš„å…ƒç´ è¿›è¡Œæ’åº
 	 */
 	public void sort() {
 		int size = this.size;
@@ -6869,7 +6869,7 @@ public class DoubleArray implements NumberArray {
 			MultithreadUtil.sort(datas, 1, size + 1);
 			this.signs = null;
 		} else if (nullCount != size) {
-			// °Ñ¿ÕÔªËØÒÆµ½Êı×éÇ°Ãæ
+			// æŠŠç©ºå…ƒç´ ç§»åˆ°æ•°ç»„å‰é¢
 			double []datas = this.datas;
 			for (int i = size, q = size; i > 0; --i) {
 				if (signs[i]) {
@@ -6879,7 +6879,7 @@ public class DoubleArray implements NumberArray {
 				}
 			}
 			
-			// ¶Ô·Ç¿ÕÔªËØ½øĞĞÅÅĞò
+			// å¯¹éç©ºå…ƒç´ è¿›è¡Œæ’åº
 			MultithreadUtil.sort(datas, nullCount + 1, size + 1);
 			for (int i = 1; i <= nullCount; ++i) {
 				signs[i] = true;
@@ -6888,8 +6888,8 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¶ÔÊı×éµÄÔªËØ½øĞĞÅÅĞò
-	 * @param comparator ±È½ÏÆ÷
+	 * å¯¹æ•°ç»„çš„å…ƒç´ è¿›è¡Œæ’åº
+	 * @param comparator æ¯”è¾ƒå™¨
 	 */
 	public void sort(Comparator<Object> comparator) {
 		int size = this.size;
@@ -6928,7 +6928,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ·µ»ØÊı×éÖĞÊÇ·ñº¬ÓĞ¼ÇÂ¼
+	 * è¿”å›æ•°ç»„ä¸­æ˜¯å¦å«æœ‰è®°å½•
 	 * @return boolean
 	 */
 	public boolean hasRecord() {
@@ -6936,16 +6936,16 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ·µ»ØÊÇ·ñÊÇ£¨´¿£©ÅÅÁĞ
-	 * @param isPure true£º¼ì²éÊÇ·ñÊÇ´¿ÅÅÁĞ
-	 * @return boolean true£ºÊÇ£¬false£º²»ÊÇ
+	 * è¿”å›æ˜¯å¦æ˜¯ï¼ˆçº¯ï¼‰æ’åˆ—
+	 * @param isPure trueï¼šæ£€æŸ¥æ˜¯å¦æ˜¯çº¯æ’åˆ—
+	 * @return boolean trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isPmt(boolean isPure) {
 		return false;
 	}
 	
 	/**
-	 * ·µ»ØÊı×éµÄ·´×ªÊı×é
+	 * è¿”å›æ•°ç»„çš„åè½¬æ•°ç»„
 	 * @return IArray
 	 */
 	public IArray rvs() {
@@ -6975,11 +6975,11 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¶ÔÊı×éÔªËØ´ÓĞ¡µ½´ó×öÅÅĞò£¬È¡Ç°count¸öµÄÎ»ÖÃ
-	 * @param count Èç¹ûcountĞ¡ÓÚ0ÔòÈ¡ºó|count|ÃûµÄÎ»ÖÃ
-	 * @param isAll countÎªÕı¸º1Ê±£¬Èç¹ûisAllÈ¡ÖµÎªtrueÔòÈ¡ËùÓĞÅÅÃûµÚÒ»µÄÔªËØµÄÎ»ÖÃ£¬·ñÔòÖ»È¡Ò»¸ö
-	 * @param isLast ÊÇ·ñ´Óºó¿ªÊ¼ÕÒ
-	 * @param ignoreNull ÊÇ·ñºöÂÔ¿ÕÔªËØ
+	 * å¯¹æ•°ç»„å…ƒç´ ä»å°åˆ°å¤§åšæ’åºï¼Œå–å‰countä¸ªçš„ä½ç½®
+	 * @param count å¦‚æœcountå°äº0åˆ™å–å|count|åçš„ä½ç½®
+	 * @param isAll countä¸ºæ­£è´Ÿ1æ—¶ï¼Œå¦‚æœisAllå–å€¼ä¸ºtrueåˆ™å–æ‰€æœ‰æ’åç¬¬ä¸€çš„å…ƒç´ çš„ä½ç½®ï¼Œå¦åˆ™åªå–ä¸€ä¸ª
+	 * @param isLast æ˜¯å¦ä»åå¼€å§‹æ‰¾
+	 * @param ignoreNull æ˜¯å¦å¿½ç•¥ç©ºå…ƒç´ 
 	 * @return IntArray
 	 */
 	public IntArray ptop(int count, boolean isAll, boolean isLast, boolean ignoreNull) {
@@ -6992,7 +6992,7 @@ public class DoubleArray implements NumberArray {
 		boolean []signs = this.signs;
 		if (ignoreNull) {
 			if (count == 1) {
-				// È¡×îĞ¡ÖµµÄÎ»ÖÃ
+				// å–æœ€å°å€¼çš„ä½ç½®
 				double minValue = 0;
 				if (isAll) {
 					IntArray result = new IntArray(8);
@@ -7069,7 +7069,7 @@ public class DoubleArray implements NumberArray {
 					return result;
 				}
 			} else if (count > 1) {
-				// È¡×îĞ¡µÄcount¸öÔªËØµÄÎ»ÖÃ
+				// å–æœ€å°çš„countä¸ªå…ƒç´ çš„ä½ç½®
 				int next = count + 1;
 				DoubleArray valueArray = new DoubleArray(next);
 				IntArray posArray = new IntArray(next);
@@ -7093,7 +7093,7 @@ public class DoubleArray implements NumberArray {
 				
 				return posArray;
 			} else if (count == -1) {
-				// È¡×î´óÖµµÄÎ»ÖÃ
+				// å–æœ€å¤§å€¼çš„ä½ç½®
 				double maxValue = 0;
 				if (isAll) {
 					IntArray result = new IntArray(8);
@@ -7170,7 +7170,7 @@ public class DoubleArray implements NumberArray {
 					return result;
 				}
 			} else if (count < -1) {
-				// È¡×î´óµÄcount¸öÔªËØµÄÎ»ÖÃ
+				// å–æœ€å¤§çš„countä¸ªå…ƒç´ çš„ä½ç½®
 				count = -count;
 				int next = count + 1;
 				DoubleArray valueArray = new DoubleArray(next);
@@ -7199,7 +7199,7 @@ public class DoubleArray implements NumberArray {
 			}
 		} else {
 			if (count == 1) {
-				// È¡×îĞ¡ÖµµÄÎ»ÖÃ
+				// å–æœ€å°å€¼çš„ä½ç½®
 				if (isAll) {
 					IntArray result = new IntArray(8);
 					if (signs != null) {
@@ -7279,7 +7279,7 @@ public class DoubleArray implements NumberArray {
 					return result;
 				}
 			} else if (count > 1) {
-				// È¡×îĞ¡µÄcount¸öÔªËØµÄÎ»ÖÃ
+				// å–æœ€å°çš„countä¸ªå…ƒç´ çš„ä½ç½®
 				int next = count + 1;
 				DoubleArray valueArray = new DoubleArray(next);
 				IntArray posArray = new IntArray(next);
@@ -7310,7 +7310,7 @@ public class DoubleArray implements NumberArray {
 				
 				return posArray;
 			} else if (count == -1) {
-				// È¡×î´óÖµµÄÎ»ÖÃ
+				// å–æœ€å¤§å€¼çš„ä½ç½®
 				double maxValue = 0;
 				if (isAll) {
 					IntArray result = new IntArray(8);
@@ -7387,7 +7387,7 @@ public class DoubleArray implements NumberArray {
 					return result;
 				}
 			} else if (count < -1) {
-				// È¡×î´óµÄcount¸öÔªËØµÄÎ»ÖÃ
+				// å–æœ€å¤§çš„countä¸ªå…ƒç´ çš„ä½ç½®
 				count = -count;
 				int next = count + 1;
 				DoubleArray valueArray = new DoubleArray(next);
@@ -7418,10 +7418,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¶ÔÊı×éÔªËØ´ÓĞ¡µ½´ó×öÅÅÃû£¬È¡Ç°countÃûµÄÎ»ÖÃ
-	 * @param count Èç¹ûcountĞ¡ÓÚ0Ôò´Ó´óµ½Ğ¡×öÅÅÃû
-	 * @param ignoreNull ÊÇ·ñºöÂÔ¿ÕÔªËØ
-	 * @param iopt ÊÇ·ñ°´È¥ÖØ·½Ê½×öÅÅÃû
+	 * å¯¹æ•°ç»„å…ƒç´ ä»å°åˆ°å¤§åšæ’åï¼Œå–å‰countåçš„ä½ç½®
+	 * @param count å¦‚æœcountå°äº0åˆ™ä»å¤§åˆ°å°åšæ’å
+	 * @param ignoreNull æ˜¯å¦å¿½ç•¥ç©ºå…ƒç´ 
+	 * @param iopt æ˜¯å¦æŒ‰å»é‡æ–¹å¼åšæ’å
 	 * @return IntArray
 	 */
 	public IntArray ptopRank(int count, boolean ignoreNull, boolean iopt) {
@@ -7434,7 +7434,7 @@ public class DoubleArray implements NumberArray {
 		boolean []signs = this.signs;
 		
 		if (count > 0) {
-			// È¡×îĞ¡µÄcount¸öÔªËØµÄÎ»ÖÃ
+			// å–æœ€å°çš„countä¸ªå…ƒç´ çš„ä½ç½®
 			int next = count + 1;
 			DoubleArray valueArray = new DoubleArray(next);
 			IntArray posArray = new IntArray(next);
@@ -7460,7 +7460,7 @@ public class DoubleArray implements NumberArray {
 								if (index < 1) {
 									index = -index;
 									
-									// É¾³ı×îºóÏàÍ¬µÄ³ÉÔ±
+									// åˆ é™¤æœ€åç›¸åŒçš„æˆå‘˜
 									double value = valueArray.getDouble(curSize);
 									valueArray.removeLast();
 									posArray.removeLast();
@@ -7494,7 +7494,7 @@ public class DoubleArray implements NumberArray {
 								valueArray.addDouble(datas[i]);
 								posArray.addInt(i);
 							} else {
-								// É¾³ı×îºóÏàÍ¬µÄ³ÉÔ±
+								// åˆ é™¤æœ€åç›¸åŒçš„æˆå‘˜
 								int curSize = valueArray.size();
 								double value = valueArray.getDouble(curSize);
 								valueArray.removeLast();
@@ -7538,7 +7538,7 @@ public class DoubleArray implements NumberArray {
 								posArray.insertInt(index, i);
 								
 								if (valueArray.memberCompare(count, curSize + 1) != 0) {
-									// É¾³ı×îºóÏàÍ¬µÄ³ÉÔ±
+									// åˆ é™¤æœ€åç›¸åŒçš„æˆå‘˜
 									double value = valueArray.getDouble(curSize + 1);
 									valueArray.removeLast();
 									posArray.removeLast();
@@ -7570,7 +7570,7 @@ public class DoubleArray implements NumberArray {
 								posArray.insertInt(1, i);
 								
 								if (valueArray.memberCompare(count, curSize + 1) != 0) {
-									// É¾³ı×îºóÏàÍ¬µÄ³ÉÔ±
+									// åˆ é™¤æœ€åç›¸åŒçš„æˆå‘˜
 									double value = valueArray.getDouble(curSize + 1);
 									valueArray.removeLast();
 									posArray.removeLast();
@@ -7591,7 +7591,7 @@ public class DoubleArray implements NumberArray {
 			
 			return posArray;
 		} else {
-			// È¡×î´óµÄcount¸öÔªËØµÄÎ»ÖÃ
+			// å–æœ€å¤§çš„countä¸ªå…ƒç´ çš„ä½ç½®
 			count = -count;
 			int next = count + 1;
 			DoubleArray valueArray = new DoubleArray(next);
@@ -7618,7 +7618,7 @@ public class DoubleArray implements NumberArray {
 								if (index < 1) {
 									index = -index;
 									
-									// É¾³ı×îºóÏàÍ¬µÄ³ÉÔ±
+									// åˆ é™¤æœ€åç›¸åŒçš„æˆå‘˜
 									double value = valueArray.getDouble(curSize);
 									valueArray.removeLast();
 									posArray.removeLast();
@@ -7665,7 +7665,7 @@ public class DoubleArray implements NumberArray {
 								posArray.insertInt(index, i);
 								
 								if (valueArray.memberCompare(count, curSize + 1) != 0) {
-									// É¾³ı×îºóÏàÍ¬µÄ³ÉÔ±
+									// åˆ é™¤æœ€åç›¸åŒçš„æˆå‘˜
 									double value = valueArray.getDouble(curSize + 1);
 									valueArray.removeLast();
 									posArray.removeLast();
@@ -7696,7 +7696,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * °Ñµ±Ç°Êı×é×ª³É¶ÔÏóÊı×é£¬Èç¹ûµ±Ç°Êı×éÊÇ¶ÔÏóÊı×éÔò·µ»ØÊı×é±¾Éí
+	 * æŠŠå½“å‰æ•°ç»„è½¬æˆå¯¹è±¡æ•°ç»„ï¼Œå¦‚æœå½“å‰æ•°ç»„æ˜¯å¯¹è±¡æ•°ç»„åˆ™è¿”å›æ•°ç»„æœ¬èº«
 	 * @return ObjectArray
 	 */
 	public ObjectArray toObjectArray() {
@@ -7721,7 +7721,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * °Ñ¶ÔÏóÊı×é×ª³É´¿ÀàĞÍÊı×é£¬²»ÄÜ×ªÔòÅ×³öÒì³£
+	 * æŠŠå¯¹è±¡æ•°ç»„è½¬æˆçº¯ç±»å‹æ•°ç»„ï¼Œä¸èƒ½è½¬åˆ™æŠ›å‡ºå¼‚å¸¸
 	 * @return IArray
 	 */
 	public IArray toPureArray() {
@@ -7729,17 +7729,17 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ĞŞ¸ÄÊı×éÖ¸¶¨ÔªËØµÄÖµ
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param value Öµ
+	 * ä¿®æ”¹æ•°ç»„æŒ‡å®šå…ƒç´ çš„å€¼
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param value å€¼
 	 */
 	public void setDouble(int index, double value) {
 		datas[index] = value;
 	}
 	
 	/**
-	 * ±£ÁôÊı×éÊı¾İÓÃÓÚÉú³ÉĞòÁĞ»òĞò±í
-	 * @param refOrigin ÒıÓÃÔ´ÁĞ£¬²»¸´ÖÆÊı¾İ
+	 * ä¿ç•™æ•°ç»„æ•°æ®ç”¨äºç”Ÿæˆåºåˆ—æˆ–åºè¡¨
+	 * @param refOrigin å¼•ç”¨æºåˆ—ï¼Œä¸å¤åˆ¶æ•°æ®
 	 * @return
 	 */
 	public IArray reserve(boolean refOrigin) {
@@ -7754,9 +7754,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ¸ù¾İÌõ¼ş´ÓÁ½¸öÊı×éÑ¡³ö³ÉÔ±×é³ÉĞÂÊı×é£¬´Óµ±Ç°Êı×éÑ¡³ö±êÖ¾ÎªtrueµÄ£¬´ÓotherÊı×éÑ¡³ö±êÖ¾ÎªfalseµÄ
-	 * @param signArray ±êÖ¾Êı×é
-	 * @param other ÁíÒ»¸öÊı×é
+	 * æ ¹æ®æ¡ä»¶ä»ä¸¤ä¸ªæ•°ç»„é€‰å‡ºæˆå‘˜ç»„æˆæ–°æ•°ç»„ï¼Œä»å½“å‰æ•°ç»„é€‰å‡ºæ ‡å¿—ä¸ºtrueçš„ï¼Œä»otheræ•°ç»„é€‰å‡ºæ ‡å¿—ä¸ºfalseçš„
+	 * @param signArray æ ‡å¿—æ•°ç»„
+	 * @param other å¦ä¸€ä¸ªæ•°ç»„
 	 * @return IArray
 	 */
 	public IArray combine(IArray signArray, IArray other) {
@@ -7850,9 +7850,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ¸ù¾İÌõ¼ş´Óµ±Ç°Êı×éÑ¡³ö±êÖ¾ÎªtrueµÄ£¬±êÖ¾ÎªfalseµÄÖÃ³Évalue
-	 * @param signArray ±êÖ¾Êı×é
-	 * @param other Öµ
+	 * æ ¹æ®æ¡ä»¶ä»å½“å‰æ•°ç»„é€‰å‡ºæ ‡å¿—ä¸ºtrueçš„ï¼Œæ ‡å¿—ä¸ºfalseçš„ç½®æˆvalue
+	 * @param signArray æ ‡å¿—æ•°ç»„
+	 * @param other å€¼
 	 * @return IArray
 	 */
 	public IArray combine(IArray signArray, Object value) {
@@ -7965,10 +7965,10 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ·µ»ØÖ¸¶¨Êı×éµÄ³ÉÔ±ÔÚµ±Ç°Êı×éÖĞµÄÎ»ÖÃ
-	 * @param array ´ı²éÕÒµÄÊı×é
-	 * @param opt Ñ¡Ïî£¬b£ºÍ¬Ğò¹é²¢·¨²éÕÒ£¬i£º·µ»Øµ¥µİÔöÊıÁĞ£¬c£ºÁ¬Ğø³öÏÖ
-	 * @return Î»ÖÃ»òÕßÎ»ÖÃĞòÁĞ
+	 * è¿”å›æŒ‡å®šæ•°ç»„çš„æˆå‘˜åœ¨å½“å‰æ•°ç»„ä¸­çš„ä½ç½®
+	 * @param array å¾…æŸ¥æ‰¾çš„æ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œbï¼šåŒåºå½’å¹¶æ³•æŸ¥æ‰¾ï¼Œiï¼šè¿”å›å•é€’å¢æ•°åˆ—ï¼Œcï¼šè¿ç»­å‡ºç°
+	 * @return ä½ç½®æˆ–è€…ä½ç½®åºåˆ—
 	 */
 	public Object pos(IArray array, String opt) {
 		if (array instanceof NumberArray) {
@@ -7986,11 +7986,11 @@ public class DoubleArray implements NumberArray {
 				if (opt.indexOf('c') != -1) isContinuous = true;
 			}
 
-			// ÔªËØÒÀ´Î³öÏÖÔÚÔ´ĞòÁĞÖĞ
+			// å…ƒç´ ä¾æ¬¡å‡ºç°åœ¨æºåºåˆ—ä¸­
 			if (isIncre) {
 				IntArray result = new IntArray(subLen);
 
-				if (isSorted) { // Ô´ĞòÁĞÓĞĞò
+				if (isSorted) { // æºåºåˆ—æœ‰åº
 					int pos = 1;
 					for (int t = 1; t <= subLen; ++t) {
 						if (numberArray.isNull(t)) {
@@ -8026,11 +8026,11 @@ public class DoubleArray implements NumberArray {
 
 				return new Sequence(result);
 			} else if (isContinuous) {
-				int maxCandidate = len - subLen + 1; // ±È½ÏµÄ´ÎÊı
+				int maxCandidate = len - subLen + 1; // æ¯”è¾ƒçš„æ¬¡æ•°
 				if (isSorted) {
 					int candidate = 1;
 
-					// ÕÒµ½µÚÒ»¸öÏàµÈµÄÔªËØµÄĞòºÅ
+					// æ‰¾åˆ°ç¬¬ä¸€ä¸ªç›¸ç­‰çš„å…ƒç´ çš„åºå·
 					Next:
 					while (candidate <= maxCandidate) {
 						int result = compareTo(candidate, numberArray, 1);
@@ -8068,7 +8068,7 @@ public class DoubleArray implements NumberArray {
 				IntArray result = new IntArray(subLen);
 				int pos;
 				
-				if (isSorted) { // Ô´ĞòÁĞÓĞĞò
+				if (isSorted) { // æºåºåˆ—æœ‰åº
 					for (int t = 1; t <= subLen; ++t) {
 						if (numberArray.isNull(t)) {
 							pos = binarySearch(null);
@@ -8106,7 +8106,7 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * ·µ»ØÊı×é³ÉÔ±µÄ¶ş½øÖÆ±íÊ¾Ê±1µÄ¸öÊıºÍ
+	 * è¿”å›æ•°ç»„æˆå‘˜çš„äºŒè¿›åˆ¶è¡¨ç¤ºæ—¶1çš„ä¸ªæ•°å’Œ
 	 * @return
 	 */
 	public int bit1() {
@@ -8115,9 +8115,9 @@ public class DoubleArray implements NumberArray {
 	}
 
 	/**
-	 * ·µ»ØÊı×é³ÉÔ±°´Î»Òì»òÖµµÄ¶ş½øÖÆ±íÊ¾Ê±1µÄ¸öÊıºÍ
-	 * @param array Òì»òÊı×é
-	 * @return 1µÄ¸öÊıºÍ
+	 * è¿”å›æ•°ç»„æˆå‘˜æŒ‰ä½å¼‚æˆ–å€¼çš„äºŒè¿›åˆ¶è¡¨ç¤ºæ—¶1çš„ä¸ªæ•°å’Œ
+	 * @param array å¼‚æˆ–æ•°ç»„
+	 * @return 1çš„ä¸ªæ•°å’Œ
 	 */
 	public int bit1(IArray array) {
 		MessageManager mm = EngineMessage.get();
@@ -8129,9 +8129,9 @@ public class DoubleArray implements NumberArray {
 	}
 	
 	/**
-	 * È¡Ö¸¶¨Î»ÖÃÁ¬ĞøÏàÍ¬µÄÔªËØÊıÁ¿
-	 * @param index Î»ÖÃ
-	 * @return Á¬ĞøÏàÍ¬µÄÔªËØÊıÁ¿
+	 * å–æŒ‡å®šä½ç½®è¿ç»­ç›¸åŒçš„å…ƒç´ æ•°é‡
+	 * @param index ä½ç½®
+	 * @return è¿ç»­ç›¸åŒçš„å…ƒç´ æ•°é‡
 	 */
 	public int getNextEqualCount(int index) {
 		double []datas = this.datas;

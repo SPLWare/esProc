@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.FileFunction;
 
 /**
- * ȡ�ļ���С
+ * 取文件大小
  * f.size()
  * @author RunQian
  *

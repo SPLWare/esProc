@@ -8,8 +8,8 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼ÆËãĞòÁĞ³ÉÔ±µÄ²îÁĞ
- * A.diff() A.diff(x)£¬AÊÇĞòÁĞµÄĞòÁĞ
+ * è®¡ç®—åºåˆ—æˆå‘˜çš„å·®åˆ—
+ * A.diff() A.diff(x)ï¼ŒAæ˜¯åºåˆ—çš„åºåˆ—
  * @author RunQian
  *
  */

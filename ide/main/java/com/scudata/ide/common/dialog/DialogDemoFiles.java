@@ -34,56 +34,56 @@ import com.scudata.ide.common.swing.VFlowLayout;
 import com.scudata.util.CellSetUtil;
 
 /**
- * ÑùÀıÎÄ¼ş
+ * æ ·ä¾‹æ–‡ä»¶
  *
  */
 public class DialogDemoFiles extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ´ò¿ª°´Å¥
+	 * æ‰“å¼€æŒ‰é’®
 	 */
 	private JButton jBOpen = new JButton();
 
 	/**
-	 * ¹Ø±Õ°´Å¥
+	 * å…³é—­æŒ‰é’®
 	 */
 	private JButton jBClose = new JButton();
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * Ê÷¿Ø¼ş
+	 * æ ‘æ§ä»¶
 	 */
 	private JTree m_Tree = new JTree();
 
 	/**
-	 * ±à¼­¿ò
+	 * ç¼–è¾‘æ¡†
 	 */
 	private JEditorPane tpDesc = new JEditorPane();
 
 	/**
-	 * ÎÄ¼şºó×º
+	 * æ–‡ä»¶åç¼€
 	 */
 	private String[] fileExts;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogDemoFiles() {
 		this(AppConsts.SPL_FILE_EXTS.split(","));
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
-	 * @param fileExts ÎÄ¼şºó×º
+	 * @param fileExts æ–‡ä»¶åç¼€
 	 */
 	public DialogDemoFiles(String[] fileExts) {
-		super(GV.appFrame, "Àı×ÓÎÄ¼ş", true);
+		super(GV.appFrame, "ä¾‹å­æ–‡ä»¶", true);
 		try {
 			this.fileExts = fileExts;
 			initUI();
@@ -97,10 +97,10 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * ×ÓÎÄ¼şÁĞ±í
+	 * å­æ–‡ä»¶åˆ—è¡¨
 	 * 
-	 * @param filePath ¸¸ÎÄ¼şÂ·¾¶
-	 * @param fileExts ÎÄ¼şºó×º
+	 * @param filePath çˆ¶æ–‡ä»¶è·¯å¾„
+	 * @param fileExts æ–‡ä»¶åç¼€
 	 * @return
 	 */
 	private static File[] listSubFiles(String filePath, final String[] fileExts) {
@@ -121,10 +121,10 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * ¼ÓÔØ×ÓÎÄ¼ş
+	 * åŠ è½½å­æ–‡ä»¶
 	 * 
-	 * @param parent   ¸¸½áµã
-	 * @param filePath ÎÄ¼şÂ·¾¶
+	 * @param parent   çˆ¶ç»“ç‚¹
+	 * @param filePath æ–‡ä»¶è·¯å¾„
 	 * @return
 	 */
 	private boolean loadSubFiles(DefaultMutableTreeNode parent, String filePath) {
@@ -171,7 +171,7 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * ÑùÀıÎÄ¼şÊÇ·ñ´æÔÚ
+	 * æ ·ä¾‹æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 	 * 
 	 * @param fileExts
 	 * @return
@@ -186,7 +186,7 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * ¼ÓÔØ
+	 * åŠ è½½
 	 */
 	private void load() {
 		String filePath = GM.getAbsolutePath("demo/" + GM.getLanguageSuffix().substring(1));
@@ -207,7 +207,7 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
 		this.setTitle(new StringTokenizer(mm.getMessage("menu.help.demofiles"), "(").nextToken());
@@ -216,16 +216,16 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯UI
+	 * åˆå§‹åŒ–UI
 	 * 
 	 * @throws Exception
 	 */
 	private void initUI() throws Exception {
 		jBOpen.setMnemonic('O');
-		jBOpen.setText("´ò¿ª(O)");
+		jBOpen.setText("æ‰“å¼€(O)");
 		jBOpen.addActionListener(new DialogDemoFiles_jBOpen_actionAdapter(this));
 		jBClose.setMnemonic('C');
-		jBClose.setText("¹Ø±Õ(C)");
+		jBClose.setText("å…³é—­(C)");
 		jBClose.addActionListener(new DialogDemoFiles_jBClose_actionAdapter(this));
 		JPanel jPanel2 = new JPanel();
 		VFlowLayout vFlowLayout1 = new VFlowLayout();
@@ -256,7 +256,7 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -266,7 +266,7 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * ´ò¿ª°´Å¥ÊÂ¼ş
+	 * æ‰“å¼€æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -297,7 +297,7 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * ¹Ø±Õ°´Å¥ÊÂ¼ş
+	 * å…³é—­æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -307,7 +307,7 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * È¡µ±Ç°Ñ¡ÔñµÄ½áµã
+	 * å–å½“å‰é€‰æ‹©çš„ç»“ç‚¹
 	 * 
 	 * @return
 	 */
@@ -335,7 +335,7 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * Ê÷½áµãÊó±êµã»÷
+	 * æ ‘ç»“ç‚¹é¼ æ ‡ç‚¹å‡»
 	 * 
 	 * @param e
 	 */
@@ -369,7 +369,7 @@ public class DialogDemoFiles extends JDialog {
 	}
 
 	/**
-	 * Ê÷Ñ¡Ôñ½áµã±ä»¯
+	 * æ ‘é€‰æ‹©ç»“ç‚¹å˜åŒ–
 	 * 
 	 * @param e
 	 */
@@ -380,31 +380,31 @@ public class DialogDemoFiles extends JDialog {
 }
 
 /**
- * ÎÄ¼ş½áµã
+ * æ–‡ä»¶ç»“ç‚¹
  *
  */
 class FileNode {
 	/**
-	 * Â·¾¶
+	 * è·¯å¾„
 	 */
 	String absolutePath;
 
 	/**
-	 * ±êÌâ
+	 * æ ‡é¢˜
 	 */
 	String title;
 
 	/**
-	 * ÃèÊö
+	 * æè¿°
 	 */
 	String desc;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
-	 * @param absolutePath Â·¾¶
-	 * @param title        ±êÌâ
-	 * @param desc         ÃèÊö
+	 * @param absolutePath è·¯å¾„
+	 * @param title        æ ‡é¢˜
+	 * @param desc         æè¿°
 	 */
 	public FileNode(String absolutePath, String title, String desc) {
 		this.absolutePath = absolutePath;
@@ -413,7 +413,7 @@ class FileNode {
 	}
 
 	/**
-	 * È¡Â·¾¶
+	 * å–è·¯å¾„
 	 * 
 	 * @return
 	 */
@@ -422,7 +422,7 @@ class FileNode {
 	}
 
 	/**
-	 * È¡±êÌâ
+	 * å–æ ‡é¢˜
 	 * 
 	 * @return
 	 */
@@ -431,7 +431,7 @@ class FileNode {
 	}
 
 	/**
-	 * È¡ÃèÊö
+	 * å–æè¿°
 	 * 
 	 * @return
 	 */
@@ -440,7 +440,7 @@ class FileNode {
 	}
 
 	/**
-	 * ×ª»»³É×Ö·û´®
+	 * è½¬æ¢æˆå­—ç¬¦ä¸²
 	 */
 	public String toString() {
 		return title;

@@ -13,7 +13,7 @@ import com.scudata.common.JNDIConfig;
 import com.scudata.common.SpringDBConfig;
 
 /**
- * ÅäÖÃÎÄ¼şraqsoftConfig.xml
+ * é…ç½®æ–‡ä»¶raqsoftConfig.xml
  *
  */
 public class RaqsoftConfig implements Cloneable, Externalizable {
@@ -27,7 +27,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	private byte encryptLevel = ConfigConsts.ENCRYPT_NONE;
 
-	private String pwdClass = null; // ¼ÓÃÜ½âÃÜ¹¤¾ßÀà
+	private String pwdClass = null; // åŠ å¯†è§£å¯†å·¥å…·ç±»
 
 	/** Esproc */
 	/** Main path */
@@ -57,7 +57,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	/** 
 	 * Log type
 	 * ConfigConsts.LOG_DEFAULT,ConfigConsts.LOG_SLF
-	 * ²»ÅäÖÃÊ±ÉèÖÃÎªConfigConsts.LOG_DEFAULT
+	 * ä¸é…ç½®æ—¶è®¾ç½®ä¸ºConfigConsts.LOG_DEFAULT
 	 */
 	private String logType = ConfigConsts.LOG_DEFAULT;
 	/** Parallel number */
@@ -109,7 +109,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	/** Unit list */
 	private List<String> unitList = null;
 	/** XMLA list */
-	private List<Xmla> xmlaList = null; // ¶àÎ¬Êı¾İ¿âÅäÖÃ
+	private List<Xmla> xmlaList = null; // å¤šç»´æ•°æ®åº“é…ç½®
 
 	/**
 	 * Constructor
@@ -156,7 +156,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	}
 
 	/**
-	 * ¼ÓÃÜ½âÃÜ¹¤¾ßÀà
+	 * åŠ å¯†è§£å¯†å·¥å…·ç±»
 	 * @return the pwdClass
 	 */
 	public String getPwdClass() {
@@ -164,7 +164,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	}
 
 	/**
-	 * ¼ÓÃÜ½âÃÜ¹¤¾ßÀà
+	 * åŠ å¯†è§£å¯†å·¥å…·ç±»
 	 * @param pwdClass the pwdClass to set
 	 */
 	public void setPwdClass(String pwdClass) {

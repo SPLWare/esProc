@@ -30,22 +30,22 @@ import com.scudata.ide.spl.control.SplControl;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ÎÄ±¾±à¼­¶Ô»°¿ò
+ * æ–‡æœ¬ç¼–è¾‘å¯¹è¯æ¡†
  *
  */
 public class DialogTextEditor extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton okButton = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton cancelButton = new JButton();
 
 	/**
-	 * ÎÄ±¾±à¼­¿Ø¼ş
+	 * æ–‡æœ¬ç¼–è¾‘æ§ä»¶
 	 */
 	protected RSyntaxTextArea textEditor = new RSyntaxTextArea() {
 		private static final long serialVersionUID = 1L;
@@ -60,45 +60,45 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	};
 
 	/**
-	 * ¹ö¶¯Ãæ°å
+	 * æ»šåŠ¨é¢æ¿
 	 */
 	protected RTextScrollPane spEditor = new RTextScrollPane(textEditor);
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeSplMessage.get();
 	/**
-	 * ×Ô¶¯»»ĞĞ¸´Ñ¡¿ò
+	 * è‡ªåŠ¨æ¢è¡Œå¤é€‰æ¡†
 	 */
 	private JCheckBox jCBLineWrap = new JCheckBox(
 			mm.getMessage("dialogtexteditor.linewrap"));
 
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int option = JOptionPane.CLOSED_OPTION;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogTextEditor(JFrame parent) {
 		this(parent, true);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogTextEditor(JDialog parent) {
 		this(parent, true);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param parent
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param isEditable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public DialogTextEditor(JFrame parent, boolean isEditable) {
 		super(parent, "", true);
@@ -106,12 +106,12 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param parent
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param isEditable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public DialogTextEditor(JDialog parent, boolean isEditable) {
 		super(parent, "", true);
@@ -136,7 +136,7 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -144,11 +144,11 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 		return option;
 	}
 
-	// Ì«³¤µÄÎÄ±¾Í¨³£ÊÇÊı¾İ¾Í²»¸¨Öú±à¼­ÁË£¬Òª²»È»Ì«ÂıÁË
+	// å¤ªé•¿çš„æ–‡æœ¬é€šå¸¸æ˜¯æ•°æ®å°±ä¸è¾…åŠ©ç¼–è¾‘äº†ï¼Œè¦ä¸ç„¶å¤ªæ…¢äº†
 	private static final int STYLE_MAX_LENGTH = 100000;
 
 	/**
-	 * ÉèÖÃÎÄ±¾
+	 * è®¾ç½®æ–‡æœ¬
 	 * 
 	 * @param text
 	 */
@@ -161,7 +161,7 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * È¡ÎÄ±¾
+	 * å–æ–‡æœ¬
 	 * 
 	 * @return
 	 */
@@ -170,7 +170,7 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		this.getContentPane().setLayout(new BorderLayout());
@@ -217,7 +217,7 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ¹Ø±Õ´°¿Ú
+	 * å…³é—­çª—å£
 	 */
 	private void closeWindow() {
 		ConfigOptions.bTextEditorLineWrap = jCBLineWrap.isSelected();
@@ -226,7 +226,7 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * ¿Ø¼şÊÂ¼ş
+	 * æ§ä»¶äº‹ä»¶
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object c = e.getSource();

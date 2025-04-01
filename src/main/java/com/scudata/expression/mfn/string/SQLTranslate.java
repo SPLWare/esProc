@@ -8,7 +8,7 @@ import com.scudata.expression.StringFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ½«±ê×¼SQLÖĞµÄº¯Êı·­Òë³ÉÖ¸¶¨Êı¾İ¿âµÄ¸ñÊ½£¬²ÎÕÕ±íÔÚÅäÖÃÖĞ
+ * å°†æ ‡å‡†SQLä¸­çš„å‡½æ•°ç¿»è¯‘æˆæŒ‡å®šæ•°æ®åº“çš„æ ¼å¼ï¼Œå‚ç…§è¡¨åœ¨é…ç½®ä¸­
  * sql.sqltranslate(dbtype)
  * @author RunQian
  *

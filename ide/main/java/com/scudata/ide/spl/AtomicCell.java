@@ -17,67 +17,67 @@ import com.scudata.ide.spl.control.SplControl;
 import com.scudata.ide.spl.control.SplEditor;
 
 /**
- * µ¥Ôª¸ñµÄÔ­×Ó²Ù×÷
+ * å•å…ƒæ ¼çš„åŸå­æ“ä½œ
  *
  */
 public class AtomicCell implements IAtomicCmd {
-	/** µ¥Ôª¸ñÖµ */
+	/** å•å…ƒæ ¼å€¼ */
 	public static final byte CELL_VALUE = 0;
-	/** µ¥Ôª¸ñ±í´ïÊ½ */
+	/** å•å…ƒæ ¼è¡¨è¾¾å¼ */
 	public static final byte CELL_EXP = 1;
-	/** µ¥Ôª¸ñÌáÊ¾ */
+	/** å•å…ƒæ ¼æç¤º */
 	public static final byte CELL_TIPS = 2;
-	/** ETL º¯Êı±à¼­¶ÔÏó */
+	/** ETL å‡½æ•°ç¼–è¾‘å¯¹è±¡ */
 	public static final byte CELL_FUNC_OBJECT = 3;
 
 	/**
-	 * ÁĞ¿í
+	 * åˆ—å®½
 	 */
 	public static final byte COL_WIDTH = 100;
 	/**
-	 * ĞĞ¸ß
+	 * è¡Œé«˜
 	 */
 	public static final byte ROW_HEIGHT = 101;
 	/**
-	 * ÁĞ¿ÉÊÓ
+	 * åˆ—å¯è§†
 	 */
 	public static final byte COL_VISIBLE = 103;
 	/**
-	 * ĞĞ¿ÉÊÓ
+	 * è¡Œå¯è§†
 	 */
 	public static final byte ROW_VISIBLE = 104;
 
 	/**
-	 * ¸ñ×Ó¶ÔÏó
+	 * æ ¼å­å¯¹è±¡
 	 */
 	private Object cell;
 	/**
-	 * ÊôĞÔÀàĞÍ
+	 * å±æ€§ç±»å‹
 	 */
 	private byte property;
 	/**
-	 * Öµ
+	 * å€¼
 	 */
 	private Object value;
 	/**
-	 * Íø¸ñ¿Ø¼ş
+	 * ç½‘æ ¼æ§ä»¶
 	 */
 	private SplControl control;
 	/**
-	 * Ñ¡ÖĞµÄÇøÓòÁĞ±í
+	 * é€‰ä¸­çš„åŒºåŸŸåˆ—è¡¨
 	 */
 	private Vector<Object> selectedAreas;
 
 	/**
-	 * ĞĞºÅ
+	 * è¡Œå·
 	 */
 	private int row = 0;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
-	 * @param control Íø¸ñ¿Ø¼ş
-	 * @param cell    µ¥Ôª¸ñ
+	 * @param control ç½‘æ ¼æ§ä»¶
+	 * @param cell    å•å…ƒæ ¼
 	 */
 	public AtomicCell(SplControl control, Object cell) {
 		this.control = control;
@@ -87,10 +87,10 @@ public class AtomicCell implements IAtomicCmd {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı¡£½öÓÃÓÚÉèÖÃ²åÈëµÄĞĞÊôĞÔÊ±
+	 * æ„é€ å‡½æ•°ã€‚ä»…ç”¨äºè®¾ç½®æ’å…¥çš„è¡Œå±æ€§æ—¶
 	 * 
-	 * @param control Íø¸ñ¿Ø¼ş
-	 * @param row     ĞĞºÅ
+	 * @param control ç½‘æ ¼æ§ä»¶
+	 * @param row     è¡Œå·
 	 */
 	public AtomicCell(SplControl control, int row) {
 		this.control = control;
@@ -100,14 +100,14 @@ public class AtomicCell implements IAtomicCmd {
 	}
 
 	/**
-	 * ×ª×Ö·û´®
+	 * è½¬å­—ç¬¦ä¸²
 	 */
 	public String toString() {
 		return "cell:" + cell + "#key:" + property + "#val:" + value;
 	}
 
 	/**
-	 * ÉèÖÃÊôĞÔÀàĞÍ
+	 * è®¾ç½®å±æ€§ç±»å‹
 	 * 
 	 * @param property
 	 */
@@ -116,7 +116,7 @@ public class AtomicCell implements IAtomicCmd {
 	}
 
 	/**
-	 * ÉèÖÃÖµ
+	 * è®¾ç½®å€¼
 	 * 
 	 * @param value
 	 */
@@ -130,7 +130,7 @@ public class AtomicCell implements IAtomicCmd {
 	}
 
 	/**
-	 * ¿ËÂ¡
+	 * å…‹éš†
 	 */
 	public Object clone() {
 		AtomicCell an = new AtomicCell(control, cell);
@@ -140,11 +140,11 @@ public class AtomicCell implements IAtomicCmd {
 	}
 
 	/**
-	 * ÉèÖÃ¸ñ×ÓÊôĞÔ
+	 * è®¾ç½®æ ¼å­å±æ€§
 	 * 
-	 * @param cell     ¸ñ×Ó
-	 * @param property ÊôĞÔÀàĞÍ
-	 * @param newVal   Öµ
+	 * @param cell     æ ¼å­
+	 * @param property å±æ€§ç±»å‹
+	 * @param newVal   å€¼
 	 */
 	public static void setCellProperty(Object cell, byte property, Object newVal) {
 		NormalCell nc = null;
@@ -154,7 +154,7 @@ public class AtomicCell implements IAtomicCmd {
 		}
 		switch (property) {
 		case CELL_VALUE:
-			if (newVal == null) { // ³£Êı¸ñ²»Çå¿Õ
+			if (newVal == null) { // å¸¸æ•°æ ¼ä¸æ¸…ç©º
 				nc.reset();
 			} else {
 				nc.setValue(GM.getOptionTrimChar0Value(newVal));
@@ -195,10 +195,10 @@ public class AtomicCell implements IAtomicCmd {
 	}
 
 	/**
-	 * È¡¸ñ×ÓÊôĞÔ
+	 * å–æ ¼å­å±æ€§
 	 * 
-	 * @param cell     ¸ñ×Ó
-	 * @param property ÊôĞÔÀàĞÍ
+	 * @param cell     æ ¼å­
+	 * @param property å±æ€§ç±»å‹
 	 * @return
 	 */
 	public static Object getCellProperty(Object cell, byte property) {
@@ -235,7 +235,7 @@ public class AtomicCell implements IAtomicCmd {
 	}
 
 	/**
-	 * ÉèÖÃÖµ
+	 * è®¾ç½®å€¼
 	 * 
 	 * @param undoAn
 	 * @param newVal
@@ -254,7 +254,7 @@ public class AtomicCell implements IAtomicCmd {
 	}
 
 	/**
-	 * Ö´ĞĞ
+	 * æ‰§è¡Œ
 	 */
 	public IAtomicCmd execute() {
 		if (cell == null && row > 0) {

@@ -8,8 +8,8 @@ import com.scudata.expression.Operator;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÔËËã·û£º,
- * a=1,b=3,c=6·µ»Ø×îºóÒ»¸ö±í´ïÊ½µÄÖµ
+ * è¿ç®—ç¬¦ï¼š,
+ * a=1,b=3,c=6è¿”å›æœ€åä¸€ä¸ªè¡¨è¾¾å¼çš„å€¼
  * @author RunQian
  *
  */
@@ -23,7 +23,7 @@ public class Comma extends Operator {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (left == null) {
@@ -44,8 +44,8 @@ public class Comma extends Operator {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {

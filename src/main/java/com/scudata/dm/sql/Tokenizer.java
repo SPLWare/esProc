@@ -7,17 +7,17 @@ import com.scudata.common.RQException;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔSQLÓï¾ä×ö·Ö´Ê´¦Àí£¬µÃµ½´ÊÊı×é
+ * å¯¹SQLè¯­å¥åšåˆ†è¯å¤„ç†ï¼Œå¾—åˆ°è¯æ•°ç»„
  * @author RunQian
  *
  */
 public final class Tokenizer {
 	public static final char UNKNOWN = 0;
-	public static final char KEYWORD = 1; // ±£Áô×Ö
-	public static final char IDENT = 2; // ±í¡¢×Ö¶Î¡¢±ğÃû¡¢º¯Êı
-	public static final char NUMBER = 3; // Êı×Ö³£Á¿
-	public static final char STRING = 4; // ×Ö·û´®³£Á¿
-	public static final char OPERATOR = 5; // ÔËËã·û+-*/=<>&|^%!
+	public static final char KEYWORD = 1; // ä¿ç•™å­—
+	public static final char IDENT = 2; // è¡¨ã€å­—æ®µã€åˆ«åã€å‡½æ•°
+	public static final char NUMBER = 3; // æ•°å­—å¸¸é‡
+	public static final char STRING = 4; // å­—ç¬¦ä¸²å¸¸é‡
+	public static final char OPERATOR = 5; // è¿ç®—ç¬¦+-*/=<>&|^%!
 
 	public static final char LPAREN = '(';
 	public static final char RPAREN = ')';
@@ -26,18 +26,18 @@ public final class Tokenizer {
 	public static final char PARAMMARK = '?';
 	
 
-	private static final String OPSTRING = "+-*/=<>&|^%!~"; // ~°´Î»È¡·´
+	private static final String OPSTRING = "+-*/=<>&|^%!~"; // ~æŒ‰ä½å–å
 	//private final static String[] GATHERS = {"AVG", "COUNT", "MAX", "MIN", "SUM", "COUNTIF", "COUNTD", "AVGD", "SUMD"};
-	//private final static String[] ´°¿Úº¯Êı = {"AVG", "COUNT", "MAX", "MIN", "SUM", "RANK", "DENSE_RANK", "ROW_NUMBER"};
+	//private final static String[] çª—å£å‡½æ•° = {"AVG", "COUNT", "MAX", "MIN", "SUM", "RANK", "DENSE_RANK", "ROW_NUMBER"};
 
 	//private final static String[] OPERATORS = {
 	//	"+","-","*","/","=","<","<=","<>","!=",">",">=","%","^","||"
 	//};
 
 	public static final String COL_AS = " "; // " AS "
-	public static final String TABLE_AS = " "; // oracle±íµÄ±ğÃû²»ÄÜ¼Óas
+	public static final String TABLE_AS = " "; // oracleè¡¨çš„åˆ«åä¸èƒ½åŠ as
 
-	// Ñ¡³öÁĞ±í´ïÊ½ÖĞ¿ÉÒÔÓÃµÄ¹Ø¼ü×Ö£¬ÓÃÓÚÅĞ¶ÏÑ¡³öÁĞ×îºóµÄ±êÊ¶·ûÊÇ·ñÊÇ±ğÃû
+	// é€‰å‡ºåˆ—è¡¨è¾¾å¼ä¸­å¯ä»¥ç”¨çš„å…³é”®å­—ï¼Œç”¨äºåˆ¤æ–­é€‰å‡ºåˆ—æœ€åçš„æ ‡è¯†ç¬¦æ˜¯å¦æ˜¯åˆ«å
 	private final static String[] OPKEYWORDS = {"AND", "OR", "LIKE", "NOT"};
 
 	// "BETWEEN","ROWS","CASE","INNER","END","ONLY", "OUTER",
@@ -64,11 +64,11 @@ public final class Tokenizer {
 	};
 
 	/**
-	 * ËÑË÷À¨ºÅµÄ½áÊøÎ»ÖÃ
-	 * @param tokens ¶ÔSQLÓï¾ä×ö·Ö´ÊµÃµ½µÄ½á¹û
-	 * @param start ×óÀ¨ºÅµÄÎ»ÖÃ
-	 * @param next ËÑË÷µÄ½áÊøÎ»ÖÃ£¬²»°üº¬
-	 * @return ÓÒÀ¨ºÅµÄÎ»ÖÃ£¬ÕÒ²»µ½Å×³öÒì³£
+	 * æœç´¢æ‹¬å·çš„ç»“æŸä½ç½®
+	 * @param tokens å¯¹SQLè¯­å¥åšåˆ†è¯å¾—åˆ°çš„ç»“æœ
+	 * @param start å·¦æ‹¬å·çš„ä½ç½®
+	 * @param next æœç´¢çš„ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
+	 * @return å³æ‹¬å·çš„ä½ç½®ï¼Œæ‰¾ä¸åˆ°æŠ›å‡ºå¼‚å¸¸
 	 */
 	public static int scanParen(Token []tokens, int start, final int next) {
 		int deep = 0;
@@ -86,18 +86,18 @@ public final class Tokenizer {
 	}
 	
 	/**
-	 * ÔÚÖ¸¶¨·¶Î§ÄÚËÑË÷¶ººÅ
-	 * @param tokens ¶ÔSQLÓï¾ä×ö·Ö´ÊµÃµ½µÄ½á¹û
-	 * @param start ËÑË÷ÆğÊ¼Î»ÖÃ£¬°üÀ¨
-	 * @param next ËÑË÷µÄ½áÊøÎ»ÖÃ£¬²»°üº¬
-	 * @return ¶ººÅµÄÎ»ÖÃ£¬ÕÒ²»µ½·µ»Ø-1
+	 * åœ¨æŒ‡å®šèŒƒå›´å†…æœç´¢é€—å·
+	 * @param tokens å¯¹SQLè¯­å¥åšåˆ†è¯å¾—åˆ°çš„ç»“æœ
+	 * @param start æœç´¢èµ·å§‹ä½ç½®ï¼ŒåŒ…æ‹¬
+	 * @param next æœç´¢çš„ç»“æŸä½ç½®ï¼Œä¸åŒ…å«
+	 * @return é€—å·çš„ä½ç½®ï¼Œæ‰¾ä¸åˆ°è¿”å›-1
 	 */
 	public static int scanComma(Token []tokens, int start, final int next) {
 		for(int i = start; i < next; ++i) {
 			char type = tokens[i].getType();
 			if(type == COMMA) {
 				return i;
-			} else if(type == LPAREN) { // Ìø¹ı()
+			} else if(type == LPAREN) { // è·³è¿‡()
 				i = scanParen(tokens, i, next);
 			}
 		}
@@ -133,19 +133,19 @@ public final class Tokenizer {
 	}
 
 	public static boolean isIdentifierStart(char ch) {
-		// sqlserverÁÙÊ±±í²»»á³öÏÖ#£¿
+		// sqlserverä¸´æ—¶è¡¨ä¸ä¼šå‡ºç°#ï¼Ÿ
 		return Character.isJavaIdentifierStart(ch); //  || ch == '#'
 	}
 
 	public static boolean isIdentifierPart(char ch) {
-		// sqlserverÁÙÊ±±í²»»á³öÏÖ#£¿
+		// sqlserverä¸´æ—¶è¡¨ä¸ä¼šå‡ºç°#ï¼Ÿ
 		return Character.isJavaIdentifierPart(ch); //  || ch == '#'
 	}
 
 	/**
-	 * ¶ÔSQLÓï¾ä×ö·Ö´Ê£¬Ë«ÒıºÅÄÚµÄÎª±êÊ¶·û
-	 * @param sql SQLÓï¾ä
-	 * @return TokenÊı×é
+	 * å¯¹SQLè¯­å¥åšåˆ†è¯ï¼ŒåŒå¼•å·å†…çš„ä¸ºæ ‡è¯†ç¬¦
+	 * @param sql SQLè¯­å¥
+	 * @return Tokenæ•°ç»„
 	 */
 	public static Token[] parse(String sql) {
 		int curIndex = 0;
@@ -156,7 +156,7 @@ public final class Tokenizer {
 			char ch = sql.charAt(curIndex);
 			if (Character.isWhitespace(ch)) {
 				curIndex++;
-			} else if (isIdentifierStart(ch)) { // ±êÊ¶·û¡¢×Ö¶Î¡¢±í
+			} else if (isIdentifierStart(ch)) { // æ ‡è¯†ç¬¦ã€å­—æ®µã€è¡¨
 				int next = scanId(sql, curIndex + 1);
 				String id = sql.substring(curIndex, next);
 				String upId = id.toUpperCase();
@@ -169,14 +169,14 @@ public final class Tokenizer {
 				}
 
 				curIndex = next;
-			} else if (Character.isDigit(ch)) { // Êı×Ö
+			} else if (Character.isDigit(ch)) { // æ•°å­—
 				int next = scanNumber(sql, curIndex + 1);
 				String id = sql.substring(curIndex, next);
 				Token token = new Token(NUMBER, id, curIndex);
 				tokenList.add(token);
 
 				curIndex = next;
-			} else if (ch == DOT) { // .²Ù×÷·û»òÊı×Ö
+			} else if (ch == DOT) { // .æ“ä½œç¬¦æˆ–æ•°å­—
 				int next = scanNumber(sql, curIndex);
 				String id = sql.substring(curIndex, next);
 				if (next > curIndex + 1) {
@@ -188,7 +188,7 @@ public final class Tokenizer {
 				}
 
 				curIndex = next;
-			} else if (ch == '\'') { // ×Ö·û´®
+			} else if (ch == '\'') { // å­—ç¬¦ä¸²
 				int next = scanString(sql, curIndex + 1);
 				if (next < 0) {
 					MessageManager mm = EngineMessage.get();
@@ -200,19 +200,19 @@ public final class Tokenizer {
 				tokenList.add(token);
 
 				curIndex = next;
-			} else if (ch == '"') { // ±íÃû»ò×Ö¶Î
+			} else if (ch == '"') { // è¡¨åæˆ–å­—æ®µ
 				int next = scanId(sql, curIndex);
 				String id = sql.substring(curIndex, next);
 				Token token = new Token(IDENT, id, curIndex);
 				tokenList.add(token);
 
 				curIndex = next;
-			} else if (ch == PARAMMARK) { // ? ?1 ?2 ...²ÎÊı
+			} else if (ch == PARAMMARK) { // ? ?1 ?2 ...å‚æ•°
 				Token token = new Token(PARAMMARK, "?", curIndex);
 				tokenList.add(token);
 				
 				curIndex++;
-			} else if (OPSTRING.indexOf(ch) != -1) { // ÔËËã·û
+			} else if (OPSTRING.indexOf(ch) != -1) { // è¿ç®—ç¬¦
 				String id = sql.substring(curIndex, curIndex + 1);
 				Token token = new Token(OPERATOR, id, curIndex);
 				tokenList.add(token);
@@ -279,7 +279,7 @@ public final class Tokenizer {
 		return start;
 	}
 
-	// ²éÕÒ'ss'£¬Èç¹û×Ö·û´®Àïº¬ÓĞµ¥ÒıºÅÔòÓÃÁ½¸öÁ¬Ò»¿éµÄµ¥ÒıºÅ±íÊ¾ 'dd''ff'
+	// æŸ¥æ‰¾'ss'ï¼Œå¦‚æœå­—ç¬¦ä¸²é‡Œå«æœ‰å•å¼•å·åˆ™ç”¨ä¸¤ä¸ªè¿ä¸€å—çš„å•å¼•å·è¡¨ç¤º 'dd''ff'
 	public static int scanString(String command, int start) {
 		int len = command.length();
 		for (; start < len; ++start) {

@@ -15,7 +15,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * filename(fn) ²ğ·ÖÈ«Â·¾¶fnÖĞµÄÎÄ¼şÃûºÍÀ©Õ¹ÃûÄÚÈİ¡£
+ * filename(fn) æ‹†åˆ†å…¨è·¯å¾„fnä¸­çš„æ–‡ä»¶åå’Œæ‰©å±•åå†…å®¹ã€‚
  * @author runqian
  *
  */

@@ -8,7 +8,7 @@ class RankArray {
 	private ObjectArray valueArray;
 	private final int count;
 	private int curCount = 0;
-	private boolean isDistinct; // 是否按去重方式算排名
+	private boolean isDistinct; // 鏄惁鎸夊幓閲嶆柟寮忕畻鎺掑悕
 	
 	public RankArray(int count, boolean isDistinct) {
 		this.valueArray = new ObjectArray(count * 2);
@@ -40,7 +40,7 @@ class RankArray {
 					if (index < 1) {
 						index = -index;
 						
-						// 删除最后相同的成员
+						// 鍒犻櫎鏈�鍚庣浉鍚岀殑鎴愬憳
 						Object value = valueArray.get(curSize);
 						valueArray.removeLast();
 						for (int j = curSize - 1; j >= count; --j) {
@@ -78,7 +78,7 @@ class RankArray {
 					valueArray.insert(index, obj);
 					
 					if (comparator.compare(valueArray.get(count), value) != 0) {
-						// 删除最后相同的成员
+						// 鍒犻櫎鏈�鍚庣浉鍚岀殑鎴愬憳
 						valueArray.removeLast();
 						for (int j = curSize; j > count; --j) {
 							if (comparator.compare(valueArray.get(j), value) == 0) {

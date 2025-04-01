@@ -16,7 +16,7 @@ public class PseudoJoinx extends Pseudo {
 	private Expression [][]joinExps;
 	private String []joinNames;
 	private String option;
-	//´´½¨ÓÎ±êĞèÒªµÄ²ÎÊı
+	//åˆ›å»ºæ¸¸æ ‡éœ€è¦çš„å‚æ•°
 	private Context ctx;
 	private ArrayList<Operation> opList;
 	
@@ -76,9 +76,9 @@ public class PseudoJoinx extends Pseudo {
 		}
 	}
 	
-	//exps È¡³ö×Ö¶Î±í´ïÊ½
-	//namess È¡³ö×Ö¶ÎĞÂÃû×Ö
-	//TODO ¶ÔÓÚjoinxµÃµ½µÄĞé±í£¬exps£¬namesÊÇÊ²Ã´º¬ÒåÄØ£¿
+	//exps å–å‡ºå­—æ®µè¡¨è¾¾å¼
+	//namess å–å‡ºå­—æ®µæ–°åå­—
+	//TODO å¯¹äºjoinxå¾—åˆ°çš„è™šè¡¨ï¼Œexpsï¼Œnamesæ˜¯ä»€ä¹ˆå«ä¹‰å‘¢ï¼Ÿ
 	public ICursor cursor(Expression []exps, String []names) {
 		if (ctx == null) {
 			ctx = joinxTables[0].getContext();

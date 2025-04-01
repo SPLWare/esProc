@@ -5,7 +5,7 @@ import com.scudata.common.Logger;
 /*** @author 
  * hdfs_exists(hd, dst)
  * dst: remoteFile/remotePath
- * Ñ¡Ïîd,dst:remotePathÎÄ¼þ¼Ð
+ * é€‰é¡¹d,dst:remotePathæ–‡ä»¶å¤¹
  */
 public class HdfsExists extends HdfsFunction {
 	public Object doQuery( Object[] objs){

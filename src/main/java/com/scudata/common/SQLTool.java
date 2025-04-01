@@ -232,7 +232,7 @@ public class SQLTool {
 //  		} else if(o instanceof java.net.URL) {
 //    		pst.setURL( index, (java.net.URL)o );
     }
-    //added by bd, 2016.6.8, 当o为byte[]类型时，认为需要处理Blob类型字段
+    //added by bd, 2016.6.8, 褰搊涓篵yte[]绫诲瀷鏃讹紝璁や负闇�瑕佸鐞咮lob绫诲瀷瀛楁
     else if (o instanceof byte[]) {
     	InputStream is = new ByteArrayInputStream((byte[])o);
     	pst.setBinaryStream(index, is);

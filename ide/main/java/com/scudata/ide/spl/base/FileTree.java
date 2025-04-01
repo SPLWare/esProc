@@ -40,7 +40,7 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ×ÊÔ´Ê÷¿Ø¼ş
+ * èµ„æºæ ‘æ§ä»¶
  *
  */
 public class FileTree extends JTree {
@@ -49,30 +49,30 @@ public class FileTree extends JTree {
 	public static MessageManager mm = IdeSplMessage.get();
 
 	/**
-	 * ¸ù½áµã
+	 * æ ¹ç»“ç‚¹
 	 */
 	protected FileTreeNode root;
 	/**
-	 * ±¾µØ×ÊÔ´
+	 * æœ¬åœ°èµ„æº
 	 */
 	protected FileTreeNode localRoot;
 	/**
-	 * Î´ÉèÖÃÓ¦ÓÃ×ÊÔ´Â·¾¶
+	 * æœªè®¾ç½®åº”ç”¨èµ„æºè·¯å¾„
 	 */
 	private static final String NO_MAIN_PATH = mm
 			.getMessage("filetree.nomainpath");
 	/**
-	 * DEMOÄ¿Â¼²»´æÔÚ
+	 * DEMOç›®å½•ä¸å­˜åœ¨
 	 */
 	private static final String NO_DEMO_DIR = mm
 			.getMessage("filetree.nodemodir");
 	/**
-	 * Ó¦ÓÃ×ÊÔ´
+	 * åº”ç”¨èµ„æº
 	 */
 	public static final String ROOT_TITLE = mm.getMessage("filetree.roottitle");
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public FileTree() {
 		super();
@@ -123,19 +123,19 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * Î´Õ¹¿ª
+	 * æœªå±•å¼€
 	 */
 	private final String NOT_EXPAND = "NOT_EXPAND";
 
 	/**
-	 * ±£´æÕ¹¿ª×´Ì¬
+	 * ä¿å­˜å±•å¼€çŠ¶æ€
 	 * 
-	 * @param dl ÎÄ¼şÊ÷µÄÎ»ÖÃ
+	 * @param dl æ–‡ä»¶æ ‘çš„ä½ç½®
 	 */
 	public void saveExpandState(int dl) {
 		try {
-			ConfigOptions.iConsoleLocation = new Integer(dl); // ±£´æÎÄ¼şÊ÷¡¢¿ØÖÆÌ¨¿í¶È
-			if (!this.isExpanded(0)) { // ¸ù½ÚµãÃ»Õ¹¿ª
+			ConfigOptions.iConsoleLocation = new Integer(dl); // ä¿å­˜æ–‡ä»¶æ ‘ã€æ§åˆ¶å°å®½åº¦
+			if (!this.isExpanded(0)) { // æ ¹èŠ‚ç‚¹æ²¡å±•å¼€
 				ConfigOptions.sFileTreeExpand = NOT_EXPAND;
 				ConfigOptions.save(false, true);
 				return;
@@ -159,12 +159,12 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ÊÇ·ñ³õÊ¼»¯
+	 * æ˜¯å¦åˆå§‹åŒ–
 	 */
 	private boolean isInit = true;
 
 	/**
-	 * Ë¢ĞÂ±¾µØÎÄ¼ş
+	 * åˆ·æ–°æœ¬åœ°æ–‡ä»¶
 	 */
 	public synchronized void refreshLocal() {
 		localRoot.removeAllChildren();
@@ -210,17 +210,17 @@ public class FileTree extends JTree {
 		localRoot.setExpanded(true);
 		loadSubNode(localRoot);
 		nodeStructureChanged(localRoot);
-		if (isInit) { // ¼ÓÔØÉÏ´ÎÊ÷ĞÎÀ©Õ¹½á¹¹
+		if (isInit) { // åŠ è½½ä¸Šæ¬¡æ ‘å½¢æ‰©å±•ç»“æ„
 			isInit = false;
 			try {
 				String sExpand = ConfigOptions.sFileTreeExpand;
-				if (!StringUtils.isValidString(sExpand)) { // µÚÒ»´Î´ò¿ª
+				if (!StringUtils.isValidString(sExpand)) { // ç¬¬ä¸€æ¬¡æ‰“å¼€
 					this.collapsePath(new TreePath(localRoot.getPath()));
 					loadSubNode(localRoot);
 					nodeStructureChanged(localRoot);
 					return;
 				}
-				if (NOT_EXPAND.equals(sExpand)) { // ¸ù½ÚµãÃ»Õ¹¿ª
+				if (NOT_EXPAND.equals(sExpand)) { // æ ¹èŠ‚ç‚¹æ²¡å±•å¼€
 					this.collapsePath(new TreePath(localRoot.getPath()));
 					localRoot.setExpanded(false);
 					return;
@@ -243,11 +243,11 @@ public class FileTree extends JTree {
 
 	public void treeNodeWillExpand(FileTreeNode node) {
 		if (node != null && !node.isLoaded()) {
-			// ¸ù¾İ½ÚµãÀàĞÍ£¬µ÷ÓÃË¢ĞÂ¼ÓÔØ½ÚµãµÄ·½·¨
+			// æ ¹æ®èŠ‚ç‚¹ç±»å‹ï¼Œè°ƒç”¨åˆ·æ–°åŠ è½½èŠ‚ç‚¹çš„æ–¹æ³•
 			if (node.getType() == FileTreeNode.TYPE_LOCAL) {
 				loadSubNode(node);
 			} else if (node.getType() == FileTreeNode.TYPE_ROOT) {
-				// Ë¢ĞÂ¸ù½Úµã
+				// åˆ·æ–°æ ¹èŠ‚ç‚¹
 				refreshLocal();
 			}
 			node.setExpanded(true);
@@ -256,7 +256,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * Õ¹¿ªÊ÷½áµã
+	 * å±•å¼€æ ‘ç»“ç‚¹
 	 * 
 	 * @param pNode
 	 * @param expandList
@@ -275,9 +275,9 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ¼ÓÔØ×Ó½áµã
+	 * åŠ è½½å­ç»“ç‚¹
 	 * 
-	 * @param pNode ¸¸½áµã
+	 * @param pNode çˆ¶ç»“ç‚¹
 	 */
 	protected void loadSubNode(FileTreeNode pNode) {
 		try {
@@ -332,7 +332,7 @@ public class FileTree extends JTree {
 				if (!StringUtils.isValidString(fileName)) {
 					continue;
 				}
-				if (existNames.contains(fileName)) { // ÒÑ¾­¼ÓÔØ¹ıµÄ×Ó½áµã
+				if (existNames.contains(fileName)) { // å·²ç»åŠ è½½è¿‡çš„å­ç»“ç‚¹
 					continue;
 				}
 				FileTreeNode node = new FileTreeNode(f.getAbsolutePath(),
@@ -353,7 +353,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ÊÇ·ñºÏ·¨ÎÄ¼ş
+	 * æ˜¯å¦åˆæ³•æ–‡ä»¶
 	 * 
 	 * @param fileName
 	 * @return
@@ -363,7 +363,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ÏÔÊ¾½áµã
+	 * æ˜¾ç¤ºç»“ç‚¹
 	 * 
 	 * @param node
 	 */
@@ -371,9 +371,9 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * È¡ÓÒ¼üµ¯³ö²Ëµ¥
+	 * å–å³é”®å¼¹å‡ºèœå•
 	 * 
-	 * @param node Ñ¡ÔñµÄ½áµã
+	 * @param node é€‰æ‹©çš„ç»“ç‚¹
 	 * @return
 	 */
 	protected JPopupMenu getPopupMenu(final FileTreeNode node) {
@@ -394,19 +394,19 @@ public class FileTree extends JTree {
 		return popMenu;
 	}
 
-	/** ´ò¿ªÎÄ¼ş */
+	/** æ‰“å¼€æ–‡ä»¶ */
 	public static final byte OPEN_FILE = (byte) 1;
-	/** ´ò¿ªÄ¿Â¼ */
+	/** æ‰“å¼€ç›®å½• */
 	public static final byte OPEN_DIR = (byte) 2;
-	/** ´ò¿ªÎÄ¼şËùÔÚÄ¿Â¼ */
+	/** æ‰“å¼€æ–‡ä»¶æ‰€åœ¨ç›®å½• */
 	public static final byte OPEN_FILE_DIR = (byte) 3;
-	/** Ë¢ĞÂ */
+	/** åˆ·æ–° */
 	public static final byte REFRESH = (byte) 4;
-	/** ÇĞ»»ÏÔÊ¾Ö÷Ä¿Â¼/DEMO */
+	/** åˆ‡æ¢æ˜¾ç¤ºä¸»ç›®å½•/DEMO */
 	public static final byte SWITCH_PATH = (byte) 5;
 
 	/**
-	 * ĞÂ½¨²Ëµ¥Ïî
+	 * æ–°å»ºèœå•é¡¹
 	 * 
 	 * @param action
 	 * @param al
@@ -417,26 +417,26 @@ public class FileTree extends JTree {
 		String imgPath;
 		switch (action) {
 		case OPEN_FILE:
-			title = mm.getMessage("filetree.open"); // ´ò¿ª
+			title = mm.getMessage("filetree.open"); // æ‰“å¼€
 			imgPath = "m_open.gif";
 			break;
 		case OPEN_DIR:
-			title = mm.getMessage("filetree.opendir"); // ´ò¿ªÄ¿Â¼
+			title = mm.getMessage("filetree.opendir"); // æ‰“å¼€ç›®å½•
 			imgPath = "m_load.gif";
 			break;
 		case OPEN_FILE_DIR:
-			title = mm.getMessage("filetree.openfiledir"); // ´ò¿ªÎÄ¼şËùÔÚÄ¿Â¼
+			title = mm.getMessage("filetree.openfiledir"); // æ‰“å¼€æ–‡ä»¶æ‰€åœ¨ç›®å½•
 			imgPath = "m_load.gif";
 			break;
 		case REFRESH:
-			title = mm.getMessage("filetree.refresh"); // Ë¢ĞÂ
+			title = mm.getMessage("filetree.refresh"); // åˆ·æ–°
 			imgPath = "m_refresh.gif";
 			break;
 		case SWITCH_PATH:
 			if (ConfigOptions.bFileTreeDemo)
-				title = mm.getMessage("filetree.switchmain"); // ÇĞ»»ÏÔÊ¾Ö÷Ä¿Â¼
+				title = mm.getMessage("filetree.switchmain"); // åˆ‡æ¢æ˜¾ç¤ºä¸»ç›®å½•
 			else
-				title = mm.getMessage("filetree.switchdemo"); // ÇĞ»»ÏÔÊ¾DEMO
+				title = mm.getMessage("filetree.switchdemo"); // åˆ‡æ¢æ˜¾ç¤ºDEMO
 			imgPath = "switchpath.gif";
 			break;
 		default:
@@ -451,7 +451,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ²Ëµ¥ÃüÁî¼àÌıÆ÷
+	 * èœå•å‘½ä»¤ç›‘å¬å™¨
 	 *
 	 */
 	protected class MenuListener implements ActionListener {
@@ -507,13 +507,13 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * µ±Ç°½áµã¹Ø±Õ
+	 * å½“å‰ç»“ç‚¹å…³é—­
 	 */
 	protected void closeActiveNode() {
 	}
 
 	/**
-	 * Ë¢ĞÂÊ÷½Úµã
+	 * åˆ·æ–°æ ‘èŠ‚ç‚¹
 	 * @param node
 	 */
 	public void refreshNode(FileTreeNode node) {
@@ -523,14 +523,14 @@ public class FileTree extends JTree {
 		if (node.getType() == FileTreeNode.TYPE_LOCAL) {
 			loadSubNode(node);
 		} else if (node.getType() == FileTreeNode.TYPE_ROOT) {
-			// Ë¢ĞÂ¸ù½Úµã
+			// åˆ·æ–°æ ¹èŠ‚ç‚¹
 			refreshLocal();
 		}
 		nodeStructureChanged(node);
 	}
 
 	/**
-	 * ´ò¿ªÎÄ¼ş
+	 * æ‰“å¼€æ–‡ä»¶
 	 * 
 	 * @param node
 	 */
@@ -548,7 +548,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * Êó±êÊÂ¼ş¼àÌıÆ÷
+	 * é¼ æ ‡äº‹ä»¶ç›‘å¬å™¨
 	 *
 	 */
 	class mTree_mouseAdapter extends MouseAdapter {
@@ -617,14 +617,14 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * Ê÷½ÚµãµÄµã»÷
+	 * æ ‘èŠ‚ç‚¹çš„ç‚¹å‡»
 	 * @param node
 	 */
 	protected void nodeSelected(FileTreeNode node) {
 	}
 
 	/**
-	 * ÉèÖÃ×Ó½ÚµãµÄÑ¡ÖĞ×´Ì¬
+	 * è®¾ç½®å­èŠ‚ç‚¹çš„é€‰ä¸­çŠ¶æ€
 	 * 
 	 * @param pNode
 	 * @param state
@@ -638,7 +638,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ÉèÖÃ¸¸½ÚµãµÄÑ¡ÖĞ×´Ì¬
+	 * è®¾ç½®çˆ¶èŠ‚ç‚¹çš„é€‰ä¸­çŠ¶æ€
 	 * 
 	 * @param node
 	 */
@@ -665,12 +665,12 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ÊÇ·ñ¸´Ñ¡¿ò½áµã
+	 * æ˜¯å¦å¤é€‰æ¡†ç»“ç‚¹
 	 */
 	protected boolean isCheckNode = false;
 
 	/**
-	 * ÉèÖÃÎª¸´Ñ¡¿ò½áµã
+	 * è®¾ç½®ä¸ºå¤é€‰æ¡†ç»“ç‚¹
 	 * 
 	 * @param isCheckNode
 	 */
@@ -679,7 +679,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ÊÇ·ñ¸´Ñ¡¿ò½áµã
+	 * æ˜¯å¦å¤é€‰æ¡†ç»“ç‚¹
 	 * 
 	 * @return
 	 */
@@ -688,7 +688,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * È¡µ±Ç°½áµã
+	 * å–å½“å‰ç»“ç‚¹
 	 * 
 	 * @return
 	 */
@@ -700,7 +700,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * Ôö¼ÓÎÄ¼ş½áµã
+	 * å¢åŠ æ–‡ä»¶ç»“ç‚¹
 	 * 
 	 * @param pNode
 	 * @param path
@@ -725,7 +725,7 @@ public class FileTree extends JTree {
 		}
 		String lastName = paths.get(paths.size() - 1);
 		FileTreeNode fNode = getChildByName(pNode, lastName);
-		if (fNode != null) // ÒÑÓĞÍ¬ÃûÎÄ¼ş
+		if (fNode != null) // å·²æœ‰åŒåæ–‡ä»¶
 			return null;
 		fNode = new FileTreeNode(data, FileTreeNode.TYPE_LOCAL);
 		fNode.setTitle(lastName);
@@ -734,7 +734,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ¶¨Î»ÎÄ¼ş½áµã
+	 * å®šä½æ–‡ä»¶ç»“ç‚¹
 	 * 
 	 * @param pNode
 	 * @param path
@@ -759,7 +759,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ¶¨Î»ÎÄ¼ş½áµã
+	 * å®šä½æ–‡ä»¶ç»“ç‚¹
 	 * 
 	 * @param pNode
 	 * @param paths
@@ -778,7 +778,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * °´Ãû×ÖÈ¡×Ó½Úµã
+	 * æŒ‰åå­—å–å­èŠ‚ç‚¹
 	 * 
 	 * @param pNode
 	 * @param nodeName
@@ -798,7 +798,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * Ñ¡Ôñ½áµã
+	 * é€‰æ‹©ç»“ç‚¹
 	 * 
 	 * @param node
 	 */
@@ -810,7 +810,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ½áµã±ä»¯ÁË
+	 * ç»“ç‚¹å˜åŒ–äº†
 	 * 
 	 * @param node
 	 */
@@ -820,7 +820,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ½áµã½á¹¹±ä»¯ÁË
+	 * ç»“ç‚¹ç»“æ„å˜åŒ–äº†
 	 * 
 	 * @param node
 	 */
@@ -830,7 +830,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * È¡¸ù½Úµã
+	 * å–æ ¹èŠ‚ç‚¹
 	 * 
 	 * @return
 	 */
@@ -839,7 +839,7 @@ public class FileTree extends JTree {
 	}
 
 	/**
-	 * ¸ü»»Ö÷Ä¿Â¼
+	 * æ›´æ¢ä¸»ç›®å½•
 	 */
 	public void changeMainPath(String mainPath) {
 		ConfigOptions.sMainPath = mainPath;

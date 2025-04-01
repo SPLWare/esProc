@@ -13,22 +13,22 @@ import com.scudata.util.Variant;
  * median
  * 		A.median(k:n)
  * 		A.median(k:n, x)
- * È¡ÖĞÎ»Êıº¯Êı
- * ÏÈ°ÑÊı¾İÔ´´ÓĞ¡µ½´óÅÅĞò£¬È»ºó°Ñ¼ÇÂ¼·Ö³É¶à¶Î£¬È¡Ö¸¶¨¶ÎµÄµÚÒ»¸ö¼ÇÂ¼Öµ
- * ²ÎÊı±ØĞëÎªÁ½¸ö»òÈı¸ö£¬ÓÉ':'£¬','¸ô¿ª¡£
- * µÚ¶ş¸ö²ÎÊıÎªÅÅĞòºóµÄ·Ö¶ÎÊı
- * µÚÒ»¸ö²ÎÊıÎªÈ¡µÚ¼¸¸ö·Ö¶ÎµÄµÚÒ»¸ö¼ÇÂ¼
- * µÚÈı¸ö²ÎÊıÎªÈ¡Öµ±í´ïÊ½£¬Ô´ĞòÁĞ¸ù¾İ¸Ã±í´ïÊ½¼ÆËã³öĞÂµÄĞòÁĞ£¬À´Ö´ĞĞ·Ö¶ÎÈ¡Êı¡£
- * 		A.median(k:n,x)Ïàµ±ÓÚA.(x).median(k:n)
- * Àı£º	3£º5 ±íÊ¾°ÑÅÅĞòºóµÄ¼ÇÂ¼·ÖÎª5¶Î£¬È¡µÚÈı¶ÎµÚÒ»¸ö¼ÇÂ¼µÄÖµ¡£
- * 		Èô¼ÇÂ¼²»Æ½¾ù£¬ÔòºóÃæµÄ·Ö¶Î¼ÇÂ¼¶à
+ * å–ä¸­ä½æ•°å‡½æ•°
+ * å…ˆæŠŠæ•°æ®æºä»å°åˆ°å¤§æ’åºï¼Œç„¶åæŠŠè®°å½•åˆ†æˆå¤šæ®µï¼Œå–æŒ‡å®šæ®µçš„ç¬¬ä¸€ä¸ªè®°å½•å€¼
+ * å‚æ•°å¿…é¡»ä¸ºä¸¤ä¸ªæˆ–ä¸‰ä¸ªï¼Œç”±':'ï¼Œ','éš”å¼€ã€‚
+ * ç¬¬äºŒä¸ªå‚æ•°ä¸ºæ’åºåçš„åˆ†æ®µæ•°
+ * ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºå–ç¬¬å‡ ä¸ªåˆ†æ®µçš„ç¬¬ä¸€ä¸ªè®°å½•
+ * ç¬¬ä¸‰ä¸ªå‚æ•°ä¸ºå–å€¼è¡¨è¾¾å¼ï¼Œæºåºåˆ—æ ¹æ®è¯¥è¡¨è¾¾å¼è®¡ç®—å‡ºæ–°çš„åºåˆ—ï¼Œæ¥æ‰§è¡Œåˆ†æ®µå–æ•°ã€‚
+ * 		A.median(k:n,x)ç›¸å½“äºA.(x).median(k:n)
+ * ä¾‹ï¼š	3ï¼š5 è¡¨ç¤ºæŠŠæ’åºåçš„è®°å½•åˆ†ä¸º5æ®µï¼Œå–ç¬¬ä¸‰æ®µç¬¬ä¸€ä¸ªè®°å½•çš„å€¼ã€‚
+ * 		è‹¥è®°å½•ä¸å¹³å‡ï¼Œåˆ™åé¢çš„åˆ†æ®µè®°å½•å¤š
  * 
- * Èô²ÎÊıÎª¿Õ£¬ÔòÎªÈ¡ÖĞÎ»Êı¡£È¡Öµ·½Ê½²ÉÓÃ¾ù·ÖÈ¡ÖµµÄ·½Ê½¡£
- * 			°Ñ¼ÆËã£¬²¢ÅÅĞòºóµÄĞòÁĞ£¬¾ù·ÖÎªn¶Î£¬·µ»ØµÚk¶Î·Ö½çÏßÉÏµÄÊı¾İ
+ * è‹¥å‚æ•°ä¸ºç©ºï¼Œåˆ™ä¸ºå–ä¸­ä½æ•°ã€‚å–å€¼æ–¹å¼é‡‡ç”¨å‡åˆ†å–å€¼çš„æ–¹å¼ã€‚
+ * 			æŠŠè®¡ç®—ï¼Œå¹¶æ’åºåçš„åºåˆ—ï¼Œå‡åˆ†ä¸ºnæ®µï¼Œè¿”å›ç¬¬kæ®µåˆ†ç•Œçº¿ä¸Šçš„æ•°æ®
  * 
- * ½öÖ§³ÖsequenceÊı¾İÔ´
+ * ä»…æ”¯æŒsequenceæ•°æ®æº
  * 
- * @author ÓÚÖ¾»ª
+ * @author äºå¿—å
  *
  */
 public class Median extends SequenceFunction  {
@@ -39,7 +39,7 @@ public class Median extends SequenceFunction  {
 		
 		int value1=-1, value2=-1;
 		char type = param.getType();
-		if (type == IParam.Colon) {		//Á½¸ö²ÎÊı A.median(k:n)
+		if (type == IParam.Colon) {		//ä¸¤ä¸ªå‚æ•° A.median(k:n)
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("median" + mm.getMessage("function.invalidParam"));
@@ -61,7 +61,7 @@ public class Median extends SequenceFunction  {
 			try {
 				if (null != sub0) {
 					value1 = (int)Variant.longValue(sub0.getLeafExpression().calculate(ctx));
-					// ²ÎÊıÒ»²»ÄÜĞ¡ÓÚ1
+					// å‚æ•°ä¸€ä¸èƒ½å°äº1
 					if (value1 < 1) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("median" + mm.getMessage("function.invalidParam"));
@@ -69,14 +69,14 @@ public class Median extends SequenceFunction  {
 				}
 				if (null != sub1) {
 					value2 = (int)Variant.longValue(sub1.getLeafExpression().calculate(ctx));
-					// ²ÎÊı¶ş±ØĞë´óÓÚ1£¬ÇÒ´óÓÚ²ÎÊıÒ»¡£
+					// å‚æ•°äºŒå¿…é¡»å¤§äº1ï¼Œä¸”å¤§äºå‚æ•°ä¸€ã€‚
 					if (value2 < 1 || value1 > value2 ){
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("median" + mm.getMessage("function.invalidParam"));
 					}
 				}
 				
-				// Èô²ÎÊı¶şÎªÈ±Ê¡Öµ£¬²ÎÊıÒ»±ØĞëÒ²ÎªÈ±Ê¡Öµ¡£
+				// è‹¥å‚æ•°äºŒä¸ºç¼ºçœå€¼ï¼Œå‚æ•°ä¸€å¿…é¡»ä¹Ÿä¸ºç¼ºçœå€¼ã€‚
 				if (-1 == value2 && -1 != value1) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("median" + mm.getMessage("function.invalidParam"));
@@ -92,7 +92,7 @@ public class Median extends SequenceFunction  {
 			}
 			
 			return srcSequence.median(value1, value2);
-		} else if (type == IParam.Comma ) {		// Èı¸ö²ÎÊı A.median(k:n, x)
+		} else if (type == IParam.Comma ) {		// ä¸‰ä¸ªå‚æ•° A.median(k:n, x)
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("median" + mm.getMessage("function.invalidParam"));
@@ -101,12 +101,12 @@ public class Median extends SequenceFunction  {
 			IParam sub0 = param.getSub(0);
 			IParam sub1 = param.getSub(1);
 			
-			// ÈôÓĞ·Ö¸ô·û£¬x²»ÄÜÎª¿Õ
+			// è‹¥æœ‰åˆ†éš”ç¬¦ï¼Œxä¸èƒ½ä¸ºç©º
 			if ((null != sub1 && !sub1.isLeaf()) || null == sub1) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("median" + mm.getMessage("function.invalidParam"));
 			}
-			// ÓĞ·Ö¸ô·û£¬ ¾Í±ØĞëÓĞ·Ö¸ô·û:
+			// æœ‰åˆ†éš”ç¬¦ï¼Œ å°±å¿…é¡»æœ‰åˆ†éš”ç¬¦:
 			if (null != sub0 && sub0.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("median" + mm.getMessage("function.invalidParam"));
@@ -119,23 +119,23 @@ public class Median extends SequenceFunction  {
 				sub01 = sub0.getSub(1);
 			}
 			
-			if (null != sub00 && !sub00.isLeaf()) {	// k±ØĞëÊÇÒ¶²ÎÊı
+			if (null != sub00 && !sub00.isLeaf()) {	// kå¿…é¡»æ˜¯å¶å‚æ•°
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("median" + mm.getMessage("function.invalidParam"));
 			}
-			if (null != sub01 && !sub01.isLeaf()) {	// n±ØĞëÊÇÒ¶²ÎÊı
+			if (null != sub01 && !sub01.isLeaf()) {	// nå¿…é¡»æ˜¯å¶å‚æ•°
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("median" + mm.getMessage("function.invalidParam"));
 			}
 
-			Sequence seq = null;	// ĞòÁĞ¾­¹ı±í´ïÊ½x¼ÆËãºóµÄĞòÁĞ
+			Sequence seq = null;	// åºåˆ—ç»è¿‡è¡¨è¾¾å¼xè®¡ç®—åçš„åºåˆ—
 			try {
-				// ¶ÔĞòÁĞ¼ÆËã±í´ïÊ½x
+				// å¯¹åºåˆ—è®¡ç®—è¡¨è¾¾å¼x
 				seq = srcSequence.calc(sub1.getLeafExpression(), "o", ctx);
 				
 				if (null != sub00) {
 					value1 = (int)Variant.longValue(sub00.getLeafExpression().calculate(ctx));
-					// ²ÎÊıÒ»²»ÄÜĞ¡ÓÚ1
+					// å‚æ•°ä¸€ä¸èƒ½å°äº1
 					if (value1 < 1) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("median" + mm.getMessage("function.invalidParam"));
@@ -143,14 +143,14 @@ public class Median extends SequenceFunction  {
 				}
 				if (null != sub01) {
 					value2 = (int)Variant.longValue(sub01.getLeafExpression().calculate(ctx));
-					// ²ÎÊı¶ş±ØĞë´óÓÚ1£¬ÇÒ´óÓÚ²ÎÊıÒ»¡£
+					// å‚æ•°äºŒå¿…é¡»å¤§äº1ï¼Œä¸”å¤§äºå‚æ•°ä¸€ã€‚
 					if (value2 < 1 || value1 > value2 ){
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("median" + mm.getMessage("function.invalidParam"));
 					}
 				}
 				
-				// Èô²ÎÊı¶şÎªÈ±Ê¡Öµ£¬²ÎÊıÒ»±ØĞëÒ²ÎªÈ±Ê¡Öµ¡£
+				// è‹¥å‚æ•°äºŒä¸ºç¼ºçœå€¼ï¼Œå‚æ•°ä¸€å¿…é¡»ä¹Ÿä¸ºç¼ºçœå€¼ã€‚
 				if (-1 == value2 && -1 != value1) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("median" + mm.getMessage("function.invalidParam"));
@@ -165,7 +165,7 @@ public class Median extends SequenceFunction  {
 				throw new RQException("median" + mm.getMessage("function.invalidParam"));
 			}
 			
-			// È¡µÃĞòÁĞÖµ
+			// å–å¾—åºåˆ—å€¼
 			return seq.median(value1, value2);
 		} else {
 			MessageManager mm = EngineMessage.get();

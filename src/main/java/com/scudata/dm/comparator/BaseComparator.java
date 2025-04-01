@@ -5,7 +5,7 @@ import java.util.Comparator;
 import com.scudata.util.Variant;
 
 /**
- * nullµ±×ö×îĞ¡´¦ÀíµÄ±È½ÏÆ÷
+ * nullå½“åšæœ€å°å¤„ç†çš„æ¯”è¾ƒå™¨
  * @author WangXiaoJun
  *
  */

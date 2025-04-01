@@ -4,21 +4,21 @@ import com.scudata.thread.Job;
 import com.scudata.thread.ThreadPool;
 
 /**
- * ÓÃÓÚ¶àÏß³Ì´ÓÓÎ±êÌø¹ıÊı¾İµÄÈÎÎñ£¬½á¹û±»È¡×ßºó´ËÈÎÎñ»á±»¼ÓÈëµ½Ïß³Ì³ØÖĞ£¬¼ÌĞøÌø¹ıÊı¾İ
+ * ç”¨äºå¤šçº¿ç¨‹ä»æ¸¸æ ‡è·³è¿‡æ•°æ®çš„ä»»åŠ¡ï¼Œç»“æœè¢«å–èµ°åæ­¤ä»»åŠ¡ä¼šè¢«åŠ å…¥åˆ°çº¿ç¨‹æ± ä¸­ï¼Œç»§ç»­è·³è¿‡æ•°æ®
  * @author WangXiaoJun
  *
  */
 class CursorSkipper extends Job {
-	//private ThreadPool threadPool; // Ïß³Ì³Ø
-	private ICursor cursor; // ÒªÈ¡ÊıµÄÓÎ±ê
-	private long skipCount; // Ã¿´ÎÌø¹ıµÄ¼ÇÂ¼Êı
-	private long actualSkipCount; // Êµ¼ÊÌø¹ıµÄ¼ÇÂ¼Êı
+	//private ThreadPool threadPool; // çº¿ç¨‹æ± 
+	private ICursor cursor; // è¦å–æ•°çš„æ¸¸æ ‡
+	private long skipCount; // æ¯æ¬¡è·³è¿‡çš„è®°å½•æ•°
+	private long actualSkipCount; // å®é™…è·³è¿‡çš„è®°å½•æ•°
 
 	/**
-	 * ´´½¨´ÓÓÎ±êÌø¹ıÖ¸¶¨¼ÇÂ¼ÊıµÄÈÎÎñ£¬Ê¹ÓÃgetActualSkipCountµÃµ½Êµ¼ÊÌø¹ıµÄ¼ÇÂ¼Êı
-	 * @param threadPool Ïß³Ì³Ø
-	 * @param cursor ÓÎ±ê
-	 * @param count Ã¿´ÎÌø¹ıµÄ¼ÇÂ¼Êı
+	 * åˆ›å»ºä»æ¸¸æ ‡è·³è¿‡æŒ‡å®šè®°å½•æ•°çš„ä»»åŠ¡ï¼Œä½¿ç”¨getActualSkipCountå¾—åˆ°å®é™…è·³è¿‡çš„è®°å½•æ•°
+	 * @param threadPool çº¿ç¨‹æ± 
+	 * @param cursor æ¸¸æ ‡
+	 * @param count æ¯æ¬¡è·³è¿‡çš„è®°å½•æ•°
 	 */
 	public CursorSkipper(ThreadPool threadPool, ICursor cursor, long count) {
 		//this.threadPool = threadPool;
@@ -28,7 +28,7 @@ class CursorSkipper extends Job {
 	}
 	
 	/**
-	 * È¡Êµ¼ÊÌø¹ıµÄ¼ÇÂ¼Êı
+	 * å–å®é™…è·³è¿‡çš„è®°å½•æ•°
 	 * @return long
 	 */
 	public long getActualSkipCount() {
@@ -44,7 +44,7 @@ class CursorSkipper extends Job {
 	}
 
 	/**
-	 * ±»Ïß³Ì³ØÀïµÄÏß³Ìµ÷ÓÃ£¬Ìø¹ıÓÎ±êÊı¾İ
+	 * è¢«çº¿ç¨‹æ± é‡Œçš„çº¿ç¨‹è°ƒç”¨ï¼Œè·³è¿‡æ¸¸æ ‡æ•°æ®
 	 */
 	public void run() {
 		actualSkipCount = cursor.skip(skipCount);

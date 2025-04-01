@@ -13,19 +13,19 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
- * ²»ÔÙÌáÊ¾¶Ô»°¿ò
+ * ä¸å†æç¤ºå¯¹è¯æ¡†
  */
 public class DialogNotice extends RQDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
-	 * @param owner   ¸¸×é¼ş
-	 * @param message ÌáÊ¾ĞÅÏ¢
+	 * @param owner   çˆ¶ç»„ä»¶
+	 * @param message æç¤ºä¿¡æ¯
 	 */
 	public DialogNotice(JFrame owner, String message) {
-		super(owner, "ÌáÊ¾", 400, 120);
+		super(owner, "æç¤º", 400, 120);
 		try {
 			init(message);
 			setTitle(IdeCommonMessage.get().getMessage("dialognotice.title"));
@@ -36,7 +36,7 @@ public class DialogNotice extends RQDialog {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÌáÊ¾
+	 * è®¾ç½®æ˜¯å¦æç¤º
 	 * 
 	 * @param notice
 	 */
@@ -45,7 +45,7 @@ public class DialogNotice extends RQDialog {
 	}
 
 	/**
-	 * È¡ÊÇ·ñÌáÊ¾
+	 * å–æ˜¯å¦æç¤º
 	 * 
 	 * @return
 	 */
@@ -54,9 +54,9 @@ public class DialogNotice extends RQDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
-	 * @param message ÌáÊ¾ĞÅÏ¢
+	 * @param message æç¤ºä¿¡æ¯
 	 */
 	private void init(String message) {
 		JTextArea jtext = new JTextArea();
@@ -84,7 +84,7 @@ public class DialogNotice extends RQDialog {
 	}
 
 	/**
-	 * ²»ÔÙÌáÊ¾¸´Ñ¡¿ò
+	 * ä¸å†æç¤ºå¤é€‰æ¡†
 	 */
 	private JCheckBox jCBNotNotice = new JCheckBox();
 }

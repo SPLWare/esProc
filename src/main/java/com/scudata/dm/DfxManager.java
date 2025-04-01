@@ -10,7 +10,7 @@ import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.expression.Expression;
 
 /**
- * dfx»º´æ¹ÜÀíÆ÷
+ * dfxç¼“å­˜ç®¡ç†å™¨
  */
 public class DfxManager {
 	private static DfxManager dfxManager = new DfxManager();
@@ -23,7 +23,7 @@ public class DfxManager {
 	private DfxManager() {}
 
 	/**
-	 * È¡dfx»º´æ¹ÜÀíÆ÷ÊµÀı
+	 * å–dfxç¼“å­˜ç®¡ç†å™¨å®ä¾‹
 	 * @return DfxManager
 	 */
 	public static DfxManager getInstance() {
@@ -31,7 +31,7 @@ public class DfxManager {
 	}
 
 	/**
-	 * Çå³ı»º´æµÄ³ÌĞòÍø
+	 * æ¸…é™¤ç¼“å­˜çš„ç¨‹åºç½‘
 	 */
 	public void clear() {
 		synchronized(dfxRefMap) {
@@ -48,7 +48,7 @@ public class DfxManager {
 	}
 	
 	/**
-	 * Ê¹ÓÃÍêdfx£¬»¹¸ø»º´æ¹ÜÀíÆ÷
+	 * ä½¿ç”¨å®Œdfxï¼Œè¿˜ç»™ç¼“å­˜ç®¡ç†å™¨
 	 * @param dfx PgmCellSet
 	 */
 	public void putDfx(PgmCellSet dfx) {
@@ -63,9 +63,9 @@ public class DfxManager {
 	}
 
 	/**
-	 * ´Ó»º´æ¹ÜÀíÆ÷ÖĞÈ¡dfx£¬Ê¹ÓÃÍêºóĞèÒªµ÷ÓÃputDfx»¹¸ø»º´æ¹ÜÀíÆ÷
-	 * @param name dfxÎÄ¼şÃû
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ä»ç¼“å­˜ç®¡ç†å™¨ä¸­å–dfxï¼Œä½¿ç”¨å®Œåéœ€è¦è°ƒç”¨putDfxè¿˜ç»™ç¼“å­˜ç®¡ç†å™¨
+	 * @param name dfxæ–‡ä»¶å
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return PgmCellSet
 	 */
 	public PgmCellSet removeDfx(String name, Context ctx) {
@@ -81,7 +81,7 @@ public class DfxManager {
 		if (dfx == null) {
 			return readDfx(name, ctx);
 		} else {
-			// ²»ÔÙ¹²ÏíctxÖĞµÄ±äÁ¿
+			// ä¸å†å…±äº«ctxä¸­çš„å˜é‡
 			Context dfxCtx = dfx.getContext();
 			dfxCtx.setEnv(ctx);
 			return dfx;
@@ -89,9 +89,9 @@ public class DfxManager {
 	}
 
 	/**
-	 * ´Ó»º´æ¹ÜÀíÆ÷ÖĞÈ¡dfx£¬Ê¹ÓÃÍêºóĞèÒªµ÷ÓÃputDfx»¹¸ø»º´æ¹ÜÀíÆ÷
-	 * @param fo dfxÎÄ¼ş¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ä»ç¼“å­˜ç®¡ç†å™¨ä¸­å–dfxï¼Œä½¿ç”¨å®Œåéœ€è¦è°ƒç”¨putDfxè¿˜ç»™ç¼“å­˜ç®¡ç†å™¨
+	 * @param fo dfxæ–‡ä»¶å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return PgmCellSet
 	 */
 	public PgmCellSet removeDfx(FileObject fo, Context ctx) {
@@ -107,7 +107,7 @@ public class DfxManager {
 		if (dfx == null) {
 			return readDfx(fo, ctx);
 		} else {
-			// ²»ÔÙ¹²ÏíctxÖĞµÄ±äÁ¿
+			// ä¸å†å…±äº«ctxä¸­çš„å˜é‡
 			Context dfxCtx = dfx.getContext();
 			dfxCtx.setEnv(ctx);
 			return dfx;
@@ -115,25 +115,25 @@ public class DfxManager {
 	}
 	
 	/**
-	 * ¶ÁÈ¡dfx£¬²»»áÊ¹ÓÃ»º´æ
-	 * @param fo dfxÎÄ¼ş¶ÔÏó
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¯»å–dfxï¼Œä¸ä¼šä½¿ç”¨ç¼“å­˜
+	 * @param fo dfxæ–‡ä»¶å¯¹è±¡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return PgmCellSet
 	 */
 	public static PgmCellSet readDfx(FileObject fo, Context ctx) {
 		PgmCellSet dfx = fo.readPgmCellSet();
 		dfx.resetParam();
 		
-		// ²»ÔÙ¹²ÏíctxÖĞµÄ±äÁ¿
+		// ä¸å†å…±äº«ctxä¸­çš„å˜é‡
 		Context dfxCtx = dfx.getContext();
 		dfxCtx.setEnv(ctx);
 		return dfx;
 	}
 	
 	/**
-	 * ¶ÁÈ¡dfx£¬²»»áÊ¹ÓÃ»º´æ
-	 * @param name dfxÎÄ¼şÃû
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¯»å–dfxï¼Œä¸ä¼šä½¿ç”¨ç¼“å­˜
+	 * @param name dfxæ–‡ä»¶å
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return PgmCellSet
 	 */
 	public static PgmCellSet readDfx(String name, Context ctx) {
@@ -141,9 +141,9 @@ public class DfxManager {
 	}
 	
 	/**
-	 * È¡»º´æµÄ±í´ïÊ½£¬±í´ïÊ½¼ÆËãÍêºóĞèÒªµ÷ÓÃputExpression·½·¨¹é»¹»º´æ
-	 * @param strExp ±í´ïÊ½´®
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–ç¼“å­˜çš„è¡¨è¾¾å¼ï¼Œè¡¨è¾¾å¼è®¡ç®—å®Œåéœ€è¦è°ƒç”¨putExpressionæ–¹æ³•å½’è¿˜ç¼“å­˜
+	 * @param strExp è¡¨è¾¾å¼ä¸²
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Expression
 	 */
 	public Expression getExpression(String strExp, Context ctx) {
@@ -163,9 +163,9 @@ public class DfxManager {
 	}
 	
 	/**
-	 * ±í´ïÊ½¼ÆËãÍê³Éºó°Ñ±í´ïÊ½»º´æÆğÀ´
-	 * @param strExp ±í´ïÊ½´®
-	 * @param exp ±í´ïÊ½
+	 * è¡¨è¾¾å¼è®¡ç®—å®ŒæˆåæŠŠè¡¨è¾¾å¼ç¼“å­˜èµ·æ¥
+	 * @param strExp è¡¨è¾¾å¼ä¸²
+	 * @param exp è¡¨è¾¾å¼
 	 */
 	public void putExpression(String strExp, Expression exp) {
 		synchronized(expListMap) {

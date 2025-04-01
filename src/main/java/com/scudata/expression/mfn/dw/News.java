@@ -22,8 +22,8 @@ import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¸ù¾İA/csµÄ¼ü/Î¬ÖµÈ¡³öTµÄÆäËü×Ö¶Î·µ»Ø£¬A/cs¶ÔTµÄ¼üÓĞĞò
- * T.news(A/cs,x:C,¡­;w) TÓëA/csÊÇ¶à¶ÔÒ»¹ØÏµ£¬A/csµÄ¼ÇÂ¼»á¹ØÁªTµÄ¶àÌõ¼ÇÂ¼
+ * æ ¹æ®A/csçš„é”®/ç»´å€¼å–å‡ºTçš„å…¶å®ƒå­—æ®µè¿”å›ï¼ŒA/cså¯¹Tçš„é”®æœ‰åº
+ * T.news(A/cs,x:C,â€¦;w) Tä¸A/csæ˜¯å¤šå¯¹ä¸€å…³ç³»ï¼ŒA/csçš„è®°å½•ä¼šå…³è”Tçš„å¤šæ¡è®°å½•
  * @author RunQian
  *
  */
@@ -187,7 +187,7 @@ public class News extends PhyTableFunction {
 			for (int i = 0; i < pathCount; ++i) {
 				Expression w = null;
 				if (filter != null) {
-					w = filter.newExpression(ctx); // ·Ö¶Î²¢ĞĞ¶ÁÈ¡Ê±ĞèÒª¸´ÖÆ±í´ïÊ½£¬Í¬Ò»¸ö±í´ïÊ½²»Ö§³Ö²¢ĞĞÔËËã
+					w = filter.newExpression(ctx); // åˆ†æ®µå¹¶è¡Œè¯»å–æ—¶éœ€è¦å¤åˆ¶è¡¨è¾¾å¼ï¼ŒåŒä¸€ä¸ªè¡¨è¾¾å¼ä¸æ”¯æŒå¹¶è¡Œè¿ç®—
 				}
 				Expression[] exps_ = Operation.dupExpressions(exps, ctx);
 				ICursor cs = cursors[i].attachNews(table, csNames, w, exps_, names, fkNames, codes, opts, option, type, ctx);

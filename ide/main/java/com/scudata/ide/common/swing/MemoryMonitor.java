@@ -33,7 +33,7 @@ public class MemoryMonitor extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 	/**
@@ -42,12 +42,12 @@ public class MemoryMonitor extends JPanel {
 	private static JCheckBox dateStampCB = new JCheckBox(IdeCommonMessage.get()
 			.getMessage("memorymonitor.outputdate"));
 	/**
-	 * ÏÔÊ¾Ãæ°å
+	 * æ˜¾ç¤ºé¢æ¿
 	 */
 	public Surface surf;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public MemoryMonitor() {
 		setLayout(new BorderLayout());
@@ -85,7 +85,7 @@ public class MemoryMonitor extends JPanel {
 	}
 
 	/**
-	 * ÏÔÊ¾Ãæ°å
+	 * æ˜¾ç¤ºé¢æ¿
 	 *
 	 */
 	public class Surface extends JPanel implements Runnable {
@@ -110,7 +110,7 @@ public class MemoryMonitor extends JPanel {
 		private String usedStr;
 
 		/**
-		 * ¹¹Ôìº¯Êı
+		 * æ„é€ å‡½æ•°
 		 */
 		public Surface() {
 			setBackground(Color.black);
@@ -126,28 +126,28 @@ public class MemoryMonitor extends JPanel {
 		}
 
 		/**
-		 * È¡×îĞ¡³ß´ç
+		 * å–æœ€å°å°ºå¯¸
 		 */
 		public Dimension getMinimumSize() {
 			return getPreferredSize();
 		}
 
 		/**
-		 * È¡×î´ó³ß´ç
+		 * å–æœ€å¤§å°ºå¯¸
 		 */
 		public Dimension getMaximumSize() {
 			return getPreferredSize();
 		}
 
 		/**
-		 * È¡³ß´ç
+		 * å–å°ºå¯¸
 		 */
 		public Dimension getPreferredSize() {
 			return new Dimension(135, 80);
 		}
 
 		/**
-		 * »æÖÆ
+		 * ç»˜åˆ¶
 		 */
 		public void paint(Graphics g) {
 			if (big == null) {
@@ -268,7 +268,7 @@ public class MemoryMonitor extends JPanel {
 		}
 
 		/**
-		 * Æô¶¯Ïß³Ì
+		 * å¯åŠ¨çº¿ç¨‹
 		 */
 		public void start() {
 			thread = new Thread(this);
@@ -278,7 +278,7 @@ public class MemoryMonitor extends JPanel {
 		}
 
 		/**
-		 * ½áÊøÏß³Ì
+		 * ç»“æŸçº¿ç¨‹
 		 */
 		public synchronized void stop() {
 			thread = null;
@@ -286,7 +286,7 @@ public class MemoryMonitor extends JPanel {
 		}
 
 		/**
-		 * Ö´ĞĞÏß³Ì
+		 * æ‰§è¡Œçº¿ç¨‹
 		 */
 		public void run() {
 

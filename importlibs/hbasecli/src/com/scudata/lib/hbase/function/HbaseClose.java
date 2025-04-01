@@ -12,7 +12,7 @@ public class HbaseClose extends Function {
 		return this;
 	}
 
-	//ÊÍ·ÅÁ¬½Ó
+	//é‡Šæ”¾è¿æ¥
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();

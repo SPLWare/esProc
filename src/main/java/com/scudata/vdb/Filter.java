@@ -11,30 +11,30 @@ import com.scudata.expression.Expression;
 import com.scudata.util.Variant;
 
 /**
- * ¹ıÂËÌõ¼ş
+ * è¿‡æ»¤æ¡ä»¶
  * @author RunQian
  *
  */
 class Filter {
-	private String []filterDirs; // Ä¿Â¼ÃûÊı×é
-	private DirFilter []filters; // Ä¿Â¼¹ıÂË
-	private String []selFields; // Ñ¡³ö×Ö¶Î
+	private String []filterDirs; // ç›®å½•åæ•°ç»„
+	private DirFilter []filters; // ç›®å½•è¿‡æ»¤
+	private String []selFields; // é€‰å‡ºå­—æ®µ
 	private Expression exp;
 	private Context ctx;
-	//private Expression filter; // ²»ÄÜÊ¶±ğµÄ±í´ïÊ½
+	//private Expression filter; // ä¸èƒ½è¯†åˆ«çš„è¡¨è¾¾å¼
 	
-	private int filterCount = 0; // Ìõ¼ş×ÜÊı
-	private int filterIndex = 0; // ÏÂÒ»¸öÂ·¾¶¶ÔÓ¦µÄÌõ¼şË÷Òı
+	private int filterCount = 0; // æ¡ä»¶æ€»æ•°
+	private int filterIndex = 0; // ä¸‹ä¸€ä¸ªè·¯å¾„å¯¹åº”çš„æ¡ä»¶ç´¢å¼•
 	
-	private int capacity = 16; // Ä¿Â¼ÊıÈİÁ¿
-	private int dirIndex = 0; // ÏÂÒ»¸öÒª¼ÓÈëµÄÄ¿Â¼ÔÚÊı×éÖĞµÄÎ»ÖÃ
-	private String []dirNames = new String[capacity]; // Â·¾¶Ãû
-	private Object []dirValues = new Object[capacity]; // Â·¾¶Öµ
+	private int capacity = 16; // ç›®å½•æ•°å®¹é‡
+	private int dirIndex = 0; // ä¸‹ä¸€ä¸ªè¦åŠ å…¥çš„ç›®å½•åœ¨æ•°ç»„ä¸­çš„ä½ç½®
+	private String []dirNames = new String[capacity]; // è·¯å¾„å
+	private Object []dirValues = new Object[capacity]; // è·¯å¾„å€¼
 	
 	private int selDirCount = 0;
-	private String []resultFields; // ½á¹û¼¯Êı¾İ½á¹¹£¬Èç¹ûselFieldsÎª¿ÕÔòÖ»°üº¬Ñ¡³öµÄÄ¿Â¼×Ö¶Î
+	private String []resultFields; // ç»“æœé›†æ•°æ®ç»“æ„ï¼Œå¦‚æœselFieldsä¸ºç©ºåˆ™åªåŒ…å«é€‰å‡ºçš„ç›®å½•å­—æ®µ
 	
-	// retriveÊ¹ÓÃ
+	// retriveä½¿ç”¨
 	public Filter(String []dirNames, Object []dirValues, boolean []valueSigns, String []selFields, Expression exp, Context ctx) {
 		this.filterDirs = dirNames;
 		this.selFields = selFields;
@@ -77,7 +77,7 @@ class Filter {
 		}
 	}
 	
-	// updateÊ¹ÓÃ
+	// updateä½¿ç”¨
 	public Filter(String []dirNames, Object []dirValues, boolean []valueSigns, Expression exp, Context ctx) {
 		this.filterDirs = dirNames;
 		this.exp = exp;
@@ -92,7 +92,7 @@ class Filter {
 		}
 	}
 	
-	// ÊÇ·ñÓĞ¹ıÂË±í´ïÊ½
+	// æ˜¯å¦æœ‰è¿‡æ»¤è¡¨è¾¾å¼
 	public boolean hasExpression() {
 		return exp != null;
 	}
@@ -105,7 +105,7 @@ class Filter {
 		}
 	}
 	
-	// Èç¹û²»Âú×ã¹ıÂËÌõ¼şÔò·µ»Øfalse£¬²¢²»Ìí¼Ó
+	// å¦‚æœä¸æ»¡è¶³è¿‡æ»¤æ¡ä»¶åˆ™è¿”å›falseï¼Œå¹¶ä¸æ·»åŠ 
 	public boolean pushDir(String name, Object value) {
 		if (filterIndex < filterCount && isEqualField(filterDirs[filterIndex], name)) {
 			if (filters[filterIndex].match(value)) {
@@ -163,7 +163,7 @@ class Filter {
 		return table;
 	}
 	
-	// ÅĞ¶ÏÂ·¾¶ÖµÊÇ·ñÓëÌõ¼ş¶¼Æ¥ÅäÁË
+	// åˆ¤æ–­è·¯å¾„å€¼æ˜¯å¦ä¸æ¡ä»¶éƒ½åŒ¹é…äº†
 	public boolean isDirMatch() {
 		return filterIndex == filterCount;
 	}

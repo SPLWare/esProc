@@ -10,9 +10,9 @@ public class NameComprator implements Comparator<String>
 	{
 		if(NameA == null || NameB == null)
 		{
-			throw new RQException("вж╥Ш╢╝н╙©уж╣нч╥╗╠х╫о╢Сп║");
+			throw new RQException("Е╜≈Г╛╕Д╦╡Д╦╨Г╘╨Е─╪Ф≈═ФЁ∙Ф╞■Х╬┐Е╓╖Е╟▐");
 		}
-		//Ё╓╣деетзг╟цФё╛╤л╣деетз╨СцФ
+		//И∙©Г └Ф▌▓Е°╗Е┴█И²╒О╪▄Г÷╜Г └Ф▌▓Е°╗Е░▌И²╒
         if(NameA.length() < NameB.length())
         {
         	return 1;

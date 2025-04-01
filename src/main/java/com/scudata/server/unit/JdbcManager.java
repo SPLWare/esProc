@@ -12,7 +12,7 @@ import com.scudata.parallel.TaskManager;
 import com.scudata.server.ConnectionProxyManager;
 
 /**
- * JDBC¹ÜÀíÆ÷
+ * JDBCç®¡ç†å™¨
  * 
  * @author Joancy
  *
@@ -26,9 +26,9 @@ public class JdbcManager {
 	}
 
 	/**
-	 * Ö´ĞĞJDBCÇëÇó
-	 * @param req ÇëÇó¶ÔÏó
-	 * @return ÏìÓ¦½á¹û
+	 * æ‰§è¡ŒJDBCè¯·æ±‚
+	 * @param req è¯·æ±‚å¯¹è±¡
+	 * @return å“åº”ç»“æœ
 	 */
 	public static Response execute(Request req) {
 		ConnectionProxyManager cpm = ConnectionProxyManager.getInstance();
@@ -104,8 +104,8 @@ public class JdbcManager {
 				stateId = UnitServer.nextId();
 				StatementProxy sp = new StatementProxy(connProxy, stateId, dfx,
 						argList, envParams);
-				// StatementProxyÓÉÓÚ»á²úÉúÓÎ±ê£¬¶øÓÎ±êµÄ¹ÜÀí´ÓÊôÓÚTaskManager£¬ËùÒÔ¸Ã¶ÔÏóÍ¬Ê±
-				// ¼ÇÔÚConnectionProxyÒÔ¼°TaskManagerÀïÃæ
+				// StatementProxyç”±äºä¼šäº§ç”Ÿæ¸¸æ ‡ï¼Œè€Œæ¸¸æ ‡çš„ç®¡ç†ä»å±äºTaskManagerï¼Œæ‰€ä»¥è¯¥å¯¹è±¡åŒæ—¶
+				// è®°åœ¨ConnectionProxyä»¥åŠTaskManageré‡Œé¢
 				connProxy.addProxy(sp);
 				TaskManager.addTask(sp);
 				res.setResult(stateId);

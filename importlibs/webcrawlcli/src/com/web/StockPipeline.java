@@ -37,7 +37,7 @@ public class StockPipeline extends FilePersistentBase implements StandPipeline {
 		}
 	}
 		
-	//加md5Hex为防止重名
+	//鍔爉d5Hex涓洪槻姝㈤噸鍚�
 	public void process(ResultItems resultItems, Task task) {
 		String saveFile = null;
 		Object o = null;

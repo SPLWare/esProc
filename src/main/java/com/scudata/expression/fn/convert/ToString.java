@@ -13,15 +13,15 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ½«¶ÔÏóµÄÊı¾İÀàĞÍ×ª»»³É×Ö·ûĞÍ
+ * å°†å¯¹è±¡çš„æ•°æ®ç±»å‹è½¬æ¢æˆå­—ç¬¦å‹
  * string(expression{, format}:loc) 
- * ½«¶ÔÏóµÄÊı¾İÀàĞÍ×ª»»³É×Ö·ûĞÍ£¬×ª»»¹ı³ÌÖĞ¿ÉÒÔ¸ñÊ½»¯£»locÎªÓïÑÔ£¬½ö¶ÔÈÕÆÚÊ±¼äÊÊÓÃ£¬È±Ê¡Ê¹ÓÃÏµÍ³ÓïÑÔ¡£
+ * å°†å¯¹è±¡çš„æ•°æ®ç±»å‹è½¬æ¢æˆå­—ç¬¦å‹ï¼Œè½¬æ¢è¿‡ç¨‹ä¸­å¯ä»¥æ ¼å¼åŒ–ï¼›locä¸ºè¯­è¨€ï¼Œä»…å¯¹æ—¥æœŸæ—¶é—´é€‚ç”¨ï¼Œç¼ºçœä½¿ç”¨ç³»ç»Ÿè¯­è¨€ã€‚
  * @author runqian
  *
  */
 public class ToString extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -115,8 +115,8 @@ public class ToString extends Function {
 
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {

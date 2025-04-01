@@ -13,8 +13,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * Ïò¿ØÖÆÌ¨Êä³ö´òÓ¡ĞÅÏ¢
- * output@g@t(x,¡­) ¿ÉÊä³öÒ»¸ö»ò¶à¸ö±äÁ¿ĞÅÏ¢£¬¶à¸öÊ±ÓÃ¶ººÅ¸ô¿ª£¬¿ØÖÆÌ¨Êä³öµÄ´òÓ¡ĞÅÏ¢ÒÔTab·Ö¸ô¡£
+ * å‘æ§åˆ¶å°è¾“å‡ºæ‰“å°ä¿¡æ¯
+ * output@g@t(x,â€¦) å¯è¾“å‡ºä¸€ä¸ªæˆ–å¤šä¸ªå˜é‡ä¿¡æ¯ï¼Œå¤šä¸ªæ—¶ç”¨é€—å·éš”å¼€ï¼Œæ§åˆ¶å°è¾“å‡ºçš„æ‰“å°ä¿¡æ¯ä»¥Tabåˆ†éš”ã€‚
  * @author runqian
  *
  */
@@ -25,7 +25,7 @@ public class Output extends Function {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

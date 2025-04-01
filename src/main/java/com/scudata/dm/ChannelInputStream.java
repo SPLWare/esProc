@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
 /**
- * ÓÉFileChannel´´½¨µÄÊäÈëÁ÷
+ * ç”±FileChannelåˆ›å»ºçš„è¾“å…¥æµ
  * @author WangXiaoJun
  *
  */
@@ -14,7 +14,7 @@ public class ChannelInputStream extends InputStream {
 	private FileChannel channel;
 
 	/**
-	 * ¹¹½¨ChannelInputStream
+	 * æ„å»ºChannelInputStream
 	 * @param channel FileChannel
 	 */
 	public ChannelInputStream(FileChannel channel) {
@@ -22,14 +22,14 @@ public class ChannelInputStream extends InputStream {
 	}
 
 	/**
-	 * Ö»Ö§³Ö°´¿é¶ÁÈ¡
+	 * åªæ”¯æŒæŒ‰å—è¯»å–
 	 */
 	public int read() throws IOException {
 		throw new IOException("read not supported");
 	}
 
 	/**
-	 * bµÄ³¤¶È±ØĞëºÍ»º³åÇø³¤¶ÈÏàÍ¬
+	 * bçš„é•¿åº¦å¿…é¡»å’Œç¼“å†²åŒºé•¿åº¦ç›¸åŒ
 	 * @param b byte[]
 	 * @throws IOException
 	 * @return int
@@ -39,7 +39,7 @@ public class ChannelInputStream extends InputStream {
 	}
 
 	/**
-	 * len±ØĞëºÍ»º³åÇø³¤¶ÈÏàÍ¬
+	 * lenå¿…é¡»å’Œç¼“å†²åŒºé•¿åº¦ç›¸åŒ
 	 * @param b byte[]
 	 * @param off int
 	 * @param len int
@@ -59,8 +59,8 @@ public class ChannelInputStream extends InputStream {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨µÄ×Ö½Ú
-	 * @param n ×Ö½ÚÊı
+	 * è·³è¿‡æŒ‡å®šçš„å­—èŠ‚
+	 * @param n å­—èŠ‚æ•°
 	 */
 	public long skip(long n) throws IOException {
 		channel.position(channel.position() + n);
@@ -68,14 +68,14 @@ public class ChannelInputStream extends InputStream {
 	}
 
 	/**
-	 * ·µ»Ø¿ÉÓÃµÄ×Ö½ÚÊı
+	 * è¿”å›å¯ç”¨çš„å­—èŠ‚æ•°
 	 */
 	public int available() throws IOException {
 		return (int)(channel.size() - channel.position());
 	}
 
 	/**
-	 * ¹Ø±ÕÊäÈëÁ÷
+	 * å…³é—­è¾“å…¥æµ
 	 */
 	public void close() throws IOException {
 	}

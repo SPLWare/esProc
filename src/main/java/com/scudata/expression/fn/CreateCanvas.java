@@ -6,9 +6,9 @@ import com.scudata.expression.*;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Éú³É»­²¼¶ÔÏó canvas()
- * ¼¯ËãÆ÷ÖÐ¶¨Òå»­²¼£¬Ö±½ÓÔÚµ¥Ôª¸ñÖÐÊ¹ÓÃcanvas()º¯Êý£¬
- * ÔÚÆäºóµÄ»æÍ¼³ÌÐòÖÐ¿ÉÒÔÖ±½ÓÓÃµ¥Ôª¸ñÃû³Æµ÷ÓÃ»­²¼¶ÔÏó£¬Éè¶¨»æÍ¼²ÎÊý»òÕß»æÍ¼¡£
+ * ç”Ÿæˆç”»å¸ƒå¯¹è±¡ canvas()
+ * é›†ç®—å™¨ä¸­å®šä¹‰ç”»å¸ƒï¼Œç›´æŽ¥åœ¨å•å…ƒæ ¼ä¸­ä½¿ç”¨canvas()å‡½æ•°ï¼Œ
+ * åœ¨å…¶åŽçš„ç»˜å›¾ç¨‹åºä¸­å¯ä»¥ç›´æŽ¥ç”¨å•å…ƒæ ¼åç§°è°ƒç”¨ç”»å¸ƒå¯¹è±¡ï¼Œè®¾å®šç»˜å›¾å‚æ•°æˆ–è€…ç»˜å›¾ã€‚
  * @author runqian
  *
  */

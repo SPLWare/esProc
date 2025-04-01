@@ -1,21 +1,21 @@
 package com.scudata.ide.spl.etl;
 
 /**
- * ¸¨Öúº¯ÊıµÄÍ¨ÓÃ½Ó¿Ú
+ * è¾…åŠ©å‡½æ•°çš„é€šç”¨æ¥å£
  * 
  * @author Joancy
  *
  */
 public interface IFuncObject{
 	/**
-	 * ¸Ãº¯ÊıËùÁ¥ÊôÓÚµÄ¸¸ÀàĞÍ
-	 * @return ÀàĞÍ
+	 * è¯¥å‡½æ•°æ‰€éš¶å±äºçš„çˆ¶ç±»å‹
+	 * @return ç±»å‹
 	 */
 	public byte getParentType();
 	
 	/**
-	 * ¸Ãº¯Êı·µ»ØµÄÀàĞÍ
-	 * @return ÀàĞÍ
+	 * è¯¥å‡½æ•°è¿”å›çš„ç±»å‹
+	 * @return ç±»å‹
 	 */
 	public byte getReturnType();
 }

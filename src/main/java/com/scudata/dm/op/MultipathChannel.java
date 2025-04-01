@@ -12,7 +12,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 
 /**
- * ¶àÂ·¹ÜµÀ¶ÔÏó£¬¹ÜµÀ¿ÉÒÔ¸½¼Ó¶àÖÖÔËËã£¬µ«Ö»ÄÜ¶¨ÒåÒ»ÖÖ½á¹û¼¯ÔËËã
+ * å¤šè·¯ç®¡é“å¯¹è±¡ï¼Œç®¡é“å¯ä»¥é™„åŠ å¤šç§è¿ç®—ï¼Œä½†åªèƒ½å®šä¹‰ä¸€ç§ç»“æœé›†è¿ç®—
  * @author WangXiaoJun
  *
  */
@@ -20,20 +20,20 @@ public class MultipathChannel extends Channel {
 	private Channel []channels;
 	
 	/**
-	 * ÓÉ¶àÂ·ÓÎ±ê¹¹½¨¶àÂ·¹ÜµÀ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param mcs ¶àÂ·ÓÎ±ê
+	 * ç”±å¤šè·¯æ¸¸æ ‡æ„å»ºå¤šè·¯ç®¡é“
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param mcs å¤šè·¯æ¸¸æ ‡
 	 */
 	public MultipathChannel(Context ctx, MultipathCursors mcs) {
 		this(ctx, mcs, true);
 	}
 	
 	/**
-	 * ÓÉ¶àÂ·ÓÎ±ê¹¹½¨¶àÂ·¹ÜµÀ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param mcs ¶àÂ·ÓÎ±ê
-	 * @param doPush ÊÇ·ñ¶ÔÓÎ±êÉú³Épush²Ù×÷
-		ÓÎ±ê¿ÉÄÜfetch@0»º´æÁËÒ»²¿·ÖÊı¾İ£¬Èç¹û¹ÜµÀµÄÔËËã»¹Ã»¶¨ÒåÍê¾Í¸øÓÎ±ê¸½¼Ópush£¬»áµ¼ÖÂ»º´æµÄÊı¾İÃ»ÓĞ±»¹ÜµÀºóÀ´¸½¼ÓµÄÔËËã¼ÆËã
+	 * ç”±å¤šè·¯æ¸¸æ ‡æ„å»ºå¤šè·¯ç®¡é“
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param mcs å¤šè·¯æ¸¸æ ‡
+	 * @param doPush æ˜¯å¦å¯¹æ¸¸æ ‡ç”Ÿæˆpushæ“ä½œ
+		æ¸¸æ ‡å¯èƒ½fetch@0ç¼“å­˜äº†ä¸€éƒ¨åˆ†æ•°æ®ï¼Œå¦‚æœç®¡é“çš„è¿ç®—è¿˜æ²¡å®šä¹‰å®Œå°±ç»™æ¸¸æ ‡é™„åŠ pushï¼Œä¼šå¯¼è‡´ç¼“å­˜çš„æ•°æ®æ²¡æœ‰è¢«ç®¡é“åæ¥é™„åŠ çš„è¿ç®—è®¡ç®—
 	 */
 	public MultipathChannel(Context ctx, MultipathCursors mcs, boolean doPush) {
 		super(ctx);
@@ -48,7 +48,7 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¸øÓÎ±êÌí¼ÓpushÊı¾İµ½¹ÜµÀµÄ²Ù×÷
+	 * ç»™æ¸¸æ ‡æ·»åŠ pushæ•°æ®åˆ°ç®¡é“çš„æ“ä½œ
 	 * @param cs
 	 */
 	public void addPushToCursor(ICursor cs) {
@@ -63,9 +63,9 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * Îª¹ÜµÀ¸½¼ÓÔËËã
-	 * @param op ÔËËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ä¸ºç®¡é“é™„åŠ è¿ç®—
+	 * @param op è¿ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable addOperation(Operation op, Context ctx) {
@@ -78,11 +78,11 @@ public class MultipathChannel extends Channel {
 		return this;
 	}
 	/**
-	 * ¹ıÂË
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param fltExp ¹ıÂËÌõ¼ş
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿‡æ»¤
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param fltExp è¿‡æ»¤æ¡ä»¶
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable select(Function function, Expression fltExp, String opt, Context ctx) {
@@ -98,12 +98,12 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¹ıÂË
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param fltExp ¹ıÂËÌõ¼ş
-	 * @param opt Ñ¡Ïî
-	 * @param pipe ÓÃÓÚ´¦Àí²»Âú×ãÌõ¼şµÄ³ÉÔ±
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿‡æ»¤
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param fltExp è¿‡æ»¤æ¡ä»¶
+	 * @param opt é€‰é¡¹
+	 * @param pipe ç”¨äºå¤„ç†ä¸æ»¡è¶³æ¡ä»¶çš„æˆå‘˜
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable select(Function function, Expression fltExp, String opt, IPipe pipe, Context ctx) {
@@ -119,13 +119,13 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ½øĞĞÁ¬½Ó¹ıÂË£¬±£ÁôÄÜ¹ØÁªÉÏµÄ
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿›è¡Œè¿æ¥è¿‡æ»¤ï¼Œä¿ç•™èƒ½å…³è”ä¸Šçš„
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable filterJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt, Context ctx) {
@@ -142,13 +142,13 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ½øĞĞÁ¬½Ó¹ıÂË£¬±£ÁôÄÜ¹ØÁª²»ÉÏµÄ
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è¿›è¡Œè¿æ¥è¿‡æ»¤ï¼Œä¿ç•™èƒ½å…³è”ä¸ä¸Šçš„
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable diffJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt, Context ctx) {
@@ -165,16 +165,16 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ×öÁ¬½Ó
-	 * @param function ¶ÔÓ¦µÄº¯Êı
+	 * åšè¿æ¥
+	 * @param function å¯¹åº”çš„å‡½æ•°
 	 * @param fname
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable join(Function function, String fname, Expression[][] exps, Sequence[] codes,
@@ -193,16 +193,16 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ÓëÔ¶³Ì±í×öÁ¬½Ó
-	 * @param function ¶ÔÓ¦µÄº¯Êı
+	 * ä¸è¿œç¨‹è¡¨åšè¿æ¥
+	 * @param function å¯¹åº”çš„å‡½æ•°
 	 * @param fname
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param dataExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param dataExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable joinRemote(Function function, String fname, Expression[][] exps, 
@@ -222,13 +222,13 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ×öÍâ¼üÊ½Á¬½Ó
+	 * åšå¤–é”®å¼è¿æ¥
 	 * @param function
-	 * @param dimExps Á¬½Ó±í´ïÊ½Êı×é
-	 * @param aliasNames Î¬±í¼ÇÂ¼±ğÃû
-	 * @param newExps ĞÂ²úÉú×Ö¶Î±í´ïÊ½Êı×é
-	 * @param newNames ĞÂ²úÉú×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî£¬i£º×ö½»Á¬½Ó
+	 * @param dimExps è¿æ¥è¡¨è¾¾å¼æ•°ç»„
+	 * @param aliasNames ç»´è¡¨è®°å½•åˆ«å
+	 * @param newExps æ–°äº§ç”Ÿå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param newNames æ–°äº§ç”Ÿå­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹ï¼Œiï¼šåšäº¤è¿æ¥
 	 * @param ctx
 	 * @return
 	 */
@@ -247,13 +247,13 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * Ìí¼Ó¼ÆËãÁĞ
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps ¼ÆËã±í´ïÊ½Êı×é
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
+	 * æ·»åŠ è®¡ç®—åˆ—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
 	 * @param level
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable derive(Function function, Expression []exps, String []names, String opt, int level, Context ctx) {
@@ -269,12 +269,12 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ²úÉúĞÂĞò±í
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param newExps ¼ÆËã±í´ïÊ½Êı×é
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * äº§ç”Ÿæ–°åºè¡¨
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param newExps è®¡ç®—è¡¨è¾¾å¼æ•°ç»„
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable newTable(Function function, Expression []newExps, String []names, String opt, Context ctx) {
@@ -290,11 +290,11 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression []exps, String opt, Context ctx) {
@@ -310,12 +310,12 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps Ç°°ë²¿·ÖÓĞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param sortExps ºó°ë²¿·ÖÎŞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å‰åŠéƒ¨åˆ†æœ‰åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param sortExps ååŠéƒ¨åˆ†æ— åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression []exps, Expression []sortExps, String opt, Context ctx) {
@@ -332,14 +332,14 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression[] exps, String []names, 
@@ -357,16 +357,16 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¸½¼ÓÓĞĞò·Ö×éÔËËã
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps Ç°°ë²¿·ÖÓĞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param sortExps ºó°ë²¿·ÖÎŞĞòµÄ·Ö×é×Ö¶Î±í´ïÊ½
-	 * @param sortNames ×Ö¶ÎÃûÊı×é
-	 * @param newExps »ã×Ü±í´ïÊ½
-	 * @param newNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * é™„åŠ æœ‰åºåˆ†ç»„è¿ç®—
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å‰åŠéƒ¨åˆ†æœ‰åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param sortExps ååŠéƒ¨åˆ†æ— åºçš„åˆ†ç»„å­—æ®µè¡¨è¾¾å¼
+	 * @param sortNames å­—æ®µåæ•°ç»„
+	 * @param newExps æ±‡æ€»è¡¨è¾¾å¼
+	 * @param newNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable group(Function function, Expression[] exps, String []names, 
@@ -386,14 +386,14 @@ public class MultipathChannel extends Channel {
 	}
 
 	/**
-	 * Á¬½Ó¼ÆËã
-	 * @param function ËùÊôµÄº¯Êı¶ÔÏó
-	 * @param fkNames Íâ¼ü×Ö¶ÎÃûÊı×é
-	 * @param timeFkNames Ê±¼äÍâ¼üÃûÊı×é
-	 * @param codes Î¬±íÊı×é
-	 * @param exps Î¬±íÖ÷¼üÊı×é
-	 * @param timeExps Î¬±íµÄÊ±¼ä¸üĞÂ¼üÊı×é
-	 * @param opt Ñ¡Ïî
+	 * è¿æ¥è®¡ç®—
+	 * @param function æ‰€å±çš„å‡½æ•°å¯¹è±¡
+	 * @param fkNames å¤–é”®å­—æ®µåæ•°ç»„
+	 * @param timeFkNames æ—¶é—´å¤–é”®åæ•°ç»„
+	 * @param codes ç»´è¡¨æ•°ç»„
+	 * @param exps ç»´è¡¨ä¸»é”®æ•°ç»„
+	 * @param timeExps ç»´è¡¨çš„æ—¶é—´æ›´æ–°é”®æ•°ç»„
+	 * @param opt é€‰é¡¹
 	 */
 	public Operable switchFk(Function function, String[] fkNames, String[] timeFkNames, Sequence[] codes, Expression[] exps, Expression[] timeExps, String opt, Context ctx) {
 		checkResultChannel();
@@ -409,18 +409,18 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¼ì²éÊÇ·ñÒÑ¾­ÓĞ½á¹û¼¯º¯ÊıÁË
+	 * æ£€æŸ¥æ˜¯å¦å·²ç»æœ‰ç»“æœé›†å‡½æ•°äº†
 	 */
 	protected void checkResultChannel() {
 		if (result != null) {
-			throw new RQException("¸½¼Ó½á¹û¼¯Ö®ºó²»ÄÜÔÙ¼ÌĞø¸½¼ÓÆäËüÔËËã");
+			throw new RQException("é™„åŠ ç»“æœé›†ä¹‹åä¸èƒ½å†ç»§ç»­é™„åŠ å…¶å®ƒè¿ç®—");
 		}
 	}
 	
 	/**
-	 * Íù¹ÜµÀÍÆËÍÊı¾İ£¬¿ÉÄÜ»áÓĞ¶à¸öÔ´Í¬Ê±Íù¹ÜµÀÍÆËÍÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¾€ç®¡é“æ¨é€æ•°æ®ï¼Œå¯èƒ½ä¼šæœ‰å¤šä¸ªæºåŒæ—¶å¾€ç®¡é“æ¨é€æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public synchronized void push(Sequence seq, Context ctx) {
 		if (result != null && seq != null) {
@@ -429,18 +429,18 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * Êı¾İÍÆËÍ½áÊøÊ±µ÷ÓÃ£¬ÓĞĞ©¸½¼ÓµÄ²Ù×÷»á»º´æÊı¾İ£¬ĞèÒªµ÷ÓÃfinish½øĞĞ×îºóµÄ´¦Àí
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ•°æ®æ¨é€ç»“æŸæ—¶è°ƒç”¨ï¼Œæœ‰äº›é™„åŠ çš„æ“ä½œä¼šç¼“å­˜æ•°æ®ï¼Œéœ€è¦è°ƒç”¨finishè¿›è¡Œæœ€åçš„å¤„ç†
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void finish(Context ctx) {
-		// Ã¿Â·µÄ¹ÜµÀÒÑ¾­µ÷ÓÃ¹ıfinish
+		// æ¯è·¯çš„ç®¡é“å·²ç»è°ƒç”¨è¿‡finish
 		//for (Channel channel : channels) {
 		//	channel.finish(ctx);
 		//}
 	}
 	
 	/**
-	 * ·µ»Ø¹ÜµÀµÄ¼ÆËã½á¹û
+	 * è¿”å›ç®¡é“çš„è®¡ç®—ç»“æœ
 	 * @return
 	 */
 	public Object result() {
@@ -507,7 +507,7 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ±£Áô¹ÜµÀµ±Ç°Êı¾İ×öÎª½á¹û¼¯
+	 * ä¿ç•™ç®¡é“å½“å‰æ•°æ®åšä¸ºç»“æœé›†
 	 * @return
 	 */
 	public Channel fetch() {
@@ -524,8 +524,8 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ±£Áô¹ÜµÀµ±Ç°Êı¾İµ½¼¯ÎÄ¼ş
-	 * @param file ¼¯ÎÄ¼ş
+	 * ä¿ç•™ç®¡é“å½“å‰æ•°æ®åˆ°é›†æ–‡ä»¶
+	 * @param file é›†æ–‡ä»¶
 	 * @return this
 	 */
 	public Channel fetch(FileObject file) {
@@ -542,12 +542,12 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞ·Ö×éÔËËã²¢×öÎª½á¹û¼¯
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃû
-	 * @param opt Ñ¡Ïî
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œåˆ†ç»„è¿ç®—å¹¶åšä¸ºç»“æœé›†
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µå
+	 * @param opt é€‰é¡¹
 	 * @return
 	 */
 	public Channel groups(Expression[] exps, String[] names,
@@ -566,8 +566,8 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞ»ã×ÜÔËËã²¢×öÎª½á¹û¼¯
-	 * @param calcExps »ã×Ü±í´ïÊ½
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œæ±‡æ€»è¿ç®—å¹¶åšä¸ºç»“æœé›†
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼
 	 * @return
 	 */
 	public Channel total(Expression[] calcExps) {
@@ -584,13 +584,13 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞÍâ´æ·Ö×éÔËËã²¢×öÎª½á¹û¼¯
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃû
-	 * @param opt Ñ¡Ïî
-	 * @param capacity ÄÚ´æ¿ÉÒÔ´æ·ÅµÄ·Ö×é½á¹ûÊıÁ¿
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œå¤–å­˜åˆ†ç»„è¿ç®—å¹¶åšä¸ºç»“æœé›†
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µå
+	 * @param opt é€‰é¡¹
+	 * @param capacity å†…å­˜å¯ä»¥å­˜æ”¾çš„åˆ†ç»„ç»“æœæ•°é‡
 	 * @return
 	 */
 	public Channel groupx(Expression[] exps, String[] names,
@@ -608,10 +608,10 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞÍâ´æÅÅĞòÔËËã²¢×öÎª½á¹û¼¯
-	 * @param exps ÅÅĞò±í´ïÊ½Êı×é
-	 * @param capacity ÄÚ´æ¿ÉÒÔ´æ·ÅµÄ¼ÇÂ¼ÊıÁ¿
-	 * @param opt Ñ¡Ïî
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œå¤–å­˜æ’åºè¿ç®—å¹¶åšä¸ºç»“æœé›†
+	 * @param exps æ’åºè¡¨è¾¾å¼æ•°ç»„
+	 * @param capacity å†…å­˜å¯ä»¥å­˜æ”¾çš„è®°å½•æ•°é‡
+	 * @param opt é€‰é¡¹
 	 * @return
 	 */
 	public Channel sortx(Expression[] exps, int capacity, String opt) {
@@ -628,7 +628,7 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞÁ¬½ÓÔËËã²¢×öÎª½á¹û¼¯
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œè¿æ¥è¿ç®—å¹¶åšä¸ºç»“æœé›†
 	 * @param fields
 	 * @param fileTable
 	 * @param keys
@@ -655,11 +655,11 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞµü´úÔËËã²¢×÷Îª½á¹û¼¯
-	 * @param exp µü´ú±í´ïÊ½
-	 * @param initVal ³õÊ¼Öµ
-	 * @param c Ìõ¼ş±í´ïÊ½£¬µü´ú¹ı³ÌÖĞcÎªÕæÔòÌáÇ°½áÊø
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œè¿­ä»£è¿ç®—å¹¶ä½œä¸ºç»“æœé›†
+	 * @param exp è¿­ä»£è¡¨è¾¾å¼
+	 * @param initVal åˆå§‹å€¼
+	 * @param c æ¡ä»¶è¡¨è¾¾å¼ï¼Œè¿­ä»£è¿‡ç¨‹ä¸­cä¸ºçœŸåˆ™æå‰ç»“æŸ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Channel iterate(Expression exp, Object initVal, Expression c, Context ctx) {
@@ -676,10 +676,10 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
-	 * ¶Ô¹ÜµÀµ±Ç°Êı¾İ½øĞĞÈ¥ÖØÔËËã²¢×÷Îª½á¹û¼¯
-	 * @param exps È¥ÖØ±í´ïÊ½
+	 * å¯¹ç®¡é“å½“å‰æ•°æ®è¿›è¡Œå»é‡è¿ç®—å¹¶ä½œä¸ºç»“æœé›†
+	 * @param exps å»é‡è¡¨è¾¾å¼
 	 * @param count
-	 * @param opt Ñ¡Ïî
+	 * @param opt é€‰é¡¹
 	 * @return
 	 */
 	public Channel id(Expression []exps, int count, String opt) {

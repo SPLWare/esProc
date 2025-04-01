@@ -12,26 +12,26 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.DatabaseUtil;
 
 /**
- * Êı¾İ¿âº¯Êı´¦Àí¶ÔÏó
+ * æ•°æ®åº“å‡½æ•°å¤„ç†å¯¹è±¡
  */
 public class DBObject implements IResource {
-	private DBSession dbSession; // Êı¾İ¿âÁ¬½Ó
-	private Context ctx; // ÉÏÏÂÎÄ
-	private boolean canClose; // Á¬½ÓÊÇ·ñ¿ÉÒÔ±»¹Ø±Õ
-	private boolean isLower = false; // ×Ö¶ÎÃûÊÇ·ñ×ªĞ¡Ğ´
+	private DBSession dbSession; // æ•°æ®åº“è¿æ¥
+	private Context ctx; // ä¸Šä¸‹æ–‡
+	private boolean canClose; // è¿æ¥æ˜¯å¦å¯ä»¥è¢«å…³é—­
+	private boolean isLower = false; // å­—æ®µåæ˜¯å¦è½¬å°å†™
 
 	/**
-	 * ¹¹½¨Êı¾İ¿â¶ÔÏó
-	 * @param dbSession DBSession Êı¾İ¿âÁ¬½Ó
+	 * æ„å»ºæ•°æ®åº“å¯¹è±¡
+	 * @param dbSession DBSession æ•°æ®åº“è¿æ¥
 	 */
 	public DBObject(DBSession dbSession) {
 		this.dbSession = dbSession;
 	}
 
 	/**
-	 * ´´½¨Ò»Êı¾İ¿âÁ¬½Ó,Ê¹ÓÃÍêºóĞèÒªµ÷ÓÃclose¹Ø±Õ
+	 * åˆ›å»ºä¸€æ•°æ®åº“è¿æ¥,ä½¿ç”¨å®Œåéœ€è¦è°ƒç”¨closeå…³é—­
 	 * @param dbsf ISessionFactory
-	 * @param opt String e£ºµ±ÓĞÒì³£·¢ÉúÊ±¼ÇÂ¼Òì³£ĞÅÏ¢¶ø²»ÊÇÅ×³öÒì³£
+	 * @param opt String eï¼šå½“æœ‰å¼‚å¸¸å‘ç”Ÿæ—¶è®°å½•å¼‚å¸¸ä¿¡æ¯è€Œä¸æ˜¯æŠ›å‡ºå¼‚å¸¸
 	 * @throws Exception
 	 */
 	public DBObject(ISessionFactory dbsf, String opt, Context ctx) throws Exception {
@@ -47,13 +47,13 @@ public class DBObject implements IResource {
 		}
 	}
 
-	// Ö»ÓĞÓÃ¹¤³§´´½¨µÄDBObject²ÅÄÜµ÷ÓÃclose
+	// åªæœ‰ç”¨å·¥å‚åˆ›å»ºçš„DBObjectæ‰èƒ½è°ƒç”¨close
 	public boolean canClose() {
 		return canClose;
 	}
 	
 	/**
-	 * ¹Ø±ÕÓÉconnect´´½¨µÄÁ¬½Ó
+	 * å…³é—­ç”±connectåˆ›å»ºçš„è¿æ¥
 	 */
 	public void close() {
 		if (!canClose) {
@@ -65,9 +65,9 @@ public class DBObject implements IResource {
 		if (!dbSession.isClosed()) {
 			if (ctx != null) ctx.removeResource(this);
 			if (!dbSession.getAutoCommit()) {
-				// ÓĞµÄÊı¾İ¿âµ÷ÓÃrollbackÊ±»áÅ×³öÒì³£
+				// æœ‰çš„æ•°æ®åº“è°ƒç”¨rollbackæ—¶ä¼šæŠ›å‡ºå¼‚å¸¸
 				try {
-					rollback(null); // ²»µ÷´Ëº¯Êıclose»áÅ×³öÒì³£
+					rollback(null); // ä¸è°ƒæ­¤å‡½æ•°closeä¼šæŠ›å‡ºå¼‚å¸¸
 				} catch (Exception e) {
 				}
 			}
@@ -77,14 +77,14 @@ public class DBObject implements IResource {
 	}
 	
 	/**
-	 * ·µ»Ø×î½üµÄ´íÎóĞÅÏ¢£¬²¢ÖØÉè´íÎó
-	 * @param opt String m£º·µ»Ø´íÎó×Ö·û´®£¬Ä¬ÈÏ·µ»ØerrorCode
+	 * è¿”å›æœ€è¿‘çš„é”™è¯¯ä¿¡æ¯ï¼Œå¹¶é‡è®¾é”™è¯¯
+	 * @param opt String mï¼šè¿”å›é”™è¯¯å­—ç¬¦ä¸²ï¼Œé»˜è®¤è¿”å›errorCode
 	 * @return Object
 	 */
 	public Object error(String opt) {
 		DBSession session = getDbSession();
 		java.sql.SQLException e = session.error();
-		session.setError(null); // È¡³ö´íÎóºóÖØÉè´íÎó
+		session.setError(null); // å–å‡ºé”™è¯¯åé‡è®¾é”™è¯¯
 
 		if (e == null) {
 			if (opt == null || opt.indexOf('m') == -1) {
@@ -98,7 +98,7 @@ public class DBObject implements IResource {
 			} else {
 				String str = e.getMessage();
 				if (str == null) {
-					str = "SQLException error code£º" + e.getErrorCode();
+					str = "SQLException error codeï¼š" + e.getErrorCode();
 				}
 
 				return str;
@@ -107,7 +107,7 @@ public class DBObject implements IResource {
 	}
 
 	/**
-	 * ¸üĞÂÌá½»µ½Êı¾İ¿â
+	 * æ›´æ–°æäº¤åˆ°æ•°æ®åº“
 	 */
 	public void commit() {
 		try {
@@ -119,8 +119,8 @@ public class DBObject implements IResource {
 	}
 
 	/**
-	 * È¡ÏûÉÏ´ÎÌá½»ºóËù×÷µÄ¸üĞÂ
-	 * @param name String ¿Õ»Ø¹öËùÓĞ
+	 * å–æ¶ˆä¸Šæ¬¡æäº¤åæ‰€ä½œçš„æ›´æ–°
+	 * @param name String ç©ºå›æ»šæ‰€æœ‰
 	 */
 	public boolean rollback(String name) {
 		try {
@@ -138,7 +138,7 @@ public class DBObject implements IResource {
 		}
 	}
 	
-	// ×Ö¶ÎÃûÊÇ·ñÊ¹ÓÃĞ¡Ğ´
+	// å­—æ®µåæ˜¯å¦ä½¿ç”¨å°å†™
 	public boolean isLower() {
 		return isLower;
 	}
@@ -152,7 +152,7 @@ public class DBObject implements IResource {
 	}
 	
 	/**
-	 * ·µ»ØÊı¾İ¿âÁ´½Ó£¬Ê¹ÓÃÍêºóµ÷ÓÃreleaseDBSessionÊÍ·Å
+	 * è¿”å›æ•°æ®åº“é“¾æ¥ï¼Œä½¿ç”¨å®Œåè°ƒç”¨releaseDBSessioné‡Šæ”¾
 	 * @return DBSession
 	 */
 	public DBSession getDbSession() {
@@ -168,11 +168,11 @@ public class DBObject implements IResource {
 	}
 
 	/**
-	 * Ö´ĞĞ²éÑ¯Óï¾ä
-	 * @param sql String ²éÑ¯Óï¾ä
-	 * @param params Object[] ²ÎÊıÖµ
-	 * @param types byte[] ²ÎÊıÀàĞÍ
-	 * @param opt String i£º½á¹û¼¯Ö»ÓĞ1ÁĞÊ±·µ»Ø³ÉĞòÁĞ
+	 * æ‰§è¡ŒæŸ¥è¯¢è¯­å¥
+	 * @param sql String æŸ¥è¯¢è¯­å¥
+	 * @param params Object[] å‚æ•°å€¼
+	 * @param types byte[] å‚æ•°ç±»å‹
+	 * @param opt String iï¼šç»“æœé›†åªæœ‰1åˆ—æ—¶è¿”å›æˆåºåˆ—
 	 * @param ctx Context
 	 * @return Sequence
 	 */
@@ -195,11 +195,11 @@ public class DBObject implements IResource {
 	}
 	
 	/**
-	 * Õë¶ÔĞòÁĞµÄÃ¿Ò»¸öÔªËØÖ´ĞĞ²éÑ¯Óï¾ä£¬·µ»Ø½á¹û¼¯ºÏ²¢µÄĞò±í
-	 * @param srcSeries Sequence Ô´ĞòÁĞ
-	 * @param sql String ²éÑ¯Óï¾ä
-	 * @param params Expression[] ²ÎÊı±í´ïÊ½
-	 * @param types byte[] ²ÎÊıÀàĞÍ
+	 * é’ˆå¯¹åºåˆ—çš„æ¯ä¸€ä¸ªå…ƒç´ æ‰§è¡ŒæŸ¥è¯¢è¯­å¥ï¼Œè¿”å›ç»“æœé›†åˆå¹¶çš„åºè¡¨
+	 * @param srcSeries Sequence æºåºåˆ—
+	 * @param sql String æŸ¥è¯¢è¯­å¥
+	 * @param params Expression[] å‚æ•°è¡¨è¾¾å¼
+	 * @param types byte[] å‚æ•°ç±»å‹
 	 * @param opt String
 	 * @param ctx Context
 	 * @return Sequence
@@ -225,10 +225,10 @@ public class DBObject implements IResource {
 
 
 	/**
-	 * Ö´ĞĞ²éÑ¯Óï¾ä£¬·µ»ØÂú×ãÌõ¼şµÄµÚÒ»Ìõ¼ÇÂ¼µÄ×Ö¶Î»ò¶à×Ö¶Î¹¹³ÉµÄĞòÁĞ¡£
-	 * @param sql String ²éÑ¯Óï¾ä
-	 * @param params Object[] ²ÎÊı
-	 * @param types byte[] ²ÎÊıÀàĞÍ
+	 * æ‰§è¡ŒæŸ¥è¯¢è¯­å¥ï¼Œè¿”å›æ»¡è¶³æ¡ä»¶çš„ç¬¬ä¸€æ¡è®°å½•çš„å­—æ®µæˆ–å¤šå­—æ®µæ„æˆçš„åºåˆ—ã€‚
+	 * @param sql String æŸ¥è¯¢è¯­å¥
+	 * @param params Object[] å‚æ•°
+	 * @param types byte[] å‚æ•°ç±»å‹
 	 * @param opt String
 	 * @return Object
 	 */
@@ -265,12 +265,12 @@ public class DBObject implements IResource {
 	}
 
 	/**
-	 * Ö´ĞĞ´æ´¢¹ı³Ì·µ»Ø½á¹ûĞòÁĞ£¬Èç¹û·µ»Ø¶à¸öÊı¾İ¼¯£¬Ôò·µ»ØĞòÁĞµÄĞòÁĞ
-	 * @param sql String sqlÓï¾ä
-	 * @param params Object[] ²ÎÊıÖµ
-	 * @param types byte[] ²ÎÊıÀàĞÍ
-	 * @param modes byte[] ÊäÈëÊä³öÄ£Ê½
-	 * @param outParams String[] Êä³ö²ÎÊıËùµ½±äÁ¿µÄÃû³Æ
+	 * æ‰§è¡Œå­˜å‚¨è¿‡ç¨‹è¿”å›ç»“æœåºåˆ—ï¼Œå¦‚æœè¿”å›å¤šä¸ªæ•°æ®é›†ï¼Œåˆ™è¿”å›åºåˆ—çš„åºåˆ—
+	 * @param sql String sqlè¯­å¥
+	 * @param params Object[] å‚æ•°å€¼
+	 * @param types byte[] å‚æ•°ç±»å‹
+	 * @param modes byte[] è¾“å…¥è¾“å‡ºæ¨¡å¼
+	 * @param outParams String[] è¾“å‡ºå‚æ•°æ‰€åˆ°å˜é‡çš„åç§°
 	 * @param ctx Context
 	 * @return Sequence
 	 */
@@ -282,11 +282,11 @@ public class DBObject implements IResource {
 	}
 
 	/**
-	 * Õë¶ÔÊı¾İ¿âÖ´ĞĞsqlÓï¾ä
+	 * é’ˆå¯¹æ•°æ®åº“æ‰§è¡Œsqlè¯­å¥
 	 * @param sql String
-	 * @param params Object[] ²ÎÊıÖµ
-	 * @param types byte[] ²ÎÊıÀàĞÍ
-	 * @param opt String k: ²»Ìá½»ÊÂÎñ£¬È±Ê¡½«Ìá½»
+	 * @param params Object[] å‚æ•°å€¼
+	 * @param types byte[] å‚æ•°ç±»å‹
+	 * @param opt String k: ä¸æäº¤äº‹åŠ¡ï¼Œç¼ºçœå°†æäº¤
 	 * @return Object
 	 */
 	public Object execute(String sql, Object []params, byte []types, String opt) {
@@ -305,12 +305,12 @@ public class DBObject implements IResource {
 	}
 
 	/**
-	 * Õë¶ÔĞòÁĞµÄÃ¿Ò»¸öÔªËØÖ´ĞĞsqlÓï¾ä
-	 * @param srcSeries Sequence Ô´ĞòÁĞ
+	 * é’ˆå¯¹åºåˆ—çš„æ¯ä¸€ä¸ªå…ƒç´ æ‰§è¡Œsqlè¯­å¥
+	 * @param srcSeries Sequence æºåºåˆ—
 	 * @param sql String
-	 * @param params Expression[] ²ÎÊı±í´ïÊ½
-	 * @param types byte[] ²ÎÊıÀàĞÍ
-	 * @param opt String k: ²»Ìá½»ÊÂÎñ£¬È±Ê¡½«Ìá½»
+	 * @param params Expression[] å‚æ•°è¡¨è¾¾å¼
+	 * @param types byte[] å‚æ•°ç±»å‹
+	 * @param opt String k: ä¸æäº¤äº‹åŠ¡ï¼Œç¼ºçœå°†æäº¤
 	 * @param ctx Context
 	 */
 	public void execute(Sequence srcSeries, String sql, Expression[] params,
@@ -328,15 +328,15 @@ public class DBObject implements IResource {
 	}
 
 	/**
-	 * ¸ù¾İsrcSeries¸üĞÂ±ítableÖĞµÄ×Ö¶Îfields
-	 * @param srcSeries Sequence Ô´ÅÅÁĞ
-	 * @param table String ±íÃû
-	 * @param fields String[] ×Ö¶ÎÃû
-	 * @param fopts String[] p£º×Ö¶ÎÊÇÖ÷¼ü£¬a£º×Ö¶ÎÊÇ×ÔÔö×Ö¶Î
-	 * @param exps Expression[] Öµ±í´ïÊ½
+	 * æ ¹æ®srcSeriesæ›´æ–°è¡¨tableä¸­çš„å­—æ®µfields
+	 * @param srcSeries Sequence æºæ’åˆ—
+	 * @param table String è¡¨å
+	 * @param fields String[] å­—æ®µå
+	 * @param fopts String[] pï¼šå­—æ®µæ˜¯ä¸»é”®ï¼Œaï¼šå­—æ®µæ˜¯è‡ªå¢å­—æ®µ
+	 * @param exps Expression[] å€¼è¡¨è¾¾å¼
 	 * @param opt String
 	 * @param ctx Context
-	 * @return int ¸üĞÂ¼ÇÂ¼Êı
+	 * @return int æ›´æ–°è®°å½•æ•°
 	 */
 	public int update(Sequence srcSeries, String table, String[] fields,
 					   String[] fopts, Expression[] exps, String opt, Context ctx) {

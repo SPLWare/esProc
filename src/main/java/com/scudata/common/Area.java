@@ -6,29 +6,29 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 /**
- * ÇøÓòÀà£¬±íÊ¾Ò»¿éÇøÓò
+ * åŒºåŸŸç±»ï¼Œè¡¨ç¤ºä¸€å—åŒºåŸŸ
  */
 public class Area implements ICloneable, Externalizable, Cloneable,
 		Comparable<Area>, IRecord {
 	private static final long serialVersionUID = 1l;
-	/** ÁĞÀàĞÍÓÉshort¸Ä³ÉÁËint */
+	/** åˆ—ç±»å‹ç”±shortæ”¹æˆäº†int */
 	private static byte version = (byte) 2;
 
-	/** ÆğÊ¼ĞĞºÅ£¬½áÊøĞĞºÅ */
+	/** èµ·å§‹è¡Œå·ï¼Œç»“æŸè¡Œå· */
 	private int r1 = -1, r2 = -1;
-	/** ÆğÊ¼ÁĞºÅ£¬½áÊøÁĞºÅ */
+	/** èµ·å§‹åˆ—å·ï¼Œç»“æŸåˆ—å· */
 	private int c1 = -1, c2 = -1;
 
 	public Area() {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param r1
-	 *            int ÆğÊ¼ĞĞºÅ
+	 *            int èµ·å§‹è¡Œå·
 	 * @param r2
-	 *            int ½áÊøĞĞºÅ
+	 *            int ç»“æŸè¡Œå·
 	 */
 	public Area(int r1, int r2) {
 		this.r1 = r1;
@@ -36,16 +36,16 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param r1
-	 *            int ÆğÊ¼ĞĞºÅ
+	 *            int èµ·å§‹è¡Œå·
 	 * @param c1
-	 *            int ÆğÊ¼ÁĞºÅ
+	 *            int èµ·å§‹åˆ—å·
 	 * @param r2
-	 *            int ½áÊøĞĞºÅ
+	 *            int ç»“æŸè¡Œå·
 	 * @param c2
-	 *            int ½áÊøÁĞºÅ
+	 *            int ç»“æŸåˆ—å·
 	 */
 	public Area(int r1, int c1, int r2, int c2) {
 		this.r1 = r1;
@@ -56,7 +56,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * È¡µÃÆğÊ¼ĞĞºÅ
+	 * å–å¾—èµ·å§‹è¡Œå·
 	 * 
 	 * @return int
 	 */
@@ -65,17 +65,17 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ÉèÖÃÆğÊ¼ĞĞºÅ
+	 * è®¾ç½®èµ·å§‹è¡Œå·
 	 * 
 	 * @param r
-	 *            int ĞĞºÅ
+	 *            int è¡Œå·
 	 */
 	public void setBeginRow(int r) {
 		this.r1 = r;
 	}
 
 	/**
-	 * µÃµ½½áÊøĞĞºÅ
+	 * å¾—åˆ°ç»“æŸè¡Œå·
 	 * 
 	 * @return int
 	 */
@@ -84,7 +84,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ÉèÖÃ½áÊøĞĞºÅ
+	 * è®¾ç½®ç»“æŸè¡Œå·
 	 * 
 	 * @param r
 	 *            int
@@ -94,7 +94,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * È¡µÃÆğÊ¼ÁĞºÅ
+	 * å–å¾—èµ·å§‹åˆ—å·
 	 * 
 	 * @return int
 	 */
@@ -103,7 +103,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ÉèÖÃÆğÊ¼ÁĞºÅ
+	 * è®¾ç½®èµ·å§‹åˆ—å·
 	 * 
 	 * @param c
 	 *            int
@@ -113,7 +113,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * È¡µÃ½áÊøÁĞºÅ
+	 * å–å¾—ç»“æŸåˆ—å·
 	 * 
 	 * @return int
 	 */
@@ -122,7 +122,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ÉèÖÃ½áÊøÁĞºÅ
+	 * è®¾ç½®ç»“æŸåˆ—å·
 	 * 
 	 * @param c
 	 *            int
@@ -139,7 +139,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ÓëÁíÒ»¸öÇøÓò¶ÔÏó½øĞĞ±È½Ï£¬ÒÀ´Î±È½ÏÆğÊ¼ĞĞ¡¢ÆğÊ¼ÁĞ¡¢½áÊøĞĞ¡¢½áÊøÁĞ£¬ Èô±È½Ï¹ı³ÌÖĞ´æÔÚ²»ÏàµÈÔò·µ»ØÆä²î£¬·ñÔò·µ»Ø0
+	 * ä¸å¦ä¸€ä¸ªåŒºåŸŸå¯¹è±¡è¿›è¡Œæ¯”è¾ƒï¼Œä¾æ¬¡æ¯”è¾ƒèµ·å§‹è¡Œã€èµ·å§‹åˆ—ã€ç»“æŸè¡Œã€ç»“æŸåˆ—ï¼Œ è‹¥æ¯”è¾ƒè¿‡ç¨‹ä¸­å­˜åœ¨ä¸ç›¸ç­‰åˆ™è¿”å›å…¶å·®ï¼Œå¦åˆ™è¿”å›0
 	 * 
 	 * @param other
 	 *            Area
@@ -162,7 +162,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ÅĞ¶Ïrow,colÊÇ·ñÔÚµ±Ç°ÇøÓòÄÚ
+	 * åˆ¤æ–­row,colæ˜¯å¦åœ¨å½“å‰åŒºåŸŸå†…
 	 * 
 	 * @param row
 	 *            int
@@ -175,7 +175,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ÊÇ·ñ°üº¬ÁíÒ»ÇøÓò
+	 * æ˜¯å¦åŒ…å«å¦ä¸€åŒºåŸŸ
 	 * 
 	 * @param a
 	 *            Area
@@ -189,7 +189,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ĞòÁĞ»¯Êä³ö±¾Àà
+	 * åºåˆ—åŒ–è¾“å‡ºæœ¬ç±»
 	 * 
 	 * @param out
 	 *            ObjectOutput
@@ -204,7 +204,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ĞòÁĞ»¯ÊäÈë±¾Àà
+	 * åºåˆ—åŒ–è¾“å…¥æœ¬ç±»
 	 * 
 	 * @param in
 	 *            ObjectInput
@@ -221,7 +221,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ĞòÁĞ»¯Êä³ö±¾Àà
+	 * åºåˆ—åŒ–è¾“å‡ºæœ¬ç±»
 	 * 
 	 * @return ObjectOutput
 	 * @throws IOException
@@ -236,7 +236,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ĞòÁĞ»¯ÊäÈë±¾Àà
+	 * åºåˆ—åŒ–è¾“å…¥æœ¬ç±»
 	 * 
 	 * @param buf
 	 *            byte[]
@@ -253,7 +253,7 @@ public class Area implements ICloneable, Externalizable, Cloneable,
 	}
 
 	/**
-	 * ¿ËÂ¡±¾Àà
+	 * å…‹éš†æœ¬ç±»
 	 * 
 	 * @return Object
 	 */

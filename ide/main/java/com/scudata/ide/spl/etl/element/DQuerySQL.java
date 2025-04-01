@@ -6,8 +6,8 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ db.query()
- * º¯ÊıÃûÇ°×ºD±íÊ¾Êı¾İ¿âÁ¬½Ó
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ db.query()
+ * å‡½æ•°åå‰ç¼€Dè¡¨ç¤ºæ•°æ®åº“è¿æ¥
  * 
  * @author Joancy
  *
@@ -16,7 +16,7 @@ public class DQuerySQL extends DCursorSQL {
 	public boolean one;
 
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = super.getParamInfoList();
@@ -29,8 +29,8 @@ public class DQuerySQL extends DCursorSQL {
 	}
 
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
 	 * @return EtlConsts.TYPE_DB
 	 */
@@ -39,7 +39,7 @@ public class DQuerySQL extends DCursorSQL {
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_SEQUENCE
 	 */
 	public byte getReturnType() {
@@ -47,7 +47,7 @@ public class DQuerySQL extends DCursorSQL {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄÑ¡Ïî´®
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„é€‰é¡¹ä¸²
 	 */
 	public String optionString(){
 		StringBuffer sb = new StringBuffer();
@@ -59,7 +59,7 @@ public class DQuerySQL extends DCursorSQL {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÃû
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°å
 	 */
 	public String getFuncName(){
 		return "query";

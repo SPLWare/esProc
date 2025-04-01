@@ -31,18 +31,18 @@ import com.scudata.util.EnvUtil;
 import com.scudata.util.Variant;
 
 /**
- * KVË÷Òı
- * key-valueË÷Òı£¬Ö±½Ó´æÖ¸¶¨µÄ×Ö¶ÎÖµ£¬²»´æÔ´ÎÄ¼şµÄ¼ÇÂ¼µØÖ·
+ * KVç´¢å¼•
+ * key-valueç´¢å¼•ï¼Œç›´æ¥å­˜æŒ‡å®šçš„å­—æ®µå€¼ï¼Œä¸å­˜æºæ–‡ä»¶çš„è®°å½•åœ°å€
  * @author runqian
  *
  */
 public class TableKeyValueIndex implements ITableIndex {
 	private static final int NULL = -1;
-	private static final int EQ = 0; // µÈÓÚ
-	private static final int GE = 1; // ´óÓÚµÈÓÚ
-	private static final int GT = 2; // ´óÓÚ
-	private static final int LE = 3; // Ğ¡ÓÚµÈÓÚ
-	private static final int LT = 4; // Ğ¡ÓÚ
+	private static final int EQ = 0; // ç­‰äº
+	private static final int GE = 1; // å¤§äºç­‰äº
+	private static final int GT = 2; // å¤§äº
+	private static final int LE = 3; // å°äºç­‰äº
+	private static final int LT = 4; // å°äº
 	private static final int LIKE = 5;
 	
 	private static final int BUFFER_SIZE = 1024;
@@ -50,47 +50,47 @@ public class TableKeyValueIndex implements ITableIndex {
 	protected static final int BLOCK_END = -2;
 	private static final int BLOCK_VALUE_START = -3;
 	
-	public static final int MAX_LEAF_BLOCK_COUNT = 1000;//Ò¶×Ó½áµãµÄ×î´ó¼ÇÂ¼Êı
-	public static final int MAX_INTER_BLOCK_COUNT = 1000;//ÖĞ¼ä½áµãµÄ×î´ó¼ÇÂ¼Êı
+	public static final int MAX_LEAF_BLOCK_COUNT = 1000;//å¶å­ç»“ç‚¹çš„æœ€å¤§è®°å½•æ•°
+	public static final int MAX_INTER_BLOCK_COUNT = 1000;//ä¸­é—´ç»“ç‚¹çš„æœ€å¤§è®°å½•æ•°
 	public static final int MAX_ROOT_BLOCK_COUNT = 1000;//
 	public static final int MAX_SEC_RECORD_COUNT = 100000;//max count of index2
 	
-	public static final int FETCH_SIZE = 20;//Ò»´ÎÈ¡20¿é³öÀ´
+	public static final int FETCH_SIZE = 20;//ä¸€æ¬¡å–20å—å‡ºæ¥
 	
-	private long recordCount = 0; // Ô´¼ÇÂ¼Êı
-	private long index1RecordCount = 0; // Ë÷Òı1¼ÇÂ¼Êı
-	private long index1EndPos = 0; // Ë÷Òı1½¨Á¢Ê±Ô´ÎÄ¼ş¼ÇÂ¼½áÊøÎ»ÖÃ
-	protected String []ifields; // Ë÷Òı×Ö¶ÎÃû×Ö
-	protected String []vfields; // value×Ö¶ÎÃû×Ö
+	private long recordCount = 0; // æºè®°å½•æ•°
+	private long index1RecordCount = 0; // ç´¢å¼•1è®°å½•æ•°
+	private long index1EndPos = 0; // ç´¢å¼•1å»ºç«‹æ—¶æºæ–‡ä»¶è®°å½•ç»“æŸä½ç½®
+	protected String []ifields; // ç´¢å¼•å­—æ®µåå­—
+	protected String []vfields; // valueå­—æ®µåå­—
 	
 	private String name;
 	protected PhyTable srcTable;
 	protected FileObject indexFile;
-	// ²éÕÒÊ±Ê¹ÓÃ
-	private Object []rootBlockMaxVals; // Ã¿Ò»¿éµÄ×î´óÖµ
-	private long []rootBlockPos; // Ã¿Ò»¿éµÄÎ»ÖÃ	
+	// æŸ¥æ‰¾æ—¶ä½¿ç”¨
+	private Object []rootBlockMaxVals; // æ¯ä¸€å—çš„æœ€å¤§å€¼
+	private long []rootBlockPos; // æ¯ä¸€å—çš„ä½ç½®	
 	private long internalBlockCount = 0;
-	private Object [][]internalAllBlockMaxVals; // ÖĞ¼ä½ÚµãËùÓĞ¿éµÄ×î´óÖµ
-	private long [][]internalAllBlockPos; // ÖĞ¼ä½ÚµãËùÓĞ¿éµÄÎ»ÖÃµÄ»º´æ
+	private Object [][]internalAllBlockMaxVals; // ä¸­é—´èŠ‚ç‚¹æ‰€æœ‰å—çš„æœ€å¤§å€¼
+	private long [][]internalAllBlockPos; // ä¸­é—´èŠ‚ç‚¹æ‰€æœ‰å—çš„ä½ç½®çš„ç¼“å­˜
 
-	private Object []rootBlockMaxVals2; // Ã¿Ò»¿éµÄ×î´óÖµ
-	private long []rootBlockPos2; // Ã¿Ò»¿éµÄÎ»ÖÃ
+	private Object []rootBlockMaxVals2; // æ¯ä¸€å—çš„æœ€å¤§å€¼
+	private long []rootBlockPos2; // æ¯ä¸€å—çš„ä½ç½®
 	private long internalBlockCount2 = 0;
-	private Object [][]internalAllBlockMaxVals2; // ÖĞ¼ä½ÚµãËùÓĞ¿éµÄ×î´óÖµ
-	private long [][]internalAllBlockPos2; // ÖĞ¼ä½ÚµãËùÓĞ¿éµÄÎ»ÖÃ
+	private Object [][]internalAllBlockMaxVals2; // ä¸­é—´èŠ‚ç‚¹æ‰€æœ‰å—çš„æœ€å¤§å€¼
+	private long [][]internalAllBlockPos2; // ä¸­é—´èŠ‚ç‚¹æ‰€æœ‰å—çš„ä½ç½®
 	
 	private long rootItPos = 0;//1st root node pos
 	private long rootItPos2 = 0;// sec root node pos
 	private long indexPos = 0;//sec index pos
 	private long indexPos2 = 0;//sec index pos
 	
-	//µÚÈı²ã»º´æºó£¬²»ÄÜÔÙÓÃinternalAllBlockPos£¬ÒªÓÃÕâ¸ö
+	//ç¬¬ä¸‰å±‚ç¼“å­˜åï¼Œä¸èƒ½å†ç”¨internalAllBlockPosï¼Œè¦ç”¨è¿™ä¸ª
 	private transient byte [][][]cachedBlockReader;
 	private transient byte [][][]cachedBlockReader2;
 	
 	private Expression filter;
 	
-	protected transient int vfieldsCount;//Ã¿Ò»ÌõË÷Òı¼ÇÂ¼µÄvalue×Ö¶Î¸öÊı
+	protected transient int vfieldsCount;//æ¯ä¸€æ¡ç´¢å¼•è®°å½•çš„valueå­—æ®µä¸ªæ•°
 	
 	private class FieldFilter {
 		private Object startVal;
@@ -105,15 +105,15 @@ public class TableKeyValueIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ÓÃÓÚ½¨Á¢Ë÷ÒıÊ±È¡Êı£¬²»°üº¬²¹Çø
+	 * ç”¨äºå»ºç«‹ç´¢å¼•æ—¶å–æ•°ï¼Œä¸åŒ…å«è¡¥åŒº
 	 * @author runqian
 	 *
 	 */
 	private class CTableCursor extends ICursor {
 		public static final String POS_FIELDNAME = "rq_file_seq";
 		private ColPhyTable table;
-		private String []fields;//Ë÷Òı×Ö¶Î
-		private String []valueFields;//value ×Ö¶Î
+		private String []fields;//ç´¢å¼•å­—æ®µ
+		private String []valueFields;//value å­—æ®µ
 		private Expression filter;
 		
 		private DataStruct ds;
@@ -127,7 +127,7 @@ public class TableKeyValueIndex implements ITableIndex {
 		private Sequence cache;
 		private boolean isClosed = false;
 		
-		private long curNum = 0;//È«¾Ö¼ÇÂ¼ºÅ
+		private long curNum = 0;//å…¨å±€è®°å½•å·
 		
 		public CTableCursor(PhyTable table, String []fields, String []valueFields, Context ctx, Expression filter) {
 			this.table = (ColPhyTable) table;
@@ -161,14 +161,14 @@ public class TableKeyValueIndex implements ITableIndex {
 			fields = new String[size];
 			list.toArray(fields);
 			
-			//ÓĞÌõ¼ş±í´ïÊ½Ê±ÒªÈ¡³öËùÓĞ
+			//æœ‰æ¡ä»¶è¡¨è¾¾å¼æ—¶è¦å–å‡ºæ‰€æœ‰
 			if (filter != null) {
 				columns = table.getColumns();
 			} else {
 				columns = table.getColumns(fields);
 			}
 			
-			list.add(POS_FIELDNAME);//¼ÓÒ»¸öÎ±ºÅ
+			list.add(POS_FIELDNAME);//åŠ ä¸€ä¸ªä¼ªå·
 			size = list.size();
 			fields = new String[size];
 			list.toArray(fields);
@@ -476,9 +476,9 @@ public class TableKeyValueIndex implements ITableIndex {
 		private int curBlock = 0;
 		private Sequence cache;
 		private boolean isClosed = false;
-		private boolean isPrimaryTable; // ÊÇ·ñÖ÷±í
+		private boolean isPrimaryTable; // æ˜¯å¦ä¸»è¡¨
 		
-		//private RTableCursor parentCursor;//Ö÷±íÓÎ±ê
+		//private RTableCursor parentCursor;//ä¸»è¡¨æ¸¸æ ‡
 		//private Record curPkey;
 		//private long pseq;
 		
@@ -495,7 +495,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			
 			init();
 		}
-		//filterÀïµÄ×Ö¶ÎÒª¶Á³öÀ´
+		//filteré‡Œçš„å­—æ®µè¦è¯»å‡ºæ¥
 		private void parseFilter(Node node) {
 			if (node == null) return;
 			if (node instanceof UnknownSymbol) {
@@ -520,7 +520,7 @@ public class TableKeyValueIndex implements ITableIndex {
 					list.add(f);
 				}
 			}
-			list.add(POS_FIELDNAME);//¼ÓÒ»¸öÎ±ºÅ
+			list.add(POS_FIELDNAME);//åŠ ä¸€ä¸ªä¼ªå·
 			
 			int size = list.size();
 			fields = new String[size];
@@ -591,9 +591,9 @@ public class TableKeyValueIndex implements ITableIndex {
 			Object []values = new Object[allCount];
 			
 			ObjectReader rowDataReader = this.rowDataReader;
-			long seq;//Î±ºÅ
+			long seq;//ä¼ªå·
 			@SuppressWarnings("unused")
-			long pseq = 0;//µ¼ÁĞÎ±ºÅ
+			long pseq = 0;//å¯¼åˆ—ä¼ªå·
 			boolean isPrimaryTable = this.isPrimaryTable;
 			int startIndex;
 			if (isPrimaryTable) {
@@ -629,7 +629,7 @@ public class TableKeyValueIndex implements ITableIndex {
 
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//µ¼ÁĞ
+								pseq = rowDataReader.readLong();//å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f]) 
@@ -662,7 +662,7 @@ public class TableKeyValueIndex implements ITableIndex {
 								
 								seq = rowDataReader.readLong();
 								if (!isPrimaryTable) {
-									pseq = rowDataReader.readLong();//Ìø¹ıµ¼ÁĞ
+									pseq = rowDataReader.readLong();//è·³è¿‡å¯¼åˆ—
 								}
 								for (int f = startIndex; f < allCount; ++f) {
 									if (needRead[f]) 
@@ -710,7 +710,7 @@ public class TableKeyValueIndex implements ITableIndex {
 							Record r = new Record(ds);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//µ¼ÁĞ
+								pseq = rowDataReader.readLong();//å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f]) 
@@ -733,7 +733,7 @@ public class TableKeyValueIndex implements ITableIndex {
 							Record r = new Record(ds);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//Ìø¹ıµ¼ÁĞ
+								pseq = rowDataReader.readLong();//è·³è¿‡å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f]) 
@@ -754,7 +754,7 @@ public class TableKeyValueIndex implements ITableIndex {
 							Record r = new Record(ds);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//µ¼ÁĞ
+								pseq = rowDataReader.readLong();//å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f]) 
@@ -821,7 +821,7 @@ public class TableKeyValueIndex implements ITableIndex {
 					for (int i = 0; i < recordCount; ++i) {
 						rowDataReader.readLong();
 						if (!isPrimaryTable) {
-							rowDataReader.readLong();//µ¼ÁĞ
+							rowDataReader.readLong();//å¯¼åˆ—
 						}
 						for (int f = 0; f < allCount; ++f) {
 							rowDataReader.readObject();
@@ -896,10 +896,10 @@ public class TableKeyValueIndex implements ITableIndex {
 		writer.writeLong64(recordCount);
 		writer.writeLong64(index1EndPos);
 		writer.writeLong64(index1RecordCount);
-		writer.writeLong64(rootItPos);// Ö¸Ïòroot1 info ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(rootItPos2);// Ö¸Ïòroot2 info ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(indexPos);// 1st index ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(indexPos2);// second index ¿ªÊ¼Î»ÖÃ
+		writer.writeLong64(rootItPos);// æŒ‡å‘root1 info å¼€å§‹ä½ç½®
+		writer.writeLong64(rootItPos2);// æŒ‡å‘root2 info å¼€å§‹ä½ç½®
+		writer.writeLong64(indexPos);// 1st index å¼€å§‹ä½ç½®
+		writer.writeLong64(indexPos2);// second index å¼€å§‹ä½ç½®
 		
 		writer.writeStrings(ifields);
 		writer.writeStrings(vfields);
@@ -916,10 +916,10 @@ public class TableKeyValueIndex implements ITableIndex {
 		writer.writeLong64(recordCount);
 		writer.writeLong64(index1EndPos);
 		writer.writeLong64(index1RecordCount);
-		writer.writeLong64(rootItPos);// Ö¸Ïòroot1 info ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(rootItPos2);// Ö¸Ïòroot2 info ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(indexPos);// 1st index ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(indexPos2);// second index ¿ªÊ¼Î»ÖÃ
+		writer.writeLong64(rootItPos);// æŒ‡å‘root1 info å¼€å§‹ä½ç½®
+		writer.writeLong64(rootItPos2);// æŒ‡å‘root2 info å¼€å§‹ä½ç½®
+		writer.writeLong64(indexPos);// 1st index å¼€å§‹ä½ç½®
+		writer.writeLong64(indexPos2);// second index å¼€å§‹ä½ç½®
 	}
 	
 	private void readHeader(ObjectReader reader) throws IOException {
@@ -952,26 +952,26 @@ public class TableKeyValueIndex implements ITableIndex {
 		this.ifields = ifields;
 		this.vfields = vfields;
 		if (vfields != null) {
-			vfieldsCount = vfields.length + 1;//»¹ÓĞÒ»¸öÎ±ºÅ
+			vfieldsCount = vfields.length + 1;//è¿˜æœ‰ä¸€ä¸ªä¼ªå·
 		}
 		
 	}
 	
 	/**
-	 * ´´½¨Ë÷Òı
-	 * Ë÷ÒıÎÄ¼ş½á¹¹£º¡®rqit¡¯ + 8byte + Ô´ÎÄ¼ş¼ÇÂ¼Êı + Ô´ÎÄ¼ş½áÊøÎ»ÖÃ + [Ë÷Òı×Ö¶Î] + Ô´ÎÄ¼şÃû + 
-	 * BLOCK_START +[n + value + pos1,...,posn],... BLOCK_END + Ë÷Òı±í + Ë÷Òı±íÎ»ÖÃ
-	 * @param fields Ë÷Òı×Ö¶Î
-	 * @param valueFields Öµ×Ö¶Î
+	 * åˆ›å»ºç´¢å¼•
+	 * ç´¢å¼•æ–‡ä»¶ç»“æ„ï¼šâ€˜rqitâ€™ + 8byte + æºæ–‡ä»¶è®°å½•æ•° + æºæ–‡ä»¶ç»“æŸä½ç½® + [ç´¢å¼•å­—æ®µ] + æºæ–‡ä»¶å + 
+	 * BLOCK_START +[n + value + pos1,...,posn],... BLOCK_END + ç´¢å¼•è¡¨ + ç´¢å¼•è¡¨ä½ç½®
+	 * @param fields ç´¢å¼•å­—æ®µ
+	 * @param valueFields å€¼å­—æ®µ
 	 * @param opt
 	 * @param ctx
 	 * @param filter
 	 */
 	public void create(String []fields, String []valueFields, String opt, Context ctx, Expression filter) {
 		int icount = fields.length;
-		boolean isAppend = false;//×·¼Ó»¹ÊÇĞÂ½¨
-		boolean isAdd = true;//ÊÇ·ñĞèÒªÌí¼ÓË÷Òıµ½table
-		boolean isReset = false;//ÖØ½¨
+		boolean isAppend = false;//è¿½åŠ è¿˜æ˜¯æ–°å»º
+		boolean isAdd = true;//æ˜¯å¦éœ€è¦æ·»åŠ ç´¢å¼•åˆ°table
+		boolean isReset = false;//é‡å»º
 		
 		valueFields = checkValueFields(fields, valueFields);
 		if (indexFile.size() > 0) {
@@ -1032,7 +1032,7 @@ public class TableKeyValueIndex implements ITableIndex {
 					ICursor cursor = new MergesCursor(cursors, exps, ctx);				
 					createIndexTable(cursor, indexFile, true);
 				}
-				srcTable.getTableMetaDataIndex(indexFile, null, false);//×·¼ÓºóÒªÇå³ıcache
+				srcTable.getTableMetaDataIndex(indexFile, null, false);//è¿½åŠ åè¦æ¸…é™¤cache
 				
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
@@ -1084,7 +1084,7 @@ public class TableKeyValueIndex implements ITableIndex {
 				createIndexTable(cursor, tmpFile, false);
 			}
 			
-			srcTable.getTableMetaDataIndex(indexFile, null, false);//×·¼ÓºóÒªÇå³ıcache
+			srcTable.getTableMetaDataIndex(indexFile, null, false);//è¿½åŠ åè¦æ¸…é™¤cache
 			if (needDelete) {
 				indexFile.delete();
 				tmpFile.move(indexFile.getFileName(), null);
@@ -1120,7 +1120,7 @@ public class TableKeyValueIndex implements ITableIndex {
 		return retFields;
 	}
 	
-	//»ñµÃmemsÀïÁ¬ĞøµÄ¸öÊı
+	//è·å¾—memsé‡Œè¿ç»­çš„ä¸ªæ•°
 	private int getGroupNum(IArray mems, int from, int fcount) {
 		int len = mems.size();
 		int count = 1;		
@@ -1149,22 +1149,22 @@ public class TableKeyValueIndex implements ITableIndex {
 		long perCount = MAX_LEAF_BLOCK_COUNT;
 
 		ArrayList<Record> maxValues = new ArrayList<Record>();
-		Record []rootMaxValues;// rootË÷Òı¿éµÄ×î´óÖµ
-		long []positions; // internalË÷Òı¿éÔÚÎÄ¼şÖĞµÄÆğÊ¼Î»ÖÃ
-		long []rootPositions; // rootË÷Òı¿éÔÚÎÄ¼şÖĞµÄÆğÊ¼Î»ÖÃ
-		int blockCount = 0; // Ë÷Òı¿éÊı
+		Record []rootMaxValues;// rootç´¢å¼•å—çš„æœ€å¤§å€¼
+		long []positions; // internalç´¢å¼•å—åœ¨æ–‡ä»¶ä¸­çš„èµ·å§‹ä½ç½®
+		long []rootPositions; // rootç´¢å¼•å—åœ¨æ–‡ä»¶ä¸­çš„èµ·å§‹ä½ç½®
+		int blockCount = 0; // ç´¢å¼•å—æ•°
 		long itPos;
 		int recCount = 0;
 		
 		int icount = ifields.length;
-		int vcount = icount + vfields.length + 1;//»¹ÓĞÒ»¸öÎ±ºÅ
+		int vcount = icount + vfields.length + 1;//è¿˜æœ‰ä¸€ä¸ªä¼ªå·
 		Context ctx = new Context();
 		Expression []ifs = new Expression[icount];
 		for (int i = 0; i < icount; ++i) {
 			ifs[i] = new Expression("#" + (i + 1));
 		}
 		
-		//¼ì²éÊÇ·ñÊÇ¶ÔÖ÷¼ü½¨Á¢Ë÷Òı
+		//æ£€æŸ¥æ˜¯å¦æ˜¯å¯¹ä¸»é”®å»ºç«‹ç´¢å¼•
 		boolean isPrimaryKey = false;
 //		String[] keyNames = srcTable.getAllSortedColNames();
 //		if (srcTable.hasPrimaryKey && keyNames != null && ifields.length == keyNames.length) {
@@ -1204,7 +1204,7 @@ public class TableKeyValueIndex implements ITableIndex {
 				}
 				
 				while (table != null) {
-					//Ã¿´ÎĞ´20¿é
+					//æ¯æ¬¡å†™20å—
 					IArray mems = table.getMems();
 					int rest = mems.size();
 					recCount += rest;
@@ -1212,11 +1212,11 @@ public class TableKeyValueIndex implements ITableIndex {
 					int p = 1;
 					for (int c = 0; c < FETCH_SIZE; c++) {
 						writer.writeInt(BLOCK_START);
-						//ÏÈĞ´0£¬ºóÃæÔÙĞ´ÕæÊµÖµ
+						//å…ˆå†™0ï¼Œåé¢å†å†™çœŸå®å€¼
 						blockValueStartPos = writer.position();
 						posList1.add(blockValueStartPos);
 						writer.writeLong40(0);
-						bufferWriter = new RowBufferWriter(null);//Ğ´valueµ½buffer
+						bufferWriter = new RowBufferWriter(null);//å†™valueåˆ°buffer
 						int count = rest >= MAX_LEAF_BLOCK_COUNT ? MAX_LEAF_BLOCK_COUNT : rest;
 						rest -= count;
 						for (int j = 0; j < count; j++) {
@@ -1229,10 +1229,10 @@ public class TableKeyValueIndex implements ITableIndex {
 							for (int f = icount; f < vcount; ++f) {
 								bufferWriter.writeObject(r.getNormalFieldValue(f));
 							}
-							offset = bufferWriter.getCount() - offset;//µÃµ½ÕâÒ»ÌõµÄ³¤¶ÈÁË
+							offset = bufferWriter.getCount() - offset;//å¾—åˆ°è¿™ä¸€æ¡çš„é•¿åº¦äº†
 							writer.writeInt(offset);
 						}
-						//Ìá½»Ò»¿é
+						//æäº¤ä¸€å—
 						byte []bytes = bufferWriter.finish();
 						writer.writeInt(BLOCK_VALUE_START);
 						writer.writeInt(bytes.length);
@@ -1260,24 +1260,24 @@ public class TableKeyValueIndex implements ITableIndex {
 					if (bufferWriter == null) {
 						writer.writeInt(BLOCK_START);
 					} else {
-						//Ìá½»Ò»¿é
+						//æäº¤ä¸€å—
 						byte []bytes = bufferWriter.finish();
 						writer.writeInt(BLOCK_VALUE_START);
 						writer.writeInt(bytes.length);
 						long temp = writer.position();
 						posList2.add(temp);
 						writer.write(bytes);
-						//ĞÂ¿é
+						//æ–°å—
 						writer.writeInt(BLOCK_START);
 					}
 					
 					int count = 0;
-					//ÏÈĞ´0£¬ºóÃæÔÙĞ´ÕæÊµÖµ
+					//å…ˆå†™0ï¼Œåé¢å†å†™çœŸå®å€¼
 					blockValueStartPos = writer.position();
 					posList1.add(blockValueStartPos);
 					writer.writeLong40(0);
 
-					bufferWriter = new RowBufferWriter(null);//Ğ´valueµ½buffer
+					bufferWriter = new RowBufferWriter(null);//å†™valueåˆ°buffer
 					
 					while (count < perCount) {
 						int len = getGroupNum(mems, p, icount);
@@ -1296,7 +1296,7 @@ public class TableKeyValueIndex implements ITableIndex {
 							for (int f = icount; f < vcount; ++f) {
 								bufferWriter.writeObject(r.getNormalFieldValue(f));
 							}
-							offset = bufferWriter.getCount() - offset;//µÃµ½ÕâÒ»ÌõµÄ³¤¶ÈÁË
+							offset = bufferWriter.getCount() - offset;//å¾—åˆ°è¿™ä¸€æ¡çš„é•¿åº¦äº†
 							writer.writeInt(offset);
 						}
 						p += len;
@@ -1312,7 +1312,7 @@ public class TableKeyValueIndex implements ITableIndex {
 					blockCount++;
 					maxValues.add(r);
 				}
-				//Ìá½»×îºóÒ»¿é
+				//æäº¤æœ€åä¸€å—
 				byte []bytes = bufferWriter.finish();
 				writer.writeInt(BLOCK_VALUE_START);
 				writer.writeInt(bytes.length);
@@ -1333,7 +1333,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			} catch (IOException ie){};
 		}
 
-		//»ØÈ¥Ğ´ValuePos
+		//å›å»å†™ValuePos
 		os = indexFile.getRandomOutputStream(true);
 		writer = new RandomObjectWriter(os);
 		try {
@@ -1350,9 +1350,9 @@ public class TableKeyValueIndex implements ITableIndex {
 			} catch (IOException ie){};
 		}
 		
-		//¸ù¾İrecCount´¦ÀíÌõÊı
+		//æ ¹æ®recCountå¤„ç†æ¡æ•°
 		this.recordCount = recCount + index1RecordCount;
-		long srcRecordCount = recordCount;//Ôİ´æÒ»ÏÂ£¬ÒòÎª¶ÁÎÄ¼şÍ·Ê±»á±»ÖØĞÂ¸³Öµ
+		long srcRecordCount = recordCount;//æš‚å­˜ä¸€ä¸‹ï¼Œå› ä¸ºè¯»æ–‡ä»¶å¤´æ—¶ä¼šè¢«é‡æ–°èµ‹å€¼
 		
 		positions = new long[blockCount];
 		InputStream is = indexFile.getInputStream();
@@ -1389,7 +1389,7 @@ public class TableKeyValueIndex implements ITableIndex {
 				}
 			}
 			
-			itPos = reader.position();//interBlock¿ªÊ¼Î»ÖÃ
+			itPos = reader.position();//interBlockå¼€å§‹ä½ç½®
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {
@@ -1427,7 +1427,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			} catch (IOException ie){};
 		}
 		
-		//»ñµÃrootMaxValues 
+		//è·å¾—rootMaxValues 
 		int rootBlockCount = (blockCount/MAX_INTER_BLOCK_COUNT);
 		rootBlockCount += (blockCount % MAX_INTER_BLOCK_COUNT==0) ? 0 : 1;
 		rootMaxValues = new Record[rootBlockCount];
@@ -1436,12 +1436,12 @@ public class TableKeyValueIndex implements ITableIndex {
 		}
 		rootMaxValues[rootBlockCount - 1] = maxValues.get(blockCount - 1);
 		
-		//»ñµÃ rootPositions
+		//è·å¾— rootPositions
 		rootPositions = new long[rootBlockCount];
 		is = indexFile.getInputStream();
 		reader = new ObjectReader(is, BUFFER_SIZE);
 		try {
-			reader.seek(itPos);//¶¨Î»µ½internalBlock start
+			reader.seek(itPos);//å®šä½åˆ°internalBlock start
 			//reader.readInt();
 			for (int i = 0; i < blockCount; ++i) {
 				if (i % MAX_INTER_BLOCK_COUNT == 0){
@@ -1472,11 +1472,11 @@ public class TableKeyValueIndex implements ITableIndex {
 			rootItPos = itPos;
 			rootItPos2 = 0;
 			recordCount = srcRecordCount;
-			index1RecordCount = srcRecordCount;//1ÇøÀïµÄ¼ÇÂ¼ÌõÊı£¬¹ıÂËºóµÄ
-			index1EndPos = srcTable.getTotalRecordCount();//½¨Á¢1ÇøÊ±Ô´±íÀïµÄÌõÊı£¬²»ÊÇ±»Ìõ¼ş¹ıÂËºóµÄ£¬Ò²²»°üº¬²¹Çø
+			index1RecordCount = srcRecordCount;//1åŒºé‡Œçš„è®°å½•æ¡æ•°ï¼Œè¿‡æ»¤åçš„
+			index1EndPos = srcTable.getTotalRecordCount();//å»ºç«‹1åŒºæ—¶æºè¡¨é‡Œçš„æ¡æ•°ï¼Œä¸æ˜¯è¢«æ¡ä»¶è¿‡æ»¤åçš„ï¼Œä¹Ÿä¸åŒ…å«è¡¥åŒº
 		}
 
-		//Ğ´rootMaxValues rootPositions
+		//å†™rootMaxValues rootPositions
 		os = indexFile.getRandomOutputStream(true);
 		writer = new RandomObjectWriter(os);
 		try {
@@ -1490,7 +1490,7 @@ public class TableKeyValueIndex implements ITableIndex {
 				writer.writeLong(rootPositions[i]);
 			}
 			
-			writer.writeLong64(blockCount);//internal¿éµÄ×Ü¸öÊı
+			writer.writeLong64(blockCount);//internalå—çš„æ€»ä¸ªæ•°
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {
@@ -1559,11 +1559,11 @@ public class TableKeyValueIndex implements ITableIndex {
 				vfields = valueFields;
 			}
 			
-			//Èç¹ûÊÇĞÂ½¨Á¢µÄ±í
+			//å¦‚æœæ˜¯æ–°å»ºç«‹çš„è¡¨
 			if (srcTable.getActualRecordCount() == 0) {
 				return null;
 			}
-			//¼ì²éÊÇ·ñÊÇ¶ÔÖ÷¼ü½¨Á¢Ë÷Òı
+			//æ£€æŸ¥æ˜¯å¦æ˜¯å¯¹ä¸»é”®å»ºç«‹ç´¢å¼•
 			keyNames = srcTable.getAllSortedColNames();
 			if (srcTable.isSorted && keyNames != null && keyNames.length >= fields.length) {
 				boolean isKeyField = true;
@@ -1585,8 +1585,8 @@ public class TableKeyValueIndex implements ITableIndex {
 			}
 			
 			Runtime rt = Runtime.getRuntime();
-			int baseCount = 100000;//Ã¿´ÎÈ¡³öÀ´µÄÌõÊı
-			boolean flag = false;//ÊÇ·ñµ÷Õû¹ıÁÙÊ±ÎÄ¼ş´óĞ¡
+			int baseCount = 100000;//æ¯æ¬¡å–å‡ºæ¥çš„æ¡æ•°
+			boolean flag = false;//æ˜¯å¦è°ƒæ•´è¿‡ä¸´æ—¶æ–‡ä»¶å¤§å°
 			
 			ArrayList <ICursor>cursorList = new ArrayList<ICursor>();
 			Table table;
@@ -1683,12 +1683,12 @@ public class TableKeyValueIndex implements ITableIndex {
 				vfields = valueFields;
 			}
 			
-			//Èç¹ûÊÇĞÂ½¨Á¢µÄ±í
+			//å¦‚æœæ˜¯æ–°å»ºç«‹çš„è¡¨
 			if (srcTable.getActualRecordCount() == 0) {
 				return null;
 			}
 			
-			//¼ì²éÊÇ·ñÊÇ¶ÔÖ÷¼ü½¨Á¢Ë÷Òı
+			//æ£€æŸ¥æ˜¯å¦æ˜¯å¯¹ä¸»é”®å»ºç«‹ç´¢å¼•
 			keyNames = srcTable.getSortedColNames();
 			if (srcTable.isSorted && keyNames != null && keyNames.length >= fields.length) {
 				boolean isKeyField = true;
@@ -1710,8 +1710,8 @@ public class TableKeyValueIndex implements ITableIndex {
 			}
 
 			Runtime rt = Runtime.getRuntime();
-			int baseCount = 100000;//Ã¿´ÎÈ¡³öÀ´µÄÌõÊı
-			boolean flag = false;//ÊÇ·ñµ÷Õû¹ıÁÙÊ±ÎÄ¼ş´óĞ¡
+			int baseCount = 100000;//æ¯æ¬¡å–å‡ºæ¥çš„æ¡æ•°
+			boolean flag = false;//æ˜¯å¦è°ƒæ•´è¿‡ä¸´æ—¶æ–‡ä»¶å¤§å°
 			
 			ArrayList <ICursor>cursorList = new ArrayList<ICursor>();
 			Table table;
@@ -1801,8 +1801,8 @@ public class TableKeyValueIndex implements ITableIndex {
 			} else if (cmp > 0) {
 				high = mid - 1;
 			} else {
-				// Ö»¶Ô²¿·ÖË÷Òı×Ö¶ÎÌáÌõ¼şÊ±¿ÉÄÜÓĞÖØ¸´µÄ
-				if (isStart) { // ÕÒÆğÊ¼Î»ÖÃ
+				// åªå¯¹éƒ¨åˆ†ç´¢å¼•å­—æ®µææ¡ä»¶æ—¶å¯èƒ½æœ‰é‡å¤çš„
+				if (isStart) { // æ‰¾èµ·å§‹ä½ç½®
 					for (int i = mid - 1; i >= 0; --i) {
 						if (Variant.compareArrays(objs[i], keys, keyCount) == 0) {
 							mid = i;
@@ -1810,7 +1810,7 @@ public class TableKeyValueIndex implements ITableIndex {
 							break;
 						}
 					}
-				} else { // ÕÒ½áÊøÎ»ÖÃ
+				} else { // æ‰¾ç»“æŸä½ç½®
 					for (int i = mid + 1; i <= high; ++i) {
 						if (Variant.compareArrays(objs[i], keys, keyCount) == 0) {
 							mid = i;
@@ -1833,12 +1833,12 @@ public class TableKeyValueIndex implements ITableIndex {
 		}
 	}
 
-	//¸ù¾İÖµ²éÕÒ¿éºÅºÍÎ»ÖÃ£¬Á½¸öË÷ÒıÇø¶¼²éÕÒ
-	//key[] Òª²éÕÒµÄÖµ
-	//icount ×Ö¶Î¸öÊı
-	//isStart ÊÇ·ñÊÇÕÒ¿ªÊ¼
-	//pos[] Êä³öÕÒµ½µÄÎ»ÖÃ
-	//index[] Êä³öÕÒµ½µÄ¿éºÅ
+	//æ ¹æ®å€¼æŸ¥æ‰¾å—å·å’Œä½ç½®ï¼Œä¸¤ä¸ªç´¢å¼•åŒºéƒ½æŸ¥æ‰¾
+	//key[] è¦æŸ¥æ‰¾çš„å€¼
+	//icount å­—æ®µä¸ªæ•°
+	//isStart æ˜¯å¦æ˜¯æ‰¾å¼€å§‹
+	//pos[] è¾“å‡ºæ‰¾åˆ°çš„ä½ç½®
+	//index[] è¾“å‡ºæ‰¾åˆ°çš„å—å·
 	private void searchValue(Object[] key, int icount, boolean isStart, long[] pos, int[] index) {
 		//int rootBlockCount = rootBlockMaxVals.length;
 		int i = 0;
@@ -1940,7 +1940,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			int icount = ifields.length;
 			if (rootBlockMaxVals == null) {
 				reader.seek(rootItPos);
-				rootBlockCount1 = reader.readInt(); // Ë÷Òı¿éÊı
+				rootBlockCount1 = reader.readInt(); // ç´¢å¼•å—æ•°
 				Object []maxValues;
 				long []positions = new long[rootBlockCount1];
 				
@@ -1969,7 +1969,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			
 			if (rootItPos2 != 0 && rootBlockMaxVals2 == null) {
 				reader.seek(rootItPos2);
-				rootBlockCount2 = reader.readInt(); // Ë÷Òı¿éÊı
+				rootBlockCount2 = reader.readInt(); // ç´¢å¼•å—æ•°
 				Object []maxValues;
 				long []positions = new long[rootBlockCount2];
 				
@@ -2006,10 +2006,10 @@ public class TableKeyValueIndex implements ITableIndex {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸öÖĞ¼ä¿éĞÅÏ¢
+	 * è¯»å–ä¸€ä¸ªä¸­é—´å—ä¿¡æ¯
 	 * @param fo
 	 * @param pos
-	 * @param blockInfo	Êä³ö
+	 * @param blockInfo	è¾“å‡º
 	 */
 	private void readInternalBlockInfo(FileObject fo, long pos, BlockInfo blockInfo) {
 		int interBlockCount;
@@ -2019,7 +2019,7 @@ public class TableKeyValueIndex implements ITableIndex {
 		try {
 			int icount = ifields.length;
 			reader.seek(pos);
-			interBlockCount = reader.readInt(); // Ë÷Òı¿éÊı
+			interBlockCount = reader.readInt(); // ç´¢å¼•å—æ•°
 			Object []maxValues;
 			long []positions = new long[interBlockCount];
 			
@@ -2053,7 +2053,7 @@ public class TableKeyValueIndex implements ITableIndex {
 		}
 	}
 	
-	// ·µ»Ø¼ÇÂ¼Êı
+	// è¿”å›è®°å½•æ•°
 	public long count() {
 		InputStream is = indexFile.getInputStream();
 		ObjectReader reader = new ObjectReader(is, BUFFER_SIZE);
@@ -2334,7 +2334,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			throw new RQException(mm.getMessage("Expression.unknownExpression") + exp.toString());
 		}
 		
-		//´¦Àícontain±í´ïÊ½
+		//å¤„ç†containè¡¨è¾¾å¼
 		Node home = exp.getHome();
 		if (home instanceof DotOperator) {
 			Node left = home.getLeft();
@@ -2365,7 +2365,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			return select(series, fields, opt, ctx);
 		}
 		
-		//´¦Àílike(F,"xxx*")±í´ïÊ½
+		//å¤„ç†like(F,"xxx*")è¡¨è¾¾å¼
 		if (home instanceof Like) {
 			if (((Like) home).getParam().getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -2393,7 +2393,7 @@ public class TableKeyValueIndex implements ITableIndex {
 				if (filters[last] != null) break;
 			}
 			
-			// Èç¹û×óÃæµÄ¶¼ÊÇÏàµÈ±È½ÏÔò¿ÉÒÔÓÅ»¯³É[a,b...v1]:[a,b...v2]
+			// å¦‚æœå·¦é¢çš„éƒ½æ˜¯ç›¸ç­‰æ¯”è¾ƒåˆ™å¯ä»¥ä¼˜åŒ–æˆ[a,b...v1]:[a,b...v2]
 			boolean canOpt = true;
 			for (int i = 0; i < last; ++i) {
 				if (filters[i] == null || filters[i].startSign != EQ) {
@@ -2410,7 +2410,7 @@ public class TableKeyValueIndex implements ITableIndex {
 					}
 					
 					if (icount == last + 1) {
-						//Èç¹ûÊÇËùÓĞ×Ö¶ÎµÄµÈÓÚ
+						//å¦‚æœæ˜¯æ‰€æœ‰å­—æ®µçš„ç­‰äº
 						Sequence seq = new Sequence();
 						seq.addAll(vals);
 						if (icount == 1) {
@@ -2439,7 +2439,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			}
 		}
 
-		//Èç¹ûÌõ¼şÊÇtrue£¬¾ÍÊÇÈ¡È«²¿
+		//å¦‚æœæ¡ä»¶æ˜¯trueï¼Œå°±æ˜¯å–å…¨éƒ¨
 		if (exp.getHome() instanceof Constant 
 				&& Variant.isTrue(exp.calculate(ctx))
 				&& srcTable.getModifyRecords() == null) {
@@ -2465,8 +2465,8 @@ public class TableKeyValueIndex implements ITableIndex {
 			return cs;
 		}
 		
-		Sequence vals = new Sequence(icount); // Ç°Ãæ×öÏàµÈÅĞ¶ÏµÄ×Ö¶ÎµÄÖµ
-		FieldFilter ff = null; // µÚÒ»¸ö×ö·ÇÏàµÈÅĞ¶ÏµÄ×Ö¶ÎµÄĞÅÏ¢
+		Sequence vals = new Sequence(icount); // å‰é¢åšç›¸ç­‰åˆ¤æ–­çš„å­—æ®µçš„å€¼
+		FieldFilter ff = null; // ç¬¬ä¸€ä¸ªåšéç›¸ç­‰åˆ¤æ–­çš„å­—æ®µçš„ä¿¡æ¯
 		
 		for (int i = 0; i < icount; ++i) {
 			FieldFilter filter = new FieldFilter();
@@ -2737,7 +2737,7 @@ public class TableKeyValueIndex implements ITableIndex {
 		return false;
 	}
 	
-	// ÕÒ³öË÷Òı×Ö¶ÎµÄÇø¼ä
+	// æ‰¾å‡ºç´¢å¼•å­—æ®µçš„åŒºé—´
 	private void getFieldFilter(int fieldIndex, Node home, FieldFilter filter, Context ctx) {
 		if (!(home instanceof Operator)) return;
 		
@@ -2786,7 +2786,7 @@ public class TableKeyValueIndex implements ITableIndex {
 				filter.startSign = GT;
 				filter.startVal = left.calculate(ctx);
 			}
-		} // ºöÂÔorºÍÆäËüÔËËã·û
+		} // å¿½ç•¥orå’Œå…¶å®ƒè¿ç®—ç¬¦
 	}
 
 	private Object [] readPos(ObjectReader reader, Expression exp, Context ctx, 
@@ -2807,7 +2807,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			int count;
 			for (; start <= end; ++start) {
 				long valuesPos = reader.readLong40();
-				int len = 0;//¼ÆËãÀÛ¼Ó³¤¶È
+				int len = 0;//è®¡ç®—ç´¯åŠ é•¿åº¦
 				
 				while ((count = reader.readInt()) > 0) {
 					for (int i = 0; i < icount; ++i) {
@@ -2830,7 +2830,7 @@ public class TableKeyValueIndex implements ITableIndex {
 					}
 				}
 				
-				//µ½ÁËvalue¿éÁË,Èç¹ûÓĞÃüÖĞµÄ,È¡valueÖµ
+				//åˆ°äº†valueå—äº†,å¦‚æœæœ‰å‘½ä¸­çš„,å–valueå€¼
 				long nextBlockPos = reader.readInt() + valuesPos;
 				int size = posList.size();
 				int c = 0;
@@ -2860,7 +2860,7 @@ public class TableKeyValueIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ¶ÁÈ¡½á¹û£¬Ö±½Ó·µ»ØÍâ´æÎÄ¼şÓÎ±ê
+	 * è¯»å–ç»“æœï¼Œç›´æ¥è¿”å›å¤–å­˜æ–‡ä»¶æ¸¸æ ‡
 	 * @param fields
 	 * @param reader
 	 * @param exp
@@ -2890,7 +2890,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			int count;
 			for (; start <= end; ++start) {
 				long valuesPos = reader.readLong40();
-				int len = 0;//¼ÆËãÀÛ¼Ó³¤¶È
+				int len = 0;//è®¡ç®—ç´¯åŠ é•¿åº¦
 				
 				while ((count = reader.readInt()) > 0) {
 					for (int i = 0; i < icount; ++i) {
@@ -2913,7 +2913,7 @@ public class TableKeyValueIndex implements ITableIndex {
 					}
 				}
 				
-				//µ½ÁËvalue¿éÁË,Èç¹ûÓĞÃüÖĞµÄ,È¡valueÖµ
+				//åˆ°äº†valueå—äº†,å¦‚æœæœ‰å‘½ä¸­çš„,å–valueå€¼
 				long nextBlockPos = reader.readInt() + valuesPos;
 				int size = posList.size();
 				int c = 0;
@@ -3096,7 +3096,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			break;
 		}
 		
-		//µ½ÁËvalue¿éÁË,Èç¹ûÓĞÃüÖĞµÄ,È¡valueÖµ
+		//åˆ°äº†valueå—äº†,å¦‚æœæœ‰å‘½ä¸­çš„,å–valueå€¼
 		int size = posList.size();
 		for (int i = 0; i < size; ++i) {
 			objList.add(keyList.get(i));//key
@@ -3123,14 +3123,14 @@ public class TableKeyValueIndex implements ITableIndex {
 		for (int i = 0; i < rootCount; ++i) {
 			if (cachedBlockReader == null) {
 				if (internalAllBlockPos == null) {
-					readInternalBlockInfo(indexFile, rootBlockPos[i], blockInfo);//Ã»Ô¤¼ÓÔØ
+					readInternalBlockInfo(indexFile, rootBlockPos[i], blockInfo);//æ²¡é¢„åŠ è½½
 				} else {
-					readInternalBlockInfo(false, i, blockInfo);//µÚ¶ş²ã¼ÓÔØ
+					readInternalBlockInfo(false, i, blockInfo);//ç¬¬äºŒå±‚åŠ è½½
 				}
 				
 				index = readPos_s(reader, vals, index, blockInfo.internalBlockMaxVals, blockInfo.internalBlockPos, tempPos);
 			} else {
-				//Èı²ã¼ÓÔØ
+				//ä¸‰å±‚åŠ è½½
 				index = readPos_s_cache(reader, vals, index, internalAllBlockMaxVals[i], cachedBlockReader[i], tempPos);
 			}
 			
@@ -3197,7 +3197,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			if (count == BLOCK_START) {
 				valuesPos = reader.readLong40();
 				offset = 0;
-				// »»¿éÊ±±È½ÏÒ»ÏÂÊÇ·ñÕû¸ö¿é¶¼±Èµ±Ç°ÒªÈ¡µÄÖµĞ¡£¬Èç¹ûÊÇÔòÌø¹ı¿é
+				// æ¢å—æ—¶æ¯”è¾ƒä¸€ä¸‹æ˜¯å¦æ•´ä¸ªå—éƒ½æ¯”å½“å‰è¦å–çš„å€¼å°ï¼Œå¦‚æœæ˜¯åˆ™è·³è¿‡å—
 				while (true) {
 					block++;
 					if (block >= blockCount) break Next;
@@ -3392,13 +3392,13 @@ public class TableKeyValueIndex implements ITableIndex {
 				valuesPos = reader.readLong40();
 				offset = 0;
 				
-				// »»¿éÊ±±È½ÏÒ»ÏÂÊÇ·ñÕû¸ö¿é¶¼±Èµ±Ç°ÒªÈ¡µÄÖµĞ¡£¬Èç¹ûÊÇÔòÌø¹ı¿é
+				// æ¢å—æ—¶æ¯”è¾ƒä¸€ä¸‹æ˜¯å¦æ•´ä¸ªå—éƒ½æ¯”å½“å‰è¦å–çš„å€¼å°ï¼Œå¦‚æœæ˜¯åˆ™è·³è¿‡å—
 				while (true) {
 					block++;
 					if (block >= blockCount) break Next;
 					
 					if (Variant.compareArrays(blockMaxVals[block], srcKeys, srcKeyCount) >= 0) {
-						if (blockPos[block] < reader.position()) break;//ÒÑ¾­¶Áµ½ÁËÕâÒ»¿é£¬Ôò²»ÓÃseek
+						if (blockPos[block] < reader.position()) break;//å·²ç»è¯»åˆ°äº†è¿™ä¸€å—ï¼Œåˆ™ä¸ç”¨seek
 						reader.seek(blockPos[block]);
 						valuesPos = reader.readLong40();
 						offset = 0;
@@ -3580,7 +3580,7 @@ public class TableKeyValueIndex implements ITableIndex {
 					r.setNormalFieldValue(0, cur);
 					Object b = exp.calculate(ctx);
 					if (Variant.isTrue(b)) {
-						findFirst = true;//ÕÒµ½ÁË
+						findFirst = true;//æ‰¾åˆ°äº†
 						for (int i = 0; i < count; ++i) {
 							keyList.add(cur);
 							posList.add(valuesPos + offset);
@@ -3591,14 +3591,14 @@ public class TableKeyValueIndex implements ITableIndex {
 							offset += reader.readInt();
 						}
 						if (findFirst) {
-							//¶¼ÔÚÕâÒ»¿éÀï
+							//éƒ½åœ¨è¿™ä¸€å—é‡Œ
 							findFirst = false;
 							break;
 						}
 					}
 				}
 				if (!findFirst) {
-					//Ã»ÕÒµ½£¬»òÕß¶¼ÔÚµÚÒ»¿éÀï£¬Ôò²»ÔÙÕÒºóĞø¿é
+					//æ²¡æ‰¾åˆ°ï¼Œæˆ–è€…éƒ½åœ¨ç¬¬ä¸€å—é‡Œï¼Œåˆ™ä¸å†æ‰¾åç»­å—
 					break;
 				}
 				
@@ -3857,7 +3857,7 @@ public class TableKeyValueIndex implements ITableIndex {
 			valuesPos = reader.readLong40();
 			offset = 0;
 			while (true) {
-				// ¶à×Ö¶ÎË÷ÒıÊ±£¬Ö»Ñ¡²¿·Ö×Ö¶Î¿ÉÄÜÓĞÖØ¸´µÄ
+				// å¤šå­—æ®µç´¢å¼•æ—¶ï¼Œåªé€‰éƒ¨åˆ†å­—æ®µå¯èƒ½æœ‰é‡å¤çš„
 				int count = reader.readInt();
 				if (count == BLOCK_START) {
 					valuesPos = reader.readLong40();
@@ -4511,8 +4511,8 @@ public class TableKeyValueIndex implements ITableIndex {
 	}
 	
 	/**
-	 * °ÑÈ¡µÃµÄÖµ×é³ÉÄÚ´æÓÎ±ê
-	 * @param fields È¡³ö×Ö¶Î
+	 * æŠŠå–å¾—çš„å€¼ç»„æˆå†…å­˜æ¸¸æ ‡
+	 * @param fields å–å‡ºå­—æ®µ
 	 * @param values 
 	 * @return
 	 */
@@ -4528,8 +4528,8 @@ public class TableKeyValueIndex implements ITableIndex {
 		}
 		int count = fields.length;
 		
-		boolean hasModify = srcTable.getModifyRecords() != null;//ÊÇ·ñĞèÓĞ²¹Çø
-		boolean needNew = false;//ÊÇ·ñĞèÒªnew(È¡³ö×Ö¶Î²»µÈÓÚifields+vfields)
+		boolean hasModify = srcTable.getModifyRecords() != null;//æ˜¯å¦éœ€æœ‰è¡¥åŒº
+		boolean needNew = false;//æ˜¯å¦éœ€è¦new(å–å‡ºå­—æ®µä¸ç­‰äºifields+vfields)
 		if (count == icount) {
 			for (int i = 0; i < count; i++) {
 				if (!fields[i].equals(fieldNames[i])) {
@@ -4560,7 +4560,7 @@ public class TableKeyValueIndex implements ITableIndex {
 					for (int j = 0; j < icount; j++) {
 						objs[j] = values[c++];
 					}
-					c++;//Ìø¹ıÎ±ºÅ
+					c++;//è·³è¿‡ä¼ªå·
 					for (int j = 0; j < count; j++) {
 						r.setNormalFieldValue(j, objs[findex[j]]);
 					}
@@ -4572,13 +4572,13 @@ public class TableKeyValueIndex implements ITableIndex {
 					for (int j = 0; j < icount; j++) {
 						r.setNormalFieldValue(j, values[c++]);
 					}
-					c++;//Ìø¹ıÎ±ºÅ
+					c++;//è·³è¿‡ä¼ªå·
 					table.add(r);
 				}
 			}
 			return new MemoryCursor(table);
 		} else {
-			//ÓĞ²¹Çø
+			//æœ‰è¡¥åŒº
 			int p = 0;
 			if (needNew) {
 				DataStruct tempDs = new DataStruct(fieldNames);
@@ -4597,7 +4597,7 @@ public class TableKeyValueIndex implements ITableIndex {
 					for (int j = 0; j < count; j++) {
 						result[p++] = objs[findex[j]];
 					}
-					result[p++] = values[c++];//Î±ºÅ
+					result[p++] = values[c++];//ä¼ªå·
 				}
 				return new IndexCursor(srcTable, fields, ifields, result);
 			} else {
@@ -4606,7 +4606,7 @@ public class TableKeyValueIndex implements ITableIndex {
 		}
 	}
 	
-	//×°ÔØËùÓĞÖĞ¼ä¿é
+	//è£…è½½æ‰€æœ‰ä¸­é—´å—
 	public synchronized void loadAllBlockInfo() {
 		if (internalAllBlockPos!= null) return;
 		readBlockInfo(indexFile);//load root info
@@ -4640,7 +4640,7 @@ public class TableKeyValueIndex implements ITableIndex {
 		int icount = ifields.length;
 		
 		try {
-			//°ÑµÚÈı²ã¹ıÒ»±é
+			//æŠŠç¬¬ä¸‰å±‚è¿‡ä¸€é
 			for (int c = 0; c < rootCount; ++c) {
 				readInternalBlockInfo(false, c, blockInfo);
 				for (long pos : blockInfo.internalBlockPos) {
@@ -4677,7 +4677,7 @@ public class TableKeyValueIndex implements ITableIndex {
 		}
 	}
 	
-	//×°ÔØËùÓĞkeys
+	//è£…è½½æ‰€æœ‰keys
 	public synchronized void loadAllKeys() {
 		if (internalAllBlockPos!= null) return;
 		readBlockInfo(indexFile);//load root info
@@ -4723,9 +4723,9 @@ public class TableKeyValueIndex implements ITableIndex {
 				threads[i] = newLoadDataThread(rootBlockMaxVals, cachedBlockReader, internalAllBlockPos, reader, icount,
 						i * avg, (i + 1) * avg);
 			}
-			threads[i].start(); // Æô¶¯Ïß³Ì
+			threads[i].start(); // å¯åŠ¨çº¿ç¨‹
 		}
-		// µÈ´ıËùÓĞ×ÓÏß³Ì½áÊø
+		// ç­‰å¾…æ‰€æœ‰å­çº¿ç¨‹ç»“æŸ
 		for (int i = 0; i < parallelNum; ++i) {
 			try {
 				threads[i].join();
@@ -4752,9 +4752,9 @@ public class TableKeyValueIndex implements ITableIndex {
 				threads[i] = newLoadDataThread(rootBlockMaxVals2, cachedBlockReader2, internalAllBlockPos2, reader, icount,
 						i * avg, (i + 1) * avg);
 			}
-			threads[i].start(); // Æô¶¯Ïß³Ì
+			threads[i].start(); // å¯åŠ¨çº¿ç¨‹
 		}
-		// µÈ´ıËùÓĞ×ÓÏß³Ì½áÊø
+		// ç­‰å¾…æ‰€æœ‰å­çº¿ç¨‹ç»“æŸ
 		for (int i = 0; i < parallelNum; ++i) {
 			try {
 				threads[i].join();
@@ -4770,7 +4770,7 @@ public class TableKeyValueIndex implements ITableIndex {
 		return new Thread() {
 			public void run() {
 				try {
-					//°ÑµÚÈı²ãµÄkey±£´æµ½buffer£¬Í¬Ê±µØÖ·Ò²¶¼Ö¸ÏòÄÚ´æ
+					//æŠŠç¬¬ä¸‰å±‚çš„keyä¿å­˜åˆ°bufferï¼ŒåŒæ—¶åœ°å€ä¹Ÿéƒ½æŒ‡å‘å†…å­˜
 					for (int c = start; c < end; ++c) {
 						int len = internalAllBlockPos[c].length;
 						cachedBlockReader[c] = new byte[len][];
@@ -4822,9 +4822,9 @@ public class TableKeyValueIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ×°ÔØÖĞ¼ä¿é
-	 * @param isSec ÊÇ·ñÊÇµÚ¶şË÷Òı
-	 * @param i		×°ÔØµÚ¼¸¿é
+	 * è£…è½½ä¸­é—´å—
+	 * @param isSec æ˜¯å¦æ˜¯ç¬¬äºŒç´¢å¼•
+	 * @param i		è£…è½½ç¬¬å‡ å—
 	 */
 	private void readInternalBlockInfo(boolean isSec, int i, BlockInfo blockInfo) {
 		if (!isSec) {
@@ -4863,7 +4863,7 @@ public class TableKeyValueIndex implements ITableIndex {
 				offset = 0;
 				count = bufferReader.readInt();
 			} else if (count == BLOCK_VALUE_START) {
-				// »»¿éÊ±±È½ÏÒ»ÏÂÊÇ·ñÕû¸ö¿é¶¼±Èµ±Ç°ÒªÈ¡µÄÖµĞ¡£¬Èç¹ûÊÇÔòÌø¹ı¿é
+				// æ¢å—æ—¶æ¯”è¾ƒä¸€ä¸‹æ˜¯å¦æ•´ä¸ªå—éƒ½æ¯”å½“å‰è¦å–çš„å€¼å°ï¼Œå¦‚æœæ˜¯åˆ™è·³è¿‡å—
 				while (true) {
 					block++;
 					if (block >= blockCount) break Next;
@@ -4988,7 +4988,7 @@ public class TableKeyValueIndex implements ITableIndex {
 				count = bufferReader.readInt();
 			} else if (count == BLOCK_VALUE_START) {
 				
-				// »»¿éÊ±±È½ÏÒ»ÏÂÊÇ·ñÕû¸ö¿é¶¼±Èµ±Ç°ÒªÈ¡µÄÖµĞ¡£¬Èç¹ûÊÇÔòÌø¹ı¿é
+				// æ¢å—æ—¶æ¯”è¾ƒä¸€ä¸‹æ˜¯å¦æ•´ä¸ªå—éƒ½æ¯”å½“å‰è¦å–çš„å€¼å°ï¼Œå¦‚æœæ˜¯åˆ™è·³è¿‡å—
 				while (true) {
 					block++;
 					if (block >= blockCount) break Next;
@@ -5081,9 +5081,9 @@ public class TableKeyValueIndex implements ITableIndex {
 	}
 
 	/**
-	 * ²éÕÒÒÔkey[0]¿ªÍ·µÄ
-	 * @param key	key[0]ÊÇString
-	 * @param exp	like±í´ïÊ½
+	 * æŸ¥æ‰¾ä»¥key[0]å¼€å¤´çš„
+	 * @param key	key[0]æ˜¯String
+	 * @param exp	likeè¡¨è¾¾å¼
 	 * @param ctx
 	 * @return
 	 */

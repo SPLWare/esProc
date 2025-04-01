@@ -6,8 +6,8 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ xls.xlsexport()
- * º¯ÊıÃûÇ°×ºX±íÊ¾ xlsÎÄ¼ş¶ÔÏó
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ xls.xlsexport()
+ * å‡½æ•°åå‰ç¼€Xè¡¨ç¤º xlsæ–‡ä»¶å¯¹è±¡
  * 
  * @author Joancy
  *
@@ -15,7 +15,7 @@ import com.scudata.ide.spl.etl.ParamInfoList;
 public class XXlsExport extends FXlsExport {
 
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -32,8 +32,8 @@ public class XXlsExport extends FXlsExport {
 	}
 
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
 	 * @return EtlConsts.TYPE_XLS
 	 */
@@ -42,7 +42,7 @@ public class XXlsExport extends FXlsExport {
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_EMPTY
 	 */
 	public byte getReturnType() {

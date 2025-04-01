@@ -40,7 +40,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	public AppFrame() {
 		super("");
 		/*
-		 * CTRL-F9ÔÚswingÖĞ±»Õ¼ÓÃÁË¡£ÕâÀï×¢ÏúswingÖĞÒÑ¾­×¢²áµÄ¹¦ÄÜ£¬ÎªÁËºóÃæÔÚ²Ëµ¥ÖĞ×¢²áÉÏÖ´ĞĞ¹¦ÄÜ
+		 * CTRL-F9åœ¨swingä¸­è¢«å ç”¨äº†ã€‚è¿™é‡Œæ³¨é”€swingä¸­å·²ç»æ³¨å†Œçš„åŠŸèƒ½ï¼Œä¸ºäº†åé¢åœ¨èœå•ä¸­æ³¨å†Œä¸Šæ‰§è¡ŒåŠŸèƒ½
 		 */
 		try {
 			UIManager.put("Desktop.ancestorInputMap",
@@ -412,7 +412,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	public static final String RELEASE_DATE = "2025-03-13";
 
 	/**
-	 * È¡·¢²¼Ê±¼ä
+	 * å–å‘å¸ƒæ—¶é—´
 	 * 
 	 * @return
 	 */

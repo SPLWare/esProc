@@ -7,24 +7,24 @@ import com.scudata.expression.Expression;
 import com.scudata.util.CursorUtil;
 
 /**
- * ÓÎ±êjoinxÀà£¬£¨²»ÊÇ¹é²¢£©
- * ÓÎ±êÓëÒ»¸ö¿É·Ö¶Î¼¯ÎÄ¼ş»òÊµ±íT×öjoinÔËËã¡£csÊı¾İÁ¿²»´óÊ±Ê¹ÓÃÕâ¸öÀà¡£
+ * æ¸¸æ ‡joinxç±»ï¼Œï¼ˆä¸æ˜¯å½’å¹¶ï¼‰
+ * æ¸¸æ ‡ä¸ä¸€ä¸ªå¯åˆ†æ®µé›†æ–‡ä»¶æˆ–å®è¡¨Tåšjoinè¿ç®—ã€‚csæ•°æ®é‡ä¸å¤§æ—¶ä½¿ç”¨è¿™ä¸ªç±»ã€‚
  * @author 
  * 
  */
 public class CSJoinxCursor2 extends ICursor {
-	private ICursor srcCursor;//Ô´ÓÎ±ê
-	private Object []fileTable;//Î¬±í
-	private Expression [][]fields;//ÊÂÊµ±í×Ö¶Î
-	private Expression [][]keys;//Î¬±í×Ö¶Î
-	private Expression [][]exps;//ĞÂµÄ±í´ïÊ½
+	private ICursor srcCursor;//æºæ¸¸æ ‡
+	private Object []fileTable;//ç»´è¡¨
+	private Expression [][]fields;//äº‹å®è¡¨å­—æ®µ
+	private Expression [][]keys;//ç»´è¡¨å­—æ®µ
+	private Expression [][]exps;//æ–°çš„è¡¨è¾¾å¼
 	private String option;
 	private String fname;
 	private String[][] expNames;
 	
 	private Sequence cache;
 	private boolean isEnd;
-	private int n;//»º³åÇøÌõÊı
+	private int n;//ç¼“å†²åŒºæ¡æ•°
 	
 	public CSJoinxCursor2(ICursor cursor, Expression [][]fields, Object []fileTable, 
 			Expression[][] keys, Expression[][] exps, String[][] expNames, String fname, Context ctx, int n, String option) {
@@ -41,7 +41,7 @@ public class CSJoinxCursor2 extends ICursor {
 		if (this.n < ICursor.FETCHCOUNT) {
 			this.n = ICursor.FETCHCOUNT;
 		}
-		//Èç¹ûnewNamesÀïÓĞnull£¬ÔòÓÃnewExpsÌæ´ú
+		//å¦‚æœnewNamesé‡Œæœ‰nullï¼Œåˆ™ç”¨newExpsæ›¿ä»£
 		for (int i = 0, len = expNames.length; i < len; i++) {
 			String[] arr = this.expNames[i];
 			for (int j = 0, len2 = arr.length; j < len2; j++) {
@@ -52,8 +52,8 @@ public class CSJoinxCursor2 extends ICursor {
 		}
 	}
 
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			exps = Operation.dupExpressions(exps, ctx);
@@ -134,8 +134,8 @@ public class CSJoinxCursor2 extends ICursor {
 	}
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		super.close();

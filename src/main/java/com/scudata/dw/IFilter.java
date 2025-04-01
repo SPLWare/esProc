@@ -7,7 +7,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.Expression;
 
 /**
- * ×Ö¶Î¹ıÂË±í´ïÊ½
+ * å­—æ®µè¿‡æ»¤è¡¨è¾¾å¼
  * @author runqian
  *
  */
@@ -23,12 +23,12 @@ public abstract class IFilter implements Comparable<IFilter> {
 	public static final int OR = 11;
 	
 	protected ColumnMetaData column;
-	protected int priority; // ÓÅÏÈ¼¶£¬ÓÃÓÚÅÅĞò£¬ÏÈ¹ıÂËÓÅÏÈ¼¶¸ßµÄ×Ö¶Î£¬Êı×ÖÔ½Ğ¡ÓÅÏÈ¼¶Ô½¸ß
-	protected String columnName;//ÓÃÓÚĞĞ´æ
+	protected int priority; // ä¼˜å…ˆçº§ï¼Œç”¨äºæ’åºï¼Œå…ˆè¿‡æ»¤ä¼˜å…ˆçº§é«˜çš„å­—æ®µï¼Œæ•°å­—è¶Šå°ä¼˜å…ˆçº§è¶Šé«˜
+	protected String columnName;//ç”¨äºè¡Œå­˜
 	
-	public int colCount = 1; //filterÉæ¼°µÄÁĞµÄ¸öÊı
-	protected Expression exp;//filter¶ÔÓ¦µÄ±í´ïÊ½
-	protected List<ColumnMetaData> columns;//ÓĞµÄfilter¶ÔÓ¦¶à¸öÁĞ
+	public int colCount = 1; //filteræ¶‰åŠçš„åˆ—çš„ä¸ªæ•°
+	protected Expression exp;//filterå¯¹åº”çš„è¡¨è¾¾å¼
+	protected List<ColumnMetaData> columns;//æœ‰çš„filterå¯¹åº”å¤šä¸ªåˆ—
 	
 	protected IArray dictMatchResult;
 	
@@ -43,7 +43,7 @@ public abstract class IFilter implements Comparable<IFilter> {
 	}
 	
 	/**
-	 * È¡ÔËËã·ûµÄÏà·´ÔËËã·û£¬ÓÃÓÚ v ? fÊ±µÄ×ª»»£¬´ËÊ±×Ö¶ÎÔÚÓÒ
+	 * å–è¿ç®—ç¬¦çš„ç›¸åè¿ç®—ç¬¦ï¼Œç”¨äº v ? fæ—¶çš„è½¬æ¢ï¼Œæ­¤æ—¶å­—æ®µåœ¨å³
 	 * @param op
 	 * @return
 	 */
@@ -85,14 +85,14 @@ public abstract class IFilter implements Comparable<IFilter> {
 	}
 	
 	/**
-	 * ·µ»ØvalueÊÇ·ñÆ¥Åä´Ë¹ıÂË±í´ïÊ½
+	 * è¿”å›valueæ˜¯å¦åŒ¹é…æ­¤è¿‡æ»¤è¡¨è¾¾å¼
 	 * @param value
 	 * @return
 	 */
 	public abstract boolean match(Object value);
 	
 	/**
-	 * ·µ»ØÇø¼ä[minValue, maxValue]ÊÇ·ñÓĞÖµÆ¥Åä´Ë¹ıÂË±í´ïÊ½
+	 * è¿”å›åŒºé—´[minValue, maxValue]æ˜¯å¦æœ‰å€¼åŒ¹é…æ­¤è¿‡æ»¤è¡¨è¾¾å¼
 	 * @param minValue
 	 * @param maxValue
 	 * @return
@@ -110,7 +110,7 @@ public abstract class IFilter implements Comparable<IFilter> {
 	}
 	
 	/**
-	 * ÊÇ·ñÊÇ¶à×Ö¶Îor
+	 * æ˜¯å¦æ˜¯å¤šå­—æ®µor
 	 * @return
 	 */
 	public boolean isMultiFieldOr() {
@@ -166,7 +166,7 @@ public abstract class IFilter implements Comparable<IFilter> {
 		this.dictMatchResult = dictMatchResult;
 	}
 
-	//ÊÇ·ñ¿ÉÒÔÌøĞĞ
+	//æ˜¯å¦å¯ä»¥è·³è¡Œ
 	public boolean canSkipRow() {
 		return dictMatchResult != null;
 	}

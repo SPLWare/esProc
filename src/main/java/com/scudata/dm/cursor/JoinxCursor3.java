@@ -10,41 +10,41 @@ import com.scudata.expression.Expression;
 import com.scudata.util.Variant;
 
 /**
- * Á½¸öÓÎ±ê×öÓĞĞò¹é²¢Á¬½Ó£¬ÓÎ±ê°´¹ØÁª×Ö¶ÎÓĞĞò
- * cs2ÊÇÎ¬±í£¬Öµ²»ÄÜÓĞÖØ¸´
+ * ä¸¤ä¸ªæ¸¸æ ‡åšæœ‰åºå½’å¹¶è¿æ¥ï¼Œæ¸¸æ ‡æŒ‰å…³è”å­—æ®µæœ‰åº
+ * cs2æ˜¯ç»´è¡¨ï¼Œå€¼ä¸èƒ½æœ‰é‡å¤
  * joinx(cs1:f1,x1;cs2:f2,x2) 
  * @author LW
  *
  */
 public class JoinxCursor3 extends ICursor {
-	private ICursor cursor1; // µÚÒ»¸öÓÎ±ê
-	private ICursor cursor2; // µÚ¶ş¸öÓÎ±ê
-	private Expression exp1; // µÚÒ»¸öÓÎ±êµÄ¹ØÁª±í´ïÊ½
-	private Expression exp2; // µÚ¶ş¸öÓÎ±êµÄ¹ØÁª±í´ïÊ½
-	private DataStruct ds; // ½á¹û¼¯Êı¾İ½á¹¹
-	private boolean isEnd = false; // ÊÇ·ñÈ¡Êı½áÊø
+	private ICursor cursor1; // ç¬¬ä¸€ä¸ªæ¸¸æ ‡
+	private ICursor cursor2; // ç¬¬äºŒä¸ªæ¸¸æ ‡
+	private Expression exp1; // ç¬¬ä¸€ä¸ªæ¸¸æ ‡çš„å…³è”è¡¨è¾¾å¼
+	private Expression exp2; // ç¬¬äºŒä¸ªæ¸¸æ ‡çš„å…³è”è¡¨è¾¾å¼
+	private DataStruct ds; // ç»“æœé›†æ•°æ®ç»“æ„
+	private boolean isEnd = false; // æ˜¯å¦å–æ•°ç»“æŸ
 
-	private Sequence data1; // µÚÒ»¸öÓÎ±êµÄ»º´æÊı¾İ
-	private Sequence data2; // µÚ¶ş¸öÓÎ±êµÄ»º´æÊı¾İ
-	private Sequence value1; // µÚÒ»¸öÓÎ±ê»º´æÊı¾İµÄ¹ØÁª×Ö¶ÎÖµ
-	private Sequence value2; // µÚ¶ş¸öÓÎ±ê»º´æÊı¾İµÄ¹ØÁª×Ö¶ÎÖµ
-	private int cur1 = -1; // µÚÒ»¸öÓÎ±êµ±Ç°»º´æ±éÀúµÄĞòºÅ
-	private int cur2 = -1; // µÚ¶ş¸öÓÎ±êµ±Ç°»º´æ±éÀúµÄĞòºÅ
+	private Sequence data1; // ç¬¬ä¸€ä¸ªæ¸¸æ ‡çš„ç¼“å­˜æ•°æ®
+	private Sequence data2; // ç¬¬äºŒä¸ªæ¸¸æ ‡çš„ç¼“å­˜æ•°æ®
+	private Sequence value1; // ç¬¬ä¸€ä¸ªæ¸¸æ ‡ç¼“å­˜æ•°æ®çš„å…³è”å­—æ®µå€¼
+	private Sequence value2; // ç¬¬äºŒä¸ªæ¸¸æ ‡ç¼“å­˜æ•°æ®çš„å…³è”å­—æ®µå€¼
+	private int cur1 = -1; // ç¬¬ä¸€ä¸ªæ¸¸æ ‡å½“å‰ç¼“å­˜éå†çš„åºå·
+	private int cur2 = -1; // ç¬¬äºŒä¸ªæ¸¸æ ‡å½“å‰ç¼“å­˜éå†çš„åºå·
 	private int type = 0; // 0:JOIN, 1:LEFTJOIN, 2:FULLJOIN
 	
-	// ÓÎ±êÊÇ´¿µÄ²¢ÇÒ¹ØÁª±í´ïÊ½ÊÇ×Ö¶Î±í´ïÊ½Ê±Ê¹ÓÃ£¬´ËÊ±Ö±½ÓÓÃ×Ö¶ÎË÷ÒıÈ¡Êı¾İ
+	// æ¸¸æ ‡æ˜¯çº¯çš„å¹¶ä¸”å…³è”è¡¨è¾¾å¼æ˜¯å­—æ®µè¡¨è¾¾å¼æ—¶ä½¿ç”¨ï¼Œæ­¤æ—¶ç›´æ¥ç”¨å­—æ®µç´¢å¼•å–æ•°æ®
 	private int col1 = -1;
 	private int col2 = -1;
 
 	/**
-	 * ¹¹½¨Á½¸öÓÎ±êÓĞĞò¹ØÁª¶ÔÏó
-	 * @param cursor1 µÚÒ»¸öÓÎ±ê
-	 * @param exp1 µÚÒ»¸öÓÎ±êµÄ¹ØÁª±í´ïÊ½
-	 * @param cursor2 µÚ¶ş¸öÓÎ±ê
-	 * @param exp2 µÚ¶ş¸öÓÎ±êµÄ¹ØÁª±í´ïÊ½
-	 * @param names ½á¹û¼¯×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ„å»ºä¸¤ä¸ªæ¸¸æ ‡æœ‰åºå…³è”å¯¹è±¡
+	 * @param cursor1 ç¬¬ä¸€ä¸ªæ¸¸æ ‡
+	 * @param exp1 ç¬¬ä¸€ä¸ªæ¸¸æ ‡çš„å…³è”è¡¨è¾¾å¼
+	 * @param cursor2 ç¬¬äºŒä¸ªæ¸¸æ ‡
+	 * @param exp2 ç¬¬äºŒä¸ªæ¸¸æ ‡çš„å…³è”è¡¨è¾¾å¼
+	 * @param names ç»“æœé›†å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public JoinxCursor3(ICursor cursor1, Expression exp1, ICursor cursor2, Expression exp2, 
 			String []names, String opt, Context ctx) {
@@ -70,8 +70,8 @@ public class JoinxCursor3 extends ICursor {
 		}
 	}
 	
-	// ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	// ¼Ì³ĞÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
+	// å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	// ç»§æ‰¿ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
 	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			cursor1.resetContext(ctx);
@@ -116,7 +116,7 @@ public class JoinxCursor3 extends ICursor {
 					r.setNormalFieldValue(1, r2);
 					Sequence addData = null;
 					
-					// Èç¹ûÓĞÖØ¸´µÄÔòÌø¹ı£¬Èç¹û¶¼Ã»ÓĞÖØ¸´µÄ¶¼Ìø¹ı
+					// å¦‚æœæœ‰é‡å¤çš„åˆ™è·³è¿‡ï¼Œå¦‚æœéƒ½æ²¡æœ‰é‡å¤çš„éƒ½è·³è¿‡
 					boolean hasEquals = false;
 					if (cur1 < len1) {
 						BaseRecord next = (BaseRecord)data1.getMem(cur1 + 1);
@@ -142,7 +142,7 @@ public class JoinxCursor3 extends ICursor {
 					}
 					
 					if (cur2 < len2) {
-						//data2ÊÇÎ¬±í£¬²»¸ÃÓĞÖØ¸´µÄ¡££¨ÕâºÍ¹ıÈ¥¹âÍ·joinx¹æÔò²»Ò»Ñù£©
+						//data2æ˜¯ç»´è¡¨ï¼Œä¸è¯¥æœ‰é‡å¤çš„ã€‚ï¼ˆè¿™å’Œè¿‡å»å…‰å¤´joinxè§„åˆ™ä¸ä¸€æ ·ï¼‰
 //						BaseRecord next = (BaseRecord)data2.getMem(cur2 + 1);
 //						if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
 //							cur2++;
@@ -169,7 +169,7 @@ public class JoinxCursor3 extends ICursor {
 								r1 = (BaseRecord)data1.getMem(cur1);
 								value1 = r1.getNormalFieldValue(col1);
 							} else {
-								cur1 = 0; // ÓÎ±ê1Ã»ÓĞÊı¾İÁË
+								cur1 = 0; // æ¸¸æ ‡1æ²¡æœ‰æ•°æ®äº†
 								break;
 							}
 							
@@ -209,7 +209,7 @@ public class JoinxCursor3 extends ICursor {
 									r1 = (BaseRecord)data1.getMem(cur1);
 									value1 = r1.getNormalFieldValue(col1);
 								} else {
-									cur1 = 0; // ÓÎ±ê1Ã»ÓĞÊı¾İÁË
+									cur1 = 0; // æ¸¸æ ‡1æ²¡æœ‰æ•°æ®äº†
 									break;
 								}
 								
@@ -222,7 +222,7 @@ public class JoinxCursor3 extends ICursor {
 								cur2 = 1;
 							}
 						} else if (!hasEquals) {
-							cur2 = 0; // ÓÎ±ê2Ã»ÓĞÊı¾İÁË
+							cur2 = 0; // æ¸¸æ ‡2æ²¡æœ‰æ•°æ®äº†
 							if (addData != null) {
 								data1 = addData;
 								len1 = addData.length();
@@ -230,7 +230,7 @@ public class JoinxCursor3 extends ICursor {
 							} else if (cur1 < len1) {
 								cur1++;
 							} else {
-								cur1 = 0; // ÓÎ±ê1Ã»ÓĞÊı¾İÁË
+								cur1 = 0; // æ¸¸æ ‡1æ²¡æœ‰æ•°æ®äº†
 							}
 							break;
 						}
@@ -371,7 +371,7 @@ public class JoinxCursor3 extends ICursor {
 					++count;
 					Sequence addData = null;
 					
-					// Èç¹ûÓĞÖØ¸´µÄÔòÌø¹ı£¬Èç¹û¶¼Ã»ÓĞÖØ¸´µÄ¶¼Ìø¹ı
+					// å¦‚æœæœ‰é‡å¤çš„åˆ™è·³è¿‡ï¼Œå¦‚æœéƒ½æ²¡æœ‰é‡å¤çš„éƒ½è·³è¿‡
 					boolean hasEquals = false;
 					if (cur1 < len1) {
 						BaseRecord next = (BaseRecord)data1.getMem(cur1 + 1);
@@ -421,7 +421,7 @@ public class JoinxCursor3 extends ICursor {
 								r1 = (BaseRecord)data1.getMem(cur1);
 								value1 = r1.getNormalFieldValue(col1);
 							} else {
-								cur1 = 0; // ÓÎ±ê1Ã»ÓĞÊı¾İÁË
+								cur1 = 0; // æ¸¸æ ‡1æ²¡æœ‰æ•°æ®äº†
 								break;
 							}
 							
@@ -461,7 +461,7 @@ public class JoinxCursor3 extends ICursor {
 									r1 = (BaseRecord)data1.getMem(cur1);
 									value1 = r1.getNormalFieldValue(col1);
 								} else {
-									cur1 = 0; // ÓÎ±ê1Ã»ÓĞÊı¾İÁË
+									cur1 = 0; // æ¸¸æ ‡1æ²¡æœ‰æ•°æ®äº†
 									break;
 								}
 								
@@ -474,7 +474,7 @@ public class JoinxCursor3 extends ICursor {
 								cur2 = 1;
 							}
 						} else if (!hasEquals) {
-							cur2 = 0; // ÓÎ±ê2Ã»ÓĞÊı¾İÁË
+							cur2 = 0; // æ¸¸æ ‡2æ²¡æœ‰æ•°æ®äº†
 							if (addData != null) {
 								data1 = addData;
 								len1 = addData.length();
@@ -482,7 +482,7 @@ public class JoinxCursor3 extends ICursor {
 							} else if (cur1 < len1) {
 								cur1++;
 							} else {
-								cur1 = 0; // ÓÎ±ê1Ã»ÓĞÊı¾İÁË
+								cur1 = 0; // æ¸¸æ ‡1æ²¡æœ‰æ•°æ®äº†
 							}
 							break;
 						}
@@ -606,12 +606,12 @@ public class JoinxCursor3 extends ICursor {
 			cur2 = 0;
 		}
 
-		// Èç¹ûÓÎ±êÊÇ´¿µÄÔòÅĞ¶Ï¹ØÁª±í´ïÊ½ÊÇ·ñÊÇ×Ö¶Î±í´ïÊ½
+		// å¦‚æœæ¸¸æ ‡æ˜¯çº¯çš„åˆ™åˆ¤æ–­å…³è”è¡¨è¾¾å¼æ˜¯å¦æ˜¯å­—æ®µè¡¨è¾¾å¼
 		if (cur1 > 0 && cur2 > 0) {
 			DataStruct ds1 = cursor1.getDataStruct();
 			DataStruct ds2 = cursor2.getDataStruct();
 			if (ds1 != null && ds2 != null) {
-				// ÓÎ±ê¸½¼ÓÁË²Ù×÷¿ÉÄÜ¸Ä±äÁËÊı¾İ½á¹¹
+				// æ¸¸æ ‡é™„åŠ äº†æ“ä½œå¯èƒ½æ”¹å˜äº†æ•°æ®ç»“æ„
 				Object r1 = data1.getMem(1);
 				Object r2 = data2.getMem(1);
 				if (r1 instanceof BaseRecord && ds1.isCompatible(((BaseRecord)r1).dataStruct()) &&
@@ -639,8 +639,8 @@ public class JoinxCursor3 extends ICursor {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Ö¸¶¨ÌõÊıµÄÊı¾İ·µ»Ø
-	 * @param n ÊıÁ¿
+	 * è¯»å–æŒ‡å®šæ¡æ•°çš„æ•°æ®è¿”å›
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	protected Sequence get(int n) {
@@ -684,7 +684,7 @@ public class JoinxCursor3 extends ICursor {
 					Sequence addData = null;
 					Sequence addValue = null;
 					
-					// Èç¹ûÓĞÖØ¸´µÄÔòÌø¹ı£¬Èç¹û¶¼Ã»ÓĞÖØ¸´µÄ¶¼Ìø¹ı
+					// å¦‚æœæœ‰é‡å¤çš„åˆ™è·³è¿‡ï¼Œå¦‚æœéƒ½æ²¡æœ‰é‡å¤çš„éƒ½è·³è¿‡
 					boolean hasEquals = false;
 					if (cur1 < len1) {
 						if (Variant.isEquals(value1.getMem(cur1), value1.getMem(cur1 + 1))) {
@@ -730,7 +730,7 @@ public class JoinxCursor3 extends ICursor {
 							} else if (cur1 < len1) {
 								cur1++;
 							} else {
-								cur1 = 0; // ÓÎ±ê1Ã»ÓĞÊı¾İÁË
+								cur1 = 0; // æ¸¸æ ‡1æ²¡æœ‰æ•°æ®äº†
 								break;
 							}
 						}
@@ -767,7 +767,7 @@ public class JoinxCursor3 extends ICursor {
 								} else if (cur1 < len1) {
 									cur1++;
 								} else {
-									cur1 = 0; // ÓÎ±ê1Ã»ÓĞÊı¾İÁË
+									cur1 = 0; // æ¸¸æ ‡1æ²¡æœ‰æ•°æ®äº†
 									break;
 								}
 							} else {
@@ -780,7 +780,7 @@ public class JoinxCursor3 extends ICursor {
 								cur2 = 1;
 							}
 						} else if (!hasEquals) {
-							cur2 = 0; // ÓÎ±ê2Ã»ÓĞÊı¾İÁË
+							cur2 = 0; // æ¸¸æ ‡2æ²¡æœ‰æ•°æ®äº†
 							if (addData != null) {
 								data1 = addData;
 								value1 = addValue;
@@ -789,7 +789,7 @@ public class JoinxCursor3 extends ICursor {
 							} else if (cur1 < len1) {
 								cur1++;
 							} else {
-								cur1 = 0; // ÓÎ±ê1Ã»ÓĞÊı¾İÁË
+								cur1 = 0; // æ¸¸æ ‡1æ²¡æœ‰æ•°æ®äº†
 							}
 							break;
 						}
@@ -912,9 +912,9 @@ public class JoinxCursor3 extends ICursor {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ
-	 * @param n ÊıÁ¿
-	 * @return long Êµ¼ÊÌø¹ıµÄÌõÊı
+	 * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®
+	 * @param n æ•°é‡
+	 * @return long å®é™…è·³è¿‡çš„æ¡æ•°
 	 */
 	protected long skipOver(long n) {
 		if (isEnd || n < 1) {
@@ -947,7 +947,7 @@ public class JoinxCursor3 extends ICursor {
 					Sequence addData = null;
 					Sequence addValue = null;
 					
-					// Èç¹ûÓĞÖØ¸´µÄÔòÌø¹ı£¬Èç¹û¶¼Ã»ÓĞÖØ¸´µÄ¶¼Ìø¹ı
+					// å¦‚æœæœ‰é‡å¤çš„åˆ™è·³è¿‡ï¼Œå¦‚æœéƒ½æ²¡æœ‰é‡å¤çš„éƒ½è·³è¿‡
 					boolean hasEquals = false;
 					if (cur1 < len1) {
 						if (Variant.isEquals(value1.getMem(cur1), value1.getMem(cur1 + 1))) {
@@ -1151,7 +1151,7 @@ public class JoinxCursor3 extends ICursor {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public synchronized void close() {
 		super.close();
@@ -1169,8 +1169,8 @@ public class JoinxCursor3 extends ICursor {
 	}
 
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		close();

@@ -13,15 +13,15 @@ import com.scudata.common.CellLocation;
 import com.scudata.ide.common.control.ControlUtilsBase;
 
 /**
- * ¿Ø¼ş¹¤¾ßÀà
+ * æ§ä»¶å·¥å…·ç±»
  *
  */
 public class ControlUtils extends ControlUtilsBase {
 
 	/**
-	 * ¸ù¾İÍø¸ñ¿Ø¼ş·µ»Ø¶ÔÓ¦µÄÍø¸ñ±à¼­Æ÷
+	 * æ ¹æ®ç½‘æ ¼æ§ä»¶è¿”å›å¯¹åº”çš„ç½‘æ ¼ç¼–è¾‘å™¨
 	 * 
-	 * @param control Íø¸ñ¿Ø¼ş
+	 * @param control ç½‘æ ¼æ§ä»¶
 	 * @return
 	 */
 	public static SplEditor extractSplEditor(SplControl control) {
@@ -36,18 +36,18 @@ public class ControlUtils extends ControlUtilsBase {
 	}
 
 	/**
-	 * ÅĞ¶ÏÖ¸¶¨µ¥Ôª¸ñÊÇ·ñÎ»ÓÚÏÔÊ¾´°¿ÚÖĞ£¬Èô²»ÔÚ£¬Ôò½«Ö®¹ö¶¯µ½ÏÔÊ¾´°¿ÚÖĞ
+	 * åˆ¤æ–­æŒ‡å®šå•å…ƒæ ¼æ˜¯å¦ä½äºæ˜¾ç¤ºçª—å£ä¸­ï¼Œè‹¥ä¸åœ¨ï¼Œåˆ™å°†ä¹‹æ»šåŠ¨åˆ°æ˜¾ç¤ºçª—å£ä¸­
 	 * 
-	 * @param viewport ÏÔÊ¾´°¿Ú¶ÔÏó
-	 * @param control  Íø¸ñ¿Ø¼ş
-	 * @param row      µ¥Ôª¸ñËùÔÚĞĞºÅ
-	 * @param col      µ¥Ôª¸ñËùÔÚÁĞºÅ
-	 * @return µ¥Ôª¸ñÎ»ÓÚÏÔÊ¾´°¿ÚÖĞÊ±£¬·µ»Øfalse£¬·ñÔò½«Ö®¹ö¶¯µ½ÏÔÊ¾´°¿Úºó£¬·µ»Øtrue
+	 * @param viewport æ˜¾ç¤ºçª—å£å¯¹è±¡
+	 * @param control  ç½‘æ ¼æ§ä»¶
+	 * @param row      å•å…ƒæ ¼æ‰€åœ¨è¡Œå·
+	 * @param col      å•å…ƒæ ¼æ‰€åœ¨åˆ—å·
+	 * @return å•å…ƒæ ¼ä½äºæ˜¾ç¤ºçª—å£ä¸­æ—¶ï¼Œè¿”å›falseï¼Œå¦åˆ™å°†ä¹‹æ»šåŠ¨åˆ°æ˜¾ç¤ºçª—å£åï¼Œè¿”å›true
 	 */
 	public static boolean scrollToVisible(JViewport viewport,
 			SplControl control, int row, int col) {
 		Rectangle fieldArea = new Rectangle();
-		// Ã¿´ÎÖØËã¿í¸ß£¬ÒòÎªcontrol.cellXµÈÖµ¿ÉÄÜÃ»ÓĞ¸üĞÂ
+		// æ¯æ¬¡é‡ç®—å®½é«˜ï¼Œå› ä¸ºcontrol.cellXç­‰å€¼å¯èƒ½æ²¡æœ‰æ›´æ–°
 		// fieldArea.x = control.cellX[col];
 		CellSetParser parser = new CellSetParser(control.cellSet);
 		// if (fieldArea.x == 0)
@@ -75,12 +75,12 @@ public class ControlUtils extends ControlUtilsBase {
 	}
 
 	/**
-	 * ¸ù¾İ×ø±ê²éÕÒµ¥Ôª¸ñÎ»ÖÃ
+	 * æ ¹æ®åæ ‡æŸ¥æ‰¾å•å…ƒæ ¼ä½ç½®
 	 * 
-	 * @param x     X×ø±ê
-	 * @param y     Y×ø±ê
-	 * @param panel ÄÚÈİÃæ°å¶ÔÏó
-	 * @return µ¥Ôª¸ñÎ»ÖÃ
+	 * @param x     Xåæ ‡
+	 * @param y     Yåæ ‡
+	 * @param panel å†…å®¹é¢æ¿å¯¹è±¡
+	 * @return å•å…ƒæ ¼ä½ç½®
 	 */
 	public static CellLocation lookupCellPosition(int x, int y,
 			ContentPanel panel) {
@@ -98,8 +98,8 @@ public class ControlUtils extends ControlUtilsBase {
 	}
 
 	/**
-	 * ¿¹¾â³İ
-	 * ²Î¿¼https://docs.oracle.com/en/java/javase/22/docs/api/java.desktop/java/awt/doc-files/DesktopProperties.html
+	 * æŠ—é”¯é½¿
+	 * å‚è€ƒhttps://docs.oracle.com/en/java/javase/22/docs/api/java.desktop/java/awt/doc-files/DesktopProperties.html
 	 * @param g
 	 */
 	public static void setGraphicsRenderingHints(Graphics g) {

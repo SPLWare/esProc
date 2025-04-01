@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class BlockLinkWriter extends OutputStream {
-	private static final double CompressThreshold = 0.75;//Ñ¹ËõãĞÖµ
+	private static final double CompressThreshold = 0.75;//å‹ç¼©é˜ˆå€¼
 	private BlockLink blockLink;
 	private IBlockStorage storage;
 	
-	private final int blockSize; // ¿é´óĞ¡
-	private final int pointerPos; // ÏÂÒ»¿éÖ¸ÕëÔÚ¿éÖĞÎ»ÖÃ
-	private byte []block; // ¿éÄÚÈİ
-	private int caret; // ¹â±êÔÚ¿éÖĞµÄÎ»ÖÃ
+	private final int blockSize; // å—å¤§å°
+	private final int pointerPos; // ä¸‹ä¸€å—æŒ‡é’ˆåœ¨å—ä¸­ä½ç½®
+	private byte []block; // å—å†…å®¹
+	private int caret; // å…‰æ ‡åœ¨å—ä¸­çš„ä½ç½®
 	
 	private LZ4Util lz4 = LZ4Util.instance();
 	
@@ -37,7 +37,7 @@ public class BlockLinkWriter extends OutputStream {
 		storage.loadBlock(blockLink.lastBlockPos, block);
 	}
 	
-	// ×·¼ÓĞ´µÄĞèÒªµ÷ÓÃ´Îº¯Êı£¬ÖØĞ´µÄ²»ĞèÒªµ÷ÓÃ
+	// è¿½åŠ å†™çš„éœ€è¦è°ƒç”¨æ¬¡å‡½æ•°ï¼Œé‡å†™çš„ä¸éœ€è¦è°ƒç”¨
 	public void finishWrite() throws IOException {
 		blockLink.freeIndex = caret;
 		storage.saveBlock(blockLink.lastBlockPos, block);
@@ -47,7 +47,7 @@ public class BlockLinkWriter extends OutputStream {
 		long nextBlock = storage.applyNewBlock();
 		writePointer(pointerPos, nextBlock);
 		storage.saveBlock(blockLink.lastBlockPos, block);
-		writePointer(pointerPos, 0);//ÕâÀïÒªclear
+		writePointer(pointerPos, 0);//è¿™é‡Œè¦clear
 		blockLink.appendBlock(nextBlock);
 		caret = 0;
 	}
@@ -84,7 +84,7 @@ public class BlockLinkWriter extends OutputStream {
 		}
 	}
 	
-	// ×·¼Ó²¢Ñ¹ËõÊı¾İ¿é£¬·µ»ØĞ´ÈëÎ»ÖÃ
+	// è¿½åŠ å¹¶å‹ç¼©æ•°æ®å—ï¼Œè¿”å›å†™å…¥ä½ç½®
 	public long writeDataBlock(byte[] bytes) throws IOException {
 		int srcCount = bytes.length;
 		if (storage.isCompress()) {
@@ -110,7 +110,7 @@ public class BlockLinkWriter extends OutputStream {
 		}
 	}
 	
-	// ×·¼ÓÊı¾İ¿é£¬·µ»ØĞ´ÈëÎ»ÖÃ (²»Ñ¹Ëõ)
+	// è¿½åŠ æ•°æ®å—ï¼Œè¿”å›å†™å…¥ä½ç½® (ä¸å‹ç¼©)
 	public long writeDataBlock0(byte[] bytes) throws IOException {
 		long pos = blockLink.lastBlockPos + caret;
 		write(bytes);
@@ -130,7 +130,7 @@ public class BlockLinkWriter extends OutputStream {
 //		return pos;
 //	}
 	
-	// ¶ÁÇø¿éÁ´µÄÏÂÒ»¿éµÄÎ»ÖÃ
+	// è¯»åŒºå—é“¾çš„ä¸‹ä¸€å—çš„ä½ç½®
 	private long readPointer(int i) {
 		byte []block = this.block;
 		return (((long)(block[i] & 0xff) << 32) +
@@ -140,7 +140,7 @@ public class BlockLinkWriter extends OutputStream {
 				(block[i + 4] & 0xff));
 	}
 	
-	// Ğ´Çø¿éÁ´µÄÏÂÒ»¿éµÄÎ»ÖÃ
+	// å†™åŒºå—é“¾çš„ä¸‹ä¸€å—çš„ä½ç½®
 	private void writePointer(int i, long pos) {
 		byte []block = this.block;
 		block[i++] = (byte)(pos >>> 32);
@@ -150,7 +150,7 @@ public class BlockLinkWriter extends OutputStream {
 		block[i++] = (byte)(pos >>>  0);
 	}
 	
-	// ÖØĞ´Çø¿éÁ´
+	// é‡å†™åŒºå—é“¾
 	public void rewriteBlocks(byte[] bytes) throws IOException {
 		int len = bytes.length;
 		int oldBlockCount = blockLink.blockCount;
@@ -186,7 +186,7 @@ public class BlockLinkWriter extends OutputStream {
 		}
 	}
 	
-	// ×·¼Ó£¬²»Ñ¹ËõÊı¾İ¿é£¬·µ»ØĞ´ÈëÎ»ÖÃ
+	// è¿½åŠ ï¼Œä¸å‹ç¼©æ•°æ®å—ï¼Œè¿”å›å†™å…¥ä½ç½®
 	public long writeDataBuffer(byte[] bytes) throws IOException {
 		int count = bytes.length;
 		long pos = blockLink.lastBlockPos + caret;

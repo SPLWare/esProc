@@ -51,16 +51,16 @@ import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.control.SplControl;
 
 /**
- * JTextPaneµÄÀ©Õ¹Àà¡£
+ * JTextPaneçš„æ‰©å±•ç±»ã€‚
  * 
- * ¿ÉÒÔÆ¥ÅäÀ¨ºÅ£¬¸ßÁÁÏÔÊ¾¹Ø¼ü×Ö¡£
+ * å¯ä»¥åŒ¹é…æ‹¬å·ï¼Œé«˜äº®æ˜¾ç¤ºå…³é”®å­—ã€‚
  */
 public class JTextPaneEx extends JTextPane {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ÑùÊ½ÎÄµµ¶ÔÏó
+	 * æ ·å¼æ–‡æ¡£å¯¹è±¡
 	 */
 	private DefaultStyledDocument doc;
 	/**
@@ -68,12 +68,12 @@ public class JTextPaneEx extends JTextPane {
 	 */
 	private boolean matchEnabled = true;
 	/**
-	 * ÊÇ·ñ×èÖ¹±ä»¯
+	 * æ˜¯å¦é˜»æ­¢å˜åŒ–
 	 */
 	protected boolean preventChanged = false;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public JTextPaneEx() {
 		super();
@@ -86,7 +86,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÆ¥Åä
+	 * è®¾ç½®æ˜¯å¦åŒ¹é…
 	 * 
 	 * @param matchEnabled
 	 */
@@ -95,7 +95,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ÉèÖÃÎÄ±¾
+	 * è®¾ç½®æ–‡æœ¬
 	 */
 	public void setText(String t) {
 		try {
@@ -107,7 +107,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 */
 	private void init() {
 		setFont(GC.font);
@@ -176,7 +176,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñ×èÖ¹±ä»¯
+	 * è®¾ç½®æ˜¯å¦é˜»æ­¢å˜åŒ–
 	 * 
 	 * @param preventChanged
 	 */
@@ -185,7 +185,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ÎÄµµ¸üĞÂ
+	 * æ–‡æ¡£æ›´æ–°
 	 */
 	protected void docUpdate() {
 		if (preventChanged)
@@ -195,7 +195,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ¼ì²éµ±Ç°×ÖÌåÄÜ·ñ»æÖÆÎÄ±¾£¬²»ÄÜ»æÖÆÊ±Ê¹ÓÃDialog×ÖÌå
+	 * æ£€æŸ¥å½“å‰å­—ä½“èƒ½å¦ç»˜åˆ¶æ–‡æœ¬ï¼Œä¸èƒ½ç»˜åˆ¶æ—¶ä½¿ç”¨Dialogå­—ä½“
 	 */
 	public void checkFont() {
 		try {
@@ -223,14 +223,14 @@ public class JTextPaneEx extends JTextPane {
 		}
 	}
 
-	// Ì«³¤µÄÎÄ±¾Í¨³£ÊÇÊı¾İ¾Í²»¸¨Öú±à¼­ÁË£¬Òª²»È»Ì«ÂıÁË
+	// å¤ªé•¿çš„æ–‡æœ¬é€šå¸¸æ˜¯æ•°æ®å°±ä¸è¾…åŠ©ç¼–è¾‘äº†ï¼Œè¦ä¸ç„¶å¤ªæ…¢äº†
 	private static final int STYLE_MAX_LENGTH = 100000;
 
 	/**
-	 * ¹â±êÒÆ¶¯
+	 * å…‰æ ‡ç§»åŠ¨
 	 * 
 	 * @param caret
-	 *            ¹â±êÎ»ÖÃ
+	 *            å…‰æ ‡ä½ç½®
 	 */
 	public void caretChanged(int caret) {
 		if (!isVisible())
@@ -245,7 +245,7 @@ public class JTextPaneEx extends JTextPane {
 		if (text != null && text.length() > STYLE_MAX_LENGTH)
 			return;
 		if (text != null && text.length() > 0) {
-			// ÖØÖÃ
+			// é‡ç½®
 			total.add(new CA(0, text.length(), AS_DEFAULT, true));
 		}
 		total.addAll(refCAs);
@@ -255,7 +255,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * È¡ËùÓĞ¸ßÁÁÏÔÊ¾µÄÅäÖÃ
+	 * å–æ‰€æœ‰é«˜äº®æ˜¾ç¤ºçš„é…ç½®
 	 * 
 	 * @param caret
 	 * @return
@@ -273,13 +273,13 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ¹â±êÒÆ¶¯
+	 * å…‰æ ‡ç§»åŠ¨
 	 */
 	protected void caretChanged() {
 	}
 
 	/**
-	 * Æ¥Åä¹Ø¼ü×Ö
+	 * åŒ¹é…å…³é”®å­—
 	 * 
 	 * @param caret
 	 * @return
@@ -307,7 +307,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * È¡Æ¥ÅäµÄÀ¨ºÅ
+	 * å–åŒ¹é…çš„æ‹¬å·
 	 * 
 	 * @param caret
 	 * @return
@@ -330,13 +330,13 @@ public class JTextPaneEx extends JTextPane {
 	public Point getLocationOnScreen() {
 		try {
 			return super.getLocationOnScreen();
-		} catch (Throwable t) { // ²»±¨´í
+		} catch (Throwable t) { // ä¸æŠ¥é”™
 			return new Point(0, 0);
 		}
 	}
 
 	/**
-	 * ³õÊ¼»¯ÒıÓÃ¸ñ
+	 * åˆå§‹åŒ–å¼•ç”¨æ ¼
 	 * 
 	 * @param isUpdate
 	 */
@@ -363,7 +363,7 @@ public class JTextPaneEx extends JTextPane {
 				}
 			}
 			if (text != null && text.length() > 0) {
-				// ÖØÖÃ
+				// é‡ç½®
 				refCAs.add(new CA(0, text.length(), AS_DEFAULT, true));
 			}
 			if (cellSet != null && text != null) {
@@ -424,7 +424,7 @@ public class JTextPaneEx extends JTextPane {
 			total.addAll(getCaretCAs(getCaretPosition()));
 			resetCAs(total);
 			if (control != null) {
-				// ±È½ÏÒ»ÏÂ£¬Èç¹û¸ñ×ÓÃ»±ä¾Í²»Ë¢ĞÂÁË
+				// æ¯”è¾ƒä¸€ä¸‹ï¼Œå¦‚æœæ ¼å­æ²¡å˜å°±ä¸åˆ·æ–°äº†
 				boolean isSame = false;
 				if (lastRefCells != null && refCells != null)
 					if (lastRefCells.size() == refCells.size()) {
@@ -452,7 +452,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ÖØÖÃÆ¥ÅäÁĞ±í
+	 * é‡ç½®åŒ¹é…åˆ—è¡¨
 	 * 
 	 * @param cas
 	 */
@@ -469,7 +469,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ÖØÖÃÆ¥ÅäÉèÖÃÁĞ±í
+	 * é‡ç½®åŒ¹é…è®¾ç½®åˆ—è¡¨
 	 * 
 	 * @param cas
 	 */
@@ -495,7 +495,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * È¡ÒıÓÃ¸ñÁĞ±í
+	 * å–å¼•ç”¨æ ¼åˆ—è¡¨
 	 * 
 	 * @return
 	 */
@@ -504,12 +504,12 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * È¡ÒıÓÃ¸ñÑÕÉ«
+	 * å–å¼•ç”¨æ ¼é¢œè‰²
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public Color getRefCellColor(int row, int col) {
@@ -527,7 +527,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ¶¨Òå¹Ø¼ü×Ö
+	 * å®šä¹‰å…³é”®å­—
 	 */
 	private static final String KEY_IF = "if";
 	private static final String KEY_ELSE = "else";
@@ -549,7 +549,7 @@ public class JTextPaneEx extends JTextPane {
 	private static final String KEY_CHANNEL = "cursor";
 
 	/**
-	 * ¹Ø¼ü×Ö¼¯ºÏ
+	 * å…³é”®å­—é›†åˆ
 	 */
 	private static List<String> keyWords = new ArrayList<String>();
 	static {
@@ -571,7 +571,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ¶à¸öÑÕÉ«Ñ­»·Ê¹ÓÃ£¬³¬³öÁËÔÙ´Ó0¿ªÊ¼
+	 * å¤šä¸ªé¢œè‰²å¾ªç¯ä½¿ç”¨ï¼Œè¶…å‡ºäº†å†ä»0å¼€å§‹
 	 */
 	private static final Color REF_COLOR1 = Color.BLUE;
 	private static final Color REF_COLOR2 = Color.RED;
@@ -587,33 +587,33 @@ public class JTextPaneEx extends JTextPane {
 	private static final Color COLOR_BRACKET = Color.RED;
 	private static final Color COLOR_KEY = Color.BLUE;
 
-	/** È±Ê¡ */
+	/** ç¼ºçœ */
 	private static final MutableAttributeSet AS_DEFAULT = new SimpleAttributeSet();
-	/** Æ¥ÅäÀ¨ºÅ */
+	/** åŒ¹é…æ‹¬å· */
 	private static final MutableAttributeSet AS_BRACKET = new SimpleAttributeSet();
-	/** ¹Ø¼ü×Ö */
+	/** å…³é”®å­— */
 	private static final MutableAttributeSet AS_KEY = new SimpleAttributeSet();
 
 	/**
-	 * ÒıÓÃµ¥Ôª¸ñÑÕÉ«µÄ¼¯ºÏ
+	 * å¼•ç”¨å•å…ƒæ ¼é¢œè‰²çš„é›†åˆ
 	 */
 	private MutableAttributeSet[] as = new MutableAttributeSet[REF_COLORS.length];
 
 	/**
-	 * ËùÓĞÒıÓÃ¸ñµÄÆ¥ÅäÉèÖÃ
+	 * æ‰€æœ‰å¼•ç”¨æ ¼çš„åŒ¹é…è®¾ç½®
 	 */
 	private List<CA> refCAs = new ArrayList<CA>();
 	/**
-	 * ÒıÓÃ¸ñÁĞ±í
+	 * å¼•ç”¨æ ¼åˆ—è¡¨
 	 */
 	private List<INormalCell> refCells = new ArrayList<INormalCell>();
 	/**
-	 * ËÑË÷ÅäÖÃ
+	 * æœç´¢é…ç½®
 	 */
 	private final int SEARCH_FLAG = Sentence.IGNORE_PARS + Sentence.ONLY_PHRASE;
 
 	/**
-	 * ±à¼­¹¤¾ß
+	 * ç¼–è¾‘å·¥å…·
 	 *
 	 */
 	private class WarpEditorKit extends StyledEditorKit {
@@ -626,7 +626,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ÁĞ¹¤³§
+	 * åˆ—å·¥å‚
 	 */
 	private class WarpColumnFactory implements ViewFactory {
 
@@ -650,7 +650,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * ±êÇ©ÊÓÍ¼
+	 * æ ‡ç­¾è§†å›¾
 	 *
 	 */
 	private class WarpLabelView extends LabelView {
@@ -672,7 +672,7 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * Æ¥Åäµ½µÄ¸ßÁÁÏÔÊ¾µÄÅäÖÃ
+	 * åŒ¹é…åˆ°çš„é«˜äº®æ˜¾ç¤ºçš„é…ç½®
 	 *
 	 */
 	class CA {

@@ -11,7 +11,7 @@ import com.scudata.expression.*;
 import java.awt.*;
 
 /**
- * ²ÎÊıĞÅÏ¢Àà£¬ÓÃÓÚÃèÊöÄ³¸ö¾ßÌå²ÎÊıµÄ±à¼­ÀàĞÍ
+ * å‚æ•°ä¿¡æ¯ç±»ï¼Œç”¨äºæè¿°æŸä¸ªå…·ä½“å‚æ•°çš„ç¼–è¾‘ç±»å‹
  * @author Joancy
  *
  */
@@ -20,7 +20,7 @@ public class ParamInfo extends ChartParam {
 	private String title;
 	private int inputType;
 	private boolean axisEnable = false;
-	private Object defValue;// Ö»¸ø±à¼­ÓÃµÄÈ±Ê¡Öµ£¬ÓÃÓÚÉ¾³ı±í´ïÊ½ºó£¬ÓÃ¸ÃÖµäÖÈ¾£¬¸ÃÖµ¸úÀàµÄÈ±Ê¡ÖµÒ»ÖÂ
+	private Object defValue;// åªç»™ç¼–è¾‘ç”¨çš„ç¼ºçœå€¼ï¼Œç”¨äºåˆ é™¤è¡¨è¾¾å¼åï¼Œç”¨è¯¥å€¼æ¸²æŸ“ï¼Œè¯¥å€¼è·Ÿç±»çš„ç¼ºçœå€¼ä¸€è‡´
 
 	private static transient Class currentClass;
 	private static transient Object currentObj;
@@ -28,10 +28,10 @@ public class ParamInfo extends ChartParam {
 	private MessageManager mm = ChartMessage.get();
 
 	/**
-	 * Í¼ÔªµÄ¼Ì³ĞÊÇ¶à²ãµÄ£¬ÎªÁË×¼È·¶¨Î»µ½¾ßÌåÔÚÄÄÒ»²ã¸¸Àà
-	 * Ê¹ÓÃ¸Ã·½·¨ÃèÊöµ±Ç°¹¤×÷²ã
-	 * @param objClass ¾ßÌåµÄÄ³²ã¸¸Àà
-	 * @param obj ¸ÃÀàµÄÊµÀı¶ÔÏó
+	 * å›¾å…ƒçš„ç»§æ‰¿æ˜¯å¤šå±‚çš„ï¼Œä¸ºäº†å‡†ç¡®å®šä½åˆ°å…·ä½“åœ¨å“ªä¸€å±‚çˆ¶ç±»
+	 * ä½¿ç”¨è¯¥æ–¹æ³•æè¿°å½“å‰å·¥ä½œå±‚
+	 * @param objClass å…·ä½“çš„æŸå±‚çˆ¶ç±»
+	 * @param obj è¯¥ç±»çš„å®ä¾‹å¯¹è±¡
 	 */
 	public static void setCurrent(Class objClass, Object obj) {
 		currentClass = objClass;
@@ -39,17 +39,17 @@ public class ParamInfo extends ChartParam {
 	}
 
 	/**
-	 * ¹¹ÔìÒ»¸ö³£¹æ±à¼­ÀàĞÍµÄ²ÎÊıĞÅÏ¢
-	 * @param name ²ÎÊıÃû³Æ
+	 * æ„é€ ä¸€ä¸ªå¸¸è§„ç¼–è¾‘ç±»å‹çš„å‚æ•°ä¿¡æ¯
+	 * @param name å‚æ•°åç§°
 	 */
 	public ParamInfo(String name) {
 		this(name, Consts.INPUT_NORMAL);
 	}
 
 	/**
-	 * ¹¹ÔìÖ¸¶¨²ÎÊı±à¼­ÀàĞÍµÄ²ÎÊıĞÅÏ¢
-	 * @param name Ãû³Æ
-	 * @param inputType ±à¼­ÀàĞÍ£¬Öµ²Î¿¼£ºConsts.INPUT_XXX
+	 * æ„é€ æŒ‡å®šå‚æ•°ç¼–è¾‘ç±»å‹çš„å‚æ•°ä¿¡æ¯
+	 * @param name åç§°
+	 * @param inputType ç¼–è¾‘ç±»å‹ï¼Œå€¼å‚è€ƒï¼šConsts.INPUT_XXX
 	 */
 	public ParamInfo(String name, int inputType) {
 		this.name = name;
@@ -75,8 +75,8 @@ public class ParamInfo extends ChartParam {
 	}
 
 	/**
-	 * »ñÈ¡¸Ã²ÎÊıµÄÈ±Ê¡Öµ
-	 * @return Öµ
+	 * è·å–è¯¥å‚æ•°çš„ç¼ºçœå€¼
+	 * @return å€¼
 	 */
 	public Object getDefValue() {
 		return defValue;
@@ -87,8 +87,8 @@ public class ParamInfo extends ChartParam {
 	}
 
 	/**
-	 * ¸ù¾İ»ùÀàcpµÄÄÚÈİ£¬ÉèÖÃµ±Ç°ÄÚÈİ
-	 * @param cp »ùÀà²ÎÊı
+	 * æ ¹æ®åŸºç±»cpçš„å†…å®¹ï¼Œè®¾ç½®å½“å‰å†…å®¹
+	 * @param cp åŸºç±»å‚æ•°
 	 */
 	public void setChartParam(ChartParam cp) {
 		Object tmp = cp.getValue();
@@ -111,24 +111,24 @@ public class ParamInfo extends ChartParam {
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊı±êÌâ
-	 * @return ±êÌâÄÚÈİ
+	 * è·å–å‚æ•°æ ‡é¢˜
+	 * @return æ ‡é¢˜å†…å®¹
 	 */
 	public String getTitle() {
 		return title;
 	}
 	
 	/**
-	 * ÉèÖÃ²ÎÊıµÄ±êÌâ
-	 * @param title ±êÌâÄÚÈİ
+	 * è®¾ç½®å‚æ•°çš„æ ‡é¢˜
+	 * @param title æ ‡é¢˜å†…å®¹
 	 */
 	public void setTitle(String title){
 		this.title = title;
 	}
 
 	/**
-	 * »ñÈ¡²ÎÊıµÄ±à¼­ÀàĞÍ
-	 * @return ConstsÖĞ¶¨ÒåºÃµÄ±à¼­ÀàĞÍ
+	 * è·å–å‚æ•°çš„ç¼–è¾‘ç±»å‹
+	 * @return Constsä¸­å®šä¹‰å¥½çš„ç¼–è¾‘ç±»å‹
 	 */
 	public int getInputType() {
 		return inputType;

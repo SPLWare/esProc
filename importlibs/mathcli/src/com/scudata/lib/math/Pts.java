@@ -3,16 +3,16 @@ package com.scudata.lib.math;
 import com.scudata.dm.Sequence;
 
 /**
- * ¾ÀÆ«µÄ´¦Àí
+ * çº åçš„å¤„ç†
  * @author bidalong
- * Ô­ĞÍx.pts(p)
+ * åŸå‹x.pts(p)
  */
 public class Pts {
 	/**
-	 * ÒÑÖªxµÄ×îĞ¡ÖµmµÄÇé¿öÏÂ£¬¼ÆËãx.pts(p)
-	 * @param x ÊıÁĞ£¬Í¨³£ÊÇÄ¿±ê±äÁ¿ĞòÁĞ
-	 * @param m Ä¿±êĞòÁĞµÄ×îĞ¡Öµ
-	 * @param p ¼ÆËãptsÊ±ËùÓÃµÄÖ¸Êı
+	 * å·²çŸ¥xçš„æœ€å°å€¼mçš„æƒ…å†µä¸‹ï¼Œè®¡ç®—x.pts(p)
+	 * @param x æ•°åˆ—ï¼Œé€šå¸¸æ˜¯ç›®æ ‡å˜é‡åºåˆ—
+	 * @param m ç›®æ ‡åºåˆ—çš„æœ€å°å€¼
+	 * @param p è®¡ç®—ptsæ—¶æ‰€ç”¨çš„æŒ‡æ•°
 	 * @return
 	 */
 	protected static Sequence pts(Sequence x, double m, double p) {
@@ -27,10 +27,10 @@ public class Pts {
 	}
 	
 	/**
-	 * ÒÑÖªxµÄ×îĞ¡ÖµmµÄÇé¿öÏÂ£¬¼ÆËãx.pts(p)£¬²¢Ö±½ÓÉèÈëx
-	 * @param x ÊıÁĞ£¬Í¨³£ÊÇÄ¿±ê±äÁ¿ĞòÁĞ
-	 * @param m Ä¿±êĞòÁĞµÄ×îĞ¡Öµ
-	 * @param p ¼ÆËãptsÊ±ËùÓÃµÄÖ¸Êı
+	 * å·²çŸ¥xçš„æœ€å°å€¼mçš„æƒ…å†µä¸‹ï¼Œè®¡ç®—x.pts(p)ï¼Œå¹¶ç›´æ¥è®¾å…¥x
+	 * @param x æ•°åˆ—ï¼Œé€šå¸¸æ˜¯ç›®æ ‡å˜é‡åºåˆ—
+	 * @param m ç›®æ ‡åºåˆ—çš„æœ€å°å€¼
+	 * @param p è®¡ç®—ptsæ—¶æ‰€ç”¨çš„æŒ‡æ•°
 	 * @return
 	 */
 	protected static void ptsSeq(Sequence x, double m, double p, boolean newLn) {
@@ -42,15 +42,15 @@ public class Pts {
 	}
 	
 	/**
-	 * ÒÑÖªÄ¿±ê±äÁ¿ĞòÁĞµÄ×îĞ¡ÖµmµÄÇé¿öÏÂ£¬¼ÆËãµ¥¸öÄ¿±ê±äÁ¿ÖµµÄpts(p)
-	 * @param t µ¥¸öÄ¿±êÖµ
-	 * @param m Ä¿±êĞòÁĞµÄ×îĞ¡Öµ
-	 * @param p ¼ÆËãÊ±ËùÊ¹ÓÃµÄÖ¸Êı
+	 * å·²çŸ¥ç›®æ ‡å˜é‡åºåˆ—çš„æœ€å°å€¼mçš„æƒ…å†µä¸‹ï¼Œè®¡ç®—å•ä¸ªç›®æ ‡å˜é‡å€¼çš„pts(p)
+	 * @param t å•ä¸ªç›®æ ‡å€¼
+	 * @param m ç›®æ ‡åºåˆ—çš„æœ€å°å€¼
+	 * @param p è®¡ç®—æ—¶æ‰€ä½¿ç”¨çš„æŒ‡æ•°
 	 * @return
 	 */
 	protected static double pts(double t, double m, double p, boolean newLn) {
-		// Èç¹û³öÏÖt<mµÄÇé¿ö£¬°ÑtÉèÎª×îĞ¡Öµ£¬´Ë´¦ÀíÖ÷ÒªÊÇÎªÁËreprepareÊ±±ÜÃâÓÉ³¬ÏŞÖµÒı·¢´íÎó¡£
-		// pÎª0Ê±²ÉÈ¡ĞÂËã·¨£¬sign(x)*ln(abs(x)+1), Óë×îÏÂÖµÎŞ¹Ø
+		// å¦‚æœå‡ºç°t<mçš„æƒ…å†µï¼ŒæŠŠtè®¾ä¸ºæœ€å°å€¼ï¼Œæ­¤å¤„ç†ä¸»è¦æ˜¯ä¸ºäº†reprepareæ—¶é¿å…ç”±è¶…é™å€¼å¼•å‘é”™è¯¯ã€‚
+		// pä¸º0æ—¶é‡‡å–æ–°ç®—æ³•ï¼Œsign(x)*ln(abs(x)+1), ä¸æœ€ä¸‹å€¼æ— å…³
 		if (newLn && p == 0) {
 			if (t == 0) {
 				return 0;
@@ -65,7 +65,7 @@ public class Pts {
 			t = m;
 		}
 		if (p == 0) {
-			// pÎª0Ê±·µ»Øln(abs(x))
+			// pä¸º0æ—¶è¿”å›ln(abs(x))
 			int i = 0;
 			if (i > 0) {
 				return Math.log(Math.abs(t))/Math.log(Math.E);
@@ -79,7 +79,7 @@ public class Pts {
 			}
 		}
 		else {
-			// p²»Îª0Ê±·µ»ØxµÄp´ÎÃİ
+			// pä¸ä¸º0æ—¶è¿”å›xçš„pæ¬¡å¹‚
 			int i = 0;
 			if (i > 0) {
 				return Math.pow(t, p);
@@ -95,9 +95,9 @@ public class Pts {
 	}
 	
 	/**
-	 * ÒÑÖªxÊÇX.pts(1)µÄÇé¿öÏÂ£¬¼ÆËãx.pts(p)
-	 * @param x ÊıÁĞ£¬Í¨³£ÊÇÄ¿±ê±äÁ¿ĞòÁĞ
-	 * @param p ¼ÆËãptsÊ±ËùÓÃµÄÖ¸Êı
+	 * å·²çŸ¥xæ˜¯X.pts(1)çš„æƒ…å†µä¸‹ï¼Œè®¡ç®—x.pts(p)
+	 * @param x æ•°åˆ—ï¼Œé€šå¸¸æ˜¯ç›®æ ‡å˜é‡åºåˆ—
+	 * @param p è®¡ç®—ptsæ—¶æ‰€ç”¨çš„æŒ‡æ•°
 	 * @return
 	 */
 	protected static Sequence power(Sequence x, double p) {

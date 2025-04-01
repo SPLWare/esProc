@@ -1,14 +1,14 @@
 package com.scudata.dm;
 
 /**
- * ÓÃÓÚ¼ÆËãĞòÁĞº¯ÊıÊ±½øĞĞÑ¹Õ»
+ * ç”¨äºè®¡ç®—åºåˆ—å‡½æ•°æ—¶è¿›è¡Œå‹æ ˆ
  * @author WangXiaoJun
  *
  */
 public class Current implements IComputeItem {
 	private Sequence sequence;
-	private int curIndex; // µ±Ç°ĞòÁĞÕıÔÚ½øĞĞ¼ÆËãµÄÔªËØµÄË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
-	private boolean isInStack = true; // ÊÇ·ñ»¹ÔÚ¼ÆËã¶ÑÕ»ÖĞ
+	private int curIndex; // å½“å‰åºåˆ—æ­£åœ¨è¿›è¡Œè®¡ç®—çš„å…ƒç´ çš„ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
+	private boolean isInStack = true; // æ˜¯å¦è¿˜åœ¨è®¡ç®—å †æ ˆä¸­
 
 	public Current(Sequence sequence) {
 		this.sequence = sequence;
@@ -20,7 +20,7 @@ public class Current implements IComputeItem {
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°ÕıÔÚ¼ÆËãµÄÔªËØ
+	 * è¿”å›å½“å‰æ­£åœ¨è®¡ç®—çš„å…ƒç´ 
 	 * @return Object
 	 */
 	public Object getCurrent() {
@@ -28,7 +28,7 @@ public class Current implements IComputeItem {
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°ÕıÔÚ¼ÆËãµÄÔªËØË÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * è¿”å›å½“å‰æ­£åœ¨è®¡ç®—çš„å…ƒç´ ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 * @return int
 	 */
 	public int getCurrentIndex() {
@@ -36,28 +36,28 @@ public class Current implements IComputeItem {
 	}
 	
 	/**
-	 * È¡Ô´ĞòÁĞ
+	 * å–æºåºåˆ—
 	 */
 	public Sequence getCurrentSequence() {
 		return sequence;
 	}
 	
 	/**
-	 * ÅĞ¶ÏĞòÁĞÊÇ·ñ»¹ÔÚ¶ÑÕ»ÖĞ
+	 * åˆ¤æ–­åºåˆ—æ˜¯å¦è¿˜åœ¨å †æ ˆä¸­
 	 */
 	public boolean isInStack(ComputeStack stack) {
 		return isInStack;
 	}
 	
 	/**
-	 * ¼ÆËãÍê³É£¬ĞòÁĞ³öÕ»
+	 * è®¡ç®—å®Œæˆï¼Œåºåˆ—å‡ºæ ˆ
 	 */
 	public void popStack() {
 		isInStack = false;
 	}
 	
 	/**
-	 * ÅĞ¶Ïµ±Ç°ĞòÁĞÊÇ·ñºÍ¸ø¶¨ĞòÁĞÊÇÍ¬Ò»¸öĞòÁĞ
+	 * åˆ¤æ–­å½“å‰åºåˆ—æ˜¯å¦å’Œç»™å®šåºåˆ—æ˜¯åŒä¸€ä¸ªåºåˆ—
 	 * @param seq
 	 * @return
 	 */
@@ -66,7 +66,7 @@ public class Current implements IComputeItem {
 	}
 
 	/**
-	 * È¡ĞòÁĞµÄ³¤¶È
+	 * å–åºåˆ—çš„é•¿åº¦
 	 * @return
 	 */
 	public int length() {
@@ -74,8 +74,8 @@ public class Current implements IComputeItem {
 	}
 
 	/**
-	 * ÓÃĞòºÅÈ¡ĞòÁĞµÄ³ÉÔ±
-	 * @param i ĞòºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * ç”¨åºå·å–åºåˆ—çš„æˆå‘˜
+	 * @param i åºå·ï¼Œä»1å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public Object get(int i) {
@@ -83,15 +83,15 @@ public class Current implements IComputeItem {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°ÕıÔÚ¼ÆËãµÄÔªËØË÷Òı
-	 * @param index int ´Ó1¿ªÊ¼¼ÆÊı
+	 * è®¾ç½®å½“å‰æ­£åœ¨è®¡ç®—çš„å…ƒç´ ç´¢å¼•
+	 * @param index int ä»1å¼€å§‹è®¡æ•°
 	 */
 	public void setCurrent(int index) {
 		this.curIndex = index;
 	}
 
 	/**
-	 * ĞŞ¸ÄĞòÁĞµÄµ±Ç°ÔªËØÎªÖ¸¶¨Öµ
+	 * ä¿®æ”¹åºåˆ—çš„å½“å‰å…ƒç´ ä¸ºæŒ‡å®šå€¼
 	 * @param val
 	 */
 	public void assign(Object val) {
@@ -99,8 +99,8 @@ public class Current implements IComputeItem {
 	}
 
 	/**
-	 * ĞŞ¸ÄĞòÁĞÖ¸¶¨Î»ÖÃµÄÔªËØ
-	 * @param index ĞòºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * ä¿®æ”¹åºåˆ—æŒ‡å®šä½ç½®çš„å…ƒç´ 
+	 * @param index åºå·ï¼Œä»1å¼€å§‹è®¡æ•°
 	 * @param val
 	 */
 	public void assign(int index, Object val) {
@@ -108,7 +108,7 @@ public class Current implements IComputeItem {
 	}
 	
 	/**
-	 * È¡µ±Ç°¼ÇÂ¼µÄ×Ö¶ÎÖµ
+	 * å–å½“å‰è®°å½•çš„å­—æ®µå€¼
 	 * @param field
 	 * @return
 	 */

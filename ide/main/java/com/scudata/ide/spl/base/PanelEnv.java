@@ -289,14 +289,14 @@ public abstract class PanelEnv extends JPanel {
 	}
 
 	/**
-	 * Ôö¼Ó½Úµã»ú×é¼ş
+	 * å¢åŠ èŠ‚ç‚¹æœºç»„ä»¶
 	 */
 	protected void addOptComponents(JPanel panelOpt) {
 
 	}
 
 	/**
-	 * Ñ¡ÔñÍâ²¿¿âÄ¿Â¼
+	 * é€‰æ‹©å¤–éƒ¨åº“ç›®å½•
 	 */
 	private void selectExtLibsPath() {
 		DialogExtLibs dialog = new DialogExtLibs(GV.config, parent,
@@ -309,7 +309,7 @@ public abstract class PanelEnv extends JPanel {
 	}
 
 	/**
-	 * ¼ì²éÎÄ¼ş»º´æ
+	 * æ£€æŸ¥æ–‡ä»¶ç¼“å­˜
 	 * 
 	 * @return
 	 */
@@ -338,13 +338,13 @@ public abstract class PanelEnv extends JPanel {
 	}
 
 	/**
-	 * ¼ì²éÇø¿é´óĞ¡
+	 * æ£€æŸ¥åŒºå—å¤§å°
 	 * 
 	 * @return
 	 */
 	private boolean checkBlockSize() {
 		if (!GMSpl.isBlockSizeEnabled()) {
-			// Òş²ØÊ±ºò²»Ğ£ÑéÁË
+			// éšè—æ—¶å€™ä¸æ ¡éªŒäº†
 			return true;
 		}
 		String sBlockSize = textBlockSize.getText();
@@ -355,7 +355,7 @@ public abstract class PanelEnv extends JPanel {
 					parent,
 					IdeSplMessage.get().getMessage(
 							"dialogoptions.emptyblocksize"));
-			// ÇëÊäÈë¼ò±íÇø¿é´óĞ¡¡£
+			// è¯·è¾“å…¥ç®€è¡¨åŒºå—å¤§å°ã€‚
 			// Please input the block size.
 			textBlockSize.setText(Env.getBlockSize() + "");
 			return false;
@@ -365,7 +365,7 @@ public abstract class PanelEnv extends JPanel {
 					parent,
 					IdeSplMessage.get().getMessage(
 							"dialogoptions.invalidblocksize"));
-			// ¼ò±íÇø¿é´óĞ¡Ó¦ÎªÕıÕûÊı£¬ÇÒÊÇ4096×Ö½ÚµÄÕûÊı±¶¡£
+			// ç®€è¡¨åŒºå—å¤§å°åº”ä¸ºæ­£æ•´æ•°ï¼Œä¸”æ˜¯4096å­—èŠ‚çš„æ•´æ•°å€ã€‚
 			// The block size should be an integer multiple of 4096b.
 			textBlockSize.setText(Env.getBlockSize() + "");
 			return false;
@@ -375,7 +375,7 @@ public abstract class PanelEnv extends JPanel {
 					IdeSplMessage.get()
 							.getMessage("dialogoptions.minblocksize"));
 			textBlockSize.setText(GC.MIN_BUFF_SIZE + "");
-			// ¼ò±íÇø¿é´óĞ¡²»ÄÜµÍÓÚ4096×Ö½Ú¡£
+			// ç®€è¡¨åŒºå—å¤§å°ä¸èƒ½ä½äº4096å­—èŠ‚ã€‚
 			// The file buffer size cannot less than 4096 bytes.
 			return false;
 		} else if (blockSize % 4096 != 0) {
@@ -396,7 +396,7 @@ public abstract class PanelEnv extends JPanel {
 	}
 
 	/**
-	 * È¡Ñ°Ö·Â·¾¶
+	 * å–å¯»å€è·¯å¾„
 	 * 
 	 * @return
 	 */
@@ -412,28 +412,28 @@ public abstract class PanelEnv extends JPanel {
 	}
 
 	private void init(byte type) {
-		jBLogFile.setText(mm.getMessage("dialogoptions.select")); // Ñ¡Ôñ
-		jBPath.setText(mm.getMessage("dialogoptions.select")); // Ñ¡Ôñ
-		jBMainPath.setText(mm.getMessage("dialogoptions.select")); // Ñ¡Ôñ
-		jBTempPath.setText(mm.getMessage("dialogoptions.edit")); // ±à¼­
-		jBExtLibsPath.setText(mm.getMessage("dialogoptions.select")); // Ñ¡Ôñ
-		jBInitSpl.setText(mm.getMessage("dialogoptions.select")); // Ñ¡Ôñ
-		jBCustomFunctionFile.setText(mm.getMessage("dialogoptions.select")); // Ñ¡Ôñ
+		jBLogFile.setText(mm.getMessage("dialogoptions.select")); // é€‰æ‹©
+		jBPath.setText(mm.getMessage("dialogoptions.select")); // é€‰æ‹©
+		jBMainPath.setText(mm.getMessage("dialogoptions.select")); // é€‰æ‹©
+		jBTempPath.setText(mm.getMessage("dialogoptions.edit")); // ç¼–è¾‘
+		jBExtLibsPath.setText(mm.getMessage("dialogoptions.select")); // é€‰æ‹©
+		jBInitSpl.setText(mm.getMessage("dialogoptions.select")); // é€‰æ‹©
+		jBCustomFunctionFile.setText(mm.getMessage("dialogoptions.select")); // é€‰æ‹©
 		textNullStrings.setToolTipText(mm
 				.getMessage("dialogoptions.nullstringstip"));
 
-		// ¼¯ËãÆ÷ÎÄ¼şËùÔÚµÄÄ¿Â¼Ãû³Æ
+		// é›†ç®—å™¨æ–‡ä»¶æ‰€åœ¨çš„ç›®å½•åç§°
 		jTFPath.setToolTipText(mm.getMessage("dialogoptions.pathtip"));
 		jTFMainPath.setEditable(true);
-		// Ïà¶ÔÂ·¾¶ÎÄ¼şºÍÔ¶³ÌÎÄ¼şµÄ¸ùÄ¿Â¼
+		// ç›¸å¯¹è·¯å¾„æ–‡ä»¶å’Œè¿œç¨‹æ–‡ä»¶çš„æ ¹ç›®å½•
 		jTFMainPath.setToolTipText(mm.getMessage("dialogoptions.mainpathtip"));
-		// ÁÙÊ±ÎÄ¼şËùÔÚÄ¿Â¼£¬±ØĞëÔÚÖ÷Ä¿Â¼ÄÚ
+		// ä¸´æ—¶æ–‡ä»¶æ‰€åœ¨ç›®å½•ï¼Œå¿…é¡»åœ¨ä¸»ç›®å½•å†…
 		jTFTempPath.setToolTipText(mm.getMessage("dialogoptions.temppathtip"));
 		labelPathNote.setForeground(DialogOptions.NOTE_COLOR);
 		jLInitSpl.setForeground(Color.BLUE);
 		jLCustomFunctionFile.setForeground(Color.BLUE);
 
-		// ÎÄ¼ş
+		// æ–‡ä»¶
 		panelFile = new JPanel(new GridBagLayout());
 		if (type == TYPE_ESPROC) {
 			panelFile.add(jLabelLog, GM.getGBC(1, 1));
@@ -469,7 +469,7 @@ public abstract class PanelEnv extends JPanel {
 		panelFile.add(jTextCustomFunctionFile, GM.getGBC(8, 2, true));
 		panelFile.add(jBCustomFunctionFile, GM.getGBC(8, 3));
 
-		// Ñ¡Ïî
+		// é€‰é¡¹
 		JPanel panelOpt = new JPanel(new GridBagLayout());
 		panelOpt.add(labelDate, GM.getGBC(1, 1));
 		panelOpt.add(jCBDate, GM.getGBC(1, 2, true));
@@ -693,27 +693,27 @@ public abstract class PanelEnv extends JPanel {
 	}
 
 	/**
-	 * ¹«¹²×ÊÔ´¹ÜÀíÆ÷
+	 * å…¬å…±èµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
-	// ÈÕÖ¾ÎÄ¼şÃû³Æ±êÇ©
+	// æ—¥å¿—æ–‡ä»¶åç§°æ ‡ç­¾
 	private JLabel jLabelLog = new JLabel(
-			mm.getMessage("dialogoptions.logfile")); // ÈÕÖ¾ÎÄ¼şÃû³Æ
+			mm.getMessage("dialogoptions.logfile")); // æ—¥å¿—æ–‡ä»¶åç§°
 
-	// Ñ°Ö·Â·¾¶±êÇ©
+	// å¯»å€è·¯å¾„æ ‡ç­¾
 	private JLabel jLabelSplPath = new JLabel(
-			mm.getMessage("dialogoptions.dfxpath")); // Ñ°Ö·Â·¾¶
-	// ÈÕÆÚ¸ñÊ½±êÇ©
-	private JLabel labelDate = new JLabel(mm.getMessage("dialogoptions.date")); // ÈÕÆÚ¸ñÊ½
-	// Ê±¼ä¸ñÊ½±êÇ©
-	private JLabel labelTime = new JLabel(mm.getMessage("dialogoptions.time")); // Ê±¼ä¸ñÊ½
-	// ÈÕÆÚÊ±¼ä¸ñÊ½±êÇ©
+			mm.getMessage("dialogoptions.dfxpath")); // å¯»å€è·¯å¾„
+	// æ—¥æœŸæ ¼å¼æ ‡ç­¾
+	private JLabel labelDate = new JLabel(mm.getMessage("dialogoptions.date")); // æ—¥æœŸæ ¼å¼
+	// æ—¶é—´æ ¼å¼æ ‡ç­¾
+	private JLabel labelTime = new JLabel(mm.getMessage("dialogoptions.time")); // æ—¶é—´æ ¼å¼
+	// æ—¥æœŸæ—¶é—´æ ¼å¼æ ‡ç­¾
 	private JLabel labelDateTime = new JLabel(
-			mm.getMessage("dialogoptions.datetime")); // ÈÕÆÚÊ±¼ä¸ñÊ½
-	// ×Ö·û¼¯±êÇ©
+			mm.getMessage("dialogoptions.datetime")); // æ—¥æœŸæ—¶é—´æ ¼å¼
+	// å­—ç¬¦é›†æ ‡ç­¾
 	private JLabel jLabelCharset = new JLabel(
-			mm.getMessage("dialogoptions.defcharset"));// È±Ê¡×Ö·û¼¯
+			mm.getMessage("dialogoptions.defcharset"));// ç¼ºçœå­—ç¬¦é›†
 	// private JLabel jLabelLocalHost = new JLabel(
 	// mm.getMessage("dialogoptions.labellh"));
 	// private JLabel jLabelLocalPort = new JLabel(
@@ -741,130 +741,130 @@ public abstract class PanelEnv extends JPanel {
 			mm.getMessage("dialogoptions.customfunction"));
 
 	/**
-	 * ÈÕÆÚÏÂÀ­¿ò
+	 * æ—¥æœŸä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBDate = new JComboBoxEx();
 	/**
-	 * Ê±¼äÏÂÀ­¿ò
+	 * æ—¶é—´ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBTime = new JComboBoxEx();
 	/**
-	 * ÈÕÆÚÊ±¼äÏÂÀ­¿ò
+	 * æ—¥æœŸæ—¶é—´ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBDateTime = new JComboBoxEx();
 
 	/**
-	 * ×Ö·û¼¯ÏÂÀ­¿ò
+	 * å­—ç¬¦é›†ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jCBCharset = new JComboBoxEx();
 	/**
-	 * ±¾»úÖ÷»úÃû±à¼­¿ò
+	 * æœ¬æœºä¸»æœºåç¼–è¾‘æ¡†
 	 */
 	// private JTextField jTextLocalHost = new JTextField();
 	/**
-	 * ±¾»ú¶Ë¿Ú±à¼­¿ò
+	 * æœ¬æœºç«¯å£ç¼–è¾‘æ¡†
 	 */
 	// private JTextField jTextLocalPort = new JTextField();
 	/**
-	 * ÎÄ¼ş»º´æÇø´óĞ¡±à¼­¿ò
+	 * æ–‡ä»¶ç¼“å­˜åŒºå¤§å°ç¼–è¾‘æ¡†
 	 */
 	private JTextField textFileBuffer = new JTextField();
 	/**
-	 * È±Ê§Öµ¶¨Òå±à¼­¿ò
+	 * ç¼ºå¤±å€¼å®šä¹‰ç¼–è¾‘æ¡†
 	 */
 	private JTextField textNullStrings = new JTextField();
 	/**
-	 * ÈÕÖ¾ÎÄ¼şÃû³ÆÎÄ±¾¿ò
+	 * æ—¥å¿—æ–‡ä»¶åç§°æ–‡æœ¬æ¡†
 	 */
 	private JTextField jTFLogFileName = new JTextField();
 
 	/**
-	 * Ñ°Ö·Â·¾¶ÎÄ±¾¿ò
+	 * å¯»å€è·¯å¾„æ–‡æœ¬æ¡†
 	 */
 	private JTextField jTFPath = new JTextField();
 	/**
-	 * Ö÷Ä¿Â¼ÏÂÀ­¿ò
+	 * ä¸»ç›®å½•ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBoxEx jTFMainPath = new JComboBoxEx();
 	/**
-	 * ÁÙÊ±Ä¿Â¼ÎÄ±¾¿ò
+	 * ä¸´æ—¶ç›®å½•æ–‡æœ¬æ¡†
 	 */
 	private JTextField jTFTempPath = new JTextField();
 	/**
-	 * Íâ²¿¿â¸ùÄ¿Â¼
+	 * å¤–éƒ¨åº“æ ¹ç›®å½•
 	 */
 	private JTextField jTFExtLibsPath = new JTextField();
 	/**
-	 * ³õÊ¼»¯³ÌĞòÎÄ±¾¿ò
+	 * åˆå§‹åŒ–ç¨‹åºæ–‡æœ¬æ¡†
 	 */
 	private JTextField jTFInitSpl = new JTextField();
 
 	/**
-	 * Ñ¡ÔñÈÕÖ¾ÎÄ¼ş°´Å¥
+	 * é€‰æ‹©æ—¥å¿—æ–‡ä»¶æŒ‰é’®
 	 */
 	private JButton jBLogFile = new JButton();
 
 	/**
-	 * Ñ°Ö·Â·¾¶°´Å¥
+	 * å¯»å€è·¯å¾„æŒ‰é’®
 	 */
 	private JButton jBPath = new JButton();
 	/**
-	 * Ö÷Ä¿Â¼°´Å¥
+	 * ä¸»ç›®å½•æŒ‰é’®
 	 */
 	private JButton jBMainPath = new JButton();
 	/**
-	 * ÁÙÊ±ÎÄ¼ş°´Å¥
+	 * ä¸´æ—¶æ–‡ä»¶æŒ‰é’®
 	 */
 	private JButton jBTempPath = new JButton();
 	/**
-	 * Íâ²¿¿â°´Å¥
+	 * å¤–éƒ¨åº“æŒ‰é’®
 	 */
 	private JButton jBExtLibsPath = new JButton();
 	/**
-	 * ³õÊ¼»¯³ÌĞò°´Å¥
+	 * åˆå§‹åŒ–ç¨‹åºæŒ‰é’®
 	 */
 	private JButton jBInitSpl = new JButton();
 	/**
-	 * ×Ô¶¨Òåº¯Êı°´Å¥
+	 * è‡ªå®šä¹‰å‡½æ•°æŒ‰é’®
 	 */
 	private JButton jBCustomFunctionFile = new JButton();
 
 	/**
-	 * Çø¿é´óĞ¡±à¼­¿ò
+	 * åŒºå—å¤§å°ç¼–è¾‘æ¡†
 	 */
 	private JTextField textBlockSize = new JTextField();
 	/**
-	 * ÓÎ±êÃ¿´ÎÈ¡Êı±à¼­¿ò
+	 * æ¸¸æ ‡æ¯æ¬¡å–æ•°ç¼–è¾‘æ¡†
 	 */
 	private JTextField jTextFetchCount = new JTextField();
 	/**
-	 * ×Ô¶¨Òåº¯Êı±à¼­¿ò
+	 * è‡ªå®šä¹‰å‡½æ•°ç¼–è¾‘æ¡†
 	 */
 	private JTextField jTextCustomFunctionFile = new JTextField();
 
 	/**
-	 * Íâ²¿¿âÁĞ±í
+	 * å¤–éƒ¨åº“åˆ—è¡¨
 	 */
 	private List<String> extLibs = new ArrayList<String>();
 
 	/**
-	 * ×îÓÅ²¢ĞĞÊı±êÇ©
+	 * æœ€ä¼˜å¹¶è¡Œæ•°æ ‡ç­¾
 	 */
 	private JLabel labelParallelNum = new JLabel(
-			mm.getMessage("dialogoptions.parnum"));// ×îÓÅ²¢ĞĞÊı
+			mm.getMessage("dialogoptions.parnum"));// æœ€ä¼˜å¹¶è¡Œæ•°
 
 	/**
-	 * ×îÓÅ²¢ĞĞÊı¿Ø¼ş
+	 * æœ€ä¼˜å¹¶è¡Œæ•°æ§ä»¶
 	 */
 	private JSpinner jSParallelNum = new JSpinner();
 	/**
-	 * ¶àÂ·ÓÎ±êÈ±Ê¡Â·Êı±êÇ©
+	 * å¤šè·¯æ¸¸æ ‡ç¼ºçœè·¯æ•°æ ‡ç­¾
 	 */
 	private JLabel labelCursorParallelNum = new JLabel(
-			mm.getMessage("dialogoptions.curparnum")); // ¶àÂ·ÓÎ±êÈ±Ê¡Â·Êı
+			mm.getMessage("dialogoptions.curparnum")); // å¤šè·¯æ¸¸æ ‡ç¼ºçœè·¯æ•°
 
 	/**
-	 * ¶àÂ·ÓÎ±êÈ±Ê¡Â·Êı¿Ø¼ş
+	 * å¤šè·¯æ¸¸æ ‡ç¼ºçœè·¯æ•°æ§ä»¶
 	 */
 	private JSpinner jSCursorParallelNum = new JSpinner();
 

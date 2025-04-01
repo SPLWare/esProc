@@ -10,18 +10,18 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * È¡¼ÇÂ¼Ö¸¶¨×Ö¶ÎµÄÖµ»òÉèÖÃÖ¸¶¨×Ö¶ÎµÄÖµ
+ * å–è®°å½•æŒ‡å®šå­—æ®µçš„å€¼æˆ–è®¾ç½®æŒ‡å®šå­—æ®µçš„å€¼
  * r.field(F) r.field(F, v)
  * @author RunQian
  *
  */
 public class FieldValue extends RecordFunction {
-	private String prevName; // ÉÏÒ»´Î¼ÆËãµÄ×Ö¶ÎÃû
-	private DataStruct prevDs; // ÉÏÒ»Ìõ¼ÇÂ¼µÄÊı¾İ½á¹¹
-	private int prevCol; // ÉÏÒ»Ìõ¼ÇÂ¼×Ö¶ÎµÄĞòºÅ
+	private String prevName; // ä¸Šä¸€æ¬¡è®¡ç®—çš„å­—æ®µå
+	private DataStruct prevDs; // ä¸Šä¸€æ¡è®°å½•çš„æ•°æ®ç»“æ„
+	private int prevCol; // ä¸Šä¸€æ¡è®°å½•å­—æ®µçš„åºå·
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -30,19 +30,19 @@ public class FieldValue extends RecordFunction {
 		}
 	}
 	
-	// '+=' ¸³ÖµÔËËã
+	// '+=' èµ‹å€¼è¿ç®—
 	public Object addAssign(Object value, Context ctx) {
 		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (obj instanceof Number) {
 				int findex = ((Number)obj).intValue();
 				if (findex > 0) {
-					// ×Ö¶Î´Ó0¿ªÊ¼¼ÆÊı
+					// å­—æ®µä»0å¼€å§‹è®¡æ•°
 					findex--;
 				} else if (findex == 0) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("0" + mm.getMessage("ds.fieldNotExist"));
-				} // Ğ¡ÓÚ0´ÓºóÊı
+				} // å°äº0ä»åæ•°
 				
 				Object result = Variant.add(srcRecord.getFieldValue(findex), value);
 				srcRecord.set(findex, result);
@@ -78,11 +78,11 @@ public class FieldValue extends RecordFunction {
 			if (obj instanceof Number) {
 				int findex = ((Number)obj).intValue();
 				if (findex > 0) {
-					// ×Ö¶Î´Ó0¿ªÊ¼¼ÆÊı
+					// å­—æ®µä»0å¼€å§‹è®¡æ•°
 					findex--;
 				} else if (findex == 0) {
 					return null;
-				} // Ğ¡ÓÚ0´ÓºóÊı
+				} // å°äº0ä»åæ•°
 				
 				return srcRecord.getFieldValue2(findex);
 			} else if (obj instanceof String) {
@@ -124,11 +124,11 @@ public class FieldValue extends RecordFunction {
 			if (obj instanceof Number) {
 				int findex = ((Number)obj).intValue();
 				if (findex > 0) {
-					// ×Ö¶Î´Ó0¿ªÊ¼¼ÆÊı
+					// å­—æ®µä»0å¼€å§‹è®¡æ•°
 					findex--;
 				} else if (findex == 0) {
 					return null;
-				} // Ğ¡ÓÚ0´ÓºóÊı
+				} // å°äº0ä»åæ•°
 				
 				srcRecord.set2(findex, value);
 			} else if (obj instanceof String) {				

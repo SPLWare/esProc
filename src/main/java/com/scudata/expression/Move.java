@@ -15,7 +15,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Ö´ĞĞÆ«ÒÆÔËËã
+ * æ‰§è¡Œåç§»è¿ç®—
  * A[2]; f[2] A.f[2]
  * @author RunQian
  *
@@ -56,7 +56,7 @@ public class Move extends Function {
 	}
 	
 	/**
-	 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+	 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 	 */
 	public void reset() {
 		getLeft().reset();
@@ -70,7 +70,7 @@ public class Move extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -87,7 +87,7 @@ public class Move extends Function {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+	 * åˆ¤æ–­æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 	 * @return
 	 */
 	public boolean canCalculateAll() {
@@ -116,21 +116,21 @@ public class Move extends Function {
 	}
 
 	/**
-	 * ¼ÆËãÆ«ÒÆºóµÄË÷Òı
-	 * @param current ĞòÁĞµÄÑ­»·µ±Ç°
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Æ«ÒÆºóµÄË÷Òı
+	 * è®¡ç®—åç§»åçš„ç´¢å¼•
+	 * @param current åºåˆ—çš„å¾ªç¯å½“å‰
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åç§»åçš„ç´¢å¼•
 	 */
 	public int calculateIndex(Current current, Context ctx) {
 		return calculateIndex(current, param, ctx);
 	}
 	
 	/**
-	 * ¼ÆËãÆ«ÒÆºóµÄË÷Òı
-	 * @param current ĞòÁĞµÄÑ­»·µ±Ç°
-	 * @param param Æ«ÒÆ²ÎÊı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Æ«ÒÆºóµÄË÷Òı
+	 * è®¡ç®—åç§»åçš„ç´¢å¼•
+	 * @param current åºåˆ—çš„å¾ªç¯å½“å‰
+	 * @param param åç§»å‚æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åç§»åçš„ç´¢å¼•
 	 */
 	public static int calculateIndex(Current current, IParam param, Context ctx) {
 		Object posObj = param.getLeafExpression().calculate(ctx);
@@ -148,21 +148,21 @@ public class Move extends Function {
 	}
 
 	/**
-	 * ¼ÆËãÆ«ÒÆºóµÄ·¶Î§
-	 * @param current ĞòÁĞµÄÑ­»·µ±Ç°
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return [ÆğÊ¼Î»ÖÃ, ½áÊøÎ»ÖÃ]£¬ÆğÊ¼Î»ÖÃ£¨°üº¬£©ºÍ½áÊøÎ»ÖÃ£¨°üº¬£©×é³ÉµÄÊı×é
+	 * è®¡ç®—åç§»åçš„èŒƒå›´
+	 * @param current åºåˆ—çš„å¾ªç¯å½“å‰
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return [èµ·å§‹ä½ç½®, ç»“æŸä½ç½®]ï¼Œèµ·å§‹ä½ç½®ï¼ˆåŒ…å«ï¼‰å’Œç»“æŸä½ç½®ï¼ˆåŒ…å«ï¼‰ç»„æˆçš„æ•°ç»„
 	 */
 	public int[] calculateIndexRange(Current current, Context ctx) {
 		return calculateIndexRange(current, param, ctx);
 	}
 	
 	/**
-	 * ¼ÆËãÆ«ÒÆºóµÄ·¶Î§
-	 * @param current ĞòÁĞµÄÑ­»·µ±Ç°
-	 * @param param ×óÓÒÆ«ÒÆ²ÎÊı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return [ÆğÊ¼Î»ÖÃ, ½áÊøÎ»ÖÃ]£¬ÆğÊ¼Î»ÖÃ£¨°üº¬£©ºÍ½áÊøÎ»ÖÃ£¨°üº¬£©×é³ÉµÄÊı×é
+	 * è®¡ç®—åç§»åçš„èŒƒå›´
+	 * @param current åºåˆ—çš„å¾ªç¯å½“å‰
+	 * @param param å·¦å³åç§»å‚æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return [èµ·å§‹ä½ç½®, ç»“æŸä½ç½®]ï¼Œèµ·å§‹ä½ç½®ï¼ˆåŒ…å«ï¼‰å’Œç»“æŸä½ç½®ï¼ˆåŒ…å«ï¼‰ç»„æˆçš„æ•°ç»„
 	 */
 	public static int[] calculateIndexRange(Current current, IParam param, Context ctx) {
 		Number start = null, end = null;
@@ -227,17 +227,17 @@ public class Move extends Function {
 	}
 	
 	/**
-	 * È¡ÅÅÁĞÖ¸¶¨·¶Î§ÄÚ¼ÇÂ¼µÄ×Ö¶ÎÖµ
-	 * @param current ÅÅÁĞµÄÑ­»·µ±Ç°
-	 * @param fieldName ×Ö¶ÎÃû
-	 * @param start ÆğÊ¼ĞòºÅ£¬°üº¬
-	 * @param end ½áÊøĞòºÅ£¬°üº¬
-	 * @return ½á¹û¼¯ĞòÁĞ
+	 * å–æ’åˆ—æŒ‡å®šèŒƒå›´å†…è®°å½•çš„å­—æ®µå€¼
+	 * @param current æ’åˆ—çš„å¾ªç¯å½“å‰
+	 * @param fieldName å­—æ®µå
+	 * @param start èµ·å§‹åºå·ï¼ŒåŒ…å«
+	 * @param end ç»“æŸåºå·ï¼ŒåŒ…å«
+	 * @return ç»“æœé›†åºåˆ—
 	 */
 	public static Sequence getFieldValues(Current current, String fieldName, int start, int end) {
 		Sequence result = new Sequence(end - start + 1);
-		int col = -1; // ×Ö¶ÎÔÚÉÏÒ»Ìõ¼ÇÂ¼µÄË÷Òı
-		BaseRecord prevRecord = null; // ÉÏÒ»Ìõ¼ÇÂ¼
+		int col = -1; // å­—æ®µåœ¨ä¸Šä¸€æ¡è®°å½•çš„ç´¢å¼•
+		BaseRecord prevRecord = null; // ä¸Šä¸€æ¡è®°å½•
 
 		while (start <= end) {
 			Object obj = current.get(start++);
@@ -269,7 +269,7 @@ public class Move extends Function {
 					throw new RQException(mm.getMessage("engine.needPmt"));
 				}
 
-				// ÏÈ¸úÉÏÒ»Ìõ¼ÇÂ¼µÄ½á¹¹×ö±È½Ï£¬Èç¹ûÍ¬½á¹¹ÔòÖ±½ÓÓÃ×Ö¶ÎºÅÈ¡
+				// å…ˆè·Ÿä¸Šä¸€æ¡è®°å½•çš„ç»“æ„åšæ¯”è¾ƒï¼Œå¦‚æœåŒç»“æ„åˆ™ç›´æ¥ç”¨å­—æ®µå·å–
 				BaseRecord cur = (BaseRecord)obj;
 				if (!prevRecord.isSameDataStruct(cur)) {
 					col = cur.getFieldIndex(fieldName);
@@ -291,12 +291,12 @@ public class Move extends Function {
 	}
 
 	/**
-	 * È¡ÅÅÁĞÖ¸¶¨·¶Î§ÄÚ¼ÇÂ¼µÄ×Ö¶ÎÖµ
-	 * @param current ÅÅÁĞµÄÑ­»·µ±Ç°
-	 * @param field ×Ö¶ÎºÅ
-	 * @param start ÆğÊ¼ĞòºÅ£¬°üº¬
-	 * @param end ½áÊøĞòºÅ£¬°üº¬
-	 * @return ½á¹û¼¯ĞòÁĞ
+	 * å–æ’åˆ—æŒ‡å®šèŒƒå›´å†…è®°å½•çš„å­—æ®µå€¼
+	 * @param current æ’åˆ—çš„å¾ªç¯å½“å‰
+	 * @param field å­—æ®µå·
+	 * @param start èµ·å§‹åºå·ï¼ŒåŒ…å«
+	 * @param end ç»“æŸåºå·ï¼ŒåŒ…å«
+	 * @return ç»“æœé›†åºåˆ—
 	 */
 	public static Sequence getFieldValues(Current current, int field, int start, int end) {
 		Sequence result = new Sequence(end - start + 1);
@@ -319,8 +319,8 @@ public class Move extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -366,10 +366,10 @@ public class Move extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

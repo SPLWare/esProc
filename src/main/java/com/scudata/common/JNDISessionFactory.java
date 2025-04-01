@@ -9,8 +9,8 @@ public class JNDISessionFactory implements ISessionFactory
 	private DataSource ds;
 
 	/**
-	 * ³õÊ¼»¯
-	 * @param cfg	jndiÅäÖÃ
+	 * åˆå§‹åŒ–
+	 * @param cfg	jndié…ç½®
 	 * @throws Exception
 	 */
 	public JNDISessionFactory( JNDIConfig cfg ) throws Exception {
@@ -22,10 +22,10 @@ public class JNDISessionFactory implements ISessionFactory
 	}
 
 	/**
-	 * »ñÈ¡Á¬½ÓSession
+	 * è·å–è¿æ¥Session
 	 */
 	public DBSession getSession() throws Exception {
-		// edited by bd, 2017.5.31£¬ConnectionÈ«²¿ÉèÎª²»×Ô¶¯Ìá½»¡£
+		// edited by bd, 2017.5.31ï¼ŒConnectionå…¨éƒ¨è®¾ä¸ºä¸è‡ªåŠ¨æäº¤ã€‚
 		Connection con = ds.getConnection();
 		try{ con.setAutoCommit(false); }catch( Throwable t ) {}
 		return new DBSession(con, cfg);

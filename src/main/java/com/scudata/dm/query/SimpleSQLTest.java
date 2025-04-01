@@ -24,9 +24,9 @@ public class SimpleSQLTest {
 //			o = AppUtil.executeSql("select _file from d:/test/emps1*.xlsx", null, ctx);
 //			o = AppUtil.executeSql("select gender into d:/empresult2.txt from d:/emps.txt group by gender", null, ctx);			
 //			o = AppUtil.executeSql("select gender into ${intofile}.txt from d:/emps.txt group by gender", null, ctx);			
-			o = AppUtil.executeSql("select * from {T(\"D:/雇员.csv\")} as a join {T(\"D:/雇员.csv\")} as b on a.雇员ID=b.雇员ID", null, ctx);			
-//			o = AppUtil.executeSql("select * from D:/雇员.csv as a join D:/雇员.csv as b on a.雇员ID=b.雇员ID", null, ctx);			
-//				o = AppUtil.executeSql("select * from {T(\"D:/雇员.csv\")} as a", null, ctx);			
+			o = AppUtil.executeSql("select * from {T(\"D:/闆囧憳.csv\")} as a join {T(\"D:/闆囧憳.csv\")} as b on a.闆囧憳ID=b.闆囧憳ID", null, ctx);			
+//			o = AppUtil.executeSql("select * from D:/闆囧憳.csv as a join D:/闆囧憳.csv as b on a.闆囧憳ID=b.闆囧憳ID", null, ctx);			
+//				o = AppUtil.executeSql("select * from {T(\"D:/闆囧憳.csv\")} as a", null, ctx);			
 			
 			//Object o = AppUtil.executeSql("select gender,max(emp_no) from d:/emps.txt group by gender", null, ctx);
 			//Object o = AppUtil.executeSql("select gender,max(hire_date) from d:/emps.txt group by gender", null, ctx);
@@ -38,8 +38,8 @@ public class SimpleSQLTest {
 //			Object o = AppUtil.executeSql("select ee.DEPT,max(ee.BIRTHDAY) bir,avg(ee.SALARY) sal from d:/emp8.btx as ee join d:/dep8.btx as dd on dd.DEPT = ee.DEPT group by ee.DEPT having avg(ee.SALARY) > 8000", null, ctx);
 //			Object o = AppUtil.executeSql("select * from d:/emp8.btx as ee join d:/dep8.btx as dd on dd.DEPT = ee.DEPT", null, ctx);
 //			System.out.println(o);
-//			Object o = AppUtil.executeSql("select * from D:/esProcData/员工.ctx where 1 = 2", null, ctx, false);
-			//			Object o = AppUtil.executeSql("select top 1 * from D:/esProcData/员工.ctx", null, ctx, false);
+//			Object o = AppUtil.executeSql("select * from D:/esProcData/鍛樺伐.ctx where 1 = 2", null, ctx, false);
+			//			Object o = AppUtil.executeSql("select top 1 * from D:/esProcData/鍛樺伐.ctx", null, ctx, false);
 			if (o != null) {
 				System.out.println(o);
 				if (o instanceof com.scudata.dm.cursor.ICursor) {

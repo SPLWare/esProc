@@ -7,9 +7,9 @@ import com.scudata.common.CellLocation;
 import com.scudata.dm.Context;
 
 /**
- * µ¥²½µ÷ÊÔµÄĞÅÏ¢¡£
+ * å•æ­¥è°ƒè¯•çš„ä¿¡æ¯ã€‚
  * 
- * ¿ÉÄÜÓĞÁ½ÖÖ£¬Ò»ÖÖÊÇ´ò¿ªµÄ¸¸Íø£¬ÁíÒ»ÖÖÊÇ±»callµÄspl¡£ ±»callµÄsplÊÇÃ»ÓĞ´ò¿ªµÄ£¬±£´æĞèÒªÏÈ´ò¿ª£¬±à¼­ºóÔÙ±£´æ¡£
+ * å¯èƒ½æœ‰ä¸¤ç§ï¼Œä¸€ç§æ˜¯æ‰“å¼€çš„çˆ¶ç½‘ï¼Œå¦ä¸€ç§æ˜¯è¢«callçš„splã€‚ è¢«callçš„splæ˜¯æ²¡æœ‰æ‰“å¼€çš„ï¼Œä¿å­˜éœ€è¦å…ˆæ‰“å¼€ï¼Œç¼–è¾‘åå†ä¿å­˜ã€‚
  *
  */
 public class StepInfo {
@@ -18,58 +18,58 @@ public class StepInfo {
 	public static final byte TYPE_FUNC = 1; // func
 
 	/**
-	 * ÀàĞÍ¡£TYPE_CALL,TYPE_FUNC
+	 * ç±»å‹ã€‚TYPE_CALL,TYPE_FUNC
 	 */
 	public byte type;
 	/**
-	 * ÎÄ¼şÂ·¾¶
+	 * æ–‡ä»¶è·¯å¾„
 	 */
 	public String filePath;
 	/**
-	 * ÓĞË³ĞòµÄÒ³ÁĞ±í
+	 * æœ‰é¡ºåºçš„é¡µåˆ—è¡¨
 	 */
 	public List<SheetSpl> sheets;
 	/**
-	 * ÉÏÏÂÎÄ
+	 * ä¸Šä¸‹æ–‡
 	 */
 	public Context splCtx;
 	/**
-	 * ¸¸ÍøÖĞcall»òfuncº¯ÊıËùÔÚµÄ×ø±ê
+	 * çˆ¶ç½‘ä¸­callæˆ–funcå‡½æ•°æ‰€åœ¨çš„åæ ‡
 	 */
 	public CellLocation parentLocation;
 	/**
-	 * funcµÄ×ø±ê
+	 * funcçš„åæ ‡
 	 */
 	public CellLocation funcLocation;
 	/**
-	 * ×ÓÍø¿ªÊ¼¼ÆËãµÄ×ø±ê
+	 * å­ç½‘å¼€å§‹è®¡ç®—çš„åæ ‡
 	 */
 	public CellLocation exeLocation;
 	/**
-	 * ×ÓÍøµÄ½áÊøĞĞ
+	 * å­ç½‘çš„ç»“æŸè¡Œ
 	 */
 	public int endRow;
 
 	/**
-	 * callÊ¹ÓÃ
+	 * callä½¿ç”¨
 	 */
 	// public Call parentCall;
 
 	/**
-	 * Íø¸ñ¶ÔÏó
+	 * ç½‘æ ¼å¯¹è±¡
 	 */
 	public PgmCellSet cellSet;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public StepInfo() {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
-	 * @param sheets ÓĞË³ĞòµÄÒ³ÁĞ±í
+	 * @param sheets æœ‰é¡ºåºçš„é¡µåˆ—è¡¨
 	 */
 	public StepInfo(List<SheetSpl> sheets, byte type) {
 		this.sheets = sheets;
@@ -77,7 +77,7 @@ public class StepInfo {
 	}
 
 	/**
-	 * ÊÇ·ñfuncº¯Êıµ÷ÓÃ
+	 * æ˜¯å¦funcå‡½æ•°è°ƒç”¨
 	 * 
 	 * @return
 	 */
@@ -86,7 +86,7 @@ public class StepInfo {
 	}
 
 	/**
-	 * ÊÇ·ñcallº¯Êıµ÷ÓÃ
+	 * æ˜¯å¦callå‡½æ•°è°ƒç”¨
 	 * 
 	 * @return
 	 */

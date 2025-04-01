@@ -11,39 +11,39 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼¯ÎÄ¼şĞ´¶ÔÏó
+ * é›†æ–‡ä»¶å†™å¯¹è±¡
  * @author WangXiaoJun
  *
  */
 public class BFileWriter {
-	public static int TYPE_BLOCK = 0x10; // ¿É·Ö¶Î¶ÁÈ¡µÄ¼¯ÎÄ¼ş
-	public static int TYPE_NORMAL = 0x50; // ÆÕÍ¨¼¯ÎÄ¼şÃ»ÓĞ·Ö¶ÎĞÅÏ¢
-	public static int TYPE_GROUP = 0x70; // °´Ä³¸ö×Ö¶ÎµÄÖµ·Ö¶ÎµÄ¼¯ÎÄ¼ş£¬Í¬ÖµµÄ²»»á±»²ğµ½Á½¶Î
+	public static int TYPE_BLOCK = 0x10; // å¯åˆ†æ®µè¯»å–çš„é›†æ–‡ä»¶
+	public static int TYPE_NORMAL = 0x50; // æ™®é€šé›†æ–‡ä»¶æ²¡æœ‰åˆ†æ®µä¿¡æ¯
+	public static int TYPE_GROUP = 0x70; // æŒ‰æŸä¸ªå­—æ®µçš„å€¼åˆ†æ®µçš„é›†æ–‡ä»¶ï¼ŒåŒå€¼çš„ä¸ä¼šè¢«æ‹†åˆ°ä¸¤æ®µ
 	
-	public static final int BLOCKCOUNT = 1024; // ×î´ó¿éÊı
-	public static final int MINBLOCKRECORDCOUNT = 1024; // Ã¿¿é×îĞ¡¼ÇÂ¼Êı
-	public static final String S_FIELDNAME = "_1"; // µ¼³öĞòÁĞÊ±Ä¬ÈÏµÄ×Ö¶ÎÃû
+	public static final int BLOCKCOUNT = 1024; // æœ€å¤§å—æ•°
+	public static final int MINBLOCKRECORDCOUNT = 1024; // æ¯å—æœ€å°è®°å½•æ•°
+	public static final String S_FIELDNAME = "_1"; // å¯¼å‡ºåºåˆ—æ—¶é»˜è®¤çš„å­—æ®µå
 	
-	private FileObject file; // ÎÄ¼ş¶ÔÏó
-	private boolean isAppend; // ÊÇ·ñ×·¼ÓĞ´£¬Èç¹ûfalseÔò»á¸²¸ÇÒÑÓĞµÄÎÄ¼ş
-	private boolean isBlock; // ÊÇ·ñÉú³ÉÓĞ·Ö¶ÎĞÅÏ¢µÄ¼¯ÎÄ¼ş
+	private FileObject file; // æ–‡ä»¶å¯¹è±¡
+	private boolean isAppend; // æ˜¯å¦è¿½åŠ å†™ï¼Œå¦‚æœfalseåˆ™ä¼šè¦†ç›–å·²æœ‰çš„æ–‡ä»¶
+	private boolean isBlock; // æ˜¯å¦ç”Ÿæˆæœ‰åˆ†æ®µä¿¡æ¯çš„é›†æ–‡ä»¶
 	private RandomOutputStream ros;
-	private RandomObjectWriter writer; // ÓÃÓÚĞ´³ö¶ÔÏó
-	private ObjectWriter normalWriter; // ÓÃÓÚĞ´³ö²»¿É·Ö¶Î¼¯ÎÄ¼ş
-	private DataStruct ds; // ÎÄ¼şµÄÊı¾İ½á¹¹
+	private RandomObjectWriter writer; // ç”¨äºå†™å‡ºå¯¹è±¡
+	private ObjectWriter normalWriter; // ç”¨äºå†™å‡ºä¸å¯åˆ†æ®µé›†æ–‡ä»¶
+	private DataStruct ds; // æ–‡ä»¶çš„æ•°æ®ç»“æ„
 	
-	private long []blocks; // Ã¿Ò»¿éµÄ½áÊøÎ»ÖÃ
-	private int lastBlock; // ×îºóÒ»¿éµÄË÷Òı
-	private long totalRecordCount; // ×Ü¼ÇÂ¼Êı
-	private long blockRecordCount; // Ã¿¿éµÄ¼ÇÂ¼Êı£¬°´×éµ¼³öÊ±ÔòÊÇÃ¿¿éµÄ×éÊı
-	private long lastRecordCount; // ×îºóÒ»¿éµÄ¼ÇÂ¼Êı
+	private long []blocks; // æ¯ä¸€å—çš„ç»“æŸä½ç½®
+	private int lastBlock; // æœ€åä¸€å—çš„ç´¢å¼•
+	private long totalRecordCount; // æ€»è®°å½•æ•°
+	private long blockRecordCount; // æ¯å—çš„è®°å½•æ•°ï¼ŒæŒ‰ç»„å¯¼å‡ºæ—¶åˆ™æ˜¯æ¯å—çš„ç»„æ•°
+	private long lastRecordCount; // æœ€åä¸€å—çš„è®°å½•æ•°
 	
-	private long oldFileSize; // ×·¼ÓĞ´Ê±Ô´ÎÄ¼ş´óĞ¡£¬Èç¹û³ö´íÊ±µÄÎÄ¼ş»Ö¸´
+	private long oldFileSize; // è¿½åŠ å†™æ—¶æºæ–‡ä»¶å¤§å°ï¼Œå¦‚æœå‡ºé”™æ—¶çš„æ–‡ä»¶æ¢å¤
 	
 	/**
-	 * ¹¹Ôì¼¯ÎÄ¼şĞ´¶ÔÏó
-	 * @param file ÎÄ¼ş¶ÔÏó
-	 * @param opt Ñ¡Ïî£¬a£º×·¼ÓĞ´£¬z£ºÉú³ÉÓĞ·Ö¶ÎĞÅÏ¢µÄ¼¯ÎÄ¼ş
+	 * æ„é€ é›†æ–‡ä»¶å†™å¯¹è±¡
+	 * @param file æ–‡ä»¶å¯¹è±¡
+	 * @param opt é€‰é¡¹ï¼Œaï¼šè¿½åŠ å†™ï¼Œzï¼šç”Ÿæˆæœ‰åˆ†æ®µä¿¡æ¯çš„é›†æ–‡ä»¶
 	 */
 	public BFileWriter(FileObject file, String opt) {
 		this.file = file;
@@ -54,8 +54,8 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * µ¼³öÊ±ÊÇ·ñÊÇÉú³É¼¯ÎÄ¼şµÄÑ¡Ïî
-	 * @param opt Ñ¡ÏîÀïÓĞb»òÕßzÊ±Éú³É¼¯ÎÄ¼ş
+	 * å¯¼å‡ºæ—¶æ˜¯å¦æ˜¯ç”Ÿæˆé›†æ–‡ä»¶çš„é€‰é¡¹
+	 * @param opt é€‰é¡¹é‡Œæœ‰bæˆ–è€…zæ—¶ç”Ÿæˆé›†æ–‡ä»¶
 	 * @return
 	 */
 	public static boolean isBtxOption(String opt) {
@@ -63,14 +63,14 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * ·µ»ØÎÄ¼ş¶ÔÏó
+	 * è¿”å›æ–‡ä»¶å¯¹è±¡
 	 * @return FileObject
 	 */
 	public FileObject getFile() {
 		return file;
 	}
 	
-	// Ğ´ÎÄ¼şÍ·
+	// å†™æ–‡ä»¶å¤´
 	public void writeHeader(boolean isGroup) throws IOException {
 		RandomObjectWriter writer = this.writer;
 		writer.position(0);
@@ -82,7 +82,7 @@ public class BFileWriter {
 		
 		if (isGroup) {
 			writer.write(TYPE_GROUP);
-			writer.writeInt32(1); // ±£Áô
+			writer.writeInt32(1); // ä¿ç•™
 			writer.writeLong64(totalRecordCount);
 			writer.writeLong64(blockRecordCount);
 			writer.writeLong64(lastRecordCount);
@@ -95,7 +95,7 @@ public class BFileWriter {
 			}
 		} else if (isBlock) {
 			writer.write(TYPE_BLOCK);
-			writer.writeInt32(0); // ±£Áô
+			writer.writeInt32(0); // ä¿ç•™
 			writer.writeLong64(totalRecordCount);
 			writer.writeLong64(blockRecordCount);
 			writer.writeLong64(lastRecordCount);
@@ -108,14 +108,14 @@ public class BFileWriter {
 			}
 		} else {
 			writer.write(TYPE_NORMAL);
-			writer.writeInt32(0); // ±£Áô
+			writer.writeInt32(0); // ä¿ç•™
 			writer.writeLong64(totalRecordCount);
 		}
 		
 		writer.writeStrings(ds.getFieldNames());
 	}
 	
-	// ¶ÁÎÄ¼şÍ·
+	// è¯»æ–‡ä»¶å¤´
 	private void readHeader(boolean isGroup) throws IOException {
 		InputStream is = ros.getInputStream(0);
 		if (is == null) {
@@ -187,14 +187,14 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * ´ò¿ªÎÄ¼ş×¼±¸Ğ´
-	 * @param ds ÒªĞ´ÈëµÄÊı¾İµÄÊı¾İ½á¹¹
-	 * @param isGroup ÊÇ·ñÓĞ·Ö×é×Ö¶Î
+	 * æ‰“å¼€æ–‡ä»¶å‡†å¤‡å†™
+	 * @param ds è¦å†™å…¥çš„æ•°æ®çš„æ•°æ®ç»“æ„
+	 * @param isGroup æ˜¯å¦æœ‰åˆ†ç»„å­—æ®µ
 	 * @throws IOException
 	 */
 	public void prepareWrite(DataStruct ds, boolean isGroup) throws IOException {
 		if (isAppend ) {
-			// ÏÈËø¶¨ÔÙÅĞ¶Ï´óĞ¡
+			// å…ˆé”å®šå†åˆ¤æ–­å¤§å°
 			ros = file.getRandomOutputStream(true);
 			writer = new RandomObjectWriter(ros);
 			oldFileSize = file.size();
@@ -234,7 +234,7 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * Ğ´½áÊø£¬¹Ø±ÕÎÄ¼ş
+	 * å†™ç»“æŸï¼Œå…³é—­æ–‡ä»¶
 	 */
 	public void close() {
 		if (writer != null) {
@@ -254,7 +254,7 @@ public class BFileWriter {
 		}
 	}
 	
-	// È¡Êı¾İµÄÊı¾İ½á¹¹
+	// å–æ•°æ®çš„æ•°æ®ç»“æ„
 	private DataStruct getDataStruct(Sequence seq, Expression []exps, String []names) {
 		int fcount = exps.length;
 		String []tmps = new String[fcount];
@@ -266,7 +266,7 @@ public class BFileWriter {
 		return new DataStruct(tmps);
 	}
 	
-	// µ÷Õû×Ö¶ÎµÄË³Ğò£¬¸úÖ®Ç°µÄ½á¹¹¶ÔÆë
+	// è°ƒæ•´å­—æ®µçš„é¡ºåºï¼Œè·Ÿä¹‹å‰çš„ç»“æ„å¯¹é½
 	private Expression[] adjustDataStruct(DataStruct ds, Expression []exps, String []names) {
 		DataStruct srcDs = this.ds;
 		if (srcDs.isCompatible(ds)) {
@@ -320,7 +320,7 @@ public class BFileWriter {
 		}
 	}
 
-	// ¸Ä±äÎÄ¼ş´æ´¢¸ñÊ½Îª¿É·Ö¶ÎÎÄ¼ş
+	// æ”¹å˜æ–‡ä»¶å­˜å‚¨æ ¼å¼ä¸ºå¯åˆ†æ®µæ–‡ä»¶
 	private void changeToSegmentFile(Context ctx) throws IOException {
 		Sequence seq = null;
 		BFileReader reader = new BFileReader(file);
@@ -336,11 +336,11 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * µ¼³öÊı¾İ
-	 * @param data ÅÅÁĞ
-	 * @param exps µ¼³öµÄ×Ö¶Î±í´ïÊ½Êı×é£¬Ê¡ÂÔÔòµ¼³öËùÓĞ×Ö¶Î
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¼å‡ºæ•°æ®
+	 * @param data æ’åˆ—
+	 * @param exps å¯¼å‡ºçš„å­—æ®µè¡¨è¾¾å¼æ•°ç»„ï¼Œçœç•¥åˆ™å¯¼å‡ºæ‰€æœ‰å­—æ®µ
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void export(Sequence data, Expression []exps, String []names, Context ctx) {
 		if (data == null || data.length() == 0) {
@@ -395,11 +395,11 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * µ¼³öÊı¾İ
-	 * @param cursor ÓÎ±ê
-	 * @param exps µ¼³öµÄ×Ö¶Î±í´ïÊ½Êı×é£¬Ê¡ÂÔÔòµ¼³öËùÓĞ×Ö¶Î
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¼å‡ºæ•°æ®
+	 * @param cursor æ¸¸æ ‡
+	 * @param exps å¯¼å‡ºçš„å­—æ®µè¡¨è¾¾å¼æ•°ç»„ï¼Œçœç•¥åˆ™å¯¼å‡ºæ‰€æœ‰å­—æ®µ
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void export(ICursor cursor, Expression []exps, String []names, Context ctx) {
 		Sequence data = cursor.fetch(ICursor.FETCHCOUNT);
@@ -460,7 +460,7 @@ public class BFileWriter {
 		}
 	}
 	
-	// ÓĞ·Ö¶ÎĞÅÏ¢µÄµ¼³ö
+	// æœ‰åˆ†æ®µä¿¡æ¯çš„å¯¼å‡º
 	private void exportBlock(Sequence data, Expression []exps, Context ctx) throws IOException {
 		RandomObjectWriter writer = this.writer;
 		long []blocks = this.blocks;
@@ -534,7 +534,7 @@ public class BFileWriter {
 		this.lastRecordCount = lastRecordCount;
 	}
 	
-	// ÓĞ·Ö×éĞÅÏ¢µÄµ¼³ö
+	// æœ‰åˆ†ç»„ä¿¡æ¯çš„å¯¼å‡º
 	private void exportGroup(Sequence data, Expression []exps, Context ctx) throws IOException {
 		RandomObjectWriter writer = this.writer;
 		int fcount = ds.getFieldCount();
@@ -589,7 +589,7 @@ public class BFileWriter {
 		blocks[lastBlock] = writer.position();
 	}
 	
-	// Ã»ÓĞ·Ö¶ÎĞÅÏ¢µÄµ¼³ö
+	// æ²¡æœ‰åˆ†æ®µä¿¡æ¯çš„å¯¼å‡º
 	private void exportNormal(Sequence data, Expression []exps, Context ctx) throws IOException {
 		RandomObjectWriter writer = this.writer;
 		int fcount = ds.getFieldCount();
@@ -631,12 +631,12 @@ public class BFileWriter {
 	}
 
 	/**
-	 * µ¼³öÊı¾İ
-	 * @param cursor ÓÎ±ê
-	 * @param exps µ¼³öµÄ×Ö¶Î±í´ïÊ½Êı×é£¬Ê¡ÂÔÔòµ¼³öËùÓĞ×Ö¶Î
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param gexp ·Ö×é±í´ïÊ½£¬Ê¹¸Ã±í´ïÊ½·µ»Ø½á¹ûÏàÍ¬µÄ¼ÇÂ¼²»»á±»²ğ³ÉÁ½¶Î
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¯¼å‡ºæ•°æ®
+	 * @param cursor æ¸¸æ ‡
+	 * @param exps å¯¼å‡ºçš„å­—æ®µè¡¨è¾¾å¼æ•°ç»„ï¼Œçœç•¥åˆ™å¯¼å‡ºæ‰€æœ‰å­—æ®µ
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param gexp åˆ†ç»„è¡¨è¾¾å¼ï¼Œä½¿è¯¥è¡¨è¾¾å¼è¿”å›ç»“æœç›¸åŒçš„è®°å½•ä¸ä¼šè¢«æ‹†æˆä¸¤æ®µ
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void export(ICursor cursor, Expression []exps, String []names, Expression gexp, Context ctx) {
 		Sequence data = cursor.fetchGroup(gexp, ctx);
@@ -682,7 +682,7 @@ public class BFileWriter {
 		}
 	}
 
-	// Ğ´²»·Ö¿éÎÄ¼şÍ·
+	// å†™ä¸åˆ†å—æ–‡ä»¶å¤´
 	private static void writeHeader(ObjectWriter writer, DataStruct ds) throws IOException {
 		writer.write('r');
 		writer.write('q');
@@ -691,7 +691,7 @@ public class BFileWriter {
 		writer.write('x');
 		
 		writer.write(TYPE_NORMAL);
-		writer.writeInt32(0); // ±£Áô
+		writer.writeInt32(0); // ä¿ç•™
 		writer.writeLong64(0);
 		
 		if (ds != null) {
@@ -702,11 +702,11 @@ public class BFileWriter {
 	}
 
 	/**
-	 * µ¼³ö²»·Ö¿éĞòÁĞ
-	 * @param writer Ğ´¶ÔÏó
-	 * @param data Êı¾İ
-	 * @param ds Êı¾İµÄÊı¾İ½á¹¹£¬¿ÕÔòµ±ĞòÁĞĞ´³ö
-	 * @param writeHeader ÊÇ·ñĞ´ÎÄ¼şÍ·
+	 * å¯¼å‡ºä¸åˆ†å—åºåˆ—
+	 * @param writer å†™å¯¹è±¡
+	 * @param data æ•°æ®
+	 * @param ds æ•°æ®çš„æ•°æ®ç»“æ„ï¼Œç©ºåˆ™å½“åºåˆ—å†™å‡º
+	 * @param writeHeader æ˜¯å¦å†™æ–‡ä»¶å¤´
 	 * @throws IOException
 	 */
 	public static void export(ObjectWriter writer, Sequence data, 
@@ -733,11 +733,11 @@ public class BFileWriter {
 	}
 
 	/**
-	 * µ¼³ö²»·Ö¿éÓÎ±ê
-	 * @param writer Ğ´¶ÔÏó
-	 * @param cursor ÓÎ±ê
-	 * @param ds Êı¾İµÄÊı¾İ½á¹¹£¬¿ÕÔòµ±ĞòÁĞĞ´³ö
-	 * @param writeHeader ÊÇ·ñĞ´ÎÄ¼şÍ·
+	 * å¯¼å‡ºä¸åˆ†å—æ¸¸æ ‡
+	 * @param writer å†™å¯¹è±¡
+	 * @param cursor æ¸¸æ ‡
+	 * @param ds æ•°æ®çš„æ•°æ®ç»“æ„ï¼Œç©ºåˆ™å½“åºåˆ—å†™å‡º
+	 * @param writeHeader æ˜¯å¦å†™æ–‡ä»¶å¤´
 	 * @throws IOException
 	 */
 	public static void export(ObjectWriter writer, ICursor cursor, boolean writeHeader) throws IOException {
@@ -758,7 +758,7 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * ²»·Ö¶Îµ¼³öĞò±í£¬ÓÉÍâ²¿¿ØÖÆ´ò¿ª¹Ø±ÕÎÄ¼ş
+	 * ä¸åˆ†æ®µå¯¼å‡ºåºè¡¨ï¼Œç”±å¤–éƒ¨æ§åˆ¶æ‰“å¼€å…³é—­æ–‡ä»¶
 	 * @param data
 	 * @throws IOException
 	 */
@@ -779,7 +779,7 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * Ğ´³É´ø·Ö¶ÎĞÅÏ¢µÄÊı¾İ
+	 * å†™æˆå¸¦åˆ†æ®µä¿¡æ¯çš„æ•°æ®
 	 * @param data
 	 * @throws IOException
 	 */
@@ -827,11 +827,11 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * °´¶ş½øÖÆµ¼³öÊı¾İ
-	 * @param cursor ÓÎ±ê
-	 * @param exps µ¼³öµÄ×Ö¶Î±í´ïÊ½Êı×é£¬Ê¡ÂÔÔòµ¼³öËùÓĞ×Ö¶Î
-	 * @param names ×Ö¶ÎÃûÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æŒ‰äºŒè¿›åˆ¶å¯¼å‡ºæ•°æ®
+	 * @param cursor æ¸¸æ ‡
+	 * @param exps å¯¼å‡ºçš„å­—æ®µè¡¨è¾¾å¼æ•°ç»„ï¼Œçœç•¥åˆ™å¯¼å‡ºæ‰€æœ‰å­—æ®µ
+	 * @param names å­—æ®µåæ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public void exportBinary(ICursor cursor, DataStruct ds, int fieldIndex, Context ctx) {
 		Sequence data = cursor.fetch(ICursor.FETCHCOUNT);
@@ -885,7 +885,7 @@ public class BFileWriter {
 		}
 	}
 	
-	// ÓĞ·Ö¶ÎĞÅÏ¢µÄµ¼³ö
+	// æœ‰åˆ†æ®µä¿¡æ¯çš„å¯¼å‡º
 	private void exportBinaryBlock(Sequence data, int fieldIndex, Context ctx) throws IOException {
 		RandomObjectWriter writer = this.writer;
 		long []blocks = this.blocks;
@@ -922,7 +922,7 @@ public class BFileWriter {
 		this.lastRecordCount = lastRecordCount;
 	}
 	
-	// Ã»ÓĞ·Ö¶ÎĞÅÏ¢µÄµ¼³ö
+	// æ²¡æœ‰åˆ†æ®µä¿¡æ¯çš„å¯¼å‡º
 	private void exportBinaryNormal(Sequence data, int fieldIndex, Context ctx) throws IOException {
 		RandomObjectWriter writer = this.writer;
 		int len = data.length();
@@ -937,7 +937,7 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * ×¼±¸Ğ´²»¿É·Ö¶Î¼¯ÎÄ¼ş
+	 * å‡†å¤‡å†™ä¸å¯åˆ†æ®µé›†æ–‡ä»¶
 	 * @throws IOException
 	 */
 	public void prepareWriteNormal(DataStruct ds) throws IOException {
@@ -951,13 +951,13 @@ public class BFileWriter {
 		normalWriter.write('x');
 		
 		normalWriter.write(TYPE_NORMAL);
-		normalWriter.writeInt32(0); // ±£Áô
+		normalWriter.writeInt32(0); // ä¿ç•™
 		normalWriter.writeLong64(totalRecordCount);
 		normalWriter.writeStrings(ds.getFieldNames());
 	}
 
 	/**
-	 * ÓÃÊä³öÁ÷µ¼³ö²»¿É·Ö¶Î¼¯ÎÄ¼ş
+	 * ç”¨è¾“å‡ºæµå¯¼å‡ºä¸å¯åˆ†æ®µé›†æ–‡ä»¶
 	 * @param data
 	 */
 	public void exportNormal(Sequence data) {
@@ -987,7 +987,7 @@ public class BFileWriter {
 	}
 	
 	/**
-	 * ÓÃÊä³öÁ÷Ğ´³ö²»¿É·Ö¶Î¼¯ÎÄ¼ş
+	 * ç”¨è¾“å‡ºæµå†™å‡ºä¸å¯åˆ†æ®µé›†æ–‡ä»¶
 	 * @param data
 	 */
 	public void writeNormal(Sequence data) throws IOException {

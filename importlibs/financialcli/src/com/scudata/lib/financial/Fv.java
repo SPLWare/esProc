@@ -10,25 +10,25 @@ import com.scudata.util.Variant;
 
 
 /**
- * »ùÓÚ¹Ì¶¨ÀûÂÊºÍÃ¿ÆÚµÈ¶îÍ¶×ÊÄ£Ê½,·µ»ØÒ»±ÊÍ¶×ÊµÄÎ´À´Öµ/ÏÖÖµ¡£
+ * åŸºäºå›ºå®šåˆ©ç‡å’Œæ¯æœŸç­‰é¢æŠ•èµ„æ¨¡å¼,è¿”å›ä¸€ç¬”æŠ•èµ„çš„æœªæ¥å€¼/ç°å€¼ã€‚
  * @author yanjing
  * 
- * Fv(rate,nper,pmt,[pv],[type])  ¼ÆËãÎ´À´Öµ
- * Fv@p(rate,nper,pmt,[fv],[type])  ¼ÆËãÏÖÖµ
- * @t ÆÚ³õ¸¶¿î,Ê¡ÂÔÎªÆÚÄ©¸¶¿î
- * @param Rate ÎªÃ¿ÆÚµÄÀûÂÊ, ÆäÊıÖµÔÚÕû¸öÄê½ğÆÚ¼ä±£³Ö²»±ä¡£
- * @param Nper Îª×Ü¸¶¿îÆÚÊı¡£
- * @param pmt  ÎªÃ¿ÆÚµÄÍ¶×Ê¶î, ÆäÊıÖµÔÚÕû¸öÄê½ğÆÚ¼ä±£³Ö²»±ä¡£Èç¹ûÊ¡ÂÔ pmt£¬Ôò±ØĞë°üÀ¨ pv/fv ²ÎÊı¡£
- * @param Pv ÎªÏÖÖµ,Ïàµ±ÓÚ³õÆÚµÄÍ¶×Ê¡£Èç¹ûÊ¡ÂÔ PV£¬Ôò¼ÙÉèÆäÖµÎªÁã£¬²¢ÇÒ±ØĞë°üÀ¨ pmt ²ÎÊı¡£
- * @param Fv ÎªÎ´À´Öµ£¬¼´×îºóÒ»ÆÚÖ§¸¶ºóÊ£ÓàµÄÍ¶×Ê¶î£¬¿ÉÊÓÎªÆÚÄ©±ØĞë×·¼ÓµÄÍ¶×Ê¶î¡£Èç¹ûÊ¡ÂÔ fv£¬Ôò¼ÙÉèÆäÖµÎªÁãÇÒ±ØĞë°üº¬ pmt ²ÎÊı¡£ÀıÈç£¬Èç¹ûĞèÒªÔÚ 18 ÄêÍ¶×ÊÆÚ½áÊøÊ±Í¶×Ê£¤50,000£¬Ôò £¤50,000 ¾ÍÊÇÎ´À´Öµ¡£
+ * Fv(rate,nper,pmt,[pv],[type])  è®¡ç®—æœªæ¥å€¼
+ * Fv@p(rate,nper,pmt,[fv],[type])  è®¡ç®—ç°å€¼
+ * @t æœŸåˆä»˜æ¬¾,çœç•¥ä¸ºæœŸæœ«ä»˜æ¬¾
+ * @param Rate ä¸ºæ¯æœŸçš„åˆ©ç‡, å…¶æ•°å€¼åœ¨æ•´ä¸ªå¹´é‡‘æœŸé—´ä¿æŒä¸å˜ã€‚
+ * @param Nper ä¸ºæ€»ä»˜æ¬¾æœŸæ•°ã€‚
+ * @param pmt  ä¸ºæ¯æœŸçš„æŠ•èµ„é¢, å…¶æ•°å€¼åœ¨æ•´ä¸ªå¹´é‡‘æœŸé—´ä¿æŒä¸å˜ã€‚å¦‚æœçœç•¥ pmtï¼Œåˆ™å¿…é¡»åŒ…æ‹¬ pv/fv å‚æ•°ã€‚
+ * @param Pv ä¸ºç°å€¼,ç›¸å½“äºåˆæœŸçš„æŠ•èµ„ã€‚å¦‚æœçœç•¥ PVï¼Œåˆ™å‡è®¾å…¶å€¼ä¸ºé›¶ï¼Œå¹¶ä¸”å¿…é¡»åŒ…æ‹¬ pmt å‚æ•°ã€‚
+ * @param Fv ä¸ºæœªæ¥å€¼ï¼Œå³æœ€åä¸€æœŸæ”¯ä»˜åå‰©ä½™çš„æŠ•èµ„é¢ï¼Œå¯è§†ä¸ºæœŸæœ«å¿…é¡»è¿½åŠ çš„æŠ•èµ„é¢ã€‚å¦‚æœçœç•¥ fvï¼Œåˆ™å‡è®¾å…¶å€¼ä¸ºé›¶ä¸”å¿…é¡»åŒ…å« pmt å‚æ•°ã€‚ä¾‹å¦‚ï¼Œå¦‚æœéœ€è¦åœ¨ 18 å¹´æŠ•èµ„æœŸç»“æŸæ—¶æŠ•èµ„ï¿¥50,000ï¼Œåˆ™ ï¿¥50,000 å°±æ˜¯æœªæ¥å€¼ã€‚
 
- * @return ÎŞ@p·µ»ØÎ´À´Öµ£¬@p·µ»ØÏÖÖµ
+ * @return æ— @pè¿”å›æœªæ¥å€¼ï¼Œ@pè¿”å›ç°å€¼
  * 
- * Èç¹ûtypeÎª0£¬ÔòvalueµÄ¼ÆËã¹«Ê½ÈçÏÂ£º=-(pmt*(1+rate)^(nper-1)+ pmt*(1+rate)^(nper-2)+¡­¡­+pmt*(1+rate)^0+pv*(1+rate)^nper)£¬
- * Èç¹ûtypeÎª1£¬Ôò=-(pmt*(1+rate)^nper+ pmt*(1+rate)^(nper-1)+¡­¡­+pmt*(1+rate)+pv*(1+rate)^nper)
+ * å¦‚æœtypeä¸º0ï¼Œåˆ™valueçš„è®¡ç®—å…¬å¼å¦‚ä¸‹ï¼š=-(pmt*(1+rate)^(nper-1)+ pmt*(1+rate)^(nper-2)+â€¦â€¦+pmt*(1+rate)^0+pv*(1+rate)^nper)ï¼Œ
+ * å¦‚æœtypeä¸º1ï¼Œåˆ™=-(pmt*(1+rate)^nper+ pmt*(1+rate)^(nper-1)+â€¦â€¦+pmt*(1+rate)+pv*(1+rate)^nper)
  * 
- * Èç¹ûtypeÎª0£¬value@pµÄ¼ÆËã¹«Ê½ÈçÏÂ£º-(pmt/(1+rate)^nper+pmt/(1+rate)^(nper-1)+...... +pmt/(1+rate)+fv/(1+rate)^nper)£¬
- * Èç¹ûtypeÎª1£¬Ôò-(pmt/(1+rate)^(nper-1)+pmt/(1+rate)^(nper-2)+...... +pmt/(1+rate)^0+fv/(1+rate)^nper)
+ * å¦‚æœtypeä¸º0ï¼Œvalue@pçš„è®¡ç®—å…¬å¼å¦‚ä¸‹ï¼š-(pmt/(1+rate)^nper+pmt/(1+rate)^(nper-1)+...... +pmt/(1+rate)+fv/(1+rate)^nper)ï¼Œ
+ * å¦‚æœtypeä¸º1ï¼Œåˆ™-(pmt/(1+rate)^(nper-1)+pmt/(1+rate)^(nper-2)+...... +pmt/(1+rate)^0+fv/(1+rate)^nper)
  */
 public class Fv extends Function {
                                                                                                                             
@@ -58,7 +58,7 @@ public class Fv extends Function {
 	private Double value(double rate,long nper,double pmt,double fpv){
 		if(rate<=0) return new Double(0);
 		if(nper<=0) return new Double(0);
-		if (option == null || option.indexOf('p') == -1) {//·µ»ØÎ´À´Öµ
+		if (option == null || option.indexOf('p') == -1) {//è¿”å›æœªæ¥å€¼
 			if(option==null || option.indexOf('t')==-1){  //type=0
 				double value=fpv*Math.pow(1+rate,nper);
 				for(long i=nper-1;i>=0;i--){
@@ -73,7 +73,7 @@ public class Fv extends Function {
 				return new Double(-value);
 			}
 		}
-		else{//·µ»ØÏÖÖµ
+		else{//è¿”å›ç°å€¼
 			if(option==null || option.indexOf('t')==-1){  //type=0
 				double value=fpv/Math.pow(1+rate,nper);
 				for (long i=nper;i>=1;i--){

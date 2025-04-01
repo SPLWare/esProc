@@ -11,10 +11,10 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * F检验求p
+ * F妫�楠屾眰p
  * @author bd
  * fisherp()
- * 原型fisher_p函数
+ * 鍘熷瀷fisher_p鍑芥暟
  */
 public class Fisher_p extends Function {
 	public Object calculate(Context ctx) {

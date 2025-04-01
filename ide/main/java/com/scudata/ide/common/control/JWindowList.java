@@ -33,59 +33,59 @@ import com.scudata.ide.common.IPrjxSheet;
 import com.scudata.ide.common.swing.JListEx;
 
 /**
- * ´°¿ÚÁĞ±í¡£µ±´°¿Ú°´Å¥ÏÔÊ¾²»ÏÂÊ±£¬µã»÷¸ü¶à´°¿Ú»áÏÔÊ¾´Ë´°¿Ú
+ * çª—å£åˆ—è¡¨ã€‚å½“çª—å£æŒ‰é’®æ˜¾ç¤ºä¸ä¸‹æ—¶ï¼Œç‚¹å‡»æ›´å¤šçª—å£ä¼šæ˜¾ç¤ºæ­¤çª—å£
  *
  */
 public abstract class JWindowList extends JWindow {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ¹ıÂËÎÄ±¾¿ò
+	 * è¿‡æ»¤æ–‡æœ¬æ¡†
 	 */
 	private JTextField textFilter = new JTextField();
 	/**
-	 * ´°¿ÚÁĞ±í¿Ø¼ş
+	 * çª—å£åˆ—è¡¨æ§ä»¶
 	 */
 	private JListEx listWindow = new JListEx();
 	/**
-	 * ÎÄ¼şÂ·¾¶ÁĞ±í
+	 * æ–‡ä»¶è·¯å¾„åˆ—è¡¨
 	 */
 	private Vector<String> paths = new Vector<String>();
 	/**
-	 * ÎÄ¼şÃû³ÆÁĞ±í
+	 * æ–‡ä»¶åç§°åˆ—è¡¨
 	 */
 	private Vector<String> names = new Vector<String>();
 	/**
-	 * ¹ıÂËºóµÄÎÄ¼şÂ·¾¶ÁĞ±í
+	 * è¿‡æ»¤åçš„æ–‡ä»¶è·¯å¾„åˆ—è¡¨
 	 */
 	private Vector<String> filterPaths = new Vector<String>();
 	/**
-	 * ¹ıÂËºóµÄÎÄ¼şÃû³ÆÁĞ±í
+	 * è¿‡æ»¤åçš„æ–‡ä»¶åç§°åˆ—è¡¨
 	 */
 	private Vector<String> filterNames = new Vector<String>();
 
 	/**
-	 * ÒÑ¾­ÏÔÊ¾ÔÚ´°¿Ú¹¤¾ßÀ¸ÉÏµÄÂ·¾¶Ãû³Æ
+	 * å·²ç»æ˜¾ç¤ºåœ¨çª—å£å·¥å…·æ ä¸Šçš„è·¯å¾„åç§°
 	 */
 	private HashSet<String> existPaths = new HashSet<String>();
 
 	private Map<String, String> typeMap = new HashMap<String, String>();
 	private final Color BACK_COLOR = new Color(255, 255, 214);
 	/**
-	 * È±Ê¡µÄ±³¾°É«
+	 * ç¼ºçœçš„èƒŒæ™¯è‰²
 	 */
 	private final Color DEFAULT_BACK_COLOR = new JList<Object>()
 			.getBackground();
 	/**
-	 * È±Ê¡µÄÑ¡ÖĞ×´Ì¬µÄ±³¾°É«
+	 * ç¼ºçœçš„é€‰ä¸­çŠ¶æ€çš„èƒŒæ™¯è‰²
 	 */
 	private final Color SELECTED_BACK_COLOR = new JList<Object>()
 			.getSelectionBackground();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param buttonSize
-	 *            ÒÑ¾­ÏÔÊ¾ÔÚ´°¿Ú¹¤¾ßÀ¸ÉÏµÄ°´Å¥ÊıÁ¿
+	 *            å·²ç»æ˜¾ç¤ºåœ¨çª—å£å·¥å…·æ ä¸Šçš„æŒ‰é’®æ•°é‡
 	 */
 	public JWindowList(int buttonSize) {
 		super(GV.appFrame);
@@ -191,35 +191,35 @@ public abstract class JWindowList extends JWindow {
 	}
 
 	/**
-	 * È¡Ò³ÃæµÄÍ¼±ê
+	 * å–é¡µé¢çš„å›¾æ ‡
 	 * 
 	 * @return
 	 */
 	public abstract String getSheetIcon();
 
 	/**
-	 * ÏÔÊ¾Ò³Ãæ
+	 * æ˜¾ç¤ºé¡µé¢
 	 * 
 	 * @param filePath
-	 *            ÎÄ¼şÂ·¾¶
+	 *            æ–‡ä»¶è·¯å¾„
 	 * @return
 	 */
 	public abstract boolean showSheet(String filePath);
 
 	/**
-	 * ÊÇ·ñÕıÔÚµã»÷ÏÔÊ¾¸ü¶à´°¿Ú°´Å¥
+	 * æ˜¯å¦æ­£åœ¨ç‚¹å‡»æ˜¾ç¤ºæ›´å¤šçª—å£æŒ‰é’®
 	 * 
 	 * @return
 	 */
 	public abstract boolean isClickButton();
 
 	/**
-	 * ÉèÖÃÎ»ÖÃ
+	 * è®¾ç½®ä½ç½®
 	 * 
 	 * @param x
-	 *            X×ø±ê
+	 *            Xåæ ‡
 	 * @param y
-	 *            Y×ø±ê
+	 *            Yåæ ‡
 	 */
 	public void setPos(int x, int y) {
 		int height = (paths.size() + 1) * 20 + 10;
@@ -228,7 +228,7 @@ public abstract class JWindowList extends JWindow {
 	}
 
 	/**
-	 * ¹ıÂË
+	 * è¿‡æ»¤
 	 */
 	private void filter() {
 		String filter = textFilter.getText();

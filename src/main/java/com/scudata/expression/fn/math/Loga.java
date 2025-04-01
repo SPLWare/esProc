@@ -9,13 +9,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * °´ËùÖ¸¶¨µÄµ×Êı£¬·µ»ØÒ»¸öÊıµÄ¶ÔÊı¡£log(number,base), ÈôbaseÊ¡ÂÔÔòÎª10
+ * æŒ‰æ‰€æŒ‡å®šçš„åº•æ•°ï¼Œè¿”å›ä¸€ä¸ªæ•°çš„å¯¹æ•°ã€‚log(number,base), è‹¥baseçœç•¥åˆ™ä¸º10
  * @author yanjing
  *
  */
 public class Loga extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

@@ -13,13 +13,13 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È¡³öĞòÁĞ/Ğò±íÖĞ³öÏÖ´ÎÊı×î¶àµÄ³ÉÔ±¡£
+ * å–å‡ºåºåˆ—/åºè¡¨ä¸­å‡ºç°æ¬¡æ•°æœ€å¤šçš„æˆå‘˜ã€‚
  * @author runqian
  *
  */
 public class Mode extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

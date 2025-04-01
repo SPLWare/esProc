@@ -10,14 +10,14 @@ import com.scudata.resources.EngineMessage;
 
 // A.pseg(x,y)
 /**
- * È¡Ö¸¶¨ÔªËØÊôÓÚÓĞĞòĞòÁĞµÄÄÄÒ»¶Î
+ * å–æŒ‡å®šå…ƒç´ å±äºæœ‰åºåºåˆ—çš„å“ªä¸€æ®µ
  * A.pseg(x) A.pseg(x,y)
  * @author RunQian
  *
  */
 public class PSeg extends SequenceFunction {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

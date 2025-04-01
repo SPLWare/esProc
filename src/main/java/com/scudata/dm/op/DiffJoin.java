@@ -16,19 +16,19 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ¸½¼ÓÔÚÓÎ±ê»ò¹ÜµÀÉÏµÄ²îÁ¬½Ó¹ıÂË²Ù×÷
+ * é™„åŠ åœ¨æ¸¸æ ‡æˆ–ç®¡é“ä¸Šçš„å·®è¿æ¥è¿‡æ»¤æ“ä½œ
  * cs.join@d
  * @author RunQian
  *
  */
 public class DiffJoin extends Operation {
-	private Expression [][]exps; // ¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	private Sequence []codes; // ¹ØÁª±íÊı×é
-	private Expression [][]dataExps; // ¹ØÁª±íµÄÖ÷¼ü±í´ïÊ½Êı×é
-	private String opt; // Ñ¡Ïî
+	private Expression [][]exps; // å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	private Sequence []codes; // å…³è”è¡¨æ•°ç»„
+	private Expression [][]dataExps; // å…³è”è¡¨çš„ä¸»é”®è¡¨è¾¾å¼æ•°ç»„
+	private String opt; // é€‰é¡¹
 	
-	private IndexTable []indexTables; // ´úÂë±í°´hashÖµ·Ö×é
-	private boolean isMerge; // ÊÇ·ñÊ¹ÓÃ¹é²¢·¨½øĞĞ¹ØÁª£¨ËùÓĞ±í°´¹ØÁª×Ö¶ÎÓĞĞò£©
+	private IndexTable []indexTables; // ä»£ç è¡¨æŒ‰hashå€¼åˆ†ç»„
+	private boolean isMerge; // æ˜¯å¦ä½¿ç”¨å½’å¹¶æ³•è¿›è¡Œå…³è”ï¼ˆæ‰€æœ‰è¡¨æŒ‰å…³è”å­—æ®µæœ‰åºï¼‰
 		
 	public DiffJoin(Expression[][] exps, Sequence[] codes, Expression[][] dataExps) {
 		this(null, exps, codes, dataExps, null);
@@ -47,17 +47,17 @@ public class DiffJoin extends Operation {
 	}
 	
 	/**
-	 * È¡²Ù×÷ÊÇ·ñ»á¼õÉÙÔªËØÊı£¬±ÈÈç¹ıÂËº¯Êı»á¼õÉÙ¼ÇÂ¼
-	 * ´Ëº¯ÊıÓÃÓÚÓÎ±êµÄ¾«È·È¡Êı£¬Èç¹û¸½¼ÓµÄ²Ù×÷²»»áÊ¹¼ÇÂ¼Êı¼õÉÙÔòÖ»Ğè°´´«ÈëµÄÊıÁ¿È¡Êı¼´¿É
-	 * @return true£º»á£¬false£º²»»á
+	 * å–æ“ä½œæ˜¯å¦ä¼šå‡å°‘å…ƒç´ æ•°ï¼Œæ¯”å¦‚è¿‡æ»¤å‡½æ•°ä¼šå‡å°‘è®°å½•
+	 * æ­¤å‡½æ•°ç”¨äºæ¸¸æ ‡çš„ç²¾ç¡®å–æ•°ï¼Œå¦‚æœé™„åŠ çš„æ“ä½œä¸ä¼šä½¿è®°å½•æ•°å‡å°‘åˆ™åªéœ€æŒ‰ä¼ å…¥çš„æ•°é‡å–æ•°å³å¯
+	 * @return trueï¼šä¼šï¼Œfalseï¼šä¸ä¼š
 	 */
 	public boolean isDecrease() {
 		return true;
 	}
 	
 	/**
-	 * ¸´ÖÆÔËËãÓÃÓÚ¶àÏß³Ì¼ÆËã£¬ÒòÎª±í´ïÊ½²»ÄÜ¶àÏß³Ì¼ÆËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤åˆ¶è¿ç®—ç”¨äºå¤šçº¿ç¨‹è®¡ç®—ï¼Œå› ä¸ºè¡¨è¾¾å¼ä¸èƒ½å¤šçº¿ç¨‹è®¡ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operation
 	 */
 	public Operation duplicate(Context ctx) {
@@ -159,7 +159,7 @@ public class DiffJoin extends Operation {
 					throw new RQException("join" + mm.getMessage("function.invalidParam"));
 				}
 
-				// Èç¹û²»ÊÇÓÃ#¹ØÁªÔòÉú³ÉË÷Òı±í
+				// å¦‚æœä¸æ˜¯ç”¨#å…³è”åˆ™ç”Ÿæˆç´¢å¼•è¡¨
 				if (fcount != 1 || !(curExps[0].getHome() instanceof CurrentSeq)) {
 					indexTable = code.getIndexTable(curExps, ctx);
 					if (indexTable == null) {
@@ -175,9 +175,9 @@ public class DiffJoin extends Operation {
 	}
 	
 	/**
-	 * ´¦ÀíÓÎ±ê»ò¹ÜµÀµ±Ç°ÍÆËÍµÄÊı¾İ
-	 * @param seq Êı¾İ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤„ç†æ¸¸æ ‡æˆ–ç®¡é“å½“å‰æ¨é€çš„æ•°æ®
+	 * @param seq æ•°æ®
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Sequence process(Sequence data, Context ctx) {

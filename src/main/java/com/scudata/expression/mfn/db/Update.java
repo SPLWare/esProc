@@ -12,8 +12,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Ö´ĞĞÊı¾İ¿â¸üĞÂÓï¾ä
- * db.update(A:A',tbl,F:x,¡­;P,¡­)
+ * æ‰§è¡Œæ•°æ®åº“æ›´æ–°è¯­å¥
+ * db.update(A:A',tbl,F:x,â€¦;P,â€¦)
  * @author RunQian
  *
  */

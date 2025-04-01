@@ -10,7 +10,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 
 /**
- * ¶àÎ¬¾ØÕó£¬Ìá¹©¶àÎ¬¾ØÕó´¦Àí, ÓÃÕâ¸öÀà´¦ÀíÏßĞÔ´úÊı¼ÆËãÖĞµÄ¶àÎ¬¾ØÕó
+ * å¤šç»´çŸ©é˜µï¼Œæä¾›å¤šç»´çŸ©é˜µå¤„ç†, ç”¨è¿™ä¸ªç±»å¤„ç†çº¿æ€§ä»£æ•°è®¡ç®—ä¸­çš„å¤šç»´çŸ©é˜µ
  * @author bidalong
  *
  */
@@ -24,13 +24,13 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * ¸ù¾İÒÑÓĞµÄ¶şÎ¬Êı×éĞÂ½¨¶àÎ¬¾ØÕó
+	 * æ ¹æ®å·²æœ‰çš„äºŒç»´æ•°ç»„æ–°å»ºå¤šç»´çŸ©é˜µ
 	 * @param mtx
 	 */
 	protected MulMatrix(Number[][] A, int size) {
 		this.A = A;
 		if (size != 0) {
-			// ÏòÁ¿£¬1Î¬¾ØÕó
+			// å‘é‡ï¼Œ1ç»´çŸ©é˜µ
 			this.index = new int[1];
 			this.index[0] = size;
 		}
@@ -42,7 +42,7 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * ¸ù¾İÒÑÓĞµÄ¶àÎ¬Êı×éList´´½¨¶àÎ¬¾ØÕó
+	 * æ ¹æ®å·²æœ‰çš„å¤šç»´æ•°ç»„Liståˆ›å»ºå¤šç»´çŸ©é˜µ
 	 * @param mtx
 	 */
 	protected MulMatrix(ArrayList<MulMatrix> mtx) {
@@ -54,14 +54,14 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * ³õÊ¼»¯Ò»¸ö¶àÎ¬¾ØÕó£¬Èç¹ûmatrixÖĞĞòÁĞ³¤¶È²»µÈ£¬½«°´×î´ó³¤¶ÈÉèÖÃÁĞÊı£¬ÆäËü²¹0£¬¶àÎ¬¾ØÕó×îµÍÒ²ÒªÊÇ1Î¬¾ØÕó£¬Èç¹ûÊÇÏòÁ¿»á×ª»»ÎªnĞĞ1ÁĞ´æ´¢
+	 * åˆå§‹åŒ–ä¸€ä¸ªå¤šç»´çŸ©é˜µï¼Œå¦‚æœmatrixä¸­åºåˆ—é•¿åº¦ä¸ç­‰ï¼Œå°†æŒ‰æœ€å¤§é•¿åº¦è®¾ç½®åˆ—æ•°ï¼Œå…¶å®ƒè¡¥0ï¼Œå¤šç»´çŸ©é˜µæœ€ä½ä¹Ÿè¦æ˜¯1ç»´çŸ©é˜µï¼Œå¦‚æœæ˜¯å‘é‡ä¼šè½¬æ¢ä¸ºnè¡Œ1åˆ—å­˜å‚¨
 	 * @param matrix
 	 */
 	protected MulMatrix(Sequence seq) {
 		int rows = seq == null ? 0 : seq.length();
 		if (rows > 0) {
 			if (seq instanceof Table) {
-				// ¶şÎ¬Êı×é, Ğò±í
+				// äºŒç»´æ•°ç»„, åºè¡¨
 				Table tab = (Table) seq;
 				this.setA(tab);
 				return;
@@ -73,11 +73,11 @@ public class MulMatrix {
 					if (row instanceof Sequence) {
 						Object o1 = ((Sequence) row).get(1);
 						if (o1 instanceof Sequence) {
-							// ¶şÎ¬ÒÔÉÏµÄĞòÁĞ
+							// äºŒç»´ä»¥ä¸Šçš„åºåˆ—
 							MulMatrix matrix = new MulMatrix((Sequence) row);
 							int[] idx = matrix.index;
 							if (this.index == null) {
-								// Ê×ĞĞ¸³Öµ
+								// é¦–è¡Œèµ‹å€¼
 								this.index = new int[idx.length+1];
 								System.arraycopy(idx, 0, this.index, 1, idx.length);
 								this.index[0] = rows;
@@ -85,7 +85,7 @@ public class MulMatrix {
 								check = idx;
 							}
 							else {
-								// ÆäËüĞĞÒªÇó²ãÊı½á¹¹ºÍÊ×¸öÍêÈ«Æ¥Åä£¬·ñÔò±¨´í
+								// å…¶å®ƒè¡Œè¦æ±‚å±‚æ•°ç»“æ„å’Œé¦–ä¸ªå®Œå…¨åŒ¹é…ï¼Œå¦åˆ™æŠ¥é”™
 								if (this.getLevel() != matrix.getLevel() + 1) {
 									throw new RQException("The dimensions of Multi-Matrix is unmatched! ");
 								}
@@ -96,7 +96,7 @@ public class MulMatrix {
 							this.mtx.add(matrix);
 						}
 						else {
-							// ¶şÎ¬¾ØÕó
+							// äºŒç»´çŸ©é˜µ
 							if (this.index == null) {
 								this.setA(seq);
 								return;
@@ -107,7 +107,7 @@ public class MulMatrix {
 						}
 					}
 					else {
-						// ÏòÁ¿£¬×÷Îªµ¥ÁĞÊı¾İ´æ´¢£¬¶àÎ¬¾ØÕó×îµÍÊÇ¶şÎ¬
+						// å‘é‡ï¼Œä½œä¸ºå•åˆ—æ•°æ®å­˜å‚¨ï¼Œå¤šç»´çŸ©é˜µæœ€ä½æ˜¯äºŒç»´
 						this.setA(seq);
 					}
 				}
@@ -115,12 +115,12 @@ public class MulMatrix {
 		}
 	}
 	
-	// ÓÉĞòÁĞ¶ÁÈë¶şÎ¬»òÒ»Î¬Êı×é
+	// ç”±åºåˆ—è¯»å…¥äºŒç»´æˆ–ä¸€ç»´æ•°ç»„
 	private void setA(Sequence seq) {
 		int rows = seq == null ? 0 : seq.length();
 		if (rows > 0) {
 			if (seq instanceof Table) {
-				// ¶şÎ¬Êı×é, Ğò±í
+				// äºŒç»´æ•°ç»„, åºè¡¨
 				Table tab = (Table) seq;
 				int cols = tab.dataStruct().getFieldCount();
 				this.A = new Number[rows][cols];
@@ -144,7 +144,7 @@ public class MulMatrix {
 					}
 				}
 				if (cols == 0) {
-					// µ¥Ò»ĞòÁĞ£¬ÔÚÕâÀïÊÇÒ»Î¬¾ØÕó
+					// å•ä¸€åºåˆ—ï¼Œåœ¨è¿™é‡Œæ˜¯ä¸€ç»´çŸ©é˜µ
 					this.index = new int[1];
 					this.index[0] = rows;
 					cols = 1;
@@ -211,7 +211,7 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * »ñµÃÃ¿Ò»²ã¾ØÕóµÄ³ÉÔ±Êı
+	 * è·å¾—æ¯ä¸€å±‚çŸ©é˜µçš„æˆå‘˜æ•°
 	 * @return
 	 */
 	protected int[] getIndex() {
@@ -219,14 +219,14 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * »ñµÃ²ãÊı
+	 * è·å¾—å±‚æ•°
 	 * @return
 	 */
 	protected int getLevel() {
 		return this.index.length;
 	}
 	
-	// »ñÈ¡µ×²ã¾ØÕóÖĞµÄÊı
+	// è·å–åº•å±‚çŸ©é˜µä¸­çš„æ•°
 	private Number getNumber(int r, int c) {
 		return this.A[r][c];
 	}
@@ -239,7 +239,7 @@ public class MulMatrix {
 		int rows = this.index[0];
 		Sequence seq = new Sequence(rows);
 		if (level == 1) {
-			// ÏòÁ¿
+			// å‘é‡
 			for (int i = 0; i < rows; i++ ) {
 				if (this.A.length > 1) {
 					seq.add(this.A[i][0]);
@@ -249,14 +249,14 @@ public class MulMatrix {
 				}
 			}
 			if (this.A.length == 1 && this.index[0] > 1) {
-				// ºáÏòÁ¿
+				// æ¨ªå‘é‡
 				Sequence rSeq = new Sequence(1);
 				rSeq.add(seq);
 				return rSeq;
 			}
 		}
 		else if (level == 2) {
-			// ¾ØÕó
+			// çŸ©é˜µ
 			int cols = this.index[1];
 			for (int i = 0; i < rows; i++ ) {
 				Sequence row = new Sequence(cols);
@@ -267,7 +267,7 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ¶àÎ¬¾ØÕó
+			// å¤šç»´çŸ©é˜µ
 			for (int i = 0; i < rows; i++ ) {
 				MulMatrix mm = this.mtx.get(i);
 				seq.add(mm.toSequence());
@@ -277,9 +277,9 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * °´Ä³¸öÎ¬¶ÈÇóºÍ£¬·µ»ØµÍÒ»¼¶µÄ¶àÎ¬¾ØÕó£¬¶ÔÏòÁ¿·µ»ØÊıÖµ
-	 * @param level	Ö¸¶¨²ã£¬´Ó1¿ªÊ¼£¬³¬¹ı×Ü²ãÊıÎŞÒâÒå£¬²»Å×Òì³£
-	 * @param ifNull	ÊÇ·ñ´¦Àí¿ÕÖµ£¬Ä¬ÈÏfalse£¬¿ÕÖµ°´0´¦Àí
+	 * æŒ‰æŸä¸ªç»´åº¦æ±‚å’Œï¼Œè¿”å›ä½ä¸€çº§çš„å¤šç»´çŸ©é˜µï¼Œå¯¹å‘é‡è¿”å›æ•°å€¼
+	 * @param level	æŒ‡å®šå±‚ï¼Œä»1å¼€å§‹ï¼Œè¶…è¿‡æ€»å±‚æ•°æ— æ„ä¹‰ï¼Œä¸æŠ›å¼‚å¸¸
+	 * @param ifNull	æ˜¯å¦å¤„ç†ç©ºå€¼ï¼Œé»˜è®¤falseï¼Œç©ºå€¼æŒ‰0å¤„ç†
 	 * @return
 	 */
 	protected Object sum(int level, boolean ifNull) {
@@ -292,7 +292,7 @@ public class MulMatrix {
 		}
 		int len = this.index[level-1];
 		if (lm == 1) {
-			// ÏòÁ¿£¬µÃµ½ÊıÖµ
+			// å‘é‡ï¼Œå¾—åˆ°æ•°å€¼
 			double sum = 0;
 			if (this.A.length > 1) {
 				for (int i = 0; i < len; i++) {
@@ -314,9 +314,9 @@ public class MulMatrix {
 		}
 		MulMatrix mm = null; 
 		if (lm == 2) {
-			// ¶şÎ¬¾ØÕó £¬¶şÎ¬¾ØÕó¾ÛºÏµÄ½á¹û×öºá×İÇø·Ö£¬°´ÁĞ¾ÛºÏµÄ»°·µ»Ø¶şÎ¬ĞòÁĞ£¬°´ĞĞ¾ÛºÏ·µ»ØĞòÁĞ
+			// äºŒç»´çŸ©é˜µ ï¼ŒäºŒç»´çŸ©é˜µèšåˆçš„ç»“æœåšæ¨ªçºµåŒºåˆ†ï¼ŒæŒ‰åˆ—èšåˆçš„è¯è¿”å›äºŒç»´åºåˆ—ï¼ŒæŒ‰è¡Œèšåˆè¿”å›åºåˆ—
 			if (level == 1) {
-				// °´ÁĞ¾Û¼¯£¬µÃµ½¶şÎ¬ĞòÁĞ£¬µ«Ö»ÓĞÒ»ĞĞ
+				// æŒ‰åˆ—èšé›†ï¼Œå¾—åˆ°äºŒç»´åºåˆ—ï¼Œä½†åªæœ‰ä¸€è¡Œ
 				int size = this.index[1];
 				Number[][] result = new Number[1][size];
 				for (int c = 0; c < size; c++) {
@@ -332,7 +332,7 @@ public class MulMatrix {
 				mm = new MulMatrix(result, size);
 			}
 			else {
-				// °´ĞĞ¾Û¼¯
+				// æŒ‰è¡Œèšé›†
 				int size = this.index[0];
 				Number[][] result = new Number[size][1];
 				for (int r = 0; r < size; r++) {
@@ -349,9 +349,9 @@ public class MulMatrix {
 			}
 		}
 		else if (lm > 3 || lm - level >= 2) {
-			// ×îµ×²ã´æ´¢²»ÓÃ±ä»¯½á¹¹£¬Ö±½Ó¾ÛºÏ¾Í¿ÉÒÔÁË
+			// æœ€åº•å±‚å­˜å‚¨ä¸ç”¨å˜åŒ–ç»“æ„ï¼Œç›´æ¥èšåˆå°±å¯ä»¥äº†
 			if (level == 1) {
-				// Ê×²ã¾ÛºÏ
+				// é¦–å±‚èšåˆ
 				mm = this.mtx.get(0).create(ifNull);
 				for (MulMatrix submm : this.mtx) {
 					submm.sum2(mm);
@@ -367,8 +367,8 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ÒªÖØĞÂÉú³É×îµ×²ãµÄÊı×é
-			// ¹²Ê£ÏÂ3²ã£¬Éú³É×îµ×²ãÊı×éµÄÊµ¼Ê²Ù×÷£¬Ö»Ğè¿¼ÂÇlevelÎª2ºÍ3µÄÇé¿ö£¬Îª1Ê±ÊÇ²»ĞèÒªµ÷Õû×îµ×²ãÊı×éµÄ
+			// è¦é‡æ–°ç”Ÿæˆæœ€åº•å±‚çš„æ•°ç»„
+			// å…±å‰©ä¸‹3å±‚ï¼Œç”Ÿæˆæœ€åº•å±‚æ•°ç»„çš„å®é™…æ“ä½œï¼Œåªéœ€è€ƒè™‘levelä¸º2å’Œ3çš„æƒ…å†µï¼Œä¸º1æ—¶æ˜¯ä¸éœ€è¦è°ƒæ•´æœ€åº•å±‚æ•°ç»„çš„
 			Number[][] Anew = null;
 			int rows = this.index[0];
 			if (level == 2) {
@@ -388,7 +388,7 @@ public class MulMatrix {
 				}
 			}
 			else {
-				// levelÎª3
+				// levelä¸º3
 				Anew = new Number[rows][this.index[1]];
 				for (int r = 0; r < rows; r++) {
 					MulMatrix submm = this.mtx.get(r);
@@ -404,23 +404,23 @@ public class MulMatrix {
 					}
 				}
 			}
-			// ·µ»Ø¾ÛºÏ½á¹û¶şÎ¬ÏòÁ¿£¬¹¹½¨Ê±Éè³¤¶È0
+			// è¿”å›èšåˆç»“æœäºŒç»´å‘é‡ï¼Œæ„å»ºæ—¶è®¾é•¿åº¦0
 			mm = new MulMatrix(Anew, 0);
 		}
 		return mm;
 	}
 	
 	/**
-	 * ½«±¾¶àÎ¬Êı¾İ¼¯¾ÛºÏµ½ÁíÒ»¸ö¶àÎ¬Êı¾İ¼¯¾ÛºÏ´æ´¢µÄ½á¹û
+	 * å°†æœ¬å¤šç»´æ•°æ®é›†èšåˆåˆ°å¦ä¸€ä¸ªå¤šç»´æ•°æ®é›†èšåˆå­˜å‚¨çš„ç»“æœ
 	 * @param mm
 	 */
 	private void sum2(MulMatrix mm) {
 		if(this.getLevel() != mm.getLevel()) {
-			//Ö»ÓĞÍ¬Î¬²Å»á¾ÛºÏ
+			//åªæœ‰åŒç»´æ‰ä¼šèšåˆ
 			return;
 		}
 		if (this.getLevel() <= 2) {
-			// ×îµ×²ã¾ØÕóÊµ¼ÊÖ´ĞĞ¾ÛºÏ
+			// æœ€åº•å±‚çŸ©é˜µå®é™…æ‰§è¡Œèšåˆ
 			int rows = this.index[0];
 			int cols = this.index[1];
 			for (int r = 0; r < rows; r++) {
@@ -438,7 +438,7 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ¶àÎ¬¾ØÕó¾ÛºÏ
+			// å¤šç»´çŸ©é˜µèšåˆ
 			int size = this.mtx.size();
 			for (int i = 0; i < size; i++ ) {
 				MulMatrix submm = this.mtx.get(i);
@@ -449,16 +449,16 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * ½«±¾¶àÎ¬¾ØÕó¸ù¾İÁíÒ»¸ö¾ùÖµ¾ØÕó£¬¼ÆËã²î·½ÀÛ¼Óµ½½á¹û¾ØÕómm
+	 * å°†æœ¬å¤šç»´çŸ©é˜µæ ¹æ®å¦ä¸€ä¸ªå‡å€¼çŸ©é˜µï¼Œè®¡ç®—å·®æ–¹ç´¯åŠ åˆ°ç»“æœçŸ©é˜µmm
 	 * @param mm
 	 */
 	private void calcVar1(MulMatrix mm, MulMatrix avgmm) {
 		if(this.getLevel() != mm.getLevel()) {
-			//Ö»ÓĞÍ¬Î¬²ÅÄÜ¼ÆËã
+			//åªæœ‰åŒç»´æ‰èƒ½è®¡ç®—
 			return;
 		}
 		if (this.getLevel() <= 2) {
-			// ×îµ×²ã¾ØÕóÊµ¼ÊÖ´ĞĞ¾ÛºÏ
+			// æœ€åº•å±‚çŸ©é˜µå®é™…æ‰§è¡Œèšåˆ
 			int rows = this.index[0];
 			int cols = this.index[1];
 			for (int r = 0; r < rows; r++) {
@@ -478,7 +478,7 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ¶àÎ¬¾ØÕó¾ÛºÏ
+			// å¤šç»´çŸ©é˜µèšåˆ
 			int size = this.mtx.size();
 			for (int i = 0; i < size; i++ ) {
 				MulMatrix submm = this.mtx.get(i);
@@ -490,16 +490,16 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * ½«±¾¶àÎ¬¾ØÕó¸ù¾İÁíÒ»¸ö¾ùÖµ¾ØÕóºÍ±ê×¼²î¾ØÕó£¬Ö´ĞĞ¹éÒ»»¯´¦Àí
+	 * å°†æœ¬å¤šç»´çŸ©é˜µæ ¹æ®å¦ä¸€ä¸ªå‡å€¼çŸ©é˜µå’Œæ ‡å‡†å·®çŸ©é˜µï¼Œæ‰§è¡Œå½’ä¸€åŒ–å¤„ç†
 	 * @param mm
 	 */
 	private void normalize(MulMatrix avgmm, MulMatrix stdmm) {
 		if(this.getLevel() != avgmm.getLevel()) {
-			//Ö»ÓĞÍ¬Î¬²ÅÄÜ¼ÆËã
+			//åªæœ‰åŒç»´æ‰èƒ½è®¡ç®—
 			return;
 		}
 		if (this.getLevel() <= 2) {
-			// ×îµ×²ã¾ØÕóÊµ¼ÊÖ´ĞĞ¾ÛºÏ
+			// æœ€åº•å±‚çŸ©é˜µå®é™…æ‰§è¡Œèšåˆ
 			int rows = this.index[0];
 			int cols = this.index[1];
 			for (int r = 0; r < rows; r++) {
@@ -515,7 +515,7 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ¶àÎ¬¾ØÕó¾ÛºÏ
+			// å¤šç»´çŸ©é˜µèšåˆ
 			int size = this.mtx.size();
 			for (int i = 0; i < size; i++ ) {
 				MulMatrix submm = this.mtx.get(i);
@@ -527,7 +527,7 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * ¼ÆËã²î·½
+	 * è®¡ç®—å·®æ–¹
 	 * @param mm
 	 */
 	protected double sd(double avg) {
@@ -535,7 +535,7 @@ public class MulMatrix {
 		int len = this.index[0];
 		double sd = 0;
 		if (lm == 1) {
-			// ÏòÁ¿£¬µÃµ½ÊıÖµ
+			// å‘é‡ï¼Œå¾—åˆ°æ•°å€¼
 			if (this.A.length > 1) {
 				for (int i = 0; i < len; i++) {
 					Number num = this.A[i][0];
@@ -556,7 +556,7 @@ public class MulMatrix {
 			}
 		}
 		else if (lm == 2) {
-			// ¶şÎ¬¾ØÕó £¬¶şÎ¬¾ØÕó¾ÛºÏµÄ½á¹û×öºá×İÇø·Ö£¬°´ÁĞ¾ÛºÏµÄ»°·µ»Ø¶şÎ¬ĞòÁĞ£¬°´ĞĞ¾ÛºÏ·µ»ØĞòÁĞ
+			// äºŒç»´çŸ©é˜µ ï¼ŒäºŒç»´çŸ©é˜µèšåˆçš„ç»“æœåšæ¨ªçºµåŒºåˆ†ï¼ŒæŒ‰åˆ—èšåˆçš„è¯è¿”å›äºŒç»´åºåˆ—ï¼ŒæŒ‰è¡Œèšåˆè¿”å›åºåˆ—
 			int size = this.index[1];
 			for (int r = 0; r < len; r++) {
 				for (int c = 0; c < size; c++) {
@@ -578,9 +578,9 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * È«²¿ÇóºÍ£¬·µ»ØµÍÒ»¼¶µÄ¶àÎ¬¾ØÕó£¬¶ÔÏòÁ¿·µ»ØÊıÖµ
-	 * @param level	Ö¸¶¨²ã£¬´Ó1¿ªÊ¼£¬³¬¹ı×Ü²ãÊıÎŞÒâÒå£¬²»Å×Òì³£
-	 * @param ifNull	ÊÇ·ñ´¦Àí¿ÕÖµ£¬Ä¬ÈÏfalse£¬¿ÕÖµ°´0´¦Àí
+	 * å…¨éƒ¨æ±‚å’Œï¼Œè¿”å›ä½ä¸€çº§çš„å¤šç»´çŸ©é˜µï¼Œå¯¹å‘é‡è¿”å›æ•°å€¼
+	 * @param level	æŒ‡å®šå±‚ï¼Œä»1å¼€å§‹ï¼Œè¶…è¿‡æ€»å±‚æ•°æ— æ„ä¹‰ï¼Œä¸æŠ›å¼‚å¸¸
+	 * @param ifNull	æ˜¯å¦å¤„ç†ç©ºå€¼ï¼Œé»˜è®¤falseï¼Œç©ºå€¼æŒ‰0å¤„ç†
 	 * @return
 	 */
 	protected double sumAll() {
@@ -588,7 +588,7 @@ public class MulMatrix {
 		int len = this.index[0];
 		double sum = 0;
 		if (lm == 1) {
-			// ÏòÁ¿£¬µÃµ½ÊıÖµ
+			// å‘é‡ï¼Œå¾—åˆ°æ•°å€¼
 			if (this.A.length > 1) {
 				for (int i = 0; i < len; i++) {
 					Number num = this.A[i][0];
@@ -607,7 +607,7 @@ public class MulMatrix {
 			}
 		}
 		else if (lm == 2) {
-			// ¶şÎ¬¾ØÕó £¬¶şÎ¬¾ØÕó¾ÛºÏµÄ½á¹û×öºá×İÇø·Ö£¬°´ÁĞ¾ÛºÏµÄ»°·µ»Ø¶şÎ¬ĞòÁĞ£¬°´ĞĞ¾ÛºÏ·µ»ØĞòÁĞ
+			// äºŒç»´çŸ©é˜µ ï¼ŒäºŒç»´çŸ©é˜µèšåˆçš„ç»“æœåšæ¨ªçºµåŒºåˆ†ï¼ŒæŒ‰åˆ—èšåˆçš„è¯è¿”å›äºŒç»´åºåˆ—ï¼ŒæŒ‰è¡Œèšåˆè¿”å›åºåˆ—
 			int size = this.index[1];
 			for (int r = 0; r < len; r++) {
 				for (int c = 0; c < size; c++) {
@@ -628,9 +628,9 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * °´Ä³¸öÎ¬¶ÈÀÛ»ıÇóºÍ£¬·µ»ØÍ¬Î¬¾ØÕó
-	 * @param level	Ö¸¶¨²ã£¬´Ó1¿ªÊ¼£¬³¬¹ı×Ü²ãÊıÎŞÒâÒå£¬²»Å×Òì³£
-	 * @param reverse	ÊÇ·ñÄæÏòÀÛ»ı
+	 * æŒ‰æŸä¸ªç»´åº¦ç´¯ç§¯æ±‚å’Œï¼Œè¿”å›åŒç»´çŸ©é˜µ
+	 * @param level	æŒ‡å®šå±‚ï¼Œä»1å¼€å§‹ï¼Œè¶…è¿‡æ€»å±‚æ•°æ— æ„ä¹‰ï¼Œä¸æŠ›å¼‚å¸¸
+	 * @param reverse	æ˜¯å¦é€†å‘ç´¯ç§¯
 	 * @return
 	 */
 	protected MulMatrix cumsum(int level, boolean reverse) {
@@ -644,7 +644,7 @@ public class MulMatrix {
 		int len = this.index[level-1];
 		MulMatrix mm = null; 
 		if (lm == 1) {
-			// ÏòÁ¿£¬µÃµ½ÊıÖµ
+			// å‘é‡ï¼Œå¾—åˆ°æ•°å€¼
 			Number[][] A2 = this.A.clone();
 			double sum = 0;
 			if (this.A.length > 1) {
@@ -676,9 +676,9 @@ public class MulMatrix {
 			mm = new MulMatrix(A2, len);
 		}
 		else if (lm == 2) {
-			// ¶şÎ¬¾ØÕó £¬¶şÎ¬¾ØÕó¾ÛºÏµÄ½á¹û×öºá×İÇø·Ö£¬°´ÁĞ¾ÛºÏµÄ»°·µ»Ø¶şÎ¬ĞòÁĞ£¬°´ĞĞ¾ÛºÏ·µ»ØĞòÁĞ
+			// äºŒç»´çŸ©é˜µ ï¼ŒäºŒç»´çŸ©é˜µèšåˆçš„ç»“æœåšæ¨ªçºµåŒºåˆ†ï¼ŒæŒ‰åˆ—èšåˆçš„è¯è¿”å›äºŒç»´åºåˆ—ï¼ŒæŒ‰è¡Œèšåˆè¿”å›åºåˆ—
 			if (level == 1) {
-				// °´ÁĞ¾Û¼¯£¬µÃµ½¶şÎ¬ĞòÁĞ£¬µ«Ö»ÓĞÒ»ĞĞ
+				// æŒ‰åˆ—èšé›†ï¼Œå¾—åˆ°äºŒç»´åºåˆ—ï¼Œä½†åªæœ‰ä¸€è¡Œ
 				int size = this.index[1];
 				Number[][] result = new Number[len][size];
 				for (int c = 0; c < size; c++) {
@@ -698,7 +698,7 @@ public class MulMatrix {
 				mm = new MulMatrix(result, 0);
 			}
 			else {
-				// °´ĞĞ¾Û¼¯
+				// æŒ‰è¡Œèšé›†
 				int size = this.index[0];
 				Number[][] result = new Number[size][len];
 				for (int r = 0; r < size; r++) {
@@ -719,10 +719,10 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ×îµ×²ã´æ´¢²»ÓÃ±ä»¯½á¹¹£¬Ö±½Ó¾ÛºÏ¾Í¿ÉÒÔÁË
+			// æœ€åº•å±‚å­˜å‚¨ä¸ç”¨å˜åŒ–ç»“æ„ï¼Œç›´æ¥èšåˆå°±å¯ä»¥äº†
 			ArrayList<MulMatrix> mtx2 = new ArrayList<MulMatrix>(this.index[0]);
 			if (level == 1) {
-				// Ê×²ã¾ÛºÏ
+				// é¦–å±‚èšåˆ
 				MulMatrix mm2 = this.mtx.get(0).create(false);
 				int size = this.mtx.size();
 				for (int i = 0; i < size; i++) {
@@ -753,9 +753,9 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * °´Ä³¸öÎ¬¶È¹éÒ»£¬·µ»ØÍ¬Î¬¾ØÕó
-	 * @param level	Ö¸¶¨²ã£¬´Ó1¿ªÊ¼£¬³¬¹ı×Ü²ãÊıÎŞÒâÒå£¬²»Å×Òì³£
-	 * @param s	ÊÇ·ñÊ¹ÓÃn-1
+	 * æŒ‰æŸä¸ªç»´åº¦å½’ä¸€ï¼Œè¿”å›åŒç»´çŸ©é˜µ
+	 * @param level	æŒ‡å®šå±‚ï¼Œä»1å¼€å§‹ï¼Œè¶…è¿‡æ€»å±‚æ•°æ— æ„ä¹‰ï¼Œä¸æŠ›å¼‚å¸¸
+	 * @param s	æ˜¯å¦ä½¿ç”¨n-1
 	 * @return
 	 */
 	protected MulMatrix normalize(int level, boolean s) {
@@ -769,7 +769,7 @@ public class MulMatrix {
 		int len = this.index[level-1];
 		MulMatrix mm = null; 
 		if (lm == 1) {
-			// ÏòÁ¿£¬µÃµ½ÊıÖµ
+			// å‘é‡ï¼Œå¾—åˆ°æ•°å€¼
 			Number[][] A2 = this.A.clone();
 			double sum = 0;
 			double sd = 0;
@@ -824,9 +824,9 @@ public class MulMatrix {
 			mm = new MulMatrix(A2, len);
 		}
 		else if (lm == 2) {
-			// ¶şÎ¬¾ØÕó £¬¶şÎ¬¾ØÕó¾ÛºÏµÄ½á¹û×öºá×İÇø·Ö£¬°´ÁĞ¾ÛºÏµÄ»°·µ»Ø¶şÎ¬ĞòÁĞ£¬°´ĞĞ¾ÛºÏ·µ»ØĞòÁĞ
+			// äºŒç»´çŸ©é˜µ ï¼ŒäºŒç»´çŸ©é˜µèšåˆçš„ç»“æœåšæ¨ªçºµåŒºåˆ†ï¼ŒæŒ‰åˆ—èšåˆçš„è¯è¿”å›äºŒç»´åºåˆ—ï¼ŒæŒ‰è¡Œèšåˆè¿”å›åºåˆ—
 			if (level == 1) {
-				// °´ÁĞ¾Û¼¯£¬µÃµ½¶şÎ¬ĞòÁĞ£¬µ«Ö»ÓĞÒ»ĞĞ
+				// æŒ‰åˆ—èšé›†ï¼Œå¾—åˆ°äºŒç»´åºåˆ—ï¼Œä½†åªæœ‰ä¸€è¡Œ
 				int size = this.index[1];
 				Number[][] result = new Number[len][size];
 				for (int c = 0; c < size; c++) {
@@ -859,7 +859,7 @@ public class MulMatrix {
 				mm = new MulMatrix(result, 0);
 			}
 			else {
-				// °´ĞĞ¾Û¼¯
+				// æŒ‰è¡Œèšé›†
 				int size = this.index[0];
 				Number[][] result = new Number[size][len];
 				for (int r = 0; r < size; r++) {
@@ -892,20 +892,20 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ×îµ×²ã´æ´¢²»ÓÃ±ä»¯½á¹¹£¬Ö±½Ó¾ÛºÏ¾Í¿ÉÒÔÁË
+			// æœ€åº•å±‚å­˜å‚¨ä¸ç”¨å˜åŒ–ç»“æ„ï¼Œç›´æ¥èšåˆå°±å¯ä»¥äº†
 			ArrayList<MulMatrix> mtx2 = new ArrayList<MulMatrix>(this.index[0]);
 			if (level == 1) {
-				// Ê×²ã¾ÛºÏ
+				// é¦–å±‚èšåˆ
 				mm = this.mtx.get(0).create(false);
 				int size = this.mtx.size();
 				for (MulMatrix submm : this.mtx) {
 					submm.sum2(mm);
 				}
-				// ´ËÊ±mmÖĞ×îµ×²ã¼ÇÂ¼µÄÊÇsize¸öMulMatrix¾Û¼¯ÇóºÍµÄ½á¹û£¬¿ÉÓÃÀ´Çó¾ùÖµ
+				// æ­¤æ—¶mmä¸­æœ€åº•å±‚è®°å½•çš„æ˜¯sizeä¸ªMulMatrixèšé›†æ±‚å’Œçš„ç»“æœï¼Œå¯ç”¨æ¥æ±‚å‡å€¼
 				mm.divide(size);
 				MulMatrix avgmm = mm;
 				mm = this.mtx.get(0).create(false);
-				// ÓÃ¾ùÖµÇó²î·½
+				// ç”¨å‡å€¼æ±‚å·®æ–¹
 				for (MulMatrix submm : this.mtx) {
 					submm.calcVar1(mm, avgmm);
 				}
@@ -939,8 +939,8 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * °´Ä³¸öÎ¬¶ÈÇó×ÜÔªËØÊı£¬ÔİÊ±²»Ö§³Ö¿ÕÖµ´¦Àí
-	 * @param level	Ö¸¶¨²ã£¬´Ó1¿ªÊ¼£¬³¬¹ı×Ü²ãÊıÎŞÒâÒå£¬²»Å×Òì³£
+	 * æŒ‰æŸä¸ªç»´åº¦æ±‚æ€»å…ƒç´ æ•°ï¼Œæš‚æ—¶ä¸æ”¯æŒç©ºå€¼å¤„ç†
+	 * @param level	æŒ‡å®šå±‚ï¼Œä»1å¼€å§‹ï¼Œè¶…è¿‡æ€»å±‚æ•°æ— æ„ä¹‰ï¼Œä¸æŠ›å¼‚å¸¸
 	 * @return
 	 */
 	protected double count(int level) {
@@ -953,8 +953,8 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * °´Ä³¸öÎ¬¶ÈÇó×ÜÔªËØÊı£¬ÔİÊ±²»Ö§³Ö¿ÕÖµ´¦Àí
-	 * @param level	Ö¸¶¨²ã£¬´Ó1¿ªÊ¼£¬³¬¹ı×Ü²ãÊıÎŞÒâÒå£¬²»Å×Òì³£
+	 * æŒ‰æŸä¸ªç»´åº¦æ±‚æ€»å…ƒç´ æ•°ï¼Œæš‚æ—¶ä¸æ”¯æŒç©ºå€¼å¤„ç†
+	 * @param level	æŒ‡å®šå±‚ï¼Œä»1å¼€å§‹ï¼Œè¶…è¿‡æ€»å±‚æ•°æ— æ„ä¹‰ï¼Œä¸æŠ›å¼‚å¸¸
 	 * @return
 	 */
 	protected double countAll() {
@@ -969,7 +969,7 @@ public class MulMatrix {
 	protected void divide(double d) {
 		int lm = this.getLevel();
 		if (lm == 1) {
-			// ÏòÁ¿£¬µÃµ½ÊıÖµ
+			// å‘é‡ï¼Œå¾—åˆ°æ•°å€¼
 			int len = this.index[0];
 			if (this.A.length > 1) {
 				for (int i = 0; i < len; i++) {
@@ -989,7 +989,7 @@ public class MulMatrix {
 			}
 		}
 		else if (lm == 2) {
-			// ¶şÎ¬¾ØÕó
+			// äºŒç»´çŸ©é˜µ
 			int size = this.index[1];
 			int len = this.index[0];
 			for (int c = 0; c < size; c++) {
@@ -1002,7 +1002,7 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ¶àÎ¬¾ØÕó
+			// å¤šç»´çŸ©é˜µ
 			for (MulMatrix submm : this.mtx) {
 				submm.divide(d);
 			}
@@ -1012,7 +1012,7 @@ public class MulMatrix {
 	protected void calcVar2(double d, boolean s) {
 		int lm = this.getLevel();
 		if (lm == 1) {
-			// ÏòÁ¿£¬µÃµ½ÊıÖµ
+			// å‘é‡ï¼Œå¾—åˆ°æ•°å€¼
 			int len = this.index[0];
 			if (this.A.length > 1) {
 				for (int i = 0; i < len; i++) {
@@ -1032,7 +1032,7 @@ public class MulMatrix {
 			}
 		}
 		else if (lm == 2) {
-			// ¶şÎ¬¾ØÕó
+			// äºŒç»´çŸ©é˜µ
 			int size = this.index[1];
 			int len = this.index[0];
 			for (int c = 0; c < size; c++) {
@@ -1045,7 +1045,7 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ¶àÎ¬¾ØÕó
+			// å¤šç»´çŸ©é˜µ
 			for (MulMatrix submm : this.mtx) {
 				submm.calcVar2(d, s);
 			}
@@ -1055,7 +1055,7 @@ public class MulMatrix {
 	private Number ZERO = Double.valueOf(0);
 	
 	/**
-	 * Éî¶È¿ËÂ¡
+	 * æ·±åº¦å…‹éš†
 	 * @param mm
 	 */
 	private MulMatrix create(boolean ifNull) {
@@ -1074,7 +1074,7 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ¶àÎ¬¾ØÕóÉî¶È¿ËÂ¡
+			// å¤šç»´çŸ©é˜µæ·±åº¦å…‹éš†
 			mm.mtx = new ArrayList<MulMatrix>(this.mtx.size());
 			for (MulMatrix submm : this.mtx) {
 				mm.mtx.add(submm.create(ifNull));
@@ -1084,7 +1084,7 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * Éî¶È¿ËÂ¡
+	 * æ·±åº¦å…‹éš†
 	 * @param mm
 	 */
 	private MulMatrix deepClone() {
@@ -1101,7 +1101,7 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ¶àÎ¬¾ØÕóÉî¶È¿ËÂ¡
+			// å¤šç»´çŸ©é˜µæ·±åº¦å…‹éš†
 			mm.mtx = new ArrayList<MulMatrix>(this.mtx.size());
 			for (MulMatrix submm : this.mtx) {
 				mm.mtx.add(submm.deepClone());
@@ -1111,9 +1111,9 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * °´Ä³¸öÎ¬¶ÈÇĞÆ¬£¬Í¨³£·µ»Ø¶àÎ¬¾ØÕó£¬µ«ÓĞ¿ÉÄÜ·µ»ØÊıÖµ
-	 * @param level	Ö¸¶¨²ã£¬´Ó1¿ªÊ¼£¬³¬¹ı×Ü²ãÊıÎŞÒâÒå£¬²»Å×Òì³£
-	 * @param n ²ãºÅ£¬´Ó0¿ªÊ¼
+	 * æŒ‰æŸä¸ªç»´åº¦åˆ‡ç‰‡ï¼Œé€šå¸¸è¿”å›å¤šç»´çŸ©é˜µï¼Œä½†æœ‰å¯èƒ½è¿”å›æ•°å€¼
+	 * @param level	æŒ‡å®šå±‚ï¼Œä»1å¼€å§‹ï¼Œè¶…è¿‡æ€»å±‚æ•°æ— æ„ä¹‰ï¼Œä¸æŠ›å¼‚å¸¸
+	 * @param n å±‚å·ï¼Œä»0å¼€å§‹
 	 * @return
 	 */
 	protected Object slice(int level, int n) {
@@ -1126,7 +1126,7 @@ public class MulMatrix {
 			n = 0;
 		}
 		if (lm == 1) {
-			// ÏòÁ¿£¬ÇĞ³öÄ³¸öÊı
+			// å‘é‡ï¼Œåˆ‡å‡ºæŸä¸ªæ•°
 			if (this.A.length > 1) {
 				return this.A[n][0];
 			}
@@ -1136,16 +1136,16 @@ public class MulMatrix {
 		}
 		MulMatrix mm = null; 
 		if (lm == 2) {
-			// ¶şÎ¬¾ØÕó 
+			// äºŒç»´çŸ©é˜µ 
 			if (level == 1) {
-				// Ö»ÓĞÕâÀï¿ÉÄÜÇĞ³öºáÏòÁ¿
+				// åªæœ‰è¿™é‡Œå¯èƒ½åˆ‡å‡ºæ¨ªå‘é‡
 				int size = this.index[1];
 				Number[][] result = new Number[1][size];
 				result[0] = this.A[n];
 				mm = new MulMatrix(result, size);
 			}
 			else {
-				// ×İÏòÁ¿
+				// çºµå‘é‡
 				int size = this.index[0];
 				Number[][] result = new Number[size][1];
 				for (int i = 0; i < size; i++) {
@@ -1155,7 +1155,7 @@ public class MulMatrix {
 			}
 		}
 		else if (lm > 3 || lm - level >= 2) {
-			// ×îµ×²ã´æ´¢²»ÓÃ±ä»¯
+			// æœ€åº•å±‚å­˜å‚¨ä¸ç”¨å˜åŒ–
 			if (level == 1) {
 				return this.mtx.get(n);
 			}
@@ -1169,8 +1169,8 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ÒªÖØĞÂÉú³É×îµ×²ãµÄÊı×é
-			// ¹²Ê£ÏÂ3²ã£¬Éú³É×îµ×²ãÊı×éµÄÊµ¼Ê²Ù×÷£¬Ö»Ğè¿¼ÂÇlevelÎª2ºÍ3µÄÇé¿ö£¬Îª1Ê±ÊÇ²»ĞèÒªµ÷Õû×îµ×²ãÊı×éµÄ
+			// è¦é‡æ–°ç”Ÿæˆæœ€åº•å±‚çš„æ•°ç»„
+			// å…±å‰©ä¸‹3å±‚ï¼Œç”Ÿæˆæœ€åº•å±‚æ•°ç»„çš„å®é™…æ“ä½œï¼Œåªéœ€è€ƒè™‘levelä¸º2å’Œ3çš„æƒ…å†µï¼Œä¸º1æ—¶æ˜¯ä¸éœ€è¦è°ƒæ•´æœ€åº•å±‚æ•°ç»„çš„
 			Number[][] Anew = null;
 			int rows = this.index[0];
 			if (level == 2) {
@@ -1183,7 +1183,7 @@ public class MulMatrix {
 				}
 			}
 			else {
-				// levelÎª3
+				// levelä¸º3
 				Anew = new Number[rows][this.index[1]];
 				for (int r = 0; r < rows; r++) {
 					MulMatrix submm = this.mtx.get(r);
@@ -1192,13 +1192,13 @@ public class MulMatrix {
 					}
 				}
 			}
-			// ÇĞ³öµ×²ã¶şÎ¬ÏòÁ¿£¬¹¹½¨Ê±Éè³¤¶È0
+			// åˆ‡å‡ºåº•å±‚äºŒç»´å‘é‡ï¼Œæ„å»ºæ—¶è®¾é•¿åº¦0
 			mm = new MulMatrix(Anew, 0);
 		}
 		return mm;
 	}
 	
-	//levelsÉıĞò£¬¶ÔÓ¦Ã¿×éns
+	//levelså‡åºï¼Œå¯¹åº”æ¯ç»„ns
 	protected Object slice(int[] levels, int[] ns) {
 		int size = levels.length;
 		MulMatrix mm = this;
@@ -1215,9 +1215,9 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * ¼ÆËã±ê×¼²î
-	 * @param level	¾ÛºÏ²ã
-	 * @param s	ÊÇ·ñÊ¹ÓÃÑù±¾·½²în-1¼ÆËã
+	 * è®¡ç®—æ ‡å‡†å·®
+	 * @param level	èšåˆå±‚
+	 * @param s	æ˜¯å¦ä½¿ç”¨æ ·æœ¬æ–¹å·®n-1è®¡ç®—
 	 * @return
 	 */
 	protected Object std(int level, boolean s) {
@@ -1230,7 +1230,7 @@ public class MulMatrix {
 		}
 		int len = this.index[level-1];
 		if (lm == 1) {
-			// ÏòÁ¿£¬µÃµ½ÊıÖµ
+			// å‘é‡ï¼Œå¾—åˆ°æ•°å€¼
 			double sum = 0;
 			double var = 0;
 			if (this.A.length > 1) {
@@ -1271,9 +1271,9 @@ public class MulMatrix {
 		}
 		MulMatrix mm = null; 
 		if (lm == 2) {
-			// ¶şÎ¬¾ØÕó £¬¶şÎ¬¾ØÕó¾ÛºÏµÄ½á¹û×öºá×İÇø·Ö£¬°´ÁĞ¾ÛºÏµÄ»°·µ»Ø¶şÎ¬ĞòÁĞ£¬°´ĞĞ¾ÛºÏ·µ»ØĞòÁĞ
+			// äºŒç»´çŸ©é˜µ ï¼ŒäºŒç»´çŸ©é˜µèšåˆçš„ç»“æœåšæ¨ªçºµåŒºåˆ†ï¼ŒæŒ‰åˆ—èšåˆçš„è¯è¿”å›äºŒç»´åºåˆ—ï¼ŒæŒ‰è¡Œèšåˆè¿”å›åºåˆ—
 			if (level == 1) {
-				// °´ÁĞ¾Û¼¯£¬µÃµ½¶şÎ¬ĞòÁĞ£¬µ«Ö»ÓĞÒ»ĞĞ
+				// æŒ‰åˆ—èšé›†ï¼Œå¾—åˆ°äºŒç»´åºåˆ—ï¼Œä½†åªæœ‰ä¸€è¡Œ
 				int size = this.index[1];
 				Number[][] result = new Number[1][size];
 				for (int c = 0; c < size; c++) {
@@ -1299,7 +1299,7 @@ public class MulMatrix {
 				mm = new MulMatrix(result, size);
 			}
 			else {
-				// °´ĞĞ¾Û¼¯
+				// æŒ‰è¡Œèšé›†
 				int size = this.index[0];
 				Number[][] result = new Number[size][1];
 				for (int r = 0; r < size; r++) {
@@ -1326,19 +1326,19 @@ public class MulMatrix {
 			}
 		}
 		else if (lm > 3 || lm - level >= 2) {
-			// ×îµ×²ã´æ´¢²»ÓÃ±ä»¯½á¹¹£¬Ö±½Ó¾ÛºÏ¾Í¿ÉÒÔÁË
+			// æœ€åº•å±‚å­˜å‚¨ä¸ç”¨å˜åŒ–ç»“æ„ï¼Œç›´æ¥èšåˆå°±å¯ä»¥äº†
 			if (level == 1) {
-				// Ê×²ã¾ÛºÏ
+				// é¦–å±‚èšåˆ
 				mm = this.mtx.get(0).create(false);
 				int size = this.mtx.size();
 				for (MulMatrix submm : this.mtx) {
 					submm.sum2(mm);
 				}
-				// ´ËÊ±mmÖĞ×îµ×²ã¼ÇÂ¼µÄÊÇsize¸öMulMatrix¾Û¼¯ÇóºÍµÄ½á¹û£¬¿ÉÓÃÀ´Çó¾ùÖµ
+				// æ­¤æ—¶mmä¸­æœ€åº•å±‚è®°å½•çš„æ˜¯sizeä¸ªMulMatrixèšé›†æ±‚å’Œçš„ç»“æœï¼Œå¯ç”¨æ¥æ±‚å‡å€¼
 				mm.divide(size);
 				MulMatrix avgmm = mm;
 				mm = this.mtx.get(0).create(false);
-				// ÓÃ¾ùÖµÇó²î·½
+				// ç”¨å‡å€¼æ±‚å·®æ–¹
 				for (MulMatrix submm : this.mtx) {
 					submm.calcVar1(mm, avgmm);
 				}
@@ -1354,8 +1354,8 @@ public class MulMatrix {
 			}
 		}
 		else {
-			// ÒªÖØĞÂÉú³É×îµ×²ãµÄÊı×é
-			// ¹²Ê£ÏÂ3²ã£¬Éú³É×îµ×²ãÊı×éµÄÊµ¼Ê²Ù×÷£¬Ö»Ğè¿¼ÂÇlevelÎª2ºÍ3µÄÇé¿ö£¬Îª1Ê±ÊÇ²»ĞèÒªµ÷Õû×îµ×²ãÊı×éµÄ
+			// è¦é‡æ–°ç”Ÿæˆæœ€åº•å±‚çš„æ•°ç»„
+			// å…±å‰©ä¸‹3å±‚ï¼Œç”Ÿæˆæœ€åº•å±‚æ•°ç»„çš„å®é™…æ“ä½œï¼Œåªéœ€è€ƒè™‘levelä¸º2å’Œ3çš„æƒ…å†µï¼Œä¸º1æ—¶æ˜¯ä¸éœ€è¦è°ƒæ•´æœ€åº•å±‚æ•°ç»„çš„
 			Number[][] Anew = null;
 			int rows = this.index[0];
 			if (level == 2) {
@@ -1385,7 +1385,7 @@ public class MulMatrix {
 				}
 			}
 			else {
-				// levelÎª3
+				// levelä¸º3
 				Anew = new Number[rows][this.index[1]];
 				for (int r = 0; r < rows; r++) {
 					MulMatrix submm = this.mtx.get(r);
@@ -1411,7 +1411,7 @@ public class MulMatrix {
 					}
 				}
 			}
-			// ·µ»Ø¾ÛºÏ½á¹û¶şÎ¬ÏòÁ¿£¬¹¹½¨Ê±Éè³¤¶È0
+			// è¿”å›èšåˆç»“æœäºŒç»´å‘é‡ï¼Œæ„å»ºæ—¶è®¾é•¿åº¦0
 			mm = new MulMatrix(Anew, 0);
 		}
 		return mm;
@@ -1431,18 +1431,18 @@ public class MulMatrix {
 	}
 	
 	/**
-	 * »ñÈ¡¶şÎ¬Êı×é
-	 * @return	¾ØÕóµÄ¶şÎ¬Êı×é
+	 * è·å–äºŒç»´æ•°ç»„
+	 * @return	çŸ©é˜µçš„äºŒç»´æ•°ç»„
 	 */
 	public Number[][] getArray() {
 		return this.A;
 	}
 	
 	/**
-	 * ´Ó¾ØÕóÖĞ»ñÈ¡Ö¸¶¨ĞĞÁĞµÄÊı£¬·µ»Ødouble
-	 * @param matrix	¾ØÕó£¬Ê¹ÓÃÊıÁĞµÄĞòÁĞ±íÊ¾
-	 * @param r			ĞĞºÅ£¬´Ó0¿ªÊ¼
-	 * @param c			ÁĞºÅ£¬´Ó0¿ªÊ¼
+	 * ä»çŸ©é˜µä¸­è·å–æŒ‡å®šè¡Œåˆ—çš„æ•°ï¼Œè¿”å›double
+	 * @param matrix	çŸ©é˜µï¼Œä½¿ç”¨æ•°åˆ—çš„åºåˆ—è¡¨ç¤º
+	 * @param r			è¡Œå·ï¼Œä»0å¼€å§‹
+	 * @param c			åˆ—å·ï¼Œä»0å¼€å§‹
 	 * @return
 	 */
 	protected static double get(Sequence matrix, int r, int c) {

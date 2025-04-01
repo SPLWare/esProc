@@ -40,51 +40,51 @@ import com.scudata.util.CellSetUtil;
 import com.scudata.util.Variant;
 
 /**
- * ÎÄ¼ş¶ÔÏó
- * file(...)º¯ÊıµÄ·µ»ØÖµ
+ * æ–‡ä»¶å¯¹è±¡
+ * file(...)å‡½æ•°çš„è¿”å›å€¼
  * @author WangXiaoJun
  *
  */
 public class FileObject implements Externalizable, IQueryable {
-	public static final String TEMPFILE_PREFIX = "tmpdata"; // ³¤¶È±ØĞë´óÓÚ3
+	public static final String TEMPFILE_PREFIX = "tmpdata"; // é•¿åº¦å¿…é¡»å¤§äº3
 	
-	public static final int FILETYPE_TEXT = 0; // ÎÄ±¾
-	public static final int FILETYPE_BINARY = 1; // ¼¯ÎÄ¼ş
-	public static final int FILETYPE_GROUPTABLE = 2; // ×é±í
-	public static final int FILETYPE_GROUPTABLE_ROW = 3; // ĞĞÊ½×é±í
-	public static final int LOCK_SLEEP_TIME = 100; // ËøĞİÃßÊ±¼ä
+	public static final int FILETYPE_TEXT = 0; // æ–‡æœ¬
+	public static final int FILETYPE_BINARY = 1; // é›†æ–‡ä»¶
+	public static final int FILETYPE_GROUPTABLE = 2; // ç»„è¡¨
+	public static final int FILETYPE_GROUPTABLE_ROW = 3; // è¡Œå¼ç»„è¡¨
+	public static final int LOCK_SLEEP_TIME = 100; // é”ä¼‘çœ æ—¶é—´
 	
-	// {(byte)'\r', (byte)'\n'}; // ĞĞ½áÊø±êÖ¾
-	// \r\n »ò \n Ğ´µÄÊ±ºò¸ù¾İ²Ù×÷ÏµÍ³¾ö¶¨£¬¶ÁµÄÊ±ºòĞèÒªÁ½ÖÖ¶¼¼æÈİ
+	// {(byte)'\r', (byte)'\n'}; // è¡Œç»“æŸæ ‡å¿—
+	// \r\n æˆ– \n å†™çš„æ—¶å€™æ ¹æ®æ“ä½œç³»ç»Ÿå†³å®šï¼Œè¯»çš„æ—¶å€™éœ€è¦ä¸¤ç§éƒ½å…¼å®¹
 	public static final byte[] LINE_SEPARATOR = System.getProperty("line.separator").getBytes();
 	public static final byte[] DM_LINE_SEPARATOR = new byte[] {'\r', '\n'};
-	public static final byte[] COL_SEPARATOR = new byte[] {(byte)'\t'}; // ÁĞ¼ä¸ô
-	private static final int BLOCKCOUNT = 999; // ¶ş½øÖÆÎÄ¼ş¿é´óĞ¡
-	public static final String S_FIELDNAME = "_1"; // µ¼³öĞòÁĞÊ±Ä¬ÈÏµÄ×Ö¶ÎÃû
+	public static final byte[] COL_SEPARATOR = new byte[] {(byte)'\t'}; // åˆ—é—´éš”
+	private static final int BLOCKCOUNT = 999; // äºŒè¿›åˆ¶æ–‡ä»¶å—å¤§å°
+	public static final String S_FIELDNAME = "_1"; // å¯¼å‡ºåºåˆ—æ—¶é»˜è®¤çš„å­—æ®µå
 
-	private String fileName; // ÎÄ¼şÂ·¾¶Ãû
-	private String charset; // ÎÄ±¾ÎÄ¼şµÄ×Ö·û¼¯
-	private String opt; // Ñ¡Ïî
+	private String fileName; // æ–‡ä»¶è·¯å¾„å
+	private String charset; // æ–‡æœ¬æ–‡ä»¶çš„å­—ç¬¦é›†
+	private String opt; // é€‰é¡¹
 
-	private Integer partition; // ·ÖÇø
+	private Integer partition; // åˆ†åŒº
 	
-	// ÎÄ¼şËùÔÚ»úÆ÷µÄipºÍ¶Ë¿Ú
+	// æ–‡ä»¶æ‰€åœ¨æœºå™¨çš„ipå’Œç«¯å£
 	private String ip;
 	private int port;
 	
-	private boolean isSimpleSQL; // ÊÇ·ñÓÃÓÚ¼òµ¥SQL
+	private boolean isSimpleSQL; // æ˜¯å¦ç”¨äºç®€å•SQL
 	
-	transient private IFile file; // ¶ÔÓ¦µÄÊµ¼ÊÎÄ¼ş£¬¿ÉÒÔÊÇ±¾µØÎÄ¼ş¡¢Ô¶³ÌÎÄ¼ş¡¢HDFSÎÄ¼ş
-	transient private Context ctx; // ¼ÆËãÉÏÏÂÎÄ
+	transient private IFile file; // å¯¹åº”çš„å®é™…æ–‡ä»¶ï¼Œå¯ä»¥æ˜¯æœ¬åœ°æ–‡ä»¶ã€è¿œç¨‹æ–‡ä»¶ã€HDFSæ–‡ä»¶
+	transient private Context ctx; // è®¡ç®—ä¸Šä¸‹æ–‡
 	
-	transient private boolean isRemoteFileWritable = false; // Ô¶³ÌÎÄ¼şÊÇ·ñ¿ÉĞ´
+	transient private boolean isRemoteFileWritable = false; // è¿œç¨‹æ–‡ä»¶æ˜¯å¦å¯å†™
 	
-	// ½ö¹©ĞòÁĞ»¯
+	// ä»…ä¾›åºåˆ—åŒ–
 	public FileObject() {
 	}
 
 	/**
-	 * ÓÃÁíÒ»¸öÎÄ¼ş¶ÔÏó¹¹½¨ÎÄ¼ş¶ÔÏó
+	 * ç”¨å¦ä¸€ä¸ªæ–‡ä»¶å¯¹è±¡æ„å»ºæ–‡ä»¶å¯¹è±¡
 	 * @param fo
 	 */
 	public FileObject(FileObject fo) {
@@ -99,26 +99,26 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ¸ù¾İÎÄ¼şÃû¹¹ÔìÒ»ÎÄ¼ş¶ÔÏó
-	 * @param name ÎÄ¼şÂ·¾¶Ãû
+	 * æ ¹æ®æ–‡ä»¶åæ„é€ ä¸€æ–‡ä»¶å¯¹è±¡
+	 * @param name æ–‡ä»¶è·¯å¾„å
 	 */
 	public FileObject(String name) {
 		this(name, null);
 	}
 	
 	/**
-	 * ¸ù¾İÎÄ¼şÃû¹¹ÔìÒ»ÎÄ¼ş¶ÔÏó
-	 * @param name ÎÄ¼şÂ·¾¶Ãû
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æ ¹æ®æ–‡ä»¶åæ„é€ ä¸€æ–‡ä»¶å¯¹è±¡
+	 * @param name æ–‡ä»¶è·¯å¾„å
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public FileObject(String name, String opt, Context ctx) {
 		this(name, null, opt, ctx);
 	}
 
 	/**
-	 * ¹¹½¨Ô¶³ÌÎÄ¼ş¶ÔÏó
-	 * @param name ÎÄ¼şÂ·¾¶Ãû
+	 * æ„å»ºè¿œç¨‹æ–‡ä»¶å¯¹è±¡
+	 * @param name æ–‡ä»¶è·¯å¾„å
 	 * @param ip
 	 * @param port
 	 */
@@ -129,20 +129,20 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ¸ù¾İÃû×Ö¹¹ÔìÒ»ÎÄ¼ş¶ÔÏó
+	 * æ ¹æ®åå­—æ„é€ ä¸€æ–‡ä»¶å¯¹è±¡
 	 * @param name String
-	 * @param opt String s£º²éÕÒÂ·¾¶°üº¬ÀàÂ·¾¶²¢ÇÒÖ»¶Á£¬p£ºÔÚpathÁĞ±íÖĞÕÒ²¢ÇÒÖ»¶Á
+	 * @param opt String sï¼šæŸ¥æ‰¾è·¯å¾„åŒ…å«ç±»è·¯å¾„å¹¶ä¸”åªè¯»ï¼Œpï¼šåœ¨pathåˆ—è¡¨ä¸­æ‰¾å¹¶ä¸”åªè¯»
 	 */
 	public FileObject(String name, String opt) {
 		this(name, null, opt, null);
 	}
 
 	/**
-	 * ¸ù¾İÎÄ¼ş¹¹ÔìÒ»ÎÄ¼ş¶ÔÏó
+	 * æ ¹æ®æ–‡ä»¶æ„é€ ä¸€æ–‡ä»¶å¯¹è±¡
 	 * @param file IFile
-	 * @param name ÎÄ¼şÃû
-	 * @param cs ÎÄ±¾ÎÄ¼ş×Ö·û¼¯
-	 * @param opt Ñ¡Ïî
+	 * @param name æ–‡ä»¶å
+	 * @param cs æ–‡æœ¬æ–‡ä»¶å­—ç¬¦é›†
+	 * @param opt é€‰é¡¹
 	 */
 	public FileObject(IFile file, String name, String cs, String opt) {
 		this(name, cs, opt, null);
@@ -150,18 +150,18 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ¸ù¾İÃû×Ö¹¹ÔìÒ»ÎÄ¼ş¶ÔÏó
+	 * æ ¹æ®åå­—æ„é€ ä¸€æ–‡ä»¶å¯¹è±¡
 	 * @param name String
-	 * @param cs String ×Ö·û¼¯
-	 * @param opt String s£º²éÕÒÂ·¾¶°üº¬ÀàÂ·¾¶²¢ÇÒÖ»¶Á£¬p£ºÔÚpathÁĞ±íÖĞÕÒ²¢ÇÒÖ»¶Á
-	 * @param ctx Context ²»ĞèÒªÊ±´«null
+	 * @param cs String å­—ç¬¦é›†
+	 * @param opt String sï¼šæŸ¥æ‰¾è·¯å¾„åŒ…å«ç±»è·¯å¾„å¹¶ä¸”åªè¯»ï¼Œpï¼šåœ¨pathåˆ—è¡¨ä¸­æ‰¾å¹¶ä¸”åªè¯»
+	 * @param ctx Context ä¸éœ€è¦æ—¶ä¼ null
 	 */
 	public FileObject(String name, String cs, String opt, Context ctx) {
 		this.ctx = ctx;
 		setOption(opt);
 		setCharset(cs);
 
-		// "remote://ip:port/¡­" Ô¶³ÌÎÄ¼ş
+		// "remote://ip:port/â€¦" è¿œç¨‹æ–‡ä»¶
 		final String remotePrefix = "remote://";
 		if (name.startsWith(remotePrefix)) {
 			int start = remotePrefix.length();
@@ -190,30 +190,30 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ÉèÖÃÊÇ·ñÊÇ¼òµ¥SQL
-	 * @param b true£ºÊÇ
+	 * è®¾ç½®æ˜¯å¦æ˜¯ç®€å•SQL
+	 * @param b trueï¼šæ˜¯
 	 */
 	public void setIsSimpleSQL(boolean b) {
 		isSimpleSQL = b;
 	}
 	
 	/**
-	 * È¡ÊÇ·ñÊÇ¼òµ¥SQL
-	 * @return true£ºÊÇ
+	 * å–æ˜¯å¦æ˜¯ç®€å•SQL
+	 * @return trueï¼šæ˜¯
 	 */
 	public boolean getIsSimpleSQL() {
 		return isSimpleSQL;
 	}
 	
 	/**
-	 * ÉèÖÃÔ¶³ÌÎÄ¼ş¿ÉĞ´
+	 * è®¾ç½®è¿œç¨‹æ–‡ä»¶å¯å†™
 	 */
 	public void setRemoteFileWritable(){
 		isRemoteFileWritable = true;
 	}
 	
 	/**
-	 * ÉèÖÃ¼ÆËãÉÏÏÂÎÄ
+	 * è®¾ç½®è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @param ctx
 	 */
 	public void setContext(Context ctx) {
@@ -221,7 +221,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * È¡´´½¨ÎÄ¼şÊ±Ö¸¶¨µÄÑ¡Ïî
+	 * å–åˆ›å»ºæ–‡ä»¶æ—¶æŒ‡å®šçš„é€‰é¡¹
 	 * @return
 	 */
 	public String getOption() {
@@ -229,7 +229,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ÉèÖÃÑ¡Ïî
+	 * è®¾ç½®é€‰é¡¹
 	 * @param opt
 	 */
 	public void setOption(String opt) {
@@ -237,8 +237,8 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * ÉèÖÃÎÄ±¾ÎÄ¼ş×Ö·û¼¯
-	 * @param cs ×Ö·û¼¯
+	 * è®¾ç½®æ–‡æœ¬æ–‡ä»¶å­—ç¬¦é›†
+	 * @param cs å­—ç¬¦é›†
 	 */
 	public void setCharset(String cs) {
 		if (cs == null || cs.length() == 0) {
@@ -249,7 +249,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * ÉèÖÃ·ÖÇø
+	 * è®¾ç½®åˆ†åŒº
 	 * @param p
 	 */
 	public void setPartition(Integer p) {
@@ -258,7 +258,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * È¡·ÖÇø
+	 * å–åˆ†åŒº
 	 * @return
 	 */
 	public Integer getPartition() {
@@ -266,7 +266,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ÉèÖÃÔ¶³Ì»úÆ÷IP
+	 * è®¾ç½®è¿œç¨‹æœºå™¨IP
 	 * @param ip
 	 */
 	public void setIP(String ip) {
@@ -274,7 +274,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * È¡Ô¶³Ì»úÆ÷IP
+	 * å–è¿œç¨‹æœºå™¨IP
 	 * @return IP
 	 */
 	public String getIP() {
@@ -282,7 +282,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ÉèÖÃÔ¶³Ì»úÆ÷¶Ë¿Ú
+	 * è®¾ç½®è¿œç¨‹æœºå™¨ç«¯å£
 	 * @param port
 	 */
 	public void setPort(int port) {
@@ -290,15 +290,15 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * È¡Ô¶³Ì»úÆ÷¶Ë¿Ú
-	 * @return ¶Ë¿Ú
+	 * å–è¿œç¨‹æœºå™¨ç«¯å£
+	 * @return ç«¯å£
 	 */
 	public int getPort() {
 		return port;
 	}
 
 	/**
-	 * È¡ÎÄ¼şÃû
+	 * å–æ–‡ä»¶å
 	 * @return
 	 */
 	public String getFileName() {
@@ -306,7 +306,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ÉèÖÃÎÄ¼şÃû
+	 * è®¾ç½®æ–‡ä»¶å
 	 * @param name
 	 */
 	public void setFileName(String name) {
@@ -314,7 +314,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * È¡×Ö·û¼¯
+	 * å–å­—ç¬¦é›†
 	 * @return
 	 */
 	public String getCharset() {
@@ -322,7 +322,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ·µ»ØÎÄ¼şÃû
+	 * è¿”å›æ–‡ä»¶å
 	 * @return String
 	 */
 	public String toString() {
@@ -330,10 +330,10 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ¶ÁÈëÒ»¸öÎÄ¼ş£¬ĞÎ³ÉÅÅÁĞ·µ»Ø
-	 * @param opt String t£ºµÚÒ»ĞĞÎª±êÌâ£¬b£º¶ş½øÖÆÎÄ¼ş£¬c£ºĞ´³É¶ººÅ·Ö¸ôµÄcsvÎÄ¼ş
-	 * 	s£º²»²ğ·Ö×Ö¶Î£¬¶Á³Éµ¥×Ö¶Î´®¹¹³ÉµÄĞò±í£¬i£º½á¹û¼¯Ö»ÓĞ1ÁĞÊ±·µ»Ø³ÉĞòÁĞ
-	 * 	q£ºÈç¹û×Ö¶Î´®ÍâÓĞÒıºÅÔòÏÈ°şÀë£¬°üÀ¨±êÌâ²¿·Ö£¬k£º±£ÁôÊı¾İÏîÁ½¶ËµÄ¿Õ°×·û£¬È±Ê¡½«×Ô¶¯×ötrim
+	 * è¯»å…¥ä¸€ä¸ªæ–‡ä»¶ï¼Œå½¢æˆæ’åˆ—è¿”å›
+	 * @param opt String tï¼šç¬¬ä¸€è¡Œä¸ºæ ‡é¢˜ï¼Œbï¼šäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œcï¼šå†™æˆé€—å·åˆ†éš”çš„csvæ–‡ä»¶
+	 * 	sï¼šä¸æ‹†åˆ†å­—æ®µï¼Œè¯»æˆå•å­—æ®µä¸²æ„æˆçš„åºè¡¨ï¼Œiï¼šç»“æœé›†åªæœ‰1åˆ—æ—¶è¿”å›æˆåºåˆ—
+	 * 	qï¼šå¦‚æœå­—æ®µä¸²å¤–æœ‰å¼•å·åˆ™å…ˆå‰¥ç¦»ï¼ŒåŒ…æ‹¬æ ‡é¢˜éƒ¨åˆ†ï¼Œkï¼šä¿ç•™æ•°æ®é¡¹ä¸¤ç«¯çš„ç©ºç™½ç¬¦ï¼Œç¼ºçœå°†è‡ªåŠ¨åštrim
 	 * @throws IOException
 	 * @return Sequence
 	 */
@@ -353,16 +353,16 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ¶ÁÈëÒ»¸öÎÄ¼ş£¬ĞÎ³ÉÅÅÁĞ·µ»Ø
-	 * @param segSeq int ¶ÎºÅ£¬´Ó1¿ªÊ¼¼ÆÊı
-	 * @param segCount int ·Ö¶ÎÊı
-	 * @param fields String[] Ñ¡³ö×Ö¶ÎÃû
-	 * @param types byte[] Ñ¡³ö×Ö¶ÎÀàĞÍ£¬¿É¿Õ¡£²ÎÕÕcom.scudata.common.Types
-	 * @param s Object excel sheetÃû£¨ĞòºÅ£©»òÁĞ·Ö¸ô·û
-	 * @param opt String t£ºµÚÒ»ĞĞÎª±êÌâ£¬b£º¶ş½øÖÆÎÄ¼ş£¬c£ºĞ´³É¶ººÅ·Ö¸ôµÄcsvÎÄ¼ş
-	 * 	s£º²»²ğ·Ö×Ö¶Î£¬¶Á³Éµ¥×Ö¶Î´®¹¹³ÉµÄĞò±í£¬i£º½á¹û¼¯Ö»ÓĞ1ÁĞÊ±·µ»Ø³ÉĞòÁĞ
-	 * 	q£ºÈç¹û×Ö¶Î´®ÍâÓĞÒıºÅÔòÏÈ°şÀë£¬°üÀ¨±êÌâ²¿·Ö£¬k£º±£ÁôÊı¾İÏîÁ½¶ËµÄ¿Õ°×·û£¬È±Ê¡½«×Ô¶¯×ötrim
-	 * 	e£ºFiÔÚÎÄ¼şÖĞ²»´æÔÚÊ±½«Éú³Énull£¬È±Ê¡½«±¨´í
+	 * è¯»å…¥ä¸€ä¸ªæ–‡ä»¶ï¼Œå½¢æˆæ’åˆ—è¿”å›
+	 * @param segSeq int æ®µå·ï¼Œä»1å¼€å§‹è®¡æ•°
+	 * @param segCount int åˆ†æ®µæ•°
+	 * @param fields String[] é€‰å‡ºå­—æ®µå
+	 * @param types byte[] é€‰å‡ºå­—æ®µç±»å‹ï¼Œå¯ç©ºã€‚å‚ç…§com.scudata.common.Types
+	 * @param s Object excel sheetåï¼ˆåºå·ï¼‰æˆ–åˆ—åˆ†éš”ç¬¦
+	 * @param opt String tï¼šç¬¬ä¸€è¡Œä¸ºæ ‡é¢˜ï¼Œbï¼šäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œcï¼šå†™æˆé€—å·åˆ†éš”çš„csvæ–‡ä»¶
+	 * 	sï¼šä¸æ‹†åˆ†å­—æ®µï¼Œè¯»æˆå•å­—æ®µä¸²æ„æˆçš„åºè¡¨ï¼Œiï¼šç»“æœé›†åªæœ‰1åˆ—æ—¶è¿”å›æˆåºåˆ—
+	 * 	qï¼šå¦‚æœå­—æ®µä¸²å¤–æœ‰å¼•å·åˆ™å…ˆå‰¥ç¦»ï¼ŒåŒ…æ‹¬æ ‡é¢˜éƒ¨åˆ†ï¼Œkï¼šä¿ç•™æ•°æ®é¡¹ä¸¤ç«¯çš„ç©ºç™½ç¬¦ï¼Œç¼ºçœå°†è‡ªåŠ¨åštrim
+	 * 	eï¼šFiåœ¨æ–‡ä»¶ä¸­ä¸å­˜åœ¨æ—¶å°†ç”Ÿæˆnullï¼Œç¼ºçœå°†æŠ¥é”™
 	 * @param ctx Context
 	 * @throws IOException
 	 * @return Sequence
@@ -394,10 +394,10 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * µ¼ÈëÎÄ±¾¡¢xls¡¢xlsxÎÄ¼ş
-	 * @param importer ¿ÉÒÔÊÇLineImporter¡¢ExcelTool¡¢ExcelXTool
-	 * @param opt t£ºµÚÒ»ĞĞÎª±êÌâ
-	 * @return Ğò±í
+	 * å¯¼å…¥æ–‡æœ¬ã€xlsã€xlsxæ–‡ä»¶
+	 * @param importer å¯ä»¥æ˜¯LineImporterã€ExcelToolã€ExcelXTool
+	 * @param opt tï¼šç¬¬ä¸€è¡Œä¸ºæ ‡é¢˜
+	 * @return åºè¡¨
 	 * @throws IOException
 	 */
 	public static Table import_x(ILineInput importer, String opt) throws IOException {
@@ -441,9 +441,9 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * È¡ĞòÁĞµÄĞòÁĞ³ÉÔ±µÄ×î´ó³¤¶È
-	 * @param seq ĞòÁĞ×é³ÉµÄĞòÁĞ
-	 * @return ×î´ó³¤¶È
+	 * å–åºåˆ—çš„åºåˆ—æˆå‘˜çš„æœ€å¤§é•¿åº¦
+	 * @param seq åºåˆ—ç»„æˆçš„åºåˆ—
+	 * @return æœ€å¤§é•¿åº¦
 	 */
 	public static int getMaxMemberCount(Sequence seq) {
 		int len = seq.length();
@@ -464,12 +464,12 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * µ¼³öÅÅÁĞ
-	 * @param exporter ¿ÉÒÔÊÇLineExporter¡¢ExcelTool¡¢ExcelXTool
-	 * @param series ÅÅÁĞ
-	 * @param exps Òªµ¼³öµÄ×Ö¶Î±í´ïÊ½£¬Èç¹ûnullÔòµ¼³öËùÓĞ×Ö¶Î
-	 * @param names µ¼³öºóµÄ×Ö¶ÎÃû
-	 * @param bTitle ÊÇ·ñµ¼³ö×Ö¶ÎÃû
+	 * å¯¼å‡ºæ’åˆ—
+	 * @param exporter å¯ä»¥æ˜¯LineExporterã€ExcelToolã€ExcelXTool
+	 * @param series æ’åˆ—
+	 * @param exps è¦å¯¼å‡ºçš„å­—æ®µè¡¨è¾¾å¼ï¼Œå¦‚æœnullåˆ™å¯¼å‡ºæ‰€æœ‰å­—æ®µ
+	 * @param names å¯¼å‡ºåçš„å­—æ®µå
+	 * @param bTitle æ˜¯å¦å¯¼å‡ºå­—æ®µå
 	 * @param ctx
 	 * @throws IOException
 	 */
@@ -493,7 +493,7 @@ public class FileObject implements Externalizable, IQueryable {
 						exporter.writeLine(lineObjs);
 					}
 				} else {
-					// AÊÇĞòÁĞµÄĞòÁĞÊ±£¬Éú³ÉÎŞ±êÌâ/×Ö¶ÎÃûµÄ¶àÁĞÎÄ±¾
+					// Aæ˜¯åºåˆ—çš„åºåˆ—æ—¶ï¼Œç”Ÿæˆæ— æ ‡é¢˜/å­—æ®µåçš„å¤šåˆ—æ–‡æœ¬
 					Object []lineObjs = new Object[fcount];
 					for (int i = 1; i <= len; ++i) {
 						Sequence seq = (Sequence)series.getMem(i);
@@ -562,12 +562,12 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * µ¼³öÅÅÁĞ
-	 * @param exporter ¿ÉÒÔÊÇLineExporter¡¢ExcelTool¡¢ExcelXTool
-	 * @param cursor ÓÎ±ê
-	 * @param exps Òªµ¼³öµÄ×Ö¶Î±í´ïÊ½£¬Èç¹ûnullÔòµ¼³öËùÓĞ×Ö¶Î
-	 * @param names µ¼³öºóµÄ×Ö¶ÎÃû
-	 * @param bTitle ÊÇ·ñµ¼³ö×Ö¶ÎÃû
+	 * å¯¼å‡ºæ’åˆ—
+	 * @param exporter å¯ä»¥æ˜¯LineExporterã€ExcelToolã€ExcelXTool
+	 * @param cursor æ¸¸æ ‡
+	 * @param exps è¦å¯¼å‡ºçš„å­—æ®µè¡¨è¾¾å¼ï¼Œå¦‚æœnullåˆ™å¯¼å‡ºæ‰€æœ‰å­—æ®µ
+	 * @param names å¯¼å‡ºåçš„å­—æ®µå
+	 * @param bTitle æ˜¯å¦å¯¼å‡ºå­—æ®µå
 	 * @param ctx
 	 * @throws IOException
 	 */
@@ -657,22 +657,22 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ½«ÅÅÁĞËùÓĞ×Ö¶Îµ¼³öµ½ÎÄ¼şÖĞ
+	 * å°†æ’åˆ—æ‰€æœ‰å­—æ®µå¯¼å‡ºåˆ°æ–‡ä»¶ä¸­
 	 * @param series Sequence
-	 * @param opt String £ô£ºµ¼³ö±êÌâ£¬c£ºĞ´³É¶ººÅ·Ö¸ôµÄcsvÎÄ¼ş£¬b£º¶ş½øÖÆÎÄ¼ş£¬a£º×·¼ÓĞ´
-	 * @param s Object excel sheetÃû»òÁĞ·Ö¸ô·û£¬¿ÕÓÃÄ¬ÈÏµÄ
+	 * @param opt String ï½”ï¼šå¯¼å‡ºæ ‡é¢˜ï¼Œcï¼šå†™æˆé€—å·åˆ†éš”çš„csvæ–‡ä»¶ï¼Œbï¼šäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œaï¼šè¿½åŠ å†™
+	 * @param s Object excel sheetåæˆ–åˆ—åˆ†éš”ç¬¦ï¼Œç©ºç”¨é»˜è®¤çš„
 	 */
 	public void exportSeries(Sequence series, String opt, Object s) {
 		exportSeries(series, null, null, opt, s, null);
 	}
 
 	/**
-	 * ½«ÅÅÁĞµÄÖ¸¶¨×Ö¶Îµ¼³öµ½ÎÄ¼şÖĞ
+	 * å°†æ’åˆ—çš„æŒ‡å®šå­—æ®µå¯¼å‡ºåˆ°æ–‡ä»¶ä¸­
 	 * @param series Sequence
-	 * @param exps Expression[] Òªµ¼³öµÄÖµ±í´ïÊ½£¬¿Õ±íÊ¾µ¼³öËùÓĞ×Ö¶Î
-	 * @param names String[] Öµ±í´ïÊ½¶ÔÓ¦µÄÃû×Ö£¬Ê¡ÂÔÓÃÖµ±í´ïÊ½´®
-	 * @param opt String t£ºµ¼³ö±êÌâ£¬c£ºĞ´³É¶ººÅ·Ö¸ôµÄcsvÎÄ¼ş£¬b£º¶ş½øÖÆÎÄ¼ş£¬a£º×·¼ÓĞ´
-	 * @param s Object excel sheetÃû»òÁĞ·Ö¸ô·û£¬¿ÕÓÃÄ¬ÈÏµÄ
+	 * @param exps Expression[] è¦å¯¼å‡ºçš„å€¼è¡¨è¾¾å¼ï¼Œç©ºè¡¨ç¤ºå¯¼å‡ºæ‰€æœ‰å­—æ®µ
+	 * @param names String[] å€¼è¡¨è¾¾å¼å¯¹åº”çš„åå­—ï¼Œçœç•¥ç”¨å€¼è¡¨è¾¾å¼ä¸²
+	 * @param opt String tï¼šå¯¼å‡ºæ ‡é¢˜ï¼Œcï¼šå†™æˆé€—å·åˆ†éš”çš„csvæ–‡ä»¶ï¼Œbï¼šäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œaï¼šè¿½åŠ å†™
+	 * @param s Object excel sheetåæˆ–åˆ—åˆ†éš”ç¬¦ï¼Œç©ºç”¨é»˜è®¤çš„
 	 * @param ctx Context
 	 */
 	public void exportSeries(Sequence series, Expression []exps,
@@ -729,7 +729,7 @@ public class FileObject implements Externalizable, IQueryable {
 
 			if (s instanceof String) {
 				String str = (String)s;
-				// ³¤¶ÈÎª0Ê±±íÊ¾²»Òª·Ö¸î·û
+				// é•¿åº¦ä¸º0æ—¶è¡¨ç¤ºä¸è¦åˆ†å‰²ç¬¦
 				//if (str.length() > 0) {
 					colSeparator = str.getBytes(charset);
 				//}
@@ -757,12 +757,12 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 		
 	/**
-	 * µ¼³öcursorµ½ÎÄ±¾
+	 * å¯¼å‡ºcursoråˆ°æ–‡æœ¬
 	 * @param cursor ICursor
-	 * @param exps Expression[] Òªµ¼³öµÄÖµ±í´ïÊ½£¬¿Õ±íÊ¾µ¼³öËùÓĞ×Ö¶Î
-	 * @param names String[] Öµ±í´ïÊ½¶ÔÓ¦µÄÃû×Ö£¬Ê¡ÂÔÓÃÖµ±í´ïÊ½´®
-	 * @param opt String £ô£ºµ¼³ö±êÌâ£¬c£ºĞ´³É¶ººÅ·Ö¸ôµÄcsvÎÄ¼ş£¬b£º¶ş½øÖÆÎÄ¼ş£¬a£º×·¼ÓĞ´
-	 * @param s Object ÁĞ·Ö¸ô·û
+	 * @param exps Expression[] è¦å¯¼å‡ºçš„å€¼è¡¨è¾¾å¼ï¼Œç©ºè¡¨ç¤ºå¯¼å‡ºæ‰€æœ‰å­—æ®µ
+	 * @param names String[] å€¼è¡¨è¾¾å¼å¯¹åº”çš„åå­—ï¼Œçœç•¥ç”¨å€¼è¡¨è¾¾å¼ä¸²
+	 * @param opt String ï½”ï¼šå¯¼å‡ºæ ‡é¢˜ï¼Œcï¼šå†™æˆé€—å·åˆ†éš”çš„csvæ–‡ä»¶ï¼Œbï¼šäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œaï¼šè¿½åŠ å†™
+	 * @param s Object åˆ—åˆ†éš”ç¬¦
 	 * @param ctx Context
 	 */
 	public void exportCursor(ICursor cursor, Expression []exps,
@@ -814,7 +814,7 @@ public class FileObject implements Externalizable, IQueryable {
 
 			if (s instanceof String) {
 				String str = (String)s;
-				// ³¤¶ÈÎª0Ê±±íÊ¾²»Òª·Ö¸î·û
+				// é•¿åº¦ä¸º0æ—¶è¡¨ç¤ºä¸è¦åˆ†å‰²ç¬¦
 				//if (str.length() > 0) {
 					colSeparator = str.getBytes(charset);
 				//}
@@ -842,11 +842,11 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * °´×éµ¼³öÓÎ±ê£¬Éú³É¿É°´×é·Ö¶ÎµÄ¶ş½øÖÆÎÄ¼ş
-	 * @param cursor ÓÎ±ê
-	 * @param exps µ¼³ö×Ö¶ÎÖµ±í´ïÊ½
-	 * @param names µ¼³ö×Ö¶ÎÃû
-	 * @param gexp ·Ö×é±í´ïÊ½£¬Ö»±È½ÏÏàÁÚ
+	 * æŒ‰ç»„å¯¼å‡ºæ¸¸æ ‡ï¼Œç”Ÿæˆå¯æŒ‰ç»„åˆ†æ®µçš„äºŒè¿›åˆ¶æ–‡ä»¶
+	 * @param cursor æ¸¸æ ‡
+	 * @param exps å¯¼å‡ºå­—æ®µå€¼è¡¨è¾¾å¼
+	 * @param names å¯¼å‡ºå­—æ®µå
+	 * @param gexp åˆ†ç»„è¡¨è¾¾å¼ï¼Œåªæ¯”è¾ƒç›¸é‚»
 	 * @param opt
 	 * @param ctx
 	 */
@@ -857,11 +857,11 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * ´ÓÊäÈëÁ÷µÄÆğÊ¼Î»ÖÃ¶Áµ½½áÊøÎ»ÖÃ£¬²»»á±£´æ¶ÁÈëµÄÄÚÈİ£¬ÓÃÓÚ²âÊÔÓ²ÅÌËÙ¶È
-	 * @param in ÊäÈëÁ÷
-	 * @param start ÆğÊ¼Î»ÖÃ
-	 * @param end ½áÊøÎ»ÖÃ
-	 * @return ¶ÁµÄ×Ö½ÚÊı
+	 * ä»è¾“å…¥æµçš„èµ·å§‹ä½ç½®è¯»åˆ°ç»“æŸä½ç½®ï¼Œä¸ä¼šä¿å­˜è¯»å…¥çš„å†…å®¹ï¼Œç”¨äºæµ‹è¯•ç¡¬ç›˜é€Ÿåº¦
+	 * @param in è¾“å…¥æµ
+	 * @param start èµ·å§‹ä½ç½®
+	 * @param end ç»“æŸä½ç½®
+	 * @return è¯»çš„å­—èŠ‚æ•°
 	 * @throws IOException
 	 */
 	private static Object read0(InputStream in, long start, long end) throws IOException {
@@ -893,10 +893,10 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ¶ÁÈ¡ÊäÈëÁ÷ÖĞµÄËùÓĞ×Ö½Ú
+	 * è¯»å–è¾“å…¥æµä¸­çš„æ‰€æœ‰å­—èŠ‚
 	 * @param in InputStream
-	 * @param start long ÆğÊ¼Î»ÖÃ£¬´Ó0¿ªÊ¼¼ÆÊı£¬°üÀ¨
-	 * @param end long ½áÊøÎ»ÖÃ£¬´Ó0¿ªÊ¼¼ÆÊı£¬°üÀ¨£¬-1±íÊ¾½áÎ²
+	 * @param start long èµ·å§‹ä½ç½®ï¼Œä»0å¼€å§‹è®¡æ•°ï¼ŒåŒ…æ‹¬
+	 * @param end long ç»“æŸä½ç½®ï¼Œä»0å¼€å§‹è®¡æ•°ï¼ŒåŒ…æ‹¬ï¼Œ-1è¡¨ç¤ºç»“å°¾
 	 * @throws IOException
 	 * @return byte[]
 	 */
@@ -940,10 +940,10 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * °ÑÎÄ¼şÄÚÈİ×ª³É×Ö·û´®·µ»Ø
-	 * @param start long ÆğÊ¼Î»ÖÃ£¬´Ó0¿ªÊ¼¼ÆÊı£¬°üÀ¨
-	 * @param end long ½áÊøÎ»ÖÃ£¬´Ó0¿ªÊ¼¼ÆÊı£¬°üÀ¨£¬-1±íÊ¾½áÎ²
-	 * @param opt String n£º·µ»Ø³É´®ĞòÁĞ£¬b£º¶Á³ÉbyteÊı×é£¬v£º¶Á³ÉÖµ
+	 * æŠŠæ–‡ä»¶å†…å®¹è½¬æˆå­—ç¬¦ä¸²è¿”å›
+	 * @param start long èµ·å§‹ä½ç½®ï¼Œä»0å¼€å§‹è®¡æ•°ï¼ŒåŒ…æ‹¬
+	 * @param end long ç»“æŸä½ç½®ï¼Œä»0å¼€å§‹è®¡æ•°ï¼ŒåŒ…æ‹¬ï¼Œ-1è¡¨ç¤ºç»“å°¾
+	 * @param opt String nï¼šè¿”å›æˆä¸²åºåˆ—ï¼Œbï¼šè¯»æˆbyteæ•°ç»„ï¼Œvï¼šè¯»æˆå€¼
 	 * @throws IOException
 	 * @return Object
 	 */
@@ -986,7 +986,7 @@ public class FileObject implements Externalizable, IQueryable {
 					return null;
 				}
 
-				// È¥µôbomÍ·
+				// å»æ‰bomå¤´
 				String str;
 				if (start == 0 && bts.length > 3 && bts[0] == (byte)0xEF && bts[1] == (byte)0xBB && bts[2] == (byte)0xBF) {
 					charset = "UTF-8";
@@ -1007,9 +1007,9 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * °Ñ¶ÔÏóĞ´Èëµ½ÎÄ¼şÖĞ
+	 * æŠŠå¯¹è±¡å†™å…¥åˆ°æ–‡ä»¶ä¸­
 	 * @param obj Objcet
-	 * @param opt String a£º×·¼ÓĞ´£¬b£ºĞ´³ÉbyteÊı×é
+	 * @param opt String aï¼šè¿½åŠ å†™ï¼Œbï¼šå†™æˆbyteæ•°ç»„
 	 * @throws IOException
 	 */
 	public void write(Object obj, String opt) throws IOException {
@@ -1065,7 +1065,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * È¡ÊäÈëÁ÷
+	 * å–è¾“å…¥æµ
 	 * @return InputStream
 	 */
 	public InputStream getInputStream() {
@@ -1073,7 +1073,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * È¡°´¿é¶ÁÈëµÄÊäÈëÁ÷
+	 * å–æŒ‰å—è¯»å…¥çš„è¾“å…¥æµ
 	 * @return
 	 */
 	public BlockInputStream getBlockInputStream() {
@@ -1081,8 +1081,8 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * È¡°´¿é¶ÁÈëµÄÊäÈëÁ÷
-	 * @param bufSize ¿é´óĞ¡
+	 * å–æŒ‰å—è¯»å…¥çš„è¾“å…¥æµ
+	 * @param bufSize å—å¤§å°
 	 * @return BlockInputStream
 	 */
 	public BlockInputStream getBlockInputStream(int bufSize) {
@@ -1091,8 +1091,8 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * È¡Êä³öÁ÷
-	 * @param isAppend ÊÇ·ñ×·¼ÓĞ´
+	 * å–è¾“å‡ºæµ
+	 * @param isAppend æ˜¯å¦è¿½åŠ å†™
 	 * @return OutputStream
 	 */
 	public OutputStream getOutputStream(boolean isAppend) {
@@ -1108,7 +1108,7 @@ public class FileObject implements Externalizable, IQueryable {
 				}
 				
 				if (lock == null) {
-					throw new RQException("ÁíÒ»¸ö³ÌĞòÒÑËø¶¨ÎÄ¼şµÄÒ»²¿·Ö£¬½ø³ÌÎŞ·¨·ÃÎÊ");
+					throw new RQException("å¦ä¸€ä¸ªç¨‹åºå·²é”å®šæ–‡ä»¶çš„ä¸€éƒ¨åˆ†ï¼Œè¿›ç¨‹æ— æ³•è®¿é—®");
 				}
 			} else {
 				FileChannel channel = fos.getChannel();
@@ -1132,8 +1132,8 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * È¡´ø»º´æµÄÊä³öÁ÷
-	 * @param isAppend ÊÇ·ñ×·¼ÓĞ´
+	 * å–å¸¦ç¼“å­˜çš„è¾“å‡ºæµ
+	 * @param isAppend æ˜¯å¦è¿½åŠ å†™
 	 * @return OutputStream
 	 */
 	public OutputStream getBufferedOutputStream(boolean isAppend) {
@@ -1142,8 +1142,8 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * È¡¿É¸ü¸ÄÊä³öÎ»ÖÃµÄÊä³öÁ÷
-	 * @param isAppend ÊÇ·ñ×·¼ÓĞ´
+	 * å–å¯æ›´æ”¹è¾“å‡ºä½ç½®çš„è¾“å‡ºæµ
+	 * @param isAppend æ˜¯å¦è¿½åŠ å†™
 	 * @return RandomOutputStream
 	 */
 	public RandomOutputStream getRandomOutputStream(boolean isAppend) {
@@ -1165,14 +1165,14 @@ public class FileObject implements Externalizable, IQueryable {
 			} catch (IOException e) {
 			}
 			
-			throw new RQException("ÁíÒ»¸ö³ÌĞòÒÑËø¶¨ÎÄ¼şµÄÒ»²¿·Ö£¬½ø³ÌÎŞ·¨·ÃÎÊ");
+			throw new RQException("å¦ä¸€ä¸ªç¨‹åºå·²é”å®šæ–‡ä»¶çš„ä¸€éƒ¨åˆ†ï¼Œè¿›ç¨‹æ— æ³•è®¿é—®");
 		}
 
 		return os;
 	}
 
 	/**
-	 * È¡±¾µØÎÄ¼ş
+	 * å–æœ¬åœ°æ–‡ä»¶
 	 * @return LocalFile
 	 */
 	public LocalFile getLocalFile() {
@@ -1184,7 +1184,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * È¡ÎÄ¼ş
+	 * å–æ–‡ä»¶
 	 * @return IFile
 	 */
 	public IFile getFile() {
@@ -1204,7 +1204,7 @@ public class FileObject implements Externalizable, IQueryable {
 			RemoteFile rf = new RemoteFile(ip, port, pathFile, partition);
 			rf.setOpt(opt);
 			if( isRemoteFileWritable ){
-				// Ôö¼ÓÊÇ·ñ¿ÉĞ´ÊôĞÔ
+				// å¢åŠ æ˜¯å¦å¯å†™å±æ€§
 				rf.setWritable();
 			}
 			
@@ -1219,23 +1219,23 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ·µ»ØÊÇ·ñÊÇÔ¶³ÌÎÄ¼ş
-	 * @return true£ºÊÇÔ¶³ÌÎÄ¼ş£¬false£º²»ÊÇÔ¶³ÌÎÄ¼ş
+	 * è¿”å›æ˜¯å¦æ˜¯è¿œç¨‹æ–‡ä»¶
+	 * @return trueï¼šæ˜¯è¿œç¨‹æ–‡ä»¶ï¼Œfalseï¼šä¸æ˜¯è¿œç¨‹æ–‡ä»¶
 	 */
 	public boolean isRemoteFile() {
 		return ip != null;// && !(ip.equals(Env.getLocalHost()) && port == Env.getLocalPort());
 	}
 	
 	/**
-	 * ·µ»ØÎÄ¼şÊÇ·ñ´æÔÚ
-	 * @return boolean true£º´æÔÚ£¬false£º²»´æÔÚ
+	 * è¿”å›æ–‡ä»¶æ˜¯å¦å­˜åœ¨
+	 * @return boolean trueï¼šå­˜åœ¨ï¼Œfalseï¼šä¸å­˜åœ¨
 	 */
 	public boolean isExists() {
 		return getFile().exists();
 	}
 
 	/**
-	 * ·µ»ØÎÄ¼şµÄ´óĞ¡
+	 * è¿”å›æ–‡ä»¶çš„å¤§å°
 	 * @return
 	 */
 	public long size() {
@@ -1243,7 +1243,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ·µ»ØÎÄ¼ş×îºóĞŞ¸ÄÊ±¼ä£¬Èç¹ûÊÇURLÎÄ¼ş»òjar°üÀïµÄÎÄ¼şÔò·µ»Ø-1
+	 * è¿”å›æ–‡ä»¶æœ€åä¿®æ”¹æ—¶é—´ï¼Œå¦‚æœæ˜¯URLæ–‡ä»¶æˆ–jaråŒ…é‡Œçš„æ–‡ä»¶åˆ™è¿”å›-1
 	 * @return Date
 	 */
 	public Timestamp lastModified() {
@@ -1256,16 +1256,16 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * É¾³ıÎÄ¼ş
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * åˆ é™¤æ–‡ä»¶
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public boolean delete() {
 		return getFile().delete();
 	}
 	
 	/**
-	 * É¾³ıÄ¿Â¼¼°Æä×ÓÄ¿Â¼
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * åˆ é™¤ç›®å½•åŠå…¶å­ç›®å½•
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public boolean deleteDir() {
 		return getFile().deleteDir();
@@ -1274,8 +1274,8 @@ public class FileObject implements Externalizable, IQueryable {
 	/**
 	 *
 	 * @param dest String
-	 * @param opt String y£ºÄ¿±êÎÄ¼şÒÑ´æÔÚÊ±Ç¿ĞĞ¸´ÖÆÈ±Ê¡½«Ê§°Ü£¬c£º¸´ÖÆ£¬
-	 * 					 p£ºÄ¿±êÎÄ¼şÊÇÏà¶ÔÄ¿Â¼ÊÇÏà¶ÔÓÚÖ÷Ä¿Â¼£¬Ä¬ÈÏÊÇÏà¶ÔÓÚÔ´ÎÄ¼şµÄ¸¸Ä¿Â¼
+	 * @param opt String yï¼šç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨æ—¶å¼ºè¡Œå¤åˆ¶ç¼ºçœå°†å¤±è´¥ï¼Œcï¼šå¤åˆ¶ï¼Œ
+	 * 					 pï¼šç›®æ ‡æ–‡ä»¶æ˜¯ç›¸å¯¹ç›®å½•æ˜¯ç›¸å¯¹äºä¸»ç›®å½•ï¼Œé»˜è®¤æ˜¯ç›¸å¯¹äºæºæ–‡ä»¶çš„çˆ¶ç›®å½•
 	 * @return boolean
 	 */
 	public boolean move(String dest, String opt) {
@@ -1283,9 +1283,9 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * È¡ÊôĞÔÎÄ¼şµÄÊôĞÔ
-	 * @param key String ¼üÖµ
-	 * @param opt String v£º×öparse
+	 * å–å±æ€§æ–‡ä»¶çš„å±æ€§
+	 * @param key String é”®å€¼
+	 * @param opt String vï¼šåšparse
 	 * @throws IOException
 	 * @return Object
 	 */
@@ -1318,9 +1318,9 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * °ÑÊôĞÔÎÄ¼ş¶Á³ÉÒÔ{"name", "value"}Îª½á¹¹µÄĞò±í
-	 * @param opt Ñ¡Ïî
-	 * @return Ğò±í
+	 * æŠŠå±æ€§æ–‡ä»¶è¯»æˆä»¥{"name", "value"}ä¸ºç»“æ„çš„åºè¡¨
+	 * @param opt é€‰é¡¹
+	 * @return åºè¡¨
 	 * @throws IOException
 	 */
 	public Table getProperties(String opt) throws IOException {
@@ -1337,10 +1337,10 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * °ÑÊô¶Á³ÉÒÔ{"name", "value"}Îª½á¹¹µÄĞò±í
+	 * æŠŠå±è¯»æˆä»¥{"name", "value"}ä¸ºç»“æ„çš„åºè¡¨
 	 * @param properties Properties
-	 * @param opt Ñ¡Ïî
-	 * @return Ğò±í
+	 * @param opt é€‰é¡¹
+	 * @return åºè¡¨
 	 * @throws IOException
 	 */
 	public static Table getProperties(Properties properties, String opt) {
@@ -1378,25 +1378,25 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * ÔÚÎÄ¼ş¶ÔÏóËùÔÚµÄÄ¿Â¼´´½¨Ò»¸öÁÙÊ±ÎÄ¼ş
-	 * @param prefix Ç°×º
-	 * @return ÁÙÊ±ÎÄ¼şÂ·¾¶Ãû
+	 * åœ¨æ–‡ä»¶å¯¹è±¡æ‰€åœ¨çš„ç›®å½•åˆ›å»ºä¸€ä¸ªä¸´æ—¶æ–‡ä»¶
+	 * @param prefix å‰ç¼€
+	 * @return ä¸´æ—¶æ–‡ä»¶è·¯å¾„å
 	 */
 	public String createTempFile(String prefix) {
 		return getFile().createTempFile(prefix);
 	}
 
 	/**
-	 * ÔÚÎÄ¼ş¶ÔÏóËùÔÚµÄÄ¿Â¼´´½¨Ò»¸öÁÙÊ±ÎÄ¼ş
-	 * @return ÁÙÊ±ÎÄ¼şÂ·¾¶Ãû
+	 * åœ¨æ–‡ä»¶å¯¹è±¡æ‰€åœ¨çš„ç›®å½•åˆ›å»ºä¸€ä¸ªä¸´æ—¶æ–‡ä»¶
+	 * @return ä¸´æ—¶æ–‡ä»¶è·¯å¾„å
 	 */
 	public String createTempFile() {
 		return getFile().createTempFile(TEMPFILE_PREFIX);
 	}
 	
 	/**
-	 * ÔÚÎÄ¼ş¶ÔÏóËùÔÚµÄÄ¿Â¼´´½¨Ò»¸öÁÙÊ±ÎÄ¼ş
-	 * @return FileObject ÁÙÊ±ÎÄ¼ş¶ÔÏó
+	 * åœ¨æ–‡ä»¶å¯¹è±¡æ‰€åœ¨çš„ç›®å½•åˆ›å»ºä¸€ä¸ªä¸´æ—¶æ–‡ä»¶
+	 * @return FileObject ä¸´æ—¶æ–‡ä»¶å¯¹è±¡
 	 */
 	public static FileObject createTempFileObject() {
 		String path = Env.getTempPath();
@@ -1414,7 +1414,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	/**
-	 * °ÑdfxÎÄ¼ş¶Á³ÉÍø¸ñ¶ÔÏó
+	 * æŠŠdfxæ–‡ä»¶è¯»æˆç½‘æ ¼å¯¹è±¡
 	 * @return PgmCellSet
 	 */
 	public PgmCellSet readPgmCellSet() {
@@ -1446,7 +1446,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeByte(1); // °æ±¾ºÅ
+		out.writeByte(1); // ç‰ˆæœ¬å·
 
 		out.writeObject(fileName);
 		out.writeObject(charset);
@@ -1458,7 +1458,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		in.readByte(); // °æ±¾ºÅ
+		in.readByte(); // ç‰ˆæœ¬å·
 
 		fileName = (String) in.readObject();
 		charset = (String) in.readObject();
@@ -1470,7 +1470,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * ÉèÖÃÎÄ¼ş´óĞ¡
+	 * è®¾ç½®æ–‡ä»¶å¤§å°
 	 * @param size
 	 */
 	public void setFileSize(long size) {
@@ -1481,13 +1481,13 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * È¡ÎÄ¼şÀàĞÍ
-	 * @return ·µ»ØFILETYPE_TEXT¡¢FILETYPE_BINARY¡¢FILETYPE_SIMPLETABLE¡¢FILETYPE_GROUPTABLE
+	 * å–æ–‡ä»¶ç±»å‹
+	 * @return è¿”å›FILETYPE_TEXTã€FILETYPE_BINARYã€FILETYPE_SIMPLETABLEã€FILETYPE_GROUPTABLE
 	 */
 	public int getFileType() {
 		InputStream is = null;
 		try {
-			// ×é±í(rqgt)¡¢¼ò±í(rqst)¡¢¶ş½øÖÆ¼¯ÎÄ¼ş(rqtbx)
+			// ç»„è¡¨(rqgt)ã€ç®€è¡¨(rqst)ã€äºŒè¿›åˆ¶é›†æ–‡ä»¶(rqtbx)
 			is = getFile().getInputStream();
 			if (is.read() == 'r' && is.read() == 'q') {
 				int b = is.read();
@@ -1518,7 +1518,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * È¡Ëæ»ú·ÃÎÊÎÄ¼ş¶ÔÏó£¬Èç¹û²»Ö§³ÖÔò·µ»Ønull
+	 * å–éšæœºè®¿é—®æ–‡ä»¶å¯¹è±¡ï¼Œå¦‚æœä¸æ”¯æŒåˆ™è¿”å›null
 	 * @return RandomAccessFile
 	 */
 	public RandomAccessFile getRandomAccessFile() {
@@ -1526,7 +1526,7 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * ´´½¨»ùÓÚÎÄ¼şµÄ¼òµ¥SQL²éÑ¯
+	 * åˆ›å»ºåŸºäºæ–‡ä»¶çš„ç®€å•SQLæŸ¥è¯¢
 	 * @return FileObject
 	 */
 	public static FileObject createSimpleQuery() {
@@ -1536,10 +1536,10 @@ public class FileObject implements Externalizable, IQueryable {
 	}
 	
 	/**
-	 * Ö´ĞĞ²éÑ¯Óï¾ä
-	 * @param sql String ²éÑ¯Óï¾ä
-	 * @param params Object[] ²ÎÊıÖµ
-	 * @param cs ICellSet Íø¸ñ¶ÔÏó
+	 * æ‰§è¡ŒæŸ¥è¯¢è¯­å¥
+	 * @param sql String æŸ¥è¯¢è¯­å¥
+	 * @param params Object[] å‚æ•°å€¼
+	 * @param cs ICellSet ç½‘æ ¼å¯¹è±¡
 	 * @param ctx Context
 	 * @return Object
 	 */

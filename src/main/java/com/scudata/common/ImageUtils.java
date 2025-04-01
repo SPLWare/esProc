@@ -33,10 +33,10 @@ public class ImageUtils
 			return (BufferedImage)image;
 		}
 
-		//È·±£Í¼ÏñµÄËùÓĞÏñËØ×°ÔØ
+		//ç¡®ä¿å›¾åƒçš„æ‰€æœ‰åƒç´ è£…è½½
 		image = new ImageIcon(image).getImage();
 
-		//¼ì²éÊÇ·ñÓĞÍ¸Ã÷
+		//æ£€æŸ¥æ˜¯å¦æœ‰é€æ˜
 		boolean hasAlpha = hasAlpha(image);
 		int type = BufferedImage.TYPE_INT_RGB;
 		if (hasAlpha) {
@@ -54,7 +54,7 @@ public class ImageUtils
 	public static Image cutImage(Image image, int cutW, int cutH) {
 		image = new ImageIcon(image).getImage();
 
-		//¼ì²éÊÇ·ñÓĞÍ¸Ã÷
+		//æ£€æŸ¥æ˜¯å¦æœ‰é€æ˜
 		boolean hasAlpha = hasAlpha(image);
 		int type = BufferedImage.TYPE_INT_RGB;
 		if (hasAlpha) {
@@ -73,7 +73,7 @@ public class ImageUtils
 		drawFixedImage(g,srcImg,BackGraphConfig.MODE_NONE,x,y,fixW,fixH);
 	}
 /**
- * ¸ø¶¨¹Ì¶¨Î»ÖÃºÍ¿í¸ß£¬»­srcImg£¬³¬³ö²¿·Ö²Ãµô
+ * ç»™å®šå›ºå®šä½ç½®å’Œå®½é«˜ï¼Œç”»srcImgï¼Œè¶…å‡ºéƒ¨åˆ†è£æ‰
  * @param g
  * @param srcImg
  * @param x
@@ -115,14 +115,14 @@ public class ImageUtils
 	}
 	
 	/**
-	 * »æÖÆ¹Ì¶¨Í¼ĞÎ£¬³¬³ö±ß½çµÄÍ¼ĞÎ¶¼»á½Øµô
+	 * ç»˜åˆ¶å›ºå®šå›¾å½¢ï¼Œè¶…å‡ºè¾¹ç•Œçš„å›¾å½¢éƒ½ä¼šæˆªæ‰
 	 * @param g
 	 * @param img
 	 * @param x
 	 * @param y
-	 * @param sideRight£¬ÓÒ±ß½ç
-	 * @param sideBottom£¬ÏÂ±ß½ç
-	 * @return Õı³£»æÖÆ·µ»Øtrue£¬Ô½½çºó£¬·µ»Øfalse
+	 * @param sideRightï¼Œå³è¾¹ç•Œ
+	 * @param sideBottomï¼Œä¸‹è¾¹ç•Œ
+	 * @return æ­£å¸¸ç»˜åˆ¶è¿”å›trueï¼Œè¶Šç•Œåï¼Œè¿”å›false
 	 */
 	public static boolean drawFixImage(Graphics g,Image img, int x, int y, int sideRight, int sideBottom){
 		if(x>sideRight){
@@ -157,7 +157,7 @@ public class ImageUtils
 			return (BufferedImage)image;
 		}
 
-		//¼ì²éÊÇ·ñÓĞÍ¸Ã÷
+		//æ£€æŸ¥æ˜¯å¦æœ‰é€æ˜
 		boolean hasAlpha = image.getColorModel().hasAlpha();
 		int type = BufferedImage.TYPE_INT_RGB;
 		if (hasAlpha) {
@@ -177,7 +177,7 @@ public class ImageUtils
 	}
 	
 	
-	//REPORT-107  added by hhw2013.9.24 Ğ±Ïßµ¼³ö¿Õ°×
+	//REPORT-107  added by hhw2013.9.24 æ–œçº¿å¯¼å‡ºç©ºç™½
 	public static void writeGIF( Image img, OutputStream out ) throws IOException {
 		GifEncoder enc = new GifEncoder( img, out );
 		enc.encode();

@@ -20,21 +20,21 @@ import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
 /**
- * f.xlsimport(Fi,..;s,b:e;p) ¶ÁÈëExcel£¬ sÎªÒ³Ãû»òĞòºÅ£¬b,eÎªĞĞÊı£¬e<0µ¹Êı pÊÇÃÜÂë
+ * f.xlsimport(Fi,..;s,b:e;p) è¯»å…¥Excelï¼Œ sä¸ºé¡µåæˆ–åºå·ï¼Œb,eä¸ºè¡Œæ•°ï¼Œe<0å€’æ•° pæ˜¯å¯†ç 
  * 
- * @t Ê×ĞĞÊÇ±êÌâ£¬ÓĞb²ÎÊıÊ±ÈÏÎª±êÌâÔÚbĞĞ
- * @x Ê¹ÓÃxlsx¸ñÊ½£¬È±Ê¡Ê¹ÓÃÎÄ¼şÀ©Õ¹ÃûÅĞ¶Ï£¬ÅĞ¶Ï²»³öÓÃxls
- * @c ·µ»Ø³ÉÓÎ±ê£¬Ö»Ö§³Öxlsx¸ñÊ½£»´ËÊ±e²»ÄÜĞ¡ÓÚ0
- * @b È¥³ıÇ°ºóµÄ¿Õ°×ĞĞ£¬@cÊ±²»Ö§³Ö
- * @w ¶Á³ÉĞòÁĞµÄĞòÁĞ£¬³ÉÔ±ÊÇ¸ñÖµ£» Óë@t@c@b»¥³â
- * @p @w¼Ó×ªÖÃ£¬ĞòÁĞµÄĞòÁĞÊÇÏÈÁĞºóĞĞµÄ£¬ÊÇ´®Ê±ºöÂÔ
- * @n ¶ÁÈëÊ±×ötrim£¬Ö»Ê£¿Õ´®Ê±¶Á³Énull
- * @s ·µ»Ø³É»Ø³µ/tab·Ö¸ôµÄ´®
+ * @t é¦–è¡Œæ˜¯æ ‡é¢˜ï¼Œæœ‰bå‚æ•°æ—¶è®¤ä¸ºæ ‡é¢˜åœ¨bè¡Œ
+ * @x ä½¿ç”¨xlsxæ ¼å¼ï¼Œç¼ºçœä½¿ç”¨æ–‡ä»¶æ‰©å±•ååˆ¤æ–­ï¼Œåˆ¤æ–­ä¸å‡ºç”¨xls
+ * @c è¿”å›æˆæ¸¸æ ‡ï¼Œåªæ”¯æŒxlsxæ ¼å¼ï¼›æ­¤æ—¶eä¸èƒ½å°äº0
+ * @b å»é™¤å‰åçš„ç©ºç™½è¡Œï¼Œ@cæ—¶ä¸æ”¯æŒ
+ * @w è¯»æˆåºåˆ—çš„åºåˆ—ï¼Œæˆå‘˜æ˜¯æ ¼å€¼ï¼› ä¸@t@c@bäº’æ–¥
+ * @p @wåŠ è½¬ç½®ï¼Œåºåˆ—çš„åºåˆ—æ˜¯å…ˆåˆ—åè¡Œçš„ï¼Œæ˜¯ä¸²æ—¶å¿½ç•¥
+ * @n è¯»å…¥æ—¶åštrimï¼Œåªå‰©ç©ºä¸²æ—¶è¯»æˆnull
+ * @s è¿”å›æˆå›è½¦/tabåˆ†éš”çš„ä¸²
  */
 public class XlsImport extends FileFunction {
 
 	/**
-	 * ¼ÆËã
+	 * è®¡ç®—
 	 */
 	public Object calculate(Context ctx) {
 		String opt = option;
@@ -93,7 +93,7 @@ public class XlsImport extends FileFunction {
 		IParam fieldParam;
 		String pwd = null;
 		if (param.getType() == IParam.Semicolon) {
-			if (param.getSubSize() != 2 && param.getSubSize() != 3) { // ¼æÈİÒ»ÏÂÖ®Ç°µÄ
+			if (param.getSubSize() != 2 && param.getSubSize() != 3) { // å…¼å®¹ä¸€ä¸‹ä¹‹å‰çš„
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("xlsimport"
 						+ mm.getMessage("function.invalidParam"));
@@ -246,16 +246,16 @@ public class XlsImport extends FileFunction {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
 	 * 
 	 * @param ctx
-	 *            ¼ÆËãÉÏÏÂÎÄ
+	 *            è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @param Node
-	 *            ÓÅ»¯ºóµÄ½Úµã
+	 *            ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 
@@ -282,7 +282,7 @@ public class XlsImport extends FileFunction {
 		}
 		if (!isW) {
 			if (isP) {
-				// Ñ¡Ïî@{0}Ö»ÄÜºÍÑ¡Ïî@wÍ¬Ê±Ê¹ÓÃ¡£
+				// é€‰é¡¹@{0}åªèƒ½å’Œé€‰é¡¹@wåŒæ—¶ä½¿ç”¨ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsimport.pnnotw", "p"));
 			}

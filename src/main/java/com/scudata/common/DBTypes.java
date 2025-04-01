@@ -1,11 +1,11 @@
 package com.scudata.common;
 
 /**
- * Êı¾İÔ´ÀàĞÍÏà¹ØµÄ»ù±¾º¯Êı¼¯
+ * æ•°æ®æºç±»å‹ç›¸å…³çš„åŸºæœ¬å‡½æ•°é›†
  */
 public class DBTypes {
 	/**
-	 * Î´ÖªÊı¾İÔ´ÀàĞÍ
+	 * æœªçŸ¥æ•°æ®æºç±»å‹
 	 */
 	public static final int UNKNOWN = 0;
 
@@ -56,7 +56,7 @@ public class DBTypes {
 	public static final int ESSBASE = 101;
 
 	/**
-	 * ÁĞ³öËùÓĞ¿ÉÖ§³ÖµÄÊı¾İÔ´ÀàĞÍ
+	 * åˆ—å‡ºæ‰€æœ‰å¯æ”¯æŒçš„æ•°æ®æºç±»å‹
 	 */
 	public static int[] listSupportedDBTypes() {
 		return new int[] { ORACLE, SQLSVR, SYBASE, SQLANY, INFMIX, FOXPRO,
@@ -66,7 +66,7 @@ public class DBTypes {
 	}
 
 	/**
-	 * ÁĞ³öËùÓĞ¿ÉÖ§³ÖµÄ¹ØÏµĞÍÊı¾İÔ´ÀàĞÍÃû³Æ
+	 * åˆ—å‡ºæ‰€æœ‰å¯æ”¯æŒçš„å…³ç³»å‹æ•°æ®æºç±»å‹åç§°
 	 */
 	public static String[] listSupportedRDBNames() {
 		return new String[] { "ORACLE", "SQLSVR", "SYBASE", "SQLANY", "INFMIX",
@@ -77,7 +77,7 @@ public class DBTypes {
 	}
 
 	/**
-	 * ÁĞ³öËùÓĞ¿ÉÖ§³ÖµÄÊı¾İ²Ö¿âÀàĞÍÃû³Æ
+	 * åˆ—å‡ºæ‰€æœ‰å¯æ”¯æŒçš„æ•°æ®ä»“åº“ç±»å‹åç§°
 	 */
 	public static String[] listSupportedMDBNames() {
 		return new String[] { "ESSBASE" };
@@ -85,7 +85,7 @@ public class DBTypes {
 	}
 
 	/**
-	 * ÁĞ³öËùÓĞ¿ÉÖ§³ÖµÄÊı¾İÔ´ÀàĞÍÃû³Æ
+	 * åˆ—å‡ºæ‰€æœ‰å¯æ”¯æŒçš„æ•°æ®æºç±»å‹åç§°
 	 */
 	public static String[] listSupportedDBNames() {
 		return new String[] { "ORACLE", "SQLSVR", "SYBASE", "SQLANY", "INFMIX",
@@ -96,11 +96,11 @@ public class DBTypes {
 	}
 
 	/**
-	 * ¸ù¾İÊı¾İÔ´ÀàĞÍÃû³ÆÈ¡Êı¾İÔ´ÀàĞÍ
+	 * æ ¹æ®æ•°æ®æºç±»å‹åç§°å–æ•°æ®æºç±»å‹
 	 * 
 	 * @param dbTypeName
-	 *            Êı¾İÔ´ÀàĞÍÃû³Æ
-	 * @return Êı¾İÔ´ÀàĞÍ
+	 *            æ•°æ®æºç±»å‹åç§°
+	 * @return æ•°æ®æºç±»å‹
 	 */
 	public static int getDBType(String dbTypeName) {
 		if (dbTypeName == null) {
@@ -118,11 +118,11 @@ public class DBTypes {
 	}
 
 	/**
-	 * ¸ù¾İÊı¾İÔ´ÀàĞÍÈ¡Êı¾İÔ´ÀàĞÍÃû³Æ
+	 * æ ¹æ®æ•°æ®æºç±»å‹å–æ•°æ®æºç±»å‹åç§°
 	 * 
 	 * @param dbType
-	 *            Êı¾İÔ´ÀàĞÍ
-	 * @return Êı¾İÔ´ÀàĞÍÃû³Æ
+	 *            æ•°æ®æºç±»å‹
+	 * @return æ•°æ®æºç±»å‹åç§°
 	 */
 	public static String getDBTypeName(int dbType) {
 		int[] dbTypes = listSupportedDBTypes();
@@ -136,11 +136,11 @@ public class DBTypes {
 	}
 
 	/**
-	 * ¸ù¾İÊı¾İ¿âÀàĞÍ²éÕÒÆäÄÚ²¿×Ö·û´®Ê¹ÓÃµÄÒıºÅ
+	 * æ ¹æ®æ•°æ®åº“ç±»å‹æŸ¥æ‰¾å…¶å†…éƒ¨å­—ç¬¦ä¸²ä½¿ç”¨çš„å¼•å·
 	 * 
 	 * @param dbType
-	 *            Êı¾İ¿âÀàĞÍ
-	 * @return ÒıºÅ×Ö·û(µ¥»òË«)
+	 *            æ•°æ®åº“ç±»å‹
+	 * @return å¼•å·å­—ç¬¦(å•æˆ–åŒ)
 	 */
 	public static char getQuotation(int dbType) {
 		return (dbType == INFMIX || dbType == FOXPRO || dbType == ACCESS || dbType == FOXBAS) ? '\"'
@@ -148,12 +148,12 @@ public class DBTypes {
 	}
 
 	/**
-	 * ¸ù¾İÊı¾İ¿âÀàĞÍÎª×Ö·û´®Ìí¼ÓÒıºÅ
+	 * æ ¹æ®æ•°æ®åº“ç±»å‹ä¸ºå­—ç¬¦ä¸²æ·»åŠ å¼•å·
 	 * 
 	 * @param dbType
-	 *            Êı¾İ¿âÀàĞÍ
-	 * @param ĞèÒªÌí¼ÓÒıºÅµÄ´®
-	 * @return Ìí¼ÓÒıºÅµÄ´®
+	 *            æ•°æ®åº“ç±»å‹
+	 * @param éœ€è¦æ·»åŠ å¼•å·çš„ä¸²
+	 * @return æ·»åŠ å¼•å·çš„ä¸²
 	 */
 	public static String addQuotation(int dbType, String value) {
 		if (value == null || value.length() == 0) {
@@ -179,7 +179,7 @@ public class DBTypes {
 	}
 
 	/**
-	 * µ±¶ÔÏó£¨±í¡¢×Ö¶ÎµÈ£©Ãû³Æº¬ÓĞÌØÊâ×Ö·ûÊ±µÄ×óÏŞ¶¨·û
+	 * å½“å¯¹è±¡ï¼ˆè¡¨ã€å­—æ®µç­‰ï¼‰åç§°å«æœ‰ç‰¹æ®Šå­—ç¬¦æ—¶çš„å·¦é™å®šç¬¦
 	 */
 	public static String getLeftTilde(int dbType) {
 		if (dbType == SQLSVR || dbType == ACCESS)
@@ -192,7 +192,7 @@ public class DBTypes {
 	}
 
 	/**
-	 * µ±¶ÔÏó£¨±í¡¢×Ö¶ÎµÈ£©Ãû³Æº¬ÓĞÌØÊâ×Ö·ûÊ±µÄÓÒÏŞ¶¨·û
+	 * å½“å¯¹è±¡ï¼ˆè¡¨ã€å­—æ®µç­‰ï¼‰åç§°å«æœ‰ç‰¹æ®Šå­—ç¬¦æ—¶çš„å³é™å®šç¬¦
 	 */
 	public static String getRightTilde(int dbType) {
 		if (dbType == SQLSVR || dbType == ACCESS)
@@ -204,15 +204,15 @@ public class DBTypes {
 		return "\"";
 	}
 
-	// ÒÔÏÂº¯ÊıÔÚ¹ú¼Ê»¯µÄÇé¿öÏÂ»á²»ÕıÈ·
+	// ä»¥ä¸‹å‡½æ•°åœ¨å›½é™…åŒ–çš„æƒ…å†µä¸‹ä¼šä¸æ­£ç¡®
 	/**
-	 * ¸ù¾İÊı¾İ¿âÀàĞÍ½«×Ö·û´®×ª»»SQLÖĞÊ¹ÓÃµÄ×Ö·ûÀàĞÍµÄ´®
+	 * æ ¹æ®æ•°æ®åº“ç±»å‹å°†å­—ç¬¦ä¸²è½¬æ¢SQLä¸­ä½¿ç”¨çš„å­—ç¬¦ç±»å‹çš„ä¸²
 	 * 
 	 * @param dbType
-	 *            Êı¾İ¿âÀàĞÍ
+	 *            æ•°æ®åº“ç±»å‹
 	 * @param value
-	 *            ĞèÒª×ª»»µÄ´®
-	 * @return ×ª»»ºóµÄ´®
+	 *            éœ€è¦è½¬æ¢çš„ä¸²
+	 * @return è½¬æ¢åçš„ä¸²
 	 */
 
 	/*
@@ -220,13 +220,13 @@ public class DBTypes {
 	 * addQuotation( dbType, value ); }
 	 */
 	/**
-	 * ¸ù¾İÊı¾İ¿âÀàĞÍ½«×Ö·û´®(ÒªÇó¸ñÊ½Îªyyyy-MM-dd)×ª»»SQLÖĞÊ¹ÓÃµÄÈÕÆÚÀàĞÍµÄ´®
+	 * æ ¹æ®æ•°æ®åº“ç±»å‹å°†å­—ç¬¦ä¸²(è¦æ±‚æ ¼å¼ä¸ºyyyy-MM-dd)è½¬æ¢SQLä¸­ä½¿ç”¨çš„æ—¥æœŸç±»å‹çš„ä¸²
 	 * 
 	 * @param dbType
-	 *            Êı¾İ¿âÀàĞÍ
+	 *            æ•°æ®åº“ç±»å‹
 	 * @param value
-	 *            ĞèÒª×ª»»µÄ´®
-	 * @return ×ª»»ºóµÄ´®
+	 *            éœ€è¦è½¬æ¢çš„ä¸²
+	 * @return è½¬æ¢åçš„ä¸²
 	 */
 	/*
 	 * public static String getDateConst( int dbType, String value ) { if (
@@ -236,13 +236,13 @@ public class DBTypes {
 	 */
 
 	/**
-	 * ¸ù¾İÊı¾İ¿âÀàĞÍ½«×Ö·û´®(ÒªÇó¸ñÊ½ÎªHH:mm:ss)×ª»»SQLÖĞÊ¹ÓÃµÄÊ±¼äÀàĞÍµÄ´®
+	 * æ ¹æ®æ•°æ®åº“ç±»å‹å°†å­—ç¬¦ä¸²(è¦æ±‚æ ¼å¼ä¸ºHH:mm:ss)è½¬æ¢SQLä¸­ä½¿ç”¨çš„æ—¶é—´ç±»å‹çš„ä¸²
 	 * 
 	 * @param dbType
-	 *            Êı¾İ¿âÀàĞÍ
+	 *            æ•°æ®åº“ç±»å‹
 	 * @param value
-	 *            ĞèÒª×ª»»µÄ´®
-	 * @return ×ª»»ºóµÄ´®
+	 *            éœ€è¦è½¬æ¢çš„ä¸²
+	 * @return è½¬æ¢åçš„ä¸²
 	 */
 	/*
 	 * public static String getTimeConst( int dbType, String value ) { if (
@@ -253,13 +253,13 @@ public class DBTypes {
 	 */
 
 	/**
-	 * ¸ù¾İÊı¾İ¿âÀàĞÍ½«×Ö·û´®(ÒªÇó¸ñÊ½Îª"yyyy-MM-dd HH:mm:ss")×ª»»SQLÖĞÊ¹ÓÃ µÄÈÕÆÚÊ±¼äÀàĞÍµÄ´®
+	 * æ ¹æ®æ•°æ®åº“ç±»å‹å°†å­—ç¬¦ä¸²(è¦æ±‚æ ¼å¼ä¸º"yyyy-MM-dd HH:mm:ss")è½¬æ¢SQLä¸­ä½¿ç”¨ çš„æ—¥æœŸæ—¶é—´ç±»å‹çš„ä¸²
 	 * 
 	 * @param dbType
-	 *            Êı¾İ¿âÀàĞÍ
+	 *            æ•°æ®åº“ç±»å‹
 	 * @param value
-	 *            ĞèÒª×ª»»µÄ´®
-	 * @return ×ª»»ºóµÄ´®
+	 *            éœ€è¦è½¬æ¢çš„ä¸²
+	 * @return è½¬æ¢åçš„ä¸²
 	 */
 	/*
 	 * public static String getTimestampConst( int dbType, String value ) { if (
@@ -268,15 +268,15 @@ public class DBTypes {
 	 * "','yyyy-mm-dd hh24:mi:ss')"; default: return "'" + value + "'"; } }
 	 */
 	/**
-	 * »ñÈ¡×Ö·û´®ÔÚÖ¸¶¨Êı¾İ¿âÏÂ¶ÔÓ¦µÄSQL±í´ïÊ½
+	 * è·å–å­—ç¬¦ä¸²åœ¨æŒ‡å®šæ•°æ®åº“ä¸‹å¯¹åº”çš„SQLè¡¨è¾¾å¼
 	 * 
 	 * @param dbType
-	 *            Êı¾İ¿âÀàĞÍ
+	 *            æ•°æ®åº“ç±»å‹
 	 * @param value
-	 *            Êı¾İÖµ¶ÔÏó
+	 *            æ•°æ®å€¼å¯¹è±¡
 	 * @param datatype
-	 *            Êı¾İÀàĞÍ
-	 * @return ÓÃÓÚSQLµÄ±í´ïÊ½
+	 *            æ•°æ®ç±»å‹
+	 * @return ç”¨äºSQLçš„è¡¨è¾¾å¼
 	 */
 	/*
 	 * public static String getDBConst( int dbType, Object value, int datatype )

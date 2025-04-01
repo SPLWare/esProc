@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * º¯Êý²ÎÊý¹Ì¶¨µÄ±ê×¼º¯ÊýÐÅÏ¢
+ * å‡½æ•°å‚æ•°å›ºå®šçš„æ ‡å‡†å‡½æ•°ä¿¡æ¯
  * @author RunQian
  *
  */
@@ -21,8 +21,8 @@ public class FixedParamFunInfo extends FunInfo {
 	}
 
 	/*
-	 * infoÖµÓÐÒÔÏÂ3ÖÖÇé¿ö£º Îªnull£¬±íÊ¾Óë±ê×¼º¯ÊýÒ»Ñù ÎªN/A(²»Çø·Ö´óÐ¡Ð´)£¬±íÊ¾²»Ö§³Ö´Ëº¯Êý
-	 * ·ñÔò±íÊ¾Êý¾Ý¿âSQL±í´ïÊ½£¬ÒÔ?n±íÊ¾±ê×¼º¯ÊýµÄµÚn¸ö²ÎÊý£»
+	 * infoå€¼æœ‰ä»¥ä¸‹3ç§æƒ…å†µï¼š ä¸ºnullï¼Œè¡¨ç¤ºä¸Žæ ‡å‡†å‡½æ•°ä¸€æ · ä¸ºN/A(ä¸åŒºåˆ†å¤§å°å†™)ï¼Œè¡¨ç¤ºä¸æ”¯æŒæ­¤å‡½æ•°
+	 * å¦åˆ™è¡¨ç¤ºæ•°æ®åº“SQLè¡¨è¾¾å¼ï¼Œä»¥?nè¡¨ç¤ºæ ‡å‡†å‡½æ•°çš„ç¬¬nä¸ªå‚æ•°ï¼›
 	 */
 
 	public String getInfo(int dbType) {

@@ -82,7 +82,7 @@ public class ImUtils {
 		return nRet;
 	}
 	
-	// È±Ê¡ÓÃAND
+	// ç¼ºçœç”¨AND
 	public static BitwiseOp GetBitwiseOp(String v) {
 		if ("and".equalsIgnoreCase(v)) {
 			return BitwiseOp.AND;
@@ -212,7 +212,7 @@ public class ImUtils {
 		return retObj;
 	}
 
-	// ²»Ö§³Öfloat, Ö»Ö§³Ödouble;
+	// ä¸æ”¯æŒfloat, åªæ”¯æŒdouble;
 	public static long objectToLong(Object Obj)  
 	{  
 	    //return Long.valueOf(String.valueOf(Obj)); 
@@ -231,8 +231,8 @@ public class ImUtils {
 	} 
  
 	/*
-	 * bool¡¢int¡¢long¡¢float(64Î»)¡¢decimal¡¢string£¬
-	 * ÒÔºóÔÙ²¹³ä,²»ÈÏÊ¶µÄÀàĞÍ·µ»Øbyte[]£¬ÓÃ»§¿ÉÒÔĞ´º¯Êı×ª»»
+	 * boolã€intã€longã€float(64ä½)ã€decimalã€stringï¼Œ
+	 * ä»¥åå†è¡¥å……,ä¸è®¤è¯†çš„ç±»å‹è¿”å›byte[]ï¼Œç”¨æˆ·å¯ä»¥å†™å‡½æ•°è½¬æ¢
 	 */
 	public static boolean checkColumnType(TableInfo tableInfo, String colFullName, String type){
 		boolean bRet = false;
@@ -254,7 +254,7 @@ public class ImUtils {
 		return bRet;
 	}
 	
-	// ×ª»»³ÉTableÇ°½«object×ª»»³É¶ÔÓ¦µÄÀàĞÍ
+	// è½¬æ¢æˆTableå‰å°†objectè½¬æ¢æˆå¯¹åº”çš„ç±»å‹
 	public static Object getDataType(TableInfo tableInfo, String colFullName, Object data){
 		Object oRet = null;
 		if (tableInfo.m_columnType.size()==0){
@@ -310,12 +310,12 @@ public class ImUtils {
 		Pattern p=Pattern.compile(regExp);
 		retMatch[0] = p.matcher(strSrc);
 		
-		//groupCount=NÓÉregExpÀ´¾ö¶¨£¬ÔİÊ±ÓÃ2
+		//groupCount=Nç”±regExpæ¥å†³å®šï¼Œæš‚æ—¶ç”¨2
 		return retMatch[0].matches() && (retMatch[0].groupCount()==2); 
 	}
 	 
 	 /**   
-     * ¶ÔÏó×ªÊı×é   
+     * å¯¹è±¡è½¬æ•°ç»„   
      * @param obj   
      * @return   
      */    
@@ -338,7 +338,7 @@ public class ImUtils {
     }     
          
     /**   
-     * Êı×é×ª¶ÔÏó   
+     * æ•°ç»„è½¬å¯¹è±¡   
      * @param bytes   
      * @return   
      */    

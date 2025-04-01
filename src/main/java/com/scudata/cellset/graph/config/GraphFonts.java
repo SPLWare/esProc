@@ -5,7 +5,7 @@ import java.io.*;
 import com.scudata.common.*;
 
 /**
- * ·â×°Í³¼ÆÍ¼ÓÃµ½µÄËùÓĞÀàĞÍ×ÖÌå
+ * å°è£…ç»Ÿè®¡å›¾ç”¨åˆ°çš„æ‰€æœ‰ç±»å‹å­—ä½“
  * 
  * @author Joancy
  *
@@ -14,23 +14,23 @@ public class GraphFonts implements ICloneable, Externalizable, IRecord {
 	private final static long serialVersionUID = 82857881736578L;
 	private byte version = ( byte ) 1;
 
-	/** Í³¼ÆÍ¼±êÌâ×ÖÌå */
+	/** ç»Ÿè®¡å›¾æ ‡é¢˜å­—ä½“ */
 	private GraphFont titleFont;
-	/** Í³¼ÆÍ¼ºáÖá±êÌâ×ÖÌå */
+	/** ç»Ÿè®¡å›¾æ¨ªè½´æ ‡é¢˜å­—ä½“ */
 	private GraphFont xTitleFont;
-	/** Í³¼ÆÍ¼×İÖá±êÌâ×ÖÌå */
+	/** ç»Ÿè®¡å›¾çºµè½´æ ‡é¢˜å­—ä½“ */
 	private GraphFont yTitleFont;
-	/** Í³¼ÆÍ¼ºáÖá±êÇ©×ÖÌå */
+	/** ç»Ÿè®¡å›¾æ¨ªè½´æ ‡ç­¾å­—ä½“ */
 	private GraphFont xLabelFont;
-	/** Í³¼ÆÍ¼×İÖá±êÇ©×ÖÌå */
+	/** ç»Ÿè®¡å›¾çºµè½´æ ‡ç­¾å­—ä½“ */
 	private GraphFont yLabelFont;
-	/** Í³¼ÆÍ¼Í¼Àı×ÖÌå */
+	/** ç»Ÿè®¡å›¾å›¾ä¾‹å­—ä½“ */
 	private GraphFont legendFont;
-	/** Í³¼ÆÍ¼Í¼ÖĞÏÔÊ¾Êı¾İ×ÖÌå */
+	/** ç»Ÿè®¡å›¾å›¾ä¸­æ˜¾ç¤ºæ•°æ®å­—ä½“ */
 	private GraphFont dataFont;
 
 	/**
-	 * È±Ê¡Öµ¹¹Ôìº¯Êı
+	 * ç¼ºçœå€¼æ„é€ å‡½æ•°
 	 */
 	public GraphFonts() {
 		titleFont = new GraphFont();
@@ -43,120 +43,120 @@ public class GraphFonts implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * È¡±êÌâ×ÖÌå
-	 * @return GraphFont¡¡±êÌâ×ÖÌå
+	 * å–æ ‡é¢˜å­—ä½“
+	 * @return GraphFontã€€æ ‡é¢˜å­—ä½“
 	 */
 	public GraphFont getTitleFont() {
 		return titleFont;
 	}
 
 	/**
-	 * ÉèÖÃ±êÌâ×ÖÌå
-	 * @param font ±êÌâ×ÖÌå
+	 * è®¾ç½®æ ‡é¢˜å­—ä½“
+	 * @param font æ ‡é¢˜å­—ä½“
 	 */
 	public void setTitleFont( GraphFont font ) {
 		this.titleFont = font;
 	}
 
 	/**
-	 * È¡ºáÖá±êÌâ×ÖÌå
-	 * @return GraphFont¡¡ºáÖá±êÌâ×ÖÌå
+	 * å–æ¨ªè½´æ ‡é¢˜å­—ä½“
+	 * @return GraphFontã€€æ¨ªè½´æ ‡é¢˜å­—ä½“
 	 */
 	public GraphFont getXTitleFont() {
 		return xTitleFont;
 	}
 
 	/**
-	 * ÉèÖÃºáÖá±êÌâ×ÖÌå
-	 * @param font ºáÖá±êÌâ×ÖÌå
+	 * è®¾ç½®æ¨ªè½´æ ‡é¢˜å­—ä½“
+	 * @param font æ¨ªè½´æ ‡é¢˜å­—ä½“
 	 */
 	public void setXTitleFont( GraphFont font ) {
 		this.xTitleFont = font;
 	}
 
 	/**
-	 * È¡×İÖá±êÌâ×ÖÌå
-	 * @return GraphFont¡¡×İÖá±êÌâ×ÖÌå
+	 * å–çºµè½´æ ‡é¢˜å­—ä½“
+	 * @return GraphFontã€€çºµè½´æ ‡é¢˜å­—ä½“
 	 */
 	public GraphFont getYTitleFont() {
 		return yTitleFont;
 	}
 
 	/**
-	 * ÉèÖÃ×İÖá±êÌâ×ÖÌå
-	 * @param font ×İÖá±êÌâ×ÖÌå
+	 * è®¾ç½®çºµè½´æ ‡é¢˜å­—ä½“
+	 * @param font çºµè½´æ ‡é¢˜å­—ä½“
 	 */
 	public void setYTitleFont( GraphFont font ) {
 		this.yTitleFont = font;
 	}
 
 	/**
-	 * È¡ºáÖá±êÇ©×ÖÌå
-	 * @return GraphFont¡¡ºáÖá±êÇ©×ÖÌå
+	 * å–æ¨ªè½´æ ‡ç­¾å­—ä½“
+	 * @return GraphFontã€€æ¨ªè½´æ ‡ç­¾å­—ä½“
 	 */
 	public GraphFont getXLabelFont() {
 		return xLabelFont;
 	}
 
 	/**
-	 * ÉèÖÃºáÖá±êÇ©×ÖÌå
-	 * @param font ºáÖá±êÇ©×ÖÌå
+	 * è®¾ç½®æ¨ªè½´æ ‡ç­¾å­—ä½“
+	 * @param font æ¨ªè½´æ ‡ç­¾å­—ä½“
 	 */
 	public void setXLabelFont( GraphFont font ) {
 		this.xLabelFont = font;
 	}
 
 	/**
-	 * È¡×İÖá±êÇ©×ÖÌå
-	 * @return GraphFont¡¡×İÖá±êÇ©×ÖÌå
+	 * å–çºµè½´æ ‡ç­¾å­—ä½“
+	 * @return GraphFontã€€çºµè½´æ ‡ç­¾å­—ä½“
 	 */
 	public GraphFont getYLabelFont() {
 		return yLabelFont;
 	}
 
 	/**
-	 * ÉèÖÃ×İÖá±êÇ©×ÖÌå
-	 * @param font ×İÖá±êÇ©×ÖÌå
+	 * è®¾ç½®çºµè½´æ ‡ç­¾å­—ä½“
+	 * @param font çºµè½´æ ‡ç­¾å­—ä½“
 	 */
 	public void setYLabelFont( GraphFont font ) {
 		this.yLabelFont = font;
 	}
 
 	/**
-	 * È¡Í¼Àı×ÖÌå
-	 * @return GraphFont¡¡Í¼Àı×ÖÌå
+	 * å–å›¾ä¾‹å­—ä½“
+	 * @return GraphFontã€€å›¾ä¾‹å­—ä½“
 	 */
 	public GraphFont getLegendFont() {
 		return legendFont;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼Àı×ÖÌå
-	 * @param font Í¼Àı×ÖÌå
+	 * è®¾ç½®å›¾ä¾‹å­—ä½“
+	 * @param font å›¾ä¾‹å­—ä½“
 	 */
 	public void setLegendFont( GraphFont font ) {
 		this.legendFont = font;
 	}
 
 	/**
-	 * È¡Í¼ÖĞÏÔÊ¾Êı¾İ×ÖÌå
-	 * @return GraphFont¡¡Í¼ÖĞÏÔÊ¾Êı¾İ×ÖÌå
+	 * å–å›¾ä¸­æ˜¾ç¤ºæ•°æ®å­—ä½“
+	 * @return GraphFontã€€å›¾ä¸­æ˜¾ç¤ºæ•°æ®å­—ä½“
 	 */
 	public GraphFont getDataFont() {
 		return dataFont;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼ÖĞÏÔÊ¾Êı¾İ×ÖÌå
-	 * @param font Í¼ÖĞÏÔÊ¾Êı¾İ×ÖÌå
+	 * è®¾ç½®å›¾ä¸­æ˜¾ç¤ºæ•°æ®å­—ä½“
+	 * @param font å›¾ä¸­æ˜¾ç¤ºæ•°æ®å­—ä½“
 	 */
 	public void setDataFont( GraphFont font ) {
 		this.dataFont = font;
 	}
 
 	/**
-	 * Éî¶È¿ËÂ¡
-	 * @return Object ¿ËÂ¡ºóµÄ×ÖÌå¼¯ºÏ
+	 * æ·±åº¦å…‹éš†
+	 * @return Object å…‹éš†åçš„å­—ä½“é›†åˆ
 	 */
 	public Object deepClone() {
 		GraphFonts fonts = new GraphFonts();
@@ -171,7 +171,7 @@ public class GraphFonts implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖĞòÁĞ»¯½Ó¿Ú
+	 * å®ç°åºåˆ—åŒ–æ¥å£
 	 */
 	public void writeExternal( ObjectOutput out ) throws IOException{
 		out.writeByte( version );
@@ -185,7 +185,7 @@ public class GraphFonts implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖĞòÁĞ»¯½Ó¿Ú
+	 * å®ç°åºåˆ—åŒ–æ¥å£
 	 */
 	public void readExternal( ObjectInput in ) throws IOException, ClassNotFoundException{
 		byte ver = in.readByte();
@@ -199,7 +199,7 @@ public class GraphFonts implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public byte[] serialize() throws IOException{
 	  ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -214,7 +214,7 @@ public class GraphFonts implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public void fillRecord(byte[] buf) throws IOException, ClassNotFoundException {
 	  ByteArrayInputRecord in = new ByteArrayInputRecord(buf);

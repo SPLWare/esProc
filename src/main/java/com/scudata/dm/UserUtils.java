@@ -6,32 +6,32 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.LineInputCursor;
 
 /**
- * ¶ÔÍâ¹¤¾ßÀà
+ * å¯¹å¤–å·¥å…·ç±»
  */
 public final class UserUtils {
 	/**
-	 * ÓÉĞĞÊäÈë²úÉúÓÎ±ê
-	 * @param lineInput ILineInput ĞĞÊäÈë
-	 * @param opt String Ñ¡Ïî t£ºµÚÒ»ĞĞÎª±êÌâ£¬i£º½á¹û¼¯Ö»ÓĞ1ÁĞÊ±·µ»Ø³ÉĞòÁĞ
-	 * @return ICursor ÓÎ±ê
+	 * ç”±è¡Œè¾“å…¥äº§ç”Ÿæ¸¸æ ‡
+	 * @param lineInput ILineInput è¡Œè¾“å…¥
+	 * @param opt String é€‰é¡¹ tï¼šç¬¬ä¸€è¡Œä¸ºæ ‡é¢˜ï¼Œiï¼šç»“æœé›†åªæœ‰1åˆ—æ—¶è¿”å›æˆåºåˆ—
+	 * @return ICursor æ¸¸æ ‡
 	 */
 	public static ICursor newCursor(ILineInput lineInput, String opt) {
 		return new LineInputCursor(lineInput, opt);
 	}
 	
 	/**
-	 * ÓÉĞĞÊäÈë²úÉúĞò±í»òĞòÁĞ
-	 * @param lineInput ILineInput ĞĞÊäÈë
-	 * @param opt String Ñ¡Ïî t£ºµÚÒ»ĞĞÎª±êÌâ£¬i£º½á¹û¼¯Ö»ÓĞ1ÁĞÊ±·µ»Ø³ÉĞòÁĞ
-	 * @return Sequence Ğò±í»òĞòÁĞ
+	 * ç”±è¡Œè¾“å…¥äº§ç”Ÿåºè¡¨æˆ–åºåˆ—
+	 * @param lineInput ILineInput è¡Œè¾“å…¥
+	 * @param opt String é€‰é¡¹ tï¼šç¬¬ä¸€è¡Œä¸ºæ ‡é¢˜ï¼Œiï¼šç»“æœé›†åªæœ‰1åˆ—æ—¶è¿”å›æˆåºåˆ—
+	 * @return Sequence åºè¡¨æˆ–åºåˆ—
 	 */
 	public static Sequence newTable(ILineInput lineInput, String opt) {
 		return newCursor(lineInput, opt).fetch();
 	}
 	
 	/**
-	 * ÓÉÊı×é²úÉúĞòÁĞ
-	 * @param values Object[] ÖµÊı×é
+	 * ç”±æ•°ç»„äº§ç”Ÿåºåˆ—
+	 * @param values Object[] å€¼æ•°ç»„
 	 * @return Sequence
 	 */
 	public static Sequence newSequence(Object []values) {
@@ -39,8 +39,8 @@ public final class UserUtils {
 	}
 	
 	/**
-	 * ÓÉList²úÉúĞòÁĞ
-	 * @param list List ÖµList
+	 * ç”±Listäº§ç”Ÿåºåˆ—
+	 * @param list List å€¼List
 	 * @return Sequence
 	 */
 	public static Sequence newSequence(List<Object> list) {

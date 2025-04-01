@@ -8,19 +8,19 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 /**
- * JTableµ¥Ôª¸ñÑÕÉ«±à¼­äÖÈ¾Æ÷
+ * JTableå•å…ƒæ ¼é¢œè‰²ç¼–è¾‘æ¸²æŸ“å™¨
  *
  */
 public class ColorCellRenderer extends JLabel implements TableCellRenderer {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ÑÕÉ«Í¼±ê
+	 * é¢œè‰²å›¾æ ‡
 	 */
 	private ColorIcon icon = new ColorIcon();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public ColorCellRenderer() {
 		setOpaque(true);
@@ -30,7 +30,7 @@ public class ColorCellRenderer extends JLabel implements TableCellRenderer {
 	}
 
 	/**
-	 * ·µ»ØÓÃÓÚÏÔÊ¾µÄ×é¼ş
+	 * è¿”å›ç”¨äºæ˜¾ç¤ºçš„ç»„ä»¶
 	 */
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {

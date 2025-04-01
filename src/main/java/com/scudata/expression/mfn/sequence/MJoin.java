@@ -10,9 +10,9 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÅÅÁĞ×öÇø¼äÊ½¹ØÁª
- * A.mjoin(Ki,¡­,K;B:F, Ki:¡­,K:a:b)
- * A.mjoin(K;B,K:a:b,x:F,¡­)
+ * å¯¹æ’åˆ—åšåŒºé—´å¼å…³è”
+ * A.mjoin(Ki,â€¦,K;B:F, Ki:â€¦,K:a:b)
+ * A.mjoin(K;B,K:a:b,x:F,â€¦)
  * @author RunQian
  *
  */
@@ -56,7 +56,7 @@ public class MJoin extends SequenceFunction {
 			throw new RQException("mjoin" + mm.getMessage("function.invalidParam"));
 		}
 		
-		//B:F, Ki:¡­,K:a:b
+		//B:F, Ki:â€¦,K:a:b
 		Sequence table = null;
 		Expression keyExp;
 		Object from, to = null;

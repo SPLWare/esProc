@@ -11,32 +11,32 @@ import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 import com.scudata.common.*;
 /**
- * ¶Ñ»ıÖùÍ¼ÊµÏÖ
+ * å †ç§¯æŸ±å›¾å®ç°
  * @author Joancy
  *
  */
 
 public class DrawColStacked extends DrawBase {
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static int drawing(DrawBase db, StringBuffer htmlLink) {
 		return drawing(db,htmlLink,false);
 	}
 	
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static int drawing(DrawBase db, StringBuffer htmlLink, boolean is2Y) {
 		GraphParam gp = db.gp;
@@ -71,9 +71,9 @@ public class DrawColStacked extends DrawBase {
 		}
 		ArrayList tmpCat = null;
 		if ( is2Y ) {
-//			ÓÉÓÚ¶Ñ»ıÍ¼µÄÆäËûÏµÁĞ£¬¸úË«ÖáÍ¼is2YµÄÓÒÖáÍ¬Ê±Ê¹ÓÃÁËcategory2±äÁ¿£¬ÓĞ³åÍ»
-//			Òò´Ëis2Y»æÖÆ¶Ñ»ıÍ¼Ê±£¬ĞèÒªºöÂÔcategory2£¬ÈÃ¶Ñ»ı»­·¨²»»­ÆäËûÏµÁĞ
-//			¶Ñ»ıÍ¼»­Íêºó£¬ÔÙ»­Ë«ÖáµÄÕÛÏß 
+//			ç”±äºå †ç§¯å›¾çš„å…¶ä»–ç³»åˆ—ï¼Œè·ŸåŒè½´å›¾is2Yçš„å³è½´åŒæ—¶ä½¿ç”¨äº†category2å˜é‡ï¼Œæœ‰å†²çª
+//			å› æ­¤is2Yç»˜åˆ¶å †ç§¯å›¾æ—¶ï¼Œéœ€è¦å¿½ç•¥category2ï¼Œè®©å †ç§¯ç”»æ³•ä¸ç”»å…¶ä»–ç³»åˆ—
+//			å †ç§¯å›¾ç”»å®Œåï¼Œå†ç”»åŒè½´çš„æŠ˜çº¿ 
 			tmpCat = egp.category2;
 			egp.category2 = null;
 		}
@@ -106,9 +106,9 @@ public class DrawColStacked extends DrawBase {
 		dely = (gp.graphRect.height - coorWidth) / gp.tickNum;
 		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
 		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
-		/* »­×ø±êÖá */
+		/* ç”»åæ ‡è½´ */
 		db.drawGraphRect();
-		/* »­YÖá */
+		/* ç”»Yè½´ */
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLine(dely, i);
 
@@ -118,17 +118,17 @@ public class DrawColStacked extends DrawBase {
 			x = gp.gRect1.x - gp.tickLen;
 			y = gp.gRect1.y + gp.gRect1.height - i * dely;
 			gp.GFV_YLABEL.outText(x, y, scoory);
-			// ÉèÖÃ»ùÏß
+			// è®¾ç½®åŸºçº¿
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
 				gp.valueBaseLine =  (gp.gRect1.y + gp.gRect1.height - i
 						* dely);
 			}
 		}
 
-		// »­¾¯½äÏß
+		// ç”»è­¦æˆ’çº¿
 		db.drawWarnLine();
 
-		/* »­XÖá */
+		/* ç”»Xè½´ */
 		ArrayList cats = egp.categories;
 		int cc = cats.size();
 		Color c;
@@ -137,7 +137,7 @@ public class DrawColStacked extends DrawBase {
 			double delx = (i + 1) * categorySpan + i * seriesWidth
 					* serNum + seriesWidth * serNum / 2.0;
 			
-			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//Öù¶¥ÊÇ·ñÏÔÊ¾Öµ¸ú»­Table·Ö¿ª
+			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//æŸ±é¡¶æ˜¯å¦æ˜¾ç¤ºå€¼è·Ÿç”»Tableåˆ†å¼€
 			boolean vis = valvis && !gp.isDrawTable;
 			if (vis) {
 				c = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
@@ -145,7 +145,7 @@ public class DrawColStacked extends DrawBase {
 				db.drawLine(gp.gRect1.x + delx, gp.gRect1.y + gp.gRect1.height,
 						gp.gRect1.x + delx, gp.gRect1.y + gp.gRect1.height
 								+ gp.tickLen, c);
-				// »­±³¾°ĞéÏß
+				// ç”»èƒŒæ™¯è™šçº¿
 				db.drawGridLineCategoryV(gp.gRect1.x + delx);
 			}
 
@@ -199,7 +199,7 @@ public class DrawColStacked extends DrawBase {
 		}
 
 		db.outLabels();
-		/* ÖØ»­Ò»ÏÂ»ùÏß */
+		/* é‡ç”»ä¸€ä¸‹åŸºçº¿ */
 		db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x
 				+ gp.gRect1.width, gp.valueBaseLine,
 				egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
@@ -357,7 +357,7 @@ public class DrawColStacked extends DrawBase {
 			}
 		}
 		
-		// ÔÚÖù¶¥ÏÔÊ¾ÊıÖµ
+		// åœ¨æŸ±é¡¶æ˜¾ç¤ºæ•°å€¼
 		if (gp.dispStackSumValue && vis) {
 			double val = db
 					.getScaledValue(egc.getPositiveSumSeries(), true);

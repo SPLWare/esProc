@@ -25,201 +25,201 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 
 /**
- * ¹«ÓÃpoi°æ±¾·½·¨¼æÈİ¹¤¾ß½Ó¿Ú£¬ÊµÏÖÀàÊÖ¶¯Ìí¼Óµ½poi-5.0.0.jar¡¢poi-3.17.jar 
+ * å…¬ç”¨poiç‰ˆæœ¬æ–¹æ³•å…¼å®¹å·¥å…·æ¥å£ï¼Œå®ç°ç±»æ‰‹åŠ¨æ·»åŠ åˆ°poi-5.0.0.jarã€poi-3.17.jar 
  * com/scudata/excel/ExcelVersionCompatibleUtil.class
- * ¸ù¾İ°æ±¾²»Í¬£¬·½·¨ÊµÏÖÓĞÇø±ğ
+ * æ ¹æ®ç‰ˆæœ¬ä¸åŒï¼Œæ–¹æ³•å®ç°æœ‰åŒºåˆ«
 */
 public interface ExcelVersionCompatibleUtilInterface {
 	
 	/**
-	 * @return xlsx·½¿éĞÎ×´ÓÒÏÂ½Ç×ø±ê¼ÆËã»»Ëã±ÈÀı
+	 * @return xlsxæ–¹å—å½¢çŠ¶å³ä¸‹è§’åæ ‡è®¡ç®—æ¢ç®—æ¯”ä¾‹
 	 */
 	public int getXSSFShape_EMU_PER_PIXEL() ;
 
 	/**
-	 * »ñÈ¡µ¥Ôª¸ñÀàĞÍ
-	 * @param c Ä¿±êµ¥Ôª¸ñ
-	 * @return µ¥Ôª¸ñÀàĞÍÃ¶¾Ù
+	 * è·å–å•å…ƒæ ¼ç±»å‹
+	 * @param c ç›®æ ‡å•å…ƒæ ¼
+	 * @return å•å…ƒæ ¼ç±»å‹æšä¸¾
 	 */
 	public CellType getCellType(Cell c);
 	
 	/**
 	 * 
-	 * @return xlsÍ¸Ã÷É«shortÖµ
+	 * @return xlsé€æ˜è‰²shortå€¼
 	 */
 	public short getHSSFColor_AUTOMATIC_Index();
 
 	/**
-	 * xlsË®Æ½Î»ÖÃ³£Á¿
+	 * xlsæ°´å¹³ä½ç½®å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public HorizontalAlignment getHSSFAlignmentEnum(HSSFCellStyle style);
 
 	/**
-	 * xls´¹Ö±Î»ÖÃ³£Á¿
+	 * xlså‚ç›´ä½ç½®å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public VerticalAlignment getHSSFVerticalAlignmentEnum(HSSFCellStyle style);
 
 	/**
-	 * xls×ó±ß¿ò³£Á¿
+	 * xlså·¦è¾¹æ¡†å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public short getHSSFBorderLeft(HSSFCellStyle style);
 	/**
-	 * xlsÓÒ±ß¿ò³£Á¿
+	 * xlså³è¾¹æ¡†å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public short getHSSFBorderRight(HSSFCellStyle style);
 	/**
-	 * xlsÉÏ±ß¿ò³£Á¿
+	 * xlsä¸Šè¾¹æ¡†å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public short getHSSFBorderTop(HSSFCellStyle style);
 	/**
-	 * xlsÏÂ±ß¿ò³£Á¿
+	 * xlsä¸‹è¾¹æ¡†å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public short getHSSFBorderBottom(HSSFCellStyle style);
 	/**
-	 * xlsxË®Æ½Î»ÖÃ³£Á¿
+	 * xlsxæ°´å¹³ä½ç½®å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public HorizontalAlignment getXSSFAlignmentEnum(XSSFCellStyle style);
 	/**
-	 * xlsx´¹Ö±Î»ÖÃ³£Á¿
+	 * xlsxå‚ç›´ä½ç½®å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public VerticalAlignment getXSSFVerticalAlignmentEnum(XSSFCellStyle style);
 	/**
-	 * xlsx×ó±ß¿ò³£Á¿
+	 * xlsxå·¦è¾¹æ¡†å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public short getXSSFBorderLeft(XSSFCellStyle style);
 	/**
-	 * xlsxÓÒ±ß¿ò³£Á¿
+	 * xlsxå³è¾¹æ¡†å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public short getXSSFBorderRight(XSSFCellStyle style);
 	/**
-	 * xlsxÉÏ±ß¿ò³£Á¿
+	 * xlsxä¸Šè¾¹æ¡†å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public short getXSSFBorderTop(XSSFCellStyle style);
 	/**
-	 * xlsxÏÂ±ß¿ò³£Á¿
+	 * xlsxä¸‹è¾¹æ¡†å¸¸é‡
 	 * @param style
 	 * @return
 	 */
 	public short getXSSFBorderBottom(XSSFCellStyle style);
 
 	/**
-	 * »ñÈ¡xlsxÑÕÉ«¶ÔÏóµÄARGBÖµ
+	 * è·å–xlsxé¢œè‰²å¯¹è±¡çš„ARGBå€¼
 	 * @param xc
-	 * @param defColor Èç¹ûxcÎªnull£¬Ôò·µ»Ø´ËColorµÄARGB
+	 * @param defColor å¦‚æœxcä¸ºnullï¼Œåˆ™è¿”å›æ­¤Colorçš„ARGB
 	 * @return
 	 */
 	public int getColor(XSSFColor xc, Color defColor);
 	
 	/**
-	 * ¶ş½øÖÆ×ªintÊı×Ö
+	 * äºŒè¿›åˆ¶è½¬intæ•°å­—
 	 * @param b
 	 * @return
 	 */
 	public int byteToInt(byte b);
 	
 	/**
-	 * ÅĞ¶ÏcellÊÇ·ñÎª¹«Ê½¸ñ
+	 * åˆ¤æ–­cellæ˜¯å¦ä¸ºå…¬å¼æ ¼
 	 * @param cell
 	 * @return
 	 */
 	public boolean isCellTypeFomula(Cell cell);
 	/**
-	 * ²åÈëxlsx±³¾°Í¼
+	 * æ’å…¥xlsxèƒŒæ™¯å›¾
 	 * @param wbp
-	 * @param img ±³¾°Í¼
-	 * @param s ÒªÌí¼Ó±³¾°Í¼µÄsheetÒ³¶ÔÏó
+	 * @param img èƒŒæ™¯å›¾
+	 * @param s è¦æ·»åŠ èƒŒæ™¯å›¾çš„sheeté¡µå¯¹è±¡
 	 * @throws IOException
 	 */
 	public void addWaterRemarkToExcel(Workbook wbp, BufferedImage img, Sheet s) throws IOException;
 	
-	/** »ñµÃ±ß¿òÑùÊ½
-	 * @param borderStyle ÈóÇ¬±¨±íÖĞ¶¨ÒåµÄ±ß¿òÑùÊ½
-	 * @param borderWidth ±ß¿ò¿í¶È
-	 * @return ExcelµÄ±ß¿òÑùÊ½
+	/** è·å¾—è¾¹æ¡†æ ·å¼
+	 * @param borderStyle æ¶¦ä¹¾æŠ¥è¡¨ä¸­å®šä¹‰çš„è¾¹æ¡†æ ·å¼
+	 * @param borderWidth è¾¹æ¡†å®½åº¦
+	 * @return Excelçš„è¾¹æ¡†æ ·å¼
 	 */
 	public short getBorderStyle( byte borderStyle, float width );
 	
 
 	/**
-	 * »ñµÃ±ß¿òÑùÊ½
+	 * è·å¾—è¾¹æ¡†æ ·å¼
 	 * 
 	 * @param borderStyle
-	 *            ÈóÇ¬±¨±íÖĞ¶¨ÒåµÄ±ß¿òÑùÊ½
+	 *            æ¶¦ä¹¾æŠ¥è¡¨ä¸­å®šä¹‰çš„è¾¹æ¡†æ ·å¼
 	 * @param borderWidth
-	 *            ±ß¿ò¿í¶È
-	 * @return ExcelµÄ±ß¿òÑùÊ½
+	 *            è¾¹æ¡†å®½åº¦
+	 * @return Excelçš„è¾¹æ¡†æ ·å¼
 	 */
 	public short getISheetBorderStyle(byte borderStyle);
 
 	/**
-	 * »ñÈ¡µ¥Ôª¸ñÀàĞÍ
-	 * @param value Ä¿±êµ¥Ôª¸ñÖµ
-	 * @return µ¥Ôª¸ñÀàĞÍÃ¶¾Ù
+	 * è·å–å•å…ƒæ ¼ç±»å‹
+	 * @param value ç›®æ ‡å•å…ƒæ ¼å€¼
+	 * @return å•å…ƒæ ¼ç±»å‹æšä¸¾
 	 */
 	public CellType getCellType(CellValue value);
 	
 	/**
-	 * »ñÈ¡sheetÖĞÄ³Ò»¸ö¸»ÎÄ±¾¶ÔÏó
+	 * è·å–sheetä¸­æŸä¸€ä¸ªå¯Œæ–‡æœ¬å¯¹è±¡
 	 * @param sst
 	 * @param idx
 	 * @return
 	 */
 	public RichTextString getItemAt(SharedStrings sst, int idx);
 	/**
-	 * »ñÈ¡sheetÒ³ÀïµÄÍ¼Æ¬¼¯ºÏ
+	 * è·å–sheeté¡µé‡Œçš„å›¾ç‰‡é›†åˆ
 	 * @param sheet
 	 * @param graphMap
 	 */
 	public void getSheetPictures(XSSFSheet sheet, Map<String, byte[]> graphMap);
 	/**
-	 * »ñÈ¡Ö¸¶¨fontµÄ±àºÅ
+	 * è·å–æŒ‡å®šfontçš„ç¼–å·
 	 * @param font
-	 * @return Í³Ò»·µ»Øint
+	 * @return ç»Ÿä¸€è¿”å›int
 	 */
 	public int getFontIndex(Font font);
 	/**
-	 * »ñÈ¡Ö¸¶¨µ¥Ôª¸ñÑùÊ½¶ÔÏóÀïµÄfontµÄ±àºÅ
+	 * è·å–æŒ‡å®šå•å…ƒæ ¼æ ·å¼å¯¹è±¡é‡Œçš„fontçš„ç¼–å·
 	 * @param style
-	 * @return Í³Ò»·µ»Øint
+	 * @return ç»Ÿä¸€è¿”å›int
 	 */
 	public int getFontIndex(CellStyle style);
 	/**
-	 * ÒıÓÃWorkbook.getNumberOfFonts()
+	 * å¼•ç”¨Workbook.getNumberOfFonts()
 	 * @param wb
-	 * @return Í³Ò»·µ»Øint
+	 * @return ç»Ÿä¸€è¿”å›int
 	 */
 	public int getNumberOfFonts(Workbook wb);
 	/**
-	 * ÒıÓÃWorkbook.getNumberOfSheets()
+	 * å¼•ç”¨Workbook.getNumberOfSheets()
 	 * @param wb
-	 * @return Í³Ò»·µ»Øint
+	 * @return ç»Ÿä¸€è¿”å›int
 	 */
 	public int getNumberOfSheets(Workbook wb);
 
 	/**
-	 * »ñÈ¡Ö¸¶¨±àºÅµÄ×ÖÌåFont¶ÔÏó
+	 * è·å–æŒ‡å®šç¼–å·çš„å­—ä½“Fontå¯¹è±¡
 	 * @param wb
 	 * @param index
 	 * @return
@@ -227,7 +227,7 @@ public interface ExcelVersionCompatibleUtilInterface {
 	public Font getFontAt(Workbook wb, Number index);
 	
 	/**
-	 * ·µ»Øµ¥Ôª¸ñ¹«Ê½¼ÆËã½á¹ûÀàĞÍ
+	 * è¿”å›å•å…ƒæ ¼å…¬å¼è®¡ç®—ç»“æœç±»å‹
 	 * @param cell
 	 * @return
 	 */

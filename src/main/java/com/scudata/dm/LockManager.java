@@ -3,7 +3,7 @@ package com.scudata.dm;
 import java.util.HashMap;
 
 /**
- * Ëø¹ÜÀíÆ÷£¬ÓÃÓÚlock(n,s)º¯Êı
+ * é”ç®¡ç†å™¨ï¼Œç”¨äºlock(n,s)å‡½æ•°
  * @author WangXiaoJun
  *
  */
@@ -11,11 +11,11 @@ public final class LockManager {
 	private static HashMap<Object, LockObject> lockMap = new HashMap<Object, LockObject>();
 	
 	/**
-	 * Ëø¶¨¸ø¶¨Öµ
-	 * @param key ËøÖµ
-	 * @param ms µÈ´ıºÁÃëÊı£¬Ğ¡ÓÚ0±íÊ¾ÓÀ²»³¬Ê±
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Èç¹û³É¹¦true£¬Ê§°Ü·µ»Øfalse
+	 * é”å®šç»™å®šå€¼
+	 * @param key é”å€¼
+	 * @param ms ç­‰å¾…æ¯«ç§’æ•°ï¼Œå°äº0è¡¨ç¤ºæ°¸ä¸è¶…æ—¶
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å¦‚æœæˆåŠŸtrueï¼Œå¤±è´¥è¿”å›false
 	 */
 	public final static Object lock(Object key, long ms, Context ctx) {
 		LockObject lock;
@@ -35,10 +35,10 @@ public final class LockManager {
 	}
 	
 	/**
-	 * ½âËø¸ø¶¨Öµ
-	 * @param key ËøÖµ
+	 * è§£é”ç»™å®šå€¼
+	 * @param key é”å€¼
 	 * @param ctx
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public final static boolean unLock(Object key, Context ctx) {
 		LockObject lock;

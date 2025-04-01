@@ -19,45 +19,45 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * ĞĞ¸ßÁĞ¿í¶Ô»°¿ò
+ * è¡Œé«˜åˆ—å®½å¯¹è¯æ¡†
  *
  */
 public class DialogRowHeight extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * ĞĞ¸ß»òÁĞ¿í
+	 * è¡Œé«˜æˆ–åˆ—å®½
 	 */
 	private JSpinner jSPSize = new JSpinner(new SpinnerNumberModel(0f, 0f,
 			999f, 5f));
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 	/**
-	 * ÊÇ·ñĞĞ¸ß£¬ÊÇĞĞ¸ß£¬·ñÁĞ¿í
+	 * æ˜¯å¦è¡Œé«˜ï¼Œæ˜¯è¡Œé«˜ï¼Œå¦åˆ—å®½
 	 */
 	private boolean isRow;
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param isRow
-	 *            ÊÇ·ñĞĞ¸ß£¬ÊÇĞĞ¸ß£¬·ñÁĞ¿í
+	 *            æ˜¯å¦è¡Œé«˜ï¼Œæ˜¯è¡Œé«˜ï¼Œå¦åˆ—å®½
 	 * @param size
-	 *            ĞĞ¸ß»òÁĞ¿í
+	 *            è¡Œé«˜æˆ–åˆ—å®½
 	 */
 	public DialogRowHeight(boolean isRow, float size) {
 		super(GV.appFrame, "", true);
@@ -73,7 +73,7 @@ public class DialogRowHeight extends JDialog {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -82,7 +82,7 @@ public class DialogRowHeight extends JDialog {
 	}
 
 	/**
-	 * È¡ĞĞ¸ß
+	 * å–è¡Œé«˜
 	 * 
 	 * @return
 	 */
@@ -91,22 +91,22 @@ public class DialogRowHeight extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 * 
 	 * @param size
 	 */
 	private void init(float size) {
 		if (isRow) {
-			setTitle(mm.getMessage("dialogrowheight.rowheight")); // ĞĞ¸ß
+			setTitle(mm.getMessage("dialogrowheight.rowheight")); // è¡Œé«˜
 		} else {
-			setTitle(mm.getMessage("dialogrowheight.colwidth")); // ÁĞ¿í
+			setTitle(mm.getMessage("dialogrowheight.colwidth")); // åˆ—å®½
 		}
 		jSPSize.setValue(new Double(size));
 		jSPSize.setPreferredSize(new Dimension(0, 25));
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -117,10 +117,10 @@ public class DialogRowHeight extends JDialog {
 		VFlowLayout vFlowLayout2 = new VFlowLayout();
 		jPanel2.setLayout(vFlowLayout1);
 		jBOK.setMnemonic('O');
-		jBOK.setText(mm.getMessage("button.ok")); // È·¶¨(O)
+		jBOK.setText(mm.getMessage("button.ok")); // ç¡®å®š(O)
 		jBOK.addActionListener(new DialogRowHeight_jBOK_actionAdapter(this));
 		jBCancel.setMnemonic('C');
-		jBCancel.setText(mm.getMessage("button.cancel")); // È¡Ïû(C)
+		jBCancel.setText(mm.getMessage("button.cancel")); // å–æ¶ˆ(C)
 		jBCancel.addActionListener(new DialogRowHeight_jBCancel_actionAdapter(
 				this));
 		jPanel1.setLayout(vFlowLayout2);
@@ -134,7 +134,7 @@ public class DialogRowHeight extends JDialog {
 	}
 
 	/**
-	 * ¹Ø±Õ´°¿Ú
+	 * å…³é—­çª—å£
 	 */
 	private void close() {
 		GM.setWindowDimension(this);
@@ -142,7 +142,7 @@ public class DialogRowHeight extends JDialog {
 	}
 
 	/**
-	 * ¹Ø±Õ´°¿ÚÊÂ¼ş
+	 * å…³é—­çª—å£äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -151,7 +151,7 @@ public class DialogRowHeight extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -161,7 +161,7 @@ public class DialogRowHeight extends JDialog {
 			String exp = isRow ? mm.getMessage("dialogrowheight.rowheight")
 					: mm.getMessage("dialogrowheight.colwidth");
 			GM.messageDialog(this,
-					mm.getMessage("dialogrowheight.validval", exp)); // ²»ºÏ·¨µÄ{0}
+					mm.getMessage("dialogrowheight.validval", exp)); // ä¸åˆæ³•çš„{0}
 			return;
 		}
 		m_option = JOptionPane.OK_OPTION;
@@ -169,7 +169,7 @@ public class DialogRowHeight extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */

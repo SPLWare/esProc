@@ -15,14 +15,14 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * time(datetimeExp) ´ÓdatetimeExpÖĞÈ¡³öÊ±¼ä²¿·ÖµÄÊı¾İ¡£È±Ê¡¾«È·µ½ºÁÃë¡£
- * ĞèÓëÅäÖÃĞÅÏ¢ÖĞµÄÊ±¼ä¸ñÊ½Ò»ÖÂ, ÅäÖÃĞÅÏ¢Ä¬ÈÏ²»ÏÔÊ¾ºÁÃë
+ * time(datetimeExp) ä»datetimeExpä¸­å–å‡ºæ—¶é—´éƒ¨åˆ†çš„æ•°æ®ã€‚ç¼ºçœç²¾ç¡®åˆ°æ¯«ç§’ã€‚
+ * éœ€ä¸é…ç½®ä¿¡æ¯ä¸­çš„æ—¶é—´æ ¼å¼ä¸€è‡´, é…ç½®ä¿¡æ¯é»˜è®¤ä¸æ˜¾ç¤ºæ¯«ç§’
  * @author runqian
  *
  */
 public class ToTime extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

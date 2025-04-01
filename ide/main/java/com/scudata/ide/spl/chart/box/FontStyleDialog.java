@@ -9,7 +9,7 @@ import com.scudata.ide.common.*;
 import com.scudata.ide.spl.resources.*;
 
 /**
- * ×ÖÌåÑùÊ½¶Ô»°¿ò
+ * å­—ä½“æ ·å¼å¯¹è¯æ¡†
  * 
  * @author Joancy
  *
@@ -30,8 +30,8 @@ public class FontStyleDialog extends JDialog {
 	GridBagLayout gridBagLayout1 = new GridBagLayout();
 
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
 	 */
 	public FontStyleDialog( Dialog owner ) {
 		super( owner );
@@ -50,24 +50,24 @@ public class FontStyleDialog extends JDialog {
 	private void jbInit() throws Exception {
 		this.getContentPane().setLayout( gridBagLayout1 );
 		bold.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
-		bold.setText( ChartMessage.get().getMessage( "fontdialog.bold" ) );  //"´ÖÌå" );
+		bold.setText( ChartMessage.get().getMessage( "fontdialog.bold" ) );  //"ç²—ä½“" );
 		italic.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
-		italic.setText( ChartMessage.get().getMessage( "fontdialog.italic" ) );  //"Ğ±Ìå" );
+		italic.setText( ChartMessage.get().getMessage( "fontdialog.italic" ) );  //"æ–œä½“" );
 		underLine.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
 		underLine.setActionCommand( "" );
-		underLine.setText( ChartMessage.get().getMessage( "fontdialog.ul" ) );  //"ÏÂ»®Ïß" );
+		underLine.setText( ChartMessage.get().getMessage( "fontdialog.ul" ) );  //"ä¸‹åˆ’çº¿" );
 		vertical.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
-		vertical.setActionCommand( ChartMessage.get().getMessage( "fontdialog.vert" ) );  //"ÊúÅÅÎÄ×Ö" );
-		vertical.setText( ChartMessage.get().getMessage( "fontdialog.vert" ) );  //"ÊúÅÅÎÄ×Ö" );
+		vertical.setActionCommand( ChartMessage.get().getMessage( "fontdialog.vert" ) );  //"ç«–æ’æ–‡å­—" );
+		vertical.setText( ChartMessage.get().getMessage( "fontdialog.vert" ) );  //"ç«–æ’æ–‡å­—" );
 		okbtn.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
 		okbtn.setMargin( new Insets( 2, 10, 2, 10 ) );
-		okbtn.setText( ChartMessage.get().getMessage( "button.ok" ) );  //"È·¶¨(O)" );
+		okbtn.setText( ChartMessage.get().getMessage( "button.ok" ) );  //"ç¡®å®š(O)" );
 		okbtn.addActionListener( new java.awt.event.ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				okbtn_actionPerformed( e );
 			}
 		} );
-		cancelbtn.setText( ChartMessage.get().getMessage( "button.cancel" ) );  //"È¡Ïû(C)" );
+		cancelbtn.setText( ChartMessage.get().getMessage( "button.cancel" ) );  //"å–æ¶ˆ(C)" );
 		cancelbtn.addActionListener( new java.awt.event.ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				cancelbtn_actionPerformed( e );
@@ -92,8 +92,8 @@ public class FontStyleDialog extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃ×ÖÌåÑùÊ½
-	 * @param style ÑùÊ½
+	 * è®¾ç½®å­—ä½“æ ·å¼
+	 * @param style æ ·å¼
 	 */
 	public void setFontStyle( int style ) {
 		this.style = style;
@@ -124,16 +124,16 @@ public class FontStyleDialog extends JDialog {
 	}
 
 	/**
-	 * »ñÈ¡´°¿Ú¶¯×÷Ñ¡Ïî
-	 * @return Ñ¡Ïî
+	 * è·å–çª—å£åŠ¨ä½œé€‰é¡¹
+	 * @return é€‰é¡¹
 	 */
 	public int getOption() {
 		return m_option;
 	}
 
 	/**
-	 * »ñÈ¡×ÖÌåÑùÊ½
-	 * @return ×ÖÌåÑùÊ½
+	 * è·å–å­—ä½“æ ·å¼
+	 * @return å­—ä½“æ ·å¼
 	 */
 	public int getFontStyle() {
 		return style;

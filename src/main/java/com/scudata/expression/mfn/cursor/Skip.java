@@ -9,7 +9,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Ìø¹ıÖ¸¶¨ÌõÊıµÄÊı¾İ£¬Ê¡ÂÔÔòÌø¹ıËùÓĞ£¬·µ»ØÊµ¼ÊÌø¹ıµÄÌõÊı
+ * è·³è¿‡æŒ‡å®šæ¡æ•°çš„æ•°æ®ï¼Œçœç•¥åˆ™è·³è¿‡æ‰€æœ‰ï¼Œè¿”å›å®é™…è·³è¿‡çš„æ¡æ•°
  * cs.skip(n)
  * @author RunQian
  *

@@ -18,34 +18,34 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JTableEx;
 
 /**
- * ³£ĞòÁĞ±à¼­Ãæ°å
+ * å¸¸åºåˆ—ç¼–è¾‘é¢æ¿
  *
  */
 public class PanelSeries extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
 	/**
-	 * ĞòºÅÁĞ
+	 * åºå·åˆ—
 	 */
 	private final int COL_INDEX = 0;
 	/**
-	 * ÖµÁĞ
+	 * å€¼åˆ—
 	 */
 	private final int COL_VALUE = 1;
 	/**
-	 * ³£ĞòÁĞÖµµÄ±í¶ÔÏó
+	 * å¸¸åºåˆ—å€¼çš„è¡¨å¯¹è±¡
 	 */
 	private JTableEx tableSeq = new JTableEx(
-			mm.getMessage("panelseries.tableparam")) { // ĞòºÅ,Öµ
+			mm.getMessage("panelseries.tableparam")) { // åºå·,å€¼
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * Ë«»÷µ¯³öÎÄ±¾¶Ô»°¿ò±à¼­Öµ
+		 * åŒå‡»å¼¹å‡ºæ–‡æœ¬å¯¹è¯æ¡†ç¼–è¾‘å€¼
 		 */
 		public void doubleClicked(int xpos, int ypos, int row, int col,
 				MouseEvent e) {
@@ -53,7 +53,7 @@ public class PanelSeries extends JPanel {
 		}
 
 		/**
-		 * ÖµÌá½»Ê±×ª»»³ÉÏàÓ¦µÄ¶ÔÏó
+		 * å€¼æäº¤æ—¶è½¬æ¢æˆç›¸åº”çš„å¯¹è±¡
 		 */
 		public void setValueAt(Object aValue, int row, int column) {
 			if (!isItemDataChanged(row, column, aValue)) {
@@ -76,22 +76,22 @@ public class PanelSeries extends JPanel {
 	};
 
 	/**
-	 * ³£ĞòÁĞ¶ÔÏó
+	 * å¸¸åºåˆ—å¯¹è±¡
 	 */
 	private Sequence seq;
 
 	/**
-	 * ÊÇ·ñ×èÖ¹±ä»¯
+	 * æ˜¯å¦é˜»æ­¢å˜åŒ–
 	 */
 	private boolean preventChange = false;
 
 	/**
-	 * ·ò×é¼ş
+	 * å¤«ç»„ä»¶
 	 */
 	private Component parent;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public PanelSeries(Component parent) {
 		try {
@@ -104,7 +104,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -114,7 +114,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃ³£Á¿¶ÔÏó
+	 * è®¾ç½®å¸¸é‡å¯¹è±¡
 	 * 
 	 * @param param
 	 */
@@ -131,7 +131,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * È¡³£Á¿¶ÔÏó
+	 * å–å¸¸é‡å¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -140,7 +140,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * Ë¢ĞÂ
+	 * åˆ·æ–°
 	 */
 	private void refresh() {
 		tableSeq.removeAllRows();
@@ -157,7 +157,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * È«Ñ¡
+	 * å…¨é€‰
 	 */
 	public void selectAll() {
 		tableSeq.acceptText();
@@ -165,7 +165,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * ĞĞÉÏÒÆ
+	 * è¡Œä¸Šç§»
 	 */
 	public void rowUp() {
 		tableSeq.acceptText();
@@ -177,7 +177,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * ĞĞÏÂÒÆ
+	 * è¡Œä¸‹ç§»
 	 */
 	public void rowDown() {
 		tableSeq.acceptText();
@@ -189,7 +189,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * Ôö¼ÓĞĞ
+	 * å¢åŠ è¡Œ
 	 */
 	public void addRow() {
 		tableSeq.acceptText();
@@ -198,7 +198,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * ²åÈëĞĞ
+	 * æ’å…¥è¡Œ
 	 */
 	public void insertRow() {
 		tableSeq.acceptText();
@@ -212,7 +212,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * ¼ì²éÊı¾İ
+	 * æ£€æŸ¥æ•°æ®
 	 * 
 	 * @return
 	 */
@@ -222,7 +222,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * ½«Êı¾İ¸´ÖÆµ½¼ôÌù°å
+	 * å°†æ•°æ®å¤åˆ¶åˆ°å‰ªè´´æ¿
 	 */
 	public void clipBoard() {
 		String blockData = tableSeq.getBlockData();
@@ -230,7 +230,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * É¾³ıÑ¡ÖĞµÄĞĞ
+	 * åˆ é™¤é€‰ä¸­çš„è¡Œ
 	 */
 	public void deleteRows() {
 		tableSeq.acceptText();
@@ -245,7 +245,7 @@ public class PanelSeries extends JPanel {
 	}
 
 	/**
-	 * ³õÊ¼»¯±í¿Ø¼ş
+	 * åˆå§‹åŒ–è¡¨æ§ä»¶
 	 */
 	private void initTable() {
 		preventChange = true;

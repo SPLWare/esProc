@@ -1,7 +1,7 @@
 package com.scudata.parallel;
 
 /**
- * 集群对象
+ * 闆嗙兢瀵硅薄
  * @author RunQian
  *
  */

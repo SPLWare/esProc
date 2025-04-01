@@ -6,24 +6,24 @@ import java.awt.event.MouseListener;
 import com.scudata.common.CellLocation;
 
 /**
- * Êó±êÑ¡ÖĞµ¥Ôª¸ñÊ±ÏÔÊ¾µ¥Ôª¸ñ±à¼­Æ÷µÄ¼àÌıÆ÷
+ * é¼ æ ‡é€‰ä¸­å•å…ƒæ ¼æ—¶æ˜¾ç¤ºå•å…ƒæ ¼ç¼–è¾‘å™¨çš„ç›‘å¬å™¨
  */
 public class ShowEditorListener implements MouseListener {
-	/** Íø¸ñÄÚÈİÃæ°å */
+	/** ç½‘æ ¼å†…å®¹é¢æ¿ */
 	private ContentPanel cp;
 
 	/**
-	 * ¼àÌıÆ÷¹¹Ôìº¯Êı
+	 * ç›‘å¬å™¨æ„é€ å‡½æ•°
 	 * 
 	 * @param panel
-	 *            Íø¸ñÄÚÈİÃæ°å
+	 *            ç½‘æ ¼å†…å®¹é¢æ¿
 	 */
 	public ShowEditorListener(ContentPanel panel) {
 		this.cp = panel;
 	}
 
 	/**
-	 * Êó±ê°´ÏÂÊÂ¼ş´¦Àí£¬ÏÔÊ¾µ¥Ôª¸ñ±à¼­¿Ø¼ş
+	 * é¼ æ ‡æŒ‰ä¸‹äº‹ä»¶å¤„ç†ï¼Œæ˜¾ç¤ºå•å…ƒæ ¼ç¼–è¾‘æ§ä»¶
 	 * 
 	 * @param e
 	 */

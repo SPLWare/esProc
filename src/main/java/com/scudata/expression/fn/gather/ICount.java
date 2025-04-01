@@ -29,25 +29,25 @@ import com.scudata.util.Variant;
 
 
 /**
- * È¡²»ÖØ¸´µÄÔªËØ¸öÊı£¬È¥³ıÈ¡ÖµÎªfalseµÄÔªËØ
- * icount(x1,¡­)
+ * å–ä¸é‡å¤çš„å…ƒç´ ä¸ªæ•°ï¼Œå»é™¤å–å€¼ä¸ºfalseçš„å…ƒç´ 
+ * icount(x1,â€¦)
  * @author RunQian
  *
  */
 public class ICount extends Gather {
-	private Expression exp; // ±í´ïÊ½
-	private boolean isSorted = false; // Êı¾İÊÇ·ñ°´±í´ïÊ½ÓĞĞò
-	private boolean optB = false; // Ê¹ÓÃÎ»Ä£Ê½
-	private boolean useFile = false; // ÊÇ·ñÊ¹ÓÃÍâ´æ¼ÆËã£¬ÓÃÓÚ²»ÖØ¸´ÊıÁ¿¶àÄÚ´æ·Å²»ÏÂµÄÇé¿ö
+	private Expression exp; // è¡¨è¾¾å¼
+	private boolean isSorted = false; // æ•°æ®æ˜¯å¦æŒ‰è¡¨è¾¾å¼æœ‰åº
+	private boolean optB = false; // ä½¿ç”¨ä½æ¨¡å¼
+	private boolean useFile = false; // æ˜¯å¦ä½¿ç”¨å¤–å­˜è®¡ç®—ï¼Œç”¨äºä¸é‡å¤æ•°é‡å¤šå†…å­˜æ”¾ä¸ä¸‹çš„æƒ…å†µ
 	private int capacity = 0;
 	
-	// Ê¹ÓÃÍâ´æ¼ÆËãicount
+	// ä½¿ç”¨å¤–å­˜è®¡ç®—icount
 	public static class ICountFile {
 		private final int MAX_SIZE;
-		private IArray elementArray; // ¹şÏ£±í´æ·ÅµÄÊÇÔªËØµÄÎ»ÖÃ£¬ĞèÒª¸ù¾İÎ»ÖÃµ½Ô´±íÈ¡ÔªËØ
-		private int []linkArray; // ¹şÏ£ÖµÏàÍ¬µÄ¼ÇÂ¼Á´±í
-		private HashUtil hashUtil; // ÓÃÓÚ¼ÆËã¹şÏ£Öµ
-		private int []entries; // ¹şÏ£±í£¬´æ·Å×Å¹şÏ£Öµ¶ÔÓ¦µÄ×îºóÒ»Ìõ¼ÇÂ¼µÄÎ»ÖÃ
+		private IArray elementArray; // å“ˆå¸Œè¡¨å­˜æ”¾çš„æ˜¯å…ƒç´ çš„ä½ç½®ï¼Œéœ€è¦æ ¹æ®ä½ç½®åˆ°æºè¡¨å–å…ƒç´ 
+		private int []linkArray; // å“ˆå¸Œå€¼ç›¸åŒçš„è®°å½•é“¾è¡¨
+		private HashUtil hashUtil; // ç”¨äºè®¡ç®—å“ˆå¸Œå€¼
+		private int []entries; // å“ˆå¸Œè¡¨ï¼Œå­˜æ”¾ç€å“ˆå¸Œå€¼å¯¹åº”çš„æœ€åä¸€æ¡è®°å½•çš„ä½ç½®
 		private ArrayList<FileObject> fileList = new ArrayList<FileObject>();
 		
 		public ICountFile(int maxSize) {
@@ -162,7 +162,7 @@ public class ICount extends Gather {
 					if (newCapacity > oldCapacity) {
 						elementArray.push(elementArray2, seq2);
 					} else {
-						// ÓÒ²àsetµÄ³ÉÔ±²»ÔÚµ±Ç°setÖĞ
+						// å³ä¾§setçš„æˆå‘˜ä¸åœ¨å½“å‰setä¸­
 						totalCount++;
 						if (totalCount <= newCapacity) {
 							elementArray.push(elementArray2, seq2);
@@ -361,7 +361,7 @@ public class ICount extends Gather {
 		}
 	}
 	
-	// ÓĞĞòicountµÄÖĞ¼ä½á¹ûĞÅÏ¢
+	// æœ‰åºicountçš„ä¸­é—´ç»“æœä¿¡æ¯
 	public static class ICountInfo implements Serializable {
 		private static final long serialVersionUID = 1L;
 		
@@ -398,7 +398,7 @@ public class ICount extends Gather {
 				}
 			} else if (value != null) {
 				if (endValue == null) {
-					// Ç°ÃæµÄ¶¼ÊÇ¿Õ
+					// å‰é¢çš„éƒ½æ˜¯ç©º
 					startValue = value;
 					endValue = value;
 					count = 1;
@@ -410,16 +410,16 @@ public class ICount extends Gather {
 		}
 	}
 
-	//Ã»ÓĞÊ¹ÓÃ£¬ÏÈ·ÅÔÚÕâÀï
+	//æ²¡æœ‰ä½¿ç”¨ï¼Œå…ˆæ”¾åœ¨è¿™é‡Œ
 	public static class ICountHashSet implements Serializable {
 		private static final long serialVersionUID = 1L;
 		
 		private static final int INIT_SIZE = 64;
-		private IArray elementArray; // ¹şÏ£±í´æ·ÅµÄÊÇÔªËØµÄÎ»ÖÃ£¬ĞèÒª¸ù¾İÎ»ÖÃµ½Ô´±íÈ¡ÔªËØ
-		private HashUtil hashUtil; // ÓÃÓÚ¼ÆËã¹şÏ£Öµ
-		private int count = 0;// µ±Ç°ÔªËØ¸öÊı
-		private int []entries; // ¹şÏ£±í£¬´æ·Å×Å¹şÏ£Öµ¶ÔÓ¦µÄ×îºóÒ»Ìõ¼ÇÂ¼µÄÎ»ÖÃ
-		private IntArray linkArray; // ¹şÏ£ÖµÏàÍ¬µÄ¼ÇÂ¼Á´±í
+		private IArray elementArray; // å“ˆå¸Œè¡¨å­˜æ”¾çš„æ˜¯å…ƒç´ çš„ä½ç½®ï¼Œéœ€è¦æ ¹æ®ä½ç½®åˆ°æºè¡¨å–å…ƒç´ 
+		private HashUtil hashUtil; // ç”¨äºè®¡ç®—å“ˆå¸Œå€¼
+		private int count = 0;// å½“å‰å…ƒç´ ä¸ªæ•°
+		private int []entries; // å“ˆå¸Œè¡¨ï¼Œå­˜æ”¾ç€å“ˆå¸Œå€¼å¯¹åº”çš„æœ€åä¸€æ¡è®°å½•çš„ä½ç½®
+		private IntArray linkArray; // å“ˆå¸Œå€¼ç›¸åŒçš„è®°å½•é“¾è¡¨
 		
 		public ICountHashSet(IArray src) {
 			hashUtil = new HashUtil(INIT_SIZE);
@@ -542,7 +542,7 @@ public class ICount extends Gather {
 		}
 	}
 	
-	//°´bitÎ»ÅĞ¶ÏÊÇ·ñÖØ¸´
+	//æŒ‰bitä½åˆ¤æ–­æ˜¯å¦é‡å¤
 	public static class ICountBitSet implements Serializable {
 		private static final long serialVersionUID = 1L;
 		
@@ -655,7 +655,7 @@ public class ICount extends Gather {
 		}
 	}
 	
-	//ÓÃÎ»ÖÃÅĞ¶ÏÊÇ·ñÖØ¸´
+	//ç”¨ä½ç½®åˆ¤æ–­æ˜¯å¦é‡å¤
 	public static class ICountPositionSet implements Serializable {
 		private static final long serialVersionUID = 1L;
 		
@@ -785,10 +785,10 @@ public class ICount extends Gather {
 	}
 
 	/**
-	 * °ÑÒ»Ìõ¼ÇÂ¼¼ÆËã³öµÄÊı¾İ£¬Ìí¼Óµ½ÁÙÊ±ÖĞ¼äÊı¾İ
+	 * æŠŠä¸€æ¡è®°å½•è®¡ç®—å‡ºçš„æ•°æ®ï¼Œæ·»åŠ åˆ°ä¸´æ—¶ä¸­é—´æ•°æ®
 	 */
 	public Object gather(Context ctx) {
-		// Êı¾İ°´icount×Ö¶ÎÓĞĞò
+		// æ•°æ®æŒ‰icountå­—æ®µæœ‰åº
 		if (isSorted) {
 			Object val = exp.calculate(ctx);
 			if (val instanceof ICountInfo){
@@ -826,10 +826,10 @@ public class ICount extends Gather {
 	}
 	
 	/**
-	 * °ÑÆäËüÊı¾İÕûºÏµ½ÁÙÊ±ÖĞ¼äÊı¾İ
+	 * æŠŠå…¶å®ƒæ•°æ®æ•´åˆåˆ°ä¸´æ—¶ä¸­é—´æ•°æ®
 	 * 		
-	 * @param	oldValue	ÀÏµÄÊı¾İ(Èô²»ÊÇnull£¬Ôò±ØÎª¹şÏ£)
-	 * @param	ctx			ÉÏÏÂÎÄ±äÁ¿
+	 * @param	oldValue	è€çš„æ•°æ®(è‹¥ä¸æ˜¯nullï¼Œåˆ™å¿…ä¸ºå“ˆå¸Œ)
+	 * @param	ctx			ä¸Šä¸‹æ–‡å˜é‡
 	 */
 	public Object gather(Object oldValue, Context ctx) {
 		Object val = exp.calculate(ctx);
@@ -837,7 +837,7 @@ public class ICount extends Gather {
 			return oldValue;
 		}
 		
-		// Êı¾İ°´icount×Ö¶ÎÓĞĞò
+		// æ•°æ®æŒ‰icountå­—æ®µæœ‰åº
 		if (isSorted) {
 			((ICountInfo)oldValue).put(val);
 			return oldValue;
@@ -889,9 +889,9 @@ public class ICount extends Gather {
 	}
 	
 	/**
-	 * È¡¶ş´Î»ã×ÜÊ±¸Ã¾ÛºÏ×Ö¶Î¶ÔÓ¦µÄ±í´ïÊ½
-	 * @param q	µ±Ç°»ã×Ü×Ö¶ÎµÄĞòºÅ
-	 * @return	»ã×Ü±í´ïÊ½
+	 * å–äºŒæ¬¡æ±‡æ€»æ—¶è¯¥èšåˆå­—æ®µå¯¹åº”çš„è¡¨è¾¾å¼
+	 * @param q	å½“å‰æ±‡æ€»å­—æ®µçš„åºå·
+	 * @return	æ±‡æ€»è¡¨è¾¾å¼
 	 */
 	public Expression getRegatherExpression(int q) {
 		if (isSorted) {
@@ -907,14 +907,14 @@ public class ICount extends Gather {
 	}
 	
 	/**
-	 * ÊÇ·ñĞèÒª·µ»ØÖĞ¼äÁÙÊ±Êı¾İ¡£
+	 * æ˜¯å¦éœ€è¦è¿”å›ä¸­é—´ä¸´æ—¶æ•°æ®ã€‚
 	 */
 	public boolean needFinish1() {
 		return true;
 	}
 	
 	/**
-	 * ÊÇ·ñĞèÒª¸ù¾İÖĞ¼ä½á¹û£¬Í³¼ÆÉú³É×îÖÕ½á¹û
+	 * æ˜¯å¦éœ€è¦æ ¹æ®ä¸­é—´ç»“æœï¼Œç»Ÿè®¡ç”Ÿæˆæœ€ç»ˆç»“æœ
 	 */
 	public boolean needFinish() {
 		return true;
@@ -929,10 +929,10 @@ public class ICount extends Gather {
 	}
 
 	/**
-	 * °ÑÄÚ´æÖĞµÄÖĞ¼ä½á¹û£¬×ª»»³É´æÅÌĞòÁĞ¡£
+	 * æŠŠå†…å­˜ä¸­çš„ä¸­é—´ç»“æœï¼Œè½¬æ¢æˆå­˜ç›˜åºåˆ—ã€‚
 	 * 		
-	 * @param	val	±»×ª»»µÄÊı¾İ
-	 * @return	·µ»Ø×ª»»ºóµÄ½á¹û
+	 * @param	val	è¢«è½¬æ¢çš„æ•°æ®
+	 * @return	è¿”å›è½¬æ¢åçš„ç»“æœ
 	 */
 	public Object finish1(Object val) {
 		if (val instanceof HashSet) {
@@ -951,8 +951,8 @@ public class ICount extends Gather {
 	}
 	
 	/**
-	 * ¶Ô·Ö×é½áÊøµÃµ½µÄ»ã×ÜÁĞ½øĞĞ×îÖÕ´¦Àí
-	 * @param array ¼ÆËãÁĞµÄÖµ
+	 * å¯¹åˆ†ç»„ç»“æŸå¾—åˆ°çš„æ±‡æ€»åˆ—è¿›è¡Œæœ€ç»ˆå¤„ç†
+	 * @param array è®¡ç®—åˆ—çš„å€¼
 	 * @return IArray
 	 */
 	public IArray finish(IArray array) {
@@ -999,7 +999,7 @@ public class ICount extends Gather {
 	}
 	
 	/**
-	 * Í³¼ÆÁÙÊ±ÖĞ¼äÊı¾İ£¬Éú³É×îÖÕ½á¹û¡£
+	 * ç»Ÿè®¡ä¸´æ—¶ä¸­é—´æ•°æ®ï¼Œç”Ÿæˆæœ€ç»ˆç»“æœã€‚
 	 */
 	public Object finish(Object val) {
 		if (val instanceof ICountInfo) {
@@ -1024,11 +1024,11 @@ public class ICount extends Gather {
 	}
 
 	/**
-	 * ¼ÆËãËùÓĞ¼ÇÂ¼µÄÖµ£¬»ã×Üµ½½á¹ûÊı×éÉÏ
-	 * @param result ½á¹ûÊı×é
-	 * @param resultSeqs Ã¿Ìõ¼ÇÂ¼¶ÔÓ¦µÄ½á¹ûÊı×éµÄĞòºÅ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return IArray ½á¹ûÊı×é
+	 * è®¡ç®—æ‰€æœ‰è®°å½•çš„å€¼ï¼Œæ±‡æ€»åˆ°ç»“æœæ•°ç»„ä¸Š
+	 * @param result ç»“æœæ•°ç»„
+	 * @param resultSeqs æ¯æ¡è®°å½•å¯¹åº”çš„ç»“æœæ•°ç»„çš„åºå·
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return IArray ç»“æœæ•°ç»„
 	 */
 	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
 		if (optB) {
@@ -1242,11 +1242,11 @@ public class ICount extends Gather {
 	}
 	
 	/**
-	 * ¶àÏß³Ì·Ö×éµÄ¶ş´Î»ã×ÜÔËËã
-	 * @param result Ò»¸öÏß³ÌµÄ·Ö×é½á¹û
-	 * @param result2 ÁíÒ»¸öÏß³ÌµÄ·Ö×é½á¹û
-	 * @param seqs ÁíÒ»¸öÏß³ÌµÄ·Ö×é¸úµÚÒ»¸öÏß³Ì·Ö×éµÄ¶ÔÓ¦¹ØÏµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤šçº¿ç¨‹åˆ†ç»„çš„äºŒæ¬¡æ±‡æ€»è¿ç®—
+	 * @param result ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„ç»“æœ
+	 * @param result2 å¦ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„ç»“æœ
+	 * @param seqs å¦ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„è·Ÿç¬¬ä¸€ä¸ªçº¿ç¨‹åˆ†ç»„çš„å¯¹åº”å…³ç³»
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public void gather2(IArray result, IArray result2, int []seqs, Context ctx) {

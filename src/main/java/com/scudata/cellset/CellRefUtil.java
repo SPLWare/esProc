@@ -5,32 +5,32 @@ import com.scudata.common.Sentence;
 import com.scudata.dm.KeyWord;
 
 public final class CellRefUtil {
-	// ´íÎóµÄµ¥Ôª¸ñÒıÓÃ±êÊ¶
+	// é”™è¯¯çš„å•å…ƒæ ¼å¼•ç”¨æ ‡è¯†
 	public static final String ERRORREF = "#REF!";
 
 	/**
-	 * ÅĞ¶Ï×Ö·ûÊÇ·ñÊÇĞĞ·ûºÅ
-	 * @param c ×Ö·û
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­å­—ç¬¦æ˜¯å¦æ˜¯è¡Œç¬¦å·
+	 * @param c å­—ç¬¦
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isRowChar(char c) {
 		return c >= '0' && c <= '9';
 	}
 
 	/**
-	 * ÅĞ¶Ï×Ö·ûÊÇ·ñÊÇÁĞ·ûºÅ
-	 * @param c ×Ö·û
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­å­—ç¬¦æ˜¯å¦æ˜¯åˆ—ç¬¦å·
+	 * @param c å­—ç¬¦
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isColChar(char c) {
 		return c >= 'A' && c <= 'Z';
 	}
 
 	/**
-	 * ÅĞ¶Ï×Ö·û´®Ö¸¶¨Î»ÖÃµÄÇ°Ò»¸ö×Ö·ûÊÇ·ñÊÇ'.'
-	 * @param str ±í´ïÊ½×Ö·û´®
-	 * @param pos Î»ÖÃ
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * åˆ¤æ–­å­—ç¬¦ä¸²æŒ‡å®šä½ç½®çš„å‰ä¸€ä¸ªå­—ç¬¦æ˜¯å¦æ˜¯'.'
+	 * @param str è¡¨è¾¾å¼å­—ç¬¦ä¸²
+	 * @param pos ä½ç½®
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public static boolean isPrevDot(String str, int pos) {
 		for (pos = pos - 1; pos >= 0; --pos) {
@@ -43,17 +43,17 @@ public final class CellRefUtil {
 	}
 
 	/**
-	 * ¸Ä±äËùÒıÓÃµÄµ¥Ôª¸ñµÄĞĞºÅ
-	 * @param cellRow Ô´ĞĞºÅ
-	 * @param rowBase ÔÚ´ËĞĞ½øĞĞÔö¼Ó»òÕßÉ¾³ıĞĞ
-	 * @param rowIncrement Ôö¼Ó»òÕßÉ¾³ıµÄĞĞÊı
-	 * @param oldRowCount Ô­À´µÄ×ÜĞĞÊı
-	 * @return ±ä»»ºóµÄĞĞÃû£¬»òÕßnull±íÊ¾ÒıÓÃ¸ñ±»É¾³ı
+	 * æ”¹å˜æ‰€å¼•ç”¨çš„å•å…ƒæ ¼çš„è¡Œå·
+	 * @param cellRow æºè¡Œå·
+	 * @param rowBase åœ¨æ­¤è¡Œè¿›è¡Œå¢åŠ æˆ–è€…åˆ é™¤è¡Œ
+	 * @param rowIncrement å¢åŠ æˆ–è€…åˆ é™¤çš„è¡Œæ•°
+	 * @param oldRowCount åŸæ¥çš„æ€»è¡Œæ•°
+	 * @return å˜æ¢åçš„è¡Œåï¼Œæˆ–è€…nullè¡¨ç¤ºå¼•ç”¨æ ¼è¢«åˆ é™¤
 	 */
 	public static String changeRow(int cellRow, int rowBase, int rowIncrement, int oldRowCount) {
 		if (rowBase != -1) {
 			if (rowIncrement < 0) {
-				//ÒıÓÃĞĞ±»É¾³ı£¬¶³½á±í´ïÊ½
+				//å¼•ç”¨è¡Œè¢«åˆ é™¤ï¼Œå†»ç»“è¡¨è¾¾å¼
 				if (cellRow >= rowBase && cellRow <= (rowBase - rowIncrement - 1)) {
 					return null;
 				}
@@ -67,17 +67,17 @@ public final class CellRefUtil {
 	}
 
 	/**
-	 * ¸Ä±äËùÒıÓÃµÄµ¥Ôª¸ñµÄÁĞºÅ
-	 * @param cellCol Ô´ÁĞºÅ
-	 * @param colBase ÔÚ´ËÁĞ½øĞĞÔö¼Ó»òÕßÉ¾³ıÁĞ
-	 * @param colIncrement Ôö¼Ó»òÕßÉ¾³ıµÄÁĞÊı
-	 * @param oldColCount Ô­À´µÄ×ÜÁĞÊı
-	 * @return ±ä»»ºóµÄÁĞÃû£¬»òÕßnull±íÊ¾ÒıÓÃ¸ñ±»É¾³ı
+	 * æ”¹å˜æ‰€å¼•ç”¨çš„å•å…ƒæ ¼çš„åˆ—å·
+	 * @param cellCol æºåˆ—å·
+	 * @param colBase åœ¨æ­¤åˆ—è¿›è¡Œå¢åŠ æˆ–è€…åˆ é™¤åˆ—
+	 * @param colIncrement å¢åŠ æˆ–è€…åˆ é™¤çš„åˆ—æ•°
+	 * @param oldColCount åŸæ¥çš„æ€»åˆ—æ•°
+	 * @return å˜æ¢åçš„åˆ—åï¼Œæˆ–è€…nullè¡¨ç¤ºå¼•ç”¨æ ¼è¢«åˆ é™¤
 	 */
 	public static String changeCol(int cellCol, int colBase, int colIncrement, int oldColCount) {
 		if (colBase != -1) {
 			if (colIncrement < 0) {
-				//ÒıÓÃÁĞ±»É¾³ı£¬¶³½á±í´ïÊ½
+				//å¼•ç”¨åˆ—è¢«åˆ é™¤ï¼Œå†»ç»“è¡¨è¾¾å¼
 				if (cellCol >= colBase && cellCol <= (colBase - colIncrement - 1)) {
 					return null;
 				}
@@ -91,11 +91,11 @@ public final class CellRefUtil {
 	}
 
 	/**
-	 * ¸Ä±äËùÒıÓÃµÄµ¥Ôª¸ñµÄĞĞºÅ£¬ÓÃÓÚ´ÓÒ»¸ö¸ñ¸´ÖÆ±í´ïÊ½µ½ÁíÒ»¸ö¸ñ£¬±í´ïÊ½ÀïÒıÓÃµÄ¸ñÒª¼ÓÉÏÔ´¸ñµ½Ä¿±ê¸ñµÄÏà¶ÔÎ»ÒÆ
-	 * @param cellRow Ô´ĞĞºÅ
-	 * @param rowIncrement Ôö¼ÓµÄĞĞÊı£¬¸ºµÄ±íÊ¾É¾³ıµÄĞĞÊı
-	 * @param rowCount ×ÜĞĞÊı
-	 * @return ±ä»»ºóµÄĞĞÃû£¬»òÕßnull±íÊ¾¸ñ³ö½ç
+	 * æ”¹å˜æ‰€å¼•ç”¨çš„å•å…ƒæ ¼çš„è¡Œå·ï¼Œç”¨äºä»ä¸€ä¸ªæ ¼å¤åˆ¶è¡¨è¾¾å¼åˆ°å¦ä¸€ä¸ªæ ¼ï¼Œè¡¨è¾¾å¼é‡Œå¼•ç”¨çš„æ ¼è¦åŠ ä¸Šæºæ ¼åˆ°ç›®æ ‡æ ¼çš„ç›¸å¯¹ä½ç§»
+	 * @param cellRow æºè¡Œå·
+	 * @param rowIncrement å¢åŠ çš„è¡Œæ•°ï¼Œè´Ÿçš„è¡¨ç¤ºåˆ é™¤çš„è¡Œæ•°
+	 * @param rowCount æ€»è¡Œæ•°
+	 * @return å˜æ¢åçš„è¡Œåï¼Œæˆ–è€…nullè¡¨ç¤ºæ ¼å‡ºç•Œ
 	 */
 	public static String changeRow(int cellRow, int rowIncrement, int rowCount) {
 		cellRow += rowIncrement;
@@ -105,11 +105,11 @@ public final class CellRefUtil {
 	}
 
 	/**
-	 * ¸Ä±äËùÒıÓÃµÄµ¥Ôª¸ñµÄÁĞºÅ£¬ÓÃÓÚ´ÓÒ»¸ö¸ñ¸´ÖÆ±í´ïÊ½µ½ÁíÒ»¸ö¸ñ£¬±í´ïÊ½ÀïÒıÓÃµÄ¸ñÒª¼ÓÉÏÔ´¸ñµ½Ä¿±ê¸ñµÄÏà¶ÔÎ»ÒÆ
-	 * @param cellCol Ô´ÁĞºÅ
-	 * @param colIncrement Ôö¼ÓµÄÁĞÊı£¬¸ºµÄ±íÊ¾É¾³ıµÄÁĞÊı
-	 * @param colCount ×ÜÁĞÊı
-	 * @return ±ä»»ºóµÄÁĞÃû£¬»òÕßnull±íÊ¾¸ñ³ö½ç
+	 * æ”¹å˜æ‰€å¼•ç”¨çš„å•å…ƒæ ¼çš„åˆ—å·ï¼Œç”¨äºä»ä¸€ä¸ªæ ¼å¤åˆ¶è¡¨è¾¾å¼åˆ°å¦ä¸€ä¸ªæ ¼ï¼Œè¡¨è¾¾å¼é‡Œå¼•ç”¨çš„æ ¼è¦åŠ ä¸Šæºæ ¼åˆ°ç›®æ ‡æ ¼çš„ç›¸å¯¹ä½ç§»
+	 * @param cellCol æºåˆ—å·
+	 * @param colIncrement å¢åŠ çš„åˆ—æ•°ï¼Œè´Ÿçš„è¡¨ç¤ºåˆ é™¤çš„åˆ—æ•°
+	 * @param colCount æ€»åˆ—æ•°
+	 * @return å˜æ¢åçš„åˆ—åï¼Œæˆ–è€…nullè¡¨ç¤ºæ ¼å‡ºç•Œ
 	 */
 	public static String changeCol(int cellCol, int colIncrement, int colCount) {
 		if (cellCol <= 0 || cellCol > colCount) return null;
@@ -121,23 +121,23 @@ public final class CellRefUtil {
 	}
 
 	/**
-	 * ²åÈë¡¢É¾³ıĞĞÁĞÊ±¶Ô±í´ïÊ½ÖĞµÄµ¥Ôª¸ñÒıÓÃ½øĞĞ±äÇ¨
-	 * @param str ±í´ïÊ½
-	 * @param rowBase ²Ù×÷ËùÔÚµÄĞĞ
-	 * @param rowIncrement ²åÈë»òÕßÉ¾³ıµÄĞĞÊı
-	 * @param colBase ²Ù×÷ËùÔÚµÄÁĞ
-	 * @param colIncrement ²åÈë»òÕßÉ¾³ıµÄÁĞÊı
-	 * @param oldRowCount Ô­À´µÄ×ÜĞĞÊı
-	 * @param oldColCount Ô­À´µÄ×ÜÁĞÊı
-	 * @param error Èç¹ûÒıÓÃµÄµ¥Ôª¸ñ±»É¾³ıÔòÖÃerror[0]Îªtrue
-	 * @return ±äÇ¨ºóµÄ±í´ïÊ½
+	 * æ’å…¥ã€åˆ é™¤è¡Œåˆ—æ—¶å¯¹è¡¨è¾¾å¼ä¸­çš„å•å…ƒæ ¼å¼•ç”¨è¿›è¡Œå˜è¿
+	 * @param str è¡¨è¾¾å¼
+	 * @param rowBase æ“ä½œæ‰€åœ¨çš„è¡Œ
+	 * @param rowIncrement æ’å…¥æˆ–è€…åˆ é™¤çš„è¡Œæ•°
+	 * @param colBase æ“ä½œæ‰€åœ¨çš„åˆ—
+	 * @param colIncrement æ’å…¥æˆ–è€…åˆ é™¤çš„åˆ—æ•°
+	 * @param oldRowCount åŸæ¥çš„æ€»è¡Œæ•°
+	 * @param oldColCount åŸæ¥çš„æ€»åˆ—æ•°
+	 * @param error å¦‚æœå¼•ç”¨çš„å•å…ƒæ ¼è¢«åˆ é™¤åˆ™ç½®error[0]ä¸ºtrue
+	 * @return å˜è¿åçš„è¡¨è¾¾å¼
 	 */
 	public static String relativeRegulateString(String str, int rowBase, int rowIncrement,
 										  int colBase, int colIncrement,
 										  int oldRowCount, int oldColCount, boolean []error) {
 		error[0] = false;
 		if (str == null || str.length() == 0 || str.startsWith(ERRORREF)) {
-			//¶³½á»ò´íÎóµÄµ¥Ôª¸ñ²»´¦Àí
+			//å†»ç»“æˆ–é”™è¯¯çš„å•å…ƒæ ¼ä¸å¤„ç†
 			return str;
 		}
 
@@ -145,7 +145,7 @@ public final class CellRefUtil {
 		int len = str.length();
 		for (int idx = 0; idx < len; ) {
 			char ch = str.charAt(idx);
-			if (ch == '\'' || ch == '\"') { // Ìø¹ı×Ö·û´®
+			if (ch == '\'' || ch == '\"') { // è·³è¿‡å­—ç¬¦ä¸²
 				int tmp = Sentence.scanQuotation(str, idx);
 				if (tmp < 0) {
 					if (strNew != null) strNew.append(str.substring(idx));
@@ -166,8 +166,8 @@ public final class CellRefUtil {
 					continue;
 				}
 
-				int macroIndex = -1; // A$23ÖĞ$µÄË÷Òı
-				int numIndex = -1; // Êı×ÖµÄË÷Òı
+				int macroIndex = -1; // A$23ä¸­$çš„ç´¢å¼•
+				int numIndex = -1; // æ•°å­—çš„ç´¢å¼•
 				
 				for (int i = idx + 1; i < last; ++i) {
 					char tmp = str.charAt(i);
@@ -313,11 +313,11 @@ public final class CellRefUtil {
 	}
 
 	/**
-	 * ÔöÉ¾ĞĞÊ±µ÷Õûµ¥Ôª¸ñÒıÓÃ
-	 * @param r µ¥Ôª¸ñµÄĞĞºÅ
-	 * @param rows ²åÈë»òÉ¾³ıµÄĞĞºÅ
-	 * @param isInsert true£º²åÈë£¬false£ºÉ¾³ı
-	 * @return µ÷ÕûºóµÄĞĞºÅ£¬»òÕß-1±íÊ¾ÒıÓÃµÄĞĞ±»É¾³ı
+	 * å¢åˆ è¡Œæ—¶è°ƒæ•´å•å…ƒæ ¼å¼•ç”¨
+	 * @param r å•å…ƒæ ¼çš„è¡Œå·
+	 * @param rows æ’å…¥æˆ–åˆ é™¤çš„è¡Œå·
+	 * @param isInsert trueï¼šæ’å…¥ï¼Œfalseï¼šåˆ é™¤
+	 * @return è°ƒæ•´åçš„è¡Œå·ï¼Œæˆ–è€…-1è¡¨ç¤ºå¼•ç”¨çš„è¡Œè¢«åˆ é™¤
 	 */
 	public static int adjustRowReference(int r, int []rows, boolean isInsert) {
 		int count = rows.length;
@@ -333,14 +333,14 @@ public final class CellRefUtil {
 	}
 
 	/**
-	 * °Ñ±í´ïÊ½ÖĞ¶Ôlct1µÄÒıÓÃ¸ÄÎªlct2£¬ÓÃÓÚ°ÑÒ»¸ö¸ñ¼ôÇĞµ½ÁíÒ»¸ö¸ñ£¬¸Ä±ä¶ÔÔ´¸ñµÄÒıÓÃµ½Ä¿±ê¸ñ
-	 * @param str ±í´ïÊ½
-	 * @param lct1 Ô­À´ÒıÓÃµÄµ¥Ôª¸ñ
-	 * @param lct2 Ä¿±êµ¥Ôª¸ñ
-	 * @return ±ä»»ºóµÄ±í´ïÊ½
+	 * æŠŠè¡¨è¾¾å¼ä¸­å¯¹lct1çš„å¼•ç”¨æ”¹ä¸ºlct2ï¼Œç”¨äºæŠŠä¸€ä¸ªæ ¼å‰ªåˆ‡åˆ°å¦ä¸€ä¸ªæ ¼ï¼Œæ”¹å˜å¯¹æºæ ¼çš„å¼•ç”¨åˆ°ç›®æ ‡æ ¼
+	 * @param str è¡¨è¾¾å¼
+	 * @param lct1 åŸæ¥å¼•ç”¨çš„å•å…ƒæ ¼
+	 * @param lct2 ç›®æ ‡å•å…ƒæ ¼
+	 * @return å˜æ¢åçš„è¡¨è¾¾å¼
 	 */
 	public static String exchangeCellString(String str, CellLocation lct1, CellLocation lct2) {
-		//¶³½á»ò´íÎóµÄµ¥Ôª¸ñ²»´¦Àí
+		//å†»ç»“æˆ–é”™è¯¯çš„å•å…ƒæ ¼ä¸å¤„ç†
 		if (str == null || str.length() == 0 || str.startsWith(ERRORREF)) {
 			return str;
 		}
@@ -349,7 +349,7 @@ public final class CellRefUtil {
 		int len = str.length();
 		for (int idx = 0; idx < len; ) {
 			char ch = str.charAt(idx);
-			if (ch == '\'' || ch == '\"') { // Ìø¹ı×Ö·û´®
+			if (ch == '\'' || ch == '\"') { // è·³è¿‡å­—ç¬¦ä¸²
 				int tmp = Sentence.scanQuotation(str, idx);
 				if (tmp < 0) {
 					if (strNew != null) strNew.append(str.substring(idx));
@@ -370,8 +370,8 @@ public final class CellRefUtil {
 					continue;
 				}
 
-				int macroIndex = -1; // A$23ÖĞ$µÄË÷Òı
-				int numIndex = -1; // Êı×ÖµÄË÷Òı
+				int macroIndex = -1; // A$23ä¸­$çš„ç´¢å¼•
+				int numIndex = -1; // æ•°å­—çš„ç´¢å¼•
 
 				for (int i = idx + 1; i < last; ++i) {
 					char tmp = str.charAt(i);

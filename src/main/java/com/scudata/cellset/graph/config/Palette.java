@@ -9,29 +9,29 @@ import java.awt.*;
 import java.awt.image.*;
 
 /**
- * ÅäÉ«·½°¸£¬ÓÃÓÚ»­Í³¼ÆÍ¼
+ * é…è‰²æ–¹æ¡ˆï¼Œç”¨äºç”»ç»Ÿè®¡å›¾
  */
 public class Palette {
-	public final static byte PATTERN_DEFAULT = 0; // Ìî³äÍ¼°¸£¬È«Ìî³ä
-	public final static byte PATTERN_H_THIN_LINE = 1; // Ìî³äÍ¼°¸£¬Ë®Æ½Ï¸Ïß
-	public final static byte PATTERN_H_THICK_LINE = 2; // Ìî³äÍ¼°¸£¬Ë®Æ½´ÖÏß
-	public final static byte PATTERN_V_THIN_LINE = 3; // Ìî³äÍ¼°¸£¬´¹Ö±Ï¸Ïß
-	public final static byte PATTERN_V_THICK_LINE = 4; // Ìî³äÍ¼°¸£¬´¹Ö±´ÖÏß
-	public final static byte PATTERN_THIN_SLASH = 5; // Ìî³äÍ¼°¸£¬Ï¸Ğ±Ïß
-	public final static byte PATTERN_THICK_SLASH = 6; // Ìî³äÍ¼°¸£¬´ÖĞ±Ïß
-	public final static byte PATTERN_THIN_BACKSLASH = 7; // Ìî³äÍ¼°¸£¬Ï¸·´Ğ±Ïß
-	public final static byte PATTERN_THICK_BACKSLASH = 8; // Ìî³äÍ¼°¸£¬´Ö·´Ğ±Ïß
-	public final static byte PATTERN_THIN_GRID = 9; // Ìî³äÍ¼°¸£¬Ï¸Íø¸ñ
-	public final static byte PATTERN_THICK_GRID = 10; // Ìî³äÍ¼°¸£¬´ÖÍø¸ñ
-	public final static byte PATTERN_THIN_BEVEL_GRID = 11; // Ìî³äÍ¼°¸£¬Ï¸Ğ±Íø¸ñ
-	public final static byte PATTERN_THICK_BEVEL_GRID = 12; // Ìî³äÍ¼°¸£¬´ÖĞ±Íø¸ñ
-	public final static byte PATTERN_DOT_1 = 13; // Ìî³äÍ¼°¸£¬Ï¡Êèµã
-	public final static byte PATTERN_DOT_2 = 14; // Ìî³äÍ¼°¸£¬½ÏÏ¡µã
-	public final static byte PATTERN_DOT_3 = 15; // Ìî³äÍ¼°¸£¬½ÏÃÜµã
-	public final static byte PATTERN_DOT_4 = 16; // Ìî³äÍ¼°¸£¬³íÃÜµã
-	public final static byte PATTERN_SQUARE_FLOOR = 17; // Ìî³äÍ¼°¸£¬Õı·½¿éµØ°å×©
-	public final static byte PATTERN_DIAMOND_FLOOR = 18; // Ìî³äÍ¼°¸£¬ÁâĞÎµØ°å×©
-	public final static byte PATTERN_BRICK_WALL = 19; // Ìî³äÍ¼°¸£¬×©Ç½
+	public final static byte PATTERN_DEFAULT = 0; // å¡«å……å›¾æ¡ˆï¼Œå…¨å¡«å……
+	public final static byte PATTERN_H_THIN_LINE = 1; // å¡«å……å›¾æ¡ˆï¼Œæ°´å¹³ç»†çº¿
+	public final static byte PATTERN_H_THICK_LINE = 2; // å¡«å……å›¾æ¡ˆï¼Œæ°´å¹³ç²—çº¿
+	public final static byte PATTERN_V_THIN_LINE = 3; // å¡«å……å›¾æ¡ˆï¼Œå‚ç›´ç»†çº¿
+	public final static byte PATTERN_V_THICK_LINE = 4; // å¡«å……å›¾æ¡ˆï¼Œå‚ç›´ç²—çº¿
+	public final static byte PATTERN_THIN_SLASH = 5; // å¡«å……å›¾æ¡ˆï¼Œç»†æ–œçº¿
+	public final static byte PATTERN_THICK_SLASH = 6; // å¡«å……å›¾æ¡ˆï¼Œç²—æ–œçº¿
+	public final static byte PATTERN_THIN_BACKSLASH = 7; // å¡«å……å›¾æ¡ˆï¼Œç»†åæ–œçº¿
+	public final static byte PATTERN_THICK_BACKSLASH = 8; // å¡«å……å›¾æ¡ˆï¼Œç²—åæ–œçº¿
+	public final static byte PATTERN_THIN_GRID = 9; // å¡«å……å›¾æ¡ˆï¼Œç»†ç½‘æ ¼
+	public final static byte PATTERN_THICK_GRID = 10; // å¡«å……å›¾æ¡ˆï¼Œç²—ç½‘æ ¼
+	public final static byte PATTERN_THIN_BEVEL_GRID = 11; // å¡«å……å›¾æ¡ˆï¼Œç»†æ–œç½‘æ ¼
+	public final static byte PATTERN_THICK_BEVEL_GRID = 12; // å¡«å……å›¾æ¡ˆï¼Œç²—æ–œç½‘æ ¼
+	public final static byte PATTERN_DOT_1 = 13; // å¡«å……å›¾æ¡ˆï¼Œç¨€ç–ç‚¹
+	public final static byte PATTERN_DOT_2 = 14; // å¡«å……å›¾æ¡ˆï¼Œè¾ƒç¨€ç‚¹
+	public final static byte PATTERN_DOT_3 = 15; // å¡«å……å›¾æ¡ˆï¼Œè¾ƒå¯†ç‚¹
+	public final static byte PATTERN_DOT_4 = 16; // å¡«å……å›¾æ¡ˆï¼Œç¨ å¯†ç‚¹
+	public final static byte PATTERN_SQUARE_FLOOR = 17; // å¡«å……å›¾æ¡ˆï¼Œæ­£æ–¹å—åœ°æ¿ç –
+	public final static byte PATTERN_DIAMOND_FLOOR = 18; // å¡«å……å›¾æ¡ˆï¼Œè±å½¢åœ°æ¿ç –
+	public final static byte PATTERN_BRICK_WALL = 19; // å¡«å……å›¾æ¡ˆï¼Œç –å¢™
 
 	private int[] colors = null;
 	private byte[] patterns = null;
@@ -41,17 +41,17 @@ public class Palette {
 	private static Map colorMap = readPalettes();
 
 	/**
-	 * ¹¹ÔìÅäÉ«·½°¸£¬È±Ê¡ÈİÁ¿Îª20
+	 * æ„é€ é…è‰²æ–¹æ¡ˆï¼Œç¼ºçœå®¹é‡ä¸º20
 	 */
 	public Palette() {
 		this(20);
 	}
 
 	/**
-	 * ¹¹ÔìÅäÉ«·½°¸
+	 * æ„é€ é…è‰²æ–¹æ¡ˆ
 	 * 
 	 * @param capacity
-	 *            ³õÊ¼ÈİÁ¿
+	 *            åˆå§‹å®¹é‡
 	 */
 	public Palette(int capacity) {
 		colors = new int[capacity];
@@ -59,9 +59,9 @@ public class Palette {
 	}
 
 	/**
-	 * È·±£×îĞ¡ÈİÁ¿
+	 * ç¡®ä¿æœ€å°å®¹é‡
 	 * 
-	 * @paran mincap ×îĞ¡ÈİÁ¿
+	 * @paran mincap æœ€å°å®¹é‡
 	 */
 	public void ensureCapacity(int mincap) {
 		int[] colors = this.colors;
@@ -76,10 +76,10 @@ public class Palette {
 	}
 
 	/**
-	 * °´Î»ÖÃÈ¡ÑÕÉ«
+	 * æŒ‰ä½ç½®å–é¢œè‰²
 	 * 
 	 * @param index
-	 *            Î»ÖÃ(´Ó0¿ªÊ¼)
+	 *            ä½ç½®(ä»0å¼€å§‹)
 	 */
 	public int getColor(int index) {
 		if (colors.length == 0) {
@@ -127,7 +127,7 @@ public class Palette {
 		Graphics2D tempG=null;
 		Color cb = backColor, cf = Color.black;
 		switch (pattern) {
-		case PATTERN_H_THIN_LINE: // Ìî³äÍ¼°¸£¬Ë®Æ½Ï¸Ïß
+		case PATTERN_H_THIN_LINE: // å¡«å……å›¾æ¡ˆï¼Œæ°´å¹³ç»†çº¿
 			rect = new Rectangle(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -140,7 +140,7 @@ public class Palette {
 			tempG.drawLine(0, 5, 6, 5);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_H_THICK_LINE: // Ìî³äÍ¼°¸£¬Ë®Æ½´ÖÏß
+		case PATTERN_H_THICK_LINE: // å¡«å……å›¾æ¡ˆï¼Œæ°´å¹³ç²—çº¿
 			rect = new Rectangle(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -152,7 +152,7 @@ public class Palette {
 			tempG.drawLine(0, 5, 6, 5);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_V_THIN_LINE: // Ìî³äÍ¼°¸£¬´¹Ö±Ï¸Ïß
+		case PATTERN_V_THIN_LINE: // å¡«å……å›¾æ¡ˆï¼Œå‚ç›´ç»†çº¿
 			rect = new Rectangle(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -165,7 +165,7 @@ public class Palette {
 			tempG.drawLine(5, 0, 5, 6);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_V_THICK_LINE: // Ìî³äÍ¼°¸£¬´¹Ö±´ÖÏß
+		case PATTERN_V_THICK_LINE: // å¡«å……å›¾æ¡ˆï¼Œå‚ç›´ç²—çº¿
 			rect = new Rectangle(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -177,7 +177,7 @@ public class Palette {
 			tempG.drawLine(5, 0, 5, 6);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_THIN_SLASH: // Ìî³äÍ¼°¸£¬Ï¸Ğ±Ïß
+		case PATTERN_THIN_SLASH: // å¡«å……å›¾æ¡ˆï¼Œç»†æ–œçº¿
 			rect = new Rectangle(x + 1, y + 1, 3, 3);
 			tempbi = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -188,7 +188,7 @@ public class Palette {
 			tempG.drawLine(0, 0, 3, 3);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_THICK_SLASH: // Ìî³äÍ¼°¸£¬´ÖĞ±Ïß
+		case PATTERN_THICK_SLASH: // å¡«å……å›¾æ¡ˆï¼Œç²—æ–œçº¿
 			rect = new Rectangle(x + 1, y + 1, 4, 4);
 			tempbi = new BufferedImage(4, 4, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -203,7 +203,7 @@ public class Palette {
 			tempG.drawLine(-1, 3, 1, 5);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_THIN_BACKSLASH: // Ìî³äÍ¼°¸£¬Ï¸·´Ğ±Ïß
+		case PATTERN_THIN_BACKSLASH: // å¡«å……å›¾æ¡ˆï¼Œç»†åæ–œçº¿
 			rect = new Rectangle(x + 1, y + 1, 3, 3);
 			tempbi = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -214,7 +214,7 @@ public class Palette {
 			tempG.drawLine(2, 0, -1, 3);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_THICK_BACKSLASH: // Ìî³äÍ¼°¸£¬´Ö·´Ğ±Ïß
+		case PATTERN_THICK_BACKSLASH: // å¡«å……å›¾æ¡ˆï¼Œç²—åæ–œçº¿
 			rect = new Rectangle(x + 1, y + 1, 4, 4);
 			tempbi = new BufferedImage(4, 4, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -229,7 +229,7 @@ public class Palette {
 			tempG.drawLine(3, 5, 5, 3);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_THIN_GRID: // Ìî³äÍ¼°¸£¬Ï¸Íø¸ñ
+		case PATTERN_THIN_GRID: // å¡«å……å›¾æ¡ˆï¼Œç»†ç½‘æ ¼
 			rect = new Rectangle(x + 1, y + 1, 3, 3);
 			tempbi = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -242,7 +242,7 @@ public class Palette {
 			tempG.drawLine(0, 1, 3, 1);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_THICK_GRID: // Ìî³äÍ¼°¸£¬´ÖÍø¸ñ
+		case PATTERN_THICK_GRID: // å¡«å……å›¾æ¡ˆï¼Œç²—ç½‘æ ¼
 			rect = new Rectangle(x + 1, y + 1, 5, 5);
 			tempbi = new BufferedImage(5, 5, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -255,7 +255,7 @@ public class Palette {
 			tempG.drawLine(0, 3, 5, 3);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_THIN_BEVEL_GRID: // Ìî³äÍ¼°¸£¬Ï¸Ğ±Íø¸ñ
+		case PATTERN_THIN_BEVEL_GRID: // å¡«å……å›¾æ¡ˆï¼Œç»†æ–œç½‘æ ¼
 			rect = new Rectangle(x + 1, y + 1, 5, 5);
 			tempbi = new BufferedImage(5, 5, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -268,7 +268,7 @@ public class Palette {
 			tempG.drawLine(0, 5, 5, 0);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_THICK_BEVEL_GRID: // Ìî³äÍ¼°¸£¬´ÖĞ±Íø¸ñ
+		case PATTERN_THICK_BEVEL_GRID: // å¡«å……å›¾æ¡ˆï¼Œç²—æ–œç½‘æ ¼
 			rect = new Rectangle(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -282,7 +282,7 @@ public class Palette {
 			tempG.drawLine(0, 6, 6, 0);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_DOT_1: // Ìî³äÍ¼°¸£¬Ï¡Êèµã
+		case PATTERN_DOT_1: // å¡«å……å›¾æ¡ˆï¼Œç¨€ç–ç‚¹
 			rect = new Rectangle(x, y, 12, 12);
 			tempbi = new BufferedImage(12, 12, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -296,7 +296,7 @@ public class Palette {
 			tempG.drawLine(8, 9, 8, 9);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_DOT_2: // Ìî³äÍ¼°¸£¬½ÏÏ¡µã
+		case PATTERN_DOT_2: // å¡«å……å›¾æ¡ˆï¼Œè¾ƒç¨€ç‚¹
 			rect = new Rectangle(x, y, 12, 12);
 			tempbi = new BufferedImage(12, 12, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -310,7 +310,7 @@ public class Palette {
 			tempG.drawLine(10, 7, 10, 7);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_DOT_3: // Ìî³äÍ¼°¸£¬½ÏÃÜµã
+		case PATTERN_DOT_3: // å¡«å……å›¾æ¡ˆï¼Œè¾ƒå¯†ç‚¹
 			rect = new Rectangle(x, y, 9, 9);
 			tempbi = new BufferedImage(9, 9, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -325,7 +325,7 @@ public class Palette {
 			tempG.drawLine(8, 5, 8, 5);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_DOT_4: // Ìî³äÍ¼°¸£¬³íÃÜµã
+		case PATTERN_DOT_4: // å¡«å……å›¾æ¡ˆï¼Œç¨ å¯†ç‚¹
 			rect = new Rectangle(x, y, 4, 4);
 			tempbi = new BufferedImage(4, 4, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -338,7 +338,7 @@ public class Palette {
 			tempG.drawLine(3, 1, 3, 1);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_SQUARE_FLOOR: // Ìî³äÍ¼°¸£¬Õı·½¿éµØ°å×©
+		case PATTERN_SQUARE_FLOOR: // å¡«å……å›¾æ¡ˆï¼Œæ­£æ–¹å—åœ°æ¿ç –
 			rect = new Rectangle(0, 0, 8, 8);
 			tempbi = new BufferedImage(8, 8, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -349,7 +349,7 @@ public class Palette {
 			tempG.fillRect(4, 4, 4, 4);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_DIAMOND_FLOOR: // Ìî³äÍ¼°¸£¬ÁâĞÎµØ°å×©
+		case PATTERN_DIAMOND_FLOOR: // å¡«å……å›¾æ¡ˆï¼Œè±å½¢åœ°æ¿ç –
 			rect = new Rectangle(x + 1, y + 1, 8, 8);
 			tempbi = new BufferedImage(8, 8, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -361,7 +361,7 @@ public class Palette {
 			tempG.fillPolygon(xs, ys, 4);
 			paint = new TexturePaint(tempbi, rect);
 			break;
-		case PATTERN_BRICK_WALL: // Ìî³äÍ¼°¸£¬×©Ç½
+		case PATTERN_BRICK_WALL: // å¡«å……å›¾æ¡ˆï¼Œç –å¢™
 			rect = new Rectangle(x + 1, y + 1, 12, 12);
 			tempbi = new BufferedImage(12, 12, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
@@ -386,7 +386,7 @@ public class Palette {
 		return paint;
 	}
 
-	// ÉèÖÃÍ¼Æ¬£¬¿¹¾â³İ
+	// è®¾ç½®å›¾ç‰‡ï¼ŒæŠ—é”¯é½¿
 	protected static void setGraphAntiAliasing(Graphics2D g) {
 		g.setStroke(new BasicStroke(1f, BasicStroke.CAP_ROUND,
 				BasicStroke.JOIN_ROUND, 0.1f));
@@ -395,10 +395,10 @@ public class Palette {
 	}
 
 	/**
-	 * Ôö¼ÓÑÕÉ«
+	 * å¢åŠ é¢œè‰²
 	 * 
 	 * @param color
-	 *            ÑÕÉ«
+	 *            é¢œè‰²
 	 */
 	public void addColor(int color) {
 		ensureCapacity(size + 1);
@@ -406,12 +406,12 @@ public class Palette {
 	}
 
 	/**
-	 * ²åÈëÑÕÉ«
+	 * æ’å…¥é¢œè‰²
 	 * 
 	 * @param index
-	 *            Î»ÖÃ
+	 *            ä½ç½®
 	 * @param color
-	 *            ÑÕÉ«
+	 *            é¢œè‰²
 	 */
 	public void addColor(int index, int color) {
 		ensureCapacity(size + 1);
@@ -423,14 +423,14 @@ public class Palette {
 	}
 
 	/**
-	 * È¡·½°¸ÖĞµÄÑÕÉ«Êı
+	 * å–æ–¹æ¡ˆä¸­çš„é¢œè‰²æ•°
 	 */
 	public int size() {
 		return this.size;
 	}
 
 	/**
-	 * ½«ÈİÁ¿ËõĞ¡µ½ÑÕÉ«Êı
+	 * å°†å®¹é‡ç¼©å°åˆ°é¢œè‰²æ•°
 	 */
 	public void trimToSize() {
 		int[] colors = this.colors;
@@ -444,30 +444,30 @@ public class Palette {
 	}
 
 	/**
-	 * Çå³ı·½°¸ÖĞµÄËùÓĞÑÕÉ«
+	 * æ¸…é™¤æ–¹æ¡ˆä¸­çš„æ‰€æœ‰é¢œè‰²
 	 */
 	public void clear() {
 		this.size = 0;
 	}
 
 	/**
-	 * È¡µÃÖ¸¶¨µÄÅäÉ«·½°¸
+	 * å–å¾—æŒ‡å®šçš„é…è‰²æ–¹æ¡ˆ
 	 * 
-	 * @return ÅäÉ«·½°¸
+	 * @return é…è‰²æ–¹æ¡ˆ
 	 */
 	public static Palette readColor(String color) {
 		if (color == null || color.trim().length() == 0) {
 			return null;
 		}
 		// if( ExtCellSet.get().getType()==ExtCellSet.LIC_IDE
-		// ){//IDEÃ¿´ÎÖØĞÂ¶ÁÈ¡,ÒÔÊ¹±à¼­½á¹ûÁ¢¼´ÉúĞ§
+		// ){//IDEæ¯æ¬¡é‡æ–°è¯»å–,ä»¥ä½¿ç¼–è¾‘ç»“æœç«‹å³ç”Ÿæ•ˆ
 		colorMap = readPalettes();
 		// }
 		return (Palette) colorMap.get(color);
 	}
 
 	/**
-	 * ´ÓÊôĞÔÎÄ¼ş×°ÔØ³öµ÷É«°åÓ³Éä±í String µ÷É«°åÃû³Æ £­£­ Palette µ÷É«°å¶ÔÏó
+	 * ä»å±æ€§æ–‡ä»¶è£…è½½å‡ºè°ƒè‰²æ¿æ˜ å°„è¡¨ String è°ƒè‰²æ¿åç§° ï¼ï¼ Palette è°ƒè‰²æ¿å¯¹è±¡
 	 * 
 	 * @param fileProperty
 	 *            Properties
@@ -516,7 +516,7 @@ public class Palette {
 						.getResourceAsStream("/config/color.properties");
 			}
 			if (is == null)
-				return all;// Ã»ÓĞÅäÉ«ÎÄ¼ş
+				return all;// æ²¡æœ‰é…è‰²æ–‡ä»¶
 			config.load(is);
 			return loadPalettes(config);
 		} catch (Exception e) {
@@ -526,16 +526,16 @@ public class Palette {
 	}
 
 	/**
-	 * È¡µÃÈ±Ê¡µÄÅäÉ«·½°¸
+	 * å–å¾—ç¼ºçœçš„é…è‰²æ–¹æ¡ˆ
 	 * 
-	 * @return ÅäÉ«·½°¸
+	 * @return é…è‰²æ–¹æ¡ˆ
 	 */
 	public static Palette getDefaultPalette() {
 		return defaultPalette;
 	}
 
 	private static Palette getDefaultPalette2() {
-//		×¢Òâ³õÊ¼sizeÒª¸úºóĞøaddColorµÄ¸öÊıÆ¥Åä£¬·ñÔòÑÕÉ«Ñ­»·²»¶Ô
+//		æ³¨æ„åˆå§‹sizeè¦è·Ÿåç»­addColorçš„ä¸ªæ•°åŒ¹é…ï¼Œå¦åˆ™é¢œè‰²å¾ªç¯ä¸å¯¹
 		
 		int size = 7;
 		Palette pl = new Palette( size );

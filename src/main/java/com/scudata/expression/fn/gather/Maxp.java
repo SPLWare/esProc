@@ -16,14 +16,14 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * È¡Ê¹±í´ïÊ½È¡Öµ×î´óµÄÄÇÌõ¼ÇÂ¼
+ * å–ä½¿è¡¨è¾¾å¼å–å€¼æœ€å¤§çš„é‚£æ¡è®°å½•
  * maxp(x)
  * @author RunQian
  *
  */
 public class Maxp extends Gather {
 	private Expression exp;
-	private int fieldIndex = Integer.MIN_VALUE; // ±í´ïÊ½Ëù¶ÔÓ¦µÄ×Ö¶Î
+	private int fieldIndex = Integer.MIN_VALUE; // è¡¨è¾¾å¼æ‰€å¯¹åº”çš„å­—æ®µ
 	private boolean isOne;
 	private boolean needFinish = true;
 
@@ -139,11 +139,11 @@ public class Maxp extends Gather {
 	}
 	
 	/**
-	 * ¼ÆËãËùÓĞ¼ÇÂ¼µÄÖµ£¬»ã×Üµ½½á¹ûÊı×éÉÏ
-	 * @param result ½á¹ûÊı×é
-	 * @param resultSeqs Ã¿Ìõ¼ÇÂ¼¶ÔÓ¦µÄ½á¹ûÊı×éµÄĞòºÅ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return IArray ½á¹ûÊı×é
+	 * è®¡ç®—æ‰€æœ‰è®°å½•çš„å€¼ï¼Œæ±‡æ€»åˆ°ç»“æœæ•°ç»„ä¸Š
+	 * @param result ç»“æœæ•°ç»„
+	 * @param resultSeqs æ¯æ¡è®°å½•å¯¹åº”çš„ç»“æœæ•°ç»„çš„åºå·
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return IArray ç»“æœæ•°ç»„
 	 */
 	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
 		if (result == null) {
@@ -259,11 +259,11 @@ public class Maxp extends Gather {
 	}
 	
 	/**
-	 * ¶à³Ì³Ì·Ö×éµÄ¶ş´Î»ã×ÜÔËËã
-	 * @param result Ò»¸öÏß³ÌµÄ·Ö×é½á¹û
-	 * @param result2 ÁíÒ»¸öÏß³ÌµÄ·Ö×é½á¹û
-	 * @param seqs ÁíÒ»¸öÏß³ÌµÄ·Ö×é¸úµÚÒ»¸öÏß³Ì·Ö×éµÄ¶ÔÓ¦¹ØÏµ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å¤šç¨‹ç¨‹åˆ†ç»„çš„äºŒæ¬¡æ±‡æ€»è¿ç®—
+	 * @param result ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„ç»“æœ
+	 * @param result2 å¦ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„ç»“æœ
+	 * @param seqs å¦ä¸€ä¸ªçº¿ç¨‹çš„åˆ†ç»„è·Ÿç¬¬ä¸€ä¸ªçº¿ç¨‹åˆ†ç»„çš„å¯¹åº”å…³ç³»
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public void gather2(IArray result, IArray result2, int []seqs, Context ctx) {

@@ -10,7 +10,7 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ×İÏò½ÓĞøÓÎ±êĞòÁĞ·µ»Ø³ÉÓÎ±ê£¬½á¹¹ÒÔµÚÒ»¸öÎª×¼
+ * çºµå‘æ¥ç»­æ¸¸æ ‡åºåˆ—è¿”å›æˆæ¸¸æ ‡ï¼Œç»“æ„ä»¥ç¬¬ä¸€ä¸ªä¸ºå‡†
  * CS.conjx()
  * @author RunQian
  *

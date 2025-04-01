@@ -1,12 +1,12 @@
 package com.scudata.dm;
 
 /**
- * Ëø¶ÔÏó
+ * é”å¯¹è±¡
  * @author WangXiaoJun
  *
  */
 class LockObject implements IResource {
-	private volatile Thread thread; // µ±Ç°Ëø¶¨µÄÏß³Ì
+	private volatile Thread thread; // å½“å‰é”å®šçš„çº¿ç¨‹
  
 	public LockObject(Context ctx) {
 	}
@@ -19,10 +19,10 @@ class LockObject implements IResource {
 	}
 	
 	/**
-	 * Ëø¶¨´Ë¶ÔÏó
-	 * @param ms µÈ´ıºÁÃëÊı£¬Ğ¡ÓÚ0±íÊ¾ÓÀ²»³¬Ê±
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * é”å®šæ­¤å¯¹è±¡
+	 * @param ms ç­‰å¾…æ¯«ç§’æ•°ï¼Œå°äº0è¡¨ç¤ºæ°¸ä¸è¶…æ—¶
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public synchronized boolean lock(long ms, Context ctx) {
 		Thread cur = Thread.currentThread();
@@ -40,7 +40,7 @@ class LockObject implements IResource {
 						return false;
 					}
 				} else {
-					// ¼àÊÓÆ÷ËùÓĞÕßÏß³Ìµ÷ÓÃunlockºó¿ÉÄÜÓÖ½øÈëÁËlockºó´ËÏß³ÌµÄwait²Å±»»½ĞÑ
+					// ç›‘è§†å™¨æ‰€æœ‰è€…çº¿ç¨‹è°ƒç”¨unlockåå¯èƒ½åˆè¿›å…¥äº†lockåæ­¤çº¿ç¨‹çš„waitæ‰è¢«å”¤é†’
 					do {
 						wait();
 					} while (thread != null);
@@ -56,9 +56,9 @@ class LockObject implements IResource {
 	}
 	
 	/**
-	 * ½âËø
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return true£º³É¹¦£¬false£ºÊ§°Ü
+	 * è§£é”
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return trueï¼šæˆåŠŸï¼Œfalseï¼šå¤±è´¥
 	 */
 	public synchronized boolean unlock(Context ctx) {
 		if (thread == null) {

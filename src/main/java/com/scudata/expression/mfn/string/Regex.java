@@ -13,7 +13,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÓÃÕıÔò±í´ïÊ½¶Ô´®×öÆ¥Åä£¬·µ»Ø²ğ³öÏî×é³ÉµÄĞòÁĞ£¬²»Æ¥Åä·µ»Ø¿Õ
+ * ç”¨æ­£åˆ™è¡¨è¾¾å¼å¯¹ä¸²åšåŒ¹é…ï¼Œè¿”å›æ‹†å‡ºé¡¹ç»„æˆçš„åºåˆ—ï¼Œä¸åŒ¹é…è¿”å›ç©º
  * s.regex(rs)
  * @author RunQian
  *

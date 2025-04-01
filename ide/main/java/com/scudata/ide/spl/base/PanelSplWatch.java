@@ -20,34 +20,34 @@ import com.scudata.ide.spl.SheetSpl;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ²é¿´±í´ïÊ½
+ * æŸ¥çœ‹è¡¨è¾¾å¼
  *
  */
 public abstract class PanelSplWatch extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ±í¸ñ¿Ø¼şµÄ¹ö¶¯Ãæ°å
+	 * è¡¨æ ¼æ§ä»¶çš„æ»šåŠ¨é¢æ¿
 	 */
 	private JScrollPane jSPTable = new JScrollPane();
 	/**
-	 * ¿ÕĞĞµÄÊıÁ¿
+	 * ç©ºè¡Œçš„æ•°é‡
 	 */
 	private final int BLANK_ROW_COUNT = 1;
 	/**
-	 * ×èÖ¹±ä»¯
+	 * é˜»æ­¢å˜åŒ–
 	 */
 	private boolean preventChange = false;
 
-	/** ĞòºÅÁĞ */
+	/** åºå·åˆ— */
 	private final byte COL_INDEX = 0;
-	/** ±í´ïÊ½ÁĞ */
+	/** è¡¨è¾¾å¼åˆ— */
 	private final byte COL_EXP = 1;
-	/** ÖµÁĞ */
+	/** å€¼åˆ— */
 	private final byte COL_VALUE = 2;
 
 	/**
-	 * ±í¸ñ¿Ø¼ş¡£No.,Expression,Value
+	 * è¡¨æ ¼æ§ä»¶ã€‚No.,Expression,Value
 	 */
 	private JTableEx tableWatch = new JTableEx(IdeSplMessage.get().getMessage(
 			"paneldfxwatch.tablewatch")) {
@@ -123,7 +123,7 @@ public abstract class PanelSplWatch extends JPanel {
 	};
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public PanelSplWatch() {
 		try {
@@ -142,7 +142,7 @@ public abstract class PanelSplWatch extends JPanel {
 	}
 
 	/**
-	 * ÖØÉè±í¸ñ
+	 * é‡è®¾è¡¨æ ¼
 	 * 
 	 * @param requestFocus
 	 */
@@ -188,7 +188,7 @@ public abstract class PanelSplWatch extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñ¶ÔÏó
+	 * è®¾ç½®ç½‘æ ¼å¯¹è±¡
 	 * 
 	 * @param cs
 	 */
@@ -219,7 +219,7 @@ public abstract class PanelSplWatch extends JPanel {
 	}
 
 	/**
-	 * ²é¿´±í´ïÊ½Öµ
+	 * æŸ¥çœ‹è¡¨è¾¾å¼å€¼
 	 * 
 	 * @param ctx
 	 */
@@ -235,7 +235,7 @@ public abstract class PanelSplWatch extends JPanel {
 	}
 
 	/**
-	 * Êı¾İ±ä»¯ÁË
+	 * æ•°æ®å˜åŒ–äº†
 	 */
 	private void dataChanged() {
 		if (preventChange) {
@@ -258,7 +258,7 @@ public abstract class PanelSplWatch extends JPanel {
 	public abstract Object watch(String expStr);
 
 	/**
-	 * ÖØĞÂ¼ÆËã
+	 * é‡æ–°è®¡ç®—
 	 */
 	private synchronized void recalcTable() {
 		SwingUtilities.invokeLater(new Thread() {
@@ -292,7 +292,7 @@ public abstract class PanelSplWatch extends JPanel {
 	}
 
 	/**
-	 * ÊÇ·ñÕıÔÚ¼ÆËã
+	 * æ˜¯å¦æ­£åœ¨è®¡ç®—
 	 * 
 	 * @return
 	 */
@@ -301,7 +301,7 @@ public abstract class PanelSplWatch extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃ²é¿´±í´ïÊ½ÊÇ·ñ¿ÉÓÃ
+	 * è®¾ç½®æŸ¥çœ‹è¡¨è¾¾å¼æ˜¯å¦å¯ç”¨
 	 * 
 	 * @param enable
 	 */

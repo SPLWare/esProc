@@ -1,151 +1,151 @@
 package com.scudata.common;
 
 /**
- *	ByteMap --- Ê¹ÓÃbyte×÷ÎªkeyµÄÇáÁ¿¼¶Map
+ *	ByteMap --- ä½¿ç”¨byteä½œä¸ºkeyçš„è½»é‡çº§Map
  */
 import java.io.*;
 
 public interface IByteMap
 	extends ICloneable,Externalizable {
 	/**
-	 * È·±£ÈİÁ¿ÖÁÉÙµÈÓÚÖ¸¶¨Öµ
-	 * @param minCapacity Ö¸¶¨µÄ×îĞ¡ÈİÁ¿
+	 * ç¡®ä¿å®¹é‡è‡³å°‘ç­‰äºæŒ‡å®šå€¼
+	 * @param minCapacity æŒ‡å®šçš„æœ€å°å®¹é‡
 	 */
 	public void ensureCapacity(int minCapacity);
 
 	/*
-	 * ·µ»ØÔªËØ¸öÊı
+	 * è¿”å›å…ƒç´ ä¸ªæ•°
 	 */
 	public short size();
 
 	/*
-	 * ¼ì²éÊÇ·ñÎª¿Õ
+	 * æ£€æŸ¥æ˜¯å¦ä¸ºç©º
 	 */
 	public boolean isEmpty();
 
 	/**
-	 * ½«ÈİÁ¿Ëõ¼õµ½Êµ¼Ê´óĞ¡
+	 * å°†å®¹é‡ç¼©å‡åˆ°å®é™…å¤§å°
 	 */
 	public void trimToSize();
 
 	/*
-	 * ¼ì²éMapÖĞÊÇ·ñÓĞÖ¸¶¨value
-	 * @param value ĞèÒª²éÕÒµÄvalue
+	 * æ£€æŸ¥Mapä¸­æ˜¯å¦æœ‰æŒ‡å®švalue
+	 * @param value éœ€è¦æŸ¥æ‰¾çš„value
 	 * @see ByteMap#containsKey
 	 */
 	public boolean contains(Object value);
 
 	/*
-	 * ¼ì²éMapÖĞÊÇ·ñÓĞÖ¸¶¨µÄkey
-	 * @param key Òª²éÕÒµÄkey
+	 * æ£€æŸ¥Mapä¸­æ˜¯å¦æœ‰æŒ‡å®šçš„key
+	 * @param key è¦æŸ¥æ‰¾çš„key
 	 * @see ByteMap#contains
 	 */
 	public boolean containsKey(byte key);
 
 	/*
-	 * È¡MapÖĞÓëÖ¸¶¨key¶ÔÓ¦µÄvalue
-	 * @param key Ö¸¶¨µÄkey
+	 * å–Mapä¸­ä¸æŒ‡å®škeyå¯¹åº”çš„value
+	 * @param key æŒ‡å®šçš„key
 	 * @see ByteMap#put
 	 */
 	public Object get(byte key);
 
 	/*
-	 * °ÑÖ¸¶¨µÄkeyÓëÖ¸¶¨µÄvalue·ÅÈëMap
-	 * @param key Ö¸¶¨µÄkey
+	 * æŠŠæŒ‡å®šçš„keyä¸æŒ‡å®šçš„valueæ”¾å…¥Map
+	 * @param key æŒ‡å®šçš„key
 	 * @see ByteMap#get
 	 */
 	public Object put(byte key, Object value);
 
 	/**
-	 * ¼ÓÈëÁíÒ»¸öByteMapÖĞµÄËùÓĞÏî£¬ÈôÓë±¾ByteMapÖĞkeyÓĞÖØ¸´Ôò¸²¸Ç
-	 * @param bam ÁíÒ»¸öByteMap
+	 * åŠ å…¥å¦ä¸€ä¸ªByteMapä¸­çš„æ‰€æœ‰é¡¹ï¼Œè‹¥ä¸æœ¬ByteMapä¸­keyæœ‰é‡å¤åˆ™è¦†ç›–
+	 * @param bam å¦ä¸€ä¸ªByteMap
 	 */
 	public void putAll(IByteMap bm);
 
 	/*
-	 * ÒÆ×ß¶ÔÓ¦ÓÚÖ¸¶¨keyµÄÔªËØ£¬ÈôÖ¸¶¨µÄkey²»´æÔÚ£¬ÔòÖ±½Ó·µ»Ø
-	 * @param key Ö¸¶¨µÄkey
-	 * @return Ö¸¶¨key¶ÔÓ¦µÄvalue£¬Èôkey²»´æÔÚ£¬Ôò·µ»Ønull
+	 * ç§»èµ°å¯¹åº”äºæŒ‡å®škeyçš„å…ƒç´ ï¼Œè‹¥æŒ‡å®šçš„keyä¸å­˜åœ¨ï¼Œåˆ™ç›´æ¥è¿”å›
+	 * @param key æŒ‡å®šçš„key
+	 * @return æŒ‡å®škeyå¯¹åº”çš„valueï¼Œè‹¥keyä¸å­˜åœ¨ï¼Œåˆ™è¿”å›null
 	 */
 	public Object remove(byte key);
 
 	/**
-	 * ½«Ö¸¶¨µÄkeyÓëvalue×·¼Óµ½±¾ByteMapÖĞ£¬×¢Òâ´Ë·½·¨²»¸²¸ÇÏàÍ¬keyµÄÏî
-	 * @param key Ö¸¶¨µÄkey
-	 * @param value Ö¸¶¨µÄvalue
+	 * å°†æŒ‡å®šçš„keyä¸valueè¿½åŠ åˆ°æœ¬ByteMapä¸­ï¼Œæ³¨æ„æ­¤æ–¹æ³•ä¸è¦†ç›–ç›¸åŒkeyçš„é¡¹
+	 * @param key æŒ‡å®šçš„key
+	 * @param value æŒ‡å®šçš„value
 	 */
 	public void add(byte key, Object value);
 
 	/**
-	 * ½«ÁíÒ»¸öByteMapÖĞµÄÏî×·¼Óµ½±¾ByteMapÖĞ;×¢Òâ´Ë·½·¨²»¸²¸ÇÏàÍ¬keyµÄÏî
-	 * @param bm ÁíÒ»¸öByteMap
+	 * å°†å¦ä¸€ä¸ªByteMapä¸­çš„é¡¹è¿½åŠ åˆ°æœ¬ByteMapä¸­;æ³¨æ„æ­¤æ–¹æ³•ä¸è¦†ç›–ç›¸åŒkeyçš„é¡¹
+	 * @param bm å¦ä¸€ä¸ªByteMap
 	 */
 	public void addAll(IByteMap bm);
 
 	/*
-	 * °´ÕÕÎ»ÖÃÉ¾³ıÏî
-	 * @param index Î»ÖÃ
-	 * @return ·µ»ØÖ¸¶¨Î»ÖÃµÄvalue
+	 * æŒ‰ç…§ä½ç½®åˆ é™¤é¡¹
+	 * @param index ä½ç½®
+	 * @return è¿”å›æŒ‡å®šä½ç½®çš„value
 	 */
 	public Object removeEntry(int index);
 
 	/*
-	 * °´ÕÕÎ»ÖÃÈ¡µÃ¶ÔÓ¦µÄkey
-	 * @param index Î»ÖÃ
+	 * æŒ‰ç…§ä½ç½®å–å¾—å¯¹åº”çš„key
+	 * @param index ä½ç½®
 	 */
 	public byte getKey(int index);
 
 	/*
-	 * °´ÕÕÎ»ÖÃÈ¡µÃ¶ÔÓ¦µÄvalue
-	 * @param index Î»ÖÃ
+	 * æŒ‰ç…§ä½ç½®å–å¾—å¯¹åº”çš„value
+	 * @param index ä½ç½®
 	 */
 	public Object getValue(int index);
 
 	/*
-	 * È¡MapÖĞÓëÖ¸¶¨key¶ÔÓ¦µÄindex,Èç¹ûÕÒ²»µ½Ö¸¶¨µÄkeyÔò·µ»Ø-1
-	 * @param key Ö¸¶¨µÄkey
+	 * å–Mapä¸­ä¸æŒ‡å®škeyå¯¹åº”çš„index,å¦‚æœæ‰¾ä¸åˆ°æŒ‡å®šçš„keyåˆ™è¿”å›-1
+	 * @param key æŒ‡å®šçš„key
 	 */
 	public int getIndex(byte key);
 
 	/*
-	 * °ÑÖ¸¶¨µÄindex¶ÔÓ¦µÄvalue·ÅÈëMap
-	 * @param index Ö¸¶¨µÄindex
+	 * æŠŠæŒ‡å®šçš„indexå¯¹åº”çš„valueæ”¾å…¥Map
+	 * @param index æŒ‡å®šçš„index
 	 * @see ByteMap#setValue
 	 */
 	public void setValue(int index,Object value);
 
 	/**
-	 * Çå³ı¼üÖØ¸´µÄÏî£¬Ö»±£Áô×îºóÒ»¸ö
+	 * æ¸…é™¤é”®é‡å¤çš„é¡¹ï¼Œåªä¿ç•™æœ€åä¸€ä¸ª
 	 */
 	public void purgeDupKeys();
 
 	/**
-	 * Çå³ıÖµÎªnullµÄÏî
+	 * æ¸…é™¤å€¼ä¸ºnullçš„é¡¹
 	 */
 	public void purgeNullValues();
 
 	/*
-	 * Çå¿ÕMap
+	 * æ¸…ç©ºMap
 	 */
 	public void clear();
 
-	/*************************ÒÔÏÂ¼Ì³Ğ×ÔExternalizable************************/
+	/*************************ä»¥ä¸‹ç»§æ‰¿è‡ªExternalizable************************/
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
-	 *@param out Êä³öÁ÷
+	 * å†™å†…å®¹åˆ°æµ
+	 *@param out è¾“å‡ºæµ
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException;
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-	 *@param in ÊäÈëÁ÷
+	 * ä»æµä¸­è¯»å†…å®¹
+	 *@param in è¾“å…¥æµ
 	 */
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException;
 
-	/*************************ÒÔÏÂ¼Ì³Ğ×ÔICloneable************************/
+	/*************************ä»¥ä¸‹ç»§æ‰¿è‡ªICloneable************************/
 	/**
-	 * Éî¶È¿ËÂ¡
-	 *@return ¿ËÂ¡³öµÄ¶ÔÏó
+	 * æ·±åº¦å…‹éš†
+	 *@return å…‹éš†å‡ºçš„å¯¹è±¡
 	 */
 	public Object deepClone();
 

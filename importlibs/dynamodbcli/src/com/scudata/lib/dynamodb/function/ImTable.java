@@ -44,7 +44,7 @@ public class ImTable extends ImFunction {
 				int i=0;	
 				Object[] vs = null;
 				
-				// ²»Ö¸¶¨typeÎª"S"
+				// ä¸æŒ‡å®štypeä¸º"S"
 				// 1.param: name, partKey
 				if (objs.length==2){ 
 					vs = new Object[3];
@@ -75,7 +75,7 @@ public class ImTable extends ImFunction {
 				}
 				
 				if (vs.length==5){
-					// ÉùÃ÷·ÖÇø¼üºÍÅÅĞò¼ü
+					// å£°æ˜åˆ†åŒºé”®å’Œæ’åºé”®
 					table = m_db.m_dynamoDB.createTable(vs[0].toString(),	                
 		                Arrays.asList(new KeySchemaElement(vs[1].toString(), KeyType.HASH),                                                      
 		                    new KeySchemaElement(vs[3].toString(), KeyType.RANGE)), 

@@ -13,18 +13,18 @@ import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
 /**
- * º¯Êıf.xlsopen(p) ¶Á³öExcelÎÄ¼şf·µ»Ø³É¶ÔÏó£¬ pÊÇÃÜÂë£»·µ»Ø¶ÔÏó¿É×÷ÎªÖ»¶ÁĞò±í
- * stname£¨Ò³Ãû£©,nrows£¨ĞĞÊı£©,ncols£¨ÁĞÊı£©
+ * å‡½æ•°f.xlsopen(p) è¯»å‡ºExcelæ–‡ä»¶fè¿”å›æˆå¯¹è±¡ï¼Œ pæ˜¯å¯†ç ï¼›è¿”å›å¯¹è±¡å¯ä½œä¸ºåªè¯»åºè¡¨
+ * stnameï¼ˆé¡µåï¼‰,nrowsï¼ˆè¡Œæ•°ï¼‰,ncolsï¼ˆåˆ—æ•°ï¼‰
  * 
- * @r Á÷Ê½¶Á£¬¶ÔÓÚ³ÌĞòµ¼³öµÄxlsÓĞ¿ÉÄÜĞĞÁĞÊı·µ»Ø²»ÕıÈ·
- * @w Á÷Ê½Ğ´£¬´ËÊ±²»ÄÜ·µ»ØË÷ÒıĞÅÏ¢£¬Óë@r»¥³â
+ * @r æµå¼è¯»ï¼Œå¯¹äºç¨‹åºå¯¼å‡ºçš„xlsæœ‰å¯èƒ½è¡Œåˆ—æ•°è¿”å›ä¸æ­£ç¡®
+ * @w æµå¼å†™ï¼Œæ­¤æ—¶ä¸èƒ½è¿”å›ç´¢å¼•ä¿¡æ¯ï¼Œä¸@räº’æ–¥
  * 
  *
  */
 public class XlsOpen extends FileFunction {
 
 	/**
-	 * ¼ÆËã
+	 * è®¡ç®—
 	 */
 	public Object calculate(Context ctx) {
 		String opt = option;
@@ -32,13 +32,13 @@ public class XlsOpen extends FileFunction {
 		boolean isW = opt != null && opt.indexOf("w") > -1;
 
 		if (isR && isW) {
-			// @wÓë@r»¥³âss
+			// @wä¸@räº’æ–¥ss
 			MessageManager mm = AppMessage.get();
-			throw new RQException("xlsopen" + mm.getMessage("filexls.notrw")); // £ºÑ¡ÏîwÓër²»ÄÜÍ¬Ê±ÉèÖÃ
+			throw new RQException("xlsopen" + mm.getMessage("filexls.notrw")); // ï¼šé€‰é¡¹wä¸rä¸èƒ½åŒæ—¶è®¾ç½®
 		}
 
 		if (param == null) {
-			// ·µ»ØExcelÎÄ¼ş¶ÔÏó
+			// è¿”å›Excelæ–‡ä»¶å¯¹è±¡
 			return xlsOpen(null, isR, isW, ctx);
 		}
 
@@ -74,13 +74,13 @@ public class XlsOpen extends FileFunction {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 
@@ -88,12 +88,12 @@ public class XlsOpen extends FileFunction {
 	}
 
 	/**
-	 * ´´½¨xoÎÄ¼ş¶ÔÏó
+	 * åˆ›å»ºxoæ–‡ä»¶å¯¹è±¡
 	 * 
 	 * @param pwd
-	 *            ÃÜÂë
+	 *            å¯†ç 
 	 * @param isR
-	 *            Ñ¡Ïî@r
+	 *            é€‰é¡¹@r
 	 * @param isW
 	 * @return
 	 */

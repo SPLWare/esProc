@@ -8,18 +8,18 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.spl.SPL;
 
 /**
- * Íø¸ñ°´¼ü¼àÌıÆ÷¡£ÓÃÓÚÊµÏÖCTRL-TAB£¬ÇĞ»»µ½ÏÂÒ»¸öÍø¸ñ
+ * ç½‘æ ¼æŒ‰é”®ç›‘å¬å™¨ã€‚ç”¨äºå®ç°CTRL-TABï¼Œåˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªç½‘æ ¼
  *
  */
 public class SplKeyListener implements AWTEventListener {
 
 	/**
-	 * CTRL¼üÊÇ·ñ°´ÏÂÁË
+	 * CTRLé”®æ˜¯å¦æŒ‰ä¸‹äº†
 	 */
 	private boolean isCtrlDown = false;
 
 	/**
-	 * ´¥·¢ÊÂ¼ş
+	 * è§¦å‘äº‹ä»¶
 	 */
 	public void eventDispatched(AWTEvent event) {
 		if (event.getClass() == KeyEvent.class) {

@@ -1,16 +1,16 @@
 package com.scudata.dw;
 
 /**
- * ½á¹¹¹ÜÀíÆ÷
+ * ç»“æ„ç®¡ç†å™¨
  */
 import java.util.ArrayList;
 
 import com.scudata.dm.DataStruct;
 
 public final class StructManager {
-	private ArrayList<DataStruct> dsList; // ¸´ÁĞµÄÊı¾İ½á¹¹
-	private transient DataStruct prevDs; // Ç°Ò»¸öÒıÓÃ×Ö¶ÎµÄÊı¾İ½á¹¹
-	private transient int prevDsID = -1; // Êı¾İ½á¹¹µÄ±êÊ¶£¬¼´ÔÚdsListÖĞµÄË÷Òı
+	private ArrayList<DataStruct> dsList; // å¤åˆ—çš„æ•°æ®ç»“æ„
+	private transient DataStruct prevDs; // å‰ä¸€ä¸ªå¼•ç”¨å­—æ®µçš„æ•°æ®ç»“æ„
+	private transient int prevDsID = -1; // æ•°æ®ç»“æ„çš„æ ‡è¯†ï¼Œå³åœ¨dsListä¸­çš„ç´¢å¼•
 	
 	public StructManager() {
 		dsList = new ArrayList<DataStruct>();

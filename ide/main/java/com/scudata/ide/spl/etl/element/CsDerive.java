@@ -1,8 +1,8 @@
 package com.scudata.ide.spl.etl.element;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ CS.derive()
- * º¯ÊıÃûÇ°×ºCs±íÊ¾ÓÎ±ê
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ CS.derive()
+ * å‡½æ•°åå‰ç¼€Csè¡¨ç¤ºæ¸¸æ ‡
  * 
  * @author Joancy
  *
@@ -10,7 +10,7 @@ package com.scudata.ide.spl.etl.element;
 public class CsDerive extends CsNew {
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÃû
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°å
 	 */
 	public String getFuncName(){
 		return "derive";

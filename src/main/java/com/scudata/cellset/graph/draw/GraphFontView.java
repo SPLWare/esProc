@@ -8,8 +8,8 @@ import com.scudata.chart.Utils;
 import com.scudata.common.*;
 
 /**
- * Í¼ĞÎ×ÖÌåÊÓÍ¼
- * ·â×°ÁË×ÖÌå¸÷ÀàÏà¹ØĞÅÏ¢µÄ×ÖÌåÊÓÍ¼
+ * å›¾å½¢å­—ä½“è§†å›¾
+ * å°è£…äº†å­—ä½“å„ç±»ç›¸å…³ä¿¡æ¯çš„å­—ä½“è§†å›¾
  * @author Joancy
  *
  */
@@ -21,31 +21,31 @@ public class GraphFontView {
 	public static final byte FONT_XTITLE = 4;
 	public static final byte FONT_YTITLE = 5;
 	public static final byte FONT_VALUE = 6;
-	public static final byte TEXT_FIXED = 0; // ÎÄ×Ö²»×÷Ğ£×¼
-	public static final byte TEXT_ON_TOP = 1; // ÎÄ×ÖÎ»ÓÚÖĞĞÄµãÉÏ·½
-	public static final byte TEXT_ON_BOTTOM = 2; // ÎÄ×ÖÎ»ÓÚÖĞĞÄµãÏÂ·½
-	public static final byte TEXT_ON_LEFT = 3; // ÎÄ×ÖÎ»ÓÚÖĞĞÄµã×ó±ß
-	public static final byte TEXT_ON_RIGHT = 4; // ÎÄ×ÖÎ»ÓÚÖĞĞÄµãÓÒ±ß
-	public static final byte TEXT_ON_CENTER = 5; // ÎÄ×ÖÎ»ÓÚÖĞĞÄµã
+	public static final byte TEXT_FIXED = 0; // æ–‡å­—ä¸ä½œæ ¡å‡†
+	public static final byte TEXT_ON_TOP = 1; // æ–‡å­—ä½äºä¸­å¿ƒç‚¹ä¸Šæ–¹
+	public static final byte TEXT_ON_BOTTOM = 2; // æ–‡å­—ä½äºä¸­å¿ƒç‚¹ä¸‹æ–¹
+	public static final byte TEXT_ON_LEFT = 3; // æ–‡å­—ä½äºä¸­å¿ƒç‚¹å·¦è¾¹
+	public static final byte TEXT_ON_RIGHT = 4; // æ–‡å­—ä½äºä¸­å¿ƒç‚¹å³è¾¹
+	public static final byte TEXT_ON_CENTER = 5; // æ–‡å­—ä½äºä¸­å¿ƒç‚¹
 
 	DrawBase db;
 	public String text = "";
-	public String text2 = ""; // Á½ÖáÍ¼µÄY2Öá±êÌâ
+	public String text2 = ""; // ä¸¤è½´å›¾çš„Y2è½´æ ‡é¢˜
 	public Font font;
 	public Color color;
 	public boolean vertical = false;
-	public int angle; // ÎÄ×ÖĞı×ª½Ç¶È£¬×¢Òâµ±Ç°½öÖ§³ÖĞı×ª0µ½90¶È£¬¶àÓàµÄ¶ÈÊıÈ¡90¶ÈµÄÓà
+	public int angle; // æ–‡å­—æ—‹è½¬è§’åº¦ï¼Œæ³¨æ„å½“å‰ä»…æ”¯æŒæ—‹è½¬0åˆ°90åº¦ï¼Œå¤šä½™çš„åº¦æ•°å–90åº¦çš„ä½™
 
-	// ÎÄ×ÖµÄÈ±Ê¡¶ÔÆëÎ»ÖÃ
+	// æ–‡å­—çš„ç¼ºçœå¯¹é½ä½ç½®
 	byte textPosition = TEXT_FIXED;
-	private boolean allowIntersect = true; // ÊÇ·ñÔÊĞíÏàÁÚµÄÊıÖµÖØµşÊä³ö
+	private boolean allowIntersect = true; // æ˜¯å¦å…è®¸ç›¸é‚»çš„æ•°å€¼é‡å è¾“å‡º
 
-	// Rectangle PA = null; //ÉÏÒ»¸öÊä³öÎÄ±¾ÇøÓò PreArea
-	ArrayList fontRects = new ArrayList(); // ËùÓĞÊä³ö¹ıµÄ¾ØĞÎ¶¼hold£¬½ûÖ¹ÖØµşÊä³öÊ±ÒªÓëËùÓĞÒÑÕ¼Çø¼ä±È½Ï£¬ÀÏ°ì·¨ÊÇÖ»±ÈÏàÁÚÇø¼ä
+	// Rectangle PA = null; //ä¸Šä¸€ä¸ªè¾“å‡ºæ–‡æœ¬åŒºåŸŸ PreArea
+	ArrayList fontRects = new ArrayList(); // æ‰€æœ‰è¾“å‡ºè¿‡çš„çŸ©å½¢éƒ½holdï¼Œç¦æ­¢é‡å è¾“å‡ºæ—¶è¦ä¸æ‰€æœ‰å·²å åŒºé—´æ¯”è¾ƒï¼Œè€åŠæ³•æ˜¯åªæ¯”ç›¸é‚»åŒºé—´
 
 	/**
-	 * ¹¹Ôì×ÖÌåÊÓÍ¼¶ÔÏó
-	 * @param drawBase Í¼ĞÎ»æÖÆÊµÀı
+	 * æ„é€ å­—ä½“è§†å›¾å¯¹è±¡
+	 * @param drawBase å›¾å½¢ç»˜åˆ¶å®ä¾‹
 	 */
 	public GraphFontView(DrawBase drawBase) {
 		this.db = drawBase;
@@ -53,9 +53,9 @@ public class GraphFontView {
 	}
 
 	/**
-	 * ½«×ÖÌå¶ÔÆë·´Ïò
-	 * @param direction ¶ÔÆë·½Ê½
-	 * @return ·´Ïò¶ÔÆë·½Ê½£¬²»ĞèÒª·´ÏòµÄÈÔÈ»ÊÇµ±Ç°¶ÔÆë·½Ê½
+	 * å°†å­—ä½“å¯¹é½åå‘
+	 * @param direction å¯¹é½æ–¹å¼
+	 * @return åå‘å¯¹é½æ–¹å¼ï¼Œä¸éœ€è¦åå‘çš„ä»ç„¶æ˜¯å½“å‰å¯¹é½æ–¹å¼
 	 */
 	public static byte reverseDirection(byte direction) {
 		switch (direction) {
@@ -76,40 +76,40 @@ public class GraphFontView {
 	}
 
 	/**
-	 * ÉèÖÃ×ÖÌå¶ÔÏó
-	 * @param font ×ÖÌå¶ÔÏó
+	 * è®¾ç½®å­—ä½“å¯¹è±¡
+	 * @param font å­—ä½“å¯¹è±¡
 	 */
 	public void setFont(Font font) {
 		this.font = font;
 	}
 
 	/**
-	 * ÉèÖÃ»æÖÆÎÄ±¾Ê±£¬ÊÇ·ñÔÊĞí¸ú±ğµÄÎÄ×ÖÖØµş
-	 * @param allowIntersect ÔÊĞíÖØµş
+	 * è®¾ç½®ç»˜åˆ¶æ–‡æœ¬æ—¶ï¼Œæ˜¯å¦å…è®¸è·Ÿåˆ«çš„æ–‡å­—é‡å 
+	 * @param allowIntersect å…è®¸é‡å 
 	 */
 	public void setIntersect(boolean allowIntersect) {
 		this.allowIntersect = allowIntersect;
 	}
 
 	/**
-	 * ÉèÖÃÑÕÉ«
-	 * @param color ÑÕÉ«
+	 * è®¾ç½®é¢œè‰²
+	 * @param color é¢œè‰²
 	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
 
 	/**
-	 * ÉèÖÃÎÄ×ÖÊÇ·ñÊúÏòÅÅÁĞ
-	 * @param vertical ÊúÏòÅÅÁĞ
+	 * è®¾ç½®æ–‡å­—æ˜¯å¦ç«–å‘æ’åˆ—
+	 * @param vertical ç«–å‘æ’åˆ—
 	 */
 	public void setVertical(boolean vertical) {
 		this.vertical = vertical;
 	}
 
 	/**
-	 * ÉèÖÃÎÄ±¾µÄĞı×ª½Ç¶È
-	 * @param angle ½Ç¶È
+	 * è®¾ç½®æ–‡æœ¬çš„æ—‹è½¬è§’åº¦
+	 * @param angle è§’åº¦
 	 */
 	public void setAngle(int angle) {
 		if(Math.abs(angle)>90) {
@@ -122,8 +122,8 @@ public class GraphFontView {
 	}
 
 	/**
-	 * ÉèÖÃÏÔÊ¾ÎÄ±¾
-	 * @param text ÎÄ±¾´®
+	 * è®¾ç½®æ˜¾ç¤ºæ–‡æœ¬
+	 * @param text æ–‡æœ¬ä¸²
 	 */
 	public void setText(String text) {
 		if (text == null) {
@@ -131,7 +131,7 @@ public class GraphFontView {
 		}
 		if (db.egp.is2YGraph()) {
 			int pos = -1;
-			//Ö»×¼ĞíÓÃ·ÖºÅ£¬¿¼ÂÇµ½»¹¿ÉÒÔÓÃ·Ö¿ªµÄ±í´ïÊ½
+			//åªå‡†è®¸ç”¨åˆ†å·ï¼Œè€ƒè™‘åˆ°è¿˜å¯ä»¥ç”¨åˆ†å¼€çš„è¡¨è¾¾å¼
 			if (pos < 0) {
 				pos = text.indexOf(';');
 			}
@@ -147,33 +147,33 @@ public class GraphFontView {
 	}
 
 	/**
-	 * ÉèÖÃÎÄ×ÖÔÚÔ²ĞÎ²¼¾ÖÊ±µÄ·½Î»£¬ÓÃÓÚÀ×´ïÍ¼
-	 * @param pos ·½Î»
+	 * è®¾ç½®æ–‡å­—åœ¨åœ†å½¢å¸ƒå±€æ—¶çš„æ–¹ä½ï¼Œç”¨äºé›·è¾¾å›¾
+	 * @param pos æ–¹ä½
 	 */
 	public void setTextPosition(byte pos) {
 		this.textPosition = pos;
 	}
 	
 	/**
-	 * ÔÚ×ø±ê³öÊä³öµ±Ç°ÎÄ±¾
-	 * @param x ºá×ø±ê
-	 * @param y ×İ×ø±ê
+	 * åœ¨åæ ‡å‡ºè¾“å‡ºå½“å‰æ–‡æœ¬
+	 * @param x æ¨ªåæ ‡
+	 * @param y çºµåæ ‡
 	 */
 	public void outText(double x, double y) {
 		outText(x, y, text);
 	}
 
 	/**
-	 * ¸Ãº¯Êı·½±ãXÖá±êÇ©¸ù¾İinterval¾ö¶¨ÊÇ·ñ»­ÎÄ×Ö
+	 * è¯¥å‡½æ•°æ–¹ä¾¿Xè½´æ ‡ç­¾æ ¹æ®intervalå†³å®šæ˜¯å¦ç”»æ–‡å­—
 	 * 
 	 * @param x
-	 *            int ºá×ø±ê
+	 *            int æ¨ªåæ ‡
 	 * @param y
-	 *            int ×İ×ø±ê
+	 *            int çºµåæ ‡
 	 * @param text
-	 *            String ÎÄ±¾
+	 *            String æ–‡æœ¬
 	 * @param visible
-	 *            boolean ÊÇ·ñ¿É¼û
+	 *            boolean æ˜¯å¦å¯è§
 	 */
 	public void outText(double x, double y, String text, boolean visible) {
 		if (visible) {
@@ -182,12 +182,12 @@ public class GraphFontView {
 	}
 
 	/**
-	 * Êä³öÎÄ±¾
-	 * @param x ºá×ø±ê
-	 * @param y ×İ×ø±ê
-	 * @param text ÎÄ±¾
-	 * @param visible ¿É¼û
-	 * @param direction ·½Î»
+	 * è¾“å‡ºæ–‡æœ¬
+	 * @param x æ¨ªåæ ‡
+	 * @param y çºµåæ ‡
+	 * @param text æ–‡æœ¬
+	 * @param visible å¯è§
+	 * @param direction æ–¹ä½
 	 */
 	public void outText(double x, double y, String text, boolean visible,
 			byte direction) {
@@ -197,20 +197,20 @@ public class GraphFontView {
 	}
 
 	/**
-	 * Êä³öÎÄ±¾
+	 * è¾“å‡ºæ–‡æœ¬
 	 * @param text 
-	 *            String ÎÄ±¾
+	 *            String æ–‡æœ¬
 	 * @param x
-	 *            double ÎÄ±¾Êä³öÊ±µÄ×óÏÂ½Çx
+	 *            double æ–‡æœ¬è¾“å‡ºæ—¶çš„å·¦ä¸‹è§’x
 	 * @param y
-	 *            double ÎÄ±¾Êä³öÊ±µÄ×óÏÂ½Çy
+	 *            double æ–‡æœ¬è¾“å‡ºæ—¶çš„å·¦ä¸‹è§’y
 	 */
 	public boolean outText(double x, double y, String text) {
 		return outText(x, y, text, textPosition);
 	}
 
 	private Rectangle intersects(Rectangle newRect) {
-		// Òª´ÓºóÍùÇ°ÕÒ£¬ÕÒµ½×îºóÒ»¸öÖØµşÇøÓò
+		// è¦ä»åå¾€å‰æ‰¾ï¼Œæ‰¾åˆ°æœ€åä¸€ä¸ªé‡å åŒºåŸŸ
 		for (int i = fontRects.size() - 1; i >= 0; i--) {
 			Rectangle rect = (Rectangle) fontRects.get(i);
 			if (rect.intersects(newRect)) {
@@ -221,37 +221,37 @@ public class GraphFontView {
 	}
 
 	/**
-	 * Êä³öÎÄ±¾
-	 * @param x ºá×ø±ê
-	 * @param y ×İ×ø±ê
-	 * @param text ÎÄ±¾
-	 * @param tmpColor ÑÕÉ«
-	 * @return »æÖÆÍê³É·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è¾“å‡ºæ–‡æœ¬
+	 * @param x æ¨ªåæ ‡
+	 * @param y çºµåæ ‡
+	 * @param text æ–‡æœ¬
+	 * @param tmpColor é¢œè‰²
+	 * @return ç»˜åˆ¶å®Œæˆè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean outText(double x, double y, String text, Color tmpColor) {
 		return outText(x, y, text, textPosition, tmpColor);
 	}
 
 	/**
-	 * Êä³öÎÄ±¾
-	 * @param x ºá×ø±ê
-	 * @param y ×İ×ø±ê
-	 * @param text ÎÄ±¾
-	 * @param direction ·½Î»
-	 * @return »æÖÆÍê³É·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è¾“å‡ºæ–‡æœ¬
+	 * @param x æ¨ªåæ ‡
+	 * @param y çºµåæ ‡
+	 * @param text æ–‡æœ¬
+	 * @param direction æ–¹ä½
+	 * @return ç»˜åˆ¶å®Œæˆè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean outText(double x, double y, String text, byte direction) {
 		return outText(x, y, text, direction, color);
 	}
 
 	/**
-	 * Êä³öÎÄ±¾
-	 * @param x ºá×ø±ê
-	 * @param y ×İ×ø±ê
-	 * @param text ÎÄ±¾
-	 * @param direction ·½Î» 
-	 * @param textColor ÑÕÉ«
-	 * @return »æÖÆÁËÎÄ±¾·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è¾“å‡ºæ–‡æœ¬
+	 * @param x æ¨ªåæ ‡
+	 * @param y çºµåæ ‡
+	 * @param text æ–‡æœ¬
+	 * @param direction æ–¹ä½ 
+	 * @param textColor é¢œè‰²
+	 * @return ç»˜åˆ¶äº†æ–‡æœ¬è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 
 	public boolean outText(double x, double y, String text, byte direction,
@@ -266,7 +266,7 @@ public class GraphFontView {
 		if (vertical || angle == 0) {
 			TA = getTextSize(text);
 //		} else if(angle%90!=0){
-//			vertical = true; // ÎÄ×ÖÓĞĞı×ª½Ç¶ÈµÄÊ±ºò,µÃ¼ÆËã¼ÙÉèÊúÅÅÎÄ×ÖÊÇ·ñÏà½»
+//			vertical = true; // æ–‡å­—æœ‰æ—‹è½¬è§’åº¦çš„æ—¶å€™,å¾—è®¡ç®—å‡è®¾ç«–æ’æ–‡å­—æ˜¯å¦ç›¸äº¤
 //			TA = getTextSize(text);
 //			vertical = false;
 		}
@@ -274,8 +274,8 @@ public class GraphFontView {
 		Point rop = getActualTextPoint((int)x, (int)y, direction, TA, fm, text); 
 		TA.x = rop.x;
 		TA.y = rop.y;
-		if (textColor != color) { // µ±Êä³öÑÕÉ«¸ú±à¼­µÄÑÕÉ«²»Ò»ÖÂÊ±£¬±íÊ¾Ê¹ÓÃÁËÏµÁĞµÄ¶¯Ì¬ÑÕÉ«À´Çø·Ö±êÇ©£¬¸Ã×´Ì¬ÏÂ
-			// ²»ÅĞ¶ÏÖØµş£¬ÕæÓĞÖØµşÊ±£¬ÈÃ×ø±êÉÔÎ¢´íÏÂÎ»£¬ÓÉÓÚÑÕÉ«²»Í¬£¬´íÎ»ºó£¬ÈÔ¿ÉÒÔ·Ö±æ³öÀ´
+		if (textColor != color) { // å½“è¾“å‡ºé¢œè‰²è·Ÿç¼–è¾‘çš„é¢œè‰²ä¸ä¸€è‡´æ—¶ï¼Œè¡¨ç¤ºä½¿ç”¨äº†ç³»åˆ—çš„åŠ¨æ€é¢œè‰²æ¥åŒºåˆ†æ ‡ç­¾ï¼Œè¯¥çŠ¶æ€ä¸‹
+			// ä¸åˆ¤æ–­é‡å ï¼ŒçœŸæœ‰é‡å æ—¶ï¼Œè®©åæ ‡ç¨å¾®é”™ä¸‹ä½ï¼Œç”±äºé¢œè‰²ä¸åŒï¼Œé”™ä½åï¼Œä»å¯ä»¥åˆ†è¾¨å‡ºæ¥
 			Rectangle rect = intersects(TA);
 			if (rect != null) {
 				if (TA.y <= rect.y) {
@@ -295,13 +295,13 @@ public class GraphFontView {
 
 		db.g.setColor(textColor);
 		db.g.setFont(font);
-//		³ÌĞòÖĞ½ûÖ¹¹Ø±Õanti£¬±£Ö¤ËùÓĞµÄÏßºÍÎÄ×Ö¶¼ÊÇÆ½»¬µÄ
-//		ÎÄ×ÖÒªÇó²»Æ½»¬£¬¿´ÆğÀ´¸üÇåÎú£¬ËùÒÔ£¬¸Ä³É»æÖÆÎÄ×ÖÊ±¹Ø±Õ¾â³İ£¬»æÖÆÍêºó»Ö¸´Æ½»¬
+//		ç¨‹åºä¸­ç¦æ­¢å…³é—­antiï¼Œä¿è¯æ‰€æœ‰çš„çº¿å’Œæ–‡å­—éƒ½æ˜¯å¹³æ»‘çš„
+//		æ–‡å­—è¦æ±‚ä¸å¹³æ»‘ï¼Œçœ‹èµ·æ¥æ›´æ¸…æ™°ï¼Œæ‰€ä»¥ï¼Œæ”¹æˆç»˜åˆ¶æ–‡å­—æ—¶å…³é—­é”¯é½¿ï¼Œç»˜åˆ¶å®Œåæ¢å¤å¹³æ»‘
 		Composite com = db.g.getComposite();
 		Utils.setGraphAntiAliasingOff(db.g);
 //		db.g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 //				RenderingHints.VALUE_ANTIALIAS_OFF);
-		// ²»ÄÜÊ¹ÓÃÒì»òÊä³ö£¬Á½¸öÔ­Òò£º 1,Í¸Ã÷±³¾°Ê±Òì»ò¸ù±¾¾Í»­²»³öÀ´£»2£¬Òì»ò×ÜÓĞÄ³¸öÏà½üµÄÑÕÉ«Òì»òºóÈÔÈ»²»ÇåÎú
+		// ä¸èƒ½ä½¿ç”¨å¼‚æˆ–è¾“å‡ºï¼Œä¸¤ä¸ªåŸå› ï¼š 1,é€æ˜èƒŒæ™¯æ—¶å¼‚æˆ–æ ¹æœ¬å°±ç”»ä¸å‡ºæ¥ï¼›2ï¼Œå¼‚æˆ–æ€»æœ‰æŸä¸ªç›¸è¿‘çš„é¢œè‰²å¼‚æˆ–åä»ç„¶ä¸æ¸…æ™°
 
 		x = TA.x;
 		y = TA.y;
@@ -346,7 +346,7 @@ public class GraphFontView {
 		
 		Utils.setGraphAntiAliasingOn(db.g);
 
-//		ÎÄ×ÖÊä³öÍê±Ï£¬ÔÙ»Ö¸´Æ½»¬
+//		æ–‡å­—è¾“å‡ºå®Œæ¯•ï¼Œå†æ¢å¤å¹³æ»‘
 //		db.g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 //				RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -426,7 +426,7 @@ public class GraphFontView {
 				break;
 			}
 		}else {
-//			Ğı×ª½Ç¶È½öÖ§³Ö0-90¶È
+//			æ—‹è½¬è§’åº¦ä»…æ”¯æŒ0-90åº¦
 			double rotateAngle = Math.toRadians(angle);
 //			Rectangle tmpTA = getTextSize(text);
 			
@@ -480,17 +480,17 @@ public class GraphFontView {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ÎÄ±¾ËùÕ¼ÇøÓò
-	 * @return ¾ØĞÎÃèÊöÎÄ±¾ÇøÓò
+	 * è·å–å½“å‰æ–‡æœ¬æ‰€å åŒºåŸŸ
+	 * @return çŸ©å½¢æè¿°æ–‡æœ¬åŒºåŸŸ
 	 */
 	public Rectangle getTextSize() {
 		return getTextSize(text);
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨ÎÄ±¾ÔÙµ±Ç°×ÖÌåÏÂµÄËùÕ¼ÇøÓò
-	 * @param text ÎÄ±¾
-	 * @return ¾ØĞÎÇøÓò
+	 * è·å–æŒ‡å®šæ–‡æœ¬å†å½“å‰å­—ä½“ä¸‹çš„æ‰€å åŒºåŸŸ
+	 * @param text æ–‡æœ¬
+	 * @return çŸ©å½¢åŒºåŸŸ
 	 */
 	public Rectangle getTextSize(String text) {
 		if (text == null) {
@@ -511,7 +511,7 @@ public class GraphFontView {
 		}
 		Rectangle area = new Rectangle();
 		FontMetrics fm = db.g.getFontMetrics(font);
-		int hh = fm.getAscent() + 2; // ÊúÅÅÎÄ×Ö¼äÓĞ2¸öµãµÄ¼äÏ¶
+		int hh = fm.getAscent() + 2; // ç«–æ’æ–‡å­—é—´æœ‰2ä¸ªç‚¹çš„é—´éš™
 		area.width = fm.stringWidth(text.substring(0, 1));
 		area.height = hh * text.length();
 		return area;
@@ -523,7 +523,7 @@ public class GraphFontView {
 		int hw = fm.stringWidth(text);
 		int hh = fm.getAscent();
 		area.width = hw;
-		area.height = hh - fm.getLeading() - 2;// °´ÀíÀ´ËµAscent¾ÍÒÑ¾­ÊÇÎÄ×Ö»ùÏßÉÏ²¿¿Õ¼äÁË£¬µ«Êµ²âÊÇ¶àÁË£¬Î¢µ÷Ò»ÏÂ2
+		area.height = hh - fm.getLeading() - 2;// æŒ‰ç†æ¥è¯´Ascentå°±å·²ç»æ˜¯æ–‡å­—åŸºçº¿ä¸Šéƒ¨ç©ºé—´äº†ï¼Œä½†å®æµ‹æ˜¯å¤šäº†ï¼Œå¾®è°ƒä¸€ä¸‹2
 		return area;
 	}
 
@@ -536,11 +536,11 @@ public class GraphFontView {
 		FontMetrics fm = db.g.getFontMetrics(font);
 		int hw = fm.stringWidth(text);
 		int hh = fm.getAscent();
-		double djx =  Math.sqrt(hw * hw + hh * hh); // ¶Ô½ÇÏß³¤¶È
-		double textAngle = Math.atan(hh / (hw * 1.0f)), tmpAngle; // ÎÄ×Ö±¾ÉíµÄ¶Ô½ÇÏßÓëµ×±ßµÄ½Ç¶È
-																	// µ¥Î»£º»¡¶È
+		double djx =  Math.sqrt(hw * hw + hh * hh); // å¯¹è§’çº¿é•¿åº¦
+		double textAngle = Math.atan(hh / (hw * 1.0f)), tmpAngle; // æ–‡å­—æœ¬èº«çš„å¯¹è§’çº¿ä¸åº•è¾¹çš„è§’åº¦
+																	// å•ä½ï¼šå¼§åº¦
 		int aw, ah;
-		// ÎÄ×ÖÊÇ¾ØĞÎ£¬²»ÄÜÓÃhwĞı×ª½Ç¶ÈµÃµ½¸ß¶È£¬µÃÓÃ¶Ô½ÇÏßÈ¥Ğı×ª
+		// æ–‡å­—æ˜¯çŸ©å½¢ï¼Œä¸èƒ½ç”¨hwæ—‹è½¬è§’åº¦å¾—åˆ°é«˜åº¦ï¼Œå¾—ç”¨å¯¹è§’çº¿å»æ—‹è½¬
 		tmpAngle = textAngle + Math.toRadians(angle);
 		ah = (int) (djx * Math.sin(tmpAngle));
 

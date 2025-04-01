@@ -6,7 +6,7 @@ import com.scudata.expression.Node;
 /****
  * 
  * @author 
- * hdfs_open(uri,[username])	·µ»ØHdfsOpen
+ * hdfs_open(uri,[username])	è¿”å›žHdfsOpen
  */
 public class HdfsOpen extends HdfsFunction {
 	public Node optimize(Context ctx) {

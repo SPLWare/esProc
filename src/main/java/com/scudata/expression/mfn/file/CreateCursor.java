@@ -24,8 +24,8 @@ import com.scudata.resources.EngineMessage;
 
 
 /**
- * ´´½¨ÎÄ¼şÓÎ±ê£¬ÎÄ¼ş¿ÉÒÔÊÇÎÄ±¾ÎÄ¼ş¡¢¼¯ÎÄ¼ş
- * f.cursor(Fi:type:fmt,¡­;k:n,s)
+ * åˆ›å»ºæ–‡ä»¶æ¸¸æ ‡ï¼Œæ–‡ä»¶å¯ä»¥æ˜¯æ–‡æœ¬æ–‡ä»¶ã€é›†æ–‡ä»¶
+ * f.cursor(Fi:type:fmt,â€¦;k:n,s)
  * @author RunQian
  *
  */
@@ -38,7 +38,7 @@ public class CreateCursor extends FileFunction {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("cursor" + mm.getMessage("function.missingParam"));
-		} else if (param.getType() == IParam.Normal) { // Ã»ÓĞ²ÎÊı
+		} else if (param.getType() == IParam.Normal) { // æ²¡æœ‰å‚æ•°
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (!(obj instanceof String)) {
 				MessageManager mm = EngineMessage.get();

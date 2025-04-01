@@ -4,11 +4,11 @@ import java.sql.Date;
 import java.util.Calendar;
 
 final public class DateCache {
-	// 1992ÄêÖ®Ç°ÓĞµÄÈÕÆÚ²»ÄÜ±»86400000Õû³ı
-	// »º´æ´Ó2000/1/1µ½2030/12/31Ö®¼äµÄÈÕÆÚ
+	// 1992å¹´ä¹‹å‰æœ‰çš„æ—¥æœŸä¸èƒ½è¢«86400000æ•´é™¤
+	// ç¼“å­˜ä»2000/1/1åˆ°2030/12/31ä¹‹é—´çš„æ—¥æœŸ
 	private static final int DATECOUNT = 11323;
 	private static final Date []dates = new Date[DATECOUNT];
-	static final long BASEDATE; // 2000/1/1¶ÔÓ¦µÄÈÕÆÚÖµ
+	static final long BASEDATE; // 2000/1/1å¯¹åº”çš„æ—¥æœŸå€¼
 	static {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2000, java.util.Calendar.JANUARY, 1, 0, 0, 0);

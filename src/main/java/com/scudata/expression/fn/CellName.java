@@ -13,7 +13,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÓÃĞĞ¡¢ÁĞºÅ£¨´Ó1¿ªÊ¼¼ÆÊı£©¼ÆËãExcel¸ñÃû·µ»Ø
+ * ç”¨è¡Œã€åˆ—å·ï¼ˆä»1å¼€å§‹è®¡æ•°ï¼‰è®¡ç®—Excelæ ¼åè¿”å›
  * cellname(r, c)
  * @author RunQian
  *
@@ -23,7 +23,7 @@ public class CellName extends Function {
 	private Expression colExp;
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -62,8 +62,8 @@ public class CellName extends Function {
 	}
 
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {

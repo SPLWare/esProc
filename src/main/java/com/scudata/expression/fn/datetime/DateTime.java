@@ -16,13 +16,13 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * datetime(datetimeExp) µ÷ÕûdatetimeExpµÄ¾«¶Èºó·µ»Ø£¬È±Ê¡¾«È·µ½ÈÕ
+ * datetime(datetimeExp) è°ƒæ•´datetimeExpçš„ç²¾åº¦åè¿”å›ï¼Œç¼ºçœç²¾ç¡®åˆ°æ—¥
  * @author runqian
  *
  */
 public class DateTime extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -262,7 +262,7 @@ public class DateTime extends Function {
 			calendar.set(Calendar.MILLISECOND, 0);
 			return new Timestamp(calendar.getTimeInMillis());
 		} else if (size == 5) {
-			// datetime(ym,d,h,m,s)	ymÊÇ6Î»ÊıÊÇ½âÊÍÎªÄêÔÂ
+			// datetime(ym,d,h,m,s)	ymæ˜¯6ä½æ•°æ˜¯è§£é‡Šä¸ºå¹´æœˆ
 			IParam sub1 = param.getSub(0);
 			IParam sub2 = param.getSub(1);
 			IParam sub3 = param.getSub(2);

@@ -26,7 +26,7 @@ public class BPipeReader {
 
 	private int  m_idx = 0;
 	private static int  m_index = 0;
-	private static long m_nTestDataSize[]=new long[10]; //×ÜÊı¾İ´óĞ¡
+	private static long m_nTestDataSize[]=new long[10]; //æ€»æ•°æ®å¤§å°
 	private static long m_startTime[]=new long[10];
 	private static long m_endTime[]=new long[10];
 	//private static Object m_lock = new Object();
@@ -75,10 +75,10 @@ public class BPipeReader {
 		int nColSize = map.size();
 		Object[] objs = new Object[nColSize];
     	while( (m_bufLen[0]=ReadFile(m_fis, m_buf, BUF_SIZE-m_offset[0], m_offset[0]))>0){
-	    	m_offset[0] = 0; //´ÓÍ·¿ªÊ¼±éÀú
+	    	m_offset[0] = 0; //ä»å¤´å¼€å§‹éå†
 	    	while(true){
 	    		if (m_bufLen[0]-m_offset[0]<m_tblInfo.getColSize()){
-	    			// Ê£ÓàÊı¾İcopyµ½Í·.
+	    			// å‰©ä½™æ•°æ®copyåˆ°å¤´.
 	    			System.arraycopy(m_buf,m_offset[0],m_buf,0, m_bufLen[0]-m_offset[0]);
 	    			m_offset[0] = m_bufLen[0]-m_offset[0];
 	    			break;
@@ -101,10 +101,10 @@ public class BPipeReader {
 		int nColSize = map.size();
 		Object[] objs = new Object[nColSize];
 		if (m_bufLen[0]>m_tblInfo.getColSize()){
-	    	m_offset[0] = 0; //´ÓÍ·¿ªÊ¼±éÀú
+	    	m_offset[0] = 0; //ä»å¤´å¼€å§‹éå†
 	    	while(true){
 	    		if (m_bufLen[0]-m_offset[0]<m_tblInfo.getColSize()){
-	    			// Ê£ÓàÊı¾İcopyµ½Í·.
+	    			// å‰©ä½™æ•°æ®copyåˆ°å¤´.
 	    			int nLen = m_bufLen[0]-m_offset[0];
 	    			if (nLen > 0){
 		    			System.arraycopy(m_buf,m_offset[0],m_buf,0, nLen);
@@ -121,7 +121,7 @@ public class BPipeReader {
 	    		m_nCurrent++;
 	    		nIndex++;
 	    		if (nIndex>=n) {
-	    			// Ê£ÓàÊı¾İcopyµ½Í·.
+	    			// å‰©ä½™æ•°æ®copyåˆ°å¤´.
 	    			int nLen = m_bufLen[0]-m_offset[0];
 	    			if (nLen > 0){
 		    			System.arraycopy(m_buf,m_offset[0],m_buf,0, nLen);
@@ -145,7 +145,7 @@ public class BPipeReader {
 	    		long nDiff = (m_endTime[m_idx]-m_startTime[m_idx]);
 	    		if (nDiff>30000){		    			
 	    			m_startTime[m_idx] = m_endTime[m_idx];
-	    			SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//ÉèÖÃÈÕÆÚ¸ñÊ½
+	    			SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//è®¾ç½®æ—¥æœŸæ ¼å¼
 	    			String sEndDate = df.format(dEnd);
 	    			long nTotalM = m_nTestDataSize[m_idx]/(1024*1024);
 	    			System.out.println("idx=" + m_idx//+ m_nTestCurrent + " readLen="+m_buf[nIndex].curLen 
@@ -160,12 +160,12 @@ public class BPipeReader {
     		}
     		
     		m_bufLen[0] += m_offset[0];
-	    	m_offset[0] = 0; //´ÓÍ·¿ªÊ¼±éÀú
+	    	m_offset[0] = 0; //ä»å¤´å¼€å§‹éå†
 	    	while(true){
 	    		if (m_bufLen[0]<=m_offset[0]){
 	    			break;
 	    		}else if (m_bufLen[0]>0 && m_bufLen[0]-m_offset[0]<m_tblInfo.getColSize()/2){
-	    			// Ê£ÓàÊı¾İcopyµ½Í·.
+	    			// å‰©ä½™æ•°æ®copyåˆ°å¤´.
 	    			int nLen = m_bufLen[0]-m_offset[0];
 	    			if (nLen > 0){
 		    			System.arraycopy(m_buf,m_offset[0],m_buf,0, nLen);
@@ -185,7 +185,7 @@ public class BPipeReader {
 //	 	       		System.out.println("thread_"+m_threadIndex+" idx=" + m_nCurrent + " val=" + objs[0]+ " val2=" + objs[1]);
 //	    		}
 	    		if (nIndex>=n) {
-	    			// Ê£ÓàÊı¾İcopyµ½Í·.
+	    			// å‰©ä½™æ•°æ®copyåˆ°å¤´.
 	    			int nLen = m_bufLen[0]-m_offset[0];
 	    			if (nLen > 0){
 		    			System.arraycopy(m_buf,m_offset[0],m_buf,0, nLen);
@@ -213,7 +213,7 @@ public class BPipeReader {
     	int oldLen = offset;
     	try{      	
     		//System.out.println("ReadFile_"+m_threadIndex+" start....bufSize=" + bufSize + " offset=" + offset);
-        	while((len = inStream.read(bs, offset, bufSize))!=-1){//Ê¹ÓÃreadLine·½·¨£¬Ò»´Î¶ÁÒ»ĞĞ                
+        	while((len = inStream.read(bs, offset, bufSize))!=-1){//ä½¿ç”¨readLineæ–¹æ³•ï¼Œä¸€æ¬¡è¯»ä¸€è¡Œ                
         		bufSize -= len;
                 offset+=len;
                 if (bufSize<1024){
@@ -229,12 +229,12 @@ public class BPipeReader {
         return len;
     }
     
-    /* TableInfoĞÅÏ¢
-	 * buf»º³åÊı¾İ
-     * bufLen Êı¾İ³¤¶È
-     * offset Êı¾İÆ«ÒÆÎ»ÖÃ
-     * nColSize ÁĞÊı
-     * retObjs ·µ»ØÊı¾İ
+    /* TableInfoä¿¡æ¯
+	 * bufç¼“å†²æ•°æ®
+     * bufLen æ•°æ®é•¿åº¦
+     * offset æ•°æ®åç§»ä½ç½®
+     * nColSize åˆ—æ•°
+     * retObjs è¿”å›æ•°æ®
      */ 
     public void getValue(ImTableInfo tblInfo, byte[] buf,int[] bufLen,int[] offset, int nColSize, Object[] retObjs){
     	try {    	
@@ -248,7 +248,7 @@ public class BPipeReader {
 	        		break;
 	        	}
 	        	case TYPE_BOOLEAN:{
-	        		//0:µãÎ»£¬1:Êı¾İ
+	        		//0:ç‚¹ä½ï¼Œ1:æ•°æ®
 	        		retObjs[nCol] = (buf[offset[0]+1]==1)?true:false;
 	        		break;
 	        	}

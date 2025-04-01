@@ -10,174 +10,174 @@ import com.scudata.common.*;
 import com.scudata.dm.*;
 
 /**
- * ¿Ì¶ÈÖá ËùÓĞÊµ¼ÊÊı¾İÖµµÄ¸¸Àà
+ * åˆ»åº¦è½´ æ‰€æœ‰å®é™…æ•°æ®å€¼çš„çˆ¶ç±»
  * 
  * @author Joancy
  */
 
 public abstract class TickAxis extends ObjectElement implements IAxis {
 	private static int ARROW_SHIFT = 8;
-	/***** Âß¼­ÖáÊôĞÔ *****/
-	// ÖáÃû³Æ
-	public String name; // Ãû³Æ
+	/***** é€»è¾‘è½´å±æ€§ *****/
+	// è½´åç§°
+	public String name; // åç§°
 
-	// ÊÇ·ñ¿É¼û
+	// æ˜¯å¦å¯è§
 	public boolean visible = true;
 
-	// ÖáÎ»ÖÃ
+	// è½´ä½ç½®
 	public int location = Consts.AXIS_LOC_H;
 
-	// ºáÖáÊôĞÔ£ºÆğÊ¼ÎïÀíºá×ø±ê(xStart>xEnd±íÊ¾Ïò×ó)
+	// æ¨ªè½´å±æ€§ï¼šèµ·å§‹ç‰©ç†æ¨ªåæ ‡(xStart>xEndè¡¨ç¤ºå‘å·¦)
 	public double xStart = 0.1;
 
-	// ºáÖáÊôĞÔ£º½áÊøÎïÀíºá×ø±ê£¨²»º¬¼ıÍ·£©
+	// æ¨ªè½´å±æ€§ï¼šç»“æŸç‰©ç†æ¨ªåæ ‡ï¼ˆä¸å«ç®­å¤´ï¼‰
 	public double xEnd = 0.8;
 
-	// ºáÖáÊôĞÔ£º×İ×ø±ê
+	// æ¨ªè½´å±æ€§ï¼šçºµåæ ‡
 	public double xPosition = 0.8;
 
-	// ×İÖáÊôĞÔ£ºÆğÊ¼ÎïÀí×İ×ø±ê(yStart<yEnd±íÊ¾ÏòÏÂ)
+	// çºµè½´å±æ€§ï¼šèµ·å§‹ç‰©ç†çºµåæ ‡(yStart<yEndè¡¨ç¤ºå‘ä¸‹)
 	public double yStart = 0.8;
 
-	// ×İÖáÊôĞÔ£º½áÊøÎïÀí×İ×ø±ê
+	// çºµè½´å±æ€§ï¼šç»“æŸç‰©ç†çºµåæ ‡
 	public double yEnd = 0.1;
 
-	// ×İÖáÊôĞÔ£ººá×ø±ê
+	// çºµè½´å±æ€§ï¼šæ¨ªåæ ‡
 	public double yPosition = 0.1;
 
-	// ¼«ÖáÊôĞÔ£ºÔ­µãÎïÀíºá×ø±ê
+	// æè½´å±æ€§ï¼šåŸç‚¹ç‰©ç†æ¨ªåæ ‡
 	public double polarX = 0.4;
 
-	// ¼«ÖáÊôĞÔ£ºÔ­µãÎïÀí×İ×ø±ê
+	// æè½´å±æ€§ï¼šåŸç‚¹ç‰©ç†çºµåæ ‡
 	public double polarY = 0.5;
 
-	// ¼«Öá³¤¶È
+	// æè½´é•¿åº¦
 	public double polarLength = 0.3;
 
-	// ¼«ÖáµÄ¸ß¿í±È£¬²»µÈÓÚ1¼´ÍÖÔ²
+	// æè½´çš„é«˜å®½æ¯”ï¼Œä¸ç­‰äº1å³æ¤­åœ†
 	// public double HWRage = 1;
 
-	// ½ÇÖáÊôĞÔ£ºÆğÊ¼½Ç¶È(0-360¶È)
+	// è§’è½´å±æ€§ï¼šèµ·å§‹è§’åº¦(0-360åº¦)
 	public double startAngle = 0;
 
-	// ½ÇÖáÊôĞÔ£º½áÊø½Ç¶È(0-360¶È)
+	// è§’è½´å±æ€§ï¼šç»“æŸè§’åº¦(0-360åº¦)
 	public double endAngle = 360;
 
-	// ÏµÁĞÊôĞÔ£º²¢ÁĞÊı,¸Ã²ÎÊı ÒâÒå²»´ó£¬¿ÉÒÔÖ±½ÓÖ¸¶¨seriesÊôĞÔ´Ó¶øÈ·¶¨ÏµÁĞµÄÏÔÊ¾¸öÊı
+	// ç³»åˆ—å±æ€§ï¼šå¹¶åˆ—æ•°,è¯¥å‚æ•° æ„ä¹‰ä¸å¤§ï¼Œå¯ä»¥ç›´æ¥æŒ‡å®šserieså±æ€§ä»è€Œç¡®å®šç³»åˆ—çš„æ˜¾ç¤ºä¸ªæ•°
 	// public int seriesNum = 0;
 
-	// ºáÖá¡¢×İÖá¶¨Òå£ºÊÇ·ñÁ¢Ìå
-	// Ö»ÓĞÏß¡¢Öù¡¢ÌİĞÎÖ§³ÖÁ¢Ìå
+	// æ¨ªè½´ã€çºµè½´å®šä¹‰ï¼šæ˜¯å¦ç«‹ä½“
+	// åªæœ‰çº¿ã€æŸ±ã€æ¢¯å½¢æ”¯æŒç«‹ä½“
 	public boolean is3D = false;
 
-	// 3dºñ¶È±ÈÂÊ£¬Ö±½Ç×ø±êÏµÏÂÎªºñ¶ÈÓëÏµÁĞ¿í¶È±È£¬ÊıÖµÖáÊ±£¬¿ÉÒÔÊıÖµÏñËØÖµ¡£¼«×ø±êÏµÏÂÔİ²»Ö§³Ö
+	// 3dåšåº¦æ¯”ç‡ï¼Œç›´è§’åæ ‡ç³»ä¸‹ä¸ºåšåº¦ä¸ç³»åˆ—å®½åº¦æ¯”ï¼Œæ•°å€¼è½´æ—¶ï¼Œå¯ä»¥æ•°å€¼åƒç´ å€¼ã€‚æåæ ‡ç³»ä¸‹æš‚ä¸æ”¯æŒ
 	public double threeDThickRatio = 0.38;
 
-	/***** ¿Ì¶ÈÖáÍâ¹ÛÊôĞÔ *****/
-	// ÖáÉ«
+	/***** åˆ»åº¦è½´å¤–è§‚å±æ€§ *****/
+	// è½´è‰²
 	public Color axisColor = Color.LIGHT_GRAY;
 
-	// ÖáÏßĞÎ
+	// è½´çº¿å½¢
 	public int axisLineStyle = Consts.LINE_SOLID;
 
-	// ÖáÏß¿í
+	// è½´çº¿å®½
 	public int axisLineWeight = 1;
 
-	// Öá¼ıÍ·£¬¹Ì¶¨³¤¶È£¿
+	// è½´ç®­å¤´ï¼Œå›ºå®šé•¿åº¦ï¼Ÿ
 	public int axisArrow = Consts.LINE_ARROW_NONE;
 
-	// Öá±êÌâÎÄ×Ö
+	// è½´æ ‡é¢˜æ–‡å­—
 	public String title;
 
-	// Öá±êÌâÎÄ×Ö×ÖÌå
-	public String titleFont;// = "ËÎÌå";
+	// è½´æ ‡é¢˜æ–‡å­—å­—ä½“
+	public String titleFont;// = "å®‹ä½“";
 
-	// Öá±êÌâÎÄ×Ö×ÖĞÍ
+	// è½´æ ‡é¢˜æ–‡å­—å­—å‹
 	public int titleStyle;
 
-	// Öá±êÌâÎÄ×Ö×ÖºÅ
+	// è½´æ ‡é¢˜æ–‡å­—å­—å·
 	public int titleSize = 16;
 
-	// ±êÌâÎÄ×ÖÁô¿Õ£¬Îª±êÌâÎÄ×ÖÖÁ¿Ì¶È±êÇ©»òÕß×ø±êÖáÖĞĞÄ£¨ÎŞ¿Ì¶È±êÇ©Ê±£©µÄ¾àÀë
+	// æ ‡é¢˜æ–‡å­—ç•™ç©ºï¼Œä¸ºæ ‡é¢˜æ–‡å­—è‡³åˆ»åº¦æ ‡ç­¾æˆ–è€…åæ ‡è½´ä¸­å¿ƒï¼ˆæ— åˆ»åº¦æ ‡ç­¾æ—¶ï¼‰çš„è·ç¦»
 	public int titleIndent = 2;
 
-	// Öá±êÌâÎÄ×Ö×ÖÉ«
+	// è½´æ ‡é¢˜æ–‡å­—å­—è‰²
 	public Color titleColor = Color.black;
 
-	// Öá±êÌâÇãĞ±½Ç¶È
+	// è½´æ ‡é¢˜å€¾æ–œè§’åº¦
 	public int titleAngle;
 
-	// ÊÇ·ñÓĞ¿Ì¶È±êÇ©
+	// æ˜¯å¦æœ‰åˆ»åº¦æ ‡ç­¾
 	public boolean allowLabels = true;
 
-	// ¿Ì¶È±êÇ©×ÖÌå
-	public String labelFont;// = "ËÎÌå";
+	// åˆ»åº¦æ ‡ç­¾å­—ä½“
+	public String labelFont;// = "å®‹ä½“";
 
-	// ¿Ì¶È±êÇ©×ÖĞÍ
+	// åˆ»åº¦æ ‡ç­¾å­—å‹
 	public int labelStyle;
 
-	// ¿Ì¶È±êÇ©×ÖºÅ
+	// åˆ»åº¦æ ‡ç­¾å­—å·
 	public int labelSize = 12;
 
-	// ¿Ì¶È±êÇ©Áô¿Õ£¬Îª¿Ì¶È±êÇ©ÖÁ×ø±êÖáÖĞĞÄÏßµÄ¾àÀë
+	// åˆ»åº¦æ ‡ç­¾ç•™ç©ºï¼Œä¸ºåˆ»åº¦æ ‡ç­¾è‡³åæ ‡è½´ä¸­å¿ƒçº¿çš„è·ç¦»
 	public int labelIndent = 2;
 
-	// ¿Ì¶È±êÇ©×ÖÉ«
+	// åˆ»åº¦æ ‡ç­¾å­—è‰²
 	public Color labelColor = Color.darkGray;
 
-	// ¿Ì¶È±êÇ©ÏÔÊ¾¼ä¸ô
+	// åˆ»åº¦æ ‡ç­¾æ˜¾ç¤ºé—´éš”
 	public int labelStep = 0;
 
-	// ¿Ì¶È±êÇ©ÇãĞ±½Ç¶È
+	// åˆ»åº¦æ ‡ç­¾å€¾æ–œè§’åº¦
 	public int labelAngle = 0;
 
-	// ¿Ì¶È±êÇ©ÄÜ·ñÖØµş
+	// åˆ»åº¦æ ‡ç­¾èƒ½å¦é‡å 
 	public boolean labelOverlapping = false;
 
-	// ¿Ì¶ÈÏßÎ»ÖÃ
+	// åˆ»åº¦çº¿ä½ç½®
 	public int scalePosition = Consts.TICK_LEFTDOWN;
 
-	// ¿Ì¶ÈÏßÏßĞÎ
+	// åˆ»åº¦çº¿çº¿å½¢
 	public int scaleStyle = Consts.LINE_SOLID;
 
-	// ¿Ì¶ÈÏßÏß¿í
+	// åˆ»åº¦çº¿çº¿å®½
 	public int scaleWeight = 1;
 
-	// ¿Ì¶ÈÏß³ß´ç
+	// åˆ»åº¦çº¿å°ºå¯¸
 	public int scaleLength = 3;
 
-	// ¿Ì¶ÈÏßÏÔÊ¾¼ä¸ô
+	// åˆ»åº¦çº¿æ˜¾ç¤ºé—´éš”
 	public int displayStep = 0;
 
-	// ¼ä¸ôÇøÊôĞÔ£¬ÊÇ·ñÓĞ¿Ì¶È¼ä¸ôÇø
+	// é—´éš”åŒºå±æ€§ï¼Œæ˜¯å¦æœ‰åˆ»åº¦é—´éš”åŒº
 	public boolean allowRegions = true;
 
-	// // ¼ä¸ôÇøÊôĞÔ£¬¼ä¸ôÇøÆğÖ¹ÓÚ¿Ì¶ÈÖĞ¼äÎ»ÖÃ
+	// // é—´éš”åŒºå±æ€§ï¼Œé—´éš”åŒºèµ·æ­¢äºåˆ»åº¦ä¸­é—´ä½ç½®
 	// public boolean regionMiddle = true;
 
-	// ¼ä¸ôÇøÊôĞÔ£¬¿Ì¶È¼ä¸ôÏß
+	// é—´éš”åŒºå±æ€§ï¼Œåˆ»åº¦é—´éš”çº¿
 	public int regionLineStyle = Consts.LINE_SOLID;
 
-	// ¼ä¸ôÇøÊôĞÔ£¬¿Ì¶È¼ä¸ôÏßÉ«
+	// é—´éš”åŒºå±æ€§ï¼Œåˆ»åº¦é—´éš”çº¿è‰²
 	public Color regionLineColor = Color.lightGray;
 
-	// ¼ä¸ôÇøÊôĞÔ£¬¿Ì¶È¼ä¸ôÏß¿í
+	// é—´éš”åŒºå±æ€§ï¼Œåˆ»åº¦é—´éš”çº¿å®½
 	public int regionLineWeight = 1;
 
-	// ¼ä¸ôÇøÊôĞÔ£¬¿Ì¶È¼ä¸ôÇøÑÕÉ«
+	// é—´éš”åŒºå±æ€§ï¼Œåˆ»åº¦é—´éš”åŒºé¢œè‰²
 	public Para regionColors = new Para(null);// new Color(241,243,235)
 
-	// ¼ä¸ôÇøÊôĞÔ£¬¿Ì¶È¼ä¸ôÇøÍ¸Ã÷¶È(²»°üÀ¨¼ä¸ôÏß)
+	// é—´éš”åŒºå±æ€§ï¼Œåˆ»åº¦é—´éš”åŒºé€æ˜åº¦(ä¸åŒ…æ‹¬é—´éš”çº¿)
 	public float regionTransparent = 0.6f;
 
-	// ¼ä¸ôÇøÊôĞÔ£¬¿Ì¶È¼ä¸ôÇøÊÇ·ñÎª¶à±ßĞÎ£¨Ö»ÔÚ¼«×ø±êÖĞÓĞĞ§£¬ÎªfalseÊ±ÎªÉÈĞÎ»ò»·ĞÎ£©
+	// é—´éš”åŒºå±æ€§ï¼Œåˆ»åº¦é—´éš”åŒºæ˜¯å¦ä¸ºå¤šè¾¹å½¢ï¼ˆåªåœ¨æåæ ‡ä¸­æœ‰æ•ˆï¼Œä¸ºfalseæ—¶ä¸ºæ‰‡å½¢æˆ–ç¯å½¢ï¼‰
 	public boolean isPolygonalRegion = false;
 
 	/**
-	 * È±Ê¡Öµ¹¹Ôìº¯Êı
+	 * ç¼ºçœå€¼æ„é€ å‡½æ•°
 	 */
 	public TickAxis() {
-		// È±Ê¡¼ä¸ôÉ«ÎªÍ¸Ã÷É«¼ä¸ô»ÒÉ«
+		// ç¼ºçœé—´éš”è‰²ä¸ºé€æ˜è‰²é—´éš”ç°è‰²
 		Sequence seq = new Sequence();
 		ChartColor c1 = new ChartColor(Color.white);
 		c1.setGradient(false);
@@ -185,13 +185,13 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 		ChartColor c2 = new ChartColor(new Color(241, 243, 235));
 		c2.setGradient(false);
 		seq.add(c2);
-		regionColors = new Para(seq);// ¸øÇøÓò¸³Öµ³õÊ¼ÑÕÉ«
+		regionColors = new Para(seq);// ç»™åŒºåŸŸèµ‹å€¼åˆå§‹é¢œè‰²
 	}
 
 	/**
-	 * »ñÈ¡±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 * 
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -292,39 +292,39 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »ñÈ¡ÖáµÄÃû³Æ
+	 * è·å–è½´çš„åç§°
 	 * 
-	 * @return Ãû³Æ
+	 * @return åç§°
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * »ñÈ¡ÖáµÄ·½Î»
+	 * è·å–è½´çš„æ–¹ä½
 	 * 
-	 * @return ÖáÎ»ÖÃ£¬Öµ²Î¿¼Consts.AXIS_LOC_X;
+	 * @return è½´ä½ç½®ï¼Œå€¼å‚è€ƒConsts.AXIS_LOC_X;
 	 */
 	public int getLocation() {
 		return location;
 	}
 
 	/**
-	 * µ±Ç°ÖáÊÇ·ñ¿ÉÊÓ
-	 * @return ¿ÉÊÓ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * å½“å‰è½´æ˜¯å¦å¯è§†
+	 * @return å¯è§†è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isVisible() {
 		return visible;
 	}
 
 	/**
-	 * »æÍ¼Ç°µÄÊı¾İ×¼±¸
-	 * µ÷ÕûÒ»Ğ©ÉèÖÃ²»ºÏÀíµÄÊôĞÔ£¬»òÕß¸ü·½±ãÊ¹ÓÃµÄÊôĞÔÖµ
+	 * ç»˜å›¾å‰çš„æ•°æ®å‡†å¤‡
+	 * è°ƒæ•´ä¸€äº›è®¾ç½®ä¸åˆç†çš„å±æ€§ï¼Œæˆ–è€…æ›´æ–¹ä¾¿ä½¿ç”¨çš„å±æ€§å€¼
 	 * 
-	 * @param dataElements Êı¾İÍ¼Ôª
+	 * @param dataElements æ•°æ®å›¾å…ƒ
 	 */
 	public void prepare(ArrayList<DataElement> dataElements) {
-		// ½Ç×ø±ê
+		// è§’åæ ‡
 		startAngle = in360(startAngle);
 		endAngle = in360(endAngle);
 		if (startAngle > endAngle) {
@@ -333,7 +333,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 			endAngle = d;
 		}
 
-		// ¿Ì¶È¼ä¸ôµÄ¸öÊı¼Ó1ºó£¬Ö±½ÓÇóÓà(%)£¬½á¹ûÊÇ·ñÎª0¼´¿É£»¿Ì¶È¼ä¸ôÎª1±íÊ¾Îª¸ô1¸öÏÔÊ¾£¬Ò²¼´ %2 µÄ½á¹û
+		// åˆ»åº¦é—´éš”çš„ä¸ªæ•°åŠ 1åï¼Œç›´æ¥æ±‚ä½™(%)ï¼Œç»“æœæ˜¯å¦ä¸º0å³å¯ï¼›åˆ»åº¦é—´éš”ä¸º1è¡¨ç¤ºä¸ºéš”1ä¸ªæ˜¾ç¤ºï¼Œä¹Ÿå³ %2 çš„ç»“æœ
 		displayStep = displayStep + 1;
 		labelStep = labelStep + 1;
 
@@ -348,10 +348,10 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * ÅĞ¶Ï½ÇÖáµÄ×ø±êÓòÊÇ·ñÊÇ¸öÔ²
-	 * Ô²ÓòºÍÇø¼äÓò»áÔì³É¿Ì¶È±êÊ¶µÄ²»Í¬
+	 * åˆ¤æ–­è§’è½´çš„åæ ‡åŸŸæ˜¯å¦æ˜¯ä¸ªåœ†
+	 * åœ†åŸŸå’ŒåŒºé—´åŸŸä¼šé€ æˆåˆ»åº¦æ ‡è¯†çš„ä¸åŒ
 	 * 
-	 * @return boolean ÊÇÔ²Óò·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * @return boolean æ˜¯åœ†åŸŸè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isCircleAngle() {
 		double angleRange = endAngle - startAngle;
@@ -359,9 +359,9 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »ñÈ¡ÖáµÄÏñËØ³¤¶È
-	 * ÆäÖĞ½ÇÖáÔòÎª½ÇÖá·¶Î§
-	 * @return ÖáµÄ³¤¶È
+	 * è·å–è½´çš„åƒç´ é•¿åº¦
+	 * å…¶ä¸­è§’è½´åˆ™ä¸ºè§’è½´èŒƒå›´
+	 * @return è½´çš„é•¿åº¦
 	 */
 	public double getAxisLength() {
 		Point2D p1, p2;
@@ -436,9 +436,9 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »ñÈ¡×ø±êÖáµÄ¶¥µãY×ø±ê
-	 * ½ÇÖáÊ±·µ»ØendAngle
-	 * @return y×ø±êÖµ
+	 * è·å–åæ ‡è½´çš„é¡¶ç‚¹Yåæ ‡
+	 * è§’è½´æ—¶è¿”å›endAngle
+	 * @return yåæ ‡å€¼
 	 */
 	public double getTopY() {
 		switch (location) {
@@ -455,9 +455,9 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »ñÈ¡×ø±êÖáµÄµ×µãY×ø±ê
-	 * ½ÇÖáÊ±·µ»ØstartAngle
-	 * @return y×ø±êÖµ
+	 * è·å–åæ ‡è½´çš„åº•ç‚¹Yåæ ‡
+	 * è§’è½´æ—¶è¿”å›startAngle
+	 * @return yåæ ‡å€¼
 	 */
 	public double getBottomY() {
 		switch (location) {
@@ -474,9 +474,9 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »ñÈ¡×ø±êÖáµÄ×ó±ßX×ø±ê
-	 * ½ÇÖáÊ±ÎŞÒâÒå
-	 * @return x×ø±êÖµ
+	 * è·å–åæ ‡è½´çš„å·¦è¾¹Xåæ ‡
+	 * è§’è½´æ—¶æ— æ„ä¹‰
+	 * @return xåæ ‡å€¼
 	 */
 	public double getLeftX() {
 		switch (location) {
@@ -491,9 +491,9 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »ñÈ¡×ø±êÖáµÄÓÒ±ßX×ø±ê
-	 * ½ÇÖáÊ±ÎŞÒâÒå
-	 * @return x×ø±êÖµ
+	 * è·å–åæ ‡è½´çš„å³è¾¹Xåæ ‡
+	 * è§’è½´æ—¶æ— æ„ä¹‰
+	 * @return xåæ ‡å€¼
 	 */
 	public double getRightX() {
 		switch (location) {
@@ -508,15 +508,15 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/*
-	 * Ö±½Ç×ø±êÏµÊ±£¬ÓÉÓÚÊÇ¹æÔòµÄ¾ØĞÎ£¬»­¿Ì¶ÈÏßÊ±Ö»»­Ò»Ìõ±ß£» Èç¹û»­Õû¸öregionShape£¬Èç¹ûÊÇĞéÏßÊ±ÖØµş»­»áÈÃĞéÏß¿´ÆğÀ´²»Ğé
-	 * µÚÒ»²½»­Ìî³äÉ«£¬µÚ¶ş²½²ÅÊÇ±ßÏß£¬·ñÔòºó»­µÄÇø¼ä»á¸²¸Ç±ßÏß£¬ÏßÒªºó»­¡£
+	 * ç›´è§’åæ ‡ç³»æ—¶ï¼Œç”±äºæ˜¯è§„åˆ™çš„çŸ©å½¢ï¼Œç”»åˆ»åº¦çº¿æ—¶åªç”»ä¸€æ¡è¾¹ï¼› å¦‚æœç”»æ•´ä¸ªregionShapeï¼Œå¦‚æœæ˜¯è™šçº¿æ—¶é‡å ç”»ä¼šè®©è™šçº¿çœ‹èµ·æ¥ä¸è™š
+	 * ç¬¬ä¸€æ­¥ç”»å¡«å……è‰²ï¼Œç¬¬äºŒæ­¥æ‰æ˜¯è¾¹çº¿ï¼Œå¦åˆ™åç”»çš„åŒºé—´ä¼šè¦†ç›–è¾¹çº¿ï¼Œçº¿è¦åç”»ã€‚
 	 * 
 	 * @param regionShape
 	 *            Shape
 	 * @param regionColor
 	 *            Color
 	 * @param location
-	 *            int Ã¿¸öÇø¼äÖ»»­ÓÒ¶¥±ß£¬Èç¹ûÖá²»ÔÚ×î±ßÊ±£¬»áÈ±Çø¼äÏß£¬ËùÒÔµÚÒ»¸ö¿Ì¶ÈÊ±£¬Ê¹ÓÃdoubleEdge»­Á½±ß
+	 *            int æ¯ä¸ªåŒºé—´åªç”»å³é¡¶è¾¹ï¼Œå¦‚æœè½´ä¸åœ¨æœ€è¾¹æ—¶ï¼Œä¼šç¼ºåŒºé—´çº¿ï¼Œæ‰€ä»¥ç¬¬ä¸€ä¸ªåˆ»åº¦æ—¶ï¼Œä½¿ç”¨doubleEdgeç”»ä¸¤è¾¹
 	 */
 	private void drawRegion(Shape regionShape, ChartColor regionColor, int step) {
 		drawRegion(regionShape, regionColor, step, false);
@@ -558,7 +558,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 				} else if (location == Consts.AXIS_LOC_V) {
 					x = rect.x;
 					y = rect.y;
-					// »æÖÆÉÏÏÂ±ßËäÈ»ÓĞÖØµş»æÖÆ£¬µ«ÊÇÈç¹û×îµ×±ßµÄÖáÏßÅ²µ½ÖĞ¼äºó£¬²»»á³öÏÖµ×±ß¿ÕÈ±
+					// ç»˜åˆ¶ä¸Šä¸‹è¾¹è™½ç„¶æœ‰é‡å ç»˜åˆ¶ï¼Œä½†æ˜¯å¦‚æœæœ€åº•è¾¹çš„è½´çº¿æŒªåˆ°ä¸­é—´åï¼Œä¸ä¼šå‡ºç°åº•è¾¹ç©ºç¼º
 					g.drawLine(x, y, x + rect.width, y);
 					if (doubleEdge) {
 						g.drawLine(x, y + rect.height, x + rect.width, y
@@ -571,7 +571,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 		}
 	}
 
-	// ½«¼«×ø±êµã×ª³ÉÖ±½Ç×ø±êµã£¬²¢Ìí¼Óµ½¶à±ßĞÎÖĞ
+	// å°†æåæ ‡ç‚¹è½¬æˆç›´è§’åæ ‡ç‚¹ï¼Œå¹¶æ·»åŠ åˆ°å¤šè¾¹å½¢ä¸­
 	private void addPolarPoint(java.awt.Polygon polygon, PolarCoor pc,
 			double polarLen, double angle) {
 		Point2D p = new Point2D.Double(polarLen, angle);
@@ -580,13 +580,13 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »æÖÆ±³¾°²ã
+	 * ç»˜åˆ¶èƒŒæ™¯å±‚
 	 */
 	public void drawBack() {
 		if (!isVisible()) {
 			return;
 		}
-		// ĞèÒªÏÈ½«Çø¼ä»­Íê
+		// éœ€è¦å…ˆå°†åŒºé—´ç”»å®Œ
 		drawRegionStep(1);
 		drawRegionStep(2);
 	}
@@ -594,14 +594,14 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	void drawAxisBorder() {
 		Graphics2D g = e.getGraphics();
 		ArrayList coorList = e.getCoorList();
-		// ×ø±êÖá
+		// åæ ‡è½´
 		if (Utils.setStroke(g, axisColor, axisLineStyle, axisLineWeight)) {
 			double x, y, w, h;
 			switch (location) {
 			case Consts.AXIS_LOC_H:
 			case Consts.AXIS_LOC_POLAR:
 				Utils.setStroke(g, axisColor, axisLineStyle, axisLineWeight);
-				// 1.»­ÖáÏß
+				// 1.ç”»è½´çº¿
 				Utils.drawLine(g, getStartPoint(), getEndPoint());
 				x = getRightX();
 				y = getBottomY();
@@ -618,7 +618,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 					}
 				}
 
-				if (location == Consts.AXIS_LOC_H) { // Ö±½Ç×ø±êÏµ»æÖÆ3DÆ½ĞĞËÄ±ßĞÎ
+				if (location == Consts.AXIS_LOC_H) { // ç›´è§’åæ ‡ç³»ç»˜åˆ¶3Då¹³è¡Œå››è¾¹å½¢
 					for (int i = 0; i < coorList.size(); i++) {
 						Object coor = coorList.get(i);
 						if (!(coor instanceof CartesianCoor)) {
@@ -636,7 +636,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 								axisLineWeight);
 						double x2 = getRightX();
 						if (coorShift == 0) {
-							// 2.²»ÊÇ3DÖáÊ±£¬ÒÑ¾­ÔÚ1»­ÖáÏß£¬´Ë´¦²»ÄÜÔÙ»­£»·ñÔòºáÖá²»ÔÚµ×±ßÊ±£¬»æÖÆÁ½Ìõ²»Í¬µÄÏß
+							// 2.ä¸æ˜¯3Dè½´æ—¶ï¼Œå·²ç»åœ¨1ç”»è½´çº¿ï¼Œæ­¤å¤„ä¸èƒ½å†ç”»ï¼›å¦åˆ™æ¨ªè½´ä¸åœ¨åº•è¾¹æ—¶ï¼Œç»˜åˆ¶ä¸¤æ¡ä¸åŒçš„çº¿
 							// g.drawLine((int)x, (int)y, (int)x2, (int)y);
 						} else {
 							java.awt.Polygon polygon = new java.awt.Polygon();
@@ -685,17 +685,17 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 					TickAxis xAxis = (TickAxis) cc.getXAxis();
 					double x1 = xAxis.getLeftX();
 					double x2 = xAxis.getRightX();
-					double thisX = getLeftX(); // ´¹Ö±Öá×ÔÉíµÄx
+					double thisX = getLeftX(); // å‚ç›´è½´è‡ªèº«çš„x
 					double d1 = Math.abs(x1 - thisX);
 					double d2 = Math.abs(x2 - thisX);
-					x = (d1 < d2) ? x1 : x2; // Ë­ÀëµÃ½ü¾ÍÈ¡Ë­
+					x = (d1 < d2) ? x1 : x2; // è°ç¦»å¾—è¿‘å°±å–è°
 					y = getBottomY();
 					double y2 = getTopY();
 					if (coorShift == 0) {
-						// ×¢ÊÍµÀÀíÍ¬ÉÏ
+						// æ³¨é‡Šé“ç†åŒä¸Š
 						// g.drawLine((int)x, (int)y, (int)x, (int)y2);
 					} else {
-						// Á¢ÌåÊ±£¬Æ½ĞĞËÄ±ßĞÎ×ÜÊÇ¿¿½üµ±Ç°ÖáµÄx
+						// ç«‹ä½“æ—¶ï¼Œå¹³è¡Œå››è¾¹å½¢æ€»æ˜¯é è¿‘å½“å‰è½´çš„x
 						java.awt.Polygon polygon = new java.awt.Polygon();
 						polygon.addPoint((int) x, (int) y);
 						polygon.addPoint((int) x, (int) y2);
@@ -736,9 +736,9 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 								Utils.drawLine(g, p1, p2);
 							}
 						}
-					} else { // ÉÈĞÎ
+					} else { // æ‰‡å½¢
 						Point2D orginalPoint = new Point2D.Double(
-								polarAxis.getLeftX(), polarAxis.getBottomY()); // Ô­µã
+								polarAxis.getLeftX(), polarAxis.getBottomY()); // åŸç‚¹
 						x = orginalPoint.getX() - polarLen;
 						y = orginalPoint.getY() - polarLen;
 						w = polarLen * 2;
@@ -751,9 +751,9 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 				}
 				break;
 			}
-		} else if (useGradient) {// ÎŞ±ß¿ò¶øÇÒÊ¹ÓÃÁË½¥±äÉ«µÄ3D×ø±êÖá£¬»æÖÆ3dìÅÆ½Ì¨
+		} else if (useGradient) {// æ— è¾¹æ¡†è€Œä¸”ä½¿ç”¨äº†æ¸å˜è‰²çš„3Dåæ ‡è½´ï¼Œç»˜åˆ¶3dç‚«å¹³å°
 			double x, y, w, h;
-			if (location == Consts.AXIS_LOC_H) { // Ö±½Ç×ø±êÏµ»æÖÆ3DCubeÆ½Ì¨
+			if (location == Consts.AXIS_LOC_H) { // ç›´è§’åæ ‡ç³»ç»˜åˆ¶3DCubeå¹³å°
 				for (int i = 0; i < coorList.size(); i++) {
 					Object coor = coorList.get(i);
 					if (!(coor instanceof CartesianCoor)) {
@@ -792,15 +792,15 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 					if (coorShift == 0) {
 						continue;
 					}
-					// Á¢ÌåÊ±£¬Æ½ĞĞËÄ±ßĞÎ×ÜÊÇ¿¿½üµ±Ç°ÖáµÄx
+					// ç«‹ä½“æ—¶ï¼Œå¹³è¡Œå››è¾¹å½¢æ€»æ˜¯é è¿‘å½“å‰è½´çš„x
 					TickAxis xAxis = (TickAxis) cc.getXAxis();
 					double x1 = xAxis.getLeftX();
 					double x2 = xAxis.getRightX();
-					double thisX = getLeftX(); // ´¹Ö±Öá×ÔÉíµÄx
+					double thisX = getLeftX(); // å‚ç›´è½´è‡ªèº«çš„x
 					double d1 = Math.abs(x1 - thisX);
 					double d2 = Math.abs(x2 - thisX);
 					w = Utils.getPlatformH(coorShift);
-					x = (int) (((d1 < d2) ? x1 : x2) - w); // Ë­ÀëµÃ½ü¾ÍÈ¡Ë­
+					x = (int) (((d1 < d2) ? x1 : x2) - w); // è°ç¦»å¾—è¿‘å°±å–è°
 					y = (int) getTopY();
 					h = (int) getBottomY() - y;
 					coorThick = w;
@@ -816,27 +816,27 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/*
-	 * ¼ÆËã¡¾Âß¼­Öµ¡¿valÔÚÖáÉÏ³¤¶È¡¾¸Ã³¤¶ÈÓÃÓÚ×é³É×ø±êÏµµÄÊıÖµ×ø±ê¡¿£» ÓĞÁ½ÖÖ¼ÆËã·½Ê½¡£
-	 * 1£º¾ø¶Ô³¤¶È ¼´valÏà¶ÔÓÚÖá¿Ì¶È·¶Î§£¬ËùÕ¼ÓĞµÄ³¤¶È£¬Ò»°ãÓÃÓÚ°ë¾¶¼ÆËã¡£
-	 * Ã¶¾ÙÖáÊÇval±ÈÏµÁĞ¿í¶È£»ÈÕÆÚÖáÊÇ°´valÌìËã³¤¶È£¬ÊıÖµÖáÔò°´valËã³¤¶È£»²»·Ö´óĞ¡Óë1µÄÇé¿ö£» 
-	 * 2:¿Ì¶È³¤¶È  ¼´val×÷Îª¿Ì¶È·¶Î§ÔÚÖáÉÏÏà¶ÔÓÚÖáÔ­µãµÄ³¤¶È 
-	 * ¾ÙÀı£ºÖáµÄ¿Ì¶È·¶Î§ÊÇ[50,60,70,80,90,100] ¼ÆËãÖµ60µÄ³¤¶È£¬
-	 * 1·½Ê½ÎªaxisLen*60/(100-50)£¬ 
-	 * 2·½Ê½Îª¿Ì¶È60µ½¿Ì¶È50µÄ³¤¶È£»
+	 * è®¡ç®—ã€é€»è¾‘å€¼ã€‘valåœ¨è½´ä¸Šé•¿åº¦ã€è¯¥é•¿åº¦ç”¨äºç»„æˆåæ ‡ç³»çš„æ•°å€¼åæ ‡ã€‘ï¼› æœ‰ä¸¤ç§è®¡ç®—æ–¹å¼ã€‚
+	 * 1ï¼šç»å¯¹é•¿åº¦ å³valç›¸å¯¹äºè½´åˆ»åº¦èŒƒå›´ï¼Œæ‰€å æœ‰çš„é•¿åº¦ï¼Œä¸€èˆ¬ç”¨äºåŠå¾„è®¡ç®—ã€‚
+	 * æšä¸¾è½´æ˜¯valæ¯”ç³»åˆ—å®½åº¦ï¼›æ—¥æœŸè½´æ˜¯æŒ‰valå¤©ç®—é•¿åº¦ï¼Œæ•°å€¼è½´åˆ™æŒ‰valç®—é•¿åº¦ï¼›ä¸åˆ†å¤§å°ä¸1çš„æƒ…å†µï¼› 
+	 * 2:åˆ»åº¦é•¿åº¦  å³valä½œä¸ºåˆ»åº¦èŒƒå›´åœ¨è½´ä¸Šç›¸å¯¹äºè½´åŸç‚¹çš„é•¿åº¦ 
+	 * ä¸¾ä¾‹ï¼šè½´çš„åˆ»åº¦èŒƒå›´æ˜¯[50,60,70,80,90,100] è®¡ç®—å€¼60çš„é•¿åº¦ï¼Œ
+	 * 1æ–¹å¼ä¸ºaxisLen*60/(100-50)ï¼Œ 
+	 * 2æ–¹å¼ä¸ºåˆ»åº¦60åˆ°åˆ»åº¦50çš„é•¿åº¦ï¼›
 	 */
 	abstract double getValueLength(Object val, boolean isAbsolute);
 
 	/**
-	 * ÓÃÓÚ¶¯»­²åÖµ¼ÆËãÊ±£¬½«¸ÃÖáÊı¾İ×ª»»ÎªÊıÖµ×ø±ê¡£
-	 * @param val Òª×ª»»µÄ¿Ì¶ÈÖµ
-	 * @return double¾«¶ÈµÄÊıÖµ×ø±ê
+	 * ç”¨äºåŠ¨ç”»æ’å€¼è®¡ç®—æ—¶ï¼Œå°†è¯¥è½´æ•°æ®è½¬æ¢ä¸ºæ•°å€¼åæ ‡ã€‚
+	 * @param val è¦è½¬æ¢çš„åˆ»åº¦å€¼
+	 * @return doubleç²¾åº¦çš„æ•°å€¼åæ ‡
 	 */
 	public abstract double animateDoubleValue(Object val);
 	
 	/**
-	 * »ñÈ¡ÊıÖµvalÔÚÖáÉÏµÄ×÷Îª°ë¾¶ÓÃµÄ³¤¶È
+	 * è·å–æ•°å€¼valåœ¨è½´ä¸Šçš„ä½œä¸ºåŠå¾„ç”¨çš„é•¿åº¦
 	 * 
-	 * @param val Âß¼­ÊıÖµ
+	 * @param val é€»è¾‘æ•°å€¼
 	 * @return 
 	 */
 	public double getValueRadius(double val) {
@@ -844,23 +844,23 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »ñÈ¡Êı¾İÖµvalÔÚÖáÉÏµÄ³¤¶È
+	 * è·å–æ•°æ®å€¼valåœ¨è½´ä¸Šçš„é•¿åº¦
 	 * 
-	 * @param val Êı¾İÖµ
-	 * @return ÏñËØµ¥Î»µÄ³¤¶È
+	 * @param val æ•°æ®å€¼
+	 * @return åƒç´ å•ä½çš„é•¿åº¦
 	 */
 	public double getValueLen(Object val) {
 		return getValueLength(val, false);
 	}
 
 	/**
-	 * ¼ÆËã¿Ì¶ÈÖµ¸ù¾İÖáËù´¦µÄÎ»ÖÃ£¬Î»ÓÚÆÁÄ»µÄ×ø±êÖµ ÓÉÓÚÊıÖµÖáÓĞ±ä»»£¬ËùÒÔÊıÖµÖáµÄtickValÒªÏÈ·´±ä»»£¬²ÅÄÜ¼ÆËã¿Ì¶ÈÎ»ÖÃ
+	 * è®¡ç®—åˆ»åº¦å€¼æ ¹æ®è½´æ‰€å¤„çš„ä½ç½®ï¼Œä½äºå±å¹•çš„åæ ‡å€¼ ç”±äºæ•°å€¼è½´æœ‰å˜æ¢ï¼Œæ‰€ä»¥æ•°å€¼è½´çš„tickValè¦å…ˆåå˜æ¢ï¼Œæ‰èƒ½è®¡ç®—åˆ»åº¦ä½ç½®
 	 * 
 	 * @param tickVal
 	 * @return
 	 */
 	protected double getTickPosition(Object tickVal) {
-		double len = getValueLength(tickVal, false);// ¼ÆËã¿Ì¶ÈÎ»ÖÃ
+		double len = getValueLength(tickVal, false);// è®¡ç®—åˆ»åº¦ä½ç½®
 		double pos = 0;
 		switch (location) {
 		case Consts.AXIS_LOC_H:
@@ -880,7 +880,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	private void drawRegionStep(int step) {
 		if (!allowRegions)
 			return;
-		// Ö»ÓĞµÚÒ»¸öÇø¼äĞèÒª»­Ë«±ß
+		// åªæœ‰ç¬¬ä¸€ä¸ªåŒºé—´éœ€è¦ç”»åŒè¾¹
 		boolean doubleEdge = true;
 
 		ArrayList<ICoor> coorList = e.getCoorList();
@@ -911,11 +911,11 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 					}
 					Object tickVal = t_coorValue.get(t);
 					double tickPosition = getTickPosition(tickVal);
-					// ²»Í¬ÀàĞÍµÄÖá»òÕß²»Í¬Î»ÖÃµÄÖá£¬¿Ì¶È±ê×¢µãÆğ£¬ÖÕÎ»ÖÃ²»Í¬
+					// ä¸åŒç±»å‹çš„è½´æˆ–è€…ä¸åŒä½ç½®çš„è½´ï¼Œåˆ»åº¦æ ‡æ³¨ç‚¹èµ·ï¼Œç»ˆä½ç½®ä¸åŒ
 					if (t == 1 && tickPosition == getLeftX()) {
 						continue;
 					}
-					if (Utils.setStroke(g, axisColor, scaleStyle, scaleWeight)) { // 3DÖáµÄ¿Ì¶ÈÏß
+					if (Utils.setStroke(g, axisColor, scaleStyle, scaleWeight)) { // 3Dè½´çš„åˆ»åº¦çº¿
 						Utils.drawLine(g, tickPosition, yAxis.getBottomY(),
 								tickPosition + coorShift, yAxis.getBottomY()
 										- coorShift);
@@ -969,15 +969,15 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 					if (t != 1
 							&& t != tCount
 							&& Utils.setStroke(g, axisColor, scaleStyle,
-									scaleWeight)) { // 3DÖáµÄ¿Ì¶ÈÏß
-						// Á½Í·µÄÏß»á¸úËÄ±ßĞÎÖØµş£¬¾Í²»ÒªÁË
-						// Á¢ÌåÊ±£¬Æ½ĞĞËÄ±ßĞÎ×ÜÊÇ¿¿½üµ±Ç°ÖáµÄx
+									scaleWeight)) { // 3Dè½´çš„åˆ»åº¦çº¿
+						// ä¸¤å¤´çš„çº¿ä¼šè·Ÿå››è¾¹å½¢é‡å ï¼Œå°±ä¸è¦äº†
+						// ç«‹ä½“æ—¶ï¼Œå¹³è¡Œå››è¾¹å½¢æ€»æ˜¯é è¿‘å½“å‰è½´çš„x
 						double x1 = xAxis.getLeftX();
 						double x2 = xAxis.getRightX();
-						double thisX = getLeftX(); // ´¹Ö±Öá×ÔÉíµÄx
+						double thisX = getLeftX(); // å‚ç›´è½´è‡ªèº«çš„x
 						double d1 = Math.abs(x1 - thisX);
 						double d2 = Math.abs(x2 - thisX);
-						double x = (d1 < d2) ? x1 : x2; // Ë­ÀëµÃ½ü¾ÍÈ¡Ë­
+						double x = (d1 < d2) ? x1 : x2; // è°ç¦»å¾—è¿‘å°±å–è°
 						Utils.drawLine(g, x, tickPosition, x + coorShift,
 								tickPosition - coorShift);
 					}
@@ -1015,7 +1015,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 				}
 				TickAxis angleAxis = (TickAxis) pc.getAngleAxis();
 				Point2D orginalPoint = new Point2D.Double(getLeftX(),
-						getBottomY()); // Ô­µã
+						getBottomY()); // åŸç‚¹
 				java.awt.geom.Area area1 = null, area2;
 				int tCount = t_coorValue.length();
 				int rc = 0;
@@ -1074,7 +1074,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 							tmpcc = regionColors.chartColorValue(++rc);
 							drawRegion(regionShape, tmpcc, step);
 						}
-					} else { // ÉÈĞÎ
+					} else { // æ‰‡å½¢
 						double x, y, w, h, tmpLen;
 						tmpLen = tickPosition - orginalPoint.getX();
 						x = orginalPoint.getX() - tmpLen;
@@ -1132,7 +1132,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 				}
 				TickAxis polarAxis = (TickAxis) pc.getPolarAxis();
 				Point2D orginalPoint = new Point2D.Double(polarAxis.getLeftX(),
-						polarAxis.getBottomY()); // Ô­µã
+						polarAxis.getBottomY()); // åŸç‚¹
 				double angle1 = 0, angle2, polarLen;
 				polarLen = polarAxis.getAxisLength();
 				int tCount = t_coorValue.length();
@@ -1175,7 +1175,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 							tmpcc = regionColors.chartColorValue(++rc);
 							drawRegion(regionShape, tmpcc, step);
 						}
-					} else { // ÉÈĞÎ
+					} else { // æ‰‡å½¢
 						Arc2D sector = new Arc2D.Double(x, y, w, h, angle1,
 								angle2 - angle1, java.awt.geom.Arc2D.PIE);
 
@@ -1203,7 +1203,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »æÖÆÖĞ¼ä²ã
+	 * ç»˜åˆ¶ä¸­é—´å±‚
 	 */
 	public void draw() {
 		if (!isVisible()) {
@@ -1224,10 +1224,10 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 			switch (location) {
 			case Consts.AXIS_LOC_H:
 			case Consts.AXIS_LOC_POLAR:
-				// »æÖÆ¿Ì¶ÈÏß
+				// ç»˜åˆ¶åˆ»åº¦çº¿
 				y = getBottomY() + coorThick;
 				for (int t = 1; t <= tickSize; t++) {
-					if ((t - 1) % displayStep != 0) { // t-1£¬ µÚ1¸ö¿Ì¶È¿ªÊ¼»æÖÆ£¬È»ºóÔÙ¼ä¸ô
+					if ((t - 1) % displayStep != 0) { // t-1ï¼Œ ç¬¬1ä¸ªåˆ»åº¦å¼€å§‹ç»˜åˆ¶ï¼Œç„¶åå†é—´éš”
 						continue;
 					}
 					x = getTickPosition(t_coorValue.get(t));
@@ -1321,7 +1321,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 				y += scaleLength;
 				y += labelIndent;
 				locationType = Consts.LOCATION_CT;
-			} else { // ½»²æºÍÎŞ¿Ì¶ÈÊ±£¬±êÇ©Ä¬ÈÏ»­ÔÚÏÂ±ß£¬ÏÂ±ß×î³£ÓÃ£»
+			} else { // äº¤å‰å’Œæ— åˆ»åº¦æ—¶ï¼Œæ ‡ç­¾é»˜è®¤ç”»åœ¨ä¸‹è¾¹ï¼Œä¸‹è¾¹æœ€å¸¸ç”¨ï¼›
 				y += scaleLength / 2;
 				y += labelIndent;
 				locationType = Consts.LOCATION_CT;
@@ -1336,7 +1336,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 				x -= scaleLength;
 				x -= labelIndent;
 				locationType = Consts.LOCATION_RM;
-			} else { // ½»²æºÍÎŞ¿Ì¶ÈÊ±£¬±êÇ©Ä¬ÈÏ»­ÔÚ×ó±ß£¬×ó±ß×î³£ÓÃ£»
+			} else { // äº¤å‰å’Œæ— åˆ»åº¦æ—¶ï¼Œæ ‡ç­¾é»˜è®¤ç”»åœ¨å·¦è¾¹ï¼Œå·¦è¾¹æœ€å¸¸ç”¨ï¼›
 				x -= scaleLength / 2;
 				x -= labelIndent;
 				locationType = Consts.LOCATION_RM;
@@ -1351,7 +1351,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »æÖÆÇ°¾°²ã
+	 * ç»˜åˆ¶å‰æ™¯å±‚
 	 */
 	public void drawFore() {
 		if (!isVisible()) {
@@ -1460,7 +1460,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 			y = getBottomY();
 			if (scalePosition == Consts.TICK_RIGHTUP) {
 				y -= scaleLength;
-				y -= labelIndent * 2; // ±êÌâÓë±êÇ©Ö®¼ûÒ²¿Õ³öindent
+				y -= labelIndent * 2; // æ ‡é¢˜ä¸æ ‡ç­¾ä¹‹è§ä¹Ÿç©ºå‡ºindent
 				y -= tmp;
 				y -= titleIndent;
 				locationType = Consts.LOCATION_CB;
@@ -1470,7 +1470,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 				y += tmp;
 				y += titleIndent;
 				locationType = Consts.LOCATION_CT;
-			} else { // ½»²æºÍÎŞ¿Ì¶ÈÊ±£¬±êÌâÄ¬ÈÏ»­ÔÚÏÂ±ß£¬ÏÂ±ß×î³£ÓÃ£»
+			} else { // äº¤å‰å’Œæ— åˆ»åº¦æ—¶ï¼Œæ ‡é¢˜é»˜è®¤ç”»åœ¨ä¸‹è¾¹ï¼Œä¸‹è¾¹æœ€å¸¸ç”¨ï¼›
 				y += scaleLength / 2;
 				y += labelIndent * 2;
 				y += tmp;
@@ -1496,7 +1496,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 				x -= tmp;
 				x -= titleIndent;
 				locationType = Consts.LOCATION_RM;
-			} else { // ½»²æºÍÎŞ¿Ì¶ÈÊ±£¬±êÌâÄ¬ÈÏ»­ÔÚ×ó±ß£¬×ó±ß×î³£ÓÃ£»
+			} else { // äº¤å‰å’Œæ— åˆ»åº¦æ—¶ï¼Œæ ‡é¢˜é»˜è®¤ç”»åœ¨å·¦è¾¹ï¼Œå·¦è¾¹æœ€å¸¸ç”¨ï¼›
 				x -= scaleLength / 2;
 				x -= labelIndent * 2;
 				x -= tmp;
@@ -1507,7 +1507,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 					locationType, true);
 			break;
 		case Consts.AXIS_LOC_ANGLE:
-			// ½ÇÖá±êÌâ²»»æÖÆ
+			// è§’è½´æ ‡é¢˜ä¸ç»˜åˆ¶
 			break;
 		}
 	}
@@ -1546,26 +1546,26 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »ñÈ¡¿Ì¶È±êÇ©µÄ¸ß¶È
-	 * @return ·µ»Ø±êÇ©ÖĞ×î¸ßµÄÖµ
+	 * è·å–åˆ»åº¦æ ‡ç­¾çš„é«˜åº¦
+	 * @return è¿”å›æ ‡ç­¾ä¸­æœ€é«˜çš„å€¼
 	 */
 	public int maxLabelHeight() {
 		return maxLabelSize(true);
 	}
 
 	/**
-	 * »ñÈ¡¿Ì¶È±êÇ©µÄ¿í¶È
-	 * @return ·µ»Ø±êÇ©ÖĞ×î¿íµÄÖµ
+	 * è·å–åˆ»åº¦æ ‡ç­¾çš„å®½åº¦
+	 * @return è¿”å›æ ‡ç­¾ä¸­æœ€å®½çš„å€¼
 	 */
 	public int maxLabelWidth() {
 		return maxLabelSize(false);
 	}
 
 	/**
-	 * »ñÈ¡»æÍ¼²Î¿¼µã£¨»ùµã£©µÄ×ø±ê
-	 * Ä¬ÈÏÇé¿öÏÂ£¬»ùµãÎª×ø±êµÄ×óÏÂµã£¬Ä¿Ç°²»Ö§³Ö×ø±êÖµ´ÓÉÏÍùÏÂÒÔ¼°ÓÒÍù×óµÄÇéĞÎ¡£
-	 * ÊıÖµÖá£¨NumericAxis£©µÄ»ùµã»á±»ÓÃ»§ÉèÖÃ£¬ÊıÖµÖáÊ±¸²¸Ç¸Ã·½·¨¡£
-	 * ½ÇÖáÃ»ÓĞ»ùµã
+	 * è·å–ç»˜å›¾å‚è€ƒç‚¹ï¼ˆåŸºç‚¹ï¼‰çš„åæ ‡
+	 * é»˜è®¤æƒ…å†µä¸‹ï¼ŒåŸºç‚¹ä¸ºåæ ‡çš„å·¦ä¸‹ç‚¹ï¼Œç›®å‰ä¸æ”¯æŒåæ ‡å€¼ä»ä¸Šå¾€ä¸‹ä»¥åŠå³å¾€å·¦çš„æƒ…å½¢ã€‚
+	 * æ•°å€¼è½´ï¼ˆNumericAxisï¼‰çš„åŸºç‚¹ä¼šè¢«ç”¨æˆ·è®¾ç½®ï¼Œæ•°å€¼è½´æ—¶è¦†ç›–è¯¥æ–¹æ³•ã€‚
+	 * è§’è½´æ²¡æœ‰åŸºç‚¹
 	 */
 	public Point2D getBasePoint(ICoor coor) {
 		TickAxis otherAxis;
@@ -1588,30 +1588,30 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	transient Sequence t_coorValue = new Sequence();
 	transient int t_coorWidth = 0;
 	transient Engine e;
-	transient double coorThick = 0;// È±Ê¡3D×ø±êÌ¨µÄºñ¶È
-	transient boolean useGradient = false;// ¸ÃÊôĞÔ¸ù¾İÖáÉÏµÄÍ¼ÔªÊÇ·ñÊ¹ÓÃÁË½¥±äÉ«À´»æÖÆÒ»Ğ©ìÅĞ§¹û£¬±ÈÈç3DÆ½Ì¨
+	transient double coorThick = 0;// ç¼ºçœ3Dåæ ‡å°çš„åšåº¦
+	transient boolean useGradient = false;// è¯¥å±æ€§æ ¹æ®è½´ä¸Šçš„å›¾å…ƒæ˜¯å¦ä½¿ç”¨äº†æ¸å˜è‰²æ¥ç»˜åˆ¶ä¸€äº›ç‚«æ•ˆæœï¼Œæ¯”å¦‚3Då¹³å°
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎÒıÇæ
-	 * @param e Í¼ĞÎÒıÇæ
+	 * è®¾ç½®å›¾å½¢å¼•æ“
+	 * @param e å›¾å½¢å¼•æ“
 	 */
 	public void setEngine(Engine e) {
 		this.e = e;
-		// Ä¿Ç°µÄÖáÊôĞÔÃ»ÓĞÖ§³ÖPara¶ÔÏóµÄ£¬Ò²¼´²»Ö§³ÖÊôĞÔÊ¹ÓÃÓ³ÉäÖá
+		// ç›®å‰çš„è½´å±æ€§æ²¡æœ‰æ”¯æŒParaå¯¹è±¡çš„ï¼Œä¹Ÿå³ä¸æ”¯æŒå±æ€§ä½¿ç”¨æ˜ å°„è½´
 	}
 
 	/**
-	 * »ñÈ¡Í¼ĞÎÒıÇæ
-	 * @return Í¼ĞÎÒıÇæ
+	 * è·å–å›¾å½¢å¼•æ“
+	 * @return å›¾å½¢å¼•æ“
 	 */
 	public Engine getEngine() {
 		return e;
 	}
 
 	/**
-	 * ±È½ÏÁ½¸öÖáÊÇ·ñÏàµÈ
-	 * ÓÉÓÚÍ¼ĞÎÀïÃæµÄÖáÃû³ÆÊÇÎ¨Ò»µÄ£¬
-	 * ËùÒÔ£¬¸Ã·½·¨ÖĞ½öÓÃÃû×ÖÀ´ÅĞ¶ÏÊÇ·ñÏàµÈ£¬¶ø²»±Ø±È½ÏÏêÏ¸ÊôĞÔ¡£
+	 * æ¯”è¾ƒä¸¤ä¸ªè½´æ˜¯å¦ç›¸ç­‰
+	 * ç”±äºå›¾å½¢é‡Œé¢çš„è½´åç§°æ˜¯å”¯ä¸€çš„ï¼Œ
+	 * æ‰€ä»¥ï¼Œè¯¥æ–¹æ³•ä¸­ä»…ç”¨åå­—æ¥åˆ¤æ–­æ˜¯å¦ç›¸ç­‰ï¼Œè€Œä¸å¿…æ¯”è¾ƒè¯¦ç»†å±æ€§ã€‚
 	 */
 	public boolean equals(Object obj) {
 		if (obj == this)
@@ -1621,18 +1621,18 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	}
 
 	/**
-	 * »ñÈ¡³¬Á´½Ó×ø±êÇøÓò
+	 * è·å–è¶…é“¾æ¥åæ ‡åŒºåŸŸ
 	 * 
-	 * @return Shape ¸Ã·½·¨ÎŞÒâÒå£¬·µ»Ønull
+	 * @return Shape è¯¥æ–¹æ³•æ— æ„ä¹‰ï¼Œè¿”å›null
 	 */
 	public ArrayList<Shape> getShapes() {
 		return null;
 	}
 
 	/**
-	 * »ñÈ¡³¬Á´½Ó
+	 * è·å–è¶…é“¾æ¥
 	 * 
-	 * @return ¸Ã·½·¨ÎŞÒâÒå£¬·µ»Ønull
+	 * @return è¯¥æ–¹æ³•æ— æ„ä¹‰ï¼Œè¿”å›null
 	 */
 	public ArrayList<String> getLinks() {
 		return null;

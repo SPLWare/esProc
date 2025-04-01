@@ -10,9 +10,9 @@ import com.scudata.resources.EngineMessage;
 
 
 /**
- * ÏòÁ¿»ò¾ØÕóÖĞ¼ÆËã¾ùÖµ
- * mmean(A)£¬AÎªÏòÁ¿Ê±½á¹ûÎª³ÉÔ±×ÜºÍ£¬AÎª¾ØÕó»òÕß¶àÎ¬¾ØÕóÊ±¼ÆËã×îÍâ²ã¾ØÕóĞĞµÄ³ÉÔ±¾ùÖµ£¬·µ»ØĞòÁĞ»òÕß¶àÎ¬ĞòÁĞ
- * mmean(A, n)£¬¼ÆËãµÚn²ã£¬nÖ§³ÖÊıÁĞ¾ÛºÏ¶à²ã
+ * å‘é‡æˆ–çŸ©é˜µä¸­è®¡ç®—å‡å€¼
+ * mmean(A)ï¼ŒAä¸ºå‘é‡æ—¶ç»“æœä¸ºæˆå‘˜æ€»å’Œï¼ŒAä¸ºçŸ©é˜µæˆ–è€…å¤šç»´çŸ©é˜µæ—¶è®¡ç®—æœ€å¤–å±‚çŸ©é˜µè¡Œçš„æˆå‘˜å‡å€¼ï¼Œè¿”å›åºåˆ—æˆ–è€…å¤šç»´åºåˆ—
+ * mmean(A, n)ï¼Œè®¡ç®—ç¬¬nå±‚ï¼Œnæ”¯æŒæ•°åˆ—èšåˆå¤šå±‚
  * @author bd
  *
  */
@@ -25,7 +25,7 @@ public class MMean extends Function {
 			Object oa = null;
 			Object o2 = null;
 			if (param.isLeaf()) {
-				// Ö»ÓĞÒ»¸ö²ÎÊı£¬msum(A), Ïàµ±ÓÚmsum(A, 1)
+				// åªæœ‰ä¸€ä¸ªå‚æ•°ï¼Œmsum(A), ç›¸å½“äºmsum(A, 1)
 				oa = param.getLeafExpression().calculate(ctx);
 			}
 			else if (param.getSubSize() != 2) {
@@ -46,13 +46,13 @@ public class MMean extends Function {
 			if (oa instanceof Sequence) {
 				MulMatrix A = new MulMatrix((Sequence)oa);
 				if (option != null && option.contains("a")) {
-					// È«¾ÛºÏ£¬µÚ2¸öÎ¬¶È²ÎÊıÎŞĞ§
+					// å…¨èšåˆï¼Œç¬¬2ä¸ªç»´åº¦å‚æ•°æ— æ•ˆ
 					double sum = A.sumAll();
 					double d = A.countAll();
 					return sum/d;
 				}
 				if (o2 instanceof Sequence) {
-					// µÚ2¸ö²ÎÊıÎªĞòÁĞÊ±£¬ĞèÒªÎªÊıÁĞ£¬ÊıÁĞÖĞÖØ¸´µÄÊıÒÔ¼°Ğ¡ÓÚ0»òÕß´óÓÚ¶àÎ¬ĞòÁĞ²ãÊıµÄÎŞĞ§£¬Ò²²»±¨´í
+					// ç¬¬2ä¸ªå‚æ•°ä¸ºåºåˆ—æ—¶ï¼Œéœ€è¦ä¸ºæ•°åˆ—ï¼Œæ•°åˆ—ä¸­é‡å¤çš„æ•°ä»¥åŠå°äº0æˆ–è€…å¤§äºå¤šç»´åºåˆ—å±‚æ•°çš„æ— æ•ˆï¼Œä¹Ÿä¸æŠ¥é”™
 					Sequence nseq = ((Sequence) o2).id(null);
 					int len = ((Sequence) o2).length();
 					if (len != nseq.length()) {
@@ -114,7 +114,7 @@ public class MMean extends Function {
 					A = (MulMatrix) o;
 				}
 				else {
-					// ¾ÛºÏ½á¹ûÎª³£ÊıÁË£¬ÎŞ·¨ÔÙ¾ÛºÏÁË£¬·µ»Ø
+					// èšåˆç»“æœä¸ºå¸¸æ•°äº†ï¼Œæ— æ³•å†èšåˆäº†ï¼Œè¿”å›
 					double sum = ((Number) o).doubleValue();
 					return sum/d;
 				}

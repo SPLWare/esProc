@@ -11,8 +11,8 @@ import com.scudata.expression.OperableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¶ÔÓÎ±ê»ò¹ÜµÀ¸½¼Ó°´ĞòºÅ·Ö×éÔËËã£¬¸÷×é°´ĞòºÅĞ´µ½ÏàÓ¦µÄÊä³ö¶ÔÏó
- * op.groupn(x;F) op.groupn(x;C) opÊÇÓÎ±ê»ò¹ÜµÀ£¬FÊÇÎÄ¼şĞòÁĞ£¬CÊÇ¹ÜµÀĞòÁĞ
+ * å¯¹æ¸¸æ ‡æˆ–ç®¡é“é™„åŠ æŒ‰åºå·åˆ†ç»„è¿ç®—ï¼Œå„ç»„æŒ‰åºå·å†™åˆ°ç›¸åº”çš„è¾“å‡ºå¯¹è±¡
+ * op.groupn(x;F) op.groupn(x;C) opæ˜¯æ¸¸æ ‡æˆ–ç®¡é“ï¼ŒFæ˜¯æ–‡ä»¶åºåˆ—ï¼ŒCæ˜¯ç®¡é“åºåˆ—
  * @author RunQian
  *
  */

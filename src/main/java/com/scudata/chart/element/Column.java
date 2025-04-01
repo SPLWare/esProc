@@ -9,43 +9,43 @@ import com.scudata.common.*;
 import com.scudata.dm.*;
 
 /**
- * ÖùÍ¼Ôª
- * ÖùÍ¼Ôª¿ÉÒÔÕ¹ÏÖÎªËùÓĞÌõ×´£¬°üº¬Ö±·½Í¼£¬Á¢ÌåÖ±·½Í¼£¬Ô²ÖùÍ¼
- * Èç¹ûÃ¶¾ÙÖáÔÚ×İÖáÊ±Ôò±íÏÖÎªÏµÁĞÌõĞÎÍ¼
- * ÌØ±ğµØ£¬ÖùÍ¼ÔªÔÚ¼«×ø±êÏµÏÂ±íÏÖÎªÒ»ÌõÍäÇúµÄ»·
+ * æŸ±å›¾å…ƒ
+ * æŸ±å›¾å…ƒå¯ä»¥å±•ç°ä¸ºæ‰€æœ‰æ¡çŠ¶ï¼ŒåŒ…å«ç›´æ–¹å›¾ï¼Œç«‹ä½“ç›´æ–¹å›¾ï¼Œåœ†æŸ±å›¾
+ * å¦‚æœæšä¸¾è½´åœ¨çºµè½´æ—¶åˆ™è¡¨ç°ä¸ºç³»åˆ—æ¡å½¢å›¾
+ * ç‰¹åˆ«åœ°ï¼ŒæŸ±å›¾å…ƒåœ¨æåæ ‡ç³»ä¸‹è¡¨ç°ä¸ºä¸€æ¡å¼¯æ›²çš„ç¯
  * @author Joancy
  *
  */
 public class Column extends Ring {
-	// Öù×Ó¸ß¶ÈÖáµÄÁíÒ»¸öÂß¼­×ø±ê£¬¸ñÊ½[w1,w2,...,wn]»òw
+	// æŸ±å­é«˜åº¦è½´çš„å¦ä¸€ä¸ªé€»è¾‘åæ ‡ï¼Œæ ¼å¼[w1,w2,...,wn]æˆ–w
 	public Sequence data3 = null;
-	// Öù×Ó¿í¶È,Èç¹ûÊÇÃ¶¾ÙÖáÉÏ£º<=1±íÊ¾¸úÏµÁĞÕ¼¿íµÄ±ÈÀı£¬>1±íÊ¾¾ø¶ÔÏñËØ¿í¶È¡£Èç¹ûÊÇÈÕÆÚ»òÕßÊıÖµÖáÊ±£¬<=1±íÊ¾¸úÖá³¤µÄ±ÈÀı£¬>1±íÊ¾¾ø¶ÔÏñËØ¿í¶È
+	// æŸ±å­å®½åº¦,å¦‚æœæ˜¯æšä¸¾è½´ä¸Šï¼š<=1è¡¨ç¤ºè·Ÿç³»åˆ—å å®½çš„æ¯”ä¾‹ï¼Œ>1è¡¨ç¤ºç»å¯¹åƒç´ å®½åº¦ã€‚å¦‚æœæ˜¯æ—¥æœŸæˆ–è€…æ•°å€¼è½´æ—¶ï¼Œ<=1è¡¨ç¤ºè·Ÿè½´é•¿çš„æ¯”ä¾‹ï¼Œ>1è¡¨ç¤ºç»å¯¹åƒç´ å®½åº¦
 	public Para columnWidth = new Para(new Double(0.9));
 
-	// Öù×ÓÀàĞÍ
+	// æŸ±å­ç±»å‹
 	public Para columnShape = new Para(new Integer(Consts.COL_COBOID));
 
-	// ±êÊ¾ÎÄ×ÖºáÏò¶ÔÆë
+	// æ ‡ç¤ºæ–‡å­—æ¨ªå‘å¯¹é½
 	public Para horizontalAlign = new Para(new Integer(Consts.HALIGN_CENTER));
 
-	// ±êÊ¾ÎÄ×Ö×İÏò¶ÔÆë
+	// æ ‡ç¤ºæ–‡å­—çºµå‘å¯¹é½
 	public Para verticalAlign = new Para(new Integer(Consts.VALIGN_TOP));
 
-	// ÊÇ·ñÓĞÒõÓ°
+	// æ˜¯å¦æœ‰é˜´å½±
 	public boolean shadow = true;
 
-	// Í»³ö±ß¿ò
+	// çªå‡ºè¾¹æ¡†
 	public boolean convexEdge = false;
 
 	/**
-	 * È±Ê¡²ÎÊıµÄ¹¹Ôìº¯Êı
+	 * ç¼ºçœå‚æ•°çš„æ„é€ å‡½æ•°
 	 */
 	public Column() {
 	}
 
 	/**
-	 * Í¼Ôª¼ÆËãÇ°×¼±¸£¬¼ì²éÊı¾İÍêÕûĞÔ
-	 * Êı¾İ²»ÍêÕû£¬²»Æ¥ÅäÊ±ÈÓ³öÒì³£
+	 * å›¾å…ƒè®¡ç®—å‰å‡†å¤‡ï¼Œæ£€æŸ¥æ•°æ®å®Œæ•´æ€§
+	 * æ•°æ®ä¸å®Œæ•´ï¼Œä¸åŒ¹é…æ—¶æ‰”å‡ºå¼‚å¸¸
 	 */
 	public void prepare() {
 		super.prepare();
@@ -58,19 +58,19 @@ public class Column extends Ring {
 	}
 
 	/**
-	 * »ñÈ¡µÚindex¸öÖù×ÓµÄ¿í¶È
-	 * Ã¶¾ÙÖµµÄÖù¿í±ÈÕÕÏµÁĞ¿í¶È£»
-	 * ÈÕÆÚ»òÕßÊıÖµÖáÖ±½Ó°´ÕÕÏñËØ·µ»Ø
-	 * @param ia ¿Ì¶ÈÖá
-	 * @param index Öù×ÓĞòºÅ
-	 * @return ·µ»Ø°´ÏñËØµÄÖù×Ó¿í¶È
+	 * è·å–ç¬¬indexä¸ªæŸ±å­çš„å®½åº¦
+	 * æšä¸¾å€¼çš„æŸ±å®½æ¯”ç…§ç³»åˆ—å®½åº¦ï¼›
+	 * æ—¥æœŸæˆ–è€…æ•°å€¼è½´ç›´æ¥æŒ‰ç…§åƒç´ è¿”å›
+	 * @param ia åˆ»åº¦è½´
+	 * @param index æŸ±å­åºå·
+	 * @return è¿”å›æŒ‰åƒç´ çš„æŸ±å­å®½åº¦
 	 */
 	public double getColumnWidth(TickAxis ia, int index) {
 		double colWidth = columnWidth.doubleValue(index);
 		if (ia instanceof EnumAxis) {
 			colWidth = ia.getValueRadius(colWidth);
 		}
-//		Èç¹ûÖù¿íÎª0Ôò°´0·µ»Ø£¬·ñÔò×îĞ¡µÃ1ÏñËØ£¬Òª²»Í¼ĞÎ»æÖÆ²»³öÀ´
+//		å¦‚æœæŸ±å®½ä¸º0åˆ™æŒ‰0è¿”å›ï¼Œå¦åˆ™æœ€å°å¾—1åƒç´ ï¼Œè¦ä¸å›¾å½¢ç»˜åˆ¶ä¸å‡ºæ¥
 		if(colWidth==0){
 			return 0;
 		}else if(colWidth<1){
@@ -80,9 +80,9 @@ public class Column extends Ring {
 	}
 
 	/**
-	 * Öù×Ó¿ÉÒÔ»æÖÆ´ÓÊı¾İ3µ½ÊıÖµÊı¾İµÄÒ»¶Î×ÔÓÉÖù
-	 * ÕâÖÖ×ÔÓÉÖùÊ±Ê¹ÓÃdata3
-	 * @return Âß¼­Êı¾İ3µÄĞòÁĞ
+	 * æŸ±å­å¯ä»¥ç»˜åˆ¶ä»æ•°æ®3åˆ°æ•°å€¼æ•°æ®çš„ä¸€æ®µè‡ªç”±æŸ±
+	 * è¿™ç§è‡ªç”±æŸ±æ—¶ä½¿ç”¨data3
+	 * @return é€»è¾‘æ•°æ®3çš„åºåˆ—
 	 */
 	public Sequence getData3() {
 		return data3;
@@ -90,7 +90,7 @@ public class Column extends Ring {
 
 	protected Shape drawFreeColumn(int index, Point2D p1, Point2D p2, int step,
 			boolean isVertical, int seriesIndex) {
-		// Ö»ÓĞµÚÒ»²½¼ÆËãÊ±²Å»á·µ»ØÊı¾İÁ´½ÓµÄĞÎ×´
+		// åªæœ‰ç¬¬ä¸€æ­¥è®¡ç®—æ—¶æ‰ä¼šè¿”å›æ•°æ®é“¾æ¥çš„å½¢çŠ¶
 		Shape linkShape = null;
 
 		double leftX = Math.min(p1.getX(), p2.getX());
@@ -105,7 +105,7 @@ public class Column extends Ring {
 
 		// Graphics2D g = e.getGraphics();
 		switch (step) {
-		case 1: // »­Öù×Ó
+		case 1: // ç”»æŸ±å­
 			int style = columnShape.intValue();
 			switch (style) {
 			case Consts.COL_CUBE:
@@ -126,7 +126,7 @@ public class Column extends Ring {
 				linkShape = draw2DColumn(x, y, w, h, seriesIndex, isVertical);
 			}
 			break;
-		case 2: // »­Öù¶¥ÎÄ×Ö
+		case 2: // ç”»æŸ±é¡¶æ–‡å­—
 			String txt = text.stringValue(index);
 			if (!StringUtils.isValidString(txt)) {
 				return null;
@@ -245,7 +245,7 @@ public class Column extends Ring {
 					height, 0, 360, Arc2D.OPEN);
 		}
 		if (transparent < 1) {
-			// g.setColor(chartColor.getColor1()); // µ×ÃæÔ²
+			// g.setColor(chartColor.getColor1()); // åº•é¢åœ†
 			Utils.fill(g, bottomOval, transparent, chartColor.getColor1());
 		}
 		if (Utils.setStroke(g, bc, bs, bw)) {
@@ -301,8 +301,8 @@ public class Column extends Ring {
 	}
 
 	/**
-	 * »ñÈ¡ÖùÍ¼ÔªµÄ±à¼­²ÎÊıĞÅÏ¢ÁĞ±í
-	 * @return ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–æŸ±å›¾å…ƒçš„ç¼–è¾‘å‚æ•°ä¿¡æ¯åˆ—è¡¨
+	 * @return å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -325,12 +325,12 @@ public class Column extends Ring {
 		paramInfos.add(group, new ParamInfo("verticalAlign",
 				Consts.INPUT_VALIGN));
 
-		paramInfos.addAll(super.getParamInfoList());// Ö®ËùÒÔ´Ó¸¸Àà×îºó¼ÓÔØ£¬ÊÇ±£³Ö×ÓÀàµÄÊôĞÔ¿¿Ç°µÄË³Ğò
+		paramInfos.addAll(super.getParamInfoList());// ä¹‹æ‰€ä»¥ä»çˆ¶ç±»æœ€ååŠ è½½ï¼Œæ˜¯ä¿æŒå­ç±»çš„å±æ€§é å‰çš„é¡ºåº
 		return paramInfos;
 	}
 
 	/**
-	 * ¿ËÂ¡ÖùÍ¼ÔªµÄÊôĞÔÖµ
+	 * å…‹éš†æŸ±å›¾å…ƒçš„å±æ€§å€¼
 	 * @param c
 	 */
 	public void clone(Column c){
@@ -338,8 +338,8 @@ public class Column extends Ring {
 	}
 	
 	/**
-	 * Éî¶È¿ËÂ¡ÖùÍ¼Ôª
-	 * @return ¿ËÂ¡ÖùÍ¼Ôª
+	 * æ·±åº¦å…‹éš†æŸ±å›¾å…ƒ
+	 * @return å…‹éš†æŸ±å›¾å…ƒ
 	 */
 	public Object deepClone() {
 		Column c = new Column();

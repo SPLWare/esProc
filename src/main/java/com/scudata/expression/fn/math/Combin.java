@@ -10,13 +10,13 @@ import com.scudata.util.Variant;
 
 
 /**
- * Çó×éºÏÊı,´Ón¸ö¶ÔÏóÖĞÑ¡³ök¸ö¶ÔÏóµÄ×éºÏÊı£¬n<k||n<=0||k<=0¾ù·µ»Ø0£¬nºÍk×Ô¶¯È¡Õû
+ * æ±‚ç»„åˆæ•°,ä»nä¸ªå¯¹è±¡ä¸­é€‰å‡ºkä¸ªå¯¹è±¡çš„ç»„åˆæ•°ï¼Œn<k||n<=0||k<=0å‡è¿”å›0ï¼Œnå’Œkè‡ªåŠ¨å–æ•´
  * @author yanjing
  *
  */
 public class Combin	extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -56,7 +56,7 @@ public class Combin	extends Function {
 	}
 	
 	/**
-	 * Çó´Ón¸ö¶ÔÏóÖĞÈ¡³ök¸ö¶ÔÏóµÄ×éºÏÊı
+	 * æ±‚ä»nä¸ªå¯¹è±¡ä¸­å–å‡ºkä¸ªå¯¹è±¡çš„ç»„åˆæ•°
 	 * @param n
 	 * @param k
 	 * @return

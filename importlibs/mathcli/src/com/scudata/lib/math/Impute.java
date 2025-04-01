@@ -16,7 +16,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.common.MessageManager;
 
 /**
- * ¼ÆËãÆ«¶È
+ * è®¡ç®—ååº¦
  * @author bd
  * A.impute(), P.impute(cn), A.impute@r(rec), P.impute@r(cn, rec) 
  */
@@ -162,10 +162,10 @@ public class Impute extends SequenceFunction {
 	private static double P_m = 50d;
 
 	/**
-	 * ¶ÔÊıÖµ±äÁ¿×ö¾ÀÆ«´¦Àí
-	 * @param cvs	ÊıÖµ±äÁ¿ÕûÁĞÖµ
-	 * @param cn	±äÁ¿Ãû
-	 * @param filePath	Èç¹û³öÏÖĞèÒªÅÅĞòµÄÇé¿ö£¬ÔÚÊı¾İ½Ï¶àÊ±»º´æÎÄ¼şµÄÂ·¾¶£¬ÔİÊ±²»Ö§³Ö
+	 * å¯¹æ•°å€¼å˜é‡åšçº åå¤„ç†
+	 * @param cvs	æ•°å€¼å˜é‡æ•´åˆ—å€¼
+	 * @param cn	å˜é‡å
+	 * @param filePath	å¦‚æœå‡ºç°éœ€è¦æ’åºçš„æƒ…å†µï¼Œåœ¨æ•°æ®è¾ƒå¤šæ—¶ç¼“å­˜æ–‡ä»¶çš„è·¯å¾„ï¼Œæš‚æ—¶ä¸æ”¯æŒ
 	 * @return
 	 */
 	protected static FNARec recFNA(Sequence cvs, String cn, byte ctype) {
@@ -187,54 +187,54 @@ public class Impute extends SequenceFunction {
 
 		FNARec fnaRec = new FNARec();
 		int msize = 0;
-		//ÖÚÊı
+		//ä¼—æ•°
 		Object maxv = null;
 
 		if (ctype == Consts.F_COUNT) {
-			//¼ÆÊıĞÍ£¬ºÍÏÂÃæµÄÊıÖµĞÍ²¹È±Ïà¶ÔÓÚÃ¶¾ÙµÄ¼¸ÖÖÀàĞÍ¶¼ºÜ¼òµ¥£¬Ö»ĞèÒª²¹¿Õ£¬²»ĞèÒª¿¼ÂÇºÏ²¢µÍÆµ·ÖÀàµÄÊÂÇé
+			//è®¡æ•°å‹ï¼Œå’Œä¸‹é¢çš„æ•°å€¼å‹è¡¥ç¼ºç›¸å¯¹äºæšä¸¾çš„å‡ ç§ç±»å‹éƒ½å¾ˆç®€å•ï¼Œåªéœ€è¦è¡¥ç©ºï¼Œä¸éœ€è¦è€ƒè™‘åˆå¹¶ä½é¢‘åˆ†ç±»çš„äº‹æƒ…
 			maxv = Prep.clnvCount(cvs);
 			fnaRec.setMissing(maxv);
 		}
 		else if (ctype == Consts.F_NUMBER ) {
-			//ÊıÖµĞÍ£¬²¹È±ÓÃµÄ²»ÊÇÖÚÊı£¬ÊÇ¾ùÖµ
+			//æ•°å€¼å‹ï¼Œè¡¥ç¼ºç”¨çš„ä¸æ˜¯ä¼—æ•°ï¼Œæ˜¯å‡å€¼
 			Prep.clnv(cvs, vi.getAverage());
 			fnaRec.setMissing(vi.getAverage());
 			vi.setFillMissing(vi.getAverage());
 		}
 		else if (ctype == Consts.F_ENUM || ctype == Consts.F_TWO_VALUE || ctype == Consts.F_SINGLE_VALUE ) {
-			//¶şÖµ¡¢Ã¶¾Ù£¬ÉõÖÁ¿ÉÄÜÖ´ĞĞÖÁ´ËµÄµ¥Öµ			
+			//äºŒå€¼ã€æšä¸¾ï¼Œç”šè‡³å¯èƒ½æ‰§è¡Œè‡³æ­¤çš„å•å€¼			
 			if (size*1d/vi.getCategory() <= 50) {
-				//·ÖÀà±äÁ¿Ì«ËöËéÁË£¬Æ½¾ùÃ¿¸ö·ÖÀàÖµ²»³¬¹ı50¸ö£¬±äÁ¿É¾³ı
+				//åˆ†ç±»å˜é‡å¤ªçç¢äº†ï¼Œå¹³å‡æ¯ä¸ªåˆ†ç±»å€¼ä¸è¶…è¿‡50ä¸ªï¼Œå˜é‡åˆ é™¤
 				vi.setStatus(VarInfo.VAR_DEL_CATEGORY);;
 				return null;
 			}
 			
-			//¿ÕÖµ×é
+			//ç©ºå€¼ç»„
 			ArrayList<Integer> nA = new ArrayList<Integer>();
-			//µÍÆµ·ÖÀà×é
+			//ä½é¢‘åˆ†ç±»ç»„
 			ArrayList<Integer> A = new ArrayList<Integer>();
 
 			ArrayList<ArrayList<Integer>> groups = Prep.group(cvs);
-			//Ã¶¾ÙÊı
+			//æšä¸¾æ•°
 			int len = groups.size();
 			
 			int check = 6;
 			if (freq >= Prep.MISSING_MAX || (freq <= Prep.MISSING_MIN && freq > 0)) {
-				//¿ÕÖµ´æÔÚ£¬µ«ÊÇ±»Ìæ»»ÎªÖÚÊıÊ±£¬¿ÕÖµ²»Õ¼ÅĞ¶ÏÊı£¬checkÒª+1
+				//ç©ºå€¼å­˜åœ¨ï¼Œä½†æ˜¯è¢«æ›¿æ¢ä¸ºä¼—æ•°æ—¶ï¼Œç©ºå€¼ä¸å åˆ¤æ–­æ•°ï¼Œcheckè¦+1
 				check ++;
 			}
 			
 			boolean merge = true;
 			if (len <= check) {
-				//·ÖÀàÊı<=6£¬´ËÊ±²»ºÏ²¢µÍÆµ·ÖÀà
+				//åˆ†ç±»æ•°<=6ï¼Œæ­¤æ—¶ä¸åˆå¹¶ä½é¢‘åˆ†ç±»
 				merge = false;
 			}
 			
 			Object setting = Consts.CONST_OTHERNUMS;
 			Object missing = Consts.CONST_NULLNUM;
-			//±»±£ÁôµÄ·ÖÀàÖµ
+			//è¢«ä¿ç•™çš„åˆ†ç±»å€¼
 			Sequence keepValues = new Sequence();
-			//±»ºÏ²¢ÏûÊ§µÄµÍÆµ·ÖÀàÖµ
+			//è¢«åˆå¹¶æ¶ˆå¤±çš„ä½é¢‘åˆ†ç±»å€¼
 			Sequence otherValues = new Sequence();
 			for (int i = 0; i < len; i++ ) {
 				ArrayList<Integer> thisg = groups.get(i);
@@ -245,14 +245,14 @@ public class Impute extends SequenceFunction {
 				Integer index = thisg.get(0);
 				Object value = cvs.get(index.intValue());
 				if (value == null) {
-					//¿ÕÖµ×é£¬¼ÇÂ¼ĞèÌî²¹µÄ¿ÕÖµĞòºÅ
+					//ç©ºå€¼ç»„ï¼Œè®°å½•éœ€å¡«è¡¥çš„ç©ºå€¼åºå·
 					for (int ri = 0; ri < size;ri ++ ) {
 						index = thisg.get(ri);
 						nA.add(index);
 					}
 				}
 				else if (merge && size < pm) {
-					//Ğè±»ºÏ²¢µÄµÍÆµ·ÖÀà×é
+					//éœ€è¢«åˆå¹¶çš„ä½é¢‘åˆ†ç±»ç»„
 					otherValues.add(value);
 					for (int ri = 0; ri < size;ri ++ ) {
 						index = thisg.get(ri);
@@ -260,7 +260,7 @@ public class Impute extends SequenceFunction {
 					}
 				}
 				else {
-					//±»±£ÁôµÄ·ÖÀà×é£¬²é¿´ÊÇ·ñÖÚÊı×é
+					//è¢«ä¿ç•™çš„åˆ†ç±»ç»„ï¼ŒæŸ¥çœ‹æ˜¯å¦ä¼—æ•°ç»„
 					keepValues.add(value);
 					if (msize < size) {
 						msize = size;
@@ -269,13 +269,13 @@ public class Impute extends SequenceFunction {
 				}
 			}
 			len = A.size();
-			// edited by bd, 2022.5.13, ¸ù¾İÖÚÊıÅĞ¶ÏÊı¾İÀàĞÍ£¬Èç¹û·ÇÊıÖµÔòÊ¹ÓÃ×Ö·û´®Ìî³ä
+			// edited by bd, 2022.5.13, æ ¹æ®ä¼—æ•°åˆ¤æ–­æ•°æ®ç±»å‹ï¼Œå¦‚æœéæ•°å€¼åˆ™ä½¿ç”¨å­—ç¬¦ä¸²å¡«å……
 			if (!(maxv instanceof Number)) {
 				missing = Consts.CONST_NULL;
 				setting = Consts.CONST_OTHERS;
 			}
-			// ¹æÔòĞŞ¸Ä£¬nAÔÚÆµ¶È²»¸ßÓÚ5%»ò²»µÍÓÚ95%Ê±£¬ÓÃÖÚÊıÖÃ»»null
-			//ĞèÒª±£Ö¤ÖÚÊı²»Îªnull
+			// è§„åˆ™ä¿®æ”¹ï¼ŒnAåœ¨é¢‘åº¦ä¸é«˜äº5%æˆ–ä¸ä½äº95%æ—¶ï¼Œç”¨ä¼—æ•°ç½®æ¢null
+			//éœ€è¦ä¿è¯ä¼—æ•°ä¸ä¸ºnull
 			if ((freq >= Prep.MISSING_MAX || freq <= Prep.MISSING_MIN) && maxv != null) {
 				for (Integer index : nA) {
 					missing = maxv;
@@ -285,15 +285,15 @@ public class Impute extends SequenceFunction {
 			}
 			
 			if (nA.size() < pm) {
-				//¿ÕÖµÎªµÍÆµ×é£¬»òÕß²»´æÔÚ£¬ĞèºÍµÍÆµ×éºÏ²¢´¦Àí
+				//ç©ºå€¼ä¸ºä½é¢‘ç»„ï¼Œæˆ–è€…ä¸å­˜åœ¨ï¼Œéœ€å’Œä½é¢‘ç»„åˆå¹¶å¤„ç†
 				if (len + nA.size() < pm && maxv != null) {
-					//¿ÕÖµ¼ÓÈëºó£¬ÆäËü×éÈÔÈ»ÊÇµÍÆµ×é£¬ÓÃÖÚÊıÌî²¹£¬´ËÊ±Ğè±£Ö¤ÖÚÊıÊÇ´æÔÚµÄ
+					//ç©ºå€¼åŠ å…¥åï¼Œå…¶å®ƒç»„ä»ç„¶æ˜¯ä½é¢‘ç»„ï¼Œç”¨ä¼—æ•°å¡«è¡¥ï¼Œæ­¤æ—¶éœ€ä¿è¯ä¼—æ•°æ˜¯å­˜åœ¨çš„
 					setting = maxv;
 					fnaRec.setOtherValues(null);
 				}
 				else {
-					// ¿ÕÖµºÍµÍÆµ×é£¬¹²Í¬ºÏ²¢ÎªĞÂµÄ¡°ÆäËü"×é
-					// ÆäËüÖµ»áÉè¶¨£¬Èç¹û²»Éè¶¨µÄ»°£¬ÕâĞ©Öµ¶¼»á±»ÉèÎªÖÚÊı£¬¾ÍÃ»ÓĞĞ¡×éÖµºÍnullÖµµÄÊÂÇéÁË, ´æµ½UPÀï£¬µÈsgnvÊ±ÔÙµ÷Õû
+					// ç©ºå€¼å’Œä½é¢‘ç»„ï¼Œå…±åŒåˆå¹¶ä¸ºæ–°çš„â€œå…¶å®ƒ"ç»„
+					// å…¶å®ƒå€¼ä¼šè®¾å®šï¼Œå¦‚æœä¸è®¾å®šçš„è¯ï¼Œè¿™äº›å€¼éƒ½ä¼šè¢«è®¾ä¸ºä¼—æ•°ï¼Œå°±æ²¡æœ‰å°ç»„å€¼å’Œnullå€¼çš„äº‹æƒ…äº†, å­˜åˆ°UPé‡Œï¼Œç­‰sgnvæ—¶å†è°ƒæ•´
 					if (nA.size() > 0) {
 						otherValues.add(null);
 					}
@@ -312,14 +312,14 @@ public class Impute extends SequenceFunction {
 				vi.setFillOthers(otherValues);
 			}
 			else {
-				//¿ÕÖµ×éµ¥¶ÀÉèÖÃ£¬¿¼²ìµÍÆµºÏ²¢×éµÄÇé¿ö
+				//ç©ºå€¼ç»„å•ç‹¬è®¾ç½®ï¼Œè€ƒå¯Ÿä½é¢‘åˆå¹¶ç»„çš„æƒ…å†µ
 				if (len < pm && maxv != null) {
-					//µÍÆµºÏ²¢×é×ÜÊıÎ´´ï±ê£¬ÓÃÖÚÊıÉèÖÃ
+					//ä½é¢‘åˆå¹¶ç»„æ€»æ•°æœªè¾¾æ ‡ï¼Œç”¨ä¼—æ•°è®¾ç½®
 					setting = maxv;
 					fnaRec.setOtherValues(null);
 				}
 				else {
-					//  ÆäËüÖµ»áÉè¶¨£¬Èç¹û²»Éè¶¨µÄ»°£¬ÕâĞ©Öµ¶¼»á±»ÉèÎªÖÚÊı£¬¾ÍÃ»ÓĞĞ¡×éÖµºÍnullÖµµÄÊÂÇéÁË, ´æµ½UPÀï£¬µÈsgnvÊ±ÔÙµ÷Õû
+					//  å…¶å®ƒå€¼ä¼šè®¾å®šï¼Œå¦‚æœä¸è®¾å®šçš„è¯ï¼Œè¿™äº›å€¼éƒ½ä¼šè¢«è®¾ä¸ºä¼—æ•°ï¼Œå°±æ²¡æœ‰å°ç»„å€¼å’Œnullå€¼çš„äº‹æƒ…äº†, å­˜åˆ°UPé‡Œï¼Œç­‰sgnvæ—¶å†è°ƒæ•´
 					fnaRec.setOtherValues(otherValues);
 				}
 				for (Integer index : nA) {
@@ -335,11 +335,11 @@ public class Impute extends SequenceFunction {
 				vi.setFillOthers(otherValues);
 			}
 			fnaRec.setKeepValues(keepValues);
-			// ¹æÔòĞŞ¸Ä£¬Ìî²¹¿ÕÖµºó£¬Îªµ¥ÖµµÄ£¬·µ»Ønull
+			// è§„åˆ™ä¿®æ”¹ï¼Œå¡«è¡¥ç©ºå€¼åï¼Œä¸ºå•å€¼çš„ï¼Œè¿”å›null
 			if (keepValues.length() < 2 && Prep.card(cvs) == 1) {
 				vi.setStatus(VarInfo.VAR_DEL_SINGLE);
 				//return null;
-				// ²»ÔÚÕâÀïÈ¥Ö±½Ó·µ»Ø¿ÕÖµÁË
+				// ä¸åœ¨è¿™é‡Œå»ç›´æ¥è¿”å›ç©ºå€¼äº†
 			}
 		}
 		return fnaRec;
@@ -349,9 +349,9 @@ public class Impute extends SequenceFunction {
 		Object missing = fr.getMissing();
 		Object setting = fr.getSetting();
 		if (setting == null) {
-			//¼ÆÊıĞÍ£¬ºÍÏÂÃæµÄÊıÖµĞÍ²¹È±Ïà¶ÔÓÚÃ¶¾ÙµÄ¼¸ÖÖÀàĞÍ¶¼ºÜ¼òµ¥£¬Ö»ĞèÒª²¹¿Õ£¬²»ĞèÒª¿¼ÂÇºÏ²¢µÍÆµ·ÖÀàµÄÊÂÇé
+			//è®¡æ•°å‹ï¼Œå’Œä¸‹é¢çš„æ•°å€¼å‹è¡¥ç¼ºç›¸å¯¹äºæšä¸¾çš„å‡ ç§ç±»å‹éƒ½å¾ˆç®€å•ï¼Œåªéœ€è¦è¡¥ç©ºï¼Œä¸éœ€è¦è€ƒè™‘åˆå¹¶ä½é¢‘åˆ†ç±»çš„äº‹æƒ…
 			if (missing == null) {
-				//Î´Ö´ĞĞ¹ı²¹È±£¬Ö±½Ó·µ»Ø
+				//æœªæ‰§è¡Œè¿‡è¡¥ç¼ºï¼Œç›´æ¥è¿”å›
 				return;
 			}
 			Prep.clnv(cvs, missing);
@@ -365,10 +365,10 @@ public class Impute extends SequenceFunction {
 			}
 			
 			if (missing == null && setting == null) {
-				//ÕâÁ½¸ö¶¼ÊÇnull£¬ËµÃ÷²¢Î´Ö´ĞĞ¹ı²¹È±»òºÏ²¢£¬Ö±½Ó·µ»Ø¼´¿É
+				//è¿™ä¸¤ä¸ªéƒ½æ˜¯nullï¼Œè¯´æ˜å¹¶æœªæ‰§è¡Œè¿‡è¡¥ç¼ºæˆ–åˆå¹¶ï¼Œç›´æ¥è¿”å›å³å¯
 				return;
 			}
-			// ÎªÁË·ÀÖ¹Ìî²¹³ö¿ÕÖµµÄÇé¿ö£¬°ÑsettingºÍmissing¶¼ÉèÎª·Ç¿Õ
+			// ä¸ºäº†é˜²æ­¢å¡«è¡¥å‡ºç©ºå€¼çš„æƒ…å†µï¼ŒæŠŠsettingå’Œmissingéƒ½è®¾ä¸ºéç©º
 			else if (missing == null) {
 				missing = setting;
 			}

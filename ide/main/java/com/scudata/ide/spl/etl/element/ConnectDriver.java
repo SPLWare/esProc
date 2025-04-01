@@ -9,7 +9,7 @@ import com.scudata.ide.spl.etl.ParamInfo;
 import com.scudata.ide.spl.etl.ParamInfoList;
 
 /**
- * ¸¨Öúº¯Êı±à¼­ connect(driver,url)
+ * è¾…åŠ©å‡½æ•°ç¼–è¾‘ connect(driver,url)
  * 
  * @author Joancy
  *
@@ -23,7 +23,7 @@ public class ConnectDriver extends ObjectElement {
 	public boolean e;
 
 	/**
-	 * »ñÈ¡ÓÃÓÚ½çÃæ±à¼­µÄ²ÎÊıĞÅÏ¢ÁĞ±í
+	 * è·å–ç”¨äºç•Œé¢ç¼–è¾‘çš„å‚æ•°ä¿¡æ¯åˆ—è¡¨
 	 */
 	public ParamInfoList getParamInfoList() {
 		ParamInfoList paramInfos = new ParamInfoList();
@@ -41,8 +41,8 @@ public class ConnectDriver extends ObjectElement {
 
 
 	/**
-	 * »ñÈ¡¸¸ÀàĞÍ
-	 * ÀàĞÍµÄ³£Á¿¶¨ÒåÎª
+	 * è·å–çˆ¶ç±»å‹
+	 * ç±»å‹çš„å¸¸é‡å®šä¹‰ä¸º
 	 * EtlConsts.TYPE_XXX
 	 * @return EtlConsts.TYPE_EMPTY
 	 */
@@ -51,7 +51,7 @@ public class ConnectDriver extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡¸Ãº¯ÊıµÄ·µ»ØÀàĞÍ
+	 * è·å–è¯¥å‡½æ•°çš„è¿”å›ç±»å‹
 	 * @return EtlConsts.TYPE_DB
 	 */
 	public byte getReturnType() {
@@ -59,7 +59,7 @@ public class ConnectDriver extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄÑ¡Ïî´®
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„é€‰é¡¹ä¸²
 	 */
 	public String optionString(){
 		StringBuffer sb = new StringBuffer();
@@ -76,9 +76,9 @@ public class ConnectDriver extends ObjectElement {
 	}
 	
 	/**
-	 * ¸²¸Ç¸¸ÀàµÄÉèÖÃº¯ÊıµÄÑ¡Ïî
-	 * ¸ÃÀàÖĞµÄlevelÊÇÓÃ×Ö·ûÃèÊöµÄ¸ôÀë¼¶±ğ£¬¸úbooleanÑ¡ÏîÖµ²»Í¨ÓÃ£¬ËùÒÔĞèÒªÌØÊâ´¦Àí
-	 * @param options Ñ¡Ïî
+	 * è¦†ç›–çˆ¶ç±»çš„è®¾ç½®å‡½æ•°çš„é€‰é¡¹
+	 * è¯¥ç±»ä¸­çš„levelæ˜¯ç”¨å­—ç¬¦æè¿°çš„éš”ç¦»çº§åˆ«ï¼Œè·Ÿbooleané€‰é¡¹å€¼ä¸é€šç”¨ï¼Œæ‰€ä»¥éœ€è¦ç‰¹æ®Šå¤„ç†
+	 * @param options é€‰é¡¹
 	 */
 	public void setOptions(String options){
 		if(options==null){
@@ -98,15 +98,15 @@ public class ConnectDriver extends ObjectElement {
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÃû
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°å
 	 */
 	public String getFuncName() {
 		return "connect";
 	}
 
 	/**
-	 * »ñÈ¡ÓÃÓÚÉú³ÉSPL±í´ïÊ½µÄº¯ÊıÌå
-	 * ¸úsetFuncBodyÊÇÄæº¯Êı£¬È»ºó±í´ïÊ½µÄ¸³ÖµÒ²×ÜÊÇ»¥ÄæµÄ
+	 * è·å–ç”¨äºç”ŸæˆSPLè¡¨è¾¾å¼çš„å‡½æ•°ä½“
+	 * è·ŸsetFuncBodyæ˜¯é€†å‡½æ•°ï¼Œç„¶åè¡¨è¾¾å¼çš„èµ‹å€¼ä¹Ÿæ€»æ˜¯äº’é€†çš„
 	 */
 	public String getFuncBody() {
 		StringBuffer sb = new StringBuffer();
@@ -117,8 +117,8 @@ public class ConnectDriver extends ObjectElement {
 	}
 
 	/**
-	 * ÉèÖÃº¯ÊıÌå
-	 * @param funcBody º¯ÊıÌå
+	 * è®¾ç½®å‡½æ•°ä½“
+	 * @param funcBody å‡½æ•°ä½“
 	 */
 	public boolean setFuncBody(String funcBody) {
 		StringTokenizer st = new StringTokenizer(funcBody,",");

@@ -10,7 +10,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * È«1¾ØÕóº¯Êıones(n1,n2,...)
+ * å…¨1çŸ©é˜µå‡½æ•°ones(n1,n2,...)
  * @author bd
  */
 public class Ones extends Function {
@@ -39,7 +39,7 @@ public class Ones extends Function {
 						throw new RQException("ones" + mm.getMessage("function.invalidParam"));
 					}
 					else {
-						// µ¥ÖµĞòÁĞ
+						// å•å€¼åºåˆ—
 						o = nseq.get(1);
 						nseq = new Sequence(2);
 						nseq.add(o);

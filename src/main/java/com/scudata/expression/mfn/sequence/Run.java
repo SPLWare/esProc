@@ -6,8 +6,8 @@ import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.SequenceFunction;
 
 /**
- * Õë¶ÔĞòÁĞ¼ÆËã±í´ïÊ½£¬·µ»ØĞòÁĞ±¾Éí
- * A.run(xi,¡­) P.run(xi:Fi:,¡­)
+ * é’ˆå¯¹åºåˆ—è®¡ç®—è¡¨è¾¾å¼ï¼Œè¿”å›åºåˆ—æœ¬èº«
+ * A.run(xi,â€¦) P.run(xi:Fi:,â€¦)
  * @author RunQian
  *
  */

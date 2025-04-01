@@ -8,48 +8,48 @@ import com.scudata.chart.edit.ParamInfoList;
 import com.scudata.common.StringUtils;
 
 /**
- * ³¬Á´½ÓÍ¼ÔªµÄ³éÏóÀà
+ * è¶…é“¾æ¥å›¾å…ƒçš„æŠ½è±¡ç±»
  * @author Joancy
  *
  */
 public abstract class LinkElement extends ObjectElement{
-	//³¬Á´½Ó²»ÔÙÊ¹ÓÃºê£¬¸ÄÎªÓÉdfx¼ÆËã³öÃ¿¸ödataµÄÍ¼ÔªµÄ¶ÔÓ¦Á´½ÓĞòÁĞ£¬²»¹»Ê±£¬Ñ­»·Ê¹ÓÃ£»
+	//è¶…é“¾æ¥ä¸å†ä½¿ç”¨å®ï¼Œæ”¹ä¸ºç”±dfxè®¡ç®—å‡ºæ¯ä¸ªdataçš„å›¾å…ƒçš„å¯¹åº”é“¾æ¥åºåˆ—ï¼Œä¸å¤Ÿæ—¶ï¼Œå¾ªç¯ä½¿ç”¨ï¼›
 	public Para htmlLink = new Para(null);
-	public Para tipTitle = new Para(null);// µ±tipTitleÃ»ÓĞÖ¸¶¨Ê±£¬Ä¬ÈÏÊ¹ÓÃdataµÄÊı¾İ
+	public Para tipTitle = new Para(null);// å½“tipTitleæ²¡æœ‰æŒ‡å®šæ—¶ï¼Œé»˜è®¤ä½¿ç”¨dataçš„æ•°æ®
 	public Para linkTarget = new Para("_blank");
 
 	private transient ArrayList<Shape> shapes = new ArrayList<Shape>();
 	private transient ArrayList<String> links = new ArrayList<String>();
-	private transient ArrayList<String> titles = new ArrayList<String>();// Êó±êÖ¸ÏòÇøÓòÊ±£¬µ¯³öµÄÌáÊ¾ÏûÏ¢
+	private transient ArrayList<String> titles = new ArrayList<String>();// é¼ æ ‡æŒ‡å‘åŒºåŸŸæ—¶ï¼Œå¼¹å‡ºçš„æç¤ºæ¶ˆæ¯
 	private transient ArrayList<String> targets = new ArrayList<String>();
 	/**
-	 * »ñÈ¡Í¼ÔªµÄÁ´½Ó±ß½çĞÎ×´
+	 * è·å–å›¾å…ƒçš„é“¾æ¥è¾¹ç•Œå½¢çŠ¶
 	 * 
-	 * @return Shape ±ß½çĞÎ×´ÁĞ±í
+	 * @return Shape è¾¹ç•Œå½¢çŠ¶åˆ—è¡¨
 	 */
 	public ArrayList<Shape> getShapes() {
 		return shapes;
 	}
 
 	/**
-	 * »ñÈ¡³¬Á´½ÓÁĞ±í
-	 * @return ³¬Á´½Ó
+	 * è·å–è¶…é“¾æ¥åˆ—è¡¨
+	 * @return è¶…é“¾æ¥
 	 */
 	public ArrayList<String> getLinks() {
 		return links;
 	}
 
 	/**
-	 * »ñÈ¡ÌáÊ¾ĞÅÏ¢ÁĞ±í
-	 * @return ÌáÊ¾ĞÅÏ¢
+	 * è·å–æç¤ºä¿¡æ¯åˆ—è¡¨
+	 * @return æç¤ºä¿¡æ¯
 	 */
 	public ArrayList<String> getTitles() {
 		return titles;
 	}
 
 	/**
-	 * »ñÈ¡³¬Á´½ÓÄ¿±ê´ò¿ª·½Ê½ÁĞ±í
-	 * @return Ä¿±ê´ò¿ª·½Ê½
+	 * è·å–è¶…é“¾æ¥ç›®æ ‡æ‰“å¼€æ–¹å¼åˆ—è¡¨
+	 * @return ç›®æ ‡æ‰“å¼€æ–¹å¼
 	 */
 	public ArrayList<String> getTargets() {
 		return targets;

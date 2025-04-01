@@ -8,8 +8,8 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * rand(n)	·µ»ØĞ¡ÓÚnµÄËæ»úÕûÊı£¬nÊ¡ÂÔÔò·µ»Ø[0,1]Çø¼äµÄËæ»úĞ¡Êı
-	@s	Éè¶¨Ëæ»úÊıÖÖ×Ó
+ * rand(n)	è¿”å›å°äºnçš„éšæœºæ•´æ•°ï¼Œnçœç•¥åˆ™è¿”å›[0,1]åŒºé—´çš„éšæœºå°æ•°
+	@s	è®¾å®šéšæœºæ•°ç§å­
  *
  */
 public class Rand extends Function {
@@ -22,7 +22,7 @@ public class Rand extends Function {
 	}
 
 	public Object calculate(Context ctx) {
-		if (param == null) {//·µ»Ø[0,1]Çø¼äµÄËæ»úĞ¡Êı
+		if (param == null) {//è¿”å›[0,1]åŒºé—´çš„éšæœºå°æ•°
 			return new Double(ctx.getRandom().nextDouble());
 		} else if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
@@ -31,10 +31,10 @@ public class Rand extends Function {
 				throw new RQException("rand" + mm.getMessage("function.paramTypeError"));
 			}
 
-			if (option == null || option.indexOf('s') == -1) {//·µ»ØĞ¡ÓÚnµÄËæ»úÕûÊı
+			if (option == null || option.indexOf('s') == -1) {//è¿”å›å°äºnçš„éšæœºæ•´æ•°
 				int n = ((Number)obj).intValue();
 				return new Integer(ctx.getRandom().nextInt(n));
-			} else {//Éè¶¨Ëæ»úÊıÖÖ×Ó
+			} else {//è®¾å®šéšæœºæ•°ç§å­
 				long seed = ((Number)obj).longValue();
 				ctx.getRandom(seed);
 				return null;

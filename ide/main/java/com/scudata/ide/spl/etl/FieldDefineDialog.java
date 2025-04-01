@@ -27,7 +27,7 @@ import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * ×Ö¶Î¶¨ÒåµÄÍ¨ÓÃ¶Ô»°¿ò±à¼­Æ÷
+ * å­—æ®µå®šä¹‰çš„é€šç”¨å¯¹è¯æ¡†ç¼–è¾‘å™¨
  * 
  * @author Joancy
  *
@@ -47,7 +47,7 @@ public class FieldDefineDialog extends JDialog implements IFieldDefineDialog{
 	private final byte COL_TYPE = 2;
 	private final byte COL_FORMAT = 3;
 
-	JTableEx tableFields = new JTableEx(mm.getMessage("FieldDefineDialog.tablefields")){//"ĞòºÅ,×Ö¶ÎÃû,Êı¾İÀàĞÍ,¸ñÊ½"
+	JTableEx tableFields = new JTableEx(mm.getMessage("FieldDefineDialog.tablefields")){//"åºå·,å­—æ®µå,æ•°æ®ç±»å‹,æ ¼å¼"
 		public void doubleClicked(int xpos, int ypos, int row, int col,
 				MouseEvent e) {
 			if (row > -1 && col==COL_FORMAT) {
@@ -70,8 +70,8 @@ public class FieldDefineDialog extends JDialog implements IFieldDefineDialog{
 	private int m_option = JOptionPane.CANCEL_OPTION;
 	
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * @param owner ¸¸´°¿Ú
+	 * æ„é€ å‡½æ•°
+	 * @param owner çˆ¶çª—å£
 	 */
 	public FieldDefineDialog(Dialog owner) {
 		super(owner);
@@ -97,16 +97,16 @@ public class FieldDefineDialog extends JDialog implements IFieldDefineDialog{
 	}
 
 	/**
-	 * »ñÈ¡´°¿Ú·µ»ØÑ¡Ïî
-	 * @return Ñ¡Ïî
+	 * è·å–çª—å£è¿”å›é€‰é¡¹
+	 * @return é€‰é¡¹
 	 */
 	public int getOption() {
 		return m_option;
 	}
 
 	/**
-	 * ÉèÖÃ×Ö¶Î¶¨ÒåÖµÁĞ±í
-	 * @param fields ×Ö¶Î¶¨ÒåÁĞ±í
+	 * è®¾ç½®å­—æ®µå®šä¹‰å€¼åˆ—è¡¨
+	 * @param fields å­—æ®µå®šä¹‰åˆ—è¡¨
 	 */
 	public void setFieldDefines(ArrayList<FieldDefine> fields) {
 		if(fields==null){
@@ -123,7 +123,7 @@ public class FieldDefineDialog extends JDialog implements IFieldDefineDialog{
 	}
 
 	/**
-	 * »ñÈ¡×Ö¶Î¶¨ÒåÁĞ±í
+	 * è·å–å­—æ®µå®šä¹‰åˆ—è¡¨
 	 */
 	public ArrayList<FieldDefine> getFieldDefines() {
 		tableFields.acceptText();
@@ -179,7 +179,7 @@ public class FieldDefineDialog extends JDialog implements IFieldDefineDialog{
 		setModal(true);
 		jPanel2.setLayout(vFlowLayout1);
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				tableFields.acceptText();
@@ -188,7 +188,7 @@ public class FieldDefineDialog extends JDialog implements IFieldDefineDialog{
 			}
 		});
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -212,9 +212,9 @@ public class FieldDefineDialog extends JDialog implements IFieldDefineDialog{
 		});
 		jScrollPane1.getViewport().add(tableFields);
 		jBAdd.setMnemonic('A');
-		jBAdd.setText("Ôö¼Ó(A)");
+		jBAdd.setText("å¢åŠ (A)");
 		jBDel.setMnemonic('D');
-		jBDel.setText("É¾³ı(D)");
+		jBDel.setText("åˆ é™¤(D)");
 		jPanel2.add(jBOK, null);
 		jPanel2.add(jBCancel, null);
 		jPanel2.add(jPanel1, null);

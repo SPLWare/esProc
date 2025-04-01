@@ -10,7 +10,7 @@ public class IOUtils
 
 	
 	/**
-	 * ÅĞ¶Ï ÎÄ¼şÃûÊÇ·ñÒÔÅÌ·û:/»ò/¿ªÍ·(\ºÍ/µÈĞ§)
+	 * åˆ¤æ–­ æ–‡ä»¶åæ˜¯å¦ä»¥ç›˜ç¬¦:/æˆ–/å¼€å¤´(\å’Œ/ç­‰æ•ˆ)
 	 */
 	public static boolean isAbsolutePath(String fileName){
 		int len = fileName.length();
@@ -25,8 +25,8 @@ public class IOUtils
 	}
 	
 	/**
-	 * È¡¸¸×ÓºÏ²¢ºóµÄÂ·¾¶,²¢ÒÔ/Ìæ»»\
-	 * @return String parentÎªnull¡¢childÎªnull»ò¾ø¶ÔÂ·¾¶Ê±¾ù·µ»Øchild£¬·ñÔò½«parentÓëchildºÏ²¢ºó·µ»Ø
+	 * å–çˆ¶å­åˆå¹¶åçš„è·¯å¾„,å¹¶ä»¥/æ›¿æ¢\
+	 * @return String parentä¸ºnullã€childä¸ºnullæˆ–ç»å¯¹è·¯å¾„æ—¶å‡è¿”å›childï¼Œå¦åˆ™å°†parentä¸childåˆå¹¶åè¿”å›
 	 */
 	public static String getPath(String parent, String child){
 		if(parent==null || child==null || isAbsolutePath(child))
@@ -35,7 +35,7 @@ public class IOUtils
 	}
 	
 	/**
-	 * °´¾ø¶ÔÂ·¾¶¡¢µ±Ç°Ïß³ÌÀà×°ÔØÆ÷¡¢IOUtilsÀà×°ÔØÆ÷´ÎĞò²éÕÒÎÄ¼ş
+	 * æŒ‰ç»å¯¹è·¯å¾„ã€å½“å‰çº¿ç¨‹ç±»è£…è½½å™¨ã€IOUtilsç±»è£…è½½å™¨æ¬¡åºæŸ¥æ‰¾æ–‡ä»¶
 	 */
 	public static InputStream findResource(String fileName) {
 		InputStream in = null;
@@ -62,8 +62,8 @@ public class IOUtils
 	}
 	
 	/**
-	 * °´¾ø¶ÔÂ·¾¶¡¢Ö¸¶¨Â·¾¶¡¢µ±Ç°Ïß³ÌÀà×°ÔØÆ÷¡¢IOUtilsÀà×°ÔØÆ÷´ÎĞò²éÕÒÎÄ¼ş
-	 * ×¢£ºpathÎªnullÊ±µÈÍ¬ÓÚfindResourde(fileName)
+	 * æŒ‰ç»å¯¹è·¯å¾„ã€æŒ‡å®šè·¯å¾„ã€å½“å‰çº¿ç¨‹ç±»è£…è½½å™¨ã€IOUtilsç±»è£…è½½å™¨æ¬¡åºæŸ¥æ‰¾æ–‡ä»¶
+	 * æ³¨ï¼špathä¸ºnullæ—¶ç­‰åŒäºfindResourde(fileName)
 	 */
 	public static InputStream findResource(String fileName, String path) {
 		if ( path == null )
@@ -97,9 +97,9 @@ public class IOUtils
 	}
 	
 	/**
-	 * ´ÓÊäÈëÁ÷ÖĞ¶ÁÈ¡×Ö½ÚÌîÂúÊı×é£¬Èç¹ûÌî²»ÂúÔòÅ×³öEOFException
-	 * @param in ÊäÈëÁ÷
-	 * @param bytes Ä¿µÄÊı×é
+	 * ä»è¾“å…¥æµä¸­è¯»å–å­—èŠ‚å¡«æ»¡æ•°ç»„ï¼Œå¦‚æœå¡«ä¸æ»¡åˆ™æŠ›å‡ºEOFException
+	 * @param in è¾“å…¥æµ
+	 * @param bytes ç›®çš„æ•°ç»„
 	 * @throws IOException
 	 */
 	public static void readFully( InputStream in, byte[] bytes ) throws IOException{
@@ -116,11 +116,11 @@ public class IOUtils
 	}
 
 	/**
-	 * ´ÓÊäÈëÁ÷ÖĞ¶ÁÈ¡×Ö½ÚÌîÂúÊı×é£¬Èç¹ûÎÄ¼ş½áÊøÔò¿ÉÄÜÃ»ÓĞÌîÂú
-	 * @param in ÊäÈëÁ÷
-	 * @param bytes Ä¿µÄÊı×é
+	 * ä»è¾“å…¥æµä¸­è¯»å–å­—èŠ‚å¡«æ»¡æ•°ç»„ï¼Œå¦‚æœæ–‡ä»¶ç»“æŸåˆ™å¯èƒ½æ²¡æœ‰å¡«æ»¡
+	 * @param in è¾“å…¥æµ
+	 * @param bytes ç›®çš„æ•°ç»„
 	 * @throws IOException
-	 * @return int ÌîÈëµÄ×Ö½ÚÊı
+	 * @return int å¡«å…¥çš„å­—èŠ‚æ•°
 	 */
 	public static int readBytes( InputStream in, byte[] bytes ) throws IOException{
 		int count = bytes.length;

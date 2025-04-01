@@ -26,7 +26,7 @@ public class DialogConnection extends RQDialog implements ActionListener {
 	private ArrayList<String> existNames;
 
 	public DialogConnection(ArrayList<String> existNames) {
-		super("Á¬½ÓĞÅÏ¢", 450, 300);
+		super("è¿æ¥ä¿¡æ¯", 450, 300);
 		init();
 		this.existNames = existNames;
 	}
@@ -34,7 +34,7 @@ public class DialogConnection extends RQDialog implements ActionListener {
 	protected boolean okAction(ActionEvent e) {
 		String newName = tfName.getText().trim();
 		if (!StringUtils.isValidString(newName)) {
-			JOptionPane.showMessageDialog(VDB.getInstance(), "Á¬½ÓÃû³Æ²»ÄÜÎª¿Õ¡£");
+			JOptionPane.showMessageDialog(VDB.getInstance(), "è¿æ¥åç§°ä¸èƒ½ä¸ºç©ºã€‚");
 			return false;
 		}
 		int n = existNames.size();
@@ -42,7 +42,7 @@ public class DialogConnection extends RQDialog implements ActionListener {
 			String name = existNames.get(i);
 			if (name.equalsIgnoreCase(newName)) {
 				JOptionPane.showMessageDialog(VDB.getInstance(),
-						"ÖØ¸´µÄÁ¬½ÓÃû×Ö£º" + newName);
+						"é‡å¤çš„è¿æ¥åå­—ï¼š" + newName);
 				return false;
 			}
 		}
@@ -108,21 +108,21 @@ public class DialogConnection extends RQDialog implements ActionListener {
 
 	private void init() {
 		panelCenter.setLayout(new GridBagLayout());
-		panelCenter.add(new JLabel("Ãû³Æ"), GM.getGBC(0, 0));
+		panelCenter.add(new JLabel("åç§°"), GM.getGBC(0, 0));
 		panelCenter.add(tfName, GM.getGBC(0, 1, true, false));
-		panelCenter.add(new JLabel("URL»òÎÄ¼şÃû"), GM.getGBC(1, 0));
+		panelCenter.add(new JLabel("URLæˆ–æ–‡ä»¶å"), GM.getGBC(1, 0));
 		JPanel tmp = new JPanel(new GridBagLayout());
 		tmp.add(tfUrl, GM.getGBC(0, 0, true, false, 0));
 		tmp.add(buttonUrl, GM.getGBC(0, 1, false, false, 0));
 		panelCenter.add(tmp, GM.getGBC(1, 1, true, false));
 
-		panelCenter.add(new JLabel("¶Ë¿ÚºÅ"), GM.getGBC(2, 0));
+		panelCenter.add(new JLabel("ç«¯å£å·"), GM.getGBC(2, 0));
 		panelCenter.add(tfPort, GM.getGBC(2, 1, true, false));
 
-		panelCenter.add(new JLabel("ÓÃ»§Ãû"), GM.getGBC(3, 0));
+		panelCenter.add(new JLabel("ç”¨æˆ·å"), GM.getGBC(3, 0));
 		panelCenter.add(tfUser, GM.getGBC(3, 1, true, false));
 
-		panelCenter.add(new JLabel("ÃÜÂë"), GM.getGBC(4, 0));
+		panelCenter.add(new JLabel("å¯†ç "), GM.getGBC(4, 0));
 		panelCenter.add(jPassword, GM.getGBC(4, 1, true, false));
 
 		panelCenter.add(jCBReservePassword, GM.getGBC(5, 1, true, false));
@@ -132,7 +132,7 @@ public class DialogConnection extends RQDialog implements ActionListener {
 		buttonUrl.addActionListener(this);
 	}
 
-	private JTextField tfName = new JTextField();// Ãû³Æ
+	private JTextField tfName = new JTextField();// åç§°
 	private JTextField tfUrl = new JTextField();// Url
 	private JButton buttonUrl = new JButton();
 
@@ -140,6 +140,6 @@ public class DialogConnection extends RQDialog implements ActionListener {
 	private JTextField tfUser = new JTextField();// User
 	private JPasswordField jPassword = new JPasswordField();
 
-	private JCheckBox jCBReservePassword = new JCheckBox("¼Ç×¡ÃÜÂë");
+	private JCheckBox jCBReservePassword = new JCheckBox("è®°ä½å¯†ç ");
 
 }

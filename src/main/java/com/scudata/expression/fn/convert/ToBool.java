@@ -11,14 +11,14 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * bool(expression) ½«±í´ïÊ½expressionµÄÊı¾İÀàĞÍ×ª»»Îª²¼¶ûĞÍ¡£
- * ×ª»»¹æÔò£ºµ±²ÎÊıÖµÎªnull¡¢×Ö·û´®"false"(´óĞ¡Ãô¸Ğ)¡¢²¼¶ûÖµfalseÊ±·µ»Øfalse£¬·ñÔò·µ»Øtrue¡£
+ * bool(expression) å°†è¡¨è¾¾å¼expressionçš„æ•°æ®ç±»å‹è½¬æ¢ä¸ºå¸ƒå°”å‹ã€‚
+ * è½¬æ¢è§„åˆ™ï¼šå½“å‚æ•°å€¼ä¸ºnullã€å­—ç¬¦ä¸²"false"(å¤§å°æ•æ„Ÿ)ã€å¸ƒå°”å€¼falseæ—¶è¿”å›falseï¼Œå¦åˆ™è¿”å›trueã€‚
  * @author runqian
  *
  */
 public class ToBool extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -48,8 +48,8 @@ public class ToBool extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {

@@ -40,20 +40,20 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ÄÚ±íË÷ÒıÀà
+ * å†…è¡¨ç´¢å¼•ç±»
  * @author LW
  *
  */
 public class MemoryTableIndex {
 	private static final int NULL = -1;
-	private static final int EQ = 0; // µÈÓÚ
-	private static final int GE = 1; // ´óÓÚµÈÓÚ
-	private static final int GT = 2; // ´óÓÚ
-	private static final int LE = 3; // Ğ¡ÓÚµÈÓÚ
-	private static final int LT = 4; // Ğ¡ÓÚ
+	private static final int EQ = 0; // ç­‰äº
+	private static final int GE = 1; // å¤§äºç­‰äº
+	private static final int GT = 2; // å¤§äº
+	private static final int LE = 3; // å°äºç­‰äº
+	private static final int LT = 4; // å°äº
 	
-	private static final int LIMIT = 1000000;//¸ßÆµ´ÊÏŞÖÆÊı£¬³¬¹ıÕâ¸öÖµ¾ÍÅ×Æú
-	public static final int TEMP_FILE_SIZE = 100 * 1024 * 1024;//ÅÅĞòÊ±µÄ»º³åÎÄ¼ş´óĞ¡
+	private static final int LIMIT = 1000000;//é«˜é¢‘è¯é™åˆ¶æ•°ï¼Œè¶…è¿‡è¿™ä¸ªå€¼å°±æŠ›å¼ƒ
+	public static final int TEMP_FILE_SIZE = 100 * 1024 * 1024;//æ’åºæ—¶çš„ç¼“å†²æ–‡ä»¶å¤§å°
 	private static final int MIN_HASH_SIZE = 4096;
 	public static final int TYPE_SORT = 0;
 	public static final int TYPE_HASH = 1;
@@ -61,15 +61,15 @@ public class MemoryTableIndex {
 	private static final String SORT_FIELD_NAME = "SORT_FIELD_NAME";
 	
 	private Table srcTable;
-	private String name;// ±¾Ë÷ÒıµÄÃüÃû
-	private String[] ifields;// Ë÷Òı×Ö¶Î
+	private String name;// æœ¬ç´¢å¼•çš„å‘½å
+	private String[] ifields;// ç´¢å¼•å­—æ®µ
 	private int type;
 	
-	private int avgNums;//Æ½¾ùÃ¿¸ökeyµÄ¼ÇÂ¼Êı
+	private int avgNums;//å¹³å‡æ¯ä¸ªkeyçš„è®°å½•æ•°
 	
-	private Table indexData;// ÅÅĞòºóµÄÊı¾İ
-	private IntArray[] recordNums;// ¸úÅÅĞòºóµÄÊı¾İÏà¶ÔÓ¦µÄ¼ÇÂ¼ºÅ 
-	private IndexTable indexTable;//Ë÷Òı±í£¨ÓÃÓÚµÈÖµ²éÕÒ£©
+	private Table indexData;// æ’åºåçš„æ•°æ®
+	private IntArray[] recordNums;// è·Ÿæ’åºåçš„æ•°æ®ç›¸å¯¹åº”çš„è®°å½•å· 
+	private IndexTable indexTable;//ç´¢å¼•è¡¨ï¼ˆç”¨äºç­‰å€¼æŸ¥æ‰¾ï¼‰
 	
 	public MemoryTableIndex(String name, Table srcTable, String[] fields, Expression filter, 
 			int capacity, int type, Context ctx) {
@@ -272,7 +272,7 @@ public class MemoryTableIndex {
 	}
 	
 	/**
-	 * ¼ì²é×Ö·ûkey³öÏÖµÄ´ÎÊı
+	 * æ£€æŸ¥å­—ç¬¦keyå‡ºç°çš„æ¬¡æ•°
 	 * @param strCounters
 	 * @param key
 	 * @return
@@ -308,7 +308,7 @@ public class MemoryTableIndex {
 			throw new RQException(field + mm.getMessage("ds.fieldNotExist"));
 		}
 
-		HashMap<String, Long> strCounters = new HashMap<String, Long>();//¼ÇÂ¼Ã¿¸ö×Ö·û³öÏÖµÄ´ÎÊı
+		HashMap<String, Long> strCounters = new HashMap<String, Long>();//è®°å½•æ¯ä¸ªå­—ç¬¦å‡ºç°çš„æ¬¡æ•°
 		int fieldsCount = ds.getFieldCount();
 		ArrayList<String> list = new ArrayList<String>();
 		Sequence table;
@@ -333,16 +333,16 @@ public class MemoryTableIndex {
 			}
 			String ifield = (String) objs[0];
 			
-			list.clear();//ÓÃÓÚÅĞ¶ÏÖØ¸´µÄ×Ö·û£¬ÀıÈç"±¦±¦°ÍÊ¿"£¬ÖØ¸´µÄ"±¦"×Ö²»ÄÜ±»ÖØ¸´Ë÷Òı
+			list.clear();//ç”¨äºåˆ¤æ–­é‡å¤çš„å­—ç¬¦ï¼Œä¾‹å¦‚"å®å®å·´å£«"ï¼Œé‡å¤çš„"å®"å­—ä¸èƒ½è¢«é‡å¤ç´¢å¼•
 			int strLen = ifield.length();
 			for (int j = 0; j < strLen; j++) {
 				char ch1 = ifield.charAt(j);
 				if (ch1 == ' ') {
-					continue;//¿Õ¸ñ
+					continue;//ç©ºæ ¼
 				}
 				
 				if (checkAlpha(ch1)) {
-					//Ó¢ÎÄÒªÁ¬ĞøÈ¡3¸ö¡¢4¸ö×ÖÄ¸
+					//è‹±æ–‡è¦è¿ç»­å–3ä¸ªã€4ä¸ªå­—æ¯
 					if (j + 2 < strLen) {
 						char ch2 = ifield.charAt(j + 1);
 						char ch3 = ifield.charAt(j + 2);
@@ -378,9 +378,9 @@ public class MemoryTableIndex {
 				} else if (ch1 > 255) {
 					String str = new String("" + ch1);
 					if (list.contains(str)) {
-						continue;//ÒÑ¾­´æÔÚ
+						continue;//å·²ç»å­˜åœ¨
 					}				
-					//´¦Àí¼ÆÊıÆ÷
+					//å¤„ç†è®¡æ•°å™¨
 					if (checkStringCount(strCounters, str)) {
 						continue;
 					}
@@ -572,7 +572,7 @@ public class MemoryTableIndex {
 	}
 	
 	/**
-	 * ÕÒ³öË÷Òı×Ö¶ÎµÄÇø¼ä
+	 * æ‰¾å‡ºç´¢å¼•å­—æ®µçš„åŒºé—´
 	 * @param fieldIndex
 	 * @param home
 	 * @param filter
@@ -626,7 +626,7 @@ public class MemoryTableIndex {
 				filter.startSign = GT;
 				filter.startVal = left.calculate(ctx);
 			}
-		} // ºöÂÔorºÍÆäËüÔËËã·û
+		} // å¿½ç•¥orå’Œå…¶å®ƒè¿ç®—ç¬¦
 	}
 	
 	private int binarySearch(Object key) {
@@ -677,8 +677,8 @@ public class MemoryTableIndex {
 			} else if (cmp > 0) {
 				high = mid - 1;
 			} else {
-				// Ö»¶Ô²¿·ÖË÷Òı×Ö¶ÎÌáÌõ¼şÊ±¿ÉÄÜÓĞÖØ¸´µÄ
-				if (isStart) { // ÕÒÆğÊ¼Î»ÖÃ
+				// åªå¯¹éƒ¨åˆ†ç´¢å¼•å­—æ®µææ¡ä»¶æ—¶å¯èƒ½æœ‰é‡å¤çš„
+				if (isStart) { // æ‰¾èµ·å§‹ä½ç½®
 					for (int i = mid - 1; i >= 0; --i) {
 						r = (BaseRecord)mems.get(i);
 						for (int f = 0; f < keyCount; ++f) {
@@ -690,7 +690,7 @@ public class MemoryTableIndex {
 							break;
 						}
 					}
-				} else { // ÕÒ½áÊøÎ»ÖÃ
+				} else { // æ‰¾ç»“æŸä½ç½®
 					for (int i = mid + 1; i <= high; ++i) {
 						r = (BaseRecord)mems.get(i);
 						for (int f = 0; f < keyCount; ++f) {
@@ -717,11 +717,11 @@ public class MemoryTableIndex {
 		}
 	}
 
-	//¸ù¾İÖµ²éÕÒ¿éºÅºÍÎ»ÖÃ£¬Á½¸öË÷ÒıÇø¶¼²éÕÒ
-	//key[] Òª²éÕÒµÄÖµ
-	//icount ×Ö¶Î¸öÊı
-	//isStart ÊÇ·ñÊÇÕÒ¿ªÊ¼
-	//index[] Êä³öÕÒµ½µÄ¼ÇÂ¼ºÅ
+	//æ ¹æ®å€¼æŸ¥æ‰¾å—å·å’Œä½ç½®ï¼Œä¸¤ä¸ªç´¢å¼•åŒºéƒ½æŸ¥æ‰¾
+	//key[] è¦æŸ¥æ‰¾çš„å€¼
+	//icount å­—æ®µä¸ªæ•°
+	//isStart æ˜¯å¦æ˜¯æ‰¾å¼€å§‹
+	//index[] è¾“å‡ºæ‰¾åˆ°çš„è®°å½•å·
 	private int searchValue(Object[] key, int icount, boolean isStart) {
 		int i;
 		
@@ -746,7 +746,7 @@ public class MemoryTableIndex {
 	}
 	
 	/**
-	 * °´±í´ïÊ½exp²éÑ¯
+	 * æŒ‰è¡¨è¾¾å¼expæŸ¥è¯¢
 	 */
 	public ICursor select(Expression exp, String []fields, String opt, Context ctx) {
 		IntArray recNums = null;
@@ -793,11 +793,11 @@ public class MemoryTableIndex {
 	}
 	
 	/**
-	 * °´±í´ïÊ½²éÑ¯
+	 * æŒ‰è¡¨è¾¾å¼æŸ¥è¯¢
 	 * @param exp
 	 * @param opt
 	 * @param ctx
-	 * @return	¼ÇÂ¼ºÅ
+	 * @return	è®°å½•å·
 	 */
 	private IntArray select_sort(Expression exp, String opt, Context ctx) {
 		int icount = ifields.length;
@@ -806,7 +806,7 @@ public class MemoryTableIndex {
 			throw new RQException(mm.getMessage("Expression.unknownExpression") + exp.toString());
 		}
 		
-		//´¦Àícontain±í´ïÊ½
+		//å¤„ç†containè¡¨è¾¾å¼
 		Node home = exp.getHome();
 		if (home instanceof DotOperator) {
 			Node left = home.getLeft();
@@ -841,7 +841,7 @@ public class MemoryTableIndex {
 			return select(series, opt, ctx);
 		}
 		
-		//´¦Àílike(F,"xxx*")±í´ïÊ½
+		//å¤„ç†like(F,"xxx*")è¡¨è¾¾å¼
 		if (home instanceof Like) {
 			if (((Like) home).getParam().getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -869,7 +869,7 @@ public class MemoryTableIndex {
 				if (filters[last] != null) break;
 			}
 			
-			// Èç¹û×óÃæµÄ¶¼ÊÇÏàµÈ±È½ÏÔò¿ÉÒÔÓÅ»¯³É[a,b...v1]:[a,b...v2]
+			// å¦‚æœå·¦é¢çš„éƒ½æ˜¯ç›¸ç­‰æ¯”è¾ƒåˆ™å¯ä»¥ä¼˜åŒ–æˆ[a,b...v1]:[a,b...v2]
 			boolean canOpt = true;
 			for (int i = 0; i < last; ++i) {
 				if (filters[i] == null || filters[i].startSign != EQ) {
@@ -886,7 +886,7 @@ public class MemoryTableIndex {
 					}
 					
 					if (icount == last + 1) {
-						//Èç¹ûÊÇËùÓĞ×Ö¶ÎµÄµÈÓÚ
+						//å¦‚æœæ˜¯æ‰€æœ‰å­—æ®µçš„ç­‰äº
 						Sequence seq = new Sequence();
 						seq.addAll(vals);
 						if (icount == 1) {
@@ -915,8 +915,8 @@ public class MemoryTableIndex {
 			}
 		}
 
-		Sequence vals = new Sequence(icount); // Ç°Ãæ×öÏàµÈÅĞ¶ÏµÄ×Ö¶ÎµÄÖµ
-		FieldFilter ff = null; // µÚÒ»¸ö×ö·ÇÏàµÈÅĞ¶ÏµÄ×Ö¶ÎµÄĞÅÏ¢
+		Sequence vals = new Sequence(icount); // å‰é¢åšç›¸ç­‰åˆ¤æ–­çš„å­—æ®µçš„å€¼
+		FieldFilter ff = null; // ç¬¬ä¸€ä¸ªåšéç›¸ç­‰åˆ¤æ–­çš„å­—æ®µçš„ä¿¡æ¯
 		
 		for (int i = 0; i < icount; ++i) {
 			FieldFilter filter = new FieldFilter();
@@ -986,7 +986,7 @@ public class MemoryTableIndex {
 	}
 	
 	/**
-	 * °´±í´ïÊ½²éÑ¯
+	 * æŒ‰è¡¨è¾¾å¼æŸ¥è¯¢
 	 */
 	private IntArray select_hash(Expression exp, String opt, Context ctx) {
 		int icount = ifields.length;
@@ -1047,7 +1047,7 @@ public class MemoryTableIndex {
 	}
 	
  	/**
- 	 * °´ÖµÇø¼ä²éÑ¯£¨¶à×Ö¶Î£©
+ 	 * æŒ‰å€¼åŒºé—´æŸ¥è¯¢ï¼ˆå¤šå­—æ®µï¼‰
  	 * @param startVals
  	 * @param endVals
  	 * @param opt
@@ -1102,7 +1102,7 @@ public class MemoryTableIndex {
 	}
 	
 	/**
-	 * Ò»´Î²éÑ¯¶à¸öÖµ
+	 * ä¸€æ¬¡æŸ¥è¯¢å¤šä¸ªå€¼
 	 * @param vals
 	 * @param opt
 	 * @param ctx
@@ -1210,8 +1210,8 @@ public class MemoryTableIndex {
 	
 	/**
 	 * 
-	 * @param start ²»°üº¬
-	 * @param end ²»°üº¬
+	 * @param start ä¸åŒ…å«
+	 * @param end ä¸åŒ…å«
 	 * @return
 	 */
 	private IntArray select(int start, int end, Expression exp, Context ctx) {
@@ -1239,11 +1239,11 @@ public class MemoryTableIndex {
 	}
 	
 	/**
-	 * ²éÕÒÒÔkey[0]¿ªÍ·µÄ
-	 * @param key	key[0]ÊÇString
-	 * @param exp	like±í´ïÊ½
+	 * æŸ¥æ‰¾ä»¥key[0]å¼€å¤´çš„
+	 * @param key	key[0]æ˜¯String
+	 * @param exp	likeè¡¨è¾¾å¼
 	 * @param ctx
-	 * @return	µØÖ·(Î±ºÅ)Êı×é
+	 * @return	åœ°å€(ä¼ªå·)æ•°ç»„
 	 */
 	private IntArray select(String []key, Expression exp, String opt, Context ctx) {
 		int start = 0;
@@ -1283,7 +1283,7 @@ public class MemoryTableIndex {
 		return resultNum;
 	}
 	
-	//ÅĞ¶ÏÊÇ·ñÓëindexDataµÄÖ¸¶¨ÖµÏàµÈ
+	//åˆ¤æ–­æ˜¯å¦ä¸indexDataçš„æŒ‡å®šå€¼ç›¸ç­‰
 	private boolean isEqualToIndexData(int seq, Object[] vals) {
 		BaseRecord rec = indexData.getRecord(seq);
 		Object[] cur = rec.getFieldValues();
@@ -1388,7 +1388,7 @@ public class MemoryTableIndex {
 		}
 
 		Node home = exp.getHome();
-		//´¦Àílike(F,"*xxx*")±í´ïÊ½
+		//å¤„ç†like(F,"*xxx*")è¡¨è¾¾å¼
 		while (home instanceof Like) {
 			if (((Like) home).getParam().getSubSize() != 2) {
 				break;
@@ -1400,7 +1400,7 @@ public class MemoryTableIndex {
 				break;
 			}
 			
-			//±ØĞëÊÇlike("*¹Ø¼ü×Ö*")¸ñÊ½µÄ¡£·ñÔò°´ÕÕÆÕÍ¨µÄ´¦Àí
+			//å¿…é¡»æ˜¯like("*å…³é”®å­—*")æ ¼å¼çš„ã€‚å¦åˆ™æŒ‰ç…§æ™®é€šçš„å¤„ç†
 			String fmtExp = (String) sub2.getLeafExpression().calculate(ctx);
 			int idx = fmtExp.indexOf("*");
 			if (idx != 0) {
@@ -1491,26 +1491,26 @@ public class MemoryTableIndex {
 //			recCountOfSegment = ((ColPhyTable)srcTable).getSegmentInfo();
 //		}
 		
-		//¶ÔÃ¿¸ö¹Ø¼ü×Ö·û½øĞĞ¹ıÂË£¬Çó½»¼¯
+		//å¯¹æ¯ä¸ªå…³é”®å­—ç¬¦è¿›è¡Œè¿‡æ»¤ï¼Œæ±‚äº¤é›†
 		String regex = "[a-zA-Z0-9]+";
 		String search = "";
 		IntArray tempPos = null;
 		int strLen = fmtExp.length();
 		int j;
-		int p = 0;//±íÊ¾´¦Àíµ½µÄÎ»ÖÃ
+		int p = 0;//è¡¨ç¤ºå¤„ç†åˆ°çš„ä½ç½®
 		for (j = 0; j < strLen; ) {
 			String str = fmtExp.substring(j, j + 1);
 			p = j + 1;
 			if (str.matches(regex)) {
-				//Ó¢ÎÄ
-				//³¢ÊÔÁ¬ĞøÈ¡4¸ö×ÖÄ¸
+				//è‹±æ–‡
+				//å°è¯•è¿ç»­å–4ä¸ªå­—æ¯
 				if (j + 3 < strLen) {
 					String str4 = fmtExp.substring(j, j + 4);
 					if (str4.matches(regex)) {
 						str = str4;
 						p = j + 4;
 					}
-				} else if (j + 2 < strLen) {//³¢ÊÔÁ¬ĞøÈ¡3¸ö×ÖÄ¸
+				} else if (j + 2 < strLen) {//å°è¯•è¿ç»­å–3ä¸ªå­—æ¯
 					String str3 = fmtExp.substring(j, j + 3);
 					if (str3.matches(regex)) {
 						str = str3;
@@ -1520,7 +1520,7 @@ public class MemoryTableIndex {
 			}
 			j++;
 			if (search.indexOf(str) >= 0) {
-				continue;//ÖØ¸´µÄ²»ÔÙ²éÑ¯
+				continue;//é‡å¤çš„ä¸å†æŸ¥è¯¢
 			}
 			search = fmtExp.substring(0, p);
 			Expression tempExp = new Expression(f + "==\"" + str + "\"");
@@ -1530,18 +1530,18 @@ public class MemoryTableIndex {
 				break;
 			}
 			
-			//ÅÅĞò£¬¹é²¢Çó½»¼¯
+			//æ’åºï¼Œå½’å¹¶æ±‚äº¤é›†
 			tempPos = intArrayUnite(tempPos, srcPos);
 		}
 		return tempPos;
 	}
 	
 	/**
-	 * ¸ù¾İKEYÖµ²éÑ¯¼ÇÂ¼ºÅ
-	 * @param key keyÖµ
-	 * @param opt Ñ¡Ïî
+	 * æ ¹æ®KEYå€¼æŸ¥è¯¢è®°å½•å·
+	 * @param key keyå€¼
+	 * @param opt é€‰é¡¹
 	 * @param ctx
-	 * @return ¼ÇÂ¼(ºÅ)ĞòÁĞ
+	 * @return è®°å½•(å·)åºåˆ—
 	 */
 	public Object ifind(Object key, String opt, Context ctx) {
 		IntArray recNums = null;
@@ -1566,13 +1566,13 @@ public class MemoryTableIndex {
 		if (recNums == null || recNums.size() == 0) return null;
 		
 		if (hasOptP) {
-			//·µ»ØĞòºÅ
+			//è¿”å›åºå·
 			if (hasOpt1)
 				return recNums.getInt(1);
 			else
 				return new Sequence(recNums);
 		} else {
-			//·µ»Ø¼ÇÂ¼
+			//è¿”å›è®°å½•
 			if (hasOpt1) {
 				return srcTable.getRecord(recNums.getInt(1));
 			}

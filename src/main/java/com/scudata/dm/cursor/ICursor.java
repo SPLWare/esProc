@@ -31,28 +31,28 @@ import com.scudata.util.CursorUtil;
 import com.scudata.util.Variant;
 
 /**
- * ÓÎ±ê»ùÀà£¬×ÓÀàĞèÒªÊµÏÖget¡¢skipOver·½·¨
+ * æ¸¸æ ‡åŸºç±»ï¼Œå­ç±»éœ€è¦å®ç°getã€skipOveræ–¹æ³•
  * @author WangXiaoJun
  *
  */
 abstract public class ICursor extends Operable implements IResource {
-	public static final int MAXSIZE = Integer.MAX_VALUE - 1; // Èç¹ûfetch²ÎÊıµÈÓÚ´ËÖµ±íÊ¾È¡ËùÓĞ
-	public static final long MAXSKIPSIZE = Long.MAX_VALUE; // Èç¹ûskipµÄ²ÎÊıµÈÓÚ´ËÖµ±íÊ¾Ìø¹ıËùÓĞ
+	public static final int MAXSIZE = Integer.MAX_VALUE - 1; // å¦‚æœfetchå‚æ•°ç­‰äºæ­¤å€¼è¡¨ç¤ºå–æ‰€æœ‰
+	public static final long MAXSKIPSIZE = Long.MAX_VALUE; // å¦‚æœskipçš„å‚æ•°ç­‰äºæ­¤å€¼è¡¨ç¤ºè·³è¿‡æ‰€æœ‰
 	
-	public static int INITSIZE = 99999; // È¡ËùÓĞÊı¾İÊ±´´½¨µÄĞòÁĞ»òĞò±íµÄ³õÊ¼´óĞ¡
-	public static int FETCHCOUNT = 9999; // ÔËËã³ÌĞòÃ¿´Î´ÓÓÎ±ê¶ÁÈ¡Êı¾İµÄÊıÁ¿
-	public static final int FETCHCOUNT_M = 999; // ¶àÂ·ÓÎ±ê²¢ĞĞ¼ÆËãÊ±Ã¿Ò»Â·¶ÁÈ¡Êı¾İµÄÊıÁ¿
+	public static int INITSIZE = 99999; // å–æ‰€æœ‰æ•°æ®æ—¶åˆ›å»ºçš„åºåˆ—æˆ–åºè¡¨çš„åˆå§‹å¤§å°
+	public static int FETCHCOUNT = 9999; // è¿ç®—ç¨‹åºæ¯æ¬¡ä»æ¸¸æ ‡è¯»å–æ•°æ®çš„æ•°é‡
+	public static final int FETCHCOUNT_M = 999; // å¤šè·¯æ¸¸æ ‡å¹¶è¡Œè®¡ç®—æ—¶æ¯ä¸€è·¯è¯»å–æ•°æ®çš„æ•°é‡
 
-	protected Sequence cache; // ÓĞ¸½¼Ó²Ù×÷»òÕßµ÷ÓÃÁËpeek£¬Ôò´Ë³ÉÔ±´æ·Å½ÓÏÂÀ´Òª±»¶ÁÈ¡µÄ²¿·ÖÊı¾İ
-	protected ArrayList<Operation> opList; // ¸½¼Ó²Ù×÷ÁĞ±í
-	protected Context ctx; // ÓÃ¶àÏß³ÌÓÎ±êÈ¡ÊıÊ±ĞèÒª¸ü¸ÄÉÏÏÂÎÄ²¢ÖØĞÂ½âÎö±í´ïÊ½
+	protected Sequence cache; // æœ‰é™„åŠ æ“ä½œæˆ–è€…è°ƒç”¨äº†peekï¼Œåˆ™æ­¤æˆå‘˜å­˜æ”¾æ¥ä¸‹æ¥è¦è¢«è¯»å–çš„éƒ¨åˆ†æ•°æ®
+	protected ArrayList<Operation> opList; // é™„åŠ æ“ä½œåˆ—è¡¨
+	protected Context ctx; // ç”¨å¤šçº¿ç¨‹æ¸¸æ ‡å–æ•°æ—¶éœ€è¦æ›´æ”¹ä¸Šä¸‹æ–‡å¹¶é‡æ–°è§£æè¡¨è¾¾å¼
 	
-	protected DataStruct dataStruct; // ½á¹û¼¯Êı¾İ½á¹¹
-	private boolean isDecrease = false; // ¸½¼ÓµÄÔËËãÊÇ·ñ»áÊ¹Êı¾İ±äÉÙ£¬±ÈÈçselect
-	private boolean isFinished = false; // ÊÇ·ñµ÷ÓÃÁËfinish
+	protected DataStruct dataStruct; // ç»“æœé›†æ•°æ®ç»“æ„
+	private boolean isDecrease = false; // é™„åŠ çš„è¿ç®—æ˜¯å¦ä¼šä½¿æ•°æ®å˜å°‘ï¼Œæ¯”å¦‚select
+	private boolean isFinished = false; // æ˜¯å¦è°ƒç”¨äº†finish
 	
 	/**
-	 * È¡ÓÎ±êµÄÄ¬ÈÏÈ¡Êı´óĞ¡
+	 * å–æ¸¸æ ‡çš„é»˜è®¤å–æ•°å¤§å°
 	 * @return
 	 */
 	public static int getFetchCount() {
@@ -60,7 +60,7 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * ÉèÖÃÓÎ±êµÄÄ¬ÈÏÈ¡Êı´óĞ¡
+	 * è®¾ç½®æ¸¸æ ‡çš„é»˜è®¤å–æ•°å¤§å°
 	 * @param count
 	 */
 	public static void setFetchCount(int count) {
@@ -77,9 +77,9 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * ²¢ĞĞ¼ÆËãÊ±ĞèÒª¸Ä±äÉÏÏÂÎÄ
-	 * ×ÓÀàÈç¹ûÓÃµ½ÁË±í´ïÊ½»¹ĞèÒªÓÃĞÂÉÏÏÂÎÄÖØĞÂ½âÎö±í´ïÊ½
-	 * ×ÓÀàÖØÔØ´Ë·½·¨Ê±ĞèÒªµ÷ÓÃÒ»ÏÂ¸¸ÀàµÄ·½·¨
+	 * å¹¶è¡Œè®¡ç®—æ—¶éœ€è¦æ”¹å˜ä¸Šä¸‹æ–‡
+	 * å­ç±»å¦‚æœç”¨åˆ°äº†è¡¨è¾¾å¼è¿˜éœ€è¦ç”¨æ–°ä¸Šä¸‹æ–‡é‡æ–°è§£æè¡¨è¾¾å¼
+	 * å­ç±»é‡è½½æ­¤æ–¹æ³•æ—¶éœ€è¦è°ƒç”¨ä¸€ä¸‹çˆ¶ç±»çš„æ–¹æ³•
 	 * @param ctx
 	 */
 	public void resetContext(Context ctx) {
@@ -90,7 +90,7 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * È¡¼ÆËãÉÏÏÂÎÄ
+	 * å–è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return
 	 */
 	public Context getContext() {
@@ -110,8 +110,8 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * ÉèÖÃÓÎ±êµÄÉÏÏÂÎÄ
-	 * ¶àÂ·ÓÎ±ê¶àÏß³ÌÔËËãÊ±ĞèÒªÖØÖÃÉÏÏÂÎÄ
+	 * è®¾ç½®æ¸¸æ ‡çš„ä¸Šä¸‹æ–‡
+	 * å¤šè·¯æ¸¸æ ‡å¤šçº¿ç¨‹è¿ç®—æ—¶éœ€è¦é‡ç½®ä¸Šä¸‹æ–‡
 	 * @param ctx
 	 */
 	public void setContext(Context ctx) {
@@ -119,9 +119,9 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * ÎªÓÎ±ê¸½¼ÓÔËËã
-	 * @param op ÔËËã
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * ä¸ºæ¸¸æ ‡é™„åŠ è¿ç®—
+	 * @param op è¿ç®—
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 */
 	public Operable addOperation(Operation op, Context ctx) {
 		if (opList == null) {
@@ -137,7 +137,7 @@ abstract public class ICursor extends Operable implements IResource {
 			this.ctx = ctx;
 		}
 		
-		// ·Ö¶Î²úÉúÓÎ±êÊ±£¬ÔÚ¶¨ÒåÓÎ±êµÄÊ±ºò¿ÉÄÜ»á¶Á³ö²¿·ÖÊı¾İ»º´æÁË
+		// åˆ†æ®µäº§ç”Ÿæ¸¸æ ‡æ—¶ï¼Œåœ¨å®šä¹‰æ¸¸æ ‡çš„æ—¶å€™å¯èƒ½ä¼šè¯»å‡ºéƒ¨åˆ†æ•°æ®ç¼“å­˜äº†
 		if (cache != null) {
 			cache = op.process(cache, ctx);
 		}
@@ -146,10 +146,10 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * °ÑÁ½¸öÅÅÁĞºÏ²¢³ÉÒ»¸öÅÅÁĞ£¬¸ù¾İ½á¹¹ÊÇ·ñ¼æÈİÀ´¾ö¶¨ÊÇ·ñÉú³ÉĞò±í·µ»Ø
-	 * ÓÃÓÚºÏ²¢ÓÎ±ê¶à´ÎÈ¡ÊıµÃµ½µÄ½á¹û
-	 * @param dest ÅÅÁĞ
-	 * @param src ÅÅÁĞ
+	 * æŠŠä¸¤ä¸ªæ’åˆ—åˆå¹¶æˆä¸€ä¸ªæ’åˆ—ï¼Œæ ¹æ®ç»“æ„æ˜¯å¦å…¼å®¹æ¥å†³å®šæ˜¯å¦ç”Ÿæˆåºè¡¨è¿”å›
+	 * ç”¨äºåˆå¹¶æ¸¸æ ‡å¤šæ¬¡å–æ•°å¾—åˆ°çš„ç»“æœ
+	 * @param dest æ’åˆ—
+	 * @param src æ’åˆ—
 	 * @return Sequence
 	 */
 	public static Sequence append(Sequence dest, Sequence src) {
@@ -272,8 +272,8 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * ´ó¸ÅÈ¡Ö¸¶¨ÌõÊıµÄ¼ÇÂ¼£¬È¡µÄ¼ÇÂ¼Êı¿ÉÄÜ²»µÈÓÚn
-	 * @param n ÊıÁ¿
+	 * å¤§æ¦‚å–æŒ‡å®šæ¡æ•°çš„è®°å½•ï¼Œå–çš„è®°å½•æ•°å¯èƒ½ä¸ç­‰äºn
+	 * @param n æ•°é‡
 	 * @return Sequence
 	 */
 	public Sequence fuzzyFetch(int n) {
@@ -324,7 +324,7 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * ·µ»ØÊ£ÓàµÄ¼ÇÂ¼²¢¹Ø±ÕÓÎ±ê
+	 * è¿”å›å‰©ä½™çš„è®°å½•å¹¶å…³é—­æ¸¸æ ‡
 	 * @return Sequence
 	 */
 	public Sequence fetch() {
@@ -332,8 +332,8 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * È¡Ö¸¶¨ÊıÁ¿µÄ¼ÇÂ¼
-	 * @param n ÒªÈ¡µÄ¼ÇÂ¼Êı
+	 * å–æŒ‡å®šæ•°é‡çš„è®°å½•
+	 * @param n è¦å–çš„è®°å½•æ•°
 	 * @return Sequence
 	 */
 	public synchronized Sequence fetch(int n) {
@@ -367,7 +367,7 @@ abstract public class ICursor extends Operable implements IResource {
 			}
 		}
 		
-		// ²Ù×÷²»»á¹ıÂËµô¼ÇÂ¼ÓÖ²»ÊÇÈ¡ËùÓĞÔò°´ÕÕÊµ¼ÊÊıÈ¡
+		// æ“ä½œä¸ä¼šè¿‡æ»¤æ‰è®°å½•åˆä¸æ˜¯å–æ‰€æœ‰åˆ™æŒ‰ç…§å®é™…æ•°å–
 		int size;
 		if ((n > FETCHCOUNT || !isDecrease) && n < MAXSIZE) {
 			size = n;
@@ -426,10 +426,10 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * °´Ö¸¶¨±í´ïÊ½È¡n×éÊı¾İ
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param n ×éÊı
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æŒ‰æŒ‡å®šè¡¨è¾¾å¼å–nç»„æ•°æ®
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param n ç»„æ•°
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public synchronized Sequence fetchGroup(Expression[] exps, int n, Context ctx) {
@@ -503,9 +503,9 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * °´Ö¸¶¨±í´ïÊ½È¡Ò»×éÊı¾İ
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æŒ‰æŒ‡å®šè¡¨è¾¾å¼å–ä¸€ç»„æ•°æ®
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public synchronized Sequence fetchGroup(Expression[] exps, Context ctx) {
@@ -571,9 +571,9 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * °´Ö¸¶¨±í´ïÊ½È¡Ò»×éÊı¾İ
-	 * @param exp ±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * æŒ‰æŒ‡å®šè¡¨è¾¾å¼å–ä¸€ç»„æ•°æ®
+	 * @param exp è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Sequence
 	 */
 	public synchronized Sequence fetchGroup(Expression exp, Context ctx) {
@@ -657,8 +657,8 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * °´Ö¸¶¨×Ö¶ÎºÅÈ¡Ò»×éÊı¾İ£¬²»»á¶àÏß³Ìµ÷ÓÃ
-	 * @param field ×Ö¶ÎĞòºÅ
+	 * æŒ‰æŒ‡å®šå­—æ®µå·å–ä¸€ç»„æ•°æ®ï¼Œä¸ä¼šå¤šçº¿ç¨‹è°ƒç”¨
+	 * @param field å­—æ®µåºå·
 	 * @return Sequence
 	 */
 	public Sequence fetchGroup(int field) {
@@ -708,8 +708,8 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * °´Ö¸¶¨×Ö¶ÎºÅÈ¡Ò»×éÊı¾İ£¬²»»á¶àÏß³Ìµ÷ÓÃ
-	 * @param fields ×Ö¶ÎĞòºÅÊı×é
+	 * æŒ‰æŒ‡å®šå­—æ®µå·å–ä¸€ç»„æ•°æ®ï¼Œä¸ä¼šå¤šçº¿ç¨‹è°ƒç”¨
+	 * @param fields å­—æ®µåºå·æ•°ç»„
 	 * @return Sequence
 	 */
 	public Sequence fetchGroup(int []fields) {
@@ -770,9 +770,9 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * °´Ö¸¶¨×Ö¶ÎºÅÈ¡Ò»×éÊı¾İ£¬µ½ÁËÉÏÏŞlimit²»È¡ÍêÕâÒ»×éÒ²»á·µ»Ø£¬²»»á¶àÏß³Ìµ÷ÓÃ
-	 * @param fields ×Ö¶ÎĞòºÅÊı×é
-	 * @param limit ×î´ó¼ÇÂ¼Êı
+	 * æŒ‰æŒ‡å®šå­—æ®µå·å–ä¸€ç»„æ•°æ®ï¼Œåˆ°äº†ä¸Šé™limitä¸å–å®Œè¿™ä¸€ç»„ä¹Ÿä¼šè¿”å›ï¼Œä¸ä¼šå¤šçº¿ç¨‹è°ƒç”¨
+	 * @param fields å­—æ®µåºå·æ•°ç»„
+	 * @param limit æœ€å¤§è®°å½•æ•°
 	 * @return Sequence
 	 */
 	public Sequence fetchGroup(int []fields, int limit) {
@@ -834,7 +834,7 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * Ìø¹ıÒ»×éÊı¾İ
+	 * è·³è¿‡ä¸€ç»„æ•°æ®
 	 * @param exps
 	 * @param ctx
 	 * @return
@@ -892,17 +892,17 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * Ìø¹ıËùÓĞ¼ÇÂ¼
-	 * @return Êµ¼ÊÌø¹ıµÄ¼ÇÂ¼Êı
+	 * è·³è¿‡æ‰€æœ‰è®°å½•
+	 * @return å®é™…è·³è¿‡çš„è®°å½•æ•°
 	 */
 	public long skip() {
 		return skip(MAXSKIPSIZE);
 	}
 	
 	/**
-	 * Ìø¹ıÖ¸¶¨¼ÇÂ¼Êı
-	 * @param n ¼ÇÂ¼Êı
-	 * @return long Êµ¼ÊÌø¹ıµÄ¼ÇÂ¼Êı
+	 * è·³è¿‡æŒ‡å®šè®°å½•æ•°
+	 * @param n è®°å½•æ•°
+	 * @return long å®é™…è·³è¿‡çš„è®°å½•æ•°
 	 */
 	public synchronized long skip(long n) {
 		if (opList == null) {
@@ -955,13 +955,13 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * ¹Ø±ÕÓÎ±ê
+	 * å…³é—­æ¸¸æ ‡
 	 */
 	public void close() {
 		cache = null;
 		
 		if (isFinished) {
-			// ¿ÉÒÔÔÙreset
+			// å¯ä»¥å†reset
 			isFinished = false;
 		} else if (opList != null) {
 			finish(opList, ctx);
@@ -969,15 +969,15 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * È¡¼ÇÂ¼£¬×ÓÀàĞèÒªÊµÏÖ´Ë·½·¨
-	 * @param n ÒªÈ¡µÄ¼ÇÂ¼Êı
+	 * å–è®°å½•ï¼Œå­ç±»éœ€è¦å®ç°æ­¤æ–¹æ³•
+	 * @param n è¦å–çš„è®°å½•æ•°
 	 * @return Sequence
 	 */
 	protected abstract Sequence get(int n);
 
 	/**
-	 * Ä£ºıÈ¡¼ÇÂ¼£¬·µ»ØµÄ¼ÇÂ¼Êı¿ÉÒÔ²»Óë¸ø¶¨µÄÊıÁ¿ÏàÍ¬
-	 * @param n ÒªÈ¡µÄ¼ÇÂ¼Êı
+	 * æ¨¡ç³Šå–è®°å½•ï¼Œè¿”å›çš„è®°å½•æ•°å¯ä»¥ä¸ä¸ç»™å®šçš„æ•°é‡ç›¸åŒ
+	 * @param n è¦å–çš„è®°å½•æ•°
 	 * @return Sequence
 	 */
 	protected Sequence fuzzyGet(int n) {
@@ -985,22 +985,22 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * Ìø¹ıÖ¸¶¨¼ÇÂ¼Êı£¬×ÓÀàĞèÒªÊµÏÖ´Ë·½·¨
-	 * @param n ¼ÇÂ¼Êı
+	 * è·³è¿‡æŒ‡å®šè®°å½•æ•°ï¼Œå­ç±»éœ€è¦å®ç°æ­¤æ–¹æ³•
+	 * @param n è®°å½•æ•°
 	 * @return long
 	 */
 	protected abstract long skipOver(long n);
 	
 	/**
-	 * ÖØÖÃÓÎ±ê
-	 * @return ·µ»ØÊÇ·ñ³É¹¦£¬true£ºÓÎ±ê¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı£¬false£º²»¿ÉÒÔ´ÓÍ·ÖØĞÂÈ¡Êı
+	 * é‡ç½®æ¸¸æ ‡
+	 * @return è¿”å›æ˜¯å¦æˆåŠŸï¼Œtrueï¼šæ¸¸æ ‡å¯ä»¥ä»å¤´é‡æ–°å–æ•°ï¼Œfalseï¼šä¸å¯ä»¥ä»å¤´é‡æ–°å–æ•°
 	 */
 	public boolean reset() {
 		return false;
 	}
 	
 	/**
-	 * ·µ»Ø½á¹û¼¯Êı¾İ½á¹¹
+	 * è¿”å›ç»“æœé›†æ•°æ®ç»“æ„
 	 * @return DataStruct
 	 */
 	public DataStruct getDataStruct() {
@@ -1008,26 +1008,26 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * ÉèÖÃ½á¹û¼¯Êı¾İ½á¹¹
-	 * @param ds Êı¾İ½á¹¹
+	 * è®¾ç½®ç»“æœé›†æ•°æ®ç»“æ„
+	 * @param ds æ•°æ®ç»“æ„
 	 */
 	public void setDataStruct(DataStruct ds) {
 		dataStruct = ds;
 	}
 	
-	// ·µ»ØÓÎ±êµÄÓĞĞò×Ö¶Î£¬Èç¹ûÎŞĞòÔò·µ»Ønull
+	// è¿”å›æ¸¸æ ‡çš„æœ‰åºå­—æ®µï¼Œå¦‚æœæ— åºåˆ™è¿”å›null
 	public String[] getSortFields() {
 		return null;
 	}
 	
 	/**
-	 * È¡·Ö×é¼ÆËã¶ÔÏó
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–åˆ†ç»„è®¡ç®—å¯¹è±¡
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IGroupsResult
 	 */
 	public IGroupsResult getGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
@@ -1037,14 +1037,14 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * È¡´ó½á¹û¼¯·Ö×é¼ÆËã¶ÔÏó
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param capacity ³õÊ¼ÈİÁ¿
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–å¤§ç»“æœé›†åˆ†ç»„è®¡ç®—å¯¹è±¡
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param capacity åˆå§‹å®¹é‡
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IHugeGroupsResult
 	 */
 	public IHugeGroupsResult getHugeGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
@@ -1053,14 +1053,14 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * ¶ÔÓÎ±ê½øĞĞ·Ö×é»ã×Ü
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ·Ö×é½á¹û
+	 * å¯¹æ¸¸æ ‡è¿›è¡Œåˆ†ç»„æ±‡æ€»
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return åˆ†ç»„ç»“æœ
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx) {
@@ -1070,15 +1070,15 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * ¶ÔÓÎ±ê½øĞĞ·Ö×é»ã×Ü
-	 * @param exps ·Ö×é×Ö¶Î±í´ïÊ½Êı×é
-	 * @param names ·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü×Ö¶Î±í´ïÊ½Êı×é
-	 * @param calcNames »ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param groupCount ½á¹û¼¯ÊıÁ¿
-	 * @return ·Ö×é½á¹û
+	 * å¯¹æ¸¸æ ‡è¿›è¡Œåˆ†ç»„æ±‡æ€»
+	 * @param exps åˆ†ç»„å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param names åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param calcNames æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param groupCount ç»“æœé›†æ•°é‡
+	 * @return åˆ†ç»„ç»“æœ
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx, int groupCount) {
@@ -1095,15 +1095,15 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * ¶ÔÓÎ±ê½øĞĞÍâ´æ·Ö×é»ã×Ü
-	 * @param exps ·Ö×é±í´ïÊ½Êı×é
-	 * @param names	·Ö×é×Ö¶ÎÃûÊı×é
-	 * @param calcExps »ã×Ü±í´ïÊ½	Êı×é
-	 * @param calcNames	»ã×Ü×Ö¶ÎÃûÊı×é
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity	ÄÚ´æÖĞ±£´æµÄ×î´ó·Ö×é½á¹ûÊı
-	 * @return ICursor ·Ö×é½á¹ûÓÎ±ê
+	 * å¯¹æ¸¸æ ‡è¿›è¡Œå¤–å­˜åˆ†ç»„æ±‡æ€»
+	 * @param exps åˆ†ç»„è¡¨è¾¾å¼æ•°ç»„
+	 * @param names	åˆ†ç»„å­—æ®µåæ•°ç»„
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼	æ•°ç»„
+	 * @param calcNames	æ±‡æ€»å­—æ®µåæ•°ç»„
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity	å†…å­˜ä¸­ä¿å­˜çš„æœ€å¤§åˆ†ç»„ç»“æœæ•°
+	 * @return ICursor åˆ†ç»„ç»“æœæ¸¸æ ‡
 	 */
 	public ICursor groupx(Expression[] exps, String []names, 
 			Expression[] calcExps, String []calcNames, String opt, Context ctx, int capacity) {
@@ -1123,12 +1123,12 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * ¶ÔÃ¿¸ö±í´ïÊ½½øĞĞ¹şÏ£È¥ÖØ£¬±£Áôcount¸ö²»Í¬Öµ
-	 * @param exps ±í´ïÊ½Êı×é
-	 * @param count ÊıÁ¿
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Sequence ·µ»ØĞòÁĞµÄĞòÁĞ£¬Èç¹ûcountÎª1·µ»ØĞòÁĞ
+	 * å¯¹æ¯ä¸ªè¡¨è¾¾å¼è¿›è¡Œå“ˆå¸Œå»é‡ï¼Œä¿ç•™countä¸ªä¸åŒå€¼
+	 * @param exps è¡¨è¾¾å¼æ•°ç»„
+	 * @param count æ•°é‡
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return Sequence è¿”å›åºåˆ—çš„åºåˆ—ï¼Œå¦‚æœcountä¸º1è¿”å›åºåˆ—
 	 */
 	public Sequence id(Expression []exps, int count, String opt, Context ctx) {
 		IDResult id = new IDResult(exps, count, opt, ctx);
@@ -1137,12 +1137,12 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * µü´ú¼ÆËãÓÎ±ê
-	 * @param exp µü´ú±í´ïÊ½
-	 * @param initVal ³õÊ¼Öµ
-	 * @param c Ìõ¼ş±í´ïÊ½£¬ÎªtrueÊÇÍ£Ö¹
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return µü´ú½á¹û
+	 * è¿­ä»£è®¡ç®—æ¸¸æ ‡
+	 * @param exp è¿­ä»£è¡¨è¾¾å¼
+	 * @param initVal åˆå§‹å€¼
+	 * @param c æ¡ä»¶è¡¨è¾¾å¼ï¼Œä¸ºtrueæ˜¯åœæ­¢
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return è¿­ä»£ç»“æœ
 	 */
 	public Object iterator(Expression exp, Object initVal, Expression c, Context ctx) {
 		ComputeStack stack = ctx.getComputeStack();
@@ -1152,7 +1152,7 @@ abstract public class ICursor extends Operable implements IResource {
 		
 		try {
 			while (true) {
-				// ´ÓÓÎ±êÖĞÈ¡µÃÒ»×éÊı¾İ¡£
+				// ä»æ¸¸æ ‡ä¸­å–å¾—ä¸€ç»„æ•°æ®ã€‚
 				Sequence src = fuzzyFetch(FETCHCOUNT);
 				if (src == null || src.length() == 0) break;
 				
@@ -1170,7 +1170,7 @@ abstract public class ICursor extends Operable implements IResource {
 							current.setCurrent(i);
 							Object obj = c.calculate(ctx);
 							
-							// Èç¹ûÌõ¼şÎªÕæÔò·µ»Ø
+							// å¦‚æœæ¡ä»¶ä¸ºçœŸåˆ™è¿”å›
 							if (obj instanceof Boolean && ((Boolean)obj).booleanValue()) {
 								return initVal;
 							}
@@ -1191,36 +1191,36 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 
 	/**
-	 * ¶ÔÓÎ±ê½øĞĞÍâ´æÅÅĞò
-	 * @param cursor ÓÎ±ê
-	 * @param exps ÅÅĞò×Ö¶Î±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param capacity ÄÚ´æÖĞÄÜ¹»±£´æµÄ¼ÇÂ¼Êı£¬Èç¹ûÃ»ÓĞÉèÖÃÔò×Ô¶¯¹ÀËãÒ»¸ö
-	 * @param opt Ñ¡Ïî 0£ºnullÅÅ×îºó
-	 * @return ÅÅºÃĞòµÄÓÎ±ê
+	 * å¯¹æ¸¸æ ‡è¿›è¡Œå¤–å­˜æ’åº
+	 * @param cursor æ¸¸æ ‡
+	 * @param exps æ’åºå­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param capacity å†…å­˜ä¸­èƒ½å¤Ÿä¿å­˜çš„è®°å½•æ•°ï¼Œå¦‚æœæ²¡æœ‰è®¾ç½®åˆ™è‡ªåŠ¨ä¼°ç®—ä¸€ä¸ª
+	 * @param opt é€‰é¡¹ 0ï¼šnullæ’æœ€å
+	 * @return æ’å¥½åºçš„æ¸¸æ ‡
 	 */
 	public ICursor sortx(Expression[] exps, Context ctx, int capacity, String opt) {
 		return CursorUtil.sortx(this, exps, ctx, capacity, opt);
 	}
 
 	/**
-	 * Íâ´æÅÅĞò£¬ÅÅĞò×Ö¶ÎÖµÏàÍ¬µÄ¼ÇÂ¼×éÖµÏàÍ¬ÇÒÍ¬Ğò¡£
-	 * ×éÖµÏàÍ¬µÄ¼ÇÂ¼±£´æµ½Ò»¸öÁÙÊ±ÎÄ¼ş£¬È»ºóÃ¿¸öÁÙÊ±ÎÄ¼şµ¥¶ÀÅÅĞò
-	 * @param exps ÅÅĞò±í´ïÊ½
-	 * @param gexp ×é±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param opt Ñ¡Ïî
-	 * @return ÅÅºÃĞòµÄÓÎ±ê
+	 * å¤–å­˜æ’åºï¼Œæ’åºå­—æ®µå€¼ç›¸åŒçš„è®°å½•ç»„å€¼ç›¸åŒä¸”åŒåºã€‚
+	 * ç»„å€¼ç›¸åŒçš„è®°å½•ä¿å­˜åˆ°ä¸€ä¸ªä¸´æ—¶æ–‡ä»¶ï¼Œç„¶åæ¯ä¸ªä¸´æ—¶æ–‡ä»¶å•ç‹¬æ’åº
+	 * @param exps æ’åºè¡¨è¾¾å¼
+	 * @param gexp ç»„è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param opt é€‰é¡¹
+	 * @return æ’å¥½åºçš„æ¸¸æ ‡
 	 */
 	public ICursor sortx(Expression[] exps, Expression gexp, Context ctx, String opt) {
 		return CursorUtil.sortx(this, exps, gexp, ctx, opt);
 	}
 
 	/**
-	 * ¶ÔÓÎ±ê½øĞĞ»ã×Ü
-	 * @param calcExps »ã×Ü±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return Èç¹ûÖ»ÓĞÒ»¸ö»ã×Ü±í´ïÊ½·µ»Ø»ã×Ü½á¹û£¬·ñÔò·µ»Ø»ã×Ü½á¹û¹¹³ÉµÄĞòÁĞ
+	 * å¯¹æ¸¸æ ‡è¿›è¡Œæ±‡æ€»
+	 * @param calcExps æ±‡æ€»è¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return å¦‚æœåªæœ‰ä¸€ä¸ªæ±‡æ€»è¡¨è¾¾å¼è¿”å›æ±‡æ€»ç»“æœï¼Œå¦åˆ™è¿”å›æ±‡æ€»ç»“æœæ„æˆçš„åºåˆ—
 	 */
 	public Object total(Expression[] calcExps, Context ctx) {
 		//TotalResult total = new TotalResult(calcExps, ctx);
@@ -1247,35 +1247,35 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * ÓëÓÎ±ê×öÓĞĞò¹é²¢Á¬½Ó
-	 * @param function ¶ÔÓ¦µÄº¯Êı
-	 * @param exps µ±Ç°±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
-	 * @param cursors Î¬±íÓÎ±êÊı×é
-	 * @param codeExps Î¬±í¹ØÁª×Ö¶Î±í´ïÊ½Êı×é
+	 * ä¸æ¸¸æ ‡åšæœ‰åºå½’å¹¶è¿æ¥
+	 * @param function å¯¹åº”çš„å‡½æ•°
+	 * @param exps å½“å‰è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param cursors ç»´è¡¨æ¸¸æ ‡æ•°ç»„
+	 * @param codeExps ç»´è¡¨å…³è”å­—æ®µè¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param newNames
-	 * @param opt Ñ¡Ïî
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * @param opt é€‰é¡¹
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return Operable
 	 */
 	public Operable mergeJoinx(Function function, Expression[][] exps, 
 			ICursor []cursors, Expression[][] codeExps, 
 			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
-		//TODO ÉÔºóÒªĞŞ¸ÄÎªOperable
+		//TODO ç¨åè¦ä¿®æ”¹ä¸ºOperable
 		//return CSJoinxCursor3.MergeJoinx(this, exps, cursors, codeExps, newExps, newNames, null, ctx, FETCHCOUNT, opt);
 		return new MergeJoinxCursor(this, exps, cursors, codeExps, newExps, newNames, opt, ctx);
 	}
 	
 	/**
-	 * µÃµ½½øĞĞnews¼ÆËãµÄÓÎ±ê T.news(this)
-	 * @param table »ù±í
-	 * @param exps È¡³ö±í´ïÊ½
-	 * @param fields È¡³ö×Ö¶ÎÃû³Æ
-	 * @param csNames ²ÎÊıK£¬Ö¸¶¨A/cs²ÎÓëÁ¬½ÓµÄ×Ö¶Î
-	 * @param type	¼ÆËãÀàĞÍ£¬0:derive; 1:new; 2:news; 0x1X ±íÊ¾Ìø¶Î;
-	 * @param option Ñ¡Ïî	
-	 * @param filter ¶ÔtableµÄ¹ıÂËÌõ¼ş
-	 * @param fkNames ¶ÔtableµÄSwitch¹ıÂËÌõ¼ş
+	 * å¾—åˆ°è¿›è¡Œnewsè®¡ç®—çš„æ¸¸æ ‡ T.news(this)
+	 * @param table åŸºè¡¨
+	 * @param exps å–å‡ºè¡¨è¾¾å¼
+	 * @param fields å–å‡ºå­—æ®µåç§°
+	 * @param csNames å‚æ•°Kï¼ŒæŒ‡å®šA/cså‚ä¸è¿æ¥çš„å­—æ®µ
+	 * @param type	è®¡ç®—ç±»å‹ï¼Œ0:derive; 1:new; 2:news; 0x1X è¡¨ç¤ºè·³æ®µ;
+	 * @param option é€‰é¡¹	
+	 * @param filter å¯¹tableçš„è¿‡æ»¤æ¡ä»¶
+	 * @param fkNames å¯¹tableçš„Switchè¿‡æ»¤æ¡ä»¶
 	 * @param codes
 	 * @param ctx
 	 */
@@ -1286,17 +1286,17 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * È¡·Ö¶ÎÓÎ±êµÄÆğÊ¼Öµ£¬Èç¹ûÓĞ·Ö¶Î×Ö¶ÎÔò·µ»Ø·Ö¶Î×Ö¶ÎµÄÖµ£¬Ã»ÓĞÔò·µ»ØÎ¬×Ö¶ÎµÄÖµ
-	 * @return ·Ö¶ÎÓÎ±êÊ×Ìõ¼ÇÂ¼µÄ·Ö¶Î×Ö¶ÎµÄÖµ£¬Èç¹ûµ±Ç°¶ÎÊıÎª0Ôò·µ»Ønull
+	 * å–åˆ†æ®µæ¸¸æ ‡çš„èµ·å§‹å€¼ï¼Œå¦‚æœæœ‰åˆ†æ®µå­—æ®µåˆ™è¿”å›åˆ†æ®µå­—æ®µçš„å€¼ï¼Œæ²¡æœ‰åˆ™è¿”å›ç»´å­—æ®µçš„å€¼
+	 * @return åˆ†æ®µæ¸¸æ ‡é¦–æ¡è®°å½•çš„åˆ†æ®µå­—æ®µçš„å€¼ï¼Œå¦‚æœå½“å‰æ®µæ•°ä¸º0åˆ™è¿”å›null
 	 */
 	public Object[] getSegmentStartValues(String option) {
 		throw new RQException();
 	}
 	
 	/**
-	 * ´´½¨Ò»¸öÓëµ±Ç°ÓÎ±êÏàÆ¥ÅäµÄ¹ÜµÀ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param doPush ÊÇ·ñ¶ÔÓÎ±êÉú³Épush²Ù×÷
+	 * åˆ›å»ºä¸€ä¸ªä¸å½“å‰æ¸¸æ ‡ç›¸åŒ¹é…çš„ç®¡é“
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param doPush æ˜¯å¦å¯¹æ¸¸æ ‡ç”Ÿæˆpushæ“ä½œ
 	 * @return Channel
 	 */
 	public Channel newChannel(Context ctx, boolean doPush) {
@@ -1308,7 +1308,7 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * ÓÎ±êÊÇ·ñ¿ÉÒÔÌø¿é
+	 * æ¸¸æ ‡æ˜¯å¦å¯ä»¥è·³å—
 	 * @return
 	 */
 	public boolean canSkipBlock() {
@@ -1316,7 +1316,7 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * µÃµ½ÓÎ±ê½á¹ûËùÔÚ¿éµÄ·¶Î§
+	 * å¾—åˆ°æ¸¸æ ‡ç»“æœæ‰€åœ¨å—çš„èŒƒå›´
 	 * @param key
 	 * @return
 	 */
@@ -1325,20 +1325,20 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * ½«ÓÎ±êÉèÖÃÎª°´ÕÕkey×Ö¶ÎÌø¿é £¨pjoinÊ±Ê¹ÓÃ£©
-	 * ÉèÖÃºó£¬ÓÎ±ê»á°´ÕÕvaluesÀïµÄÖµ½øĞĞÌø¿é¡£
-	 * @param key Î¬×Ö¶ÎÃû
+	 * å°†æ¸¸æ ‡è®¾ç½®ä¸ºæŒ‰ç…§keyå­—æ®µè·³å— ï¼ˆpjoinæ—¶ä½¿ç”¨ï¼‰
+	 * è®¾ç½®åï¼Œæ¸¸æ ‡ä¼šæŒ‰ç…§valuesé‡Œçš„å€¼è¿›è¡Œè·³å—ã€‚
+	 * @param key ç»´å­—æ®µå
 	 * @param values [minValue, maxValue] 
 	 */
 	public void setSkipBlockInfo(String key, IArray[] values) {
 	}
 
 	/**
-	 * ÉèÖÃÌø¿éĞÅÏ¢
-	 * @param srcKeyExps Á¬½Ó±í´ïÊ½Êı×é
-	 * @param cursors ¹ØÁªÓÎ±êÊı×é
-	 * @param options ¹ØÁªÑ¡Ïî
-	 * @param keyExps Á¬½Ó±í´ïÊ½Êı×é
+	 * è®¾ç½®è·³å—ä¿¡æ¯
+	 * @param srcKeyExps è¿æ¥è¡¨è¾¾å¼æ•°ç»„
+	 * @param cursors å…³è”æ¸¸æ ‡æ•°ç»„
+	 * @param options å…³è”é€‰é¡¹
+	 * @param keyExps è¿æ¥è¡¨è¾¾å¼æ•°ç»„
 	 * @param newExps
 	 * @param opt
 	 */
@@ -1347,7 +1347,7 @@ abstract public class ICursor extends Operable implements IResource {
 		String key = srcKeyExps[0].getFieldName();
 		if (option == null || option.indexOf('f') == -1) {
 			if ((option == null || option.indexOf('r') == -1) && canSkipBlock()) {
-				// ÓÒÃæÓÎ±ê¸úËæ×óÃæÓÎ±ê½øĞĞÌø¿é
+				// å³é¢æ¸¸æ ‡è·Ÿéšå·¦é¢æ¸¸æ ‡è¿›è¡Œè·³å—
 				IArray []values = null;
 				boolean isGet = false;
 				
@@ -1370,7 +1370,7 @@ abstract public class ICursor extends Operable implements IResource {
 					}
 				}
 			} else {
-				// ×óÃæÓÎ±ê¸úËæÓÒÃæÓÎ±ê½øĞĞÌø¿é
+				// å·¦é¢æ¸¸æ ‡è·Ÿéšå³é¢æ¸¸æ ‡è¿›è¡Œè·³å—
 				IArray []values = null;
 				for (int t = 0; t < tableCount; ++t) {
 					if (cursors[t] == null || !cursors[t].canSkipBlock()) {

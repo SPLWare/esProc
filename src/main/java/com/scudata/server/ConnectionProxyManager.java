@@ -3,7 +3,7 @@ package com.scudata.server;
 import com.scudata.server.IProxy;
 
 /**
- * Á¬½Ó´úÀí¹ÜÀíÆ÷
+ * è¿æ¥ä»£ç†ç®¡ç†å™¨
  * 
  * @author Joancy
  *
@@ -16,24 +16,24 @@ public class ConnectionProxyManager extends IProxy{
 	}
 	
 	/**
-	 * 	¸²¸Ç¸¸Àà¸Ã·½·¨£¬¹ÜÀíÆ÷±¾Éí²»ĞèÒª¹ıÆÚ£¬Î¬³Ö³õÊ¼Ì¬-1¼´¿É
+	 * 	è¦†ç›–çˆ¶ç±»è¯¥æ–¹æ³•ï¼Œç®¡ç†å™¨æœ¬èº«ä¸éœ€è¦è¿‡æœŸï¼Œç»´æŒåˆå§‹æ€-1å³å¯
 	 */
 	public void access() {
 	}
 
 	/**
-	 * »ñÈ¡¹ÜÀíÆ÷µÄÎ¨Ò»ÊµÀı
-	 * @return ¹ÜÀíÆ÷ÊµÀı
+	 * è·å–ç®¡ç†å™¨çš„å”¯ä¸€å®ä¾‹
+	 * @return ç®¡ç†å™¨å®ä¾‹
 	 */
 	public static ConnectionProxyManager getInstance(){
 		return instance;
 	}
 	
 	/**
-	 * ¸ù¾İ±àºÅ»ñµÃ´úÀí¶ÔÏó
-	 * @param id ±àºÅ
-	 * @return ´úÀí¶ÔÏó
-	 * @throws Exception Ã»ÕÒµ½¶ÔÓ¦´úÀíÊ±Å×³öÒì³£
+	 * æ ¹æ®ç¼–å·è·å¾—ä»£ç†å¯¹è±¡
+	 * @param id ç¼–å·
+	 * @return ä»£ç†å¯¹è±¡
+	 * @throws Exception æ²¡æ‰¾åˆ°å¯¹åº”ä»£ç†æ—¶æŠ›å‡ºå¼‚å¸¸
 	 */
 	public IProxy getConnectionProxy(int id) throws Exception{
 		IProxy cp = getProxy(id);
@@ -44,14 +44,14 @@ public class ConnectionProxyManager extends IProxy{
 	}
 	
 	/**
-	 * ÊµÏÖ´úÀí½Ó¿Ú£¬¹ÜÀíÆ÷µÄ¸Ã·½·¨ÎŞÒâÒå
+	 * å®ç°ä»£ç†æ¥å£ï¼Œç®¡ç†å™¨çš„è¯¥æ–¹æ³•æ— æ„ä¹‰
 	 */
 	public void close() {
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ±¾ÃèÊö
-	 * @return ÃèÊöÎÄ±¾
+	 * è·å–æ–‡æœ¬æè¿°
+	 * @return æè¿°æ–‡æœ¬
 	 */
 	public String toString() {
 		return "ConnectionProxyManager";

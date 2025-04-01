@@ -7,35 +7,35 @@ import com.scudata.ide.common.GC;
 
 /**
  * 
- * ½ÇÂäÃæ°åµÄ¼àÌıÆ÷
+ * è§’è½é¢æ¿çš„ç›‘å¬å™¨
  */
 public class CornerListener implements MouseListener {
 	/**
-	 * Íø¸ñ¿Ø¼ş
+	 * ç½‘æ ¼æ§ä»¶
 	 */
 	private SplControl control;
 	/**
-	 * ÊÇ·ñ¿ÉÒÔ±à¼­
+	 * æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	private boolean editable = true;
 
 	/**
-	 * ¼àÌıÆ÷¹¹Ôìº¯Êı
+	 * ç›‘å¬å™¨æ„é€ å‡½æ•°
 	 * 
 	 * @param control
-	 *            Íø¸ñ¿Ø¼ş
+	 *            ç½‘æ ¼æ§ä»¶
 	 */
 	public CornerListener(SplControl control) {
 		this(control, true);
 	}
 
 	/**
-	 * ¼àÌıÆ÷¹¹Ôìº¯Êı
+	 * ç›‘å¬å™¨æ„é€ å‡½æ•°
 	 * 
 	 * @param control
-	 *            Íø¸ñ¿Ø¼ş
+	 *            ç½‘æ ¼æ§ä»¶
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public CornerListener(SplControl control, boolean editable) {
 		this.control = control;
@@ -46,10 +46,10 @@ public class CornerListener implements MouseListener {
 	}
 
 	/**
-	 * Êó±ê×ó¼ü°´ÏÂÊ±µÄ´¦Àí
+	 * é¼ æ ‡å·¦é”®æŒ‰ä¸‹æ—¶çš„å¤„ç†
 	 * 
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 */
 	public void mousePressed(MouseEvent e) {
 		if (!editable) {
@@ -61,7 +61,7 @@ public class CornerListener implements MouseListener {
 	}
 
 	/**
-	 * Êó±ê°´¼üÀë¿ªÊÂ¼ş
+	 * é¼ æ ‡æŒ‰é”®ç¦»å¼€äº‹ä»¶
 	 */
 	public void mouseReleased(MouseEvent e) {
 		showPopup(e);
@@ -74,7 +74,7 @@ public class CornerListener implements MouseListener {
 	}
 
 	/**
-	 * ÏÔÊ¾ÓÒ¼üµ¯³ö²Ëµ¥
+	 * æ˜¾ç¤ºå³é”®å¼¹å‡ºèœå•
 	 * 
 	 * @param e
 	 */

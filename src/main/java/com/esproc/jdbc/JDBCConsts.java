@@ -3,7 +3,7 @@ package com.esproc.jdbc;
 import com.scudata.app.common.AppConsts;
 
 /**
- * JDBCÖĞ¶¨ÒåµÄ³£Á¿
+ * JDBCä¸­å®šä¹‰çš„å¸¸é‡
  *
  */
 public class JDBCConsts {
@@ -74,14 +74,14 @@ public class JDBCConsts {
 
 	public static final String KEY_SEQ = "KEY_SEQ";
 
-	/** JDBCÖ§³ÖµÄÊı¾İÎÄ¼şÀàĞÍ **/
+	/** JDBCæ”¯æŒçš„æ•°æ®æ–‡ä»¶ç±»å‹ **/
 	public static final String DATA_FILE_EXTS = AppConsts.FILE_BTX + ","
 			+ AppConsts.FILE_CTX + "," + AppConsts.FILE_TXT + ","
 			+ AppConsts.FILE_CSV + "," + AppConsts.FILE_XLS + ","
 			+ AppConsts.FILE_XLSX;
 
 	/**
-	 * È±Ê¡Ò»´Î»ñÈ¡µÄĞĞÊı
+	 * ç¼ºçœä¸€æ¬¡è·å–çš„è¡Œæ•°
 	 */
 	public static final int DEFAULT_FETCH_SIZE = 1024 * 100;
 
@@ -91,7 +91,7 @@ public class JDBCConsts {
 	public static final int DEFAULT_TYPE = java.sql.Types.NULL;
 
 	/**
-	 * È±Ê¡µÄÁ¬½Ó³¬Ê±Ê±³¤£¬µ¥Î»Ãë
+	 * ç¼ºçœçš„è¿æ¥è¶…æ—¶æ—¶é•¿ï¼Œå•ä½ç§’
 	 */
 	public static final int DEFAULT_CONNECT_TIMEOUT = 5;
 

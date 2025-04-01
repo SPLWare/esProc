@@ -29,21 +29,21 @@ import com.scudata.ide.common.swing.JComboBoxEx;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * ODBCÊı¾İÔ´¶Ô»°¿ò
+ * ODBCæ•°æ®æºå¯¹è¯æ¡†
  *
  */
 public class DialogODBCDataSource extends JDialog {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 	/**
-	 * ¾ÉÊı¾İÔ´Ãû³Æ
+	 * æ—§æ•°æ®æºåç§°
 	 */
 	private String oldDSName;
 	/**
@@ -51,77 +51,77 @@ public class DialogODBCDataSource extends JDialog {
 	 */
 	public static final String ODBC_URL = "jdbc:odbc:";
 	/**
-	 * ×Ö·û¼¯
+	 * å­—ç¬¦é›†
 	 */
 	public static final String ODBC_CHARSET = "GBK";
 	/**
-	 * Çı¶¯
+	 * é©±åŠ¨
 	 */
 	public static final String ODBC_DRIVER = "sun.jdbc.odbc.JdbcOdbcDriver";
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	private JButton jBCancel = new JButton();
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	private JButton jBOK = new JButton();
 
 	/**
-	 * Êı¾İÔ´Ãû³Æ
+	 * æ•°æ®æºåç§°
 	 */
 	private JLabel jLabel1 = new JLabel();
 	/**
-	 * Êı¾İÔ´Ãû³ÆÎÄ±¾¿ò
+	 * æ•°æ®æºåç§°æ–‡æœ¬æ¡†
 	 */
 	private JTextField jDSName = new JTextField();
 	/**
-	 * ODBCÃû³Æ
+	 * ODBCåç§°
 	 */
 	private JLabel jLabel3 = new JLabel();
 	/**
-	 * ODBCÃû³ÆÎÄ±¾¿ò
+	 * ODBCåç§°æ–‡æœ¬æ¡†
 	 */
 	private JComboBoxEx jODBCName = new JComboBoxEx();
 	/**
-	 * ÓÃ»§Ãû
+	 * ç”¨æˆ·å
 	 */
 	private JLabel jLabel4 = new JLabel();
 	/**
-	 * ÓÃ»§ÃûÎÄ±¾¿ò
+	 * ç”¨æˆ·åæ–‡æœ¬æ¡†
 	 */
 	private JTextField jUser = new JTextField();
 	/**
-	 * ÃÜÂë
+	 * å¯†ç 
 	 */
 	private JLabel jLabel5 = new JLabel();
 	/**
-	 * ÃÜÂëÊäÈë¿ò
+	 * å¯†ç è¾“å…¥æ¡†
 	 */
 	private JPasswordField jPassword = new JPasswordField();
 	/**
-	 * ±íÃûÊÇ·ñ¼ÓÄ£Ê½Ãû
+	 * è¡¨åæ˜¯å¦åŠ æ¨¡å¼å
 	 */
 	private JCheckBox jUseSchema = new JCheckBox();
 	/**
-	 * ÊÇ·ñ´óĞ¡Ğ´Ãô¸Ğ
+	 * æ˜¯å¦å¤§å°å†™æ•æ„Ÿ
 	 */
 	private JCheckBox jCaseSentence = new JCheckBox();
 	/**
-	 * ¶ÔÏóÃûÊÇ·ñ¼ÓÏŞ¶¨·û
+	 * å¯¹è±¡åæ˜¯å¦åŠ é™å®šç¬¦
 	 */
 	private JCheckBox jCBIsAddTilde = new JCheckBox();
 
 	/**
-	 * ÒÑ¾­´æÔÚµÄÃû³Æ
+	 * å·²ç»å­˜åœ¨çš„åç§°
 	 */
 	private Vector<String> existNames;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogODBCDataSource(JDialog parent) {
-		super(parent, "ODBCÊı¾İÔ´", true);
+		super(parent, "ODBCæ•°æ®æº", true);
 		try {
 			setSize(400, 300);
 			initUI();
@@ -134,24 +134,24 @@ public class DialogODBCDataSource extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
-		setTitle(mm.getMessage("dialogodbcdatasource.title")); // ODBCÊı¾İÔ´
+		setTitle(mm.getMessage("dialogodbcdatasource.title")); // ODBCæ•°æ®æº
 		jBCancel.setText(mm.getMessage("button.cancel"));
 		jBOK.setText(mm.getMessage("button.ok"));
-		jLabel1.setText(mm.getMessage("dialogodbcdatasource.dsname")); // Êı¾İÔ´Ãû³Æ
-		jLabel3.setText(mm.getMessage("dialogodbcdatasource.odbcname")); // ODBCÃû³Æ
-		jLabel4.setText(mm.getMessage("dialogodbcdatasource.user")); // ÓÃ»§Ãû
-		jLabel5.setText(mm.getMessage("dialogodbcdatasource.password")); // ÃÜÂë
-		jUseSchema.setText(mm.getMessage("dialogodbcdatasource.useschema")); // Ê¹ÓÃ´øÄ£Ê½µÄ±íÃû³Æ
+		jLabel1.setText(mm.getMessage("dialogodbcdatasource.dsname")); // æ•°æ®æºåç§°
+		jLabel3.setText(mm.getMessage("dialogodbcdatasource.odbcname")); // ODBCåç§°
+		jLabel4.setText(mm.getMessage("dialogodbcdatasource.user")); // ç”¨æˆ·å
+		jLabel5.setText(mm.getMessage("dialogodbcdatasource.password")); // å¯†ç 
+		jUseSchema.setText(mm.getMessage("dialogodbcdatasource.useschema")); // ä½¿ç”¨å¸¦æ¨¡å¼çš„è¡¨åç§°
 		jCaseSentence.setText(mm
-				.getMessage("dialogodbcdatasource.casesentence")); // ´óĞ¡Ğ´Ãô¸Ğ
+				.getMessage("dialogodbcdatasource.casesentence")); // å¤§å°å†™æ•æ„Ÿ
 		jCBIsAddTilde.setText(mm.getMessage("dialogdatasourcepara.isaddtilde"));
 	}
 
 	/**
-	 * ÉèÖÃÊı¾İÔ´¶ÔÏó
+	 * è®¾ç½®æ•°æ®æºå¯¹è±¡
 	 * 
 	 * @param config
 	 */
@@ -179,7 +179,7 @@ public class DialogODBCDataSource extends JDialog {
 	}
 
 	/**
-	 * È¡Êı¾İÔ´¶ÔÏó
+	 * å–æ•°æ®æºå¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -201,17 +201,17 @@ public class DialogODBCDataSource extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃÒÑ¾­´æÔÚµÄÃû³Æ
+	 * è®¾ç½®å·²ç»å­˜åœ¨çš„åç§°
 	 * 
 	 * @param existNames
-	 *            ÒÑ¾­´æÔÚµÄÃû³Æ
+	 *            å·²ç»å­˜åœ¨çš„åç§°
 	 */
 	public void setExistNames(Vector<String> existNames) {
 		this.existNames = existNames;
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -220,7 +220,7 @@ public class DialogODBCDataSource extends JDialog {
 	}
 
 	/**
-	 * Ãû×ÖÊÇ·ñĞŞ¸ÄÁË
+	 * åå­—æ˜¯å¦ä¿®æ”¹äº†
 	 * 
 	 * @return
 	 */
@@ -229,7 +229,7 @@ public class DialogODBCDataSource extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -241,23 +241,23 @@ public class DialogODBCDataSource extends JDialog {
 		VFlowLayout vFlowLayout1 = new VFlowLayout();
 		jPanel2.setLayout(vFlowLayout1);
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogODBCDataSource_jBCancel_actionAdapter(
 				this));
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogODBCDataSource_jBOK_actionAdapter(this));
 		GridBagLayout gridBagLayout1 = new GridBagLayout();
 		GridBagLayout gridBagLayout2 = new GridBagLayout();
 		JPanel jPanel5 = new JPanel();
 		jPanel1.setLayout(gridBagLayout1);
-		jLabel1.setText("Êı¾İÔ´Ãû³Æ");
-		jLabel3.setText("ODBCÃû³Æ");
-		jLabel4.setText("ÓÃ»§Ãû");
-		jLabel5.setText("ÃÜÂë");
-		jUseSchema.setText("Ê¹ÓÃ´øÄ£Ê½µÄ±íÃû³Æ");
-		jCaseSentence.setText("´óĞ¡Ğ´Ãô¸Ğ");
-		jCBIsAddTilde.setText("Ê¹ÓÃ´øÒıºÅµÄSQL");
+		jLabel1.setText("æ•°æ®æºåç§°");
+		jLabel3.setText("ODBCåç§°");
+		jLabel4.setText("ç”¨æˆ·å");
+		jLabel5.setText("å¯†ç ");
+		jUseSchema.setText("ä½¿ç”¨å¸¦æ¨¡å¼çš„è¡¨åç§°");
+		jCaseSentence.setText("å¤§å°å†™æ•æ„Ÿ");
+		jCBIsAddTilde.setText("ä½¿ç”¨å¸¦å¼•å·çš„SQL");
 		JPanel jPanel3 = new JPanel();
 		jPanel3.setLayout(gridBagLayout2);
 		this.getContentPane().add(jPanel1, BorderLayout.CENTER);
@@ -288,7 +288,7 @@ public class DialogODBCDataSource extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		int height = 28;
@@ -306,7 +306,7 @@ public class DialogODBCDataSource extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -341,7 +341,7 @@ public class DialogODBCDataSource extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -351,7 +351,7 @@ public class DialogODBCDataSource extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */

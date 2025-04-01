@@ -49,17 +49,17 @@ public class ConfigConsts {
 	/** Database configuration list */
 	public static String DB_LIST = "DBList";
 	/**
-	 * ¼ÓÃÜ¼¶±ğ
+	 * åŠ å¯†çº§åˆ«
 	 */
-	/** Ã÷ÎÄ */
+	/** æ˜æ–‡ */
 	public static final byte ENCRYPT_NONE = 0;
-	/** ÃÜÂë¼ÓÃÜ */
+	/** å¯†ç åŠ å¯† */
 	public static final byte ENCRYPT_PASSWORD = 1;
-	/** URL¡¢ÓÃ»§ºÍÃÜÂë¼ÓÃÜ */
+	/** URLã€ç”¨æˆ·å’Œå¯†ç åŠ å¯† */
 	public static final byte ENCRYPT_URL_USER_PASSWORD = 2;
 	/** Encrypt level */
 	public static String ENCRYPT_LEVEL = "encryptLevel";
-	/** ¼ÓÃÜ½âÃÜÊµÏÖÀà */
+	/** åŠ å¯†è§£å¯†å®ç°ç±» */
 	public static String PWD_CLASS = "pwdClass";
 	/** Database node */
 	public static String DB = "DB";

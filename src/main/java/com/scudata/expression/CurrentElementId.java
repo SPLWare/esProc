@@ -10,7 +10,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * 用于取当前序列的元素
+ * 鐢ㄤ簬鍙栧綋鍓嶅簭鍒楃殑鍏冪礌
  * ~n
  * @author WangXiaoJun
  *
@@ -39,7 +39,7 @@ public class CurrentElementId extends Node {
 	}
 	
 	/**
-	 * 释放节点引用的点操作符左侧的对象
+	 * 閲婃斁鑺傜偣寮曠敤鐨勭偣鎿嶄綔绗﹀乏渚х殑瀵硅薄
 	 */
 	public void releaseDotLeftObject() {
 		sequence = null;

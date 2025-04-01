@@ -25,7 +25,7 @@ import com.scudata.dw.Cursor;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
-//ÎÄ¼ş´ÓesprocµÄÖ÷Ä¿Â¼ºÍËÑË÷Ä¿Â¼²éÕÒ
+//æ–‡ä»¶ä»esprocçš„ä¸»ç›®å½•å’Œæœç´¢ç›®å½•æŸ¥æ‰¾
 
 public class SimpleSQL
 {
@@ -44,7 +44,7 @@ public class SimpleSQL
 	public static final int TYPE_INSERT = 1;
 	public static final int TYPE_UPDATE = 2;
 	public static final int TYPE_DELETE = 3;
-	public static final int TYPE_COMMIT = 4;//°üÀ¨Ìá½»»ò»Ø¹öÁ½ÖÖÈ·ÈÏÃüÁî
+	public static final int TYPE_COMMIT = 4;//åŒ…æ‹¬æäº¤æˆ–å›æ»šä¸¤ç§ç¡®è®¤å‘½ä»¤
 	
 	public SimpleSQL(String sql, List<Object> paramValues)
 	{
@@ -128,7 +128,7 @@ public class SimpleSQL
 		this.next = ((next == -1) ? (sqlTokens == null ? 0 : sqlTokens.length) : next);
 	}
 	
-	//¶ÔÍâÌá¹©µÄAPI
+	//å¯¹å¤–æä¾›çš„API
 	public Object execute()
 	{
 		if(this.type == TYPE_SELECT)
@@ -139,7 +139,7 @@ public class SimpleSQL
 			}
 			ICursor icur = this.select.query(this.sqlTokens, this.start, this.next);
 			this.dataStruct = this.select.getDataStruct();
-			//È¥³ı×Ö¶Î±ğÃûÀïµÄ""
+			//å»é™¤å­—æ®µåˆ«åé‡Œçš„""
 			String[] fieldNames = new String[this.dataStruct.getFieldCount()];
 			Expression[] fieldExps = new Expression[this.dataStruct.getFieldCount()];
 			int index = 0;
@@ -166,7 +166,7 @@ public class SimpleSQL
 				icur = new MemoryCursor(new Table(this.dataStruct));
 			}
 			icur.setDataStruct(this.dataStruct);
-			//¼ì²éÊÇ·ñÓĞCS¹¦ÄÜµã, ÎŞCS¹¦ÄÜµãµÄÇá×°°æ·µ»ØĞò±í¶ÔÏó
+			//æ£€æŸ¥æ˜¯å¦æœ‰CSåŠŸèƒ½ç‚¹, æ— CSåŠŸèƒ½ç‚¹çš„è½»è£…ç‰ˆè¿”å›åºè¡¨å¯¹è±¡
 			//if (!Sequence.getFunctionPoint(5)) 
 			//{
 			//	return icur.fetch();
@@ -191,7 +191,7 @@ public class SimpleSQL
 		return null;
 	}
 	
-	//½ö¹©¼òµ¥SQLÄÚ²¿µ÷ÓÃÒÔÊµÏÖÇ¶Ì×²éÑ¯
+	//ä»…ä¾›ç®€å•SQLå†…éƒ¨è°ƒç”¨ä»¥å®ç°åµŒå¥—æŸ¥è¯¢
 	protected ICursor query()
 	{
 		if(this.paramValues != null && !this.paramValues.isEmpty())
@@ -205,7 +205,7 @@ public class SimpleSQL
 			icur = new MemoryCursor(new Table(this.dataStruct));
 		}
 		icur.setDataStruct(this.dataStruct);
-		//´¦ÀíÍê±Ï
+		//å¤„ç†å®Œæ¯•
 		return icur;
 	}
 	
@@ -236,7 +236,7 @@ public class SimpleSQL
 		this.select.setMemory(isMemory);
 	}
 	
-	public static int checkParallel(FileObject file)//¼ì²é¼¯ÎÄ¼şµÄÀàĞÍÒÔÅĞ¶ÏÊÇ·ñ¿ÉÒÔ²¢ĞĞ¶ÁÈ¡¼´ÊÇ·ñÓÉ@zÉú³É
+	public static int checkParallel(FileObject file)//æ£€æŸ¥é›†æ–‡ä»¶çš„ç±»å‹ä»¥åˆ¤æ–­æ˜¯å¦å¯ä»¥å¹¶è¡Œè¯»å–å³æ˜¯å¦ç”±@zç”Ÿæˆ
 	{
 		InputStream is = file.getInputStream();
 		ObjectReader in = new ObjectReader(is);
@@ -273,11 +273,11 @@ public class SimpleSQL
 		return type;
 	}
 	
-	public static Token[] optimizeQuery(Token[] sqlTokens, int[] posBuf)//Õë¶Ô±±¾©ÒøĞĞ¹¤³ÌÖĞcount(*)ºÍ×Ó²éÑ¯×öÌØÊâÓÅ»¯
+	public static Token[] optimizeQuery(Token[] sqlTokens, int[] posBuf)//é’ˆå¯¹åŒ—äº¬é“¶è¡Œå·¥ç¨‹ä¸­count(*)å’Œå­æŸ¥è¯¢åšç‰¹æ®Šä¼˜åŒ–
 	{
 		if(posBuf == null || posBuf.length != 2)
 		{
-			throw new RQException("²ÎÊı¸öÊı´íÎó");
+			throw new RQException("å‚æ•°ä¸ªæ•°é”™è¯¯");
 		}
 		
 		Token[] bakTokens = copyTokens(sqlTokens);
@@ -335,8 +335,8 @@ public class SimpleSQL
 		try {
 			ConfigUtil.load("d:\\esProcData\\raqsoftConfig.xml");
 			Context ctx = new Context();
-//			Object o = AppUtil.executeSql("select * from D:/esProcData/Ô±¹¤.ctx where 1 = 2", null, ctx, false);
-			//			Object o = AppUtil.executeSql("select top 1 * from D:/esProcData/Ô±¹¤.ctx", null, ctx, false);
+//			Object o = AppUtil.executeSql("select * from D:/esProcData/å‘˜å·¥.ctx where 1 = 2", null, ctx, false);
+			//			Object o = AppUtil.executeSql("select top 1 * from D:/esProcData/å‘˜å·¥.ctx", null, ctx, false);
 //			if (o != null) {
 //				if (o instanceof com.raqsoft.dm.cursor.SubCursor) {
 //					System.out.println(((com.raqsoft.dm.cursor.SubCursor)o).fetch());

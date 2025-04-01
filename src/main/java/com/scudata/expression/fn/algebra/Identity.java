@@ -9,7 +9,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * µ¥Î»¾ØÕóº¯Êıi(n)
+ * å•ä½çŸ©é˜µå‡½æ•°i(n)
  * @author bd
  */
 public class Identity extends Function {
@@ -19,7 +19,7 @@ public class Identity extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

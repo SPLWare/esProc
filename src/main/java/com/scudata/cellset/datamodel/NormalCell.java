@@ -14,36 +14,36 @@ import com.scudata.common.CellLocation;
 abstract public class NormalCell implements INormalCell {
 	private static final long serialVersionUID = 0x02010014;
 
-	// µ¥Ôª¸ñÀàĞÍ
-	public final static int TYPE_CALCULABLE_CELL  = 0x00000001; // ¼ÆËã¸ñ =
-	public final static int TYPE_CALCULABLE_BLOCK = 0x00000002; // ¼ÆËã¿é ==
-	public final static int TYPE_EXECUTABLE_CELL  = 0x00000004; // Ö´ĞĞ¸ñ >
-	public final static int TYPE_EXECUTABLE_BLOCK = 0x00000008; // Ö´ĞĞ¿é >>
-	public final static int TYPE_COMMAND_CELL     = 0x00000010; // Óï¾ä¸ñ
-	public final static int TYPE_CONST_CELL       = 0x00000020; // ³£Êı¸ñ
-	public final static int TYPE_NOTE_CELL        = 0x00000040; // ×¢ÊÍ¸ñ /
-	public final static int TYPE_NOTE_BLOCK       = 0x00000080; // ×¢ÊÍ¿é //
-	public final static int TYPE_BLANK_CELL       = 0x00000100; // ¿Õ°×¸ñ
+	// å•å…ƒæ ¼ç±»å‹
+	public final static int TYPE_CALCULABLE_CELL  = 0x00000001; // è®¡ç®—æ ¼ =
+	public final static int TYPE_CALCULABLE_BLOCK = 0x00000002; // è®¡ç®—å— ==
+	public final static int TYPE_EXECUTABLE_CELL  = 0x00000004; // æ‰§è¡Œæ ¼ >
+	public final static int TYPE_EXECUTABLE_BLOCK = 0x00000008; // æ‰§è¡Œå— >>
+	public final static int TYPE_COMMAND_CELL     = 0x00000010; // è¯­å¥æ ¼
+	public final static int TYPE_CONST_CELL       = 0x00000020; // å¸¸æ•°æ ¼
+	public final static int TYPE_NOTE_CELL        = 0x00000040; // æ³¨é‡Šæ ¼ /
+	public final static int TYPE_NOTE_BLOCK       = 0x00000080; // æ³¨é‡Šå— //
+	public final static int TYPE_BLANK_CELL       = 0x00000100; // ç©ºç™½æ ¼
 
 	protected CellSet cs;
 	protected int row;
 	protected int col;
-	protected String expStr; // ±í´ïÊ½×Ö·û´®
+	protected String expStr; // è¡¨è¾¾å¼å­—ç¬¦ä¸²
 	protected String tip;
 
 	protected Object value;
 
 	/**
-	 * ĞòÁĞ»¯Ê±Ê¹ÓÃ
+	 * åºåˆ—åŒ–æ—¶ä½¿ç”¨
 	 */
 	public NormalCell() {
 	}
 
 	/**
-	 * ¹¹½¨µ¥Ôª¸ñ
-	 * @param cs CellSet µ¥Ôª¸ñËùÊôµÄÍø¸ñ
-	 * @param r int ĞĞºÅ
-	 * @param c int ÁĞºÅ
+	 * æ„å»ºå•å…ƒæ ¼
+	 * @param cs CellSet å•å…ƒæ ¼æ‰€å±çš„ç½‘æ ¼
+	 * @param r int è¡Œå·
+	 * @param c int åˆ—å·
 	 */
 	public NormalCell(CellSet cs, int r, int c) {
 		row = r;
@@ -52,7 +52,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * È¡µÃµ±Ç°µ¥Ôª¸ñµÄĞĞºÅ
+	 * å–å¾—å½“å‰å•å…ƒæ ¼çš„è¡Œå·
 	 * @return int
 	 */
 	public int getRow() {
@@ -60,7 +60,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * È¡µÃµ±Ç°µ¥Ôª¸ñµÄÁĞºÅ
+	 * å–å¾—å½“å‰å•å…ƒæ ¼çš„åˆ—å·
 	 * @return int
 	 */
 	public int getCol() {
@@ -68,7 +68,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄĞĞºÅ
+	 * è®¾ç½®å½“å‰çš„è¡Œå·
 	 * @param r int
 	 */
 	public void setRow(int r) {
@@ -76,7 +76,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°µÄÁĞºÅ
+	 * è®¾ç½®å½“å‰çš„åˆ—å·
 	 * @param c int
 	 */
 	public void setCol(int c) {
@@ -84,7 +84,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñËùÊôµÄÍø¸ñ
+	 * è®¾ç½®å•å…ƒæ ¼æ‰€å±çš„ç½‘æ ¼
 	 * @param cs ICellSet
 	 */
 	public void setCellSet(ICellSet cs) {
@@ -92,7 +92,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñËùÊôµÄÍø¸ñ
+	 * è¿”å›å•å…ƒæ ¼æ‰€å±çš„ç½‘æ ¼
 	 * @return ICellSet
 	 */
 	public ICellSet getCellSet() {
@@ -100,7 +100,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñ±êÊ¶
+	 * è¿”å›å•å…ƒæ ¼æ ‡è¯†
 	 * @return String
 	 */
 	public String getCellId() {
@@ -108,7 +108,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñ±í´ïÊ½
+	 * è®¾ç½®å•å…ƒæ ¼è¡¨è¾¾å¼
 	 * @param exp String
 	 */
 	public void setExpString(String exp) {
@@ -116,14 +116,14 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * @return String ·µ»Øµ¥Ôª¸ñ±í´ïÊ½
+	 * @return String è¿”å›å•å…ƒæ ¼è¡¨è¾¾å¼
 	 */
 	public String getExpString() {
 		return expStr;
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÖµ
+	 * è®¾ç½®å•å…ƒæ ¼å€¼
 	 * @param value Object
 	 */
 	public void setValue(Object value) {
@@ -131,7 +131,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñÖµ£¬Ã»ÓĞ¼ÆËãÔò·µ»Ø¿Õ
+	 * è¿”å›å•å…ƒæ ¼å€¼ï¼Œæ²¡æœ‰è®¡ç®—åˆ™è¿”å›ç©º
 	 * @return Object
 	 */
 	public Object getValue() {
@@ -139,15 +139,15 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñÖµ£¬Ã»ÓĞ¼ÆËãÔò¼ÆËãËü
+	 * è¿”å›å•å…ƒæ ¼å€¼ï¼Œæ²¡æœ‰è®¡ç®—åˆ™è®¡ç®—å®ƒ
 	 * @param doCalc boolean
 	 * @return Object
 	 */
 	abstract public Object getValue(boolean doCalc);
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
-	 * @param out ObjectOutput Êä³öÁ÷
+	 * å†™å†…å®¹åˆ°æµ
+	 * @param out ObjectOutput è¾“å‡ºæµ
 	 * @throws IOException
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
@@ -162,13 +162,13 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
-	 * @param in ObjectInput ÊäÈëÁ÷
+	 * ä»æµä¸­è¯»å†…å®¹
+	 * @param in ObjectInput è¾“å…¥æµ
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		in.readByte(); // °æ±¾
+		in.readByte(); // ç‰ˆæœ¬
 
 		cs = (CellSet) in.readObject();
 		row = in.readInt();
@@ -179,9 +179,9 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * Ğ´ÄÚÈİµ½Á÷
+	 * å†™å†…å®¹åˆ°æµ
 	 * @throws IOException
-	 * @return Êä³öÁ÷
+	 * @return è¾“å‡ºæµ
 	 */
 	public byte[] serialize() throws IOException{
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -195,7 +195,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ´ÓÁ÷ÖĞ¶ÁÄÚÈİ
+	 * ä»æµä¸­è¯»å†…å®¹
 	 * @param buf byte[]
 	 * @throws IOException
 	 * @throws ClassNotFoundException
@@ -203,7 +203,7 @@ abstract public class NormalCell implements INormalCell {
 	public void fillRecord(byte[] buf) throws IOException, ClassNotFoundException {
 		ByteArrayInputRecord in = new ByteArrayInputRecord(buf);
 
-		// cellsetÓÉCellSetÉè½øÀ´
+		// cellsetç”±CellSetè®¾è¿›æ¥
 		row = in.readInt();
 		col = in.readInt();
 		setExpString(in.readString());
@@ -211,41 +211,41 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ¼ÆËã´Ëµ¥Ôª¸ñ
+	 * è®¡ç®—æ­¤å•å…ƒæ ¼
 	 */
 	abstract public void calculate();
 
 	/**
-	 * ÖØÉèµ¥Ôª¸ñ×´Ì¬Îª³õÊ¼×´Ì¬
+	 * é‡è®¾å•å…ƒæ ¼çŠ¶æ€ä¸ºåˆå§‹çŠ¶æ€
 	 */
 	abstract public void reset();
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñÀàĞÍ
+	 * è¿”å›å•å…ƒæ ¼ç±»å‹
 	 * @return int
 	 */
 	abstract public int getType();
 
 	/**
-	 * ·µ»ØÊÇ·ñÊÇ¼ÆËã¿é
+	 * è¿”å›æ˜¯å¦æ˜¯è®¡ç®—å—
 	 * @return boolean
 	 */
 	abstract public boolean isCalculableBlock();
 
 	/**
-	 * ·µ»ØÊÇ·ñÊÇ¼ÆËã¸ñ
+	 * è¿”å›æ˜¯å¦æ˜¯è®¡ç®—æ ¼
 	 * @return boolean
 	 */
 	abstract public boolean isCalculableCell();
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñÊÇ·ñĞèÒª×ö±í´ïÊ½±äÇ¨
+	 * è¿”å›å•å…ƒæ ¼æ˜¯å¦éœ€è¦åšè¡¨è¾¾å¼å˜è¿
 	 * @return boolean
 	 */
 	abstract protected boolean needRegulateString();
 
 	/**
-	 * undoÊ±»Ö¸´²úÉúµÄ´íÎóÒıÓÃ
+	 * undoæ—¶æ¢å¤äº§ç”Ÿçš„é”™è¯¯å¼•ç”¨
 	 */
 	public void undoErrorRef() {
 		cs.setCell(row, col, this);
@@ -259,7 +259,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ÉèÖÃµ¥Ôª¸ñÌáÊ¾
+	 * è®¾ç½®å•å…ƒæ ¼æç¤º
 	 * @param tip String
 	 */
 	public void setTip(String tip) {
@@ -267,7 +267,7 @@ abstract public class NormalCell implements INormalCell {
 	}
 
 	/**
-	 * ·µ»Øµ¥Ôª¸ñÌáÊ¾
+	 * è¿”å›å•å…ƒæ ¼æç¤º
 	 * @return String
 	 */
 	public String getTip() {

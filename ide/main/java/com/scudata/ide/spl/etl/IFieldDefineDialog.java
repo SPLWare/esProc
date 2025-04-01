@@ -3,27 +3,27 @@ package com.scudata.ide.spl.etl;
 import java.util.ArrayList;
 
 /**
- * 字段定义对话框的通用接口函数
+ * 瀛楁瀹氫箟瀵硅瘽妗嗙殑閫氱敤鎺ュ彛鍑芥暟
  * 
  * @author Joancy
  *
  */
 public interface IFieldDefineDialog{
 	/**
-	 * 设置字段定义列表
-	 * @param fields 字段定义列表
+	 * 璁剧疆瀛楁瀹氫箟鍒楄〃
+	 * @param fields 瀛楁瀹氫箟鍒楄〃
 	 */
 	public void setFieldDefines(ArrayList<FieldDefine> fields);
 	
 	/**
-	 * 获取编辑好的字段定义列表
-	 * @return 字段定义列表
+	 * 鑾峰彇缂栬緫濂界殑瀛楁瀹氫箟鍒楄〃
+	 * @return 瀛楁瀹氫箟鍒楄〃
 	 */
 	public ArrayList<FieldDefine> getFieldDefines();
 	
 	/**
-	 * 返回窗口的动作选项
-	 * @return 选项
+	 * 杩斿洖绐楀彛鐨勫姩浣滈�夐」
+	 * @return 閫夐」
 	 */
 	public int getOption();
 }

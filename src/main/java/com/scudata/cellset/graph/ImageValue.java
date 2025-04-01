@@ -7,7 +7,7 @@ import java.io.*;
 import com.scudata.common.*;
 
 /**
- * Í³¼ÆÍ¼»òÕßÍ¼²ãµÈÍ¼Æ¬Êı¾İµÄÏà¹ØÊôĞÔ
+ * ç»Ÿè®¡å›¾æˆ–è€…å›¾å±‚ç­‰å›¾ç‰‡æ•°æ®çš„ç›¸å…³å±æ€§
  * @author Joancy
  *
  */
@@ -16,7 +16,7 @@ public class ImageValue implements ICloneable, Externalizable, IRecord {
 
 	private byte imageType;
 	private String html;
-	private byte[] value;//²»¹ÜÊÇºÎ¸ñÊ½£¬¶¼Òª²úÉúÍ¼ĞÎÁ÷£¬ÓÃÓÚµ¼³ö»òÕß´òÓ¡µ½Í¼ĞÎÉè±¸
+	private byte[] value;//ä¸ç®¡æ˜¯ä½•æ ¼å¼ï¼Œéƒ½è¦äº§ç”Ÿå›¾å½¢æµï¼Œç”¨äºå¯¼å‡ºæˆ–è€…æ‰“å°åˆ°å›¾å½¢è®¾å¤‡
 	private String customHtml;
 
 	private byte[] flashXml;
@@ -39,16 +39,16 @@ public class ImageValue implements ICloneable, Externalizable, IRecord {
 		redraw.repaint((Graphics2D)g, w, h);
 	}
 	/**
-	 * È±Ê¡¹¹Ôìº¯Êı
+	 * ç¼ºçœæ„é€ å‡½æ•°
 	 */
 	public ImageValue() {
 	}
 
 	/**
-	 * Ö¸¶¨²ÎÊıµÄ¹¹Ôìº¯Êı
-	 * @param value Í¼ÏñÄÚÈİµÄ×Ö½ÚÊı×é
-	 * @param type Í¼ĞÎ¸ñÊ½
-	 * @param html Í¼ĞÎ¶ÔÓ¦µÄ³¬Á´½Ó
+	 * æŒ‡å®šå‚æ•°çš„æ„é€ å‡½æ•°
+	 * @param value å›¾åƒå†…å®¹çš„å­—èŠ‚æ•°ç»„
+	 * @param type å›¾å½¢æ ¼å¼
+	 * @param html å›¾å½¢å¯¹åº”çš„è¶…é“¾æ¥
 	 */
 	public ImageValue( byte[] value, byte type, String html ) {
 		this.value = value;
@@ -57,14 +57,14 @@ public class ImageValue implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * Ö¸¶¨²ÎÊıµÄ¹¹Ôìº¯Êı
-	 * @param value Í¼ÏñÄÚÈİµÄ×Ö½ÚÊı×é
-	 * @param type Í¼ĞÎ¸ñÊ½
-	 * @param html Í¼ĞÎ¶ÔÓ¦µÄ³¬Á´½Ó
-	 * @param flashXml flash¸ñÊ½µÄÍ¼ÏñÄÚÈİÊı×é
-	 * ÓÉÓÚflashÍ¼ÏñÃ»·¨ÔÚjavaÖĞÖ±½Ó»æÖÆ£¬ËùÒÔflash¸ñÊ½Ê±»á±£ÁôÁ½·İ¸±±¾
-	 * Ò»·İÎªÆÕÍ¨Í¼ÏñÄÚÈİvalue£¬ÓÃÓÚ½çÃæ»æÖÆ
-	 * Ò»·İÎªflash×ÔÉíÄÚÈİflashXml£¬ÓÃÓÚÊä³ö
+	 * æŒ‡å®šå‚æ•°çš„æ„é€ å‡½æ•°
+	 * @param value å›¾åƒå†…å®¹çš„å­—èŠ‚æ•°ç»„
+	 * @param type å›¾å½¢æ ¼å¼
+	 * @param html å›¾å½¢å¯¹åº”çš„è¶…é“¾æ¥
+	 * @param flashXml flashæ ¼å¼çš„å›¾åƒå†…å®¹æ•°ç»„
+	 * ç”±äºflashå›¾åƒæ²¡æ³•åœ¨javaä¸­ç›´æ¥ç»˜åˆ¶ï¼Œæ‰€ä»¥flashæ ¼å¼æ—¶ä¼šä¿ç•™ä¸¤ä»½å‰¯æœ¬
+	 * ä¸€ä»½ä¸ºæ™®é€šå›¾åƒå†…å®¹valueï¼Œç”¨äºç•Œé¢ç»˜åˆ¶
+	 * ä¸€ä»½ä¸ºflashè‡ªèº«å†…å®¹flashXmlï¼Œç”¨äºè¾“å‡º
 	 */
 	public ImageValue( byte[] value, byte type, String html, byte[] flashXml ) {
 		this.value = value;
@@ -74,107 +74,107 @@ public class ImageValue implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃ×Ö½ÚÄÚÈİµÄÍ¼ÏñÊı¾İ
-	 * @param value Í¼ÏñÊı¾İ
+	 * è®¾ç½®å­—èŠ‚å†…å®¹çš„å›¾åƒæ•°æ®
+	 * @param value å›¾åƒæ•°æ®
 	 */
 	public void setValue( byte[] value ) {
 		this.value = value;
 	}
 
 	/**
-	 * ÉèÖÃÍ¼Æ¬µÄ¸ñÊ½
-	 * @param type Í¼Æ¬¸ñÊ½ ÖµÎª£ºIGraphProperty.IMAGE_XXX
+	 * è®¾ç½®å›¾ç‰‡çš„æ ¼å¼
+	 * @param type å›¾ç‰‡æ ¼å¼ å€¼ä¸ºï¼šIGraphProperty.IMAGE_XXX
 	 */
 	public void setImageType( byte type ) {
 		this.imageType = type;
 	}
 
 	/**
-	 * Í³¼ÆÍ¼Ê±£¬Èç¹ûÓĞ³¬Á´½Ó£¬½«³¬Á´½ÓÉèÖÃ½øÀ´
-	 * @param html ³¬Á´½ÓÎÄ±¾
+	 * ç»Ÿè®¡å›¾æ—¶ï¼Œå¦‚æœæœ‰è¶…é“¾æ¥ï¼Œå°†è¶…é“¾æ¥è®¾ç½®è¿›æ¥
+	 * @param html è¶…é“¾æ¥æ–‡æœ¬
 	 */
 	public void setHtml( String html ) {
 		this.html = html;
 	}
 
 	/**
-	 * È¡Í¼Æ¬ÄÚÈİÊı¾İ
-	 * @return Í¼Æ¬ÄÚÈİ
+	 * å–å›¾ç‰‡å†…å®¹æ•°æ®
+	 * @return å›¾ç‰‡å†…å®¹
 	 */
 	public byte[] getValue() {
 		return this.value;
 	}
 
 	/**
-	 * È¡Í¼Æ¬¸ñÊ½
-	 * @return Í¼Æ¬¸ñÊ½
+	 * å–å›¾ç‰‡æ ¼å¼
+	 * @return å›¾ç‰‡æ ¼å¼
 	 */
 	public byte getImageType() {
 		return this.imageType;
 	}
 
 	/**
-	 * È¡³¬Á´½ÓÎÄ±¾
-	 * @return ³¬Á´½ÓÄÚÈİ
+	 * å–è¶…é“¾æ¥æ–‡æœ¬
+	 * @return è¶…é“¾æ¥å†…å®¹
 	 */
 	public String getHtml() {
 		return this.html;
 	}
 
 	/**
-	 * Ò²¿ÉÒÔ×Ô¶¨Òå³¬Á´½Ó£¬ÉèÖÃ×Ô¶¨ÒåÄÚÈİ
-	 * @param s ³¬Á´½ÓÄÚÈİ
+	 * ä¹Ÿå¯ä»¥è‡ªå®šä¹‰è¶…é“¾æ¥ï¼Œè®¾ç½®è‡ªå®šä¹‰å†…å®¹
+	 * @param s è¶…é“¾æ¥å†…å®¹
 	 */
 	public void setCustomHtml( String s ) {
 		customHtml = s;
 	}
 
 	/**
-	 * È¡×Ô¶¨Òå³¬Á´½ÓÄÚÈİ
-	 * @return ×Ô¶¨Òå³¬Á´½Ó
+	 * å–è‡ªå®šä¹‰è¶…é“¾æ¥å†…å®¹
+	 * @return è‡ªå®šä¹‰è¶…é“¾æ¥
 	 */
 	public String getCustomHtml() {
 		return customHtml;
 	}
 
 	/**
-	 * Èç¹ûÍ¼Æ¬Éú³Éflash£¬ÉèÖÃflashÄÚÈİ
-	 * @param bytes flashÄÚÈİµÄ×Ö½ÚÊı¾İ
+	 * å¦‚æœå›¾ç‰‡ç”Ÿæˆflashï¼Œè®¾ç½®flashå†…å®¹
+	 * @param bytes flashå†…å®¹çš„å­—èŠ‚æ•°æ®
 	 */
 	public void setFlashXml( byte[] bytes ) {
 		this.flashXml = bytes;
 	}
 
 	/**
-	 * È¡flashÄÚÈİµÄ×Ö½ÚÊı¾İ
-	 * @return ×Ö½ÚÊı¾İ
+	 * å–flashå†…å®¹çš„å­—èŠ‚æ•°æ®
+	 * @return å­—èŠ‚æ•°æ®
 	 */
 	public byte[] getFlashXml() {
 		return this.flashXml;
 	}
 
 	/**
-	 * svgÁ÷¸úflash²»»áÍ¬Ê±´æÔÚ£¬ÊµÏÖÁ½¸ö²»Í¬µÄÉèÖÃ·½·¨
-	 * µ«´æ´¢ÄÚÈİÊÇ¹²ÓÃµÄ
-	 * @param bytes byte[] svg¸ñÊ½µÄÄÚÈİÊı¾İ
+	 * svgæµè·Ÿflashä¸ä¼šåŒæ—¶å­˜åœ¨ï¼Œå®ç°ä¸¤ä¸ªä¸åŒçš„è®¾ç½®æ–¹æ³•
+	 * ä½†å­˜å‚¨å†…å®¹æ˜¯å…±ç”¨çš„
+	 * @param bytes byte[] svgæ ¼å¼çš„å†…å®¹æ•°æ®
 	 */
 	public void setSvgBytes( byte[] bytes ) {
 		this.flashXml = bytes;
 	}
 
 	/**
-	 * È¡svg¸ñÊ½µÄÄÚÈİÊı¾İ
-	 * @return ×Ö½ÚÊı¾İ
+	 * å–svgæ ¼å¼çš„å†…å®¹æ•°æ®
+	 * @return å­—èŠ‚æ•°æ®
 	 */
 	public byte[] getSvgBytes() {
 		return this.flashXml;
 	}
 
 	/**
-	 * ÊµÏÖĞòÁĞ»¯½Ó¿Ú
+	 * å®ç°åºåˆ—åŒ–æ¥å£
 	 */
 	public void writeExternal( ObjectOutput out ) throws IOException {
-		out.writeByte( 3 ); //MacroµÄ°æ±¾
+		out.writeByte( 3 ); //Macroçš„ç‰ˆæœ¬
 		out.write( imageType );
 		out.writeObject( value );
 		out.writeObject( html );
@@ -183,7 +183,7 @@ public class ImageValue implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖĞòÁĞ»¯½Ó¿Ú
+	 * å®ç°åºåˆ—åŒ–æ¥å£
 	 */
 	public void readExternal( ObjectInput in ) throws IOException, ClassNotFoundException {
 		byte version = in.readByte();
@@ -200,7 +200,7 @@ public class ImageValue implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public byte[] serialize() throws IOException {
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -213,7 +213,7 @@ public class ImageValue implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÊµÏÖIRecord½Ó¿Ú
+	 * å®ç°IRecordæ¥å£
 	 */
 	public void fillRecord( byte[] buf ) throws IOException, ClassNotFoundException {
 		ByteArrayInputRecord in = new ByteArrayInputRecord( buf );
@@ -232,8 +232,8 @@ public class ImageValue implements ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * Éî¶È¿ËÂ¡Ò»¸öÍ¼ÏñÊı¾İ¶ÔÏó
-	 * @return ¿ËÂ¡ºóµÄ¶ÔÏó
+	 * æ·±åº¦å…‹éš†ä¸€ä¸ªå›¾åƒæ•°æ®å¯¹è±¡
+	 * @return å…‹éš†åçš„å¯¹è±¡
 	 */
 	public Object deepClone() {
 		ImageValue v = new ImageValue();

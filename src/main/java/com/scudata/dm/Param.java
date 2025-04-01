@@ -11,32 +11,32 @@ import com.scudata.common.ICloneable;
 import com.scudata.common.IRecord;
 
 /**
- * ÓÃÓÚ¶¨ÒåÍø¸ñ²ÎÊı»òÁÙÊ±±äÁ¿
+ * ç”¨äºå®šä¹‰ç½‘æ ¼å‚æ•°æˆ–ä¸´æ—¶å˜é‡
  * @author WangXiaoJun
  *
  */
 public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 	private static final long serialVersionUID = 0x05000003;
 
-	public final static byte VAR = (byte)0; // ±äÁ¿
-	public final static byte ARG = (byte)1; // ²ÎÊı£¬ĞèÒªÊäÈë£¬²»ÄÜ¸³Öµ
-	public final static byte CONST = (byte)3; // ³£Á¿£¬²»ÄÜ¸³Öµ
+	public final static byte VAR = (byte)0; // å˜é‡
+	public final static byte ARG = (byte)1; // å‚æ•°ï¼Œéœ€è¦è¾“å…¥ï¼Œä¸èƒ½èµ‹å€¼
+	public final static byte CONST = (byte)3; // å¸¸é‡ï¼Œä¸èƒ½èµ‹å€¼
 	
-	private String name; // ²ÎÊıÃû
-	private byte kind = VAR; // ÀàĞÍ
-	private Object value; // ²ÎÊıÖµ
+	private String name; // å‚æ•°å
+	private byte kind = VAR; // ç±»å‹
+	private Object value; // å‚æ•°å€¼
 
-	private String remark; // ±¸×¢£¬¿ÉÒÔÈÃÓÃ»§Ëæ±ãÌîĞ´¶«Î÷£¬½«À´ÓÃÓÚÌá¹©²ÎÊıµÄ±à¼­·ç¸ñÖ®Àà
-	private Object editValue; // ±à¼­±íÅÅÁĞÎ±³£Á¿Ê±½çÃæÊ¹ÓÃ
+	private String remark; // å¤‡æ³¨ï¼Œå¯ä»¥è®©ç”¨æˆ·éšä¾¿å¡«å†™ä¸œè¥¿ï¼Œå°†æ¥ç”¨äºæä¾›å‚æ•°çš„ç¼–è¾‘é£æ ¼ä¹‹ç±»
+	private Object editValue; // ç¼–è¾‘è¡¨æ’åˆ—ä¼ªå¸¸é‡æ—¶ç•Œé¢ä½¿ç”¨
 
 	public Param() {
 	}
 
 	/**
-	 * ²úÉúÒ»¸öĞÂµÄ²ÎÊı
-	 * @param name String ²ÎÊıÃû
-	 * @param kind byte ²ÎÊıÀàĞÍ£ºVAR¡¢ATTR¡¢EXP¡¢CONST
-	 * @param value Object ²ÎÊıÖµ
+	 * äº§ç”Ÿä¸€ä¸ªæ–°çš„å‚æ•°
+	 * @param name String å‚æ•°å
+	 * @param kind byte å‚æ•°ç±»å‹ï¼šVARã€ATTRã€EXPã€CONST
+	 * @param value Object å‚æ•°å€¼
 	 */
 	public Param(String name,  byte kind, Object value ) {
 		this.name = name;
@@ -45,8 +45,8 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÓÉ²ÎÊı¹¹ÔìÒ»¸öÄÚÈİÏàÍ¬µÄĞÂ²ÎÊı
-	 * @param other Param ÁíÒ»¸ö²ÎÊı
+	 * ç”±å‚æ•°æ„é€ ä¸€ä¸ªå†…å®¹ç›¸åŒçš„æ–°å‚æ•°
+	 * @param other Param å¦ä¸€ä¸ªå‚æ•°
 	 */
 	public Param(Param other) {
 		if (other != null) {
@@ -58,7 +58,7 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»Ø²ÎÊıÃû
+	 * è¿”å›å‚æ•°å
 	 * @return String
 	 */
 	public String getName() {
@@ -66,15 +66,15 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıÃû
-	 * @param name String ²ÎÊıÃû
+	 * è®¾ç½®å‚æ•°å
+	 * @param name String å‚æ•°å
 	 */
 	public void setName( String name ) {
 		this.name = name;
 	}
 
 	/**
-	 * ·µ»Ø²ÎÊıÀàĞÍ
+	 * è¿”å›å‚æ•°ç±»å‹
 	 * @return byte
 	 */
 	public byte getKind() {
@@ -82,7 +82,7 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıÀàĞÍ
+	 * è®¾ç½®å‚æ•°ç±»å‹
 	 * @param kind byte
 	 */
 	public void setKind( byte kind ) {
@@ -90,7 +90,7 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ·µ»Ø²ÎÊıÖµ
+	 * è¿”å›å‚æ•°å€¼
 	 * @return Object
 	 */
 	public Object getValue() {
@@ -98,7 +98,7 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * ÉèÖÃ²ÎÊıÖµ
+	 * è®¾ç½®å‚æ•°å€¼
 	 * @param defValue Object
 	 */
 	public void setValue( Object defValue ) {
@@ -106,7 +106,7 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * È¡±¸×¢
+	 * å–å¤‡æ³¨
 	 * @return String
 	 */
 	public String getRemark() {
@@ -114,7 +114,7 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 	}
 
 	/**
-	 * Éè±¸×¢
+	 * è®¾å¤‡æ³¨
 	 * @param str String
 	 */
 	public void setRemark(String str) {
@@ -163,7 +163,7 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 		out.writeObject(value);
 		out.writeObject(editValue);
 
-		out.writeObject(remark); // °æ±¾2Ìí¼Ó
+		out.writeObject(remark); // ç‰ˆæœ¬2æ·»åŠ 
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {

@@ -52,159 +52,159 @@ import com.scudata.ide.common.swing.VFlowLayout;
 import com.scudata.util.Variant;
 
 /**
- * Êı¾İ¿âÁ¬½Ó¶¨Òå¶Ô»°¿ò
+ * æ•°æ®åº“è¿æ¥å®šä¹‰å¯¹è¯æ¡†
  * 
- * ¹¦ÄÜ£ºÌá¹©²ÎÊıÓÃÀ´¶¨ÒåÒ»¸öÊı¾İ¿âÁ¬½Ó
+ * åŠŸèƒ½ï¼šæä¾›å‚æ•°ç”¨æ¥å®šä¹‰ä¸€ä¸ªæ•°æ®åº“è¿æ¥
  */
 public class DialogDataSourcePara extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 
-	/** ĞòºÅÁĞ */
+	/** åºå·åˆ— */
 	private final byte COL_INDEX = 0;
-	/** Ãû³ÆÁĞ */
+	/** åç§°åˆ— */
 	private final byte COL_NAME = 1;
-	/** ÖµÁĞ */
+	/** å€¼åˆ— */
 	private final byte COL_VALUE = 2;
-	/** ÊÇ·ñ±ØĞëÁĞ */
+	/** æ˜¯å¦å¿…é¡»åˆ— */
 	private final byte COL_ISNEED = 3;
 
 	/**
-	 * À©Õ¹ÊôĞÔ±í
+	 * æ‰©å±•å±æ€§è¡¨
 	 */
 	private JTableEx tableExtend = new JTableEx(
 			mm.getMessage("dialogdatasourcepara.colnames"));
 	/**
-	 * Ãû³ÆÎÄ±¾¿ò
+	 * åç§°æ–‡æœ¬æ¡†
 	 */
 	private JTextField jTextName = new JTextField();
 
 	/**
-	 * Çı¶¯³ÌĞò
+	 * é©±åŠ¨ç¨‹åº
 	 */
-	private JLabel jLabel7 = new JLabel("Çı¶¯³ÌĞò");
+	private JLabel jLabel7 = new JLabel("é©±åŠ¨ç¨‹åº");
 
 	/**
-	 * Êı¾İÔ´Ãû³Æ
+	 * æ•°æ®æºåç§°
 	 */
-	private JLabel jLabel1 = new JLabel("Êı¾İÔ´Ãû³Æ");
+	private JLabel jLabel1 = new JLabel("æ•°æ®æºåç§°");
 
 	/**
-	 * Êı¾İÔ´URL£º×¢ÒâÌæ»»À¨ºÅÖĞµÄÄÚÈİ
+	 * æ•°æ®æºURLï¼šæ³¨æ„æ›¿æ¢æ‹¬å·ä¸­çš„å†…å®¹
 	 */
-	private JLabel jLabel3 = new JLabel("Êı¾İÔ´URL£º×¢ÒâÌæ»»À¨ºÅÖĞµÄÄÚÈİ");
+	private JLabel jLabel3 = new JLabel("æ•°æ®æºURLï¼šæ³¨æ„æ›¿æ¢æ‹¬å·ä¸­çš„å†…å®¹");
 
 	/**
-	 * ÓÃ»§
+	 * ç”¨æˆ·
 	 */
-	private JLabel jLabel4 = new JLabel("ÓÃ»§");
+	private JLabel jLabel4 = new JLabel("ç”¨æˆ·");
 
 	/**
-	 * ¿ÚÁî
+	 * å£ä»¤
 	 */
-	private JLabel jLabel5 = new JLabel("¿ÚÁî");
+	private JLabel jLabel5 = new JLabel("å£ä»¤");
 
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
-	private JButton jBOK = new JButton("È·¶¨");
+	private JButton jBOK = new JButton("ç¡®å®š");
 
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
-	private JButton jBCancel = new JButton("È¡Ïû");
+	private JButton jBCancel = new JButton("å–æ¶ˆ");
 
 	/**
-	 * É¾³ı°´Å¥
+	 * åˆ é™¤æŒ‰é’®
 	 */
 	private JButton jBDel = new JButton();
 
 	/**
-	 * Ôö¼Ó°´Å¥
+	 * å¢åŠ æŒ‰é’®
 	 */
 	private JButton jBAdd = new JButton();
 
 	/**
-	 * Çı¶¯ÏÂÀ­¿Ø¼ş
+	 * é©±åŠ¨ä¸‹æ‹‰æ§ä»¶
 	 */
 	private JComboBox<String> jComboBoxDriver = new JComboBox<String>();
 
 	/**
-	 * Êı¾İ¿â±êÌâÏÂÀ­¿ò
+	 * æ•°æ®åº“æ ‡é¢˜ä¸‹æ‹‰æ¡†
 	 */
 	private JComboBox<String> jDBTitles = new JComboBox<String>();
 
 	/**
-	 * URLÏÂÀ­¿ò
+	 * URLä¸‹æ‹‰æ¡†
 	 */
 	private JComboBox<String> jComboBoxURL = new JComboBox<String>();
 
 	/**
-	 * ÓÃ»§ÃûÎÄ±¾¿ò
+	 * ç”¨æˆ·åæ–‡æœ¬æ¡†
 	 */
 	private JTextField jTextUser = new JTextField();
 
 	/**
-	 * ÃÜÂë¿ò
+	 * å¯†ç æ¡†
 	 */
 	private JPasswordField jPassword = new JPasswordField();
 
 	/**
-	 * ÍË³öµÄÑ¡Ïî
+	 * é€€å‡ºçš„é€‰é¡¹
 	 */
 	private int m_option = JOptionPane.CANCEL_OPTION;
 
 	/**
-	 * ÊôĞÔTABÃæ°å
+	 * å±æ€§TABé¢æ¿
 	 */
 	private JTabbedPane jTabbedPaneAttr = new JTabbedPane();
 	/**
-	 * ±íÃûÇ°ÊÇ·ñ¼ÓÉÏÄ£Ê½Ãû
+	 * è¡¨åå‰æ˜¯å¦åŠ ä¸Šæ¨¡å¼å
 	 */
 	private JCheckBox jCBUseSchema = new JCheckBox();
 
 	/**
-	 * Êı¾İÔ´ÀàĞÍ
+	 * æ•°æ®æºç±»å‹
 	 */
 	private JLabel jLabel6 = new JLabel();
 
 	/**
-	 * ¶ÔÏóÃûÊÇ·ñ´øÏŞ¶¨·û
+	 * å¯¹è±¡åæ˜¯å¦å¸¦é™å®šç¬¦
 	 */
 	private JCheckBox jCBIsAddTilde = new JCheckBox();
 
 	/**
-	 * À©Õ¹ÊôĞÔ´®
+	 * æ‰©å±•å±æ€§ä¸²
 	 */
 	private String extend;
 
 	/**
-	 * ¾ÉÃû³Æ
+	 * æ—§åç§°
 	 */
 	private String oldName = "";
 
 	/**
-	 * ÅúÁ¿È¡ÊıµÄÊıÁ¿
+	 * æ‰¹é‡å–æ•°çš„æ•°é‡
 	 */
 	private JSpinner jSBatchSize = new JSpinner(new SpinnerNumberModel(0, 0,
 			Integer.MAX_VALUE, 1));
 
 	/**
-	 * ÒÑ´æÔÚµÄÃû³Æ
+	 * å·²å­˜åœ¨çš„åç§°
 	 */
 	private Vector<String> existNames;
 
 	private static final int TAB_EXTEND = 1;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public DialogDataSourcePara(JDialog parent) {
-		super(parent, "Êı¾İÔ´", true);
+		super(parent, "æ•°æ®æº", true);
 		String[] dbTitles = DBTypeEx.listDBTitles();
 		for (int i = 0; i < dbTitles.length; i++) {
 			jDBTitles.addItem(dbTitles[i]);
@@ -222,7 +222,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		TableColumn tc = tableExtend.getColumn(COL_ISNEED);
@@ -239,7 +239,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 */
 	private void resetLangText() {
 		this.setTitle(mm.getMessage("dialogdatasourcepara.title"));
@@ -263,18 +263,18 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 */
 	private void initUI() {
 		setModal(true);
 		this.getContentPane().setLayout(new BorderLayout());
 		jBOK.setDebugGraphicsOptions(0);
-		jBOK.setActionCommand("È·¶¨");
+		jBOK.setActionCommand("ç¡®å®š");
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogDataSourcePara_jBOK_actionAdapter(this));
 		jBCancel.setMnemonic('C');
-		jBCancel.setText("È¡Ïû(C)");
+		jBCancel.setText("å–æ¶ˆ(C)");
 		jBCancel.addActionListener(new DialogDataSourcePara_jBCancel_actionAdapter(
 				this));
 		jDBTitles
@@ -299,26 +299,26 @@ public class DialogDataSourcePara extends JDialog {
 		jScrollPane1.setVerifyInputWhenFocusTarget(true);
 		JPanel jPanelExtend = new JPanel(new BorderLayout());
 		jBDel.setMnemonic('D');
-		jBDel.setText("É¾³ı(D)");
+		jBDel.setText("åˆ é™¤(D)");
 		jBDel.addActionListener(new DialogDataSourcePara_jBDel_actionAdapter(
 				this));
 		jBAdd.setMnemonic('A');
-		jBAdd.setText("Ôö¼Ó(A)");
+		jBAdd.setText("å¢åŠ (A)");
 		jBAdd.addActionListener(new DialogDataSourcePara_jBAdd_actionAdapter(
 				this));
 		JPanel jPanel4 = new JPanel(new VFlowLayout());
 		jTabbedPaneAttr
 				.addChangeListener(new DialogDataSourcePara_jTabbedPaneAttr_changeAdapter(
 						this));
-		jCBUseSchema.setText("Ê¹ÓÃ´øÄ£Ê½µÄ±íÃû³Æ");
-		jLabel6.setText("Êı¾İ¿âÀàĞÍ");
+		jCBUseSchema.setText("ä½¿ç”¨å¸¦æ¨¡å¼çš„è¡¨åç§°");
+		jLabel6.setText("æ•°æ®åº“ç±»å‹");
 		JPanel jPanel1 = new JPanel();
 		GridLayout gridLayout3 = new GridLayout();
 		gridLayout3.setColumns(2);
 		gridLayout3.setHgap(5);
 		gridLayout3.setRows(2);
 		jPanel1.setLayout(gridLayout3);
-		jCBIsAddTilde.setText("Ê¹ÓÃ´øÒıºÅµÄSQL");
+		jCBIsAddTilde.setText("ä½¿ç”¨å¸¦å¼•å·çš„SQL");
 
 		JPanel jPanelGeneral = new JPanel();
 		jPanelGeneral.add(jPanel1, null);
@@ -353,8 +353,8 @@ public class DialogDataSourcePara extends JDialog {
 		jPanelOKCancel.add(jBOK, null);
 		jPanelOKCancel.add(jBCancel, null);
 		this.getContentPane().add(jTabbedPaneAttr, BorderLayout.CENTER);
-		jTabbedPaneAttr.add(jPanelGeneral, "  ³£¹æÊôĞÔ  ");
-		jTabbedPaneAttr.add(jPanelExtend, "  À©Õ¹ÊôĞÔ  ");
+		jTabbedPaneAttr.add(jPanelGeneral, "  å¸¸è§„å±æ€§  ");
+		jTabbedPaneAttr.add(jPanelExtend, "  æ‰©å±•å±æ€§  ");
 		jPanelExtend.add(jScrollPane1, BorderLayout.CENTER);
 		jScrollPane1.getViewport().add(tableExtend, null);
 		jPanelExtend.add(jPanel4, BorderLayout.EAST);
@@ -374,7 +374,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃÊı¾İÔ´
+	 * è®¾ç½®æ•°æ®æº
 	 * 
 	 * @param ds
 	 */
@@ -407,7 +407,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * ÉèÖÃÒÑ¾­´æÔÚµÄÃû³Æ
+	 * è®¾ç½®å·²ç»å­˜åœ¨çš„åç§°
 	 * 
 	 * @param existNames
 	 */
@@ -416,7 +416,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * Ãû³ÆÊÇ·ñ±ä»¯
+	 * åç§°æ˜¯å¦å˜åŒ–
 	 * 
 	 * @return
 	 */
@@ -425,7 +425,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * È¡Êı¾İÔ´
+	 * å–æ•°æ®æº
 	 * 
 	 * @return
 	 */
@@ -470,7 +470,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * ´°¿Ú¹Ø±ÕÊÂ¼ş
+	 * çª—å£å…³é—­äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -480,7 +480,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * Ñ¡Ôñ±êÌâÊÂ¼ş
+	 * é€‰æ‹©æ ‡é¢˜äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -507,7 +507,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥ÊÂ¼ş
+	 * ç¡®è®¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -546,7 +546,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥ÊÂ¼ş
+	 * å–æ¶ˆæŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -557,7 +557,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -566,7 +566,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * Ñ¡ÔñµÄTAB·¢Éú±ä»¯
+	 * é€‰æ‹©çš„TABå‘ç”Ÿå˜åŒ–
 	 * 
 	 * @param e
 	 */
@@ -643,7 +643,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * À©Õ¹ÊôĞÔ±íÊ§È¥½¹µãºó
+	 * æ‰©å±•å±æ€§è¡¨å¤±å»ç„¦ç‚¹å
 	 * 
 	 * @param e
 	 */
@@ -652,7 +652,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * Ôö¼Ó°´Å¥ÊÂ¼ş
+	 * å¢åŠ æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -662,7 +662,7 @@ public class DialogDataSourcePara extends JDialog {
 	}
 
 	/**
-	 * É¾³ı°´Å¥ÊÂ¼ş
+	 * åˆ é™¤æŒ‰é’®äº‹ä»¶
 	 * 
 	 * @param e
 	 */

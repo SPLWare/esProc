@@ -61,13 +61,13 @@ public class ConfigOptions {
 	/** Longest wait while connecting to the database */
 	public static Integer iConnectTimeout = new Integer(10);
 
-	/** ÊÇ·ñ×Ô¶¯±£´æ */
+	/** æ˜¯å¦è‡ªåŠ¨ä¿å­˜ */
 	public static Boolean bAutoSave = Boolean.FALSE;
-	/** ×Ô¶¯±£´æÊ±¼ä¼ä¸ô£¨·ÖÖÓ£© */
+	/** è‡ªåŠ¨ä¿å­˜æ—¶é—´é—´éš”ï¼ˆåˆ†é’Ÿï¼‰ */
 	public static Integer iAutoSaveMinutes = new Integer(10);
-	/** ĞÂ½¨ÎÄ¼ş±¸·İµ½Ä¿Â¼ */
+	/** æ–°å»ºæ–‡ä»¶å¤‡ä»½åˆ°ç›®å½• */
 	public static String sBackupDirectory = GC.PATH_BACKUP;
-	/** ×Ô¶¯´ò¿ªµÄÎÄ¼şÊıÁ¿ */
+	/** è‡ªåŠ¨æ‰“å¼€çš„æ–‡ä»¶æ•°é‡ */
 	public static String sAutoOpenFileNames = null;
 
 	/** Parallel number */
@@ -86,9 +86,9 @@ public class ConfigOptions {
 	public static Boolean bStepLastLocation = Boolean.FALSE;
 	/** DEMO is displayed in the file tree */
 	public static Boolean bFileTreeDemo = Boolean.TRUE;
-	/** Ä¬ÈÏ¼ì²é¸üĞÂ */
+	/** é»˜è®¤æ£€æŸ¥æ›´æ–° */
 	// public static Boolean bCheckUpdate = Boolean.TRUE;
-	/** ÌáÊ¾¼´½«¹ıÆÚ */
+	/** æç¤ºå³å°†è¿‡æœŸ */
 	public static Boolean bNoticeExpiration = Boolean.TRUE;
 
 	/** Log file name */
@@ -114,7 +114,7 @@ public class ConfigOptions {
 	public static String sTimeFormat = Env.getTimeFormat();
 	/** Date time format */
 	public static String sDateTimeFormat = Env.getDateTimeFormat();
-	/** Default character set name¼ş */
+	/** Default character set nameä»¶ */
 	public static String sDefCharsetName = Env.getDefaultCharsetName();
 	/** Local host */
 	// public static String sLocalHost = "";
@@ -259,16 +259,16 @@ public class ConfigOptions {
 	 */
 	public static Boolean bTextEditorLineWrap = Boolean.FALSE;
 	/**
-	 * º¯ÊıÌáÊ¾¹¦ÄÜ
+	 * å‡½æ•°æç¤ºåŠŸèƒ½
 	 */
 	public static Boolean bFuncNotice = Boolean.TRUE;
 	/**
-	 * ×Ô¶¯Æô¶¯Excel¼ÓÔØÏî·şÎñ
+	 * è‡ªåŠ¨å¯åŠ¨ExcelåŠ è½½é¡¹æœåŠ¡
 	 */
 	public static Boolean bAutoExcelServer = Boolean.FALSE;
 
 	/**
-	 * Á½ÖÖ¼ÓÔØÏîÍ¬Ê±´æÔÚÊ±£¬ĞèÒªÑ¡Ôñ¼ÓÔØÏîÀàĞÍ£¬ÓÃÓÚÉú³ÉExcel¸´ÖÆµÄ±í´ïÊ½ trueÊ±±íÊ¾ÊÇXLLÀàĞÍ£¬·ñÔòOffice¼ÓÔØÏîÀàĞÍ
+	 * ä¸¤ç§åŠ è½½é¡¹åŒæ—¶å­˜åœ¨æ—¶ï¼Œéœ€è¦é€‰æ‹©åŠ è½½é¡¹ç±»å‹ï¼Œç”¨äºç”ŸæˆExcelå¤åˆ¶çš„è¡¨è¾¾å¼ trueæ—¶è¡¨ç¤ºæ˜¯XLLç±»å‹ï¼Œå¦åˆ™OfficeåŠ è½½é¡¹ç±»å‹
 	 */
 	public static Boolean bExcelXllType = Boolean.TRUE;
 
@@ -395,7 +395,7 @@ public class ConfigOptions {
 	 * 
 	 * @param holdConsole
 	 * @param onlySave
-	 *            ½ö±£´æ
+	 *            ä»…ä¿å­˜
 	 * @throws Throwable
 	 */
 	public static void save(boolean holdConsole, boolean onlySave)
@@ -456,7 +456,7 @@ public class ConfigOptions {
 	}
 
 	/**
-	 * ¼ÓÔØÑ¡Ïî
+	 * åŠ è½½é€‰é¡¹
 	 * 
 	 * @param option
 	 */
@@ -713,7 +713,7 @@ public class ConfigOptions {
 	}
 
 	/**
-	 * ´´½¨ÈÕÖ¾ÊôĞÔ¶ÔÏó
+	 * åˆ›å»ºæ—¥å¿—å±æ€§å¯¹è±¡
 	 * 
 	 * @return
 	 */

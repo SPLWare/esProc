@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.apache.hadoop.hbase.filter.Filter;
 
-/*hbase_scan(client,±íÃû,ÁĞ1:ÀàĞÍ:±ğÃû,ÁĞ2:ÀàĞÍ:±ğÃû,...;rowPrefix:x,
+/*hbase_scan(client,è¡¨å,åˆ—1:ç±»å‹:åˆ«å,åˆ—2:ç±»å‹:åˆ«å,...;rowPrefix:x,
 filter:f,limit:l,version:i,startRow:x,stopRow:x,timeRange:[t1,t2],timeStamp:t)
 */
 enum OprationType {
@@ -23,7 +23,7 @@ public class TableInfo extends Object{
 	public List<String> m_family;
 	public List<String>	m_column;
 	public LinkedHashMap<String, String> m_columnType;
-	//key: column, value: alias,ÈôaliasÎª¿Õ£¬Ôòvalue=key
+	//key: column, value: alias,è‹¥aliasä¸ºç©ºï¼Œåˆ™value=key
 	public LinkedHashMap<String, String> m_columnAlias; 
 	public String		m_rowPrefix;
 	public Filter		m_filter;

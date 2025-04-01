@@ -11,10 +11,10 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * T¼ìÑéÇóp
+ * Tæ£€éªŒæ±‚p
  * @author bd
  * ttestp(A, B)
- * Ô­ĞÍTTestº¯Êı£¬ÊäÈëBinaryµÄ±äÁ¿XºÍNumericalµÄ±äÁ¿Y£¬·µ»Øp-valueµÄÊı×é
+ * åŸå‹TTestå‡½æ•°ï¼Œè¾“å…¥Binaryçš„å˜é‡Xå’ŒNumericalçš„å˜é‡Yï¼Œè¿”å›p-valueçš„æ•°ç»„
  */
 public class TTest_p extends Function {
 	public Object calculate(Context ctx) {
@@ -78,7 +78,7 @@ public class TTest_p extends Function {
 		int cur = 1;
 		int n1 = loc1.length();
 		int n2 = n-n1;
-		// Èç¹ût¼ìÑéÊ±Ö»ÓĞµ¥Öµ£¬·µ»Ø1£¬²»Ñ¡³ö¶ÔÓ¦±äÁ¿
+		// å¦‚æœtæ£€éªŒæ—¶åªæœ‰å•å€¼ï¼Œè¿”å›1ï¼Œä¸é€‰å‡ºå¯¹åº”å˜é‡
 		if (n1 < 2 || n2 < 2) {
 			return 1;//0.05;
 		}

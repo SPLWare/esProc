@@ -7,7 +7,7 @@ import com.scudata.dw.PhyTableGroup;
 import com.scudata.expression.FileGroupFunction;
 
 /**
- * »ñµÃ×é±íÎÄ¼þµÄ½á¹¹
+ * èŽ·å¾—ç»„è¡¨æ–‡ä»¶çš„ç»“æž„
  * f.structure()
  * @author LiWei
  *

@@ -15,13 +15,13 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ½âÎö´«ÈëµÄ±í´ïÊ½×Ö·û´®²¢¼ÆËã£¬·µ»Ø¼ÆËã½á¹û
- * eval(x,¡­) ÔÚxÖĞ?1¡¢?2ÕâÖÖ·½Ê½ÒıÓÃ´«ÈëµÄ²ÎÊı
+ * è§£æä¼ å…¥çš„è¡¨è¾¾å¼å­—ç¬¦ä¸²å¹¶è®¡ç®—ï¼Œè¿”å›è®¡ç®—ç»“æœ
+ * eval(x,â€¦) åœ¨xä¸­?1ã€?2è¿™ç§æ–¹å¼å¼•ç”¨ä¼ å…¥çš„å‚æ•°
  * @author RunQian
  *
  */
 public class Eval extends Function {
-	//ÓÅ»¯
+	//ä¼˜åŒ–
 	public Node optimize(Context ctx) {
 		if (param != null) param.optimize(ctx);
 		return this;
@@ -32,7 +32,7 @@ public class Eval extends Function {
 	}
 
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -152,12 +152,12 @@ public class Eval extends Function {
 	}
 	
 	/**
-	 * ¼ÆËã±í´ïÊ½
-	 * @param expStr String ±í´ïÊ½×Ö·û´®
-	 * @param arg ISequence ²ÎÊı¹¹³ÉµÄĞòÁĞ£¬Ã»ÓĞ²ÎÊı¿É¿Õ
-	 * @param cs ICellSet ±í´ïÊ½ÓÃµ½µÄÍø£¬¿É¿Õ
-	 * @param ctx Context ¼ÆËãÉÏÏÂÎÄ£¬²»¿É¿Õ
-	 * @return Object ·µ»Ø±í´ïÊ½¼ÆËã½á¹û
+	 * è®¡ç®—è¡¨è¾¾å¼
+	 * @param expStr String è¡¨è¾¾å¼å­—ç¬¦ä¸²
+	 * @param arg ISequence å‚æ•°æ„æˆçš„åºåˆ—ï¼Œæ²¡æœ‰å‚æ•°å¯ç©º
+	 * @param cs ICellSet è¡¨è¾¾å¼ç”¨åˆ°çš„ç½‘ï¼Œå¯ç©º
+	 * @param ctx Context è®¡ç®—ä¸Šä¸‹æ–‡ï¼Œä¸å¯ç©º
+	 * @return Object è¿”å›è¡¨è¾¾å¼è®¡ç®—ç»“æœ
 	 */
 	public static Object calc(String expStr, Sequence arg, ICellSet cs, Context ctx) {
 		ComputeStack stack = ctx.getComputeStack();

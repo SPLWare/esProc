@@ -19,58 +19,58 @@ import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.Variant;
 
 /**
- * Ğò±í¶ÔÏóÀà£¬ÓµÓĞÊı¾İ½á¹¹£¬³ÉÔ±Îª½á¹¹ÏàÍ¬µÄ¼ÇÂ¼
+ * åºè¡¨å¯¹è±¡ç±»ï¼Œæ‹¥æœ‰æ•°æ®ç»“æ„ï¼Œæˆå‘˜ä¸ºç»“æ„ç›¸åŒçš„è®°å½•
  * @author WangXiaoJun
  *
  */
 public class Table extends Sequence {
 	private static final long serialVersionUID = 0x02010004;
 	
-	protected DataStruct ds; // Êı¾İ½á¹¹
-	protected transient IndexTable indexTable; // °´Ö÷¼ü½¨Á¢µÄË÷Òı±í£¬ÓÃÓÚÁ¬½Ó²Ù×÷»òfind²éÕÒ
+	protected DataStruct ds; // æ•°æ®ç»“æ„
+	protected transient IndexTable indexTable; // æŒ‰ä¸»é”®å»ºç«‹çš„ç´¢å¼•è¡¨ï¼Œç”¨äºè¿æ¥æ“ä½œæˆ–findæŸ¥æ‰¾
 
 	/**
-	 * ĞòÁĞ»¯Ê±Ê¹ÓÃ
+	 * åºåˆ—åŒ–æ—¶ä½¿ç”¨
 	 */
 	public Table() {}
 
 	/**
-	 * ´´½¨Ò»¸ö¿ÕĞòÁĞ
-	 * @param createArray ÊÇ·ñ²úÉúIArray
+	 * åˆ›å»ºä¸€ä¸ªç©ºåºåˆ—
+	 * @param createArray æ˜¯å¦äº§ç”ŸIArray
 	 */
 	protected Table(boolean createArray) {
 		super(createArray);
 	}
 
 	/**
-	 * ´´½¨Ò»¿ÕĞò±í
-	 * @param fields ×Ö¶ÎÃûÊı×é
+	 * åˆ›å»ºä¸€ç©ºåºè¡¨
+	 * @param fields å­—æ®µåæ•°ç»„
 	 */
 	public Table(String []fields) {
 		this(new DataStruct(fields));
 	}
 
 	/**
-	 * ÓÃÖ¸¶¨Êı¾İ½á¹¹´´½¨Ò»¿ÕĞò±í
-	 * @param ds Êı¾İ½á¹¹
+	 * ç”¨æŒ‡å®šæ•°æ®ç»“æ„åˆ›å»ºä¸€ç©ºåºè¡¨
+	 * @param ds æ•°æ®ç»“æ„
 	 */
 	public Table(DataStruct ds) {
 		this.ds = ds;
 	}
 
 	/**
-	 * ´´½¨Ò»¿ÕĞò±í
-	 * @param fields ×Ö¶ÎÃûÊı×é
-	 * @param initialCapacity ³õÊ¼ÈİÁ¿
+	 * åˆ›å»ºä¸€ç©ºåºè¡¨
+	 * @param fields å­—æ®µåæ•°ç»„
+	 * @param initialCapacity åˆå§‹å®¹é‡
 	 */
 	public Table(String []fields, int initialCapacity) {
 		this(new DataStruct(fields), initialCapacity);
 	}
 
 	/**
-	 * ÓÃÖ¸¶¨Êı¾İ½á¹¹´´½¨Ò»¿ÕĞò±í
-	 * @param ds Êı¾İ½á¹¹
-	 * @param initialCapacity ³õÊ¼ÈİÁ¿
+	 * ç”¨æŒ‡å®šæ•°æ®ç»“æ„åˆ›å»ºä¸€ç©ºåºè¡¨
+	 * @param ds æ•°æ®ç»“æ„
+	 * @param initialCapacity åˆå§‹å®¹é‡
 	 */
 	public Table(DataStruct ds, int initialCapacity) {
 		super(initialCapacity);
@@ -78,7 +78,7 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * Éî¶È¸´ÖÆÒ»¸öĞò±í
+	 * æ·±åº¦å¤åˆ¶ä¸€ä¸ªåºè¡¨
 	 * @param src
 	 */
 	public Table(Table src) {
@@ -93,14 +93,14 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * ·µ»ØĞòÁĞµÄ¹şÏ£Öµ
+	 * è¿”å›åºåˆ—çš„å“ˆå¸Œå€¼
 	 */
 	public int hashCode() {
 		return mems.hashCode();
 	}
 	
 	/**
-	 * ·µ»ØĞòÁĞÊÇ·ñº¬ÓĞ¼ÇÂ¼
+	 * è¿”å›åºåˆ—æ˜¯å¦å«æœ‰è®°å½•
 	 * @return boolean
 	 */
 	public boolean hasRecord() {
@@ -108,8 +108,8 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 *  Ìí¼ÓÍ¬½á¹¹µÄ¼ÇÂ¼µ½Ğò±íÎ²¶Ë
-	 * @param val ¼ÇÂ¼
+	 *  æ·»åŠ åŒç»“æ„çš„è®°å½•åˆ°åºè¡¨å°¾ç«¯
+	 * @param val è®°å½•
 	 */
 	public void add(Object val) {
 		if (val instanceof BaseRecord && ((BaseRecord)val).dataStruct() == ds) {
@@ -121,9 +121,9 @@ public class Table extends Sequence {
 
 	
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ²åÈëÒ»ÌõÍ¬½á¹¹¼ÇÂ¼
-	 * @param pos int    Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param val Object ĞèÒªÌí¼ÓµÄ¼ÇÂ¼
+	 * åœ¨æŒ‡å®šä½ç½®æ’å…¥ä¸€æ¡åŒç»“æ„è®°å½•
+	 * @param pos int    ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param val Object éœ€è¦æ·»åŠ çš„è®°å½•
 	 */
 	public void insert(int pos, Object val) {
 		if (val instanceof BaseRecord && ((BaseRecord)val).dataStruct() == ds) {
@@ -134,9 +134,9 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ÉèÖÃĞò±íÖ¸¶¨Î»ÖÃµÄ¼ÇÂ¼
-	 * @param pos int Î»ÖÃ
-	 * @param obj Object Í¬½á¹¹µÄĞÂ¼ÇÂ¼
+	 * è®¾ç½®åºè¡¨æŒ‡å®šä½ç½®çš„è®°å½•
+	 * @param pos int ä½ç½®
+	 * @param obj Object åŒç»“æ„çš„æ–°è®°å½•
 	 */
 	public void set(int pos, Object val) {
 		if (val instanceof BaseRecord && ((BaseRecord)val).dataStruct() == ds) {
@@ -147,15 +147,15 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ´Ë·½·¨¼Ì³Ğ×ÔĞòÁĞ£¬Ğò±í²»Ö§³Ö
+	 * æ­¤æ–¹æ³•ç»§æ‰¿è‡ªåºåˆ—ï¼Œåºè¡¨ä¸æ”¯æŒ
 	 */
 	public Object modify(int pos, Object val, String opt) {
 		throw new RQException("'modify' function is unimplemented in Table!");
 	}
 
 	/**
-	 * ·µ»ØÖ¸¶¨Î»ÖÃµÄ¼ÇÂ¼£¬Ô½½ç×Ô¶¯²¹
-	 * @param pos int ¼ÇÂ¼Ë÷Òı
+	 * è¿”å›æŒ‡å®šä½ç½®çš„è®°å½•ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥
+	 * @param pos int è®°å½•ç´¢å¼•
 	 * @return BaseRecord
 	 */
 	public BaseRecord getRecord(int pos) {
@@ -172,7 +172,7 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ´´½¨Ò»ÌõĞÂ¼ÇÂ¼×·¼Óµ½Ğò±íÎ²²¿£¬²¢·µ»Ø¸Ã¼ÇÂ¼
+	 * åˆ›å»ºä¸€æ¡æ–°è®°å½•è¿½åŠ åˆ°åºè¡¨å°¾éƒ¨ï¼Œå¹¶è¿”å›è¯¥è®°å½•
 	 * @return BaseRecord
 	 */
 	public BaseRecord newLast() {
@@ -182,8 +182,8 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ´´½¨Ò»ÌõÖ¸¶¨³õÖµµÄĞÂ¼ÇÂ¼×·¼Óµ½Ğò±íÎ²²¿
-	 * @param initVals Object[] ³õÖµ
+	 * åˆ›å»ºä¸€æ¡æŒ‡å®šåˆå€¼çš„æ–°è®°å½•è¿½åŠ åˆ°åºè¡¨å°¾éƒ¨
+	 * @param initVals Object[] åˆå€¼
 	 * @return BaseRecord
 	 */
 	public BaseRecord newLast(Object []initVals) {
@@ -193,7 +193,7 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ·µ»ØĞò±íµÄÊı¾İ½á¹¹
+	 * è¿”å›åºè¡¨çš„æ•°æ®ç»“æ„
 	 * @return DataStruct
 	 */
 	public DataStruct dataStruct() {
@@ -201,7 +201,7 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ²úÉúÓë´ËĞò±íÊı¾İ½á¹¹ÏàÍ¬µÄ¿ÕĞò±í
+	 * äº§ç”Ÿä¸æ­¤åºè¡¨æ•°æ®ç»“æ„ç›¸åŒçš„ç©ºåºè¡¨
 	 * @return Table
 	 */
 	public Table create() {
@@ -210,8 +210,8 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * °ÑĞò±íĞòÁĞ»¯³É×Ö½ÚÊı×é
-	 * @return ×Ö½ÚÊı×é
+	 * æŠŠåºè¡¨åºåˆ—åŒ–æˆå­—èŠ‚æ•°ç»„
+	 * @return å­—èŠ‚æ•°ç»„
 	 */
 	public byte[] serialize() throws IOException{
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
@@ -229,15 +229,15 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ÓÉ×Ö½ÚÊı×éÌî³äĞò±í
-	 * @param buf ×Ö½ÚÊı×é
+	 * ç”±å­—èŠ‚æ•°ç»„å¡«å……åºè¡¨
+	 * @param buf å­—èŠ‚æ•°ç»„
 	 */
 	public void fillRecord(byte[] buf) throws IOException, ClassNotFoundException {
 		ByteArrayInputRecord in = new ByteArrayInputRecord(buf);
 		ds = (DataStruct)in.readRecord(new DataStruct());
 
 		int len = in.readInt();
-		insert(0, len, null); // ²åÈë¿Õ¼ÇÂ¼
+		insert(0, len, null); // æ’å…¥ç©ºè®°å½•
 		IArray mems = getMems();
 		for (int i = 1; i <= len; ++i) {
 			Record r = (Record)mems.get(i);
@@ -247,35 +247,35 @@ public class Table extends Sequence {
 
 	public void writeExternal(ObjectOutput out) throws IOException {
 		super.writeExternal(out);
-		out.writeByte(1); // °æ±¾ºÅ
+		out.writeByte(1); // ç‰ˆæœ¬å·
 		out.writeObject(ds);
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		super.readExternal(in);
-		in.readByte(); // °æ±¾ºÅ
+		in.readByte(); // ç‰ˆæœ¬å·
 		ds = (DataStruct)in.readObject();
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°ĞòÁĞÊÇ·ñÊÇÅÅÁĞ
-	 * @return boolean true£ºÊÇÅÅÁĞ£¬false£º·ÇÅÅÁĞ
+	 * è¿”å›å½“å‰åºåˆ—æ˜¯å¦æ˜¯æ’åˆ—
+	 * @return boolean trueï¼šæ˜¯æ’åˆ—ï¼Œfalseï¼šéæ’åˆ—
 	 */
 	public boolean isPmt() {
 		return true;
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°ĞòÁĞÊÇ·ñÊÇ´¿ÅÅÁĞ
-	 * @return boolean true£ºÊÇ´¿ÅÅÁĞ£¨½á¹¹ÏàÍ¬£©
+	 * è¿”å›å½“å‰åºåˆ—æ˜¯å¦æ˜¯çº¯æ’åˆ—
+	 * @return boolean trueï¼šæ˜¯çº¯æ’åˆ—ï¼ˆç»“æ„ç›¸åŒï¼‰
 	 */
 	public boolean isPurePmt() {
 		return true;
 	}
 	
 	/**
-	 * ÅĞ¶ÏÖ¸¶¨Î»ÖÃµÄÔªËØÊÇ·ñÊÇTrue
-	 * @param index Ë÷Òı£¬´Ó1¿ªÊ¼¼ÆÊı
+	 * åˆ¤æ–­æŒ‡å®šä½ç½®çš„å…ƒç´ æ˜¯å¦æ˜¯True
+	 * @param index ç´¢å¼•ï¼Œä»1å¼€å§‹è®¡æ•°
 	 * @return
 	 */
 	public boolean isTrue(int index) {
@@ -283,8 +283,8 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * Ñ¡³öÖ¸¶¨µÄ¶àÁĞ¹¹³ÉĞÂĞò±í
-	 * @param fieldNames ÁĞÃûÊı×é
+	 * é€‰å‡ºæŒ‡å®šçš„å¤šåˆ—æ„æˆæ–°åºè¡¨
+	 * @param fieldNames åˆ—åæ•°ç»„
 	 */
 	public Table fieldsValues(String[] fieldNames) {
 		IArray mems = getMems();
@@ -317,8 +317,8 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * µ÷Õû×Ö¶ÎË³Ğò£¬²ÎÊıÀïÃ»ÓĞ±£»¤µÄ×Ö¶ÎÉ¾³ı
-	 * @param fields ĞÂ½á¹¹µÄ×Ö¶Î
+	 * è°ƒæ•´å­—æ®µé¡ºåºï¼Œå‚æ•°é‡Œæ²¡æœ‰ä¿æŠ¤çš„å­—æ®µåˆ é™¤
+	 * @param fields æ–°ç»“æ„çš„å­—æ®µ
 	 */
 	public void alter(String []fields) {
 		DataStruct oldDs = this.ds;
@@ -327,7 +327,7 @@ public class Table extends Sequence {
 		for (int i = 0; i < newCount; ++i) {
 			index[i] = oldDs.getFieldIndex(fields[i]);
 			if (index[i] != -1) {
-				// ×Ö¶Î¿ÉÄÜÒÔ#i±íÊ¾
+				// å­—æ®µå¯èƒ½ä»¥#iè¡¨ç¤º
 				fields[i] = oldDs.getFieldName(index[i]);
 			}
 		}
@@ -353,9 +353,9 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * µ÷ÕûĞò±íµÄÊı¾İ½á¹¹ºÍÊı¾İ
-	 * @param fields String[] ĞÂ½á¹¹µÄ×Ö¶Î
-	 * @param oldFields String[] ĞÂ×Ö¶Î¶ÔÓ¦µÄÔ´×Ö¶Î£¬ÏàÍ¬¿ÉÊ¡ÂÔ
+	 * è°ƒæ•´åºè¡¨çš„æ•°æ®ç»“æ„å’Œæ•°æ®
+	 * @param fields String[] æ–°ç»“æ„çš„å­—æ®µ
+	 * @param oldFields String[] æ–°å­—æ®µå¯¹åº”çš„æºå­—æ®µï¼Œç›¸åŒå¯çœç•¥
 	 */
 	public void alter(String []fields, String []oldFields) {
 		if (fields == null) {
@@ -367,7 +367,7 @@ public class Table extends Sequence {
 		int newCount = fields.length;
 		int []index = new int[newCount];
 
-		// ÊÇ·ñ¸úÔ´½á¹¹ÏàÍ¬
+		// æ˜¯å¦è·Ÿæºç»“æ„ç›¸åŒ
 		boolean isSame = newCount == oldDs.getFieldCount();
 		if (oldFields == null) {
 			for (int i = 0; i < newCount; ++i) {
@@ -388,7 +388,7 @@ public class Table extends Sequence {
 			}
 		}
 
-		if (isSame) return; // ¸úÔ´½á¹¹ÏàÍ¬
+		if (isSame) return; // è·Ÿæºç»“æ„ç›¸åŒ
 		DataStruct newDs = oldDs.create(fields);
 
 		IArray mems = getMems();
@@ -410,25 +410,25 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ĞŞ¸ÄÊı¾İ½á¹¹µÄ×Ö¶ÎÃû
-	 * @param srcFields Ô´×Ö¶ÎÃû
-	 * @param newFields ĞÂ×Ö¶ÎÃû
+	 * ä¿®æ”¹æ•°æ®ç»“æ„çš„å­—æ®µå
+	 * @param srcFields æºå­—æ®µå
+	 * @param newFields æ–°å­—æ®µå
 	 */
 	public void rename(String []srcFields, String []newFields) {
 		ds.rename(srcFields, newFields);
 	}
 
 	/**
-	 * ·µ»Øµ±Ç°Ğò±íÓëÖ¸¶¨ĞòÁĞÊÇ·ñÏàµÈ
-	 * @param ĞòÁĞ
-	 * @return boolean true£º²ÎÊıÖ¸¶¨µÄĞòÁĞÊÇµ±Ç°Ğò±í
+	 * è¿”å›å½“å‰åºè¡¨ä¸æŒ‡å®šåºåˆ—æ˜¯å¦ç›¸ç­‰
+	 * @param åºåˆ—
+	 * @return boolean trueï¼šå‚æ•°æŒ‡å®šçš„åºåˆ—æ˜¯å½“å‰åºè¡¨
 	 */
 	public boolean isEquals(Sequence table) {
 		return table == this;
 	}
 	
 	/**
-	 * È¡ĞòÁĞ·Ç¿ÕÔªËØ¸öÊı
+	 * å–åºåˆ—éç©ºå…ƒç´ ä¸ªæ•°
 	 * @return int
 	 */
 	public int count() {
@@ -436,8 +436,8 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * ·µ»ØĞòÁĞµÄ·ÇÖØ¸´ÔªËØÊı£¬²»°üº¬null
-	 * @param opt o£ºĞòÁĞÓĞĞò
+	 * è¿”å›åºåˆ—çš„éé‡å¤å…ƒç´ æ•°ï¼Œä¸åŒ…å«null
+	 * @param opt oï¼šåºåˆ—æœ‰åº
 	 * @return
 	 */
 	public int icount(String opt) {
@@ -445,8 +445,8 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * ·µ»ØÈ¥µôÖØ¸´µÄÔªËØºóµÄĞòÁĞ
-	 * @param opt String o£ºÖ»ºÍÏàÁÚµÄ¶Ô±È£¬u£º½á¹û¼¯²»ÅÅĞò£¬h£ºÏÈÅÅĞòÔÙÓÃ@o¼ÆËã
+	 * è¿”å›å»æ‰é‡å¤çš„å…ƒç´ åçš„åºåˆ—
+	 * @param opt String oï¼šåªå’Œç›¸é‚»çš„å¯¹æ¯”ï¼Œuï¼šç»“æœé›†ä¸æ’åºï¼Œhï¼šå…ˆæ’åºå†ç”¨@oè®¡ç®—
 	 * @return Sequence
 	 */
 	public Sequence id(String opt) {
@@ -454,25 +454,25 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * ´Ë·½·¨¼Ì³Ğ×ÔĞòÁĞ£¬Ğò±í²»Ö§³Ö±È´óĞ¡
+	 * æ­¤æ–¹æ³•ç»§æ‰¿è‡ªåºåˆ—ï¼Œåºè¡¨ä¸æ”¯æŒæ¯”å¤§å°
 	 */
 	public int cmp(Sequence table) {
 		return table == this ? 0 : -1;
 	}
 
 	/**
-	 * Ğò±í²»Ö§³Ö±È´óĞ¡
+	 * åºè¡¨ä¸æ”¯æŒæ¯”å¤§å°
 	 */
 	public int compareTo(Sequence table) {
 		return table == this ? 0 : -1;
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ²åÈëÒ»Ìõ¿Õ¼ÇÂ¼
-	 * @param pos int Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
+	 * åœ¨æŒ‡å®šä½ç½®æ’å…¥ä¸€æ¡ç©ºè®°å½•
+	 * @param pos int ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
 	 */
 	public BaseRecord insert(int pos) {
-		if (pos == 0) { // ×·¼Ó
+		if (pos == 0) { // è¿½åŠ 
 			return newLast();
 		}
 		
@@ -488,7 +488,7 @@ public class Table extends Sequence {
 			Record r = new Record(ds);
 			mems.insert(pos, r);
 			return r;
-		} else if (pos > oldCount) { // Ô½½ç×Ô¶¯²¹
+		} else if (pos > oldCount) { // è¶Šç•Œè‡ªåŠ¨è¡¥
 			int count = pos - oldCount;
 			Record []rs = new Record[count];
 			for (int i = 0; i < count; ++i) {
@@ -505,13 +505,13 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ²åÈëÒ»Ìõ¼ÇÂ¼
-	 * @param pos Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param values ¼ÇÂ¼×Ö¶ÎÖµ×é³ÉµÄÊı×é
-	 * @return ²åÈëµÄ¼ÇÂ¼
+	 * åœ¨æŒ‡å®šä½ç½®æ’å…¥ä¸€æ¡è®°å½•
+	 * @param pos ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param values è®°å½•å­—æ®µå€¼ç»„æˆçš„æ•°ç»„
+	 * @return æ’å…¥çš„è®°å½•
 	 */
 	public BaseRecord insert(int pos, Object []values) {
-		if (pos == 0) { // ×·¼Ó
+		if (pos == 0) { // è¿½åŠ 
 			return newLast(values);
 		} else if (pos < 0) {
 			pos += mems.size() + 1;
@@ -527,10 +527,10 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ²åÈë¶àÌõ¿Õ¼ÇÂ¼
-	 * @param pos int Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param count int ÊıÁ¿
-	 * @param opt String n£º·µ»ØĞÂ²åÈëµÄ¼ÇÂ¼¹¹³ÉµÄĞòÁĞ
+	 * åœ¨æŒ‡å®šä½ç½®æ’å…¥å¤šæ¡ç©ºè®°å½•
+	 * @param pos int ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param count int æ•°é‡
+	 * @param opt String nï¼šè¿”å›æ–°æ’å…¥çš„è®°å½•æ„æˆçš„åºåˆ—
 	 * @return Sequence
 	 */
 	public Sequence insert(int pos, int count, String opt) {
@@ -555,14 +555,14 @@ public class Table extends Sequence {
 		if (count < 1) return result;
 
 		int last = oldCount + 1;
-		if (pos == 0) { // ×·¼Ó
+		if (pos == 0) { // è¿½åŠ 
 			pos = last;
-		} else if (pos > last) { // Ô½½ç
+		} else if (pos > last) { // è¶Šç•Œ
 			count += (pos - last);
 			pos = last;
-		} // ²åÈë»ò×·¼Ó
+		} // æ’å…¥æˆ–è¿½åŠ 
 
-		// ²úÉúĞÂ¼ÇÂ¼
+		// äº§ç”Ÿæ–°è®°å½•
 		DataStruct ds = this.ds;
 		Record []rs = new Record[count];
 		for (int i = 0; i < count; ++i) {
@@ -583,10 +583,10 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ²åÈëÒ»Ìõ¼ÇÂ¼
-	 * @param pos int Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param values Object[] ×Ö¶Î¶ÔÓ¦µÄÖµ
-	 * @param fields String[] ×Ö¶ÎÃû, Ê¡ÂÔÔòÒÀ´Î¸³Öµ
+	 * åœ¨æŒ‡å®šä½ç½®æ’å…¥ä¸€æ¡è®°å½•
+	 * @param pos int ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param values Object[] å­—æ®µå¯¹åº”çš„å€¼
+	 * @param fields String[] å­—æ®µå, çœç•¥åˆ™ä¾æ¬¡èµ‹å€¼
 	 */
 	public void insert(int pos, Object []values, String []fields) {
 		if (values == null) {
@@ -610,10 +610,10 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ¼ÆËã±í´ïÊ½£¬ÔÚÖ¸¶¨Î»ÖÃ²åÈëÒ»Ìõ¼ÇÂ¼
-	 * @param pos int Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param exps Expression[] Öµ±í´ïÊ½£¬¿ÉÒıÓÃ´ËTable
-	 * @param fields String[]×Ö¶ÎÃû, Ê¡ÂÔÔòÒÀ´Î¸³Öµ
+	 * è®¡ç®—è¡¨è¾¾å¼ï¼Œåœ¨æŒ‡å®šä½ç½®æ’å…¥ä¸€æ¡è®°å½•
+	 * @param pos int ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param exps Expression[] å€¼è¡¨è¾¾å¼ï¼Œå¯å¼•ç”¨æ­¤Table
+	 * @param fields String[]å­—æ®µå, çœç•¥åˆ™ä¾æ¬¡èµ‹å€¼
 	 * @param ctx Context
 	 * @return BaseRecord
 	 */
@@ -639,11 +639,11 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * Ğò±í°´Ö÷¼üÓĞĞò£¬°´Ö÷¼üÖµ°ÑĞÂ²úÉúµÄ¼ÇÂ¼²åÈëµ½ÊÊµ±µÄÎ»ÖÃ£¬Èç¹ûÒÑ´æÔÚÔò²»²åÈë
-	 * @param exps ×Ö¶ÎÖµ±í´ïÊ½Êı×é
-	 * @param fields ×Ö¶ÎÃûÊı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @return ĞÂ²åÈëµÄ¼ÇÂ¼
+	 * åºè¡¨æŒ‰ä¸»é”®æœ‰åºï¼ŒæŒ‰ä¸»é”®å€¼æŠŠæ–°äº§ç”Ÿçš„è®°å½•æ’å…¥åˆ°é€‚å½“çš„ä½ç½®ï¼Œå¦‚æœå·²å­˜åœ¨åˆ™ä¸æ’å…¥
+	 * @param exps å­—æ®µå€¼è¡¨è¾¾å¼æ•°ç»„
+	 * @param fields å­—æ®µåæ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @return æ–°æ’å…¥çš„è®°å½•
 	 */
 	public BaseRecord sortedInsert(Expression[] exps, String[] fields, Context ctx) {
 		Record r = new Record(ds);
@@ -651,7 +651,7 @@ public class Table extends Sequence {
 		stack.push(r);
 
 		try {
-			// Éú³É¼ÇÂ¼£¬ºóÃæµÄ×Ö¶Î¿ÉÒÔÒıÓÃÇ°Ãæ¸Õ²úÉúµÄ×Ö¶Î
+			// ç”Ÿæˆè®°å½•ï¼Œåé¢çš„å­—æ®µå¯ä»¥å¼•ç”¨å‰é¢åˆšäº§ç”Ÿçš„å­—æ®µ
 			int count = exps.length;
 			if (fields == null) {
 				for (int i = 0; i < count; ++i) {
@@ -682,7 +682,7 @@ public class Table extends Sequence {
 			stack.pop();
 		}
 		
-		// ¸ù¾İÖ÷¼ü²éÕÒ¼ÇÂ¼Î»ÖÃ
+		// æ ¹æ®ä¸»é”®æŸ¥æ‰¾è®°å½•ä½ç½®
 		int index = pfindByKey(r.getPKValue(), true);
 		if (index < 0) {
 			mems.insert(-index, r);
@@ -692,7 +692,7 @@ public class Table extends Sequence {
 		}
 	}
 
-	// ÓĞĞò²åÈë£¬Èç¹ûÒÑ´æÔÚÔò²»²åÈë
+	// æœ‰åºæ’å…¥ï¼Œå¦‚æœå·²å­˜åœ¨åˆ™ä¸æ’å…¥
 	public Sequence sortedInsert(Sequence src, Expression[] exps, String[] fields, String opt, Context ctx) {
 		int count = exps.length;
 		int fcount = ds.getFieldCount();
@@ -725,7 +725,7 @@ public class Table extends Sequence {
 						index[i] = 0;
 					} else {
 						index[i] = index[i - 1] + 1;
-						if (index[i] == fcount) { // Ô½½ç
+						if (index[i] == fcount) { // è¶Šç•Œ
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("insert" + mm.getMessage("function.invalidParam"));
 						}
@@ -807,7 +807,7 @@ public class Table extends Sequence {
 			result = this;
 		}
 
-		if (isName) { // Ö»¸´ÖÆÏàÍ¬Ãû×ÖµÄ×Ö¶Î
+		if (isName) { // åªå¤åˆ¶ç›¸åŒåå­—çš„å­—æ®µ
 			Record prev = null;
 			int sameCount = 0;
 			int []srcIndex = null;
@@ -867,14 +867,14 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * ÔÚÖ¸¶¨Î»ÖÃ²åÈë¶àÌõ¼ÇÂ¼
-	 * @param pos int Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param src Sequence ¼ÆËã±í´ïÊ½ËùÕë¶ÔµÄÔ´ĞòÁĞ
-	 * @param exps Expression[] ¼ÆËã±í´ïÊ½
-	 * @param optExps Expression[] ÓÅ»¯±í´ïÊ½
-	 * @param fields String[] ×Ö¶ÎÃû, Ê¡ÂÔÔòÒÀ´Î¸³Öµ
+	 * åœ¨æŒ‡å®šä½ç½®æ’å…¥å¤šæ¡è®°å½•
+	 * @param pos int ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param src Sequence è®¡ç®—è¡¨è¾¾å¼æ‰€é’ˆå¯¹çš„æºåºåˆ—
+	 * @param exps Expression[] è®¡ç®—è¡¨è¾¾å¼
+	 * @param optExps Expression[] ä¼˜åŒ–è¡¨è¾¾å¼
+	 * @param fields String[] å­—æ®µå, çœç•¥åˆ™ä¾æ¬¡èµ‹å€¼
 	 * @param ctx Context
-	 * @param opt String n£º·µ»ØĞÂ²åÈëµÄ¼ÇÂ¼¹¹³ÉµÄĞòÁĞ
+	 * @param opt String nï¼šè¿”å›æ–°æ’å…¥çš„è®°å½•æ„æˆçš„åºåˆ—
 	 * @return Sequence
 	 */
 	public Sequence insert(int pos, Sequence src, Expression[] exps,
@@ -928,7 +928,7 @@ public class Table extends Sequence {
 						index[i] = 0;
 					} else {
 						index[i] = index[i - 1] + 1;
-						if (index[i] == fcount) { // Ô½½ç
+						if (index[i] == fcount) { // è¶Šç•Œ
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("insert" + mm.getMessage("function.invalidParam"));
 						}
@@ -995,8 +995,8 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ½«Ğò±ítableµÄ¼ÇÂ¼Ìí¼Óµ½´ËĞò±íÖ¸¶¨Î»ÖÃ£¬²¢Çå¿Õtable£¬Ğò±í×Ö¶ÎÊıĞèÏàÍ¬
-	 * @param pos int Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
+	 * å°†åºè¡¨tableçš„è®°å½•æ·»åŠ åˆ°æ­¤åºè¡¨æŒ‡å®šä½ç½®ï¼Œå¹¶æ¸…ç©ºtableï¼Œåºè¡¨å­—æ®µæ•°éœ€ç›¸åŒ
+	 * @param pos int ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
 	 * @param table Table
 	 */
 	public void insert(int pos, Table table) {
@@ -1005,7 +1005,7 @@ public class Table extends Sequence {
 		IArray mems = getMems();
 		int oldCount = mems.size();
 		if (pos == 0) {
-			pos = oldCount + 1; // 0±íÊ¾×·¼Ó
+			pos = oldCount + 1; // 0è¡¨ç¤ºè¿½åŠ 
 		} else if (pos < 0) {
 			pos += oldCount + 1;
 			if (pos < 1) {
@@ -1019,7 +1019,7 @@ public class Table extends Sequence {
 			throw new RQException(mm.getMessage("engine.dsNotMatch"));
 		}
 
-		// ¸ü¸Ä¼ÇÂ¼ËùÊôµÄĞò±íºÍĞòºÅ
+		// æ›´æ”¹è®°å½•æ‰€å±çš„åºè¡¨å’Œåºå·
 		IArray addMems = table.getMems();
 		int addCount = addMems.size();
 		DataStruct ds = this.ds;
@@ -1028,8 +1028,8 @@ public class Table extends Sequence {
 			r.setDataStruct(ds);
 		}
 
-		if (pos > oldCount) { // ×·¼Ó
-			insert(oldCount + 1, pos - oldCount - 1, null); // Ô½½ç×Ô¶¯²¹
+		if (pos > oldCount) { // è¿½åŠ 
+			insert(oldCount + 1, pos - oldCount - 1, null); // è¶Šç•Œè‡ªåŠ¨è¡¥
 		}
 
 		mems.insertAll(pos, addMems);
@@ -1037,7 +1037,7 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * ºÏ²¢Á½¸öĞòÁĞµÄÊı¾İ£¬Èç¹ûĞòÁĞ¼æÈİÔò·µ»ØÔ­ĞòÁĞ·ñÔò·µ»ØĞÂĞòÁĞ
+	 * åˆå¹¶ä¸¤ä¸ªåºåˆ—çš„æ•°æ®ï¼Œå¦‚æœåºåˆ—å…¼å®¹åˆ™è¿”å›åŸåºåˆ—å¦åˆ™è¿”å›æ–°åºåˆ—
 	 * @param seq
 	 * @return Sequence
 	 */
@@ -1066,9 +1066,9 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ½«Ğò±ítableµÄ¼ÇÂ¼Ìí¼Óµ½´ËĞò±íÖĞ£¬²¢Çå¿Õtable£¬Ğò±í×Ö¶ÎÊıĞèÏàÍ¬
+	 * å°†åºè¡¨tableçš„è®°å½•æ·»åŠ åˆ°æ­¤åºè¡¨ä¸­ï¼Œå¹¶æ¸…ç©ºtableï¼Œåºè¡¨å­—æ®µæ•°éœ€ç›¸åŒ
 	 * @param table Table
-	 * @param opt String p£ºÈôÓĞÖ÷¼ü£¬È¥µôÔ´Ğò±íÖĞÖ÷¼üÖØ¸´µÄ¼ÇÂ¼
+	 * @param opt String pï¼šè‹¥æœ‰ä¸»é”®ï¼Œå»æ‰æºåºè¡¨ä¸­ä¸»é”®é‡å¤çš„è®°å½•
 	 */
 	public void append(Table table, String opt) {
 		if (table == null) return;
@@ -1081,7 +1081,7 @@ public class Table extends Sequence {
 		IArray mems = getMems();
 		int oldCount = mems.size();
 
-		// È¥µôÔ´Ğò±íÖĞÖ÷¼üÖµÔÚtableÖĞ´æÔÚµÄ¼ÇÂ¼
+		// å»æ‰æºåºè¡¨ä¸­ä¸»é”®å€¼åœ¨tableä¸­å­˜åœ¨çš„è®°å½•
 		if (opt != null && opt.indexOf('p') != -1 && getPrimary() != null) {
 			IntArrayList posArray = new IntArrayList();
 
@@ -1100,7 +1100,7 @@ public class Table extends Sequence {
 			}
 		}
 
-		// ¸ü¸Ä¼ÇÂ¼ËùÊôµÄĞò±íºÍĞòºÅ
+		// æ›´æ”¹è®°å½•æ‰€å±çš„åºè¡¨å’Œåºå·
 		DataStruct ds = this.ds;
 		for (int i = 1, addCount = addMems.size(); i <= addCount; ++i) {
 			Record r = (Record)addMems.get(i);
@@ -1112,9 +1112,9 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ½«Ğò±ítablesµÄ¼ÇÂ¼Ìí¼Óµ½´ËĞò±íÖĞ£¬²¢Çå¿Õtables£¬Ğò±í×Ö¶ÎÊıĞèÏàÍ¬
+	 * å°†åºè¡¨tablesçš„è®°å½•æ·»åŠ åˆ°æ­¤åºè¡¨ä¸­ï¼Œå¹¶æ¸…ç©ºtablesï¼Œåºè¡¨å­—æ®µæ•°éœ€ç›¸åŒ
 	 * @param tables Table[]
-	 * @param opt String p£ºÈôÓĞÖ÷¼ü£¬È¥µôÔ´Ğò±íÖĞÖ÷¼üÖØ¸´µÄ¼ÇÂ¼
+	 * @param opt String pï¼šè‹¥æœ‰ä¸»é”®ï¼Œå»æ‰æºåºè¡¨ä¸­ä¸»é”®é‡å¤çš„è®°å½•
 	 */
 	public void append(Table []tables, String opt) {
 		if (tables == null || tables.length == 0) return;
@@ -1149,7 +1149,7 @@ public class Table extends Sequence {
 			if (table != null) {
 				IArray addMems = table.getMems();
 
-				// ¸ü¸Ä¼ÇÂ¼ËùÊôµÄĞò±íºÍĞòºÅ
+				// æ›´æ”¹è®°å½•æ‰€å±çš„åºè¡¨å’Œåºå·
 				for (int m = 1, addCount = addMems.size(); m <= addCount; ++m) {
 					Record r = (Record)addMems.get(m);
 					r.setDataStruct(ds);
@@ -1162,9 +1162,9 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * °ÑÖ¸¶¨Çø¼ä¼ÇÂ¼·ÖÀë³öÀ´
-	 * @param from int ÆğÊ¼Î»ÖÃ£¬°üº¬
-	 * @param to int ½áÊøÎ»ÖÃ£¬°üº¬
+	 * æŠŠæŒ‡å®šåŒºé—´è®°å½•åˆ†ç¦»å‡ºæ¥
+	 * @param from int èµ·å§‹ä½ç½®ï¼ŒåŒ…å«
+	 * @param to int ç»“æŸä½ç½®ï¼ŒåŒ…å«
 	 * @return Sequence
 	 */
 	public Sequence split(int from, int to) {
@@ -1186,10 +1186,10 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ĞŞ¸ÄÄ³Ò»¼ÇÂ¼£¬Ô½½çÔòÌí¼Ó¼ÇÂ¼
-	 * @param pos int ¼ÇÂ¼¿ªÊ¼Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param values Object[] ×Ö¶Î¶ÔÓ¦µÄÖµ
-	 * @param fields String[] ×Ö¶ÎÃû, Ê¡ÂÔÔòÒÀ´Î¸³Öµ
+	 * ä¿®æ”¹æŸä¸€è®°å½•ï¼Œè¶Šç•Œåˆ™æ·»åŠ è®°å½•
+	 * @param pos int è®°å½•å¼€å§‹ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param values Object[] å­—æ®µå¯¹åº”çš„å€¼
+	 * @param fields String[] å­—æ®µå, çœç•¥åˆ™ä¾æ¬¡èµ‹å€¼
 	 */
 	public void modify(int pos, Object []values, String []fields) {
 		if (values == null) {
@@ -1234,12 +1234,12 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ¼ÆËã±í´ïÊ½£¬ĞŞ¸ÄÄ³Ò»¼ÇÂ¼£¬Ô½½çÔòÌí¼Ó¼ÇÂ¼
-	 * @param pos int ¼ÇÂ¼¿ªÊ¼Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param exps Expression[] Öµ±í´ïÊ½£¬¿ÉÒıÓÃ´ËTable
-	 * @param fields String[]×Ö¶ÎÃû, Ê¡ÂÔÔòÒÀ´Î¸³Öµ
+	 * è®¡ç®—è¡¨è¾¾å¼ï¼Œä¿®æ”¹æŸä¸€è®°å½•ï¼Œè¶Šç•Œåˆ™æ·»åŠ è®°å½•
+	 * @param pos int è®°å½•å¼€å§‹ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param exps Expression[] å€¼è¡¨è¾¾å¼ï¼Œå¯å¼•ç”¨æ­¤Table
+	 * @param fields String[]å­—æ®µå, çœç•¥åˆ™ä¾æ¬¡èµ‹å€¼
 	 * @param ctx Context
-	 * @return ·µ»Ø±»ĞŞ¸ÄµÄ¼ÇÂ¼
+	 * @return è¿”å›è¢«ä¿®æ”¹çš„è®°å½•
 	 */
 	public BaseRecord modify(int pos, Expression[] exps, String[] fields, Context ctx) {
 		if (exps == null) {
@@ -1260,7 +1260,7 @@ public class Table extends Sequence {
 		BaseRecord r = getRecord(pos);
 		int count = exps.length;
 
-		// °ÑtableÑ¹Õ»£¬ÔÊĞí±í´ïÊ½ÒıÓÃµ±Ç°¼ÇÂ¼µÄ×Ö¶Î
+		// æŠŠtableå‹æ ˆï¼Œå…è®¸è¡¨è¾¾å¼å¼•ç”¨å½“å‰è®°å½•çš„å­—æ®µ
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current(this);
 		stack.push(current);
@@ -1299,14 +1299,14 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * ĞŞ¸Ä¶àÌõ¼ÇÂ¼£¬Ô½½çÔòÌí¼Ó¼ÇÂ¼
-	 * @param pos int ¼ÇÂ¼¿ªÊ¼Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param src Sequence ¼ÆËã±í´ïÊ½ËùÕë¶ÔµÄÔ´ĞòÁĞ
-	 * @param exps Expression[] ¼ÆËã±í´ïÊ½
-	 * @param optExps Expression[] ÓÅ»¯±í´ïÊ½
-	 * @param fields String[] ×Ö¶ÎÃû, Ê¡ÂÔÔòÒÀ´Î¸³Öµ
+	 * ä¿®æ”¹å¤šæ¡è®°å½•ï¼Œè¶Šç•Œåˆ™æ·»åŠ è®°å½•
+	 * @param pos int è®°å½•å¼€å§‹ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param src Sequence è®¡ç®—è¡¨è¾¾å¼æ‰€é’ˆå¯¹çš„æºåºåˆ—
+	 * @param exps Expression[] è®¡ç®—è¡¨è¾¾å¼
+	 * @param optExps Expression[] ä¼˜åŒ–è¡¨è¾¾å¼
+	 * @param fields String[] å­—æ®µå, çœç•¥åˆ™ä¾æ¬¡èµ‹å€¼
 	 * @param ctx Context
-	 * @param n£º·µ»ØĞÂ²åÈëµÄ¼ÇÂ¼¹¹³ÉµÄĞòÁĞ
+	 * @param nï¼šè¿”å›æ–°æ’å…¥çš„è®°å½•æ„æˆçš„åºåˆ—
 	 * @return
 	 */
 	public Sequence modify(int pos, Sequence src, Expression[] exps,
@@ -1361,7 +1361,7 @@ public class Table extends Sequence {
 						index[i] = 0;
 					} else {
 						index[i] = index[i - 1] + 1;
-						if (index[i] == fcount) { // Ô½½ç
+						if (index[i] == fcount) { // è¶Šç•Œ
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("insert" + mm.getMessage("function.invalidParam"));
 						}
@@ -1381,7 +1381,7 @@ public class Table extends Sequence {
 		}
 
 		int last = pos + mlen - 1;
-		getRecord(last); // Èç¹ûÔ½½ç×Ô¶¯²¹
+		getRecord(last); // å¦‚æœè¶Šç•Œè‡ªåŠ¨è¡¥
 
 		Object []values = new Object[count];
 		Object []lastOptVals = new Object[count];
@@ -1476,9 +1476,9 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * Ñ­»·ĞòÁĞÔªËØ£¬¼ÆËã±í´ïÊ½²¢½øĞĞ¸³Öµ
-	 * @param assignExps Expression[] ¸³Öµ±í´ïÊ½
-	 * @param exps Expression[] Öµ±í´ïÊ½
+	 * å¾ªç¯åºåˆ—å…ƒç´ ï¼Œè®¡ç®—è¡¨è¾¾å¼å¹¶è¿›è¡Œèµ‹å€¼
+	 * @param assignExps Expression[] èµ‹å€¼è¡¨è¾¾å¼
+	 * @param exps Expression[] å€¼è¡¨è¾¾å¼
 	 * @param ctx Context
 	 */
 	public void run(Expression[] assignExps, Expression[] exps, Context ctx) {
@@ -1516,10 +1516,10 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * °ÑĞòÁĞµÄÔªËØ×÷Îª×Ö¶ÎÖµÉú³É¼ÇÂ¼²åÈëµ½Ğò±íÖĞ
-	 * @param pos int Î»ÖÃ£¬0±íÊ¾×·¼Ó
-	 * @param src Sequence ÖµĞòÁĞ
-	 * @param opt String i£º²åÈëĞÂ¼ÇÂ¼£¬n£º·µ»ØĞÂ²åÈëµÄ¼ÇÂ¼¹¹³ÉµÄĞòÁĞ
+	 * æŠŠåºåˆ—çš„å…ƒç´ ä½œä¸ºå­—æ®µå€¼ç”Ÿæˆè®°å½•æ’å…¥åˆ°åºè¡¨ä¸­
+	 * @param pos int ä½ç½®ï¼Œ0è¡¨ç¤ºè¿½åŠ 
+	 * @param src Sequence å€¼åºåˆ—
+	 * @param opt String iï¼šæ’å…¥æ–°è®°å½•ï¼Œnï¼šè¿”å›æ–°æ’å…¥çš„è®°å½•æ„æˆçš„åºåˆ—
 	 */
 	public Sequence record(int pos, Sequence src, String opt) {
 		if (pos < 0 || src == null) {
@@ -1553,10 +1553,10 @@ public class Table extends Sequence {
 		if (pos == 0) pos = mems.size() + 1;
 
 		if (isInsert) {
-			// ÔÚpos´¦²åÈërecordCountÌõĞÂ¼ÇÂ¼
+			// åœ¨poså¤„æ’å…¥recordCountæ¡æ–°è®°å½•
 			insert(pos, recordCount, null);
 		} else {
-			getRecord(pos + recordCount - 1); // Èç¹ûÔ½½ç×Ô¶¯²¹
+			getRecord(pos + recordCount - 1); // å¦‚æœè¶Šç•Œè‡ªåŠ¨è¡¥
 		}
 		
 		if (mod == 0) {
@@ -1664,9 +1664,9 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * É¾³ı¶àÌõ¼ÇÂ¼
-	 * @param sequence Sequence Î»ÖÃĞòÁĞ»ò¼ÇÂ¼ĞòÁĞ
-	 * @param opt String n ·µ»Ø±»É¾µÄÔªËØ¹¹³ÉµÄĞòÁĞ
+	 * åˆ é™¤å¤šæ¡è®°å½•
+	 * @param sequence Sequence ä½ç½®åºåˆ—æˆ–è®°å½•åºåˆ—
+	 * @param opt String n è¿”å›è¢«åˆ çš„å…ƒç´ æ„æˆçš„åºåˆ—
 	 */
 	public Sequence delete(Sequence sequence, String opt) {
 		if (sequence == null || sequence.length() == 0) {
@@ -1686,7 +1686,7 @@ public class Table extends Sequence {
 			int count = delMems.size();
 			index = new int[count];
 
-			// ²éÕÒÒªÉ¾³ıµÄ¼ÇÂ¼ÔÚĞò±íÖĞµÄÎ»ÖÃ
+			// æŸ¥æ‰¾è¦åˆ é™¤çš„è®°å½•åœ¨åºè¡¨ä¸­çš„ä½ç½®
 			for (int i = 1; i <= count; ++i) {
 				Object obj = delMems.get(i);
 				if (obj instanceof BaseRecord) {
@@ -1712,7 +1712,7 @@ public class Table extends Sequence {
 				index = tmp;
 			}
 	
-			// ¶ÔË÷Òı½øĞĞÅÅĞò
+			// å¯¹ç´¢å¼•è¿›è¡Œæ’åº
 			Arrays.sort(index);
 		} else {
 			delCount = index.length;
@@ -1736,11 +1736,11 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * °ÑĞò±ísrcµÄ×Ö¶ÎÖµ¸³¸ø´ËĞò±í¼ÇÂ¼µÄÏàÓ¦×Ö¶Î
-	 * @param pos int ¼ÇÂ¼¿ªÊ¼Î»ÖÃ£¬´Ó1¿ªÊ¼¼ÆÊı£¬0±íÊ¾×·¼Ó£¬Ô½½ç×Ô¶¯²¹£¬Ğ¡ÓÚ0Ôò´ÓºóÊı
-	 * @param src Sequence Ô´ÅÅÁĞ
-	 * @param isInsert true:²åÈëĞÂ¼ÇÂ¼
-	 * @param opt f£º°´×Ö¶ÎÃûÏàµÈ½øĞĞ¸´ÖÆ£¬n£º·µ»ØĞŞ¸ÄµÄ¼ÇÂ¼×é³ÉµÄÅÅÁĞ
+	 * æŠŠåºè¡¨srcçš„å­—æ®µå€¼èµ‹ç»™æ­¤åºè¡¨è®°å½•çš„ç›¸åº”å­—æ®µ
+	 * @param pos int è®°å½•å¼€å§‹ä½ç½®ï¼Œä»1å¼€å§‹è®¡æ•°ï¼Œ0è¡¨ç¤ºè¿½åŠ ï¼Œè¶Šç•Œè‡ªåŠ¨è¡¥ï¼Œå°äº0åˆ™ä»åæ•°
+	 * @param src Sequence æºæ’åˆ—
+	 * @param isInsert true:æ’å…¥æ–°è®°å½•
+	 * @param opt fï¼šæŒ‰å­—æ®µåç›¸ç­‰è¿›è¡Œå¤åˆ¶ï¼Œnï¼šè¿”å›ä¿®æ”¹çš„è®°å½•ç»„æˆçš„æ’åˆ—
 	 */
 	public Sequence modify(int pos, Sequence src, boolean isInsert, String opt) {
 		IArray mems = getMems();
@@ -1779,7 +1779,7 @@ public class Table extends Sequence {
 		if (isInsert) {
 			insert(pos, count, null);
 		} else {
-			getRecord(pos + count - 1); // Èç¹ûÔ½½ç×Ô¶¯²¹
+			getRecord(pos + count - 1); // å¦‚æœè¶Šç•Œè‡ªåŠ¨è¡¥
 		}
 
 		Sequence result;
@@ -1792,7 +1792,7 @@ public class Table extends Sequence {
 			result = this;
 		}
 
-		if (isName) { // Ö»¸´ÖÆÏàÍ¬Ãû×ÖµÄ×Ö¶Î
+		if (isName) { // åªå¤åˆ¶ç›¸åŒåå­—çš„å­—æ®µ
 			DataStruct ds = this.ds;
 			BaseRecord prev = null;
 			int sameCount = 0;
@@ -1841,9 +1841,9 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ÉèÖÃĞò±íµÄÖ÷¼ü
+	 * è®¾ç½®åºè¡¨çš„ä¸»é”®
 	 * @param fields String[]
-	 * @param opt String b£ºpfind/find/get/put²Ù×÷×Ô¶¯¼Ó@b
+	 * @param opt String bï¼špfind/find/get/putæ“ä½œè‡ªåŠ¨åŠ @b
 	 */
 	public void setPrimary(String []fields) {
 		ds.setPrimary(fields);
@@ -1851,10 +1851,10 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * ÉèÖÃĞò±íµÄÖ÷¼ü
+	 * è®¾ç½®åºè¡¨çš„ä¸»é”®
 	 * @param fields String[]
-	 * @param timeKey String t£º×îºóÒ»¸öÎªÊ±¼ä¼ü
-	 * @param opt String b£ºpfind/find/get/put²Ù×÷×Ô¶¯¼Ó@b
+	 * @param timeKey String tï¼šæœ€åä¸€ä¸ªä¸ºæ—¶é—´é”®
+	 * @param opt String bï¼špfind/find/get/putæ“ä½œè‡ªåŠ¨åŠ @b
 	 */
 	public void setPrimary(String []fields, String opt) {
 		ds.setPrimary(fields, opt);
@@ -1862,26 +1862,26 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ÓÃÖ÷¼ü´´½¨Ë÷Òı±í
-	 * @param opt m£º²¢ĞĞ½¨Á¢£¬s£º¼üÊÇÅÅºÅÊ±Ôò½¨Á¢³É¶à²ãÊ÷×´Ë÷Òı£¬
-	 * b£ºĞò±í°´Ö÷¼üÓĞĞò£¬ÓÃ¶ş·Ö·¨ÕÒ£¨´ËÑ¡ÏîÊÊºÏÖ÷¼üÎª×Ö·û´®£¬Î¬±í¼ÇÂ¼ÉÙµÄÇé¿ö£¬×Ö·û´®Ëã¹şÏ£±È½ÏÂı£©
+	 * ç”¨ä¸»é”®åˆ›å»ºç´¢å¼•è¡¨
+	 * @param opt mï¼šå¹¶è¡Œå»ºç«‹ï¼Œsï¼šé”®æ˜¯æ’å·æ—¶åˆ™å»ºç«‹æˆå¤šå±‚æ ‘çŠ¶ç´¢å¼•ï¼Œ
+	 * bï¼šåºè¡¨æŒ‰ä¸»é”®æœ‰åºï¼Œç”¨äºŒåˆ†æ³•æ‰¾ï¼ˆæ­¤é€‰é¡¹é€‚åˆä¸»é”®ä¸ºå­—ç¬¦ä¸²ï¼Œç»´è¡¨è®°å½•å°‘çš„æƒ…å†µï¼Œå­—ç¬¦ä¸²ç®—å“ˆå¸Œæ¯”è¾ƒæ…¢ï¼‰
 	 */
 	public void createIndexTable(String opt) {
 		createIndexTable(length(), opt);
 	}
 
 	/**
-	 * ÓÃÖ÷¼ü´´½¨Ë÷Òı±í
-	 * @param capacity Ë÷Òı¹şÏ£±íÈİÁ¿
-	 * @param opt m£º²¢ĞĞ½¨Á¢£¬s£º¼üÊÇÅÅºÅÊ±Ôò½¨Á¢³É¶à²ãÊ÷×´Ë÷Òı£¬
-	 * b£ºĞò±í°´Ö÷¼üÓĞĞò£¬ÓÃ¶ş·Ö·¨ÕÒ£¨´ËÑ¡ÏîÊÊºÏÖ÷¼üÎª×Ö·û´®£¬Î¬±í¼ÇÂ¼ÉÙµÄÇé¿ö£¬×Ö·û´®Ëã¹şÏ£±È½ÏÂı£©
+	 * ç”¨ä¸»é”®åˆ›å»ºç´¢å¼•è¡¨
+	 * @param capacity ç´¢å¼•å“ˆå¸Œè¡¨å®¹é‡
+	 * @param opt mï¼šå¹¶è¡Œå»ºç«‹ï¼Œsï¼šé”®æ˜¯æ’å·æ—¶åˆ™å»ºç«‹æˆå¤šå±‚æ ‘çŠ¶ç´¢å¼•ï¼Œ
+	 * bï¼šåºè¡¨æŒ‰ä¸»é”®æœ‰åºï¼Œç”¨äºŒåˆ†æ³•æ‰¾ï¼ˆæ­¤é€‰é¡¹é€‚åˆä¸»é”®ä¸ºå­—ç¬¦ä¸²ï¼Œç»´è¡¨è®°å½•å°‘çš„æƒ…å†µï¼Œå­—ç¬¦ä¸²ç®—å“ˆå¸Œæ¯”è¾ƒæ…¢ï¼‰
 	 */
 	public void createIndexTable(int capacity, String opt) {
 		int []fields = ds.getPKIndex();
 		if (fields == null) {
 			ds.setPrimary(null, opt);
 			if (ds.isSeqKey()) {
-				// ´´ÅÅºÅË÷Òı
+				// åˆ›æ’å·ç´¢å¼•
 				indexTable = new SeqIndexTable(this);
 			} else {
 				MessageManager mm = EngineMessage.get();
@@ -1890,7 +1890,7 @@ public class Table extends Sequence {
 		} else if (ds.getTimeKeyCount() == 1) {
 			indexTable = new TimeIndexTable(this, fields, capacity);
 		} else if (ds.isSeqKey()) {
-			// ´´½¨ĞòºÅË÷Òı
+			// åˆ›å»ºåºå·ç´¢å¼•
 			indexTable = new SeqIndexTable(this);
 		} else if (fields.length == 1 && opt != null && opt.indexOf('s') != -1) {
 			SerialBytesIndexTable sbi = new SerialBytesIndexTable();
@@ -1904,7 +1904,7 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * Ğò±íÊı¾İ±»ĞŞ¸Ä£¬Èç¹ûË÷Òı±íÒÑ´´½¨ÔòÖØ½¨Ë÷Òı±í
+	 * åºè¡¨æ•°æ®è¢«ä¿®æ”¹ï¼Œå¦‚æœç´¢å¼•è¡¨å·²åˆ›å»ºåˆ™é‡å»ºç´¢å¼•è¡¨
 	 */
 	public void rebuildIndexTable() {
 		if (indexTable != null) {
@@ -1917,15 +1917,15 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ÉèÖÃĞò±íµÄË÷Òı±í
-	 * @param indexTable Ë÷Òı±í
+	 * è®¾ç½®åºè¡¨çš„ç´¢å¼•è¡¨
+	 * @param indexTable ç´¢å¼•è¡¨
 	 */
 	public void setIndexTable(IndexTable indexTable) {
 		this.indexTable = indexTable;
 	}
 	
 	/**
-	 * È¡Ğò±íµÄË÷Òı±í
+	 * å–åºè¡¨çš„ç´¢å¼•è¡¨
 	 * @return IndexTable
 	 */
 	public IndexTable getIndexTable() {
@@ -1933,9 +1933,9 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * È¡Ğò±íµÄË÷Òı±í£¬Èç¹ûÃ»ÓĞ´´½¨Ôò·µ»Ø¿Õ
-	 * @param exp Ë÷Òı×Ö¶Î±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–åºè¡¨çš„ç´¢å¼•è¡¨ï¼Œå¦‚æœæ²¡æœ‰åˆ›å»ºåˆ™è¿”å›ç©º
+	 * @param exp ç´¢å¼•å­—æ®µè¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IndexTable
 	 */
 	public IndexTable getIndexTable(Expression exp, Context ctx) {
@@ -1954,9 +1954,9 @@ public class Table extends Sequence {
 	}
 	
 	/**
-	 * È¡Ğò±íµÄË÷Òı±í£¬Èç¹ûÃ»ÓĞ´´½¨Ôò·µ»Ø¿Õ
-	 * @param exps Ë÷Òı×Ö¶Î±í´ïÊ½Êı×é
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * å–åºè¡¨çš„ç´¢å¼•è¡¨ï¼Œå¦‚æœæ²¡æœ‰åˆ›å»ºåˆ™è¿”å›ç©º
+	 * @param exps ç´¢å¼•å­—æ®µè¡¨è¾¾å¼æ•°ç»„
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return IndexTable
 	 */
 	public IndexTable getIndexTable(Expression []exps, Context ctx) {
@@ -1982,14 +1982,14 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * É¾³ıË÷Òı±í
+	 * åˆ é™¤ç´¢å¼•è¡¨
 	 */
 	public void deleteIndexTable() {
 		indexTable = null;
 	}
 	
 	/**
-	 * ·µ»ØĞò±íµÄÖ÷¼ü
+	 * è¿”å›åºè¡¨çš„ä¸»é”®
 	 * @return String[]
 	 */
 	public String[] getPrimary() {
@@ -1997,8 +1997,8 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ¶ÔĞò±í°´Ö¸¶¨×Ö¶ÎÅÅĞò
-	 * @param colIndex ×Ö¶ÎĞòºÅÊı×é£¬´Ó0¿ªÊ¼¼ÆÊı
+	 * å¯¹åºè¡¨æŒ‰æŒ‡å®šå­—æ®µæ’åº
+	 * @param colIndex å­—æ®µåºå·æ•°ç»„ï¼Œä»0å¼€å§‹è®¡æ•°
 	 */
 	public void sortFields(int []colIndex) {
 		RecordFieldComparator comparator = new RecordFieldComparator(colIndex);
@@ -2006,8 +2006,8 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ¼ì²é×Ö¶ÎÊÇ·ñÓĞÒıÓÃ¶ÔÏó
-	 * @return boolean true£ºÓĞÒıÓÃ¶ÔÏó£¬false£ºÃ»ÓĞÒıÓÃ¶ÔÏó
+	 * æ£€æŸ¥å­—æ®µæ˜¯å¦æœ‰å¼•ç”¨å¯¹è±¡
+	 * @return boolean trueï¼šæœ‰å¼•ç”¨å¯¹è±¡ï¼Œfalseï¼šæ²¡æœ‰å¼•ç”¨å¯¹è±¡
 	 */
 	public boolean checkReference() {
 		IArray mems = getMems();
@@ -2020,7 +2020,7 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ½«Ğò±í¸ñÊ½»¯³É´®
+	 * å°†åºè¡¨æ ¼å¼åŒ–æˆä¸²
 	 */
 	public String toString() {
 		IArray mems = getMems();
@@ -2061,33 +2061,33 @@ public class Table extends Sequence {
 	}
 
 	/**
-	 * ·µ»ØÅÅÁĞÊÇ·ñ°üº¬Ö¸¶¨×Ö¶Î
-	 * @param fieldName ×Ö¶ÎÃû
-	 * @return true£º°üº¬£¬false£º²»°üº¬
+	 * è¿”å›æ’åˆ—æ˜¯å¦åŒ…å«æŒ‡å®šå­—æ®µ
+	 * @param fieldName å­—æ®µå
+	 * @return trueï¼šåŒ…å«ï¼Œfalseï¼šä¸åŒ…å«
 	 */
 	public boolean containField(String fieldName) {
 		return ds.getFieldIndex(fieldName) != -1;
 	}
 	
 	/**
-	 * È¡Ğò±íµÄ×Ö¶ÎÊı
-	 * @return ×Ö¶ÎÊı
+	 * å–åºè¡¨çš„å­—æ®µæ•°
+	 * @return å­—æ®µæ•°
 	 */
 	public int getFieldCount() {
 		return ds.getFieldCount();
 	}
 	
 	/**
-	 * È¡Ê×Ìõ¼ÇÂ¼µÄÊı¾İ½á¹¹£¬Èç¹ûµÚÒ»¸öÔªËØ²»ÊÇ¼ÇÂ¼Ôò·µ»Ønull
-	 * @return ¼ÇÂ¼µÄÊı¾İ½á¹¹
+	 * å–é¦–æ¡è®°å½•çš„æ•°æ®ç»“æ„ï¼Œå¦‚æœç¬¬ä¸€ä¸ªå…ƒç´ ä¸æ˜¯è®°å½•åˆ™è¿”å›null
+	 * @return è®°å½•çš„æ•°æ®ç»“æ„
 	 */
 	public DataStruct getFirstRecordDataStruct() {
 		return ds;
 	}
 	
 	/**
-	 * Éú³ÉÄÚ±í
-	 * @param option Éú³ÉÊôĞÔ
+	 * ç”Ÿæˆå†…è¡¨
+	 * @param option ç”Ÿæˆå±æ€§
 	 * @return
 	 */
 	public Sequence memory(String option) {

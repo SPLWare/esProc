@@ -22,7 +22,7 @@ import java.io.InputStreamReader;
 public class ImUtils {
 	private static String m_os = System.getProperty("os.name");  
 	/**
-	 * 是否有特定字符 *?
+	 * 鏄惁鏈夌壒瀹氬瓧绗� *?
 	 * 
 	 * @param src
 	 *            String
@@ -44,18 +44,18 @@ public class ImUtils {
 		boolean bRet = false;
 		String fname = file;
 		String os = System.getProperty("os.name");  
-		if (fname.startsWith("/")){ //有目录路径的fileName
+		if (fname.startsWith("/")){ //鏈夌洰褰曡矾寰勭殑fileName
 			return true;
 		}
 		
 		if(os.toLowerCase().startsWith("win")){  
 			fname = fname.replaceAll("/", "\\\\");
-			if (fname.length()>3 && fname.indexOf(":"+File.separator)==1){ //有目录路径的fileName
+			if (fname.length()>3 && fname.indexOf(":"+File.separator)==1){ //鏈夌洰褰曡矾寰勭殑fileName
 				bRet = true;
 			}
 		}else{ //linux
 			fname = fname.replaceAll("\\\\", File.separator);
-			if (fname.startsWith(File.separator)){ //有目录路径的fileName
+			if (fname.startsWith(File.separator)){ //鏈夌洰褰曡矾寰勭殑fileName
 				bRet = true;
 			}
 		}
@@ -135,7 +135,7 @@ public class ImUtils {
 		return m.find();
  	}
 	
-   //获取子记录，返回
+   //鑾峰彇瀛愯褰曪紝杩斿洖
  	public static Table getSubRecords( JSONObject sub) {
  		Table subT = null;
  		try {
@@ -155,7 +155,7 @@ public class ImUtils {
  		return subT;
  	}
  	
-	// 获取子记录返噿
+	// 鑾峰彇瀛愯褰曡繑鍣�
 	public static Table getSubRecords( JSONObject sub, String tblName, String[] cols) {
 		Table subT = null;
 		try {

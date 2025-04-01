@@ -20,11 +20,11 @@ import com.scudata.expression.SequenceFunction;
 import com.scudata.util.Variant;
 
 /**
- * ÊıÖµÄ¿±ê±äÁ¿µÄ¾ÀÆ«´¦Àí
+ * æ•°å€¼ç›®æ ‡å˜é‡çš„çº åå¤„ç†
  * @author bd
- * A.datederive(T)/P.datederive(cn, T), @bnie Ñ¡ÏîÖ¸Ã÷Ä¿±êÀàĞÍ£¬¸÷Ñ¡ÏîÏà³â£¬ÓÅÏÈ¼¶°´ÕÕ¶şÖµ/ÊıÖµ/ÕûÊı/Ã¶¾Ù£¬ÎŞÑ¡Ïî×Ô¶¯´¦Àí
+ * A.datederive(T)/P.datederive(cn, T), @bnie é€‰é¡¹æŒ‡æ˜ç›®æ ‡ç±»å‹ï¼Œå„é€‰é¡¹ç›¸æ–¥ï¼Œä¼˜å…ˆçº§æŒ‰ç…§äºŒå€¼/æ•°å€¼/æ•´æ•°/æšä¸¾ï¼Œæ— é€‰é¡¹è‡ªåŠ¨å¤„ç†
  * A.datederive@r(rec)/P.datederive@r(cn, rec)
- * ÇåÀíÊı¾İ¼¯DµÄÀëÉ¢±äÁ¿V
+ * æ¸…ç†æ•°æ®é›†Dçš„ç¦»æ•£å˜é‡V
  */
 public class DateDerive extends SequenceFunction {
 
@@ -218,10 +218,10 @@ public class DateDerive extends SequenceFunction {
 	}
 
 	/**
-	 * ¶ÔÊıÖµÄ¿±ê±äÁ¿×ö¾ÀÆ«´¦Àí
-	 * @param tvs	ÊıÖµÄ¿±ê±äÁ¿ÕûÁĞÖµ
-	 * @param cn	±äÁ¿Ãû
-	 * @param filePath	Èç¹û³öÏÖĞèÒªÅÅĞòµÄÇé¿ö£¬ÔÚÊı¾İ½Ï¶àÊ±»º´æÎÄ¼şµÄÂ·¾¶
+	 * å¯¹æ•°å€¼ç›®æ ‡å˜é‡åšçº åå¤„ç†
+	 * @param tvs	æ•°å€¼ç›®æ ‡å˜é‡æ•´åˆ—å€¼
+	 * @param cn	å˜é‡å
+	 * @param filePath	å¦‚æœå‡ºç°éœ€è¦æ’åºçš„æƒ…å†µï¼Œåœ¨æ•°æ®è¾ƒå¤šæ—¶ç¼“å­˜æ–‡ä»¶çš„è·¯å¾„
 	 * @return
 	 */
 	protected static void datederive(Sequence dvs, String cn, DateRec dr, Sequence tvs, byte tType,
@@ -229,30 +229,30 @@ public class DateDerive extends SequenceFunction {
 		//VarSrcInfo vsi = new VarSrcInfo(cn, Consts.F_DATE);
 		//vsi.init(dvs);
 		
-		// step04£¬abcd£¬ÑÜÉú×Ö¶ÎÒÑÖ´ĞĞ¹éÒ»´¦Àí
-		//Á÷³Ì£º
-		//	(a) Çø·ÖÊ±¼äÈÕÆÚĞÍ±äÁ¿µÄ¹¹³É£¬²ğ³ÉdateºÍtimeÁ½²¿·Ö¡£Ò»¸öÊ±¼äÈÕÆÚ±äÁ¿ÖÁÉÙ»á°üº¬dateºÍtimeÖ®Ò»£¬»ò¶şÕß½ÔÓĞ¡£Õë¶ÔÕâÁ½¸ö²¿·Ö£¬Ö´ĞĞÏÂÃæµÄ²Ù×÷
+		// step04ï¼Œabcdï¼Œè¡ç”Ÿå­—æ®µå·²æ‰§è¡Œå½’ä¸€å¤„ç†
+		//æµç¨‹ï¼š
+		//	(a) åŒºåˆ†æ—¶é—´æ—¥æœŸå‹å˜é‡çš„æ„æˆï¼Œæ‹†æˆdateå’Œtimeä¸¤éƒ¨åˆ†ã€‚ä¸€ä¸ªæ—¶é—´æ—¥æœŸå˜é‡è‡³å°‘ä¼šåŒ…å«dateå’Œtimeä¹‹ä¸€ï¼Œæˆ–äºŒè€…çš†æœ‰ã€‚é’ˆå¯¹è¿™ä¸¤ä¸ªéƒ¨åˆ†ï¼Œæ‰§è¡Œä¸‹é¢çš„æ“ä½œ
 		int size = dvs.length();
 		Object v1 = dvs.get(1);
 		ArrayList<VarSrcInfo> vis = new ArrayList<VarSrcInfo>(3);
 		//vsi.setDateCols(vis);
 		
-		//¿¼ÂÇµ½¶ÔÄÚ´æµÄËğºÄ£¬ÔÚ²¢ĞĞ´¦ÀíµÄ¹ı³ÌÖĞ£¬ÈÕÆÚÑÜÉúÁĞµÄÉú³É²ÉÓÃ¶à´ÎÑ­»·Ò»´ÎÉú³ÉÒ»ÁĞµÄ·½Ê½
+		//è€ƒè™‘åˆ°å¯¹å†…å­˜çš„æŸè€—ï¼Œåœ¨å¹¶è¡Œå¤„ç†çš„è¿‡ç¨‹ä¸­ï¼Œæ—¥æœŸè¡ç”Ÿåˆ—çš„ç”Ÿæˆé‡‡ç”¨å¤šæ¬¡å¾ªç¯ä¸€æ¬¡ç”Ÿæˆä¸€åˆ—çš„æ–¹å¼
 		byte type = 0;
 		if (v1 instanceof java.sql.Timestamp) {
-			//ÈÕÆÚÊ±¼äÀàĞÍ
+			//æ—¥æœŸæ—¶é—´ç±»å‹
 			type = Consts.DCT_DATETIME;
 		}
 		else if (v1 instanceof java.sql.Date) {
-			//ÈÕÆÚÀàĞÍ
+			//æ—¥æœŸç±»å‹
 			type = Consts.DCT_DATE;
 		}
 		else if (v1 instanceof java.sql.Time) {
-			//Ê±¼äÀàĞÍ
+			//æ—¶é—´ç±»å‹
 			type = Consts.DCT_TIME;			
 		}
 		else if (v1 instanceof java.util.Date) {
-			//ÆäËüÈÕÆÚÊ±¼äÀàĞÍ
+			//å…¶å®ƒæ—¥æœŸæ—¶é—´ç±»å‹
 			type = Consts.DCT_UDATE;
 		}
 		dr.setDateType(type);
@@ -264,8 +264,8 @@ public class DateDerive extends SequenceFunction {
 		String newCn = cn;
 
 		if (type == Consts.DCT_DATETIME || type == Consts.DCT_UDATE || type == Consts.DCT_TIME ) {
-			//´¦ÀíÊ±¼ä·ÖÁ¿£ºÈÕÆÚÊ±¼äÀàĞÍ »ò Ê±¼äÀàĞÍ
-			//	(b) ¶ÔÓÚtime²¿·Ö£¬Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_Hour¡±£¬ÖµÎª0-23£¬ÀàĞÍÎª·ÖÀà±äÁ¿£»
+			//å¤„ç†æ—¶é—´åˆ†é‡ï¼šæ—¥æœŸæ—¶é—´ç±»å‹ æˆ– æ—¶é—´ç±»å‹
+			//	(b) å¯¹äºtimeéƒ¨åˆ†ï¼Œç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_Hourâ€ï¼Œå€¼ä¸º0-23ï¼Œç±»å‹ä¸ºåˆ†ç±»å˜é‡ï¼›
 			newCn = cn + "_Hour";
 			newCvs = new Sequence(size);
 			for (int i = 1; i<=size; i++ ) {
@@ -278,7 +278,7 @@ public class DateDerive extends SequenceFunction {
 				}
 				else {
 					//gc.setTime(now);
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -293,7 +293,7 @@ public class DateDerive extends SequenceFunction {
 			Prep.dealEnum(newCvs, newCn, freq, vr, Consts.F_ENUM, tvs, tType, null, ncv, ncn);
 			dr.addDeriveRecs(vr);
 			
-			// Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_is_AM¡±£¬ ÀàĞÍÎª¶şÖµ±äÁ¿£¬1±íÊ¾hour=0-11£¬0±íÊ¾hour=12-23£»
+			// ç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_is_AMâ€ï¼Œ ç±»å‹ä¸ºäºŒå€¼å˜é‡ï¼Œ1è¡¨ç¤ºhour=0-11ï¼Œ0è¡¨ç¤ºhour=12-23ï¼›
 			newCn = cn + "_is_AM";
 			newCvs = new Sequence(size);
 			for (int i = 1; i<=size; i++ ) {
@@ -306,7 +306,7 @@ public class DateDerive extends SequenceFunction {
 				}
 				else {
 					//gc.setTime(now);
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -321,7 +321,7 @@ public class DateDerive extends SequenceFunction {
 			Prep.dealEnum(newCvs, newCn, freq, vr, Consts.F_ENUM, tvs, tType, null, ncv, ncn);
 			dr.addDeriveRecs(vr);
 			
-			// Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_is_night¡±£¬ ÀàĞÍÎª¶şÖµ±äÁ¿£¬1±íÊ¾hour=18-5£¬0±íÊ¾hour=6-17£»
+			// ç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_is_nightâ€ï¼Œ ç±»å‹ä¸ºäºŒå€¼å˜é‡ï¼Œ1è¡¨ç¤ºhour=18-5ï¼Œ0è¡¨ç¤ºhour=6-17ï¼›
 			newCn = cn + "_is_night";
 			newCvs = new Sequence(size);
 			for (int i = 1; i<=size; i++ ) {
@@ -333,7 +333,7 @@ public class DateDerive extends SequenceFunction {
 					newCvs.add(Integer.valueOf((hour>=6 && hour < 18) ? 0 : 1));
 				}
 				else {
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -355,8 +355,8 @@ public class DateDerive extends SequenceFunction {
 		}
 		
 		if (type == Consts.DCT_DATETIME || type == Consts.DCT_UDATE || type == Consts.DCT_DATE ) {
-			//´¦ÀíÈÕÆÚ·ÖÁ¿£ºÈÕÆÚÊ±¼äÀàĞÍ »ò ÈÕÆÚÀàĞÍ
-			//	(c) ¶ÔÓÚdate²¿·Ö£¬Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_Month¡±£¬ÖµÎª1-12£¬ÀàĞÍÎª·ÖÀà±äÁ¿£»
+			//å¤„ç†æ—¥æœŸåˆ†é‡ï¼šæ—¥æœŸæ—¶é—´ç±»å‹ æˆ– æ—¥æœŸç±»å‹
+			//	(c) å¯¹äºdateéƒ¨åˆ†ï¼Œç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_Monthâ€ï¼Œå€¼ä¸º1-12ï¼Œç±»å‹ä¸ºåˆ†ç±»å˜é‡ï¼›
 			newCn = cn + "_Month";
 			newCvs = new Sequence(size);
 			for (int i = 1; i<=size; i++ ) {
@@ -368,7 +368,7 @@ public class DateDerive extends SequenceFunction {
 					newCvs.add(Integer.valueOf(month));
 				}
 				else {
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -383,8 +383,8 @@ public class DateDerive extends SequenceFunction {
 			Prep.dealEnum(newCvs, newCn, freq, vr, Consts.F_ENUM, tvs, tType, null, ncv, ncn);
 			dr.addDeriveRecs(vr);
 			
-			// Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_Season¡±£¬ Month=3\4\5Îª	¡°spring¡±£¬month=6\7\8Îª¡°summer¡±£¬
-			// month=9\10\11Îª¡°autumn¡±£¬	month=12\1\2Îª¡°winter¡±£¬ ÀàĞÍÎª·ÖÀà±äÁ¿£»
+			// ç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_Seasonâ€ï¼Œ Month=3\4\5ä¸º	â€œspringâ€ï¼Œmonth=6\7\8ä¸ºâ€œsummerâ€ï¼Œ
+			// month=9\10\11ä¸ºâ€œautumnâ€ï¼Œ	month=12\1\2ä¸ºâ€œwinterâ€ï¼Œ ç±»å‹ä¸ºåˆ†ç±»å˜é‡ï¼›
 			newCn = cn + "_Season";
 			newCvs = new Sequence(size);
 			for (int i = 1; i<=size; i++ ) {
@@ -400,7 +400,7 @@ public class DateDerive extends SequenceFunction {
 					newCvs.add(Integer.valueOf(season));
 				}
 				else {
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -415,7 +415,7 @@ public class DateDerive extends SequenceFunction {
 			Prep.dealEnum(newCvs, newCn, freq, vr, Consts.F_ENUM, tvs, tType, null, ncv, ncn);
 			dr.addDeriveRecs(vr);
 
-			// Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû	_weekday¡±£¬ ÖµÎª¡°Monday¡±-¡°Sunday¡±£¬ÀàĞÍÎª·ÖÀà±äÁ¿£»
+			// ç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå	_weekdayâ€ï¼Œ å€¼ä¸ºâ€œMondayâ€-â€œSundayâ€ï¼Œç±»å‹ä¸ºåˆ†ç±»å˜é‡ï¼›
 			newCn = cn + "_weekday";
 			newCvs = new Sequence(size);
 			for (int i = 1; i<=size; i++ ) {
@@ -427,7 +427,7 @@ public class DateDerive extends SequenceFunction {
 					newCvs.add(Integer.valueOf(weekday));
 				}
 				else {
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -442,8 +442,8 @@ public class DateDerive extends SequenceFunction {
 			Prep.dealEnum(newCvs, newCn, freq, vr, Consts.F_ENUM, tvs, tType, null, ncv, ncn);
 			dr.addDeriveRecs(vr);
 			
-			// Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_length_to_today¡±±íÊ¾×Ö¶ÎÈÕÆÚºÍµ±Ç°ÈÕÆÚÏà²îÌìÊı£¬
-			// ÀàĞÍÎªÊıÖµ±äÁ¿¡£
+			// ç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_length_to_todayâ€è¡¨ç¤ºå­—æ®µæ—¥æœŸå’Œå½“å‰æ—¥æœŸç›¸å·®å¤©æ•°ï¼Œ
+			// ç±»å‹ä¸ºæ•°å€¼å˜é‡ã€‚
 			newCn = cn + "_length_to_today";
 			newCvs = new Sequence(size);
 			for (int i = 1; i<=size; i++ ) {
@@ -453,7 +453,7 @@ public class DateDerive extends SequenceFunction {
 					newCvs.add(Integer.valueOf((int) Variant.interval(udv, now, null)));
 				}
 				else {
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -479,8 +479,8 @@ public class DateDerive extends SequenceFunction {
 	protected static void datederive(DateRec dr, Sequence dvs, String cn, ArrayList<Sequence> ncv, 
 			ArrayList<String> ncn) {
 		// step04
-		//Á÷³Ì£º
-		//	(a) Çø·ÖÊ±¼äÈÕÆÚĞÍ±äÁ¿µÄ¹¹³É£¬²ğ³ÉdateºÍtimeÁ½²¿·Ö¡£Ò»¸öÊ±¼äÈÕÆÚ±äÁ¿ÖÁÉÙ»á°üº¬dateºÍtimeÖ®Ò»£¬»ò¶şÕß½ÔÓĞ¡£Õë¶ÔÕâÁ½¸ö²¿·Ö£¬Ö´ĞĞÏÂÃæµÄ²Ù×÷
+		//æµç¨‹ï¼š
+		//	(a) åŒºåˆ†æ—¶é—´æ—¥æœŸå‹å˜é‡çš„æ„æˆï¼Œæ‹†æˆdateå’Œtimeä¸¤éƒ¨åˆ†ã€‚ä¸€ä¸ªæ—¶é—´æ—¥æœŸå˜é‡è‡³å°‘ä¼šåŒ…å«dateå’Œtimeä¹‹ä¸€ï¼Œæˆ–äºŒè€…çš†æœ‰ã€‚é’ˆå¯¹è¿™ä¸¤ä¸ªéƒ¨åˆ†ï¼Œæ‰§è¡Œä¸‹é¢çš„æ“ä½œ
 		int size = dvs.length();
 		
 		Calendar gc = Calendar.getInstance();
@@ -488,7 +488,7 @@ public class DateDerive extends SequenceFunction {
 		String newCn = cn;
 		
 		ArrayList<VarRec> vrs = dr.getDeriveRecs();
-		//	(b) ¶ÔÓÚtime²¿·Ö£¬Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_Hour¡±£¬ÖµÎª0-23£¬ÀàĞÍÎª·ÖÀà±äÁ¿£»
+		//	(b) å¯¹äºtimeéƒ¨åˆ†ï¼Œç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_Hourâ€ï¼Œå€¼ä¸º0-23ï¼Œç±»å‹ä¸ºåˆ†ç±»å˜é‡ï¼›
 		VarRec vr = vrs.get(0);
 		if (vr != null && !vr.onlyHasMI()) {
 			newCn = cn + "_Hour";
@@ -503,14 +503,14 @@ public class DateDerive extends SequenceFunction {
 				}
 				else {
 					//gc.setTime(now);
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
 			Prep.prep(vr, newCvs, newCn, ncv, ncn);
 			//reprep(vr, newCvs, newCn, Consts.F_ENUM, pr);
 		}
-		// Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_is_AM¡±£¬ ÀàĞÍÎª¶şÖµ±äÁ¿£¬1±íÊ¾hour=0-11£¬0±íÊ¾hour=12-23£»
+		// ç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_is_AMâ€ï¼Œ ç±»å‹ä¸ºäºŒå€¼å˜é‡ï¼Œ1è¡¨ç¤ºhour=0-11ï¼Œ0è¡¨ç¤ºhour=12-23ï¼›
 		vr = vrs.get(1);
 		if (vr != null && !vr.onlyHasMI()) {
 			newCn = cn + "_is_AM";
@@ -525,7 +525,7 @@ public class DateDerive extends SequenceFunction {
 				}
 				else {
 					//gc.setTime(now);
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -533,7 +533,7 @@ public class DateDerive extends SequenceFunction {
 			//reprep(vr, newCvs, newCn, Consts.F_TWO_VALUE, pr);
 		}
 
-		// Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_is_night¡±£¬ ÀàĞÍÎª¶şÖµ±äÁ¿£¬1±íÊ¾hour=18-5£¬0±íÊ¾hour=6-17£»
+		// ç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_is_nightâ€ï¼Œ ç±»å‹ä¸ºäºŒå€¼å˜é‡ï¼Œ1è¡¨ç¤ºhour=18-5ï¼Œ0è¡¨ç¤ºhour=6-17ï¼›
 		vr = vrs.get(2);
 		if (vr != null && !vr.onlyHasMI()) {
 			newCn = cn + "_is_night";
@@ -547,7 +547,7 @@ public class DateDerive extends SequenceFunction {
 					newCvs.add(Integer.valueOf((hour>=6 && hour < 18) ? 0 : 1));
 				}
 				else {
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -555,7 +555,7 @@ public class DateDerive extends SequenceFunction {
 			Prep.prep(vr, newCvs, newCn, ncv, ncn);
 		}
 
-		//	(c) ¶ÔÓÚdate²¿·Ö£¬Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_Month¡±£¬ÖµÎª1-12£¬ÀàĞÍÎª·ÖÀà±äÁ¿£»
+		//	(c) å¯¹äºdateéƒ¨åˆ†ï¼Œç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_Monthâ€ï¼Œå€¼ä¸º1-12ï¼Œç±»å‹ä¸ºåˆ†ç±»å˜é‡ï¼›
 		vr = vrs.get(3);
 		if (vr != null && !vr.onlyHasMI()) {
 			newCn = cn + "_Month";
@@ -569,7 +569,7 @@ public class DateDerive extends SequenceFunction {
 					newCvs.add(Integer.valueOf(month));
 				}
 				else {
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -577,8 +577,8 @@ public class DateDerive extends SequenceFunction {
 			Prep.prep(vr, newCvs, newCn, ncv, ncn);
 		}
 
-		// Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_Season¡±£¬ Month=3\4\5Îª	¡°spring¡±£¬month=6\7\8Îª¡°summer¡±£¬
-		// month=9\10\11Îª¡°autumn¡±£¬	month=12\1\2Îª¡°winter¡±£¬ ÀàĞÍÎª·ÖÀà±äÁ¿£»
+		// ç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_Seasonâ€ï¼Œ Month=3\4\5ä¸º	â€œspringâ€ï¼Œmonth=6\7\8ä¸ºâ€œsummerâ€ï¼Œ
+		// month=9\10\11ä¸ºâ€œautumnâ€ï¼Œ	month=12\1\2ä¸ºâ€œwinterâ€ï¼Œ ç±»å‹ä¸ºåˆ†ç±»å˜é‡ï¼›
 		vr = vrs.get(4);
 		if (vr != null && !vr.onlyHasMI()) {
 			newCn = cn + "_Season";
@@ -596,7 +596,7 @@ public class DateDerive extends SequenceFunction {
 					newCvs.add(Integer.valueOf(season));
 				}
 				else {
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -604,7 +604,7 @@ public class DateDerive extends SequenceFunction {
 			Prep.prep(vr, newCvs, newCn, ncv, ncn);
 		}
 
-		// Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû	_weekday¡±£¬ ÖµÎª¡°Monday¡±-¡°Sunday¡±£¬ÀàĞÍÎª·ÖÀà±äÁ¿£»
+		// ç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå	_weekdayâ€ï¼Œ å€¼ä¸ºâ€œMondayâ€-â€œSundayâ€ï¼Œç±»å‹ä¸ºåˆ†ç±»å˜é‡ï¼›
 		vr = vrs.get(5);
 		if (vr != null && !vr.onlyHasMI()) {
 			newCn = cn + "_weekday";
@@ -618,7 +618,7 @@ public class DateDerive extends SequenceFunction {
 					newCvs.add(Integer.valueOf(weekday));
 				}
 				else {
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}
@@ -626,7 +626,7 @@ public class DateDerive extends SequenceFunction {
 			Prep.prep(vr, newCvs, newCn, ncv, ncn);
 		}
 
-		// Éú³ÉÑÜÉú±äÁ¿¡°×Ö¶ÎÃû_length_to_today¡±±íÊ¾×Ö¶ÎÈÕÆÚºÍµ±Ç°ÈÕÆÚÏà²îÌìÊı.  ÀàĞÍÎªÊıÖµ±äÁ¿¡£
+		// ç”Ÿæˆè¡ç”Ÿå˜é‡â€œå­—æ®µå_length_to_todayâ€è¡¨ç¤ºå­—æ®µæ—¥æœŸå’Œå½“å‰æ—¥æœŸç›¸å·®å¤©æ•°.  ç±»å‹ä¸ºæ•°å€¼å˜é‡ã€‚
 		vr = vrs.get(6);
 		java.util.Date now = dr.getNow();
 		if (vr != null && !vr.onlyHasMI()) {
@@ -639,7 +639,7 @@ public class DateDerive extends SequenceFunction {
 					newCvs.add(Integer.valueOf((int) Variant.interval(udv, now, null)));
 				}
 				else {
-					//³öÏÖ·ÇÈÕÆÚÊ±¼äµÄÊı¾İ£¬»òÕß¿ÕÖµ£¬´ËÊ±¸÷ÑÜÉúÁĞÖĞ¾ùÓÃ¿ÕÖµ£¬´ıºóĞø²¹¿ÕÊ±´¦Àí
+					//å‡ºç°éæ—¥æœŸæ—¶é—´çš„æ•°æ®ï¼Œæˆ–è€…ç©ºå€¼ï¼Œæ­¤æ—¶å„è¡ç”Ÿåˆ—ä¸­å‡ç”¨ç©ºå€¼ï¼Œå¾…åç»­è¡¥ç©ºæ—¶å¤„ç†
 					newCvs.add(null);
 				}
 			}

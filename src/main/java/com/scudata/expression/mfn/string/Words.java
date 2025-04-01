@@ -8,7 +8,7 @@ import com.scudata.expression.StringFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ½«×Ö·û´®ÖĞµÄÓ¢Óïµ¥´Ê²ğ³ö³É×Ö·û´®ĞòÁĞ·µ»Ø
+ * å°†å­—ç¬¦ä¸²ä¸­çš„è‹±è¯­å•è¯æ‹†å‡ºæˆå­—ç¬¦ä¸²åºåˆ—è¿”å›
  * s.words()
  * @author RunQian
  *
@@ -193,7 +193,7 @@ public class Words extends StringFunction {
 		return series;
 	}
 
-	// Êı×Ö¡¢¡®.¡¯¡¢¡®:¡¯¡¢'-'¡¢'/'
+	// æ•°å­—ã€â€˜.â€™ã€â€˜:â€™ã€'-'ã€'/'
 	private static boolean isDigit(char c, boolean popt) {
 		if (isDigit(c)) {
 			return true;

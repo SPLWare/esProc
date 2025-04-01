@@ -16,7 +16,7 @@ import com.scudata.util.Variant;
 
 
 /**
- * ÇóĞòÁĞ³ÉÔ±»ò¶à¸ö²ÎÊıµÄ°´Î»Òì»ò,·ÇÊıÖµ³ÉÔ±±»ºöÂÔ
+ * æ±‚åºåˆ—æˆå‘˜æˆ–å¤šä¸ªå‚æ•°çš„æŒ‰ä½å¼‚æˆ–,éæ•°å€¼æˆå‘˜è¢«å¿½ç•¥
  * @author yanjing
  *
  */
@@ -25,7 +25,7 @@ public class Xor extends Function {
 		long longValue = 0;
 		BigInteger bi = null;
 		
-		// Èç¹ûÓĞ³ÉÔ±ÀàĞÍÊÇBigDecimal»òBigIntegerÔòÊ¹ÓÃBigIntegerÔËËã
+		// å¦‚æœæœ‰æˆå‘˜ç±»å‹æ˜¯BigDecimalæˆ–BigIntegeråˆ™ä½¿ç”¨BigIntegerè¿ç®—
 		if (v1 instanceof BigDecimal) {
 			bi = ((BigDecimal)v1).toBigInteger();
 		} else if (v1 instanceof BigInteger) {
@@ -71,7 +71,7 @@ public class Xor extends Function {
 		}
 	}
 	
-	// ¼ÆËãĞòÁĞ³ÉÔ±°´Î»Òì»ò
+	// è®¡ç®—åºåˆ—æˆå‘˜æŒ‰ä½å¼‚æˆ–
 	private static Object xor(Sequence seq) {
 		int size = seq.length();
 		if (size == 0) {
@@ -84,7 +84,7 @@ public class Xor extends Function {
 		long longValue = 0;
 		BigInteger bi = null;
 		
-		// Èç¹ûÓĞ³ÉÔ±ÀàĞÍÊÇBigDecimal»òBigIntegerÔòÊ¹ÓÃBigIntegerÔËËã
+		// å¦‚æœæœ‰æˆå‘˜ç±»å‹æ˜¯BigDecimalæˆ–BigIntegeråˆ™ä½¿ç”¨BigIntegerè¿ç®—
 		if (obj instanceof BigDecimal) {
 			bi = ((BigDecimal)obj).toBigInteger();
 		} else if (obj instanceof BigInteger) {
@@ -134,7 +134,7 @@ public class Xor extends Function {
 	}
 	
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -163,7 +163,7 @@ public class Xor extends Function {
 			long longValue = 0;
 			BigInteger bi = null;
 			
-			// Èç¹ûÓĞ³ÉÔ±ÀàĞÍÊÇBigDecimal»òBigIntegerÔòÊ¹ÓÃBigIntegerÔËËã
+			// å¦‚æœæœ‰æˆå‘˜ç±»å‹æ˜¯BigDecimalæˆ–BigIntegeråˆ™ä½¿ç”¨BigIntegerè¿ç®—
 			if (obj instanceof BigDecimal) {
 				bi = ((BigDecimal)obj).toBigInteger();
 			} else if (obj instanceof BigInteger) {
@@ -260,10 +260,10 @@ public class Xor extends Function {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {

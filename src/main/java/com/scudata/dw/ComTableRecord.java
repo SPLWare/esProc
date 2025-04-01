@@ -7,15 +7,15 @@ import java.io.ObjectOutput;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Record;
 /**
- * ×é±í¼ÇÂ¼Àà
+ * ç»„è¡¨è®°å½•ç±»
  * @author runqian
  *
  */
 class ComTableRecord extends Record {
-	private long recordSeq; // ¼ÇÂ¼ĞòºÅ
+	private long recordSeq; // è®°å½•åºå·
 	
 	/**
-	 * ĞòÁĞ»¯Ê±Ê¹ÓÃ
+	 * åºåˆ—åŒ–æ—¶ä½¿ç”¨
 	 */
 	public ComTableRecord() {}
 

@@ -3,17 +3,17 @@ package com.scudata.expression;
 import com.scudata.excel.XlsFileObject;
 
 /**
- * xo.func() xlsº¯ÊıÅÉÉú×Ô´ËÀà
+ * xo.func() xlså‡½æ•°æ´¾ç”Ÿè‡ªæ­¤ç±»
  *
  */
 public abstract class XOFunction extends MemberFunction {
 	/**
-	 * xoÎÄ¼ş¶ÔÏó
+	 * xoæ–‡ä»¶å¯¹è±¡
 	 */
 	protected XlsFileObject file;
 
 	/**
-	 * Ö÷¶ÔÏóÊÇXlsFileObject¶ÔÏóµÄ
+	 * ä¸»å¯¹è±¡æ˜¯XlsFileObjectå¯¹è±¡çš„
 	 */
 	public boolean isLeftTypeMatch(Object obj) {
 		return obj instanceof XlsFileObject;
@@ -24,7 +24,7 @@ public abstract class XOFunction extends MemberFunction {
 	}
 	
 	/**
-	 * ÊÍ·Å½ÚµãÒıÓÃµÄµã²Ù×÷·û×ó²àµÄ¶ÔÏó
+	 * é‡Šæ”¾èŠ‚ç‚¹å¼•ç”¨çš„ç‚¹æ“ä½œç¬¦å·¦ä¾§çš„å¯¹è±¡
 	 */
 	public void releaseDotLeftObject() {
 		file = null;

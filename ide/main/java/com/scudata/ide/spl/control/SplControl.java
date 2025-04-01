@@ -28,7 +28,7 @@ import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.ide.spl.SheetSpl;
 
 /**
- * Íø¸ñ±à¼­¿Ø¼ş
+ * ç½‘æ ¼ç¼–è¾‘æ§ä»¶
  *
  */
 public abstract class SplControl extends ControlBase {
@@ -36,91 +36,91 @@ public abstract class SplControl extends ControlBase {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Íø¸ñ¶ÔÏó
+	 * ç½‘æ ¼å¯¹è±¡
 	 */
 	public PgmCellSet cellSet;
 
-	/** ÔÚ±à¼­Ê±±»Ñ¡ÖĞµÄµ¥Ôª¸ñÇøÓò */
+	/** åœ¨ç¼–è¾‘æ—¶è¢«é€‰ä¸­çš„å•å…ƒæ ¼åŒºåŸŸ */
 	public Vector<Object> m_selectedAreas = new Vector<Object>();
 
-	/** µ±Ç°µ¥Ôª¸ñµÄÎ»ÖÃ */
+	/** å½“å‰å•å…ƒæ ¼çš„ä½ç½® */
 	public CellLocation m_activeCell;
 
-	/** µ¥²½Ö´ĞĞÊ±µÄµ±Ç°Î»ÖÃ */
+	/** å•æ­¥æ‰§è¡Œæ—¶çš„å½“å‰ä½ç½® */
 	public CellLocation stepPosition;
 
-	/** ¶Ïµã */
+	/** æ–­ç‚¹ */
 	protected ArrayList<CellLocation> breakPoints = new ArrayList<CellLocation>();
 
-	/** ¼ÆËãµÄ×ø±ê */
+	/** è®¡ç®—çš„åæ ‡ */
 	protected CellLocation calcPos;
 
-	/** ±à¼­×´Ì¬ */
+	/** ç¼–è¾‘çŠ¶æ€ */
 	int status;
 
-	/** ±à¼­Ê±±»Ñ¡ÖĞµÄÁĞºÅ¼¯ */
+	/** ç¼–è¾‘æ—¶è¢«é€‰ä¸­çš„åˆ—å·é›† */
 	Vector<Integer> m_selectedCols = new Vector<Integer>();
 
-	/** ±à¼­Ê±±»Ñ¡ÖĞµÄĞĞºÅ¼¯ */
+	/** ç¼–è¾‘æ—¶è¢«é€‰ä¸­çš„è¡Œå·é›† */
 	Vector<Integer> m_selectedRows = new Vector<Integer>();
 
-	/** ±à¼­Ê±ÊÇ·ñÑ¡ÖĞÁËÕû¸öÍø¸ñ */
+	/** ç¼–è¾‘æ—¶æ˜¯å¦é€‰ä¸­äº†æ•´ä¸ªç½‘æ ¼ */
 	boolean m_cornerSelected = false;
 
-	/** ±à¼­¼àÌıÆ÷¼¯ºÏ */
+	/** ç¼–è¾‘ç›‘å¬å™¨é›†åˆ */
 	ArrayList<EditorListener> m_editorListener;
 
-	/** ÄÚÈİÃæ°å */
+	/** å†…å®¹é¢æ¿ */
 	public ContentPanel contentView = null;
 
-	/** ±à¼­Ê±¸÷ÁĞÊ×¸ñµÄX×ø±êÊı×é */
+	/** ç¼–è¾‘æ—¶å„åˆ—é¦–æ ¼çš„Xåæ ‡æ•°ç»„ */
 	int[] cellX;
 
-	/** ±à¼­Ê±¸÷ĞĞÊ×¸ñµÄY×ø±êÊı×é */
+	/** ç¼–è¾‘æ—¶å„è¡Œé¦–æ ¼çš„Yåæ ‡æ•°ç»„ */
 	int[] cellY;
 
-	/** ±à¼­Ê±¸÷ÁĞÊ×¸ñµÄ¿í¶ÈÊı×é */
+	/** ç¼–è¾‘æ—¶å„åˆ—é¦–æ ¼çš„å®½åº¦æ•°ç»„ */
 	int[] cellW;
 
-	/** ±à¼­Ê±¸÷ĞĞÊ×¸ñµÄ¸ß¶ÈÊı×é */
+	/** ç¼–è¾‘æ—¶å„è¡Œé¦–æ ¼çš„é«˜åº¦æ•°ç»„ */
 	int[] cellH;
 
-	/** ÏÔÊ¾±ÈÀı */
+	/** æ˜¾ç¤ºæ¯”ä¾‹ */
 	public float scale = 1.0f;
 
 	/**
-	 * µ±Ç°µÄÊó±ê¶¯×÷ÊÇÑ¡Ôñ¸ñ×Ó»¹ÊÇÑ¡ÖĞ±à¼­¸ñ
+	 * å½“å‰çš„é¼ æ ‡åŠ¨ä½œæ˜¯é€‰æ‹©æ ¼å­è¿˜æ˜¯é€‰ä¸­ç¼–è¾‘æ ¼
 	 */
 	public boolean isSelectingCell = false;
 
 	/**
-	 * ĞĞ±íÍ·ºÍÁĞ±íÍ·Ãæ°å
+	 * è¡Œè¡¨å¤´å’Œåˆ—è¡¨å¤´é¢æ¿
 	 */
 	JPanel rowHeaderView = null, colHeaderView = null;
 	/**
-	 * ÁĞ±íÍ·Ãæ°å
+	 * åˆ—è¡¨å¤´é¢æ¿
 	 */
 	ColHeaderPanel headerPanel = null;
 
 	/**
-	 * Ò³Ãæ¶ÔÏó
+	 * é¡µé¢å¯¹è±¡
 	 */
 	protected SheetSpl sheet;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public SplControl() {
 		this(1, 1);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param rows
-	 *            ĞĞÊı
+	 *            è¡Œæ•°
 	 * @param cols
-	 *            ÁĞÊı
+	 *            åˆ—æ•°
 	 */
 	public SplControl(int rows, int cols) {
 		super();
@@ -131,7 +131,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃSheet¶ÔÏó
+	 * è®¾ç½®Sheetå¯¹è±¡
 	 * 
 	 * @param sheet
 	 */
@@ -140,7 +140,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * È¡Sheet¶ÔÏó
+	 * å–Sheetå¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -149,12 +149,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃÍø¸ñ¹ö¶¯Ìõ¼àÌıÆ÷
+	 * è®¾ç½®ç½‘æ ¼æ»šåŠ¨æ¡ç›‘å¬å™¨
 	 */
 	public void setSplScrollBarListener() {
 		getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
 			public void adjustmentValueChanged(AdjustmentEvent e) {
-				// Èç¹ûË¢ĞÂÂı¼ÓÉÏÑÓÊ±Ë¢ĞÂ£¬ÔİÊ±ËÙ¶ÈºÜ¿ì²»¼ÓÁË
+				// å¦‚æœåˆ·æ–°æ…¢åŠ ä¸Šå»¶æ—¶åˆ·æ–°ï¼Œæš‚æ—¶é€Ÿåº¦å¾ˆå¿«ä¸åŠ äº†
 				contentView.repaint();
 			}
 		});
@@ -169,7 +169,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃ¸ñ×ÓÊÇ·ñÑ¡ÖĞ
+	 * è®¾ç½®æ ¼å­æ˜¯å¦é€‰ä¸­
 	 * 
 	 * @param isSelect
 	 */
@@ -178,7 +178,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * È¡Íø¸ñÃæ°å
+	 * å–ç½‘æ ¼é¢æ¿
 	 * 
 	 * @return
 	 */
@@ -187,7 +187,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * È¡ĞĞ±íÍ·Ãæ°å
+	 * å–è¡Œè¡¨å¤´é¢æ¿
 	 * 
 	 * @return
 	 */
@@ -196,7 +196,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * È¡ÁĞ±íÍ·Ãæ°å
+	 * å–åˆ—è¡¨å¤´é¢æ¿
 	 * 
 	 * @return
 	 */
@@ -205,7 +205,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃ¶Ïµã
+	 * è®¾ç½®æ–­ç‚¹
 	 * 
 	 * @param breakPoints
 	 */
@@ -214,7 +214,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * È¡¶Ïµã
+	 * å–æ–­ç‚¹
 	 * 
 	 * @return
 	 */
@@ -223,7 +223,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÊÇ·ñÉèÖÃÁË¶ÏµãµÄĞĞ
+	 * æ˜¯å¦è®¾ç½®äº†æ–­ç‚¹çš„è¡Œ
 	 * 
 	 * @param row
 	 *            int
@@ -241,10 +241,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * É¾³ıĞĞ¶Ïµã
+	 * åˆ é™¤è¡Œæ–­ç‚¹
 	 * 
 	 * @param row
-	 *            Ö¸¶¨µÄĞĞºÅ
+	 *            æŒ‡å®šçš„è¡Œå·
 	 */
 	public void removeRowBreakPoints(int row) {
 		for (int i = breakPoints.size() - 1; i >= 0; i--) {
@@ -258,10 +258,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * É¾³ıÁĞ¶Ïµã
+	 * åˆ é™¤åˆ—æ–­ç‚¹
 	 * 
 	 * @param col
-	 *            Ö¸¶¨µÄÁĞºÅ
+	 *            æŒ‡å®šçš„åˆ—å·
 	 */
 	public void removeColBreakPoints(int col) {
 		for (int i = breakPoints.size() - 1; i >= 0; i--) {
@@ -275,7 +275,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃ¶Ïµã
+	 * è®¾ç½®æ–­ç‚¹
 	 */
 	public void setBreakPoint() {
 		CellLocation cp = getActiveCell();
@@ -291,12 +291,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÊÇ·ñ¶Ïµã¸ñ
+	 * æ˜¯å¦æ–­ç‚¹æ ¼
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @return
 	 */
 	public boolean isBreakPointCell(int row, int col) {
@@ -311,7 +311,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÊÇ·ñÑ¡ÖĞµÄ¸ñ
+	 * æ˜¯å¦é€‰ä¸­çš„æ ¼
 	 * 
 	 * @return
 	 */
@@ -320,7 +320,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * È¡µ±Ç°¸ñ
+	 * å–å½“å‰æ ¼
 	 * 
 	 * @return
 	 */
@@ -329,17 +329,17 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃµ¥²½µ÷ÊÔÖ´ĞĞ¸ñ×ø±ê
+	 * è®¾ç½®å•æ­¥è°ƒè¯•æ‰§è¡Œæ ¼åæ ‡
 	 * 
 	 * @param cp
-	 *            µ¥²½µ÷ÊÔÖ´ĞĞ¸ñ×ø±ê
+	 *            å•æ­¥è°ƒè¯•æ‰§è¡Œæ ¼åæ ‡
 	 */
 	public void setStepPosition(CellLocation cp) {
 		this.stepPosition = cp;
 	}
 
 	/**
-	 * È¡µ¥²½µ÷ÊÔÖ´ĞĞ¸ñ×ø±ê
+	 * å–å•æ­¥è°ƒè¯•æ‰§è¡Œæ ¼åæ ‡
 	 * 
 	 * @return
 	 */
@@ -348,7 +348,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃÒª¼ÆËãµÄ¸ñ×ø±ê
+	 * è®¾ç½®è¦è®¡ç®—çš„æ ¼åæ ‡
 	 * 
 	 * @param cp
 	 */
@@ -357,7 +357,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * È¡Òª¼ÆËãµÄ¸ñ×ø±ê
+	 * å–è¦è®¡ç®—çš„æ ¼åæ ‡
 	 * 
 	 * @return
 	 */
@@ -366,19 +366,19 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÖØĞÂ¼ÓÔØ±à¼­¿Ø¼şµÄÎÄ±¾
+	 * é‡æ–°åŠ è½½ç¼–è¾‘æ§ä»¶çš„æ–‡æœ¬
 	 */
 	public void reloadEditorText() {
 		this.contentView.reloadEditorText();
 	}
 
 	/**
-	 * È¡¸ñ×ÓµÄ×ø±ê
+	 * å–æ ¼å­çš„åæ ‡
 	 * 
 	 * @param row
-	 *            ¸ñ×ÓµÄĞĞºÅ
+	 *            æ ¼å­çš„è¡Œå·
 	 * @param col
-	 *            ¸ñ×ÓµÄÁĞºÅ
+	 *            æ ¼å­çš„åˆ—å·
 	 * @return
 	 */
 	public Point[] getCellPoint(int row, int col) {
@@ -393,10 +393,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°¸ñ
+	 * è®¾ç½®å½“å‰æ ¼
 	 * 
 	 * @param pos
-	 *            ¸ñ×ÓµÄ×ø±ê
+	 *            æ ¼å­çš„åæ ‡
 	 * @return
 	 */
 	public Area setActiveCell(CellLocation pos) {
@@ -404,12 +404,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°¸ñ
+	 * è®¾ç½®å½“å‰æ ¼
 	 * 
 	 * @param pos
-	 *            ¸ñ×ÓµÄ×ø±ê
+	 *            æ ¼å­çš„åæ ‡
 	 * @param clearSelection
-	 *            ÊÇ·ñÇå³ıÖ®Ç°µÄÑ¡ÔñÇøÓò
+	 *            æ˜¯å¦æ¸…é™¤ä¹‹å‰çš„é€‰æ‹©åŒºåŸŸ
 	 * @return
 	 */
 	public Area setActiveCell(CellLocation pos, boolean clearSelection) {
@@ -417,15 +417,15 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃµ±Ç°¸ñ
+	 * è®¾ç½®å½“å‰æ ¼
 	 * 
 	 * @param pos
-	 *            µ±Ç°µ¥Ôª¸ñÎ»ÖÃ clearSelection : Í¨³£Çé¿öÒªÇå¿ÕÑ¡Ôñ£¬ÌØÊâÎªÑ¡ÖĞĞĞÁĞÊ±£¬ÒÆ¶¯¿Ø¼şµ½Ñ¡Ôñ¿ò£¬±ÜÃâ¶àÇøÓòÑ¡Ôñ
-	 *            ¶àÇøÓòÑ¡ÔñÓĞºÜ¶àÏŞÖÆ£¬²»ÄÜ²åÈëµÈ ·µ»ØÉèÖÃ¸ÃÎ»ÖÃºóµÄµ÷Õû¹ıµÄÇøÓò,ÓÃÓÚÉÏ²ã¼Ç×¡Ñ¡ÖĞµÄÇøÓò
+	 *            å½“å‰å•å…ƒæ ¼ä½ç½® clearSelection : é€šå¸¸æƒ…å†µè¦æ¸…ç©ºé€‰æ‹©ï¼Œç‰¹æ®Šä¸ºé€‰ä¸­è¡Œåˆ—æ—¶ï¼Œç§»åŠ¨æ§ä»¶åˆ°é€‰æ‹©æ¡†ï¼Œé¿å…å¤šåŒºåŸŸé€‰æ‹©
+	 *            å¤šåŒºåŸŸé€‰æ‹©æœ‰å¾ˆå¤šé™åˆ¶ï¼Œä¸èƒ½æ’å…¥ç­‰ è¿”å›è®¾ç½®è¯¥ä½ç½®åçš„è°ƒæ•´è¿‡çš„åŒºåŸŸ,ç”¨äºä¸Šå±‚è®°ä½é€‰ä¸­çš„åŒºåŸŸ
 	 * @param clearSelection
-	 *            ÊÇ·ñÇå³ıÖ®Ç°µÄÑ¡ÔñÇøÓò
+	 *            æ˜¯å¦æ¸…é™¤ä¹‹å‰çš„é€‰æ‹©åŒºåŸŸ
 	 * @param scrollToVisible
-	 *            µ±Ç°¸ñÃ»ÓĞÏÔÊ¾Ê±£¬ÊÇ·ñ¹ö¶¯µ½µ±Ç°¸ñÊ¹ÆäÏÔÊ¾
+	 *            å½“å‰æ ¼æ²¡æœ‰æ˜¾ç¤ºæ—¶ï¼Œæ˜¯å¦æ»šåŠ¨åˆ°å½“å‰æ ¼ä½¿å…¶æ˜¾ç¤º
 	 * @return
 	 */
 	public Area setActiveCell(CellLocation pos, boolean clearSelection,
@@ -464,7 +464,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ½«µ±Ç°µ¥Ôª¸ñÉÏÒ»ĞĞÍ¬Ò»ÁĞÎ»ÖÃµÄµ¥Ôª¸ñ±äÎªµ±Ç°µ¥Ôª¸ñ
+	 * å°†å½“å‰å•å…ƒæ ¼ä¸Šä¸€è¡ŒåŒä¸€åˆ—ä½ç½®çš„å•å…ƒæ ¼å˜ä¸ºå½“å‰å•å…ƒæ ¼
 	 */
 	public Area toUpCell() {
 		if (m_activeCell == null) {
@@ -489,7 +489,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ½«µ±Ç°µ¥Ôª¸ñÏÂÒ»ĞĞÍ¬Ò»ÁĞÎ»ÖÃµÄµ¥Ôª¸ñ±äÎªµ±Ç°µ¥Ôª¸ñ
+	 * å°†å½“å‰å•å…ƒæ ¼ä¸‹ä¸€è¡ŒåŒä¸€åˆ—ä½ç½®çš„å•å…ƒæ ¼å˜ä¸ºå½“å‰å•å…ƒæ ¼
 	 */
 	public Area toDownCell() {
 		if (m_activeCell == null) {
@@ -515,7 +515,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ½«µ±Ç°µ¥Ôª¸ñ×ó±ßÒ»ÁĞÍ¬Ò»ĞĞÎ»ÖÃµÄµ¥Ôª¸ñ±äÎªµ±Ç°µ¥Ôª¸ñ
+	 * å°†å½“å‰å•å…ƒæ ¼å·¦è¾¹ä¸€åˆ—åŒä¸€è¡Œä½ç½®çš„å•å…ƒæ ¼å˜ä¸ºå½“å‰å•å…ƒæ ¼
 	 */
 	public Area toLeftCell() {
 		if (m_activeCell == null) {
@@ -541,7 +541,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ½«µ±Ç°µ¥Ôª¸ñÓÒ±ßÒ»ÁĞÍ¬Ò»ĞĞÎ»ÖÃµÄµ¥Ôª¸ñ±äÎªµ±Ç°µ¥Ôª¸ñ
+	 * å°†å½“å‰å•å…ƒæ ¼å³è¾¹ä¸€åˆ—åŒä¸€è¡Œä½ç½®çš„å•å…ƒæ ¼å˜ä¸ºå½“å‰å•å…ƒæ ¼
 	 */
 	public Area toRightCell() {
 		if (m_activeCell == null) {
@@ -569,7 +569,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÔÚ±í¸ñ×îºóÒ»ÁĞµã»÷"tab"¼üÔÚÄ©ÁĞºóÔö¼ÓÒ»ÁĞÊ±£¬¸üĞÂ±í¸ñÁĞÊ×µÄ×ø±êºÍ¿í¶È
+	 * åœ¨è¡¨æ ¼æœ€åä¸€åˆ—ç‚¹å‡»"tab"é”®åœ¨æœ«åˆ—åå¢åŠ ä¸€åˆ—æ—¶ï¼Œæ›´æ–°è¡¨æ ¼åˆ—é¦–çš„åæ ‡å’Œå®½åº¦
 	 */
 	protected void updateCoords() {
 		int cols = cellSet.getColCount() + 1;
@@ -593,10 +593,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ½«µ±Ç°Ñ¡ÔñÇøÓòÀ©Õ¹µ½Ö¸¶¨ÇøÓò£¬°´SHIFT+°´¼üÊ±µ÷ÓÃ
+	 * å°†å½“å‰é€‰æ‹©åŒºåŸŸæ‰©å±•åˆ°æŒ‡å®šåŒºåŸŸï¼ŒæŒ‰SHIFT+æŒ‰é”®æ—¶è°ƒç”¨
 	 * 
 	 * @param region
-	 *            ÒªÀ©Õ¹µ½µÄÇøÓò
+	 *            è¦æ‰©å±•åˆ°çš„åŒºåŸŸ
 	 */
 	public void selectToArea(Area region) {
 		addSelectedArea(region, true);
@@ -611,10 +611,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ½«µ±Ç°Ñ¡ÔñÇøÓòÀ©Õ¹µ½µ±Ç°ÇøÓòÏÂÒ»ĞĞÍ¬Ò»ÁĞÎ»ÖÃ
+	 * å°†å½“å‰é€‰æ‹©åŒºåŸŸæ‰©å±•åˆ°å½“å‰åŒºåŸŸä¸‹ä¸€è¡ŒåŒä¸€åˆ—ä½ç½®
 	 * 
 	 * @param tarPos
-	 *            Ä¿±ê¸ñ×Ó×ø±ê
+	 *            ç›®æ ‡æ ¼å­åæ ‡
 	 */
 	public void selectToDownCell(CellLocation tarPos) {
 		Area region = getSelectedArea(-1);
@@ -688,10 +688,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ½«µ±Ç°Ñ¡ÔñÇøÓòÀ©Õ¹µ½µ±Ç°ÇøÓòÉÏÒ»ĞĞÍ¬Ò»ÁĞÎ»ÖÃ
+	 * å°†å½“å‰é€‰æ‹©åŒºåŸŸæ‰©å±•åˆ°å½“å‰åŒºåŸŸä¸Šä¸€è¡ŒåŒä¸€åˆ—ä½ç½®
 	 * 
 	 * @param tarPos
-	 *            Ä¿±ê¸ñ×Ó×ø±ê
+	 *            ç›®æ ‡æ ¼å­åæ ‡
 	 */
 	void selectToUpCell(CellLocation tarPos) {
 		Area region = getSelectedArea(-1);
@@ -765,10 +765,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ½«µ±Ç°Ñ¡ÔñÇøÓòÀ©Õ¹µ½µ±Ç°ÇøÓòÏÂÒ»ÁĞÍ¬Ò»ĞĞÎ»ÖÃ
+	 * å°†å½“å‰é€‰æ‹©åŒºåŸŸæ‰©å±•åˆ°å½“å‰åŒºåŸŸä¸‹ä¸€åˆ—åŒä¸€è¡Œä½ç½®
 	 * 
 	 * @param tarPos
-	 *            Ä¿±ê¸ñ×Ó×ø±ê
+	 *            ç›®æ ‡æ ¼å­åæ ‡
 	 */
 	void selectToRightCell(CellLocation tarPos) {
 		Area region = getSelectedArea(-1);
@@ -829,10 +829,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ½«µ±Ç°Ñ¡ÔñÇøÓòÀ©Õ¹µ½µ±Ç°ÇøÓòÉÏÒ»ÁĞÍ¬Ò»ĞĞÎ»ÖÃ
+	 * å°†å½“å‰é€‰æ‹©åŒºåŸŸæ‰©å±•åˆ°å½“å‰åŒºåŸŸä¸Šä¸€åˆ—åŒä¸€è¡Œä½ç½®
 	 * 
 	 * @param tarPos
-	 *            Ä¿±ê¸ñ×Ó×ø±ê
+	 *            ç›®æ ‡æ ¼å­åæ ‡
 	 */
 	void selectToLeftCell(CellLocation tarPos) {
 		Area region = getSelectedArea(-1);
@@ -893,10 +893,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * Ôö¼ÓÑ¡ÔñµÄÁĞ
+	 * å¢åŠ é€‰æ‹©çš„åˆ—
 	 * 
 	 * @param c
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 */
 	public void addSelectedCol(Integer c) {
 		if (m_selectedCols.contains(c)) {
@@ -906,10 +906,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * Ôö¼ÓÑ¡ÔñµÄĞĞ
+	 * å¢åŠ é€‰æ‹©çš„è¡Œ
 	 * 
 	 * @param r
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 */
 	public void addSelectedRow(Integer r) {
 		if (m_selectedRows.contains(r)) {
@@ -919,14 +919,14 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * Çå³ıÑ¡ÔñµÄÇøÓò
+	 * æ¸…é™¤é€‰æ‹©çš„åŒºåŸŸ
 	 */
 	public void clearSelectedArea() {
 		m_selectedAreas.clear();
 	}
 
 	/**
-	 * È¡Ñ¡ÔñµÄÇøÓò
+	 * å–é€‰æ‹©çš„åŒºåŸŸ
 	 * 
 	 * @return
 	 */
@@ -935,17 +935,17 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃÑ¡ÔñµÄÇøÓò
+	 * è®¾ç½®é€‰æ‹©çš„åŒºåŸŸ
 	 * 
 	 * @param newAreas
-	 *            Ñ¡ÔñµÄÇøÓò
+	 *            é€‰æ‹©çš„åŒºåŸŸ
 	 */
 	public void setSelectedAreas(Vector<Object> newAreas) {
 		m_selectedAreas = newAreas;
 	}
 
 	/**
-	 * È¡µÃÖ¸¶¨µÄÇøÓò£¬index<0Ê±±íÊ¾È¡×îºóµÄTopÇøÓò
+	 * å–å¾—æŒ‡å®šçš„åŒºåŸŸï¼Œindex<0æ—¶è¡¨ç¤ºå–æœ€åçš„TopåŒºåŸŸ
 	 * 
 	 * @param index
 	 *            int
@@ -962,10 +962,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃÑ¡ÔñµÄÇøÓò
+	 * è®¾ç½®é€‰æ‹©çš„åŒºåŸŸ
 	 * 
 	 * @param a
-	 *            Ñ¡ÔñµÄÇøÓò
+	 *            é€‰æ‹©çš„åŒºåŸŸ
 	 */
 	public void setSelectedArea(Area a) {
 		if (a == null) {
@@ -976,7 +976,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * È«Ñ¡Õû¸öÍø¸ñ
+	 * å…¨é€‰æ•´ä¸ªç½‘æ ¼
 	 */
 	public void selectAll() {
 		m_cornerSelected = true;
@@ -989,7 +989,7 @@ public abstract class SplControl extends ControlBase {
 		}
 		m_selectedRows.clear();
 		for (int i = 1; i <= rows; i++) {
-			// conrolµÄadd·½·¨»áÅĞ¶ÏÓĞ·ñÖØ¸´ĞĞ,ĞĞ¶àÊ±ºÜ·ÑÊ±¼ä
+			// conrolçš„addæ–¹æ³•ä¼šåˆ¤æ–­æœ‰å¦é‡å¤è¡Œ,è¡Œå¤šæ—¶å¾ˆè´¹æ—¶é—´
 			m_selectedRows.add(new Integer(i));
 		}
 		setSelectedArea(new Area(1, (int) 1, rows, cols));
@@ -998,12 +998,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * Ôö¼ÓÑ¡ÔñµÄÇøÓò
+	 * å¢åŠ é€‰æ‹©çš„åŒºåŸŸ
 	 * 
 	 * @param a
-	 *            Ñ¡ÔñµÄÇøÓò
+	 *            é€‰æ‹©çš„åŒºåŸŸ
 	 * @param removeLast
-	 *            ÊÇ·ñÉ¾³ıÉÏÒ»´ÎÑ¡ÔñµÄÇøÓò
+	 *            æ˜¯å¦åˆ é™¤ä¸Šä¸€æ¬¡é€‰æ‹©çš„åŒºåŸŸ
 	 */
 	public void addSelectedArea(Area a, boolean removeLast) {
 		if (a == null || m_selectedAreas.contains(a)) {
@@ -1016,7 +1016,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * Éú³É²¢»æÖÆ¿Ø¼ş
+	 * ç”Ÿæˆå¹¶ç»˜åˆ¶æ§ä»¶
 	 */
 	public void draw() {
 		JPanel corner = createCorner();
@@ -1044,10 +1044,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ¹ö¶¯µ½Ö¸¶¨ÇøÓò
+	 * æ»šåŠ¨åˆ°æŒ‡å®šåŒºåŸŸ
 	 * 
 	 * @param newArea
-	 *            ÒªÏÔÊ¾µÄÇøÓò
+	 *            è¦æ˜¾ç¤ºçš„åŒºåŸŸ
 	 */
 	public void scrollToArea(Area newArea) {
 		if (newArea == null) {
@@ -1068,34 +1068,34 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * Éú³ÉÍø¸ñµÄ×óÉÏ½ÇÃæ°å
+	 * ç”Ÿæˆç½‘æ ¼çš„å·¦ä¸Šè§’é¢æ¿
 	 * 
 	 * @return
 	 */
 	abstract JPanel createCorner();
 
 	/**
-	 * Éú³ÉÍø¸ñµÄÉÏ±íÍ·Ãæ°å
+	 * ç”Ÿæˆç½‘æ ¼çš„ä¸Šè¡¨å¤´é¢æ¿
 	 * 
 	 * @return
 	 */
 	abstract JPanel createColHeaderView();
 
 	/**
-	 * Éú³ÉÍø¸ñµÄ×ó±íÍ·Ãæ°å
+	 * ç”Ÿæˆç½‘æ ¼çš„å·¦è¡¨å¤´é¢æ¿
 	 * 
 	 * @return
 	 */
 	abstract JPanel createRowHeaderView();
 
-	/** Éú³ÉÍø¸ñµÄÄÚÈİÃæ°å */
+	/** ç”Ÿæˆç½‘æ ¼çš„å†…å®¹é¢æ¿ */
 	abstract ContentPanel createContentView();
 
 	/**
-	 * ÉèÖÃÍø¸ñ
+	 * è®¾ç½®ç½‘æ ¼
 	 * 
 	 * @param cellSet
-	 *            Íø¸ñ¶ÔÏó
+	 *            ç½‘æ ¼å¯¹è±¡
 	 */
 	public void setCellSet(PgmCellSet cellSet) {
 		this.cellSet = cellSet;
@@ -1111,38 +1111,38 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * »ñµÃÍø¸ñ¶ÔÏó
+	 * è·å¾—ç½‘æ ¼å¯¹è±¡
 	 * 
-	 * @return Íø¸ñ¶ÔÏó
+	 * @return ç½‘æ ¼å¯¹è±¡
 	 */
 	public PgmCellSet getCellSet() {
 		return cellSet;
 	}
 
 	/**
-	 * »ñµÃÍø¸ñ¶ÔÏó½Ó¿Ú
+	 * è·å¾—ç½‘æ ¼å¯¹è±¡æ¥å£
 	 */
 	public ICellSet getICellSet() {
 		return cellSet;
 	}
 
 	/**
-	 * Ìí¼ÓÍø¸ñ±à¼­ÊÂ¼ş¼àÌıÆ÷
+	 * æ·»åŠ ç½‘æ ¼ç¼–è¾‘äº‹ä»¶ç›‘å¬å™¨
 	 * 
 	 * @param listener
-	 *            ¼àÌıÆ÷ÊµÀı
+	 *            ç›‘å¬å™¨å®ä¾‹
 	 */
 	public void addEditorListener(EditorListener listener) {
 		this.m_editorListener.add(listener);
 	}
 
 	/**
-	 * ´¥·¢ĞĞ¸ßµ÷ÕûÏûÏ¢
+	 * è§¦å‘è¡Œé«˜è°ƒæ•´æ¶ˆæ¯
 	 * 
 	 * @param vectHeader
-	 *            ĞĞ±àºÅ¼¯ºÏ
+	 *            è¡Œç¼–å·é›†åˆ
 	 * @param newHeight
-	 *            ĞÂµÄĞĞ¸ßÖµ
+	 *            æ–°çš„è¡Œé«˜å€¼
 	 */
 	void fireRowHeaderResized(Vector<Integer> vectHeader, float newHeight) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1162,12 +1162,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ´¥·¢ÁĞ¿íµ÷ÕûÏûÏ¢
+	 * è§¦å‘åˆ—å®½è°ƒæ•´æ¶ˆæ¯
 	 * 
 	 * @param vectHeader
-	 *            ÁĞ±àºÅ¼¯ºÏ
+	 *            åˆ—ç¼–å·é›†åˆ
 	 * @param newWidth
-	 *            ĞÂµÄÁĞ¿íÖµ
+	 *            æ–°çš„åˆ—å®½å€¼
 	 */
 	void fireColHeaderResized(Vector<Integer> vectHeader, float newWidth) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1188,7 +1188,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ´¥·¢ÇøÓòÒÆ¶¯ÏûÏ¢£¬Î´ÊµÏÖ
+	 * è§¦å‘åŒºåŸŸç§»åŠ¨æ¶ˆæ¯ï¼Œæœªå®ç°
 	 * 
 	 * @return
 	 */
@@ -1196,7 +1196,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ´¥·¢ÇøÓòÕ³ÌùÏûÏ¢£¬Î´ÊµÏÖ
+	 * è§¦å‘åŒºåŸŸç²˜è´´æ¶ˆæ¯ï¼Œæœªå®ç°
 	 * 
 	 * @return
 	 */
@@ -1204,10 +1204,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ´¥·¢ÇøÓòÑ¡ÔñÏûÏ¢
+	 * è§¦å‘åŒºåŸŸé€‰æ‹©æ¶ˆæ¯
 	 * 
 	 * @param keyEvent
-	 *            boolean ¼üÅÌÊÂ¼ş²»´¥·¢ÊôĞÔÖµË¢ĞÂ
+	 *            boolean é”®ç›˜äº‹ä»¶ä¸è§¦å‘å±æ€§å€¼åˆ·æ–°
 	 */
 	void fireRegionSelect(boolean keyEvent) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1219,12 +1219,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ´¥·¢µ¥Ôª¸ñÎÄ±¾Öµ±à¼­½áÊøÏûÏ¢
+	 * è§¦å‘å•å…ƒæ ¼æ–‡æœ¬å€¼ç¼–è¾‘ç»“æŸæ¶ˆæ¯
 	 * 
 	 * @param pos
-	 *            ±»±à¼­µÄµ¥Ôª¸ñÎ»ÖÃ
+	 *            è¢«ç¼–è¾‘çš„å•å…ƒæ ¼ä½ç½®
 	 * @param text
-	 *            ĞÂÊäÈëµÄÎÄ±¾
+	 *            æ–°è¾“å…¥çš„æ–‡æœ¬
 	 */
 	public void fireCellTextInput(CellLocation pos, String text) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1235,10 +1235,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ´¥·¢µ¥Ôª¸ñÎÄ±¾Õı±»±à¼­ÏûÏ¢
+	 * è§¦å‘å•å…ƒæ ¼æ–‡æœ¬æ­£è¢«ç¼–è¾‘æ¶ˆæ¯
 	 * 
 	 * @param text
-	 *            ÕıÔÚ±»±à¼­µÄÎÄ±¾
+	 *            æ­£åœ¨è¢«ç¼–è¾‘çš„æ–‡æœ¬
 	 */
 	void fireEditorInputing(String text) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1249,12 +1249,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * Êó±êÒÆ¶¯ÊÂ¼ş
+	 * é¼ æ ‡ç§»åŠ¨äº‹ä»¶
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 */
 	void fireMouseMove(int row, int col) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1265,12 +1265,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ´¥·¢Êó±êÓÒ»÷ÊÂ¼ş
+	 * è§¦å‘é¼ æ ‡å³å‡»äº‹ä»¶
 	 * 
 	 * @param e
-	 *            Êó±êÊÂ¼ş
+	 *            é¼ æ ‡äº‹ä»¶
 	 * @param clickPlace
-	 *            ÓÒ»÷Î»ÖÃ£¬GCÖĞ¶¨ÒåµÄ³£Á¿
+	 *            å³å‡»ä½ç½®ï¼ŒGCä¸­å®šä¹‰çš„å¸¸é‡
 	 */
 	void fireRightClicked(MouseEvent e, int clickPlace) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
@@ -1281,7 +1281,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ´¥·¢Êó±êË«»÷ÊÂ¼ş
+	 * è§¦å‘é¼ æ ‡åŒå‡»äº‹ä»¶
 	 * 
 	 * @param e
 	 */
@@ -1294,12 +1294,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ²åÈëÁĞ
+	 * æ’å…¥åˆ—
 	 * 
 	 * @param col
-	 *            ²åÈëÎ»ÖÃ
+	 *            æ’å…¥ä½ç½®
 	 * @param count
-	 *            ²åÈëµÄÁĞÊı
+	 *            æ’å…¥çš„åˆ—æ•°
 	 */
 	public List<NormalCell> insertColumn(int col, int count) {
 		if (col > cellSet.getColCount() || col < 0) {
@@ -1311,7 +1311,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ²åÈëÁĞ
+	 * æ’å…¥åˆ—
 	 * 
 	 * @param cellSet
 	 * @param col
@@ -1322,10 +1322,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ×·¼ÓÁĞ
+	 * è¿½åŠ åˆ—
 	 * 
 	 * @param count
-	 *            ×·¼ÓµÄÁĞÊı
+	 *            è¿½åŠ çš„åˆ—æ•°
 	 */
 	public void addColumn(int count) {
 		addCol(cellSet, count);
@@ -1333,7 +1333,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ×·¼ÓÁĞ
+	 * è¿½åŠ åˆ—
 	 * 
 	 * @param cellSet
 	 * @param count
@@ -1343,7 +1343,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * µ±²åÈëÁĞ¡¢¸Ä±äÁĞ¿íÊ±£¬ÖØÉè¿Ø¼ş¿í¶È
+	 * å½“æ’å…¥åˆ—ã€æ”¹å˜åˆ—å®½æ—¶ï¼Œé‡è®¾æ§ä»¶å®½åº¦
 	 */
 	protected void resetControlWidth() {
 		Point hp = this.getColumnHeader().getViewPosition();
@@ -1356,7 +1356,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * µ±²åÈëĞĞ¡¢¸Ä±äĞĞ¸ßÊ±£¬ÖØÉè¿Ø¼ş¸ß¶È
+	 * å½“æ’å…¥è¡Œã€æ”¹å˜è¡Œé«˜æ—¶ï¼Œé‡è®¾æ§ä»¶é«˜åº¦
 	 */
 	protected void resetControlHeight() {
 		Point hp = this.getRowHeader().getViewPosition();
@@ -1369,12 +1369,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * É¾³ıÁĞ
+	 * åˆ é™¤åˆ—
 	 * 
 	 * @param col
-	 *            É¾³ıÎ»ÖÃ
+	 *            åˆ é™¤ä½ç½®
 	 * @param count
-	 *            É¾³ıµÄÁĞÊı
+	 *            åˆ é™¤çš„åˆ—æ•°
 	 */
 	public List<NormalCell> removeColumn(int col, int count) {
 		List<NormalCell> adjustCells = null;
@@ -1395,7 +1395,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * É¾³ıÁĞ
+	 * åˆ é™¤åˆ—
 	 * 
 	 * @param cellSet
 	 * @param col
@@ -1407,12 +1407,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ²åÈëĞĞ
+	 * æ’å…¥è¡Œ
 	 * 
 	 * @param row
-	 *            ĞĞÎ»ÖÃ
+	 *            è¡Œä½ç½®
 	 * @param count
-	 *            ²åÈëµÄĞĞÊı
+	 *            æ’å…¥çš„è¡Œæ•°
 	 */
 	public List<NormalCell> insertRow(int row, int count) {
 		if (row > cellSet.getRowCount() || row < 0) {
@@ -1424,7 +1424,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ²åÈëĞĞ
+	 * æ’å…¥è¡Œ
 	 * 
 	 * @param cellSet
 	 * @param row
@@ -1435,10 +1435,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃÏÔÊ¾µÄ±ÈÀı
+	 * è®¾ç½®æ˜¾ç¤ºçš„æ¯”ä¾‹
 	 * 
 	 * @param ratio
-	 *            °Ù·Ö±ÈµÄÕûÊı
+	 *            ç™¾åˆ†æ¯”çš„æ•´æ•°
 	 */
 	public void setDisplayScale(int ratio) {
 		Point p = this.getViewport().getViewPosition();
@@ -1458,7 +1458,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * È¡ÏÔÊ¾µÄ±ÈÀı
+	 * å–æ˜¾ç¤ºçš„æ¯”ä¾‹
 	 * 
 	 * @return
 	 */
@@ -1467,10 +1467,10 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ×·¼ÓĞĞ
+	 * è¿½åŠ è¡Œ
 	 * 
 	 * @param count
-	 *            ×·¼ÓµÄĞĞÊı
+	 *            è¿½åŠ çš„è¡Œæ•°
 	 */
 	public void addRow(int count) {
 		addRow(cellSet, count);
@@ -1478,7 +1478,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ×·¼ÓĞĞ
+	 * è¿½åŠ è¡Œ
 	 * 
 	 * @param cellSet
 	 * @param count
@@ -1488,12 +1488,12 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * É¾³ıĞĞ
+	 * åˆ é™¤è¡Œ
 	 * 
 	 * @param row
-	 *            ĞĞÎ»ÖÃ
+	 *            è¡Œä½ç½®
 	 * @param count
-	 *            É¾³ıµÄĞĞÊı
+	 *            åˆ é™¤çš„è¡Œæ•°
 	 */
 	public List<NormalCell> removeRow(int row, int count) {
 		List<NormalCell> adjustCells = null;
@@ -1514,7 +1514,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * É¾³ıĞĞ
+	 * åˆ é™¤è¡Œ
 	 * 
 	 * @param cellSet
 	 * @param row
@@ -1526,7 +1526,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * É¾³ıĞĞÁĞºó£¬Çå³ı±»¿³µôµÄÇøÓò
+	 * åˆ é™¤è¡Œåˆ—åï¼Œæ¸…é™¤è¢«ç æ‰çš„åŒºåŸŸ
 	 */
 	public void clearSelectedAreas() {
 		clearSelectedArea();
@@ -1536,7 +1536,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * »ñµÃ¿Ø¼şÖĞµÄÊäÈë±à¼­¿ò
+	 * è·å¾—æ§ä»¶ä¸­çš„è¾“å…¥ç¼–è¾‘æ¡†
 	 */
 	public JTextComponent getEditor() {
 		if (contentView == null) {
@@ -1550,14 +1550,14 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ÉèÖÃËÑË÷Æ¥Åäµ½µÄ¸ñ×Ó
+	 * è®¾ç½®æœç´¢åŒ¹é…åˆ°çš„æ ¼å­
 	 * 
 	 * @param row
-	 *            ĞĞºÅ
+	 *            è¡Œå·
 	 * @param col
-	 *            ÁĞºÅ
+	 *            åˆ—å·
 	 * @param searchInSelectedCells
-	 *            ÊÇ·ñÔÚÑ¡ÔñÇøÓòÄÚËÑË÷µÄ
+	 *            æ˜¯å¦åœ¨é€‰æ‹©åŒºåŸŸå†…æœç´¢çš„
 	 */
 	public void setSearchedCell(int row, int col, boolean searchInSelectedCells) {
 		setActiveCell(new CellLocation(row, col));
@@ -1570,7 +1570,7 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * ¹Ø±Õ¿Ø¼ş
+	 * å…³é—­æ§ä»¶
 	 */
 	public void dispose() {
 		cellSet = null;
@@ -1595,7 +1595,7 @@ public abstract class SplControl extends ControlBase {
 		// }
 		this.scale = newScale;
 
-		// drawÊ±»áÖØĞÂ´´½¨Íø¸ñÃæ°å£¬¸Ä³ÉË¢ĞÂ
+		// drawæ—¶ä¼šé‡æ–°åˆ›å»ºç½‘æ ¼é¢æ¿ï¼Œæ”¹æˆåˆ·æ–°
 		// draw();
 		if (colHeaderView != null) {
 			Point pCol = getViewport().getViewPosition();

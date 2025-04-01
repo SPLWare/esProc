@@ -14,15 +14,15 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * typeof(x) ·µ»ØxµÄÊı¾İÀàĞÍ
+ * typeof(x) è¿”å›xçš„æ•°æ®ç±»å‹
  * null, bool, number, bytes, datetime, string, blob, sequence, record, table
- * @x numberÔÙÇø·ÖÎª£ºint,long,float,decimal£»dateÔÙÇø·ÖÎª£ºdate,time,datetime
+ * @x numberå†åŒºåˆ†ä¸ºï¼šint,long,float,decimalï¼›dateå†åŒºåˆ†ä¸ºï¼šdate,time,datetime
  * @author runqian
  *
  */
 public class Typeof extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

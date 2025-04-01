@@ -7,7 +7,7 @@ import com.scudata.ide.common.*;
 import com.scudata.ide.common.swing.*;
 
 /**
- * ×ÖºÅÏÂÀ­ÁĞ±í
+ * å­—å·ä¸‹æ‹‰åˆ—è¡¨
  * 
  * @author Joancy
  *
@@ -20,7 +20,7 @@ public class FontSizeBox extends JComboBoxEx {
 	private static final long serialVersionUID = -1624791389366744866L;
 
 	/**
-	 * È±Ê¡¹¹Ôìº¯Êı
+	 * ç¼ºçœæ„é€ å‡½æ•°
 	 */
 	public FontSizeBox() {
 		Vector<Integer> code = new Vector<Integer>();
@@ -33,9 +33,9 @@ public class FontSizeBox extends JComboBoxEx {
 	}
 
 	/**
-	 * ¸ù¾İÏÔÊ¾Öµ»ñÈ¡´úÂëÖµ
-	 * @param dispItem ÏÔÊ¾Öµ
-	 * @return ´úÂëÖµ
+	 * æ ¹æ®æ˜¾ç¤ºå€¼è·å–ä»£ç å€¼
+	 * @param dispItem æ˜¾ç¤ºå€¼
+	 * @return ä»£ç å€¼
 	 */
 	public Object x_getCodeItem( Object dispItem ) {
 		Object o = super.x_getCodeItem( dispItem );

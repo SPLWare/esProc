@@ -550,7 +550,7 @@ public class XlsxExporter implements IExcelTool {
 				int lastCol = hr.getLastCellNum();
 				colCount = Math.max(lastCol, colCount);
 				for (int c = 0; c <= lastCol; c++) {
-					// Çå¿Õµ¥Ôª¸ñ
+					// æ¸…ç©ºå•å…ƒæ ¼
 					cell = hr.getCell(c);
 					if (cell != null) {
 						cell.setBlank();

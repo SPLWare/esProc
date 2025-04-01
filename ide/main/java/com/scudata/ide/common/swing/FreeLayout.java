@@ -10,42 +10,42 @@ import java.io.Serializable;
 import java.util.Hashtable;
 
 /**
- * ×ÔÓÉ£¨×ø±ê£©²¼¾Ö
+ * è‡ªç”±ï¼ˆåæ ‡ï¼‰å¸ƒå±€
  *
  */
 public class FreeLayout implements LayoutManager2, Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * ¿í¶È
+	 * å®½åº¦
 	 */
 	private int width;
 	/**
-	 * ¸ß¶È
+	 * é«˜åº¦
 	 */
 	private int height;
 	/**
-	 * ²¼¾ÖÈİÆ÷
+	 * å¸ƒå±€å®¹å™¨
 	 */
 	private Hashtable<Component, FreeConstraints> hashtable;
 	/**
-	 * È±Ê¡ÉèÖÃ
+	 * ç¼ºçœè®¾ç½®
 	 */
 	private static final FreeConstraints DEFAULT_CONSTRAINTS = new FreeConstraints();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public FreeLayout() {
 		hashtable = new Hashtable<Component, FreeConstraints>();
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param width
-	 *            ¿í¶È
+	 *            å®½åº¦
 	 * @param height
-	 *            ¸ß¶È
+	 *            é«˜åº¦
 	 */
 	public FreeLayout(int width, int height) {
 		hashtable = new Hashtable<Component, FreeConstraints>();
@@ -54,7 +54,7 @@ public class FreeLayout implements LayoutManager2, Serializable {
 	}
 
 	/**
-	 * È¡¿í¶È
+	 * å–å®½åº¦
 	 * 
 	 * @return
 	 */
@@ -63,7 +63,7 @@ public class FreeLayout implements LayoutManager2, Serializable {
 	}
 
 	/**
-	 * ÉèÖÃ¿í¶È
+	 * è®¾ç½®å®½åº¦
 	 * 
 	 * @param width
 	 */
@@ -72,7 +72,7 @@ public class FreeLayout implements LayoutManager2, Serializable {
 	}
 
 	/**
-	 * È¡¸ß¶È
+	 * å–é«˜åº¦
 	 * 
 	 * @return
 	 */
@@ -81,7 +81,7 @@ public class FreeLayout implements LayoutManager2, Serializable {
 	}
 
 	/**
-	 * ÉèÖÃ¸ß¶È
+	 * è®¾ç½®é«˜åº¦
 	 * 
 	 * @param height
 	 */
@@ -90,41 +90,41 @@ public class FreeLayout implements LayoutManager2, Serializable {
 	}
 
 	/**
-	 * ×ª×Ö·û´®
+	 * è½¬å­—ç¬¦ä¸²
 	 */
 	public String toString() {
 		return "[width=" + width + ",height=" + height + "]";
 	}
 
 	/**
-	 * Ôö¼Ó²¼¾Ö×é¼ş
+	 * å¢åŠ å¸ƒå±€ç»„ä»¶
 	 */
 	public void addLayoutComponent(String s, Component component1) {
 	}
 
 	/**
-	 * É¾³ı²¼¾Ö×é¼ş
+	 * åˆ é™¤å¸ƒå±€ç»„ä»¶
 	 */
 	public void removeLayoutComponent(Component c) {
 		hashtable.remove(c);
 	}
 
 	/**
-	 * Æ«ºÃ²¼¾Ö³ß´ç
+	 * åå¥½å¸ƒå±€å°ºå¯¸
 	 */
 	public Dimension preferredLayoutSize(Container container) {
 		return getLayoutSize(container, true);
 	}
 
 	/**
-	 * ×îĞ¡²¼¾Ö³ß´ç
+	 * æœ€å°å¸ƒå±€å°ºå¯¸
 	 */
 	public Dimension minimumLayoutSize(Container container) {
 		return getLayoutSize(container, false);
 	}
 
 	/**
-	 * °Ú·ÅÈİÆ÷
+	 * æ‘†æ”¾å®¹å™¨
 	 */
 	public void layoutContainer(Container container) {
 		Insets insets = container.getInsets();
@@ -141,7 +141,7 @@ public class FreeLayout implements LayoutManager2, Serializable {
 	}
 
 	/**
-	 * Ôö¼Ó²¼¾Ö×é¼ş
+	 * å¢åŠ å¸ƒå±€ç»„ä»¶
 	 */
 	public void addLayoutComponent(Component c, Object constraints) {
 		if (constraints instanceof FreeConstraints)
@@ -149,34 +149,34 @@ public class FreeLayout implements LayoutManager2, Serializable {
 	}
 
 	/**
-	 * ×î´ó²¼¾Ö³ß´ç
+	 * æœ€å¤§å¸ƒå±€å°ºå¯¸
 	 */
 	public Dimension maximumLayoutSize(Container container) {
 		return new Dimension(100000, 100000);
 	}
 
 	/**
-	 * È¡ºáÏò²¼¾Ö¶ÔÆë
+	 * å–æ¨ªå‘å¸ƒå±€å¯¹é½
 	 */
 	public float getLayoutAlignmentX(Container container) {
 		return 0.5f;
 	}
 
 	/**
-	 * È¡×İÏò²¼¾Ö¶ÔÆë
+	 * å–çºµå‘å¸ƒå±€å¯¹é½
 	 */
 	public float getLayoutAlignmentY(Container container) {
 		return 0.5f;
 	}
 
 	/**
-	 * ÖØÖÃ²¼¾Ö
+	 * é‡ç½®å¸ƒå±€
 	 */
 	public void invalidateLayout(Container container) {
 	}
 
 	/**
-	 * È¡×é¼şµÄ³ß´ç
+	 * å–ç»„ä»¶çš„å°ºå¯¸
 	 * 
 	 * @param c
 	 * @param doPreferred
@@ -200,7 +200,7 @@ public class FreeLayout implements LayoutManager2, Serializable {
 	}
 
 	/**
-	 * È¡²¼¾ÖµÄ³ß´ç
+	 * å–å¸ƒå±€çš„å°ºå¯¸
 	 * 
 	 * @param container
 	 * @param doPreferred

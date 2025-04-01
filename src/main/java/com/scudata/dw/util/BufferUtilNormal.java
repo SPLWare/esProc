@@ -104,7 +104,7 @@ public class BufferUtilNormal extends BufferUtil {
 		return Double.longBitsToDouble(v);
 	}
 	
-	//ÒÔÏÂÊÇ´øÊäÈëoffsetµÄ
+	//ä»¥ä¸‹æ˜¯å¸¦è¾“å…¥offsetçš„
 	public static void parseShort(byte[] in, int inOffset, int[] out, int len) {
 		int offset = 0;
 		len = len * 2 + inOffset;

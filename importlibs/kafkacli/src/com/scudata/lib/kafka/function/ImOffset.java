@@ -5,10 +5,10 @@ import java.util.HashMap;
 import com.scudata.common.Logger;
 import com.scudata.dm.Sequence;
 
-/* //pX为分区号, tX为分区的offset,
+/* //pX涓哄垎鍖哄彿, tX涓哄垎鍖虹殑offset,
  * ImOffset(fd, offset, [p1,p2,...]) 
  * ImOffset(fd, [t1,t2,...]) 
- * 只有一个topic,统一转换成map<partSN, partOffset>格式.
+ * 鍙湁涓�涓猼opic,缁熶竴杞崲鎴恗ap<partSN, partOffset>鏍煎紡.
  */
 public class ImOffset extends ImFunction {	
 	

@@ -8,7 +8,7 @@ import com.scudata.expression.MemoryTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 更新内表数据，新键值则插入，保持键有序
+ * 鏇存柊鍐呰〃鏁版嵁锛屾柊閿�煎垯鎻掑叆锛屼繚鎸侀敭鏈夊簭
  * T.update(P)
  * @author RunQian
  *

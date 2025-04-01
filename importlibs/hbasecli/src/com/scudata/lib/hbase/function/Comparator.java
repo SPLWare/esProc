@@ -49,7 +49,7 @@ public class Comparator extends Function {
 			
 			int size = param.getSubSize();
 			//System.out.println("comparator option= " + option+" size="+size);
-			// 无子节点
+			// 鏃犲瓙鑺傜偣
 			if (size == 0){
 				Object obj = param.getLeafExpression().calculate(ctx);
 				//System.out.println("comparator Object= " +obj);

@@ -15,19 +15,19 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¾É£ºT(fn,A;Fi,¡­;s)
- * ĞÂ£ºT(fn:A,Fi,¡­;s)
- * ¸ù¾İÎÄ¼şÀ©Õ¹Ãû¶Á³öÎÄ¼ş·µ»Ø³ÉĞò±í£¬txt/csv/xls/xlsx/btx/ctx
- * ÎÄ±¾Ê±sÊÇ·Ö¸ô·û£¬xlsÊ±sÎªsheetÃû ÓĞAÊ±ÅÅÁĞ/ÓÎ±êA½«Ğ´Èë£¬ÓÃÌæ»»Ğ´
+ * æ—§ï¼šT(fn,A;Fi,â€¦;s)
+ * æ–°ï¼šT(fn:A,Fi,â€¦;s)
+ * æ ¹æ®æ–‡ä»¶æ‰©å±•åè¯»å‡ºæ–‡ä»¶è¿”å›æˆåºè¡¨ï¼Œtxt/csv/xls/xlsx/btx/ctx
+ * æ–‡æœ¬æ—¶sæ˜¯åˆ†éš”ç¬¦ï¼Œxlsæ—¶sä¸ºsheetå æœ‰Aæ—¶æ’åˆ—/æ¸¸æ ‡Aå°†å†™å…¥ï¼Œç”¨æ›¿æ¢å†™
  * 
- * @b Ã»ÓĞ±êÌâ£¬È±Ê¡ÈÏÎªÓĞ±êÌâ
- * @c ¶Á³ÉÓÎ±ê
+ * @b æ²¡æœ‰æ ‡é¢˜ï¼Œç¼ºçœè®¤ä¸ºæœ‰æ ‡é¢˜
+ * @c è¯»æˆæ¸¸æ ‡
  * 
  *
  */
 public class T extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -44,21 +44,21 @@ public class T extends Function {
 
 		if (param.getType() == IParam.Semicolon) {
 			int subParamCount = param.getSubSize();
-			if (subParamCount == 3) { // T(fn,A;Fi,¡­;s)
+			if (subParamCount == 3) { // T(fn,A;Fi,â€¦;s)
 				isOldParam = true;
 				fnParam = param.getSub(0);
 				fieldParam = param.getSub(1);
 				sParam = param.getSub(2);
 			} else if (subParamCount == 2) {
-				// T(fn,A;Fi,¡­)»òÕßT(fn:A,Fi,¡­;s)
+				// T(fn,A;Fi,â€¦)æˆ–è€…T(fn:A,Fi,â€¦;s)
 				fnParam = param.getSub(0);
 				IParam sub2 = param.getSub(1);
 				if (sub2 != null && sub2.getType() == IParam.Comma) {
-					// T(fn,A;Fi,¡­)
+					// T(fn,A;Fi,â€¦)
 					isOldParam = true;
 					fieldParam = param.getSub(1);
 				} else {
-					// T(fn:A,Fi,¡­;s)
+					// T(fn:A,Fi,â€¦;s)
 					sParam = param.getSub(1);
 				}
 			} else {
@@ -67,7 +67,7 @@ public class T extends Function {
 						+ mm.getMessage("function.invalidParam"));
 			}
 		} else {
-			fnParam = param; // fn:A,Fi,...»òÕßfn,A
+			fnParam = param; // fn:A,Fi,...æˆ–è€…fn,A
 		}
 		if (fnParam == null) {
 			MessageManager mm = EngineMessage.get();
@@ -75,7 +75,7 @@ public class T extends Function {
 		}
 		IParam aParam = null;
 		if (fnParam.getType() == IParam.Comma) {
-			if (fnParam.getSubSize() == 2) { // fn:A,Fi,...»òÕßfn,A
+			if (fnParam.getSubSize() == 2) { // fn:A,Fi,...æˆ–è€…fn,A
 				IParam fnSub1 = fnParam.getSub(0);
 				IParam fnSub2 = fnParam.getSub(1);
 				if (fnSub1 == null) {
@@ -163,13 +163,13 @@ public class T extends Function {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("T" + mm.getMessage("function.missingParam"));
 		}
-		String fileName = (String) fn; // ¼ÆËãºóµÄÎÄ¼şÃû
+		String fileName = (String) fn; // è®¡ç®—åçš„æ–‡ä»¶å
 
 		if (StringUtils.isValidString(fields)) {
-			// T(fn:A,Fi,¡­;s)
+			// T(fn:A,Fi,â€¦;s)
 		} else if (fieldParam != null) {
 			if (fieldParam.isLeaf()) {
-				// ÕâÀï²»È¡getIdentifierName£¬±£Áôµ¥ÒıºÅ
+				// è¿™é‡Œä¸å–getIdentifierNameï¼Œä¿ç•™å•å¼•å·
 				fields = fieldParam.getLeafExpression().toString(); // getIdentifierName
 			} else {
 				StringBuffer buf = new StringBuffer();
@@ -202,7 +202,7 @@ public class T extends Function {
 		boolean isCursor = opt != null && opt.indexOf("c") != -1;
 
 		StringBuffer buf = new StringBuffer();
-		buf.append("file(" + fnStr + ")."); // ÓÃÔ­Ê¼µÄ´®
+		buf.append("file(" + fnStr + ")."); // ç”¨åŸå§‹çš„ä¸²
 		byte fileType = getFileType(fileName);
 		if (fileType == TYPE_EXCEL) {
 			String sopt = "";
@@ -213,12 +213,12 @@ public class T extends Function {
 				if (hasTitle)
 					sopt += "t";
 			}
-			if (A == null) { // µ¼Èë
+			if (A == null) { // å¯¼å…¥
 				buf.append("xlsimport" + sopt + "(");
 				if (fields != null) {
 					buf.append(fields);
 				}
-			} else { // µ¼³ö
+			} else { // å¯¼å‡º
 				buf.append("xlsexport" + sopt + "(");
 				buf.append(A);
 				if (fields != null) {
@@ -236,7 +236,7 @@ public class T extends Function {
 			if (hasTitle) {
 				sopt = "@t";
 			}
-			if (A == null) { // µ¼Èë
+			if (A == null) { // å¯¼å…¥
 				buf.append("open().cursor" + sopt + "(");
 				if (fields != null) {
 					buf.append(fields);
@@ -245,7 +245,7 @@ public class T extends Function {
 				if (!isCursor) {
 					buf.append(".fetch()");
 				}
-			} else {// µ¼³ö
+			} else {// å¯¼å‡º
 				buf.append("open(");
 				if (fields != null) {
 					buf.append(fields);
@@ -270,7 +270,7 @@ public class T extends Function {
 				}
 				buf.append(").append(");
 				buf.append(A);
-				buf.append(").close()"); // ĞèÒªclose²Å»áĞ´³öµ½ÎÄ¼şÖĞ
+				buf.append(").close()"); // éœ€è¦closeæ‰ä¼šå†™å‡ºåˆ°æ–‡ä»¶ä¸­
 			}
 		} else {
 			boolean isCsv = fileType == TYPE_CSV;
@@ -285,7 +285,7 @@ public class T extends Function {
 				if (hasTitle)
 					sopt += "t";
 			}
-			if (A == null) { // µ¼Èë
+			if (A == null) { // å¯¼å…¥
 				if (isCursor) {
 					buf.append("cursor");
 				} else {
@@ -301,7 +301,7 @@ public class T extends Function {
 						buf.append(s);
 					}
 				buf.append(")");
-			} else {// µ¼³ö
+			} else {// å¯¼å‡º
 				buf.append("export" + sopt + "(");
 				buf.append(A);
 				if (fields != null) {
@@ -320,20 +320,20 @@ public class T extends Function {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 
 		return this;
 	}
 
-	/** Î´Öª */
+	/** æœªçŸ¥ */
 	private static final byte TYPE_UNKNOWN = 0;
 	/** excel */
 	private static final byte TYPE_EXCEL = 1;
@@ -347,15 +347,15 @@ public class T extends Function {
 	private static final byte TYPE_TXT = 5;
 
 	/**
-	 * È¡ÎÄ¼şÀàĞÍ
+	 * å–æ–‡ä»¶ç±»å‹
 	 * 
 	 * @param fileName
-	 *            ÎÄ¼şÃû
-	 * @return ·µ»ØÒÔÉÏ³£Á¿ÖĞµÄÒ»ÖÖ
+	 *            æ–‡ä»¶å
+	 * @return è¿”å›ä»¥ä¸Šå¸¸é‡ä¸­çš„ä¸€ç§
 	 */
 	private byte getFileType(String fileName) {
 		if (fileName == null)
-			return TYPE_UNKNOWN; // Ç°ÃæÒÑ¾­ÅĞ¶Ï¿ÕÁË£¬²»Ó¦¸Ã³öÏÖ
+			return TYPE_UNKNOWN; // å‰é¢å·²ç»åˆ¤æ–­ç©ºäº†ï¼Œä¸åº”è¯¥å‡ºç°
 		fileName = Escape.removeEscAndQuote(fileName);
 		if (fileName.toLowerCase().endsWith(".xls")
 				|| fileName.toLowerCase().endsWith(".xlsx")) {

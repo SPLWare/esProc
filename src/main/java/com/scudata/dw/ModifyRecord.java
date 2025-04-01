@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Record;
 /**
- * »ù±í²¹ÇøµÄ¼ÇÂ¼Àà
+ * åŸºè¡¨è¡¥åŒºçš„è®°å½•ç±»
  * @author runqian
  *
  */
@@ -14,21 +14,21 @@ public class ModifyRecord {
 	public static final int STATE_UPDATE = 0;
 	public static final int STATE_INSERT = 1;
 	
-	private long recordSeq; // ¼ÇÂ¼ĞòºÅ
-	private int state; // ×´Ì¬
-	private	Record record; // Èç¹ûÊÇSTATE_DELETE×´Ì¬Ôò¿Õ
+	private long recordSeq; // è®°å½•åºå·
+	private int state; // çŠ¶æ€
+	private	Record record; // å¦‚æœæ˜¯STATE_DELETEçŠ¶æ€åˆ™ç©º
 	
-	private long parentRecordSeq = 0; // ¶ÔÓ¦µÄÖ÷±í¼ÇÂ¼ºÅ£¬¸ºÖµÊ±±íÊ¾Ö÷±í²¹Çø¼ÇÂ¼ºÅ£»¶ÔÓÚÖ÷±íÃ»ÒâÒå
+	private long parentRecordSeq = 0; // å¯¹åº”çš„ä¸»è¡¨è®°å½•å·ï¼Œè´Ÿå€¼æ—¶è¡¨ç¤ºä¸»è¡¨è¡¥åŒºè®°å½•å·ï¼›å¯¹äºä¸»è¡¨æ²¡æ„ä¹‰
 	private int block;
 
-	// ½ö¹©ĞòÁĞ»¯
+	// ä»…ä¾›åºåˆ—åŒ–
 	public ModifyRecord() {
 	}
 	
 	/**
 	 * 
-	 * @param recordSeq ¶ÔÓ¦µÄ¼ÇÂ¼ºÅ£¨Î±ºÅ£©
-	 * @param state ×´Ì¬
+	 * @param recordSeq å¯¹åº”çš„è®°å½•å·ï¼ˆä¼ªå·ï¼‰
+	 * @param state çŠ¶æ€
 	 * @param record
 	 */
 	public ModifyRecord(long recordSeq, int state, Record record) {
@@ -38,7 +38,7 @@ public class ModifyRecord {
 	}
 
 	/**
-	 * ĞÂ½¨Ò»¸öÉ¾³ı×´Ì¬µÄ¼ÇÂ¼
+	 * æ–°å»ºä¸€ä¸ªåˆ é™¤çŠ¶æ€çš„è®°å½•
 	 * @param recordSeq
 	 */
 	public ModifyRecord(long recordSeq) {

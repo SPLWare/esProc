@@ -8,14 +8,14 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¼ÆËãÄ³¸ö³ÉÔ±·Öµ½ÄÄ¸ö×Ó¼¯ºÏ
- * z(i,n) ×ÔÈ»Êı¼¯ºÏ·Ö³É×Ó¼¯ºÏ³¤¶ÈÎªkµÄ¼¸·İ£¬¼ÆËãµÚi¸ö³ÉÔ±ÔÚµÚ¼¸¸ö×Ó¼¯ºÏÖĞ
+ * è®¡ç®—æŸä¸ªæˆå‘˜åˆ†åˆ°å“ªä¸ªå­é›†åˆ
+ * z(i,n) è‡ªç„¶æ•°é›†åˆåˆ†æˆå­é›†åˆé•¿åº¦ä¸ºkçš„å‡ ä»½ï¼Œè®¡ç®—ç¬¬iä¸ªæˆå‘˜åœ¨ç¬¬å‡ ä¸ªå­é›†åˆä¸­
  * @author runqian
  *
  */
 public class ZSeq extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

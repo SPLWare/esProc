@@ -35,14 +35,14 @@ import com.scudata.server.unit.ShutdownUnitServer;
 import com.scudata.server.unit.UnitServer;
 
 /**
- * ¸ÃÀàÓÃÓÚÆô¶¯»òÍ£Ö¹¸÷ÖÖ·şÎñ£¬Ñ¡Ïî[a,x]Ö»ÄÜÓĞÒ»Ïî£¬ÆäËû¿ÉÒÔ×éºÏ£¬´øÑ¡ÏîµÄ¶¼ÊÇ
- * Æô¶¯·ÇÍ¼ĞÎ¿ØÖÆÌ¨ Ò»¸öÑ¡ÏîÒ²Ã»ÓĞÊ±ÔòÊÇÆô¶¯·şÎñ¿ØÖÆÌ¨³ÌĞò
+ * è¯¥ç±»ç”¨äºå¯åŠ¨æˆ–åœæ­¢å„ç§æœåŠ¡ï¼Œé€‰é¡¹[a,x]åªèƒ½æœ‰ä¸€é¡¹ï¼Œå…¶ä»–å¯ä»¥ç»„åˆï¼Œå¸¦é€‰é¡¹çš„éƒ½æ˜¯
+ * å¯åŠ¨éå›¾å½¢æ§åˆ¶å° ä¸€ä¸ªé€‰é¡¹ä¹Ÿæ²¡æœ‰æ—¶åˆ™æ˜¯å¯åŠ¨æœåŠ¡æ§åˆ¶å°ç¨‹åº
  * UnitServerConsole //java ServerConsole -a 
- * -p[ip:port] Æô¶¯½ÚµãÖ÷½ø³Ì £¬Ê¡ÂÔip:portÊ±£¬×Ô¶¯Ë³ĞòÑ°ÕÒÒ»¸öÃ»±»Õ¼ÓÃµÄÅäÖÃ£»
- * -oÆô¶¯odbc 
- * -h Æô¶¯http 
- * -x[ip:port] Í£Ö¹Ö¸¶¨·şÎñÆ÷£¬Ê¡ÂÔip:port£¬Í£Ö¹±¾µØËùÓĞ·şÎñ
- * -a Æô¶¯ËùÓĞ·şÎñ
+ * -p[ip:port] å¯åŠ¨èŠ‚ç‚¹ä¸»è¿›ç¨‹ ï¼Œçœç•¥ip:portæ—¶ï¼Œè‡ªåŠ¨é¡ºåºå¯»æ‰¾ä¸€ä¸ªæ²¡è¢«å ç”¨çš„é…ç½®ï¼›
+ * -oå¯åŠ¨odbc 
+ * -h å¯åŠ¨http 
+ * -x[ip:port] åœæ­¢æŒ‡å®šæœåŠ¡å™¨ï¼Œçœç•¥ip:portï¼Œåœæ­¢æœ¬åœ°æ‰€æœ‰æœåŠ¡
+ * -a å¯åŠ¨æ‰€æœ‰æœåŠ¡
  */
 public class ServerConsole {
 	private static ArrayList<Object> runningServers = new ArrayList<Object>();
@@ -51,20 +51,20 @@ public class ServerConsole {
 		return runningServers;
 	}
 	/**
-	 * ½Úµã»úÎÄ¼şÄ¬ÈÏÎªconfigÄ¿Â¼ÏÂ£»ÏÈÕÒÀàÂ·¾¶£¬È»ºóÕÒstart.homeÏÂµÄ¾ø¶ÔÂ·¾¶
+	 * èŠ‚ç‚¹æœºæ–‡ä»¶é»˜è®¤ä¸ºconfigç›®å½•ä¸‹ï¼›å…ˆæ‰¾ç±»è·¯å¾„ï¼Œç„¶åæ‰¾start.homeä¸‹çš„ç»å¯¹è·¯å¾„
 	 * 
-	 * @param configFile ÅäÖÃÎÄ¼şÃû
+	 * @param configFile é…ç½®æ–‡ä»¶å
 	 * @throws Exception
-	 * @return InputStream ¶ÔÓ¦µÄÊäÈëÁ÷
+	 * @return InputStream å¯¹åº”çš„è¾“å…¥æµ
 	 */
 	public static InputStream getConfigIS(String configFile) throws Exception {
 		return UnitContext.getUnitInputStream(configFile);
 	}
 
 	/**
-	 * ·µ»ØÁĞ±íÖĞµÄ·şÎñÆ÷ÊÇ·ñÓĞÕıÔÚÔËĞĞµÄ·şÎñÆ÷
-	 * @param servers ·şÎñÆ÷ÁĞ±í
-	 * @return Ö»Òª´æÔÚÔËĞĞµÄ·şÎñÆ÷¾Í·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è¿”å›åˆ—è¡¨ä¸­çš„æœåŠ¡å™¨æ˜¯å¦æœ‰æ­£åœ¨è¿è¡Œçš„æœåŠ¡å™¨
+	 * @param servers æœåŠ¡å™¨åˆ—è¡¨
+	 * @return åªè¦å­˜åœ¨è¿è¡Œçš„æœåŠ¡å™¨å°±è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isRunning(List<IServer> servers) {
 		for (IServer server : servers) {
@@ -83,8 +83,8 @@ public class ServerConsole {
 	}
 
 	/**
-	 * ×°ÔØÈóÇ¬ÅäÖÃÎÄ¼ş
-	 * @return ÅäÖÃÎÄ¼ş¶ÔÏó
+	 * è£…è½½æ¶¦ä¹¾é…ç½®æ–‡ä»¶
+	 * @return é…ç½®æ–‡ä»¶å¯¹è±¡
 	 * @throws Exception
 	 */
 	private static RaqsoftConfig rc = null;
@@ -113,7 +113,7 @@ public class ServerConsole {
 	}
 	
 	/**
- * ·şÎñÆ÷µÄÍâ¹Û¸ù¾İ²Ù×÷ÏµÍ³£¬Ñ¡È¡ºÏÊÊµÄÈ±Ê¡Íâ¹Û
+ * æœåŠ¡å™¨çš„å¤–è§‚æ ¹æ®æ“ä½œç³»ç»Ÿï¼Œé€‰å–åˆé€‚çš„ç¼ºçœå¤–è§‚
  */
 	public static void setDefaultLNF(){
 		String lnf;
@@ -134,8 +134,8 @@ public class ServerConsole {
 	
 	static UnitServerConsole webStartServer = null;
 	/**
-	 * Ê¹ÓÃ¸Ã·½·¨¿ÉÒÔÔÚweb·şÎñÆ÷¼¯³É½Úµã»ú
-	 * @return Æô¶¯Õı³£·µ»Øtrue
+	 * ä½¿ç”¨è¯¥æ–¹æ³•å¯ä»¥åœ¨webæœåŠ¡å™¨é›†æˆèŠ‚ç‚¹æœº
+	 * @return å¯åŠ¨æ­£å¸¸è¿”å›true
 	 * @throws Exception
 	 */
 	public static boolean startUnitServer() throws Exception{
@@ -149,8 +149,8 @@ public class ServerConsole {
 	}
 	
 	/**
-	 * ¼¯³ÉÓÃµÄÅĞ¶Ï·şÎñÆ÷ÊÇ·ñÒÑ¾­ÔËĞĞ
-	 * @return ÔËĞĞÖĞ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * é›†æˆç”¨çš„åˆ¤æ–­æœåŠ¡å™¨æ˜¯å¦å·²ç»è¿è¡Œ
+	 * @return è¿è¡Œä¸­è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public static boolean isUnitServerRunning(){
 		if(webStartServer!=null){
@@ -160,7 +160,7 @@ public class ServerConsole {
 	}
 	
 	/**
-	 * ¼¯³ÉÓÃ£¬¹ØÍ£·şÎñÆ÷
+	 * é›†æˆç”¨ï¼Œå…³åœæœåŠ¡å™¨
 	 * @throws Exception
 	 */
 	public static void stopUnitServer() throws Exception{
@@ -182,24 +182,24 @@ public class ServerConsole {
 	}
 
 	/**
-	 * ·şÎñÆ÷¿ØÖÆÌ¨Èë¿Úº¯Êı
-	 * @param args Ö´ĞĞ²ÎÊı
+	 * æœåŠ¡å™¨æ§åˆ¶å°å…¥å£å‡½æ•°
+	 * @param args æ‰§è¡Œå‚æ•°
 	 */
 	public static void main(String[] args) {
-		String usage = "¸ÃÀà¸ù¾İÑ¡ÏîÀ´Æô¶¯»òÍ£Ö¹¸÷ÖÖ·şÎñ£¬¸ñÊ½Îª ServerConsole.sh -[options] -[options]...\r\n"
-				+ "µ±Ö¸¶¨ÁËÄ³ÖÖÑ¡ÏîÓÃÓÚÆô¶¯ÏàÓ¦·şÎñÊ±£¬¶¼ÊÇÆô¶¯·ÇÍ¼ĞÎ»·¾³ÏÂµÄ¸ÃÀà·şÎñ¡£\r\n"
-				+ "Ò²¿ÉÒÔ²»´øÈÎºÎÑ¡Ïî£¬±íÊ¾Æô¶¯·şÎñ¿ØÖÆÌ¨³ÌĞò[Í¼ĞÎ´°¿Ú¿ØÖÆÌ¨]¡£\r\n"
-				+ "ÈçÏÂËùÓĞÑ¡Ïî³ıÁË -a , -x ²»ÄÜÍ¬Ê±³öÏÖ£¬ÆäËûÑ¡Ïî¶¼¿ÉÒÔ×éºÏ¡£\r\n\r\n"
-				+ "-p[ip:port]	Æô¶¯·Ö»ú £¬µ±Ê¡ÂÔip:portÊ±£¬×Ô¶¯Ë³ĞòÑ°ÕÒÒ»¸öÃ»±»Õ¼ÓÃµÄ·Ö»úÅäÖÃ¡£\r\n"
-				+ "-c port cfg	Ê¹ÓÃÅäÖÃcfgÆô¶¯»òÍ£Ö¹·Ö»ú £¬µ±Ê¡ÂÔcfgÊ±£¬ÔòÍ£Ö¹·Ö»ú¡£\r\n"
-				+ "-o	Æô¶¯ ODBC ·şÎñ¡£\r\n"
-				+ "-h	Æô¶¯ HTTP ·şÎñ¡£\r\n"
-				+ "-x[ip:port]	Í£Ö¹Ö¸¶¨·Ö»ú¡£µ±Ê¡ÂÔip:portÊ±£¬Í£Ö¹±¾µØÆô¶¯µÄËùÓĞ·şÎñ¡£\r\n"
-				+ "-a	Æô¶¯ËùÓĞ·şÎñ¡£\r\n"
-				+ "-?	»òÕß´íÎóÑ¡ÏîÊ±£¬´òÓ¡µ±Ç°°ïÖúĞÅÏ¢¡£\r\n\r\n"
-				+ " Ê¾Àı£ºServerConsole.sh -a  Æô¶¯È«²¿·şÎñ,Ïàµ±ÓÚ ServerConsole.sh -p -o -h\r\n\r\n"
-				+ " Ê¾Àı£ºServerConsole.sh -p 127.0.0.1:8281  Æô¶¯Ö¸¶¨ip·Ö»ú\r\n\r\n"
-				+ " Ê¾Àı£ºServerConsole.sh -o  ½öÆô¶¯odbc·şÎñ\r\n\r\n"
+		String usage = "è¯¥ç±»æ ¹æ®é€‰é¡¹æ¥å¯åŠ¨æˆ–åœæ­¢å„ç§æœåŠ¡ï¼Œæ ¼å¼ä¸º ServerConsole.sh -[options] -[options]...\r\n"
+				+ "å½“æŒ‡å®šäº†æŸç§é€‰é¡¹ç”¨äºå¯åŠ¨ç›¸åº”æœåŠ¡æ—¶ï¼Œéƒ½æ˜¯å¯åŠ¨éå›¾å½¢ç¯å¢ƒä¸‹çš„è¯¥ç±»æœåŠ¡ã€‚\r\n"
+				+ "ä¹Ÿå¯ä»¥ä¸å¸¦ä»»ä½•é€‰é¡¹ï¼Œè¡¨ç¤ºå¯åŠ¨æœåŠ¡æ§åˆ¶å°ç¨‹åº[å›¾å½¢çª—å£æ§åˆ¶å°]ã€‚\r\n"
+				+ "å¦‚ä¸‹æ‰€æœ‰é€‰é¡¹é™¤äº† -a , -x ä¸èƒ½åŒæ—¶å‡ºç°ï¼Œå…¶ä»–é€‰é¡¹éƒ½å¯ä»¥ç»„åˆã€‚\r\n\r\n"
+				+ "-p[ip:port]	å¯åŠ¨åˆ†æœº ï¼Œå½“çœç•¥ip:portæ—¶ï¼Œè‡ªåŠ¨é¡ºåºå¯»æ‰¾ä¸€ä¸ªæ²¡è¢«å ç”¨çš„åˆ†æœºé…ç½®ã€‚\r\n"
+				+ "-c port cfg	ä½¿ç”¨é…ç½®cfgå¯åŠ¨æˆ–åœæ­¢åˆ†æœº ï¼Œå½“çœç•¥cfgæ—¶ï¼Œåˆ™åœæ­¢åˆ†æœºã€‚\r\n"
+				+ "-o	å¯åŠ¨ ODBC æœåŠ¡ã€‚\r\n"
+				+ "-h	å¯åŠ¨ HTTP æœåŠ¡ã€‚\r\n"
+				+ "-x[ip:port]	åœæ­¢æŒ‡å®šåˆ†æœºã€‚å½“çœç•¥ip:portæ—¶ï¼Œåœæ­¢æœ¬åœ°å¯åŠ¨çš„æ‰€æœ‰æœåŠ¡ã€‚\r\n"
+				+ "-a	å¯åŠ¨æ‰€æœ‰æœåŠ¡ã€‚\r\n"
+				+ "-?	æˆ–è€…é”™è¯¯é€‰é¡¹æ—¶ï¼Œæ‰“å°å½“å‰å¸®åŠ©ä¿¡æ¯ã€‚\r\n\r\n"
+				+ " ç¤ºä¾‹ï¼šServerConsole.sh -a  å¯åŠ¨å…¨éƒ¨æœåŠ¡,ç›¸å½“äº ServerConsole.sh -p -o -h\r\n\r\n"
+				+ " ç¤ºä¾‹ï¼šServerConsole.sh -p 127.0.0.1:8281  å¯åŠ¨æŒ‡å®šipåˆ†æœº\r\n\r\n"
+				+ " ç¤ºä¾‹ï¼šServerConsole.sh -o  ä»…å¯åŠ¨odbcæœåŠ¡\r\n\r\n"
 		;
 		
 		String usageEn = "The class starts or stops services according to the option used, format is ServerConsole.sh -[options] -[options]....\r\n"
@@ -213,9 +213,9 @@ public class ServerConsole {
 				+ "-x[ip:port]	Stop assigning nodes; when ip:port are absent, stop all working services on the local machine. \r\n"
 				+ "-a	Start all services.\r\n"
 				+ "-?	Or print the current help information when the error option is present. \r\n\r\n"
-				+ " Example£ºServerConsole.sh -a  Start all services, which is equivalent to ServerConsole.sh -p -o -h\r\n\r\n"
-				+ " Example£ºServerConsole.sh -p 127.0.0.1:8281  Start a node with specified ip.\r\n\r\n"
-				+ " Example£ºServerConsole.sh -o  Start odbc service only.\r\n\r\n";
+				+ " Exampleï¼šServerConsole.sh -a  Start all services, which is equivalent to ServerConsole.sh -p -o -h\r\n\r\n"
+				+ " Exampleï¼šServerConsole.sh -p 127.0.0.1:8281  Start a node with specified ip.\r\n\r\n"
+				+ " Exampleï¼šServerConsole.sh -o  Start odbc service only.\r\n\r\n";
 		String lang = Locale.getDefault().toString();
 		if(lang.equalsIgnoreCase("en")){
 			usage = usageEn;			
@@ -230,8 +230,8 @@ public class ServerConsole {
 		if (args.length == 1) { //
 			arg = args[0].trim();
 			if (arg.trim().indexOf(" ") > 0) {
-				if (arg.charAt(1) != ':') {// ¾ø¶ÔÂ·¾¶µÄÎÄ¼şÃû×ÜÊÇ [ÅÌ·û]:¿ªÍ·
-					// Èç¹û²ÎÊı½ö½öÎªÒ»¸öÎÄ¼şÃûÊ±£¬²»Òª×ö²ÎÊı×ª»»£¬µ±ÎÄ¼şÃû°üº¬¿Õ¸ñÊ±£¬¾Í´íÁË xq 2017Äê5ÔÂ23ÈÕ
+				if (arg.charAt(1) != ':') {// ç»å¯¹è·¯å¾„çš„æ–‡ä»¶åæ€»æ˜¯ [ç›˜ç¬¦]:å¼€å¤´
+					// å¦‚æœå‚æ•°ä»…ä»…ä¸ºä¸€ä¸ªæ–‡ä»¶åæ—¶ï¼Œä¸è¦åšå‚æ•°è½¬æ¢ï¼Œå½“æ–‡ä»¶ååŒ…å«ç©ºæ ¼æ—¶ï¼Œå°±é”™äº† xq 2017å¹´5æœˆ23æ—¥
 					Section st = new Section(arg, ' ');
 					args = st.toStringArray();
 				}
@@ -240,7 +240,7 @@ public class ServerConsole {
 		
 		boolean printHelp = false;
 		boolean isP = false, isO = false, isH = false, isX = false, isC = false;
-		// -shost:port ÄÚ²¿ÃüÁî
+		// -shost:port å†…éƒ¨å‘½ä»¤
 		boolean isS = false;
 		String host = null,cfgPath=null;
 		int port = 0;
@@ -248,7 +248,7 @@ public class ServerConsole {
 		if (args.length > 0) {
 			for (int i = 0; i < args.length; i++) {
 				arg = args[i];
-				if (arg.equalsIgnoreCase("com.scudata.ide.spl.ServerConsole")) { // ÓÃbat´ò¿ªµÄÎÄ¼ş£¬ÀàÃû±¾Éí»áÊÇ²ÎÊı
+				if (arg.equalsIgnoreCase("com.scudata.ide.spl.ServerConsole")) { // ç”¨batæ‰“å¼€çš„æ–‡ä»¶ï¼Œç±»åæœ¬èº«ä¼šæ˜¯å‚æ•°
 					continue;
 				}
 				if (arg.equalsIgnoreCase("-a")) {
@@ -317,7 +317,7 @@ public class ServerConsole {
 					break;
 				}
 				if (arg.toLowerCase().startsWith("-c")) {
-					host = "127.0.0.1";//Ä¿Ç°È±Ê¡
+					host = "127.0.0.1";//ç›®å‰ç¼ºçœ
 					if(i+1<args.length){
 						String buf = args[i+1];
 						port = Integer.parseInt(buf);
@@ -336,7 +336,7 @@ public class ServerConsole {
 						try {
 							is = new FileInputStream( cfgPath );
 							SplServerConfig ssc = SplServerConfig.getCfg(is);
-							init = !StringUtils.isValidString( ssc.splConfig );//Èç¹ûÖ¸¶¨ÁËconfig£¬Ôò×èÖ¹½Úµã»úµÄconfig¼ÓÔØ
+							init = !StringUtils.isValidString( ssc.splConfig );//å¦‚æœæŒ‡å®šäº†configï¼Œåˆ™é˜»æ­¢èŠ‚ç‚¹æœºçš„configåŠ è½½
 							is.close();
 						} catch (Exception e) {
 							
@@ -345,7 +345,7 @@ public class ServerConsole {
 					}
 					break;
 				}
-				//²»ÊÇÉÏÃæÈÎºÎÒ»ÖÖÑ¡ÏîÊ±
+				//ä¸æ˜¯ä¸Šé¢ä»»ä½•ä¸€ç§é€‰é¡¹æ—¶
 				printHelp = true;
 			}
 		}
@@ -386,7 +386,7 @@ public class ServerConsole {
 			}
 			System.exit(0);
 		}
-		/***************************** ¹Ø±ÕËùÓĞ·şÎñ ******************************/
+		/***************************** å…³é—­æ‰€æœ‰æœåŠ¡ ******************************/
 		if (isX) {
 			// UnitServer
 			try {
@@ -434,7 +434,7 @@ public class ServerConsole {
 			exit(3);
 		}
 
-		/***************************** Æô¶¯Í¼ĞÎ¿ØÖÆÌ¨ ******************************/
+		/***************************** å¯åŠ¨å›¾å½¢æ§åˆ¶å° ******************************/
 		if (!isP && !isO && !isH) {
 			setDefaultLNF();
 			UnitServerConsole usc = new UnitServerConsole(null, 0);
@@ -443,11 +443,11 @@ public class ServerConsole {
 			return;
 		}
 
-		/***************************** Æô¶¯Ö¸¶¨·şÎñ ******************************/
+		/***************************** å¯åŠ¨æŒ‡å®šæœåŠ¡ ******************************/
 		Thread tp = null, to = null;
 		final ArrayList<InputStreamFlusher> flushers = new ArrayList<InputStreamFlusher>();
 
-		// Æô¶¯·Ö»ú
+		// å¯åŠ¨åˆ†æœº
 		if (isP) {
 			try {
 				UnitServer server = UnitServer.getInstance(host, port);
@@ -460,7 +460,7 @@ public class ServerConsole {
 			}
 		}
 		
-		// Æô¶¯OdbcServer
+		// å¯åŠ¨OdbcServer
 		if (isO) {
 			try {
 				OdbcServer server = OdbcServer.getInstance();
@@ -473,7 +473,7 @@ public class ServerConsole {
 			}
 		}
 		
-		// Æô¶¯HttpServer
+		// å¯åŠ¨HttpServer
 		SplxServerInIDE thServer = null;
 		if (isH) {
 			try {

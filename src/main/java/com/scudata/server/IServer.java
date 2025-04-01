@@ -3,52 +3,52 @@ package com.scudata.server;
 import com.scudata.app.config.RaqsoftConfig;
 
 /**
- * ·şÎñÆ÷½Ó¿Ú
- * Ä¿Ç°ÊµÏÖÁËÈıÖÖ·şÎñÆ÷
- * 1£ºUnitServer ½Úµã»ú
- * 2£ºOdbcServer odbc·şÎñÆ÷
- * 3£ºHttpServer http·şÎñÆ÷
+ * æœåŠ¡å™¨æ¥å£
+ * ç›®å‰å®ç°äº†ä¸‰ç§æœåŠ¡å™¨
+ * 1ï¼šUnitServer èŠ‚ç‚¹æœº
+ * 2ï¼šOdbcServer odbcæœåŠ¡å™¨
+ * 3ï¼šHttpServer httpæœåŠ¡å™¨
  * 
  * @author Joancy
  *
  */
 public interface IServer extends Runnable {
 	/**
-	 * »ñÈ¡µ±Ç°·şÎñÆ÷µÄÔËĞĞ×´Ì¬
-	 * @return ÕıÔÚÔËĞĞ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è·å–å½“å‰æœåŠ¡å™¨çš„è¿è¡ŒçŠ¶æ€
+	 * @return æ­£åœ¨è¿è¡Œè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isRunning();
 	
 	/**
-	 * »ñÈ¡µ±Ç°·şÎñÆ÷ÄÜ·ñÔÚ´ò¿ª½çÃæ´°¿Úºó£¬×Ô¶¯Æô¶¯·şÎñ
-	 * @return ĞèÒª×Ô¶¯Æô¶¯·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 * è·å–å½“å‰æœåŠ¡å™¨èƒ½å¦åœ¨æ‰“å¼€ç•Œé¢çª—å£åï¼Œè‡ªåŠ¨å¯åŠ¨æœåŠ¡
+	 * @return éœ€è¦è‡ªåŠ¨å¯åŠ¨è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean isAutoStart();
 	
 	/**
-	 * »ñÈ¡·şÎñÆ÷¼àÌıIPµØÖ·
-	 * @return IPµØÖ·
+	 * è·å–æœåŠ¡å™¨ç›‘å¬IPåœ°å€
+	 * @return IPåœ°å€
 	 */
 	public String getHost();
 	
 	/**
-	 * Í£Ö¹·şÎñ
+	 * åœæ­¢æœåŠ¡
 	 */
 	public void shutDown();
 	
 	/**
-	 * ÉèÖÃ·şÎñÆ÷ÅäÖÃĞÅÏ¢
-	 * @param rc ÅäÖÃ
+	 * è®¾ç½®æœåŠ¡å™¨é…ç½®ä¿¡æ¯
+	 * @param rc é…ç½®
 	 */
 	public void setRaqsoftConfig(RaqsoftConfig rc);
 	
 	/**
-	 * »ñÈ¡ÅäÖÃĞÅÏ¢
+	 * è·å–é…ç½®ä¿¡æ¯
 	 */
 	public RaqsoftConfig getRaqsoftConfig();
 	
 	/**
-	 * ÉèÖÃ·şÎñÆ÷Æô¶¯ÕìÌıÀà
+	 * è®¾ç½®æœåŠ¡å™¨å¯åŠ¨ä¾¦å¬ç±»
 	 * @param listen
 	 */
 	public void setStartUnitListener(StartUnitListener listen);

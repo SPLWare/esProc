@@ -7,13 +7,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * isalpha(s) ÅĞ¶¨×Ö·û´®sÊÇ·ñÈ«ÓÉ×ÖÄ¸¹¹³É¡£Èç¹ûsÎªÕûÊı£¬Ôò×÷ÎªasciiÂëÅĞ¶Ï¶ÔÓ¦µÄ×Ö·ûÊÇ·ñÎª×ÖÄ¸¡£
+ * isalpha(s) åˆ¤å®šå­—ç¬¦ä¸²sæ˜¯å¦å…¨ç”±å­—æ¯æ„æˆã€‚å¦‚æœsä¸ºæ•´æ•°ï¼Œåˆ™ä½œä¸ºasciiç åˆ¤æ–­å¯¹åº”çš„å­—ç¬¦æ˜¯å¦ä¸ºå­—æ¯ã€‚
  * @author runqian
  *
  */
 public class IsAlpha extends Function {
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {

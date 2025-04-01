@@ -33,19 +33,19 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ³ÌĞòÍø¶ÁĞ´¹¤¾ßÀà
+ * ç¨‹åºç½‘è¯»å†™å·¥å…·ç±»
  * @author WangXiaoJun
  *
  */
 public class CellSetUtil {
 	private static final byte Type_PgmCellSet = 1;
-	private static final String KEY = "rqqrrqqr"; // ¼ÓÃÜÃÜÔ¿
+	private static final String KEY = "rqqrrqqr"; // åŠ å¯†å¯†é’¥
 	private static final byte ENCRYPTED = 0x01;
 
 	/**
-	 * ¶Ô×Ö½ÚÊı×éÊ¹ÓÃCellSetUtil.KEY¼ÓÃÜ
-	 * @param bytes ´ı¼ÓÃÜÄÚÈİ
-	 * @return ¼ÓÃÜºóÄÚÈİ
+	 * å¯¹å­—èŠ‚æ•°ç»„ä½¿ç”¨CellSetUtil.KEYåŠ å¯†
+	 * @param bytes å¾…åŠ å¯†å†…å®¹
+	 * @return åŠ å¯†åå†…å®¹
 	 * @throws Exception
 	 */
 	public static byte[] encrypt(byte[] bytes) throws Exception {
@@ -54,9 +54,9 @@ public class CellSetUtil {
 	}
 	
 	/**
-	 * ¶Ô×Ö½ÚÊı×éÊ¹ÓÃCellSetUtil.KEY½âÃÜ
-	 * @param bytes ´ı½âÃÜÄÚÈİ
-	 * @return ½âÃÜºóÄÚÈİ
+	 * å¯¹å­—èŠ‚æ•°ç»„ä½¿ç”¨CellSetUtil.KEYè§£å¯†
+	 * @param bytes å¾…è§£å¯†å†…å®¹
+	 * @return è§£å¯†åå†…å®¹
 	 * @throws Exception
 	 */
 	public static byte[] decrypt(byte[] bytes) throws Exception {
@@ -65,9 +65,9 @@ public class CellSetUtil {
 	}
 	
 	/**
-	 * Ğ´×Ô¶¨Òå¼ÓÃÜ¡¢½âÃÜº¯ÊıµÄ³ÌĞòÍø
-	 * @param fileName ÒªĞ´Èë³ÌĞòÍøµÄÎÄ¼şÃû
-	 * @param cs ³ÌĞòÍø¶ÔÏó
+	 * å†™è‡ªå®šä¹‰åŠ å¯†ã€è§£å¯†å‡½æ•°çš„ç¨‹åºç½‘
+	 * @param fileName è¦å†™å…¥ç¨‹åºç½‘çš„æ–‡ä»¶å
+	 * @param cs ç¨‹åºç½‘å¯¹è±¡
 	 * @throws Exception
 	 */
 	public static void writePgmCellSet(String fileName, PgmCellSet cs, String fnEncrypt, String fnDecrypt) throws Exception {
@@ -81,9 +81,9 @@ public class CellSetUtil {
 	}
 	
 	/**
-	 * Ğ´×Ô¶¨Òå¼ÓÃÜ¡¢½âÃÜº¯ÊıµÄ³ÌĞòÍø
-	 * @param out Êä³öÁ÷
-	 * @param cs ³ÌĞòÍø¶ÔÏó
+	 * å†™è‡ªå®šä¹‰åŠ å¯†ã€è§£å¯†å‡½æ•°çš„ç¨‹åºç½‘
+	 * @param out è¾“å‡ºæµ
+	 * @param cs ç¨‹åºç½‘å¯¹è±¡
 	 * @throws Exception
 	 */
 	public static void writePgmCellSet(OutputStream out, PgmCellSet cs, String fnEncrypt, String fnDecrypt) throws Exception {
@@ -102,13 +102,13 @@ public class CellSetUtil {
 		out.write('Q');
 		out.write('Q');
 		out.write('R');
-		out.write(Type_PgmCellSet); // Íø¸ñÀàĞÍ
+		out.write(Type_PgmCellSet); // ç½‘æ ¼ç±»å‹
 		
-		// °æ±¾4£ºÍø¸ñ²ÎÊı¸Ä³ÉÁËvalue´æÕæÊµÖµ£¬editValue´æÊäÈëÖµ
-		// °æ±¾5£ºÔö¼ÓÁË½âÃÜº¯Êı
+		// ç‰ˆæœ¬4ï¼šç½‘æ ¼å‚æ•°æ”¹æˆäº†valueå­˜çœŸå®å€¼ï¼ŒeditValueå­˜è¾“å…¥å€¼
+		// ç‰ˆæœ¬5ï¼šå¢åŠ äº†è§£å¯†å‡½æ•°
 		out.write(5); 
 
-		// ÃÜÂë³¤¶È+ÃÜÂë
+		// å¯†ç é•¿åº¦+å¯†ç 
 		ByteArrayOutputRecord bo = new ByteArrayOutputRecord();
 		String psw = cs.getPasswordHash();
 		bo.writeString(psw);
@@ -120,7 +120,7 @@ public class CellSetUtil {
 		IOUtils.writeInt(out, pswBytes.length);
 		out.write(pswBytes);
 
-		// ÊôĞÔ³¤¶È+ÊôĞÔ
+		// å±æ€§é•¿åº¦+å±æ€§
 		ByteMap map = cs.getCustomPropMap();
 		if (map == null || map.size() == 0) {
 			IOUtils.writeInt(out, 0);
@@ -133,7 +133,7 @@ public class CellSetUtil {
 		byte[] csBytes = cs.serialize();
 		csBytes = (byte[])method.invoke(null, csBytes);
 
-		out.write(ENCRYPTED); // Íø¸ñÄÚÈİ¼ÓÃÜ
+		out.write(ENCRYPTED); // ç½‘æ ¼å†…å®¹åŠ å¯†
 		IOUtils.writeInt(out, csBytes.length);
 		out.write(csBytes);
 
@@ -145,10 +145,10 @@ public class CellSetUtil {
 	}
 
 	/**
-	 * Ğ´³ÌĞòÍø
-	 * Íø¸ñÀàĞÍ + °æ±¾ + ÃÜÂë³¤¶È + ÃÜÂë + ÊôĞÔ³¤¶È + ÊôĞÔ + ÊÇ·ñ¼ÓÃÜ + Íø³¤¶È + ÍøÄÚÈİ
-	 * @param out Êä³öÁ÷
-	 * @param cs ³ÌĞòÍø¶ÔÏó
+	 * å†™ç¨‹åºç½‘
+	 * ç½‘æ ¼ç±»å‹ + ç‰ˆæœ¬ + å¯†ç é•¿åº¦ + å¯†ç  + å±æ€§é•¿åº¦ + å±æ€§ + æ˜¯å¦åŠ å¯† + ç½‘é•¿åº¦ + ç½‘å†…å®¹
+	 * @param out è¾“å‡ºæµ
+	 * @param cs ç¨‹åºç½‘å¯¹è±¡
 	 * @throws Exception
 	 */
 	public static void writePgmCellSet(OutputStream out, PgmCellSet cs) throws Exception {
@@ -156,10 +156,10 @@ public class CellSetUtil {
 		out.write('Q');
 		out.write('Q');
 		out.write('R');
-		out.write(Type_PgmCellSet); // Íø¸ñÀàĞÍ
-		out.write(4); // °æ±¾4£ºÍø¸ñ²ÎÊı¸Ä³ÉÁËvalue´æÕæÊµÖµ£¬editValue´æÊäÈëÖµ
+		out.write(Type_PgmCellSet); // ç½‘æ ¼ç±»å‹
+		out.write(4); // ç‰ˆæœ¬4ï¼šç½‘æ ¼å‚æ•°æ”¹æˆäº†valueå­˜çœŸå®å€¼ï¼ŒeditValueå­˜è¾“å…¥å€¼
 
-		// ÃÜÂë³¤¶È+ÃÜÂë
+		// å¯†ç é•¿åº¦+å¯†ç 
 		ByteArrayOutputRecord bo = new ByteArrayOutputRecord();
 		String psw = cs.getPasswordHash();
 		bo.writeString(psw);
@@ -170,7 +170,7 @@ public class CellSetUtil {
 		IOUtils.writeInt(out, pswBytes.length);
 		out.write(pswBytes);
 
-		// ÊôĞÔ³¤¶È+ÊôĞÔ
+		// å±æ€§é•¿åº¦+å±æ€§
 		ByteMap map = cs.getCustomPropMap();
 		if (map == null || map.size() == 0) {
 			IOUtils.writeInt(out, 0);
@@ -182,9 +182,9 @@ public class CellSetUtil {
 
 		byte[] csBytes = cs.serialize();
 		if (psw == null || psw.length() == 0) {
-			out.write(0); // Íø¸ñÄÚÈİÃ»ÓĞ¼ÓÃÜ
+			out.write(0); // ç½‘æ ¼å†…å®¹æ²¡æœ‰åŠ å¯†
 		} else {
-			out.write(ENCRYPTED); // Íø¸ñÄÚÈİ¼ÓÃÜ
+			out.write(ENCRYPTED); // ç½‘æ ¼å†…å®¹åŠ å¯†
 			csBytes = encrypt(csBytes);
 		}
 
@@ -199,8 +199,8 @@ public class CellSetUtil {
 	}
 
 	/**
-	 * ·µ»ØÍø¸ñÎÄ¼şÊÇ·ñ¼ÓÃÜÁË
-	 * @param fileName String ÎÄ¼şÂ·¾¶Ãû
+	 * è¿”å›ç½‘æ ¼æ–‡ä»¶æ˜¯å¦åŠ å¯†äº†
+	 * @param fileName String æ–‡ä»¶è·¯å¾„å
 	 * @return boolean
 	 */
 	public static boolean isEncrypted(String fileName) {
@@ -222,8 +222,8 @@ public class CellSetUtil {
 	}
 
 	/**
-	 * ·µ»ØÍø¸ñÎÄ¼şÊÇ·ñ¼ÓÃÜÁË
-	 * @param is InputStream ÊäÈëÁ÷
+	 * è¿”å›ç½‘æ ¼æ–‡ä»¶æ˜¯å¦åŠ å¯†äº†
+	 * @param is InputStream è¾“å…¥æµ
 	 * @return boolean
 	 */
 	public static boolean isEncrypted(InputStream is) {
@@ -237,12 +237,12 @@ public class CellSetUtil {
 				return false;
 			}
 
-			int type = is.read(); // Íø¸ñÀàĞÍ
+			int type = is.read(); // ç½‘æ ¼ç±»å‹
 			if (type != Type_PgmCellSet) {
 				return false;
 			}
 
-			int ver = is.read(); // °æ±¾
+			int ver = is.read(); // ç‰ˆæœ¬
 			if (ver < 3) {
 				return false;
 			} else {
@@ -261,8 +261,8 @@ public class CellSetUtil {
 	}
 	
 	/**
-	 * ·µ»ØÍø¸ñÎÄ¼şÊÇ·ñÊ¹ÓÃÁËÓÃ»§×Ô¶¨Òå¼ÓÃÜ
-	 * @param is InputStream ÊäÈëÁ÷
+	 * è¿”å›ç½‘æ ¼æ–‡ä»¶æ˜¯å¦ä½¿ç”¨äº†ç”¨æˆ·è‡ªå®šä¹‰åŠ å¯†
+	 * @param is InputStream è¾“å…¥æµ
 	 * @return boolean
 	 */
 	public static boolean isUserEncrypted(InputStream is) {
@@ -276,12 +276,12 @@ public class CellSetUtil {
 				return false;
 			}
 
-			int type = is.read(); // Íø¸ñÀàĞÍ
+			int type = is.read(); // ç½‘æ ¼ç±»å‹
 			if (type != Type_PgmCellSet) {
 				return false;
 			}
 
-			int ver = is.read(); // °æ±¾
+			int ver = is.read(); // ç‰ˆæœ¬
 			if (ver < 5) {
 				return false;
 			} else {
@@ -302,7 +302,7 @@ public class CellSetUtil {
 	}
 	
 	/**
-	 * ¶ÁÈ¡Íø¸ñµÄ×Ô¶¨ÒåÊôĞÔÓ³Éä
+	 * è¯»å–ç½‘æ ¼çš„è‡ªå®šä¹‰å±æ€§æ˜ å°„
 	 * @param fileName String
 	 * @return ByteMap
 	 */
@@ -325,7 +325,7 @@ public class CellSetUtil {
 	}
 
 	/**
-	 * ¶ÁÈ¡Íø¸ñµÄ×Ô¶¨ÒåÊôĞÔÓ³Éä
+	 * è¯»å–ç½‘æ ¼çš„è‡ªå®šä¹‰å±æ€§æ˜ å°„
 	 * @param is InputStream
 	 * @return ByteMap
 	 */
@@ -340,8 +340,8 @@ public class CellSetUtil {
 				return null;
 			}
 
-			int type = is.read(); // Íø¸ñÀàĞÍ
-			int ver = is.read(); // °æ±¾
+			int type = is.read(); // ç½‘æ ¼ç±»å‹
+			int ver = is.read(); // ç‰ˆæœ¬
 			if (ver > 1 || type != Type_PgmCellSet) {
 				int pswLen = IOUtils.readInt(is);
 				if (pswLen > 0) is.skip(pswLen);
@@ -363,9 +363,9 @@ public class CellSetUtil {
 	}
 
 	/**
-	 * Ğ´³ÌĞòÍø
-	 * @param fileName ÒªĞ´Èë³ÌĞòÍøµÄÎÄ¼şÃû
-	 * @param cs ³ÌĞòÍø¶ÔÏó
+	 * å†™ç¨‹åºç½‘
+	 * @param fileName è¦å†™å…¥ç¨‹åºç½‘çš„æ–‡ä»¶å
+	 * @param cs ç¨‹åºç½‘å¯¹è±¡
 	 * @throws Exception
 	 */
 	public static void writePgmCellSet(String fileName, PgmCellSet cs) throws Exception {
@@ -379,8 +379,8 @@ public class CellSetUtil {
 	}
 
 	/**
-	 * ¶Á³ÌĞòÍø
-	 * @param fileName ³ÌĞòÍøÎÄ¼şÃû
+	 * è¯»ç¨‹åºç½‘
+	 * @param fileName ç¨‹åºç½‘æ–‡ä»¶å
 	 * @throws Exception
 	 * @return PgmCellSet
 	 */
@@ -389,10 +389,10 @@ public class CellSetUtil {
 	}
 
 	/**
-	 * ¶Á¼ÓÁËÃÜµÄ³ÌĞòÍø
-	 * @param fileName ³ÌĞòÍøÎÄ¼şÃû
+	 * è¯»åŠ äº†å¯†çš„ç¨‹åºç½‘
+	 * @param fileName ç¨‹åºç½‘æ–‡ä»¶å
 	 * @throws Exception
-	 * @param psw String ÃÜÂë
+	 * @param psw String å¯†ç 
 	 * @return PgmCellSet
 	 */
 	public static PgmCellSet readPgmCellSet(String fileName, String psw) throws Exception {
@@ -412,8 +412,8 @@ public class CellSetUtil {
 	}
 
 	/**
-	 * ¶Á³ÌĞòÍø
-	 * @param is InputStream ÊäÈëÁ÷
+	 * è¯»ç¨‹åºç½‘
+	 * @param is InputStream è¾“å…¥æµ
 	 * @throws Exception
 	 * @return PgmCellSet
 	 */
@@ -422,9 +422,9 @@ public class CellSetUtil {
 	}
 	
 	/**
-	 * ¶Á³ÌĞòÍø
-	 * @param is ÊäÈëÁ÷
-	 * @param psw ÃÜÂë£¬Ã»ÓĞÃÜÂëÔòÎª¿Õ
+	 * è¯»ç¨‹åºç½‘
+	 * @param is è¾“å…¥æµ
+	 * @param psw å¯†ç ï¼Œæ²¡æœ‰å¯†ç åˆ™ä¸ºç©º
 	 * @return PgmCellSet
 	 * @throws Exception
 	 */
@@ -434,14 +434,14 @@ public class CellSetUtil {
 			throw new RQException(mm.getMessage("license.fileFormatError"));
 		}
 
-		int type = is.read(); // Íø¸ñÀàĞÍ
+		int type = is.read(); // ç½‘æ ¼ç±»å‹
 		if (type != Type_PgmCellSet) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("license.fileFormatError"));
 		}
 
 		PgmCellSet cs = new PgmCellSet();
-		int ver = is.read(); // °æ±¾
+		int ver = is.read(); // ç‰ˆæœ¬
 		
 		if (ver == 1) {
 			int mapLen = IOUtils.readInt(is);
@@ -456,7 +456,7 @@ public class CellSetUtil {
 			is.read(); // Q
 			is.read(); // R
 
-			// ÏÈ°ÑÇ©Ãû¶Á³öÀ´£¬ĞòÁĞ»¯ÊÇĞèÒª¼ì²éÊÇ·ñÇ©ÃûÁË
+			// å…ˆæŠŠç­¾åè¯»å‡ºæ¥ï¼Œåºåˆ—åŒ–æ˜¯éœ€è¦æ£€æŸ¥æ˜¯å¦ç­¾åäº†
 			cs.fillRecord(csBytes);
 			changeOldVersionParam(cs);
 			return cs;
@@ -488,7 +488,7 @@ public class CellSetUtil {
 			is.skip(mapLen);
 		}
 
-		// ÊÇ·ñÓĞ¼ÓÃÜÈ¨ÏŞ
+		// æ˜¯å¦æœ‰åŠ å¯†æƒé™
 		int isEncrypted = is.read() & ENCRYPTED;
 		int csLen = IOUtils.readInt(is);
 		byte []csBytes = new byte[csLen];
@@ -511,7 +511,7 @@ public class CellSetUtil {
 			Class<? extends Object> classObj = Class.forName(className);
 			Method method = classObj.getDeclaredMethod(methodName, byte[].class);
 			csBytes = (byte[])method.invoke(null, csBytes);
-		} else if (isEncrypted == ENCRYPTED) { // ¼ÓÃÜ³ÌĞòÍø
+		} else if (isEncrypted == ENCRYPTED) { // åŠ å¯†ç¨‹åºç½‘
 			csBytes = decrypt(csBytes);
 		}
 
@@ -519,7 +519,7 @@ public class CellSetUtil {
 		cs.setCurrentPassword(psw);
 		
 		if (ver < 4) {
-			// °æ±¾Ğ¡ÓÚ4µÄÍø¸ñÀïµÄ²ÎÊıÖµ´æµÄÊÇ±à¼­Öµ
+			// ç‰ˆæœ¬å°äº4çš„ç½‘æ ¼é‡Œçš„å‚æ•°å€¼å­˜çš„æ˜¯ç¼–è¾‘å€¼
 			changeOldVersionParam(cs);
 		}
 		
@@ -527,7 +527,7 @@ public class CellSetUtil {
 	}
 
 	private static void changeOldVersionParam(PgmCellSet pcs) {
-		// °æ±¾Ğ¡ÓÚ4µÄÍø¸ñÀïµÄ²ÎÊıÖµ´æµÄÊÇ±à¼­Öµ
+		// ç‰ˆæœ¬å°äº4çš„ç½‘æ ¼é‡Œçš„å‚æ•°å€¼å­˜çš„æ˜¯ç¼–è¾‘å€¼
 		ParamList paramList = pcs.getParamList();
 		if (paramList == null) {
 			return;
@@ -560,7 +560,7 @@ public class CellSetUtil {
 	/**
 	 * @param cellSet CellSet
 	 * @param args String[]
-	 * esProc ÎªdosÃüÁîÊäÈë·½Ê½£¬ÖµÍ¨³£Îª´®Êı×é,ĞèÒªÏÈ¼ÆËãÔÙputµ½context¡£
+	 * esProc ä¸ºdoså‘½ä»¤è¾“å…¥æ–¹å¼ï¼Œå€¼é€šå¸¸ä¸ºä¸²æ•°ç»„,éœ€è¦å…ˆè®¡ç®—å†putåˆ°contextã€‚
 	 */
 	public static void putArgStringValue(CellSet cellSet,String[] args) {
 		if( args==null ) {
@@ -576,10 +576,10 @@ public class CellSetUtil {
 	}
 
 	/**
-	 * °ÑargsµÄÖµÒÀcellSetÖĞ²ÎÊı´ÎĞòÒÀ´ÎÉèÖÃ
-	 * @param cellSet CellSet£¬ÒªÉèÖÃµÄÍø¸ñ¶ÔÏó
-	 * @param args Object[]£¬ÓÃ»§ÊäÈëµÄ´®ÀàĞÍµÄ²ÎÊıÖµ£¬·½·¨ÎªesProcÒÔ¼°dataHubÖĞ¼ÆËãÍø¸ñÇ°×¼±¸£¬xq
-	 * DataHubÎªJDBCµ÷ÓÃ·½Ê½£¬Öµ¶¼ÊÇËãºÃµÄObjectÊı×é¡£
+	 * æŠŠargsçš„å€¼ä¾cellSetä¸­å‚æ•°æ¬¡åºä¾æ¬¡è®¾ç½®
+	 * @param cellSet CellSetï¼Œè¦è®¾ç½®çš„ç½‘æ ¼å¯¹è±¡
+	 * @param args Object[]ï¼Œç”¨æˆ·è¾“å…¥çš„ä¸²ç±»å‹çš„å‚æ•°å€¼ï¼Œæ–¹æ³•ä¸ºesProcä»¥åŠdataHubä¸­è®¡ç®—ç½‘æ ¼å‰å‡†å¤‡ï¼Œxq
+	 * DataHubä¸ºJDBCè°ƒç”¨æ–¹å¼ï¼Œå€¼éƒ½æ˜¯ç®—å¥½çš„Objectæ•°ç»„ã€‚
 	 */
 	public static void putArgValue(CellSet cellSet,Object[] args) {
 		ParamList params = cellSet.getParamList();
@@ -606,14 +606,14 @@ public class CellSetUtil {
 	}
 	
 	/**
-	 * Ö´ĞĞµ¥±í´ïÊ½£¬²»Éú³ÉÍø¸ñ
-	 * @param src ±í´ïÊ½
-	 * @param args ²ÎÊıÖµ¹¹³ÉµÄĞòÁĞ£¬ÓÃargiÒıÓÃ
+	 * æ‰§è¡Œå•è¡¨è¾¾å¼ï¼Œä¸ç”Ÿæˆç½‘æ ¼
+	 * @param src è¡¨è¾¾å¼
+	 * @param args å‚æ•°å€¼æ„æˆçš„åºåˆ—ï¼Œç”¨argiå¼•ç”¨
 	 * @param ctx
 	 * @return
 	 */
 	public static Object execute1(String src, Sequence args, Context ctx) {
-		// Óï¾äÖĞµÄ²ÎÊı£¬¹Ì¶¨ÒÔ"arg"¿ªÍ·
+		// è¯­å¥ä¸­çš„å‚æ•°ï¼Œå›ºå®šä»¥"arg"å¼€å¤´
 		if (args != null && args.length() > 0) {
 			for (int i = 1; i <= args.length(); ++i) {
 				ctx.setParamValue("arg" + i, args.get(i));
@@ -625,16 +625,16 @@ public class CellSetUtil {
 	}
 
 	/**
-	 * Ö´ĞĞ±í´ïÊ½´®£¬ÁĞÓÃtab·Ö¸ô£¬ĞĞÓÃ»Ø³µ·Ö¸ô
+	 * æ‰§è¡Œè¡¨è¾¾å¼ä¸²ï¼Œåˆ—ç”¨tabåˆ†éš”ï¼Œè¡Œç”¨å›è½¦åˆ†éš”
 	 * @param src
-	 * @param args ²ÎÊıÖµ¹¹³ÉµÄĞòÁĞ£¬ÓÃargiÒıÓÃ
+	 * @param args å‚æ•°å€¼æ„æˆçš„åºåˆ—ï¼Œç”¨argiå¼•ç”¨
 	 * @param ctx
 	 * @return
 	 */
 	public static Object execute(String src, Sequence args, Context ctx) {
 		PgmCellSet pcs = toPgmCellSet(src);
 		
-		// Óï¾äÖĞµÄ²ÎÊı£¬¹Ì¶¨ÒÔ"arg"¿ªÍ·
+		// è¯­å¥ä¸­çš„å‚æ•°ï¼Œå›ºå®šä»¥"arg"å¼€å¤´
 		if (args != null && args.length() > 0) {
 			for (int i = 1; i <= args.length(); ++i) {
 				ctx.setParamValue("arg" + i, args.get(i));
@@ -662,9 +662,9 @@ public class CellSetUtil {
 	}
 	
 	/**
-	 * µ¥Ôª¸ñ±í´ïÊ½¶şÎ¬Êı×éÉú³É³ÌĞòÍø
-	 * @param expStrs µ¥Ôª¸ñ±í´ïÊ½×é³ÉµÄĞĞÁĞ¶şÎ¬Êı×é
-	 * @return ³ÌĞòÍø
+	 * å•å…ƒæ ¼è¡¨è¾¾å¼äºŒç»´æ•°ç»„ç”Ÿæˆç¨‹åºç½‘
+	 * @param expStrs å•å…ƒæ ¼è¡¨è¾¾å¼ç»„æˆçš„è¡Œåˆ—äºŒç»´æ•°ç»„
+	 * @return ç¨‹åºç½‘
 	 */
 	public static PgmCellSet toPgmCellSet(String[][]expStrs) {
 		if (expStrs == null || expStrs.length == 0) {
@@ -698,8 +698,8 @@ public class CellSetUtil {
 	}
 	
 	/**
-	 * ·Ö¸ô×Ö·û´®£¬Ìîµ½³ÌĞòÍøµÄ¸ñ×ÓÀï
-	 * @param src ×Ö·û´®£¬ÁĞÓÃtab·Ö¸ô£¬ĞĞÓÃ»Ø³µ·Ö¸ô
+	 * åˆ†éš”å­—ç¬¦ä¸²ï¼Œå¡«åˆ°ç¨‹åºç½‘çš„æ ¼å­é‡Œ
+	 * @param src å­—ç¬¦ä¸²ï¼Œåˆ—ç”¨tabåˆ†éš”ï¼Œè¡Œç”¨å›è½¦åˆ†éš”
 	 * @return
 	 */
 	public static PgmCellSet toPgmCellSet(String src) {
@@ -709,7 +709,7 @@ public class CellSetUtil {
 		int len = buffer.length;
 		int index = 0;
 		
-		// ¿ªÍ·µÄnĞĞÊÇ²ÎÊı
+		// å¼€å¤´çš„nè¡Œæ˜¯å‚æ•°
 		// #var1=xxx
 		// #var2=xxx
 		ParamList paramList = new ParamList();
@@ -787,8 +787,8 @@ public class CellSetUtil {
 		return pcs;
 	}
 	
-	// ÎÄ±¾³ÌĞòÖĞ¿ÉÒÔÓÃ@x:...¸øµ¥Ôª¸ñ¶¨ÒåÒ»¸ö±ğÃû£¬±í´ïÊ½¿ÉÒÔÍ¨¹ıÕâ¸ö±ğÃûÒıÓÃ¸ñ×Ó
-	// ¶Á³ÉÍø¸ñºó°Ñ±ğÃûµÄÒıÓÃ×ª³É¸ñ×ÓµÄÒıÓÃ
+	// æ–‡æœ¬ç¨‹åºä¸­å¯ä»¥ç”¨@x:...ç»™å•å…ƒæ ¼å®šä¹‰ä¸€ä¸ªåˆ«åï¼Œè¡¨è¾¾å¼å¯ä»¥é€šè¿‡è¿™ä¸ªåˆ«åå¼•ç”¨æ ¼å­
+	// è¯»æˆç½‘æ ¼åæŠŠåˆ«åçš„å¼•ç”¨è½¬æˆæ ¼å­çš„å¼•ç”¨
 	private static void changeAliasNameToCell(PgmCellSet pcs) {
 		int rowCount = pcs.getRowCount();
 		int colCount = pcs.getColCount();
@@ -860,7 +860,7 @@ public class CellSetUtil {
 					i = match + 1;
 				}
 			} else if (KeyWord.isSymbol(c) || c == '#') {
-				// #aliasNameÓÃÓÚÈ¡forµÄµ±Ç°Ñ­»·ĞòºÅ
+				// #aliasNameç”¨äºå–forçš„å½“å‰å¾ªç¯åºå·
 				if (sb != null) {
 					sb.append(c);
 				}
@@ -893,10 +893,10 @@ public class CellSetUtil {
 	}
 	
 	/**
-	 * °Ñ³ÌĞòÍø×ªÎª×Ö·û´®,¿ªÍ·µÄnĞĞÊÇ²ÎÊı
+	 * æŠŠç¨‹åºç½‘è½¬ä¸ºå­—ç¬¦ä¸²,å¼€å¤´çš„nè¡Œæ˜¯å‚æ•°
 	 * #var1=***
 	 * #var2=***
-	 * @param cs ³ÌĞòÍø
+	 * @param cs ç¨‹åºç½‘
 	 * @return String
 	 */
 	public static String toString(PgmCellSet cs) {

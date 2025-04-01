@@ -26,43 +26,43 @@ import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * ÖµÃæ°å
+ * å€¼é¢æ¿
  */
 public class PanelValue extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¹ö¶¯Ãæ°å
+	 * æ»šåŠ¨é¢æ¿
 	 */
 	public JScrollPane spValue;
 
 	/**
-	 * ±í¸ñ¿Ø¼ş
+	 * è¡¨æ ¼æ§ä»¶
 	 */
 	public JTableValue tableValue;
 
 	/**
-	 * Öµ¹¤¾ßÌõÃæ°å
+	 * å€¼å·¥å…·æ¡é¢æ¿
 	 */
 	public PanelValueBar valueBar;
 
 	/**
-	 * ¹ö¶¯Ìõ
+	 * æ»šåŠ¨æ¡
 	 */
 	public JScrollBar sbValue;
 
 	/**
-	 * ×èÖ¹±ä»¯
+	 * é˜»æ­¢å˜åŒ–
 	 */
 	public boolean preventChange = false;
 	/**
-	 * µ¥Ôª¸ñµ÷ÊÔÖ´ĞĞÊ±¼ä
+	 * å•å…ƒæ ¼è°ƒè¯•æ‰§è¡Œæ—¶é—´
 	 */
 	private JLabel jLCellTime = new JLabel();
 
 	/**
-	 * µ¥Ôª¸ñµ÷ÊÔÖ´ĞĞÊ±¼ä¼ä¸ô
+	 * å•å…ƒæ ¼è°ƒè¯•æ‰§è¡Œæ—¶é—´é—´éš”
 	 */
 	private JLabel jLInterval = new JLabel();
 
@@ -72,19 +72,19 @@ public class PanelValue extends JPanel {
 			"panelvalue.disprows2"));
 
 	/**
-	 * ÏÔÊ¾µÄ×î´óĞĞÊıÃæ°å
+	 * æ˜¾ç¤ºçš„æœ€å¤§è¡Œæ•°é¢æ¿
 	 */
 	private JSpinner jSDispRows = new JSpinner(new SpinnerNumberModel(100, 1,
 			Integer.MAX_VALUE, 1));
 
 	/**
-	 * ÓÎ±ê¼ÓÔØÊı¾İ°´Å¥
+	 * æ¸¸æ ‡åŠ è½½æ•°æ®æŒ‰é’®
 	 */
 	private JButton jBCursorFetch = new JButton(IdeSplMessage.get().getMessage(
-			"panelvalue.cursorfetch")); // ¼ÓÔØÊı¾İ
+			"panelvalue.cursorfetch")); // åŠ è½½æ•°æ®
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public PanelValue() {
 		GVSpl.panelValue = this;
@@ -176,16 +176,16 @@ public class PanelValue extends JPanel {
 		panelCursor.setVisible(isCursor);
 	}
 
-	/** µ÷ÊÔÃæ°å */
+	/** è°ƒè¯•é¢æ¿ */
 	private static final String CARD_DEBUG = "CARD_DEBUG";
-	/** ¿ÕÃæ°å */
+	/** ç©ºé¢æ¿ */
 	private static final String CARD_EMPTY = "CARD_EMPTY";
 	/**
-	 * ÓÃÓÚÇĞ»»ÊÇ·ñÏÔÊ¾Ç©ÃûµÄ¿¨Æ¬²¼¾Ö
+	 * ç”¨äºåˆ‡æ¢æ˜¯å¦æ˜¾ç¤ºç­¾åçš„å¡ç‰‡å¸ƒå±€
 	 */
 	private CardLayout cl = new CardLayout();
 	/**
-	 * µ÷ÊÔÃæ°å¡£²»µ÷ÊÔÊ±ÇĞ»»Îª¿ÕÃæ°å
+	 * è°ƒè¯•é¢æ¿ã€‚ä¸è°ƒè¯•æ—¶åˆ‡æ¢ä¸ºç©ºé¢æ¿
 	 */
 	private JPanel panelSouth = new JPanel(cl);
 
@@ -193,10 +193,10 @@ public class PanelValue extends JPanel {
 	private JPanel panelCursor = new JPanel(new GridBagLayout());
 
 	/**
-	 * ÉèÖÃÍø¸ñ
+	 * è®¾ç½®ç½‘æ ¼
 	 * 
 	 * @param cs
-	 *            Íø¸ñ¶ÔÏó
+	 *            ç½‘æ ¼å¯¹è±¡
 	 */
 	public void setCellSet(PgmCellSet cs) {
 		if (cs == null) {
@@ -209,7 +209,7 @@ public class PanelValue extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃµ÷ÊÔÖ´ĞĞÊ±¼ä£¬µ¥Î»ºÁÃë
+	 * è®¾ç½®è°ƒè¯•æ‰§è¡Œæ—¶é—´ï¼Œå•ä½æ¯«ç§’
 	 * 
 	 * @param time
 	 */
@@ -232,7 +232,7 @@ public class PanelValue extends JPanel {
 	}
 
 	/**
-	 * ÉèÖÃ±à¼­¼àÌıÆ÷
+	 * è®¾ç½®ç¼–è¾‘ç›‘å¬å™¨
 	 * 
 	 * @param el
 	 */

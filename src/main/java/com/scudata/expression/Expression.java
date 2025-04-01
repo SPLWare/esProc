@@ -29,21 +29,21 @@ import com.scudata.util.EnvUtil;
 import com.scudata.util.Variant;
 
 /**
- * ±í´ïÊ½¶ÔÏó
+ * è¡¨è¾¾å¼å¯¹è±¡
  * @author WangXiaoJun
  *
  */
 public class Expression {
 	public static final Expression NULL = new Expression(new Constant(null));
 
-	public static final byte TYPE_DB = 1; // Êı¾İ¿âÁ¬½Ó
-	public static final byte TYPE_FILE = 2; // ÎÄ¼ş¶ÔÏó
-	public static final byte TYPE_SEQUENCE = 3; // ĞòÁĞ
-	public static final byte TYPE_TABLE = 4; // Ğò±í
-	public static final byte TYPE_CURSOR = 5; // ÓÎ±ê
+	public static final byte TYPE_DB = 1; // æ•°æ®åº“è¿æ¥
+	public static final byte TYPE_FILE = 2; // æ–‡ä»¶å¯¹è±¡
+	public static final byte TYPE_SEQUENCE = 3; // åºåˆ—
+	public static final byte TYPE_TABLE = 4; // åºè¡¨
+	public static final byte TYPE_CURSOR = 5; // æ¸¸æ ‡
 	
-	public static final byte TYPE_OTHER = 101; // ·ÇÒÔÉÏ·µ»ØÖµÀàĞÍ
-	public static final byte TYPE_UNKNOWN = 102; // ÎŞ·¨È·¶¨·µ»ØÖµÀàĞÍ
+	public static final byte TYPE_OTHER = 101; // éä»¥ä¸Šè¿”å›å€¼ç±»å‹
+	public static final byte TYPE_UNKNOWN = 102; // æ— æ³•ç¡®å®šè¿”å›å€¼ç±»å‹
 
 	public static final boolean DoOptimize = true;
 
@@ -52,54 +52,54 @@ public class Expression {
 	private Node home;
 	private ICellSet cs;
 
-	// ÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+	// æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 	private boolean canCalculateAll;
 	
 	/**
-	 * ¹¹½¨±í´ïÊ½
-	 * @param str ´ı½âÎöµÄ±í´ïÊ½
+	 * æ„å»ºè¡¨è¾¾å¼
+	 * @param str å¾…è§£æçš„è¡¨è¾¾å¼
 	 */
 	public Expression(String str) {
 		this(null, null, str);
 	}
 	
 	/**
-	 * ¹¹½¨±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param str ´ı½âÎöµÄ±í´ïÊ½
+	 * æ„å»ºè¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param str å¾…è§£æçš„è¡¨è¾¾å¼
 	 */
 	public Expression(Context ctx, String str) {
 		this(null, ctx, str);
 	}
 
 	/**
-	 * ¹¹½¨±í´ïÊ½
-	 * @param cs µ±Ç°Íø¸ñ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param str ´ı½âÎöµÄ±í´ïÊ½
+	 * æ„å»ºè¡¨è¾¾å¼
+	 * @param cs å½“å‰ç½‘æ ¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param str å¾…è§£æçš„è¡¨è¾¾å¼
 	 */
 	public Expression(ICellSet cs, Context ctx, String str) {
 		this(cs, ctx, str, DoOptimize, true);
 	}
 
 	/**
-	 * ¹¹½¨±í´ïÊ½
-	 * @param cs µ±Ç°Íø¸ñ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param str ´ı½âÎöµÄ±í´ïÊ½
-	 * @param opt ÊÇ·ñ×öÓÅ»¯
+	 * æ„å»ºè¡¨è¾¾å¼
+	 * @param cs å½“å‰ç½‘æ ¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param str å¾…è§£æçš„è¡¨è¾¾å¼
+	 * @param opt æ˜¯å¦åšä¼˜åŒ–
 	 */
 	public Expression(ICellSet cs, Context ctx, String str, boolean opt) {
 		this(cs, ctx, str, opt, true);
 	}
 
 	/**
-	 * ¹¹½¨±í´ïÊ½
-	 * @param cs µ±Ç°Íø¸ñ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param str ´ı½âÎöµÄ±í´ïÊ½
-	 * @param opt ÊÇ·ñ×öÓÅ»¯
-	 * @param doMacro ÊÇ·ñ×öºêÌæ»»
+	 * æ„å»ºè¡¨è¾¾å¼
+	 * @param cs å½“å‰ç½‘æ ¼
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param str å¾…è§£æçš„è¡¨è¾¾å¼
+	 * @param opt æ˜¯å¦åšä¼˜åŒ–
+	 * @param doMacro æ˜¯å¦åšå®æ›¿æ¢
 	 */
 	public Expression(ICellSet cs, Context ctx, String str, boolean opt, boolean doMacro) {
 		this.cs = cs;
@@ -128,8 +128,8 @@ public class Expression {
 	}
 
 	/**
-	 * ¹¹½¨±í´ïÊ½
-	 * @param node ±í´ïÊ½¸ù½Úµã
+	 * æ„å»ºè¡¨è¾¾å¼
+	 * @param node è¡¨è¾¾å¼æ ¹èŠ‚ç‚¹
 	 */
 	public Expression(Node node) {
 		home = node;
@@ -137,7 +137,7 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡µÃ½Úµã
+	 * å–å¾—èŠ‚ç‚¹
 	 * @return Node
 	 */
 	public Node getHome() {
@@ -145,25 +145,25 @@ public class Expression {
 	}
 
 	/**
-	 * ·µ»Ø±í´ïÊ½ÊÇ·ñÊÇ³£Êı±í´ïÊ½
-	 * @return true£ºÊÇ£¬false£º²»ÊÇ
+	 * è¿”å›è¡¨è¾¾å¼æ˜¯å¦æ˜¯å¸¸æ•°è¡¨è¾¾å¼
+	 * @return trueï¼šæ˜¯ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isConstExpression() {
 		return home instanceof Constant;
 	}
 	
 	/**
-	 * ÔËËã±í´ïÊ½
-	 * @param ctx ÔËËã±¨±íÊ±µÄÉÏÏÂÎÄ»·¾³±äÁ¿
-	 * @return ÔËËã½á¹û
+	 * è¿ç®—è¡¨è¾¾å¼
+	 * @param ctx è¿ç®—æŠ¥è¡¨æ—¶çš„ä¸Šä¸‹æ–‡ç¯å¢ƒå˜é‡
+	 * @return è¿ç®—ç»“æœ
 	 */
 	public Object calculate(Context ctx) {
 		return home.calculate(ctx);
 	}
 
 	/**
-	 * ¼ÆËã³öÒıÓÃµÄµ¥Ôª¸ñ£¬²»ÊÇÈ¡µ¥Ôª¸ñµÄÖµ£¬Èç¹û±í´ïÊ½²»ÊÇµ¥Ôª¸ñÒıÓÃÔò·µ»Ø¿Õ
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
+	 * è®¡ç®—å‡ºå¼•ç”¨çš„å•å…ƒæ ¼ï¼Œä¸æ˜¯å–å•å…ƒæ ¼çš„å€¼ï¼Œå¦‚æœè¡¨è¾¾å¼ä¸æ˜¯å•å…ƒæ ¼å¼•ç”¨åˆ™è¿”å›ç©º
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
 	 * @return INormalCell
 	 */
 	public INormalCell calculateCell(Context ctx) {
@@ -171,7 +171,7 @@ public class Expression {
 	}
 
 	/**
-	 * ¶Ô±í´ïÊ½Ö´ĞĞ¸³Öµ²Ù×÷
+	 * å¯¹è¡¨è¾¾å¼æ‰§è¡Œèµ‹å€¼æ“ä½œ
 	 * @param value Object
 	 * @param ctx Context
 	 */
@@ -180,7 +180,7 @@ public class Expression {
 	}
 
 	/**
-	 * È¡±í´ïÊ½´®
+	 * å–è¡¨è¾¾å¼ä¸²
 	 * @return String
 	 */
 	public String toString() {
@@ -188,7 +188,7 @@ public class Expression {
 	}
 
 	/**
-	 * È¡±êÊ¶·ûÃû×Ö£¬ÓÃµ¥ÒıºÅÀ¨ÆğÀ´µÄÈ¥µôµ¥ÒıºÅ
+	 * å–æ ‡è¯†ç¬¦åå­—ï¼Œç”¨å•å¼•å·æ‹¬èµ·æ¥çš„å»æ‰å•å¼•å·
 	 * @return String
 	 */
 	public String getIdentifierName() {
@@ -203,7 +203,7 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡±í´ïÊ½¶ÔÓ¦µÄ×Ö¶ÎÃû£¬ÓÃÓÚ¸ù¾İ±í´ïÊ½×Ô¶¯Éú³É×Ö¶ÎÃû
+	 * å–è¡¨è¾¾å¼å¯¹åº”çš„å­—æ®µåï¼Œç”¨äºæ ¹æ®è¡¨è¾¾å¼è‡ªåŠ¨ç”Ÿæˆå­—æ®µå
 	 * @return
 	 */
 	public String getFieldName() {
@@ -211,9 +211,9 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡±í´ïÊ½¶ÔÓ¦µÄ×Ö¶ÎÃû£¬ÓÃÓÚnewÖ®ÀàµÄº¯ÊıÊ¡ÂÔ×Ö¶ÎÃûµÄÊ±ºò
-	 * A.f±ä³Éf£¬#1±ä³Éf
-	 * @param ds Ô´±íµÄÊı¾İ½á¹¹£¬¿É¿Õ
+	 * å–è¡¨è¾¾å¼å¯¹åº”çš„å­—æ®µåï¼Œç”¨äºnewä¹‹ç±»çš„å‡½æ•°çœç•¥å­—æ®µåçš„æ—¶å€™
+	 * A.få˜æˆfï¼Œ#1å˜æˆf
+	 * @param ds æºè¡¨çš„æ•°æ®ç»“æ„ï¼Œå¯ç©º
 	 */
 	public String getFieldName(DataStruct ds) {
 		if (home instanceof DotOperator) {
@@ -241,9 +241,9 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡±í´ïÊ½¶ÔÓ¦µÄ×Ö¶ÎË÷Òı
-	 * @param ds Êı¾İ½á¹¹
-	 * @return ×Ö¶ÎË÷Òı£¬Èç¹û²»ÊÇ×Ö¶Î±í´ïÊ½Ôò·µ»Ø-1
+	 * å–è¡¨è¾¾å¼å¯¹åº”çš„å­—æ®µç´¢å¼•
+	 * @param ds æ•°æ®ç»“æ„
+	 * @return å­—æ®µç´¢å¼•ï¼Œå¦‚æœä¸æ˜¯å­—æ®µè¡¨è¾¾å¼åˆ™è¿”å›-1
 	 */
 	public int getFieldIndex(DataStruct ds) {
 		int index = ds.getFieldIndex(expStr);
@@ -280,23 +280,23 @@ public class Expression {
 	}
 
 	/**
-	 * ±í´ïÊ½ÓÅ»¯
-	 * @param ctx ÔËËã±¨±íÊ±µÄÉÏÏÂÎÄ»·¾³±äÁ¿
+	 * è¡¨è¾¾å¼ä¼˜åŒ–
+	 * @param ctx è¿ç®—æŠ¥è¡¨æ—¶çš„ä¸Šä¸‹æ–‡ç¯å¢ƒå˜é‡
 	 */
 	public void optimize(Context ctx) {
 		home = home.optimize(ctx);
 	}
 	
 	/**
-	 * ±í´ïÊ½Éî¶ÈÓÅ»¯£¨°üÀ¨µ¥Ôª¸ñºÍ²ÎÊıÒıÓÃ£©
-	 * @param ctx ÔËËã±¨±íÊ±µÄÉÏÏÂÎÄ»·¾³±äÁ¿
+	 * è¡¨è¾¾å¼æ·±åº¦ä¼˜åŒ–ï¼ˆåŒ…æ‹¬å•å…ƒæ ¼å’Œå‚æ•°å¼•ç”¨ï¼‰
+	 * @param ctx è¿ç®—æŠ¥è¡¨æ—¶çš„ä¸Šä¸‹æ–‡ç¯å¢ƒå˜é‡
 	 */
 	public void deepOptimize(Context ctx) {
 		home = home.deepOptimize(ctx);
 	}
 
 	/**
-	 * ·µ»ØÊÇ·ñ°üº¬Ö¸¶¨²ÎÊı
+	 * è¿”å›æ˜¯å¦åŒ…å«æŒ‡å®šå‚æ•°
 	 * @param name String
 	 * @return boolean
 	 */
@@ -309,15 +309,15 @@ public class Expression {
 	}
 
 	/**
-	 * ²éÕÒ±í´ïÊ½ÖĞÓÃµ½µÄ²ÎÊı
-	 * @param resultList ParamList Éú³ÉĞÂµÄ²ÎÊı¶ÔÏó
+	 * æŸ¥æ‰¾è¡¨è¾¾å¼ä¸­ç”¨åˆ°çš„å‚æ•°
+	 * @param resultList ParamList ç”Ÿæˆæ–°çš„å‚æ•°å¯¹è±¡
 	 */
 	public void getUsedParams(Context ctx, ParamList resultList) {
 		home.getUsedParams(ctx, resultList);
 	}
 	
 	/**
-	 * ²éÕÒ±í´ïÊ½ÖĞ¿ÉÄÜÓÃµ½µÄ×Ö¶Î£¬¿ÉÄÜÈ¡µÃ²»×¼È·»òÕß°üº¬¶à¸ö±íµÄ
+	 * æŸ¥æ‰¾è¡¨è¾¾å¼ä¸­å¯èƒ½ç”¨åˆ°çš„å­—æ®µï¼Œå¯èƒ½å–å¾—ä¸å‡†ç¡®æˆ–è€…åŒ…å«å¤šä¸ªè¡¨çš„
 	 * @param ctx
 	 * @param resultList
 	 */
@@ -326,14 +326,14 @@ public class Expression {
 	}
 	
 	/**
-	 * Èç¹û±í´ïÊ½ÊÇ×Ö¶Î»ò×Ö¶ÎĞòÁĞÔò·µ»Ø×Ö¶ÎÃûÊı×é£¬·ñÔò·µ»Ønull
-	 * @param exp ±í´ïÊ½
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * å¦‚æœè¡¨è¾¾å¼æ˜¯å­—æ®µæˆ–å­—æ®µåºåˆ—åˆ™è¿”å›å­—æ®µåæ•°ç»„ï¼Œå¦åˆ™è¿”å›null
+	 * @param exp è¡¨è¾¾å¼
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] toFields() {
 		Node node = getHome();
 		
-		// µ¥×Ö¶Î
+		// å•å­—æ®µ
 		if (node instanceof UnknownSymbol) {
 			String [] res = new String[1];
 			res[0] = ((UnknownSymbol) node).getName();
@@ -363,7 +363,7 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡±í´ïÊ½ÓÃµ½µÄµ¥Ôª¸ñ
+	 * å–è¡¨è¾¾å¼ç”¨åˆ°çš„å•å…ƒæ ¼
 	 * @param List<INormalCell> resultList
 	 */
 	public void getUsedCells(List<INormalCell> resultList) {
@@ -371,13 +371,13 @@ public class Expression {
 	}
 
 	/**
-	 * ·µ»Ø±í´ïÊ½×îºóÒ»¸öÓÅÏÈ¼¶±È'.'¸ßµÄ½ÚµãµÄ·µ»ØÖµÀàĞÍ
+	 * è¿”å›è¡¨è¾¾å¼æœ€åä¸€ä¸ªä¼˜å…ˆçº§æ¯”'.'é«˜çš„èŠ‚ç‚¹çš„è¿”å›å€¼ç±»å‹
 	 * @param ctx Context
 	 * @return byte
 	 */
 	public byte getExpValueType(Context ctx) {
 		Node right = home;
-		while (right != null && right.getPriority() < Node.PRI_SUF) { // .µÄÓÅÏÈ¼¶
+		while (right != null && right.getPriority() < Node.PRI_SUF) { // .çš„ä¼˜å…ˆçº§
 			right = right.getRight();
 		}
 
@@ -543,7 +543,7 @@ public class Expression {
 					node = new UnionAssign();
 					location++;
 				} else {
-					node = new Union(); // ²¢ÁĞ
+					node = new Union(); // å¹¶åˆ—
 				}
 				break;
 			case '^':
@@ -631,7 +631,7 @@ public class Expression {
 				}
 
 				if (preNode == null || preNode instanceof Operator) {
-					node = new ValueList(); // ĞòÁĞ[elm1, elm2, ...]
+					node = new ValueList(); // åºåˆ—[elm1, elm2, ...]
 				} else { // series[2] field[2] series.field[2] series[2].field H[hc] F[hc]
 					node = new Move();
 				}
@@ -647,10 +647,10 @@ public class Expression {
 				}
 
 				if (preNode == null || preNode instanceof Operator) {
-					//{} ¼ÇÂ¼±í´ïÊ½
+					//{} è®°å½•è¡¨è¾¾å¼
 					node = new CreateRecord();
 				} else {
-					// ÅÅºÅÔËËã
+					// æ’å·è¿ç®—
 					node = new Moves();
 				}
 				
@@ -661,7 +661,7 @@ public class Expression {
 				node = createNode(cs, ctx, preNode);
 			}
 
-			// x y	½«×Ö´®³£Á¿xÓëyºÏ²¢
+			// x y	å°†å­—ä¸²å¸¸é‡xä¸yåˆå¹¶
 			if (preNode instanceof Constant && node instanceof Constant &&
 				((Constant)preNode).append((Constant)node)) {
 				continue;
@@ -714,11 +714,11 @@ public class Expression {
 			return new CurrentCellSeq(); // #@
 		} else if (KeyWord.isElementId(id)) {
 			return new CurrentElementId(id); // ~n
-		} else if (KeyWord.isArg(id)) { // ?¡¢?n
+		} else if (KeyWord.isArg(id)) { // ?ã€?n
 			return new ArgNode(id);
 		}
 
-		//ĞÎÈçseries.select(...),series.field
+		//å½¢å¦‚series.select(...),series.field
 		if (preNode instanceof DotOperator) {
 			return createMemberNode(cs, id, ctx);
 		}
@@ -734,7 +734,7 @@ public class Expression {
 			return new FieldFuzzyRef(id.substring(1));
 		}
 
-		if (id.equals("$") && isNextChar('[')) { // ×Ö·û´®
+		if (id.equals("$") && isNextChar('[')) { // å­—ç¬¦ä¸²
 			int index = expStr.indexOf('[', location);
 			int match = Sentence.scanBracket(expStr, index);
 			if (match != -1) {
@@ -754,10 +754,10 @@ public class Expression {
 			}
 		}
 
-		//²ÎÊı£¬±äÁ¿
+		//å‚æ•°ï¼Œå˜é‡
 		Param var = EnvUtil.getParam(id, ctx);
 		if (var != null) {
-			// connectionÓÉ²ÎÊı´«Èë
+			// connectionç”±å‚æ•°ä¼ å…¥
 			Object val = var.getValue();
 			if (val instanceof DBSession) {
 				return new Constant(new DBObject((DBSession)val));
@@ -774,7 +774,7 @@ public class Expression {
 			}
 		}
 		
-		// ÓÅÏÈ½âÎö³É±äÁ¿£¬Èç¹ûºÍº¯ÊıÖØÃûÔòÓÃfunction@ÒıÓÃº¯Êı
+		// ä¼˜å…ˆè§£ææˆå˜é‡ï¼Œå¦‚æœå’Œå‡½æ•°é‡ååˆ™ç”¨function@å¼•ç”¨å‡½æ•°
 		// function() or function@opt()
 		if (isNextChar('(')) {
 			int atIdx = id.indexOf(KeyWord.OPTION);
@@ -817,7 +817,7 @@ public class Expression {
 			}
 		}
 
-		// ¸¡µãÊıµÄÅĞ¶Ï
+		// æµ®ç‚¹æ•°çš„åˆ¤æ–­
 		if (isNextChar('.') && isNumber(id)) {
 			int prevPos = location++;
 			if (isNextChar('(')) { // n.()
@@ -833,14 +833,14 @@ public class Expression {
 		}
 
 		Object value = Variant.parse(id);
-		if (value instanceof String) { // ×Ö¶ÎÃû;
+		if (value instanceof String) { // å­—æ®µå;
 			return new UnknownSymbol( (String) value);
 		} else {
 			return new Constant(value);
 		}
 	}
 
-	//½âÎöĞòÁĞº¯Êı¼°ÁĞ,ÔËËãÁĞ
+	//è§£æåºåˆ—å‡½æ•°åŠåˆ—,è¿ç®—åˆ—
 	private Node createMemberNode(ICellSet cs, String id, Context ctx) {
 		if (isNextChar('(')) {
 			int atIdx = id.indexOf(KeyWord.OPTION);
@@ -876,7 +876,7 @@ public class Expression {
 		}
 	}
 
-	// ·µ»ØÏÂÒ»¸ö×Ö·ûÊÇ·ñÊÇc£¬¿Õ×Ö·ûÌø¹ı
+	// è¿”å›ä¸‹ä¸€ä¸ªå­—ç¬¦æ˜¯å¦æ˜¯cï¼Œç©ºå­—ç¬¦è·³è¿‡
 	private boolean isNextChar(char c) {
 		int len = expStr.length();
 		for (int i = location; i < len; ++i) {
@@ -948,7 +948,7 @@ public class Expression {
 	}
 
 	/**
-	 * ½øĞĞºêÌæ»»
+	 * è¿›è¡Œå®æ›¿æ¢
 	 * @param text String ${macroName}, $(cellName), $(), $C$1, ~$r
 	 * @param cs ICellSet
 	 * @param ctx Context
@@ -966,7 +966,7 @@ public class Expression {
 		int idx = 0;
 		while(idx < len) {
 			char c = text.charAt(idx);
-			// ×Ö·û´®ÖĞµÄ$²»×öÌæ»»
+			// å­—ç¬¦ä¸²ä¸­çš„$ä¸åšæ›¿æ¢
 			if (c == '\'' || c == '\"') {
 				int match = Sentence.scanQuotation(text, idx);
 				if (match < 0) {
@@ -986,7 +986,7 @@ public class Expression {
 					char nc = text.charAt(last);
 					if (nc == '{') {
 						int match = Sentence.scanBrace(text, last);
-						if (match == -1) { // À¨ºÅ²»Æ¥Åä
+						if (match == -1) { // æ‹¬å·ä¸åŒ¹é…
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("{,}" + mm.getMessage("Expression.illMatched"));
 						}
@@ -1002,7 +1002,7 @@ public class Expression {
 					} else if (nc == '(') {
 						// $(c)  $()
 						int match = scanParenthesis(text, last);
-						if (match == -1) { // À¨ºÅ²»Æ¥Åä
+						if (match == -1) { // æ‹¬å·ä¸åŒ¹é…
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("(,)" + mm.getMessage("Expression.illMatched"));
 						}
@@ -1051,7 +1051,7 @@ public class Expression {
 	}
 	
 	/**
-	 * ·µ»ØÎÄ±¾ÊÇ·ñ°üº¬ºêÌæ»»
+	 * è¿”å›æ–‡æœ¬æ˜¯å¦åŒ…å«å®æ›¿æ¢
 	 * @param text
 	 * @return
 	 */
@@ -1064,7 +1064,7 @@ public class Expression {
 		int idx = 0;
 		while(idx < len) {
 			char c = text.charAt(idx);
-			// ×Ö·û´®ÖĞµÄ$²»×öÌæ»»
+			// å­—ç¬¦ä¸²ä¸­çš„$ä¸åšæ›¿æ¢
 			if (c == '\'' || c == '\"') {
 				int match = Sentence.scanQuotation(text, idx);
 				if (match < 0) {
@@ -1085,7 +1085,7 @@ public class Expression {
 					} else if (nc == '(') {
 						// $(c)  $()
 						int match = scanParenthesis(text, last);
-						if (match == -1) { // À¨ºÅ²»Æ¥Åä
+						if (match == -1) { // æ‹¬å·ä¸åŒ¹é…
 							return false;
 						} else {
 							idx = match + 1;
@@ -1102,7 +1102,7 @@ public class Expression {
 		return false;
 	}
 
-	// $A$1, #$A$1È¥µô$, Èç¹û²»ÊÇÕâÖÖĞÎÊ½·µ»Ønull
+	// $A$1, #$A$1å»æ‰$, å¦‚æœä¸æ˜¯è¿™ç§å½¢å¼è¿”å›null
 	private static String removeAbsoluteSymbol(String text) {
 		if (text.length() < 3) return null;
 
@@ -1172,14 +1172,14 @@ public class Expression {
 		} else if (obj == null) {
 			return "";
 		} else {
-			// ×Ô¶¯×ª³É×Ö·û´®
+			// è‡ªåŠ¨è½¬æˆå­—ç¬¦ä¸²
 			return Variant.toString(obj);
 			//MessageManager mm = EngineMessage.get();
 			//throw new RQException(mm.getMessage("Variant2.macroTypeError"));
 		}
 	}
 	
-	/**¸´ÖÆ±í´ïÊ½£¬ÓÃÓÚ¶àÏß³Ì¼ÆËã
+	/**å¤åˆ¶è¡¨è¾¾å¼ï¼Œç”¨äºå¤šçº¿ç¨‹è®¡ç®—
 	 * @param ctx Context
 	 */
 	public Expression newExpression(Context ctx) {
@@ -1191,10 +1191,10 @@ public class Expression {
 	}
 
 	/**
-	 * ËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄÔ²À¨ºÅ£¬ÒıºÅÄÚµÄÔ²À¨ºÅ±»Ìø¹ı£¬²»´¦Àí×ªÒå·û
-	 * @param str ĞèÒªËÑË÷À¨ºÅµÄÔ­´®
-	 * @param start  ÆğÊ¼Î»ÖÃ,¼´×óÔ²À¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ
-	 * @return ÈôÕÒµ½,Ôò·µ»ØÆ¥ÅäµÄÓÒÔ²À¨ºÅÔÚÔ­´®ÖĞµÄÎ»ÖÃ,·ñÔò·µ»Ø-1
+	 * æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„åœ†æ‹¬å·ï¼Œå¼•å·å†…çš„åœ†æ‹¬å·è¢«è·³è¿‡ï¼Œä¸å¤„ç†è½¬ä¹‰ç¬¦
+	 * @param str éœ€è¦æœç´¢æ‹¬å·çš„åŸä¸²
+	 * @param start  èµ·å§‹ä½ç½®,å³å·¦åœ†æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®
+	 * @return è‹¥æ‰¾åˆ°,åˆ™è¿”å›åŒ¹é…çš„å³åœ†æ‹¬å·åœ¨åŸä¸²ä¸­çš„ä½ç½®,å¦åˆ™è¿”å›-1
 	 */
 	public static int scanParenthesis(String str, int start) {
 		//if (str.charAt(start) != '(') return -1;
@@ -1241,10 +1241,10 @@ public class Expression {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÒ»¸öÀàµÄÀàĞÍÊÇ·ñºÍÁíÍâÒ»¸öÀàÀàĞÍÒ»ÖÂ£¬»òÆä×ÓÀà
-	 * @param obj	±»ÅĞ¶ÏµÄÀà
-	 * @param base	²Î¿¼ÀàĞÍ
-	 * @return	true	objµÄÀàĞÍÎªbase»ò
+	 * åˆ¤æ–­ä¸€ä¸ªç±»çš„ç±»å‹æ˜¯å¦å’Œå¦å¤–ä¸€ä¸ªç±»ç±»å‹ä¸€è‡´ï¼Œæˆ–å…¶å­ç±»
+	 * @param obj	è¢«åˆ¤æ–­çš„ç±»
+	 * @param base	å‚è€ƒç±»å‹
+	 * @return	true	objçš„ç±»å‹ä¸ºbaseæˆ–
 	 */
 	public static boolean ifIs(Object obj, Class<?> base) {
 		if (null == obj)
@@ -1256,12 +1256,12 @@ public class Expression {
 	}
 	
 	/**
-	 * °ÑÒ»¸ö×Ö·û´®ÖĞµÄÄ³¸öº¯ÊıÌæ»»ÎªĞÂµÄ×Ö·û´®
+	 * æŠŠä¸€ä¸ªå­—ç¬¦ä¸²ä¸­çš„æŸä¸ªå‡½æ•°æ›¿æ¢ä¸ºæ–°çš„å­—ç¬¦ä¸²
 	 * 
-	 * @param src	Ô´×Ö·û´®
-	 * @param func	Òª±»É¾³ıµÄº¯ÊıÃû
-	 * @param newStr	Ìæ»»µÄĞÂ×Ö·û´®
-	 * 					Îªnull£¬Îª¿Õ£¬±íÊ¾É¾³ı
+	 * @param src	æºå­—ç¬¦ä¸²
+	 * @param func	è¦è¢«åˆ é™¤çš„å‡½æ•°å
+	 * @param newStr	æ›¿æ¢çš„æ–°å­—ç¬¦ä¸²
+	 * 					ä¸ºnullï¼Œä¸ºç©ºï¼Œè¡¨ç¤ºåˆ é™¤
 	 * @return
 	 */
 	public static String replaceFunc(String src, String func, String newStr) {
@@ -1275,11 +1275,11 @@ public class Expression {
 	}
 
 	/**
-	 * È¡µÃ²Ù×÷·ûÖĞËùÓĞÀàÎª²Î¿¼Àà£¬»òÒÔ²Î¿¼ÀàÎª»ùÀàµÄÀà
+	 * å–å¾—æ“ä½œç¬¦ä¸­æ‰€æœ‰ç±»ä¸ºå‚è€ƒç±»ï¼Œæˆ–ä»¥å‚è€ƒç±»ä¸ºåŸºç±»çš„ç±»
 	 * 
-	 * @param op	¶ÔÓ¦²Ù×÷·û
-	 * @param base	ÒªÈ¡µÃµÄº¯ÊıµÄÀàĞÍ
-	 * @return	·µ»Ø¶ÔÓ¦ÀàÊı×é
+	 * @param op	å¯¹åº”æ“ä½œç¬¦
+	 * @param base	è¦å–å¾—çš„å‡½æ•°çš„ç±»å‹
+	 * @return	è¿”å›å¯¹åº”ç±»æ•°ç»„
 	 */
 	public static ArrayList<Object> getSpecFunc(Operator op, Class<?> base) {
 		ArrayList<Object> classes;
@@ -1309,11 +1309,11 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡µÃº¯ÊıÖĞËùÓĞÀàÎª²Î¿¼Àà£¬»òÒÔ²Î¿¼ÀàÎª»ùÀàµÄÀà
+	 * å–å¾—å‡½æ•°ä¸­æ‰€æœ‰ç±»ä¸ºå‚è€ƒç±»ï¼Œæˆ–ä»¥å‚è€ƒç±»ä¸ºåŸºç±»çš„ç±»
 	 * 
-	 * @param op	¶ÔÓ¦µÄº¯Êı
-	 * @param base	ÒªÈ¡µÃµÄº¯ÊıµÄÀàĞÍ
-	 * @return	·µ»Ø¶ÔÓ¦ÀàÊı×é
+	 * @param op	å¯¹åº”çš„å‡½æ•°
+	 * @param base	è¦å–å¾—çš„å‡½æ•°çš„ç±»å‹
+	 * @return	è¿”å›å¯¹åº”ç±»æ•°ç»„
 	 */
 	public static ArrayList<Object> getSpecFunc(Function fun, Class<?> base) {
 		ArrayList<Object> funcs;
@@ -1376,11 +1376,11 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡µÃ²ÎÊıÖĞËùÓĞÀàÎª²Î¿¼Àà£¬»òÒÔ²Î¿¼ÀàÎª»ùÀàµÄÀà
+	 * å–å¾—å‚æ•°ä¸­æ‰€æœ‰ç±»ä¸ºå‚è€ƒç±»ï¼Œæˆ–ä»¥å‚è€ƒç±»ä¸ºåŸºç±»çš„ç±»
 	 * 
-	 * @param param	¶ÔÓ¦µÄ²ÎÊı
-	 * @param base	ÒªÈ¡µÃµÄº¯ÊıµÄÀàĞÍ
-	 * @return	·µ»Ø¶ÔÓ¦ÀàÊı×é
+	 * @param param	å¯¹åº”çš„å‚æ•°
+	 * @param base	è¦å–å¾—çš„å‡½æ•°çš„ç±»å‹
+	 * @return	è¿”å›å¯¹åº”ç±»æ•°ç»„
 	 */
 	public static ArrayList<Object> getSpecFunc(IParam param, Class<?> base) {
 		ArrayList<Object> funcs = new ArrayList<Object>();
@@ -1410,13 +1410,13 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡µÃ±í´ïÊ½ÖĞËùÓĞÀàÎª²Î¿¼Àà£¬»òÒÔ²Î¿¼ÀàÎª»ùÀàµÄÀà
+	 * å–å¾—è¡¨è¾¾å¼ä¸­æ‰€æœ‰ç±»ä¸ºå‚è€ƒç±»ï¼Œæˆ–ä»¥å‚è€ƒç±»ä¸ºåŸºç±»çš„ç±»
 	 * 
-	 * @param op	¶ÔÓ¦²Ù×÷·û
-	 * @param type	ÒªÈ¡µÃµÄº¯ÊıµÄÀàĞÍ
-	 * 		1-- »ùÀàÎªGatherµÄÀà
-	 * 		2-- »ùÀàÎªGatherExµÄÀà
-	 * @return	·µ»Ø¶ÔÓ¦ÀàÊı×é
+	 * @param op	å¯¹åº”æ“ä½œç¬¦
+	 * @param type	è¦å–å¾—çš„å‡½æ•°çš„ç±»å‹
+	 * 		1-- åŸºç±»ä¸ºGatherçš„ç±»
+	 * 		2-- åŸºç±»ä¸ºGatherExçš„ç±»
+	 * @return	è¿”å›å¯¹åº”ç±»æ•°ç»„
 	 */
 	public static ArrayList<Object> getSpecFunc(Expression exp, Class<?> base) {
 		
@@ -1438,30 +1438,30 @@ public class Expression {
 	
 
 	/**
-	 * ÅĞ¶ÏÁ½¸ö±í´ïÊ½×Ö·û´®ÊÇ·ñµÈ¼Û
-	 * 		Èô×Ö·û´®ÍêÈ«ÏàÍ¬£¬ÔòÒ»¶¨µÈ¼Û¡£
-	 * 		³ıÁËË«ÒıºÅºÍµ¥ÒıºÅÄÚµÄ¿Õ¸ñ¿ÉºöÂÔ
-	 * 	¸Ãº¯ÊıÃ»ÓĞ¿¼ÂÇ×ªÒå·ûµÈÌØÊâµÄÇé¿ö£¬Ö»ÓÃÓÚ´ÖÂÔ¹ÀËãµÄ³¡ºÏ£¬Ä¿±êÊÇ½â¾ö90%µÄÎÊÌâ¡£
-	 * @param exp1	µÚÒ»¸ö±í´ïÊ½
-	 * @param exp2      µÚ¶ş¸ö±í´ïÊ½
-	 * @return	true	Á½¸ö±í´ïÊ½µÈ¼Û
-	 * 			false	Á½¸ö±í´ïÊ½²»µÈ¼Û
+	 * åˆ¤æ–­ä¸¤ä¸ªè¡¨è¾¾å¼å­—ç¬¦ä¸²æ˜¯å¦ç­‰ä»·
+	 * 		è‹¥å­—ç¬¦ä¸²å®Œå…¨ç›¸åŒï¼Œåˆ™ä¸€å®šç­‰ä»·ã€‚
+	 * 		é™¤äº†åŒå¼•å·å’Œå•å¼•å·å†…çš„ç©ºæ ¼å¯å¿½ç•¥
+	 * 	è¯¥å‡½æ•°æ²¡æœ‰è€ƒè™‘è½¬ä¹‰ç¬¦ç­‰ç‰¹æ®Šçš„æƒ…å†µï¼Œåªç”¨äºç²—ç•¥ä¼°ç®—çš„åœºåˆï¼Œç›®æ ‡æ˜¯è§£å†³90%çš„é—®é¢˜ã€‚
+	 * @param exp1	ç¬¬ä¸€ä¸ªè¡¨è¾¾å¼
+	 * @param exp2      ç¬¬äºŒä¸ªè¡¨è¾¾å¼
+	 * @return	true	ä¸¤ä¸ªè¡¨è¾¾å¼ç­‰ä»·
+	 * 			false	ä¸¤ä¸ªè¡¨è¾¾å¼ä¸ç­‰ä»·
 	 */
 	public static boolean sameExpression(String exp1, String exp2) {
-	    /** ×Ö·û´®1³¤¶È**/
+	    /** å­—ç¬¦ä¸²1é•¿åº¦**/
 		int len = exp1.length();
-		/** ¶Ô±Èµ½µÃ×Ö·û´®2µÃÎ»ÖÃ **/
+		/** å¯¹æ¯”åˆ°å¾—å­—ç¬¦ä¸²2å¾—ä½ç½® **/
 	    int set = 0;
-	    /** ÊÇ·ñÔÚ½øĞĞÒıºÅÄÚµÃ¶Ô±È **/
+	    /** æ˜¯å¦åœ¨è¿›è¡Œå¼•å·å†…å¾—å¯¹æ¯” **/
 	    boolean bstr = false;
 	    for (int i = 0; i < len; i++) {
 	    	char ch1 = exp1.charAt(i);
 	    	char ch2 = exp2.charAt(set);
-	    	// Ìø¹ıexp1¿Õ¸ñ
+	    	// è·³è¿‡exp1ç©ºæ ¼
 	    	if (!bstr && ' ' == ch1)
 	    		continue;
 	    	
-	    	// Ìø¹ıexp2¿Õ¸ñ
+	    	// è·³è¿‡exp2ç©ºæ ¼
 	    	if (!bstr && ' ' == ch2) {
 	    		while (' ' == ch2) {
 	    			set++;
@@ -1469,11 +1469,11 @@ public class Expression {
 	    		}
 	    	}
 	    	
-	    	// ÆäËü±È½Ï
+	    	// å…¶å®ƒæ¯”è¾ƒ
 	    	if (ch1 != ch2)
 	    		return false;
 	    	
-	    	// ÉèÖÃÒıºÅ±ê¼Ç
+	    	// è®¾ç½®å¼•å·æ ‡è®°
 	    	if ('\"' == ch1 || '\'' == ch1) {
 	    		bstr = !bstr;
 	    	}
@@ -1481,9 +1481,9 @@ public class Expression {
 		return true;
 	}
 	/**
-	 * È¡µÃ²Ù×÷·û¼°ÆäÏÂµÄ¾ÛºÏº¯Êı
+	 * å–å¾—æ“ä½œç¬¦åŠå…¶ä¸‹çš„èšåˆå‡½æ•°
 	 * 
-	 * @param op	¶ÔÓ¦²Ù×÷·û
+	 * @param op	å¯¹åº”æ“ä½œç¬¦
 	 * @return
 	 */
 	public static ArrayList<String> gatherParam(Operator op) {
@@ -1518,7 +1518,7 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡µÃº¯ÊıÖĞËùÓĞ»ùÀàÎªGatherµÄº¯Êı£¬°üÀ¨²ÎÊıÖĞµÄ¡£
+	 * å–å¾—å‡½æ•°ä¸­æ‰€æœ‰åŸºç±»ä¸ºGatherçš„å‡½æ•°ï¼ŒåŒ…æ‹¬å‚æ•°ä¸­çš„ã€‚
 	 * @param fun
 	 * @return
 	 */
@@ -1573,7 +1573,7 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡µÃ²ÎÊıÏÂµÄ¾ÛºÏº¯Êı
+	 * å–å¾—å‚æ•°ä¸‹çš„èšåˆå‡½æ•°
 	 * @param par	
 	 * @return
 	 */
@@ -1607,7 +1607,7 @@ public class Expression {
 	}
 	
 	/**
-	 * È¡µÃ±í´ïÊ½µÄËùÓĞ»ùÀàÎªGatherµÄº¯Êı£¬°üÀ¨º¯ÊıÖĞµÄ¡£
+	 * å–å¾—è¡¨è¾¾å¼çš„æ‰€æœ‰åŸºç±»ä¸ºGatherçš„å‡½æ•°ï¼ŒåŒ…æ‹¬å‡½æ•°ä¸­çš„ã€‚
 	 * @param exp
 	 * @return
 	 */
@@ -1630,8 +1630,8 @@ public class Expression {
 	}
 	
 	/**
-	 * ¼ÆËã³öËùÓĞĞĞµÄ½á¹û
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—å‡ºæ‰€æœ‰è¡Œçš„ç»“æœ
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
@@ -1653,7 +1653,7 @@ public class Expression {
 		}
 	}
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÆËãÈ«²¿µÄÖµ£¬ÓĞ¸³ÖµÔËËãÊ±Ö»ÄÜÒ»ĞĞĞĞ¼ÆËã
+	 * åˆ¤æ–­æ˜¯å¦å¯ä»¥è®¡ç®—å…¨éƒ¨çš„å€¼ï¼Œæœ‰èµ‹å€¼è¿ç®—æ—¶åªèƒ½ä¸€è¡Œè¡Œè®¡ç®—
 	 * @return
 	 */
 	public boolean canCalculateAll() {
@@ -1661,8 +1661,8 @@ public class Expression {
 	}
 	
 	/**
-	 * ¼ÆËã±í´ïÊ½µÄÈ¡Öµ·¶Î§
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
+	 * è®¡ç®—è¡¨è¾¾å¼çš„å–å€¼èŒƒå›´
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
 	 * @return
 	 */
 	public IArray calculateRange(Context ctx) {
@@ -1670,18 +1670,18 @@ public class Expression {
 	}
 	
 	/**
-	 * ÅĞ¶Ï¸ø¶¨µÄÖµÓò·¶Î§ÊÇ·ñÂú×ãµ±Ç°Ìõ¼ş±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @return È¡Öµ²ÎÕÕRelation. -1£ºÖµÓò·¶Î§ÄÚÃ»ÓĞÂú×ãÌõ¼şµÄÖµ£¬0£ºÖµÓò·¶Î§ÄÚÓĞÂú×ãÌõ¼şµÄÖµ£¬1£ºÖµÓò·¶Î§µÄÖµ¶¼Âú×ãÌõ¼ş
+	 * åˆ¤æ–­ç»™å®šçš„å€¼åŸŸèŒƒå›´æ˜¯å¦æ»¡è¶³å½“å‰æ¡ä»¶è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @return å–å€¼å‚ç…§Relation. -1ï¼šå€¼åŸŸèŒƒå›´å†…æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ0ï¼šå€¼åŸŸèŒƒå›´å†…æœ‰æ»¡è¶³æ¡ä»¶çš„å€¼ï¼Œ1ï¼šå€¼åŸŸèŒƒå›´çš„å€¼éƒ½æ»¡è¶³æ¡ä»¶
 	 */
 	public int isValueRangeMatch(Context ctx) {
 		return home.isValueRangeMatch(ctx);
 	}
 	
 	/**
-	 * ¼ÆËãÂß¼­ÓëÔËËã·û&&µÄÓÒ²à±í´ïÊ½
-	 * @param ctx ¼ÆËãÉÏĞĞÎÄ
-	 * @param leftResult &&×ó²à±í´ïÊ½µÄ¼ÆËã½á¹û
+	 * è®¡ç®—é€»è¾‘ä¸è¿ç®—ç¬¦&&çš„å³ä¾§è¡¨è¾¾å¼
+	 * @param ctx è®¡ç®—ä¸Šè¡Œæ–‡
+	 * @param leftResult &&å·¦ä¾§è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
 	 * @return
 	 */
 	public IArray calculateAnd(Context ctx, IArray leftResult) {
@@ -1693,10 +1693,10 @@ public class Expression {
 	}
 	
 	/**
-	 * ¼ÆËãsignArrayÖĞÈ¡ÖµÎªsignµÄĞĞ
+	 * è®¡ç®—signArrayä¸­å–å€¼ä¸ºsignçš„è¡Œ
 	 * @param ctx
-	 * @param signArray ĞĞ±êÊ¶Êı×é
-	 * @param sign ±êÊ¶
+	 * @param signArray è¡Œæ ‡è¯†æ•°ç»„
+	 * @param sign æ ‡è¯†
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
@@ -1704,15 +1704,15 @@ public class Expression {
 	}
 
 	/**
-	 * ·µ»Ø½ÚµãÊÇ·ñµ¥µ÷µİÔöµÄ
-	 * @return true£ºÊÇµ¥µ÷µİÔöµÄ£¬false£º²»ÊÇ
+	 * è¿”å›èŠ‚ç‚¹æ˜¯å¦å•è°ƒé€’å¢çš„
+	 * @return trueï¼šæ˜¯å•è°ƒé€’å¢çš„ï¼Œfalseï¼šä¸æ˜¯
 	 */
 	public boolean isMonotone() {
 		return home.isMonotone();
 	}
 	
 	/**
-	 * ÖØÖÃ±í´ïÊ½£¬ÓÃÓÚ±í´ïÊ½»º´æ£¬¶à´ÎÖ´ĞĞÊ¹ÓÃ²»Í¬µÄÉÏÏÂÎÄ£¬Çå³ı¸úÉÏÏÂÎÄÓĞ¹ØµÄ»º´æĞÅÏ¢
+	 * é‡ç½®è¡¨è¾¾å¼ï¼Œç”¨äºè¡¨è¾¾å¼ç¼“å­˜ï¼Œå¤šæ¬¡æ‰§è¡Œä½¿ç”¨ä¸åŒçš„ä¸Šä¸‹æ–‡ï¼Œæ¸…é™¤è·Ÿä¸Šä¸‹æ–‡æœ‰å…³çš„ç¼“å­˜ä¿¡æ¯
 	 */
 	public void reset() {
 		home.reset();

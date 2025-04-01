@@ -9,13 +9,13 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ¾ØÕóÇóÄæinverse(A)ÇóÄæ£¬Ö»ÓĞ·½ÕóÂúÖÈÊ±ÓĞÄæ¾ØÕó, inverse@p(A)Î±Äæ¾ØÕó£¬ËùÓĞ¾ØÕóA¶¼ÓĞÎ±Äæ¾ØÕóB£¬Âú×ãABA=B£¬BAB=A£¬ÎŞ½âÊ±ÓÃ×îĞ¡¶ş³Ë·¨
+ * çŸ©é˜µæ±‚é€†inverse(A)æ±‚é€†ï¼Œåªæœ‰æ–¹é˜µæ»¡ç§©æ—¶æœ‰é€†çŸ©é˜µ, inverse@p(A)ä¼ªé€†çŸ©é˜µï¼Œæ‰€æœ‰çŸ©é˜µAéƒ½æœ‰ä¼ªé€†çŸ©é˜µBï¼Œæ»¡è¶³ABA=Bï¼ŒBAB=Aï¼Œæ— è§£æ—¶ç”¨æœ€å°äºŒä¹˜æ³•
  * @author bd
  *
  */
 public class Inverse extends Function{
 	/**
-	 * ¼ì²é±í´ïÊ½µÄÓĞĞ§ĞÔ£¬ÎŞĞ§ÔòÅ×³öÒì³£
+	 * æ£€æŸ¥è¡¨è¾¾å¼çš„æœ‰æ•ˆæ€§ï¼Œæ— æ•ˆåˆ™æŠ›å‡ºå¼‚å¸¸
 	 */
 	public void checkValidity() {
 		if (param == null) {
@@ -59,7 +59,7 @@ public class Inverse extends Function{
 		}
 		catch (Exception e) {
 			if (auto) {
-				// AÎŞ·¨ÇóÄæÊ±£¬ÇóÎ±Äæ¾ØÕó
+				// Aæ— æ³•æ±‚é€†æ—¶ï¼Œæ±‚ä¼ªé€†çŸ©é˜µ
 				X = A.pseudoinverse();
 			}
 			else {

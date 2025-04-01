@@ -121,7 +121,7 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 		if (xc != null) {
 			byte[] argb = xc.getARGB();
 			if (argb != null) {
-				// edited by hhw 2012.2.8Èç¹ûargbÖĞÃ»ÓĞaÖµÔò¸øËü¼ÓÉÏ
+				// edited by hhw 2012.2.8å¦‚æœargbä¸­æ²¡æœ‰aå€¼åˆ™ç»™å®ƒåŠ ä¸Š
 				if (argb.length == 3) {
 					byte[] tmp = new byte[4];
 					tmp[0] = (byte) -1;
@@ -215,10 +215,10 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 		}
 	 }
 	
-	/** »ñµÃ±ß¿òÑùÊ½
-	 * @param borderStyle ÈóÇ¬±¨±íÖĞ¶¨ÒåµÄ±ß¿òÑùÊ½
-	 * @param borderWidth ±ß¿ò¿í¶È
-	 * @return ExcelµÄ±ß¿òÑùÊ½
+	/** è·å¾—è¾¹æ¡†æ ·å¼
+	 * @param borderStyle æ¶¦ä¹¾æŠ¥è¡¨ä¸­å®šä¹‰çš„è¾¹æ¡†æ ·å¼
+	 * @param borderWidth è¾¹æ¡†å®½åº¦
+	 * @return Excelçš„è¾¹æ¡†æ ·å¼
 	 */
 	public short getBorderStyle( byte borderStyle, float width ) {
 		try {
@@ -233,13 +233,13 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 	
 
 	/**
-	 * »ñµÃ±ß¿òÑùÊ½
+	 * è·å¾—è¾¹æ¡†æ ·å¼
 	 * 
 	 * @param borderStyle
-	 *            ÈóÇ¬±¨±íÖĞ¶¨ÒåµÄ±ß¿òÑùÊ½
+	 *            æ¶¦ä¹¾æŠ¥è¡¨ä¸­å®šä¹‰çš„è¾¹æ¡†æ ·å¼
 	 * @param borderWidth
-	 *            ±ß¿ò¿í¶È
-	 * @return ExcelµÄ±ß¿òÑùÊ½
+	 *            è¾¹æ¡†å®½åº¦
+	 * @return Excelçš„è¾¹æ¡†æ ·å¼
 	 */
 	public short getISheetBorderStyle(byte borderStyle) {
 		try {

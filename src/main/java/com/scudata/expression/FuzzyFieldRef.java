@@ -11,8 +11,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ×Ö¶ÎÒıÓÃ
- * A.#F r.#F ~.#F È¡×Ö¶ÎFµÄÖµ£¬ÕÒ²»µ½·µ»Ønull
+ * å­—æ®µå¼•ç”¨
+ * A.#F r.#F ~.#F å–å­—æ®µFçš„å€¼ï¼Œæ‰¾ä¸åˆ°è¿”å›null
  * @author WangXiaoJun
  *
  */
@@ -26,7 +26,7 @@ public class FuzzyFieldRef extends FieldRef {
 			ComputeStack stack = ctx.getComputeStack();
 			Object obj = stack.getCurrentValue((Sequence)s2r);
 
-			// Èç¹ûµ±Ç°ÔªËØÊÇĞòÁĞÔòÈ¡ÆäµÚÒ»¸öÔªËØ
+			// å¦‚æœå½“å‰å…ƒç´ æ˜¯åºåˆ—åˆ™å–å…¶ç¬¬ä¸€ä¸ªå…ƒç´ 
 			if (obj instanceof Sequence) {
 				if (((Sequence)obj).length() == 0) {
 					return null;
@@ -67,7 +67,7 @@ public class FuzzyFieldRef extends FieldRef {
 		}
 	}
 	
-	// '=' ¶Ô×Ö¶Î½øĞĞ¸³Öµ
+	// '=' å¯¹å­—æ®µè¿›è¡Œèµ‹å€¼
 	public Object assign(Object value, Context ctx) {
 		if (s2r instanceof Sequence) {
 			ComputeStack stack = ctx.getComputeStack();
@@ -98,7 +98,7 @@ public class FuzzyFieldRef extends FieldRef {
 		return value;
 	}
 
-	// '+=' ¶Ô×Ö¶Î½øĞĞ¸³Öµ
+	// '+=' å¯¹å­—æ®µè¿›è¡Œèµ‹å€¼
 	public Object addAssign(Object value, Context ctx) {
 		if (s2r instanceof Sequence) {
 			ComputeStack stack = ctx.getComputeStack();

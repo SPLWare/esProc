@@ -14,7 +14,7 @@ import com.scudata.common.StringUtils;
 import com.scudata.resources.EngineMessage;
 
 /**
- * ÈıÎ¬±ıÍ¼ÊµÏÖ
+ * ä¸‰ç»´é¥¼å›¾å®ç°
  * @author Joancy
  *
  */
@@ -23,16 +23,16 @@ public class DrawPie3DObj extends DrawBase {
 	private static int cutColorLevel = -2;
 	
 	/**
-	 * ÊµÏÖ»æÍ¼¹¦ÄÜ
+	 * å®ç°ç»˜å›¾åŠŸèƒ½
 	 */
 	public void draw(StringBuffer htmlLink) {
 		drawing(this, htmlLink);
 	}
 
 	/**
-	 * ¸ù¾İ»æÍ¼»ùÀàdb»æÍ¼£¬²¢½«»­Í¼ºóµÄ³¬Á´½Ó´æÈëhtmlLink
-	 * @param db ³éÏóµÄ»æÍ¼»ùÀà
-	 * @param htmlLink ³¬Á´½Ó»º´æ
+	 * æ ¹æ®ç»˜å›¾åŸºç±»dbç»˜å›¾ï¼Œå¹¶å°†ç”»å›¾åçš„è¶…é“¾æ¥å­˜å…¥htmlLink
+	 * @param db æŠ½è±¡çš„ç»˜å›¾åŸºç±»
+	 * @param htmlLink è¶…é“¾æ¥ç¼“å­˜
 	 */
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
 		GraphParam gp = db.gp;
@@ -109,7 +109,7 @@ public class DrawPie3DObj extends DrawBase {
 		double orgx = gp.graphRect.x + gp.graphRect.width / 2;
 		double orgy = gp.graphRect.y + dely + (gp.graphRect.height - dely) / 2;
 		boolean cut = gp.serNum == 1 && gp.catNum > 1 && egp.isCutPie();
-		/* ¿ªÊ¼Ñ­»·»­±ı */
+		/* å¼€å§‹å¾ªç¯ç”»é¥¼ */
 		if (gp.graphTransparent) {
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
 					0.60F));
@@ -120,11 +120,11 @@ public class DrawPie3DObj extends DrawBase {
 			String serName = (String) gp.serNames.get(z);
 			double totAmount = 0.0;
 			double totAngle = 0;
-			/* Ëã³öµ±Ç°ĞòÁĞµÄ°ë¾¶ */
+			/* ç®—å‡ºå½“å‰åºåˆ—çš„åŠå¾„ */
 			double radx = (gp.serNum - z) * radiusx;
 			double rady = (gp.serNum - z) * radiusy;
 
-			// ³¬Á´½ÓÊ±ĞèÒªµÃµ½ÏÂÒ»ÏµÁĞµÄ°ë¾¶¾ØĞÎ£¬ÒÔÈ·¶¨»·×´Á´½Ó×ø±ê
+			// è¶…é“¾æ¥æ—¶éœ€è¦å¾—åˆ°ä¸‹ä¸€ç³»åˆ—çš„åŠå¾„çŸ©å½¢ï¼Œä»¥ç¡®å®šç¯çŠ¶é“¾æ¥åæ ‡
 			double rxx = (gp.serNum - z - 1) * radiusx;
 			double ryy = (gp.serNum - z - 1) * radiusy;
 			double xx, yy;
@@ -132,14 +132,14 @@ public class DrawPie3DObj extends DrawBase {
 			double hh = 2 * ryy;
 
 			double max = 0;
-			double maxi = -1, maxX = 0, maxY = 0; // ×î´ó¿é±ıµÄÏà¹ØĞÅÏ¢£¬Îó²îÀÛ¼Æµ½×î´ó¿éµÄ±ı
+			double maxi = -1, maxX = 0, maxY = 0; // æœ€å¤§å—é¥¼çš„ç›¸å…³ä¿¡æ¯ï¼Œè¯¯å·®ç´¯è®¡åˆ°æœ€å¤§å—çš„é¥¼
 			double maxAngle = 0;
 			ExtGraphCategory maxEgc = null;
 			ExtGraphSery maxEgs = null;
 
 			double movex = 0;
 			double movey = 0;
-			/* ÏÈËã³ö×ÜºÍ */
+			/* å…ˆç®—å‡ºæ€»å’Œ */
 			ArrayList cats = egp.categories;
 			int cc = cats.size();
 			for (int i = 0; i < cc; i++) {
@@ -157,7 +157,7 @@ public class DrawPie3DObj extends DrawBase {
 			if (totAmount == 0.0) {
 				continue;
 			}
-			/* ÏÈ»­ÏÂ±ßµÄÔ² */
+			/* å…ˆç”»ä¸‹è¾¹çš„åœ† */
 			totAngle = 0;
 			for (int i = 0; i < cc; i++) {
 				ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
@@ -185,7 +185,7 @@ public class DrawPie3DObj extends DrawBase {
 						+ movey, 2 * radx, 2 * rady, totAngle, angle, Arc2D.PIE);
 				g.fill(tmpShape);
 				db.drawShape(tmpShape, bc);
-				// »­ºóµ²°å
+				// ç”»åæŒ¡æ¿
 				if (totAngle < 180) {
 					drawBackBaffle(db,totAngle, orgx, radx, movex, orgy, rady,
 							movey, dely, angle, i);
@@ -196,12 +196,12 @@ public class DrawPie3DObj extends DrawBase {
 			db.g.setStroke(new BasicStroke(1.0f));
 			db.drawShape(new Line2D.Double(orgx + radx, orgy - dely, orgx + radx,
 					orgy), tmpc);
-			// »­ÇĞ¿Ú
+			// ç”»åˆ‡å£
 			totAngle = 0;
 			double cumulativeAmount = 0.0;
 			double curveY = 0;
 			if (egp.isRaisedBorder()) {
-				curveY = dely / 5; // ¹Î±ßµÄÆ«ÒÆ
+				curveY = dely / 5; // åˆ®è¾¹çš„åç§»
 			}
 
 			for (int i = 0; i < cc; i++) {
@@ -248,7 +248,7 @@ public class DrawPie3DObj extends DrawBase {
 					ey2 = ddd.getEndPoint().getY();
 				}
 
-				if (cut && maxi == i) { // Èç¹ûÓÎÀë
+				if (cut && maxi == i) { // å¦‚æœæ¸¸ç¦»
 					if (bx1 > orgx + movex && ex1 >= orgx + movex
 							&& ey1 >= orgy + movey && by1 <= orgy + movey) {
 						drawCut2(db,bx1, by1, orgx, orgy, movex, movey, dely, i,
@@ -300,7 +300,7 @@ public class DrawPie3DObj extends DrawBase {
 					}
 				} else if (gp.graphTransparent
 						&& gp.catNum > 1
-						&& (!cut || (i != maxi - 1 && !(i == gp.catNum - 1 && maxi == 0)))) { // Èç¹û²»ÓÎÀë
+						&& (!cut || (i != maxi - 1 && !(i == gp.catNum - 1 && maxi == 0)))) { // å¦‚æœä¸æ¸¸ç¦»
 					if (ex1 > orgx + movex) {
 						drawCut4(db,ex1, ey1, orgx, orgy, movex, movey, dely, i,
 								ex2, ey2, curveY);
@@ -315,8 +315,8 @@ public class DrawPie3DObj extends DrawBase {
 				}
 			}
 
-			// »­²àÃæµ²°å
-			totAngle = 0; // **************»­ÉÈĞÎ
+			// ç”»ä¾§é¢æŒ¡æ¿
+			totAngle = 0; // **************ç”»æ‰‡å½¢
 
 			Arc2D.Double topOval;
 			Color bc = egp.getAxisColor(GraphProperty.AXIS_COLBORDER);
@@ -341,7 +341,7 @@ public class DrawPie3DObj extends DrawBase {
 					movey = 0;
 				}
 
-				// »­Ç°µµ°å
+				// ç”»å‰æ¡£æ¿
 				if (totAngle + angle > 180) {
 					drawFrontBaffle(db,totAngle, orgx, radx, movex, orgy, rady,
 							movey, dely, angle, i, false);
@@ -351,11 +351,11 @@ public class DrawPie3DObj extends DrawBase {
 				if (egp.isRaisedBorder()) {
 					if (totAngle + angle > 150 || totAngle == 0
 							|| totAngle + angle < 45) {
-						// »­¹Î±ßµÄÇ°µµ°å
+						// ç”»åˆ®è¾¹çš„å‰æ¡£æ¿
 						drawFrontBaffle(db,totAngle, orgx, radx, movex, orgy
 								- dely, rady, movey, curveY / 2, angle, i, true);
 					}
-					// »­ÉÏÃæµÄÔ°
+					// ç”»ä¸Šé¢çš„å›­
 					topOval = new Arc2D.Double(
 							orgx - radx + movex + curveY / 2, orgy - rady
 									- dely + movey, 2 * radx - curveY, 2 * rady
@@ -365,7 +365,7 @@ public class DrawPie3DObj extends DrawBase {
 					topOval = new Arc2D.Double(orgx - radx + movex, orgy - rady
 							- dely + movey, 2 * radx, 2 * rady, totAngle,
 							angle, Arc2D.PIE);
-					// »­ÉÏÃæµÄÔ°
+					// ç”»ä¸Šé¢çš„å›­
 				}
 
 				Utils.drawCylinderTop(g, topOval, bc, bs, bw, db.getTransparent(),
@@ -392,7 +392,7 @@ public class DrawPie3DObj extends DrawBase {
 					tmpShape = new Arc2D.Double(orgx - radx + movex + curveY
 							/ 2, orgy - rady - dely + movey, 2 * radx - curveY,
 							2 * rady - curveY, totAngle, angle, Arc2D.OPEN);
-					db.drawShape(tmpShape, bc);// ¿ÉÄÜÓĞÎÊÌâ£¬±ß¿òÑÕÉ«ÒÔ¼°ÊÇ·ñÎªOPEN
+					db.drawShape(tmpShape, bc);// å¯èƒ½æœ‰é—®é¢˜ï¼Œè¾¹æ¡†é¢œè‰²ä»¥åŠæ˜¯å¦ä¸ºOPEN
 				} else {
 					if (gp.catNum > 1) {
 						tmpShape = new Line2D.Double(orgx + movex, orgy - dely
@@ -418,7 +418,7 @@ public class DrawPie3DObj extends DrawBase {
 				totAngle += angle;
 			}
 
-			totAngle = 0; //×îºóÊä³öÎÄ×Ö
+			totAngle = 0; //æœ€åè¾“å‡ºæ–‡å­—
 			for (int i = 0; i < cc; i++) {
 				ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 				ExtGraphSery egs = egc.getExtGraphSery(serName);
@@ -433,8 +433,8 @@ public class DrawPie3DObj extends DrawBase {
 							totAngle + angle / 2);
 					movey = getDyOnAngle(radiusx, radiusy, dely * 0.67f,
 							totAngle + angle / 2);
-					// ×î´ó¿é×îºóÖØ»æÒ»´Î£¬ÒÔ·À±»±ğÈË¸Ç×¡
-					// »­Ç°µµ°å
+					// æœ€å¤§å—æœ€åé‡ç»˜ä¸€æ¬¡ï¼Œä»¥é˜²è¢«åˆ«äººç›–ä½
+					// ç”»å‰æ¡£æ¿
 					if (totAngle + angle > 180) {
 						drawFrontBaffle(db,totAngle, orgx, radx, movex, orgy,
 								rady, movey, dely, angle, i, false);
@@ -443,12 +443,12 @@ public class DrawPie3DObj extends DrawBase {
 					if (egp.isRaisedBorder()) {
 						if (totAngle + angle > 150 || totAngle == 0
 								|| totAngle + angle < 45) {
-							// »­¹Î±ßµÄÇ°µµ°å
+							// ç”»åˆ®è¾¹çš„å‰æ¡£æ¿
 							drawFrontBaffle(db,totAngle, orgx, radx, movex, orgy
 									- dely, rady, movey, curveY / 2, angle, i,
 									true);
 						}
-						// »­ÉÏÃæµÄÔ°
+						// ç”»ä¸Šé¢çš„å›­
 						topOval = new Arc2D.Double(orgx - radx + movex + curveY
 								/ 2, orgy - rady - dely + movey, 2 * radx
 								- curveY, 2 * rady - curveY, totAngle, angle,
@@ -457,7 +457,7 @@ public class DrawPie3DObj extends DrawBase {
 						topOval = new Arc2D.Double(orgx - radx + movex, orgy
 								- rady - dely + movey, 2 * radx, 2 * rady,
 								totAngle, angle, Arc2D.PIE);
-						// »­ÉÏÃæµÄÔ°
+						// ç”»ä¸Šé¢çš„å›­
 					}
 
 					Color c = db.getColor(i);
@@ -469,7 +469,7 @@ public class DrawPie3DObj extends DrawBase {
 					movey = 0;
 				}
 
-				if (gp.serNum == 1) { // »­°Ù·Ö±È±êÊ¶
+				if (gp.serNum == 1) { // ç”»ç™¾åˆ†æ¯”æ ‡è¯†
 					double dLen = radx;
 					if(egp.isRaisedBorder()){
 						dLen = radx-5;
@@ -502,7 +502,7 @@ public class DrawPie3DObj extends DrawBase {
 					String fmt;
 					String text = "";
 					double tmpAngle = (totAngle + angle / 2); // 360 -
-					// ÏÔÊ¾ÊıÖµ±êÊ¾
+					// æ˜¾ç¤ºæ•°å€¼æ ‡ç¤º
 					switch (gp.dispValueType) {
 					case GraphProperty.DISPDATA_NONE:
 						text = "";
@@ -523,7 +523,7 @@ public class DrawPie3DObj extends DrawBase {
 							text = getDispName(egc,egs,gp.serNum)+","+text;
 						}
 						break;
-					case GraphProperty.DISPDATA_TITLE: // ±êÌâ
+					case GraphProperty.DISPDATA_TITLE: // æ ‡é¢˜
 						tmpc = egp.getAxisColor(GraphProperty.AXIS_PIEJOIN);
 						tmpShape = new Line2D.Double(x1, y1, x2, y2);
 						db.g.setStroke(new BasicStroke(1.0f));
@@ -567,7 +567,7 @@ public class DrawPie3DObj extends DrawBase {
 				totAngle += angle;
 			}
 
-			/* ¶àÓÚ1¸öÏµÁĞµÄÊ±ºò£¬Ö»±ê×¢·ÖÀàµÄÃû³Æ */
+			/* å¤šäº1ä¸ªç³»åˆ—çš„æ—¶å€™ï¼Œåªæ ‡æ³¨åˆ†ç±»çš„åç§° */
 			if (gp.serNum > 1) {
 				int angle = Math.round(360 / gp.serNum) * z;
 				g.setColor(gp.coorColor);
@@ -590,7 +590,7 @@ public class DrawPie3DObj extends DrawBase {
 				db.drawOutCircleText(gp.GFV_XLABEL, serName, angle,  x2,
 						 y2);
 			} else {
-				// Ñ­»·»­Íê±ıºóÔÙÊä³ö×î´ó¿éµÄÊıÖµ
+				// å¾ªç¯ç”»å®Œé¥¼åå†è¾“å‡ºæœ€å¤§å—çš„æ•°å€¼
 				if (gp.dispValueType == GraphProperty.DISPDATA_PERCENTAGE
 						|| gp.dispValueType == GraphProperty.DISPDATA_NAME_PERCENTAGE) {
 					String fmt;
@@ -615,17 +615,17 @@ public class DrawPie3DObj extends DrawBase {
 	}
 
 	/**
-	 * Ëã³öÔÚ½Ç¶Èangle·½ÏòÉÏ£¬¾àÀëÔ­µã³¤¶ÈÎªlenµÄx×ø±êÆ«ÒÆÁ¿
+	 * ç®—å‡ºåœ¨è§’åº¦angleæ–¹å‘ä¸Šï¼Œè·ç¦»åŸç‚¹é•¿åº¦ä¸ºlençš„xåæ ‡åç§»é‡
 	 * 
 	 * @param radx
-	 *            int£¬xÏò°ë¾¶
+	 *            intï¼Œxå‘åŠå¾„
 	 * @param rady
-	 *            int£¬yÏò°ë¾¶
+	 *            intï¼Œyå‘åŠå¾„
 	 * @param len
-	 *            int£¬³¤¶È
+	 *            intï¼Œé•¿åº¦
 	 * @param angle
-	 *            int£¬½Ç¶È
-	 * @return int£¬Æ«ÒÆÖµ
+	 *            intï¼Œè§’åº¦
+	 * @return intï¼Œåç§»å€¼
 	 */
 	private static double getDxOnAngle(double radx, double rady, double len,
 			double angle) {
@@ -639,7 +639,7 @@ public class DrawPie3DObj extends DrawBase {
 
 	public ChartColor getChartColor(Color c) {
 		ChartColor cc = new ChartColor(c);
-		if (isGradientColor(egp)) {// Èç¹ûÊÇ½¥±äÉ«£¬ÉèÖÃÎªChartColorµÄìÅÄ£Ê½
+		if (isGradientColor(egp)) {// å¦‚æœæ˜¯æ¸å˜è‰²ï¼Œè®¾ç½®ä¸ºChartColorçš„ç‚«æ¨¡å¼
 			cc.setColor1(c);
 			cc.setColor2(c);
 			cc.setGradient(true);
@@ -649,8 +649,8 @@ public class DrawPie3DObj extends DrawBase {
 		return cc;
 	}
 
-	// ÓÉÓÚÍ¹±ßÄ¬ÈÏ½ûÖ¹¸ú½¥±äÉ«¶¼ÓĞ£¬
-	// ±ıÍ¼ÌØÊâ´¦ÀíÎª¶¼½¥±ä£¬ÎªÁËÃÀ¹Û
+	// ç”±äºå‡¸è¾¹é»˜è®¤ç¦æ­¢è·Ÿæ¸å˜è‰²éƒ½æœ‰ï¼Œ
+	// é¥¼å›¾ç‰¹æ®Šå¤„ç†ä¸ºéƒ½æ¸å˜ï¼Œä¸ºäº†ç¾è§‚
 	private static boolean isGradientColor(ExtGraphProperty egp) {
 		return (egp.isRaisedBorder() && egp.getImageFormat() != GraphProperty.IMAGE_GIF)
 				|| egp.isGradientColor();
@@ -660,7 +660,7 @@ public class DrawPie3DObj extends DrawBase {
 		return Utils.newPolygon2DShape(x, y);
 	}
 
-	// isCurve:ÊÇ·ñ¹ÎÉÏ±ß
+	// isCurve:æ˜¯å¦åˆ®ä¸Šè¾¹
 	private static void drawFrontBaffle(DrawBase db,double totAngle, double orgx, double radx,
 			double movex, double orgy, double rady, double movey, double dely,
 			double angle, int i, boolean isCurve) {
@@ -727,7 +727,7 @@ public class DrawPie3DObj extends DrawBase {
 
 		Color c = db.getColor(i);
 		ChartColor chartColor = db.getChartColor(c);
-		if( !chartColor.isGradient() ){//Èç¹û²»ÊÇ½¥±äÉ«£¬ÖùÃæÓÃÉîÒ»µãµÄÑÕÉ«
+		if( !chartColor.isGradient() ){//å¦‚æœä¸æ˜¯æ¸å˜è‰²ï¼ŒæŸ±é¢ç”¨æ·±ä¸€ç‚¹çš„é¢œè‰²
 			c=new CubeColor(c).getF2();
 			chartColor = db.getChartColor(c);
 		}
@@ -736,13 +736,13 @@ public class DrawPie3DObj extends DrawBase {
 		int bs = Consts.LINE_SOLID;
 		float bw = 1.0f;
 		if (bc == null)
-			bw = 0;// Í¸Ã÷É«²»»­±ß¿ò£¬µ«ÊÇUtilsÖĞbcÎªnull±íÊ¾µ±Ç°ÑÕÉ«
+			bw = 0;// é€æ˜è‰²ä¸ç”»è¾¹æ¡†ï¼Œä½†æ˜¯Utilsä¸­bcä¸ºnullè¡¨ç¤ºå½“å‰é¢œè‰²
 		Utils.drawCylinderFront(g, area, bc, bs, bw, db.getTransparent(),
 				chartColor, true, shinningRange, isCurve);
 	}
 
 	/**
-	 * »­ºóµ²°å
+	 * ç”»åæŒ¡æ¿
 	 * */
 	private static void drawBackBaffle(DrawBase db,double totAngle, double orgx, double radx,
 			double movex, double orgy, double rady, double movey, double dely,
@@ -776,10 +776,10 @@ public class DrawPie3DObj extends DrawBase {
 		double pty2[] = { orgy + movey - dely, by1 - dely, ey1 - dely, };
 		// Polygon pp2 = new Polygon(ptx2, pty2, 3);
 		Shape pp2 = getPath2DShape(ptx2, pty2);
-		Area area = new Area(ddd); // ÏÂÃæµÄÉÈĞÎ
-		Area area1 = new Area(ddd1); // ÉÏÃæµÄÉÈĞÎ
-		Area area2 = new Area(pp1); // ËÄ±ßĞÎ
-		Area area3 = new Area(pp2); // ÉÏÃæµÄÈı½ÇĞÎ
+		Area area = new Area(ddd); // ä¸‹é¢çš„æ‰‡å½¢
+		Area area1 = new Area(ddd1); // ä¸Šé¢çš„æ‰‡å½¢
+		Area area2 = new Area(pp1); // å››è¾¹å½¢
+		Area area3 = new Area(pp2); // ä¸Šé¢çš„ä¸‰è§’å½¢
 		area1.subtract(area3);
 		area1.add(area);
 		area1.add(area2);
@@ -815,7 +815,7 @@ public class DrawPie3DObj extends DrawBase {
 			c = db.getColor(i - 1);
 		}
 		CubeColor ccr = new CubeColor(c);
-		g.setColor(ccr.getRelativeDarker("F2", cutColorLevel));// ±ÈF2°µÒ»¼¶µÄÑÕÉ«
+		g.setColor(ccr.getRelativeDarker("F2", cutColorLevel));// æ¯”F2æš—ä¸€çº§çš„é¢œè‰²
 		Shape s = getPath2DShape(ptx1, pty1);
 		g.fill(s);
 		db.drawShape(s, bc);

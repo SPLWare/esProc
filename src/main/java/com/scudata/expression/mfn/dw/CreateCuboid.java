@@ -22,8 +22,8 @@ import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Îª×é±íÉú³ÉÔ¤»ã×ÜÁ¢·½Ìå
- * T.cuboid(C,Fi,¡­;y:Gi,¡­)
+ * ä¸ºç»„è¡¨ç”Ÿæˆé¢„æ±‡æ€»ç«‹æ–¹ä½“
+ * T.cuboid(C,Fi,â€¦;y:Gi,â€¦)
  * @author RunQian
  *
  */
@@ -116,7 +116,7 @@ public class CreateCuboid extends PhyTableFunction {
 			}
 		}
 		
-		//ÎªcuboidÃüÃû
+		//ä¸ºcuboidå‘½å
 		//String dir = srcTable.getGroupTable().getFile().getAbsolutePath() + "_";
 		//FileObject fo = new FileObject(dir + srcTable.getTableName() + Cuboid.CUBE_PREFIX + C);
 		FileObject fo = C;
@@ -141,7 +141,7 @@ public class CreateCuboid extends PhyTableFunction {
 		if (newExps != null) fcount += newExps.length;
 		ICursor cursor = new MemoryCursor(Cuboid.cgroups(sub0, sub1, srcTable, null, false, 0, null, ctx));
 		
-		//±£´æµ½ÁíÒ»¸ö×é±í
+		//ä¿å­˜åˆ°å¦ä¸€ä¸ªç»„è¡¨
 		File file = fo.getLocalFile().file();
 		String colNames[] = new String[fcount];
 		int sbytes[] = new int[fcount];
@@ -159,7 +159,7 @@ public class CreateCuboid extends PhyTableFunction {
 					pi0.getExpressionStrs1(), pi1.getExpressionStrs1());
 			table.save();
 			table.close();
-			table = new Cuboid(file, ctx);//ÖØĞÂ´ò¿ª
+			table = new Cuboid(file, ctx);//é‡æ–°æ‰“å¼€
 			table.checkPassword("cuboid");
 			
 			Sequence data = cursor.peek(1);		

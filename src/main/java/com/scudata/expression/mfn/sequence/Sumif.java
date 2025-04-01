@@ -12,8 +12,8 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ¼ÆËãĞòÁĞÖĞÂú×ã¸ø¶¨Ìõ¼şµÄÔªËØµÄºÍ
- * A.sumif(Ai:xi,¡­)
+ * è®¡ç®—åºåˆ—ä¸­æ»¡è¶³ç»™å®šæ¡ä»¶çš„å…ƒç´ çš„å’Œ
+ * A.sumif(Ai:xi,â€¦)
  * @author RunQian
  *
  */
@@ -22,7 +22,7 @@ public class Sumif extends SequenceFunction {
 		return posSelect("sumif", srcSequence, param, option, ctx).sum();
 	}
 
-	// Ai:xi,¡­       A(Ai.pos@a(xi)^¡­)
+	// Ai:xi,â€¦       A(Ai.pos@a(xi)^â€¦)
 	static Sequence posSelect(String funcName, Sequence srcSeries, IParam param, String option, Context ctx) {
 		if (option == null || option.indexOf('b') == -1) {
 			option = "a";

@@ -28,7 +28,7 @@ public class KMeans extends Function {
             throw new RQException("KMeans" + mm.getMessage("function.invalidParam"));
         } else {
             if (param.getSubSize() == 2) {
-                //²ÎÊıÓÉ2¸ö³ÉÔ±×é³É£¬·ÖÁ½ÖÖÇé¿ö
+                //å‚æ•°ç”±2ä¸ªæˆå‘˜ç»„æˆï¼Œåˆ†ä¸¤ç§æƒ…å†µ
                 IParam sub1 = param.getSub(0);
                 IParam sub2 = param.getSub(1);
 
@@ -41,14 +41,14 @@ public class KMeans extends Function {
                 Object o2 = sub2.getLeafExpression().calculate(ctx); //k
 
 
-                //Çé¿ö1£¬o1ºÍo2¶¼ÊÇĞòÁĞ£¬ÈÏÎªo1ÊÇÒÑÓĞµÄÑµÁ·½á¹û£¬o2ÊÇĞèÔ¤²âµÄÊı¾İ£¬ÓÃÓÚÖ±½ÓÔ¤²â,ÎªÁËÅĞ¶ÏÓï¾ä·½±ã£¬¾Í·ÅÔÚÁËÇ°Ãæ
+                //æƒ…å†µ1ï¼Œo1å’Œo2éƒ½æ˜¯åºåˆ—ï¼Œè®¤ä¸ºo1æ˜¯å·²æœ‰çš„è®­ç»ƒç»“æœï¼Œo2æ˜¯éœ€é¢„æµ‹çš„æ•°æ®ï¼Œç”¨äºç›´æ¥é¢„æµ‹,ä¸ºäº†åˆ¤æ–­è¯­å¥æ–¹ä¾¿ï¼Œå°±æ”¾åœ¨äº†å‰é¢
                 if (o1 instanceof Sequence && o2 instanceof Sequence){
                     ArrayList<HashMap<String ,Double>> fitResult = SeqToArrLstHashMap((Sequence) o1);
                     Matrix B = new Matrix((Sequence) o2);
                     Sequence preResult = predict(fitResult,B);
                     return preResult;
                 }
-                //Çé¿ö2£¬Ö±½Ó·µ»ØfitµÄ½á¹û£¬ÖÊĞÄÊı¾İ
+                //æƒ…å†µ2ï¼Œç›´æ¥è¿”å›fitçš„ç»“æœï¼Œè´¨å¿ƒæ•°æ®
                 else if (o1 instanceof Sequence){
                     Matrix A = new Matrix((Sequence) o1);
                     int k=0;
@@ -67,7 +67,7 @@ public class KMeans extends Function {
                 }
 
             }
-            //Çé¿ö3£¬ÓÃ»§ÊäÈë3¸ö²ÎÊı£¬ÑµÁ·ÓëÔ¤²âÁ¬Ğø½øĞĞ
+            //æƒ…å†µ3ï¼Œç”¨æˆ·è¾“å…¥3ä¸ªå‚æ•°ï¼Œè®­ç»ƒä¸é¢„æµ‹è¿ç»­è¿›è¡Œ
             else if(param.getSubSize() == 3){
                 IParam sub1 = param.getSub(0);
                 IParam sub2 = param.getSub(1);
@@ -98,17 +98,17 @@ public class KMeans extends Function {
 
     public Sequence fit(Matrix inputdata, int n_clusters){
 
-        ArrayList<HashMap<String, Double>> data = dataPreProcess(inputdata); //Êı¾İ²ğ·Ö´¦Àí
+        ArrayList<HashMap<String, Double>> data = dataPreProcess(inputdata); //æ•°æ®æ‹†åˆ†å¤„ç†
         ArrayList<HashMap<String,Double>> centroids = kmeans(n_clusters,data);
         return arrlstHaspMapToSequence(centroids);
     }
 
     public Sequence predict(ArrayList<HashMap<String,Double>> preCentroids,Matrix preInput){
-        //preCentroids¿ÉÒÔÊÇfit½á¹ûÒ²¿ÉÒÔÊÇ¶îÍâµÄÖµÊäÈë£¬¿´¾ßÌåĞèÇó
-        ArrayList<HashMap<String, Double>>  data = dataPreProcess(preInput); //Êı¾İÖØĞÂ·Ö½â
+        //preCentroidså¯ä»¥æ˜¯fitç»“æœä¹Ÿå¯ä»¥æ˜¯é¢å¤–çš„å€¼è¾“å…¥ï¼Œçœ‹å…·ä½“éœ€æ±‚
+        ArrayList<HashMap<String, Double>>  data = dataPreProcess(preInput); //æ•°æ®é‡æ–°åˆ†è§£
         for(HashMap<String, Double>  perData : data){
             Double minDist = Double.MAX_VALUE;
-            // ÕÒµ½¾àÀëËü×î½üµÄÖÊĞÄ²¢½«¼ÇÂ¼Ìí¼Óµ½ËüµÄ¼¯ÈºÖĞ
+            // æ‰¾åˆ°è·ç¦»å®ƒæœ€è¿‘çš„è´¨å¿ƒå¹¶å°†è®°å½•æ·»åŠ åˆ°å®ƒçš„é›†ç¾¤ä¸­
             for(int i=0,iLen = preCentroids.size(); i<iLen; i++){
                 Double dist = euclideanDistance(preCentroids.get(i), perData);
                 if(dist<minDist){
@@ -123,10 +123,10 @@ public class KMeans extends Function {
 
     static final Double PRECISION = 0.0;
 
-    //´ÓÊı¾İÖĞ³õÊ¼»¯k¸öÖÊĞÄ
+    //ä»æ•°æ®ä¸­åˆå§‹åŒ–kä¸ªè´¨å¿ƒ
     protected ArrayList<HashMap<String, Double>> kmeanspp(int K, ArrayList<HashMap<String, Double>> data){
         ArrayList<HashMap<String,Double>> centroids = new ArrayList<HashMap<String,Double>>();
-        centroids.add(randomFromDataSet( data)); //Õë¶ÔrecordsµÄ²Ù×÷
+        centroids.add(randomFromDataSet( data)); //é’ˆå¯¹recordsçš„æ“ä½œ
 
         for(int i=1; i<K; i++){
             centroids.add(calculateWeighedCentroid(data));
@@ -136,17 +136,17 @@ public class KMeans extends Function {
 
     protected ArrayList<HashMap<String, Double>> kmeans(int K,ArrayList<HashMap<String, Double>>  data){
         ArrayList<HashMap<String,Double>> centroids = new ArrayList<HashMap<String,Double>>();
-        // Ñ¡Ôñk¸ö³õÊ¼ÖÊĞÄ
+        // é€‰æ‹©kä¸ªåˆå§‹è´¨å¿ƒ
         centroids = kmeanspp(K,data);
 
-        // ½«Æ½·½Îó²îºÍ³õÊ¼»¯Îª×î´óÖµ£¬Ã¿´Îµü´úÊ±½µµÍ¸ÃÖµ
+        // å°†å¹³æ–¹è¯¯å·®å’Œåˆå§‹åŒ–ä¸ºæœ€å¤§å€¼ï¼Œæ¯æ¬¡è¿­ä»£æ—¶é™ä½è¯¥å€¼
         Double SSE = Double.MAX_VALUE;
         while (true) {
-            // ½«¹Û²âÖµ·ÖÅä¸øÖÊĞÄ
+            // å°†è§‚æµ‹å€¼åˆ†é…ç»™è´¨å¿ƒ
 //            ArrayList<HashMap<String, Double>> data = new ArrayList<HashMap<String, Double>>();
             for(HashMap<String, Double> perData: data){
                 Double minDist = Double.MAX_VALUE;
-                // ÕÒµ½¾àÀëµã×î½üµÄÖÊĞÄ²¢¼ÇÂ¼µ½Æä¼¯ÈºÖĞ
+                // æ‰¾åˆ°è·ç¦»ç‚¹æœ€è¿‘çš„è´¨å¿ƒå¹¶è®°å½•åˆ°å…¶é›†ç¾¤ä¸­
                 for(int i=0,iLen = centroids.size(); i<iLen; i++){
                     Double dist =euclideanDistance(centroids.get(i),perData);
                     if(dist<minDist){
@@ -155,10 +155,10 @@ public class KMeans extends Function {
                     }
                 }
             }
-            // ¸ù¾İĞÂµÄ¼¯Èº·ÖÅäÖØĞÂ¼ÆËãÖÊĞÄ
+            // æ ¹æ®æ–°çš„é›†ç¾¤åˆ†é…é‡æ–°è®¡ç®—è´¨å¿ƒ
             centroids = recomputeCentroids(K,data);
 
-            // ÍË³öÌõ¼ş£¬sse±ä»¯Ğ¡ÓÚprecision²ÎÊı
+            // é€€å‡ºæ¡ä»¶ï¼Œsseå˜åŒ–å°äºprecisionå‚æ•°
             Double newSSE = calculateTotalSSE(centroids,data);
             if(SSE-newSSE <= PRECISION){
                 break;
@@ -189,7 +189,7 @@ public class KMeans extends Function {
 
     }
 
-    //¾ØÕó×ªarraylist
+    //çŸ©é˜µè½¬arraylist
     protected static ArrayList<HashMap<String, Double>> dataPreProcess(Matrix inputX) {
         ArrayList<String> attrNames = new ArrayList<String>();
 
@@ -219,7 +219,7 @@ public class KMeans extends Function {
         return data;
     }
 
-    //ÌáÈ¡Öµ
+    //æå–å€¼
     private double[][] createDouble(ArrayList<HashMap<String, Double>> data){
         double[][] result = new double[data.size()][1];
         int i = 0;
@@ -367,7 +367,7 @@ public class KMeans extends Function {
         return new HashMap<String,Double>();
     }
 
-    //arraylist×ª»»ÎªSequence
+    //arraylistè½¬æ¢ä¸ºSequence
 //    private static Sequence arrlstToSequence(ArrayList<HashMap<String, Double>> centors){
 //        double[][] centorsDouble = new double[centors.size()][centors.get(0).size()];
 //        for(int i =0;i< centors.size();i++){
@@ -395,7 +395,7 @@ public class KMeans extends Function {
         return result;
     }
 
-    //double[][]×ªSequence
+    //double[][]è½¬Sequence
     protected static Sequence dou2ToSequence(double[][] d){
         Sequence result = new Sequence();
         for (int i=0,iLen = d.length;i<iLen;i++){
@@ -409,7 +409,7 @@ public class KMeans extends Function {
         return result;
     }
 
-    //Sequence×ªArrayList
+    //Sequenceè½¬ArrayList
     protected static ArrayList<HashMap<String,Double>> SeqToArrLstHashMap(Sequence fitResult){
         ArrayList<HashMap<String,Double>> result = new ArrayList<HashMap<String,Double>>();
             for (int i = 1; i <= fitResult.length(); i++) {
@@ -436,21 +436,21 @@ public class KMeans extends Function {
         double[][] data = new double[][]{{1,2,3,4},{2,3,1,2},{1,1,1,-1},{1,0,-2,-6}};
         double[][] testData = new double[][]{{6,2,3,5},{0,3,1,5},{1,2,1,-1},{1,5,2,-6}};
 
-//        //condition 1,²ÎÊı1ÎªÊı×é£¬²ÎÊı2ÎªÊı×Ö
-//        // ÓÃ»§²»²Ù×÷£¬¶ÔAÁ¬Ğø²Ù×÷fitºÍpredict
-        // ÑµÁ·
+//        //condition 1,å‚æ•°1ä¸ºæ•°ç»„ï¼Œå‚æ•°2ä¸ºæ•°å­—
+//        // ç”¨æˆ·ä¸æ“ä½œï¼Œå¯¹Aè¿ç»­æ“ä½œfitå’Œpredict
+        // è®­ç»ƒ
         Matrix A = new Matrix(data);
         KMeans model = new KMeans();
 
-        Sequence fitResult = model.fit(A,2);//fit·µ»ØµÄ½á¹ûÖÊĞÄ£¬ÒÑÔÚ´úfitÂëÀï×ª»»³ÉĞòÁĞ
+        Sequence fitResult = model.fit(A,2);//fitè¿”å›çš„ç»“æœè´¨å¿ƒï¼Œå·²åœ¨ä»£fitç é‡Œè½¬æ¢æˆåºåˆ—
 
 
-        Matrix matrixPreData = new Matrix(testData);//Ô¤²âĞèÒªmatrixÀàĞÍ
+        Matrix matrixPreData = new Matrix(testData);//é¢„æµ‹éœ€è¦matrixç±»å‹
 
         ArrayList<HashMap<String,Double>> seqFitResult = SeqToArrLstHashMap(fitResult);
         Sequence preResult = new Sequence(model.predict(seqFitResult,matrixPreData));
 
-        int a=1;   //debugÓÃ
+        int a=1;   //debugç”¨
 
 
     }

@@ -7,7 +7,7 @@ import com.scudata.expression.Function;
 import com.scudata.expression.Node;
 
 /**
- * ���ȫϵͳΨһ���ִ�
+ * 获得全系统唯一的字串
  * @author runqian
  *
  */

@@ -42,45 +42,45 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 /**
- * ×Ö¶ÎÔªÊı¾İ
- * ×¢Òâ£ºblob×Ö¶Î»ò³¤×Ö·û´®×Ö¶ÎÈİÒ×Ôì³ÉÄÚ´æÒç³ö
+ * å­—æ®µå…ƒæ•°æ®
+ * æ³¨æ„ï¼šblobå­—æ®µæˆ–é•¿å­—ç¬¦ä¸²å­—æ®µå®¹æ˜“é€ æˆå†…å­˜æº¢å‡º
  * @author runqian
  *
  */
 abstract public class PhyTable implements IPhyTable {
-	protected static String KEY_PREFIX = "#"; // Ö÷¼ü×Ö¶ÎÇ°×º
+	protected static String KEY_PREFIX = "#"; // ä¸»é”®å­—æ®µå‰ç¼€
 	
-	protected static int MIN_BLOCK_RECORD_COUNT = 8192; // Ã¿¿éµÄ×îĞ¡¼ÇÂ¼Êı£¬Èç¹ûÍ¬ÖµµÄ²»×ãÔòºÏ²¢¶à×é
-	protected static int MAX_BLOCK_RECORD_COUNT = 8192 * 20; // Ã¿¿éµÄ×î´ó¼ÇÂ¼Êı£¬Èç¹ûÍ¬ÖµµÄ³¬ÁËÔò²ğ³É¶à¿é
+	protected static int MIN_BLOCK_RECORD_COUNT = 8192; // æ¯å—çš„æœ€å°è®°å½•æ•°ï¼Œå¦‚æœåŒå€¼çš„ä¸è¶³åˆ™åˆå¹¶å¤šç»„
+	protected static int MAX_BLOCK_RECORD_COUNT = 8192 * 20; // æ¯å—çš„æœ€å¤§è®°å½•æ•°ï¼Œå¦‚æœåŒå€¼çš„è¶…äº†åˆ™æ‹†æˆå¤šå—
 	
-	protected byte []reserve = new byte[32]; // ±£ÁôÎ»£¬×Ö½Ú1´æ·Å°æ±¾ºÅ
+	protected byte []reserve = new byte[32]; // ä¿ç•™ä½ï¼Œå­—èŠ‚1å­˜æ”¾ç‰ˆæœ¬å·
 	protected ComTable groupTable;
 	protected PhyTable parent;
-	protected ArrayList<PhyTable> tableList; // ¸½±íÁĞ±í
-	protected String segmentCol; // ·Ö¶ÎÁĞ
+	protected ArrayList<PhyTable> tableList; // é™„è¡¨åˆ—è¡¨
+	protected String segmentCol; // åˆ†æ®µåˆ—
 	protected int segmentSerialLen;
 	
 	protected String tableName;
-	protected String []colNames; // ÒÔ#¿ªÍ·±íÊ¾Î¬£¬Ãû×ÖÖĞ°Ñ#È¥µô
-	protected String []allColNames;//º¬Ö÷±íµÄÖ÷¼ü
+	protected String []colNames; // ä»¥#å¼€å¤´è¡¨ç¤ºç»´ï¼Œåå­—ä¸­æŠŠ#å»æ‰
+	protected String []allColNames;//å«ä¸»è¡¨çš„ä¸»é”®
 	protected int dataBlockCount;
 	protected long totalRecordCount;
 	
-	protected BlockLink segmentBlockLink; // ·Ö¶ÎĞÅÏ¢Çø¿éÁ´£¬ÒÀ´Î¼ÇÂ¼Ã¿¸öÁĞ¿éµÄ¼ÇÂ¼Êı
-	protected byte curModifyBlock;//²¹¿é µ±Ç°
-	protected BlockLink modifyBlockLink1; // ²¹¿é 1
-	protected BlockLink modifyBlockLink2; // ²¹¿é 2
+	protected BlockLink segmentBlockLink; // åˆ†æ®µä¿¡æ¯åŒºå—é“¾ï¼Œä¾æ¬¡è®°å½•æ¯ä¸ªåˆ—å—çš„è®°å½•æ•°
+	protected byte curModifyBlock;//è¡¥å— å½“å‰
+	protected BlockLink modifyBlockLink1; // è¡¥å— 1
+	protected BlockLink modifyBlockLink2; // è¡¥å— 2
 	
-	protected Object []maxValues; // ×îºó×·¼ÓµÄ¼ÇÂ¼µÄÎ¬×Ö¶ÎÖµ£¬ÓÃÓÚÈ·¶¨ÊÇ·ñÓĞĞòºÍÎ¨Ò»£¬Èç¹ûÎŞĞòÔò²»ÔÙÅĞ¶Ï
-	protected boolean hasPrimaryKey = true;// ÊÇ·ñÓĞÖ÷¼ü£¬×·¼ÓÊı¾İµÄÊ±ºòĞèÒªÅĞ¶ÏÎ¬ÖµÊÇ·ñÎ¨Ò»£¬Èç¹ûÎ¨Ò»Ôò±ØÓĞĞò
-	public boolean isSorted = true; // ÊÇ·ñÓĞĞò£¬¿ÉÄÜ²»Î¨Ò»µ«ÓĞĞò
+	protected Object []maxValues; // æœ€åè¿½åŠ çš„è®°å½•çš„ç»´å­—æ®µå€¼ï¼Œç”¨äºç¡®å®šæ˜¯å¦æœ‰åºå’Œå”¯ä¸€ï¼Œå¦‚æœæ— åºåˆ™ä¸å†åˆ¤æ–­
+	protected boolean hasPrimaryKey = true;// æ˜¯å¦æœ‰ä¸»é”®ï¼Œè¿½åŠ æ•°æ®çš„æ—¶å€™éœ€è¦åˆ¤æ–­ç»´å€¼æ˜¯å¦å”¯ä¸€ï¼Œå¦‚æœå”¯ä¸€åˆ™å¿…æœ‰åº
+	public boolean isSorted = true; // æ˜¯å¦æœ‰åºï¼Œå¯èƒ½ä¸å”¯ä¸€ä½†æœ‰åº
 	
 	//index
 	protected String []indexNames;
 	protected String [][]indexFields;
 	protected String [][]indexValueFields;
 	
-	//Ô¤·Ö×écuboid
+	//é¢„åˆ†ç»„cuboid
 	protected String []cuboids;
 	
 	protected transient DataStruct ds;
@@ -90,14 +90,14 @@ abstract public class PhyTable implements IPhyTable {
 	private transient HashMap<String, SoftReference<ITableIndex>> cache = 
 			new HashMap<String, SoftReference<ITableIndex>>();
 	
-	protected Sequence appendCache;//×·¼Ó»º´æ
+	protected Sequence appendCache;//è¿½åŠ ç¼“å­˜
 	
-	//ÅĞ¶ÏÊÇ·ñÊÇ»ù±í
+	//åˆ¤æ–­æ˜¯å¦æ˜¯åŸºè¡¨
 	public boolean isBaseTable() {
 		return parent == null;
 	}
 	
-	// ÅĞ¶Ï×é±íÊÇ·ñÖ»°üº¬ÁËÒ»¸ö±í£¬¼´Ã»ÓĞ¸½±í
+	// åˆ¤æ–­ç»„è¡¨æ˜¯å¦åªåŒ…å«äº†ä¸€ä¸ªè¡¨ï¼Œå³æ²¡æœ‰é™„è¡¨
 	public boolean isSingleTable() {
 		return parent == null && (tableList == null || tableList.size() == 0);
 	}
@@ -207,15 +207,15 @@ abstract public class PhyTable implements IPhyTable {
 	}
 
 	/**
-	 * È¡×Ö¶ÎÃûÊı×é
-	 * @return ×Ö¶ÎÃûÊı×é
+	 * å–å­—æ®µåæ•°ç»„
+	 * @return å­—æ®µåæ•°ç»„
 	 */
 	public String[] getColNames() {
 		return colNames;
 	}
 	
 	/**
-	 * È¡Ö¸¶¨×Ö¶ÎµÄ×Ö¶ÎÃû
+	 * å–æŒ‡å®šå­—æ®µçš„å­—æ®µå
 	 * @param col
 	 * @return
 	 */
@@ -241,7 +241,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ¸ù¾İÒª´¦ÀíµÄ×Ö¶ÎÑ¡ÔñÒ»¸öºÏÊÊµÄË÷ÒıµÄÃû×Ö£¬Ã»ÓĞºÏÊÊµÄÔò·µ»Ø¿Õ
+	 * æ ¹æ®è¦å¤„ç†çš„å­—æ®µé€‰æ‹©ä¸€ä¸ªåˆé€‚çš„ç´¢å¼•çš„åå­—ï¼Œæ²¡æœ‰åˆé€‚çš„åˆ™è¿”å›ç©º
 	 * @param fieldNames
 	 * @return
 	 */
@@ -270,7 +270,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * É¾³ıË÷Òı,Èç¹ûindexNameÎªnull£¬±íÊ¾É¾³ıËùÓĞ
+	 * åˆ é™¤ç´¢å¼•,å¦‚æœindexNameä¸ºnullï¼Œè¡¨ç¤ºåˆ é™¤æ‰€æœ‰
 	 */
 	public boolean deleteIndex(String indexName) throws IOException {
 		getGroupTable().checkWritable();
@@ -333,10 +333,10 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * Ìí¼ÓÒ»¸öË÷Òı
-	 * @param indexName Ë÷ÒıÃû³Æ
-	 * @param indexFields Ë÷Òı×Ö¶Î
-	 * @param indexValueFields Öµ×Ö¶Î£¨KVË÷Òı²ÅÓĞ£©
+	 * æ·»åŠ ä¸€ä¸ªç´¢å¼•
+	 * @param indexName ç´¢å¼•åç§°
+	 * @param indexFields ç´¢å¼•å­—æ®µ
+	 * @param indexValueFields å€¼å­—æ®µï¼ˆKVç´¢å¼•æ‰æœ‰ï¼‰
 	 * @throws IOException
 	 */
 	public void addIndex(String indexName, String[] indexFields, String[] indexValueFields) throws IOException {
@@ -367,7 +367,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ¸üĞÂË÷Òı
+	 * æ›´æ–°ç´¢å¼•
 	 */
 	public void updateIndex() {
 		if (indexNames == null) {
@@ -388,7 +388,7 @@ abstract public class PhyTable implements IPhyTable {
 				throw new RQException(e.getMessage(), e);
 			}
 			
-			//¸ù¾İinameµÃµ½Ë÷Òı×Ö¶Î
+			//æ ¹æ®inameå¾—åˆ°ç´¢å¼•å­—æ®µ
 			String []ifields = indexFields[i];
 			String []vfields = indexValueFields[i];
 
@@ -422,7 +422,7 @@ abstract public class PhyTable implements IPhyTable {
 
 		if (obj == null) {
 			if  (opt != null) {
-				//È«ÎÄ
+				//å…¨æ–‡
 				if  (opt.indexOf('w') != -1) {
 					TableFulltextIndex index = new TableFulltextIndex(this, I, (Integer) obj);
 					index.create(fields, opt, ctx, w);
@@ -450,7 +450,7 @@ abstract public class PhyTable implements IPhyTable {
 				return;
 			}
 			
-			//ÅÅĞò
+			//æ’åº
 			PhyTableIndex index = new PhyTableIndex(this, I);
 			index.create(fields, opt, ctx, w);
 		} else if (obj instanceof String[]) {
@@ -477,7 +477,7 @@ abstract public class PhyTable implements IPhyTable {
 		}
 		
 		boolean hasOpt = false;
-		//²»´æµ½×é±íÀï
+		//ä¸å­˜åˆ°ç»„è¡¨é‡Œ
 		if  (opt == null) {
 			opt = "U";
 		} else {
@@ -486,7 +486,7 @@ abstract public class PhyTable implements IPhyTable {
 		}
 		
 		if (hasOpt) {
-			//È«ÎÄ
+			//å…¨æ–‡
 			if  (opt.indexOf('w') != -1) {
 				TableFulltextIndex index = new TableFulltextIndex(this, file, (Integer) obj);
 				index.create(fields, opt, ctx, w);
@@ -511,7 +511,7 @@ abstract public class PhyTable implements IPhyTable {
 				return;
 			}
 			
-			//ÅÅĞò
+			//æ’åº
 			PhyTableIndex index = new PhyTableIndex(this, file);
 			index.create(fields, opt, ctx, w);
 		} else if (obj instanceof String[]) {
@@ -526,7 +526,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ÖØ½¨Ë÷Òı
+	 * é‡å»ºç´¢å¼•
 	 * @param ctx
 	 */
 	public void resetIndex(Context ctx) {
@@ -569,7 +569,7 @@ abstract public class PhyTable implements IPhyTable {
 	abstract public String[] getAllSortedColNames();
 	
 	/**
-	 * µÃµ½Î¬ÁĞµÄÎ»ÖÃ
+	 * å¾—åˆ°ç»´åˆ—çš„ä½ç½®
 	 * @return
 	 */
 	public int[] getSortedColIndex() {
@@ -591,13 +591,13 @@ abstract public class PhyTable implements IPhyTable {
 		return tableName.equals(name);
 	}
 	
-	//¼ÇÂ¼×ÜÊı£¨²»º¬²¹ÇøµÄ¼ÇÂ¼£©
+	//è®°å½•æ€»æ•°ï¼ˆä¸å«è¡¥åŒºçš„è®°å½•ï¼‰
 	public long getTotalRecordCount() {
 		return totalRecordCount;
 	}
 	
 	/**
-	 * È¡Êµ¼Ê×Ü¼ÇÂ¼Êı£¨¼ÓÉÏÁË²¹ÇøµÄ¼ÇÂ¼£©
+	 * å–å®é™…æ€»è®°å½•æ•°ï¼ˆåŠ ä¸Šäº†è¡¥åŒºçš„è®°å½•ï¼‰
 	 * @return
 	 */
 	public long getActualRecordCount() {
@@ -617,7 +617,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ×Ü¿éÊı
+	 * æ€»å—æ•°
 	 * @return
 	 */
 	public int getDataBlockCount() {
@@ -625,7 +625,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * Î¬×Ö¶ÎµÄ¸öÊı
+	 * ç»´å­—æ®µçš„ä¸ªæ•°
 	 * @return
 	 */
 	public int getAllSortedColNamesLength() {
@@ -638,7 +638,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ÊÇ·ñÓĞÖ÷¼ü
+	 * æ˜¯å¦æœ‰ä¸»é”®
 	 * @return
 	 */
 	public boolean hasPrimaryKey() {
@@ -658,23 +658,23 @@ abstract public class PhyTable implements IPhyTable {
 		return reader;
 	}
 	
- 	// ×¼±¸Ğ´£¬×·¼Ó¡¢É¾³ı¡¢ĞŞ¸ÄÊı¾İÇ°µ÷ÓÃ
+ 	// å‡†å¤‡å†™ï¼Œè¿½åŠ ã€åˆ é™¤ã€ä¿®æ”¹æ•°æ®å‰è°ƒç”¨
 	abstract protected void prepareAppend() throws IOException;
 	
-	// ½áÊøĞ´
+	// ç»“æŸå†™
 	abstract protected void finishAppend() throws IOException;
 	
 	public abstract void readExternal(BufferReader reader) throws IOException;
 	
 	public abstract void writeExternal(BufferWriter writer) throws IOException;
 	
-	//Ğ´Èë»º´æµÄÊı¾İ
+	//å†™å…¥ç¼“å­˜çš„æ•°æ®
 	public abstract void appendCache() throws IOException;
 	
 	public abstract int[] getSerialBytesLen();
 	
 	/**
-	 * Ğ´²¹Çø
+	 * å†™è¡¥åŒº
 	 * @throws IOException
 	 */
 	protected void saveModifyRecords() throws IOException {
@@ -689,7 +689,7 @@ abstract public class PhyTable implements IPhyTable {
 			r.writeExternal(writer);
 		}
 		
-		// ¶ÁĞ´²¹¿éÊ±×öÍ¬²½ÒÔÖ§³ÖÍ¬Ê±¶ÁĞ´
+		// è¯»å†™è¡¥å—æ—¶åšåŒæ­¥ä»¥æ”¯æŒåŒæ—¶è¯»å†™
 		Object syncObj = groupTable.getSyncObject();
 		synchronized(syncObj) {
 			BlockLink modifyBlockLink = null;
@@ -711,7 +711,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ¶Á²¹Çø
+	 * è¯»è¡¥åŒº
 	 * @return
 	 */
 	public ArrayList<ModifyRecord> getModifyRecords() {
@@ -727,7 +727,7 @@ abstract public class PhyTable implements IPhyTable {
 		}
 
 		try {
-			// ¶ÁĞ´²¹¿éÊ±×öÍ¬²½ÒÔÖ§³ÖÍ¬Ê±¶ÁĞ´
+			// è¯»å†™è¡¥å—æ—¶åšåŒæ­¥ä»¥æ”¯æŒåŒæ—¶è¯»å†™
 			byte []bytes;
 			Object syncObj = groupTable.getSyncObject();
 			synchronized(syncObj) {
@@ -768,7 +768,7 @@ abstract public class PhyTable implements IPhyTable {
 	abstract public Sequence delete(Sequence data, String opt) throws IOException;
 	
 	/**
-	 * »ñµÃ±í´ïÊ½expÖĞÉæ¼°µÄËùÓĞ×Ö¶Î
+	 * è·å¾—è¡¨è¾¾å¼expä¸­æ¶‰åŠçš„æ‰€æœ‰å­—æ®µ
 	 * @param exp
 	 * @param colNames
 	 * @return
@@ -788,7 +788,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 
 	/**
-	 * ÌáÈ¡expÀïĞèÒª¼ÆËãµÄ×Ö¶Î(k.sbs() k1+k2)
+	 * æå–expé‡Œéœ€è¦è®¡ç®—çš„å­—æ®µ(k.sbs() k1+k2)
 	 * @param exps
 	 * @return
 	 */
@@ -880,7 +880,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * »ñµÃnodeµÄ×Ö¶ÎÔÚkeyNamesÖĞµÄindex
+	 * è·å¾—nodeçš„å­—æ®µåœ¨keyNamesä¸­çš„index
 	 * @param node
 	 * @param keyNames
 	 * @return
@@ -908,7 +908,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ´Ó²¹ÇøÈ¡¼ÇÂ¼²¢ÇÒ¹ıÂË
+	 * ä»è¡¥åŒºå–è®°å½•å¹¶ä¸”è¿‡æ»¤
 	 * @param exp
 	 * @param ctx
 	 * @return
@@ -922,14 +922,14 @@ abstract public class PhyTable implements IPhyTable {
 		for (int i = 0; i < size; i++) {
 			ModifyRecord mr = modifyRecords.get(i);
 			if (mr.isDelete()) {
-				mrs.add(mr);//deleteµÄ¿Ï¶¨Òª
+				mrs.add(mr);//deleteçš„è‚¯å®šè¦
 			} else if (exp != null) {
 				Record sr = mr.getRecord();
 				if (Variant.isTrue(sr.calc(exp, ctx))) {
-					mrs.add(mr);//·ûºÏÌõ¼şµÄupdateºÍinsert¶¼Òª
+					mrs.add(mr);//ç¬¦åˆæ¡ä»¶çš„updateå’Œinsertéƒ½è¦
 				} else {
 					if (mr.isUpdate()) {
-						//²»·ûºÏÌõ¼şµÄupdateÒª±ä³Édelete
+						//ä¸ç¬¦åˆæ¡ä»¶çš„updateè¦å˜æˆdelete
 						ModifyRecord temp = new ModifyRecord(mr.getRecordSeq());
 						temp.setDelete();
 						mrs.add(temp);
@@ -948,7 +948,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ¼ì²éÊÇ·ñÊÇÎ¬×Ö¶Î£¬Èç¹ûÊÇÔò·µ»ØÎ±ºÅ(µØÖ·)µÄ·¶Î§
+	 * æ£€æŸ¥æ˜¯å¦æ˜¯ç»´å­—æ®µï¼Œå¦‚æœæ˜¯åˆ™è¿”å›ä¼ªå·(åœ°å€)çš„èŒƒå›´
 	 * @param field
 	 * @param node
 	 * @param ctx
@@ -957,11 +957,11 @@ abstract public class PhyTable implements IPhyTable {
 	abstract long[] checkDim(String field, Node node, Context ctx);
 	
 	/**
-	 * ¼ì²é±í´ïÊ½ÊÇ·ñÓÉÓë¼ÆËã×é³É
-	 * @param home ±í´ïÊ½home½Úµã
-	 * @param indexs Êä³ö£¬Ã¿Á½¸öÁ¬Ğø¶ÔÏóÊÇÒ»×éÊä³ö£¬µÚÒ»¸ö¶ÔÏóÊÇÕÒµ½µÄË÷Òı£¬µÚ¶ş¸öÊÇ±í´ïÊ½½Úµã
-	 * @param intervals Êä³ö£¬±íÊ¾µØÖ··¶Î§
-	 * @param indexFiles ±¸Ñ¡µÄË÷ÒıÎÄ¼ş
+	 * æ£€æŸ¥è¡¨è¾¾å¼æ˜¯å¦ç”±ä¸è®¡ç®—ç»„æˆ
+	 * @param home è¡¨è¾¾å¼homeèŠ‚ç‚¹
+	 * @param indexs è¾“å‡ºï¼Œæ¯ä¸¤ä¸ªè¿ç»­å¯¹è±¡æ˜¯ä¸€ç»„è¾“å‡ºï¼Œç¬¬ä¸€ä¸ªå¯¹è±¡æ˜¯æ‰¾åˆ°çš„ç´¢å¼•ï¼Œç¬¬äºŒä¸ªæ˜¯è¡¨è¾¾å¼èŠ‚ç‚¹
+	 * @param intervals è¾“å‡ºï¼Œè¡¨ç¤ºåœ°å€èŒƒå›´
+	 * @param indexFiles å¤‡é€‰çš„ç´¢å¼•æ–‡ä»¶
 	 * @param ctx
 	 */
 	private void checkAnds(Node home, ArrayList<Object> indexs, ArrayList<Long> intervals, FileObject[] indexFiles, Context ctx) {
@@ -1014,7 +1014,7 @@ abstract public class PhyTable implements IPhyTable {
 			if (indexFiles == null) {
 				String indexName = chooseIndex(fields);
 				if (indexName == null) {
-					//Èç¹û²»ÊÇË÷Òı×Ö¶Î£¬Ôò¼ì²éÊÇ·ñÊÇÎ¬×Ö¶Î
+					//å¦‚æœä¸æ˜¯ç´¢å¼•å­—æ®µï¼Œåˆ™æ£€æŸ¥æ˜¯å¦æ˜¯ç»´å­—æ®µ
 					long[] posArray = checkDim(fields[0], home, ctx);
 					if (posArray != null) {
 						for (long pos : posArray) {
@@ -1042,17 +1042,17 @@ abstract public class PhyTable implements IPhyTable {
 				return;
 			}
 			if (index instanceof TableKeyValueIndex) {
-				//´øFµÄË÷Òı²»ĞĞ
+				//å¸¦Fçš„ç´¢å¼•ä¸è¡Œ
 				return;
 			}
 			if (index instanceof TableHashIndex) {
-				//hashË÷ÒıÖ»ÄÜÓÅ»¯µÈÓÚºÍcontain
+				//hashç´¢å¼•åªèƒ½ä¼˜åŒ–ç­‰äºå’Œcontain
 				if (!(home instanceof Equals) && !(home instanceof DotOperator)) {
 					return;
 				}
 			}
 			if (index instanceof TableFulltextIndex) {
-				//È«ÎÄË÷ÒıÖ»ÄÜ´¦Àílike *X* Ä£ºı²éÑ¯
+				//å…¨æ–‡ç´¢å¼•åªèƒ½å¤„ç†like *X* æ¨¡ç³ŠæŸ¥è¯¢
 				IParam sub2 = ((Like) home).getParam().getSub(1);
 				String fmtExp = (String) sub2.getLeafExpression().calculate(null);
 				if (fmtExp.length() <= 2) {
@@ -1069,7 +1069,7 @@ abstract public class PhyTable implements IPhyTable {
 					return;
 				}
 			}
-			//ºÏ²¢ÏàÍ¬µÄ
+			//åˆå¹¶ç›¸åŒçš„
 			if (home instanceof Equals ||
 					home instanceof NotSmaller ||
 					home instanceof Greater ||
@@ -1098,7 +1098,7 @@ abstract public class PhyTable implements IPhyTable {
 			return a;
 		}
 		
-		//×ª»¯ÎªÊı×é½øĞĞÅÅĞò
+		//è½¬åŒ–ä¸ºæ•°ç»„è¿›è¡Œæ’åº
 		int intervalSize = intervals.size();
 		Long[] intervalArray = new Long[intervalSize];
 		intervals.toArray(intervalArray);
@@ -1177,7 +1177,7 @@ abstract public class PhyTable implements IPhyTable {
 	
 	static LongArray longArrayUnite(LongArray a, long []b, int posCount, boolean sort) {
 		int lenB = b.length;
-		posCount += 1;//»¹ÓĞÒ»¸öÎ±ºÅ³¤¶È
+		posCount += 1;//è¿˜æœ‰ä¸€ä¸ªä¼ªå·é•¿åº¦
 		if (sort) {
 			int size = lenB / posCount;
 			long [][]posArr = new long[size][];
@@ -1231,9 +1231,9 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * »ñµÃÕâĞ©Î±ºÅÕ¼ÓÃÁË¼¸¸öblock
-	 * @param recNums	Î±ºÅÊı×é
-	 * @param recCountOfSegment Ã¿¸öblockµÄÎ±ºÅÊıÁ¿
+	 * è·å¾—è¿™äº›ä¼ªå·å ç”¨äº†å‡ ä¸ªblock
+	 * @param recNums	ä¼ªå·æ•°ç»„
+	 * @param recCountOfSegment æ¯ä¸ªblockçš„ä¼ªå·æ•°é‡
 	 * @return
 	 */
 	public static int getBlockCount(LongArray recNums, long []recCountOfSegment) {
@@ -1266,7 +1266,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * Ë÷Òı²éÑ¯º¯ÊıicursorµÄÈë¿Ú
+	 * ç´¢å¼•æŸ¥è¯¢å‡½æ•°icursorçš„å…¥å£
 	 */
 	public ICursor icursor(String []fields, Expression filter, Object indexObj, String opt, Context ctx) {
 		ComTable groupTable = getGroupTable();
@@ -1323,18 +1323,18 @@ abstract public class PhyTable implements IPhyTable {
 	private ICursor icursor_(String []fields, Expression filter, String iname, String opt, Context ctx) {
 		FileObject indexFile = null;
 		
-		//¼ì²éÊÇ·ñ¿ÉÒÔ×öÁ¬ĞøANDÓÅ»¯
+		//æ£€æŸ¥æ˜¯å¦å¯ä»¥åšè¿ç»­ANDä¼˜åŒ–
 		if (filter.getHome() instanceof And) {
 			ArrayList<Object> indexs = new ArrayList<Object>();
 			ArrayList<Long> intervals = new ArrayList<Long>();
 			checkAnds(filter.getHome(), indexs, intervals, null, ctx);
 			int intervalSize = intervals.size();
 			if (intervalSize > 0 && intervalSize / 2 <= ITableIndex.MIN_ICURSOR_BLOCK_COUNT) {
-				//Èç¹ûÎ¬¹ıÂËµÄ½á¹û¿éÊıÒÑ¾­ºÜÉÙÁË
+				//å¦‚æœç»´è¿‡æ»¤çš„ç»“æœå—æ•°å·²ç»å¾ˆå°‘äº†
 				return cursor(fields, filter, ctx);
 			}
 			if (intervalSize == dataBlockCount * 2) {
-				//Èç¹ûÎ¬¹ıÂËµÄ½á¹ûÃ¿¿é¶¼ÃüÖĞÁË,ÔòÃ»ÓĞÒâÒå
+				//å¦‚æœç»´è¿‡æ»¤çš„ç»“æœæ¯å—éƒ½å‘½ä¸­äº†,åˆ™æ²¡æœ‰æ„ä¹‰
 				intervals.clear();
 				intervalSize = 0;
 			}
@@ -1346,10 +1346,10 @@ abstract public class PhyTable implements IPhyTable {
 				Object []indexArray = new Object[size];
 				
 				if (opt != null && opt.indexOf('u') != -1) {
-					//²»ÅÅĞòÓÅÏÈ¼¶
+					//ä¸æ’åºä¼˜å…ˆçº§
 					indexs.toArray(indexArray);
 				} else {
-					//indexÒª°´ÕÕÓÅÏÈ¼¶ÅÅĞò
+					//indexè¦æŒ‰ç…§ä¼˜å…ˆçº§æ’åº
 					int j = 0;
 					i = 0;
 					while (j < size) {
@@ -1424,9 +1424,9 @@ abstract public class PhyTable implements IPhyTable {
 					
 
 					if (intervalSize > 0) {
-						//ÀûÓÃÎ¬¹ıÂËµÄ½á¹û
+						//åˆ©ç”¨ç»´è¿‡æ»¤çš„ç»“æœ
 						tempPos = longArrayUnite(tempPos, intervals);
-						intervalSize = 0;//Ö»½øÀ´1´Î
+						intervalSize = 0;//åªè¿›æ¥1æ¬¡
 						if (isRow) {
 							if (tempPos.size() <= ITableIndex.MIN_ICURSOR_REC_COUNT) {
 								break;
@@ -1491,7 +1491,7 @@ abstract public class PhyTable implements IPhyTable {
 			}
 			String indexName = chooseIndex(indexFields);
 			if (indexFields == null || indexName == null) {
-				//filterÖĞ²»°üº¬ÈÎºÎ×Ö¶Î or Ë÷Òı²»´æÔÚ
+				//filterä¸­ä¸åŒ…å«ä»»ä½•å­—æ®µ or ç´¢å¼•ä¸å­˜åœ¨
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
 			}
@@ -1520,18 +1520,18 @@ abstract public class PhyTable implements IPhyTable {
 		FileObject indexFile = null;
 		String[][] fileds = null;
 		
-		//¼ì²éÊÇ·ñ¿ÉÒÔ×öÁ¬ĞøANDÓÅ»¯
+		//æ£€æŸ¥æ˜¯å¦å¯ä»¥åšè¿ç»­ANDä¼˜åŒ–
 		if (filter.getHome() instanceof And) {
 			ArrayList<Object> indexs = new ArrayList<Object>();
 			ArrayList<Long> intervals = new ArrayList<Long>();
 			checkAnds(filter.getHome(), indexs, intervals, files, ctx);
 			int intervalSize = intervals.size();
 			if (intervalSize > 0 && intervalSize / 2 <= ITableIndex.MIN_ICURSOR_BLOCK_COUNT) {
-				//Èç¹ûÎ¬¹ıÂËµÄ½á¹û¿éÊıÒÑ¾­ºÜÉÙÁË
+				//å¦‚æœç»´è¿‡æ»¤çš„ç»“æœå—æ•°å·²ç»å¾ˆå°‘äº†
 				return cursor(fields, filter, ctx);
 			}
 			if (intervalSize == dataBlockCount * 2) {
-				//Èç¹ûÎ¬¹ıÂËµÄ½á¹ûÃ¿¿é¶¼ÃüÖĞÁË,ÔòÃ»ÓĞÒâÒå
+				//å¦‚æœç»´è¿‡æ»¤çš„ç»“æœæ¯å—éƒ½å‘½ä¸­äº†,åˆ™æ²¡æœ‰æ„ä¹‰
 				intervals.clear();
 				intervalSize = 0;
 			}
@@ -1543,10 +1543,10 @@ abstract public class PhyTable implements IPhyTable {
 				Object []indexArray = new Object[size];
 				
 				if (opt != null && opt.indexOf('u') != -1) {
-					//²»ÅÅĞòÓÅÏÈ¼¶
+					//ä¸æ’åºä¼˜å…ˆçº§
 					indexs.toArray(indexArray);
 				} else {
-					//indexÒª°´ÕÕÓÅÏÈ¼¶ÅÅĞò
+					//indexè¦æŒ‰ç…§ä¼˜å…ˆçº§æ’åº
 					int j = 0;
 					i = 0;
 					while (j < size) {
@@ -1621,9 +1621,9 @@ abstract public class PhyTable implements IPhyTable {
 					
 
 					if (intervalSize > 0) {
-						//ÀûÓÃÎ¬¹ıÂËµÄ½á¹û
+						//åˆ©ç”¨ç»´è¿‡æ»¤çš„ç»“æœ
 						tempPos = longArrayUnite(tempPos, intervals);
-						intervalSize = 0;//Ö»½øÀ´1´Î
+						intervalSize = 0;//åªè¿›æ¥1æ¬¡
 						if (isRow) {
 							if (tempPos.size() <= ITableIndex.MIN_ICURSOR_REC_COUNT) {
 								break;
@@ -1694,7 +1694,7 @@ abstract public class PhyTable implements IPhyTable {
 			}
 			
 			if (filterFields == null || indexFile == null) {
-				//filterÖĞ²»°üº¬ÈÎºÎ×Ö¶Î or Ë÷Òı²»´æÔÚ
+				//filterä¸­ä¸åŒ…å«ä»»ä½•å­—æ®µ or ç´¢å¼•ä¸å­˜åœ¨
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
 			}
@@ -1718,10 +1718,10 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * È¡µÃË÷ÒıÊµÀı
-	 * @param indexFile Ë÷ÒıÎÄ¼ş
-	 * @param iname Ë÷ÒıÃû
-	 * @param isRead ÊÇ¶Á²Ù×÷£¬»¹ÊÇĞ´²Ù×÷
+	 * å–å¾—ç´¢å¼•å®ä¾‹
+	 * @param indexFile ç´¢å¼•æ–‡ä»¶
+	 * @param iname ç´¢å¼•å
+	 * @param isRead æ˜¯è¯»æ“ä½œï¼Œè¿˜æ˜¯å†™æ“ä½œ
 	 * @return
 	 */
 	public ITableIndex getTableMetaDataIndex(FileObject indexFile, String iname, boolean isRead) {
@@ -1747,7 +1747,7 @@ abstract public class PhyTable implements IPhyTable {
 					} else {
 						ti = new TableKeyValueIndex(this, indexFile);
 					}
-					//¸ù¾İinameµÃµ½Ë÷Òı×Ö¶Î
+					//æ ¹æ®inameå¾—åˆ°ç´¢å¼•å­—æ®µ
 					String []ifields = null;
 					String []vfields = null;
 					for (int i = 0; i < indexNames.length; i++) {
@@ -1767,15 +1767,15 @@ abstract public class PhyTable implements IPhyTable {
 			
 			return ti;
 		} else {
-			// ĞŞ¸ÄË÷ÒıÎÄ¼şÉ¾³ı»º´æ
+			// ä¿®æ”¹ç´¢å¼•æ–‡ä»¶åˆ é™¤ç¼“å­˜
 			cache.remove(name);
 			return null;
 		}
 	}
 	
 	/**
-	 * È¡µÃË÷ÒıÊµÀı
-	 * @param indexFile Ë÷ÒıÎÄ¼ş
+	 * å–å¾—ç´¢å¼•å®ä¾‹
+	 * @param indexFile ç´¢å¼•æ–‡ä»¶
 	 * @return
 	 */
 	public ITableIndex getTableMetaDataIndex(FileObject indexFile, String []ifields, String []vfields, boolean isRead) {
@@ -1814,14 +1814,14 @@ abstract public class PhyTable implements IPhyTable {
 			
 			return ti;
 		} else {
-			// ĞŞ¸ÄË÷ÒıÎÄ¼şÉ¾³ı»º´æ
+			// ä¿®æ”¹ç´¢å¼•æ–‡ä»¶åˆ é™¤ç¼“å­˜
 			cache.remove(name);
 			return null;
 		}
 	}
 	
 	/**
-	 * ÊÇ·ñ´æÔÚÕâ¸ö×Ó±í
+	 * æ˜¯å¦å­˜åœ¨è¿™ä¸ªå­è¡¨
 	 * @param tableName
 	 * @return
 	 */
@@ -1859,7 +1859,7 @@ abstract public class PhyTable implements IPhyTable {
 
 	public void rename(String[] srcFields, String[] newFields, Context ctx) throws IOException {
 		getGroupTable().checkWritable();
-		//¼ì²éĞÂµÄÃû×ÖÀïÊÇ·ñÓĞÖØ¸´µÄ
+		//æ£€æŸ¥æ–°çš„åå­—é‡Œæ˜¯å¦æœ‰é‡å¤çš„
 		ArrayList<String> list = new ArrayList<String>();
 		for (String str : newFields) {
 			if (str != null) {
@@ -1872,7 +1872,7 @@ abstract public class PhyTable implements IPhyTable {
 			}
 		}
 		
-		//¼ì²éÒªĞŞ¸ÄµÄÃû×ÖÊÇ·ñ´æÔÚ
+		//æ£€æŸ¥è¦ä¿®æ”¹çš„åå­—æ˜¯å¦å­˜åœ¨
 		NEXT:
 		for (String name : srcFields) {
 			for (String col : colNames) {
@@ -1896,7 +1896,7 @@ abstract public class PhyTable implements IPhyTable {
 			}
 		}
 		
-		//ĞÂÃû×Ö²»ÄÜµÈÓÚ×Ö¶ÎÃû¡¢Ë÷ÒıÃû
+		//æ–°åå­—ä¸èƒ½ç­‰äºå­—æ®µåã€ç´¢å¼•å
 		for (String newField : newFields) {
 			for (String name : colNames) {
 				if (newField.equals(name)) {
@@ -1954,7 +1954,7 @@ abstract public class PhyTable implements IPhyTable {
 				String name = indexNames[i];
 				for (int j = 0; j < len; j++) {
 					if (name.equals(srcFields[j])) {
-						//ĞŞ¸ÄË÷ÒıÎÄ¼şÃû
+						//ä¿®æ”¹ç´¢å¼•æ–‡ä»¶å
 						FileObject tmpFile = new FileObject(dir + tableName + "_" + name);
 						tmpFile.move(dir + tableName + "_" + newFields[j], null);
 						indexNames[i] = newFields[j];
@@ -1972,7 +1972,7 @@ abstract public class PhyTable implements IPhyTable {
 		}
 	}
 	
-	// È¡·Ö²¼±í´ïÊ½´®
+	// å–åˆ†å¸ƒè¡¨è¾¾å¼ä¸²
 	public String getDistribute() {
 		return groupTable.getDistribute();
 	}
@@ -1995,7 +1995,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * É¾³ıCuboid
+	 * åˆ é™¤Cuboid
 	 * @param cuboid
 	 * @return
 	 * @throws IOException
@@ -2052,7 +2052,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ¸üĞÂCuboid
+	 * æ›´æ–°Cuboid
 	 */
 	public void updateCuboids() {
 		if (cuboids == null) return;
@@ -2080,11 +2080,11 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ÖØ½¨Cuboid
+	 * é‡å»ºCuboid
 	 * @param ctx
 	 */
 	public void resetCuboid(Context ctx) {
-		//Ô¤·Ö×é²»ÔÙ¸úËæ×é±í¸üĞÂ£¬ÒÔÏÂÉ¾³ı
+		//é¢„åˆ†ç»„ä¸å†è·Ÿéšç»„è¡¨æ›´æ–°ï¼Œä»¥ä¸‹åˆ é™¤
 //		if (cuboids == null) return;
 //		String dir = groupTable.getFile().getAbsolutePath() + "_";
 //		for (String cuboid: cuboids) {
@@ -2102,7 +2102,7 @@ abstract public class PhyTable implements IPhyTable {
 //				newFileObj = new FileObject(newFileObj.createTempFile(file.getName()));
 //				newFile = newFileObj.getLocalFile().file();
 //				
-//				table = new Cuboid(file, groupTable.ctx);//´ò¿ªÕâ¸öcuboid
+//				table = new Cuboid(file, groupTable.ctx);//æ‰“å¼€è¿™ä¸ªcuboid
 //				table.checkPassword("cuboid");
 //				newTable = new Cuboid(newFile, 0, table);
 //				newTable.checkPassword("cuboid");
@@ -2126,7 +2126,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ºÏ²¢ÓÎ±ê£¬ÓĞĞòÊ±Òª¹é²¢
+	 * åˆå¹¶æ¸¸æ ‡ï¼Œæœ‰åºæ—¶è¦å½’å¹¶
 	 * @param cs
 	 * @param cs2
 	 * @return
@@ -2148,7 +2148,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * Í¬²½·Ö¶ÎµÄÁ½¸ö¶àÂ·ÓÎ±êºÏ³ÉÒ»¸ö¶àÂ·ÓÎ±ê
+	 * åŒæ­¥åˆ†æ®µçš„ä¸¤ä¸ªå¤šè·¯æ¸¸æ ‡åˆæˆä¸€ä¸ªå¤šè·¯æ¸¸æ ‡
 	 * @param cs1
 	 * @param cs2
 	 * @param sortFields
@@ -2215,9 +2215,9 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * »ñÈ¡mcsµÄ·Ö¶Î×Ö¶Î
+	 * è·å–mcsçš„åˆ†æ®µå­—æ®µ
 	 * @param mcs
-	 * @param hashK trueÈ¡key×Ö¶Î£¬falseÈ¡ÓĞĞò1×Ö¶Î
+	 * @param hashK trueå–keyå­—æ®µï¼Œfalseå–æœ‰åº1å­—æ®µ
 	 * @return
 	 */
 	public static String[] getSegmentFields(MultipathCursors mcs, boolean hasK) {
@@ -2241,7 +2241,7 @@ abstract public class PhyTable implements IPhyTable {
 		
 		String []dimFields;
 		if (hasK) {
-			//ÓĞkÊ±·µ»ØmcsµÄµÚÒ»¸öÎ¬×Ö¶Î
+			//æœ‰kæ—¶è¿”å›mcsçš„ç¬¬ä¸€ä¸ªç»´å­—æ®µ
 			dimFields = dwCursor.getSortFields();//dwCursor.getTableMetaData().getAllSortedColNames();
 			if (dimFields == null) {
 				MessageManager mm = EngineMessage.get();
@@ -2291,7 +2291,7 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	/**
-	 * ¸´ÖÆsrc±íµÄË÷ÒıµÄ½á¹¹
+	 * å¤åˆ¶srcè¡¨çš„ç´¢å¼•çš„ç»“æ„
 	 * @param src
 	 */
 	public void dupIndexAdnCuboid(PhyTable src) {
@@ -2345,7 +2345,7 @@ abstract public class PhyTable implements IPhyTable {
 	
 	public int getDeleteFieldIndex(Expression []exps, String []fields) {
 		if (getGroupTable().hasDeleteKey()) {
-			//É¾³ı¼üÔÚÖ÷¼üºóÃæ
+			//åˆ é™¤é”®åœ¨ä¸»é”®åé¢
 			String[] colNames = (parent == null) ? this.colNames : this.allColNames;
 			String[] keyNames = getAllKeyColNames();
 			if (keyNames == null) return -1;
@@ -2355,9 +2355,9 @@ abstract public class PhyTable implements IPhyTable {
 			String deleteKey = colNames[keyCount];
 			
 			if (exps == null) {
-				//´ËÊ±ÒÔfieldsÎª×¼
+				//æ­¤æ—¶ä»¥fieldsä¸ºå‡†
 				if (fields == null) {
-					//È«È¡³öÇé¿ö
+					//å…¨å–å‡ºæƒ…å†µ
 					return keyCount;
 				}
 				for (int i = 0, len = fields.length; i < len; i++) {

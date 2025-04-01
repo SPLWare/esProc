@@ -30,65 +30,65 @@ import com.scudata.util.EnvUtil;
 import com.scudata.util.Variant;
 
 /**
- * ÅÅĞòË÷Òı
+ * æ’åºç´¢å¼•
  * @author runqian
  *
  */
 public class PhyTableIndex implements ITableIndex {
 	private static final int NULL = -1;
-	private static final int EQ = 0; // µÈÓÚ
-	private static final int GE = 1; // ´óÓÚµÈÓÚ
-	private static final int GT = 2; // ´óÓÚ
-	private static final int LE = 3; // Ğ¡ÓÚµÈÓÚ
-	private static final int LT = 4; // Ğ¡ÓÚ
+	private static final int EQ = 0; // ç­‰äº
+	private static final int GE = 1; // å¤§äºç­‰äº
+	private static final int GT = 2; // å¤§äº
+	private static final int LE = 3; // å°äºç­‰äº
+	private static final int LT = 4; // å°äº
 	private static final int LIKE = 5;
 	
 	protected static final int BUFFER_SIZE = 1024;
 	protected static final int BLOCK_START = -1;
 	protected static final int BLOCK_END = -2;
 	
-	public static final int MAX_LEAF_BLOCK_COUNT = 1000;//Ò¶×Ó½áµãµÄ×î´ó¼ÇÂ¼Êı
-	public static final int MAX_INTER_BLOCK_COUNT = 1000;//ÖĞ¼ä½áµãµÄ×î´ó¼ÇÂ¼Êı
+	public static final int MAX_LEAF_BLOCK_COUNT = 1000;//å¶å­ç»“ç‚¹çš„æœ€å¤§è®°å½•æ•°
+	public static final int MAX_INTER_BLOCK_COUNT = 1000;//ä¸­é—´ç»“ç‚¹çš„æœ€å¤§è®°å½•æ•°
 	public static final int MAX_ROOT_BLOCK_COUNT = 1000;//
 	public static final int MAX_SEC_RECORD_COUNT = 100000;//max count of index2
 	
-	public static final int FETCH_SIZE = 20;//Ò»´ÎÈ¡20¿é³öÀ´
+	public static final int FETCH_SIZE = 20;//ä¸€æ¬¡å–20å—å‡ºæ¥
 	
-	protected long recordCount = 0; // Ô´¼ÇÂ¼Êı
-	protected long index1RecordCount = 0; // Ë÷Òı1¼ÇÂ¼Êı
-	protected long index1EndPos = 0; // Ë÷Òı1½¨Á¢Ê±Ô´ÎÄ¼ş¼ÇÂ¼½áÊøÎ»ÖÃ
-	protected String []ifields; // Ë÷Òı×Ö¶ÎÃû×Ö
+	protected long recordCount = 0; // æºè®°å½•æ•°
+	protected long index1RecordCount = 0; // ç´¢å¼•1è®°å½•æ•°
+	protected long index1EndPos = 0; // ç´¢å¼•1å»ºç«‹æ—¶æºæ–‡ä»¶è®°å½•ç»“æŸä½ç½®
+	protected String []ifields; // ç´¢å¼•å­—æ®µåå­—
 	
 	protected String name;
 	protected PhyTable srcTable;
 	protected FileObject indexFile;
 	
-	// ²éÕÒÊ±Ê¹ÓÃ
-	protected Object []rootBlockMaxVals; // Ã¿Ò»¿éµÄ×î´óÖµ
-	protected long []rootBlockPos; // Ã¿Ò»¿éµÄÎ»ÖÃ	
+	// æŸ¥æ‰¾æ—¶ä½¿ç”¨
+	protected Object []rootBlockMaxVals; // æ¯ä¸€å—çš„æœ€å¤§å€¼
+	protected long []rootBlockPos; // æ¯ä¸€å—çš„ä½ç½®	
 	protected long internalBlockCount = 0;
-	protected Object [][]internalAllBlockMaxVals; // ÖĞ¼ä½ÚµãËùÓĞ¿éµÄ×î´óÖµ
-	protected long [][]internalAllBlockPos; // ÖĞ¼ä½ÚµãËùÓĞ¿éµÄÎ»ÖÃµÄ»º´æ
+	protected Object [][]internalAllBlockMaxVals; // ä¸­é—´èŠ‚ç‚¹æ‰€æœ‰å—çš„æœ€å¤§å€¼
+	protected long [][]internalAllBlockPos; // ä¸­é—´èŠ‚ç‚¹æ‰€æœ‰å—çš„ä½ç½®çš„ç¼“å­˜
 
-	protected Object []rootBlockMaxVals2; // Ã¿Ò»¿éµÄ×î´óÖµ
-	protected long []rootBlockPos2; // Ã¿Ò»¿éµÄÎ»ÖÃ	
+	protected Object []rootBlockMaxVals2; // æ¯ä¸€å—çš„æœ€å¤§å€¼
+	protected long []rootBlockPos2; // æ¯ä¸€å—çš„ä½ç½®	
 	protected long internalBlockCount2 = 0;
-	protected Object [][]internalAllBlockMaxVals2; // ÖĞ¼ä½ÚµãËùÓĞ¿éµÄ×î´óÖµ
-	protected long [][]internalAllBlockPos2; // ÖĞ¼ä½ÚµãËùÓĞ¿éµÄÎ»ÖÃ
+	protected Object [][]internalAllBlockMaxVals2; // ä¸­é—´èŠ‚ç‚¹æ‰€æœ‰å—çš„æœ€å¤§å€¼
+	protected long [][]internalAllBlockPos2; // ä¸­é—´èŠ‚ç‚¹æ‰€æœ‰å—çš„ä½ç½®
 	
 	protected long rootItPos = 0;//1st root node pos
 	protected long rootItPos2 = 0;// sec root node pos
 	protected long indexPos = 0;//sec index pos
 	protected long indexPos2 = 0;//sec index pos
 	
-	//µÚÈı²ã»º´æºó£¬²»ÄÜÔÙÓÃinternalAllBlockPos£¬ÒªÓÃÕâ¸ö
+	//ç¬¬ä¸‰å±‚ç¼“å­˜åï¼Œä¸èƒ½å†ç”¨internalAllBlockPosï¼Œè¦ç”¨è¿™ä¸ª
 	protected transient byte [][][]cachedBlockReader;
 	protected transient byte [][][]cachedBlockReader2;
-	protected transient boolean isPrimaryKey;//ÊÇ·ñ¶ÔÖ÷¼ü½¨Á¢µÄË÷Òı
+	protected transient boolean isPrimaryKey;//æ˜¯å¦å¯¹ä¸»é”®å»ºç«‹çš„ç´¢å¼•
 	protected transient int maxRecordLen;
 	protected Expression filter;
 	
-	protected int positionCount;//Ã¿Ò»ÌõË÷Òı¼ÇÂ¼µÄµØÖ·¸öÊı£¬ÁĞ´æÊÇ0£¬ĞĞ´æ»ù±íÊÇ1£¬ĞĞ´æ¸½±íÊÇ2
+	protected int positionCount;//æ¯ä¸€æ¡ç´¢å¼•è®°å½•çš„åœ°å€ä¸ªæ•°ï¼Œåˆ—å­˜æ˜¯0ï¼Œè¡Œå­˜åŸºè¡¨æ˜¯1ï¼Œè¡Œå­˜é™„è¡¨æ˜¯2
 
 	private class FieldFilter {
 		private Object startVal;
@@ -103,7 +103,7 @@ public class PhyTableIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ÓÃÓÚ½¨Á¢Ë÷ÒıÊ±È¡ÊıºÍÎ±ºÅ£¬²»°üº¬²¹Çø
+	 * ç”¨äºå»ºç«‹ç´¢å¼•æ—¶å–æ•°å’Œä¼ªå·ï¼Œä¸åŒ…å«è¡¥åŒº
 	 * @author runqian
 	 *
 	 */
@@ -124,7 +124,7 @@ public class PhyTableIndex implements ITableIndex {
 		private Sequence cache;
 		private boolean isClosed = false;
 		
-		private long curNum = 0;//È«¾Ö¼ÇÂ¼ºÅ
+		private long curNum = 0;//å…¨å±€è®°å½•å·
 		
 		public CTableCursor(PhyTable table, String []fields, Context ctx, Expression filter) {
 			this.table = (ColPhyTable) table;
@@ -142,7 +142,7 @@ public class PhyTableIndex implements ITableIndex {
 				fields = table.getColNames();
 			}
 			
-			//ÓĞÌõ¼ş±í´ïÊ½Ê±ÒªÈ¡³öËùÓĞ
+			//æœ‰æ¡ä»¶è¡¨è¾¾å¼æ—¶è¦å–å‡ºæ‰€æœ‰
 			if (filter != null) {
 				columns = table.getColumns();
 			} else {
@@ -456,9 +456,9 @@ public class PhyTableIndex implements ITableIndex {
 		private int curBlock = 0;
 		private Sequence cache;
 		private boolean isClosed = false;
-		private boolean isPrimaryTable; // ÊÇ·ñÖ÷±í
+		private boolean isPrimaryTable; // æ˜¯å¦ä¸»è¡¨
 		
-		private RTableCursor parentCursor;//Ö÷±íÓÎ±ê
+		private RTableCursor parentCursor;//ä¸»è¡¨æ¸¸æ ‡
 		private Record curPkey;
 		private long pseq;
 		
@@ -474,7 +474,7 @@ public class PhyTableIndex implements ITableIndex {
 			
 			init();
 		}
-		//filterÀïµÄ×Ö¶ÎÒª¶Á³öÀ´
+		//filteré‡Œçš„å­—æ®µè¦è¯»å‡ºæ¥
 		private void parseFilter(Node node) {
 			if (node == null) return;
 			if (node instanceof UnknownSymbol) {
@@ -545,7 +545,7 @@ public class PhyTableIndex implements ITableIndex {
 			 while (pseq != this.pseq) {
 				Sequence pkeyData = parentCursor.fetch(1);
 				if (pkeyData == null) {
-					//Ö÷±íÈ¡µ½×îºóÁË£¬¸½±íÀï²»Ó¦¸Ã»¹ÓĞÊı¾İ£¬Å×Òì³£
+					//ä¸»è¡¨å–åˆ°æœ€åäº†ï¼Œé™„è¡¨é‡Œä¸åº”è¯¥è¿˜æœ‰æ•°æ®ï¼ŒæŠ›å¼‚å¸¸
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("index " + mm.getMessage("grouptable.invalidData"));
 				}
@@ -601,8 +601,8 @@ public class PhyTableIndex implements ITableIndex {
 			
 			ObjectReader rowDataReader = this.rowDataReader;
 			long pos;
-			long seq;//Î±ºÅ
-			long pseq = 0;//µ¼ÁĞÎ±ºÅ
+			long seq;//ä¼ªå·
+			long pseq = 0;//å¯¼åˆ—ä¼ªå·
 			boolean isPrimaryTable = this.isPrimaryTable;
 			int startIndex;
 			if (isPrimaryTable) {
@@ -639,7 +639,7 @@ public class PhyTableIndex implements ITableIndex {
 							pos = calcPosition(rowReader, rowDataReader);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//µ¼ÁĞ
+								pseq = rowDataReader.readLong();//å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f]) 
@@ -679,7 +679,7 @@ public class PhyTableIndex implements ITableIndex {
 								pos = calcPosition(rowReader, rowDataReader);
 								seq = rowDataReader.readLong();
 								if (!isPrimaryTable) {
-									pseq = rowDataReader.readLong();//Ìø¹ıµ¼ÁĞ
+									pseq = rowDataReader.readLong();//è·³è¿‡å¯¼åˆ—
 								}
 								for (int f = startIndex; f < allCount; ++f) {
 									if (needRead[f]) 
@@ -734,7 +734,7 @@ public class PhyTableIndex implements ITableIndex {
 							pos = calcPosition(rowReader, rowDataReader);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//µ¼ÁĞ
+								pseq = rowDataReader.readLong();//å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f]) 
@@ -764,7 +764,7 @@ public class PhyTableIndex implements ITableIndex {
 							pos = calcPosition(rowReader, rowDataReader);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//Ìø¹ıµ¼ÁĞ
+								pseq = rowDataReader.readLong();//è·³è¿‡å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f]) 
@@ -792,7 +792,7 @@ public class PhyTableIndex implements ITableIndex {
 							pos = calcPosition(rowReader, rowDataReader);
 							seq = rowDataReader.readLong();
 							if (!isPrimaryTable) {
-								pseq = rowDataReader.readLong();//µ¼ÁĞ
+								pseq = rowDataReader.readLong();//å¯¼åˆ—
 							}
 							for (int f = startIndex; f < allCount; ++f) {
 								if (needRead[f]) 
@@ -865,7 +865,7 @@ public class PhyTableIndex implements ITableIndex {
 					for (int i = 0; i < recordCount; ++i) {
 						rowDataReader.readLong();
 						if (!isPrimaryTable) {
-							rowDataReader.readLong();//µ¼ÁĞ
+							rowDataReader.readLong();//å¯¼åˆ—
 						}
 						for (int f = 0; f < allCount; ++f) {
 							rowDataReader.readObject();
@@ -958,10 +958,10 @@ public class PhyTableIndex implements ITableIndex {
 		writer.writeLong64(recordCount);
 		writer.writeLong64(index1EndPos);
 		writer.writeLong64(index1RecordCount);
-		writer.writeLong64(rootItPos);// Ö¸Ïòroot1 info ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(rootItPos2);// Ö¸Ïòroot2 info ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(indexPos);// 1st index ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(indexPos2);// second index ¿ªÊ¼Î»ÖÃ
+		writer.writeLong64(rootItPos);// æŒ‡å‘root1 info å¼€å§‹ä½ç½®
+		writer.writeLong64(rootItPos2);// æŒ‡å‘root2 info å¼€å§‹ä½ç½®
+		writer.writeLong64(indexPos);// 1st index å¼€å§‹ä½ç½®
+		writer.writeLong64(indexPos2);// second index å¼€å§‹ä½ç½®
 		
 		writer.writeStrings(ifields);
 		if (filter != null) {
@@ -977,10 +977,10 @@ public class PhyTableIndex implements ITableIndex {
 		writer.writeLong64(recordCount);
 		writer.writeLong64(index1EndPos);
 		writer.writeLong64(index1RecordCount);
-		writer.writeLong64(rootItPos);// Ö¸Ïòroot1 info ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(rootItPos2);// Ö¸Ïòroot2 info ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(indexPos);// 1st index ¿ªÊ¼Î»ÖÃ
-		writer.writeLong64(indexPos2);// second index ¿ªÊ¼Î»ÖÃ
+		writer.writeLong64(rootItPos);// æŒ‡å‘root1 info å¼€å§‹ä½ç½®
+		writer.writeLong64(rootItPos2);// æŒ‡å‘root2 info å¼€å§‹ä½ç½®
+		writer.writeLong64(indexPos);// 1st index å¼€å§‹ä½ç½®
+		writer.writeLong64(indexPos2);// second index å¼€å§‹ä½ç½®
 	}
 	
 	protected void readHeader(ObjectReader reader) throws IOException {
@@ -1013,9 +1013,9 @@ public class PhyTableIndex implements ITableIndex {
 	}
 
 	/**
-	 * ½¨Á¢Ë÷Òı
-	 * ÎÄ¼ş½á¹¹£º¡®rqit¡¯ + 8byte + Ô´ÎÄ¼ş¼ÇÂ¼Êı + Ô´ÎÄ¼ş½áÊøÎ»ÖÃ + [Ë÷Òı×Ö¶Î] + Ô´ÎÄ¼şÃû + 
-	 * BLOCK_START +[n + value + pos1,...,posn],... BLOCK_END + Ë÷Òı±í + Ë÷Òı±íÎ»ÖÃ
+	 * å»ºç«‹ç´¢å¼•
+	 * æ–‡ä»¶ç»“æ„ï¼šâ€˜rqitâ€™ + 8byte + æºæ–‡ä»¶è®°å½•æ•° + æºæ–‡ä»¶ç»“æŸä½ç½® + [ç´¢å¼•å­—æ®µ] + æºæ–‡ä»¶å + 
+	 * BLOCK_START +[n + value + pos1,...,posn],... BLOCK_END + ç´¢å¼•è¡¨ + ç´¢å¼•è¡¨ä½ç½®
 	 * @param fields
 	 * @param opt
 	 * @param ctx
@@ -1023,9 +1023,9 @@ public class PhyTableIndex implements ITableIndex {
 	 */
 	public void create(String []fields, String opt, Context ctx, Expression filter) {
 		int icount = fields.length;
-		boolean isAppend = false;//×·¼Ó»¹ÊÇĞÂ½¨
-		boolean isAdd = true;//ÊÇ·ñĞèÒªÌí¼ÓË÷Òıµ½table
-		boolean isReset = false;//ÖØ½¨
+		boolean isAppend = false;//è¿½åŠ è¿˜æ˜¯æ–°å»º
+		boolean isAdd = true;//æ˜¯å¦éœ€è¦æ·»åŠ ç´¢å¼•åˆ°table
+		boolean isReset = false;//é‡å»º
 		
 		if (indexFile.size() > 0) {
 			if ((opt == null) ||(opt != null && opt.indexOf('a') == -1)) {
@@ -1044,7 +1044,7 @@ public class PhyTableIndex implements ITableIndex {
 				readHeader(reader);
 				filter = this.filter;
 				if (recordCount == 0) {
-					isReset = true;//Èç¹ûÊÇ¿ÕµÄ£¬Ôò²»ÄÜ×öappend
+					isReset = true;//å¦‚æœæ˜¯ç©ºçš„ï¼Œåˆ™ä¸èƒ½åšappend
 				}
 				if (recordCount - index1RecordCount > MAX_SEC_RECORD_COUNT || isReset) {
 					isAppend = false;
@@ -1084,7 +1084,7 @@ public class PhyTableIndex implements ITableIndex {
 					ICursor cursor = new MergesCursor(cursors, exps, ctx);
 					createIndexTable(cursor, indexFile, true);
 				}
-				srcTable.getTableMetaDataIndex(indexFile, null, false);//×·¼ÓºóÒªÇå³ıcache
+				srcTable.getTableMetaDataIndex(indexFile, null, false);//è¿½åŠ åè¦æ¸…é™¤cache
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
 			} finally {
@@ -1134,7 +1134,7 @@ public class PhyTableIndex implements ITableIndex {
 				createIndexTable(cursor, tmpFile, false);
 			}
 			
-			srcTable.getTableMetaDataIndex(indexFile, null, false);//×·¼ÓºóÒªÇå³ıcache
+			srcTable.getTableMetaDataIndex(indexFile, null, false);//è¿½åŠ åè¦æ¸…é™¤cache
 			if (needDelete) {
 				indexFile.delete();
 				tmpFile.move(indexFile.getFileName(), null);
@@ -1154,7 +1154,7 @@ public class PhyTableIndex implements ITableIndex {
 	}
 
 	/**
-	 * »ñµÃmemsÀïÁ¬ĞøÏàÍ¬¶ÔÏóµÄ¸öÊı
+	 * è·å¾—memsé‡Œè¿ç»­ç›¸åŒå¯¹è±¡çš„ä¸ªæ•°
 	 * @param mems
 	 * @param from
 	 * @param fcount
@@ -1188,10 +1188,10 @@ public class PhyTableIndex implements ITableIndex {
 		long perCount = MAX_LEAF_BLOCK_COUNT;
 
 		ArrayList<Record> maxValues = new ArrayList<Record>();
-		Record []rootMaxValues;// rootË÷Òı¿éµÄ×î´óÖµ
-		long []positions; // internalË÷Òı¿éÔÚÎÄ¼şÖĞµÄÆğÊ¼Î»ÖÃ
-		long []rootPositions; // rootË÷Òı¿éÔÚÎÄ¼şÖĞµÄÆğÊ¼Î»ÖÃ
-		int blockCount = 0; // Ë÷Òı¿éÊı
+		Record []rootMaxValues;// rootç´¢å¼•å—çš„æœ€å¤§å€¼
+		long []positions; // internalç´¢å¼•å—åœ¨æ–‡ä»¶ä¸­çš„èµ·å§‹ä½ç½®
+		long []rootPositions; // rootç´¢å¼•å—åœ¨æ–‡ä»¶ä¸­çš„èµ·å§‹ä½ç½®
+		int blockCount = 0; // ç´¢å¼•å—æ•°
 		long itPos;
 		int recCount = 0;
 		
@@ -1203,7 +1203,7 @@ public class PhyTableIndex implements ITableIndex {
 			ifs[i] = new Expression("#" + (i + 1));
 		}
 		
-		//¼ì²éÊÇ·ñÊÇ¶ÔÖ÷¼ü½¨Á¢Ë÷Òı
+		//æ£€æŸ¥æ˜¯å¦æ˜¯å¯¹ä¸»é”®å»ºç«‹ç´¢å¼•
 		boolean isPrimaryKey = false;
 		String[] keyNames = srcTable.getAllSortedColNames();
 		if (srcTable.hasPrimaryKey && keyNames != null && ifields.length == keyNames.length) {
@@ -1239,7 +1239,7 @@ public class PhyTableIndex implements ITableIndex {
 				}
 				
 				while (table != null) {
-					//Ã¿´ÎĞ´20¿é
+					//æ¯æ¬¡å†™20å—
 					IArray mems = table.getMems();
 					int rest = mems.size();
 					recCount += rest;
@@ -1255,7 +1255,7 @@ public class PhyTableIndex implements ITableIndex {
 							for (int f = 0; f <= icount; ++f) {
 								writer.writeObject(r.getNormalFieldValue(f));
 							}
-							//ĞĞ´æÊ±£¬Òª°ÑµØÖ·Ò²¶¼Ğ´ÏÂÀ´
+							//è¡Œå­˜æ—¶ï¼Œè¦æŠŠåœ°å€ä¹Ÿéƒ½å†™ä¸‹æ¥
 							for (int i = 1; i <= posCount; ++i) {
 								writer.writeObject(r.getNormalFieldValue(icount + i));
 							}
@@ -1299,7 +1299,7 @@ public class PhyTableIndex implements ITableIndex {
 						for (int i = 0; i < len; ++i) {
 							r = (Record)mems.get(i + p);
 							writer.writeObject(r.getNormalFieldValue(icount));
-							//ĞĞ´æÊ±£¬Òª°ÑµØÖ·Ò²¶¼Ğ´ÏÂÀ´
+							//è¡Œå­˜æ—¶ï¼Œè¦æŠŠåœ°å€ä¹Ÿéƒ½å†™ä¸‹æ¥
 							for (int j = 1; j <= posCount; ++j) {
 								writer.writeObject(r.getNormalFieldValue(icount + j));
 							}
@@ -1332,9 +1332,9 @@ public class PhyTableIndex implements ITableIndex {
 			} catch (IOException ie){};
 		}
 
-		//¸ù¾İrecCount´¦ÀíÌõÊı
+		//æ ¹æ®recCountå¤„ç†æ¡æ•°
 		this.recordCount = recCount + index1RecordCount;
-		long srcRecordCount = recordCount;//Ôİ´æÒ»ÏÂ£¬ÒòÎª¶ÁÎÄ¼şÍ·Ê±»á±»ÖØĞÂ¸³Öµ
+		long srcRecordCount = recordCount;//æš‚å­˜ä¸€ä¸‹ï¼Œå› ä¸ºè¯»æ–‡ä»¶å¤´æ—¶ä¼šè¢«é‡æ–°èµ‹å€¼
 		positions = new long[blockCount];
 		InputStream is = indexFile.getInputStream();
 		ObjectReader reader = new ObjectReader(is, BUFFER_SIZE);
@@ -1359,7 +1359,7 @@ public class PhyTableIndex implements ITableIndex {
 					
 					for (int j = 0; j < count; ++j) {
 						reader.readLong();
-						//ĞĞ´æÊ±£¬Òª°ÑµØÖ·Ò²¶¼Ìø¹ı
+						//è¡Œå­˜æ—¶ï¼Œè¦æŠŠåœ°å€ä¹Ÿéƒ½è·³è¿‡
 						for (int c = 0; c < posCount; ++c) {
 							reader.readLong();
 						}
@@ -1367,7 +1367,7 @@ public class PhyTableIndex implements ITableIndex {
 				}
 			}
 			
-			itPos = reader.position();//interBlock¿ªÊ¼Î»ÖÃ
+			itPos = reader.position();//interBlockå¼€å§‹ä½ç½®
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {
@@ -1403,7 +1403,7 @@ public class PhyTableIndex implements ITableIndex {
 			} catch (IOException ie){};
 		}
 		
-		//»ñµÃrootMaxValues 
+		//è·å¾—rootMaxValues 
 		int rootBlockCount = (blockCount/MAX_INTER_BLOCK_COUNT);
 		rootBlockCount += (blockCount % MAX_INTER_BLOCK_COUNT==0) ? 0 : 1;
 		rootMaxValues = new Record[rootBlockCount];
@@ -1412,12 +1412,12 @@ public class PhyTableIndex implements ITableIndex {
 		}
 		rootMaxValues[rootBlockCount - 1] = maxValues.get(blockCount - 1);
 		
-		//»ñµÃ rootPositions
+		//è·å¾— rootPositions
 		rootPositions = new long[rootBlockCount];
 		is = indexFile.getInputStream();
 		reader = new ObjectReader(is, BUFFER_SIZE);
 		try {
-			reader.seek(itPos);//¶¨Î»µ½internalBlock start
+			reader.seek(itPos);//å®šä½åˆ°internalBlock start
 			for (int i = 0; i < blockCount; ++i) {
 				if (i % MAX_INTER_BLOCK_COUNT == 0){
 					rootPositions[i/MAX_INTER_BLOCK_COUNT] = reader.position();
@@ -1447,11 +1447,11 @@ public class PhyTableIndex implements ITableIndex {
 			rootItPos = itPos;
 			rootItPos2 = 0;
 			recordCount = srcRecordCount;
-			index1RecordCount = srcRecordCount;//1ÇøÀïµÄ¼ÇÂ¼ÌõÊı£¬¹ıÂËºóµÄ
-			index1EndPos = srcTable.getTotalRecordCount();//½¨Á¢1ÇøÊ±Ô´±íÀïµÄÌõÊı£¬²»ÊÇ±»Ìõ¼ş¹ıÂËºóµÄ£¬Ò²²»°üº¬²¹Çø
+			index1RecordCount = srcRecordCount;//1åŒºé‡Œçš„è®°å½•æ¡æ•°ï¼Œè¿‡æ»¤åçš„
+			index1EndPos = srcTable.getTotalRecordCount();//å»ºç«‹1åŒºæ—¶æºè¡¨é‡Œçš„æ¡æ•°ï¼Œä¸æ˜¯è¢«æ¡ä»¶è¿‡æ»¤åçš„ï¼Œä¹Ÿä¸åŒ…å«è¡¥åŒº
 		}
 
-		//Ğ´rootMaxValues rootPositions
+		//å†™rootMaxValues rootPositions
 		os = indexFile.getRandomOutputStream(true);
 		writer = new RandomObjectWriter(os);
 		try {
@@ -1465,7 +1465,7 @@ public class PhyTableIndex implements ITableIndex {
 				writer.writeLong(rootPositions[i]);
 			}
 			
-			writer.writeLong64(blockCount);//internal¿éµÄ×Ü¸öÊı
+			writer.writeLong64(blockCount);//internalå—çš„æ€»ä¸ªæ•°
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {
@@ -1523,7 +1523,7 @@ public class PhyTableIndex implements ITableIndex {
 				
 				ifields[i] = fields[i];
 			}
-			//¼ì²éÊÇ·ñÊÇ¶ÔÖ÷¼ü½¨Á¢Ë÷Òı
+			//æ£€æŸ¥æ˜¯å¦æ˜¯å¯¹ä¸»é”®å»ºç«‹ç´¢å¼•
 			keyNames = srcTable.getAllSortedColNames();
 			if (srcTable.isSorted && keyNames != null && keyNames.length >= fields.length) {
 				boolean isKeyField = true;
@@ -1545,8 +1545,8 @@ public class PhyTableIndex implements ITableIndex {
 			}
 			
 			//Runtime rt = Runtime.getRuntime();
-			int baseCount = 100000;//Ã¿´ÎÈ¡³öÀ´µÄÌõÊı
-			boolean flag = false;//ÊÇ·ñµ÷Õû¹ıÁÙÊ±ÎÄ¼ş´óĞ¡
+			int baseCount = 100000;//æ¯æ¬¡å–å‡ºæ¥çš„æ¡æ•°
+			boolean flag = false;//æ˜¯å¦è°ƒæ•´è¿‡ä¸´æ—¶æ–‡ä»¶å¤§å°
 			
 			ArrayList <ICursor>cursorList = new ArrayList<ICursor>();
 			Table table;
@@ -1643,7 +1643,7 @@ public class PhyTableIndex implements ITableIndex {
 				ifields[i] = fields[i];
 			}
 			
-			//¼ì²éÊÇ·ñÊÇ¶ÔÖ÷¼ü½¨Á¢Ë÷Òı
+			//æ£€æŸ¥æ˜¯å¦æ˜¯å¯¹ä¸»é”®å»ºç«‹ç´¢å¼•
 			keyNames = srcTable.getSortedColNames();
 			if (srcTable.isSorted && keyNames != null && keyNames.length >= fields.length) {
 				boolean isKeyField = true;
@@ -1665,8 +1665,8 @@ public class PhyTableIndex implements ITableIndex {
 			}
 
 			//Runtime rt = Runtime.getRuntime();
-			int baseCount = 100000;//Ã¿´ÎÈ¡³öÀ´µÄÌõÊı
-			boolean flag = false;//ÊÇ·ñµ÷Õû¹ıÁÙÊ±ÎÄ¼ş´óĞ¡
+			int baseCount = 100000;//æ¯æ¬¡å–å‡ºæ¥çš„æ¡æ•°
+			boolean flag = false;//æ˜¯å¦è°ƒæ•´è¿‡ä¸´æ—¶æ–‡ä»¶å¤§å°
 			
 			ArrayList <ICursor>cursorList = new ArrayList<ICursor>();
 			Table table;
@@ -1760,8 +1760,8 @@ public class PhyTableIndex implements ITableIndex {
 			} else if (cmp > 0) {
 				high = mid - 1;
 			} else {
-				// Ö»¶Ô²¿·ÖË÷Òı×Ö¶ÎÌáÌõ¼şÊ±¿ÉÄÜÓĞÖØ¸´µÄ
-				if (isStart) { // ÕÒÆğÊ¼Î»ÖÃ
+				// åªå¯¹éƒ¨åˆ†ç´¢å¼•å­—æ®µææ¡ä»¶æ—¶å¯èƒ½æœ‰é‡å¤çš„
+				if (isStart) { // æ‰¾èµ·å§‹ä½ç½®
 					for (int i = mid - 1; i >= 0; --i) {
 						if (Variant.compareArrays(objs[i], keys, keyCount) == 0) {
 							mid = i;
@@ -1769,7 +1769,7 @@ public class PhyTableIndex implements ITableIndex {
 							break;
 						}
 					}
-				} else { // ÕÒ½áÊøÎ»ÖÃ
+				} else { // æ‰¾ç»“æŸä½ç½®
 					for (int i = mid + 1; i <= high; ++i) {
 						if (Variant.compareArrays(objs[i], keys, keyCount) == 0) {
 							mid = i;
@@ -1792,12 +1792,12 @@ public class PhyTableIndex implements ITableIndex {
 		}
 	}
 
-	//¸ù¾İÖµ²éÕÒ¿éºÅºÍÎ»ÖÃ£¬Á½¸öË÷ÒıÇø¶¼²éÕÒ
-	//key[] Òª²éÕÒµÄÖµ
-	//icount ×Ö¶Î¸öÊı
-	//isStart ÊÇ·ñÊÇÕÒ¿ªÊ¼
-	//pos[] Êä³öÕÒµ½µÄÎ»ÖÃ
-	//index[] Êä³öÕÒµ½µÄ¿éºÅ
+	//æ ¹æ®å€¼æŸ¥æ‰¾å—å·å’Œä½ç½®ï¼Œä¸¤ä¸ªç´¢å¼•åŒºéƒ½æŸ¥æ‰¾
+	//key[] è¦æŸ¥æ‰¾çš„å€¼
+	//icount å­—æ®µä¸ªæ•°
+	//isStart æ˜¯å¦æ˜¯æ‰¾å¼€å§‹
+	//pos[] è¾“å‡ºæ‰¾åˆ°çš„ä½ç½®
+	//index[] è¾“å‡ºæ‰¾åˆ°çš„å—å·
 	private void searchValue(Object[] key, int icount, boolean isStart, long[] pos, int[] index) {
 		//int rootBlockCount = rootBlockMaxVals.length;
 		int i = 0;
@@ -1899,7 +1899,7 @@ public class PhyTableIndex implements ITableIndex {
 			int icount = ifields.length;
 			if (rootBlockMaxVals == null) {
 				reader.seek(rootItPos);
-				rootBlockCount1 = reader.readInt(); // Ë÷Òı¿éÊı
+				rootBlockCount1 = reader.readInt(); // ç´¢å¼•å—æ•°
 				Object []maxValues;
 				long []positions = new long[rootBlockCount1];
 				
@@ -1928,7 +1928,7 @@ public class PhyTableIndex implements ITableIndex {
 			
 			if (rootItPos2 != 0 && rootBlockMaxVals2 == null) {
 				reader.seek(rootItPos2);
-				rootBlockCount2 = reader.readInt(); // Ë÷Òı¿éÊı
+				rootBlockCount2 = reader.readInt(); // ç´¢å¼•å—æ•°
 				Object []maxValues;
 				long []positions = new long[rootBlockCount2];
 				
@@ -1965,10 +1965,10 @@ public class PhyTableIndex implements ITableIndex {
 	}
 
 	/**
-	 * ¶ÁÈ¡Ò»¸öÖĞ¼ä¿éĞÅÏ¢
+	 * è¯»å–ä¸€ä¸ªä¸­é—´å—ä¿¡æ¯
 	 * @param fo
 	 * @param pos
-	 * @param blockInfo	Êä³ö
+	 * @param blockInfo	è¾“å‡º
 	 */
 	private void readInternalBlockInfo(FileObject fo, long pos, BlockInfo blockInfo) {
 		int interBlockCount;
@@ -1988,7 +1988,7 @@ public class PhyTableIndex implements ITableIndex {
 			
 			int icount = ifields.length;
 			reader.seek(pos);
-			interBlockCount = reader.readInt(); // Ë÷Òı¿éÊı
+			interBlockCount = reader.readInt(); // ç´¢å¼•å—æ•°
 			Object []maxValues;
 			long []positions = new long[interBlockCount];
 			
@@ -2022,7 +2022,7 @@ public class PhyTableIndex implements ITableIndex {
 		}
 	}
 	
-	// ·µ»Ø¼ÇÂ¼Êı
+	// è¿”å›è®°å½•æ•°
 	public long count() {
 		InputStream is = indexFile.getInputStream();
 		ObjectReader reader = new ObjectReader(is, BUFFER_SIZE);
@@ -2039,7 +2039,7 @@ public class PhyTableIndex implements ITableIndex {
 		}
 	}
 	
-	// ´Ó1¿ªÊ¼¼ÆÊı
+	// ä»1å¼€å§‹è®¡æ•°
 	public ICursor selectRow(long start, long end, String []fields, String opt, Context ctx) {
 		if (opt != null) {
 			if (opt.indexOf('l') == -1) start++;
@@ -2085,7 +2085,7 @@ public class PhyTableIndex implements ITableIndex {
 		}
 	}
 	
-	// ´Ó1¿ªÊ¼¼ÆÊı
+	// ä»1å¼€å§‹è®¡æ•°
 	public ICursor selectRow(long []posArray, String []fields, String opt, Context ctx) {
 		InputStream is = indexFile.getInputStream();
 		ObjectReader reader = new ObjectReader(is, BUFFER_SIZE);
@@ -2121,7 +2121,7 @@ public class PhyTableIndex implements ITableIndex {
 		}
 	}
 	
-	//Ä¿Ç°Ã»ÓĞÓÃµ½£¬ÈÔ±£Áô
+	//ç›®å‰æ²¡æœ‰ç”¨åˆ°ï¼Œä»ä¿ç•™
 	/**
 	 * 
 	 * @param exp
@@ -2130,7 +2130,7 @@ public class PhyTableIndex implements ITableIndex {
 	 * @param fields
 	 * @param opt
 	 * @param ctx
-	 * @return	µØÖ·(Î±ºÅ)Êı×é
+	 * @return	åœ°å€(ä¼ªå·)æ•°ç»„
 	 */
  	@SuppressWarnings("unused")
 	private LongArray select(Expression exp, Object []startVals, Object []endVals, 
@@ -2320,7 +2320,7 @@ public class PhyTableIndex implements ITableIndex {
 	}
 	
  	/**
- 	 * °´ÖµÇø¼ä²éÑ¯£¨¶à×Ö¶Î£©
+ 	 * æŒ‰å€¼åŒºé—´æŸ¥è¯¢ï¼ˆå¤šå­—æ®µï¼‰
  	 * @param startVals
  	 * @param endVals
  	 * @param opt
@@ -2417,7 +2417,7 @@ public class PhyTableIndex implements ITableIndex {
 	}
 
 	/**
-	 * Ò»´Î²éÑ¯¶à¸öÖµ
+	 * ä¸€æ¬¡æŸ¥è¯¢å¤šä¸ªå€¼
 	 * @param vals
 	 * @param opt
 	 * @param ctx
@@ -2468,7 +2468,7 @@ public class PhyTableIndex implements ITableIndex {
 	}
 
 	/**
-	 * Ò»´Î²éÑ¯¶à¸öÖµ
+	 * ä¸€æ¬¡æŸ¥è¯¢å¤šä¸ªå€¼
 	 * @param vals
 	 * @param opt
 	 * @param ctx
@@ -2504,7 +2504,7 @@ public class PhyTableIndex implements ITableIndex {
 	}
 
 	/**
-	 * °´±í´ïÊ½exp²éÑ¯
+	 * æŒ‰è¡¨è¾¾å¼expæŸ¥è¯¢
 	 */
 	public ICursor select(Expression exp, String []fields, String opt, Context ctx) {
 		if (opt != null && opt.indexOf('s') != -1 && rootItPos2 != 0) {
@@ -2586,11 +2586,11 @@ public class PhyTableIndex implements ITableIndex {
 	}
 	
 	/**
-	 * °´±í´ïÊ½²éÑ¯
+	 * æŒ‰è¡¨è¾¾å¼æŸ¥è¯¢
 	 * @param exp
 	 * @param opt
 	 * @param ctx
-	 * @return	µØÖ·(Î±ºÅ)Êı×é
+	 * @return	åœ°å€(ä¼ªå·)æ•°ç»„
 	 */
 	public LongArray select(Expression exp, String opt, Context ctx) {
 		readBlockInfo(indexFile);
@@ -2601,7 +2601,7 @@ public class PhyTableIndex implements ITableIndex {
 			throw new RQException(mm.getMessage("Expression.unknownExpression") + exp.toString());
 		}
 		
-		//´¦Àícontain±í´ïÊ½
+		//å¤„ç†containè¡¨è¾¾å¼
 		Node home = exp.getHome();
 		if (home instanceof DotOperator) {
 			Node left = home.getLeft();
@@ -2639,7 +2639,7 @@ public class PhyTableIndex implements ITableIndex {
 			return select(series, opt, ctx);
 		}
 		
-		//´¦Àílike(F,"xxx*")±í´ïÊ½
+		//å¤„ç†like(F,"xxx*")è¡¨è¾¾å¼
 		if (home instanceof Like) {
 			if (((Like) home).getParam().getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -2667,7 +2667,7 @@ public class PhyTableIndex implements ITableIndex {
 				if (filters[last] != null) break;
 			}
 			
-			// Èç¹û×óÃæµÄ¶¼ÊÇÏàµÈ±È½ÏÔò¿ÉÒÔÓÅ»¯³É[a,b...v1]:[a,b...v2]
+			// å¦‚æœå·¦é¢çš„éƒ½æ˜¯ç›¸ç­‰æ¯”è¾ƒåˆ™å¯ä»¥ä¼˜åŒ–æˆ[a,b...v1]:[a,b...v2]
 			boolean canOpt = true;
 			for (int i = 0; i < last; ++i) {
 				if (filters[i] == null || filters[i].startSign != EQ) {
@@ -2684,7 +2684,7 @@ public class PhyTableIndex implements ITableIndex {
 					}
 					
 					if (icount == last + 1) {
-						//Èç¹ûÊÇËùÓĞ×Ö¶ÎµÄµÈÓÚ
+						//å¦‚æœæ˜¯æ‰€æœ‰å­—æ®µçš„ç­‰äº
 						Sequence seq = new Sequence();
 						seq.addAll(vals);
 						if (icount == 1) {
@@ -2713,8 +2713,8 @@ public class PhyTableIndex implements ITableIndex {
 			}
 		}
 
-		Sequence vals = new Sequence(icount); // Ç°Ãæ×öÏàµÈÅĞ¶ÏµÄ×Ö¶ÎµÄÖµ
-		FieldFilter ff = null; // µÚÒ»¸ö×ö·ÇÏàµÈÅĞ¶ÏµÄ×Ö¶ÎµÄĞÅÏ¢
+		Sequence vals = new Sequence(icount); // å‰é¢åšç›¸ç­‰åˆ¤æ–­çš„å­—æ®µçš„å€¼
+		FieldFilter ff = null; // ç¬¬ä¸€ä¸ªåšéç›¸ç­‰åˆ¤æ–­çš„å­—æ®µçš„ä¿¡æ¯
 		
 		for (int i = 0; i < icount; ++i) {
 			FieldFilter filter = new FieldFilter();
@@ -2956,7 +2956,7 @@ public class PhyTableIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ÕÒ³öË÷Òı×Ö¶ÎµÄÇø¼ä
+	 * æ‰¾å‡ºç´¢å¼•å­—æ®µçš„åŒºé—´
 	 * @param fieldIndex
 	 * @param home
 	 * @param filter
@@ -3010,7 +3010,7 @@ public class PhyTableIndex implements ITableIndex {
 				filter.startSign = GT;
 				filter.startVal = left.calculate(ctx);
 			}
-		} // ºöÂÔorºÍÆäËüÔËËã·û
+		} // å¿½ç•¥orå’Œå…¶å®ƒè¿ç®—ç¬¦
 	}
 
 	private LongArray readPos(ObjectReader reader, Expression exp, Context ctx, 
@@ -3208,9 +3208,9 @@ public class PhyTableIndex implements ITableIndex {
 		for (int i = 0; i < rootCount; ++i) {
 			if (cachedBlockReader == null) {
 				if (internalAllBlockPos == null) {
-					readInternalBlockInfo(indexFile, rootBlockPos[i], blockInfo);//Ã»Ô¤¼ÓÔØ
+					readInternalBlockInfo(indexFile, rootBlockPos[i], blockInfo);//æ²¡é¢„åŠ è½½
 				} else {
-					readInternalBlockInfo(false, i, blockInfo);//µÚ¶ş²ã¼ÓÔØ
+					readInternalBlockInfo(false, i, blockInfo);//ç¬¬äºŒå±‚åŠ è½½
 				}
 				
 				index = readPos_s(reader, vals, index, blockInfo.internalBlockMaxVals, blockInfo.internalBlockPos, tempPos);
@@ -3258,7 +3258,7 @@ public class PhyTableIndex implements ITableIndex {
 		while (true) {
 			int count = reader.readInt();
 			if (count == BLOCK_START) {
-				// »»¿éÊ±±È½ÏÒ»ÏÂÊÇ·ñÕû¸ö¿é¶¼±Èµ±Ç°ÒªÈ¡µÄÖµĞ¡£¬Èç¹ûÊÇÔòÌø¹ı¿é
+				// æ¢å—æ—¶æ¯”è¾ƒä¸€ä¸‹æ˜¯å¦æ•´ä¸ªå—éƒ½æ¯”å½“å‰è¦å–çš„å€¼å°ï¼Œå¦‚æœæ˜¯åˆ™è·³è¿‡å—
 				while (true) {
 					block++;
 					if (block >= blockCount) break Next;
@@ -3405,7 +3405,7 @@ public class PhyTableIndex implements ITableIndex {
 		while (true) {
 			int count = reader.readInt();
 			if (count == BLOCK_START) {
-				// »»¿éÊ±±È½ÏÒ»ÏÂÊÇ·ñÕû¸ö¿é¶¼±Èµ±Ç°ÒªÈ¡µÄÖµĞ¡£¬Èç¹ûÊÇÔòÌø¹ı¿é
+				// æ¢å—æ—¶æ¯”è¾ƒä¸€ä¸‹æ˜¯å¦æ•´ä¸ªå—éƒ½æ¯”å½“å‰è¦å–çš„å€¼å°ï¼Œå¦‚æœæ˜¯åˆ™è·³è¿‡å—
 				while (true) {
 					block++;
 					if (block >= blockCount) break Next;
@@ -3548,7 +3548,7 @@ public class PhyTableIndex implements ITableIndex {
 					r.setNormalFieldValue(0, cur);
 					Object b = exp.calculate(ctx);
 					if (Variant.isTrue(b)) {
-						findFirst = true;//ÕÒµ½ÁË
+						findFirst = true;//æ‰¾åˆ°äº†
 						for (int i = 0; i < count; ++i) {
 							posArray.add(reader.readLong());
 							for (int j = 0; j < posCount; ++j) {
@@ -3563,14 +3563,14 @@ public class PhyTableIndex implements ITableIndex {
 							}
 						}
 						if (findFirst) {
-							//¶¼ÔÚÕâÒ»¿éÀï
+							//éƒ½åœ¨è¿™ä¸€å—é‡Œ
 							findFirst = false;
 							break;
 						}
 					}
 				}
 				if (!findFirst) {
-					//Ã»ÕÒµ½£¬»òÕß¶¼ÔÚµÚÒ»¿éÀï£¬Ôò²»ÔÙÕÒºóĞø¿é
+					//æ²¡æ‰¾åˆ°ï¼Œæˆ–è€…éƒ½åœ¨ç¬¬ä¸€å—é‡Œï¼Œåˆ™ä¸å†æ‰¾åç»­å—
 					break;
 				}
 				
@@ -3784,7 +3784,7 @@ public class PhyTableIndex implements ITableIndex {
 		case EQ:
 			reader.seek(seqPos);
 			while (true) {
-				// ¶à×Ö¶ÎË÷ÒıÊ±£¬Ö»Ñ¡²¿·Ö×Ö¶Î¿ÉÄÜÓĞÖØ¸´µÄ
+				// å¤šå­—æ®µç´¢å¼•æ—¶ï¼Œåªé€‰éƒ¨åˆ†å­—æ®µå¯èƒ½æœ‰é‡å¤çš„
 				int count = reader.readInt();
 				if (count == BLOCK_START) {
 					count = reader.readInt();
@@ -3977,7 +3977,7 @@ public class PhyTableIndex implements ITableIndex {
 			case EQ:
 				reader.seek(seqPos);
 				while (true) {
-					// ¶à×Ö¶ÎË÷ÒıÊ±£¬Ö»Ñ¡²¿·Ö×Ö¶Î¿ÉÄÜÓĞÖØ¸´µÄ
+					// å¤šå­—æ®µç´¢å¼•æ—¶ï¼Œåªé€‰éƒ¨åˆ†å­—æ®µå¯èƒ½æœ‰é‡å¤çš„
 					int count = reader.readInt();
 					if (count == BLOCK_START) {
 						count = reader.readInt();
@@ -4944,7 +4944,7 @@ public class PhyTableIndex implements ITableIndex {
 	public synchronized void loadAllKeys() {
 		if (internalAllBlockPos!= null) return;
 		
-		//¼ì²éÊÇ·ñÊÇ¶ÔÖ÷¼ü½¨Á¢Ë÷Òı
+		//æ£€æŸ¥æ˜¯å¦æ˜¯å¯¹ä¸»é”®å»ºç«‹ç´¢å¼•
 		boolean isPrimaryKey = false;
 		String[] keyNames = srcTable.getAllSortedColNames();
 		if (srcTable.hasPrimaryKey && keyNames != null && ifields.length == keyNames.length) {
@@ -5005,9 +5005,9 @@ public class PhyTableIndex implements ITableIndex {
 				threads[i] = newLoadDataThread(needRecNum, cachedBlockReader, internalAllBlockPos, reader, icount,
 						i * avg, (i + 1) * avg, posCount);
 			}
-			threads[i].start(); // Æô¶¯Ïß³Ì
+			threads[i].start(); // å¯åŠ¨çº¿ç¨‹
 		}
-		// µÈ´ıËùÓĞ×ÓÏß³Ì½áÊø
+		// ç­‰å¾…æ‰€æœ‰å­çº¿ç¨‹ç»“æŸ
 		for (int i = 0; i < parallelNum; ++i) {
 			try {
 				threads[i].join();
@@ -5035,9 +5035,9 @@ public class PhyTableIndex implements ITableIndex {
 					threads[i] = newLoadDataThread(needRecNum, cachedBlockReader2, internalAllBlockPos2, reader, icount,
 							i * avg, (i + 1) * avg, posCount);
 				}
-				threads[i].start(); // Æô¶¯Ïß³Ì
+				threads[i].start(); // å¯åŠ¨çº¿ç¨‹
 			}
-			// µÈ´ıËùÓĞ×ÓÏß³Ì½áÊø
+			// ç­‰å¾…æ‰€æœ‰å­çº¿ç¨‹ç»“æŸ
 			for (int i = 0; i < parallelNum; ++i) {
 				try {
 					threads[i].join();
@@ -5076,7 +5076,7 @@ public class PhyTableIndex implements ITableIndex {
 //							if (needRecNum) {
 //								writer.writeLong(reader.readLong());
 //							} else {
-//								//Ã»ÓĞ²¹ÇøÊ±²»ĞèÒªÎ±ºÅ
+//								//æ²¡æœ‰è¡¥åŒºæ—¶ä¸éœ€è¦ä¼ªå·
 //								reader.readLong();
 //								writer.writeLong(0);
 //							}
@@ -5127,7 +5127,7 @@ public class PhyTableIndex implements ITableIndex {
 //								if (needRecNum) {
 //									writer.writeLong(reader.readLong());
 //								} else {
-//									//Ã»ÓĞ²¹ÇøÊ±²»ĞèÒªÎ±ºÅ
+//									//æ²¡æœ‰è¡¥åŒºæ—¶ä¸éœ€è¦ä¼ªå·
 //									reader.readLong();
 //									writer.writeLong(0);
 //								}
@@ -5166,7 +5166,7 @@ public class PhyTableIndex implements ITableIndex {
 						}
 					}
 				}
-				//È«±éÀúÌ«ºÄÊ±£¬ËùÒÔÖ»È¡¿ªÍ·µÄÒ»²¿·Ö×öÔ¤²â
+				//å…¨éå†å¤ªè€—æ—¶ï¼Œæ‰€ä»¥åªå–å¼€å¤´çš„ä¸€éƒ¨åˆ†åšé¢„æµ‹
 				//table = cs.fetch(ICursor.FETCHCOUNT);
 				table = null;
 			}
@@ -5186,7 +5186,7 @@ public class PhyTableIndex implements ITableIndex {
 		return new Thread() {
 			public void run() {
 				try {
-					//°ÑµÚÈı²ãµÄkey±£´æµ½buffer£¬Í¬Ê±µØÖ·Ò²¶¼Ö¸ÏòÄÚ´æ
+					//æŠŠç¬¬ä¸‰å±‚çš„keyä¿å­˜åˆ°bufferï¼ŒåŒæ—¶åœ°å€ä¹Ÿéƒ½æŒ‡å‘å†…å­˜
 					for (int c = start; c < end; ++c) {
 
 						int len = internalAllBlockPos[c].length;
@@ -5214,7 +5214,7 @@ public class PhyTableIndex implements ITableIndex {
 									if (needRecNum) {
 										writer.writeLong(reader.readLong());
 									} else {
-										//Ã»ÓĞ²¹ÇøÊ±²»ĞèÒªÎ±ºÅ
+										//æ²¡æœ‰è¡¥åŒºæ—¶ä¸éœ€è¦ä¼ªå·
 										reader.readLong();
 										writer.writeLong(0);
 									}
@@ -5256,7 +5256,7 @@ public class PhyTableIndex implements ITableIndex {
 		EnvUtil.runGC(rt);
 	}
 
-	//ÓĞÖ÷¼üµÄ»ù±íÓÃÕâ¸ö
+	//æœ‰ä¸»é”®çš„åŸºè¡¨ç”¨è¿™ä¸ª
 	private int readPos_p_cache(Sequence vals, int srcIndex, 
 			Object []blockMaxVals, byte [][]blockBuffers, LongArray outPos) throws IOException {
 		IArray mems = vals.getMems();
@@ -5273,7 +5273,7 @@ public class PhyTableIndex implements ITableIndex {
 		while (true) {
 			int count = bufferReader.readInt();
 			if (count == BLOCK_START) {
-				// »»¿éÊ±±È½ÏÒ»ÏÂÊÇ·ñÕû¸ö¿é¶¼±Èµ±Ç°ÒªÈ¡µÄÖµĞ¡£¬Èç¹ûÊÇÔòÌø¹ı¿é
+				// æ¢å—æ—¶æ¯”è¾ƒä¸€ä¸‹æ˜¯å¦æ•´ä¸ªå—éƒ½æ¯”å½“å‰è¦å–çš„å€¼å°ï¼Œå¦‚æœæ˜¯åˆ™è·³è¿‡å—
 				while (true) {
 					block++;
 					if (block >= blockCount) break Next;
@@ -5313,7 +5313,7 @@ public class PhyTableIndex implements ITableIndex {
 				
 				srcVal = mems.get(srcIndex);
 				
-				//Èç¹ûĞÂµÄÒª²éÕÒµÄÖµ´óÓÚ±¾¿é×î´óÖµ£¬ÔòÌø¿é
+				//å¦‚æœæ–°çš„è¦æŸ¥æ‰¾çš„å€¼å¤§äºæœ¬å—æœ€å¤§å€¼ï¼Œåˆ™è·³å—
 				if (Variant.compare(blockMaxVals[block], srcVal, true) < 0) {
 					while (true) {
 						block++;
@@ -5386,7 +5386,7 @@ public class PhyTableIndex implements ITableIndex {
 		while (true) {
 			int count = bufferReader.readInt();
 			if (count == BLOCK_START) {
-				// »»¿éÊ±±È½ÏÒ»ÏÂÊÇ·ñÕû¸ö¿é¶¼±Èµ±Ç°ÒªÈ¡µÄÖµĞ¡£¬Èç¹ûÊÇÔòÌø¹ı¿é
+				// æ¢å—æ—¶æ¯”è¾ƒä¸€ä¸‹æ˜¯å¦æ•´ä¸ªå—éƒ½æ¯”å½“å‰è¦å–çš„å€¼å°ï¼Œå¦‚æœæ˜¯åˆ™è·³è¿‡å—
 				while (true) {
 					block++;
 					if (block >= blockCount) break Next;
@@ -5435,7 +5435,7 @@ public class PhyTableIndex implements ITableIndex {
 				
 				srcVal = mems.get(srcIndex);
 				
-				//Èç¹ûĞÂµÄÒª²éÕÒµÄÖµ´óÓÚ±¾¿é×î´óÖµ£¬ÔòÌø¿é
+				//å¦‚æœæ–°çš„è¦æŸ¥æ‰¾çš„å€¼å¤§äºæœ¬å—æœ€å¤§å€¼ï¼Œåˆ™è·³å—
 				if (Variant.compare(blockMaxVals[block], srcVal, true) < 0) {
 					while (true) {
 						block++;
@@ -5530,7 +5530,7 @@ public class PhyTableIndex implements ITableIndex {
 		while (true) {
 			int count = bufferReader.readInt();
 			if (count == BLOCK_START) {
-				// »»¿éÊ±±È½ÏÒ»ÏÂÊÇ·ñÕû¸ö¿é¶¼±Èµ±Ç°ÒªÈ¡µÄÖµĞ¡£¬Èç¹ûÊÇÔòÌø¹ı¿é
+				// æ¢å—æ—¶æ¯”è¾ƒä¸€ä¸‹æ˜¯å¦æ•´ä¸ªå—éƒ½æ¯”å½“å‰è¦å–çš„å€¼å°ï¼Œå¦‚æœæ˜¯åˆ™è·³è¿‡å—
 				while (true) {
 					block++;
 					if (block >= blockCount) break Next;
@@ -5630,9 +5630,9 @@ public class PhyTableIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ×°ÔØÖĞ¼ä¿é
-	 * @param isSec ÊÇ·ñÊÇµÚ¶şË÷Òı
-	 * @param i		×°ÔØµÚ¼¸¿é
+	 * è£…è½½ä¸­é—´å—
+	 * @param isSec æ˜¯å¦æ˜¯ç¬¬äºŒç´¢å¼•
+	 * @param i		è£…è½½ç¬¬å‡ å—
 	 */
 	private void readInternalBlockInfo(boolean isSec, int i, BlockInfo blockInfo) {
 		if (!isSec) {
@@ -5645,11 +5645,11 @@ public class PhyTableIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ²éÕÒÒÔkey[0]¿ªÍ·µÄ
-	 * @param key	key[0]ÊÇString
-	 * @param exp	like±í´ïÊ½
+	 * æŸ¥æ‰¾ä»¥key[0]å¼€å¤´çš„
+	 * @param key	key[0]æ˜¯String
+	 * @param exp	likeè¡¨è¾¾å¼
 	 * @param ctx
-	 * @return	µØÖ·(Î±ºÅ)Êı×é
+	 * @return	åœ°å€(ä¼ªå·)æ•°ç»„
 	 */
 	public LongArray select(String []key, Expression exp, String opt, Context ctx) {
 		int start[] = new int[2];
@@ -5740,9 +5740,9 @@ public class PhyTableIndex implements ITableIndex {
 	}
 	
 	/**
-	 * ÅĞ¶Ï×Ö¶ÎÊÇ·ñÓëË÷Òı¼æÈİ
-	 * @param fieldNames ×Ö¶ÎÃûÊı×é
-	 * @param ifields Ë÷Òı×Ö¶Î
+	 * åˆ¤æ–­å­—æ®µæ˜¯å¦ä¸ç´¢å¼•å…¼å®¹
+	 * @param fieldNames å­—æ®µåæ•°ç»„
+	 * @param ifields ç´¢å¼•å­—æ®µ
 	 * @return
 	 */
 	public static boolean isCompatible(String []fieldNames, String[] ifields) {
@@ -5833,12 +5833,12 @@ public class PhyTableIndex implements ITableIndex {
 			ifields = reader.readStrings();
 			
 			if (flag == 'x')
-				rec.setNormalFieldValue(0, 0);//ÅÅĞò
+				rec.setNormalFieldValue(0, 0);//æ’åº
 			else if (flag == 'v') {
 				rec.setNormalFieldValue(0, 0);
 				vfields = reader.readStrings();//key-v
 			} else if (flag == 'w')
-				rec.setNormalFieldValue(0, null);//È«ÎÄ
+				rec.setNormalFieldValue(0, null);//å…¨æ–‡
 			else if (flag == 'h') {
 				int h  = reader.readInt32();
 				reader.readInt32();

@@ -4,7 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.SequenceFunction;
 
 /**
- * 倒转序列的元素组成新元素
+ * 鍊掕浆搴忓垪鐨勫厓绱犵粍鎴愭柊鍏冪礌
  * A.rvs()
  * @author RunQian
  *

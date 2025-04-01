@@ -55,7 +55,7 @@ public class SavitzkyGolay extends Function {
 				}
 				Matrix B = filterCoeff(n, k, p);
 				if (o1 == null) {
-					// ·µ»ØÆ½»¬ÏµÊı¾ØÕó
+					// è¿”å›å¹³æ»‘ç³»æ•°çŸ©é˜µ
 					return B.toSequence(option, true);
 				}
 				n = B.getRows();
@@ -67,7 +67,7 @@ public class SavitzkyGolay extends Function {
 					A = A.transpose();
 					cols = A.getCols();
 				}
-				// Èç¹ûÖ»ÓĞÒ»ÁĞ£¬ÊÓÎªÏòÁ¿£¬×ªÎªµ¥ĞĞ
+				// å¦‚æœåªæœ‰ä¸€åˆ—ï¼Œè§†ä¸ºå‘é‡ï¼Œè½¬ä¸ºå•è¡Œ
 				double[][] vs = A.getArray();
 				int rows = vs.length;
 				if (cols < n) {
@@ -109,7 +109,7 @@ public class SavitzkyGolay extends Function {
 		double s = 0;
 		int len = row.length;
 		if (len != col.length) {
-			throw new RQException("Sizes are unmatched, can't calculate multiple¡£");
+			throw new RQException("Sizes are unmatched, can't calculate multipleã€‚");
 		}
 		for (int i = 0; i < len; i++ ) {
 			s += row[i]*col[i];
@@ -130,23 +130,23 @@ public class SavitzkyGolay extends Function {
 	}
 	
 	/**
-	 * n¸öÈ¡Ñùµãk´Î¶àÏîÊ½p½×µ¼Êı
+	 * nä¸ªå–æ ·ç‚¹kæ¬¡å¤šé¡¹å¼pé˜¶å¯¼æ•°
 	 * @param k
 	 * @param n
 	 * @return
 	 */
 	public Matrix filterCoeff(int n,int k, int p) {
-		//nÊÇÆæÊı
+		//næ˜¯å¥‡æ•°
 		if (n%2 == 0) {
 			n = n+1;
 			Logger.info("m is an odd number, set it to "+n);
 		}
-		//k²»´óÓÚn, ´ËÊ±¸ÄÎª¿É²Ù×÷µÄn
+		//kä¸å¤§äºn, æ­¤æ—¶æ”¹ä¸ºå¯æ“ä½œçš„n
 		if (k > n) {
 			k = n - 1;
 			Logger.info("n is less than m, set it to "+k);
 		}
-		//p²»´óÓÚk, ´ËÊ±¸ÄÎªk
+		//pä¸å¤§äºk, æ­¤æ—¶æ”¹ä¸ºk
 		if (p > k) {
 			p = k;
 			Logger.info("n can't be greater than m, set it to "+k);
@@ -162,7 +162,7 @@ public class SavitzkyGolay extends Function {
 	}
 	
 	/**
-	 * »ñÈ¡nµãk´Îp½×Çóµ¼¾ØÕó
+	 * è·å–nç‚¹kæ¬¡pé˜¶æ±‚å¯¼çŸ©é˜µ
 	 * @return
 	 */
 	public Matrix getDerivativeMatrix(int n,int k, int p) {

@@ -12,7 +12,7 @@ import com.scudata.util.Variant;
 /**
  * @author yanjing
  * 
- * Fvdb(cost,salvage,life,start_period,end_period,factor)  ʹ��˫�����ݼ���������ָ���ķ���������ָ�����κ��ڼ��ڣ����������ڼ䣩���ʲ��۾�ֵ������ db@v �����ɱ����ݼ���
+ * Fvdb(cost,salvage,life,start_period,end_period,factor)  使用双倍余额递减法或其他指定的方法，返回指定的任何期间内（包括部分期间）的资产折旧值。函数 db@v 代表可变余额递减法
  * @s  no_switch=true
  * @return
  * 
@@ -44,17 +44,17 @@ public class Vdb extends Function {
 	/**
 	 * Fvdb(cost,salvage,life,start_period,end_period,factor)
 	 * @s  no_switch=true  
-	 * ʹ��˫�����ݼ���������ָ���ķ���������ָ�����κ��ڼ��ڣ����������ڼ䣩���ʲ��۾�ֵ��
-	 * ���� Fvdb �����ɱ����ݼ���
-	 * @param Cost Ϊ�ʲ�ԭֵ
-	 * @param Salvage Ϊ�ʲ����۾���ĩ�ļ�ֵ����ʱҲ��Ϊ�ʲ���ֵ��
-	 * @param Life Ϊ�۾����ޣ���ʱҲ�����ʲ���ʹ��������
-	 * @param Start_period Ϊ�����۾ɼ������ʼ�ڼ�,������ life �ĵ�λ��ͬ
-	 * @param End_period Ϊ�����۾ɼ���Ľ�ֹ�ڼ�,������ life �ĵ�λ��ͬ
-	 * @param Factor Ϊ���ݼ����ʣ��۾����ӣ������ factor ��ʡ�ԣ���ȱʡΪ 2��˫�����ݼ�����
-	 * @param No_switch Ϊһ�߼�ֵ��ָ�����۾�ֵ�������ݼ�����ֵʱ���Ƿ�ת��ֱ���۾ɷ���
-	 * @param ��� no_switch Ϊ TRUE����ʹ�۾�ֵ�������ݼ�����ֵ��Ҳ��ת��ֱ���۾ɷ��� 
-	 * @param ��� no_switch Ϊ FALSE �򱻺��ԣ����۾�ֵ�������ݼ�����ֵʱ����ת�������۾ɷ���
+	 * 使用双倍余额递减法或其他指定的方法，返回指定的任何期间内（包括部分期间）的资产折旧值。
+	 * 函数 Fvdb 代表可变余额递减法
+	 * @param Cost 为资产原值
+	 * @param Salvage 为资产在折旧期末的价值（有时也称为资产残值）
+	 * @param Life 为折旧期限（有时也称作资产的使用寿命）
+	 * @param Start_period 为进行折旧计算的起始期间,必须与 life 的单位相同
+	 * @param End_period 为进行折旧计算的截止期间,必须与 life 的单位相同
+	 * @param Factor 为余额递减速率（折旧因子），如果 factor 被省略，则缺省为 2（双倍余额递减法）
+	 * @param No_switch 为一逻辑值，指定当折旧值大于余额递减计算值时，是否转用直线折旧法。
+	 * @param 如果 no_switch 为 TRUE，即使折旧值大于余额递减计算值，也不转用直线折旧法。 
+	 * @param 如果 no_switch 为 FALSE 或被忽略，且折旧值大于余额递减计算值时，将转用线性折旧法。
 
 	 * @return
 	 */

@@ -3,13 +3,13 @@ package com.scudata.vdb;
 import com.scudata.util.Variant;
 
 /**
- * Ä¿Â¼»ùÀà
+ * ç›®å½•åŸºç±»
  * @author RunQian
  *
  */
 abstract class IDir {
-	protected Object value; // Ä¿Â¼Öµ
-	protected String name; // Ä¿Â¼Ãû£¬¼´×Ö¶ÎÃû
+	protected Object value; // ç›®å½•å€¼
+	protected String name; // ç›®å½•åï¼Œå³å­—æ®µå
 		
 	public IDir() {
 	}

@@ -11,8 +11,8 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * Ö´ĞĞÊı¾İ¿â²éÑ¯Óï¾ä£¬·µ»Ø²éÑ¯½á¹ûËù×é³ÉµÄĞò±í
- * db.query(sql,param:type,¡­) db.query(A,sql,param:type,¡­)
+ * æ‰§è¡Œæ•°æ®åº“æŸ¥è¯¢è¯­å¥ï¼Œè¿”å›æŸ¥è¯¢ç»“æœæ‰€ç»„æˆçš„åºè¡¨
+ * db.query(sql,param:type,â€¦) db.query(A,sql,param:type,â€¦)
  * @author RunQian
  *
  */
@@ -21,7 +21,7 @@ public class Query extends DBFunction {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("query" + mm.getMessage("function.missingParam"));
-		} else if (param.getType() == IParam.Normal) { // Ã»ÓĞ²ÎÊı
+		} else if (param.getType() == IParam.Normal) { // æ²¡æœ‰å‚æ•°
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (!(obj instanceof String)) {
 				MessageManager mm = EngineMessage.get();
@@ -42,7 +42,7 @@ public class Query extends DBFunction {
 
 			Object obj = sub0.getLeafExpression().calculate(ctx);
 			if (obj instanceof Sequence) {
-				// Õë¶ÔĞòÁĞµÄÃ¿¸öÔªËØÖ´ĞĞsqlÓï¾ä£¬sql²ÎÊıÓÉĞòÁĞÔªËØËã³ö
+				// é’ˆå¯¹åºåˆ—çš„æ¯ä¸ªå…ƒç´ æ‰§è¡Œsqlè¯­å¥ï¼Œsqlå‚æ•°ç”±åºåˆ—å…ƒç´ ç®—å‡º
 				Sequence srcSeries = (Sequence)obj;
 				IParam sub1 = param.getSub(1);
 				if (sub1 == null || !sub1.isLeaf()) {
@@ -64,7 +64,7 @@ public class Query extends DBFunction {
 					IParam sub = param.getSub(i + 2);
 					if (sub == null)continue;
 
-					if (sub.isLeaf()) { // Ö»ÓĞ²ÎÊıÃ»ÓĞÖ¸¶¨ÀàĞÍ
+					if (sub.isLeaf()) { // åªæœ‰å‚æ•°æ²¡æœ‰æŒ‡å®šç±»å‹
 						sqlParams[i] = sub.getLeafExpression();
 					} else {
 						IParam subi0 = sub.getSub(0);
@@ -92,7 +92,7 @@ public class Query extends DBFunction {
 					IParam sub = param.getSub(i + 1);
 					if (sub == null) continue;
 
-					if (sub.isLeaf()) { // Ö»ÓĞ²ÎÊıÃ»ÓĞÖ¸¶¨ÀàĞÍ
+					if (sub.isLeaf()) { // åªæœ‰å‚æ•°æ²¡æœ‰æŒ‡å®šç±»å‹
 						sqlParams[i] = sub.getLeafExpression().calculate(ctx);
 					} else {
 						IParam subi0 = sub.getSub(0);

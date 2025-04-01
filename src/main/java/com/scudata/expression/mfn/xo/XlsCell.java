@@ -18,20 +18,20 @@ import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
 /**
- * º¯Êıxo.xlscell(a:b,s;t)¡£ÏòÒ³sµÄ¸ña´¦ÌîÈë´®t£¬tÊÇ»Ø³µ/tab·Ö¸ôµÄ´®»òĞòÁĞµÄĞòÁĞ£¬·Ö±ğÌîÈëÏàÁÚĞĞºÍÁĞÖĞ£»sÊ¡ÂÔÎªµÚÒ»Ò³£¬xo²»ÄÜÒÔ@r@w·½Ê½´ò¿ª
- * ÎŞt²ÎÊıÊ±£¬¶Á³ö´Óaµ½bµÄ¸ñÎÄ±¾ĞÎÊ½´®·µ»Ø£¬Ö»ÓĞaÖ»¶Áa¸ñ£¬a:¶Áµ½½áÎ²£»a:bÊ¡ÂÔ±íÊ¾¸ÄÒ³sµÄÃû³ÆÎªt¡£
+ * å‡½æ•°xo.xlscell(a:b,s;t)ã€‚å‘é¡µsçš„æ ¼aå¤„å¡«å…¥ä¸²tï¼Œtæ˜¯å›è½¦/tabåˆ†éš”çš„ä¸²æˆ–åºåˆ—çš„åºåˆ—ï¼Œåˆ†åˆ«å¡«å…¥ç›¸é‚»è¡Œå’Œåˆ—ä¸­ï¼›sçœç•¥ä¸ºç¬¬ä¸€é¡µï¼Œxoä¸èƒ½ä»¥@r@wæ–¹å¼æ‰“å¼€
+ * æ— tå‚æ•°æ—¶ï¼Œè¯»å‡ºä»aåˆ°bçš„æ ¼æ–‡æœ¬å½¢å¼ä¸²è¿”å›ï¼Œåªæœ‰aåªè¯»aæ ¼ï¼Œa:è¯»åˆ°ç»“å°¾ï¼›a:bçœç•¥è¡¨ç¤ºæ”¹é¡µsçš„åç§°ä¸ºtã€‚
  * 
- * @i ĞĞ²åÈëÊ½ÌîÈë£¬È±Ê¡ÊÇ¸²¸ÇÊ½
- * @w ¶Á³öÊ±·µ»Ø³É¸ñÖµµÄĞòÁĞµÄĞòÁĞ¡£
- * @p @w¼Ó×ªÖÃ£¬ĞòÁĞµÄĞòÁĞÏÈÁĞºóĞĞ£¬ÊÇ´®Ê±ºöÂÔ
- * @n È¡³ö¸ñÎÄ×ÖÊ±×ötrim£¬@wÊ±°Ñ¿Õ´®¶Á³Énull
- * @g ¶Á³öÓëÉèÖÃÍ¼Æ¬£¬ÎŞ:b²ÎÊı£¬tÊÇ¸öblob£¬Ä¿Ç°Ö§³Öjpg/png¸ñÊ½
+ * @i è¡Œæ’å…¥å¼å¡«å…¥ï¼Œç¼ºçœæ˜¯è¦†ç›–å¼
+ * @w è¯»å‡ºæ—¶è¿”å›æˆæ ¼å€¼çš„åºåˆ—çš„åºåˆ—ã€‚
+ * @p @wåŠ è½¬ç½®ï¼Œåºåˆ—çš„åºåˆ—å…ˆåˆ—åè¡Œï¼Œæ˜¯ä¸²æ—¶å¿½ç•¥
+ * @n å–å‡ºæ ¼æ–‡å­—æ—¶åštrimï¼Œ@wæ—¶æŠŠç©ºä¸²è¯»æˆnull
+ * @g è¯»å‡ºä¸è®¾ç½®å›¾ç‰‡ï¼Œæ— :bå‚æ•°ï¼Œtæ˜¯ä¸ªblobï¼Œç›®å‰æ”¯æŒjpg/pngæ ¼å¼
  * 
  *
  */
 public class XlsCell extends XOFunction {
 	/**
-	 * ¼ÆËã
+	 * è®¡ç®—
 	 */
 	public Object calculate(Context ctx) {
 		IParam param = this.param;
@@ -42,9 +42,9 @@ public class XlsCell extends XOFunction {
 		}
 
 		IParam sheetParam;
-		Object content = null; // ¿ÉÄÜÊÇ´®Ò²¿ÉÄÜÊÇÍ¼Æ¬
+		Object content = null; // å¯èƒ½æ˜¯ä¸²ä¹Ÿå¯èƒ½æ˜¯å›¾ç‰‡
 		if (param.getType() == IParam.Semicolon) {
-			if (param.getSubSize() != 2) { // ¼æÈİÒ»ÏÂÖ®Ç°µÄ
+			if (param.getSubSize() != 2) { // å…¼å®¹ä¸€ä¸‹ä¹‹å‰çš„
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("xlscell"
 						+ mm.getMessage("function.invalidParam"));
@@ -59,7 +59,7 @@ public class XlsCell extends XOFunction {
 		}
 		IParam param0;
 		IParam param1;
-		if (sheetParam.isLeaf() || sheetParam.getType() == IParam.Colon) { // Ê¡ÂÔs
+		if (sheetParam.isLeaf() || sheetParam.getType() == IParam.Colon) { // çœç•¥s
 			param0 = sheetParam;
 			param1 = null;
 		} else if (sheetParam.getType() != IParam.Comma
@@ -79,14 +79,14 @@ public class XlsCell extends XOFunction {
 		}
 
 		if (param0 == null) {
-			// Ã»ÓĞa:b,ÊÇsheet¸ÄÃû
+			// æ²¡æœ‰a:b,æ˜¯sheetæ”¹å
 			if (!StringUtils.isValidString(content)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("xlscell"
 						+ mm.getMessage("function.invalidParam"));
 			}
 
-			// ¼ì²ésheetÃû³Æ
+			// æ£€æŸ¥sheetåç§°
 			ExcelUtils.checkSheetName(content);
 
 			try {
@@ -114,7 +114,7 @@ public class XlsCell extends XOFunction {
 
 			cell1 = (String) val;
 			cell1 = removeQuota(cell1);
-			cell2 = cell1; // :b¶¼Ã»ÓĞ£¬±íÊ¾aµ¥¸ñ×Ó
+			cell2 = cell1; // :béƒ½æ²¡æœ‰ï¼Œè¡¨ç¤ºaå•æ ¼å­
 		} else {
 			IParam sub = param0.getSub(0);
 			if (sub == null) {
@@ -143,7 +143,7 @@ public class XlsCell extends XOFunction {
 				cell2 = (String) val;
 				cell2 = removeQuota(cell2);
 			} else {
-				cell2 = null; // a:£¬±íÊ¾È¡µ½ĞĞÎ²
+				cell2 = null; // a:ï¼Œè¡¨ç¤ºå–åˆ°è¡Œå°¾
 			}
 		}
 		String opt = option;
@@ -154,13 +154,13 @@ public class XlsCell extends XOFunction {
 		boolean isN = opt != null && opt.indexOf("n") > -1;
 		if (!isW) {
 			if (isP) {
-				// Ñ¡Ïî@{0}Ö»ÄÜºÍÑ¡Ïî@wÍ¬Ê±Ê¹ÓÃ¡£
+				// é€‰é¡¹@{0}åªèƒ½å’Œé€‰é¡¹@wåŒæ—¶ä½¿ç”¨ã€‚
 				throw new RQException(AppMessage.get().getMessage(
 						"xlsimport.pnnotw", "p"));
 			}
 		}
 		Object matrix;
-		if (content == null || "".equals(content.toString().trim())) { // Èç¹ûtÊÇ¿ÕµÄ£¬¾ÍÈÏÎª°ÑcÖÃÎª¿Õ
+		if (content == null || "".equals(content.toString().trim())) { // å¦‚æœtæ˜¯ç©ºçš„ï¼Œå°±è®¤ä¸ºæŠŠcç½®ä¸ºç©º
 			matrix = null;
 		} else {
 			if (isGraph) {
@@ -170,7 +170,7 @@ public class XlsCell extends XOFunction {
 							+ mm.getMessage("function.paramTypeError"));
 				}
 				matrix = content;
-			} else if (content instanceof Sequence) { // ĞòÁĞµÄĞòÁĞ
+			} else if (content instanceof Sequence) { // åºåˆ—çš„åºåˆ—
 				matrix = content;
 			} else if (content instanceof BaseRecord) {
 				Sequence seq = new Sequence();
@@ -233,13 +233,13 @@ public class XlsCell extends XOFunction {
 	}
 
 	/**
-	 * ¶Ô½Úµã×öÓÅ»¯
-	 * @param ctx ¼ÆËãÉÏÏÂÎÄ
-	 * @param Node ÓÅ»¯ºóµÄ½Úµã
+	 * å¯¹èŠ‚ç‚¹åšä¼˜åŒ–
+	 * @param ctx è®¡ç®—ä¸Šä¸‹æ–‡
+	 * @param Node ä¼˜åŒ–åçš„èŠ‚ç‚¹
 	 */
 	public Node optimize(Context ctx) {
 		if (param != null) {
-			// ¶Ô²ÎÊı×öÓÅ»¯
+			// å¯¹å‚æ•°åšä¼˜åŒ–
 			param.optimize(ctx);
 		}
 
@@ -247,7 +247,7 @@ public class XlsCell extends XOFunction {
 	}
 
 	/**
-	 * É¾³ı¸ñ×ÓµÄÒıºÅ
+	 * åˆ é™¤æ ¼å­çš„å¼•å·
 	 * 
 	 * @param cell
 	 * @return

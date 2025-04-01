@@ -12,39 +12,39 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
- * »ù´¡²Ëµ¥£¨ÎŞÎÄ¼ş´ò¿ªÊ±£©
+ * åŸºç¡€èœå•ï¼ˆæ— æ–‡ä»¶æ‰“å¼€æ—¶ï¼‰
  *
  */
 public class MenuBase extends AppMenu {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¼¯ËãÆ÷×ÊÔ´¹ÜÀíÆ÷
+	 * é›†ç®—å™¨èµ„æºç®¡ç†å™¨
 	 */
 	protected MessageManager mm = IdeSplMessage.get();
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	public MenuBase() {
 		init();
 	}
 
 	/**
-	 * ³õÊ¼»¯²Ëµ¥
+	 * åˆå§‹åŒ–èœå•
 	 */
 	protected void init() {
-		// ÎÄ¼ş²Ëµ¥
+		// æ–‡ä»¶èœå•
 		add(getFileMenu());
 
-		// ¹¤¾ß²Ëµ¥
+		// å·¥å…·èœå•
 		add(getToolMenu());
 
-		// ´°¿Ú²Ëµ¥Ïî
+		// çª—å£èœå•é¡¹
 		tmpLiveMenu = getWindowMenu();
 		add(tmpLiveMenu);
 
-		// °ïÖú²Ëµ¥Ïî
+		// å¸®åŠ©èœå•é¡¹
 		add(getHelpMenu());
 
 		setEnable(getMenuItems(), false);
@@ -52,7 +52,7 @@ public class MenuBase extends AppMenu {
 	}
 
 	/**
-	 * È¡ÎÄ¼ş²Ëµ¥
+	 * å–æ–‡ä»¶èœå•
 	 * 
 	 * @return JMenu
 	 */
@@ -75,7 +75,7 @@ public class MenuBase extends AppMenu {
 	}
 
 	/**
-	 * È¡¹¤¾ß²Ëµ¥
+	 * å–å·¥å…·èœå•
 	 * 
 	 * @return JMenu
 	 */
@@ -95,7 +95,7 @@ public class MenuBase extends AppMenu {
 	}
 
 	/**
-	 * È¡ËùÓĞ¿É±ä×´Ì¬µÄ²Ëµ¥Ïî
+	 * å–æ‰€æœ‰å¯å˜çŠ¶æ€çš„èœå•é¡¹
 	 */
 	public short[] getMenuItems() {
 		short[] menus = new short[] {};
@@ -103,7 +103,7 @@ public class MenuBase extends AppMenu {
 	}
 
 	/**
-	 * Êı¾İÔ´Á¬½Óºó
+	 * æ•°æ®æºè¿æ¥å
 	 */
 	public void dataSourceConnected() {
 		if (GVSpl.tabParam != null)

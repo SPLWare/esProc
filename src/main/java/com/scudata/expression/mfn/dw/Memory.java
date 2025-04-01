@@ -10,8 +10,8 @@ import com.scudata.dw.PhyTable;
 import com.scudata.expression.PhyTableFunction;
 
 /**
- * °Ñ×é±í¶Á³ÉÄÚ±í
- * T.memory(C,¡­;w)
+ * æŠŠç»„è¡¨è¯»æˆå†…è¡¨
+ * T.memory(C,â€¦;w)
  * @author RunQian
  *
  */

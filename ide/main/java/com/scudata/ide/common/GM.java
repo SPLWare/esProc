@@ -799,7 +799,7 @@ public class GM extends GMBase{
 					}
 				}
 			} else if (!multiSelect && extArr.length > 1) {
-				// Èç¹ûÓĞÎÄ¼şÃû£¬ÔÚÏÂÀ­ÁĞ±íÖĞÑ¡Ôñ¸Ãºó×º
+				// å¦‚æœæœ‰æ–‡ä»¶åï¼Œåœ¨ä¸‹æ‹‰åˆ—è¡¨ä¸­é€‰æ‹©è¯¥åç¼€
 				if (oldFiles != null) {
 					File oldFile = (File) oldFiles;
 					if (oldFile != null) {
@@ -1033,7 +1033,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * È¥µôxmlµÄÌØÊâ×Ö·û£¬²»×ª»»£¬½ö¸ø±£´æ´°¿ÚÎ»ÖÃ³ß´ç·½·¨Ê¹ÓÃ
+	 * å»æ‰xmlçš„ç‰¹æ®Šå­—ç¬¦ï¼Œä¸è½¬æ¢ï¼Œä»…ç»™ä¿å­˜çª—å£ä½ç½®å°ºå¯¸æ–¹æ³•ä½¿ç”¨
 	 * 
 	 * @param str
 	 * @return
@@ -1607,13 +1607,13 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * Êä³öÒì³£ĞÅÏ¢µ½¿ØÖÆÌ¨ºÍIDEÈÕÖ¾ÎÄ¼ş
+	 * è¾“å‡ºå¼‚å¸¸ä¿¡æ¯åˆ°æ§åˆ¶å°å’ŒIDEæ—¥å¿—æ–‡ä»¶
 	 * 
 	 * @param e
 	 *            Throwable or String
 	 */
 	public static void outputMessage(Object e) {
-		// ÏÖÔÚLoggerÍ¬Ê±Êä³öµ½¿ØÖÆÌ¨ºÍÈÕÖ¾ÁË£¬Ö±½Óµ÷ÓÃwriteLog
+		// ç°åœ¨LoggeråŒæ—¶è¾“å‡ºåˆ°æ§åˆ¶å°å’Œæ—¥å¿—äº†ï¼Œç›´æ¥è°ƒç”¨writeLog
 		writeLog(e);
 	}
 
@@ -2534,7 +2534,7 @@ public class GM extends GMBase{
 		DatabaseMetaData md = con.getMetaData();
 
 		String types[] = null;
-		// DuckDBµÄ±íÀàĞÍÊÇBASE TABLE
+		// DuckDBçš„è¡¨ç±»å‹æ˜¯BASE TABLE
 		if (showSystemTables) {
 			types = new String[] { "TABLE", "BASE TABLE", "VIEW",
 					"SYSTEM TABLE" };
@@ -3228,7 +3228,7 @@ public class GM extends GMBase{
 				Object val = item;
 				if (parse) {
 					if (item.startsWith(KeyWord.CONSTSTRINGPREFIX)
-							&& !item.endsWith(KeyWord.CONSTSTRINGPREFIX)) { // ×Ö·û´®³£Êı'
+							&& !item.endsWith(KeyWord.CONSTSTRINGPREFIX)) { // å­—ç¬¦ä¸²å¸¸æ•°'
 						val = item.substring(1);
 					} else {
 						val = Variant.parseCellValue(item);
@@ -3263,7 +3263,7 @@ public class GM extends GMBase{
 	 *            Row number
 	 * @param iCol
 	 *            Column number
-	 * @return cellµÄ×Ö·û´®±êÊ¶,Èç¹ûÁĞÖµ´óÓÚ×î´óÁĞÖµ£¬½«cellÉèÎªµÚÒ»ÁĞ
+	 * @return cellçš„å­—ç¬¦ä¸²æ ‡è¯†,å¦‚æœåˆ—å€¼å¤§äºæœ€å¤§åˆ—å€¼ï¼Œå°†cellè®¾ä¸ºç¬¬ä¸€åˆ—
 	 */
 	public static String getCellID(int iRow, int iCol) {
 		String retVal = "";
@@ -3682,11 +3682,11 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * É¾³ıÎÄ¼ş»òÄ¿Â¼
+	 * åˆ é™¤æ–‡ä»¶æˆ–ç›®å½•
 	 * 
 	 * @param f
-	 *            ÎÄ¼ş»òÄ¿Â¼
-	 * @return ÊÇ·ñÉ¾³ı³É¹¦
+	 *            æ–‡ä»¶æˆ–ç›®å½•
+	 * @return æ˜¯å¦åˆ é™¤æˆåŠŸ
 	 */
 	public static boolean deleteFile(File f) {
 		if (f == null || !f.exists())
@@ -3777,7 +3777,7 @@ public class GM extends GMBase{
 				browseOld(url);
 				return;
 			} catch (Throwable t) {
-				// Èç¹ûÓÃ¾É·½·¨Ò²²»ĞĞ£¬»¹ÊÇ·µ»ØÖ®Ç°Òì³£
+				// å¦‚æœç”¨æ—§æ–¹æ³•ä¹Ÿä¸è¡Œï¼Œè¿˜æ˜¯è¿”å›ä¹‹å‰å¼‚å¸¸
 				throw ex;
 			}
 		}
@@ -3958,7 +3958,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * »ñÈ¡SQLµÄ²¿·Ö
+	 * è·å–SQLçš„éƒ¨åˆ†
 	 * 
 	 * @param sql
 	 * @param part
@@ -3967,12 +3967,12 @@ public class GM extends GMBase{
 	public static String getPartOfSql(String sql, String part) {
 		sql = removeSqlNote(sql);
 		Object fromObj = com.scudata.dm.sql.SQLUtil.parse(sql, part);
-		if (fromObj == null) // null×ªÎª¿Õ´®£¬·½±ãIDEÆ´SQL
+		if (fromObj == null) // nullè½¬ä¸ºç©ºä¸²ï¼Œæ–¹ä¾¿IDEæ‹¼SQL
 			return "";
 		if (fromObj instanceof Sequence) {
 			StringBuffer buf = new StringBuffer();
 			Sequence seq = (Sequence) fromObj;
-			// ÕâÀï²»¼ÓÒıºÅ£¬Ò²²»¼ÓÖĞÀ¨ºÅ£¬ËùÒÔ²»Ê¹ÓÃSequence×ª´®·½·¨
+			// è¿™é‡Œä¸åŠ å¼•å·ï¼Œä¹Ÿä¸åŠ ä¸­æ‹¬å·ï¼Œæ‰€ä»¥ä¸ä½¿ç”¨Sequenceè½¬ä¸²æ–¹æ³•
 			for (int i = 1, len = seq.length(); i <= len; i++) {
 				if (i > 1)
 					buf.append(",");
@@ -3985,7 +3985,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * Ìæ»»²¿·ÖSQL
+	 * æ›¿æ¢éƒ¨åˆ†SQL
 	 * 
 	 * @param sql
 	 * @param replace
@@ -3998,7 +3998,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * Ê¹ÓÃÕıÔò±í´ïÊ½È¥³ıSQL×¢ÊÍ
+	 * ä½¿ç”¨æ­£åˆ™è¡¨è¾¾å¼å»é™¤SQLæ³¨é‡Š
 	 */
 	public static String removeSqlNote(String sql) {
 		if (sql == null)
@@ -4008,7 +4008,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * È¡µ±Ç°Ñ¡ÔñµÄ´ÊÆğÊ¼Î»ÖÃ
+	 * å–å½“å‰é€‰æ‹©çš„è¯èµ·å§‹ä½ç½®
 	 * 
 	 * @param str
 	 * @param p
@@ -4019,16 +4019,16 @@ public class GM extends GMBase{
 			return null;
 		if (p < 0) {
 			return null;
-		} else if (p == 0) { // ¹â±êÔÚµÚÒ»¸öÎ»ÖÃ
-			if (isSymbol(str.charAt(p))) { // µÚÒ»Î»²»ÊÇ×Ö·û
+		} else if (p == 0) { // å…‰æ ‡åœ¨ç¬¬ä¸€ä¸ªä½ç½®
+			if (isSymbol(str.charAt(p))) { // ç¬¬ä¸€ä½ä¸æ˜¯å­—ç¬¦
 				return null;
 			}
 		} else {
 			if (p < str.length()) {
-				if (isSymbol(str.charAt(p))) { // ¹â±êÎ»ÖÃÊÇ·ûºÅ
-					if (isSymbol(str.charAt(p - 1))) { // ¹â±êÇ°Ò»Î»Ò²ÊÇ·ûºÅ
+				if (isSymbol(str.charAt(p))) { // å…‰æ ‡ä½ç½®æ˜¯ç¬¦å·
+					if (isSymbol(str.charAt(p - 1))) { // å…‰æ ‡å‰ä¸€ä½ä¹Ÿæ˜¯ç¬¦å·
 						return null;
-					} else { // ÒÆ¶¯µ½¹â±êÇ°Ò»Î»£¬Ê¹pÎ»ÊÇ×Ö·û
+					} else { // ç§»åŠ¨åˆ°å…‰æ ‡å‰ä¸€ä½ï¼Œä½¿pä½æ˜¯å­—ç¬¦
 						p = p - 1;
 					}
 				}
@@ -4036,9 +4036,9 @@ public class GM extends GMBase{
 		}
 		int start = p;
 		int end = p;
-		for (int i = p - 1; i >= 0; i--) { // ´Ó×Ö·ûÎ»ÖÃÏòÇ°ÕÒ
+		for (int i = p - 1; i >= 0; i--) { // ä»å­—ç¬¦ä½ç½®å‘å‰æ‰¾
 			char c = str.charAt(i);
-			if ('@' == c) { // Ç°ÃæÊÇ@·ûºÅ£¬Ó¦¸ÃÊÇÑ¡Ïî£¬²»Æ¥Åä³Éº¯Êı
+			if ('@' == c) { // å‰é¢æ˜¯@ç¬¦å·ï¼Œåº”è¯¥æ˜¯é€‰é¡¹ï¼Œä¸åŒ¹é…æˆå‡½æ•°
 				return null;
 			}
 			if (isSymbol(c)) {
@@ -4046,7 +4046,7 @@ public class GM extends GMBase{
 				break;
 			}
 		}
-		for (int i = p + 1; i < str.length(); i++) { // ´Ó×Ö·ûÎ»ÖÃÏòºóÕÒ
+		for (int i = p + 1; i < str.length(); i++) { // ä»å­—ç¬¦ä½ç½®å‘åæ‰¾
 			char c = str.charAt(i);
 			if (isSymbol(c)) {
 				end = i;
@@ -4059,7 +4059,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * ÊÇ·ñ·ûºÅ
+	 * æ˜¯å¦ç¬¦å·
 	 * 
 	 * @param c
 	 * @return
@@ -4069,7 +4069,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * °´ÎÄ¼şÃûÅÅĞò
+	 * æŒ‰æ–‡ä»¶åæ’åº
 	 * 
 	 * @param files
 	 * @return
@@ -4089,7 +4089,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * JOptionPaneµÄ°´Å¥£¬ÔÚlanguageÖĞÎÄµ«ÊÇÏµÍ³Ó¢ÎÄÊ±£¬ÏÔÊ¾³ÉÓ¢ÎÄ°´Å¥¡£Í³Ò»ĞŞ¸ÄÒ»ÏÂ¡£
+	 * JOptionPaneçš„æŒ‰é’®ï¼Œåœ¨languageä¸­æ–‡ä½†æ˜¯ç³»ç»Ÿè‹±æ–‡æ—¶ï¼Œæ˜¾ç¤ºæˆè‹±æ–‡æŒ‰é’®ã€‚ç»Ÿä¸€ä¿®æ”¹ä¸€ä¸‹ã€‚
 	 * 
 	 * @param parentComponent
 	 * @param message
@@ -4100,7 +4100,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * JOptionPaneµÄ°´Å¥£¬ÔÚlanguageÖĞÎÄµ«ÊÇÏµÍ³Ó¢ÎÄÊ±£¬ÏÔÊ¾³ÉÓ¢ÎÄ°´Å¥¡£Í³Ò»ĞŞ¸ÄÒ»ÏÂ¡£
+	 * JOptionPaneçš„æŒ‰é’®ï¼Œåœ¨languageä¸­æ–‡ä½†æ˜¯ç³»ç»Ÿè‹±æ–‡æ—¶ï¼Œæ˜¾ç¤ºæˆè‹±æ–‡æŒ‰é’®ã€‚ç»Ÿä¸€ä¿®æ”¹ä¸€ä¸‹ã€‚
 	 * 
 	 * @param parentComponent
 	 * @param message
@@ -4114,7 +4114,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * JOptionPaneµÄ°´Å¥£¬ÔÚlanguageÖĞÎÄµ«ÊÇÏµÍ³Ó¢ÎÄÊ±£¬ÏÔÊ¾³ÉÓ¢ÎÄ°´Å¥¡£Í³Ò»ĞŞ¸ÄÒ»ÏÂ¡£
+	 * JOptionPaneçš„æŒ‰é’®ï¼Œåœ¨languageä¸­æ–‡ä½†æ˜¯ç³»ç»Ÿè‹±æ–‡æ—¶ï¼Œæ˜¾ç¤ºæˆè‹±æ–‡æŒ‰é’®ã€‚ç»Ÿä¸€ä¿®æ”¹ä¸€ä¸‹ã€‚
 	 * 
 	 * @param parentComponent
 	 * @param message
@@ -4161,7 +4161,7 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * °´ÏÔÊ¾±ÈÀı»ñÈ¡×ÖÌå
+	 * æŒ‰æ˜¾ç¤ºæ¯”ä¾‹è·å–å­—ä½“
 	 * 
 	 * @param scale
 	 * @return
@@ -4205,10 +4205,10 @@ public class GM extends GMBase{
 	}
 
 	/**
-	 * ÖØÖÃÈ«¾Ö»·¾³
+	 * é‡ç½®å…¨å±€ç¯å¢ƒ
 	 */
 	public static void doResetGlobalEnv() {
-		// ÇåÀíÈ«¾Ö±äÁ¿
+		// æ¸…ç†å…¨å±€å˜é‡
 		ParamList pl = Env.getParamList();
 		if (pl != null) {
 			Param p;
@@ -4229,7 +4229,7 @@ public class GM extends GMBase{
 			pl.clear();
 		}
 
-		// ÖØÖÃÈ«¾ÖÈÎÎñ±äÁ¿
+		// é‡ç½®å…¨å±€ä»»åŠ¡å˜é‡
 		ArrayList<JobSpace> spaces = JobSpaceManager.currentSpaces();
 		if (spaces != null) {
 			for (JobSpace space : spaces) {

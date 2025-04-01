@@ -202,7 +202,7 @@ public class WsClientImpl {
 		else return ss[1];
 //TODO
 //		if (ss.length==1) return s;
-//		if (!ss[0].equals(this.currAlias)) throw new Exception("Ä¿Ç°²»Ö§³Ö¶àwsdl»ìºÏµ÷ÓÃ");
+//		if (!ss[0].equals(this.currAlias)) throw new Exception("ç›®å‰ä¸æ”¯æŒå¤šwsdlæ··åˆè°ƒç”¨");
 //		return ss[1];
 	}
 	
@@ -253,7 +253,7 @@ public class WsClientImpl {
 	public Object call2(String serviceName, String port, String functionName, String []values) throws Exception {
         //String ns = "http://test.slots.com/";  
         //String wsdlUrl = "http://localhost:6666/ws/service/sayHi?wsdl";  
-        //1¡¢´´½¨·şÎñ(Service)  
+        //1ã€åˆ›å»ºæœåŠ¡(Service)  
         URL url = new URL(this.url);  
         QName sname = new QName(this.targetNamespace, serviceName);  //"SayHiServiceImplService"
         javax.xml.ws.Service service = javax.xml.ws.Service.create(url,sname);
@@ -277,11 +277,11 @@ public class WsClientImpl {
         }
         
         
-        //2¡¢´´½¨Dispatch  
+        //2ã€åˆ›å»ºDispatch  
         Dispatch<SOAPMessage> dispatch = service.createDispatch(new QName(this.targetNamespace,port),SOAPMessage.class,javax.xml.ws.Service.Mode.MESSAGE);  
                       
         dispatch.getRequestContext().put("javax.xml.ws.soap.http.soapaction.uri", "http://WebXml.com.cn/getWeatherbyCityName");
-        //3¡¢´´½¨SOAPMessage  
+        //3ã€åˆ›å»ºSOAPMessage  
         SOAPMessage msg = MessageFactory.newInstance().createMessage();  
         SOAPEnvelope envelope = msg.getSOAPPart().getEnvelope();  
         SOAPBody body = envelope.getBody();  
@@ -292,11 +292,11 @@ public class WsClientImpl {
         if (StringUtils.isValidString(functionName)) {
             Name n = envelope.createName(functionName,"raqsoftSoap",this.targetNamespace);
             SOAPBodyElement ele = body.addBodyElement(n);  
-            // ´«µİ²ÎÊı
+            // ä¼ é€’å‚æ•°
             if (values != null) {
             	for (int i=0; i<values.length; i++) {
             		String ss[] = values[i].split(":");
-            		if (ss.length != 2) throw new Exception(values[i]+" ²ÎÊı¸ñÊ½Îª¡°\"value\":paramName¡±");
+            		if (ss.length != 2) throw new Exception(values[i]+" å‚æ•°æ ¼å¼ä¸ºâ€œ\"value\":paramNameâ€");
                     ele.addChildElement(ss[1]).setValue(new String(ss[0].getBytes("GBK"),"UTF-8"));    
             	}
             }
@@ -304,7 +304,7 @@ public class WsClientImpl {
             if (values != null) {
             	for (int i=0; i<values.length; i++) {
             		String ss[] = values[i].split(":");
-            		if (ss.length != 2) throw new Exception(values[i]+" ²ÎÊı¸ñÊ½Îª¡°\"value\":paramName¡±");
+            		if (ss.length != 2) throw new Exception(values[i]+" å‚æ•°æ ¼å¼ä¸ºâ€œ\"value\":paramNameâ€");
                     body.addChildElement(ss[1]).setValue(new String(ss[0].getBytes("GBK"),"UTF-8"));    
             	}
             }
@@ -313,7 +313,7 @@ public class WsClientImpl {
         msg.writeTo(System.out);  
         System.out.println("\n invoking.....");
                               
-        //5¡¢Í¨¹ıDispatch´«µİÏûÏ¢,»á·µ»ØÏìÓ¦ÏûÏ¢  
+        //5ã€é€šè¿‡Dispatchä¼ é€’æ¶ˆæ¯,ä¼šè¿”å›å“åº”æ¶ˆæ¯  
         SOAPMessage response = dispatch.invoke(msg);  
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         response.writeTo(baos);
@@ -403,7 +403,7 @@ public class WsClientImpl {
 				if (input.partNames.size()<=i) throw new Exception("parameter number "+i+" not exist in wsdl");
 				name = input.partNames.get(i);
 			}
-			//if (input.partNames.indexOf(name) == -1) throw new Exception("parameter name ¡°"+name+"¡± not exist in wsdl");
+			//if (input.partNames.indexOf(name) == -1) throw new Exception("parameter name â€œ"+name+"â€ not exist in wsdl");
 			ps += "<"+name+">"+vi[0]+"</"+name+">";
 		}
 		
@@ -421,7 +421,7 @@ public class WsClientImpl {
 //    	sb.append("<soap:Envelope xmlns=\"http://WebXml.com.cn/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">");
 //    	sb.append("<soap:Body>");
 //    	sb.append("<getSupportCity>");
-//    	sb.append("<byProvinceName>ºÓ±±</byProvinceName>");
+//    	sb.append("<byProvinceName>æ²³åŒ—</byProvinceName>");
 //	    sb.append("</getSupportCity>");
 //	    sb.append("</soap:Body>");
 //	    sb.append("</soap:Envelope>");
@@ -431,11 +431,11 @@ public class WsClientImpl {
 	}
 
 //    public synchronized static String accessService(String wsdl,String content,String contentType)throws Exception{    
-//        //Æ´½Ó²ÎÊı    
+//        //æ‹¼æ¥å‚æ•°    
 //        String soapResponseData = "";    
-//        //Æ´½ÓSOAP    
+//        //æ‹¼æ¥SOAP    
 //        PostMethod postMethod = new PostMethod(wsdl);    
-//        // È»ºó°ÑSoapÇëÇóÊı¾İÌí¼Óµ½PostMethodÖĞ    
+//        // ç„¶åæŠŠSoapè¯·æ±‚æ•°æ®æ·»åŠ åˆ°PostMethodä¸­    
 //        byte[] b=null;    
 //        InputStream is=null;    
 //        try {    
@@ -472,11 +472,11 @@ public class WsClientImpl {
 		Document doc = builder.build(in);    
 		Element root = doc.getRootElement();    
 		t = getElementTable(root);
-		//¹Ø±ÕÁ÷    
+		//å…³é—­æµ    
 		in.close();
 		return t;
 	}
-	//"_a_${attr}","_c_${child}","_t_"ÄÚÈİ
+	//"_a_${attr}","_c_${child}","_t_"å†…å®¹
 	private static Table getElementTable(Element e) {
 		String n = e.getName();
 		ArrayList<String> names = new ArrayList<String>();
@@ -587,8 +587,8 @@ public class WsClientImpl {
 			WsClientImpl wc = new WsClientImpl(s2);
 			
 			System.out.println(wc.call("WeatherWebService", "WeatherWebServiceSoap", "getSupportProvince", new String[]{}));
-			//System.out.println(wc.call("WeatherWebService", "WeatherWebServiceSoap", "getWeatherbyCityName", new String[]{"ÉÏº£:theCityName"}));
-			//System.out.println(wc.call("WeatherWebService", "WeatherWebServiceSoap", "getSupportCity", new String[]{"ºÓ±±:byProvinceName"}));
+			//System.out.println(wc.call("WeatherWebService", "WeatherWebServiceSoap", "getWeatherbyCityName", new String[]{"ä¸Šæµ·:theCityName"}));
+			//System.out.println(wc.call("WeatherWebService", "WeatherWebServiceSoap", "getSupportCity", new String[]{"æ²³åŒ—:byProvinceName"}));
 			//System.out.println(wc.call2("SayHiServiceImplService", "SayHiServiceImplPort", "SayHi", new String[]{"aa:name"}));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

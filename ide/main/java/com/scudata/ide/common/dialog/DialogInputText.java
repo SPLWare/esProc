@@ -20,73 +20,73 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.VFlowLayout;
 
 /**
- * ÎÄ±¾¶Ô»°¿ò
+ * æ–‡æœ¬å¯¹è¯æ¡†
  *
  */
 public class DialogInputText extends DialogMaxmizable {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Common×ÊÔ´¹ÜÀíÆ÷
+	 * Commonèµ„æºç®¡ç†å™¨
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 */
 	public JButton jBOK = new JButton();
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 */
 	public JButton jBCancel = new JButton();
 	/**
-	 * ¸´ÖÆ°´Å¥
+	 * å¤åˆ¶æŒ‰é’®
 	 */
 	public JButton jBCopy = new JButton();
 	/**
-	 * Õ³Ìù°´Å¥
+	 * ç²˜è´´æŒ‰é’®
 	 */
 	public JButton jBPaste = new JButton();
 
 	/**
-	 * ÎÄ±¾±à¼­¿Ø¼ş
+	 * æ–‡æœ¬ç¼–è¾‘æ§ä»¶
 	 */
 	public JEditorPane jTextPane1 = new JEditorPane();
 	/**
-	 * ÍË³öÑ¡Ïî
+	 * é€€å‡ºé€‰é¡¹
 	 */
 	protected int m_option = JOptionPane.CLOSED_OPTION;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public DialogInputText(boolean editable) {
 		this(GV.appFrame, editable);
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param frame
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public DialogInputText(Frame frame, boolean editable) {
 		this(frame, IdeCommonMessage.get().getMessage(
-				"dialoginputtext.texteditbox"), editable); // ÎÄ±¾±à¼­¿ò
+				"dialoginputtext.texteditbox"), editable); // æ–‡æœ¬ç¼–è¾‘æ¡†
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param frame
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param title
-	 *            ±êÌâ
+	 *            æ ‡é¢˜
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public DialogInputText(Frame frame, String title, boolean editable) {
 		super(frame, title, true);
@@ -94,12 +94,12 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @param frame
-	 *            ¸¸×é¼ş
+	 *            çˆ¶ç»„ä»¶
 	 * @param editable
-	 *            ÊÇ·ñ¿ÉÒÔ±à¼­
+	 *            æ˜¯å¦å¯ä»¥ç¼–è¾‘
 	 */
 	public DialogInputText(Dialog parent, boolean editable) {
 		this(parent, IdeCommonMessage.get().getMessage(
@@ -113,7 +113,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * ³õÊ¼»¯¶Ô»°¿ò
+	 * åˆå§‹åŒ–å¯¹è¯æ¡†
 	 * 
 	 * @param editable
 	 */
@@ -130,7 +130,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * È¡ÍË³öÑ¡Ïî
+	 * å–é€€å‡ºé€‰é¡¹
 	 * 
 	 * @return
 	 */
@@ -139,7 +139,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * ÉèÖÃÎÄ±¾
+	 * è®¾ç½®æ–‡æœ¬
 	 * 
 	 * @param text
 	 */
@@ -149,7 +149,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * È¡ÎÄ±¾
+	 * å–æ–‡æœ¬
 	 * 
 	 * @return
 	 */
@@ -158,7 +158,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * ÉèÖÃ¸»ÎÄ±¾
+	 * è®¾ç½®å¯Œæ–‡æœ¬
 	 * 
 	 * @param url
 	 */
@@ -174,7 +174,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * Ö»ÏÔÊ¾¹Ø±ÕºÍ¸´ÖÆ°´Å¥
+	 * åªæ˜¾ç¤ºå…³é—­å’Œå¤åˆ¶æŒ‰é’®
 	 */
 	public void setMessageMode() {
 		jBOK.setEnabled(false);
@@ -186,7 +186,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * ÖØÉèÓïÑÔ×ÊÔ´
+	 * é‡è®¾è¯­è¨€èµ„æº
 	 * 
 	 * @param editable
 	 */
@@ -201,7 +201,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * ³õÊ¼»¯¿Ø¼ş
+	 * åˆå§‹åŒ–æ§ä»¶
 	 * 
 	 * @throws Exception
 	 */
@@ -213,18 +213,18 @@ public class DialogInputText extends DialogMaxmizable {
 		VFlowLayout vFlowLayout1 = new VFlowLayout();
 		panel1.setLayout(borderLayout1);
 		jBOK.setMnemonic('O');
-		jBOK.setText("È·¶¨(O)");
+		jBOK.setText("ç¡®å®š(O)");
 		jBOK.addActionListener(new DialogInputText_jBOK_actionAdapter(this));
 		jPanel1.setLayout(vFlowLayout1);
 		jBCancel.setMnemonic('X');
-		jBCancel.setText("È¡Ïû(X)");
+		jBCancel.setText("å–æ¶ˆ(X)");
 		jBCancel.addActionListener(new DialogInputText_jBCancel_actionAdapter(
 				this));
 		jBCopy.setMnemonic('C');
-		jBCopy.setText("¸´ÖÆ(C)");
+		jBCopy.setText("å¤åˆ¶(C)");
 		jBCopy.addActionListener(new DialogInputText_jBCopy_actionAdapter(this));
 		jBPaste.setMnemonic('P');
-		jBPaste.setText("Õ³Ìù(P)");
+		jBPaste.setText("ç²˜è´´(P)");
 		jBPaste.addActionListener(new DialogInputText_jBPaste_actionAdapter(
 				this));
 		getContentPane().add(panel1);
@@ -238,7 +238,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * È·ÈÏ°´Å¥
+	 * ç¡®è®¤æŒ‰é’®
 	 * 
 	 * @param e
 	 */
@@ -248,7 +248,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * È¡Ïû°´Å¥
+	 * å–æ¶ˆæŒ‰é’®
 	 * 
 	 * @param e
 	 */
@@ -258,7 +258,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * ¸´ÖÆ°´Å¥
+	 * å¤åˆ¶æŒ‰é’®
 	 * 
 	 * @param e
 	 */
@@ -267,7 +267,7 @@ public class DialogInputText extends DialogMaxmizable {
 	}
 
 	/**
-	 * Õ³Ìù°´Å¥
+	 * ç²˜è´´æŒ‰é’®
 	 * 
 	 * @param e
 	 */
