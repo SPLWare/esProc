@@ -17,7 +17,7 @@ public class ImClose extends Function {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("es_close" + mm.getMessage("function.missingParam"));
+			throw new RQException("close" + mm.getMessage("function.missingParam"));
 		}
 
 		Object client = param.getLeafExpression().calculate(ctx);
@@ -25,7 +25,7 @@ public class ImClose extends Function {
 			((ImMongo)client).close();
 		}else{
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("es_close" + mm.getMessage("function.paramTypeError"));
+			throw new RQException("close" + mm.getMessage("function.paramTypeError"));
 		}
 		
 		return null;
