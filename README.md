@@ -42,7 +42,6 @@ For open-source users, we have not provided an automatic installation package, b
 Additionally,Eclipse developer can download the source code and obtain instructions here.  
 **Note: the source code of com.scudata.ide module is located in ide directory, and you need to add its corresponding folder under "Source folders".** Find more details in https://c.esproc.com/article/1677815008127.
 
-
 For other editions, installation packages can be downloaded from https://www.esproc.com/download-esproc/. No further instructions are necessary, as the installation process is straightforward.  
 
 
