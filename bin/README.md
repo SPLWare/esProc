@@ -53,3 +53,4 @@ Configure options in [Program arguments] - [Program arguments] to start the non-
 
 -x, for closing non-GUI ODBC and HTTP services.
 
+Note: To start esProc in a non-GUI environment, add -Djava.awt.headless=true in ServerConsole.sh.
