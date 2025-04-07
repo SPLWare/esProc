@@ -476,15 +476,30 @@ public class Expression {
 				}
 
 				location++;
-				if (location < len && expStr.charAt(location) == '/') { // //
-					node = new MemDivide();
-					location++;
-				} else if (location < len && expStr.charAt(location) == '=') { // /=
-					node = new DivideAssign();
-					location++;
+				if (location < len) {
+					char nextChar = expStr.charAt(location);
+					if (nextChar == '/') { // //
+						node = new MemDivide();
+						location++;
+					} else if (nextChar == '=') { // /=
+						node = new DivideAssign();
+						location++;
+					} else if (nextChar == '*') { // 注释/**/
+						location = scanAnnotation(expStr, location);
+						if (location == -1) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(mm.getMessage("Expression.unknownExpression") + "/*");
+						} else {
+							location++;
+							continue;
+						}
+					} else {
+						node = new Divide();
+					}
 				} else {
 					node = new Divide();
 				}
+				
 				break;
 			case '%':
 				location++;
@@ -912,6 +927,27 @@ public class Expression {
 		}
 		
 		return expStr.substring(begin, location);
+	}
+	
+	// 扫描注释/**/，pos为*所在位置，返回/所在位置
+	private static int scanAnnotation(String str, int start) {
+		for (int i = start + 1, len = str.length() - 1; i < len; ++i) {
+			char ch = str.charAt(i);
+			if (ch == '*') {
+				if (str.charAt(i + 1) == '/') {
+					return i + 1;
+				}
+			} else if (ch == '/') {
+				if (str.charAt(i + 1) == '*') {
+					i = scanAnnotation(str, i + 1);
+					if (i == -1) {
+						return -1;
+					}
+				}
+			}
+		}
+		
+		return -1;
 	}
 
 	private String scanParameter() {
