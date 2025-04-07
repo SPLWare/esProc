@@ -1,10 +1,13 @@
 package com.scudata.expression.fn;
 
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
+import com.scudata.resources.EngineMessage;
 
 /**
  * 程序网里定义的函数的调用 fn(arg)fn为程序网中定义的函数的名字
@@ -26,19 +29,27 @@ public class PCSFunction extends Function {
 	}
 
 	public Object calculate(Context ctx) {
-		Object[] args = null;
+		Object[] args = funcInfo.getDefaultValues();
 		boolean hasOptParam = funcInfo.hasOptParam();
 		
 		if (param != null) {
 			if (hasOptParam) {
 				if (param.isLeaf()) {
-					Object val = param.getLeafExpression().calculate(ctx);
-					args = new Object[] {option, val};
+					if (args == null || args.length < 2) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(funcInfo.getFnName() + mm.getMessage("function.invalidParam"));
+					}
+					
+					args[0] = option;
+					args[1] = param.getLeafExpression().calculate(ctx);
 				} else {
 					int size = param.getSubSize();
-					args = new Object[size + 1];
+					if (args == null || args.length < size + 1) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(funcInfo.getFnName() + mm.getMessage("function.invalidParam"));
+					}
+					
 					args[0] = option;
-
 					for (int i = 0; i < size; ++i) {
 						IParam sub = param.getSub(i);
 						if (sub != null) {
@@ -48,11 +59,18 @@ public class PCSFunction extends Function {
 				}
 			} else {
 				if (param.isLeaf()) {
-					Object val = param.getLeafExpression().calculate(ctx);
-					args = new Object[] { val };
+					if (args == null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(funcInfo.getFnName() + mm.getMessage("function.invalidParam"));
+					}
+					
+					args[0] = param.getLeafExpression().calculate(ctx);
 				} else {
 					int size = param.getSubSize();
-					args = new Object[size];
+					if (args == null || args.length < size) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(funcInfo.getFnName() + mm.getMessage("function.invalidParam"));
+					}
 
 					for (int i = 0; i < size; ++i) {
 						IParam sub = param.getSub(i);
@@ -63,7 +81,12 @@ public class PCSFunction extends Function {
 				}
 			}
 		} else if (hasOptParam) {
-			args = new Object[] {option};
+			if (args == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(funcInfo.getFnName() + mm.getMessage("function.invalidParam"));
+			}
+			
+			args[0] = option;
 		}
 
 		return funcInfo.execute(args, option, ctx);

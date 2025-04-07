@@ -206,7 +206,9 @@ public class Call extends Function {
 							Object val = sub.getLeafExpression().calculate(ctx);
 							curCtx.setParamValue(p.getName(), val);
 						} else {
-							curCtx.setParamValue(p.getName(), null);
+							// curCtx.setParamValue(p.getName(), null);
+							// 省略用缺省值
+							curCtx.setParamValue(p.getName(), p.getValue());
 						}
 					}
 				} else {
@@ -220,7 +222,9 @@ public class Call extends Function {
 							Object val = sub.getLeafExpression().calculate(ctx);
 							curCtx.setParamValue(p.getName(), val);
 						} else {
-							curCtx.setParamValue(p.getName(), null);
+							// curCtx.setParamValue(p.getName(), null);
+							// 省略用缺省值
+							curCtx.setParamValue(p.getName(), p.getValue());
 						}
 					}
 				}

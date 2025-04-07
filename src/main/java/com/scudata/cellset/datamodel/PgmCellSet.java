@@ -334,15 +334,16 @@ public class PgmCellSet extends CellSet {
 		private String fnName;
 		private String option;
 		private PgmNormalCell cell; // 函数所在单元格
-		private String[] argNames; // 参数名
+		private String []argNames; // 参数名
+		private Object []defaultValues; // 参数缺省值
 
-		public FuncInfo(String fnName, PgmNormalCell cell, String[] argNames) {
+		public FuncInfo(String fnName, PgmNormalCell cell, String []argNames) {
 			this.fnName = fnName;
 			this.cell = cell;
 			this.argNames = argNames;
 		}
 		
-		public FuncInfo(String fnName, PgmNormalCell cell, String[] argNames, String option) {
+		public FuncInfo(String fnName, PgmNormalCell cell, String []argNames, String option) {
 			this.fnName = fnName;
 			this.cell = cell;
 			this.argNames = argNames;
@@ -381,6 +382,21 @@ public class PgmCellSet extends CellSet {
 			return option != null && option.indexOf('o') != -1;
 		}
 		
+		public Object[] getDefaultValues() {
+			if (defaultValues == null) {
+				return null;
+			} else {
+				int len = defaultValues.length;
+				Object []vals = new Object[len];
+				System.arraycopy(defaultValues, 0, vals, 0, len);
+				return vals;
+			}
+		}
+
+		void setDefaultValues(Object[] defaultValues) {
+			this.defaultValues = defaultValues;
+		}
+
 		public Object execute(Object[] args, String opt, Context ctx) {
 			return executeFunc(this, args, opt, ctx);
 		}
@@ -2944,8 +2960,7 @@ public class PgmCellSet extends CellSet {
 						FuncInfo funcInfo = new FuncInfo(fnName, cell, null, fnOpt);
 						fnMap.put(expStr, funcInfo);
 					} else {
-						for (; nameEnd < len
-								&& Character.isWhitespace(expStr.charAt(nameEnd)); ++nameEnd) {
+						for (; nameEnd < len && Character.isWhitespace(expStr.charAt(nameEnd)); ++nameEnd) {
 						}
 
 						if (nameEnd == len) {
@@ -2953,15 +2968,29 @@ public class PgmCellSet extends CellSet {
 							fnMap.put(fnName, funcInfo);
 						} else if (expStr.charAt(nameEnd) == '('
 								&& expStr.charAt(len - 1) == ')') {
-							String[] argNames = null;
+							String []argNames = null;
+							Object []defaultValues = null;
 							IParam param = ParamParser.parse(
 									expStr.substring(nameEnd + 1, len - 1),
 									this, ctx, false);
+							
 							if (param != null) {
 								argNames = param.toStringArray("func", false);
+								int argCount = argNames.length;
+								defaultValues = new Object[argCount];
+								
+								for (int i = 0; i < argCount; ++i) {
+									int index = argNames[i].indexOf('=');
+									if (index != -1) {
+										Expression exp = new Expression(this, ctx, argNames[i].substring(index + 1));
+										argNames[i] = argNames[i].substring(0, index);
+										defaultValues[i] = exp.calculate(ctx);
+									}
+								}
 							}
 
 							FuncInfo funcInfo = new FuncInfo(fnName, cell, argNames, fnOpt);
+							funcInfo.setDefaultValues(defaultValues);
 							fnMap.put(fnName, funcInfo);
 						} else {
 							MessageManager mm = EngineMessage.get();
