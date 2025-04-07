@@ -19,6 +19,7 @@ import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
 import com.scudata.common.ByteMap;
 import com.scudata.common.DES;
+import com.scudata.common.Escape;
 import com.scudata.common.IOUtils;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -774,6 +775,7 @@ public class CellSetUtil {
 				String exp = line.get(f);
 				if (exp != null && exp.length() > 0) {
 					PgmNormalCell cell = pcs.getPgmNormalCell(curRow, f + 1);
+					exp = Escape.remove(exp);
 					cell.setExpString(exp);
 				}
 			}
@@ -934,6 +936,7 @@ public class CellSetUtil {
 				
 				String exp = cs.getPgmNormalCell(r, c).getExpString();
 				if (exp != null) {
+					exp = Escape.add(exp);
 					sb.append(exp);
 				}
 			}
