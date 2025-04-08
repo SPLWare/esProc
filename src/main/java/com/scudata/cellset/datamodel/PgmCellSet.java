@@ -5,6 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.scudata.cellset.ICellSet;
@@ -476,7 +477,7 @@ public class PgmCellSet extends CellSet {
 		pcs.name = name;
 		return pcs;
 	}
-
+	
 	// 生成新的网格供cursor(c,…)使用
 	public PgmCellSet newCursorDFX(INormalCell cell, Object[] args) {
 		int rowCount = getRowCount();
@@ -526,18 +527,89 @@ public class PgmCellSet extends CellSet {
 					paramCol++;
 				} else {
 					break;
-					// if (paramRow == getRowCount() && i < paramCount - 1) {
-					// MessageManager mm = EngineMessage.get();
-					// throw new RQException("call" +
-					// mm.getMessage("function.paramCountNotMatch"));
-					// }
-					// paramRow++;
-					// paramCol = 1;
 				}
 			}
 		}
 
 		newPcs.setContext(getContext());
+		newPcs.setCurrent(cell);
+		newPcs.setNext(row, col + 1, false);
+		newPcs.name = name;
+		return newPcs;
+	}
+
+	// 生成新的网格供cursor(c,…)使用
+	public PgmCellSet newCursorDFX(FuncInfo fi, Object[] args) {
+		int rowCount = getRowCount();
+		int colCount = getColCount();
+		PgmCellSet newPcs = new PgmCellSet(rowCount, colCount);
+
+		PgmNormalCell cell = fi.getCell();
+		int row = cell.getRow();
+		int col = cell.getCol();
+		int endRow = getCodeBlockEndRow(row, col);
+
+		// 代码块外的格子只引用格值，不设置表达式
+		for (int r = 1; r < row; ++r) {
+			for (int c = 1; c <= colCount; ++c) {
+				Object val = getPgmNormalCell(r, c).getValue();
+				newPcs.getPgmNormalCell(r, c).setValue(val);
+			}
+		}
+
+		for (int r = endRow + 1; r <= rowCount; ++r) {
+			for (int c = 1; c <= colCount; ++c) {
+				Object val = getPgmNormalCell(r, c).getValue();
+				newPcs.getPgmNormalCell(r, c).setValue(val);
+			}
+		}
+
+		for (int r = row; r <= endRow; ++r) {
+			for (int c = 1; c < col; ++c) {
+				Object val = getPgmNormalCell(r, c).getValue();
+				newPcs.getPgmNormalCell(r, c).setValue(val);
+			}
+
+			for (int c = col; c <= colCount; ++c) {
+				INormalCell tmp = getCell(r, c);
+				INormalCell cellClone = (INormalCell) tmp.deepClone();
+				cellClone.setCellSet(newPcs);
+				newPcs.setCell(r, c, cellClone);
+			}
+		}
+
+		Context ctx = getContext().newComputeContext();
+		
+		// 把参数值设到func单元格上及后面的格子
+		if (args != null) {
+			if (fi.getArgNames() != null) {
+				// 把参数设到上下文中
+				String []argNames = fi.getArgNames();
+				int argCount = argNames.length;
+				if (args == null || args.length != argCount) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(fi.getFnName()
+							+ mm.getMessage("function.paramCountNotMatch"));
+				}
+
+				for (int i = 0; i < argCount; ++i) {
+					ctx.setParamValue(argNames[i], args[i]);
+				}
+			} else {
+				int paramRow = row;
+				int paramCol = col;
+				for (int i = 0, pcount = args.length; i < pcount; ++i) {
+					newPcs.getPgmNormalCell(paramRow, paramCol).setValue(args[i]);
+					if (paramCol < colCount) {
+						paramCol++;
+					} else {
+						break;
+					}
+				}
+			}
+		}
+
+		newPcs.setContext(ctx);
 		newPcs.setCurrent(cell);
 		newPcs.setNext(row, col + 1, false);
 		newPcs.name = name;
@@ -2365,6 +2437,24 @@ public class PgmCellSet extends CellSet {
 		return getFunctionMap().get(fnName);
 	}
 
+	/**
+	 * 根据函数所在格取函数信息
+	 * @param cell 函数所在格
+	 * @return
+	 */
+	public FuncInfo getFuncInfo(INormalCell cell) {
+		HashMap<String, FuncInfo> map = getFunctionMap();
+		Iterator<FuncInfo> itr = map.values().iterator();
+		while (itr.hasNext()) {
+			FuncInfo fi = itr.next();
+			if (fi.getCell() == cell) {
+				return fi;
+			}
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * 执行指定名字的子函数，可递归调用
 	 * @param funcInfo 函数信息

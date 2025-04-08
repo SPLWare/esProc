@@ -4,6 +4,7 @@ import com.scudata.cellset.ICellSet;
 import com.scudata.cellset.INormalCell;
 import com.scudata.cellset.datamodel.Command;
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.cellset.datamodel.PgmCellSet.FuncInfo;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -32,7 +33,7 @@ public class CreateCursor extends Function {
 		if (param != null) param.optimize(ctx);
 		return this;
 	}
-
+	
 	private PgmCellSet getPgmCellSet(INormalCell cell, Object []args, Context ctx) {
 		if (cell == null) {
 			MessageManager mm = EngineMessage.get();
@@ -54,7 +55,7 @@ public class CreateCursor extends Function {
 		
 		return pcs.newCursorDFX(pcell, args);
 	}
-	
+
 	public Object calculate(Context ctx) {
 		IParam param = this.param;
 		if (param == null) {
@@ -75,7 +76,18 @@ public class CreateCursor extends Function {
 			Expression exp = param.getLeafExpression();
 			if (isCommand) {
 				INormalCell cell = exp.calculateCell(ctx);
-				pcs = getPgmCellSet(cell, null, ctx);
+				if (cell == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("cursor" + mm.getMessage("function.invalidParam"));
+				}
+				
+				pcs = (PgmCellSet)cs;
+				FuncInfo fi = pcs.getFuncInfo(cell);
+				if (fi == null) {
+					pcs = getPgmCellSet(cell, null, ctx);
+				} else {
+					pcs = pcs.newCursorDFX(fi, fi.getDefaultValues());
+				}
 			} else {
 				Object obj = exp.calculate(ctx);
 				if (obj instanceof String) {
@@ -84,13 +96,13 @@ public class CreateCursor extends Function {
 					} else if (useCache) {
 						pcs = dfxManager.removeDfx((String)obj, ctx);
 					} else {
-						pcs = dfxManager.readDfx((String)obj, ctx);
+						pcs = DfxManager.readDfx((String)obj, ctx);
 					}
 				} else if (obj instanceof FileObject) {
 					if (useCache) {
 						pcs = dfxManager.removeDfx((FileObject)obj, ctx);
 					} else {
-						pcs = dfxManager.readDfx((FileObject)obj, ctx);
+						pcs = DfxManager.readDfx((FileObject)obj, ctx);
 					}
 				} else {
 					MessageManager mm = EngineMessage.get();
@@ -108,15 +120,39 @@ public class CreateCursor extends Function {
 			Expression exp = sub0.getLeafExpression();
 			if (isCommand) {
 				INormalCell cell = exp.calculateCell(ctx);
-				Object []args = new Object[size - 1];
-				for (int i = 1; i < size; ++i) {
-					IParam sub = param.getSub(i);
-					if (sub != null) {
-						args[i - 1] = sub.getLeafExpression().calculate(ctx);
-					}
+				if (cell == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("cursor" + mm.getMessage("function.invalidParam"));
 				}
 				
-				pcs = getPgmCellSet(cell, args, ctx);
+				pcs = (PgmCellSet)cs;
+				FuncInfo fi = pcs.getFuncInfo(cell);
+				if (fi == null) {
+					Object []args = new Object[size - 1];
+					for (int i = 1; i < size; ++i) {
+						IParam sub = param.getSub(i);
+						if (sub != null) {
+							args[i - 1] = sub.getLeafExpression().calculate(ctx);
+						}
+					}
+					
+					pcs = getPgmCellSet(cell, args, ctx);
+				} else {
+					Object[] args = fi.getDefaultValues();
+					if (args == null || args.length < size - 1) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(fi.getFnName() + mm.getMessage("function.invalidParam"));
+					}
+					
+					for (int i = 1; i < size; ++i) {
+						IParam sub = param.getSub(i);
+						if (sub != null) {
+							args[i - 1] = sub.getLeafExpression().calculate(ctx);
+						}
+					}
+					
+					pcs = pcs.newCursorDFX(fi, args);
+				}
 			} else {
 				Object obj = exp.calculate(ctx);
 				if (obj instanceof String) {
@@ -130,13 +166,13 @@ public class CreateCursor extends Function {
 					} else if (useCache) {
 						pcs = dfxManager.removeDfx((String)obj, ctx);
 					} else {
-						pcs = dfxManager.readDfx((String)obj, ctx);
+						pcs = DfxManager.readDfx((String)obj, ctx);
 					}
 				} else if (obj instanceof FileObject) {
 					if (useCache) {
 						pcs = dfxManager.removeDfx((FileObject)obj, ctx);
 					} else {
-						pcs = dfxManager.readDfx((FileObject)obj, ctx);
+						pcs = DfxManager.readDfx((FileObject)obj, ctx);
 					}
 				} else {
 					MessageManager mm = EngineMessage.get();
