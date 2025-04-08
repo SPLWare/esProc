@@ -405,10 +405,10 @@ public class Context {
 	 * 添加程序网函数
 	 * @param fnName 函数名
 	 * @param funcInfo 函数体信息
+	 * @param isGlobal true：加载到全局空间，false：加载到任务空间
 	 */
-	public void addDFXFunction(String fnName, PgmCellSet.FuncInfo funcInfo) {
-		String opt = funcInfo.getOption();
-		if (opt == null || opt.indexOf('j') == -1) {
+	public void addDFXFunction(String fnName, PgmCellSet.FuncInfo funcInfo, boolean isGlobal) {
+		if (isGlobal) {
 			FunctionLib.addDFXFunction(fnName, funcInfo);
 		} else if (js != null) {
 			js.addDFXFunction(fnName, funcInfo);

@@ -74,10 +74,11 @@ public class Call extends Function {
 			HashMap<String, FuncInfo> map = pcs.getFunctionMap();
 			Set<Map.Entry<String,FuncInfo>> set = map.entrySet();
 			Iterator<Map.Entry<String,FuncInfo>> iterator = set.iterator();
+			boolean isGlobal = option.indexOf('j') == -1;
 			
 			while (iterator.hasNext()) {
 				Map.Entry<String,FuncInfo> entry = iterator.next();
-				ctx.addDFXFunction(entry.getKey(), entry.getValue());
+				ctx.addDFXFunction(entry.getKey(), entry.getValue(), isGlobal);
 			}
 		}
 		
