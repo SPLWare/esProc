@@ -1,9 +1,6 @@
 package com.scudata.parallel;
 
-import java.io.Serializable;
-
 import com.scudata.common.MessageManager;
-import com.scudata.dm.Env;
 import com.scudata.dm.ZoneManager;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.unit.UnitServer;
@@ -15,6 +12,7 @@ import com.scudata.server.unit.UnitServer;
  *
  */
 public class UnitWorker extends Thread {
+	UnitServer us;
 	SocketData socketData;
 	
 //	来自于socket的客户端是否通过了白名单验证
@@ -41,8 +39,9 @@ public class UnitWorker extends Thread {
 	 * 设置数据套接字通讯对象
 	 * @param sd 数据套接字
 	 */
-	public void setSocket(SocketData sd){
+	public void setSocket(SocketData sd,UnitServer currentServer){
 		this.socketData = sd;
+		this.us = currentServer;
 	}
 
 	/**
@@ -60,7 +59,7 @@ public class UnitWorker extends Thread {
 				Request req = (Request) obj;
 				switch (req.getActionType()) {
 				case Request.TYPE_DFX:
-					setName("UnitWorker[execute dfx]:"+req);
+					setName("UnitWorker[execute splx]:"+req);
 					if(errorCheck){
 						response = new Response();
 						MessageManager mm = ParallelMessage.get();
@@ -114,7 +113,7 @@ public class UnitWorker extends Thread {
 					break;
 				default: // Type Server
 					setName("UnitWorker[execute cmd]:"+req);
-					response = UnitServer.getInstance().execute(req);
+					response = us.execute(req);
 				}
 				socketData.write(response);
 			}

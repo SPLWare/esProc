@@ -425,6 +425,7 @@ public class ScudataLogger {
 		return formatter.format(new Date());
 	}
 
+	public void otelMessage(String msg) {}
 
 	abstract class Handler {
 		int logLevel = iDEBUG;// iINFO;
@@ -454,6 +455,7 @@ public class ScudataLogger {
 			if (level > logLevel)
 				return;
 			System.err.println(msg);// out用于输出数据，可在dos控制台收集
+			otelMessage(msg);
 		}
 
 		void close() {
