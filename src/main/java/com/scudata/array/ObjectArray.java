@@ -1971,6 +1971,12 @@ public class ObjectArray implements IArray {
 				} else {
 					resultDatas[i] = null;
 				}
+			} else if (d2[i] == 0) {
+				if (v instanceof String) {
+					resultDatas[i] = (String)v + 0;
+				} else {
+					resultDatas[i] = null;
+				}
 			} else if (v instanceof BigDecimal) {
 				resultDatas[i] = ((BigDecimal)v).divide(new BigDecimal(d2[i]));
 			} else if (v instanceof BigInteger) {
@@ -2014,6 +2020,12 @@ public class ObjectArray implements IArray {
 				} else {
 					resultDatas[i] = null;
 				}
+			} else if (d2[i] == 0) {
+				if (v instanceof String) {
+					resultDatas[i] = (String)v + 0;
+				} else {
+					resultDatas[i] = null;
+				}
 			} else if (v instanceof BigDecimal) {
 				resultDatas[i] = ((BigDecimal)v).divide(new BigDecimal(d2[i]));
 			} else if (v instanceof BigInteger) {
@@ -2054,6 +2066,12 @@ public class ObjectArray implements IArray {
 			if (array.isNull(i)) {
 				if (v instanceof String) {
 					resultDatas[i] = v;
+				} else {
+					resultDatas[i] = null;
+				}
+			} else if (d2[i] == 0) {
+				if (v instanceof String) {
+					resultDatas[i] = (String)v + 0;
 				} else {
 					resultDatas[i] = null;
 				}
