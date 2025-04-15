@@ -1978,10 +1978,10 @@ public class ObjectArray implements IArray {
 					resultDatas[i] = null;
 				}
 			} else if (v instanceof BigDecimal) {
-				resultDatas[i] = ((BigDecimal)v).divide(new BigDecimal(d2[i]));
+				resultDatas[i] = ((BigDecimal)v).divide(new BigDecimal(d2[i]), Variant.Divide_Scale, Variant.Divide_Round);
 			} else if (v instanceof BigInteger) {
 				BigDecimal decimal = new BigDecimal((BigInteger)v);
-				resultDatas[i] = decimal.divide(new BigDecimal(d2[i]));
+				resultDatas[i] = decimal.divide(new BigDecimal(d2[i]), Variant.Divide_Scale, Variant.Divide_Round);
 			} else if (v instanceof Number) {
 				resultDatas[i] = ((Number)v).doubleValue() / d2[i];
 			} else if (v instanceof String) {
@@ -2027,10 +2027,10 @@ public class ObjectArray implements IArray {
 					resultDatas[i] = null;
 				}
 			} else if (v instanceof BigDecimal) {
-				resultDatas[i] = ((BigDecimal)v).divide(new BigDecimal(d2[i]));
+				resultDatas[i] = ((BigDecimal)v).divide(new BigDecimal(d2[i]), Variant.Divide_Scale, Variant.Divide_Round);
 			} else if (v instanceof BigInteger) {
 				BigDecimal decimal = new BigDecimal((BigInteger)v);
-				resultDatas[i] = decimal.divide(new BigDecimal(d2[i]));
+				resultDatas[i] = decimal.divide(new BigDecimal(d2[i]), Variant.Divide_Scale, Variant.Divide_Round);
 			} else if (v instanceof Number) {
 				resultDatas[i] = ((Number)v).doubleValue() / d2[i];
 			} else if (v instanceof String) {
@@ -2076,10 +2076,10 @@ public class ObjectArray implements IArray {
 					resultDatas[i] = null;
 				}
 			} else if (v instanceof BigDecimal) {
-				resultDatas[i] = ((BigDecimal)v).divide(new BigDecimal(d2[i]));
+				resultDatas[i] = ((BigDecimal)v).divide(new BigDecimal(d2[i]), Variant.Divide_Scale, Variant.Divide_Round);
 			} else if (v instanceof BigInteger) {
 				BigDecimal decimal = new BigDecimal((BigInteger)v);
-				resultDatas[i] = decimal.divide(new BigDecimal(d2[i]));
+				resultDatas[i] = decimal.divide(new BigDecimal(d2[i]), Variant.Divide_Scale, Variant.Divide_Round);
 			} else if (v instanceof Number) {
 				resultDatas[i] = ((Number)v).doubleValue() / d2[i];
 			} else if (v instanceof String) {
