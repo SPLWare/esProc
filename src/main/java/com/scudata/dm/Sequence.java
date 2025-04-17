@@ -10625,7 +10625,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			Sequence seq = (Sequence)groups.getMem(i);
 			BaseRecord r = (BaseRecord)seq.getMem(1);
 			BaseRecord newRecord = result.newLast();
-			newRecord.set(r);
+			
+			for (int f = 0; f < srcFieldCount; ++f) {
+				newRecord.setNormalFieldValue(f, r.getNormalFieldValue(f));
+			}
 			
 			for (int j = 2, q = srcFieldCount, len = seq.length(); j <= len; ++j) {
 				r = (BaseRecord)seq.getMem(j);

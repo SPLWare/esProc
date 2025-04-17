@@ -1,5 +1,6 @@
 package com.scudata.dm;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -459,4 +460,14 @@ public class Context {
 			return FunctionLib.getDFXFunction(fnName);
 		}
 	}
+	
+	/** 取应用主目录 */
+	public File getAppHome() {
+		if (js == null) {
+			return null;
+		} else {
+			return js.getAppHome();
+		}
+	}
+
 }
