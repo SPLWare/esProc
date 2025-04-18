@@ -3,6 +3,7 @@ package com.scudata.server.unit;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.esproc.jdbc.JDBCUtil;
@@ -40,6 +41,7 @@ public class JdbcTask {
 		this.args = (ArrayList) args;
 		this.context = ctx;
 		this.envParams = envParams;
+		doTracer("jdbc", cmd, args, envParams);
 	}
 
 	/**
@@ -167,5 +169,19 @@ public class JdbcTask {
 		if (isCanceled)
 			throw new InterruptedException();
 		return result;
+	}
+	
+	// otel collect data by agent
+	private void doTracer(String typeName, String cmd, ArrayList params, Map<String, Object> envParam){
+		Map<String, Object>map = new HashMap<>();
+		map.put("cmd", cmd);
+		String sVal= String.join(",", params);
+		map.put("params", sVal);
+		map.putAll(envParam);		
+		
+		collectData(typeName, map);
+	}
+	
+	public void collectData(String typeName, Map<String, Object>map){	
 	}
 }

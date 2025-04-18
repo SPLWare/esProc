@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -116,6 +117,7 @@ class OdbcWorker extends Thread {
 							cpm.addProxy(connProxy);
 							writeOdbcResponse(os, connId,
 									"Login OK, current odbc user: " + user);
+							System.setProperty("_userName", user);
 						}
 					} catch (Exception x) {
 						writeOdbcResponse(os, -1, x.getMessage());
@@ -157,6 +159,7 @@ class OdbcWorker extends Thread {
 				for (int i = 0; i < resultIds.length; i++) {
 					DataTypes.writeInt(os, resultIds[i]);
 				}
+				doTracer("jdbc", sp);
 				break;
 			// * 1003、cancel execute dfx:
 			// * 4byte(1003) + 4byte(连接号) + 4byte(statement号)
@@ -414,5 +417,24 @@ class OdbcWorker extends Thread {
 			sckt.close();
 		} catch (IOException e) {
 		}
+	}
+	
+	// otel collect data by agent
+	private void doTracer(String typeName, StatementProxy sp){
+		Map<String, Object>map = new HashMap<>();
+		map.put("cmd", sp.getCmd());
+		map.put("id", sp.getId());
+		map.put("size", sp.size());
+		map.put("params", sp.getParams().toString());
+		String user = System.getProperty("_userName");
+		if (user!=null){
+			map.put("userName", user);
+			System.clearProperty("_userName");
+		}
+		collectData(typeName, map);
+		Logger.info("odbc OTel Test....");
+	}
+	
+	public void collectData(String typeName, Map<String, Object>map){	
 	}
 }

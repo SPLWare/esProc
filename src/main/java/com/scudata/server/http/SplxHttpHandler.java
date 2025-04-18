@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONObject;
 
@@ -177,6 +178,7 @@ public class SplxHttpHandler implements HttpHandler {
 				URI uri = httpExchange.getRequestURI();
 				String path = uri.getPath().trim();
 				reqHeaders = httpExchange.getRequestHeaders();
+				doTracer("http", httpExchange);
 
 				if (path.equals("/")) {
 					String url = SplxServerInIDE.getInstance().getContext().getDefaultUrl();
@@ -529,6 +531,24 @@ public class SplxHttpHandler implements HttpHandler {
 			return b;
 		}
 		
+	}
+	
+	// otel collect data by agent
+	private void doTracer(String typeName, HttpExchange http){
+		Map<String, Object> m = new HashMap<>();
+		String uri = http.getRequestURI().toString();
+		if (!uri.equals("/") && uri.startsWith("/")){
+			uri = uri.substring(1);
+		}
+		m.put("url", uri);
+		
+		m.put("method", http.getRequestMethod());
+		m.put("protocol", http.getProtocol());
+		m.put("address", http.getLocalAddress().toString());
+		
+		collectData(typeName, m);
+	}
+	public void collectData(String typeName, Map<String, Object> map){
 	}
 
 }

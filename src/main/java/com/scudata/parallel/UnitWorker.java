@@ -1,5 +1,8 @@
 package com.scudata.parallel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.scudata.common.MessageManager;
 import com.scudata.dm.ZoneManager;
 import com.scudata.resources.ParallelMessage;
@@ -60,6 +63,9 @@ public class UnitWorker extends Thread {
 				switch (req.getActionType()) {
 				case Request.TYPE_DFX:
 					setName("UnitWorker[execute splx]:"+req);
+					if (req.getAction()==Request.TYPE_DFX+1){
+						doTracer("splx", req);
+					}
 					if(errorCheck){
 						response = new Response();
 						MessageManager mm = ParallelMessage.get();
@@ -145,5 +151,16 @@ public class UnitWorker extends Thread {
 		return sb.toString();
 	}
 
+	// otel collect data by agent
+	private void doTracer(String typeName, Request req){
+		Map<String, Object>map = new HashMap<>();
+		map.put("fileName", req.getAttr("Dfx name"));
+		map.put("params", req.getAttr("Arg list"));
+		
+		collectData(typeName, map);
+	}
+	
+	public void collectData(String typeName, Map<String, Object>map){	
+	}
 
 }
