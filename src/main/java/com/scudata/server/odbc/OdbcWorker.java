@@ -159,7 +159,7 @@ class OdbcWorker extends Thread {
 				for (int i = 0; i < resultIds.length; i++) {
 					DataTypes.writeInt(os, resultIds[i]);
 				}
-				doTracer("jdbc", sp);
+				doTracer("odbc", sp);
 				break;
 			// * 1003、cancel execute dfx:
 			// * 4byte(1003) + 4byte(连接号) + 4byte(statement号)
