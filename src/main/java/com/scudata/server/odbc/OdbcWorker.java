@@ -421,7 +421,7 @@ class OdbcWorker extends Thread {
 	
 	// otel collect data by agent
 	private void doTracer(String typeName, StatementProxy sp){
-		Map<String, Object>map = new HashMap<>();
+		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("cmd", sp.getCmd());
 		map.put("id", sp.getId());
 		map.put("size", sp.size());

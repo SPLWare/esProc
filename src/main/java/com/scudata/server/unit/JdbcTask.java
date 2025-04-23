@@ -173,7 +173,7 @@ public class JdbcTask {
 	
 	// otel collect data by agent
 	private void doTracer(String typeName, String cmd, ArrayList params, Map<String, Object> envParam){
-		Map<String, Object>map = new HashMap<>();
+		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("cmd", cmd);
 		String sVal= String.join(",", params);
 		map.put("params", sVal);

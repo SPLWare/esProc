@@ -153,7 +153,7 @@ public class UnitWorker extends Thread {
 
 	// otel collect data by agent
 	private void doTracer(String typeName, Request req){
-		Map<String, Object>map = new HashMap<>();
+		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("fileName", req.getAttr("Dfx name"));
 		map.put("params", req.getAttr("Arg list"));
 		

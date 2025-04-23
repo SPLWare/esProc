@@ -535,7 +535,7 @@ public class SplxHttpHandler implements HttpHandler {
 	
 	// otel collect data by agent
 	private void doTracer(String typeName, HttpExchange http){
-		Map<String, Object> m = new HashMap<>();
+		Map<String, Object> m = new HashMap<String, Object>();
 		String uri = http.getRequestURI().toString();
 		if (!uri.equals("/") && uri.startsWith("/")){
 			uri = uri.substring(1);
