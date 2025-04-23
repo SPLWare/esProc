@@ -175,8 +175,7 @@ public class JdbcTask {
 	private void doTracer(String typeName, String cmd, ArrayList params, Map<String, Object> envParam){
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("cmd", cmd);
-		String sVal= String.join(",", params);
-		map.put("params", sVal);
+		map.put("params", params);
 		map.putAll(envParam);		
 		
 		collectData(typeName, map);
