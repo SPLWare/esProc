@@ -18,13 +18,8 @@ import com.scudata.resources.EngineMessage;
  */
 public class Var extends Gather{
 	private Expression exp;
-	private String countFieldName; // 结果集计数字段名称
 	private boolean sta;
 	private boolean root;
-	
-	public void setCountFieldName(String countFieldName) {
-		this.countFieldName = countFieldName;
-	}
 	
 	/**
 	 * 检查表达式的有效性，无效则抛出异常
@@ -143,20 +138,15 @@ public class Var extends Gather{
 	}
 
 	public Expression getRegatherExpression(int q) {
-		if (countFieldName == null) {
-			String str = "var";
-			if (this.option != null)
-				str += "@"+this.option;
-			str += "(#" + q + ")";
-			return new Expression(str);
-		} else {
-			String str = "sum(#" + q + ")";
-			return new Expression(str);
-		}
+		String str = "var";
+		if (this.option != null)
+			str += "@"+this.option;
+		str += "(#" + q + ")";
+		return new Expression(str);
 	}
 	
 	public boolean needFinish() {
-		return countFieldName == null;
+		return true;
 	}
 
 	public Object finish(Object val) {
