@@ -7,6 +7,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
+import com.scudata.expression.ParamParser;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -102,11 +103,49 @@ public class Polyfit extends Function {
 				if (X == null) {
 					return null;
 				}
-				return X.toSequence(option, false);
+				//return X.toSequence(option, false);
+				//edited by bd, 2025.4.23, 返回值不和matlab统一了，返回序列
+				double[][] vs = X.getArray();
+				int rows = vs.length;
+				if (rows > 0) {
+					int cols = vs[0].length;
+					if (cols == 1) {
+						Sequence result = new Sequence(rows);
+						for (int i = 0; i < rows; i++) {
+							result.add(Linefit.getValue(vs[i][0]));
+						}
+						return result;
+					}
+					else if (rows == 1) {
+						Sequence result = new Sequence(cols);
+						for (int i = 0; i < cols; i++) {
+							result.add(Linefit.getValue(vs[0][i]));
+						}
+						return result;
+					}
+				}
+				return null;
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("polyfit" + mm.getMessage("function.paramTypeError"));
 			}
 		}
 	}
+	
+    public static void main(String[] args) {
+    	Polyfit func = new Polyfit();
+        double[] h_A = {3,5,2,8};
+        double[] h_B = {4,6,2,4};
+        Sequence A = Linefit.toSeq(h_A, h_A.length);
+        Sequence B = Linefit.toSeq(h_B, h_B.length);
+		Context ctx = new Context();
+        ctx.setParamValue("A", A);
+        ctx.setParamValue("B", B);
+        func.option = "1";
+
+    	IParam params = ParamParser.parse("A,B,2", null, ctx);
+        func.param = params;
+        Object res = func.calculate(ctx);
+        Linefit.print(((Sequence)res), 10);
+    }
 }
