@@ -10,10 +10,8 @@ import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Gather;
 import com.scudata.expression.IParam;
-import com.scudata.expression.Node;
 import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.SequenceFunction;
-import com.scudata.expression.fn.algebra.Var;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -113,39 +111,7 @@ public class Groups extends SequenceFunction {
 			gathers.addAll(Expression.getSpecFunc(calcExps[i], Gather.class));
 			
 			if (size == gathers.size()) {
-				Node home = calcExps[i].getHome();
-				if (home instanceof Var) {
-					Var var = (Var)home;
-					String param = var.getParamString();
-					String opt = var.getOption();
-					String sumStr = "sum(" + param + ")";
-					Expression exp = new Expression(cs, ctx, sumStr);
-					gathers.add(exp.getHome());
-					
-					String countStr = "count(" + param + ")";
-					exp = new Expression(cs, ctx, countStr);
-					gathers.add(exp.getHome());
-					
-					String sum2Str = "sum(power(" + param + "))";
-					exp = new Expression(cs, ctx, sum2Str);
-					gathers.add(exp.getHome());
-					
-					// sum2+count*power(sum/count) - 2*sum*sum/count
-					String expStr = sum2Str + "+" + countStr + "*power(" + sumStr + "/" + countStr + 
-							")-2*" + sumStr + "*" + sumStr + "/" + countStr;
-					if (opt == null || opt.indexOf('s') == -1) {
-						expStr = "(" + expStr + ")/" + countStr;
-					} else {
-						expStr = "(" + expStr + ")/(" + countStr + "-1)";
-					}
-					
-					calcExps[i] = new Expression(cs, ctx, expStr);
-					if (calcNames[i] == null || calcNames[i].length() == 0) {
-						calcNames[i] = "var";
-					}
-				} else {
-					gathers.add(calcExps[i]);
-				}
+				gathers.add(calcExps[i]);
 			}
 			
 			poss.add(gathers.size());
