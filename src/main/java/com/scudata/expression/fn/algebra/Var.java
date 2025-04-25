@@ -144,7 +144,10 @@ public class Var extends Gather{
 
 	public Expression getRegatherExpression(int q) {
 		if (countFieldName == null) {
-			String str = "var(#" + q + ")";
+			String str = "var";
+			if (this.option != null)
+				str += "@"+this.option;
+			str += "(#" + q + ")";
 			return new Expression(str);
 		} else {
 			String str = "sum(#" + q + ")";
