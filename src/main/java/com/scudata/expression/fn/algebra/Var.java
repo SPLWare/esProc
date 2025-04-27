@@ -1,8 +1,8 @@
 package com.scudata.expression.fn.algebra;
 
+
 import com.scudata.array.IArray;
-import com.scudata.array.IntArray;
-import com.scudata.array.LongArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -163,41 +163,59 @@ public class Var extends Gather{
 	
 	/**
 	 * 计算所有记录的值，汇总到结果数组上
-	 * @param sumResult 求和结果数组
-	 * @param countResult 计数结果数组
+	 * @param result 结果数组，ObjectArray，成员都是VarValue
 	 * @param resultSeqs 每条记录对应的结果数组的序号
 	 * @param ctx 计算上下文
 	 * @return IArray 结果数组
 	 */
-	public IArray gather(IArray sumResult, LongArray countResult, int []resultSeqs, Context ctx) {
+	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
 		IArray array = exp.calculateAll(ctx);
-		if (sumResult == null) {
-			if (array instanceof IntArray) {
-				sumResult = new LongArray(Env.INITGROUPSIZE);
-			} else {
-				sumResult = array.newInstance(Env.INITGROUPSIZE);
-				if (sumResult instanceof IntArray) {
-					sumResult = new LongArray(Env.INITGROUPSIZE);
-				}
-			}
+		if (result == null) {
+			result = new ObjectArray(Env.INITGROUPSIZE);
 		}
-		
 		for (int i = 1, len = array.size(); i <= len; ++i) {
-			if (sumResult.size() < resultSeqs[i]) {
-				sumResult.add(array, i);
-				if (array.isNull(i)) {
-					countResult.addLong(0);
-				} else {
-					countResult.addLong(1);
-				}
+			if (result.size() < resultSeqs[i]) {
+				VarValue vv = new VarValue(array.get(i));
+				result.add(vv);
 			} else {
-				if (!array.isNull(i)) {
-					sumResult = sumResult.memberAdd(resultSeqs[i], array, i);
-					countResult.plus1(resultSeqs[i]);
-				}
+				VarValue vv = (VarValue)result.get(resultSeqs[i]);
+				vv.add(array.get(i));
 			}
 		}
 		
-		return sumResult;
+		return result;
 	}
+	
+	/**
+	 * 多程程分组的二次汇总运算
+	 * @param result 一个线程的分组结果
+	 * @param result2 另一个线程的分组结果
+	 * @param seqs 另一个线程的分组跟第一个线程分组的对应关系
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public void gather2(IArray result, IArray result2, int []seqs, Context ctx) {
+		for (int i = 1, len = result2.size(); i <= len; ++i) {
+			if (seqs[i] != 0) {
+				VarValue vv1 = (VarValue)result.get(seqs[i]);
+				VarValue vv2 = (VarValue)result2.get(i);
+				if (vv1 == null) {
+					result.set(seqs[i], vv2);
+				} else if (vv2 != null) {
+					vv1.add(vv2);
+				}
+			}
+		}
+	}
+	
+	public IArray finish(IArray array) {
+		int size = array.size();
+		for (int i = 1; i <= size; ++i) {
+			VarValue vv = (VarValue)array.get(i);
+			Object var = vv.getVar(this.sta, this.root);
+			array.set(i, var);
+		}
+		return array;
+	}
+
 }
