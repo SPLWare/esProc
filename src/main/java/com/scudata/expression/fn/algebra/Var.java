@@ -26,8 +26,9 @@ public class Var extends Gather{
 	 */
 	public void checkValidity() {
 		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("var" + mm.getMessage("function.missingParam"));
+			//无参数会直接返回null，不抛异常
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException("var" + mm.getMessage("function.missingParam"));
 		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("var" + mm.getMessage("function.invalidParam"));
@@ -35,12 +36,24 @@ public class Var extends Gather{
 	}
 
 	public Object calculate(Context ctx) {
+		if (param == null) {
+			return null;
+		}
 		Object result1 = param.getLeafExpression().calculate(ctx);
 		if (!(result1 instanceof Sequence)) {
+			if (result1 == null) {
+				return null;
+			}
+			else if (result1 instanceof Number) {
+				return 0d;
+			}
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("var" + mm.getMessage("function.paramTypeError"));
 		}
 		Sequence ser = (Sequence) result1;
+		if (ser.length() == 0) {
+			return null;
+		}
 		if (this.option != null) {
 			this.sta = this.option.indexOf('s') > -1;
 			this.root = this.option.indexOf('r') > -1;
@@ -48,7 +61,7 @@ public class Var extends Gather{
 		return var(ser, this.sta, this.root);
 	}
 	
-	protected static double var(Sequence ser, boolean sta, boolean root) {
+	protected static Object var(Sequence ser, boolean sta, boolean root) {
 		Object avg = ser.average();
 		if (avg instanceof Number) {
 			double avgValue = ((Number) avg).doubleValue();
@@ -70,6 +83,9 @@ public class Var extends Gather{
 				return Math.sqrt(result);
 			}
 			return result;
+		}
+		else if (avg == null) {
+			return null;
 		}
 		return 0d;		
 	}
@@ -93,7 +109,7 @@ public class Var extends Gather{
 		}
 	}
 	
-	protected static double std(Sequence ser, boolean sta) {
+	protected static Object std(Sequence ser, boolean sta) {
 		return var(ser, sta, true);
 	}
 	
@@ -152,9 +168,14 @@ public class Var extends Gather{
 	public Object finish(Object val) {
 		if (val instanceof VarValue) {
 			return ((VarValue)val).getVar(this.sta, this.root);
-		} else {
-			return val;
 		}
+		else if (val instanceof Sequence) {
+			return var((Sequence)val, this.sta, this.root);
+		}
+		else if(val instanceof Number){
+			return 0d;
+		}
+		return null;
 	}
 	
 	public Expression getExp() {
