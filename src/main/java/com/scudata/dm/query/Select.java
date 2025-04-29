@@ -1,5 +1,6 @@
 package com.scudata.dm.query;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +9,15 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
+import com.scudata.dm.FileObject;
 import com.scudata.dm.Param;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.resources.ParseMessage;
+import com.scudata.util.JSONUtil;
+import com.scudata.util.Variant;
 import com.scudata.dm.sql.FunInfoManager;
+import com.scudata.excel.ExcelTool;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
@@ -1909,7 +1914,7 @@ public class Select extends QueryBody {
 		if (tokens[start].isKeyWord("INTO")) {
 			String file = "";
 			
-			for (; start < next; ++start) {
+			for (++start; start < next; ++start) {
 				file += tokens[start].getOriginString();
 				file += tokens[start].getSpaces();
 			}
@@ -2676,6 +2681,112 @@ public class Select extends QueryBody {
 		return spl;
 	}
 
+	private Object doInto(Object data) {
+		if (intoFile == null || data == null) {
+			return data;
+		}
+		
+		String pathName = intoFile;
+		if (pathName.startsWith("{")) {
+			int end = pathName.lastIndexOf('}');
+			if (end > 0) {
+				String expStr = pathName.substring(1, end);
+				Context ctx = getContext();
+				ICellSet cellSet = getCellSet();
+				Expression exp = new Expression(cellSet, ctx, expStr);
+				Object obj = exp.calculate(ctx);
+				pathName = Variant.toString(obj) + pathName.substring(end + 1);
+			}
+		}
+		
+		FileObject fo = new FileObject(pathName);
+		int dotIndex = pathName.lastIndexOf('.');
+		if (dotIndex != -1) {
+			String fileType = pathName.substring(dotIndex).toLowerCase();
+			if(fileType.equals(".btx")) {
+				if (data instanceof Sequence) {
+					fo.exportSeries((Sequence)data, "ab", null);
+				} else {
+					fo.exportCursor((ICursor)data, null, null, "ab", null, getContext());
+				}
+			} else if(fileType.equals(".txt")) {
+				if (data instanceof Sequence) {
+					fo.exportSeries((Sequence)data, "at", null);
+				} else {
+					fo.exportCursor((ICursor)data, null, null, "at", null, getContext());
+				}
+			} else if(fileType.equals(".csv")) {
+				if (data instanceof Sequence) {
+					fo.exportSeries((Sequence)data, "atc", null);
+				} else {
+					fo.exportCursor((ICursor)data, null, null, "atc", null, getContext());
+				}
+			} else if(fileType.equals(".xls")) {
+				ExcelTool et = new ExcelTool(fo, true, false, false, null);
+				try {
+					if (data instanceof Sequence) {
+						et.fileXlsExport((Sequence)data, null, null, "at", getContext());
+					} else {
+						et.fileXlsExport((ICursor)data, null, null, "at", getContext());
+					}
+				} catch (Exception e) {
+					throw new RQException(e.getMessage(), e);
+				} finally {
+					try {
+						et.close();
+					} catch (IOException e) {
+						throw new RQException(e.getMessage(), e);
+					}
+				}
+			} else if(fileType.equals(".xlsx")) {
+				ExcelTool et = new ExcelTool(fo, true, true, false, null);
+				try {
+					if (data instanceof Sequence) {
+						et.fileXlsExport((Sequence)data, null, null, "at", getContext());
+					} else {
+						et.fileXlsExport((ICursor)data, null, null, "at", getContext());
+					}
+				} catch (Exception e) {
+					throw new RQException(e.getMessage(), e);
+				} finally {
+					try {
+						et.close();
+					} catch (IOException e) {
+						throw new RQException(e.getMessage(), e);
+					}
+				}
+			} else if(fileType.equals(".json")) {
+				Sequence sequence;
+				if (data instanceof Sequence) {
+					sequence = (Sequence)data;
+				} else {
+					sequence = ((ICursor)data).fetch();
+				}
+				
+				String json = JSONUtil.toJSON(sequence);
+				try {
+					fo.write(json, "a");
+				} catch (Exception e) {
+					throw new RQException(e.getMessage(), e);
+				}
+			} else {
+				if (data instanceof Sequence) {
+					fo.exportSeries((Sequence)data, "at", null);
+				} else {
+					fo.exportCursor((ICursor)data, null, null, "at", null, getContext());
+				}
+			}
+		} else {
+			if (data instanceof Sequence) {
+				fo.exportSeries((Sequence)data, "at", null);
+			} else {
+				fo.exportCursor((ICursor)data, null, null, "at", null, getContext());
+			}
+		}
+		
+		return null;
+	}
+	
 	// 是否是全聚合并且只有一个选出列
 	private boolean isSingleValue() {
 		return groupBy == null && gatherList != null && gatherList.size() == 1;
@@ -2708,32 +2819,37 @@ public class Select extends QueryBody {
 			if (offset > 0) {
 				if (data instanceof Sequence) {
 					Sequence sequence = (Sequence)data;
-					return sequence.get(offset + 1, offset + limit + 1);
+					sequence = sequence.get(offset + 1, offset + limit + 1);
+					return doInto(sequence);
 				} else { // ICursor
 					ICursor cs = (ICursor)data;
 					cs.skip(offset);
-					return cs.fetch(limit);
+					Sequence sequence = cs.fetch(limit);
+					return doInto(sequence);
 				}
 			} else {
 				if (data instanceof Sequence) {
 					Sequence sequence = (Sequence)data;
-					return sequence.get(1, limit + 1);
+					sequence = sequence.get(1, limit + 1);
+					return doInto(sequence);
 				} else { // ICursor
 					ICursor cs = (ICursor)data;
-					return cs.fetch(limit);
+					Sequence sequence = cs.fetch(limit);
+					return doInto(sequence);
 				}
 			}
 		} else if (offset > 0) {
 			if (data instanceof Sequence) {
 				Sequence sequence = (Sequence)data;
-				return sequence.get(offset + 1, sequence.length() + 1);
+				sequence = sequence.get(offset + 1, sequence.length() + 1);
+				return doInto(sequence);
 			} else { // ICursor
 				ICursor cs = (ICursor)data;
 				cs.skip(offset);
-				return cs;
+				return doInto(cs);
 			}
 		} else {
-			return data;
+			return doInto(data);
 		}
 	}
 
