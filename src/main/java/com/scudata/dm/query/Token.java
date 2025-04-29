@@ -1,18 +1,19 @@
 package com.scudata.dm.query;
 
+import com.scudata.dm.query.sqlplus.Tokenizer;
+
 public final class Token {
 	private String id;
 	private String origin;
 	private int pos;
 	private char type;
-	private StringBuffer spaces;
+	private String spaces = "";
 
 	public Token(char type, String id, int pos, String origin) {
 		this.type = type;
 		this.id = id;
 		this.pos = pos;
 		this.origin = origin;
-		this.spaces = new StringBuffer();
 	}
 
 	public boolean isKeyWord() {
@@ -81,6 +82,14 @@ public final class Token {
 		if (type != Tokenizer.KEYWORD) return false;
 		return id.equals("UNION") || id.equals("INTERSECT") || id.equals("EXCEPT") || id.equals("MINUS");
 	}
+	
+	/**
+	 * 是否是逗号标识符
+	 * @return true：是，false：不是
+	 */
+	public boolean isComma() {
+		return type == Tokenizer.COMMA;
+	}
 
 	// #L
 	public String getLevelName() {
@@ -93,16 +102,18 @@ public final class Token {
 	}
 	
 	public String getSpaces() {
-		return spaces.toString();
+		return spaces;
 	}
 	
 	public void addSpace() {
-		spaces.append(" ");
+		spaces += " ";
 	}
 	
 	public void setSpaces(String sps) {
-		if(sps != null && !sps.isEmpty() && sps.trim().isEmpty()) {
-			spaces = new StringBuffer(sps);
+		if(sps != null) {
+			spaces = sps;
+		} else {
+			spaces = "";
 		}
 	}
 }

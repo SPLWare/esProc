@@ -38,7 +38,7 @@ import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dm.query.SimpleSelect;
+import com.scudata.dm.query.SimpleSQL;
 import com.scudata.expression.fn.Eval;
 
 /**
@@ -975,11 +975,11 @@ public class JDBCUtil {
 		while (iter.hasNext()) {
 			String key = iter.next().toString();
 			String name = map.get(key).toString();
-			SimpleSelect ss = new SimpleSelect(null, ctx);
+			SimpleSQL ss = new SimpleSQL("select * from "
+					+ Escape.addEscAndQuote(name), null, ctx);
 			ICursor cursor = null;
 			try {
-				cursor = ss.query("select * from "
-						+ Escape.addEscAndQuote(name));
+				cursor = ss.query();
 				ds = ss.getDataStruct();
 				data = cursor.fetch(10);
 			} catch (Exception e) {

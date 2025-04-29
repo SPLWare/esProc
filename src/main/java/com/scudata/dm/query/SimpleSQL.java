@@ -1,352 +1,350 @@
 package com.scudata.dm.query;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
-import com.scudata.app.common.AppUtil;
-import com.scudata.app.config.ConfigUtil;
 import com.scudata.cellset.ICellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
-import com.scudata.dm.BFileWriter;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.FileObject;
-import com.scudata.dm.ObjectReader;
+import com.scudata.dm.Param;
+import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
-import com.scudata.dm.op.New;
-import com.scudata.dw.Cursor;
-import com.scudata.expression.Expression;
-import com.scudata.resources.EngineMessage;
+import com.scudata.dm.query.resources.ParseMessage;
 
-//文件从esproc的主目录和搜索目录查找
-
-public class SimpleSQL
-{
-	private Token[] sqlTokens;
-	private SimpleUnion select;
-	private ModifyHandler handler;
-	private List<Object> paramValues;
-	private DataStruct dataStruct;
-	private int start;
-	private int next;
+public class SimpleSQL {
+	private static final String PARAMNAME_PREFIX = "sql_temp_param_"; // 变量名前缀
+	
+	private ICellSet cs;
 	private Context ctx;
-	private ICellSet ics;
-	private int type;
+	private Token[] tokens;
+	//private List<Object> paramValues;
 	
-	public static final int TYPE_SELECT = 0;
-	public static final int TYPE_INSERT = 1;
-	public static final int TYPE_UPDATE = 2;
-	public static final int TYPE_DELETE = 3;
-	public static final int TYPE_COMMIT = 4;//包括提交或回滚两种确认命令
+	private ArrayList<WithItem> withItems = new ArrayList<WithItem>();
+	private QueryBody query;
+	private int subTableSeq = 0; // 用于生成子查询序表的变量名
 	
-	public SimpleSQL(String sql, List<Object> paramValues)
-	{
-		this(null, sql, paramValues, new Context());
+	public SimpleSQL(String sql, List<Object> paramValues) {
+		this(null, sql, paramValues, null);
 	}
 	
-	public SimpleSQL(String sql, List<Object> paramValues, Context ctx)
-	{
+	public SimpleSQL(String sql, List<Object> paramValues, Context ctx) {
 		this(null, sql, paramValues, ctx);
 	}
 	
-	public SimpleSQL(ICellSet ics, String sql, List<Object> paramValues, Context ctx)
-	{
-		this(ics, Tokenizer.parse(sql), 0, -1, paramValues, ctx, true);
-	}
-	
-	public static int getSQLType(Token[] tokens)
-	{
-		int type = TYPE_SELECT;
-		if(tokens[0].isKeyWord("INSERT"))
-		{
-			type = TYPE_INSERT;
+	public SimpleSQL(ICellSet cs, String sql, List<Object> paramValues, Context ctx) {
+		this.cs = cs;
+		this.tokens = Tokenizer.parse(sql);
+		
+		if (ctx == null) {
+			this.ctx = new Context();
+		} else {
+			this.ctx = new Context(ctx);
 		}
-		else if(tokens[0].isKeyWord("UPDATE"))
-		{
-			type = TYPE_UPDATE;
-		}
-		else if(tokens[0].isKeyWord("DELETE"))
-		{
-			type = TYPE_DELETE;
-		}
-		else if(tokens[0].isKeyWord("COMMIT"))
-		{
-			type = TYPE_COMMIT;
-		}
-		else if(tokens[0].isKeyWord("ROLLBACK"))
-		{
-			type = TYPE_COMMIT;
-		}
-		return type;
-	}
-	
-	protected SimpleSQL(ICellSet ics, Token[] sqlTokens, int start, int next, List<Object> paramValues, Context ctx, boolean optimize)
-	{
-		this.ctx = ctx;
-		this.ics = ics;
-		this.type = getSQLType(sqlTokens);
-		if(this.type == TYPE_SELECT)
-		{
-			this.select = new SimpleUnion(this.ics, this.ctx);
-			sqlTokens = Arrays.copyOfRange(sqlTokens, start, ((next == -1) ? (sqlTokens == null ? 0 : sqlTokens.length) : next));
-			start = 0;
-			next = -1;
-			int[] posBuf = new int[]{start, next};
-			if(optimize)
-			{
-				sqlTokens = optimizeQuery(sqlTokens, posBuf);
-				start = posBuf[0];
-				next = posBuf[1];
+		
+		if (paramValues != null && paramValues.size() > 0) {
+			// 产生临时上下文，把参数产生成变量
+			ParamList paramList = this.ctx.getParamList();
+			long now = System.currentTimeMillis();
+			String prefix = PARAMNAME_PREFIX + now + "_";
+			int seq = 1;
+			
+			for (Object val : paramValues) {
+				Param param = new Param(prefix + seq, Param.VAR, val);
+				paramList.add(param);
+				seq++;
 			}
-		}
-		else
-		{
-//			this.commit = SimpleCommit.createObject();
-//			if(this.type == TYPE_INSERT)
-//			{
-//				this.handler = new SimpleInsert(this.ics, this.ctx);
-//			}
-//			else if(this.type == TYPE_UPDATE)
-//			{
-//				this.handler = new SimpleUpdate(this.ics, this.ctx);
-//			}
-//			else if(this.type == TYPE_DELETE)
-//			{
-//				this.handler = new SimpleDelete(this.ics, this.ctx);
-//			}
-		}
-		this.sqlTokens = sqlTokens;
-		this.paramValues = paramValues;
-		this.start = start;
-		this.next = ((next == -1) ? (sqlTokens == null ? 0 : sqlTokens.length) : next);
-	}
-	
-	//对外提供的API
-	public Object execute()
-	{
-		if(this.type == TYPE_SELECT)
-		{
-			if(this.paramValues != null && !this.paramValues.isEmpty())
-			{
-				this.select.setSQLParameters(this.paramValues);
-			}
-			ICursor icur = this.select.query(this.sqlTokens, this.start, this.next);
-			this.dataStruct = this.select.getDataStruct();
-			//去除字段别名里的""
-			String[] fieldNames = new String[this.dataStruct.getFieldCount()];
-			Expression[] fieldExps = new Expression[this.dataStruct.getFieldCount()];
-			int index = 0;
-			if(this.dataStruct.getFieldNames() != null)
-			{
-				for(String fieldName : this.dataStruct.getFieldNames())
-				{
-					if(fieldName.startsWith("\"") && fieldName.endsWith("\"")
-					&& fieldName.substring(1, fieldName.length() - 1).indexOf("\"") == -1)
-					{
-						fieldName = fieldName.substring(1, fieldName.length() - 1);
+
+			// 把?n修改为变量名
+			for (Token token : tokens) {
+				if (token.getType() == Tokenizer.PARAMMARK) {
+					seq = Integer.parseInt(token.getString());
+					if (seq > paramList.count()) {
+						MessageManager mm = ParseMessage.get();
+						throw new RQException(mm.getMessage("function.paramError") + token.getPos());
 					}
-					fieldNames[index++] = fieldName;
-					fieldExps[index - 1] = new Expression("#" + index);
+					
+					Param param = paramList.get(seq - 1);
+					token.setString(param.getName());
 				}
 			}
-			if(icur != null)
-			{
-				icur.addOperation(new New(fieldExps, fieldNames, null), this.ctx);
-			}
-			this.dataStruct = new DataStruct(fieldNames);
-			if(icur == null)
-			{
-				icur = new MemoryCursor(new Table(this.dataStruct));
-			}
-			icur.setDataStruct(this.dataStruct);
-			//检查是否有CS功能点, 无CS功能点的轻装版返回序表对象
-			//if (!Sequence.getFunctionPoint(5)) 
-			//{
-			//	return icur.fetch();
-			//}
-			return icur;
-//		}
-//		else if(this.type == TYPE_COMMIT)
-//		{
-//			long count = this.commit.execute(this.sqlTokens, this.start, this.next);
-//			return count;
-//		}
-//		else
-//		{
-//			if(this.paramValues != null && !this.paramValues.isEmpty())
-//			{
-//				this.handler.setSQLParameters(this.paramValues);
-//			}
-//			long count = this.handler.execute(this.sqlTokens, this.start, this.next);
-//			this.commit.addHandler(this.handler);
-//			return count;
 		}
+	}
+	
+	public WithItem getWithItem(String tableName) {
+		for (WithItem with : withItems) {
+			if (with.equals(tableName)) {
+				return with;
+			}
+		}
+		
 		return null;
 	}
-	
-	//仅供简单SQL内部调用以实现嵌套查询
-	protected ICursor query()
-	{
-		if(this.paramValues != null && !this.paramValues.isEmpty())
-		{
-			this.select.setSQLParameters(this.paramValues);
-		}
-		ICursor icur = this.select.query(this.sqlTokens, this.start, this.next);
-		this.dataStruct = this.select.getDataStruct();
-		if(icur == null)
-		{
-			icur = new MemoryCursor(new Table(this.dataStruct));
-		}
-		icur.setDataStruct(this.dataStruct);
-		//处理完毕
-		return icur;
-	}
-	
-	public DataStruct getDataStruct()
-	{
-		return this.dataStruct;
-	}
-	
-	protected void setWithTableMap(Map<String, Object> tableMap)
-	{
-		this.select.setWithTableMap(tableMap);
-	}
-	
-	public static Token[] copyTokens(Token[] tokens)
-	{
-		Token[] cloneTokens = new Token[tokens.length];
-		for(int j = 0; j < tokens.length; j++)
-		{
-			Token token = tokens[j];
-			cloneTokens[j] = new Token(token.getType(), token.getString(), token.getPos(), token.getOriginString());
-			cloneTokens[j].setSpaces(token.getSpaces());
-		}
-		return cloneTokens;
-	}
-	
-	void setMemory(boolean isMemory)
-	{
-		this.select.setMemory(isMemory);
-	}
-	
-	public static int checkParallel(FileObject file)//检查集文件的类型以判断是否可以并行读取即是否由@z生成
-	{
-		InputStream is = file.getInputStream();
-		ObjectReader in = new ObjectReader(is);
-		int type = -1;
-		try 
-		{
-			if (in.read() != 'r' || in.read() != 'q' || in.read() != 't' || in.read() != 'b' || in.read() != 'x') 
-			{
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("license.fileFormatError"));
-			}
-			type = in.read();
-			if(type != BFileWriter.TYPE_NORMAL && type != BFileWriter.TYPE_BLOCK && type != BFileWriter.TYPE_GROUP)
-			{
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("license.fileFormatError"));
-			}
-		} 
-		catch (Exception e) 
-		{
-			throw new RQException(e.getMessage(), e);
-		}
-		finally
-		{
-			try 
-			{
-				in.close();
-			} 
-			catch (Exception e)
-			{
-				throw new RQException(e.getMessage(), e);
-			}
-		}
-		return type;
-	}
-	
-	public static Token[] optimizeQuery(Token[] sqlTokens, int[] posBuf)//针对北京银行工程中count(*)和子查询做特殊优化
-	{
-		if(posBuf == null || posBuf.length != 2)
-		{
-			throw new RQException("参数个数错误");
-		}
 		
-		Token[] bakTokens = copyTokens(sqlTokens);
-		List<Token> sqlTokenList = new ArrayList<Token>();
-		boolean canOptimize = PerfectSubquery.optimizeSubquery(sqlTokens, sqlTokenList, false, new ArrayList<Boolean>());
-		if(!canOptimize)
-		{
-			sqlTokens = bakTokens;
-			bakTokens = copyTokens(sqlTokens);
-			sqlTokenList.clear();
-		}
-		else
-		{
-			sqlTokens = new Token[sqlTokenList.size()];
-			sqlTokenList.toArray(sqlTokens);
-			sqlTokenList.clear();
-			posBuf[0] = 0;
-			posBuf[1] = -1;
-		}
-		
-		bakTokens = copyTokens(sqlTokens);
-		sqlTokenList = new ArrayList<Token>();
-		canOptimize = PerfectSubquery.optimizeCountAll(sqlTokens, sqlTokenList);
-		if(!canOptimize)
-		{
-			sqlTokens = bakTokens;
-			bakTokens = copyTokens(sqlTokens);
-			sqlTokenList.clear();
-		}
-		else
-		{
-			sqlTokens = new Token[sqlTokenList.size()];
-			sqlTokenList.toArray(sqlTokens);
-			sqlTokenList.clear();
-			posBuf[0] = 0;
-			posBuf[1] = -1;
-		}
-		
-		Token lastToken = null;
-		for(Token sqlToken : sqlTokens)
-		{
-			if(lastToken != null && lastToken.getSpaces().isEmpty()
-			&& (lastToken.getType() == Tokenizer.IDENT || lastToken.getType() == Tokenizer.KEYWORD  || lastToken.getType() == Tokenizer.NUMBER || lastToken.getType() == Tokenizer.STRING)
-			&& (sqlToken.getType() == Tokenizer.IDENT || sqlToken.getType() == Tokenizer.KEYWORD  || sqlToken.getType() == Tokenizer.NUMBER || sqlToken.getType() == Tokenizer.STRING))
-			{
-				lastToken.addSpace();
-			}
-			lastToken = sqlToken;
-		}
+	public ICellSet getCellSet() {
+		return cs;
+	}
 
-		return sqlTokens;
+	public Context getContext() {
+		return ctx;
+	}
+
+	/**
+	 * 扫描with语句，返回下一个
+	 * @param tokens
+	 * @param start
+	 * @param next
+	 * @return
+	 */
+	private int scanWith(Token []tokens, int start, int next) {
+		// WITH [RECURSIVE] with_query_name1 [(column_name[, ...])] AS (...),with_query_name1 [(column_name[, ...])] AS (...),...
+		start++; // 跳过with
+		if (start == next) {
+			MessageManager mm = ParseMessage.get();
+			throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+		}
+		
+		if (tokens[start].isKeyWord("RECURSIVE")) {
+			start++;
+			if (start == next) {
+				MessageManager mm = ParseMessage.get();
+				throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+			}
+		}
+		
+		while (start < next) {
+			start = scanWithQuery(tokens, start, next);
+			if (start == next) {
+				MessageManager mm = ParseMessage.get();
+				throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+			} else if (tokens[start].isComma()) {
+				start++;
+				if (start == next) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+				}
+			} else {
+				break;
+			}
+		}
+		
+		return start;
+	}
+
+	// with_query_name1 [(column_name[, ...])] AS (...)
+	private int scanWithQuery(Token []tokens, int start, int next) {
+		if (tokens[start].getType() != Tokenizer.IDENT) {
+			MessageManager mm = ParseMessage.get();
+			throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
+		}
+		
+		String name = tokens[start].getOriginString();
+		ArrayList<String> columnNames = null;
+		start++;
+		
+		if (start == next) {
+			MessageManager mm = ParseMessage.get();
+			throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+		}
+		
+		if (tokens[start].getType() == Tokenizer.LPAREN) {
+			start++;
+			if (start == next) {
+				MessageManager mm = ParseMessage.get();
+				throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+			}
+			
+			columnNames = new ArrayList<String>();
+			while (start < next) {
+				if (tokens[start].getType() != Tokenizer.IDENT) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
+				}
+				
+				columnNames.add(tokens[start].getOriginString());
+				start++;
+				
+				if (start == next) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+				} else if (tokens[start].isComma()) {
+					start++;
+				} else if (tokens[start].getType() == Tokenizer.RPAREN) {
+					start++;
+					break;
+				} else {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
+				}
+			}
+			
+			if (start == next) {
+				MessageManager mm = ParseMessage.get();
+				throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+			}
+		}
+		
+		if (!tokens[start].isKeyWord("AS")) {
+			MessageManager mm = ParseMessage.get();
+			throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
+		}
+		
+		start++;
+		if (start == next) {
+			MessageManager mm = ParseMessage.get();
+			throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+		} else if (tokens[start].getType() != Tokenizer.LPAREN) {
+			MessageManager mm = ParseMessage.get();
+			throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
+		}
+		
+		int end = Tokenizer.scanParen(tokens, start, next);
+		start++;
+		
+		if (tokens[start].isKeyWord("SELECT")) {
+			QueryBody query = scanQuery(tokens, start, end);
+			WithItem withItem = new WithItem(name, columnNames, query);
+			withItems.add(withItem);
+			return end + 1;
+		} else {
+			MessageManager mm = ParseMessage.get();
+			throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
+		}
+	}
+
+	private QueryBody scanQuery(Token []tokens, int start, int next) {
+		SetOperation operation = null;
+		for (int i = start; i < next;) {
+			Token token = tokens[i];
+			if (token.getType() == Tokenizer.LPAREN) {
+				i = Tokenizer.scanParen(tokens, i, next) + 1;
+			} else if (token.isKeyWord("UNION")) {
+				Select select = new Select(this, tokens, start, i);
+				
+				i++;
+				if (i == next) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[i - 1].getPos());
+				}
+				
+				SetOperation.Type type = SetOperation.Type.UNION;
+				if (tokens[i].isKeyWord("ALL")) {
+					type = SetOperation.Type.UNIONALL;
+					i++;
+				}
+				
+				if (operation == null) {
+					operation = new SetOperation(type);
+					operation.setLeft(select);
+				} else {
+					operation.setRight(select);
+					SetOperation newOperation = new SetOperation(type);
+					newOperation.setLeft(operation);
+					operation = newOperation;
+				}
+				
+				start = i;
+			} else if (token.isKeyWord("INTERSECT")) {
+				Select select = new Select(this, tokens, start, i);
+				
+				i++;
+				if (i == next) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[i - 1].getPos());
+				}
+								
+				if (operation == null) {
+					operation = new SetOperation(SetOperation.Type.INTERSECT);
+					operation.setLeft(select);
+				} else {
+					operation.setRight(select);
+					SetOperation newOperation = new SetOperation(SetOperation.Type.INTERSECT);
+					newOperation.setLeft(operation);
+					operation = newOperation;
+				}
+				
+				start = i;
+			} else if (token.isKeyWord("MINUS")) {
+				Select select = new Select(this, tokens, start, i);
+				
+				i++;
+				if (i == next) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[i - 1].getPos());
+				}
+								
+				if (operation == null) {
+					operation = new SetOperation(SetOperation.Type.MINUS);
+					operation.setLeft(select);
+				} else {
+					operation.setRight(select);
+					SetOperation newOperation = new SetOperation(SetOperation.Type.MINUS);
+					newOperation.setLeft(operation);
+					operation = newOperation;
+				}
+				
+				start = i;
+			} else {
+				i++;
+			}
+		}
+		
+		if (operation == null) {
+			return new Select(this, tokens, start, next);
+		} else {
+			Select select = new Select(this, tokens, start, next);
+			operation.setRight(select);
+			return operation;
+		}
 	}
 	
-	public static void main(String args[]){
-		try {
-			ConfigUtil.load("d:\\esProcData\\raqsoftConfig.xml");
-			Context ctx = new Context();
-//			Object o = AppUtil.executeSql("select * from D:/esProcData/员工.ctx where 1 = 2", null, ctx, false);
-			//			Object o = AppUtil.executeSql("select top 1 * from D:/esProcData/员工.ctx", null, ctx, false);
-//			if (o != null) {
-//				if (o instanceof com.raqsoft.dm.cursor.SubCursor) {
-//					System.out.println(((com.raqsoft.dm.cursor.SubCursor)o).fetch());
-//				} else if (o instanceof com.raqsoft.dw.Cursor) {
-//					System.out.println(((com.raqsoft.dw.Cursor)o).fetch());
-//				}
-//			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	private void analyseSQL() {
+		int start = 0;
+		int next = tokens.length;
+		if (tokens[start].isKeyWord("WITH")) {
+			start = scanWith(tokens, start, next);
 		}
+		
+		query = scanQuery(tokens, start, next);
+	}
+	
+	String getNextTableParamName() {
+		++subTableSeq;
+		return "subsql_table_param_name" + subTableSeq;
+	}
+	
+	/**
+	 * 执行查询返回游标或序表
+	 * @return
+	 */
+	public Object execute() {
+		analyseSQL();
+		return query.getData();
+	}
+	
+	/**
+	 * 执行查询返回游标
+	 * @return
+	 */
+	public ICursor query() {
+		Object obj = execute();
+		if (obj instanceof ICursor) {
+			return (ICursor)obj;
+		} else if (obj instanceof Sequence) {
+			return new MemoryCursor((Sequence)obj);
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * 取查询的结果集数据结构
+	 * @return
+	 */
+	public DataStruct getDataStruct() {
+		return query.getDataStruct();
 	}
 }

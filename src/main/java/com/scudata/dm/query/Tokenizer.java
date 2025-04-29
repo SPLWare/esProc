@@ -22,14 +22,14 @@ public final class Tokenizer {
 	public static final char DOT = '.';
 	public static final char PARAMMARK = '?';
 
-	public static final char LEVELMARK = '#';
+	//public static final char LEVELMARK = '#';
 	public static final char TABLEMARK = '@'; // F@S、@var
 	//public static final char LOCATORMARK = '~'; // F~W
 
 	public static final char OUTERFUNCTION = '$'; // $func(...) 类型对应IDENT？
 
 	private static final String OPSTRING = "+-*/=<>&|^%!~"; // ~按位取反
-	private final static String[] GATHERS = {"AVG", "COUNT", "MAX", "MIN", "SUM", "COUNTIF", "FIRST", "LAST"};
+	private final static String[] GATHERS = {"AVG", "COUNT", "MAX", "MIN", "SUM"}; // , "COUNTIF", "FIRST", "LAST"
 	//private final static String[] 窗口函数 = {"AVG", "COUNT", "MAX", "MIN", "SUM", "RANK", "DENSE_RANK", "ROW_NUMBER"};
 
 	//private final static String[] OPERATORS = {
@@ -125,20 +125,22 @@ public final class Tokenizer {
 		return -1;
 	}
 
-	public static int scanKeyWords(String []keys, Token []tokens, int start, final int next) {
+	public static int scanKeyWords(Token []tokens, int start, int next, String []keys, int index) {
 		int keyCount = keys.length;
 		for(int i = start; i < next; ++i) {
 			Token token = tokens[i];
 			if (token.getType() == LPAREN) { // 跳过()
 				i = scanParen(tokens, i, next);
 			} else if (token.getType() == KEYWORD) {
-				for (int k = 0; k < keyCount; ++k) {
-					if (token.equals(keys[k])) return i;
+				for (int k = index; k < keyCount; ++k) {
+					if (token.equals(keys[k])) {
+						return i;
+					}
 				}
 			}
 		}
 
-		return -1;
+		return next;
 	}
 
 	// 在指定范围内搜索逗号
@@ -262,7 +264,7 @@ public final class Tokenizer {
 				Token token = new Token(ch, ""+ch, curIndex, ""+ch);
 				tokenList.add(token);
 				curIndex++;
-			} else if (ch == LEVELMARK || ch == TABLEMARK) { // #@
+			} else if (/*ch == LEVELMARK || */ch == TABLEMARK) { // #@
 				int next = scanId(command, curIndex + 1);
 				String id = command.substring(curIndex, next);
 				Token token = new Token(ch, id, curIndex, id);
@@ -314,7 +316,8 @@ public final class Tokenizer {
 				}
 
 				String id = command.substring(curIndex, next);
-				Token token = new Token(STRING, id, curIndex, id);
+				String str = '"' + command.substring(curIndex + 1, next - 1) + '"';
+				Token token = new Token(STRING, str, curIndex, id);
 				tokenList.add(token);
 
 				curIndex = next;
@@ -344,7 +347,7 @@ public final class Tokenizer {
 					paramSeq++;
 				}
 
-				Token token = new Token(ch, "?" + paramSeq, curIndex, "?" + paramSeq);
+				Token token = new Token(ch, Integer.toString(paramSeq), curIndex, "?" + paramSeq);
 				tokenList.add(token);
 				curIndex = next;
 			} else if (OPSTRING.indexOf(ch) != -1) { // 运算符
@@ -661,7 +664,7 @@ public final class Tokenizer {
 
 		throw new RQException("CASE语句缺少END关键字");
 	}	
-		
+	
 	// 搜索case的when，起始位置when
 	public static int scanCaseWhen(Token []tokens, int start, final int next) {
 		int deep = 0;
@@ -715,4 +718,18 @@ public final class Tokenizer {
 		
 		return -1;
 	}		
+
+	// 在指定范围内搜索逻辑运算 AND、OR
+	public static int scanLogicalOperator(Token[] tokens, int start, final int next) {
+		for (int i = start; i < next; ++i) {
+			if (tokens[i].isKeyWord("AND") || tokens[i].isKeyWord("OR")) {
+				return i;
+			} else if (tokens[i].getType() == LPAREN) {
+				// 跳过()
+				i = scanParen(tokens, i, next);
+			}
+		}
+		
+		return -1;
+	}
 }
