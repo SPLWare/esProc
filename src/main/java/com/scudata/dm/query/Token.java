@@ -1,7 +1,5 @@
 package com.scudata.dm.query;
 
-import com.scudata.dm.query.sqlplus.Tokenizer;
-
 public final class Token {
 	private String id;
 	private String origin;
