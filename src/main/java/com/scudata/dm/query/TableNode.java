@@ -26,6 +26,7 @@ import com.scudata.dw.ComTable;
 import com.scudata.dw.PhyTable;
 import com.scudata.excel.ExcelTool;
 import com.scudata.excel.XlsxSImporter;
+import com.scudata.expression.Constant;
 import com.scudata.expression.Expression;
 import com.scudata.expression.mfn.dw.CreateCursor;
 import com.scudata.resources.EngineMessage;
@@ -49,6 +50,7 @@ public class TableNode extends QueryBody {
 	private ArrayList<FileObject> fileList;
 	private int type;
 	private DataStruct struct;
+	private ArrayList<String> fileAttributes;
 
 	public TableNode(Select select, Sequence sequence, String name, String aliasName) {
 		this.select = select;
@@ -165,6 +167,91 @@ public class TableNode extends QueryBody {
 		throw new RQException(mm.getMessage("file.fileNotExist", fileName));
 	}
 	
+	public void addFileAttribute(String attr) {
+		if (fileAttributes == null) {
+			fileAttributes = new ArrayList<String>();
+			fileAttributes.add(attr);
+		} else if (!fileAttributes.contains(attr)) {
+			fileAttributes.add(attr);
+		}
+	}
+	
+	private void addFileAttributeField(FileObject fo, ICursor cs) {
+		if (fileAttributes == null || cs == null) {
+			return;
+		}
+		
+		int count = fileAttributes.size();
+		Expression []exps = new Expression[count];
+		String []names = new String[count];
+		
+		for (int i = 0; i < count; ++i) {
+			names[i] = fileAttributes.get(i);
+			Object val;
+			if (names[i].equals("_file")) {
+				String name = fo.getFileName();
+				File file = new File(name);
+				val = file.getName();
+			} else if (names[i].equals("_ext")) {
+				String name = fo.getFileName();
+				int dot = name.lastIndexOf('.');
+				if (dot != -1) {
+					val = name.substring(dot);
+				} else {
+					val = name;
+				}
+			} else if (names[i].equals("_date")) {
+				val = fo.lastModified();
+			} else { // if (names[i].equals("_size"))
+				val = fo.size();
+			}
+			
+			Constant constant = new Constant(val);
+			exps[i] = new Expression(constant);
+		}
+		
+		Context ctx = select.getContext();
+		cs.derive(null, exps, names, null, 0, ctx);
+	}
+	
+	private Sequence addFileAttributeField(FileObject fo, Sequence sequence) {
+		if (fileAttributes == null || sequence == null) {
+			return sequence;
+		}
+		
+		int count = fileAttributes.size();
+		Expression []exps = new Expression[count];
+		String []names = new String[count];
+		
+		for (int i = 0; i < count; ++i) {
+			names[i] = fileAttributes.get(i);
+			Object val;
+			if (names[i].equals("_file")) {
+				String name = fo.getFileName();
+				File file = new File(name);
+				val = file.getName();
+			} else if (names[i].equals("_ext")) {
+				String name = fo.getFileName();
+				int dot = name.lastIndexOf('.');
+				if (dot != -1) {
+					val = name.substring(dot);
+				} else {
+					val = name;
+				}
+			} else if (names[i].equals("_date")) {
+				val = fo.lastModified();
+			} else { // if (names[i].equals("_size"))
+				val = fo.size();
+			}
+			
+			Constant constant = new Constant(val);
+			exps[i] = new Expression(constant);
+		}
+		
+		Context ctx = select.getContext();
+		return sequence.derive(names, exps, null, ctx);
+	}
+	
 	public QueryBody getQueryBody(String tableName) {
 		if (aliasName != null) {
 			if (Select.isEquals(aliasName, tableName)) {
@@ -279,11 +366,13 @@ public class TableNode extends QueryBody {
 			if (fileCount == 1) {
 				FileObject fo = fileList.get(0);
 				cursor = new BFileCursor(fo, null, null, ctx);
+				addFileAttributeField(fo, cursor);
 			} else {
 				ICursor []cursors = new ICursor[fileCount];
 				for (int i = 0; i < fileCount; ++i) {
 					FileObject fo = fileList.get(i);
 					cursors[i] = new BFileCursor(fo, null, null, ctx);
+					addFileAttributeField(fo, cursors[i]);
 				}
 				
 				cursor = new ConjxCursor(cursors);
@@ -292,11 +381,13 @@ public class TableNode extends QueryBody {
 			if (fileCount == 1) {
 				FileObject fo = fileList.get(0);
 				cursor = new FileCursor(fo, 1, 1, null, "t", ctx);
+				addFileAttributeField(fo, cursor);
 			} else {
 				ICursor []cursors = new ICursor[fileCount];
 				for (int i = 0; i < fileCount; ++i) {
 					FileObject fo = fileList.get(i);
 					cursors[i] = new FileCursor(fo, 1, 1, null, "t", ctx);
+					addFileAttributeField(fo, cursors[i]);
 				}
 				
 				cursor = new ConjxCursor(cursors);
@@ -305,11 +396,13 @@ public class TableNode extends QueryBody {
 			if (fileCount == 1) {
 				FileObject fo = fileList.get(0);
 				cursor = new FileCursor(fo, 1, 1, null, "tc", ctx);
+				addFileAttributeField(fo, cursor);
 			} else {
 				ICursor []cursors = new ICursor[fileCount];
 				for (int i = 0; i < fileCount; ++i) {
 					FileObject fo = fileList.get(i);
 					cursors[i] = new FileCursor(fo, 1, 1, null, "tc", ctx);
+					addFileAttributeField(fo, cursors[i]);
 				}
 				
 				cursor = new ConjxCursor(cursors);
@@ -325,6 +418,8 @@ public class TableNode extends QueryBody {
 					bis = new BufferedInputStream(in, Env.FILE_BUFSIZE);
 					ExcelTool importer = new ExcelTool(in, false, null);
 					Sequence seq = (Sequence)importer.fileXlsImport("t");
+					seq = addFileAttributeField(fileList.get(i), seq);
+					
 					if (data == null) {
 						data = seq;
 					} else {
@@ -357,12 +452,14 @@ public class TableNode extends QueryBody {
 				FileObject fo = fileList.get(0);
 				XlsxSImporter importer = new XlsxSImporter(fo, null, 0, 0, new Integer(1), "t");
 				cursor = UserUtils.newCursor(importer, "t");
+				addFileAttributeField(fo, cursor);
 			} else {
 				ICursor []cursors = new ICursor[fileCount];
 				for (int i = 0; i < fileCount; ++i) {
 					FileObject fo = fileList.get(i);
 					XlsxSImporter importer = new XlsxSImporter(fo, null, 0, 0, new Integer(1), "t");
 					cursors[i] = UserUtils.newCursor(importer, "t");
+					addFileAttributeField(fo, cursors[i]);
 				}
 				
 				cursor = new ConjxCursor(cursors);
@@ -382,10 +479,13 @@ public class TableNode extends QueryBody {
 				
 				Object result = JSONUtil.parseJSON(chars, 0, chars.length - 1);
 				if (result instanceof Sequence) {
+					Sequence sequence = (Sequence)result;
+					sequence = addFileAttributeField(fo, sequence);
+					
 					if (data == null) {
-						data = (Sequence)result;
+						data = sequence;
 					} else {
-						data.append((Sequence)result);
+						data.append(sequence);
 					}
 				} else {
 					if (data == null) {
@@ -402,12 +502,14 @@ public class TableNode extends QueryBody {
 				FileObject fo = fileList.get(0);
 				PhyTable phyTable = ComTable.openBaseTable(fo, ctx);
 				cursor = CreateCursor.createCursor(phyTable, null, "x", ctx);
+				addFileAttributeField(fo, cursor);
 			} else {
 				ICursor []cursors = new ICursor[fileCount];
 				for (int i = 0; i < fileCount; ++i) {
 					FileObject fo = fileList.get(i);
 					PhyTable phyTable = ComTable.openBaseTable(fo, ctx);
 					cursors[i] = CreateCursor.createCursor(phyTable, null, "x", ctx);
+					addFileAttributeField(fo, cursors[i]);
 				}
 				
 				cursor = new ConjxCursor(cursors);

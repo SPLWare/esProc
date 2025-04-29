@@ -11,7 +11,7 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.Param;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dm.query.resources.ParseMessage;
+import com.scudata.resources.ParseMessage;
 import com.scudata.dm.sql.FunInfoManager;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
@@ -341,6 +341,8 @@ public class Select extends QueryBody {
 			this.tableName = tableName;
 			this.fieldName = fieldName;
 			this.part = part;
+			
+			checkFileAttribute(tableName, fieldName);
 		}
 		
 		public String getFieldName() {
@@ -1779,7 +1781,7 @@ public class Select extends QueryBody {
 		
 		if (colEnd == -1) {
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("lessTable"));
+			throw new RQException(mm.getMessage("syntax.error") + tokens[next - 1].getPos());
 		}
 		
 		start = scanFrom(tokens, start, next);
@@ -2677,6 +2679,19 @@ public class Select extends QueryBody {
 	// 是否是全聚合并且只有一个选出列
 	private boolean isSingleValue() {
 		return groupBy == null && gatherList != null && gatherList.size() == 1;
+	}
+	
+	void checkFileAttribute(String tableName, String fieldName) {
+		if (fieldName.equals("_file") || fieldName.equals("_ext") || fieldName.equals("_date") || fieldName.equals("_size")) {
+			QueryBody table = from;
+			if (tableName != null) {
+				table = from.getQueryBody(tableName);
+			}
+			
+			if (table instanceof TableNode) {
+				((TableNode)table).addFileAttribute(fieldName);
+			}
+		}
 	}
 	
 	public Object getData() {

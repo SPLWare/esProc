@@ -7,7 +7,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.query.Select.Exp;
-import com.scudata.dm.query.resources.ParseMessage;
+import com.scudata.resources.ParseMessage;
 
 class Column {
 	private Select select;

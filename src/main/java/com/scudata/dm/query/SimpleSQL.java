@@ -13,7 +13,7 @@ import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
-import com.scudata.dm.query.resources.ParseMessage;
+import com.scudata.resources.ParseMessage;
 
 public class SimpleSQL {
 	private static final String PARAMNAME_PREFIX = "sql_temp_param_"; // 变量名前缀
