@@ -22,10 +22,6 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 */
 	private String url;
 	/**
-	 * The user name
-	 */
-	private String userName;
-	/**
 	 * The driver of the JDBC
 	 */
 	private String driverName;
@@ -113,7 +109,7 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 */
 	public String getUserName() throws SQLException {
 		JDBCUtil.log("DatabaseMetaData.getUserName()");
-		return this.userName;
+		return null;
 	}
 
 	/**

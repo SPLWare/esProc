@@ -54,7 +54,7 @@ public class XlsxSSheetParser implements ILineInput {
 	 * Has title line
 	 */
 	private boolean bTitle;
-	
+
 	private boolean isCursor;
 	/**
 	 * Option @n
@@ -65,7 +65,7 @@ public class XlsxSSheetParser implements ILineInput {
 	/**
 	 * The file is closed
 	 */
-	private boolean isClosed = false;
+	private volatile boolean isClosed = false;
 
 	public static final int QUEUE_SIZE = 500;
 	/**
@@ -223,12 +223,10 @@ public class XlsxSSheetParser implements ILineInput {
 	public Object[] readLine() {
 		if (endRow > -1 && currRow > endRow) // Beyond the last line
 			return null;
-		synchronized (que) {
-			while (que.isEmpty()) {
-				// The parsing is complete, and the buffer area is empty
-				if (parseFinished.booleanValue())
-					return null;
-			}
+		while (que.isEmpty()) {
+			// The parsing is complete, and the buffer area is empty
+			if (parseFinished.booleanValue())
+				return null;
 		}
 		try {
 			currRow++;

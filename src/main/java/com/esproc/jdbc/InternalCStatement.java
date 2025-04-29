@@ -43,6 +43,9 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	private List<String> paramNames = null;
 
+	public InternalCStatement() {
+	}
+
 	/**
 	 * Constructor
 	 * 
@@ -2268,7 +2271,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 *            the parameter value
 	 */
 	public void setRowId(String parameterName, RowId x) throws SQLException {
-		JDBCUtil.log("InternalCStatement.setRowId(" + parameterName + ",RowId x)");
+		JDBCUtil.log("InternalCStatement.setRowId(" + parameterName
+				+ ",RowId x)");
 		int paramIndex = getParameterIndex(parameterName);
 		setRowId(paramIndex, x);
 	}
@@ -2285,7 +2289,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 */
 	public void setSQLXML(String parameterName, SQLXML xmlObject)
 			throws SQLException {
-		JDBCUtil.log("InternalCStatement.setSQLXML(" + parameterName + ",SQLXML xmlObject)");
+		JDBCUtil.log("InternalCStatement.setSQLXML(" + parameterName
+				+ ",SQLXML xmlObject)");
 		int paramIndex = getParameterIndex(parameterName);
 		setSQLXML(paramIndex, xmlObject);
 	}

@@ -1876,7 +1876,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *            the new column value
 	 */
 	public void updateBytes(int columnIndex, byte[] x) throws SQLException {
-		JDBCUtil.log("ResultSet.updateBytes(" + columnIndex + "," + x + ")");
+		JDBCUtil.log("ResultSet.updateBytes(" + columnIndex + ", byte[] x)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateBytes(int columnIndex, byte[] x)"));
 	}
@@ -2250,7 +2250,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *            the new column value
 	 */
 	public void updateBytes(String columnName, byte[] x) throws SQLException {
-		JDBCUtil.log("ResultSet.updateBytes(" + columnName + "," + x + ")");
+		JDBCUtil.log("ResultSet.updateBytes(" + columnName + ", byte[] x)");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateBytes(String columnName, byte[] x)"));
 	}

@@ -190,7 +190,6 @@ public class Clob implements java.sql.Clob {
 				break;
 			c1[new Long(i + pos).intValue()] = c2[i];
 		}
-		str = new String(c1);
 		return i;
 	}
 

@@ -56,7 +56,7 @@ public class FileXls extends XlsFileObject {
 	/**
 	 * FormulaEvaluator
 	 */
-	private FormulaEvaluator evaluator;
+	private FormulaEvaluator evaluator = null;
 
 	/**
 	 * Cache size when streaming
@@ -122,6 +122,7 @@ public class FileXls extends XlsFileObject {
 					}
 				}
 			}
+			evaluator = wb.getCreationHelper().createFormulaEvaluator();
 			dataFormat = wb.createDataFormat();
 			initTableInfo();
 		} catch (RQException e) {

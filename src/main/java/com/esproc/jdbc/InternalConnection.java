@@ -56,7 +56,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	/**
 	 * Whether the connection has been closed
 	 */
-	protected boolean closed = true;
+	protected volatile boolean closed = true;
 
 	/**
 	 * The list of the statements
@@ -80,7 +80,7 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 * Add the parameter onlyServer=true to the URL. Always execute on the
 	 * server.
 	 */
-	private boolean isOnlyServer = false;
+	private volatile boolean isOnlyServer = false;
 
 	/**
 	 * Unit client
@@ -104,6 +104,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	private Map<String, Class<?>> typeMap;
 
 	protected List<String> hostNames = null;
+
+	protected volatile int connectTimeout = JDBCConsts.DEFAULT_CONNECT_TIMEOUT * 1000;
 
 	protected Map<String, Object> jobVars = null;
 
@@ -1546,8 +1548,6 @@ public abstract class InternalConnection implements Connection, Serializable {
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"abort(Executor executor)"));
 	}
-
-	protected int connectTimeout = JDBCConsts.DEFAULT_CONNECT_TIMEOUT * 1000;
 
 	/**
 	 * Sets the maximum period a Connection or objects created from the

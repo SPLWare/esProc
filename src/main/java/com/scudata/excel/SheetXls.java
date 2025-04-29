@@ -63,11 +63,11 @@ public class SheetXls extends SheetObject {
 	/**
 	 * Whether to write the title line
 	 */
-	private boolean writeTitle;
+	private volatile boolean writeTitle;
 	/**
 	 * Whether to append data
 	 */
-	private boolean isAppend;
+	private volatile boolean isAppend;
 	/**
 	 * Mapping of graph coordinates and graph data
 	 */
@@ -89,7 +89,7 @@ public class SheetXls extends SheetObject {
 	 * After the first row of data is written out, save the style and use it
 	 * directly later.
 	 */
-	private boolean resetDataStyle = true;
+	private volatile boolean resetDataStyle = true;
 
 	/**
 	 * Constructor
@@ -207,7 +207,6 @@ public class SheetXls extends SheetObject {
 				resetDataStyle(row);
 			}
 		}
-		currRow++;
 	}
 
 	/**
@@ -221,7 +220,6 @@ public class SheetXls extends SheetObject {
 		if (currRow > sheet.getLastRowNum())
 			return null;
 		Row row = sheet.getRow(currRow);
-		currRow++;
 		return ExcelUtils.getRowData(row, dataFormat, evaluator);
 	}
 

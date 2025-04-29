@@ -20,7 +20,6 @@ import java.sql.SQLException;
 import java.sql.SQLXML;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -46,6 +45,9 @@ public abstract class InternalPStatement extends InternalStatement implements
 	 * CALLS用到的参数序列的列表
 	 */
 	protected ArrayList<Sequence> callsParameters = new ArrayList<Sequence>();
+
+	public InternalPStatement() {
+	}
 
 	/**
 	 * Constructor
@@ -194,12 +196,12 @@ public abstract class InternalPStatement extends InternalStatement implements
 			isSucc = executeJDBC(parameters);
 		}
 		if (!isSucc)
-			return null;
+			return JDBCUtil.getEmptyResultSet();
 		set = null;
 		if (this.getMoreResults())
 			return this.getResultSet();
 		else
-			return null;
+			return JDBCUtil.getEmptyResultSet();
 	}
 
 	/**
@@ -675,7 +677,7 @@ public abstract class InternalPStatement extends InternalStatement implements
 		JDBCUtil.log("InternalPStatement.setObject(" + parameterIndex + "," + x
 				+ "," + targetSqlType + ")");
 		/* The targetSqlType parameter is not used */
-		setObject(parameterIndex, x, Types.OTHER);
+		setObject(parameterIndex, x);
 	}
 
 	/**
@@ -1448,8 +1450,8 @@ public abstract class InternalPStatement extends InternalStatement implements
 	 */
 	public void setNString(int parameterIndex, String value)
 			throws SQLException {
-		JDBCUtil.log("InternalPStatement.setNString(" + parameterIndex
-				+ "," + value + ")");
+		JDBCUtil.log("InternalPStatement.setNString(" + parameterIndex + ","
+				+ value + ")");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setNString(int parameterIndex, String value)"));
 	}

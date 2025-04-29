@@ -91,6 +91,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	private boolean isClosed = false;
 
+	public InternalStatement() {
+	}
+
 	/**
 	 * Constructor
 	 * 
@@ -135,9 +138,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 					Logger.error(ex);
 				}
 			}
+			JobSpace jobSpace = parentCtx.getJobSpace();
+			ctx.setJobSpace(jobSpace);
 		}
-		JobSpace jobSpace = parentCtx.getJobSpace();
-		ctx.setJobSpace(jobSpace);
 	}
 
 	public abstract InternalConnection getConnection();
@@ -477,7 +480,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 		this.sql = sql;
 		boolean isSucc = executeJDBC(null);
 		if (!isSucc)
-			return null;
+			return JDBCUtil.getEmptyResultSet();
 		set = null;
 		if (this.getMoreResults()) {
 			set = this.getResultSet();

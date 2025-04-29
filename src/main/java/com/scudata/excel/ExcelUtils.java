@@ -145,6 +145,8 @@ public class ExcelUtils {
 	 * @throws IOException
 	 */
 	public static boolean isXlsxFile(FileObject fo) {
+		if (fo == null)
+			return false;
 		InputStream in = null;
 		PushbackInputStream pin = null;
 		BufferedInputStream bis = null;
@@ -269,7 +271,7 @@ public class ExcelUtils {
 			return true;
 		return false;
 	}
-	
+
 	private static boolean isChineseLanguage() {
 		Locale local = Locale.getDefault();
 		return "zh".equalsIgnoreCase(local.getLanguage());

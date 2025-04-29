@@ -707,7 +707,7 @@ public class AppUtil {
 	/**
 	 * Local network addresses
 	 */
-	private static String[] ips = null;
+	private volatile static String[] ips = null;
 
 	/**
 	 * List the current network card address, use cache.

@@ -156,11 +156,9 @@ public class SheetHandler extends DefaultHandler {
 	public void startElement(String uri, String localName, String name,
 			Attributes attributes) throws SAXException {
 		if (name.equals("row")) {
-			Object orow = attributes.getValue("r");
+			String orow = attributes.getValue("r");
 			int newRow = row + 1;
-			if (orow instanceof Number) {
-				newRow = ((Number) orow).intValue() - 1;
-			} else if (orow instanceof String) {
+			if (orow instanceof String) {
 				newRow = Integer.parseInt((String) orow) - 1;
 			}
 			if (newRow < startRow) {
