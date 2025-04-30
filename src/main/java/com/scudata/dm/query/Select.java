@@ -723,7 +723,7 @@ public class Select extends QueryBody {
 				}
 			}
 			
-			pattern = pattern.replace("\\", "\\\\");
+			/*pattern = pattern.replace("\\", "\\\\");
 			pattern = pattern.replace("*", "\\\\*");
 			pattern = pattern.replace("?", "\\\\?");
 			
@@ -734,12 +734,12 @@ public class Select extends QueryBody {
 			pattern = pattern.replace("[%]", "" + (char)18 + (char)19);
 			pattern = pattern.replace("%", "*");
 			pattern = pattern.replace("" + (char)18 + (char)19, "%");		
-			pattern = pattern.replace("[[]", "[");
+			pattern = pattern.replace("[[]", "[");*/
 			
 			if (isNot) {
-				return "!like@c(" + left.toSPL() +"," + pattern + ")";
+				return "!like@s(" + left.toSPL() +"," + pattern + ")";
 			} else {
-				return "like@c(" + left.toSPL() +"," + pattern + ")";
+				return "like@s(" + left.toSPL() +"," + pattern + ")";
 			}
 		}
 	}
