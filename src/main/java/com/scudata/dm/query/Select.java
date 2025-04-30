@@ -2410,7 +2410,9 @@ public class Select extends QueryBody {
 					}
 					
 					Column column = columnList.get(n - 1);
-					expStr = column.toSPL();
+					Exp exp = column.getExp();
+					groupBy.set(i, exp);
+					expStr = exp.toSPL();
 				}
 				
 				byExps[i] = new Expression(cellSet, ctx, expStr);
@@ -2472,7 +2474,9 @@ public class Select extends QueryBody {
 					}
 					
 					Column column = columnList.get(n - 1);
-					expStr = column.toSPL();
+					Exp exp = column.getExp();
+					groupBy.set(i, exp);
+					expStr = exp.toSPL();
 				}
 				
 				spl += expStr;
