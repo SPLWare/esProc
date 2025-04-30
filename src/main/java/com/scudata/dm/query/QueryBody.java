@@ -34,6 +34,10 @@ abstract class QueryBody {
 	// 取表的数据结构
 	public abstract DataStruct getDataStruct();
 	
+	public int getFileAttributeCount() {
+		return 0;
+	}
+	
 	// 查找字段对应的表
 	public abstract QueryBody getQueryBody(String tableName, String fieldName);
 	

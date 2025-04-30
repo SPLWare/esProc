@@ -2549,7 +2549,7 @@ public class Select extends QueryBody {
 				ArrayList<QueryBody> tableList = column.getAllTables();
 				for (QueryBody table : tableList) {
 					DataStruct ds = table.getDataStruct();
-					int fcount = ds.getFieldCount();
+					int fcount = ds.getFieldCount() - table.getFileAttributeCount();
 					String joinFieldName = table.getJoinFieldName();
 					
 					if (joinFieldName == null) {
@@ -2619,7 +2619,7 @@ public class Select extends QueryBody {
 				ArrayList<QueryBody> tableList = column.getAllTables();
 				for (QueryBody table : tableList) {
 					DataStruct ds = table.getDataStruct();
-					int fcount = ds.getFieldCount();
+					int fcount = ds.getFieldCount() - table.getFileAttributeCount();
 					String joinFieldName = table.getJoinFieldName();
 					
 					if (joinFieldName == null) {

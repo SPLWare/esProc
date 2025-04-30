@@ -164,6 +164,10 @@ public class TableNode extends QueryBody {
 		}
 	}
 	
+	public int getFileAttributeCount() {
+		return fileAttributes == null ? 0 : fileAttributes.size();
+	}
+	
 	private void addFileAttributeField(FileObject fo, ICursor cs) {
 		if (fileAttributes == null || cs == null) {
 			return;
