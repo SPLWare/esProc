@@ -79,18 +79,6 @@ public class TableNode extends QueryBody {
 		}
 		
 		Context ctx = select.getContext();
-		String password = null;
-		int index = fileName.lastIndexOf(':'); // 密码分隔符
-		
-		if(index != -1) {
-			password = fileName.substring(index + 1).trim();
-			if(password.startsWith("'") && password.endsWith("'")) {
-				password = password.substring(1, password.length() - 1);
-			}
-			
-			fileName = fileName.substring(0, index).trim();
-		}
-		
 		int dotIndex = fileName.lastIndexOf('.');
 		if(dotIndex == -1) {
 			Expression exp = new Expression(select.getCellSet(), ctx, fileName);
