@@ -108,7 +108,7 @@ public class TableNode extends QueryBody {
 			
 			strFile += "/" + fileName;
 			files = FileUtil.getFiles(strFile);
-			if (files != null) {
+			if (files != null && files.length > 0) {
 				setData(files, fileType);
 				return;
 			}
@@ -117,7 +117,7 @@ public class TableNode extends QueryBody {
 				for (String path : Env.getPaths()) {
 					strFile = appHome.getAbsolutePath() + "/" + path + "/" + fileName;
 					files = FileUtil.getFiles(strFile);
-					if (files != null) {
+					if (files != null && files.length > 0) {
 						setData(files, fileType);
 						return;
 					}
@@ -125,7 +125,7 @@ public class TableNode extends QueryBody {
 			}
 		} else {
 			files = FileUtil.getFiles(fileName);
-			if (files != null) {
+			if (files != null && files.length > 0) {
 				setData(files, fileType);
 				return;
 			}
@@ -133,7 +133,7 @@ public class TableNode extends QueryBody {
 			if (mainPath != null && mainPath.length() > 0) {
 				String strFile = mainPath + "/" + fileName;
 				files = FileUtil.getFiles(strFile);
-				if (files != null) {
+				if (files != null && files.length > 0) {
 					setData(files, fileType);
 					return;
 				}
@@ -143,7 +143,7 @@ public class TableNode extends QueryBody {
 				for (String path : Env.getPaths()) {
 					String strFile = path + "/" + fileName;
 					files = FileUtil.getFiles(strFile);
-					if (files != null) {
+					if (files != null && files.length > 0) {
 						setData(files, fileType);
 						return;
 					}
