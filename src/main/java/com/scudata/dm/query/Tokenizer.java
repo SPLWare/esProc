@@ -364,7 +364,6 @@ public final class Tokenizer {
 				curIndex++;
 			} else {
 				MessageManager mm = ParseMessage.get();
-				
 				throw new RQException(mm.getMessage("syntax.error") + curIndex+",["+ch+"]");
 			}
 		}

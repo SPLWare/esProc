@@ -2137,15 +2137,10 @@ public class Select extends QueryBody {
 			tableName = tableName.trim();
 			String aliasName = null;
 			
-			if (start < next && tokens[start].isKeyWord("AS")) {
-				start++;
-				if (start == next || tokens[start].getType() != Tokenizer.IDENT) {
-					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
-				}
-				
-				aliasName = tokens[start].getString();
-				start++;
+			if (tokens[start - 1].getType() == Tokenizer.IDENT && tokens[start - 2].isKeyWord("AS")) {
+				aliasName = tokens[start - 1].getString();
+				int len = aliasName.length() + tokens[start - 2].getSpaces().length() + 2;
+				tableName = tableName.substring(0, tableName.length() - len).trim();
 			} else {
 				int splitPos = tableName.lastIndexOf(' ');
 				if(splitPos != -1 && tableName.indexOf('.', splitPos) == -1) {
@@ -2405,6 +2400,19 @@ public class Select extends QueryBody {
 			
 			for (int i = 0; i < byCount; ++i) {
 				String expStr = groupBy.get(i).toSPL();
+				Integer findex = Variant.parseInt(expStr);
+				
+				if (findex != null) {
+					int n = findex.intValue();
+					if (n < 1 || n > columnList.size()) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(n + mm.getMessage("engine.indexOutofBound"));
+					}
+					
+					Column column = columnList.get(n - 1);
+					expStr = column.toSPL();
+				}
+				
 				byExps[i] = new Expression(cellSet, ctx, expStr);
 				byNames[i] = "_" + (i + 1);
 			}
@@ -2453,7 +2461,21 @@ public class Select extends QueryBody {
 					spl += ",";
 				}
 				
-				spl += groupBy.get(i).toSPL();
+				String expStr = groupBy.get(i).toSPL();
+				Integer findex = Variant.parseInt(expStr);
+				
+				if (findex != null) {
+					int n = findex.intValue();
+					if (n < 1 || n > columnList.size()) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(n + mm.getMessage("engine.indexOutofBound"));
+					}
+					
+					Column column = columnList.get(n - 1);
+					expStr = column.toSPL();
+				}
+				
+				spl += expStr;
 				spl += ":_" + (i + 1);
 			}
 		}
@@ -2505,6 +2527,19 @@ public class Select extends QueryBody {
 		for (int i = 0; i < count; ++i) {
 			SortItem sortItem = orderBy.get(i);
 			String expStr = sortItem.getSortExp().toSPL(byCount);
+			Integer findex = Variant.parseInt(expStr);
+			
+			if (findex != null) {
+				int n = findex.intValue();
+				if (n < 1 || n > columnList.size()) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(n + mm.getMessage("engine.indexOutofBound"));
+				}
+				
+				Column column = columnList.get(n - 1);
+				expStr = column.toSPL();
+			}
+
 			exps[i] = new Expression(cellSet, ctx, expStr);
 			orders[i] = sortItem.getOrder();
 		}
@@ -2526,7 +2561,21 @@ public class Select extends QueryBody {
 			}
 			
 			SortItem sortItem = orderBy.get(i);
-			spl += sortItem.getSortExp().toSPL(byCount);
+			String expStr = sortItem.getSortExp().toSPL(byCount);
+			Integer findex = Variant.parseInt(expStr);
+			
+			if (findex != null) {
+				int n = findex.intValue();
+				if (n < 1 || n > columnList.size()) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(n + mm.getMessage("engine.indexOutofBound"));
+				}
+				
+				Column column = columnList.get(n - 1);
+				expStr = column.toSPL();
+			}
+			
+			spl += expStr;
 			spl += ":";
 			spl += sortItem.getOrder();
 		}
@@ -2582,7 +2631,9 @@ public class Select extends QueryBody {
 		if (data instanceof Sequence) {
 			Sequence sequence = (Sequence)data;
 			sequence = sequence.newTable(names, exps, ctx);
+			
 			if (distinct) {
+				exps = new Expression[fcount];
 				for (int f = 0; f < fcount; ++f) {
 					exps[f] = new Expression(cellSet, ctx, "#" + (f + 1));
 				}
@@ -2596,6 +2647,7 @@ public class Select extends QueryBody {
 			cs.newTable(null, exps, names, null, ctx);
 			
 			if (distinct) {
+				exps = new Expression[fcount];
 				for (int f = 0; f < fcount; ++f) {
 					exps[f] = new Expression(cellSet, ctx, "#" + (f + 1));
 				}
