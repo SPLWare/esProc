@@ -10391,9 +10391,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int fcount = ds.getFieldCount();
 			boolean []signs = new boolean[fcount];
 			int ncount = fcount;
+			ArrayList<String> fieldList = new ArrayList<String>();
 			
 			for (int i = 0; i < keyCount; ++i) {
-				String name = gexps[i].getFieldName(ds);
+				gexps[i].getUsedFields(ctx, fieldList);
+			}
+			
+			for (String name : fieldList) {
 				int index = ds.getFieldIndex(name);
 				if (index != -1 && !signs[index]) {
 					signs[index] = true;
