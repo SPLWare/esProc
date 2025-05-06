@@ -13,6 +13,7 @@ import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
+import com.scudata.expression.Expression;
 import com.scudata.resources.ParseMessage;
 
 public class SimpleSQL {
@@ -203,16 +204,33 @@ public class SimpleSQL {
 		
 		int end = Tokenizer.scanParen(tokens, start, next);
 		start++;
+		QueryBody query;
 		
 		if (tokens[start].isKeyWord("SELECT")) {
-			QueryBody query = scanQuery(tokens, start, end);
-			WithItem withItem = new WithItem(name, columnNames, query);
-			withItems.add(withItem);
-			return end + 1;
+			query = scanQuery(tokens, start, end);
 		} else {
-			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
+			String expStr = "";
+			for(int i = start; i < end; ++i) {
+				expStr += tokens[i].getOriginString();
+				expStr += tokens[i].getSpaces();
+			}
+			
+			Expression exp = new Expression(cs, ctx, expStr);
+			Object obj = exp.calculate(ctx);
+			
+			if(obj instanceof ICursor) {
+				query = new TableNode(null, (ICursor)obj, expStr, name);
+			} else if(obj instanceof Sequence) {
+				query = new TableNode(null, (Sequence)obj, expStr, name);
+			} else {
+				MessageManager mm = ParseMessage.get();
+				throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, 不支持的表变量类型");
+			}
 		}
+		
+		WithItem withItem = new WithItem(name, columnNames, query);
+		withItems.add(withItem);
+		return end + 1;
 	}
 
 	private QueryBody scanQuery(Token []tokens, int start, int next) {

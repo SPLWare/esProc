@@ -288,7 +288,16 @@ public class Command {
 				idx = Sentence.scanBrace(str, idx);
 				if(idx < 0) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException("\",\'" + mm.getMessage("Expression.illMatched"));
+					throw new RQException("{,}" + mm.getMessage("Expression.illMatched"));
+				}
+				
+				idx ++;
+			} else if (ch == '(') {
+				// 花括号内是集算器表达式可能含引号
+				idx = Sentence.scanParenthesis(str, idx);
+				if(idx < 0) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("(,)" + mm.getMessage("Expression.illMatched"));
 				}
 				
 				idx ++;
