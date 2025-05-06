@@ -2755,7 +2755,7 @@ public class Select extends QueryBody {
 			}
 		}
 		
-		FileObject fo = new FileObject(pathName);
+		FileObject fo = new FileObject(pathName, null, getContext());
 		int dotIndex = pathName.lastIndexOf('.');
 		if (dotIndex != -1) {
 			String fileType = pathName.substring(dotIndex).toLowerCase();
