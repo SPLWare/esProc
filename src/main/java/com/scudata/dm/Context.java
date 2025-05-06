@@ -42,7 +42,7 @@ public class Context {
 	 * @param parent 父上下文
 	 */
 	public Context(Context parent) {
-		this.parent = parent;
+		setParent(parent);
 	}
 
 	/**
@@ -51,6 +51,7 @@ public class Context {
 	 */
 	public void setParent(Context parent) {
 		this.parent = parent;
+		this.js = parent.js;
 	}
 
 	/**

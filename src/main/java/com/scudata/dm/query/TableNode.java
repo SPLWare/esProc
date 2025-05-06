@@ -300,9 +300,10 @@ public class TableNode extends QueryBody {
 	
 	private void setData(File []files, String fileType) {
 		fileList = new ArrayList<FileObject>();
-		Context ctx = select.getContext();
+		//Context ctx = select.getContext();
 		for (File file : files) {
-			fileList.add(new FileObject(file.getAbsolutePath(), null, "s", ctx));
+			/// 已经是绝对路径，不再传递上下文，否则还会再加appHome
+			fileList.add(new FileObject(file.getAbsolutePath()));
 		}
 		
 		fileType = fileType.toLowerCase();

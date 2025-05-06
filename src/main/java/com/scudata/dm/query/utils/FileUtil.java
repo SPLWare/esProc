@@ -20,8 +20,9 @@ public class FileUtil {
 	   {
 		   //String s = "d:\\test\\emps*.txt";
 		   s = s.replaceAll("\\\\", "/");
-		   String folder = s.substring(0, s.lastIndexOf("/")+1);
-		   String name = s.substring(s.lastIndexOf("/")+1);
+		   int index = s.lastIndexOf("/");
+		   String folder = s.substring(0, index+1);
+		   String name = s.substring(index+1);
 		   return getFiles(folder,name);
 	   }
 
@@ -44,7 +45,7 @@ public class FileUtil {
 	     s = "^" + s + "$";
 	     //System.out.println(s);
 	     Pattern p = Pattern.compile(s);
-	     ArrayList list = filePattern(file, p, true);
+	     ArrayList<File> list = filePattern(file, p, true);
 	     if (list == null) return null;
 	     File[] rtn = new File[list.size()];
 	     list.toArray(rtn);
@@ -55,14 +56,14 @@ public class FileUtil {
 	    * @param p Pattern 匹配类型
 	    * @return ArrayList 其文件夹下的文件夹
 	    */
-	   private static ArrayList filePattern(File file, Pattern p, boolean first) {
+	   private static ArrayList<File> filePattern(File file, Pattern p, boolean first) {
 	     if (file == null) {
 	       return null;
 	     }
 	     else if (file.isFile()) {
 	       Matcher fMatcher = p.matcher(file.getName());
 	       if (fMatcher.matches()) {
-	         ArrayList list = new ArrayList();
+	         ArrayList<File> list = new ArrayList<File>();
 	         list.add(file);
 	         return list;
 	       }
@@ -71,9 +72,9 @@ public class FileUtil {
 	    	 if (!first) return null;
 	       File[] files = file.listFiles();
 	       if (files != null && files.length > 0) {
-	         ArrayList list = new ArrayList();
+	         ArrayList<File> list = new ArrayList<File>();
 	         for (int i = 0; i < files.length; i++) {
-	           ArrayList rlist = filePattern(files[i], p, false);
+	           ArrayList<File> rlist = filePattern(files[i], p, false);
 	           if (rlist != null) {
 	             list.addAll(rlist);
 	           }
