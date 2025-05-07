@@ -467,7 +467,7 @@ public class Select extends QueryBody {
 		public String toSPL() {
 			int size = params.size();
 			String []args = new String[size];
-			for (int i = 1; i < size; ++i) {
+			for (int i = 0; i < size; ++i) {
 				args[i] = params.get(i).toSPL();
 			}
 
