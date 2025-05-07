@@ -407,7 +407,7 @@ public class Select extends QueryBody {
 				return joinFieldName + ".#" + findex;
 			}
 			
-			int level = getLevel() - table.getLevel();
+			int level = getLevel() - table.getSelectLevel();
 			if (level == 0) {
 				return "#" + findex;
 			} else {
@@ -1150,6 +1150,10 @@ public class Select extends QueryBody {
 			for (Column column : columnList) {
 				column.getResultField(nameList);
 			}
+			
+			String []names = new String[nameList.size()];
+			nameList.toArray(names);
+			dataStruct = new DataStruct(names);
 		}
 		
 		return dataStruct;
@@ -1478,6 +1482,8 @@ public class Select extends QueryBody {
 				} else {
 					exp = new CommonNode(i, i + 1, ">");
 				}
+			} else if (token.isKeyWord("NULL")) {
+				exp = new CommonNode(i, i + 1, "null");
 			} else {
 				exp = new CommonNode(i, i + 1, token.getString());
 			}

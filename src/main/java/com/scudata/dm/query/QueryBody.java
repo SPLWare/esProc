@@ -27,7 +27,7 @@ abstract class QueryBody {
 		this.joinFieldName = joinFieldName;
 	}
 	
-	int getLevel() {
+	int getSelectLevel() {
 		return select.getLevel();
 	}
 	
