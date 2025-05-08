@@ -1484,6 +1484,14 @@ public class Select extends QueryBody {
 				}
 			} else if (token.isKeyWord("NULL")) {
 				exp = new CommonNode(i, i + 1, "null");
+			} else if (token.getType() == Tokenizer.KEYWORD && 
+					i + 1 < next && tokens[i + 1].getType() == Tokenizer.LPAREN) {
+				// 函数名可能和关键字名相同，如果能解释成函数优先解释成函数，left(str, 2)
+				int end = Tokenizer.scanParen(tokens, i + 1, next);
+				String fnName = token.getString();
+				List<Exp> list = scanParam(tokens, i + 2, end, part);
+				exp = new Function(i, end + 1, fnName, list);
+				i = end;
 			} else {
 				exp = new CommonNode(i, i + 1, token.getString());
 			}
