@@ -2383,10 +2383,6 @@ public class Select extends QueryBody {
 	}
 	
 	private Object doGroup(Object data) {
-		if (data == null) {
-			return null;
-		}
-		
 		int byCount = groupBy == null ? 0 : groupBy.size();
 		int gatherCount = gatherList == null ? 0 : gatherList.size();
 		if (byCount == 0 && gatherCount == 0) {
@@ -2449,7 +2445,7 @@ public class Select extends QueryBody {
 		if (having != null) {
 			String expStr = having.toSPL(byCount);
 			Expression exp = new Expression(cellSet, ctx, expStr);
-			result = (Sequence)result.select(exp, null, ctx);
+			result = (Sequence)result.select(exp, "t", ctx);
 		}
 		
 		return result;
@@ -2513,7 +2509,7 @@ public class Select extends QueryBody {
 	}
 
 	private Object doSort(Object data) {
-		if (orderBy == null || data == null) {
+		if (orderBy == null) {
 			return data;
 		}
 		
@@ -2596,10 +2592,6 @@ public class Select extends QueryBody {
 	
 	// 计算选出列
 	private Object doNew(Object data) {
-		if (data == null) {
-			return null;
-		}
-		
 		Context ctx = getContext();
 		ICellSet cellSet = getCellSet();
 		int count = columnList.size();
@@ -2871,15 +2863,36 @@ public class Select extends QueryBody {
 		}
 	}
 	
+	private boolean isNull(Object data) {
+		if (data == null) {
+			return true;
+		} else if (data instanceof Sequence) {
+			return ((Sequence)data).length() == 0;
+		} else {
+			return false;
+		}
+	}
+	
 	public Object getData() {
 		Object data = from.getData(where);
-		if (data == null) {
+		if (isNull(data)) {
 			return null;
 		}
 
 		data = doGroup(data);
+		if (isNull(data)) {
+			return null;
+		}
+		
 		data = doSort(data);
+		if (isNull(data)) {
+			return null;
+		}
+		
 		data = doNew(data);
+		if (isNull(data)) {
+			return null;
+		}
 		
 		if (limit > 0) {
 			if (offset > 0) {
@@ -2930,7 +2943,7 @@ public class Select extends QueryBody {
 			
 			if (data instanceof Sequence) {
 				Sequence sequence = (Sequence)data;
-				return sequence.select(exp, null, ctx);
+				return sequence.select(exp, "t", ctx);
 			} else { // ICursor
 				ICursor cs = (ICursor)data;
 				return cs.select(null, exp, null, ctx);
@@ -2981,7 +2994,7 @@ public class Select extends QueryBody {
 					cs.select(null, exp, null, ctx);
 					data = cs.fetch();
 				} else {
-					data = ((Sequence)data).select(exp, null, ctx);
+					data = ((Sequence)data).select(exp, "t", ctx);
 				}
 			}
 		}
