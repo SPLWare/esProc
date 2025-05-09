@@ -2272,22 +2272,10 @@ public class Select extends QueryBody {
 			throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
 		}
 		
-		int keyCount = FROMKEYS.length;
-		int end = next;
-		
-		for(int i = start; i < next; ++i) {
-			Token token = tokens[i];
-			if (token.getType() == Tokenizer.LPAREN) { // 跳过()
-				i = Tokenizer.scanParen(tokens, i, next);
-			} else if (token.isKeyWord()) {
-				String id = token.getString();
-				for (int k = 0; k < keyCount; ++k) {
-					if (id.equals(FROMKEYS[k])) {
-						end = i;
-						break;
-					}
-				}
-			}
+		int end = Tokenizer.scanKeyWords(tokens, start, next, FROMKEYS, 0);
+		if (start == end) {
+			MessageManager mm = ParseMessage.get();
+			throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
 		}
 		
 		Exp exp = scanExp(tokens, start, end, Part.Join);
@@ -2395,6 +2383,10 @@ public class Select extends QueryBody {
 	}
 	
 	private Object doGroup(Object data) {
+		if (data == null) {
+			return null;
+		}
+		
 		int byCount = groupBy == null ? 0 : groupBy.size();
 		int gatherCount = gatherList == null ? 0 : gatherList.size();
 		if (byCount == 0 && gatherCount == 0) {
@@ -2521,7 +2513,7 @@ public class Select extends QueryBody {
 	}
 
 	private Object doSort(Object data) {
-		if (orderBy == null) {
+		if (orderBy == null || data == null) {
 			return data;
 		}
 		
@@ -2604,6 +2596,10 @@ public class Select extends QueryBody {
 	
 	// 计算选出列
 	private Object doNew(Object data) {
+		if (data == null) {
+			return null;
+		}
+		
 		Context ctx = getContext();
 		ICellSet cellSet = getCellSet();
 		int count = columnList.size();
