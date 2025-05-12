@@ -50,8 +50,10 @@ public class Context {
 	 * @param parent Context
 	 */
 	public void setParent(Context parent) {
-		this.parent = parent;
-		this.js = parent.js;
+		if (parent != null) {
+			this.parent = parent;
+			this.js = parent.js;
+		}
 	}
 
 	/**
