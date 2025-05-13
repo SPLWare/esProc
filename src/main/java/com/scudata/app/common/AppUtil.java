@@ -308,7 +308,7 @@ public class AppUtil {
 			return true;
 		try {
 			PgmCellSet cs = CellSetUtil.toPgmCellSet(sql);
-			if (cs.getRowCount() > 1 && cs.getColCount() > 1) {
+			if (cs.getRowCount() > 1 || cs.getColCount() > 1) {
 				return true;
 			}
 		} catch (Throwable t) {
@@ -1270,6 +1270,7 @@ public class AppUtil {
 
 	/**
 	 * 准备计算上下文环境
+	 * 
 	 * @return 上下文环境
 	 */
 	public static Context prepareEnv(RaqsoftConfig config) {
@@ -1279,7 +1280,7 @@ public class AppUtil {
 			if (config != null) {
 				DatabaseUtil.connectAutoDBs(ctx, config.getAutoConnectList());
 			}
-//			loadDataSource(ctx);
+			// loadDataSource(ctx);
 		} catch (Throwable x) {
 			Logger.debug(x);
 			ctx = new Context();
