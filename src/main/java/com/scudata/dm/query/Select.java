@@ -603,7 +603,7 @@ public class Select extends QueryBody {
 			
 			if (exps == null) {
 				String query = subQuery.toSPL();
-				spl = query + ".(#1).contain(" + x + ")";
+				spl = query + ".contain(" + x + ")";
 			} else {
 				// in只有一个值时判断是否是参数序列
 				int size = exps.size();
