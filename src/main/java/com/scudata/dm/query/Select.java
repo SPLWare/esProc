@@ -29,7 +29,7 @@ public class Select extends QueryBody {
 	}
 	
 	private static final String []FROMKEYS = new String[] {"JOIN", "ON", "CROSS", "INNER", "LEFT", 
-			"RIGHT", "FULL", "WHERE", "GROUP", "HAVING", "ORDER", "LIMIT", "OFFSET", "INTO"};
+			"RIGHT", "FULL", "WHERE", "GROUP", "HAVING", "ORDER", "LIMIT", "OFFSET"};
 
 	private SimpleSQL query; // select所属的查询语句
 	private Token []tokens;
@@ -1785,32 +1785,51 @@ public class Select extends QueryBody {
 		// 扫描DISTINCT、TOP
 		start = scanQuantifies(tokens, start, next);
 		int colStart = start;
-		int colEnd = -1;
+		int intoPos = -1;
+		int fromPos = -1;
 
 		for (; start < next; ++start) {
 			Token token = tokens[start];
 			if (token.isKeyWord("FROM")) {
-				colEnd = start;
+				fromPos = start;
 				break;
 			} else if (token.getType() == Tokenizer.LPAREN) {
 				// 跳过()
 				start = Tokenizer.scanParen(tokens, start, next);
+			} else if (token.isKeyWord("INTO")) {
+				intoPos = start;
 			}
 		}
 		
-		if (colEnd == -1) {
+		if (fromPos == -1) {
 			MessageManager mm = ParseMessage.get();
 			throw new RQException(mm.getMessage("syntax.error") + tokens[next - 1].getPos());
 		}
 		
-		start = scanFrom(tokens, start, next);
+		start = scanFrom(tokens, fromPos, next);
+		int colEnd = intoPos == -1 ? fromPos : intoPos;
 		scanColumns(tokens, colStart, colEnd);
+		
+		if (intoPos != -1) {
+			String file = "";
+			for (++intoPos; intoPos < fromPos; ++intoPos) {
+				file += tokens[intoPos].getOriginString();
+				file += tokens[intoPos].getSpaces();
+			}
+
+			file = file.trim();
+			if(file.startsWith("\"") && file.endsWith("\"")) {
+				file = file.substring(1, file.length() - 1);
+			}
+			
+			intoFile = file;
+		}
 		
 		if (start == next) {
 			return;
 		}
 		
-		String []keyWords = new String[] {"GROUP", "HAVING", "ORDER", "LIMIT", "OFFSET", "INTO"};
+		String []keyWords = new String[] {"GROUP", "HAVING", "ORDER", "LIMIT", "OFFSET"};
 		if (tokens[start].isKeyWord("WHERE")) {
 			start++;
 			int end = Tokenizer.scanKeyWords(tokens, start, next, keyWords, 0);
@@ -1925,24 +1944,8 @@ public class Select extends QueryBody {
 			}
 		}
 		
-		if (tokens[start].isKeyWord("INTO")) {
-			String file = "";
-			
-			for (++start; start < next; ++start) {
-				file += tokens[start].getOriginString();
-				file += tokens[start].getSpaces();
-			}
-
-			file = file.trim();
-			if(file.startsWith("\"") && file.endsWith("\"")) {
-				file = file.substring(1, file.length() - 1);
-			}
-			
-			intoFile = file;
-		} else {
-			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
-		}
+		MessageManager mm = ParseMessage.get();
+		throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
 	}
 		
 	// top n
