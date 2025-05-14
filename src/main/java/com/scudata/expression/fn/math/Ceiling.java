@@ -29,9 +29,22 @@ public class Ceiling extends Function {
 				return null;
 			} else if (result1 instanceof BigDecimal) {
 				BigDecimal decimal = (BigDecimal)result1;
-				return decimal.setScale(0, RoundingMode.CEILING);
+				if (option == null || option.indexOf('s') == -1) {
+					return decimal.setScale(0, RoundingMode.CEILING);
+				} else {
+					return decimal.setScale(0, RoundingMode.UP);
+				}
 			} else if (result1 instanceof Number) {
-				return new Double(Math.ceil(Variant.doubleValue(result1)));
+				if (option == null || option.indexOf('s') == -1) {
+					return new Double(Math.ceil(Variant.doubleValue(result1)));
+				} else {
+					double d = Variant.doubleValue(result1);
+					if (d < 0) {
+						return new Double(Math.floor(d));
+					} else {
+						return new Double(Math.ceil(d));
+					}
+				}
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("ceil" + mm.getMessage("function.paramTypeError"));
@@ -68,15 +81,29 @@ public class Ceiling extends Function {
 			if (result1 instanceof BigDecimal) {
 				BigDecimal decimal = (BigDecimal)result1;
 				int scale = ((Number)result2).intValue();
-				decimal = decimal.setScale(scale, RoundingMode.CEILING);
+				if (option == null || option.indexOf('s') == -1) {
+					decimal = decimal.setScale(scale, RoundingMode.CEILING);
+				} else {
+					decimal = decimal.setScale(scale, RoundingMode.UP);
+				}
+				
 				if (scale < 0) {
 					return decimal.setScale(0);
 				} else {
 					return decimal;
 				}
 			} else {
+				double v = Variant.doubleValue(result1);
 				double d = Math.pow(10, ((Number)result2).intValue());
-				return new Double(Math.ceil(Variant.doubleValue(result1) * d) / d);
+				if (option == null || option.indexOf('s') == -1) {
+					return new Double(Math.ceil(v * d) / d);
+				} else {
+					if (v < 0) {
+						return new Double(Math.floor(v * d) / d);
+					} else {
+						return new Double(Math.ceil(v * d) / d);
+					}
+				}
 			}
 		}
 	}
