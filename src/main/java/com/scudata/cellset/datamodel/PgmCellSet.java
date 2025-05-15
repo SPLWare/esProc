@@ -2481,26 +2481,26 @@ public class PgmCellSet extends CellSet {
 		int col = cell.getCol();
 		int colCount = getColCount();
 		int endRow = getCodeBlockEndRow(row, col);
-
-		// 共享函数体外的格子
-		PgmCellSet pcs = newCalc(ctx);
 		String[] argNames = funcInfo.getArgNames();
-		if (argNames != null) {
-			// 把参数设到上下文中
-			int argCount = argNames.length;
-			if (args == null || args.length != argCount) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(funcInfo.getFnName()
-						+ mm.getMessage("function.paramCountNotMatch"));
-			}
-
-			Context dfxCtx = pcs.getContext();
-			for (int i = 0; i < argCount; ++i) {
-				dfxCtx.setParamValue(argNames[i], args[i]);
-			}
-		}
 
 		if (opt == null || opt.indexOf('i') == -1) {
+			// 共享函数体外的格子
+			PgmCellSet pcs = newCalc(ctx);
+			if (argNames != null) {
+				// 把参数设到上下文中
+				int argCount = argNames.length;
+				if (args == null || args.length != argCount) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(funcInfo.getFnName()
+							+ mm.getMessage("function.paramCountNotMatch"));
+				}
+
+				Context dfxCtx = pcs.getContext();
+				for (int i = 0; i < argCount; ++i) {
+					dfxCtx.setParamValue(argNames[i], args[i]);
+				}
+			}
+
 			for (int r = row; r <= endRow; ++r) {
 				for (int c = col; c <= colCount; ++c) {
 					INormalCell tmp = getCell(r, c);
@@ -2509,10 +2509,50 @@ public class PgmCellSet extends CellSet {
 					pcs.cellMatrix.set(r, c, cellClone);
 				}
 			}
-		}
 
-		// 定义了名字和参数的函数不再将参数填入单元格
-		return pcs.executeFunc(row, col, endRow, null); // args
+			// 定义了名字和参数的函数不再将参数填入单元格
+			return pcs.executeFunc(row, col, endRow, null); // args
+		} else {
+			if (argNames == null) {
+				return executeFunc(row, col, endRow, null);
+			}
+			
+			int argCount = argNames.length;
+			if (args == null || args.length != argCount) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(funcInfo.getFnName()
+						+ mm.getMessage("function.paramCountNotMatch"));
+			}
+
+			// 把参数设到上下文中
+			ctx = getContext();
+			Param []params = new Param[argCount];
+			Object []oldParamValue = new Object[argCount];
+			CellLocation oldLct = curLct;
+			
+			try {
+				for (int i = 0; i < argCount; ++i) {
+					params[i] = ctx.getParam(argNames[i]);
+					if (params[i] == null) {
+						ctx.addParam(new Param(argNames[i], Param.VAR, args[i]));
+					} else {
+						oldParamValue[i] = params[i].getValue();
+						params[i].setValue(args[i]);
+					}
+				}
+				
+				return executeFunc(row, col, endRow, null);
+			} finally {
+				curLct = oldLct;
+				for (int i = 0; i < argCount; ++i) {
+					if (params[i] == null) {
+						ctx.removeParam(argNames[i]);
+					} else {
+						params[i].setValue(oldParamValue[i]);
+					}
+				}
+			}
+		}
 	}
 	
 	/**
