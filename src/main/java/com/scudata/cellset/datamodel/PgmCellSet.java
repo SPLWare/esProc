@@ -2500,12 +2500,14 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		for (int r = row; r <= endRow; ++r) {
-			for (int c = col; c <= colCount; ++c) {
-				INormalCell tmp = getCell(r, c);
-				INormalCell cellClone = (INormalCell) tmp.deepClone();
-				cellClone.setCellSet(pcs);
-				pcs.cellMatrix.set(r, c, cellClone);
+		if (opt == null || opt.indexOf('i') == -1) {
+			for (int r = row; r <= endRow; ++r) {
+				for (int c = col; c <= colCount; ++c) {
+					INormalCell tmp = getCell(r, c);
+					INormalCell cellClone = (INormalCell) tmp.deepClone();
+					cellClone.setCellSet(pcs);
+					pcs.cellMatrix.set(r, c, cellClone);
+				}
 			}
 		}
 
