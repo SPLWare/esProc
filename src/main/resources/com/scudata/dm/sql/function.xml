@@ -72,7 +72,7 @@
       <INFO dbtype="ESPROC" value="asc(?1)"/>
     </FUNCTION>
 	<FUNCTION name="ASIN" paramcount="1" value="asin(?1)">
-      <INFO dbtype="ESPROC" value="asc(?1)"/>
+      <INFO dbtype="ESPROC" value="asin(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="ATAN" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="atan(?1)"/>
@@ -136,7 +136,7 @@
       <INFO dbtype="HSQL" value=""/>
       <INFO dbtype="TERADATA" value=""/>
       <INFO dbtype="POSTGRES" value=""/>
-      <INFO dbtype="ESPROC" value="string(?1,&quot;yyyy-MM-dd&quot;)"/>
+      <INFO dbtype="ESPROC" value="string(?1,&quot;yyyy-MM-dd HH:mm:ss&quot;)"/>
     </FUNCTION>
     <FUNCTION name="DAY" paramcount="1" value="EXTRACT(DAY FROM ?)">
       <INFO dbtype="ORACLE" value=""/>
@@ -219,7 +219,7 @@
       <INFO dbtype="ORACLE" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
       <INFO dbtype="TERADATA" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
       <INFO dbtype="POSTGRES" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
-      <INFO dbtype="ESPROC" value="RIGHT(?1,?2)"/>
+      <INFO dbtype="ESPROC" value="right(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="LEN" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="LENGTH(?)"/>
@@ -305,7 +305,7 @@
       <INFO dbtype="ORACLE" value="DBMS_RANDOM.VALUE(0, ?)"/>
       <INFO dbtype="TERADATA" value="RANDOM(0,?)"/>
       <INFO dbtype="POSTGRES" value="RANDOM()"/>
-      <INFO dbtype="ESPROC" value="ifn(rand@s(?1),rand())"/>
+      <INFO dbtype="ESPROC" value="rand@s(?1),rand()"/>
     </FUNCTION>
     <FUNCTION name="REPLACE" paramcount="3" value="">
       <INFO dbtype="TERADATA" value="OREPLACE(?1,?2,?3)"/>
@@ -382,7 +382,7 @@
     <FUNCTION name="TRUNC" paramcount="2" value="">
       <INFO dbtype="SQLSVR" value="CONVERT(BIGINT,?1*POWER(10,?2))/POWER(10.0,?2)"/>
       <INFO dbtype="MYSQL" value="TRUNCATE(?1,?2)"/>
-      <INFO dbtype="ESPROC" value="(floor((?1)*power(10,?2))/power(10,?2))"/>
+      <INFO dbtype="ESPROC" value="if(?1&lt;0,floor@s(?1,?2),floor(?1,?2))"/>
     </FUNCTION>
 	<FUNCTION name="UPPER" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="upper(?1)"/>
