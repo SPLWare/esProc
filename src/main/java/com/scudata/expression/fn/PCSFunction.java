@@ -41,7 +41,11 @@ public class PCSFunction extends Function {
 					}
 					
 					args[0] = option;
-					args[1] = param.getLeafExpression().calculate(ctx);
+					if (funcInfo.isMacroArg(1)) {
+						args[1] = param.getLeafExpression().toString();
+					} else {
+						args[1] = param.getLeafExpression().calculate(ctx);
+					}
 				} else {
 					int size = param.getSubSize();
 					if (args == null || args.length < size + 1) {
@@ -53,7 +57,11 @@ public class PCSFunction extends Function {
 					for (int i = 0; i < size; ++i) {
 						IParam sub = param.getSub(i);
 						if (sub != null) {
-							args[i + 1] = sub.getLeafExpression().calculate(ctx);
+							if (funcInfo.isMacroArg(i + 1)) {
+								args[i + 1] = sub.getLeafExpression().toString();
+							} else {
+								args[i + 1] = sub.getLeafExpression().calculate(ctx);
+							}
 						}
 					}
 				}
@@ -64,7 +72,11 @@ public class PCSFunction extends Function {
 						throw new RQException(funcInfo.getFnName() + mm.getMessage("function.invalidParam"));
 					}
 					
-					args[0] = param.getLeafExpression().calculate(ctx);
+					if (funcInfo.isMacroArg(0)) {
+						args[0] = param.getLeafExpression().toString();
+					} else {
+						args[0] = param.getLeafExpression().calculate(ctx);
+					}
 				} else {
 					int size = param.getSubSize();
 					if (args == null || args.length < size) {
@@ -75,7 +87,11 @@ public class PCSFunction extends Function {
 					for (int i = 0; i < size; ++i) {
 						IParam sub = param.getSub(i);
 						if (sub != null) {
-							args[i] = sub.getLeafExpression().calculate(ctx);
+							if (funcInfo.isMacroArg(i)) {
+								args[i] = sub.getLeafExpression().toString();
+							} else {
+								args[i] = sub.getLeafExpression().calculate(ctx);
+							}
 						}
 					}
 				}

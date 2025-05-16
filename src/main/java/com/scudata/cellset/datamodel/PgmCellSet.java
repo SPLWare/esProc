@@ -336,12 +336,11 @@ public class PgmCellSet extends CellSet {
 		private String option;
 		private PgmNormalCell cell; // 函数所在单元格
 		private String []argNames; // 参数名
+		private boolean []macroSigns;
 		private Object []defaultValues; // 参数缺省值
 
 		public FuncInfo(String fnName, PgmNormalCell cell, String []argNames) {
-			this.fnName = fnName;
-			this.cell = cell;
-			this.argNames = argNames;
+			this(fnName, cell, argNames, null);
 		}
 		
 		public FuncInfo(String fnName, PgmNormalCell cell, String []argNames, String option) {
@@ -349,8 +348,28 @@ public class PgmCellSet extends CellSet {
 			this.cell = cell;
 			this.argNames = argNames;
 			this.option = option;
+			
+			if (argNames != null) {
+				int count = argNames.length;
+				macroSigns = new boolean[count];
+				for (int i = 0; i < count; ++i) {
+					if (argNames[i].startsWith("$")) {
+						macroSigns[i] = true;
+						argNames[i] = argNames[i].substring(1);
+					}
+				}
+			}
 		}
-
+		
+		/**
+		 * 返回指定参数是否是宏参数
+		 * @param i
+		 * @return
+		 */
+		public boolean isMacroArg(int i) {
+			return macroSigns[i];
+		}
+		
 		public String getFnName() {
 			return fnName;
 		}
