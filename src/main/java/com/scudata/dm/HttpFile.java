@@ -169,7 +169,7 @@ public class HttpFile implements IFile {
 			}
 		}
 		catch( Throwable t ) {
-			throw new RQException( t );
+			throw new RQException( t.getMessage(), t );
 		}
 	}
 	
@@ -192,7 +192,7 @@ public class HttpFile implements IFile {
 			return res.toString();
 		}
 		catch( Throwable t ) {
-			throw new RQException( t );
+			throw new RQException( t.getMessage(), t );
 		}
 	}
 	
@@ -231,7 +231,7 @@ public class HttpFile implements IFile {
 			return true;
 		}
 		catch( Throwable t ) {
-			throw new RQException( t );
+			throw new RQException( t.getMessage(), t );
 		}
 	}
 
@@ -241,7 +241,7 @@ public class HttpFile implements IFile {
 			return u.openConnection().getContentLength();
 		}
 		catch( Throwable t ) {
-			throw new RQException( t );
+			throw new RQException( t.getMessage(), t );
 		}
 	}
 
