@@ -2099,4 +2099,92 @@ public class Table extends Sequence {
 			return new MemoryTable(table);
 		}
 	}
+
+
+	/**
+	 * 为源排列添加列
+	 * @param names String[] 需要添加的列
+	 * @param exps Expression[] 需要添加的列的表达式
+	 * @param opt String m：多线程运算，i：表达式计算结果为null是不生成该条记录，z：从后往前算
+	 * @param ctx Context
+	 */
+	public Table derive(String []names, Expression []exps, String opt, Context ctx) {
+		if (opt == null || opt.indexOf('o') == -1) {
+			return super.derive(names, exps, opt, ctx);
+		} else if (opt.indexOf('i') != -1) {
+			Table table = super.derive(names, exps, opt, ctx);
+			this.ds = table.ds;
+			this.mems = table.mems;
+			rebuildIndexTable();
+			return this;
+		}
+		
+		int addColCount = exps.length;
+		for (int i = 0; i < addColCount; ++i) {
+			if (names[i] == null || names[i].length() == 0) {
+				if (exps[i] == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("derive" + mm.getMessage("function.invalidParam"));
+				}
+
+				names[i] = exps[i].getFieldName(ds);
+			} else {
+				if (exps[i] == null) {
+					exps[i] = Expression.NULL;
+				}
+			}
+		}
+		
+		// 合并字段
+		String []oldNames = ds.getFieldNames();
+		int oldColCount = oldNames.length;
+		int newColCount = oldColCount + addColCount;
+		String []totalNames = new String[newColCount];
+		System.arraycopy(oldNames, 0, totalNames, 0, oldColCount);
+		System.arraycopy(names, 0, totalNames, oldColCount, addColCount);
+
+
+		DataStruct newDs = ds.create(totalNames);
+		IArray mems = getMems();
+		int len = mems.size();
+		
+		// 给所有记录增加字段，以便后计算的记录可以引用前面记录的字段
+		for (int i = 1; i <= len; ++i) {
+			Record r = (Record)mems.get(i);
+			r.derive(newDs);
+		}
+		
+		this.ds = newDs;
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(this);
+		stack.push(current);
+
+		try {
+			if (opt.indexOf('z') == -1) {
+				for (int i = 1; i <= len; ++i) {
+					Record r = (Record)mems.get(i);
+					current.setCurrent(i);
+
+					// 计算新字段
+					for (int c = 0; c < addColCount; ++c) {
+						r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
+					}
+				}
+			} else {
+				for (int i = len; i > 0; --i) {
+					Record r = (Record)mems.get(i);
+					current.setCurrent(i);
+
+					// 计算新字段
+					for (int c = 0; c < addColCount; ++c) {
+						r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
+					}
+				}
+			}
+		} finally {
+			stack.pop();
+		}
+		
+		return this;
+	}
 }

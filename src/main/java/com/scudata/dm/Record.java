@@ -177,6 +177,17 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	}
 
 	/**
+	 * 为记录增加新列
+	 * @param newDs 结果数据结构
+	 */
+	void derive(DataStruct newDs) {
+		Object []vals = new Object[newDs.getFieldCount()];
+		System.arraycopy(values, 0, vals, 0, values.length);
+		this.values = vals;
+		this.ds = newDs;
+	}
+	
+	/**
 	 * 返回字段的索引，伪字段从非伪字段的数目开始计数，如果字段不存在则返回-1
 	 * @param name String
 	 * @return int

@@ -358,6 +358,11 @@ public class PgmNormalCell extends NormalCell {
 	public boolean isCalculableCell() {
 		return (sign & TYPE_CALCULABLE_CELL) != 0;
 	}
+	
+	// 返回是否是执行格
+	public boolean isExecutableCell() {
+		return (sign & TYPE_EXECUTABLE_CELL) != 0;
+	}
 
 	// 返回是否是执行块
 	public boolean isExecutableBlock() {

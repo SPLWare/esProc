@@ -3,7 +3,10 @@ package com.scudata.expression.fn;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Sentence;
 import com.scudata.dm.Context;
+import com.scudata.dm.KeyWord;
+import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -28,7 +31,92 @@ public class PCSFunction extends Function {
 		return this;
 	}
 
+	private Object executeMacro(String macroExp, Context ctx) {
+		String []argNames = funcInfo.getArgNames();
+		if (argNames == null) {
+			Expression exp = new Expression(cs, ctx, macroExp);
+			return exp.calculate(ctx);
+		}
+		
+		int pcount = argNames.length;
+		String []argExps = new String[pcount];
+		
+		if (pcount == 1) {
+			if (param == null || !param.isLeaf()) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(funcInfo.getFnName() + mm.getMessage("function.invalidParam"));
+			}
+			
+			argExps[0] = param.getLeafExpression().toString();
+		} else {
+			if (param.getSubSize() != pcount) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(funcInfo.getFnName() + mm.getMessage("function.invalidParam"));
+			}
+			
+			for (int i = 0; i < pcount; ++i) {
+				IParam sub = param.getSub(i);
+				if (sub == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(funcInfo.getFnName() + mm.getMessage("function.invalidParam"));
+				}
+				
+				argExps[i] = sub.getLeafExpression().toString();
+			}
+		}
+		
+		macroExp = replaceMacros(macroExp, argNames, argExps);
+		Expression exp = new Expression(cs, ctx, macroExp);
+		return exp.calculate(ctx);
+	}
+	
+	private static String replaceMacros(String text, String []argNames, String []argExps) {
+		int len = text.length();
+		StringBuffer newStr = new StringBuffer(len + 32);
+		int argCount = argNames.length;
+		int idx = 0;
+		
+		Next:
+		while(idx < len) {
+			char c = text.charAt(idx);
+			// 字符串中的$不做替换
+			if (c == '\'' || c == '\"') {
+				int match = Sentence.scanQuotation(text, idx);
+				if (match < 0) {
+					if (newStr != null) newStr.append(c);
+					idx += 1;
+				} else {
+					if (newStr != null) newStr.append(text.substring(idx, match + 1));
+					idx = match + 1;
+				}
+			} else if (KeyWord.isSymbol(c)) {
+				if (newStr != null) newStr.append(c);
+				idx += 1;
+			} else {
+				int last = KeyWord.scanId(text, idx + 1);
+				String subStr = text.substring(idx, last);
+				idx = last;
+				
+				for (int i = 0; i < argCount; ++i) {
+					if (argNames[i].equals(subStr)) {
+						newStr.append(argExps[i]);
+						continue Next;
+					}
+				}
+				
+				newStr.append(subStr);
+			}
+		}
+
+		return newStr.toString();
+	}
+	
 	public Object calculate(Context ctx) {
+		String macroExp = funcInfo.getMacroExpression();
+		if (macroExp != null) {
+			return executeMacro(macroExp, ctx);
+		}
+		
 		Object[] args = funcInfo.getDefaultValues();
 		boolean hasOptParam = funcInfo.hasOptParam();
 		

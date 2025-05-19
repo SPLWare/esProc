@@ -338,6 +338,8 @@ public class PgmCellSet extends CellSet {
 		private String []argNames; // 参数名
 		private boolean []macroSigns;
 		private Object []defaultValues; // 参数缺省值
+		private String macroExp;
+		private int endRow;
 
 		public FuncInfo(String fnName, PgmNormalCell cell, String []argNames) {
 			this(fnName, cell, argNames, null);
@@ -356,6 +358,26 @@ public class PgmCellSet extends CellSet {
 					if (argNames[i].startsWith("$")) {
 						macroSigns[i] = true;
 						argNames[i] = argNames[i].substring(1);
+					}
+				}
+			}
+			
+			int row = cell.getRow();
+			int col = cell.getCol();
+			endRow = getCodeBlockEndRow(row, col);
+
+			
+			if (option != null && option.indexOf('m') != -1) {
+				int colCount = getColCount();
+				
+				Next:
+				for (int r = row; r <= endRow; ++r) {
+					for (int c = col + 1; c <= colCount; ++c) {
+						PgmNormalCell pc = getPgmNormalCell(r, c);
+						if (pc.isCalculableCell() || pc.isExecutableCell()) {
+							macroExp = pc.getExpString().substring(1);
+							break Next;
+						}
 					}
 				}
 			}
@@ -398,8 +420,32 @@ public class PgmCellSet extends CellSet {
 			this.option = option;
 		}
 		
+		public int getEndRow() {
+			return endRow;
+		}
+
+		/**
+		 * 调用fn@o时o将作为第一个（字符串）参数
+		 * @return
+		 */
 		public boolean hasOptParam() {
 			return option != null && option.indexOf('o') != -1;
+		}
+		
+		/**
+		 * 是否以宏替换方式调用
+		 * @return
+		 */
+		public boolean isMacroMode() {
+			return option != null && option.indexOf('m') != -1;
+		}
+		
+		/**
+		 * 取宏替换方式调用时的表达式
+		 * @return
+		 */
+		public String getMacroExpression() {
+			return macroExp;
 		}
 		
 		public Object[] getDefaultValues() {
@@ -2499,7 +2545,7 @@ public class PgmCellSet extends CellSet {
 		int row = cell.getRow();
 		int col = cell.getCol();
 		int colCount = getColCount();
-		int endRow = getCodeBlockEndRow(row, col);
+		int endRow = funcInfo.getEndRow();
 		String[] argNames = funcInfo.getArgNames();
 
 		if (opt == null || opt.indexOf('i') == -1) {
