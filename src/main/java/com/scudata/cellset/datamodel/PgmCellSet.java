@@ -160,9 +160,13 @@ public class PgmCellSet extends CellSet {
 		public SequenceForCmdCode(int r, int c, int endRow, Sequence sequence, Context ctx) {
 			super(r, c, endRow);
 			this.sequence = sequence;
-			stack = ctx.getComputeStack();
-			current = new Current(sequence);
-			stack.push(current);
+			
+			// 把序列压栈，这样循环里可以直接引用当前记录的字段
+			if (sequence.length() > 0) {
+				stack = ctx.getComputeStack();
+				current = new Current(sequence);
+				stack.push(current);
+			}
 		}
 
 		public boolean hasNextValue() {
