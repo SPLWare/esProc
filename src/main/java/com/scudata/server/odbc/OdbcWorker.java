@@ -432,7 +432,6 @@ class OdbcWorker extends Thread {
 			System.clearProperty("_userName");
 		}
 		collectData(typeName, map);
-		Logger.info("odbc OTel Test....");
 	}
 	
 	public void collectData(String typeName, Map<String, Object>map){	
