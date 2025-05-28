@@ -445,6 +445,14 @@ public class PgmCellSet extends CellSet {
 		}
 		
 		/**
+		 * 是否是递归模式调用，递归需要复制网格
+		 * @return
+		 */
+		public boolean isRecursiveMode() {
+			return option == null || option.indexOf('i') == -1;
+		}
+		
+		/**
 		 * 取宏替换方式调用时的表达式
 		 * @return
 		 */
@@ -467,8 +475,8 @@ public class PgmCellSet extends CellSet {
 			this.defaultValues = defaultValues;
 		}
 
-		public Object execute(Object[] args, String opt, Context ctx) {
-			return executeFunc(this, args, opt, ctx);
+		public Object execute(Object[] args, Context ctx) {
+			return executeFunc(this, args, ctx);
 		}
 	}
 
@@ -2471,7 +2479,7 @@ public class PgmCellSet extends CellSet {
 		if (expStr != null && expStr.length() > 0) {
 			int nameEnd = KeyWord.scanId(expStr, 0);
 			String fnName = expStr.substring(0, nameEnd);
-			return executeFunc(fnName, args, opt);
+			return executeFunc(fnName, args);
 		}
 
 		int endRow = getCodeBlockEndRow(row, col);
@@ -2528,23 +2536,21 @@ public class PgmCellSet extends CellSet {
 	 * 执行指定名字的子函数，可递归调用
 	 * @param funcInfo 函数信息
 	 * @param args Object[] 参数数组
-	 * @param opt String i：不递归调用，不用复制网格
 	 * @return Object 函数返回值
 	 */
-	public Object executeFunc(FuncInfo funcInfo, Object[] args, String opt) {
+	public Object executeFunc(FuncInfo funcInfo, Object[] args) {
 		Context ctx = getContext();
-		return executeFunc(funcInfo, args, opt, ctx);
+		return executeFunc(funcInfo, args, ctx);
 	}
 	
 	/**
 	 * 执行指定名字的子函数，可递归调用
 	 * @param funcInfo 函数信息
 	 * @param args Object[] 参数数组
-	 * @param opt String i：不递归调用，不用复制网格
 	 * @param ctx 计算上下文
 	 * @return Object 函数返回值
 	 */
-	public Object executeFunc(FuncInfo funcInfo, Object[] args, String opt, Context ctx) {
+	public Object executeFunc(FuncInfo funcInfo, Object[] args, Context ctx) {
 		PgmNormalCell cell = funcInfo.getCell();
 		int row = cell.getRow();
 		int col = cell.getCol();
@@ -2552,7 +2558,7 @@ public class PgmCellSet extends CellSet {
 		int endRow = funcInfo.getEndRow();
 		String[] argNames = funcInfo.getArgNames();
 
-		if (opt == null || opt.indexOf('i') == -1) {
+		if (funcInfo.isRecursiveMode()) {
 			// 共享函数体外的格子
 			PgmCellSet pcs = newCalc(ctx);
 			if (argNames != null) {
@@ -2628,17 +2634,16 @@ public class PgmCellSet extends CellSet {
 	 * 执行指定名字的子函数，可递归调用
 	 * @param fnName 函数名
 	 * @param args Object[] 参数数组
-	 * @param opt String i：不递归调用，不用复制网格
 	 * @return Object 函数返回值
 	 */
-	public Object executeFunc(String fnName, Object[] args, String opt) {
+	public Object executeFunc(String fnName, Object[] args) {
 		FuncInfo funcInfo = getFuncInfo(fnName);
 		if (funcInfo == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(fnName + mm.getMessage("Expression.unknownFunction"));
 		}
 		
-		return executeFunc(funcInfo, args, opt);
+		return executeFunc(funcInfo, args);
 	}
 
 	private Object executeFunc(int row, int col, int endRow, Object[] args) {

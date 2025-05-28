@@ -193,7 +193,7 @@ public class PCSFunction extends Function {
 			args[0] = option;
 		}
 
-		return funcInfo.execute(args, option, ctx);
+		return funcInfo.execute(args, ctx);
 	}
 
 	/**

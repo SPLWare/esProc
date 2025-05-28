@@ -187,7 +187,7 @@ public class Func extends Function {
 		if (cell != null) {
 			return pcs.executeFunc(cell.getRow(), cell.getCol(), args, option);
 		} else {
-			return pcs.executeFunc(callInfo.getFnName(), args, option);
+			return pcs.executeFunc(callInfo.getFnName(), args);
 		}
 	}
 	
