@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build esProc IDE",
+            "type": "shell",
+            "command": "javac",
+            "args": [
+                "-cp", "importlibs/*:src",
+                "-d", "bin",
+                "-sourcepath", "ide/src/main/java:src",
+                "ide/src/main/java/com/scudata/ide/spl/SPL.java"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always"
+            },
+            "problemMatcher": ["$javac"]
+        }
+    ]
+}
