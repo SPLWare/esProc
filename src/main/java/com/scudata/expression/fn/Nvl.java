@@ -21,7 +21,12 @@ public class Nvl extends Function {
 	public Object calculate(Context ctx) {
 		IParam param = this.param;
 		if (param.isLeaf()) {
-			return param.getLeafExpression().calculate(ctx);
+			Object obj = param.getLeafExpression().calculate(ctx);
+			if (obj != null && !obj.equals("")) {
+				return obj;
+			} else {
+				return null;
+			}
 		} else {
 			int size = param.getSubSize();
 			for (int i = 0; i < size; ++i) {
