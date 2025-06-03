@@ -11708,23 +11708,94 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	/**
 	 * 以分隔符sep连接序列成员成为字符串
 	 * @param sep String 分隔符
-	 * @param opt String c：用逗号连接，q：串成员接入时加上引号，i：加单引号
+	 * @param opt String c：用逗号连接，q：串成员接入时加上引号，i：加单引号，0：删除null和空串
 	 * @return String
 	 */
 	public String toString(String sep, String opt) {
-		boolean addQuotes = false, addSingleQuotes = false, addEnter = false;
+		boolean addQuotes = false, addSingleQuotes = false, addEnter = false, removeNull = false;
 		if (opt != null) {
 			if (opt.indexOf('c') != -1) sep = ",";
 			if (opt.indexOf('q') != -1) addQuotes = true;
 			if (opt.indexOf('i') != -1) addSingleQuotes = true;
 			if (opt.indexOf('n') != -1) addEnter = true;
+			if (opt.indexOf('0') != -1) removeNull = true;
 		}
 		
 		IArray mems = getMems();
 		int length = mems.size();
 		StringBuffer sb = new StringBuffer(50 * length);
 		
-		if (addEnter) {
+		if (removeNull) {
+			int count = 0;
+			if (addEnter) {
+				opt = opt.replace('n', ' ');
+				for (int i = 1; i <= length; ++i) {
+					Object obj = mems.get(i);
+					if (obj == null || obj.equals("")) {
+						continue;
+					}
+					
+					count++;
+					if (count > 1) {
+						sb.append('\n');
+					}
+
+					if (obj instanceof String) {
+						if (addQuotes) {
+							sb.append(Escape.addEscAndQuote((String)obj));
+						} else if (addSingleQuotes) {
+							sb.append('\'');
+							sb.append((String)obj);
+							sb.append('\'');
+						} else {
+							sb.append((String)obj);
+						}
+					} else if (obj instanceof Sequence) {
+						sb.append(((Sequence)obj).toString(sep, opt));
+					} else {
+						sb.append(Variant.toString(obj));
+					}
+				}
+
+				return sb.toString();
+			} else {
+				if (sep == null) {
+					sep = ",";
+				}
+
+				for (int i = 1; i <= length; ++i) {
+					Object obj = mems.get(i);
+					if (obj == null || obj.equals("")) {
+						continue;
+					}
+					
+					count++;
+					if (count > 1) {
+						sb.append(sep);
+					}
+
+					if (obj instanceof String) {
+						if (addQuotes) {
+							sb.append(Escape.addEscAndQuote((String)obj));
+						} else if (addSingleQuotes) {
+							sb.append('\'');
+							sb.append((String)obj);
+							sb.append('\'');
+						} else {
+							sb.append((String)obj);
+						}
+					} else if (obj instanceof Sequence) {
+						sb.append(STARTSYMBOL);
+						sb.append(((Sequence)obj).toString(sep, opt));
+						sb.append(ENDSYMBOL);
+					} else {
+						sb.append(Variant.toString(obj));
+					}
+				}
+
+				return sb.toString();
+			}
+		} else if (addEnter) {
 			opt = opt.replace('n', ' ');
 			for (int i = 1; i <= length; ++i) {
 				Object obj = mems.get(i);

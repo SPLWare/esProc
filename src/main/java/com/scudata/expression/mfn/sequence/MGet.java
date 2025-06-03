@@ -52,9 +52,6 @@ public class MGet extends SequenceFunction {
 	public Object calculate(Context ctx) {
 		IArray mems = srcSequence.getMems();
 		int srcLen = mems.size();
-		if (srcLen == 0) {
-			return null;
-		}
 
 		boolean isRepeat = false, reserveZero = true;
 		if (option != null) {
@@ -124,7 +121,7 @@ public class MGet extends SequenceFunction {
 						// 起始位置左越界则从1开始
 						pos0 = 1;
 					} else {
-						return null;
+						return new Sequence();
 					}
 				}
 			} else {
@@ -147,7 +144,7 @@ public class MGet extends SequenceFunction {
 						// 结束位置右越界则取到结尾
 						pos1 = srcLen;
 					} else {
-						return null;
+						return new Sequence();
 					}
 				}
 			} else {
