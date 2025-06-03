@@ -5082,7 +5082,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int size = length();
 		if (size == 0) {
 			if (isAll) {
-				return new Sequence(0);
+				if (isZero) {
+					return null;
+				} else {
+					return new Sequence(0);
+				}
 			} else if (isInsertPos) {
 				return -1;
 			} else if (isZero) {
@@ -5115,6 +5119,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						total += region.end - region.start + 1;
 					}
 					
+					if (total == 0) {
+						if (isZero) {
+							return null;
+						} else {
+							return new Sequence(0);
+						}
+					}
+					
 					IntArray resultArray = new IntArray(total);
 					for (Region region : list) {
 						for (int i = region.start, end = region.end; i <= end; ++i) {
@@ -5134,6 +5146,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		if (result != null) {
+			if (isAll && isZero) {
+				Sequence seq = (Sequence)result;
+				if (seq.length() == 0) {
+					return null;
+				}
+			}
+			
 			return result;
 		} else if (isZero) {
 			return ObjectCache.getInteger(0);
@@ -5161,7 +5180,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt == null) {
 				return null;
 			} else if (opt.indexOf('a') != -1) {
-				return new Sequence(0);
+				if (opt.indexOf('0') != -1) {
+					return null;
+				} else {
+					return new Sequence(0);
+				}
 			} else if (opt.indexOf('n') != -1) {
 				return ObjectCache.getInteger(len + 1);
 			} else if (opt.indexOf('0') != -1) {
@@ -5208,6 +5231,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		if (result != null) {
+			if (isAll && isZero) {
+				Sequence seq = (Sequence)result;
+				if (seq.length() == 0) {
+					return null;
+				}
+			}
+			
 			return result;
 		} else if (isZero) {
 			return ObjectCache.getInteger(0);
@@ -5249,7 +5279,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt == null) {
 				return null;
 			} else if (opt.indexOf('a') != -1) {
-				return new Sequence(0);
+				if (opt.indexOf('0') != -1) {
+					return null;
+				} else {
+					return new Sequence(0);
+				}
 			} else if (opt.indexOf('0') != -1) {
 				return ObjectCache.getInteger(0);
 			} else if (opt.indexOf('n') != -1) {
@@ -5289,14 +5323,18 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (size == 0) {
 			if (opt == null) {
 				return null;
+			} else if (opt.indexOf('a') != -1) {
+				if (opt.indexOf('0') != -1) {
+					return null;
+				} else {
+					return new Sequence(0);
+				}
 			} else if (opt.indexOf('s') != -1) {
 				return -1;
 			} else if (opt.indexOf('0') != -1) {
 				return ObjectCache.getInteger(0);
 			} else if (opt.indexOf('n') != -1) {
 				return ObjectCache.getInteger(1);
-			} else if (opt.indexOf('a') != -1) {
-				return new Sequence(0);
 			} else {
 				return null;
 			}
@@ -5307,7 +5345,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 	private Object pselect(Expression[] fltExps, Object[] vals,
 						   String opt, int start, int end, Context ctx) {
-		boolean bAll = false, bLast = false, isSorted = false, isInsertPos = false;
+		boolean bAll = false, bLast = false, isSorted = false, isInsertPos = false, isZero = false;
 		Object NULL = null;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1)bAll = true;
@@ -5322,6 +5360,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				NULL = ObjectCache.getInteger(length() + 1);
 			} else if (opt.indexOf('0') != -1) {
 				NULL = ObjectCache.getInteger(0);
+				isZero = true;
 			}
 		}
 
@@ -5360,7 +5399,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 				if (pos == -1) {
 					if (bAll) {
-						return new Sequence(0);
+						if (isZero) {
+							return null;
+						} else {
+							return new Sequence(0);
+						}
 					} else if (isInsertPos) {
 						return -low;
 					} else {
@@ -5463,7 +5506,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 
 				if (bAll) {
-					return result;
+					if (isZero && result.length() == 0) {
+						return null;
+					} else {
+						return result;
+					}
 				} else {
 					return NULL;
 				}
@@ -5910,12 +5957,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * 返回满足条件的元素的索引
 	 * @param exp Expression 计算结果为真假、整形、序列或值
 	 * @param opt String 1：返回第一个，z：从后查找， b使用二分法查找，o：修改序列本身，t：结果集为空时返回空序表，
-	 * c：找到第一个不满足条件的停止，r：找到第一个满足条件的取到最后
+	 * c：找到第一个不满足条件的停止，r：找到第一个满足条件的取到最后，0：找不到返回null
 	 * @param ctx Context 计算上下文环境
 	 * @return Sequence
 	 */
 	public Object select(Expression exp, String opt, Context ctx) {
-		boolean isAll = true, isForward = true, isBool = true, isOrg = false, returnTable = false;
+		boolean isAll = true, isForward = true, isBool = true, isOrg = false, returnTable = false, isZero = false;
 		if (opt != null) {
 			if (opt.indexOf('m') != -1) {
 				return MultithreadUtil.select(this, exp, ctx);
@@ -5926,6 +5973,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('b') != -1) isBool = false;
 			if (opt.indexOf('o') != -1) isOrg = true;
 			if (opt.indexOf('t') != -1) returnTable = true;
+			if (opt.indexOf('0') != -1) isZero = true;
 		}
 
 		if (length() == 0) {
@@ -5933,7 +5981,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return this;
 			} else if (returnTable && dataStruct() != null) {
 				return new Table(dataStruct());
-			} else if (isAll) {
+			} else if (isAll && !isZero) {
 				return new Sequence(0);
 			} else {
 				return null;
@@ -5982,7 +6030,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (total == 0) {
 				if (returnTable && dataStruct() != null) {
 					return new Table(dataStruct());
-				} else if (isAll) {
+				} else if (isAll && !isZero) {
 					return new Sequence(0);
 				} else {
 					return null;
@@ -6165,7 +6213,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	// 返回使表达式exp为true的元素构成的序列，默认返回所有
 	// opt 1：返回第一个，z：返回最后一个，c：找到第一个不满足条件的停止，r：找到第一个满足条件的取到最后
 	private Object selectb(Expression exp, String opt, Context ctx) {
-		boolean bOne = false, bLast = false, isOrg = false, returnTable = false, continuous = false, rc = false;
+		boolean bOne = false, bLast = false, isOrg = false, returnTable = false, continuous = false, rc = false, isZero = false;
 		if (opt != null) {
 			if (opt.indexOf('1') != -1) {
 				bOne = true;
@@ -6178,6 +6226,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('z') != -1)bLast = true;
 			if (opt.indexOf('o') != -1)isOrg = true;
 			if (opt.indexOf('t') != -1) returnTable = true;
+			if (opt.indexOf('0') != -1) isZero = true;
 			
 			if (opt.indexOf('i') != -1 && getIndexTable() != null) {
 				IndexTable index = getIndexTable();
@@ -6269,10 +6318,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				this.mems = resultArray;
 				return this;
 			} else {
-				if (returnTable && resultArray.size() == 0) {
-					Object obj = ifn();
-					if (obj instanceof BaseRecord) {
-						return new Table(((BaseRecord)obj).dataStruct());
+				if (resultArray.size() == 0) {
+					if (returnTable) {
+						Object obj = ifn();
+						if (obj instanceof BaseRecord) {
+							return new Table(((BaseRecord)obj).dataStruct());
+						} else {
+							return new Sequence(resultArray);
+						}
+					} else if (isZero) {
+						return null;
 					} else {
 						return new Sequence(resultArray);
 					}
@@ -6286,12 +6341,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	// 假定序列的计算列有序，返回使表达式的返回值为0的元素构成的序列
 	// opt 1：选出一个，z：从后面往前找
 	private Object select0(Expression exp, String opt, Context ctx) {
-		boolean bOne = false, bLast = false, isOrg = false, returnTable = false;
+		boolean bOne = false, bLast = false, isOrg = false, returnTable = false, isZero = false;
 		if (opt != null) {
 			if (opt.indexOf('1') != -1)bOne = true;
 			if (opt.indexOf('z') != -1)bLast = true;
 			if (opt.indexOf('o') != -1) isOrg = true;
 			if (opt.indexOf('t') != -1) returnTable = true;
+			if (opt.indexOf('0') != -1) isZero = true;
 		}
 
 		int size = length();
@@ -6323,7 +6379,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				if (isOrg) {
 					this.mems = new ObjectArray(0);
 					return this;
-				} else if (bOne) {
+				} else if (bOne || isZero) {
 					return null;
 				} else if (returnTable) {
 					Object obj = ifn();
@@ -6369,7 +6425,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					if (isOrg) {
 						this.mems = new ObjectArray(0);
 						return this;
-					} else if (bOne) {
+					} else if (bOne || isZero) {
 						return null;
 					} else if (returnTable) {
 						Object obj = ifn();
@@ -6476,7 +6532,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("select" + mm.getMessage("function.paramCountNotMatch"));
 		}
 
-		boolean bOne = false, bLast = false, isSorted = false, isOrg = false, returnTable = false, continuous = false, rc = false;
+		boolean bOne = false, bLast = false, isSorted = false, isOrg = false, 
+				returnTable = false, continuous = false, rc = false, isZero = false;
 		if (opt != null) {
 			if (opt.indexOf('m') != -1) {
 				return MultithreadUtil.select(this, fltExps, vals, opt, ctx);
@@ -6494,6 +6551,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('b') != -1) isSorted = true;
 			if (opt.indexOf('o') != -1) isOrg = true;
 			if (opt.indexOf('t') != -1) returnTable = true;
+			if (opt.indexOf('0') != -1) isZero = true;
 		}
 
 		final int end = length();
@@ -6502,7 +6560,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return this;
 			} else if (returnTable && dataStruct() != null) {
 				return new Table(dataStruct());
-			} else if (bOne) {
+			} else if (bOne || isZero) {
 				return null;
 			} else {
 				return new Sequence(0);
@@ -6545,7 +6603,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					if (isOrg) {
 						this.mems = new ObjectArray(0);
 						return this;
-					} else if (bOne) {
+					} else if (bOne || isZero) {
 						return null;
 					} else if (returnTable) {
 						Object obj = ifn();
@@ -6722,16 +6780,20 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						this.mems = result.getMems();
 						return this;
 					} else {
-						if (returnTable && result.length() == 0) {
-							Object obj = ifn();
-							if (obj instanceof BaseRecord) {
-								return new Table(((BaseRecord)obj).dataStruct());
-							} else {
-								return result;
+						if (result.length() == 0) {
+							if (returnTable) {
+								Object obj = ifn();
+								if (obj instanceof BaseRecord) {
+									return new Table(((BaseRecord)obj).dataStruct());
+								} else {
+									return result;
+								}
+							} else if (isZero) {
+								return null;
 							}
-						} else {
-							return result;
 						}
+
+						return result;
 					}
 				}
 			}
