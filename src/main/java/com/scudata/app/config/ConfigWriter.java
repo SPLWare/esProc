@@ -31,6 +31,15 @@ import com.scudata.parallel.UnitConfig;
  */
 public class ConfigWriter {
 	protected TransformerHandler handler = null;
+
+	/**
+	 * Version
+	 * 
+	 * version3:节点名称中的dfx改为spl。 version2:增加了多路游标路数CursorParallelNum。
+	 * 将之前版本的ParallelNum设置为CursorParallelNum。logLevel从Esproc挪到Runtime下。
+	 */
+	protected String version = "3";
+
 	/**
 	 * Element level, used to control XML indentation.
 	 */
@@ -139,8 +148,8 @@ public class ConfigWriter {
 	}
 
 	/**
-	 * Write out the configuration file. Version 2 changes: logLevel is moved from
-	 * Esproc to Runtime.
+	 * Write out the configuration file. Version 2 changes: logLevel is moved
+	 * from Esproc to Runtime.
 	 * 
 	 * @param out
 	 * @param config
@@ -152,8 +161,11 @@ public class ConfigWriter {
 		level = 0;
 		handler.startDocument();
 		/* Set the root node and version */
-		handler.startElement("", "", ConfigConsts.CONFIG,
-				getAttributesImpl(new String[] { ConfigConsts.VERSION, "3" }));
+		handler.startElement(
+				"",
+				"",
+				ConfigConsts.CONFIG,
+				getAttributesImpl(new String[] { ConfigConsts.VERSION, version }));
 		writeRuntime(config);
 		writeInit(config);
 		writeServer(config);
@@ -583,7 +595,8 @@ public class ConfigWriter {
 	/**
 	 * Write out the element containing the name and value
 	 * 
-	 * @param elementName the element name
+	 * @param elementName
+	 *            the element name
 	 * @param name
 	 * @param value
 	 * @throws SAXException

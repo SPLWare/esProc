@@ -47,7 +47,7 @@ public class SheetXls extends SheetObject {
 	/**
 	 * FileXls object
 	 */
-	private FileXls xlsFile;
+	FileXls xlsFile;
 	/**
 	 * Sheet object
 	 */
@@ -847,7 +847,7 @@ public class SheetXls extends SheetObject {
 	 */
 	private Object getCellGraph(int row, int col) {
 		Map<String, byte[]> map = getGraphMap();
-		byte[] data = map.get(row + ROW_COL_SEP + col);
+		Object data = map.get(row + ROW_COL_SEP + col);
 		return data;
 	}
 

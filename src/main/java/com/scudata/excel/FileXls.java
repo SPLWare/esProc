@@ -36,11 +36,11 @@ public class FileXls extends XlsFileObject {
 	/**
 	 * Workbook object
 	 */
-	protected Workbook wb = null;
+	Workbook wb = null;
 	/**
 	 * FileObject
 	 */
-	private FileObject fo = null;
+	FileObject fo = null;
 	/**
 	 * Excel password
 	 */
