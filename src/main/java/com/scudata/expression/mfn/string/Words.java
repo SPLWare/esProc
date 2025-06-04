@@ -1,5 +1,7 @@
 package com.scudata.expression.mfn.string;
 
+import com.ibm.icu.lang.UCharacter;
+import com.ibm.icu.lang.UProperty;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -34,6 +36,8 @@ public class Words extends StringFunction {
 				return splitWordAndDigit(srcStr, iopt);
 			} else if (option.indexOf('d') != -1) {
 				return splitDigit(srcStr);
+			} else if (option.indexOf('c') != -1) {
+				return splitChinese(srcStr, iopt);
 			} else if (option.indexOf('w') != -1) {
 				return splitAll(srcStr, iopt, option.indexOf('p') != -1);
 			}
@@ -48,6 +52,10 @@ public class Words extends StringFunction {
 	
 	private static boolean isDigit(char c) {
 		return c >= '0' && c <= '9';
+	}
+	
+	private static boolean isChinese(char c) {
+		return UCharacter.hasBinaryProperty(c, UProperty.IDEOGRAPHIC);
 	}
 	
 	private static Sequence splitWords(String str, boolean iopt) {
@@ -88,7 +96,7 @@ public class Words extends StringFunction {
 							} else {
 								break;
 							}
-						} if (!isWord(chars[end])) {
+						} else if (!isWord(chars[end])) {
 							break;
 						}
 					}
@@ -141,7 +149,7 @@ public class Words extends StringFunction {
 							} else {
 								break;
 							}
-						} if (!isWord(chars[end]) && !isDigit(chars[end])) {
+						} else if (!isWord(chars[end]) && !isDigit(chars[end])) {
 							break;
 						}
 					}
@@ -170,7 +178,7 @@ public class Words extends StringFunction {
 							} else {
 								break;
 							}
-						} if (!isWord(chars[end])) {
+						} else if (!isWord(chars[end])) {
 							break;
 						}
 					}
@@ -182,6 +190,124 @@ public class Words extends StringFunction {
 					for (; end < len && isDigit(chars[end]); ++end) {
 					}
 									
+					series.add(new String(chars, i, end - i));
+					i = end;
+				} else {
+					++i;
+				}
+			}
+		}
+
+		return series;
+	}
+	
+	private static Sequence splitChinese(String str, boolean iopt) {
+		Sequence series = new Sequence();
+		char []chars = str.toCharArray();
+		int len = chars.length;
+
+		if (iopt) {
+			for (int i = 0; i < len;) {
+				if (isWord(chars[i])) {
+					int end = i + 1;
+					for (; end < len; ++end) {
+						if (chars[end] == '\'') {
+							if (end + 1 < len && isWord(chars[end + 1])) {
+								++end;
+							} else {
+								break;
+							}
+						} else if (end + 1 < len && Character.isHighSurrogate(chars[end])) {
+							++end;
+						} else if (!isWord(chars[end]) && !isDigit(chars[end]) && !isChinese(chars[end])) {
+							break;
+						}
+					}
+					
+					series.add(new String(chars, i, end - i));
+					i = end;
+				} else if (isDigit(chars[i])) {
+					int end = i + 1;
+					for (; end < len && isDigit(chars[end]); ++end) {
+					}
+									
+					series.add(new String(chars, i, end - i));
+					i = end;
+				} else if (isChinese(chars[i])) {
+					int end = i + 1;
+					for (; end < len; ++end) {
+						if (end + 1 < len && Character.isHighSurrogate(chars[end])) {
+							++end;
+						} else if (!isWord(chars[end]) && !isDigit(chars[end]) && !isChinese(chars[end])) {
+							break;
+						}
+					}
+					
+					series.add(new String(chars, i, end - i));
+					i = end;
+				} else if (i + 1 < len && Character.isHighSurrogate(chars[i])) {
+					int end = i + 2;
+					for (; end < len; ++end) {
+						if (end + 1 < len && Character.isHighSurrogate(chars[end])) {
+							++end;
+						} else if (!isWord(chars[end]) && !isDigit(chars[end]) && !isChinese(chars[end])) {
+							break;
+						}
+					}
+					
+					series.add(new String(chars, i, end - i));
+					i = end;
+				} else {
+					++i;
+				}
+			}
+		} else {
+			for (int i = 0; i < len;) {
+				if (isWord(chars[i])) {
+					int end = i + 1;
+					for (; end < len; ++end) {
+						if (chars[end] == '\'') {
+							if (end + 1 < len && isWord(chars[end + 1])) {
+								++end;
+							} else {
+								break;
+							}
+						} else if (!isWord(chars[end])) {
+							break;
+						}
+					}
+					
+					series.add(new String(chars, i, end - i));
+					i = end;
+				} else if (isDigit(chars[i])) {
+					int end = i + 1;
+					for (; end < len && isDigit(chars[end]); ++end) {
+					}
+									
+					series.add(new String(chars, i, end - i));
+					i = end;
+				} else if (isChinese(chars[i])) {
+					int end = i + 1;
+					for (; end < len; ++end) {
+						if ( end + 1 < len && Character.isHighSurrogate(chars[end])) {
+							end++;
+						} else if (!isChinese(chars[end])) {
+							break;
+						}
+					}
+									
+					series.add(new String(chars, i, end - i));
+					i = end;
+				} else if (i + 1 < len && Character.isHighSurrogate(chars[i])) {
+					int end = i + 2;
+					for (; end < len; ++end) {
+						if ( end + 1 < len && Character.isHighSurrogate(chars[end])) {
+							end++;
+						} else if (!isChinese(chars[end])) {
+							break;
+						}
+					}
+					
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else {
@@ -220,7 +346,7 @@ public class Words extends StringFunction {
 							} else {
 								break;
 							}
-						} if (!isWord(chars[end]) && !isDigit(chars[end])) {
+						} else if (!isWord(chars[end]) && !isDigit(chars[end])) {
 							break;
 						}
 					}
@@ -255,7 +381,7 @@ public class Words extends StringFunction {
 							} else {
 								break;
 							}
-						} if (!isWord(chars[end])) {
+						} else if (!isWord(chars[end])) {
 							break;
 						}
 					}
