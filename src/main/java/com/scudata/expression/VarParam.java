@@ -9,6 +9,7 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
+import com.scudata.util.EnvUtil;
 import com.scudata.util.Variant;
 
 /**
@@ -33,6 +34,14 @@ public class VarParam extends Node {
 	}
 
 	public Object calculate(Context ctx) {
+		if (param.isDeleted()) {
+			Param cur = EnvUtil.getParam(param.getName(), ctx);
+			if (cur != null) {
+				param = cur;
+				return cur.getValue();
+			}
+		}
+		
 		return param.getValue();
 	}
 

@@ -134,15 +134,23 @@ public class UnknownSymbol extends Node {
 		} else {
 			// 如果曾经被当做字段则不再找变量
 			if (!isField) {
-				if (param != null) {
-					return param.getValue();
-				} else if (db != null) {
+				if (db != null) {
 					return db;
-				}
-				
-				param = EnvUtil.getParam(name, ctx);
-				if (param != null) { // 变量
-					return param.getValue();
+				} else if (param != null) {
+					// 重新取变量，程序网函数调用过程可能删除变量
+					if (param.isDeleted()) {
+						param = EnvUtil.getParam(name, ctx);
+						if (param != null) {
+							return param.getValue();
+						}
+					} else {
+						return param.getValue();
+					}
+				} else {
+					param = EnvUtil.getParam(name, ctx);
+					if (param != null) { // 变量
+						return param.getValue();
+					}
 				}
 				
 				// 数据库连接

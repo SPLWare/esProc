@@ -28,7 +28,8 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 
 	private String remark; // 备注，可以让用户随便填写东西，将来用于提供参数的编辑风格之类
 	private Object editValue; // 编辑表排列伪常量时界面使用
-
+	private boolean isDeleted = false; // 临时变量从上下文中删除后表达式中缓存的变量需要重取
+	
 	public Param() {
 	}
 
@@ -176,5 +177,21 @@ public class Param implements Cloneable, ICloneable, Externalizable, IRecord {
 		if (ver > 1) {
 			remark = (String)in.readObject();
 		}
+	}
+
+	/**
+	 * 判断参数是否被从上下文中移除
+	 * @return
+	 */
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	/**
+	 * 参数被从上下文中移除
+	 * @param isDeleted
+	 */
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 }

@@ -194,7 +194,12 @@ public class Context {
 	 * @return Param
 	 */
 	public Param removeParam(String name) {
-		return paramList.remove(name);
+		Param param = paramList.remove(name);
+		if (param != null) {
+			param.setDeleted(true);
+		}
+		
+		return param;
 		// 不再从父上下文删
 		//if (param != null) return param;
 		//return parent == null ? null : parent.removeParam(name);
