@@ -24,6 +24,7 @@ public class Concat extends Gather {
 	private String sep = null; // 分隔符
 	private boolean addQuotes = false;
 	private boolean addSingleQuotes = false;
+	private boolean deleteNull = false;
 	
 	public void prepare(Context ctx) {
 		if (param == null) {
@@ -59,6 +60,7 @@ public class Concat extends Gather {
 			if (option.indexOf('c') != -1) sep = ",";
 			if (option.indexOf('q') != -1) addQuotes = true;
 			if (option.indexOf('i') != -1) addSingleQuotes = true;
+			if (option.indexOf('0') != -1) deleteNull = true;
 		}
 	}
 	
@@ -91,12 +93,26 @@ public class Concat extends Gather {
 			}
 		} else if (obj instanceof StringBuffer) {
 			// 多线程二次汇总
+			StringBuffer sb = (StringBuffer)obj;
+			if (deleteNull) {
+				if (sb.length() == 0) {
+					return;
+				} else if (out.length() == 0) {
+					out.append(sb);
+					return;
+				}
+			}
+			
 			if (sep != null) {
 				out.append(sep);
 			}
 			
-			out.append(obj.toString());
+			out.append(sb);
 		} else if (obj != null) {
+			if (deleteNull && obj instanceof String && ((String)obj).length() == 0) {
+				return;
+			}
+			
 			if (sep != null && out.length() > 0) {
 				out.append(sep);
 			}
@@ -119,7 +135,7 @@ public class Concat extends Gather {
 				out.append(obj.toString());
 			}
 		} else {
-			if (out.length() > 0) {
+			if (out.length() > 0 && !deleteNull) {
 				out.append(sep);
 			}
 		}
