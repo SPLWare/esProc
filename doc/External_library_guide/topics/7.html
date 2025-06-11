@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>2.5 Dynamodb</title>
+<title>3.4 Cdc</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,90 +13,549 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='mso-list:l2 level2 lfo1'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>2.5<span
-style='font:7.0pt "Times New Roman"'> </span></span></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Dynamodb</span></h2></div>
-	<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>1. The directory
-containing files of this external library is: <i style='mso-bidi-font-style:
-normal'>installation directory\esProc\extlib\DynamodbCli</i>. The Raqsoft core
-jar for this external library is <i>scu-dynamodb-cli-2.10.jar</i></span><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>.</span></p>
+	<div id="centent-title"><h2 style='margin-left:134.65pt;mso-list:l3 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3.4<span style='font:7.0pt "Times New Roman"'> </span></span></span><span
+lang=EN-US>Cdc</span></h2></div>
+	<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;mso-list:l18 level1 lfo10'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman";
+color:black'><span style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+color:black'>CdcCli external library offers Cdc external library functions. </span><span
+lang=EN-US>The directory containing files of Cdc external library is: <i
+style='mso-bidi-font-style:normal'>installation directory\esProc\extlib\<span
+style='mso-bidi-font-style:italic'>CdcCli</span></i>. The Raqsoft core jar for
+this external library is<span style='color:black'> <i>[</i></span><i
+style='mso-bidi-font-style:normal'>installation directory<span
+style='color:black;mso-bidi-font-style:italic'>]\esProc\extlib\CdcCli\scu-cdc-cli-2.10.jar</span></i><span
+style='color:black'>.</span></span><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;color:black'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>apache-client-2.19.14.jar</span></p>
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+color:black'>&nbsp;</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>auth-2.19.14.jar</span></p>
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;mso-list:l18 level1 lfo10'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman";
+color:black'><span style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-language:AR'>A
+JRE version <i style='mso-bidi-font-style:normal'>1.7</i> or above is required.
+To use a custome JRE, users need to configure java_home in <i>config.txt</i>
+under <i>installation directory\esProc\bin</i>. Just skip this step if the JRE
+version is adequate.</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+color:black'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>aws-core-2.19.14.jar</span></p>
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+color:black'>&nbsp;</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>aws-java-sdk-core-2.6.19-b2.jar</span></p>
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;mso-list:l18 level1 lfo10'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman";
+color:black'><span style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+color:black'>To use the CdcCli external library, you need to have the data sync
+tool like De</span><span lang=EN-US style='color:black'>bezium and Ogg</span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>. Here are uses of the
+two.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>aws-json-protocol-2.19.14.jar</span></p>
+<p class=TConfigCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:0cm;mso-char-indent-count:0'><b><span lang=EN-US style='font-size:
+14.0pt;mso-fareast-font-family:"等线 Light";mso-bidi-font-family:"Times New Roman"'>3.4.1</span></b><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-family:"Times New Roman"'> </span><b><span
+lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:"等线 Light";
+mso-bidi-font-family:"Times New Roman"'>Debezium</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>dynamodb-2.19.14.jar</span></p>
+<p class=TConfigCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='font-size:10.5pt;mso-bidi-font-family:
+"Times New Roman";color:black;mso-bidi-language:AR'>The Debezium </span><span
+lang=EN-US style='font-size:10.5pt;mso-bidi-font-family:"Times New Roman";
+color:black'>data sync tool is located in </span><i><span lang=EN-US
+style='font-size:10.5pt;mso-bidi-font-family:"Times New Roman";color:black;
+mso-bidi-language:AR'>DebeziumCli</span></i><span lang=EN-US style='font-size:
+10.5pt;mso-bidi-font-family:"Times New Roman";color:black;mso-bidi-language:
+AR'> directory (</span><i><span lang=EN-US style='font-size:10.5pt;mso-bidi-font-family:
+"Times New Roman";color:black'>[installation
+directory]\esProc\extlib\DebeziumCli</span></i><span lang=EN-US
+style='font-size:10.5pt;mso-bidi-font-family:"Times New Roman";color:black;
+mso-bidi-language:AR'>). This tool works through Debezium (support 3.0.0
+version or above) to store the changes resulted from data addition, deletion or
+modification performed on the database (support MySQL and PostgreSQL for the
+time being) in the multizone composite table.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>endpoints-spi-2.19.14.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>(1) The Raqsoft
+core jar for this external library is</span><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;color:black'> <i>[installation directory]\esProc\extlib\DebeziumCli
+\scu-debezium-2.10.jar</i></span><span lang=EN-US>.</span><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black;mso-bidi-language:AR'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>http-client-spi-2.19.14.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black;mso-bidi-language:AR'>There are
+also the following files in <i>DebeziumCli</i> directory:</span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>json-utils-2.19.14.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>antlr4-runtime-4.10.1.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>log4j-1.2.17.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>connect-api-3.8.0.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>metrics-spi-2.19.14.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>connect-json-3.8.0.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>profiles-2.19.14.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>connect-runtime-3.8.0.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>protocol-core-2.19.14.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>debezium-api-3.0.0.Final.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>reactive-streams-1.0.3.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>debezium-connector-binlog-3.0.0.Final.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>regions-2.19.14.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>debezium-connector-mysql-3.0.0.Final.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>sdk-core-2.19.14.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>debezium-connector-postgres-3.0.0.Final.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>slf4j-api-1.7.25.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>debezium-core-3.0.0.Final.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>slf4j-log4j12-1.7.25.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>debezium-ddl-parser-3.0.0.Final.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>third-party-jackson-core-2.19.14.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>debezium-embedded-3.0.0.Final.jar</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>utils-2.19.14.jar</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>debezium-storage-file-3.0.0.Final.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>debezium-storage-kafka-3.0.0.Final.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>fastjson-1.2.76.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>jackson-annotations-2.16.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>jackson-core-2.16.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>jackson-databind-2.16.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>jackson-module-afterburner-2.16.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>kafka-clients-3.8.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>log4j-1.2.17.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>mysql-binlog-connector-java-0.31.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>mysql-connector-j-9.0.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>postgresql-42.2.14.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>slf4j-api-1.7.30.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>slf4j-reload4j-1.7.36.jar</span><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black;mso-bidi-language:AR'></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>Note:</span></b><span lang=EN-US style='mso-bidi-language:
-AR'> The third-party jars are encapsulated in the compression package and users
-can choose appropriate ones for specific scenarios.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>2. DynamodbCli
-requires Java environment of </span><span lang=EN-US style='mso-bidi-language:
-AR'>JRE version <i style='mso-bidi-font-style:normal'>1.7</i> or above. You
-need to install a higher version if the esProc built-in JRE does not meet the
-requirements, and then configure java_home in <i>config.txt</i> under <i>installation
-directory\esProc\bin</i>. Just skip this step if the JRE version is adequate.</span></p>
+normal'><span lang=EN-US style='mso-bidi-language:AR'>Note</span></b><span
+lang=EN-US style='mso-bidi-language:AR'>: The third-party jars are encapsulated
+in the compression package and users can choose appropriate ones for specific
+scenarios.</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;color:black;
+mso-bidi-language:AR'></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+style='mso-bidi-font-size:10.5pt;color:black;mso-bidi-language:AR'>There are also
+another two other files:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>3. </span><span lang=EN-US style='mso-bidi-language:
-AR'>e</span><span lang=EN-US>sProc provides external library functions <span
-style='mso-bidi-font-style:italic'>dyna_open()</span>, <span style='mso-bidi-font-style:
-italic'>dynadb.query()</span> , dynadb.execute()<i>, </i>dynadb.table() and <span
-style='mso-bidi-font-style:italic'>dynadb.close()</span></span><span
-lang=EN-US style='mso-bidi-language:AR'> to access</span><span lang=EN-US>
-DynamoDB. Look them up in</span><b style='mso-bidi-font-weight:normal'><span
-style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-"Times New Roman"'>【</span><span lang=EN-US>Help</span></b><b style='mso-bidi-font-weight:
-normal'><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>】</span></b><span lang=EN-US>-</span><b
+style='color:black'>log4j.properties</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>start_server.bat</span><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;color:black;mso-bidi-language:AR'></span></p>
+
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>(2) Modify the java path
+in <i>start_server.bat</i>. jre11 or a higher version is required. Below is the
+content of <i>start_server.bat</i>:</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>set
+EXECJAVA=&quot;D:\Java\jdk-11\bin\java&quot;</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>%EXECJAVA% -Xms128m
+-Xmx1024m<span style='mso-spacerun:yes'>&nbsp; </span>-cp .;*;../../lib/*;
+com.scudata.lib.debezium.DebeziumCollect %1 %2</span></p>
+
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>(3) In a directory on
+the same level as <i>start_server.bat</i>, create the configuration file <i>mysql.properties
+</i>or <i>postgres.properties</i> as needed. Below is content of the
+configuration file:</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Custom, unique
+connector name</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>name=testName</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Connector class
+name, which varies with different databases. Here we use MySQL as an example</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>connector.class=io.debezium.connector.mysql.MySqlConnector</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># File-based offset
+persistence</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>offset.storage=org.apache.kafka.connect.storage.FileOffsetBackingStore</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>offset.storage.file.filename=F:/tmp/dbz/storage/mysql_offsets.dat</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>offset.flush.interval.ms=60000</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Database server name</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>database.server.name=myDatabase</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># The current
+database’s numeric ID, which is random by default</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>database.server.id=59059</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Database IP address
+and port number</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>database.hostname=localhost</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>database.port=3306</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Database connection
+username and password</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>database.user=username</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>database.password=password</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Database name</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>database.dbname
+=myDBname</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Set time zone</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>database.connectionTimeZone=GMT+8</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># List of monitored
+data tables separated by comma</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>table.include.list=myDBname.table1,myDBname.table2</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Name of custom table
+level topic</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>topic.prefix=sync</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Replication slot
+name</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>slot.name=slotName</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Specify the location
+holding the database frame history storage</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>schema.history.internal=io.debezium.storage.file.history.FileSchemaHistory</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>schema.history.internal.file.filename=F:/tmp/dbz/storage/schemahistory.dat<span
+style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Set snapshot mode</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>snapshot.mode=always </span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Use the third-party
+interface to handle data type</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>decimal.handling.mode=double</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>numeric.handling.mode=numeric</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'># Data conversion, for
+which time type format is specified</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>converters=scudataConverter</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>scudataConverter.type=com.scudata.lib.debezium.ScudataConverter</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>scudataConverter.schema.name=io.debezium.scudata.type.scudataConverter</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>scudataConverter.format.date=yyyy-MM-dd</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>scudataConverter.format.time=HH:mm:ss</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>scudataConverter.format.datetime=yyyy-MM-dd
+HH:mm:ss</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>scudataConverter.format.timestamp=yyyy-MM-dd
+HH:mm:ss</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>scudataConverter.format.timestamptz=yyyy-MM-dd
+HH:mm:ss</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>scudataConverter.format.timestamp.zone=GMT+8</span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>scudataConverter.format.timestamptz.zone=UTC</span></p>
+
+<p class=MsoNormal style='margin-left:39.0pt;text-indent:-18.0pt;mso-list:l9 level1 lfo15'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman";
+color:black'><span style='mso-list:Ignore'>(4)<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+color:black'>Start MySQL or PostgreSQL database.</span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;text-indent:0cm;mso-list:l9 level1 lfo15'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman";
+color:black'><span style='mso-list:Ignore'>(5)<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+color:black'>Start the data sync tool. The startup command and parameter
+explanation are as follows:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black'>start_server.bat parameter 1
+parameter 2</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black'>Parameter 1: The directory holding
+data files to be synced, which can be an absolute path or a relative path.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black'>When data sync is finished, a <i>dirout</i>
+directory will be automatically generated in this path for storing the
+multizone composite table. The parameter value is the current directory by
+default, and this parameter cannot be omitted alone;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black'>Parameter 2: The <i>.properties</i>
+configuration file to be connected, which is mysql.properties by default.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black'>For example, start_server.bat
+F:/tmp/myTest postgres.properties means that configuration file postgres.properties
+is used and files generated from data sync will be stored in the specified
+directory <i>F:/tmp/myTest/dirout</i>. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>(6) After the data
+sync tool is started, you can perform data addition, deletion or modification
+on data in the database. The updates will be recorded in the multizone
+composite table generated in <i>dirout</i> directory:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><img border=0 width=464 height=202
+src="External_library_guide.files/image002.jpg" v:shapes="图片_x0020_66"></span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US
+style='color:black'>MYTEST.T1_2025_01.ctx</span></i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black'> records all updates of data in </span><span
+lang=EN-US style='color:black'>MYTEST</span><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;color:black'> database’s table<i> T1</i> in January, 2025. A new
+multizone composite table will be created to record changes in the next month.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='color:black'>(7) The external library functions working on
+the multizone composite tables generated from data sync are cdc_collect() and
+cdc_merge(). </span><span lang=EN-US>Look them up in </span><b
 style='mso-bidi-font-weight:normal'><span style='font-family:宋体;mso-ascii-font-family:
 "Times New Roman";mso-hansi-font-family:"Times New Roman"'>【</span><span
-lang=EN-US>Function reference</span></b><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>Help</span></b><b style='mso-bidi-font-weight:normal'><span
 style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-"Times New Roman"'>】</span></b><span lang=EN-US>to find their uses.</span></p>
+"Times New Roman"'>】</span></b><span lang=EN-US>-</span><b style='mso-bidi-font-weight:
+normal'><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman"'>【</span><span lang=EN-US>Function
+reference</span></b><b style='mso-bidi-font-weight:normal'><span
+style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>】</span></b><span lang=EN-US>to find their uses.</span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'></span></p>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:
+"等线 Light"'>3.4.2</span></b><span lang=EN-US style='font-size:14.0pt'> </span><b><span
+lang=EN-US style='font-size:14.0pt;mso-fareast-font-family:"等线 Light"'>Ogg</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black;mso-bidi-language:AR'>The
+Ogg </span><span lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>data
+sync tool is located in </span><i><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;color:black;mso-bidi-language:AR'>OggCli</span></i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black;mso-bidi-language:AR'> directory (</span><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>[installation
+directory]\esProc\extlib\OggCli</span></i><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;color:black;mso-bidi-language:AR'>). This tool works through Ogg to
+store the changes resulted from data addition, deletion or modification
+performed on the database (support Oracle for the time being) in the multizone
+composite table.</span><span lang=EN-US style='color:black'></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;text-indent:0cm;mso-list:l10 level1 lfo18'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman";color:black'><span
+style='mso-list:Ignore'>(1)<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>The Raqsoft core jar for this
+external library is</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+color:black'> <i>[installation directory]\esProc\extlib\OggCli \scu-oggplug-2.10.jar</i></span><span
+lang=EN-US>.<span style='color:black'></span></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black;mso-bidi-language:AR'>There
+is also the following file in <i>OggCli</i> directory:</span><span lang=EN-US
+style='color:black'></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><span
+lang=EN-US style='color:black'>fastjson-1.2.2.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-language:
+AR'>Note</span></b><span lang=EN-US style='mso-bidi-language:AR'>: The
+third-party jars are encapsulated in the compression package and users can
+choose appropriate ones for specific scenarios.</span><span lang=EN-US
+style='color:black'></span></p>
+
+<p class=MsoNormal style='margin-left:39.0pt;text-indent:-18.0pt;mso-list:l10 level1 lfo18'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman";color:black'><span
+style='mso-list:Ignore'>(2)<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='color:black'>In the
+existing OGG environment, configure <i>[OGG installation path]/dirprm/javaue.properties</i>
+on the target side:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='font-family:"Cambria Math",serif;mso-bidi-font-family:"Cambria Math";
+color:black'>① </span><span lang=EN-US style='color:black'>Set value of gg.handler.sample.type
+property as com.scudata.lib.cdc.SplHandler;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='font-family:"Cambria Math",serif;mso-bidi-font-family:"Cambria Math";
+color:black'>② </span><span lang=EN-US style='color:black'>Load third-party jar
+files fastjson-1.2.7.jar and scu-oggplug-2.10.jar, which are located in<span
+style='mso-spacerun:yes'>&nbsp; </span>OggCli directory (</span><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'>[installation
+directory]\esProc\extlib\OggCli</span></i><span lang=EN-US style='color:black'>),
+and esproc-bin-********xxxx.jar (esproc-xxxx.jar for Community Edition), icu4j-60.3.jar
+and lz4-1.3.0.jar in esProc class path (</span><i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;color:black'>[installation directory]\esProc\lib</span></i><span
+lang=EN-US style='color:black'>). </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='color:black'>Below is content of javaue.properties:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='color:black'>…</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='color:black'>gg.handler.sample.type=</span><span lang=EN-US
+style='color:red'>com.scudata.lib.cdc.SplHandler</span><span lang=EN-US
+style='color:black'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='color:black'>…</span></p>
+
+<p class=MsoNormal style='margin-left:20.0pt'><span lang=EN-US
+style='color:black'>javawriter.bootoptions=-Djava.class.path=.,ggjava/resources/classes,ggjava/resources/lib/ggcmdui-12.2.0.1.2.001.jar,/ggjava/resources/lib/*,ggjava/ggjava.jar,</span><span
+lang=EN-US style='color:red'>/home/esProc/extlib/OggCli/fastjson-1.2.7.jar,/home/esProc/extlib/OggCli/scu-oggplug-2.10.jar,/home/esProc/lib/icu4j-60.3.jar,/home/esProc/lib/esproc-bin-********.jar,/home/esProc/lib/lz4-1.3.0.jar
+</span><span lang=EN-US style='color:black'></span></p>
+
+<p class=MsoNormal style='margin-left:20.0pt;text-indent:5.25pt;mso-char-indent-count:
+.5'><span lang=EN-US style='color:black'>(3) Configure and start javaue
+process.</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'></span></p>
+
+<p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5'><span
+lang=EN-US style='color:black'>(4) </span><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;color:black'>After the </span><span lang=EN-US style='color:black'>javaue</span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'> process is started,
+you can perform data addition, deletion or modification on data in the database.
+The updates will be recorded in the multizone composite table generated in <i>dirout</i>
+directory:</span><span lang=EN-US style='color:black'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US><img border=0 width=464 height=202
+src="External_library_guide.files/image003.jpg" v:shapes="图片_x0020_64"><span
+style='color:black'></span></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i><span
+lang=EN-US style='color:black'>MYTEST.T1_2025_01.ctx</span></i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'> records all updates
+of data in </span><span lang=EN-US style='color:black'>MYTEST</span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'> database’s table<i>
+T1</i> in January, 2025. A new multizone composite table will be created to
+record changes in the next month.</span><span lang=EN-US style='color:black'></span></p>
+
+<p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5'><span
+lang=EN-US style='color:black'>(5) The external library functions working on
+the multizone composite tables generated from data sync are cdc_collect() and
+cdc_merge(). </span><span lang=EN-US>Look them up in </span><b
+style='mso-bidi-font-weight:normal'><span style='font-family:宋体;mso-ascii-font-family:
+"Times New Roman";mso-hansi-font-family:"Times New Roman"'>【</span><span
+lang=EN-US>Help</span></b><b style='mso-bidi-font-weight:normal'><span
+style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>】</span></b><span lang=EN-US>-</span><b style='mso-bidi-font-weight:
+normal'><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman"'>【</span><span lang=EN-US>Function
+reference</span></b><b style='mso-bidi-font-weight:normal'><span
+style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>】</span></b><span lang=EN-US>to find their uses.</span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="8.html">Next</a></div>
@@ -104,13 +563,13 @@ style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-f
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="2.html">Chapter2 Deployment</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="3.html">Chapter3 Deployment</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>2.1 Alicloud</title>
+<title>Chapter3 Deployment</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,68 +13,42 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='mso-list:l2 level2 lfo1'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>2.1<span
-style='font:7.0pt "Times New Roman"'> </span></span></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Alicloud</span></h2></div>
-	<p class=MsoNormal><span lang=EN-US>1. Download the appropriate version of
-table storage SDK and put it in esProc external library folder (SDK download
-link: <a
-href="https://develop.aliyun.com/sdk/java?spm=5176.7926450.416540.248.JzFuWx"><span
-style='color:windowtext;text-decoration:none;text-underline:none'>https://develop.aliyun.com/sdk/java?spm=5176.7926450.416540.248.JzFuWx</span></a>)
-. </span></p>
+	<div id="centent-title"><h1 style='margin-left:0cm;text-indent:0cm;mso-list:l3 level1 lfo1'><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>Chapter3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Deployment</span></span></span><a
+name=Deployment></a><span style='mso-bookmark:_Toc476213835'><span
+style='mso-bookmark:_Toc475983311'></span></span><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></h1></div>
+	<p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+style='mso-bookmark:_Toc475983311'><span lang=EN-US>This chapter introduces the
+deployment of external library functionality under esProc main directory. </span></span></span></p>
 
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span lang=EN-US>Download
+esProc external libraries in </span></span></span></p>
 
-<p class=MsoNormal><span lang=EN-US>2.The directory containing files of this
-external library is: <i style='mso-bidi-font-style:normal'>installation
-directory\esProc\extlib\AlicloudCli</i>. The Raqsoft core jar for this external
-library is <i>scu-alicloud-cli-2.10.jar</i>.</span></p>
+<p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span lang=EN-US>https://c.scudata.com/article/1595817756260.
+</span></span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>commons-logging-1.2.jar</span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+style='mso-bookmark:_Toc475983311'><span lang=EN-US>First, download the
+compressed external library installation package (<i>extlib-****.zip</i>) to
+the local machine, and decompress it into the directory<i> installation
+directory\esProc</i>. Then put the core jars for Raqsoft external libraries in
+corresponding external library folders under the directory <i style='mso-bidi-font-style:
+normal'>installation directory\esproc\extlib</i>.</span></span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>httpasyncclient-4.1.4.jar</span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+style='mso-bookmark:_Toc475983311'><span lang=EN-US>If a third-party
+application already integrates the esProc environment, the deployment should
+include the core jars the targeted Raqsoft external library needs.Below
+introduces how to deploy each external library.</span></span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>httpclient-4.5.13.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>httpcore-4.4.13.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>httpcore-nio-4.4.12.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>joda-time-2.10.10.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>log4j-1.2.17.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>protobuf-java-2.4.1.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>slf4j-api-1.7.5.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>slf4j-log4j12-1.7.5.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>tablestore-4.2.0.jar</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b><span lang=EN-US
-style='mso-bidi-font-size:11.0pt;mso-bidi-language:AR'>Note</span></b><span
-lang=EN-US style='mso-bidi-font-size:11.0pt;mso-bidi-language:AR'>: </span><span
-lang=EN-US style='mso-bidi-language:AR'>The third-party jars are encapsulated
-in the compression package and users can choose appropriate ones for specific
-scenarios.</span><span lang=EN-US style='mso-bidi-font-size:11.0pt;mso-bidi-language:
-AR'></span></p>
-
-<p class=MsoNormal><span lang=EN-US>3. esProc provides functions <span
-style='mso-bidi-font-style:italic'>ali_client()</span>, <span style='mso-bidi-font-style:
-italic'>ali_query()</span> and <span style='mso-bidi-font-style:italic'>ali_close()
-</span>to access Alicloud. Look them up in</span><b style='mso-bidi-font-weight:
-normal'><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>【</span><span lang=EN-US>Help</span></b><b
-style='mso-bidi-font-weight:normal'><span style='font-family:宋体;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman"'>】</span></b><span
-lang=EN-US>-</span><b style='mso-bidi-font-weight:normal'><span
-style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-"Times New Roman"'>【</span><span lang=EN-US>Function reference</span></b><b
-style='mso-bidi-font-weight:normal'><span style='font-family:宋体;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman"'>】</span></b><span
-lang=EN-US>to find their uses.</span></p>
+<span style='mso-bookmark:_Toc475983311'></span><span style='mso-bookmark:_Toc476213835'></span>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="4.html">Next</a></div>
@@ -82,13 +56,41 @@ lang=EN-US>to find their uses.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="2.html">Chapter2 Deployment</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="4.html">3.1 Alicloud</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="5.html">3.2 Avro</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="6.html">3.3 Cassandra</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="7.html">3.4 Cdc</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="8.html">3.5 Multidimensional database</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="9.html">3.6 Dynamodb</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="10.html">3.7 ElasticSearch</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="11.html">3.8 Financial</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="12.html">3.9 FTP file systems</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="13.html">3.10 GCS platform</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="14.html">3.11 HBase</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="15.html">3.12 HDFS file systems</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="16.html">3.13 Hive</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="17.html">3.14 InfluxDB</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="18.html">3.15 Informix</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="19.html">3.16 Kafka</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="20.html">3.17 Math</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">3.18 Mongo</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="22.html">3.19 Oss</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="23.html">3.20 R2dbc</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="24.html">3.21 Redis</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="25.html">3.22 S3</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="26.html">3.23 Salesforce</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="27.html">3.24 SAP</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="28.html">3.25 Spark</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="29.html">3.26 WAS</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="30.html">3.27 Webcrawl</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="31.html">3.28 Webservice</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="32.html">3.29 Zip</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

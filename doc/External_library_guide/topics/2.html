@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Chapter2 Deployment</title>
+<title>Chapter2 Introduction</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,42 +13,784 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h1 style='margin-left:0cm;text-indent:0cm;mso-list:l2 level1 lfo1'><span
-style='mso-bookmark:_Toc475983311'><span style='mso-bookmark:_Toc476213835'><span
+	<div id="centent-title"><h1 style='margin-left:0cm;text-indent:0cm;mso-list:l3 level1 lfo1'><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span
 lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>Chapter2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span lang=EN-US>Deployment</span></span></span><a
-name=Deployment></a><span style='mso-bookmark:_Toc475983311'><span
-style='mso-bookmark:_Toc476213835'></span></span><span
-style='mso-bookmark:_Toc475983311'><span style='mso-bookmark:_Toc476213835'></span></span><span
-style='mso-bookmark:_Toc475983311'><span style='mso-bookmark:_Toc476213835'></span></span></h1></div>
-	<p class=MsoNormal><span style='mso-bookmark:_Toc475983311'><span
-style='mso-bookmark:_Toc476213835'><span lang=EN-US>This chapter introduces the
-deployment of external library functionality under esProc main directory. </span></span></span></p>
+style='mso-list:Ignore'>Chapter2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Introduction</span></span></span><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></h1></div>
+	<p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+style='mso-bookmark:_Toc475983311'><span lang=EN-US>esProc connects to
+databases via ODBC or JDBC. But it also provides <b style='mso-bidi-font-weight:
+normal'>Search External Library</b> functionality in case a database to be
+connected doesn’t support JDBC and ODBC connectivity.</span></span></span></p>
 
-<p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
-_Toc475983311'><span style='mso-bookmark:_Toc476213835'><span lang=EN-US>Download
-esProc external libraries in </span></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+style='mso-bookmark:_Toc475983311'><span lang=EN-US>&nbsp;</span></span></span></p>
 
-<p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
-_Toc475983311'><span style='mso-bookmark:_Toc476213835'><span lang=EN-US>http://c.raqsoft.com/article/1595817756260.
-</span></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+style='mso-bookmark:_Toc475983311'><span lang=EN-US>esProc, by default,
+supports a variety of external libraries. They are AlicloudCli, AvroCli,
+CassandraCli, CdcCli, DynamodbCli, ElasticsearchCli, FinancialCli, FtpCli,
+HbaseCli, HdfsFileCli, HiveCli, InfluxdbCli, InformixCli, KafkaCli, MathCli,
+MongoCli, Olap4jCli, OssCli, </span></span></span><span style='mso-bookmark:
+_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span lang=EN-US
+style='mso-bidi-language:AR'>R2dbcCli</span><span lang=EN-US>, RedisCli, S3Cli,
+SalesforceCli, SapCli, SparkCli, WasCli, WebcrawlCli, WebserviceCli</span></span></span><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span
+lang=EN-US style='mso-bidi-language:AR'> and ZipCli.</span><span lang=EN-US>
+There are two steps for using these external libraries.</span></span></span><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span
+lang=EN-US style='mso-bidi-language:AR'></span></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Toc475983311'><span
-style='mso-bookmark:_Toc476213835'><span lang=EN-US>First, download the
-compressed external library installation package (<i>extlib-****.zip</i>) to
-the local machine, and decompress it into the directory<i> installation
-directory\esProc</i>. Then put the core jars for Raqsoft external libraries in
-corresponding external library folders under the directory <i style='mso-bidi-font-style:
-normal'>installation directory\esproc\extlib</i>.</span></span></span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span
+lang=EN-US>1. Deploying external libraries. For this refer to </span></span></span><a
+ href="glwbkbs.html#Deployment"><span style='mso-bookmark:_Toc476213835'><span
+style='mso-bookmark:_Toc475983311'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>Deploy<span style='mso-bookmark:_Hlt518982126'><span
+style='mso-bookmark:_Hlt518982127'>m</span></span>ent</span></b></span></span><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><a
+name="_Hlt518982127"></a><a name="_Hlt518982126"></a><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span
+lang=EN-US>;</span></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Toc475983311'><span
-style='mso-bookmark:_Toc476213835'><span lang=EN-US>If a third-party
-application already integrates the esProc environment, the deployment should
-include the core jars the targeted Raqsoft external library needs.Below
-introduces how to deploy each external library.</span></span></span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span
+lang=EN-US>2. Connecting to external libraries. For this refer to </span></span></span><a
+ href="wbkljjs.html#Connection"><span style='mso-bookmark:_Toc476213835'><span
+style='mso-bookmark:_Toc475983311'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>Co<span style='mso-bookmark:_Hlt518982186'>n</span>n<span
+style='mso-bookmark:_Hlt51864587'>e</span>ction</span></b></span></span><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><a
+name="_Hlt51864587"></a><a name="_Hlt518982186"></a><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span
+lang=EN-US>.</span></span></span></p>
 
-<span style='mso-bookmark:_Toc476213835'></span><span style='mso-bookmark:_Toc475983311'></span>
+<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:_Toc476213835'><span
+style='mso-bookmark:_Toc475983311'><span lang=EN-US>Here are functionalities of
+those external libraries:</span></span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;
+ mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><b><span
+  lang=EN-US>External library</span></b></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><b><span
+  lang=EN-US>Functionality</span></b></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:23.5pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:23.5pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#alicloud"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>AlicloudCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:23.5pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Alibaba
+  Cloud platform to perform connection, data querying, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#avro"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>AvroCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For handling Avro files,
+  including retrieve and export.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#cassandra"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>CassandraCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Cassandra
+  database to perform connection, data querying, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#cdc"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>CdcCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing data
+  collected through a data synchronization tool. </span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#debezium"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>DebeziumCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For providing Debezium, a
+  data synchronization tool, for CdcCli. </span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#dynamodb"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>DynamodbCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing DynamoDB
+  database to perform table creation, data querying, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#elasticSearch"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>ElasticsearchCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Elasticsearch
+  service to execute get/put commands, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:8;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#financial"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>FinancialCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For performing financial
+  analytics, such as net present value and future value of an investment.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:9;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#ftp"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>FtpCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing the FTP
+  service to perform file upload/download, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:10;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#gcs"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>GcsCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Google Cloud
+  Storage to perform data copy, storage bucket management, and other
+  operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:11;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#hbase"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>HbaseCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing HBase
+  database to perform data querying, filtering, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:12;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#hdfs"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>HdfsFileCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing HDFS file
+  system to perform file upload/download, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:13;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#hive"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>HiveCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Hive
+  database to perform connection, retrieving data of ORC/Parquet format, and
+  other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:14;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#influxdb"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>InfluxdbCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing InfluxDB
+  database, including connection, data querying, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:15;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#informix"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>InformixCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Informix
+  database to perform data extraction, sharding definition settings, and other
+  operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:16;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#kafka"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>KafkaCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Kafka
+  service to retrieve messages, set consumer group offset, and other
+  operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:17;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#math"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>MathCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For performing mathematical
+  analytics, such as computing covariance and standard variance.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:18;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#mongo"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>MongoCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Mongo
+  database to perform connection, data querying, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:19;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#ogg"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>OggCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For providing Ogg, a data
+  synchronization tool, for CdcCli.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:20;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#olap4j"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>Olap4jCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing a
+  multidimensional database to perform connection, data querying, and other
+  operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:21;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#oss"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>OssCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing <span
+  style='color:#333333'>Operations Support Systems, a cloud storage service, to
+  perform data copying, storage bucket management, and other operations.</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:22;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#r2dbc"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>R2dbcCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For creating a R2DBC
+  connection to perform database connection, data querying, and other
+  operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:23;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#redis"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>RedisCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Redis
+  database to perform connection, execute commands, and so on.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:24;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#s3"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>S3Cli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing AWS S3
+  service to perform data copying, storage bucket management, and other
+  operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:25;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#salesforce"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>SalesforceCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Salesforce
+  cloud to perform service connection through SOAP API or REST API, data
+  querying, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:26;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#sap"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>SapCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing SAP service
+  to perform connection, data querying, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:27;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#spark"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>SparkCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Spark
+  database to perform connection, data querying, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:28;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#was"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>WasCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing Windows
+  Azure Storage<span style='color:#333333'> service, to perform data copying,
+  storage bucket management, and other operations.</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:29;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#webcrawl"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>WebcrawlCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For providing a web
+  crawling tool.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:30;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#webservice"><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>WebserviceCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For accessing web service
+  to create connection, get data, and so on.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+ <tr style='mso-yfti-irow:31;mso-yfti-lastrow:yes;height:22.7pt'>
+  <td width=325 valign=top style='width:121.9pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span><a
+  href="#zip"><span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:
+  _Toc475983311'><span lang=EN-US>ZipCli</span></span></span><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></a><span
+  style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+  <td width=811 valign=top style='width:304.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.7pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Toc476213835'><span
+  style='mso-bookmark:_Toc475983311'><span lang=EN-US>For providing a
+  compression tool to perform compression, decompression, and other operations.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'></span></span>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+style='mso-bookmark:_Toc476213835'><span style='mso-bookmark:_Toc475983311'><span
+lang=EN-US>&nbsp;</span></span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="3.html">Next</a></div>
@@ -56,38 +798,12 @@ introduces how to deploy each external library.</span></span></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="3.html">2.1 Alicloud</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="4.html">2.2 Avro</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="5.html">2.3 Cassandra</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="6.html">2.4 Multidimensional database</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="7.html">2.5 Dynamodb</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="8.html">2.6 ElasticSearch</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="9.html">2.7 Financial</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="10.html">2.8 FTP file systems</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="11.html">2.9 GCS platform</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="12.html">2.10 HBase</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="13.html">2.11 HDFS file systems</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="14.html">2.12 Hive</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="15.html">2.13 InfluxDB</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="16.html">2.14 Informix</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="17.html">2.15 Kafka</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="18.html">2.16 Math</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="19.html">2.17 Mongo</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="20.html">2.18 R2dbc</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">2.19 Redis</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="22.html">2.20 S3</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="23.html">2.21 Salesforce</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="24.html">2.22 SAP</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="25.html">2.23 Spark</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="26.html">2.24 Webcrawl</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="27.html">2.25 Webservice</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="28.html">2.26 Zip</a></span></li>
-</div>
+		<div class="related-list"></div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

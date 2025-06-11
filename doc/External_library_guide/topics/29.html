@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Chapter3 Connection</title>
+<title>3.26 WAS</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,14 +13,68 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h1 style='margin-left:0cm;text-indent:0cm;mso-list:l2 level1 lfo1'><span
+	<div id="centent-title"><h2 style='margin-left:134.65pt;mso-list:l3 level2 lfo1'><span
 lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>Chapter3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><span lang=EN-US>Connection</span><a
-name=Connection></a></h1></div>
-	<p class=MsoNormal><span lang=EN-US>This chapter discusses how to connect to an
-external library within esProc IDE and from a third-party application after the
-deployment is completed. </span></p>
+style='mso-list:Ignore'>3.26<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>WAS</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>1. The directory containing files of this
+external library is: <i style='mso-bidi-font-style:normal'>installation
+directory\</i></span><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'>esProc\extlib\</span><span lang=EN-US>Was</span></i><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+11.0pt'>Cli</span></i><span lang=EN-US style='mso-bidi-font-size:11.0pt'>. </span><span
+lang=EN-US>The Raqsoft core jar for this external library is <i>scu-azure-was-cli-2.10</i></span><i><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>.jar</span></i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-language:AR'>azure-data-lake-store-sdk-2.1.5.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-language:AR'>azure-storage-8.3.0.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-language:AR'>azure-storage-blob-11.0.1.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-language:AR'>jackson-core-2.9.6.jar</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-bidi-language:AR'>Note</span></b><span
+lang=EN-US style='mso-bidi-language:AR'>: The third-party jars are encapsulated
+in the compression package and users can choose appropriate ones for specific
+scenarios.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>2. A JRE
+version <i style='mso-bidi-font-style:normal'>1.7</i> or above is required.
+Users need to install a higher version if the esProc built-in JRE version does
+not meet the requirements, and then configure java_home in <i>config.txt</i>
+under installation directory <i>\esProc\bin</i>. Just skip this step if the JRE
+version is adequate.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>3. esProc
+provides the function</span><span lang=FR style='mso-bidi-font-size:11.0pt;
+mso-ansi-language:FR;mso-bidi-font-style:italic'>s &#8211; was_bucket(), </span><span
+lang=FR style='mso-bidi-font-size:11.0pt;mso-ansi-language:FR'>was_close(),
+was_copy(), was_file(), was_list() and was_open()</span><i style='mso-bidi-font-style:
+normal'><span lang=FR style='mso-bidi-font-size:11.0pt'> </span></i><span
+lang=EN-US style='mso-bidi-language:AR'>to access the WAS database. Look it up
+in</span><b><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>【</span></b><b><span
+lang=EN-US style='mso-bidi-language:AR'>Help</span></b><b><span
+style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman";mso-bidi-language:AR'>】</span></b><b><span lang=EN-US
+style='mso-bidi-language:AR'>-</span></b><b><span style='font-family:宋体;
+mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+mso-bidi-language:AR'>【</span></b><b><span lang=EN-US style='mso-bidi-language:
+AR'>Function reference</span></b><b><span style='font-family:宋体;mso-ascii-font-family:
+"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-language:
+AR'>】</span></b><span lang=EN-US style='mso-bidi-language:AR'>to find their
+uses.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="30.html">Next</a></div>
@@ -28,14 +82,13 @@ deployment is completed. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="30.html">3.1 Within esProc IDE</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="31.html">3.2 From a third-party application</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="3.html">Chapter3 Deployment</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>
