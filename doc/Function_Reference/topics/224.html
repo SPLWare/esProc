@@ -60,7 +60,7 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Parameter: </span>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=1015 valign=top style='width:380.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>Database connection</span></span></p>
+  style='mso-bidi-font-size:10.5pt'>Database connection</span><span lang=EN-US>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -74,7 +74,7 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Parameter: </span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
   </span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
   lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>SQL query</span><span
-  lang=EN-US> </span></span><span lang=EN-US>statement</span></span></p>
+  lang=EN-US> </span></span><span lang=EN-US>statement.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -87,7 +87,7 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Parameter: </span>
   <td width=1015 valign=top style='width:380.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parameters
   passed to SQL, which can be values or names defined; separate multiple
-  parameters with comma</span></span></p>
+  parameters with comma.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -110,7 +110,7 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Option:</span></sp
   <td width=1020 valign=top style='width:382.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>If
   the result set has only one column, the content of the returned cursor is a
-  sequence</span></span></p>
+  sequence. </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -123,7 +123,7 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Option:</span></sp
   <td width=1020 valign=top style='width:382.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Convert
   the numeric data type to the double data type, instead of the decimal data
-  type</span></span></p>
+  type.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -138,7 +138,7 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Option:</span></sp
   from the database automatically when the cursor is closed; this option
   applies to <i style='mso-bidi-font-style:normal'>connect</i> -mode database
   connection only; with this option, the cursor the function returns is
-  irreversible</span></span></p>
+  irreversible.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -150,7 +150,8 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Option:</span></sp
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=1020 valign=top style='width:382.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-  a cursor of pure table sequence or pure sequence</span></span></p>
+  a cursor of pure table sequence or pure sequence; only supported by esProc
+  Enterprise Edition.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -159,8 +160,7 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Option:</span></sp
 <p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Return value: </span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-cursor</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Cursor</span></span></p>
 
 <p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example: </span></span></p>
@@ -305,6 +305,8 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example: </span></
  </tr>
 </table>
 
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
 the SQL query statement contains parameters:</span></span><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
@@ -382,9 +384,10 @@ lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></span>
   EID,NAME,DEPT,GENDER from employee<span style='mso-spacerun:yes'>&nbsp;
   </span>where<span style='mso-spacerun:yes'>&nbsp; </span>EID&lt;? and
   DEPT=?<span style='mso-spacerun:yes'>&nbsp; </span>and<span
-  style='mso-spacerun:yes'>&nbsp; </span>GENDER=?&quot;,arg1,arg2,&quot;M&quot;)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:ËÎÌå;font-weight:normal'></span></span></span></p>
+  style='mso-spacerun:yes'>&nbsp;
+  </span>GENDER=?&quot;,arg1,arg2,&quot;M&quot;)</span></b><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  ËÎÌå;font-weight:normal'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=900 valign=top style='width:337.35pt;border:none;mso-border-left-alt:
@@ -421,11 +424,13 @@ lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></span>
   data from A2¡¯s cursor<i><span style='mso-bidi-font-weight:bold'>.</span></i></span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=480 height=248
-  src="Function_Reference.files/image531.jpg" v:shapes="_x0000_i1300"></span></span></p>
+  src="Function_Reference.files/image532.jpg" v:shapes="_x0000_i1302"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
 cursor containing other types of data:</span></span></p>
@@ -484,7 +489,7 @@ cursor containing other types of data:</span></span></p>
   content is as follows:</span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=180 height=326
-  src="Function_Reference.files/image533.jpg" v:shapes="_x0000_i1301"></span></span></p>
+  src="Function_Reference.files/image534.jpg" v:shapes="_x0000_i1303"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -516,7 +521,7 @@ cursor containing other types of data:</span></span></p>
   the cursor as a sequence<i><span style='mso-bidi-font-weight:bold'>.</span></i></span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=182 height=326
-  src="Function_Reference.files/image535.jpg" v:shapes="Í¼Æ¬_x0020_317"></span></span></p>
+  src="Function_Reference.files/image536.jpg" v:shapes="Í¼Æ¬_x0020_317"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -601,7 +606,7 @@ cursor containing other types of data:</span></span></p>
   #0400;mso-fareast-language:#0400'></span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=316 height=124
-  src="Function_Reference.files/image537.jpg" v:shapes="Í¼Æ¬_x0020_318"></span></span></p>
+  src="Function_Reference.files/image538.jpg" v:shapes="Í¼Æ¬_x0020_318"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>

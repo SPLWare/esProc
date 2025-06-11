@@ -120,7 +120,7 @@ tree.setIconPath("images/");
  tree.nodes["114_119"] = "text:4.1.5 Using SQL query results;url:topics/117.html";
  tree.nodes["114_120"] = "text:4.1.6 Common SQL statements and their esProc counterparts;url:topics/118.html";
  tree.nodes["113_121"] = "text:4.2 Database Configuration;url:topics/119.html";
- tree.nodes["121_122"] = "text:4.2.1 Database access through datasource manager;url:topics/120.html";
+ tree.nodes["121_122"] = "text:4.2.1 Database access through data source manager;url:topics/120.html";
  tree.nodes["121_123"] = "text:4.2.2 Retrieving data from databases;url:topics/121.html";
  tree.nodes["121_124"] = "text:4.2.3 Configuring other databases;url:topics/122.html";
  tree.nodes["121_125"] = "text:4.2.4 esProc JDBC;url:topics/123.html";

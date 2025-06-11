@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>rollback()</title>
+<title>right()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,11 +13,158 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>rollback()</span></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name=right><span lang=EN-US>right()</span></a></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h2></div>
-	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Here’s
-how to use rollback() function.</span></span></p>
+	<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Description:</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><a
+name="_Hlk129855209"><span lang=EN-US>Get a substring of a string ending at the
+rightmost side.</span></a></span></p>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Syntax: </span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+方正姚体'>right(</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US style='mso-fareast-font-family:方正姚体'>s</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-fareast-font-family:方正姚体'>,</span></i></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='mso-fareast-font-family:方正姚体'>n</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif;mso-fareast-font-family:方正姚体'>)</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
+方正姚体'></span></span></p>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Note: </span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+function gets a substring from source string </span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>s</span></span><span
+lang=EN-US> starting from the <i>n<sup>th</sup></i>-to-last character to the
+end. If <i>n</i>&lt;0, get a substring starting from the <i>abs(n)<sup>th</sup></i>
+character to the end.</span></span></p>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Parameter: </span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:-16.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=83 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>s</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=987 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+  source string.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=83 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>n</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=987 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+  <i>n<sup>th</sup></i>-to-last character of source string s; return an empty
+  string when the absolute value of </span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=var1><span lang=EN-US>n</span></span><span
+  lang=EN-US> is greater than the length of </span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>s</span></span><span
+  lang=EN-US>.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Return value: </span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>String</span></span></p>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example:</span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:-16.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=347 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>right(&quot;abced&quot;,2)</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=744 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
+  mso-bidi-font-weight:bold'>&quot;ed&quot;</span></span><b><span lang=EN-US></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=347 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>right(&quot;abced&quot;,-2)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=744 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
+  mso-bidi-font-weight:bold'>&quot;bced&quot;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=347 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>right(&quot;abced&quot;,-8)</span></span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=744 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;font-weight:normal;mso-bidi-font-weight:bold'>Return an empty string</span></span><span
+  lang=EN-US>.</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Related function:</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="left.html#left"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-fareast-font-family:黑体'>l<span style='mso-bookmark:_Hlt428799216'>e</span><span
+style='mso-bookmark:_Hlt426387832'><span style='mso-bookmark:_Hlt428799326'><span
+style='mso-bookmark:_Hlt428799647'>f</span></span></span><span
+style='mso-bookmark:_Hlt414972835'>t</span>()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt414972835"></a><a name="_Hlt428799647"></a><a name="_Hlt428799326"></a><a
+name="_Hlt426387832"></a><a name="_Hlt428799216"></a><span
+style='mso-bookmark:_Hlt161066090'></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="mid.html#mid_s_start_len"><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>mid()</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><span
+style='mso-bookmark:_Hlt161066090'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="839.html">Next</a></div>
@@ -26,8 +173,6 @@ how to use rollback() function.</span></span></p>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
 		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="54.html">Functions</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="839.html">db.rollback()</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="840.html">f.rollback()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

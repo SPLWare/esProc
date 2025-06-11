@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>hdfs_close()</title>
+<title>hdfs_open()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,19 +13,16 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="hdfs_close"></a><a
-name="_Hlt495582749"></a><span style='mso-bookmark:hdfs_close'><span
-lang=EN-US>hdfs_close()</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:hdfs_close'></span></span><span
-style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:hdfs_close'></span></span></h2></div>
-	<span style='mso-bookmark:hdfs_close'></span>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name=hdfsfile></a><span
+lang=EN-US>hdfs_open()<a name="hdfs_open"></a></span></span><span
+style='mso-bookmark:_Hlt161066090'></span><span
+style='mso-bookmark:_Hlt161066090'></span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Close
-the HDFS connection.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Connect
+to the HDFS file system and return a connection object.</span></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
@@ -34,48 +31,77 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>S
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'>hdfs_close(</span></b></span><span style='mso-bookmark:_Hlt161066090'><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>hd</span></i></span><span
+黑体'>hdfs_open(;</span></b></span><span style='mso-bookmark:_Hlt161066090'><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>url,user</span></i></span><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='mso-fareast-font-family:黑体;mso-bidi-font-style:italic'>)</span></b></span></p>
+lang=EN-US style='mso-fareast-font-family:黑体'>)</span></b></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Note:
 </span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>This
-external library function <span style='mso-bidi-font-style:italic'>(See </span></span></span><a
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-fareast-font-family:黑体'>This external library function </span><span
+lang=EN-US style='mso-bidi-font-style:italic'>(See </span></span><a
 href="http://doc.raqsoft.com/esproc/ext/"><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US style='mso-bidi-font-style:italic'>External Library Guide</span></span><span
 style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-style:italic'>) </span><span lang=EN-US>closes
-a connection to the HDFS file system.</span></span><span style='mso-bookmark:
-_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-fareast-font-family:黑体'></span></b></span></p>
+lang=EN-US style='mso-bidi-font-style:italic'>) </span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>connects to the Hadoop server. When all parameters are absent, Hadoop
+configuration file needs to be placed under the external library directory, and
+in this case, the function returns the default connection.</span><span
+lang=EN-US> </span></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-5.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:-4.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=150 valign=top style='width:56.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=147 valign=top style='width:55.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>hd</span></i></span></p>
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>url</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=944 valign=top style='width:353.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=1060 valign=top style='width:397.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-style:italic'>An </span><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>hd</span></i><span lang=EN-US style='mso-bidi-font-style:
-  italic'> connection.</span></span></p>
+  style='mso-fareast-font-family:等线'>The URL format is <i style='mso-bidi-font-style:
+  normal'>scheme://authority/path</i>. </span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-fareast-font-family:
+  等线'>Scheme</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-fareast-font-family:等线'> is the HDFS protocol name; <i
+  style='mso-bidi-font-style:normal'>authority</i> is the host name; and <i
+  style='mso-bidi-font-style:normal'>path</i> is a string of the file (or
+  directory) path.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=147 valign=top style='width:55.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>user</span></i></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=1060 valign=top style='width:397.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-fareast-font-family:等线'>A Hadoop user; default is root.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Return
+value: </span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Connection
+object</span></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
@@ -86,14 +112,13 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>E
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=79 valign=top style='width:29.5pt;border:solid #A6A6A6 1.0pt;
+  <td width=41 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=498 valign=top style='width:186.65pt;border:solid #A6A6A6 1.0pt;
+  <td width=554 valign=top style='width:207.9pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -101,14 +126,14 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>E
   lang=EN-US style='mso-fareast-font-family:黑体'>A</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=586 valign=top style='width:219.6pt;border:none;mso-border-left-alt:
+  <td width=583 valign=top style='width:218.8pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=79 valign=top style='width:29.5pt;border:solid #A6A6A6 1.0pt;
+  <td width=41 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -116,24 +141,25 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>E
   lang=EN-US style='mso-fareast-font-family:黑体'>1</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=498 valign=top style='width:186.65pt;border-top:none;border-left:
+  <td width=554 valign=top style='width:207.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=hdfs_open(&quot;hdfs://192.168.0.8:9000&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt'>=hdfs_open(;&quot;hdfs://192.168.0.76:9000&quot;,&quot;root&quot;)</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=586 valign=top style='width:219.6pt;border:none;mso-border-left-alt:
+  <td width=583 valign=top style='width:218.8pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Connect
-  to the HDFS file system.</span></span></p>
+  to the HDFS.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=79 valign=top style='width:29.5pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2'>
+  <td width=41 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -141,19 +167,49 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>E
   lang=EN-US style='mso-fareast-font-family:黑体'>2</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=498 valign=top style='width:186.65pt;border-top:none;border-left:
+  <td width=554 valign=top style='width:207.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=hdfs_close(A1)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt'>=hdfs_open(;&quot;hdfs://192.168.0.8:9000&quot;)</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=586 valign=top style='width:219.6pt;border:none;mso-border-left-alt:
+  <td width=583 valign=top style='width:218.8pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Close
-  the HDFS connection.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Connect
+  to the HDFS with parameter </span></span><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>user </span></i><span
+  lang=EN-US>omitted<b style='mso-bidi-font-weight:normal'></b></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>3</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=554 valign=top style='width:207.9pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt'>=hdfs_open()</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=583 valign=top style='width:218.8pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-language:AR'>Put Hadoop configuration file in the external
+  library directory as all parameters are absent</span><span lang=EN-US>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>ym2_pcfsave()</title>
+<title>ym2_env()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,25 +14,23 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h2 style='tab-stops:-179.95pt'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US>ym2_pcfsave()<a name="ym2_pcfsave"></a></span></span><span
+lang=EN-US>ym2_env()<a name="ym2_env"></a></span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h2></div>
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
 <p class=MsoNormal style='tab-stops:0cm'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-style:italic'>Save a pcf file object to a pcf
-file.</span></span></p>
+lang=EN-US style='mso-bidi-font-style:italic'>Initialize environment.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></p>
 
 <p class=MsoNormal style='tab-stops:0cm'><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-style:
-italic'>ym2_pcfsave</span></b><span lang=EN-US style='mso-bidi-font-style:italic'>(</span></span><span
-style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-bidi-font-size:
-11.0pt'>pcfObj, pcfFile</span></i><span lang=EN-US style='mso-bidi-font-style:
-italic'>)</span></span></p>
+italic'>ym2_env</span></b><span lang=EN-US style='mso-bidi-font-style:italic'>(</span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>appPath, configFile,
+pythonPath</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>)</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></p>
@@ -48,8 +46,12 @@ lang=EN-US>).</span></span></p>
 lang=EN-US style='mso-bidi-font-style:italic'>&nbsp;</span></span></p>
 
 <p class=MsoNormal style='tab-stops:0cm'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-style:italic'>The function saves a pcf file
-object to a pcf file.</span></span></p>
+lang=EN-US style='mso-bidi-font-style:italic'>The function initializes
+environment. It loads related files from the specified location by configuring
+parameter </span><i style='mso-bidi-font-style:normal'><span lang=EN-US>appPath
+</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>only, which is
+the YModel installation directory. Return 1 when the environment configuration
+succeeds; otherwise return 0.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></span></p>
@@ -58,27 +60,52 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Pa
  style='margin-left:-16.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=114 valign=top style='width:42.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:11.0pt'>pcfObj</span></i></span><span
+  <td width=181 valign=top style='width:68.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>appPath</span></i></span><span
   style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=677 valign=top style='width:253.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>pcf
-  file object<span style='mso-bidi-font-style:italic'>.</span></span></span></p>
+  <td width=844 valign=top style='width:316.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='tab-stops:0cm'><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-bidi-font-style:italic'>YModel installation directory.</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;mso-bidi-font-style:italic'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=114 valign=top style='width:42.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:11.0pt'>pcfFile</span></i></span></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=181 valign=top style='width:68.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>configFile</span></i></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=677 valign=top style='width:253.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>pcf
-  file name<span style='mso-bidi-font-style:italic'>.</span></span></span></p>
+  <td width=844 valign=top style='width:316.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='color:#333333'>Full path of configuration file </span></span><span
+  style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-fareast-font-family:
+  Helvetica;color:#333333'>userconfig.xml</span></i><span lang=EN-US
+  style='mso-bidi-font-style:italic'>.</span></span><span style='mso-bookmark:
+  _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:11.0pt;mso-bidi-font-style:
+  italic'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=181 valign=top style='width:68.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>pythonPath</span></i></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=844 valign=top style='width:316.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;mso-bidi-font-style:italic'>Full path of the executable file .exe for
+  starting the Python service</span><span lang=EN-US style='mso-bidi-font-style:
+  italic'>.</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt;mso-bidi-font-style:italic'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -88,12 +115,13 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Pa
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
 value:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Boolean</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>1or
+0</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1179
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
@@ -101,11 +129,10 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
   height:13.7pt'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=748 valign=top style='width:280.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=804 valign=top style='width:301.45pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -113,7 +140,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   lang=EN-US>A</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=388 valign=top style='width:145.5pt;border:none;mso-border-left-alt:
+  <td width=1048 valign=top style='width:393.05pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
@@ -128,16 +155,15 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=748 valign=top style='width:280.6pt;border-top:none;border-left:
+  <td width=804 valign=top style='width:301.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.35pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt'>=ym2_env(&quot;F:/ymodel&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=ym2_env(&quot;F:/ymodel&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=388 valign=top style='width:145.5pt;border:none;mso-border-left-alt:
+  <td width=1048 valign=top style='width:393.05pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.35pt'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
@@ -152,19 +178,18 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=748 valign=top style='width:280.6pt;border-top:none;border-left:
+  <td width=804 valign=top style='width:301.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt'>=ym2_mcfload(&quot;F:/ymodel/documents/csv/train.mcf&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=ym2_env(&quot;F:/ymodel&quot;,&quot;F:/ymodel/config/userConfig.xml&quot;,&quot;D:/Python39/python.exe&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=388 valign=top style='width:145.5pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-style:italic'>Read an mcf file as an mcf object.</span></span></p>
+  <td width=1048 valign=top style='width:393.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -176,20 +201,20 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=748 valign=top style='width:280.6pt;border-top:none;border-left:
+  <td width=804 valign=top style='width:301.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt'>=ym2_model(A2,&quot;Embarked&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=ym2_env(&quot;F:/ymodel&quot;,,&quot;D:/Python39/python.exe&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=388 valign=top style='width:145.5pt;border:none;mso-border-left-alt:
+  <td width=1048 valign=top style='width:393.05pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
-  A2’s mcf file object to build models, set the target variable as Embarked and
-  return a pcf file object.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parameter
+  <i style='mso-bidi-font-style:normal'>configFile</i><span style='mso-bidi-font-style:
+  italic'> is absent</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -201,19 +226,20 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=748 valign=top style='width:280.6pt;border-top:none;border-left:
+  <td width=804 valign=top style='width:301.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt'>=ym2_pcfsave(A3,&quot;F:/ymodel/data/train1.pcf&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=ym2_env(&quot;F:/ymodel&quot;,&quot;F:/ymodel/config/userConfig.xml&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=388 valign=top style='width:145.5pt;border:none;mso-border-left-alt:
+  <td width=1048 valign=top style='width:393.05pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Save
-  the pcf object to a pcf file in the specified location.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parameter<i
+  style='mso-bidi-font-style:normal'> pythonPath</i><span style='mso-bidi-font-style:
+  italic'> is absent</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -225,17 +251,15 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   style='mso-bidi-font-weight:normal'><span lang=EN-US>5</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=748 valign=top style='width:280.6pt;border-top:none;border-left:
+  <td width=804 valign=top style='width:301.45pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;ym2_close()</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-bidi-font-size:11.0pt'></span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;ym2_close()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=388 valign=top style='width:145.5pt;border:none;mso-border-left-alt:
+  <td width=1048 valign=top style='width:393.05pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>

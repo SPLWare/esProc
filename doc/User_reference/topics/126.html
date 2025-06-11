@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Remote Storage Service</title>
+<title>Check or Change Serial Number</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,243 +13,11 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h1><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Remote
-Storage Service</span></h1></div>
-	<p class=MsoNormal align=left style='margin-top:3.9pt;margin-right:0cm;
-margin-bottom:3.9pt;margin-left:0cm;text-align:left;text-indent:21.0pt;
-line-height:21.0pt;mso-pagination:widow-orphan'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>This is an esPoc Enterprise
-edition feature.</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-mso-bidi-font-family:"Times New Roman";color:#333333;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>This item is located under Tools
-menu. It lets you connect to the various remote storage platforms. Once the
-connection succeeds, you can perform operations on files on the remote storage
-platform through Qfile, Qmove and Qload functions in a SPL script.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=390 height=269
-src="User_reference.files/image039.png" v:shapes="_x0000_i1048"><span
-style='mso-spacerun:yes'>&nbsp;</span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-ansi-language:#0400;mso-fareast-language:
-#0400'>【</span><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'>Default remote storage</span><span lang=zh-CN style='font-family:楷体_GB2312;
-mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
-mso-ansi-language:#0400;mso-fareast-language:#0400'>】</span><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400;mso-bidi-font-weight:
-bold'>: </span><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'>The Remote Storage Service allows you to connect to multiple remote storage
-platforms at the same time. When the above functions, such as Qfile(), are used
-in IDE, the system will connect to the remote storage platform selected after
-“Default remote storage” for the computation. If the property is left blank,
-won’t connect to any remote storage platform.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>On Remote
-Storage Service window, select a remote storage type, which supports “Amazon
-S3”, “NFS”, “HDFS”, “Microsoft Azure”, “OSS” ,”Mount” and “Google Cloud
-Storage” for the time being.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Then click “New”
-button to get into Storage Service Settings window, where you can set up
-connection information related to the corresponding remote storage platform. </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>To begin the
-setup, you need to first copy the jar files used by the remote storage type
-under </span><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>【</span><span lang=EN-US>esProc
-installation directory</span></i><i><span style='font-family:楷体_GB2312;
-mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>】</span><span
-lang=EN-US>\esProc\q-extlib</span></i><span lang=EN-US> into</span><i><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>【</span><span lang=EN-US>esProc
-installation directory</span></i><i><span style='font-family:楷体_GB2312;
-mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>】</span><span
-lang=EN-US>\esProc\lib</span></i><span lang=EN-US>. To configure settings for
-Amazon S3, for instance:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>You need to copy
-the jar file in s3 directory under</span><i><span style='font-family:楷体_GB2312;
-mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>【</span><span
-lang=EN-US>esProc installation directory</span></i><i><span style='font-family:
-楷体_GB2312;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>】</span><span
-lang=EN-US>\esProc\q-extlib</span></i><span lang=EN-US> into</span><i><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>【</span><span lang=EN-US>esProc
-installation directory</span></i><i><span style='font-family:楷体_GB2312;
-mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>】</span><span
-lang=EN-US>\esProc\ lib</span></i><span lang=EN-US>, and create a new storage
-service settings connection:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'><span
-style='mso-spacerun:yes'>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=536 height=367
-src="User_reference.files/image041.jpg" v:shapes="_x0000_i1049"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-ansi-language:#0400;mso-fareast-language:
-#0400'>【</span><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'>Enable cache</span><span lang=zh-CN style='font-family:楷体_GB2312;
-mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
-mso-ansi-language:#0400;mso-fareast-language:#0400'>】</span><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'>: Whether to enable
-caching to generate a cache file when reading a data file stored in a remote
-storage platform. First read the cache file when the “Enable cache” option is checked.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-ansi-language:#0400;mso-fareast-language:
-#0400'>【</span><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'>Cache path</span><span lang=zh-CN style='font-family:楷体_GB2312;
-mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
-mso-ansi-language:#0400;mso-fareast-language:#0400'>】</span><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'>: </span><span
-lang=EN-US>To perform file computations on a remote storage platform, the file
-object is by default automatically downloaded to <i>cachePath/storeType/bucketName</i>.
-The cache path is by default the system’s cache directory, such as <i>C:\Users\UserName\AppData\Roaming\__scudatacache\s3</i>.<b
-style='mso-bidi-font-weight:normal'><span style='color:red'></span></b></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-ansi-language:#0400;mso-fareast-language:
-#0400'>【</span><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'>Min available space</span><span lang=zh-CN style='font-family:楷体_GB2312;
-mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
-mso-ansi-language:#0400;mso-fareast-language:#0400'>】</span><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'>: The minimum
-available space in the directory containing the cache files. When the available
-space is less than the specified minimum amount, cached files in the directory
-will be automatically deleted.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=zh-CN
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-ansi-language:#0400;mso-fareast-language:
-#0400'>【</span><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'>Cache block size</span><span lang=zh-CN style='font-family:楷体_GB2312;
-mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
-mso-ansi-language:#0400;mso-fareast-language:#0400'>】</span><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'>: Specify the size
-of cache block.</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=zh-CN
-style='mso-bidi-font-family:"Times New Roman";mso-ansi-language:#0400;
-mso-fareast-language:#0400'>Note:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>1. When the remote storage type
-is “Google cloud storage”, put the corresponding jars in <i>google-gcs</i>
-directory under</span><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
-"Times New Roman"'>【</span></i><i><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>esProc installation directory</span></i><i><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span></i><i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>\esProc\q-extlib</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>. And add a Java
-proxy parameter: Djava.net.useSystemProxies=true, in the startup file, such as
-IDE’s startup file <i>starup.bat</i>, for “Google cloud storage” type:</span></p>
-
-<p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>@echo off</span></p>
-
-<p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>call
-“D:\raqsoft\esProc\bin\setEnv.bat”</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>start “dm” %EXECJAVAW% -Xms128m
--Xmx9444m<span style='mso-spacerun:yes'>&nbsp; </span>-cp
-%START_HOME%\esProc\classes;%RAQCLASSPATH% -Duser.language=zh -<span
-style='color:red'>Djava.net.useSystemProxies=true</span>
--Dstart.home=%START_HOME%\esProc<span style='mso-spacerun:yes'>&nbsp;
-</span>com.scudata.ide.spl.EsprocEE</span></p>
-
-<p class=MsoNormal style='margin-left:21.1pt'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>2. Put corresponding jars in nfs
-directory under</span><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
-"Times New Roman"'>【</span></i><i><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>esProc installation directory</span></i><i><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span></i><i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>\esProc\q-extlib</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'> when the remote
-storage platform is</span><span style='font-family:楷体_GB2312;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
-"Times New Roman"'>【</span><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>NFS</span><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>.</span></p>
-
-<p class=MsoNormal style='margin-left:21.1pt'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>3. Put corresponding jars in
-hdfs directory under</span><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
-"Times New Roman"'>【</span></i><i><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>esProc installation directory</span></i><i><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span></i><i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>\esProc\q-extlib</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'> when the remote
-storage platform is</span><span style='font-family:楷体_GB2312;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
-"Times New Roman"'>【</span><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>HDFS</span><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>.</span></p>
-
-<p class=MsoNormal style='margin-left:21.1pt'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>4. Put corresponding jars in azure
-directory under</span><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
-"Times New Roman"'>【</span></i><i><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>esProc installation directory</span></i><i><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span></i><i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>\esProc\q-extlib</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'> when the remote
-storage platform is</span><span style='font-family:楷体_GB2312;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
-"Times New Roman"'>【</span><span lang=EN-US>Microsoft Azure</span><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>.</span></p>
-
-<p class=MsoNormal style='margin-left:21.1pt'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>5. Put corresponding jars in oss
-directory under</span><i><span style='font-family:楷体_GB2312;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
-"Times New Roman"'>【</span></i><i><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>esProc installation directory</span></i><i><span
-style='font-family:楷体_GB2312;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span></i><i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>\esProc\q-extlib</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'> when the remote
-storage platform is</span><span style='font-family:楷体_GB2312;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:
-"Times New Roman"'>【</span><span lang=EN-US>OSS</span><span style='font-family:
-楷体_GB2312;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
-mso-bidi-font-family:"Times New Roman"'>】</span><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>.</span></p>
-
-<p class=MsoNormal style='margin-left:21.1pt'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:21.1pt'><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
+	<div id="centent-title"><h1><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Check or
+Change Serial Number</span></h1></div>
+	<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-family:"Times New Roman"'>The item is used to set a serial
+number for an esProc application, or check the current serial number.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="127.html">Next</a></div>
@@ -262,7 +30,7 @@ style='mso-bidi-font-family:"Times New Roman"'>&nbsp;</span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.scudata.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>
