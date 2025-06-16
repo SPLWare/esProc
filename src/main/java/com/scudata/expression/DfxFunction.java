@@ -58,4 +58,8 @@ public class DfxFunction {
 			return fun;
 		}
 	}
+
+	public PgmCellSet.FuncInfo getFuncInfo() {
+		return funcInfo;
+	}
 }

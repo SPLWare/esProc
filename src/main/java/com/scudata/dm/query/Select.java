@@ -221,7 +221,7 @@ public class Select extends QueryBody {
 				}
 			}
 			
-			return true;
+			return Select.isEquals(defaultExp, other.defaultExp);
 		}
 		
 		public void getFields(List<FieldNode> resultList) {

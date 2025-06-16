@@ -2141,16 +2141,31 @@ public class PgmCellSet extends CellSet {
 	 */
 	public int getCodeBlockEndRow(int prow, int pcol) {
 		int totalRow = getRowCount();
+		int endRow = totalRow;
+		
+		Next:
 		for (int row = prow + 1; row <= totalRow; ++row) {
 			for (int c = 1; c <= pcol; ++c) {
 				PgmNormalCell cell = getPgmNormalCell(row, c);
 				if (!cell.isBlankCell()) {
-					return row - 1;
+					endRow = row - 1;
+					break Next;
 				}
 			}
 		}
 
-		return totalRow;
+		// 去掉后面的空白行
+		int totalCol = getColCount();
+		for (int row = endRow; row > prow; --row) {
+			for (int c = pcol + 1; c <= totalCol; ++c) {
+				PgmNormalCell cell = getPgmNormalCell(row, c);
+				if (!cell.isBlankCell()) {
+					return row;
+				}
+			}
+		}
+		
+		return prow;
 	}
 
 	private CellLocation runNext2() {

@@ -950,7 +950,7 @@ abstract public class CellSet implements ICellSet {
 
 	// 改变字符串中单元格的行号和列号（$修饰的不进行修改，如$A$3）
 	// 返回改变后的字符串，如("B3", 1, -1)返回A4
-	private String relativeRegulateString(ICellSet srcCs, String str, int rowIncrement,
+	public String relativeRegulateString(ICellSet srcCs, String str, int rowIncrement,
 										  int colIncrement, boolean []error) {
 		error[0] = false;
 		//冻结或错误的单元格不处理
