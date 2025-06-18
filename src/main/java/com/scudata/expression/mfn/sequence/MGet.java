@@ -124,8 +124,10 @@ public class MGet extends SequenceFunction {
 						return new Sequence();
 					}
 				}
-			} else {
+			} else if (srcLen > 0) {
 				pos0 = 1;
+			} else {
+				return new Sequence();
 			}
 			
 			IParam sub1 = param.getSub(1);
@@ -147,8 +149,10 @@ public class MGet extends SequenceFunction {
 						return new Sequence();
 					}
 				}
-			} else {
+			} else if (srcLen > 0) {
 				pos1 = srcLen;
+			} else {
+				return new Sequence();
 			}
 			
 			if (pos0 <= pos1) {
