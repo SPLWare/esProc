@@ -715,7 +715,7 @@ public class PhyTableGroup implements IPhyTable {
 				exps = Operation.dupExpressions(exps, ctx);
 				filter = Operation.dupExpression(filter, ctx);
 				ICursor cursor = memoryTable.cursor(start, end, exps, fields, filter, fkNames, codes, opts, ctx);
-				lists[i].add(cursor);
+				lists[i - 1].add(cursor);
 				start = end;
 			}
 		}
