@@ -384,13 +384,13 @@ class Join extends Relation {
 			rightSeq = cs.fetch();
 		}
 		
+		Sequence result;
 		String name = "join" + hashCode();
 		Sequence []sequences = new Sequence[] {leftSeq, rightSeq};
 		String []names = new String[] {name + "_1", name + "_2"};
-		Sequence result;
+		int fcount = leftExpList.size();
 		
-		if (isJoin) {
-			int fcount = leftExpList.size();
+		if (isJoin && fcount > 0) {
 			Expression []exps1 = new Expression[fcount];
 			Expression []exps2 = new Expression[fcount];
 			leftExpList.toArray(exps1);

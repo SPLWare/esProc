@@ -259,6 +259,8 @@ public final class FunctionLib {
 		addFunction("min", "com.scudata.expression.fn.gather.Min");
 		addFunction("maxp", "com.scudata.expression.fn.gather.Maxp");
 		addFunction("minp", "com.scudata.expression.fn.gather.Minp");
+		addFunction("conj", "com.scudata.expression.fn.gather.Conj");
+		addFunction("union", "com.scudata.expression.fn.gather.Union");
 		addFunction("cand", "com.scudata.expression.fn.Cand");
 		addFunction("cor", "com.scudata.expression.fn.Cor");
 		addFunction("top", "com.scudata.expression.fn.gather.Top");

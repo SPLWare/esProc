@@ -27,11 +27,13 @@ class And {
 	}
 	
 	public boolean isSingleTable(QueryBody table) {
-		if (fieldList != null) {
-			for (FieldNode field : fieldList) {
-				if (field.getTable() != table) {
-					return false;
-				}
+		if (fieldList == null || fieldList.size() == 0) {
+			return false;
+		}
+		
+		for (FieldNode field : fieldList) {
+			if (field.getTable() != table) {
+				return false;
 			}
 		}
 		
