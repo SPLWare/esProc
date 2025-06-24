@@ -32,13 +32,21 @@ public class Conj extends Gather {
 		isGather2 = option != null && option.indexOf('2') != -1;
 	}
 	
+	private static void conj(Sequence seq, Object val) {
+		if (val instanceof Sequence) {
+			seq.addAll((Sequence)val);
+		} else if (val != null) {
+			seq.add(val);
+		}
+	}
+	
 	public Object gather(Context ctx) {
 		Object val = exp.calculate(ctx);
 		if (isGather2) {
 			return val;
 		} else {
 			Sequence seq = new Sequence();
-			seq.add(val);
+			conj(seq, val);
 			return seq;
 		}
 	}
@@ -50,7 +58,7 @@ public class Conj extends Gather {
 		if (isGather2) {
 			seq.addAll((Sequence)val);
 		} else {
-			seq.add(val);
+			conj(seq, val);
 		}
 		
 		return seq;
@@ -72,7 +80,7 @@ public class Conj extends Gather {
 				return obj;
 			} else {
 				Sequence seq = new Sequence();
-				seq.add(obj);
+				conj(seq, obj);
 				return seq;
 			}
 		}
@@ -84,9 +92,7 @@ public class Conj extends Gather {
 			IParam sub = param.getSub(i);
 			if (sub != null) {
 				Object obj = sub.getLeafExpression().calculate(ctx);
-				result.add(obj);
-			} else {
-				result.add(null);
+				conj(result, obj);
 			}
 		}
 
@@ -114,12 +120,12 @@ public class Conj extends Gather {
 		for (int i = 1, len = array.size(); i <= len; ++i) {
 			if (resultSize < resultSeqs[i]) {
 				Sequence seq = new Sequence();
-				seq.add(array.get(i));
+				conj(seq, array.get(i));
 				result.add(seq);
 				resultSize++;
 			} else {
 				Sequence seq = (Sequence)result.get(resultSeqs[i]);
-				seq.add(array.get(i));
+				conj(seq, array.get(i));
 			}
 		}
 		

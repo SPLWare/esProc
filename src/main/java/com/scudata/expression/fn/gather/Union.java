@@ -32,6 +32,15 @@ public class Union extends Gather {
 		exp = param.getLeafExpression();
 		isGather2 = option != null && option.indexOf('2') != -1;
 	}
+	
+	private static void union(HashLinkSet set, Object val) {
+		if (val instanceof Sequence) {
+			Sequence seq = (Sequence)val;
+			set.putAll(seq.getMems());
+		} else if (val != null) {
+			set.put(val);
+		}
+	}
 
 	public Object gather(Context ctx) {
 		Object val = exp.calculate(ctx);
@@ -39,7 +48,7 @@ public class Union extends Gather {
 			return val;
 		} else {
 			HashLinkSet set = new HashLinkSet();
-			set.put(val);
+			union(set, val);
 			return set;
 		}
 	}
@@ -52,7 +61,7 @@ public class Union extends Gather {
 			HashLinkSet set2 = (HashLinkSet)val;
 			set.putAll(set2.getElementArray());
 		} else {
-			set.put(val);
+			union(set, val);
 		}
 		
 		return set;
@@ -85,10 +94,12 @@ public class Union extends Gather {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (obj instanceof Sequence) {
 				return obj;
-			} else {
+			} else if (obj != null) {
 				Sequence seq = new Sequence();
 				seq.add(obj);
 				return seq;
+			} else {
+				return new Sequence();
 			}
 		}
 
@@ -99,9 +110,7 @@ public class Union extends Gather {
 			IParam sub = param.getSub(i);
 			if (sub != null) {
 				Object obj = sub.getLeafExpression().calculate(ctx);
-				set.put(obj);
-			} else {
-				set.put(null);
+				union(set, obj);
 			}
 		}
 
@@ -130,12 +139,12 @@ public class Union extends Gather {
 		for (int i = 1, len = array.size(); i <= len; ++i) {
 			if (resultSize < resultSeqs[i]) {
 				HashLinkSet set = new HashLinkSet();
-				set.put(array.get(i));
+				union(set, array.get(i));
 				result.add(set);
 				resultSize++;
 			} else {
 				HashLinkSet set = (HashLinkSet)result.get(resultSeqs[i]);
-				set.put(array.get(i));
+				union(set, array.get(i));
 			}
 		}
 		
