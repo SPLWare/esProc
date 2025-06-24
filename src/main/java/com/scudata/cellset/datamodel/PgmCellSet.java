@@ -368,7 +368,7 @@ public class PgmCellSet extends CellSet {
 			
 			int row = cell.getRow();
 			int col = cell.getCol();
-			endRow = getCodeBlockEndRow(row, col);
+			endRow = getFuncEndRow(row, col);
 
 			
 			if (option != null && option.indexOf('m') != -1) {
@@ -2132,7 +2132,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 	}
-
+	
 	/**
 	 * 返回单元格代码块的结束行行号
 	 * @param prow int
@@ -2140,6 +2140,26 @@ public class PgmCellSet extends CellSet {
 	 * @return int
 	 */
 	public int getCodeBlockEndRow(int prow, int pcol) {
+		int totalRow = getRowCount();
+		for (int row = prow + 1; row <= totalRow; ++row) {
+			for (int c = 1; c <= pcol; ++c) {
+				PgmNormalCell cell = getPgmNormalCell(row, c);
+				if (!cell.isBlankCell()) {
+					return row - 1;
+				}
+			}
+		}
+
+		return totalRow;
+	}
+
+	/**
+	 * 返回函数代码块的结束行行号
+	 * @param prow int
+	 * @param pcol int
+	 * @return int
+	 */
+	public int getFuncEndRow(int prow, int pcol) {
 		int totalRow = getRowCount();
 		int endRow = totalRow;
 		
@@ -2497,7 +2517,7 @@ public class PgmCellSet extends CellSet {
 			return executeFunc(fnName, args);
 		}
 
-		int endRow = getCodeBlockEndRow(row, col);
+		int endRow = getFuncEndRow(row, col);
 		if (opt != null && opt.indexOf('i') != -1) {
 			CellLocation oldLct = curLct;
 			Object result = executeFunc(row, col, endRow, args);
