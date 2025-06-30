@@ -3,6 +3,7 @@ package com.scudata.expression.fn.datetime;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.raqsoft.report.base.ObjectCache;
 import com.scudata.common.DateFactory;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -82,32 +83,72 @@ public class WorkDays extends Function {
 			date2 = DateFactory.get().toDate(date2);
 		}
 		
-		Sequence seq = new Sequence();
 		long time1 = date1.getTime();
 		long time2 = date2.getTime();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(time1);
-
-		if (time1 <= time2) {
-			while (time1 <= time2) {
-				if (WorkDay.isWorkDay(calendar, offDays)) {
-					seq.add(new java.sql.Date(calendar.getTimeInMillis()));
-				}
-				
-				calendar.add(Calendar.DATE, 1);
-				time1 = calendar.getTimeInMillis();
+		
+		boolean returnCount = false;
+		if (option != null) {
+			if (option.indexOf('n') != -1) {
+				returnCount = true;
 			}
-		} else {
-			while (time1 >= time2) {
-				if (WorkDay.isWorkDay(calendar, offDays)) {
-					seq.add(new java.sql.Date(calendar.getTimeInMillis()));
+			
+			if (option.indexOf('x') != -1) {
+				if (time1 <= time2) {
+					time2 -= 86400000; // 减去一天的毫秒数
+				} else {
+					time2 += 86400000; // 加上一天的毫秒数
 				}
-				
-				calendar.add(Calendar.DATE, -1);
-				time1 = calendar.getTimeInMillis();
 			}
 		}
-		
-		return seq;
+
+		if (returnCount) {
+			int count = 0;
+			if (time1 <= time2) {
+				while (time1 <= time2) {
+					if (WorkDay.isWorkDay(calendar, offDays)) {
+						count++;
+					}
+					
+					calendar.add(Calendar.DATE, 1);
+					time1 = calendar.getTimeInMillis();
+				}
+			} else {
+				while (time1 >= time2) {
+					if (WorkDay.isWorkDay(calendar, offDays)) {
+						count++;
+					}
+					
+					calendar.add(Calendar.DATE, -1);
+					time1 = calendar.getTimeInMillis();
+				}
+			}
+			
+			return ObjectCache.getInteger(count);
+		} else {
+			Sequence seq = new Sequence();
+			if (time1 <= time2) {
+				while (time1 <= time2) {
+					if (WorkDay.isWorkDay(calendar, offDays)) {
+						seq.add(new java.sql.Date(calendar.getTimeInMillis()));
+					}
+					
+					calendar.add(Calendar.DATE, 1);
+					time1 = calendar.getTimeInMillis();
+				}
+			} else {
+				while (time1 >= time2) {
+					if (WorkDay.isWorkDay(calendar, offDays)) {
+						seq.add(new java.sql.Date(calendar.getTimeInMillis()));
+					}
+					
+					calendar.add(Calendar.DATE, -1);
+					time1 = calendar.getTimeInMillis();
+				}
+			}
+			
+			return seq;
+		}
 	}
 }
