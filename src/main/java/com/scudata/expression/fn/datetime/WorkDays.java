@@ -103,11 +103,12 @@ public class WorkDays extends Function {
 			}
 		}
 
+		OffDays od = new OffDays(offDays, option);
 		if (returnCount) {
 			int count = 0;
 			if (time1 <= time2) {
 				while (time1 <= time2) {
-					if (WorkDay.isWorkDay(calendar, offDays)) {
+					if (od.isWorkDay(calendar)) {
 						count++;
 					}
 					
@@ -116,7 +117,7 @@ public class WorkDays extends Function {
 				}
 			} else {
 				while (time1 >= time2) {
-					if (WorkDay.isWorkDay(calendar, offDays)) {
+					if (od.isWorkDay(calendar)) {
 						count++;
 					}
 					
@@ -130,7 +131,7 @@ public class WorkDays extends Function {
 			Sequence seq = new Sequence();
 			if (time1 <= time2) {
 				while (time1 <= time2) {
-					if (WorkDay.isWorkDay(calendar, offDays)) {
+					if (od.isWorkDay(calendar)) {
 						seq.add(new java.sql.Date(calendar.getTimeInMillis()));
 					}
 					
@@ -139,7 +140,7 @@ public class WorkDays extends Function {
 				}
 			} else {
 				while (time1 >= time2) {
-					if (WorkDay.isWorkDay(calendar, offDays)) {
+					if (od.isWorkDay(calendar)) {
 						seq.add(new java.sql.Date(calendar.getTimeInMillis()));
 					}
 					
