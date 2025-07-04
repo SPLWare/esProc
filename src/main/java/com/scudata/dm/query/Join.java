@@ -47,6 +47,11 @@ class Join extends Relation {
 		tableList.add(right);
 	}
 	
+	public void setJoinFieldName(String fieldName) {
+		left.setJoinFieldName(fieldName);
+		right.setJoinFieldName(fieldName);
+	}
+	
 	private String[] createJoinFieldNames(ArrayList<QueryBody> tableList) {
 		int count = tableList.size();
 		String []names = new String[count];
