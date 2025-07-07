@@ -90,27 +90,44 @@ public class WorkDay extends Function {
 		return date;
 	}
 
-	public static boolean isWorkDay(Calendar calendar, Sequence offDays) {
+	private boolean isWorkDay(Calendar calendar, Sequence offDays) {
 		int week = calendar.get(Calendar.DAY_OF_WEEK);
 		boolean isWorkDay = week != Calendar.SUNDAY && week != Calendar.SATURDAY;
-		if (offDays == null || offDays.length() == 0) return isWorkDay;
+		if (offDays == null || offDays.length() == 0) {
+			return isWorkDay;
+		}
 
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH);
-		int day = calendar.get(Calendar.DATE);
-		Calendar c2 = Calendar.getInstance();
+		long time = calendar.getTimeInMillis();
+		if (option == null || option.indexOf('b') == -1) {
+			for (int i = 1, count = offDays.length(); i <= count; ++i) {
+				Object obj = offDays.getMem(i);
+				if (!(obj instanceof Date)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("workday" + mm.getMessage("function.paramTypeError"));
+				}
 
-		for (int i = 1, count = offDays.length(); i <= count; ++i) {
-			Object obj = offDays.get(i);
-			if (!(obj instanceof Date)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("workday" + mm.getMessage("function.paramTypeError"));
+				if (((Date)obj).getTime() == time) {
+					return !isWorkDay;
+				}
 			}
-
-			c2.setTime((Date)obj);
-			if (c2.get(Calendar.YEAR) == year && c2.get(Calendar.MONTH) == month && 
-					c2.get(Calendar.DATE) == day) {
-				return !isWorkDay;
+		} else {
+			int low = 1, high = offDays.length();
+			while (low <= high) {
+				int mid = (low + high) >> 1;
+				Object obj = offDays.getMem(mid);
+				if (!(obj instanceof Date)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("workday" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				long curTime = ((Date)obj).getTime();
+				if (curTime < time) {
+					low = mid + 1;
+				} else if (curTime > time) {
+					high = mid - 1;
+				} else {
+					return !isWorkDay;
+				}
 			}
 		}
 
