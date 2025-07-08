@@ -723,7 +723,15 @@ public class LocalFile implements IFile {
 			fos = new FileOutputStream(t);
 			FileChannel in = fis.getChannel();
 			FileChannel out = fos.getChannel();
-			in.transferTo(0, in.size(), out); // 连接两个通道，并且从in通道读取，然后写入out通道
+			long total = in.size();
+			
+			long count = 0;
+			while (count < total) {
+				// 连接两个通道，并且从in通道读取，然后写入out通道
+				count += in.transferTo(count, total - count, out);
+			}
+			
+			out.close();
 		} catch (IOException e) {
 			throw new RQException(e);
 		} finally {
