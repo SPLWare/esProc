@@ -216,18 +216,6 @@ public class UnitCommand implements Serializable {
 				return ClusterPhyTable.executeGetAllColNames(attributes);
 			case GT_GET_STRUCT:
 				return ClusterPhyTable.executeGetStructure(attributes);
-			case PSEUDO_CURSOR:
-				return ClusterPseudo.executeCreateCursor(attributes);
-			case PSEUDO_ADD_OPERATION:
-				return ClusterPseudo.executeAddOperation(attributes);
-			case PSEUDO_ADD_COLNAME:
-				return ClusterPseudo.executeAddColName(attributes);
-			case PSEUDO_CLONE:
-				return ClusterPseudo.executeClone(attributes);
-			case PSEUDO_CREATE:
-				return ClusterPseudo.executeCreateClusterPseudo(attributes);
-			case PSEUDO_MEMORY:
-				return ClusterPseudo.executeMemory(attributes);
 			default:
 				throw new RuntimeException();
 		}

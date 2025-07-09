@@ -7,8 +7,6 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.JoinxCursor_u;
 import com.scudata.dm.cursor.MemoryCursor;
-import com.scudata.dw.pseudo.IPseudo;
-import com.scudata.dw.pseudo.PseudoJoinx;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
@@ -144,7 +142,6 @@ public class Joinx extends Function {
 
 		int count = param.getSubSize();
 		ICursor []cursors = new ICursor[count];
-		IPseudo []pseudos = new IPseudo[count];
 		String []names = new String[count];
 		Expression [][]exps = new Expression[count][];
 				
@@ -197,8 +194,6 @@ public class Joinx extends Function {
 					cursors[i] = (ICursor)obj;
 				} else if (obj instanceof Sequence) {
 					cursors[i] = new MemoryCursor((Sequence)obj);
-				} else if (obj instanceof IPseudo) {
-					pseudos[i] = (IPseudo) obj;
 				} else if (obj == null) {
 					cursors[i] = new MemoryCursor(null);
 				} else {
@@ -223,8 +218,6 @@ public class Joinx extends Function {
 					cursors[i] = (ICursor)obj;
 				} else if (obj instanceof Sequence) {
 					cursors[i] = new MemoryCursor((Sequence)obj);
-				} else if (obj instanceof IPseudo) {
-					pseudos[i] = (IPseudo) obj;
 				} else if (obj == null) {
 					cursors[i] = new MemoryCursor(null);
 				} else {
@@ -241,18 +234,6 @@ public class Joinx extends Function {
 			}
 		}
 
-		if (pseudos[0] != null) {
-//			if (pseudos[0] instanceof ClusterPseudo) {
-//				ClusterPseudo cps [] = new ClusterPseudo[count];
-//				for (int i = 0; i < count; i++) {
-//					cps[i] = (ClusterPseudo) pseudos[i];
-//				}
-//				return ClusterPseudo.joinx(cps, exps, names, option, ctx);
-//			} else {
-				return new PseudoJoinx(pseudos, exps, names, option);
-//			}
-		} else {
-			return CursorUtil.joinx(cursors, names, exps, option, ctx);
-		}
+		return CursorUtil.joinx(cursors, names, exps, option, ctx);
 	}
 }
