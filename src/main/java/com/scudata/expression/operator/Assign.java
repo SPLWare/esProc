@@ -3,6 +3,7 @@ package com.scudata.expression.operator;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.expression.Node;
 import com.scudata.expression.Operator;
 import com.scudata.resources.EngineMessage;
 
@@ -14,6 +15,11 @@ import com.scudata.resources.EngineMessage;
 public class Assign extends Operator {
 	public Assign() {
 		priority = PRI_EVL;
+	}
+
+	public Node optimize(Context ctx) {
+		right = right.optimize(ctx);
+		return this;
 	}
 	
 	/**
@@ -35,7 +41,7 @@ public class Assign extends Operator {
 	public Object calculate(Context ctx) {
 		return left.assign(right.calculate(ctx), ctx);
 	}
-
+	
 	// a = b = c =1
 	public Object assign(Object value, Context ctx) {
 		return left.assign(right.assign(value, ctx), ctx);

@@ -2623,8 +2623,23 @@ public class PgmCellSet extends CellSet {
 			// 定义了名字和参数的函数不再将参数填入单元格
 			return pcs.executeFunc(row, col, endRow, null); // args
 		} else {
+			CellLocation oldLct = curLct;
 			if (argNames == null) {
-				return executeFunc(row, col, endRow, null);
+				// 可能产生局部变量
+				ctx = getContext();
+				ParamList oldParamList = ctx.getParamList();
+				ParamList paramList = new ParamList();
+				ctx.setParamList(paramList);
+				
+				try {
+					return executeFunc(row, col, endRow, null);
+				} finally {
+					curLct = oldLct;
+					ctx.setParamList(oldParamList);
+					for (int i = 0, count = paramList.count(); i < count; ++i) {
+						paramList.get(i).setDeleted(true);
+					}
+				}
 			}
 			
 			int argCount = argNames.length;
@@ -2636,31 +2651,37 @@ public class PgmCellSet extends CellSet {
 
 			// 把参数设到上下文中
 			ctx = getContext();
-			Param []params = new Param[argCount];
-			Object []oldParamValue = new Object[argCount];
-			CellLocation oldLct = curLct;
+			ParamList oldParamList = ctx.getParamList();
+			ParamList paramList = new ParamList();
+			ctx.setParamList(paramList);
+			//Param []params = new Param[argCount];
+			//Object []oldParamValue = new Object[argCount];
 			
 			try {
 				for (int i = 0; i < argCount; ++i) {
-					params[i] = ctx.getParam(argNames[i]);
-					if (params[i] == null) {
-						ctx.addParam(new Param(argNames[i], Param.VAR, args[i]));
-					} else {
-						oldParamValue[i] = params[i].getValue();
-						params[i].setValue(args[i]);
-					}
+					//params[i] = ctx.getParam(argNames[i]);
+					//if (params[i] == null) {
+					paramList.add(new Param(argNames[i], Param.VAR, args[i]));
+					//} else {
+					//	oldParamValue[i] = params[i].getValue();
+					//	params[i].setValue(args[i]);
+					//}
 				}
 				
 				return executeFunc(row, col, endRow, null);
 			} finally {
 				curLct = oldLct;
-				for (int i = 0; i < argCount; ++i) {
+				ctx.setParamList(oldParamList);
+				for (int i = 0, count = paramList.count(); i < count; ++i) {
+					paramList.get(i).setDeleted(true);
+				}
+				/*for (int i = 0; i < argCount; ++i) {
 					if (params[i] == null) {
 						ctx.removeParam(argNames[i]);
 					} else {
 						params[i].setValue(oldParamValue[i]);
 					}
-				}
+				}*/
 			}
 		}
 	}

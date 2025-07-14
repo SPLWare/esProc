@@ -139,13 +139,13 @@ public class UnknownSymbol extends Node {
 				} else if (param != null) {
 					// 重新取变量，程序网函数调用过程可能删除变量
 					if (param.isDeleted()) {
-						param = EnvUtil.getParam(name, ctx);
-						if (param != null) {
-							return param.getValue();
+						param = ctx.getParam(name);
+						if (param == null) {
+							throw new RuntimeException("Param is deleted");
 						}
-					} else {
-						return param.getValue();
 					}
+
+					return param.getValue();
 				} else {
 					param = EnvUtil.getParam(name, ctx);
 					if (param != null) { // 变量
@@ -260,6 +260,14 @@ public class UnknownSymbol extends Node {
 			
 			return value;
 		} else if (param != null) {
+			if (param.isDeleted()) {
+				param = ctx.getParam(name);
+				if (param == null) {
+					param = new Param(name, Param.VAR, null);
+					ctx.addParam(param);
+				}
+			}
+			
 			param.setValue(value);
 			return value;
 		} else {
@@ -382,6 +390,13 @@ public class UnknownSymbol extends Node {
 			
 			return value;
 		} else if (param != null) {
+			if (param.isDeleted()) {
+				param = ctx.getParam(name);
+				if (param == null) {
+					throw new RuntimeException("Param is deleted");
+				}
+			}
+			
 			Object result = Variant.add(param.getValue(), value);
 			param.setValue(result);
 			return result;
@@ -845,6 +860,13 @@ public class UnknownSymbol extends Node {
 	public IArray calculateAll(Context ctx) {
 		if (!isField) {
 			if (param != null) { // 变量
+				if (param.isDeleted()) {
+					param = ctx.getParam(name);
+					if (param == null) {
+						throw new RuntimeException("Param is deleted");
+					}
+				}
+				
 				Sequence sequence = ctx.getComputeStack().getTopSequence();
 				return new ConstArray(param.getValue(), sequence.length());
 			} else if (db != null) { // 数据库连接

@@ -9,7 +9,6 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
-import com.scudata.util.EnvUtil;
 import com.scudata.util.Variant;
 
 /**
@@ -35,10 +34,10 @@ public class VarParam extends Node {
 
 	public Object calculate(Context ctx) {
 		if (param.isDeleted()) {
-			Param cur = EnvUtil.getParam(param.getName(), ctx);
-			if (cur != null) {
-				param = cur;
-				return cur.getValue();
+			String name = param.getName();
+			param = ctx.getParam(name);
+			if (param == null) {
+				throw new RuntimeException("Param is deleted");
 			}
 		}
 		
@@ -46,11 +45,27 @@ public class VarParam extends Node {
 	}
 
 	public Object assign(Object value, Context ctx) {
+		if (param.isDeleted()) {
+			String name = param.getName();
+			param = ctx.getParam(name);
+			if (param == null) {
+				param = new Param(name, Param.VAR, null);
+				ctx.addParam(param);
+			}
+		}
+		
 		param.setValue(value);
 		return value;
 	}
 	
 	public Object addAssign(Object value, Context ctx) {
+		if (param.isDeleted()) {
+			param = ctx.getParam(param.getName());
+			if (param == null) {
+				throw new RuntimeException("Param is deleted");
+			}
+		}
+		
 		Object result = Variant.add(param.getValue(), value);
 		param.setValue(result);
 		return result;
@@ -83,6 +98,13 @@ public class VarParam extends Node {
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
+		if (param.isDeleted()) {
+			param = ctx.getParam(param.getName());
+			if (param == null) {
+				throw new RuntimeException("Param is deleted");
+			}
+		}
+
 		Sequence sequence = ctx.getComputeStack().getTopSequence();
 		return new ConstArray(param.getValue(), sequence.length());
 	}
@@ -105,8 +127,14 @@ public class VarParam extends Node {
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
-		BoolArray result = leftResult.isTrue();
+		if (param.isDeleted()) {
+			param = ctx.getParam(param.getName());
+			if (param == null) {
+				throw new RuntimeException("Param is deleted");
+			}
+		}
 		
+		BoolArray result = leftResult.isTrue();
 		if (Variant.isFalse(param.getValue())) {
 			int size = result.size();
 			for (int i = 1; i <= size; ++i) {
