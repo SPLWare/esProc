@@ -178,6 +178,18 @@ public class Select extends QueryBody {
 				return "between(" + x + "," + a + ":" + b + ")";
 			}
 		}
+		
+		public String toSPL(int groupByCount) {
+			String x = left.toSPL(groupByCount);
+			String a = from.toSPL(groupByCount);
+			String b = to.toSPL(groupByCount);
+			
+			if(isNot) {
+				return "!between(" + x + "," + a + ":" + b + ")";
+			} else {
+				return "between(" + x + "," + a + ":" + b + ")";
+			}
+		}
 	}
 	
 	// case [exp] when ... then ...
@@ -273,6 +285,42 @@ public class Select extends QueryBody {
 			if (defaultExp != null) {
 				spl += ";";
 				spl += defaultExp.toSPL();
+			}
+
+			return spl + ")";
+		}
+		
+		public String toSPL(int groupByCount) {
+			String spl;
+			if (field == null) {
+				spl = "if(";
+				int size = whenList.size();
+				
+				for (int i = 0; i < size; ++i) {
+					if (i > 0) {
+						spl += ",";
+					}
+					
+					spl += whenList.get(i).toSPL(groupByCount);
+					spl += ":";
+					spl += thenList.get(i).toSPL(groupByCount);
+				}
+			} else {
+				spl = "case(";
+				spl += field.toSPL(groupByCount);
+				int size = whenList.size();
+				
+				for (int i = 0; i < size; ++i) {
+					spl += ",";
+					spl += whenList.get(i).toSPL(groupByCount);
+					spl += ":";
+					spl += thenList.get(i).toSPL(groupByCount);
+				}
+			}
+			
+			if (defaultExp != null) {
+				spl += ";";
+				spl += defaultExp.toSPL(groupByCount);
 			}
 
 			return spl + ")";
@@ -485,6 +533,28 @@ public class Select extends QueryBody {
 			
 			return spl;
 		}
+		
+		public String toSPL(int groupByCount) {
+			int size = params.size();
+			String []args = new String[size];
+			for (int i = 0; i < size; ++i) {
+				args[i] = params.get(i).toSPL(groupByCount);
+			}
+
+			String spl = FunInfoManager.getFunctionExp("ESPROC", fnName, args);
+			if (spl == null) {
+				spl = fnName + "(";
+				for (int i = 0; i < size; ++i) {
+					if (i > 0) {
+						spl += ",";
+					}
+					
+					spl += args[i];
+				}
+			}
+			
+			return spl;
+		}
 	}
 
 	class GatherNode extends Exp {
@@ -636,6 +706,46 @@ public class Select extends QueryBody {
 				return spl;
 			}
 		}
+		
+		public String toSPL(int groupByCount) {
+			String x = left.toSPL(groupByCount);
+			String spl;
+			
+			if (exps == null) {
+				String query = subQuery.toSPL();
+				spl = query + ".contain(" + x + ")";
+			} else {
+				// in只有一个值时判断是否是参数序列
+				int size = exps.size();
+				if (size == 1 && exps.get(0) instanceof CommonNode) {
+					String v = exps.get(0).toSPL(groupByCount);
+					Param p = getContext().getParam(v);
+					if (p != null && p.getValue() instanceof Sequence) {
+						spl = v + ".contain(" + x + ")";
+					} else {
+						spl = "[" + v + "]" + ".contain(" + x + ")";
+					}
+				} else {
+					spl = "[";
+					for (int i = 0; i < size; ++i) {
+						if (i > 0) {
+							spl += ",";
+						}
+						
+						Exp exp = exps.get(i);
+						spl += exp.toSPL(groupByCount);
+					}
+					
+					spl += "]" + ".contain(" + x + ")";
+				}
+			}
+			
+			if(isNot) {
+				return "!" + spl;
+			} else {
+				return spl;
+			}
+		}
 	}
 
 	class IsNull extends Exp {
@@ -666,6 +776,14 @@ public class Select extends QueryBody {
 				return exp.toSPL() + "!=null";
 			} else {
 				return exp.toSPL() + "==null";
+			}
+		}
+		
+		public String toSPL(int groupByCount) {
+			if(isNot) {
+				return exp.toSPL(groupByCount) + "!=null";
+			} else {
+				return exp.toSPL(groupByCount) + "==null";
 			}
 		}
 	}
@@ -740,6 +858,28 @@ public class Select extends QueryBody {
 				return "!like@s(" + left.toSPL() +"," + pattern + ")";
 			} else {
 				return "like@s(" + left.toSPL() +"," + pattern + ")";
+			}
+		}
+		
+		public String toSPL(int groupByCount) {
+			String pattern = right.toSPL(groupByCount);
+			if (right instanceof CommonNode) {
+				Param p = getContext().getParam(pattern);
+				if (p != null) {
+					Object val = p.getValue();
+					if (val instanceof String) {
+						pattern = (String)val;
+					} else {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("like" + mm.getMessage("function.paramTypeError"));
+					}
+				}
+			}
+						
+			if (isNot) {
+				return "!like@s(" + left.toSPL(groupByCount) +"," + pattern + ")";
+			} else {
+				return "like@s(" + left.toSPL(groupByCount) +"," + pattern + ")";
 			}
 		}
 	}
@@ -849,6 +989,18 @@ public class Select extends QueryBody {
 			for (int i = 1; i < size; ++i) {
 				spl += " ";
 				spl += exps.get(i).toSPL();
+			}
+
+			return spl;
+		}
+		
+		public String toSPL(int groupByCount) {
+			int size = exps.size();
+			String spl = exps.get(0).toSPL(groupByCount);
+			
+			for (int i = 1; i < size; ++i) {
+				spl += " ";
+				spl += exps.get(i).toSPL(groupByCount);
 			}
 
 			return spl;
@@ -1027,6 +1179,10 @@ public class Select extends QueryBody {
 		public String toSPL() {
 			return "!(" + exp.toSPL() + ")";
 		}
+		
+		public String toSPL(int groupByCount) {
+			return "!(" + exp.toSPL(groupByCount) + ")";
+		}
 	}
 
 	class Paren extends Exp {
@@ -1052,6 +1208,10 @@ public class Select extends QueryBody {
 		
 		public String toSPL() {
 			return "(" + exp.toSPL() + ")";
+		}
+		
+		public String toSPL(int groupByCount) {
+			return "(" + exp.toSPL(groupByCount) + ")";
 		}
 		
 		public boolean splitJionExp(QueryBody leftTable, QueryBody rightTable, 
