@@ -372,6 +372,7 @@ public class Context {
 			paramList2.add(new Param(p));
 		}
 
+		ctx.parent = this;
 		return ctx;
 	}
 	
