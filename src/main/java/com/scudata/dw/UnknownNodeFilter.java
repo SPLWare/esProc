@@ -119,6 +119,7 @@ public class UnknownNodeFilter extends IFilter {
 			colCount = columns.size() + otherNames.size();
 		} else {
 			colCount = 0;
+			needSelect = true;
 		}
 		priority = Integer.MAX_VALUE;
 	}
