@@ -457,4 +457,25 @@ public class DataStruct implements Externalizable, IRecord {
 		
 		return true;
 	}
+	
+	/**
+	 * 判断表达式返回的序表是否与源序表相同
+	 * @param exps
+	 * @param newNames
+	 * @return
+	 */
+	public boolean isSameFields(Expression []exps, String []newNames) {
+		int srcFieldCount = fieldNames.length;
+		if (srcFieldCount != exps.length) {
+			return false;
+		}
+		
+		for (int i = 0; i < srcFieldCount; ++i) {
+			if (!fieldNames[i].equals(newNames[i]) || exps[i].getFieldIndex(this) != i) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
 }
