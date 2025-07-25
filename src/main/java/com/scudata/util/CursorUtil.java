@@ -879,8 +879,11 @@ public final class CursorUtil {
 		// 对每个序列按照关联字段进行哈希分组
 		for (int s = 0; s < srcCount; ++s) {
 			Sequence src = srcs[s];
+			if (src == null || src.length() == 0) {
+				continue;
+			}
+			
 			Expression []srcExps = exps[s];
-
 			Current current = new Current(src);
 			stack.push(current);
 
