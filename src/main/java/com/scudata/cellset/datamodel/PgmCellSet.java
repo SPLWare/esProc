@@ -2624,18 +2624,22 @@ public class PgmCellSet extends CellSet {
 			return pcs.executeFunc(row, col, endRow, null); // args
 		} else {
 			CellLocation oldLct = curLct;
+			Context thisCtx = getContext();
+			if (thisCtx != ctx) {
+				thisCtx.setParent(ctx);
+			}
+			
 			if (argNames == null) {
 				// 可能产生局部变量
-				ctx = getContext();
-				ParamList oldParamList = ctx.getParamList();
+				ParamList oldParamList = thisCtx.getParamList();
 				ParamList paramList = new ParamList();
-				ctx.setParamList(paramList);
+				thisCtx.setParamList(paramList);
 				
 				try {
 					return executeFunc(row, col, endRow, null);
 				} finally {
 					curLct = oldLct;
-					ctx.setParamList(oldParamList);
+					thisCtx.setParamList(oldParamList);
 					for (int i = 0, count = paramList.count(); i < count; ++i) {
 						paramList.get(i).setDeleted(true);
 					}
@@ -2650,16 +2654,15 @@ public class PgmCellSet extends CellSet {
 			}
 
 			// 把参数设到上下文中
-			ctx = getContext();
-			ParamList oldParamList = ctx.getParamList();
+			ParamList oldParamList = thisCtx.getParamList();
 			ParamList paramList = new ParamList();
-			ctx.setParamList(paramList);
+			thisCtx.setParamList(paramList);
 			//Param []params = new Param[argCount];
 			//Object []oldParamValue = new Object[argCount];
 			
 			try {
 				for (int i = 0; i < argCount; ++i) {
-					//params[i] = ctx.getParam(argNames[i]);
+					//params[i] = thisCtx.getParam(argNames[i]);
 					//if (params[i] == null) {
 					paramList.add(new Param(argNames[i], Param.VAR, args[i]));
 					//} else {
@@ -2671,13 +2674,13 @@ public class PgmCellSet extends CellSet {
 				return executeFunc(row, col, endRow, null);
 			} finally {
 				curLct = oldLct;
-				ctx.setParamList(oldParamList);
+				thisCtx.setParamList(oldParamList);
 				for (int i = 0, count = paramList.count(); i < count; ++i) {
 					paramList.get(i).setDeleted(true);
 				}
 				/*for (int i = 0; i < argCount; ++i) {
 					if (params[i] == null) {
-						ctx.removeParam(argNames[i]);
+						thisCtx.removeParam(argNames[i]);
 					} else {
 						params[i].setValue(oldParamValue[i]);
 					}
