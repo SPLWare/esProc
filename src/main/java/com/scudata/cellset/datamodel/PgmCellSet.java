@@ -550,7 +550,11 @@ public class PgmCellSet extends CellSet {
 		pcs.sign = sign;
 		pcs.pswHash = pswHash;
 		pcs.nullPswPrivilege = nullPswPrivilege;
-		pcs.setContext(ctx.newComputeContext());
+		
+		// 是否还可以引用当前ctx中的变量？
+		ctx = ctx.newComputeContext();
+		ctx.setParent(null);
+		pcs.setContext(ctx);
 		pcs.name = name;
 		return pcs;
 	}
@@ -2626,7 +2630,7 @@ public class PgmCellSet extends CellSet {
 			CellLocation oldLct = curLct;
 			Context thisCtx = getContext();
 			if (thisCtx != ctx) {
-				thisCtx.setParent(ctx);
+				thisCtx.setJobSpace(ctx.getJobSpace());
 			}
 			
 			if (argNames == null) {
