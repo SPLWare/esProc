@@ -2,6 +2,7 @@ package com.scudata.dm;
 
 import java.io.*;
 
+import com.scudata.cellset.graph.IRedraw;
 import com.scudata.chart.*;
 import com.scudata.common.*;
 
@@ -80,6 +81,11 @@ public class Canvas implements ICloneable, Externalizable, IRecord {
 	chartElements.clear();
   }
 
+  public IRedraw getIRedraw() {
+		Engine e = new Engine(this.getChartElements());
+		return e;
+  }
+  
   private byte[] getImageBytes(int w, int h, byte fmt) {
 	Engine e = new Engine(this.getChartElements());
 	byte[] bytes = e.calcImageBytes(w, h, fmt);

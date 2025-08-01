@@ -306,11 +306,12 @@ public abstract class DataElement extends LinkElement {
 		if (msg != null) {
 			throw new RuntimeException(msg);
 		}
+
 		// 物理坐标系时，后续检查没必要
 		if (isPhysicalCoor()) {
 			return;
 		}
-
+		
 		TickAxis ta = e.getAxisByName(axis1);
 		Sequence enumData = null;
 		if (ta instanceof EnumAxis) {

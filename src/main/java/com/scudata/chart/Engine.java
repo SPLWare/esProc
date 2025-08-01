@@ -3,6 +3,7 @@ package com.scudata.chart;
 import org.w3c.dom.*;
 
 import com.scudata.app.common.*;
+import com.scudata.cellset.graph.IRedraw;
 import com.scudata.chart.edit.*;
 import com.scudata.chart.element.*;
 import com.scudata.common.*;
@@ -19,7 +20,7 @@ import java.awt.geom.*;
 /**
  * 绘图引擎
  */
-public class Engine {
+public class Engine implements IRedraw{
 	private ArrayList<IElement> elements;
 	private ArrayList<TickAxis> axisList = new ArrayList<TickAxis>(); // 轴
 	private ArrayList<ICoor> coorList = new ArrayList<ICoor>(); // 坐标系
@@ -801,6 +802,10 @@ public class Engine {
 		return null;
 	}
 
+	public void repaint(Graphics2D g, int w, int h) {
+		draw(g, 0, 0, w, h, null);
+	}
+	
 	/**
 	 * 执行画图动作，参数html为null时不生成超链接
 	 * 
