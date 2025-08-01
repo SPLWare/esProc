@@ -21,9 +21,8 @@ style='mso-bookmark:_Hlt161066090'></span></h2></div>
 lang=EN-US>Description:</span></span><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US style='font-weight:normal'></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Search
-for a program file locally via esProc JDBC and execute it. If the file can¡¯t be
-found, then search the server. </span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Execute
+a SPL script via esProc JDBC. </span></span></p>
 
 <p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US>Syntax:</span></span><span style='mso-bookmark:_Hlt161066090'><span
@@ -40,14 +39,18 @@ lang=EN-US>Note:</span></span><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US style='font-weight:normal'></span></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The function calls a script
-file to execute it while passing in parameters ¡­. It first searches the local
-cellset files with absolute or relative search paths for the desired one. If
-the file can¡¯t be found locally, then search the server (configure the server
-list in the <i style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i> file).
-Once the computation is completed, the function returns a sequence composed of
-members of the result set; if there are multiple result sets, then return a
-sequence composed of these result sets. </span></span></p>
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The function executes a SPL
+script via esProc JDBC.</span></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parameter <i
+style='mso-bidi-font-style:normal'>path</i> is path of the <i>spl</i> script
+file. First search local paths for the <i>spl</i> file; and then the server
+(configure the list of servers in<span style='mso-spacerun:yes'>&nbsp; </span><i>raqsoftConfig.xml</i>)
+if the script file cannot be found.</span></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
@@ -55,38 +58,29 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>This is similar to calling
 a stored procedure in the normal database driver. During execution, use </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
-style='font-style:normal;mso-bidi-font-style:italic'>con</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><b><span lang=EN-US
+style='font-style:normal;mso-bidi-font-style:italic'>con</span></b></span></span><span
 style='mso-bookmark:_Hlt161066090'><span class=code><i style='mso-bidi-font-style:
 normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
-normal'>.prepareCall()</span></i></span><span lang=EN-US> to call a statement
-in which the parameters can be written directly or set with </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>st</span></span></span><span
+normal;mso-bidi-font-weight:bold'>.prepareCall()</span></i></span><span
+lang=EN-US> to call the SPL statement, where parameters can be directly written
+or set with </span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><b><span lang=EN-US>st</span></b></span></span><span
 style='mso-bookmark:_Hlt161066090'><span class=code><i style='mso-bidi-font-style:
 normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
-normal'>.setObject()</span></i></span><span lang=EN-US>. Once the statement is
-generated, use </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>st</span></span></span><span style='mso-bookmark:
-_Hlt161066090'><span class=code><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>.execute()</span></i></span><span
-lang=EN-US> to execute it and return the result set. </span></span></p>
+normal;mso-bidi-font-weight:bold'>.setObject()</span></i></span><span
+lang=EN-US>. Once the Statement is generated, use </span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><b><span lang=EN-US>st</span></b></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
+normal;mso-bidi-font-weight:bold'>.execute()</span></i></span><span lang=EN-US>
+to execute it and return the result set as a sequence. </span></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
 <p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When calling </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>the function</span></span><span
-lang=EN-US>, values arg1,... will be assigned to the </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
-style='font-style:normal'>script file¡¯</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
-style='font-style:normal;mso-bidi-font-style:italic'>s</span></span><span
-lang=EN-US> parameters in turn, rather than according to the parameter names in
-</span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-lang=EN-US style='font-style:normal'>its</span></span><span lang=EN-US>
-parameter list. </span></span></p>
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
@@ -104,13 +98,13 @@ lang=EN-US>Parameter:</span></span></p>
  style='margin-left:6.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=86 valign=top style='width:32.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=43 valign=top style='width:32.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
   style='mso-bidi-font-style:normal'><span lang=EN-US>path</span></i></span><span
   style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1017 valign=top style='width:381.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=508 valign=top style='width:381.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-weight:bold'>The relative search path or absolute search
   path of a file. The default setting is the relative search path when this
@@ -119,29 +113,30 @@ lang=EN-US>Parameter:</span></span></p>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=86 valign=top style='width:32.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=43 valign=top style='width:32.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
   lang=EN-US>spl</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1017 valign=top style='width:381.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=508 valign=top style='width:381.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  script file <i>.splx/.spl/.dfx</i>, whose extension is determined according
-  to the order of .splx/.spl/.dfx.</span></span></p>
+  script file of <i>.splx/.spl/.dfx </i>format, whose extension is determined
+  according to the order of .splx/.spl/.dfx. </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=86 valign=top style='width:32.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=43 valign=top style='width:32.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
   lang=EN-US>¡­</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1017 valign=top style='width:381.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parameter.
-  Use comma to separate the multiple parameters. The parameter names are
-  irrelevant to the acceptance of the values, which, instead, will be assigned
-  to the parameters in order.</span></span></p>
+  <td width=508 valign=top style='width:381.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parameter
+  values passed to the </span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=var1><span lang=EN-US>spl</span></span><span lang=EN-US> script file;
+  they are assigned to the parameters in order without considering the
+  parameter names. Use comma to separate the multiple parameters. </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -163,12 +158,12 @@ lang=EN-US> are the cellset parameters.</span></span></p>
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 align=left
  style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
  mso-border-alt:solid #A6A6A6 .5pt;mso-table-overlap:never;mso-table-lspace:
- 9.0pt;margin-left:7.85pt;mso-table-rspace:9.0pt;margin-right:7.85pt;
+ 9.0pt;margin-left:6.75pt;mso-table-rspace:9.0pt;margin-right:6.75pt;
  mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:column;
  mso-table-left:.75pt;mso-table-top:.05pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=54 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=27 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal style='mso-element:frame;mso-element-frame-hspace:9.0pt;
@@ -177,7 +172,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=841 valign=top style='width:315.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=420 valign=top style='width:315.3pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center;mso-element:frame;
@@ -189,7 +184,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=54 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=27 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center;mso-element:frame;
@@ -199,7 +194,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=841 valign=top style='width:315.3pt;border-top:none;border-left:
+  <td width=420 valign=top style='width:315.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -212,7 +207,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=54 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=27 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center;mso-element:frame;
@@ -222,7 +217,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=841 valign=top style='width:315.3pt;border-top:none;border-left:
+  <td width=420 valign=top style='width:315.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -236,7 +231,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=54 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=27 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center;mso-element:frame;
@@ -246,7 +241,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=841 valign=top style='width:315.3pt;border-top:none;border-left:
+  <td width=420 valign=top style='width:315.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -259,7 +254,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=54 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=27 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center;mso-element:frame;
@@ -269,7 +264,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=841 valign=top style='width:315.3pt;border-top:none;border-left:
+  <td width=420 valign=top style='width:315.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -282,7 +277,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=54 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=27 valign=top style='width:20.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center;mso-element:frame;
@@ -292,7 +287,7 @@ lang=EN-US> are the cellset parameters.</span></span></p>
   _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=841 valign=top style='width:315.3pt;border-top:none;border-left:
+  <td width=420 valign=top style='width:315.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>callx(spl,...;hs;rdfx)</title>
+<title>callx(spl,...;hs;rspl)</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,7 +14,7 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
-style='mso-bookmark:_Hlt161066090'><a name="callx_dfx__x"></a><span lang=EN-US>callx(spl,...;hs;rdfx)<a
+style='mso-bookmark:_Hlt161066090'><a name="callx_dfx__x"></a><span lang=EN-US>callx(spl,...;hs;rspl)<a
 name="callx_spl_hs_rdfx"></a></span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h3></div>
@@ -22,8 +22,8 @@ style='mso-bookmark:_Hlt161066090'></span></h3></div>
 lang=EN-US>Description:</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Allocate
-tasks among a sequence of nodes, execute the script, and return a sequence of
-values returned by all tasks. </span></span></p>
+tasks of executing a script among a sequence of nodes, execute the script, and
+return a sequence of values returned by all tasks. </span></span></p>
 
 <p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US>Syntax:</span></span></p>
@@ -41,39 +41,27 @@ style='font-family:"Times New Roman",serif'>)</span></span></span></p>
 lang=EN-US>Note:<span style='mso-tab-count:1'>&nbsp; </span></span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function allocates computing tasks among a sequence of nodes, executes script<span
-style='color:red'> </span>file <i>.</i><i style='mso-bidi-font-style:normal'>dfx/.splx</i>,
-inherits task spaces, and returns a sequence of values returned by all tasks.
-Parameter </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>… </span></span><span lang=EN-US>is the value
-passed to <i><span style='color:black'>.</span></i><i style='mso-bidi-font-style:
-normal'>dfx/.splx</i>.</span></span></p>
+function allocates computing tasks among a sequence of nodes, executes <i>spl</i>
+script<span style='color:red'> </span>file, inherits task spaces, and returns a
+sequence of values returned by all tasks. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-subtask that terminates due to abnormal termination will be given to another
-node (one that does not have a task to process) to handle. The subtask fails if
-there isn’t an available node. It is regarded as an abnormal termination if a
-subtask is given to an unavailable node, and by default, the task will be
-re-allocated in order. The <i>i<sup>th</sup></i> subtask is given to </span></span><a
-href="mailto:hs.m@r(i)"><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US>hs.m@r(i)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US> until each node reaches
-the specified workload limit. The allocation begins again when one of the nodes
-returns its first completed task and continues until all subtasks are
-allocated.</span></span></p>
+subtask that abnormally terminates will be automatically given to another node to
+handle(skip one that already has a task to process). The subtask fails if there
+isn’t an available node. By default, the task will be allocated in order (The <i>i<sup>th</sup></i>
+subtask is given to </span></span><a href="mailto:hs.m@r(i)"><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>hs.m@r(i)</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>) until each node reaches the specified workload limit. The allocation
+begins again when any one of the nodes releases resources and continues until
+all subtasks are allocated. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
 lang=EN-US>&nbsp;</span></i></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-lang=EN-US>rdfx</span></i><span lang=EN-US> is a script used for performing
-reduce action and can be omitted. It has two parameters &#8211; the current
-cumulative value and the current return value, which will be made the new
-cumulative value; the initial cumulative value is null. When the parameter is
-present, the function returns a sequence of values returned by all nodes in the
-order of node list <i>hs</i>.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
@@ -83,47 +71,53 @@ supported by esProc Enterprise Edition.</span></span></p>
 <p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US>Parameter:</span></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=1307
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=653
  style='margin-left:6.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=126 valign=top style='width:47.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=63 valign=top style='width:47.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
   lang=EN-US>spl</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1181 valign=top style='width:442.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=590 valign=top style='width:442.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  script file <i>.dfx/.splx</i>, for which an absolute or a relative path can
-  be set. The relative path is the <b style='mso-bidi-font-weight:normal'>Search
-  Path</b> under the Tool-&gt;Option-&gt; [Environment] menu.</span></span></p>
+  script file of <i>.dfx/.splx </i>format, for which an absolute or a relative
+  path can be set. </span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+  relative path is the <b style='mso-bidi-font-weight:normal'>Search Path</b>
+  under the Tool-&gt;Option-&gt; [Environment] menu. When esProc is integrated
+  into a third-party application, the search path is the value of splPath node
+  set in <i>raqsoftConfig.xml</i>. </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=126 valign=top style='width:47.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=63 valign=top style='width:47.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
   lang=EN-US>…</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1181 valign=top style='width:442.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=590 valign=top style='width:442.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
   parameter for passing value to <i>.dfx/.splx</i>. It is usually in the form
   of a sequence. The number of parameters to be passed to <i>.dfx/.splx</i> is
-  the number of the sequences. The parallel algorithm will divide a
-  computational task into multiple subtasks according to the length of the
-  parameter sequence and pass each member of the sequence to the corresponding
-  subtask as the parameter value of <i>.dfx/.splx</i>. </span></span></p>
+  the number of members in the sequence. </span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+  parallel algorithm will divide a computational task into multiple subtasks
+  according to the length of the parameter sequence and pass each member of the
+  sequence to the corresponding subtask as the parameter value of <i>.dfx/.splx</i>.
+  </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=126 valign=top style='width:47.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=63 valign=top style='width:47.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
   lang=EN-US>hs</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1181 valign=top style='width:442.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=590 valign=top style='width:442.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
   server sequence in which each server is represented by a string in the form
   of &quot;IP address:port number&quot;, such as &quot;</span></span><span
@@ -138,15 +132,27 @@ lang=EN-US>Parameter:</span></span></p>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=126 valign=top style='width:47.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=63 valign=top style='width:47.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>rdfx</span></span></span></p>
+  lang=EN-US>rspl</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1181 valign=top style='width:442.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=590 valign=top style='width:442.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  spl script used that uses two parameters; it is used to perform reduce
-  action, and can be omitted.</span></span></p>
+  splx script that uses two parameters; it is used to specify a reduce action
+  script. The script can be omitted.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+  two parameters respectively represent the current cumulative value and the
+  current returned value. The value returned by the splx script will be used as
+  the new cumulative value. The initial cumjlative value is null.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='background:white'>By defining custom logics in the </span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>rspl</span></i><span
+  lang=EN-US style='background:white'> script file, the parameter concatenates
+  values returned by the multiple subtasks handled in nodes into a sequence,
+  where members are arranged according to the server sequence.</span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -159,7 +165,7 @@ lang=EN-US>Option:</span></span></p>
  style='margin-left:5.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:4.5pt'>
-  <td width=170 valign=top style='width:63.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  <td width=85 valign=top style='width:63.7pt;padding:0cm 5.4pt 0cm 5.4pt;
   height:4.5pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>@a</span></b></span><span
@@ -167,26 +173,27 @@ lang=EN-US>Option:</span></span></p>
   lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-family:宋体'></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=940 valign=top style='width:352.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  <td width=470 valign=top style='width:352.5pt;padding:0cm 5.4pt 0cm 5.4pt;
   height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Enable
-  a random allocation.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Allocate
+  subtasks among nodes randomly.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:4.5pt'>
-  <td width=170 valign=top style='width:63.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  <td width=85 valign=top style='width:63.7pt;padding:0cm 5.4pt 0cm 5.4pt;
   height:4.5pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt;mso-bidi-font-family:宋体'>@l</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=940 valign=top style='width:352.5pt;padding:0cm 5.4pt 0cm 5.4pt;
+  <td width=470 valign=top style='width:352.5pt;padding:0cm 5.4pt 0cm 5.4pt;
   height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Enable
-  allocating one task to all available nodes; the task is completed as long as
-  one of the nodes does it successfully, and other nodes are thus terminated.</span></span><span
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Allocating
+  the one and single task to all available nodes; the task is regarded as completed
+  as long as one of the nodes successfully gets it done, and processes<span
+  style='mso-spacerun:yes'>&nbsp; </span>on the other nodes are then terminated.</span></span><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt;mso-bidi-font-family:宋体'></span></span></p>
   </td>
@@ -223,14 +230,14 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>:</span></span
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=997 valign=top style='width:374.0pt;border:solid #A6A6A6 1.0pt;
+  <td width=499 valign=top style='width:374.0pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -238,17 +245,9 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>:</span></span
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=265 valign=top style='width:99.2pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>B</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -256,7 +255,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>:</span></span
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=997 valign=top style='width:374.0pt;border-top:none;border-left:
+  <td width=499 valign=top style='width:374.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -266,18 +265,9 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>:</span></span
   SUBJECT=?&quot;,arg1)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=265 valign=top style='width:99.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -285,26 +275,23 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>:</span></span
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=997 valign=top style='width:374.0pt;border-top:none;border-left:
+  <td width=499 valign=top style='width:374.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>return
-  A1</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=265 valign=top style='width:99.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>return
-  A1.(SCORE)</span></span></span></p>
+  A1</span></span><b style='mso-bidi-font-weight:normal'><span lang=EN-US>,
+  A1.(SCORE)</span></b></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:
+  "Times New Roman",serif'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>&nbsp;</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
 style='mso-bidi-font-size:10.5pt'>Below is </span><i style='mso-bidi-font-style:
@@ -312,19 +299,19 @@ normal'><span lang=EN-US>reduce.splx</span></i></span><span style='mso-bookmark:
 _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>:<span
 style='mso-spacerun:yes'>&nbsp; </span></span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1958
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=979
  style='margin-left:-.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=397 valign=top style='width:149.05pt;border:solid #A6A6A6 1.0pt;
+  <td width=199 valign=top style='width:149.05pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -332,7 +319,7 @@ style='mso-spacerun:yes'>&nbsp; </span></span></span></p>
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1518 valign=top style='width:569.4pt;border:none;mso-border-left-alt:
+  <td width=759 valign=top style='width:569.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>&nbsp;</span></span></p>
@@ -340,7 +327,7 @@ style='mso-spacerun:yes'>&nbsp; </span></span></span></p>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -348,7 +335,7 @@ style='mso-spacerun:yes'>&nbsp; </span></span></span></p>
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=397 style='width:149.05pt;border-top:none;border-left:none;
+  <td width=199 style='width:149.05pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -356,13 +343,19 @@ style='mso-spacerun:yes'>&nbsp; </span></span></span></p>
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=a|b</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1518 style='width:569.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=759 style='width:569.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>a and b are splx file’s parameters; a
-  represents the current cumulative value and b is the current returned value</span><span
-  lang=EN-US>.</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></span></p>
+  style='mso-bidi-font-size:10.5pt'>a and b are parameters used in </span><i><span
+  lang=EN-US>reduce.splx</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>; a represents the current
+  cumulative value (initial value is null) and b is the current returned value
+  (result returned by executing the script on the current node)</span><span
+  lang=EN-US>. “|” concatenates values returned by the current node. When all
+  subtasks on the current node are finished, values returned by all subtasks
+  will be concatenated and returned as<span style='mso-spacerun:yes'>&nbsp;
+  </span>a sequence.</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'> </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -372,19 +365,19 @@ style='mso-spacerun:yes'>&nbsp; </span></span></span></p>
 style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
 </span></span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1966
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=983
  style='margin-left:-.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=38 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=848 valign=top style='width:318.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=424 valign=top style='width:318.15pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -392,7 +385,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1079 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
+  <td width=540 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>&nbsp;</span></span></p>
@@ -400,7 +393,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=38 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -408,7 +401,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=848 style='width:318.15pt;border-top:none;border-left:none;
+  <td width=424 style='width:318.15pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -416,7 +409,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=[&quot;192.168.31.165:8281&quot;,&quot;192.168.31.39:8281&quot;]</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1079 style='width:404.75pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=540 style='width:404.75pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>A sequence of nodes</span><span lang=EN-US>.</span></span><span
@@ -426,7 +419,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=38 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -434,7 +427,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=848 valign=top style='width:318.15pt;border-top:none;border-left:
+  <td width=424 valign=top style='width:318.15pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -442,7 +435,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=callx(&quot;test.splx&quot;,[&quot;English&quot;,&quot;Math&quot;,&quot;PE&quot;];A1)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1079 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
+  <td width=540 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>Allocate the task in turn and return a
@@ -451,15 +444,15 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   10.5pt'></span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
   style='mso-bidi-font-size:10.5pt;mso-ansi-language:#0400;mso-fareast-language:
-  #0400'><img border=0 width=958 height=149
-  src="Function_Reference.files/image280.jpg" v:shapes="_x0000_i1168"></span></span><span
+  #0400'><img border=0 width=479 height=75
+  src="Function_Reference.files/image237.jpg" v:shapes="_x0000_i1172"></span></span><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=38 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -467,7 +460,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>3</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=848 valign=top style='width:318.15pt;border-top:none;border-left:
+  <td width=424 valign=top style='width:318.15pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -475,7 +468,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=callx(&quot;test.splx&quot;,[&quot;English&quot;,&quot;Math&quot;,&quot;PE&quot;];A1;&quot;reduce.splx&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1079 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
+  <td width=540 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>Allocate the task in turn, perform reduce
@@ -484,15 +477,15 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   lang=EN-US style='mso-bidi-font-size:10.5pt'></span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
   style='mso-bidi-font-size:10.5pt;mso-ansi-language:#0400;mso-fareast-language:
-  #0400'><img border=0 width=959 height=70
-  src="Function_Reference.files/image282.jpg" v:shapes="图片_x0020_69"></span></span><span
+  #0400'><img border=0 width=479 height=35
+  src="Function_Reference.files/image239.jpg" v:shapes="图片_x0020_69"></span></span><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=38 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -500,7 +493,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>4</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=848 valign=top style='width:318.15pt;border-top:none;border-left:
+  <td width=424 valign=top style='width:318.15pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -508,7 +501,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=callx@a(&quot;test.splx&quot;,[&quot;English&quot;,&quot;Math&quot;,&quot;PE&quot;];A1;&quot;reduce.splx&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1079 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
+  <td width=540 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>Use @a option to allocate subtasks randomly</span><span
@@ -516,15 +509,15 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   lang=EN-US style='mso-bidi-font-size:10.5pt'></span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
   style='mso-bidi-font-size:10.5pt;mso-ansi-language:#0400;mso-fareast-language:
-  #0400'><img border=0 width=959 height=69
-  src="Function_Reference.files/image284.jpg" v:shapes="图片_x0020_70"></span></span><span
+  #0400'><img border=0 width=480 height=35
+  src="Function_Reference.files/image241.jpg" v:shapes="图片_x0020_70"></span></span><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=38 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -532,7 +525,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>5</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=848 valign=top style='width:318.15pt;border-top:none;border-left:
+  <td width=424 valign=top style='width:318.15pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -540,7 +533,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=callx@1(&quot;test.splx&quot;,[&quot;English&quot;,&quot;Math&quot;,&quot;PE&quot;];A1)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1079 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
+  <td width=540 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>Use @1 option to terminate the other
@@ -549,15 +542,15 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   10.5pt'></span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
   style='mso-bidi-font-size:10.5pt;mso-ansi-language:#0400;mso-fareast-language:
-  #0400'><img border=0 width=960 height=82
-  src="Function_Reference.files/image286.jpg" v:shapes="图片_x0020_71"></span></span><span
+  #0400'><img border=0 width=480 height=41
+  src="Function_Reference.files/image243.jpg" v:shapes="图片_x0020_71"></span></span><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:6'>
-  <td width=38 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -567,7 +560,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=848 valign=top style='width:318.15pt;border-top:none;border-left:
+  <td width=424 valign=top style='width:318.15pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -577,7 +570,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1079 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
+  <td width=540 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Execute
   script at port 8281 on the current machine.</span></span><span
@@ -587,7 +580,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=38 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -597,7 +590,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=848 valign=top style='width:318.15pt;border-top:none;border-left:
+  <td width=424 valign=top style='width:318.15pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -607,7 +600,7 @@ style='mso-bidi-font-size:10.5pt'><span style='mso-spacerun:yes'>&nbsp;
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1079 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
+  <td width=540 valign=top style='width:404.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Execute
   script in the current process.</span></span><span style='mso-bookmark:_Hlt161066090'><span
@@ -635,7 +628,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
@@ -643,7 +636,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
   10.5pt'>&nbsp;</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1103 valign=top style='width:413.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=552 valign=top style='width:413.7pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -653,7 +646,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -661,7 +654,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
   lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1103 style='width:413.7pt;border-top:none;border-left:none;
+  <td width=552 style='width:413.7pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -673,7 +666,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -681,7 +674,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
   lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1103 style='width:413.7pt;border-top:none;border-left:none;
+  <td width=552 style='width:413.7pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -692,7 +685,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -700,7 +693,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
   lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1103 style='width:413.7pt;border-top:none;border-left:none;
+  <td width=552 style='width:413.7pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -710,7 +703,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=42 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -718,7 +711,7 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
   lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1103 style='width:413.7pt;border-top:none;border-left:none;
+  <td width=552 style='width:413.7pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -734,19 +727,19 @@ _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;line-height:
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
 10.5pt'>&nbsp;</span></b></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1898
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=949
  style='margin-left:-.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=730 valign=top style='width:273.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=365 valign=top style='width:273.8pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -754,7 +747,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1127 valign=top style='width:422.5pt;border:none;mso-border-left-alt:
+  <td width=563 valign=top style='width:422.5pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>&nbsp;</span></span></p>
@@ -762,7 +755,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -770,7 +763,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=730 style='width:273.8pt;border-top:none;border-left:none;
+  <td width=365 style='width:273.8pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -778,7 +771,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=[&quot;192.168.31.165:8281&quot;,&quot;192.168.31.39:8281&quot;]</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1127 style='width:422.5pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=563 style='width:422.5pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-size:10.5pt'>A sequence of nodes</span><span lang=EN-US>.</span></span><span
@@ -788,7 +781,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -796,7 +789,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=730 valign=top style='width:273.8pt;border-top:none;border-left:
+  <td width=365 valign=top style='width:273.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -804,24 +797,25 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=callx(&quot;test.splx&quot;,[1,20,6,14,5],&quot;F&quot;;[&quot;192.168.31.165:8281&quot;])</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1127 valign=top style='width:422.5pt;border:none;mso-border-left-alt:
+  <td width=563 valign=top style='width:422.5pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Pass
-  two parameters </span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>[6,F]</span><span lang=EN-US> to
-  one node, and the query result is null.</span></span><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt'></span></span></p>
+  two parameters<span style='mso-spacerun:yes'>&nbsp; </span>to one node, in
+  which the query result of parameter </span></span><span style='mso-bookmark:
+  _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>[6,F]</span><span
+  lang=EN-US> is null:</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
   style='mso-bidi-font-size:10.5pt;mso-ansi-language:#0400;mso-fareast-language:
-  #0400'><img border=0 width=326 height=248
-  src="Function_Reference.files/image288.jpg" v:shapes="图片_x0020_72"></span></span><span
+  #0400'><img border=0 width=163 height=124
+  src="Function_Reference.files/image244.png" v:shapes="图片_x0020_72"></span></span><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=41 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -829,7 +823,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>3</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=730 valign=top style='width:273.8pt;border-top:none;border-left:
+  <td width=365 valign=top style='width:273.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -837,7 +831,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=callx(&quot;test.splx&quot;,[1,20,6,14,5],&quot;F&quot;;A1;&quot;reduce.splx&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1127 valign=top style='width:422.5pt;border:none;mso-border-left-alt:
+  <td width=563 valign=top style='width:422.5pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Send
   multiple parameters to multiple nodes and distribute subtasks in turn, that
@@ -850,15 +844,15 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   lang=EN-US style='mso-bidi-font-size:10.5pt'></span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
   style='mso-bidi-font-size:10.5pt;mso-ansi-language:#0400;mso-fareast-language:
-  #0400'><img border=0 width=490 height=130
-  src="Function_Reference.files/image290.jpg" v:shapes="图片_x0020_73"></span></span><span
+  #0400'><img border=0 width=245 height=65
+  src="Function_Reference.files/image245.png" v:shapes="图片_x0020_73"></span></span><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
   10.5pt'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=41 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -866,7 +860,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>4</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=730 valign=top style='width:273.8pt;border-top:none;border-left:
+  <td width=365 valign=top style='width:273.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -874,7 +868,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=callx(&quot;test.splx&quot;,[[1,20,6,14,5],[22,33,44]],&quot;F&quot;;A1)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1127 valign=top style='width:422.5pt;border:none;mso-border-left-alt:
+  <td width=563 valign=top style='width:422.5pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
   multiple nodes receive the same value for one parameter, the parameter can be
@@ -888,7 +882,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.45pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -896,7 +890,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>5</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=730 valign=top style='width:273.8pt;border-top:none;border-left:
+  <td width=365 valign=top style='width:273.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -904,7 +898,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
   lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>=callx(&quot;test.splx&quot;,[[1,20,6,14,5],[22,33,44]],[&quot;F&quot;,&quot;M&quot;];A1)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=1127 valign=top style='width:422.5pt;border:none;mso-border-left-alt:
+  <td width=563 valign=top style='width:422.5pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
   multiple nodes receive the same parameter with different values, the parmeter

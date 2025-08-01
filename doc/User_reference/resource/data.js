@@ -135,5 +135,6 @@ tree.setIconPath("images/");
  tree.nodes["1_134"] = "text:Paste Excel values;url:topics/132.html";
  tree.nodes["1_135"] = "text:Excel Add-in Type;url:topics/133.html";
  tree.nodes["1_136"] = "text:Start Office Add-in Service;url:topics/134.html";
+ tree.nodes["1_137"] = "text:Load Math Library;url:topics/135.html";
 tree.setTarget("mainFrame");
 document.write(tree.toString());
