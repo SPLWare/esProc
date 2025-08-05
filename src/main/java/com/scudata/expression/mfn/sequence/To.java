@@ -120,7 +120,13 @@ public class To extends SequenceFunction {
 				}
 
 				start = ((Number)val).intValue();
-				if (start < 1 || start > len) {
+				if (start < 1) {
+					if (option != null && option.indexOf('z') != -1) {
+						return new Sequence(0);
+					} else {
+						start = 1;
+					}
+				} else if (start > len) {
 					return new Sequence(0);
 				}
 			}
