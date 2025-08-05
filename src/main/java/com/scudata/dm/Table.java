@@ -1592,6 +1592,60 @@ public class Table extends Sequence {
 		
 		return result;
 	}
+	
+	/**
+	 * 计算表达式并返回自己
+	 * @param assignExps 左侧赋值对象
+	 * @param exps 值表达式
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @param syncSequences 同步循环序列，长度相同
+	 */
+	public void run(Expression[] assignExps, Expression[] exps, String opt, Context ctx, Sequence []syncSequences) {
+		int colCount = exps.length;
+		int []fields = new int[colCount];
+
+		for (int i = 0; i < colCount; ++i) {
+			if (assignExps[i] != null) {
+				fields[i] = assignExps[i].getFieldIndex(ds);
+				if (fields[i] != -1) {
+					continue;
+				}
+			}
+			
+			super.run(assignExps, exps, opt, ctx, syncSequences);
+			return;
+		}
+
+		IArray mems = getMems();
+		int syncCount = syncSequences.length;
+		ComputeStack stack = ctx.getComputeStack();
+		Current []currents = new Current[syncCount + 1];
+		currents[0] = new Current(this);
+		stack.push(currents[0]);
+		
+		for (int i = 1; i <= syncCount; ++i) {
+			currents[i] = new Current(syncSequences[i - 1]);
+			stack.push(currents[i]);
+		}
+
+		try {
+			for (int i = 1, len = length(); i <= len; ++i) {
+				for (Current current : currents) {
+					current.setCurrent(i);
+				}
+				
+				BaseRecord r = (BaseRecord)mems.get(i);
+				for (int c = 0; c < colCount; ++c) {
+					r.setNormalFieldValue(fields[c], exps[c].calculate(ctx));
+				}
+			}
+		} finally {
+			for (int i = 0; i <= syncCount; ++i) {
+				stack.pop();
+			}
+		}
+	}
 
 	public void paste(Sequence []vals, String []fields, int pos, String opt) {
 		if (pos < 0) {

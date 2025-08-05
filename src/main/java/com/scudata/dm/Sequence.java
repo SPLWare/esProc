@@ -3465,18 +3465,61 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Number
 	 */
 	public Number rank(Object obj, String opt) {
-		boolean isDesc = false, isDistinct = false, isStatistics = false;
+		boolean isDesc = false, isDistinct = false, isStatistics = false, isSorted = false;
 		if (opt != null) {
 			if (opt.indexOf('z') != -1)isDesc = true;
 			if (opt.indexOf('i') != -1)isDistinct = true;
 			if (opt.indexOf('s') != -1)isStatistics = true;
+			if (opt.indexOf('o') != -1)isSorted = true;
 		}
 
 		IArray mems = getMems();
 		int length = mems.size();
 		int count = 1;
-
-		if (isDistinct) {
+		
+		if (isSorted) {
+			if (isDistinct) {
+				if (isDesc) {
+					for (int i = 1; i <= length; ++i) {
+						if (Variant.compare(mems.get(i), obj, true) > 0) {
+							if (i == 1 || !Variant.isEquals(mems.get(i - 1), mems.get(i))) {
+								count++;
+							}
+						} else {
+							break;
+						}
+					}
+				} else {
+					for (int i = 1; i <= length; ++i) {
+						if (Variant.compare(mems.get(i), obj, true) < 0) {
+							if (i == 0 || !Variant.isEquals(mems.get(i - 1), mems.get(i))) {
+								count++;
+							}
+						} else {
+							break;
+						}
+					}
+				}
+			} else {
+				if (isDesc) {
+					for (int i = 1; i <= length; ++i) {
+						if (Variant.compare(mems.get(i), obj, true) > 0) {
+							count++;
+						} else {
+							break;
+						}
+					}
+				} else {
+					for (int i = 1; i < length; ++i) {
+						if (Variant.compare(mems.get(i), obj, true) < 0) {
+							count++;
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		} else if (isDistinct) {
 			Object[] objs = mems.toArray();
 			if (isDesc) {
 				MultithreadUtil.sort(objs, new DescComparator());
@@ -3568,6 +3611,37 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('z') != -1)isDesc = true;
 			if (opt.indexOf('i') != -1)isDistinct = true;
 			if (opt.indexOf('s') != -1)isStatistics = true;
+			
+			if (opt.indexOf('o') != -1) {
+				ObjectArray array = new ObjectArray(size);
+				Object prev = getMem(1);
+				array.push(ObjectCache.getInteger(1));
+				
+				if (isDistinct) {
+					int rank = 1;
+					for (int i = 2; i <= size; ++i) {
+						Object cur = getMem(i);
+						if (!Variant.isEquals(prev, cur)) {
+							rank++;
+							prev = cur;
+						}
+
+						array.push(ObjectCache.getInteger(rank));
+					}
+				} else {
+					for (int i = 2; i <= size; ++i) {
+						Object cur = getMem(i);
+						if (Variant.isEquals(prev, cur)) {
+							array.push(array.get(i - 1));
+						} else {
+							prev = cur;
+							array.push(ObjectCache.getInteger(i));
+						}
+					}
+				}
+				
+				return new Sequence(array);
+			}
 		}
 
 		int len = size + 1;
@@ -3583,8 +3657,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		// 进行排序
 		MultithreadUtil.sort(infos, 1, len, new PSortComparator(comparator));
-
 		Number[] places = new Number[size];
+
 		if (isDistinct) {
 			places[infos[1].index - 1] = ObjectCache.getInteger(1);
 			int count = 1;
@@ -4513,6 +4587,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
+	/**
+	 * 计算表达式并返回自己
+	 * @param exp 计算表达式
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 */
 	public void run(Expression exp, String opt, Context ctx) {
 		if (opt == null) {
 			run(exp, ctx);
@@ -4538,8 +4618,93 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	
 	/**
 	 * 计算表达式并返回自己
+	 * @param assignExps 左侧赋值对象
+	 * @param exps 值表达式
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @param syncSequences 同步循环序列，长度相同
+	 */
+	public void run(Expression[] assignExps, Expression[] exps, String opt, Context ctx, Sequence []syncSequences) {
+		int colCount = exps.length;
+		if (assignExps == null) {
+			assignExps = new Expression[colCount];
+		} else if (assignExps.length != colCount) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("run" + mm.getMessage("function.invalidParam"));
+		}
+
+		int syncCount = syncSequences.length;
+		ComputeStack stack = ctx.getComputeStack();
+		Current []currents = new Current[syncCount + 1];
+		currents[0] = new Current(this);
+		stack.push(currents[0]);
+		
+		for (int i = 1; i <= syncCount; ++i) {
+			currents[i] = new Current(syncSequences[i - 1]);
+			stack.push(currents[i]);
+		}
+
+		try {
+			for (int i = 1, len = length(); i <= len; ++i) {
+				for (Current current : currents) {
+					current.setCurrent(i);
+				}
+				
+				for (int c = 0; c < colCount; ++c) {
+					if (assignExps[c] == null) {
+						exps[c].calculate(ctx);
+					} else {
+						assignExps[c].assign(exps[c].calculate(ctx), ctx);
+					}
+				}
+			}
+		} finally {
+			for (int i = 0; i <= syncCount; ++i) {
+				stack.pop();
+			}
+		}
+	}
+	
+	/**
+	 * 计算表达式并返回自己
+	 * @param exp 计算表达式
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @param syncSequences 同步循环序列，长度相同
+	 */
+	public void run(Expression exp, String opt, Context ctx, Sequence []syncSequences) {
+		int size = length();
+		int syncCount = syncSequences.length;
+		ComputeStack stack = ctx.getComputeStack();
+		
+		Current []currents = new Current[syncCount + 1];
+		currents[0] = new Current(this);
+		stack.push(currents[0]);
+		
+		for (int i = 1; i <= syncCount; ++i) {
+			currents[i] = new Current(syncSequences[i - 1]);
+			stack.push(currents[i]);
+		}
+
+		try {
+			for (int i = 1; i <= size; ++i) {
+				for (Current current : currents) {
+					current.setCurrent(i);
+				}
+				
+				exp.calculate(ctx);
+			}
+		} finally {
+			for (int i = 0; i <= syncCount; ++i) {
+				stack.pop();
+			}
+		}
+	}
+	
+	/**
+	 * 计算表达式并返回自己
 	 * @param exp Expression 计算表达式
-	 * @param ctx Context 计算上下文环境
+	 * @param ctx Context 计算上下文
 	 */
 	public void run(Expression exp, Context ctx) {
 		if (exp == null) {

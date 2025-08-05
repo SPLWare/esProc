@@ -16,7 +16,7 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class MGet extends SequenceFunction {
-	public static int convert(int srcLen, int pos, boolean isRepeat) {
+	public static int convert(int srcLen, int pos, boolean isRepeat, boolean isBackward) {
 		if (pos > srcLen) {
 			if (isRepeat) {
 				pos %= srcLen;
@@ -29,12 +29,17 @@ public class MGet extends SequenceFunction {
 		} else if (pos == 0) {
 			return 0;
 		} else { // < 0
-			if (isRepeat) {
-				pos %= srcLen;
-				return pos < 0 ? pos + srcLen + 1 : 1;
+			if (isBackward) {
+				// 允许从后数
+				if (isRepeat) {
+					pos %= srcLen;
+					return pos < 0 ? pos + srcLen + 1 : 1;
+				} else {
+					pos += srcLen + 1;
+					return pos > 0 ? pos : 0;
+				}
 			} else {
-				pos += srcLen + 1;
-				return pos > 0 ? pos : 0;
+				return 0;
 			}
 		}
 	}
@@ -53,10 +58,11 @@ public class MGet extends SequenceFunction {
 		IArray mems = srcSequence.getMems();
 		int srcLen = mems.size();
 
-		boolean isRepeat = false, reserveZero = true;
+		boolean isRepeat = false, reserveZero = true, isBackward = true;
 		if (option != null) {
 			if (option.indexOf('r') != -1) isRepeat = true;
 			if (option.indexOf('0') != -1) reserveZero = false;
+			if (option.indexOf('p') != -1) isBackward = false;
 		}
 
 		if (param.isLeaf()) {
@@ -64,7 +70,7 @@ public class MGet extends SequenceFunction {
 			if (pval == null) return null;
 			
 			if (pval instanceof Number) {
-				int pos = convert(srcLen, ((Number)pval).intValue(), isRepeat);
+				int pos = convert(srcLen, ((Number)pval).intValue(), isRepeat, isBackward);
 				if (pos > 0) {
 					return mems.get(pos);
 				} else {
@@ -78,7 +84,7 @@ public class MGet extends SequenceFunction {
 				for (int i = 1; i <= posCount; ++i) {
 					Object posObj = posSequence.get(i);
 					if (posObj instanceof Number) {
-						int pos = convert(srcLen, ((Number)posObj).intValue(), isRepeat);
+						int pos = convert(srcLen, ((Number)posObj).intValue(), isRepeat, isBackward);
 						if (pos > 0) {
 							result.add(mems.get(pos));
 						} else if (reserveZero) {
@@ -115,7 +121,7 @@ public class MGet extends SequenceFunction {
 				}
 				
 				int n = ((Number)obj0).intValue();
-				pos0 = convert(srcLen, n, isRepeat);
+				pos0 = convert(srcLen, n, isRepeat, isBackward);
 				if (pos0 == 0) {
 					if (n < 0) {
 						// 起始位置左越界则从1开始
@@ -140,7 +146,7 @@ public class MGet extends SequenceFunction {
 				}
 				
 				int n = ((Number)obj1).intValue();
-				pos1 = convert(srcLen, n, isRepeat);
+				pos1 = convert(srcLen, n, isRepeat, isBackward);
 				if (pos1 == 0) {
 					if (n > srcLen) {
 						// 结束位置右越界则取到结尾
@@ -186,7 +192,7 @@ public class MGet extends SequenceFunction {
 							result.add(null);
 						}
 					} else if (pval instanceof Number) {
-						int pos = convert(srcLen, ((Number)pval).intValue(), isRepeat);
+						int pos = convert(srcLen, ((Number)pval).intValue(), isRepeat, isBackward);
 						if (pos > 0) {
 							result.add(mems.get(pos));
 						} else {
@@ -201,7 +207,7 @@ public class MGet extends SequenceFunction {
 						for (int i = 1; i <= posCount; ++i) {
 							Object posObj = posSequence.get(i);
 							if (posObj instanceof Number) {
-								int pos = convert(srcLen, ((Number)posObj).intValue(), isRepeat);
+								int pos = convert(srcLen, ((Number)posObj).intValue(), isRepeat, isBackward);
 								if (pos > 0) {
 									result.add(mems.get(pos));
 								} else if (reserveZero) {
@@ -236,7 +242,7 @@ public class MGet extends SequenceFunction {
 						}
 						
 						int n = ((Number)obj0).intValue();
-						pos0 = convert(srcLen, n, isRepeat);
+						pos0 = convert(srcLen, n, isRepeat, isBackward);
 						if (pos0 == 0) {
 							if (n < 0) {
 								// 起始位置左越界则从1开始
@@ -260,7 +266,7 @@ public class MGet extends SequenceFunction {
 						}
 						
 						int n = ((Number)obj1).intValue();
-						pos1 = convert(srcLen, n, isRepeat);
+						pos1 = convert(srcLen, n, isRepeat, isBackward);
 						if (pos1 == 0) {
 							if (n > srcLen) {
 								// 结束位置右越界则取到结尾
