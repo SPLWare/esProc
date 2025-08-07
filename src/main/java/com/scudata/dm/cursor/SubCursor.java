@@ -78,7 +78,8 @@ public class SubCursor extends ICursor {
 	public synchronized void close() {
 		super.close();
 		if (cursor != null) {
-			cursor.close();
+			// 源游标可能还被其它子游标继续使用，不能关闭
+			//cursor.close();
 			cursor = null;
 		}
 	}
