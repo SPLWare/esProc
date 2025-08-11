@@ -450,8 +450,9 @@ public final class ParamParser {
 
 			if (ch == separator) {
 				return true;
-			} if ( ch == '\\' ) {
-				index += 2;
+			//} if ( ch == '\\' ) {
+			//  不在引号内应该没有转义符，\是序列差运算
+			//	index += 2;
 			} else if ( ch == '\"' || ch == '\'' ) {
 				int tmp = Sentence.scanQuotation(str, index);
 				if (tmp < 0) {

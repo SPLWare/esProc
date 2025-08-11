@@ -105,10 +105,13 @@ public final class ArgumentTokenizer implements Enumeration<String> {
 				break;
 			}
 			char ch = str.charAt(index);
-			if (ch == '\\') {
-				index += 2;
-				continue;
-			}
+			
+			// 不在引号内应该没有转义符，\是序列差运算
+			//if (ch == '\\') {
+			//	index += 2;
+			//	continue;
+			//}
+			
 			if (ch == '\"' || (singleQuotation && ch == '\'')) {
 				int tmp = Sentence.scanQuotation(str, index);
 				if (tmp < 0) {
