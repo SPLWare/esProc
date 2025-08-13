@@ -41,12 +41,16 @@ public class HttpUpload {
 	//上载后返回结果内容的编码
 	private String resultEncoding = "UTF-8";  
 	
+	//上载时要传送的Header参数
+	private Hashtable<String,String> headers;
+
 	public HttpUpload( String url ) {
 		this.url = url;
 		params = new Hashtable<String,String>();
 		fileArgs = new ArrayList<String>();
 		filePaths = new ArrayList<String>();
 		fileBytes = new ArrayList<byte[]>();
+		headers = new Hashtable<String,String>();
 	}
 	
 	/**
@@ -64,6 +68,15 @@ public class HttpUpload {
 	 */
 	public void addParam( String paramName, String paramValue ) {
 		params.put( paramName, paramValue );
+	}
+	
+	/**
+	 * 设置一个Header参数
+	 * @param headerName
+	 * @param headerValue
+	 */
+	public void setHeader( String headerName, String headerValue ) {
+		headers.put( headerName, headerValue );
 	}
 	
 	/**
@@ -100,6 +113,12 @@ public class HttpUpload {
 		try {
 			httpClient = HttpClientBuilder.create().build();
 			httpPost = new HttpPost( url );
+			Enumeration<String> emh = headers.keys();
+			while( emh.hasMoreElements() ) {
+				String header = emh.nextElement();
+				String hv = headers.get( header );
+				httpPost.setHeader( header, hv );
+			}
 			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 			builder.setCharset( Charset.forName( "UTF-8" ) );//设置请求的编码格式
 			builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//设置浏览器兼容模式

@@ -211,7 +211,7 @@ class HeaderBlock {
 		fileZones.add(new Zone(block));
 	}
 	
-	// 取相应的文件区位
+	// 取相应的文件区位 
 	public synchronized Zone getFileZone(VDB vdb, boolean isLockVDB) {
 		ArrayList<Zone> fileZones = this.fileZones;
 		if (fileZones == null) return null;

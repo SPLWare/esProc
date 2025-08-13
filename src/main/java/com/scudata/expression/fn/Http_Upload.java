@@ -8,7 +8,7 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.HttpUpload;
 
-// httpupload(url:cs,ai:vi,...;fi:fni,...)
+// httpupload(url:cs,ai:vi,...;fi:fni,...;headeri:vi,...)
 public class Http_Upload extends Function {
 	private static HttpUpload createHttpUploader(IParam param, Context ctx) {
 		if (param.isLeaf()) {
@@ -139,13 +139,13 @@ public class Http_Upload extends Function {
 			uploader = createHttpUploader(leftParam, ctx);
 		}
 		
-		IParam rightParam = param.getSub(1);
-		if (rightParam == null) {
+		IParam secondParam = param.getSub(1);
+		if (secondParam == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
-		} else if (rightParam.getType() == IParam.Comma) {
-			for (int i = 0, size = rightParam.getSubSize(); i < size; ++i) {
-				IParam sub = rightParam.getSub(i);
+		} else if (secondParam.getType() == IParam.Comma) {
+			for (int i = 0, size = secondParam.getSubSize(); i < size; ++i) {
+				IParam sub = secondParam.getSub(i);
 				if (sub == null || sub.getSubSize() != 2) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
@@ -154,14 +154,58 @@ public class Http_Upload extends Function {
 				addFile(uploader, sub, ctx);
 			}
 		} else {
-			if (rightParam.getSubSize() != 2) {
+			if (secondParam.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
 			}
 			
-			addFile(uploader, rightParam, ctx);
+			addFile(uploader, secondParam, ctx);
+		}
+		
+		IParam thirdParam = param.getSub(2);
+		if (thirdParam != null) {
+			if( thirdParam.getType() == IParam.Comma) {
+				for (int i = 0, size = thirdParam.getSubSize(); i < size; ++i) {
+					IParam sub = thirdParam.getSub(i);
+					if (sub == null || sub.getSubSize() != 2) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
+					}
+					addHeader(uploader, sub, ctx);
+				}
+			} else {
+				if (thirdParam.getSubSize() != 2) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
+				}
+				
+				addHeader(uploader, thirdParam, ctx);
+			}
 		}
 		
 		return uploader.upload();
+	}
+	
+	private void addHeader( HttpUpload uploader, IParam sub, Context ctx ) {
+		IParam argParam = sub.getSub(0);
+		IParam valParam = sub.getSub(1);
+		if( argParam == null || valParam == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
+		}
+		
+		Object arg = argParam.getLeafExpression().calculate(ctx);
+		if (!(arg instanceof String)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("httpupload" + mm.getMessage("function.paramTypeError"));
+		}
+		
+		Object val = valParam.getLeafExpression().calculate(ctx);
+		if (!(val instanceof String)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("httpupload" + mm.getMessage("function.paramTypeError"));
+		}
+		
+		uploader.setHeader( (String)arg, (String)val );
 	}
 }

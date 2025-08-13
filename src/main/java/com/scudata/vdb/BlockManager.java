@@ -23,7 +23,7 @@ class BlockManager {
 		this.library = library;
 	}
 	
-	// 设置块数量
+	// 设置块数量 
 	private void setBlockCount(int n) {
 		int len = n / 32; // 每个int可以表示32块
 		if (n % 32 != 0) {
