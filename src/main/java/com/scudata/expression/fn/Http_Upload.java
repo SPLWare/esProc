@@ -87,7 +87,7 @@ public class Http_Upload extends Function {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("httpupload" + mm.getMessage("function.missingParam"));
-		} else if (param.getType() != IParam.Semicolon || param.getSubSize() != 2) {
+		} else if (param.getType() != IParam.Semicolon || param.getSubSize() < 2) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
 		}
