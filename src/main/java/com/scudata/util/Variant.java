@@ -773,14 +773,48 @@ public class Variant {
 		//	return ((Comparable)o1).compareTo(o2);
 		
 		if (throwExcept) {
+			String s1 = renderText(o1);
+			String s2 = renderText(o2);
 			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("Variant2.illCompare", o1, o2,
+			throw new RQException(mm.getMessage("Variant2.illCompare", s1, s2,
 					getDataType(o1), getDataType(o2)));
 		} else {
 			return getType(o1) < getType(o2) ? -1 : 1;
 		}
 	}
 
+	private static String renderText(Object val) {
+		if (val == null) {
+			return "null";
+		//} else if (val instanceof Table) {
+		//	return val.toString();
+		} else if (val instanceof Sequence) {
+			Sequence seq = (Sequence)val;
+			int len = seq.length();
+			StringBuffer sb = new StringBuffer();
+			sb.append("[");
+			int min = len > 3 ? 3 : len;
+			
+			for (int i = 1; i <= min; i++) {
+				if (i > 1) {
+					sb.append(",");
+				}
+				
+				Object v = seq.get(i);
+				sb.append(renderText(v));
+			}
+			
+			if (len > 3) {
+				sb.append(", ...");
+			}
+			
+			sb.append("]");
+			return sb.toString();
+		} else {
+			return val.toString();
+		}
+	}
+	
 	/**
 	 * 比较两个对象的大小，不能比较时抛出异常，null当最大处理
 	 * @param o1 左对象
@@ -853,8 +887,10 @@ public class Variant {
 			return ((SerialBytes)o1).compareTo((SerialBytes)o2);
 		}
 		
+		String s1 = renderText(o1);
+		String s2 = renderText(o2);
 		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("Variant2.illCompare", o1, o2,
+		throw new RQException(mm.getMessage("Variant2.illCompare", s1, s2,
 				getDataType(o1), getDataType(o2)));
 	}
 
@@ -940,8 +976,10 @@ public class Variant {
 		}
 
 		if (throwExcept) {
+			String s1 = renderText(o1);
+			String s2 = renderText(o2);
 			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("Variant2.illCompare", o1, o2,
+			throw new RQException(mm.getMessage("Variant2.illCompare", s1, s2,
 					getDataType(o1), getDataType(o2)));
 		} else {
 			return getType(o1) < getType(o2) ? -1 : 1;
@@ -1020,8 +1058,10 @@ public class Variant {
 			return ((SerialBytes)o1).compareTo((SerialBytes)o2);
 		}
 
+		String s1 = renderText(o1);
+		String s2 = renderText(o2);
 		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("Variant2.illCompare", o1, o2,
+		throw new RQException(mm.getMessage("Variant2.illCompare", s1, s2,
 				getDataType(o1), getDataType(o2)));
 	}
 
