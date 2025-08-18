@@ -180,7 +180,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	 * 为记录增加新列
 	 * @param newDs 结果数据结构
 	 */
-	void derive(DataStruct newDs) {
+	public void derive(DataStruct newDs) {
 		Object []vals = new Object[newDs.getFieldCount()];
 		System.arraycopy(values, 0, vals, 0, values.length);
 		this.values = vals;

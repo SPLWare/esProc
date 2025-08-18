@@ -2241,4 +2241,8 @@ public class Table extends Sequence {
 		
 		return this;
 	}
+	
+	public void setDataStruct(DataStruct ds) {
+		this.ds = ds;
+	}
 }
