@@ -51,10 +51,9 @@ class PrimaryJoinItem {
 		keyCount = keyExps.length;
 		keyValues = new Object[keyCount];
 		cacheKeyValues = new Object[keyCount];
-		cacheData();
 	}
 	
-	private void cacheData() {
+	public void cacheData() {
 		data = cursor.fuzzyFetch(ICursor.FETCHCOUNT);
 		if (data != null && data.length() > 0) {
 			ComputeStack stack = ctx.getComputeStack();

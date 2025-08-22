@@ -191,7 +191,7 @@ public class PrimaryJoin extends Operation {
 		newSeqs = new int[tcount];
 		
 		for (int t = 0; t < tcount; ++t) {
-			//keyValues[t] = new Object[keyCount];
+			joinItems[t].cacheData();
 			Expression []curNewExps = newExps[t];
 			newSeqs[t] = fieldList.size();
 			
