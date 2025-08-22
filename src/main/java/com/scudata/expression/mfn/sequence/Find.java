@@ -87,26 +87,42 @@ public class Find extends SequenceFunction {
 		IArray leftArray = left.calculateAll(ctx);
 		if (leftArray instanceof ConstArray) {
 			Object leftValue = ((ConstArray)leftArray).getData();
-			if (leftValue instanceof Sequence && param.isLeaf()) {
+			if (leftValue instanceof Sequence) {
+				int []index;
 				Sequence srcSequence = (Sequence)leftValue;
 				if (prevSequence != srcSequence) {
 					prevSequence = srcSequence;
 					indexTable = srcSequence.newIndexTable();
 				}
 				
-				int []index;
-				Expression exp = param.getLeafExpression();
-				if (exp.getHome() instanceof ValueList) {
-					Expression[] list = ((Function) exp.getHome()).getParamExpressions(null, true);
-					int size = list.length;
+				if (param.isLeaf()) {
+					Expression exp = param.getLeafExpression();
+					if (exp.getHome() instanceof ValueList) {
+						Expression[] list = ((Function) exp.getHome()).getParamExpressions(null, true);
+						int size = list.length;
+						IArray[] arrays = new IArray[size];
+						for (int  i = 0; i < size; i++) {
+							arrays[i] = list[i].calculateAll(ctx);
+						}
+						index = indexTable.findAllPos(arrays);
+					} else {
+						IArray array = exp.calculateAll(ctx);
+						index = indexTable.findAllPos(array);
+					}
+				} else {
+					int size = param.getSubSize();
 					IArray[] arrays = new IArray[size];
 					for (int  i = 0; i < size; i++) {
-						arrays[i] = list[i].calculateAll(ctx);
+						IParam sub = param.getSub(i);
+						if (sub == null || !sub.isLeaf()) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("find" + mm.getMessage("function.invalidParam"));
+						}
+						
+						arrays[i] = sub.getLeafExpression().calculateAll(ctx);
 					}
+					
 					index = indexTable.findAllPos(arrays);
-				} else {
-					IArray array = exp.calculateAll(ctx);
-					index = indexTable.findAllPos(array);
 				}
 				
 				int len = index.length;
@@ -136,7 +152,7 @@ public class Find extends SequenceFunction {
 		IArray leftArray = left.calculateAll(ctx);
 		if (leftArray instanceof ConstArray) {
 			Object leftValue = ((ConstArray)leftArray).getData();
-			if (leftValue instanceof Sequence && param.isLeaf()) {
+			if (leftValue instanceof Sequence) {
 				Sequence srcSequence = (Sequence)leftValue;
 				if (prevSequence != srcSequence) {
 					prevSequence = srcSequence;
@@ -145,18 +161,35 @@ public class Find extends SequenceFunction {
 				
 				BoolArray boolArray = ArrayUtil.booleanValue(signArray, sign);
 				int []index;
-				Expression exp = param.getLeafExpression();
-				if (exp.getHome() instanceof ValueList) {
-					Expression[] list = ((Function) exp.getHome()).getParamExpressions(null, true);
-					int size = list.length;
+				
+				if (param.isLeaf()) {
+					Expression exp = param.getLeafExpression();
+					if (exp.getHome() instanceof ValueList) {
+						Expression[] list = ((Function) exp.getHome()).getParamExpressions(null, true);
+						int size = list.length;
+						IArray[] arrays = new IArray[size];
+						for (int  i = 0; i < size; i++) {
+							arrays[i] = list[i].calculateAll(ctx, boolArray, true);
+						}
+						index = indexTable.findAllPos(arrays, boolArray);
+					} else {
+						IArray array = exp.calculateAll(ctx, boolArray, true);
+						index = indexTable.findAllPos(array, boolArray);
+					}
+				} else {
+					int size = param.getSubSize();
 					IArray[] arrays = new IArray[size];
 					for (int  i = 0; i < size; i++) {
-						arrays[i] = list[i].calculateAll(ctx, boolArray, true);
+						IParam sub = param.getSub(i);
+						if (sub == null || !sub.isLeaf()) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("find" + mm.getMessage("function.invalidParam"));
+						}
+						
+						arrays[i] = sub.getLeafExpression().calculateAll(ctx, boolArray, true);
 					}
-					index = indexTable.findAllPos(arrays);
-				} else {
-					IArray array = exp.calculateAll(ctx, boolArray, true);
-					index = indexTable.findAllPos(array);
+					
+					index = indexTable.findAllPos(arrays, boolArray);
 				}
 				
 				int len = index.length;
@@ -186,7 +219,7 @@ public class Find extends SequenceFunction {
 		IArray leftArray = left.calculateAll(ctx);
 		if (leftArray instanceof ConstArray) {
 			Object leftValue = ((ConstArray)leftArray).getData();
-			if (leftValue instanceof Sequence && param.isLeaf()) {
+			if (leftValue instanceof Sequence) {
 				Sequence srcSequence = (Sequence)leftValue;
 				if (prevSequence != srcSequence) {
 					prevSequence = srcSequence;
@@ -195,18 +228,36 @@ public class Find extends SequenceFunction {
 				
 				BoolArray result = leftResult.isTrue();
 				int []index;
-				Expression exp = param.getLeafExpression();
-				if (exp.getHome() instanceof ValueList) {
-					Expression[] list = ((Function) exp.getHome()).getParamExpressions(null, true);
-					int size = list.length;
+				
+				if (param.isLeaf()) {
+					Expression exp = param.getLeafExpression();
+					if (exp.getHome() instanceof ValueList) {
+						Expression[] list = ((Function) exp.getHome()).getParamExpressions(null, true);
+						int size = list.length;
+						IArray[] arrays = new IArray[size];
+						for (int  i = 0; i < size; i++) {
+							arrays[i] = list[i].calculateAll(ctx, result, true);
+						}
+						
+						index = indexTable.findAllPos(arrays, result);
+					} else {
+						IArray array = exp.calculateAll(ctx, result, true);
+						index = indexTable.findAllPos(array, result);
+					}
+				} else {
+					int size = param.getSubSize();
 					IArray[] arrays = new IArray[size];
 					for (int  i = 0; i < size; i++) {
-						arrays[i] = list[i].calculateAll(ctx, result, true);
+						IParam sub = param.getSub(i);
+						if (sub == null || !sub.isLeaf()) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("find" + mm.getMessage("function.invalidParam"));
+						}
+						
+						arrays[i] = sub.getLeafExpression().calculateAll(ctx, result, true);
 					}
-					index = indexTable.findAllPos(arrays);
-				} else {
-					IArray array = exp.calculateAll(ctx, result, true);
-					index = indexTable.findAllPos(array);
+					
+					index = indexTable.findAllPos(arrays, result);
 				}
 				
 				for (int i = 1, len = index.length; i < len; ++i) {
