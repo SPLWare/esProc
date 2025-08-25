@@ -12,6 +12,7 @@ import java.nio.channels.FileChannel;
 import java.util.List;
 
 import com.scudata.common.IOUtils;
+import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dw.ComTable;
@@ -520,7 +521,10 @@ public class LocalFile implements IFile {
 	 */
 	public boolean move(String dest, String opt) {
 		File file = getFile();
-		if (file == null || !file.exists()) return false;
+		if (file == null || !file.exists()) {
+			Logger.debug("move file error: Source file doesn't exist.");
+			return false;
+		}
 
 		boolean isCover = false, isCopy = false, isMain = false, auto = false;
 		if (opt != null) {
@@ -583,11 +587,17 @@ public class LocalFile implements IFile {
 		}
 		
 		if (!isCover && destFile.exists()) {
+			Logger.debug("move file error: The target file already exists.");
 			return false;
 		}
 
 		File parent = destFile.getParentFile();
-		if (parent != null) parent.mkdirs();
+		if (parent != null) {
+			boolean result = parent.mkdirs();
+			if (!result) {
+				Logger.debug("move file error: mkdirs failed.");
+			}
+		}
 
 		moveCtxFiles(file, destFile, isCopy, auto);
 		
