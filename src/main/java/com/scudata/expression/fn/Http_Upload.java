@@ -162,24 +162,26 @@ public class Http_Upload extends Function {
 			addFile(uploader, secondParam, ctx);
 		}
 		
-		IParam thirdParam = param.getSub(2);
-		if (thirdParam != null) {
-			if( thirdParam.getType() == IParam.Comma) {
-				for (int i = 0, size = thirdParam.getSubSize(); i < size; ++i) {
-					IParam sub = thirdParam.getSub(i);
-					if (sub == null || sub.getSubSize() != 2) {
+		if( param.getSubSize() > 2 ) {
+			IParam thirdParam = param.getSub(2);
+			if (thirdParam != null) {
+				if( thirdParam.getType() == IParam.Comma) {
+					for (int i = 0, size = thirdParam.getSubSize(); i < size; ++i) {
+						IParam sub = thirdParam.getSub(i);
+						if (sub == null || sub.getSubSize() != 2) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
+						}
+						addHeader(uploader, sub, ctx);
+					}
+				} else {
+					if (thirdParam.getSubSize() != 2) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
 					}
-					addHeader(uploader, sub, ctx);
+					
+					addHeader(uploader, thirdParam, ctx);
 				}
-			} else {
-				if (thirdParam.getSubSize() != 2) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
-				}
-				
-				addHeader(uploader, thirdParam, ctx);
 			}
 		}
 		
