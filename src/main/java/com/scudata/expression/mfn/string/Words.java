@@ -50,6 +50,10 @@ public class Words extends StringFunction {
 		return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 	}
 	
+	private static boolean isWord(char c, boolean iopt) {
+		return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (iopt && c == '_');
+	}
+	
 	private static boolean isDigit(char c) {
 		return c >= '0' && c <= '9';
 	}
@@ -65,7 +69,7 @@ public class Words extends StringFunction {
 
 		if (iopt) {
 			for (int i = 0; i < len;) {
-				if (isWord(chars[i])) {
+				if (isWord(chars[i], true)) {
 					int end = i + 1;
 					for (; end < len; ++end) {
 						if (chars[end] == '\'') {
@@ -74,7 +78,7 @@ public class Words extends StringFunction {
 							} else {
 								break;
 							}
-						} else if (!isWord(chars[end]) && !isDigit(chars[end])) {
+						} else if (!isWord(chars[end], true) && !isDigit(chars[end])) {
 							break;
 						}
 					}
@@ -140,7 +144,7 @@ public class Words extends StringFunction {
 
 		if (iopt) {
 			for (int i = 0; i < len;) {
-				if (isWord(chars[i])) {
+				if (isWord(chars[i], true)) {
 					int end = i + 1;
 					for (; end < len; ++end) {
 						if (chars[end] == '\'') {
@@ -149,7 +153,7 @@ public class Words extends StringFunction {
 							} else {
 								break;
 							}
-						} else if (!isWord(chars[end]) && !isDigit(chars[end])) {
+						} else if (!isWord(chars[end], true) && !isDigit(chars[end])) {
 							break;
 						}
 					}
@@ -208,7 +212,7 @@ public class Words extends StringFunction {
 
 		if (iopt) {
 			for (int i = 0; i < len;) {
-				if (isWord(chars[i])) {
+				if (isWord(chars[i], true)) {
 					int end = i + 1;
 					for (; end < len; ++end) {
 						if (chars[end] == '\'') {
@@ -219,7 +223,7 @@ public class Words extends StringFunction {
 							}
 						} else if (end + 1 < len && Character.isHighSurrogate(chars[end])) {
 							++end;
-						} else if (!isWord(chars[end]) && !isDigit(chars[end]) && !isChinese(chars[end])) {
+						} else if (!isWord(chars[end], true) && !isDigit(chars[end]) && !isChinese(chars[end])) {
 							break;
 						}
 					}
@@ -238,7 +242,7 @@ public class Words extends StringFunction {
 					for (; end < len; ++end) {
 						if (end + 1 < len && Character.isHighSurrogate(chars[end])) {
 							++end;
-						} else if (!isWord(chars[end]) && !isDigit(chars[end]) && !isChinese(chars[end])) {
+						} else if (!isWord(chars[end], true) && !isDigit(chars[end]) && !isChinese(chars[end])) {
 							break;
 						}
 					}
@@ -250,7 +254,7 @@ public class Words extends StringFunction {
 					for (; end < len; ++end) {
 						if (end + 1 < len && Character.isHighSurrogate(chars[end])) {
 							++end;
-						} else if (!isWord(chars[end]) && !isDigit(chars[end]) && !isChinese(chars[end])) {
+						} else if (!isWord(chars[end], true) && !isDigit(chars[end]) && !isChinese(chars[end])) {
 							break;
 						}
 					}
@@ -337,7 +341,7 @@ public class Words extends StringFunction {
 
 		if (iopt) {
 			for (int i = 0; i < len;) {
-				if (isWord(chars[i])) {
+				if (isWord(chars[i], true)) {
 					int end = i + 1;
 					for (; end < len; ++end) {
 						if (chars[end] == '\'') {
@@ -346,7 +350,7 @@ public class Words extends StringFunction {
 							} else {
 								break;
 							}
-						} else if (!isWord(chars[end]) && !isDigit(chars[end])) {
+						} else if (!isWord(chars[end], true) && !isDigit(chars[end])) {
 							break;
 						}
 					}
