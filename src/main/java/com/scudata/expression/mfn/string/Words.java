@@ -62,6 +62,30 @@ public class Words extends StringFunction {
 		return UCharacter.hasBinaryProperty(c, UProperty.IDEOGRAPHIC);
 	}
 	
+	// 扫描数字串的结尾，支持科学计数法，start为数字开始位置
+	private static int scanDigitEnd(char []chars, int start, boolean popt) {
+		int len = chars.length;
+		for (int i = start + 1; i < len; ++i) {
+			if (!isDigit(chars[i], popt) && !isWord(chars[i])) {
+				return i;
+			}
+		}
+		
+		return len;
+	}
+	
+	// 扫描数字串的结尾，支持科学计数法，start为数字开始位置
+	private static int scanDigitEnd(char []chars, int start) {
+		int len = chars.length;
+		for (++start; start < len; ++start) {
+			if (!isDigit(chars[start]) && !isWord(chars[start])) {
+				return start;
+			}
+		}
+		
+		return len;
+	}
+	
 	private static Sequence splitWords(String str, boolean iopt) {
 		Sequence series = new Sequence();
 		char []chars = str.toCharArray();
@@ -85,6 +109,8 @@ public class Words extends StringFunction {
 					
 					series.add(new String(chars, i, end - i));
 					i = end + 1;
+				} else if (isDigit(chars[i])) {
+					i = scanDigitEnd(chars, i);
 				} else {
 					++i;
 				}
@@ -107,6 +133,8 @@ public class Words extends StringFunction {
 					
 					series.add(new String(chars, i, end - i));
 					i = end + 1;
+				} else if (isDigit(chars[i])) {
+					i = scanDigitEnd(chars, i);
 				} else {
 					++i;
 				}
@@ -123,10 +151,7 @@ public class Words extends StringFunction {
 
 		for (int i = 0; i < len;) {
 			if (isDigit(chars[i])) {
-				int end = i + 1;
-				for (; end < len && isDigit(chars[end]); ++end) {
-				}
-								
+				int end = scanDigitEnd(chars, i);
 				series.add(new String(chars, i, end - i));
 				i = end + 1;
 			} else {
@@ -161,10 +186,7 @@ public class Words extends StringFunction {
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else if (isDigit(chars[i])) {
-					int end = i + 1;
-					for (; end < len && isDigit(chars[end]); ++end) {
-					}
-									
+					int end = scanDigitEnd(chars, i);
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else {
@@ -190,10 +212,7 @@ public class Words extends StringFunction {
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else if (isDigit(chars[i])) {
-					int end = i + 1;
-					for (; end < len && isDigit(chars[end]); ++end) {
-					}
-									
+					int end = scanDigitEnd(chars, i);
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else {
@@ -231,10 +250,7 @@ public class Words extends StringFunction {
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else if (isDigit(chars[i])) {
-					int end = i + 1;
-					for (; end < len && isDigit(chars[end]); ++end) {
-					}
-									
+					int end = scanDigitEnd(chars, i);
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else if (isChinese(chars[i])) {
@@ -284,10 +300,7 @@ public class Words extends StringFunction {
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else if (isDigit(chars[i])) {
-					int end = i + 1;
-					for (; end < len && isDigit(chars[end]); ++end) {
-					}
-									
+					int end = scanDigitEnd(chars, i);
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else if (isChinese(chars[i])) {
@@ -358,10 +371,7 @@ public class Words extends StringFunction {
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else if (isDigit(chars[i], popt)) {
-					int end = i + 1;
-					for (; end < len && isDigit(chars[end], popt); ++end) {
-					}
-									
+					int end = scanDigitEnd(chars, i, popt);
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else {
@@ -393,10 +403,7 @@ public class Words extends StringFunction {
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else if (isDigit(chars[i], popt)) {
-					int end = i + 1;
-					for (; end < len && isDigit(chars[end], popt); ++end) {
-					}
-									
+					int end = scanDigitEnd(chars, i, popt);
 					series.add(new String(chars, i, end - i));
 					i = end;
 				} else {
