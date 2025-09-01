@@ -2524,7 +2524,11 @@ public class PgmCellSet extends CellSet {
 		int endRow = getFuncEndRow(row, col);
 		if (opt != null && opt.indexOf('i') != -1) {
 			CellLocation oldLct = curLct;
+			LinkedList<CmdCode> oldStack = stack;
+			stack = new LinkedList<CmdCode>(); // 计算堆栈
+			
 			Object result = executeFunc(row, col, endRow, args);
+			stack = oldStack;
 			curLct = oldLct;
 			return result;
 		}
@@ -2628,6 +2632,7 @@ public class PgmCellSet extends CellSet {
 			return pcs.executeFunc(row, col, endRow, null); // args
 		} else {
 			CellLocation oldLct = curLct;
+			LinkedList<CmdCode> oldStack = stack;
 			Context thisCtx = getContext();
 			if (thisCtx != ctx) {
 				thisCtx.setJobSpace(ctx.getJobSpace());
@@ -2640,9 +2645,11 @@ public class PgmCellSet extends CellSet {
 				thisCtx.setParamList(paramList);
 				
 				try {
+					stack = new LinkedList<CmdCode>(); // 计算堆栈
 					return executeFunc(row, col, endRow, null);
 				} finally {
 					curLct = oldLct;
+					stack = oldStack;
 					thisCtx.setParamList(oldParamList);
 					for (int i = 0, count = paramList.count(); i < count; ++i) {
 						paramList.get(i).setDeleted(true);
@@ -2675,13 +2682,17 @@ public class PgmCellSet extends CellSet {
 					//}
 				}
 				
+				stack = new LinkedList<CmdCode>(); // 计算堆栈
 				return executeFunc(row, col, endRow, null);
 			} finally {
 				curLct = oldLct;
+				stack = oldStack;
 				thisCtx.setParamList(oldParamList);
+				
 				for (int i = 0, count = paramList.count(); i < count; ++i) {
 					paramList.get(i).setDeleted(true);
 				}
+				
 				/*for (int i = 0; i < argCount; ++i) {
 					if (params[i] == null) {
 						thisCtx.removeParam(argNames[i]);
