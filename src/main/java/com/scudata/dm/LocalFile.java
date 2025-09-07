@@ -746,15 +746,20 @@ public class LocalFile implements IFile {
 			throw new RQException(e);
 		} finally {
 			IOException ie = null;
-			try {
-				fis.close();
-			} catch (IOException e) {
-				ie = e;
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					ie = e;
+				}
 			}
-			try {
-				fos.close();
-			} catch (IOException e) {
-				ie = e;
+			
+			if (fos != null) {
+				try {
+					fos.close();
+				} catch (IOException e) {
+					ie = e;
+				}
 			}
 			
 			if (ie != null) {
