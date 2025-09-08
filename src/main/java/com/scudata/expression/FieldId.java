@@ -1,5 +1,7 @@
 package com.scudata.expression;
 
+import java.util.List;
+
 import com.scudata.array.BoolArray;
 import com.scudata.array.ConstArray;
 import com.scudata.array.IArray;
@@ -23,12 +25,14 @@ import com.scudata.util.Variant;
  *
  */
 public class FieldId extends Node {
-	private Object src;
+	private String id;
 	private int index;
 
 	private Node left; // 点操作符的左侧节点	
+	private Object src;
 
 	public FieldId(String id) {
+		this.id = id;
 		index = KeyWord.getFiledId(id) - 1;
 		if (index < 0) {
 			MessageManager mm = EngineMessage.get();
@@ -54,6 +58,15 @@ public class FieldId extends Node {
 
 	public int getFieldIndex() {
 		return index;
+	}
+	
+	/**
+	 * 查找表达式中可能用到的字段，可能取得不准确或者包含多个表的
+	 * @param ctx 计算上下文
+	 * @param resultList 输出值，用到的字段名会添加到这里面
+	 */
+	public void getUsedFields(Context ctx, List<String> resultList) {
+		resultList.add(id);
 	}
 	
 	public void setDotLeftObject(Object obj) {
