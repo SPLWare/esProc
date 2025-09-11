@@ -923,7 +923,7 @@ abstract public class ICursor extends Operable implements IResource {
 					return n;
 				} else {
 					cache = null;
-					long count = n + skipOver(n - len);
+					long count = len + skipOver(n - len);
 					if (count < n) {
 						close();
 					}
