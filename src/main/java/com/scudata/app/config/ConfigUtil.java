@@ -702,6 +702,20 @@ public class ConfigUtil {
 	 * @param path
 	 *            Absolute path, or relative path (relative to the home
 	 *            directory), or file name.
+	 * @return
+	 */
+	public static InputStream getInputStream(String home, String path) {
+		return getInputStream(home, path, null);
+	}
+
+	/**
+	 * Get the input stream of the file
+	 * 
+	 * @param home
+	 *            The home path
+	 * @param path
+	 *            Absolute path, or relative path (relative to the home
+	 *            directory), or file name.
 	 * @param app
 	 *            ServletContext
 	 * @return
