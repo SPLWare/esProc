@@ -53,6 +53,8 @@ public class Context {
 		if (parent != null) {
 			this.parent = parent;
 			this.js = parent.js;
+		} else {
+			this.parent = null;
 		}
 	}
 

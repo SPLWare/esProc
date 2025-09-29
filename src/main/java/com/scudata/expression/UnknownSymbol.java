@@ -309,12 +309,12 @@ public class UnknownSymbol extends Node {
 						
 						return value;
 					}
-				} else if (cur instanceof Sequence) {
+				} else if (cur instanceof Sequence && ((Sequence)cur).length() > 0) {
 					// 如果当前元素是序列则取其第一个元素
-					if (((Sequence)cur).length() == 0) {
-						computeItem = item;
-						return value;
-					}
+					//if (((Sequence)cur).length() == 0) {
+					//	computeItem = item;
+					//	return value;
+					//}
 
 					cur = ((Sequence)cur).get(1);
 					if (cur instanceof BaseRecord) {
@@ -428,12 +428,12 @@ public class UnknownSymbol extends Node {
 						r.setNormalFieldValue(col, result);
 						return result;
 					}
-				} else if (cur instanceof Sequence) {
+				} else if (cur instanceof Sequence && ((Sequence)cur).length() > 0) {
 					// 如果当前元素是序列则取其第一个元素
-					if (((Sequence)cur).length() == 0) {
-						computeItem = item;
-						return value;
-					}
+					//if (((Sequence)cur).length() == 0) {
+					//	computeItem = item;
+					//	return value;
+					//}
 
 					cur = ((Sequence)cur).get(1);
 					if (cur instanceof BaseRecord) {
