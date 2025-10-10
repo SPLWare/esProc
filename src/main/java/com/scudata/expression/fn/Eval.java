@@ -46,7 +46,9 @@ public class Eval extends Function {
 		Sequence arg = null;
 		if (param.isLeaf()) {
 			expStr = param.getLeafExpression().calculate(ctx);
-			if (!(expStr instanceof String)) {
+			if (expStr == null) {
+				return null;
+			} else if (!(expStr instanceof String)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("eval" + mm.getMessage("function.paramTypeError"));
 			}
@@ -59,7 +61,9 @@ public class Eval extends Function {
 			}
 			
 			expStr = sub.getLeafExpression().calculate(ctx);
-			if (!(expStr instanceof String)) {
+			if (expStr == null) {
+				return null;
+			} else if (!(expStr instanceof String)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("eval" + mm.getMessage("function.paramTypeError"));
 			}
