@@ -362,4 +362,12 @@ public class ForeignJoin extends Operation {
 		result.setMems(mems);
 		return result;
 	}
+
+	public Expression[] getDimExps() {
+		return dimExps;
+	}
+
+	public boolean isIsect() {
+		return isIsect;
+	}
 }
