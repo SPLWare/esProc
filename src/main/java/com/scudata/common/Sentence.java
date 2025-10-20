@@ -352,6 +352,7 @@ public final class Sentence {
 
 	/**
 	 * 扫描中文括号匹配，包含（、【、《、<
+	 * 
 	 * @param str
 	 * @param start
 	 * @return
@@ -392,10 +393,10 @@ public final class Sentence {
 				i++;
 			}
 		}
-		
+
 		return -1;
 	}
-	
+
 	/**
 	 * 将原串中的空白字符删除,并根据ifcase参数将原串中的非引号内字符大写,小写或不动
 	 * 
@@ -880,15 +881,6 @@ public final class Sentence {
 				preChar = ch;
 				continue;
 			}
-			if ((flag & IGNORE_PARS) == 0 && (ch == '\"' || ch == '\'')
-					&& ((i > 0 && str.charAt(i - 1) != '\\') || i == 0)) {
-				i = scanQuotation(str, i, escapeChar);
-				if (i < 0)
-					return -1;
-				i++;
-				preChar = ch;
-				continue;
-			}
 			if ((flag & IGNORE_PARS) == 0 && ch == '(') {
 				i = scanParenthesis(str, i, escapeChar);
 				if (i < 0)
@@ -920,17 +912,20 @@ public final class Sentence {
 		}
 		return -1;
 	}
-	
+
 	/**
 	 * 从后往前查找字符串，做引号、括号匹配
-	 * @param src 源串
-	 * @param find 要查找的串
+	 * 
+	 * @param src
+	 *            源串
+	 * @param find
+	 *            要查找的串
 	 * @return 找不到返回-1
 	 */
 	public static int lastIndexOf(String src, String find) {
 		int end = src.length() - 1;
 		int findLen = find.length();
-		
+
 		if (findLen == 1) {
 			char tc = find.charAt(0);
 			while (end >= 0) {
@@ -941,7 +936,8 @@ public final class Sentence {
 					} else {
 						return end;
 					}
-				} else if (c == '"' || c == '\'' || c == ')' || c == ']' || c == '}' || c == '\\') {
+				} else if (c == '"' || c == '\'' || c == ')' || c == ']'
+						|| c == '}' || c == '\\') {
 					// 从头开始找匹配
 					break;
 				} else {
@@ -949,7 +945,7 @@ public final class Sentence {
 				}
 			}
 		}
-		
+
 		int pos = -1;
 		int i = 0;
 		while (i <= end) {
@@ -1003,72 +999,72 @@ public final class Sentence {
 
 		return pos;
 	}
-	
+
 	public static boolean isWordChar(char ch) {
 		return Character.isJavaIdentifierStart(ch)
 				|| Character.isJavaIdentifierPart(ch);
 	}
-	
-	//查找下一个\r或\n的位置，未找到返回长度
+
+	// 查找下一个\r或\n的位置，未找到返回长度
 	private static int scanCRLF(String str, int start) {
 		int len = str.length();
-		while(start<len){
+		while (start < len) {
 			char ch = str.charAt(start);
-			if(ch=='\r' || ch=='\n') 
+			if (ch == '\r' || ch == '\n')
 				return start;
 			start++;
 		}
 		return len;
 	}
-	
-	//查找*/的位置，未找到返回长度
+
+	// 查找*/的位置，未找到返回长度
 	private static int scanCommentEnd(String str, int start) {
 		int len = str.length();
-		while(start<len) {
+		while (start < len) {
 			char ch = str.charAt(start);
-			if(ch=='*' && start<len-1 && str.charAt(start+1)=='/')
+			if (ch == '*' && start < len - 1 && str.charAt(start + 1) == '/')
 				return start;
 			start++;
 		}
 		return len;
 	}
-	
+
 	/**
-	 * 删除串中java风格的行注释和段落注释 
+	 * 删除串中java风格的行注释和段落注释
 	 */
-	public static String removeComment(String str){
-		int idx=0, len=str.length();
+	public static String removeComment(String str) {
+		int idx = 0, len = str.length();
 		StringBuffer buf = new StringBuffer(len);
-		while(idx<len){
+		while (idx < len) {
 			char ch = str.charAt(idx);
 			if (ch == '\'' || ch == '\"') {
 				int tmp = Sentence.scanQuotation(str, idx);
-				if(tmp<0) {
+				if (tmp < 0) {
 					buf.append(str.substring(idx));
 					break;
-				}else{
-					buf.append(str.substring(idx, tmp+1));
-					idx=tmp+1;
+				} else {
+					buf.append(str.substring(idx, tmp + 1));
+					idx = tmp + 1;
 				}
-			}else if(ch == '/') {
-				if(idx==len-1){
+			} else if (ch == '/') {
+				if (idx == len - 1) {
 					buf.append('/');
 					break;
 				}
-				char ch2 = str.charAt(idx+1);
-				if(ch2=='/') {
-					idx = scanCRLF(str, idx+2);  //位置不加，后续回车换行需输出
-				}else if(ch2=='*'){
-					idx = scanCommentEnd(str, idx+2)+2;
-				}else{
+				char ch2 = str.charAt(idx + 1);
+				if (ch2 == '/') {
+					idx = scanCRLF(str, idx + 2); // 位置不加，后续回车换行需输出
+				} else if (ch2 == '*') {
+					idx = scanCommentEnd(str, idx + 2) + 2;
+				} else {
 					buf.append('/');
 					idx++;
 				}
-			}else{
+			} else {
 				buf.append(ch);
 				idx++;
 			}
-			
+
 		}
 		return buf.toString();
 	}
@@ -1077,16 +1073,17 @@ public final class Sentence {
 	private char escapeChar = '\\';
 
 	public static void main(String[] args) throws Exception {
-		StringBuffer buf = new StringBuffer(); 
+		StringBuffer buf = new StringBuffer();
 		BufferedReader br = new BufferedReader(new FileReader("d:\\1.txt"));
-		while(true){
+		while (true) {
 			String line = br.readLine();
-			if(line==null) break;
+			if (line == null)
+				break;
 			buf.append(line).append("\r\n");
 		}
 		br.close();
 		String s = removeComment(buf.toString());
-		System.out.println( s );
-		System.out.println( "..." + System.getProperty("line.separator"));
+		System.out.println(s);
+		System.out.println("..." + System.getProperty("line.separator"));
 	}
 }
