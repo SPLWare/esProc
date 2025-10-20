@@ -609,7 +609,7 @@ public class ScudataLogger {
 			}
 			if(!bufFiles.contains(filePath)) {
 				if(!Logger.isUseSLF4J()) {//使用框架时，设置的日志配置便用不上了
-					System.err.println("esProc is using log file:\r\n" + filePath + "\r\n");
+					System.err.println("The current log file:\r\n" + filePath + "\r\n");
 				}
 				
 				bufFiles.add(filePath);
