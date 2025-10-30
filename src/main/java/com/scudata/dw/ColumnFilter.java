@@ -20,6 +20,21 @@ public class ColumnFilter extends IFilter {
 		super(column, priority);
 		this.operator = operator;
 		this.rightValue = rightValue;
+		
+		//对有String字典列的等于做优化
+		if ((operator == EQUAL || operator == NOT_EQUAL) && rightValue != null) {
+			Object obj = column.getDictArray();
+			if (obj instanceof String[]) {
+				String[] arr = (String[]) obj;
+				String str = (String) rightValue;
+				for (int i = 0, len = arr.length; i < len; i++) {
+					if (str.equals(arr[i])) {
+						this.rightValue = arr[i];
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 	public ColumnFilter(String column, int priority, int operator, Object rightValue) {

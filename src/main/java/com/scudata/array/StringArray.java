@@ -34,6 +34,17 @@ public class StringArray implements IArray {
 		this.datas = datas;
 		this.size = size;
 	}
+	
+	public static boolean isEquals(String d1, String d2) {
+		if (d1 == d2) {
+			return true;
+		} else {
+			if (d1 == null) return false;
+			if (d2 == null) return false;
+			return (d1).equals(d2);
+		}
+		
+	}
 
 	public static int compare(String d1, String d2) {
 		if (d1 == null) {
@@ -1878,7 +1889,7 @@ public class StringArray implements IArray {
 		if (relation == Relation.EQUAL) {
 			// 是否等于判断
 			for (int i = 1; i <= size; ++i) {
-				resultDatas[i] = compare(d1[i], value) == 0;
+				resultDatas[i] = isEquals(d1[i], value);
 			}
 		} else if (relation == Relation.GREATER) {
 			// 是否大于判断
