@@ -297,7 +297,11 @@ public class LocalFile implements IFile {
 	public OutputStream getOutputStream(boolean isAppend) {
 		try {
 			File file = getFileForWrite();
-			file.getParentFile().mkdirs();
+			File parentFile = file.getParentFile();
+			if (parentFile != null) {
+				parentFile.mkdirs();
+			}
+			
 			return new FileOutputStream(file, isAppend);
 		} catch (FileNotFoundException e) {
 			throw new RQException(e.getMessage(), e);
