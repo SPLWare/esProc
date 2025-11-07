@@ -14,8 +14,9 @@ import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
 
 /**
- * substr(s1,s2) 在字符串s1中，从左边第1个字符开始查找字符串s2，找到后返回s2位置后面的串。当s2后面无字符串时返回空
+ * substr(s1,s2,n)	在s1中找第n个s2，返回s1中s2后面的字串，找不到返回空，n缺省1
  * @l	返回s2前面的字串
+ * @z   从后往前找
  * @c	大小写不敏感
  * @q	引号里的不算
  * @author runqian
@@ -24,6 +25,7 @@ import com.scudata.resources.EngineMessage;
 public class SubString extends Function {
 	private Expression exp1;
 	private Expression exp2;
+	private Expression exp3;
 	
 	/**
 	 * 检查表达式的有效性，无效则抛出异常
@@ -32,7 +34,10 @@ public class SubString extends Function {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("substr" + mm.getMessage("function.missingParam"));
-		} else if (param.getSubSize() != 2) {
+		}
+		
+		int size = param.getSubSize();
+		if (size < 2 || size > 3) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("substr" + mm.getMessage("function.invalidParam"));
 		}
@@ -46,6 +51,15 @@ public class SubString extends Function {
 		
 		exp1 = sub1.getLeafExpression();
 		exp2 = sub2.getLeafExpression();
+		if (size > 2) {
+			IParam sub3 = param.getSub(2);
+			if (sub3 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("substr" + mm.getMessage("function.invalidParam"));
+			}
+			
+			exp3 = sub3.getLeafExpression();
+		}
 	}
 
 	public Object calculate(Context ctx) {
@@ -63,7 +77,24 @@ public class SubString extends Function {
 			throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
 		}
 		
-		return subString((String)o1, (String)o2, option);
+		if (exp3 == null) {
+			return subString((String)o1, (String)o2, option);
+		} else {
+			Object o3 = exp3.calculate(ctx);
+			int n = 1;
+			if (o3 instanceof Number) {
+				n = ((Number)o3).intValue();
+				if (n < 1) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("substr" + mm.getMessage("function.invalidParam"));
+				}
+			} else if (o3 != null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+			}
+			
+			return subString((String)o1, (String)o2, n, option);
+		}
 	}
 	
 	/**
@@ -76,7 +107,104 @@ public class SubString extends Function {
 		IArray array2 = exp2.calculateAll(ctx);
 		int size = array1.size();
 		
-		if (array2 instanceof ConstArray) {
+		if (exp3 != null) {
+			IArray array3 = exp3.calculateAll(ctx);
+			if (array2 instanceof ConstArray) {
+				Object obj = array2.get(1);
+				if (!(obj instanceof String)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				String str = (String)obj;
+				if (array1 instanceof ConstArray) {
+					obj = array1.get(1);
+					int n = array3.getInt(1);
+					String value = null;
+					
+					if (obj instanceof String) {
+						value = subString((String)obj, str, n, option);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					return new ConstArray(value, size);
+				}
+				
+				StringArray result = new StringArray(size);
+				result.setTemporary(true);
+				if (array1 instanceof StringArray) {
+					StringArray stringArray = (StringArray)array1;
+					for (int i = 1; i <= size; ++i) {
+						String src = stringArray.getString(i);
+						if (src != null) {
+							int n = array3.getInt(i);
+							result.push(subString(src, str, n, option));
+						} else {
+							result.push(null);
+						}
+					}
+				} else {
+					for (int i = 1; i <= size; ++i) {
+						obj = array1.get(i);
+						if (obj instanceof String) {
+							int n = array3.getInt(i);
+							result.push(subString((String)obj, str, n, option));
+						} else if (obj == null) {
+							result.push(null);
+						} else {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+						}
+					}
+				}
+				
+				return result;
+			} else {
+				StringArray result = new StringArray(size);
+				result.setTemporary(true);
+				if (array1 instanceof StringArray) {
+					StringArray stringArray = (StringArray)array1;
+					for (int i = 1; i <= size; ++i) {
+						Object obj = array2.get(i);
+						if (!(obj instanceof String)) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						String src = stringArray.getString(i);
+						if (src != null) {
+							int n = array3.getInt(i);
+							result.push(subString(src, (String)obj, n, option));
+						} else {
+							result.push(null);
+						}
+					}
+				} else {
+					for (int i = 1; i <= size; ++i) {
+						Object obj = array2.get(i);
+						if (!(obj instanceof String)) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						Object src = array1.get(i);
+						if (src instanceof String) {
+							int n = array3.getInt(i);
+							result.push(subString((String)src, (String)obj, n, option));
+						} else if (src == null) {
+							result.push(null);
+						} else {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+						}
+					}
+				}
+				
+				return result;
+			}
+		} else if (array2 instanceof ConstArray) {
 			Object obj = array2.get(1);
 			if (!(obj instanceof String)) {
 				MessageManager mm = EngineMessage.get();
@@ -187,7 +315,124 @@ public class SubString extends Function {
 			signDatas = signArray.isFalse().getDatas();
 		}
 		
-		if (array2 instanceof ConstArray) {
+		if (exp3 != null) {
+			IArray array3 = exp3.calculateAll(ctx);
+			if (array2 instanceof ConstArray) {
+				Object obj = array2.get(1);
+				if (!(obj instanceof String)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				String str = (String)obj;
+				if (array1 instanceof ConstArray) {
+					obj = array1.get(1);
+					int n = array3.getInt(1);
+					String value = null;
+					
+					if (obj instanceof String) {
+						value = subString((String)obj, str, n, option);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					return new ConstArray(value, size);
+				}
+				
+				StringArray result = new StringArray(size);
+				result.setTemporary(true);
+				if (array1 instanceof StringArray) {
+					StringArray stringArray = (StringArray)array1;
+					for (int i = 1; i <= size; ++i) {
+						if (signDatas[i] == false) {
+							result.pushNull();
+							continue;
+						}
+						
+						String src = stringArray.getString(i);
+						if (src != null) {
+							int n = array3.getInt(1);
+							result.push(subString(src, str, n, option));
+						} else {
+							result.push(null);
+						}
+					}
+				} else {
+					for (int i = 1; i <= size; ++i) {
+						if (signDatas[i] == false) {
+							result.pushNull();
+							continue;
+						}
+						
+						obj = array1.get(i);
+						if (obj instanceof String) {
+							int n = array3.getInt(1);
+							result.push(subString((String)obj, str, n, option));
+						} else if (obj == null) {
+							result.push(null);
+						} else {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+						}
+					}
+				}
+				
+				return result;
+			} else {
+				StringArray result = new StringArray(size);
+				result.setTemporary(true);
+				if (array1 instanceof StringArray) {
+					StringArray stringArray = (StringArray)array1;
+					for (int i = 1; i <= size; ++i) {
+						if (signDatas[i] == false) {
+							result.pushNull();
+							continue;
+						}
+						
+						Object obj = array2.get(i);
+						if (!(obj instanceof String)) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						String src = stringArray.getString(i);
+						if (src != null) {
+							int n = array3.getInt(1);
+							result.push(subString(src, (String)obj, n, option));
+						} else {
+							result.push(null);
+						}
+					}
+				} else {
+					for (int i = 1; i <= size; ++i) {
+						if (signDatas[i] == false) {
+							result.pushNull();
+							continue;
+						}
+						
+						Object obj = array2.get(i);
+						if (!(obj instanceof String)) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						Object src = array1.get(i);
+						if (src instanceof String) {
+							int n = array3.getInt(1);
+							result.push(subString((String)src, (String)obj, n, option));
+						} else if (src == null) {
+							result.push(null);
+						} else {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("substr" + mm.getMessage("function.paramTypeError"));
+						}
+					}
+				}
+				
+				return result;
+			}
+		} else if (array2 instanceof ConstArray) {
 			Object obj = array2.get(1);
 			if (!(obj instanceof String)) {
 				MessageManager mm = EngineMessage.get();
@@ -300,14 +545,28 @@ public class SubString extends Function {
 	}
 
 	private static String subString(String src, String str, String option) {
-		boolean isRight = true, ignoreCase = false, containQuotation = true;
+		boolean isRight = true, ignoreCase = false, containQuotation = true, isLast = false;
 		if (option != null) {
 			if (option.indexOf('l') != -1) isRight = false;
+			if (option.indexOf('z') != -1) isLast = true;
 			if (option.indexOf('c') != -1) ignoreCase = true;
 			if (option.indexOf('q') != -1) containQuotation = false;
 		}
 		
-		if (containQuotation) {
+		if (isLast) {
+			int lastPos = src.length() - 1;
+			int index = StringUtils.lastIndexOf(src, str, lastPos, ignoreCase, !containQuotation);
+			
+			if (index != -1) {
+				if (isRight) {
+					return src.substring(index + str.length());
+				} else {
+					return src.substring(0, index);
+				}
+			} else {
+				return null;
+			}
+		} else if (containQuotation) {
 			int index;
 			if (ignoreCase) {
 				index = StringUtils.indexOfIgnoreCase(src, str, 0);
@@ -358,6 +617,129 @@ public class SubString extends Function {
 						return src.substring(index + str.length());
 					} else {
 						return src.substring(0, index);
+					}
+				}
+			}
+		}
+	}
+	
+	private static String subString(String src, String str, int n, String option) {
+		if (n == 1) {
+			return subString(src, str, option);
+		}
+		
+		boolean isRight = true, ignoreCase = false, containQuotation = true, isLast = false;
+		if (option != null) {
+			if (option.indexOf('l') != -1) isRight = false;
+			if (option.indexOf('z') != -1) isLast = true;
+			if (option.indexOf('c') != -1) ignoreCase = true;
+			if (option.indexOf('q') != -1) containQuotation = false;
+		}
+		
+		if (isLast) {
+			int lastPos = src.length() - 1;
+			int index;
+			while (true) {
+				n--;
+				index = StringUtils.lastIndexOf(src, str, lastPos, ignoreCase, !containQuotation);
+				
+				if (n == 0) {
+					break;
+				} else if (index < 0) {
+					break;
+				} else if (index == 0) {
+					index = -1;
+					break;
+				} else {
+					lastPos = index - 1;
+				}
+			}
+			
+			if (index != -1) {
+				if (isRight) {
+					return src.substring(index + str.length());
+				} else {
+					return src.substring(0, index);
+				}
+			} else {
+				return null;
+			}
+		} else if (containQuotation) {
+			int pos = 0;
+			int index;
+			while (true) {
+				n--;
+				if (ignoreCase) {
+					index = StringUtils.indexOfIgnoreCase(src, str, pos);
+				} else {
+					index = src.indexOf(str, pos);
+				}
+				
+				if (n == 0) {
+					break;
+				} else if (index < 0) {
+					break;
+				} else if (index == 0) {
+					index = -1;
+					break;
+				} else {
+					pos = index + 1;
+				}
+			}
+			
+			if (index != -1) {
+				if (isRight) {
+					return src.substring(index + str.length());
+				} else {
+					return src.substring(0, index);
+				}
+			} else {
+				return null;
+			}
+		} else {
+			int i = 0;
+			while (true) {
+				int index;
+				if (ignoreCase) {
+					index = StringUtils.indexOfIgnoreCase(src, str, i);
+				} else {
+					index = src.indexOf(str, i);
+				}
+				
+				if (index == -1) {
+					return null;
+				}
+				
+				int q = src.indexOf('"', i);
+				if (q < 0) {
+					q = src.indexOf('\'', i);
+					if (q < 0) {
+						n--;
+						if (n == 0) {
+							if (isRight) {
+								return src.substring(index + str.length());
+							} else {
+								return src.substring(0, index);
+							}
+						} else {
+							i = index + 1;
+						}
+					}
+				}
+				
+				int match = Sentence.scanQuotation(src, q);
+				if (match > 0 && q <= index && match >= index) {
+					i = match + 1;
+				} else {
+					n--;
+					if (n == 0) {
+						if (isRight) {
+							return src.substring(index + str.length());
+						} else {
+							return src.substring(0, index);
+						}
+					} else {
+						i = index + 1;
 					}
 				}
 			}

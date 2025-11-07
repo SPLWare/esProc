@@ -1704,7 +1704,7 @@ public class StringUtils {
 		}
 	}
 	
-	private static int lastIndexOf(String source, String target, int fromIndex, 
+	public static int lastIndexOf(String source, String target, int fromIndex, 
 			boolean ignoreCase, boolean skipQuotation) {
 		if (fromIndex < 0) {
 			return -1;
