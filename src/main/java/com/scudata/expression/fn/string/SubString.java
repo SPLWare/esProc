@@ -84,7 +84,7 @@ public class SubString extends Function {
 			int n = 1;
 			if (o3 instanceof Number) {
 				n = ((Number)o3).intValue();
-				if (n < 1) {
+				if (n < 0) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("substr" + mm.getMessage("function.invalidParam"));
 				}
@@ -636,6 +636,22 @@ public class SubString extends Function {
 			if (option.indexOf('q') != -1) containQuotation = false;
 		}
 		
+		if (n == 0) {
+			if (isLast) {
+				if (isRight) {
+					return null;
+				} else {
+					return src;
+				}
+			} else {
+				if (isRight) {
+					return src;
+				} else {
+					return null;
+				}
+			}
+		}
+		
 		if (isLast) {
 			int lastPos = src.length() - 1;
 			int index;
@@ -678,9 +694,6 @@ public class SubString extends Function {
 				if (n == 0) {
 					break;
 				} else if (index < 0) {
-					break;
-				} else if (index == 0) {
-					index = -1;
 					break;
 				} else {
 					pos = index + 1;
