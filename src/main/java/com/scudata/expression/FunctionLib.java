@@ -669,8 +669,7 @@ public final class FunctionLib {
 		addFunction("month", "com.scudata.expression.fn.datetime.Month");
 		addFunction("now", "com.scudata.expression.fn.datetime.Now");
 		addFunction("second", "com.scudata.expression.fn.datetime.Second");
-		addFunction("millisecond",
-				"com.scudata.expression.fn.datetime.Millisecond");
+		addFunction("millisecond", "com.scudata.expression.fn.datetime.Millisecond");
 		addFunction("date", "com.scudata.expression.fn.datetime.ToDate");
 		addFunction("time", "com.scudata.expression.fn.datetime.ToTime");
 		addFunction("year", "com.scudata.expression.fn.datetime.Year");
@@ -682,6 +681,10 @@ public final class FunctionLib {
 		addFunction("deq", "com.scudata.expression.fn.datetime.DateEqual");
 		addFunction("workday", "com.scudata.expression.fn.datetime.WorkDay");
 		addFunction("workdays", "com.scudata.expression.fn.datetime.WorkDays");
+		addFunction("itx", "com.scudata.expression.fn.datetime.ITX");
+		addFunction("addx", "com.scudata.expression.fn.datetime.Addx");
+		addFunction("subx", "com.scudata.expression.fn.datetime.Subx");
+		addFunction("cmpx", "com.scudata.expression.fn.datetime.Cmpx");
 
 		// 数学函数
 		addFunction("abs", "com.scudata.expression.fn.math.Abs");

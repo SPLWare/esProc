@@ -42,12 +42,16 @@ public class Variant {
 	private static final int []DAYS = new int[] {31,28,31,30,31,30,31,31,30,31,30,31};
 	private static final int []LEEPYEARDAYS = new int[] {31,29,31,30,31,30,31,31,30,31,30,31};
 	
-	static final long BASEDATE; // 1992年之前有的日期不能被86400000整除
+	private static final long BASEDATE; // 1992年之前有的日期不能被86400000整除
 	static {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2000, java.util.Calendar.JANUARY, 1, 0, 0, 0);
 		calendar.set(java.util.Calendar.MILLISECOND, 0);
 		BASEDATE = calendar.getTimeInMillis();
+	}
+
+	public static long getBaseDate() {
+		return BASEDATE;
 	}
 
 	/**
