@@ -1563,7 +1563,11 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 					+ AppConsts.SPL_FILE_EXTS;
 			String[] exts = str.split(",");
 			for (String ext : exts) {
-				if (tableNamePattern.toLowerCase().endsWith("." + ext)) {
+				if (ext.equalsIgnoreCase(tableNamePattern)) {
+					tableNamePattern = schemaPattern + "." + tableNamePattern;
+					break;
+				} else if (tableNamePattern != null
+						&& tableNamePattern.toLowerCase().endsWith("." + ext)) {
 					tableNamePattern = schemaPattern + "." + tableNamePattern;
 					break;
 				}
