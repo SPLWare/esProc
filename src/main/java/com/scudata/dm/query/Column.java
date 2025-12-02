@@ -79,6 +79,17 @@ class Column {
 	public void getResultField(List<String> nameList) {
 		if (exp != null) {
 			nameList.add(aliasName);
+		} else if (tableName == null) {
+			ArrayList<QueryBody> tableList = new ArrayList<QueryBody>();
+			select.getFrom().getAllJoinTables(tableList);
+			
+			for (QueryBody table : tableList) {
+				DataStruct ds = table.getDataStruct();
+				String []names = ds.getFieldNames();
+				for (String name : names) {
+					nameList.add(name);
+				}
+			}
 		} else {
 			QueryBody table = select.getFromTable(tableName);
 			if (table == null) {
