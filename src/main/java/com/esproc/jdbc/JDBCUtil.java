@@ -952,6 +952,11 @@ public class JDBCUtil {
 		return pattern;
 	}
 
+	// getColumns()时每次换存多少行
+	private static final int GET_COLUMNS_BUFF = 1000;
+	// getColumns()时最多取多少次
+	private static final int GET_COLUMNS_TIME = 100;
+
 	/**
 	 * Get column names based on pattern
 	 * 
@@ -967,11 +972,11 @@ public class JDBCUtil {
 		Iterator<String> iter = map.keySet().iterator();
 		Table t = new Table(new String[] { JDBCConsts.TABLE_NAME,
 				JDBCConsts.COLUMN_NAME, JDBCConsts.DATA_TYPE });
-
+		final int COL_DATA_TYPE = 2;
 		Pattern columnPattern = JDBCUtil.getPattern(columnNamePattern, null);
 
 		DataStruct ds;
-		Sequence data = null;
+		Sequence data;
 		while (iter.hasNext()) {
 			String key = iter.next().toString();
 			String name = map.get(key).toString();
@@ -981,48 +986,83 @@ public class JDBCUtil {
 			try {
 				cursor = ss.query();
 				ds = ss.getDataStruct();
-				data = cursor.fetch(10);
 			} catch (Exception e) {
 				throw new SQLException(JDBCMessage.get().getMessage(
 						"jdbcutil.dserror", name)
 						+ e.getMessage(), e);
+			}
+			try {
+				if (ds != null) {
+					Map<String, Integer> colTypes = new HashMap<String, Integer>();
+					data = cursor.fetch(1); // 跳过标题行
+
+					Vector<String> fieldNames = new Vector<String>();
+					Vector<String> totalFieldNames = new Vector<String>();
+					String colName;
+					for (int i = 0; i < ds.getFieldCount(); i++) {
+						colName = ds.getFieldName(i);
+						fieldNames.add(colName);
+						totalFieldNames.add(colName);
+						t.newLast(new Object[] { name, colName,
+								com.scudata.common.Types.DT_STRING });
+					}
+					if (data != null) {
+						data = cursor.fetch(GET_COLUMNS_BUFF);
+					}
+					Vector<String> finishFieldNames;
+					int times = 0;
+					while (data != null) {
+						times++;
+						finishFieldNames = new Vector<String>();
+						for (String fname : fieldNames) {
+							if (columnPattern != null) {
+								Matcher m = columnPattern.matcher(fname);
+								if (!m.matches()) {
+									continue;
+								}
+							}
+
+							int colType = Types.NULL;
+							if (colTypes != null) { // 从配置中读取类型
+								Integer tmp = colTypes.get(fname);
+								if (tmp != null)
+									colType = tmp;
+							}
+							if (colType == Types.NULL) { // 从数据中读取类型
+								if (data != null) {
+									Sequence colData = data.fieldValues(fname);
+									for (int j = 1, len = colData.length(); j <= len; j++) {
+										Object o = colData.get(j);
+										if (o != null) {
+											colType = getType(o, colType);
+											break;
+										}
+									}
+								}
+							}
+							if (colType != Types.NULL) {
+								colType = com.scudata.common.Types
+										.getTypeBySQLType(colType);
+								// 更新类型
+								int fIndex = totalFieldNames.indexOf(fname);
+								BaseRecord record = t.getRecord(fIndex + 1);
+								record.setNormalFieldValue(COL_DATA_TYPE,
+										colType);
+								// 取到类型的就标记成完成
+								finishFieldNames.add(fname);
+							}
+						}
+						fieldNames.removeAll(finishFieldNames);
+						if (fieldNames.isEmpty())
+							break;
+						if (times >= GET_COLUMNS_TIME)
+							break;
+						data = cursor.fetch(GET_COLUMNS_BUFF);
+					}
+				}
 			} finally {
 				if (cursor != null)
 					cursor.close();
-			}
-			if (ds != null) {
-				Map<String, Integer> colTypes = new HashMap<String, Integer>();
-				for (int i = 0; i < ds.getFieldCount(); i++) {
-					String fname = ds.getFieldName(i);
-					if (columnPattern != null) {
-						Matcher m = columnPattern.matcher(fname);
-						if (!m.matches()) {
-							continue;
-						}
-					}
-
-					int colType = Types.NULL;
-					if (colTypes != null) {
-						Integer tmp = colTypes.get(fname);
-						if (tmp != null)
-							colType = tmp;
-					}
-					if (colType == Types.NULL) {
-						if (data != null) {
-							Sequence colData = data.fieldValues(fname);
-							for (int j = 2, len = colData.length(); j <= len; j++) {
-								Object o = colData.get(j);
-								if (o != null) {
-									colType = getType(o, colType);
-									break;
-								}
-							}
-						}
-					}
-					colType = com.scudata.common.Types
-							.getTypeBySQLType(colType);
-					t.newLast(new Object[] { name, fname, colType });
-				}
 			}
 		}
 		return t;

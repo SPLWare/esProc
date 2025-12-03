@@ -242,7 +242,7 @@ public class Types {
 		case java.sql.Types.LONGVARBINARY:
 		  return DT_BYTE_SERIES;
 	  }
-	  return DT_STRING;
+	  return DT_DEFAULT;
 	}
 
 	public static boolean isNumberType( byte type){
