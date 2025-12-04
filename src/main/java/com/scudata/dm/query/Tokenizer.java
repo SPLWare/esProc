@@ -43,6 +43,7 @@ public final class Tokenizer {
 	private final static String[] OPKEYWORDS = {"AND", "OR", "LIKE", "NOT"};
 
 	// "BETWEEN","ROWS","CASE","INNER","END","ONLY", "OUTER",
+	// 2025/12/3增加类型保留字，用于case函数
 	private final static String[] KEYWORDS = {
 		"ALL","AND","AS","ASC","AT",
 		"BETWEEN","BOTTOM","BY",
@@ -64,7 +65,8 @@ public final class Tokenizer {
 		"THEN","TO","TOP","TABLE","TEMPORARY","TEMP",
 		"UPDATE","UNION",
 		"VALUES",
-		"WHEN","WHERE","WITH"
+		"WHEN","WHERE","WITH",
+		"INT", "DECIMAL", "FLOAT", "DOUBLE", "VARCHAR", "DATE", "DATETIME", "BOOLEAN"
 	};
 
 	// 查找合并关键字
