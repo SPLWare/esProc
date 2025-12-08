@@ -43,6 +43,16 @@ class Column {
 	}
 
 	public String getAliasName() {
+		if (aliasName == null || aliasName.length() == 0) {
+			return null;
+		} else if (aliasName.charAt(0) == '"') {
+			// 双引号变成单引号
+			int last = aliasName.length() - 1;
+			if (last > 0 && aliasName.charAt(last) == '"') {
+				return aliasName.substring(1, last);
+			}
+		}
+		
 		return aliasName;
 	}
 
