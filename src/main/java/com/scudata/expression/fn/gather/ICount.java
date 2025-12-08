@@ -641,7 +641,7 @@ public class ICount extends Gather {
 			} else {
 				long[] temp = new long[newLen];
 				System.arraycopy(newBits, curLen, temp, curLen, newLen - curLen);
-				for (int i = 0; i <= curLen; i++) {
+				for (int i = 0; i < curLen; i++) {
 					temp[i] = curBits[i] | newBits[i];
 				}
 				bitArray = temp;
