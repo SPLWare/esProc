@@ -49,6 +49,14 @@ public class TimeInterval implements Comparable<TimeInterval> {
 		}
 	}
 	
+	public boolean equals(Object obj) {
+		if (obj instanceof TimeInterval) {
+			return compareTo((TimeInterval)obj) == 0;
+		} else {
+			return false;
+		}
+	}
+	
 	public int compareTo(TimeInterval other) {
 		int type = getType();
 		if (type == TYPE_ALL) {
