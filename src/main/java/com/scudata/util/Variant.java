@@ -20,6 +20,7 @@ import com.scudata.common.Types;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
+import com.scudata.expression.fn.datetime.TimeInterval;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -1137,8 +1138,8 @@ public class Variant {
 		}
 		
 		// 增加了itx(s,d,m)类型
-		if (o1 instanceof Comparable) {
-			return ((Comparable<Object>)o1).compareTo(o2) == 0;
+		if (o1 instanceof TimeInterval) {
+			return ((TimeInterval)o1).equals(o2);
 		}
 		
 		return false;
