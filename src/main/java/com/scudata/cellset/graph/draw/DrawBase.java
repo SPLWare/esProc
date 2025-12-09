@@ -2623,8 +2623,29 @@ public abstract class DrawBase implements IGraph {
 				unit = gp.scaleMark;
 			}
 			if (unit != 1) {
-				gp.GFV_YTITLE.text += "(" + getFormattedValue(unit, "#.#E0")
-						+ ")";
+				if (unit == IGraphProperty.UNIT_THOUSAND) {
+					gp.GFV_YTITLE.text += "(K)";
+				} else if (unit == IGraphProperty.UNIT_10THOUSAND) {
+					gp.GFV_YTITLE.text += "(10K)";
+				} else if (unit == IGraphProperty.UNIT_MILLION) {
+					gp.GFV_YTITLE.text += "(M)";
+				} else if (unit == IGraphProperty.UNIT_10MILLION) {
+					gp.GFV_YTITLE.text += "(10M)";
+				} else if (unit == IGraphProperty.UNIT_100MILLION) {
+					gp.GFV_YTITLE.text += "(100M)";
+				} else if (unit == IGraphProperty.UNIT_BILLION) {
+					gp.GFV_YTITLE.text += "(B)";
+				} else if (unit == IGraphProperty.UNIT_001) {
+					gp.GFV_YTITLE.text += "(Percentage%)";
+				} else if (unit == IGraphProperty.UNIT_0001) {
+					gp.GFV_YTITLE.text += "(×10⁻³)";
+				} else if (unit == IGraphProperty.UNIT_00001) {
+					gp.GFV_YTITLE.text += "(×10⁻⁴)";
+				} else if (unit == IGraphProperty.UNIT_0000001) {
+					gp.GFV_YTITLE.text += "(×10⁻⁶)";
+				}
+//				gp.GFV_YTITLE.text += "(" + getFormattedValue(unit, "#.#E0")
+//						+ ")";
 			}
 		}
 	}
