@@ -773,8 +773,10 @@ public class Variant {
 			return ((SerialBytes)o1).compareTo((SerialBytes)o2);
 		}
 		
-		// if (o1 instanceof Comparable) {
-		//	return ((Comparable)o1).compareTo(o2);
+		// 增加了itx(s,d,m)类型
+		if (o1 instanceof Comparable) {
+			return ((Comparable<Object>)o1).compareTo(o2);
+		}
 		
 		if (throwExcept) {
 			String s1 = renderText(o1);
@@ -1132,6 +1134,11 @@ public class Variant {
 		
 		if (o1 instanceof SerialBytes && o2 instanceof SerialBytes) {
 			return ((SerialBytes)o1).equals((SerialBytes)o2);
+		}
+		
+		// 增加了itx(s,d,m)类型
+		if (o1 instanceof Comparable) {
+			return ((Comparable<Object>)o1).compareTo(o2) == 0;
 		}
 		
 		return false;
