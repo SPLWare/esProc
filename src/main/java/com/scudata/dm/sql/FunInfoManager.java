@@ -276,31 +276,31 @@ public class FunInfoManager {
 			return null;
 		}
 		
-		int count = params.length;
-		String formula = typeFunctionMap.get(count);
+		int pcount = params == null ? 0 : params.length;
+		String formula = typeFunctionMap.get(pcount);
+		
 		if(formula != null) {
 			if(formula.isEmpty()) {
 				StringBuffer sb = new StringBuffer();
 				sb.append(name);
 				sb.append("(");
-				for(int i = 0; i < params.length; i++)
-				{
-					sb.append("?"+(i+1));
-					if(i > 0)
-					{
+				for(int i = 0; i < pcount; i++) {
+					if(i > 0) {
 						sb.append(",");
 					}
+					sb.append(params[i]);
 				}
+				
 				sb.append(")");
-				formula = sb.toString();
+				return sb.toString();
 			} else if(formula.equalsIgnoreCase("N/A")) {
 				throw new RQException("此函数系统暂不支持:"+name);
-			} else if(count == 1) {
+			} else if(pcount == 1) {
 				formula = formula.replace("?1", "?");
 				formula = formula.replace("?", "?1");
 			}
 			
-			for(int i = 0; i < params.length; i++) {
+			for(int i = 0; i < pcount; i++) {
 				formula = formula.replace("?"+(i+1), params[i]);
 			}
 			
