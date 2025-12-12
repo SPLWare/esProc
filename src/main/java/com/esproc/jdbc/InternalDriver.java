@@ -438,8 +438,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			} catch (Exception e) {
 				String errorMessage = JDBCMessage.get().getMessage(
 						"error.loadconfigerror", fileName);
-				Logger.error(errorMessage);
-				e.printStackTrace();
+				Logger.error(errorMessage, e);
 				throw new SQLException(errorMessage + " : " + e.getMessage(), e);
 			} finally {
 				if (is != null)
@@ -451,7 +450,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		} else {
 			String errorMessage = JDBCMessage.get().getMessage(
 					"error.confignotfound", fileName);
-			Logger.error(errorMessage);
+			// Logger.error(errorMessage);
 			if (StringUtils.isValidString(sconfig)) {
 				// URL指定的config加载出错时抛异常，默认加载类路径下的不抛异常
 				throw new SQLException(errorMessage);

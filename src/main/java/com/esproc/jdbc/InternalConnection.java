@@ -687,8 +687,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public void setAutoCommit(boolean autoCommit) throws SQLException {
 		JDBCUtil.log("InternalConnection.setAutoCommit(" + autoCommit + ")");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"setAutoCommit(boolean autoCommit)"));
+		// Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+		// "setAutoCommit(boolean autoCommit)"));
 	}
 
 	/**
@@ -698,8 +698,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public boolean getAutoCommit() throws SQLException {
 		JDBCUtil.log("InternalConnection.getAutoCommit()");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"getAutoCommit()"));
+		// Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+		// "getAutoCommit()"));
 		return false;
 	}
 
@@ -710,8 +710,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public void commit() throws SQLException {
 		JDBCUtil.log("InternalConnection.commit()");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"commit()"));
+		// Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+		// "commit()"));
 	}
 
 	/**
@@ -721,8 +721,8 @@ public abstract class InternalConnection implements Connection, Serializable {
 	 */
 	public void rollback() throws SQLException {
 		JDBCUtil.log("InternalConnection.rollback()");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"rollback()"));
+		// Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+		// "rollback()"));
 	}
 
 	/**
