@@ -415,6 +415,16 @@
       <INFO dbtype="ESPROC" value="year(?1)"/>
     </FUNCTION>
 
+	<FUNCTION name="ADDX" paramcount="2" value="">
+      <INFO dbtype="ESPROC" value="addx(?1,?2)"/>
+	</FUNCTION>
+	<FUNCTION name="SUBX" paramcount="2" value="">
+      <INFO dbtype="ESPROC" value="subx(?1,?2)"/>
+	</FUNCTION>
+	<FUNCTION name="CMPX" paramcount="2" value="">
+      <INFO dbtype="ESPROC" value="cmpx(?1,?2)"/>
+	</FUNCTION>
+	
   </FUNCTIONS>
   <FUNCTIONS type="AnyParam">
     <FUNCTION name="coalesce">
@@ -428,6 +438,9 @@
 		<INFO dbtype="POSTGRES" script=' ?.concat("||")'/>
 		<INFO dbtype="TERADATA" script=' ?.concat("||")'/>
 		<INFO dbtype="HSQL" script=' ?.concat("||")'/>
+    </FUNCTION>
+	 <FUNCTION name="itx">
+    	<INFO dbtype="ESPROC" script='"itx(" + ?.concat@c() +")"'/>
     </FUNCTION>
   </FUNCTIONS>
 </STANDARD>
