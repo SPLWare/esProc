@@ -10,6 +10,8 @@ public class ToolbarVDB extends ToolbarFactory {
 		add(getButton(GCMenu.iCONN_SAVE, GCMenu.CONN_SAVE));
 		add(getButton(GCMenu.iCONN_CLOSE, GCMenu.CONN_CLOSE));
 		add(getButton(GCMenu.iCONN_CONFIG, GCMenu.CONN_CONFIG));
+		addSeparator();
+		add(getButton(GCMenu.iTOOLS_TOGGLE_THEME, GCMenu.TOOLS_TOGGLE_THEME));
 	}
 	
 	public void disableAll(){
