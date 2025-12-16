@@ -529,6 +529,8 @@ public class Select extends QueryBody {
 					
 					spl += args[i];
 				}
+				
+				spl += ")";
 			}
 			
 			return spl;
@@ -551,6 +553,8 @@ public class Select extends QueryBody {
 					
 					spl += args[i];
 				}
+				
+				spl += ")";
 			}
 			
 			return spl;
