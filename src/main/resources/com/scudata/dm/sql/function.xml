@@ -17,6 +17,8 @@
       <INFO dbtype="TERADATA" value="?1+CAST(?2 AS INTERVAL DAY)"/>
       <INFO dbtype="POSTGRES" value="?1+interval '?2 days'"/>
       <INFO dbtype="ESPROC" value="elapse(?1,?2)"/>
+      <INFO dbtype="IMPALA" value="DAYS_ADD(?1,?2)"/>
+      <INFO dbtype="DAMENG" value="DATEADD(DD,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ADDHOURS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'HOUR')"/>
@@ -27,6 +29,8 @@
       <INFO dbtype="TERADATA" value="?1+CAST(?2 AS INTERVAL HOUR)"/>
       <INFO dbtype="POSTGRES" value="?1+interval '?2 hours'"/>
       <INFO dbtype="ESPROC" value="elapse@s(?1,(?2)*3600)"/>
+      <INFO dbtype="IMPALA" value="HOURS_ADD(?1,?2)"/>
+      <INFO dbtype="DAMENG" value="DATEADD(HH,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ADDMINUTES" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'MINUTE')"/>
@@ -37,6 +41,8 @@
       <INFO dbtype="TERADATA" value="?1+CAST(?2 AS INTERVAL MINUTE)"/>
       <INFO dbtype="POSTGRES" value="?1+interval '?2 minutes'"/>
       <INFO dbtype="ESPROC" value="elapse@s(?1,(?2)*60)"/>
+      <INFO dbtype="IMPALA" value="MINUTES_ADD(?1,?2)"/>
+      <INFO dbtype="DAMENG" value="DATEADD(MI,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ADDMONTHS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTOYMINTERVAL(?2,'MONTH')"/>
@@ -47,6 +53,8 @@
       <INFO dbtype="TERADATA" value="ADD_MONTHS(?1, ?2)"/>
       <INFO dbtype="POSTGRES" value="?1+interval '?2 months'"/>
       <INFO dbtype="ESPROC" value="elapse@m(?1,?2)"/>
+      <INFO dbtype="IMPALA" value="MONTHS_ADD(?1,?2)"/>
+      <INFO dbtype="DAMENG" value="DATEADD(MM,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ADDSECONDS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'SECOND')"/>
@@ -57,6 +65,8 @@
       <INFO dbtype="TERADATA" value="?1+CAST(?2 AS INTERVAL SECOND)"/>
       <INFO dbtype="POSTGRES" value="?1+interval '?2 seconds'"/>
       <INFO dbtype="ESPROC" value="elapse@s(?1,?2)"/>
+      <INFO dbtype="IMPALA" value="SECONDS_ADD(?1,?2)"/>
+      <INFO dbtype="DAMENG" value="DATEADD(SS,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ADDYEARS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTOYMINTERVAL(?2,'YEAR')"/>
@@ -67,6 +77,8 @@
       <INFO dbtype="TERADATA" value="ADD_MONTHS(?1, ?2*12)"/>
       <INFO dbtype="POSTGRES" value="?1+interval '?2 years'"/>
       <INFO dbtype="ESPROC" value="elapse@y(?1,?2)"/>
+      <INFO dbtype="IMPALA" value="YEARS_ADD(?1,?2)"/>
+      <INFO dbtype="DAMENG" value="DATEADD(YY,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ASCII" paramcount="1" value="">
       <INFO dbtype="TERADATA" value="n/a"/>
@@ -91,6 +103,8 @@
       <INFO dbtype="TERADATA" value=""/>
       <INFO dbtype="POSTGRES" value=""/>
       <INFO dbtype="ESPROC" value="case(&quot;?2&quot;,&quot;INT&quot;:int(?1),&quot;DECIMAL&quot;:decimal(?1),&quot;FLOAT&quot;: float(?1),&quot;VARCHAR&quot;:string(?1),&quot;DATE&quot;:date(?1),&quot;DATETIME&quot;:datetime(?1),&quot;BOOLEAN&quot;:bool(?1))"/>
+      <INFO dbtype="IMPALA" value=""/>
+      <INFO dbtype="DAMENG" value=""/>
     </FUNCTION>
     <FUNCTION name="CEIL" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="CEILING(?)"/>
@@ -125,6 +139,7 @@
       <INFO dbtype="TERADATA" value="CAST(? AS DATE FORMAT 'YYYY-MM-DD')"/>
       <INFO dbtype="POSTGRES" value=""/>
       <INFO dbtype="ESPROC" value="date(string(?1),&quot;yyyy-MM-dd&quot;)"/>
+      <INFO dbtype="DAMENG" value="TO_DATE(?,'YYYY-MM-DD')"/>
     </FUNCTION>
 	<FUNCTION name="DATETOCHAR" paramcount="2" value="string(?1,?2)">
       <INFO dbtype="ESPROC" value="string(?1,?2)"/>
@@ -138,6 +153,8 @@
       <INFO dbtype="TERADATA" value=""/>
       <INFO dbtype="POSTGRES" value=""/>
       <INFO dbtype="ESPROC" value="string(?1,&quot;yyyy-MM-dd HH:mm:ss&quot;)"/>
+      <INFO dbtype="IMPALA" value="CAST(? as STRING)"/>
+      <INFO dbtype="DAMENG" value="TO_CHAR(?,'YYYY-MM-DD HH24:MI:SS')"/>
     </FUNCTION>
     <FUNCTION name="DAY" paramcount="1" value="EXTRACT(DAY FROM ?)">
       <INFO dbtype="ORACLE" value=""/>
@@ -151,6 +168,7 @@
       <INFO dbtype="TERADATA" value="TD_DAY_OF_YEAR(?)"/>
       <INFO dbtype="POSTGRES" value="EXTRACT(DOY FROM ?)"/>
       <INFO dbtype="ESPROC" value="ifn(interval(date(year(?1)-1,12,31),date(?1)))"/>
+      <INFO dbtype="IMPALA" value="DAYOFYEAR(CAST(? AS TIMESTAMP))"/>
     </FUNCTION>
 	 <FUNCTION name="DAYOFWEEK" paramcount="1" value="">
 	  <INFO dbtype="ORACLE" value="TO_CHAR(?, &quot;D&quot;)"/>
@@ -171,6 +189,8 @@
       <INFO dbtype="TERADATA" value="CAST(?1 AS DECIMAL(?2,?3))"/>
       <INFO dbtype="POSTGRES" value="CAST(?1 AS NUMERIC(?2,?3))"/>
       <INFO dbtype="ESPROC" value="round(decimal(?1),?3)"/>
+      <INFO dbtype="IMPALA" value="CAST(?1 as DECIMAL(?2,?3))"/>
+      <INFO dbtype="DAMENG" value="CAST(?1 AS DECIMAL(?2,?3))"/>
     </FUNCTION>
     <FUNCTION name="DECIMAL" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="round(decimal(?1),?2)"/>
@@ -200,6 +220,8 @@
       <INFO dbtype="TERADATA" value="N/A"/>
       <INFO dbtype="POSTGRES" value="N/A"/>
       <INFO dbtype="ESPROC" value="ifn(pos(?2,?1,?3),0)"/>
+      <INFO dbtype="IMPALA" value="LOCATE(?1,?2,?3)"/>
+      <INFO dbtype="DAMENG" value="INSTR(?2,?1,?3)"/>
     </FUNCTION>
     <FUNCTION name="INDEXOF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="INSTR(?2,?1)"/>
@@ -210,6 +232,8 @@
       <INFO dbtype="TERADATA" value="INDEX(?2,?1)"/>
       <INFO dbtype="POSTGRES" value="strpos(?2,?1)"/>
       <INFO dbtype="ESPROC" value="ifn(pos(?2,?1),0)"/>
+      <INFO dbtype="IMPALA" value="LOCATE(?1,?2)"/>
+      <INFO dbtype="DAMENG" value="INSTR(?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="INT" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="CAST(? AS INT)"/>
@@ -219,18 +243,22 @@
       <INFO dbtype="TERADATA" value="CAST(? AS INT)"/>
       <INFO dbtype="POSTGRES" value="CAST(? AS INT)"/>
       <INFO dbtype="ESPROC" value="long(?1)"/>
+      <INFO dbtype="IMPALA" value="CAST(? as INT)"/>
+      <INFO dbtype="DAMENG" value="CAST(? AS INT)"/>
     </FUNCTION>
     <FUNCTION name="LEFT" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="SUBSTR(?1,1,?2)"/>
       <INFO dbtype="TERADATA" value="SUBSTR(?1,1,?2)"/>
       <INFO dbtype="POSTGRES" value="SUBSTR(?1,1,?2)"/>
       <INFO dbtype="ESPROC" value="left(?1,?2)"/>
+      <INFO dbtype="IMPALA" value="STRLEFT(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="RIGHT" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
       <INFO dbtype="TERADATA" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
       <INFO dbtype="POSTGRES" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
       <INFO dbtype="ESPROC" value="right(?1,?2)"/>
+      <INFO dbtype="IMPALA" value="STRRIGHT(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="LEN" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="LENGTH(?)"/>
@@ -240,6 +268,7 @@
       <INFO dbtype="TERADATA" value="CHAR_LENGTH(?)"/>
       <INFO dbtype="POSTGRES" value="CHAR_LENGTH(?)"/>
       <INFO dbtype="ESPROC" value="len(?1)"/>
+      <INFO dbtype="IMPALA" value="LENGTH(?)"/>
     </FUNCTION>
     <FUNCTION name="LN" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="LOG(?)"/>
@@ -285,6 +314,8 @@
       <INFO dbtype="TERADATA" value="CURRENT_TIMESTAMP"/>
       <INFO dbtype="POSTGRES" value="NOW()"/>
       <INFO dbtype="ESPROC" value="now()"/>
+      <INFO dbtype="IMPALA" value="NOW()"/>
+      <INFO dbtype="DAMENG" value="NOW()"/>
     </FUNCTION>
 	<FUNCTION name="NULLIF" paramcount="2" value="">
 		<INFO dbtype="ESPROC" value="if((?1)!=(?2),?1)"/>
@@ -298,6 +329,8 @@
       <INFO dbtype="TERADATA" value="TO_CHAR(?)"/>
       <INFO dbtype="POSTGRES" value="CAST(? AS TEXT)"/>
       <INFO dbtype="ESPROC" value="string(?1)"/>
+      <INFO dbtype="IMPALA" value="CAST(? as STRING)"/>
+      <INFO dbtype="DAMENG" value="TO_CHAR(?)"/>
     </FUNCTION>
 	<FUNCTION name="NVL" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="ifn(?1,?2)"/>
@@ -311,6 +344,7 @@
       <INFO dbtype="TERADATA" value="TD_QUARTER_OF_YEAR(?)"/>
       <INFO dbtype="POSTGRES" value="EXTRACT(QUARTER FROM ?)"/>
       <INFO dbtype="ESPROC" value="int(ceil(month(?1)/3))"/>
+      <INFO dbtype="IMPALA" value="DECODE(MONTH(TRUNC(?,'Q')),1,1,4,2,7,3,10,4)"/>
     </FUNCTION>
     <FUNCTION name="RAND" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="DBMS_RANDOM.VALUE(0, ?)"/>
@@ -349,11 +383,13 @@
       <INFO dbtype="SQLSVR" value="SUBSTRING(?1,?2,?3)"/>
       <INFO dbtype="POSTGRES" value="SUBSTR(?1,?2,?3)"/>
       <INFO dbtype="ESPROC" value="mid(?1,?2,?3)"/>
+      <INFO dbtype="DAMENG" value="SUBSTR(?1,?2,?3)"/>
     </FUNCTION>
     <FUNCTION name="SUBSTR" paramcount="2" value="">
       <INFO dbtype="SQLSVR" value="SUBSTRING(?1,?2,len(?1)-?2+1)"/>
       <INFO dbtype="POSTGRES" value="SUBSTR(?1,?2)"/>
       <INFO dbtype="ESPROC" value="mid(?1,?2)"/>
+      <INFO dbtype="DAMENG" value="SUBSTR(?1,?2)"/>
     </FUNCTION>
 	<FUNCTION name="TAN" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="tan(?1)"/>
@@ -374,6 +410,8 @@
       <INFO dbtype="TERADATA" value="TO_TIMESTAMP(?,'YYYY-MM-DD HH24:MI:SS')"/>
       <INFO dbtype="POSTGRES" value="TO_DATE(?,'YYYY-MM-DD HH24:MI:SS')"/>
       <INFO dbtype="ESPROC" value="datetime(?1,&quot;yyyy-MM-dd HH:mm:ss&quot;)"/>
+      <INFO dbtype="IMPALA" value="CAST(? as TIMESTAMP)"/>
+      <INFO dbtype="DAMENG" value="CAST(? as TIMESTAMP)"/>
     </FUNCTION>
     <FUNCTION name="TODAY" paramcount="0">
       <INFO dbtype="ORACLE" value="SYSDATE"/>
@@ -383,6 +421,8 @@
       <INFO dbtype="TERADATA" value="DATE"/>
       <INFO dbtype="POSTGRES" value="CURRENT_DATE"/>
       <INFO dbtype="ESPROC" value="now@d()"/>
+      <INFO dbtype="IMPALA" value="TRUNC(NOW(),'dd')"/>
+      <INFO dbtype="DAMENG" value="SYSDATE"/>
     </FUNCTION>
     <FUNCTION name="TRIM" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="LTRIM(RTRIM(?))"/>
@@ -394,6 +434,7 @@
       <INFO dbtype="SQLSVR" value="CONVERT(BIGINT,?1*POWER(10,?2))/POWER(10.0,?2)"/>
       <INFO dbtype="MYSQL" value="TRUNCATE(?1,?2)"/>
       <INFO dbtype="ESPROC" value="if(?1&lt;0,floor@s(?1,?2),floor(?1,?2))"/>
+      <INFO dbtype="IMPALA" value="CAST(?1*POWER(10,?2) AS BIGINT)/POWER(10.0,?2)"/>
     </FUNCTION>
 	<FUNCTION name="UPPER" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="upper(?1)"/>
@@ -407,12 +448,14 @@
       <INFO dbtype="TERADATA" value="TD_WEEK_OF_YEAR(?)"/>
       <INFO dbtype="POSTGRES" value="EXTRACT(WEEK FROM ?)"/>
       <INFO dbtype="ESPROC" value="ifn(int(ceil(interval(pdate@w(date(year(?1),1,7)),date(?1))/7)))"/>
+      <INFO dbtype="DAMENG" value="WEEK(?)"/>
     </FUNCTION>
     <FUNCTION name="YEAR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(YEAR FROM ?)"/>
       <INFO dbtype="TERADATA" value="EXTRACT(YEAR FROM ?)"/>
       <INFO dbtype="POSTGRES" value="EXTRACT(YEAR FROM ?)"/>
       <INFO dbtype="ESPROC" value="year(?1)"/>
+      <INFO dbtype="IMPALA" value="YEAR(CAST(? AS TIMESTAMP))"/>
     </FUNCTION>
 
 	<FUNCTION name="ADDX" paramcount="2" value="">
