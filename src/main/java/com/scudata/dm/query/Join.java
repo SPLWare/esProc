@@ -92,6 +92,9 @@ class Join extends Relation {
 		
 		QueryBody leftTable = tableList.get(0);
 		QueryBody rightTable = tableList.get(1);
+		Object leftData = leftTable.getData();
+		Object rightData = rightTable.getData();
+		
 		String leftFilter = null;
 		String rightFilter = null;
 		boolean isJoin = true;
@@ -138,8 +141,6 @@ class Join extends Relation {
 		
 		Context ctx = select.getContext();
 		ICellSet cellSet = select.getCellSet();
-		Object leftData = leftTable.getData();
-		Object rightData = rightTable.getData();
 		Sequence leftSeq = null;
 		Sequence rightSeq = null;
 		
@@ -287,7 +288,7 @@ class Join extends Relation {
 			}
 			
 			newExps[t] = new Expression(cellSet, ctx, "#2");
-			result = result.newTable(names, newExps, ctx);
+			result = result.newTable(newNames, newExps, ctx);
 		}
 		
 		return result;
@@ -304,6 +305,9 @@ class Join extends Relation {
 			}
 		}
 
+		Object leftData = left.getData();
+		Object rightData = right.getData();
+		
 		int lastTable = tableList.size() - 1;
 		List<And> andList = on.splitAnd();
 		String leftFilter = null;
@@ -352,8 +356,6 @@ class Join extends Relation {
 
 		Context ctx = select.getContext();
 		ICellSet cellSet = select.getCellSet();
-		Object leftData = left.getData();
-		Object rightData = right.getData();
 		Sequence leftSeq = null;
 		Sequence rightSeq = null;
 		
@@ -426,7 +428,7 @@ class Join extends Relation {
 			}
 			
 			newExps[lastTable] = new Expression(cellSet, ctx, "#2");
-			result = result.newTable(names, newExps, ctx);
+			result = result.newTable(newNames, newExps, ctx);
 		}
 		
 		if (where == null) {
