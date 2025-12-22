@@ -467,6 +467,7 @@ public class Select extends QueryBody {
 	class Function extends Exp {
 		private String fnName; // 函数名
 		private List<Exp> params; // 参数
+		private String opt;
 		
 		public Function(int start, int end, String fnName, List<Exp> params) {
 			super(start, end);
@@ -474,6 +475,21 @@ public class Select extends QueryBody {
 			this.params = params;
 		}
 		
+		public Function(int start, int end, String fnName, List<Exp> params, String opt) {
+			super(start, end);
+			this.fnName = fnName;
+			this.params = params;
+			this.opt = opt;
+		}
+		
+		public String getOption() {
+			return opt;
+		}
+
+		public void setOption(String opt) {
+			this.opt = opt;
+		}
+
 		public boolean isEquals(Exp node) {
 			if (!(node instanceof Function)) {
 				return false;
@@ -521,7 +537,12 @@ public class Select extends QueryBody {
 
 			String spl = FunInfoManager.getFunctionExp("ESPROC", fnName, args);
 			if (spl == null) {
-				spl = fnName + "(";
+				if (opt == null) {
+					spl = fnName + "(";
+				} else {
+					spl = fnName + opt + "(";
+				}
+
 				for (int i = 0; i < size; ++i) {
 					if (i > 0) {
 						spl += ",";
@@ -545,7 +566,12 @@ public class Select extends QueryBody {
 
 			String spl = FunInfoManager.getFunctionExp("ESPROC", fnName, args);
 			if (spl == null) {
-				spl = fnName + "(";
+				if (opt == null) {
+					spl = fnName + "(";
+				} else {
+					spl = fnName + opt + "(";
+				}
+				
 				for (int i = 0; i < size; ++i) {
 					if (i > 0) {
 						spl += ",";
@@ -1427,7 +1453,9 @@ public class Select extends QueryBody {
 			Token token = tokens[i];
 			if (token.getType() == Tokenizer.IDENT) {
 				int pos = i + 1;
-				if (pos < next && tokens[pos].getType() == Tokenizer.LPAREN) {
+				if (pos == next) {
+					exp = new FieldNode(i, pos, null, token.getString(), part);
+				} else if (tokens[pos].getType() == Tokenizer.LPAREN) {
 					int end = Tokenizer.scanParen(tokens, pos, next);
 					String fnName = token.getString();
 					if (Tokenizer.isGatherFunction(fnName)) {
@@ -1461,19 +1489,25 @@ public class Select extends QueryBody {
 					}
 					
 					i = end;
-				} else {
-					if (pos < next && tokens[pos].getType() == Tokenizer.DOT) {
-						pos++;
-						if (pos == next) {
-							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + tokens[next - 1].getPos());
-						}
-
-						exp = new FieldNode(i, pos + 1, token.getString(), tokens[pos].getString(), part);
-						i = pos;
-					} else {
-						exp = new FieldNode(i, pos, null, token.getString(), part);
+				} else if (tokens[pos].getType() == Tokenizer.TABLEMARK && pos + 1 < next && tokens[pos + 1].getType() == Tokenizer.LPAREN) {
+					// fn@opt(...)
+					int end = Tokenizer.scanParen(tokens, pos + 1, next);
+					String fnName = token.getString();
+					String opt = tokens[pos].getOriginString();
+					List<Exp> list = scanParam(tokens, pos + 2, end, part);
+					exp = new Function(i, end + 1, fnName, list, opt);
+					i = end;
+				} else if (tokens[pos].getType() == Tokenizer.DOT) {
+					pos++;
+					if (pos == next) {
+						MessageManager mm = ParseMessage.get();
+						throw new RQException(mm.getMessage("syntax.error") + tokens[next - 1].getPos());
 					}
+
+					exp = new FieldNode(i, pos + 1, token.getString(), tokens[pos].getString(), part);
+					i = pos;
+				} else {
+					exp = new FieldNode(i, pos, null, token.getString(), part);
 				}
 			} else if (token.getType() == Tokenizer.LPAREN) {
 				int end = Tokenizer.scanParen(tokens, i, next);
