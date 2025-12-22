@@ -2284,8 +2284,39 @@ public class Select extends QueryBody {
 			if (tokens[start].isKeyWord("SELECT")) {
 				from = scanQuery(tokens, start, end);
 			} else {
-				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
+				// (t1 join t2)
+				int joinPos = Tokenizer.scanKeyWord("JOIN", tokens, start, end);
+				if (joinPos == -1) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
+				}
+				
+				int rightStart = joinPos + 1;
+				String option = null;
+				Token prevToken = tokens[joinPos - 1];
+				
+				if (prevToken.isKeyWord("INNER")) {
+					joinPos--;
+				} else if (prevToken.isKeyWord("LEFT")) {
+					option = "1";
+					joinPos--;
+				} else if (prevToken.isKeyWord("FULL")) {
+					option = "f";
+					joinPos--;
+				} else if (prevToken.isKeyWord("RIGHT")) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+				} else if (prevToken.isKeyWord("CROSS")) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+				}
+				
+				Join join = new Join(this, option);
+				scanQueryBody(tokens, start, joinPos);
+				join.setLeft(from);
+				scanQueryBody(tokens, rightStart, end);
+				join.setRight(from);
+				from = join;
 			}
 			
 			end++;

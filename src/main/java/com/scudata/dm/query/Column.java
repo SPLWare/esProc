@@ -31,7 +31,19 @@ class Column {
 	}
 
 	public boolean isEquals(String name) {
-		return aliasName != null && Select.isEquals(aliasName, name);
+		if (aliasName == null) {
+			return false;
+		}
+		
+		if (aliasName.charAt(0) == '"') {
+			// 双引号变成单引号
+			int last = aliasName.length() - 1;
+			if (last > 0 && aliasName.charAt(last) == '"') {
+				return Select.isEquals(aliasName.substring(1, last), name);
+			}
+		}
+		
+		return Select.isEquals(aliasName, name);
 	}
 	
 	public Exp getExp() {
