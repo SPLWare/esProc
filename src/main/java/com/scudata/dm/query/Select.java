@@ -2284,7 +2284,7 @@ public class Select extends QueryBody {
 			if (tokens[start].isKeyWord("SELECT")) {
 				from = scanQuery(tokens, start, end);
 			} else {
-				// (t1 join t2)
+				// (t1 join t2... on...)
 				int joinPos = Tokenizer.scanKeyWord("JOIN", tokens, start, end);
 				if (joinPos == -1) {
 					MessageManager mm = ParseMessage.get();
@@ -2314,9 +2314,13 @@ public class Select extends QueryBody {
 				Join join = new Join(this, option);
 				scanQueryBody(tokens, start, joinPos);
 				join.setLeft(from);
-				scanQueryBody(tokens, rightStart, end);
+				int onPos = scanQueryBody(tokens, rightStart, end);
 				join.setRight(from);
 				from = join;
+				
+				if (onPos < end && tokens[onPos].isKeyWord("ON")) {
+					start = scanOn(tokens, onPos, end, join);
+				}
 			}
 			
 			end++;
