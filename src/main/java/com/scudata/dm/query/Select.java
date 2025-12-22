@@ -1646,8 +1646,8 @@ public class Select extends QueryBody {
 				} else {
 					exp = new CommonNode(i, i + 1, ">");
 				}
-			} else if (token.isKeyWord("NULL")) {
-				exp = new CommonNode(i, i + 1, "null");
+			} else if (token.isKeyValue()) {
+				exp = new CommonNode(i, i + 1, token.toLowerString());
 			} else if (token.getType() == Tokenizer.KEYWORD && 
 					i + 1 < next && tokens[i + 1].getType() == Tokenizer.LPAREN) {
 				// 函数名可能和关键字名相同，如果能解释成函数优先解释成函数，left(str, 2)

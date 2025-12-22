@@ -53,6 +53,10 @@ public final class Token {
 	public String toString() {
 		return id;
 	}
+	
+	public String toLowerString() {
+		return origin.toLowerCase();
+	}
 
 	public boolean equals(Token other) {
 		return id.equals(other.id);
@@ -76,6 +80,15 @@ public final class Token {
 		return type == Tokenizer.KEYWORD && id.equals(str);
 	}
 
+	// 是否是保留值：null、true、false
+	public boolean isKeyValue() {
+		if (type != Tokenizer.KEYWORD) {
+			return false;
+		}
+		
+		return id.equals("NULL") ||  id.equals("TRUE") ||  id.equals("FALSE");
+	}
+	
 	public boolean isMergeKeyWord() {
 		if (type != Tokenizer.KEYWORD) return false;
 		return id.equals("UNION") || id.equals("INTERSECT") || id.equals("EXCEPT") || id.equals("MINUS");
