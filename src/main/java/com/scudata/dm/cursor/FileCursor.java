@@ -306,6 +306,12 @@ public class FileCursor extends ICursor {
 				Object []line = importer.readFirstLine();
 				if (line == null) {
 					return null;
+				} else if (line.length == 0) {
+					// 有的空文件有个空行
+					line = importer.readFirstLine();
+					if (line == null || line.length == 0) {
+						return null;
+					}
 				}
 
 				int fcount = line.length;
