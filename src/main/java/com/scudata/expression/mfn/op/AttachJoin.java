@@ -4,6 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
+import com.scudata.dw.PseudoBase;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.OperableFunction;
@@ -108,6 +109,8 @@ public class AttachJoin extends OperableFunction {
 				seqs[i] = (Sequence)codes[i];
 			} else if (codes[i] instanceof ClusterMemoryTable) {
 				hasClusterTable = true;
+			} else if (codes[i] instanceof PseudoBase) {
+				seqs[i] = ((PseudoBase)codes[i]).toSequence();
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("join" + mm.getMessage("function.paramTypeError"));

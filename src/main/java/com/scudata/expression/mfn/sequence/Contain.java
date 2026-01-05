@@ -126,7 +126,7 @@ public class Contain extends SequenceFunction {
 					if (prevSequence != srcSequence) {
 						prevSequence = srcSequence;
 						hashIndex = new HashIndexSequence(srcSequence);
-						//sortedSequence = srcSequence.sort(null);
+						sortedSequence = srcSequence.sort(null);
 					}
 					
 					hashIndex.contains(array, result);

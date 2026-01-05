@@ -6,6 +6,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.SwitchRemote;
+import com.scudata.dw.PseudoBase;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.OperableFunction;
@@ -55,6 +56,8 @@ public class AttachSwitch extends OperableFunction {
 				seqs[i] = (Sequence)codes[i];
 			} else if (codes[i] instanceof ClusterMemoryTable) {
 				hasClusterTable = true;
+			} else if (codes[i] instanceof PseudoBase) {
+				seqs[i] = ((PseudoBase)codes[i]).toSequence();
 			} else if (codes[i] == null) {
 				//seqs[i] = new Sequence(0);
 			} else {

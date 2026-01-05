@@ -6,6 +6,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
+import com.scudata.dw.PseudoBase;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.OperableFunction;
@@ -139,6 +140,8 @@ public class AttachPJoin extends OperableFunction {
 				cursors[t] = (ICursor)table;
 			} else if (table instanceof Sequence) {
 				cursors[t] = ((Sequence)table).cursor();
+			} else if (table instanceof PseudoBase) {
+				cursors[t] = ((PseudoBase)table).toCursor();
 			} else if (table == null) {
 				cursors[t] = new MemoryCursor(null);
 			} else {
