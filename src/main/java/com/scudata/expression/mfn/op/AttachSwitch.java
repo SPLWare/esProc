@@ -56,7 +56,7 @@ public class AttachSwitch extends OperableFunction {
 				seqs[i] = (Sequence)codes[i];
 			} else if (codes[i] instanceof ClusterMemoryTable) {
 				hasClusterTable = true;
-			} else if (codes[i] instanceof PseudoBase) {
+			} else if (codes[i] instanceof PseudoBase && ((PseudoBase)codes[i]).isMemory()) {
 				seqs[i] = ((PseudoBase)codes[i]).toSequence();
 			} else if (codes[i] == null) {
 				//seqs[i] = new Sequence(0);

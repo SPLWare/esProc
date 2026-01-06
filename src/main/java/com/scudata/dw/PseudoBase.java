@@ -29,4 +29,8 @@ public class PseudoBase extends Operable implements IResource {
 	public ICursor toCursor() {
 		throw new RuntimeException();
 	}
+	
+	public boolean isMemory() {
+		return false;
+	}
 }
