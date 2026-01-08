@@ -175,4 +175,29 @@ public class TimeInterval implements Comparable<TimeInterval> {
 			return date;
 		}
 	}
+	
+	public static Date subx(Date date, TimeInterval interval) {
+		int type = interval.getType();
+		if (type == TYPE_MD) {
+			Calendar c = Calendar.getInstance();
+			c.setTime(date);
+			c.add(Calendar.MONTH, -interval.monthDay / 100);
+			c.add(Calendar.DATE, -interval.monthDay % 100);
+			date = (Date)date.clone();
+			date.setTime(c.getTimeInMillis());
+			return date;
+		} else if (type == TYPE_DAY) {
+			Calendar c = Calendar.getInstance();
+			c.setTime(date);
+			c.add(Calendar.DATE, -interval.day);
+			date = (Date)date.clone();
+			date.setTime(c.getTimeInMillis());
+			return date;
+		} else {
+			long time = date.getTime() - interval.second * 1000;
+			date = (Date)date.clone();
+			date.setTime(time);
+			return date;
+		}
+	}
 }

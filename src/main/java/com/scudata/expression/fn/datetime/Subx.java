@@ -47,8 +47,14 @@ public class Subx extends Function {
 		Object result1 = exp1.calculate(ctx);
 		Object result2 = exp2.calculate(ctx);
 
-		if (result1 instanceof Date && result2 instanceof Date) {
-			return TimeInterval.subx((Date)result1, (Date)result2);
+		if (result1 instanceof Date) {
+			if (result2 instanceof Date) {
+				return TimeInterval.subx((Date)result1, (Date)result2);
+			} else if (result2 instanceof TimeInterval) {
+				return TimeInterval.subx((Date)result1, (TimeInterval)result2);
+			} else {
+				return Variant.subtract(result1, result2);
+			}
 		} else {
 			return Variant.subtract(result1, result2);
 		}
