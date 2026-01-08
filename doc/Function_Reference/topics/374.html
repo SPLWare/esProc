@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Fpmt()</title>
+<title>Frate()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,16 +13,16 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Fpmt()<a
-name=Fpmt></a></span></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name=Frate></a><a
+name="_Frate()"></a><span lang=EN-US>Frate()</span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h2></div>
 	<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 line-height:200%'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function equals the Excel PMT function.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Equivalent
+to Excel RATE function.</span></span></p>
 
 <p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
@@ -30,9 +30,7 @@ line-height:200%'>Syntax:</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'>Fpmt(</span></b><i style='mso-bidi-font-style:normal'><span lang=EN-US>rate</span></i><span
-lang=EN-US>,<i style='mso-bidi-font-style:normal'>nper</i>,<i style='mso-bidi-font-style:
-normal'>pv</i>,<i style='mso-bidi-font-style:normal'>fv</i></span></span><span
+黑体'>Frate(</span></b><i style='mso-bidi-font-style:normal'><span lang=EN-US>nper,pmt,pv,fv,guess</span></i></span><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><i
 style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-fareast-font-family:
 黑体'>)</span></i></b></span></p>
@@ -42,14 +40,15 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 line-height:200%'>Note:</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-FinancialCli external library function <span style='mso-bidi-font-style:italic'>(See
-</span></span></span><a href="http://doc.raqsoft.com/esproc/ext/"><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
-italic'>External Library Guide</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
-italic'>)</span><span lang=EN-US> calculates each period’s amount required to
-pay off an investment loan, based on a constant interest rate and the constant
-periodic payments.</span></span></p>
+<span style='mso-bidi-font-weight:bold'>FinancialCli </span>external library
+function <span style='mso-bidi-font-style:italic'>(See </span></span></span><a
+href="http://doc.raqsoft.com/esproc/ext/"><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-style:italic'>External Library Guide</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-style:italic'>) </span><span lang=EN-US>calculates
+the interest rate required to pay an investment, including both the reimbursement
+rate of the constant periodic payment and the rate of return of the one-off
+payment.</span></span></p>
 
 <p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
@@ -59,32 +58,31 @@ line-height:200%'>Parameter:</span></b></span></p>
  style='margin-left:-10.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>rate</span></i></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>The interest rate per period; it is a fixed
-  value</span></span><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'>.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
   style='mso-bidi-font-style:normal'><span lang=EN-US>nper</span></i></span><span
   style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>The number of periods over which the
-  investment (or loan) requires or is to be paid</span></span><span
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+  number of periods over which the investment or loan is to be paid</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>pmt</span></i></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+  payment amount per period, including the principal and the interest</span></span><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
   style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
   bold'>.</span></span></span></p>
@@ -92,13 +90,13 @@ line-height:200%'>Parameter:</span></b></span></p>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
   style='mso-bidi-font-style:normal'><span lang=EN-US>pv</span></i></span><span
   style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
   style='mso-bidi-font-weight:bold'>The present value of the loan /investment</span><span
   lang=EN-US>, known as the principal. That is the money that already exist
@@ -111,36 +109,36 @@ line-height:200%'>Parameter:</span></b></span></p>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
   style='mso-bidi-font-style:normal'><span lang=EN-US>fv</span></i></span><span
   style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
   future value of the loan/investment, or the cash balance you hope to achieve
-  after the final payment. If omitted, its value will be assumed as zero (for
-  example the future value of a loan can be zero)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-  bold'> .</span></span></span></p>
+  after the final payment. If omitted, it will take on the default value of
+  zero</span></span><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
+  mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
   style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-weight:
-  bold'>per</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
+  bold'>guess</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
   class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>The number of periods in which the
-  principal appears. Its value must between 1 and <i style='mso-bidi-font-style:
-  normal'>nper</i></span></span><span style='mso-bookmark:_Hlt161066090'><span
+  style='mso-bidi-font-weight:bold'>An estimated interest rate. If omitted, it
+  will take on the assumed value of 10%. Both <i style='mso-bidi-font-style:
+  normal'>guess</i> and <i style='mso-bidi-font-style:normal'>nper</i> must use
+  the same unit</span></span><span style='mso-bookmark:_Hlt161066090'><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
@@ -155,58 +153,17 @@ line-height:200%'>Option:</span></b></span></p>
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-10.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'>@t</span></span></span><span
   style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Indicating
-  the payment type, it corresponds to Excel type parameter. If using the
-  option, choose type 1; if not, choose type 0</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-  bold'>.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US style='mso-fareast-font-family:黑体'>@i</span></b><span lang=EN-US>(<i
-  style='mso-bidi-font-style:normal'>rate</i>,<i style='mso-bidi-font-style:
-  normal'>nper</i>,<i style='mso-bidi-font-style:normal'>per</i>,<i
-  style='mso-bidi-font-style:normal'>pv</i>,<i style='mso-bidi-font-style:normal'>fv</i>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>This
-  option makes the function equivalent to Excel IPMT function and calculates
-  the interest payment for a given period, with constant periodic payment and a
-  constant interest rate</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US style='mso-fareast-font-family:黑体'>@p</span></b><span lang=EN-US>(<i
-  style='mso-bidi-font-style:normal'>rate</i>,<i style='mso-bidi-font-style:
-  normal'>nper</i>,<i style='mso-bidi-font-style:normal'>per</i>,<i
-  style='mso-bidi-font-style:normal'>pv</i>,<i style='mso-bidi-font-style:normal'>fv</i>)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=391 valign=top style='width:293.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>This
-  option makes the function equivalent to Excel PPMT function and calculates
-  the principal amount during a specific period of an investment or loan that
-  is paid in constant periodic payments, with a constant interest rate</span></span><span
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Payment
+  type, which corresponds to Excel type parameter. When the option is present,
+  choose type 1; when it isn’t, choose type 0</span></span><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
   style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
   bold'>.</span></span></span></p>
@@ -222,49 +179,19 @@ line-height:200%'>Example:</span></b></span></p>
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-10.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=259 valign=top style='width:193.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=268 valign=top style='width:201.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=afe style='text-align:justify;text-justify:inter-ideograph;
   tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>Fpmt@t(0.07/12, 10,
-  200000,)</span></b></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>Frate(12*6, -2200,
+  100000)</span></b></span><span style='mso-bookmark:_Hlt161066090'><span
   class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=287 valign=top style='width:215.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=277 valign=top style='width:208.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-fareast-font-family:黑体;mso-bidi-font-weight:bold'>-20647.264618755307</span><span
+  style='mso-fareast-font-family:黑体;mso-bidi-font-weight:bold'>0.013798002390137705</span><span
   lang=EN-US style='mso-bidi-font-weight:bold'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=259 valign=top style='width:193.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>Fpmt@i(0.1/12,36,1,
-  8000,)<span class=code><span style='font-family:"Times New Roman",serif'></span></span></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=287 valign=top style='width:215.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-fareast-font-family:黑体;mso-bidi-font-weight:bold'>-66.66666666666666<span
-  class=code><span style='font-family:"Times New Roman",serif'></span></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=259 valign=top style='width:193.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>Fpmt@p(0.07/12,12*10,1,120000,)<span
-  class=code><span style='font-family:"Times New Roman",serif'></span></span></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=287 valign=top style='width:215.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-fareast-font-family:黑体;mso-bidi-font-weight:bold'>-693.3017506234848<span
-  class=code><span style='font-family:"Times New Roman",serif'></span></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -282,7 +209,7 @@ line-height:200%'>Example:</span></b></span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

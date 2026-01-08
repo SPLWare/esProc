@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Qfile()</title>
+<title>Qlock()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,126 +13,80 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="_Hlt140449445"></a><span
-lang=EN-US style='mso-fareast-font-family:宋体'>Qfile()<a name="Qfile_fd_z"></a></span></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
+宋体'>Qlock()<a name="Qlock_n_s"></a></span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
 宋体'></span></span></h2></div>
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Retrieve
-file(s)/homo-name files group from storage bucket in the remote storage.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Implement
+global lock through QVS.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span><span
 style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>Qfile(</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
-style='mso-bidi-font-size:11.0pt'>fd:z</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>)</span></span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>Qfile(</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
-style='mso-bidi-font-size:11.0pt'>fd:cs</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>)</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=code><i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif;
-mso-fareast-font-family:宋体;font-weight:normal'></span></i></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
+lang=EN-US>Qlock</span></b><span lang=EN-US style='mso-bidi-font-weight:bold'>(<i
+style='mso-bidi-font-style:normal'>n,s</i>)</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function gets file </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US style='mso-bidi-font-size:11.0pt'>fd</span></span><span
-lang=EN-US> from the storage bucket in the remote storage and returns it as a
-file object.</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Supported
-file types include composite file, homo-name files group, bin file, txt and
-xls. The return file object supports operations such as exists(), name(),
-size(), date(), read() and import(), but does not support write right now.</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-returned buffer file object is stored in</span></span><span style='mso-bookmark:
-_Hlt161066090'><i><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>【</span><span lang=EN-US>cache
-directory/store Type/</span></i></span><span style='mso-bookmark:_Hlt161066090'><i><span
-style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-"Times New Roman"'>】</span></i><span lang=EN-US>.</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:
+</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
-QVS users service mode, the buffer directory here is QVM’s cache directory;
-when QVS users debug mode, it is QVS’s own cache directory. If no cloud storage
-information is configured in the QVS application configuration file, configure</span></span><span
-style='mso-bookmark:_Hlt161066090'><span style='font-family:宋体;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman"'>【</span><span
-lang=EN-US>Remote Services &#8211;&gt; Storage Service Settings</span></span><span
-style='mso-bookmark:_Hlt161066090'><span style='font-family:宋体;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman"'>】</span><span
-lang=EN-US>in esProc IDE and connect the target remote storage service before
-using the function directly in esProc IDE .</span></span></p>
+Qlock() function is executed in a script, global lock named </span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>n</span></span><span
+lang=EN-US> will be created in the controller QVS. Execute Qlock@u to open the
+lock.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>If
+there is locking check about lock </span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US>n</span></span><span lang=EN-US> before the script
+code, the script can be executed only when the global lock is open. If there
+isn’t such a check on lock </span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US>n</span></span><span lang=EN-US>, the script can be
+directly executed without considering the lock; in this case, if we perform
+operations on the same file from multiple script files at the same time, file
+update collision will occur.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Will
-be parsed as file() function when no cloud storage information is configured.</span></span></p>
+be parsed as lock() function if no controller QVS is configured.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b><span
 lang=EN-US> </span></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=756
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-16.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>fd</span></span></span></p>
+  lang=EN-US>n</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=657 valign=top style='width:492.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>File(s)
-  on the remote storage; its written format is “<i>storagebucketName</i>/<i>fileobjectName</i>”
-  . </span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>z</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=657 valign=top style='width:492.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Specify
-  this parameter when parameter <i style='mso-bidi-font-style:normal'>fd</i> is
-  a homo-name files group, this parameter is zone table number or a sequence of
-  zone table numbers.</span></span></p>
+  <td width=390 valign=top style='width:292.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Global
+  lock name.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
   <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>cs</span></span></span></p>
+  lang=EN-US>s</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=657 valign=top style='width:492.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Character
-  set; support JVM’s built-in character sets; default is the one in the OS.</span></span></p>
+  <td width=390 valign=top style='width:292.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Locking
+  time-out (Unit: second).</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -146,20 +100,16 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Op
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
   height:4.5pt'>
-  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt;
+  <td width=85 valign=top style='width:63.45pt;padding:0cm 5.4pt 0cm 5.4pt;
   height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal'>@c</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'></span></b></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><b><span
+  lang=EN-US style='font-style:normal'>@u</span></b></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=446 valign=top style='width:334.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  <td width=427 valign=top style='width:320.35pt;padding:0cm 5.4pt 0cm 5.4pt;
   height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Force
-  to cache all cache blocks to the cache directory; by default, only cache
-  certain cache blocks containing data to be retrieved to the directory
-  according to their positions.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
+  the global lock.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -167,24 +117,23 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Op
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
-value:</span></b><span lang=EN-US> </span></span></p>
+value:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>File
-object</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Boolean</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-data file:</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
+script file <i>p1.splx</i>, save it and upload it to the cloud storage:</span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1011
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=874
  style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -192,7 +141,7 @@ data file:</span></span></p>
   style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=400 valign=top style='width:300.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=224 valign=top style='width:168.1pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -200,14 +149,22 @@ data file:</span></span></p>
   style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  <td width=217 valign=top style='width:163.0pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>B</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -215,23 +172,32 @@ data file:</span></span></p>
   style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  <td width=224 valign=top style='width:168.1pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=Qfile(&quot;qtc01/cities.txt&quot;)</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qlock(&quot;lock1&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
-  <i>cities.txt</i> in storage bucket <i>qtc01</i>.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Implement
+  global lock named <i>lock1</i>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -239,23 +205,33 @@ data file:</span></span></p>
   style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  <td width=224 valign=top style='width:168.1pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.exists()</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>if(A1)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Check
-  whether the file exists or not.</span></span></p>
+  if the locking succeeds; execute B3, B4 and B5 if it succeeds, otherwise the
+  system will execute B7.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -263,24 +239,32 @@ data file:</span></span></p>
   style='font-family:"Times New Roman",serif'>3</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  <td width=224 valign=top style='width:168.1pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.name()</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qfile(&quot;qtc01/Employees.txt&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  the file name as <i>[esProc installation
-  directory]\esProc\q-server\webapps\qvs\WEB-INF\home\cache\s3\qtc01\cities.txt</i>.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  <i>Employees.txt</i> from cloud storage. </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4'>
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -288,248 +272,177 @@ data file:</span></span></p>
   style='font-family:"Times New Roman",serif'>4</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
+  <td width=224 valign=top style='width:168.1pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.import@t()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  file data as a table sequence.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-a composite table file:</span></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=832
- style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qfile(&quot;qtc01/emp.ctx&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=B3.import@t()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>get
-  composite table file object in storage bucket <i>qtc01</i>.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.open()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
-  the composite table’s base table.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.cursor().fetch()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Fetch
-  data from the base table.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-homo-name files group:</span></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=832
- style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qfile(&quot;qtc01/emp.ctx&quot;:[1,2])</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  homo-name files group <i>1.emp.ctx</i> and <i>2.emp.ctx</i> in storage bucket
-  <i>qtc01</i>.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.open()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
-  the homo-name files group.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.import()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Import
-  data from the homo-name files group.</span></span></p>
+  data from B3’s file.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=224 valign=top style='width:168.1pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>return B4</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
+  B4’s result.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>6</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=224 valign=top style='width:168.1pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>else</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>7</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=224 valign=top style='width:168.1pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>return &quot;Getting
+  lock failed&quot;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>8</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=224 valign=top style='width:168.1pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=Qlock@u(&quot;lock1&quot;)<span class=code><span style='font-family:
+  "Times New Roman",serif'></span></span></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:11.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
+  the lock.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><a
-name="_Hlt140451857"></a><span lang=EN-US>&nbsp;</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
-no cloud storage is configured:</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
+script file <i>p2.splx</i>, save it and upload it to storage bucket <i>qtc01</i>
+in the cloud storage:</span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=832
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=874
  style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=15 valign=top style='width:11.5pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -537,7 +450,7 @@ no cloud storage is configured:</span></span></p>
   style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=205 valign=top style='width:154.0pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -545,14 +458,22 @@ no cloud storage is configured:</span></span></p>
   style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
+  <td width=305 valign=top style='width:228.4pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>B</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=349 valign=top style='width:261.85pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=15 valign=top style='width:11.5pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -560,23 +481,32 @@ no cloud storage is configured:</span></span></p>
   style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
+  <td width=205 valign=top style='width:154.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qfile(&quot;order.ctx&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qlock(&quot;lock1&quot;,10)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
+  <td width=305 valign=top style='width:228.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=349 valign=top style='width:261.85pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  the composite table file object in esProc main directory.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Implement
+  global lock named <i>lock1</i>;the locking fails if it takes over 10 seconds.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2'>
+  <td width=15 valign=top style='width:11.5pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -584,22 +514,290 @@ no cloud storage is configured:</span></span></p>
   style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
+  <td width=205 valign=top style='width:154.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qfile(&quot;emp.ctx&quot;:[1,2])</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>if(A1)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
+  <td width=305 valign=top style='width:228.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=349 valign=top style='width:261.85pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  the homo-names files group in esProc main directory.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Check
+  if the locking succeeds; execute B3 and B4 if it succeeds, otherwise the
+  system will execute B6</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=15 valign=top style='width:11.5pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=205 valign=top style='width:154.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=305 valign=top style='width:228.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qmove(&quot;qtc01/Employees.txt&quot;,&quot;emp_new.txt&quot;)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=349 valign=top style='width:261.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Rename
+  <i>Employees.txt</i> in the cloud storage platform <i>emp_new.txt</i>.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=15 valign=top style='width:11.5pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=205 valign=top style='width:154.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=305 valign=top style='width:228.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>return &quot;Rename file
+  successfully</span></b></span><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span style='font-family:宋体;mso-ascii-font-family:
+  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>！</span><span
+  lang=EN-US>&quot;</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=349 valign=top style='width:261.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
+  result.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=15 valign=top style='width:11.5pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=205 valign=top style='width:154.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>else</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=305 valign=top style='width:228.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=349 valign=top style='width:261.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=15 valign=top style='width:11.5pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>6</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=205 valign=top style='width:154.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=305 valign=top style='width:228.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>return &quot;</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=11><span lang=EN-US
+  style='font-size:18.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>
+  </span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>Getting
+  lock failed &quot;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=349 valign=top style='width:261.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td width=15 valign=top style='width:11.5pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>7</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=205 valign=top style='width:154.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=Qlock@u(&quot;lock1&quot;)<span class=code><span style='font-family:
+  "Times New Roman",serif'></span></span></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=305 valign=top style='width:228.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=349 valign=top style='width:261.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
+  the lock.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
+script file <i>p3.splx</i>, save it and upload it to the cloud storage:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=570
+ style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=15 valign=top style='width:11.5pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=254 valign=top style='width:190.8pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=300 valign=top style='width:225.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=15 valign=top style='width:11.5pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=254 valign=top style='width:190.8pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qmove(&quot;qtc01/Employees.txt
+  &quot;)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=300 valign=top style='width:225.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Delete
+  <i>Employees.txt</i> from the cloud storage </span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
+executing <i>p1.splx</i>, <i>p2.splx</i> and <i>p3.splx</i> at the same time:</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Suppose
+<i>p1</i> is executed first. A global lock named <i>lock1</i> will be created
+and then <i>p1</i>’s retrieval query on txt data will be executed. During the
+process if <i>p2</i> also begins to execute while <i>p1</i> is under execution,
+that is to say, <i>p1</i> is still locked, then<i> p2</i>’s execution of Qlock
+is put to the waiting list. After 10 seconds if the execution of <i>p1</i> is
+unfinished, execution of <i>p2</i> will be abandoned and “Getting lock failed”
+is returned. If <i>p1</i> finishes execution, then <i>p2</i> begins to perform
+locking and file naming operations;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Suppose
+<i>p3</i> begins to execution during the execution of <i>p2</i>. As <i>p3</i>
+does not check <i>lock1</i>, it will directly execute deletion of <i>txt </i>file.
+This will result in collision between <i>p2</i> and p3 as both are trying to
+modify the <i>txt</i> file.</span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="767.html">Next</a></div>
@@ -613,7 +811,7 @@ no cloud storage is configured:</span></span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

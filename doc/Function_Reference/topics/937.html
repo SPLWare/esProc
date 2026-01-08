@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>sqltranslate()</title>
+<title>stax_cursor()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,2170 +13,215 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqltranslate\(\)"'><a
-name=sqltranslate></a><span lang=EN-US>sqltranslate()</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqltranslate\(\)"'></span></span><span
-style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:"_sqltranslate\(\)"'></span></span></h2></div>
-	<span style='mso-bookmark:"_sqltranslate\(\)"'></span>
-
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%;mso-bidi-language:AR'>Description:</span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
-line-height:200%;mso-fareast-font-family:等线;mso-font-kerning:0pt'></span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Translate standard SQL
-functions in a SQL statement to the dialect of a specified database. </span></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
-mso-fareast-font-family:等线;mso-font-kerning:0pt'></span></span></p>
-
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%;mso-bidi-language:AR'>Syntax: </span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
-line-height:200%;mso-fareast-font-family:等线;mso-font-kerning:0pt'></span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR;mso-bidi-font-weight:
-bold'>sql</span></i></span><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-bidi-language:AR'>.</span></b></span><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR;mso-bidi-font-style:
-italic'>sqltranslate</span></b></span><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>(<i
-style='mso-bidi-font-style:normal'>dbtype</i>)</span></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
+宋体'>stax_cursor()<a name="stax_cursor"></a></span></span><span
+style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-等线'></span></span></p>
+宋体'></span></span></h2></div>
+	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Descripiton:</span></b></span></p>
 
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%;mso-bidi-language:AR'>Note: </span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
-line-height:200%;mso-fareast-font-family:等线;mso-font-kerning:0pt'></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Query
+the Cassandra database and return result as a cursor.</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>The function translates
-standard SQL functions to the dialect of a database specified by </span></span><span
-style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-language:AR'>dbtype</span></i></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-bidi-language:AR'>. </span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>&nbsp;</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>stax_cursor</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>(staxClient,
+cql, [arg1], [arg2], ...)<span style='mso-spacerun:yes'>&nbsp; </span></span></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-language:AR'>Here standard functions are those used in SQL
-statements in a SQL script. sqltranslate() translates a SQL statement by
-converting the standard functions to counterparts of the specified database
-according to configuration file function.xml. </span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>&nbsp;</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+CassandraCli external library function <span style='mso-bidi-font-style:italic'>(See
+</span></span></span><a href="http://doc.raqsoft.com/esproc/ext/"><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
+italic'>External Library Guide</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
+italic'>) </span><span lang=EN-US>queries a Cassandra database and returns the
+result value as a cursor.</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Parameter </span></span><span
-style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-language:AR'>dbtype </span></i></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-bidi-language:AR'>represents database type. Default database types SPL
-supports include </span></span><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-language:AR'>ORACLE, SQLSVR, DB2, MYSQL, HSQL,
-TERADATA and POSTGRES. Standard function SPL offers by default are listed
-below. Users are allowed to define database types and functions as needed by
-modifying the above-mentioned configuration file.</span></span></p>
-
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;line-height:200%;mso-bidi-language:AR'>Standard SQL functions:</span></b></span></p>
-
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;line-height:200%;mso-bidi-language:AR'>String functions</span><span
-lang=EN-US></span></b></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=483
- style='margin-left:-16.95pt;border-collapse:collapse;mso-table-layout-alt:
- fixed;border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:silver;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Standard SQL functions</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:silver;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Description</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1;height:14.15pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.15pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>LOWER(str)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.15pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Convert into lower case</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>UPPER(str)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Convert into upper case</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>LTRIM(str)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Delete whitespaces on the
-  leftmost side</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>RTRIM(str)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Delete whitespaces on the
-  rightmost side</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>TRIM(str)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Delete whitespaces on both
-  sides</span></span><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6;height:28.5pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>SUBSTR(str,start,len)<br>
-  SUBSTR(str,start)</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return a substring</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:7;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>LEN(str)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the length of a
-  string</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:8;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>INDEXOF(sub,str[,start])</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the position of a
-  substring</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:9;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>LEFT(str,len)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the substring in the
-  left of a specified string</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:10;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>RIGHT(str,len)</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the substring in the
-  right of a specified string</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:11;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>CONCAT(str1,str2)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Concatenate two strings</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>REPLACE(str,sub,rplc)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Replace a substring by
-  another string</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;line-height:200%;mso-bidi-language:AR'>Numerical functions</span><span
-lang=EN-US></span></b></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=483
- style='margin-left:-16.95pt;border-collapse:collapse;mso-table-layout-alt:
- fixed;border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:14.15pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:silver;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.15pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Standard functions</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:silver;padding:0cm 5.4pt 0cm 5.4pt;height:14.15pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Description</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ABS(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return absolute value</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ACOS(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return arc cosine</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ASIN(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return arc sine</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ATAN(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return arc tangent</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ATAN2(x,y)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return arc tangent</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>CEIL(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the smallest integer
-  that is not less than <i style='mso-bidi-font-style:normal'>x</i></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:7;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>COS(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return cosine value </span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:8;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>EXP(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the base of&nbsp;<i
-  style='mso-bidi-font-style:normal'>e</i>&nbsp;to the power of<i
-  style='mso-bidi-font-style:normal'>&nbsp;x</i></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:9;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>FLOOR(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the biggest integer
-  that not greater than <i style='mso-bidi-font-style:normal'>x</i></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:10;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>LN(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the natural
-  logarithm</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:11;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>LOG10(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the logarithm with
-  base 10</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:12;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>MOD(x,m)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the remainder of<i
-  style='mso-bidi-font-style:normal'> x</i> divided by <i style='mso-bidi-font-style:
-  normal'>m </i></span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:13;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>POWER(x,y)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the value of <i
-  style='mso-bidi-font-style:normal'>x</i> raised to the power of <i
-  style='mso-bidi-font-style:normal'>y</i></span></span><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:
-  0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:14;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ROUND(x,n)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return <i style='mso-bidi-font-style:
-  normal'>x</i> rounded to <i style='mso-bidi-font-style:normal'>n</i> digits
-  from the decimal point</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:15;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>SIGN(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the sign for <i
-  style='mso-bidi-font-style:normal'>x</i></span></span><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:
-  0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:16;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>SIN(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the sine value</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:17;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>SQRT(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the square root of <i
-  style='mso-bidi-font-style:normal'>x</i></span></span><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:
-  0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:18;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>TAN(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the tangent value</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:19;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>TRUNC(x,n)</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return <i style='mso-bidi-font-style:
-  normal'>x </i>truncated to <i style='mso-bidi-font-style:normal'>n</i>
-  decimal places</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:20;mso-yfti-lastrow:yes;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>RAND(seed)</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=bottom style='width:240.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return a random number</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-fareast-font-family:等线'>&nbsp;</span></span></p>
-
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;line-height:200%;mso-bidi-language:AR'>Date functions</span><span
-lang=EN-US></span></b></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=493
- style='margin-left:-16.95pt;background:white;border-collapse:collapse;
- mso-table-layout-alt:fixed;border:none;mso-border-alt:solid #A6A6A6 .5pt;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid #A6A6A6;
- mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Standard functions</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Description</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1;height:14.15pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.15pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>YEAR(d)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.15pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the year</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>MONTH(d)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the month</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>DAY(d)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the day of the month
-  </span></span><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>HOUR(d)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the hour</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>MINUTE(d)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the minute from <i
-  style='mso-bidi-font-style:normal'>d</i></span></span><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:
-  0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>SECOND(d)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the second</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:7;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>QUARTER(d)</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the quarter from <i
-  style='mso-bidi-font-style:normal'>d</i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:8;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>TODAY()</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the date</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:9;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>NOW()</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the current time</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:10;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ADDYEARS(d,n)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Add years</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:11;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ADDMONTHS(d, n)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Add months</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:12;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ADDDAYS(d, n)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Add days</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:13;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ADDHOURS(d, n)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Add hours</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:14;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ADDMINUTES(d, n)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Add minutes</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:15;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ADDSECONDS(d, n)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Add seconds</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:16;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>DAYOFYEAR(d)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the day of year</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:17;mso-yfti-lastrow:yes;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>WEEKOFYEAR(d)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the calendar week of
-  the date</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-fareast-font-family:等线'>&nbsp;</span></span></p>
-
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;line-height:200%;mso-bidi-language:AR'>Conversion functions</span><span
-lang=EN-US></span></b></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=493
- style='margin-left:-16.95pt;border-collapse:collapse;mso-table-layout-alt:
- fixed;border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Standard functions</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Description</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>ASCII(str)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return numeric value of
-  left-most character</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>CHR(n)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the character for
-  integer <i style='mso-bidi-font-style:normal'>n</i></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>INT(x)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return an integer for
-  string or number <i style='mso-bidi-font-style:normal'>x</i></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>DECIMAL(x,len,scale)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the numeric value
-  for a string or number</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>TIMESTAMP(str)</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Convert the format string
-  of yyyy-mm-dd hh24:mi:ss into datetime</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>NUMTOCHAR(d)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return a string for number <i
-  style='mso-bidi-font-style:normal'>d</i></span></span><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:
-  0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:7;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>DATETOCHAR(date)</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Convert date into a string
-  in the format of <span style='mso-spacerun:yes'>&nbsp;</span>yyyy-mm-dd
-  hh24:mi:ss</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:8;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>CAST(x, y)</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Convert <i
-  style='mso-bidi-font-style:normal'>x</i> to data type <i style='mso-bidi-font-style:
-  normal'>y</i> (note: <i style='mso-bidi-font-style:normal'>y</i> can’t be
-  written as ?)</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:9;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>NULLIF(x1,x2)</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return null if <i
-  style='mso-bidi-font-style:normal'>x1</i>=<i style='mso-bidi-font-style:normal'>x2</i>,
-  otherwise return <i style='mso-bidi-font-style:normal'>x1</i></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>DATE(str)</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Convert the format string of
-  yyyy-mm-dd into a date</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;line-height:200%;mso-bidi-language:AR'>Other functions</span><span
-lang=EN-US></span></b></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=493
- style='margin-left:-16.95pt;border-collapse:collapse;mso-table-layout-alt:
- fixed;border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:silver;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Standard functions</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:silver;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Description</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1;height:14.15pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>CASE(when1,then1,</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>…[,else])</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the corresponding <i
-  style='mso-bidi-font-style:normal'>then</i> part if <i style='mso-bidi-font-style:
-  normal'>when</i> is true, otherwise return the <i style='mso-bidi-font-style:
-  normal'>else</i> part</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>COALESCE(x1,…)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Return the first non-null
-  parameter</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:14.25pt'>
-  <td width=162 valign=bottom style='width:121.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>CONCAT(s1,s2,…)</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=331 valign=bottom style='width:248.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.25pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>Concatenate multiple
-  strings</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%;mso-bidi-language:AR'>Parameter: </span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
-line-height:200%;mso-font-kerning:0pt'></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-16.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ style='margin-left:-17.95pt;border-collapse:collapse;mso-table-layout-alt:
+ fixed;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=59 valign=top style='width:43.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>sql</span></i></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
+  <td width=98 valign=top style='width:73.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>staxClient</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=476 valign=top style='width:357.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>A SQL statement to be
-  translated</span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
+  <td width=437 valign=top style='width:327.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+  database connection handle<span class=code><span style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=59 valign=top style='width:43.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-bidi-language:AR'>dbtype</span></i></span><span style='mso-bookmark:
-  _Hlt161066090'><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='mso-fareast-font-family:等线'></span></i></span></p>
+ <tr style='mso-yfti-irow:1;height:16.55pt'>
+  <td width=98 valign=top style='width:73.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:16.55pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>cql</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=476 valign=top style='width:357.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Database type; translate
-  the database type literally when there are not settings for the current type
-  in </span></span><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-language:AR'>function.xml</span></i></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-bidi-language:AR'>. </span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
-  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'> </span></span></p>
+  <td width=437 valign=top style='width:327.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:16.55pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
+  CQL query statement<span class=code><span style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=98 valign=top style='width:73.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>args</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=437 valign=top style='width:327.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
+  parameter value; can be absent<span class=code><span style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%;mso-bidi-language:AR'>Return value: </span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
-line-height:200%;mso-fareast-font-family:等线;mso-font-kerning:0pt'></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:
+</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>SQL statement</span></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-等线'></span></span></p>
-
-<p class=MsoNormal style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%;mso-bidi-language:AR'>Example: </span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
-line-height:200%;mso-fareast-font-family:等线;mso-font-kerning:0pt'></span></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=720
- style='margin-left:-1.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 0cm 0cm 0cm'>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=29 valign=top style='width:21.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'>&nbsp;</span></span></p>
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=305 valign=top style='width:228.55pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
-  padding:0cm 0cm 0cm 0cm'>
+  <td width=296 valign=top style='width:222.2pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体;
-  mso-bidi-language:AR'>A</span></b></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-fareast-font-family:等线'></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=387 valign=top style='width:289.9pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-fareast-font-family:等线'>&nbsp;</span></span></p>
+  <td width=245 valign=top style='width:183.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=29 valign=top style='width:21.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>1</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=305 style='width:228.55pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>SELECT
-  ID,WEEKOFYEAR(DATES),CUSTOMER,AREA FROM CLUE</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
+  <td width=296 valign=top style='width:222.2pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=stax_open(&quot;127.0.0.1&quot;:9042,
+  &quot;mycasdb&quot;,&quot;cassandra&quot;:&quot;cassandra&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=387 style='width:289.9pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-language:AR'>A SQL statement using standard function WEEKOFYEAR(d);
-  below are settings of WEEKOFYEAR function in <i>function.xml</i>:</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-bidi-language:AR'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-no-proof:yes'><img border=0 width=458 height=121
-  src="Function_Reference.files/image2572.jpg" v:shapes="_x0000_i2793"></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-bidi-language:AR'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'><span
-  style='mso-spacerun:yes'>&nbsp;</span></span></span><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:
-  等线'></span></span></p>
+  <td width=245 valign=top style='width:183.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Cassandra
+  database connection<span style='mso-bidi-font-style:italic'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=29 valign=top style='width:21.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>2</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=305 style='width:228.55pt;border-top:none;border-left:none;
+  <td width=296 style='width:222.2pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>=A1.sqltranslate(&quot;ORACLE&quot;)</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=stax_cursor(A1,&quot;select
+  * from user&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=387 style='width:289.9pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Return the following
-  SQL statement:</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>SELECT ID,<span
-  style='color:#5B9BD5'>TO_NUMBER(TO_CHAR(DATES,'WW'))</span>,CUSTOMER,AREA
-  FROM CLUE</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'>&nbsp;</span></span></p>
+  <td width=245 valign=top style='width:183.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Perform
+  the query and return result as a cursor<span style='mso-bidi-font-style:italic'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=29 valign=top style='width:21.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>3</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=305 style='width:228.55pt;border-top:none;border-left:none;
+  <td width=296 style='width:222.2pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>=A1.sqltranslate(&quot;SQLSVR&quot;)</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.fetch()</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=387 style='width:289.9pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Return the following
-  SQL statement:</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>SELECT ID,<span
-  style='color:#5B9BD5'>DATEPART(WW,DATES)</span>,CUSTOMER,AREA FROM CLUE</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:等线'></span></span></p>
+  <td width=245 valign=top style='width:183.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=29 valign=top style='width:21.45pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>4</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=305 style='width:228.55pt;border-top:none;border-left:none;
+  <td width=296 style='width:222.2pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>=A1.sqltranslate(&quot;DB2&quot;)</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=stax_close(A1)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=387 style='width:289.9pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Return the following
-  SQL statement:</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>SELECT ID,<span
-  style='color:#5B9BD5'>WEEK(DATES)</span>,CUSTOMER,AREA FROM CLUE</span></span><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'></span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=29 valign=top style='width:21.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>5</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=305 style='width:228.55pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>=A1.sqltranslate(&quot;MYSQL&quot;)</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=387 style='width:289.9pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Return the following
-  SQL statement:</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>SELECT ID,<span
-  style='color:#5B9BD5'>WEEK(DATES)</span>,CUSTOMER,AREA FROM CLUE</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=29 valign=top style='width:21.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>6</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=305 style='width:228.55pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>=A1.sqltranslate(&quot;HSQL&quot;)</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=387 style='width:289.9pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Return the following
-  SQL statement:</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>SELECT ID,<span
-  style='color:#5B9BD5'>WEEK(DATES)</span>,CUSTOMER,AREA FROM CLUE</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=29 valign=top style='width:21.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>7</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=305 style='width:228.55pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>=A1.sqltranslate(&quot;TERADATA&quot;)</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=387 style='width:289.9pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Return the following
-  SQL statement:</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>SELECT ID,<span
-  style='color:#5B9BD5'>TD_WEEK_OF_YEAR(DATES)</span>,CUSTOMER,AREA FROM CLUE</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
-  <td width=29 valign=top style='width:21.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>8</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=305 style='width:228.55pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体;mso-bidi-language:AR'>=A1.sqltranslate(&quot;POSTGRES&quot;)</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  等线'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=387 style='width:289.9pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Return the following
-  SQL statement:</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>SELECT ID,<span
-  style='color:#5B9BD5'>EXTRACT(WEEK FROM DATES)</span>,CUSTOMER,AREA FROM CLUE</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:等线'></span></span></p>
+  <td width=245 valign=top style='width:183.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US style='font-size:12.0pt'>&nbsp;</span></b></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US style='font-size:14.0pt'>User-defined functions</span></b></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>esProc
-allows users to extend functionalities of the existing SQL standard functions
-by configuring </span></span><span style='mso-bookmark:_Hlt161066090'><i><span
-lang=EN-US style='mso-bidi-language:AR'>function.xml</span></i><span
-lang=EN-US> so that they can modify database functions or add new members to
-them. </span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>function.xml</span></i><span
-lang=EN-US> is located in <i style='mso-bidi-font-style:normal'>/com/scudata/dm/sql/esproc-bin-xxxx.jar
-</i>(</span></span><span style='mso-bookmark:_Hlt161066090'><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>esproc-xxxx.jar</span></i></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'> for the Community Edition)</span><span lang=EN-US>. Its content is as
-follows: </span></span></p>
-
-<p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
-#0400;mso-fareast-language:#0400'><img border=0 width=554 height=459
-src="Function_Reference.files/image2574.jpg" v:shapes="_x0000_i2794"></span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Under
-each FUNCTION node, <b>name</b> property is the name of a standard SQL
-function;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US>paramcount</span></b><span lang=EN-US> property specifies the number
-of parameters in the function; <b>value</b> property is the syntax of
-counterpart function in the target database;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Under
-each INFO subnode, <b>dbtype</b> property is database type name;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US>value</span></b><span lang=EN-US> property is the syntax of the
-function implemented by this database; default is <b>value</b> property value under
-FUNCTION node if it isn’t defined. </span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
-_Hlt161066090'><span lang=EN-US>Directions for defining a user-defined
-function:<br>
-1. Specify function name and number of parameters through <b>name</b> property
-and <b>paramcount </b>property under &lt;FUNCTION&gt; node;<br>
-2. Configure database type under &lt;INFO&gt; subnode. <b>dbtype</b> is
-database type, whose value must be uppercase, and <b>value</b> is the corresponding
-function in the specified database. There can be multiple INFO subnodes under
-FUNCTION node.</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US style='font-size:14.0pt'>Add new database type</span></b></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>To
-add a new database type, you can add an INFO subnode under FUNCTION node in <i
-style='mso-bidi-font-style:normal'>function.xml</i> and configure <b>dbtype</b>
-property and <b>value</b> property. The <b>dbtype</b> is database type name,
-and <b>value</b> is the corresponding function in the specified database. </span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="938.html">Next</a></div>
@@ -2190,7 +235,7 @@ and <b>value</b> is the corresponding function in the specified database. </span
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

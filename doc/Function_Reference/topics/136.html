@@ -20,7 +20,7 @@ style='mso-bookmark:_Hlt161066090'></span></h2></div>
 	<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US>Description:</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Define
 a canvas object.</span></span></p>
 
 <p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
@@ -34,66 +34,239 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-fam
 lang=EN-US>Note:</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>To define canvas in esProc, simply use the
-canvas() function in a cell. Then, the plotting program can invoke the canvas
-object with the cell name directly, set the plotting parameters, or plot
-straightforwardly.</span></span></p>
+style='mso-bidi-font-size:10.5pt'>&nbsp;</span></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
+ÑÅºÚ;color:#333333'>With esProc, you can directly use canvas() function in a cell
+to define a canvas object, or assign a canvas object to a parameter. During the
+latter plotting, you just need to call the cell name or the parameter name to
+use the canvas object. Three steps for drawing a chart with esProc:</span></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
+ÑÅºÚ;color:#333333'>1. Use canvas() to define a canvas object;</span></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
+ÑÅºÚ;color:#333333'>2. Use G.plot() to plot elements the chart will use;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-fareast-font-family:ÑÅºÚ;color:#333333'>3. Use G.draw() to draw the
+chart.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt'>Return value:</span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'><span style='mso-tab-count:1'>&nbsp; </span></span></b><span
+lang=EN-US>Canvas object</span></span><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'></span></b></span></p>
 
 <p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US>Example:</span></span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:19.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:21.0pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=123 valign=top style='width:91.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=258 valign=top style='width:193.4pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:ºÚÌå'>A</span></b></span></p>
+  lang=EN-US>A</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=438 valign=top style='width:328.4pt;border:none;mso-border-left-alt:
+  <td width=501 valign=top style='width:375.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=28 valign=top style='width:21.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:ºÚÌå'>1</span></b></span></p>
+  lang=EN-US>1</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=123 style='width:91.95pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=258 valign=top style='width:193.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  ºÚÌå'>&gt;map1=canvas()</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=canvas()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=438 style='width:328.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=501 style='width:375.65pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Assign
-  the canvas to map1 which can be referenced directly in plotting.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Define
+  a canvas object.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=28 valign=top style='width:21.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>2</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=258 valign=top style='width:193.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.plot(&quot;Text&quot;,</span></b></span></p>
+  <p class=MsoNormal style='text-indent:36.9pt;mso-char-indent-count:3.5'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>&quot;text&quot;:&quot;hello word!&quot;,</span></b></span></p>
+  <p class=MsoNormal style='text-indent:36.9pt;mso-char-indent-count:3.5'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>&quot;width&quot;:200,</span></b></span></p>
+  <p class=MsoNormal style='text-indent:36.9pt;mso-char-indent-count:3.5'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>&quot;height&quot;:200,</span></b></span></p>
+  <p class=MsoNormal style='text-indent:36.9pt;mso-char-indent-count:3.5'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>&quot;barType&quot;:256,</span></b></span></p>
+  <p class=MsoNormal style='text-indent:36.9pt;mso-char-indent-count:3.5'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>&quot;data1&quot;:250,</span></b></span></p>
+  <p class=MsoNormal style='text-indent:36.9pt;mso-char-indent-count:3.5'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>&quot;data2&quot;:250)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=501 style='width:375.65pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Plot
+  chart elements. Use Text element to plot 2D barcode.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=28 valign=top style='width:21.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>3</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=258 valign=top style='width:193.4pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.draw(400,400)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=501 valign=top style='width:375.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Draw
+  the chart in a canvas whose width and height are both 400pixels. Click Browse
+  Graphs in the Value Viewing Section, or right-click the current cell to
+  select Browse Graphs to view the 2D barcode as follows:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><span
+  style='mso-spacerun:yes'>&nbsp;</span></span></span><span style='mso-bookmark:
+  _Hlt161066090'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+  #0400'><img border=0 width=211 height=210
+  src="Function_Reference.files/image244.png" v:shapes="_x0000_i1177"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
+
+<p class=MsoNormal style='mso-prop-change:"LIJUN HAN" 20250903T1244'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=787
+ style='margin-left:19.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=28 valign=top style='width:21.0pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=277 valign=top style='width:207.6pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>A</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=482 valign=top style='width:361.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=28 valign=top style='width:21.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>1</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=277 style='width:207.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;map1=canvas()</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=482 style='width:361.45pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Define
+  a canvas object and assign it to parameter map1. You can reference the
+  parameter directly through the name during plotting.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt'>Related function:</span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'><span style='mso-tab-count:1'>&nbsp; </span></span></b></span><a
+ href="gplot.html#G_plot"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>G.plot()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><span
+style='mso-tab-count:1'>&nbsp; </span></span></span><a
+ href="gdraw.html#G_draw"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>G.draw()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="137.html">Next</a></div>
@@ -107,7 +280,7 @@ lang=EN-US>Example:</span></span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>next{a}</title>
+<title>P.nodes()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,48 +13,153 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="next_a"><span lang=EN-US>next{a}</span></a></span><span
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
+style='mso-bookmark:_Hlt161066090'><a name="P_nodes"></a><span lang=EN-US>P.nodes()</span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
-style='mso-bookmark:_Hlt161066090'></span></h2></div>
+style='mso-bookmark:_Hlt161066090'></span></h3></div>
 	<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Description:</span></span></p>
+lang=EN-US>Description:</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Skip
-the current loop and continue with the next loop.</span></span></p>
-
-<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Syntax:</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>next</span></span><span
-lang=EN-US>{</span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>a</span></span><span lang=EN-US>}</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Find
+records in a recursive way where the foreign key values reference a specified
+record.</span></span></p>
 
 <p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Note:</span></span></p>
+lang=EN-US>Syntax:</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>next</span></span><span
-lang=EN-US> is used to skip the remaining code block in the current loop and
-execute the next loop as long as the cycling does not finish.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+lang=EN-US>P</span></span><span lang=EN-US style='mso-bidi-font-style:italic'>.</span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'>nodes</span></span><span
+lang=EN-US>(</span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US>F</span></span></span><span style='mso-bookmark:
+_Hlt161066090'><span class=a5><span lang=EN-US>,</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>r</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=a5><span lang=EN-US>,</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>n</span></span><span
+lang=EN-US>)</span></span></p>
 
 <p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Parameter:</span></span></p>
+lang=EN-US>Note:</span></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>r</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='font-style:normal;mso-bidi-font-style:italic'>.</span></span><span
+lang=EN-US> The function finds all records from record sequence <i
+style='mso-bidi-font-style:normal'>P</i> where foreigh key<i style='mso-bidi-font-style:
+normal'> F</i> references record <i style='mso-bidi-font-style:normal'>r</i>,
+the root node, in a recursive way. The resulting records are record <i
+style='mso-bidi-font-style:normal'>r</i>’s child nodes. If these child nodes
+don’t have any child nodes, that is, their foreign key values don’t reference
+them, they are called the root node’s leaf nodes; otherwise, they are called
+the subtrees.</span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>
+</span></span></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='font-style:normal;mso-bidi-font-style:italic'>&nbsp;</span></span></span></p>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='font-style:normal;mso-bidi-font-style:italic'>If the specified record </span><span
+lang=EN-US>r</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>
+can’t be found, the function will return NULL. Parameter </span></span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>n</span></i><span
+lang=EN-US> is the maximum recursion depth, whose default is 1,000. </span></span></p>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Parameter: </span></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-10.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>a</span></span></span></p>
+  lang=EN-US>P</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
+  record sequence</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
+  italic'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>F</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Field
+  name</span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>r</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>A record.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>n</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>A number.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Option:</span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:-10.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>@d</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-  master cell of the loop code block. If the master cell </span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>a</span></span><span
-  lang=EN-US> is omitted, then it is the current loop that is running</span></span><span
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Make
+  the function return leaf-level nodes</span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=var1><span lang=EN-US style='font-style:normal;
+  mso-bidi-font-style:italic'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>@p</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Make
+  the function return all child nodes and their level relative to the root node</span></span><span
   style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
   style='font-style:normal;mso-bidi-font-style:italic'>.</span></span></span></p>
   </td>
@@ -63,10 +168,15 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Parameter:</span><
 </table>
 
 <p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example:</span></span></p>
+lang=EN-US>Return value: </span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=732
- style='margin-left:5.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Sequence</span></span></p>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Example:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:-.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
@@ -74,11 +184,10 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example:</span></s
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=327 valign=top style='width:245.05pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -86,33 +195,10 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example:</span></s
   style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>B</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>C</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>D</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=302 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
+  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center;mso-line-height-alt:
+  0pt'><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -125,45 +211,23 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example:</span></s
   style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
+  <td width=327 valign=top style='width:245.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=[]</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D://emp.txt&quot;).import@t().keys(empid)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=302 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
+  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>[1,1,3,3].</span></span></span></p>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
+  mso-font-kerning:0pt'><img border=0 width=223 height=269
+  src="Function_Reference.files/image2038.jpg" v:shapes="图片_x0020_321"></span></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span style='mso-bookmark:
+  _Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -176,589 +240,129 @@ lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example:</span></s
   style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
+  <td width=327 valign=top style='width:245.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>for 5</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A1.switch(mgrid,A1:empid)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=302 rowspan=5 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>In
-  this example, the next </span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>A2</span></span><span lang=EN-US> and the break </span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'>A2</span></span><span
-  lang=EN-US> are to control loop of the </span></span><span style='mso-bookmark:
-  _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>A2</span></span><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US> </span></b><span lang=EN-US>level. The computation of </span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'>A1</span></span><span
-  lang=EN-US> is the sequence </span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>[1, 1, 3, 3]</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span style='mso-bookmark:
+  _Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:3;height:18.15pt;mso-height-rule:exactly'>
+ <tr style='mso-yfti-irow:3;height:17.25pt'>
   <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:18.15pt;mso-height-rule:
-  exactly'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
   style='font-family:"Times New Roman",serif'>3</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
+  <td width=327 valign=top style='width:245.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.15pt;
-  mso-height-rule:exactly'><span style='mso-bookmark:_Hlt161066090'></span>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A1.nodes(mgrid,A1.select@1(name==&quot;Diana&quot;),5)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.15pt;
-  mso-height-rule:exactly'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>for 2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.15pt;
-  mso-height-rule:exactly'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.15pt;
-  mso-height-rule:exactly'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span style='mso-bookmark:
+  _Hlt161066090'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+  #0400'><img border=0 width=182 height=81
+  src="Function_Reference.files/image2040.jpg" v:shapes="_x0000_i2404"></span></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span style='mso-bookmark:
+  _Hlt161066090'><span lang=EN-US>According to mgrid field, the foreign key
+  references, search for all records of Diana’s subordinates and those of the
+  subordinates of Diana’s subordinates<span class=code><span style='font-family:
+  "Times New Roman",serif;mso-fareast-font-family:宋体;font-weight:normal;
+  mso-bidi-font-weight:bold'>.</span></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:4;height:7.9pt'>
+ <tr style='mso-yfti-irow:4;height:14.6pt'>
   <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
   style='font-family:"Times New Roman",serif'>4</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
+  <td width=327 valign=top style='width:245.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.9pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A1.nodes@d(mgrid,A1.select@1(name==&quot;Diana&quot;),5)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.9pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>if A2==2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>next A2</span></span></span></p>
+  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span style='mso-bookmark:
+  _Hlt161066090'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+  #0400'><img border=0 width=184 height=71
+  src="Function_Reference.files/image2042.jpg" v:shapes="_x0000_i2405"></span></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span style='mso-bookmark:
+  _Hlt161066090'><span lang=EN-US>Search for the records of Diana’s
+  subordinates who are not a manager<span class=code><span style='font-family:
+  "Times New Roman",serif;mso-fareast-font-family:宋体;font-weight:normal;
+  mso-bidi-font-weight:bold'>.</span></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:5;height:2.1pt'>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;height:14.6pt'>
   <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:2.1pt'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
   style='font-family:"Times New Roman",serif'>5</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
+  <td width=327 valign=top style='width:245.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:2.1pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A1.nodes@p(mgrid,A1.select@1(name==&quot;Diana&quot;),5)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:2.1pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:2.1pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>if A2==4</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:2.1pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>break A2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>6</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A1=A1|[A2]</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:7;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>7</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  * from EMPLOYEE&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=302 style='width:8.0cm;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:1.95pt'><span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
   <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:8;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
+  mso-font-kerning:0pt'><img border=0 width=81 height=98
+  src="Function_Reference.files/image2043.png" v:shapes="图片_x0020_324"></span></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span style='mso-bookmark:
+  _Hlt161066090'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+  #0400'>&nbsp;</span></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span style='mso-bookmark:
+  _Hlt161066090'><span lang=EN-US>Display a relationship structure with Diana
+  as the root, from which you see that Diana is the manager of </span></span><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>8</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=create(ID,Dept)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=302 style='width:8.0cm;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'><img border=0 width=123 height=24
-  src="Function_Reference.files/image2029.png" v:shapes="图片_x0020_2036"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:9;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>9</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>for A7</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=302 rowspan=3 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Extract
-  records whose </span></span><span style='mso-bookmark:_Hlt161066090'><span
+  style='font-family:"Times New Roman",serif;font-weight:normal'>empid</span></span><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>DEPT</span></span><span lang=EN-US> values are not <b
-  style='mso-bidi-font-weight:normal'>&quot;</b></span></span><span
+  mso-fareast-font-family:宋体;font-weight:normal'>=</span></span></span><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'>Sales</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>&quot;</span></b><span
-  lang=EN-US> from the </span></span><span style='mso-bookmark:_Hlt161066090'><span
+  style='font-family:"Times New Roman",serif;font-weight:normal'>7, who is the manager
+  of empid</span></span><span class=code><span lang=EN-US style='font-family:
+  "Times New Roman",serif;mso-fareast-font-family:宋体;font-weight:normal'>=</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'>14</span></span><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>EMPLOYEE</span></span><span lang=EN-US> table<span
-  class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:10;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>10</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>if A9.</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=11><span lang=EN-US
-  style='font-size:18.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>
-  </span></span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>DEPT==&quot;Sales&quot;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:11;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>11</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>Next</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>12</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=125 valign=top style='width:93.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=129 valign=top style='width:96.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A8.insert(0,A9.EID:
-  ID,A9.</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=11><span lang=EN-US style='font-size:18.0pt;mso-bidi-font-size:12.0pt;
-  font-family:"Times New Roman",serif'> </span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>DEPT:Dept)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=100 valign=top style='width:74.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=302 style='width:8.0cm;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'>A8</span></span><span lang=EN-US> returns result
-  as follows:</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=136 height=128
-  src="Function_Reference.files/image2030.png" v:shapes="图片_x0020_2037"></span></span></p>
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
-
-<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%;color:black'>Note:</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>1.By
-comparison, the </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>break</span></span><span
-lang=EN-US> is to jump out of the cycling directly, while </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>next</span></span><span lang=EN-US>
-is to ignore the remaining code block in the current loop, and proceeds to the
-next loop as long as the cycling does not finish. </span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>2.If
-</span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-lang=EN-US>a</span></span><span lang=EN-US> is omitted, then the current loop
-will be under control. To control the loop at higher level, </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>a </span></span><span
-lang=EN-US>is required.</span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="668.html">Next</a></div>
@@ -766,13 +370,13 @@ lang=EN-US>is required.</span></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="54.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="666.html">nodes()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

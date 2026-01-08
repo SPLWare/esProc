@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>kafka_send()</title>
+<title>r.k ey()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,302 +13,343 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="kafka_subscribe"></a><span
-lang=EN-US style='mso-fareast-font-family:宋体'>kafka_send()<a name="kafka_send"></a></span></span><span
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
+style='mso-bookmark:_Hlt161066090'><a name="r_key"></a><span lang=EN-US
+style='mso-bidi-font-style:italic'>r.k</span><span lang=EN-US>ey()</span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-宋体'></span></span></h2></div>
-	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Descripition:</span></b></span></p>
+style='mso-bookmark:_Hlt161066090'></span></h3></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=FR style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%;
+mso-ansi-language:FR'></span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-producer publishes messages to topics.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>Get the primary key value of a record.</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b><span
-lang=EN-US> </span></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=FR style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%;
+mso-ansi-language:FR'></span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><b><span
-lang=EN-US>kafka_send</span></b><span lang=EN-US>(fd, [key,] value)<span
-style='mso-tab-count:1'>&nbsp; </span></span></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span lang=FR
+style='mso-bidi-font-size:10.5pt;mso-ansi-language:FR'>r</span></i></span><span
+style='mso-bookmark:_Hlt161066090'><i><span lang=FR style='mso-ansi-language:
+FR'>.</span></i></span><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=FR style='mso-fareast-font-family:
+黑体;mso-ansi-language:FR'>key</span></b></span><span style='mso-bookmark:_Hlt161066090'><span
+lang=FR style='mso-ansi-language:FR'>(</span><i><span lang=EN-US>F<sub>i</sub></span></i><span
+lang=EN-US style='mso-bidi-font-style:italic'>,…</span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=FR style='mso-ansi-language:FR'>)</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><b><span
-lang=EN-US>kafka_send</span></b><span lang=EN-US>(fd, partition, key, value)</span></span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Note:
 </span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>KafkaCli
-external library function <span style='mso-bidi-font-style:italic'>(See </span></span></span><a
-href="http://doc.raqsoft.com/esproc/ext/"><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-style:italic'>External Library Guide</span></span><span
-style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-style:italic'>)</span><span lang=EN-US>.</span></span></p>
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The function gets the
+primary key value of record <i style='mso-bidi-font-style:normal'>r</i>
+according to key </span></span><span style='mso-bookmark:_Hlt161066090'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>F<sub>i</sub></span></i><span lang=EN-US>. If </span></span><span
+style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>F<sub>i</sub></span></i><span
+lang=EN-US> is omitted, return the base key values. If the key isn’t set for <i
+style='mso-bidi-font-style:normal'>r</i>, return null. If it is a one-field
+key, just return the single key value; and with a composite key, return a
+sequence of values.</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
-there aren’t partitions, parameter </span></span><span style='mso-bookmark:
-_Hlt161066090'><span class=var1><span lang=EN-US>key</span></span><span
-lang=EN-US> can be absent; and when there are partitions, parameters </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>partition</span></span><span
-lang=EN-US>, </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>key</span></span><span lang=EN-US> and </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>value</span></span><span
-lang=EN-US> must be present.</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:
 </span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-5.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>fd</span></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>r</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=478 valign=top style='width:358.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  connection object.</span></span></p>
+  record.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>key</span></span></span></p>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US>F<sub>i</sub></span></i></span><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=478 valign=top style='width:358.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-  key word of a message.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>value</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=478 valign=top style='width:358.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Value
-  of a message.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>partition</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=478 valign=top style='width:358.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Index
-  numbers of partitions, which is an integer or a sequence beginning from 0.</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Key.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'> </span></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Return
+value: </span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Record’s
+primary key</span></span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-1.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:-1.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=257 valign=top style='width:192.4pt;border:solid #A6A6A6 1.0pt;
+  <td width=294 valign=top style='width:220.35pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>A</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=552 valign=top style='width:413.95pt;border:none;mso-border-left-alt:
+  <td width=359 valign=top style='width:269.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>1</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=294 valign=top style='width:220.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_open(&quot;D://kafka.properties&quot;,&quot;topic-test&quot;)</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=demo.query(&quot;select * from<span style='mso-spacerun:yes'>&nbsp;
+  </span>EMPLOYEE &quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Connect
-  to Kafka server</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span><span
-  lang=EN-US> </span></span></p>
+  <td width=359 valign=top style='width:269.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>2</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=294 valign=top style='width:220.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_send(A1,
-  &quot;A100&quot;,&quot;apple&quot;)</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=A1(1).key()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Send
-  a message where the key is A100 and value is apple to A1</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-  bold'>.</span></span></span></p>
+  <td width=359 valign=top style='width:269.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>1;
+  return null because A1 doesn’t set a key</span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>3</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=294 valign=top style='width:220.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_send(A1,&quot;apple&quot;)</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=A1.keys(EID)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Omit
-  parameter </span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US>key</span></span><span lang=EN-US> as there are
-  no partitions</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  <td width=359 valign=top style='width:269.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Set
+  EID field as the key</span></span><span style='mso-bookmark:_Hlt161066090'><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>4</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=294 valign=top style='width:220.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_open(file(&quot;D://kafka.properties&quot;);&quot;topic-test1&quot;)</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=A1(1).key()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>5</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_send(A1,1,
-  &quot;A100&quot;,&quot;apple&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>All
-  parameters must be present as there are partitions</span></span><span
+  <td width=359 valign=top style='width:269.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>1;
+  return the primary key value of the first record</span></span><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
   style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
   bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=22 valign=top style='width:16.4pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:5'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>6</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>5</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=257 style='width:192.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=294 valign=top style='width:220.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=kafka_close(A1)</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=A1.keys(EID,DEPT)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=552 style='width:413.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Close
-  the Kafka connection</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  <td width=359 valign=top style='width:269.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Set
+  EID&amp;DEPT fields as the key</span></span><span style='mso-bookmark:_Hlt161066090'><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>6</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=294 valign=top style='width:220.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=A1(1).key()</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=359 valign=top style='width:269.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>[1,R&amp;D];
+  the primary key value is a sequence because the key consist of two fields</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>7</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=294 valign=top style='width:220.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=A1(1).key(DEPT)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=359 valign=top style='width:269.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>R&amp;D;
+  get the value of a specified key field</span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
 </table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Related
+function:</span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="tkeysk.html#T_keys"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>T</span><span lang=EN-US>.</span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>k<span style='mso-bookmark:_Hlt519019991'>e</span><span style='mso-bookmark:
+_Hlt476231938'>y</span>s</span><span lang=EN-US>(<span style='mso-bookmark:
+_Hlt476216759'>)</span></span></span><span style='mso-bookmark:_Hlt476216759'></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt476216759"></a><a name="_Hlt476231938"></a><a name="_Hlt519019991"></a><span
+style='mso-bookmark:_Hlt161066090'></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="v0.html#v_v"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>v</span></span><span style='mso-bookmark:
+_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:黑体'>.<span
+style='mso-bookmark:_Hlt476225605'>v</span>()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt476225605"></a><span style='mso-bookmark:_Hlt161066090'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="573.html">Next</a></div>
@@ -316,13 +357,13 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'> </
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="54.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="571.html">key()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

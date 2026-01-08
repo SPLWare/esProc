@@ -22,8 +22,8 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-fami
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
 lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Auto-identify
-the character set used for a string or a text file.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+the character encoding standard used by a string or a text file.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
 lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></p>
@@ -38,15 +38,10 @@ style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:12.0pt'>
 </span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function identifies the character set used for a specified text file when no
-options are used. Character sets it supports include UTF-8, GBK, UTF-16LE and
-UTF-16BE. </span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Identify
-the character set as GB18030 for text files where the original character sets
-are GBK, GB2312 and GB18030. </span></span></p>
+function identifies the character encoding standard used by text file <i>fn </i>when
+no options are used. Standards it supports include UTF-8, GBK, UTF-16LE and
+UTF-16BE. Identify the character encoding as GB18030 for text files where the
+original encoding standards are GBK, GB2312 or GB18030. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
@@ -71,10 +66,6 @@ with &quot;http://&quot; or &quot;https://&quot;.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
-parameter <i>cs</i> is present, return the encoded values included in the <i>cs</i>
-list.</span></span></p>
-
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
 lang=EN-US style='font-size:14.0pt'>Option:</span></b></span><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt;
@@ -93,7 +84,7 @@ mso-font-kerning:0pt'></span></span></p>
   <td width=478 valign=top style='width:358.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
   mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-font-kerning:0pt'>Get the character set from </span><i><span
+  lang=EN-US style='mso-font-kerning:0pt'>Get the character encoding from </span><i><span
   lang=EN-US>fn </span></i></span><span style='mso-bookmark:_Hlt161066090'><span
   lang=EN-US style='mso-font-kerning:0pt'>if it is a string or a binary
   variable</span><span lang=EN-US>.</span></span><span style='mso-bookmark:
@@ -112,7 +103,7 @@ mso-font-kerning:0pt'></span></span></p>
   <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
   mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
   lang=EN-US style='mso-font-kerning:0pt'>Return the list of all eligible
-  character sets; return the first eligible one by default</span><span
+  character encoding standards; return the first eligible one by default</span><span
   lang=EN-US>.</span></span><span style='mso-bookmark:_Hlt161066090'><span
   lang=EN-US style='mso-font-kerning:0pt'></span></span></p>
   </td>
@@ -136,8 +127,8 @@ color:#333333;mso-font-kerning:0pt'>Parameter:</span></b></span></p>
   <td width=797 valign=top style='width:597.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-font-kerning:
-  0pt'>The to-be-identified string or binary value, name of the text file to be
-  identified or object/URL of the text file to be identified</span></span></p>
+  0pt'>A string or binary value, name of the text file to be identified or
+  object/URL of the text file to be identified</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -150,7 +141,7 @@ color:#333333;mso-font-kerning:0pt'>Parameter:</span></b></span></p>
   <td width=797 valign=top style='width:597.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-font-kerning:
-  0pt'>The list of available character sets; can be omitted</span></span></p>
+  0pt'>The list of available character encoding standards; can be omitted</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -431,11 +422,12 @@ color:#333333;mso-font-kerning:0pt'>Example:</span></b></span></p>
   <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
   auto;text-align:left;mso-pagination:widow-orphan'><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US>Return a list of all eligible character sets.</span></span></p>
+  _Hlt161066090'><span lang=EN-US>Return a list of all eligible character encoding
+  standards.</span></span></p>
   <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
   mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
   lang=EN-US><img border=0 width=126 height=101
-  src="Function_Reference.files/image285.jpg" v:shapes="ͼƬ_x0020_113"></span></span></p>
+  src="Function_Reference.files/image282.jpg" v:shapes="ͼƬ_x0020_113"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -494,7 +486,7 @@ color:#333333;mso-font-kerning:0pt'>Example:</span></b></span></p>
   auto;text-align:left;mso-pagination:widow-orphan'><span style='mso-bookmark:
   _Hlt161066090'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
   #0400'><img border=0 width=119 height=43
-  src="Function_Reference.files/image286.png" v:shapes="_x0000_i1200"></span></span></p>
+  src="Function_Reference.files/image283.png" v:shapes="_x0000_i1199"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -512,7 +504,7 @@ color:#333333;mso-font-kerning:0pt'>Example:</span></b></span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

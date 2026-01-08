@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>gcs_bucket()</title>
+<title>gcs_copy()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,35 +13,39 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="ds_gf"></a><span
-lang=EN-US>gcs_bucket()<a name="gcs_bucket"></a></span></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>gcs_copy()<a
+name="gcs_copy"></a></span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h2></div>
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Manage
-Google cloud storage buckets.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Copy
+files in a storage bucket to the local, or local files to a storage bucket.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>gcs_bucket</span></span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>(fd,bucket)</span></span></span></p>
+lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>gcs_copy(</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'>fd,bucket:key, [localFile]</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>)</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'></span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>This
-GcsCli external library function <span style='mso-bidi-font-style:italic'>(See </span></span></span><a
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>GcsCli
+external library function <span style='mso-bidi-font-style:italic'>(See </span></span></span><a
 href="http://doc.raqsoft.com/esproc/ext/"><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US style='mso-bidi-font-style:italic'>External Library Guide</span></span><span
 style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US style='mso-bidi-font-style:italic'>) manages storage buckets,
-including create, delete and check whether a bucket exists or not. When not
-working with any options, the function only finds whether a storage bucket
-exists.</span></span></p>
+lang=EN-US style='mso-bidi-font-style:italic'>).</span></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt'></span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></span></p>
@@ -61,17 +65,46 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Pa
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:14.4pt'>
+ <tr style='mso-yfti-irow:1;height:14.45pt'>
   <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.4pt'>
+  height:14.45pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
   lang=EN-US>bucket</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=356 valign=top style='width:267.35pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.4pt'>
+  height:14.45pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Storage
   bucket name<span style='mso-bidi-font-weight:bold'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:14.4pt'>
+  <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US>key</span></i></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=356 valign=top style='width:267.35pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>File
+  name in the storage bucket<span style='mso-bidi-font-weight:bold'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:14.4pt'>
+  <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US>localFile</span></i></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=356 valign=top style='width:267.35pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
+  local file name; save the file in the main directory by default<span
+  style='mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -83,30 +116,16 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Op
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=535
  style='margin-left:-10.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=117 valign=top style='width:87.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=102 valign=top style='width:76.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><b><span
-  lang=EN-US>@c</span></b></span></span></p>
+  lang=EN-US>@u</span></b></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=418 valign=top style='width:313.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
-  a storage bucket; won’t create anew if the storage bucket having the same
-  name already exists<span style='mso-bidi-font-weight:bold'>.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:14.4pt'>
-  <td width=117 valign=top style='width:87.6pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><b><span
-  lang=EN-US>@d</span></b></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=418 valign=top style='width:313.3pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:14.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Delete
-  a storage bucket; cannot delete a non-empty bucket<span style='mso-bidi-font-weight:
+  <td width=433 valign=top style='width:324.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Copy
+  a local file to a GCS storage bucket; when the local file path is a relative
+  path, it is relative to the main directory<span style='mso-bidi-font-weight:
   bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
@@ -115,7 +134,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Op
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
-value:</span></b><span lang=EN-US> </span></span></p>
+value:</span></b></span><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='font-size:14.0pt'> </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Boolean</span></span></p>
 
@@ -123,12 +143,12 @@ value:</span></b><span lang=EN-US> </span></span></p>
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:
 </span></b></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=834
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=687
  style='margin-left:-.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=35 valign=top style='width:26.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -136,7 +156,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>&nbsp;</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=420 valign=top style='width:315.35pt;border:solid #A6A6A6 1.0pt;
+  <td width=416 valign=top style='width:11.0cm;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -144,14 +164,14 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 valign=top style='width:283.3pt;border:none;mso-border-left-alt:
+  <td width=232 valign=top style='width:173.7pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=35 valign=top style='width:26.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -159,7 +179,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=420 style='width:315.35pt;border-top:none;border-left:none;
+  <td width=416 style='width:11.0cm;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -171,34 +191,35 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   mso-fareast-font-family:宋体'>.json&quot;).read()</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 style='width:283.3pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Read
-  a JSON file.</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></span></p>
+  <td width=232 style='width:173.7pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=35 valign=top style='width:26.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>2</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'></span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>2</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=420 style='width:315.35pt;border-top:none;border-left:none;
+  <td width=416 style='width:11.0cm;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=gcs_open(A1)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=gcs_open(A1)<span
+  class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'></span></span></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 style='width:283.3pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=232 style='width:173.7pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Connect
   to the GCS service.</span></span></p>
@@ -206,44 +227,50 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=35 valign=top style='width:26.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>3</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'></span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>3</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=420 style='width:315.35pt;border-top:none;border-left:none;
+  <td width=416 style='width:11.0cm;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=gcs_bucket(A2,&quot;test&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=gcs_copy(A2,
+  &quot;test1&quot;:&quot;test1.txt&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 style='width:283.3pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=232 style='width:173.7pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Check
-  whether the bucket named test exists or not.<b style='mso-bidi-font-weight:
-  normal'></b></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Copy
+  <i>test.txt</i> in storage bucket <i>test1</i> to</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span style='font-family:宋体;mso-ascii-font-family:
+  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>【</span><i><span
+  lang=EN-US>main directory</span></i></span><span style='mso-bookmark:_Hlt161066090'><i><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>】</span><span lang=EN-US>/test1</span></i><span
+  lang=EN-US>.<b style='mso-bidi-font-weight:normal'></b></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=35 valign=top style='width:26.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>4</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'></span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>4</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=420 style='width:315.35pt;border-top:none;border-left:none;
+  <td width=416 style='width:11.0cm;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -251,32 +278,32 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
   宋体'>=</span></span><b style='mso-bidi-font-weight:normal'><span lang=EN-US>gcs<span
   class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>_bucket@d(A</span></span></span></b></span><span style='mso-bookmark:
-  _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span><span
+  宋体'>_copy(A</span></span></span></b></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体'>,&quot;test1&quot;)</span></span></span></p>
+  mso-fareast-font-family:宋体'>,
+  &quot;test1&quot;:&quot;test1.txt&quot;,&quot;D:/myBucket/test2.txt&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 style='width:283.3pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=232 style='width:173.7pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Check
-  whether the bucket named test1 exists or not, and delete it if it exists
-  (cannot delete it if it isn’t empty) .</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Copy
+  <i>test.txt</i> in storage bucket <i>test1</i> to the local directory <i>D:/myBucket/test2.txt</i>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=35 valign=top style='width:26.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>5</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'></span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>5</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=420 style='width:315.35pt;border-top:none;border-left:none;
+  <td width=416 style='width:11.0cm;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -284,32 +311,33 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
   宋体'>=</span></span><b style='mso-bidi-font-weight:normal'><span lang=EN-US>gcs<span
   class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>_bucket@c(A</span></span></span></b></span><span style='mso-bookmark:
-  _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span><span
+  宋体'>_copy@u(A</span></span></span></b></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体'>,&quot;test2&quot;)</span></span></span></p>
+  mso-fareast-font-family:宋体'>,
+  &quot;test1&quot;:&quot;test3.txt&quot;,&quot;D:/myBucket/test2.txt&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 style='width:283.3pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  <td width=232 style='width:173.7pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Check
-  whether the bucket named test2 exists or not, and create a bucket named test2
-  if it does not exist.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Copy
+  the local file <i>D:/myBucket/test2.txt</i> to <i>test3.txt </i>in storage
+  bucket <i>test1</i>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=35 valign=top style='width:26.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>6</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'></span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>6</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=420 style='width:315.35pt;border-top:none;border-left:none;
+  <td width=416 style='width:11.0cm;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -324,10 +352,9 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   宋体'>)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=378 style='width:283.3pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Close
-  the GCS connection.</span></span></p>
+  <td width=232 style='width:173.7pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -345,7 +372,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

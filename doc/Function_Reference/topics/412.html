@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T.group(x:F,…;y:G,…)</title>
+<title>A.groupc( g ; v )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,136 +13,115 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 align=left style='text-align:left;tab-stops:-179.95pt'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>T.group(x:F,…;y:G,…)<a
-name="T_group_xF_yG_pseudo_table"></a></span></span><span
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
+style='mso-bookmark:_Hlt161066090'><span lang=FR style='mso-ansi-language:FR'>A.groupc(<i
+style='mso-bidi-font-style:normal'>g</i>;<i style='mso-bidi-font-style:normal'>v</i>)</span><a
+name="A_groupc_gv"></a></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
-style='mso-bookmark:_Hlt161066090'></span></h3></div>
+style='mso-bookmark:_Hlt161066090'><span lang=FR style='mso-ansi-language:FR'></span></span></h3></div>
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><a
-name="_Hlt155362130"></a><span lang=EN-US>Define a computation, which will
-group records by comparing the grouping field in each with its next neighbor
-and perform aggregation over each group, on a pseudo table and return a new
-pseudo table.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='color:#333333;background:white'>Perform </span><span lang=EN-US>row-to-column/column-to-row
+transposition on member sequences of a sequence. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><a
-name="_Hlt138941797"></a><i style='mso-bidi-font-style:normal'><span
-lang=EN-US>T.</span></i><span class=code><span lang=EN-US style='font-family:
-"Times New Roman",serif;mso-fareast-font-family:宋体'>group</span></span><span
-lang=EN-US>(<i style='mso-bidi-font-style:normal'>x</i>:<i style='mso-bidi-font-style:
-normal'>F,...</i>;<i style='mso-bidi-font-style:normal'>y</i>:<i
-style='mso-bidi-font-style:normal'>G,</i>…)<span style='mso-tab-count:1'>&nbsp; </span></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+lang=EN-US>A</span></span><span lang=EN-US>.</span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'>groupc</span></span><span
+lang=EN-US>(<i style='mso-bidi-font-style:normal'>g;v</i>)</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function defines a computation on <span style='mso-bidi-font-style:italic'>pseudo
-table <i>T</i></span>, which will group its records by <span style='mso-bidi-font-style:
-italic'>expression <i>x </i>whose values are those of field </span></span></span><span
-style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='font-family:"Helvetica Neue";
-color:#333333'>F</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>,
-compute aggregate expression <i>y</i> whose values are those of field </span></span><span
-style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='font-family:"Helvetica Neue";
-color:#333333'>G</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>,
-and returns a new pseudo table consisting of fields </span></span><span
-style='mso-bookmark:_Hlt161066090'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>F</span></i><span
-lang=EN-US>,...</span></span><span style='mso-bookmark:_Hlt161066090'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-fareast-font-family:黑体'> G</span></i><span lang=EN-US>,….</span></span></p>
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The function performs
+row-to-column/column-to-row transposition on member sequences of sequence </span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>A</span></span><span
+lang=EN-US>; default is row-to-column transposition.</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-style:italic'>&nbsp;</span></span></p>
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-style:italic'>Pseudo table <i>T </i>is ordered by
-expression </span><i style='mso-bidi-font-style:normal'><span lang=EN-US>x </span></i><span
-lang=EN-US style='mso-bidi-font-style:italic'>whose values are only compared
-with their next neighbors, and the result set won’t be sorted again.</span></span></p>
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Members of sequence </span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>A</span></span><span
+lang=EN-US> are also sequences. Both </span></span><span style='mso-bookmark:
+_Hlt161066090'><span class=var1><span lang=EN-US>g</span></span><span
+lang=EN-US> and </span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US>v</span></span><span lang=EN-US> are sequences
+consisting of sequence numbers of certain members of member sequences of </span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>A</span></span><span
+lang=EN-US>. Use syntax ~(<i>i</i>) or ~<i>i</i> to reference a member of the
+member sequence of </span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US>A</span></span><span lang=EN-US>.</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-style:italic'>&nbsp;</span></span></p>
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Only
-supported by esProc Enterprise Edition.</span></span></p>
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Group members of sequence </span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>A</span></span><span
+lang=EN-US> according to </span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US>g</span></span><span lang=EN-US> and put members of
+</span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+lang=EN-US>v</span></span><span lang=EN-US> to corresponding sequences in each
+group and return a sequence of sequences.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-8.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:18.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=35 valign=top style='width:25.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>T</span></span></span></p>
+  lang=EN-US>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  pseudo table</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US style='font-style:normal'>A sequence of sequences</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'>.</span></span><i style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=35 valign=top style='width:25.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US>x</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US></span></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>g</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Grouping
-  expression</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
+  sequence consisting of sequence numbers of certain members of member
+  sequences of </span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=var1><span lang=EN-US>A</span></span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=35 valign=top style='width:25.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US>F</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US></span></span></span></p>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>v</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Field
-  name</span></span><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=35 valign=top style='width:25.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US>G</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Aggregation
-  field name</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=35 valign=top style='width:25.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US>y</span></i></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Aggregate
-  expression</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
+  sequence consisting of sequence numbers of certain members of member
+  sequences of </span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=var1><span lang=EN-US>A</span></span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -151,75 +130,35 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Pa
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Option:</span></b></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-8.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=732
+ style='margin-left:18.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=173 valign=top style='width:129.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>@s</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=730 valign=top style='width:547.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Cumulative
-  aggregation</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=173 valign=top style='width:129.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>@q(x:F,…;x’:F’,…;…)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=730 valign=top style='width:547.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Used
-  when parameter </span></span><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US> is
-  ordered by <i>x,…</i> and only fields after it need to be sorted; support
-  in-memory sorting</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=173 valign=top style='width:129.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>@sq(x:F,…;x’:F’,…;…)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=730 valign=top style='width:547.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Only
-  sort without grouping when parameters <i style='mso-bidi-font-style:normal'>y</i>:<i
-  style='mso-bidi-font-style:normal'>G </i><span style='mso-bidi-font-style:
-  italic'>are absent, and perform cumulative aggregation when the parameters
-  are present; @s works only when @q option is present</span></span></span><span
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=77 valign=top style='width:57.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>@r</span></span></span><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-  bold'>.</span></span></span></p>
+  style='font-family:"Times New Roman",serif;font-weight:normal'>(<i
+  style='mso-bidi-font-style:normal'>g;v;k</i>)</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=173 valign=top style='width:129.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>@e</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=730 valign=top style='width:547.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  a pseudo table consisting of results of expression y; grouping expression <i>x</i>
-  is a field of </span></span><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US>
-  and <i>y</i> is function on </span></span><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US>;
-  the result of computing <i>y</i> must be one record of </span></span><span
-  style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>T</span></i><span lang=EN-US>; and <i>y</i> only supports maxp, minp
-  and top@1 functions when it is an aggregate expression</span></span><span
+  <td width=654 valign=top style='width:490.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Perform
+  column-to-row transposition. </span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'>k</span></i></span><span
+  lang=EN-US> is an integer; group </span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=code><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>v</span></i></span><span
+  lang=EN-US> every</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'> k</span></i></span><span
+  lang=EN-US> members, concatenate each group with </span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>g</span></i></span><span lang=EN-US> to form a new
+  sequence, and return a sequence consisting of these new sequences</span></span><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
   style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
   bold'>.</span></span></span></p>
@@ -232,549 +171,296 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Op
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
 value:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Pseudo
-table</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Sequence
+of sequences</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-1.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=957
+ style='margin-left:19.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=568 valign=top style='width:426.2pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>A</span></span></span></p>
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=293 valign=top style='width:219.7pt;border:none;mso-border-left-alt:
+  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1;height:3.5pt'>
+  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>1</span></span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
+  <td width=568 valign=top style='width:426.2pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(file).record([&quot;scores-g.ctx&quot;])
-  </span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;t3.txt&quot;).cursor@w().fetch()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=293 valign=top style='width:219.7pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US>scores-g.ctx</span></i><span lang=EN-US> is a composite table file
-  ordered by STUDENTID; its content is as follows:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=293 height=413
-  src="Function_Reference.files/image941.jpg" v:shapes="_x0000_i1665"></span></span></p>
+  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return a sequence of
+  sequences:</span></span></p>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'><img border=0 width=146 height=296
+  src="Function_Reference.files/image954.png" v:shapes="Picture_x0020_8"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;height:3.5pt'>
+  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>2</span></span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
+  <td width=568 valign=top style='width:426.2pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=pseudo(A1)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.groupc(~(1);[(~2),(~3)])</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=293 valign=top style='width:219.7pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-  a pseudo table from composite table A1.</span></span></p>
+  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Perform row-to-column
+  transposition on A1’s members: group A1 by the 1<sup>st</sup> member of its
+  member sequences, put the 2<sup>nd</sup> and the 3<sup>rd</sup> members of
+  the member sequences to corresponding sequences in each group, and return the
+  following result:</span></span></p>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'><img border=0 width=147 height=370
+  src="Function_Reference.files/image955.png" v:shapes="Picture_x0020_7"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;height:3.5pt'>
+  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>3</span></span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
+  <td width=568 valign=top style='width:426.2pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group(STUDENTID:StudentID;~.sum(SCORE):TotalScore)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.groupc@r(~1;[~2,~3,~4,~5,~6,~7];2)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=293 valign=top style='width:219.7pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Define
-  a computation on A2’s pseudo table, which will group pseudo table A2 by
-  STUDENTID and compute total SCORE values in each group, and return a new
-  pseudo table.</span></span></p>
+  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>@r option enables
+  column-to-row transposition on A2: put every two members from the 2<sup>nd</sup>
+  to the 7<sup>th</sup> in order in each member sequence of A2 in one group,
+  combine each group with the 1<sup>st</sup> member of A2’s member sequences to
+  form a new member sequence, and return the following result:</span></span></p>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'><img border=0 width=125 height=247
+  src="Function_Reference.files/image956.png" v:shapes="Picture_x0020_6"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;height:3.5pt'>
+  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=568 valign=top style='width:426.2pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.groupc@r(~1;~.to(2,);2)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>@r option enables
+  column-to-row transposition on A2: put every two members from the 2<sup>nd</sup>
+  to the last in order in each member sequence of A2 in one group, combine each
+  group with the 1<sup>st</sup> member of A2’s member sequences to form a new
+  member sequence, and return a result same as A1.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When parameter <i>g</i> has
+multiple members:</span></span><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=957
+ style='margin-left:19.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.5pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>4</span></span></span></p>
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
+  <td width=444 valign=top style='width:333.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:3.5pt'>
+  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.5pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.import()</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=connect(&quot;demo&quot;).query(&quot;select
+  top 9 * from scores&quot;).array@b()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=293 valign=top style='width:219.7pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Import
-  data from A3’s pseudo table while executing the computation defined on A2’s
-  pseudo table in A3, and return the following pseudo table:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=172 height=108
-  src="Function_Reference.files/image943.jpg" v:shapes="_x0000_i1666"></span></span></p>
+  <td width=444 valign=top style='width:333.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return a sequence of
+  sequences:</span></span></p>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'><img border=0 width=397 height=318
+  src="Function_Reference.files/image958.jpg" v:shapes="_x0000_i1663"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:3.5pt'>
+  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.groupc([~1,~2];[~3,~4])</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=444 valign=top style='width:333.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Perform row-to-column
+  transposition on A1’s members: group A1 by the 1<sup>st</sup> and 2<sup>nd</sup>
+  members of its member sequences, put the 3<sup>rd</sup> and the 4<sup>th</sup>
+  members of the member sequences to corresponding sequences in each group, and
+  return the following result:</span></span></p>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'><img border=0 width=197 height=279
+  src="Function_Reference.files/image960.jpg" v:shapes="_x0000_i1664"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:3.5pt'>
+  <td width=20 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.groupc@r([~1,~2];~.to(3,);2)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=444 valign=top style='width:333.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:3.5pt'>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>@r option enables
+  column-to-row transposition on A2: put every two members from the 3<sup>rd</sup>
+  to the last in order in each member sequence of A2 in one group, combine each
+  group with the 1<sup>st</sup> and the 2<sup>nd</sup> members of A2’s member
+  sequences to form a new member sequence, and return a result same as A1.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'>&nbsp;</span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Related
+concept:</span></b></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=885
- style='margin-left:-1.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>A</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>1</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(file).record([&quot;emp-g.ctx&quot;])
-  </span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US>emp-g.ctx</span></i><span lang=EN-US> is a composite table file
-  ordered by DEPT; its content is as follows:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=294 height=296
-  src="Function_Reference.files/image945.jpg" v:shapes="_x0000_i1667"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=pseudo(A1)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-  a pseudo table from composite table A1.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>3</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group@q(DEPT;GENDER)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Define
-  a computation on A2’s pseudo table &#8211; as the pseudo table is already ordered
-  by DEPT, the function only sorts by GENDER during grouping &#8211; and return a new
-  pseudo table:</span></span></p>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>4</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.cursor().fetch()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Fetch
-  data from A3’s pseudo table while executing the computation defined on A2’s
-  pseudo table in A3, and return the following pseudo table:</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=294 height=224
-  src="Function_Reference.files/image947.jpg" v:shapes="_x0000_i1668"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>5</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group@qs(DEPT:DEPT;GENDER:GENDER)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Define
-  a computation on A2’s pseudo table, which will only sort records without
-  grouping since parameters <i>y:G</i> are absent, and return a new pseudo
-  table.</span></span></p>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>6</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A5.import()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Import
-  data from A5’s pseudo table while executing the computation defined on A2’s
-  pseudo table in A5, and return the following pseudo table:</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=248 height=267
-  src="Function_Reference.files/image949.jpg" v:shapes="_x0000_i1669"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>7</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group@qs(DEPT:DEPT;GENDER:GENDER;count(GENDER):count)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Define
-  a computation on A2’s pseudo table, which will Perform cumulative aggregation
-  as parameters <i>y:G</i> are present, and return a new pseudo table.</span></span></p>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>8</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=572 valign=top style='width:428.85pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A7.import()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=294 valign=top style='width:220.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Import
-  data from A7’s pseudo table while executing the computation defined on A2’s
-  pseudo table in A7, and return the following pseudo table:</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=183 height=285
-  src="Function_Reference.files/image951.jpg" v:shapes="图片_x0020_16"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="apivotgfvnn.html#A_pivot"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A.pivot()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>With
-@e option, return a pseudo table consisting of results of expression <i>y:</i></span></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=848
- style='margin-left:-1.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=top style='width:240.55pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>A</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=509 valign=top style='width:381.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>1</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(file).record([&quot;emp-g.ctx&quot;])
-  </span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=509 valign=top style='width:381.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Below
-  is content of composite table <i>emp-g.ctx</i>:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=289 height=279
-  src="Function_Reference.files/image953.jpg" v:shapes="_x0000_i1671"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=pseudo(A1)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=509 valign=top style='width:381.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generate
-  a pseudo table from composite table A1.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>3</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.group@e(DEPT;~.minp(SALARY))</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=509 valign=top style='width:381.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Define
-  a computation on A2’s pseudo table, which, with @e option, will return a
-  pseudo table consisting of result records of computing minp(SALARY).</span></span></p>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=18 valign=top style='width:13.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>4</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.cursor().fetch()</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=509 valign=top style='width:381.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Fetch
-  data from A3’s pseudo table while executing the computation defined on A2’s
-  pseudo table in A3, and return the following pseudo table:</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=257 height=151
-  src="Function_Reference.files/image955.jpg" v:shapes="_x0000_i1672"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+href="#P_pivot0"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>P.groupc()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="413.html">Next</a></div>
@@ -782,13 +468,13 @@ mso-bidi-font-size:10.0pt'>&nbsp;</span></b></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="403.html">group()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="411.html">groupc()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>redis_open()</title>
+<title>A. regex()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,70 +13,148 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="_Hlt485632879"></a><a
-name="_Hlt485632899"></a><a name="_Hlt485633393"></a><a name="_Hlt485632927"></a><a
-name="redis_llen"></a><a name="redis_hscan"></a><a name="redis_hmget"></a><a
-name="_Hlt485633384"></a><a name="redis_lindex"></a><a name="_Hlt498098636"></a><a
-name="redis_ltrim"></a><a name="redis_getbit"></a><a name="redis_exists"></a><a
-name="redis_lsize"></a><a name="_Hlt485633387"></a><a name="_Hlt485633376"></a><a
-name="_Hlt485632859"></a><a name="redis_pool"></a><a name="redis_hlen"></a><a
-name="redis_increment"></a><a name="redis_hexists"></a><a name="redis_scard"></a><a
-name="_Hlt485633381"></a><a name="redis_hsize"></a><a name="_Hlt485633390"></a><a
-name="_Hlt485633374"></a><a name="redis_lrange"></a><span lang=EN-US>redis_open()<a
-name="redis_open"></a></span></span><span
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
+style='mso-bookmark:_Hlt161066090'><a name="A_regex"></a><span lang=EN-US
+style='mso-bidi-font-style:italic'>A.</span><span lang=EN-US>regex()</span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
-style='mso-bookmark:_Hlt161066090'></span></h2></div>
-	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
+style='mso-bookmark:_Hlt161066090'></span></h3></div>
+	<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Description:</span></span><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='font-weight:normal'></span></span></p>
 
-<p class=MsoNormal style='tab-stops:0cm'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US>Connect to the Redis database.</span></span><span style='mso-bookmark:
-_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>Match members
+in a string sequence with the regular expression.</span></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></p>
-
-<p class=MsoNormal style='tab-stops:0cm'><span style='mso-bookmark:_Hlt161066090'><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>redis_open</span></span><span
-lang=EN-US>(<i>url</i>)</span></span><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt'></span></b></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-RedisCli external library function <span style='mso-bidi-font-style:italic'>(See
-</span></span></span><a href="http://doc.raqsoft.com/esproc/ext/"><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
-italic'>External Library Guide</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
-italic'>) </span><span lang=EN-US>connects to the Redis database according to
-the Redis server’s URL. </span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Syntax:</span></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-17.95pt;border-collapse:collapse;mso-table-layout-alt:
- fixed;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
-  height:18.25pt'>
-  <td width=138 valign=top style='width:103.5pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:18.25pt'>
+ style='margin-left:4.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=136 valign=top style='width:101.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>url<span
-  style='mso-spacerun:yes'>&nbsp;
-  </span></span></span></span></p>
+  lang=EN-US>A</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>.regex(</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>rs,F<sub>i</sub></span></i></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>)</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=478 valign=top style='width:358.7pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:18.25pt'>
+  <td width=410 valign=top style='width:307.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>If
+  no extracting item is specified in<i style='mso-bidi-font-style:normal'> rs</i>,
+  match field </span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'>F<sub>i </sub></span></i></span><span
+  lang=EN-US>of the string with <i style='mso-bidi-font-style:normal'>rs</i>
+  based on data type. Then return the new record sequence after record sequence
+  <i style='mso-bidi-font-style:normal'>A</i> is filtered. Use the current
+  record to match with <i style='mso-bidi-font-style:normal'>rs</i> if omitting
+  </span></span><span style='mso-bookmark:_Hlt161066090'><span class=code><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>F<sub>i</sub></span></i></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='font-style:normal;mso-bidi-font-style:italic'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=136 valign=top style='width:101.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>A</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>.regex(</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>rs;F<sub>i</sub>,…</span></i></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>)</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=410 valign=top style='width:307.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>If
+  one or more extracting items are specified in<i style='mso-bidi-font-style:
+  normal'> rs</i>, split the string members of sequence <i style='mso-bidi-font-style:
+  normal'>A</i> according to them, and return the results as a table sequence
+  whose fields are <i style='mso-bidi-font-style:normal'>F<sub>i</sub></i></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='font-style:normal;mso-bidi-font-style:italic'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Note:</span></span><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='font-weight:normal'></span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+function matches the members of string type in the sequence <i
+style='mso-bidi-font-style:normal'>A</i> with the regular expression <i
+style='mso-bidi-font-style:normal'>rs</i>. </span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+results will be merged into a table sequence whose fields are <i
+style='mso-bidi-font-style:normal'>F<sub>i </sub></i>for<i style='mso-bidi-font-style:
+normal'><sub> </sub></i>returning.</span></span></p>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Parameter:</span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:4.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  Redis server’s URL</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  sequence or a record sequence whose members are strings</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='font-style:normal;mso-bidi-font-style:italic'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>rs</span></i></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Regular
+  expressions. The extracting items are specified sub-regular expressions which
+  are separated from each other by separators and each is surrounded with the
+  parentheses. They will match the fields in sequence. For example, <b
+  style='mso-bidi-font-weight:normal'>&quot;(.*),(a.*)&quot;</b> are two
+  extracting items separated by a comma</span></span><span style='mso-bookmark:
+  _Hlt161066090'><span class=var1><span lang=EN-US style='font-style:normal;
+  mso-bidi-font-style:italic'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>F<sub>i</sub></span></i></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Resulting
+  field names of string type</span></span><span style='mso-bookmark:_Hlt161066090'><span
   class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
   italic'>.</span></span></span></p>
   </td>
@@ -84,31 +162,81 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Pa
  </tr>
 </table>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
-value:</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Option:</span></span></p>
 
-<p class=MsoNormal style='tab-stops:0cm'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US>Cursor</span></span><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt'></span></b></span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:4.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>@<span style='mso-bidi-font-weight:
+  bold'>c</span></span></b></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>Case insensitive</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='font-style:normal;mso-bidi-font-style:italic'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>@<span style='mso-bidi-font-weight:
+  bold'>u</span></span></b></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>Use Unicode to match</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+  style='font-style:normal;mso-bidi-font-style:italic'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>@p</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parse
+  the result numeric string into a number.<span style='mso-bidi-font-weight:
+  bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Return value:</span></span><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='font-weight:normal'></span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Table
+sequence</span></span></p>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Example:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=694
+ style='margin-left:-1.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=293 valign=top style='width:219.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=426 valign=top style='width:319.35pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -116,35 +244,354 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=246 valign=top style='width:184.25pt;border:none;mso-border-left-alt:
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=293 valign=top style='width:219.7pt;border-top:none;border-left:
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=redis_open(&quot;127.0.0.1:6379&quot;)</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
+  NAME,SURNAME from EMPLOYEE&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=246 valign=top style='width:184.25pt;border:none;mso-border-left-alt:
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A1.(~.array().concat@c())</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=97 height=100
+  src="Function_Reference.files/image2317.png" v:shapes="_x0000_i2621"><span
+  style='mso-spacerun:yes'>&nbsp;</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Convert to a
+  sequence of strings</span><span lang=EN-US>.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.regex(&quot;A.*&quot;)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=94 height=103
+  src="Function_Reference.files/image2319.jpg" v:shapes="_x0000_i2622"></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>By
+  default, use current record to match with <i style='mso-bidi-font-style:normal'>rs</i>
+  if omitting </span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'>F<sub>i</sub></span></i></span><span
+  lang=EN-US>.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.regex(&quot;(V.*),(.*)&quot;;name,surname)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=109 height=77
+  src="Function_Reference.files/image2320.png" v:shapes="图片_x0020_368"></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Match
+  members of A2 with the regular expressions and return a table sequence.</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\a.txt&quot;).import@ts()</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=105 height=102
+  src="Function_Reference.files/image2321.png" v:shapes="图片_x0020_369"></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A5.(#1).regex@c(&quot;(.*),(a.*)&quot;;id,name)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=107 height=65
+  src="Function_Reference.files/image2322.png" v:shapes="图片_x0020_370"></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Match
+  names that start with a or A.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\c.txt&quot;:&quot;UTF-8&quot;).import@ts()</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A7.(~.array().concat@c())</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A8.regex@u(&quot;(\\u9500\\u552e\\u90e8),(.*)&quot;;SalesDep,EmployeeName)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=155 height=89
+  src="Function_Reference.files/image2323.png" v:shapes="图片_x0020_371"></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
+  Unicode to match the Sales Dep.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A1.regex(&quot;V.*&quot;,NAME)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=169 height=74
+  src="Function_Reference.files/image2325.jpg" v:shapes="_x0000_i2627"><span
+  class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;font-weight:normal'></span></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Without
+  an extracting item, match the regular expression <i style='mso-bidi-font-style:
+  normal'>rs</i> with the string type F<sub>i</sub> field.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>EID,NAME,SALARY from
+  EMPLOYEE&quot;).(~. array().concat@c())</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Return a sequence
+  of strings:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=178 height=192
+  src="Function_Reference.files/image2327.jpg" v:shapes="_x0000_i2628"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>12</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=426 valign=top style='width:319.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A11.regex@p(&quot;(.*),(V.*),(.*)&quot;;id,name,salary)</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=246 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;font-weight:normal;mso-bidi-font-weight:bold'>Use @p option to parse
+  numeric strings in the result table sequence into numeric values:</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=272 height=80
+  src="Function_Reference.files/image2329.jpg" v:shapes="_x0000_i2629"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
 </table>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Related function:</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="sregex.html#s_regex"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>s</span></span><span style='mso-bookmark:
+_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:黑体'>.reg<span
+style='mso-bookmark:_Hlt415040599'>e</span><span style='mso-bookmark:_Hlt414972389'>x</span>()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt414972389"></a><a name="_Hlt415040599"></a><span
+style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'></span></span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="csregex.html#cs_regex"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>c</span></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>s</span></span><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-fareast-font-family:黑体'>.reg<span style='mso-bookmark:
+_Hlt414972358'>e</span>x()</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt414972358"></a><span style='mso-bookmark:_Hlt161066090'><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'></span></span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="801.html">Next</a></div>
@@ -152,13 +599,13 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="54.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="798.html">regex()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

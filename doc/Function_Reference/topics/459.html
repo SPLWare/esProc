@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>hosts(i;j)</title>
+<title>htmlparse()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,73 +13,108 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
-style='mso-bookmark:_Hlt161066090'><a name="_Hlt86766823"></a><span lang=EN-US>hosts(i;j)<a
-name="hosts_i_j"></a></span></span><span
-style='mso-bookmark:_Hlt161066090'></span><a
-name="_Hlt86659930"></a><span style='mso-bookmark:_Hlt161066090'></span></h3></div>
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name=htmlparse></a><a
+name="_httpfile()_1"></a><span style='mso-bookmark:htmlparse'><span lang=EN-US>htmlparse()</span></span></span><span
+style='mso-bookmark:htmlparse'></span><span style='mso-bookmark:_Hlt161066090'></span><span
+style='mso-bookmark:_Hlt161066090'></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+16.0pt;line-height:150%;font-weight:normal'></span></span></h2></div>
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Set
-or get the number of memory zone holding a specified task on the current node.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+text data under a specified tag in an html file.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:
+</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US>hosts</span></b><span lang=EN-US>(<i style='mso-bidi-font-style:
-normal'>i;<span style='mso-bidi-font-style:italic'>j</span></i>)</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='color:black'>s.</span></i><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black'>htmlparse</span></b><span
+lang=EN-US style='color:black'>(<i style='mso-bidi-font-style:normal'>tag</i>:<i
+style='mso-bidi-font-style:normal'>i</i>:<i style='mso-bidi-font-style:normal'>j</i>,…)</span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US><span style='mso-tab-count:
+1'>&nbsp; </span></span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function gets the number of memory zone accommodating task <i>j</i> on the
-current node when parameter <i>i</i> is absent; sets the number of memory zone
-holding task <i>j</i> on the current node when both parameter <i>i</i> and
-parameter <i>j</i> are present; and clear the existing memory zone number when <i>i</i>
-is 0. It is usually used in the initiation file <i>init.splx</i>.</span></span></p>
+function gets the <i style='mso-bidi-font-style:normal'>j</i><sup>th</sup> text
+file under the <i style='mso-bidi-font-style:normal'>i</i><sup>th</sup> tag
+from html file <i style='mso-bidi-font-style:normal'>s</i>. </span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Only
-supported by esProc Enterprise Edition.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Retrieve
+the first text file under the <i style='mso-bidi-font-style:normal'>i</i><sup>th</sup>
+tag when parameter </span></span><span style='mso-bookmark:_Hlt161066090'><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>j</span></i><span lang=EN-US> is absent;
+get all text data under all tags when parameter</span></span><span
+style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'> i</span></i><span lang=EN-US> is absent; get all text data in the html
+file when there aren’t parameters.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></span><span
-style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:
+</span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-7.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:-6.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=84 valign=top style='width:63.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>i</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>s</span></i></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=461 valign=top style='width:345.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Content
+  of an html file</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=84 valign=top style='width:63.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>tag</span></i></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=461 valign=top style='width:345.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
+  tag in an html file; if the tag’s value is “table”, get all data under it</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'>.</span></span><span lang=EN-US> </span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=84 valign=top style='width:63.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>i</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=461 valign=top style='width:345.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>An
-  integer that represents memory zone number</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-  bold'>.</span></span></span></p>
+  integer</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
   <td width=84 valign=top style='width:63.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>j</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>j</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=461 valign=top style='width:345.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Task
-  name; can be absent</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>An
+  integer</span></span><span style='mso-bookmark:_Hlt161066090'><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
@@ -88,17 +123,51 @@ lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></span
 </table>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
-value:</span></b></span><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'> </span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Option:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Boolean/Integer</span></span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:19.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=47 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>@0</span></span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=456 valign=top style='width:341.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Retain
+  null values; null values will be removed by default.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=47 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>@p</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=456 valign=top style='width:341.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-font-kerning:0pt'>Parse the html file as numbers of corresponding
+  data type.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
+value: </span></b></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Sequence</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=598
  style='margin-left:-.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
@@ -110,7 +179,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=145 valign=top style='width:108.9pt;border:solid #A6A6A6 1.0pt;
+  <td width=321 valign=top style='width:241.0pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -118,7 +187,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   lang=EN-US>A</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=595 valign=top style='width:445.9pt;border:none;mso-border-left-alt:
+  <td width=255 valign=top style='width:191.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
@@ -134,22 +203,19 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   lang=EN-US>1</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=145 valign=top style='width:108.9pt;border-top:none;border-left:
+  <td width=321 valign=top style='width:241.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=hosts(2;&quot;task2&quot;)</span></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;D:/test.html&quot;).read()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=595 valign=top style='width:445.9pt;border:none;mso-border-left-alt:
+  <td width=255 valign=top style='width:191.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>Set the number of memory zone holding task
-  2 on the current node as 2, and return true</span><span lang=EN-US>.<span
-  style='mso-bidi-font-weight:bold'></span></span></span></p>
+  style='mso-bidi-font-weight:bold'>Read the content of an html file</span><span
+  lang=EN-US>.<b style='mso-bidi-font-weight:normal'></b></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -162,20 +228,20 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   lang=EN-US>2</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=145 valign=top style='width:108.9pt;border-top:none;border-left:
+  <td width=321 valign=top style='width:241.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=hosts(;&quot;task2&quot;)</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.htmlparse(&quot;a&quot;:11:0)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=595 valign=top style='width:445.9pt;border:none;mso-border-left-alt:
+  <td width=255 valign=top style='width:191.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>Get the number of memory zone holding task
-  2 on the current node as 2, and return true</span><span lang=EN-US>.<span
-  style='mso-bidi-font-weight:bold'></span></span></span></p>
+  style='mso-bidi-font-weight:bold'>Get the 1<sup>st</sup> text file under the
+  12<sup>th</sup> &lt;a&gt; from A1’s html file</span><span lang=EN-US>.<b
+  style='mso-bidi-font-weight:normal'></b></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -188,25 +254,174 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   lang=EN-US>3</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=145 valign=top style='width:108.9pt;border-top:none;border-left:
+  <td width=321 valign=top style='width:241.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.htmlparse(&quot;a&quot;:11:0,
+  &quot;span&quot;:8:0)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=255 valign=top style='width:191.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>Get text files under two tags from A1’s
+  html file</span><span lang=EN-US>.<span style='mso-bidi-font-weight:bold'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>4</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=321 valign=top style='width:241.0pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=hosts(0;&quot;task2&quot;)</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=A1.htmlparse(&quot;table&quot;:7)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=595 valign=top style='width:445.9pt;border:none;mso-border-left-alt:
+  <td width=255 valign=top style='width:191.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>Delete the number of memory zone holding
-  task 2 and return true since parameter<i> i</i> is 0</span><span lang=EN-US>.<span
-  style='mso-bidi-font-weight:bold'></span></span></span></p>
+  style='mso-bidi-font-weight:bold'>Get all content under the 8<sup>th</sup>
+  &lt;table&gt;</span><span lang=EN-US>.<span style='mso-bidi-font-weight:bold'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;height:16.0pt'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:23.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=21 valign=top style='width:15.8pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>&nbsp;</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=321 valign=top style='width:240.55pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>A</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:312.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=21 valign=top style='width:15.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>1</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=file(&quot;rq.html&quot;).read()</span></span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:312.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>Read content of the html file and return
+  the following result: </span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=163 height=151
+  src="Function_Reference.files/image1173.jpg" v:shapes="_x0000_i1796"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=21 valign=top style='width:15.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>2</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=A1.htmlparse(&quot;p&quot;:5)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:312.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>Get the 1<sup>st</sup> text file under the
+  5<sup>th</sup> &lt;p&gt; tag from A1:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=150 height=42
+  src="Function_Reference.files/image1175.jpg" v:shapes="_x0000_i1797"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=21 valign=top style='width:15.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>3</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=A1.htmlparse(&quot;p&quot;)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:312.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>Get text files under all &lt;p&gt; tags
+  from A1:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=149 height=101
+  src="Function_Reference.files/image1177.jpg" v:shapes="_x0000_i1798"></span><span
+  lang=EN-US style='mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:16.0pt'>
+  <td width=21 valign=top style='width:15.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.0pt'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -214,20 +429,56 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   lang=EN-US>4</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=145 valign=top style='width:108.9pt;border-top:none;border-left:
+  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.0pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=hosts(;&quot;task2&quot;)</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=A1.htmlparse@0(&quot;p&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=595 valign=top style='width:445.9pt;border:none;mso-border-left-alt:
+  <td width=416 valign=top style='width:312.1pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.0pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>Then get the number of memory zone holding
-  task 2 on the current node as 2, and return false</span><span lang=EN-US>.<span
-  style='mso-bidi-font-weight:bold'></span></span></span></p>
+  style='mso-bidi-font-weight:bold'>Get text files under all &lt;p&gt; tags
+  from A1; @0 option works to retain null values:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=149 height=141
+  src="Function_Reference.files/image1179.jpg" v:shapes="_x0000_i1799"></span><span
+  lang=EN-US style='mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;height:16.0pt'>
+  <td width=21 valign=top style='width:15.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.0pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>5</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=321 valign=top style='width:240.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.0pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>=A1.htmlparse@p(&quot;p&quot;)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=416 valign=top style='width:312.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.0pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>Get text files under all &lt;p&gt; tags
+  from A1; @p option works to parse them as numbers of corresponding data
+  types:</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-font-kerning:0pt'></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=148 height=101
+  src="Function_Reference.files/image1181.jpg" v:shapes="_x0000_i1800"></span><span
+  lang=EN-US style='mso-bidi-font-weight:bold'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -239,13 +490,13 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="458.html">hosts()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="54.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>fillfun()</title>
+<title>fillmthd()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,7 +14,7 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-宋体'>fillfun()<a name=fillfun></a></span></span><span
+宋体'>fillmthd()<a name=fillmthd></a></span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
 宋体'></span></span></h2></div>
@@ -22,16 +22,16 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-fami
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Fill
-missing values with the specified values.</span></span></p>
+missing values according to the specified method.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
 lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-宋体'>A.fillfun(</span></span><span class=code><i><span lang=EN-US
+宋体'>A.fillmthd(</span></span><span class=code><i><span lang=EN-US
 style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
-mso-bidi-font-weight:bold'>xs,tq</span></i></span><span class=code><span
+mso-bidi-font-weight:bold'>m</span></i></span><span class=code><span
 lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
 宋体'>)</span></span><span lang=EN-US> </span></span></p>
 
@@ -48,58 +48,28 @@ lang=EN-US style='mso-bidi-font-style:italic'>).</span></span></p>
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function fills missing values in vector </span></span><span style='mso-bookmark:
-_Hlt161066090'><span class=var1><span lang=EN-US>A</span></span><span
-lang=EN-US> with member values of sequence </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>xs</span></span><span
-lang=EN-US> according to the positions specified by sequence </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>tq</span></span><span
-lang=EN-US>.</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Generally,
-</span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-lang=EN-US>tq</span></span><span lang=EN-US>’s length should be consistent with
-the number of missing values in vector </span></span><span style='mso-bookmark:
-_Hlt161066090'><span class=var1><span lang=EN-US>A</span></span><span
-lang=EN-US> and the indexes in </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>tq</span></span><span lang=EN-US> should correspond
-to </span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-lang=EN-US>A</span></span><span lang=EN-US>’s missing values; if a position
-provided in </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>tq</span></span><span lang=EN-US> does not
-correspond to a missing value, do not replace the existing value but keep it;
-if </span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-lang=EN-US>tq</span></span><span lang=EN-US>’s length and the number of index
-values cannot cover all positions of missing values in vector </span></span><span
+function fills missing values in vector/ matrix </span></span><span
 style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>A</span></span><span
-lang=EN-US>, values at the positions that do not have indexes will still be
-nulls.</span></span></p>
+lang=EN-US> according to the specified method.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
-</span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-lang=EN-US>xs</span></span><span lang=EN-US> and </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>tq</span></span><span
-lang=EN-US> have same length, <i>xs(i)</i> is the to-be-filled value at the
-index position <i>tq(i)</i> and there is a one-to-one correspondence between
-them; when </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>xs</span></span><span lang=EN-US>’s length is less
-than </span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-lang=EN-US>tq</span></span><span lang=EN-US>’s, copy the last </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>xs</span></span><span
-lang=EN-US> member value to the rest of the positions specified in </span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>tq</span></span><span
-lang=EN-US>; when </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>xs</span></span><span lang=EN-US>’s length is
-greater than </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>tq</span></span><span lang=EN-US>’s, fill the
-missing values according to </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>xs</span></span><span lang=EN-US>’s length and
-ignore the extra </span></span><span style='mso-bookmark:_Hlt161066090'><span
-class=var1><span lang=EN-US>xs</span></span><span lang=EN-US> members.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>There
+are four methods for filling missing values:</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>1.
+Or “previous”: The previous non-missing value;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>2.
+Or “next”: The next non-missing value;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>3.
+Or “nearest”: The nearest non-missing value;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>4.
+Or “linear”: The neighboring non-missing value’s linear interpolation &#8211; only a
+numeric value is valid; the double type (with the decimal point) is required
+for data entry.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b></span></p>
@@ -115,33 +85,19 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Pa
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  one-dimensional sequence.</span></span></p>
+  sequence.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1'>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>xs</span></span></span></p>
+  lang=EN-US>m</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  one-dimensional sequence whose members will fill the missing value positions.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>tq</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  one-dimensional sequence whose members are indexes of missing value positions
-  in sequence </span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US>A</span></span><span lang=EN-US>.</span></span></p>
+  method for filling missing values.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -151,8 +107,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Pa
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
 value:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-bidi-font-weight:bold'>Sequence</span></span></p>
+<p class=MsoNormal style='mso-layout-grid-align:none'><span style='mso-bookmark:
+_Hlt161066090'><span lang=EN-US style='mso-bidi-font-weight:bold'>Sequence</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></p>
@@ -199,14 +155,13 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>=[1.0,2.0,3.0,,,4.0,,,5.0,,,9.0]</span></span></span></p>
+  宋体'>=[1,,2,,2,,,5,,7,,8]</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=271 style='width:203.1pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='font-size:10.0pt;mso-font-kerning:0pt'><img border=0 width=233 height=216
-  src="Function_Reference.files/image745.jpg" v:shapes="_x0000_i1495"></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=245 height=228
+  src="Function_Reference.files/image762.jpg" v:shapes="_x0000_i1504"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -225,12 +180,13 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>=A1.avg()</span></span></span></p>
+  宋体'>=A1.fillmthd(&quot;previous&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=271 style='width:203.1pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=246 height=226
+  src="Function_Reference.files/image764.jpg" v:shapes="_x0000_i1505"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -249,7 +205,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>=[4,5,7,8,10]</span></span></span></p>
+  宋体'>=[[1,2,,,5,,7,8],[2,3,4,,,,5,]]</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=271 style='width:203.1pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
@@ -273,20 +229,21 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>=A1.fillfun(A2,A3)</span></span></span></p>
+  宋体'>=A3.fillmthd(1)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=271 style='width:203.1pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=235 height=217
-  src="Function_Reference.files/image747.png" v:shapes="_x0000_i1496"></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>Return
+  [[1,2,2,2,5,5,7,8],[2,3,4,4,4,4,5,5]]</span><span lang=EN-US>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:5'>
+ <tr style='mso-yfti-irow:5;height:11.35pt'>
   <td width=20 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:11.35pt'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
   style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>5</span></span></span></p>
@@ -295,16 +252,16 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   <td width=251 valign=top style='width:188.1pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:11.35pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>=[&quot;sss&quot;,2,,7,,90.9,&quot;2&quot;]</span></span></span></p>
+  宋体'>=[&quot;one&quot;,&quot;two&quot;,&quot; &quot;,&quot;one&quot;,&quot;
+  &quot;,&quot; &quot;,&quot; &quot;,&quot;two&quot;,&quot; &quot;]</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=271 style='width:203.1pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=232 height=132
-  src="Function_Reference.files/image749.png" v:shapes="_x0000_i1497"></span></span></p>
+  padding:0cm 0cm 0cm 0cm;height:11.35pt'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -323,12 +280,13 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>=[111,222,333]</span></span></span></p>
+  宋体'>=A5.fillmthd(&quot;next&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=271 style='width:203.1pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=250 height=190
+  src="Function_Reference.files/image766.jpg" v:shapes="_x0000_i1506"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -347,7 +305,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>=[1,2,3]</span></span></span></p>
+  宋体'>=[1.0,3.0,,,5.0,]</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=271 style='width:203.1pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
@@ -371,13 +329,13 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'>=A5.fillfun(A6,A7)</span></span></span></p>
+  宋体'>=A7.fillmthd(&quot;linear&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=271 style='width:203.1pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=234 height=135
-  src="Function_Reference.files/image751.png" v:shapes="_x0000_i1498"></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=256 height=139
+  src="Function_Reference.files/image768.jpg" v:shapes="_x0000_i1507"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -395,7 +353,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Ex
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

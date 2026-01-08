@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.2.5 Calling remote server via JDBC</title>
+<title>connection string 6.2.5 Using global variables in JDBC</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,86 +13,370 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin-left:0cm;text-indent:0cm;line-height:normal;mso-list:none'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:10.0pt'>6.2.5 Calling
-remote server via JDBC</span></h3></div>
-	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US>We can call a remote server to perform
-calculations when using esProc Enterprise Edition JDBC. Check <i
-style='mso-bidi-font-style:normal'><a  href="fuwuqi.html#The_Server">The Server Cluster</a></i>
-to learn more about the configuration and launch of the remote server. To
-invoke a remote server, we need to configure IPs and port numbers for every
-remote server in &lt;Units&gt; of the node &lt;JDBC&gt; in the configuration
-file <b style='mso-bidi-font-weight:normal'>raqsoftConfig.xml</b>: </span></p>
+	<div id="centent-title"><h3 align=left style='margin-left:0cm;text-align:left;text-indent:0cm;
+mso-list:none'><span lang=EN-US>connection string</span><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-font-size:10.0pt;line-height:172%'>6.2.5 Using
+global variables in JDBC</span></h3></div>
+	<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>The previous sections explain how to call esProc JDBC in the Java
+application and give code examples, where st.setObject() method is used to
+define a parameter. There is another way to do the same thing. We can use
+jobVars in JDBC URL to directly set global variables.</span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>For example:</span></p>
 
 <p class=TConfigCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;JDBC&gt;</span></i></p>
+text-indent:21.25pt;mso-char-indent-count:2.36;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>public
+void testJobVars(){</span></i></p>
 
 <p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;load&gt;Runtime&lt;/load&gt;</span></i></p>
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Connection
+con = null;</span></i></p>
 
 <p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;gateway&gt;executeSQL.splx&lt;/gateway&gt;</span></i></p>
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>java.sql.CallableStatement
+st;</span></i></p>
 
 <p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;Units&gt;</span></i></p>
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>try{</span></i></p>
 
 <p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;Unit&gt;192.168.0.197:8281&lt;/Unit&gt;</span></i></p>
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//Establish
+connection</span></i></p>
 
 <p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/Units&gt;</span></i></p>
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Class.forName(&quot;com.esproc.jdbc.InternalDriver&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>con=
+DriverManager.getConnection(&quot;jdbc:esproc:local://?jobVars=Date:1990-4-1,sAge:40,
+sState:Florida&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>//Call the stored procedure, where createTable1 is the
+script file name</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>st = con.prepareCall(&quot;call createTable2(date)&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>//Execute the stored procedure</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>st.execute();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>//Get the result set</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>ResultSet rs = st.getResultSet();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>output(rs);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>st = con.prepareCall(&quot;call
+createTable3(age,state)&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>boolean hasResult = st.execute();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>//Get multiple result sets and output the result</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>while (hasResult) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>rs = st.getResultSet();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>output(rs);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>hasResult = st.getMoreResults();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>catch(Exception e){</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>System.out.println(e);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>finally{</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>//Close the connection</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>if (con!=null) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>try {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:106.3pt;mso-char-indent-count:11.81;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>con.close();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>catch(Exception e) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:106.3pt;mso-char-indent-count:11.81;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>System.out.println(e);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.25pt;mso-char-indent-count:2.36;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.25pt;mso-char-indent-count:2.36;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>&nbsp;</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;
+mso-bidi-font-family:"Times New Roman"'>private void output(ResultSet rs)
+throws SQLException{</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>//Handle the result set simply: output field names and
+detail data</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>ResultSetMetaData rsmd = rs.getMetaData();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>int colCount = rsmd.getColumnCount();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>for ( int c = 1; c &lt;= colCount;c++) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>String title = rsmd.getColumnName(c); </span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>if ( c &gt; 1 ) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>System.out.print(&quot;\t&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>else {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>System.out.print(&quot;\n&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>System.out.print(title);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>while (rs.next()) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>for (int c = 1; c&lt;= colCount; c++) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>if ( c &gt; 1 ) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:106.3pt;mso-char-indent-count:11.81;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>System.out.print(&quot;\t&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>else {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:106.3pt;mso-char-indent-count:11.81;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>System.out.print(&quot;\n&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>Object o = rs.getObject(c);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:3.0cm;mso-char-indent-count:9.45;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>System.out.print(o.toString());</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:63.7pt;mso-char-indent-count:7.08;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:42.5pt;mso-char-indent-count:4.72;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
 
 <p class=TConfigCxSpLast style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/JDBC&gt;</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
-
-<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US>When calling a script via JDBC in a Java
-application, the calculation will be performed locally unless there are
-problems with the local operation, like missing data files. In those cases, the
-calculation will be performed on the remote server. If we need to perform a
-calculation remotely in the first place, just add the parameter <b
-style='mso-bidi-font-weight:normal'>?onlyServer=true</b> to the connecting
-string. For example:</span></p>
-
-<p class=TConfigCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Class.forName(&quot;com.esproc.jdbc.InternalDriver&quot;);</span></i></p>
-
-<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>con=
-DriverManager.getConnection(&quot;jdbc:esproc:local://onlyServer=true&quot;);</span></i></p>
-
-<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
-= con.createStatement();</span></i></p>
-
-<p class=TConfigCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet
-rs1 = st.executeQuery(&quot;=5.(~*~)&quot;);<span style='mso-tab-count:1'>&nbsp; </span></span></i></p>
-
-<p class=TConfigCxSpLast style='text-align:justify;text-justify:inter-ideograph;
-text-indent:18.0pt'><i><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet
-rs2 = st.executeQuery(&quot;select * from cities.txt where CID&lt;30&quot;);</span></i></p>
+text-indent:21.25pt;mso-char-indent-count:2.36;line-height:16.0pt;mso-line-height-rule:
+exactly'><i><span lang=EN-US style='mso-bidi-font-size:9.0pt;mso-bidi-font-family:
+"Times New Roman"'>}</span></i></p>
 
 <p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US>The program exports ResultSets by
-executing a query. Here’s the result:</span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=700 height=472
-src="Tutorial.files/image1483.jpg" v:shapes="_x0000_i1828"><span
-style='mso-spacerun:yes'>&nbsp;</span></span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US>We can check the system information about
-the calculation on the remote server’s console:</span></p>
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>In the above code, under url jobVars is used to set global
+variables. The variable’s data type will be automatically parsed according to
+the specified value, and multiple variables are separated by commas. After the
+global variable is set, SPL script file will use the global variable through
+jobVars during execution. Note that <b>the original parameter settings for the
+corresponding cellset file should be deleted</b>. Execute the above code and we
+have the following result:</span></p>
 
 <p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=800 height=1072
-src="Tutorial.files/image1485.jpg" v:shapes="_x0000_i1829"></span></p>
+#0400'><img border=0 width=480 height=307
+src="Tutorial.files/image727.png" v:shapes="_x0000_i1828"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>If the jobVars setting in url is changed,
+the result of execution will also change. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="167.html">Next</a></div>
@@ -106,7 +390,7 @@ src="Tutorial.files/image1485.jpg" v:shapes="_x0000_i1829"></span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

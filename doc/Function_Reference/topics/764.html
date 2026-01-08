@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Qdirectory()</title>
+<title>Qfile()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,59 +13,126 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-宋体'>Qdirectory()<a name="Qdirectory_path"></a></span></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="_Hlt140449445"></a><span
+lang=EN-US style='mso-fareast-font-family:宋体'>Qfile()<a name="Qfile_fd_z"></a></span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
 宋体'></span></span></h2></div>
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-a list of file names that match the specified remote storage path with
-wildcards.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Retrieve
+file(s)/homo-name files group from storage bucket in the remote storage.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span><span
 style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Qdirectory(<i>path</i>)<b
-style='mso-bidi-font-weight:normal'></b></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>Qfile(</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'>fd:z</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'>)</span></span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>Qfile(</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'>fd:cs</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'>)</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif;
+mso-fareast-font-family:宋体;font-weight:normal'></span></i></span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function gets a list of file names that match parameter <i>path</i>, the
-specified wildcard path, without including the path names. The query only
-limits within objects in the storage buckets.</span></span></p>
+function gets file </span></span><span style='mso-bookmark:_Hlt161066090'><span
+class=var1><span lang=EN-US style='mso-bidi-font-size:11.0pt'>fd</span></span><span
+lang=EN-US> from the storage bucket in the remote storage and returns it as a
+file object.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Supported
+file types include composite file, homo-name files group, bin file, txt and
+xls. The return file object supports operations such as exists(), name(),
+size(), date(), read() and import(), but does not support write right now.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
+returned buffer file object is stored in</span></span><span style='mso-bookmark:
+_Hlt161066090'><i><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman"'>【</span><span lang=EN-US>cache
+directory/store Type/</span></i></span><span style='mso-bookmark:_Hlt161066090'><i><span
+style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>】</span></i><span lang=EN-US>.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
-the parameter is absent or the parameter is written as <b style='mso-bidi-font-weight:
-normal'>&quot;</b>/<b style='mso-bidi-font-weight:normal'>&quot;</b>, return a
-list of all storage buckets.</span></span></p>
+QVS users service mode, the buffer directory here is QVM’s cache directory;
+when QVS users debug mode, it is QVS’s own cache directory. If no cloud storage
+information is configured in the QVS application configuration file, configure</span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='font-family:宋体;mso-ascii-font-family:
+"Times New Roman";mso-hansi-font-family:"Times New Roman"'>【</span><span
+lang=EN-US>Remote Services &#8211;&gt; Storage Service Settings</span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='font-family:宋体;mso-ascii-font-family:
+"Times New Roman";mso-hansi-font-family:"Times New Roman"'>】</span><span
+lang=EN-US>in esProc IDE and connect the target remote storage service before
+using the function directly in esProc IDE .</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Will
+be parsed as file() function when no cloud storage information is configured.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:
-</span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:</span></b><span
+lang=EN-US> </span></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=756
  style='margin-left:-16.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>path</span></span></span></p>
+  lang=EN-US>fd</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=414 valign=top style='width:310.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-  wildcard path in a remote storage bucket (the format is storage bucket
-  name/path/file name); search the file name according to the wildcard
-  characters - * represents zero or multiple characters, and ? represents a
-  single character. </span></span></p>
+  <td width=657 valign=top style='width:492.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>File(s)
+  on the remote storage; its written format is “<i>storagebucketName</i>/<i>fileobjectName</i>”
+  . </span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>z</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=657 valign=top style='width:492.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Specify
+  this parameter when parameter <i style='mso-bidi-font-style:normal'>fd</i> is
+  a homo-name files group, this parameter is zone table number or a sequence of
+  zone table numbers.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=100 valign=top style='width:74.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+  lang=EN-US>cs</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=657 valign=top style='width:492.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Character
+  set; support JVM’s built-in character sets; default is the one in the OS.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -77,90 +144,22 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Op
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-16.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:4.5pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+  height:4.5pt'>
   <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt;
   height:4.5pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal'>@d</span></span></span><span
+  lang=EN-US style='font-style:normal'>@c</span></span></span><span
   style='mso-bookmark:_Hlt161066090'><span class=var1><b style='mso-bidi-font-weight:
   normal'><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'></span></b></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=446 valign=top style='width:334.2pt;padding:0cm 5.4pt 0cm 5.4pt;
   height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>List
-  the subdirectories of parameter </span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US>path</span></span><span lang=EN-US>.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1;height:4.5pt'>
-  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal'>@p</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=446 valign=top style='width:334.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  files with full path names in the storage bucket file folder.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;height:4.5pt'>
-  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal'>@m</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=446 valign=top style='width:334.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
-  a directory in a storage bucket.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;height:4.5pt'>
-  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal'>@r</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=446 valign=top style='width:334.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Delete
-  directories, which should be empty, from a storage bucket.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4;height:4.5pt'>
-  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal'>@s</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=446 valign=top style='width:334.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Search
-  for names of files in all subdirectories recursively; the option does not
-  work with @m and @r.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;height:4.5pt'>
-  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US style='font-style:normal'>@c</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=446 valign=top style='width:334.2pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:4.5pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Force&nbsp;to&nbsp;be&nbsp;case-insensitive;&nbsp;use&nbsp;system&nbsp;default&nbsp;when&nbsp;it&nbsp;is&nbsp;absent.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Force
+  to cache all cache blocks to the cache directory; by default, only cache
+  certain cache blocks containing data to be retrieved to the directory
+  according to their positions.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -168,23 +167,24 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Op
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
-value:</span></b></span></p>
+value:</span></b><span lang=EN-US> </span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Sequence</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>File
+object</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Take
-S3 cloud storage as an example:</span></span><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+data file:</span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=879
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1011
  style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -192,7 +192,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
   style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=400 valign=top style='width:300.3pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -200,39 +200,38 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
   style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1;height:11.95pt'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:11.95pt'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
   style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border-top:none;border-left:
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:11.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qdirectory()</span></b></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=Qfile(&quot;qtc01/cities.txt&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:11.95pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  all storage buckets.</span></span></p>
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
+  <i>cities.txt</i> in storage bucket <i>qtc01</i>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -240,23 +239,23 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
   style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border-top:none;border-left:
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qdirectory(&quot;test1&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.exists()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  files in the root directory of storage bucket <i>test1</i>.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Check
+  whether the file exists or not.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -264,25 +263,24 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
   style='font-family:"Times New Roman",serif'>3</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border-top:none;border-left:
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qdirectory@s(&quot;test1&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.name()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  a list of all files in root directory and the subdirectories of storage
-  bucket <i>test1</i>.</span></span></p>
+  the file name as <i>[esProc installation
+  directory]\esProc\q-server\webapps\qvs\WEB-INF\home\cache\s3\qtc01\cities.txt</i>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -290,166 +288,314 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
   style='font-family:"Times New Roman",serif'>4</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border-top:none;border-left:
+  <td width=400 valign=top style='width:300.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qdirectory(&quot;test1/emp*.ctx&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.import@t()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
+  <td width=589 valign=top style='width:441.9pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  a list of files whose suffixes are emp and extensions are .ctx in storage
-  bucket <i>test1</i>.</span></span></p>
+  file data as a table sequence.</span></span></p>
+  </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+a composite table file:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=832
+ style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=393 valign=top style='width:294.55pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border-top:none;border-left:
+  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qdirectory@d(&quot;test1/ctxs/&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qfile(&quot;qtc01/emp.ctx&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>List
-  subdirectories in storage bucket <i>test1</i>. </span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>get
+  composite table file object in storage bucket <i>qtc01</i>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>6</span></span></span></p>
+  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border-top:none;border-left:
+  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qdirectory@p(&quot;test1/ctxs/&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.open()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  files with full path names in storage bucket <i>test1</i>’s directory <i>ctxs</i>.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
+  the composite table’s base table.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>7</span></span></span></p>
+  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border-top:none;border-left:
+  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qdirectory@m(&quot;test1/sln/&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.cursor().fetch()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Create
-  directory <i>sln</i> in storage bucket <i>test1</i>.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Fetch
+  data from the base table.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+homo-name files group:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=832
+ style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=393 valign=top style='width:294.55pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>8</span></span></span></p>
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qdirectory@r(&quot;test1/sln/&quot;)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Delete
-  directory <i>sln</i> from storage bucket <i>test1</i>.</span></span></p>
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>9</span></span></span></p>
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border-top:none;border-left:
+  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qdirectory@s(&quot;test1/ctxs/&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qfile(&quot;qtc01/emp.ctx&quot;:[1,2])</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  a list of all files in storage bucket <i>test1/ctxs</i> directory and its
-  subdirectories.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  homo-name files group <i>1.emp.ctx</i> and <i>2.emp.ctx</i> in storage bucket
+  <i>qtc01</i>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>10</span></span></span></p>
+  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=314 valign=top style='width:235.7pt;border-top:none;border-left:
+  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qdirectory@c(&quot;test1/CTXS/*.ctx&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.open()</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=548 valign=top style='width:410.65pt;border:none;mso-border-left-alt:
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Force
-  to be case-insensitive, and list ctx files in storage bucket <i>test1</i>. </span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
+  the homo-name files group.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.import()</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Import
+  data from the homo-name files group.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><a
+name="_Hlt140451857"></a><span lang=EN-US>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
+no cloud storage is configured:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=832
+ style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=393 valign=top style='width:294.55pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qfile(&quot;order.ctx&quot;)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  the composite table file object in esProc main directory.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=23 valign=top style='width:17.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=393 valign=top style='width:294.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qfile(&quot;emp.ctx&quot;:[1,2])</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=415 valign=top style='width:311.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
+  the homo-names files group in esProc main directory.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -467,7 +613,7 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

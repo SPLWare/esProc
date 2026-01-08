@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.8 JDBC Enterprise edition</title>
+<title>6.8.1 Downloading, installing and configuring JDBC Enterprise edition</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,31 +13,44 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:46.5pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l30 level2 lfo41'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>6.8<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
-lang=EN-US>JDBC Enterprise edition</span></h2></div>
-	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US style='background:aqua;mso-highlight:aqua'>The features explained in
-this section only supported in esProc Enterprise edition. Users using another
-esProc edition just skip this section.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-pagination:widow-orphan'><span
-lang=EN-US>Here we introduce how to deploy and use esProc Enterprise edition
-JDBC. Besides the ordinary esProc JDBC (called PJDBC), we have Enterprise
-edition JDBC in esProc Enterprise edition. The two JDBCs are basically same
-except that they use different esProc related jars. PJDBC uses ordinary esProc
-related jars while JDBC Enterprise needs Enterprise edition related jars. Same
-as deploying and configuring the PJDBC, you should deploy the </span><span
+	<div id="centent-title"><h3 style='margin-left:57.0pt;text-indent:-36.0pt;mso-list:l16 level3 lfo44'><span
+class=23><span lang=EN-US style='font-family:"Times New Roman",serif;
+mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>6.8.1<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span></span></span><span
+class=23><span lang=EN-US style='font-family:"Times New Roman",serif'>Downloading,
+installing and configuring JDBC Enterprise edition</span></span><span
+class=23><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></h3></div>
+	<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Download esProc
+Enterprise edition installer in <i style='mso-bidi-font-style:normal'><a
+href="https://www.esproc.com/download-esproc/">https://www.esproc.com/download-esproc/</a><span
+style='mso-bidi-font-style:italic'> </span></i><span
+style='mso-spacerun:yes'>&nbsp;</span>and install it. After that, find the
+basic jars used by the Enterprise edition JDBC in </span><span
 class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal;mso-bidi-font-weight:bold'>raqsoftConfig.xml</span></i></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-lang=EN-US>file to complete JDBC Enterprise deployment and, if you want to
-integrate esProc in a project, you should configure </span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>web.xml</span></span><span
-lang=EN-US> file in the project.</span></p>
+font-weight:normal;mso-bidi-font-weight:bold'>[installation
+directory]\esProc\lib</span></i></span><span class=T-CodeChar><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+bold'>. Different from the other esProc editions, the jar file <i>esproc-ent-xxxx.jar</i>
+specifically used for the Enterprise edition is necessary. </span></span><span
+lang=EN-US>If you want to use the extended functionalities, add the functional
+jar </span><span class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal;mso-bidi-font-weight:bold'>esproc-ext-xxxx.jar</span></i></span><span
+lang=EN-US>.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Besides </span><span
+class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal;mso-bidi-font-weight:bold'>[installation
+directory]\esProc\config\raqsoftConfig.xml</span></i></span><span lang=EN-US>,
+files used to deploy the JDBC Enterprise can also be found in </span><span
+class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal;mso-bidi-font-weight:bold'>q-server\webapps\qvs\WEB-INF\home</span></i></span><span
+lang=EN-US>. The two configuration files have similar content, but the latter
+is used for server loading and will not adjust itself when the esProc edition
+changes. You need to edit it yourself as needed.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Read <a
+href="https://c.scudata.com/article/1690773065281">Scudata Cloud Deployment</a>
+to find more about esProc Enterprise edition server.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="181.html">Next</a></div>
@@ -45,17 +58,13 @@ lang=EN-US> file in the project.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="155.html">Chapter6 Integration &amp; Application</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="181.html">6.8.1 Downloading, installing and configuring JDBC Enterprise edition</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="182.html">6.8.2 Using JDBC Enterprise edition</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="183.html">6.8.3 esProc Enterprise functions</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="184.html">6.8.4 QVS and QJDBC</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="179.html">6.8 JDBC Enterprise edition</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

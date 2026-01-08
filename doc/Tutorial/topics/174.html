@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.6 Deploying ODBC</title>
+<title>6.6.1 Installing ODBC driver</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,24 +13,67 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:46.5pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l30 level2 lfo41'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>6.6<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Deploying ODBC<a
-name="Deploying_ODBC"></a></span></h2></div>
+	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US>6.6.1 Installing
+ODBC driver</span></h3></div>
 	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='background:aqua;mso-highlight:aqua'>You can
-choose to skip this section if you are not a professional programmer. This
-won’t affect your learning about the other contents of this <i
-style='mso-bidi-font-style:normal'>Tutorial</i>.</span></p>
+21.0pt'><span lang=EN-US>To enable esProc-ODBC, first we need to install ODBC
+driver at the client-side. In the <i style='mso-bidi-font-style:normal'>esProc
+installation/bin</i> directory, execute esprocOdbcinst.exe under the
+administrator privilege to install the esProc-ODBC driver. If the ODBC dynamic
+library can’t be implemented due to the lack of the related dependent library, execute
+<i style='mso-bidi-font-style:normal'>VCredit.exe</i> to install it.</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Then we can add the ODBC data sources. Select
+esProcOdbc ODBC Driver to connect to the esProc ODBC to create ODBC data
+sources:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=464 height=352
+src="Tutorial.files/image740.jpg" v:shapes="_x0000_i1842"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>In the pop-up window, set the <b style='mso-bidi-font-weight:
+normal'>connection parameters</b> for esProc-ODBC:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=478 height=330
+src="Tutorial.files/image741.png" v:shapes="_x0000_i1843"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Click <b style='mso-bidi-font-weight:normal'>Connect
+Test</b> to check whether the connection is correctly established:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=198 height=174
+src="Tutorial.files/image742.png" v:shapes="_x0000_i1844"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Click <b style='mso-bidi-font-weight:normal'>OK</b> to
+view the newly-created esProc-ODBC data source in system’s <b style='mso-bidi-font-weight:
+normal'>ODBC data source manager</b>:</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>esProc ODBC service accesses an external table
-configured as a data source via the ODBC interface.Let’s take a look at how to
-deploy esProc ODBC.</span></p>
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=565 height=400
+src="Tutorial.files/image744.jpg" v:shapes="_x0000_i1845"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>esProc-ODBC data sources can be accessed through both User DSN and
+System DSN.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="175.html">Next</a></div>
@@ -38,15 +81,13 @@ deploy esProc ODBC.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="155.html">Chapter6 Integration &amp; Application</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="175.html">6.6.1 Installing ODBC driver</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="176.html">6.6.2 Starting ODBC service</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="173.html">6.6 Deploying ODBC</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

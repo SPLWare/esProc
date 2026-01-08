@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>hive_cursor()</title>
+<title>hive_query()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,8 +13,8 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="hive_cursor"></a><span
-lang=EN-US>hive_cursor()</span></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="hive_query"></a><span
+lang=EN-US>hive_query()</span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h2></div>
 	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
@@ -22,7 +22,7 @@ style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Query
-a Hive database and return the result as a cursor.</span></span></p>
+a Hive database.</span></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
@@ -31,7 +31,7 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>S
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'>hive_cursor</span></b><span lang=EN-US>(</span></span><span
+黑体'>hive_query</span></b><span lang=EN-US>(</span></span><span
 style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-bidi-font-size:
 10.5pt'>con,sql</span></i><span lang=EN-US>)</span></span></p>
 
@@ -39,44 +39,51 @@ style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-bidi-font-size
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>This
-HiveCli external library function <span style='mso-bidi-font-style:italic'>(See
-</span></span></span><a href="http://doc.raqsoft.com/esproc/ext/"><span
+<p class=MsoNormal style='tab-stops:18.0pt'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>This HiveCli external library function <span style='mso-bidi-font-style:
+italic'>(See </span></span></span><a href="http://doc.raqsoft.com/esproc/ext/"><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
 italic'>External Library Guide</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-style:
-italic'>) </span><span lang=EN-US>performs a SQL query and returns the result
-as a cursor. </span></span></p>
+italic'>) </span><span lang=EN-US>executes a certain SQL query on a Hive
+database, and returns the query result as a table sequence. </span></span><span
+style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:
-</span></b></span></p>
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-5.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=57 valign=top style='width:42.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
   lang=EN-US style='mso-bidi-font-size:10.5pt'>con</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=486 valign=top style='width:364.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=467 valign=top style='width:350.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Database
-  connection string</span></span></p>
+  connection string</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=57 valign=top style='width:42.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
   lang=EN-US style='mso-bidi-font-size:10.5pt'>sql</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=486 valign=top style='width:364.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=467 valign=top style='width:350.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-  SQL query statement, like<b> select * from table</b></span></span></p>
+  SQL query statement, like <b style='mso-bidi-font-weight:normal'>select *
+  from tabl<span style='mso-bidi-font-weight:bold'>e</span></b></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
+  bold'>.</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -85,14 +92,14 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>P
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Return
-value: </span></b></span></p>
+value:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Cursor</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Table
+sequence</span></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Example:
-</span></b></span></p>
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:-.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -102,9 +109,9 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>E
   <td width=20 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:黑体'>&nbsp;</span></b></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>&nbsp;</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=488 valign=top style='width:365.85pt;border:solid #A6A6A6 1.0pt;
@@ -117,8 +124,7 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>E
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=142 valign=top style='width:106.2pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -165,15 +171,15 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>E
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>=hive_cursor(A1, &quot;select<span style='mso-spacerun:yes'>&nbsp;
+  黑体'>=hive_query(A1, &quot;select<span style='mso-spacerun:yes'>&nbsp;
   </span>*<span style='mso-spacerun:yes'>&nbsp; </span>from<span
   style='mso-spacerun:yes'>&nbsp; </span>table&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=142 style='width:106.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  a cursor.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Query
+  data in table. </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -209,21 +215,25 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>R
 function:</span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
- href="hiveclose.html#hive_close"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>hive_close<span
-style='mso-bookmark:_Hlt474160523'>(</span>)</span></span><span
+ href="hiveclose.html#hive_close"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>hive_clo<span
+style='mso-bookmark:_Hlt474160527'><span style='mso-bookmark:_Hlt474160569'>s</span></span>e<span
+style='mso-bookmark:_Hlt474160512'>(</span>)</span></span><span
 style='mso-bookmark:_Hlt161066090'></span></a><a
-name="_Hlt474160523"></a><span style='mso-bookmark:_Hlt161066090'></span></p>
+name="_Hlt474160512"></a><a name="_Hlt474160569"></a><a name="_Hlt474160527"></a><span
+style='mso-bookmark:_Hlt161066090'></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="hivecursor.html#hive_cursor"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>hive_cur<span
+style='mso-bookmark:_Hlt474160574'>s</span><span style='mso-bookmark:_Hlt474160542'>o</span><span
+style='mso-bookmark:_Hlt474160427'>r</span>()</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt474160427"></a><a name="_Hlt474160542"></a><a name="_Hlt474160574"></a><span
+style='mso-bookmark:_Hlt161066090'></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
  href="hiveclient.html#hive_client"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>hive_open()</span></span><span
-style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
- href="hivequery.html#hive_query"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>hive_que<span
-style='mso-bookmark:_Hlt474160575'><span style='mso-bookmark:_Hlt474160540'>r</span></span>y()</span></span><span
-style='mso-bookmark:_Hlt161066090'></span></a><a
-name="_Hlt474160540"></a><a name="_Hlt474160575"></a><span
-style='mso-bookmark:_Hlt161066090'></span></p>
+style='mso-bookmark:_Hlt161066090'></span></a><a name="_hour()_1"></a><a
+name=hosts></a><a name="_hosts()_2"></a><span style='mso-bookmark:_Hlt161066090'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="454.html">Next</a></div>
@@ -237,7 +247,7 @@ style='mso-bookmark:_Hlt161066090'></span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

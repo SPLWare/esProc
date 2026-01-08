@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>workdays()</title>
+<title>ws_call()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,16 +13,16 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name=workdays></a><span
-lang=EN-US>workdays()</span></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name="ws_call"></a><a
+name="_xjoin()_1"></a><span lang=EN-US>ws_call()</span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h2></div>
 	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-a sequence of workdays between two dates inclusive.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Send
+a query request to the web service server to get the returned data.</span></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
@@ -30,23 +30,27 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>S
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'>workdays(</span></b></span><span style='mso-bookmark:_Hlt161066090'><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>b</span></i><span lang=EN-US>,</span></span><span
+黑体'>ws_call</span></b></span><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(</span></span><span
 style='mso-bookmark:_Hlt161066090'><i><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>e,h</span></i></span><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'>)</span></b></span></p>
+10.5pt'>client,[service_name:service_port:]operation_name[,value1:paramName1,value2:paramName2…]</span></i></span><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'>)</span></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function gets a sequence of workdays between date <i style='mso-bidi-font-style:
-normal'>b</i> and date <i style='mso-bidi-font-style:normal'>e</i>; by default,
-the two end points are included. Members of <i style='mso-bidi-font-style:normal'>h</i>
-are either weekend or holidays. If there is an on-duty shift in a weekend day,
-take it as the weekday. </span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>This
+WebserviceCli external library function </span></span><span style='mso-bookmark:
+_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:
+italic'>(See </span></span><a href="http://doc.raqsoft.com/esproc/ext/"><span
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;mso-bidi-font-style:italic'>External Library Guide</span></span><span
+style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>)<b> </b></span><span
+lang=EN-US>sends a query request to the web service server to get the returned
+data.</span></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
 style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
@@ -56,92 +60,65 @@ lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>P
  style='margin-left:-16.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=145 valign=top style='width:108.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>b</span></i></span></p>
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>client</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>A date value</span><span lang=EN-US>.</span></span></p>
+  <td width=448 valign=top style='width:335.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Web
+  service client object.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=145 valign=top style='width:108.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>e</span></i></span></p>
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>service_name</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>A date value</span><span lang=EN-US>.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>h<span style='mso-bidi-font-style:italic'></span></span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>A sequence composed of values of date data
-  type</span><span lang=EN-US>.</span></span></p>
+  <td width=448 valign=top style='width:335.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Service
+  name; the parameter can be omitted when the WSDL URL contains only one
+  service.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
-</table>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt'>Option:</span></b></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:22.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-style:normal'>@n</span></b></span></span></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=145 valign=top style='width:108.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>service_port</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Return
-  the number of workdays between.</span></span></p>
+  <td width=448 valign=top style='width:335.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Service
+  port; the parameter can be omitted when the specified service has only one
+  port. </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-style:normal'>@x</span></b></span></span></p>
+ <tr style='mso-yfti-irow:3'>
+  <td width=145 valign=top style='width:108.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>operation_name</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Do
-  not include date </span></span><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>e</span></i><span lang=EN-US>
-  when getting the workdays between.</span></span></p>
+  <td width=448 valign=top style='width:335.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Query
+  operation name.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>@b</span></b></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US style='font-style:normal'></span></b></span></span></p>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=145 valign=top style='width:108.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>value: paramName</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
-  binary search algorithm when sequence </span></span><span style='mso-bookmark:
-  _Hlt161066090'><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>h</span></i><span lang=EN-US> is ordered.</span></span></p>
+  <td width=448 valign=top style='width:335.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parameter
+  value&amp;Parameter name; multiple pairs are allowed. If the name part is
+  omitted, names defined in WDSL message will be referenced in order.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -159,128 +136,120 @@ style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:19.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:-1.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=27 valign=top style='width:20.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.15pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=485 valign=top style='width:364.1pt;border:solid #A6A6A6 1.0pt;
+  <td width=272 valign=top style='width:204.2pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>A</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>A</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
+  <td width=645 valign=top style='width:483.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=27 valign=top style='width:20.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>1</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>1</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=485 valign=top style='width:364.1pt;border-top:none;border-left:
+  <td width=272 valign=top style='width:204.2pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=workdays(date(&quot;2025-05-26&quot;),date(&quot;2025-06-06&quot;),[date(&quot;2025-06-02&quot;)])<span
-  class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'></span></span></span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=ws_client(&quot;http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 style='width:241.0pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-  workdays between 2025-05-26 and 2025-06-06, during which 2025-06-02 is a
-  non-weekend holiday day, and return the following result:<span
-  style='mso-no-proof:yes'></span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-no-proof:yes'><img border=0 width=149 height=247
-  src="Function_Reference.files/image2803.jpg" v:shapes="_x0000_i2954"></span></span><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:12.0pt;
-  mso-bidi-font-size:10.0pt'></span></span></p>
+  <td width=645 valign=top style='width:483.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Access
+  the weather forecast server</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=27 valign=top style='width:20.55pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;height:244.05pt'>
+  <td width=22 valign=top style='width:16.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>2</span></span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:244.05pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>2</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=485 valign=top style='width:364.1pt;border-top:none;border-left:
+  <td width=272 valign=top style='width:204.2pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:244.05pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=workdays@n(date(&quot;2025-05-26&quot;),date(&quot;2025-06-06&quot;),[
-  date(&quot;2025-06-02&quot;)])<span class=code><span style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体'></span></span></span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=ws_call(A1,&quot;WeatherWebService&quot;:&quot;WeatherWebServiceSoap&quot;:&quot;getSupportProvince&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体;font-weight:normal;mso-bidi-font-weight:bold'>Use @n option to count
-  workdays between the two specified dates and return 9.</span></span></span></p>
+  <td width=645 valign=top style='width:483.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:244.05pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=279 height=311
+  src="Function_Reference.files/image2825.png" v:shapes="_x0000_i2971"></span></span><span style='mso-ignore:vglayout;
+  position:relative;z-index:251654656'><span style='left:0px;position:absolute;
+  left:-375px;top:-1398980px;width:279px;height:12px'><img width=279 height=12
+  src="Function_Reference.files/image2828.png" v:shapes="组合_x0020_20 _x0000_s1416 _x0000_s1417 直接箭头连接符_x0020_8"></span></span><span
+  style='mso-bookmark:_Hlt161066090'></span><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=27 valign=top style='width:20.55pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:311.35pt'>
+  <td width=22 valign=top style='width:16.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'>3</span></span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:311.35pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>3</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=485 valign=top style='width:364.1pt;border-top:none;border-left:
+  <td width=272 valign=top style='width:204.2pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:311.35pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=workdays@x(date(&quot;2025-05-26&quot;),date(&quot;2025-06-06&quot;),[date(&quot;2025-06-02&quot;)])<span
-  class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体'></span></span></span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>=ws_call(A1,&quot;WeatherWebService&quot;:&quot;WeatherWebServiceSoap&quot;:&quot;getWeatherbyCityName&quot;,&quot;58367&quot;:&quot;theCityName&quot;)</span></b></span></p>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>&nbsp;</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=321 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
-  @x option to exclude the date 2025-06-06:<span style='mso-no-proof:yes'></span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-no-proof:yes'><img border=0 width=148 height=222
-  src="Function_Reference.files/image2805.jpg" v:shapes="_x0000_i2955"></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体'></span></span></span></p>
+  <td width=645 valign=top style='width:483.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:311.35pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=272 height=400
+  src="Function_Reference.files/image2829.png" v:shapes="_x0000_i2972"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="1010.html">Next</a></div>
@@ -294,7 +263,7 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>

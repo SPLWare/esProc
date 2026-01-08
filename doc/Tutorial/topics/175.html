@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.6.1 Installing ODBC driver</title>
+<title>6.6.2 Starting ODBC service</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,61 +14,86 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US>6.6.1 Installing
-ODBC driver</span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US>6.6.2 Starting ODBC
+service
+</span></h3></div>
+	<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+line-height:normal'><span lang=EN-US style='font-size:12.0pt;font-family:"Times New Roman",serif;
+mso-bidi-font-weight:bold'>Starting the GUI console</span><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:12.0pt;font-family:"Times New Roman",serif'></span></b></p>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>To enable esProc-ODBC, first we need to install ODBC
-driver at the client-side. In the <i style='mso-bidi-font-style:normal'>esProc
-installation/bin</i> directory, execute esprocOdbcinst.exe under the
-administrator privilege to install the esProc-ODBC driver. If the ODBC dynamic
-library can’t be implemented due to the lack of the related dependent library,
-execute <i style='mso-bidi-font-style:normal'>VCredit.exe</i> to install it.</span></p>
+21.0pt'><span lang=EN-US>In esProc’s <i style='mso-bidi-font-style:normal'>[installation
+root directory]\esProc\bin</i>, double click the <i style='mso-bidi-font-style:
+normal'>esprocs.exe</i> file or<span style='mso-spacerun:yes'>&nbsp; </span><i>ServerConsole.bat</i>
+file (Under Linux, execute <i style='mso-bidi-font-style:normal'>ServerConsole.sh</i>)
+to pop up the <b style='mso-bidi-font-weight:normal'>Odbc Server</b> window.
+With the Enterprise Edition, the corresponding startup file is <i>esprocsEE.exe</i>,<i>
+ServerConsoleEE.bat</i> or <i>ServerConsoleEE.sh</i>. When the startup file is
+executed, the following <b style='mso-bidi-font-weight:normal'>Odbc Server</b>
+window pops up:</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Then we can add the ODBC data sources. Select esProcOdbc
-ODBC Driver to connect to the esProc ODBC to create ODBC data sources:</span></p>
+21.0pt'><span lang=EN-US><img border=0 width=554 height=333
+src="Tutorial.files/image745.png" v:shapes="图片_x0020_1581"></span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=927 height=703
-src="Tutorial.files/image1511.png" v:shapes="_x0000_i1844"></span></p>
+21.0pt'><span lang=EN-US>Select <b style='mso-bidi-font-weight:normal'>Odbc
+Server</b> and click <b style='mso-bidi-font-weight:normal'>Config</b> to open
+the <b style='mso-bidi-font-weight:normal'>ODBC Server</b> window:</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>In the pop-up window, set the <b style='mso-bidi-font-weight:
-normal'>connection parameters</b> for esProc-ODBC:</span></p>
+21.0pt'><span lang=EN-US><img border=0 width=707 height=247
+src="Tutorial.files/image746.png" v:shapes="图片_x0020_1470"></span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=956 height=660
-src="Tutorial.files/image1513.jpg" v:shapes="_x0000_i1845"></span></p>
+21.0pt'><span lang=EN-US>On the above window, you can configure port number,
+temporary file timeout, maximum connection number, connection timeout and check
+interval. The middle part of the window is user management, where you can
+configure the authorized users and their passwords. Below is an example:</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Click <b style='mso-bidi-font-weight:normal'>Connect
-Test</b> to check whether the connection is correctly established:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=396 height=348
-src="Tutorial.files/image1515.jpg" v:shapes="_x0000_i1846"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Click <b style='mso-bidi-font-weight:normal'>OK</b> to
-view the newly-created esProc-ODBC data source in system’s <b style='mso-bidi-font-weight:
-normal'>ODBC data source manager</b>:</span></p>
+21.0pt'><span lang=EN-US><img border=0 width=707 height=247
+src="Tutorial.files/image747.png" v:shapes="图片_x0020_1472"></span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=1131 height=801
-src="Tutorial.files/image1516.png" v:shapes="_x0000_i1847"></span></p>
+21.0pt'><span lang=EN-US>Click <b style='mso-bidi-font-weight:normal'>OK</b>
+and esProc will automatically configure the <i style='mso-bidi-font-style:normal'>OdbcServer.xml</i>
+file according to the configured information under <i style='mso-bidi-font-style:
+normal'>[installation root directory]\esProc config</i>. Then click <b
+style='mso-bidi-font-weight:normal'>Start</b> to launch the esProc ODBC
+service. To stop the service, just click <b style='mso-bidi-font-weight:normal'>Stop</b>.
+To enable auto-start of Odbc Server when the console is started, check “Auto
+start server”.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>esProc-ODBC data sources can be accessed through both User DSN and
-System DSN.</span></p>
+<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+line-height:normal'><span lang=EN-US style='font-size:12.0pt;font-family:"Times New Roman",serif;
+mso-bidi-font-weight:bold'>Starting the non-GUI console</span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+font-family:"Times New Roman",serif'></span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+mso-pagination:widow-orphan'><span lang=EN-US style='mso-bidi-font-size:11.0pt'>Use
+the non-GUI console under Linux, here is how to start it: execute the command <i
+style='mso-bidi-font-style:normal'>./ServerConsole.sh &nbsp;-o</i> (<i>./ServerConsoleEE.sh
+&nbsp;-o</i> under Enterprise Edition) in the <i style='mso-bidi-font-style:
+normal'>esProc\bin</i> directory under the installation root directory to start
+the ODBC service. </span><span lang=EN-US>After the configuration for ODBC
+service is finished, we can establish an ODBC connection through esProc-ODBC.</span><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'></span></p>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.1pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>Note</span></b><span
+lang=EN-US>: esProc ODBC service can be only enabled on the server side under
+Linux.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="176.html">Next</a></div>
@@ -76,13 +101,13 @@ System DSN.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="174.html">6.6 Deploying ODBC</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="173.html">6.6 Deploying ODBC</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2025 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
+    <div class="copyright"> Copyright&reg; 2021-2026 <a href="http://www.esproc.com" target="_Blank">SCUDATA Ltd. 
       </a></div>
 	</div>
 </div>
