@@ -24,7 +24,15 @@ public class Median extends Gather  {
 	 * 根据median(k:n, exp)分别解析k、n、exp
 	 */
 	public void prepare(Context ctx) {
-		if (param == null || param.getSubSize() != 2) {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("median" + mm.getMessage("function.missingParam"));
+		} else if (param.isLeaf()) {
+			parK	= 1;
+			parN	= 2;
+			exp = param.getLeafExpression();
+			return;
+		} else if (param.getSubSize() != 2) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("median" + mm.getMessage("function.invalidParam"));
 		}
