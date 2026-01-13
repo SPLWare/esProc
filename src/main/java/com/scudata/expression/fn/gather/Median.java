@@ -146,8 +146,69 @@ public class Median extends Gather  {
 	}
 
 	public Object calculate(Context ctx) {
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("Expression.unknownFunction") + "median");
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("median" + mm.getMessage("function.missingParam"));
+		} else if (param.isLeaf()) {
+			Object obj = param.getLeafExpression().calculate(ctx);
+			if (obj instanceof Sequence) {
+				return ((Sequence)obj).median(1, 2);
+			} else {
+				return obj;
+			}
+		} else if (param.getSubSize() != 2) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("median" + mm.getMessage("function.invalidParam"));
+		}
+		
+		IParam sub = param.getSub(1);
+		if (sub == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("median" + mm.getMessage("function.invalidParam"));
+		}
+		
+		Object obj = sub.getLeafExpression().calculate(ctx);
+		Sequence sequence;
+		if (obj instanceof Sequence) {
+			sequence = (Sequence)obj;
+		} else {
+			return obj;
+		}
+		
+		int k = 1, n = 2;
+		sub = param.getSub(0);
+		
+		if (sub != null) {
+			IParam sub0 = sub.getSub(0);
+			IParam sub1 = sub.getSub(1);
+			
+			if (sub0 != null) {
+				obj = sub0.getLeafExpression().calculate(null);
+				if (!(obj instanceof Number)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("median" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				k = ((Number)obj).intValue();
+			}
+			
+			if (sub1 != null) {
+				obj = sub1.getLeafExpression().calculate(null);
+				if (!(obj instanceof Number)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("median" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				n = ((Number)obj).intValue();
+			}
+			
+			if (k > n || n < 2) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("median" + mm.getMessage("function.invalidParam"));
+			}
+		}
+		
+		return sequence.median(k, n);
 	}
 
 	/**
