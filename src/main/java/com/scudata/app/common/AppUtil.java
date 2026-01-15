@@ -51,6 +51,7 @@ import com.scudata.dm.KeyWord;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.query.SimpleSQL;
 import com.scudata.expression.fn.Eval;
 import com.scudata.resources.EngineMessage;
@@ -368,6 +369,26 @@ public class AppUtil {
 			if (stack != null)
 				stack.popArg();
 		}
+	}
+
+	public static Object executeResult(String exp, Sequence args, Context ctx)
+			throws SQLException {
+		Object val = AppUtil.executeCmd(exp, args, ctx);
+		if (val == null)
+			return null;
+		if (val instanceof PgmCellSet) { // 多结果集只返回第一个
+			PgmCellSet result = (PgmCellSet) val;
+			if (result.hasNextResult())
+				val = result.nextResult();
+			else
+				return null;
+		}
+		// 处理游标
+		if (val instanceof ICursor) {
+			ICursor cursor = (ICursor) val;
+			return cursor.fetch();
+		}
+		return val;
 	}
 
 	/**
