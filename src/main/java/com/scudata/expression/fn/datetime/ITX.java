@@ -48,21 +48,26 @@ public class ITX extends Function {
 				throw new RQException("itx" + mm.getMessage("function.paramTypeError"));
 			}
 		} else if (size == 3) {
-			IParam sub2 = param.getSub(1);
 			IParam sub3 = param.getSub(2);
-			if (sub2 == null|| sub3 == null) {
+			if (sub3 == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("itx" + mm.getMessage("function.invalidParam"));
 			}
 			
-			Object obj = sub2.getLeafExpression().calculate(ctx);
-			if (!(obj instanceof Number)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("itx" + mm.getMessage("function.paramTypeError"));
+			int day = 0;
+			IParam sub2 = param.getSub(1);
+			
+			if (sub2 != null) {
+				Object obj = sub2.getLeafExpression().calculate(ctx);
+				if (obj instanceof Number) {
+					day = ((Number)obj).intValue();
+				} else if (obj != null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("itx" + mm.getMessage("function.paramTypeError"));
+				}
 			}
-
-			int day = ((Number)obj).intValue();
-			obj = sub3.getLeafExpression().calculate(ctx);
+			
+			Object obj = sub3.getLeafExpression().calculate(ctx);
 			if (!(obj instanceof Number)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("itx" + mm.getMessage("function.paramTypeError"));
