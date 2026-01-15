@@ -373,6 +373,9 @@ public class AppUtil {
 
 	public static Object executeResult(String exp, Sequence args, Context ctx)
 			throws SQLException {
+		if (exp == null)
+			return null;
+		exp = "=" + exp;
 		Object val = AppUtil.executeCmd(exp, args, ctx);
 		if (val == null)
 			return null;
