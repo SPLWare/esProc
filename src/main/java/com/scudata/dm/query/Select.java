@@ -1532,31 +1532,6 @@ public class Select extends QueryBody {
 				
 				exp = new Not(i, i + 1);
 				hasNot = true;
-			} else if (token.isKeyWord("LIKE")) {
-				i++;
-				if (i == next) {
-					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + tokens[i - 1].getPos());
-				}
-
-				int end = Tokenizer.scanLogicalOperator(tokens, i, next);
-				if (end == -1) {
-					end = next;
-				}
-				
-				Like like = new Like(i, i + 1);
-				exp = scanExp(tokens, i, end, part);
-				like.setRight(exp);
-				
-				Exp last = removeLastNot(exps);
-				if (last != null) {
-					like.setNot(true);
-				}
-				
-				last = removeLastLogic(exps, "LIKE");
-				like.setLeft(last);
-				exp = like;
-				i = end - 1;
 			} else if (token.isKeyWord("IN")) {
 				i++;
 				if (i == next) {
@@ -1590,6 +1565,39 @@ public class Select extends QueryBody {
 				in.setLeft(last);
 				exp = in;
 				i = end;
+			} else if (token.getType() == Tokenizer.KEYWORD && 
+					i + 1 < next && tokens[i + 1].getType() == Tokenizer.LPAREN) {
+				// 函数名可能和关键字名相同，如果能解释成函数优先解释成函数，left(str, 2)
+				int end = Tokenizer.scanParen(tokens, i + 1, next);
+				String fnName = token.getString();
+				List<Exp> list = scanParam(tokens, i + 2, end, part);
+				exp = new Function(i, end + 1, fnName, list);
+				i = end;
+			} else if (token.isKeyWord("LIKE")) {
+				i++;
+				if (i == next) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[i - 1].getPos());
+				}
+
+				int end = Tokenizer.scanLogicalOperator(tokens, i, next);
+				if (end == -1) {
+					end = next;
+				}
+				
+				Like like = new Like(i, i + 1);
+				exp = scanExp(tokens, i, end, part);
+				like.setRight(exp);
+				
+				Exp last = removeLastNot(exps);
+				if (last != null) {
+					like.setNot(true);
+				}
+				
+				last = removeLastLogic(exps, "LIKE");
+				like.setLeft(last);
+				exp = like;
+				i = end - 1;
 			} else if (token.isKeyWord("EXISTS")) {
 				i++;
 				if (i == next) {
@@ -1682,14 +1690,6 @@ public class Select extends QueryBody {
 				}
 			} else if (token.isKeyValue()) {
 				exp = new CommonNode(i, i + 1, token.toLowerString());
-			} else if (token.getType() == Tokenizer.KEYWORD && 
-					i + 1 < next && tokens[i + 1].getType() == Tokenizer.LPAREN) {
-				// 函数名可能和关键字名相同，如果能解释成函数优先解释成函数，left(str, 2)
-				int end = Tokenizer.scanParen(tokens, i + 1, next);
-				String fnName = token.getString();
-				List<Exp> list = scanParam(tokens, i + 2, end, part);
-				exp = new Function(i, end + 1, fnName, list);
-				i = end;
 			} else {
 				exp = new CommonNode(i, i + 1, token.getString());
 			}
