@@ -126,12 +126,14 @@ public class Groups extends Operation {
 			// 采用累积法分组
 			gathers = Sequence.prepareGatherMethods(newExps, ctx);
 		} else {
-			for (int i = 0; i < newCount; ++i) {
+			// nlq产品中的指标定义可能用到var函数，写法是：var@sr(~.(收盘价))
+			// 这里抛异常了，不再做错误检查了
+			/*for (int i = 0; i < newCount; ++i) {
 				if (newExps[i].getHome() instanceof Gather) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("group" + mm.getMessage("function.invalidParam"));
 				}
-			}
+			}*/
 			
 			data = new Sequence();
 			values = new Object[count];
