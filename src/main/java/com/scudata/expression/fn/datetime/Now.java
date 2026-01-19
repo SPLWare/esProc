@@ -3,6 +3,7 @@ package com.scudata.expression.fn.datetime;
 import java.util.Calendar;
 
 import com.scudata.dm.Context;
+import com.scudata.expression.Constant;
 import com.scudata.expression.Function;
 import com.scudata.expression.Node;
 
@@ -13,7 +14,18 @@ import com.scudata.expression.Node;
  */
 public class Now extends Function {
 	public Node optimize(Context ctx) {
-		return this;
+		if (option != null && option.indexOf('d') != -1) {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(System.currentTimeMillis());
+			calendar.set(Calendar.HOUR_OF_DAY, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+			Object val = new java.sql.Date(calendar.getTimeInMillis());
+			return new Constant(val);
+		} else {
+			return this;
+		}
 	}
 
 	public Object calculate(Context ctx) {
