@@ -2678,7 +2678,7 @@ public class Select extends QueryBody {
 			result = cs.groups(byExps, byNames, gatherExps, gatherNames, null, ctx);
 		}
 		
-		if (having != null) {
+		if (having != null && result != null) {
 			String expStr = having.toSPL(byCount);
 			Expression exp = new Expression(cellSet, ctx, expStr);
 			result = (Sequence)result.select(exp, "t", ctx);
