@@ -76,10 +76,9 @@ public class JDBCConsts {
 
 	/** JDBC支持的数据文件类型 **/
 	public static final String DATA_FILE_EXTS = AppConsts.FILE_BTX + ","
-			+ AppConsts.FILE_CTX + "," + AppConsts.FILE_TXT + ","
-			+ AppConsts.FILE_CSV + "," + AppConsts.FILE_XLS + ","
-			+ AppConsts.FILE_XLSX;
-
+			+ AppConsts.FILE_TXT + "," + AppConsts.FILE_CSV + ","
+			+ AppConsts.FILE_XLS + "," + AppConsts.FILE_XLSX;
+	// + AppConsts.FILE_CTX + ","
 	/**
 	 * 缺省一次获取的行数
 	 */
