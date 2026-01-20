@@ -489,5 +489,15 @@
 	 <FUNCTION name="itx">
     	<INFO dbtype="ESPROC" script='"itx(" + ?.concat@c() +")"'/>
     </FUNCTION>
+	 <FUNCTION name="case">
+    	<INFO dbtype="ORACLE" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="SQLSVR" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="DB2" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="MYSQL" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="POSTGRES" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="IMPALA" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="HSQL" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="ESPROC" script=' "if("+ if(?.len()&lt;3,?.concat@c(),if(?.len()%2==0,?.(if(#%2==1,~,":"/~/",")).concat().sbs(1:-2),?.m(1:-2).(if(#%2==1,~,":"/~/",")).concat().sbs(1:-2)/";"/?.m(-1))) +")"'/>		
+	</FUNCTION>
   </FUNCTIONS>
 </STANDARD>
