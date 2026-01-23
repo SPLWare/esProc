@@ -339,9 +339,9 @@ public class CSJoinxCursor extends ICursor {
 				int len = data.length();
 				Sequence result = new Sequence(len);
 				for (int i = 1; i <= len; ++i) {
-					Record rec = (Record) data.get(i);
-					Record newRec = new Record(newDs);
-					Record subRec = new Record(subDs);
+					com.scudata.dm.Record rec = (com.scudata.dm.Record) data.get(i);
+					com.scudata.dm.Record newRec = new com.scudata.dm.Record(newDs);
+					com.scudata.dm.Record subRec = new com.scudata.dm.Record(subDs);
 					for (int j = 0; j < subFieldLen; j++) {
 						subRec.setNormalFieldValue(j, rec.getNormalFieldValue(j));
 					}
