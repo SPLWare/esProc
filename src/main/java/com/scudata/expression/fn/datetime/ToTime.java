@@ -85,6 +85,19 @@ public class ToTime extends Function {
 			Object result1 = sub1.getLeafExpression().calculate(ctx);
 			if (result1 == null) {
 				return null;
+			} else if (result1 instanceof Date) {
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime((Date)result1);
+				calendar.set(1970, Calendar.JANUARY, 1);
+				if (option != null) {
+					if (option.indexOf('s') != -1) {
+						calendar.set(Calendar.MILLISECOND, 0);
+					} else if (option.indexOf('m') != -1) {
+						calendar.set(Calendar.SECOND, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+					}
+				}
+				return new java.sql.Time(calendar.getTimeInMillis());
 			} else if (!(result1 instanceof String)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("time" + mm.getMessage("function.paramTypeError"));
