@@ -2,8 +2,12 @@ package com.scudata.dm.query;
 
 import java.util.ArrayList;
 
+import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.query.Select.Exp;
+import com.scudata.expression.Expression;
 
 //from的对象
 abstract class QueryBody {
@@ -56,6 +60,26 @@ abstract class QueryBody {
 	}
 	
 	public abstract Object getData(Exp where);
+	
+	// 过滤取数
+	public Object select(String where) {
+		Object data = getData();
+		if (where == null) {
+			return data;
+		}
+		
+		Context ctx = select.getContext();
+		Expression exp = new Expression(select.getCellSet(), ctx, where);
+		
+		if (data instanceof Sequence) {
+			return ((Sequence)data).select(exp, null, ctx);
+		} else if (data instanceof ICursor) {
+			ICursor cs = (ICursor)data;
+			return cs.select(null, exp, null, ctx);
+		} else {
+			return data;
+		}
+	}
 	
 	public String toSPL() {
 		throw new RuntimeException();

@@ -305,9 +305,6 @@ class Join extends Relation {
 			}
 		}
 
-		Object leftData = left.getData();
-		Object rightData = right.getData();
-		
 		int lastTable = tableList.size() - 1;
 		List<And> andList = on.splitAnd();
 		String leftFilter = null;
@@ -353,7 +350,46 @@ class Join extends Relation {
 				}
 			}
 		}
+		
+		if ((option == null || option.equals("1")) && where != null) {
+			andList = where.splitAnd();
+			ArrayList<Exp> resultList = new ArrayList<Exp>();
+			boolean sign = true;
+			
+			for (And and : andList) {
+				if (and.isSingleTable(right)) {
+					if (option != null && option.equals("1")) {
+						resultList.add(and.getExp());
+					} else {
+						sign = false;
+						String spl = and.getExp().toSPL();
+						if (rightFilter == null) {
+							rightFilter = spl;
+						} else {
+							rightFilter = spl + "&&" + rightFilter;
+						}
+					}
+				} else if (and.containTable(right)) {
+					resultList.add(and.getExp());
+				} else {
+					sign = false;
+					String spl = and.getExp().toSPL();
+					if (leftFilter == null) {
+						leftFilter = spl;
+					} else {
+						leftFilter = spl + "&&" + leftFilter;
+					}
+				}
+			}
+			
+			if (!sign) {
+				where = select.toAndExp(resultList);
+			}
+		}
 
+		Object leftData = left.select(leftFilter);
+		Object rightData = right.select(rightFilter);
+		
 		Context ctx = select.getContext();
 		ICellSet cellSet = select.getCellSet();
 		Sequence leftSeq = null;
@@ -361,33 +397,15 @@ class Join extends Relation {
 		
 		if (leftData instanceof Sequence) {
 			leftSeq = (Sequence)leftData;
-			if (leftFilter != null) {
-				Expression exp = new Expression(cellSet, ctx, leftFilter);
-				leftSeq = (Sequence)leftSeq.select(exp, null, ctx);
-			}
 		} else if (leftData instanceof ICursor) {
 			ICursor cs = (ICursor)leftData;
-			if (leftFilter != null) {
-				Expression exp = new Expression(cellSet, ctx, leftFilter);
-				cs.select(null, exp, null, ctx);
-			}
-			
 			leftSeq = cs.fetch();
 		}
 		
 		if (rightData instanceof Sequence) {
 			rightSeq = (Sequence)rightData;
-			if (rightFilter != null) {
-				Expression exp = new Expression(cellSet, ctx, rightFilter);
-				rightSeq = (Sequence)rightSeq.select(exp, null, ctx);
-			}
 		} else if (rightData instanceof ICursor) {
 			ICursor cs = (ICursor)rightData;
-			if (rightFilter != null) {
-				Expression exp = new Expression(cellSet, ctx, rightFilter);
-				cs.select(null, exp, null, ctx);
-			}
-			
 			rightSeq = cs.fetch();
 		}
 		

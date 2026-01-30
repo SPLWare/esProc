@@ -1435,6 +1435,28 @@ public class Select extends QueryBody {
 
 		return exps;
 	}
+	
+	Exp toAndExp(List<Exp> andList) {
+		int size = andList.size();
+		if (size == 0) {
+			return null;
+		} else if (size == 1) {
+			return andList.get(0);
+		}
+		
+		ArrayList<Exp> expList = new ArrayList<Exp>();
+		for (int i = 0; i < size; ++i) {
+			Exp exp = andList.get(i);
+			if (i > 0) {
+				CommonNode andNode = new CommonNode(exp.getStart() - 1, exp.getStart(), "&&");
+				expList.add(andNode);
+			}
+			
+			expList.add(exp);
+		}
+		
+		return new LogicExp(expList);
+	}
 		
 	/**
 	 * 扫描词数组，生成表达式

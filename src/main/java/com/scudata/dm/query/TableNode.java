@@ -534,4 +534,42 @@ public class TableNode extends QueryBody {
 		
 		return cs;
 	}
+	
+	// 过滤取数
+	public Object select(String where) {
+		if (where == null) {
+			return getData();
+		}
+
+		Context ctx = select.getContext();
+		Expression exp = new Expression(select.getCellSet(), ctx, where);
+		if (type != TYPE_CTX) {
+			ICursor cs = getDataCursor();
+			return cs.select(null, exp, null, ctx);
+		}
+		
+		ICursor cursor;
+		int fileCount = fileList.size();
+		
+		if (fileCount == 1) {
+			FileObject fo = fileList.get(0);
+			PhyTable phyTable = ComTable.openBaseTable(fo, ctx);
+			cursor = phyTable.cursor(null, exp, ctx);
+			CreateCursor.setOptionX(cursor, "x");
+			addFileAttributeField(fo, cursor);
+		} else {
+			ICursor []cursors = new ICursor[fileCount];
+			for (int i = 0; i < fileCount; ++i) {
+				FileObject fo = fileList.get(i);
+				PhyTable phyTable = ComTable.openBaseTable(fo, ctx);
+				cursors[i] = phyTable.cursor(null, exp, ctx);
+				CreateCursor.setOptionX(cursors[i], "x");
+				addFileAttributeField(fo, cursors[i]);
+			}
+			
+			cursor = new ConjxCursor(cursors);
+		}
+		
+		return cursor;
+	}
 }
