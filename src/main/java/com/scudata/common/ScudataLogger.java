@@ -10,10 +10,14 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.ServletContext;
+import javax.swing.SwingUtilities;
 
 import com.scudata.dm.Env;
 
@@ -475,6 +479,12 @@ public class ScudataLogger {
 		BufferedWriter br = null;
 		FileOutputStream fos = null;
 
+		//用于缓存高并发时，快速累积的日志信息，每秒集中写一次文件以提高IO性能，队列默认最大1w行；如果1秒内的日志
+//		超过1w条，则只保留最后1w条日志，前面的日志都会丢掉。此处虽有问题，但是如果程序调用尽在忙着写日志时，此时是不是
+//		要考虑一下代码的日志是不是输出太频繁
+		private Object rowLock = new Object();
+		private LimitedQueue rowBuffers = new LimitedQueue(10000);
+
 		public FileHandler(String file) throws Exception {
 			this(file, null,false,null);
 		}
@@ -491,6 +501,40 @@ public class ScudataLogger {
 			absolutePath = (String)files[1];
 			fos = new FileOutputStream(currentFile, true);
 			br = new BufferedWriter(new OutputStreamWriter(fos, encoding));
+			
+			Timer timer = new Timer();
+			TimerTask tt = new TimerTask() {
+				public void run() {
+					synchronized (rowLock) {
+						if (!rowBuffers.isChanged())
+							return;
+						int rows = rowBuffers.size();
+//						System.err.println("Flush "+rows+" logs to "+currentFile);
+						
+						final List<String> strList = new ArrayList<String>();
+						for (int r = 0; r < rows; r++) {
+							strList.add((String) rowBuffers.get(r));
+						}
+						rowBuffers.clear();
+						rowBuffers.setUnChanged();
+						// 对UI的操作要在Swing安全线程中
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+								try {
+									for (int i = 0; i < strList.size(); i++) {
+										br.newLine();
+										br.write(strList.get(i));
+									}
+									br.flush();
+								} catch (Exception e) {
+								}
+							}
+						});
+					}
+				}
+			};
+			timer.scheduleAtFixedRate(tt, 1000, 1000);
+			
 		}
 
 		private String getBaseFile() {
@@ -528,7 +572,6 @@ public class ScudataLogger {
 				return;
 			if (!isFixedFileName) {
 				String mark = getDateMark();
-				
 				if (!currentMark.equals(mark) ||
 						(currentFile!=null && currentFile.length()>maxFileSize)) {
 					try {
@@ -543,12 +586,16 @@ public class ScudataLogger {
 				}
 			}
 
-			try {
-				br.newLine();
-				br.write(msg);
-				br.flush();
-			} catch (Exception e) {
+			synchronized (rowLock) {
+				rowBuffers.add(msg);
 			}
+
+//			try {
+//				br.newLine();
+//				br.write(msg);
+//				br.flush();
+//			} catch (Exception e) {
+//			}
 
 		}
 
@@ -635,13 +682,13 @@ public class ScudataLogger {
 	}
 
 	public static void main(String[] args) throws Exception {
-		int c = 0;
-		ScudataLogger.setLevel(OFF);
-		for(int i=0;i<10;i++){
-			ScudataLogger.doLog(i);
-		}
-		
-		System.exit(0);
+//		int c = 0;
+//		ScudataLogger.setLevel(OFF);
+//		for(int i=0;i<10;i++){
+//			ScudataLogger.doLog(i);
+//		}
+//		
+//		System.exit(0);
 		
 		File file = new File("D:/logger.properties");
 		FileInputStream is = new FileInputStream(file);
@@ -650,7 +697,7 @@ public class ScudataLogger {
 		ScudataLogger.setPropertyConfig(p);
 
 		// Logger.setLevel("WARNING");
-		Logger.setLevel("severe");
+//		Logger.setLevel("severe");
 
 		Thread t1 = new Thread() {
 			public void run() {
@@ -672,11 +719,19 @@ public class ScudataLogger {
 		};
 		Thread t3 = new Thread() {
 			public void run() {
-				String name = "t3:";
-				Logger.severe(name + "严重");
-				Logger.warning(name + "警告");
-				Logger.info(name + "信息");
-				Logger.debug(name + "调试");
+				for(int i=0;i<5000;i++) {
+					try {
+						Thread.currentThread().sleep(5);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					String name = "t3:";
+					Logger.severe(name + "严重");
+					Logger.warning(name + "警告");
+					Logger.info(name + "信息");
+					Logger.debug(name + "调试");
+				}
 			}
 		};
 		t1.start();
@@ -687,6 +742,9 @@ public class ScudataLogger {
 		t2.join();
 		t3.join();
 		Logger.info("info test");
+		
+		Thread.currentThread().sleep(2000);
+		System.out.println("OK");
 		System.exit(0);
 	}
 
