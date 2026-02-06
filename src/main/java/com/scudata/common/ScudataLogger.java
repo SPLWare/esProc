@@ -230,11 +230,12 @@ public class ScudataLogger {
 			tmp = p.getProperty(name + ".encoding");
 			String buf = p.getProperty(name + ".isFixedFileName");
 			String maxSize =p.getProperty(name + ".maxSize");
+			String bufSize =p.getProperty(name + ".bufferSize");
 			boolean isFixedFileName = false;
 			if (StringUtils.isValidString(buf)) {
 				isFixedFileName = Boolean.parseBoolean(buf);
 			}
-			h = logger.new FileHandler(file, tmp, isFixedFileName,maxSize);
+			h = logger.new FileHandler(file, tmp, isFixedFileName,maxSize,bufSize);
 		}
 		tmp = p.getProperty(name + ".level");
 		if (StringUtils.isValidString(tmp)) {
@@ -489,17 +490,19 @@ public class ScudataLogger {
 		//用于缓存高并发时，快速累积的日志信息，每秒集中写一次文件以提高IO性能，队列默认最大1w行；如果1秒内的日志
 //		超过1w条，则只保留最后1w条日志，前面的日志都会丢掉。此处虽有问题，但是如果程序调用尽在忙着写日志时，此时是不是
 //		要考虑一下代码的日志是不是输出太频繁
+		private int bufferSize = 10000;//1秒内最多缓存的日志量，超出的挤出丢弃
 		private Object rowLock = new Object();
-		private LimitedQueue rowBuffers = new LimitedQueue(10000);
+		private LimitedQueue rowBuffers;
 
 		public FileHandler(String file) throws Exception {
-			this(file, null,false,null);
+			this(file, null,false,null,null);
 		}
 //		maxSize:  单位为M， 可以写10， 或者10M
-		public FileHandler(String file, String encode,boolean isFixedFileName,String maxSize) throws Exception {
+		public FileHandler(String file, String encode,boolean isFixedFileName,String maxSize,String bufSize) throws Exception {
 			this.fileName = file;
 			this.isFixedFileName = isFixedFileName;
 			setMaxFileSize(maxSize);
+			setBufferSize(bufSize);
 			if (encode != null && !encode.isEmpty()) {
 				this.encoding = encode;
 			}
@@ -574,6 +577,16 @@ public class ScudataLogger {
 			}
 		}
 
+		public void setBufferSize(String bufSize) {
+			if(StringUtils.isValidString(bufSize)) {
+				try {
+					bufferSize = Integer.parseInt(bufSize);
+				}catch(Exception x) {
+				}
+			}
+			rowBuffers = new LimitedQueue(bufferSize);
+		}
+
 		void doLog(int level, String msg) {
 			if (level > logLevel)
 				return;
@@ -596,13 +609,6 @@ public class ScudataLogger {
 			synchronized (rowLock) {
 				rowBuffers.add(msg);
 			}
-
-//			try {
-//				br.newLine();
-//				br.write(msg);
-//				br.flush();
-//			} catch (Exception e) {
-//			}
 
 		}
 
