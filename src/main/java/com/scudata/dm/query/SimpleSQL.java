@@ -340,7 +340,15 @@ public class SimpleSQL {
 	 */
 	public Object execute() {
 		analyseSQL();
-		return query.getData();
+		Object data = query.getData();
+		
+		// 设置一下游标的数据结构，如果没有数据时可以从游标取到数据结构
+		if (data instanceof ICursor) {
+			DataStruct ds = query.getDataStruct();
+			((ICursor)data).setDataStruct(ds);
+		}
+		
+		return data;
 	}
 	
 	/**
