@@ -220,6 +220,13 @@ public class ScudataLogger {
 			h = logger.new ConsoleHandler();
 		} else {// 文件
 			String file = tmp;
+			tmp = p.getProperty(name + ".level");
+			if (StringUtils.isValidString(tmp)) {
+				int l = getLevel(tmp);
+				if(l==iOFF)
+					return null;
+			}
+
 			tmp = p.getProperty(name + ".encoding");
 			String buf = p.getProperty(name + ".isFixedFileName");
 			String maxSize =p.getProperty(name + ".maxSize");
@@ -719,7 +726,7 @@ public class ScudataLogger {
 		};
 		Thread t3 = new Thread() {
 			public void run() {
-				for(int i=0;i<5000;i++) {
+				for(int i=0;i<500;i++) {
 					try {
 						Thread.currentThread().sleep(5);
 					} catch (InterruptedException e) {
