@@ -135,7 +135,7 @@
       <INFO dbtype="SQLSVR" value="CONVERT(varchar(100), ?, 23)"/>
       <INFO dbtype="DB2" value="DATE(?)"/>
       <INFO dbtype="MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d')"/>
-      <INFO dbtype="HSQL" value=""/>
+      <INFO dbtype="HSQL" value="CAST(TO_DATE(?,'YYYY-MM-DD') AS DATE)"/>
       <INFO dbtype="TERADATA" value="CAST(? AS DATE FORMAT 'YYYY-MM-DD')"/>
       <INFO dbtype="POSTGRES" value=""/>
       <INFO dbtype="ESPROC" value="date(string(?1),&quot;yyyy-MM-dd&quot;)"/>
@@ -398,6 +398,7 @@
       <INFO dbtype="ESPROC" value="time(?1,?2)"/>
 	</FUNCTION>
 	<FUNCTION name="TIME" paramcount="1" value="">
+	  <INFO dbtype="HSQL" value="CAST(?1 AS TIME)"/>
       <INFO dbtype="ESPROC" value="time(?1,&quot;HH:mm:ss&quot;)"/>
 	</FUNCTION>			
 	<FUNCTION name="TIMESTAMP" paramcount="2" value="">
