@@ -660,7 +660,7 @@ public class ScudataLogger {
 				}
 				currentMark = getDateMark();
 				int count=0;
-				filePath = pattern + "_" + currentMark+ count + ".log";
+				filePath = pattern + "_" + currentMark + ".log";//改为后缀0时不添加
 				File tmp = new File(filePath);
 				while(tmp.length()>maxFileSize) {
 					count = count + 1;
