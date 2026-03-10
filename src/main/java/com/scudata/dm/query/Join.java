@@ -148,7 +148,7 @@ class Join extends Relation {
 			leftSeq = (Sequence)leftData;
 			if (leftFilter != null) {
 				Expression exp = new Expression(cellSet, ctx, leftFilter);
-				leftSeq = (Sequence)leftSeq.select(exp, null, ctx);
+				leftSeq = (Sequence)leftSeq.select(exp, "o", ctx);
 			}
 		} else if (leftData instanceof ICursor) {
 			ICursor cs = (ICursor)leftData;
@@ -164,7 +164,7 @@ class Join extends Relation {
 			rightSeq = (Sequence)rightData;
 			if (rightFilter != null) {
 				Expression exp = new Expression(cellSet, ctx, rightFilter);
-				rightSeq = (Sequence)rightSeq.select(exp, null, ctx);
+				rightSeq = (Sequence)rightSeq.select(exp, "o", ctx);
 			}
 		} else if (rightData instanceof ICursor) {
 			ICursor cs = (ICursor)rightData;
@@ -247,7 +247,7 @@ class Join extends Relation {
 				rightSeq = (Sequence)rightData;
 				if (rightFilter != null) {
 					Expression exp = new Expression(cellSet, ctx, rightFilter);
-					rightSeq = (Sequence)rightSeq.select(exp, null, ctx);
+					rightSeq = (Sequence)rightSeq.select(exp, "o", ctx);
 				}
 			} else if (rightData instanceof ICursor) {
 				ICursor cs = (ICursor)rightData;
@@ -315,32 +315,21 @@ class Join extends Relation {
 
 		int lastTable = tableList.size() - 1;
 		List<And> andList = on.splitAnd();
-		String leftFilter = null;
-		String rightFilter = null;
 		boolean isJoin = true;
 		ArrayList<Exp> leftExpList = new ArrayList<Exp>();
 		ArrayList<Exp> rightExpList = new ArrayList<Exp>();
-		String xjoinFilter = null;
+		ArrayList<Exp> xjoinList = new ArrayList<Exp>();
+		ArrayList<Exp> leftFilterList = new ArrayList<Exp>();
+		ArrayList<Exp> rightFilterList = new ArrayList<Exp>();
 		
-		for (int i = andList.size() - 1; i >= 0; --i) {
+		for (int i = 0, size = andList.size(); i < size; ++i) {
 			And and = andList.get(i);
 			if (and.isSingleTable(right)) {
-				andList.remove(i);
-				String spl = and.getExp().toSPL();
-				if (rightFilter == null) {
-					rightFilter = spl;
-				} else {
-					rightFilter = spl + "&&" + rightFilter;
-				}
-			} else if (and.containTable(right)) {
-				andList.remove(i);
 				Exp exp = and.getExp();
-				String spl = exp.toSPL();
-				if (xjoinFilter == null) {
-					xjoinFilter = spl;
-				} else {
-					xjoinFilter = spl + "&&" + xjoinFilter;
-				}
+				rightFilterList.add(exp);
+			} else if (and.containTable(right)) {
+				Exp exp = and.getExp();
+				xjoinList.add(exp);
 				
 				if (isJoin) {
 					boolean b = exp.splitJionExp(tableList, lastTable, leftExpList, rightExpList);
@@ -349,13 +338,8 @@ class Join extends Relation {
 					}
 				}
 			} else {
-				andList.remove(i);
-				String spl = and.getExp().toSPL();
-				if (leftFilter == null) {
-					leftFilter = spl;
-				} else {
-					leftFilter = spl + "&&" + leftFilter;
-				}
+				Exp exp = and.getExp();
+				leftFilterList.add(exp);
 			}
 		}
 		
@@ -370,23 +354,15 @@ class Join extends Relation {
 						resultList.add(and.getExp());
 					} else {
 						sign = false;
-						String spl = and.getExp().toSPL();
-						if (rightFilter == null) {
-							rightFilter = spl;
-						} else {
-							rightFilter = spl + "&&" + rightFilter;
-						}
+						Exp exp = and.getExp();
+						rightFilterList.add(exp);
 					}
 				} else if (and.containTable(right)) {
 					resultList.add(and.getExp());
 				} else {
 					sign = false;
-					String spl = and.getExp().toSPL();
-					if (leftFilter == null) {
-						leftFilter = spl;
-					} else {
-						leftFilter = spl + "&&" + leftFilter;
-					}
+					Exp exp = and.getExp();
+					leftFilterList.add(exp);
 				}
 			}
 			
@@ -395,8 +371,8 @@ class Join extends Relation {
 			}
 		}
 
-		Object leftData = left.select(leftFilter);
-		Object rightData = right.select(rightFilter);
+		Object leftData = left.select(leftFilterList);
+		Object rightData = right.select(rightFilterList);
 		
 		Context ctx = select.getContext();
 		ICellSet cellSet = select.getCellSet();
@@ -436,11 +412,16 @@ class Join extends Relation {
 			result = Sequence.join(sequences, totalExps, names, option, ctx);
 		} else {
 			Expression []exps = new Expression[2];
-			if (xjoinFilter != null) {
+			if (xjoinList.size() > 0) {
+				String xjoinFilter = select.toAndExp(xjoinList).toSPL();;
 				exps[1] = new Expression(cellSet, ctx, xjoinFilter);
 			}
 			
 			result = Sequence.xjoin(sequences, exps, null, names, option, ctx);
+		}
+		
+		if (result == null || result.dataStruct() == null) {
+			return null;
 		}
 		
 		right.setJoinFieldName(names[1]);
@@ -466,7 +447,7 @@ class Join extends Relation {
 		} else {
 			String spl = where.toSPL();
 			Expression exp = new Expression(cellSet, ctx, spl);
-			return result.select(exp, null, ctx);
+			return result.select(exp, "o", ctx);
 		}
 	}
 }

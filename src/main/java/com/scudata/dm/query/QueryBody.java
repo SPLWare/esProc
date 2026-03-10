@@ -1,6 +1,7 @@
 package com.scudata.dm.query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
@@ -62,17 +63,18 @@ abstract class QueryBody {
 	public abstract Object getData(Exp where);
 	
 	// 过滤取数
-	public Object select(String where) {
+	public Object select(List<Exp> whereList) {
 		Object data = getData();
-		if (where == null) {
+		if (whereList == null || whereList.size() == 0) {
 			return data;
 		}
 		
 		Context ctx = select.getContext();
+		String where = select.toAndExp(whereList).toSPL();;
 		Expression exp = new Expression(select.getCellSet(), ctx, where);
 		
 		if (data instanceof Sequence) {
-			return ((Sequence)data).select(exp, null, ctx);
+			return ((Sequence)data).select(exp, "o", ctx);
 		} else if (data instanceof ICursor) {
 			ICursor cs = (ICursor)data;
 			return cs.select(null, exp, null, ctx);
