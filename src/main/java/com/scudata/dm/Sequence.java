@@ -14300,24 +14300,34 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		BaseRecord sr = (BaseRecord)getMem(1);
 		String []names = sr.getFieldNames();
 		int oldFieldCount = names.length;
+		int []subFieldCounts = new int[oldFieldCount];
 		
 		for (int i = 0; i < byCount; ++i) {
 			nameList.add(names[i]);
 		}
 		
 		for (int i = byCount; i < oldFieldCount; ++i) {
-			Object val = sr.getNormalFieldValue(i);
-			String []curNames;
-			
-			if (val instanceof BaseRecord) {
-				curNames = ((BaseRecord)val).getFieldNames();
-			} else {
-				Sequence seq = (Sequence)val;
-				curNames = seq.dataStruct().getFieldNames();
-			}
-			
-			for (String name : curNames) {
-				nameList.add(name);
+			for (int row = 1; row <= len; ++row) {
+				sr = (BaseRecord)getMem(row);
+				Object val = sr.getNormalFieldValue(i);
+				if (val == null) {
+					continue;
+				}
+				
+				String []curNames;
+				if (val instanceof BaseRecord) {
+					curNames = ((BaseRecord)val).getFieldNames();
+				} else {
+					Sequence seq = (Sequence)val;
+					curNames = seq.dataStruct().getFieldNames();
+				}
+				
+				for (String name : curNames) {
+					nameList.add(name);
+				}
+				
+				subFieldCounts[i] = curNames.length;
+				break;
 			}
 		}
 		
@@ -14335,15 +14345,28 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				
 				for (int f = byCount, findex = byCount; f < oldFieldCount; ++f) {
 					BaseRecord tr = (BaseRecord)sr.getNormalFieldValue(f);
-					newRecord.setStart(findex, tr);
-					findex += tr.getFieldCount();
+					if (tr != null) {
+						newRecord.setStart(findex, tr);
+					}
+					
+					findex += subFieldCounts[f];
 				}
 			}
 		} else {
 			for (int i = 1; i <= len; ++i) {
+				// 值可能有null，返回的记录数可能小于top数量，取出本质最大top数量
 				sr = (BaseRecord)getMem(i);
-				Object val = sr.getNormalFieldValue(byCount);
-				int curCount = ((Sequence)val).length();
+				int curCount = 0;
+				
+				for (int f = byCount; f < oldFieldCount; ++f) {
+					Object val = sr.getNormalFieldValue(f);
+					if (val != null) {
+						int n = ((Sequence)val).length();
+						if (curCount < n) {
+							curCount = n;
+						}
+					}
+				}
 				
 				for (int n = 1; n <= curCount; ++n) {
 					BaseRecord newRecord = table.newLast();
@@ -14352,17 +14375,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 					
 					for (int f = byCount, findex = byCount; f < oldFieldCount; ++f) {
-						val = sr.getNormalFieldValue(f);
-						BaseRecord tr;
-						if (val instanceof BaseRecord) {
-							tr = (BaseRecord)val;
-						} else {
-							Sequence seq = (Sequence)val;
-							tr = (BaseRecord)seq.get(n);
+						Sequence seq = (Sequence)sr.getNormalFieldValue(f);
+						if (seq != null && seq.length() >= n) {
+							BaseRecord tr = (BaseRecord)seq.get(n);
+							newRecord.setStart(findex, tr);
 						}
 						
-						newRecord.setStart(findex, tr);
-						findex += tr.getFieldCount();
+						findex += subFieldCounts[f];
 					}
 				}
 			}
