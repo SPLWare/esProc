@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -14280,5 +14281,93 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		resultCursors[segCount - 1] = cursor(start, length() + 1, exps, names, 
 				filter, fkNames, codes, opts, ctx);
 		return new MultipathCursors(resultCursors, ctx);
+	}
+	
+	/**
+	 * 展开分组排名结果
+	 * @param result 分组结果
+	 * @param byCount 分组字段数
+	 * @param top 取前多少名
+	 * @return
+	 */
+	public Table expandTop(int byCount, int top) {
+		int len = length();
+		if (len == 0) {
+			return null;
+		}
+		
+		List<String> nameList = new ArrayList<String>();
+		BaseRecord sr = (BaseRecord)getMem(1);
+		String []names = sr.getFieldNames();
+		int oldFieldCount = names.length;
+		
+		for (int i = 0; i < byCount; ++i) {
+			nameList.add(names[i]);
+		}
+		
+		for (int i = byCount; i < oldFieldCount; ++i) {
+			Object val = sr.getNormalFieldValue(i);
+			String []curNames;
+			
+			if (val instanceof BaseRecord) {
+				curNames = ((BaseRecord)val).getFieldNames();
+			} else {
+				Sequence seq = (Sequence)val;
+				curNames = seq.dataStruct().getFieldNames();
+			}
+			
+			for (String name : curNames) {
+				nameList.add(name);
+			}
+		}
+		
+		names = new String[nameList.size()];
+		nameList.toArray(names);
+		Table table = new Table(names, len * top);
+		
+		if (top == 1) {
+			for (int i = 1; i <= len; ++i) {
+				sr = (BaseRecord)getMem(i);
+				BaseRecord newRecord = table.newLast();
+				for (int f = 0; f < byCount; ++f) {
+					newRecord.setNormalFieldValue(f, sr.getNormalFieldValue(f));
+				}
+				
+				for (int f = byCount, findex = byCount; f < oldFieldCount; ++f) {
+					BaseRecord tr = (BaseRecord)sr.getNormalFieldValue(f);
+					newRecord.setStart(findex, tr);
+					findex += tr.getFieldCount();
+				}
+			}
+		} else {
+			for (int i = 1; i <= len; ++i) {
+				sr = (BaseRecord)getMem(i);
+				Object val = sr.getNormalFieldValue(byCount);
+				int curCount = ((Sequence)val).length();
+				
+				for (int n = 1; n <= curCount; ++n) {
+					BaseRecord newRecord = table.newLast();
+					for (int f = 0; f < byCount; ++f) {
+						newRecord.setNormalFieldValue(f, sr.getNormalFieldValue(f));
+					}
+					
+					for (int f = byCount, findex = byCount; f < oldFieldCount; ++f) {
+						val = sr.getNormalFieldValue(f);
+						BaseRecord tr;
+						if (val instanceof BaseRecord) {
+							tr = (BaseRecord)val;
+						} else {
+							Sequence seq = (Sequence)val;
+							tr = (BaseRecord)seq.get(n);
+						}
+						
+						newRecord.setStart(findex, tr);
+						findex += tr.getFieldCount();
+					}
+				}
+			}
+		}
+		
+		return table;
 	}
 }
