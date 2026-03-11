@@ -2486,8 +2486,9 @@ public class Select extends QueryBody {
 					MessageManager mm = ParseMessage.get();
 					throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
 				} else if (tokens[start].isKeyWord("CROSS")) {
-					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+					//MessageManager mm = ParseMessage.get();
+					//throw new RQException(mm.getMessage("syntax.error") + tokens[start - 1].getPos());
+					option = "f";
 				} else {
 					break;
 				}

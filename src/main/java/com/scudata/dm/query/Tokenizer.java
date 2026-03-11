@@ -47,7 +47,7 @@ public final class Tokenizer {
 	private final static String[] KEYWORDS = {
 		"ALL","AND","AS","ASC","AT",
 		"BETWEEN","BOTTOM","BY",
-		"CALL","CREATE","CASE","COMMIT",
+		"CALL","CREATE","CASE","COMMIT","CROSS",
 		"DELETE","DESC","DISTINCT","DROP",
 		"ELSE","END","EXCEPT","EXISTS","EXTERNAL",
 		"FALSE", "FETCH","FIRST","FOREIGN","FROM","FULL",

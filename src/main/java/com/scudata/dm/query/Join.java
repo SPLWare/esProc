@@ -181,7 +181,7 @@ class Join extends Relation {
 		String []names = new String[] {allNames[0], allNames[1]};
 		Sequence result;
 		
-		if (isJoin) {
+		if (isJoin && leftExpList.size() > 0) {
 			int fcount = leftExpList.size();
 			Expression []exps1 = new Expression[fcount];
 			Expression []exps2 = new Expression[fcount];
@@ -264,7 +264,7 @@ class Join extends Relation {
 			names[0] = "_1";
 			names[1] = allNames[t];
 			
-			if (isJoin) {
+			if (isJoin && leftExpList.size() > 0) {
 				int fcount = leftExpList.size();
 				Expression []exps1 = new Expression[fcount];
 				Expression []exps2 = new Expression[fcount];
