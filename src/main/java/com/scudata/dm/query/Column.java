@@ -100,7 +100,7 @@ class Column {
 	
 	public void getResultField(List<String> nameList) {
 		if (exp != null) {
-			nameList.add(aliasName);
+			nameList.add(getAliasName());
 		} else if (tableName == null) {
 			ArrayList<QueryBody> tableList = new ArrayList<QueryBody>();
 			select.getFrom().getAllJoinTables(tableList);
