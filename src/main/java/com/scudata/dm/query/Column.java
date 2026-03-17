@@ -33,9 +33,9 @@ class Column {
 	public boolean isEquals(String name) {
 		if (aliasName == null) {
 			return false;
-		}
-		
-		if (aliasName.charAt(0) == '"') {
+		} else if (Select.isEquals(aliasName, name)) {
+			return true;
+		} else if (aliasName.charAt(0) == '"') {
 			// 双引号变成单引号
 			int last = aliasName.length() - 1;
 			if (last > 0 && aliasName.charAt(last) == '"') {
@@ -43,7 +43,7 @@ class Column {
 			}
 		}
 		
-		return Select.isEquals(aliasName, name);
+		return false;
 	}
 	
 	public Exp getExp() {
