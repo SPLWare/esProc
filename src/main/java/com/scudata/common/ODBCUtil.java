@@ -229,7 +229,8 @@ final class WinRegisterUtil {
 
 			return winByteArrayToString((byte[]) value);
 		} catch (Exception e) {
-			System.out.println("Exception windowsRegEnumValue!");
+			// 高版本JDK取不到，先不打印异常
+			// System.out.println("Exception windowsRegEnumValue!");
 			return null;
 		}
 	}
