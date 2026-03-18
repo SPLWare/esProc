@@ -159,7 +159,7 @@ final class WinRegisterUtil {
 					stringToByteArray(subKey), new Integer(securityMask) });
 			return (int[]) ret;
 		} catch (Exception e) {
-			System.out.println("Exception windowsRegOpenKeyEx!");
+//			System.out.println("Exception windowsRegOpenKeyEx!");
 			return new int[] { 0, ERROR_FAILED };
 		}
 	}
@@ -178,7 +178,7 @@ final class WinRegisterUtil {
 
 			m.invoke(null, new Object[] { new Integer(hKey) });
 		} catch (Exception e) {
-			System.out.println("Exception windowsRegCloseKey!");
+//			System.out.println("Exception windowsRegCloseKey!");
 		}
 	}
 
@@ -205,7 +205,7 @@ final class WinRegisterUtil {
 
 			return winByteArrayToString((byte[]) value);
 		} catch (Exception e) {
-			System.out.println("Exception windowsRegQueryValueEx!");
+//			System.out.println("Exception windowsRegQueryValueEx!");
 			return null;
 		}
 	}
