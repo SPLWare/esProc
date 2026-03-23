@@ -246,103 +246,79 @@ public class HttpContext extends ConfigWriter {
 		return host + ":" + port;
 	}
 
-	public static int countChar(String str, char target) {
-		if (str == null || str.isEmpty()) {
-			return 0;
-		}
-
-		int count = 0;
-		for (int i = 0; i < str.length(); i++) {
-			if (str.charAt(i) == target) {
-				count++;
-			}
-		}
-		return count;
-	}
-
-	/**
-	 * 判断字符串是否为合法的 IPv6 地址
-	 * 符合标准：8 组 4 位十六进制数，用冒号分隔，支持零压缩 ::
-	 */
-	public static boolean isValidIPv6(String ip) {
-	    // 1. 基础判空
-	    if (!StringUtils.isValidString(ip)) {
-	        return false;
-	    }
-
-	    // 2. 不能以 : 开头或结尾（除非是 :: 这种合法情况）
-	    if(ip.equals("::")) {
-	    	return true;
-	    }
-	    if (ip.startsWith(":") && !ip.startsWith("::")) {
-	        return false;
-	    }
-	    if (ip.endsWith(":") && !ip.endsWith("::")) {
-	        return false;
-	    }
-
-	    // 3. 零压缩 :: 最多只能出现一次
-	    int b = ip.indexOf("::");
-	    int e = ip.lastIndexOf("::");
-	    if(b!=e) {
-	    	return false;
-	    }
-	    long countColonColon = countChar(ip, ':');
-	    if (ip.contains("::")) {
-	        // 有 :: 时，总冒号数量最多是 7 个（因为压缩了至少一组）
-	        if (countColonColon > 7) {
-	            return false;
-	        }
-	    } else {
-	        // 没有 :: 时，必须正好 7 个冒号，分成 8 组
-	        if (countColonColon != 7) {
-	            return false;
-	        }
-	    }
-
-	    // 4. 按冒号分割
-	    String[] parts = ip.split(":");
-
-	    // 处理开头或结尾是 :: 的情况（会导致数组出现空串）
-	    if (ip.startsWith("::")) {
-		    parts = ip.substring(2).split(":");
-	        // 去掉开头空串
-//	        String[] newParts = new String[parts.length - 1];
-//	        System.arraycopy(parts, 1, newParts, 0, newParts.length);
-//	        parts = newParts;
-	    }else if (ip.endsWith("::")) {
-	        // 去掉结尾空串
-//	        String[] newParts = new String[parts.length - 1];
-//	        System.arraycopy(parts, 0, newParts, 0, newParts.length);
-//	        parts = newParts;
-	    }else if(b>0) {//"::"位于中间
-	        String[] newParts = new String[parts.length - 1];
-	        String prefix = ip.substring(0,b);
-	        b = countChar(prefix,':')+1;
-	        System.arraycopy(parts, 0, newParts, 0, b);
-	        System.arraycopy(parts, b+1, newParts, b, parts.length - 1- b);
-	        parts = newParts;
-	    }
-
-	    // 5. 每组必须是 0~4 位十六进制字符 [0-9a-fA-F]
-	    for (String part : parts) {
-	        // 每组长度不能超过4
-	        if (part.length() == 0 || part.length() > 4) {
-	            return false;
-	        }
-	        // 必须全是十六进制字符
-	        for (char c : part.toCharArray()) {
-	            if (!Character.isDigit(c)
-	                    && !(c >= 'a' && c <= 'f')
-	                    && !(c >= 'A' && c <= 'F')) {
-	                return false;
-	            }
-	        }
-	    }
-
-	    // 6. 总段数不能超过8
-	    return parts.length <= 8;
-	}
+    public static boolean isValidIPv6(String input) {
+        if (input == null || input.isEmpty()) {
+            return false;
+        }
+        
+        // Check for triple colon or more
+        if (input.contains(":::")) {
+            return false;
+        }
+        
+        // Handle IPv6 compressed format (double colon)
+        if (input.contains("::")) {
+            // Ensure double colon appears only once
+            int count = 0;
+            int index = input.indexOf("::");
+            while (index != -1) {
+                count++;
+                index = input.indexOf("::", index + 2);
+            }
+            if (count > 1) {
+                return false;
+            }
+        }
+        
+        // Split IPv6 address
+        String[] parts = input.split(":");
+        
+        // Handle special cases for compressed format
+        if (input.startsWith("::")) {
+            // Starts with double colon, need to adjust parts array
+            String[] adjustedParts = new String[parts.length + 1];
+            adjustedParts[0] = "";
+            System.arraycopy(parts, 0, adjustedParts, 1, parts.length);
+            parts = adjustedParts;
+        } else if (input.endsWith("::")) {
+            // Ends with double colon, need to adjust parts array
+            String[] adjustedParts = new String[parts.length + 1];
+            System.arraycopy(parts, 0, adjustedParts, 0, parts.length);
+            adjustedParts[parts.length] = "";
+            parts = adjustedParts;
+        }
+        
+        // IPv6 address should have 8 parts, compressed format may have less
+        if (parts.length > 8) {
+            return false;
+        }
+        
+        // Check each part
+        for (String part : parts) {
+            // Empty part is only allowed once in compressed format
+            if (part.isEmpty()) {
+                continue;
+            }
+            
+            // Each part should be 1-4 hexadecimal digits
+            if (part.length() > 4) {
+                return false;
+            }
+            
+            // Check if it's a valid hexadecimal number
+            try {
+                int value = Integer.parseInt(part, 16);
+                // Ensure value is between 0-65535
+                if (value < 0 || value > 65535) {
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
 	
 	public static void main(String[] args) {
 		System.out.println(isValidIPv6("2001:db8:85a3::8a2e:370:7334")); // true
