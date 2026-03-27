@@ -3,7 +3,6 @@ package com.scudata.excel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
@@ -43,10 +42,6 @@ public class XlsxSSheetParser implements ILineInput {
 	 * End row
 	 */
 	private int endRow = -1;
-	/**
-	 * Parsing is complete
-	 */
-	private AtomicBoolean parseFinished = new AtomicBoolean(false);
 	/**
 	 * Field names
 	 */
@@ -202,13 +197,19 @@ public class XlsxSSheetParser implements ILineInput {
 								sheetInputStream.close();
 							} catch (IOException e) {
 							}
-						parseFinished.set(true);
+						try { // End flag
+							queue.put(SheetHandler.ENDING_OBJECT);
+						} catch (InterruptedException e) {
+						}
 					}
 				}
 			};
 			parseThread.start();
 		} catch (Exception e) {
-			parseFinished.set(true);
+			try { // End flag
+				queue.put(SheetHandler.ENDING_OBJECT);
+			} catch (InterruptedException e1) {
+			}
 			throw new RuntimeException(e);
 		}
 	}
@@ -219,11 +220,12 @@ public class XlsxSSheetParser implements ILineInput {
 	public Object[] readLine() {
 		if (endRow > -1 && currRow > endRow) // Beyond the last line
 			return null;
-		while (queue.isEmpty()) {
-			// The parsing is complete, and the buffer area is empty
-			if (parseFinished.get())
-				return null;
-		}
+		// while (queue.isEmpty()) {
+		// // The parsing is complete, and the buffer area is empty
+		// if (parseFinished.get()) {
+		// return null;
+		// }
+		// }
 		try {
 			currRow++;
 			Object obj = queue.take();
