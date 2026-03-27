@@ -19,7 +19,6 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.cursor.ICursor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
@@ -106,12 +105,11 @@ public class SheetHandler extends DefaultHandler {
 	/**
 	 * The object that marks the end
 	 */
-	public static final Boolean ENDING_OBJECT = Boolean.FALSE;
+	public static final Object ENDING_OBJECT = new Object();
 	/**
 	 * The queue used to cache data
 	 */
-	private ArrayBlockingQueue<Object> que = new ArrayBlockingQueue<Object>(
-			ICursor.FETCHCOUNT);
+	private ArrayBlockingQueue<Object> queue;
 	/**
 	 * Is there a header row
 	 */
@@ -139,7 +137,7 @@ public class SheetHandler extends DefaultHandler {
 	 */
 	protected SheetHandler(StylesTable styles, SharedStrings sst,
 			String[] fields, int startRow, int endRow, boolean removeBlank,
-			boolean bTitle, ArrayBlockingQueue<Object> que) {
+			boolean bTitle, ArrayBlockingQueue<Object> queue) {
 		this.sst = sst;
 		this.styles = styles;
 		this.fields = fields;
@@ -147,7 +145,7 @@ public class SheetHandler extends DefaultHandler {
 		this.endRow = endRow;
 		this.removeBlank = removeBlank;
 		this.bTitle = bTitle;
-		this.que = que;
+		this.queue = queue;
 	}
 
 	/**
@@ -173,7 +171,7 @@ public class SheetHandler extends DefaultHandler {
 							throw new RQException(fields[0]
 									+ mm.getMessage("ds.fieldNotExist"));
 						} else {
-							que.put(ENDING_OBJECT);
+							queue.put(ENDING_OBJECT);
 						}
 						return;
 					} catch (Exception e) {
@@ -189,7 +187,7 @@ public class SheetHandler extends DefaultHandler {
 				if (newRow - row > 1) {
 					try {
 						for (int i = 0, count = newRow - row; i < count; i++) {
-							que.put(new Object[ds.getFieldCount()]);
+							queue.put(new Object[ds.getFieldCount()]);
 						}
 					} catch (InterruptedException e) {
 						throw new RuntimeException(e);
@@ -232,12 +230,12 @@ public class SheetHandler extends DefaultHandler {
 			}
 			try {
 				if (endRow > 0 && row > endRow) {
-					que.put(ENDING_OBJECT);
+					queue.put(ENDING_OBJECT);
 					return;
 				}
 				int fcount = rowData == null ? 0 : endCol + 1;
 				if (fcount == 0) {
-					que.put(ENDING_OBJECT);
+					queue.put(ENDING_OBJECT);
 					return;
 				}
 				if (ds == null) {
@@ -294,7 +292,7 @@ public class SheetHandler extends DefaultHandler {
 					}
 				}
 				row++;
-				que.put(line);
+				queue.put(line);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
@@ -303,7 +301,7 @@ public class SheetHandler extends DefaultHandler {
 				if (ds != null) {
 					return;
 				} else {
-					Object[] newData = new Object[rowData.length + 50];
+					Object[] newData = new Object[rowData.length + 100];
 					System.arraycopy(rowData, 0, newData, 0, rowData.length);
 					rowData = newData;
 				}

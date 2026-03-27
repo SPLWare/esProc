@@ -3,6 +3,7 @@ package com.scudata.excel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
@@ -45,7 +46,7 @@ public class XlsxSSheetParser implements ILineInput {
 	/**
 	 * Parsing is complete
 	 */
-	private Boolean parseFinished = Boolean.FALSE;
+	private AtomicBoolean parseFinished = new AtomicBoolean(false);
 	/**
 	 * Field names
 	 */
@@ -71,13 +72,8 @@ public class XlsxSSheetParser implements ILineInput {
 	/**
 	 * Queue for buffering data
 	 */
-	private final ArrayBlockingQueue<Object> que = new ArrayBlockingQueue<Object>(
+	private final ArrayBlockingQueue<Object> queue = new ArrayBlockingQueue<Object>(
 			QUEUE_SIZE);
-
-	/**
-	 * Object is used to mark the end
-	 */
-	private static final Boolean ENDING_OBJECT = Boolean.FALSE;
 
 	/**
 	 * Constructor
@@ -190,7 +186,7 @@ public class XlsxSSheetParser implements ILineInput {
 		try {
 			final XMLReader parser = XMLReaderFactory.createXMLReader();
 			ContentHandler handler = new SheetHandler(styles, sst, fields,
-					startRow, endRow, removeBlank, bTitle, que);
+					startRow, endRow, removeBlank, bTitle, queue);
 			parser.setContentHandler(handler);
 			Thread parseThread = new Thread() {
 				public void run() {
@@ -206,13 +202,13 @@ public class XlsxSSheetParser implements ILineInput {
 								sheetInputStream.close();
 							} catch (IOException e) {
 							}
-						parseFinished = Boolean.TRUE;
+						parseFinished.set(true);
 					}
 				}
 			};
 			parseThread.start();
 		} catch (Exception e) {
-			parseFinished = true;
+			parseFinished.set(true);
 			throw new RuntimeException(e);
 		}
 	}
@@ -223,15 +219,15 @@ public class XlsxSSheetParser implements ILineInput {
 	public Object[] readLine() {
 		if (endRow > -1 && currRow > endRow) // Beyond the last line
 			return null;
-		while (que.isEmpty()) {
+		while (queue.isEmpty()) {
 			// The parsing is complete, and the buffer area is empty
-			if (parseFinished.booleanValue())
+			if (parseFinished.get())
 				return null;
 		}
 		try {
 			currRow++;
-			Object obj = que.take();
-			if (ENDING_OBJECT.equals(obj))
+			Object obj = queue.take();
+			if (SheetHandler.ENDING_OBJECT.equals(obj))
 				return null;
 			Object[] line = (Object[]) obj;
 			if (isN && line != null) {
@@ -263,7 +259,7 @@ public class XlsxSSheetParser implements ILineInput {
 	 * Close
 	 */
 	public void close() throws IOException {
-		que.clear();
+		queue.clear();
 		isClosed = true;
 	}
 
