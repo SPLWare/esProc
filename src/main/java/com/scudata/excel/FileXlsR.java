@@ -92,7 +92,7 @@ public class FileXlsR extends XlsFileObject {
 				}
 			}
 			xssfReader = new XSSFReader(xlsxPackage);
-			initSheetInfos(xssfReader);
+			initSheetInfos(xssfReader, fo.getFileName());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -131,7 +131,7 @@ public class FileXlsR extends XlsFileObject {
 	 * @throws OpenXML4JException
 	 * @throws SAXException
 	 */
-	private void initSheetInfos(XSSFReader xssfReader) throws IOException,
+	private void initSheetInfos(XSSFReader xssfReader, String fileName) throws IOException,
 			OpenXML4JException, SAXException {
 		final Vector<String> countSet = new Vector<String>();
 		HashSet<String> nameSet = new HashSet<String>();
@@ -150,7 +150,7 @@ public class FileXlsR extends XlsFileObject {
 			Thread t = new Thread(Thread.currentThread().getThreadGroup(),
 					new Runnable() {
 						public void run() {
-							initSheetInfo(stream, sheetName, record, countSet);
+							initSheetInfo(stream, fileName, sheetName, record, countSet);
 						}
 					});
 			t.start();
@@ -173,13 +173,13 @@ public class FileXlsR extends XlsFileObject {
 	 * @param countSet         Used to count the number of sheets loaded in
 	 *                         multi-threaded loading
 	 */
-	private void initSheetInfo(final InputStream sheetInputStream,
+	private void initSheetInfo(final InputStream sheetInputStream, String fileName,
 			String sheetName, BaseRecord record, Vector<String> countSet) {
 		SheetInfo si = new SheetInfo(sheetName);
 		try {
 			final InputSource sheetSource = new InputSource(sheetInputStream);
 			XMLReader parser = XMLReaderFactory.createXMLReader();
-			ContentHandler handler = new SheetInfoHandler(si);
+			ContentHandler handler = new SheetInfoHandler(si, fileName);
 			parser.setContentHandler(handler);
 			parser.parse(sheetSource);
 			record.set(COL_ROW_COUNT, new Integer(si.getRowCount()));

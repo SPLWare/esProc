@@ -17,14 +17,17 @@ class SheetInfoHandler extends DefaultHandler {
 	 */
 	private SheetInfo sheetInfo;
 
+	private String fileName;
+
 	/**
 	 * Constructor
 	 * 
 	 * @param si
 	 *            SheetInfo
 	 */
-	SheetInfoHandler(SheetInfo si) {
+	SheetInfoHandler(SheetInfo si, String fileName) {
 		sheetInfo = si;
+		this.fileName = fileName;
 		sheetInfo.setRowCount(0);
 		sheetInfo.setColCount(0);
 	}
@@ -39,20 +42,20 @@ class SheetInfoHandler extends DefaultHandler {
 			if (StringUtils.isValidString(ref)) {
 				int sepIndex = ref.indexOf(":");
 				int rowCount = 0, colCount = 0;
-				if (sepIndex > -1) {
-					String v = ref.substring(sepIndex + 1, ref.length());
-					String s = v.replaceAll("[\\d]", "");
-					colCount = ExcelUtils.nameToColumn(s) + 1;
-					rowCount = ExcelUtils.getLabelNumber(v);
-					sheetInfo.setRowCount(rowCount);
-					sheetInfo.setColCount(colCount);
-				} else {
-					Logger.debug("Invalid sheet dimension of "
-							+ sheetInfo.getSheetName() + ": " + ref);
+				String v;
+				if (sepIndex > -1) { // A1:C3范围
+					v = ref.substring(sepIndex + 1, ref.length());
+				} else { // 只有A1格
+					v = ref;
 				}
+				String s = v.replaceAll("[\\d]", "");
+				colCount = ExcelUtils.nameToColumn(s) + 1;
+				rowCount = ExcelUtils.getLabelNumber(v);
+				sheetInfo.setRowCount(rowCount);
+				sheetInfo.setColCount(colCount);
 			} else {
-				Logger.debug("The sheet dimension of "
-						+ sheetInfo.getSheetName() + " is empty");
+				Logger.debug("The sheet dimension is empty: " + fileName + " "
+						+ sheetInfo.getSheetName());
 			}
 			throw new BreakException();
 		}
