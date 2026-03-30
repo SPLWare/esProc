@@ -2339,8 +2339,13 @@ public class Select extends QueryBody {
 			if (tokens[start].isKeyWord("SELECT")) {
 				from = scanQuery(tokens, start, end);
 			} else {
+				from = null;
+				if (scanFrom(tokens, start - 1, end) != end) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
+				}
 				// (t1 join t2... on...)
-				int joinPos = Tokenizer.scanKeyWord("JOIN", tokens, start, end);
+				/*int joinPos = Tokenizer.scanKeyWord("JOIN", tokens, start, end);
 				if (joinPos == -1) {
 					MessageManager mm = ParseMessage.get();
 					throw new RQException(mm.getMessage("syntax.error") + tokens[start].getPos());
@@ -2375,7 +2380,7 @@ public class Select extends QueryBody {
 				
 				if (onPos < end && tokens[onPos].isKeyWord("ON")) {
 					start = scanOn(tokens, onPos, end, join);
-				}
+				}*/
 			}
 			
 			end++;
