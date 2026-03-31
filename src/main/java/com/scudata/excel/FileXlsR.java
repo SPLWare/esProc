@@ -131,7 +131,7 @@ public class FileXlsR extends XlsFileObject {
 	 * @throws OpenXML4JException
 	 * @throws SAXException
 	 */
-	private void initSheetInfos(XSSFReader xssfReader, String fileName) throws IOException,
+	private void initSheetInfos(XSSFReader xssfReader, final String fileName) throws IOException,
 			OpenXML4JException, SAXException {
 		final Vector<String> countSet = new Vector<String>();
 		HashSet<String> nameSet = new HashSet<String>();
