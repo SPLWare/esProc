@@ -488,19 +488,17 @@ public final class FunctionLib {
 		addMemberFunction("read", "com.scudata.expression.mfn.file.Read");
 		addMemberFunction("write", "com.scudata.expression.mfn.file.Write");
 		addMemberFunction("export", "com.scudata.expression.mfn.file.Export");
-		addMemberFunction("export",
-				"com.scudata.expression.mfn.sequence.Export");
+		addMemberFunction("export", "com.scudata.expression.mfn.sequence.Export");
 		addMemberFunction("import", "com.scudata.expression.mfn.file.Import");
 		addMemberFunction("import", "com.scudata.expression.mfn.string.Import");
 		addMemberFunction("name", "com.scudata.expression.mfn.file.Name");
 		addMemberFunction("exists", "com.scudata.expression.mfn.file.Exists");
 		addMemberFunction("size", "com.scudata.expression.mfn.file.Size");
 		addMemberFunction("date", "com.scudata.expression.mfn.file.Date");
-		addMemberFunction("property",
-				"com.scudata.expression.mfn.file.Property");
-		addMemberFunction("property",
-				"com.scudata.expression.mfn.string.Property");
+		addMemberFunction("property", "com.scudata.expression.mfn.file.Property");
+		addMemberFunction("property", "com.scudata.expression.mfn.string.Property");
 		addMemberFunction("iselect", "com.scudata.expression.mfn.file.ISelect");
+		addMemberFunction("env", "com.scudata.expression.mfn.file.SaveEnv");
 
 		// excel
 		addMemberFunction("xlsexport",
