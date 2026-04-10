@@ -776,7 +776,19 @@ public class Variant {
 		
 		// 增加了itx(s,d,m)类型
 		if (o1 instanceof Comparable) {
-			return ((Comparable<Object>)o1).compareTo(o2);
+			try {
+				return ((Comparable<Object>)o1).compareTo(o2);
+			} catch (Exception e) {
+				if (throwExcept) {
+					String s1 = renderText(o1);
+					String s2 = renderText(o2);
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("Variant2.illCompare", s1, s2,
+							getDataType(o1), getDataType(o2)));
+				} else {
+					return getType(o1) < getType(o2) ? -1 : 1;
+				}
+			}
 		}
 		
 		if (throwExcept) {
