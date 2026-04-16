@@ -33,27 +33,33 @@ public class Interval extends Function {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("interval" + mm.getMessage("function.missingParam"));
-		} else if (param.getSubSize() != 2) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("interval" + mm.getMessage("function.invalidParam"));
-		}
-		
-		IParam sub1 = param.getSub(0);
-		IParam sub2 = param.getSub(1);
-		if (sub1 == null || sub2 == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("interval" + mm.getMessage("function.invalidParam"));
-		}
+		} else if (param.isLeaf()) {
+			exp2 = param.getLeafExpression();
+		} else if (param.getSubSize() == 2) {
+			IParam sub1 = param.getSub(0);
+			IParam sub2 = param.getSub(1);
+			if (sub1 == null || sub2 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("interval" + mm.getMessage("function.invalidParam"));
+			}
 
-		exp1 = sub1.getLeafExpression();
-		exp2 = sub2.getLeafExpression();
+			exp1 = sub1.getLeafExpression();
+			exp2 = sub2.getLeafExpression();
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("interval" + mm.getMessage("function.invalidParam"));
+		}
 	}
 
 	public Object calculate(Context ctx) {
-		Object result1 = exp1.calculate(ctx);
 		Object result2 = exp2.calculate(ctx);
-		if (result1 == null || result2 == null) {
+		if (result2 == null) {
 			return null;
+		}
+		
+		Object result1 = null;
+		if (exp1 != null) {
+			result1 = exp1.calculate(ctx);
 		}
 
 		if (option == null || option.indexOf('r') == -1) {
@@ -69,10 +75,16 @@ public class Interval extends Function {
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
-		IArray array1 = exp1.calculateAll(ctx);
-		IArray array2 = exp2.calculateAll(ctx);
-		int size = array1.size();
 		boolean isInterval = option == null || option.indexOf('r') == -1;
+		IArray array2 = exp2.calculateAll(ctx);
+		int size = array2.size();
+		IArray array1;
+		
+		if (exp1 == null) {
+			array1 = new ConstArray(null, size);
+		} else {
+			array1 = exp1.calculateAll(ctx);
+		}
 		
 		if (array1 instanceof ConstArray && array2 instanceof ConstArray) {
 			Object obj1 = array1.get(1);
@@ -194,10 +206,16 @@ public class Interval extends Function {
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
-		IArray array1 = exp1.calculateAll(ctx);
 		IArray array2 = exp2.calculateAll(ctx);
-		int size = array1.size();
+		int size = array2.size();
 		boolean isInterval = option == null || option.indexOf('r') == -1;
+		IArray array1;
+		
+		if (exp1 == null) {
+			array1 = new ConstArray(null, size);
+		} else {
+			array1 = exp1.calculateAll(ctx);
+		}
 		
 		if (array1 instanceof ConstArray && array2 instanceof ConstArray) {
 			Object obj1 = array1.get(1);
@@ -345,7 +363,17 @@ public class Interval extends Function {
 	}
 	
 	private long interval(Object result1, Object result2) {
-		if (result1 instanceof String) {
+		if (result1 == null) {
+			if (option == null) {
+				result1 = PDate.pdate(result2, "y");
+			} else if (option.indexOf('m') != -1) {
+				result1 = PDate.pdate(result2, "m");
+			} else if (option.indexOf('q') != -1) {
+				result1 = PDate.pdate(result2, "q");
+			} else {
+				result1 = PDate.pdate(result2, "y");
+			}
+		} else if (result1 instanceof String) {
 			result1 = Variant.parseDate((String)result1);
 			if (!(result1 instanceof Date)) {
 				MessageManager mm = EngineMessage.get();
@@ -378,7 +406,17 @@ public class Interval extends Function {
 	}
 	
 	private double realInterval(Object result1, Object result2) {
-		if (result1 instanceof String) {
+		if (result1 == null) {
+			if (option == null) {
+				result1 = PDate.pdate(result2, "y");
+			} else if (option.indexOf('m') != -1) {
+				result1 = PDate.pdate(result2, "m");
+			} else if (option.indexOf('q') != -1) {
+				result1 = PDate.pdate(result2, "q");
+			} else {
+				result1 = PDate.pdate(result2, "y");
+			}
+		} else if (result1 instanceof String) {
 			result1 = Variant.parseDate((String)result1);
 			if (!(result1 instanceof Date)) {
 				MessageManager mm = EngineMessage.get();

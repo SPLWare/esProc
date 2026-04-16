@@ -3326,6 +3326,8 @@ public class Variant {
 			return monthDiff * 100 + dayDiff;
 		} else if (opt.indexOf("ms") != -1) { // 毫秒
 			return millisecondInterval(date1, date2);
+		} else if (opt.indexOf('w') != -1) { // 周
+			return weekInterval(date1, date2);
 		} else if (opt.indexOf('y') != -1) { // 年
 			return yearInterval(date1, date2);
 		} else if (opt.indexOf('q') != -1) { // 季
@@ -3334,8 +3336,6 @@ public class Variant {
 			return monthInterval(date1, date2);
 		} else if (opt.indexOf('s') != -1) { // 秒
 			return secondInterval(date1, date2);
-		} else if (opt.indexOf('w') != -1) { // 周
-			return weekInterval(date1, date2);
 		} else if (opt.indexOf('7') != -1) { // 周
 			return weekInterval_7(date1, date2);
 		} else if (opt.indexOf('1') != -1) { // 周
@@ -3355,14 +3355,14 @@ public class Variant {
 	public static long interval(int date1, int date2, String opt) {
 		if (opt == null) {
 			return innerDayInterval(date1, date2);
+		} else if (opt.indexOf('w') != -1) { // 周
+			return weekInterval(DateFactory.toDate(date1), DateFactory.toDate(date2));
 		} else if (opt.indexOf('y') != -1) { // 年
 			return innerYearInterval(date1, date2);
 		} else if (opt.indexOf('q') != -1) { // 季
 			return innerQuaterInterval(date1, date2);
 		} else if (opt.indexOf('m') != -1) { // 月
 			return innerMonthInterval(date1, date2);
-		} else if (opt.indexOf('w') != -1) { // 周
-			return weekInterval(DateFactory.toDate(date1), DateFactory.toDate(date2));
 		} else if (opt.indexOf('7') != -1) { // 周
 			return weekInterval_7(DateFactory.toDate(date1), DateFactory.toDate(date2));
 		} else if (opt.indexOf('1') != -1) { // 周

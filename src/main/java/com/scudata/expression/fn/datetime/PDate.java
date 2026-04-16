@@ -34,7 +34,7 @@ public class PDate extends Function {
 		}
 	}
 
-	private static Object pdate(Object result, String option) {
+	public static Object pdate(Object result, String option) {
 		if (result == null) {
 			return null;
 		} else if (result instanceof String) {
