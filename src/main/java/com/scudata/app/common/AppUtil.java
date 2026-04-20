@@ -1329,4 +1329,18 @@ public class AppUtil {
 		return UUID.randomUUID().toString();
 	}
 
+	public static boolean isJava11OrLater() {
+		String version = System.getProperty("java.version");
+		if (version.startsWith("1.")) {
+			// Java 8 及更早版本，格式如 "1.8.0_202"
+			int major = Integer.parseInt(version.substring(2,
+					version.indexOf('.')));
+			return major >= 11; // 实际上 1.8 为 8，永远小于 11
+		} else {
+			// Java 9 及以上，格式如 "11.0.2" 或 "17.0.1" 或 "25"
+			String[] parts = version.split("\\.");
+			int major = Integer.parseInt(parts[0]);
+			return major >= 11;
+		}
+	}
 }
