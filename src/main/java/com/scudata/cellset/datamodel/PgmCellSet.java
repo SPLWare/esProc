@@ -2638,10 +2638,13 @@ public class PgmCellSet extends CellSet {
 				thisCtx.setJobSpace(ctx.getJobSpace());
 			}
 			
+			// 允许引用外部的局部变量，是否允许修改外部局部变量的值？
+			ParamList oldParamList = thisCtx.getParamList();
+			ParamList paramList = new ParamList();
+			paramList.addAll(oldParamList);
+			
 			if (argNames == null) {
 				// 可能产生局部变量
-				ParamList oldParamList = thisCtx.getParamList();
-				ParamList paramList = new ParamList();
 				thisCtx.setParamList(paramList);
 				
 				try {
@@ -2665,8 +2668,6 @@ public class PgmCellSet extends CellSet {
 			}
 
 			// 把参数设到上下文中
-			ParamList oldParamList = thisCtx.getParamList();
-			ParamList paramList = new ParamList();
 			thisCtx.setParamList(paramList);
 			//Param []params = new Param[argCount];
 			//Object []oldParamValue = new Object[argCount];
