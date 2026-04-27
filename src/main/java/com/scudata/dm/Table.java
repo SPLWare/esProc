@@ -221,7 +221,7 @@ public class Table extends Sequence {
 		int len = mems.size();
 		out.writeInt(len);
 		for (int i = 1; i <= len; ++i) {
-			Record r = (Record)mems.get(i);
+			BaseRecord r = (BaseRecord)mems.get(i);
 			out.writeRecord(r);
 		}
 
@@ -240,7 +240,7 @@ public class Table extends Sequence {
 		insert(0, len, null); // 插入空记录
 		IArray mems = getMems();
 		for (int i = 1; i <= len; ++i) {
-			Record r = (Record)mems.get(i);
+			BaseRecord r = (BaseRecord)mems.get(i);
 			in.readRecord(r);
 		}
 	}
@@ -307,7 +307,7 @@ public class Table extends Sequence {
 		Table table = new Table(newNames, len);
 		for (int i = 1; i <= len; ++i) {
 			BaseRecord nr = table.newLast();
-			Record r = (Record)mems.get(i);
+			BaseRecord r = (BaseRecord)mems.get(i);
 			for (int f = 0; f < newCount; ++f) {
 				nr.setNormalFieldValue(f, r.getFieldValue(index[f]));
 			}
@@ -808,13 +808,13 @@ public class Table extends Sequence {
 		}
 
 		if (isName) { // 只复制相同名字的字段
-			Record prev = null;
+			BaseRecord prev = null;
 			int sameCount = 0;
 			int []srcIndex = null;
 			int []index = null;
 
 			for (int i = 1; i <= count; ++i) {
-				Record sr = (Record)srcMems.get(i);
+				BaseRecord sr = (BaseRecord)srcMems.get(i);
 				if (sr == null) continue;
 
 				Record r = new Record(ds);
@@ -1042,21 +1042,34 @@ public class Table extends Sequence {
 	 * @return Sequence
 	 */
 	public Sequence append(Sequence seq) {
+		if (seq.length() == 0) {
+			return this;
+		}
+		
 		DataStruct ds = this.ds;
 		DataStruct ds2 = seq.dataStruct();
 		if (ds2 == ds) {
 			getMems().addAll(seq.getMems());
 			return this;
 		} else if (ds2 != null && ds2.isCompatible(ds2)) {
+			// 纯序表时不能直接引用
 			IArray mems = getMems();
 			IArray addMems = seq.getMems();
-			for (int i = 1, addCount = addMems.size(); i <= addCount; ++i) {
-				Record r = (Record)addMems.get(i);
-				r.setDataStruct(ds);
+			
+			if (addMems.get(1) instanceof Record) {
+				for (int i = 1, addCount = addMems.size(); i <= addCount; ++i) {
+					Record r = (Record)addMems.get(i);
+					r.setDataStruct(ds);
+				}
+				
+				mems.addAll(addMems);
+				return this;
+			} else {
+				Sequence result = new Sequence(length() + seq.length());
+				result.addAll(this);
+				result.addAll(seq);
+				return result;
 			}
-
-			mems.addAll(addMems);
-			return this;
 		} else {
 			Sequence result = new Sequence(length() + seq.length());
 			result.addAll(this);
