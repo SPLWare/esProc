@@ -137,7 +137,7 @@
       <INFO dbtype="MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d')"/>
       <INFO dbtype="HSQL" value="CAST(TO_DATE(?,'YYYY-MM-DD') AS DATE)"/>
       <INFO dbtype="TERADATA" value="CAST(? AS DATE FORMAT 'YYYY-MM-DD')"/>
-      <INFO dbtype="POSTGRES" value=""/>
+      <INFO dbtype="POSTGRES" value="TO_DATE(?,'YYYY-MM-DD')"/>
       <INFO dbtype="ESPROC" value="date(string(?1),&quot;yyyy-MM-dd&quot;)"/>
       <INFO dbtype="DAMENG" value="TO_DATE(?,'YYYY-MM-DD')"/>
     </FUNCTION>
@@ -398,8 +398,10 @@
       <INFO dbtype="ESPROC" value="time(?1,?2)"/>
 	</FUNCTION>
 	<FUNCTION name="TIME" paramcount="1" value="">
+	  <INFO dbtype="MYSQL" value="TIME(?)"/>
 	  <INFO dbtype="HSQL" value="CAST(?1 AS TIME)"/>
       <INFO dbtype="ESPROC" value="time(?1,&quot;HH:mm:ss&quot;)"/>
+	  <INFO dbtype="POSTGRES" value="CAST(?1 AS TIME)"/>
 	</FUNCTION>			
 	<FUNCTION name="TIMESTAMP" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="datetime(?1,?2)"/>
@@ -409,7 +411,7 @@
       <INFO dbtype="SQLSVR" value="CONVERT(DATETIME,?,120)"/>
       <INFO dbtype="DB2" value="TO_DATE(?,'YYYY-MM-DD HH24:MI:SS')"/>
       <INFO dbtype="TERADATA" value="TO_TIMESTAMP(?,'YYYY-MM-DD HH24:MI:SS')"/>
-      <INFO dbtype="POSTGRES" value="TO_DATE(?,'YYYY-MM-DD HH24:MI:SS')"/>
+      <INFO dbtype="POSTGRES" value="CAST(? AS timestamp)"/>
       <INFO dbtype="ESPROC" value="datetime(?1,&quot;yyyy-MM-dd HH:mm:ss&quot;)"/>
       <INFO dbtype="IMPALA" value="CAST(? as TIMESTAMP)"/>
       <INFO dbtype="DAMENG" value="CAST(? as TIMESTAMP)"/>
