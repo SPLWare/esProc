@@ -440,7 +440,7 @@ public class DBCursor extends ICursor {
 				if (info != null)
 					name = info.getName();
 				throw new RQException(mm.getMessage("error.sqlException", name,
-						sql));
+						sql), e);
 			}
 			//added by bd, 2024.3.18, 添加@c选项，清理字段名，处理字段名中可能存在的表名，以及特殊字符
 			boolean cleanFieldName = opt != null && opt.indexOf("c") > -1;
