@@ -35,7 +35,7 @@ public class Subtract extends Operator {
 	}
 
 	public Object calculate(Context ctx) {
-		return Variant.subtract(left.calculate(ctx), right.calculate(ctx));
+		return Variant.envSubtract(left.calculate(ctx), right.calculate(ctx));
 	}
 
 	/**

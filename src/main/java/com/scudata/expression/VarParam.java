@@ -66,7 +66,7 @@ public class VarParam extends Node {
 			}
 		}
 		
-		Object result = Variant.add(param.getValue(), value);
+		Object result = Variant.envAdd(param.getValue(), value);
 		param.setValue(result);
 		return result;
 	}

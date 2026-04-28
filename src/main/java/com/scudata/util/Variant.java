@@ -18,6 +18,7 @@ import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.common.Types;
 import com.scudata.dm.BaseRecord;
+import com.scudata.dm.Env;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
 import com.scudata.expression.fn.datetime.TimeInterval;
@@ -90,7 +91,7 @@ public class Variant {
 	}
 	
 	/**
-	 * 返回o1和o2的和
+	 * 返回o1和o2的和，null按照集算器默认规则处理
 	 * @param o1 Object Number或String
 	 * @param o2 Object Number或String
 	 * @return Object
@@ -98,6 +99,70 @@ public class Variant {
 	public static Object add(Object o1, Object o2) {
 		if (o1 == null) return o2;
 		if (o2 == null) return o1;
+
+		if (o1 instanceof Number) {
+			if (o2 instanceof Number) {
+				return addNum((Number)o1, (Number)o2);
+			} else if (o2 instanceof String) {
+				Number n2 = parseNumber((String)o2);
+				if (n2 == null) return o1;
+				return addNum((Number)o1, n2);
+			} else if (o2 instanceof Date) {
+				Date date1 = (Date)o2;
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date1);
+				calendar.add(Calendar.DATE, ((Number)o1).intValue());
+	
+				Date date = (Date)date1.clone();
+				date.setTime(calendar.getTimeInMillis());
+				return date;
+			}
+		} else if (o1 instanceof Date) {
+			if (o2 instanceof Number) {
+				Date date1 = (Date)o1;
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date1);
+				calendar.add(Calendar.DATE, ((Number)o2).intValue());
+	
+				Date date = (Date)date1.clone();
+				date.setTime(calendar.getTimeInMillis());
+				return date;
+			}
+		} else if (o1 instanceof String) {
+			if (o2 instanceof String) {
+				return (String)o1 + o2;
+			} else if (o2 instanceof Number) {
+				Number n1 = parseNumber((String)o1);
+				if (n1 == null) return o2;
+				return addNum(n1, (Number)o2);
+			}
+		}
+
+		MessageManager mm = EngineMessage.get();
+		throw new RQException(getDataType(o1) + mm.getMessage("Variant2.with") +
+							  getDataType(o2) + mm.getMessage("Variant2.illAdd"));
+	}
+	
+	/**
+	 * 返回o1和o2的和，null按照环境配置的方式进行处理
+	 * @param o1 Object Number或String
+	 * @param o2 Object Number或String
+	 * @return Object
+	 */
+	public static Object envAdd(Object o1, Object o2) {
+		if (o1 == null) {
+			if (Env.getNullPropagate()) {
+				return null;
+			} else {
+				return o2;
+			}
+		} else if (o2 == null) {
+			if (Env.getNullPropagate()) {
+				return null;
+			} else {
+				return o1;
+			}
+		}
 
 		if (o1 instanceof Number) {
 			if (o2 instanceof Number) {
@@ -187,7 +252,7 @@ public class Variant {
 	}
 
 	/**
-	 * 返回o1 - o2
+	 * 返回o1 - o2，null按照集算器默认规则处理
 	 * @param o1 Object Number
 	 * @param o2 Object Number
 	 * @return Object
@@ -195,6 +260,65 @@ public class Variant {
 	public static Object subtract(Object o1, Object o2) {
 		if (o2 == null) return o1;
 		if (o1 == null) return negate(o2);
+
+		if (o1 instanceof Number) {
+			if (o2 instanceof Number) {
+				int type = getMaxNumberType(o1, o2);
+				switch (type) {
+				case DT_INT:
+					return new Integer(((Number)o1).intValue() - ((Number)o2).intValue());
+				case DT_LONG:
+					return new Long(((Number)o1).longValue() - ((Number)o2).longValue());
+				case DT_DOUBLE:
+					return new Double(((Number)o1).doubleValue() -
+									  ((Number)o2).doubleValue());
+				case DT_DECIMAL:
+					return toBigDecimal((Number)o1).subtract(toBigDecimal((Number)o2));
+				default:
+					throw new RQException();
+				}
+			}
+		} else if (o1 instanceof Date) {
+			if (o2 instanceof Date) {
+				return new Long(interval((Date)o2, (Date)o1, null));
+			} else if (o2 instanceof Number) {
+				Date date1 = (Date)o1;
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date1);
+				calendar.add(Calendar.DATE, -((Number)o2).intValue());
+
+				Date date = (Date)date1.clone();
+				date.setTime(calendar.getTimeInMillis());
+				return date;
+				//return new java.sql.Timestamp(calendar.getTimeInMillis());
+			}
+		}
+
+		MessageManager mm = EngineMessage.get();
+		throw new RQException(getDataType(o1) + mm.getMessage("Variant2.with") +
+							  getDataType(o2) + mm.getMessage("Variant2.illSubtract"));
+	}
+	
+	/**
+	 * 返回o1减去o2，null按照环境配置的方式进行处理
+	 * @param o1 Object Number
+	 * @param o2 Object Number
+	 * @return Object
+	 */
+	public static Object envSubtract(Object o1, Object o2) {
+		if (o1 == null) {
+			if (Env.getNullPropagate()) {
+				return null;
+			} else {
+				return negate(o2);
+			}
+		} else if (o2 == null) {
+			if (Env.getNullPropagate()) {
+				return null;
+			} else {
+				return o1;
+			}
+		}
 
 		if (o1 instanceof Number) {
 			if (o2 instanceof Number) {
@@ -469,6 +593,62 @@ public class Variant {
 		} else if (o2 instanceof String) {
 			if (o1 == null) {
 				return o2;
+			} else {
+				return o1 + (String)o2;
+			}
+		} else if (o1 == null || o2 == null) {
+			return null;
+		}
+
+		MessageManager mm = EngineMessage.get();
+		throw new RQException(getDataType(o1) + mm.getMessage("Variant2.with") +
+							  getDataType(o2) + mm.getMessage("Variant2.illDivide"));
+	}
+	
+	/**
+	 * 返回o1 / o2，null按照环境配置的方式进行处理
+	 * @param o1 Object Number
+	 * @param o2 Object Number
+	 * @return Object
+	 */
+	public static Object envDivide(Object o1, Object o2) {
+		if (o1 instanceof Number && o2 instanceof Number) {
+			// 被除数不同结果不同
+			//if (((Number)o2).doubleValue() == 0) {
+			//	return INFINITY;
+			//}
+			
+			int type = getMaxNumberType(o1, o2);
+			try {
+				if (type == DT_DECIMAL) {
+					return toBigDecimal((Number)o1).divide(
+						toBigDecimal((Number)o2), Divide_Scale, Divide_Round);
+				} else {
+					return new Double(((Number) o1).doubleValue() /
+									  ((Number) o2).doubleValue());
+				}
+			} catch (java.lang.ArithmeticException e){
+				throw new RQException(e.getMessage());
+			}
+		}
+
+		if (o1 instanceof String) {
+			if (o2 == null) {
+				if (Env.getNullPropagate()) {
+					return null;
+				} else {
+					return o1;
+				}
+			} else {
+				return (String)o1 + o2;
+			}
+		} else if (o2 instanceof String) {
+			if (o1 == null) {
+				if (Env.getNullPropagate()) {
+					return null;
+				} else {
+					return o2;
+				}
 			} else {
 				return o1 + (String)o2;
 			}

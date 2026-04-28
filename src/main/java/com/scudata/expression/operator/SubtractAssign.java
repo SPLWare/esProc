@@ -36,7 +36,7 @@ public class SubtractAssign extends Operator {
 	public Object calculate(Context ctx) {
 		Object o1 = left.calculate(ctx);
 		Object o2 = right.calculate(ctx);
-		return left.assign(Variant.subtract(o1, o2), ctx);
+		return left.assign(Variant.envSubtract(o1, o2), ctx);
 	}
 
 	/**

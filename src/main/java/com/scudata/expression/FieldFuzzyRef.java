@@ -246,7 +246,7 @@ public class FieldFuzzyRef extends Node {
 				}
 
 				if (col != -1) {
-					Object result = Variant.add(cur.getNormalFieldValue(col), value);
+					Object result = Variant.envAdd(cur.getNormalFieldValue(col), value);
 					cur.setNormalFieldValue(col, result);
 					return result;
 				}
@@ -265,7 +265,7 @@ public class FieldFuzzyRef extends Node {
 					}
 
 					if (col != -1) {
-						Object result = Variant.add(cur.getNormalFieldValue(col), value);
+						Object result = Variant.envAdd(cur.getNormalFieldValue(col), value);
 						cur.setNormalFieldValue(col, result);
 						return result;
 					}
@@ -288,7 +288,7 @@ public class FieldFuzzyRef extends Node {
 						computeItem = item;
 						prevDs = r.dataStruct();
 
-						Object result = Variant.add(r.getNormalFieldValue(col), value);
+						Object result = Variant.envAdd(r.getNormalFieldValue(col), value);
 						r.setNormalFieldValue(col, result);
 						return result;
 					}
@@ -308,7 +308,7 @@ public class FieldFuzzyRef extends Node {
 							computeItem = item;
 							prevDs = r.dataStruct();
 
-							Object result = Variant.add(r.getNormalFieldValue(col), value);
+							Object result = Variant.envAdd(r.getNormalFieldValue(col), value);
 							r.setNormalFieldValue(col, result);
 							return result;
 						}

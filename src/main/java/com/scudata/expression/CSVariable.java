@@ -29,7 +29,7 @@ public class CSVariable extends Node {
 	}
 	
 	public Object addAssign(Object value, Context ctx) {
-		Object result = Variant.add(cell.getValue(true), value);
+		Object result = Variant.envAdd(cell.getValue(true), value);
 		cell.setValue(result);
 		return result;
 	}

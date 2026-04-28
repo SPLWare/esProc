@@ -339,7 +339,7 @@ public class FieldId extends Node {
 			Object obj = stack.getTopObject().getCurrent();
 			if (obj instanceof BaseRecord) {
 				BaseRecord r = (BaseRecord)obj;
-				Object result = Variant.add(r.getNormalFieldValue(index), value);
+				Object result = Variant.envAdd(r.getNormalFieldValue(index), value);
 				r.setNormalFieldValue(index, result);
 				return result;
 			} else if (obj == null) {
@@ -353,7 +353,7 @@ public class FieldId extends Node {
 				obj = ((Sequence)obj).get(1);
 				if (obj instanceof BaseRecord) {
 					BaseRecord r = (BaseRecord)obj;
-					Object result = Variant.add(r.getNormalFieldValue(index), value);
+					Object result = Variant.envAdd(r.getNormalFieldValue(index), value);
 					r.setNormalFieldValue(index, result);
 					return result;
 				} else if (obj == null) {
@@ -369,7 +369,7 @@ public class FieldId extends Node {
 				Object obj = stack.getCurrentValue((Sequence)src);
 				if (obj instanceof BaseRecord) {
 					BaseRecord r = (BaseRecord)obj;
-					Object result = Variant.add(r.getNormalFieldValue(index), value);
+					Object result = Variant.envAdd(r.getNormalFieldValue(index), value);
 					r.setNormalFieldValue(index, result);
 					return result;
 				} else if (obj == null) {
@@ -383,7 +383,7 @@ public class FieldId extends Node {
 					obj = ((Sequence)obj).get(1);
 					if (obj instanceof BaseRecord) {
 						BaseRecord r = (BaseRecord)obj;
-						Object result = Variant.add(r.getNormalFieldValue(index), value);
+						Object result = Variant.envAdd(r.getNormalFieldValue(index), value);
 						r.setNormalFieldValue(index, result);
 						return result;
 					} else if (obj == null) {
@@ -395,7 +395,7 @@ public class FieldId extends Node {
 				throw new RQException("#" + (index + 1) + mm.getMessage("ds.fieldNotExist"));
 			} else if (src instanceof BaseRecord) {
 				BaseRecord r = (BaseRecord)src;
-				Object result = Variant.add(r.getNormalFieldValue(index), value);
+				Object result = Variant.envAdd(r.getNormalFieldValue(index), value);
 				r.setNormalFieldValue(index, result);
 				return result;
 			} else {

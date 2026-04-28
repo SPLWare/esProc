@@ -769,6 +769,7 @@ public final class FunctionLib {
 		addFunction("ift", "com.scudata.expression.fn.convert.IfTable");
 		addFunction("ifdate", "com.scudata.expression.fn.convert.IfDate");
 		addFunction("iftime", "com.scudata.expression.fn.convert.IfTime");
+		addFunction("isnull", "com.scudata.expression.fn.convert.IsNull");
 		addFunction("ifnumber", "com.scudata.expression.fn.convert.IfNumber");
 		addFunction("ifstring", "com.scudata.expression.fn.convert.IfString");
 		addFunction("typeof", "com.scudata.expression.fn.convert.Typeof");

@@ -35,7 +35,7 @@ public class Add extends Operator {
 	}
 	
 	public Object calculate(Context ctx) {
-		return Variant.add(left.calculate(ctx), right.calculate(ctx));
+		return Variant.envAdd(left.calculate(ctx), right.calculate(ctx));
 	}
 
 	/**

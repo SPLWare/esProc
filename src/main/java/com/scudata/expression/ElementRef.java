@@ -230,7 +230,7 @@ public class ElementRef extends Function {
 				throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
 			}
 
-			Object result = Variant.add(srcSeries.getMem(index), value);
+			Object result = Variant.envAdd(srcSeries.getMem(index), value);
 			srcSeries.set(index, result);
 			return result;
 		} else if (pval == null) {

@@ -183,7 +183,7 @@ public class CurrentElement extends Node {
 		if (sequence == null) { // ~
 			IComputeItem temp = stack.getTopObject();
 			if (temp instanceof Current) {
-				Object result = Variant.add(((Current)temp).getCurrent(), value);
+				Object result = Variant.envAdd(((Current)temp).getCurrent(), value);
 				((Current)temp).assign(result);
 				return result;
 			} else {
@@ -197,7 +197,7 @@ public class CurrentElement extends Node {
 				throw new RQException("~" + mm.getMessage("engine.seriesNotInStack"));
 			}
 
-			Object result = Variant.add(current.getCurrent(), value);
+			Object result = Variant.envAdd(current.getCurrent(), value);
 			current.assign(result);
 			return result;
 		}

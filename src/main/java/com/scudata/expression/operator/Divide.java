@@ -35,7 +35,7 @@ public class Divide extends Operator {
 	}
 
 	public Object calculate(Context ctx) {
-		return Variant.divide(left.calculate(ctx), right.calculate(ctx));
+		return Variant.envDivide(left.calculate(ctx), right.calculate(ctx));
 	}
 
 	/**

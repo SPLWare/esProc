@@ -112,7 +112,7 @@ public class FuzzyFieldRef extends FieldRef {
 				}
 	
 				if (col != -1) {
-					Object result = Variant.add(cur.getNormalFieldValue(col), value);
+					Object result = Variant.envAdd(cur.getNormalFieldValue(col), value);
 					cur.setNormalFieldValue(col, result);
 					return result;
 				}
@@ -125,7 +125,7 @@ public class FuzzyFieldRef extends FieldRef {
 			}
 			
 			if (col != -1) {
-				Object result = Variant.add(cur.getNormalFieldValue(col), value);
+				Object result = Variant.envAdd(cur.getNormalFieldValue(col), value);
 				cur.setNormalFieldValue(col, result);
 				return result;
 			}

@@ -53,6 +53,9 @@ public class Env {
 	private static Map<String,Integer> areaNo = Collections.synchronizedMap(new HashMap<String,Integer>());
 
 	private static ServletContext sc = null;
+	
+	// 系统选项，改变null行为，为true时null四则等运算跟数据库相同
+	private static boolean NULL_PROPAGATE = false;
 
 	private static Comparator<String> unicodeCollator = new Comparator<String>() {
 		public int compare(String o1, String o2) {
@@ -611,5 +614,21 @@ public class Env {
 	 */
 	public static void setAdjustNoteCell(boolean adjustNoteCell) {
 		Env.adjustNoteCell = adjustNoteCell;
+	}
+
+	/**
+	 * 取null控制系统选项
+	 * @return boolean
+	 */
+	public static boolean getNullPropagate() {
+		return NULL_PROPAGATE;
+	}
+
+	/**
+	 * 设置null控制系统选项
+	 * @param sign
+	 */
+	public static void setNullPropagate(boolean sign) {
+		NULL_PROPAGATE = sign;
 	}
 }

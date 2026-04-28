@@ -37,7 +37,7 @@ public class DivideAssign extends Operator {
 	public Object calculate(Context ctx) {
 		Object o1 = left.calculate(ctx);
 		Object o2 = right.calculate(ctx);
-		return left.assign(Variant.divide(o1, o2), ctx);
+		return left.assign(Variant.envDivide(o1, o2), ctx);
 	}
 
 	/**

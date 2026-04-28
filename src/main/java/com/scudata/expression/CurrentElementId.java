@@ -93,7 +93,7 @@ public class CurrentElementId extends Node {
 		
 		if (curValue instanceof Sequence) {
 			Sequence sequence = (Sequence)curValue;
-			Object result = Variant.add(sequence.getMem(index), value);
+			Object result = Variant.envAdd(sequence.getMem(index), value);
 			sequence.set(index, result);
 			return result;
 		} else {

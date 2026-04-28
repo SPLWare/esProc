@@ -44,7 +44,7 @@ public class FieldValue extends RecordFunction {
 					throw new RQException("0" + mm.getMessage("ds.fieldNotExist"));
 				} // 小于0从后数
 				
-				Object result = Variant.add(srcRecord.getFieldValue(findex), value);
+				Object result = Variant.envAdd(srcRecord.getFieldValue(findex), value);
 				srcRecord.set(findex, result);
 				return result;
 			} else if (obj instanceof String) {
@@ -59,7 +59,7 @@ public class FieldValue extends RecordFunction {
 					}
 				}
 				
-				Object result = Variant.add(srcRecord.getNormalFieldValue(prevCol), value);
+				Object result = Variant.envAdd(srcRecord.getNormalFieldValue(prevCol), value);
 				srcRecord.setNormalFieldValue(prevCol, result);
 				return result;
 			} else {

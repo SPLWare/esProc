@@ -31,7 +31,7 @@ public class CurrentCell extends Node {
 	
 	public Object addAssign(Object value, Context ctx) {
 		INormalCell cell = cs.getCurrent();
-		Object result = Variant.add(cell.getValue(true), value);
+		Object result = Variant.envAdd(cell.getValue(true), value);
 		cell.setValue(result);
 		return result;
 	}

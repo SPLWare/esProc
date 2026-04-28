@@ -355,7 +355,7 @@ public class UnknownSymbol extends Node {
 					}
 				}
 
-				Object result = Variant.add(cur.getNormalFieldValue(col), value);
+				Object result = Variant.envAdd(cur.getNormalFieldValue(col), value);
 				cur.setNormalFieldValue(col, result);
 				return result;
 			} else if (obj instanceof Sequence) {
@@ -376,7 +376,7 @@ public class UnknownSymbol extends Node {
 						}
 					}
 
-					Object result = Variant.add(cur.getNormalFieldValue(col), value);
+					Object result = Variant.envAdd(cur.getNormalFieldValue(col), value);
 					cur.setNormalFieldValue(col, result);
 					return result;
 				} else if (obj != null) {
@@ -397,14 +397,14 @@ public class UnknownSymbol extends Node {
 				}
 			}
 			
-			Object result = Variant.add(param.getValue(), value);
+			Object result = Variant.envAdd(param.getValue(), value);
 			param.setValue(result);
 			return result;
 		} else {
 			if (computeItem == null) {
 				param = EnvUtil.getParam(name, ctx); // 变量
 				if (param != null) {
-					Object result = Variant.add(param.getValue(), value);
+					Object result = Variant.envAdd(param.getValue(), value);
 					param.setValue(result);
 					return result;
 				}
@@ -424,7 +424,7 @@ public class UnknownSymbol extends Node {
 						computeItem = item;
 						prevDs = r.dataStruct();
 
-						Object result = Variant.add(r.getNormalFieldValue(col), value);
+						Object result = Variant.envAdd(r.getNormalFieldValue(col), value);
 						r.setNormalFieldValue(col, result);
 						return result;
 					}
@@ -444,7 +444,7 @@ public class UnknownSymbol extends Node {
 							computeItem = item;
 							prevDs = r.dataStruct();
 
-							Object result = Variant.add(r.getNormalFieldValue(col), value);
+							Object result = Variant.envAdd(r.getNormalFieldValue(col), value);
 							r.setNormalFieldValue(col, result);
 							return result;
 						}

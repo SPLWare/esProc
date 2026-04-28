@@ -392,7 +392,7 @@ public class FieldRef extends Node {
 				}
 			}
 
-			Object result = Variant.add(cur.getNormalFieldValue(col), value);
+			Object result = Variant.envAdd(cur.getNormalFieldValue(col), value);
 			cur.setNormalFieldValue(col, result);
 			return result;
 		} else if (s2r instanceof BaseRecord) {
@@ -406,7 +406,7 @@ public class FieldRef extends Node {
 				}
 			}
 			
-			Object result = Variant.add(cur.getNormalFieldValue(col), value);
+			Object result = Variant.envAdd(cur.getNormalFieldValue(col), value);
 			cur.setNormalFieldValue(col, result);
 			return result;
 		} else {
