@@ -11,6 +11,7 @@ import java.util.Properties;
 import com.scudata.common.DBConfig;
 import com.scudata.common.JNDIConfig;
 import com.scudata.common.SpringDBConfig;
+import com.scudata.dm.Env;
 
 /**
  * 配置文件raqsoftConfig.xml
@@ -54,9 +55,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	private List<String> autoConnectList = null;
 	/** Log level */
 	private String logLevel = null;
-	/** 
-	 * Log type
-	 * ConfigConsts.LOG_DEFAULT,ConfigConsts.LOG_SLF
+	/**
+	 * Log type ConfigConsts.LOG_DEFAULT,ConfigConsts.LOG_SLF
 	 * 不配置时设置为ConfigConsts.LOG_DEFAULT
 	 */
 	private String logType = ConfigConsts.LOG_DEFAULT;
@@ -68,6 +68,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	private String blockSize = null;
 	/** Comma separated missing values */
 	private String nullStrings = "nan,null,n/a";
+
+	private boolean nullPropagate = Env.getNullPropagate();
 	/** The number of records fetched from the cursor each time */
 	private String fetchCount = null;
 	/** List of external libraries */
@@ -102,8 +104,9 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	/** JDBC loading environment. Including Runtime and Server. */
 	private String jdbcLoad = "Runtime,Server";
 	/**
-	 * After the SQL gateway is configured, select statements are parsed by spl. The
-	 * parameters of the spl file are sql and args (sql parameter value sequence).
+	 * After the SQL gateway is configured, select statements are parsed by spl.
+	 * The parameters of the spl file are sql and args (sql parameter value
+	 * sequence).
 	 */
 	private String gateway = null;
 	/** Unit list */
@@ -137,7 +140,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 
 	/**
 	 * Get encrypt Level. ConfigConstsReport.ENCRYPT_NONE,
-	 * ConfigConstsReport.ENCRYPT_PASSWORD,ConfigConstsEE.ENCRYPT_URL_USER_PASSWORD
+	 * ConfigConstsReport.ENCRYPT_PASSWORD
+	 * ,ConfigConstsEE.ENCRYPT_URL_USER_PASSWORD
 	 * 
 	 * @return
 	 */
@@ -147,7 +151,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 
 	/**
 	 * Set encrypt Level. ConfigConstsReport.ENCRYPT_NONE,
-	 * ConfigConstsReport.ENCRYPT_PASSWORD,ConfigConstsEE.ENCRYPT_URL_USER_PASSWORD
+	 * ConfigConstsReport.ENCRYPT_PASSWORD
+	 * ,ConfigConstsEE.ENCRYPT_URL_USER_PASSWORD
 	 * 
 	 * @param encryptLevel
 	 */
@@ -157,6 +162,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 
 	/**
 	 * 加密解密工具类
+	 * 
 	 * @return the pwdClass
 	 */
 	public String getPwdClass() {
@@ -165,7 +171,9 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 
 	/**
 	 * 加密解密工具类
-	 * @param pwdClass the pwdClass to set
+	 * 
+	 * @param pwdClass
+	 *            the pwdClass to set
 	 */
 	public void setPwdClass(String pwdClass) {
 		this.pwdClass = pwdClass;
@@ -431,7 +439,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	}
 
 	/**
-	 * @param remoteStoreList the remoteStoreList to set
+	 * @param remoteStoreList
+	 *            the remoteStoreList to set
 	 */
 	public void setRemoteStoreList(List<RemoteStoreConfig> remoteStoreList) {
 		this.remoteStoreList = remoteStoreList;
@@ -445,7 +454,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	}
 
 	/**
-	 * @param defaultRemoteStore the defaultRemoteStore to set
+	 * @param defaultRemoteStore
+	 *            the defaultRemoteStore to set
 	 */
 	public void setDefaultRemoteStore(String defaultRemoteStore) {
 		this.defaultRemoteStore = defaultRemoteStore;
@@ -579,8 +589,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 
 	/**
 	 * Get the gateway of JDBC. After the SQL gateway is configured, select
-	 * statements are parsed by spl. The parameters of the spl file are sql and args
-	 * (sql parameter value sequence).
+	 * statements are parsed by spl. The parameters of the spl file are sql and
+	 * args (sql parameter value sequence).
 	 * 
 	 * @return
 	 */
@@ -590,8 +600,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 
 	/**
 	 * Set the gateway of JDBC. After the SQL gateway is configured, select
-	 * statements are parsed by spl. The parameters of the spl file are sql and args
-	 * (sql parameter value sequence).
+	 * statements are parsed by spl. The parameters of the spl file are sql and
+	 * args (sql parameter value sequence).
 	 * 
 	 * @param gateway
 	 */
@@ -669,6 +679,14 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void setNullStrings(String nullStrings) {
 		this.nullStrings = nullStrings;
+	}
+
+	public boolean isNullPropagate() {
+		return nullPropagate;
+	}
+
+	public void setNullPropagate(boolean nullPropagate) {
+		this.nullPropagate = nullPropagate;
 	}
 
 	/**
@@ -763,6 +781,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 
 	/**
 	 * Get the esproc serial number
+	 * 
 	 * @return the esprocSerialNo
 	 */
 	public String getEsprocSerialNo() {
@@ -771,7 +790,9 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 
 	/**
 	 * Set the esproc serial number
-	 * @param esprocSerialNo the esprocSerialNo to set
+	 * 
+	 * @param esprocSerialNo
+	 *            the esprocSerialNo to set
 	 */
 	public void setEsprocSerialNo(String esprocSerialNo) {
 		this.esprocSerialNo = esprocSerialNo;
@@ -828,6 +849,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		config.setCursorParallelNum(cursorParallelNum);
 		config.setBlockSize(blockSize);
 		config.setNullStrings(nullStrings);
+		config.setNullPropagate(nullPropagate);
 		config.setFetchCount(fetchCount);
 		if (importLibs != null) {
 			List<String> cloneImportLibs = new ArrayList<String>();
@@ -887,7 +909,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		/* Version type */
-		out.writeByte(7);
+		out.writeByte(8);
 		out.writeObject(dbList);
 		out.writeObject(mainPath);
 		out.writeObject(splPathList);
@@ -925,6 +947,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeObject(remoteStoreList);
 		out.writeObject(defaultRemoteStore);
 		out.writeObject(logType);
+		out.writeBoolean(nullPropagate);
 	}
 
 	/**
@@ -984,6 +1007,9 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		}
 		if (version > 6) {
 			logType = (String) in.readObject();
+		}
+		if (version > 7) {
+			nullPropagate = in.readBoolean();
 		}
 	}
 

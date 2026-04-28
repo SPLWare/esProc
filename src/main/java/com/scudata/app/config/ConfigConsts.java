@@ -137,6 +137,8 @@ public class ConfigConsts {
 	public static String CURSOR_PARALLEL_NUM = "cursorParallelNum";
 	/** Null strings */
 	public static String NULL_STRINGS = "nullStrings";
+	
+	public static String NULL_PROPAGATE = "nullPropagate";
 	/** Number of cursor fetches each time */
 	public static String FETCH_COUNT = "fetchCount";
 	/** External librarys */

@@ -346,6 +346,8 @@ public class ConfigWriter {
 				config.getCursorParallelNum());
 		writeAttribute(ConfigConsts.BLOCK_SIZE, config.getBlockSize());
 		writeAttribute(ConfigConsts.NULL_STRINGS, config.getNullStrings());
+		writeAttribute(ConfigConsts.NULL_PROPAGATE,
+				String.valueOf(config.isNullPropagate()));
 		writeAttribute(ConfigConsts.FETCH_COUNT, config.getFetchCount());
 		writeAttribute(ConfigConsts.EXTLIBS, config.getExtLibsPath());
 		writeImportLibList(config.getImportLibs());

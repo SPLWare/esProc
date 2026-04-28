@@ -24,8 +24,8 @@ public class ConfigHandler extends DefaultHandler {
 	/**
 	 * Version
 	 * 
-	 * version3:节点名称中的dfx改为spl。
-	 * version2:增加了多路游标路数CursorParallelNum。将之前版本的ParallelNum设置为CursorParallelNum。logLevel从Esproc挪到Runtime下。
+	 * version3:节点名称中的dfx改为spl。 version2:增加了多路游标路数CursorParallelNum。
+	 * 将之前版本的ParallelNum设置为CursorParallelNum。logLevel从Esproc挪到Runtime下。
 	 */
 	protected int version = 3;
 
@@ -559,6 +559,16 @@ public class ConfigHandler extends DefaultHandler {
 					config.setCursorParallelNum(value);
 			} else if (qName.equalsIgnoreCase(ConfigConsts.NULL_STRINGS)) {
 				config.setNullStrings(value);
+			} else if (qName.equalsIgnoreCase(ConfigConsts.NULL_PROPAGATE)) {
+				if (value != null) {
+					try {
+						boolean nullPropagate = Boolean.parseBoolean(value);
+						config.setNullPropagate(nullPropagate);
+					} catch (Exception ex) {
+						Logger.debug("Invalid " + ConfigConsts.NULL_PROPAGATE
+								+ ": " + value);
+					}
+				}
 			} else if (qName.equalsIgnoreCase(ConfigConsts.FETCH_COUNT)) {
 				config.setFetchCount(value);
 			} else if (qName.equalsIgnoreCase(ConfigConsts.EXTLIBS)) {
@@ -689,8 +699,8 @@ public class ConfigHandler extends DefaultHandler {
 	}
 
 	/**
-	 * Because there may be child nodes with the same name under different nodes. So
-	 * you need to know which node is loaded.
+	 * Because there may be child nodes with the same name under different
+	 * nodes. So you need to know which node is loaded.
 	 */
 	/** Runtime */
 	protected static final short RUNTIME = 1;

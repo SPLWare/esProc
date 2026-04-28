@@ -458,6 +458,8 @@ public class ConfigUtil {
 			String[] nullStrings = splitNullStrings(config.getNullStrings());
 			Env.setNullStrings(nullStrings);
 
+			Env.setNullPropagate(config.isNullPropagate());
+
 			String sFetchCount = config.getFetchCount();
 			if (StringUtils.isValidString(sFetchCount)) {
 				try {
