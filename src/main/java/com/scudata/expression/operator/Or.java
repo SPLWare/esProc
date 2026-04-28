@@ -5,9 +5,9 @@ import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Env;
 import com.scudata.expression.Relation;
 import com.scudata.resources.EngineMessage;
-import com.scudata.util.Variant;
 
 /**
  * 运算符：||
@@ -37,14 +37,37 @@ public class Or extends Relation {
 
 	public Object calculate(Context ctx) {
 		Object value = left.calculate(ctx);
-		if (Variant.isTrue(value)) {
+		if (value == null) {
+			Object rightValue = right.calculate(ctx);
+			if (rightValue == null) {
+				if (Env.getNullPropagate()) {
+					return null;
+				} else {
+					return Boolean.FALSE;
+				}
+			} else if (!(rightValue instanceof Boolean) || ((Boolean)rightValue).booleanValue()) {
+				return Boolean.TRUE;
+			} else {
+				if (Env.getNullPropagate()) {
+					return null;
+				} else {
+					return Boolean.FALSE;
+				}
+			}
+		} else if (!(value instanceof Boolean) || ((Boolean)value).booleanValue()) {
 			return Boolean.TRUE;
 		} else {
-			value = right.calculate(ctx);
-			if (value instanceof Boolean) {
-				return value;
+			Object rightValue = right.calculate(ctx);
+			if (rightValue == null) {
+				if (Env.getNullPropagate()) {
+					return null;
+				} else {
+					return Boolean.FALSE;
+				}
+			} else if (!(rightValue instanceof Boolean) || ((Boolean)rightValue).booleanValue()) {
+				return Boolean.TRUE;
 			} else {
-				return Boolean.valueOf(value != null);
+				return Boolean.FALSE;
 			}
 		}
 	}

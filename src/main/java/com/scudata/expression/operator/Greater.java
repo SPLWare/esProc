@@ -5,6 +5,7 @@ import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Env;
 import com.scudata.expression.Relation;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
@@ -36,7 +37,18 @@ public class Greater extends Relation {
 	}
 
 	public Object calculate(Context ctx) {
-		if (Variant.compare(left.calculate(ctx), right.calculate(ctx), true) > 0) {
+		Object o1 = left.calculate(ctx);
+		Object o2 = right.calculate(ctx);
+		
+		if (Env.getNullPropagate()) {
+			if (o1 == null || o2 == null) {
+				return null;
+			} else if (Variant.compare(o1, o2, true) > 0) {
+				return Boolean.TRUE;
+			} else {
+				return Boolean.FALSE;
+			}
+		} else if (Variant.compare(o1, o2, true) > 0) {
 			return Boolean.TRUE;
 		} else {
 			return Boolean.FALSE;

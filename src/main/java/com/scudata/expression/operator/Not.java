@@ -5,6 +5,7 @@ import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Env;
 import com.scudata.expression.Operator;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
@@ -32,7 +33,12 @@ public class Not extends Operator {
 	}
 	
 	public Object calculate(Context ctx) {
-		return Boolean.valueOf(Variant.isFalse(right.calculate(ctx)));
+		Object val = right.calculate(ctx);
+		if (val == null && Env.getNullPropagate()) {
+			return null;
+		}
+		
+		return Boolean.valueOf(Variant.isFalse(val));
 	}
 	
 	/**

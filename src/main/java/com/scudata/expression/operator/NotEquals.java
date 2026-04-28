@@ -5,6 +5,7 @@ import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Env;
 import com.scudata.expression.Relation;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
@@ -36,7 +37,18 @@ public class NotEquals extends Relation {
 	}
 	
 	public Object calculate(Context ctx) {
-		if (Variant.isEquals(left.calculate(ctx), right.calculate(ctx))) {
+		Object o1 = left.calculate(ctx);
+		Object o2 = right.calculate(ctx);
+		
+		if (Env.getNullPropagate()) {
+			if (o1 == null || o2 == null) {
+				return null;
+			} else if (Variant.isEquals(o1, o2)) {
+				return Boolean.FALSE;
+			} else {
+				return Boolean.TRUE;
+			}
+		} else if (Variant.isEquals(o1, o2)) {
 			return Boolean.FALSE;
 		} else {
 			return Boolean.TRUE;
