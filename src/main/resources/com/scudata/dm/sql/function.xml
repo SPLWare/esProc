@@ -117,10 +117,13 @@
       <INFO dbtype="HSQL" value="CHAR(?)"/>
       <INFO dbtype="ESPROC" value="char(?1)"/>
     </FUNCTION>
-    <FUNCTION name="CONCAT" paramcount="2" value="?1||?2">
-      <INFO dbtype="SQLSVR" value="?1+?2"/>
+    <FUNCTION name="CONCAT" paramcount="2" value="COALESCE(NULLIF(?1,''),'') || COALESCE(NULLIF(?2,''),'')">
+      <INFO dbtype="SQLSVR" value="CONCAT(NULLIF(?1,''),NULLIF(?2,''))"/>
       <INFO dbtype="HSQL" value=""/>
+	  <INFO dbtype="DB2" value=""/>
       <INFO dbtype="TERADATA" value=""/>
+	  <INFO dbtype="ORACLE" value="NVL(?1,'')|| NVL(?2,'')"/>
+	  <INFO dbtype="MYSQL" value="CONCAT(IFNULL(NULLIF(?1,''),''),IFNULL(NULLIF(?2,''),''))"/>
       <INFO dbtype="POSTGRES" value=""/>
       <INFO dbtype="ESPROC" value="concat(?1,?2)"/>
     </FUNCTION>
@@ -482,13 +485,14 @@
     </FUNCTION>
     <FUNCTION  name="concat">
     	<INFO dbtype="ESPROC" script=' "concat("+ ?.concat@c() +")" '/>
-		<INFO dbtype="ORACLE" script=' ?.concat("||") '/>
-		<INFO dbtype="DB2" script=' ?.concat("||")'/>
-		<INFO dbtype="SQLSVR" script=' ?.concat("+")'/>
-		<INFO dbtype="POSTGRES" script=' ?.concat("||")'/>
-		<INFO dbtype="TERADATA" script=' ?.concat("||")'/>
-		<INFO dbtype="HSQL" script=' ?.concat("||")'/>
-    </FUNCTION>
+		<INFO dbtype="ORACLE" script=' ?.(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;) '/>
+		<INFO dbtype="DB2" script=' ?.(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;) '/>
+		<INFO dbtype="TERADATA" script=' ?.(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;) '/>
+		<INFO dbtype="MYSQL" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
+		<INFO dbtype="SQLSVR" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
+		<INFO dbtype="POSTGRES" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
+		<INFO dbtype="HSQL" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
+	</FUNCTION>
 	 <FUNCTION name="itx">
     	<INFO dbtype="ESPROC" script='"itx(" + ?.concat@c() +")"'/>
     </FUNCTION>
