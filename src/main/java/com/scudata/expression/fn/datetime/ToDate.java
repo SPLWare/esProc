@@ -128,12 +128,12 @@ public class ToDate extends Function {
 				IParam locParam = sub2.getSub(1);
 				if (locParam != null) {
 					Object obj = locParam.getLeafExpression().calculate(ctx);
-					if (!(obj instanceof String)) {
+					if (obj instanceof String) {
+						locale = (String)obj;
+					} else if (obj != null) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("date" + mm.getMessage("function.paramTypeError"));
 					}
-					
-					locale = (String)obj;
 				}
 				
 				try {
