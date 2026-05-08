@@ -494,6 +494,7 @@ public class ScudataLogger {
 		private int bufferSize = 10000;//1秒内最多缓存的日志量，超出的挤出丢弃
 		private Object rowLock = new Object();
 		private LimitedQueue rowBuffers;
+		private Timer timer = new Timer();
 
 		public FileHandler(String file) throws Exception {
 			this(file, null,false,null,null);
@@ -513,7 +514,6 @@ public class ScudataLogger {
 			fos = new FileOutputStream(currentFile, true);
 			br = new BufferedWriter(new OutputStreamWriter(fos, encoding));
 			
-			Timer timer = new Timer();
 			TimerTask tt = new TimerTask() {
 				public void run() {
 					synchronized (rowLock) {
@@ -616,6 +616,7 @@ public class ScudataLogger {
 		void close() {
 			try {
 				br.close();
+				timer.cancel();
 			} catch (Exception e) {
 			}
 		}

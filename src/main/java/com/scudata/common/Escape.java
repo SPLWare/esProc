@@ -402,8 +402,11 @@ public final class Escape {
 		System.out.println(s);
 		s = remove(s);
 		System.out.println(s);
-		s = "\"'abc'\"+5";
-		System.out.println( addEscAndQuote(s) );
+		s = "\"加载文件 \\\"D:/scores.xlsx\\\"\\r标题\\n分隔符\"";
+		System.out.println( s );
+		String as = addEscAndQuote(s);
+		System.out.println( as );
+		System.out.println( removeEscAndQuote(as) );
 	}
 	
 }

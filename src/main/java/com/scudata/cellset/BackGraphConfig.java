@@ -21,6 +21,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
@@ -177,7 +178,8 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(
 					imageBytes);
-			return ImageIO.read(bis);
+			BufferedImage bi = ImageIO.read(bis);
+			return bi;
 		} catch (Exception e) {
 			Logger.error(e);
 			return null;
