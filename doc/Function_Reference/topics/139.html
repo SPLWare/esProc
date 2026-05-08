@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>cdc_merge()</title>
+<title>cdc_collect()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,24 +14,23 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h2 style='tab-stops:54.0pt'><span style='mso-bookmark:_Hlt161066090'><span
-lang=EN-US>cdc_merge()<a name="cdc_merge"></a></span></span><span
+lang=EN-US>cdc_collect()<a name="cdc_collect"></a></span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
 style='mso-bookmark:_Hlt161066090'></span></h2></div>
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Record
-the final updated data in a table when data synchronization tool is used to
-perform summary.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Perform
+conditional summary on table data collected by the data synchronization tool.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:
 </span></b></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>cdc_merge</span></span></span><span
+lang=EN-US style='font-family:"Times New Roman",serif'>cdc_collect</span></span></span><span
 style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>(cdcPath;
-table, startTime[,endTime])<span
+tables, startTime[,endTime])<span
 style='mso-spacerun:yes'>&nbsp;
 </span></span></span></span></p>
 
@@ -46,22 +45,34 @@ lang=EN-US style='mso-bidi-font-style:italic'>External Library Guide</span></spa
 style='mso-bookmark:_Hlt161066090'></span></a><span style='mso-bookmark:_Hlt161066090'><span
 lang=EN-US style='mso-bidi-font-style:italic'>)</span><span lang=EN-US>.</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-font-kerning:0pt'>&nbsp;</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-style='mso-font-kerning:0pt'>The function merges data added, deleted and
-modified in one of the zone tables of a multizone composite table, and returns
-the final updated data.</span></span></p>
+style='mso-font-kerning:0pt'>The function returns a multilevel table sequence
+made up of Name, Delete and Insert fields. Name field is “Database name.data
+table name”; Delete field is data deleted from the table; and Insert field is
+data inserted to the table. The modification operation is treated as “first
+delete and then insert” &#8211; the deleted data is recorded in Delete field and the
+modified data is recorded in Insert field.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-font-kerning:0pt'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-font-kerning:0pt'>For operations on the same primary key, Delete
+field only stores one operation and Insert field returns the newly added
+operation or the final modification operation.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:
 </span></b></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=639
- style='margin-left:7.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=642
+ style='margin-left:5.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=129 valign=top style='width:96.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=132 valign=top style='width:98.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
   lang=EN-US>cdcPath</span></span></span></p>
   </td>
@@ -74,19 +85,21 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Pa
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=129 valign=top style='width:96.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=132 valign=top style='width:98.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>table</span></span></span></p>
+  lang=EN-US>tables</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
   <td width=510 valign=top style='width:382.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Table
-  name (only support a single table); cannot be omitted. </span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Name(s)
+  of the table(s) to be summarized, which is/are case-insensitive and can be a
+  string(strings); use white space to separate multiple table names or write
+  these tables as a sequence. By default, all tables will be summarized. </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=129 valign=top style='width:96.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=132 valign=top style='width:98.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
   lang=EN-US>startTime/endTime</span></span></span></p>
   </td>
@@ -114,12 +127,12 @@ style='mso-bidi-font-weight:bold'>Table sequence</span></span></p>
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span><span
 style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'> </span></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=807
- style='margin-left:1.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1201
+ style='margin-left:1.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=27 valign=top style='width:20.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=26 valign=top style='width:19.75pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -127,7 +140,7 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'> </
   style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:274.9pt;border:solid #A6A6A6 1.0pt;
+  <td width=507 valign=top style='width:380.1pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -135,14 +148,14 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'> </
   style='font-family:"Times New Roman",serif'>A</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=413 valign=top style='width:309.95pt;border:none;mso-border-left-alt:
+  <td width=668 valign=top style='width:500.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=27 valign=top style='width:20.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=26 valign=top style='width:19.75pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -150,55 +163,53 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'> </
   style='font-family:"Times New Roman",serif'>1</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 style='width:274.9pt;border-top:none;border-left:none;
+  <td width=507 style='width:380.1pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=cdc_merge(&quot;D:/tmp/dirout&quot;;&quot;mytest.test1&quot;,&quot;2023-06-01
-  08:00:00&quot;,&quot;2023-06-01 10:00:00&quot;)</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=cdc_collect(&quot;D:/tmp/dirout&quot;;&quot;mytest.test1&quot;,&quot;2023-06-01
+  08:00:00&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=413 valign=top style='width:309.95pt;border:none;mso-border-left-alt:
+  <td width=668 valign=top style='width:500.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Modify
-  record of table test1 where EID is 19 in the specified period of time, add a record
-  whose EID is 21, merge the operations, and return the result:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=234 height=71
-  src="Function_Reference.files/image256.jpg" v:shapes="_x0000_i1183"></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Collect
+  data of table <i>test1</i> falling between the specified starting time and
+  the current time.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=27 valign=top style='width:20.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;height:32.3pt'>
+  <td width=26 valign=top style='width:19.75pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:32.3pt'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
   style='font-family:"Times New Roman",serif'>2</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:274.9pt;border-top:none;border-left:
+  <td width=507 valign=top style='width:380.1pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:32.3pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=cdc_merge(&quot;D:/tmp/dirout&quot;;&quot;mytest.test1&quot;,&quot;2023-06-01
-  08:00:00&quot;,&quot;2023-06-01 12:00:00&quot;)</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=cdc_collect(&quot;D:/tmp/dirout&quot;;,&quot;2023-06-01
+  08:30:00&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=413 style='width:309.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Modify
-  records where EIDs are 15 and 16, add a record whose EID is 22, delete the
-  record where EID is 21, and return the final existing data:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=270 height=121
-  src="Function_Reference.files/image258.jpg" v:shapes="_x0000_i1184"></span></span></p>
+  <td width=668 style='width:500.65pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:32.3pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Collect
+  data of all tables falling between the specified starting time and the
+  current time.</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=583 height=95
+  src="Function_Reference.files/image246.jpg" v:shapes="_x0000_i1178"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=27 valign=top style='width:20.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=26 valign=top style='width:19.75pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -206,25 +217,24 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'> </
   style='font-family:"Times New Roman",serif'>3</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:274.9pt;border-top:none;border-left:
+  <td width=507 valign=top style='width:380.1pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;F://tmp/emp1.ctx&quot;).open()</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=cdc_collect(&quot;D:/tmp/dirout&quot;;[&quot;mytest.test2&quot;,&quot;mytest.test3&quot;],&quot;2023-06-01
+  08:00:00&quot;,&quot;2023-06-01 18:00:00&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=413 style='width:309.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
-  composite table <i>emp1.ctx</i>; its content is as follows:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=285 height=198
-  src="Function_Reference.files/image260.jpg" v:shapes="_x0000_i1185"></span></span></p>
+  <td width=668 valign=top style='width:500.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Perform
+  summary on data of multiple tables within the specified period of time.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=27 valign=top style='width:20.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=26 valign=top style='width:19.75pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
@@ -232,44 +242,128 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'> </
   style='font-family:"Times New Roman",serif'>4</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:274.9pt;border-top:none;border-left:
+  <td width=507 valign=top style='width:380.1pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A3.update(A2)</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=cdc_collect(&quot;D:/tmp/dirout&quot;;&quot;mytest.test2
+  mytest.test3&quot;,&quot;2023-06-01 08:00:00&quot;,&quot;2023-06-01 18:00:00&quot;)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=413 style='width:309.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Update
-  A2’s data to A3.</span></span></p>
+  <td width=668 valign=top style='width:500.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Same
+  as above.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=27 valign=top style='width:20.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:5'>
+  <td width=26 valign=top style='width:19.75pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
   style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:"Microsoft YaHei UI Light"'>5</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:274.9pt;border-top:none;border-left:
+  <td width=507 valign=top style='width:380.1pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A3.cursor().fetch()</span></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;F://tmp/emp1.ctx&quot;).open()</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=413 style='width:309.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
+  <td width=668 valign=top style='width:500.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Open
+  composite table <i>emp1.ctx</i>. Its content is as follows:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=326 height=172
+  src="Function_Reference.files/image248.jpg" v:shapes="图片_x0020_2"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=26 valign=top style='width:19.75pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:"Microsoft YaHei UI Light"'>6</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=507 valign=top style='width:380.1pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A5.update(:A4.Delete)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=668 valign=top style='width:500.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Update
+  the data deletion operation on table <i>test1</i> to composite table <i>emp1.ctx</i>.
+  Below is the content of<span style='mso-spacerun:yes'>&nbsp; </span>A4.Delete:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=302 height=120
+  src="Function_Reference.files/image250.jpg" v:shapes="_x0000_i1180"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=26 valign=top style='width:19.75pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:"Microsoft YaHei UI Light"'>7</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=507 valign=top style='width:380.1pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A5.update(A4.Insert)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=668 valign=top style='width:500.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Update
+  the data addition operation on table <i>test1</i> to composite table <i>emp1.ctx</i>.
+  Below is the content of<span style='mso-spacerun:yes'>&nbsp; </span>A4.
+  Insert:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=248 height=96
+  src="Function_Reference.files/image252.jpg" v:shapes="图片_x0020_4"></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td width=26 valign=top style='width:19.75pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:"Microsoft YaHei UI Light"'>8</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=507 valign=top style='width:380.1pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A5.cursor().fetch()</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=668 valign=top style='width:500.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Check
   data in composite table <i>emp1.ctx</i> and find data is correctly synced:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=284 height=184
-  src="Function_Reference.files/image262.jpg" v:shapes="_x0000_i1186"></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US><img border=0 width=305 height=149
+  src="Function_Reference.files/image254.jpg" v:shapes="_x0000_i1182"></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -281,7 +375,7 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'> </
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="54.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="55.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

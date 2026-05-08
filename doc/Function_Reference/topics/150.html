@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>chardetect()</title>
+<title>char()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,484 +13,113 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><a
-name="_clear_1"></a><span lang=EN-US style='mso-fareast-font-family:宋体'>chardetect()<a
-name=chardetect></a></span></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:_Hlt161066090'><a name=channel5></a><a name=char></a><a
+name=channelch2></a><span lang=EN-US>char()</span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
-宋体'></span></span></h2></div>
-	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
+style='mso-bookmark:_Hlt161066090'></span></h2></div>
+	<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Description:</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Get
-the character encoding standard used by a string or a text file.</span></span></p>
+the corresponding characters of the given Unicode or ASCII code. </span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Syntax: </span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US>chardetect(</span></b><i><span lang=EN-US>fn,cs</span></i><b><span
-lang=EN-US>)</span></b></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>char(</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>int</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'>)</span></span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US style='font-size:14.0pt'>Note:</span></b></span><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:12.0pt'>
-</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Note: </span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function identifies the character encoding standard used by text file <i>fn </i>when
-no options are used. Standards it supports include UTF-8, GBK, UTF-16LE and
-UTF-16BE. Identify the character encoding as GB18030 for text files where the
-original encoding standards are GBK, GB2312 or GB18030. </span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>There
-could be multiple character set values when trying to identify the character
-set used for a specified string or binary code representing a (Traditional)
-Chinese character, a Japanese character or a Korean character because there are
-overlaps between character sets for the three languages. </span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Parameter
+</span></span><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
+lang=EN-US>int</span></span><span lang=EN-US> is Unicode or ASCII code. The
+function gets its corresponding characters.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function returns the first character set value by default. When parameter <i>cs</i>
-is present, return the first eligible character set value in the list.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Under
+normal circumstances, English characters and their extended characters are
+recorded in ASCII code; Chinese, Japanese, Korean, and other Asian characters
+are recorded in Unicode characters.</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-lang=EN-US>&nbsp;</span></i></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-lang=EN-US>fn</span></i><span lang=EN-US> is interpreted as a URL if it begins
-with &quot;http://&quot; or &quot;https://&quot;.</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-lang=EN-US style='font-size:14.0pt'>Option:</span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt;
-mso-font-kerning:0pt'></span></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Parameter: </span></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:3.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:4.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=56 valign=top style='width:42.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-  mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-font-kerning:0pt'>@v</span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:38.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>int</span></i></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=478 valign=top style='width:358.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-  mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-font-kerning:0pt'>Get the character encoding from </span><i><span
-  lang=EN-US>fn </span></i></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-font-kerning:0pt'>if it is a string or a binary
-  variable</span><span lang=EN-US>.</span></span><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US style='mso-font-kerning:0pt'></span></span></p>
+  <td width=478 valign=top style='width:358.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Integer
+  expression, Unicode code or ASCII code.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Return value: </span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Character</span></span></p>
+
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Example: </span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:4.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=122 valign=top style='width:91.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>char(87)</span></span></span><span
+  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=419 valign=top style='width:314.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
+  mso-bidi-font-weight:bold'>'W'</span></span><b><span lang=EN-US></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=56 valign=top style='width:42.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-  mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-font-kerning:0pt'>@a</span></span></p>
+  <td width=122 valign=top style='width:91.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afe style='text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>char(66)</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=478 valign=top style='width:358.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-  mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-font-kerning:0pt'>Return the list of all eligible
-  character encoding standards; return the first eligible one by default</span><span
-  lang=EN-US>.</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-font-kerning:0pt'></span></span></p>
+  <td width=419 valign=top style='width:314.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
+  mso-bidi-font-weight:bold'>'B'</span></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Parameter:</span></b></span></p>
+<p class=ae style='line-height:200%'><span style='mso-bookmark:_Hlt161066090'><span
+lang=EN-US>Related function:</span></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:3.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=66 valign=top style='width:49.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US>fn</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=797 valign=top style='width:597.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-font-kerning:
-  0pt'>A string or binary value, name of the text file to be identified or
-  object/URL of the text file to be identified</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=66 valign=top style='width:49.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-  lang=EN-US>cs</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=797 valign=top style='width:597.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-font-kerning:
-  0pt'>The list of available character encoding standards; can be omitted</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Return value:</span></b></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>A
-charset value or a sequence of charset values</span></span></p>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><span
-style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US style='font-size:14.0pt;
-color:#333333;mso-font-kerning:0pt'>Example:</span></b></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=695
- style='margin-left:-2.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>A</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>1</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>&gt;www=&quot;http://www.baidu.com&quot;</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>2</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>=chardetect(www)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>UTF-8.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:3;height:54.55pt'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:54.55pt'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>3</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:54.55pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>=chardetect@v(&quot;abc</span></b></span><span style='mso-bookmark:
-  _Hlt161066090'><b><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>一二三</span><span lang=EN-US>123&quot;)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm;
-  height:54.55pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>GB-2312.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>4</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>&gt;file1=&quot;d:/UTF8.xml&quot;</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
-  character set UTF-8.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>5</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>&gt;file2=&quot;d:/UTF16LE.xml&quot;</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Use
-  </span></span><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
-  style='mso-font-kerning:0pt'>UTF-16LE character set</span><span lang=EN-US>.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>6</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>=chardetect(file1)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>UTF-8;
-  parameter <i>fn</i> is file name.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>7</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>=file(file2)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>8</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>=chardetect(A7)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-  mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-font-kerning:0pt'>UTF-16LE</span><span lang=EN-US>;
-  parameter <i>fn</i> is file object.</span></span><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US style='mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>9</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>=chardetect@v(&quot;</span></b></span><span style='mso-bookmark:
-  _Hlt161066090'><b><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>你好</span><span lang=EN-US>&quot;)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-  mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US>GB2312.</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US style='mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>10</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>=chardetect@av(&quot;</span></b></span><span style='mso-bookmark:
-  _Hlt161066090'><b><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>你好</span><span lang=EN-US>&quot;)</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
-  auto;text-align:left;mso-pagination:widow-orphan'><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US>Return a list of all eligible character encoding
-  standards.</span></span></p>
-  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
-  mso-pagination:widow-orphan'><span style='mso-bookmark:_Hlt161066090'><span
-  lang=EN-US><img border=0 width=126 height=101
-  src="Function_Reference.files/image282.jpg" v:shapes="图片_x0020_113"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>11</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>=chardetect@v(&quot;</span></b></span><span style='mso-bookmark:
-  _Hlt161066090'><b><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>你好</span><span lang=EN-US>&quot;,[&quot;Big5&quot;,&quot;CP949&quot;])</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
-  auto;text-align:left;mso-pagination:widow-orphan'><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US>Return the first eligible character set value
-  in the <i>cs</i> list: Big5.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes'>
-  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><b><span lang=EN-US>12</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=297 valign=top style='width:222.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b><span
-  lang=EN-US>=chardetect@va(&quot;</span></b></span><span style='mso-bookmark:
-  _Hlt161066090'><b><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman"'>你好</span><span lang=EN-US>&quot;,[&quot;Big5&quot;,&quot;CP949&quot;])</span></b></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=367 valign=top style='width:275.45pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
-  auto;text-align:left;mso-pagination:widow-orphan'><span style='mso-bookmark:
-  _Hlt161066090'><span lang=EN-US>Return all eligible character sets in the <i>cs</i>
-  list.</span></span></p>
-  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
-  auto;text-align:left;mso-pagination:widow-orphan'><span style='mso-bookmark:
-  _Hlt161066090'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-  #0400'><img border=0 width=119 height=43
-  src="Function_Reference.files/image283.png" v:shapes="_x0000_i1199"></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
-</table>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'></span><a
+ href="asc.html#asc"><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-fareast-font-family:黑体'>as<span style='mso-bookmark:_Hlt415047731'><span
+style='mso-bookmark:_Hlt414970770'>c</span></span><span style='mso-bookmark:
+_Hlt415047588'>(</span>)</span></span><span style='mso-bookmark:_Hlt161066090'></span></a><a
+name="_Hlt415047588"></a><a name="_Hlt414970770"></a><a name="_Hlt415047731"></a><span
+style='mso-bookmark:_Hlt161066090'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="151.html">Next</a></div>
@@ -498,7 +127,7 @@ color:#333333;mso-font-kerning:0pt'>Example:</span></b></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="54.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="55.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

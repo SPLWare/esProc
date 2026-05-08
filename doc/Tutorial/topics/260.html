@@ -14,7 +14,7 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l53 level2 lfo53'><span lang=EN-US
+mso-list:l58 level2 lfo53'><span lang=EN-US
 style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>11.1<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
 lang=EN-US>Generating a composite table<a name="Generating_a_composite_table"></a></span></h2></div>
@@ -480,7 +480,7 @@ mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=432 height=231
-src="Tutorial.files/image1081.png" v:shapes="_x0000_i2213"></span></p>
+src="Tutorial.files/image1080.png" v:shapes="_x0000_i2213"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -489,7 +489,7 @@ test order data:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=432 height=231
-src="Tutorial.files/image1082.png" v:shapes="_x0000_i2214"></span></p>
+src="Tutorial.files/image1081.png" v:shapes="_x0000_i2214"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -499,7 +499,7 @@ sorts the data by EID and OID. Here¡¯s A10¡¯s result:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=432 height=231
-src="Tutorial.files/image1083.png" v:shapes="_x0000_i2215"></span></p>
+src="Tutorial.files/image1082.png" v:shapes="_x0000_i2215"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -508,7 +508,7 @@ salesperson:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=432 height=231
-src="Tutorial.files/image1084.png" v:shapes="_x0000_i2216"></span></p>
+src="Tutorial.files/image1083.png" v:shapes="_x0000_i2216"></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -520,24 +520,24 @@ style='mso-bidi-font-style:normal'>employee</i> &#8211; for the composite table 
 style='mso-bidi-font-style:normal'>employees.ctx </i>and defines all its
 fields, which are the same as the fields in A7. <span style='mso-bidi-font-weight:
 bold'>The entity table</span> is completely independent and thus called the <b>base
-table</b>; there <b style='mso-bidi-font-weight:normal'>must be one and only one</b>
-base table in a composite table. A field preceded by # is the entity table¡¯s <b
-style='mso-bidi-font-weight:normal'>dimension</b>. A dimension is a column in
-an entity table. The records in an entity table must be <b style='mso-bidi-font-weight:
-normal'>ordered</b> by its dimension(s). Here one dimension, EID, is defined
-for the composite table¡¯s (<i style='mso-bidi-font-style:normal'>employees.ctx</i>)
-base table. The base table has three other fields &#8211; Dept, Gender and Name. Data
-in a composite table is by default stored by column. To store data by row, use
-@r option in the <b style='mso-bidi-font-weight:normal'>create</b> function. To
-perform data query over one or a few records in a composite table, store the
-table by row for better performance. But, a row-based composite table isn¡¯t the
-best choice for performing a full table scan and it doesn¡¯t support querying
-data via the multicursor. Data in a composite table is stored in a compressed
-way to reduce disk space use. You can use @u option with create() function to
-disable the compression action. If there is already a composite table file
-having the specified name when we try to create a composite table, the creation
-fails and error is reported. The existing file can be forced to be overwritten
-by adding @y option.</span></p>
+table</b>; there <b style='mso-bidi-font-weight:normal'>must be one and only
+one</b> base table in a composite table. A field preceded by # is the entity
+table¡¯s <b style='mso-bidi-font-weight:normal'>dimension</b>. A dimension is a
+column in an entity table. The records in an entity table must be <b
+style='mso-bidi-font-weight:normal'>ordered</b> by its dimension(s). Here one
+dimension, EID, is defined for the composite table¡¯s (<i style='mso-bidi-font-style:
+normal'>employees.ctx</i>) base table. The base table has three other fields &#8211;
+Dept, Gender and Name. Data in a composite table is by default stored by
+column. To store data by row, use @r option in the <b style='mso-bidi-font-weight:
+normal'>create</b> function. To perform data query over one or a few records in
+a composite table, store the table by row for better performance. But, a
+row-based composite table isn¡¯t the best choice for performing a full table
+scan and it doesn¡¯t support querying data via the multicursor. Data in a
+composite table is stored in a compressed way to reduce disk space use. You can
+use @u option with create() function to disable the compression action. If
+there is already a composite table file having the specified name when we try
+to create a composite table, the creation fails and error is reported. The
+existing file can be forced to be overwritten by adding @y option.</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:

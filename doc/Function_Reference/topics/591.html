@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>qvm.load()</title>
+<title>llm_chat()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,304 +13,432 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US>qvm.load()<a
-name="qvm_load_lz_rz"></a></span></span><span
+	<div id="centent-title"><h2 style='mso-pagination:widow-orphan lines-together'><span style='mso-bookmark:
+_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:宋体'>llm_chat()<a
+name="llm_chat"></a></span></span><span
 style='mso-bookmark:_Hlt161066090'></span><span
-style='mso-bookmark:_Hlt161066090'></span></h3></div>
+style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-fareast-font-family:
+宋体'></span></span></h2></div>
 	<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Description:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Switch
-file(s) or homo-name files group between the local and QVM.</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US></span></span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
-lang=EN-US>qvm.</span></i><b><span lang=EN-US>load</span></b><span lang=EN-US>(<i>l</i>:<i>z</i>,<i>r</i>:<i>z</i>)</span></span><span
-style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'></span></span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Ask questions using the
+specified LLM model.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b><span
-lang=EN-US> </span></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Syntax:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-function switches file(s) or homo-name files group between the local and QVM.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;mso-bidi-language:AR'>llm_chat</span></b></span><span style='mso-bookmark:
+_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:
+AR'>(<i>fd,question,[url]</i>)</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Note: </span></b></span></p>
+
+<p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
+style='mso-bookmark:_Hlt161066090'><a name="OLE_LINK3"><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>LLMCli </span><span
+lang=EN-US>external library function <span style='mso-bidi-font-style:italic'>(See
+</span></span></a></span><a href="http://doc.raqsoft.com/esproc/ext/"><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK3'><span
+lang=EN-US style='mso-bidi-font-style:italic'>External Library Guide</span></span></span><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK3'></span></span></a><span
+style='mso-bookmark:_Hlt161066090'><span style='mso-bookmark:OLE_LINK3'><span
+lang=EN-US style='mso-bidi-font-style:italic'>).</span></span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
-parameters <i style='mso-bidi-font-style:normal'>r:z </i>are absent, upload <i>l</i>,
-the file(s)/homo-name files group in the relative path relative to the local
-main directory, to the relative path relative to QVM main directory;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>When
-parameters <i style='mso-bidi-font-style:normal'>l:z </i>are absent, download <i>r</i>,
-the file(s)/homo-name files group in the relative path relative to QVM main
-directory, to the relative path relative to local main directory.</span></span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>If you think the answer
+obtained by using the current model is less relevant to the question, try using
+another model to ask the question again.</span></span></p>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameter:
-</span></b></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Parameter:</span></b></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-5.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=428
+ style='margin-left:20.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=92 valign=top style='width:69.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>qvm</span></span></span></p>
+  <td width=78 valign=top style='width:58.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
+  lang=EN-US style='mso-bidi-language:AR'>fd</span></var></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=486 valign=top style='width:364.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>QVM
-  object.</span></span></p>
+  <td width=350 valign=top style='width:262.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-bidi-language:AR'>LLM connection object.</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-font-kerning:
+  0pt'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=92 valign=top style='width:69.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>l</span></span></span></p>
+  <td width=78 valign=top style='width:58.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>question</span></i></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=486 valign=top style='width:364.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Local
-  file(s)/homo-name files group to be uploaded.</span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=92 valign=top style='width:69.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>r</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=486 valign=top style='width:364.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>To-be-downloaded
-  file(s)/homo-name files in the QVM main directory.</span></span></p>
+  <td width=350 valign=top style='width:262.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-bidi-language:AR'>A string, specifying the question you want to
+  ask.</span></span><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-font-kerning:0pt'></span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=92 valign=top style='width:69.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span class=var1><span
-  lang=EN-US>z</span></span></span></p>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=78 valign=top style='width:58.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><var><span
+  lang=EN-US style='mso-bidi-language:AR'>url</span></var></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=486 valign=top style='width:364.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>The
-  parameter is a zone table number or a sequence of zone table numbers when
-  parameters </span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=var1><span lang=EN-US>l</span></span><span lang=EN-US> and </span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=var1><span lang=EN-US>r</span></span><span
-  lang=EN-US> are homo-name files group.</span></span></p>
+  <td width=350 valign=top style='width:262.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>According to the reference
+  source, either a URL or the absolute path of a local text file. </span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
 </table>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
-value:</span></b><span lang=EN-US> </span></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Option:</span></b></span></p>
 
-<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Boolean</span></span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:21.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=63 valign=top style='width:47.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:left;mso-pagination:widow-orphan'><span style='mso-bookmark:
+  _Hlt161066090'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>@s</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-font-kerning:0pt'></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=472 valign=top style='width:353.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:left;mso-pagination:widow-orphan'><span style='mso-bookmark:
+  _Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:
+  0pt'>Do not reference contexts from the previous exchanges for the current
+  dialogue, that is, perform single-turn dialogues. By default, perform
+  multi-turn dialogues.</span></span><span style='mso-bookmark:_Hlt161066090'><span
+  lang=EN-US style='mso-font-kerning:0pt'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=63 valign=top style='width:47.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=left style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:left;mso-pagination:widow-orphan'><span style='mso-bookmark:
+  _Hlt161066090'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt;mso-bidi-language:AR'>@r</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-font-kerning:0pt'></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=472 valign=top style='width:353.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Clear
+  all the previously asked questions and start a new round of dialogue.</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+</table>
 
 <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span><span
-style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'></span></span></p>
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Return value:</span></b></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1054
- style='margin-left:-1.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>String</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-language:AR'>Example:</span></b></span><span style='mso-bookmark:_Hlt161066090'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></span></b></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=700
+ style='margin-left:19.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
   style='mso-bookmark:_Hlt161066090'></span>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=514 valign=top style='width:385.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=433 valign=top style='width:324.85pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>A</span><span
+  lang=EN-US></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=523 valign=top style='width:392.45pt;border:none;mso-border-left-alt:
+  <td width=250 valign=top style='width:187.15pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>1</span><span
+  lang=EN-US></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=433 valign=top style='width:324.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=Qconnect(&quot;http://54.213.221.123:8080/qvs&quot;:&quot;aws-qvs&quot;,30,300)</span></b></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-bidi-language:AR'>=llm_open(&quot;http://localhost:11434/api/chat&quot;,&quot;sk_adfsdfdf&quot;,
+  &quot;deepseek-r1:1.5b&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=523 valign=top style='width:392.45pt;border:none;mso-border-left-alt:
+  <td width=250 valign=top style='width:187.15pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Request
-  QVA through QVS to access QVM</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR;mso-bidi-font-weight:
+  bold'>Connect to Deepseek model through the non-stream mode.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;height:15.6pt'>
+  <td width=17 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.6pt'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>2</span><span
+  lang=EN-US></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=433 valign=top style='width:324.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.6pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.load(&quot;tran.txt&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-bidi-language:AR'>=llm_chat(A1,&quot;</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>简单介绍一下集算器函数</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>A.sort()</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>，不需要举例</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=523 valign=top style='width:392.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
-  <i>tran.txt</i> in the local main directory to QVM main directory</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-  bold'>.</span></span></span></p>
+  <td width=250 valign=top style='width:187.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.6pt'><span
+  style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR;mso-bidi-font-weight:
+  bold'>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;height:15.6pt'>
+  <td width=17 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.6pt'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>3</span><span
+  lang=EN-US></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=433 valign=top style='width:324.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.6pt'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.load(&quot;f1/aa.txt&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-bidi-language:AR'>=llm_chat@s(A1,&quot;</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>请介绍下无参数的</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>T.create()</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>函数，并举例</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=523 valign=top style='width:392.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
-  <i>aa.txt</i> in local main directory’s <i>f1</i> directory to QVM main
-  directory’s <i>f1</i> directory</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
+  <td width=250 valign=top style='width:187.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.6pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR;mso-bidi-font-weight:
+  bold'>Perform a single-turn dialogue without referencing contexts from the
+  previous exchanges.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>4</span><span
+  lang=EN-US></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=433 valign=top style='width:324.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.load(&quot;empN.ctx&quot;:[1,2])</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-bidi-language:AR'>=llm_chat(A1,&quot;</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>此函数的详细语法</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>&quot;,&quot;http://d.raqsoft.com.cn:6999/esproc/func/asortxloc.html&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=523 valign=top style='width:392.45pt;border:none;mso-border-left-alt:
+  <td width=250 valign=top style='width:187.15pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Upload
-  homo-name files group <i>1.empN.ctx</i> and <i>2empN.ctx</i> in the local
-  directory to QVM main directory</span></span><span style='mso-bookmark:_Hlt161066090'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>.</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR;mso-bidi-font-weight:
+  bold'>Ask a question based on A2’s question and irrelevant to A3’s while
+  specifying the reference source.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=17 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>5</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>5</span><span
+  lang=EN-US></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=433 valign=top style='width:324.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.load(,&quot;tran.txt&quot;)</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-size:10.5pt;
+  font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman";mso-bidi-language:AR'>请用集算器</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>SPL</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>脚本实现：</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>A.txt</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>中有一些数字，用空格分隔，现在需要按照数字从高到低排序，并且输出到</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>test.txt</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>，其中</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>A.txt</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman";mso-bidi-language:AR'>内容如下：</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>80 80 70 60
+  85 75 95 60 85 70 75 65</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=523 valign=top style='width:392.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Download
-  <i>tran.txt</i> in QVM main directory to the local main directory</span></span><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-  bold'>.</span></span></span></p>
+  <td width=250 valign=top style='width:187.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlt161066090'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR;mso-bidi-font-weight:
+  bold'>&nbsp;</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=17 valign=top style='width:12.8pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:6'>
+  <td width=17 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:_Hlt161066090'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>6</span></span></span></p>
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>6</span><span
+  lang=EN-US></span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=514 valign=top style='width:385.15pt;border-top:none;border-left:
+  <td width=433 valign=top style='width:324.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;A1.close()</span></b></span></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-bidi-language:AR'>=llm_chat@r(A1,A5)</span></b></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
-  <td width=523 valign=top style='width:392.45pt;border:none;mso-border-left-alt:
+  <td width=250 valign=top style='width:187.15pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Close
-  QVM</span></span><span style='mso-bookmark:_Hlt161066090'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'>.</span></span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US>Clear
+  the question history and start a new round of dialogue.</span></span><span
+  style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-bidi-language:AR;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td width=17 valign=top style='width:13.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>7</span><span
+  lang=EN-US></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=433 valign=top style='width:324.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-bidi-language:AR'>&gt;llm_close(A1)</span></b></span><span
+  style='mso-bookmark:_Hlt161066090'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:12.0pt'></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlt161066090'></span>
+  <td width=250 valign=top style='width:187.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlt161066090'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR;mso-bidi-font-weight:
+  bold'>Close the connection.</span></span></p>
   </td>
   <span style='mso-bookmark:_Hlt161066090'></span>
  </tr>
@@ -322,7 +450,7 @@ style='mso-bookmark:_Hlt161066090'><span lang=EN-US style='font-size:14.0pt'></s
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="590.html">load()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="55.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
