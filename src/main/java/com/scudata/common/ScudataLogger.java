@@ -74,6 +74,10 @@ public class ScudataLogger {
 		}
 	}
 
+	public static void shutDown() {
+		logger.reset();
+	}
+	
 	private void reset() {
 		for (Handler h : handlers) {
 			h.close();
