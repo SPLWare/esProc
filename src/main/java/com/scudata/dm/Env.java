@@ -56,6 +56,7 @@ public class Env {
 	
 	// 系统选项，改变null行为，为true时null四则等运算跟数据库相同
 	private static boolean NULL_PROPAGATE = false;
+	private static boolean NULL_FIRST = false;
 
 	private static Comparator<String> unicodeCollator = new Comparator<String>() {
 		public int compare(String o1, String o2) {
@@ -630,5 +631,13 @@ public class Env {
 	 */
 	public static void setNullPropagate(boolean sign) {
 		NULL_PROPAGATE = sign;
+	}
+
+	public static boolean getNullFirst() {
+		return NULL_FIRST;
+	}
+
+	public static void setNullFirst(boolean first) {
+		NULL_FIRST = first;
 	}
 }
