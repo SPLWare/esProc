@@ -395,7 +395,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public Sequence step(int interval, int[] seqs) {
 		if (interval < 1) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException(interval + mm.getMessage("engine.indexOutofBound"));
+			throw new RQException(mm.getMessage("engine.needPositiveInt"));
 		}
 		
 		int count = seqs.length;
