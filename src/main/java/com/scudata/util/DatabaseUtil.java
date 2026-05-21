@@ -4,6 +4,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.io.*;
@@ -2535,6 +2536,10 @@ public class DatabaseUtil {
 			//LocalDateTime ldt = LocalDateTime.of(LocalDate.now(), lt);
 			//ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
 			//return Timestamp.from(zdt.toInstant());
+		} else if (obj instanceof OffsetDateTime) {
+			// added by bd, 2026.5.21, 添加对java.time.LocalTime的处理，这是一个不含时区信息的时间数据，转换为TimeStamp
+			OffsetDateTime odt = (OffsetDateTime) obj;
+			return Timestamp.from(odt.toInstant());
 		} else if (dbType == DBTypes.ORACLE && oracleTIMESTAMP != null && oracleTIMESTAMP.isInstance(obj)) {
 			return TranOracle.tran(TYPE_ORACLE_TIMESTAMP, obj);
 		} else if (dbType == DBTypes.ORACLE && oracleDATE != null && oracleDATE.isInstance(obj)) {
