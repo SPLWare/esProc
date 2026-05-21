@@ -2529,11 +2529,12 @@ public class DatabaseUtil {
 			ZonedDateTime zdt = ldt.atStartOfDay(ZoneId.systemDefault());
 			return Timestamp.from(zdt.toInstant());
 		} else if (obj instanceof LocalTime) {
-			// added by bd, 2026.5.21, 添加对java.time.LocalTime的处理，这是一个不含时区信息的时间数据
+			// added by bd, 2026.5.21, 添加对java.time.LocalTime的处理，这是一个不含时区信息的时间数据，转换为Time
 			LocalTime lt = (LocalTime) obj;
-			LocalDateTime ldt = LocalDateTime.of(LocalDate.now(), lt);
-			ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
-			return Timestamp.from(zdt.toInstant());
+			return Time.valueOf(lt);
+			//LocalDateTime ldt = LocalDateTime.of(LocalDate.now(), lt);
+			//ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
+			//return Timestamp.from(zdt.toInstant());
 		} else if (dbType == DBTypes.ORACLE && oracleTIMESTAMP != null && oracleTIMESTAMP.isInstance(obj)) {
 			return TranOracle.tran(TYPE_ORACLE_TIMESTAMP, obj);
 		} else if (dbType == DBTypes.ORACLE && oracleDATE != null && oracleDATE.isInstance(obj)) {
