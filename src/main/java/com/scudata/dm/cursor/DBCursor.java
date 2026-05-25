@@ -335,14 +335,18 @@ public class DBCursor extends ICursor {
 					Logger.info("Setting POSTGRESQL...");
 					con.setAutoCommit(false);
 					pst = con.prepareStatement(sql, rsType,
-							ResultSet.TYPE_FORWARD_ONLY);
+							ResultSet.CONCUR_READ_ONLY);
+					//edited by bd, 2026.5.25, 防止出现“不支持并发”错误
+							//ResultSet.TYPE_FORWARD_ONLY);
 					pst.setFetchSize(1000);
 				}
 				else if (info != null && info.getDBType() == DBTypes.DBONE) {
 					Logger.info("Setting DBONE...");
 					con.setAutoCommit(false);
 					pst = con.prepareStatement(sql, rsType,
-							ResultSet.TYPE_FORWARD_ONLY);
+							ResultSet.CONCUR_READ_ONLY);
+					//edited by bd, 2026.5.25, 防止出现“不支持并发”错误
+							//ResultSet.TYPE_FORWARD_ONLY);
 					pst.setFetchSize(1000);
 				}
 				//edited by bd, 2016.12.15, 对于sqlserver，也设置fetchsize，以防其返回所有结果
