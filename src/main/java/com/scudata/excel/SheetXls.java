@@ -28,6 +28,7 @@ import org.apache.poi.xssf.usermodel.XSSFDrawing;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import com.scudata.common.CellLocation;
+import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
@@ -459,7 +460,6 @@ public class SheetXls extends SheetObject {
 			int startRow, String opt, Context ctx) throws IOException {
 		this.writeTitle = opt != null && opt.indexOf("t") != -1;
 		this.isAppend = opt != null && opt.indexOf("a") != -1;
-
 		IXlsExporter xlsExporter = new IXlsExporter() {
 
 			public void writeLine(int row, Object[] items) throws IOException {
@@ -508,6 +508,23 @@ public class SheetXls extends SheetObject {
 		if (rc != null) {
 			sheetInfo.setRowCount(Math.max(sheetInfo.getRowCount(), rc[0]));
 			sheetInfo.setColCount(Math.max(sheetInfo.getColCount(), rc[1]));
+
+			boolean autoSizeColumn = opt != null && opt.indexOf("z") != -1;
+			if (autoSizeColumn) {
+				autoSizeColumn(rc[1]);
+			}
+		}
+	}
+
+	public void autoSizeColumn(int colCount) {
+		for (int c = 0; c < colCount; c++) {
+			try {
+				if (sheet != null)
+					sheet.autoSizeColumn(c);
+			} catch (Exception ex) {
+				Logger.error("Error auto-sizing column " + (c + 1) + ": "
+						+ ex.getMessage());
+			}
 		}
 	}
 

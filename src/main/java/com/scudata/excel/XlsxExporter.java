@@ -291,7 +291,8 @@ public class XlsxExporter implements IExcelTool {
 			Object value = items[currCol];
 			if (value instanceof Date) {
 				if (value instanceof Time) {
-					cell.setCellValue(ExcelUtils.getExcelTimeDouble((Time) value));
+					cell.setCellValue(ExcelUtils
+							.getExcelTimeDouble((Time) value));
 				} else {
 					cell.setCellValue((Date) value);
 				}
@@ -578,4 +579,17 @@ public class XlsxExporter implements IExcelTool {
 			Logger.error(e);
 		}
 	}
+
+	public void autoSizeColumn(int colCount) {
+		for (int c = 0; c < colCount; c++) {
+			try {
+				if (sheet != null)
+					sheet.autoSizeColumn(c);
+			} catch (Exception ex) {
+				Logger.error("Error auto-sizing column " + (c + 1) + ": "
+						+ ex.getMessage());
+			}
+		}
+	}
+
 }

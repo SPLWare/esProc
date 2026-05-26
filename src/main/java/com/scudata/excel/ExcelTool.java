@@ -784,7 +784,13 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				ExcelTool.this.writeLine(items);
 			}
 		};
-		fileXlsExport(series, exps, names, 0, opt, ctx, xlsExporter);
+		int[] counts = fileXlsExport(series, exps, names, 0, opt, ctx,
+				xlsExporter);
+
+		boolean autoSizeColumn = opt != null && opt.indexOf("z") != -1;
+		if (autoSizeColumn) {
+			autoSizeColumn(counts[1]);
+		}
 	}
 
 	/**
@@ -812,7 +818,18 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				ExcelTool.this.writeLine(items);
 			}
 		};
-		fileXlsExport(cursor, exps, names, 0, opt, ctx, xlsExporter);
+		int[] counts = fileXlsExport(cursor, exps, names, 0, opt, ctx,
+				xlsExporter);
+
+		boolean autoSizeColumn = opt != null && opt.indexOf("z") != -1;
+		if (autoSizeColumn) {
+			autoSizeColumn(counts[1]);
+		}
+	}
+
+	public void autoSizeColumn(int colCount) {
+		if (impl != null)
+			impl.autoSizeColumn(colCount);
 	}
 
 	/**
@@ -833,7 +850,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 		boolean isW = opt != null && opt.indexOf("w") != -1;
 		boolean bTitle = opt != null && opt.indexOf("t") != -1;
 		if (isW) {
-			return fileXlsExportW(series, startRow, xlsExporter);
+			return fileXlsExportW(series, startRow, opt, xlsExporter);
 		}
 		int colCount = -1;
 		if (exps == null) {
@@ -917,6 +934,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			IXlsExporter xlsExporter) throws IOException {
 		boolean isW = opt != null && opt.indexOf("w") != -1;
 		boolean bTitle = opt != null && opt.indexOf("t") != -1;
+
 		if (isW) {
 			return fileXlsExportW(cursor, startRow, xlsExporter);
 		}
@@ -1022,7 +1040,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 *            Sequence
 	 * @throws IOException
 	 */
-	private static int[] fileXlsExportW(Sequence seq, int startRow,
+	private static int[] fileXlsExportW(Sequence seq, int startRow, String opt,
 			IXlsExporter xlsExporter) throws IOException {
 		if (seq == null || seq.length() == 0)
 			return null;

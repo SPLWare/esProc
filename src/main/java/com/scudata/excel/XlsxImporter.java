@@ -201,4 +201,7 @@ public class XlsxImporter implements IExcelTool {
 			evaluator.evaluateAll();
 		}
 	}
+	
+	public void autoSizeColumn(int colCount) {
+	}
 }

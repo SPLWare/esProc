@@ -81,4 +81,6 @@ public interface IExcelTool {
 	 * Complete the read and write operations.
 	 */
 	public void output();
+
+	public void autoSizeColumn(int colCount);
 }

@@ -309,7 +309,8 @@ public class XlsExporter implements IExcelTool {
 			Object value = items[currCol];
 			if (value instanceof Date) {
 				if (value instanceof Time) {
-					cell.setCellValue(ExcelUtils.getExcelTimeDouble((Time) value));
+					cell.setCellValue(ExcelUtils
+							.getExcelTimeDouble((Time) value));
 				} else {
 					cell.setCellValue((Date) value);
 				}
@@ -595,6 +596,18 @@ public class XlsExporter implements IExcelTool {
 
 		} catch (Exception e) { // 读不到就算了，保证导出正常，把错误信息打出来
 			Logger.error(e);
+		}
+	}
+
+	public void autoSizeColumn(int colCount) {
+		for (int c = 0; c < colCount; c++) {
+			try {
+				if (sheet != null)
+					sheet.autoSizeColumn(c);
+			} catch (Exception ex) {
+				Logger.error("Error auto-sizing column " + (c + 1) + ": "
+						+ ex.getMessage());
+			}
 		}
 	}
 }
