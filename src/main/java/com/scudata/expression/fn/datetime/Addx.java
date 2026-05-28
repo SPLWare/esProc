@@ -47,7 +47,13 @@ public class Addx extends Function {
 		Object result1 = exp1.calculate(ctx);
 		Object result2 = exp2.calculate(ctx);
 
-		if (result1 instanceof Date && result2 instanceof TimeInterval) {
+		if (result1 == null) {
+			if (result2 instanceof TimeInterval) {
+				return null;
+			} else {
+				return result2;
+			}
+		} else if (result1 instanceof Date && result2 instanceof TimeInterval) {
 			return TimeInterval.addx((Date)result1, (TimeInterval)result2);
 		} else {
 			return Variant.add(result1, result2);
