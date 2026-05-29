@@ -47,7 +47,11 @@ public class ToTime extends Function {
 				calendar.setTimeInMillis(((Number)result1).longValue());
 				calendar.set(1970, Calendar.JANUARY, 1);
 				if (option != null) {
-					if (option.indexOf('s') != -1) {
+					if (option.indexOf('h') != -1) {
+						calendar.set(Calendar.MINUTE, 0);
+						calendar.set(Calendar.SECOND, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+					} else if (option.indexOf('s') != -1) {
 						calendar.set(Calendar.MILLISECOND, 0);
 					} else if (option.indexOf('m') != -1) {
 						calendar.set(Calendar.SECOND, 0);
@@ -60,7 +64,11 @@ public class ToTime extends Function {
 				calendar.setTime((Date)result1);
 				calendar.set(1970, Calendar.JANUARY, 1);
 				if (option != null) {
-					if (option.indexOf('s') != -1) {
+					if (option.indexOf('h') != -1) {
+						calendar.set(Calendar.MINUTE, 0);
+						calendar.set(Calendar.SECOND, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+					} else if (option.indexOf('s') != -1) {
 						calendar.set(Calendar.MILLISECOND, 0);
 					} else if (option.indexOf('m') != -1) {
 						calendar.set(Calendar.SECOND, 0);
@@ -90,7 +98,11 @@ public class ToTime extends Function {
 				calendar.setTime((Date)result1);
 				calendar.set(1970, Calendar.JANUARY, 1);
 				if (option != null) {
-					if (option.indexOf('s') != -1) {
+					if (option.indexOf('h') != -1) {
+						calendar.set(Calendar.MINUTE, 0);
+						calendar.set(Calendar.SECOND, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+					} else if (option.indexOf('s') != -1) {
 						calendar.set(Calendar.MILLISECOND, 0);
 					} else if (option.indexOf('m') != -1) {
 						calendar.set(Calendar.SECOND, 0);
