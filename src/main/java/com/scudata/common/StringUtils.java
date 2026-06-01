@@ -52,6 +52,7 @@ public class StringUtils {
 
 		for (int i = 0, len = s.length(); i < len; i++) {
 			char c = s.charAt(i);
+			int d = c;
 			if (!Character.isWhitespace(c)) {
 				return false;
 			}
