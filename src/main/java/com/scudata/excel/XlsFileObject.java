@@ -73,7 +73,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 	/** Column count */
 	private final static String LABEL_COL_COUNT = "ncols";
 
-	private final static String LABEL_HIDDEN = "hidden";
+	private final static String LABEL_HIDDEN = "visible";
 
 	/**
 	 * The container for the sheets. The key is the serial number of the sheet,
