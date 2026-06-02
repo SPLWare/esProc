@@ -174,7 +174,7 @@ public class FileXlsR extends XlsFileObject {
 
 	private static Map<String, String> parseSheetVisibility(String filePath)
 			throws Exception {
-		Map<String, String> hiddenMap = new HashMap<String, String>();
+		final Map<String, String> hiddenMap = new HashMap<String, String>();
 
 		// 1. 以只读方式打开XLSX包
 		try (OPCPackage pkg = OPCPackage.open(filePath, PackageAccess.READ)) {
