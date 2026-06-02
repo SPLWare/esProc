@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.SheetVisibility;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -201,10 +202,10 @@ public class FileXls extends XlsFileObject {
 		int sheetCount = ExcelVersionCompatibleUtilGetter.getInstance()
 				.getNumberOfSheets(wb);
 		for (int i = 0; i < sheetCount; i++) {
-			SheetInfo si = getSheetInfo(wb.getSheetAt(i));
+			SheetInfo si = getSheetInfo(wb, i);
 			newLast(new Object[] { wb.getSheetName(i),
 					new Integer(si.getRowCount()),
-					new Integer(si.getColCount()) });
+					new Integer(si.getColCount()), si.getHidden() });
 		}
 	}
 
@@ -214,7 +215,8 @@ public class FileXls extends XlsFileObject {
 	 * @param sheet
 	 * @return
 	 */
-	private SheetInfo getSheetInfo(Sheet sheet) {
+	private SheetInfo getSheetInfo(Workbook wb, int index) {
+		Sheet sheet = wb.getSheetAt(index);
 		int rowCount, colCount = 0;
 		Row row;
 		rowCount = sheet.getLastRowNum() + 1;
@@ -229,6 +231,16 @@ public class FileXls extends XlsFileObject {
 		SheetInfo si = new SheetInfo(sheet.getSheetName());
 		si.setRowCount(rowCount);
 		si.setColCount(colCount);
+		SheetVisibility sv = wb.getSheetVisibility(index);
+		String hidden;
+		if (SheetVisibility.HIDDEN == sv) {
+			hidden = SheetInfo.HIDDEN;
+		} else if (SheetVisibility.VERY_HIDDEN == sv) {
+			hidden = SheetInfo.VERY_HIDDEN;
+		} else {
+			hidden = SheetInfo.VISIBLE;
+		}
+		si.setHidden(hidden);
 		return si;
 	}
 

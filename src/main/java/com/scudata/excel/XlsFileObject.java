@@ -61,6 +61,8 @@ public abstract class XlsFileObject extends Table implements IResource {
 	/** Column count */
 	public static final int COL_COL_COUNT = 2;
 
+	public static final int COL_HIDDEN = 3;
+
 	/**
 	 * Column names
 	 */
@@ -70,6 +72,8 @@ public abstract class XlsFileObject extends Table implements IResource {
 	private final static String LABEL_ROW_COUNT = "nrows";
 	/** Column count */
 	private final static String LABEL_COL_COUNT = "ncols";
+
+	private final static String LABEL_HIDDEN = "hidden";
 
 	/**
 	 * The container for the sheets. The key is the serial number of the sheet,
@@ -92,7 +96,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 	public XlsFileObject() {
 		super(
 				new String[] { LABEL_SHEET_NAME, LABEL_ROW_COUNT,
-						LABEL_COL_COUNT });
+						LABEL_COL_COUNT, LABEL_HIDDEN});
 	}
 
 	/**

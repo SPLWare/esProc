@@ -35,9 +35,9 @@ class SheetInfoHandler extends DefaultHandler {
 	/**
 	 * Processing element start
 	 */
-	public void startElement(String uri, String localName, String name,
+	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
-		if (name.equals("dimension")) {
+		if (qName.equals("dimension")) {
 			String ref = attributes.getValue("ref");
 			if (StringUtils.isValidString(ref)) {
 				int sepIndex = ref.indexOf(":");

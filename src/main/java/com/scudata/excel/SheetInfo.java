@@ -11,11 +11,20 @@ public class SheetInfo {
 	/**
 	 * Number of lines
 	 */
-	private int rowCount;
+	private int rowCount = 0;
 	/**
 	 * Number of columns
 	 */
-	private int colCount;
+	private int colCount = 0;
+
+	public static final String HIDDEN = "hidden";
+	public static final String VERY_HIDDEN = "veryHidden";
+	public static final String VISIBLE = "visible";
+
+	/**
+	 * Is sheet hidden
+	 */
+	private String hidden = VISIBLE;
 
 	/**
 	 * Constructor
@@ -86,6 +95,14 @@ public class SheetInfo {
 	 */
 	public void setColCount(int colCount) {
 		this.colCount = colCount;
+	}
+
+	public String getHidden() {
+		return hidden;
+	}
+
+	public void setHidden(String hidden) {
+		this.hidden = hidden;
 	}
 
 }

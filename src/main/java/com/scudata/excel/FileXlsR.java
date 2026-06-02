@@ -5,19 +5,23 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 
-import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import javax.xml.parsers.SAXParserFactory;
+
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
+import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.scudata.app.config.ConfigUtil;
@@ -47,8 +51,10 @@ public class FileXlsR extends XlsFileObject {
 	/**
 	 * Constructor
 	 * 
-	 * @param fo  FileObject
-	 * @param pwd Excel password
+	 * @param fo
+	 *            FileObject
+	 * @param pwd
+	 *            Excel password
 	 */
 	public FileXlsR(FileObject fo, String pwd) {
 		super();
@@ -126,13 +132,14 @@ public class FileXlsR extends XlsFileObject {
 	/**
 	 * Initialize the information of the sheets
 	 * 
-	 * @param xssfReader XSSFReader
-	 * @throws IOException
-	 * @throws OpenXML4JException
-	 * @throws SAXException
+	 * @param xssfReader
+	 *            XSSFReader
+	 * @throws Exception
 	 */
-	private void initSheetInfos(XSSFReader xssfReader, final String fileName) throws IOException,
-			OpenXML4JException, SAXException {
+	private void initSheetInfos(XSSFReader xssfReader, final String fileName)
+			throws Exception {
+		String filePath = ConfigUtil.getPath(Env.getMainPath(), fileName);
+		final Map<String, String> hiddenMap = parseSheetVisibility(filePath);
 		final Vector<String> countSet = new Vector<String>();
 		HashSet<String> nameSet = new HashSet<String>();
 		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader
@@ -150,7 +157,8 @@ public class FileXlsR extends XlsFileObject {
 			Thread t = new Thread(Thread.currentThread().getThreadGroup(),
 					new Runnable() {
 						public void run() {
-							initSheetInfo(stream, fileName, sheetName, record, countSet);
+							initSheetInfo(stream, fileName, sheetName, record,
+									countSet, hiddenMap);
 						}
 					});
 			t.start();
@@ -164,26 +172,93 @@ public class FileXlsR extends XlsFileObject {
 		}
 	}
 
+	private static Map<String, String> parseSheetVisibility(String filePath)
+			throws Exception {
+		Map<String, String> hiddenMap = new HashMap<String, String>();
+
+		// 1. 以只读方式打开XLSX包
+		try (OPCPackage pkg = OPCPackage.open(filePath, PackageAccess.READ)) {
+			XSSFReader reader = new XSSFReader(pkg);
+
+			// 2. 获取workbook.xml的输入流
+			InputStream workbookXmlStream = reader.getWorkbookData();
+
+			// 3. 使用SAX解析workbook.xml，提取sheet信息
+			XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser()
+					.getXMLReader();
+			xmlReader.setContentHandler(new DefaultHandler() {
+				private boolean isSheetElement = false;
+				private String sheetName = null;
+				private String sheetState = null;
+
+				@Override
+				public void startElement(String uri, String localName,
+						String qName, Attributes attributes) {
+					// 匹配 sheet 元素
+					if ("sheet".equals(localName) || "sheet".equals(qName)) {
+						isSheetElement = true;
+						// 获取 name 属性
+						sheetName = attributes.getValue("name");
+						// 获取 state 属性，如果不存在则默认为 "visible"
+						sheetState = attributes.getValue("state");
+						if (sheetState == null) {
+							sheetState = SheetInfo.VISIBLE;
+						}
+					}
+				}
+
+				@Override
+				public void endElement(String uri, String localName,
+						String qName) {
+					if (isSheetElement) {
+						// 一个sheet解析完成，保存信息
+						if (sheetName != null) {
+							hiddenMap.put(sheetName,
+									sheetState == null ? SheetInfo.VISIBLE
+											: sheetState);
+						}
+						isSheetElement = false;
+						sheetName = null;
+						sheetState = null;
+					}
+				}
+			});
+
+			// 开始解析
+			xmlReader.parse(new InputSource(workbookXmlStream));
+		}
+
+		return hiddenMap;
+	}
+
 	/**
 	 * Initialize the information of the sheets
 	 * 
-	 * @param sheetInputStream InputStream
-	 * @param sheetName        Sheet name
-	 * @param record           BaseRecord
-	 * @param countSet         Used to count the number of sheets loaded in
-	 *                         multi-threaded loading
+	 * @param sheetInputStream
+	 *            InputStream
+	 * @param sheetName
+	 *            Sheet name
+	 * @param record
+	 *            BaseRecord
+	 * @param countSet
+	 *            Used to count the number of sheets loaded in multi-threaded
+	 *            loading
 	 */
-	private void initSheetInfo(final InputStream sheetInputStream, String fileName,
-			String sheetName, BaseRecord record, Vector<String> countSet) {
+	private void initSheetInfo(final InputStream sheetInputStream,
+			String fileName, String sheetName, BaseRecord record,
+			Vector<String> countSet, Map<String, String> hiddenMap) {
 		SheetInfo si = new SheetInfo(sheetName);
 		try {
 			final InputSource sheetSource = new InputSource(sheetInputStream);
 			XMLReader parser = XMLReaderFactory.createXMLReader();
+			String hidden = hiddenMap.get(sheetName);
+			si.setHidden(hidden);
 			ContentHandler handler = new SheetInfoHandler(si, fileName);
 			parser.setContentHandler(handler);
 			parser.parse(sheetSource);
 			record.set(COL_ROW_COUNT, new Integer(si.getRowCount()));
 			record.set(COL_COL_COUNT, new Integer(si.getColCount()));
+			record.set(COL_HIDDEN, si.getHidden());
 		} catch (java.util.zip.ZipException e1) {
 			if (!isClosed) {
 				throw new RuntimeException(e1);
@@ -191,6 +266,7 @@ public class FileXlsR extends XlsFileObject {
 		} catch (BreakException e) {
 			record.set(COL_ROW_COUNT, new Integer(si.getRowCount()));
 			record.set(COL_COL_COUNT, new Integer(si.getColCount()));
+			record.set(COL_HIDDEN, si.getHidden());
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage(), e);
 		} finally {
@@ -222,7 +298,8 @@ public class FileXlsR extends XlsFileObject {
 	/**
 	 * Get sheet information by sheet name
 	 * 
-	 * @param name Sheet name
+	 * @param name
+	 *            Sheet name
 	 * @return
 	 */
 	private SheetInfo getSheetInfo(String name) {
@@ -237,7 +314,8 @@ public class FileXlsR extends XlsFileObject {
 	/**
 	 * Get sheet information by sheet number
 	 * 
-	 * @param sheet Start from 1
+	 * @param sheet
+	 *            Start from 1
 	 * @return
 	 */
 	private SheetInfo getSheetInfo(int index) {
@@ -245,16 +323,20 @@ public class FileXlsR extends XlsFileObject {
 		SheetInfo si = new SheetInfo((String) r.getFieldValue(COL_NAME));
 		si.setRowCount((Integer) r.getFieldValue(COL_ROW_COUNT));
 		si.setColCount((Integer) r.getFieldValue(COL_COL_COUNT));
+		si.setHidden(r.getFieldValue(COL_HIDDEN) == null ? SheetInfo.VISIBLE
+				: (String) r.getFieldValue(COL_HIDDEN));
 		return si;
 	}
 
 	/**
 	 * Get sheet object according to parameter s.
 	 * 
-	 * @param s              Sheet serial number or name
-	 * @param createSheet    Whether to create a new sheet when the sheet is not
-	 *                       found
-	 * @param deleteOldSheet Whether to delete the old sheet when getting the sheet.
+	 * @param s
+	 *            Sheet serial number or name
+	 * @param createSheet
+	 *            Whether to create a new sheet when the sheet is not found
+	 * @param deleteOldSheet
+	 *            Whether to delete the old sheet when getting the sheet.
 	 * @return
 	 */
 	public synchronized SheetObject getSheetObject(Object s,
