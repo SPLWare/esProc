@@ -74,14 +74,42 @@ public class Concat extends Gather {
 		}
 	}
 
-	private static void concat(Object obj, StringBuffer out) {
+	private void concat(Object obj, StringBuffer out) {
 		if (obj instanceof Sequence) {
 			Sequence seq = (Sequence)obj;
 			for (int i = 1, len = seq.length(); i <= len; ++i) {
 				concat(seq.getMem(i), out);
 			}
 		} else if (obj != null) {
-			out.append(obj.toString());
+			if (deleteNull && obj instanceof String && ((String)obj).length() == 0) {
+				return;
+			}
+			
+			if (sep != null && out.length() > 0) {
+				out.append(sep);
+			}
+			
+			if (addQuotes) {
+				if (obj instanceof String) {
+					out.append(Escape.addEscAndQuote((String)obj));
+				} else {
+					out.append(obj.toString());
+				}
+			} else if (addSingleQuotes) {
+				if (obj instanceof String) {
+					out.append('\'');
+					out.append((String)obj);
+					out.append('\'');
+				} else {
+					out.append(obj.toString());
+				}				
+			} else {
+				out.append(obj.toString());
+			}
+		} else {
+			if (out.length() > 0 && !deleteNull && sep != null) {
+				out.append(sep);
+			}
 		}
 	}
 	
@@ -142,6 +170,13 @@ public class Concat extends Gather {
 	}
 	
 	public Object calculate(Context ctx) {
+		if (option != null) {
+			if (option.indexOf('c') != -1) sep = ",";
+			if (option.indexOf('q') != -1) addQuotes = true;
+			if (option.indexOf('i') != -1) addSingleQuotes = true;
+			if (option.indexOf('0') != -1) deleteNull = true;
+		}
+		
 		StringBuffer sb = new StringBuffer();
 		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
