@@ -159,6 +159,12 @@
 	</FUNCTION>
 	<FUNCTION name="DATE" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="date(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="TO_DATE(?1,?2)"/>
+	  <INFO dbtype="HSQL" value="TO_DATE(?1,?2)"/>
+	  <INFO dbtype="DUCKDB" value="CAST(strptime(?1,?2) AS DATE)"/>
+	  <INFO dbtype="MYSQL" value="DATE_FORMAT(?1,?2)"/>
+	  <INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
+	  <INFO dbtype="BIGQUERY" value="PARSE_DATE(?2,?1)"/>
 	</FUNCTION>
     <FUNCTION name="DATE" paramcount="1" value="TO_DATE(?,'YYYY-MM-DD')">
       <INFO dbtype="ORACLE" value=""/>
@@ -174,15 +180,21 @@
 	  <INFO dbtype="BIGQUERY" value="DATE(?)"/>
 	  <INFO dbtype="DUCKDB" value="DATE(?)"/>
     </FUNCTION>
-	<FUNCTION name="DATETOCHAR" paramcount="2" value="string(?1,?2)">
+	<FUNCTION name="DATETOCHAR" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="string(?1,?2)"/>
 	  <INFO dbtype="ESPROC_SQL" value="DATETOCHAR(?1,?2)"/>
+	  <INFO dbtype="HSQL" value="TO_CHAR(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="TO_CHAR(?1,?2)"/>
+	  <INFO dbtype="DUCKDB" value="strftime(?1,?2)"/>
+	  <INFO dbtype="MYSQL" value="DATE_FORMAT(?1,?2)"/>
+	  <INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
+	  <INFO dbtype="BIGQUERY" value="FORMAT_DATE(?2,?1)"/>
 	</FUNCTION>
     <FUNCTION name="DATETOCHAR" paramcount="1" value="TO_CHAR(?,'YYYY-MM-DD HH:MI:SS')">
       <INFO dbtype="ORACLE" value=""/>
       <INFO dbtype="SQLSVR" value="CONVERT(CHAR,?,120)"/>
       <INFO dbtype="DB2" value="TO_CHAR(?,'YYYY-MM-DD HH:MI:SS')"/>
-      <INFO dbtype="MYSQL" value="DATE_FORMAT(?,  '%Y-%m-%d %H:%i:%S)"/>
+      <INFO dbtype="MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d %H:%i:%S)"/>
       <INFO dbtype="HSQL" value=""/>
       <INFO dbtype="TERADATA" value=""/>
       <INFO dbtype="POSTGRES" value=""/>
@@ -497,6 +509,12 @@
 	</FUNCTION>			
 	<FUNCTION name="TIMESTAMP" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="datetime(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="TO_TIMESTAMP(?1,?2)"/>	
+	  <INFO dbtype="HSQL" value="TO_TIMESTAMP(?1,?2)"/>
+	  <INFO dbtype="DUCKDB" value="STRPTIME(?1,?2)"/>
+	  <INFO dbtype="MYSQL" value="STR_TO_DATE(?1,?2)"/>
+	  <INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
+	  <INFO dbtype="BIGQUERY" value="PARSE_TIMESTAMP(?2,?1)"/>
 	</FUNCTION>
     <FUNCTION name="TIMESTAMP" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="TO_DATE(?,'YYYY-MM-DD HH24:MI:SS')"/>
@@ -719,6 +737,23 @@
 		<INFO dbtype="BIGQUERY" value="DATETIME_TRUNC(?1,SECOND)"/>
 		<INFO dbtype="DUCKDB" value="date_trunc('second',?1)"/>
       </FUNCTION>
+	  <FUNCTION name="STRING" paramcount="1" value="">
+        <INFO dbtype="ORACLE" value="TO_CHAR(?1)"/>
+		<INFO dbtype="HSQL" value="CAST(?1 AS VARCHAR(100))"/>
+		<INFO dbtype="ESPROC" value="string(?1)"/>
+		<INFO dbtype="DUCKDB" value="CAST(?1 AS VARCHAR)"/>
+		<INFO dbtype="MYSQL" value="CAST(? AS CHAR)"/>
+		<INFO dbtype="POSTGRES" value="CAST(? AS TEXT)"/>
+		<INFO dbtype="BIGQUERY" value="CAST(? AS STRING)"/>
+		</FUNCTION>
+	  <FUNCTION name="STRING" paramcount="2" value="">
+        <INFO dbtype="ORACLE" value="TO_CHAR(?1,?2)"/>
+		<INFO dbtype="HSQL" value="TO_CHAR(?1,?2)"/>
+		<INFO dbtype="ESPROC" value="string(?1,?2)"/>
+		<INFO dbtype="MYSQL" value="CAST(?1 AS ?2)"/>
+		<INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
+		<INFO dbtype="BIGQUERY" value="CAST(?1 AS ?2)"/>
+	  </FUNCTION>
   </FUNCTIONS>
   <FUNCTIONS type="AnyParam">
     <FUNCTION name="coalesce">
