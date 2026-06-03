@@ -58,6 +58,8 @@ public class DBTypes {
 	public static final int DUCKDB = 24;
 
 	public static final int BIGQUERY = 25;
+	
+	public static final int SNOWFLAKE = 26;
 
 	public static final int ESSBASE = 101;
 
@@ -68,7 +70,7 @@ public class DBTypes {
 		return new int[] { ORACLE, SQLSVR, SYBASE, SQLANY, INFMIX, FOXPRO,
 				ACCESS, FOXBAS, DB2, MYSQL, KINGBASE, DERBY, HSQL, TERADATA,
 				POSTGRES, DATALOGIC, IMPALA, HIVE, GREENPLUM, DBONE, ESPROC,
-				DAMENG, ESPROC_SQL, DUCKDB, BIGQUERY, ESSBASE };
+				DAMENG, ESPROC_SQL, DUCKDB, BIGQUERY, SNOWFLAKE, ESSBASE };
 	}
 
 	/**
@@ -79,7 +81,7 @@ public class DBTypes {
 				"FOXPRO", "ACCESS", "FOXBAS", "DB2", "MYSQL", "KINGBASE",
 				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA",
 				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DAMENG", "ESPROC_SQL",
-				"DUCKDB", "BIGQUERY" };
+				"DUCKDB", "SNOWFLAKE", "BIGQUERY" };
 
 	}
 
@@ -99,7 +101,7 @@ public class DBTypes {
 				"FOXPRO", "ACCESS", "FOXBAS", "DB2", "MYSQL", "KINGBASE",
 				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA",
 				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DAMENG", "ESPROC_SQL",
-				"DUCKDB", "BIGQUERY", "ESSBASE" };
+				"DUCKDB", "BIGQUERY", "SNOWFLAKE", "ESSBASE" };
 
 	}
 
