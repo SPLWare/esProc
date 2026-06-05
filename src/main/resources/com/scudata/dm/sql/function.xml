@@ -502,6 +502,7 @@
 	<FUNCTION name="TIME" paramcount="1" value="">
 	  <INFO dbtype="MYSQL" value="TIME(?)"/>
 	  <INFO dbtype="HSQL" value="CAST(?1 AS TIME)"/>
+	  <INFO dbtype="ORACLE" value="TO_CHAR(TO_DATE(?1,'HH24:MI:SS'),'HH24:MI:SS')"/>
       <INFO dbtype="ESPROC" value="time(?1,&quot;HH:mm:ss&quot;)"/>
 	  <INFO dbtype="POSTGRES" value="CAST(?1 AS TIME)"/>
 	  <INFO dbtype="BIGQUERY" value="CAST(?1 AS TIME)"/>
@@ -602,6 +603,7 @@
       <INFO dbtype="ESPROC" value="isdigit(?1)"/>
 	  <INFO dbtype="MYSQL" value="?1 REGEXP '^[0-9]+$'"/>
 	  <INFO dbtype="HSQL" value="regexp_matches(?1,'^[0-9]+$')"/>
+	  <INFO dbtype="ORACLE" value="CASE  WHEN REGEXP_LIKE(?1, '^[0-9]+$') THEN 'TRUE' ELSE 'FALSE'  END"/>
 	  <INFO dbtype="DUCKDB" value="regexp_matches(?1,'^[0-9]+$')"/>
 	  <INFO dbtype="BIGQUERY" value="REGEXP_CONTAINS(?1, r'^[0-9]')"/>
 	  <INFO dbtype="POSTGRES" value="?1 ~ &#39;^[+-]{0,1}[0-9]+(\.[0-9]+){0,1}$&#39;"/>
@@ -610,28 +612,29 @@
       <INFO dbtype="ESPROC" value="isalpha(?1)"/>
 	  <INFO dbtype="MYSQL" value="?1 REGEXP '^[a-zA-Z]+$'"/>
 	  <INFO dbtype="HSQL" value="regexp_matches(?1,'^[A-Za-z]+$')"/>
+	  <INFO dbtype="ORACLE" value="CASE  WHEN REGEXP_LIKE(?1, '^[A-Za-z]+$') THEN 'TRUE' ELSE 'FALSE'  END"/>
 	  <INFO dbtype="DUCKDB" value="regexp_matches(?1,'^[A-Za-z]+$')"/>
 	  <INFO dbtype="BIGQUERY" value="REGEXP_CONTAINS(?1, r'^[A-Za-z]+$')"/>
 	  <INFO dbtype="POSTGRES" value="?1 ~ '^[[:alpha:]]+$'"/>
 	</FUNCTION>
 	<FUNCTION name="getsubs" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="substr(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="CASE  WHEN INSTR(?1,?2) > 0 THEN  SUBSTR(?1,INSTR(?1,?2) + LENGTH(?2))  ELSE  NULL  END"/>
 	  <INFO dbtype="MYSQL" value="IF(LOCATE(?2, ?1) > 0, SUBSTRING(?1, LOCATE(?2, ?1) + LENGTH(?2)), NULL)"/>
-	  <INFO dbtype="HSQL" value="CASE WHEN LOCATE(?2, ?1)>0  THEN SUBSTRING(?1 FROM LOCATE(?2, ?1) + CHAR_LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="DUCKDB" value="substr(?1, position(?2 IN ?1) + length(?2))"/>
 	  <INFO dbtype="BIGQUERY" value="CASE WHEN STRPOS(?1,?2) &gt; 0 THEN SUBSTR(?1,STRPOS(?1,?2)+LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN STRPOS(?1,?2) &gt; 0 THEN SUBSTR(?1,STRPOS(?1,?2)+LENGTH(?2)) ELSE NULL END"/>
 	</FUNCTION>
 	<FUNCTION name="getsubs" paramcount="3" value="">
       <INFO dbtype="ESPROC" value="substr(?1,?2,?3)"/>
+	  <INFO dbtype="ORACLE" value="CASE  WHEN INSTR(?1,?2,1,?3) > 0 THEN   SUBSTR(?1,INSTR(?1,?2,1,?3) + LENGTH(?2))  ELSE    NULL END"/>
 	  <INFO dbtype="MYSQL" value="IF(SUBSTRING_INDEX(?1, ?2, ?3) > 0,SUBSTRING(?1,LENGTH(SUBSTRING_INDEX(?1, ?2, ?3)) + LENGTH(?2) + 1),NULL)"/>
-	  <INFO dbtype="HSQL" value="CASE WHEN LOCATE(?2,?1,?3) > 0  THEN SUBSTR(?1,LOCATE(?2,?1,?3) +LENGTH(?2)) ELSE NULL  END"/>
-	  <INFO dbtype="DUCKDB" value="CASE WHEN position(?2 IN substr(?1,?3)) &gt; 0  THEN substr(?1,?3 + position(?2 IN substr(?1,?3)) - 1 + length(?2) )  ELSE NULL  END"/>
 	  <INFO dbtype="BIGQUERY" value="CASE WHEN INSTR(?1,?2,INSTR(?1,?2)+?3-1) &gt; 0 THEN SUBSTR(?1,INSTR(?1,?2,INSTR(?1,?2)+?3-1)+LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN regexp_instr(?1,?2,1,?3) &gt; 0 THEN substring(?1,regexp_instr(?1,?2,1,?3) + length(?2)) ELSE NULL END"/>
     </FUNCTION>
 	<FUNCTION name="ipos" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="pos@c(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="INSTR(UPPER(?1),UPPER(?2))"/>
 	  <INFO dbtype="MYSQL" value="INSTR(?1,?2)"/>
 	  <INFO dbtype="HSQL" value="CASE WHEN LOCATE(UPPER(?2),UPPER(?1)) > 0  THEN LOCATE(UPPER(?2),UPPER(?1)) ELSE NULL END"/>
 	  <INFO dbtype="DUCKDB" value="strpos(lower(?1),lower(?2));"/>
@@ -640,6 +643,7 @@
 	</FUNCTION>
 	<FUNCTION name="ipos" paramcount="3" value="">
       <INFO dbtype="ESPROC" value="pos@c(?1,?2,?3)"/>
+	  <INFO dbtype="ORACLE" value="INSTR(UPPER(?1),UPPER(?2),1,?3)"/>
 	  <INFO dbtype="MYSQL" value="IF(INSTR(SUBSTRING(?1,?3),?2) > 0, INSTR(SUBSTRING(?1,?3),?2)+?3-1,null)"/>
 	  <INFO dbtype="HSQL" value="CASE  WHEN LOCATE(UPPER(?2),UPPER(?1),?3) > 0 THEN LOCATE(UPPER(?2),UPPER(?1), ?3) ELSE NULL END"/>
 	  <INFO dbtype="DUCKDB" value="CASE  WHEN position(lower(?2) IN lower(substr(?1,?3))) &gt; 0  THEN position(lower(?2) IN lower(substr(?1,?3))) + (?3-1)  ELSE 0 END"/>
@@ -648,6 +652,7 @@
 	</FUNCTION>
 	<FUNCTION name="igetsubs" paramcount="2" value="">
        <INFO dbtype="ESPROC" value="substr@c(?1,?2)"/>
+	   <INFO dbtype="ORACLE" value="CASE  WHEN INSTR(UPPER(?1),UPPER(?2)) > 0 THEN   SUBSTR(?1,INSTR(UPPER(?1),UPPER(?2)) + LENGTH(?2))  ELSE  NULL END"/>
 	   <INFO dbtype="MYSQL" value="CASE WHEN LOCATE(?2,?1) > 0 THEN SUBSTRING(?1, LOCATE(?2, ?1) + CHAR_LENGTH(?2)) ELSE NULL END"/>
 	   <INFO dbtype="HSQL" value="CASE   WHEN LOCATE(UPPER(?2),UPPER(?1)) > 0 THEN SUBSTR(?1,LOCATE(UPPER(?2),UPPER(?1)) + LENGTH(?2) )  ELSE NULL END"/>
 	   <INFO dbtype="DUCKDB" value="CASE  WHEN position(lower(?2) IN lower(?1)) &gt; 0  THEN substr(?1,position(lower(?2) IN lower(?1)) + length(?2))  ELSE NULL END "/>
@@ -656,10 +661,10 @@
 	</FUNCTION>
 	<FUNCTION name="igetsubs" paramcount="3" value="">
        <INFO dbtype="ESPROC" value="substr@c(?1,?2,?3)"/>
+	   <INFO dbtype="ORACLE" value="CASE  WHEN INSTR(UPPER(?1),UPPER(?2),1,NVL(?3,1)) > 0 THEN  SUBSTR(?1,INSTR(UPPER(?1),UPPER(?2),1,NVL(?3,1)) + LENGTH(?2))  ELSE  NULL END"/>
 	   <INFO dbtype="MYSQL" value="CASE WHEN REGEXP_INSTR(?1,?2,1,?3,0,'i') > 0 THEN SUBSTRING(?1,REGEXP_INSTR(?1,?2,1,?3,1,'i')) ELSE NULL END"/>
 	   <INFO dbtype="HSQL" value="CASE  WHEN LOCATE(UPPER(?2),UPPER(?1),?3) > 0  THEN SUBSTR(?1,LOCATE(UPPER(?2),UPPER(?1),?3) + LENGTH(?2))  ELSE NULL END"/>
-	   <INFO dbtype="DUCKDB" value="CASE  WHEN position(lower(?2) IN lower(substr(?1,?3))) &gt; 0  THEN substr(?1,?3 + position(lower(?2) IN lower(substr(?1,?3))) - 1 + length(?2))  ELSE NULL END"/>
-	    <INFO dbtype="BIGQUERY" value="CASE WHEN REGEXP_INSTR(LOWER(?1),LOWER(?2),1,?3) &gt; 0 THEN SUBSTR(?1,REGEXP_INSTR(LOWER(?1),LOWER(?2),1,?3)+ LENGTH(?2)) ELSE NULL END"/>
+	   <INFO dbtype="BIGQUERY" value="CASE WHEN REGEXP_INSTR(LOWER(?1),LOWER(?2),1,?3) &gt; 0 THEN SUBSTR(?1,REGEXP_INSTR(LOWER(?1),LOWER(?2),1,?3)+ LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN regexp_instr(lower(?1), lower(?2),1,?3) &gt; 0 THEN substring(?1 FROM regexp_instr(lower(?1), lower(?2),1,?3) + length(?2)) ELSE NULL END"/>
 	</FUNCTION>
 
@@ -753,6 +758,10 @@
 		<INFO dbtype="MYSQL" value="CAST(?1 AS ?2)"/>
 		<INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="BIGQUERY" value="CAST(?1 AS ?2)"/>
+	  </FUNCTION>
+	  	  <FUNCTION name="STRING" paramcount="3" value="">
+        <INFO dbtype="ORACLE" value="TO_CHAR(?1,?2,'NLS_DATE_LANGUAGE='||?3)"/>
+		<INFO dbtype="ESPROC" value="string(?1,?2:?3)"/>
 	  </FUNCTION>
   </FUNCTIONS>
   <FUNCTIONS type="AnyParam">
