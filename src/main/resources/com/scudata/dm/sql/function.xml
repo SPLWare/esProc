@@ -129,12 +129,20 @@
     </FUNCTION>
     <FUNCTION name="CEIL" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="CEILING(?)"/>
+	  <INFO dbtype="ORACLE" value="CEIL(?)"/>
       <INFO dbtype="POSTGRES" value="CEIL(?)"/>
       <INFO dbtype="ESPROC" value="long(ceil(?1))"/>
 	  <INFO dbtype="DUCKDB" value="CEIL(?)"/>
     </FUNCTION>
+	<FUNCTION name="CEIL" paramcount="2" value="">
+      <INFO dbtype="ESPROC" value="ceil@s(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="(CEIL(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
+	  <INFO dbtype="MYSQL" value="(CEILING(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
+	  <INFO dbtype="POSTGRES" value="(CEIL(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
+    </FUNCTION>
     <FUNCTION name="CHR" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="CHAR(?)"/>
+	  <INFO dbtype="ORACLE" value="NCHR(?1)"/>
       <INFO dbtype="MYSQL" value="CHAR(?)"/>
       <INFO dbtype="HSQL" value="CHAR(?)"/>
       <INFO dbtype="ESPROC" value="char(?1)"/>
@@ -225,7 +233,7 @@
 	  <INFO dbtype="DUCKDB" value="DAYOFYEAR(?1)"/>
     </FUNCTION>
 	 <FUNCTION name="DAYOFWEEK" paramcount="1" value="">
-	  <INFO dbtype="ORACLE" value="TO_CHAR(?, &quot;D&quot;)"/>
+	  <INFO dbtype="ORACLE" value="MOD(TRUNC(CAST( ?1  AS DATE))- DATE '1900-01-07',7) + 1"/>
       <INFO dbtype="SQLSVR" value="DATEPART(WEEKDAY, ?)"/>
       <INFO dbtype="DB2" value="DAYOFWEEK(?1)"/>
       <INFO dbtype="MYSQL" value="DAYOFWEEK(?1)"/>
@@ -261,7 +269,15 @@
 	</FUNCTION>
 	<FUNCTION name="FLOOR" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="long(floor(?1))"/>
+	  <INFO dbtype="ORACLE" value="floor(?1)"/>
 	  <INFO dbtype="DUCKDB" value="floor(?1)"/>
+	  <INFO dbtype="POSTGRES" value="floor(?1)"/>
+	</FUNCTION>
+	<FUNCTION name="FLOOR" paramcount="2" value="">
+      <INFO dbtype="ESPROC" value="floor@s(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="(FLOOR(?1*POWER(10,?2))/POWER(10,?2))"/>
+	  <INFO dbtype="MYSQL" value="TRUNCATE(?1,?2)"/>
+	  <INFO dbtype="POSTGRES" value="TRUNC(?1,?2)"/>
 	</FUNCTION>
     <FUNCTION name="HOUR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(HOUR FROM ?)"/>
@@ -440,7 +456,7 @@
       <INFO dbtype="ORACLE" value="DBMS_RANDOM.VALUE(0, ?)"/>
       <INFO dbtype="TERADATA" value="RANDOM(0,?)"/>
       <INFO dbtype="POSTGRES" value="RANDOM()"/>
-      <INFO dbtype="ESPROC" value="rand@s(?1),rand()"/>
+      <INFO dbtype="ESPROC" value="(rand@s(?1),rand())"/>
 	  <INFO dbtype="DUCKDB" value="RANDOM()* ?1"/>
     </FUNCTION>
     <FUNCTION name="REPLACE" paramcount="3" value="">
@@ -518,7 +534,7 @@
 	  <INFO dbtype="BIGQUERY" value="PARSE_TIMESTAMP(?2,?1)"/>
 	</FUNCTION>
     <FUNCTION name="TIMESTAMP" paramcount="1" value="">
-      <INFO dbtype="ORACLE" value="TO_DATE(?,'YYYY-MM-DD HH24:MI:SS')"/>
+      <INFO dbtype="ORACLE" value="TO_TIMESTAMP(?,'YYYY-MM-DD HH24:MI:SS')"/>
       <INFO dbtype="SQLSVR" value="CONVERT(DATETIME,?,120)"/>
       <INFO dbtype="DB2" value="TO_DATE(?,'YYYY-MM-DD HH24:MI:SS')"/>
       <INFO dbtype="TERADATA" value="TO_TIMESTAMP(?,'YYYY-MM-DD HH24:MI:SS')"/>
@@ -603,7 +619,7 @@
       <INFO dbtype="ESPROC" value="isdigit(?1)"/>
 	  <INFO dbtype="MYSQL" value="?1 REGEXP '^[0-9]+$'"/>
 	  <INFO dbtype="HSQL" value="regexp_matches(?1,'^[0-9]+$')"/>
-	  <INFO dbtype="ORACLE" value="CASE  WHEN REGEXP_LIKE(?1, '^[0-9]+$') THEN 'TRUE' ELSE 'FALSE'  END"/>
+	  <INFO dbtype="ORACLE" value="REGEXP_LIKE(?1, '^[0-9]+$')"/>
 	  <INFO dbtype="DUCKDB" value="regexp_matches(?1,'^[0-9]+$')"/>
 	  <INFO dbtype="BIGQUERY" value="REGEXP_CONTAINS(?1, r'^[0-9]')"/>
 	  <INFO dbtype="POSTGRES" value="?1 ~ &#39;^[+-]{0,1}[0-9]+(\.[0-9]+){0,1}$&#39;"/>
@@ -612,7 +628,7 @@
       <INFO dbtype="ESPROC" value="isalpha(?1)"/>
 	  <INFO dbtype="MYSQL" value="?1 REGEXP '^[a-zA-Z]+$'"/>
 	  <INFO dbtype="HSQL" value="regexp_matches(?1,'^[A-Za-z]+$')"/>
-	  <INFO dbtype="ORACLE" value="CASE  WHEN REGEXP_LIKE(?1, '^[A-Za-z]+$') THEN 'TRUE' ELSE 'FALSE'  END"/>
+	  <INFO dbtype="ORACLE" value="REGEXP_LIKE(?1, '^[A-Za-z]+$')"/>
 	  <INFO dbtype="DUCKDB" value="regexp_matches(?1,'^[A-Za-z]+$')"/>
 	  <INFO dbtype="BIGQUERY" value="REGEXP_CONTAINS(?1, r'^[A-Za-z]+$')"/>
 	  <INFO dbtype="POSTGRES" value="?1 ~ '^[[:alpha:]]+$'"/>
@@ -670,77 +686,84 @@
 
     <FUNCTION name="YEARSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="FLOOR(MONTHS_BETWEEN(?2,?1)/12)"/>
-      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(YEAR,?2,?1)"/>
+      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(YEAR,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('yy',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval@y(?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,YEAR)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('YEAR',?1,?2)"/>
-
+	  <INFO dbtype="POSTGRES" value="EXTRACT(YEAR FROM AGE(?2,?1))"/>
     </FUNCTION>
     <FUNCTION name="MONTHSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="MONTHS_BETWEEN(?2,?1)"/>
-      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(MONTH,?2,?1)"/>
+      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(MONTH,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('mm',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval@m(?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,MONTH)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('MONTH',?1,?2)"/>
-
+	  <INFO dbtype="POSTGRES" value="EXTRACT(YEAR FROM age(?2, ?1)) * 12 + EXTRACT(MONTH FROM age(?2, ?1))"/>
     </FUNCTION>
     <FUNCTION name="DAYSDIFF" paramcount="2" value="">
-      <INFO dbtype="ORACLE" value="?2-?1"/>
-      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(DAY,?2,?1)"/>
+      <INFO dbtype="ORACLE" value="ceil(CAST(?2 AS DATE) - CAST(?1 AS DATE))"/>
+      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(DAY,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('dd',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval(?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,DAY)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('DAY',?1,?2)"/>
+	  <INFO dbtype="POSTGRES" value="(?2-?1)"/>
     </FUNCTION>
     <FUNCTION name="HOURSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(?2-?1)*24"/>
-      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(HOUR,?2,?1)"/>
+      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(HOUR,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('hh',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval@s(?2,?1)\3600"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,HOUR)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('HOUR',?1,?2)"/>
+	  <INFO dbtype="POSTGRES" value="floor(EXTRACT(EPOCH FROM (?2 - ?1)) / 3600)"/>
     </FUNCTION>
     <FUNCTION name="MINUTESDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(?2-?1)*24*60"/>
-      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(MINUTE,?2,?1)"/>
+      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(MINUTE,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('mi',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval@s(?2,?1)\60"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,MINUTE)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('MINUTE',?1,?2)"/>
+	  <INFO dbtype="POSTGRES" value="floor(EXTRACT(EPOCH FROM (?2 - ?1)) / 60)"/>
     </FUNCTION>
     <FUNCTION name="SECONDSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(?2-?1)*24*60*60"/>
-      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(SECOND,?2,?1)"/>
+      <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(SECOND,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('ss',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval@s(?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,SECOND)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('SECOND',?1,?2)"/>
+	  <INFO dbtype="POSTGRES" value="floor(EXTRACT(EPOCH FROM (?2 - ?1)))"/>
     </FUNCTION>
       <FUNCTION name="TRUNCHOUR" paramcount="1" value="">
-        <INFO dbtype="ORACLE" value="TRUNC(?1,'HH24')"/>
+        <INFO dbtype="ORACLE" value="TO_CHAR(TRUNC(?1,'HH24'),'YYYY-MM-DD HH24:MI:SS')"/>
 		<INFO dbtype="MYSQL" value="DATE_FORMAT(?1,'%Y-%m-%d %H:00:00')"/>
 		<INFO dbtype="HSQL" value="TRUNC(?1,'HH')"/>
 		<INFO dbtype="ESPROC" value="datetime@h(?1)"/>
 		<INFO dbtype="BIGQUERY" value="DATETIME_TRUNC(?1,HOUR)"/>
 		<INFO dbtype="DUCKDB" value="date_trunc('hour',?1)"/>
+		<INFO dbtype="POSTGRES" value="date_trunc('hour',?1)"/>
       </FUNCTION>
       <FUNCTION name="TRUNCMINUTE" paramcount="1" value="">
-        <INFO dbtype="ORACLE" value="TRUNC(?1,'MI')"/>
+        <INFO dbtype="ORACLE" value="TO_CHAR(TRUNC(?1,'MI'),'YYYY-MM-DD HH24:MI:SS')"/>
 		<INFO dbtype="MYSQL" value="DATE_FORMAT(?1,'%Y-%m-%d %H:%i:00')"/>
 		<INFO dbtype="HSQL" value="TRUNC(?1,'MI')"/>
 		<INFO dbtype="ESPROC" value="datetime@m(?1)"/>
 		<INFO dbtype="BIGQUERY" value="DATETIME_TRUNC(?1,MINUTE)"/>
 		<INFO dbtype="DUCKDB" value="date_trunc('minute',?1)"/>
+		<INFO dbtype="POSTGRES" value="date_trunc('minute', ?1)"/>
       </FUNCTION>
       <FUNCTION name="TRUNCSECOND" paramcount="1" value="">
-        <INFO dbtype="ORACLE" value="CAST(?1 AS DATE)"/>
+        <INFO dbtype="ORACLE" value="TO_CHAR(CAST(?1 AS DATE),'YYYY-MM-DD HH24:MI:SS')"/>
 		<INFO dbtype="MYSQL" value="CAST(?1 AS DATETIME)"/>
 		<INFO dbtype="HSQL" value="CAST(?1 AS TIMESTAMP(0))"/>
 		<INFO dbtype="ESPROC" value="datetime@s(?1)"/>
 		<INFO dbtype="BIGQUERY" value="DATETIME_TRUNC(?1,SECOND)"/>
 		<INFO dbtype="DUCKDB" value="date_trunc('second',?1)"/>
+		<INFO dbtype="POSTGRES" value="date_trunc('second', ?1)"/>
       </FUNCTION>
 	  <FUNCTION name="STRING" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(?1)"/>
@@ -759,10 +782,19 @@
 		<INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="BIGQUERY" value="CAST(?1 AS ?2)"/>
 	  </FUNCTION>
-	  	  <FUNCTION name="STRING" paramcount="3" value="">
+	 <FUNCTION name="STRING" paramcount="3" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(?1,?2,'NLS_DATE_LANGUAGE='||?3)"/>
 		<INFO dbtype="ESPROC" value="string(?1,?2:?3)"/>
 	  </FUNCTION>
+	 <FUNCTION name="PI" paramcount="0" value="">
+        <INFO dbtype="ORACLE" value="ACOS(-1)"/>
+		<INFO dbtype="ESPROC" value="pi()"/>
+	  </FUNCTION>
+	 <FUNCTION name="CHN" paramcount="1" value="">
+        <INFO dbtype="ORACLE" value="N/A"/>
+		<INFO dbtype="ESPROC" value="chn(?1)"/>
+	  </FUNCTION>	  
+  
   </FUNCTIONS>
   <FUNCTIONS type="AnyParam">
     <FUNCTION name="coalesce">
@@ -780,6 +812,12 @@
 		<INFO dbtype="HSQL" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
 		<INFO dbtype="BIGQUERY" script=' ?.(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;) '/>
 		<INFO dbtype="DUCKDB" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
+	</FUNCTION>
+	<FUNCTION  name="concat_ws">
+    	<INFO dbtype="ESPROC" script=' mid(?.concat(?(1)),len(?(1))+2 ) '/>
+		<INFO dbtype="POSTGRES" script=' "concat_ws("+?.concat@c() +")"'/>
+		<INFO dbtype="MYSQL" script=' "concat_ws("+?.concat@c() +")"'/>
+		<INFO dbtype="ORACLE" script=' ?(to(2,?.len())).(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;+?(1)+&quot;||&quot;)'/>
 	</FUNCTION>
 	 <FUNCTION name="itx">
     	<INFO dbtype="ESPROC" script='"itx(" + ?.concat@c() +")"'/>
