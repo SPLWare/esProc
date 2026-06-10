@@ -294,7 +294,7 @@ public class SheetXls extends SheetObject {
 			 * Even if you can't read it, ensure that the export is normal and
 			 * type out the error message.
 			 */
-			e.printStackTrace();
+			Logger.error(e);
 			return 0;
 		}
 	}
@@ -734,6 +734,8 @@ public class SheetXls extends SheetObject {
 	 */
 	public void setCells(CellLocation pos1, CellLocation pos2, Object content,
 			boolean isRowInsert, boolean isGraph) {
+		if (content == null)
+			return;
 		int startRow = pos1.getRow() - 1;
 		int startCol = pos1.getCol() - 1;
 		if (isGraph) {

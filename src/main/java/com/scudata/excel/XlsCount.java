@@ -113,23 +113,23 @@ public class XlsCount {
 				in = fo.getInputStream();
 				Object[] titles;
 				if (isXlsx) {
-					XlsxSImporter importer = new XlsxSImporter(fo, null,
-							titleRow, titleRow, s, "t", pwd);
-					titles = importer.readLine();
+					XlsxSImporter importer = null;
 					try {
+						importer = new XlsxSImporter(fo, null, titleRow,
+								titleRow, s, "t", pwd);
+						titles = importer.readLine();
+					} finally {
 						importer.close();
-					} catch (Exception ex) {
-						ex.printStackTrace();
 					}
 				} else {
 					XlsImporter importer = new XlsImporter(in, pwd);
 					if (s instanceof Number) {
 						int sheetIndex = ((Number) s).intValue() - 1;
-						((XlsImporter) importer).setSheet(sheetIndex);
+						importer.setSheet(sheetIndex);
 					} else if (s instanceof String) {
-						((XlsImporter) importer).setSheet((String) s);
+						importer.setSheet((String) s);
 					}
-					((XlsImporter) importer).setStartRow(titleRow);
+					importer.setStartRow(titleRow);
 					titles = importer.readLine();
 				}
 				if (getCount) {
@@ -225,8 +225,7 @@ public class XlsCount {
 			XSSFReader reader = new XSSFReader(pkg);
 			// Get the sheet list from the workbook
 			workbook = reader.getWorkbookData();
-			XMLReader wbParser = XMLReaderFactory
-					.createXMLReader("org.apache.xerces.parsers.SAXParser");
+			XMLReader wbParser = XMLReaderFactory.createXMLReader();
 			WorkbookHandler wbHandler = new WorkbookHandler();
 			wbParser.setContentHandler(wbHandler);
 			InputSource wbSource = new InputSource(workbook);

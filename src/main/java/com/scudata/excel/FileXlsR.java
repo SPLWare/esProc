@@ -25,6 +25,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.scudata.app.config.ConfigUtil;
+import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
@@ -100,7 +101,7 @@ public class FileXlsR extends XlsFileObject {
 			xssfReader = new XSSFReader(xlsxPackage);
 			initSheetInfos(xssfReader, fo.getFileName());
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RQException(e);
 		} finally {
 			if (pfs != null) {
 				try {
@@ -177,7 +178,9 @@ public class FileXlsR extends XlsFileObject {
 		final Map<String, String> hiddenMap = new HashMap<String, String>();
 
 		// 1. 以只读方式打开XLSX包
-		try (OPCPackage pkg = OPCPackage.open(filePath, PackageAccess.READ)) {
+		OPCPackage pkg = null;
+		try {
+			pkg = OPCPackage.open(filePath, PackageAccess.READ);
 			XSSFReader reader = new XSSFReader(pkg);
 
 			// 2. 获取workbook.xml的输入流
@@ -226,6 +229,10 @@ public class FileXlsR extends XlsFileObject {
 
 			// 开始解析
 			xmlReader.parse(new InputSource(workbookXmlStream));
+		} finally {
+			if (pkg != null) {
+				pkg.close();
+			}
 		}
 
 		return hiddenMap;
@@ -261,7 +268,7 @@ public class FileXlsR extends XlsFileObject {
 			record.set(COL_HIDDEN, si.getHidden());
 		} catch (java.util.zip.ZipException e1) {
 			if (!isClosed) {
-				throw new RuntimeException(e1);
+				throw new RQException(e1);
 			}
 		} catch (BreakException e) {
 			record.set(COL_ROW_COUNT, new Integer(si.getRowCount()));
@@ -382,7 +389,7 @@ public class FileXlsR extends XlsFileObject {
 					sx.close();
 			}
 		} catch (Throwable e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 		sheets.clear();
 		isClosed = true;
@@ -390,7 +397,7 @@ public class FileXlsR extends XlsFileObject {
 			if (xlsxPackage != null)
 				xlsxPackage.close();
 		} catch (Throwable e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 	}
 

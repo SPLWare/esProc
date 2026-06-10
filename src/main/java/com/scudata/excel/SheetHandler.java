@@ -18,6 +18,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.StringUtils;
 import com.scudata.dm.DataStruct;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
@@ -38,7 +39,7 @@ public class SheetHandler extends DefaultHandler {
 	/**
 	 * Cached value
 	 */
-	private String lastContents;
+	private StringBuilder sb = new StringBuilder();
 	/**
 	 * Cell type
 	 */
@@ -156,9 +157,8 @@ public class SheetHandler extends DefaultHandler {
 		if (name.equals("row")) {
 			String orow = attributes.getValue("r");
 			int newRow = row + 1;
-			if (orow instanceof String) {
+			if (StringUtils.isValidString(orow))
 				newRow = Integer.parseInt((String) orow) - 1;
-			}
 			if (newRow < startRow) {
 				return;
 			}
@@ -216,7 +216,7 @@ public class SheetHandler extends DefaultHandler {
 			col = ExcelUtils.nameToColumn(r.substring(0, firstDigit));
 			endCol = Math.max(col, endCol);
 		}
-		lastContents = "";
+		sb.setLength(0);
 	}
 
 	/**
@@ -306,6 +306,7 @@ public class SheetHandler extends DefaultHandler {
 					rowData = newData;
 				}
 			}
+			String lastContents = sb.toString();
 			if (cellType != null) {
 				if ("s".equals(cellType)) {
 					Integer idx = Integer.valueOf(lastContents);
@@ -342,7 +343,7 @@ public class SheetHandler extends DefaultHandler {
 					if (DateUtil.isValidExcelDate(d)) {
 						short i = cellStyle.getDataFormat();
 						String f = cellStyle.getDataFormatString();
-						if (ExcelUtils.isADateFormat(i, f)) {
+						if (ExcelUtils.isADateFormat(Integer.valueOf(i), f)) {
 							java.util.Date dd = DateUtil.getJavaDate(d);
 							Object date = dd;
 							int dateType = ExcelUtils.getDateType(i, f);
@@ -369,7 +370,7 @@ public class SheetHandler extends DefaultHandler {
 	 */
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
-		lastContents += new String(ch, start, length);
+		sb.append(ch, start, length);
 	}
 
 	/**

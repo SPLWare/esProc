@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
@@ -284,7 +285,7 @@ public class FileXls extends XlsFileObject {
 					try {
 						out.close();
 					} catch (IOException e) {
-						e.printStackTrace();
+						Logger.error(e);
 					}
 				if (isXls)
 					Biff8EncryptionKey.setCurrentUserPassword(null);
@@ -347,7 +348,7 @@ public class FileXls extends XlsFileObject {
 				if (createSheet) {
 					String name = PRE_SHEET_NAME + index;
 					sheet = wb.createSheet(name);
-					newLast(new Object[] { name, new Integer(0), new Integer(0) });
+					newLast(new Object[] { name, Integer.valueOf(0), Integer.valueOf(0) });
 				} else {
 					throw new RQException(AppMessage.get().getMessage(
 							"excel.nosheetindex", index + ""));
@@ -443,7 +444,7 @@ public class FileXls extends XlsFileObject {
 			try {
 				wb.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		isClosed = true;
 	}
@@ -456,9 +457,9 @@ public class FileXls extends XlsFileObject {
 	 */
 	public void cloneSheet(String s, String s1) {
 		int sheetIndex = wb.getSheetIndex(s);
-		Sheet sheet = wb.cloneSheet(sheetIndex);
+		Sheet cloneSheet = wb.cloneSheet(sheetIndex);
 		BaseRecord sheetInfo = this.getRecord(sheetIndex + 1);
-		int targetSheetIndex = wb.getSheetIndex(sheet);
+		int targetSheetIndex = wb.getSheetIndex(cloneSheet);
 		wb.setSheetName(targetSheetIndex, s1);
 		this.insert(
 				targetSheetIndex + 1,

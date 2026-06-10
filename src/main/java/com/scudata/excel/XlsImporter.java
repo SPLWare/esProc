@@ -172,16 +172,16 @@ public class XlsImporter implements IExcelTool {
 	/**
 	 * 计算公式格
 	 */
-	private void formulaEvaluate() {
-		if (evaluator != null) // 只计算一次
-			return;
-		evaluator = wb.getCreationHelper().createFormulaEvaluator();
-		if (evaluator != null) {
-			evaluator.clearAllCachedResultValues();
-			evaluator.evaluateAll();
-		}
-	}
-	
+	// private void formulaEvaluate() {
+	// if (evaluator != null) // 只计算一次
+	// return;
+	// evaluator = wb.getCreationHelper().createFormulaEvaluator();
+	// if (evaluator != null) {
+	// evaluator.clearAllCachedResultValues();
+	// evaluator.evaluateAll();
+	// }
+	// }
+
 	public void autoSizeColumn(int colCount) {
 	}
 }

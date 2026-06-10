@@ -82,13 +82,14 @@ public class XlsxSImporter implements ILineInput {
 			String filePath = fo.getFileName();
 			if (fo.isRemoteFile()) {
 				is = fo.getInputStream();
-				if (pwd != null) {
-					pfs = new POIFSFileSystem(is);
-					in = ExcelUtils.decrypt(pfs, pwd);
-					this.xlsxPackage = OPCPackage.open(in);
-				} else {
-					this.xlsxPackage = OPCPackage.open(is);
-				}
+				if (is != null)
+					if (pwd != null) {
+						pfs = new POIFSFileSystem(is);
+						in = ExcelUtils.decrypt(pfs, pwd);
+						this.xlsxPackage = OPCPackage.open(in);
+					} else {
+						this.xlsxPackage = OPCPackage.open(is);
+					}
 			} else {
 				// 本地的支持相对路径
 				filePath = ConfigUtil.getPath(Env.getMainPath(), filePath);

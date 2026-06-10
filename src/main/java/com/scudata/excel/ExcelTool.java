@@ -344,6 +344,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 		int startRow = startPos.getRow();
 		InputStream fis = null;
 		try {
+			fis = fo.getInputStream();
 			ExcelTool et = new ExcelTool(fis, isXlsx, pwd);
 			if (s instanceof String) {
 				et.setSheet((String) s);
@@ -788,7 +789,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				xlsExporter);
 
 		boolean autoSizeColumn = opt != null && opt.indexOf("z") != -1;
-		if (autoSizeColumn) {
+		if (autoSizeColumn && counts != null && counts.length > 1) {
 			autoSizeColumn(counts[1]);
 		}
 	}
@@ -1107,6 +1108,10 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			} else if (rowData instanceof BaseRecord) {
 				BaseRecord record = (BaseRecord) rowData;
 				line = record.getFieldValues();
+				if (line == null) {
+					line = new Object[1];
+					line[0] = record;
+				}
 			} else if (rowData instanceof Object[]) {
 				line = (Object[]) rowData;
 			} else {

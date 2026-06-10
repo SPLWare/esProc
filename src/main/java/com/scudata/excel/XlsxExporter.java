@@ -435,13 +435,13 @@ public class XlsxExporter implements IExcelTool {
 				try {
 					wb.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					Logger.error(e);
 				}
 				if (out != null)
 					try {
 						out.close();
 					} catch (IOException e) {
-						e.printStackTrace();
+						Logger.error(e);
 					}
 			}
 			if (pwd != null) {

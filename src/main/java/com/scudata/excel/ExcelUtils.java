@@ -33,6 +33,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.ArgumentTokenizer;
+import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -97,7 +98,7 @@ public class ExcelUtils {
 			os = enc.getDataStream(fs);
 			opc.save(os);
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			Logger.error(ex);
 		} finally {
 			if (in != null) {
 				try {
@@ -123,7 +124,7 @@ public class ExcelUtils {
 			out = fo.getOutputStream(false);
 			fs.writeFilesystem(out);
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			Logger.error(ex);
 		} finally {
 			if (out != null) {
 				try {
@@ -152,11 +153,17 @@ public class ExcelUtils {
 		BufferedInputStream bis = null;
 		try {
 			in = fo.getInputStream();
+			if (in == null) {
+				return false;
+			}
 			if (!in.markSupported()) {
 				pin = new PushbackInputStream(in, 8);
 			}
-			bis = new BufferedInputStream(pin, Env.FILE_BUFSIZE);
-			boolean isXlsx = isXlsxFile(bis);
+			boolean isXlsx = false;
+			if (pin != null) {
+				bis = new BufferedInputStream(pin, Env.FILE_BUFSIZE);
+				isXlsx = isXlsxFile(bis);
+			}
 			if (isXlsx) { // 如果类型是OOXML可以断定文件类型是xlsx
 				return true;
 			} else { // 但是类型是OLE2的，不一定是xls，也可能是加密了的xlsx文件
@@ -201,7 +208,7 @@ public class ExcelUtils {
 	 * @throws IOException
 	 */
 	public static boolean isXlsxFile(InputStream is) throws IOException {
-		return FileMagic.OOXML.compareTo(FileMagic.valueOf(is)) == 0;
+		return FileMagic.OOXML == FileMagic.valueOf(is);
 	}
 
 	/**
@@ -216,18 +223,22 @@ public class ExcelUtils {
 	public static boolean isCellDateFormatted(Cell cell, DataFormat df) {
 		if (cell == null)
 			return false;
-		double d = cell.getNumericCellValue();
-		if (DateUtil.isValidExcelDate(d)) {
-			CellStyle style = cell.getCellStyle();
-			short formatIndex = style.getDataFormat();
-			String formatString = null;
-			if (df != null) {
-				formatString = df.getFormat(formatIndex);
+		try {
+			double d = cell.getNumericCellValue(); // 公式格异常可能报错
+			if (DateUtil.isValidExcelDate(d)) {
+				CellStyle style = cell.getCellStyle();
+				short formatIndex = style.getDataFormat();
+				String formatString = null;
+				if (df != null) {
+					formatString = df.getFormat(formatIndex);
+				}
+				if (formatString == null) {
+					formatString = style.getDataFormatString();
+				}
+				return isADateFormat(formatIndex, formatString);
 			}
-			if (formatString == null) {
-				formatString = style.getDataFormatString();
-			}
-			return isADateFormat(formatIndex, formatString);
+		} catch (Exception ex) {
+			return false;
 		}
 		return false;
 	}

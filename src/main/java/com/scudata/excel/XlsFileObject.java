@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -94,9 +93,8 @@ public abstract class XlsFileObject extends Table implements IResource {
 	 * Constructor
 	 */
 	public XlsFileObject() {
-		super(
-				new String[] { LABEL_SHEET_NAME, LABEL_ROW_COUNT,
-						LABEL_COL_COUNT, LABEL_HIDDEN});
+		super(new String[] { LABEL_SHEET_NAME, LABEL_ROW_COUNT,
+				LABEL_COL_COUNT, LABEL_HIDDEN });
 	}
 
 	/**
@@ -456,7 +454,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 		}
 		// 冻结行列信息
 		PaneInformation paneInformation = fromSheet.getPaneInformation();
-		if (Objects.nonNull(paneInformation)) {
+		if (paneInformation != null) {
 			toSheet.createFreezePane(
 					paneInformation.getHorizontalSplitPosition(),
 					paneInformation.getVerticalSplitPosition(),

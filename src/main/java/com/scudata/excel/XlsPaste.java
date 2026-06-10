@@ -13,6 +13,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
 
 import com.scudata.common.CellLocation;
+import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
@@ -198,13 +199,13 @@ public class XlsPaste {
 				try {
 					wb.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					Logger.error(e);
 				}
 				if (out != null)
 					try {
 						out.close();
 					} catch (IOException e) {
-						e.printStackTrace();
+						Logger.error(e);
 					}
 				Biff8EncryptionKey.setCurrentUserPassword(null);
 			}

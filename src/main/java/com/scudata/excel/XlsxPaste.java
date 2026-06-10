@@ -18,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.scudata.common.CellLocation;
+import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
@@ -227,13 +228,13 @@ public class XlsxPaste {
 				try {
 					wb.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					Logger.error(e);
 				}
 				if (out != null)
 					try {
 						out.close();
 					} catch (IOException e) {
-						e.printStackTrace();
+						Logger.error(e);
 					}
 			}
 			if (pwd != null) {
@@ -259,7 +260,7 @@ public class XlsxPaste {
 			os = enc.getDataStream(fs);
 			opc.save(os);
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			Logger.error(ex);
 		} finally {
 			if (in != null) {
 				try {
@@ -285,7 +286,7 @@ public class XlsxPaste {
 			out = fo.getOutputStream(false);
 			fs.writeFilesystem(out);
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			Logger.error(ex);
 		} finally {
 			if (out != null) {
 				try {

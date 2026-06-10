@@ -232,7 +232,8 @@ public class XlsxSExporter implements IExcelTool {
 			Object value = items[currCol];
 			if (value instanceof Date) {
 				if (value instanceof Time) {
-					cell.setCellValue(ExcelUtils.getExcelTimeDouble((Time) value));
+					cell.setCellValue(ExcelUtils
+							.getExcelTimeDouble((Time) value));
 				} else {
 					cell.setCellValue((Date) value);
 				}
@@ -375,13 +376,13 @@ public class XlsxSExporter implements IExcelTool {
 				try {
 					wb.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					Logger.error(e);
 				}
 				if (out != null)
 					try {
 						out.close();
 					} catch (IOException e) {
-						e.printStackTrace();
+						Logger.error(e);
 					}
 			}
 			if (pwd != null) {
@@ -497,7 +498,7 @@ public class XlsxSExporter implements IExcelTool {
 					colStyles[c] = cloneCellStyle(styleMap, oldColStyle);
 				}
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				Logger.error(ex);
 			}
 		}
 		for (int r = 0; r <= lastRow; r++) {
@@ -521,7 +522,7 @@ public class XlsxSExporter implements IExcelTool {
 				if (oldCellStyle != null) {
 					cellStyle = cloneCellStyle(styleMap, oldCellStyle);
 					cell.setCellStyle(cellStyle);
-				} else if (colStyles[c] != null) {
+				} else if (colStyles != null && colStyles[c] != null) {
 					cell.setCellStyle(colStyles[c]);
 				}
 				cellType = ExcelVersionCompatibleUtilGetter.getInstance()
@@ -645,7 +646,7 @@ public class XlsxSExporter implements IExcelTool {
 			Logger.error(e);
 		}
 	}
-	
+
 	public void autoSizeColumn(int colCount) {
 		for (int c = 0; c < colCount; c++) {
 			try {
