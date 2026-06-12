@@ -17,7 +17,7 @@
       <INFO dbtype="MYSQL" value="?1+INTERVAL ?2 DAY"/>
       <INFO dbtype="HSQL" value="DATEADD('dd', ?2, ?1)"/>
       <INFO dbtype="TERADATA" value="?1+CAST(?2 AS INTERVAL DAY)"/>
-      <INFO dbtype="POSTGRES" value="?1+interval '?2 days'"/>
+      <INFO dbtype="POSTGRES" value="?1+?2*interval '1 days'"/>
       <INFO dbtype="ESPROC" value="elapse(?1,?2)"/>
       <INFO dbtype="IMPALA" value="DAYS_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(DD,?2,?1)"/>
@@ -31,7 +31,7 @@
       <INFO dbtype="MYSQL" value="?1+INTERVAL ?2 HOUR"/>
       <INFO dbtype="HSQL" value="DATEADD('hh', ?2, ?1)"/>
       <INFO dbtype="TERADATA" value="?1+CAST(?2 AS INTERVAL HOUR)"/>
-      <INFO dbtype="POSTGRES" value="?1+interval '?2 hours'"/>
+      <INFO dbtype="POSTGRES" value="?1+?2*interval '1 hours'"/>
       <INFO dbtype="ESPROC" value="elapse@s(?1,(?2)*3600)"/>
       <INFO dbtype="IMPALA" value="HOURS_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(HH,?2,?1)"/>
@@ -45,7 +45,7 @@
       <INFO dbtype="MYSQL" value="?1+INTERVAL ?2 MINUTE"/>
       <INFO dbtype="HSQL" value="DATEADD('mi', ?2, ?1)"/>
       <INFO dbtype="TERADATA" value="?1+CAST(?2 AS INTERVAL MINUTE)"/>
-      <INFO dbtype="POSTGRES" value="?1+interval '?2 minutes'"/>
+      <INFO dbtype="POSTGRES" value="?1+?2*interval '1 minutes'"/>
       <INFO dbtype="ESPROC" value="elapse@s(?1,(?2)*60)"/>
       <INFO dbtype="IMPALA" value="MINUTES_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(MI,?2,?1)"/>
@@ -59,7 +59,7 @@
       <INFO dbtype="MYSQL" value="?1+INTERVAL ?2 MONTH"/>
       <INFO dbtype="HSQL" value="DATEADD('mm', ?2, ?1)"/>
       <INFO dbtype="TERADATA" value="ADD_MONTHS(?1, ?2)"/>
-      <INFO dbtype="POSTGRES" value="?1+interval '?2 months'"/>
+      <INFO dbtype="POSTGRES" value="?1+?2*interval '1 months'"/>
       <INFO dbtype="ESPROC" value="elapse@m(?1,?2)"/>
       <INFO dbtype="IMPALA" value="MONTHS_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(MM,?2,?1)"/>
@@ -73,7 +73,7 @@
       <INFO dbtype="MYSQL" value="?1+INTERVAL ?2 SECOND"/>
       <INFO dbtype="HSQL" value="DATEADD('ss', ?2, ?1)"/>
       <INFO dbtype="TERADATA" value="?1+CAST(?2 AS INTERVAL SECOND)"/>
-      <INFO dbtype="POSTGRES" value="?1+interval '?2 seconds'"/>
+      <INFO dbtype="POSTGRES" value="?1+?2*interval '1 seconds'"/>
       <INFO dbtype="ESPROC" value="elapse@s(?1,?2)"/>
       <INFO dbtype="IMPALA" value="SECONDS_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(SS,?2,?1)"/>
@@ -87,7 +87,7 @@
       <INFO dbtype="MYSQL" value="?1+INTERVAL ?2 YEAR"/>
       <INFO dbtype="HSQL" value="DATEADD('yy', ?2, ?1)"/>
       <INFO dbtype="TERADATA" value="ADD_MONTHS(?1, ?2*12)"/>
-      <INFO dbtype="POSTGRES" value="?1+interval '?2 years'"/>
+      <INFO dbtype="POSTGRES" value="?1+?2*interval '1 years'"/>
       <INFO dbtype="ESPROC" value="elapse@y(?1,?2)"/>
       <INFO dbtype="IMPALA" value="YEARS_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(YY,?2,?1)"/>
@@ -155,7 +155,7 @@
       <INFO dbtype="TERADATA" value=""/>
 	  <INFO dbtype="ORACLE" value="NVL(?1,'')|| NVL(?2,'')"/>
 	  <INFO dbtype="MYSQL" value="CONCAT(IFNULL(NULLIF(?1,''),''),IFNULL(NULLIF(?2,''),''))"/>
-      <INFO dbtype="POSTGRES" value=""/>
+      <INFO dbtype="POSTGRES" value="concat(?1,?2)"/>
       <INFO dbtype="ESPROC" value="concat(?1,?2)"/>
 	  <INFO dbtype="ESPROC_SQL" value="CONCAT(?1,?2)"/>
 	  <INFO dbtype="BIGQUERY" value="CONCAT(IFNULL(NULLIF(?1,''),''),IFNULL(NULLIF(?2,''),''))"/>
@@ -170,8 +170,7 @@
 	  <INFO dbtype="ORACLE" value="TO_DATE(?1,?2)"/>
 	  <INFO dbtype="HSQL" value="TO_DATE(?1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="CAST(strptime(?1,?2) AS DATE)"/>
-	  <INFO dbtype="MYSQL" value="DATE_FORMAT(?1,?2)"/>
-	  <INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
+	  <INFO dbtype="POSTGRES" value="TO_DATE(?1,?2)"/>
 	  <INFO dbtype="BIGQUERY" value="PARSE_DATE(?2,?1)"/>
 	</FUNCTION>
     <FUNCTION name="DATE" paramcount="1" value="TO_DATE(?,'YYYY-MM-DD')">
@@ -216,7 +215,6 @@
     <FUNCTION name="DAY" paramcount="1" value="EXTRACT(DAY FROM ?)">
       <INFO dbtype="ORACLE" value=""/>
       <INFO dbtype="TERADATA" value=""/>
-      <INFO dbtype="POSTGRES" value=""/>
 	  <INFO dbtype="POSTGRES" value=""/>
       <INFO dbtype="ESPROC" value="day(?1)"/>
 	  <INFO dbtype="ESPROC_SQL" value="DAY(?1)"/>
@@ -349,7 +347,7 @@
     <FUNCTION name="LEN" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="LENGTH(?)"/>
       <INFO dbtype="DB2" value="LENGTH(?)"/>
-      <INFO dbtype="MYSQL" value="LENGTH(?)"/>
+      <INFO dbtype="MYSQL" value="CHAR_LENGTH(?)"/>
       <INFO dbtype="HSQL" value="CHAR_LENGTH(?)"/>
       <INFO dbtype="TERADATA" value="CHAR_LENGTH(?)"/>
       <INFO dbtype="POSTGRES" value="CHAR_LENGTH(?)"/>
@@ -526,19 +524,17 @@
 	</FUNCTION>			
 	<FUNCTION name="TIMESTAMP" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="datetime(?1,?2)"/>
-	  <INFO dbtype="ORACLE" value="TO_TIMESTAMP(?1,?2)"/>	
 	  <INFO dbtype="HSQL" value="TO_TIMESTAMP(?1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="STRPTIME(?1,?2)"/>
-	  <INFO dbtype="MYSQL" value="STR_TO_DATE(?1,?2)"/>
-	  <INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
 	  <INFO dbtype="BIGQUERY" value="PARSE_TIMESTAMP(?2,?1)"/>
 	</FUNCTION>
     <FUNCTION name="TIMESTAMP" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="TO_TIMESTAMP(?,'YYYY-MM-DD HH24:MI:SS')"/>
+	  <INFO dbtype="MYSQL" value="STR_TO_DATE(?,'%Y-%m-%d %H:%i:%s')"/>
       <INFO dbtype="SQLSVR" value="CONVERT(DATETIME,?,120)"/>
       <INFO dbtype="DB2" value="TO_DATE(?,'YYYY-MM-DD HH24:MI:SS')"/>
       <INFO dbtype="TERADATA" value="TO_TIMESTAMP(?,'YYYY-MM-DD HH24:MI:SS')"/>
-      <INFO dbtype="POSTGRES" value="CAST(? AS timestamp)"/>
+      <INFO dbtype="POSTGRES" value="TO_TIMESTAMP(?,'YYYY-MM-DD HH24:MI:SS')"/>
       <INFO dbtype="ESPROC" value="datetime(?1,&quot;yyyy-MM-dd HH:mm:ss&quot;)"/>
       <INFO dbtype="IMPALA" value="CAST(? as TIMESTAMP)"/>
       <INFO dbtype="DAMENG" value="CAST(? as TIMESTAMP)"/>
@@ -636,7 +632,7 @@
 	<FUNCTION name="getsubs" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="substr(?1,?2)"/>
 	  <INFO dbtype="ORACLE" value="CASE  WHEN INSTR(?1,?2) > 0 THEN  SUBSTR(?1,INSTR(?1,?2) + LENGTH(?2))  ELSE  NULL  END"/>
-	  <INFO dbtype="MYSQL" value="IF(LOCATE(?2, ?1) > 0, SUBSTRING(?1, LOCATE(?2, ?1) + LENGTH(?2)), NULL)"/>
+	  <INFO dbtype="MYSQL" value="IF(LOCATE(?2, ?1) > 0, SUBSTRING(?1, LOCATE(?2, ?1) + CHAR_LENGTH(?2)), NULL)"/>
 	  <INFO dbtype="DUCKDB" value="substr(?1, position(?2 IN ?1) + length(?2))"/>
 	  <INFO dbtype="BIGQUERY" value="CASE WHEN STRPOS(?1,?2) &gt; 0 THEN SUBSTR(?1,STRPOS(?1,?2)+LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN STRPOS(?1,?2) &gt; 0 THEN SUBSTR(?1,STRPOS(?1,?2)+LENGTH(?2)) ELSE NULL END"/>
@@ -700,16 +696,16 @@
       <INFO dbtype="ESPROC" value="interval@m(?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,MONTH)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('MONTH',?1,?2)"/>
-	  <INFO dbtype="POSTGRES" value="EXTRACT(YEAR FROM age(?2, ?1)) * 12 + EXTRACT(MONTH FROM age(?2, ?1))"/>
+	  <INFO dbtype="POSTGRES" value="(EXTRACT(YEAR FROM age(?2, ?1)) * 12 + EXTRACT(MONTH FROM age(?2, ?1)))"/>
     </FUNCTION>
     <FUNCTION name="DAYSDIFF" paramcount="2" value="">
-      <INFO dbtype="ORACLE" value="ceil(CAST(?2 AS DATE) - CAST(?1 AS DATE))"/>
+      <INFO dbtype="ORACLE" value="(ceil(CAST(?2 AS DATE) - CAST(?1 AS DATE)))"/>
       <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(DAY,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('dd',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval(?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,DAY)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('DAY',?1,?2)"/>
-	  <INFO dbtype="POSTGRES" value="(?2-?1)"/>
+	  <INFO dbtype="POSTGRES" value="(EXTRACT(DAY FROM (?2-?1)))"/>
     </FUNCTION>
     <FUNCTION name="HOURSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(?2-?1)*24"/>
@@ -765,6 +761,94 @@
 		<INFO dbtype="DUCKDB" value="date_trunc('second',?1)"/>
 		<INFO dbtype="POSTGRES" value="date_trunc('second', ?1)"/>
       </FUNCTION>
+	  <FUNCTION name="MONTHSTART" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="pdate@m(?1)"/>	
+		<INFO dbtype="ORACLE" value="TRUNC(?1,'MM')"/>
+		<INFO dbtype="HSQL" value="DATEADD('DAY',1-DAYOFMONTH(?1),?1)"/>	
+		<INFO dbtype="DUCKDB" value="date_trunc('month',?1)"/>
+		<INFO dbtype="MYSQL" value="DATE_FORMAT(?1, '%Y-%m-01')"/>
+		<INFO dbtype="POSTGRES" value="DATE_TRUNC('month', ?1)"/>
+	  </FUNCTION>
+	  <FUNCTION name="MONTHEND" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="pdate@me(?1)"/>
+		<INFO dbtype="ORACLE" value="LAST_DAY(?1)"/>	
+		<INFO dbtype="HSQL" value="DATEADD('DAY',-1,DATEADD('MONTH',1,DATEADD('DAY', 1 - DAYOFMONTH(?1), ?1)))"/>	
+		<INFO dbtype="DUCKDB" value="last_day(?1)"/>
+		<INFO dbtype="MYSQL" value="LAST_DAY(?1)"/>
+		<INFO dbtype="POSTGRES" value="(DATE_TRUNC('month', ?1) + INTERVAL '1 month' - INTERVAL '1 day')"/>		
+	  </FUNCTION>
+	  <FUNCTION name="WEEKSTART" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="pdate@w1(?1)"/>	
+		<INFO dbtype="ORACLE" value="TRUNC(?1,'IW')"/>	
+		<INFO dbtype="HSQL" value="DATEADD('DAY',-MOD(DAYOFWEEK(?1)+5,7),?1)"/>	
+		<INFO dbtype="DUCKDB" value="date_trunc('week',?1)"/>
+		<INFO dbtype="MYSQL" value="DATE_SUB(?1, INTERVAL WEEKDAY(?1) DAY)"/>
+		<INFO dbtype="POSTGRES" value="date_trunc('week', ?1)"/>		
+	  </FUNCTION>
+	  <FUNCTION name="WEEKEND" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="pdate@w1e(?1)"/>	
+		<INFO dbtype="ORACLE" value="(TRUNC(?1,'IW')+6)"/>	
+		<INFO dbtype="HSQL" value="DATEADD('DAY',6-MOD(DAYOFWEEK(?1)+5,7),?1)"/>	
+		<INFO dbtype="DUCKDB" value="(date_trunc('week',?1) + INTERVAL '6' DAY)"/>
+		<INFO dbtype="MYSQL" value="DATE_ADD(?1, INTERVAL (6 - WEEKDAY(?1)) DAY)"/>
+		<INFO dbtype="POSTGRES" value="(date_trunc('week',?1) + INTERVAL '6 days')"/>
+	  </FUNCTION>
+	  <FUNCTION name="QUARTERSTART" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="pdate@q(?1)"/>		
+		<INFO dbtype="ORACLE" value="TRUNC(?1,'Q')"/>	
+		<INFO dbtype="HSQL" value="DATEADD('MONTH',-MOD(MONTH(?1)-1, 3),DATEADD('DAY',1-DAYOFMONTH(?1),?1))"/>	
+		<INFO dbtype="DUCKDB" value="date_trunc('quarter',?1)"/>
+		<INFO dbtype="MYSQL" value="DATE_ADD(MAKEDATE(YEAR(?), 1), INTERVAL (QUARTER(?) - 1) * 3 MONTH)"/>
+		<INFO dbtype="POSTGRES" value="date_trunc('quarter', ?1)"/>
+	  </FUNCTION>
+	  <FUNCTION name="QUARTEREND" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="pdate@qe(?1)"/>
+		<INFO dbtype="ORACLE" value="(ADD_MONTHS(TRUNC(?1,'Q'),3)-1)"/>	
+		<INFO dbtype="HSQL" value="DATEADD('DAY',-1,DATEADD('MONTH', 3,DATEADD('MONTH',-MOD(MONTH(?1)-1,3),DATEADD('DAY',1- DAYOFMONTH(?1), ?1))))"/>	
+		<INFO dbtype="DUCKDB" value="(date_trunc('quarter',?1) + INTERVAL '3' MONTH - INTERVAL '1' DAY)"/>
+		<INFO dbtype="MYSQL" value="LAST_DAY(MAKEDATE(YEAR(?1), 1) + INTERVAL (QUARTER(?1) * 3 - 1) MONTH)"/>
+		<INFO dbtype="POSTGRES" value="(DATE_TRUNC('quarter', ?1) + INTERVAL '3 months' - INTERVAL '1 day')"/>
+	  </FUNCTION>
+	  <FUNCTION name="YEARSTART" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="pdate@y(?1)"/>		
+		<INFO dbtype="ORACLE" value="TRUNC(?1,'YYYY')"/>	
+		<INFO dbtype="HSQL" value="DATEADD('DAY',1-DAYOFYEAR(?1),?1)"/>	
+		<INFO dbtype="DUCKDB" value="date_trunc('year',?1)"/>
+		<INFO dbtype="MYSQL" value="DATE_FORMAT(?1,'%Y-01-01')"/>
+		<INFO dbtype="POSTGRES" value="(?1 - (EXTRACT(DOY FROM ?1) - 1) * INTERVAL '1' DAY) "/>
+	  </FUNCTION>
+	  <FUNCTION name="YEAREND" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="pdate@ye(?1)"/>
+		<INFO dbtype="ORACLE" value="(ADD_MONTHS(TRUNC(?1,'Q'),12)-1)"/>
+		<INFO dbtype="HSQL" value="DATEADD('DAY',-1,DATEADD('YEAR',1, DATEADD('DAY',1-DAYOFYEAR(?1),?1)))"/>	
+		<INFO dbtype="DUCKDB" value="(date_trunc('year',?1) + INTERVAL '1' YEAR - INTERVAL '1' DAY)"/>
+		<INFO dbtype="MYSQL" value="DATE_FORMAT(?1,'%Y-12-31')"/>
+		<INFO dbtype="POSTGRES" value="((?1 - (EXTRACT(DOY FROM ?1) - 1) * INTERVAL '1' DAY) + INTERVAL '1' YEAR - INTERVAL '1' DAY)"/>
+	  </FUNCTION>
+	  <FUNCTION name="MONTHDAYS" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="days(?1)"/>		
+		<INFO dbtype="ORACLE" value="(LAST_DAY(?1)-TRUNC(?1,'MM')+1)"/>	
+		<INFO dbtype="HSQL" value="DATEDIFF('DAY',DATEADD('DAY',1-DAYOFMONTH(?1),?1),DATEADD('MONTH',1,DATEADD('DAY',1-DAYOFMONTH(?1),?1)))"/>	
+		<INFO dbtype="DUCKDB" value="(date_diff('day',date_trunc('month', ?1)::DATE,last_day(?1))+1)"/>
+		<INFO dbtype="MYSQL" value="day(last_day(DATE_FORMAT(?1,'%Y-%m-%d')))"/>
+		<INFO dbtype="POSTGRES" value="EXTRACT(DAY FROM DATE_TRUNC('month', ?1) + INTERVAL '1 month' - INTERVAL '1 day')"/>
+	  </FUNCTION>
+	  <FUNCTION name="QUARTERDAYS" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="days@q(?1)"/>	
+		<INFO dbtype="ORACLE" value="(ADD_MONTHS(TRUNC(?1,'Q'),3)-TRUNC(?1,'Q'))"/>	
+		<INFO dbtype="HSQL" value="DATEDIFF('DAY',DATEADD('MONTH',-MOD(MONTH(?1)-1,3),DATEADD('DAY',1-DAYOFMONTH(?1),?1)),DATEADD('MONTH',3,DATEADD('MONTH',-MOD(MONTH(?1)-1,3),DATEADD('DAY',1-DAYOFMONTH(?1),?1))))"/>
+		<INFO dbtype="DUCKDB" value="(date_diff('day',date_trunc('quarter', ?1)::DATE,(date_trunc('quarter',?1)+INTERVAL '3' MONTH - INTERVAL '1' DAY)::DATE)+1)"/>
+		<INFO dbtype="MYSQL" value="(DATEDIFF(MAKEDATE(YEAR (?1), 1 ) + INTERVAL QUARTER (?1) * 3 MONTH - INTERVAL 1 DAY,MAKEDATE(YEAR (?1), 1 ) + INTERVAL (QUARTER (?1) - 1 ) * 3 MONTH) + 1)"/>
+		<INFO dbtype="POSTGRES" value="(CAST((date_trunc('quarter', ?1) + INTERVAL '3 months' - INTERVAL '1 day' ) AS DATE ) - CAST (date_trunc('quarter', ?1) AS DATE ) + 1)"/>
+	  </FUNCTION>
+	  <FUNCTION name="YEARDAYS" paramcount="1" value="">
+     	<INFO dbtype="ESPROC" value="days@y(?1)"/>		
+		<INFO dbtype="ORACLE" value="(ADD_MONTHS(TRUNC(?1,'YYYY'),12)-TRUNC(?1,'YYYY'))"/>	
+		<INFO dbtype="HSQL" value="DATEDIFF('DAY',DATEADD('DAY',1-DAYOFYEAR(?1),?1),DATEADD('YEAR', 1,DATEADD('DAY',1-DAYOFYEAR(?1),?1)))"/>	
+		<INFO dbtype="DUCKDB" value="(date_diff('day',date_trunc('year',?1)::DATE,(date_trunc('year',?1)+INTERVAL '1' YEAR - INTERVAL '1' DAY)::DATE)+1)"/>
+		<INFO dbtype="MYSQL" value="DAYOFYEAR(CONCAT(YEAR(?1), '-12-31'))"/>
+		<INFO dbtype="POSTGRES" value="EXTRACT(DOY FROM DATE_TRUNC( 'year', ?1) + INTERVAL '1 year' - INTERVAL '1 day' )"/>
+	  </FUNCTION>
 	  <FUNCTION name="STRING" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(?1)"/>
 		<INFO dbtype="HSQL" value="CAST(?1 AS VARCHAR(100))"/>
@@ -788,15 +872,37 @@
 	  </FUNCTION>
 	 <FUNCTION name="PI" paramcount="0" value="">
         <INFO dbtype="ORACLE" value="ACOS(-1)"/>
-		<INFO dbtype="ESPROC" value="pi()"/>
+		<INFO dbtype="MYSQL" value="pi()"/>
+		<INFO dbtype="POSTGRES" value="pi()"/>
+		<INFO dbtype="ESPROC" value="pi()"/> 
+		<INFO dbtype="HSQL" value="pi()"/>
+		<INFO dbtype="DUCKDB" value="pi()"/>
 	  </FUNCTION>
 	 <FUNCTION name="CHN" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="N/A"/>
+		<INFO dbtype="MYSQL" value="N/A"/>
+		<INFO dbtype="HSQL" value="N/A"/>
+		<INFO dbtype="DUCKDB" value="N/A"/>
+		<INFO dbtype="POSTGRES" value="N/A"/>
 		<INFO dbtype="ESPROC" value="chn(?1)"/>
 	  </FUNCTION>	  
   
   </FUNCTIONS>
   <FUNCTIONS type="AnyParam">
+   <FUNCTION name="TIMESTAMP">
+    	<INFO dbtype="ORACLE" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
+		<INFO dbtype="POSTGRES" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
+		<INFO dbtype="MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss","yyyy","MM","dd","YYYY","DD"], ["%H","%i","%s","%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
+	</FUNCTION>
+	  <FUNCTION name="TIME">
+    	<INFO dbtype="ORACLE" script='"TO_CHAR(TO_TIMESTAMP(" + [?(1), replace(?(2), ["HH","mm"], ["HH24","MI"])].concat@c()+"),"+ replace(?(2), ["HH","mm"], ["HH24","MI"])+")"'/>
+		<INFO dbtype="POSTGRES" script='"TO_CHAR(TO_TIMESTAMP(" + [?(1), replace(?(2), ["HH","mm"], ["HH24","MI"])].concat@c()+"),"+ replace(?(2), ["HH","mm"], ["HH24","MI"])+")"'/>
+		<INFO dbtype="MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss"], ["%H","%i","%s"])].concat@c() +")"'/>
+	</FUNCTION>
+	<FUNCTION name="DATE">
+    	<INFO dbtype="MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
+	</FUNCTION>
+	
     <FUNCTION name="coalesce">
     	<INFO dbtype="ESPROC" script='"ifn(" + ?.concat@c() +")"'/>
 		<INFO dbtype="DUCKDB" script='"COALESCE(" + ?.concat@c() +")"'/>
