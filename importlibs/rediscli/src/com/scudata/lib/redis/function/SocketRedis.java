@@ -1,6 +1,5 @@
 package com.scudata.lib.redis.function;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.scudata.common.RQException;
@@ -96,14 +95,19 @@ public class SocketRedis extends Function {
 		} catch (Exception e) {
 	    	throw new RQException("redis_redis, execute error",e);
 		}
-
 	}
-	
 	
 	public static Object parseRedisResult(Object o) throws Exception {
 		if (o instanceof byte[]) {
 			return new String((byte[])o,"UTF-8");
-		} if (o instanceof List) {
+		}else if (o instanceof Object[]) {
+			Sequence seq = new Sequence();
+			Object[] l = (Object[])o;
+			for (int i=0; i<l.length; i++) {
+				seq.add(parseRedisResult(l[i]));
+			}
+			return seq;
+		}else if (o instanceof List) {
 			Sequence seq = new Sequence();
 			List l = (List)o;
 			for (int i=0; i<l.size(); i++) {
