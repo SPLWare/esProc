@@ -466,11 +466,15 @@ public class SheetXls extends SheetObject {
 				SheetXls.this.writeLine(row, items);
 			}
 		};
-		int[] rc = ExcelTool.fileXlsExport(series, exps, names, startRow, opt,
+		int[] counts = ExcelTool.fileXlsExport(series, exps, names, startRow, opt,
 				ctx, xlsExporter);
-		if (rc != null) {
-			sheetInfo.setRowCount(Math.max(sheetInfo.getRowCount(), rc[0]));
-			sheetInfo.setColCount(Math.max(sheetInfo.getColCount(), rc[1]));
+		if (counts != null) {
+			sheetInfo.setRowCount(Math.max(sheetInfo.getRowCount(), counts[0]));
+			sheetInfo.setColCount(Math.max(sheetInfo.getColCount(), counts[1]));
+		}
+		boolean autoSizeColumn = opt != null && opt.indexOf("z") != -1;
+		if (autoSizeColumn && counts != null && counts.length > 1) {
+			autoSizeColumn(counts[1]);
 		}
 	}
 
