@@ -6,6 +6,7 @@ import com.scudata.array.ConstArray;
 import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.HashIndexSequence;
 import com.scudata.dm.Sequence;
@@ -24,15 +25,42 @@ import com.scudata.util.Variant;
 public class Contain extends SequenceFunction {
 	private Sequence prevSequence = null;
 	private Sequence sortedSequence = null;
-	private HashIndexSequence hashIndex;
+	private HashIndexSequence hashIndex = null;
 	private boolean isSorted;
+	private boolean isHash;
+	
+	private Sequence toSequenceArray(Sequence seq) {
+		int len = seq.length();
+		Sequence result = new Sequence(len);
+						
+		for (int i = 1; i <= len; ++i) {
+			Object obj = seq.getMem(i);
+			if (obj instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord)obj;
+				result.add(new Sequence(r.getFieldValues()));
+			} else if (obj == null) {
+				result.add(new Sequence(1));
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("engine.needPmt"));
+			}
+		}
+		
+		return result;
+	}
 	
 	public void setDotLeftObject(Object obj) {
-		srcSequence = (Sequence)obj;
-		
-		if (option != null && option.indexOf('h') != -1 && prevSequence != srcSequence) {
-			prevSequence = srcSequence;
-			hashIndex = new HashIndexSequence(srcSequence);
+		if (prevSequence != obj) {
+			prevSequence = (Sequence)obj;
+			sortedSequence = null;
+			hashIndex = null;
+			
+			if (prevSequence.isPmt()) {
+				// 排列变成序列的序列
+				srcSequence = toSequenceArray(prevSequence);
+			} else {
+				srcSequence = prevSequence;
+			}
 		}
 	}
 	
@@ -40,9 +68,9 @@ public class Contain extends SequenceFunction {
 	 * 释放节点引用的点操作符左侧的对象
 	 */
 	public void releaseDotLeftObject() {
-		if (option == null || option.indexOf('h') == -1) {
+		/*if (option == null || option.indexOf('h') == -1) {
 			srcSequence = null;
-		}
+		}*/
 	}
 	
 	public boolean ifModifySequence() {
@@ -58,10 +86,17 @@ public class Contain extends SequenceFunction {
 			throw new RQException("contain" + mm.getMessage("function.missingParam"));
 		}
 		
-		isSorted = option != null && option.indexOf('b') != -1;
+		if (option != null) {
+			isSorted = option.indexOf('b') != -1;
+			isHash = option.indexOf('h') != -1;
+		}
 	}
 
 	public Object calculate(Context ctx) {
+		if (isHash && hashIndex == null) {
+			hashIndex = new HashIndexSequence(srcSequence);
+		}
+		
 		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (hashIndex != null) {
@@ -114,6 +149,11 @@ public class Contain extends SequenceFunction {
 			Object leftValue = ((ConstArray)leftArray).getData();
 			if (leftValue instanceof Sequence && param.isLeaf()) {
 				Sequence srcSequence = (Sequence)leftValue;
+				if (srcSequence.isPmt()) {
+					// 排列变成序列的序列
+					srcSequence = toSequenceArray(srcSequence);
+				}
+				
 				IArray array = param.getLeafExpression().calculateAll(ctx);
 				BoolArray result = new BoolArray(true, array.size());
 				result.setTemporary(true);
@@ -123,14 +163,11 @@ public class Contain extends SequenceFunction {
 				} else if (srcSequence.length() <= 3) {
 					srcSequence.contains(false, array, result);
 				} else {
-					if (prevSequence != srcSequence) {
-						prevSequence = srcSequence;
+					if (hashIndex == null) {
 						hashIndex = new HashIndexSequence(srcSequence);
-						sortedSequence = srcSequence.sort(null);
 					}
 					
 					hashIndex.contains(array, result);
-					//sortedSequence.contains(true, array, result);
 				}
 				
 				return result;
@@ -153,6 +190,11 @@ public class Contain extends SequenceFunction {
 			Object leftValue = ((ConstArray)leftArray).getData();
 			if (leftValue instanceof Sequence && param.isLeaf()) {
 				Sequence srcSequence = (Sequence)leftValue;
+				if (srcSequence.isPmt()) {
+					// 排列变成序列的序列
+					srcSequence = toSequenceArray(srcSequence);
+				}
+				
 				BoolArray result = ArrayUtil.booleanValue(signArray, sign);
 				IArray array = param.getLeafExpression().calculateAll(ctx, result, true);
 				
@@ -161,14 +203,11 @@ public class Contain extends SequenceFunction {
 				} else if (srcSequence.length() <= 3) {
 					srcSequence.contains(false, array, result);
 				} else {
-					if (prevSequence != srcSequence) {
-						prevSequence = srcSequence;
+					if (hashIndex == null) {
 						hashIndex = new HashIndexSequence(srcSequence);
-						//sortedSequence = srcSequence.sort(null);
 					}
 					
 					hashIndex.contains(array, result);
-					//sortedSequence.contains(true, array, result);
 				}
 				
 				return result;
@@ -190,6 +229,11 @@ public class Contain extends SequenceFunction {
 			Object leftValue = ((ConstArray)leftArray).getData();
 			if (leftValue instanceof Sequence && param.isLeaf()) {
 				Sequence srcSequence = (Sequence)leftValue;
+				if (srcSequence.isPmt()) {
+					// 排列变成序列的序列
+					srcSequence = toSequenceArray(srcSequence);
+				}
+				
 				BoolArray result = leftResult.isTrue();
 				IArray array = param.getLeafExpression().calculateAll(ctx, result, true);
 				
@@ -198,14 +242,11 @@ public class Contain extends SequenceFunction {
 				} else if (srcSequence.length() <= 3) {
 					srcSequence.contains(false, array, result);
 				} else {
-					if (prevSequence != srcSequence) {
-						prevSequence = srcSequence;
+					if (hashIndex == null) {
 						hashIndex = new HashIndexSequence(srcSequence);
-						//sortedSequence = srcSequence.sort(null);
 					}
 					
 					hashIndex.contains(array, result);
-					//sortedSequence.contains(true, array, result);
 				}
 				
 				return result;
@@ -231,12 +272,16 @@ public class Contain extends SequenceFunction {
 				}
 				
 				Sequence srcSequence = (Sequence)leftValue;
+				if (srcSequence.isPmt()) {
+					// 排列变成序列的序列
+					srcSequence = toSequenceArray(srcSequence);
+				}
+				
 				Sequence seq;
 				if (option != null && option.indexOf('b') != -1) {
 					seq = srcSequence;
 				} else {
-					if (prevSequence != srcSequence) {
-						prevSequence = srcSequence;
+					if (sortedSequence == null) {
 						sortedSequence = srcSequence.sort(null);
 						hashIndex = new HashIndexSequence(srcSequence);
 					}
