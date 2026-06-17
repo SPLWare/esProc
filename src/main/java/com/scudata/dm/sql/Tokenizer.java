@@ -155,6 +155,11 @@ public final class Tokenizer {
 		while (curIndex < cmdLen) {
 			char ch = sql.charAt(curIndex);
 			if (Character.isWhitespace(ch)) {
+				int size = tokenList.size();
+				if (size > 0) {
+					tokenList.get(size - 1).setHasSpace(true);
+				}
+				
 				curIndex++;
 			} else if (isIdentifierStart(ch)) { // 标识符、字段、表
 				int next = scanId(sql, curIndex + 1);

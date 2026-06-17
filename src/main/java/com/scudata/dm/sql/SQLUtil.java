@@ -1,5 +1,8 @@
 package com.scudata.dm.sql;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.MessageManager;
@@ -15,6 +18,8 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public final class SQLUtil {
+	private static final String AS = " ";
+	
 	private static Sequence parseFilter(String sql, Token []tokens, int index, int endPos) {
 		Sequence seq = new Sequence();
 		IntArrayList andList = new IntArrayList();
@@ -729,5 +734,167 @@ public final class SQLUtil {
 
 		return FunInfoManager.getFunctionExp(dbType, name, params);
 		//return changeFunction(name, exp, params);
+	}
+	
+	/*public static String replaceTable(String sql, Sequence sourceNameList, Sequence targetNameList, String opt) {
+		List<String> sourceList = new ArrayList<String>();
+		List<String> targetList = new ArrayList<String>();
+		
+		for (int i = 1; i <= sourceNameList.length(); ++i) {
+			sourceList.add((String)sourceNameList.get(i));
+			targetList.add((String)targetNameList.get(i));
+		}
+		
+		return replaceTable(sql, sourceList, targetList, opt);
+	}*/
+	
+	/**
+	 * 替换sql语句中的表名
+	 * @param sql
+	 * @param sourceList 源表名列表
+	 * @param targetList 目标表名列表
+	 * @param opt c：大小写不敏感
+	 * @return
+	 */
+	public static String replaceTable(String sql, List<String> sourceList, List<String> targetList, String opt) {
+		Token []tokens = Tokenizer.parse(sql);
+		return replaceTable(tokens, 0, tokens.length, sourceList, targetList, opt);
+	}
+	
+	private static String replaceTable(Token []tokens, int start, int next, List<String> sourceList, List<String> targetList, String opt) {
+		StringBuffer sb = new StringBuffer(128);
+		while (start < next) {
+			Token token = tokens[start];
+			if (token.isKeyWord("FROM")) {
+				sb.append(token.getString());
+				sb.append(' ');
+				start = scanTable(tokens, start + 1, next, sourceList, targetList, opt, sb);
+				
+				while (start < next) {
+					if (tokens[start].getType() == Tokenizer.COMMA) {
+						// from t1, t2, ... where ...
+						sb.append(tokens[start].getString());
+						start = scanTable(tokens, start + 1, next, sourceList, targetList, opt, sb);
+					} else {
+						break;
+					}
+				}
+			} else if (token.isKeyWord("JOIN")) {
+				sb.append(token.getString());
+				sb.append(' ');
+				start = scanTable(tokens, start + 1, next, sourceList, targetList, opt, sb);
+			} else if (token.getType() == Tokenizer.LPAREN) {
+				int end = Tokenizer.scanParen(tokens, start, next);
+				sb.append(token.getString());
+				String sub = replaceTable(tokens, start + 1, end, sourceList, targetList, opt);
+				sb.append(sub);
+				sb.append(tokens[end].getString());
+				start = end + 1;
+			} else {
+				sb.append(token.getString());
+				if (token.isHasSpace()) {
+					sb.append(' ');
+				}
+				
+				start++;
+			}
+		}
+		
+		return sb.toString();
+	}
+	
+	private static String getTargetTableName(String sourceName, List<String> sourceList, List<String> targetList, String opt) {
+		if (opt == null || opt.indexOf('c') != -1) {
+			int index = sourceList.indexOf(sourceName);
+			if (index != -1) {
+				return targetList.get(index);
+			}
+		} else {
+			for (int i = 0, size = sourceList.size(); i < size; ++i) {
+				if (sourceList.get(i).equalsIgnoreCase(sourceName)) {
+					return targetList.get(i);
+				}
+			}
+		}
+		
+		return sourceName;
+	}
+	
+	private static int scanTable(Token []tokens, int start, int next, 
+			List<String> sourceList, List<String> targetList, String opt, StringBuffer sb) {
+		Token token = tokens[start];
+		if (token.getType() == Tokenizer.LPAREN) {
+			int end = Tokenizer.scanParen(tokens, start, next);
+			sb.append(token.getString());
+			String sub = replaceTable(tokens, start + 1, end, sourceList, targetList, opt);
+			sb.append(sub);
+			sb.append(tokens[end].getString());
+			start = end + 1;
+			
+			if (start < next) {
+				token = tokens[start];
+				if (token.isKeyWord("AS")) {
+					start++;
+					if (start == next) {
+						throw new RuntimeException();
+					}
+
+					token = tokens[start];
+					if (token.getType() != Tokenizer.IDENT) {
+						throw new RuntimeException();
+					}
+					
+					start++;
+					sb.append(AS);
+					sb.append(token.getString());
+					sb.append(' ');
+				} else if (token.getType() == Tokenizer.IDENT) {
+					start++;
+					sb.append(AS);
+					sb.append(token.getString());
+					sb.append(' ');
+				}
+			}
+		} else {
+			String tableName = token.getString();
+			String targetName = getTargetTableName(tableName, sourceList, targetList, opt);
+			sb.append(targetName);
+						
+			start++;
+			if (start < next) {
+				token = tokens[start];
+				if (token.isKeyWord("AS")) {
+					start++;
+					if (start == next) {
+						throw new RuntimeException();
+					}
+
+					token = tokens[start];
+					if (token.getType() != Tokenizer.IDENT) {
+						throw new RuntimeException();
+					}
+					
+					start++;
+					sb.append(AS);
+					sb.append(token.getString());
+					sb.append(' ');
+				} else if (token.getType() == Tokenizer.IDENT) {
+					start++;
+					sb.append(AS);
+					sb.append(token.getString());
+					sb.append(' ');
+				} else {
+					sb.append(AS);
+					sb.append(tableName);
+					sb.append(' ');
+				}
+			} else {
+				sb.append(AS);
+				sb.append(tableName);
+				sb.append(' ');
+			}
+		}
+		
+		return start;
 	}
 }

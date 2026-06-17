@@ -9,7 +9,8 @@ public final class Token {
 	private String id;
 	private int pos;
 	private char type;
-
+	private boolean hasSpace = false; // 后面是否有空格
+	
 	public Token(char type, String id, int pos) {
 		this.type = type;
 		this.id = id;
@@ -79,5 +80,13 @@ public final class Token {
 	// @s
 	public String getTableName() {
 		return id.substring(1);
+	}
+
+	public boolean isHasSpace() {
+		return hasSpace;
+	}
+
+	public void setHasSpace(boolean hasSpace) {
+		this.hasSpace = hasSpace;
 	}
 }
