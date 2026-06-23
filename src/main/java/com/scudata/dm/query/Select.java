@@ -589,13 +589,14 @@ public class Select extends QueryBody {
 
 	class GatherNode extends Exp {
 		private String fnName; // 函数名
-		private Exp param; // 参数
+		//private Exp param; // 参数
+		private List<Exp> params; // 参数
 		private int fieldSeq; // 在分组结果集汇总字段中的序号
 		
-		public GatherNode(int start, int end, String fnName, Exp param) {
+		public GatherNode(int start, int end, String fnName, List<Exp> params) {
 			super(start, end);
 			this.fnName = fnName.toLowerCase();
-			this.param = param;
+			this.params = params;
 		}
 
 		public int getFieldSeq() {
@@ -616,15 +617,36 @@ public class Select extends QueryBody {
 				return false;
 			}
 			
-			return Select.isEquals(param, other.param);
+			int pcount = params.size();
+			if (pcount != other.params.size()) {
+				return false;
+			}
+			
+			for (int i = 0; i < pcount; ++i) {
+				if (!Select.isEquals(params.get(i), other.params.get(i))) {
+					return false;
+				}
+			}
+			
+			return true;
 		}
 		
 		public void getFields(List<FieldNode> resultList) {
-			param.getFields(resultList);
+			for (Exp exp : params) {
+				exp.getFields(resultList);
+			}
 		}
 		
 		public String toSPL() {
-			return fnName + "(" + param.toSPL() + ")";
+			if (params.size() == 1) {
+				Exp param = params.get(0);
+				return fnName + "(" + param.toSPL() + ")";
+			} else {
+				Exp param1 = params.get(0);
+				Exp param2 = params.get(1);
+				return fnName + "(" + param1.toSPL() + ";" + param2.toSPL() + ")";
+				
+			}
 		}
 		
 		public String toSPL(int groupByCount) {
@@ -1495,14 +1517,26 @@ public class Select extends QueryBody {
 							}
 						}
 						
-						List<Exp> list = scanParam(tokens, pos + 1, end, part);
-						if (list.size() != 1) {
+						List<Exp> paramList = scanParam(tokens, pos + 1, end, part);
+						int pcount = paramList.size();
+						
+						if (pcount == 1) {
+							if(fnName.equalsIgnoreCase("GCONCAT")) {
+								fnName = "concat";
+							}
+						} else if (pcount == 2) {
+							if(fnName.equalsIgnoreCase("GCONCAT")) {
+								fnName = "concat";
+							} else {
+								MessageManager mm = ParseMessage.get();
+								throw new RQException(mm.getMessage("syntax.error") + tokens[pos].getPos());
+							}
+						} else {
 							MessageManager mm = ParseMessage.get();
 							throw new RQException(mm.getMessage("syntax.error") + tokens[pos].getPos());
 						}
 						
-						Exp param = list.get(0);
-						GatherNode gather = new GatherNode(i, end + 1, fnName, param);
+						GatherNode gather = new GatherNode(i, end + 1, fnName, paramList);
 						exp = addGatherNode(gather);
 					} else {
 						List<Exp> list = scanParam(tokens, pos + 1, end, part);

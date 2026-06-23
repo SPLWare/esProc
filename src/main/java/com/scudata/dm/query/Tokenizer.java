@@ -29,7 +29,7 @@ public final class Tokenizer {
 	public static final char OUTERFUNCTION = '$'; // $func(...) 类型对应IDENT？
 
 	private static final String OPSTRING = "+-*/=<>&|^%!~"; // ~按位取反
-	private final static String[] GATHERS = {"AVG", "COUNT", "MAX", "MIN", "SUM"}; // , "COUNTIF", "FIRST", "LAST"
+	private final static String[] GATHERS = {"AVG", "COUNT", "MAX", "MIN", "SUM", "GCONCAT"}; // , "COUNTIF", "FIRST", "LAST"
 	//private final static String[] 窗口函数 = {"AVG", "COUNT", "MAX", "MIN", "SUM", "RANK", "DENSE_RANK", "ROW_NUMBER"};
 
 	//private final static String[] OPERATORS = {
