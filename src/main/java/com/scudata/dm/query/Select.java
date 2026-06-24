@@ -1520,13 +1520,14 @@ public class Select extends QueryBody {
 						List<Exp> paramList = scanParam(tokens, pos + 1, end, part);
 						int pcount = paramList.size();
 						
+						// 剔除空
 						if (pcount == 1) {
 							if(fnName.equalsIgnoreCase("GCONCAT")) {
-								fnName = "concat";
+								fnName = "concat@0";
 							}
 						} else if (pcount == 2) {
 							if(fnName.equalsIgnoreCase("GCONCAT")) {
-								fnName = "concat";
+								fnName = "concat@0";
 							} else {
 								MessageManager mm = ParseMessage.get();
 								throw new RQException(mm.getMessage("syntax.error") + tokens[pos].getPos());
