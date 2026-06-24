@@ -19,6 +19,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.AppFrame;
@@ -28,6 +29,7 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.spl.SPL;
 import com.scudata.ide.vdb.commonvdb.GC;
+import com.scudata.ide.vdb.commonvdb.LNFManager;
 import com.scudata.ide.vdb.config.ConfigFile;
 import com.scudata.ide.vdb.config.ConfigOptions;
 import com.scudata.ide.vdb.control.ConnectionConfig;
@@ -84,6 +86,10 @@ public class VDB extends AppFrame implements EditListener {
 			ConfigOptions.load();
 		} catch (Exception e1) {
 			e1.printStackTrace();
+		}
+		// Apply dark mode if it was previously enabled
+		if (ConfigOptions.bDarkMode) {
+			LNFManager.applyDarkMode();
 		}
 		// 集算器授权，先加载自己用
 		try {
@@ -330,6 +336,30 @@ public class VDB extends AppFrame implements EditListener {
 
 	}
 
+	private void toggleDarkMode() {
+		try {
+			ConfigOptions.bDarkMode = !ConfigOptions.bDarkMode;
+			ConfigOptions.save();
+			
+			if (ConfigOptions.bDarkMode) {
+				LNFManager.applyDarkMode();
+			} else {
+				LNFManager.applyLightMode();
+			}
+			
+			// Update the UI for all components
+			SwingUtilities.updateComponentTreeUI(this);
+			
+			// Show confirmation message
+			String message = ConfigOptions.bDarkMode ? 
+				"Dark mode enabled. Please restart the application for full effect." :
+				"Light mode enabled. Please restart the application for full effect.";
+			JOptionPane.showMessageDialog(this, message, "Theme Changed", JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			GM.showException(GV.appFrame, e);
+		}
+	}
+
 	public void executeCmd(short cmdId) {
 		try {
 			switch (cmdId) {
@@ -397,6 +427,9 @@ public class VDB extends AppFrame implements EditListener {
 				// TOOLS
 			case GCMenu.iTOOLS_BINBROWSER:
 				// new DialogBinBrowser(this).setVisible(true);
+				return;
+			case GCMenu.iTOOLS_TOGGLE_THEME:
+				toggleDarkMode();
 				return;
 			case GCMenu.iTOOLS_OPTION:
 				new DialogOptions().setVisible(true);

@@ -52,6 +52,7 @@ public class MenuVDB extends MenuFactory {
 		// 工具菜单
 		menu = newMenu(GCMenu.iTOOLS, GCMenu.TOOLS, 'T', true);
 //		menu.add(newMenuItem(GCMenu.iTOOLS_BINBROWSER, GCMenu.TOOLS_BINBROWSER, 'B', Boolean.FALSE, false));
+		menu.add(newMenuItem(GCMenu.iTOOLS_TOGGLE_THEME, GCMenu.TOOLS_TOGGLE_THEME, 'D', Boolean.TRUE, true));
 		menu.add(newMenuItem(GCMenu.iTOOLS_OPTION, GCMenu.TOOLS_OPTION, 'O', Boolean.FALSE, true));
 		add(menu);
 		
