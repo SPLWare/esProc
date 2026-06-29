@@ -5,10 +5,12 @@
       <INFO dbtype="ESPROC" value="abs(?1)"/>
 	  <INFO dbtype="ESPROC_SQL" value="abs(?1)"/>
 	  <INFO dbtype="DUCKDB" value="abs(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="abs(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="ACOS" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="acos(?1)"/>
 	  <INFO dbtype="DUCKDB" value="acos(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="acos(?1)"/>
 	</FUNCTION>
     <FUNCTION name="ADDDAYS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'DAY')"/>
@@ -22,7 +24,8 @@
       <INFO dbtype="IMPALA" value="DAYS_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(DD,?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_ADD(?1, INTERVAL ?2 DAY)"/>
-	  <INFO dbtype="DUCKDB" value="?1+INTERVAL ?2 DAY"/>
+	  <INFO dbtype="DUCKDB" value="(?1+INTERVAL ?2 DAY)"/>
+	  <INFO dbtype="SNOWFLAKE" value="dateadd(day,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ADDHOURS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'HOUR')"/>
@@ -36,7 +39,8 @@
       <INFO dbtype="IMPALA" value="HOURS_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(HH,?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_ADD(?1, INTERVAL ?2 HOUR)"/>
-	  <INFO dbtype="DUCKDB" value="?1+INTERVAL ?2 HOUR"/>
+	  <INFO dbtype="DUCKDB" value="(?1+INTERVAL ?2 HOUR)"/>
+	  <INFO dbtype="SNOWFLAKE" value="dateadd(hour,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ADDMINUTES" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'MINUTE')"/>
@@ -50,7 +54,8 @@
       <INFO dbtype="IMPALA" value="MINUTES_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(MI,?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_ADD(?1, INTERVAL ?2 MINUTE)"/>
-	  <INFO dbtype="DUCKDB" value="?1+INTERVAL ?2 MINUTE"/>
+	  <INFO dbtype="DUCKDB" value="(?1+INTERVAL ?2 MINUTE)"/>
+	  <INFO dbtype="SNOWFLAKE" value="dateadd(minute,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ADDMONTHS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTOYMINTERVAL(?2,'MONTH')"/>
@@ -64,7 +69,8 @@
       <INFO dbtype="IMPALA" value="MONTHS_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(MM,?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_ADD(?1, INTERVAL ?2 MONTH)"/>
-	  <INFO dbtype="DUCKDB" value="?1+INTERVAL ?2 MONTH"/>
+	  <INFO dbtype="DUCKDB" value="(?1+INTERVAL ?2 MONTH)"/>
+	  <INFO dbtype="SNOWFLAKE" value="dateadd(month,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ADDSECONDS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'SECOND')"/>
@@ -78,7 +84,8 @@
       <INFO dbtype="IMPALA" value="SECONDS_ADD(?1,?2)"/>
       <INFO dbtype="DAMENG" value="DATEADD(SS,?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_ADD(?1, INTERVAL ?2 SECOND)"/>
-	  <INFO dbtype="DUCKDB" value="?1+INTERVAL ?2 SECOND"/>
+	  <INFO dbtype="DUCKDB" value="(?1+INTERVAL ?2 SECOND)"/>
+	  <INFO dbtype="SNOWFLAKE" value="dateadd(second,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ADDYEARS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTOYMINTERVAL(?2,'YEAR')"/>
@@ -93,24 +100,30 @@
       <INFO dbtype="DAMENG" value="DATEADD(YY,?2,?1)"/>
 	  <INFO dbtype="BIGQUERY" value="DATE_ADD(?1, INTERVAL ?2 YEAR)"/>
 	  <INFO dbtype="DUCKDB" value="?1+INTERVAL ?2 YEAR"/>
+	  <INFO dbtype="SNOWFLAKE" value="dateadd(year,?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="ASCII" paramcount="1" value="">
       <INFO dbtype="TERADATA" value="n/a"/>
       <INFO dbtype="ESPROC" value="asc(?1)"/>
 	  <INFO dbtype="DUCKDB" value="ascii(left(?1,1))"/>
+	  <INFO dbtype="SNOWFLAKE" value="ascii(?1)"/>
+	  <INFO dbtype="BIGQUERY" value="UNICODE(?1)"/>
     </FUNCTION>
 	<FUNCTION name="ASIN" paramcount="1" value="asin(?1)">
       <INFO dbtype="ESPROC" value="asin(?1)"/>
 	  <INFO dbtype="DUCKDB" value="asin(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="asin(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="ATAN" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="atan(?1)"/>
 	  <INFO dbtype="DUCKDB" value="atan(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="atan(?1)"/>
 	</FUNCTION>
     <FUNCTION name="ATAN2" paramcount="2" value="">
       <INFO dbtype="SQLSVR" value="ATN2(?1,?2)"/>
       <INFO dbtype="ESPROC" value="if(((?2)&gt;0):atan((?1)/(?2)),((?1)&gt;=0&amp;&amp;(?2)&lt;0):(atan((?1)/(?2))+pi()),((?1)&lt;0&amp;&amp;(?2)&lt;0):(atan((?1)/(?2))-pi()),((?1)&gt;0&amp;&amp;(?2)==0):(pi()/2),((?1)&lt;0&amp;&amp;(?2)==0):(-pi()/2),null)"/>
 	  <INFO dbtype="DUCKDB" value="ATAN2(?1,?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="ATAN2(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="CAST" paramcount="2" value="CAST(?1 as ?2)">
       <INFO dbtype="ORACLE" value=""/>
@@ -126,6 +139,7 @@
       <INFO dbtype="DAMENG" value=""/>
 	  <INFO dbtype="BIGQUERY" value=""/>
 	  <INFO dbtype="DUCKDB" value=""/>
+	  <INFO dbtype="SNOWFLAKE" value=""/>
     </FUNCTION>
     <FUNCTION name="CEIL" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="CEILING(?)"/>
@@ -133,12 +147,15 @@
       <INFO dbtype="POSTGRES" value="CEIL(?)"/>
       <INFO dbtype="ESPROC" value="long(ceil(?1))"/>
 	  <INFO dbtype="DUCKDB" value="CEIL(?)"/>
+	  <INFO dbtype="SNOWFLAKE" value="CEIL(?)"/>
     </FUNCTION>
 	<FUNCTION name="CEIL" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="ceil@s(?1,?2)"/>
 	  <INFO dbtype="ORACLE" value="(CEIL(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
 	  <INFO dbtype="MYSQL" value="(CEILING(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
 	  <INFO dbtype="POSTGRES" value="(CEIL(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
+	  <INFO dbtype="SNOWFLAKE" value="ceil(?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="CEILING(?1*POWER(10,?2))/POWER(10,?2)"/>
     </FUNCTION>
     <FUNCTION name="CHR" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="CHAR(?)"/>
@@ -147,6 +164,7 @@
       <INFO dbtype="HSQL" value="CHAR(?)"/>
       <INFO dbtype="ESPROC" value="char(?1)"/>
 	  <INFO dbtype="DUCKDB" value="chr(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="chr(?1)"/>
     </FUNCTION>
     <FUNCTION name="CONCAT" paramcount="2" value="COALESCE(NULLIF(?1,''),'') || COALESCE(NULLIF(?2,''),'')">
       <INFO dbtype="SQLSVR" value="CONCAT(NULLIF(?1,''),NULLIF(?2,''))"/>
@@ -160,10 +178,32 @@
 	  <INFO dbtype="ESPROC_SQL" value="CONCAT(?1,?2)"/>
 	  <INFO dbtype="BIGQUERY" value="CONCAT(IFNULL(NULLIF(?1,''),''),IFNULL(NULLIF(?2,''),''))"/>
 	  <INFO dbtype="DUCKDB" value="concat(?1,?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="concat_ws('',?1,?2)"/>
     </FUNCTION>
 	<FUNCTION name="COS" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="cos(?1)"/>
 	  <INFO dbtype="DUCKDB" value="cos(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="cos(?1)"/>
+	</FUNCTION>
+	<FUNCTION name="DATE" paramcount="3" value="">
+	  <INFO dbtype="ESPROC" value="date(?1,?2,?3)"/>
+	  <INFO dbtype="SQLSVR" value="DATEFROMPARTS(?1,?2,?3)"/>
+	  <INFO dbtype="ORACLE" value="CASE
+  WHEN ?2 BETWEEN 1 AND 12
+   AND ?3 BETWEEN 1 AND
+     CASE ?2
+       WHEN 2 THEN CASE WHEN MOD(?1, 4) = 0 AND (MOD(?1, 100) != 0 OR MOD(?1, 400) = 0) THEN 29 ELSE 28 END
+       WHEN 4 THEN 30 WHEN 6 THEN 30 WHEN 9 THEN 30 WHEN 11 THEN 30
+       ELSE 31
+     END
+  THEN TO_DATE(LPAD(?1, 4, '0') || '-' || LPAD(?2, 2, '0') || '-' || LPAD(?3, 2, '0'), 'YYYY-MM-DD')
+  ELSE NULL
+END"/>
+	  <INFO dbtype="DUCKDB" value="TRY_CAST(printf('%04d-%02d-%02d',?1,?2,?3) AS DATE)"/>
+	  <INFO dbtype="SNOWFLAKE" value="DATE_FROM_PARTS(?1,?2,?3)"/>
+	  <INFO dbtype="MYSQL" value="STR_TO_DATE(CONCAT(?1,'-',?2,'-',?3),'%Y-%m-%d')"/>
+	  <INFO dbtype="POSTGRES" value="make_date(?1,?2,?3)"/>
+	  <INFO dbtype="BIGQUERY" value="DATE(CONCAT(?1,'-',?2,'-',?3))"/>
 	</FUNCTION>
 	<FUNCTION name="DATE" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="date(?1,?2)"/>
@@ -171,11 +211,12 @@
 	  <INFO dbtype="HSQL" value="TO_DATE(?1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="CAST(strptime(?1,?2) AS DATE)"/>
 	  <INFO dbtype="POSTGRES" value="TO_DATE(?1,?2)"/>
-	  <INFO dbtype="BIGQUERY" value="PARSE_DATE(?2,?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="to_date(?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="CAST(FORMAT(?1,?2) AS DATE)"/>
 	</FUNCTION>
     <FUNCTION name="DATE" paramcount="1" value="TO_DATE(?,'YYYY-MM-DD')">
       <INFO dbtype="ORACLE" value=""/>
-      <INFO dbtype="SQLSVR" value="CONVERT(varchar(100), ?, 23)"/>
+      <INFO dbtype="SQLSVR" value="CAST(?1 AS DATE)"/>
       <INFO dbtype="DB2" value="DATE(?)"/>
       <INFO dbtype="MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d')"/>
       <INFO dbtype="HSQL" value="CAST(TO_DATE(?,'YYYY-MM-DD') AS DATE)"/>
@@ -186,6 +227,7 @@
       <INFO dbtype="DAMENG" value="TO_DATE(?,'YYYY-MM-DD')"/>
 	  <INFO dbtype="BIGQUERY" value="DATE(?)"/>
 	  <INFO dbtype="DUCKDB" value="DATE(?)"/>
+	  <INFO dbtype="SNOWFLAKE" value="to_date(?1)"/>
     </FUNCTION>
 	<FUNCTION name="DATETOCHAR" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="string(?1,?2)"/>
@@ -196,6 +238,7 @@
 	  <INFO dbtype="MYSQL" value="DATE_FORMAT(?1,?2)"/>
 	  <INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
 	  <INFO dbtype="BIGQUERY" value="FORMAT_DATE(?2,?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="to_varchar(?1,?2)"/>
 	</FUNCTION>
     <FUNCTION name="DATETOCHAR" paramcount="1" value="TO_CHAR(?,'YYYY-MM-DD HH:MI:SS')">
       <INFO dbtype="ORACLE" value=""/>
@@ -211,6 +254,7 @@
       <INFO dbtype="DAMENG" value="TO_CHAR(?,'YYYY-MM-DD HH24:MI:SS')"/>
 	  <INFO dbtype="BIGQUERY" value="CAST(? as STRING)"/>
 	  <INFO dbtype="DUCKDB" value="strftime(?1, '%Y-%m-%d %H:%M:%S')"/>
+	  <INFO dbtype="SNOWFLAKE" value="to_varchar(?1,'YYYY-MM-DD HH24:MI:SS')"/>
     </FUNCTION>
     <FUNCTION name="DAY" paramcount="1" value="EXTRACT(DAY FROM ?)">
       <INFO dbtype="ORACLE" value=""/>
@@ -219,6 +263,8 @@
       <INFO dbtype="ESPROC" value="day(?1)"/>
 	  <INFO dbtype="ESPROC_SQL" value="DAY(?1)"/>
 	  <INFO dbtype="DUCKDB" value="day(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="day(?1)"/>
+	  <INFO dbtype="BIGQUERY" value=""/>
     </FUNCTION>
     <FUNCTION name="DAYOFYEAR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="TO_NUMBER(TO_CHAR(?1,'DDD'))"/>
@@ -229,6 +275,7 @@
       <INFO dbtype="IMPALA" value="DAYOFYEAR(CAST(? AS TIMESTAMP))"/>
 	  <INFO dbtype="BIGQUERY" value="EXTRACT(DAYOFYEAR FROM ?)"/>
 	  <INFO dbtype="DUCKDB" value="DAYOFYEAR(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="DAYOFYEAR(?1)"/>
     </FUNCTION>
 	 <FUNCTION name="DAYOFWEEK" paramcount="1" value="">
 	  <INFO dbtype="ORACLE" value="MOD(TRUNC(CAST( ?1  AS DATE))- DATE '1900-01-07',7) + 1"/>
@@ -241,6 +288,7 @@
       <INFO dbtype="ESPROC" value="day@w(?1)"/>
 	  <INFO dbtype="BIGQUERY" value="EXTRACT(DAYOFWEEK FROM ?)"/>
 	  <INFO dbtype="DUCKDB" value="DAYOFWEEK(?1)+1"/>
+	  <INFO dbtype="SNOWFLAKE" value="DAYOFWEEK(?1)"/>
     </FUNCTION>
     <FUNCTION name="DECIMAL" paramcount="3" value="">
       <INFO dbtype="ORACLE" value="CAST(?1 AS DECIMAL(?2,?3))"/>
@@ -254,28 +302,35 @@
       <INFO dbtype="IMPALA" value="CAST(?1 as DECIMAL(?2,?3))"/>
       <INFO dbtype="DAMENG" value="CAST(?1 AS DECIMAL(?2,?3))"/>
 	  <INFO dbtype="DUCKDB" value="CAST(?1 AS DECIMAL(?2,?3))"/>
+	  <INFO dbtype="SNOWFLAKE" value="to_decimal(?1,?2,?3)"/>
     </FUNCTION>
     <FUNCTION name="DECIMAL" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="round(decimal(?1),?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="round(cast(?1 as decimal),?2)"/>
     </FUNCTION>
     <FUNCTION name="DECIMAL" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="round(decimal(?1),2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="cast(?1 as number)"/>
     </FUNCTION>
 	<FUNCTION name="EXP" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="exp(?1)"/>
 	  <INFO dbtype="DUCKDB" value="exp(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="exp(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="FLOOR" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="long(floor(?1))"/>
 	  <INFO dbtype="ORACLE" value="floor(?1)"/>
 	  <INFO dbtype="DUCKDB" value="floor(?1)"/>
 	  <INFO dbtype="POSTGRES" value="floor(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="floor(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="FLOOR" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="floor@s(?1,?2)"/>
 	  <INFO dbtype="ORACLE" value="(FLOOR(?1*POWER(10,?2))/POWER(10,?2))"/>
 	  <INFO dbtype="MYSQL" value="TRUNCATE(?1,?2)"/>
 	  <INFO dbtype="POSTGRES" value="TRUNC(?1,?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="floor(?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="FLOOR(?1*POWER(10,?2))/POWER(10,?2)"/>
 	</FUNCTION>
     <FUNCTION name="HOUR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(HOUR FROM ?)"/>
@@ -285,6 +340,7 @@
 	  <INFO dbtype="BIGQUERY" value="EXTRACT(HOUR FROM ?)"/>
       <INFO dbtype="ESPROC" value="hour(?1)"/>
 	  <INFO dbtype="DUCKDB" value="hour(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="hour(?1)"/>
     </FUNCTION>
     <FUNCTION name="INDEXOF" paramcount="3" value="">
       <INFO dbtype="ORACLE" value="INSTR(?2,?1,?3)"/>
@@ -299,6 +355,7 @@
       <INFO dbtype="DAMENG" value="INSTR(?2,?1,?3)"/>
 	  <INFO dbtype="BIGQUERY" value="INSTR(?2,?1,?3)"/>
 	  <INFO dbtype="DUCKDB" value="CASE WHEN position(?2 IN substr(?1, ?3)) > 0 THEN position(?2 IN substr(?1, ?3)) + (?3-1)   ELSE 0 END"/>
+	  <INFO dbtype="SNOWFLAKE" value="position(?2,?1,?3)"/>
     </FUNCTION>
     <FUNCTION name="INDEXOF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="INSTR(?2,?1)"/>
@@ -312,6 +369,7 @@
       <INFO dbtype="IMPALA" value="LOCATE(?1,?2)"/>
       <INFO dbtype="DAMENG" value="INSTR(?2,?1)"/>
 	  <INFO dbtype="DUCKDB" value="position(?2 in ?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="position(?2 in ?1)"/>
     </FUNCTION>
     <FUNCTION name="INT" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="CAST(? AS INT)"/>
@@ -325,6 +383,7 @@
       <INFO dbtype="DAMENG" value="CAST(? AS INT)"/>
 	  <INFO dbtype="BIGQUERY" value="CAST(? AS INT)"/>
 	  <INFO dbtype="DUCKDB" value="CAST(? AS INT)"/>
+	  <INFO dbtype="SNOWFLAKE" value="cast(?1 as integer)"/>
     </FUNCTION>
     <FUNCTION name="LEFT" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="SUBSTR(?1,1,?2)"/>
@@ -334,6 +393,7 @@
       <INFO dbtype="IMPALA" value="STRLEFT(?1,?2)"/>
 	  <INFO dbtype="BIGQUERY" value="SUBSTR(?1,1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="left(?1,?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="left(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="RIGHT" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
@@ -343,6 +403,7 @@
       <INFO dbtype="IMPALA" value="STRRIGHT(?1,?2)"/>
 	  <INFO dbtype="BIGQUERY" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="right(?1,?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="right(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="LEN" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="LENGTH(?)"/>
@@ -355,11 +416,13 @@
       <INFO dbtype="IMPALA" value="LENGTH(?)"/>
 	  <INFO dbtype="BIGQUERY" value="LENGTH(?)"/>
 	  <INFO dbtype="DUCKDB" value="len(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="LENGTH(?)"/>
     </FUNCTION>
     <FUNCTION name="LN" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="LOG(?)"/>
       <INFO dbtype="ESPROC" value="ln(?1)"/>
 	  <INFO dbtype="DUCKDB" value="ln(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="ln(?1)"/>
     </FUNCTION>
     <FUNCTION name="LOG10" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="LOG(10,?)"/>
@@ -367,14 +430,17 @@
       <INFO dbtype="POSTGRES" value="LOG(?)"/>
       <INFO dbtype="ESPROC" value="lg(?1)"/>
 	  <INFO dbtype="DUCKDB" value="log10(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="log10(?1)"/>
     </FUNCTION>
 	<FUNCTION name="LOWER" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="lower(?1)"/>
 	  <INFO dbtype="DUCKDB" value="lower(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="lower(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="LTRIM" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="trim@l(?1)"/>
 	  <INFO dbtype="DUCKDB" value="ltrim(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="ltrim(?1)"/>
 	</FUNCTION>
     <FUNCTION name="MINUTE" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(MINUTE FROM ?)"/>
@@ -384,6 +450,7 @@
 	  <INFO dbtype="BIGQUERY" value="EXTRACT(MINUTE FROM ?)"/>
       <INFO dbtype="ESPROC" value="minute(?1)"/>
 	  <INFO dbtype="DUCKDB" value="minute(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="minute(?1)"/>
     </FUNCTION>
     <FUNCTION name="MOD" paramcount="2" value="">
       <INFO dbtype="SQLSVR" value="?1 % ?2"/>
@@ -392,6 +459,7 @@
       <INFO dbtype="POSTGRES" value="?1 % ?2"/>
       <INFO dbtype="ESPROC" value="((?1)%(?2))"/>
 	  <INFO dbtype="DUCKDB" value="?1 % ?2"/>
+	  <INFO dbtype="SNOWFLAKE" value="MOD(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="MONTH" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(MONTH FROM ?)"/>
@@ -400,6 +468,7 @@
 	  <INFO dbtype="BIGQUERY" value="EXTRACT(MONTH FROM ?)"/>
       <INFO dbtype="ESPROC" value="month(?1)"/>
 	  <INFO dbtype="DUCKDB" value="month(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="month(?1)"/>
     </FUNCTION>
     <FUNCTION name="NOW" paramcount="0">
       <INFO dbtype="ORACLE" value="SYSTIMESTAMP"/>
@@ -414,10 +483,12 @@
       <INFO dbtype="DAMENG" value="NOW()"/>
 	  <INFO dbtype="BIGQUERY" value="CURRENT_TIMESTAMP"/>
 	  <INFO dbtype="DUCKDB" value="NOW()"/>
+	  <INFO dbtype="SNOWFLAKE" value="NOW()"/>
     </FUNCTION>
 	<FUNCTION name="NULLIF" paramcount="2" value="">
 		<INFO dbtype="ESPROC" value="if((?1)!=(?2),?1)"/>
 		<INFO dbtype="DUCKDB" value="NULLIF(?1,?2)"/>
+		<INFO dbtype="SNOWFLAKE" value="NULLIF(?1,?2)"/>
 	</FUNCTION>
     <FUNCTION name="NUMTOCHAR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="TO_CHAR(?)"/>
@@ -432,13 +503,15 @@
       <INFO dbtype="DAMENG" value="TO_CHAR(?)"/>
 	  <INFO dbtype="BIGQUERY" value="CAST(? as STRING)"/>
 	  <INFO dbtype="DUCKDB" value="CAST(? AS CHAR)"/>
+	  <INFO dbtype="SNOWFLAKE" value="cast(?1 as string)"/>
     </FUNCTION>
 	<FUNCTION name="NVL" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="ifn(?1,?2)"/>
 	</FUNCTION>
 	<FUNCTION name="POWER" paramcount="2" value="">
-      <INFO dbtype="ESPROC" value="power(?1, ?2)"/>
-	  <INFO dbtype="DUCKDB" value="power(?1, ?2)"/>
+      <INFO dbtype="ESPROC" value="power(?1,?2)"/>
+	  <INFO dbtype="DUCKDB" value="power(?1,?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="power(?1,?2)"/>
 	</FUNCTION>
     <FUNCTION name="QUARTER" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="FLOOR((EXTRACT(MONTH FROM ?)+2)/3)"/>
@@ -449,6 +522,7 @@
       <INFO dbtype="IMPALA" value="DECODE(MONTH(TRUNC(?,'Q')),1,1,4,2,7,3,10,4)"/>
 	  <INFO dbtype="BIGQUERY" value="EXTRACT(QUARTER FROM ?)"/>
 	  <INFO dbtype="DUCKDB" value="quarter(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="QUARTER(?1)"/>
     </FUNCTION>
     <FUNCTION name="RAND" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="DBMS_RANDOM.VALUE(0, ?)"/>
@@ -456,19 +530,24 @@
       <INFO dbtype="POSTGRES" value="RANDOM()"/>
       <INFO dbtype="ESPROC" value="(rand@s(?1),rand())"/>
 	  <INFO dbtype="DUCKDB" value="RANDOM()* ?1"/>
+	  <INFO dbtype="SNOWFLAKE" value="uniform(0,?1,random())"/>
+	  <INFO dbtype="BIGQUERY" value="RAND()* ?1"/>
     </FUNCTION>
     <FUNCTION name="REPLACE" paramcount="3" value="">
       <INFO dbtype="TERADATA" value="OREPLACE(?1,?2,?3)"/>
       <INFO dbtype="ESPROC" value="replace(?1,?2,?3)"/>
 	  <INFO dbtype="DUCKDB" value="replace(?1,?2,?3)"/>
+	  <INFO dbtype="SNOWFLAKE" value="replace(?1,?2,?3)"/>
     </FUNCTION>
     <FUNCTION name="ROUND" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="round(?1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="round(?1,?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="round(?1,?2)"/>
     </FUNCTION>
 	<FUNCTION name="RTRIM" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="trim@r(?1)"/>
 	  <INFO dbtype="DUCKDB" value="rtrim(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="RTRIM(?1)"/>
 	</FUNCTION>
     <FUNCTION name="SECOND" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(SECOND FROM ?)"/>
@@ -478,19 +557,23 @@
 	  <INFO dbtype="BIGQUERY" value="EXTRACT(SECOND FROM ?)"/>
       <INFO dbtype="ESPROC" value="second(?1)"/>
 	  <INFO dbtype="DUCKDB" value="second(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="second(?1)"/>
     </FUNCTION>
     <FUNCTION name="SIGN" paramcount="1" value="">
       <INFO dbtype="TERADATA" value="n/a"/>
       <INFO dbtype="ESPROC" value="sign(?1)"/>
 	  <INFO dbtype="DUCKDB" value="sign(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="sign(?1)"/>
     </FUNCTION>
 	<FUNCTION name="SIN" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="sin(?1)"/>
 	  <INFO dbtype="DUCKDB" value="sin(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="sin(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="SQRT" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="sqrt(?1)"/>
 	  <INFO dbtype="DUCKDB" value="sqrt(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="sqrt(?1)"/>
 	</FUNCTION>
     <FUNCTION name="SUBSTR" paramcount="3" value="">
       <INFO dbtype="SQLSVR" value="SUBSTRING(?1,?2,?3)"/>
@@ -498,6 +581,7 @@
       <INFO dbtype="ESPROC" value="mid(?1,?2,?3)"/>
       <INFO dbtype="DAMENG" value="SUBSTR(?1,?2,?3)"/>
 	  <INFO dbtype="DUCKDB" value="SUBSTR(?1,?2,?3)"/>
+	  <INFO dbtype="SNOWFLAKE" value="SUBSTR(?1,?2,?3)"/>
     </FUNCTION>
     <FUNCTION name="SUBSTR" paramcount="2" value="">
       <INFO dbtype="SQLSVR" value="SUBSTRING(?1,?2,len(?1)-?2+1)"/>
@@ -505,13 +589,26 @@
       <INFO dbtype="ESPROC" value="mid(?1,?2)"/>
       <INFO dbtype="DAMENG" value="SUBSTR(?1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="SUBSTR(?1,?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="SUBSTR(?1,?2)"/>
     </FUNCTION>
 	<FUNCTION name="TAN" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="tan(?1)"/>
 	  <INFO dbtype="DUCKDB" value="tan(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="tan(?1)"/>
+	</FUNCTION>
+	<FUNCTION name="TIME" paramcount="3" value="">
+      <INFO dbtype="ESPROC" value="time(?1,?2,?3)"/>
+	  <INFO dbtype="SQLSVR" value="TIMEFROMPARTS(?1,?2,?3, 0, 0)"/>
+	  <INFO dbtype="ORACLE" value="NUMTODSINTERVAL(?1 * 3600 + ?2 * 60 + ?3, 'SECOND')"/>
+	  <INFO dbtype="SNOWFLAKE" value="TIME_FROM_PARTS(?1,?2,?3)"/>
+	  <INFO dbtype="DUCKDB" value="TRY_CAST(printf('%02d:%02d:%02d',?1,?2,?3) AS TIME)"/>
+	  <INFO dbtype="MYSQL" value="MAKETIME(?1,?2,?3)"/>
+	  <INFO dbtype="POSTGRES" value="MAKE_TIME(?1,?2,?3)"/>
+	  <INFO dbtype="BIGQUERY" value="TIME(?1,?2,?3)"/>
 	</FUNCTION>
 	<FUNCTION name="TIME" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="time(?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="CAST(FORMAT(?1,?2) AS TIME)"/>
 	</FUNCTION>
 	<FUNCTION name="TIME" paramcount="1" value="">
 	  <INFO dbtype="MYSQL" value="TIME(?)"/>
@@ -521,12 +618,23 @@
 	  <INFO dbtype="POSTGRES" value="CAST(?1 AS TIME)"/>
 	  <INFO dbtype="BIGQUERY" value="CAST(?1 AS TIME)"/>
 	  <INFO dbtype="DUCKDB" value="CAST(?1 AS TIME)"/>
-	</FUNCTION>			
+	  <INFO dbtype="SNOWFLAKE" value="to_time(?1)"/>
+	  <INFO dbtype="SQLSVR" value="CAST(?1 AS TIME)"/>
+	</FUNCTION>	
+	<FUNCTION name="DATETIME" paramcount="2" value="">
+      <INFO dbtype="ESPROC" value="datetime(?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="DATEADD(second, DATEDIFF(second, 0, ?2), CAST(?1 AS datetime2))"/>
+	   <INFO dbtype="ORACLE" value="TO_DATE(TO_CHAR(?1,'YYYY-MM-DD') || ' ' || ?2,'YYYY-MM-DD HH24:MI:SS')"/>
+	  <INFO dbtype="DUCKDB" value="(?1+?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="TIMESTAMP_FROM_PARTS(?1,?2)"/>
+	  <INFO dbtype="MYSQL" value="STR_TO_DATE(CONCAT(?1,' ',?2), '%Y-%m-%d %H:%i:%s')"/>
+	  <INFO dbtype="POSTGRES" value="(?1+?2)"/>
+	  <INFO dbtype="BIGQUERY" value="datetime(?1,?2)"/>
+	</FUNCTION>
 	<FUNCTION name="TIMESTAMP" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="datetime(?1,?2)"/>
 	  <INFO dbtype="HSQL" value="TO_TIMESTAMP(?1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="STRPTIME(?1,?2)"/>
-	  <INFO dbtype="BIGQUERY" value="PARSE_TIMESTAMP(?2,?1)"/>
 	</FUNCTION>
     <FUNCTION name="TIMESTAMP" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="TO_TIMESTAMP(?,'YYYY-MM-DD HH24:MI:SS')"/>
@@ -540,6 +648,7 @@
       <INFO dbtype="DAMENG" value="CAST(? as TIMESTAMP)"/>
 	  <INFO dbtype="BIGQUERY" value="CAST(? as TIMESTAMP)"/>
 	  <INFO dbtype="DUCKDB" value="CAST(? as TIMESTAMP)"/>
+	  <INFO dbtype="SNOWFLAKE" value="to_timestamp(?1, 'YYYY-MM-DD HH24:MI:SS')"/>
     </FUNCTION>
     <FUNCTION name="TODAY" paramcount="0">
       <INFO dbtype="ORACLE" value="SYSDATE"/>
@@ -554,6 +663,7 @@
       <INFO dbtype="DAMENG" value="SYSDATE"/>
 	  <INFO dbtype="BIGQUERY" value="CURRENT_DATE"/>
 	  <INFO dbtype="DUCKDB" value="TODAY()"/>
+	  <INFO dbtype="SNOWFLAKE" value="current_date()"/>
     </FUNCTION>
     <FUNCTION name="TRIM" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="LTRIM(RTRIM(?))"/>
@@ -561,6 +671,7 @@
       <INFO dbtype="POSTGRES" value="LTRIM(RTRIM(?))"/>
       <INFO dbtype="ESPROC" value="trim(?1)"/>
 	  <INFO dbtype="DUCKDB" value="trim(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="trim(?1)"/>
     </FUNCTION>
     <FUNCTION name="TRUNC" paramcount="2" value="">
       <INFO dbtype="SQLSVR" value="CONVERT(BIGINT,?1*POWER(10,?2))/POWER(10.0,?2)"/>
@@ -568,10 +679,12 @@
       <INFO dbtype="ESPROC" value="if(?1&lt;0,floor@s(?1,?2),floor(?1,?2))"/>
       <INFO dbtype="IMPALA" value="CAST(?1*POWER(10,?2) AS BIGINT)/POWER(10.0,?2)"/>
 	  <INFO dbtype="DUCKDB" value="trunc(?1,?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="trunc(?1,?2)"/>
     </FUNCTION>
 	<FUNCTION name="UPPER" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="upper(?1)"/>
 	  <INFO dbtype="DUCKDB" value="upper(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="upper(?1)"/>
 	</FUNCTION>
     <FUNCTION name="WEEKOFYEAR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="TO_NUMBER(TO_CHAR(?,'WW'))"/>
@@ -585,6 +698,7 @@
       <INFO dbtype="DAMENG" value="WEEK(?)"/>
 	  <INFO dbtype="BIGQUERY" value="EXTRACT(WEEK FROM ?)"/>
 	  <INFO dbtype="DUCKDB" value="WEEK(?)"/>
+	  <INFO dbtype="SNOWFLAKE" value="WEEK(?1)"/>
     </FUNCTION>
     <FUNCTION name="YEAR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(YEAR FROM ?)"/>
@@ -594,6 +708,7 @@
       <INFO dbtype="IMPALA" value="YEAR(CAST(? AS TIMESTAMP))"/>
 	  <INFO dbtype="BIGQUERY" value="EXTRACT(YEAR FROM ?)"/>
 	  <INFO dbtype="DUCKDB" value="year(?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="year(?1)"/>
     </FUNCTION>
 
 	<FUNCTION name="ADDX" paramcount="2" value="">
@@ -619,6 +734,8 @@
 	  <INFO dbtype="DUCKDB" value="regexp_matches(?1,'^[0-9]+$')"/>
 	  <INFO dbtype="BIGQUERY" value="REGEXP_CONTAINS(?1, r'^[0-9]')"/>
 	  <INFO dbtype="POSTGRES" value="?1 ~ &#39;^[+-]{0,1}[0-9]+(\.[0-9]+){0,1}$&#39;"/>
+	  <INFO dbtype="SNOWFLAKE" value="regexp_like(?1,'^[0-9]+$')"/>
+	  <INFO dbtype="SQLSVR" value="CASE WHEN ?1 NOT LIKE '%[^0-9]%'THEN 1 ELSE 0 END"/>
 	</FUNCTION>
 	<FUNCTION name="isalpha" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="isalpha(?1)"/>
@@ -628,6 +745,8 @@
 	  <INFO dbtype="DUCKDB" value="regexp_matches(?1,'^[A-Za-z]+$')"/>
 	  <INFO dbtype="BIGQUERY" value="REGEXP_CONTAINS(?1, r'^[A-Za-z]+$')"/>
 	  <INFO dbtype="POSTGRES" value="?1 ~ '^[[:alpha:]]+$'"/>
+	  <INFO dbtype="SNOWFLAKE" value="regexp_like(?1,'^[A-Za-z]+$')"/>
+	  <INFO dbtype="SQLSVR" value="CASE WHEN ?1 NOT LIKE '%[^a-zA-Z]%'THEN 1 ELSE 0 END"/>	  
 	</FUNCTION>
 	<FUNCTION name="getsubs" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="substr(?1,?2)"/>
@@ -636,6 +755,8 @@
 	  <INFO dbtype="DUCKDB" value="substr(?1, position(?2 IN ?1) + length(?2))"/>
 	  <INFO dbtype="BIGQUERY" value="CASE WHEN STRPOS(?1,?2) &gt; 0 THEN SUBSTR(?1,STRPOS(?1,?2)+LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN STRPOS(?1,?2) &gt; 0 THEN SUBSTR(?1,STRPOS(?1,?2)+LENGTH(?2)) ELSE NULL END"/>
+	  <INFO dbtype="SNOWFLAKE" value="regexp_substr(?1, '.*?' || ?2 || '(.*)', 1, 1, 'e', 1)"/>
+	  <INFO dbtype="SQLSVR" value="CASE WHEN CHARINDEX(?2 COLLATE Latin1_General_CS_AS, ?1 COLLATE Latin1_General_CS_AS) > 0 THEN SUBSTRING(?1, CHARINDEX(?2 COLLATE Latin1_General_CS_AS, ?1 COLLATE Latin1_General_CS_AS) + LEN(?2), LEN(?1)) ELSE NULL END"/>
 	</FUNCTION>
 	<FUNCTION name="getsubs" paramcount="3" value="">
       <INFO dbtype="ESPROC" value="substr(?1,?2,?3)"/>
@@ -643,6 +764,8 @@
 	  <INFO dbtype="MYSQL" value="IF(SUBSTRING_INDEX(?1, ?2, ?3) > 0,SUBSTRING(?1,LENGTH(SUBSTRING_INDEX(?1, ?2, ?3)) + LENGTH(?2) + 1),NULL)"/>
 	  <INFO dbtype="BIGQUERY" value="CASE WHEN INSTR(?1,?2,INSTR(?1,?2)+?3-1) &gt; 0 THEN SUBSTR(?1,INSTR(?1,?2,INSTR(?1,?2)+?3-1)+LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN regexp_instr(?1,?2,1,?3) &gt; 0 THEN substring(?1,regexp_instr(?1,?2,1,?3) + length(?2)) ELSE NULL END"/>
+	  <INFO dbtype="SNOWFLAKE" value="regexp_substr(?1, '^(?:.*?' || ?2 || '){' || ?3 || '}(.*)$', 1, 1, 'e', 1)"/>
+	  <INFO dbtype="SQLSVR" value="N/A"/>
     </FUNCTION>
 	<FUNCTION name="ipos" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="pos@c(?1,?2)"/>
@@ -652,6 +775,8 @@
 	  <INFO dbtype="DUCKDB" value="strpos(lower(?1),lower(?2));"/>
 	  <INFO dbtype="BIGQUERY" value="REGEXP_INSTR(?1,r?2)"/>
 	  <INFO dbtype="POSTGRES" value="POSITION(?2 IN ?1)"/>
+	  <INFO dbtype="SNOWFLAKE" value="position(lower(?2),lower(?1))"/>
+	   <INFO dbtype="SQLSVR" value="CHARINDEX(?2,?1)"/>
 	</FUNCTION>
 	<FUNCTION name="ipos" paramcount="3" value="">
       <INFO dbtype="ESPROC" value="pos@c(?1,?2,?3)"/>
@@ -661,6 +786,8 @@
 	  <INFO dbtype="DUCKDB" value="CASE  WHEN position(lower(?2) IN lower(substr(?1,?3))) &gt; 0  THEN position(lower(?2) IN lower(substr(?1,?3))) + (?3-1)  ELSE 0 END"/>
 	  <INFO dbtype="BIGQUERY" value="REGEXP_INSTR(?1,r?2,?3)"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN strpos(substring(?1,?3),?2) &gt; 0 THEN ?3 - 1 + strpos(substring(?1,?3),?2) ELSE 0 END"/>
+	  <INFO dbtype="SNOWFLAKE" value="position(lower(?2),lower(?1),?3)"/>
+	  <INFO dbtype="SQLSVR" value="CHARINDEX(?2,?1,?3)"/>
 	</FUNCTION>
 	<FUNCTION name="igetsubs" paramcount="2" value="">
        <INFO dbtype="ESPROC" value="substr@c(?1,?2)"/>
@@ -668,8 +795,11 @@
 	   <INFO dbtype="MYSQL" value="CASE WHEN LOCATE(?2,?1) > 0 THEN SUBSTRING(?1, LOCATE(?2, ?1) + CHAR_LENGTH(?2)) ELSE NULL END"/>
 	   <INFO dbtype="HSQL" value="CASE   WHEN LOCATE(UPPER(?2),UPPER(?1)) > 0 THEN SUBSTR(?1,LOCATE(UPPER(?2),UPPER(?1)) + LENGTH(?2) )  ELSE NULL END"/>
 	   <INFO dbtype="DUCKDB" value="CASE  WHEN position(lower(?2) IN lower(?1)) &gt; 0  THEN substr(?1,position(lower(?2) IN lower(?1)) + length(?2))  ELSE NULL END "/>
-	   <INFO dbtype="BIGQUERY" value="IF(INSTR(LOWER(?1),LOWER(?2)) &gt; 0,SUBSTR(?1, INSTR(LOWER(NAME),LOWER(?2))+LENGTH(?2)),NULL)"/>
+	   <INFO dbtype="BIGQUERY" value="IF(INSTR(LOWER(?1),LOWER(?2)) &gt; 0,SUBSTR(?1, INSTR(LOWER(?1),LOWER(?2))+LENGTH(?2)),NULL)"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN POSITION(LOWER(?2) IN LOWER(?1)) &gt; 0 THEN SUBSTRING(?1 FROM POSITION(LOWER(?2) IN LOWER(?1)) + LENGTH(?2)) ELSE NULL END"/>
+	  <INFO dbtype="SNOWFLAKE" value="regexp_substr(?1, '.*?' || ?2 || '(.*)', 1, 1, 'ie', 1)"/>
+	  <INFO dbtype="SQLSVR" value="CASE WHEN CHARINDEX(?2 COLLATE Latin1_General_CI_AS, ?1 COLLATE Latin1_General_CI_AS) > 0 THEN SUBSTRING(?1, CHARINDEX(?2 COLLATE Latin1_General_CI_AS, ?1 COLLATE Latin1_General_CI_AS) + LEN(?2), LEN(?1)) ELSE NULL END"/>
+
 	</FUNCTION>
 	<FUNCTION name="igetsubs" paramcount="3" value="">
        <INFO dbtype="ESPROC" value="substr@c(?1,?2,?3)"/>
@@ -678,6 +808,8 @@
 	   <INFO dbtype="HSQL" value="CASE  WHEN LOCATE(UPPER(?2),UPPER(?1),?3) > 0  THEN SUBSTR(?1,LOCATE(UPPER(?2),UPPER(?1),?3) + LENGTH(?2))  ELSE NULL END"/>
 	   <INFO dbtype="BIGQUERY" value="CASE WHEN REGEXP_INSTR(LOWER(?1),LOWER(?2),1,?3) &gt; 0 THEN SUBSTR(?1,REGEXP_INSTR(LOWER(?1),LOWER(?2),1,?3)+ LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN regexp_instr(lower(?1), lower(?2),1,?3) &gt; 0 THEN substring(?1 FROM regexp_instr(lower(?1), lower(?2),1,?3) + length(?2)) ELSE NULL END"/>
+	  <INFO dbtype="SNOWFLAKE" value="regexp_substr(?1, '^(?:.*?' || ?2 || '){' || ?3 || '}(.*)$', 1, 1, 'ie', 1)"/>
+	  <INFO dbtype="SQLSVR" value="N/A"/>
 	</FUNCTION>
 
     <FUNCTION name="YEARSDIFF" paramcount="2" value="">
@@ -685,54 +817,66 @@
       <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(YEAR,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('yy',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval@y(?2,?1)"/>
-	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,YEAR)"/>
+	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(date(?2),date(?1),YEAR)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('YEAR',?1,?2)"/>
 	  <INFO dbtype="POSTGRES" value="EXTRACT(YEAR FROM AGE(?2,?1))"/>
+	  <INFO dbtype="SNOWFLAKE" value="datediff(year,?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="DATEDIFF(year,?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="MONTHSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="MONTHS_BETWEEN(?2,?1)"/>
       <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(MONTH,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('mm',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval@m(?2,?1)"/>
-	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,MONTH)"/>
+	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(date(?2),date(?1),MONTH)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('MONTH',?1,?2)"/>
 	  <INFO dbtype="POSTGRES" value="(EXTRACT(YEAR FROM age(?2, ?1)) * 12 + EXTRACT(MONTH FROM age(?2, ?1)))"/>
+	  <INFO dbtype="SNOWFLAKE" value="datediff(month,?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="DATEDIFF(month,?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="DAYSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(ceil(CAST(?2 AS DATE) - CAST(?1 AS DATE)))"/>
       <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(DAY,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('dd',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval(?2,?1)"/>
-	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,DAY)"/>
+	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(date(?2),date(?1),DAY)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('DAY',?1,?2)"/>
 	  <INFO dbtype="POSTGRES" value="(EXTRACT(DAY FROM (?2-?1)))"/>
+	  <INFO dbtype="SNOWFLAKE" value="datediff(day,?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="DATEDIFF(day,?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="HOURSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(?2-?1)*24"/>
       <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(HOUR,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('hh',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval@s(?2,?1)\3600"/>
-	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,HOUR)"/>
+	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(TIMESTAMP(?2),TIMESTAMP(?1),HOUR)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('HOUR',?1,?2)"/>
 	  <INFO dbtype="POSTGRES" value="floor(EXTRACT(EPOCH FROM (?2 - ?1)) / 3600)"/>
+	  <INFO dbtype="SNOWFLAKE" value="datediff(hour,?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="DATEDIFF(hour,?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="MINUTESDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(?2-?1)*24*60"/>
       <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(MINUTE,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('mi',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval@s(?2,?1)\60"/>
-	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,MINUTE)"/>
+	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(TIMESTAMP(?2),TIMESTAMP(?1),MINUTE)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('MINUTE',?1,?2)"/>
 	  <INFO dbtype="POSTGRES" value="floor(EXTRACT(EPOCH FROM (?2 - ?1)) / 60)"/>
+	  <INFO dbtype="SNOWFLAKE" value="datediff(minute,?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="DATEDIFF(minute,?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="SECONDSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(?2-?1)*24*60*60"/>
       <INFO dbtype="MYSQL" value="TIMESTAMPDIFF(SECOND,?1,?2)"/>
       <INFO dbtype="HSQL" value="DATEDIFF('ss',?2,?1)"/>
       <INFO dbtype="ESPROC" value="interval@s(?2,?1)"/>
-	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(?2,?1,SECOND)"/>
+	  <INFO dbtype="BIGQUERY" value="DATE_DIFF(TIMESTAMP(?2),TIMESTAMP(?1),SECOND)"/>
 	  <INFO dbtype="DUCKDB" value="date_diff('SECOND',?1,?2)"/>
 	  <INFO dbtype="POSTGRES" value="floor(EXTRACT(EPOCH FROM (?2 - ?1)))"/>
+	  <INFO dbtype="SNOWFLAKE" value="datediff(second,?1,?2)"/>
+	  <INFO dbtype="SQLSVR" value="DATEDIFF(second,?1,?2)"/>
     </FUNCTION>
       <FUNCTION name="TRUNCHOUR" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(TRUNC(?1,'HH24'),'YYYY-MM-DD HH24:MI:SS')"/>
@@ -742,6 +886,8 @@
 		<INFO dbtype="BIGQUERY" value="DATETIME_TRUNC(?1,HOUR)"/>
 		<INFO dbtype="DUCKDB" value="date_trunc('hour',?1)"/>
 		<INFO dbtype="POSTGRES" value="date_trunc('hour',?1)"/>
+		<INFO dbtype="SNOWFLAKE" value="date_trunc('hour',?1)"/>
+		<INFO dbtype="SQLSVR" value="DATETRUNC(HOUR, ?1)"/>
       </FUNCTION>
       <FUNCTION name="TRUNCMINUTE" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(TRUNC(?1,'MI'),'YYYY-MM-DD HH24:MI:SS')"/>
@@ -751,6 +897,8 @@
 		<INFO dbtype="BIGQUERY" value="DATETIME_TRUNC(?1,MINUTE)"/>
 		<INFO dbtype="DUCKDB" value="date_trunc('minute',?1)"/>
 		<INFO dbtype="POSTGRES" value="date_trunc('minute', ?1)"/>
+		<INFO dbtype="SNOWFLAKE" value="date_trunc('minute',?1)"/>
+		<INFO dbtype="SQLSVR" value="DATETRUNC(MINUTE, ?1)"/>
       </FUNCTION>
       <FUNCTION name="TRUNCSECOND" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(CAST(?1 AS DATE),'YYYY-MM-DD HH24:MI:SS')"/>
@@ -760,6 +908,8 @@
 		<INFO dbtype="BIGQUERY" value="DATETIME_TRUNC(?1,SECOND)"/>
 		<INFO dbtype="DUCKDB" value="date_trunc('second',?1)"/>
 		<INFO dbtype="POSTGRES" value="date_trunc('second', ?1)"/>
+		<INFO dbtype="SNOWFLAKE" value="date_trunc('second',?1)"/>
+		<INFO dbtype="SQLSVR" value="DATETRUNC(SECOND, ?1)"/>
       </FUNCTION>
 	  <FUNCTION name="MONTHSTART" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@m(?1)"/>	
@@ -768,6 +918,9 @@
 		<INFO dbtype="DUCKDB" value="date_trunc('month',?1)"/>
 		<INFO dbtype="MYSQL" value="DATE_FORMAT(?1, '%Y-%m-01')"/>
 		<INFO dbtype="POSTGRES" value="DATE_TRUNC('month', ?1)"/>
+		<INFO dbtype="SNOWFLAKE" value="date_trunc('month',?1)"/>
+		<INFO dbtype="SQLSVR" value="DATETRUNC(MONTH,?1)"/>
+		<INFO dbtype="BIGQUERY" value="DATE_TRUNC(?1, MONTH)"/>
 	  </FUNCTION>
 	  <FUNCTION name="MONTHEND" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@me(?1)"/>
@@ -775,7 +928,10 @@
 		<INFO dbtype="HSQL" value="DATEADD('DAY',-1,DATEADD('MONTH',1,DATEADD('DAY', 1 - DAYOFMONTH(?1), ?1)))"/>	
 		<INFO dbtype="DUCKDB" value="last_day(?1)"/>
 		<INFO dbtype="MYSQL" value="LAST_DAY(?1)"/>
-		<INFO dbtype="POSTGRES" value="(DATE_TRUNC('month', ?1) + INTERVAL '1 month' - INTERVAL '1 day')"/>		
+		<INFO dbtype="POSTGRES" value="(DATE_TRUNC('month', ?1) + INTERVAL '1 month' - INTERVAL '1 day')"/>
+		<INFO dbtype="SNOWFLAKE" value="last_day(?1,'month')"/>	
+		<INFO dbtype="SQLSVR" value="EOMONTH(?1)"/>
+		<INFO dbtype="BIGQUERY" value="LAST_DAY(?1)"/>
 	  </FUNCTION>
 	  <FUNCTION name="WEEKSTART" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@w1(?1)"/>	
@@ -783,7 +939,10 @@
 		<INFO dbtype="HSQL" value="DATEADD('DAY',-MOD(DAYOFWEEK(?1)+5,7),?1)"/>	
 		<INFO dbtype="DUCKDB" value="date_trunc('week',?1)"/>
 		<INFO dbtype="MYSQL" value="DATE_SUB(?1, INTERVAL WEEKDAY(?1) DAY)"/>
-		<INFO dbtype="POSTGRES" value="date_trunc('week', ?1)"/>		
+		<INFO dbtype="POSTGRES" value="date_trunc('week', ?1)"/>
+		<INFO dbtype="SNOWFLAKE" value="dateadd(day, 1 - dayofweekiso(?1),?1)"/>
+		<INFO dbtype="SQLSVR" value="DATETRUNC(ISO_WEEK, ?1)"/>
+		<INFO dbtype="BIGQUERY" value="DATE_TRUNC(?1, WEEK)"/>
 	  </FUNCTION>
 	  <FUNCTION name="WEEKEND" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@w1e(?1)"/>	
@@ -792,6 +951,9 @@
 		<INFO dbtype="DUCKDB" value="(date_trunc('week',?1) + INTERVAL '6' DAY)"/>
 		<INFO dbtype="MYSQL" value="DATE_ADD(?1, INTERVAL (6 - WEEKDAY(?1)) DAY)"/>
 		<INFO dbtype="POSTGRES" value="(date_trunc('week',?1) + INTERVAL '6 days')"/>
+		<INFO dbtype="SNOWFLAKE" value="dateadd(day, 7 - dayofweekiso(?1),?1)"/>
+		<INFO dbtype="SQLSVR" value="DATEADD(DAY, 6, DATETRUNC(ISO_WEEK, ?1))"/>
+		<INFO dbtype="BIGQUERY" value="DATE_ADD(DATE_TRUNC(?1, WEEK(MONDAY)), INTERVAL 6 DAY)"/>
 	  </FUNCTION>
 	  <FUNCTION name="QUARTERSTART" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@q(?1)"/>		
@@ -800,6 +962,9 @@
 		<INFO dbtype="DUCKDB" value="date_trunc('quarter',?1)"/>
 		<INFO dbtype="MYSQL" value="DATE_ADD(MAKEDATE(YEAR(?), 1), INTERVAL (QUARTER(?) - 1) * 3 MONTH)"/>
 		<INFO dbtype="POSTGRES" value="date_trunc('quarter', ?1)"/>
+		<INFO dbtype="SNOWFLAKE" value="date_trunc('quarter',?1)"/>
+		<INFO dbtype="SQLSVR" value="DATETRUNC(QUARTER, ?1)"/>
+		<INFO dbtype="BIGQUERY" value="DATE_TRUNC(?1, QUARTER)"/>
 	  </FUNCTION>
 	  <FUNCTION name="QUARTEREND" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@qe(?1)"/>
@@ -808,6 +973,9 @@
 		<INFO dbtype="DUCKDB" value="(date_trunc('quarter',?1) + INTERVAL '3' MONTH - INTERVAL '1' DAY)"/>
 		<INFO dbtype="MYSQL" value="LAST_DAY(MAKEDATE(YEAR(?1), 1) + INTERVAL (QUARTER(?1) * 3 - 1) MONTH)"/>
 		<INFO dbtype="POSTGRES" value="(DATE_TRUNC('quarter', ?1) + INTERVAL '3 months' - INTERVAL '1 day')"/>
+		<INFO dbtype="SNOWFLAKE" value="last_day(?1,'quarter')"/>
+		<INFO dbtype="SQLSVR" value="DATEADD(DAY, -1, DATETRUNC(QUARTER, DATEADD(QUARTER, 1, ?1)))"/>
+		<INFO dbtype="BIGQUERY" value="LAST_DAY(?1, QUARTER)"/>
 	  </FUNCTION>
 	  <FUNCTION name="YEARSTART" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@y(?1)"/>		
@@ -816,6 +984,9 @@
 		<INFO dbtype="DUCKDB" value="date_trunc('year',?1)"/>
 		<INFO dbtype="MYSQL" value="DATE_FORMAT(?1,'%Y-01-01')"/>
 		<INFO dbtype="POSTGRES" value="(?1 - (EXTRACT(DOY FROM ?1) - 1) * INTERVAL '1' DAY) "/>
+		<INFO dbtype="SNOWFLAKE" value="date_trunc('year',?1)"/>
+		<INFO dbtype="SQLSVR" value="DATETRUNC(YEAR, ?1)"/>
+		<INFO dbtype="BIGQUERY" value="DATE_TRUNC(?1, YEAR)"/>
 	  </FUNCTION>
 	  <FUNCTION name="YEAREND" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@ye(?1)"/>
@@ -824,6 +995,9 @@
 		<INFO dbtype="DUCKDB" value="(date_trunc('year',?1) + INTERVAL '1' YEAR - INTERVAL '1' DAY)"/>
 		<INFO dbtype="MYSQL" value="DATE_FORMAT(?1,'%Y-12-31')"/>
 		<INFO dbtype="POSTGRES" value="((?1 - (EXTRACT(DOY FROM ?1) - 1) * INTERVAL '1' DAY) + INTERVAL '1' YEAR - INTERVAL '1' DAY)"/>
+		<INFO dbtype="SNOWFLAKE" value="last_day(?1,'year')"/>
+		<INFO dbtype="SQLSVR" value="DATEADD(DAY, -1, DATETRUNC(YEAR, DATEADD(YEAR, 1, ?1)))"/>
+		<INFO dbtype="BIGQUERY" value=" LAST_DAY(?1, YEAR)"/>
 	  </FUNCTION>
 	  <FUNCTION name="MONTHDAYS" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="days(?1)"/>		
@@ -832,6 +1006,9 @@
 		<INFO dbtype="DUCKDB" value="(date_diff('day',date_trunc('month', ?1)::DATE,last_day(?1))+1)"/>
 		<INFO dbtype="MYSQL" value="day(last_day(DATE_FORMAT(?1,'%Y-%m-%d')))"/>
 		<INFO dbtype="POSTGRES" value="EXTRACT(DAY FROM DATE_TRUNC('month', ?1) + INTERVAL '1 month' - INTERVAL '1 day')"/>
+		<INFO dbtype="SNOWFLAKE" value="day(last_day(?1,'month'))"/>
+		<INFO dbtype="SQLSVR" value="DAY(EOMONTH(?1))"/>
+		<INFO dbtype="BIGQUERY" value="EXTRACT(DAY FROM LAST_DAY(?1))"/>
 	  </FUNCTION>
 	  <FUNCTION name="QUARTERDAYS" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="days@q(?1)"/>	
@@ -840,6 +1017,9 @@
 		<INFO dbtype="DUCKDB" value="(date_diff('day',date_trunc('quarter', ?1)::DATE,(date_trunc('quarter',?1)+INTERVAL '3' MONTH - INTERVAL '1' DAY)::DATE)+1)"/>
 		<INFO dbtype="MYSQL" value="(DATEDIFF(MAKEDATE(YEAR (?1), 1 ) + INTERVAL QUARTER (?1) * 3 MONTH - INTERVAL 1 DAY,MAKEDATE(YEAR (?1), 1 ) + INTERVAL (QUARTER (?1) - 1 ) * 3 MONTH) + 1)"/>
 		<INFO dbtype="POSTGRES" value="(CAST((date_trunc('quarter', ?1) + INTERVAL '3 months' - INTERVAL '1 day' ) AS DATE ) - CAST (date_trunc('quarter', ?1) AS DATE ) + 1)"/>
+		<INFO dbtype="SNOWFLAKE" value="datediff(day,date_trunc('quarter',?1),dateadd(day,1,last_day(?1,'quarter')))"/>
+		<INFO dbtype="SQLSVR" value="DATEDIFF(DAY, DATETRUNC(QUARTER, ?1), DATETRUNC(QUARTER, DATEADD(QUARTER, 1, ?1)))"/>
+		<INFO dbtype="BIGQUERY" value="(DATE_DIFF(DATE_SUB(DATE_TRUNC(DATE_ADD(?1, INTERVAL 1 QUARTER), QUARTER), INTERVAL 1 DAY),DATE_TRUNC(?1, QUARTER),DAY) + 1)"/>
 	  </FUNCTION>
 	  <FUNCTION name="YEARDAYS" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="days@y(?1)"/>		
@@ -848,6 +1028,9 @@
 		<INFO dbtype="DUCKDB" value="(date_diff('day',date_trunc('year',?1)::DATE,(date_trunc('year',?1)+INTERVAL '1' YEAR - INTERVAL '1' DAY)::DATE)+1)"/>
 		<INFO dbtype="MYSQL" value="DAYOFYEAR(CONCAT(YEAR(?1), '-12-31'))"/>
 		<INFO dbtype="POSTGRES" value="EXTRACT(DOY FROM DATE_TRUNC( 'year', ?1) + INTERVAL '1 year' - INTERVAL '1 day' )"/>
+		<INFO dbtype="SNOWFLAKE" value="datediff(day,date_trunc('year',?1),dateadd(day,1,last_day(?1,'year')))"/>
+		<INFO dbtype="SQLSVR" value="DATEDIFF(DAY, DATETRUNC(YEAR, ?1), DATETRUNC(YEAR, DATEADD(YEAR, 1, ?1)))"/>
+		<INFO dbtype="BIGQUERY" value="EXTRACT(DAYOFYEAR FROM DATE(EXTRACT(YEAR FROM ?1), 12, 31))"/>
 	  </FUNCTION>
 	  <FUNCTION name="STRING" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(?1)"/>
@@ -857,6 +1040,8 @@
 		<INFO dbtype="MYSQL" value="CAST(? AS CHAR)"/>
 		<INFO dbtype="POSTGRES" value="CAST(? AS TEXT)"/>
 		<INFO dbtype="BIGQUERY" value="CAST(? AS STRING)"/>
+		<INFO dbtype="SNOWFLAKE" value="to_varchar(?1)"/>
+		<INFO dbtype="SQLSVR" value="CAST(?1  AS VARCHAR(30))"/>
 		</FUNCTION>
 	  <FUNCTION name="STRING" paramcount="2" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(?1,?2)"/>
@@ -865,10 +1050,18 @@
 		<INFO dbtype="MYSQL" value="CAST(?1 AS ?2)"/>
 		<INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="BIGQUERY" value="CAST(?1 AS ?2)"/>
+		<INFO dbtype="SNOWFLAKE" value="to_varchar(?1,?2)"/>
+		<INFO dbtype="SQLSVR" value="FORMAT(?1,?2)"/>
 	  </FUNCTION>
 	 <FUNCTION name="STRING" paramcount="3" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(?1,?2,'NLS_DATE_LANGUAGE='||?3)"/>
 		<INFO dbtype="ESPROC" value="string(?1,?2:?3)"/>
+		<INFO dbtype="SQLSVR" value="FORMAT(?1,?2,?3)"/>
+		<INFO dbtype="SNOWFLAKE" value="string(?1,?2,?3)"/>
+		<INFO dbtype="DUCKDB" value="N/A"/>
+		<INFO dbtype="MYSQL" value="N/A"/>
+		<INFO dbtype="POSTGRES" value="N/A"/>
+		<INFO dbtype="BIGQUERY" value="N/A"/>
 	  </FUNCTION>
 	 <FUNCTION name="PI" paramcount="0" value="">
         <INFO dbtype="ORACLE" value="ACOS(-1)"/>
@@ -877,6 +1070,9 @@
 		<INFO dbtype="ESPROC" value="pi()"/> 
 		<INFO dbtype="HSQL" value="pi()"/>
 		<INFO dbtype="DUCKDB" value="pi()"/>
+		<INFO dbtype="SNOWFLAKE" value="PI()"/>
+		<INFO dbtype="SQLSVR" value="PI()"/>
+		<INFO dbtype="BIGQUERY" value="ACOS(-1)"/>
 	  </FUNCTION>
 	 <FUNCTION name="CHN" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="N/A"/>
@@ -885,6 +1081,7 @@
 		<INFO dbtype="DUCKDB" value="N/A"/>
 		<INFO dbtype="POSTGRES" value="N/A"/>
 		<INFO dbtype="ESPROC" value="chn(?1)"/>
+		<INFO dbtype="SNOWFLAKE" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
 	  </FUNCTION>	  
   
   </FUNCTIONS>
@@ -893,11 +1090,16 @@
     	<INFO dbtype="ORACLE" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
 		<INFO dbtype="POSTGRES" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
 		<INFO dbtype="MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss","yyyy","MM","dd","YYYY","DD"], ["%H","%i","%s","%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
+		<INFO dbtype="SNOWFLAKE" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
+		<INFO dbtype="BIGQUERY" script='"PARSE_TIMESTAMP(" + [replace(?(2),["HH","mm","ss","yyyy","MM","dd","YYYY","DD"], ["%H","%M","%S","%Y","%m","%d","%Y","%d"]),?(1)].concat@c() +")"'/>
 	</FUNCTION>
 	  <FUNCTION name="TIME">
     	<INFO dbtype="ORACLE" script='"TO_CHAR(TO_TIMESTAMP(" + [?(1), replace(?(2), ["HH","mm"], ["HH24","MI"])].concat@c()+"),"+ replace(?(2), ["HH","mm"], ["HH24","MI"])+")"'/>
 		<INFO dbtype="POSTGRES" script='"TO_CHAR(TO_TIMESTAMP(" + [?(1), replace(?(2), ["HH","mm"], ["HH24","MI"])].concat@c()+"),"+ replace(?(2), ["HH","mm"], ["HH24","MI"])+")"'/>
 		<INFO dbtype="MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss"], ["%H","%i","%s"])].concat@c() +")"'/>
+		<INFO dbtype="SNOWFLAKE" script='"TO_TIME(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
+		<INFO dbtype="BIGQUERY" script='"PARSE_DATE(" + [replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"]),?(1)].concat@c() +")"'/>
+		<INFO dbtype="BIGQUERY" script='"PARSE_TIME(" + [ replace(?(2),["HH","mm","ss"], ["%H","%M","%S"]),?(1)].concat@c() +")"'/>
 	</FUNCTION>
 	<FUNCTION name="DATE">
     	<INFO dbtype="MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
@@ -906,6 +1108,7 @@
     <FUNCTION name="coalesce">
     	<INFO dbtype="ESPROC" script='"ifn(" + ?.concat@c() +")"'/>
 		<INFO dbtype="DUCKDB" script='"COALESCE(" + ?.concat@c() +")"'/>
+		<INFO dbtype="SNOWFLAKE" script='"COALESCE(" + ?.concat@c() +")"'/>
     </FUNCTION>
     <FUNCTION  name="concat">
     	<INFO dbtype="ESPROC" script=' "concat("+ ?.concat@c() +")" '/>
@@ -918,12 +1121,16 @@
 		<INFO dbtype="HSQL" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
 		<INFO dbtype="BIGQUERY" script=' ?.(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;) '/>
 		<INFO dbtype="DUCKDB" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
+		<INFO dbtype="SNOWFLAKE" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
 	</FUNCTION>
 	<FUNCTION  name="concat_ws">
     	<INFO dbtype="ESPROC" script=' mid(?.concat(?(1)),len(?(1))+2 ) '/>
 		<INFO dbtype="POSTGRES" script=' "concat_ws("+?.concat@c() +")"'/>
 		<INFO dbtype="MYSQL" script=' "concat_ws("+?.concat@c() +")"'/>
 		<INFO dbtype="ORACLE" script=' ?(to(2,?.len())).(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;+?(1)+&quot;||&quot;)'/>
+		<INFO dbtype="SNOWFLAKE" script=' "concat_ws("+?.concat@c() +")"'/>
+		<INFO dbtype="SQLSVR" script=' "concat_ws("+?.concat@c() +")"'/>
+		<INFO dbtype="BIGQUERY" script=' ?(to(2,?.len())).(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;+?(1)+&quot;||&quot;)'/>
 	</FUNCTION>
 	 <FUNCTION name="itx">
     	<INFO dbtype="ESPROC" script='"itx(" + ?.concat@c() +")"'/>
@@ -939,6 +1146,7 @@
 		<INFO dbtype="BIGQUERY" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 		<INFO dbtype="ESPROC" script=' "if("+ if(?.len()&lt;3,?.concat@c(),if(?.len()%2==0,?.(if(#%2==1,~,":"/~/",")).concat().sbs(1:-2),?.m(1:-2).(if(#%2==1,~,":"/~/",")).concat().sbs(1:-2)/";"/?.m(-1))) +")"'/>
 		<INFO dbtype="DUCKDB" script='"case " + ?(1)+"  "/if(?.to(2,).len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(2:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="SNOWFLAKE" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 	</FUNCTION>
   </FUNCTIONS>
 </STANDARD>
