@@ -101,12 +101,29 @@ public class Contain extends SequenceFunction {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (hashIndex != null) {
 				return hashIndex.findPos(obj) > 0;
+			} else {
+				return srcSequence.contains(obj, option != null && option.indexOf('b') != -1);
 			}
-			
-			return srcSequence.contains(obj, option != null && option.indexOf('b') != -1);
 		} else {
 			int size = param.getSubSize();
+			Sequence values = new Sequence(size);
+			for (int i = 0; i < size; ++i) {
+				IParam sub = param.getSub(i);
+				if (sub == null) {
+					values.add(null);
+				} else {
+					Object val = sub.getLeafExpression().calculate(ctx);
+					values.add(val);
+				}
+			}
+			
 			if (hashIndex != null) {
+				return hashIndex.findPos(values) > 0;
+			} else {
+				return srcSequence.contains(values, option != null && option.indexOf('b') != -1);
+			}
+			
+			/*if (hashIndex != null) {
 				for (int i = 0; i < size; ++i) {
 					IParam sub = param.getSub(i);
 					Object val = null;
@@ -134,7 +151,7 @@ public class Contain extends SequenceFunction {
 				}
 			}
 
-			return true;
+			return true;*/
 		}
 	}
 	
