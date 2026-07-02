@@ -949,7 +949,7 @@ public final class FunctionLib {
 			if (f.getName().endsWith(".jar")) {
 				jars.add(f);
 				try {
-					list.add(new URL("file", null, 0, f.getCanonicalPath()));
+					list.add(f.toURI().toURL());
 				} catch (Exception e) {
 				}
 			}
