@@ -1102,7 +1102,7 @@ END"/>
   <FUNCTIONS type="AnyParam">
   	<FUNCTION name="nvl">
     	<INFO dbtype="ESPROC" script='"nvl(" + ?.concat@c() +")"'/>
-		<INFO dbtype="ORACLE" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(cast(&quot; + ~ + &quot; as VARCHAR2(4000)),'')&quot; ).concat@c() + &quot;)&quot;"/>
+		<INFO dbtype="ORACLE" script='"COALESCE(" + ?.concat@c() +")"'/>
     </FUNCTION>
    <FUNCTION name="TIMESTAMP">
     	<INFO dbtype="ORACLE" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
@@ -1127,6 +1127,7 @@ END"/>
     	<INFO dbtype="ESPROC" script='"ifn(" + ?.concat@c() +")"'/>
 		<INFO dbtype="DUCKDB" script='"COALESCE(" + ?.concat@c() +")"'/>
 		<INFO dbtype="SNOWFLAKE" script='"COALESCE(" + ?.concat@c() +")"'/>
+		<INFO dbtype="ORACLE" script='"COALESCE(" + ?.concat@c() +")"'/>
     </FUNCTION>
     <FUNCTION  name="concat">
     	<INFO dbtype="ESPROC" script=' "concat("+ ?.concat@c() +")" '/>
