@@ -713,17 +713,33 @@ END"/>
 
 	<FUNCTION name="ADDX" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="addx(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="N/A"/>
+	  <INFO dbtype="DUCKDB" value="N/A"/>
+	  <INFO dbtype="SNOWFLAKE" value="N/A"/>
 	</FUNCTION>
 	<FUNCTION name="SUBX" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="subx(?1,?2)"/>
 	  <INFO dbtype="HSQL" value="DATEDIFF(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="N/A"/>
+	  <INFO dbtype="DUCKDB" value="N/A"/>
+	  <INFO dbtype="SNOWFLAKE" value="N/A"/>
 	</FUNCTION>
 	<FUNCTION name="CMPX" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="cmpx(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="N/A"/>
+	  <INFO dbtype="DUCKDB" value="N/A"/>
+	  <INFO dbtype="SNOWFLAKE" value="N/A"/>
 	</FUNCTION>
-
+    <FUNCTION name="itx" paramcount="1" value="">
+	    <INFO dbtype="ORACLE" value="N/A"/>
+	    <INFO dbtype="DUCKDB" value="N/A"/>
+		<INFO dbtype="SNOWFLAKE" value="N/A"/>
+	</FUNCTION>
 	<FUNCTION name="itx" paramcount="2" value="">
 		<INFO dbtype="HSQL" value="?2"/>
+		<INFO dbtype="ORACLE" value="N/A"/>
+	    <INFO dbtype="DUCKDB" value="N/A"/>
+		<INFO dbtype="SNOWFLAKE" value="N/A"/>
 	</FUNCTION>
 
 	<FUNCTION name="isdigit" paramcount="1" value="">
@@ -879,7 +895,7 @@ END"/>
 	  <INFO dbtype="SQLSVR" value="DATEDIFF(second,?1,?2)"/>
     </FUNCTION>
       <FUNCTION name="TRUNCHOUR" paramcount="1" value="">
-        <INFO dbtype="ORACLE" value="TO_CHAR(TRUNC(?1,'HH24'),'YYYY-MM-DD HH24:MI:SS')"/>
+        <INFO dbtype="ORACLE" value="TRUNC(?1,'HH24')"/>
 		<INFO dbtype="MYSQL" value="DATE_FORMAT(?1,'%Y-%m-%d %H:00:00')"/>
 		<INFO dbtype="HSQL" value="TRUNC(?1,'HH')"/>
 		<INFO dbtype="ESPROC" value="datetime@h(?1)"/>
@@ -890,7 +906,7 @@ END"/>
 		<INFO dbtype="SQLSVR" value="DATETRUNC(HOUR, ?1)"/>
       </FUNCTION>
       <FUNCTION name="TRUNCMINUTE" paramcount="1" value="">
-        <INFO dbtype="ORACLE" value="TO_CHAR(TRUNC(?1,'MI'),'YYYY-MM-DD HH24:MI:SS')"/>
+        <INFO dbtype="ORACLE" value="TRUNC(?1,'MI')"/>
 		<INFO dbtype="MYSQL" value="DATE_FORMAT(?1,'%Y-%m-%d %H:%i:00')"/>
 		<INFO dbtype="HSQL" value="TRUNC(?1,'MI')"/>
 		<INFO dbtype="ESPROC" value="datetime@m(?1)"/>
@@ -901,7 +917,7 @@ END"/>
 		<INFO dbtype="SQLSVR" value="DATETRUNC(MINUTE, ?1)"/>
       </FUNCTION>
       <FUNCTION name="TRUNCSECOND" paramcount="1" value="">
-        <INFO dbtype="ORACLE" value="TO_CHAR(CAST(?1 AS DATE),'YYYY-MM-DD HH24:MI:SS')"/>
+        <INFO dbtype="ORACLE" value="CAST(?1 AS DATE)"/>
 		<INFO dbtype="MYSQL" value="CAST(?1 AS DATETIME)"/>
 		<INFO dbtype="HSQL" value="CAST(?1 AS TIMESTAMP(0))"/>
 		<INFO dbtype="ESPROC" value="datetime@s(?1)"/>
@@ -1047,9 +1063,9 @@ END"/>
         <INFO dbtype="ORACLE" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="HSQL" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="ESPROC" value="string(?1,?2)"/>
-		<INFO dbtype="MYSQL" value="CAST(?1 AS ?2)"/>
+		<INFO dbtype="MYSQL" value="N/A"/>
 		<INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
-		<INFO dbtype="BIGQUERY" value="CAST(?1 AS ?2)"/>
+		<INFO dbtype="BIGQUERY" value="N/A"/>
 		<INFO dbtype="SNOWFLAKE" value="to_varchar(?1,?2)"/>
 		<INFO dbtype="SQLSVR" value="FORMAT(?1,?2)"/>
 	  </FUNCTION>
