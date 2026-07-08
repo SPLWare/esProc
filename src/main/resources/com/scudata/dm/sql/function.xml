@@ -505,9 +505,7 @@ END"/>
 	  <INFO dbtype="DUCKDB" value="CAST(? AS CHAR)"/>
 	  <INFO dbtype="SNOWFLAKE" value="cast(?1 as string)"/>
     </FUNCTION>
-	<FUNCTION name="NVL" paramcount="2" value="">
-      <INFO dbtype="ESPROC" value="ifn(?1,?2)"/>
-	</FUNCTION>
+
 	<FUNCTION name="POWER" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="power(?1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="power(?1,?2)"/>
@@ -1102,6 +1100,10 @@ END"/>
   
   </FUNCTIONS>
   <FUNCTIONS type="AnyParam">
+  	<FUNCTION name="nvl">
+    	<INFO dbtype="ESPROC" script='"nvl(" + ?.concat@c() +")"'/>
+		<INFO dbtype="ORACLE" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(cast(&quot; + ~ + &quot; as VARCHAR2(4000)),'')&quot; ).concat@c() + &quot;)&quot;"/>
+    </FUNCTION>
    <FUNCTION name="TIMESTAMP">
     	<INFO dbtype="ORACLE" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
 		<INFO dbtype="POSTGRES" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
