@@ -63,6 +63,8 @@ public class DBTypes {
 
 	public static final int SPARKSQL = 27;
 
+	public static final int CLICKHOUSE = 28;
+
 	public static final int ESSBASE = 101;
 
 	/**
@@ -73,7 +75,7 @@ public class DBTypes {
 				ACCESS, FOXBAS, DB2, MYSQL, KINGBASE, DERBY, HSQL, TERADATA,
 				POSTGRES, DATALOGIC, IMPALA, HIVE, GREENPLUM, DBONE, ESPROC,
 				DAMENG, ESPROC_SQL, DUCKDB, BIGQUERY, SNOWFLAKE, SPARKSQL,
-				ESSBASE };
+				CLICKHOUSE, ESSBASE };
 	}
 
 	/**
@@ -84,7 +86,7 @@ public class DBTypes {
 				"FOXPRO", "ACCESS", "FOXBAS", "DB2", "MYSQL", "KINGBASE",
 				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA",
 				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DAMENG", "ESPROC_SQL",
-				"DUCKDB", "BIGQUERY", "SNOWFLAKE", "SPARKSQL" };
+				"DUCKDB", "BIGQUERY", "SNOWFLAKE", "SPARKSQL", "CLICKHOUSE" };
 
 	}
 
@@ -104,7 +106,8 @@ public class DBTypes {
 				"FOXPRO", "ACCESS", "FOXBAS", "DB2", "MYSQL", "KINGBASE",
 				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA",
 				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DAMENG", "ESPROC_SQL",
-				"DUCKDB", "BIGQUERY", "SNOWFLAKE", "SPARKSQL", "ESSBASE" };
+				"DUCKDB", "BIGQUERY", "SNOWFLAKE", "SPARKSQL", "CLICKHOUSE",
+				"ESSBASE" };
 
 	}
 
