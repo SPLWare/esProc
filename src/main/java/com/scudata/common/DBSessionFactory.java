@@ -37,6 +37,14 @@ public class DBSessionFactory implements ISessionFactory {
 			}
 		}
 	}
+	
+	// added by bd, 2026.7.16, 提供方法允许临时修改用户名和密码
+	public void setUserPwd(String user, String pwd) {
+		if (this.info != null) {
+			this.info.put("user", user);
+			this.info.put("password", pwd);
+		}
+	}
 
 	public DBSession getSession() throws Exception {
 		// edited by bdl, 2008.11.18，Connection全部设为不自动提交。
