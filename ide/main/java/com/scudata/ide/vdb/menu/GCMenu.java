@@ -58,10 +58,12 @@ public class GCMenu {
 	public static final String TOOLS = "tools"; // 工具(T)
 	public static final String TOOLS_BINBROWSER = "tools.binbrowser";
 	public static final String TOOLS_OPTION = "tools.option";
+	public static final String TOOLS_TOGGLE_THEME = "tools.toggletheme"; // 切换主题(Dark/Light)
 	
 	public static final short iTOOLS = 400;
 	public static final short iTOOLS_BINBROWSER = 440; // 集文件浏览器
 	public static final short iTOOLS_OPTION = 450; // 选项(O)
+	public static final short iTOOLS_TOGGLE_THEME = 460; // 切换主题
 	
 
 //5
