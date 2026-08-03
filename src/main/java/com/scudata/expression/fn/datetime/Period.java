@@ -59,7 +59,8 @@ public class Period extends Function {
 			end = Variant.parseDate((String)end);
 		}
 
-		if (!(start instanceof Date) || !(end instanceof Date)) {
+		if (!((start instanceof Date || start instanceof Integer) &&
+			      (end   instanceof Date || end   instanceof Integer))) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("period" + mm.getMessage("function.paramTypeError"));
 		}
@@ -82,7 +83,9 @@ public class Period extends Function {
 			}
 		}
 
-		if (option == null || (option.indexOf('o') == -1 && option.indexOf('t') == -1)) {
+		if (start instanceof Integer) {
+			return periodN((Integer) start, (Integer) end, dist, option);
+		} else if (option == null || (option.indexOf('o') == -1 && option.indexOf('t') == -1)) {
 			return periodA((Date) start, (Date) end, dist, option); // 调整
 		} else {
 			return periodO((Date) start, (Date) end, dist, option); // 不调整，旬调整
@@ -418,6 +421,72 @@ public class Period extends Function {
 			}
 		}
 
+		return series;
+	}
+
+	private Sequence periodN(Integer start, Integer end, int distance, String opt) {
+		int endSign = 0; // 0：要最后，1：最后正好是期满则要最后，-1：不要最后
+		if (opt != null) {
+			if (opt.indexOf('x') != -1) {
+				if (opt.indexOf('e') == -1) {
+					endSign = -1;
+				} else {
+					endSign = 1;
+				}
+			}
+		}
+		
+		Sequence series = new Sequence();
+		series.add(start);
+
+		if (distance > 0) {
+			if (end < start) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("period" + mm.getMessage("function.invalidParam"));
+			}
+			
+			int tmp = start;
+			while (true) {
+				tmp += distance;
+
+				if (tmp < end) {
+					series.add(tmp);
+				} else if (tmp == end) {
+					if (endSign != -1) {
+						series.add(end);
+					}
+					
+					break;
+				} else {
+					if (endSign == 0) {
+						series.add(end);
+					}
+					
+					break;
+				}
+			}
+		} else { // distance < 0
+			if (start < end) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("period" + mm.getMessage("function.invalidParam"));
+			}
+
+			int tmp = start;
+			while (true) {
+				tmp += distance;
+
+				if (tmp > end) {
+					series.add(tmp);
+				} else {
+					if (opt == null || opt.indexOf('x') == -1) {
+						series.add(end);
+					}
+					
+					break;
+				}
+			}
+		}
+		
 		return series;
 	}
 }
