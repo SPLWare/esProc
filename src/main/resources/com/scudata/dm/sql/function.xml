@@ -697,6 +697,7 @@ END"/>
 	  <INFO dbtype="CLICKHOUSE" value="randCanonical()"/>
 	  <INFO dbtype="DORIS" value="RANDOM()"/>
 	  <INFO dbtype="DAMENG" value="RAND()"/>
+	  <INFO dbtype="SPARKSQL" value="RAND()"/>
     </FUNCTION>
     <FUNCTION name="RAND" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="CAST(DBMS_RANDOM.VALUE(0, ?) as INTEGER)"/>
@@ -712,6 +713,7 @@ END"/>
 	  <INFO dbtype="CLICKHOUSE" value="trunc(randCanonical()*?1)"/>
 	  <INFO dbtype="DORIS" value="RANDOM(0,?)"/>
 	  <INFO dbtype="DAMENG" value="CAST((rand()*?1) AS INT)"/>
+	  <INFO dbtype="SPARKSQL" value="CAST(floor(rand() * ?1) AS INT)"/>
     </FUNCTION>
     <FUNCTION name="REPLACE" paramcount="3" value="">
       <INFO dbtype="TERADATA" value="OREPLACE(?1,?2,?3)"/>
