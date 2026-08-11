@@ -66,6 +66,8 @@ public class DBTypes {
 	public static final int CLICKHOUSE = 28;
 
 	public static final int DORIS = 29;
+	
+	public static final int OCEANBASE = 30;
 
 	public static final int ESSBASE = 101;
 
@@ -77,7 +79,7 @@ public class DBTypes {
 				ACCESS, FOXBAS, DB2, MYSQL, KINGBASE, DERBY, HSQL, TERADATA,
 				POSTGRES, DATALOGIC, IMPALA, HIVE, GREENPLUM, DBONE, ESPROC,
 				DAMENG, ESPROC_SQL, DUCKDB, BIGQUERY, SNOWFLAKE, SPARKSQL,
-				CLICKHOUSE, DORIS, ESSBASE };
+				CLICKHOUSE, DORIS, OCEANBASE, ESSBASE };
 	}
 
 	/**
@@ -89,7 +91,7 @@ public class DBTypes {
 				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA",
 				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DAMENG", "ESPROC_SQL",
 				"DUCKDB", "BIGQUERY", "SNOWFLAKE", "SPARKSQL", "CLICKHOUSE",
-				"DORIS" };
+				"DORIS", "OCEANBASE" };
 
 	}
 
@@ -110,7 +112,7 @@ public class DBTypes {
 				"DERBY", "HSQL", "TERADATA", "POSTGRES", "DATALOGIC", "IMPALA",
 				"HIVE", "GREENPLUM", "DBONE", "ESPROC", "DAMENG", "ESPROC_SQL",
 				"DUCKDB", "BIGQUERY", "SNOWFLAKE", "SPARKSQL", "CLICKHOUSE",
-				"DORIS", "ESSBASE" };
+				"DORIS", "OCEANBASE", "ESSBASE" };
 
 	}
 
