@@ -3,7 +3,9 @@ package com.scudata.expression.mfn.cursor;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.DataStruct;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.CursorFunction;
 import com.scudata.expression.IParam;
@@ -56,12 +58,19 @@ public class Fetch extends CursorFunction {
 		}
 		
 		if (option != null) {
-			if (option.indexOf('x') != -1) {
-				cursor.close();
-			}
-			
 			if (result != null && option.indexOf('o') != -1) {
 				return result.derive(option);
+			}
+			
+			if (result == null && option.indexOf('t') != -1) {
+				DataStruct ds = cursor.getDataStruct();
+				if (ds != null) {
+					result = new Table(ds);
+				}
+			}
+			
+			if (option.indexOf('x') != -1) {
+				cursor.close();
 			}
 		}
 		
