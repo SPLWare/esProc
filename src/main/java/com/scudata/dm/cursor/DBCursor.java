@@ -135,7 +135,9 @@ public class DBCursor extends ICursor {
 				pst = null;
 				con = null;
 				rsmd = null;
-				dataStruct = null;
+				
+				// 保留数据结构，用于结果集为空时可以取到数据结构
+				//dataStruct = null;
 			}
 		}
 	}
