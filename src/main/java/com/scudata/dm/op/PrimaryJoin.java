@@ -876,4 +876,57 @@ public class PrimaryJoin extends Operation {
 		
 		return result;
 	}
+	
+	/**
+	 * 返回运算结果的数据结构，如果不是返回序表则返回空
+	 * @param srcDs 运算前的数据结构
+	 * @return
+	 */
+	public DataStruct getResultDataStruct(DataStruct srcDs) {
+		if (resultDs != null) {
+			return resultDs;
+		}
+		
+		ArrayList<String> fieldList = new ArrayList<String>();
+		if (srcNewExps == null || srcNewExps.length == 0) {
+			if (srcDs == null) {
+				return null;
+			}
+			
+			String []names = srcDs.getFieldNames();
+			for (String name : names) {
+				fieldList.add(name);
+			}
+		} else {
+			int fcount = srcNewExps.length;
+			for (int i = 0; i < fcount; ++i) {
+				if (srcNewNames != null && srcNewNames[i] != null) {
+					fieldList.add(srcNewNames[i]);
+				} else {
+					fieldList.add(srcNewExps[i].getFieldName());
+				}
+			}
+		}
+		
+		int tcount = cursors.length;
+		for (int t = 0; t < tcount; ++t) {
+			Expression []curNewExps = newExps[t];
+			if (curNewExps != null) {
+				String []curNewNames = newNames[t];
+				int count = curNewExps.length;
+				
+				for (int i = 0; i < count; ++i) {
+					if (curNewNames != null && curNewNames[i] != null) {
+						fieldList.add(curNewNames[i]);
+					} else {
+						fieldList.add(curNewExps[i].getFieldName());
+					}
+				}
+			}
+		}
+		
+		String []fnames = new String[fieldList.size()];
+		fieldList.toArray(fnames);
+		return new DataStruct(fnames);
+	}
 }

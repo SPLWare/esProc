@@ -504,4 +504,55 @@ public class JoinRemote extends Operation {
 			return null;
 		}
 	}
+
+	/**
+	 * 返回运算结果的数据结构，如果不是返回序表则返回空
+	 * @param srcDs 运算前的数据结构
+	 * @return
+	 */
+	public DataStruct getResultDataStruct(DataStruct srcDs) {
+		if (newDs != null) {
+			return newDs;
+		} else if (srcDs == null) {
+			return null;
+		}
+		
+		Sequence seq = new Sequence();
+		String []oldKey = null;
+		
+		if (isOrg) {
+			seq.add(fname);
+			int dcount = newNames.length;
+			
+			for (int i = 0; i < dcount; ++i) {
+				seq.addAll(newNames[i]);
+			}
+		} else {
+			oldKey = srcDs.getPrimary();
+			seq.addAll(srcDs.getFieldNames());
+			int dcount = newNames.length;
+			
+			for (int i = 0; i < dcount; ++i) {
+				String []curNames = newNames[i];
+				int curLen = curNames.length;
+				
+				for (int f = 0; f < curLen; ++f) {
+					// 如果新加的字段在源表中已存在则改写现有字段
+					int index = srcDs.getFieldIndex(curNames[f]);
+					if (index == -1) {
+						seq.add(curNames[f]);
+					}
+				}
+			}
+		}
+
+		String []names = new String[seq.length()];
+		seq.toArray(names);
+		DataStruct newDs = new DataStruct(names);
+		if (oldKey != null) {
+			newDs.setPrimary(oldKey);
+		}
+		
+		return newDs;
+	}
 }

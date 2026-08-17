@@ -736,4 +736,13 @@ public class Groups extends Operation {
 			}
 		}
 	}
+
+	/**
+	 * 返回运算结果的数据结构，如果不是返回序表则返回空
+	 * @param srcDs 运算前的数据结构
+	 * @return
+	 */
+	public DataStruct getResultDataStruct(DataStruct srcDs) {
+		return newDs;
+	}
 }

@@ -1,6 +1,7 @@
 package com.scudata.dm.op;
 
 import com.scudata.dm.Context;
+import com.scudata.dm.DataStruct;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -49,5 +50,14 @@ public class Calculate extends Operation {
 	 */
 	public Sequence process(Sequence seq, Context ctx) {
 		return seq.calc(exp, ctx);
+	}
+	
+	/**
+	 * 返回运算结果的数据结构，如果不是返回序表则返回空
+	 * @param srcDs 运算前的数据结构
+	 * @return
+	 */
+	public DataStruct getResultDataStruct(DataStruct srcDs) {
+		return null;
 	}
 }

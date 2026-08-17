@@ -1,10 +1,13 @@
 package com.scudata.dm.op;
 
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
+import com.scudata.resources.EngineMessage;
 
 /**
  * 游标或管道的附加的产生序表计算处理类
@@ -83,5 +86,32 @@ public class New extends Operation  {
 		}
 		
 		return seq.newTable(newDs, newExps, opt, ctx);
+	}
+
+	/**
+	 * 返回运算结果的数据结构，如果不是返回序表则返回空
+	 * @param srcDs 运算前的数据结构
+	 * @return
+	 */
+	public DataStruct getResultDataStruct(DataStruct srcDs) {
+		if (newDs != null) {
+			return newDs;
+		} else if (srcDs == null) {
+			return new DataStruct(names);
+		} else {
+			int colCount = newExps.length;
+			for (int i = 0; i < colCount; ++i) {
+				if (names[i] == null || names[i].length() == 0) {
+					if (newExps[i] == null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("new" + mm.getMessage("function.invalidParam"));
+					}
+
+					names[i] = newExps[i].getFieldName(srcDs);
+				}
+			}
+			
+			return new DataStruct(names);
+		}
 	}
 }

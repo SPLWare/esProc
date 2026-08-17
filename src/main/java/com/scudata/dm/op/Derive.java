@@ -103,4 +103,44 @@ public class Derive extends Operation  {
 			return seq.derive(newDs, exps, opt, ctx);
 		}
 	}
+	
+	/**
+	 * 返回运算结果的数据结构，如果不是返回序表则返回空
+	 * @param srcDs 运算前的数据结构
+	 * @return
+	 */
+	public DataStruct getResultDataStruct(DataStruct srcDs) {
+		if (newDs != null) {
+			return newDs;
+		} else if (srcDs == null) {
+			return null;
+		}
+		
+		Expression[] exps = this.exps;
+		int colCount = exps.length;
+		for (int i = 0; i < colCount; ++i) {
+			if (names[i] == null || names[i].length() == 0) {
+				if (exps[i] == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("derive" + mm.getMessage("function.invalidParam"));
+				}
+
+				names[i] = exps[i].getFieldName(srcDs);;
+			} else {
+				if (exps[i] == null) {
+					exps[i] = Expression.NULL;
+				}
+			}
+		}
+		
+		String []oldNames = srcDs.getFieldNames();
+		oldColCount = oldNames.length;
+		
+		// 合并字段
+		int newColCount = oldColCount + colCount;
+		String []totalNames = new String[newColCount];
+		System.arraycopy(oldNames, 0, totalNames, 0, oldColCount);
+		System.arraycopy(names, 0, totalNames, oldColCount, colCount);
+		return srcDs.create(totalNames);
+	}
 }

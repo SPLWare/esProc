@@ -63,7 +63,7 @@ public class Fetch extends CursorFunction {
 			}
 			
 			if (result == null && option.indexOf('t') != -1) {
-				DataStruct ds = cursor.getDataStruct();
+				DataStruct ds = cursor.getResultDataStruct();
 				if (ds != null) {
 					result = new Table(ds);
 				}

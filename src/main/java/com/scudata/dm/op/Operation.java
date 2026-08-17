@@ -3,6 +3,7 @@ package com.scudata.dm.op;
 import com.scudata.cellset.ICellSet;
 import com.scudata.cellset.INormalCell;
 import com.scudata.dm.Context;
+import com.scudata.dm.DataStruct;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -143,5 +144,14 @@ public abstract class Operation {
 
 	public void setCurrentCell(INormalCell currentCell) {
 		this.currentCell = currentCell;
+	}
+	
+	/**
+	 * 返回运算结果的数据结构，如果不是返回序表则返回空
+	 * @param srcDs 运算前的数据结构
+	 * @return
+	 */
+	public DataStruct getResultDataStruct(DataStruct srcDs) {
+		return srcDs;
 	}
 }

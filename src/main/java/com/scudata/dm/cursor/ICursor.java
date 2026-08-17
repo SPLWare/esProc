@@ -1000,11 +1000,28 @@ abstract public class ICursor extends Operable implements IResource {
 	}
 	
 	/**
-	 * 返回结果集数据结构
+	 * 返回游标数据结构
 	 * @return DataStruct
 	 */
 	public DataStruct getDataStruct() {
 		return dataStruct;
+	}
+	
+	/**
+	 * 返回游标经过附加的操作计算后的数据结构
+	 * @return
+	 */
+	public DataStruct getResultDataStruct() {
+		if (opList == null) {
+			return dataStruct;
+		}
+		
+		DataStruct ds = dataStruct;
+		for (Operation op : opList) {
+			ds = op.getResultDataStruct(ds);
+		}
+		
+		return ds;
 	}
 	
 	/**

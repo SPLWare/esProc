@@ -370,4 +370,53 @@ public class ForeignJoin extends Operation {
 	public boolean isIsect() {
 		return isIsect;
 	}
+	
+	/**
+	 * 返回运算结果的数据结构，如果不是返回序表则返回空
+	 * @param srcDs 运算前的数据结构
+	 * @return
+	 */
+	public DataStruct getResultDataStruct(DataStruct srcDs) {
+		if (newDs != null) {
+			return newDs;
+		} else if (srcDs == null) {
+			return null;
+		}
+		
+		Sequence seq = new Sequence();
+		seq.addAll(srcDs.getFieldNames());
+		int dcount = newNames.length;
+		
+		for (int i = 0; i < dcount; ++i) {
+			String []curNames = newNames[i];
+			if (curNames == null) {
+				continue;
+			}
+			
+			int curLen = curNames.length;
+			int []tmp = new int[curLen];
+			
+			for (int f = 0; f < curLen; ++f) {
+				// 如果新加的字段在源表中已存在则改写现有字段
+				int index = srcDs.getFieldIndex(curNames[f]);
+				if (index == -1) {
+					tmp[f] = seq.length();
+					seq.add(curNames[f]);
+				} else {
+					tmp[f] = index;
+				}
+			}
+		}
+
+		String []names = new String[seq.length()];
+		seq.toArray(names);
+		DataStruct newDs = new DataStruct(names);
+		
+		String []oldKey = srcDs.getPrimary();
+		if (oldKey != null) {
+			newDs.setPrimary(oldKey);
+		}
+		
+		return newDs;
+	}
 }
