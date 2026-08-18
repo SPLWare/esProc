@@ -9,7 +9,7 @@
 	  <INFO dbtype="SPARKSQL" value="abs(?1)"/>
 	  <INFO dbtype="HIVE" value="abs(?1)"/>
 	  <INFO dbtype="DORIS" value="abs(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="abs(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="abs(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="ACOS" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="acos(?1)"/>
@@ -17,7 +17,7 @@
 	  <INFO dbtype="SNOWFLAKE" value="acos(?1)"/>
 	  <INFO dbtype="HIVE" value="acos(?1)"/>
 	  <INFO dbtype="DORIS" value="acos(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="acos(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="acos(?1)"/>
 	</FUNCTION>
     <FUNCTION name="ADDDAYS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'DAY')"/>
@@ -38,7 +38,8 @@
 	  <INFO dbtype="HIVE" value="CAST((?1+INTERVAL (?2) DAY) AS DATE)"/>
 	  <INFO dbtype="DORIS" value="DAYS_ADD(?1,?2)"/>
 	  <INFO dbtype="KINGBASE" value="(?1+NUMTODSINTERVAL(?2,'DAY'))"/>
-	  <INFO dbtype="OCEANBASE" value="DATE_ADD(?1, INTERVAL ?2 DAY)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 DAY"/>
+	  <INFO dbtype="OPENGAUSS" value="(?1 + ?2 * INTERVAL '1' DAY)"/>
     </FUNCTION>
     <FUNCTION name="ADDHOURS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'HOUR')"/>
@@ -59,7 +60,8 @@
 	  <INFO dbtype="HIVE" value="(?1+INTERVAL (?2) HOUR)"/>
 	  <INFO dbtype="DORIS" value="DATE_ADD(?1, INTERVAL ?2 HOUR)"/>
 	  <INFO dbtype="KINGBASE" value="(?1+NUMTODSINTERVAL(?2,'HOUR'))"/>
-	  <INFO dbtype="OCEANBASE" value="DATE_ADD(?1, INTERVAL ?2 HOUR)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 HOUR"/>
+	  <INFO dbtype="OPENGAUSS" value="(?1 + INTERVAL '?2' HOUR)"/>
     </FUNCTION>
     <FUNCTION name="ADDMINUTES" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'MINUTE')"/>
@@ -80,7 +82,8 @@
 	  <INFO dbtype="HIVE" value="(?1+INTERVAL (?2) MINUTE)"/>
 	  <INFO dbtype="DORIS" value="DATE_ADD(?1, INTERVAL ?2 MINUTE)"/>
 	  <INFO dbtype="KINGBASE" value="(?1+NUMTODSINTERVAL(?2,'MINUTE'))"/>
-	  <INFO dbtype="OCEANBASE" value="DATE_ADD(?1, INTERVAL ?2 MINUTE)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 MINUTE"/>
+	  <INFO dbtype="OPENGAUSS" value="(?1 + INTERVAL '?2' MINUTE)"/>
     </FUNCTION>
     <FUNCTION name="ADDMONTHS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTOYMINTERVAL(?2,'MONTH')"/>
@@ -101,7 +104,8 @@
 	  <INFO dbtype="HIVE" value="(?1+INTERVAL (?2) MONTH)"/>
 	  <INFO dbtype="DORIS" value="MONTHS_ADD(?1,?2)"/>
 	  <INFO dbtype="KINGBASE" value="ADD_MONTHS(?1, ?2)"/>
-	  <INFO dbtype="OCEANBASE" value="DATE_ADD(?1, INTERVAL ?2 MONTH)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 MONTH"/>
+	  <INFO dbtype="OPENGAUSS" value="(?1 + ?2 * INTERVAL '1' MONTH)"/>
     </FUNCTION>
     <FUNCTION name="ADDSECONDS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTODSINTERVAL(?2,'SECOND')"/>
@@ -122,7 +126,8 @@
 	  <INFO dbtype="HIVE" value="(?1+INTERVAL (?2) SECOND)"/>
 	  <INFO dbtype="DORIS" value="DATE_ADD(?1, INTERVAL ?2 SECOND)"/>
 	  <INFO dbtype="KINGBASE" value="(?1+NUMTODSINTERVAL(?2,'SECOND'))"/>
-	  <INFO dbtype="OCEANBASE" value="DATE_ADD(?1, INTERVAL ?2 SECOND)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 SECOND"/>
+	  <INFO dbtype="OPENGAUSS" value="(?1 + INTERVAL '?2' SECOND)"/>
     </FUNCTION>
     <FUNCTION name="ADDYEARS" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="?1+NUMTOYMINTERVAL(?2,'YEAR')"/>
@@ -143,7 +148,8 @@
 	  <INFO dbtype="HIVE" value="(?1+INTERVAL (?2) YEAR)"/>
 	  <INFO dbtype="DORIS" value="YEARS_ADD(?1,?2)"/>
 	  <INFO dbtype="KINGBASE" value="ADD_MONTHS(?1,?2 * 12)"/>
-	  <INFO dbtype="OCEANBASE" value="DATE_ADD(?1, INTERVAL ?2 YEAR)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 YEAR"/>
+	  <INFO dbtype="OPENGAUSS" value="(?1 + ?2 * INTERVAL '1' year)"/>
     </FUNCTION>
     <FUNCTION name="ASCII" paramcount="1" value="">
       <INFO dbtype="TERADATA" value="n/a"/>
@@ -152,7 +158,7 @@
 	  <INFO dbtype="SNOWFLAKE" value="ascii(?1)"/>
 	  <INFO dbtype="BIGQUERY" value="UNICODE(?1)"/>
 	  <INFO dbtype="DORIS" value="ascii(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="ascii(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="ascii(?1)"/>
     </FUNCTION>
 	<FUNCTION name="ASIN" paramcount="1" value="asin(?1)">
       <INFO dbtype="ESPROC" value="asin(?1)"/>
@@ -160,7 +166,7 @@
 	  <INFO dbtype="SNOWFLAKE" value="asin(?1)"/>
 	  <INFO dbtype="HIVE" value="asin(?1)"/>
 	  <INFO dbtype="DORIS" value="asin(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="asin(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="asin(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="ATAN" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="atan(?1)"/>
@@ -168,7 +174,7 @@
 	  <INFO dbtype="SNOWFLAKE" value="atan(?1)"/>
 	  <INFO dbtype="HIVE" value="atan(?1)"/>
 	  <INFO dbtype="DORIS" value="atan(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="atan(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="atan(?1)"/>
 	</FUNCTION>
     <FUNCTION name="ATAN2" paramcount="2" value="">
       <INFO dbtype="SQLSVR" value="ATN2(?1,?2)"/>
@@ -177,7 +183,7 @@
 	  <INFO dbtype="SNOWFLAKE" value="ATAN2(?1,?2)"/>
 	  <INFO dbtype="HIVE" value="N/A"/>
 	  <INFO dbtype="DORIS" value="ATAN2(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="ATAN2(?1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="ATAN2(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="CAST" paramcount="2" value="CAST(?1 as ?2)">
       <INFO dbtype="ORACLE" value=""/>
@@ -199,7 +205,8 @@
 	  <INFO dbtype="HIVE" value=""/>
 	  <INFO dbtype="DORIS" value=""/>
 	  <INFO dbtype="KINGBASE" value="CAST(?1 AS ?2)"/>
-	  <INFO dbtype="OCEANBASE" value=""/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value=""/>
+	  <INFO dbtype="OPENGAUSS" value=""/>
     </FUNCTION>
     <FUNCTION name="CEIL" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="CEILING(?)"/>
@@ -210,7 +217,7 @@
 	  <INFO dbtype="SNOWFLAKE" value="CEIL(?)"/>
 	  <INFO dbtype="HIVE" value="CEIL(?)"/>
 	  <INFO dbtype="DORIS" value="CEIL(?)"/>
-	  <INFO dbtype="OCEANBASE" value="CEIL(?)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CEIL(?)"/>
 	</FUNCTION>
 	<FUNCTION name="CEIL" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="ceil@s(?1,?2)"/>
@@ -224,7 +231,8 @@
 	  <INFO dbtype="DORIS" value="ceil(?1,?2)"/>
 	  <INFO dbtype="DAMENG" value="(CEIL(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
 	  <INFO dbtype="KINGBASE" value="(CEIL(?1 * POWER(10,?2)) / POWER(10,?2))"/>
-	  <INFO dbtype="OCEANBASE" value="CEILING(?1*POWER(10,?2))/POWER(10,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="(CEILING(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
+	  <INFO dbtype="OPENGAUSS" value="(CEIL(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
     </FUNCTION>
     <FUNCTION name="CHR" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="CHAR(?)"/>
@@ -236,7 +244,7 @@
 	  <INFO dbtype="SNOWFLAKE" value="chr(?1)"/>
 	  <INFO dbtype="CLICKHOUSE" value="char(?1)"/>
 	  <INFO dbtype="DORIS" value="CHAR(?)"/>
-	  <INFO dbtype="OCEANBASE" value="CHAR(?)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CHAR(?)"/>
     </FUNCTION>
     <FUNCTION name="CONCAT" paramcount="2" value="COALESCE(NULLIF(?1,''),'') || COALESCE(NULLIF(?2,''),'')">
       <INFO dbtype="SQLSVR" value="CONCAT(NULLIF(CAST(?1 AS NVARCHAR(MAX)),''),NULLIF(CAST(?2 AS NVARCHAR(MAX)),''))"/>
@@ -255,7 +263,8 @@
 	  <INFO dbtype="HIVE" value="concat(?1,?2)"/>
 	  <INFO dbtype="DORIS" value="concat(?1,?2)"/>
 	  <INFO dbtype="KINGBASE" value="CONCAT(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="concat(?1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CONCAT(IFNULL(NULLIF(?1,''),''),IFNULL(NULLIF(?2,''),''))"/>
+	  <INFO dbtype="OPENGAUSS" value="NVL(?1,'')|| NVL(?2,'')"/>
     </FUNCTION>
 	<FUNCTION name="COS" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="cos(?1)"/>
@@ -264,7 +273,7 @@
 	  <INFO dbtype="HIVE" value="cos(?1)"/>
 	  <INFO dbtype="DORIS" value="cos(?1)"/>
 	  <INFO dbtype="DAMENG" value="NVL(?1,'')|| NVL(?2,'')"/>
-	  <INFO dbtype="OCEANBASE" value="cos(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="cos(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="DATE" paramcount="3" value="">
 	  <INFO dbtype="ESPROC" value="date(?1,?2,?3)"/>
@@ -299,7 +308,8 @@ END"/>
                 ) = ?2
                 THEN ADD_MONTHS(TO_DATE(LPAD(?1,4,'0')||'0101','YYYYMMDD'), ?2 - 1) + (?3 - 1)
                 ELSE NULL    END     ELSE NULL    END"/>
-	 <INFO dbtype="OCEANBASE" value="STR_TO_DATE(CONCAT(?1,'-',?2,'-',?3),'%Y-%m-%d')"/>
+	 <INFO dbtype="OCEANBASE_MYSQL" value="STR_TO_DATE(CONCAT(?1,'-',?2,'-',?3),'%Y-%m-%d')"/>
+	 <INFO dbtype="OPENGAUSS" value="TO_CHAR(to_date(?1|| '-' ||?2|| '-' ||?3), 'YYYY-MM-DD')"/>
 	</FUNCTION>
 	<FUNCTION name="DATE" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="date(?1,?2)"/>
@@ -310,6 +320,7 @@ END"/>
 	  <INFO dbtype="SPARKSQL" value="to_timestamp(?1,?2)"/>
 	  <INFO dbtype="HIVE" value="DATE_FORMAT(FROM_UNIXTIME(UNIX_TIMESTAMP(?1,?2)), 'yyyy-MM-dd')"/>
 	  <INFO dbtype="KINGBASE" value="TO_DATE(?1,?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="TO_DATE(?1,?2)"/>
 	</FUNCTION>
     <FUNCTION name="DATE" paramcount="1" value="TO_DATE(?,'YYYY-MM-DD')">
       <INFO dbtype="ORACLE" value=""/>
@@ -330,7 +341,8 @@ END"/>
 	  <INFO dbtype="HIVE" value="DATE(?1)"/>
 	  <INFO dbtype="DORIS" value="DATE(?)"/>
 	  <INFO dbtype="KINGBASE" value="TO_DATE(?1, 'YYYY-MM-DD')"/>
-	  <INFO dbtype="OCEANBASE" value="CAST(? AS DATE)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d')"/>
+	  <INFO dbtype="OPENGAUSS" value="TO_CHAR(CAST(?1 AS DATE),'YYYY-MM-DD')"/>
     </FUNCTION>
 	<FUNCTION name="DATETOCHAR" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="string(?1,?2)"/>
@@ -348,13 +360,14 @@ END"/>
 	  <INFO dbtype="DORIS" value="DATE_FORMAT(?1,?2)"/>
 	  <INFO dbtype="DAMENG" value="TO_CHAR(?1,?2)"/>
 	  <INFO dbtype="KINGBASE" value="TO_CHAR(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="DATE_FORMAT(?1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1,?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="TO_CHAR(?1,?2)"/>
 	</FUNCTION>
     <FUNCTION name="DATETOCHAR" paramcount="1" value="TO_CHAR(?,'YYYY-MM-DD HH:MI:SS')">
       <INFO dbtype="ORACLE" value=""/>
       <INFO dbtype="SQLSVR" value="CONVERT(CHAR,?,120)"/>
       <INFO dbtype="DB2" value="TO_CHAR(?,'YYYY-MM-DD HH:MI:SS')"/>
-      <INFO dbtype="MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d %H:%i:%S)"/>
+      <INFO dbtype="MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d %H:%i:%S')"/>
       <INFO dbtype="HSQL" value=""/>
       <INFO dbtype="TERADATA" value=""/>
       <INFO dbtype="POSTGRES" value=""/>
@@ -370,12 +383,14 @@ END"/>
 	  <INFO dbtype="HIVE" value="DATE_FORMAT(?1,'yyyy-MM-dd HH:mm:ss')"/>
 	  <INFO dbtype="DORIS" value="CAST(?1 AS VARCHAR)"/>
 	  <INFO dbtype="KINGBASE" value="TO_CHAR(?1,'YYYY-MM-DD HH24:MI:SS')"/>
-	  <INFO dbtype="OCEANBASE" value="DATE_FORMAT(?1,'yyyy-MM-dd HH:mm:ss')"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d %H:%i:%S)"/>
+	  <INFO dbtype="OPENGAUSS" value="TO_CHAR(?,'YYYY-MM-DD HH24:MI:SS')"/>
     </FUNCTION>
     <FUNCTION name="DAY" paramcount="1" value="EXTRACT(DAY FROM ?)">
       <INFO dbtype="ORACLE" value=""/>
       <INFO dbtype="TERADATA" value=""/>
 	  <INFO dbtype="POSTGRES" value=""/>
+	  <INFO dbtype="MYSQL" value=""/>
       <INFO dbtype="ESPROC" value="day(?1)"/>
 	  <INFO dbtype="ESPROC_SQL" value="DAY(?1)"/>
 	  <INFO dbtype="DUCKDB" value="day(?1)"/>
@@ -385,7 +400,8 @@ END"/>
 	  <INFO dbtype="HIVE" value="day(?1)"/>
 	  <INFO dbtype="DORIS" value="day(?1)"/>
 	  <INFO dbtype="KINGBASE" value="CAST(EXTRACT(DAY FROM ?1) AS INT)"/>
-	  <INFO dbtype="OCEANBASE" value="EXTRACT(DAY FROM ?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="EXTRACT(DAY FROM ?)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(DAY FROM ?1) AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="DAYOFYEAR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="TO_NUMBER(TO_CHAR(?1,'DDD'))"/>
@@ -401,8 +417,8 @@ END"/>
 	  <INFO dbtype="HIVE" value="date_format(?1,'D')"/>
 	  <INFO dbtype="DORIS" value="DAYOFYEAR(?1)"/>
 	  <INFO dbtype="KINGBASE" value="TO_NUMBER(TO_CHAR(?1, 'DDD'))"/>
-	  <INFO dbtype="OCEANBASE" value="EXTRACT(DAYOFYEAR FROM ?1)"/>
-	  
+	  <INFO dbtype="OCEANBASE_MYSQL" value="DAYOFYEAR(?)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(DOY FROM ?)AS INTEGER)"/>
     </FUNCTION>
 	 <FUNCTION name="DAYOFWEEK" paramcount="1" value="">
 	  <INFO dbtype="ORACLE" value="MOD(TRUNC(CAST( ?1  AS DATE))- DATE '1900-01-07',7) + 1"/>
@@ -421,7 +437,8 @@ END"/>
 	  <INFO dbtype="DORIS" value="DAYOFWEEK(?1)"/>
 	  <INFO dbtype="DAMENG" value="DAYOFWEEK(?1)"/>
 	  <INFO dbtype="KINGBASE" value="TO_NUMBER(TO_CHAR(?1,'D'))"/>
-	  <INFO dbtype="OCEANBASE" value="EXTRACT(DAYOFWEEK FROM ?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="DAYOFWEEK(?1)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(ISODOW FROM ?)AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="DECIMAL" paramcount="3" value="">
       <INFO dbtype="ORACLE" value="CAST(?1 AS DECIMAL(?2,?3))"/>
@@ -441,7 +458,8 @@ END"/>
 	  <INFO dbtype="HIVE" value="CAST(?1 AS DECIMAL(?2,?3))"/>
 	  <INFO dbtype="DORIS" value="CAST(?1 AS DECIMAL(?2,?3))"/>
 	  <INFO dbtype="KINGBASE" value="CAST(?1 AS DECIMAL(?2,?3))"/>
-	  <INFO dbtype="OCEANBASE" value="CAST(?1 AS DECIMAL(?2,?3))"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CAST(?1 AS DECIMAL(?2,?3))"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(?1 AS DECIMAL(?2,?3))"/>
     </FUNCTION>
     <FUNCTION name="DECIMAL" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="round(decimal(?1),?2)"/>
@@ -461,7 +479,7 @@ END"/>
 	  <INFO dbtype="SNOWFLAKE" value="exp(?1)"/>
 	  <INFO dbtype="HIVE" value="exp(?1)"/>
 	  <INFO dbtype="DORIS" value="exp(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="exp(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="exp(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="FLOOR" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="long(floor(?1))"/>
@@ -471,12 +489,12 @@ END"/>
 	  <INFO dbtype="SNOWFLAKE" value="floor(?1)"/>
 	  <INFO dbtype="HIVE" value="floor(?1)"/>
 	  <INFO dbtype="DORIS" value="floor(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="floor(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="floor(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="FLOOR" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="floor@s(?1,?2)"/>
 	  <INFO dbtype="ORACLE" value="(FLOOR(?1*POWER(10,?2))/POWER(10,?2))"/>
-	  <INFO dbtype="MYSQL" value="TRUNCATE(?1,?2)"/>
+	  <INFO dbtype="MYSQL" value="(FLOOR(?1 * POWER(10,?2))/POWER(10,?2))"/>
 	  <INFO dbtype="POSTGRES" value="TRUNC(?1,?2)"/>
 	  <INFO dbtype="SNOWFLAKE" value="floor(?1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="(FLOOR(?1*POWER(10,?2))/POWER(10,?2))"/>
@@ -485,10 +503,12 @@ END"/>
 	  <INFO dbtype="DORIS" value="floor(?1,?2)"/>
 	  <INFO dbtype="DAMENG" value="(FLOOR(?1*POWER(10,?2))/POWER(10,?2))"/>
 	  <INFO dbtype="KINGBASE" value="(FLOOR(?1 * POWER(10,?2)) / POWER(10, ?2))"/>
-	  <INFO dbtype="OCEANBASE" value="(FLOOR(?1*POWER(10,?2))/POWER(10,?2))"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="(FLOOR(?1 * POWER(10,?2))/POWER(10,?2))"/>
+	  <INFO dbtype="OPENGAUSS" value="(FLOOR(?1*POWER(10,?2))/POWER(10,?2))"/>
 	</FUNCTION>
     <FUNCTION name="HOUR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(HOUR FROM ?)"/>
+	  <INFO dbtype="MYSQL" value="EXTRACT(HOUR FROM ?)"/>
       <INFO dbtype="SQLSVR" value="DATEPART(HH, ?)"/>
       <INFO dbtype="TERADATA" value="EXTRACT(HOUR FROM ?)"/>
       <INFO dbtype="POSTGRES" value="EXTRACT(HOUR FROM ?)"/>
@@ -500,13 +520,14 @@ END"/>
 	  <INFO dbtype="HIVE" value="hour(?1)"/>
 	  <INFO dbtype="DORIS" value="hour(?1)"/>
 	  <INFO dbtype="KINGBASE" value="CAST(EXTRACT(HOUR FROM ?1) AS INT)"/>
-	  <INFO dbtype="OCEANBASE" value="EXTRACT(HOUR FROM ?)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="EXTRACT(HOUR FROM ?)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(HOUR FROM ?1) AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="INDEXOF" paramcount="3" value="">
       <INFO dbtype="ORACLE" value="INSTR(?2,?1,?3)"/>
       <INFO dbtype="SQLSVR" value="CHARINDEX(?1,?2,?3)"/>
       <INFO dbtype="DB2" value="LOCATE(?1,?2,?3)"/>
-      <INFO dbtype="MYSQL" value="LOCATE(?1,?2,?3)"/>
+      <INFO dbtype="MYSQL" value="LOCATE(?2,?1,?3)"/>
       <INFO dbtype="HSQL" value="LOCATE(?1,?2,?3)"/>
       <INFO dbtype="TERADATA" value="N/A"/>
       <INFO dbtype="POSTGRES" value="N/A"/>
@@ -521,13 +542,14 @@ END"/>
 	  <INFO dbtype="HIVE" value="LOCATE(?1,?2,?3)"/>
 	  <INFO dbtype="DORIS" value="LOCATE(?1,?2,?3)"/>
 	  <INFO dbtype="KINGBASE" value="INSTR(?1,?2,?3)"/>
-	  <INFO dbtype="OCEANBASE" value="INSTR(?1,?2,?3)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="LOCATE(?2,?1,?3)"/>
+	  <INFO dbtype="OPENGAUSS" value="INSTR(?1,?2,?3)"/>
     </FUNCTION>
     <FUNCTION name="INDEXOF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="INSTR(?2,?1)"/>
       <INFO dbtype="SQLSVR" value="CHARINDEX(?1,?2)"/>
       <INFO dbtype="DB2" value="LOCATE(?1,?2)"/>
-      <INFO dbtype="MYSQL" value="LOCATE(?1,?2)"/>
+      <INFO dbtype="MYSQL" value="LOCATE(?2,?1)"/>
       <INFO dbtype="HSQL" value="LOCATE(?1,?2)"/>
       <INFO dbtype="TERADATA" value="INDEX(?2,?1)"/>
       <INFO dbtype="POSTGRES" value="strpos(?2,?1)"/>
@@ -541,7 +563,8 @@ END"/>
 	  <INFO dbtype="HIVE" value="LOCATE(?1,?2)"/>
 	  <INFO dbtype="DORIS" value="LOCATE(?1,?2)"/>
 	  <INFO dbtype="KINGBASE" value="INSTR(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="INSTR(?1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="LOCATE(?2,?1)"/>
+	  <INFO dbtype="OPENGAUSS" value="INSTR(?1,?2)"/>
     </FUNCTION>
     <FUNCTION name="INT" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="CAST(? AS INT)"/>
@@ -560,7 +583,8 @@ END"/>
 	  <INFO dbtype="CLICKHOUSE" value="toInt64(?1)"/>
 	  <INFO dbtype="DORIS" value="CAST(? AS INT)"/>
 	  <INFO dbtype="KINGBASE" value="CAST(?1 AS INT)"/>
-	  <INFO dbtype="OCEANBASE" value="CAST(? AS INT)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CAST(? AS SIGNED)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(? AS INT)"/>
     </FUNCTION>
     <FUNCTION name="LEFT" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="SUBSTR(?1,1,?2)"/>
@@ -575,7 +599,8 @@ END"/>
 	  <INFO dbtype="DORIS" value="left(?1,?2)"/>
 	  <INFO dbtype="DAMENG" value="SUBSTR(?1,1,?2)"/>
 	  <INFO dbtype="CLICKHOUSE" value="leftUTF8(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="SUBSTR(?1,1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="left(?1,?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="SUBSTR(?1,1,?2)"/>
     </FUNCTION>
     <FUNCTION name="RIGHT" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
@@ -590,7 +615,8 @@ END"/>
 	  <INFO dbtype="DORIS" value="right(?1,?2)"/>
 	  <INFO dbtype="DAMENG" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
 	  <INFO dbtype="CLICKHOUSE" value="rightUTF8(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="SUBSTR(?1, -?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="right(?1,?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="SUBSTR(?1,LENGTH(?1)-?2+1,?2)"/>
     </FUNCTION>
     <FUNCTION name="LEN" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="LENGTH(?)"/>
@@ -609,7 +635,8 @@ END"/>
 	   <INFO dbtype="DORIS" value="LENGTH(?)"/>
 	   <INFO dbtype="DAMENG" value="LENGTH(?)"/>
 	   <INFO dbtype="KINGBASE" value="length(?1)"/>
-	   <INFO dbtype="OCEANBASE" value="LENGTH(?)"/>
+	   <INFO dbtype="OCEANBASE_MYSQL" value="CHAR_LENGTH(?)"/>
+	   <INFO dbtype="OPENGAUSS" value="CHAR_LENGTH(?)"/>
     </FUNCTION>
     <FUNCTION name="LN" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="LOG(?)"/>
@@ -618,7 +645,7 @@ END"/>
 	  <INFO dbtype="SNOWFLAKE" value="ln(?1)"/>
 	  <INFO dbtype="HIVE" value="ln(?1)"/>
 	  <INFO dbtype="DORIS" value="ln(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="ln(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="ln(?1)"/>
     </FUNCTION>
     <FUNCTION name="LOG10" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="LOG(10,?)"/>
@@ -628,7 +655,8 @@ END"/>
 	  <INFO dbtype="DUCKDB" value="log10(?1)"/>
 	  <INFO dbtype="SNOWFLAKE" value="log10(?1)"/>
 	  <INFO dbtype="DORIS" value="log10(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="LOG(10,?)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="LOG10(?)"/>
+	  <INFO dbtype="OPENGAUSS" value="LOG(10,?)"/>
     </FUNCTION>
 	<FUNCTION name="LOWER" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="lower(?1)"/>
@@ -636,7 +664,7 @@ END"/>
 	  <INFO dbtype="SNOWFLAKE" value="lower(?1)"/>
 	  <INFO dbtype="HIVE" value="lower(?1)"/>
 	  <INFO dbtype="DORIS" value="lower(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="lower(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="lower(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="LTRIM" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="trim@l(?1)"/>
@@ -645,7 +673,7 @@ END"/>
 	  <INFO dbtype="CLICKHOUSE" value="trimLeft(?1)"/>
 	  <INFO dbtype="HIVE" value="ltrim(?1)"/>
 	  <INFO dbtype="DORIS" value="ltrim(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="ltrim(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="ltrim(?1)"/>
 	</FUNCTION>
     <FUNCTION name="MINUTE" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(MINUTE FROM ?)"/>
@@ -660,7 +688,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="minute(?1)"/>
 	  <INFO dbtype="DORIS" value="minute(?1)"/>
 	  <INFO dbtype="KINGBASE" value="CAST(EXTRACT(MINUTE FROM ?1) AS INT)"/>
-	  <INFO dbtype="OCEANBASE" value="EXTRACT(MINUTE FROM ?)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="EXTRACT(MINUTE FROM ?)"/>
+	  <INFO dbtype="MYSQL" value="EXTRACT(MINUTE FROM ?)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(MINUTE FROM ?1) AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="MOD" paramcount="2" value="">
       <INFO dbtype="SQLSVR" value="?1 % ?2"/>
@@ -672,7 +702,7 @@ END"/>
 	  <INFO dbtype="SNOWFLAKE" value="MOD(?1,?2)"/>
 	  <INFO dbtype="CLICKHOUSE" value="modulo(?1,?2)"/>
 	  <INFO dbtype="DORIS" value="MOD(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="MOD(?1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="?1 % ?2"/>
     </FUNCTION>
     <FUNCTION name="MONTH" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(MONTH FROM ?)"/>
@@ -686,7 +716,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="month(?1)"/>
 	  <INFO dbtype="DORIS" value="month(?1)"/>
 	  <INFO dbtype="KINGBASE" value="CAST(EXTRACT(MONTH FROM ?1) AS INT)"/>
-	  <INFO dbtype="OCEANBASE" value="EXTRACT(MONTH FROM ?)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="EXTRACT(MONTH FROM ?)"/>
+	  <INFO dbtype="MYSQL" value="EXTRACT(MONTH FROM ?)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(MONTH FROM ?1) AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="NOW" paramcount="0">
       <INFO dbtype="ORACLE" value="SYSTIMESTAMP"/>
@@ -705,7 +737,8 @@ END"/>
 	  <INFO dbtype="HIVE" value="CURRENT_TIMESTAMP"/>
 	  <INFO dbtype="DORIS" value="NOW()"/>
 	  <INFO dbtype="KINGBASE" value="SYSDATE"/>
-	  <INFO dbtype="OCEANBASE" value="NOW()"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="NOW()"/>
+	  <INFO dbtype="OPENGAUSS" value="SYSDATE"/>
     </FUNCTION>
 	<FUNCTION name="NULLIF" paramcount="2" value="">
 		<INFO dbtype="ESPROC" value="if((?1)!=(?2),?1)"/>
@@ -714,7 +747,7 @@ END"/>
 		<INFO dbtype="SQLSVR" value="NULLIF(?1,?2)"/>
 		<INFO dbtype="HIVE" value="NULLIF(?1,?2)"/>
 		<INFO dbtype="DORIS" value="NULLIF(?1,?2)"/>
-		<INFO dbtype="OCEANBASE" value="NULLIF(?1,?2)"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="NULLIF(?1,?2)"/>
 	</FUNCTION>
     <FUNCTION name="NUMTOCHAR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="TO_CHAR(?)"/>
@@ -735,14 +768,15 @@ END"/>
 	  <INFO dbtype="HIVE" value="cast(?1 as string)"/>
 	  <INFO dbtype="DORIS" value="CAST(? AS VARCHAR)"/>
 	  <INFO dbtype="KINGBASE" value="TO_CHAR(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="CAST(? AS VARCHAR)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CAST(? AS CHAR)"/>
+	  <INFO dbtype="OPENGAUSS" value="TO_CHAR(?)"/>
     </FUNCTION>
 	<FUNCTION name="POWER" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="power(?1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="power(?1,?2)"/>
 	  <INFO dbtype="SNOWFLAKE" value="power(?1,?2)"/>
 	  <INFO dbtype="DORIS" value="power(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="power(?1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="power(?1,?2)"/>
 	</FUNCTION>
     <FUNCTION name="QUARTER" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="FLOOR((EXTRACT(MONTH FROM ?)+2)/3)"/>
@@ -758,7 +792,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="QUARTER(?1)"/>
 	  <INFO dbtype="DORIS" value="QUARTER(?1)"/>
 	  <INFO dbtype="KINGBASE" value="CAST(EXTRACT(QUARTER FROM ?1) AS INT)"/>
-	  <INFO dbtype="OCEANBASE" value="EXTRACT(QUARTER FROM ?)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="EXTRACT(QUARTER FROM ?)"/>
+	  <INFO dbtype="MYSQL" value="EXTRACT(QUARTER FROM ?)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(((EXTRACT(MONTH from ?1)+2)/3) as INTEGER)"/>
     </FUNCTION>
 	<FUNCTION name="RAND" paramcount="0" value="">
       <INFO dbtype="ORACLE" value="DBMS_RANDOM.VALUE(0,1)"/>
@@ -776,7 +812,8 @@ END"/>
 	  <INFO dbtype="DAMENG" value="RAND()"/>
 	  <INFO dbtype="SPARKSQL" value="RAND()"/>
 	  <INFO dbtype="KINGBASE" value="random()"/>
-	  <INFO dbtype="OCEANBASE" value="RAND()"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="RAND()"/>
+	  <INFO dbtype="OPENGAUSS" value="RANDOM()"/>
     </FUNCTION>
     <FUNCTION name="RAND" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="CAST(DBMS_RANDOM.VALUE(0, ?) as INTEGER)"/>
@@ -794,7 +831,8 @@ END"/>
 	  <INFO dbtype="DAMENG" value="CAST((rand()*?1) AS INT)"/>
 	  <INFO dbtype="SPARKSQL" value="CAST(floor(rand() * ?1) AS INT)"/>
 	  <INFO dbtype="KINGBASE" value="(FLOOR(random() * ?1)::INT)"/>
-	  <INFO dbtype="OCEANBASE" value="CAST((rand() * ?1) AS SIGNED)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CAST((rand() * ?1) AS SIGNED)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST((random()* ?1) AS INT)"/>
     </FUNCTION>
     <FUNCTION name="REPLACE" paramcount="3" value="">
       <INFO dbtype="TERADATA" value="OREPLACE(?1,?2,?3)"/>
@@ -803,14 +841,14 @@ END"/>
 	  <INFO dbtype="SNOWFLAKE" value="replace(?1,?2,?3)"/>
 	  <INFO dbtype="HIVE" value="replace(?1,?2,?3)"/>
 	  <INFO dbtype="DORIS" value="replace(?1,?2,?3)"/>
-	  <INFO dbtype="OCEANBASE" value="replace(?1,?2,?3)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="replace(?1,?2,?3)"/>
     </FUNCTION>
     <FUNCTION name="ROUND" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="round(?1,?2)"/>
 	  <INFO dbtype="DUCKDB" value="round(?1,?2)"/>
 	  <INFO dbtype="SNOWFLAKE" value="round(?1,?2)"/>
 	  <INFO dbtype="DORIS" value="round(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="round(?1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="round(?1,?2)"/>
     </FUNCTION>
 	<FUNCTION name="RTRIM" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="trim@r(?1)"/>
@@ -819,7 +857,7 @@ END"/>
 	  <INFO dbtype="CLICKHOUSE" value="trimRight(?1)"/>
 	  <INFO dbtype="HIVE" value="RTRIM(?1)"/>
 	  <INFO dbtype="DORIS" value="RTRIM(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="RTRIM(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="RTRIM(?1)"/>
 	</FUNCTION>
     <FUNCTION name="SECOND" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(SECOND FROM ?)"/>
@@ -834,7 +872,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="second(?1)"/>
 	  <INFO dbtype="DORIS" value="second(?1)"/>
 	  <INFO dbtype="KINGBASE" value="CAST(EXTRACT(SECOND FROM ?1) AS INT)"/>
-	  <INFO dbtype="OCEANBASE" value="EXTRACT(SECOND FROM ?)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="EXTRACT(SECOND FROM ?)"/>
+	  <INFO dbtype="MYSQL" value="EXTRACT(SECOND FROM ?)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(SECOND FROM ?1) AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="SIGN" paramcount="1" value="">
       <INFO dbtype="TERADATA" value="n/a"/>
@@ -842,21 +882,21 @@ END"/>
 	  <INFO dbtype="DUCKDB" value="sign(?1)"/>
 	  <INFO dbtype="SNOWFLAKE" value="sign(?1)"/>
 	  <INFO dbtype="DORIS" value="sign(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="sign(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="sign(?1)"/>
     </FUNCTION>
 	<FUNCTION name="SIN" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="sin(?1)"/>
 	  <INFO dbtype="DUCKDB" value="sin(?1)"/>
 	  <INFO dbtype="SNOWFLAKE" value="sin(?1)"/>
 	  <INFO dbtype="DORIS" value="sin(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="sin(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="sin(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="SQRT" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="sqrt(?1)"/>
 	  <INFO dbtype="DUCKDB" value="sqrt(?1)"/>
 	  <INFO dbtype="SNOWFLAKE" value="sqrt(?1)"/>
 	  <INFO dbtype="DORIS" value="sqrt(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="sqrt(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="sqrt(?1)"/>
 	</FUNCTION>
     <FUNCTION name="SUBSTR" paramcount="3" value="">
       <INFO dbtype="SQLSVR" value="SUBSTRING(?1,?2,?3)"/>
@@ -868,7 +908,7 @@ END"/>
 	  <INFO dbtype="CLICKHOUSE" value="substringUTF8(?1,?2,?3)"/>
 	  <INFO dbtype="HIVE" value="SUBSTR(?1,?2,?3)"/>
 	  <INFO dbtype="DORIS" value="SUBSTR(?1,?2,?3)"/>
-	  <INFO dbtype="OCEANBASE" value="SUBSTR(?1,?2,?3)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="SUBSTR(?1,?2,?3)"/>
     </FUNCTION>
     <FUNCTION name="SUBSTR" paramcount="2" value="">
       <INFO dbtype="SQLSVR" value="SUBSTRING(?1,?2,len(?1)-?2+1)"/>
@@ -880,14 +920,14 @@ END"/>
 	  <INFO dbtype="CLICKHOUSE" value="substringUTF8(?1,?2)"/>
 	  <INFO dbtype="HIVE" value="SUBSTR(?1,?2)"/>
 	  <INFO dbtype="DORIS" value="SUBSTR(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="SUBSTR(?1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="SUBSTR(?1,?2)"/>
     </FUNCTION>
 	<FUNCTION name="TAN" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="tan(?1)"/>
 	  <INFO dbtype="DUCKDB" value="tan(?1)"/>
 	  <INFO dbtype="SNOWFLAKE" value="tan(?1)"/>
 	  <INFO dbtype="DORIS" value="tan(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="tan(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="tan(?1)"/>
 	</FUNCTION>
 	<FUNCTION name="TIME" paramcount="3" value="">
       <INFO dbtype="ESPROC" value="time(?1,?2,?3)"/>
@@ -908,13 +948,13 @@ END"/>
 		<INFO dbtype="DAMENG" value="CAST(?1||':'||?2||':'||?3 AS TIME)"/>
 		<INFO dbtype="KINGBASE" value="(CASE WHEN ?1 BETWEEN 0 AND 23 AND ?2 BETWEEN 0 AND 59 AND ?3 BETWEEN 0 AND 59
     THEN LPAD(?1, 2, '0') || ':' || LPAD(?2, 2, '0') || ':' || LPAD(?3, 2, '0')     ELSE NULL END)"/>
-	<INFO dbtype="OCEANBASE" value="MAKETIME(?1,?2,?3)"/>
+	<INFO dbtype="OCEANBASE_MYSQL" value="MAKETIME(?1,?2,?3)"/>
+	<INFO dbtype="OPENGAUSS" value="CAST(CONCAT(?1, ':', ?2, ':', ?3) AS TIME)"/>
 	</FUNCTION>
 	<FUNCTION name="TIME" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="time(?1,?2)"/>
       <INFO dbtype="SQLSVR" value="TIMEFROMPARTS( CAST(SUBSTRING(?1, 1, 2) AS INT), CAST(SUBSTRING(?1, 4, 2) AS INT), CAST(SUBSTRING(?1, 7, 2) AS INT),0,0)"/>
 	  <INFO dbtype="HIVE" value="FROM_UNIXTIME(UNIX_TIMESTAMP(?1,?2), 'HH:mm:ss')"/>
-	  <INFO dbtype="OCEANBASE" value=""/>
 	</FUNCTION>
 	<FUNCTION name="TIME" paramcount="1" value="">
 	  <INFO dbtype="MYSQL" value="TIME(?)"/>
@@ -931,7 +971,8 @@ END"/>
 	  <INFO dbtype="DORIS" value="CAST(?1 as TIME)"/>
 	  <INFO dbtype="DAMENG" value="CAST(?1 AS TIME)"/>
 	  <INFO dbtype="KINGBASE" value="TO_CHAR(?1,'HH24:MI:SS')"/>
-	  <INFO dbtype="OCEANBASE" value="CAST(? AS TIME)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CAST(? AS TIME)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(?1 as TIME)"/>
 	</FUNCTION>	
 	<FUNCTION name="DATETIME" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="datetime(?1,?2)"/>
@@ -948,7 +989,8 @@ END"/>
 	  <INFO dbtype="DORIS" value="TIMESTAMP(?1, ?2)"/>
 	  <INFO dbtype="DAMENG" value="TO_TIMESTAMP(TO_CHAR(?1, 'YYYY-MM-DD') || ' ' || TO_CHAR(?2, 'HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')"/>
 	  <INFO dbtype="KINGBASE" value="TO_TIMESTAMP(TO_CHAR(?1, 'YYYY-MM-DD') || ' ' || TO_CHAR(?2,'HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS')"/>
-	  <INFO dbtype="OCEANBASE" value="STR_TO_DATE(CONCAT(?1,' ',?2), '%Y-%m-%d %H:%i:%s')"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="STR_TO_DATE(CONCAT(?1,' ',?2), '%Y-%m-%d %H:%i:%s')"/>
+	  <INFO dbtype="OPENGAUSS" value="(?1+?2)"/>
 	</FUNCTION>
 	<FUNCTION name="TIMESTAMP" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="datetime(?1,?2)"/>
@@ -974,7 +1016,8 @@ END"/>
 	  <INFO dbtype="HIVE" value="CAST(? as TIMESTAMP)"/>
 	  <INFO dbtype="DORIS" value="TIMESTAMP(?1)"/>
 	  <INFO dbtype="KINGBASE" value="TO_TIMESTAMP(?1,'YYYY-MM-DD HH24:MI:SS')"/>
-	  <INFO dbtype="OCEANBASE" value="CAST(? as TIMESTAMP)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="STR_TO_DATE(?,'%Y-%m-%d %H:%i:%s')"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(? as TIMESTAMP)"/>
     </FUNCTION>
     <FUNCTION name="TODAY" paramcount="0">
       <INFO dbtype="ORACLE" value="SYSDATE"/>
@@ -994,7 +1037,8 @@ END"/>
 	  <INFO dbtype="HIVE" value="current_date"/>
 	  <INFO dbtype="DORIS" value="CURDATE()"/>
 	  <INFO dbtype="KINGBASE" value="TRUNC(SYSDATE)"/>
-	  <INFO dbtype="OCEANBASE" value="CURDATE()"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CURDATE()"/>
+	  <INFO dbtype="OPENGAUSS" value="CURRENT_DATE"/>
     </FUNCTION>
     <FUNCTION name="TRIM" paramcount="1" value="">
       <INFO dbtype="SQLSVR" value="LTRIM(RTRIM(?))"/>
@@ -1005,7 +1049,7 @@ END"/>
 	  <INFO dbtype="SNOWFLAKE" value="trim(?1)"/>
 	  <INFO dbtype="HIVE" value="trim(?1)"/>
 	  <INFO dbtype="DORIS" value="trim(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="trim(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="trim(?1)"/>
     </FUNCTION>
     <FUNCTION name="TRUNC" paramcount="2" value="">
       <INFO dbtype="SQLSVR" value="CONVERT(BIGINT,?1*POWER(10,?2))/POWER(10.0,?2)"/>
@@ -1015,7 +1059,7 @@ END"/>
 	  <INFO dbtype="DUCKDB" value="trunc(?1,?2)"/>
 	  <INFO dbtype="SNOWFLAKE" value="trunc(?1,?2)"/>
 	  <INFO dbtype="DORIS" value="trunc(?1,?2)"/>
-	  <INFO dbtype="OCEANBASE" value="trunc(?1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="TRUNCATE(?1,?2)"/>
     </FUNCTION>
 	<FUNCTION name="UPPER" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="upper(?1)"/>
@@ -1023,7 +1067,7 @@ END"/>
 	  <INFO dbtype="SNOWFLAKE" value="upper(?1)"/>
 	  <INFO dbtype="HIVE" value="upper(?1)"/>	  
 	  <INFO dbtype="DORIS" value="upper(?1)"/>
-	  <INFO dbtype="OCEANBASE" value="upper(?1)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="upper(?1)"/>
 	</FUNCTION>
     <FUNCTION name="WEEKOFYEAR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="TO_NUMBER(TO_CHAR(?,'WW'))"/>
@@ -1042,7 +1086,8 @@ END"/>
 	  <INFO dbtype="HIVE" value="WEEKOFYEAR(?1)"/>
 	  <INFO dbtype="DORIS" value="WEEKOFYEAR(?1)"/>
 	  <INFO dbtype="KINGBASE" value="TO_NUMBER(TO_CHAR(?1,'WW'))"/>
-	  <INFO dbtype="OCEANBASE" value="EXTRACT(WEEK FROM ?)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="WEEK(?)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(WEEK FROM ?)AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="YEAR" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(YEAR FROM ?)"/>
@@ -1057,7 +1102,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="year(?1)"/>
 	  <INFO dbtype="DORIS" value="year(?1)"/>
 	  <INFO dbtype="KINGBASE" value="CAST(EXTRACT(YEAR FROM ?1) AS INT)"/>
-	  <INFO dbtype="OCEANBASE" value="EXTRACT(YEAR FROM ?)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="EXTRACT(YEAR FROM ?)"/>
+	  <INFO dbtype="MYSQL" value="EXTRACT(YEAR FROM ?)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(YEAR FROM ?1) AS INTEGER)"/>
     </FUNCTION>
 
 	<FUNCTION name="ADDX" paramcount="2" value="">
@@ -1071,7 +1118,9 @@ END"/>
 	  <INFO dbtype="DORIS" value="DATE_ADD(?1, INTERVAL ?2 DAY)"/>
 	  <INFO dbtype="DAMENG" value="N/A"/>
 	  <INFO dbtype="KINGBASE" value="N/A"/>
-	  <INFO dbtype="OCEANBASE" value="DATE_ADD(?1, INTERVAL ?2 UNIT)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="IF(date(?1) IS NOT NULL,DATE_ADD(?1, INTERVAL ?2 DAY), ?1 + ?2)"/>
+	  <INFO dbtype="MYSQL" value="IF(date(?1) IS NOT NULL,DATE_ADD(?1, INTERVAL ?2 DAY), ?1 + ?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="N/A"/>
 	</FUNCTION>
 	<FUNCTION name="SUBX" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="subx(?1,?2)"/>
@@ -1085,7 +1134,9 @@ END"/>
 	  <INFO dbtype="DORIS" value="DATEDIFF(?1,?2)"/>
 	  <INFO dbtype="DAMENG" value="N/A"/>
 	  <INFO dbtype="KINGBASE" value="N/A"/>
-	  <INFO dbtype="OCEANBASE" value="TIMESTAMPDIFF(unit,?1,?2)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="IF(date(?1) IS NOT NULL,DATE_ADD(?1, INTERVAL -?2 DAY), ?1 - ?2)"/>
+	  <INFO dbtype="MYSQL" value="IF(date(?1) IS NOT NULL,DATE_ADD(?1, INTERVAL -?2 DAY), ?1 - ?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="N/A"/>
 	</FUNCTION>
 	<FUNCTION name="CMPX" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="cmpx(?1,?2)"/>
@@ -1098,7 +1149,9 @@ END"/>
 	  <INFO dbtype="DORIS" value="N/A"/>
 	  <INFO dbtype="DAMENG" value="N/A"/>
 	  <INFO dbtype="KINGBASE" value="N/A"/>
-	  <INFO dbtype="OCEANBASE" value="N/A"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="N/A"/>
+	  <INFO dbtype="MYSQL" value="N/A"/>
+	  <INFO dbtype="OPENGAUSS" value="N/A"/>
 	</FUNCTION>
     <FUNCTION name="itx" paramcount="1" value="">
 	    <INFO dbtype="ORACLE" value="N/A"/>
@@ -1110,7 +1163,9 @@ END"/>
 		<INFO dbtype="DORIS" value="N/A"/>
 		<INFO dbtype="DAMENG" value="N/A"/>
 		<INFO dbtype="KINGBASE" value="N/A"/>
-		<INFO dbtype="OCEANBASE" value="N/A"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="N/A"/>
+		<INFO dbtype="MYSQL" value="N/A"/>
+		<INFO dbtype="OPENGAUSS" value="N/A"/>
 	</FUNCTION>
 	<FUNCTION name="itx" paramcount="2" value="">
 		<INFO dbtype="HSQL" value="?2"/>
@@ -1123,7 +1178,9 @@ END"/>
 		<INFO dbtype="DORIS" value="N/A"/>
 		<INFO dbtype="DAMENG" value="N/A"/>
 		<INFO dbtype="KINGBASE" value="N/A"/>
-		<INFO dbtype="OCEANBASE" value="N/A"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="N/A"/>
+		<INFO dbtype="MYSQL" value="N/A"/>
+		<INFO dbtype="OPENGAUSS" value="N/A"/>
 	</FUNCTION>
 
 	<FUNCTION name="isdigit" paramcount="1" value="">
@@ -1142,7 +1199,8 @@ END"/>
 	  <INFO dbtype="DORIS" value="REGEXP(?1,'^[0-9]+$')"/>
 	  <INFO dbtype="DAMENG" value="REGEXP_LIKE(?1,'^[0-9]+$')"/>
 	  <INFO dbtype="KINGBASE" value="REGEXP_LIKE(?1,'^\d+$')"/>
-	  <INFO dbtype="OCEANBASE" value="? REGEXP '^[0-9]+$'"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="?1 REGEXP '^[0-9]+$'"/>
+	  <INFO dbtype="OPENGAUSS" value="REGEXP_LIKE(?1, '^[0-9]+$')"/>
 	</FUNCTION>
 	<FUNCTION name="isalpha" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="isalpha(?1)"/>
@@ -1160,12 +1218,13 @@ END"/>
 	  <INFO dbtype="DORIS" value="REGEXP(?1,'^[a-zA-Z]+$')"/>
 	  <INFO dbtype="DAMENG" value="REGEXP_LIKE(?1,'^[A-Za-z]+$')"/>
 	  <INFO dbtype="KINGBASE" value="REGEXP_LIKE(?1,'^[a-zA-Z]+$')"/>
-	  <INFO dbtype="OCEANBASE" value="? REGEXP '^[A-Za-z]+$'"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="?1 REGEXP '^[a-zA-Z]+$'"/>
+	  <INFO dbtype="OPENGAUSS" value="REGEXP_LIKE(?1, '^[A-Za-z]+$')"/>
 	</FUNCTION>
 	<FUNCTION name="getsubs" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="substr(?1,?2)"/>
 	  <INFO dbtype="ORACLE" value="CASE  WHEN INSTR(?1,?2) > 0 THEN  SUBSTR(?1,INSTR(?1,?2) + LENGTH(?2))  ELSE  NULL  END"/>
-	  <INFO dbtype="MYSQL" value="IF(LOCATE(?2, ?1) > 0, SUBSTRING(?1, LOCATE(?2, ?1) + CHAR_LENGTH(?2)), NULL)"/>
+	  <INFO dbtype="MYSQL" value="CASE WHEN (LENGTH(?1) - LENGTH(REPLACE(?1, ?2, ''))) / LENGTH(?2) >= 1 THEN SUBSTRING(?1, LENGTH(SUBSTRING_INDEX(?1, ?2, 1)) + LENGTH(?2) + 1) ELSE '' END"/>
 	  <INFO dbtype="DUCKDB" value="substr(?1, position(?2 IN ?1) + length(?2))"/>
 	  <INFO dbtype="BIGQUERY" value="CASE WHEN STRPOS(?1,?2) &gt; 0 THEN SUBSTR(?1,STRPOS(?1,?2)+LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN STRPOS(?1,?2) &gt; 0 THEN SUBSTR(?1,STRPOS(?1,?2)+LENGTH(?2)) ELSE NULL END"/>
@@ -1176,13 +1235,14 @@ END"/>
 	  <INFO dbtype="HIVE" value="SUBSTR(?1, INSTR(?1, ?2) + LENGTH(?2))"/>
 	  <INFO dbtype="DORIS" value="IF(LOCATE(?2, ?1) > 0,SUBSTRING(?1, LOCATE(?2, ?1) + CHAR_LENGTH(?2)),NULL)"/>
 	  <INFO dbtype="DAMENG" value="SUBSTR(?1, INSTR(?1,?2) + LENGTH(?2))"/>
-	  <INFO dbtype="KINGBASE" value="(CASE   WHEN INSTR(?1, ?2, 1, 1) = 0 THEN ''  ELSE SUBSTR(?1, INSTR(?1, ?2, 1, 1) + 1)     END)"/>
-	  <INFO dbtype="OCEANBASE" value="IF(LOCATE(?2, ?1) > 0,SUBSTRING(?1, LOCATE(?2, ?1) + CHAR_LENGTH(?2)),NULL)"/>
+	  <INFO dbtype="KINGBASE" value="COALESCE(SUBSTR(?1, NULLIF(INSTR(?1, ?2), 0) + LENGTH(?2)), '')"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CASE WHEN (LENGTH(?1) - LENGTH(REPLACE(?1, ?2, ''))) / LENGTH(?2) >= 1 THEN SUBSTRING(?1, LENGTH(SUBSTRING_INDEX(?1, ?2, 1)) + LENGTH(?2) + 1) ELSE '' END"/>
+	  <INFO dbtype="OPENGAUSS" value="CASE  WHEN INSTR(?1,?2) > 0 THEN  SUBSTR(?1,INSTR(?1,?2) + LENGTH(?2))  ELSE  NULL  END"/>
 	</FUNCTION>
 	<FUNCTION name="getsubs" paramcount="3" value="">
       <INFO dbtype="ESPROC" value="substr(?1,?2,?3)"/>
 	  <INFO dbtype="ORACLE" value="CASE  WHEN INSTR(?1,?2,1,?3) > 0 THEN   SUBSTR(?1,INSTR(?1,?2,1,?3) + LENGTH(?2))  ELSE    NULL END"/>
-	  <INFO dbtype="MYSQL" value="IF(SUBSTRING_INDEX(?1, ?2, ?3) > 0,SUBSTRING(?1,LENGTH(SUBSTRING_INDEX(?1, ?2, ?3)) + LENGTH(?2) + 1),NULL)"/>
+	  <INFO dbtype="MYSQL" value="CASE WHEN (LENGTH(?1) - LENGTH(REPLACE(?1, ?2, ''))) / LENGTH(?2) >= ?3 THEN SUBSTRING(?1, LENGTH(SUBSTRING_INDEX(?1, ?2, ?3)) + LENGTH(?2) + 1) ELSE '' END"/>
 	  <INFO dbtype="BIGQUERY" value="CASE WHEN INSTR(?1,?2,INSTR(?1,?2)+?3-1) &gt; 0 THEN SUBSTR(?1,INSTR(?1,?2,INSTR(?1,?2)+?3-1)+LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN regexp_instr(?1,?2,1,?3) &gt; 0 THEN substring(?1,regexp_instr(?1,?2,1,?3) + length(?2)) ELSE NULL END"/>
 	  <INFO dbtype="SNOWFLAKE" value="regexp_substr(?1, '^(?:.*?' || ?2 || '){' || ?3 || '}(.*)$', 1, 1, 'e', 1)"/>
@@ -1191,8 +1251,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="N/A"/>
 	  <INFO dbtype="DORIS" value="N/A"/>
 	  <INFO dbtype="DAMENG" value="SUBSTR(?1,INSTR(?1,?2,1,?3) + LENGTH(?2))"/>
-	  <INFO dbtype="KINGBASE" value="(CASE  WHEN INSTR(?1, ?2, 1, ?3) = 0 THEN ''  ELSE SUBSTR(?1, INSTR(?1, ?2, 1, ?3) + 1)  END )"/>
-	  <INFO dbtype="OCEANBASE" value="N/A"/>
+	  <INFO dbtype="KINGBASE" value="COALESCE(SUBSTR(?1, NULLIF(INSTR(?1, ?2, 1, ?3), 0) + LENGTH(?2)), '')"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CASE WHEN (LENGTH(?1) - LENGTH(REPLACE(?1, ?2, ''))) / LENGTH(?2) >= ?3 THEN SUBSTRING(?1, LENGTH(SUBSTRING_INDEX(?1, ?2, ?3)) + LENGTH(?2) + 1) ELSE '' END"/>
+	  <INFO dbtype="OPENGAUSS" value="CASE  WHEN INSTR(?1,?2,1,?3) > 0 THEN   SUBSTR(?1,INSTR(?1,?2,1,?3) + LENGTH(?2))  ELSE    NULL END"/>
     </FUNCTION>
 	<FUNCTION name="ipos" paramcount="2" value="">
       <INFO dbtype="ESPROC" value="pos@c(?1,?2)"/>
@@ -1210,7 +1271,8 @@ END"/>
 	   <INFO dbtype="DORIS" value="LOCATE(LOWER(?2),LOWER(?1))"/>
 	   <INFO dbtype="DAMENG" value="INSTR(UPPER(?1),UPPER(?2))"/>
 	   <INFO dbtype="KINGBASE" value="INSTR(UPPER(?1),UPPER(?2))"/>
-	   <INFO dbtype="OCEANBASE" value="LOCATE(LOWER(?2),LOWER(?1))"/>
+	   <INFO dbtype="OCEANBASE_MYSQL" value="INSTR(?1,?2)"/>
+	   <INFO dbtype="OPENGAUSS" value="INSTR(UPPER(?1),UPPER(?2))"/>
 	</FUNCTION>
 	<FUNCTION name="ipos" paramcount="3" value="">
       <INFO dbtype="ESPROC" value="pos@c(?1,?2,?3)"/>
@@ -1228,7 +1290,8 @@ END"/>
 	  <INFO dbtype="DORIS" value="LOCATE(LOWER(?2),LOWER(?1),?3)"/>
 	  <INFO dbtype="DAMENG" value="INSTR(UPPER(?1),UPPER(?2),1,?3)"/>
 	  <INFO dbtype="KINGBASE" value="INSTR(UPPER(?1),UPPER(?2),?3)"/>
-	  <INFO dbtype="OCEANBASE" value="LOCATE(LOWER(?2),LOWER(?1),?3)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="IF(INSTR(SUBSTRING(?1,?3),?2) > 0, INSTR(SUBSTRING(?1,?3),?2)+?3-1,null)"/>
+	  <INFO dbtype="OPENGAUSS" value="INSTR(UPPER(?1),UPPER(?2),1,?3)"/>
 	</FUNCTION>
 	<FUNCTION name="igetsubs" paramcount="2" value="">
        <INFO dbtype="ESPROC" value="substr@c(?1,?2)"/>
@@ -1246,7 +1309,8 @@ END"/>
 		<INFO dbtype="DORIS" value="IF(LOCATE(LOWER(?2), LOWER(?1)) > 0,SUBSTRING(?1, LOCATE(LOWER(?2), LOWER(?1)) + CHAR_LENGTH(?2)),NULL)"/>
 		<INFO dbtype="DAMENG" value="SUBSTR(?1, INSTR(LOWER(?1), LOWER(?2)) + LENGTH(?2))"/>
 		<INFO dbtype="KINGBASE" value="(CASE  WHEN INSTR(UPPER(?1), UPPER(?2), 1, 1) = 0 THEN ''  ELSE SUBSTR(?1, INSTR(UPPER(?1), UPPER(?2), 1, 1) + LENGTH(?2))  END)"/>
-		<INFO dbtype="OCEANBASE" value="IF(LOCATE(LOWER(?2), LOWER(?1)) > 0,SUBSTRING(?1, LOCATE(LOWER(?2), LOWER(?1)) + CHAR_LENGTH(?2)),NULL)"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="CASE WHEN LOCATE(?2,?1) > 0 THEN SUBSTRING(?1, LOCATE(?2, ?1) + CHAR_LENGTH(?2)) ELSE NULL END"/>
+		<INFO dbtype="OPENGAUSS" value="CASE  WHEN INSTR(UPPER(?1),UPPER(?2)) > 0 THEN   SUBSTR(?1,INSTR(UPPER(?1),UPPER(?2)) + LENGTH(?2))  ELSE  NULL END"/>
 	</FUNCTION>
 	<FUNCTION name="igetsubs" paramcount="3" value="">
        <INFO dbtype="ESPROC" value="substr@c(?1,?2,?3)"/>
@@ -1263,7 +1327,8 @@ END"/>
 	  <INFO dbtype="DORIS" value="N/A"/>
 	  <INFO dbtype="DAMENG" value="SUBSTR(?1,INSTR(?1,?2,1,?3)+LENGTH(?2))"/>
 	  <INFO dbtype="KINGBASE" value="(CASE  WHEN INSTR(UPPER(?1), UPPER(?2), 1, ?3) = 0 THEN ''  ELSE SUBSTR(?1, INSTR(UPPER(?1), UPPER(?2), 1, ?3) + LENGTH(?2))    END)"/>
-	  <INFO dbtype="OCEANBASE" value="N/A"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="CASE WHEN REGEXP_INSTR(?1,?2,1,?3,0,'i') > 0 THEN SUBSTRING(?1,REGEXP_INSTR(?1,?2,1,?3,1,'i')) ELSE NULL END"/>
+	  <INFO dbtype="OPENGAUSS" value="CASE  WHEN INSTR(UPPER(?1),UPPER(?2),1,NVL(?3,1)) > 0 THEN  SUBSTR(?1,INSTR(UPPER(?1),UPPER(?2),1,NVL(?3,1)) + LENGTH(?2))  ELSE  NULL END"/>
 	</FUNCTION>
 
     <FUNCTION name="YEARSDIFF" paramcount="2" value="">
@@ -1281,8 +1346,9 @@ END"/>
 	  <INFO dbtype="DORIS" value="YEARS_DIFF(?2,?1)"/>
 	  <INFO dbtype="DAMENG" value="DATEDIFF(year,?1,?2)"/>
 	  <INFO dbtype="SPARKSQL" value="FLOOR(MONTHS_BETWEEN(?2,?1)/12)"/>
-	  <INFO dbtype="KINGBASE" value="TRUNC(MONTHS_BETWEEN(?1,?2) / 12)"/>
-	  <INFO dbtype="OCEANBASE" value="TIMESTAMPDIFF(YEAR,?2,?1)"/>
+	  <INFO dbtype="KINGBASE" value="abs(MONTHS_BETWEEN(?1,?2) / 12)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(YEAR,?1,?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(YEAR FROM AGE(?2,?1)) AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="MONTHSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="MONTHS_BETWEEN(?2,?1)"/>
@@ -1299,8 +1365,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="MONTHS_BETWEEN(?2,?1)"/>
 	  <INFO dbtype="DORIS" value="MONTHS_DIFF(?2,?1)"/>
 	  <INFO dbtype="DAMENG" value="DATEDIFF(month,?1,?2)"/>
-	  <INFO dbtype="KINGBASE" value="TRUNC(MONTHS_BETWEEN(?1,?2))"/>
-	  <INFO dbtype="OCEANBASE" value="TIMESTAMPDIFF(MONTH,?2,?1)"/>
+	  <INFO dbtype="KINGBASE" value="abs(MONTHS_BETWEEN(?1,?2))"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(MONTH,?1,?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(YEAR FROM age(?2, ?1)) * 12 + EXTRACT(MONTH FROM age(?2, ?1)) AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="DAYSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(ceil(CAST(?2 AS DATE) - CAST(?1 AS DATE)))"/>
@@ -1317,8 +1384,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="DATEDIFF(?2,?1)"/>
 	  <INFO dbtype="DORIS" value="DAYS_DIFF(?2,?1)"/>
 	  <INFO dbtype="DAMENG" value="DATEDIFF(day,?1,?2)"/>
-	  <INFO dbtype="KINGBASE" value="abs(?2-?1)"/>
-	  <INFO dbtype="OCEANBASE" value="DATEDIFF(day,?2,?1)"/>
+	  <INFO dbtype="KINGBASE" value="CEIL(ABS(CAST(?1 AS DATE)  - CAST(?2 AS DATE)))"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(DAY,?1,?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST((EXTRACT(DAY FROM (?2-?1))) AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="HOURSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(?2-?1)*24"/>
@@ -1335,8 +1403,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="int((UNIX_TIMESTAMP(?2) - UNIX_TIMESTAMP(?1)) / 3600)"/>
 	  <INFO dbtype="DORIS" value="HOURS_DIFF(?2,?1)"/>
 	  <INFO dbtype="DAMENG" value="DATEDIFF(hour,?1,?2)"/>
-	  <INFO dbtype="KINGBASE" value="abs(?2-?1)*24"/>
-	  <INFO dbtype="OCEANBASE" value="TIMESTAMPDIFF(HOUR,?2,?1)"/>
+	  <INFO dbtype="KINGBASE" value="Trunc(abs(EXTRACT(EPOCH FROM ?1) - EXTRACT(EPOCH FROM ?2))/3600)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(HOUR,?1,?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST((EXTRACT(EPOCH FROM (?2 - ?1)) / 3600) AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="MINUTESDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(?2-?1)*24*60"/>
@@ -1353,8 +1422,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="int((UNIX_TIMESTAMP(?2) - UNIX_TIMESTAMP(?1)) / 60)"/>
 	  <INFO dbtype="DORIS" value="MINUTES_DIFF(?2,?1)"/>
 	  <INFO dbtype="DAMENG" value="DATEDIFF(minute,?1,?2)"/>
-	  <INFO dbtype="KINGBASE" value="abs(?2-?1) * 1440"/>
-	  <INFO dbtype="OCEANBASE" value="TIMESTAMPDIFF(MINUTE,?2,?1)"/>
+	  <INFO dbtype="KINGBASE" value="Trunc(abs(EXTRACT(EPOCH FROM ?1) - EXTRACT(EPOCH FROM ?2))/60)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(MINUTE,?1,?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST((EXTRACT(EPOCH FROM (?2 - ?1)) / 60)AS INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="SECONDSDIFF" paramcount="2" value="">
       <INFO dbtype="ORACLE" value="(?2-?1)*24*60*60"/>
@@ -1371,8 +1441,9 @@ END"/>
 	  <INFO dbtype="HIVE" value="(UNIX_TIMESTAMP(?2) - UNIX_TIMESTAMP(?1))"/>
 	  <INFO dbtype="DORIS" value="SECONDS_DIFF(?2,?1)"/>
 	  <INFO dbtype="DAMENG" value="DATEDIFF(second,?1,?2)"/>
-	  <INFO dbtype="KINGBASE" value="abs(?2-?1) * 86400"/>
-	  <INFO dbtype="OCEANBASE" value="TIMESTAMPDIFF(SECOND,?2,?1)"/>
+	  <INFO dbtype="KINGBASE" value="abs(EXTRACT(EPOCH FROM ?1) - EXTRACT(EPOCH FROM ?2))"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(SECOND,?1,?2)"/>
+	  <INFO dbtype="OPENGAUSS" value="CAST((EXTRACT(EPOCH FROM (?2 - ?1)))AS INTEGER)"/>
     </FUNCTION>
       <FUNCTION name="TRUNCHOUR" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="TRUNC(?1,'HH24')"/>
@@ -1390,7 +1461,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DATE_TRUNC(?1, 'hour')"/>
 		<INFO dbtype="DAMENG" value="TRUNC(?1,'HH24')"/>
 		<INFO dbtype="KINGBASE" value="TRUNC(?1, 'HH24')"/>
-		<INFO dbtype="OCEANBASE" value="DATE_FORMAT(?, '%Y-%m-%d %H:00:00')"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1,'%Y-%m-%d %H:00:00')"/>
+		<INFO dbtype="OPENGAUSS" value="date_trunc('hour',?1)"/>
       </FUNCTION>
       <FUNCTION name="TRUNCMINUTE" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="TRUNC(?1,'MI')"/>
@@ -1408,7 +1480,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DATE_TRUNC(?1, 'minute')"/>
 		<INFO dbtype="DAMENG" value="TRUNC(?1,'MI')"/>
 		<INFO dbtype="KINGBASE" value="TRUNC(?1, 'MI')"/>
-		<INFO dbtype="OCEANBASE" value="DATE_FORMAT(?, '%Y-%m-%d %H:%i:00')"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1,'%Y-%m-%d %H:%i:00')"/>
+		<INFO dbtype="OPENGAUSS" value="date_trunc('minute',?1)"/>
       </FUNCTION>
       <FUNCTION name="TRUNCSECOND" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="CAST(?1 AS DATE)"/>
@@ -1426,7 +1499,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DATE_TRUNC(?1, 'second')"/>
 		<INFO dbtype="DAMENG" value="CAST(?1 AS TIMESTAMP(1))"/>
 		<INFO dbtype="KINGBASE" value="CAST(?1 AS DATE)"/>
-		<INFO dbtype="OCEANBASE" value="DATE_FORMAT(?, '%Y-%m-%d %H:%i:%s')"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="CAST(?1 AS DATETIME)"/>
+		<INFO dbtype="OPENGAUSS" value="date_trunc('second',?1)"/>
       </FUNCTION>
 	  <FUNCTION name="MONTHSTART" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@m(?1)"/>	
@@ -1444,7 +1518,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DATE_TRUNC(?1, 'month')"/>
 		<INFO dbtype="DAMENG" value="TRUNC(?1,'MM')"/>
 		<INFO dbtype="KINGBASE" value="TRUNC(?1, 'MM')"/>
-		<INFO dbtype="OCEANBASE" value="DATE_FORMAT(?, '%Y-%m-01')"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1, '%Y-%m-01')"/>
+		<INFO dbtype="OPENGAUSS" value="DATE_TRUNC('month', ?1)"/>
 	  </FUNCTION>
 	  <FUNCTION name="MONTHEND" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@me(?1)"/>
@@ -1462,7 +1537,8 @@ END"/>
 		<INFO dbtype="DORIS" value="LAST_DAY(?1)"/>
 		<INFO dbtype="DAMENG" value="LAST_DAY(?1)"/>
 		<INFO dbtype="KINGBASE" value="TRUNC(LAST_DAY(?1))"/>
-		<INFO dbtype="OCEANBASE" value="LAST_DAY(?1)"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="LAST_DAY(?1)"/>
+		<INFO dbtype="OPENGAUSS" value="(DATE_TRUNC('month', ?1) + INTERVAL '1' month - INTERVAL '1' day)"/>
 	  </FUNCTION>
 	  <FUNCTION name="WEEKSTART" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@w1(?1)"/>	
@@ -1480,7 +1556,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DATE_TRUNC(?1, 'week')"/>
 		<INFO dbtype="DAMENG" value="TRUNC(?1,'IW')"/>
 		<INFO dbtype="KINGBASE" value="TRUNC(?1, 'IW')"/>
-		<INFO dbtype="OCEANBASE" value="DATE_SUB(d, INTERVAL WEEKDAY(?) DAY)"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_SUB(?1, INTERVAL WEEKDAY(?1) DAY)"/>
+		<INFO dbtype="OPENGAUSS" value="date_trunc('week', ?1)"/>
 	  </FUNCTION>
 	  <FUNCTION name="WEEKEND" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@w1e(?1)"/>	
@@ -1498,7 +1575,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DATE_ADD(DATE_TRUNC(?1, 'week'), INTERVAL 6 DAY)"/>
 		<INFO dbtype="DAMENG" value="cast(TRUNC(TO_DATE(?1, 'YYYY-MM-DD'), 'D') +7 as date)"/>
 		<INFO dbtype="KINGBASE" value="(TRUNC(?1, 'IW')+6)"/>
-		<INFO dbtype="OCEANBASE" value="DATE_ADD(d, INTERVAL (6 - WEEKDAY(?)) DAY)"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_ADD(?1, INTERVAL (6 - WEEKDAY(?1)) DAY)"/>
+		<INFO dbtype="OPENGAUSS" value="(date_trunc('week',?1) + INTERVAL '6' day)"/>
 	  </FUNCTION>
 	  <FUNCTION name="QUARTERSTART" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@q(?1)"/>		
@@ -1516,7 +1594,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DATE_TRUNC(?1, 'quarter')"/>
 		<INFO dbtype="DAMENG" value="TRUNC(?1,'Q')"/>
 		<INFO dbtype="KINGBASE" value="TRUNC(?1, 'Q')"/>
-		<INFO dbtype="OCEANBASE" value="MAKEDATE(YEAR(?), 1) + INTERVAL (QUARTER(d)-1)*3 MONTH"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_ADD(MAKEDATE(YEAR(?), 1), INTERVAL (QUARTER(?) - 1) * 3 MONTH)"/>
+		<INFO dbtype="OPENGAUSS" value="date_trunc('quarter', ?1)"/>
 	  </FUNCTION>
 	  <FUNCTION name="QUARTEREND" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@qe(?1)"/>
@@ -1534,7 +1613,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DATE_ADD(DATE_TRUNC(?1, 'quarter'), INTERVAL 3 MONTH) - INTERVAL 1 DAY"/>
 		<INFO dbtype="DAMENG" value="(ADD_MONTHS(TRUNC(?1,'Q'),3)-1)"/>
 		<INFO dbtype="KINGBASE" value="(ADD_MONTHS(TRUNC(?1,'Q'),3)-1)"/>
-		<INFO dbtype="OCEANBASE" value="QUARTERSTART(?) + INTERVAL 3 MONTH - INTERVAL 1 DAY"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="LAST_DAY(MAKEDATE(YEAR(?1), 1) + INTERVAL (QUARTER(?1) * 3 - 1) MONTH)"/>
+		<INFO dbtype="OPENGAUSS" value="(DATE_TRUNC('quarter', ?1) + INTERVAL '3' month - INTERVAL '1' day)"/>
 	  </FUNCTION>
 	  <FUNCTION name="YEARSTART" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@y(?1)"/>		
@@ -1552,7 +1632,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DATE_TRUNC(?1, 'year')"/>
 		<INFO dbtype="DAMENG" value="TRUNC(?1,'YYYY')"/>
 		<INFO dbtype="KINGBASE" value="TRUNC(?1, 'YYYY')"/>
-		<INFO dbtype="OCEANBASE" value="MAKEDATE(YEAR(?), 1)"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1,'%Y-01-01')"/>
+		<INFO dbtype="OPENGAUSS" value="(?1 - (EXTRACT(DOY FROM ?1) - 1) * INTERVAL '1' DAY)"/>
 	  </FUNCTION>
 	  <FUNCTION name="YEAREND" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="pdate@ye(?1)"/>
@@ -1570,7 +1651,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DATE_ADD(DATE_TRUNC(?1, 'year'), INTERVAL 1 YEAR) - INTERVAL 1 DAY"/>
 		<INFO dbtype="DAMENG" value="(ADD_MONTHS(TRUNC(?1,'Q'),12)-1)"/>
 		<INFO dbtype="KINGBASE" value="(ADD_MONTHS(TRUNC(?1,'YYYY'),12) - 1)"/>
-		<INFO dbtype="OCEANBASE" value="MAKEDATE(YEAR(?), 1) + INTERVAL 1 YEAR - INTERVAL 1 DAY"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1,'%Y-12-31')"/>
+		<INFO dbtype="OPENGAUSS" value="((?1 - (EXTRACT(DOY FROM ?1) - 1) * INTERVAL '1' DAY) + INTERVAL '1' YEAR - INTERVAL '1' DAY)"/>
 	  </FUNCTION>
 	  <FUNCTION name="MONTHDAYS" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="days(?1)"/>		
@@ -1588,7 +1670,8 @@ END"/>
 		<INFO dbtype="DORIS" value="DAY(LAST_DAY(?1))"/>
 		<INFO dbtype="DAMENG" value="EXTRACT(DAY FROM LAST_DAY(?1))"/>
 		<INFO dbtype="KINGBASE" value="TO_NUMBER(TO_CHAR(LAST_DAY(?1), 'DD'))"/>
-		<INFO dbtype="OCEANBASE" value="DAY(LAST_DAY(?))"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="day(last_day(DATE_FORMAT(?1,'%Y-%m-%d')))"/>
+		<INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(DAY FROM DATE_TRUNC('month', ?1) + INTERVAL '1' month - INTERVAL '1' day)AS INTEGER)"/>
 	  </FUNCTION>
 	  <FUNCTION name="QUARTERDAYS" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="days@q(?1)"/>	
@@ -1605,8 +1688,9 @@ END"/>
 		<INFO dbtype="HIVE" value="datediff(add_months(trunc(?1, 'Q'), 3),trunc(?1, 'Q'))"/>
 		<INFO dbtype="DORIS" value="DATEDIFF(QUARTEREND(?1), QUARTERSTART(?1)) + 1"/>
 		<INFO dbtype="DAMENG" value="(DATEDIFF(DAY,TO_DATE(YEAR(?1) || '-' || ((QUARTER(?1)-1)*3 + 1) || '-01', 'YYYY-MM-DD'),LAST_DAY(TO_DATE(YEAR(?1) || '-' || (QUARTER(?1)*3) || '-01', 'YYYY-MM-DD'))) + 1)"/>
-		<INFO dbtype="KINGBASE" value="ADD_MONTHS(TRUNC(?1, 'Q'), 3) - TRUNC(SYSDATE, 'Q')"/>
-		<INFO dbtype="OCEANBASE" value="DATEDIFF(QUARTEREND(?), QUARTERSTART(?)) + 1"/>
+		<INFO dbtype="KINGBASE" value="(CAST(LAST_DAY(ADD_MONTHS(TRUNC(?1, 'Q'), 2)) AS DATE)   - CAST(TRUNC(?1, 'Q') AS DATE) + 1)"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="(DATEDIFF(MAKEDATE(YEAR (?1), 1 ) + INTERVAL QUARTER (?1) * 3 MONTH - INTERVAL 1 DAY,MAKEDATE(YEAR (?1), 1 ) + INTERVAL (QUARTER (?1) - 1 ) * 3 MONTH) + 1)"/>
+		<INFO dbtype="OPENGAUSS" value="CAST((EXTRACT(DAY FROM (date_trunc('quarter', ?1) + INTERVAL '3 months' - INTERVAL '1 day' - date_trunc('quarter', ?1))) + 1) AS INTEGER)"/>
 	  </FUNCTION>
 	  <FUNCTION name="YEARDAYS" paramcount="1" value="">
      	<INFO dbtype="ESPROC" value="days@y(?1)"/>		
@@ -1623,8 +1707,9 @@ END"/>
 		<INFO dbtype="HIVE" value="(datediff(?1,trunc(?1,'YEAR')) + 1)"/>
 		<INFO dbtype="DORIS" value="DATEDIFF(YEAREND(?1), YEARSTART(?1)) + 1"/>
 		<INFO dbtype="DAMENG" value="DATEDIFF(DAY,TRUNC(?1, 'YEAR'),ADD_MONTHS(TRUNC(?1,'YEAR'), 12))"/>
-		<INFO dbtype="KINGBASE" value="(ADD_MONTHS(TRUNC(?1, 'YYYY'), 12) - TRUNC(?1, 'YYYY'))"/>
-		<INFO dbtype="OCEANBASE" value="DATEDIFF(YEAREND(?), YEARSTART(?)) + 1"/>
+		<INFO dbtype="KINGBASE" value="(CAST(LAST_DAY(ADD_MONTHS(TRUNC(?1, 'YYYY'), 11)) AS DATE)   - CAST(TRUNC(?1, 'YYYY') AS DATE) + 1)"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="DAYOFYEAR(CONCAT(YEAR(?1), '-12-31'))"/>
+		<INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(DOY FROM DATE_TRUNC( 'year', ?1) + INTERVAL '1' year - INTERVAL '1' day )AS INTEGER)"/>
 	  </FUNCTION>
 	  <FUNCTION name="STRING" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(?1)"/>
@@ -1642,7 +1727,8 @@ END"/>
 		<INFO dbtype="DORIS" value="CAST(?1 AS STRING)"/>
 		<INFO dbtype="DAMENG" value="TO_CHAR(?1)"/>
 		<INFO dbtype="KINGBASE" value="TO_CHAR(?1)"/>
-		<INFO dbtype="OCEANBASE" value="CAST(? AS CHAR)"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="CAST(? AS CHAR)"/>
+		<INFO dbtype="OPENGAUSS" value="TO_CHAR(?1)"/>
 		</FUNCTION>
 	  <FUNCTION name="STRING" paramcount="2" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(?1,?2)"/>
@@ -1681,7 +1767,8 @@ END"/>
   )"/>
 		<INFO dbtype="DAMENG" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="KINGBASE" value="TO_CHAR(?1,?2)"/>
-		<INFO dbtype="OCEANBASE" value="TO_CHAR(?1,?2)"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="N/A"/>
+		<INFO dbtype="OPENGAUSS" value="TO_CHAR(?1,?2)"/>
 	  </FUNCTION>
 	 <FUNCTION name="STRING" paramcount="3" value="">
         <INFO dbtype="ORACLE" value="TO_CHAR(?1,?2,'NLS_DATE_LANGUAGE='||?3)"/>
@@ -1697,7 +1784,8 @@ END"/>
 		<INFO dbtype="DORIS" value="N/A"/>
 		<INFO dbtype="DAMENG" value="N/A"/>
 		<INFO dbtype="KINGBASE" value="N/A"/>
-		<INFO dbtype="OCEANBASE" value="N/A"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="N/A"/>
+		<INFO dbtype="OPENGAUSS" value="N/A"/>
 	  </FUNCTION>
 	 <FUNCTION name="PI" paramcount="0" value="">
         <INFO dbtype="ORACLE" value="ACOS(-1)"/>
@@ -1710,17 +1798,18 @@ END"/>
 		<INFO dbtype="SQLSVR" value="PI()"/>
 		<INFO dbtype="BIGQUERY" value="ACOS(-1)"/>
 		<INFO dbtype="DORIS" value="PI()"/>
-		<INFO dbtype="OCEANBASE" value="PI()"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="PI()"/>
 	  </FUNCTION>
 	 <FUNCTION name="CHN" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="N/A"/>
-		<INFO dbtype="MYSQL" value="N/A"/>
+		<INFO dbtype="MYSQL" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
 		<INFO dbtype="HSQL" value="N/A"/>
 		<INFO dbtype="DUCKDB" value="N/A"/>
 		<INFO dbtype="POSTGRES" value="N/A"/>
 		<INFO dbtype="ESPROC" value="chn(?1)"/>
 		<INFO dbtype="HIVE" value="N/A"/>
 		<INFO dbtype="DAMENG" value="N/A"/>
+		<INFO dbtype="OPENGAUSS" value="N/A"/>
 		<INFO dbtype="SNOWFLAKE" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
 		<INFO dbtype="CLICKHOUSE" value="arrayStringConcat(arrayMap(
     x -> transform(toInt8(x),
@@ -1732,7 +1821,7 @@ END"/>
 "/>
 		<INFO dbtype="DORIS" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
 		<INFO dbtype="KINGBASE" value="TRANSLATE(?1,'0123456789','零一二三四五六七八九')"/>
-		<INFO dbtype="OCEANBASE" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
 	  </FUNCTION>	  
   
   </FUNCTIONS>
@@ -1749,7 +1838,8 @@ END"/>
 		<INFO dbtype="DORIS" script='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss","yyyy","MM","dd","YYYY","DD"], ["%H","%i","%s","%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
 		<INFO dbtype="DAMENG" script='"TO_CHAR(TO_TIMESTAMP(" + [?(1)].concat@c()+","+replace(?(2), ["yyyy","dd","HH","mm"], ["YYYY","DD","HH24","MI"])+"),&apos;YYYY-MM-DD HH24:MI:ss&apos;)"'/>
 		<INFO dbtype="KINGBASE" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
-		<INFO dbtype="OCEANBASE" value='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss","yyyy","MM","dd","YYYY","DD"], ["%H","%i","%s","%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
+		<INFO dbtype="OCEANBASE_MYSQL" value='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss","yyyy","MM","dd","YYYY","DD"], ["%H","%i","%s","%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
+		<INFO dbtype="OPENGAUSS" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
 	</FUNCTION>
 	  <FUNCTION name="TIME">
     	<INFO dbtype="ORACLE" script='"TO_CHAR(TO_TIMESTAMP(" + [?(1), replace(?(2), ["HH","mm"], ["HH24","MI"])].concat@c()+"),"+ replace(?(2), ["HH","mm"], ["HH24","MI"])+")"'/>
@@ -1762,7 +1852,8 @@ END"/>
 		<INFO dbtype="DORIS" script='"TIME_FORMAT(CAST(" + [?(1)+" AS TIME)", replace(?(2),["HH","mm","ss"], ["%H","%i","%s"])].concat@c() +")"'/>
 		<INFO dbtype="DAMENG" script='"TO_CHAR(CAST(" + [?(1)].concat@c()+" AS TIME),"+ replace(?(2), ["HH","mm"], ["HH24","MI"])+")"'/>
 		<INFO dbtype="KINGBASE" script='"TO_CHAR(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
-		<INFO dbtype="OCEANBASE" value='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss"], ["%H","%i","%s"])].concat@c() +")"'/>
+		<INFO dbtype="OCEANBASE_MYSQL" value='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss"], ["%H","%i","%s"])].concat@c() +")"'/>
+		<INFO dbtype="OPENGAUSS" script='"TO_CHAR(CAST(" + [?(1)].concat@c()+" AS TIME),"+ replace(?(2), ["HH","mm"], ["HH24","MI"])+")"'/>
 	</FUNCTION>
 	<FUNCTION name="DATE">
     	<INFO dbtype="MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
@@ -1772,7 +1863,7 @@ END"/>
 		<INFO dbtype="CLICKHOUSE" script='"parseDateTime(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")::Date"'/>
 		<INFO dbtype="DORIS" script='"STR_TO_DATE(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
 		<INFO dbtype="DAMENG" script='"TO_CHAR(TO_DATE(" + [?(1)].concat@c()+","+replace(?(2), ["yyyy","dd"], ["YYYY","DD"])+"),&apos;YYYY-MM-DD&apos;)"'/>
-		<INFO dbtype="OCEANBASE" value='"STR_TO_DATE(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
+		<INFO dbtype="OCEANBASE_MYSQL" value='"STR_TO_DATE(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
 	</FUNCTION>
 	
     <FUNCTION name="coalesce">
@@ -1786,7 +1877,7 @@ END"/>
 		<INFO dbtype="DORIS" script='"COALESCE(" + ?.concat@c() +")"'/>
 		<INFO dbtype="DAMENG" script='"COALESCE(" + ?.concat@c() +")"'/>
 		<INFO dbtype="KINGBASE" script='"COALESCE(" + ?.concat@c() +")"'/>
-		<INFO dbtype="OCEANBASE" value='"COALESCE(" + ?.concat@c() +")"'/>
+		<INFO dbtype="OCEANBASE_MYSQL" value='"COALESCE(" + ?.concat@c() +")"'/>
     </FUNCTION>
     <FUNCTION  name="concat">
     	<INFO dbtype="ESPROC" script=' "concat("+ ?.concat@c() +")" '/>
@@ -1805,7 +1896,8 @@ END"/>
 		<INFO dbtype="DORIS" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
 		<INFO dbtype="DAMENG" script=' ?.(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;) '/>
 		<INFO dbtype="KINGBASE" script=' ?.(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;) '/>
-		<INFO dbtype="OCEANBASE" value=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
+		<INFO dbtype="OCEANBASE_MYSQL" value=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
+		<INFO dbtype="OPENGAUSS" script=' ?.(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;) '/>
 	</FUNCTION>
 	<FUNCTION  name="concat_ws">
     	<INFO dbtype="ESPROC" script=' mid(?.concat(?(1)),len(?(1))+2 ) '/>
@@ -1820,7 +1912,8 @@ END"/>
 		<INFO dbtype="DORIS" script=' "concat_ws("+?.concat@c() +")"'/>
 		<INFO dbtype="DAMENG" script=' "concat_ws("+?.concat@c() +")"'/>
 		<INFO dbtype="KINGBASE" script='?(to(2,?.len())).(&quot;COALESCE(&quot; + ~ + &quot;,&apos;&apos;)&quot; ).concat(&quot;||&quot;+?(1)+&quot;||&quot;)'/>
-		<INFO dbtype="OCEANBASE" value=' "concat_ws("+?.concat@c() +")"'/>
+		<INFO dbtype="OCEANBASE_MYSQL" value=' "concat_ws("+?.concat@c() +")"'/>
+		<INFO dbtype="OPENGAUSS" script=' "concat_ws("+?.concat@c() +")"'/>
 	</FUNCTION>
 	 <FUNCTION name="itx">
     	<INFO dbtype="ESPROC" script='"itx(" + ?.concat@c() +")"'/>
@@ -1844,7 +1937,8 @@ END"/>
 		<INFO dbtype="DORIS" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 		<INFO dbtype="DAMENG" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 		<INFO dbtype="KINGBASE" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
-		<INFO dbtype="OCEANBASE" value='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="OCEANBASE_MYSQL" value='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="OPENGAUSS" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 	</FUNCTION>
 	<FUNCTION name="nvl">
 		<INFO dbtype="ESPROC" script='"nvl(" + ?.concat@c() +")"'/>
@@ -1861,7 +1955,8 @@ END"/>
 		<INFO dbtype="DORIS" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
 		<INFO dbtype="DAMENG" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
 		<INFO dbtype="KINGBASE" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
-		<INFO dbtype="OCEANBASE" value="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
+		<INFO dbtype="OCEANBASE_MYSQL" value="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
+		<INFO dbtype="OPENGAUSS" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
     </FUNCTION>
   </FUNCTIONS>
 </STANDARD>
