@@ -73,7 +73,7 @@ public class DBTypes {
 
 	public static final int OCEANBASE_ORACLE = 32;
 
-	public static final int POLARDB = 33;
+	public static final int POLARDB_POSTGRESQL = 33;
 
 	public static final int ESSBASE = 101;
 
