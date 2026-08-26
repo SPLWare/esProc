@@ -36,6 +36,7 @@ import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.ForrCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.Channel;
@@ -284,6 +285,60 @@ public class PgmCellSet extends CellSet {
 
 		public void close() {
 			cursor.close();
+		}
+	}
+	
+	private static class ForrCmdCode extends ForCmdCode {
+		private ICursor cursor;
+		private Expression gexp;
+		private int count;
+		private Context ctx;
+		
+		private NormalCell resultCell; // 结果集单元格
+		private Sequence table;
+		private Sequence result = new Sequence();
+
+		public ForrCmdCode(int r, int c, int endRow, ICursor cursor,
+				Expression gexp, int count, Context ctx, NormalCell resultCell) {
+			super(r, c, endRow);
+			this.cursor = cursor;
+			this.gexp = gexp;
+			this.count = count;
+			this.ctx = ctx;
+			this.resultCell = resultCell;
+		}
+
+		public boolean hasNextValue() {
+			if (gexp == null) {
+				table = cursor.fetch(count);
+			} else {
+				table = cursor.fetchGroup(gexp, ctx);
+			}
+
+			return table != null && table.length() > 0;
+		}
+
+		public Object nextValue() {
+			++seq;
+			return table;
+		}
+
+		public void close() {
+			cursor.close();
+		}
+		
+		public void addResult() {
+			if (resultCell != null) {
+				result.add(resultCell.getValue());
+			}
+		}
+		
+		public Sequence getResult() {
+			if (result.length() > 0) {
+				return result;
+			} else {
+				return null;
+			}
 		}
 	}
 
@@ -1039,6 +1094,171 @@ public class PgmCellSet extends CellSet {
 		throw new RQException("#" + CellLocation.getCellId(r, c)
 				+ mm.getMessage("engine.needInFor"));
 	}
+	
+	// 执行forr程序格
+	private void runForrCmd(NormalCell cell, Command command) {
+		int row = curLct.getRow();
+		int col = curLct.getCol();
+		if (stack.size() > 0) {
+			CmdCode cmd = stack.getFirst();
+			if (cmd != null && cmd.row == row && cmd.col == col) {
+				// 执行下一次循环
+				ForrCmdCode forCmd = (ForrCmdCode) cmd;
+				forCmd.addResult();
+				
+				if (forCmd.hasNextValue()) {
+					cell.setValue(forCmd.nextValue());
+					setNext(row, col + 1, false); // 执行下一单元格
+				} else {
+					// 跳出循环
+					cell.setValue(forCmd.getResult());
+					stack.removeFirst();
+					endForCommand(forCmd);
+					setNext(cmd.blockEndRow + 1, 1, true);
+				}
+
+				return;
+			}
+		}
+
+		Context ctx = getContext();
+		Expression exp = command.getExpression(this, ctx);
+		if (exp == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+		}
+
+		// 首次执行循环，计算循环变量
+		int endRow = getCodeBlockEndRow(row, col);
+		int totalCol = getColCount();
+		PgmNormalCell resultCell = null;
+		
+		for (int r = row; r <= endRow; ++r) {
+			for (int c = col + 1; c <= totalCol; ++c) {
+				PgmNormalCell pcell = getPgmNormalCell(r, c);
+				if (pcell.isCalculableCell() || pcell.isCalculableBlock()) {
+					resultCell = pcell;
+				}
+			}
+		}
+		
+		ForCmdCode cmdCode;
+		Object value = exp.calculate(ctx);
+		if (value instanceof Sequence) {
+			Sequence sequence = (Sequence)value;
+			IParam param = command.getParam(this, ctx);
+			
+			if (param.isLeaf()) {
+				ICursor cursor = sequence.cursor();
+				cmdCode = new ForrCmdCode(row, col, endRow, cursor, null, 1, ctx, resultCell);
+			} else if (param.getType() == IParam.Semicolon) {
+				if (param.getSubSize() != 2) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+				}
+
+				IParam sub = param.getSub(1);
+				if (sub == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+				} else if (sub.isLeaf()) {
+					Expression gexp = sub.getLeafExpression();
+					ICursor cursor = sequence.cursor();
+					cmdCode = new ForrCmdCode(row, col, endRow, cursor, gexp, 0, ctx, resultCell);
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+				}
+			} else {
+				if (param.getSubSize() != 2) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+				}
+				
+				IParam sub = param.getSub(1);
+				if (sub == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+				}
+				
+				Object countObj = sub.getLeafExpression() .calculate(ctx);
+				if (!(countObj instanceof Number)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("engine.forVarTypeError"));
+				}
+
+				int count = ((Number)countObj).intValue();
+				if (count < 1) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+				}
+				
+				ICursor cursor = sequence.cursor();
+				cmdCode = new ForrCmdCode(row, col, endRow, cursor, null, count, ctx, resultCell);
+			}
+		} else if (value instanceof ICursor) {
+			IParam param = command.getParam(this, ctx);
+			int count = ICursor.FETCHCOUNT;
+			Expression gexp = null;
+
+			if (param.getType() == IParam.Semicolon) {
+				if (param.getSubSize() != 2) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+				}
+
+				IParam sub = param.getSub(1);
+				if (sub == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+				} else if (sub.isLeaf()) {
+					gexp = sub.getLeafExpression();
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+				}
+			} else if (!param.isLeaf()) {
+				if (param.getSubSize() != 2) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+				}
+
+				IParam sub = param.getSub(1);
+				if (sub != null) {
+					Object countObj = sub.getLeafExpression()
+							.calculate(ctx);
+					if (!(countObj instanceof Number)) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.forVarTypeError"));
+					}
+
+					count = ((Number) countObj).intValue();
+					if (count < 1) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("forr" + mm.getMessage("function.invalidParam"));
+					}
+				}
+			}
+
+			cmdCode = null;
+			ICursor cs = (ICursor)value;
+			ForrCursor forrCursor = new ForrCursor(this, cell, resultCell, endRow, cs, gexp, count, ctx);
+			cell.setValue(forrCursor);
+		} else if (value == null) {
+			cmdCode = null;
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.forVarTypeError"));
+		}
+
+		if (cmdCode != null && cmdCode.hasNextValue()) {
+			cell.setValue(cmdCode.nextValue());
+			stack.addFirst(cmdCode);
+			setNext(row, col + 1, false);
+		} else {
+			setNext(endRow + 1, 1, true); // 跳出循环
+		}
+	}
 
 	// 执行for程序格
 	private void runForCmd(NormalCell cell, Command command) {
@@ -1131,7 +1351,57 @@ public class PgmCellSet extends CellSet {
 							step);
 				}
 			} else if (value instanceof Sequence) {
-				cmdCode = new SequenceForCmdCode(row, col, endRow, (Sequence) value, ctx);
+				Sequence sequence = (Sequence)value;
+				IParam param = command.getParam(this, ctx);
+				
+				if (param.isLeaf()) {
+					cmdCode = new SequenceForCmdCode(row, col, endRow, sequence, ctx);
+				} else if (param.getType() == IParam.Semicolon) {
+					if (param.getSubSize() != 2) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("for" + mm.getMessage("function.invalidParam"));
+					}
+
+					IParam sub = param.getSub(1);
+					if (sub == null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("for" + mm.getMessage("function.invalidParam"));
+					} else if (sub.isLeaf()) {
+						Expression gexp = sub.getLeafExpression();
+						ICursor cursor = sequence.cursor();
+						cmdCode = new CursorForCmdCode(row, col, endRow, cursor, 0, gexp, ctx);
+					} else {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("for" + mm.getMessage("function.invalidParam"));
+					}
+				} else {
+					if (param.getSubSize() != 2) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("for" + mm.getMessage("function.invalidParam"));
+					}
+					
+					IParam sub = param.getSub(1);
+					if (sub == null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("for" + mm.getMessage("function.invalidParam"));
+					}
+					
+					Object countObj = sub.getLeafExpression() .calculate(ctx);
+					if (!(countObj instanceof Number)) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(
+								mm.getMessage("engine.forVarTypeError"));
+					}
+
+					int count = ((Number)countObj).intValue();
+					if (count < 1) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("for" + mm.getMessage("function.invalidParam"));
+					}
+					
+					ICursor cursor = sequence.cursor();
+					cmdCode = new CursorForCmdCode(row, col, endRow, cursor, count, null, ctx);
+				}
 			} else if (value instanceof Boolean) {
 				cell.setValue(value);
 				if (((Boolean) value).booleanValue()) {
@@ -2199,14 +2469,12 @@ public class PgmCellSet extends CellSet {
 			curLct = new CellLocation();
 			setNext(1, 1, false);
 			hasReturn = false;
-
 			return curLct;
 		}
 
 		try {
 			// 执行当前的单元格，并找出下一个要执行的格
-			PgmNormalCell cell = getPgmNormalCell(curLct.getRow(),
-					curLct.getCol());
+			PgmNormalCell cell = getPgmNormalCell(curLct.getRow(), curLct.getCol());
 			Command command = cell.getCommand();
 
 			if (command == null) {
@@ -2222,6 +2490,7 @@ public class PgmCellSet extends CellSet {
 				byte type = command.getType();
 				switch (type) {
 				case Command.IF:
+				case Command.IFF:
 					runIfCmd(cell, command);
 					break;
 				case Command.ELSE:
@@ -2230,6 +2499,9 @@ public class PgmCellSet extends CellSet {
 					break;
 				case Command.FOR:
 					runForCmd(cell, command);
+					break;
+				case Command.FORR:
+					runForrCmd(cell, command);
 					break;
 				case Command.CONTINUE:
 					runContinueCmd(command);
@@ -2456,6 +2728,7 @@ public class PgmCellSet extends CellSet {
 					runReturnCmd(cmd);
 					break;
 				case Command.IF:
+				case Command.IFF:
 					endRow = getIfBlockEndRow(row, col);
 					do {
 						lct = runNext2();

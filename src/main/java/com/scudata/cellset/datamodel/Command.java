@@ -46,6 +46,9 @@ public class Command {
 	
 	public static final byte CHANNEL = 18; // 管道
 	public static final byte TRY = 19; // 异常捕捉
+	
+	public static final byte IFF = 21;
+	public static final byte FORR = 22;
 
 	private static final HashMap<String, Byte> keyMap = new HashMap<String, Byte>(20);
 	static {
@@ -70,6 +73,8 @@ public class Command {
 		keyMap.put("goto", new Byte(GOTO));
 		keyMap.put("cursor", new Byte(CHANNEL));
 		keyMap.put("try", new Byte(TRY));
+		keyMap.put("iff", new Byte(IFF));
+		keyMap.put("forr", new Byte(FORR));
 	}
 
 	private byte type; // 命令类型
@@ -367,7 +372,9 @@ public class Command {
 
 		switch (type) {
 		case FOR:
+		case FORR:
 		case IF:
+		case IFF:
 		case ELSEIF:
 		case RETURN:
 		case RESULT:

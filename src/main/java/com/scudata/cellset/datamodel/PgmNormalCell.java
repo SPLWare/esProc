@@ -27,6 +27,8 @@ public class PgmNormalCell extends NormalCell {
 	transient private Command command; // 如果此单元格为语句则对应相应的语句，否则为空
 	transient private boolean containMacro = false;;
 
+	private PgmNormalCell valueCell; // 计算结果需要设置到的单元格，用于设置iff语句的计算结果
+	
 	// 存盘时使用
 	public PgmNormalCell() {
 	}
@@ -148,7 +150,13 @@ public class PgmNormalCell extends NormalCell {
 			Expression exp;
 			if (expRef == null || (exp = expRef.get()) == null) {
 				cs.setParseCurrent(row, col);
-				exp = new Expression(cs, ctx, expStr.substring(1) + getSubExpString());
+				String str = expStr.substring(1);
+				if (str.startsWith(".")) {
+					str = getPrevCell() + str;
+				}
+				
+				str += getSubExpString();
+				exp = new Expression(cs, ctx, str);
 				
 				if (!containMacro()) {
 					expRef = new SoftReference<Expression>(exp);
@@ -157,6 +165,9 @@ public class PgmNormalCell extends NormalCell {
 
 			//value = null; // 先释放之前的值，用于循环体内释放内存
 			value = exp.calculate(ctx);
+			if (valueCell != null) {
+				valueCell.setValue(value);
+			}
 		} else if ((sign & TYPE_CALCULABLE_BLOCK) != 0) { // ==
 			Expression exp;
 			if (expRef == null || (exp = expRef.get()) == null) {
@@ -170,6 +181,9 @@ public class PgmNormalCell extends NormalCell {
 
 			//value = null; // 先释放之前的值，用于循环体内释放内存
 			value = exp.calculate(ctx);
+			if (valueCell != null) {
+				valueCell.setValue(value);
+			}
 		} else if ((sign & TYPE_EXECUTABLE_CELL) != 0) { // >
 			Expression exp;
 			if (expRef == null || (exp = expRef.get()) == null) {
@@ -201,6 +215,28 @@ public class PgmNormalCell extends NormalCell {
 		}
 	}
 
+	private String getPrevCell() {
+		PgmCellSet pcs = (PgmCellSet)cs;
+		for (int c = col - 1; c > 0; --c) {
+			PgmNormalCell cell = pcs.getPgmNormalCell(row, c);
+			if (cell.isCalculableCell() || cell.isCalculableBlock()) {
+				return cell.getCellId();
+			}
+		}
+		
+		int colCount = cs.getColCount();
+		for (int r = row - 1; r > 0; --r) {
+			for (int c = colCount; c > 0; --c) {
+				PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
+				if (cell.isCalculableCell() || cell.isCalculableBlock()) {
+					return cell.getCellId();
+				}
+			}
+		}
+		
+		return "";
+	}
+	
 	private String getSubExpString() {
 		char lastChar = expStr.charAt(expStr.length() - 1);
 		if (lastChar != ',' && lastChar != ';' && lastChar != '(') return "";
@@ -244,7 +280,13 @@ public class PgmNormalCell extends NormalCell {
 		Context ctx = cs.getContext();
 		if ((sign & TYPE_CALCULABLE_CELL) != 0) { // =
 			cs.setParseCurrent(row, col);
-			exp = new Expression(cs, ctx, expStr.substring(1) + getSubExpString());
+			String str = expStr.substring(1);
+			if (str.startsWith(".")) {
+				str = getPrevCell() + str;
+			}
+			
+			str += getSubExpString();
+			exp = new Expression(cs, ctx, str);
 			if (!containMacro()) {
 				expRef = new SoftReference<Expression>(exp);
 			}
@@ -283,15 +325,103 @@ public class PgmNormalCell extends NormalCell {
 	public Command getCommand() {
 		if (command == null && (sign & TYPE_COMMAND_CELL) != 0) {
 			if (containMacro()) {
-				return Command.parse(expStr);
+				Command command = Command.parse(expStr);
+				initCommand(command);
+				return command;
 			} else {
 				command = Command.parse(expStr);
+				initCommand(command);
 			}
 		}
 
 		return command;
 	}
 
+	private void initCommand(Command command) {
+		if (command.getType() == Command.IFF) {
+			PgmCellSet pcs = (PgmCellSet)cs;
+			int totalCol = pcs.getColCount();
+			PgmNormalCell ifValueCell = null;
+			PgmNormalCell elseValueCell = null;
+			
+			// 在本行中寻找else分支
+			for (int c = col + 1; c <= totalCol; ++c) {
+				PgmNormalCell cell = pcs.getPgmNormalCell(row, c);
+				command = cell.getCommand();
+				if (command != null && command.getType() == Command.ELSE) {
+					for (++c; c <= totalCol; ++c) {
+						cell = pcs.getPgmNormalCell(row, c);
+						if (cell.isCalculableCell() || cell.isCalculableBlock()) {
+							elseValueCell = cell;
+						}
+					}
+					
+					if (ifValueCell != null) {
+						ifValueCell.setValueCell(this);
+					}
+					
+					if (elseValueCell != null) {
+						elseValueCell.setValueCell(this);
+					}
+					
+					return;
+				} else if (cell.isCalculableCell() || cell.isCalculableBlock()) {
+					ifValueCell = cell;
+				}
+			}
+			
+			int endBlock = pcs.getCodeBlockEndRow(row, col);
+			for (int r = row + 1; r <= endBlock; ++r) {
+				for (int c = col + 1; c <= totalCol; ++c) {
+					PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
+					if (cell.isCalculableCell() || cell.isCalculableBlock()) {
+						ifValueCell = cell;
+					}
+				}
+			}
+			
+			int rowCount = pcs.getRowCount();
+			int nextRow = endBlock + 1;
+			int elseRow = -1;
+			
+			if (nextRow <= rowCount) {
+				PgmNormalCell cell = pcs.getPgmNormalCell(nextRow, col);
+				command = cell.getCommand();
+				if (command != null && command.getType() == Command.ELSE) {
+					elseRow = nextRow;
+				}
+				
+				for (int c = 1; c < col; ++c) {
+					cell = pcs.getPgmNormalCell(nextRow, c);
+					if (!cell.isBlankCell()) {
+						elseRow = -1;
+						break;
+					}
+				}
+			}
+			
+			if (elseRow != -1) {
+				endBlock = pcs.getCodeBlockEndRow(elseRow, col);
+				for (int r = elseRow; r <= endBlock; ++r) {
+					for (int c = col + 1; c <= totalCol; ++c) {
+						PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
+						if (cell.isCalculableCell() || cell.isCalculableBlock()) {
+							elseValueCell = cell;
+						}
+					}
+				}
+			}
+			
+			if (ifValueCell != null) {
+				ifValueCell.setValueCell(this);
+			}
+			
+			if (elseValueCell != null) {
+				elseValueCell.setValueCell(this);
+			}
+		}
+	}
+	
 	/**
 	 * 返回是否语句格
 	 * @return boolean
@@ -404,7 +534,13 @@ public class PgmNormalCell extends NormalCell {
 		
 		if ((sign & TYPE_CALCULABLE_CELL) != 0) { // =
 			cs.setParseCurrent(row, col);
-			exp = new Expression(cs, ctx, expStr.substring(1) + getSubExpString());
+			String str = expStr.substring(1);
+			if (str.startsWith(".")) {
+				str = getPrevCell() + str;
+			}
+			
+			str += getSubExpString();
+			exp = new Expression(cs, ctx, str);
 		} else if ((sign & TYPE_CALCULABLE_BLOCK) != 0) { // ==
 			cs.setParseCurrent(row, col);
 			exp = new Expression(cs, ctx, expStr.substring(2) + getSubExpString());
@@ -445,7 +581,13 @@ public class PgmNormalCell extends NormalCell {
 		
 		if ((sign & TYPE_CALCULABLE_CELL) != 0) { // =
 			cs.setParseCurrent(row, col);
-			exp = new Expression(cs, ctx, expStr.substring(1) + getSubExpString());
+			String str = expStr.substring(1);
+			if (str.startsWith(".")) {
+				str = getPrevCell() + str;
+			}
+			
+			str += getSubExpString();
+			exp = new Expression(cs, ctx, str);
 		} else if ((sign & TYPE_CALCULABLE_BLOCK) != 0) { // ==
 			cs.setParseCurrent(row, col);
 			exp = new Expression(cs, ctx, expStr.substring(2) + getSubExpString());
@@ -478,5 +620,9 @@ public class PgmNormalCell extends NormalCell {
 		value = null;
 		expRef = null;
 		command = null;
+	}
+
+	public void setValueCell(PgmNormalCell valueCell) {
+		this.valueCell = valueCell;
 	}
 }
