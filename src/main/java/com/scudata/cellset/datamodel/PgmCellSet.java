@@ -348,15 +348,32 @@ public class PgmCellSet extends CellSet {
 		int col;
 		int endRow;
 
-		public ForkJob(PgmCellSet pcs, int row, int col, int endRow) {
+		private Object paramValue; // 参数值
+		private int seq; // 线程序号
+		
+		public ForkJob(PgmCellSet pcs, int row, int col, int endRow, Object paramValue, int seq) {
 			this.pcs = pcs;
 			this.row = row;
 			this.col = col;
 			this.endRow = endRow;
+			this.paramValue = paramValue;
+			this.seq = seq;
 		}
 
 		public void run() {
+			Sequence sequence = new Sequence(seq);
+			for (int i = 1; i < seq; ++i) {
+				sequence.add(null);
+			}
+			
+			sequence.add(paramValue);
+			Context ctx = pcs.getContext();
+			ComputeStack stack = ctx.getComputeStack();
+			Current current = new Current(sequence, seq);
+			stack.push(current);
+			
 			pcs.executeFork(row, col, endRow);
+			stack.pop();
 		}
 
 		public Object getResult() {
@@ -1899,8 +1916,7 @@ public class PgmCellSet extends CellSet {
 	}
 
 	// 执行fork程序格
-	private void runForkCmd(IParam param, int row, int col, int endRow,
-			Context ctx) {
+	private void runForkCmd(IParam param, int row, int col, int endRow, Context ctx) {
 		Object[] args;
 		if (param == null) {
 			args = new Object[] { null };
@@ -1968,7 +1984,6 @@ public class PgmCellSet extends CellSet {
 				// 如果是游标重新设置一下上下文，否则游标里附加的运算用同一个上下文会受影响
 				PgmCellSet pcs = newForkPgmCellSet(row, col, endRow, ctx, true);
 				pcs.forkCmdCode = new ForkCmdCode(row, col, endRow, i + 1);
-				
 				Context newCtx = pcs.getContext();
 
 				Object val;
@@ -2002,7 +2017,7 @@ public class PgmCellSet extends CellSet {
 				}
 
 				pcs.getPgmNormalCell(row, col).setValue(val);
-				jobs[i] = new ForkJob(pcs, row, col, endRow);
+				jobs[i] = new ForkJob(pcs, row, col, endRow, val, i + 1);
 				pool.submit(jobs[i]);
 			}
 
