@@ -9133,6 +9133,260 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		return result;
 	}
+	
+	/**
+	 * 按照指定序列进行对齐
+	 * @param y 源序列对齐表达式
+	 * @param target 目标序列
+	 * @param x 目标序列对齐表达式
+	 * @param exps 目标序列字段表达式
+	 * @param names 目标字段在结果集中的名字
+	 * @param opt 选项
+	 * @param ctx
+	 * @return
+	 */
+	public Sequence align(Expression y, Sequence target, Expression x, Expression []exps, String []names, String opt, Context ctx) {
+		boolean isAll = false, isSorted = false, isNull = false, isConj = false, isMerge = false, isTable = false;
+		if (opt != null) {
+			if (opt.indexOf('a') != -1) isAll = true;
+			if (opt.indexOf('b') != -1) isSorted = true;
+			if (opt.indexOf('t') != -1) isTable = true;
+			if (opt.indexOf('o') != -1) isMerge = true;
+			
+			if (opt.indexOf('n') != -1) {
+				isAll = true;
+				isNull = true;
+			}
+
+			if (opt.indexOf('s') != -1) {
+				isAll = true;
+				isNull = true;
+				isConj = true;
+			}
+		}
+		
+		DataStruct ds = dataStruct();
+		if (ds == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.needPurePmt"));
+		}
+
+		int findex = y.getFieldIndex(ds);
+		int colCount = exps.length;
+		for (int i = 0; i < colCount; ++i) {
+			if (names[i] == null || names[i].length() == 0) {
+				names[i] = exps[i].getFieldName(ds);
+			}
+		}
+
+		String []oldNames = ds.getFieldNames();
+		int oldColCount = oldNames.length;
+
+		// 合并字段
+		int newColCount = oldColCount + colCount;
+		String []totalNames = new String[newColCount];
+		System.arraycopy(oldNames, 0, totalNames, 0, oldColCount);
+		System.arraycopy(names, 0, totalNames, oldColCount, colCount);
+		DataStruct newDs = ds.create(totalNames);
+
+		Sequence values = calc(y, ctx);
+		IArray valMems = values.getMems();
+		IArray tgtMems = target.calc(x, ctx).getMems();
+		IArray mems = getMems();
+		int valSize = valMems.size();
+		int tgtSize = tgtMems.size();
+
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(target);
+		stack.push(current);
+
+		try {
+			if (isMerge) {
+				if (isAll) {
+					Sequence result = new Sequence(tgtSize);
+					int index = 1;
+					
+					for (int i = 1; i <= tgtSize; ++i) {
+						current.setCurrent(i);
+						Object val = tgtMems.get(i);
+						Sequence sub = new Sequence(4);
+						
+						while (index <= valSize) {
+							int cmp = Variant.compare(valMems.get(index), val, isMerge);
+							if (cmp == 0) {
+								Record r = new Record(newDs);
+								BaseRecord sr = (BaseRecord)mems.get(index);
+								r.set(sr);
+								
+								for (int c = 0; c < colCount; ++c) {
+									Object obj = exps[c].calculate(ctx);
+									r.setNormalFieldValue(oldColCount + c, obj);
+								}
+								
+								sub.add(r);
+								index++;
+							} else if (cmp > 0) {
+								break;
+							} else {
+								index++;
+							}
+						}
+						
+						result.add(sub);
+					}
+					
+					return result;
+				} else {
+					Table result = new Table(newDs, tgtSize);
+					int index = 1;
+					
+					Next:
+					for (int i = 1; i <= tgtSize; ++i) {
+						current.setCurrent(i);
+						Object val = tgtMems.get(i);
+						
+						while (index <= valSize) {
+							int cmp = Variant.compare(valMems.get(index), val, isMerge);
+							if (cmp == 0) {
+								Record r = new Record(newDs);
+								BaseRecord sr = (BaseRecord)mems.get(index);
+								r.set(sr);
+								
+								for (int c = 0; c < colCount; ++c) {
+									Object obj = exps[c].calculate(ctx);
+									r.setNormalFieldValue(oldColCount + c, obj);
+								}
+								
+								result.add(r);
+								index++;
+								continue Next;
+							} else if (cmp > 0) {
+								Record r = new Record(newDs);
+								for (int c = 0; c < colCount; ++c) {
+									Object obj = exps[c].calculate(ctx);
+									r.setNormalFieldValue(oldColCount + c, obj);
+								}
+								
+								if (isTable && findex != -1) {
+									r.setNormalFieldValue(findex, val);
+								}
+								
+								result.add(r);
+								continue Next;
+							} else {
+								index++;
+							}
+						}
+						
+						Record r = new Record(newDs);
+						for (int c = 0; c < colCount; ++c) {
+							Object obj = exps[c].calculate(ctx);
+							r.setNormalFieldValue(oldColCount + c, obj);
+						}
+						
+						if (isTable && findex != -1) {
+							r.setNormalFieldValue(findex, val);
+						}
+						
+						result.add(r);
+					}
+					
+					return result;
+				}
+			} else if (isAll) {
+				Sequence other = isNull ? new Sequence() : null;
+				Sequence[] retVals = new Sequence[tgtSize];
+				for (int i = 0; i < tgtSize; ++i) {
+					retVals[i] = new Sequence(4);
+				}
+
+				for (int i = 1; i <= valSize; ++i) {
+					Object val = valMems.get(i);
+					int index;
+					if (isSorted) {
+						index = tgtMems.binarySearch(val);
+					} else {
+						index = tgtMems.firstIndexOf(val, 1);
+					}
+
+					if (index > 0) {
+						current.setCurrent(index);
+						Record r = new Record(newDs);
+						BaseRecord sr = (BaseRecord)mems.get(i);
+						r.set(sr);
+						
+						for (int c = 0; c < colCount; ++c) {
+							Object obj = exps[c].calculate(ctx);
+							r.setNormalFieldValue(oldColCount + c, obj);
+						}
+						
+						retVals[index - 1].add(r);
+					} else if (isNull) {
+						Record r = new Record(newDs);
+						BaseRecord sr = (BaseRecord)mems.get(i);
+						r.set(sr);
+						other.add(r);
+					}
+				}
+				
+				Sequence result;
+				if (isConj) {
+					result = new Sequence(valSize);
+					for (int i = 0; i < tgtSize; ++i) {
+						result.addAll(retVals[i]);
+					}
+					
+					result.addAll(other);
+				} else {
+					if (isNull) {
+						result = new Sequence(tgtSize + 1);
+						result.addAll(retVals);
+						result.add(other);
+					} else {
+						result = new Sequence(retVals);
+					}
+				}
+				
+				return result;
+			} else { // 只选择第一个满足条件的元素
+				Table result = new Table(newDs, tgtSize);
+				boolean []signs = new boolean[tgtSize + 1];
+				
+				for (int i = 1; i <= tgtSize; ++i) {
+					current.setCurrent(i);
+					BaseRecord r = result.newLast();
+					
+					for (int c = 0; c < colCount; ++c) {
+						Object obj = exps[c].calculate(ctx);
+						r.setNormalFieldValue(oldColCount + c, obj);
+						if (isTable && findex != -1) {
+							r.setNormalFieldValue(findex, tgtMems.get(i));
+						}
+					}
+				}
+				
+				for (int i = 1; i <= valSize; ++i) {
+					Object val = valMems.get(i);
+					int index;
+					if (isSorted) {
+						index = tgtMems.binarySearch(val);
+					} else {
+						index = tgtMems.firstIndexOf(val, 1);
+					}
+
+					if (index > 0 && !signs[index]) {
+						BaseRecord sr = (BaseRecord)mems.get(i);
+						BaseRecord r = result.getRecord(index);
+						r.set(sr);
+					}
+				}
+				
+				return result;
+			}
+		} finally {
+			stack.pop();
+		}
+	}
 
 	/**
 	 * 按照指定序列进行对齐
@@ -9148,12 +9402,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("align" + mm.getMessage("function.paramValNull"));
 		}
 
-		boolean isAll = false, isSorted = false, isPos = false, isNull = false, isConj = false, isMerge = false;
+		boolean isAll = false, isSorted = false, isPos = false, isNull = false, isConj = false, isMerge = false, isTable = false;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1) isAll = true;
 			if (opt.indexOf('b') != -1) isSorted = true;
 			if (opt.indexOf('p') != -1) isPos = true;
 			if (opt.indexOf('o') != -1) isMerge = true;
+			if (opt.indexOf('t') != -1) isTable = true;
 			
 			if (opt.indexOf('n') != -1) {
 				isAll = true;
@@ -9167,6 +9422,18 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
+		int findex = -1;
+		DataStruct ds = null;
+		if (isTable) {
+			ds = dataStruct();
+			if (ds == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("engine.needPurePmt"));
+			}
+			
+			 findex = exp.getFieldIndex(ds);
+		}
+		
 		Sequence values = calc(exp, ctx);
 		IArray mems = getMems();
 		IArray valMems = values.getMems();
@@ -9199,7 +9466,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				
 				return result;
 			} else {
-				Sequence result = new Sequence(tgtSize);
+				Table result = new Table(ds, tgtSize);
 				int index = 1;
 				
 				Next:
@@ -9212,14 +9479,24 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							index++;
 							continue Next;
 						} else if (cmp > 0) {
-							result.add(null);
+							Record r = new Record(ds);
+							if (findex != -1) {
+								r.setNormalFieldValue(findex, val);
+							}
+							
+							result.add(r);
 							continue Next;
 						} else {
 							index++;
 						}
 					}
 					
-					result.add(null);
+					Record r = new Record(ds);
+					if (findex != -1) {
+						r.setNormalFieldValue(findex, val);
+					}
+					
+					result.add(r);
 				}
 				
 				return result;
@@ -9293,6 +9570,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 			
+			if (findex != -1) {
+				for (int i = 0; i < tgtSize; ++i) {
+					if (retVals[i] == null) {
+						Record r = new Record(ds);
+						r.setNormalFieldValue(findex, tgtMems.get(i + 1));
+						retVals[i] = r;
+					}
+				}
+			}
+			
 			return new Sequence(retVals);
 		}
 	}
@@ -9308,14 +9595,33 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public Sequence align(Expression exp, int n, String opt, Context ctx) {
 		if (n <= 0) return null;
 		
-		boolean isAll = false, isRepeat = false, isPos = false;
+		boolean isAll = false, isRepeat = false, isPos = false, isNull = false, isTable = false;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1)isAll = true;
 			if (opt.indexOf('p') != -1)isPos = true;
+			if (opt.indexOf('t') != -1) isTable = true;
+			
+			if (opt.indexOf('n') != -1) {
+				isAll = true;
+				isNull = true;
+			}
+			
 			if (opt.indexOf('r') != -1) {
 				isAll = true;
 				isRepeat = true;
 			}
+		}
+		
+		int findex = -1;
+		DataStruct ds = null;
+		if (isTable) {
+			ds = dataStruct();
+			if (ds == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("engine.needPurePmt"));
+			}
+			
+			 findex = exp.getFieldIndex(ds);
 		}
 
 		Sequence values = calc(exp, ctx);
@@ -9324,7 +9630,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int valSize = valMems.size();
 
 		if (isAll) {
-			Sequence[] resultVals = new Sequence[n];
+			Sequence other = null;
+			Sequence[] resultVals;
+			
+			if (isNull) {
+				resultVals = new Sequence[n + 1];
+				other = new Sequence();
+				resultVals[n] = other;
+			} else {
+				resultVals = new Sequence[n];
+			}
+			
 			for (int i = 0; i < n; ++i) {
 				resultVals[i] = new Sequence(4);
 			}
@@ -9368,6 +9684,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						} else {
 							resultVals[index - 1].add(mems.get(i));
 						}
+					} else if (other != null) {
+						if (isPos) {
+							other.add(i);
+						} else {
+							other.add(mems.get(i));
+						}
 					}
 				}
 			}
@@ -9394,6 +9716,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 
+			if (findex != -1) {
+				for (int i = 0; i < n; ++i) {
+					if (resultVals[i] == null) {
+						Record r = new Record(ds);
+						r.setNormalFieldValue(findex, i + 1);
+						resultVals[i] = r;
+					}
+				}
+			}
+			
 			return new Sequence(resultVals);
 		}
 	}
