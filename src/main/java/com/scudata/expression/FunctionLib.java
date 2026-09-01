@@ -475,8 +475,8 @@ public final class FunctionLib {
 		addMemberFunction("regex", "com.scudata.expression.mfn.string.Regex");
 		addMemberFunction("regex", "com.scudata.expression.mfn.sequence.Regex");
 		addMemberFunction("regex", "com.scudata.expression.mfn.op.AttachRegex");
-		addMemberFunction("concat",
-				"com.scudata.expression.mfn.sequence.Concat");
+		addMemberFunction("concat", "com.scudata.expression.mfn.sequence.Concat");
+		addMemberFunction("iconcat", "com.scudata.expression.mfn.sequence.IConcat");
 
 		// 简单存储
 		addFunction("filename", "com.scudata.expression.fn.FileName");
@@ -744,6 +744,7 @@ public final class FunctionLib {
 		addFunction("pad", "com.scudata.expression.fn.string.Pad");
 		addFunction("rands", "com.scudata.expression.fn.string.Rands");
 		addFunction("concat", "com.scudata.expression.fn.string.Concat");
+		addFunction("iconcat", "com.scudata.expression.fn.gather.IConcat");
 		addFunction("urlencode", "com.scudata.expression.fn.string.URLEncode");
 		addFunction("charencode", "com.scudata.expression.fn.string.CharEncode");
 		addFunction("base64", "com.scudata.expression.fn.string.Base64");

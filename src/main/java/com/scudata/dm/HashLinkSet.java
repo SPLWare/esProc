@@ -414,6 +414,10 @@ public class HashLinkSet {
 		}
 	}
 	
+	public void putAll(HashLinkSet set) {
+		putAll(set.elementArray);
+	}
+	
 	private void resize() {
 		IArray elementArray = this.elementArray;
 		int []entries = this.entries;
