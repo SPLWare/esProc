@@ -82,7 +82,7 @@ public class JDBCConsts {
 	/**
 	 * 缺省一次获取的行数
 	 */
-	public static final int DEFAULT_FETCH_SIZE = 1024 * 100;
+	public static final int DEFAULT_FETCH_SIZE = 1000;
 
 	/**
 	 * Default data type
