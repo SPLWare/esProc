@@ -226,10 +226,28 @@ public class PgmNormalCell extends NormalCell {
 		
 		int colCount = cs.getColCount();
 		for (int r = row - 1; r > 0; --r) {
+			PgmNormalCell cell = pcs.getPgmNormalCell(r, col);
+			Command command = cell.getCommand();
+			if (command != null && command.getType() == Command.FORR) {
+				return cell.getCellId();
+			}
+			
 			for (int c = colCount; c > 0; --c) {
-				PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
+				cell = pcs.getPgmNormalCell(r, c);
 				if (cell.isCalculableCell() || cell.isCalculableBlock()) {
-					return cell.getCellId();
+					// 如果前面的列全是空白格则跳过此行
+					if (c <= col) {
+						return cell.getCellId();
+					}
+					
+					for (c = col; c > 0; --c) {
+						PgmNormalCell prevCell = pcs.getPgmNormalCell(r, c);
+						if (!prevCell.isBlankCell()) {
+							return cell.getCellId();
+						}
+					}
+					
+					break;
 				}
 			}
 		}

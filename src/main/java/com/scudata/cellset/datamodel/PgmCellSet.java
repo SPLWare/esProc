@@ -288,24 +288,44 @@ public class PgmCellSet extends CellSet {
 		}
 	}
 	
-	private static class ForrCmdCode extends ForCmdCode {
+	private abstract static class ForrCmdCode extends ForCmdCode {
+		protected Context ctx;
+		protected NormalCell resultCell; // 结果集单元格
+		protected Sequence result = new Sequence();
+
+		public ForrCmdCode(int r, int c, int endRow, Context ctx, NormalCell resultCell) {
+			super(r, c, endRow);
+			this.ctx = ctx;
+			this.resultCell = resultCell;
+		}
+		
+		public void addResult() {
+			if (resultCell != null) {
+				result.add(resultCell.getValue());
+			}
+		}
+		
+		public Sequence getResult() {
+			if (result.length() > 0) {
+				return result;
+			} else {
+				return null;
+			}
+		}
+	}
+	
+	private static class CursorForrCmdCode extends ForrCmdCode {
 		private ICursor cursor;
 		private Expression gexp;
 		private int count;
-		private Context ctx;
-		
-		private NormalCell resultCell; // 结果集单元格
 		private Sequence table;
-		private Sequence result = new Sequence();
 
-		public ForrCmdCode(int r, int c, int endRow, ICursor cursor,
+		public CursorForrCmdCode(int r, int c, int endRow, ICursor cursor,
 				Expression gexp, int count, Context ctx, NormalCell resultCell) {
-			super(r, c, endRow);
+			super(r, c, endRow, ctx, resultCell);
 			this.cursor = cursor;
 			this.gexp = gexp;
 			this.count = count;
-			this.ctx = ctx;
-			this.resultCell = resultCell;
 		}
 
 		public boolean hasNextValue() {
@@ -326,19 +346,37 @@ public class PgmCellSet extends CellSet {
 		public void close() {
 			cursor.close();
 		}
-		
-		public void addResult() {
-			if (resultCell != null) {
-				result.add(resultCell.getValue());
+	}
+	
+	private static class SequenceForrCmdCode extends ForrCmdCode {
+		private Sequence sequence;
+		private ComputeStack stack;
+		private Current current;
+
+		public SequenceForrCmdCode(int r, int c, int endRow, Sequence sequence, Context ctx, NormalCell resultCell) {
+			super(r, c, endRow, ctx, resultCell);
+			this.sequence = sequence;
+			
+			// 把序列压栈，这样循环里可以直接引用当前记录的字段
+			if (sequence.length() > 0) {
+				stack = ctx.getComputeStack();
+				current = new Current(sequence);
+				stack.push(current);
 			}
 		}
-		
-		public Sequence getResult() {
-			if (result.length() > 0) {
-				return result;
-			} else {
-				return null;
-			}
+
+		public boolean hasNextValue() {
+			return seq < sequence.length();
+		}
+
+		public Object nextValue() {
+			++seq;
+			current.setCurrent(seq);
+			return sequence.getCurrent(seq);
+		}
+
+		public void close() {
+			stack.pop();
 		}
 	}
 
@@ -1166,8 +1204,7 @@ public class PgmCellSet extends CellSet {
 			IParam param = command.getParam(this, ctx);
 			
 			if (param.isLeaf()) {
-				ICursor cursor = sequence.cursor();
-				cmdCode = new ForrCmdCode(row, col, endRow, cursor, null, 1, ctx, resultCell);
+				cmdCode = new SequenceForrCmdCode(row, col, endRow, sequence, ctx, resultCell);
 			} else if (param.getType() == IParam.Semicolon) {
 				if (param.getSubSize() != 2) {
 					MessageManager mm = EngineMessage.get();
@@ -1181,7 +1218,7 @@ public class PgmCellSet extends CellSet {
 				} else if (sub.isLeaf()) {
 					Expression gexp = sub.getLeafExpression();
 					ICursor cursor = sequence.cursor();
-					cmdCode = new ForrCmdCode(row, col, endRow, cursor, gexp, 0, ctx, resultCell);
+					cmdCode = new CursorForrCmdCode(row, col, endRow, cursor, gexp, 0, ctx, resultCell);
 				} else {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("forr" + mm.getMessage("function.invalidParam"));
@@ -1211,7 +1248,7 @@ public class PgmCellSet extends CellSet {
 				}
 				
 				ICursor cursor = sequence.cursor();
-				cmdCode = new ForrCmdCode(row, col, endRow, cursor, null, count, ctx, resultCell);
+				cmdCode = new CursorForrCmdCode(row, col, endRow, cursor, null, count, ctx, resultCell);
 			}
 		} else if (value instanceof ICursor) {
 			IParam param = command.getParam(this, ctx);
