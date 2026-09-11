@@ -86,11 +86,7 @@ public class JdbcTask {
 	public boolean cancel() throws Exception {
 		if (execThread != null) {
 			try {
-				execThread.stop();
-			} catch (Throwable t1) {
-			}
-			try {
-				execThread.destroy();
+				execThread.interrupt();
 			} catch (Throwable t1) {
 			}
 			execThread = null;

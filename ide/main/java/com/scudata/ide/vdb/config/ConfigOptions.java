@@ -18,6 +18,8 @@ public class ConfigOptions {
 	public static Boolean bAutoOpen = Boolean.TRUE;
 	// 界面样式
 	public static Byte iLookAndFeel = new Byte(LNFManager.LNF_NIMBUS);
+	// 黑暗模式
+	public static Boolean bDarkMode = Boolean.FALSE;
 	// 输出异常到日志
 	public static Boolean bLogException = Boolean.TRUE;
 	// 记忆窗口位置大小
@@ -48,6 +50,7 @@ public class ConfigOptions {
 		options.put("bLogException", bLogException);
 		options.put("bWindowSize", bWindowSize);
 		options.put("bHoldConsole", bHoldConsole);
+		options.put("bDarkMode", bDarkMode);
 		options.put("iLookAndFeel", iLookAndFeel);
 		options.put("sLogFileName", sLogFileName);
 		options.put("sLastDirectory", sLastDirectory);
@@ -93,6 +96,8 @@ public class ConfigOptions {
 				bAutoOpen = b;
 			} else if (option.equalsIgnoreCase("bHoldConsole")) {
 				bHoldConsole = b;
+			} else if (option.equalsIgnoreCase("bDarkMode")) {
+				bDarkMode = b;
 			}
 		} else if (StringUtils.isValidString(val)) {
 			if (option.equalsIgnoreCase("sLogFileName")) {
