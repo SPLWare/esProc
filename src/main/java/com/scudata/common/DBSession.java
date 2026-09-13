@@ -266,27 +266,82 @@ public class DBSession {
 		}
 
 		private int getType(String name) {
-			name = name.toLowerCase();
-			if( name.indexOf("oracle")>=0 )
-				return DBTypes.ORACLE;
-			if( name.indexOf("sqlserver")>=0 )
-				return DBTypes.SQLSVR;
-			if( name.indexOf("db2")>=0 )
-				return DBTypes.DB2;
-			if( name.indexOf("mysql")>=0 )
-				return DBTypes.MYSQL;
+		    if (name == null) {
+		        return DBTypes.UNKNOWN;
+		    }
+		    name = name.toLowerCase();
+
+		    if (name.indexOf("oceanbase") >= 0 && name.indexOf("oracle") >= 0)
+		        return DBTypes.OCEANBASE_ORACLE;
+		    if (name.indexOf("oceanbase") >= 0 && name.indexOf("mysql") >= 0)
+		        return DBTypes.OCEANBASE_MYSQL;
+		    if (name.indexOf("oceanbase") >= 0)
+		        return DBTypes.OCEANBASE_MYSQL;
+
+		    if (name.indexOf("polardb") >= 0)
+		        return DBTypes.POLARDB_POSTGRESQL;
+
+		    // ========== 常见关系型 & 大数据数据库 ==========
+		    if (name.indexOf("oracle") >= 0)
+		        return DBTypes.ORACLE;
+		    if (name.indexOf("sqlserver") >= 0 || name.indexOf("microsoft") >= 0)
+		        return DBTypes.SQLSVR;
+		    if (name.indexOf("sybase") >= 0 || name.indexOf("jconn") >= 0)
+		        return DBTypes.SYBASE;
+		    if (name.indexOf("sqlanywhere") >= 0 || name.indexOf("anywhere") >= 0)
+		        return DBTypes.SQLANY;
+		    if (name.indexOf("foxpro") >= 0 || name.indexOf("vfp") >= 0)
+		        return DBTypes.FOXPRO;
+		    if (name.indexOf("access") >= 0)
+		        return DBTypes.ACCESS;
+		    if (name.indexOf("foxbas") >= 0 || name.indexOf("foxbase") >= 0)
+		        return DBTypes.FOXBAS;
+		    if (name.indexOf("db2") >= 0)
+		        return DBTypes.DB2;
+		    if (name.indexOf("mysql") >= 0)
+		        return DBTypes.MYSQL;
+		    if (name.indexOf("kingbase") >= 0)
+		        return DBTypes.KINGBASE;
+		    if (name.indexOf("derby") >= 0)
+		        return DBTypes.DERBY;
+		    if (name.indexOf("hsql") >= 0 || name.indexOf("hsqldb") >= 0)
+		        return DBTypes.HSQL;
+		    if (name.indexOf("teradata") >= 0)
+		        return DBTypes.TERADATA;
+		    if (name.indexOf("postgres") >= 0 || name.indexOf("postgresql") >= 0)
+		        return DBTypes.POSTGRES;
+		    if (name.indexOf("opengauss") >= 0)
+		        return DBTypes.OPENGAUSS;
+
+		    if (name.indexOf("hive") >= 0)
+		        return DBTypes.HIVE;
+		    if (name.indexOf("greenplum") >= 0)
+		        return DBTypes.GREENPLUM;
+		    if (name.indexOf("clickhouse") >= 0)
+		        return DBTypes.CLICKHOUSE;
+		    if (name.indexOf("doris") >= 0)
+		        return DBTypes.DORIS;
+		    if (name.indexOf("sparksql") >= 0 || name.indexOf("spark") >= 0)
+		        return DBTypes.SPARKSQL;
+
+		    if (name.indexOf("dbone") >= 0 || name.indexOf("db_one") >= 0)
+		        return DBTypes.DBONE;
+		    if (name.indexOf("dameng") >= 0 || name.indexOf("dm.jdbc") >= 0)
+		        return DBTypes.DAMENG;
+		    if (name.indexOf("duckdb") >= 0)
+		        return DBTypes.DUCKDB;
+		    if (name.indexOf("bigquery") >= 0 || name.indexOf("google") >= 0)
+		        return DBTypes.BIGQUERY;
+		    if (name.indexOf("snowflake") >= 0)
+		        return DBTypes.SNOWFLAKE;
+
+		    if (name.indexOf("essbase") >= 0)
+		        return DBTypes.ESSBASE;
+
 			if( name.indexOf("informix")>=0 )
 				return DBTypes.INFMIX;
-			if( name.indexOf("derby")>=0 )
-				return DBTypes.DERBY;
-			if( name.indexOf("essbase")>=0 )
-				return DBTypes.ESSBASE;
-			if( name.indexOf("access")>=0 )
-				return DBTypes.ACCESS;
-			if( name.indexOf("anywhere")>=0 )
-				return DBTypes.SQLANY;
-
-			return DBTypes.UNKNOWN;
+			
+		    return DBTypes.UNKNOWN;
 		}
 
 		protected void finalize() throws Throwable {
