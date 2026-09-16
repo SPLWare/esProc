@@ -1,9 +1,11 @@
 package com.scudata.cellset.datamodel;
 
 import java.lang.ref.SoftReference;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import com.scudata.cellset.INormalCell;
+import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.Env;
@@ -21,6 +23,7 @@ import com.scudata.util.Variant;
  */
 public class PgmNormalCell extends NormalCell {
 	private static final long serialVersionUID = 0x02010014;
+	public final static int TYPE_NLP_CELL       = 0x00000200; // NLP
 
 	transient protected SoftReference<Expression> expRef; // WeakReference表达式软引用，为了缓存表达式
 	transient private int sign = TYPE_BLANK_CELL; // 单元格类型
@@ -83,6 +86,8 @@ public class PgmNormalCell extends NormalCell {
 			} else if (exp.startsWith(">")) { // 执行格
 				sign = TYPE_EXECUTABLE_CELL;
 				containMacro = Expression.containMacro(exp);
+			} else if (exp.startsWith("<")) { // NLP语句
+				sign = TYPE_NLP_CELL;
 			} else if (exp.startsWith("//")) { // 注释块
 				sign = TYPE_NOTE_BLOCK;
 				//value = exp.substring(2);
@@ -212,10 +217,24 @@ public class PgmNormalCell extends NormalCell {
 			}
 
 			exp.calculate(ctx);
+		} else if ((sign & TYPE_NLP_CELL) != 0) {
+			try {
+				Class<? extends Object> classObj = Class.forName("com.scudata.nlp.cmd.Command");
+				Method method = classObj.getMethod("toSPL", PgmNormalCell.class, Context.class);
+				String str = (String)method.invoke(classObj, new Object[] {this, ctx});
+				Expression exp = new Expression(cs, ctx, str);
+				value = exp.calculate(ctx);
+				
+				if (valueCell != null) {
+					valueCell.setValue(value);
+				}
+			} catch (Exception e) {
+				throw new RQException(e.getMessage(), e);
+			}
 		}
 	}
 
-	private String getPrevCell() {
+	public String getPrevCell() {
 		PgmCellSet pcs = (PgmCellSet)cs;
 		for (int c = col - 1; c > 0; --c) {
 			PgmNormalCell cell = pcs.getPgmNormalCell(row, c);
