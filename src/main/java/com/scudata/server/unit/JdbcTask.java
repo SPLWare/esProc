@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.esproc.jdbc.JDBCUtil;
+import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
@@ -85,14 +86,7 @@ public class JdbcTask {
 	 */
 	public boolean cancel() throws Exception {
 		if (execThread != null) {
-			try {
-				execThread.stop();
-			} catch (Throwable t1) {
-			}
-			try {
-				execThread.destroy();
-			} catch (Throwable t1) {
-			}
+			AppUtil.destroyThread(execThread);
 			execThread = null;
 		}
 		return true;
