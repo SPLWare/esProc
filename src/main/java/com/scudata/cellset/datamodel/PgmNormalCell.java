@@ -86,7 +86,7 @@ public class PgmNormalCell extends NormalCell {
 			} else if (exp.startsWith(">")) { // 执行格
 				sign = TYPE_EXECUTABLE_CELL;
 				containMacro = Expression.containMacro(exp);
-			} else if (exp.startsWith("<")) { // NLP语句
+			} else if (exp.startsWith(":")) { // NLP语句
 				sign = TYPE_NLP_CELL;
 			} else if (exp.startsWith("//")) { // 注释块
 				sign = TYPE_NOTE_BLOCK;

@@ -25,7 +25,6 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.dm.Context;
-import com.scudata.dm.KeyWord;
 import com.scudata.dm.LineImporter;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
@@ -785,13 +784,13 @@ public class CellSetUtil {
 		}
 		
 		pcs.removeRow(curRow, rowCount - curRow + 1);
-		changeAliasNameToCell(pcs);
+		//changeAliasNameToCell(pcs);
 		return pcs;
 	}
 	
 	// 文本程序中可以用@x:...给单元格定义一个别名，表达式可以通过这个别名引用格子
 	// 读成网格后把别名的引用转成格子的引用
-	private static void changeAliasNameToCell(PgmCellSet pcs) {
+	/*private static void changeAliasNameToCell(PgmCellSet pcs) {
 		int rowCount = pcs.getRowCount();
 		int colCount = pcs.getColCount();
 		
@@ -892,7 +891,7 @@ public class CellSetUtil {
 		} else {
 			return sb.toString();
 		}
-	}
+	}*/
 	
 	/**
 	 * 把程序网转为字符串,开头的n行是参数
