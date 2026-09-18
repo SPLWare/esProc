@@ -350,6 +350,16 @@ public class PgmNormalCell extends NormalCell {
 			if (!containMacro()) {
 				expRef = new SoftReference<Expression>(exp);
 			}
+		} else if ((sign & TYPE_NLP_CELL) != 0) {
+			try {
+				Class<? extends Object> classObj = Class.forName("com.scudata.nlp.cmd.Command");
+				Method method = classObj.getMethod("toSPL", PgmNormalCell.class, Context.class);
+				String str = (String)method.invoke(classObj, new Object[] {this, ctx});
+				exp = new Expression(cs, ctx, str);
+				expRef = new SoftReference<Expression>(exp);
+			} catch (Exception e) {
+				throw new RQException(e.getMessage(), e);
+			}
 		}
 
 		return exp;
@@ -478,7 +488,7 @@ public class PgmNormalCell extends NormalCell {
 	// 返回单元格是否需要计算
 	public boolean needCalculate() {
 		int tmp = TYPE_CALCULABLE_CELL | TYPE_CALCULABLE_BLOCK |
-			TYPE_EXECUTABLE_CELL | TYPE_EXECUTABLE_BLOCK | TYPE_COMMAND_CELL;
+			TYPE_EXECUTABLE_CELL | TYPE_EXECUTABLE_BLOCK | TYPE_COMMAND_CELL | TYPE_NLP_CELL;
 		return (sign & tmp) != 0;
 	}
 
