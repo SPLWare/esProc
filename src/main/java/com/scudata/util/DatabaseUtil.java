@@ -4339,10 +4339,32 @@ public class DatabaseUtil {
 						if (opt != null && opt.indexOf("a") > -1) {
 							//Logger.debug("Clear all the records from table +"+table);
 							Logger.debug(mm.getMessage("info.clearTable", table));
-							String sql = "delete from " + addTilde(table, dbs);
-							st = con.createStatement();
-							st.execute(sql);
-							st.close();
+							//String sql = "delete from " + addTilde(table, dbs);
+							// edited by bd, 2026.9.28, 清空数据表用truncate
+							String sql = "TRUNCATE table " + addTilde(table, dbs);
+							try {
+								st = con.createStatement();
+								st.execute(sql);
+							}
+							catch (Exception e) {
+								try {
+									st.close();
+								}
+								catch (Exception e1) {
+									Logger.debug(e1.getMessage());
+									sql = "delete from " + addTilde(table, dbs);
+									st = con.createStatement();
+									st.execute(sql);
+								}
+							}
+							finally {
+								try {
+									st.close();
+								}
+								catch (Exception e1) {
+									Logger.debug(e1.getMessage());
+								}
+							}
 						}
 
 						String condition = null;
@@ -4842,7 +4864,31 @@ public class DatabaseUtil {
 					//Logger.debug("Clear all the records from "+table);
 					MessageManager mm = DataSetMessage.get();
 					Logger.debug(mm.getMessage("info.clearTable", table));
-					String sql = "delete from " + addTilde(table, dbs);
+					//String sql = "delete from " + addTilde(table, dbs);
+					String sql = "TRUNCATE table " + addTilde(table, dbs);
+					try {
+						st = con.createStatement();
+						st.execute(sql);
+					}
+					catch (Exception e) {
+						try {
+							st.close();
+						}
+						catch (Exception e1) {
+							Logger.debug(e1.getMessage());
+							sql = "delete from " + addTilde(table, dbs);
+							st = con.createStatement();
+							st.execute(sql);
+						}
+					}
+					finally {
+						try {
+							st.close();
+						}
+						catch (Exception e1) {
+							Logger.debug(e1.getMessage());
+						}
+					}
 					st = con.createStatement();
 					st.execute(sql);
 					st.close();
@@ -5531,7 +5577,32 @@ public class DatabaseUtil {
 					//Logger.debug("Clear all the records from table +"+table);
 					MessageManager mm = DataSetMessage.get();
 					Logger.debug(mm.getMessage("info.clearTable", table));
-					String sql = "delete from " + addTilde(table, dbs);
+					//String sql = "delete from " + addTilde(table, dbs);
+					// edited by bd, 2026.9.28, 清空数据表用truncate
+					String sql = "TRUNCATE table " + addTilde(table, dbs);
+					try {
+						st = con.createStatement();
+						st.execute(sql);
+					}
+					catch (Exception e) {
+						try {
+							st.close();
+						}
+						catch (Exception e1) {
+							Logger.debug(e1.getMessage());
+							sql = "delete from " + addTilde(table, dbs);
+							st = con.createStatement();
+							st.execute(sql);
+						}
+					}
+					finally {
+						try {
+							st.close();
+						}
+						catch (Exception e1) {
+							Logger.debug(e1.getMessage());
+						}
+					}
 					st = con.createStatement();
 					st.execute(sql);
 					st.close();
