@@ -9,6 +9,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.HashLinkSet;
+import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Gather;
 import com.scudata.expression.IParam;
@@ -29,8 +30,36 @@ public class IConcat extends Gather {
 	private boolean deleteNull = false;
 	
 	public Object calculate(Context ctx) {
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("Expression.unknownFunction") + "iconcat");
+		if (option != null) {
+			if (option.indexOf('c') != -1) sep = ",";
+			if (option.indexOf('q') != -1) addQuotes = true;
+			if (option.indexOf('i') != -1) addSingleQuotes = true;
+			if (option.indexOf('0') != -1) deleteNull = true;
+		}
+
+		HashLinkSet set = new HashLinkSet();
+		if (param.isLeaf()) {
+			Object obj = param.getLeafExpression().calculate(ctx);
+			if (obj instanceof Sequence) {
+				Sequence seq = (Sequence)obj;
+				set.putAll(seq.getMems());
+			} else {
+				set.put(obj);
+			}
+		} else {
+			for (int i = 0, size = param.getSubSize(); i < size; ++i) {
+				IParam sub = param.getSub(i);
+				if (sub == null || !sub.isLeaf()) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("concat" + mm.getMessage("function.invalidParam"));
+				}
+				
+				Object obj = sub.getLeafExpression().calculate(ctx);
+				set.put(obj);
+			}
+		}
+		
+		return finish(set);
 	}
 	
 	public void prepare(Context ctx) {
