@@ -185,13 +185,17 @@ public class PJoin extends SequenceFunction {
 					} else if (newParam.getSubSize() == 2) {
 						IParam sub0 = newParam.getSub(0);
 						IParam sub1 = newParam.getSub(1);
-						if (sub0 == null || sub1 == null) {
+						if (sub0 == null) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("pjoin" + mm.getMessage("function.invalidParam"));
 						}
 						
 						newExps[t][i] = sub0.getLeafExpression();
-						newNames[t][i] = sub1.getLeafExpression().getIdentifierName();
+						if (sub1 == null) {
+							newNames[t][i] = newExps[t][i].getFieldName();
+						} else {
+							newNames[t][i] = sub1.getLeafExpression().getIdentifierName();
+						}
 					} else {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("pjoin" + mm.getMessage("function.invalidParam"));

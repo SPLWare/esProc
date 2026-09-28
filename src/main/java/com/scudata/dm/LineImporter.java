@@ -146,17 +146,19 @@ public final class LineImporter implements ILineInput {
 			} else {
 				if (opt.indexOf('d') != -1) {
 					checkValueType = true;
+					checkColCount = true;
 					parseMode = LineImporter.PARSEMODE_DELETE;
 				}
 				
 				if (opt.indexOf('n') != -1) {
 					checkColCount = true;
-					parseMode = LineImporter.PARSEMODE_DELETE;
-				}
-				
-				if (opt.indexOf('v') != -1) {
+					checkValueType = true;
 					parseMode = LineImporter.PARSEMODE_EXCEPTION;
 				}
+				
+				//if (opt.indexOf('v') != -1) {
+				//	parseMode = LineImporter.PARSEMODE_EXCEPTION;
+				//}
 			}
 			
 			if (opt.indexOf('q') != -1) {

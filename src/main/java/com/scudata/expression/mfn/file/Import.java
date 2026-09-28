@@ -6,6 +6,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.FileFunction;
+import com.scudata.expression.fn.Eval;
 
 /**
  * 从文本文件或者集文件导入数据
@@ -25,7 +26,13 @@ public class Import extends FileFunction {
 		Sequence seq = cursor.fetch();
 		
 		if (seq != null) {
-			return seq;
+			if (option != null && option.indexOf('v') != -1) {
+				Sequence arg = new Sequence();
+				arg.add(seq);
+				return Eval.calc("?.i()", arg, cs, ctx);
+			} else {
+				return seq;
+			}
 		} else {
 			DataStruct ds = cursor.getDataStruct();
 			if (ds != null) {
