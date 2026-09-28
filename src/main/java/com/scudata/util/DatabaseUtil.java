@@ -4764,10 +4764,13 @@ public class DatabaseUtil {
 				}
 				keysize = keyCols.size();
 			}
+			boolean insertOnly = opt.indexOf('i') > -1;
 			if (keysize < 1) {
 				//throw new RQException("update function can't find Key Columns.");
-				MessageManager mm = DataSetMessage.get();
-				throw new RQException(mm.getMessage("error.invalidKey"));
+				//MessageManager mm = DataSetMessage.get();
+				//throw new RQException(mm.getMessage("error.invalidKey"));
+				// edited by bd, 2026.9.28, 完全找不到主键，强制用@i执行
+				insertOnly = true;
 			}
 
 			Expression[] keyExps = null;
@@ -5086,8 +5089,10 @@ public class DatabaseUtil {
 						executeDifferBatch(srcSeq, compSeq, delete_sql, primaryFields, primaryParams, primaryTypes, ctx, dbs, con,
 								dbCharset, tranSQL, dbType, dbName, batchSize, de_sqls, nullKeys, keysize);
 						isAutoDetect = false;
-					} else if (opt.indexOf('i') > -1) {
-						if (compSeq != null && compSeq.length() > 0) {
+					} else if (insertOnly) {
+					// } else if (opt.indexOf('i') > -1) {
+						// edited by bd, 2026.9.28, 增加完全找不到主键时，强制用@i执行，下面一行判断增加无主键判断
+						if (keysize > 0 && (compSeq != null && compSeq.length() > 0)) {
 							//Logger.debug("Insert only, preparing insert new-records: "+insert_sql);
 							MessageManager mm = DataSetMessage.get();
 							Logger.debug(mm.getMessage("info.insertOnly", insert_sql));
