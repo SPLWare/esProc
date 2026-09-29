@@ -705,6 +705,7 @@ public class CellSetUtil {
 	public static PgmCellSet toPgmCellSet(String src) {
 		if (src == null || src.length() == 0) return null;
 		
+		final char colSeparator = '\t';
 		char []buffer = src.toCharArray();
 		int len = buffer.length;
 		int index = 0;
@@ -714,6 +715,10 @@ public class CellSetUtil {
 		// #var2=xxx
 		ParamList paramList = new ParamList();
 		while (index < len && buffer[index] == '#') {
+			if (index + 1 == len || buffer[index + 1] == colSeparator) {
+				break;
+			}
+			
 			String strParam = null;
 			for(int i = ++index; i < len; ++i) {
 				if (buffer[i] == '\n') {
@@ -746,10 +751,22 @@ public class CellSetUtil {
 			paramList.add(paramName, Param.VAR, paramValue);
 		}
 		
-		final char colSeparator = '\t';
-		ArrayList<String> line = new ArrayList<String>();
 		int rowCount = 10;
 		int colCount = 1;
+		boolean hasRowSeq = false;
+		ArrayList<String> line = new ArrayList<String>();
+		
+		if (index + 1 < len && buffer[index] == '#' && buffer[index + 1] == colSeparator) {
+			index = LineImporter.readLine(buffer, index + 2, colSeparator, line);
+			int curColCount = line.size();
+			
+			if (curColCount > 1) {
+				hasRowSeq = true;
+				colCount = curColCount;
+				line.clear();
+			}
+		}
+		
 		PgmCellSet pcs = new PgmCellSet(rowCount, colCount);
 		int curRow = 1;
 
@@ -760,22 +777,34 @@ public class CellSetUtil {
 		while (index != -1) {
 			index = LineImporter.readLine(buffer, index, colSeparator, line);
 			int curColCount = line.size();
-			if (curColCount > colCount) {
-				pcs.addCol(curColCount - colCount);
-				colCount = curColCount;
-			}
 
 			if (curRow > rowCount) {
 				rowCount += 10;
 				pcs.addRow(10);
 			}
 			
-			for (int f = 0; f < curColCount; ++f) {
-				String exp = line.get(f);
-				if (exp != null && exp.length() > 0) {
-					PgmNormalCell cell = pcs.getPgmNormalCell(curRow, f + 1);
-					exp = Escape.remove(exp);
-					cell.setExpString(exp);
+			if (hasRowSeq) {
+				for (int f = 1; f < curColCount; ++f) {
+					String exp = line.get(f);
+					if (exp != null && exp.length() > 0) {
+						PgmNormalCell cell = pcs.getPgmNormalCell(curRow, f);
+						exp = Escape.remove(exp);
+						cell.setExpString(exp);
+					}
+				}
+			} else {
+				if (curColCount > colCount) {
+					pcs.addCol(curColCount - colCount);
+					colCount = curColCount;
+				}
+				
+				for (int f = 0; f < curColCount; ++f) {
+					String exp = line.get(f);
+					if (exp != null && exp.length() > 0) {
+						PgmNormalCell cell = pcs.getPgmNormalCell(curRow, f + 1);
+						exp = Escape.remove(exp);
+						cell.setExpString(exp);
+					}
 				}
 			}
 			
