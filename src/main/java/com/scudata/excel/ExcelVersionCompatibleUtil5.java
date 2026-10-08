@@ -43,6 +43,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTMarker;
 
+import com.raqsoft.input.usermodel.Consts;
+import com.raqsoft.report.usermodel.INormalCell;
 import com.scudata.common.ImageUtils;
 import com.scudata.common.Logger;
 
@@ -221,14 +223,40 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 	 * @return Excel的边框样式
 	 */
 	public short getBorderStyle( byte borderStyle, float width ) {
-		try {
-			Class clazz = Class.forName("com.raqsoft.report.view.ExportExcelUtil2");
-			Object o = clazz.newInstance();
-			Method m = clazz.getMethod("getBorderStyle", Byte.class, Float.class);
-			return (Short) m.invoke(o, borderStyle, width);
-		}catch(Exception e) {
-			return BorderStyle.THIN.getCode();	
-		}
+		if ( borderStyle == INormalCell.LINE_NONE ) {
+			return BorderStyle.NONE.getCode();
+		} else if ( borderStyle == INormalCell.LINE_DASHED ) {
+			if ( width > 1.0 ) {
+				return BorderStyle.MEDIUM_DASHED.getCode();
+			}
+			return BorderStyle.DASHED.getCode();
+		}else if ( borderStyle == INormalCell.LINE_DOTTED ) {
+			if ( width > 1.0 ) {
+				return BorderStyle.MEDIUM_DASH_DOT.getCode();
+			}
+			return BorderStyle.DASH_DOT.getCode();
+		} else if ( borderStyle == INormalCell.LINE_DOUBLE ) {
+			return BorderStyle.DOUBLE.getCode();
+		} else if ( borderStyle == INormalCell.LINE_SOLID ) {
+			if ( width < 0.75 ) {
+				return BorderStyle.THIN.getCode();
+			}
+			if ( width <= 1.0 ) {
+				return BorderStyle.THIN.getCode();
+			}
+			if ( width <= 1.5 ) {
+				return BorderStyle.MEDIUM.getCode();
+			}
+			if ( width <= 2.0 ) {
+				return BorderStyle.THICK.getCode();
+			}
+			return BorderStyle.THICK.getCode();
+	    }
+	    //added by bdl, 2010.3.8, 新加线形：点线
+	    else if ( borderStyle == INormalCell.LINE_DOTDOT ) {
+	      return BorderStyle.DOTTED.getCode();
+	    }
+		return BorderStyle.THIN.getCode();
 	}
 	
 
@@ -242,14 +270,45 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 	 * @return Excel的边框样式
 	 */
 	public short getISheetBorderStyle(byte borderStyle) {
-		try {
-			Class clazz = Class.forName("com.raqsoft.report.view.ExportExcelUtil2");
-			Object o = clazz.newInstance();
-			Method m = clazz.getMethod("getISheetBorderStyle",byte.class);
-			return (Short) m.invoke(o, borderStyle);
-		}catch(Exception e) {
-			return BorderStyle.THIN.getCode();	
+		float width = 1;
+		if (borderStyle == Consts.LINE_NONE) {
+			return BorderStyle.NONE.getCode();
+		} else if (borderStyle == Consts.LINE_DASHED) {
+			if (width > 1.0) {
+				return BorderStyle.MEDIUM_DASHED.getCode();
+			}
+			return BorderStyle.DASHED.getCode();
+		} else if (borderStyle == Consts.LINE_DASH_DOT) {
+			if (width > 1.0) {
+				return BorderStyle.MEDIUM_DASH_DOT.getCode();
+			}
+			return BorderStyle.DASH_DOT.getCode();
+		} else if (borderStyle == Consts.LINE_DOUBLE) {
+			return BorderStyle.DOUBLE.getCode();
+		} else if (borderStyle == Consts.LINE_THIN) {
+			if (width < 0.75) {
+				return BorderStyle.THIN.getCode();
+			}
+			if (width <= 1.0) {
+				return BorderStyle.THIN.getCode();
+			}
+			if (width <= 1.5) {
+				return BorderStyle.MEDIUM.getCode();
+			}
+			if (width <= 2.0) {
+				return BorderStyle.THICK.getCode();
+			}
+			return BorderStyle.THICK.getCode();
+		} else if (borderStyle == Consts.LINE_MEDIUM) {
+			return BorderStyle.MEDIUM.getCode();
+		} else if (borderStyle == Consts.LINE_THICK) {
+			return BorderStyle.THICK.getCode();
 		}
+		// added by bdl, 2010.3.8, 新加线形：点线
+		else if (borderStyle == Consts.LINE_DOT) {
+			return BorderStyle.DOTTED.getCode();
+		}
+		return BorderStyle.THIN.getCode();
 	}
 	
 	public CellType getCellType(CellValue value){
@@ -311,17 +370,19 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 	}
 
 	public XSSFColor getXSSFColor(int color) {
-		try {
-			Constructor<XSSFColor> constructor = XSSFColor.class.getConstructor(java.awt.Color.class);
-			return constructor.newInstance(new Color(color));
-		}catch (Exception e) {
+		//try {
+		//  已经不支持这个用法
+		//	Constructor<XSSFColor> constructor = XSSFColor.class.getConstructor(java.awt.Color.class);
+		//	return constructor.newInstance(new Color(color));
+		//}catch (Exception e) {
 			return getXSSFColor525(color);
-		}
+		//}
 	}
 	
 	public XSSFColor getXSSFColor525(int color) {
 		Color color2 = new Color(color);
 		try {
+			//return new XSSFColor(color2, null);
 			Constructor<XSSFColor> constructor = XSSFColor.class.getConstructor(Color.class, IndexedColorMap.class);
 			return constructor.newInstance(color2, null);
 		}catch(Exception e) {
