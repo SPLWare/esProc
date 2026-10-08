@@ -49,7 +49,7 @@ import com.scudata.common.ImageUtils;
 import com.scudata.common.Logger;
 
 public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilInterface{
-	
+	 
 	private static final String ROW_COL_SEP = "_";
 	
 	public int getXSSFShape_EMU_PER_PIXEL() {
