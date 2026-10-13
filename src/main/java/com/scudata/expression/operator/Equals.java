@@ -6,6 +6,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
+import com.scudata.expression.Constant;
 import com.scudata.expression.Relation;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
@@ -41,7 +42,14 @@ public class Equals extends Relation {
 		Object o2 = right.calculate(ctx);
 		
 		if (Env.getNullPropagate()) {
-			if (o1 == null || o2 == null) {
+			if (o2 == null) {
+				if (right instanceof Constant) {
+					// 用于支持f==null判断
+					return o1 == null;
+				} else {
+					return null;
+				}
+			} else if (o1 == null) {
 				return null;
 			} else if (Variant.isEquals(o1, o2)) {
 				return Boolean.TRUE;
