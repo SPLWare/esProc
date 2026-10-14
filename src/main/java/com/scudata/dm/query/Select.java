@@ -1515,28 +1515,17 @@ public class Select extends QueryBody {
 								tokens[pos + 1].setString("1");
 								//tokens[pos + 1].setOriginString("1");
 							}
+						} else if (fnName.equalsIgnoreCase("GCONCAT")) {
+							// 剔除空
+							if (tokens[pos + 1].isKeyWord("DISTINCT")) {
+								fnName = "iconcat@0";
+								pos++;
+							} else {
+								fnName = "concat@0";
+							}
 						}
 						
 						List<Exp> paramList = scanParam(tokens, pos + 1, end, part);
-						int pcount = paramList.size();
-						
-						// 剔除空
-						if (pcount == 1) {
-							if(fnName.equalsIgnoreCase("GCONCAT")) {
-								fnName = "concat@0";
-							}
-						} else if (pcount == 2) {
-							if(fnName.equalsIgnoreCase("GCONCAT")) {
-								fnName = "concat@0";
-							} else {
-								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + tokens[pos].getPos());
-							}
-						} else {
-							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + tokens[pos].getPos());
-						}
-						
 						GatherNode gather = new GatherNode(i, end + 1, fnName, paramList);
 						exp = addGatherNode(gather);
 					} else {
