@@ -36,6 +36,7 @@ import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.DBCursor;
 import com.scudata.dm.cursor.ForrCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
@@ -1191,7 +1192,11 @@ public class PgmCellSet extends CellSet {
 		for (int r = row; r <= endRow; ++r) {
 			for (int c = col + 1; c <= totalCol; ++c) {
 				PgmNormalCell pcell = getPgmNormalCell(r, c);
-				if (pcell.isCalculableCell() || pcell.isCalculableBlock()) {
+				if (pcell.isNoteBlock()) {
+					// 跳过注释块
+					r = getCodeBlockEndRow(r, c);
+					break;
+				} else if (pcell.isCalculableCell() || pcell.isCalculableBlock()) {
 					resultCell = pcell;
 				}
 			}
@@ -2261,15 +2266,18 @@ public class PgmCellSet extends CellSet {
 		Object val;
 		if (dbObj instanceof DBObject) {
 			String opt = command.getOption();
+			DBObject db = (DBObject)dbObj;
+			
 			if (command.isQuery()) {
-				if (opt == null || opt.indexOf('1') == -1) {
-					val = ((DBObject) dbObj).query(sql, paramVals, types, opt,
-							ctx);
+				if (command.isCursor()) {
+					val = new DBCursor(sql, paramVals, types, db, opt, ctx);
+				} else if (opt == null || opt.indexOf('1') == -1) {
+					val = db.query(sql, paramVals, types, opt, ctx);
 				} else {
-					val = ((DBObject) dbObj).query1(sql, paramVals, types, opt);
+					val = db.query1(sql, paramVals, types, opt);
 				}
 			} else {
-				val = ((DBObject) dbObj).execute(sql, paramVals, types, opt);
+				val = db.execute(sql, paramVals, types, opt);
 			}
 		} else {
 			val = ((IQueryable)dbObj).query(sql, paramVals, this, ctx);

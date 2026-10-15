@@ -244,7 +244,7 @@ public final class Tokenizer {
 		return tokens;
 	}
 
-	private static int scanId(String command, int start) {
+	public static int scanId(String command, int start) {
 		int len = command.length();
 		if (start == len) return start;
 

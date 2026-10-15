@@ -163,6 +163,10 @@ public class Command {
 		return param;
 	}
 	
+	void setParamString(String expStr) {
+		this.expStr = expStr;
+	}
+
 	/**
 	 * 取语句参数对应的表达式，此语句只有一个参数
 	 * @param cs 网格
