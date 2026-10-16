@@ -24,6 +24,11 @@ public class ForrCursor extends ICursor {
 	
 	public ForrCursor(PgmCellSet pcs, NormalCell cell, NormalCell resultCell, int codeBlockEndRow, 
 			ICursor cs, Expression gexp, int gcount, Context ctx) {
+		if (gexp != null) {
+			Expression []exps = new Expression[] {gexp};
+			cs.group(null, exps, null, ctx);
+		}
+		
 		this.pcs = pcs;
 		this.cell = cell;
 		this.resultCell = resultCell;
@@ -53,31 +58,51 @@ public class ForrCursor extends ICursor {
 		CellLocation lct;
 		
 		INormalCell current = pcs.getCurrent();
-		int initSize = n > INITSIZE ? INITSIZE : n;
-		Sequence result = new Sequence(initSize);
+		Sequence result;
 		
-		for (int i = 0; i < n; ++i) {
-			Sequence table;
-			if (gexp == null) {
-				table = cs.fetch(gcount);
-			} else {
-				table = cs.fetchGroup(gexp, ctx);
-			}
+		if (gexp == null) {
+			int initSize = n > INITSIZE ? INITSIZE : n;
+			result = new Sequence(initSize);
 			
+			for (int i = 0; i < n; ++i) {
+				Sequence table = cs.fetch(gcount);
+				if (table == null || table.length() == 0) {
+					break;
+				}
+				
+				pcs.setCurrent(cell);
+				cell.setValue(table);
+				pcs.setNext(row, col + 1, false); // 执行下一单元格
+				
+				do {
+					lct = pcs.runNext();
+				} while (lct != null && lct.getRow() <= codeBlockEndRow);
+				
+				if (resultCell != null) {
+					result.add(resultCell.getValue());
+				}
+			}
+		} else {
+			Sequence table = cs.fetch(n);
 			if (table == null || table.length() == 0) {
-				break;
+				return null;
 			}
 			
-			pcs.setCurrent(cell);
-			cell.setValue(table);
-			pcs.setNext(row, col + 1, false); // 执行下一单元格
+			n = table.length();
+			result = new Sequence(n);
 			
-			do {
-				lct = pcs.runNext();
-			} while (lct != null && lct.getRow() <= codeBlockEndRow);
-			
-			if (resultCell != null) {
-				result.add(resultCell.getValue());
+			for (int i = 1; i <= n; ++i) {
+				pcs.setCurrent(cell);
+				cell.setValue(table.get(i));
+				pcs.setNext(row, col + 1, false); // 执行下一单元格
+				
+				do {
+					lct = pcs.runNext();
+				} while (lct != null && lct.getRow() <= codeBlockEndRow);
+				
+				if (resultCell != null) {
+					result.add(resultCell.getValue());
+				}
 			}
 		}
 
