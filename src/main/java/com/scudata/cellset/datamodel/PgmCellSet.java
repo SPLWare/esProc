@@ -674,6 +674,9 @@ public class PgmCellSet extends CellSet {
 		int rowCount = getRowCount();
 		int colCount = getColCount();
 		PgmCellSet newPcs = new PgmCellSet(rowCount, colCount);
+		Context ctx = getContext().newComputeContext();
+		newPcs.setContext(ctx);
+		newPcs.name = name;
 
 		int row = cell.getRow();
 		int col = cell.getCol();
@@ -700,16 +703,13 @@ public class PgmCellSet extends CellSet {
 			}
 
 			for (int c = col; c <= colCount; ++c) {
-				INormalCell tmp = getCell(r, c);
-				INormalCell cellClone = (INormalCell) tmp.deepClone();
-				cellClone.setCellSet(newPcs);
-				newPcs.setCell(r, c, cellClone);
+				PgmNormalCell srcCell = getPgmNormalCell(r, c);
+				PgmNormalCell newCell = newPcs.getPgmNormalCell(r, c);
+				newCell.setExpString(srcCell.getExpString());
+				newCell.setValue(srcCell.getValue());
 			}
 		}
 
-		Context ctx = getContext().newComputeContext();
-		newPcs.setContext(ctx);
-		newPcs.name = name;
 		return newPcs;
 	}
 	
@@ -1351,9 +1351,9 @@ public class PgmCellSet extends CellSet {
 				ICursor []cursors = mcs.getCursors();
 				int pathCount = cursors.length;
 				ICursor []newCursors = new ICursor[pathCount];
-				newCursors[0] = new ForrCursor(this, cell, resultCell, endRow, cursors[0], gexp, count, ctx);
+				//newCursors[0] = new ForrCursor(this, cell, resultCell, endRow, cursors[0], gexp, count, ctx);
 				
-				for (int i = 1; i < pathCount; ++i) {
+				for (int i = 0; i < pathCount; ++i) {
 					PgmCellSet pcs = newCalc(cell, endRow);
 					NormalCell newCell = pcs.getNormalCell(cell.getRow(), cell.getCol());
 					NormalCell newResultCell = null;
