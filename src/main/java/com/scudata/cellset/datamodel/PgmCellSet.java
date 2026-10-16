@@ -670,6 +670,49 @@ public class PgmCellSet extends CellSet {
 		return pcs;
 	}
 	
+	public PgmCellSet newCalc(NormalCell cell, int endRow) {
+		int rowCount = getRowCount();
+		int colCount = getColCount();
+		PgmCellSet newPcs = new PgmCellSet(rowCount, colCount);
+
+		int row = cell.getRow();
+		int col = cell.getCol();
+
+		// 代码块外的格子只引用格值，不设置表达式
+		for (int r = 1; r < row; ++r) {
+			for (int c = 1; c <= colCount; ++c) {
+				Object val = getPgmNormalCell(r, c).getValue();
+				newPcs.getPgmNormalCell(r, c).setValue(val);
+			}
+		}
+
+		for (int r = endRow + 1; r <= rowCount; ++r) {
+			for (int c = 1; c <= colCount; ++c) {
+				Object val = getPgmNormalCell(r, c).getValue();
+				newPcs.getPgmNormalCell(r, c).setValue(val);
+			}
+		}
+
+		for (int r = row; r <= endRow; ++r) {
+			for (int c = 1; c < col; ++c) {
+				Object val = getPgmNormalCell(r, c).getValue();
+				newPcs.getPgmNormalCell(r, c).setValue(val);
+			}
+
+			for (int c = col; c <= colCount; ++c) {
+				INormalCell tmp = getCell(r, c);
+				INormalCell cellClone = (INormalCell) tmp.deepClone();
+				cellClone.setCellSet(newPcs);
+				newPcs.setCell(r, c, cellClone);
+			}
+		}
+
+		Context ctx = getContext().newComputeContext();
+		newPcs.setContext(ctx);
+		newPcs.name = name;
+		return newPcs;
+	}
+	
 	// 生成新的网格供cursor(c,…)使用
 	public PgmCellSet newCursorDFX(INormalCell cell, Object[] args) {
 		int rowCount = getRowCount();
@@ -1301,7 +1344,33 @@ public class PgmCellSet extends CellSet {
 
 			cmdCode = null;
 			ICursor cs = (ICursor)value;
-			ForrCursor forrCursor = new ForrCursor(this, cell, resultCell, endRow, cs, gexp, count, ctx);
+			ICursor forrCursor;
+			
+			if (cs instanceof MultipathCursors) {
+				MultipathCursors mcs = (MultipathCursors)cs;
+				ICursor []cursors = mcs.getCursors();
+				int pathCount = cursors.length;
+				ICursor []newCursors = new ICursor[pathCount];
+				newCursors[0] = new ForrCursor(this, cell, resultCell, endRow, cursors[0], gexp, count, ctx);
+				
+				for (int i = 1; i < pathCount; ++i) {
+					PgmCellSet pcs = newCalc(cell, endRow);
+					NormalCell newCell = pcs.getNormalCell(cell.getRow(), cell.getCol());
+					NormalCell newResultCell = null;
+					if (resultCell != null) {
+						newResultCell = pcs.getNormalCell(resultCell.getRow(), resultCell.getCol());
+					}
+					
+					Context newCtx = pcs.getContext();
+					Expression newExp = gexp.newExpression(newCtx);
+					newCursors[i] = new ForrCursor(pcs, newCell, newResultCell, endRow, cursors[i], newExp, count, newCtx);
+				}
+				
+				forrCursor = new MultipathCursors(newCursors);
+			} else {
+				forrCursor = new ForrCursor(this, cell, resultCell, endRow, cs, gexp, count, ctx);
+			}
+			
 			cell.setValue(forrCursor);
 		} else if (value == null) {
 			cmdCode = null;

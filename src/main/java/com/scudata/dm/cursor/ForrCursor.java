@@ -68,6 +68,7 @@ public class ForrCursor extends ICursor {
 				break;
 			}
 			
+			pcs.setCurrent(cell);
 			cell.setValue(table);
 			pcs.setNext(row, col + 1, false); // 执行下一单元格
 			
