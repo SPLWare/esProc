@@ -777,6 +777,50 @@ public class CellSetUtil {
 		while (index != -1) {
 			index = LineImporter.readLine(buffer, index, colSeparator, line);
 			int curColCount = line.size();
+			int lastIndex = curColCount - 1;
+			String str = line.get(lastIndex);
+			
+			// 处理续行
+			if (str != null && str.endsWith("\\")) {
+				str = str.substring(0, str.length() - 1) + "\n";
+				while (lastIndex > 0) {
+					String prev = line.get(lastIndex - 1);
+					if (prev != null && prev.length() > 0) {
+						str = prev + "\t" + str;
+						line.remove(lastIndex);
+						lastIndex--;
+						curColCount--;
+					} else {
+						break;
+					}
+				}
+				
+				while (true) {
+					ArrayList<String> nextLine = new ArrayList<String>(curColCount);
+					index = LineImporter.readLine(buffer, index, colSeparator, nextLine);
+					int nextColCount = nextLine.size();
+
+					if (nextColCount > lastIndex) {
+						String nextValue = nextLine.get(lastIndex);
+						if (nextValue != null) {
+							str += nextValue;
+						}
+						
+						for (int i = lastIndex + 1; i < nextColCount; ++i) {
+							nextValue = nextLine.get(i);
+							str += "\t" + nextValue;
+						}
+					}
+					
+					if (str.endsWith("\\")) {
+						str = str.substring(0, str.length() - 1) + "\n";
+					} else {
+						break;
+					}
+				}
+				
+				line.set(lastIndex, str);
+			}
 
 			if (curRow > rowCount) {
 				rowCount += 10;
@@ -922,6 +966,14 @@ public class CellSetUtil {
 		}
 	}*/
 	
+	private static boolean hasEnter(String exp) {
+		if (exp == null || exp.indexOf('\n') == -1) {
+			return false;
+		} else {
+			return exp.charAt(0) != '\t';
+		}
+	}
+	
 	/**
 	 * 把程序网转为字符串,开头的n行是参数
 	 * #var1=***
@@ -957,15 +1009,58 @@ public class CellSetUtil {
 				sb.append('\n');
 			}
 			
+			// 某格代码中有回车等符号时，如同行有多格有代码，则转义导出；若只有一格有代码，则直接导出并加续行符\，续行前导自动增加TAB符
+			boolean sign = false;
 			for (int c = 1; c <= colCount; ++c) {
 				if (c > 1) {
 					sb.append('\t');
 				}
 				
 				String exp = cs.getPgmNormalCell(r, c).getExpString();
-				if (exp != null) {
+				if (!sign && hasEnter(exp)) {
+					for (int j = c + 1; j <= colCount; ++j) {
+						String str = cs.getPgmNormalCell(r, j).getExpString();
+						if (str != null && str.length() > 0) {
+							sign = true;
+							break;
+						}
+					}
+					
+					if (sign) {
+						exp = Escape.add(exp);
+						sb.append(exp);
+					} else {
+						sign = true;
+						int len = exp.length();
+						int start = 0;
+						
+						while (start < len) {
+							int index = exp.indexOf('\n', start);
+							if (index == -1) {
+								sb.append(exp.substring(start));
+								break;
+							} else {
+								if (index > 1 && exp.charAt(index - 1) == '\r') {
+									sb.append(exp.substring(start, index - 1));
+									sb.append("\\\r\n");
+								} else {
+									sb.append(exp.substring(start, index));
+									sb.append("\\\n");
+								}
+								
+								start = index + 1;
+								for (int j = 1; j < c; ++j) {
+									sb.append('\t');
+								}
+							}
+						}
+						
+						break;
+					}
+				} else if (exp != null) {
 					exp = Escape.add(exp);
 					sb.append(exp);
+					sign = true;
 				}
 			}
 		}
