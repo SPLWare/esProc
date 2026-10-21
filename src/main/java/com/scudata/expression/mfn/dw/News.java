@@ -15,10 +15,8 @@ import com.scudata.dw.JoinCursor;
 import com.scudata.dw.JoinCursor2;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
-import com.scudata.expression.Node;
 import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.PhyTableFunction;
-import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -83,22 +81,7 @@ public class News extends PhyTableFunction {
 					optList.toArray(opts);
 				}
 				
-				int expCount = expList.size();
-				if (expCount == 1) {
-					filter = expList.get(0);
-				} else if (expCount > 1) {
-					Expression exp = expList.get(0);
-					Node home = exp.getHome();
-					for (int i = 1; i < expCount; ++i) {
-						exp = expList.get(i);
-						And and = new And();
-						and.setLeft(home);
-						and.setRight(exp.getHome());
-						home = and;
-					}
-					
-					filter = new Expression(home);
-				}
+				filter = Expression.combineByAnd(expList, ctx);
 			}
 		}
 		

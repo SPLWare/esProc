@@ -1753,4 +1753,27 @@ public class Expression {
 	public void reset() {
 		home.reset();
 	}
+	
+	// 用And合并条件
+	public static Expression combineByAnd(List<Expression> expList, Context ctx) {
+		if (expList == null) {
+			return null;
+		}
+		
+		int size = expList.size();
+		if (size == 0) {
+			return null;
+		} else if (size == 1) {
+			return expList.get(0);
+		}
+		
+		Expression exp = expList.get(0);
+		String str = "(" + exp.toString() + ")";
+		for (int i = 1; i < size; ++i) {
+			exp = expList.get(i);
+			str += "&&" + "(" + exp.toString() + ")";
+		}
+		
+		return new Expression(exp.cs, ctx, str);
+	}
 }

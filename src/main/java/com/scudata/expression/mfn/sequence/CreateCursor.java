@@ -21,10 +21,8 @@ import com.scudata.dm.op.Switch;
 import com.scudata.dw.MemoryTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
-import com.scudata.expression.Node;
 import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.SequenceFunction;
-import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
@@ -171,22 +169,7 @@ public class CreateCursor extends SequenceFunction {
 					optList.toArray(opts);
 				}
 				
-				int expCount = expList.size();
-				if (expCount == 1) {
-					filter = expList.get(0);
-				} else if (expCount > 1) {
-					Expression exp = expList.get(0);
-					Node home = exp.getHome();
-					for (int i = 1; i < expCount; ++i) {
-						exp = expList.get(i);
-						And and = new And();
-						and.setLeft(home);
-						and.setRight(exp.getHome());
-						home = and;
-					}
-					
-					filter = new Expression(home);
-				}
+				filter = Expression.combineByAnd(expList, ctx);
 			}
 			
 			if (size > 2) {
