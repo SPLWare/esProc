@@ -1,9 +1,12 @@
 package com.scudata.cellset.datamodel;
 
+import java.lang.reflect.Method;
+
 import com.scudata.cellset.ICellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.DBObject;
 import com.scudata.dm.sql.Tokenizer;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
@@ -14,18 +17,37 @@ public class SqlCommand extends Command {
 	private String opt;
 	private Expression dbExp;
 	private boolean isCursor = false;
+	private boolean isInit = false;
 
 	public SqlCommand(String sql, String db, String opt, String expStr) {
 		super(SQL, null, expStr);
+		this.db = db;
+		this.opt = opt;
 		
 		// 删除注释
 		sql = stripComments(sql);
 		sql = stripCursorFor(sql);
-		sql = parseParam(sql);
-		
 		this.sql = sql;
-		this.db = db;
-		this.opt = opt;
+	}
+	
+	public void init(PgmCellSet cs, Object db) {
+		if (isInit) {
+			return;
+		}
+		
+		isInit = true;
+		if (db instanceof DBObject) {
+			try {
+				Class<? extends Object> classObj = Class.forName("com.scudata.nlc.parser.Compiler");
+				Method method = classObj.getMethod("compileSQL", PgmCellSet.class, DBObject.class, String.class);
+				Object []args = new Object[] {cs, (DBObject)db, sql};
+				sql = (String)method.invoke(classObj, args);
+			} catch (Exception e) {
+				//throw new RQException(e.getMessage(), e);
+			}
+		}
+		
+		sql = parseParam(sql);
 	}
 	
 	public boolean isLogicSql() {

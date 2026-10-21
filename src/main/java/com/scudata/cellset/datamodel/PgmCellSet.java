@@ -2300,9 +2300,9 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
-		// 跳过代码块
-		// int endRow = getCodeBlockEndRow(curLct.getRow(), curLct.getCol());
+		command.init(this, dbObj);
 		String sql = command.getSql();
+		
 		if (sql == null) {
 			setNext(curLct.getRow(), curLct.getCol() + 1, false);
 			return;
@@ -2353,8 +2353,6 @@ public class PgmCellSet extends CellSet {
 		}
 
 		cell.setValue(val);
-		// 跳过代码块
-		// setNext(endRow + 1, 1, true);
 		setNext(curLct.getRow(), curLct.getCol() + 1, false);
 	}
 
