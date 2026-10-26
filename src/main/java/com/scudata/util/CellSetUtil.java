@@ -698,6 +698,15 @@ public class CellSetUtil {
 		return pcs;
 	}
 	
+	private static boolean isContinuationLine(ArrayList<String> line) {
+		if (line.size() == 0) {
+			return false;
+		}
+		
+		String str = line.get(0);
+		return str == null || str.length() == 0;
+	}
+	
 	/**
 	 * 分隔字符串，填到程序网的格子里
 	 * @param src 字符串，列用tab分隔，行用回车分隔
@@ -777,72 +786,115 @@ public class CellSetUtil {
 			pcs.setParamList(paramList);
 		}
 		
-		while (index != -1) {
+		if (hasRowSeq && index != -1) {
 			index = LineImporter.readLine(buffer, index, colSeparator, line);
-			int curColCount = line.size();
-			int lastIndex = curColCount - 1;
-			String str = line.get(lastIndex);
-			
-			// 处理续行
-			if (str != null && str.endsWith("\\")) {
-				str = str.substring(0, str.length() - 1) + "\n";
-				while (lastIndex > 0) {
-					String prev = line.get(lastIndex - 1);
-					if (prev != null && prev.length() > 0) {
-						str = prev + "\t" + str;
-						line.remove(lastIndex);
-						lastIndex--;
-						curColCount--;
-					} else {
-						break;
-					}
+			ArrayList<String> nextLine = new ArrayList<String>(colCount);
+
+			while (line.size() > 0) {
+				if (index != -1) {
+					index = LineImporter.readLine(buffer, index, colSeparator, nextLine);
 				}
 				
-				while (true) {
-					ArrayList<String> nextLine = new ArrayList<String>(curColCount);
-					index = LineImporter.readLine(buffer, index, colSeparator, nextLine);
-					int nextColCount = nextLine.size();
-
-					if (nextColCount > lastIndex) {
-						String nextValue = nextLine.get(lastIndex);
-						if (nextValue != null) {
-							str += nextValue;
-						}
-						
-						for (int i = lastIndex + 1; i < nextColCount; ++i) {
-							nextValue = nextLine.get(i);
-							str += "\t" + nextValue;
+				int col = -1;
+				String str = null;
+				
+				while (isContinuationLine(nextLine)) {
+					if (col == -1) {
+						for (int c = 1; c < line.size(); ++ c) {
+							str = line.get(c);
+							if (str != null && str.length() > 0) {
+								col = c;
+								int next = c + 1;
+								while (next < line.size()) {
+									String nextStr = line.remove(next);
+									if (nextStr == null) {
+										str += "\t";
+									} else {
+										str += "\t" + nextStr;
+									}
+								}
+								
+								break;
+							}
 						}
 					}
 					
-					if (str.endsWith("\\")) {
-						str = str.substring(0, str.length() - 1) + "\n";
-					} else {
-						break;
+					for (int i = col; i < nextLine.size(); ++i) {
+						String nextStr = nextLine.get(i);
+						if (i == col) {
+							str += "\n";
+						} else {
+							str += "\t";
+						}
+						
+						if (nextStr != null) {
+							str += nextStr;
+						}
 					}
+					
+					nextLine.clear();
+					index = LineImporter.readLine(buffer, index, colSeparator, nextLine);
+					line.set(col, str);
 				}
 				
-				line.set(lastIndex, str);
-			}
+				int curColCount = line.size() - 1;
+				if (curColCount > colCount) {
+					for (int c = 1; c < line.size(); ++ c) {
+						str = line.get(c);
+						if (str != null && str.length() > 0) {
+							for (int i = colCount; i < curColCount; ++i) {
+								String nextStr = line.remove(c + 1);
+								if (nextStr == null) {
+									str += "\t";
+								} else {
+									str += "\t" + nextStr;
+								}
+							}
+							
+							line.set(c, str);
+							break;
+						}
+					}
+					
+					curColCount = colCount;
+				}
+				
+				if (curRow > rowCount) {
+					rowCount += 10;
+					pcs.addRow(10);
+				}
 
-			if (curRow > rowCount) {
-				rowCount += 10;
-				pcs.addRow(10);
-			}
-			
-			if (hasRowSeq) {
-				for (int f = 1; f < curColCount; ++f) {
+				boolean needEscape = line.get(0).endsWith("#");
+				for (int f = 1; f <= curColCount; ++f) {
 					String exp = line.get(f);
 					if (exp != null && exp.length() > 0) {
 						PgmNormalCell cell = pcs.getPgmNormalCell(curRow, f);
-						exp = Escape.remove(exp);
+						if (needEscape) {
+							exp = removeEscapeChar(exp);
+						}
+						
 						cell.setExpString(exp);
 					}
 				}
-			} else {
+				
+				curRow++;
+				line.clear();
+				ArrayList<String> tmp = line;
+				line = nextLine;
+				nextLine = tmp;
+			}
+		} else {
+			while (index != -1) {
+				index = LineImporter.readLine(buffer, index, colSeparator, line);
+				int curColCount = line.size();
 				if (curColCount > colCount) {
 					pcs.addCol(curColCount - colCount);
 					colCount = curColCount;
+				}
+
+				if (curRow > rowCount) {
+					rowCount += 10;
+					pcs.addRow(10);
 				}
 				
 				for (int f = 0; f < curColCount; ++f) {
@@ -853,10 +905,10 @@ public class CellSetUtil {
 						cell.setExpString(exp);
 					}
 				}
+				
+				curRow++;
+				line.clear();
 			}
-			
-			curRow++;
-			line.clear();
 		}
 		
 		pcs.removeRow(curRow, rowCount - curRow + 1);
@@ -970,11 +1022,65 @@ public class CellSetUtil {
 	}*/
 	
 	private static boolean hasEnter(String exp) {
-		if (exp == null || exp.indexOf('\n') == -1) {
+		return exp != null && exp.indexOf('\n') != -1;
+	}
+	
+	private static boolean needEscape(String str) {
+		if (str == null) {
 			return false;
-		} else {
-			return exp.charAt(0) != '\t';
 		}
+		
+		for (int i = 0, len = str.length(); i < len; i++) {
+			char ch = str.charAt(i);
+			if (ch == '\t' || ch == '\n') {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private static int getLine(PgmCellSet cs, int row, String []datas) {
+		int colCount = cs.getColCount();
+		int dataCount = 0;
+		boolean needEscape = false;
+		datas[0] = CellLocation.toRow(row);
+		
+		// 一行有多格格内如果有回车/TAB或单格以TAB开头时将转义；
+		// 其它情况则不转义，不转义时没有行号的行视为续行，并在前导自动增加TAB符（根据所在列数）保持对齐
+		for (int col = 1; col <= colCount; ++col) {
+			String exp = cs.getPgmNormalCell(row, col).getExpString();
+			if (exp != null && exp.length() > 0) {
+				dataCount++;
+				datas[col] = exp;
+				
+				if (exp.charAt(0) == '	') {
+					needEscape = true;
+				}
+			} else {
+				datas[col] = null;
+			}
+		}
+		
+		if (needEscape) {
+			datas[0] += "#";
+			for (int col = 1; col <= colCount; ++col) {
+				datas[col] = addEscapeChar(datas[col]);
+			}
+		} else if (dataCount > 1) {
+			for (int col = 1; col <= colCount; ++col) {
+				if (needEscape(datas[col])) {
+					needEscape = true;
+					datas[col] = addEscapeChar(datas[col]);
+				}
+			}
+			
+			if (needEscape) {
+				datas[0] += "#";
+			}
+		}
+		
+		return dataCount;
 	}
 	
 	/**
@@ -1006,6 +1112,7 @@ public class CellSetUtil {
 		
 		int rowCount = cs.getRowCount();
 		int colCount = cs.getColCount();
+		String []datas = new String[colCount + 1];
 		sb.append('#');
 		
 		for (int c = 1; c <= colCount; ++c) {
@@ -1015,28 +1122,18 @@ public class CellSetUtil {
 		
 		for (int r = 1; r <= rowCount; ++r) {
 			sb.append('\n');
+			int dataCount = getLine(cs, r, datas);
+			sb.append(datas[0]);
 			
-			// 某格代码中有回车等符号时，如同行有多格有代码，则转义导出；若只有一格有代码，则直接导出并加续行符\，续行前导自动增加TAB符
-			boolean sign = false;
-			sb.append(CellLocation.toRow(r));
-			
-			for (int c = 1; c <= colCount; ++c) {
-				sb.append('\t');
-				String exp = cs.getPgmNormalCell(r, c).getExpString();
-				if (!sign && hasEnter(exp)) {
-					for (int j = c + 1; j <= colCount; ++j) {
-						String str = cs.getPgmNormalCell(r, j).getExpString();
-						if (str != null && str.length() > 0) {
-							sign = true;
-							break;
-						}
+			if (dataCount == 1) {
+				for (int c = 1; c <= colCount; ++c) {
+					sb.append('\t');
+					String exp = datas[c];
+					if (exp == null) {
+						continue;
 					}
 					
-					if (sign) {
-						exp = Escape.add(exp);
-						sb.append(exp);
-					} else {
-						sign = true;
+					if (hasEnter(exp)) {
 						int len = exp.length();
 						int start = 0;
 						
@@ -1046,15 +1143,9 @@ public class CellSetUtil {
 								sb.append(exp.substring(start));
 								break;
 							} else {
-								if (index > 1 && exp.charAt(index - 1) == '\r') {
-									sb.append(exp.substring(start, index - 1));
-									sb.append("\\\r\n");
-								} else {
-									sb.append(exp.substring(start, index));
-									sb.append("\\\n");
-								}
-								
-								start = index + 1;
+								index++;
+								sb.append(exp.substring(start, index));
+								start = index;
 								for (int j = 1; j <= c; ++j) {
 									sb.append('\t');
 								}
@@ -1062,15 +1153,99 @@ public class CellSetUtil {
 						}
 						
 						break;
+					} else {
+						sb.append(exp);
 					}
-				} else if (exp != null) {
-					exp = Escape.add(exp);
-					sb.append(exp);
-					sign = true;
-				}
+				}				
+			} else {
+				for (int c = 1; c <= colCount; ++c) {
+					sb.append('\t');
+					if (datas[c] != null) {
+						sb.append(datas[c]);
+					}
+				}				
 			}
 		}
 		
 		return sb.toString();
+	}
+
+	/**
+	* 给回车、tab添加转义符，返回产生的新串
+	* @param str 需要增加转义符的字符串
+	* @return 新串
+	*/
+	private static String addEscapeChar(String str) {
+		if (str == null) {
+			return null;
+		}
+		
+		int len = str.length();
+		char[] sb = new char[2 * len + 2];
+		int j = 0;
+		
+		for (int i = 0; i < len; i++) {
+			char ch = str.charAt( i );
+			switch ( ch ) {
+				case '\t':
+					sb[ j++ ] = '\\';
+					sb[ j++ ] = 't';
+					break;
+				case '\r':
+					sb[ j++ ] = '\\';
+					sb[ j++ ] = 'r';
+					break;
+				case '\n':
+					sb[ j++ ] = '\\';
+					sb[ j++ ] = 'n';
+					break;
+				default:
+					sb[ j++ ] = ch;
+			}
+		}
+		
+		return new String(sb, 0, j);
+	}
+	
+	private static String removeEscapeChar(String str) {
+		if (str == null || str.length() == 0) {
+			return null;
+		}
+
+		int len = str.length();
+		char[] sb = new char[len];
+		int i = 0, j = 0;
+		char ch = str.charAt(i);
+		
+		for (; i < len; i++) {
+			ch = str.charAt( i );
+			if (ch == '\\') {
+				i++;
+				if (i == len) {
+					sb[j] = '\\';
+					break;
+				}
+				
+				ch = str.charAt(i);
+				switch ( ch ) {
+					case 't':
+						sb[j++] = '\t';
+						break;
+					case 'r':
+						sb[j++] = '\r';
+						break;
+					case 'n':
+						sb[j++] = '\n';
+						break;
+					default:
+						sb[j++] = '\\';
+						sb[j++] = ch;
+				}
+			} else {
+				sb[j++] =  ch;
+			}
+		}
+		
+		return new String(sb, 0, j);
 	}
 }
