@@ -18,6 +18,7 @@ import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
 import com.scudata.common.ByteMap;
+import com.scudata.common.CellLocation;
 import com.scudata.common.DES;
 import com.scudata.common.Escape;
 import com.scudata.common.IOUtils;
@@ -740,15 +741,17 @@ public class CellSetUtil {
 			
 			int s = strParam.indexOf('=');
 			String paramName;
-			Object paramValue = null;
+			String paramValue = null;
 			if (s != -1) {
 				paramName = strParam.substring(0, s);
-				paramValue = Variant.parse(strParam.substring(s + 1), false);
+				paramValue = strParam.substring(s + 1);
 			} else {
 				paramName = strParam;
 			}
 			
-			paramList.add(paramName, Param.VAR, paramValue);
+			Param param = new Param(paramName, Param.ARG, PgmNormalCell.parseConstValue(paramValue));
+			param.setEditValue(paramValue);
+			paramList.add(param);
 		}
 		
 		int rowCount = 10;
@@ -985,37 +988,40 @@ public class CellSetUtil {
 		StringBuffer sb = new StringBuffer(1024);
 		ParamList paramList = cs.getParamList();
 		int paramCount = paramList == null ? 0 : paramList.count();
-		boolean isFirstLine = true;
+		
 		for (int i = 0; i < paramCount; ++i) {
 			Param param = paramList.get(i);
-			if (isFirstLine) {
-				isFirstLine = false;
-			} else {
-				sb.append('\n');
-			}
-			
 			sb.append('#');
 			sb.append(param.getName());
 			sb.append('=');
-			sb.append(Variant.toString(param.getValue()));
+			
+			Object value = param.getEditValue();
+			if (value == null) {
+				value = param.getValue();
+			}
+			
+			sb.append(Variant.toString(value));
+			sb.append('\n');
 		}
 		
 		int rowCount = cs.getRowCount();
 		int colCount = cs.getColCount();
+		sb.append('#');
+		
+		for (int c = 1; c <= colCount; ++c) {
+			sb.append('\t');
+			sb.append(CellLocation.toCol(c));
+		}
+		
 		for (int r = 1; r <= rowCount; ++r) {
-			if (isFirstLine) {
-				isFirstLine = false;
-			} else {
-				sb.append('\n');
-			}
+			sb.append('\n');
 			
 			// 某格代码中有回车等符号时，如同行有多格有代码，则转义导出；若只有一格有代码，则直接导出并加续行符\，续行前导自动增加TAB符
 			boolean sign = false;
+			sb.append(CellLocation.toRow(r));
+			
 			for (int c = 1; c <= colCount; ++c) {
-				if (c > 1) {
-					sb.append('\t');
-				}
-				
+				sb.append('\t');
 				String exp = cs.getPgmNormalCell(r, c).getExpString();
 				if (!sign && hasEnter(exp)) {
 					for (int j = c + 1; j <= colCount; ++j) {
@@ -1049,7 +1055,7 @@ public class CellSetUtil {
 								}
 								
 								start = index + 1;
-								for (int j = 1; j < c; ++j) {
+								for (int j = 1; j <= c; ++j) {
 									sb.append('\t');
 								}
 							}
