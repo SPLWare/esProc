@@ -43,6 +43,8 @@ public class CellSetUtil {
 	private static final String KEY = "rqqrrqqr"; // 加密密钥
 	private static final byte ENCRYPTED = 0x01;
 
+	private static final String ESCAPE_ID = " "; // 网格行是否转义标识
+	
 	/**
 	 * 对字节数组使用CellSetUtil.KEY加密
 	 * @param bytes 待加密内容
@@ -864,7 +866,7 @@ public class CellSetUtil {
 					pcs.addRow(10);
 				}
 
-				boolean needEscape = line.get(0).endsWith("#");
+				boolean needEscape = line.get(0).endsWith(ESCAPE_ID);
 				for (int f = 1; f <= curColCount; ++f) {
 					String exp = line.get(f);
 					if (exp != null && exp.length() > 0) {
@@ -1063,7 +1065,7 @@ public class CellSetUtil {
 		}
 		
 		if (needEscape) {
-			datas[0] += "#";
+			datas[0] += ESCAPE_ID;
 			for (int col = 1; col <= colCount; ++col) {
 				datas[col] = addEscapeChar(datas[col]);
 			}
@@ -1076,7 +1078,7 @@ public class CellSetUtil {
 			}
 			
 			if (needEscape) {
-				datas[0] += "#";
+				datas[0] += ESCAPE_ID;
 			}
 		}
 		
@@ -1151,19 +1153,20 @@ public class CellSetUtil {
 								}
 							}
 						}
-						
-						break;
 					} else {
 						sb.append(exp);
 					}
-				}				
+					
+					break;
+				}
 			} else {
-				for (int c = 1; c <= colCount; ++c) {
+				for (int c = 1, i = 0; c <= colCount && i < dataCount; ++c) {
 					sb.append('\t');
 					if (datas[c] != null) {
 						sb.append(datas[c]);
+						i++;
 					}
-				}				
+				}
 			}
 		}
 		
