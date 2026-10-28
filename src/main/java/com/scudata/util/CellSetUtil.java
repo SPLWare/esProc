@@ -834,9 +834,11 @@ public class CellSetUtil {
 						}
 					}
 					
-					nextLine.clear();
-					index = LineImporter.readLine(buffer, index, colSeparator, nextLine);
 					line.set(col, str);
+					nextLine.clear();
+					if (index != -1) {
+						index = LineImporter.readLine(buffer, index, colSeparator, nextLine);
+					}
 				}
 				
 				int curColCount = line.size() - 1;
