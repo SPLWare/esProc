@@ -43,6 +43,7 @@
 	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 DAY"/>
 	  <INFO dbtype="OPENGAUSS" value="(?1 + ?2 * INTERVAL '1' DAY)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(?1+ ?2 *INTERVAL '1 day')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="?1+INTERVAL ?2 DAY"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="?1+NUMTODSINTERVAL(?2,'DAY')"/>
     </FUNCTION>
     <FUNCTION name="ADDHOURS" paramcount="2" value="">
@@ -67,6 +68,7 @@
 	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 HOUR"/>
 	  <INFO dbtype="OPENGAUSS" value="(?1 + INTERVAL '?2' HOUR)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(?1+ ?2 *INTERVAL '1 hour')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="?1+INTERVAL ?2 HOUR"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="?1+NUMTODSINTERVAL(?2,'HOUR')"/>
     </FUNCTION>
     <FUNCTION name="ADDMINUTES" paramcount="2" value="">
@@ -91,6 +93,7 @@
 	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 MINUTE"/>
 	  <INFO dbtype="OPENGAUSS" value="(?1 + INTERVAL '?2' MINUTE)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(?1+ ?2 *INTERVAL '1 minute')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="?1+INTERVAL ?2 MINUTE"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="?1+NUMTODSINTERVAL(?2,'MINUTE')"/>
     </FUNCTION>
     <FUNCTION name="ADDMONTHS" paramcount="2" value="">
@@ -115,6 +118,7 @@
 	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 MONTH"/>
 	  <INFO dbtype="OPENGAUSS" value="(?1 + ?2 * INTERVAL '1' MONTH)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(?1+ ?2 *  INTERVAL '1 month')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="?1+INTERVAL ?2 MONTH"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="?1+NUMTOYMINTERVAL(?2,'MONTH')"/>
     </FUNCTION>
     <FUNCTION name="ADDSECONDS" paramcount="2" value="">
@@ -139,6 +143,7 @@
 	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 SECOND"/>
 	  <INFO dbtype="OPENGAUSS" value="(?1 + INTERVAL '?2' SECOND)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value=" (?1+ ?2 * INTERVAL '1 second')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="?1+INTERVAL ?2 SECOND"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="?1+NUMTODSINTERVAL(?2,'SECOND')"/>
     </FUNCTION>
     <FUNCTION name="ADDYEARS" paramcount="2" value="">
@@ -163,6 +168,7 @@
 	  <INFO dbtype="OCEANBASE_MYSQL" value="?1+INTERVAL ?2 YEAR"/>
 	  <INFO dbtype="OPENGAUSS" value="(?1 + ?2 * INTERVAL '1' year)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(?1+ ?2 *INTERVAL '1 year')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="?1+INTERVAL ?2 YEAR"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="?1+NUMTOYMINTERVAL(?2,'YEAR')"/>
     </FUNCTION>
     <FUNCTION name="ASCII" paramcount="1" value="">
@@ -222,6 +228,7 @@
 	  <INFO dbtype="OCEANBASE_MYSQL" value=""/>
 	  <INFO dbtype="OPENGAUSS" value=""/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="CAST(?1 AS ?2)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value=""/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value=""/>
     </FUNCTION>
     <FUNCTION name="CEIL" paramcount="1" value="">
@@ -250,6 +257,7 @@
 	  <INFO dbtype="OCEANBASE_MYSQL" value="(CEILING(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
 	  <INFO dbtype="OPENGAUSS" value="(CEIL(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(CEIL(?1 * POWER(10,?2)) / POWER(10,?2))"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="(CEILING(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="(CEIL(?1 * POWER(10, ?2)) / POWER(10, ?2))"/>
     </FUNCTION>
     <FUNCTION name="CHR" paramcount="1" value="">
@@ -262,6 +270,7 @@
 	  <INFO dbtype="SNOWFLAKE" value="chr(?1)"/>
 	  <INFO dbtype="CLICKHOUSE" value="char(?1)"/>
 	  <INFO dbtype="DORIS" value="CHAR(?)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="CHAR(?)"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="CHAR(?)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="CHR(?1)"/>
     </FUNCTION>
@@ -285,6 +294,7 @@
 	  <INFO dbtype="OCEANBASE_MYSQL" value="CONCAT(IFNULL(NULLIF(?1,''),''),IFNULL(NULLIF(?2,''),''))"/>
 	  <INFO dbtype="OPENGAUSS" value="NVL(?1,'')|| NVL(?2,'')"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="NVL(?1,'')|| NVL(?2,'')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="CONCAT(IFNULL(NULLIF(?1,''),''),IFNULL(NULLIF(?2,''),''))"/>
     </FUNCTION>
 	<FUNCTION name="COS" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="cos(?1)"/>
@@ -330,6 +340,7 @@ END"/>
                 ELSE NULL    END     ELSE NULL    END"/>
 	 <INFO dbtype="OCEANBASE_MYSQL" value="STR_TO_DATE(CONCAT(?1,'-',?2,'-',?3),'%Y-%m-%d')"/>
 	 <INFO dbtype="OPENGAUSS" value="TO_CHAR(to_date(?1|| '-' ||?2|| '-' ||?3), 'YYYY-MM-DD')"/>
+	 <INFO dbtype="POLARDB_MYSQL" value="STR_TO_DATE(CONCAT(?1,'-',?2,'-',?3),'%Y-%m-%d')"/>
 	 <INFO dbtype="POLARDB_POSTGRESQL" value="(CASE    WHEN ?1 BETWEEN 1 AND 9999    AND ?2 BETWEEN 1 AND 12   AND ?3 BETWEEN 1 AND  CASE WHEN ?2 IN (4,6,9,11) THEN 30   WHEN ?2 = 2 THEN   CASE WHEN (?1 % 4 = 0 AND ?1 % 100 &lt;&gt; 0) OR ?1 % 400 = 0 THEN 29    ELSE 28 END    ELSE 31   END  THEN make_date(?1, ?2, ?3)  ELSE NULL  END)"/>
 	 	  <INFO dbtype="OCEANBASE_ORACLE" value="CASE
   WHEN ?2 BETWEEN 1 AND 12
@@ -378,6 +389,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d')"/>
 	  <INFO dbtype="OPENGAUSS" value="TO_CHAR(CAST(?1 AS DATE),'YYYY-MM-DD')"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="TO_DATE(?1, 'YYYY-MM-DD')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d')"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="TO_DATE(?1, 'YYYY-MM-DD HH24:MI:SS')"/>
     </FUNCTION>
 	<FUNCTION name="DATETOCHAR" paramcount="2" value="">
@@ -399,6 +411,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1,?2)"/>
 	  <INFO dbtype="OPENGAUSS" value="TO_CHAR(?1,?2)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="TO_CHAR(?1,?2)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="DATE_FORMAT(?1,?2)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="TO_CHAR(?1,?2)"/>
 	</FUNCTION>
     <FUNCTION name="DATETOCHAR" paramcount="1" value="TO_CHAR(?,'YYYY-MM-DD HH:MI:SS')">
@@ -424,6 +437,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d %H:%i:%S)"/>
 	  <INFO dbtype="OPENGAUSS" value="TO_CHAR(?,'YYYY-MM-DD HH24:MI:SS')"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="TO_CHAR(?1,'YYYY-MM-DD HH24:MI:SS')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="DATE_FORMAT(?,'%Y-%m-%d %H:%i:%S')"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value=""/>
     </FUNCTION>
     <FUNCTION name="DAY" paramcount="1" value="EXTRACT(DAY FROM ?)">
@@ -443,6 +457,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="EXTRACT(DAY FROM ?)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(DAY FROM ?1) AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="date_part('day',?1)::int"/>
+	  <INFO dbtype="POLARDB_MYSQL" value=""/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value=""/>
     </FUNCTION>
     <FUNCTION name="DAYOFYEAR" paramcount="1" value="">
@@ -484,6 +499,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="DAYOFWEEK(?1)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(ISODOW FROM ?)AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(EXTRACT(DOW FROM ?1) + 1)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="DAYOFWEEK(?1)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="MOD(TRUNC(CAST( ?1  AS DATE))- DATE '1900-01-07',7) + 1"/>
     </FUNCTION>
     <FUNCTION name="DECIMAL" paramcount="3" value="">
@@ -507,6 +523,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="CAST(?1 AS DECIMAL(?2,?3))"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(?1 AS DECIMAL(?2,?3))"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="CAST(?1 AS DECIMAL(?3,?2))"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="CAST(?1 AS DECIMAL(?2,?3))"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="CAST(?1 AS DECIMAL(?2,?3))"/>
     </FUNCTION>
     <FUNCTION name="DECIMAL" paramcount="2" value="">
@@ -557,6 +574,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="(FLOOR(?1 * POWER(10,?2))/POWER(10,?2))"/>
 	  <INFO dbtype="OPENGAUSS" value="(FLOOR(?1*POWER(10,?2))/POWER(10,?2))"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(FLOOR(?1 * POWER(10,?2)) / POWER(10, ?2))"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="(FLOOR(?1 * POWER(10,?2))/POWER(10,?2))"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="(FLOOR(?1*POWER(10,?2))/POWER(10,?2))"/>
 	</FUNCTION>
     <FUNCTION name="HOUR" paramcount="1" value="">
@@ -576,6 +594,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="EXTRACT(HOUR FROM ?)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(HOUR FROM ?1) AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="date_part('hour',?1)::int"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="EXTRACT(HOUR FROM ?)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="EXTRACT(HOUR FROM ?)"/>
     </FUNCTION>
     <FUNCTION name="INDEXOF" paramcount="3" value="">
@@ -600,6 +619,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="LOCATE(?2,?1,?3)"/>
 	  <INFO dbtype="OPENGAUSS" value="INSTR(?1,?2,?3)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(CASE  WHEN strpos(substring(?1 FROM ?3), ?2) > 0  THEN strpos(substring(?1 FROM ?3), ?2) + ?3 - 1  ELSE 0 END)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="LOCATE(?2,?1,?3)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="INSTR(?2,?1,?3)"/>
     </FUNCTION>
     <FUNCTION name="INDEXOF" paramcount="2" value="">
@@ -623,6 +643,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="LOCATE(?2,?1)"/>
 	  <INFO dbtype="OPENGAUSS" value="INSTR(?1,?2)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="strpos(?1,?2)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="LOCATE(?2,?1)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="INSTR(?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="INT" paramcount="1" value="">
@@ -645,6 +666,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="CAST(? AS SIGNED)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(? AS INT)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="CAST(?1 AS INT)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="CAST(? AS SIGNED)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="CAST(? AS INT)"/>
     </FUNCTION>
     <FUNCTION name="LEFT" paramcount="2" value="">
@@ -701,6 +723,7 @@ END"/>
 	   <INFO dbtype="OCEANBASE_MYSQL" value="CHAR_LENGTH(?)"/>
 	   <INFO dbtype="OPENGAUSS" value="CHAR_LENGTH(?)"/>
 	   <INFO dbtype="POLARDB_POSTGRESQL" value="length(?1)"/>
+	   <INFO dbtype="POLARDB_MYSQL" value="CHAR_LENGTH(?)"/>
 	   <INFO dbtype="OCEANBASE_ORACLE" value="LENGTH(?)"/>
     </FUNCTION>
     <FUNCTION name="LN" paramcount="1" value="">
@@ -758,6 +781,7 @@ END"/>
 	  <INFO dbtype="MYSQL" value="EXTRACT(MINUTE FROM ?)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(MINUTE FROM ?1) AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="date_part('minute',?1)::int"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="EXTRACT(MINUTE FROM ?)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="EXTRACT(MINUTE FROM ?)"/>
     </FUNCTION>
     <FUNCTION name="MOD" paramcount="2" value="">
@@ -771,6 +795,7 @@ END"/>
 	  <INFO dbtype="CLICKHOUSE" value="modulo(?1,?2)"/>
 	  <INFO dbtype="DORIS" value="MOD(?1,?2)"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="?1 % ?2"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="?1 % ?2"/>
     </FUNCTION>
     <FUNCTION name="MONTH" paramcount="1" value="">
       <INFO dbtype="ORACLE" value="EXTRACT(MONTH FROM ?)"/>
@@ -788,6 +813,7 @@ END"/>
 	  <INFO dbtype="MYSQL" value="EXTRACT(MONTH FROM ?)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(MONTH FROM ?1) AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="date_part('month',?1)::int"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="EXTRACT(MONTH FROM ?)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="EXTRACT(MONTH FROM ?)"/>
     </FUNCTION>
     <FUNCTION name="NOW" paramcount="0">
@@ -842,6 +868,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="CAST(? AS CHAR)"/>
 	  <INFO dbtype="OPENGAUSS" value="TO_CHAR(?)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="cast(?1 as text)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="CAST(? AS CHAR)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="TO_CHAR(?)"/>
     </FUNCTION>
 	<FUNCTION name="POWER" paramcount="2" value="">
@@ -869,6 +896,7 @@ END"/>
 	  <INFO dbtype="MYSQL" value="EXTRACT(QUARTER FROM ?)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(((EXTRACT(MONTH from ?1)+2)/3) as INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="date_part('quarter',?1)::int"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="EXTRACT(QUARTER FROM ?)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="FLOOR((EXTRACT(MONTH FROM ?)+2)/3)"/>
     </FUNCTION>
 	<FUNCTION name="RAND" paramcount="0" value="">
@@ -890,6 +918,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="RAND()"/>
 	  <INFO dbtype="OPENGAUSS" value="RANDOM()"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="random()"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="RAND()"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="DBMS_RANDOM.VALUE(0,1)"/>
     </FUNCTION>
     <FUNCTION name="RAND" paramcount="1" value="">
@@ -911,6 +940,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="CAST((rand() * ?1) AS SIGNED)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST((random()* ?1) AS INT)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(FLOOR(random() * ?1)::INT)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="CAST((rand() * ?1) AS SIGNED)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="CAST(DBMS_RANDOM.VALUE(0, ?) as INTEGER)"/>
     </FUNCTION>
     <FUNCTION name="REPLACE" paramcount="3" value="">
@@ -955,6 +985,7 @@ END"/>
 	  <INFO dbtype="MYSQL" value="EXTRACT(SECOND FROM ?)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(SECOND FROM ?1) AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="date_part('second',?1)::int"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="EXTRACT(SECOND FROM ?)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="EXTRACT(SECOND FROM ?)"/>
     </FUNCTION>
     <FUNCTION name="SIGN" paramcount="1" value="">
@@ -1031,6 +1062,7 @@ END"/>
     THEN LPAD(?1, 2, '0') || ':' || LPAD(?2, 2, '0') || ':' || LPAD(?3, 2, '0')     ELSE NULL END)"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="MAKETIME(?1,?2,?3)"/>
 		<INFO dbtype="OPENGAUSS" value="CAST(CONCAT(?1, ':', ?2, ':', ?3) AS TIME)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="MAKETIME(?1,?2,?3)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="(CASE    WHEN ?1 BETWEEN 0 AND 23      AND ?2 BETWEEN 0 AND 59      AND ?3 BETWEEN 0 AND 59    THEN make_time(?1, ?2, ?3)    ELSE NULL  END)"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="TO_CHAR(NUMTODSINTERVAL(?1 * 3600 + ?2 * 60 + ?3, 'SECOND'), 'HH24:MI:SS')"/>
 	</FUNCTION>
@@ -1056,6 +1088,7 @@ END"/>
 	  <INFO dbtype="KINGBASE" value="TO_CHAR(?1,'HH24:MI:SS')"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="CAST(? AS TIME)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(?1 as TIME)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="TIME(?)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="to_timestamp(?1, 'HH24:MI:SS')::time"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="TO_CHAR(TO_DATE(?1,'HH24:MI:SS'),'HH24:MI:SS')"/>
 	</FUNCTION>	
@@ -1076,6 +1109,7 @@ END"/>
 	  <INFO dbtype="KINGBASE" value="TO_TIMESTAMP(TO_CHAR(?1, 'YYYY-MM-DD') || ' ' || TO_CHAR(?2,'HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS')"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="STR_TO_DATE(CONCAT(?1,' ',?2), '%Y-%m-%d %H:%i:%s')"/>
 	  <INFO dbtype="OPENGAUSS" value="(?1+?2)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="STR_TO_DATE(CONCAT(?1,' ',?2), '%Y-%m-%d %H:%i:%s')"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(?1+?2)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="TO_DATE(TO_CHAR(?1,'YYYY-MM-DD') || ' ' || ?2,'YYYY-MM-DD HH24:MI:SS')"/>
 	</FUNCTION>
@@ -1105,6 +1139,7 @@ END"/>
 	  <INFO dbtype="KINGBASE" value="TO_TIMESTAMP(?1,'YYYY-MM-DD HH24:MI:SS')"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="STR_TO_DATE(?,'%Y-%m-%d %H:%i:%s')"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(? as TIMESTAMP)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="STR_TO_DATE(?,'%Y-%m-%d %H:%i:%s')"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="TO_TIMESTAMP(?1,'YYYY-MM-DD HH24:MI:SS')"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="TO_TIMESTAMP(?,'YYYY-MM-DD HH24:MI:SS.FF')"/>
     </FUNCTION>
@@ -1129,6 +1164,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="CURDATE()"/>
 	  <INFO dbtype="OPENGAUSS" value="CURRENT_DATE"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="current_date"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="CURDATE()"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="TO_CHAR(CURRENT_DATE,'YYYY-MM-DD')"/>
     </FUNCTION>
     <FUNCTION name="TRIM" paramcount="1" value="">
@@ -1151,6 +1187,7 @@ END"/>
 	  <INFO dbtype="SNOWFLAKE" value="trunc(?1,?2)"/>
 	  <INFO dbtype="DORIS" value="trunc(?1,?2)"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="TRUNCATE(?1,?2)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="TRUNCATE(?1,?2)"/>
     </FUNCTION>
 	<FUNCTION name="UPPER" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="upper(?1)"/>
@@ -1180,6 +1217,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="WEEK(?)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(WEEK FROM ?)AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="date_part('week',?1)::int"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="WEEK(?)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="TO_NUMBER(TO_CHAR(?,'WW'))"/>
     </FUNCTION>
     <FUNCTION name="YEAR" paramcount="1" value="">
@@ -1199,6 +1237,7 @@ END"/>
 	  <INFO dbtype="MYSQL" value="EXTRACT(YEAR FROM ?)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(YEAR FROM ?1) AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="date_part('year',?1)::int"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="EXTRACT(YEAR FROM ?)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="EXTRACT(YEAR FROM ?)"/>
     </FUNCTION>
 
@@ -1217,6 +1256,7 @@ END"/>
 	  <INFO dbtype="MYSQL" value="IF(date(?1) IS NOT NULL,DATE_ADD(?1, INTERVAL ?2 DAY), ?1 + ?2)"/>
 	  <INFO dbtype="OPENGAUSS" value="N/A"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="N/A"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="IF(date(?1) IS NOT NULL,DATE_ADD(?1, INTERVAL ?2 DAY), ?1 + ?2)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="N/A"/>
 	</FUNCTION>
 	<FUNCTION name="SUBX" paramcount="2" value="">
@@ -1235,6 +1275,7 @@ END"/>
 	  <INFO dbtype="MYSQL" value="IF(date(?1) IS NOT NULL,DATE_ADD(?1, INTERVAL -?2 DAY), ?1 - ?2)"/>
 	  <INFO dbtype="OPENGAUSS" value="N/A"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="N/A"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="IF(date(?1) IS NOT NULL,DATE_ADD(?1, INTERVAL -?2 DAY), ?1 - ?2)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="N/A"/>
 	</FUNCTION>
 	<FUNCTION name="CMPX" paramcount="2" value="">
@@ -1252,6 +1293,7 @@ END"/>
 	  <INFO dbtype="MYSQL" value="N/A"/>
 	  <INFO dbtype="OPENGAUSS" value="N/A"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="N/A"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="N/A"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="N/A"/>
 	</FUNCTION>
     <FUNCTION name="itx" paramcount="1" value="">
@@ -1268,6 +1310,7 @@ END"/>
 		<INFO dbtype="MYSQL" value="N/A"/>
 		<INFO dbtype="OPENGAUSS" value="N/A"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="N/A"/>
+		<INFO dbtype="POLARDB_MYSQL" value="N/A"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="N/A"/>
 	</FUNCTION>
 	<FUNCTION name="itx" paramcount="2" value="">
@@ -1285,6 +1328,7 @@ END"/>
 		<INFO dbtype="MYSQL" value="N/A"/>
 		<INFO dbtype="OPENGAUSS" value="N/A"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="N/A"/>
+		<INFO dbtype="POLARDB_MYSQL" value="N/A"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="N/A"/>
 	</FUNCTION>
 
@@ -1307,6 +1351,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="?1 REGEXP '^[0-9]+$'"/>
 	  <INFO dbtype="OPENGAUSS" value="REGEXP_LIKE(?1, '^[0-9]+$')"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(?1 ~ '^\d+$')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="?1 REGEXP '^[0-9]+$'"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="CASE WHEN REGEXP_LIKE(?1, '^[0-9]+$') THEN 1 ELSE 0 END"/>
 	</FUNCTION>
 	<FUNCTION name="isalpha" paramcount="1" value="">
@@ -1328,6 +1373,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="?1 REGEXP '^[a-zA-Z]+$'"/>
 	  <INFO dbtype="OPENGAUSS" value="REGEXP_LIKE(?1, '^[A-Za-z]+$')"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(?1 ~ '^[a-zA-Z]+$')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="?1 REGEXP '^[a-zA-Z]+$'"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="CASE WHEN REGEXP_LIKE(?1, '^[A-Za-z]+$') THEN 1 ELSE 0 END"/>
 	</FUNCTION>
 	<FUNCTION name="getsubs" paramcount="2" value="">
@@ -1348,12 +1394,13 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="SUBSTRING(?1,LOCATE(?2, ?1) + CHAR_LENGTH(?2))"/>
 	  <INFO dbtype="OPENGAUSS" value="CASE  WHEN INSTR(?1,?2) > 0 THEN  SUBSTR(?1,INSTR(?1,?2) + LENGTH(?2))  ELSE  NULL  END"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="substr(?1, strpos(?1, ?2) + length(?2))"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="SUBSTRING(?1,LOCATE(?2, ?1) + CHAR_LENGTH(?2))"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="CASE  WHEN INSTR(?1,?2) > 0 THEN  SUBSTR(?1,INSTR(?1,?2) + LENGTH(?2))  ELSE  NULL  END"/>
 	</FUNCTION>
 	<FUNCTION name="getsubs" paramcount="3" value="">
       <INFO dbtype="ESPROC" value="substr(?1,?2,?3)"/>
 	  <INFO dbtype="ORACLE" value="CASE  WHEN INSTR(?1,?2,1,?3) > 0 THEN   SUBSTR(?1,INSTR(?1,?2,1,?3) + LENGTH(?2))  ELSE    NULL END"/>
-	  <INFO dbtype="MYSQL" value="CASE WHEN (LENGTH(?1) - LENGTH(REPLACE(?1, ?2, ''))) / LENGTH(?2) >= ?3 THEN SUBSTRING(?1,LENGTH(SUBSTRING_INDEX(?1, ?2, 1)) + LENGTH(?2) + ?3) ELSE NULL END"/>
+	  <INFO dbtype="MYSQL" value="CASE WHEN (LENGTH(?1) - LENGTH(REPLACE(?1, ?2, ''))) / LENGTH(?2) >= ?3 THEN SUBSTRING(?1,LENGTH(SUBSTRING_INDEX(?1, ?2, 1)) + LENGTH(?2) + ?3-1) ELSE NULL END"/>
 	  <INFO dbtype="BIGQUERY" value="CASE WHEN INSTR(?1,?2,INSTR(?1,?2)+?3-1) &gt; 0 THEN SUBSTR(?1,INSTR(?1,?2,INSTR(?1,?2)+?3-1)+LENGTH(?2)) ELSE NULL END"/>
 	  <INFO dbtype="POSTGRES" value="CASE WHEN regexp_instr(?1,?2,1,?3) &gt; 0 THEN substring(?1,regexp_instr(?1,?2,1,?3) + length(?2)) ELSE NULL END"/>
 	  <INFO dbtype="SNOWFLAKE" value="regexp_substr(?1, '^(?:.*?' || ?2 || '){' || ?3 || '}(.*)$', 1, 1, 'e', 1)"/>
@@ -1366,6 +1413,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="CASE WHEN (LENGTH(?1) - LENGTH(REPLACE(?1, ?2, ''))) / LENGTH(?2) >= ?3 THEN SUBSTRING(?1,LENGTH(SUBSTRING_INDEX(?1, ?2, 1)) + LENGTH(?2) + ?3) ELSE NULL END"/>
 	  <INFO dbtype="OPENGAUSS" value="CASE  WHEN INSTR(?1,?2,1,?3) > 0 THEN   SUBSTR(?1,INSTR(?1,?2,1,?3) + LENGTH(?2))  ELSE    NULL END"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(CASE WHEN array_length(string_to_array(?1,?2), 1) > ?3 THEN array_to_string( (string_to_array(?1,?2))[(?3+1):array_length(string_to_array(?1, ?2), 1)], ?2)  ELSE NULL  END)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="CASE WHEN (LENGTH(?1) - LENGTH(REPLACE(?1, ?2, ''))) / LENGTH(?2) >= ?3 THEN SUBSTRING(?1,LENGTH(SUBSTRING_INDEX(?1, ?2, 1)) + LENGTH(?2) + ?3-1) ELSE NULL END"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="CASE  WHEN INSTR(?1,?2,1,?3) > 0 THEN   SUBSTR(?1,INSTR(?1,?2,1,?3) + LENGTH(?2))  ELSE    NULL END"/>
     </FUNCTION>
 	<FUNCTION name="ipos" paramcount="2" value="">
@@ -1387,6 +1435,7 @@ END"/>
 	   <INFO dbtype="OCEANBASE_MYSQL" value="INSTR(?1,?2)"/>
 	   <INFO dbtype="OPENGAUSS" value="INSTR(UPPER(?1),UPPER(?2))"/>
 	   <INFO dbtype="POLARDB_POSTGRESQL" value="strpos(lower(?1), lower(?2))"/>
+	   <INFO dbtype="POLARDB_MYSQL" value="INSTR(?1,?2)"/>
 	   <INFO dbtype="OCEANBASE_ORACLE" value="INSTR(UPPER(?1),UPPER(?2))"/>
 	</FUNCTION>
 	<FUNCTION name="ipos" paramcount="3" value="">
@@ -1408,6 +1457,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="IF(INSTR(SUBSTRING(?1,?3),?2) > 0, INSTR(SUBSTRING(?1,?3),?2)+?3-1,null)"/>
 	  <INFO dbtype="OPENGAUSS" value="INSTR(UPPER(?1),UPPER(?2),1,?3)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(CASE  WHEN strpos(lower(substring(?1 FROM ?3)), lower(?2)) > 0  THEN strpos(lower(substring(?1 FROM ?3)), lower(?2)) + ?3 - 1  ELSE 0 END)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="IF(INSTR(SUBSTRING(?1,?3),?2) > 0, INSTR(SUBSTRING(?1,?3),?2)+?3-1,null)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="INSTR(UPPER(?1),UPPER(?2),1,?3)"/>
 	</FUNCTION>
 	<FUNCTION name="igetsubs" paramcount="2" value="">
@@ -1429,6 +1479,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="CASE WHEN LOCATE(?2,?1) > 0 THEN SUBSTRING(?1, LOCATE(?2, ?1) + CHAR_LENGTH(?2)) ELSE NULL END"/>
 		<INFO dbtype="OPENGAUSS" value="CASE  WHEN INSTR(UPPER(?1),UPPER(?2)) > 0 THEN   SUBSTR(?1,INSTR(UPPER(?1),UPPER(?2)) + LENGTH(?2))  ELSE  NULL END"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="substr(?1,strpos(lower(?1),lower(?2)) + length(?2))"/>
+		<INFO dbtype="POLARDB_MYSQL" value="CASE WHEN LOCATE(?2,?1) > 0 THEN SUBSTRING(?1, LOCATE(?2, ?1) + CHAR_LENGTH(?2)) ELSE NULL END"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="CASE  WHEN INSTR(UPPER(?1),UPPER(?2)) > 0 THEN   SUBSTR(?1,INSTR(UPPER(?1),UPPER(?2)) + LENGTH(?2))  ELSE  NULL END"/>
 	</FUNCTION>
 	<FUNCTION name="igetsubs" paramcount="3" value="">
@@ -1449,6 +1500,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="CASE WHEN REGEXP_INSTR(?1,?2,1,?3,0,'i') > 0 THEN SUBSTRING(?1,REGEXP_INSTR(?1,?2,1,?3,1,'i')) ELSE NULL END"/>
 	  <INFO dbtype="OPENGAUSS" value="CASE  WHEN INSTR(UPPER(?1),UPPER(?2),1,NVL(?3,1)) > 0 THEN  SUBSTR(?1,INSTR(UPPER(?1),UPPER(?2),1,NVL(?3,1)) + LENGTH(?2))  ELSE  NULL END"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="(CASE WHEN array_length(string_to_array(lower(?1), lower(?2)),1) > ?3 THEN array_to_string( (string_to_array(lower(?1),lower(?2)))[(?3+1):array_length(string_to_array(lower(?1), lower(?2)), 1)],?2)  ELSE NULL  END)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="CASE WHEN LOCATE(?2, LOWER(?1),LOCATE(?2, LOWER(?1)) + ?3-1) > 0 THEN SUBSTRING(?1,LOCATE(?2, LOWER(?1),LOCATE(?2, LOWER(?1)) + ?3-1) + ?3+1) ELSE NULL END"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="CASE  WHEN INSTR(UPPER(?1),UPPER(?2),1,NVL(?3,1)) > 0 THEN  SUBSTR(?1,INSTR(UPPER(?1),UPPER(?2),1,NVL(?3,1)) + LENGTH(?2))  ELSE  NULL END"/>
 	</FUNCTION>
 
@@ -1471,6 +1523,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(YEAR,?1,?2)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(YEAR FROM AGE(?2,?1)) AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="abs(EXTRACT(YEAR FROM age(?1,?2)))"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="TIMESTAMPDIFF(YEAR,?1,?2)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="FLOOR(MONTHS_BETWEEN(?2,?1)/12)"/>
     </FUNCTION>
     <FUNCTION name="MONTHSDIFF" paramcount="2" value="">
@@ -1492,6 +1545,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(MONTH,?1,?2)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(YEAR FROM age(?2, ?1)) * 12 + EXTRACT(MONTH FROM age(?2, ?1)) AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="abs(EXTRACT(YEAR FROM age(?1,?2))*12+EXTRACT(MONTH FROM age(?1,?2)))"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="TIMESTAMPDIFF(MONTH,?1,?2)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="MONTHS_BETWEEN(?2,?1)"/>
     </FUNCTION>
     <FUNCTION name="DAYSDIFF" paramcount="2" value="">
@@ -1513,6 +1567,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(DAY,?1,?2)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST((EXTRACT(DAY FROM (?2-?1))) AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="ceil(abs(EXTRACT(EPOCH FROM (?1 - ?2))) / 86400)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="TIMESTAMPDIFF(DAY,?1,?2)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="(ceil(CAST(?2 AS DATE) - CAST(?1 AS DATE)))"/>
     </FUNCTION>
     <FUNCTION name="HOURSDIFF" paramcount="2" value="">
@@ -1534,6 +1589,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(HOUR,?1,?2)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST((EXTRACT(EPOCH FROM (?2 - ?1)) / 3600) AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="trunc(abs(EXTRACT(EPOCH FROM (?1 - ?2))) / 3600)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="TIMESTAMPDIFF(HOUR,?1,?2)"/>
 	   <INFO dbtype="OCEANBASE_ORACLE" value="((CAST(?2 AS DATE)-CAST(?1 AS DATE))*24)"/>
     </FUNCTION>
     <FUNCTION name="MINUTESDIFF" paramcount="2" value="">
@@ -1555,6 +1611,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(MINUTE,?1,?2)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST((EXTRACT(EPOCH FROM (?2 - ?1)) / 60)AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="trunc(abs(EXTRACT(EPOCH FROM (?1 - ?2))) / 60)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="TIMESTAMPDIFF(MINUTE,?1,?2)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="((CAST(?2 AS DATE)-CAST(?1 AS DATE))*24*60)"/>
     </FUNCTION>
     <FUNCTION name="SECONDSDIFF" paramcount="2" value="">
@@ -1576,6 +1633,7 @@ END"/>
 	  <INFO dbtype="OCEANBASE_MYSQL" value="TIMESTAMPDIFF(SECOND,?1,?2)"/>
 	  <INFO dbtype="OPENGAUSS" value="CAST((EXTRACT(EPOCH FROM (?2 - ?1)))AS INTEGER)"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="trunc(abs(EXTRACT(EPOCH FROM (?1 - ?2))))"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="TIMESTAMPDIFF(SECOND,?1,?2)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="((CAST(?2 AS DATE)-CAST(?1 AS DATE))*24*60 *60)"/>
     </FUNCTION>
       <FUNCTION name="TRUNCHOUR" paramcount="1" value="">
@@ -1597,6 +1655,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1,'%Y-%m-%d %H:00:00')"/>
 		<INFO dbtype="OPENGAUSS" value="date_trunc('hour',?1)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="date_trunc('hour',?1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="DATE_FORMAT(?1,'%Y-%m-%d %H:00:00')"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="TRUNC(?1,'HH24')"/>
       </FUNCTION>
       <FUNCTION name="TRUNCMINUTE" paramcount="1" value="">
@@ -1618,6 +1677,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1,'%Y-%m-%d %H:%i:00')"/>
 		<INFO dbtype="OPENGAUSS" value="date_trunc('minute',?1)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="date_trunc('minute',?1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="DATE_FORMAT(?1,'%Y-%m-%d %H:%i:00')"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="TRUNC(?1,'MI')"/>
       </FUNCTION>
       <FUNCTION name="TRUNCSECOND" paramcount="1" value="">
@@ -1639,6 +1699,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="CAST(?1 AS DATETIME)"/>
 		<INFO dbtype="OPENGAUSS" value="date_trunc('second',?1)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="date_trunc('second',?1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="CAST(?1 AS DATETIME)"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="CAST(?1 AS DATE)"/>
       </FUNCTION>
 	  <FUNCTION name="MONTHSTART" paramcount="1" value="">
@@ -1660,6 +1721,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1, '%Y-%m-01')"/>
 		<INFO dbtype="OPENGAUSS" value="DATE_TRUNC('month', ?1)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="date_trunc('month',?1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="DATE_FORMAT(?1, '%Y-%m-01')"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="TRUNC(?1,'MM')"/>
 	  </FUNCTION>
 	  <FUNCTION name="MONTHEND" paramcount="1" value="">
@@ -1681,6 +1743,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="LAST_DAY(?1)"/>
 		<INFO dbtype="OPENGAUSS" value="(DATE_TRUNC('month', ?1) + INTERVAL '1' month - INTERVAL '1' day)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="(date_trunc('month',?1) + INTERVAL '1 month' - INTERVAL '1 day')"/>
+		<INFO dbtype="POLARDB_MYSQL" value="LAST_DAY(?1)"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="LAST_DAY(?1)"/>
 	  </FUNCTION>
 	  <FUNCTION name="WEEKSTART" paramcount="1" value="">
@@ -1702,6 +1765,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_SUB(?1, INTERVAL WEEKDAY(?1) DAY)"/>
 		<INFO dbtype="OPENGAUSS" value="date_trunc('week', ?1)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="date_trunc('week',?1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="DATE_SUB(?1, INTERVAL WEEKDAY(?1) DAY)"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="TRUNC(?1,'IW')"/>
 	  </FUNCTION>
 	  <FUNCTION name="WEEKEND" paramcount="1" value="">
@@ -1723,6 +1787,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_ADD(?1, INTERVAL (6 - WEEKDAY(?1)) DAY)"/>
 		<INFO dbtype="OPENGAUSS" value="(date_trunc('week',?1) + INTERVAL '6' day)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="(date_trunc('week',?1) + INTERVAL '6 days')"/>
+		<INFO dbtype="POLARDB_MYSQL" value="DATE_ADD(?1, INTERVAL (6 - WEEKDAY(?1)) DAY)"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="(TRUNC(?1,'IW')+6)"/>
 	  </FUNCTION>
 	  <FUNCTION name="QUARTERSTART" paramcount="1" value="">
@@ -1744,6 +1809,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_ADD(MAKEDATE(YEAR(?), 1), INTERVAL (QUARTER(?) - 1) * 3 MONTH)"/>
 		<INFO dbtype="OPENGAUSS" value="date_trunc('quarter', ?1)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="date_trunc('quarter',?1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="DATE_ADD(MAKEDATE(YEAR(?1), 1),INTERVAL (QUARTER(?1) - 1) QUARTER)"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="TRUNC(?1,'Q')"/>
 	  </FUNCTION>
 	  <FUNCTION name="QUARTEREND" paramcount="1" value="">
@@ -1765,6 +1831,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="LAST_DAY(MAKEDATE(YEAR(?1), 1) + INTERVAL (QUARTER(?1) * 3 - 1) MONTH)"/>
 		<INFO dbtype="OPENGAUSS" value="(DATE_TRUNC('quarter', ?1) + INTERVAL '3' month - INTERVAL '1' day)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="(date_trunc('quarter',?1) + INTERVAL '3 months' - INTERVAL '1 day')"/>
+		<INFO dbtype="POLARDB_MYSQL" value="LAST_DAY(MAKEDATE(YEAR(?1), 1) + INTERVAL (QUARTER(?1) * 3 - 1) MONTH)"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="(ADD_MONTHS(TRUNC(?1,'Q'),3)-1)"/>	
 	  </FUNCTION>
 	  <FUNCTION name="YEARSTART" paramcount="1" value="">
@@ -1786,6 +1853,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1,'%Y-01-01')"/>
 		<INFO dbtype="OPENGAUSS" value="(?1 - (EXTRACT(DOY FROM ?1) - 1) * INTERVAL '1' DAY)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="date_trunc('year',?1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="DATE_FORMAT(?1,'%Y-01-01')"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="TRUNC(?1,'YYYY')"/>
 	  </FUNCTION>
 	  <FUNCTION name="YEAREND" paramcount="1" value="">
@@ -1807,6 +1875,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="DATE_FORMAT(?1,'%Y-12-31')"/>
 		<INFO dbtype="OPENGAUSS" value="((?1 - (EXTRACT(DOY FROM ?1) - 1) * INTERVAL '1' DAY) + INTERVAL '1' YEAR - INTERVAL '1' DAY)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="(date_trunc('year',?1) + INTERVAL '1 year' - INTERVAL '1 day')"/>
+		<INFO dbtype="POLARDB_MYSQL" value="DATE_FORMAT(?1,'%Y-12-31')"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="(ADD_MONTHS(TRUNC(?1,'Q'),12)-1)"/>
 	  </FUNCTION>
 	  <FUNCTION name="MONTHDAYS" paramcount="1" value="">
@@ -1828,6 +1897,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="day(last_day(DATE_FORMAT(?1,'%Y-%m-%d')))"/>
 		<INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(DAY FROM DATE_TRUNC('month', ?1) + INTERVAL '1' month - INTERVAL '1' day)AS INTEGER)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="((date_trunc('month',?1) + INTERVAL '1 month' - INTERVAL '1 day')::date - date_trunc('month',?1)::date + 1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="day(last_day(DATE_FORMAT(?1,'%Y-%m-%d')))"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="(LAST_DAY(?1)-TRUNC(?1,'MM')+1)"/>
 	  </FUNCTION>
 	  <FUNCTION name="QUARTERDAYS" paramcount="1" value="">
@@ -1849,6 +1919,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="(DATEDIFF(MAKEDATE(YEAR (?1), 1 ) + INTERVAL QUARTER (?1) * 3 MONTH - INTERVAL 1 DAY,MAKEDATE(YEAR (?1), 1 ) + INTERVAL (QUARTER (?1) - 1 ) * 3 MONTH) + 1)"/>
 		<INFO dbtype="OPENGAUSS" value="CAST((EXTRACT(DAY FROM (date_trunc('quarter', ?1) + INTERVAL '3 months' - INTERVAL '1 day' - date_trunc('quarter', ?1))) + 1) AS INTEGER)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="((date_trunc('quarter',?1) + INTERVAL '3 months' - INTERVAL '1 day')::date - date_trunc('quarter',?1)::date + 1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="(DATEDIFF(LAST_DAY(STR_TO_DATE(CONCAT(YEAR(?1), '-', QUARTER(?1) * 3, '-01'), '%Y-%m-%d')),STR_TO_DATE(CONCAT(YEAR(?1), '-', (QUARTER(?1) - 1) * 3 + 1, '-01'), '%Y-%m-%d')) + 1)"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="(ADD_MONTHS(TRUNC(?1,'Q'),3)-TRUNC(?1,'Q'))"/>	
 	  </FUNCTION>
 	  <FUNCTION name="YEARDAYS" paramcount="1" value="">
@@ -1870,6 +1941,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="DAYOFYEAR(CONCAT(YEAR(?1), '-12-31'))"/>
 		<INFO dbtype="OPENGAUSS" value="CAST(EXTRACT(DOY FROM DATE_TRUNC( 'year', ?1) + INTERVAL '1' year - INTERVAL '1' day )AS INTEGER)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="((date_trunc('year',?1) + INTERVAL '1 year' - INTERVAL '1 day')::date - date_trunc('year', ?1)::date + 1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="DAYOFYEAR(CONCAT(YEAR(?1), '-12-31'))"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="(ADD_MONTHS(TRUNC(?1,'YYYY'),12)-TRUNC(?1,'YYYY'))"/>	
 	  </FUNCTION>
 	  <FUNCTION name="STRING" paramcount="1" value="">
@@ -1891,6 +1963,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="CAST(? AS CHAR)"/>
 		<INFO dbtype="OPENGAUSS" value="TO_CHAR(?1)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="cast(?1 as text)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="CAST(? AS CHAR)"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="TO_CHAR(?1)"/>
 		</FUNCTION>
 	  <FUNCTION name="STRING" paramcount="2" value="">
@@ -1933,6 +2006,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="N/A"/>
 		<INFO dbtype="OPENGAUSS" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="TO_CHAR(?1,?2)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="N/A"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="TO_CHAR(?1,?2)"/>
 	  </FUNCTION>
 	 <FUNCTION name="STRING" paramcount="3" value="">
@@ -1952,6 +2026,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="N/A"/>
 		<INFO dbtype="OPENGAUSS" value="N/A"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="N/A"/>
+		<INFO dbtype="POLARDB_MYSQL" value="N/A"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="N/A"/>
 	  </FUNCTION>
 	 <FUNCTION name="PI" paramcount="0" value="">
@@ -1967,6 +2042,7 @@ END"/>
 		<INFO dbtype="DORIS" value="PI()"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="PI()"/>
 		<INFO dbtype="OCEANBASE_ORACLE" value="ACOS(-1)"/>
+		<INFO dbtype="POLARDB_MYSQL" value="pi()"/>
 	  </FUNCTION>
 	 <FUNCTION name="CHN" paramcount="1" value="">
         <INFO dbtype="ORACLE" value="N/A"/>
@@ -1984,9 +2060,55 @@ END"/>
 		<INFO dbtype="KINGBASE" value="TRANSLATE(?1,'0123456789','零一二三四五六七八九')"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" value="translate(?1::text, '0123456789', '零一二三四五六七八九')"/>
+		<INFO dbtype="POLARDB_MYSQL" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
 		 <INFO dbtype="OCEANBASE_ORACLE" value="N/A"/>
 	  </FUNCTION>	  
-  
+	<FUNCTION name="gconcat" paramcount="2" value="">
+      <INFO dbtype="ESPROC" value="gconcat(?1,?2)"/>
+	  <INFO dbtype="ORACLE" value="LISTAGG(?1,?2)"/>
+	  <INFO dbtype="SNOWFLAKE" value="LISTAGG(?1,?2)"/>
+	  <INFO dbtype="DUCKDB" value="group_concat(?1,?2)"/>
+	  <INFO dbtype="CLICKHOUSE" value="arrayStringConcat(groupArray(?1),?2)"/>
+	  <INFO dbtype="KINGBASE" value="LISTAGG(?1,?2)"/>
+	  <INFO dbtype="POLARDB_POSTGRESQL" value="STRING_AGG(?1::text,?2)"/>
+	  <INFO dbtype="HSQL" value="group_concat(?1 SEPARATOR ?2)"/>
+	  <INFO dbtype="SPARKSQL" value="group_concat(?1,?2)"/>
+	  <INFO dbtype="MYSQL" value="GROUP_CONCAT(?1 SEPARATOR ?2)"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="GROUP_CONCAT(?1 SEPARATOR ?2)"/>
+	</FUNCTION>
+	<FUNCTION name="gconcat" paramcount="1" value="">
+      <INFO dbtype="ESPROC" value="gconcat(?1,'')"/>
+	  <INFO dbtype="ORACLE" value="LISTAGG(?1,'')"/>
+	  <INFO dbtype="SNOWFLAKE" value="LISTAGG(?1,'')"/>
+	  <INFO dbtype="DUCKDB" value="group_concat(?1,'')"/>
+	  <INFO dbtype="CLICKHOUSE" value="arrayStringConcat(groupArray(?1),'')"/>
+	  <INFO dbtype="KINGBASE" value="LISTAGG(?1,'')"/>
+	  <INFO dbtype="POLARDB_POSTGRESQL" value="STRING_AGG(?1::text,'')"/>
+	  <INFO dbtype="HSQL" value="group_concat(?1 SEPARATOR '')"/>
+	  <INFO dbtype="SPARKSQL" value="group_concat(?1,'')"/>
+	  <INFO dbtype="MYSQL" value="group_concat(?1,'')"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="group_concat(?1,'')"/>
+	</FUNCTION>
+	<FUNCTION name="split" paramcount="3" value="">
+      <INFO dbtype="ESPROC" value="?1.split(?2)(?3)"/>
+	  <INFO dbtype="ORACLE" value="REGEXP_SUBSTR(?1,'[^'||?2||']+',1,?3)"/>
+	  <INFO dbtype="SNOWFLAKE" value="SPLIT_PART(?1,?2,?3)"/>
+	  <INFO dbtype="DUCKDB" value="split_part(?1,?2,?3)"/>
+	  <INFO dbtype="CLICKHOUSE" value="splitByString(?2,?1)[?3]"/>
+	  <INFO dbtype="KINGBASE" value="split_part(?1,?2,?3)"/>
+	  <INFO dbtype="POLARDB_POSTGRESQL" value="split_part(?1,?2,?3)"/>
+	  <INFO dbtype="SPARKSQL" value="split_part(?1,?2,?3)"/>
+	  <INFO dbtype="MYSQL" value="SUBSTRING_INDEX(SUBSTRING_INDEX(?1,?2,?3),?2,-1)"/>
+	  <INFO dbtype="HSQL" value="VALUES (REGEXP_SUBSTRING_ARRAY(?1,'[^'||?2||']+'))[?2]"/>
+	  <INFO dbtype="PostgreSQL" value="SPLIT_PART(?1,?2,?3)"/>
+	  <INFO dbtype="HIVE" value="SPLIT(?1,?2)[?3-1]"/>
+	  <INFO dbtype="POLARDB_MYSQL" value="SUBSTRING_INDEX(SUBSTRING_INDEX(?1,?2,?3),?2,-1)"/>
+	  <INFO dbtype="OCEANBASE_ORACLE" value="REGEXP_SUBSTR(?1,'[^'||?2||']+',1,?3)"/>
+	  <INFO dbtype="OCEANBASE_MYSQL" value="SUBSTRING_INDEX(SUBSTRING_INDEX(?1,?2,?3),?2,-1)"/>
+	  <INFO dbtype="DORIS" value="SPLIT_PART(?1,?2,?3)"/>
+	  <INFO dbtype="BIGQUERY" value="SPLIT(?1,?2)[SAFE_ORDINAL(?3)]"/>
+	</FUNCTION>
+
   </FUNCTIONS>
   <FUNCTIONS type="AnyParam">
    <FUNCTION name="TIMESTAMP">
@@ -2004,6 +2126,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss","yyyy","MM","dd","YYYY","DD"], ["%H","%i","%s","%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
 		<INFO dbtype="OPENGAUSS" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
 		<INFO dbtype="POLARDB_POSTGRESQL" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
+		<INFO dbtype="POLARDB_MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss","yyyy","MM","dd","YYYY","DD"], ["%H","%i","%s","%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
 		<INFO dbtype="OCEANBASE_ORACLE" script='"TO_TIMESTAMP(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")"'/>
 	</FUNCTION>
 	  <FUNCTION name="TIME">
@@ -2020,6 +2143,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss"], ["%H","%i","%s"])].concat@c() +")"'/>
 		<INFO dbtype="OPENGAUSS" script='"TO_CHAR(CAST(" + [?(1)].concat@c()+" AS TIME),"+ replace(?(2), ["HH","mm"], ["HH24","MI"])+")"'/>
 		<INFO dbtype="POLARDB_POSTGRESQL" script='"to_timestamp(" + [?(1), replace(?(2),["HH","mm"], ["HH24","MI"])].concat@c() +")::time"'/>
+		<INFO dbtype="POLARDB_MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["HH","mm","ss"], ["%H","%i","%s"])].concat@c() +")"'/>
 		<INFO dbtype="OCEANBASE_ORACLE" script='"TO_CHAR(TO_TIMESTAMP(" + [?(1), replace(?(2), ["HH","mm"], ["HH24","MI"])].concat@c()+"),"+ replace(?(2), ["HH","mm"], ["HH24","MI"])+")"'/>
 	</FUNCTION>
 	<FUNCTION name="DATE">
@@ -2030,6 +2154,7 @@ END"/>
 		<INFO dbtype="CLICKHOUSE" script='"parseDateTime(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")::Date"'/>
 		<INFO dbtype="DORIS" script='"STR_TO_DATE(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
 		<INFO dbtype="DAMENG" script='"TO_CHAR(TO_DATE(" + [?(1)].concat@c()+","+replace(?(2), ["yyyy","dd"], ["YYYY","DD"])+"),&apos;YYYY-MM-DD&apos;)"'/>
+		<INFO dbtype="POLARDB_MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
 		<INFO dbtype="OCEANBASE_MYSQL" script='"STR_TO_DATE(" + [?(1), replace(?(2),["yyyy","MM","dd","YYYY","DD"], ["%Y","%m","%d","%Y","%d"])].concat@c() +")"'/>
 	</FUNCTION>
 	
@@ -2067,6 +2192,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
 		<INFO dbtype="OPENGAUSS" script=' ?.(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;) '/>
 		<INFO dbtype="OCEANBASE_ORACLE" script=' ?.(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;) '/>
+		<INFO dbtype="POLARDB_MYSQL" script=' "concat_ws(&apos;&apos;,"+ ?.concat@c()+")"'/>
 	</FUNCTION>
 	<FUNCTION  name="concat_ws">
     	<INFO dbtype="ESPROC" script=' mid(?.concat(?(1)),len(?(1))+2 ) '/>
@@ -2084,6 +2210,7 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" script=' "concat_ws("+?.concat@c() +")"'/>
 		<INFO dbtype="OPENGAUSS" script=' "concat_ws("+?.concat@c() +")"'/>
 		<INFO dbtype="OCEANBASE_ORACLE" script=' ?(to(2,?.len())).(&quot;COALESCE(NULLIF(&quot; + ~ + &quot;,&apos;&apos;),&apos;&apos;)&quot; ).concat(&quot;||&quot;+?(1)+&quot;||&quot;)'/>
+		<INFO dbtype="POLARDB_MYSQL" script=' "concat_ws("+?.concat@c() +")"'/>
 	</FUNCTION>
 	 <FUNCTION name="itx">
     	<INFO dbtype="ESPROC" script='"itx(" + ?.concat@c() +")"'/>
@@ -2093,7 +2220,7 @@ END"/>
     	<INFO dbtype="ORACLE" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 		<INFO dbtype="SQLSVR" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 		<INFO dbtype="DB2" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
-		<INFO dbtype="MYSQL" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="MYSQL" script='"CASE "/?.m(1)/" "/?.m(2:-2).(if(#%2==1,"WHEN "/~,"THEN "/~)).concat(" ")/"ELSE "/?.m(-1)/" END"'/>
 		<INFO dbtype="POSTGRES" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 		<INFO dbtype="IMPALA" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 		<INFO dbtype="HSQL" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
@@ -2111,6 +2238,7 @@ END"/>
 		<INFO dbtype="OPENGAUSS" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 		<INFO dbtype="POLARDB_POSTGRESQL" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
 		<INFO dbtype="OCEANBASE_ORACLE" script='"case "/if(?.len()%2==0,?.(if(#%2==1,"when "/~,"then "/~)).concat(" "),?.m(1:-2).(if(#%2==1,"when "/~,"then "/~)).concat(" ")/" else "/?.m(-1))/" end"'/>
+		<INFO dbtype="POLARDB_MYSQL" script='"CASE "/?.m(1)/" "/?.m(2:-2).(if(#%2==1,"WHEN "/~,"THEN "/~)).concat(" ")/"ELSE "/?.m(-1)/" END"'/>
 	</FUNCTION>
 	<FUNCTION name="nvl">
 		<INFO dbtype="ESPROC" script='"nvl(" + ?.concat@c() +")"'/>
@@ -2130,7 +2258,21 @@ END"/>
 		<INFO dbtype="OCEANBASE_MYSQL" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
 		<INFO dbtype="OPENGAUSS" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
 		<INFO dbtype="POLARDB_POSTGRESQL" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
+		<INFO dbtype="POLARDB_MYSQL" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
 		<INFO dbtype="OCEANBASE_ORACLE" script='"COALESCE(" + ?.concat@c() +")"'/>
     </FUNCTION>
+	<FUNCTION name="decode">
+		<INFO dbtype="ESPROC" script='"case("+?(1)+","+if(?.len()%2==0,?.m(2:-2).group@o(int((#-1)/2)).(~(1)+":"+~(2)).concat@c()+";"+?.m(-1),?.m(2:).group@o(int((#-1)/2)).(~(1)+":"+~(2)).concat@c())+")"'/>
+		<INFO dbtype="HSQL" script='"CASE "+if(?.len()%2==0, ?.m(2:-2).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" ")+" ELSE "+?.m(-1), ?.m(2:).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" "))+" END"'/>
+		<INFO dbtype="ORACLE" script='"decode(" + ?.concat@c() +")"'/>
+		<INFO dbtype="DUCKDB" script='"CASE "+if(?.len()%2==0, ?.m(2:-2).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" ")+" ELSE "+?.m(-1), ?.m(2:).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" "))+" END"'/>
+		<INFO dbtype="POLARDB_POSTGRESQL" script='"CASE "+if(?.len()%2==0, ?.m(2:-2).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" ")+" ELSE "+?.m(-1), ?.m(2:).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" "))+" END"'/>
+		<INFO dbtype="KINGBASE" script='"decode(" + ?.concat@c() +")"'/>
+		<INFO dbtype="SNOWFLAKE" script='"decode(" + ?.concat@c() +")"'/>
+		<INFO dbtype="CLICKHOUSE" script='"CASE "+if(?.len()%2==0, ?.m(2:-2).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" ")+" ELSE "+?.m(-1), ?.m(2:).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" "))+" END"'/>
+		<INFO dbtype="SPARKSQL" script='"CASE "+if(?.len()%2==0, ?.m(2:-2).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" ")+" ELSE "+?.m(-1), ?.m(2:).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" "))+" END"'/>
+		<INFO dbtype="MYSQL" script='"CASE "+if(?.len()%2==0, ?.m(2:-2).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" ")+" ELSE "+?.m(-1), ?.m(2:).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" "))+" END"'/>
+		<INFO dbtype="POLARDB_MYSQL" script='"CASE "+if(?.len()%2==0, ?.m(2:-2).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" ")+" ELSE "+?.m(-1), ?.m(2:).( if(#%2==1,"WHEN "+?(1)+"="+~,"THEN "+~)).concat(" "))+" END"'/>
+	</FUNCTION>
   </FUNCTIONS>
 </STANDARD>
