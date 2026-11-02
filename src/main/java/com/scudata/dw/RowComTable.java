@@ -10,6 +10,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
+import com.scudata.dm.FileObject;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -18,6 +19,24 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class RowComTable extends ComTable {
+	/**
+	 * 打开已经存在的组表
+	 * @param fileObject
+	 * @param file
+	 * @param raf
+	 * @param ctx
+	 * @throws IOException
+	 */
+	public RowComTable(FileObject fileObject, File file, RandomAccessFile raf, Context ctx) throws IOException {
+		this.fileObject = fileObject;
+		this.file = file;
+		this.raf = raf;
+		this.ctx = ctx;
+		if (ctx != null) 
+			ctx.addResource(this);
+		readHeader();
+	}
+
 	/**
 	 * 打开已经存在的组表
 	 * @param file

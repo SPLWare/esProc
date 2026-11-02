@@ -206,15 +206,14 @@ abstract public class ComTable implements IBlockStorage {
 		int flag = raf.read(); 
 		
 		if (flag == 'r') {
-			comTable = new RowComTable(file, raf, ctx);
+			comTable = new RowComTable(fo, file, raf, ctx);
 		} else if (flag == 'c' || flag == 'C'){
-			comTable = new ColComTable(file, raf, ctx);
+			comTable = new ColComTable(fo, file, raf, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("license.fileFormatError"));
 		}
 		
-		comTable.setFileObject(fo);
 		return comTable;
 	}
 	
@@ -279,9 +278,9 @@ abstract public class ComTable implements IBlockStorage {
 			raf = ifile.getRandomAccessFile();
 			raf.seek(6);
 			if (raf.read() == 'r') {
-				comTable = new RowComTable(file, raf, ctx);
+				comTable = new RowComTable(fo, file, raf, ctx);
 			} else {
-				comTable = new ColComTable(file, raf, ctx);
+				comTable = new ColComTable(fo, file, raf, ctx);
 			}
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
@@ -292,7 +291,6 @@ abstract public class ComTable implements IBlockStorage {
 			comTable.setPartition(partition);
 		}
 		
-		comTable.setFileObject(fo);
 		return comTable.getBaseTable();
 	}
 
