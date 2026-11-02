@@ -2099,7 +2099,7 @@ END"/>
 	  <INFO dbtype="POLARDB_POSTGRESQL" value="split_part(?1,?2,?3)"/>
 	  <INFO dbtype="SPARKSQL" value="split_part(?1,?2,?3)"/>
 	  <INFO dbtype="MYSQL" value="SUBSTRING_INDEX(SUBSTRING_INDEX(?1,?2,?3),?2,-1)"/>
-	  <INFO dbtype="HSQL" value="VALUES (REGEXP_SUBSTRING_ARRAY(?1,'[^'||?2||']+'))[?2]"/>
+	  <INFO dbtype="HSQL" value="(REGEXP_SUBSTRING_ARRAY(?1,'[^'||?2||']+'))[?3]"/>
 	  <INFO dbtype="PostgreSQL" value="SPLIT_PART(?1,?2,?3)"/>
 	  <INFO dbtype="HIVE" value="SPLIT(?1,?2)[?3-1]"/>
 	  <INFO dbtype="POLARDB_MYSQL" value="SUBSTRING_INDEX(SUBSTRING_INDEX(?1,?2,?3),?2,-1)"/>
