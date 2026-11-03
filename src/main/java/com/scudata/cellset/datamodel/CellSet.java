@@ -922,7 +922,7 @@ abstract public class CellSet implements ICellSet {
 	}
 
 	// 数组值为此位置的行需要变成的新行,0表示不变
-	protected void adjustRowReference(int []newSeqs) {
+	public void adjustRowReference(int []newSeqs) {
 		if (!autoAdjustExp) return;
 
 		int rowCount = getRowCount();

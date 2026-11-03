@@ -22,6 +22,7 @@ import com.scudata.common.CellLocation;
 import com.scudata.common.DES;
 import com.scudata.common.Escape;
 import com.scudata.common.IOUtils;
+import com.scudata.common.IntArrayList;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
@@ -791,7 +792,9 @@ public class CellSetUtil {
 		if (hasRowSeq && index != -1) {
 			index = LineImporter.readLine(buffer, index, colSeparator, line);
 			ArrayList<String> nextLine = new ArrayList<String>(colCount);
-
+			IntArrayList seqList = new IntArrayList();
+			seqList.addInt(0);
+			
 			while (line.size() > 0) {
 				if (index != -1) {
 					index = LineImporter.readLine(buffer, index, colSeparator, nextLine);
@@ -868,7 +871,14 @@ public class CellSetUtil {
 					pcs.addRow(10);
 				}
 
-				boolean needEscape = line.get(0).endsWith(ESCAPE_ID);
+				String strSeq = line.get(0);
+				boolean needEscape = strSeq.endsWith(ESCAPE_ID);
+				
+				if (needEscape) {
+					strSeq = strSeq.substring(0, strSeq.length() - 1);
+				}
+				
+				seqList.addInt(Integer.parseInt(strSeq));
 				for (int f = 1; f <= curColCount; ++f) {
 					String exp = line.get(f);
 					if (exp != null && exp.length() > 0) {
@@ -886,6 +896,33 @@ public class CellSetUtil {
 				ArrayList<String> tmp = line;
 				line = nextLine;
 				nextLine = tmp;
+			}
+			
+			// 文件中的行号可以和实际行号不符，调整单元格引用
+			int maxSeq = 0;
+			boolean needAdjust = false;
+			
+			for (int i = 1, size = seqList.size(); i < size; ++i) {
+				int seq = seqList.getInt(i);
+				if (seq > maxSeq) {
+					maxSeq = seq;
+				}
+				
+				if (seq != i) {
+					needAdjust = true;
+				}
+			}
+			
+			if (needAdjust) {
+				int []seqs = new int[maxSeq + 1];
+				for (int i = 1, size = seqList.size(); i < size; ++i) {
+					int seq = seqList.getInt(i);
+					if (seq != i) {
+						seqs[seq] = i;
+					}
+				}
+				
+				pcs.adjustRowReference(seqs);
 			}
 		} else {
 			while (index != -1) {
