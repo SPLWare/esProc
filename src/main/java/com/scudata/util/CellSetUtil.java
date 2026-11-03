@@ -760,7 +760,7 @@ public class CellSetUtil {
 				paramName = strParam;
 			}
 			
-			Param param = new Param(paramName, Param.ARG, PgmNormalCell.parseConstValue(paramValue));
+			Param param = new Param(paramName, Param.VAR, PgmNormalCell.parseConstValue(paramValue));
 			param.setEditValue(paramValue);
 			paramList.add(param);
 		}
