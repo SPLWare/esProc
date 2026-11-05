@@ -1147,7 +1147,10 @@ public class CellSetUtil {
 				value = param.getValue();
 			}
 			
-			sb.append(Variant.toString(value));
+			if (value != null) {
+				sb.append(Variant.toString(value));
+			}
+			
 			sb.append('\n');
 		}
 		
