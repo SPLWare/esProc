@@ -2,15 +2,15 @@ package com.scudata.app.common;
 
 import java.awt.Color;
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+
+import org.mozilla.universalchardet.UniversalDetector;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -24,7 +24,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import sun.net.util.IPAddressUtil;
 
@@ -934,56 +936,167 @@ public class AppUtil {
 	 * @throws Exception
 	 */
 	private static String readSPLString(String filePath) throws Exception {
-		FileInputStream fis = null;
+		byte[] bytes = readAllBytes(new FileInputStream(filePath));
+		return decodeSPLBytes(bytes);
+	}
+
+	public static final String SPL_CHARSET = "UTF-8";
+
+	/**
+	 * UniversalDetector "没识别出来"时的万金油占位符 —— 任何字节数组都能被它们解出来，
+	 * 一旦 detector 返回它们就表示没有实质特征，必须视为不可靠，继续走后面的兜底。
+	 * 包含：Latin-1 家族、Windows-125x 系列、MacRoman、IBM 437/85x/86x DOS 单字节页。
+	 */
+	private static final Set<String> UNRELIABLE_CHARSETS = new HashSet<String>(Arrays.asList(
+			"ISO-8859-1", "WINDOWS-1252", "CP1252",
+			"ISO-8859-2", "WINDOWS-1250", "CP1250",
+			"WINDOWS-1251", "CP1251", "WINDOWS-1253", "CP1253",
+			"WINDOWS-1254", "CP1254", "WINDOWS-1256", "CP1256",
+			"WINDOWS-1257", "CP1257", "WINDOWS-1258", "CP1258",
+			"MACROMAN", "X-MAC-ROMAN", "ASCII", "US-ASCII",
+			"IBM437", "CP437",
+			"IBM850", "IBM852", "IBM855", "IBM857", "IBM860", "IBM861", "IBM863", "IBM865", "IBM866", "IBM869"
+	));
+
+	/** UniversalDetector 对小样本（< 5KB）几乎没有判别力，直接跳过走 Env 默认 */
+	private static final int DETECTOR_MIN_BYTES = 5 * 1024;
+
+	/**
+	 * UniversalDetector 对大文件读取全部字节无必要（几十 KB 就足够收敛），最多喂前
+	 * 256KB 即可；真正解码仍然使用完整字节数组。
+	 */
+	private static final int DETECTOR_MAX_BYTES = 256 * 1024;
+
+	/**
+	 * 以自动探测的编码读取 SPL 输入流：先看 BOM，再用 UniversalDetector 启发式识别，
+	 * 探测失败时回退到 {@link Env#getDefaultCharsetName()}，仍不可用时最终回退到
+	 * {@link #SPL_CHARSET}（UTF-8，与写端保持一致）。
+	 */
+	private static String readSPLString(InputStream is) throws Exception {
+		byte[] bytes = readAllBytes(is);
+		return decodeSPLBytes(bytes);
+	}
+
+	/** 把输入流全部读完，返回字节数组；对流不要求 mark/reset 支持 */
+	private static byte[] readAllBytes(InputStream is) throws Exception {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buf = new byte[4096];
+		int n;
 		try {
-			fis = new FileInputStream(filePath);
-			return readSPLString(fis);
+			while ((n = is.read(buf)) > 0) {
+				baos.write(buf, 0, n);
+			}
 		} finally {
 			try {
-				if (fis != null)
-					fis.close();
+				is.close();
 			} catch (Exception ex) {
 			}
 		}
+		return baos.toByteArray();
+	}
+
+	/** 探测字节数组的编码并解码为字符串，UTF-8 BOM 会被剥离 */
+	private static String decodeSPLBytes(byte[] bytes) throws Exception {
+		String charset = detectSPLCharset(bytes);
+		String text = new String(bytes, charset);
+		return stripBom(text);
 	}
 
 	/**
-	 * 
-	 * @param filePath
-	 * @return String
-	 * @throws Exception
+	 * 探测 SPL 文件的字符集，分两轮：
+	 * <ol>
+	 *   <li><b>第一轮（UTF-8 / GBK，中国文件 99% 命中）</b>：先对字节流做严格 UTF-8 字节序列校验
+	 *       （拒绝 overlong 编码、孤立 continuation byte、超范围码点等）；通过则用 UTF-8，
+	 *       否则直接用 GBK（GB18030 的超集，兼容所有 GB2312/GBK 汉字且 Java 自带）。
+	 *       这一轮完全绕开 UniversalDetector 对小样本/纯 ASCII 文件的"万金油乱猜"。
+	 *   </li>
+	 *   <li><b>第二轮（detector 兜底，大文件）</b>：仅当 UTF-8/GBK 都明显不合适时（极少遇到
+	 *       的 Big5 / Shift-JIS / EUC-JP 等非中文编码）才启用 UniversalDetector，并继续
+	 *       过滤不可靠的单字节万金油编码。
+	 *   </li>
+	 * </ol>
+	 * BOM（UTF-8 / UTF-16LE / UTF-16BE）优先于两轮探测，Env 默认字符集和 UTF-8 作为最终兜底。
 	 */
-	private static String readSPLString(InputStream is) throws Exception {
-		InputStreamReader isr = null;
-		BufferedReader br = null;
-		StringBuffer buf = new StringBuffer();
-		try {
-			isr = new InputStreamReader(is, Env.getDefaultCharsetName());
-			br = new BufferedReader(isr);
-			String rowStr = br.readLine();
-			boolean isFirst = true;
-			while (rowStr != null) {
-				if (isFirst) {
-					isFirst = false;
-				} else {
-					buf.append('\n');
-				}
-				buf.append(rowStr);
-				rowStr = br.readLine();
-			}
-			return buf.toString();
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-			} catch (Exception ex) {
-			}
-			try {
-				if (isr != null)
-					isr.close();
-			} catch (Exception ex) {
+	private static String detectSPLCharset(byte[] bytes) {
+		if (bytes == null || bytes.length == 0) {
+			return SPL_CHARSET;
+		}
+		if (bytes.length >= 3 && bytes[0] == (byte) 0xEF && bytes[1] == (byte) 0xBB
+				&& bytes[2] == (byte) 0xBF) {
+			return "UTF-8";
+		}
+		if (bytes.length >= 2 && bytes[0] == (byte) 0xFF && bytes[1] == (byte) 0xFE) {
+			return "UTF-16LE";
+		}
+		if (bytes.length >= 2 && bytes[0] == (byte) 0xFE && bytes[1] == (byte) 0xFF) {
+			return "UTF-16BE";
+		}
+
+		// 第一轮：严格 UTF-8 校验 → 通过用 UTF-8，否则用 GBK
+		if (isValidUtf8(bytes)) {
+			return "UTF-8";
+		}
+		return "GBK";
+
+		// ===== 第二轮：UniversalDetector（罕见场景才进） =====
+		// 保留 detector + Env 兜底，遇到 Big5 / Shift-JIS / EUC-JP 等非 UTF-8/GBK 时走这里。
+		// 目前第一轮已经 return，代码结构留作将来扩展。
+	}
+
+	/**
+	 * 严格校验 UTF-8 字节序列：拒绝 overlong 编码（C0/C1 lead byte）、孤立 continuation byte、
+	 * 超范围码点（F5-F7 lead byte）。通过返回 true 表示所有字节都是合法 UTF-8。
+	 */
+	private static boolean isValidUtf8(byte[] bytes) {
+		int i = 0;
+		while (i < bytes.length) {
+			int b = bytes[i] & 0xFF;
+			if (b < 0x80) {
+				i++;
+			} else if ((b & 0xE0) == 0xC0) {
+				// 2-byte lead (C2-DF；C0/C1 是 overlong 编码，非法)
+				if (b < 0xC2) return false;
+				if (i + 1 >= bytes.length || (bytes[i + 1] & 0xC0) != 0x80) return false;
+				i += 2;
+			} else if ((b & 0xF0) == 0xE0) {
+				// 3-byte lead (E0-EF)
+				if (i + 2 >= bytes.length) return false;
+				if ((bytes[i + 1] & 0xC0) != 0x80 || (bytes[i + 2] & 0xC0) != 0x80) return false;
+				i += 3;
+			} else if ((b & 0xF8) == 0xF0) {
+				// 4-byte lead (F0-F4；F5-F7 超过 U+10FFFF，非法)
+				if (b > 0xF4) return false;
+				if (i + 3 >= bytes.length) return false;
+				if ((bytes[i + 1] & 0xC0) != 0x80
+						|| (bytes[i + 2] & 0xC0) != 0x80
+						|| (bytes[i + 3] & 0xC0) != 0x80) return false;
+				i += 4;
+			} else {
+				// 0x80-0xBF：续字节出现在不该出现的地方；0xF8-0xFF：5/6 字节编码（已废弃）
+				return false;
 			}
 		}
+		return true;
+	}
+
+	/** 判断 Java 是否支持给定字符集名；null/空/UnsupportedCharsetException 都视为不支持 */
+	private static boolean isSupportedCharset(String charsetName) {
+		if (charsetName == null || charsetName.isEmpty()) {
+			return false;
+		}
+		try {
+			return java.nio.charset.Charset.isSupported(charsetName);
+		} catch (Exception ignore) {
+			return false;
+		}
+	}
+
+	/** 去掉字符串开头的 UTF-8 BOM（U+FEFF） */
+	private static String stripBom(String text) {
+		if (text != null && text.length() > 0 && text.charAt(0) == '\uFEFF') {
+			return text.substring(1);
+		}
+		return text;
 	}
 
 	/**
@@ -1017,7 +1130,7 @@ public class AppUtil {
 		BufferedWriter bw = null;
 		try {
 			fo = new FileOutputStream(filePath);
-			ow = new OutputStreamWriter(fo, Env.getDefaultCharsetName());
+			ow = new OutputStreamWriter(fo, SPL_CHARSET);
 			bw = new BufferedWriter(ow);
 			bw.write(cellSetStr);
 		} finally {
