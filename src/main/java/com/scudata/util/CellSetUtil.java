@@ -1241,6 +1241,10 @@ public class CellSetUtil {
 					sb[ j++ ] = '\\';
 					sb[ j++ ] = 'n';
 					break;
+				case '\\':
+					sb[ j++ ] = '\\';
+					sb[ j++ ] = '\\';
+					break;
 				default:
 					sb[ j++ ] = ch;
 			}
@@ -1278,6 +1282,9 @@ public class CellSetUtil {
 						break;
 					case 'n':
 						sb[j++] = '\n';
+						break;
+					case '\\':
+						sb[j++] = '\\';
 						break;
 					default:
 						sb[j++] = '\\';
