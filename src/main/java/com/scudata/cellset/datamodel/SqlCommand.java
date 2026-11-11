@@ -42,8 +42,11 @@ public class SqlCommand extends Command {
 				Method method = classObj.getMethod("compileSQL", PgmCellSet.class, DBObject.class, String.class);
 				Object []args = new Object[] {cs, (DBObject)db, sql};
 				sql = (String)method.invoke(classObj, args);
+			} catch (ClassNotFoundException e) {
+			} catch (RQException e) {
+				throw e;
 			} catch (Exception e) {
-				//throw new RQException(e.getMessage(), e);
+				throw new RQException(e.getMessage(), e);
 			}
 		}
 		
