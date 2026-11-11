@@ -1971,7 +1971,7 @@ END"/>
 		<INFO dbtype="HSQL" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="ESPROC" value="string(?1,?2)"/>
 		<INFO dbtype="DUCKDB" value="N/A"/>
-		<INFO dbtype="MYSQL" value="N/A"/>
+		<INFO dbtype="MYSQL" value="DATE_FORMAT(STR_TO_DATE(?1,'%Y-%m-%d'),'%Y%m%d')"/>
 		<INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="BIGQUERY" value="N/A"/>
 		<INFO dbtype="SNOWFLAKE" value="to_varchar(?1,?2)"/>
@@ -2246,7 +2246,7 @@ END"/>
     	<INFO dbtype="SPARKSQL" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
 		<INFO dbtype="DUCKDB" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
 		<INFO dbtype="SNOWFLAKE" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
-		<INFO dbtype="MYSQL" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
+		<INFO dbtype="MYSQL" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(cast(&quot; + ~ + &quot; as char),'')&quot; ).concat@c() + &quot;)&quot;"/>
 		<INFO dbtype="BIGQUERY" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
 		<INFO dbtype="POSTGRES" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
 		<INFO dbtype="HIVE" script="&quot;COALESCE(&quot; + ?.( &quot;NULLIF(&quot; + ~ + &quot;,'')&quot; ).concat@c() + &quot;)&quot;"/>
