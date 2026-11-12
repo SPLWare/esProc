@@ -4,56 +4,115 @@
 <DATASOURCE>
 <ds0 config="isaddtilde=&quot;false&quot;;convertdata=&quot;false&quot;;extend=&quot;&quot;;charset=&quot;GBK&quot;;casesentence=&quot;false&quot;;type=&quot;13&quot;;password=&quot;&quot;;url=&quot;jdbc:hsqldb:hsql://127.0.0.1/demo&quot;;clientcharset=&quot;GBK&quot;;convertsql=&quot;false&quot;;title=&quot;HSQL&quot;;useschema=&quot;false&quot;;driver=&quot;org.hsqldb.jdbcDriver&quot;;user=&quot;sa&quot;" name="demo"/>
 </DATASOURCE>
-<!-- database type number: UNKNOWN:0; ORACLE:1; SQLSVR:2; SYBASE:3; SQLANY:4; INFMIX:5; FOXPRO:6; ACCESS:7; FOXBAS:8; DB2:9; MYSQL:10; KINGBASE:11; DERBY:12; HSQL:13; TERADATA:14;POSTGRES:15;DATALOGIC:16;IMPALA:17; DBOne£º20; ESSBASE:101;-->
-<DATABASE titles="MS_SQL_Server,ORACLE,IBM_DB2,Sybase,Access,My_SQL,HSQL,TERADATA,POSTGRES,DBOne,Other" types="2,1,4,3,7,10,13,14,15,20,0">
+<!-- database type number:  UNKNOWN:0; ORACLE:1; SQLSVR:2; SYBASE:3; SQLANY:4; INFMIX:5; FOXPRO:6; ACCESS:7; FOXBAS:8; DB2:9; MYSQL:10; KINGBASE:11; DERBY:12; HSQL:13; TERADATA:14; POSTGRES:15;  IMPALA:17; HIVE:18; DBONE:20; DAMENG:22; DUCKDB:24; BIGQUERY:25; SNOWFLAKE:26; SPARKSQL:27; CLICKHOUSE:28; DORIS:29; OPENGAUSS:30; OCEANBASE_MYSQL:31;OCEANBASE_ORACLE:32;POLARDB_POSTGRESQL:33; ESSBASE:101;-->
 
-<other driver1="Sample temporarily unavailable" 
+<DATABASE titles="SQLSVR,ORACLE,DB2,SYBASE,ACCESS,MYSQL,KINGBASE,HSQL,TERADATA,POSTGRES,HIVE,DBONE,DAMENG,DUCKDB,BIGQUERY,SNOWFLAKE,SPARKSQL,CLICKHOUSE,DORIS,OPENGAUSS,OCEANBASE_MYSQL,OCEANBASE_ORACLE,POLARDB_POSTGRESQL,UNKNOWN" types="2,1,9,3,7,10,11,13,14,15,18,20,22,24,25,26,27,28,29,30,31,32,33,0">
+
+<UNKNOWN driver1="Sample temporarily unavailable" 
 	url1="Sample temporarily unavailable" 
 	errormessage="Please download the jdbc driver of database, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
+
 <ORACLE driver1="oracle.jdbc.driver.OracleDriver" 
-	url1="jdbc:oracle:thin:@192.168.0.1:1521:[database name]"
-    url2="jdbc:oracle:thin:@192.168.0.1:1521/[database name]"	
+	url1="jdbc:oracle:thin:@127.0.0.1:1521:[database name]" 
+	url2="jdbc:oracle:thin:@127.0.0.1:1521/[database name]"
 	errormessage="Please download the jdbc driver of oracle database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://www.oracle.com/technetwork/database/features/jdbc/index-091264.html."/>
 
-<MS_SQL_Server driver1="com.newatlanta.jturbo.driver.Driver"
+<SQLSVR driver1="com.newatlanta.jturbo.driver.Driver"
 	driver2="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
-	url1="jdbc:JTurbo://192.168.0.1/[database name]/charset=ISO-8859-1"
-	url2="jdbc:sqlserver://192.168.0.1:1433;DatabaseName=[dbName]" 
+	url1="jdbc:JTurbo://127.0.0.1/[database name]/charset=ISO-8859-1"
+	url2="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=[dbName]" 
 	errormessage="Please download the jdbc driver of SQL Server database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://www.microsoft.com/downloads/en/resultsForCategory.aspx?displaylang=en&amp;categoryId=3&amp;stype=n_dc"/>
 
 <Sybase driver1="com.sybase.jdbc2.jdbc.SybDriver" 
-	url1="jdbc:sybase:Tds:192.168.0.1:2048/[database name]" 
+	url1="jdbc:sybase:Tds:127.0.0.1:2048/[database name]" 
 	errormessage="Please download the jdbc driver of Sybase database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://www.sybase.com/products/allproductsa-z/softwaredeveloperkit/jconnect"/>
 
 <Access driver1="sun.jdbc.odbc.JdbcOdbcDriver" 
 	url1="jdbc:odbc:[odbc data source name]" 
 	errormessage="Please download the jdbc driver of Access database, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
 
-<IBM_DB2 driver1="COM.ibm.db2.jdbc.app.DB2Driver"
+<DB2 driver1="COM.ibm.db2.jdbc.app.DB2Driver"
 	driver2="COM.ibm.db2.jdbc.net.DB2Driver"
 	driver3="com.ibm.db2.jcc.DB2Driver" 
 	url1="jdbc:Db2:[database name]"
-	url2="jdbc:db2://192.168.0.1:6789/[sample]" 
+	url2="jdbc:db2://127.0.0.1:6789/[sample]" 
 	errormessage="Please find the jdbc driver of DB2 database from [The install directory of DB2]/sqllib/java, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
 
-<My_SQL driver1="com.mysql.jdbc.Driver" 
+<MySQL driver1="com.mysql.jdbc.Driver" 
 	driver2="com.mysql.cj.jdbc.Driver"
-	url1="jdbc:mysql://192.168.0.1:3306/[database name]?useCursorFetch=[true/false]" 
-	url2="jdbc:mysql://192.168.0.1:3306/[database name]?useSSL=[true/false]&amp;serverTimezone=[GMT/UTC/...]"
+	url1="jdbc:mysql://127.0.0.1:3306/[database name]?useCursorFetch=[true/false]"
+	url2="jdbc:mysql://127.0.0.1:3306/[database name]?useSSL=[true/false]&amp;serverTimezone=[GMT/UTC/...]"
 	errormessage="Please download the jdbc driver of MYSQL database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://dev.mysql.com/downloads/connector/j/5.0.html"/>
 
 <HSQL driver1="org.hsqldb.jdbcDriver" 
-	url1="jdbc:hsqldb:hsql://192.168.0.1/" 
-	errormessage="Please download the jdbc driver of MYSQL database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://hsqldb.org"/>
+	url1="jdbc:hsqldb:hsql://127.0.0.1/" 
+	errormessage="Please download the jdbc driver of HSQL database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://hsqldb.org"/>
 
+<DUCKDB driver1="org.duckdb.DuckDBDriver" 
+	url1="jdbc:duckdb:[path/database name]" 
+	url2="jdbc:duckdb:md:[my_database]?motherduck_token=[your_token]"
+	errormessage="Please download the jdbc driver of DUCKDB database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is https://duckdb.org/install"/>
+	
+<BIGQUERY driver1="com.simba.googlebigquery.jdbc42.Driver"
+	url1="jdbc:bigquery://https://www.googleapis.com/bigquery/v2:443;ProjectId=[];OAuthType=0;OAuthServiceAcctEmail=[];OAuthPvtKeyPath=[/path/to/your/keyfile.json]"
+	errormessage="Please download the jdbc driver of BigQuery database, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
+	
 <TERADATA driver1="com.ncr.teradata.TeraDriver" 
-	url1="jdbc:teradata://192.168.0.1/CLIENT_CHARSET=EUC_CN,TMODE=TERA,CHARSET=ASCII,DATABASE=[database name]" 
+	url1="jdbc:teradata://127.0.0.1/CLIENT_CHARSET=EUC_CN,TMODE=TERA,CHARSET=ASCII,DATABASE=[database name]" 
 	errormessage="Please download the jdbc driver of TERADATA database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://downloads.teradata.com/download/connectivity/jdbc-driver"/>
 <POSTGRES driver1="org.postgresql.Driver"
-	url1="jdbc:postgresql://192.168.0.1:5432/[database name]"
+	url1="jdbc:postgresql://127.0.0.1:5432/[database name]"
 	errormessage="Please download the jdbc driver of Postgres database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://www.postgresql.org/download"/>
-<DBOne driver1="com.intple.dbone.Driver"
+	
+<POLARDB_POSTGRESQL driver1="org.postgresql.Driver"
+	url1="jdbc:postgresql://127.0.0.1:5432/[database name]"
+	errormessage="Please download the jdbc driver of Postgres database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://www.postgresql.org/download"/>
+
+<DBONE driver1="com.intple.dbone.Driver"
 	url1="jdbc:dbone://127.0.0.1:9001/[dbname]"
 	errormessage="Please download the jdbc driver of DBOne database, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
+<SPARKSQL driver1="org.apache.hive.jdbc.HiveDriver" 
+	url1="jdbc:hive2://[Host-IP]:[Port]/[dbname]" 
+	errormessage="Please download the jdbc driver of SPARKSQL database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is https://www.progress.com/jdbc/apache-spark-sql"/>	
+	
+<SNOWFLAKE driver1="net.snowflake.client.jdbc.SnowflakeDriver"
+	url1="jdbc:snowflake://[account].snowflakecomputing.com/?db=[MYDB];schema=[PUBLIC];warehouse=[MYWH]"
+	errormessage="Please download the jdbc driver of SNOWFLAKE database, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
+	
+<CLICKHOUSE driver1="com.clickhouse.jdbc.ClickHouseDriver"
+	driver2="ru.yandex.clickhouse.ClickHouseDriver"
+	url1="jdbc:clickhouse://[Host-IP]:[Port]/[dbname]"
+	url2="jdbc:clickhouse:http://[Host-IP]:[Port]/[dbname]?compress=[0/1];decompress=[0/1];auto_discovery=[true/false]"
+	errormessage="Please download the jdbc driver of CLICKHOUSE database, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
+
+<HIVE driver1="org.apache.hive.jdbc.HiveDriver"
+	url1="jdbc:hive2://[Host-IP]:[Port]"
+	errormessage="Please download the jdbc driver of HIVE database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is https://hive.apache.org/general/downloads/"/>
+
+<Doris driver1="com.mysql.jdbc.Driver" 
+	driver2="com.mysql.cj.jdbc.Driver"
+	url1="jdbc:mysql://127.0.0.1:9030/[database name]?useCursorFetch=[true/false]"
+	url2="jdbc:mysql://127.0.0.1:9030/[database name]?useSSL=[true/false]&amp;serverTimezone=[GMT/UTC/...]"
+	errormessage="Please download the jdbc driver of MYSQL database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://dev.mysql.com/downloads/connector/j/5.0.html"/>
+
+<DAMENG driver1="dm.jdbc.driver.DmDriver" 
+	url1="jdbc:dm://[Host-IP]:[Port]"
+	errormessage="Please download the JDBC driver of DAMENG database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is https://eco.dameng.com/document/dm/zh-cn/app-dev/jdbc.html"/>
+	
+<OCEANBASE_MYSQL driver1="com.oceanbase.jdbc.Driver" 
+	url1="jdbc:oceanbase://127.0.0.1:2881/database name"
+	errormessage="Please download the jdbc driver of OCEANBASE database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is https://www.oceanbase.com/softwarecenter-cloud"/>
+
+<OPENGAUSS driver1="org.opengauss.Driver" 
+	url1="jdbc:opengauss://[Host-IP]:[Port]/[dbname]"
+	errormessage="Please download the jdbc driver of OPENGAUSS database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is https://opengauss.org/zh/download/"/>	
+	
+<KINGBASE driver1="com.kingbase8.Driver" 
+	url1="jdbc:kingbase8://[Host-IP]:[Port]/[dbname]" 	
+	errormessage="Please download the jdbc driver of KINGBASE, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is https://www.kingbase.com.cn/download.html "/>	
+
+<OCEANBASE_ORACLE driver1="com.oceanbase.jdbc.Driver" 
+	url1="jdbc:oceanbase://127.0.0.1:2881/database name"
+	errormessage="Please download the jdbc driver of OCEANBASE database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is https://www.oceanbase.com/softwarecenter-cloud"/>
 </DATABASE>
 </RAQSOFT>
