@@ -23,6 +23,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.KeyWord;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
+import com.scudata.dm.sql.Tokenizer;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -973,7 +974,7 @@ abstract public class CellSet implements ICellSet {
 					if (strNew != null) strNew.append(str.substring(idx, tmp));
 					idx = tmp;
 				}
-			} else if (KeyWord.isSymbol(ch) || ch == KeyWord.CELLPREFIX) {
+			} else if (isSymbol(ch)) {
 				if (strNew != null) strNew.append(ch);
 				idx++;
 			} else {
@@ -1144,6 +1145,10 @@ abstract public class CellSet implements ICellSet {
 		}
 	}
 
+	private static boolean isSymbol(char ch) {
+		return KeyWord.isSymbol(ch) || ch == KeyWord.CELLPREFIX || ch == Tokenizer.PARAMMARK;
+	}
+	
 	/**
 	 * 把表达式中对lct1的引用改为lct2，用于把一个格剪切到另一个格，改变对源格的引用到目标格
 	 * @param str 表达式
@@ -1176,7 +1181,7 @@ abstract public class CellSet implements ICellSet {
 					if (strNew != null) strNew.append(str.substring(idx, tmp));
 					idx = tmp;
 				}
-			} else if (KeyWord.isSymbol(ch) || ch == KeyWord.CELLPREFIX) {
+			} else if (isSymbol(ch)) {
 				if (strNew != null) strNew.append(ch);
 				idx++;
 			} else {
@@ -1357,7 +1362,7 @@ abstract public class CellSet implements ICellSet {
 					if (strNew != null) strNew.append(str.substring(idx, tmp));
 					idx = tmp;
 				}
-			} else if (KeyWord.isSymbol(ch) || ch == KeyWord.CELLPREFIX) {
+			} else if (isSymbol(ch)) {
 				if (strNew != null) strNew.append(ch);
 				idx++;
 			} else {
@@ -1496,7 +1501,7 @@ abstract public class CellSet implements ICellSet {
 					if (strNew != null) strNew.append(str.substring(idx, tmp));
 					idx = tmp;
 				}
-			} else if (KeyWord.isSymbol(ch) || ch == KeyWord.CELLPREFIX) {
+			} else if (isSymbol(ch)) {
 				if (strNew != null) strNew.append(ch);
 				idx++;
 			} else {
@@ -1623,7 +1628,7 @@ abstract public class CellSet implements ICellSet {
 					if (strNew != null) strNew.append(str.substring(idx, tmp));
 					idx = tmp;
 				}
-			} else if (KeyWord.isSymbol(ch) || ch == KeyWord.CELLPREFIX) {
+			} else if (isSymbol(ch)) {
 				if (strNew != null) strNew.append(ch);
 				idx++;
 			} else {
@@ -1909,7 +1914,7 @@ abstract public class CellSet implements ICellSet {
 					if (strNew != null) strNew.append(str.substring(idx, tmp));
 					idx = tmp;
 				}
-			} else if (KeyWord.isSymbol(ch) || ch == KeyWord.CELLPREFIX) {
+			} else if (isSymbol(ch)) {
 				if (strNew != null) strNew.append(ch);
 				idx++;
 			} else {
@@ -2110,7 +2115,7 @@ abstract public class CellSet implements ICellSet {
 					if (strNew != null) strNew.append(str.substring(idx, tmp));
 					idx = tmp;
 				}
-			} else if (KeyWord.isSymbol(ch) || ch == KeyWord.CELLPREFIX) {
+			} else if (isSymbol(ch)) {
 				if (strNew != null) strNew.append(ch);
 				idx++;
 			} else {
