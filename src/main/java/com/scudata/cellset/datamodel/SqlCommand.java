@@ -21,19 +21,20 @@ public class SqlCommand extends Command {
 
 	public SqlCommand(String sql, String db, String opt, String expStr) {
 		super(SQL, null, expStr);
+		this.sql = sql;
 		this.db = db;
 		this.opt = opt;
-		
-		// 删除注释
-		sql = stripComments(sql);
-		sql = stripCursorFor(sql);
-		this.sql = sql;
 	}
 	
 	public void init(PgmCellSet cs, Object db) {
 		if (isInit) {
 			return;
 		}
+		
+		// 删除注释
+		sql = Expression.replaceMacros(sql, cs, cs.getContext());
+		sql = stripComments(sql);
+		sql = stripCursorFor(sql);
 		
 		isInit = true;
 		if (db instanceof DBObject) {
