@@ -319,7 +319,7 @@ public class AppUtil {
 		if (sql.startsWith("#")) // 参数定义
 			return true;
 		try {
-			PgmCellSet cs = CellSetUtil.toPgmCellSet(sql);
+			PgmCellSet cs = AppUtil.toPgmCellSet(sql);
 			if (cs.getRowCount() > 1 || cs.getColCount() > 1) {
 				return true;
 			}
@@ -329,6 +329,79 @@ public class AppUtil {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 把SPL文本解析为程序网，同时兼容旧格式（无表头、无行号）和新格式（带#表头和行号）
+	 * 
+	 * @param src
+	 *            SPL文本
+	 * @return PgmCellSet
+	 */
+	public static PgmCellSet toPgmCellSet(String src) {
+		if (src == null) {
+			return CellSetUtil.toPgmCellSet(src);
+		}
+
+		// 新格式只有一列时表头是"#\tA"，补一个tab后才能被CellSetUtil识别
+		String text = addSingleColHeaderTab(src);
+		PgmCellSet pcs = CellSetUtil.toPgmCellSet(text);
+		if (text != src && pcs != null && pcs.getColCount() > 1) {
+			// 删除为识别表头而补的空列
+			pcs.removeCol(2, 1);
+		}
+		return pcs;
+	}
+
+	/**
+	 * 新格式单列表头"#\tA"补一个tab，使其变为"#\tA\t"
+	 * 
+	 * @param src
+	 *            SPL文本
+	 * @return 旧格式原样返回，新格式单列补tab后返回
+	 */
+	private static String addSingleColHeaderTab(String src) {
+		int len = src.length();
+		int index = 0;
+
+		// 跳过参数定义行，规则同CellSetUtil.toPgmCellSet
+		while (index < len && src.charAt(index) == '#') {
+			if (index + 1 < len && src.charAt(index + 1) == '\t') {
+				break;
+			}
+
+			int nl = src.indexOf('\n', index);
+			if (nl < 0) {
+				return src;
+			}
+
+			index = nl + 1;
+		}
+
+		if (index + 1 >= len || src.charAt(index) != '#'
+				|| src.charAt(index + 1) != '\t') {
+			// 旧格式，不需要处理
+			return src;
+		}
+
+		int nl = src.indexOf('\n', index);
+		int lineEnd = nl < 0 ? len : nl;
+		int tab = src.indexOf('\t', index + 2);
+		if (tab >= 0 && tab < lineEnd) {
+			// 多列表头，不需要处理
+			return src;
+		}
+
+		int contentEnd = lineEnd;
+		if (contentEnd > index && src.charAt(contentEnd - 1) == '\r') {
+			contentEnd--;
+		}
+
+		StringBuilder sb = new StringBuilder(len + 1);
+		sb.append(src, 0, contentEnd);
+		sb.append('\t');
+		sb.append(src, contentEnd, len);
+		return sb.toString();
 	}
 
 	/**
@@ -356,7 +429,7 @@ public class AppUtil {
 	 * @return
 	 */
 	public static Object execute(String src, Sequence args, Context ctx) {
-		PgmCellSet pcs = CellSetUtil.toPgmCellSet(src);
+		PgmCellSet pcs = AppUtil.toPgmCellSet(src);
 		ComputeStack stack = null;
 		try {
 			pcs.setParamToContext();
@@ -886,7 +959,7 @@ public class AppUtil {
 		if (!StringUtils.isValidString(spl)) {
 			return null;
 		} else {
-			cellSet = CellSetUtil.toPgmCellSet(spl);
+			cellSet = AppUtil.toPgmCellSet(spl);
 		}
 		if (cellSet != null) {
 			ParamList pl = cellSet.getParamList();

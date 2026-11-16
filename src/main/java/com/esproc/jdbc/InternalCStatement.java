@@ -23,13 +23,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.scudata.app.common.AppConsts;
+import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.Table;
 import com.scudata.parallel.UnitClient;
-import com.scudata.util.CellSetUtil;
 
 /**
  * Implementation of java.sql.CallableStatement
@@ -112,7 +112,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @return
 	 */
 	private ArrayList<String> getSplParamNames(String spl) {
-		PgmCellSet pcs = CellSetUtil.toPgmCellSet(spl);
+		PgmCellSet pcs = AppUtil.toPgmCellSet(spl);
 		pcs.setParamToContext();
 		ArrayList<String> paramNames = new ArrayList<String>();
 		ParamList pl = pcs.getParamList();
