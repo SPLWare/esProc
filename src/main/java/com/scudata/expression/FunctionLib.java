@@ -318,12 +318,9 @@ public final class FunctionLib {
 		addMemberFunction("id", "com.scudata.expression.mfn.cursor.Id");
 		addMemberFunction("id", "com.scudata.expression.mfn.channel.Id");
 		addMemberFunction("sum", "com.scudata.expression.mfn.sequence.Sum");
-		addMemberFunction("cumulate",
-				"com.scudata.expression.mfn.sequence.Cumulate");
-		addMemberFunction("proportion",
-				"com.scudata.expression.mfn.sequence.Proportion");
-		addMemberFunction("icount",
-				"com.scudata.expression.mfn.sequence.ICount");
+		addMemberFunction("cumulate", "com.scudata.expression.mfn.sequence.Cumulate");
+		addMemberFunction("proportion", "com.scudata.expression.mfn.sequence.Proportion");
+		addMemberFunction("icount", "com.scudata.expression.mfn.sequence.ICount");
 		addMemberFunction("mode", "com.scudata.expression.mfn.sequence.Mode");
 		addMemberFunction("avg", "com.scudata.expression.mfn.sequence.Avg");
 		addMemberFunction("min", "com.scudata.expression.mfn.sequence.Min");
@@ -339,67 +336,51 @@ public final class FunctionLib {
 		addMemberFunction("union", "com.scudata.expression.mfn.sequence.Union");
 		addMemberFunction("diff", "com.scudata.expression.mfn.sequence.Diff");
 		addMemberFunction("isect", "com.scudata.expression.mfn.sequence.Isect");
-		addMemberFunction("xunion",
-				"com.scudata.expression.mfn.sequence.Xunion");
+		addMemberFunction("xunion", "com.scudata.expression.mfn.sequence.Xunion");
 		addMemberFunction("merge", "com.scudata.expression.mfn.sequence.Merge");
 		addMemberFunction("run", "com.scudata.expression.mfn.sequence.Run");
 		addMemberFunction("run", "com.scudata.expression.mfn.op.AttachRun");
 		addMemberFunction("run", "com.scudata.expression.mfn.record.Run");
 		addMemberFunction("calc", "com.scudata.expression.mfn.sequence.Calc");
 		addMemberFunction("pos", "com.scudata.expression.mfn.sequence.Pos");
-		addMemberFunction("contain",
-				"com.scudata.expression.mfn.sequence.Contain");
+		addMemberFunction("contain", "com.scudata.expression.mfn.sequence.Contain");
 		addMemberFunction("pseg", "com.scudata.expression.mfn.sequence.PSeg");
 		addMemberFunction("segp", "com.scudata.expression.mfn.sequence.Segp");
 		addMemberFunction("pmin", "com.scudata.expression.mfn.sequence.PMin");
 		addMemberFunction("pmax", "com.scudata.expression.mfn.sequence.PMax");
 		addMemberFunction("ptop", "com.scudata.expression.mfn.sequence.PTop");
 		addMemberFunction("top", "com.scudata.expression.mfn.sequence.Top");
-		addMemberFunction("pselect",
-				"com.scudata.expression.mfn.sequence.PSelect");
+		addMemberFunction("pselect", "com.scudata.expression.mfn.sequence.PSelect");
 		addMemberFunction("psort", "com.scudata.expression.mfn.sequence.PSort");
-		addMemberFunction("select",
-				"com.scudata.expression.mfn.sequence.Select");
-		addMemberFunction("select",
-				"com.scudata.expression.mfn.op.AttachSelect");
+		addMemberFunction("select", "com.scudata.expression.mfn.sequence.Select");
+		addMemberFunction("select", "com.scudata.expression.mfn.op.AttachSelect");
 		addMemberFunction("sort", "com.scudata.expression.mfn.sequence.Sort");
 		addMemberFunction("rvs", "com.scudata.expression.mfn.sequence.Rvs");
 		addMemberFunction("swap", "com.scudata.expression.mfn.sequence.Swap");
 		addMemberFunction("shift", "com.scudata.expression.mfn.sequence.Shift");
 		addMemberFunction("pad", "com.scudata.expression.mfn.sequence.Pad");
-		addMemberFunction("lookup",
-				"com.scudata.expression.mfn.sequence.Lookup");
+		addMemberFunction("lookup", "com.scudata.expression.mfn.sequence.Lookup");
 		addMemberFunction("sumif", "com.scudata.expression.mfn.sequence.Sumif");
-		addMemberFunction("countif",
-				"com.scudata.expression.mfn.sequence.Countif");
+		addMemberFunction("countif", "com.scudata.expression.mfn.sequence.Countif");
 		addMemberFunction("avgif", "com.scudata.expression.mfn.sequence.Avgif");
 		addMemberFunction("minif", "com.scudata.expression.mfn.sequence.Minif");
 		addMemberFunction("maxif", "com.scudata.expression.mfn.sequence.Maxif");
-		addMemberFunction("iterate",
-				"com.scudata.expression.mfn.sequence.Iterate");
-		addMemberFunction("iterate",
-				"com.scudata.expression.mfn.cursor.Iterate");
-		addMemberFunction("iterate",
-				"com.scudata.expression.mfn.channel.Iterate");
+		addMemberFunction("iterate", "com.scudata.expression.mfn.sequence.Iterate");
+		addMemberFunction("iterate", "com.scudata.expression.mfn.cursor.Iterate");
+		addMemberFunction("iterate", "com.scudata.expression.mfn.channel.Iterate");
 		addMemberFunction("fno", "com.scudata.expression.mfn.record.FieldNo");
 		addMemberFunction("fno", "com.scudata.expression.mfn.sequence.FieldNo");
-		addMemberFunction("field",
-				"com.scudata.expression.mfn.record.FieldValue");
-		addMemberFunction("field",
-				"com.scudata.expression.mfn.sequence.FieldValue");
-		addMemberFunction("fname",
-				"com.scudata.expression.mfn.record.FieldName");
-		addMemberFunction("fname",
-				"com.scudata.expression.mfn.sequence.FieldName");
+		addMemberFunction("field", "com.scudata.expression.mfn.record.FieldValue");
+		addMemberFunction("field", "com.scudata.expression.mfn.sequence.FieldValue");
+		addMemberFunction("fname", "com.scudata.expression.mfn.record.FieldName");
+		addMemberFunction("fname", "com.scudata.expression.mfn.sequence.FieldName");
 		addMemberFunction("to", "com.scudata.expression.mfn.sequence.To");
 		addMemberFunction("range", "com.scudata.expression.mfn.sequence.Range");
 		addMemberFunction("pivot", "com.scudata.expression.mfn.sequence.Pivot");
-		addMemberFunction("groupc",
-				"com.scudata.expression.mfn.sequence.Groupc");
+		addMemberFunction("groupc", "com.scudata.expression.mfn.sequence.Groupc");
 
 		addMemberFunction("r", "com.scudata.expression.mfn.RowField");
-		addMemberFunction("median",
-				"com.scudata.expression.mfn.sequence.Median");
+		addMemberFunction("median", "com.scudata.expression.mfn.sequence.Median");
 		addMemberFunction("bits", "com.scudata.expression.mfn.sequence.Bits");
 
 		// 内表函数
@@ -408,49 +389,38 @@ public final class FunctionLib {
 		addMemberFunction("memory", "com.scudata.expression.mfn.table.Memory");
 
 		// 修改
-		addMemberFunction("modify",
-				"com.scudata.expression.mfn.sequence.Modify");
+		addMemberFunction("modify", "com.scudata.expression.mfn.sequence.Modify");
 		addMemberFunction("modify", "com.scudata.expression.mfn.record.Modify");
 		addMemberFunction("reset", "com.scudata.expression.mfn.sequence.Reset");
 		addMemberFunction("reset", "com.scudata.expression.mfn.cursor.Reset");
-		addMemberFunction("insert",
-				"com.scudata.expression.mfn.sequence.Insert");
-		addMemberFunction("delete",
-				"com.scudata.expression.mfn.sequence.Delete");
+		addMemberFunction("insert", "com.scudata.expression.mfn.sequence.Insert");
+		addMemberFunction("delete", "com.scudata.expression.mfn.sequence.Delete");
 		addMemberFunction("paste", "com.scudata.expression.mfn.table.Paste");
-		addMemberFunction("record",
-				"com.scudata.expression.mfn.sequence.RecordValue");
-		addMemberFunction("record",
-				"com.scudata.expression.mfn.record.RecordValue");
+		addMemberFunction("record", "com.scudata.expression.mfn.sequence.RecordValue");
+		addMemberFunction("record", "com.scudata.expression.mfn.record.RecordValue");
 		addMemberFunction("rename", "com.scudata.expression.mfn.table.Rename");
-		addMemberFunction("rename",
-				"com.scudata.expression.mfn.op.AttachRename");
+		addMemberFunction("rename", "com.scudata.expression.mfn.op.AttachRename");
 		addMemberFunction("rename", "com.scudata.expression.mfn.vdb.Rename");
 		addMemberFunction("alter", "com.scudata.expression.mfn.table.Alter");
 		addMemberFunction("alter", "com.scudata.expression.mfn.record.Alter");
 
 		// 产生
-		addMemberFunction("create",
-				"com.scudata.expression.mfn.sequence.Create");
+		addMemberFunction("create", "com.scudata.expression.mfn.sequence.Create");
 		addMemberFunction("create", "com.scudata.expression.mfn.record.Create");
 		addMemberFunction("new", "com.scudata.expression.mfn.sequence.New");
 		addMemberFunction("new", "com.scudata.expression.mfn.op.AttachNew");
-		addMemberFunction("derive",
-				"com.scudata.expression.mfn.sequence.Derive");
-		addMemberFunction("derive",
-				"com.scudata.expression.mfn.op.AttachDerive");
+		addMemberFunction("derive", "com.scudata.expression.mfn.sequence.Derive");
+		addMemberFunction("derive", "com.scudata.expression.mfn.op.AttachDerive");
 		addMemberFunction("derive", "com.scudata.expression.mfn.record.Derive");
 		addMemberFunction("penum", "com.scudata.expression.mfn.sequence.PEnum");
 		addMemberFunction("align", "com.scudata.expression.mfn.sequence.Align");
 		addMemberFunction("enum", "com.scudata.expression.mfn.sequence.Enum");
 		addMemberFunction("group", "com.scudata.expression.mfn.sequence.Group");
 		addMemberFunction("group", "com.scudata.expression.mfn.op.AttachGroup");
-		addMemberFunction("groups",
-				"com.scudata.expression.mfn.sequence.Groups");
+		addMemberFunction("groups", "com.scudata.expression.mfn.sequence.Groups");
 		addMemberFunction("groups", "com.scudata.expression.mfn.cursor.Groups");
 		addMemberFunction("groups", "com.scudata.expression.mfn.channel.Groups");
-		addMemberFunction("groupi",
-				"com.scudata.expression.mfn.sequence.Groupi");
+		addMemberFunction("groupi", "com.scudata.expression.mfn.sequence.Groupi");
 		addMemberFunction("news", "com.scudata.expression.mfn.sequence.News");
 		addMemberFunction("news", "com.scudata.expression.mfn.op.AttachNews");
 
@@ -461,10 +431,8 @@ public final class FunctionLib {
 		// 映射
 		addMemberFunction("key", "com.scudata.expression.mfn.record.Key");
 		addMemberFunction("keys", "com.scudata.expression.mfn.table.Keys");
-		addMemberFunction("switch",
-				"com.scudata.expression.mfn.sequence.SwitchFK");
-		addMemberFunction("switch",
-				"com.scudata.expression.mfn.op.AttachSwitch");
+		addMemberFunction("switch", "com.scudata.expression.mfn.sequence.SwitchFK");
+		addMemberFunction("switch", "com.scudata.expression.mfn.op.AttachSwitch");
 		addMemberFunction("index", "com.scudata.expression.mfn.table.Index");
 		addMemberFunction("prior", "com.scudata.expression.mfn.record.Prior");
 		addMemberFunction("nodes", "com.scudata.expression.mfn.sequence.Nodes");
@@ -521,18 +489,15 @@ public final class FunctionLib {
 		addFunction("chardetect", "com.scudata.expression.fn.CharDetect");
 		addFunction("cellname", "com.scudata.expression.fn.CellName");
 
-		addMemberFunction("htmlparse",
-				"com.scudata.expression.mfn.string.HTMLParse");
+		addMemberFunction("htmlparse", "com.scudata.expression.mfn.string.HTMLParse");
 		addMemberFunction("close", "com.scudata.expression.mfn.Close");
 
 		// 数据库
 		addFunction("connect", "com.scudata.expression.fn.Connect");
 		addMemberFunction("commit", "com.scudata.expression.mfn.db.Commit");
 		addMemberFunction("rollback", "com.scudata.expression.mfn.db.Rollback");
-		addMemberFunction("rollback",
-				"com.scudata.expression.mfn.file.Rollback");
-		addMemberFunction("rollback",
-				"com.scudata.expression.mfn.file.FileGroupRollback");
+		addMemberFunction("rollback", "com.scudata.expression.mfn.file.Rollback");
+		addMemberFunction("rollback", "com.scudata.expression.mfn.file.FileGroupRollback");
 		addMemberFunction("query", "com.scudata.expression.mfn.db.Query");
 		addMemberFunction("query", "com.scudata.expression.mfn.file.Query");
 		addMemberFunction("execute", "com.scudata.expression.mfn.db.Execute");
@@ -540,8 +505,7 @@ public final class FunctionLib {
 		addMemberFunction("error", "com.scudata.expression.mfn.db.Error");
 		addMemberFunction("update", "com.scudata.expression.mfn.db.Update");
 		addMemberFunction("isolate", "com.scudata.expression.mfn.db.Isolate");
-		addMemberFunction("savepoint",
-				"com.scudata.expression.mfn.db.SavePoint");
+		addMemberFunction("savepoint", "com.scudata.expression.mfn.db.SavePoint");
 
 		// 数据仓库
 		addFunction("vdbase", "com.scudata.expression.fn.VDBase");
@@ -566,25 +530,18 @@ public final class FunctionLib {
 		addMemberFunction("copy", "com.scudata.expression.mfn.vdb.Copy");
 
 		// 游标
-		addMemberFunction("cursor",
-				"com.scudata.expression.mfn.db.CreateCursor");
-		addMemberFunction("cursor",
-				"com.scudata.expression.mfn.file.CreateCursor");
-		addMemberFunction("cursor",
-				"com.scudata.expression.mfn.sequence.CreateCursor");
-		addMemberFunction("cursor",
-				"com.scudata.expression.mfn.cursor.CreateCursor");
-		addMemberFunction("mcursor",
-				"com.scudata.expression.mfn.sequence.MCursor");
-		addMemberFunction("mcursor",
-				"com.scudata.expression.mfn.cursor.MCursor");
+		addMemberFunction("cursor", "com.scudata.expression.mfn.db.CreateCursor");
+		addMemberFunction("cursor", "com.scudata.expression.mfn.file.CreateCursor");
+		addMemberFunction("cursor", "com.scudata.expression.mfn.sequence.CreateCursor");
+		addMemberFunction("cursor", "com.scudata.expression.mfn.cursor.CreateCursor");
+		addMemberFunction("mcursor", "com.scudata.expression.mfn.sequence.MCursor");
+		addMemberFunction("mcursor", "com.scudata.expression.mfn.cursor.MCursor");
 		addMemberFunction("fetch", "com.scudata.expression.mfn.cursor.Fetch");
 		addMemberFunction("fetch", "com.scudata.expression.mfn.channel.Fetch");
 		addMemberFunction("skip", "com.scudata.expression.mfn.cursor.Skip");
 		addMemberFunction("groupx", "com.scudata.expression.mfn.cursor.Groupx");
 		addMemberFunction("groupx", "com.scudata.expression.mfn.channel.Groupx");
-		addMemberFunction("groupn",
-				"com.scudata.expression.mfn.op.AttachGroupn");
+		addMemberFunction("groupn", "com.scudata.expression.mfn.op.AttachGroupn");
 		addMemberFunction("sortx", "com.scudata.expression.mfn.cursor.Sortx");
 		addMemberFunction("sortx", "com.scudata.expression.mfn.channel.Sortx");
 		addMemberFunction("join", "com.scudata.expression.mfn.op.AttachJoin");
@@ -598,8 +555,7 @@ public final class FunctionLib {
 		addMemberFunction("joinx", "com.scudata.expression.mfn.sequence.Joinx");
 		addMemberFunction("joinx", "com.scudata.expression.mfn.channel.Joinx");
 		addMemberFunction("mergex", "com.scudata.expression.mfn.cursor.Mergex");
-		addMemberFunction("mergex",
-				"com.scudata.expression.mfn.sequence.Mergex");
+		addMemberFunction("mergex", "com.scudata.expression.mfn.sequence.Mergex");
 		addMemberFunction("conjx", "com.scudata.expression.mfn.sequence.Conjx");
 		addMemberFunction("total", "com.scudata.expression.mfn.cursor.Total");
 		addMemberFunction("total", "com.scudata.expression.mfn.channel.Total");
@@ -617,13 +573,11 @@ public final class FunctionLib {
 		addMemberFunction("attach", "com.scudata.expression.mfn.dw.Attach");
 		addMemberFunction("append", "com.scudata.expression.mfn.dw.Append");
 		addMemberFunction("update", "com.scudata.expression.mfn.dw.Update");
-		addMemberFunction("update",
-				"com.scudata.expression.mfn.dw.UpdateMemoryTable");
+		addMemberFunction("update", "com.scudata.expression.mfn.dw.UpdateMemoryTable");
 		addMemberFunction("delete", "com.scudata.expression.mfn.dw.Delete");
 		addMemberFunction("index", "com.scudata.expression.mfn.dw.Index");
 		addMemberFunction("memory", "com.scudata.expression.mfn.dw.Memory");
-		addMemberFunction("cursor",
-				"com.scudata.expression.mfn.dw.CreateCursor");
+		addMemberFunction("cursor", "com.scudata.expression.mfn.dw.CreateCursor");
 		addMemberFunction("import", "com.scudata.expression.mfn.dw.Import");
 		addMemberFunction("new", "com.scudata.expression.mfn.dw.New");
 		addMemberFunction("news", "com.scudata.expression.mfn.dw.News");
@@ -634,21 +588,16 @@ public final class FunctionLib {
 		addMemberFunction("create", "com.scudata.expression.mfn.file.Create");
 		addMemberFunction("create", "com.scudata.expression.mfn.dw.Create");
 		addMemberFunction("open", "com.scudata.expression.mfn.file.Open");
+		addMemberFunction("open", "com.scudata.expression.mfn.dw.Open");
 		addMemberFunction("reset", "com.scudata.expression.mfn.file.Reset");
-		addMemberFunction("create",
-				"com.scudata.expression.mfn.file.FileGroupCreate");
-		addMemberFunction("reset",
-				"com.scudata.expression.mfn.file.FileGroupReset");
-		addMemberFunction("open",
-				"com.scudata.expression.mfn.file.FileGroupOpen");
-		addMemberFunction("cuboid",
-				"com.scudata.expression.mfn.dw.CreateCuboid");
+		addMemberFunction("create", "com.scudata.expression.mfn.file.FileGroupCreate");
+		addMemberFunction("reset", "com.scudata.expression.mfn.file.FileGroupReset");
+		addMemberFunction("open", "com.scudata.expression.mfn.file.FileGroupOpen");
+		addMemberFunction("cuboid", "com.scudata.expression.mfn.dw.CreateCuboid");
 		addMemberFunction("rename", "com.scudata.expression.mfn.dw.Rename");
 		addMemberFunction("alter", "com.scudata.expression.mfn.dw.Alter");
-		addMemberFunction("structure",
-				"com.scudata.expression.mfn.file.Structure");
-		addMemberFunction("structure",
-				"com.scudata.expression.mfn.file.FileGroupStructure");
+		addMemberFunction("structure", "com.scudata.expression.mfn.file.Structure");
+		addMemberFunction("structure", "com.scudata.expression.mfn.file.FileGroupStructure");
 		addMemberFunction("memory", "com.scudata.expression.mfn.cursor.Memory");
 		addMemberFunction("dup", "com.scudata.expression.mfn.table.Dup");
 
