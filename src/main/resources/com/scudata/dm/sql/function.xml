@@ -12,6 +12,27 @@
 	  <INFO dbtype="OCEANBASE_MYSQL" value="abs(?1)"/>
 	  <INFO dbtype="OCEANBASE_ORACLE" value="abs(?1)"/>
 	</FUNCTION>
+	<FUNCTION name="MD5" paramcount="1" value="">
+      <INFO dbtype="ESPROC" value="MD5(?1)"/>
+      <INFO dbtype="ORACLE" value="LOWER(RAWTOHEX(STANDARD_HASH(?1,'MD5')))"/>
+      <INFO dbtype="POSTGRESQL" value="MD5(?1)"/>
+      <INFO dbtype="POLARDB_POSTGRESQL" value="MD5(?1)"/>
+      <INFO dbtype="KINGBASE" value="MD5(?1)"/>
+      <INFO dbtype="OPENGAUSS" value="MD5(?1)"/>
+      <INFO dbtype="MYSQL" value="MD5(?1)"/>
+      <INFO dbtype="POLARDB_MYSQL" value="MD5(?1)"/>
+      <INFO dbtype="OCEANBASE_MYSQL" value="MD5(?1)"/>
+      <INFO dbtype="OCEANBASE_ORACLE" value="LOWER(RAWTOHEX(DBMS_CRYPTO.HASH(UTL_RAW.CAST_TO_RAW(?1),2)))"/>
+      <INFO dbtype="DAMENG" value="LOWER(RAWTOHEX(MD5(?1)))"/>
+      <INFO dbtype="SQLSVR" value="LOWER(CONVERT(VARCHAR(32),HASHBYTES('MD5',?1),2))"/>
+      <INFO dbtype="DUCKDB" value="MD5(?1)"/>
+      <INFO dbtype="SNOWFLAKE" value="MD5(?1)"/>
+      <INFO dbtype="CLICKHOUSE" value="LOWER(HEX(MD5(?1)))"/>
+      <INFO dbtype="BIGQUERY" value="TO_HEX(MD5(?1))"/>
+      <INFO dbtype="HIVE" value="MD5(?1)"/>
+      <INFO dbtype="SPARKSQL" value="MD5(?1)"/>
+      <INFO dbtype="DORIS" value="MD5(?1)"/>
+</FUNCTION>
 	<FUNCTION name="ACOS" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="acos(?1)"/>
 	  <INFO dbtype="DUCKDB" value="acos(?1)"/>

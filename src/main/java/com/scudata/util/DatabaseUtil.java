@@ -4786,7 +4786,7 @@ public class DatabaseUtil {
 				}
 				keysize = keyCols.size();
 			}
-			boolean insertOnly = opt.indexOf('i') > -1;
+			boolean insertOnly = opt != null && opt.indexOf('i') > -1;
 			if (keysize < 1) {
 				//throw new RQException("update function can't find Key Columns.");
 				//MessageManager mm = DataSetMessage.get();
