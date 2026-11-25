@@ -14,6 +14,7 @@
 	</FUNCTION>
 	<FUNCTION name="MD5" paramcount="1" value="">
       <INFO dbtype="ESPROC" value="MD5(?1)"/>
+	  <INFO dbtype="HSQL" value="N/A"/>
       <INFO dbtype="ORACLE" value="LOWER(RAWTOHEX(STANDARD_HASH(?1,'MD5')))"/>
       <INFO dbtype="POSTGRESQL" value="MD5(?1)"/>
       <INFO dbtype="POLARDB_POSTGRESQL" value="MD5(?1)"/>
@@ -1992,7 +1993,36 @@ END"/>
 		<INFO dbtype="HSQL" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="ESPROC" value="string(?1,?2)"/>
 		<INFO dbtype="DUCKDB" value="N/A"/>
-		<INFO dbtype="MYSQL" value="DATE_FORMAT(STR_TO_DATE(?1,'%Y-%m-%d'),'%Y%m%d')"/>
+		<INFO dbtype="MYSQL" value=" CASE
+    WHEN ?2 = 'yyyyMMdd'
+        THEN DATE_FORMAT(?1, '%Y%m%d')
+    WHEN ?2 = 'yyyy-MM-dd'
+        THEN DATE_FORMAT(?1, '%Y-%m-%d')
+    WHEN ?2 = 'yyyy/MM/dd'
+        THEN DATE_FORMAT(?1, '%Y/%m/%d')
+    WHEN ?2 = 'yyyy-MM-dd HH:mm:ss'
+        THEN DATE_FORMAT(?1, '%Y-%m-%d %H:%i:%s')
+    WHEN ?2 = 'YYYY-MM-DD HH24:MI:SS'
+        THEN DATE_FORMAT(?1, '%Y-%m-%d %H:%i:%s')
+    WHEN ?2 REGEXP '^[90,]+([.][90]+)?$'
+        THEN IF(
+            INSTR(?2, ',') > 0,
+            FORMAT(
+                ?1,
+                IF(INSTR(?2, '.') > 0,
+                    LENGTH(SUBSTRING_INDEX(?2, '.', -1)), 0)
+            ),
+            REPLACE(
+                FORMAT(
+                    ?1,
+                    IF(INSTR(?2, '.') > 0,
+                        LENGTH(SUBSTRING_INDEX(?2, '.', -1)), 0)
+                ),
+                ',', ''
+            )
+        )
+    ELSE CAST(?1 AS CHAR)
+END "/>
 		<INFO dbtype="POSTGRES" value="TO_CHAR(?1,?2)"/>
 		<INFO dbtype="BIGQUERY" value="N/A"/>
 		<INFO dbtype="SNOWFLAKE" value="to_varchar(?1,?2)"/>
@@ -2066,21 +2096,21 @@ END"/>
 		<INFO dbtype="POLARDB_MYSQL" value="pi()"/>
 	  </FUNCTION>
 	 <FUNCTION name="CHN" paramcount="1" value="">
-        <INFO dbtype="ORACLE" value="N/A"/>
+        <INFO dbtype="ORACLE" value="TRANSLATE(TO_CHAR(?1),'0123456789-.','零一二三四五六七八九负点')"/>
 		<INFO dbtype="MYSQL" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
-		<INFO dbtype="HSQL" value="N/A"/>
-		<INFO dbtype="DUCKDB" value="N/A"/>
+		<INFO dbtype="HSQL" value="TRANSLATE(CAST(-97 AS VARCHAR(100)),'0123456789-.','零一二三四五六七八九负点')"/>
+		<INFO dbtype="DUCKDB" value="TRANSLATE(CAST(?1 AS VARCHAR),'0123456789-.','零一二三四五六七八九负点')"/>
 		<INFO dbtype="POSTGRES" value="N/A"/>
 		<INFO dbtype="ESPROC" value="chn(?1)"/>
 		<INFO dbtype="HIVE" value="N/A"/>
 		<INFO dbtype="DAMENG" value="N/A"/>
 		<INFO dbtype="OPENGAUSS" value="N/A"/>
-		<INFO dbtype="SNOWFLAKE" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
-		<INFO dbtype="CLICKHOUSE" value="arrayStringConcat(arrayMap(    x -> transform(toInt8(x),  CAST([0,1,2,3,4,5,6,7,8,9] AS Array(Int8)), ['零','一','二','三','四','五','六','七','八','九'],        ''),    splitByString('', toString(?1))), '')"/>
+		<INFO dbtype="SNOWFLAKE" value="TRANSLATE(TO_VARCHAR(?1),'0123456789-.','零一二三四五六七八九负点')"/>
+		<INFO dbtype="CLICKHOUSE" value="translateUTF8(toString(?1),'0123456789-.','零一二三四五六七八九负点')"/>
 		<INFO dbtype="DORIS" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
-		<INFO dbtype="KINGBASE" value="TRANSLATE(?1,'0123456789','零一二三四五六七八九')"/>
+		<INFO dbtype="KINGBASE" value="TRANSLATE(?1,'0123456789-.','零一二三四五六七八九负点')"/>
 		<INFO dbtype="OCEANBASE_MYSQL" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
-		<INFO dbtype="POLARDB_POSTGRESQL" value="translate(?1::text, '0123456789', '零一二三四五六七八九')"/>
+		<INFO dbtype="POLARDB_POSTGRESQL" value="translate(?1::text, '0123456789-.', '零一二三四五六七八九负点')"/>
 		<INFO dbtype="POLARDB_MYSQL" value="replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(?1,'0','零'),'1','一'),'2','二'),'3','三'),'4','四'),'5','五'),'6','六'),'7','七'),'8','八'),'9','九')"/>
 		 <INFO dbtype="OCEANBASE_ORACLE" value="N/A"/>
 	  </FUNCTION>	  
@@ -2114,6 +2144,7 @@ END"/>
       <INFO dbtype="ESPROC" value="?1.split(?2)(?3)"/>
 	  <INFO dbtype="ORACLE" value="REGEXP_SUBSTR(?1,'[^'||?2||']+',1,?3)"/>
 	  <INFO dbtype="SNOWFLAKE" value="SPLIT_PART(?1,?2,?3)"/>
+	  <INFO dbtype="SQLSVR" value="STRING_SPLIT(?1,?2,?3)"/>
 	  <INFO dbtype="DUCKDB" value="split_part(?1,?2,?3)"/>
 	  <INFO dbtype="CLICKHOUSE" value="splitByString(?2,?1)[?3]"/>
 	  <INFO dbtype="KINGBASE" value="split_part(?1,?2,?3)"/>
