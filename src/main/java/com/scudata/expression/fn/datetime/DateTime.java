@@ -110,9 +110,25 @@ public class DateTime extends Function {
 			}
 
 			Object result1 = sub1.getLeafExpression().calculate(ctx);
-			if (result1 == null) return null;
+			if (result1 == null) {
+				return null;
+			}
 			
-			if (sub2.isLeaf()) {
+			if (param.getType() == IParam.Semicolon) {
+				if (!(result1 instanceof Date)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("datetime" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				Object result2 = sub2.getLeafExpression().calculate(ctx);
+				if (!(result2 instanceof Number)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("datetime" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				int interval = ((Number)result2).intValue();
+				return align((Date)result1, interval, option);
+			} else if (sub2.isLeaf()) {
 				Object result2 = sub2.getLeafExpression().calculate(ctx);
 				if (result1 instanceof String) {
 					if (result2 instanceof String) {
@@ -325,5 +341,55 @@ public class DateTime extends Function {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("datetime" + mm.getMessage("function.invalidParam"));
 		}
+	}
+	
+	/**
+	 * 对齐日期时间到时间段的开始时间
+	 * @param date
+	 * @param interval 间隔，假如间隔是5，
+	 * 精确到天的话1到5号值是1,6到10号值是6
+	 * 精确到分的话0到4是0,5到9是5
+	 * @param option
+	 * @return
+	 */
+	private static Date align(Date date, int interval, String option) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		if (option != null) {
+			if (option.indexOf('s') != -1) {
+				int n = calendar.get(Calendar.SECOND) / interval;
+				calendar.set(Calendar.MILLISECOND, 0);
+				calendar.set(Calendar.SECOND, n * interval);
+			} else if (option.indexOf('m') != -1) {
+				int n = calendar.get(Calendar.MINUTE) / interval;
+				calendar.set(Calendar.SECOND, 0);
+				calendar.set(Calendar.MILLISECOND, 0);
+				calendar.set(Calendar.MINUTE, n * interval);
+			} else if (option.indexOf('h') != -1) {
+				int n = calendar.get(Calendar.HOUR_OF_DAY) / interval;
+				calendar.set(Calendar.MINUTE, 0);
+				calendar.set(Calendar.SECOND, 0);
+				calendar.set(Calendar.MILLISECOND, 0);
+				calendar.set(Calendar.HOUR_OF_DAY, n * interval);
+			} else {
+				int n = calendar.get(Calendar.DAY_OF_MONTH);
+				n = (n - 1) / interval;
+				calendar.set(Calendar.HOUR_OF_DAY, 0);
+				calendar.set(Calendar.MINUTE, 0);
+				calendar.set(Calendar.SECOND, 0);
+				calendar.set(Calendar.MILLISECOND, 0);
+				calendar.set(Calendar.DAY_OF_MONTH, n * interval + 1);
+			}
+		} else {
+			int n = calendar.get(Calendar.DAY_OF_MONTH);
+			n = (n - 1) / interval;
+			calendar.set(Calendar.HOUR_OF_DAY, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+			calendar.set(Calendar.DAY_OF_MONTH, n * interval + 1);
+		}
+		
+		return new Timestamp(calendar.getTimeInMillis());
 	}
 }
