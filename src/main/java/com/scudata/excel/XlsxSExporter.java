@@ -113,13 +113,91 @@ public class XlsxSExporter implements IExcelTool {
 		this.isAppend = isAppend;
 		this.isK = isK;
 		this.pwd = pwd;
-		try {
-			wb = new SXSSFWorkbook(500);
-			sheet = wb.createSheet();
-			loadSheet(StringUtils.isValidString(sheetName) ? (String) sheetName
-					: "");
-		} catch (Exception e) {
-			throw new RQException(e.getMessage());
+		String sheetNameStr = StringUtils.isValidString(sheetName) ? (String) sheetName
+				: "";
+		boolean loaded = false;
+		if (fo.isExists() && (isAppend || isK)) {
+			// 追加或替换目标页时，保留原工作簿中的其他页
+			InputStream is = null;
+			try {
+				is = fo.getInputStream();
+				XSSFWorkbook oldWb = new XSSFWorkbook(is);
+				wb = new SXSSFWorkbook(oldWb, 500);
+				ExcelUtils.trackAllColumnsForAutoSizing(wb);
+				loadExistingSheet(sheetNameStr);
+				loaded = true;
+			} catch (Throwable t) {
+				// 读入原文件失败（如加密、格式异常）时回退为新建工作簿，
+				// 与旧逻辑保持一致，不抛出新的异常
+				wb = null;
+				sheet = null;
+				sheetExists = false;
+			} finally {
+				if (is != null) {
+					try {
+						is.close();
+					} catch (Throwable t) {
+					}
+				}
+			}
+		}
+		if (!loaded) {
+			try {
+				wb = new SXSSFWorkbook(500);
+				ExcelUtils.trackAllColumnsForAutoSizing(wb);
+				sheet = wb.createSheet();
+				loadSheet(sheetNameStr);
+			} catch (Exception e) {
+				throw new RQException(e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * 加载已存在工作簿中的目标页，保留其他页
+	 */
+	private void loadExistingSheet(String sheetName) throws Exception {
+		if (StringUtils.isValidString(sheetName)) {
+			sheet = wb.getSheet(sheetName);
+		} else if (wb.getNumberOfSheets() > 0) {
+			sheet = wb.getSheetAt(0);
+		}
+		sheetExists = sheet != null;
+		if (sheet == null) {
+			if (StringUtils.isValidString(sheetName)) {
+				sheet = wb.createSheet(sheetName);
+			} else {
+				sheet = wb.createSheet();
+			}
+		}
+		wb.setActiveSheet(wb.getSheetIndex(sheet));
+		currRow = 0;
+		if (isK) {
+			// @k：替换目标页，清空原有单元格内容，保留其他页与样式
+			clearSheetValues();
+			loadStylesK(sheet);
+		} else if (isAppend) {
+			loadStylesA(sheet);
+		}
+	}
+
+	/**
+	 * 清空当前页所有单元格的内容（保留单元格样式）
+	 */
+	private void clearSheetValues() {
+		int lastRow = sheet.getLastRowNum();
+		for (int r = sheet.getFirstRowNum(); r <= lastRow; r++) {
+			Row row = sheet.getRow(r);
+			if (row == null) {
+				continue;
+			}
+			short lastCell = row.getLastCellNum();
+			for (short c = 0; c < lastCell; c++) {
+				Cell cell = row.getCell(c);
+				if (cell != null) {
+					cell.setBlank();
+				}
+			}
 		}
 	}
 
@@ -317,14 +395,18 @@ public class XlsxSExporter implements IExcelTool {
 	 */
 	public void setSheet(String sheetName) {
 		currRow = 0;
-		int index = 1;
-		while (wb.getSheet(DEFAULT_SHEET_NAME_PRE + index) != null) {
-			index++;
+		maxWriteCount = MAX_XLSX_LINECOUNT;
+		String name = sheetName;
+		if (!StringUtils.isValidString(name) || wb.getSheet(name) != null) {
+			int index = 1;
+			while (wb.getSheet(DEFAULT_SHEET_NAME_PRE + index) != null) {
+				index++;
+			}
+			name = DEFAULT_SHEET_NAME_PRE + index;
 		}
-		String newName = DEFAULT_SHEET_NAME_PRE + index;
 		sheet = wb.createSheet();
 		int sheetIndex = wb.getSheetIndex(sheet);
-		wb.setSheetName(sheetIndex, newName);
+		wb.setSheetName(sheetIndex, name);
 	}
 
 	/**
@@ -550,7 +632,7 @@ public class XlsxSExporter implements IExcelTool {
 	 * @param sheet
 	 *            XSSFSheet
 	 */
-	private void loadStylesA(XSSFSheet sheet) {
+	private void loadStylesA(Sheet sheet) {
 		if (sheet == null)
 			return;
 		try {
@@ -559,7 +641,7 @@ public class XlsxSExporter implements IExcelTool {
 				return;
 			}
 			int lastContentRow = -1;
-			XSSFRow hr;
+			Row hr;
 			// int colCount = 0;
 			for (int r = lastRow; r >= 0; r--) {
 				hr = sheet.getRow(r);
@@ -591,7 +673,7 @@ public class XlsxSExporter implements IExcelTool {
 				}
 			}
 
-			maxWriteCount -= currRow + 1;
+			maxWriteCount -= currRow;
 
 			// colStyles = new CellStyle[colCount];
 			// for (int c = 0; c < colCount; c++) {
@@ -627,7 +709,7 @@ public class XlsxSExporter implements IExcelTool {
 	 * @param sheet
 	 *            XSSFSheet
 	 */
-	private void loadStylesK(XSSFSheet sheet) {
+	private void loadStylesK(Sheet sheet) {
 		if (sheet == null)
 			return;
 		try {
@@ -641,7 +723,7 @@ public class XlsxSExporter implements IExcelTool {
 			} else {
 				dataStyle = getRowStyle(0);
 			}
-			maxWriteCount -= currRow + 1;
+			maxWriteCount -= currRow;
 		} catch (Exception e) {
 			Logger.error(e);
 		}

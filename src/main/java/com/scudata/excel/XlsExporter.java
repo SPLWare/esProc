@@ -395,14 +395,18 @@ public class XlsExporter implements IExcelTool {
 	 */
 	public void setSheet(String sheetName) {
 		currRow = 0;
-		int index = 1;
-		while (wb.getSheet(DEFAULT_SHEET_NAME_PRE + index) != null) {
-			index++;
+		maxWriteCount = MAX_XLS_LINECOUNT;
+		String name = sheetName;
+		if (!StringUtils.isValidString(name) || wb.getSheet(name) != null) {
+			int index = 1;
+			while (wb.getSheet(DEFAULT_SHEET_NAME_PRE + index) != null) {
+				index++;
+			}
+			name = DEFAULT_SHEET_NAME_PRE + index;
 		}
-		String newName = DEFAULT_SHEET_NAME_PRE + index;
 		sheet = wb.createSheet();
 		int sheetIndex = wb.getSheetIndex(sheet);
-		wb.setSheetName(sheetIndex, newName);
+		wb.setSheetName(sheetIndex, name);
 	}
 
 	/**
@@ -539,7 +543,7 @@ public class XlsExporter implements IExcelTool {
 				}
 			}
 
-			maxWriteCount -= currRow + 1; // 从currRow开始，可写的最大行数
+			maxWriteCount -= currRow; // 从currRow开始，可写的最大行数
 
 			colStyles = new HSSFCellStyle[colCount];
 			for (int c = 0; c < colCount; c++) {
@@ -587,7 +591,7 @@ public class XlsExporter implements IExcelTool {
 				dataStyle = getRowStyle(0);
 			}
 
-			maxWriteCount -= currRow + 1; // 从currRow开始，可写的最大行数
+			maxWriteCount -= currRow; // 从currRow开始，可写的最大行数
 
 			colStyles = new HSSFCellStyle[colCount];
 			for (int c = 0; c < colCount; c++) {

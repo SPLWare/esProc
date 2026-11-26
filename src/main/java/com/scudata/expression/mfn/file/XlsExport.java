@@ -271,14 +271,24 @@ public class XlsExport extends FileFunction {
 		if (src instanceof Sequence) {
 			seq = (Sequence) src;
 			int totalCount = seq.length();
+			boolean isTitle = StringUtils.isValidString(opt)
+					&& opt.indexOf("t") != -1;
 			if (totalCount > maxCount) {
 				String sheetName = s == null ? "Sheet" : (String) s;
 				int start = 1;
 				int index = 1;
 				while (totalCount > 0) {
-					cursor = new MemoryCursor(seq, start, start + maxCount);
-					if (index > 1)
+					if (index > 1 || maxCount <= 0) {
 						et.setSheet(sheetName + index);
+						maxCount = et.getMaxLineCount();
+						if (isTitle) {
+							maxCount--;
+						}
+					}
+					if (maxCount <= 0) {
+						break;
+					}
+					cursor = new MemoryCursor(seq, start, start + maxCount);
 					et.fileXlsExport(cursor, exps, names, opt, ctx);
 					start += maxCount;
 					index++;
@@ -289,13 +299,23 @@ public class XlsExport extends FileFunction {
 			}
 		} else if (src instanceof ICursor) {
 			cursor = (ICursor) src;
+			boolean isTitle = StringUtils.isValidString(opt)
+					&& opt.indexOf("t") != -1;
 			String sheetName = s == null ? "Sheet" : (String) s;
 			int index = 1;
 			ICursor subCursor;
 			while (cursor.peek(1) != null) {
-				subCursor = new SubCursor(cursor, maxCount);
-				if (index > 1)
+				if (index > 1 || maxCount <= 0) {
 					et.setSheet(sheetName + index);
+					maxCount = et.getMaxLineCount();
+					if (isTitle) {
+						maxCount--;
+					}
+				}
+				if (maxCount <= 0) {
+					break;
+				}
+				subCursor = new SubCursor(cursor, maxCount);
 				et.fileXlsExport(subCursor, exps, names, opt, ctx);
 				index++;
 			}

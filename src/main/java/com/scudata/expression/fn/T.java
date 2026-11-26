@@ -245,8 +245,8 @@ public class T extends Function {
 				if (!isCursor) {
 					buf.append(".fetch()");
 				}
-			} else {// 导出
-				buf.append("open(");
+			} else {// 导出，用替换写：先删除已存在文件再创建
+				buf.append("create@y(");
 				if (fields != null) {
 					buf.append(fields);
 				} else {

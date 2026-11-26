@@ -86,6 +86,7 @@ public class FileXls extends XlsFileObject {
 			if (fileType == TYPE_WRITE) {
 				isXls = false;
 				wb = new SXSSFWorkbook(BUFF_SIZE);
+				ExcelUtils.trackAllColumnsForAutoSizing(wb);
 			} else {
 				boolean hasPwd = StringUtils.isValidString(pwd);
 				in = fo.getInputStream();
@@ -324,7 +325,7 @@ public class FileXls extends XlsFileObject {
 				if (createSheet) {
 					String name = PRE_SHEET_NAME + index;
 					sheet = wb.createSheet(name);
-					newLast(new Object[] { name, new Integer(0), new Integer(0) });
+					newLast(new Object[] { name, new Integer(0), new Integer(0), SheetInfo.VISIBLE });
 				} else {
 					throw new RQException(AppMessage.get().getMessage(
 							"excel.nosheetindex", index + ""));
@@ -337,7 +338,7 @@ public class FileXls extends XlsFileObject {
 					wb.removeSheetAt(index - 1);
 					removeSheet(oldName);
 					this.insert(index, new Object[] { oldName, new Integer(0),
-							new Integer(0) });
+							new Integer(0), SheetInfo.VISIBLE });
 					sheet = wb.createSheet(oldName);
 					wb.setSheetOrder(oldName, index - 1);
 					wb.setActiveSheet(index - 1);
@@ -348,7 +349,7 @@ public class FileXls extends XlsFileObject {
 				if (createSheet) {
 					String name = PRE_SHEET_NAME + index;
 					sheet = wb.createSheet(name);
-					newLast(new Object[] { name, Integer.valueOf(0), Integer.valueOf(0) });
+					newLast(new Object[] { name, Integer.valueOf(0), Integer.valueOf(0), SheetInfo.VISIBLE });
 				} else {
 					throw new RQException(AppMessage.get().getMessage(
 							"excel.nosheetindex", index + ""));
@@ -360,7 +361,7 @@ public class FileXls extends XlsFileObject {
 			if (sheet == null) {
 				if (createSheet) {
 					sheet = wb.createSheet(name);
-					newLast(new Object[] { name, new Integer(0), new Integer(0) });
+					newLast(new Object[] { name, new Integer(0), new Integer(0), SheetInfo.VISIBLE });
 				} else {
 					throw new RQException(AppMessage.get().getMessage(
 							"excel.nosheetname", name));
@@ -374,7 +375,7 @@ public class FileXls extends XlsFileObject {
 				wb.setActiveSheet(index);
 				wb.setSelectedTab(index);
 				this.insert(index + 1, new Object[] { name, new Integer(0),
-						new Integer(0) });
+						new Integer(0), SheetInfo.VISIBLE });
 			}
 		} else {
 			if (s != null) {
@@ -384,7 +385,7 @@ public class FileXls extends XlsFileObject {
 			} else {
 				String name = getNewSheetName();
 				sheet = wb.createSheet(name);
-				newLast(new Object[] { name, new Integer(0), new Integer(0) });
+				newLast(new Object[] { name, new Integer(0), new Integer(0), SheetInfo.VISIBLE });
 			}
 		}
 		return sheet;
@@ -461,9 +462,10 @@ public class FileXls extends XlsFileObject {
 		BaseRecord sheetInfo = this.getRecord(sheetIndex + 1);
 		int targetSheetIndex = wb.getSheetIndex(cloneSheet);
 		wb.setSheetName(targetSheetIndex, s1);
-		this.insert(
-				targetSheetIndex + 1,
-				new Object[] { s1, sheetInfo.getFieldValue(1),
-						sheetInfo.getFieldValue(2) });
+		this.insert(targetSheetIndex + 1, new Object[] { s1,
+				sheetInfo.getFieldValue(COL_ROW_COUNT),
+				sheetInfo.getFieldValue(COL_COL_COUNT),
+				sheetInfo.getFieldValue(COL_HIDDEN) });
+		sheets.clear();
 	}
 }

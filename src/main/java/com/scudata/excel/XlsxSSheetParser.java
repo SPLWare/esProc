@@ -234,7 +234,7 @@ public class XlsxSSheetParser implements ILineInput {
 			Object[] line = (Object[]) obj;
 			if (isN && line != null) {
 				for (int i = 0; i < line.length; i++) {
-					line[i] = ExcelUtils.trim(line[i], false);
+					line[i] = ExcelUtils.trim(line[i], true);
 				}
 			}
 			return line;
@@ -253,7 +253,6 @@ public class XlsxSSheetParser implements ILineInput {
 		if (endRow > -1 && currRow == endRow) { // the last line
 			return false;
 		}
-		currRow++;
 		return true;
 	}
 

@@ -376,14 +376,18 @@ public class XlsxExporter implements IExcelTool {
 	 */
 	public void setSheet(String sheetName) {
 		currRow = 0;
-		int index = 1;
-		while (wb.getSheet(DEFAULT_SHEET_NAME_PRE + index) != null) {
-			index++;
+		maxWriteCount = MAX_XLSX_LINECOUNT;
+		String name = sheetName;
+		if (!StringUtils.isValidString(name) || wb.getSheet(name) != null) {
+			int index = 1;
+			while (wb.getSheet(DEFAULT_SHEET_NAME_PRE + index) != null) {
+				index++;
+			}
+			name = DEFAULT_SHEET_NAME_PRE + index;
 		}
-		String newName = DEFAULT_SHEET_NAME_PRE + index;
 		sheet = wb.createSheet();
 		int sheetIndex = wb.getSheetIndex(sheet);
-		wb.setSheetName(sheetIndex, newName);
+		wb.setSheetName(sheetIndex, name);
 	}
 
 	/**
@@ -518,7 +522,7 @@ public class XlsxExporter implements IExcelTool {
 				}
 			}
 
-			maxWriteCount -= currRow + 1;
+			maxWriteCount -= currRow;
 
 			colStyles = new CellStyle[colCount];
 			for (int c = 0; c < colCount; c++) {
@@ -568,7 +572,7 @@ public class XlsxExporter implements IExcelTool {
 				dataStyle = getRowStyle(0);
 			}
 
-			maxWriteCount -= currRow + 1;
+			maxWriteCount -= currRow;
 
 			colStyles = new CellStyle[colCount];
 			for (int c = 0; c < colCount; c++) {

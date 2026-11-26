@@ -458,7 +458,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 					return null;
 				if (isN) {
 					for (int i = 0; i < line.length; i++) {
-						line[i] = ExcelUtils.trim(line[i], isW);
+						line[i] = ExcelUtils.trim(line[i], true);
 					}
 				}
 				return line;
@@ -651,7 +651,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			return null;
 		if (isN) {
 			for (int i = 0; i < line.length; i++) {
-				line[i] = ExcelUtils.trim(line[i], isW);
+				line[i] = ExcelUtils.trim(line[i], true);
 			}
 		}
 		return line;
@@ -823,7 +823,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				xlsExporter);
 
 		boolean autoSizeColumn = opt != null && opt.indexOf("z") != -1;
-		if (autoSizeColumn) {
+		if (autoSizeColumn && counts != null && counts.length > 1) {
 			autoSizeColumn(counts[1]);
 		}
 	}

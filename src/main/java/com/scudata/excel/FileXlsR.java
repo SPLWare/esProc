@@ -140,7 +140,7 @@ public class FileXlsR extends XlsFileObject {
 	private void initSheetInfos(XSSFReader xssfReader, final String fileName)
 			throws Exception {
 		String filePath = ConfigUtil.getPath(Env.getMainPath(), fileName);
-		final Map<String, String> hiddenMap = parseSheetVisibility(filePath);
+		final Map<String, String> hiddenMap = parseSheetVisibility(xssfReader);
 		final Vector<String> countSet = new Vector<String>();
 		HashSet<String> nameSet = new HashSet<String>();
 		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader
@@ -173,18 +173,15 @@ public class FileXlsR extends XlsFileObject {
 		}
 	}
 
-	private static Map<String, String> parseSheetVisibility(String filePath)
+	private static Map<String, String> parseSheetVisibility(XSSFReader reader)
 			throws Exception {
 		final Map<String, String> hiddenMap = new HashMap<String, String>();
 
-		// 1. 以只读方式打开XLSX包
-		OPCPackage pkg = null;
+		// 复用已打开的 reader（加密文件已解密），避免再次打开原加密文件
+		InputStream workbookXmlStream = null;
 		try {
-			pkg = OPCPackage.open(filePath, PackageAccess.READ);
-			XSSFReader reader = new XSSFReader(pkg);
-
-			// 2. 获取workbook.xml的输入流
-			InputStream workbookXmlStream = reader.getWorkbookData();
+			// 获取workbook.xml的输入流
+			workbookXmlStream = reader.getWorkbookData();
 
 			// 3. 使用SAX解析workbook.xml，提取sheet信息
 			XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser()
@@ -230,8 +227,11 @@ public class FileXlsR extends XlsFileObject {
 			// 开始解析
 			xmlReader.parse(new InputSource(workbookXmlStream));
 		} finally {
-			if (pkg != null) {
-				pkg.close();
+			if (workbookXmlStream != null) {
+				try {
+					workbookXmlStream.close();
+				} catch (Throwable t) {
+				}
 			}
 		}
 

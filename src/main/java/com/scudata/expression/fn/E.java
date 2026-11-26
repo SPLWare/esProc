@@ -139,8 +139,14 @@ public class E extends Function {
 		}
 
 		if (x instanceof Number) { // excel日期时间的数值转成java日期时间
-			Date date = ExcelUtils.excelDateNumber2JavaDate((Number) x);
-			return date;
+			Date date = null;
+			try {
+				date = ExcelUtils.excelDateNumber2JavaDate((Number) x);
+			} catch (Throwable t) {
+				date = null;
+			}
+			// 未定义的数值（负数、NaN 等）返回原值
+			return date == null ? x : date;
 		} else if (x instanceof Date) { // java日期时间转成excel日期时间的数值
 			Number excelDateNumber = ExcelUtils
 					.javaDate2ExcelDateNumber((Date) x);
@@ -356,6 +362,7 @@ public class E extends Function {
 					continue;
 				else
 					t.newLast();
+				continue;
 			}
 			if (t == null) {
 				cc = rowSeq.length();
@@ -416,6 +423,7 @@ public class E extends Function {
 					continue;
 				else
 					t.newLast();
+				continue;
 			}
 			if (t == null) {
 				String[] colNames;

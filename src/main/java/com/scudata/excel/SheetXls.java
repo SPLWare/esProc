@@ -324,7 +324,7 @@ public class SheetXls extends SheetObject {
 					return null;
 				if (isN) {
 					for (int i = 0; i < line.length; i++) {
-						line[i] = ExcelUtils.trim(line[i], isW);
+						line[i] = ExcelUtils.trim(line[i], true);
 					}
 				}
 				return line;
@@ -766,7 +766,11 @@ public class SheetXls extends SheetObject {
 			int endRow = startRow + rowCount;
 			int lastCol = startCol;
 			if (pos2 != null) {
-				endRow = Math.min(pos2.getRow(), endRow);
+				int pos2Row = pos2.getRow();
+				if (isRowInsert) {
+					pos2Row++;
+				}
+				endRow = Math.min(pos2Row, endRow);
 			}
 			int endCol;
 			for (int r = startRow; r < endRow; r++) {
@@ -797,12 +801,15 @@ public class SheetXls extends SheetObject {
 				} else {
 					line = new Object[1];
 					line[0] = rowData;
-					endCol = 1;
+					endCol = startCol + 1;
+				}
+				if (pos2 != null) {
+					endCol = Math.min(pos2.getCol(), endCol);
 				}
 				lastCol = Math.max(lastCol, endCol);
 				writeLine(r, line, startCol, endCol);
 			}
-			sheetInfo.setRowCount(sheetInfo.getRowCount() + rowCount);
+			sheetInfo.setRowCount(Math.max(sheetInfo.getRowCount(), endRow));
 			sheetInfo.setColCount(Math.max(sheetInfo.getColCount(), lastCol));
 		} else if (content instanceof Matrix) {
 			Matrix matrix = (Matrix) content;
@@ -836,8 +843,46 @@ public class SheetXls extends SheetObject {
 				Object[] line = matrix.getRow(r - startRow);
 				writeLine(r, line, startCol, endCol);
 			}
-			sheetInfo.setRowCount(sheetInfo.getRowCount() + rowCount);
+			sheetInfo.setRowCount(Math.max(sheetInfo.getRowCount(), endRow));
 			sheetInfo.setColCount(Math.max(sheetInfo.getColCount(), endCol));
+		}
+	}
+
+	/**
+	 * 清空指定区域的单元格内容（保留样式）
+	 *
+	 * @param pos1
+	 *            起始格
+	 * @param pos2
+	 *            结束格
+	 */
+	public void clearCells(CellLocation pos1, CellLocation pos2) {
+		if (sheet == null || pos1 == null || pos2 == null)
+			return;
+		int r1 = pos1.getRow() - 1;
+		int c1 = pos1.getCol() - 1;
+		int r2 = pos2.getRow() - 1;
+		int c2 = pos2.getCol() - 1;
+		if (r1 > r2) {
+			int t = r1;
+			r1 = r2;
+			r2 = t;
+		}
+		if (c1 > c2) {
+			int t = c1;
+			c1 = c2;
+			c2 = t;
+		}
+		for (int r = r1; r <= r2; r++) {
+			Row row = sheet.getRow(r);
+			if (row == null)
+				continue;
+			for (int c = c1; c <= c2; c++) {
+				Cell cell = row.getCell(c);
+				if (cell != null) {
+					cell.setBlank();
+				}
+			}
 		}
 	}
 
@@ -896,7 +941,7 @@ public class SheetXls extends SheetObject {
 			if (hssfPatriarch == null)
 				hssfPatriarch = ((HSSFSheet) sheet).createDrawingPatriarch();
 			hssfPatriarch.createPicture(anchor,
-					wb.addPicture(data, Workbook.PICTURE_TYPE_PNG));
+					wb.addPicture(data, ExcelUtils.getPictureType(data)));
 		} else {
 			ClientAnchor anchor = new XSSFClientAnchor(0, 0, 1023, 255, col,
 					row, col + 1, row + 1);
@@ -905,7 +950,7 @@ public class SheetXls extends SheetObject {
 			if (xssfPatriarch == null)
 				xssfPatriarch = ((XSSFSheet) sheet).createDrawingPatriarch();
 			xssfPatriarch.createPicture(anchor,
-					wb.addPicture(data, Workbook.PICTURE_TYPE_PNG));
+					wb.addPicture(data, ExcelUtils.getPictureType(data)));
 		}
 		Map<String, byte[]> map = getGraphMap();
 		map.put(row + ROW_COL_SEP + col, data);

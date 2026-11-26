@@ -59,7 +59,11 @@ public class XlsCell extends XOFunction {
 		}
 		IParam param0;
 		IParam param1;
-		if (sheetParam.isLeaf() || sheetParam.getType() == IParam.Colon) { // 省略s
+		if (sheetParam == null) { // 省略 a:b 与 s，改默认页名
+			param0 = null;
+			param1 = null;
+		} else if (sheetParam.isLeaf()
+				|| sheetParam.getType() == IParam.Colon) { // 省略s
 			param0 = sheetParam;
 			param1 = null;
 		} else if (sheetParam.getType() != IParam.Comma
@@ -76,6 +80,12 @@ public class XlsCell extends XOFunction {
 			s = param1.getLeafExpression().calculate(ctx);
 		} else {
 			s = 1;
+		}
+
+		// xlsopen@r/@w 不支持 xlscell（含改名）
+		if (file.getFileType() != XlsFileObject.TYPE_NORMAL) {
+			throw new RQException("xlscell"
+					+ AppMessage.get().getMessage("filexls.rwcell"));
 		}
 
 		if (param0 == null) {
@@ -160,8 +170,10 @@ public class XlsCell extends XOFunction {
 			}
 		}
 		Object matrix;
-		if (content == null || "".equals(content.toString().trim())) { // 如果t是空的，就认为把c置为空
+		if (content == null) { // 无 t 参数，读取
 			matrix = null;
+		} else if ("".equals(content.toString().trim())) { // t 为空串，清空单元格
+			matrix = XlsFileObject.CLEAR_CELLS;
 		} else {
 			if (isGraph) {
 				if (!(content instanceof byte[])) {
@@ -215,12 +227,6 @@ public class XlsCell extends XOFunction {
 					throw new RQException(AppMessage.get().getMessage(
 							"excel.graphwithb"));
 			}
-		}
-
-		if (file.getFileType() != XlsFileObject.TYPE_NORMAL) {
-			// : xlsopen@r or @w does not support xlscell
-			throw new RQException("xlscell"
-					+ AppMessage.get().getMessage("filexls.rwcell"));
 		}
 
 		try {

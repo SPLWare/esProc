@@ -46,6 +46,11 @@ public abstract class XlsFileObject extends Table implements IResource {
 	public static final byte TYPE_WRITE = 2;
 
 	/**
+	 * 哨兵值：xlscell 的内容参数为空串时，表示清空指定区域（而非读取）
+	 */
+	public static final Object CLEAR_CELLS = new Object();
+
+	/**
 	 * file type. The default is memory mode.
 	 */
 	protected byte fileType = TYPE_NORMAL;
@@ -119,6 +124,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 				break;
 			}
 		}
+		sheets.clear();
 	}
 
 	/**
@@ -317,6 +323,11 @@ public abstract class XlsFileObject extends Table implements IResource {
 						sx.getMaxColCount());
 			}
 		}
+		if (content == CLEAR_CELLS) {
+			sx.clearCells(pos1, pos2);
+			resetSheetInfo(sx.sheetInfo);
+			return null;
+		}
 		if (content == null) {
 			return sx.getCells(pos1, pos2, isGraph, isW, isP, isN);
 		} else {
@@ -399,18 +410,40 @@ public abstract class XlsFileObject extends Table implements IResource {
 				} else { // 改名
 					rename(s, s1);
 				}
+				sheets.clear();
 			}
 		} else {
 			// 把xo中名为s的sheet移动或复制到xo’
 			FileXls fileXls1 = ((FileXls) xo1);
 			String toSheetName = StringUtils.isValidString(s1) ? s1 : s;
 			// 创建工作表，如果已经存在则删除
-			xo1.getSheetObject(toSheetName, true, true);
+			SheetObject toSx = xo1.getSheetObject(toSheetName, true, true);
 			int fromSheetIndex = fileXls.wb.getSheetIndex(s);
 			int toSheetIndex = fileXls1.wb.getSheetIndex(toSheetName);
-			copySheet(fileXls.wb, fileXls.wb.getSheetAt(fromSheetIndex),
-					fileXls1.wb, fileXls1.wb.getSheetAt(toSheetIndex),
+			Sheet fromSheet = fileXls.wb.getSheetAt(fromSheetIndex);
+			Sheet toSheet = fileXls1.wb.getSheetAt(toSheetIndex);
+			copySheet(fileXls.wb, fromSheet, fileXls1.wb, toSheet,
 					moveStyleMap);
+			// 复制页隐藏状态，并刷新目标页的行列数信息
+			fileXls1.wb.setSheetHidden(toSheetIndex,
+					fileXls.wb.isSheetHidden(fromSheetIndex));
+			if (toSx instanceof SheetXls) {
+				SheetXls toSxXls = (SheetXls) toSx;
+				int rowCount = toSheet.getLastRowNum() < 0 ? 0 : toSheet
+						.getLastRowNum() + 1;
+				int colCount = 0;
+				for (int r = toSheet.getFirstRowNum(); r <= toSheet
+						.getLastRowNum(); r++) {
+					Row rr = toSheet.getRow(r);
+					if (rr != null && rr.getLastCellNum() > colCount) {
+						colCount = rr.getLastCellNum();
+					}
+				}
+				toSxXls.sheetInfo.setRowCount(rowCount);
+				toSxXls.sheetInfo.setColCount(colCount);
+				xo1.resetSheetInfo(toSxXls.sheetInfo);
+			}
+			fileXls1.sheets.clear();
 			// 移动时删除原sheet
 			if (!isCopy) {
 				int sheetIndex = fileXls.wb.getSheetIndex(s);
@@ -423,7 +456,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 	/**
 	 * 避免生成重复的样式，同一工作簿的每次xlsmove都使用同一个样式表，否则会造成xlsx转xls时有的样式没复制过来
 	 */
-	private Map<Integer, CellStyle> moveStyleMap = new HashMap<Integer, CellStyle>();
+	private Map<String, CellStyle> moveStyleMap = new HashMap<String, CellStyle>();
 
 	/**
 	 * 复制sheet到另一个excel工作簿
@@ -436,7 +469,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 	 *            避免生成重复的样式，每个xo持有一个
 	 */
 	private void copySheet(Workbook fromWorkbook, Sheet fromSheet,
-			Workbook toWorkbook, Sheet toSheet, Map<Integer, CellStyle> styleMap) {
+			Workbook toWorkbook, Sheet toSheet, Map<String, CellStyle> styleMap) {
 		boolean fromXlsx = fromSheet instanceof XSSFSheet;
 		boolean toXlsx = toSheet instanceof XSSFSheet;
 		boolean isSameFileType = fromXlsx == toXlsx;
@@ -468,8 +501,11 @@ public abstract class XlsFileObject extends Table implements IResource {
 			toSheet.addMergedRegion(mergedRegion.copy());
 		}
 		// 增加列宽
-		int physicalNumberOfCells = fromSheet.getRow(0)
-				.getPhysicalNumberOfCells();
+		int physicalNumberOfCells = 0;
+		Row firstRow = fromSheet.getRow(0);
+		if (firstRow != null) {
+			physicalNumberOfCells = firstRow.getPhysicalNumberOfCells();
+		}
 		for (int i = 0; i < physicalNumberOfCells; i++) {
 			toSheet.setColumnWidth(i, 256 * 20);
 		}
@@ -576,12 +612,14 @@ public abstract class XlsFileObject extends Table implements IResource {
 	 */
 	private CellStyle cloneCellStyle(Workbook fromWorkbook,
 			CellStyle fromStyle, Workbook toWorkbook,
-			Map<Integer, CellStyle> styleMap, boolean isSameFileType) {
+			Map<String, CellStyle> styleMap, boolean isSameFileType) {
 		if (fromStyle == null)
 			return null;
 
-		int stHashCode = fromStyle.hashCode();
-		CellStyle toStyle = styleMap.get(stHashCode);
+		// 按目标工作簿隔离缓存，避免不同目标工作簿之间混用样式对象
+		String key = System.identityHashCode(toWorkbook) + ":"
+				+ fromStyle.hashCode();
+		CellStyle toStyle = styleMap.get(key);
 		if (toStyle == null) {
 			toStyle = toWorkbook.createCellStyle();
 			if (isSameFileType) {
@@ -590,7 +628,7 @@ public abstract class XlsFileObject extends Table implements IResource {
 				// poi不支持xlsx和xls之间的复制，需要自己实现
 				copyCellStyle(fromWorkbook, fromStyle, toWorkbook, toStyle);
 			}
-			styleMap.put(stHashCode, toStyle);
+			styleMap.put(key, toStyle);
 		}
 		return toStyle;
 	}

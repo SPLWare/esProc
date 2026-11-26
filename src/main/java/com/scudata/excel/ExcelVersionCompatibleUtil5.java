@@ -280,6 +280,8 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 				XSSFDrawing drawing = (XSSFDrawing) part;
 				List<XSSFShape> shapes = drawing.getShapes();
 				for (XSSFShape shape : shapes) {
+					if (!(shape instanceof XSSFPicture))
+						continue;
 					XSSFPicture picture = (XSSFPicture) shape;
 					PictureData pdata = picture
 							.getPictureData();

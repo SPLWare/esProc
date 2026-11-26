@@ -186,7 +186,7 @@ public class SheetHandler extends DefaultHandler {
 			if (ds != null && row != -1) {
 				if (newRow - row > 1) {
 					try {
-						for (int i = 0, count = newRow - row; i < count; i++) {
+						for (int i = 0, count = newRow - row - 1; i < count; i++) {
 							queue.put(new Object[ds.getFieldCount()]);
 						}
 					} catch (InterruptedException e) {
@@ -241,9 +241,16 @@ public class SheetHandler extends DefaultHandler {
 				if (ds == null) {
 					if (bTitle) {
 						String[] items = new String[fcount];
+						boolean matchFields = fields != null
+								&& fields.length > 0;
 						for (int f = 0; f < fcount; ++f) {
-							items[f] = rowData[f] == null ? "col" + (f + 1)
+							String nm = rowData[f] == null ? "col" + (f + 1)
 									: Variant.toString(rowData[f]);
+							// 字段匹配前对标题做 trim，避免带空格的标题匹配失败
+							if (matchFields && nm != null) {
+								nm = nm.trim();
+							}
+							items[f] = nm;
 						}
 						ds = new DataStruct(items);
 					} else {
@@ -291,7 +298,6 @@ public class SheetHandler extends DefaultHandler {
 							line[indexes[f]] = rowData[f];
 					}
 				}
-				row++;
 				queue.put(line);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);

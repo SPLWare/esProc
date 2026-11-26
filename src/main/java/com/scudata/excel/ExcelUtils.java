@@ -13,6 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import java.lang.reflect.Method;
+
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.crypt.Decryptor;
 import org.apache.poi.poifs.crypt.EncryptionInfo;
@@ -28,6 +30,7 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 
 import com.scudata.app.common.AppUtil;
@@ -927,6 +930,45 @@ public class ExcelUtils {
 			data = str;
 		}
 		return data;
+	}
+
+	/**
+	 * 流式工作簿开启全列追踪，使 autoSizeColumn 能在流式导出下生效。<br/>
+	 * 通过反射调用，兼容不支持该方法的低版本 POI。
+	 */
+	public static void trackAllColumnsForAutoSizing(Object wb) {
+		if (wb == null) {
+			return;
+		}
+		try {
+			Method m = wb.getClass().getMethod(
+					"setTrackAllColumnsForAutoSizing", boolean.class);
+			m.invoke(wb, true);
+		} catch (Throwable t) {
+			// 低版本 POI 不支持时忽略
+		}
+	}
+
+	/**
+	 * 根据图片字节识别 POI 图片类型，默认 PNG。
+	 */
+	public static int getPictureType(byte[] data) {
+		if (data == null || data.length < 3) {
+			return Workbook.PICTURE_TYPE_PNG;
+		}
+		int b0 = data[0] & 0xFF;
+		int b1 = data[1] & 0xFF;
+		int b2 = data[2] & 0xFF;
+		// JPEG: FF D8 FF
+		if (b0 == 0xFF && b1 == 0xD8 && b2 == 0xFF) {
+			return Workbook.PICTURE_TYPE_JPEG;
+		}
+		// PNG: 89 50 4E 47
+		if (data.length >= 4 && b0 == 0x89 && b1 == 0x50 && b2 == 0x4E
+				&& (data[3] & 0xFF) == 0x47) {
+			return Workbook.PICTURE_TYPE_PNG;
+		}
+		return Workbook.PICTURE_TYPE_PNG;
 	}
 
 	/**
